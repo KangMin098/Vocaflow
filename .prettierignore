@@ -1,0 +1,18 @@
+# 빌드 결과물
+.next/
+out/
+dist/
+build/
+
+# 패키지
+node_modules/
+
+# 자동 생성 파일
+*.generated.ts
+supabase/functions/
+
+# 디자인 레퍼런스 HTML (포맷 건드리지 않음)
+design-reference/
+
+# 환경변수
+.env*
