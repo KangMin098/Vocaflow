@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "pmneo.tsimporter",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "mikestead.dotenv",
+    "eamodio.gitlens",
+    "expo.vscode-expo-tools",
+    "msjsdiag.vscode-react-native",
+    "antfu.iconify",
+    "naumovs.color-highlight",
+    "wix.vscode-import-cost",
+    "yzhang.markdown-all-in-one",
+    "aaron-bond.better-comments"
+  ]
+}

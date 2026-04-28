@@ -1,0 +1,2986 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELA Design System — Parts Kit v06 · LexiVault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════════════════════
+   DESIGN TOKENS — CLAUDE.md Single Source of Truth
+══════════════════════════════════════════════════════════ */
+:root {
+  /* Brand */
+  --p:       #3B82F6;
+  --p-hover: #2563EB;
+  --p-light: #EFF6FF;
+  --p-dark:  #1D4ED8;
+  /* Active (yellow) */
+  --active:       #F59E0B;
+  --active-light: #FEF3C7;
+  /* Semantic */
+  --success:       #22C55E;
+  --success-light: #DCFCE7;
+  --error:         #EF4444;
+  --error-light:   #FEE2E2;
+  --warning:       #F59E0B;
+  --warning-light: #FEF3C7;
+  --info:          #06B6D4;
+  --info-light:    #CFFAFE;
+  /* Surface */
+  --bg:   #FFFFFF;
+  --bg2:  #F8FAFC;
+  --bg3:  #F1F5F9;
+  /* Text */
+  --t1:   #0F172A;
+  --t2:   #475569;
+  --t3:   #94A3B8;
+  --t4:   #CBD5E1;
+  --ti:   #FFFFFF;
+  /* Border */
+  --bd:   #E2E8F0;
+  --bdf:  #3B82F6;
+  --bde:  #EF4444;
+  /* Game */
+  --gold:   #EAB308;
+  --silver: #94A3B8;
+  --bronze: #D97706;
+  --combo:  #8B5CF6;
+  --streak: #EC4899;
+  /* Shadow */
+  --sh-xs: 0 1px 2px rgba(0,0,0,.05);
+  --sh-sm: 0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);
+  --sh-md: 0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+  --sh-lg: 0 10px 15px rgba(0,0,0,.10),0 4px 6px rgba(0,0,0,.05);
+  --sh-xl: 0 20px 25px rgba(0,0,0,.10),0 10px 10px rgba(0,0,0,.04);
+  /* Radius */
+  --r-sm:   6px;
+  --r-md:   8px;
+  --r-lg:   12px;
+  --r-xl:   16px;
+  --r-2xl:  24px;
+  --r-full: 9999px;
+  /* Motion */
+  --dur-fast:   100ms;
+  --dur-normal: 200ms;
+  --dur-slow:   300ms;
+  --dur-slower: 500ms;
+  --ease:        cubic-bezier(.4,0,.2,1);
+  --ease-in:     cubic-bezier(.4,0,1,1);
+  --ease-out:    cubic-bezier(0,0,.2,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+[data-theme="dark"] {
+  --p:       #60A5FA;
+  --p-hover: #93C5FD;
+  --p-light: #1E3A5F;
+  --p-dark:  #3B82F6;
+  --active-light: #451A03;
+  --success:       #4ADE80;
+  --success-light: #052e16;
+  --error:         #F87171;
+  --error-light:   #3b0a0a;
+  --info-light:    #083344;
+  --warning-light: #3b2000;
+  --bg:   #0B1120;
+  --bg2:  #141E30;
+  --bg3:  #1E2D42;
+  --t1:   #F1F5F9;
+  --t2:   #CBD5E1;
+  --t3:   #64748B;
+  --t4:   #334155;
+  --bd:   #1E2D42;
+  --bdf:  #60A5FA;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BASE RESET
+══════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg3);
+  color:var(--t1);
+  line-height:1.5;
+  min-height:100vh;
+  transition:background var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
+}
+img,svg{display:block}
+button{cursor:pointer;font-family:inherit;border:none;background:none;outline:none}
+input,select,textarea{font-family:inherit;outline:none}
+a{text-decoration:none;color:inherit}
+::selection{background:rgba(59,130,246,.18);color:var(--t1)}
+
+/* ══════════════════════════════════════════════════════════
+   TOP NAVIGATION
+══════════════════════════════════════════════════════════ */
+.pk-topbar{
+  position:sticky;top:0;z-index:200;
+  height:52px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(226,232,240,.8);
+  display:flex;align-items:center;
+  padding:0 24px;
+  gap:0;
+}
+[data-theme="dark"] .pk-topbar{
+  background:rgba(11,17,32,.85);
+  border-bottom-color:rgba(30,45,66,.9);
+}
+.pk-brand{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:800;letter-spacing:-.025em;
+  color:var(--p);
+  display:flex;align-items:center;gap:8px;
+  margin-right:28px;flex-shrink:0;
+}
+.pk-brand-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--p);
+  box-shadow:0 0 0 3px var(--p-light);
+  transition:box-shadow var(--dur-normal);
+}
+.pk-brand:hover .pk-brand-dot{box-shadow:0 0 0 5px var(--p-light)}
+.pk-brand-ver{
+  font-size:10px;font-weight:500;color:var(--t3);
+  background:var(--bg3);
+  padding:2px 7px;border-radius:var(--r-full);
+  border:1px solid var(--bd);
+  margin-left:2px;letter-spacing:.03em;
+}
+.pk-nav-scroll{
+  display:flex;align-items:center;gap:2px;
+  overflow-x:auto;flex:1;
+  scrollbar-width:none;
+}
+.pk-nav-scroll::-webkit-scrollbar{display:none}
+.pk-nav-item{
+  flex-shrink:0;
+  padding:5px 11px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11.5px;font-weight:600;
+  color:var(--t3);border-radius:var(--r-md);
+  transition:all var(--dur-fast);
+  white-space:nowrap;
+  position:relative;
+}
+.pk-nav-item:hover{color:var(--t1);background:var(--bg2)}
+.pk-nav-item.active{color:var(--p);background:var(--p-light)}
+.pk-nav-item.new::after{
+  content:'NEW';
+  position:absolute;top:-2px;right:-2px;
+  font-size:7px;font-weight:800;letter-spacing:.05em;
+  background:var(--p);color:#fff;
+  padding:1px 4px;border-radius:3px;
+}
+.pk-controls{display:flex;align-items:center;gap:6px;margin-left:12px;flex-shrink:0}
+.pk-theme-toggle{
+  width:34px;height:34px;border-radius:var(--r-full);
+  background:var(--bg2);border:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;
+  transition:all var(--dur-normal);
+}
+.pk-theme-toggle:hover{background:var(--bg3);transform:rotate(20deg)}
+
+/* ══════════════════════════════════════════════════════════
+   PAGE LAYOUT
+══════════════════════════════════════════════════════════ */
+.pk-page{max-width:1200px;margin:0 auto;padding:0 24px 120px}
+.pk-hero{
+  padding:64px 0 48px;
+  border-bottom:1px solid var(--bd);
+  margin-bottom:64px;
+}
+.pk-hero-eyebrow{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--p);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.pk-hero-eyebrow::before{
+  content:'';width:20px;height:1.5px;background:var(--p);
+}
+.pk-hero-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(36px,5vw,56px);font-weight:800;
+  line-height:1.08;letter-spacing:-.035em;
+  color:var(--t1);margin-bottom:20px;
+}
+.pk-hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--p) 0%,var(--combo) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.pk-hero-sub{
+  font-family:'DM Sans',sans-serif;
+  font-size:16px;font-weight:400;color:var(--t2);
+  line-height:1.7;max-width:560px;margin-bottom:32px;
+}
+.pk-hero-meta{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.pk-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:var(--r-full);
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:500;
+  background:var(--bg2);border:1px solid var(--bd);color:var(--t2);
+}
+.pk-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--success)}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION ANATOMY
+══════════════════════════════════════════════════════════ */
+.sec{margin-bottom:80px;scroll-margin-top:80px}
+.sec-head{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:end;
+  padding-bottom:20px;margin-bottom:32px;
+  border-bottom:1px solid var(--bd);
+}
+.sec-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:400;letter-spacing:.08em;
+  color:var(--t3);margin-bottom:8px;
+}
+.sec-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:22px;font-weight:700;letter-spacing:-.02em;
+  color:var(--t1);
+}
+.sec-subtitle{
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;color:var(--t3);margin-top:4px;
+}
+.sec-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;font-weight:500;
+  padding:4px 10px;border-radius:var(--r-full);
+  background:var(--bg3);border:1px solid var(--bd);color:var(--t3);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SPECIMEN CONTAINERS
+══════════════════════════════════════════════════════════ */
+.specimen{
+  background:var(--bg);border-radius:var(--r-xl);
+  border:1px solid var(--bd);
+  overflow:hidden;
+}
+.specimen-header{
+  padding:10px 18px;
+  border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg2);
+}
+.specimen-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;font-weight:500;color:var(--t3);letter-spacing:.06em;
+}
+.specimen-body{padding:28px}
+.specimen-body-sm{padding:20px}
+.specimen-dark{background:#080E1A;border-color:#1a2744}
+.specimen-dark .specimen-header{background:#0D1526;border-bottom-color:#1a2744}
+
+.spec-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.spec-col{display:flex;flex-direction:column;gap:10px}
+.spec-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.06em;color:var(--t3);
+  margin-bottom:8px;text-transform:uppercase;
+}
+.spec-note{
+  font-family:'DM Sans',sans-serif;
+  font-size:11.5px;color:var(--t3);margin-top:8px;
+  line-height:1.5;
+}
+.spec-divider{height:1px;background:var(--bd);margin:20px 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+@media(max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+</style>
+<style>
+/* ══════════════════════════════════════════════════════════
+   ① TYPOGRAPHY SYSTEM
+══════════════════════════════════════════════════════════ */
+/* Display / UI — Plus Jakarta Sans */
+.t-h1-lg  {font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:700;line-height:1.18;letter-spacing:-.022em;color:var(--t1)}
+.t-h1-md  {font-family:'Plus Jakarta Sans',sans-serif;font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-.016em;color:var(--t1)}
+.t-h1-sm  {font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:700;line-height:1.28;letter-spacing:-.01em;color:var(--t1)}
+.t-h2     {font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:600;line-height:1.32;color:var(--t1)}
+.t-h3     {font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:600;line-height:1.4;color:var(--t1)}
+.t-h4     {font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:600;line-height:1.4;color:var(--t1)}
+.t-h5     {font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;line-height:1.4;text-transform:uppercase;letter-spacing:.05em;color:var(--t1)}
+.t-h6     {font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;line-height:1.5;text-transform:uppercase;letter-spacing:.07em;color:var(--t1)}
+/* Body — DM Sans */
+.t-b1     {font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;line-height:1.65;color:var(--t1)}
+.t-b1s    {font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;line-height:1.65;color:var(--t1)}
+.t-b2     {font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;line-height:1.55;color:var(--t1)}
+.t-b3     {font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;line-height:1.55;color:var(--t1)}
+.t-b3o    {font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;line-height:1.55;font-style:italic;color:var(--t1)}
+.t-b3s    {font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;line-height:1.55;letter-spacing:.055em;color:var(--t1)}
+.t-b4     {font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;line-height:1.5;color:var(--t1)}
+/* Links */
+.t-link1  {font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;text-decoration:underline;text-decoration-color:var(--p);text-underline-offset:3px;color:var(--p);transition:color var(--dur-fast)}
+.t-link1:hover{color:var(--p-dark)}
+.t-link2  {font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;text-decoration:underline;text-decoration-color:var(--p);text-underline-offset:3px;color:var(--p)}
+/* Special */
+.t-s1     {font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t1)}
+.t-s2     {font-family:'Plus Jakarta Sans',sans-serif;font-size:40px;font-weight:800;line-height:1.08;letter-spacing:-.02em;color:var(--t1)}
+.t-s3     {font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;color:var(--t1)}
+.t-s4     {font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:var(--t1)}
+/* English — Lora */
+.t-en-body{font-family:'Lora',serif;font-size:20px;font-weight:400;line-height:1.85;color:#1A1D28}
+[data-theme="dark"] .t-en-body{color:#e2e8f0}
+.t-en-hl  {background:rgba(59,130,246,.12);border-radius:3px;padding:0 3px}
+.t-en-word{font-family:'Lora',serif;font-size:18px;font-weight:600;color:var(--t1)}
+/* Mono */
+.t-mono   {font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:400;color:var(--t1)}
+
+/* Mobile scale */
+.t-mh1-lg {font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:700;line-height:1.22;color:var(--t1)}
+.t-mh1-md {font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:700;line-height:1.26;color:var(--t1)}
+.t-mh1-sm {font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:var(--t1)}
+.t-mh2    {font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:600;line-height:1.32;color:var(--t1)}
+.t-mh3    {font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:600;line-height:1.4;color:var(--t1)}
+.t-mh4    {font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;line-height:1.4;color:var(--t1)}
+.t-mh5    {font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--t1)}
+.t-mh6    {font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t1)}
+
+/* ══════════════════════════════════════════════════════════
+   ② COLOR SYSTEM
+══════════════════════════════════════════════════════════ */
+.swatch{
+  height:72px;border-radius:var(--r-lg);
+  display:flex;align-items:flex-end;padding:10px 12px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;
+  border:1px solid transparent;
+  transition:transform var(--dur-fast);
+}
+.swatch:hover{transform:translateY(-2px)}
+.swatch-sm{
+  width:40px;height:40px;border-radius:var(--r-md);
+  border:1px solid rgba(0,0,0,.06);
+  flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ③ BUTTONS
+══════════════════════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;
+  border-radius:var(--r-md);cursor:pointer;white-space:nowrap;
+  transition:all var(--dur-normal) var(--ease);
+  position:relative;overflow:hidden;
+  border:none;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,0);
+  transition:background var(--dur-fast);
+}
+.btn:hover::after{background:rgba(255,255,255,.08)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+/* sizes */
+.btn-xs {padding:5px 12px;font-size:12px;border-radius:var(--r-sm)}
+.btn-sm {padding:8px 16px;font-size:13px}
+.btn-md {padding:11px 22px;font-size:14px}
+.btn-lg {padding:14px 28px;font-size:15px;border-radius:var(--r-lg);gap:8px}
+/* variants */
+.btn-primary  {background:var(--p);color:#fff;box-shadow:0 1px 3px rgba(59,130,246,.3),0 1px 2px rgba(59,130,246,.2)}
+.btn-primary:hover{background:var(--p-hover);box-shadow:0 4px 12px rgba(59,130,246,.35)}
+.btn-secondary{background:transparent;color:var(--p);border:2px solid var(--p)}
+.btn-secondary:hover{background:var(--p-light)}
+.btn-danger   {background:var(--error);color:#fff;box-shadow:0 1px 3px rgba(239,68,68,.25)}
+.btn-danger:hover{background:#DC2626}
+.btn-ghost    {background:var(--bg3);color:var(--t1)}
+.btn-ghost:hover{background:var(--bd)}
+.btn-link-upper{background:none;color:var(--p);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 4px}
+.btn-link-upper:hover{text-decoration:underline;text-underline-offset:3px}
+/* icon buttons */
+.btn-icon{
+  width:40px;height:40px;padding:0;border-radius:var(--r-full);
+  background:var(--p-light);color:var(--p);font-size:18px;
+  transition:all var(--dur-normal) var(--ease-spring);
+}
+.btn-icon:hover{background:var(--p);color:#fff;transform:scale(1.08)}
+.btn-icon-sm{width:32px;height:32px;font-size:14px}
+.btn-icon-border{
+  width:40px;height:40px;padding:0;border-radius:var(--r-full);
+  background:var(--bg);color:var(--t2);border:1.5px solid var(--bd);
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:all var(--dur-normal);
+}
+.btn-icon-border:hover{border-color:var(--p);color:var(--p)}
+.btn-special{
+  width:40px;height:40px;border-radius:var(--r-md);
+  background:var(--bg);border:1.5px solid var(--bd);
+  color:var(--t2);font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--dur-fast);
+}
+.btn-special:hover{border-color:var(--p);color:var(--p)}
+/* Social */
+.btn-social{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:12px 20px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  border:1.5px solid var(--bd);border-radius:var(--r-md);
+  background:var(--bg);color:var(--t1);
+  transition:all var(--dur-normal);
+}
+.btn-social:hover{background:var(--bg2);border-color:#94A3B8}
+.btn-social-sm{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 18px;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  border:1.5px solid var(--bd);border-radius:var(--r-md);
+  background:var(--bg);color:var(--t1);
+  transition:all var(--dur-normal);
+}
+.btn-social-sm:hover{background:var(--bg2)}
+
+/* ══════════════════════════════════════════════════════════
+   ④ SELECTORS
+══════════════════════════════════════════════════════════ */
+.sel-wrap{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+/* Radio */
+.radio{
+  width:20px;height:20px;flex-shrink:0;border-radius:50%;
+  border:2px solid var(--t4);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color var(--dur-fast) var(--ease-spring),
+             box-shadow var(--dur-fast);
+}
+.radio.on{border-color:var(--p);box-shadow:0 0 0 4px var(--p-light)}
+.radio.on::after{
+  content:'';width:9px;height:9px;border-radius:50%;
+  background:var(--p);
+  animation:radioIn 120ms var(--ease-spring);
+}
+.radio.off{border-color:#CBD5E1}
+.radio.dis{border-color:var(--t4);opacity:.45;cursor:not-allowed}
+@keyframes radioIn{from{transform:scale(0) rotate(-45deg)}to{transform:scale(1) rotate(0)}}
+/* Checkbox */
+.chk{
+  width:20px;height:20px;flex-shrink:0;border-radius:5px;
+  border:2px solid #CBD5E1;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--dur-fast) var(--ease-spring);
+}
+.chk.on{background:var(--p);border-color:var(--p)}
+.chk.on::after{content:'';display:block;width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(42deg) translate(-1px,-1px);animation:chkIn 120ms var(--ease-spring)}
+.chk.ind{background:var(--p);border-color:var(--p)}
+.chk.ind::after{content:'';width:10px;height:2.5px;background:#fff;border-radius:2px}
+.chk.dis{opacity:.45;cursor:not-allowed}
+@keyframes chkIn{from{opacity:0;transform:rotate(42deg) scale(.5) translate(-1px,-1px)}to{opacity:1;transform:rotate(42deg) scale(1) translate(-1px,-1px)}}
+/* Toggle */
+.toggle{
+  width:44px;height:24px;border-radius:var(--r-full);
+  background:#CBD5E1;flex-shrink:0;cursor:pointer;
+  position:relative;
+  transition:background var(--dur-normal) var(--ease);
+}
+.toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);
+  transition:transform var(--dur-normal) var(--ease-spring),
+             box-shadow var(--dur-normal);
+}
+.toggle.on{background:var(--p)}
+.toggle.on::after{transform:translateX(20px);box-shadow:0 1px 6px rgba(59,130,246,.3)}
+.sel-label{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t1)}
+.sel-label.dim{opacity:.45}
+
+/* ══════════════════════════════════════════════════════════
+   ⑤ FORM FIELDS
+══════════════════════════════════════════════════════════ */
+.field{display:flex;flex-direction:column;gap:5px}
+.field-lbl{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12.5px;font-weight:600;color:var(--t2);
+}
+.field-in{
+  padding:11px 14px;
+  border:1.5px solid var(--bd);border-radius:var(--r-md);
+  background:var(--bg);color:var(--t1);
+  font-family:'DM Sans',sans-serif;font-size:14px;
+  transition:all var(--dur-normal) var(--ease);
+}
+.field-in::placeholder{color:var(--t3)}
+.field-in:focus{border-color:var(--bdf);box-shadow:0 0 0 3.5px rgba(59,130,246,.13);background:var(--bg)}
+.field-in.err{border-color:var(--bde);box-shadow:0 0 0 3.5px rgba(239,68,68,.12)}
+.field-in.ok {border-color:var(--success);box-shadow:0 0 0 3.5px rgba(34,197,94,.12)}
+.field-in:disabled{opacity:.48;cursor:not-allowed;background:var(--bg2)}
+.field-hint{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t3)}
+.field-err {font-family:'DM Sans',sans-serif;font-size:12px;color:var(--error)}
+.field-ok  {font-family:'DM Sans',sans-serif;font-size:12px;color:var(--success)}
+/* Alt Form */
+.alt-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bd)}
+.alt-row.active{background:rgba(59,130,246,.04);border-bottom:2px solid var(--p)}
+.alt-cell{padding:11px 14px}
+.alt-cell input{width:100%;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t1);outline:none}
+
+/* ══════════════════════════════════════════════════════════
+   ⑥ DROPDOWNS & POPOVERS
+══════════════════════════════════════════════════════════ */
+.dd-select{
+  padding:10px 38px 10px 14px;
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t1);
+  border:1.5px solid var(--bd);border-radius:var(--r-md);background:var(--bg);
+  appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;
+  transition:border-color var(--dur-normal);min-width:170px;
+}
+.dd-select:focus{border-color:var(--bdf);box-shadow:0 0 0 3.5px rgba(59,130,246,.13);outline:none}
+.popover{
+  background:var(--bg);border:1px solid var(--bd);border-radius:var(--r-lg);
+  box-shadow:var(--sh-lg);padding:6px;min-width:210px;
+}
+.pop-item{
+  display:block;width:100%;padding:9px 13px;
+  font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--t1);
+  border-radius:var(--r-md);text-align:left;
+  transition:background var(--dur-fast);
+}
+.pop-item:hover{background:var(--bg2)}
+.pop-div{height:1px;background:var(--bd);margin:5px 0}
+.pop-sec{
+  padding:8px 13px 4px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:10.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--t3);
+}
+/* Bottom sheet */
+.bsheet{
+  background:var(--bg);border-radius:var(--r-xl) var(--r-xl) 0 0;
+  padding:0 16px 20px;box-shadow:0 -4px 32px rgba(0,0,0,.12);
+}
+.bsheet-handle{width:36px;height:4px;background:var(--bd);border-radius:var(--r-full);margin:12px auto 16px}
+.bsheet-item{
+  display:block;width:100%;padding:15px 4px;
+  font-family:'DM Sans',sans-serif;font-size:15px;color:var(--t1);
+  text-align:center;border-bottom:1px solid var(--bd);
+  transition:background var(--dur-fast);
+}
+.bsheet-item:hover{background:var(--bg2)}
+.bsheet-cancel{
+  display:block;width:100%;padding:14px;margin-top:8px;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;
+  color:var(--error);text-align:center;
+  border:1.5px solid var(--bd);border-radius:var(--r-lg);
+  transition:background var(--dur-fast);
+}
+.bsheet-cancel:hover{background:var(--error-light)}
+
+/* ══════════════════════════════════════════════════════════
+   ⑦ TOOLTIPS
+══════════════════════════════════════════════════════════ */
+.tooltip-host{position:relative;display:inline-block}
+.tooltip{
+  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  background:#0F172A;color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:12px;line-height:1.5;padding:7px 12px;
+  border-radius:var(--r-md);white-space:nowrap;
+  box-shadow:var(--sh-md);pointer-events:none;z-index:50;
+}
+.tooltip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#0F172A;
+}
+.tooltip.b{top:calc(100% + 10px);bottom:auto}
+.tooltip.b::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#0F172A}
+.tooltip.r{left:calc(100% + 10px);top:50%;bottom:auto;transform:translateY(-50%)}
+.tooltip.r::after{left:auto;right:100%;top:50%;transform:translateY(-50%);border-top-color:transparent;border-right-color:#0F172A}
+.tooltip.info   {background:var(--info)}
+.tooltip.info::after{border-top-color:var(--info)}
+.tooltip.info.b::after{border-top-color:transparent;border-bottom-color:var(--info)}
+.tooltip.warn   {background:var(--warning);color:#fff}
+.tooltip.warn::after{border-top-color:var(--warning)}
+.tooltip.err    {background:var(--error)}
+.tooltip.err::after{border-top-color:var(--error)}
+.tooltip.macro  {max-width:220px;white-space:normal;font-size:12.5px;padding:10px 14px}
+
+/* ══════════════════════════════════════════════════════════
+   ⑧ PROGRESS BARS
+══════════════════════════════════════════════════════════ */
+.prog-track{
+  width:100%;height:6px;background:var(--bg3);
+  border-radius:var(--r-full);overflow:hidden;
+}
+.prog-fill{
+  height:100%;border-radius:var(--r-full);
+  background:var(--p);
+  transition:width var(--dur-slow) var(--ease-out);
+}
+.prog-fill.s{background:var(--success)}
+.prog-fill.w{background:var(--warning)}
+.prog-fill.e{background:var(--error)}
+.prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.prog-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--t2)}
+.prog-val{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--t3)}
+
+/* ══════════════════════════════════════════════════════════
+   ⑨ TOASTS
+══════════════════════════════════════════════════════════ */
+.toast{
+  display:flex;align-items:flex-start;gap:11px;
+  padding:13px 16px;border-radius:var(--r-lg);
+  border-left:3.5px solid;box-shadow:var(--sh-md);
+  animation:toastIn var(--dur-slow) var(--ease-out);
+  max-width:380px;
+}
+.toast.s{background:var(--success-light);border-color:var(--success)}
+.toast.e{background:var(--error-light);border-color:var(--error)}
+.toast.i{background:var(--info-light);border-color:var(--info)}
+.toast.w{background:var(--warning-light);border-color:var(--warning)}
+.toast-ico{
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;margin-top:1px;
+}
+.toast.s .toast-ico{background:var(--success);color:#fff}
+.toast.e .toast-ico{background:var(--error);color:#fff}
+.toast.i .toast-ico{background:var(--info);color:#fff}
+.toast.w .toast-ico{background:var(--warning);color:#fff}
+.toast-ttl{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px}
+.toast.s .toast-ttl{color:#15803D}
+.toast.e .toast-ttl{color:#991B1B}
+.toast.i .toast-ttl{color:#0E7490}
+.toast.w .toast-ttl{color:#92400E}
+.toast-msg{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t2);line-height:1.5}
+@keyframes toastIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════════════════════
+   ⑩ MODAL
+══════════════════════════════════════════════════════════ */
+.modal-stage{
+  min-height:260px;background:rgba(0,0,0,.52);
+  backdrop-filter:blur(6px);border-radius:var(--r-xl);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.modal{
+  background:var(--bg);border-radius:var(--r-xl);padding:28px;
+  max-width:420px;width:100%;box-shadow:var(--sh-xl);
+  border:1px solid var(--bd);
+  animation:modalIn var(--dur-slow) var(--ease-spring);
+}
+.modal-ttl{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;color:var(--t1);margin-bottom:10px;letter-spacing:-.01em}
+.modal-msg{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t2);line-height:1.65;margin-bottom:22px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end}
+@keyframes modalIn{from{opacity:0;transform:scale(.93) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+/* ══════════════════════════════════════════════════════════
+   ⑪ BOTTOM TAB BAR
+══════════════════════════════════════════════════════════ */
+.app-tabbar{
+  display:flex;background:var(--bg);
+  border-top:1px solid var(--bd);border-radius:var(--r-xl);
+  padding:4px 0 8px;box-shadow:0 -2px 20px rgba(0,0,0,.06);
+}
+.app-tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 4px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:10.5px;font-weight:700;
+  color:var(--t3);letter-spacing:.02em;
+  transition:color var(--dur-fast);
+}
+.app-tab.active{color:var(--p)}
+.app-tab-ico{
+  width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:transform var(--dur-fast) var(--ease-spring);
+}
+.app-tab.active .app-tab-ico{transform:scale(1.1)}
+
+/* ══════════════════════════════════════════════════════════
+   ⑫ AUDIO PLAYER
+══════════════════════════════════════════════════════════ */
+.audio-mini{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(59,130,246,.1);color:var(--p);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;border:none;flex-shrink:0;
+  transition:all var(--dur-fast) var(--ease-spring);
+}
+.audio-mini:hover{background:var(--p);color:#fff;transform:scale(1.08)}
+.audio-full{
+  background:var(--bg);border:1px solid var(--bd);border-radius:var(--r-lg);
+  padding:14px 16px;display:flex;flex-direction:column;gap:10px;
+}
+.audio-ctrl{display:flex;align-items:center;gap:8px}
+.audio-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg2);color:var(--t1);border:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+  transition:all var(--dur-fast) var(--ease-spring);
+}
+.audio-btn:hover{background:var(--p);color:#fff;border-color:var(--p);transform:scale(1.05)}
+.audio-btn.main{
+  width:44px;height:44px;font-size:18px;
+  background:var(--p);color:#fff;border:none;
+  box-shadow:0 2px 10px rgba(59,130,246,.35);
+}
+.audio-btn.main:hover{background:var(--p-hover);box-shadow:0 4px 16px rgba(59,130,246,.4)}
+.audio-spd{
+  padding:4px 10px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  border:1.5px solid var(--bd);border-radius:var(--r-full);
+  background:var(--bg);color:var(--t3);
+  transition:all var(--dur-fast);
+}
+.audio-spd.active{background:var(--p);color:#fff;border-color:var(--p)}
+.audio-info{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t3);text-align:center}
+
+/* ══════════════════════════════════════════════════════════
+   ⑬ GAME COMPONENTS
+══════════════════════════════════════════════════════════ */
+/* Flashcard */
+.fc-scene{perspective:1200px;width:100%;max-width:400px;margin:0 auto}
+.fc-card{
+  width:100%;height:230px;position:relative;
+  transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.4,0,.2,1);cursor:pointer;
+}
+.fc-card.flipped{transform:rotateY(180deg)}
+.fc-face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:var(--r-2xl);box-shadow:var(--sh-lg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;
+}
+.fc-front{background:linear-gradient(145deg,#fffde7 0%,#fff8c0 100%)}
+.fc-back {background:linear-gradient(145deg,#e8f5e9 0%,#c8e6c9 100%);transform:rotateY(180deg)}
+.fc-word{font-family:'Lora',serif;font-size:32px;font-weight:700;color:var(--t1);margin-bottom:10px;text-align:center;letter-spacing:-.01em}
+.fc-pos {font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--t3);background:rgba(0,0,0,.07);padding:3px 12px;border-radius:var(--r-full)}
+.fc-meaning{font-family:'Plus Jakarta Sans',sans-serif;font-size:21px;font-weight:700;color:#065f46;text-align:center;line-height:1.35}
+.fc-ans{display:flex;gap:12px;margin-top:18px;justify-content:center}
+.fc-ans-btn{
+  padding:11px 24px;border-radius:var(--r-lg);font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:700;color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:var(--sh-md);transition:transform var(--dur-fast) var(--ease-spring);
+}
+.fc-ans-btn:hover{transform:translateY(-2px)}
+.fc-ans-btn.ok  {background:linear-gradient(135deg,#22c55e,#16a34a)}
+.fc-ans-btn.no  {background:linear-gradient(135deg,#f97316,#ef4444)}
+/* CW Cells */
+.cw-cell{
+  width:50px;height:50px;border:2px solid rgba(255,255,255,.45);
+  background:rgba(255,255,255,.92);border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:800;
+  color:var(--t1);box-shadow:var(--sh-sm);
+  transition:all .12s;user-select:none;position:relative;
+}
+.cw-cell.active{border:3px solid var(--error);background:#fff;box-shadow:0 0 0 4px rgba(239,68,68,.2)}
+.cw-cell.correct{border-color:var(--success)!important;background:var(--success-light);color:#15803d}
+/* Quiz */
+.quiz-opt{
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  border-radius:var(--r-lg);border:1.5px solid var(--bd);
+  cursor:pointer;transition:all var(--dur-fast);background:var(--bg);
+}
+.quiz-opt:hover{border-color:var(--p);background:var(--p-light)}
+.quiz-opt.sel{border-color:var(--p);background:rgba(59,130,246,.07)}
+.quiz-opt.ok {border-color:var(--success);background:var(--success-light)}
+.quiz-opt.no {border-color:var(--error);background:var(--error-light)}
+.quiz-ltr{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid var(--bd);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;
+  transition:all var(--dur-fast);
+}
+.quiz-opt.sel .quiz-ltr{background:var(--p);color:#fff;border-color:var(--p)}
+.quiz-opt.ok  .quiz-ltr{background:var(--success);color:#fff;border-color:var(--success)}
+.quiz-opt.no  .quiz-ltr{background:var(--error);color:#fff;border-color:var(--error)}
+.quiz-txt{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t1)}
+
+/* ══════════════════════════════════════════════════════════
+   ⑭ VOCA MASTER COMPONENTS
+══════════════════════════════════════════════════════════ */
+/* Hero */
+.vm-hero{
+  position:relative;overflow:hidden;border-radius:var(--r-xl);
+  background:linear-gradient(135deg,var(--p-dark) 0%,var(--p) 60%,#6366f1 100%);
+  padding:40px 28px 60px;color:#fff;
+}
+.vm-hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.06);
+}
+.vm-hero::after{
+  content:'';position:absolute;bottom:-28px;left:-8%;width:116%;height:56px;
+  background:var(--bg2);border-radius:50% 50% 0 0;
+}
+.vm-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px;position:relative;z-index:1}
+.vm-hero p {font-family:'DM Sans',sans-serif;font-size:13px;opacity:.85;line-height:1.6;position:relative;z-index:1}
+/* VM Card */
+.vm-card{
+  background:var(--bg);border:1px solid var(--bd);border-radius:var(--r-xl);
+  padding:20px 22px;box-shadow:var(--sh-sm);
+}
+.vm-card-ttl{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.09em;
+  color:var(--t2);margin-bottom:14px;
+  display:flex;align-items:center;gap:6px;
+}
+/* Status Box */
+.sbox{
+  padding:9px 13px;border-radius:var(--r-md);
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;margin-top:10px;
+}
+.sbox.info{background:var(--p-light);color:var(--p)}
+.sbox.ok  {background:var(--success-light);color:#15803D}
+.sbox.fail{background:var(--error-light);color:#DC2626}
+/* Script Display */
+.script-display{
+  min-height:140px;max-height:200px;overflow-y:auto;
+  padding:14px;
+  font-family:'DM Sans',sans-serif;font-size:14px;line-height:2.1;
+  border-radius:var(--r-lg);border:1.5px solid var(--bd);
+  background:var(--bg);color:var(--t1);word-break:break-word;
+}
+.sd-sent{cursor:pointer;border-radius:3px;padding:1px 3px;transition:background .15s}
+.sd-sent:hover{background:var(--bg3)}
+.sd-cur{background:var(--p-light);border-radius:3px}
+.sd-on {background:var(--active-light);border-radius:3px}
+/* SP-Bar */
+.sp-bar{
+  background:#12203e;border-radius:var(--r-full);
+  padding:6px 12px;display:flex;align-items:center;gap:6px;
+  border:1px solid rgba(255,255,255,.06);margin-top:10px;
+}
+.sp-playbtn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--p);color:#fff;border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
+  box-shadow:0 2px 10px rgba(59,130,246,.5);
+  transition:all .15s;
+}
+.sp-playbtn:hover{transform:scale(1.1)}
+.sp-playbtn.act{background:#f97316;box-shadow:0 2px 10px rgba(249,115,22,.5)}
+.sp-div{width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;margin:0 2px}
+.sp-nav{
+  background:rgba(255,255,255,.08);color:#64748b;border-radius:50%;
+  width:30px;height:30px;border:none;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  transition:all .15s;flex-shrink:0;
+}
+.sp-nav:hover{background:rgba(255,255,255,.18);color:#fff}
+.sp-dots{
+  display:flex;align-items:center;gap:5px;flex:1;overflow-x:auto;
+  scrollbar-width:none;padding:2px 0;
+}
+.sp-dots::-webkit-scrollbar{display:none}
+.sp-dot{
+  background:rgba(255,255,255,.1);color:#475569;border-radius:50%;
+  width:28px;height:28px;border:none;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .18s;cursor:pointer;
+}
+.sp-dot:hover{background:rgba(59,130,246,.45);color:#fff}
+.sp-dot.cur{background:var(--p);color:#fff;box-shadow:0 0 0 3px rgba(59,130,246,.28)}
+@keyframes spPulse{0%,100%{box-shadow:0 0 0 3px rgba(59,130,246,.3)}50%{box-shadow:0 0 0 8px rgba(59,130,246,.07)}}
+.sp-dot.on{background:var(--p);color:#fff;animation:spPulse .9s ease-in-out infinite}
+.sp-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.28);white-space:nowrap;padding:0 4px}
+/* Badge */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  padding:3px 10px;border-radius:var(--r-full);
+}
+.badge.g{background:var(--success-light);color:#065f46}
+.badge.b{background:var(--p-light);color:var(--p)}
+.badge.gray{background:var(--bg3);color:var(--t3)}
+.badge.a{background:var(--active-light);color:#92400E}
+.badge.e{background:var(--error-light);color:#991B1B}
+/* ButtonGroup */
+.btngrp{display:flex;align-items:center;border:1.5px solid var(--bd);border-radius:var(--r-md);overflow:hidden;background:var(--bg)}
+.btngrp-lbl{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--t3);padding:0 8px 0 11px;white-space:nowrap}
+.btngrp-item{
+  border:none;border-radius:0;border-right:1px solid var(--bd);
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  padding:7px 11px;background:transparent;color:var(--t2);cursor:pointer;
+  transition:background var(--dur-fast);white-space:nowrap;
+}
+.btngrp-item:last-child{border-right:none}
+.btngrp-item:hover:not(:disabled){background:var(--bg2)}
+.btngrp-item:disabled{opacity:.38;cursor:not-allowed}
+/* VM Toolbar */
+.vm-toolbar{
+  background:rgba(255,255,255,.9);backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid var(--bd);padding:10px 16px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  border-radius:var(--r-lg);
+}
+[data-theme="dark"] .vm-toolbar{background:rgba(20,30,48,.92)}
+.vm-toolbar-ttl{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;color:var(--t1)}
+/* VM Tab Bar */
+.vm-tabbar{display:flex;background:var(--bg);border-bottom:1px solid var(--bd)}
+.vm-tab{
+  flex:1;padding:12px 4px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;
+  border:none;background:transparent;cursor:pointer;color:var(--t3);
+  position:relative;transition:color .15s;
+}
+.vm-tab::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:3px;background:var(--p);border-radius:3px 3px 0 0;
+  transition:width .2s var(--ease-out);
+}
+.vm-tab.active{color:var(--p)}
+.vm-tab.active::after{width:calc(100% - 20px)}
+/* Word List */
+.wl-hdr{
+  display:grid;grid-template-columns:36px 44px 42px 155px 1fr;
+  background:var(--bg2);border-bottom:1px solid var(--bd);
+}
+.wl-hdr>*{
+  padding:7px 0 7px 8px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:10.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--t3);
+}
+.wl-row{
+  display:grid;grid-template-columns:36px 44px 42px 155px 1fr;
+  border-bottom:1px solid var(--bg3);transition:background .15s;
+}
+.wl-row:hover{background:#f8faff}
+[data-theme="dark"] .wl-row:hover{background:rgba(59,130,246,.05)}
+.wl-row.active{background:var(--p-light)}
+[data-theme="dark"] .wl-row.active{background:rgba(59,130,246,.1)}
+.wl-num{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)}
+.wl-chk,.wl-spk{display:flex;align-items:center;justify-content:center}
+.wl-word{padding:12px 10px 12px 8px;border-right:1px solid var(--bg3);display:flex;align-items:center;gap:6px}
+.wl-meaning{padding:10px 14px}
+.word-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;color:var(--t1)}
+.word-pos{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;background:var(--bg2);color:var(--t3);padding:1px 7px;border-radius:4px}
+.meaning-text{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:7px;line-height:1.6}
+.ex-box{
+  background:var(--bg2);border-radius:var(--r-md);padding:7px 10px;
+  display:flex;align-items:flex-start;gap:8px;
+  border-left:3px solid #C7D2FE;
+}
+.ex-box.active{background:#E0E7FF;border-left-color:var(--p)}
+[data-theme="dark"] .ex-box.active{background:rgba(59,130,246,.12)}
+.ex-text{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t2);line-height:1.75}
+.ex-text .hl{color:var(--p-dark);font-weight:700}
+.spk-btn{
+  width:28px;height:28px;border-radius:var(--r-md);
+  border:1.5px solid #A5B4FC;background:var(--p-light);
+  color:var(--p);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;transition:all .15s;font-size:12px;
+}
+.spk-btn:hover{background:#E0E7FF;transform:scale(1.06)}
+.spk-btn.sm{width:22px;height:22px;border-radius:6px;font-size:10px}
+/* Loading Overlay */
+.loading-stage{
+  min-height:180px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;border-radius:var(--r-xl);
+}
+.loading-box{
+  background:var(--bg);border-radius:var(--r-xl);padding:36px 44px;
+  text-align:center;box-shadow:var(--sh-xl);border:1px solid var(--bd);
+}
+.spinner{
+  width:40px;height:40px;border:3px solid var(--bd);
+  border-top-color:var(--p);border-radius:50%;
+  animation:spin .7s linear infinite;margin:0 auto 14px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* WordBlitz 정글 테마 CSS → WordBlitz_Jungle.html 참조 */
+/* (구버전 우주 테마 스타일 전면 교체됨) */
+
+</style>
+
+<!-- ══════════════════════════════════════════════════════
+     TOP NAV
+══════════════════════════════════════════════════════ -->
+<header class="pk-topbar">
+  <div class="pk-brand">
+    <div class="pk-brand-dot"></div>
+    ELA Design System
+    <span class="pk-brand-ver">v06</span>
+  </div>
+  <nav class="pk-nav-scroll">
+    <button class="pk-nav-item active" onclick="navTo('typo',this)">Typography</button>
+    <button class="pk-nav-item" onclick="navTo('colors',this)">Colors</button>
+    <button class="pk-nav-item" onclick="navTo('tokens',this)">Tokens</button>
+    <button class="pk-nav-item" onclick="navTo('buttons',this)">Buttons</button>
+    <button class="pk-nav-item" onclick="navTo('selectors',this)">Selectors</button>
+    <button class="pk-nav-item" onclick="navTo('forms',this)">Forms</button>
+    <button class="pk-nav-item" onclick="navTo('dropdowns',this)">Dropdowns</button>
+    <button class="pk-nav-item" onclick="navTo('tooltips',this)">Tooltips</button>
+    <button class="pk-nav-item" onclick="navTo('extras',this)">+ Extras</button>
+    <button class="pk-nav-item" onclick="navTo('game',this)">Game UI</button>
+    <button class="pk-nav-item new" onclick="navTo('voca',this)">Voca Master</button>
+    <button class="pk-nav-item new" onclick="navTo('scriptquiz',this)">ScriptQuiz</button>
+  </nav>
+  <div class="pk-controls">
+    <button class="pk-theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </div>
+</header>
+
+<main class="pk-page">
+
+<!-- ══ HERO ══ -->
+<div class="pk-hero">
+  <div class="pk-hero-eyebrow">CLAUDE.md — Single Source of Truth</div>
+  <h1 class="pk-hero-title">English Learning App<br><em>Design System</em></h1>
+  <p class="pk-hero-sub">Quizlet Parts Kit v06 기반 분석 · Voca Master 통합 · 13개 섹션 · 다크모드 완전 지원 · WCAG AA 준수</p>
+  <div class="pk-hero-meta">
+    <span class="pk-pill"><span class="pk-pill-dot"></span>Plus Jakarta Sans</span>
+    <span class="pk-pill"><span class="pk-pill-dot" style="background:var(--info)"></span>DM Sans</span>
+    <span class="pk-pill"><span class="pk-pill-dot" style="background:var(--combo)"></span>Lora</span>
+    <span class="pk-pill"><span class="pk-pill-dot" style="background:var(--gold)"></span>JetBrains Mono</span>
+    <span class="pk-pill" style="margin-left:auto">Next.js 14 + React Native + Tailwind + Supabase</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     01 TYPOGRAPHY
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="typo">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">01 / 12</div>
+      <div class="sec-title">Typography</div>
+      <div class="sec-subtitle">Plus Jakarta Sans · DM Sans · Lora · JetBrains Mono — 8단계 스케일 + Mobile + Body + Special + English</div>
+    </div>
+    <span class="sec-tag">CLAUDE.md §Typography</span>
+  </div>
+
+  <!-- Desktop + Mobile side by side -->
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header">
+        <span class="specimen-title">DESKTOP HEADINGS — Plus Jakarta Sans</span>
+      </div>
+      <div class="specimen-body">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:14px 0 12px">
+            <span class="t-h1-lg">h1 large desktop</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">36 / 700 / -0.022em</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:12px 0">
+            <span class="t-h1-md">h1 medium desktop</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">30 / 700 / -0.016em</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:12px 0">
+            <span class="t-h1-sm">h1 small desktop</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">26 / 700 / -0.01em</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:11px 0">
+            <span class="t-h2">h2 desktop</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">22 / 600</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:10px 0">
+            <span class="t-h3">h3 desktop</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">18 / 600</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:9px 0">
+            <span class="t-h4">h4 desktop</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">16 / 600</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:9px 0">
+            <span class="t-h5" style="color:var(--t2)">H5 DESKTOP UPPER</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">14 / 700 / UPPER / 0.05em</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;padding:8px 0">
+            <span class="t-h6" style="color:var(--t3)">H6 DESKTOP UPPER</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">12 / 700 / UPPER / 0.07em</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header">
+        <span class="specimen-title">MOBILE HEADINGS — Plus Jakarta Sans</span>
+      </div>
+      <div class="specimen-body">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:14px 0 12px">
+            <span class="t-mh1-lg">h1 large mobile</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">28 / 700</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:12px 0">
+            <span class="t-mh1-md">h1 medium mobile</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">24 / 700</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:12px 0">
+            <span class="t-mh1-sm">h1 small mobile</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">22 / 700</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:11px 0">
+            <span class="t-mh2">h2 mobile</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">20 / 600</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:10px 0">
+            <span class="t-mh3">h3 mobile</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">17 / 600</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:9px 0">
+            <span class="t-mh4">h4 mobile</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">15 / 600</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;border-bottom:1px solid var(--bd);padding:9px 0">
+            <span class="t-mh5" style="color:var(--t2)">H5 MOBILE UPPER</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">13 / 700 / UPPER</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;padding:8px 0">
+            <span class="t-mh6" style="color:var(--t3)">H6 MOBILE UPPER</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">11 / 700 / UPPER</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body + Links + Special -->
+  <div class="grid-3" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">BODY — DM Sans</span></div>
+      <div class="specimen-body">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="border-bottom:1px solid var(--bd);padding-bottom:13px;margin-bottom:13px">
+            <div class="t-b1">Body 1 — 기본 본문. 가독성을 위해 넉넉한 행간을 사용합니다.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">16px / 400 / 1.65</div>
+          </div>
+          <div style="border-bottom:1px solid var(--bd);padding-bottom:13px;margin-bottom:13px">
+            <div class="t-b1s">Body 1 Semibold — 강조 본문 텍스트.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">16px / 600 / 1.65</div>
+          </div>
+          <div style="border-bottom:1px solid var(--bd);padding-bottom:11px;margin-bottom:11px">
+            <div class="t-b2">Body 2 — 보조 본문, 설명 텍스트.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">14px / 400 / 1.55</div>
+          </div>
+          <div style="border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:10px">
+            <div class="t-b3">Body 3 — 캡션, 레이블 텍스트.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">13px / 400 / 1.55</div>
+          </div>
+          <div style="border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:10px">
+            <div class="t-b3o">Body 3 Oblique — 이탤릭 캡션 텍스트.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">13px / 400 / italic</div>
+          </div>
+          <div style="border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:10px">
+            <div class="t-b3s">Body 3 Spaced — 넓은 자간 캡션.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">13px / 400 / track 0.055em</div>
+          </div>
+          <div>
+            <div class="t-b4" style="color:var(--t2)">Body 4 — 최소 크기 텍스트.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:5px">12px / 400 / 1.5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">LINKS & SPECIAL — S1~S4</span></div>
+      <div class="specimen-body">
+        <div style="border-bottom:1px solid var(--bd);padding-bottom:14px;margin-bottom:14px">
+          <div class="spec-label">LINKS</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <a href="#" class="t-link1" onclick="return false">Link 1 — 기본 링크 텍스트</a>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">16px / 500 / underline</div>
+            </div>
+            <div>
+              <a href="#" class="t-link2" onclick="return false">Link 2 — 작은 링크</a>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">14px / 500 / underline</div>
+            </div>
+          </div>
+        </div>
+        <div class="spec-label">SPECIAL — S1~S4</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div>
+            <div class="t-s1" style="color:var(--t2)">S1 — SECTION LABEL</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">14px / 700 / UPPER / 0.1em</div>
+          </div>
+          <div>
+            <div class="t-s2" style="color:var(--p)">98%</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">40px / 800 — 히어로/점수</div>
+          </div>
+          <div>
+            <div class="t-s3">S3 — 일반 특수 텍스트</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">16px / 400</div>
+          </div>
+          <div>
+            <div class="t-s4" style="color:var(--t2)">S4 — 소형 특수 텍스트</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">14px / 400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">ENGLISH (Lora) & MONO (JetBrains)</span></div>
+      <div class="specimen-body">
+        <div class="spec-label">ENGLISH — Lora Serif</div>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px">
+          <div>
+            <div class="t-en-body">The process by which living things change over generations.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:6px">Lora 20px / 400 / 1.85 — 원문 읽기</div>
+          </div>
+          <div>
+            <div class="t-en-body">Natural selection determines which <span class="t-en-hl">traits</span> survive.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:6px">— 재생 중 하이라이트 (primary/12%)</div>
+          </div>
+          <div>
+            <div class="t-en-word">evolution</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:6px">Lora 18px / 600 — 단어 강조</div>
+          </div>
+        </div>
+        <div class="spec-label">MONO — JetBrains Mono</div>
+        <div style="background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.05em;color:var(--t1);margin-bottom:6px">
+          E&nbsp;V&nbsp;O&nbsp;L&nbsp;U&nbsp;T&nbsp;I&nbsp;O&nbsp;N
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">14px / 400 — 스펠링 타이핑 게임</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full typography specimen — live paragraph -->
+  <div class="specimen">
+    <div class="specimen-header"><span class="specimen-title">LIVE SPECIMEN — 실제 콘텐츠 맥락</span></div>
+    <div class="specimen-body">
+      <div style="max-width:720px">
+        <div class="t-s1" style="color:var(--p);margin-bottom:8px">CHAPTER 3 — VOCABULARY</div>
+        <div class="t-h1-md" style="margin-bottom:16px">The Evolution of Language</div>
+        <div class="t-en-body" style="margin-bottom:20px">Scientists investigate <span class="t-en-hl">fossils</span> to understand prehistoric life. Each <strong style="font-weight:600">organism</strong> must adapt to its environment or perish.</div>
+        <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+          <span class="badge b">AI 분석</span>
+          <span class="badge g">단어 20개</span>
+          <span class="badge gray">학습 완료</span>
+        </div>
+        <div class="t-b1" style="color:var(--t2);margin-bottom:12px">진화는 생물이 세대를 거치며 변화하는 과정입니다. 자연선택은 어떤 형질이 살아남을지를 결정합니다.</div>
+        <div class="t-b4" style="color:var(--t3)">마지막 업데이트 2025-04-19 · Lora + Plus Jakarta Sans + DM Sans</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     02 COLORS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="colors">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">02 / 12</div>
+      <div class="sec-title">Color System</div>
+      <div class="sec-subtitle">시맨틱 네이밍 + CSS Variables + 다크모드 — 상단 🌙 버튼으로 전환</div>
+    </div>
+    <span class="sec-tag">CLAUDE.md §Colors</span>
+  </div>
+
+  <div class="specimen" style="margin-bottom:20px">
+    <div class="specimen-header"><span class="specimen-title">BRAND</span></div>
+    <div class="specimen-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
+        <div><div class="swatch" style="background:var(--p);color:#fff">--p</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">#3B82F6</div></div>
+        <div><div class="swatch" style="background:var(--p-hover);color:#fff">--p-hover</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">#2563EB</div></div>
+        <div><div class="swatch" style="background:var(--p-light);color:var(--p);border:1px solid var(--bd)">--p-light</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">#EFF6FF</div></div>
+        <div><div class="swatch" style="background:var(--p-dark);color:#fff">--p-dark</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">#1D4ED8</div></div>
+        <div><div class="swatch" style="background:var(--active);color:#fff">--active</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">#F59E0B</div></div>
+        <div><div class="swatch" style="background:var(--active-light);color:#92400E;border:1px solid var(--bd)">--active-light</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:4px">#FEF3C7</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">SEMANTIC</span></div>
+      <div class="specimen-body-sm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div class="swatch" style="background:var(--success);color:#fff;height:52px">success</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:3px">#22C55E</div></div>
+          <div><div class="swatch" style="background:var(--success-light);color:#065f46;border:1px solid var(--bd);height:52px">success-light</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:3px">#DCFCE7</div></div>
+          <div><div class="swatch" style="background:var(--error);color:#fff;height:52px">error</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:3px">#EF4444</div></div>
+          <div><div class="swatch" style="background:var(--error-light);color:#991b1b;border:1px solid var(--bd);height:52px">error-light</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:3px">#FEE2E2</div></div>
+          <div><div class="swatch" style="background:var(--warning);color:#fff;height:52px">warning</div></div>
+          <div><div class="swatch" style="background:var(--info);color:#fff;height:52px">info</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:3px">#06B6D4</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">SURFACE & TEXT & GAME</span></div>
+      <div class="specimen-body-sm">
+        <div class="spec-label">SURFACE & TEXT</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+          <div class="swatch-sm" style="background:var(--bg);border:1px solid var(--bd)" title="bg"></div>
+          <div class="swatch-sm" style="background:var(--bg2)" title="bg2"></div>
+          <div class="swatch-sm" style="background:var(--bg3)" title="bg3"></div>
+          <div class="swatch-sm" style="background:var(--t1)" title="t1"></div>
+          <div class="swatch-sm" style="background:var(--t2)" title="t2"></div>
+          <div class="swatch-sm" style="background:var(--t3)" title="t3"></div>
+          <div class="swatch-sm" style="background:var(--t4)" title="t4"></div>
+          <div class="swatch-sm" style="background:var(--bd)" title="border"></div>
+        </div>
+        <div class="spec-label">GAME SPECIFIC</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <div><div class="swatch-sm" style="background:var(--gold)" title="gold"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);text-align:center;margin-top:2px">gold</div></div>
+          <div><div class="swatch-sm" style="background:var(--silver)" title="silver"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);text-align:center;margin-top:2px">silver</div></div>
+          <div><div class="swatch-sm" style="background:var(--bronze)" title="bronze"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);text-align:center;margin-top:2px">bronze</div></div>
+          <div><div class="swatch-sm" style="background:var(--combo)" title="combo"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);text-align:center;margin-top:2px">combo</div></div>
+          <div><div class="swatch-sm" style="background:var(--streak)" title="streak"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);text-align:center;margin-top:2px">streak</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     03 TOKENS — Spacing / Shadow / Radius / Motion
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="tokens">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">03 / 12</div>
+      <div class="sec-title">Design Tokens</div>
+      <div class="sec-subtitle">Spacing 4px 기반 · Shadow 5단계 · Radius 6단계 · Motion 듀레이션+이징</div>
+    </div>
+    <span class="sec-tag">Quizlet 원본 미정의 → 추가</span>
+  </div>
+  <div class="grid-3" style="gap:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">SPACING — 4px BASE</span></div>
+      <div class="specimen-body">
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:4px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-1</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">4px</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-2</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">8px</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-3</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">12px</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:16px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-4 ●</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">16px 기본</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:24px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-6</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">24px 카드</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-8</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">32px 섹션</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:48px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-12</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">48px 페이지</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:64px;height:14px;background:var(--p);border-radius:2px;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);min-width:70px">space-16</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">64px 히어로</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">SHADOW & RADIUS</span></div>
+      <div class="specimen-body">
+        <div class="spec-label">ELEVATION</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+          <div style="background:var(--bg);border-radius:var(--r-md);padding:11px 14px;box-shadow:var(--sh-xs)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">shadow-xs</span></div>
+          <div style="background:var(--bg);border-radius:var(--r-md);padding:11px 14px;box-shadow:var(--sh-sm)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">shadow-sm — 카드 기본</span></div>
+          <div style="background:var(--bg);border-radius:var(--r-md);padding:11px 14px;box-shadow:var(--sh-md)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">shadow-md — 호버, 툴팁</span></div>
+          <div style="background:var(--bg);border-radius:var(--r-md);padding:11px 14px;box-shadow:var(--sh-lg)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">shadow-lg — 드롭다운</span></div>
+          <div style="background:var(--bg);border-radius:var(--r-md);padding:11px 14px;box-shadow:var(--sh-xl)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">shadow-xl — 모달</span></div>
+        </div>
+        <div class="spec-label">BORDER RADIUS</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="text-align:center"><div style="width:44px;height:32px;background:var(--p-light);border-radius:var(--r-sm);border:1px solid var(--bd)"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:3px">6px</div></div>
+          <div style="text-align:center"><div style="width:44px;height:32px;background:var(--p-light);border-radius:var(--r-md);border:1px solid var(--bd)"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:3px">8px</div></div>
+          <div style="text-align:center"><div style="width:44px;height:32px;background:var(--p-light);border-radius:var(--r-lg);border:1px solid var(--bd)"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:3px">12px</div></div>
+          <div style="text-align:center"><div style="width:44px;height:32px;background:var(--p-light);border-radius:var(--r-xl);border:1px solid var(--bd)"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:3px">16px</div></div>
+          <div style="text-align:center"><div style="width:44px;height:32px;background:var(--p-light);border-radius:var(--r-2xl);border:1px solid var(--bd)"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:3px">24px</div></div>
+          <div style="text-align:center"><div style="width:44px;height:32px;background:var(--p-light);border-radius:var(--r-full);border:1px solid var(--bd)"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:3px">full</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">MOTION</span></div>
+      <div class="specimen-body">
+        <div class="spec-label" style="margin-bottom:10px">DURATION</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:100px;height:3px;background:var(--p);border-radius:2px"></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">100ms — fast</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:160px;height:3px;background:var(--p);border-radius:2px"></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">200ms — normal</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:220px;height:3px;background:var(--p);border-radius:2px"></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">300ms — slow</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:280px;height:3px;background:var(--p);border-radius:2px;max-width:100%"></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3)">500ms — slower</span>
+          </div>
+        </div>
+        <div class="spec-label" style="margin-bottom:10px">EASING</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="padding:8px 12px;background:var(--bg2);border-radius:var(--r-md);border:1px solid var(--bd)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--p)">ease-default</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t3);margin-top:2px">.4,0,.2,1</div>
+          </div>
+          <div style="padding:8px 12px;background:var(--bg2);border-radius:var(--r-md);border:1px solid var(--bd)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--success)">ease-out</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t3);margin-top:2px">0,0,.2,1</div>
+          </div>
+          <div style="padding:8px 12px;background:var(--bg2);border-radius:var(--r-md);border:1px solid var(--bd)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--combo)">ease-spring ✦</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t3);margin-top:2px">.34,1.56,.64,1 — 정답피드백</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     04 BUTTONS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="buttons">
+  <div class="sec-head">
+    <div><div class="sec-num">04 / 12</div><div class="sec-title">Buttons</div><div class="sec-subtitle">8종 + 3 크기 변형 — Primary · Secondary · Danger · Ghost · Icon · Link · Social · Special Char</div></div>
+    <span class="sec-tag">Quizlet 8종 분석 → 개선</span>
+  </div>
+  <div class="grid-2" style="gap:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">FILLED & OUTLINED</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:14px">
+          <div>
+            <div class="spec-label">PRIMARY</div>
+            <div class="spec-row">
+              <button class="btn btn-primary btn-md">Get started</button>
+              <button class="btn btn-primary btn-md" disabled>Disabled</button>
+            </div>
+          </div>
+          <div>
+            <div class="spec-label">SECONDARY</div>
+            <div class="spec-row">
+              <button class="btn btn-secondary btn-md">Get started</button>
+              <button class="btn btn-secondary btn-md" disabled>Disabled</button>
+            </div>
+          </div>
+          <div>
+            <div class="spec-label">DANGER & GHOST</div>
+            <div class="spec-row">
+              <button class="btn btn-danger btn-md">Delete</button>
+              <button class="btn btn-ghost btn-md">Cancel</button>
+            </div>
+          </div>
+          <div class="spec-divider" style="margin:4px 0"></div>
+          <div>
+            <div class="spec-label">SIZE SCALE</div>
+            <div class="spec-row" style="align-items:flex-end">
+              <button class="btn btn-primary btn-xs">XSmall</button>
+              <button class="btn btn-primary btn-sm">Small</button>
+              <button class="btn btn-primary btn-md">Medium</button>
+              <button class="btn btn-primary btn-lg">Large</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">ICON · LINK · SOCIAL · SPECIAL</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:14px">
+          <div>
+            <div class="spec-label">ICON BUTTONS</div>
+            <div class="spec-row">
+              <button class="btn btn-icon">✦</button>
+              <button class="btn btn-icon">♡</button>
+              <button class="btn btn-icon">⊕</button>
+              <button class="btn btn-icon btn-icon-sm">→</button>
+              <button class="btn btn-icon-border">𝕏</button>
+              <button class="btn btn-icon-border">𝐟</button>
+            </div>
+          </div>
+          <div>
+            <div class="spec-label">LINK & SPECIAL CHAR</div>
+            <div class="spec-row">
+              <button class="btn btn-link-upper">GET STARTED</button>
+              <button class="btn btn-special">→</button>
+              <button class="btn btn-special">★</button>
+              <button class="btn btn-special">♪</button>
+            </div>
+          </div>
+          <div class="spec-divider" style="margin:4px 0"></div>
+          <div>
+            <div class="spec-label">SOCIAL — CONTINUE WITH GOOGLE</div>
+            <div class="spec-col" style="gap:8px">
+              <button class="btn-social">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Continue with Google
+              </button>
+              <button class="btn-social-sm">
+                <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     05 SELECTORS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="selectors">
+  <div class="sec-head">
+    <div><div class="sec-num">05 / 12</div><div class="sec-title">Selectors</div><div class="sec-subtitle">Radio / Checkbox (indeterminate ✦ 추가) / Toggle — Spring 애니메이션 / Focus Ring / 44px 터치</div></div>
+    <span class="sec-tag">Quizlet 5종 → 개선</span>
+  </div>
+  <div class="grid-3" style="gap:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">RADIO — 3 STATES</span></div>
+      <div class="specimen-body">
+        <div class="spec-col">
+          <label class="sel-wrap"><div class="radio off"></div><span class="sel-label">Unselected</span></label>
+          <label class="sel-wrap"><div class="radio on"></div><span class="sel-label">Selected</span></label>
+          <label class="sel-wrap"><div class="radio dis"></div><span class="sel-label dim">Disabled</span></label>
+          <div class="spec-note">클릭 영역 최소 44×44px · Spring scale 애니메이션</div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">CHECKBOX — 4 STATES</span></div>
+      <div class="specimen-body">
+        <div class="spec-col">
+          <label class="sel-wrap"><div class="chk" onclick="this.classList.toggle('on')"></div><span class="sel-label">Unselected</span></label>
+          <label class="sel-wrap"><div class="chk on"></div><span class="sel-label">Selected</span></label>
+          <label class="sel-wrap"><div class="chk ind"></div><span class="sel-label">Indeterminate <span style="font-size:10px;background:var(--p-light);color:var(--p);padding:1px 6px;border-radius:3px;font-weight:700">NEW</span></span></label>
+          <label class="sel-wrap"><div class="chk dis"></div><span class="sel-label dim">Disabled</span></label>
+          <label class="sel-wrap" style="margin-top:4px"><div class="chk" onclick="this.classList.toggle('on')"></div><span class="sel-label">Select all items (클릭)</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">TOGGLE — SPRING MOTION</span></div>
+      <div class="specimen-body">
+        <div class="spec-col">
+          <label class="sel-wrap"><div class="toggle" onclick="this.classList.toggle('on')"></div><span class="sel-label">Off → 클릭</span></label>
+          <label class="sel-wrap"><div class="toggle on" onclick="this.classList.toggle('on')"></div><span class="sel-label">On → 클릭</span></label>
+          <label class="sel-wrap" style="margin-top:6px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+              <div class="toggle on"></div>
+            </div>
+            <span class="sel-label">Combined Toggle (아이콘 + 토글)</span>
+          </label>
+          <div class="spec-note">transition: ease-spring .2s · w-11 h-6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     06 FORM FIELDS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="forms">
+  <div class="sec-head">
+    <div><div class="sec-num">06 / 12</div><div class="sec-title">Form Fields</div><div class="sec-subtitle">6가지 상태 + Alt Form (용어-정의 테이블) — 밑줄→Border 스타일, Success 상태 추가</div></div>
+    <span class="sec-tag">Quizlet 밑줄 → 개선</span>
+  </div>
+  <div class="grid-2" style="gap:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">INPUT STATES</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:14px">
+          <div class="field">
+            <label class="field-lbl">Default</label>
+            <input class="field-in" placeholder="Type or search for a term">
+            <span class="field-hint">도움말 텍스트를 여기에 작성합니다</span>
+          </div>
+          <div class="field">
+            <label class="field-lbl">Focus (클릭)</label>
+            <input class="field-in" placeholder="Focus state — click to see">
+          </div>
+          <div class="field">
+            <label class="field-lbl">Filled</label>
+            <input class="field-in" value="evolution">
+          </div>
+          <div class="field">
+            <label class="field-lbl">Error</label>
+            <input class="field-in err" value="invalid@email">
+            <span class="field-err">유효한 이메일을 입력해주세요</span>
+          </div>
+          <div class="field">
+            <label class="field-lbl">Success <span style="font-size:10px;background:var(--success-light);color:var(--success);padding:1px 6px;border-radius:3px;font-weight:700">NEW</span></label>
+            <input class="field-in ok" value="hello@example.com">
+            <span class="field-ok">확인되었습니다</span>
+          </div>
+          <div class="field">
+            <label class="field-lbl">Disabled</label>
+            <input class="field-in" disabled value="수정 불가">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">ALT FORM — 용어-정의 테이블</span></div>
+      <div class="specimen-body">
+        <div style="border:1px solid var(--bd);border-radius:var(--r-lg);overflow:hidden">
+          <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--bg2);border-bottom:1px solid var(--bd)">
+            <div style="padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3)">단어 (Term)</div>
+            <div style="padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3)">뜻 (Definition)</div>
+          </div>
+          <div class="alt-row"><div class="alt-cell"><input placeholder="단어를 입력하세요..."></div><div class="alt-cell"><input placeholder="뜻을 입력하세요..."></div></div>
+          <div class="alt-row active"><div class="alt-cell"><input value="evolution"></div><div class="alt-cell"><input value="진화, 발전"></div></div>
+          <div class="alt-row"><div class="alt-cell"><input placeholder="단어를 입력하세요..."></div><div class="alt-cell"><input placeholder="뜻을 입력하세요..."></div></div>
+          <div class="alt-row"><div class="alt-cell"><input value="organism"></div><div class="alt-cell"><input value="유기체, 생물"></div></div>
+          <div class="alt-row"><div class="alt-cell"><input placeholder="단어를 입력하세요..."></div><div class="alt-cell"><input placeholder="뜻을 입력하세요..."></div></div>
+        </div>
+        <div class="spec-note">활성 행: bg-primary/4 + border-bottom-2 primary · Alt Form은 학습앱 전용 2열 레이아웃</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     07 DROPDOWNS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="dropdowns">
+  <div class="sec-head">
+    <div><div class="sec-num">07 / 12</div><div class="sec-title">Dropdowns & Popovers</div><div class="sec-subtitle">4종 + Mobile 바텀시트 — Radix UI Select 기반, 드래그 핸들 추가</div></div>
+    <span class="sec-tag">Quizlet 4종 → 개선</span>
+  </div>
+  <div class="grid-3" style="gap:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">DROPDOWN</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:12px">
+          <div>
+            <div class="spec-label">SINGLE SELECT</div>
+            <select class="dd-select"><option>Original</option><option>Alphabetical</option><option>Most missed</option></select>
+          </div>
+          <div>
+            <div class="spec-label">SORT OPTION</div>
+            <select class="dd-select"><option>정렬: 기본순</option><option>알파벳순</option><option>틀린 것 먼저</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">POPOVER WITH DIVIDER</span></div>
+      <div class="specimen-body-sm">
+        <div class="popover" style="box-shadow:none;border:1px solid var(--bd)">
+          <button class="pop-item">📁 Add to folder</button>
+          <button class="pop-item">🏫 Add to class</button>
+          <div class="pop-div"></div>
+          <div class="pop-sec">Category 1</div>
+          <button class="pop-item">Category 1 item</button>
+          <button class="pop-item">Category 1 item</button>
+          <div class="pop-div"></div>
+          <div class="pop-sec">Category 2</div>
+          <button class="pop-item">Category 2 item</button>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">MOBILE BOTTOM SHEET</span></div>
+      <div class="specimen-body-sm" style="background:rgba(0,0,0,.38);border-radius:var(--r-lg);padding:0 0 0;overflow:hidden">
+        <div style="height:20px"></div>
+        <div class="bsheet">
+          <div class="bsheet-handle"></div>
+          <button class="bsheet-item">📁 폴더에 추가</button>
+          <button class="bsheet-item">🏫 클래스에 추가</button>
+          <button class="bsheet-cancel">취소</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     08 TOOLTIPS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="tooltips">
+  <div class="sec-head">
+    <div><div class="sec-num">08 / 12</div><div class="sec-title">Tool Tips</div><div class="sec-subtitle">4방향 · 4색 변형 (default / info / warn / error) · Macro 대형</div></div>
+    <span class="sec-tag">Quizlet teal/yellow/coral → 시맨틱 변환</span>
+  </div>
+  <div class="specimen">
+    <div class="specimen-header"><span class="specimen-title">ALL VARIANTS</span></div>
+    <div class="specimen-body">
+      <div style="display:flex;flex-wrap:wrap;gap:56px;padding:24px 16px 4px;align-items:flex-end">
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip">학습을 시작하세요</div><button class="btn btn-primary btn-sm">Top (기본)</button></div>
+          <div class="spec-note">top</div>
+        </div>
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip b" style="top:calc(100% + 10px);bottom:auto">단어장 확인</div><button class="btn btn-secondary btn-sm">Bottom</button></div>
+          <div class="spec-note">bottom</div>
+        </div>
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip r" style="left:calc(100% + 10px);top:50%;bottom:auto;transform:translateY(-50%)">오른쪽 설명</div><button class="btn btn-ghost btn-sm">Right</button></div>
+          <div class="spec-note">right</div>
+        </div>
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip info">정보 메시지 (teal)</div><button class="btn btn-sm" style="background:var(--info);color:#fff">Info</button></div>
+          <div class="spec-note">info — teal</div>
+        </div>
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip warn">주의가 필요합니다 (yellow)</div><button class="btn btn-sm" style="background:var(--warning);color:#fff">Warning</button></div>
+          <div class="spec-note">warn — yellow</div>
+        </div>
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip err">오류가 발생했습니다 (coral)</div><button class="btn btn-danger btn-sm">Error</button></div>
+          <div class="spec-note">error — coral</div>
+        </div>
+        <div class="spec-col" style="align-items:center">
+          <div class="tooltip-host"><div class="tooltip macro">이 단어는 Flashcard와 SpellForge에서 자동으로 활용됩니다. 단어장에 추가하려면 클릭하세요.</div><button class="btn btn-sm" style="border:1.5px solid var(--bd);background:var(--bg)">Macro</button></div>
+          <div class="spec-note">macro — 대형</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     09 EXTRAS
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="extras">
+  <div class="sec-head">
+    <div><div class="sec-num">09 / 12</div><div class="sec-title">추가 컴포넌트</div><div class="sec-subtitle">Progress · Toast · Modal · Bottom Tab Bar · Audio Player · Icons — Quizlet Parts Kit 미포함</div></div>
+    <span class="sec-tag">Quizlet 원본 없음 → 신규</span>
+  </div>
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">PROGRESS BAR</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:18px">
+          <div>
+            <div class="prog-row"><span class="prog-lbl">학습 진행률</span><span class="prog-val">7 / 20</span></div>
+            <div class="prog-track"><div class="prog-fill" id="p1" style="width:35%"></div></div>
+          </div>
+          <div>
+            <div class="prog-row"><span class="prog-lbl">정확도</span><span class="prog-val" style="color:var(--success)">85%</span></div>
+            <div class="prog-track"><div class="prog-fill s" id="p2" style="width:85%"></div></div>
+          </div>
+          <div>
+            <div class="prog-row"><span class="prog-lbl">남은 시간</span><span class="prog-val" style="color:var(--warning)">32%</span></div>
+            <div class="prog-track" style="height:4px"><div class="prog-fill w" id="p3" style="width:32%"></div></div>
+          </div>
+          <div>
+            <div class="prog-row"><span class="prog-lbl">오답률</span><span class="prog-val" style="color:var(--error)">15%</span></div>
+            <div class="prog-track" style="height:8px"><div class="prog-fill e" id="p4" style="width:15%"></div></div>
+          </div>
+          <button class="btn btn-sm" style="border:1.5px solid var(--bd);background:var(--bg);align-self:flex-start" onclick="replayProgress()">↺ 애니메이션</button>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">TOAST / 알림 — 4 VARIANTS</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:10px">
+          <div class="toast s">
+            <div class="toast-ico">✓</div>
+            <div><div class="toast-ttl">정답입니다!</div><div class="toast-msg">evolution — 진화, 발전 · 콤보 x3</div></div>
+          </div>
+          <div class="toast e">
+            <div class="toast-ico">✕</div>
+            <div><div class="toast-ttl">오답입니다</div><div class="toast-msg">다시 도전해보세요</div></div>
+          </div>
+          <div class="toast i">
+            <div class="toast-ico">i</div>
+            <div><div class="toast-ttl">새로운 단어장</div><div class="toast-msg">20개 단어가 추가되었습니다</div></div>
+          </div>
+          <div class="toast w">
+            <div class="toast-ico">!</div>
+            <div><div class="toast-ttl">저장 안됨</div><div class="toast-msg">인터넷 연결을 확인해주세요</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">MODAL / DIALOG</span></div>
+      <div class="specimen-body-sm">
+        <div class="modal-stage">
+          <div class="modal">
+            <div class="modal-ttl">단어장을 삭제할까요?</div>
+            <div class="modal-msg">이 작업은 되돌릴 수 없습니다. 20개의 단어와 모든 학습 기록이 삭제됩니다.</div>
+            <div class="modal-footer">
+              <button class="btn btn-ghost btn-sm">취소</button>
+              <button class="btn btn-danger btn-sm">삭제</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">BOTTOM TAB BAR · AUDIO PLAYER</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:16px">
+          <div>
+            <div class="spec-label">BOTTOM TAB BAR — 5 TABS</div>
+            <div class="app-tabbar">
+              <button class="app-tab" onclick="setAppTab(this)"><div class="app-tab-ico">📖</div>원문</button>
+              <button class="app-tab active" onclick="setAppTab(this)"><div class="app-tab-ico">📝</div>단어</button>
+              <button class="app-tab" onclick="setAppTab(this)"><div class="app-tab-ico">🃏</div>카드</button>
+              <button class="app-tab" onclick="setAppTab(this)"><div class="app-tab-ico">🎮</div>게임</button>
+              <button class="app-tab" onclick="setAppTab(this)"><div class="app-tab-ico">📊</div>통계</button>
+            </div>
+          </div>
+          <div>
+            <div class="spec-label">AUDIO — MINI & FULL</div>
+            <div class="spec-row" style="margin-bottom:10px">
+              <button class="audio-mini">▶</button>
+              <span class="t-b2" style="color:var(--t2)">Natural selection determines which traits survive.</span>
+            </div>
+            <div class="audio-full">
+              <div class="prog-track"><div class="prog-fill" style="width:42%"></div></div>
+              <div class="audio-ctrl">
+                <button class="audio-btn">◀</button>
+                <button class="audio-btn main">⏸</button>
+                <button class="audio-btn">▶</button>
+                <div style="flex:1"></div>
+                <div style="display:flex;gap:3px">
+                  <button class="audio-spd">0.5x</button>
+                  <button class="audio-spd">0.75x</button>
+                  <button class="audio-spd active">1x</button>
+                  <button class="audio-spd">1.25x</button>
+                  <button class="audio-spd">1.5x</button>
+                </div>
+              </div>
+              <div class="audio-info">Sentence 5 / 12 — "Natural selection determines..."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Icons -->
+  <div class="specimen">
+    <div class="specimen-header"><span class="specimen-title">ICONS — LUCIDE (Quizlet 7종 → 확장 · 크기 4단계)</span></div>
+    <div class="specimen-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:14px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">🏠</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Home</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">📖</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">BookOpen</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">▶</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Play</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">⏸</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Pause</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">🔊</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Volume2</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">🏆</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Trophy</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">⚡</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Zap</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">✓</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Check</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">✕</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">X</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">★</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Star</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">🌙</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Moon</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:40px;height:40px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px">⚙</div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">Settings</span></div>
+      </div>
+      <div class="spec-note" style="margin-top:12px">Nav: 24px · 버튼내: 20px · 인라인: 16px · 대형: 32px · color: currentColor</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     10 GAME UI
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="game">
+  <div class="sec-head">
+    <div><div class="sec-num">10 / 12</div><div class="sec-title">Game UI</div>
+    <div class="sec-subtitle">Flashcard (하늘 환경 · CSS 3D flip) · SpellForge (파란 패널 · JetBrains Mono) · WordBlitz (정글 테마 ✦ 업데이트) · ScriptQuiz · Score</div></div>
+    <span class="sec-tag">독립 HTML 레퍼런스 4종</span>
+  </div>
+
+  <!-- 독립 HTML 파일 목록 안내 -->
+  <div class="specimen" style="margin-bottom:24px">
+    <div class="specimen-header"><span class="specimen-title">독립 레퍼런스 HTML 파일 — 완전 동작 프로토타입</span></div>
+    <div class="specimen-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-lg)">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px">🃏 Flashcard.html</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">648줄 · 하늘환경+CSS 3D flip+양방향모드</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-lg)">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px">⚡ SpellForge.html</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">811줄 · 파란패널+전구힌트+파티클</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-lg)">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px">💥 WordBlitz_Jungle.html</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">1,020줄 · 정글테마+SVG 크리처 4종</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r-lg)">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px">📝 ScriptQuiz.html</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">1,027줄 · Little Fox스타일+O/X오버레이</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flashcard + SpellForge -->
+  <div class="grid-2" style="gap:20px;margin-bottom:24px">
+
+    <!-- Flashcard -->
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">FLASHCARD — 하늘 환경 · CSS 3D rotateY · 양방향</span></div>
+
+      <!-- 하늘 환경 -->
+      <div style="position:relative;overflow:hidden;background:linear-gradient(180deg,#87CEEB 0%,#56CCF2 50%,#2BBABA 100%);display:flex;flex-direction:column;align-items:center;padding:24px 16px 80px;min-height:340px">
+        <!-- 구름 -->
+        <div style="position:absolute;top:12px;left:12px;width:100px;height:30px;background:rgba(255,255,255,.72);border-radius:50px"></div>
+        <div style="position:absolute;top:16px;right:14px;width:80px;height:24px;background:rgba(255,255,255,.72);border-radius:50px"></div>
+
+        <!-- 레인보우 FLASHCARDS -->
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,6vw,38px);font-weight:900;letter-spacing:2px;line-height:1;margin-bottom:12px;position:relative;z-index:1;filter:drop-shadow(0 3px 6px rgba(0,0,0,.15))">
+          <span style="color:#ef4444">F</span><span style="color:#f97316">L</span><span style="color:#eab308">A</span><span style="color:#22c55e">S</span><span style="color:#3b82f6">H</span><span style="color:#8b5cf6">C</span><span style="color:#ef4444">A</span><span style="color:#f97316">R</span><span style="color:#eab308">D</span><span style="color:#22c55e">S</span>
+        </div>
+
+        <!-- Pills -->
+        <div style="display:flex;gap:7px;margin-bottom:14px;position:relative;z-index:1">
+          <div style="background:rgba(255,255,255,.88);border-radius:50px;padding:4px 14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#475569;box-shadow:0 1px 3px rgba(0,0,0,.08)">📚 12개</div>
+          <div style="background:rgba(255,255,255,.88);border-radius:50px;padding:4px 14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#475569;box-shadow:0 1px 3px rgba(0,0,0,.08)">⭐ SM-2</div>
+        </div>
+
+        <!-- 카드 (앞면 표시) -->
+        <div style="width:100%;max-width:300px;position:relative;z-index:1;margin-bottom:14px">
+          <div style="border-radius:28px;background:linear-gradient(145deg,#FFFDE7,#FFF9C4,#FFF59D);box-shadow:0 20px 25px rgba(0,0,0,.1),0 10px 10px rgba(0,0,0,.04);padding:28px 20px;text-align:center;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <div style="font-family:'Lora',serif;font-size:28px;font-weight:700;color:var(--t1);margin-bottom:8px">evolution</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--t3);background:rgba(0,0,0,.07);padding:3px 14px;border-radius:50px">noun</div>
+            <div style="margin-top:12px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);opacity:.8">👆 탭해서 뒤집기</div>
+          </div>
+        </div>
+
+        <!-- 정답/오답 버튼 -->
+        <div style="display:flex;gap:10px;position:relative;z-index:1">
+          <button style="padding:11px 22px;border-radius:var(--r-xl);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(135deg,#f97316,#ef4444);box-shadow:0 4px 0 #b91c1c,var(--sh-md);border:none;cursor:pointer;transition:all .15s">✗ 모르겠어요</button>
+          <button style="padding:11px 22px;border-radius:var(--r-xl);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 4px 0 #15803d,var(--sh-md);border:none;cursor:pointer;transition:all .15s">✓ 알아요</button>
+        </div>
+
+        <!-- 잔디 -->
+        <div style="position:absolute;bottom:0;left:-8%;width:116%;height:72px;background:linear-gradient(180deg,#5CE870 0%,#40C050 40%,#2A9030 100%);border-radius:50% 50% 0 0"></div>
+      </div>
+
+      <!-- 뒷면 표시 (아래) -->
+      <div style="padding:16px;background:var(--bg)">
+        <div class="spec-label">뒷면 — 한국어 뜻 + 예문</div>
+        <div style="border-radius:28px;background:linear-gradient(145deg,#E8F5E9,#C8E6C9,#A5D6A7);padding:20px;text-align:center;margin-bottom:8px">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#065f46;margin-bottom:8px">진화, 발전</div>
+          <div style="font-family:'Lora',serif;font-size:12px;font-style:italic;color:#1a5c38;background:rgba(255,255,255,.45);border-radius:var(--r-lg);padding:8px 12px;line-height:1.65">Natural <strong style="font-style:normal;font-weight:700;color:#0d4428">evolution</strong> determines which traits survive.</div>
+        </div>
+        <div class="spec-note">앞면: Lora 28px/700 노란 gradient · 뒷면: 초록 gradient · rotateY(.55s cubic-bezier)</div>
+      </div>
+    </div>
+
+    <!-- SpellForge -->
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">SPELLFORGE — 파란 패널 환경 · JetBrains Mono 셀</span></div>
+
+      <!-- 파란 패널 -->
+      <div style="background:linear-gradient(160deg,#5CB8E0 0%,#4A9FCF 60%,#3A7FAF 100%);padding:18px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;overflow:hidden">
+        <!-- 배경 원 장식 -->
+        <div style="position:absolute;top:-50px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+
+        <!-- HUD -->
+        <div style="width:100%;display:flex;align-items:center;gap:10px">
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:4px"><span>진행</span><span>3 / 12</span></div>
+            <div style="height:6px;background:rgba(0,0,0,.2);border-radius:99px;overflow:hidden"><div style="height:100%;width:25%;background:rgba(255,255,255,.85);border-radius:99px"></div></div>
+          </div>
+          <div style="background:rgba(0,0,0,.2);border-radius:var(--r-lg);padding:6px 12px;text-align:center">
+            <div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6)">SCORE</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#fff">180</div>
+          </div>
+        </div>
+
+        <!-- 뜻 박스 -->
+        <div style="width:100%;background:rgba(255,255,255,.97);border-radius:var(--r-xl);padding:16px 20px;text-align:center;box-shadow:var(--sh-xl)">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px">🌿 어떤 단어일까요?</div>
+          <div style="font-family:'Lora',serif;font-size:18px;font-weight:600;color:var(--t1)">진화, 발전</div>
+          <span style="display:inline-block;margin-top:5px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--t3);background:var(--bg3);padding:2px 10px;border-radius:50px">noun</span>
+        </div>
+
+        <!-- 전구 힌트 바 -->
+        <div style="display:flex;align-items:center;gap:6px;width:100%">
+          <span style="font-size:18px;filter:drop-shadow(0 0 6px rgba(255,220,0,.5))">💡</span>
+          <div style="flex:1;height:5px;background:rgba(0,0,0,.2);border-radius:99px;overflow:hidden"><div style="height:100%;width:66%;background:linear-gradient(90deg,#FFE234,#F59E0B);border-radius:99px"></div></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.7)">2 남음</span>
+        </div>
+
+        <!-- 스펠링 셀 -->
+        <div style="display:flex;justify-content:center;gap:5px;flex-wrap:wrap">
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--t1)">E</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--t1)">V</div>
+          <!-- active 상태 -->
+          <div style="width:46px;height:52px;background:#fff;border:3px solid var(--error);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--t1);box-shadow:0 0 0 4px rgba(239,68,68,.2);transform:scale(1.06)">O</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:rgba(255,255,255,.6)">_</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:rgba(255,255,255,.6)">_</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:rgba(255,255,255,.6)">_</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:rgba(255,255,255,.6)">_</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:rgba(255,255,255,.6)">_</div>
+          <div style="width:46px;height:52px;background:rgba(255,255,255,.92);border:2.5px solid rgba(255,255,255,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:rgba(255,255,255,.6)">_</div>
+        </div>
+
+        <!-- 액션 버튼 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;width:100%">
+          <button style="padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9);border-radius:50px;cursor:pointer">💡 힌트 (2)</button>
+          <button style="padding:9px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;background:rgba(255,255,255,.95);border-radius:50px;color:#475569;cursor:pointer;box-shadow:var(--sh-md)">Skip →</button>
+        </div>
+      </div>
+
+      <!-- 셀 상태 설명 -->
+      <div style="padding:14px 16px;background:var(--bg)">
+        <div class="spec-label" style="margin-bottom:8px">셀 (sf-cell) 4가지 상태</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="width:44px;height:48px;background:rgba(255,255,255,.92);border:2.5px solid rgba(180,200,220,.5);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;color:var(--t1);margin:0 auto 4px">E</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">default</div>
+          </div>
+          <div style="text-align:center">
+            <div style="width:44px;height:48px;background:#fff;border:3px solid var(--error);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;color:var(--t1);box-shadow:0 0 0 4px rgba(239,68,68,.2);margin:0 auto 4px">O</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">active</div>
+          </div>
+          <div style="text-align:center">
+            <div style="width:44px;height:48px;background:var(--success-light);border:2.5px solid var(--success);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;color:#15803d;margin:0 auto 4px">N</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">correct</div>
+          </div>
+          <div style="text-align:center">
+            <div style="width:44px;height:48px;background:var(--active-light);border:2.5px solid var(--active);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;color:#92400e;margin:0 auto 4px">V</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">hint</div>
+          </div>
+        </div>
+        <div class="spec-note" style="margin-top:8px">JetBrains Mono 22px/800 uppercase · 셀 크기 동적 조정 (>9자=42px / >7자=46px)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WordBlitz 정글 + ScriptQuiz -->
+  <div class="grid-2" style="gap:20px;margin-bottom:24px">
+
+    <!-- WordBlitz 정글 -->
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">WORDBLITZ — 정글 어드벤처 테마 ✦ 교체됨</span></div>
+
+      <!-- 정글 배경 (미니 버전) -->
+      <div style="position:relative;min-height:320px;overflow:hidden;background:linear-gradient(180deg,#2d6a2d 0%,#3d8a3d 20%,#5ab540 55%,#7ed854 80%,#90e060 100%)">
+        <!-- 나무 기둥 좌 -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:52px;background:linear-gradient(90deg,#3d2010,#6b3a1a,#5a3015);border-right:3px solid #8B5E2A"></div>
+        <!-- 나무 기둥 우 -->
+        <div style="position:absolute;right:0;top:0;bottom:0;width:52px;background:linear-gradient(270deg,#3d2010,#6b3a1a,#5a3015);border-left:3px solid #8B5E2A"></div>
+
+        <!-- 돌 블록 좌 -->
+        <div style="position:absolute;left:6px;top:50px;width:44px;height:28px;background:linear-gradient(180deg,#c8a85a,#7a5a18);border:2px solid #e8c870;border-radius:5px"></div>
+        <!-- 돌 블록 우 -->
+        <div style="position:absolute;right:6px;top:70px;width:44px;height:28px;background:linear-gradient(180deg,#c8a85a,#7a5a18);border:2px solid #e8c870;border-radius:5px"></div>
+
+        <!-- 크리처 (간략) -->
+        <div style="position:absolute;top:30px;left:54px;font-size:28px;transform:rotate(-5deg);filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))">🐟</div>
+        <div style="position:absolute;top:20px;right:54px;font-size:26px;transform:rotate(5deg);filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))">🦇</div>
+
+        <!-- 타이틀 판 -->
+        <div style="position:absolute;top:16px;left:50%;transform:translateX(-50%);white-space:nowrap">
+          <div style="background:linear-gradient(180deg,#5cb84a,#3d9030,#2a6a20);border:3px solid #7dd864;border-radius:10px;padding:6px 18px;box-shadow:0 4px 0 #1a4a10,0 6px 16px rgba(0,0,0,.3)">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:900;color:#FFE234;text-shadow:2px 2px 0 #8B6500;letter-spacing:2px">WORDBLITZ</span>
+          </div>
+          <div style="text-align:center;margin-top:4px">
+            <div style="display:inline-block;background:linear-gradient(180deg,#8B5E2A,#4A2A08);border:2px solid #C8903A;border-radius:7px;padding:3px 12px;box-shadow:0 3px 0 #2a1408">
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:900;color:#FFD080;letter-spacing:1px">JUNGLE BATTLE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUD -->
+        <div style="position:absolute;top:110px;left:52px;right:52px;background:rgba(30,60,10,.92);border:2px solid #5a9a2a;border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px">
+          <div style="background:rgba(42,106,16,.5);border:1.5px solid #4a9a20;border-radius:8px;padding:4px 10px;text-align:center;flex-shrink:0">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#80c840">SCORE</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#FFE234">350</div>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;font-family:'DM Sans',sans-serif;font-size:9px;color:#80c840;margin-bottom:3px"><span>TIME</span><span>1:24</span></div>
+            <div style="height:8px;background:rgba(0,0,0,.3);border-radius:99px;overflow:hidden"><div style="height:100%;width:70%;background:linear-gradient(90deg,#ff6b35,#ffe234);border-radius:99px"></div></div>
+          </div>
+          <div style="background:rgba(42,106,16,.5);border:1.5px solid #4a9a20;border-radius:8px;padding:4px 10px;text-align:center;flex-shrink:0">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#FFE234">COMBO</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#FFE234">x2</div>
+          </div>
+        </div>
+
+        <!-- 문제 박스 -->
+        <div style="position:absolute;top:172px;left:52px;right:52px;background:linear-gradient(180deg,#4a2e10,#2e1a08);border:2.5px solid #C8903A;border-radius:14px;padding:12px 16px;text-align:center;box-shadow:0 4px 0 #1a0c04">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#FFE8A0;text-shadow:1px 1px 0 rgba(0,0,0,.4)">진화, 발전</div>
+        </div>
+
+        <!-- 선택지 버튼 2x2 -->
+        <div style="position:absolute;bottom:72px;left:52px;right:52px;display:grid;grid-template-columns:1fr 1fr;gap:7px">
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2.5px solid #5ab830;border-radius:12px;padding:10px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;box-shadow:0 4px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">🌿</span>evolution</button>
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2.5px solid #5ab830;border-radius:12px;padding:10px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;box-shadow:0 4px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">🍄</span>organism</button>
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2.5px solid #5ab830;border-radius:12px;padding:10px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;box-shadow:0 4px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">🦎</span>fossil</button>
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2.5px solid #5ab830;border-radius:12px;padding:10px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;box-shadow:0 4px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">🌺</span>selection</button>
+        </div>
+
+        <!-- 잔디 바닥 -->
+        <div style="position:absolute;bottom:0;left:-8%;width:116%;height:60px;background:linear-gradient(180deg,#4ade80,#16a34a);border-radius:50% 50% 0 0"></div>
+      </div>
+
+      <div style="padding:12px 16px;background:var(--bg)">
+        <div class="spec-note">정글 그린 배경 · 나무기둥 프레임 · 황금 돌블록 · WORDBLITZ 타이틀판(녹색) + JUNGLE BATTLE 나무판(갈색) · 선택지 4개(creatureBob 애니메이션) · Fredoka One 폰트</div>
+      </div>
+    </div>
+
+    <!-- Quiz Card + Score -->
+    <div class="spec-col" style="gap:20px">
+      <div class="specimen">
+        <div class="specimen-header"><span class="specimen-title">QUIZ CARD — ScriptQuiz 선택지</span></div>
+        <div class="specimen-body-sm">
+          <div style="background:var(--bg2);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px;border:1px solid var(--bd)">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:7px">Q 1 / 5</div>
+            <div style="font-family:'Lora',serif;font-size:16px;font-weight:600;color:var(--t1);line-height:1.6">What is NOT a mechanism of natural selection?</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <!-- idle -->
+            <button style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-xl);border:2px solid var(--bd);background:var(--bg);cursor:pointer;text-align:left;width:100%">
+              <div style="width:22px;height:22px;border-radius:4px;border:2px solid var(--bd);background:var(--bg);flex-shrink:0"></div>
+              <div style="width:24px;height:24px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;flex-shrink:0">a</div>
+              <div style="font-family:'Lora',serif;font-size:13.5px;color:var(--t1)">Variation among individuals</div>
+            </button>
+            <!-- correct -->
+            <button style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-xl);border:2px solid var(--success);background:var(--success-light);cursor:pointer;text-align:left;width:100%">
+              <div style="width:22px;height:22px;border-radius:4px;border:2px solid var(--success);background:var(--success);flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4 8L11 1" stroke="#FFE234" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div style="width:24px;height:24px;border-radius:50%;background:var(--success);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;flex-shrink:0">b</div>
+              <div style="font-family:'Lora',serif;font-size:13.5px;color:var(--t1)">Equal survival rates for all</div>
+            </button>
+            <!-- wrong -->
+            <button style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-xl);border:2px solid var(--error);background:var(--error-light);cursor:pointer;text-align:left;width:100%">
+              <div style="width:22px;height:22px;border-radius:4px;border:2px solid var(--error);background:var(--error);flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                <span style="color:#fff;font-size:12px;font-weight:800;line-height:1">✕</span>
+              </div>
+              <div style="width:24px;height:24px;border-radius:50%;background:var(--error);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;flex-shrink:0">c</div>
+              <div style="font-family:'Lora',serif;font-size:13.5px;color:var(--t1);opacity:.6">Differential reproduction</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-header"><span class="specimen-title">SCORE CIRCLE & RESULT</span></div>
+        <div class="specimen-body">
+          <div style="display:flex;justify-content:center;margin-bottom:16px">
+            <div style="position:relative;display:inline-flex;align-items:center;justify-content:center">
+              <svg width="130" height="130" viewBox="0 0 130 130">
+                <circle cx="65" cy="65" r="54" fill="none" stroke="var(--bg3)" stroke-width="9"/>
+                <circle cx="65" cy="65" r="54" fill="none" stroke="var(--p)" stroke-width="9"
+                  stroke-dasharray="339.3" stroke-dashoffset="67.9"
+                  stroke-linecap="round" transform="rotate(-90 65 65)"/>
+              </svg>
+              <div style="position:absolute;text-align:center">
+                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:var(--p);line-height:1">80%</div>
+                <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);margin-top:3px">정확도</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+            <div style="text-align:center;padding:12px 6px;background:var(--success-light);border-radius:var(--r-xl);border:1px solid #A7F3D0"><div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:4px">정답</div><div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:var(--success)">4</div></div>
+            <div style="text-align:center;padding:12px 6px;background:var(--error-light);border-radius:var(--r-xl);border:1px solid #FCA5A5"><div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:4px">오답</div><div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:var(--error)">1</div></div>
+            <div style="text-align:center;padding:12px 6px;background:var(--bg2);border-radius:var(--r-xl);border:1px solid var(--bd)"><div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:4px">시간</div><div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:var(--t1)">1:32</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <!-- Flashcard -->
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">FLASHCARD — Lora serif · rotateY flip</span></div>
+      <div style="position:relative;min-height:280px;background:linear-gradient(180deg,#87CEEB 0%,#56CCF2 55%,#2BBABA 100%);display:flex;flex-direction:column;align-items:center;padding:32px 16px 80px">
+        <div style="position:absolute;top:14px;left:16px;width:108px;height:34px;background:rgba(255,255,255,.72);border-radius:50px"></div>
+        <div style="position:absolute;top:14px;right:16px;width:86px;height:34px;background:rgba(255,255,255,.72);border-radius:50px"></div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:38px;font-weight:900;letter-spacing:2px;line-height:1;margin-bottom:14px;position:relative;z-index:1">
+          <span style="color:#ef4444">F</span><span style="color:#f97316">L</span><span style="color:#eab308">A</span><span style="color:#22c55e">S</span><span style="color:#3b82f6">H</span><span style="color:#8b5cf6">C</span><span style="color:#ef4444">A</span><span style="color:#f97316">R</span><span style="color:#eab308">D</span><span style="color:#22c55e">S</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:14px;position:relative;z-index:1">
+          <div style="background:rgba(255,255,255,.85);border-radius:50px;padding:4px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:#475569">📚 20개</div>
+          <div style="background:rgba(255,255,255,.85);border-radius:50px;padding:4px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:#475569">🔄 5개</div>
+        </div>
+        <div class="fc-scene" style="position:relative;z-index:1">
+          <div class="fc-card" id="fcDemo" onclick="this.classList.toggle('flipped')">
+            <div class="fc-face fc-front">
+              <div class="fc-word">evolution</div>
+              <div class="fc-pos">noun</div>
+              <div style="margin-top:10px;font-family:'DM Sans',sans-serif;font-size:11.5px;color:#94A3B8">tap to flip</div>
+            </div>
+            <div class="fc-face fc-back">
+              <div class="fc-meaning">진화, 발전</div>
+              <div style="margin-top:8px;font-family:'DM Sans',sans-serif;font-size:12px;color:#047857;opacity:.8">세대를 거치며 변화하는 과정</div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-ans" style="position:relative;z-index:1">
+          <button class="fc-ans-btn no">✗ 모르겠어요</button>
+          <button class="fc-ans-btn ok">✓ 알아요</button>
+        </div>
+        <div style="position:absolute;bottom:0;left:-8%;width:116%;height:72px;background:linear-gradient(180deg,#4ade80,#16a34a);border-radius:50% 50% 0 0"></div>
+      </div>
+      <!-- Result card -->
+      <div style="padding:20px">
+        <div class="spec-label">FLASHCARD RESULT</div>
+        <div style="background:rgba(255,255,255,.94);border-radius:var(--r-xl);padding:22px;text-align:center;box-shadow:var(--sh-xl);border:1px solid var(--bd)">
+          <div style="font-size:44px;margin-bottom:8px">🎉</div>
+          <div class="t-h3" style="margin-bottom:4px">학습 완료!</div>
+          <div class="t-b2" style="color:var(--t2);margin-bottom:14px">20개 중 17개를 알고 있어요</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+            <div style="padding:12px;background:var(--success-light);border-radius:var(--r-lg);border:1px solid #A7F3D0;text-align:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-bottom:4px">알아요 ✓</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:#15803d">17</div>
+            </div>
+            <div style="padding:12px;background:var(--error-light);border-radius:var(--r-lg);border:1px solid #FCA5A5;text-align:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-bottom:4px">모르겠어요 ✗</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:#991b1b">3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SpellForge + Quiz + Score -->
+    <div class="spec-col" style="gap:20px">
+      <div class="specimen" style="padding:0;overflow:hidden">
+        <div class="specimen-header"><span class="specimen-title">SPELLFORGE — 스펠링 단조</span></div>
+        <div style="background:linear-gradient(155deg,#5cb8e0,#4a9fcf);padding:20px;border-radius:0">
+          <div style="background:rgba(255,255,255,.97);border-radius:var(--r-xl);padding:18px 24px;text-align:center;margin-bottom:18px;box-shadow:var(--sh-xl)">
+            <div class="t-h3">진화, 발전</div>
+          </div>
+          <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px">
+            <div class="cw-cell correct">E</div>
+            <div class="cw-cell correct">V</div>
+            <div class="cw-cell active">O</div>
+            <div class="cw-cell" style="font-size:13px;color:var(--t3)">_</div>
+            <div class="cw-cell" style="font-size:13px;color:var(--t3)">_</div>
+            <div class="cw-cell" style="font-size:13px;color:var(--t3)">_</div>
+            <div class="cw-cell" style="font-size:13px;color:var(--t3)">_</div>
+            <div class="cw-cell" style="font-size:13px;color:var(--t3)">_</div>
+            <div class="cw-cell" style="font-size:13px;color:var(--t3)">_</div>
+          </div>
+          <div style="text-align:right">
+            <button style="background:rgba(255,255,255,.96);border:none;border-radius:50px;padding:9px 26px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:#475569;box-shadow:var(--sh-md)">Skip →</button>
+          </div>
+        </div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-header"><span class="specimen-title">QUIZ CARD</span></div>
+        <div class="specimen-body-sm">
+          <div style="background:var(--bg2);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px;border:1px solid var(--bd)">
+            <div class="t-b4" style="color:var(--t3);margin-bottom:5px">Q 3 / 10</div>
+            <div class="t-h4">"Natural selection determines which ___ survive."</div>
+          </div>
+          <div class="spec-col" style="gap:7px">
+            <div class="quiz-opt ok"><div class="quiz-ltr">A</div><div class="quiz-txt">traits</div></div>
+            <div class="quiz-opt no sel"><div class="quiz-ltr">B</div><div class="quiz-txt">organisms</div></div>
+            <div class="quiz-opt"><div class="quiz-ltr">C</div><div class="quiz-txt">genes</div></div>
+            <div class="quiz-opt"><div class="quiz-ltr">D</div><div class="quiz-txt">fossils</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WordBlitz 정글 + Score -->
+  <div class="grid-2" style="gap:20px">
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">WORDBLITZ — 정글 어드벤처 HUD ✦ 업데이트</span></div>
+      <div style="position:relative;overflow:hidden;background:linear-gradient(180deg,#2d6a2d 0%,#3d8a3d 20%,#5ab540 55%,#90e060 100%);min-height:240px">
+        <!-- 나무 기둥 -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,#3d2010,#6b3a1a,#5a3015);border-right:2.5px solid #8B5E2A"></div>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(270deg,#3d2010,#6b3a1a,#5a3015);border-left:2.5px solid #8B5E2A"></div>
+        <!-- 크리처 -->
+        <div style="position:absolute;top:12px;left:42px;font-size:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))">🐟</div>
+        <div style="position:absolute;top:8px;right:42px;font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))">🦇</div>
+        <!-- HUD -->
+        <div style="margin:52px 48px 0;background:rgba(30,60,10,.92);border:2px solid #5a9a2a;border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px">
+          <div style="background:rgba(42,106,16,.5);border:1.5px solid #4a9a20;border-radius:8px;padding:4px 10px;text-align:center;flex-shrink:0">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#80c840">SCORE</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#FFE234">350</div>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;font-family:'DM Sans',sans-serif;font-size:9px;color:#80c840;margin-bottom:3px"><span>TIME</span><span>1:24</span></div>
+            <div style="height:8px;background:rgba(0,0,0,.3);border-radius:99px;overflow:hidden"><div style="height:100%;width:70%;background:linear-gradient(90deg,#ff6b35,#ffe234);border-radius:99px"></div></div>
+          </div>
+          <div style="display:flex;gap:3px">
+            <div style="width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe234,#f5a623)"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe234,#f5a623)"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15)"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15)"></div>
+          </div>
+          <div style="background:rgba(42,106,16,.5);border:1.5px solid #4a9a20;border-radius:8px;padding:4px 10px;text-align:center;flex-shrink:0">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#FFE234">COMBO</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#FFE234">x2</div>
+          </div>
+        </div>
+        <!-- 문제 박스 -->
+        <div style="margin:8px 48px;background:linear-gradient(180deg,#4a2e10,#2e1a08);border:2px solid #C8903A;border-radius:12px;padding:10px 14px;text-align:center;box-shadow:0 3px 0 #1a0c04">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:#FFE8A0">진화, 발전</div>
+        </div>
+        <!-- 선택지 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px 48px 12px">
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2px solid #5ab830;border-radius:10px;padding:8px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;box-shadow:0 3px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:18px">🌿</span>evolution</button>
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2px solid #5ab830;border-radius:10px;padding:8px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;box-shadow:0 3px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:18px">🍄</span>organism</button>
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2px solid #5ab830;border-radius:10px;padding:8px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;box-shadow:0 3px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:18px">🦎</span>selection</button>
+          <button style="background:linear-gradient(180deg,#3a8a20,#1a4a08);border:2px solid #5ab830;border-radius:10px;padding:8px 6px;color:#d8f8b0;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;box-shadow:0 3px 0 #0e3206;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:18px">🌺</span>fossil</button>
+        </div>
+        <!-- 잔디 -->
+        <div style="position:absolute;bottom:0;left:-8%;width:116%;height:50px;background:linear-gradient(180deg,#4ade80,#16a34a);border-radius:50% 50% 0 0"></div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">SCORE CIRCLE & RESULT</span></div>
+      <div class="specimen-body">
+        <div style="display:flex;justify-content:center;margin-bottom:22px">
+          <div style="position:relative;display:inline-flex;align-items:center;justify-content:center">
+            <svg width="148" height="148" viewBox="0 0 148 148">
+              <circle cx="74" cy="74" r="60" fill="none" stroke="var(--bg3)" stroke-width="10"/>
+              <circle cx="74" cy="74" r="60" fill="none" stroke="var(--p)" stroke-width="10"
+                stroke-dasharray="376.99" stroke-dashoffset="75.4"
+                stroke-linecap="round" transform="rotate(-90 74 74)"
+                style="transition:stroke-dashoffset .8s var(--ease-out)"/>
+            </svg>
+            <div style="position:absolute;text-align:center">
+              <div class="t-s2" style="color:var(--p)">80%</div>
+              <div class="t-b4" style="color:var(--t3)">정확도</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div style="text-align:center;padding:12px;background:var(--success-light);border-radius:var(--r-lg)">
+            <div class="t-b4" style="color:var(--t3);margin-bottom:3px">정답</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;color:var(--success)">16</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:var(--error-light);border-radius:var(--r-lg)">
+            <div class="t-b4" style="color:var(--t3);margin-bottom:3px">오답</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;color:var(--error)">4</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:var(--r-lg);border:1px solid var(--bd)">
+            <div class="t-b4" style="color:var(--t3);margin-bottom:3px">시간</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;color:var(--t1)">1:32</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     11 VOCA MASTER
+══════════════════════════════════════════════════════ -->
+<section class="sec" id="voca">
+  <div class="sec-head">
+    <div><div class="sec-num">11 / 12 ✦ NEW</div><div class="sec-title">Voca Master Components</div><div class="sec-subtitle">Voca_Master.html 프로토타입 통합 · Typography 100% 준수 · CSS Variables 전용 · 기존 섹션 독립</div></div>
+    <span class="sec-tag">Voca_Master.html → CLAUDE.md</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="spec-label" style="margin-bottom:10px">HERO SECTION</div>
+  <div style="margin-bottom:24px">
+    <div class="vm-hero">
+      <h1>📖 LexiVault</h1>
+      <p>원문 스크립트 → AI 분석 → LexiVault · Flashcard · SpellForge · WordBlitz</p>
+    </div>
+    <div class="spec-note">font-display 26px/800 (h1-md mobile) · 부제 font-body 13px/0.85 · 물결 하단 bg2 이어짐 · 원 장식 overlay</div>
+  </div>
+
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <!-- TTS Card + Status -->
+    <div class="spec-col" style="gap:14px">
+      <div>
+        <div class="spec-label">TTS 설정 카드</div>
+        <div class="vm-card">
+          <div class="vm-card-ttl">🔊 TTS 설정</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end">
+            <div>
+              <label style="display:block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--t3);margin-bottom:4px">목소리</label>
+              <select style="width:100%;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:13px;border:1.5px solid var(--bd);border-radius:var(--r-md);background:var(--bg2);color:var(--t1);outline:none">
+                <option>★ Google US English</option>
+                <option>★ Google UK English</option>
+                <option>Microsoft Zira</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--t3);margin-bottom:4px">속도</label>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+                <input type="range" min="0.5" max="1.5" step="0.05" value="0.85" style="flex:1;accent-color:var(--p)"
+                  oninput="document.getElementById('rv2').textContent=parseFloat(this.value).toFixed(2)">
+                <span id="rv2" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--t2);min-width:34px">0.85</span>
+              </div>
+            </div>
+            <button class="btn btn-xs" style="background:var(--p-light);border:1.5px solid #A5B4FC;color:var(--p)">🔊 테스트</button>
+            <button class="btn btn-xs" style="border:1.5px solid var(--bd);background:var(--bg);color:var(--t2)">🔍</button>
+          </div>
+          <div class="sbox info">목소리를 선택하고 테스트해보세요.</div>
+        </div>
+      </div>
+      <div>
+        <div class="spec-label">STATUS BOX — 3 VARIANTS</div>
+        <div class="vm-card">
+          <div class="sbox info">info — 목소리를 선택해주세요.</div>
+          <div class="sbox ok" style="margin-top:8px">ok ✓ — 목소리 설정이 완료되었습니다.</div>
+          <div class="sbox fail" style="margin-top:8px">fail ✕ — TTS 초기화에 실패했습니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Display -->
+    <div>
+      <div class="spec-label">스크립트 표시 — 문장 3가지 상태</div>
+      <div class="vm-card">
+        <div class="vm-card-ttl">📝 원문 스크립트</div>
+        <div class="script-display">
+          <span class="sd-sent">Imagine you could rewind the history of life on Earth.</span>&nbsp;
+          <span class="sd-sent sd-on">Go back 600 million years, and you find a world without animals.</span>&nbsp;
+          <span class="sd-sent sd-cur">Keep going, and you'll eventually reach a world without life.</span>&nbsp;
+          <span class="sd-sent">How did we get from that to the incredible diversity of life?</span>&nbsp;
+          <span class="sd-sent">The answer lies in evolution.</span>
+        </div>
+        <div class="sp-bar">
+          <button class="sp-playbtn act">⏸</button>
+          <div class="sp-div"></div>
+          <button class="sp-nav">‹</button>
+          <div class="sp-dots">
+            <button class="sp-dot">1</button>
+            <button class="sp-dot on">2</button>
+            <button class="sp-dot cur">3</button>
+            <button class="sp-dot">4</button>
+            <button class="sp-dot">5</button>
+            <button class="sp-dot">6</button>
+            <button class="sp-dot">7</button>
+          </div>
+          <button class="sp-nav">›</button>
+          <span class="sp-lbl">3 / 7</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+          <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t3)">142 단어</span>
+          <button class="btn btn-primary btn-sm">✨ 단어장 만들기</button>
+        </div>
+      </div>
+      <div class="spec-note">
+        <span style="background:var(--active-light);padding:1px 7px;border-radius:3px;font-size:11px;font-weight:600">on = 재생 중</span>
+        <span style="background:var(--p-light);padding:1px 7px;border-radius:3px;font-size:11px;font-weight:600;margin-left:5px">cur = 현재</span>
+        &nbsp;· hover: bg3
+      </div>
+    </div>
+  </div>
+
+  <!-- Badge + ButtonGroup -->
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">BADGE — 5 VARIANTS</span></div>
+      <div class="specimen-body">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <span class="badge g">브라우저 TTS</span>
+          <span class="badge b">AI 분석</span>
+          <span class="badge gray">비활성</span>
+          <span class="badge a">학습 중</span>
+          <span class="badge e">오답</span>
+        </div>
+        <div class="spec-note">font-body / 11px / 600 / rounded-full · 각 semantic 색상 매핑</div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">BUTTON GROUP</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:10px">
+          <div class="btngrp">
+            <span class="btngrp-lbl">🔤 단어</span>
+            <button class="btngrp-item" disabled>선택</button>
+            <button class="btngrp-item">전체</button>
+          </div>
+          <div class="btngrp">
+            <span class="btngrp-lbl">📝 예문</span>
+            <button class="btngrp-item" disabled>선택</button>
+            <button class="btngrp-item">전체</button>
+          </div>
+          <div class="spec-note">border-right 구분선 · disabled 첫 버튼 · font-body/11px/600</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar + TabBar -->
+  <div class="spec-label" style="margin-bottom:8px">VM-TOOLBAR (sticky / backdrop-blur)</div>
+  <div class="vm-toolbar" style="margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:8px;flex:1">
+      <span style="font-size:18px">📖</span>
+      <span class="vm-toolbar-ttl">LexiVault</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t3)">20개</span>
+      <span class="badge g">브라우저 TTS</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <select style="font-size:11px;padding:5px 8px;border:1.5px solid var(--bd);border-radius:var(--r-md);background:var(--bg);color:var(--t1)">
+        <option>1초</option><option>0.5초</option>
+      </select>
+      <div class="btngrp"><span class="btngrp-lbl">🔤 단어</span><button class="btngrp-item" disabled>선택</button><button class="btngrp-item">전체</button></div>
+      <div class="btngrp"><span class="btngrp-lbl">📝 예문</span><button class="btngrp-item" disabled>선택</button><button class="btngrp-item">전체</button></div>
+    </div>
+  </div>
+
+  <div class="spec-label" style="margin-bottom:8px">VM-TAB BAR (콘텐츠 전환 · bottom-border slide)</div>
+  <div style="border:1px solid var(--bd);border-radius:var(--r-lg) var(--r-lg) 0 0;overflow:hidden;margin-bottom:0">
+    <div class="vm-tabbar">
+      <button class="vm-tab active" onclick="vmT(this)">📖 단어장</button>
+      <button class="vm-tab" onclick="vmT(this)">🃏 플래시카드</button>
+      <button class="vm-tab" onclick="vmT(this)">⚡ SpellForge</button>
+      <button class="vm-tab" onclick="vmT(this)">💥 WordBlitz</button>
+    </div>
+  </div>
+
+  <!-- Word List -->
+  <div style="border:1px solid var(--bd);border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);overflow:hidden;margin-bottom:12px">
+    <div class="wl-hdr">
+      <div style="padding-left:12px"><input type="checkbox" style="cursor:pointer"></div>
+      <div>#</div><div></div><div>단어</div><div>뜻 / 예문</div>
+    </div>
+    <div class="wl-row active">
+      <div class="wl-num"><input type="checkbox" checked style="cursor:pointer"></div>
+      <div class="wl-num">1</div>
+      <div class="wl-spk"><button class="spk-btn">▶</button></div>
+      <div class="wl-word"><span class="word-text">evolution</span><span class="word-pos">n.</span></div>
+      <div class="wl-meaning">
+        <div class="meaning-text">진화, 발전</div>
+        <div class="ex-box active"><button class="spk-btn sm">▶</button><div class="ex-text">Natural <span class="hl">evolution</span> determines which traits survive in species.</div></div>
+      </div>
+    </div>
+    <div class="wl-row">
+      <div class="wl-num"><input type="checkbox" style="cursor:pointer"></div>
+      <div class="wl-num">2</div>
+      <div class="wl-spk"><button class="spk-btn">▶</button></div>
+      <div class="wl-word"><span class="word-text">organism</span><span class="word-pos">n.</span></div>
+      <div class="wl-meaning">
+        <div class="meaning-text">유기체, 생물</div>
+        <div class="ex-box"><button class="spk-btn sm">▶</button><div class="ex-text">Each <span class="hl">organism</span> must adapt to its environment or perish.</div></div>
+      </div>
+    </div>
+    <div class="wl-row" style="background:#f8faff">
+      <div class="wl-num"><input type="checkbox" style="cursor:pointer"></div>
+      <div class="wl-num">3</div>
+      <div class="wl-spk"><button class="spk-btn">▶</button></div>
+      <div class="wl-word"><span class="word-text">fossil</span><span class="word-pos">n.</span></div>
+      <div class="wl-meaning">
+        <div class="meaning-text">화석</div>
+        <div class="ex-box"><button class="spk-btn sm">▶</button><div class="ex-text">Scientists investigate <span class="hl">fossils</span> to understand prehistoric life.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="spec-note" style="margin-bottom:24px">헤더: Plus Jakarta Sans 10.5px/700/UPPERCASE · 단어: 15px/700 · 뜻: DM Sans 13px/500 · 예문: 12px · 활성행: p-light</div>
+
+  <!-- SpeakButton + ExampleBox + LoadingOverlay -->
+  <div class="grid-3" style="gap:20px;margin-bottom:20px">
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">SPEAK BUTTON</span></div>
+      <div class="specimen-body">
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div class="spec-col" style="align-items:center;gap:6px">
+            <button class="spk-btn">▶</button>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">28px</div>
+          </div>
+          <div class="spec-col" style="align-items:center;gap:6px">
+            <button class="spk-btn sm">▶</button>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">22px</div>
+          </div>
+          <div class="spec-col" style="align-items:center;gap:6px">
+            <button class="spk-btn" style="background:var(--p);color:#fff;border-color:var(--p)">▶</button>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">재생 중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">EXAMPLE BOX</span></div>
+      <div class="specimen-body">
+        <div class="spec-col" style="gap:10px">
+          <div class="ex-box"><button class="spk-btn sm">▶</button><div class="ex-text">Scientists investigate <span class="hl">fossils</span> to understand prehistoric life.</div></div>
+          <div class="ex-box active"><button class="spk-btn sm">▶</button><div class="ex-text">Each <span class="hl">organism</span> must adapt to its environment. (재생 중)</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen">
+      <div class="specimen-header"><span class="specimen-title">LOADING OVERLAY</span></div>
+      <div class="specimen-body-sm">
+        <div class="loading-stage">
+          <div class="loading-box">
+            <div class="spinner"></div>
+            <p style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--t1)">AI 분석 중...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     12 SCRIPT QUIZ ✦ NEW
+══════════════════════════════════════════════════════ -->
+<style>
+/* ScriptQuiz 전용 스타일 */
+.sq-start-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:420px;padding:40px 24px;background:var(--bg);border-radius:var(--r-xl);border:4px solid var(--p)}
+.sq-logo{position:relative;margin-bottom:28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(56px,8vw,72px);font-weight:900;line-height:1;background:linear-gradient(180deg,#5BC8F5 0%,#29A8E0 50%,#1A7AB8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 4px 0 rgba(25,100,160,.28));letter-spacing:-.01em}
+.sq-logo-badge{position:absolute;top:-4px;right:-48px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.sq-logo-q{font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:900;color:var(--t3);-webkit-text-fill-color:var(--t3);background:none;filter:none;line-height:1}
+.sq-title-wrap{text-align:center;margin-bottom:28px}
+.sq-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.sq-chapter{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.sq-section-lbl{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t3)}
+.sq-start-btn{padding:14px 52px;font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:#fff;background:var(--p);border:none;cursor:pointer;border-radius:var(--r-full);box-shadow:0 4px 0 var(--p-dark),0 6px 20px rgba(59,130,246,.35);transition:all .15s}
+.sq-start-btn:hover{background:var(--p-hover);transform:translateY(-2px)}
+.sq-start-btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--p-dark)}
+.sq-meta-row{display:flex;align-items:center;gap:10px;margin-top:16px}
+
+/* HUD */
+.sq-hud{display:flex;align-items:center;justify-content:flex-end;gap:20px;padding:11px 18px;background:var(--p);border-radius:var(--r-lg) var(--r-lg) 0 0}
+.sq-hud-left{flex:1;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,.9)}
+.sq-hud-item{display:flex;align-items:center;gap:6px;color:#fff}
+.sq-hud-ico{font-size:16px}
+.sq-hud-lbl{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;opacity:.85}
+.sq-hud-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;min-width:58px;text-align:right}
+
+/* Question Box */
+.sq-q-box{margin:14px 0;padding:16px 18px;background:var(--bg2);border-radius:var(--r-lg);border:1px solid var(--bd)}
+.sq-q-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px}
+.sq-q-text{font-family:'Lora',serif;font-size:17px;font-weight:600;color:var(--t1);line-height:1.6}
+
+/* Options */
+.sq-options{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.sq-option{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:var(--r-lg);border:2px solid var(--bd);background:var(--bg);cursor:pointer;transition:all .15s;text-align:left;width:100%}
+.sq-option:hover{border-color:var(--p);background:var(--p-light)}
+.sq-option.sel{border-color:var(--p);background:var(--p-light)}
+.sq-option.ok{border-color:var(--success);background:var(--success-light)}
+.sq-option.no{border-color:var(--error);background:var(--error-light)}
+.sq-option.dim{opacity:.38;pointer-events:none}
+.sq-chk{width:22px;height:22px;flex-shrink:0;border-radius:4px;border:2px solid var(--bd);background:var(--bg);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sq-option.sel .sq-chk{background:var(--p);border-color:var(--p)}
+.sq-option.ok .sq-chk{background:var(--success);border-color:var(--success)}
+.sq-option.no .sq-chk{background:var(--error);border-color:var(--error)}
+.sq-lbl-badge{width:22px;height:22px;flex-shrink:0;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700}
+.sq-opt-text{flex:1;font-family:'Lora',serif;font-size:14.5px;font-weight:400;color:var(--t1);line-height:1.5}
+.sq-next-btn{width:100%;padding:13px;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;border-radius:var(--r-full);border:2px solid var(--bd);background:var(--bg);color:var(--t3);cursor:not-allowed;transition:all .15s}
+.sq-next-btn.active{border-color:var(--p);color:var(--p);cursor:pointer}
+.sq-next-btn.active:hover{background:var(--p);color:#fff}
+
+/* O/X Feedback Overlay */
+.sq-question-wrap{position:relative}
+.sq-feedback-layer{position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;pointer-events:none;border-radius:var(--r-lg)}
+.sq-fb-box{width:128px;height:128px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:var(--r-2xl);box-shadow:var(--sh-xl);display:flex;align-items:center;justify-content:center;animation:sqPop .3s cubic-bezier(.34,1.56,.64,1)}
+[data-theme="dark"] .sq-fb-box{background:rgba(14,22,40,.92)}
+.sq-fb-o{width:80px;height:80px;border-radius:50%;border:9px solid var(--p);opacity:.65}
+.sq-fb-x{font-family:'Plus Jakarta Sans',sans-serif;font-size:72px;font-weight:900;color:var(--error);opacity:.72;line-height:1}
+@keyframes sqPop{from{opacity:0;transform:scale(.45)}to{opacity:1;transform:scale(1)}}
+
+/* Result */
+.sq-result-wrap{display:flex;flex-direction:column;align-items:center;padding:28px 20px;background:var(--bg);border-radius:var(--r-xl);border:1px solid var(--bd)}
+.sq-ring-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;margin-bottom:22px}
+.sq-ring-center{position:absolute;text-align:center}
+.sq-ring-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:40px;font-weight:800;color:var(--p);line-height:1}
+.sq-ring-sub{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);margin-top:3px}
+.sq-stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;margin-bottom:18px}
+.sq-stat{text-align:center;padding:13px 8px;border-radius:var(--r-xl)}
+.sq-stat.g{background:var(--success-light);border:1px solid #A7F3D0}
+.sq-stat.r{background:var(--error-light);border:1px solid #FCA5A5}
+.sq-stat.t{background:var(--bg2);border:1px solid var(--bd)}
+.sq-stat-lbl{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:5px}
+.sq-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:30px;font-weight:800;line-height:1}
+.sq-stat.g .sq-stat-val{color:var(--success)}
+.sq-stat.r .sq-stat-val{color:var(--error)}
+.sq-stat.t .sq-stat-val{color:var(--t1)}
+.sq-wrong-panel{width:100%;border:1px solid var(--bd);border-radius:var(--r-xl);overflow:hidden;margin-bottom:18px}
+.sq-wrong-hdr{padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--bd);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)}
+.sq-wrong-item{padding:14px 16px;border-bottom:1px solid var(--bg3)}
+.sq-wrong-item:last-child{border-bottom:none}
+.sq-wrong-q{font-family:'Lora',serif;font-size:12.5px;color:var(--t2);margin-bottom:6px;line-height:1.5}
+.sq-wrong-my{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--error);margin-bottom:3px}
+.sq-wrong-ans{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--success);margin-bottom:8px}
+.sq-wrong-src{font-family:'Lora',serif;font-size:12px;color:var(--t2);background:var(--active-light);border-left:3px solid var(--active);padding:8px 12px;border-radius:0 var(--r-md) var(--r-md) 0;line-height:1.7}
+[data-theme="dark"] .sq-wrong-src{background:rgba(245,158,11,.1)}
+.sq-result-btns{display:flex;gap:10px;width:100%}
+</style>
+
+<section class="sec" id="scriptquiz">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">12 / 12 ✦ NEW</div>
+      <div class="sec-title">ScriptQuiz</div>
+      <div class="sec-subtitle">원문 기반 독해 퀴즈 · AI 자동 생성 · Little Fox Quiz 스타일 참조 · 3-Screen Flow</div>
+    </div>
+    <span class="sec-tag">CLAUDE.md §ScriptQuiz</span>
+  </div>
+
+  <!-- 3-screen flow overview -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:28px">
+    <!-- Screen 1: Start -->
+    <div>
+      <div class="spec-label" style="margin-bottom:10px">① START SCREEN</div>
+      <div class="sq-start-wrap" style="min-height:340px;padding:28px 20px">
+        <div class="sq-logo">QUIZ
+          <div class="sq-logo-badge">
+            <span style="font-size:24px;line-height:1">📚</span>
+            <span class="sq-logo-q">?</span>
+          </div>
+        </div>
+        <div class="sq-title-wrap" style="margin-bottom:20px">
+          <div class="sq-title">The Silk Road</div>
+          <div class="sq-chapter">Trade and Culture</div>
+          <div class="sq-section-lbl">1. Ancient Routes</div>
+        </div>
+        <button class="sq-start-btn">Start</button>
+        <div class="sq-meta-row">
+          <span class="badge b">📝 5문제</span>
+          <span class="badge gray">⏱ 3분</span>
+        </div>
+      </div>
+      <div class="spec-note" style="margin-top:8px">
+        QUIZ 타이틀: gradient text #5BC8F5→#1A7AB8 · border-4 primary · Start: btn-primary + radius-full + solid shadow
+      </div>
+    </div>
+
+    <!-- Screen 2: Question -->
+    <div>
+      <div class="spec-label" style="margin-bottom:10px">② QUESTION SCREEN</div>
+      <div class="specimen" style="padding:0;overflow:hidden">
+        <!-- HUD -->
+        <div class="sq-hud">
+          <div class="sq-hud-left">Quiz</div>
+          <div class="sq-hud-item">
+            <span class="sq-hud-ico">⏱</span>
+            <span class="sq-hud-lbl">Time</span>
+            <span class="sq-hud-val">02:48</span>
+          </div>
+          <div class="sq-hud-item">
+            <span class="sq-hud-ico">🎯</span>
+            <span class="sq-hud-lbl">Score</span>
+            <span class="sq-hud-val">0/5</span>
+          </div>
+        </div>
+        <div style="padding:0 14px 14px">
+          <!-- 문제 박스 -->
+          <div class="sq-q-box">
+            <div class="sq-q-num">1. Question</div>
+            <div class="sq-q-text">What is NOT something the Silk Road was known for?</div>
+          </div>
+          <!-- 선택지 -->
+          <div class="sq-options">
+            <button class="sq-option">
+              <div class="sq-chk"></div>
+              <div class="sq-lbl-badge">a</div>
+              <div class="sq-opt-text">Trading spices and silk.</div>
+            </button>
+            <button class="sq-option sel">
+              <div class="sq-chk"><div style="width:10px;height:10px;border-radius:50%;background:#fff"></div></div>
+              <div class="sq-lbl-badge">b</div>
+              <div class="sq-opt-text">Connecting East and West cultures.</div>
+            </button>
+            <button class="sq-option">
+              <div class="sq-chk"></div>
+              <div class="sq-lbl-badge">c</div>
+              <div class="sq-opt-text">Spreading military conquests only.</div>
+            </button>
+          </div>
+          <!-- Next 버튼 -->
+          <button class="sq-next-btn active">Next</button>
+        </div>
+      </div>
+      <div class="spec-note" style="margin-top:8px">HUD: bg-primary · 문제: Lora 17px/600 · 선택지: 체크박스+레이블 뱃지 · Next: active 시 primary</div>
+    </div>
+
+    <!-- Screen 3: Result -->
+    <div>
+      <div class="spec-label" style="margin-bottom:10px">③ RESULT SCREEN</div>
+      <div class="sq-result-wrap">
+        <!-- 점수 원형 -->
+        <div class="sq-ring-wrap">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="var(--bg3)" stroke-width="10"/>
+            <circle cx="70" cy="70" r="58" fill="none" stroke="var(--p)" stroke-width="10"
+              stroke-dasharray="364.4" stroke-dashoffset="72.9"
+              stroke-linecap="round" transform="rotate(-90 70 70)"
+              style="transition:stroke-dashoffset 1s"/>
+          </svg>
+          <div class="sq-ring-center">
+            <div class="sq-ring-val">80%</div>
+            <div class="sq-ring-sub">정확도</div>
+          </div>
+        </div>
+        <!-- 통계 -->
+        <div class="sq-stats-grid">
+          <div class="sq-stat g"><div class="sq-stat-lbl">✓ 정답</div><div class="sq-stat-val">4</div></div>
+          <div class="sq-stat r"><div class="sq-stat-lbl">✕ 오답</div><div class="sq-stat-val">1</div></div>
+          <div class="sq-stat t"><div class="sq-stat-lbl">⏱ 시간</div><div class="sq-stat-val" style="font-size:22px">1:32</div></div>
+        </div>
+        <!-- 오답 복습 -->
+        <div class="sq-wrong-panel">
+          <div class="sq-wrong-hdr">📌 오답 복습</div>
+          <div class="sq-wrong-item">
+            <div class="sq-wrong-q">Q. What was NOT a purpose of the Silk Road?</div>
+            <div class="sq-wrong-my">✕ 내 답: Spreading military conquests only.</div>
+            <div class="sq-wrong-ans">✓ 정답: Connecting East and West cultures.</div>
+            <div class="sq-wrong-src">The Silk Road served as a major conduit for <strong>cultural exchange</strong>, allowing ideas, religions, and goods to flow between East and West.</div>
+          </div>
+        </div>
+        <!-- 버튼 -->
+        <div class="sq-result-btns">
+          <button class="btn btn-secondary btn-sm" style="flex:1">🔄 다시 풀기</button>
+          <button class="btn btn-primary btn-sm" style="flex:1">📖 단어장 보기</button>
+        </div>
+      </div>
+      <div class="spec-note" style="margin-top:8px">점수 원형: SVG stroke-dashoffset · 오답 복습: 원문 근거문장 active-light + border-l-3 active</div>
+    </div>
+  </div>
+
+  <!-- O/X 피드백 오버레이 -->
+  <div class="spec-label" style="margin-bottom:12px">O / X 피드백 오버레이 — 선택 직후 0.8s 표시</div>
+  <div class="grid-2" style="gap:20px;margin-bottom:20px">
+    <!-- O 피드백 -->
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">정답 — O (파란 원)</span></div>
+      <div class="specimen-body" style="position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;background:var(--bg2)">
+        <!-- 배경에 흐린 선택지들 -->
+        <div style="position:absolute;inset:0;padding:16px;opacity:.25">
+          <div class="sq-option ok"><div class="sq-chk"></div><div class="sq-lbl-badge">b</div><div class="sq-opt-text">Connecting East and West cultures.</div></div>
+        </div>
+        <!-- O 오버레이 -->
+        <div class="sq-fb-box">
+          <div class="sq-fb-o"></div>
+        </div>
+        <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);white-space:nowrap">pointer-events:none · z-index:20 · 0.8s 후 소멸</div>
+      </div>
+    </div>
+    <!-- X 피드백 -->
+    <div class="specimen" style="padding:0;overflow:hidden">
+      <div class="specimen-header"><span class="specimen-title">오답 — X (빨간 ✕)</span></div>
+      <div class="specimen-body" style="position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;background:var(--bg2)">
+        <div style="position:absolute;inset:0;padding:16px;opacity:.25">
+          <div class="sq-option no"><div class="sq-chk"></div><div class="sq-lbl-badge">c</div><div class="sq-opt-text">Spreading military conquests only.</div></div>
+        </div>
+        <div class="sq-fb-box">
+          <div class="sq-fb-x">✕</div>
+        </div>
+        <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);white-space:nowrap">white/92 + backdrop-blur + shadow-xl · spring 애니메이션</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 선택지 5가지 상태 -->
+  <div class="specimen">
+    <div class="specimen-header"><span class="specimen-title">선택지 (sq-option) — 5가지 상태</span></div>
+    <div class="specimen-body">
+      <div class="sq-options" style="max-width:480px">
+        <!-- idle -->
+        <div>
+          <div class="spec-label">idle (미선택)</div>
+          <button class="sq-option">
+            <div class="sq-chk"></div>
+            <div class="sq-lbl-badge">a</div>
+            <div class="sq-opt-text">Trading spices and silk.</div>
+          </button>
+        </div>
+        <!-- selected -->
+        <div>
+          <div class="spec-label">selected (선택됨)</div>
+          <button class="sq-option sel">
+            <div class="sq-chk"><div style="width:10px;height:10px;border-radius:50%;background:#fff"></div></div>
+            <div class="sq-lbl-badge">b</div>
+            <div class="sq-opt-text">Connecting East and West cultures.</div>
+          </button>
+        </div>
+        <!-- correct -->
+        <div>
+          <div class="spec-label">correct (정답)</div>
+          <button class="sq-option ok">
+            <div class="sq-chk">
+              <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+                <path d="M1 4.5L4.5 8L11 1" stroke="#FFE234" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="sq-lbl-badge" style="background:var(--success)">b</div>
+            <div class="sq-opt-text">Connecting East and West cultures.</div>
+          </button>
+        </div>
+        <!-- wrong -->
+        <div>
+          <div class="spec-label">wrong (오답)</div>
+          <button class="sq-option no">
+            <div class="sq-chk"><span style="color:#fff;font-size:12px;font-weight:800">✕</span></div>
+            <div class="sq-lbl-badge" style="background:var(--error)">c</div>
+            <div class="sq-opt-text">Spreading military conquests only.</div>
+          </button>
+        </div>
+        <!-- dim -->
+        <div>
+          <div class="spec-label">dim (비정답 비선택 — 오답 판정 후)</div>
+          <button class="sq-option dim">
+            <div class="sq-chk"></div>
+            <div class="sq-lbl-badge" style="background:var(--t3)">a</div>
+            <div class="sq-opt-text">Trading spices and silk.</div>
+          </button>
+        </div>
+      </div>
+      <div class="spec-note" style="margin-top:12px">
+        체크박스 22px · 레이블 뱃지 22px rounded-full primary · 선택지 텍스트 Lora 14.5px/400 · 정답 체크: SVG #FFE234 (노란 체크 — Little Fox 스타일)
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+function toggleTheme(){
+  var d=document.documentElement;
+  var dark=d.getAttribute('data-theme')==='dark';
+  d.setAttribute('data-theme',dark?'light':'dark');
+  document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';
+}
+function navTo(id,el){
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.pk-nav-item').forEach(function(b){b.classList.remove('active')});
+  el.classList.add('active');
+}
+function setAppTab(el){
+  el.closest('.app-tabbar').querySelectorAll('.app-tab').forEach(function(t){t.classList.remove('active')});
+  el.classList.add('active');
+}
+function vmT(el){
+  el.closest('.vm-tabbar').querySelectorAll('.vm-tab').forEach(function(t){t.classList.remove('active')});
+  el.classList.add('active');
+}
+function replayProgress(){
+  var targets=[['p1',35],['p2',85],['p3',32],['p4',15]];
+  targets.forEach(function(t){
+    var el=document.getElementById(t[0]);if(!el)return;
+    el.style.transition='none';el.style.width='0%';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        el.style.transition='width .9s cubic-bezier(0,0,.2,1)';
+        el.style.width=t[1]+'%';
+      });
+    });
+  });
+}
+// WordBlitz 정글 테마 (독립 파일: WordBlitz_Jungle.html)
+// Intersection observer highlight nav
+var secs=document.querySelectorAll('.sec[id]');
+var navBtns={};
+document.querySelectorAll('.pk-nav-item').forEach(function(b){
+  var txt=b.textContent.trim().toLowerCase().replace(/[^a-z]/g,'').slice(0,5);
+  navBtns[b.textContent.trim()]=b;
+});
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting&&e.intersectionRatio>.3){
+      var id=e.target.id;
+      document.querySelectorAll('.pk-nav-item').forEach(function(b){b.classList.remove('active')});
+      document.querySelectorAll('.pk-nav-item').forEach(function(b){
+        if(b.onclick&&b.onclick.toString().indexOf("'"+id+"'")>-1)b.classList.add('active');
+      });
+    }
+  });
+},{threshold:.3});
+secs.forEach(function(s){io.observe(s)});
+</script>
+</body>
+</html>

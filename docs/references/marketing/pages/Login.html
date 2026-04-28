@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ë¡ê·¸ì¸ — Vocaflow</title>
+<meta name="description" content="Vocaflowì ë¡ê·¸ì¸íê³  ìì´ íìµì ì´ì´ ëê°ì¸ì.">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/auth.css">
+<style>
+/* ââ Login ì ì© ì¤íì¼ ââ */
+
+/* ì¤ëì íìµ ì¹´ë */
+.today-card {
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-2xl); padding: var(--s5);
+  margin-bottom: var(--s4);
+}
+.today-card-title {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.32); margin-bottom: var(--s4);
+}
+.today-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3);
+  margin-bottom: var(--s4);
+}
+.today-stat { text-align: center; }
+.today-stat-val {
+  font-family: var(--font-display); font-size: 26px; font-weight: 800;
+  color: #fff; line-height: 1; margin-bottom: 3px; letter-spacing: -.03em;
+}
+.today-stat-val.c-blue   { color: #60A5FA; }
+.today-stat-val.c-amber  { color: #FCD34D; }
+.today-stat-val.c-green  { color: #4ADE80; }
+.today-stat-lbl {
+  font-family: var(--font-body); font-size: 10px;
+  color: rgba(255,255,255,.32);
+}
+
+/* ë¯¸ë íí¸ë§µ */
+.mini-hm {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+}
+.mhm-label-row {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+  margin-bottom: 4px;
+}
+.mhm-lbl {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 700;
+  color: rgba(255,255,255,.22); text-align: center;
+  text-transform: uppercase;
+}
+.mhm-cell {
+  aspect-ratio: 1; border-radius: 3px;
+  background: rgba(255,255,255,.05);
+  transition: transform var(--dur-fast);
+}
+.mhm-cell:hover { transform: scale(1.3); }
+.mhm-cell.lv1 { background: rgba(59,130,246,.2); }
+.mhm-cell.lv2 { background: rgba(59,130,246,.45); }
+.mhm-cell.lv3 { background: rgba(59,130,246,.72); }
+.mhm-cell.lv4 { background: #60A5FA; }
+.mhm-cell.today {
+  box-shadow: 0 0 0 1.5px #60A5FA, 0 0 0 3px rgba(96,165,250,.2);
+}
+
+/* ìì ë²í¼ Apple ë³í */
+.social-btn.apple-btn {
+  background: var(--t1); color: #fff; border-color: var(--t1);
+}
+[data-theme="dark"] .social-btn.apple-btn {
+  background: #E6EDF3; color: #0D1117; border-color: #E6EDF3;
+}
+.social-btn.apple-btn:hover {
+  background: var(--pd); border-color: var(--pd); color: #fff;
+}
+
+/* ì°ì íìµ ë°°ë */
+.streak-banner {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: 11px 14px; border-radius: var(--r-xl);
+  background: linear-gradient(135deg, rgba(236,72,153,.12), rgba(139,92,246,.12));
+  border: 1px solid rgba(236,72,153,.2);
+  margin-bottom: var(--s3);
+  animation: fadeUp .4s var(--ease-out) .6s both;
+}
+.streak-flame { font-size: 22px; animation: pulse 2s ease-in-out infinite; }
+.streak-info { flex: 1; }
+.streak-lbl { font-family: var(--font-body); font-size: 11px; color: var(--t3); margin-bottom: 1px; }
+.streak-num {
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  color: var(--t1); letter-spacing: -.025em;
+}
+
+/* mini toast */
+.mini-toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--t1); color: #fff;
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  padding: 10px 18px; border-radius: var(--r-xl);
+  box-shadow: var(--sh-xl); z-index: 9999;
+  transition: transform var(--dur-slow) var(--ease-spring);
+  white-space: nowrap;
+}
+.mini-toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+
+  <!-- ══════ LEFT PANEL ══════ -->
+  <div class="auth-left">
+    <div class="al-brand">
+      <div class="al-mark" aria-hidden="true"><span class="al-mark-l">L</span></div>
+      <span class="al-brand-name">Vocaflow</span>
+    </div>
+
+    <div class="al-center">
+      <h2 class="al-headline">
+        ë¤ì ì¤ì¨êµ°ì,<br>
+        <span class="al-headline-accent">íìí©ëë¤ ð</span>
+      </h2>
+      <p class="al-sub">ì¤ëë ê¾¸ì¤í íìµì ì´ì´ëê°ì¸ì. ì°ì íìµì ì´í ê¸°ìµì ê°ì¥ ê°ë ¥í ë°©ë²ìëë¤.</p>
+
+      <!-- íìµ íí© ì¹´ë -->
+      <div class="today-card">
+        <div class="today-card-title">ë´ íìµ íí© · ìµê·¼ 4ì£¼</div>
+        <div class="today-stats">
+          <div class="today-stat">
+            <div class="today-stat-val c-blue" id="statWords">342</div>
+            <div class="today-stat-lbl">ëì  ë¨ì´</div>
+          </div>
+          <div class="today-stat">
+            <div class="today-stat-val c-amber" id="statStreak">7</div>
+            <div class="today-stat-lbl">ì°ì íìµì¼</div>
+          </div>
+          <div class="today-stat">
+            <div class="today-stat-val c-green" id="statAcc">88%</div>
+            <div class="today-stat-lbl">ì ì²´ ì íë</div>
+          </div>
+        </div>
+        <!-- íí¸ë§µ -->
+        <div class="mhm-label-row" aria-hidden="true">
+          <span class="mhm-lbl">ì¼</span><span class="mhm-lbl">ì</span>
+          <span class="mhm-lbl">í</span><span class="mhm-lbl">ì</span>
+          <span class="mhm-lbl">ëª©</span><span class="mhm-lbl">ê¸</span>
+          <span class="mhm-lbl">í </span>
+        </div>
+        <div class="mini-hm" id="heatmap" role="img" aria-label="4ì£¼ íìµ íí¸ë§µ"></div>
+      </div>
+    </div>
+
+    <div class="al-bottom">
+      <blockquote class="al-quote">
+        "The limits of my language mean the limits of my world."
+      </blockquote>
+      <cite class="al-quote-author">â Ludwig Wittgenstein</cite>
+    </div>
+  </div>
+
+  <!-- ══════ RIGHT PANEL ══════ -->
+  <div class="auth-right">
+    <div class="ar-top">
+      <button class="ar-btn" id="themeBtn" onclick="lvToggleTheme()" aria-label="íë§ ì í">ð</button>
+      <a href="../pages/Landing.html" class="ar-link">â íì¼ë¡</a>
+    </div>
+
+    <div class="auth-card">
+      <div class="ac-badge">â¦ íìµ ê³ìíê¸°</div>
+      <h1 class="ac-title">ë¡ê·¸ì¸</h1>
+      <p class="ac-sub">
+        ê³ì ì´ ìì¼ì ê°ì? <a href="Signup.html">ë¬´ë£ë¡ ê°ìíê¸° â</a>
+      </p>
+
+      <!-- ì°ì íìµ ë°°ë (ì¡°ê±´ë¶ íì) -->
+      <div class="streak-banner" id="streakBanner">
+        <span class="streak-flame" aria-hidden="true">ð¥</span>
+        <div class="streak-info">
+          <div class="streak-lbl">ë¡ê·¸ì¸íë©´ ì°ì íìµì´ ì ì§ë©ëë¤</div>
+          <div class="streak-num">íì¬ 7ì¼ ì°ì íìµ ì¤ ð¯</div>
+        </div>
+      </div>
+
+      <!-- ìì -->
+      <button class="social-btn" id="googleBtn" onclick="socialLogin('Google')"
+        aria-label="Google ê³ì ì¼ë¡ ë¡ê·¸ì¸">
+        <span class="social-btn-ico" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.703-1.569 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18L12.048 13.56c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+            <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A9.007 9.007 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+        </span>
+        Googleë¡ ë¡ê·¸ì¸
+      </button>
+
+      <button class="social-btn apple-btn" id="appleBtn" onclick="socialLogin('Apple')"
+        aria-label="Apple ê³ì ì¼ë¡ ë¡ê·¸ì¸">
+        <span class="social-btn-ico" aria-hidden="true" style="font-size:16px"></span>
+        Appleë¡ ë¡ê·¸ì¸
+      </button>
+
+      <div class="auth-divider" role="separator">
+        <div class="auth-divider-line"></div>
+        <span class="auth-divider-txt">ëë ì´ë©ì¼ë¡ ë¡ê·¸ì¸</span>
+        <div class="auth-divider-line"></div>
+      </div>
+
+      <!-- ìë¬ ë°°ë -->
+      <div class="error-banner" id="errBanner" role="alert">
+        <span aria-hidden="true">â ï¸</span>
+        <span id="errMsg">ì´ë©ì¼ ëë ë¹ë°ë²í¸ê° ì¬ë°ë¥´ì§ ììµëë¤.</span>
+      </div>
+
+      <!-- í¼ -->
+      <form class="form-fields" id="loginForm" onsubmit="doLogin(event)" novalidate>
+
+        <div class="field">
+          <label class="f-label" for="emailIn">ì´ë©ì¼ ì£¼ì</label>
+          <div class="f-wrap">
+            <input class="f-input" type="email" id="emailIn" name="email"
+              placeholder="hello@example.com" autocomplete="email"
+              required oninput="clearError()">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="f-label" for="pwIn">
+            ë¹ë°ë²í¸
+            <a href="ResetPW.html" class="f-label-link">ë¹ë°ë²í¸ ì°¾ê¸°</a>
+          </label>
+          <div class="f-wrap">
+            <input class="f-input has-right" type="password" id="pwIn" name="password"
+              placeholder="ë¹ë°ë²í¸ ìë ¥" autocomplete="current-password"
+              required oninput="clearError()">
+            <button type="button" class="f-right-btn" id="eyeBtn"
+              onclick="togglePw()" aria-label="ë¹ë°ë²í¸ íì">ð</button>
+          </div>
+        </div>
+
+        <div class="remember-row" onclick="toggleRemember()" role="checkbox"
+          aria-checked="false" id="rememberRow" tabindex="0">
+          <div class="r-check" id="rCheck" aria-hidden="true"></div>
+          <span class="r-lbl">ë¡ê·¸ì¸ ìí ì ì§</span>
+        </div>
+
+        <button type="submit" class="submit-btn" id="loginBtn">
+          <span class="s-ico" id="lIco" aria-hidden="true">ð</span>
+          <span class="s-txt" id="lTxt">ë¡ê·¸ì¸</span>
+        </button>
+
+      </form>
+
+      <p class="auth-footer-txt">
+        ì²ì ë°©ë¬¸ì´ì ê°ì? <a href="Signup.html" class="auth-footer-link">ë¬´ë£ ê³ì  ë§ë¤ê¸° â</a>
+      </p>
+
+      <!-- ë°ëª¨ íí¸ -->
+      <div style="margin-top:var(--s4);padding:10px 13px;border-radius:var(--r-lg);
+                  background:var(--al);border:1px solid rgba(245,158,11,.2)">
+        <p style="font-family:var(--font-mono);font-size:9.5px;font-weight:700;
+                   letter-spacing:.06em;text-transform:uppercase;color:var(--active);margin-bottom:3px">
+          ë°ëª¨ ê³ì
+        </p>
+        <p style="font-family:var(--font-body);font-size:12px;color:var(--t2)">
+          ID: <code style="font-family:var(--font-mono);background:var(--bg2);padding:1px 5px;border-radius:3px">test@test.com</code>
+          &nbsp;PW: <code style="font-family:var(--font-mono);background:var(--bg2);padding:1px 5px;border-radius:3px">test1234</code>
+        </p>
+      </div>
+    </div><!-- /auth-card -->
+  </div><!-- /auth-right -->
+
+</div><!-- /auth-wrap -->
+
+<div class="mini-toast" id="miniToast" role="status" aria-live="polite"></div>
+
+<script>
+/* ââ íí¸ë§µ ë ë ââ */
+const HM_DATA = [0,1,2,3,2,4,1, 2,3,4,2,3,2,0, 1,2,3,4,3,2,1, 2,3,2,4,3,1,0];
+const TODAY_IDX = 24;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('heatmap');
+  HM_DATA.forEach((lv, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'mhm-cell' + (lv ? ' lv' + lv : '') + (i === TODAY_IDX ? ' today' : '');
+    cell.setAttribute('title', lv === 0 ? 'íìµ ìì' : [1,4,8,14][lv-1] + 'ê° íìµ');
+    grid.appendChild(cell);
+  });
+
+  /* ì ì¥ë íë§ */
+  try {
+    const saved = localStorage.getItem('lv-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeBtn').textContent = saved === 'dark' ? 'âï¸' : 'ð';
+    }
+  } catch(_) {}
+});
+
+/* ââ íë§ ââ */
+function lvToggleTheme() {
+  const h = document.documentElement;
+  const dark = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? 'ð' : 'âï¸';
+  try { localStorage.setItem('lv-theme', dark ? 'light' : 'dark'); } catch(_) {}
+}
+
+/* ââ ìì ë¡ê·¸ì¸ ââ */
+function socialLogin(provider) {
+  const id  = provider === 'Google' ? 'googleBtn' : 'appleBtn';
+  const btn = document.getElementById(id);
+  btn.innerHTML = `<span class="s-ico spin" aria-hidden="true">â³</span> ì°ê²° ì¤...`;
+  btn.disabled  = true;
+  setTimeout(() => { window.location.href = 'TextViewer_v3.html'; }, 1400);
+}
+
+/* ââ ë¹ë°ë²í¸ í ê¸ ââ */
+function togglePw() {
+  const inp = document.getElementById('pwIn');
+  const btn = document.getElementById('eyeBtn');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.textContent = inp.type === 'password' ? 'ð' : 'ð';
+  btn.setAttribute('aria-label', inp.type === 'password' ? 'ë¹ë°ë²í¸ íì' : 'ë¹ë°ë²í¸ ì¨ê¸°ê¸°');
+}
+
+/* ââ ë¡ê·¸ì¸ ì ì§ ââ */
+let remember = false;
+function toggleRemember() {
+  remember = !remember;
+  const row   = document.getElementById('rememberRow');
+  const check = document.getElementById('rCheck');
+  check.classList.toggle('on', remember);
+  check.textContent = remember ? 'â' : '';
+  row.setAttribute('aria-checked', remember);
+}
+document.getElementById('rememberRow').addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleRemember(); }
+});
+
+/* ââ ìë¬ ì´ê¸°í ââ */
+function clearError() {
+  document.getElementById('errBanner').classList.remove('show');
+  document.getElementById('emailIn').classList.remove('is-error');
+  document.getElementById('pwIn').classList.remove('is-error');
+}
+
+/* ââ ë¡ê·¸ì¸ ââ */
+function doLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailIn');
+  const pw    = document.getElementById('pwIn');
+  const btn   = document.getElementById('loginBtn');
+
+  /* í´ë¼ì´ì¸í¸ ê²ì¦ */
+  let valid = true;
+  if (!email.value) { email.classList.add('is-error'); valid = false; }
+  if (!pw.value)    { pw.classList.add('is-error');    valid = false; }
+  if (!valid) { email.focus(); return; }
+
+  btn.disabled = true;
+  document.getElementById('lIco').className = 's-ico spin';
+  document.getElementById('lTxt').textContent = 'ë¡ê·¸ì¸ ì¤...';
+
+  setTimeout(() => {
+    /* ë°ëª¨: test@test.com / test1234 */
+    if (email.value === 'test@test.com' && pw.value === 'test1234') {
+      showToast('ð íìí©ëë¤! íìµì ì´ì´ëê°ì¸ì.');
+      setTimeout(() => { window.location.href = 'TextViewer_v3.html'; }, 900);
+    } else {
+      /* ìë¬ ë³µêµ¬ */
+      btn.disabled = false;
+      document.getElementById('lIco').className = 's-ico';
+      document.getElementById('lIco').textContent = 'ð';
+      document.getElementById('lTxt').textContent = 'ë¡ê·¸ì¸';
+
+      const banner = document.getElementById('errBanner');
+      banner.classList.add('show');
+      email.classList.add('is-error');
+      pw.classList.add('is-error');
+
+      /* í¬ì»¤ì¤ — ì´ë©ì¼ íë */
+      email.focus();
+      email.select();
+
+      /* pw íë íë¤ê¸° */
+      pw.style.animation = 'shake .35s var(--ease) both';
+      setTimeout(() => { pw.style.animation = ''; }, 400);
+    }
+  }, 1200);
+}
+
+function showToast(msg) {
+  const el = document.getElementById('miniToast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+</script>
+
+<style>
+/* shake ì ëë©ì´ì (Login ì ì©) */
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
+}
+</style>
+</body>
+</html>

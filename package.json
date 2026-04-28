@@ -1,25 +1,32 @@
 {
   "name": "vocaflow",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000V\u0000o\u0000c\u0000a\u0000f\u0000l\u0000o\u0000w\u0000\r\u0000 \u0000",
-  "main": "index.js",
+  "private": true,
+  "description": "Vocaflow — 영어 원문 기반 종합 학습 플랫폼 모노레포",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KangMin098/Vocaflow.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/KangMin098/Vocaflow/issues"
   },
   "homepage": "https://github.com/KangMin098/Vocaflow#readme",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.0.0",
   "devDependencies": {
     "prettier": "^3.8.3",
-    "prettier-plugin-tailwindcss": "^0.7.3"
+    "prettier-plugin-tailwindcss": "^0.7.3",
+    "turbo": "^2.9.6"
   }
 }

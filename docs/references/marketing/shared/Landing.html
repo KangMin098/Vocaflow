@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LexiVault — 영어 원문으로 완성하는 어휘력</title>
+<meta name="description" content="영어 스크립트를 붙여넣으면 AI가 단어를 분석하고 Flashcard·SpellForge·WordBlitz·ScriptQuiz로 학습을 완성합니다.">
+<meta property="og:title" content="LexiVault — 영어 원문으로 완성하는 어휘력">
+<meta property="og:description" content="AI 기반 영어 학습 플랫폼. 원문 하나로 단어장·플래시카드·게임까지 완성.">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/nav.css">
+<link rel="stylesheet" href="../shared/footer.css">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<!-- NAV (nav.js 가 자동 삽입) -->
+<div id="lv-nav"></div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- 상단 배지 -->
+      <div class="hero-badge" role="status">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        AI 기반 영어 학습 플랫폼 — 베타 오픈
+      </div>
+
+      <!-- 타이틀 -->
+      <h1 class="hero-title">
+        영어 원문으로<br>
+        <span class="hero-title-grad">완성하는 어휘력</span>
+      </h1>
+      <p class="hero-sub">
+        스크립트를 붙여넣으면 AI가 핵심 단어를 추출하고<br>
+        Flashcard · SpellForge · WordBlitz · ScriptQuiz로<br>
+        한 번에 완벽하게 학습합니다.
+      </p>
+
+      <!-- CTA -->
+      <div class="hero-cta">
+        <a href="Signup.html" class="cta-main">
+          <span aria-hidden="true">✨</span>
+          무료로 시작하기
+          <span aria-hidden="true" class="cta-arrow">→</span>
+        </a>
+        <a href="#how" class="cta-ghost">사용법 보기</a>
+      </div>
+
+      <!-- 신뢰 지표 -->
+      <ul class="hero-trust" aria-label="주요 특징">
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">✓</span>신용카드 불필요</li>
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">✓</span>무료 플랜 영구 제공</li>
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">✓</span>2분 안에 시작 가능</li>
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">✓</span>언제든 해지 가능</li>
+      </ul>
+
+      <!-- UI 목업 -->
+      <div class="hero-mockup" role="img" aria-label="LexiVault TextViewer 화면 미리보기">
+        <div class="mockup-wrap">
+          <!-- 브라우저 바 -->
+          <div class="mockup-bar" aria-hidden="true">
+            <span class="mockup-dot rd"></span>
+            <span class="mockup-dot yw"></span>
+            <span class="mockup-dot gn"></span>
+            <div class="mockup-url">
+              <span class="mockup-url-lock">🔒</span>
+              <span class="mockup-url-txt">lexivault.app/text</span>
+            </div>
+          </div>
+
+          <div class="mockup-body">
+            <!-- 좌: 입력 패널 -->
+            <div class="mockup-left" aria-hidden="true">
+              <div class="ml-section-label">스크립트 입력</div>
+              <div class="ml-field">Evolution and Natural Selection</div>
+              <div class="ml-textarea">Evolution is one of the most important concepts in biology. It explains how all living <span style="border-bottom:1.5px dotted rgba(148,163,184,.5)">organisms</span> on Earth developed from earlier forms of life...</div>
+              <div class="ml-settings">
+                <div class="ml-row"><span>🔊 TTS 자동 생성</span><div class="ml-toggle on"><div class="ml-thumb"></div></div></div>
+                <div class="ml-row"><span>📊 난이도 분석</span><div class="ml-toggle on"><div class="ml-thumb"></div></div></div>
+                <div class="ml-row"><span>🧠 AI 퀴즈 생성</span><div class="ml-toggle"><div class="ml-thumb" style="left:2px"></div></div></div>
+              </div>
+              <div class="ml-cta">✨ AI 분석 시작</div>
+            </div>
+
+            <!-- 우: 뷰어 -->
+            <div class="mockup-right" aria-hidden="true">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+                <span class="mr-badge">Biology · B2</span>
+                <span class="mr-chip">142 단어</span>
+                <span class="mr-chip">14 문장</span>
+              </div>
+              <div class="mr-title">Evolution and<br>Natural Selection</div>
+
+              <div class="mr-para">
+                <div class="mr-para-hd">
+                  <div class="mr-pnum">1</div>
+                  <span class="mr-plbl">Introduction</span>
+                  <div style="flex:1;height:1px;background:var(--bg3);margin-left:8px"></div>
+                </div>
+                <span class="mr-sent cur">Evolution is one of the most important concepts in biology.</span>
+                <span class="mr-sent"> It explains how all living <span style="border-bottom:1.5px dotted rgba(148,163,184,.5)">organisms</span> on Earth developed from earlier forms of life.</span>
+              </div>
+
+              <div class="mr-modules">
+                <span class="mr-mod">🃏 Flashcard</span>
+                <span class="mr-mod">⚡ SpellForge</span>
+                <span class="mr-mod">🌴 WordBlitz</span>
+                <span class="mr-mod">📝 ScriptQuiz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SP Bar -->
+          <div class="mockup-player" aria-hidden="true">
+            <div class="mp-play">▶</div>
+            <div class="mp-dots">
+              <div class="mp-dot done">1</div>
+              <div class="mp-dot active">2</div>
+              <div class="mp-dot">3</div>
+              <div class="mp-dot">4</div>
+              <div class="mp-dot">5</div>
+              <div class="mp-dot">6</div>
+              <div class="mp-dot">7</div>
+            </div>
+            <div class="mp-info">2 / 14 · 1.0×</div>
+          </div>
+        </div>
+      </div><!-- /hero-mockup -->
+
+    </div><!-- /hero-inner -->
+  </div>
+</section>
+
+<!-- ══════ USE CASES BAR ══════ -->
+<div class="use-bar">
+  <div class="container">
+    <p class="use-bar-label">다양한 영어 원문에 바로 적용</p>
+    <ul class="use-bar-list" aria-label="적용 가능한 원문 유형">
+      <li>📚 교과서 · 수능 지문</li>
+      <li>📰 영자 신문 · 뉴스</li>
+      <li>🎤 TED · 강연 스크립트</li>
+      <li>🎬 영화 · 드라마 대본</li>
+      <li>📖 소설 · 에세이</li>
+      <li>💼 비즈니스 이메일</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════ HOW IT WORKS ══════ -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="obs">
+      <div class="sec-kicker">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">사용법 · 3단계</span>
+      </div>
+      <h2 class="sec-title">원문만 있으면<br>나머지는 AI가 합니다</h2>
+      <p class="sec-sub">복잡한 설정 없이 스크립트를 붙여넣는 것만으로 완전한 학습 콘텐츠가 생성됩니다.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card c1 obs">
+        <div class="step-num" aria-label="1단계">1</div>
+        <div class="step-connector" aria-hidden="true"></div>
+        <h3 class="step-title">원문 입력</h3>
+        <p class="step-desc">영어 스크립트를 직접 붙여넣거나 PDF · DOCX · TXT 파일을 업로드합니다. 어떤 주제든 즉시 시작할 수 있습니다.</p>
+        <div class="step-tags">
+          <span class="step-tag">직접 입력</span>
+          <span class="step-tag">PDF 업로드</span>
+          <span class="step-tag">DOCX · TXT</span>
+        </div>
+      </div>
+      <div class="step-card c2 obs">
+        <div class="step-num" aria-label="2단계">2</div>
+        <div class="step-connector" aria-hidden="true"></div>
+        <h3 class="step-title">AI 자동 분석</h3>
+        <p class="step-desc">GPT-4o가 핵심 단어를 추출하고 뜻 · 품사 · 예문을 생성합니다. TTS 음성도 자동으로 만들어집니다.</p>
+        <div class="step-tags">
+          <span class="step-tag">단어 추출</span>
+          <span class="step-tag">뜻 · 예문</span>
+          <span class="step-tag">TTS 음성</span>
+        </div>
+      </div>
+      <div class="step-card c3 obs">
+        <div class="step-num" aria-label="3단계">3</div>
+        <h3 class="step-title">4가지 방법으로 학습</h3>
+        <p class="step-desc">Flashcard로 암기하고, SpellForge로 스펠링을 연습하고, WordBlitz로 순발력을 키우고, ScriptQuiz로 독해까지 완성합니다.</p>
+        <div class="step-tags">
+          <span class="step-tag">Flashcard</span>
+          <span class="step-tag">SpellForge</span>
+          <span class="step-tag">WordBlitz</span>
+          <span class="step-tag">ScriptQuiz</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 통계 -->
+    <div class="stats-row obs">
+      <div class="stat-item">
+        <div class="stat-num" data-target="4" data-suffix="종">4종</div>
+        <div class="stat-lbl">학습 모듈</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="2" data-suffix="분">2분</div>
+        <div class="stat-lbl">분석 완료까지</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-lbl">원문 제한 없음</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FEATURES ══════ -->
+<section class="section alt-bg" id="features">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">학습 모듈</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">한 원문, 네 가지 방법으로</h2>
+      <p class="sec-sub center">같은 단어를 다양한 방식으로 접하면 장기 기억에 더 깊이 새겨집니다.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feat-card f-fc obs">
+        <div class="feat-icon-wrap fc-ico" aria-hidden="true">🃏</div>
+        <h3 class="feat-title">Flashcard</h3>
+        <p class="feat-desc">SM-2 알고리즘 기반 간격 반복. 하늘 배경에서 CSS 3D 카드 플립으로 단어↔뜻 양방향 학습.</p>
+        <div class="feat-pills"><span class="feat-pill">SM-2 SRS</span><span class="feat-pill">양방향 모드</span><span class="feat-pill">3D 플립</span></div>
+        <div class="feat-bg-label" aria-hidden="true">FC</div>
+      </div>
+      <div class="feat-card f-sf obs">
+        <div class="feat-icon-wrap sf-ico" aria-hidden="true">⚡</div>
+        <h3 class="feat-title">SpellForge</h3>
+        <p class="feat-desc">뜻을 보고 스펠링을 직접 타이핑. 전구 힌트와 파티클 효과로 스펠링을 확실히 내 것으로.</p>
+        <div class="feat-pills"><span class="feat-pill">타이핑 게임</span><span class="feat-pill">전구 힌트</span><span class="feat-pill">파티클 효과</span></div>
+        <div class="feat-bg-label" aria-hidden="true">SF</div>
+      </div>
+      <div class="feat-card f-wb obs">
+        <div class="feat-icon-wrap wb-ico" aria-hidden="true">🌴</div>
+        <h3 class="feat-title">WordBlitz</h3>
+        <p class="feat-desc">타임어택 4지선다 게임. 정글 어드벤처 테마와 콤보 시스템으로 순발력과 반응 속도를 키웁니다.</p>
+        <div class="feat-pills"><span class="feat-pill">타임어택</span><span class="feat-pill">콤보 시스템</span><span class="feat-pill">정글 테마</span></div>
+        <div class="feat-bg-label" aria-hidden="true">WB</div>
+      </div>
+      <div class="feat-card f-sq obs">
+        <div class="feat-icon-wrap sq-ico" aria-hidden="true">📝</div>
+        <h3 class="feat-title">ScriptQuiz</h3>
+        <p class="feat-desc">AI가 원문을 분석해 독해 문제를 자동 생성. O/X 피드백과 근거 하이라이트로 독해력까지 완성.</p>
+        <div class="feat-pills"><span class="feat-pill">AI 문제 생성</span><span class="feat-pill">근거 표시</span><span class="feat-pill">즉각 피드백</span></div>
+        <div class="feat-bg-label" aria-hidden="true">SQ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SOCIAL PROOF ══════ -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">사용자 후기</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">학습자들의 이야기</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review-card obs">
+        <div class="review-stars" aria-label="별점 5점">
+          <span aria-hidden="true">★★★★★</span>
+        </div>
+        <blockquote class="review-text">"TED 강연 스크립트를 넣었더니 2분 만에 단어장이 생겼어요. Flashcard로 복습하고 SpellForge로 연습하니 정말 외워지더라고요."</blockquote>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#3B82F6,#6366F1)" aria-hidden="true">김</div>
+          <div>
+            <div class="review-name">김지수</div>
+            <div class="review-role">대학교 3학년 · 영어교육 전공</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card obs">
+        <div class="review-stars" aria-label="별점 5점">
+          <span aria-hidden="true">★★★★★</span>
+        </div>
+        <blockquote class="review-text">"비즈니스 이메일 표현을 모아서 넣었어요. WordBlitz로 반복 연습하니 회의에서 자연스럽게 써지더라고요."</blockquote>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#22C55E,#059669)" aria-hidden="true">박</div>
+          <div>
+            <div class="review-name">박민준</div>
+            <div class="review-role">외국계 기업 마케터</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card obs">
+        <div class="review-stars" aria-label="별점 5점">
+          <span aria-hidden="true">★★★★★</span>
+        </div>
+        <blockquote class="review-text">"수능 영어 지문을 매일 하나씩 넣고 ScriptQuiz로 풀고 있어요. 기출 형식이랑 비슷하게 나와서 실전 연습에도 딱이에요."</blockquote>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706)" aria-hidden="true">이</div>
+          <div>
+            <div class="review-name">이수현</div>
+            <div class="review-role">고등학교 2학년 · 수능 준비 중</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PRICING ══════ -->
+<section class="section alt-bg" id="pricing">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">요금제</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">투명한 가격,<br>숨겨진 비용 없음</h2>
+      <p class="sec-sub center">무료 플랜으로 시작하고, 필요할 때 업그레이드하세요.</p>
+    </div>
+
+    <div class="pricing-toggle obs" role="group" aria-label="결제 주기 선택">
+      <span class="toggle-lbl active" id="lblMonthly">월간</span>
+      <label class="toggle-sw" aria-label="연간 결제로 전환">
+        <input type="checkbox" id="annualChk" onchange="switchPricing(this)">
+        <div class="sw-track"></div>
+        <div class="sw-thumb"></div>
+      </label>
+      <span class="toggle-lbl" id="lblAnnual">연간</span>
+      <span class="save-chip">2개월 무료</span>
+    </div>
+
+    <div class="pricing-grid obs">
+      <!-- Free -->
+      <div class="plan-card">
+        <div class="plan-tier">Free</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price">₩<span>0</span></div>
+          <div class="plan-period">영구 무료</div>
+        </div>
+        <div class="plan-hr"></div>
+        <ul class="plan-feats" aria-label="Free 플랜 포함 기능">
+          <li class="pf ok">월 3개 원문 분석</li>
+          <li class="pf ok">단어장 최대 150개</li>
+          <li class="pf ok">Flashcard · SpellForge</li>
+          <li class="pf ok">기본 Dashboard</li>
+          <li class="pf no">WordBlitz · ScriptQuiz</li>
+          <li class="pf no">TTS 음성 생성</li>
+          <li class="pf no">AI 퀴즈 자동 생성</li>
+        </ul>
+        <a href="Signup.html" class="plan-cta outline">무료로 시작</a>
+      </div>
+
+      <!-- Pro (Featured) -->
+      <div class="plan-card featured">
+        <div class="plan-badge-top">가장 인기</div>
+        <div class="plan-tier">Pro</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price">₩<span id="proPrice">9,900</span></div>
+          <div class="plan-period" id="proPeriod">/ 월 · 언제든 해지 가능</div>
+        </div>
+        <div class="plan-hr"></div>
+        <ul class="plan-feats" aria-label="Pro 플랜 포함 기능">
+          <li class="pf ok"><strong>무제한</strong> 원문 분석</li>
+          <li class="pf ok"><strong>무제한</strong> 단어장</li>
+          <li class="pf ok">4가지 학습 모듈 전체</li>
+          <li class="pf ok">TTS 음성 자동 생성</li>
+          <li class="pf ok">AI 퀴즈 자동 생성</li>
+          <li class="pf ok">고급 Dashboard · 히트맵</li>
+          <li class="pf ok">우선 고객 지원</li>
+        </ul>
+        <a href="Signup.html" class="plan-cta filled">Pro 시작하기</a>
+      </div>
+
+      <!-- Team -->
+      <div class="plan-card">
+        <div class="plan-tier">Team</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price">₩<span id="teamPrice">7,900</span><span class="plan-per">/인</span></div>
+          <div class="plan-period" id="teamPeriod">5인 이상 · 월간 결제</div>
+        </div>
+        <div class="plan-hr"></div>
+        <ul class="plan-feats" aria-label="Team 플랜 포함 기능">
+          <li class="pf ok">Pro 전체 기능 포함</li>
+          <li class="pf ok">팀 공유 단어장</li>
+          <li class="pf ok">멤버 진행률 모니터링</li>
+          <li class="pf ok">관리자 Dashboard</li>
+          <li class="pf ok">전용 고객 성공 매니저</li>
+          <li class="pf ok">인보이스 결제</li>
+          <li class="pf ok">커스텀 온보딩</li>
+        </ul>
+        <a href="Signup.html" class="plan-cta outline">팀 플랜 문의</a>
+      </div>
+    </div>
+
+    <!-- 기능 비교표 -->
+    <div class="compare-table obs">
+      <div class="ct-title">플랜 상세 비교</div>
+      <table class="ct" role="table" aria-label="요금제 기능 비교">
+        <thead>
+          <tr>
+            <th scope="col" class="ct-feature-col">기능</th>
+            <th scope="col">Free</th>
+            <th scope="col" class="ct-featured-col">Pro</th>
+            <th scope="col">Team</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="ct-cat" colspan="4">원문 분석</td></tr>
+          <tr><td>월간 원문 수</td><td>3개</td><td class="ct-featured-col"><strong>무제한</strong></td><td><strong>무제한</strong></td></tr>
+          <tr><td>파일 업로드 (PDF·DOCX·TXT)</td><td>✓</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td>AI 단어 추출</td><td>✓</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td>TTS 음성 생성</td><td>—</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td class="ct-cat" colspan="4">학습 모듈</td></tr>
+          <tr><td>Flashcard · SpellForge</td><td>✓</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td>WordBlitz · ScriptQuiz</td><td>—</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td>AI 퀴즈 자동 생성</td><td>—</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td class="ct-cat" colspan="4">통계 & 협업</td></tr>
+          <tr><td>기본 Dashboard</td><td>✓</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td>고급 히트맵 · 링 차트</td><td>—</td><td class="ct-featured-col">✓</td><td>✓</td></tr>
+          <tr><td>팀 공유 단어장</td><td>—</td><td class="ct-featured-col">—</td><td>✓</td></tr>
+          <tr><td>관리자 모니터링</td><td>—</td><td class="ct-featured-col">—</td><td>✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FAQ ══════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">자주 묻는 질문</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">궁금한 점이 있으신가요?</h2>
+    </div>
+
+    <div class="faq-list obs" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          무료 플랜에서 유료로 전환하면 데이터는 어떻게 되나요?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>기존에 생성한 단어장, 학습 기록, 점수 데이터 모두 그대로 유지됩니다. 업그레이드 즉시 모든 Pro 기능을 사용할 수 있습니다.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          어떤 형식의 파일을 업로드할 수 있나요?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>PDF, DOCX(Word), TXT 파일을 지원합니다. 파일 크기는 최대 10MB입니다. URL 직접 입력을 통한 웹 본문 추출 기능은 Phase 2에서 추가될 예정입니다.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          TTS 음성의 품질은 어떤가요?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>OpenAI TTS-1 모델을 사용하며 자연스러운 미국식 영어 발음을 제공합니다. 재생 속도는 0.75× ~ 2.0×로 조절 가능하며, 생성된 음성은 캐싱되어 빠르게 재생됩니다.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          구독을 언제든지 해지할 수 있나요?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>네, 언제든지 해지할 수 있습니다. 해지 후에도 남은 기간 동안 Pro 기능을 계속 사용할 수 있으며, 기간 만료 후 자동으로 Free 플랜으로 전환됩니다.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          모바일 앱도 있나요?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>현재 웹 버전이 모바일 브라우저에 최적화되어 있습니다. iOS와 Android 네이티브 앱은 개발 중이며, 조만간 출시될 예정입니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FINAL CTA ══════ -->
+<section class="final-cta" aria-labelledby="finalCtaTitle">
+  <div class="fc-grid" aria-hidden="true"></div>
+  <div class="fc-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="fc-inner obs">
+      <div class="fc-badge">🚀 지금 바로 시작하세요</div>
+      <h2 class="fc-title" id="finalCtaTitle">
+        오늘의 원문이<br>내일의 어휘가 됩니다
+      </h2>
+      <p class="fc-sub">영어 스크립트 하나면 충분합니다. AI가 나머지를 완성합니다.</p>
+      <div class="fc-ctas">
+        <a href="Signup.html" class="fc-btn-main">✨ 무료로 시작하기</a>
+        <a href="Login.html" class="fc-btn-ghost">이미 계정이 있으신가요?</a>
+      </div>
+      <ul class="fc-trust" aria-label="보장 사항">
+        <li>✓ 신용카드 불필요</li>
+        <li>✓ 무료 플랜 영구 제공</li>
+        <li>✓ 언제든 해지 가능</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (footer.js 가 자동 삽입) -->
+<div id="lv-footer"></div>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script src="../shared/nav.js" defer></script>
+<script src="../shared/footer.js" defer></script>
+<script src="landing.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+/* packages/design-tokens/src/tokens.css
+   ★★ CSS Variables 본체 — 웹 SSoT.
+   apps/web/src/app/globals.css 에서 @import '@vocaflow/design-tokens/tokens.css' 로 로드.
+   값 변경 시 colors.ts 와 동기화 필수.
+*/
+
+:root {
+  /* Brand */
+  --p: #3B82F6;
+  --p-hover: #2563EB;
+  --p-light: #EFF6FF;
+  --p-dark: #1D4ED8;
+
+  /* Active (yellow) */
+  --active: #F59E0B;
+  --active-light: #FEF3C7;
+
+  /* Semantic */
+  --success: #22C55E;
+  --success-light: #DCFCE7;
+  --error: #EF4444;
+  --error-light: #FEE2E2;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --info: #06B6D4;
+  --info-light: #CFFAFE;
+
+  /* Surface */
+  --bg: #FFFFFF;
+  --bg2: #F8FAFC;
+  --bg3: #F1F5F9;
+
+  /* Text */
+  --t1: #0F172A;
+  --t2: #475569;
+  --t3: #94A3B8;
+  --t4: #CBD5E1;
+  --ti: #FFFFFF;
+
+  /* Border */
+  --bd: #E2E8F0;
+  --bdf: #3B82F6;
+  --bde: #EF4444;
+
+  /* Game Specific — 변경 금지 */
+  --gold: #EAB308;
+  --silver: #94A3B8;
+  --bronze: #D97706;
+  --combo: #8B5CF6;
+  --streak: #EC4899;
+
+  /* Shadow */
+  --sh-xs: 0 1px 2px rgba(0, 0, 0, .05);
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, .10), 0 1px 2px rgba(0, 0, 0, .06);
+  --sh-md: 0 4px 6px rgba(0, 0, 0, .07), 0 2px 4px rgba(0, 0, 0, .06);
+  --sh-lg: 0 10px 15px rgba(0, 0, 0, .10), 0 4px 6px rgba(0, 0, 0, .05);
+  --sh-xl: 0 20px 25px rgba(0, 0, 0, .10), 0 10px 10px rgba(0, 0, 0, .04);
+
+  /* Radius */
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 24px;
+  --r-full: 9999px;
+
+  /* Spacing — 4px 기반 */
+  --s-0: 0px;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* Motion */
+  --dur-fast: 100ms;
+  --dur-normal: 200ms;
+  --dur-slow: 300ms;
+  --dur-slower: 500ms;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --ease-in: cubic-bezier(.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+[data-theme="dark"] {
+  --p: #60A5FA;
+  --p-hover: #93C5FD;
+  --p-light: #1E3A5F;
+  --p-dark: #3B82F6;
+
+  --active-light: #451A03;
+  --success: #4ADE80;
+  --success-light: #052E16;
+  --error: #F87171;
+  --error-light: #3B0A0A;
+  --info-light: #083344;
+  --warning-light: #3B2000;
+
+  --bg: #0B1120;
+  --bg2: #141E30;
+  --bg3: #1E2D42;
+
+  --t1: #F1F5F9;
+  --t2: #CBD5E1;
+  --t3: #64748B;
+  --t4: #334155;
+
+  --bd: #1E2D42;
+  --bdf: #60A5FA;
+}

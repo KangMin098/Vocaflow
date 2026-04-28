@@ -1,0 +1,252 @@
+// apps/web/src/app/main/text/page.tsx
+// TextViewer — Round 2: 입력 ↔ 분석 결과 전환
+
+'use client'
+
+import { ArrowRight, FileText, Sparkles } from 'lucide-react'
+import { useState } from 'react'
+
+import { useToast } from '@/components/ui/Toast'
+import { useMainLayout } from '../layout'
+
+import { AnalysisResult } from '@/components/text-viewer/AnalysisResult'
+import { FileUploadArea } from '@/components/text-viewer/FileUploadArea'
+import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputModeTabs'
+import { SampleScripts } from '@/components/text-viewer/SampleScripts'
+import { TextInput } from '@/components/text-viewer/TextInput'
+import { UrlInput } from '@/components/text-viewer/UrlInput'
+import {
+  mockAnalysisResult,
+  type AnalysisResult as AnalysisResultData,
+} from '@/components/text-viewer/analysis-types'
+
+type ViewState = 'input' | 'analyzing' | 'result'
+
+export default function TextViewerPage() {
+  const { openSidebar, theme, toggleTheme } = useMainLayout()
+  const toast = useToast()
+
+  const [view, setView] = useState<ViewState>('input')
+  const [mode, setMode] = useState<InputMode>('text')
+  const [text, setText] = useState('')
+  const [analysisData, setAnalysisData] = useState<AnalysisResultData | null>(null)
+
+  const canAnalyze = mode === 'text' ? text.trim().length > 0 : false
+
+  const handleAnalyze = () => {
+    if (!canAnalyze) return
+    setView('analyzing')
+
+    // 목업: 1.5초 후 결과 표시
+    setTimeout(() => {
+      // 실제 입력 텍스트 사용 (목업 단어는 그대로)
+      const result: AnalysisResultData = {
+        ...mockAnalysisResult,
+        text: text.trim() || mockAnalysisResult.text,
+      }
+      setAnalysisData(result)
+      setView('result')
+      toast.success(`${result.words.length}개 단어 추출 완료`, {
+        title: 'AI 분석 완료',
+      })
+    }, 1500)
+  }
+
+  const handleBack = () => {
+    setView('input')
+    setAnalysisData(null)
+  }
+
+  const handleSave = (selectedIds: string[]) => {
+    toast.success(
+      `${selectedIds.length}개 단어가 저장되었습니다 (목업) — Round 3에서 실제 저장 흐름 구현`,
+      { title: 'WordVault 저장 완료' }
+    )
+  }
+
+  return (
+    <>
+      {/* ── 헤더 ── */}
+      <header className="flex h-[60px] flex-shrink-0 items-center gap-s-4 border-b border-bd bg-bg px-s-4 lg:px-s-6">
+        <button
+          onClick={openSidebar}
+          aria-label="메뉴"
+          className="flex h-9 w-9 items-center justify-center rounded-md text-t1 transition-colors duration-normal hover:bg-bg2 lg:hidden"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+
+        <div className="flex min-w-0 flex-col">
+          <h1 className="truncate font-display text-base font-bold leading-tight tracking-tight text-t1 sm:text-lg">
+            원문 입력
+          </h1>
+          <p className="truncate font-mono text-[10px] uppercase tracking-wider text-t3">
+            {view === 'input' && 'Step 01 / 학습 시작'}
+            {view === 'analyzing' && 'AI 분석 중...'}
+            {view === 'result' && 'Step 02-03 / 단어 선택'}
+          </p>
+        </div>
+
+        <div className="flex-1" />
+
+        <button
+          onClick={toggleTheme}
+          aria-label="테마 전환"
+          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+        >
+          {theme === 'light' ? '🌙' : '☀️'}
+        </button>
+      </header>
+
+      {/* ── 메인 ── */}
+      <main className="flex-1 overflow-y-auto p-s-4 lg:p-s-6">
+        <div className={view === 'result' ? 'mx-auto max-w-7xl' : 'mx-auto max-w-4xl'}>
+          {/* ──────────────────────
+               INPUT 화면
+               ────────────────────── */}
+          {view === 'input' && (
+            <>
+              <div className="mb-s-8">
+                <div className="mb-s-3 flex items-center gap-s-2">
+                  <FileText size={14} className="text-p" />
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-t3">
+                    — Step 01 / Script Input
+                  </span>
+                </div>
+
+                <h2 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+                  영어 스크립트를
+                  <br />
+                  <span className="text-p">AI가 분석</span>합니다
+                </h2>
+
+                <p className="max-w-xl font-body text-sm leading-relaxed text-t2 sm:text-base">
+                  텍스트를 직접 입력하거나 PDF · DOCX · TXT 파일을 업로드하면, AI가 핵심 단어를
+                  추출해 학습용 단어장을 자동 생성합니다.
+                </p>
+              </div>
+
+              <InputModeTabs value={mode} onChange={setMode} />
+
+              <div className="mb-s-6">
+                {mode === 'text' && (
+                  <TextInput value={text} onChange={setText} onClear={() => setText('')} />
+                )}
+                {mode === 'file' && (
+                  <FileUploadArea
+                    onFileSelect={(file) =>
+                      toast.info(`파일 선택: ${file.name} (Phase 2에서 파싱)`)
+                    }
+                  />
+                )}
+                {mode === 'url' && (
+                  <UrlInput
+                    onUrlSubmit={async (url) => {
+                      toast.info(`URL: ${url} (Phase 2에서 본문 추출)`)
+                    }}
+                  />
+                )}
+              </div>
+
+              {mode === 'text' && (
+                <div className="mb-s-8">
+                  <SampleScripts
+                    onSelect={(sampleText, title) => {
+                      setText(sampleText)
+                      toast.success(`"${title}" 적용됨`)
+                    }}
+                  />
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={handleAnalyze}
+                disabled={!canAnalyze}
+                className="group relative flex h-14 w-full items-center justify-center gap-s-3 overflow-hidden rounded-xl bg-p font-display text-base font-bold text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-p"
+              >
+                <Sparkles
+                  size={18}
+                  className="transition-transform duration-normal group-hover:rotate-12"
+                />
+                <span>AI로 단어 추출하기</span>
+                <ArrowRight
+                  size={18}
+                  className="transition-transform duration-normal group-hover:translate-x-1"
+                />
+              </button>
+
+              <p className="pt-s-4 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+                평균 3-5초 소요 · GPT-4o-mini 사용
+              </p>
+            </>
+          )}
+
+          {/* ──────────────────────
+               ANALYZING (로딩)
+               ────────────────────── */}
+          {view === 'analyzing' && (
+            <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+              <div className="relative mb-s-6 h-20 w-20">
+                <div
+                  className="absolute inset-0 animate-spin rounded-full border-4 border-bg3 border-t-p"
+                  style={{ animationDuration: '1s' }}
+                />
+                <div
+                  className="absolute inset-3 flex items-center justify-center rounded-full"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--p) 0%, var(--combo) 100%)',
+                  }}
+                >
+                  <Sparkles size={20} className="animate-pulse text-ti" />
+                </div>
+              </div>
+
+              <p className="mb-s-3 font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-t3">
+                — AI 분석 진행 중
+              </p>
+
+              <h2 className="mb-s-2 font-display text-2xl font-extrabold tracking-tight text-t1">
+                단어를 추출하고 있어요
+              </h2>
+
+              <p className="max-w-md font-body text-sm text-t2">
+                GPT-4o-mini가 텍스트를 분석하여
+                <br />
+                학습 가치가 높은 단어를 골라내는 중입니다.
+              </p>
+
+              <div className="mt-s-6 flex items-center gap-s-2 font-mono text-xs text-t3">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
+                <span>평균 3-5초 소요</span>
+              </div>
+            </div>
+          )}
+
+          {/* ──────────────────────
+               RESULT 화면
+               ────────────────────── */}
+          {view === 'result' && analysisData && (
+            <AnalysisResult
+              result={analysisData}
+              onBack={handleBack}
+              onSave={handleSave}
+              onPlayAudio={(word) => toast.info(`"${word}" 발음 재생 (Phase 2에서 OpenAI TTS)`)}
+            />
+          )}
+        </div>
+      </main>
+    </>
+  )
+}

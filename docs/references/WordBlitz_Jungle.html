@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WordBlitz — Jungle Adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100vh;overflow-x:hidden}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#1a3a1a;
+}
+const hello = "world";const foo="bar"
+/* ─────────────────────────────────────────
+   JUNGLE BG LAYERS
+───────────────────────────────────────── */
+.wb-root{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+/* 배경 그라디언트 레이어 */
+.bg-sky{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    180deg,
+    #2d6a2d 0%,
+    #3d8a3d 18%,
+    #4a9f3a 35%,
+    #5ab540 50%,
+    #6dc94a 65%,
+    #7ed854 80%,
+    #90e060 100%
+  );
+}
+
+/* 빛 번짐 */
+.bg-glow{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(180,255,100,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 20% 30%, rgba(100,200,80,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 20%, rgba(120,210,90,.12) 0%, transparent 60%);
+}
+
+/* 나무 기둥 — 좌 */
+.pillar-left{
+  position:absolute;left:-20px;top:0;bottom:0;width:130px;
+  background:linear-gradient(90deg,
+    #3d2010 0%,#6b3a1a 30%,#7a4520 50%,#5a3015 70%,#2a1008 100%);
+  border-right:4px solid #8B5E2A;
+}
+.pillar-left::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 28px,
+    rgba(0,0,0,.15) 28px,
+    rgba(0,0,0,.15) 32px
+  );
+}
+/* 나무 기둥 — 우 */
+.pillar-right{
+  position:absolute;right:-20px;top:0;bottom:0;width:130px;
+  background:linear-gradient(270deg,
+    #3d2010 0%,#6b3a1a 30%,#7a4520 50%,#5a3015 70%,#2a1008 100%);
+  border-left:4px solid #8B5E2A;
+}
+.pillar-right::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 28px,
+    rgba(0,0,0,.15) 28px,
+    rgba(0,0,0,.15) 32px
+  );
+}
+
+/* 기둥 위 돌 블록 */
+.stone-block{
+  position:absolute;width:110px;height:52px;
+  background:linear-gradient(180deg,#c8a85a 0%,#a88030 60%,#7a5a18 100%);
+  border:3px solid #e8c870;
+  border-radius:8px;
+  box-shadow:inset 0 3px 0 rgba(255,230,120,.4), 0 4px 12px rgba(0,0,0,.4);
+}
+.stone-block::after{
+  content:'';position:absolute;inset:4px;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0px,transparent 16px,
+    rgba(0,0,0,.08) 16px,rgba(0,0,0,.08) 17px
+  );
+  border-radius:4px;
+}
+.stone-left-top{top:60px;left:10px}
+.stone-left-mid{top:220px;left:10px}
+.stone-right-top{top:100px;right:10px}
+.stone-right-mid{top:260px;right:10px}
+
+/* 잎사귀들 SVG */
+.leaves-left{position:absolute;left:50px;top:20px;opacity:.9}
+.leaves-right{position:absolute;right:50px;top:0px;opacity:.9}
+.leaves-bottom{position:absolute;bottom:0;left:0;right:0;height:120px;overflow:hidden}
+
+/* ─────────────────────────────────────────
+   CREATURES (몬스터 캐릭터)
+───────────────────────────────────────── */
+.creature{position:absolute;animation:creatureBob 2.5s ease-in-out infinite}
+.creature-tl{top:80px;left:90px;animation-delay:0s}
+.creature-tr{top:60px;right:85px;animation-delay:.7s}
+.creature-bl{bottom:130px;left:80px;animation-delay:1.2s}
+.creature-br{bottom:110px;right:75px;animation-delay:.4s}
+@keyframes creatureBob{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-12px) rotate(3deg)}
+}
+
+/* ─────────────────────────────────────────
+   메인 콘텐츠 영역
+───────────────────────────────────────── */
+.wb-content{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+  padding:24px 140px 0;
+  flex:1;
+}
+
+/* ─────────────────────────────────────────
+   TITLE BANNER
+───────────────────────────────────────── */
+.title-banner{
+  position:relative;margin-bottom:20px;text-align:center;
+}
+.title-plate{
+  display:inline-block;
+  background:linear-gradient(180deg,#5cb84a 0%,#3d9030 50%,#2a6a20 100%);
+  border:4px solid #7dd864;
+  border-radius:16px;
+  padding:10px 36px 14px;
+  box-shadow:
+    0 6px 0 #1a4a10,
+    0 10px 24px rgba(0,0,0,.35),
+    inset 0 2px 0 rgba(255,255,255,.2);
+  position:relative;
+  margin-bottom:6px;
+}
+.title-plate::before{
+  content:'';position:absolute;inset:4px;
+  border:2px solid rgba(255,255,255,.15);
+  border-radius:12px;pointer-events:none;
+}
+.title-text{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(48px,8vw,72px);
+  color:#FFE234;
+  text-shadow:
+    3px 3px 0 #B8860B,
+    5px 5px 0 #8B6500,
+    0 0 30px rgba(255,220,0,.4);
+  letter-spacing:3px;
+  line-height:1;
+  display:block;
+}
+.subtitle-plank{
+  display:inline-block;
+  background:linear-gradient(180deg,#8B5E2A 0%,#6B4010 50%,#4A2A08 100%);
+  border:3px solid #C8903A;
+  border-radius:10px;
+  padding:6px 28px 9px;
+  box-shadow:0 4px 0 #2a1408,0 6px 16px rgba(0,0,0,.3);
+  position:relative;
+}
+.subtitle-plank::before{
+  content:'';position:absolute;left:10px;right:10px;top:50%;
+  height:1px;background:rgba(255,255,255,.1);
+}
+.subtitle-text{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(20px,3.5vw,30px);
+  color:#FFD080;
+  text-shadow:2px 2px 0 #7A4010,0 0 20px rgba(255,180,0,.3);
+  letter-spacing:2px;
+}
+/* 타이틀 장식 요소 */
+.title-star{
+  position:absolute;font-size:28px;
+  animation:starSpin 3s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(255,220,0,.6));
+}
+.title-star.l{top:-10px;left:-30px}
+.title-star.r{top:-8px;right:-32px;animation-direction:reverse}
+@keyframes starSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* ─────────────────────────────────────────
+   HUD BAR
+───────────────────────────────────────── */
+.hud{
+  width:100%;max-width:600px;
+  background:linear-gradient(180deg,rgba(30,60,10,.92) 0%,rgba(15,35,5,.95) 100%);
+  border:2px solid #5a9a2a;
+  border-radius:16px;
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,.4),inset 0 1px 0 rgba(100,200,50,.2);
+  margin-bottom:14px;
+}
+.hud-gem{
+  background:linear-gradient(135deg,#2a6a10 0%,#1a4a08 100%);
+  border:2px solid #4a9a20;
+  border-radius:12px;padding:6px 16px;text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(100,200,50,.15);
+  flex-shrink:0;
+}
+.hud-gem-lbl{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;
+  color:#80c840;margin-bottom:2px;
+}
+.hud-gem-val{
+  font-family:'Fredoka One',cursive;
+  font-size:22px;color:#FFE234;
+  text-shadow:1px 1px 0 #8B6500,0 0 10px rgba(255,220,0,.4);
+}
+.hud-timer{flex:1}
+.hud-timer-row{
+  display:flex;justify-content:space-between;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
+  color:#80c840;margin-bottom:5px;
+}
+.hud-bar-track{
+  height:12px;background:rgba(0,0,0,.4);border-radius:99px;
+  border:1.5px solid rgba(90,154,42,.4);overflow:hidden;
+}
+.hud-bar-fill{
+  height:100%;border-radius:99px;
+  background:linear-gradient(90deg,#ff6b35 0%,#ff9f00 40%,#ffe234 100%);
+  box-shadow:0 0 8px rgba(255,180,0,.5);
+  position:relative;overflow:hidden;
+  width:70%;
+  transition:width .5s linear;
+}
+.hud-bar-fill::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:50%;
+  background:rgba(255,255,255,.2);border-radius:99px;
+}
+.hud-combo-dots{display:flex;gap:4px}
+.hud-dot{
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid rgba(90,154,42,.5);
+  background:rgba(0,0,0,.3);
+  transition:all .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.hud-dot.on{
+  background:radial-gradient(circle at 35% 35%,#ffe234,#f5a623);
+  border-color:#c8860b;
+  box-shadow:0 0 8px rgba(255,200,0,.6);
+}
+
+/* ─────────────────────────────────────────
+   QUESTION BOARD
+───────────────────────────────────────── */
+.q-board{
+  width:100%;max-width:600px;
+  background:linear-gradient(180deg,#4a2e10 0%,#2e1a08 100%);
+  border:3px solid #C8903A;
+  border-radius:20px;
+  padding:18px 24px;
+  text-align:center;
+  box-shadow:
+    0 6px 0 #1a0c04,
+    0 10px 24px rgba(0,0,0,.4),
+    inset 0 2px 0 rgba(200,144,58,.3);
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+}
+.q-board::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0px,transparent 40px,
+    rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 41px
+  );
+}
+.q-board-label{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
+  color:#a87840;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;
+}
+.q-board-text{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(22px,4vw,32px);
+  color:#FFE8A0;
+  text-shadow:2px 2px 0 rgba(0,0,0,.4);
+  line-height:1.3;
+  position:relative;z-index:1;
+}
+/* 보드 모서리 장식 */
+.q-board-corner{
+  position:absolute;width:20px;height:20px;
+  background:#C8903A;border-radius:50%;
+  box-shadow:0 0 0 3px #8B5E2A;
+}
+.q-board-corner.tl{top:8px;left:8px}
+.q-board-corner.tr{top:8px;right:8px}
+.q-board-corner.bl{bottom:8px;left:8px}
+.q-board-corner.br{bottom:8px;right:8px}
+
+/* ─────────────────────────────────────────
+   CHOICE BUTTONS (크리처 카드)
+───────────────────────────────────────── */
+.choices{
+  width:100%;max-width:600px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:18px;
+}
+.choice-btn{
+  position:relative;
+  background:linear-gradient(180deg,#3a8a20 0%,#2a6a10 50%,#1a4a08 100%);
+  border:3px solid #5ab830;
+  border-radius:18px;
+  padding:16px 12px 20px;
+  cursor:pointer;color:#fff;
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(16px,2.5vw,20px);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  box-shadow:
+    0 5px 0 #0e3206,
+    0 8px 20px rgba(0,0,0,.35);
+  transition:all .12s;
+  overflow:hidden;
+}
+.choice-btn::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:40%;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),transparent);
+  border-radius:15px 15px 0 0;
+  pointer-events:none;
+}
+.choice-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 0 #0e3206,0 12px 28px rgba(0,0,0,.4);
+  border-color:#7ee040;
+  background:linear-gradient(180deg,#4aa830 0%,#358a20 50%,#236010 100%);
+}
+.choice-btn:active{
+  transform:translateY(2px);
+  box-shadow:0 2px 0 #0e3206,0 4px 12px rgba(0,0,0,.3);
+}
+.choice-btn.correct{
+  background:linear-gradient(180deg,#60c840 0%,#40a020 50%,#288010 100%);
+  border-color:#90f060;
+  box-shadow:0 5px 0 #0e5206,0 0 30px rgba(80,200,40,.5);
+  animation:correctPop .35s var(--ease-spring,cubic-bezier(.34,1.56,.64,1));
+}
+.choice-btn.wrong{
+  background:linear-gradient(180deg,#c84040 0%,#a02020 50%,#801010 100%);
+  border-color:#f06060;
+  box-shadow:0 5px 0 #500808,0 0 20px rgba(200,40,40,.4);
+  animation:wrongShake .35s ease;
+}
+@keyframes correctPop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08) translateY(-3px)}
+  100%{transform:scale(1)}
+}
+@keyframes wrongShake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
+}
+.choice-icon{font-size:36px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));line-height:1}
+.choice-label{
+  color:#d8f8b0;
+  text-shadow:1px 1px 0 rgba(0,0,0,.4);
+  letter-spacing:.5px;
+}
+/* 정답 배지 */
+.choice-badge{
+  position:absolute;top:-8px;right:-8px;
+  width:28px;height:28px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#ffe234,#f5a623);
+  border:2px solid #c8860b;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;color:#5a3000;
+  box-shadow:0 2px 8px rgba(200,120,0,.5);
+  display:none;
+}
+.choice-btn.correct .choice-badge{display:flex}
+
+/* ─────────────────────────────────────────
+   START SCREEN
+───────────────────────────────────────── */
+.start-screen{
+  display:flex;flex-direction:column;align-items:center;
+  gap:16px;padding-top:8px;
+}
+.start-desc{
+  background:rgba(0,0,0,.3);border:1.5px solid rgba(90,184,48,.3);
+  border-radius:12px;padding:10px 24px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  color:#a8e870;text-align:center;letter-spacing:.5px;
+}
+.start-btn{
+  position:relative;
+  background:linear-gradient(180deg,#6ad830 0%,#48b018 50%,#308008 100%);
+  border:4px solid #90f050;
+  border-radius:40px;
+  padding:16px 64px;
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(22px,3.5vw,28px);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:
+    0 7px 0 #184808,
+    0 12px 28px rgba(0,0,0,.4),
+    inset 0 2px 0 rgba(255,255,255,.2);
+  transition:all .12s;
+  text-shadow:2px 2px 0 rgba(0,0,0,.3);
+  letter-spacing:1px;
+}
+.start-btn::before{
+  content:'';position:absolute;top:4px;left:8px;right:8px;height:40%;
+  background:rgba(255,255,255,.15);border-radius:30px;
+}
+.start-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 0 #184808,0 16px 36px rgba(0,0,0,.45);
+}
+.start-btn:active{
+  transform:translateY(3px);
+  box-shadow:0 4px 0 #184808,0 6px 16px rgba(0,0,0,.3);
+}
+.start-btn-icon{margin-right:8px;font-size:24px}
+
+/* ─────────────────────────────────────────
+   GAME SCREEN (처음엔 숨김)
+───────────────────────────────────────── */
+.game-screen{display:none;flex-direction:column;align-items:center;width:100%}
+
+/* ─────────────────────────────────────────
+   RESULT SCREEN
+───────────────────────────────────────── */
+.result-screen{display:none;flex-direction:column;align-items:center;width:100%;gap:14px}
+.result-board{
+  width:100%;max-width:480px;
+  background:linear-gradient(180deg,#3d2010 0%,#261208 100%);
+  border:3px solid #C8903A;border-radius:24px;padding:28px 24px;text-align:center;
+  box-shadow:0 8px 0 #100604,0 14px 32px rgba(0,0,0,.5);
+  position:relative;overflow:hidden;
+}
+.result-board::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#C8903A,#FFE234,#C8903A);
+}
+.result-emoji{font-size:56px;margin-bottom:8px;display:block}
+.result-title{
+  font-family:'Fredoka One',cursive;font-size:32px;
+  color:#FFE234;text-shadow:2px 2px 0 #7A5000;margin-bottom:6px;
+}
+.result-sub{font-family:'DM Sans',sans-serif;font-size:14px;color:#a87840;margin-bottom:20px}
+.result-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+.result-stat{border-radius:14px;padding:13px 8px;text-align:center}
+.result-stat.g{background:rgba(80,180,40,.2);border:2px solid rgba(80,180,40,.4)}
+.result-stat.r{background:rgba(200,60,60,.2);border:2px solid rgba(200,60,60,.4)}
+.result-stat.t{background:rgba(200,144,58,.15);border:2px solid rgba(200,144,58,.35)}
+.result-stat-lbl{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.result-stat.g .result-stat-lbl{color:#80c840}
+.result-stat.r .result-stat-lbl{color:#f07070}
+.result-stat.t .result-stat-lbl{color:#e0a040}
+.result-stat-val{font-family:'Fredoka One',cursive;font-size:30px}
+.result-stat.g .result-stat-val{color:#a0f060;text-shadow:0 0 16px rgba(80,200,40,.4)}
+.result-stat.r .result-stat-val{color:#ff8080;text-shadow:0 0 16px rgba(200,60,60,.3)}
+.result-stat.t .result-stat-val{color:#FFE234;text-shadow:0 0 16px rgba(255,200,0,.3)}
+.result-wrong{text-align:left;font-family:'DM Sans',sans-serif;font-size:13px;color:#a87840;margin-top:4px;line-height:1.8}
+.result-wrong b{color:#FFE8A0;font-weight:700}
+.result-btn{
+  background:linear-gradient(180deg,#5ab830 0%,#3a8a18 50%,#286008 100%);
+  border:3px solid #80e040;border-radius:30px;
+  padding:13px 40px;
+  font-family:'Fredoka One',cursive;font-size:20px;color:#fff;cursor:pointer;
+  box-shadow:0 5px 0 #143006,0 8px 20px rgba(0,0,0,.35);
+  transition:all .12s;letter-spacing:.5px;
+  text-shadow:1px 1px 0 rgba(0,0,0,.3);
+}
+.result-btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 #143006}
+.result-btn:active{transform:translateY(2px);box-shadow:0 3px 0 #143006}
+
+/* ─────────────────────────────────────────
+   FEEDBACK OVERLAY
+───────────────────────────────────────── */
+.feedback{
+  position:fixed;inset:0;z-index:100;
+  display:none;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.feedback.show{display:flex}
+.feedback-box{
+  text-align:center;
+  animation:feedbackPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes feedbackPop{
+  from{opacity:0;transform:scale(.5) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.feedback-emoji{font-size:72px;display:block;margin-bottom:8px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
+.feedback-word{
+  font-family:'Fredoka One',cursive;font-size:32px;
+  text-shadow:3px 3px 0 rgba(0,0,0,.5);
+  letter-spacing:1px;
+}
+.feedback-word.ok{color:#c0ff60;text-shadow:3px 3px 0 #2a6a00,0 0 20px rgba(100,220,40,.6)}
+.feedback-word.no{color:#ff8080;text-shadow:3px 3px 0 #6a0000,0 0 20px rgba(200,40,40,.5)}
+.particle{
+  position:absolute;font-size:24px;
+  animation:particleFly .9s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes particleFly{
+  from{opacity:1;transform:translate(0,0) rotate(0deg)}
+  to{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--dr))}
+}
+
+/* ─────────────────────────────────────────
+   JUNGLE FLOOR
+───────────────────────────────────────── */
+.jungle-floor{
+  position:relative;z-index:5;
+  width:100%;height:100px;margin-top:auto;flex-shrink:0;
+}
+.floor-grass{
+  position:absolute;bottom:0;left:0;right:0;height:70px;
+  background:linear-gradient(180deg,#5ab840 0%,#3a8a20 40%,#286010 100%);
+}
+.floor-grass::before{
+  content:'';position:absolute;top:-20px;left:0;right:0;
+  height:40px;
+  background:
+    radial-gradient(ellipse 30px 25px at 5% 100%, #6ad840 0%, transparent 70%),
+    radial-gradient(ellipse 25px 20px at 12% 100%, #5ac030 0%, transparent 70%),
+    radial-gradient(ellipse 35px 28px at 20% 100%, #70e848 0%, transparent 70%),
+    radial-gradient(ellipse 28px 22px at 30% 100%, #5ab838 0%, transparent 70%),
+    radial-gradient(ellipse 32px 26px at 40% 100%, #68d040 0%, transparent 70%),
+    radial-gradient(ellipse 26px 20px at 50% 100%, #5cc038 0%, transparent 70%),
+    radial-gradient(ellipse 30px 24px at 60% 100%, #6ad040 0%, transparent 70%),
+    radial-gradient(ellipse 28px 22px at 70% 100%, #58b830 0%, transparent 70%),
+    radial-gradient(ellipse 35px 28px at 80% 100%, #6ed040 0%, transparent 70%),
+    radial-gradient(ellipse 25px 20px at 90% 100%, #60c038 0%, transparent 70%),
+    radial-gradient(ellipse 30px 24px at 98% 100%, #68c840 0%, transparent 70%);
+}
+.floor-stones{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;
+}
+.floor-stone{
+  width:clamp(60px,12vw,90px);height:32px;
+  background:linear-gradient(180deg,#c8a858 0%,#a88030 60%,#7a5818 100%);
+  border:2px solid #e8c870;border-radius:8px;
+  box-shadow:0 3px 0 rgba(0,0,0,.3),inset 0 1px 0 rgba(255,230,120,.3);
+}
+
+/* ─────────────────────────────────────────
+   SVG CREATURES
+───────────────────────────────────────── */
+svg.creature-svg{overflow:visible}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media(max-width:600px){
+  .wb-content{padding:16px 80px 0}
+  .pillar-left,.pillar-right{width:80px}
+  .stone-block{width:70px}
+  .creature-tl,.creature-bl{left:50px}
+  .creature-tr,.creature-br{right:45px}
+  .choice-icon{font-size:28px}
+}
+@media(max-width:420px){
+  .wb-content{padding:12px 60px 0}
+  .pillar-left,.pillar-right{width:60px}
+  .choices{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="wb-root" id="wbRoot">
+  <!-- 배경 레이어 -->
+  <div class="bg-sky"></div>
+  <div class="bg-glow"></div>
+
+  <!-- 나무 기둥 -->
+  <div class="pillar-left">
+    <div class="stone-block stone-left-top"></div>
+    <div class="stone-block stone-left-mid"></div>
+  </div>
+  <div class="pillar-right">
+    <div class="stone-block stone-right-top"></div>
+    <div class="stone-block stone-right-mid"></div>
+  </div>
+
+  <!-- 잎사귀 SVG -->
+  <div class="leaves-left">
+    <svg width="120" height="160" viewBox="0 0 120 160" fill="none">
+      <ellipse cx="30" cy="80" rx="28" ry="50" fill="#2d8020" transform="rotate(-30 30 80)"/>
+      <ellipse cx="30" cy="80" rx="18" ry="38" fill="#3da030" transform="rotate(-30 30 80)"/>
+      <ellipse cx="70" cy="60" rx="24" ry="44" fill="#28701a" transform="rotate(15 70 60)"/>
+      <ellipse cx="70" cy="60" rx="15" ry="32" fill="#38901e" transform="rotate(15 70 60)"/>
+      <ellipse cx="50" cy="40" rx="20" ry="36" fill="#329020" transform="rotate(-5 50 40)"/>
+      <ellipse cx="50" cy="40" rx="12" ry="26" fill="#48b030" transform="rotate(-5 50 40)"/>
+    </svg>
+  </div>
+  <div class="leaves-right">
+    <svg width="120" height="160" viewBox="0 0 120 160" fill="none">
+      <ellipse cx="90" cy="80" rx="28" ry="50" fill="#2d8020" transform="rotate(30 90 80)"/>
+      <ellipse cx="90" cy="80" rx="18" ry="38" fill="#3da030" transform="rotate(30 90 80)"/>
+      <ellipse cx="50" cy="60" rx="24" ry="44" fill="#28701a" transform="rotate(-15 50 60)"/>
+      <ellipse cx="50" cy="60" rx="15" ry="32" fill="#38901e" transform="rotate(-15 50 60)"/>
+      <ellipse cx="70" cy="40" rx="20" ry="36" fill="#329020" transform="rotate(5 70 40)"/>
+      <ellipse cx="70" cy="40" rx="12" ry="26" fill="#48b030" transform="rotate(5 70 40)"/>
+    </svg>
+  </div>
+
+  <!-- 크리처들 SVG -->
+  <!-- 좌상단: 초록 물고기 괴물 -->
+  <div class="creature creature-tl">
+    <svg class="creature-svg" width="80" height="80" viewBox="0 0 80 80">
+      <ellipse cx="40" cy="44" rx="28" ry="22" fill="#4CB84C"/>
+      <ellipse cx="40" cy="44" rx="22" ry="16" fill="#60D060"/>
+      <!-- 눈 -->
+      <circle cx="34" cy="36" r="13" fill="white"/>
+      <circle cx="34" cy="36" r="9" fill="#3030A0"/>
+      <circle cx="34" cy="36" r="5" fill="#101060"/>
+      <circle cx="31" cy="33" r="3" fill="white"/>
+      <!-- 지느러미 -->
+      <ellipse cx="68" cy="40" rx="12" ry="7" fill="#3A903A" transform="rotate(20 68 40)"/>
+      <ellipse cx="12" cy="48" rx="10" ry="6" fill="#3A903A" transform="rotate(-15 12 48)"/>
+      <!-- 꼬리 -->
+      <polygon points="12,44 0,36 0,58" fill="#3A903A"/>
+      <!-- 뿔 -->
+      <ellipse cx="38" cy="24" rx="5" ry="10" fill="#B84040" transform="rotate(-10 38 24)"/>
+      <ellipse cx="48" cy="22" rx="4" ry="9" fill="#D05050" transform="rotate(10 48 22)"/>
+      <!-- 이빨 -->
+      <polygon points="30,56 34,64 38,56" fill="white"/>
+      <polygon points="40,57 44,65 48,57" fill="white"/>
+    </svg>
+  </div>
+
+  <!-- 우상단: 빨간 날개 괴물 -->
+  <div class="creature creature-tr">
+    <svg class="creature-svg" width="88" height="90" viewBox="0 0 88 90">
+      <!-- 날개 -->
+      <ellipse cx="14" cy="38" rx="14" ry="22" fill="#C84060" transform="rotate(-25 14 38)"/>
+      <ellipse cx="74" cy="38" rx="14" ry="22" fill="#C84060" transform="rotate(25 74 38)"/>
+      <ellipse cx="14" cy="38" rx="8" ry="14" fill="#F05080" transform="rotate(-25 14 38)"/>
+      <ellipse cx="74" cy="38" rx="8" ry="14" fill="#F05080" transform="rotate(25 74 38)"/>
+      <!-- 몸 -->
+      <ellipse cx="44" cy="52" rx="24" ry="28" fill="#E04050"/>
+      <ellipse cx="44" cy="52" rx="18" ry="22" fill="#F06070"/>
+      <!-- 배 -->
+      <ellipse cx="44" cy="58" rx="12" ry="14" fill="#FFB0C0"/>
+      <!-- 눈 -->
+      <circle cx="36" cy="42" r="12" fill="white"/>
+      <circle cx="36" cy="42" r="8" fill="#803010"/>
+      <circle cx="36" cy="42" r="4" fill="#401808"/>
+      <circle cx="33" cy="39" r="3" fill="white"/>
+      <!-- 뿔 -->
+      <polygon points="40,22 36,10 44,22" fill="#F0C030"/>
+      <polygon points="52,24 50,12 58,26" fill="#F0C030"/>
+      <!-- 발 -->
+      <ellipse cx="32" cy="78" rx="10" ry="7" fill="#C83040" transform="rotate(-10 32 78)"/>
+      <ellipse cx="56" cy="78" rx="10" ry="7" fill="#C83040" transform="rotate(10 56 78)"/>
+    </svg>
+  </div>
+
+  <!-- 좌하단: 파란 슬라임 -->
+  <div class="creature creature-bl">
+    <svg class="creature-svg" width="72" height="68" viewBox="0 0 72 68">
+      <ellipse cx="36" cy="42" rx="28" ry="24" fill="#4060D0"/>
+      <ellipse cx="36" cy="42" rx="22" ry="18" fill="#6080F0"/>
+      <!-- 뿔들 -->
+      <ellipse cx="22" cy="20" rx="6" ry="14" fill="#3050C0" transform="rotate(-15 22 20)"/>
+      <ellipse cx="36" cy="16" rx="6" ry="13" fill="#3050C0"/>
+      <ellipse cx="50" cy="20" rx="6" ry="14" fill="#3050C0" transform="rotate(15 50 20)"/>
+      <!-- 눈 -->
+      <circle cx="28" cy="38" r="10" fill="white"/>
+      <circle cx="28" cy="38" r="6" fill="#204080"/>
+      <circle cx="28" cy="38" r="3" fill="#102040"/>
+      <circle cx="26" cy="35" r="2" fill="white"/>
+      <!-- 입 -->
+      <path d="M28 52 Q36 58 44 52" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- 우하단: 노란 새 -->
+  <div class="creature creature-br">
+    <svg class="creature-svg" width="76" height="72" viewBox="0 0 76 72">
+      <!-- 날개 -->
+      <ellipse cx="12" cy="36" rx="14" ry="20" fill="#D0A020" transform="rotate(-20 12 36)"/>
+      <ellipse cx="64" cy="36" rx="14" ry="20" fill="#D0A020" transform="rotate(20 64 36)"/>
+      <!-- 몸 -->
+      <ellipse cx="38" cy="40" rx="22" ry="24" fill="#F0C030"/>
+      <ellipse cx="38" cy="40" rx="16" ry="18" fill="#FFD840"/>
+      <!-- 배 -->
+      <ellipse cx="38" cy="46" rx="10" ry="12" fill="#FFF0A0"/>
+      <!-- 눈 -->
+      <circle cx="30" cy="32" r="11" fill="white"/>
+      <circle cx="30" cy="32" r="7" fill="#604010"/>
+      <circle cx="30" cy="32" r="4" fill="#302008"/>
+      <circle cx="28" cy="30" r="2.5" fill="white"/>
+      <!-- 부리 -->
+      <polygon points="20,40 8,44 20,48" fill="#F08020"/>
+      <polygon points="20,40 8,44 20,44" fill="#D06010"/>
+      <!-- 볏 -->
+      <ellipse cx="38" cy="18" rx="5" ry="10" fill="#E05030" transform="rotate(-5 38 18)"/>
+      <ellipse cx="30" cy="20" rx="4" ry="8" fill="#F06040" transform="rotate(-20 30 20)"/>
+    </svg>
+  </div>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="wb-content">
+
+    <!-- 타이틀 배너 -->
+    <div class="title-banner">
+      <div class="title-star l">✦</div>
+      <div class="title-plate">
+        <span class="title-text">WORDBLITZ</span>
+      </div>
+      <div class="subtitle-plank">
+        <span class="subtitle-text">JUNGLE BATTLE</span>
+      </div>
+      <div class="title-star r">✦</div>
+    </div>
+
+    <!-- 시작 화면 -->
+    <div class="start-screen" id="startScreen">
+      <div class="start-desc">
+        🌿 뜻을 보고 맞는 단어를 골라라! · 2분 타임어택
+      </div>
+      <button class="start-btn" onclick="startGame()">
+        <span class="start-btn-icon">▶</span> START
+      </button>
+    </div>
+
+    <!-- 게임 화면 -->
+    <div class="game-screen" id="gameScreen">
+      <!-- HUD -->
+      <div class="hud">
+        <div class="hud-gem">
+          <div class="hud-gem-lbl">SCORE</div>
+          <div class="hud-gem-val" id="scoreVal">0</div>
+        </div>
+        <div class="hud-timer">
+          <div class="hud-timer-row">
+            <span>⏱ TIME</span><span id="timeVal">2:00</span>
+          </div>
+          <div class="hud-bar-track">
+            <div class="hud-bar-fill" id="timerBar"></div>
+          </div>
+        </div>
+        <div class="hud-combo-dots" id="comboDots">
+          <div class="hud-dot"></div>
+          <div class="hud-dot"></div>
+          <div class="hud-dot"></div>
+          <div class="hud-dot"></div>
+        </div>
+        <div class="hud-gem">
+          <div class="hud-gem-lbl" style="color:#ffe234">COMBO</div>
+          <div class="hud-gem-val" id="comboVal" style="color:#ffe234">x1</div>
+        </div>
+      </div>
+
+      <!-- 문제 보드 -->
+      <div class="q-board">
+        <div class="q-board-corner tl"></div>
+        <div class="q-board-corner tr"></div>
+        <div class="q-board-corner bl"></div>
+        <div class="q-board-corner br"></div>
+        <div class="q-board-label">🌿 어떤 단어일까요?</div>
+        <div class="q-board-text" id="questionText">진화, 발전</div>
+      </div>
+
+      <!-- 선택지 -->
+      <div class="choices" id="choices">
+        <button class="choice-btn" onclick="choose(this,0)" style="animation-delay:0s">
+          <div class="choice-badge">✓</div>
+          <span class="choice-icon">🌿</span>
+          <span class="choice-label" id="c0">evolution</span>
+        </button>
+        <button class="choice-btn" onclick="choose(this,1)" style="animation-delay:.08s">
+          <div class="choice-badge">✓</div>
+          <span class="choice-icon">🍄</span>
+          <span class="choice-label" id="c1">organism</span>
+        </button>
+        <button class="choice-btn" onclick="choose(this,2)" style="animation-delay:.16s">
+          <div class="choice-badge">✓</div>
+          <span class="choice-icon">🦎</span>
+          <span class="choice-label" id="c2">fossil</span>
+        </button>
+        <button class="choice-btn" onclick="choose(this,3)" style="animation-delay:.24s">
+          <div class="choice-badge">✓</div>
+          <span class="choice-icon">🌺</span>
+          <span class="choice-label" id="c3">selection</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 결과 화면 -->
+    <div class="result-screen" id="resultScreen">
+      <div class="result-board">
+        <span class="result-emoji" id="resultEmoji">🏆</span>
+        <div class="result-title" id="resultTitle">Excellent!</div>
+        <div class="result-sub" id="resultSub">정글의 왕이 되었습니다!</div>
+        <div class="result-stats">
+          <div class="result-stat g">
+            <div class="result-stat-lbl">✓ 정답</div>
+            <div class="result-stat-val" id="rCorrect">0</div>
+          </div>
+          <div class="result-stat r">
+            <div class="result-stat-lbl">✕ 오답</div>
+            <div class="result-stat-val" id="rWrong">0</div>
+          </div>
+          <div class="result-stat t">
+            <div class="result-stat-lbl">★ 점수</div>
+            <div class="result-stat-val" id="rScore">0</div>
+          </div>
+        </div>
+        <div class="result-wrong" id="rWrongList"></div>
+      </div>
+      <button class="result-btn" onclick="startGame()">🔄 Try Again</button>
+    </div>
+
+  </div>
+
+  <!-- 정글 바닥 -->
+  <div class="jungle-floor">
+    <div class="floor-grass"></div>
+    <div class="floor-stones">
+      <div class="floor-stone"></div>
+      <div class="floor-stone"></div>
+      <div class="floor-stone"></div>
+    </div>
+  </div>
+
+  <!-- 피드백 오버레이 -->
+  <div class="feedback" id="feedback">
+    <div class="feedback-box" id="feedbackBox">
+      <span class="feedback-emoji" id="feedbackEmoji">⭐</span>
+      <div class="feedback-word" id="feedbackWord">CORRECT!</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var WORDS=[
+  {word:'evolution',meaning:'진화, 발전'},
+  {word:'organism',meaning:'유기체, 생물'},
+  {word:'fossil',meaning:'화석'},
+  {word:'selection',meaning:'자연선택, 선발'},
+  {word:'adapt',meaning:'적응하다'},
+  {word:'trait',meaning:'형질, 특성'},
+  {word:'species',meaning:'종(種)'},
+  {word:'habitat',meaning:'서식지'},
+  {word:'diversity',meaning:'다양성'},
+  {word:'predator',meaning:'포식자'},
+  {word:'extinct',meaning:'멸종된'},
+  {word:'migrate',meaning:'이주하다'},
+];
+var ICONS=['🌿','🍄','🦎','🌺','🐛','🌴','🦋','🌿'];
+
+var score=0,combo=0,correct=0,wrong=0,wrongList=[],
+    timeLeft=120,timer=null,currentWord=null,queue=[],busy=false;
+
+function startGame(){
+  score=0;combo=0;correct=0;wrong=0;wrongList=[];
+  queue=WORDS.slice().sort(function(){return Math.random()-.5});
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='none';
+  document.getElementById('gameScreen').style.display='flex';
+  updateHUD();
+  startTimer();
+  nextQ();
+}
+
+function startTimer(){
+  clearInterval(timer);timeLeft=120;updateTimer();
+  timer=setInterval(function(){
+    timeLeft--;updateTimer();
+    if(timeLeft<=0){clearInterval(timer);endGame();}
+  },1000);
+}
+
+function updateTimer(){
+  var m=Math.floor(timeLeft/60),s=timeLeft%60;
+  document.getElementById('timeVal').textContent=m+':'+(s<10?'0':'')+s;
+  document.getElementById('timerBar').style.width=(timeLeft/120*100)+'%';
+  var bar=document.getElementById('timerBar');
+  if(timeLeft>60)bar.style.background='linear-gradient(90deg,#ff6b35 0%,#ff9f00 40%,#ffe234 100%)';
+  else if(timeLeft>30)bar.style.background='linear-gradient(90deg,#ff9900 0%,#ffcc00 100%)';
+  else bar.style.background='linear-gradient(90deg,#ff3030 0%,#ff6060 100%)';
+}
+
+function updateHUD(){
+  document.getElementById('scoreVal').textContent=score;
+  document.getElementById('comboVal').textContent='x'+Math.max(1,combo);
+  var dots=document.querySelectorAll('.hud-dot');
+  dots.forEach(function(d,i){d.classList.toggle('on',i<combo)});
+}
+
+function nextQ(){
+  if(!queue.length)queue=WORDS.slice().sort(function(){return Math.random()-.5});
+  currentWord=queue.pop();
+  var others=WORDS.filter(function(w){return w.word!==currentWord.word})
+    .sort(function(){return Math.random()-.5}).slice(0,3);
+  var choices=[currentWord].concat(others).sort(function(){return Math.random()-.5});
+
+  document.getElementById('questionText').textContent=currentWord.meaning;
+  var btns=document.querySelectorAll('.choice-btn');
+  btns.forEach(function(b,i){
+    b.className='choice-btn';
+    b.onclick=function(){choose(b,i)};
+    b.querySelector('.choice-label').textContent=choices[i].word;
+    b.querySelector('.choice-icon').textContent=ICONS[Math.floor(Math.random()*ICONS.length)];
+    b.dataset.word=choices[i].word;
+  });
+  busy=false;
+}
+
+function choose(btn,idx){
+  if(busy)return;busy=true;
+  var chosen=btn.dataset.word;
+  var isCorrect=chosen===currentWord.word;
+
+  document.querySelectorAll('.choice-btn').forEach(function(b){b.onclick=null});
+
+  if(isCorrect){
+    btn.classList.add('correct');
+    correct++;combo++;
+    score+=combo>=3?250:combo>=2?175:100;
+    showFeedback(true);
+  } else {
+    btn.classList.add('wrong');
+    // 정답 강조
+    document.querySelectorAll('.choice-btn').forEach(function(b){
+      if(b.dataset.word===currentWord.word)b.classList.add('correct');
+    });
+    wrong++;combo=0;
+    wrongList.push(currentWord);
+    showFeedback(false);
+  }
+  updateHUD();
+  setTimeout(nextQ,1000);
+}
+
+function showFeedback(ok){
+  var fb=document.getElementById('feedback');
+  var emoji=document.getElementById('feedbackEmoji');
+  var word=document.getElementById('feedbackWord');
+  fb.style.display='flex';
+  if(ok){
+    emoji.textContent=['⭐','🌟','💫','✨'][Math.floor(Math.random()*4)];
+    word.textContent='CORRECT!';word.className='feedback-word ok';
+    spawnParticles();
+  } else {
+    emoji.textContent='💥';
+    word.textContent='WRONG!';word.className='feedback-word no';
+  }
+  setTimeout(function(){fb.style.display='none'},800);
+}
+
+function spawnParticles(){
+  var fb=document.getElementById('feedbackBox');
+  var emojis=['✨','🌟','💫','⭐','🌿','🌺'];
+  for(var i=0;i<10;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.cssText='--dx:'+(Math.random()*200-100)+'px;--dy:'+(-(60+Math.random()*100))+'px;--dr:'+(Math.random()*360)+'deg;left:50%;top:50%';
+    document.getElementById('feedback').appendChild(p);
+    setTimeout(function(pp){pp.remove()},900,p);
+  }
+}
+
+function endGame(){
+  document.getElementById('gameScreen').style.display='none';
+  var res=document.getElementById('resultScreen');
+  res.style.display='flex';
+  var pct=correct+wrong?Math.round(correct/(correct+wrong)*100):0;
+  document.getElementById('resultEmoji').textContent=pct>=80?'🏆':pct>=50?'👍':'💪';
+  document.getElementById('resultTitle').textContent=pct>=80?'Excellent!':pct>=50?'Good Job!':'Try Again!';
+  document.getElementById('resultSub').textContent=
+    pct>=80?'정글의 왕이 되었습니다! 🌴':pct>=50?'훌륭합니다! 계속 도전하세요 🌿':'포기하지 마세요! 다시 도전! 🦋';
+  document.getElementById('rCorrect').textContent=correct;
+  document.getElementById('rWrong').textContent=wrong;
+  document.getElementById('rScore').textContent=score;
+  if(wrongList.length){
+    var seen={};
+    document.getElementById('rWrongList').innerHTML=
+      '<div style="margin-bottom:6px;font-weight:700;color:#e0a040">틀린 단어:</div>'+
+      wrongList.filter(function(w){
+        if(seen[w.word])return false;seen[w.word]=true;return true;
+      }).map(function(w){
+        return '<div><b>'+w.word+'</b> — <span style="color:#908070">'+w.meaning+'</span></div>';
+      }).join('');
+  } else {
+    document.getElementById('rWrongList').innerHTML='<div style="color:#80f040;font-weight:700">🎉 모두 정답! 완벽해요!</div>';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — LexiVault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   CLAUDE.md — Design Tokens (Single Source of Truth)
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --p:#3B82F6;--ph:#2563EB;--pl:#EFF6FF;--pd:#1D4ED8;
+  --active:#F59E0B;--al:#FEF3C7;
+  --success:#22C55E;--sl:#DCFCE7;
+  --error:#EF4444;--el:#FEE2E2;
+  --info:#06B6D4;--il:#CFFAFE;
+  --combo:#8B5CF6;--streak:#EC4899;
+  /* 게임 전용 고정 색상 — 변경 금지 */
+  --gold:#EAB308;--silver:#94A3B8;--bronze:#D97706;
+  --bg:#FFFFFF;--bg2:#F8FAFC;--bg3:#F1F5F9;
+  --t1:#0F172A;--t2:#475569;--t3:#94A3B8;--t4:#CBD5E1;--ti:#FFFFFF;
+  --bd:#E2E8F0;--bdf:#3B82F6;
+  --sh-xs:0 1px 2px rgba(0,0,0,.05);
+  --sh-sm:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);
+  --sh-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+  --sh-lg:0 10px 15px rgba(0,0,0,.10),0 4px 6px rgba(0,0,0,.05);
+  --sh-xl:0 20px 25px rgba(0,0,0,.10),0 10px 10px rgba(0,0,0,.04);
+  --r-sm:6px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-2xl:24px;--r-full:9999px;
+  --dur-fast:100ms;--dur-normal:200ms;--dur-slow:300ms;--dur-slower:500ms;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(0,0,.2,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+
+  /* 레이아웃 */
+  --sidebar-w: 220px;
+  --header-h:  60px;
+}
+[data-theme="dark"] {
+  --p:#60A5FA;--ph:#93C5FD;--pl:#1E3A5F;--pd:#3B82F6;
+  --al:#451A03;--sl:#052e16;--el:#3b0a0a;--il:#083344;
+  --success:#4ADE80;--error:#F87171;
+  --bg:#0B1120;--bg2:#141E30;--bg3:#1E2D42;
+  --t1:#F1F5F9;--t2:#CBD5E1;--t3:#64748B;--t4:#334155;
+  --bd:#1E2D42;--bdf:#60A5FA;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg3);color:var(--t1);
+  min-height:100vh;display:flex;flex-direction:column;
+  transition:background var(--dur-normal) var(--ease),color var(--dur-normal) var(--ease);
+}
+button{cursor:pointer;font-family:inherit;border:none;background:none;outline:none}
+input,select{font-family:inherit;outline:none}
+img,svg{display:block}
+::selection{background:rgba(59,130,246,.15);color:var(--t1)}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT — 3-PANEL: Sidebar + Header + Main
+═══════════════════════════════════════════════════════════════ */
+.shell{
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  grid-template-rows:var(--header-h) 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height:100vh;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════ */
+.sidebar{
+  grid-area:sidebar;
+  background:var(--bg);
+  border-right:1px solid var(--bd);
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;
+  overflow-y:auto;scrollbar-width:none;
+  transition:background var(--dur-normal);
+  z-index:100;
+}
+.sidebar::-webkit-scrollbar{display:none}
+
+.sidebar-brand{
+  padding:0 20px;
+  height:var(--header-h);
+  display:flex;align-items:center;gap:9px;
+  border-bottom:1px solid var(--bd);
+  flex-shrink:0;
+}
+.sidebar-brand-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--p);
+  box-shadow:0 0 0 3px var(--pl);flex-shrink:0;
+}
+.sidebar-brand-name{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:800;letter-spacing:-.025em;color:var(--p);
+}
+.sidebar-brand-ver{
+  font-size:9px;font-weight:600;color:var(--t3);
+  background:var(--bg3);border:1px solid var(--bd);
+  padding:1px 6px;border-radius:var(--r-full);margin-left:auto;
+}
+
+.sidebar-nav{padding:12px 10px;flex:1}
+.sidebar-section-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t4);padding:4px 10px;margin-bottom:2px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:var(--r-md);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  color:var(--t2);cursor:pointer;
+  transition:all var(--dur-fast);
+  margin-bottom:1px;
+  position:relative;
+}
+.nav-item:hover{background:var(--bg2);color:var(--t1)}
+.nav-item.active{
+  background:var(--pl);color:var(--p);font-weight:600;
+}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:60%;background:var(--p);border-radius:0 var(--r-full) var(--r-full) 0;
+}
+.nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.nav-badge{
+  margin-left:auto;font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;
+  padding:2px 6px;border-radius:var(--r-full);
+  background:var(--p);color:#fff;
+}
+.nav-divider{height:1px;background:var(--bd);margin:8px 10px}
+
+.sidebar-footer{
+  padding:14px 10px;border-top:1px solid var(--bd);flex-shrink:0;
+}
+.user-card{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:var(--r-lg);
+  cursor:pointer;transition:background var(--dur-fast);
+}
+.user-card:hover{background:var(--bg2)}
+.user-avatar{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--p),var(--combo));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;color:#fff;
+}
+.user-info{flex:1;min-width:0}
+.user-name{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:700;color:var(--t1);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.user-plan{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t3)}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════════════ */
+.header{
+  grid-area:header;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;
+  padding:0 32px;gap:16px;
+  position:sticky;top:0;z-index:90;
+  transition:background var(--dur-normal);
+}
+[data-theme="dark"] .header{background:rgba(11,17,32,.92)}
+.header-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px;font-weight:700;color:var(--t1);
+  letter-spacing:-.02em;
+}
+.header-sub{
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;color:var(--t3);margin-left:4px;
+}
+.header-spacer{flex:1}
+
+/* 기간 선택 */
+.period-tabs{
+  display:flex;background:var(--bg3);border-radius:var(--r-md);padding:3px;gap:2px;
+}
+.period-tab{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  padding:4px 12px;border-radius:6px;color:var(--t3);
+  transition:all var(--dur-fast);
+}
+.period-tab.active{background:var(--bg);color:var(--t1);box-shadow:var(--sh-xs)}
+.period-tab:hover:not(.active){color:var(--t2)}
+
+.header-actions{display:flex;align-items:center;gap:8px}
+.hdr-btn{
+  width:34px;height:34px;border-radius:var(--r-md);
+  background:var(--bg2);border:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  transition:all var(--dur-normal);
+}
+.hdr-btn:hover{background:var(--bg3);border-color:var(--t3)}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════════════════════ */
+.main{
+  grid-area:main;
+  padding:28px 32px 60px;
+  overflow-y:auto;
+  display:flex;flex-direction:column;gap:24px;
+}
+.main::-webkit-scrollbar{width:4px}
+.main::-webkit-scrollbar-track{background:transparent}
+.main::-webkit-scrollbar-thumb{background:var(--bd);border-radius:var(--r-full)}
+
+/* ═══════════════════════════════════════════════════════════════
+   WELCOME STRIP
+═══════════════════════════════════════════════════════════════ */
+.welcome{
+  background:linear-gradient(135deg,var(--pd) 0%,var(--p) 45%,#6366F1 100%);
+  border-radius:var(--r-2xl);padding:28px 32px;
+  display:flex;align-items:center;gap:24px;
+  position:relative;overflow:hidden;
+}
+.welcome::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);
+}
+.welcome::after{
+  content:'';position:absolute;bottom:-80px;right:160px;
+  width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04);
+}
+.welcome-text{flex:1;position:relative;z-index:1}
+.welcome-eyebrow{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.65);margin-bottom:6px;
+}
+.welcome-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:22px;font-weight:800;color:#fff;line-height:1.2;
+  letter-spacing:-.025em;margin-bottom:4px;
+}
+.welcome-sub{
+  font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.72);
+}
+.welcome-chips{
+  display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1;
+}
+.welcome-chip{
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);
+  padding:4px 12px;font-family:'DM Sans',sans-serif;
+  font-size:11px;font-weight:600;color:#fff;
+  display:flex;align-items:center;gap:5px;
+}
+
+/* 오른쪽 — 스트릭 */
+.welcome-streak{
+  /* 게임 전용 고정 색상 — 변경 금지 */
+  background:rgba(255,255,255,.12);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:var(--r-xl);padding:20px 24px;
+  display:flex;align-items:center;gap:14px;
+  position:relative;z-index:1;flex-shrink:0;
+  cursor:pointer;transition:background var(--dur-normal);
+}
+.welcome-streak:hover{background:rgba(255,255,255,.18)}
+.streak-flame{font-size:32px;animation:flamePulse 2.4s ease-in-out infinite}
+@keyframes flamePulse{0%,100%{transform:scale(1) rotate(-4deg)}50%{transform:scale(1.14) rotate(4deg)}}
+.streak-num{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:36px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.04em;
+}
+.streak-unit{font-size:14px;font-weight:500;opacity:.8;margin-left:2px}
+.streak-label{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+
+/* ═══════════════════════════════════════════════════════════════
+   KPI ROW — 4 STAT CARDS
+═══════════════════════════════════════════════════════════════ */
+.kpi-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.kpi-card{
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:var(--r-xl);padding:20px 22px;
+  box-shadow:var(--sh-xs);
+  transition:all var(--dur-normal) var(--ease);
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.kpi-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:var(--t4)}
+.kpi-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+}
+.kpi-card.c-blue::after  {background:linear-gradient(90deg,var(--p),#6366F1)}
+.kpi-card.c-pink::after  {background:linear-gradient(90deg,var(--streak),var(--active))}
+.kpi-card.c-green::after {background:linear-gradient(90deg,var(--success),#10B981)}
+.kpi-card.c-amber::after {background:linear-gradient(90deg,var(--gold),var(--active))}
+
+.kpi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kpi-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--t3);
+}
+.kpi-icon{
+  width:30px;height:30px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.kpi-icon.blue  {background:var(--pl)}
+.kpi-icon.pink  {background:#FDF2F8}
+[data-theme="dark"] .kpi-icon.pink{background:#2D1B3D}
+.kpi-icon.green {background:var(--sl)}
+.kpi-icon.amber {background:var(--al)}
+
+.kpi-val{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:38px;font-weight:800;line-height:1;
+  letter-spacing:-.04em;color:var(--t1);margin-bottom:6px;
+}
+.kpi-unit{font-size:18px;font-weight:500;color:var(--t3);margin-left:2px;letter-spacing:0}
+.kpi-footer{display:flex;align-items:center;gap:5px}
+.kpi-trend{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;gap:2px;
+  padding:2px 7px;border-radius:var(--r-full);
+}
+.kpi-trend.up{background:var(--sl);color:#065f46}
+.kpi-trend.down{background:var(--el);color:#991b1b}
+.kpi-trend-label{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3)}
+.kpi-bg-icon{
+  position:absolute;bottom:-8px;right:10px;font-size:52px;
+  opacity:.05;transform:rotate(-8deg);pointer-events:none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MIDDLE ROW: Chart (2/3) + Goal (1/3)
+═══════════════════════════════════════════════════════════════ */
+.row-mid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+
+/* ── Score Trend Chart ── */
+.chart-card{
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:var(--r-xl);padding:24px;
+  box-shadow:var(--sh-xs);
+}
+.card-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:700;color:var(--t1);
+  letter-spacing:-.015em;
+}
+.card-sub{
+  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t3);margin-top:2px;
+}
+.chart-controls{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;
+}
+.chart-legend{display:flex;align-items:center;gap:14px}
+.legend-item{
+  display:flex;align-items:center;gap:5px;
+  font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t2);cursor:pointer;
+}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.chart-tabs{
+  display:flex;background:var(--bg3);border-radius:var(--r-md);padding:3px;gap:2px;
+}
+.chart-tab{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  padding:4px 10px;border-radius:5px;color:var(--t3);transition:all var(--dur-fast);
+}
+.chart-tab.active{background:var(--bg);color:var(--t1);box-shadow:var(--sh-xs)}
+.chart-tab:hover:not(.active){color:var(--t2)}
+.chart-wrap{
+  position:relative;width:100%;
+}
+.chart-wrap svg{width:100%;overflow:visible}
+.chart-y-label{
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);
+}
+.chart-x-label{
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);text-anchor:middle;
+}
+.chart-grid{stroke:var(--bd);stroke-width:.5;stroke-dasharray:3 4}
+.chart-line{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart-dot{stroke:#fff;stroke-width:2;cursor:pointer;transition:r var(--dur-fast)}
+.chart-dot:hover{r:6}
+
+/* ── Goal / Progress Card ── */
+.goal-card{
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:var(--r-xl);padding:24px;
+  box-shadow:var(--sh-xs);
+  display:flex;flex-direction:column;gap:20px;
+}
+.goal-ring-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.goal-ring-svg{width:130px;height:130px}
+.goal-ring-bg{fill:none;stroke:var(--bg3);stroke-width:10}
+.goal-ring-fill{
+  fill:none;stroke-width:10;stroke-linecap:round;
+  transition:stroke-dashoffset 1.4s var(--ease-out);
+}
+.goal-ring-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:28px;font-weight:800;color:var(--t1);
+}
+.goal-ring-sub{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);text-align:center}
+.goal-items{display:flex;flex-direction:column;gap:10px}
+.goal-item{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.goal-item-left{display:flex;align-items:center;gap:8px}
+.goal-item-icon{font-size:14px}
+.goal-item-name{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--t2)}
+.goal-item-track{
+  flex:1;height:4px;background:var(--bg3);border-radius:var(--r-full);overflow:hidden;
+  min-width:50px;
+}
+.goal-item-fill{height:100%;border-radius:var(--r-full);transition:width 1.2s var(--ease-out)}
+.goal-item-pct{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  color:var(--t3);min-width:28px;text-align:right;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOTTOM ROW: Heatmap + Rings + Activity
+═══════════════════════════════════════════════════════════════ */
+.row-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* ── Heatmap ── */
+.heatmap-card{
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:var(--r-xl);padding:24px;
+  box-shadow:var(--sh-xs);
+}
+.heatmap-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:16px;
+}
+.hm-day-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:9px;font-weight:700;color:var(--t4);
+  text-align:center;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;
+}
+.heatmap-col{display:flex;flex-direction:column;gap:5px}
+.hm-cell{
+  aspect-ratio:1;border-radius:4px;background:var(--bg3);
+  cursor:pointer;transition:all var(--dur-normal) var(--ease);
+  position:relative;
+}
+.hm-cell:hover{transform:scale(1.35);z-index:10;box-shadow:var(--sh-md)}
+.hm-cell.lv1{background:var(--p);opacity:.2}
+.hm-cell.lv2{background:var(--p);opacity:.45}
+.hm-cell.lv3{background:var(--p);opacity:.7}
+.hm-cell.lv4{background:var(--p);opacity:1}
+.hm-cell.today{box-shadow:0 0 0 2px var(--p),0 0 0 4px var(--pl)}
+.hm-legend{
+  display:flex;align-items:center;gap:4px;margin-top:14px;justify-content:flex-end;
+}
+.hm-legend-label{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t3)}
+.hm-legend-cell{width:10px;height:10px;border-radius:3px}
+
+/* ── Module Rings ── */
+.rings-card{
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:var(--r-xl);padding:24px;
+  box-shadow:var(--sh-xs);
+}
+.rings-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;
+}
+.ring-item{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:14px 10px;border-radius:var(--r-lg);border:1px solid var(--bd);
+  cursor:pointer;transition:all var(--dur-normal) var(--ease);
+}
+.ring-item:hover{background:var(--bg2);border-color:var(--t4);transform:translateY(-2px);box-shadow:var(--sh-md)}
+.ring-svg-wrap{position:relative;width:72px;height:72px}
+.ring-svg-wrap svg{width:72px;height:72px;transform:rotate(-90deg)}
+.ring-bg-c{fill:none;stroke:var(--bg3);stroke-width:7}
+.ring-fg-c{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1.2s var(--ease-out)}
+.ring-center-label{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;color:var(--t1);
+}
+.ring-module-name{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--t2);
+  text-align:center;line-height:1.3;
+}
+.ring-module-count{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t3);text-align:center}
+
+/* ── Activity ── */
+.activity-card{
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:var(--r-xl);
+  box-shadow:var(--sh-xs);overflow:hidden;
+}
+.activity-header{
+  padding:20px 22px 16px;border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.activity-view-all{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--p);
+  padding:3px 8px;border-radius:var(--r-md);transition:background var(--dur-fast);
+}
+.activity-view-all:hover{background:var(--pl)}
+.act-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 22px;border-bottom:1px solid var(--bd);
+  cursor:pointer;transition:background var(--dur-fast);
+}
+.act-item:last-child{border-bottom:none}
+.act-item:hover{background:var(--bg2)}
+.act-icon{
+  width:36px;height:36px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+}
+.act-icon.fc{background:rgba(59,130,246,.10)}
+.act-icon.sf{background:rgba(74,159,207,.10)}
+.act-icon.wb{background:rgba(34,197,94,.10)}
+.act-icon.sq{background:rgba(245,158,11,.10)}
+.act-body{flex:1;min-width:0}
+.act-mod{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--t1);
+}
+.act-text{
+  font-family:'DM Sans',sans-serif;font-size:11px;color:var(--t3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;
+}
+.act-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.act-score{
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--t1);
+}
+.act-score.perfect{color:var(--gold)}
+.act-time{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t3)}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOOLTIP (호버)
+═══════════════════════════════════════════════════════════════ */
+.tt{position:relative}
+.tt-tip{
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:var(--t1);color:#fff;white-space:nowrap;
+  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;
+  padding:4px 9px;border-radius:var(--r-md);
+  opacity:0;pointer-events:none;transition:opacity var(--dur-fast);z-index:999;
+}
+.tt-tip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:var(--t1);
+}
+.tt:hover .tt-tip{opacity:1}
+
+/* ═══════════════════════════════════════════════════════════════
+   SKELETON
+═══════════════════════════════════════════════════════════════ */
+.ske{
+  background:linear-gradient(90deg,var(--bg3) 25%,var(--bd) 50%,var(--bg3) 75%);
+  background-size:200% 100%;border-radius:var(--r-md);
+  animation:skelAnim 1.6s infinite;
+}
+@keyframes skelAnim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ═══════════════════════════════════════════════════════════════
+   RANK BADGE
+═══════════════════════════════════════════════════════════════ */
+.badge{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:2px 9px;border-radius:var(--r-full);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+}
+.badge-master{
+  /* 게임 전용 고정 색상 — 변경 금지 */
+  background:linear-gradient(135deg,#EDE9FE,#FCE7F3);
+  color:#6B21A8;border:1px solid #C084FC;
+}
+.badge-gold{background:#FEF3C7;color:#92400E;border:1px solid #EAB308}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — 768px Tablet
+═══════════════════════════════════════════════════════════════ */
+@media(max-width:1024px){
+  :root{--sidebar-w:180px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .row-bottom{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .shell{grid-template-columns:1fr;grid-template-areas:"header""main"}
+  .sidebar{display:none}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .row-mid{grid-template-columns:1fr}
+  .row-bottom{grid-template-columns:1fr}
+  .main{padding:20px 16px 40px}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FADE-IN STAGGER
+═══════════════════════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fi1{animation:fadeUp .4s var(--ease-out) .04s both}
+.fi2{animation:fadeUp .4s var(--ease-out) .10s both}
+.fi3{animation:fadeUp .4s var(--ease-out) .16s both}
+.fi4{animation:fadeUp .4s var(--ease-out) .22s both}
+.fi5{animation:fadeUp .4s var(--ease-out) .28s both}
+.fi6{animation:fadeUp .4s var(--ease-out) .34s both}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-dot"></div>
+      <span class="sidebar-brand-name">LexiVault</span>
+      <span class="sidebar-brand-ver">v06</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">학습</div>
+      <div class="nav-item" onclick="alert('원문 화면으로')">
+        <span class="nav-icon">📄</span>원문 입력
+      </div>
+      <div class="nav-item" onclick="alert('단어장으로')">
+        <span class="nav-icon">📖</span>LexiVault
+        <span class="nav-badge">342</span>
+      </div>
+      <div class="nav-item" onclick="alert('Flashcard')">
+        <span class="nav-icon">🃏</span>Flashcard
+      </div>
+
+      <div class="nav-divider"></div>
+      <div class="sidebar-section-label">게임</div>
+      <div class="nav-item" onclick="alert('SpellForge')">
+        <span class="nav-icon">⚡</span>SpellForge
+      </div>
+      <div class="nav-item" onclick="alert('WordBlitz')">
+        <span class="nav-icon">🌴</span>WordBlitz
+      </div>
+      <div class="nav-item" onclick="alert('ScriptQuiz')">
+        <span class="nav-icon">📝</span>ScriptQuiz
+      </div>
+
+      <div class="nav-divider"></div>
+      <div class="sidebar-section-label">분석</div>
+      <div class="nav-item active">
+        <span class="nav-icon">📊</span>Dashboard
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-card" onclick="alert('프로필')">
+        <div class="user-avatar">김</div>
+        <div class="user-info">
+          <div class="user-name">김민준</div>
+          <div class="user-plan">Pro 플랜 · 7일 연속 🔥</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════════════
+       HEADER
+  ════════════════════════════════ -->
+  <header class="header">
+    <div>
+      <div class="header-title">학습 Dashboard</div>
+      <span class="header-sub">마지막 업데이트 · 방금 전</span>
+    </div>
+    <div class="header-spacer"></div>
+    <div class="period-tabs">
+      <button class="period-tab" onclick="setPeriod('7',this)">7일</button>
+      <button class="period-tab active" onclick="setPeriod('30',this)">30일</button>
+      <button class="period-tab" onclick="setPeriod('90',this)">3개월</button>
+      <button class="period-tab" onclick="setPeriod('all',this)">전체</button>
+    </div>
+    <div class="header-actions">
+      <button class="hdr-btn" title="내보내기" aria-label="내보내기">⬇</button>
+      <button class="hdr-btn" id="themeBtn" onclick="toggleTheme()" aria-label="테마 전환">🌙</button>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════
+       MAIN
+  ════════════════════════════════ -->
+  <main class="main">
+
+    <!-- WELCOME STRIP -->
+    <div class="welcome fi1">
+      <div class="welcome-text">
+        <div class="welcome-eyebrow">📊 오늘의 학습 현황</div>
+        <div class="welcome-title">안녕하세요, 김민준 님 👋</div>
+        <div class="welcome-sub">이번 주 목표의 75%를 달성했어요. 조금만 더 힘내세요!</div>
+        <div class="welcome-chips">
+          <div class="welcome-chip">📚 오늘 23단어</div>
+          <div class="welcome-chip">🎯 정확도 88%</div>
+          <div class="welcome-chip" style="background:rgba(234,179,8,.2);border-color:rgba(234,179,8,.4)">
+            <span class="badge badge-master">🏆 Master</span>
+          </div>
+        </div>
+      </div>
+      <div class="welcome-streak" onclick="alert('연속 학습 상세 기록')">
+        <div class="streak-flame">🔥</div>
+        <div>
+          <div class="streak-num">7<span class="streak-unit">일</span></div>
+          <div class="streak-label">연속 학습 중</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(255,255,255,.55);margin-top:3px">최고 기록 12일</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row fi2">
+      <div class="kpi-card c-blue" onclick="alert('오늘 학습 상세')">
+        <div class="kpi-header">
+          <div class="kpi-label">오늘 학습</div>
+          <div class="kpi-icon blue">📚</div>
+        </div>
+        <div class="kpi-val" id="kv-today">0<span class="kpi-unit">개</span></div>
+        <div class="kpi-footer">
+          <span class="kpi-trend up">▲ 8</span>
+          <span class="kpi-trend-label">어제 대비</span>
+        </div>
+        <div class="kpi-bg-icon">📚</div>
+      </div>
+      <div class="kpi-card c-pink" onclick="alert('연속 학습 상세')">
+        <div class="kpi-header">
+          <div class="kpi-label">연속 학습</div>
+          <div class="kpi-icon pink">🔥</div>
+        </div>
+        <div class="kpi-val" id="kv-streak">0<span class="kpi-unit">일</span></div>
+        <div class="kpi-footer">
+          <span class="kpi-trend-label">최고 <strong>12</strong>일</span>
+        </div>
+        <div class="kpi-bg-icon">🔥</div>
+      </div>
+      <div class="kpi-card c-green" onclick="alert('누적 단어 상세')">
+        <div class="kpi-header">
+          <div class="kpi-label">누적 단어</div>
+          <div class="kpi-icon green">⭐</div>
+        </div>
+        <div class="kpi-val" id="kv-total">0<span class="kpi-unit">개</span></div>
+        <div class="kpi-footer">
+          <span class="kpi-trend up">▲ 87</span>
+          <span class="kpi-trend-label">이번 주</span>
+        </div>
+        <div class="kpi-bg-icon">⭐</div>
+      </div>
+      <div class="kpi-card c-amber" onclick="alert('정확도 상세')">
+        <div class="kpi-header">
+          <div class="kpi-label">전체 정확도</div>
+          <div class="kpi-icon amber">🎯</div>
+        </div>
+        <div class="kpi-val" id="kv-acc">0<span class="kpi-unit">%</span></div>
+        <div class="kpi-footer">
+          <span class="kpi-trend up">▲ 3%</span>
+          <span class="kpi-trend-label">지난 주 대비</span>
+        </div>
+        <div class="kpi-bg-icon">🎯</div>
+      </div>
+    </div>
+
+    <!-- MIDDLE ROW -->
+    <div class="row-mid fi3">
+
+      <!-- Score Trend Chart -->
+      <div class="chart-card">
+        <div class="chart-controls">
+          <div>
+            <div class="card-title">점수 추이</div>
+            <div class="card-sub">최근 7일 · 모듈별 비교</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="chart-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#3B82F6"></div>Flashcard</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#4A9FCF"></div>SpellForge</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#22C55E"></div>WordBlitz</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#F59E0B"></div>ScriptQuiz</div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <svg id="trendSvg" viewBox="0 0 680 180" preserveAspectRatio="none" style="height:180px">
+            <!-- Y 그리드 + 레이블 -->
+            <text class="chart-y-label" x="6" y="18"  text-anchor="start">100</text>
+            <text class="chart-y-label" x="6" y="63"  text-anchor="start">75</text>
+            <text class="chart-y-label" x="6" y="108" text-anchor="start">50</text>
+            <text class="chart-y-label" x="6" y="153" text-anchor="start">25</text>
+            <line x1="36" y1="14"  x2="670" y2="14"  class="chart-grid"/>
+            <line x1="36" y1="59"  x2="670" y2="59"  class="chart-grid"/>
+            <line x1="36" y1="104" x2="670" y2="104" class="chart-grid"/>
+            <line x1="36" y1="149" x2="670" y2="149" class="chart-grid"/>
+            <!-- X 레이블 -->
+            <text class="chart-x-label" x="82"  y="174">4/6</text>
+            <text class="chart-x-label" x="148" y="174">4/7</text>
+            <text class="chart-x-label" x="214" y="174">4/8</text>
+            <text class="chart-x-label" x="280" y="174">4/9</text>
+            <text class="chart-x-label" x="346" y="174">4/10</text>
+            <text class="chart-x-label" x="412" y="174">4/11</text>
+            <text class="chart-x-label" x="478" y="174">4/12</text>
+            <!-- Area fill -->
+            <defs>
+              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3B82F6" stop-opacity=".12"/>
+                <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path id="areaPath" fill="url(#areaGrad)"/>
+            <!-- Lines -->
+            <path id="line-fc" class="chart-line" stroke="#3B82F6"/>
+            <path id="line-sf" class="chart-line" stroke="#4A9FCF" stroke-opacity=".8"/>
+            <path id="line-wb" class="chart-line" stroke="#22C55E" stroke-opacity=".8"/>
+            <path id="line-sq" class="chart-line" stroke="#F59E0B" stroke-opacity=".8"/>
+            <!-- Dots group -->
+            <g id="trendDots"></g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Goal Card -->
+      <div class="goal-card">
+        <div>
+          <div class="card-title">오늘의 목표</div>
+          <div class="card-sub">30개 단어 · 4모듈</div>
+        </div>
+        <div class="goal-ring-wrap">
+          <svg class="goal-ring-svg" viewBox="0 0 130 130">
+            <circle class="goal-ring-bg" cx="65" cy="65" r="52" transform="rotate(-90 65 65)"/>
+            <circle class="goal-ring-fill" cx="65" cy="65" r="52"
+              id="goalRingFill"
+              stroke="url(#goalGrad)"
+              stroke-dasharray="326.7"
+              stroke-dashoffset="326.7"
+              transform="rotate(-90 65 65)"/>
+            <defs>
+              <linearGradient id="goalGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3B82F6"/>
+                <stop offset="100%" stop-color="#6366F1"/>
+              </linearGradient>
+            </defs>
+            <text x="65" y="60" text-anchor="middle"
+              font-family="'Plus Jakarta Sans',sans-serif"
+              font-size="26" font-weight="800" fill="var(--t1)">75%</text>
+            <text x="65" y="78" text-anchor="middle"
+              font-family="'DM Sans',sans-serif"
+              font-size="11" fill="var(--t3)">달성</text>
+          </svg>
+        </div>
+        <div class="goal-items">
+          <div class="goal-item">
+            <div class="goal-item-left">
+              <span class="goal-item-icon">🃏</span>
+              <span class="goal-item-name">Flashcard</span>
+            </div>
+            <div class="goal-item-track">
+              <div class="goal-item-fill" id="gf-fc" style="width:0%;background:linear-gradient(90deg,#3B82F6,#6366F1)"></div>
+            </div>
+            <span class="goal-item-pct">100%</span>
+          </div>
+          <div class="goal-item">
+            <div class="goal-item-left">
+              <span class="goal-item-icon">⚡</span>
+              <span class="goal-item-name">SpellForge</span>
+            </div>
+            <div class="goal-item-track">
+              <div class="goal-item-fill" id="gf-sf" style="width:0%;background:linear-gradient(90deg,#4A9FCF,#0EA5E9)"></div>
+            </div>
+            <span class="goal-item-pct">100%</span>
+          </div>
+          <div class="goal-item">
+            <div class="goal-item-left">
+              <span class="goal-item-icon">🌴</span>
+              <span class="goal-item-name">WordBlitz</span>
+            </div>
+            <div class="goal-item-track">
+              <div class="goal-item-fill" id="gf-wb" style="width:0%;background:linear-gradient(90deg,#22C55E,#10B981)"></div>
+            </div>
+            <span class="goal-item-pct">100%</span>
+          </div>
+          <div class="goal-item">
+            <div class="goal-item-left">
+              <span class="goal-item-icon">📝</span>
+              <span class="goal-item-name">ScriptQuiz</span>
+            </div>
+            <div class="goal-item-track">
+              <div class="goal-item-fill" id="gf-sq" style="width:0%;background:linear-gradient(90deg,#F59E0B,#EAB308)"></div>
+            </div>
+            <span class="goal-item-pct">0%</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /row-mid -->
+
+    <!-- BOTTOM ROW -->
+    <div class="row-bottom fi4">
+
+      <!-- Heatmap -->
+      <div class="heatmap-card">
+        <div class="card-title">주간 학습 히트맵</div>
+        <div class="card-sub" style="margin-top:2px">최근 4주 · 일별 학습량</div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:14px">
+          <div class="hm-day-label">일</div><div class="hm-day-label">월</div>
+          <div class="hm-day-label">화</div><div class="hm-day-label">수</div>
+          <div class="hm-day-label">목</div><div class="hm-day-label">금</div>
+          <div class="hm-day-label">토</div>
+        </div>
+        <div id="heatmapGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px"></div>
+        <div class="hm-legend">
+          <span class="hm-legend-label">적음</span>
+          <div class="hm-legend-cell" style="background:var(--bg3)"></div>
+          <div class="hm-legend-cell" style="background:var(--p);opacity:.2"></div>
+          <div class="hm-legend-cell" style="background:var(--p);opacity:.45"></div>
+          <div class="hm-legend-cell" style="background:var(--p);opacity:.7"></div>
+          <div class="hm-legend-cell" style="background:var(--p)"></div>
+          <span class="hm-legend-label">많음</span>
+        </div>
+      </div>
+
+      <!-- Module Rings -->
+      <div class="rings-card">
+        <div class="card-title">모듈별 정확도</div>
+        <div class="card-sub" style="margin-top:2px">최근 30일 평균</div>
+        <div class="rings-grid">
+          <div class="ring-item tt" onclick="alert('Flashcard 상세')">
+            <div class="tt-tip">86/100 정답</div>
+            <div class="ring-svg-wrap">
+              <svg viewBox="0 0 72 72"><circle class="ring-bg-c" cx="36" cy="36" r="27"/><circle class="ring-fg-c" cx="36" cy="36" r="27" id="ring-fc" stroke="#3B82F6" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg>
+              <div class="ring-center-label" id="rp-fc">0%</div>
+            </div>
+            <div class="ring-module-name">🃏 Flashcard</div>
+            <div class="ring-module-count">100회 시도</div>
+          </div>
+          <div class="ring-item tt" onclick="alert('SpellForge 상세')">
+            <div class="tt-tip">62/80 정답</div>
+            <div class="ring-svg-wrap">
+              <svg viewBox="0 0 72 72"><circle class="ring-bg-c" cx="36" cy="36" r="27"/><circle class="ring-fg-c" cx="36" cy="36" r="27" id="ring-sf" stroke="#4A9FCF" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg>
+              <div class="ring-center-label" id="rp-sf">0%</div>
+            </div>
+            <div class="ring-module-name">⚡ SpellForge</div>
+            <div class="ring-module-count">80회 시도</div>
+          </div>
+          <div class="ring-item tt" onclick="alert('WordBlitz 상세')">
+            <div class="tt-tip">74/90 정답</div>
+            <div class="ring-svg-wrap">
+              <svg viewBox="0 0 72 72"><circle class="ring-bg-c" cx="36" cy="36" r="27"/><circle class="ring-fg-c" cx="36" cy="36" r="27" id="ring-wb" stroke="#22C55E" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg>
+              <div class="ring-center-label" id="rp-wb">0%</div>
+            </div>
+            <div class="ring-module-name">🌴 WordBlitz</div>
+            <div class="ring-module-count">90회 시도</div>
+          </div>
+          <div class="ring-item tt" onclick="alert('ScriptQuiz 상세')">
+            <div class="tt-tip">52/60 정답</div>
+            <div class="ring-svg-wrap">
+              <svg viewBox="0 0 72 72"><circle class="ring-bg-c" cx="36" cy="36" r="27"/><circle class="ring-fg-c" cx="36" cy="36" r="27" id="ring-sq" stroke="#F59E0B" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg>
+              <div class="ring-center-label" id="rp-sq">0%</div>
+            </div>
+            <div class="ring-module-name">📝 ScriptQuiz</div>
+            <div class="ring-module-count">60회 시도</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity -->
+      <div class="activity-card">
+        <div class="activity-header">
+          <div>
+            <div class="card-title">최근 학습</div>
+            <div class="card-sub" style="margin-top:2px">오늘 · 어제</div>
+          </div>
+          <button class="activity-view-all">전체 보기</button>
+        </div>
+        <div class="act-item" onclick="alert('ScriptQuiz 결과')">
+          <div class="act-icon sq">📝</div>
+          <div class="act-body">
+            <div class="act-mod">ScriptQuiz</div>
+            <div class="act-text">Evolution — Chapter 3</div>
+          </div>
+          <div class="act-right">
+            <div class="act-score perfect">100점 ✨</div>
+            <div class="act-time">방금 전</div>
+          </div>
+        </div>
+        <div class="act-item" onclick="alert('SpellForge 결과')">
+          <div class="act-icon sf">⚡</div>
+          <div class="act-body">
+            <div class="act-mod">SpellForge</div>
+            <div class="act-text">Evolution — Chapter 3</div>
+          </div>
+          <div class="act-right">
+            <div class="act-score">87점</div>
+            <div class="act-time">23분 전</div>
+          </div>
+        </div>
+        <div class="act-item" onclick="alert('Flashcard 결과')">
+          <div class="act-icon fc">🃏</div>
+          <div class="act-body">
+            <div class="act-mod">Flashcard</div>
+            <div class="act-text">Evolution — Chapter 3</div>
+          </div>
+          <div class="act-right">
+            <div class="act-score">92점</div>
+            <div class="act-time">1시간 전</div>
+          </div>
+        </div>
+        <div class="act-item" onclick="alert('WordBlitz 결과')">
+          <div class="act-icon wb">🌴</div>
+          <div class="act-body">
+            <div class="act-mod">WordBlitz</div>
+            <div class="act-text">The Great Gatsby — Ch.1</div>
+          </div>
+          <div class="act-right">
+            <div class="act-score">74점</div>
+            <div class="act-time">어제</div>
+          </div>
+        </div>
+        <div class="act-item" onclick="alert('Flashcard 결과')">
+          <div class="act-icon fc">🃏</div>
+          <div class="act-body">
+            <div class="act-mod">Flashcard</div>
+            <div class="act-text">The Great Gatsby — Ch.1</div>
+          </div>
+          <div class="act-right">
+            <div class="act-score">81점</div>
+            <div class="act-time">어제</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row-bottom -->
+
+  </main>
+</div><!-- /shell -->
+
+<script>
+/* ─────────────────────────
+   데이터
+───────────────────────── */
+const D = {
+  kpi: { today:23, streak:7, total:342, acc:88 },
+  rings: { fc:86, sf:78, wb:82, sq:87 },
+  trend: {
+    fc: [70,82,75,90,85,94,92],
+    sf: [55,68,62,80,76,88,78],
+    wb: [60,74,68,85,79,91,82],
+    sq: [72,80,74,88,82,93,87],
+  },
+  heatmap: [
+    0,1,2,3,2,4,1,
+    2,3,4,2,3,2,0,
+    1,2,3,4,3,2,1,
+    2,3,2,4,3,1,0,
+  ],
+};
+
+/* ─────────────────────────
+   유틸
+───────────────────────── */
+function countUp(el, target, suffix='', dur=800) {
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    const v = Math.round(ease * target);
+    el.innerHTML = v + '<span class="kpi-unit">' + suffix + '</span>';
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ─────────────────────────
+   KPI
+───────────────────────── */
+function renderKPI() {
+  setTimeout(() => {
+    countUp(document.getElementById('kv-today'),  D.kpi.today,  '개', 700);
+    countUp(document.getElementById('kv-streak'), D.kpi.streak, '일', 800);
+    countUp(document.getElementById('kv-total'),  D.kpi.total,  '개', 1000);
+    countUp(document.getElementById('kv-acc'),    D.kpi.acc,    '%',  900);
+  }, 300);
+}
+
+/* ─────────────────────────
+   Goal Ring
+───────────────────────── */
+function renderGoal() {
+  setTimeout(() => {
+    const C = 326.7;
+    document.getElementById('goalRingFill').style.strokeDashoffset = C * (1 - 0.75);
+    /* 목표 바 */
+    const bars = {fc:100,sf:100,wb:100,sq:0};
+    Object.entries(bars).forEach(([k,v]) => {
+      const el = document.getElementById('gf-' + k);
+      if (el) el.style.width = v + '%';
+    });
+  }, 400);
+}
+
+/* ─────────────────────────
+   Line Chart
+───────────────────────── */
+function renderChart() {
+  const W = 680, H = 180;
+  const xStart = 40, xEnd = 670;
+  const yTop = 14, yBot = 160;
+  const usableW = xEnd - xStart;
+  const usableH = yBot - yTop;
+  const days = 7;
+
+  function toX(i) { return xStart + (i / (days - 1)) * usableW; }
+  function toY(v) { return yBot - (v / 100) * usableH; }
+
+  function bezier(pts) {
+    let d = `M${pts[0].x} ${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      const p = pts[i-1], c = pts[i];
+      const mx = (p.x + c.x) / 2;
+      d += ` C${mx} ${p.y} ${mx} ${c.y} ${c.x} ${c.y}`;
+    }
+    return d;
+  }
+
+  const lines = [
+    {id:'fc', data:D.trend.fc, col:'#3B82F6'},
+    {id:'sf', data:D.trend.sf, col:'#4A9FCF'},
+    {id:'wb', data:D.trend.wb, col:'#22C55E'},
+    {id:'sq', data:D.trend.sq, col:'#F59E0B'},
+  ];
+
+  const dotsEl = document.getElementById('trendDots');
+  dotsEl.innerHTML = '';
+
+  lines.forEach(({id, data, col}) => {
+    const pts = data.map((v, i) => ({x: toX(i), y: toY(v)}));
+    const path = bezier(pts);
+    document.getElementById('line-' + id).setAttribute('d', path);
+
+    /* FC area fill */
+    if (id === 'fc') {
+      const area = path
+        + ` L${pts[pts.length-1].x} ${yBot} L${pts[0].x} ${yBot} Z`;
+      document.getElementById('areaPath').setAttribute('d', area);
+    }
+
+    /* dots */
+    pts.forEach((p, i) => {
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', p.x); c.setAttribute('cy', p.y);
+      c.setAttribute('r', '4'); c.setAttribute('fill', col);
+      c.setAttribute('stroke','white'); c.setAttribute('stroke-width','2');
+      c.setAttribute('class','chart-dot');
+      dotsEl.appendChild(c);
+    });
+  });
+}
+
+/* ─────────────────────────
+   Heatmap
+───────────────────────── */
+function renderHeatmap() {
+  const grid = document.getElementById('heatmapGrid');
+  D.heatmap.forEach((lv, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'hm-cell tt' + (lv ? ' lv'+lv : '') + (i===24 ? ' today' : '');
+    cell.style.aspectRatio = '1';
+    const tip = document.createElement('div');
+    tip.className = 'tt-tip';
+    tip.textContent = lv === 0 ? '학습 없음' : [1,4,8,15][lv-1] + '개 학습';
+    cell.appendChild(tip);
+    grid.appendChild(cell);
+  });
+}
+
+/* ─────────────────────────
+   Rings
+───────────────────────── */
+function renderRings() {
+  const C = 169.6;
+  const mods = [
+    {key:'fc', pct:D.rings.fc},
+    {key:'sf', pct:D.rings.sf},
+    {key:'wb', pct:D.rings.wb},
+    {key:'sq', pct:D.rings.sq},
+  ];
+  mods.forEach(({key, pct}, idx) => {
+    setTimeout(() => {
+      const ring = document.getElementById('ring-' + key);
+      const label = document.getElementById('rp-' + key);
+      ring.style.strokeDashoffset = C * (1 - pct / 100);
+      let cur = 0;
+      const iv = setInterval(() => {
+        cur = Math.min(cur + 2, pct);
+        label.textContent = cur + '%';
+        if (cur >= pct) clearInterval(iv);
+      }, 18);
+    }, 500 + idx * 100);
+  });
+}
+
+/* ─────────────────────────
+   다크모드
+───────────────────────── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '🌙' : '☀️';
+}
+
+/* ─────────────────────────
+   기간 전환 (데모)
+───────────────────────── */
+function setPeriod(p, btn) {
+  document.querySelectorAll('.period-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ─────────────────────────
+   IntersectionObserver — Ring 트리거
+───────────────────────── */
+function initRingObserver() {
+  const target = document.querySelector('.rings-grid');
+  if (!target) return;
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { renderRings(); obs.disconnect(); }
+  }, {threshold: 0.25});
+  obs.observe(target);
+}
+
+/* ─────────────────────────
+   Init
+───────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderKPI();
+  renderGoal();
+  renderHeatmap();
+  renderChart();
+  initRingObserver();
+});
+</script>
+</body>
+</html>

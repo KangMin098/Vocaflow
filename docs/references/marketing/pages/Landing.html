@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocaflow — ìì´ ìë¬¸ì¼ë¡ ìì±íë ì´íë ¥</title>
+<meta name="description" content="ìì´ ì¤í¬ë¦½í¸ë¥¼ ë¶ì¬ë£ì¼ë©´ AIê° ë¨ì´ë¥¼ ë¶ìíê³  Flashcard·SpellForge·WordBlitz·ScriptQuizë¡ íìµì ìì±í©ëë¤.">
+<meta property="og:title" content="Vocaflow — ìì´ ìë¬¸ì¼ë¡ ìì±íë ì´íë ¥">
+<meta property="og:description" content="AI ê¸°ë° ìì´ íìµ íë«í¼. ìë¬¸ íëë¡ ë¨ì´ì¥·íëìì¹´ë·ê²ìê¹ì§ ìì±.">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/nav.css">
+<link rel="stylesheet" href="../shared/footer.css">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<!-- NAV (nav.js ê° ìë ì½ì) -->
+<div id="lv-nav"></div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- ìë¨ ë°°ì§ -->
+      <div class="hero-badge" role="status">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        AI ê¸°ë° ìì´ íìµ íë«í¼ — ë² í ì¤í
+      </div>
+
+      <!-- íì´í -->
+      <h1 class="hero-title">
+        ìì´ ìë¬¸ì¼ë¡<br>
+        <span class="hero-title-grad">ìì±íë ì´íë ¥</span>
+      </h1>
+      <p class="hero-sub">
+        ì¤í¬ë¦½í¸ë¥¼ ë¶ì¬ë£ì¼ë©´ AIê° íµì¬ ë¨ì´ë¥¼ ì¶ì¶íê³ <br>
+        Flashcard · SpellForge · WordBlitz · ScriptQuizë¡<br>
+        í ë²ì ìë²½íê² íìµí©ëë¤.
+      </p>
+
+      <!-- CTA -->
+      <div class="hero-cta">
+        <a href="Signup.html" class="cta-main">
+          <span aria-hidden="true">â¨</span>
+          ë¬´ë£ë¡ ììíê¸°
+          <span aria-hidden="true" class="cta-arrow">â</span>
+        </a>
+        <a href="#how" class="cta-ghost">ì¬ì©ë² ë³´ê¸°</a>
+      </div>
+
+      <!-- ì ë¢° ì§í -->
+      <ul class="hero-trust" aria-label="ì£¼ì í¹ì§">
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">â</span>ì ì©ì¹´ë ë¶íì</li>
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">â</span>ë¬´ë£ íë ìêµ¬ ì ê³µ</li>
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">â</span>2ë¶ ìì ìì ê°ë¥</li>
+        <li class="trust-item"><span class="trust-ico" aria-hidden="true">â</span>ì¸ì ë  í´ì§ ê°ë¥</li>
+      </ul>
+
+      <!-- UI ëª©ì -->
+      <div class="hero-mockup" role="img" aria-label="Vocaflow TextViewer íë©´ ë¯¸ë¦¬ë³´ê¸°">
+        <div class="mockup-wrap">
+          <!-- ë¸ë¼ì°ì  ë° -->
+          <div class="mockup-bar" aria-hidden="true">
+            <span class="mockup-dot rd"></span>
+            <span class="mockup-dot yw"></span>
+            <span class="mockup-dot gn"></span>
+            <div class="mockup-url">
+              <span class="mockup-url-lock">ð</span>
+              <span class="mockup-url-txt">lexivault.app/text</span>
+            </div>
+          </div>
+
+          <div class="mockup-body">
+            <!-- ì¢: ìë ¥ í¨ë -->
+            <div class="mockup-left" aria-hidden="true">
+              <div class="ml-section-label">ì¤í¬ë¦½í¸ ìë ¥</div>
+              <div class="ml-field">Evolution and Natural Selection</div>
+              <div class="ml-textarea">Evolution is one of the most important concepts in biology. It explains how all living <span style="border-bottom:1.5px dotted rgba(148,163,184,.5)">organisms</span> on Earth developed from earlier forms of life...</div>
+              <div class="ml-settings">
+                <div class="ml-row"><span>ð TTS ìë ìì±</span><div class="ml-toggle on"><div class="ml-thumb"></div></div></div>
+                <div class="ml-row"><span>ð ëì´ë ë¶ì</span><div class="ml-toggle on"><div class="ml-thumb"></div></div></div>
+                <div class="ml-row"><span>ð§  AI í´ì¦ ìì±</span><div class="ml-toggle"><div class="ml-thumb" style="left:2px"></div></div></div>
+              </div>
+              <div class="ml-cta">â¨ AI ë¶ì ìì</div>
+            </div>
+
+            <!-- ì°: ë·°ì´ -->
+            <div class="mockup-right" aria-hidden="true">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+                <span class="mr-badge">Biology · B2</span>
+                <span class="mr-chip">142 ë¨ì´</span>
+                <span class="mr-chip">14 ë¬¸ì¥</span>
+              </div>
+              <div class="mr-title">Evolution and<br>Natural Selection</div>
+
+              <div class="mr-para">
+                <div class="mr-para-hd">
+                  <div class="mr-pnum">1</div>
+                  <span class="mr-plbl">Introduction</span>
+                  <div style="flex:1;height:1px;background:var(--bg3);margin-left:8px"></div>
+                </div>
+                <span class="mr-sent cur">Evolution is one of the most important concepts in biology.</span>
+                <span class="mr-sent"> It explains how all living <span style="border-bottom:1.5px dotted rgba(148,163,184,.5)">organisms</span> on Earth developed from earlier forms of life.</span>
+              </div>
+
+              <div class="mr-modules">
+                <span class="mr-mod">ð Flashcard</span>
+                <span class="mr-mod">â¡ SpellForge</span>
+                <span class="mr-mod">ð´ WordBlitz</span>
+                <span class="mr-mod">ð ScriptQuiz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SP Bar -->
+          <div class="mockup-player" aria-hidden="true">
+            <div class="mp-play">â¶</div>
+            <div class="mp-dots">
+              <div class="mp-dot done">1</div>
+              <div class="mp-dot active">2</div>
+              <div class="mp-dot">3</div>
+              <div class="mp-dot">4</div>
+              <div class="mp-dot">5</div>
+              <div class="mp-dot">6</div>
+              <div class="mp-dot">7</div>
+            </div>
+            <div class="mp-info">2 / 14 · 1.0Ã</div>
+          </div>
+        </div>
+      </div><!-- /hero-mockup -->
+
+    </div><!-- /hero-inner -->
+  </div>
+</section>
+
+<!-- ══════ USE CASES BAR ══════ -->
+<div class="use-bar">
+  <div class="container">
+    <p class="use-bar-label">ë¤ìí ìì´ ìë¬¸ì ë°ë¡ ì ì©</p>
+    <ul class="use-bar-list" aria-label="ì ì© ê°ë¥í ìë¬¸ ì í">
+      <li>ð êµê³¼ì · ìë¥ ì§ë¬¸</li>
+      <li>ð° ìì ì ë¬¸ · ë´ì¤</li>
+      <li>ð¤ TED · ê°ì° ì¤í¬ë¦½í¸</li>
+      <li>ð¬ ìí · ëë¼ë§ ëë³¸</li>
+      <li>ð ìì¤ · ìì¸ì´</li>
+      <li>ð¼ ë¹ì¦ëì¤ ì´ë©ì¼</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════ HOW IT WORKS ══════ -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="obs">
+      <div class="sec-kicker">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">ì¬ì©ë² · 3ë¨ê³</span>
+      </div>
+      <h2 class="sec-title">ìë¬¸ë§ ìì¼ë©´<br>ëë¨¸ì§ë AIê° í©ëë¤</h2>
+      <p class="sec-sub">ë³µì¡í ì¤ì  ìì´ ì¤í¬ë¦½í¸ë¥¼ ë¶ì¬ë£ë ê²ë§ì¼ë¡ ìì í íìµ ì½íì¸ ê° ìì±ë©ëë¤.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card c1 obs">
+        <div class="step-num" aria-label="1ë¨ê³">1</div>
+        <div class="step-connector" aria-hidden="true"></div>
+        <h3 class="step-title">ìë¬¸ ìë ¥</h3>
+        <p class="step-desc">ìì´ ì¤í¬ë¦½í¸ë¥¼ ì§ì  ë¶ì¬ë£ê±°ë PDF · DOCX · TXT íì¼ì ìë¡ëí©ëë¤. ì´ë¤ ì£¼ì ë  ì¦ì ììí  ì ììµëë¤.</p>
+        <div class="step-tags">
+          <span class="step-tag">ì§ì  ìë ¥</span>
+          <span class="step-tag">PDF ìë¡ë</span>
+          <span class="step-tag">DOCX · TXT</span>
+        </div>
+      </div>
+      <div class="step-card c2 obs">
+        <div class="step-num" aria-label="2ë¨ê³">2</div>
+        <div class="step-connector" aria-hidden="true"></div>
+        <h3 class="step-title">AI ìë ë¶ì</h3>
+        <p class="step-desc">GPT-4oê° íµì¬ ë¨ì´ë¥¼ ì¶ì¶íê³  ë» · íì¬ · ìë¬¸ì ìì±í©ëë¤. TTS ìì±ë ìëì¼ë¡ ë§ë¤ì´ì§ëë¤.</p>
+        <div class="step-tags">
+          <span class="step-tag">ë¨ì´ ì¶ì¶</span>
+          <span class="step-tag">ë» · ìë¬¸</span>
+          <span class="step-tag">TTS ìì±</span>
+        </div>
+      </div>
+      <div class="step-card c3 obs">
+        <div class="step-num" aria-label="3ë¨ê³">3</div>
+        <h3 class="step-title">4ê°ì§ ë°©ë²ì¼ë¡ íìµ</h3>
+        <p class="step-desc">Flashcardë¡ ìê¸°íê³ , SpellForgeë¡ ì¤í ë§ì ì°ìµíê³ , WordBlitzë¡ ìë°ë ¥ì í¤ì°ê³ , ScriptQuizë¡ ëí´ê¹ì§ ìì±í©ëë¤.</p>
+        <div class="step-tags">
+          <span class="step-tag">Flashcard</span>
+          <span class="step-tag">SpellForge</span>
+          <span class="step-tag">WordBlitz</span>
+          <span class="step-tag">ScriptQuiz</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- íµê³ -->
+    <div class="stats-row obs">
+      <div class="stat-item">
+        <div class="stat-num" data-target="4" data-suffix="ì¢">4ì¢</div>
+        <div class="stat-lbl">íìµ ëª¨ë</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="2" data-suffix="ë¶">2ë¶</div>
+        <div class="stat-lbl">ë¶ì ìë£ê¹ì§</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">â</div>
+        <div class="stat-lbl">ìë¬¸ ì í ìì</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FEATURES ══════ -->
+<section class="section alt-bg" id="features">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">íìµ ëª¨ë</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">í ìë¬¸, ë¤ ê°ì§ ë°©ë²ì¼ë¡</h2>
+      <p class="sec-sub center">ê°ì ë¨ì´ë¥¼ ë¤ìí ë°©ìì¼ë¡ ì íë©´ ì¥ê¸° ê¸°ìµì ë ê¹ì´ ìê²¨ì§ëë¤.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feat-card f-fc obs">
+        <div class="feat-icon-wrap fc-ico" aria-hidden="true">ð</div>
+        <h3 class="feat-title">Flashcard</h3>
+        <p class="feat-desc">SM-2 ìê³ ë¦¬ì¦ ê¸°ë° ê°ê²© ë°ë³µ. íë ë°°ê²½ìì CSS 3D ì¹´ë íë¦½ì¼ë¡ ë¨ì´âë» ìë°©í¥ íìµ.</p>
+        <div class="feat-pills"><span class="feat-pill">SM-2 SRS</span><span class="feat-pill">ìë°©í¥ ëª¨ë</span><span class="feat-pill">3D íë¦½</span></div>
+        <div class="feat-bg-label" aria-hidden="true">FC</div>
+      </div>
+      <div class="feat-card f-sf obs">
+        <div class="feat-icon-wrap sf-ico" aria-hidden="true">â¡</div>
+        <h3 class="feat-title">SpellForge</h3>
+        <p class="feat-desc">ë»ì ë³´ê³  ì¤í ë§ì ì§ì  íì´í. ì êµ¬ íí¸ì íí°í´ í¨ê³¼ë¡ ì¤í ë§ì íì¤í ë´ ê²ì¼ë¡.</p>
+        <div class="feat-pills"><span class="feat-pill">íì´í ê²ì</span><span class="feat-pill">ì êµ¬ íí¸</span><span class="feat-pill">íí°í´ í¨ê³¼</span></div>
+        <div class="feat-bg-label" aria-hidden="true">SF</div>
+      </div>
+      <div class="feat-card f-wb obs">
+        <div class="feat-icon-wrap wb-ico" aria-hidden="true">ð´</div>
+        <h3 class="feat-title">WordBlitz</h3>
+        <p class="feat-desc">íìì´í 4ì§ì ë¤ ê²ì. ì ê¸ ì´ëë²¤ì² íë§ì ì½¤ë³´ ìì¤íì¼ë¡ ìë°ë ¥ê³¼ ë°ì ìëë¥¼ í¤ìëë¤.</p>
+        <div class="feat-pills"><span class="feat-pill">íìì´í</span><span class="feat-pill">ì½¤ë³´ ìì¤í</span><span class="feat-pill">ì ê¸ íë§</span></div>
+        <div class="feat-bg-label" aria-hidden="true">WB</div>
+      </div>
+      <div class="feat-card f-sq obs">
+        <div class="feat-icon-wrap sq-ico" aria-hidden="true">ð</div>
+        <h3 class="feat-title">ScriptQuiz</h3>
+        <p class="feat-desc">AIê° ìë¬¸ì ë¶ìí´ ëí´ ë¬¸ì ë¥¼ ìë ìì±. O/X í¼ëë°±ê³¼ ê·¼ê±° íì´ë¼ì´í¸ë¡ ëí´ë ¥ê¹ì§ ìì±.</p>
+        <div class="feat-pills"><span class="feat-pill">AI ë¬¸ì  ìì±</span><span class="feat-pill">ê·¼ê±° íì</span><span class="feat-pill">ì¦ê° í¼ëë°±</span></div>
+        <div class="feat-bg-label" aria-hidden="true">SQ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SOCIAL PROOF ══════ -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">ì¬ì©ì íê¸°</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">íìµìë¤ì ì´ì¼ê¸°</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review-card obs">
+        <div class="review-stars" aria-label="ë³ì  5ì ">
+          <span aria-hidden="true">═════</span>
+        </div>
+        <blockquote class="review-text">"TED ê°ì° ì¤í¬ë¦½í¸ë¥¼ ë£ìëë 2ë¶ ë§ì ë¨ì´ì¥ì´ ìê²¼ì´ì. Flashcardë¡ ë³µìµíê³  SpellForgeë¡ ì°ìµíë ì ë§ ì¸ìì§ëë¼ê³ ì."</blockquote>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#3B82F6,#6366F1)" aria-hidden="true">ê¹</div>
+          <div>
+            <div class="review-name">ê¹ì§ì</div>
+            <div class="review-role">ëíêµ 3íë · ìì´êµì¡ ì ê³µ</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card obs">
+        <div class="review-stars" aria-label="ë³ì  5ì ">
+          <span aria-hidden="true">═════</span>
+        </div>
+        <blockquote class="review-text">"ë¹ì¦ëì¤ ì´ë©ì¼ ííì ëª¨ìì ë£ìì´ì. WordBlitzë¡ ë°ë³µ ì°ìµíë íììì ìì°ì¤ë½ê² ì¨ì§ëë¼ê³ ì."</blockquote>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#22C55E,#059669)" aria-hidden="true">ë°</div>
+          <div>
+            <div class="review-name">ë°ë¯¼ì¤</div>
+            <div class="review-role">ì¸êµ­ê³ ê¸°ì ë§ì¼í°</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card obs">
+        <div class="review-stars" aria-label="ë³ì  5ì ">
+          <span aria-hidden="true">═════</span>
+        </div>
+        <blockquote class="review-text">"ìë¥ ìì´ ì§ë¬¸ì ë§¤ì¼ íëì© ë£ê³  ScriptQuizë¡ íê³  ìì´ì. ê¸°ì¶ íìì´ë ë¹ì·íê² ëìì ì¤ì  ì°ìµìë ë±ì´ìì."</blockquote>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706)" aria-hidden="true">ì´</div>
+          <div>
+            <div class="review-name">ì´ìí</div>
+            <div class="review-role">ê³ ë±íêµ 2íë · ìë¥ ì¤ë¹ ì¤</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PRICING ══════ -->
+<section class="section alt-bg" id="pricing">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">ìê¸ì </span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">í¬ëªí ê°ê²©,<br>ì¨ê²¨ì§ ë¹ì© ìì</h2>
+      <p class="sec-sub center">ë¬´ë£ íëì¼ë¡ ììíê³ , íìí  ë ìê·¸ë ì´ëíì¸ì.</p>
+    </div>
+
+    <div class="pricing-toggle obs" role="group" aria-label="ê²°ì  ì£¼ê¸° ì í">
+      <span class="toggle-lbl active" id="lblMonthly">ìê°</span>
+      <label class="toggle-sw" aria-label="ì°ê° ê²°ì ë¡ ì í">
+        <input type="checkbox" id="annualChk" onchange="switchPricing(this)">
+        <div class="sw-track"></div>
+        <div class="sw-thumb"></div>
+      </label>
+      <span class="toggle-lbl" id="lblAnnual">ì°ê°</span>
+      <span class="save-chip">2ê°ì ë¬´ë£</span>
+    </div>
+
+    <div class="pricing-grid obs">
+      <!-- Free -->
+      <div class="plan-card">
+        <div class="plan-tier">Free</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price">â©<span>0</span></div>
+          <div class="plan-period">ìêµ¬ ë¬´ë£</div>
+        </div>
+        <div class="plan-hr"></div>
+        <ul class="plan-feats" aria-label="Free íë í¬í¨ ê¸°ë¥">
+          <li class="pf ok">ì 3ê° ìë¬¸ ë¶ì</li>
+          <li class="pf ok">ë¨ì´ì¥ ìµë 150ê°</li>
+          <li class="pf ok">Flashcard · SpellForge</li>
+          <li class="pf ok">ê¸°ë³¸ Dashboard</li>
+          <li class="pf no">WordBlitz · ScriptQuiz</li>
+          <li class="pf no">TTS ìì± ìì±</li>
+          <li class="pf no">AI í´ì¦ ìë ìì±</li>
+        </ul>
+        <a href="Signup.html" class="plan-cta outline">ë¬´ë£ë¡ ìì</a>
+      </div>
+
+      <!-- Pro (Featured) -->
+      <div class="plan-card featured">
+        <div class="plan-badge-top">ê°ì¥ ì¸ê¸°</div>
+        <div class="plan-tier">Pro</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price">â©<span id="proPrice">9,900</span></div>
+          <div class="plan-period" id="proPeriod">/ ì · ì¸ì ë  í´ì§ ê°ë¥</div>
+        </div>
+        <div class="plan-hr"></div>
+        <ul class="plan-feats" aria-label="Pro íë í¬í¨ ê¸°ë¥">
+          <li class="pf ok"><strong>ë¬´ì í</strong> ìë¬¸ ë¶ì</li>
+          <li class="pf ok"><strong>ë¬´ì í</strong> ë¨ì´ì¥</li>
+          <li class="pf ok">4ê°ì§ íìµ ëª¨ë ì ì²´</li>
+          <li class="pf ok">TTS ìì± ìë ìì±</li>
+          <li class="pf ok">AI í´ì¦ ìë ìì±</li>
+          <li class="pf ok">ê³ ê¸ Dashboard · íí¸ë§µ</li>
+          <li class="pf ok">ì°ì  ê³ ê° ì§ì</li>
+        </ul>
+        <a href="Signup.html" class="plan-cta filled">Pro ììíê¸°</a>
+      </div>
+
+      <!-- Team -->
+      <div class="plan-card">
+        <div class="plan-tier">Team</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price">â©<span id="teamPrice">7,900</span><span class="plan-per">/ì¸</span></div>
+          <div class="plan-period" id="teamPeriod">5ì¸ ì´ì · ìê° ê²°ì </div>
+        </div>
+        <div class="plan-hr"></div>
+        <ul class="plan-feats" aria-label="Team íë í¬í¨ ê¸°ë¥">
+          <li class="pf ok">Pro ì ì²´ ê¸°ë¥ í¬í¨</li>
+          <li class="pf ok">í ê³µì  ë¨ì´ì¥</li>
+          <li class="pf ok">ë©¤ë² ì§íë¥  ëª¨ëí°ë§</li>
+          <li class="pf ok">ê´ë¦¬ì Dashboard</li>
+          <li class="pf ok">ì ì© ê³ ê° ì±ê³µ ë§¤ëì </li>
+          <li class="pf ok">ì¸ë³´ì´ì¤ ê²°ì </li>
+          <li class="pf ok">ì»¤ì¤í ì¨ë³´ë©</li>
+        </ul>
+        <a href="Signup.html" class="plan-cta outline">í íë ë¬¸ì</a>
+      </div>
+    </div>
+
+    <!-- ê¸°ë¥ ë¹êµí -->
+    <div class="compare-table obs">
+      <div class="ct-title">íë ìì¸ ë¹êµ</div>
+      <table class="ct" role="table" aria-label="ìê¸ì  ê¸°ë¥ ë¹êµ">
+        <thead>
+          <tr>
+            <th scope="col" class="ct-feature-col">ê¸°ë¥</th>
+            <th scope="col">Free</th>
+            <th scope="col" class="ct-featured-col">Pro</th>
+            <th scope="col">Team</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="ct-cat" colspan="4">ìë¬¸ ë¶ì</td></tr>
+          <tr><td>ìê° ìë¬¸ ì</td><td>3ê°</td><td class="ct-featured-col"><strong>ë¬´ì í</strong></td><td><strong>ë¬´ì í</strong></td></tr>
+          <tr><td>íì¼ ìë¡ë (PDF·DOCX·TXT)</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>AI ë¨ì´ ì¶ì¶</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>TTS ìì± ìì±</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td class="ct-cat" colspan="4">íìµ ëª¨ë</td></tr>
+          <tr><td>Flashcard · SpellForge</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>WordBlitz · ScriptQuiz</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>AI í´ì¦ ìë ìì±</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td class="ct-cat" colspan="4">íµê³ & íì</td></tr>
+          <tr><td>ê¸°ë³¸ Dashboard</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>ê³ ê¸ íí¸ë§µ · ë§ ì°¨í¸</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>í ê³µì  ë¨ì´ì¥</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+          <tr><td>ê´ë¦¬ì ëª¨ëí°ë§</td><td>â</td><td class="ct-featured-col">â</td><td>â</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FAQ ══════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="obs text-center">
+      <div class="sec-kicker" style="justify-content:center">
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+        <span class="sec-kicker-txt">ìì£¼ ë¬»ë ì§ë¬¸</span>
+        <div class="sec-kicker-line" aria-hidden="true"></div>
+      </div>
+      <h2 class="sec-title">ê¶ê¸í ì ì´ ìì¼ì ê°ì?</h2>
+    </div>
+
+    <div class="faq-list obs" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ë¬´ë£ íëìì ì ë£ë¡ ì ííë©´ ë°ì´í°ë ì´ë»ê² ëëì?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>ê¸°ì¡´ì ìì±í ë¨ì´ì¥, íìµ ê¸°ë¡, ì ì ë°ì´í° ëª¨ë ê·¸ëë¡ ì ì§ë©ëë¤. ìê·¸ë ì´ë ì¦ì ëª¨ë  Pro ê¸°ë¥ì ì¬ì©í  ì ììµëë¤.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ì´ë¤ íìì íì¼ì ìë¡ëí  ì ìëì?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>PDF, DOCX(Word), TXT íì¼ì ì§ìí©ëë¤. íì¼ í¬ê¸°ë ìµë 10MBìëë¤. URL ì§ì  ìë ¥ì íµí ì¹ ë³¸ë¬¸ ì¶ì¶ ê¸°ë¥ì Phase 2ìì ì¶ê°ë  ìì ìëë¤.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          TTS ìì±ì íì§ì ì´ë¤ê°ì?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>OpenAI TTS-1 ëª¨ë¸ì ì¬ì©íë©° ìì°ì¤ë¬ì´ ë¯¸êµ­ì ìì´ ë°ìì ì ê³µí©ëë¤. ì¬ì ìëë 0.75Ã ~ 2.0Ãë¡ ì¡°ì  ê°ë¥íë©°, ìì±ë ìì±ì ìºì±ëì´ ë¹ ë¥´ê² ì¬ìë©ëë¤.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          êµ¬ëì ì¸ì ë ì§ í´ì§í  ì ìëì?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>ë¤, ì¸ì ë ì§ í´ì§í  ì ììµëë¤. í´ì§ íìë ë¨ì ê¸°ê° ëì Pro ê¸°ë¥ì ê³ì ì¬ì©í  ì ìì¼ë©°, ê¸°ê° ë§ë£ í ìëì¼ë¡ Free íëì¼ë¡ ì íë©ëë¤.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ëª¨ë°ì¼ ì±ë ìëì?
+          <div class="faq-ico" aria-hidden="true">+</div>
+        </button>
+        <div class="faq-a" role="region" hidden>íì¬ ì¹ ë²ì ì´ ëª¨ë°ì¼ ë¸ë¼ì°ì ì ìµì íëì´ ììµëë¤. iOSì Android ë¤ì´í°ë¸ ì±ì ê°ë° ì¤ì´ë©°, ì¡°ë§ê° ì¶ìë  ìì ìëë¤.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FINAL CTA ══════ -->
+<section class="final-cta" aria-labelledby="finalCtaTitle">
+  <div class="fc-grid" aria-hidden="true"></div>
+  <div class="fc-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="fc-inner obs">
+      <div class="fc-badge">ð ì§ê¸ ë°ë¡ ììíì¸ì</div>
+      <h2 class="fc-title" id="finalCtaTitle">
+        ì¤ëì ìë¬¸ì´<br>ë´ì¼ì ì´íê° ë©ëë¤
+      </h2>
+      <p class="fc-sub">ìì´ ì¤í¬ë¦½í¸ íëë©´ ì¶©ë¶í©ëë¤. AIê° ëë¨¸ì§ë¥¼ ìì±í©ëë¤.</p>
+      <div class="fc-ctas">
+        <a href="Signup.html" class="fc-btn-main">â¨ ë¬´ë£ë¡ ììíê¸°</a>
+        <a href="Login.html" class="fc-btn-ghost">ì´ë¯¸ ê³ì ì´ ìì¼ì ê°ì?</a>
+      </div>
+      <ul class="fc-trust" aria-label="ë³´ì¥ ì¬í­">
+        <li>â ì ì©ì¹´ë ë¶íì</li>
+        <li>â ë¬´ë£ íë ìêµ¬ ì ê³µ</li>
+        <li>â ì¸ì ë  í´ì§ ê°ë¥</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (footer.js ê° ìë ì½ì) -->
+<div id="lv-footer"></div>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script src="../shared/nav.js" defer></script>
+<script src="../shared/footer.js" defer></script>
+<script src="landing.js" defer></script>
+</body>
+</html>

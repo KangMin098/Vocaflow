@@ -1,0 +1,18 @@
+# supabase/config.toml
+# 'supabase init' 실행 시 자동 생성되는 표준 설정 파일 자리. 필요 시 supabase CLI 로 초기화.
+project_id = "vocaflow"
+
+[api]
+enabled = true
+port = 54321
+
+[db]
+port = 54322
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"

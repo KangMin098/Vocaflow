@@ -1,0 +1,178 @@
+/* apps/web/src/app/globals.css */
+/* Vocaflow Design System — base styles + Tailwind layers.
+   ─────────────────────────────────────────────────────────────── */
+/* 토큰 위치 정책:
+   1) 베이스 토큰(브랜드/색/스페이싱/모션/그림자 등) → SSoT: @vocaflow/design-tokens/tokens.css
+   2) 앱 전용 도메인 토큰(학습 단계, CEFR 등) → 이 파일의 @layer base 블록
+   값 변경 시 위 정책에 따라 해당 파일에서만 수정한다.
+   ─────────────────────────────────────────────────────────────── */
+
+@import '@vocaflow/design-tokens/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════════
+   App-specific tokens (v6) — 학습 도메인 전용
+   SSoT 패키지에는 두지 않는 앱 레벨 확장 토큰.
+   ══════════════════════════════════════════════════════════════ */
+@layer base {
+  :root {
+    /* 학습 단계 (뇌과학 기반) */
+    --learn-fresh:          #3B82F6;
+    --learn-fresh-light:    #EFF6FF;
+    --learn-progress:       #06B6D4;
+    --learn-progress-light: #ECFEFF;
+    --learn-known:          #10B981;
+    --learn-known-light:    #ECFDF5;
+    --learn-mastered:       #8B5CF6;
+    --learn-mastered-light: #F5F3FF;
+    --learn-review:         #F59E0B;
+    --learn-review-light:   #FFFBEB;
+    --learn-error:          #EF4444;
+    --learn-error-light:    #FEF2F2;
+
+    /* CEFR 난이도 (긍정 기반) */
+    --level-a:       #10B981;
+    --level-a-light: #ECFDF5;
+    --level-b:       #3B82F6;
+    --level-b-light: #EFF6FF;
+    --level-c:       #8B5CF6;
+    --level-c-light: #F5F3FF;
+
+    /* 보강 토큰 */
+    --bg-strong: #E4E4E7;
+    --bd-strong: #D4D4D8;
+    --t5:        #D4D4D8;
+  }
+
+  [data-theme="dark"] {
+    --learn-fresh:          #60A5FA;
+    --learn-fresh-light:    #1E2D44;
+    --learn-progress:       #22D3EE;
+    --learn-progress-light: #0A1F26;
+    --learn-known:          #34D399;
+    --learn-known-light:    #0A1F18;
+    --learn-mastered:       #A78BFA;
+    --learn-mastered-light: #1E1B30;
+    --learn-review:         #FBBF24;
+    --learn-review-light:   #1F1610;
+    --learn-error:          #F87171;
+    --learn-error-light:    #1F1010;
+
+    --level-a:       #34D399;
+    --level-a-light: #0A1F18;
+    --level-b:       #60A5FA;
+    --level-b-light: #1E2D44;
+    --level-c:       #A78BFA;
+    --level-c-light: #1E1B30;
+
+    --bg-strong: #3F3F46;
+    --bd-strong: #3F3F46;
+    --t5:        #52525B;
+  }
+}
+
+/* ── Font Families (next/font가 주입하는 변수) ── */
+/* --font-display, --font-body, --font-serif (영어 원문 = Lora), --font-mono
+   → app/layout.tsx 의 next/font/google 설정에서 정의됨.
+   Tailwind 에서는 font-display / font-body / font-english (= font-serif) / font-mono 로 사용. */
+
+/* ══════════════════════════════════════════════════════════════
+   3. Base Styles
+   ══════════════════════════════════════════════════════════════ */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--t1);
+  font-family: var(--font-body), 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  transition:
+    background-color var(--dur-normal) var(--ease),
+    color var(--dur-normal) var(--ease);
+}
+
+/* ── Heading 기본 폰트 (Display) ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ── Code 폰트 ── */
+code, pre, kbd, samp {
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: var(--p);
+  color: var(--ti);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   4. Focus & Accessibility
+   ══════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--bdf);
+  outline-offset: 2px;
+}
+
+/* 모션 감소 선호 사용자 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   5. Scrollbar (선택적 커스터마이징)
+   ══════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg2);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--t4);
+    border-radius: var(--r-full);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--t3);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   6. Utilities
+   ══════════════════════════════════════════════════════════════ */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* 영어 원문 전용 — Lora serif */
+  .font-script {
+    font-family: var(--font-serif), 'Lora', Georgia, serif;
+  }
+
+  /* 터치 타겟 최소 보장 (WCAG AA) */
+  .tap-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

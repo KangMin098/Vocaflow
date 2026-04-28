@@ -1,0 +1,22 @@
+{
+  "name": "@vocaflow/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vocaflow/design-tokens": "workspace:*",
+    "@vocaflow/types": "workspace:*",
+    "@vocaflow/ui-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@vocaflow/eslint-config": "workspace:*"
+  }
+}

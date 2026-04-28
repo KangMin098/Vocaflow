@@ -1,0 +1,12 @@
+/* apps/web/src/styles/fonts.css
+   @font-face self-host 백업. 기본 경로는 Google Fonts CDN(layout.tsx) 사용.
+   네트워크 환경 제약 시에만 enable — public/fonts/ 에 woff2 배치 후 import.
+*/
+
+/* @font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-VariableFont.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+} */

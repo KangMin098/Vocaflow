@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입 — LexiVault</title>
+<meta name="description" content="무료로 시작하세요. 영어 원문으로 완성하는 AI 학습 플랫폼 LexiVault.">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/auth.css">
+<style>
+/* ── Signup 전용 스타일 ── */
+
+/* 이메일 중복 체크 인디케이터 */
+.email-status {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  font-size: 13px; pointer-events: none;
+  transition: opacity var(--dur-fast);
+}
+.email-status.checking { animation: spin .8s linear infinite; }
+
+/* 약관 개별 항목 */
+.terms-items { display: flex; flex-direction: column; gap: var(--s2); }
+.terms-item {
+  display: flex; align-items: flex-start; gap: var(--s2);
+  padding: 10px 13px; border-radius: var(--r-lg);
+  border: 1px solid var(--bd); background: var(--bg);
+  cursor: pointer; transition: all var(--dur-fast);
+}
+.terms-item:hover { border-color: var(--p); background: var(--pl); }
+.terms-item-check {
+  width: 17px; height: 17px; border-radius: 4px; flex-shrink: 0; margin-top: 1px;
+  border: 1.5px solid var(--bd); background: var(--bg);
+  display: flex; align-items: center; justify-content: center; font-size: 9px;
+  color: transparent; transition: all var(--dur-fast) var(--ease-spring);
+}
+.terms-item-check.on { background: var(--p); border-color: var(--p); color: #fff; }
+.terms-item-body { flex: 1; }
+.terms-item-title {
+  font-family: var(--font-body); font-size: 12.5px; font-weight: 600; color: var(--t1);
+  display: flex; align-items: center; gap: 6px;
+}
+.terms-req {
+  font-family: var(--font-mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: .05em; padding: 1px 5px; border-radius: 3px;
+  background: var(--el); color: var(--error);
+}
+.terms-opt {
+  font-family: var(--font-mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: .05em; padding: 1px 5px; border-radius: 3px;
+  background: var(--bg3); color: var(--t3);
+}
+.terms-item-desc { font-family: var(--font-body); font-size: 11px; color: var(--t3); margin-top: 1px; }
+.terms-all {
+  display: flex; align-items: center; gap: var(--s2); padding: 12px 13px;
+  border-radius: var(--r-lg); border: 1.5px solid var(--bd); background: var(--bg2);
+  cursor: pointer; margin-bottom: var(--s2); transition: all var(--dur-fast);
+}
+.terms-all:hover { border-color: var(--p); }
+.terms-all.fully-checked { border-color: var(--success); background: var(--sl); }
+.terms-all-check {
+  width: 20px; height: 20px; border-radius: 5px; flex-shrink: 0;
+  border: 1.5px solid var(--bd); background: var(--bg);
+  display: flex; align-items: center; justify-content: center; font-size: 11px;
+  color: transparent; transition: all var(--dur-fast) var(--ease-spring);
+}
+.terms-all-check.on { background: var(--success); border-color: var(--success); color: #fff; }
+.terms-all-txt {
+  font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--t1);
+}
+
+/* 이미 제출 방지 토스트 */
+.mini-toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--t1); color: #fff;
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  padding: 10px 18px; border-radius: var(--r-xl);
+  box-shadow: var(--sh-xl); z-index: 9999;
+  transition: transform var(--dur-slow) var(--ease-spring);
+  white-space: nowrap;
+}
+.mini-toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+
+  <!-- ══════ LEFT PANEL ══════ -->
+  <div class="auth-left">
+    <div class="al-brand">
+      <div class="al-mark" aria-hidden="true"><span class="al-mark-l">L</span></div>
+      <span class="al-brand-name">LexiVault</span>
+    </div>
+
+    <div class="al-center">
+      <h2 class="al-headline">
+        영어 원문으로<br>완성하는<br>
+        <span class="al-headline-accent">어휘력</span>
+      </h2>
+      <p class="al-sub">스크립트를 붙여넣으면 AI가 단어를 분석하고 4가지 방법으로 완벽하게 학습시켜 드립니다.</p>
+      <div class="al-features">
+        <div class="al-feat f1">
+          <div class="al-feat-ico" aria-hidden="true">✨</div>
+          <div>
+            <div class="al-feat-title">AI 자동 단어 분석</div>
+            <div class="al-feat-desc">GPT-4o가 핵심 어휘와 예문을 즉시 추출</div>
+          </div>
+        </div>
+        <div class="al-feat f2">
+          <div class="al-feat-ico" aria-hidden="true">🃏</div>
+          <div>
+            <div class="al-feat-title">4가지 학습 모듈</div>
+            <div class="al-feat-desc">Flashcard · SpellForge · WordBlitz · ScriptQuiz</div>
+          </div>
+        </div>
+        <div class="al-feat f3">
+          <div class="al-feat-ico" aria-hidden="true">🔊</div>
+          <div>
+            <div class="al-feat-title">TTS 원어민 발음</div>
+            <div class="al-feat-desc">모든 문장을 자연스러운 발음으로 학습</div>
+          </div>
+        </div>
+        <div class="al-feat f4">
+          <div class="al-feat-ico" aria-hidden="true">📊</div>
+          <div>
+            <div class="al-feat-title">학습 진행 추적</div>
+            <div class="al-feat-desc">히트맵·정확도·연속 학습으로 동기 유지</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="al-bottom">
+      <div class="al-users">
+        <div class="al-avatars" aria-hidden="true">
+          <div class="al-avatar" style="background:linear-gradient(135deg,#3B82F6,#6366F1)">김</div>
+          <div class="al-avatar" style="background:linear-gradient(135deg,#22C55E,#059669)">박</div>
+          <div class="al-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706)">이</div>
+          <div class="al-avatar" style="background:linear-gradient(135deg,#EC4899,#BE185D)">최</div>
+          <div class="al-avatar" style="background:rgba(255,255,255,.14);font-size:10px">+</div>
+        </div>
+        <p class="al-users-txt"><strong>1,200+</strong> 학습자가 이미 시작했습니다</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ RIGHT PANEL ══════ -->
+  <div class="auth-right">
+    <div class="ar-top">
+      <button class="ar-btn" id="themeBtn" onclick="lvToggleTheme()" aria-label="테마 전환">🌙</button>
+      <a href="../pages/Landing.html" class="ar-link">← 홈으로</a>
+    </div>
+
+    <!-- 메인 폼 -->
+    <div class="auth-card" id="signupCard">
+      <div class="ac-badge">✦ 무료로 시작</div>
+      <h1 class="ac-title">계정 만들기</h1>
+      <p class="ac-sub">
+        이미 계정이 있으신가요? <a href="Login.html" class="auth-footer-link">로그인 →</a>
+      </p>
+
+      <!-- 소셜 -->
+      <button class="social-btn" id="googleBtn" onclick="socialAuth('Google')"
+        aria-label="Google 계정으로 가입">
+        <span class="social-btn-ico" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.703-1.569 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18L12.048 13.56c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+            <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A9.007 9.007 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+        </span>
+        Google로 계속하기
+      </button>
+
+      <button class="social-btn" id="appleBtn" onclick="socialAuth('Apple')"
+        aria-label="Apple 계정으로 가입"
+        style="background:var(--t1);color:#fff;border-color:var(--t1)">
+        <span class="social-btn-ico" aria-hidden="true" style="font-size:16px"></span>
+        Apple로 계속하기
+      </button>
+
+      <div class="auth-divider" role="separator">
+        <div class="auth-divider-line"></div>
+        <span class="auth-divider-txt">또는 이메일로 가입</span>
+        <div class="auth-divider-line"></div>
+      </div>
+
+      <!-- 폼 -->
+      <form class="form-fields" id="signupForm" onsubmit="handleSubmit(event)" novalidate>
+
+        <!-- 이름 + 닉네임 -->
+        <div class="field-row">
+          <div class="field">
+            <label class="f-label" for="nameInput">이름</label>
+            <div class="f-wrap">
+              <input class="f-input" type="text" id="nameInput" name="name"
+                placeholder="홍길동" autocomplete="name"
+                required minlength="2"
+                oninput="validateName(this)">
+            </div>
+            <div class="f-err" id="nameErr" role="alert">
+              <span aria-hidden="true">⚠</span>2자 이상 입력해 주세요.
+            </div>
+          </div>
+          <div class="field">
+            <label class="f-label" for="nickInput">닉네임 <span style="color:var(--t3);font-weight:400;font-size:10px">(선택)</span></label>
+            <div class="f-wrap">
+              <input class="f-input" type="text" id="nickInput" name="nickname"
+                placeholder="lexiuser" autocomplete="username"
+                oninput="validateNick(this)">
+            </div>
+          </div>
+        </div>
+
+        <!-- 이메일 -->
+        <div class="field">
+          <label class="f-label" for="emailInput">이메일 주소</label>
+          <div class="f-wrap">
+            <input class="f-input has-right" type="email" id="emailInput" name="email"
+              placeholder="hello@example.com" autocomplete="email"
+              required oninput="validateEmail(this)">
+            <span class="email-status" id="emailStatus" aria-live="polite"></span>
+          </div>
+          <div class="f-err" id="emailErr" role="alert">
+            <span aria-hidden="true">⚠</span>
+            <span id="emailErrMsg">올바른 이메일 주소를 입력해 주세요.</span>
+          </div>
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="field">
+          <label class="f-label" for="pwInput">비밀번호</label>
+          <div class="f-wrap">
+            <input class="f-input has-right" type="password" id="pwInput" name="password"
+              placeholder="8자 이상, 영문+숫자 포함" autocomplete="new-password"
+              required oninput="validatePw(this)">
+            <button type="button" class="f-right-btn" onclick="togglePw('pwInput','pwEye')"
+              id="pwEye" aria-label="비밀번호 표시">👁</button>
+          </div>
+          <!-- 강도 바 -->
+          <div class="pw-strength" id="pwStrength">
+            <div class="pw-strength-bar" role="progressbar" aria-label="비밀번호 강도">
+              <div class="pw-seg" id="ps1"></div>
+              <div class="pw-seg" id="ps2"></div>
+              <div class="pw-seg" id="ps3"></div>
+              <div class="pw-seg" id="ps4"></div>
+            </div>
+            <div class="pw-strength-txt" id="psTxt" aria-live="polite"></div>
+          </div>
+          <!-- 조건 체크리스트 -->
+          <div class="pw-reqs" id="pwReqs">
+            <div class="pw-req" id="req-len"><div class="pw-req-dot">✓</div>8자 이상</div>
+            <div class="pw-req" id="req-upper"><div class="pw-req-dot">✓</div>영문 대문자 포함</div>
+            <div class="pw-req" id="req-num"><div class="pw-req-dot">✓</div>숫자 포함</div>
+            <div class="pw-req" id="req-special"><div class="pw-req-dot">✓</div>특수문자 포함 (권장)</div>
+          </div>
+        </div>
+
+        <!-- 비밀번호 확인 -->
+        <div class="field">
+          <label class="f-label" for="pw2Input">비밀번호 확인</label>
+          <div class="f-wrap">
+            <input class="f-input has-right" type="password" id="pw2Input" name="password2"
+              placeholder="비밀번호 재입력" autocomplete="new-password"
+              required oninput="validatePw2(this)">
+            <button type="button" class="f-right-btn" onclick="togglePw('pw2Input','pw2Eye')"
+              id="pw2Eye" aria-label="비밀번호 확인 표시">👁</button>
+          </div>
+          <div class="f-err" id="pw2Err" role="alert">
+            <span aria-hidden="true">⚠</span>비밀번호가 일치하지 않습니다.
+          </div>
+        </div>
+
+        <!-- 약관 동의 -->
+        <div>
+          <div class="terms-all" id="termsAll" onclick="toggleAll()" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="terms-all-check" id="termsAllCheck" aria-hidden="true"></div>
+            <span class="terms-all-txt">약관 전체 동의</span>
+          </div>
+          <div class="terms-items">
+            <div class="terms-item" onclick="toggleTerm(0)" role="checkbox" aria-checked="false" tabindex="0">
+              <div class="terms-item-check" id="tc0" aria-hidden="true"></div>
+              <div class="terms-item-body">
+                <div class="terms-item-title">
+                  이용약관 동의
+                  <span class="terms-req">필수</span>
+                  <a href="#" onclick="e=>e.stopPropagation()" style="font-size:10px;color:var(--p);margin-left:auto">보기</a>
+                </div>
+              </div>
+            </div>
+            <div class="terms-item" onclick="toggleTerm(1)" role="checkbox" aria-checked="false" tabindex="0">
+              <div class="terms-item-check" id="tc1" aria-hidden="true"></div>
+              <div class="terms-item-body">
+                <div class="terms-item-title">
+                  개인정보 수집·이용 동의
+                  <span class="terms-req">필수</span>
+                  <a href="#" onclick="e=>e.stopPropagation()" style="font-size:10px;color:var(--p);margin-left:auto">보기</a>
+                </div>
+              </div>
+            </div>
+            <div class="terms-item" onclick="toggleTerm(2)" role="checkbox" aria-checked="false" tabindex="0">
+              <div class="terms-item-check" id="tc2" aria-hidden="true"></div>
+              <div class="terms-item-body">
+                <div class="terms-item-title">
+                  마케팅 수신 동의
+                  <span class="terms-opt">선택</span>
+                </div>
+                <div class="terms-item-desc">학습 팁, 업데이트 소식을 이메일로 받습니다.</div>
+              </div>
+            </div>
+          </div>
+          <div class="f-err" id="termsErr" role="alert" style="margin-top:6px">
+            <span aria-hidden="true">⚠</span>필수 약관에 동의해 주세요.
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="s-ico" id="sIco" aria-hidden="true">✨</span>
+          <span class="s-txt" id="sTxt">무료 계정 만들기</span>
+        </button>
+
+      </form>
+
+      <p class="auth-footer-txt">
+        이미 계정이 있으신가요? <a href="Login.html" class="auth-footer-link">로그인 →</a>
+      </p>
+    </div><!-- /signupCard -->
+
+    <!-- 성공 상태 -->
+    <div class="success-state" id="successState" role="status" aria-live="polite">
+      <div class="success-ring" aria-hidden="true">✉️</div>
+      <h2 class="success-title">이메일을 확인해 주세요</h2>
+      <p class="success-sub">
+        <strong id="successEmail"></strong>으로 인증 링크를 보냈습니다.<br>
+        링크를 클릭하면 바로 학습을 시작할 수 있습니다.
+      </p>
+      <a href="Login.html" class="success-cta">로그인 화면으로 →</a>
+      <p class="resend-txt">
+        이메일을 못 받으셨나요?
+        <button class="resend-btn" onclick="resend()" type="button">재발송</button>
+      </p>
+    </div>
+  </div><!-- /auth-right -->
+
+</div><!-- /auth-wrap -->
+
+<!-- 미니 토스트 -->
+<div class="mini-toast" id="miniToast" role="status" aria-live="polite"></div>
+
+<script>
+/* ── 상태 ── */
+const terms  = [false, false, false];
+let emailCheckTimer = null;
+let formSubmitted   = false;
+
+/* ── 테마 (공유 js 없이 standalone) ── */
+function lvToggleTheme() {
+  const h = document.documentElement;
+  const dark = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '🌙' : '☀️';
+  try { localStorage.setItem('lv-theme', dark ? 'light' : 'dark'); } catch(_) {}
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('lv-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('themeBtn');
+        if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+      });
+    }
+  } catch(_) {}
+})();
+
+/* ── 소셜 인증 ── */
+function socialAuth(provider) {
+  const id   = provider === 'Google' ? 'googleBtn' : 'appleBtn';
+  const btn  = document.getElementById(id);
+  const orig = btn.innerHTML;
+  btn.innerHTML = `<span class="s-ico spin" aria-hidden="true">⟳</span> 연결 중...`;
+  btn.disabled = true;
+  setTimeout(() => { window.location.href = 'TextViewer_v3.html'; }, 1400);
+}
+
+/* ── 유효성 검사 ── */
+function setField(input, ok, errId) {
+  input.classList.toggle('is-error', !ok && input.value.length > 0);
+  input.classList.toggle('is-success', ok);
+  const err = document.getElementById(errId);
+  if (err) err.classList.toggle('show', !ok && input.value.length > 0);
+}
+
+function validateName(inp) {
+  setField(inp, inp.value.trim().length >= 2, 'nameErr');
+}
+
+function validateNick(inp) {
+  inp.classList.toggle('is-success', inp.value.length >= 2);
+}
+
+function validateEmail(inp) {
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value);
+  setField(inp, ok, 'emailErr');
+  if (!ok || !inp.value) return;
+
+  /* 이메일 중복 체크 시뮬레이션 */
+  const status = document.getElementById('emailStatus');
+  status.textContent = '⏳';
+  clearTimeout(emailCheckTimer);
+  emailCheckTimer = setTimeout(() => {
+    /* 실제로는 API 호출 */
+    const taken = inp.value === 'taken@test.com';
+    if (taken) {
+      inp.classList.add('is-error'); inp.classList.remove('is-success');
+      document.getElementById('emailErrMsg').textContent = '이미 사용 중인 이메일입니다.';
+      document.getElementById('emailErr').classList.add('show');
+      status.textContent = '✗';
+    } else {
+      status.textContent = '✓';
+      status.style.color = 'var(--success)';
+    }
+  }, 600);
+}
+
+function validatePw(inp) {
+  const v = inp.value;
+  if (!v) { document.getElementById('pwStrength').classList.remove('show'); document.getElementById('pwReqs').classList.remove('show'); return; }
+  document.getElementById('pwStrength').classList.add('show');
+  document.getElementById('pwReqs').classList.add('show');
+
+  const reqs = {
+    'req-len':     v.length >= 8,
+    'req-upper':   /[A-Z]/.test(v),
+    'req-num':     /[0-9]/.test(v),
+    'req-special': /[^A-Za-z0-9]/.test(v),
+  };
+  Object.entries(reqs).forEach(([id, ok]) => {
+    document.getElementById(id).classList.toggle('ok', ok);
+  });
+
+  let score = Object.values(reqs).filter(Boolean).length;
+  const segs   = ['ps1','ps2','ps3','ps4'];
+  const levels = ['lv1','lv2','lv3','lv4'];
+  segs.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'pw-seg' + (i < score ? ' ' + levels[score - 1] : '');
+  });
+  const labels = ['너무 짧음','보통','강함','매우 강함'];
+  const txt = document.getElementById('psTxt');
+  txt.textContent = score > 0 ? labels[score - 1] : '';
+  txt.className = 'pw-strength-txt' + (score > 0 ? ' ' + levels[score - 1] : '');
+
+  inp.classList.toggle('is-error', score < 2 && v.length > 0);
+  inp.classList.toggle('is-success', score >= 3);
+}
+
+function validatePw2(inp) {
+  const pw1 = document.getElementById('pwInput').value;
+  const ok  = inp.value === pw1 && inp.value.length > 0;
+  setField(inp, ok, 'pw2Err');
+}
+
+function togglePw(inputId, btnId) {
+  const inp = document.getElementById(inputId);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  document.getElementById(btnId).textContent = inp.type === 'password' ? '👁' : '🙈';
+  document.getElementById(btnId).setAttribute('aria-label', inp.type === 'password' ? '비밀번호 표시' : '비밀번호 숨기기');
+}
+
+/* ── 약관 ── */
+function updateTermsUI() {
+  ['tc0','tc1','tc2'].forEach((id, i) => {
+    document.getElementById(id).classList.toggle('on', terms[i]);
+    document.getElementById(id).textContent = terms[i] ? '✓' : '';
+  });
+  const allRequired = terms[0] && terms[1];
+  const allChecked  = terms.every(Boolean);
+  document.getElementById('termsAllCheck').classList.toggle('on', allChecked);
+  document.getElementById('termsAllCheck').textContent = allChecked ? '✓' : '';
+  document.getElementById('termsAll').classList.toggle('fully-checked', allChecked);
+  document.getElementById('termsAll').setAttribute('aria-checked', allChecked);
+  if (allRequired) document.getElementById('termsErr').classList.remove('show');
+}
+
+function toggleTerm(idx) {
+  terms[idx] = !terms[idx];
+  updateTermsUI();
+}
+
+function toggleAll() {
+  const anyOff = terms.some(t => !t);
+  terms.fill(anyOff);
+  updateTermsUI();
+}
+
+/* ── 폼 제출 ── */
+function handleSubmit(e) {
+  e.preventDefault();
+  if (formSubmitted) return;
+
+  /* 전체 유효성 재검사 */
+  let valid = true;
+  const name  = document.getElementById('nameInput');
+  const email = document.getElementById('emailInput');
+  const pw    = document.getElementById('pwInput');
+  const pw2   = document.getElementById('pw2Input');
+
+  if (name.value.trim().length < 2)                      { setField(name, false, 'nameErr');  valid = false; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value))  { setField(email, false, 'emailErr'); valid = false; }
+  if (pw.value.length < 8)                               { setField(pw, false, '');            valid = false; }
+  if (pw.value !== pw2.value)                            { setField(pw2, false, 'pw2Err');    valid = false; }
+  if (!terms[0] || !terms[1])                            { document.getElementById('termsErr').classList.add('show'); valid = false; }
+
+  if (!valid) {
+    /* 첫 번째 에러 필드로 포커스 */
+    const first = document.querySelector('.f-input.is-error, .terms-item[aria-checked="false"]');
+    if (first) { first.focus(); first.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    return;
+  }
+
+  formSubmitted = true;
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  document.getElementById('sIco').className = 's-ico spin';
+  document.getElementById('sTxt').textContent = '계정 생성 중...';
+
+  setTimeout(() => {
+    document.getElementById('signupCard').style.display = 'none';
+    const ss = document.getElementById('successState');
+    ss.classList.add('show');
+    document.getElementById('successEmail').textContent = email.value;
+    ss.focus();
+  }, 1800);
+}
+
+function resend() { showToast('✉️ 인증 이메일을 다시 보냈습니다.'); }
+
+function showToast(msg) {
+  const el = document.getElementById('miniToast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3200);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpellForge — LexiVault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&family=Lora:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-primary:#3B82F6; --color-primary-hover:#2563EB;
+  --color-primary-light:#EFF6FF; --color-primary-dark:#1D4ED8;
+  --color-success:#22C55E; --color-success-light:#DCFCE7;
+  --color-error:#EF4444;   --color-error-light:#FEE2E2;
+  --color-active:#F59E0B;  --color-active-light:#FEF3C7;
+  --color-bg:#FFFFFF; --color-bg-secondary:#F8FAFC; --color-bg-tertiary:#F1F5F9;
+  --color-text:#0F172A; --color-text-secondary:#475569;
+  --color-text-muted:#94A3B8; --color-border:#E2E8F0;
+  --radius-sm:6px; --radius-md:8px; --radius-lg:12px;
+  --radius-xl:16px; --radius-2xl:24px; --radius-full:9999px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg:0 10px 15px rgba(0,0,0,.10),0 4px 6px rgba(0,0,0,.05);
+  --shadow-xl:0 20px 25px rgba(0,0,0,.10),0 10px 10px rgba(0,0,0,.04);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --ease-out:cubic-bezier(0,0,.2,1);
+
+  /* SpellForge 전용 — 파란 패널 */
+  --sf-panel:#4A9FCF; --sf-panel-dark:#3A7FAF;
+  --sf-panel-light:#5CB8E0;
+}
+[data-theme="dark"]{
+  --color-primary:#60A5FA; --color-primary-hover:#93C5FD;
+  --color-primary-light:#1E3A5F; --color-primary-dark:#3B82F6;
+  --color-bg:#0F172A; --color-bg-secondary:#1E293B; --color-bg-tertiary:#334155;
+  --color-text:#F1F5F9; --color-text-secondary:#CBD5E1;
+  --color-text-muted:#64748B; --color-border:#334155;
+  --color-success:#4ADE80; --color-success-light:#052e16;
+  --color-error:#F87171; --color-error-light:#3b0a0a;
+  --sf-panel:#2A6A8F; --sf-panel-dark:#1A4A6F; --sf-panel-light:#3A8AAF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--color-bg-secondary);
+  color:var(--color-text);min-height:100%;
+  display:flex;flex-direction:column;
+  transition:background .2s,color .2s;
+}
+button{cursor:pointer;font-family:inherit;border:none;background:none;outline:none}
+input{font-family:inherit;outline:none}
+
+.app-shell{
+  width:100%;max-width:480px;margin:0 auto;
+  min-height:100vh;background:var(--color-bg);
+  display:flex;flex-direction:column;
+  box-shadow:0 0 60px rgba(0,0,0,.08);
+}
+.top-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:var(--color-bg);
+  border-bottom:1px solid var(--color-border);
+  position:sticky;top:0;z-index:50;
+}
+.top-bar-brand{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:800;color:var(--color-primary);
+  letter-spacing:-.02em;display:flex;align-items:center;gap:6px;
+}
+.brand-dot{width:6px;height:6px;border-radius:50%;background:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-light)}
+.theme-btn{width:34px;height:34px;border-radius:var(--radius-full);background:var(--color-bg-secondary);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s}
+.theme-btn:hover{transform:rotate(20deg)}
+
+/* ═══════════════════════
+   START SCREEN
+═══════════════════════ */
+.start-screen{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:40px 28px;
+}
+.sf-logo-wrap{text-align:center;margin-bottom:8px;position:relative}
+.sf-logo-anvil{font-size:64px;display:block;margin-bottom:0;filter:drop-shadow(0 6px 12px rgba(0,0,0,.15))}
+.sf-logo-spark{
+  position:absolute;top:-8px;right:60px;
+  font-size:22px;animation:sparkle 1.8s ease-in-out infinite;
+}
+.sf-logo-spark2{
+  position:absolute;top:4px;left:60px;
+  font-size:16px;animation:sparkle 1.8s .6s ease-in-out infinite;
+}
+@keyframes sparkle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.sf-logo-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(38px,9vw,48px);font-weight:900;
+  color:var(--color-primary);letter-spacing:-.03em;
+  text-shadow:0 2px 0 var(--color-primary-dark);
+  margin-bottom:4px;
+}
+.sf-logo-sub{
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;color:var(--color-text-muted);
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:28px;
+}
+.sf-start-card{
+  width:100%;background:var(--color-bg-secondary);
+  border:1px solid var(--color-border);border-radius:var(--radius-xl);
+  padding:20px;margin-bottom:24px;
+}
+.sf-card-label{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-muted);
+  margin-bottom:10px;
+}
+.sf-word-preview{
+  font-family:'Lora',serif;font-size:22px;font-weight:600;
+  color:var(--color-text);margin-bottom:4px;
+}
+.sf-word-hint{
+  font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-secondary);
+}
+.sf-meta-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;justify-content:center}
+.badge{display:inline-flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:5px 12px;border-radius:var(--radius-full)}
+.badge-blue{background:var(--color-primary-light);color:var(--color-primary)}
+.badge-gray{background:var(--color-bg-tertiary);color:var(--color-text-muted)}
+.badge-amber{background:var(--color-active-light);color:#92400E}
+[data-theme="dark"] .badge-amber{color:#FCD34D}
+
+.sf-start-btn{
+  padding:16px 56px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:18px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,var(--sf-panel-light),var(--sf-panel));
+  border-radius:var(--radius-full);
+  box-shadow:0 5px 0 var(--sf-panel-dark),0 8px 24px rgba(59,130,246,.3);
+  position:relative;overflow:hidden;transition:all .15s;
+}
+.sf-start-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:rgba(255,255,255,.15);border-radius:var(--radius-full)}
+.sf-start-btn:hover{transform:translateY(-3px);box-shadow:0 8px 0 var(--sf-panel-dark),0 12px 28px rgba(59,130,246,.35)}
+.sf-start-btn:active{transform:translateY(2px);box-shadow:0 3px 0 var(--sf-panel-dark)}
+
+/* ═══════════════════════
+   GAME SCREEN
+═══════════════════════ */
+.game-screen{flex:1;display:none;flex-direction:column}
+
+/* 파란 패널 (SpellForge 전용 환경) */
+.sf-panel{
+  flex:1;
+  background:linear-gradient(160deg,var(--sf-panel-light) 0%,var(--sf-panel) 60%,var(--sf-panel-dark) 100%);
+  display:flex;flex-direction:column;align-items:center;
+  padding:20px 16px;position:relative;overflow:hidden;
+}
+/* 패널 배경 장식 */
+.sf-panel::before{
+  content:'';position:absolute;top:-60px;right:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.06);
+}
+.sf-panel::after{
+  content:'';position:absolute;bottom:-40px;left:-30px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+}
+
+/* 진행 + HUD */
+.sf-hud{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;position:relative;z-index:1;
+}
+.sf-prog-wrap{flex:1;margin-right:12px}
+.sf-prog-label{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  color:rgba(255,255,255,.7);margin-bottom:4px;
+  display:flex;justify-content:space-between;
+}
+.sf-prog-track{height:6px;background:rgba(0,0,0,.2);border-radius:99px;overflow:hidden}
+.sf-prog-fill{height:100%;background:rgba(255,255,255,.85);border-radius:99px;transition:width .4s var(--ease-out)}
+.sf-score-box{
+  background:rgba(0,0,0,.2);border-radius:var(--radius-lg);
+  padding:6px 12px;text-align:center;flex-shrink:0;
+}
+.sf-score-lbl{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6)}
+.sf-score-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#fff}
+
+/* 뜻 표시 박스 */
+.sf-meaning-box{
+  width:100%;
+  background:rgba(255,255,255,.97);
+  border-radius:var(--radius-xl);
+  padding:18px 22px;text-align:center;margin-bottom:18px;
+  box-shadow:var(--shadow-xl);
+  position:relative;z-index:1;
+  min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+[data-theme="dark"] .sf-meaning-box{background:rgba(30,41,59,.97)}
+.sf-meaning-label{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-muted);margin-bottom:6px;
+}
+.sf-meaning-text{
+  font-family:'Lora',serif;font-size:19px;font-weight:600;
+  color:var(--color-text);line-height:1.4;
+}
+.sf-meaning-pos{
+  display:inline-block;margin-top:5px;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  color:var(--color-text-muted);background:var(--color-bg-tertiary);
+  padding:2px 10px;border-radius:var(--radius-full);
+}
+
+/* 전구 힌트 바 */
+.sf-hint-bar{
+  display:flex;align-items:center;gap:6px;margin-bottom:14px;
+  position:relative;z-index:1;
+}
+.sf-bulb{
+  font-size:18px;
+  animation:bulbGlow 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 6px rgba(255,220,0,.5));
+}
+@keyframes bulbGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,220,0,.3))}50%{filter:drop-shadow(0 0 10px rgba(255,220,0,.7))}}
+.sf-hint-track{flex:1;height:5px;background:rgba(0,0,0,.2);border-radius:99px;overflow:hidden}
+.sf-hint-fill{height:100%;background:linear-gradient(90deg,#FFE234,#F59E0B);border-radius:99px;transition:width .4s}
+.sf-hint-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.7)}
+
+/* 스펠링 셀들 */
+.sf-cells-wrap{
+  display:flex;justify-content:center;gap:6px;flex-wrap:wrap;
+  min-height:60px;margin-bottom:16px;
+  position:relative;z-index:1;
+  width:100%;
+}
+.sf-cell{
+  width:50px;height:54px;
+  background:rgba(255,255,255,.92);
+  border:2.5px solid rgba(255,255,255,.5);
+  border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;
+  color:var(--color-text);
+  box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.6);
+  transition:all .12s;user-select:none;
+  position:relative;
+}
+[data-theme="dark"] .sf-cell{background:rgba(30,41,59,.92);color:var(--color-text)}
+.sf-cell.active{
+  border:3px solid var(--color-error);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(239,68,68,.2),var(--shadow-md);
+  transform:scale(1.06);
+}
+[data-theme="dark"] .sf-cell.active{background:var(--color-bg-secondary)}
+.sf-cell.correct{
+  border-color:var(--color-success)!important;
+  background:var(--color-success-light);
+  color:#15803d;
+}
+[data-theme="dark"] .sf-cell.correct{color:#4ADE80}
+.sf-cell.hint{
+  border-color:var(--color-active);
+  background:var(--color-active-light);
+  color:#92400E;
+}
+[data-theme="dark"] .sf-cell.hint{color:#FCD34D}
+.sf-cell.wrong-anim{animation:cellShake .35s ease}
+@keyframes cellShake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}
+
+/* 정답 파티클 */
+.sf-sparkles{position:absolute;inset:0;pointer-events:none;z-index:10}
+.sparkle-dot{position:absolute;border-radius:50%;animation:sparkFly .7s ease-out forwards}
+@keyframes sparkFly{from{opacity:1;transform:translate(0,0) scale(1)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0)}}
+
+/* 숨김 input (키보드 트리거) */
+.sf-hidden-input{
+  position:absolute;opacity:0;left:-9999px;top:0;
+  width:1px;height:1px;
+}
+
+/* 하단 액션 */
+.sf-actions{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;position:relative;z-index:1;
+}
+.sf-hint-btn{
+  padding:10px 18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);border-radius:var(--radius-full);
+  transition:all .15s;display:flex;align-items:center;gap:5px;
+}
+.sf-hint-btn:hover:not(:disabled){background:rgba(255,255,255,.25)}
+.sf-hint-btn:disabled{opacity:.4;cursor:not-allowed}
+.sf-skip-btn{
+  padding:10px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;
+  background:rgba(255,255,255,.95);border-radius:var(--radius-full);
+  color:var(--color-text-secondary);
+  box-shadow:var(--shadow-md);transition:all .15s;
+}
+.sf-skip-btn:hover{background:#fff;transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+
+/* 정답 오버레이 */
+.sf-correct-overlay{
+  position:absolute;inset:0;z-index:20;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;transition:opacity .1s;
+}
+.sf-correct-overlay.show{opacity:1}
+.sf-correct-box{
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  border-radius:var(--radius-2xl);padding:20px 28px;
+  text-align:center;box-shadow:var(--shadow-xl);
+  animation:correctBoxPop .35s var(--ease-spring);
+}
+[data-theme="dark"] .sf-correct-box{background:rgba(15,23,42,.95)}
+.sf-correct-emoji{font-size:36px;display:block;margin-bottom:4px}
+.sf-correct-word{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;
+  color:var(--color-success);letter-spacing:-.01em;
+}
+.sf-correct-pts{
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--color-text-muted);margin-top:3px;
+}
+@keyframes correctBoxPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+/* ═══════════════════════
+   BOTTOM — 통계 바
+═══════════════════════ */
+.sf-stats-bar{
+  padding:12px 16px;background:var(--color-bg);
+  border-top:1px solid var(--color-border);
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.sf-stat-item{
+  flex:1;text-align:center;padding:8px 4px;
+  background:var(--color-bg-secondary);border-radius:var(--radius-lg);
+}
+.sf-stat-lbl{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-bottom:2px}
+.sf-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:var(--color-text)}
+.sf-stat-item.g .sf-stat-val{color:var(--color-success)}
+.sf-stat-item.r .sf-stat-val{color:var(--color-error)}
+.sf-stat-item.a .sf-stat-val{color:var(--color-active)}
+
+/* ═══════════════════════
+   RESULT SCREEN
+═══════════════════════ */
+.result-screen{flex:1;display:none;flex-direction:column;padding:24px 20px;gap:16px;overflow-y:auto}
+.result-header-card{
+  background:linear-gradient(135deg,var(--sf-panel-light),var(--sf-panel));
+  border-radius:var(--radius-xl);padding:24px;text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.result-header-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08)}
+.result-emoji-big{font-size:48px;display:block;margin-bottom:8px}
+.result-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;margin-bottom:3px}
+.result-sub{font-family:'DM Sans',sans-serif;font-size:13px;opacity:.85}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.r-stat{text-align:center;padding:14px 8px;border-radius:var(--radius-xl)}
+.r-stat.g{background:var(--color-success-light);border:1px solid #A7F3D0}
+.r-stat.r{background:var(--color-error-light);border:1px solid #FCA5A5}
+.r-stat.t{background:var(--color-bg-secondary);border:1px solid var(--color-border)}
+.r-stat-lbl{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-bottom:5px}
+.r-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:30px;font-weight:800;line-height:1}
+.r-stat.g .r-stat-val{color:var(--color-success)}
+.r-stat.r .r-stat-val{color:var(--color-error)}
+.r-stat.t .r-stat-val{color:var(--color-text);font-size:20px}
+
+/* 틀린 단어 목록 */
+.wrong-words{border:1px solid var(--color-border);border-radius:var(--radius-xl);overflow:hidden}
+.wrong-words-hdr{padding:11px 16px;background:var(--color-bg-secondary);border-bottom:1px solid var(--color-border);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted)}
+.wrong-word-item{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--color-bg-tertiary)}
+.wrong-word-item:last-child{border-bottom:none}
+.ww-num{width:22px;height:22px;border-radius:50%;background:var(--color-error-light);color:var(--color-error);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;flex-shrink:0}
+.ww-word{font-family:'Lora',serif;font-size:15px;font-weight:600;color:var(--color-text);flex:1}
+.ww-meaning{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--color-text-muted)}
+.ww-typed{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--color-error);text-decoration:line-through}
+
+.result-btns{display:flex;gap:10px}
+.btn-sf{flex:1;padding:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;border-radius:var(--radius-full);transition:all .15s}
+.btn-sf.secondary{border:2px solid var(--color-primary);color:var(--color-primary);background:transparent}
+.btn-sf.secondary:hover{background:var(--color-primary-light)}
+.btn-sf.primary{color:#fff;background:linear-gradient(135deg,var(--sf-panel-light),var(--sf-panel));box-shadow:0 3px 0 var(--sf-panel-dark);border:none}
+.btn-sf.primary:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--sf-panel-dark)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--color-border);border-radius:99px}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="top-bar">
+    <div class="top-bar-brand">
+      <div class="brand-dot"></div>LexiVault
+    </div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </div>
+
+  <!-- ① START SCREEN -->
+  <div class="start-screen" id="startScreen">
+    <div class="sf-logo-wrap">
+      <span class="sf-logo-anvil">⚡</span>
+      <span class="sf-logo-spark">✦</span>
+      <span class="sf-logo-spark2">✦</span>
+    </div>
+    <div class="sf-logo-title">SpellForge</div>
+    <div class="sf-logo-sub">Spell · Forge · Master</div>
+
+    <div class="sf-start-card">
+      <div class="sf-card-label">📖 이번 단어장</div>
+      <div class="sf-word-preview" id="previewWord">evolution</div>
+      <div class="sf-word-hint">진화, 발전 — 등 <span id="wordCount">12</span>개 단어</div>
+    </div>
+
+    <div class="sf-meta-row">
+      <span class="badge badge-blue">⚡ <span id="totalBadge">12</span>단어</span>
+      <span class="badge badge-gray">💡 힌트 3회</span>
+      <span class="badge badge-amber">⏱ 무제한</span>
+    </div>
+
+    <button class="sf-start-btn" onclick="startGame()">⚡ Forge!</button>
+  </div>
+
+  <!-- ② GAME SCREEN -->
+  <div class="game-screen" id="gameScreen">
+    <!-- 파란 패널 -->
+    <div class="sf-panel" id="sfPanel" onclick="focusInput()">
+
+      <!-- HUD -->
+      <div class="sf-hud">
+        <div class="sf-prog-wrap">
+          <div class="sf-prog-label">
+            <span>진행</span>
+            <span id="progText">0 / 12</span>
+          </div>
+          <div class="sf-prog-track">
+            <div class="sf-prog-fill" id="progFill" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="sf-score-box">
+          <div class="sf-score-lbl">SCORE</div>
+          <div class="sf-score-val" id="scoreDisp">0</div>
+        </div>
+      </div>
+
+      <!-- 뜻 박스 -->
+      <div class="sf-meaning-box">
+        <div class="sf-meaning-label">🌿 어떤 단어일까요?</div>
+        <div class="sf-meaning-text" id="meaningText">진화, 발전</div>
+        <span class="sf-meaning-pos" id="posText">noun</span>
+      </div>
+
+      <!-- 전구 힌트 바 -->
+      <div class="sf-hint-bar">
+        <span class="sf-bulb">💡</span>
+        <div class="sf-hint-track">
+          <div class="sf-hint-fill" id="hintFill" style="width:100%"></div>
+        </div>
+        <span class="sf-hint-count" id="hintCount">3 남음</span>
+      </div>
+
+      <!-- 스펠링 셀들 -->
+      <div class="sf-cells-wrap" id="cellsWrap"></div>
+
+      <!-- 숨김 input -->
+      <input type="text" class="sf-hidden-input" id="hiddenInput"
+        autocomplete="off" autocorrect="off" autocapitalize="off"
+        spellcheck="false">
+
+      <!-- 하단 액션 -->
+      <div class="sf-actions">
+        <button class="sf-hint-btn" id="hintBtn" onclick="useHint()">
+          💡 힌트 (<span id="hintLeft">3</span>)
+        </button>
+        <button class="sf-skip-btn" onclick="skipWord()">Skip →</button>
+      </div>
+
+      <!-- 정답 오버레이 -->
+      <div class="sf-correct-overlay" id="correctOverlay">
+        <div class="sf-correct-box">
+          <span class="sf-correct-emoji" id="correctEmoji">✨</span>
+          <div class="sf-correct-word" id="correctWordDisp"></div>
+          <div class="sf-correct-pts" id="correctPts">+100점</div>
+        </div>
+        <div class="sf-sparkles" id="sparkles"></div>
+      </div>
+    </div>
+
+    <!-- 통계 바 -->
+    <div class="sf-stats-bar">
+      <div class="sf-stat-item g">
+        <div class="sf-stat-lbl">정답</div>
+        <div class="sf-stat-val" id="statCorrect">0</div>
+      </div>
+      <div class="sf-stat-item r">
+        <div class="sf-stat-lbl">오답</div>
+        <div class="sf-stat-val" id="statWrong">0</div>
+      </div>
+      <div class="sf-stat-item a">
+        <div class="sf-stat-lbl">연속</div>
+        <div class="sf-stat-val" id="statStreak">0</div>
+      </div>
+      <div class="sf-stat-item">
+        <div class="sf-stat-lbl">점수</div>
+        <div class="sf-stat-val" id="statScore">0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-header-card">
+      <span class="result-emoji-big" id="rEmoji">🏆</span>
+      <div class="result-title" id="rTitle">Master Forger!</div>
+      <div class="result-sub" id="rSub">모든 단어를 완벽하게 단조했습니다!</div>
+    </div>
+
+    <div class="result-stats">
+      <div class="r-stat g"><div class="r-stat-lbl">✓ 정답</div><div class="r-stat-val" id="rCorrect">0</div></div>
+      <div class="r-stat r"><div class="r-stat-lbl">✕ 오답</div><div class="r-stat-val" id="rWrong">0</div></div>
+      <div class="r-stat t"><div class="r-stat-lbl">★ 점수</div><div class="r-stat-val" id="rScore">0</div></div>
+    </div>
+
+    <div class="wrong-words" id="wrongWordsPanel" style="display:none">
+      <div class="wrong-words-hdr">📌 다시 연습할 단어</div>
+      <div id="wrongWordsList"></div>
+    </div>
+
+    <div class="result-btns">
+      <button class="btn-sf secondary" onclick="startGame()">🔄 다시 하기</button>
+      <button class="btn-sf primary" onclick="goVocab()">📖 단어장</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var WORDS=[
+  {word:'evolution',meaning:'진화, 발전',pos:'noun'},
+  {word:'organism',meaning:'유기체, 생물',pos:'noun'},
+  {word:'fossil',meaning:'화석',pos:'noun'},
+  {word:'adaptation',meaning:'적응',pos:'noun'},
+  {word:'selection',meaning:'자연선택, 선발',pos:'noun'},
+  {word:'mutation',meaning:'돌연변이',pos:'noun'},
+  {word:'species',meaning:'종(種)',pos:'noun'},
+  {word:'habitat',meaning:'서식지',pos:'noun'},
+  {word:'predator',meaning:'포식자',pos:'noun'},
+  {word:'trait',meaning:'형질, 특성',pos:'noun'},
+  {word:'extinct',meaning:'멸종된',pos:'adj'},
+  {word:'migrate',meaning:'이주하다',pos:'verb'},
+];
+
+var st={
+  queue:[],idx:0,currentWord:null,
+  typed:[],hintUsed:0,hintLeft:3,
+  score:0,correct:0,wrong:0,streak:0,maxStreak:0,
+  wrongItems:[],busy:false,
+};
+
+function $(id){return document.getElementById(id)}
+function toggleTheme(){
+  var d=document.documentElement;
+  var dark=d.getAttribute('data-theme')==='dark';
+  d.setAttribute('data-theme',dark?'light':'dark');
+  $('themeBtn').textContent=dark?'🌙':'☀️';
+}
+function focusInput(){$('hiddenInput').focus()}
+
+function startGame(){
+  st.queue=WORDS.slice().sort(function(){return Math.random()-.5});
+  st.idx=0;st.score=0;st.correct=0;st.wrong=0;
+  st.streak=0;st.maxStreak=0;st.wrongItems=[];st.hintLeft=3;
+
+  $('startScreen').style.display='none';
+  $('resultScreen').style.display='none';
+  var gs=$('gameScreen');gs.style.display='flex';
+
+  loadWord();
+
+  var inp=$('hiddenInput');
+  inp.value='';
+  inp.addEventListener('input',handleInput);
+  inp.addEventListener('keydown',handleKey);
+  setTimeout(function(){inp.focus()},100);
+}
+
+function loadWord(){
+  if(st.idx>=st.queue.length){endGame();return}
+  st.currentWord=st.queue[st.idx];
+  st.typed=new Array(st.currentWord.word.length).fill('');
+  st.hintUsed=0;st.busy=false;
+
+  $('meaningText').textContent=st.currentWord.meaning;
+  $('posText').textContent=st.currentWord.pos;
+  $('hiddenInput').value='';
+
+  renderCells();
+  updateStats();
+  updateProgress();
+  updateHintBar();
+}
+
+function renderCells(){
+  var w=st.currentWord.word;
+  var wrap=$('cellsWrap');wrap.innerHTML='';
+  // 셀 크기 동적 조정
+  var cellW=w.length>9?42:w.length>7?46:50;
+  for(var i=0;i<w.length;i++){
+    var c=document.createElement('div');
+    c.className='sf-cell'+(i===getActiveIdx()?' active':'');
+    c.id='cell'+i;
+    c.style.width=cellW+'px';
+    c.textContent=st.typed[i]?st.typed[i].toUpperCase():'';
+    wrap.appendChild(c);
+  }
+}
+
+function getActiveIdx(){
+  for(var i=0;i<st.typed.length;i++){if(!st.typed[i])return i}
+  return st.typed.length;
+}
+
+function handleInput(e){
+  if(st.busy)return;
+  var inp=$('hiddenInput');
+  var val=inp.value.replace(/[^a-zA-Z]/g,'').toLowerCase();
+  inp.value=val;
+  var w=st.currentWord.word;
+  for(var i=0;i<Math.min(val.length,w.length);i++){
+    st.typed[i]=val[i]||'';
+  }
+  // 초과 제거
+  for(var j=val.length;j<w.length;j++){st.typed[j]='';}
+  renderCells();
+  // 자동 제출
+  if(val.length===w.length)checkAnswer();
+}
+
+function handleKey(e){
+  if(e.key==='Enter')checkAnswer();
+}
+
+function checkAnswer(){
+  if(st.busy)return;
+  var typed=st.typed.join('').toLowerCase();
+  var correct=st.currentWord.word.toLowerCase();
+  if(typed===correct){
+    showCorrect();
+  } else if(typed.length===correct.length){
+    showWrong();
+  }
+}
+
+function showCorrect(){
+  st.busy=true;
+  // 셀 모두 정답 표시
+  var w=st.currentWord.word;
+  for(var i=0;i<w.length;i++){
+    var c=$('cell'+i);if(c){c.className='sf-cell correct';c.textContent=w[i].toUpperCase()}
+  }
+  // 점수 계산
+  var pts=100-(st.hintUsed*20);
+  if(pts<20)pts=20;
+  st.score+=pts;st.correct++;st.streak++;
+  if(st.streak>st.maxStreak)st.maxStreak=st.streak;
+  updateStats();
+
+  // 오버레이
+  var emojis=['✨','🌟','💫','⭐','🎉'];
+  $('correctEmoji').textContent=emojis[Math.floor(Math.random()*emojis.length)];
+  $('correctWordDisp').textContent=st.currentWord.word;
+  $('correctPts').textContent='+'+pts+'점'+(st.streak>=3?' 🔥 연속 '+st.streak+'!':'');
+  $('correctOverlay').classList.add('show');
+  spawnSparkles();
+
+  setTimeout(function(){
+    $('correctOverlay').classList.remove('show');
+    st.idx++;loadWord();
+  },1100);
+}
+
+function showWrong(){
+  st.busy=true;
+  st.streak=0;
+  // 틀린 셀 shake
+  document.querySelectorAll('.sf-cell').forEach(function(c){
+    c.classList.add('wrong-anim');
+    setTimeout(function(){c.classList.remove('wrong-anim')},350);
+  });
+  // 0.4초 후 다시 입력 가능
+  setTimeout(function(){
+    st.busy=false;
+    // 틀린 타이핑 초과분만 지우기
+    $('hiddenInput').value=st.typed.join('');
+  },400);
+}
+
+function useHint(){
+  if(st.hintLeft<=0||st.busy)return;
+  var w=st.currentWord.word;
+  // 아직 못 입력한 첫 번째 위치에 힌트
+  var idx=getActiveIdx();
+  if(idx>=w.length)return;
+  st.typed[idx]=w[idx];
+  st.hintUsed++;st.hintLeft--;
+  $('hintLeft').textContent=st.hintLeft;
+  if(st.hintLeft<=0)$('hintBtn').disabled=true;
+  // 셀 힌트 표시
+  var c=$('cell'+idx);if(c){c.className='sf-cell hint';c.textContent=w[idx].toUpperCase()}
+  // input 업데이트
+  $('hiddenInput').value=st.typed.join('');
+  updateHintBar();
+  setTimeout(function(){
+    if(c){c.className='sf-cell'+(idx+1===getActiveIdx()?' active':'')}
+  },600);
+  // 완성 확인
+  if(st.typed.join('')===w)showCorrect();
+  else renderCells();
+}
+
+function skipWord(){
+  st.wrong++;st.streak=0;
+  st.wrongItems.push({word:st.currentWord.word,meaning:st.currentWord.meaning,typed:st.typed.join('')});
+  updateStats();
+  st.idx++;loadWord();
+}
+
+function updateProgress(){
+  var total=st.queue.length;
+  var pct=(st.idx/total*100);
+  $('progFill').style.width=pct+'%';
+  $('progText').textContent=st.idx+' / '+total;
+}
+
+function updateStats(){
+  $('statCorrect').textContent=st.correct;
+  $('statWrong').textContent=st.wrong;
+  $('statStreak').textContent=st.streak;
+  $('statScore').textContent=st.score;
+  $('scoreDisp').textContent=st.score;
+}
+
+function updateHintBar(){
+  $('hintFill').style.width=(st.hintLeft/3*100)+'%';
+  $('hintCount').textContent=st.hintLeft+' 남음';
+  $('hintLeft').textContent=st.hintLeft;
+  $('hintBtn').disabled=st.hintLeft<=0;
+}
+
+function spawnSparkles(){
+  var container=$('sparkles');container.innerHTML='';
+  var colors=['#FFE234','#F59E0B','#22C55E','#3B82F6','#8B5CF6'];
+  for(var i=0;i<12;i++){
+    var s=document.createElement('div');
+    s.className='sparkle-dot';
+    var size=4+Math.random()*8;
+    var angle=Math.random()*360;
+    var dist=40+Math.random()*80;
+    var dx=Math.cos(angle*Math.PI/180)*dist;
+    var dy=Math.sin(angle*Math.PI/180)*dist-80;
+    s.style.cssText='width:'+size+'px;height:'+size+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';left:50%;top:50%;--dx:'+dx+'px;--dy:'+dy+'px;animation-delay:'+Math.random()*.2+'s';
+    container.appendChild(s);
+  }
+}
+
+function endGame(){
+  var gs=$('gameScreen');gs.style.display='none';
+  var rs=$('resultScreen');rs.style.display='flex';
+
+  var pct=st.correct+st.wrong?Math.round(st.correct/(st.correct+st.wrong)*100):0;
+  var emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='Master Forger!';sub='완벽한 스펠링 실력이에요!'}
+  else if(pct>=70){emoji='⚡';title='Great Forge!';sub='훌륭해요! 조금만 더 연습하면 완벽해요.'}
+  else if(pct>=50){emoji='🔨';title='Keep Forging!';sub='계속 단조하면 더 강해질 거예요!'}
+  else {emoji='💪';title='Try Again!';sub='다시 도전해보세요. 할 수 있어요!'}
+
+  $('rEmoji').textContent=emoji;$('rTitle').textContent=title;$('rSub').textContent=sub;
+  $('rCorrect').textContent=st.correct;$('rWrong').textContent=st.wrong;$('rScore').textContent=st.score;
+
+  if(st.wrongItems.length){
+    $('wrongWordsPanel').style.display='block';
+    var html='';
+    st.wrongItems.forEach(function(item,i){
+      html+='<div class="wrong-word-item">'+
+        '<div class="ww-num">'+(i+1)+'</div>'+
+        '<div>'+
+          '<div class="ww-word">'+item.word+'</div>'+
+          '<div class="ww-meaning">'+item.meaning+'</div>'+
+          (item.typed?'<div class="ww-typed">'+item.typed+'</div>':'')+
+        '</div>'+
+      '</div>';
+    });
+    $('wrongWordsList').innerHTML=html;
+  }
+}
+
+function goVocab(){alert('단어장 화면으로 이동합니다.')}
+
+// 초기화
+$('previewWord').textContent=WORDS[0].word;
+$('wordCount').textContent=WORDS.length;
+$('totalBadge').textContent=WORDS.length;
+</script>
+</body>
+</html>
