@@ -66,15 +66,15 @@ export function AnalysisResult({ result, onBack, onSave, onPlayAudio }: Analysis
 
         <div className="relative flex flex-col gap-s-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-s-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success shadow-sm">
+            <div className="bg-success flex h-10 w-10 shrink-0 items-center justify-center rounded-lg shadow-sm">
               <Sparkles size={18} className="text-ti" />
             </div>
             <div>
-              <div className="mb-[2px] font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-success">
+              <div className="text-success mb-[2px] font-mono text-[10px] font-bold uppercase tracking-[0.15em]">
                 ✓ AI 분석 완료
               </div>
               <h2 className="font-display text-lg font-bold tracking-tight text-t1">
-                {result.words.length}개 학습 단어 추출됨
+                {result.words.length}개 학습 단어 추출됨x
                 <span className="ml-s-2 text-sm font-normal text-t2">
                   ({(result.duration / 1000).toFixed(1)}초)
                 </span>
@@ -132,7 +132,7 @@ export function AnalysisResult({ result, onBack, onSave, onPlayAudio }: Analysis
           type="button"
           onClick={() => onSave(Array.from(selectedIds))}
           disabled={!canSave}
-          className="group relative flex h-12 items-center justify-center gap-s-2 overflow-hidden rounded-xl bg-p px-s-6 font-display text-sm font-bold text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-p sm:h-14 sm:text-base lg:px-s-8"
+          className="text-ti group relative flex h-12 items-center justify-center gap-s-2 overflow-hidden rounded-xl bg-p px-s-6 font-display text-sm font-bold shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-p sm:h-14 sm:text-base lg:px-s-8"
         >
           {!canSave ? (
             <>

@@ -45,6 +45,72 @@
     --bg-strong: #E4E4E7;
     --bd-strong: #D4D4D8;
     --t5:        #D4D4D8;
+
+    /* CEFR Badge Colors */
+    --cefr-A1-bg:   #F1F5F9;
+    --cefr-A1-text: #64748B;
+    --cefr-A2-bg:   #E0F2FE;
+    --cefr-A2-text: #0369A1;
+    --cefr-B1-bg:   #DBEAFE;
+    --cefr-B1-text: #1E40AF;
+    --cefr-B2-bg:   #3B82F6;
+    --cefr-B2-text: #FFFFFF;
+    --cefr-C1-bg:   #7C3AED;
+    --cefr-C1-text: #FFFFFF;
+    --cefr-C2-bg:   #1F2937;
+    --cefr-C2-text: #FFFFFF;
+
+    /* Reading Universe Colors */
+    --reading-bg:   #FAFAF7;
+    --reading-text: #1A1A1A;
+
+    /* Memory Decay Colors */
+    --memory-stable: #22C55E;
+    --memory-shaky:  #F59E0B;
+    --memory-risk:   #EF4444;
+    --memory-new:    #94A3B8;
+
+    /* Animation Duration */
+    --dur-breath: 4s;
+
+    /* Reading Settings (User-adjustable) */
+    --reader-font-size:   19px;
+    --reader-line-height: 1.85;
+
+    /* Flashcard v2 — SRS 4단계 (한국 친화 그라디언트) */
+    --srs-1: #EF4444;   /* 몰라요 */
+    --srs-2: #F59E0B;   /* 어려워요 */
+    --srs-3: #22C55E;   /* 기억나요 */
+    --srs-4: #3B82F6;   /* 너무 쉬워요 */
+
+    /* Card 전용 shadow */
+    --sh-card: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+
+    /* Flip 전용 motion */
+    --dur-flip:  600ms;
+    --ease-flip: cubic-bezier(.6, .04, .98, .335);
+
+    /* SpellForge — 셀(slot) 5상태 */
+    --slot-empty-bg:     #F8FAFC;
+    --slot-empty-bd:     #E2E8F0;
+    --slot-empty-text:   #94A3B8;
+    --slot-current-bg:   #EFF6FF;
+    --slot-current-bd:   #3B82F6;
+    --slot-current-text: #3B82F6;
+    --slot-correct-bg:   #DCFCE7;
+    --slot-correct-bd:   #22C55E;
+    --slot-correct-text: #16A34A;
+    --slot-error-bg:     #FEE2E2;
+    --slot-error-bd:     #EF4444;
+    --slot-error-text:   #DC2626;
+    --slot-typed-bg:     #FFFFFF;
+    --slot-typed-bd:     #94A3B8;
+    --slot-typed-text:   #475569;
+
+    /* SpellForge ring shadows — 입력/정답/오답 강조 */
+    --sh-input:   0 0 0 4px rgba(59,130,246,0.12);
+    --sh-correct: 0 0 0 4px rgba(34,197,94,0.18);
+    --sh-error:   0 0 0 4px rgba(239,68,68,0.15);
   }
 
   [data-theme="dark"] {
@@ -71,6 +137,15 @@
     --bg-strong: #3F3F46;
     --bd-strong: #3F3F46;
     --t5:        #52525B;
+
+    --reading-bg:   #0F1626;
+    --reading-text: #E2E8F0;
+
+    /* SpellForge 다크 변형 */
+    --slot-empty-bg:   #141E30;
+    --slot-empty-bd:   #1E2D42;
+    --slot-current-bg: rgba(96,165,250,0.10);
+    --slot-typed-bg:   #141E30;
   }
 }
 
@@ -176,3 +251,158 @@ code, pre, kbd, samp {
     min-height: 44px;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   7. Focus Mode & Animations
+   ══════════════════════════════════════════════════════════════ */
+
+/* Body Focus Mode — 사이드바 dim 처리 */
+body.focus-mode .sidebar {
+  opacity: 0.3;
+  transition: opacity 500ms ease;
+}
+body.focus-mode .sidebar:hover {
+  opacity: 1;
+}
+
+/* Pulse Animations */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+@keyframes breathing {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  50%      { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0); }
+}
+
+@keyframes word-pulse {
+  0%, 100% { border-bottom-color: rgba(239, 68, 68, 0.5); }
+  50%      { border-bottom-color: rgba(239, 68, 68, 0.9); }
+}
+
+@keyframes sparkle-breathe {
+  0%, 100% {
+    box-shadow:
+      0 4px 16px rgba(59, 130, 246, 0.35),
+      0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 4px 16px rgba(59, 130, 246, 0.45),
+      0 0 0 8px rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes playing-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+  50%      { box-shadow: 0 0 0 5px rgba(59, 130, 246, 0); }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   8. Flashcard v2 — Studying Mode + Card Animations
+   ══════════════════════════════════════════════════════════════ */
+
+/* 학습 중 사이드바 dim (집중 모드 변형 — Card-Only Focus) */
+body.studying .sidebar { opacity: 0.25; }
+body.studying .sidebar:hover { opacity: 1; }
+
+@keyframes audio-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes celebrate {
+  0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0);       opacity: 1; }
+}
+
+@keyframes card-out-left {
+  to { transform: translateX(-100vw) rotate(-15deg); opacity: 0; }
+}
+
+@keyframes card-out-right {
+  to { transform: translateX(100vw) rotate(15deg); opacity: 0; }
+}
+
+@keyframes card-in {
+  from { transform: scale(0.94) translateY(20px); opacity: 0; }
+  to   { transform: scale(1) translateY(0);       opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   9. SpellForge — Slot Animations
+   ══════════════════════════════════════════════════════════════ */
+
+/* 현재 입력 슬롯 — 부드러운 ring breath */
+@keyframes cursor-blink {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(59,130,246,0.12); }
+  50%      { box-shadow: 0 0 0 4px rgba(59,130,246,0.04); }
+}
+
+/* 정답 입력 — 슬롯 살짝 팝 + 초록 ring */
+@keyframes correct-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); box-shadow: var(--sh-correct); }
+  100% { transform: scale(1); }
+}
+
+/* 오답 — 좌우 흔들림 + 빨강 ring */
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-4px); box-shadow: var(--sh-error); }
+  40%      { transform: translateX(4px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+
+/* 힌트 자동 채움 — primary로 잠깐 빛난 후 빈 슬롯 색으로 복귀 */
+@keyframes hint-flash {
+  0%   { background: var(--p-light);       border-color: var(--p);             color: var(--p); }
+  60%  { background: var(--p-light);       border-color: var(--p);             color: var(--p); }
+  100% { background: var(--slot-empty-bg); border-color: var(--slot-empty-bd); color: var(--slot-empty-text); }
+}
+
+/* IME(한글 입력) 감지 시 slot 진동 — "영어로 입력해 주세요" 신호 */
+@keyframes ime-shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-3px); }
+  75%      { transform: translateX(3px); }
+}
+
+/* 입력 캐럿 깜빡임 */
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* 단어 완성 직후 — 차분한 확대 */
+@keyframes success-glow {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* 메시지/팁 등장 — 살짝 위에서 내려옴 */
+@keyframes gentle-bounce {
+  0%   { transform: translateY(-4px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+/* gentle-float은 §8에서 이미 정의됨 (Flashcard MicroPause와 공용) */

@@ -1,35 +1,33 @@
 // apps/web/src/app/main/text/page.tsx
-// TextViewer — Round 2: 입력 ↔ 분석 결과 전환
+// TextViewer — 입력 → 분석 → WordVault 인계
 
 'use client'
 
 import { ArrowRight, FileText, Sparkles } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import { useToast } from '@/components/ui/Toast'
-import { useMainLayout } from '../layout'
+import { useTheme } from '@/hooks/useTheme'
 
-import { AnalysisResult } from '@/components/text-viewer/AnalysisResult'
 import { FileUploadArea } from '@/components/text-viewer/FileUploadArea'
 import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputModeTabs'
 import { SampleScripts } from '@/components/text-viewer/SampleScripts'
 import { TextInput } from '@/components/text-viewer/TextInput'
 import { UrlInput } from '@/components/text-viewer/UrlInput'
-import {
-  mockAnalysisResult,
-  type AnalysisResult as AnalysisResultData,
-} from '@/components/text-viewer/analysis-types'
+import { mockAnalysisResult } from '@/components/text-viewer/analysis-types'
+import { saveExtractedWords } from '@/lib/text-viewer/handoff'
 
-type ViewState = 'input' | 'analyzing' | 'result'
+type ViewState = 'input' | 'analyzing'
 
 export default function TextViewerPage() {
-  const { openSidebar, theme, toggleTheme } = useMainLayout()
+  const router = useRouter()
+  const { theme, toggleTheme } = useTheme()
   const toast = useToast()
 
   const [view, setView] = useState<ViewState>('input')
   const [mode, setMode] = useState<InputMode>('text')
   const [text, setText] = useState('')
-  const [analysisData, setAnalysisData] = useState<AnalysisResultData | null>(null)
 
   const canAnalyze = mode === 'text' ? text.trim().length > 0 : false
 
@@ -37,56 +35,21 @@ export default function TextViewerPage() {
     if (!canAnalyze) return
     setView('analyzing')
 
-    // 목업: 1.5초 후 결과 표시
+    // 목업: 1.5초 후 WordVault로 인계
     setTimeout(() => {
-      // 실제 입력 텍스트 사용 (목업 단어는 그대로)
-      const result: AnalysisResultData = {
-        ...mockAnalysisResult,
-        text: text.trim() || mockAnalysisResult.text,
-      }
-      setAnalysisData(result)
-      setView('result')
-      toast.success(`${result.words.length}개 단어 추출 완료`, {
+      const words = mockAnalysisResult.words
+      saveExtractedWords(words)
+      toast.success(`${words.length}개 단어 추출 완료`, {
         title: 'AI 분석 완료',
       })
+      router.push('/wordvault')
     }, 1500)
-  }
-
-  const handleBack = () => {
-    setView('input')
-    setAnalysisData(null)
-  }
-
-  const handleSave = (selectedIds: string[]) => {
-    toast.success(
-      `${selectedIds.length}개 단어가 저장되었습니다 (목업) — Round 3에서 실제 저장 흐름 구현`,
-      { title: 'WordVault 저장 완료' }
-    )
   }
 
   return (
     <>
       {/* ── 헤더 ── */}
       <header className="flex h-[60px] flex-shrink-0 items-center gap-s-4 border-b border-bd bg-bg px-s-4 lg:px-s-6">
-        <button
-          onClick={openSidebar}
-          aria-label="메뉴"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t1 transition-colors duration-normal hover:bg-bg2 lg:hidden"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-        </button>
-
         <div className="flex min-w-0 flex-col">
           <h1 className="truncate font-display text-base font-bold leading-tight tracking-tight text-t1 sm:text-lg">
             원문 입력
@@ -94,7 +57,6 @@ export default function TextViewerPage() {
           <p className="truncate font-mono text-[10px] uppercase tracking-wider text-t3">
             {view === 'input' && 'Step 01 / 학습 시작'}
             {view === 'analyzing' && 'AI 분석 중...'}
-            {view === 'result' && 'Step 02-03 / 단어 선택'}
           </p>
         </div>
 
@@ -111,7 +73,7 @@ export default function TextViewerPage() {
 
       {/* ── 메인 ── */}
       <main className="flex-1 overflow-y-auto p-s-4 lg:p-s-6">
-        <div className={view === 'result' ? 'mx-auto max-w-7xl' : 'mx-auto max-w-4xl'}>
+        <div className="mx-auto max-w-4xl">
           {/* ──────────────────────
                INPUT 화면
                ────────────────────── */}
@@ -232,18 +194,6 @@ export default function TextViewerPage() {
                 <span>평균 3-5초 소요</span>
               </div>
             </div>
-          )}
-
-          {/* ──────────────────────
-               RESULT 화면
-               ────────────────────── */}
-          {view === 'result' && analysisData && (
-            <AnalysisResult
-              result={analysisData}
-              onBack={handleBack}
-              onSave={handleSave}
-              onPlayAudio={(word) => toast.info(`"${word}" 발음 재생 (Phase 2에서 OpenAI TTS)`)}
-            />
           )}
         </div>
       </main>

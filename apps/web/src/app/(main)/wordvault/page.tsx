@@ -3,10 +3,10 @@
 
 'use client'
 
-import { Menu } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
-import { useMainLayout } from '../layout'
+import { useTheme } from '@/hooks/useTheme'
 
+import { useToast } from '@/components/ui/Toast'
 import { CollectionsRow } from '@/components/wordvault/CollectionsRow'
 import { HideToggleBar } from '@/components/wordvault/HideToggleBar'
 import { ListenPanel } from '@/components/wordvault/ListenPanel'
@@ -25,16 +25,34 @@ import type {
   ScreenName,
   WordItem,
 } from '@/components/wordvault/types'
+import { consumePendingWords, toWordItem } from '@/lib/text-viewer/handoff'
 import { cn } from '@/lib/utils/cn'
 
 export default function WordVaultPage() {
-  const { openSidebar, theme, toggleTheme } = useMainLayout()
+  const { theme, toggleTheme } = useTheme()
+  const toast = useToast()
 
   // ── 화면 ──
   const [screen, setScreen] = useState<ScreenName>('browse')
 
   // ── 데이터 ──
-  const [words] = useState<WordItem[]>(MOCK_WORDS)
+  const [words, setWords] = useState<WordItem[]>(MOCK_WORDS)
+
+  // ── TextViewer 인계 단어 수신 ──
+  useEffect(() => {
+    const pending = consumePendingWords()
+    if (!pending || pending.length === 0) return
+
+    setWords((prev) => {
+      const baseId = prev.reduce((max, w) => Math.max(max, w.id), 0) + 1
+      const incoming = pending.map((w, idx) => toWordItem(w, baseId + idx))
+      return [...incoming, ...prev]
+    })
+
+    toast.success(`${pending.length}개 단어가 추가되었어요`, {
+      title: 'TextViewer에서 인계',
+    })
+  }, [toast])
 
   // ── 선택 ──
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
@@ -143,15 +161,6 @@ export default function WordVaultPage() {
     <>
       {/* ── 헤더 ── */}
       <header className="sticky top-0 z-50 flex h-[56px] items-center gap-s-3 border-b border-bd bg-bg px-s-6">
-        <button
-          type="button"
-          onClick={openSidebar}
-          aria-label="메뉴"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t1 transition-colors duration-fast hover:bg-bg2 lg:hidden"
-        >
-          <Menu size={18} />
-        </button>
-
         <h1 className="font-display text-base font-semibold tracking-[-0.01em] text-t1">
           WordVault
         </h1>

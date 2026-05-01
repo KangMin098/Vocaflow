@@ -4,7 +4,7 @@
 > Quizlet Parts Kit v06 분석 기반, 영어 학습앱에 최적화된 디자인 시스템  
 > **이 문서는 모든 컴포넌트 구현의 단일 기준(Single Source of Truth)입니다.**  
 > 기술스택: Next.js 14 (App Router) · React Native (Expo) · Tailwind · Supabase · OpenAI · Vercel · Railway  
-> **문서 버전: v06.4** (§14 Home Hub 신설 — HubHero / ModuleCard / RecentTextCard · components/home/ 폴더 추가 · F-pattern 시선 흐름 레이아웃 정의)
+> **문서 버전: v06.6** (§"디자인 철학·학습 과학 원칙" 신설 — 디자인 철학 4 + 학습 과학 7 + Memory Decay 색 + Flow State 5조건 + 적용 체크리스트 + 안티패턴) · v06.5 (§15 Admin Console + 화면 인덱스 + 에러 바운더리 + TextViewer→WordVault 인계)
 
 ---
 
@@ -68,6 +68,79 @@
 | **WordBlitz** | 타임어택 선택 게임 · 정글 어드벤처 테마 | HTML 완성 |
 | **ScriptQuiz** | 원문 독해 퀴즈 · AI 자동 생성 · 3-screen flow | HTML 완성 |
 | **Dashboard** | 학습 통계 · 진행률 · 점수 · 히트맵 | **설계 완료 (v6 신규)** |
+
+---
+
+## 🧠 디자인 철학 · 학습 과학 원칙
+
+> 모든 화면·컴포넌트·인터랙션은 아래 원칙을 따른다.
+> 새 기능 설계 시 "어느 원칙에 기여하는가"를 먼저 답할 것.
+> 디자인 토큰·타이포·컬러는 모두 이 원칙을 구현하기 위한 도구.
+
+### 디자인 철학 4개
+
+| # | 원칙 | 의미 | 구현 예시 |
+|---|------|------|-----------|
+| 1 | **차분한 인터페이스 (Calm UI)** | 학습 중 시각·청각 자극 최소화. 광고·뱃지 알림·과한 애니메이션 금지 | 집중 모드(`useFocusMode` · 30초 무활동 자동 진입) · sidebar dim · 정답 spring 한정 |
+| 2 | **점진적 공개 (Progressive Disclosure)** | 본질만 먼저 노출, 깊이는 사용자 요청 시 | 단어 hover/click → RecallCard · 인사이트 패널 토글 · ContinueCard 미리보기 line-clamp |
+| 3 | **공감 피드백 (Empathetic Feedback)** | 비난·압박 대신 격려·맥락. Lora italic으로 "사람의 말투" | "20분의 깊은 시간 · 오늘 좋은 페이스예요" · "Page 3까지 왔어요. 좋은 흐름이에요" · 오답 텍스트는 "다시 만나봐요" |
+| 4 | **암묵적 진행 표시 (Implicit Progress)** | 숫자 게이지보다 환경 변화로 성장 시각화 | Streak 카운터 · WeeklyHeatmap · Memory Decay 색 변화 · `progressPercent` 1.5px 얇은 바 |
+
+### 학습 과학 원칙 7개
+
+| # | 원칙 | 근거 | 구현 위치 |
+|---|------|------|-----------|
+| 1 | **능동적 회상 (Active Recall)** | Karpicke & Roediger 2008 — 인출이 재인보다 강한 기억 형성 | `RecallCard` 3단계 판정(knew/unsure/didnt) · Flashcard 양방향 · SpellForge 타이핑 |
+| 2 | **간격 반복 (Spaced Repetition)** | Ebbinghaus 망각곡선 + SM-2 알고리즘 | `lib/scoring/sm2.ts`(예정) · `WordItem.nextDays` · "오늘 만나주세요" risk 단어 surface |
+| 3 | **바람직한 어려움 (Desirable Difficulty)** | Bjork — 약간의 인지적 분투가 보유율 향상 | SpellForge 타이핑(보기 X) · Flashcard 답 확인 전 회상 · WordVault 영단어/뜻 숨김 토글 |
+| 4 | **이중 부호화 (Dual Coding)** | Paivio — 언어 + 시각·청각 동시 자극은 단일 자극보다 강한 기억 | TTS + 영어 원문 + 한글 의미 동시 표시 · Lora(영어 serif) vs DM Sans(한글) 시각 분리 |
+| 5 | **맥락 의존 기억 (Context-Dependent)** | 단어를 학습한 맥락에서 다시 만났을 때 인출 강화 | `/text/[id]` 워크스페이스 — 단어를 원문 안에서 hover · 단어장은 항상 `exampleEn`과 결합 |
+| 6 | **인지 부하 관리 (Cognitive Load)** | Sweller — 작업기억 ~4 항목 한계 | 한 번에 한 단어(Flashcard) · ModuleCard 7개 정사각 그리드 · Hero Stats 3분할 |
+| 7 | **정서적 부호화 (Emotional Encoding)** | 도파민 보상 + 자기효능감 → 해마 기억 강화 | Streak `s2` 폰트 시각 강조 · 정답 spring 애니메이션 · 친근한 격려 텍스트 · 보라/금빛 보상색 |
+
+### Memory Decay 색 체계 (앱 전용 토큰)
+
+> 위치: `apps/web/src/app/globals.css` `@layer base { :root { ... } }` (앱 도메인 토큰)
+> 4단계 색은 **모든 학습 모듈에서 동일** — 상태 일관성이 학습자 멘탈 모델의 핵심.
+
+| 상태 | 토큰 | 색 | 학습자 인식 | 시각 표현 |
+|------|------|-----|-------------|-----------|
+| stable | `--memory-stable` | `#22C55E` | "이건 알아요" | 1px solid border-bottom |
+| shaky | `--memory-shaky` | `#F59E0B` | "익숙해요 (가끔 헷갈림)" | 1.5px dashed border-bottom |
+| risk | `--memory-risk` | `#EF4444` | "흐릿해요 — 즉시 복습" | 1.5px dashed + `word-pulse` 애니메이션 |
+| new | `--memory-new` | `#94A3B8` | "처음 만나는 단어" | gradient 하이라이트 (배경 65~100%) |
+
+### Flow State 보조 — `/text/[id]` 워크스페이스 핵심 설계
+
+미하이 칙센트미하이 Flow 진입 5조건을 UX로 환기:
+
+| Flow 조건 | 워크스페이스 구현 |
+|-----------|-------------------|
+| 명료한 목표 | ContextBar 상단 "Page X / Y · Chapter Z" |
+| 즉각적 피드백 | 단어 hover → 250ms 후 RecallCard 등장 |
+| 도전·기술 균형 | CEFR 기반 콘텐츠 추천 + 사용자 mastery 매칭 (예정) |
+| 방해 최소화 | 30초 무활동 → 집중 모드 자동 진입(`useFocusMode`) · sidebar opacity 0.3 |
+| 시간 감각 망각 보조 | "20분의 깊은 시간 · 오늘 좋은 페이스예요" Ambient Footer (남은 시간 X — 흐름 깨지 않음) |
+
+### 적용 체크리스트 (새 기능 설계·리뷰 시)
+
+PR 머지 전 자가 점검:
+
+- [ ] **학습 과학 원칙 중 최소 1개에 명시적으로 기여**하는가? (없으면 재고)
+- [ ] **Calm UI 위반** 없는가? — 색·소리·애니메이션 과잉 / 깜빡이는 알림 / 빨간 카운터 (admin 외)
+- [ ] **회상 부담을 명시적으로** 만드는가? — 답 보여주기 전에 시도 기회 제공
+- [ ] **실패가 비난적이지 않은가?** — "틀렸어요/오답입니다" 대신 "다시 만나봐요/곧 익숙해질 거예요"
+- [ ] **진행을 환경으로** 보여주는가? — 숫자만이 아닌 색·아이콘·여백 변화
+- [ ] **맥락**을 보존하는가? — 단어/표현은 원문이나 예문과 결합
+
+### 안티패턴 (절대 금지)
+
+- 정답률 빨간 글씨로 압박 ("정확도 67% 😢")
+- 모달 오버레이로 학습 중단 ("3일 연속 학습이 끊겼어요!")
+- "오답"을 부정적 색(빨강)으로만 표시 — 색맹 + 정서 모두 위반
+- "Are you still there?" 식 inactivity 도발 알림
+- 학습 흐름 중 광고·업셀 모달
+- 진행률 100% 도달 시 폭죽·트로피 등 과장 보상 — 차분한 "오늘 잘 마쳤어요" 선호
 
 ---
 
@@ -892,15 +965,30 @@ apps/web/
 │   │   │   ├── terms/page.tsx
 │   │   │   └── privacy/page.tsx
 │   │   ├── (main)/                           ← 로그인 후 앱 (라우트 그룹 — URL 비포함)
-│   │   │   ├── layout.tsx                    ← 공통 레이아웃 + BottomTabBar
+│   │   │   ├── layout.tsx                    ← Sidebar + main 레이아웃
 │   │   │   ├── hub/page.tsx                  ← Hub (Home+Dashboard 통합) ★ 진입점
-│   │   │   ├── text/page.tsx                 ← TextViewer
+│   │   │   ├── library/page.tsx              ← 라이브러리 (콘텐츠 카드 · 큐레이션)
+│   │   │   ├── text/page.tsx                 ← TextViewer (입력 → AI 분석 → /wordvault 인계)
+│   │   │   ├── text/[id]/page.tsx            ← 학습 워크스페이스 (Reading + Recall + Audio)
 │   │   │   ├── wordvault/page.tsx            ← WordVault 단어장
-│   │   │   ├── flashcard/page.tsx
-│   │   │   ├── spellforge/page.tsx
-│   │   │   ├── wordblitz/page.tsx
-│   │   │   ├── scriptquiz/page.tsx
-│   │   │   └── settings/page.tsx             ← 계정·테마·TTS 설정
+│   │   │   ├── dashboard/page.tsx            ← 대시보드 (stub)
+│   │   │   ├── flashcard/page.tsx            ← stub
+│   │   │   ├── spellforge/page.tsx           ← stub
+│   │   │   ├── wordblitz/page.tsx            ← stub
+│   │   │   ├── scriptquiz/page.tsx           ← stub
+│   │   │   └── settings/page.tsx             ← stub (계정·테마·TTS 설정)
+│   │   ├── admin/                            ← 관리자 콘솔 (§15 / route group 미사용 → URL = /admin/*)
+│   │   │   ├── layout.tsx                    ← AdminSidebar 적용
+│   │   │   ├── page.tsx                      ← 관리자 대시보드 (KPI · 섹션 · 최근 활동)
+│   │   │   ├── users/page.tsx                ← stub · 사용자 관리
+│   │   │   ├── library/page.tsx              ← stub · 콘텐츠 관리
+│   │   │   ├── vocabulary/page.tsx           ← stub · 단어장 마스터
+│   │   │   ├── analytics/page.tsx            ← stub · 플랫폼 분석
+│   │   │   ├── reports/page.tsx              ← stub · 신고/문의
+│   │   │   ├── billing/page.tsx              ← stub · 결제/구독
+│   │   │   └── settings/page.tsx             ← stub · 시스템 설정
+│   │   ├── dev/                              ← 개발 검증
+│   │   │   └── components/page.tsx           ← Parts Kit 컴포넌트 카탈로그
 │   │   ├── api/                              ← Route Handlers
 │   │   │   ├── auth/
 │   │   │   │   └── callback/route.ts         ← Supabase OAuth 콜백 (필수)
@@ -909,9 +997,10 @@ apps/web/
 │   │   │   ├── quiz/route.ts                 ← ScriptQuiz 생성
 │   │   │   ├── upload/route.ts               ← PDF·DOCX·TXT 업로드
 │   │   │   └── health/route.ts               ← 헬스체크
-│   │   ├── error.tsx                         ← 전역 에러
-│   │   ├── not-found.tsx                     ← 404
-│   │   ├── loading.tsx                       ← 전역 로딩
+│   │   ├── page.tsx                          ← 루트 / — 화면 인덱스 + 진행률 대시보드 (Phase 1.5 dev 진입점)
+│   │   ├── error.tsx                         ← 전역 에러 바운더리 (필수)
+│   │   ├── not-found.tsx                     ← 404 (필수)
+│   │   ├── loading.tsx                       ← 전역 로딩 스피너 (필수)
 │   │   ├── globals.css                       ← CSS Variables (이 문서 §Colors)
 │   │   └── layout.tsx                        ← Root layout + 폰트 + Provider
 │   ├── components/
@@ -988,6 +1077,27 @@ apps/web/
 │   │   │   ├── HubHero.tsx                   ← 인사 + Streak + Today CTA + inline Stats
 │   │   │   ├── ModuleCard.tsx                ← 7모듈 정사각 카드 (아이콘·마지막 학습)
 │   │   │   └── ContinueCard.tsx              ← 이어하기 (Lora 제목·진행률·CTA)
+│   │   ├── library/                          ← 라이브러리 전용
+│   │   │   ├── CEFRBadge.tsx
+│   │   │   ├── CategoryChip.tsx
+│   │   │   ├── ContinueCard.tsx
+│   │   │   ├── CurationCard.tsx
+│   │   │   └── LibraryCard.tsx
+│   │   ├── workspace/                        ← /text/[id] 학습 워크스페이스 전용
+│   │   │   ├── ContextBar.tsx                ← 상단 sticky 바 (북마크·타이포·인사이트·집중)
+│   │   │   ├── ReadingUniverse.tsx           ← Lora 영어 본문 + 단어 hover/click + 문장 재생
+│   │   │   ├── RecallCard.tsx                ← 단어 의미 회상 카드 (3단계 판정)
+│   │   │   ├── ModePills.tsx                 ← 7모듈 진입 pill (read/listen/words/...)
+│   │   │   ├── Pagination.tsx
+│   │   │   ├── FloatingAudioPlayer.tsx       ← 하단 고정 오디오 플레이어
+│   │   │   ├── FloatingSparkle.tsx           ← 다음 단계 추천 카드
+│   │   │   ├── InsightPanel.tsx              ← 우측 슬라이드 패널 (북마크·기억 상태)
+│   │   │   ├── KeyboardHints.tsx
+│   │   │   └── TypePopover.tsx
+│   │   ├── admin/                            ← 관리자 콘솔 전용 (§15, v06.5)
+│   │   │   └── AdminSidebar.tsx              ← 보라 액센트 · 신고 뱃지 · 사용자 앱 복귀
+│   │   ├── dev/                              ← 개발 도구 (배포 시 함께 빌드)
+│   │   │   └── StubPage.tsx                  ← 미구현 페이지 placeholder (제목·예정 기능·CTA)
 │   │   └── marketing/                        ← 랜딩/공개 페이지 전용
 │   │       ├── HeroSection.tsx
 │   │       ├── FeatureGrid.tsx
@@ -1001,7 +1111,9 @@ apps/web/
 │   │   ├── useGameScore.ts
 │   │   ├── useDashboard.ts
 │   │   ├── useSupabase.ts
-│   │   ├── useTheme.ts                       ← 다크모드 토글
+│   │   ├── useTheme.ts                       ← 다크모드 토글 (localStorage + data-theme)
+│   │   ├── useFocusMode.ts                   ← /text/[id] 워크스페이스 집중 모드
+│   │   ├── useKeyboardShortcuts.ts           ← /text/[id] 키보드 단축키
 │   │   ├── useMediaQuery.ts                  ← 반응형 훅
 │   │   └── useDebounce.ts
 │   ├── stores/                               ← Zustand 전역 상태
@@ -1026,6 +1138,8 @@ apps/web/
 │   │   │   ├── docx.ts                       ← mammoth
 │   │   │   ├── txt.ts
 │   │   │   └── url.ts                        ← Phase 2 (예정)
+│   │   ├── text-viewer/                      ← TextViewer 도메인 유틸
+│   │   │   └── handoff.ts                    ← /text → /wordvault 단어 인계 (sessionStorage)
 │   │   ├── scoring/
 │   │   │   ├── sm2.ts                        ← Flashcard SM-2 알고리즘
 │   │   │   ├── spellforge.ts
@@ -1224,6 +1338,8 @@ docs/
 |------|------|------|
 | `components/ui` | 디자인 시스템 원자 | Parts Kit 컴포넌트만. 비즈니스 로직 금지 |
 | `components/{도메인}` | 도메인별 합성 컴포넌트 | API 호출 OK. 다른 도메인 컴포넌트 import 금지 |
+| `components/admin` | 관리자 콘솔 전용 | AdminSidebar 등. 사용자 앱과 격리 (보라 액센트로 시각 구분) |
+| `components/dev` | 개발 도구 | StubPage 등 placeholder. 프로덕션 의미 부여 금지 |
 | `hooks` | UI ↔ 데이터 연결 | React 훅만. 순수 함수는 `lib/utils` |
 | `stores` | 전역 클라이언트 상태 | Zustand 스토어. 서버 상태는 React Query/SWR로 |
 | `lib` | 외부 통합 + 유틸 | API SDK 래핑·파서·계산. React 훅 금지 |
@@ -1783,6 +1899,79 @@ desktop (1280px):Hero(좌우 2열 + Stats 3열)       → Module(7열) → Conti
 
 ---
 
+## 🛡️ Admin Console — v6.5 신규 섹션
+
+> 플랫폼 운영 전용 영역. 사용자 앱과 라우트·레이아웃·시각 컨텍스트 모두 분리.
+> **설계 원칙**: 시각적 구분(보라 액센트) + 명시적 모드 알림 + 한 클릭 사용자 앱 복귀.
+
+### 라우트 구조 — route group 미사용
+
+```
+/admin              → 관리자 대시보드 (KPI 4 · 섹션 7 · 최근 활동)
+/admin/users        → 사용자 관리
+/admin/library      → 콘텐츠 관리
+/admin/vocabulary   → 단어장 마스터
+/admin/analytics    → 플랫폼 분석
+/admin/reports      → 신고/문의
+/admin/billing      → 결제/구독
+/admin/settings     → 시스템 설정
+```
+
+`(admin)` 라우트 그룹 대신 평문 `/admin/*` 사용 — URL 명시성 + 단일 layout scope.
+
+### 시각 컨텍스트 분리
+
+| 요소 | 사용자 앱 | Admin Console |
+|------|-----------|---------------|
+| 액센트 | `var(--p)` (#3B82F6) | **#8B5CF6 → #6D28D9** (보라 그라디언트) |
+| 로고 아이콘 | `V` (Plus Jakarta) | `ShieldCheck` |
+| 사이드바 헤더 | "Vocaflow" | "Vocaflow" + **"Admin"** mono 배지 |
+| 알림 박스 | Streak | **"관리자 모드 · 시스템 데이터 접근 중"** |
+| 사이드바 하단 | 사용자 프로필 → /settings | **"사용자 앱으로 ← /hub"** |
+
+### AdminSidebar 네비게이션 그룹
+
+```
+[ 단독 ]   대시보드 (LayoutDashboard)
+[ 사용자 & 콘텐츠 ]   사용자 / 콘텐츠 / 단어장 마스터        — accent: #8B5CF6
+[ 운영 ]              플랫폼 분석 / 신고·문의(뱃지) / 결제   — accent: var(--info)
+[ 시스템 ]            시스템 설정                            — accent: var(--active)
+```
+
+신고·문의 항목엔 **빨간 카운트 뱃지** (미처리 건수). 0건일 때 숨김.
+
+### 관리자 대시보드 (`/admin`) 레이아웃
+
+```
+┌──────────────────────────────────────────┐
+│ [ShieldCheck]  Admin Console             │
+│                대시보드                    │
+├──────────────────────────────────────────┤
+│ KPI ×4 — 총 사용자 / 활성 / 콘텐츠 / 신고  │
+├──────────────────────────────────────────┤
+│ 관리 섹션 ×7 — 카드 그리드 (3열)          │
+├──────────────────────────────────────────┤
+│ 최근 활동 — 타임라인 (실시간 마커)         │
+└──────────────────────────────────────────┘
+```
+
+KPI 카드는 §13 StatCard와 다른 디자인 — delta 변화율 (`▲ 12%`) 강조 + 작은 아이콘 박스. 모듈별 색상 액센트로 빠른 스캔.
+
+### 권한·보안 (Phase 2~3 예정)
+
+- `middleware.ts`에 `/admin/*` RBAC 가드 — Supabase `users.role = 'admin'` 검증
+- 관리자 액션은 별도 `audit_logs` 테이블에 기록 (settings 페이지 통합)
+- 관리자 전용 로그인 분리 검토 (`/admin/login` — 2FA 필수)
+
+### 접근성 / UX 원칙
+
+- 보라 액센트는 색상 + 형태(ShieldCheck) + 텍스트("Admin") 3중 표현
+- "사용자 앱으로" 링크 항상 visible — 컨텍스트 전환 비용 최소화
+- 신고 뱃지는 색상 + 숫자 + aria-label 3중 표현 (색맹 대응)
+- 모든 stub 페이지는 `components/dev/StubPage`로 통일 — 일관된 검증 경험
+
+---
+
 ## 🃏 게임 모듈 — Flashcard
 
 > 독립 레퍼런스: `Flashcard.html` (648줄) — 완전 동작  
@@ -2252,10 +2441,12 @@ CREATE POLICY "Users see own data" ON scores           FOR ALL USING (auth.uid()
 11 WordVault       — WordVault 단어장 전용 컴포넌트 (Hero · TTS · SP-Bar · WordList 등)
 12 ScriptQuiz       — 3-screen flow · 선택지 5상태 · O/X 피드백
 13 Dashboard        — StatCard · WeeklyHeatmap · AccuracyRing · ScoreTrend · Activity
-14 Home Hub ★NEW    — HubHero · ModuleCard · ContinueCard / 4영역(Hero·Module·Continue·Reflection) · StatCard inline · F-pattern · Flow State
+14 Home Hub          — HubHero · ModuleCard · ContinueCard / 4영역(Hero·Module·Continue·Reflection) · StatCard inline · F-pattern · Flow State
+15 Admin Console     — 8 라우트(/admin/*) · AdminSidebar(보라 액센트) · 관리자 대시보드(KPI·섹션·활동) · components/admin · components/dev/StubPage
+00 Philosophy ★NEW   — 디자인 철학 4(Calm/Progressive/Empathetic/Implicit) · 학습 과학 7(Recall·SR·Difficulty·Dual·Context·Load·Emotion) · Memory Decay 4단계 · Flow State 5조건 · 안티패턴
 ```
 
 ---
 
 *CLAUDE.md — Vocaflow Design System · Single Source of Truth*  
-*변경 이력: 파일명 CLAUDE.md로 통일 / 기술스택 Next.js 14 확정 / CSS 변수 축약형(--p·--bg·--t1) 통일 / React Native 토큰 신설 / Breakpoint 390/768/1280px / Dashboard §13 신설 / Parts Kit v06 / **v06.1** Turborepo 모노레포 구조 + text-viewer/marketing 분리 + game 하위 분리 + lib 폴더화 + stores 추가 / **v06.2** 서비스명 LexiVault → Vocaflow · 단어장 모듈 LexiVault → WordVault · 폴더 vocab → wordvault / **v06.3** (main)/page.tsx 삭제 → (main)/hub/page.tsx 신설 (Home+Dashboard 통합) · URL 충돌로 인한 빌드 실패 해소 (✅ 정상 빌드) · 인증 분기 middleware.ts 일괄 처리 / **v06.4** §14 Home Hub 신설 — HubHero(인사+Streak+Today CTA, gradient + s2) · ModuleCard(7모듈 정사각·아이콘·마지막 학습) · ContinueCard(Lora 제목·진행률·CTA) / StatCard `variant="inline"` 추가 (§13) / 재사용: StatCard·RecentActivity·ProgressBar / 레이아웃 4영역(Hero·Module·Continue·Reflection) · max-w-6xl · F-pattern 시선 정합 · Flow State 진입 보조 / components/home/ 폴더 추가*
+*변경 이력: 파일명 CLAUDE.md로 통일 / 기술스택 Next.js 14 확정 / CSS 변수 축약형(--p·--bg·--t1) 통일 / React Native 토큰 신설 / Breakpoint 390/768/1280px / Dashboard §13 신설 / Parts Kit v06 / **v06.1** Turborepo 모노레포 구조 + text-viewer/marketing 분리 + game 하위 분리 + lib 폴더화 + stores 추가 / **v06.2** 서비스명 LexiVault → Vocaflow · 단어장 모듈 LexiVault → WordVault · 폴더 vocab → wordvault / **v06.3** (main)/page.tsx 삭제 → (main)/hub/page.tsx 신설 (Home+Dashboard 통합) · URL 충돌로 인한 빌드 실패 해소 (✅ 정상 빌드) · 인증 분기 middleware.ts 일괄 처리 / **v06.4** §14 Home Hub 신설 — HubHero(인사+Streak+Today CTA, gradient + s2) · ModuleCard(7모듈 정사각·아이콘·마지막 학습) · ContinueCard(Lora 제목·진행률·CTA) / StatCard `variant="inline"` 추가 (§13) / 재사용: StatCard·RecentActivity·ProgressBar / 레이아웃 4영역(Hero·Module·Continue·Reflection) · max-w-6xl · F-pattern 시선 정합 · Flow State 진입 보조 / components/home/ 폴더 추가 / **v06.6** "디자인 철학·학습 과학 원칙" 섹션 신설 (§핵심 모듈 직후 · §Typography 직전) — 디자인 철학 4(Calm UI / Progressive Disclosure / Empathetic Feedback / Implicit Progress) · 학습 과학 7(Active Recall / Spaced Repetition / Desirable Difficulty / Dual Coding / Context-Dependent / Cognitive Load / Emotional Encoding) · Memory Decay 색 체계 4단계(stable/shaky/risk/new) 명시 · Flow State 5조건 매핑(워크스페이스) · 적용 체크리스트(PR 자가점검) · 안티패턴 6개 / 기존 코드의 산재된 학습 과학 단서들(vmPFC 텍스트·focus-mode·softQuote·memory 토큰) 통합 정리 / **v06.5** §15 Admin Console 신설 — 8 라우트(/admin/*, route group 미사용) · AdminSidebar(#8B5CF6 보라 액센트 · "관리자 모드" 알림) · 관리자 대시보드(KPI 4 + 섹션 7 + 활동 피드) / components/admin/ · components/dev/StubPage 폴더 추가 / 루트 / 페이지를 임시 진입점 → 화면 인덱스+진행률 대시보드로 전면 개편 (28화면 자동 집계) / (main) 누락 6개(dashboard·flashcard·spellforge·wordblitz·scriptquiz·settings) StubPage로 채움 / error.tsx · not-found.tsx · loading.tsx 전역 바운더리 신설 (이전 "missing required error components" 무한 새로고침 해결) / hooks/useTheme · useFocusMode · useKeyboardShortcuts 추가 / lib/text-viewer/handoff.ts 신설 — TextViewer "AI로 단어 추출" → /wordvault 인계(sessionStorage) / 사이드바 "직접 입력" /input → /text 통합 · /input 라우트 삭제 / components 폴더에 library · workspace 명시*

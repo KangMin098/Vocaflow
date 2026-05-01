@@ -1,6 +1,6 @@
 // apps/web/src/components/dashboard/StatCard.tsx
 // Vocaflow StatCard — 대시보드 통계 카드
-// CLAUDE.md v06.2 §13 시각 컴포넌트 확장
+// CLAUDE.md v06.4 §13 — variant="card" (기본) | "inline" (Hero 내부 임베드)
 
 'use client'
 
@@ -11,14 +11,22 @@ import { Minus, Sparkles, TrendingDown, TrendingUp, type LucideIcon } from 'luci
 // Types
 // ══════════════════════════════════════════════════════════════
 export type StatTrend = 'up' | 'down' | 'flat' | 'record'
+export type StatCardVariant = 'card' | 'inline'
 
-export interface StatCardProps {
+interface StatCardBaseProps {
   /** 좌상단 라벨 */
   label: string
   /** 큰 숫자 (이미 포맷된 문자열) */
   value: string | number
   /** 단위 (% · 일 · 분 등) */
   unit?: string
+  /** 보조 텍스트 (예: "/30분 목표") */
+  subtext?: string
+}
+
+export interface StatCardBoxProps extends StatCardBaseProps {
+  /** 기본 카드 변형 */
+  variant?: 'card'
   /** 카드 아이콘 */
   icon: LucideIcon
   /** 강조 색상 (hex) */
@@ -27,11 +35,16 @@ export interface StatCardProps {
   trend?: StatTrend
   /** 추세 텍스트 (예: "+12", "+3%", "신기록") */
   trendText?: string
-  /** 보조 텍스트 (예: "/30분 목표") */
-  subtext?: string
   /** 클릭 시 이동 핸들러 */
   onClick?: () => void
 }
+
+export interface StatCardInlineProps extends StatCardBaseProps {
+  /** Hero 내부 임베드용 — 카드 박스 제거 / 흰색 텍스트 / s2 값 */
+  variant: 'inline'
+}
+
+export type StatCardProps = StatCardBoxProps | StatCardInlineProps
 
 // ══════════════════════════════════════════════════════════════
 // Trend 시각 매핑
@@ -44,9 +57,41 @@ const trendConfig: Record<StatTrend, { icon: LucideIcon; color: string; bg: stri
 }
 
 // ══════════════════════════════════════════════════════════════
-// StatCard
+// StatCard — 변형별 분기
 // ══════════════════════════════════════════════════════════════
-export function StatCard({
+export function StatCard(props: StatCardProps) {
+  if (props.variant === 'inline') {
+    return <StatCardInline {...props} />
+  }
+  return <StatCardBox {...props} />
+}
+
+// ──────────────────────────────────────────────────────────────
+// inline — Hero 내부 임베드
+// ──────────────────────────────────────────────────────────────
+function StatCardInline({ label, value, unit, subtext }: StatCardInlineProps) {
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] opacity-80">
+        {label}
+      </span>
+      <div className="flex items-baseline gap-1">
+        <span className="font-display text-[32px] font-[800] leading-none tabular-nums md:text-[40px]">
+          {value}
+        </span>
+        {unit && (
+          <span className="font-display text-[14px] font-[600] opacity-80">{unit}</span>
+        )}
+      </div>
+      {subtext && <span className="font-body text-[12px] opacity-70">{subtext}</span>}
+    </div>
+  )
+}
+
+// ──────────────────────────────────────────────────────────────
+// card — 기본 (Dashboard §13)
+// ──────────────────────────────────────────────────────────────
+function StatCardBox({
   label,
   value,
   unit,
@@ -56,7 +101,7 @@ export function StatCard({
   trendText,
   subtext,
   onClick,
-}: StatCardProps) {
+}: StatCardBoxProps) {
   const trendStyle = trend ? trendConfig[trend] : null
   const TrendIcon = trendStyle?.icon
   const isClickable = !!onClick

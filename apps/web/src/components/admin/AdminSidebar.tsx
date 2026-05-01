@@ -1,0 +1,219 @@
+// apps/web/src/components/admin/AdminSidebar.tsx
+
+'use client'
+
+import {
+  ArrowLeft,
+  BarChart3,
+  BookMarked,
+  CreditCard,
+  Database,
+  Flag,
+  LayoutDashboard,
+  Library,
+  ShieldCheck,
+  Sliders,
+  Users,
+  type LucideIcon,
+} from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+interface NavItem {
+  href: string
+  label: string
+  Icon: LucideIcon
+  badge?: number
+}
+
+interface NavGroup {
+  label: string | null
+  color: string | null
+  items: NavItem[]
+}
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: null,
+    color: null,
+    items: [{ href: '/admin', label: '대시보드', Icon: LayoutDashboard }],
+  },
+  {
+    label: '사용자 & 콘텐츠',
+    color: '#8B5CF6',
+    items: [
+      { href: '/admin/users', label: '사용자', Icon: Users },
+      { href: '/admin/library', label: '콘텐츠', Icon: Library },
+      { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
+    ],
+  },
+  {
+    label: '운영',
+    color: 'var(--info)',
+    items: [
+      { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
+      { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: 7 },
+      { href: '/admin/billing', label: '결제/구독', Icon: CreditCard },
+    ],
+  },
+  {
+    label: '시스템',
+    color: 'var(--active)',
+    items: [{ href: '/admin/settings', label: '시스템 설정', Icon: Sliders }],
+  },
+]
+
+export function AdminSidebar() {
+  const pathname = usePathname()
+
+  return (
+    <aside
+      aria-label="관리자 메뉴"
+      className="sticky top-0 hidden h-screen w-[240px] shrink-0 flex-col border-r border-[var(--bd)] bg-gradient-to-b from-[var(--bg)] via-[var(--bg)] to-[var(--bg2)] md:flex"
+    >
+      {/* ── 로고 ── */}
+      <Link
+        href="/admin"
+        className="flex h-[64px] shrink-0 items-center gap-2.5 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+      >
+        <span
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_2px_8px_rgba(139,92,246,0.30)]"
+          aria-hidden="true"
+        >
+          <ShieldCheck size={16} strokeWidth={2.25} />
+        </span>
+        <div className="flex flex-col leading-tight">
+          <span className="font-display text-[14px] font-[800] tracking-tight text-[var(--t1)]">
+            Vocaflow
+          </span>
+          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+            Admin
+          </span>
+        </div>
+      </Link>
+
+      {/* ── Mode 알림 ── */}
+      <div className="mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[#8B5CF6]/30 bg-[#8B5CF6]/8 px-3 py-2">
+        <div className="flex items-start gap-2">
+          <ShieldCheck
+            size={13}
+            strokeWidth={2}
+            className="mt-0.5 shrink-0 text-[#8B5CF6]"
+            aria-hidden="true"
+          />
+          <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
+            <span className="font-display font-[700] text-[#8B5CF6]">관리자 모드</span> · 시스템
+            데이터에 접근 중
+          </p>
+        </div>
+      </div>
+
+      {/* ── 네비게이션 ── */}
+      <nav className="flex-1 overflow-y-auto px-3 pb-4 pt-2">
+        {NAV_GROUPS.map((group, idx) => (
+          <div key={idx} className={idx > 0 ? 'mt-6' : 'mt-2'}>
+            {group.label && (
+              <h3 className="mb-2.5 flex items-center gap-2.5 px-3">
+                {group.color && (
+                  <span
+                    className="h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: group.color }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+                  {group.label}
+                </span>
+                <span
+                  className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
+                  aria-hidden="true"
+                />
+              </h3>
+            )}
+            <ul className="flex flex-col gap-0.5">
+              {group.items.map((item) => {
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== '/admin' && pathname.startsWith(item.href))
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`group relative flex items-center gap-2.5 rounded-[var(--r-md)] py-1.5 pl-3 pr-2 font-display text-[14px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                        isActive
+                          ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
+                          : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
+                      } `}
+                    >
+                      {isActive && (
+                        <span
+                          className="absolute bottom-1.5 left-0 top-1.5 w-[3px] rounded-r-full bg-[#8B5CF6] shadow-[2px_0_8px_-2px_#8B5CF6]"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <span
+                        className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
+                          isActive
+                            ? 'bg-[#8B5CF6]/12'
+                            : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
+                        } `}
+                      >
+                        <item.Icon
+                          size={15}
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                          className={`transition-colors duration-[var(--dur-normal)] ${
+                            isActive
+                              ? 'text-[#8B5CF6]'
+                              : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+                          } `}
+                        />
+                      </span>
+                      <span className="flex-1 truncate">{item.label}</span>
+                      {item.badge !== undefined && item.badge > 0 && (
+                        <span
+                          className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--error)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-white"
+                          aria-label={`미처리 ${item.badge}개`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      {/* ── 사용자 앱으로 돌아가기 ── */}
+      <div className="shrink-0 border-t border-[var(--bd)] bg-gradient-to-b from-transparent to-[var(--bg2)] p-3">
+        <Link
+          href="/hub"
+          className="group flex items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)] hover:ring-1 hover:ring-[var(--bd)]"
+        >
+          <span
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]"
+            aria-hidden="true"
+          >
+            <ArrowLeft size={15} strokeWidth={1.75} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-display text-[13px] font-[600] text-[var(--t1)]">
+              사용자 앱으로
+            </p>
+            <p className="truncate font-body text-[11px] text-[var(--t3)]">/hub</p>
+          </div>
+          <Database
+            size={13}
+            strokeWidth={1.75}
+            className="shrink-0 text-[var(--t3)] opacity-0 transition-opacity duration-[var(--dur-normal)] group-hover:opacity-100"
+            aria-hidden="true"
+          />
+        </Link>
+      </div>
+    </aside>
+  )
+}

@@ -9,13 +9,18 @@ import { BookMarked, Copy, HelpCircle, Pencil, Zap, type LucideIcon } from 'luci
 // ══════════════════════════════════════════════════════════════
 // Types
 // ══════════════════════════════════════════════════════════════
-interface ActivityItem {
+export interface ActivityItem {
   id: string
   module: 'WordVault' | 'Flashcard' | 'SpellForge' | 'WordBlitz' | 'ScriptQuiz'
   action: string
   detail: string
   score?: number
   timeAgo: string
+}
+
+export interface RecentActivityProps {
+  /** 활동 목록 — 미제공 시 목업 데이터 사용 */
+  activities?: ActivityItem[]
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -30,9 +35,9 @@ const moduleConfig: Record<ActivityItem['module'], { icon: LucideIcon; color: st
 }
 
 // ══════════════════════════════════════════════════════════════
-// 목업 데이터
+// 목업 데이터 (activities prop 미제공 시 폴백)
 // ══════════════════════════════════════════════════════════════
-const activities: ActivityItem[] = [
+const defaultActivities: ActivityItem[] = [
   {
     id: '1',
     module: 'Flashcard',
@@ -77,12 +82,12 @@ const activities: ActivityItem[] = [
 // ══════════════════════════════════════════════════════════════
 // RecentActivity
 // ══════════════════════════════════════════════════════════════
-export function RecentActivity() {
+export function RecentActivity({ activities = defaultActivities }: RecentActivityProps = {}) {
   return (
     <Card variant="default" padding="md" className="h-full rounded-xl">
       <CardHeader>
         <CardTitle>최근 학습 활동</CardTitle>
-        <CardDescription>지난 활동 5건</CardDescription>
+        <CardDescription>지난 활동 {activities.length}건</CardDescription>
       </CardHeader>
 
       <div className="space-y-s-1">
