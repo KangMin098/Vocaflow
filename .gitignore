@@ -1,1 +1,11 @@
 node_modules
+.env.local
+
+# env files
+.env
+.env.local
+.env.*.local
+# data/import 시드 파일 (모든 형식 — 대용량/저작권 고려)
+data/import/*
+!data/import/README.md
+!data/import/.gitkeep
