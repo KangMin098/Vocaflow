@@ -9,7 +9,13 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "db:types": "npx supabase gen types typescript --linked > packages/types/src/database.ts",
+    "db:push": "npx supabase db push",
+    "db:diff": "npx supabase db diff --use-migra",
+    "db:new": "npx supabase migration new",
+    "db:seed-dictionary": "node --env-file=.env.local scripts/seed-dictionary.mjs",
+    "db:seed-dictionary:dry": "node --env-file=.env.local scripts/seed-dictionary.mjs --dry-run"
   },
   "repository": {
     "type": "git",
@@ -25,8 +31,12 @@
   },
   "packageManager": "pnpm@9.0.0",
   "devDependencies": {
+    "@supabase/supabase-js": "^2.104.1",
+    "better-sqlite3": "^12.9.0",
+    "dotenv": "^17.4.2",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
+    "supabase": "^2.98.1",
     "turbo": "^2.9.6"
   }
 }
