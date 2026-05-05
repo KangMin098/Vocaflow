@@ -126,9 +126,16 @@ function useAuthUserId() {
       setAuthReady(true)
     })
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    // 명시적 SIGNED_OUT 외 이벤트가 session=null 로 잠시 발화될 수 있어
+    // userId 를 null 로 내리면 SWR 키가 깜빡이며 Hub 데이터가 사라졌다 돌아오는 플리커가 발생.
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
       if (!mounted) return
-      setUserId(session?.user?.id ?? null)
+      if (event === 'SIGNED_OUT') {
+        setUserId(null)
+        return
+      }
+      const next = session?.user?.id
+      if (next) setUserId(next)
     })
 
     return () => {
