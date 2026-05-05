@@ -2,9 +2,16 @@
 
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useFlashcardSession } from '@/hooks/useFlashcardSession'
+import {
+  getMockNextAction,
+  MOCK_USER_CONTEXTS,
+} from '@/lib/recommend/next-action.mock'
+import { Rating, applyReview, type RatingValue } from '@/lib/srs'
+import { pushPendingResult } from '@/lib/srs/session-storage'
+import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import type { FlashcardWord, PauseMessage, SRSRating } from '@/types/flashcard'
 
 import { Card } from './Card'
@@ -14,6 +21,14 @@ import { HonestyHint } from './HonestyHint'
 import { MicroPause } from './MicroPause'
 import { RecallPhase } from './RecallPhase'
 import { SRSBar } from './SRSBar'
+
+// CLAUDE.md §17.4 — FSRS 4단계 1:1 매핑
+const SRS_RATING_TO_FSRS: Record<SRSRating, RatingValue> = {
+  again: Rating.Again, // 1
+  hard: Rating.Hard, // 2
+  good: Rating.Good, // 3
+  easy: Rating.Easy, // 4
+}
 
 const RECALL_DURATION_MS = 3000
 const HINT_DELAY_MS = 1500
@@ -33,6 +48,14 @@ interface FlashcardSessionProps {
 }
 
 export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
+  // Flashcard 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" 추천 (§17 Context-Dependent L4→L2 cycle)
+  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_flashcard' })
+  const recommendation = useMemo(
+    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
+    []
+  )
+
   const session = useFlashcardSession({ initialWords })
   const {
     currentWord,
@@ -117,9 +140,28 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
     setSwipeDirection(null)
   }, [cardChangeKey])
 
-  // SRS 평가 — 스와이프 방향 결정 + 훅 호출
+  // SRS 평가 — 스와이프 방향 결정 + 훅 호출 + (있다면) FSRS applyReview
   const handleSRSRating = (rating: SRSRating) => {
     setSwipeDirection(rating === 'again' || rating === 'hard' ? 'left' : 'right')
+
+    // §17 [4] 기억 축 — FSRS 경로. srsV2 없으면 SM-2만 동작 (호환성).
+    if (currentWord?.srsV2) {
+      const result = applyReview({
+        card: currentWord.srsV2,
+        rating: SRS_RATING_TO_FSRS[rating],
+        reviewedAt: new Date(),
+        module: 'flashcard',
+      })
+      // DB 연동 전 임시 큐. 연동 후엔 supabase.from('vocabularies').update(...) 직접 호출.
+      pushPendingResult({
+        cardId: result.card.id,
+        cardUpdate: cardToUpdatePayload(result.card),
+        rating: result.log.rating,
+        reviewedAt: result.log.reviewedAt.toISOString(),
+        module: result.log.module,
+      })
+    }
+
     submitRating(rating)
   }
 
@@ -164,6 +206,7 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
         stats={stats}
         textId={initialWords[0]?.textId ?? '1'}
         onRestart={handleRestart}
+        recommendation={recommendation}
       />
     )
   }

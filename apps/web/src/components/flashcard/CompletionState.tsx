@@ -2,17 +2,27 @@
 
 'use client'
 
-import type { SessionStats } from '@/types/flashcard'
 import { Clock, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
+
+import { NextActionCard } from '@/components/recommend/NextActionCard'
+import type { RecommendedAction } from '@/lib/recommend/types'
+import type { SessionStats } from '@/types/flashcard'
 
 interface CompletionStateProps {
   stats: SessionStats
   textId: string
   onRestart: () => void
+  /** §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 부모가 주입 */
+  recommendation?: RecommendedAction
 }
 
-export function CompletionState({ stats, textId, onRestart }: CompletionStateProps) {
+export function CompletionState({
+  stats,
+  textId,
+  onRestart,
+  recommendation,
+}: CompletionStateProps) {
   const totalMinutes = Math.round(stats.durationSeconds / 60)
 
   // 내일 다시 만날 카드 = again + hard 평가 받은 카드
@@ -92,6 +102,16 @@ export function CompletionState({ stats, textId, onRestart }: CompletionStatePro
             </div>
           </div>
         </div>
+
+        {/* §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) */}
+        {recommendation && (
+          <div className="mb-8 text-left">
+            <NextActionCard
+              recommendation={recommendation}
+              prelude="오늘의 학습이 끝났어요. 다음으로 무엇을 해볼까요?"
+            />
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex justify-center gap-3">

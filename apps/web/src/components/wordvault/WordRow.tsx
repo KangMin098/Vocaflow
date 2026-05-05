@@ -1,76 +1,92 @@
 // apps/web/src/components/wordvault/WordRow.tsx
-// 단일 단어 행 — 좌우 분할 + 펼침/접힘 + 숨김 적용
+//
+// 단어 행 v4 (v06.21.5) — 펼침 메커니즘 제거 + 예문 우측 정렬 + 학습 효율 강화
+//
+// 변경 (v06.21.5):
+//   - 행 펼침/접힘 chevron 제거 — 모든 정보가 항상 한 행에 노출
+//   - 예문 우측 정렬 (text-right) — 시선 흐름: 영단어 → 뜻 → 예문
+//   - 예문 하단 메타("N일 전·N일 후 복습·마스터 N/5") 제거 — Calm UI (압박 ↓)
+//
+// 학습 효과 강화:
+//   - 행 클릭 시 발음 자동 재생 (중복 클릭 비용 제거 — Fitts's law)
+//   - Memory state 좌측 1~2px 엣지 색상 항상 노출 (4색 토큰 시각 인지)
+//   - 영단어/뜻/예문 시각 위계 명확화 — 영단어(t1 600 16px) > 뜻(t1 500 13px) > 예문(t3 italic 12.5px)
+//   - hover 시 행 미세 hover-lift bg2/60 + 좌측 엣지 풀 opacity
+//   - 예문 우측 정렬 → 영어 본문 line-end가 시각 흐름 안정 (좌→우→완결)
 
 'use client'
 
+import { MemoryBadge } from '@/components/ui/MemoryBadge'
 import { cn } from '@/lib/utils/cn'
-import { Calendar, ChevronDown, Play, Repeat, Target, Volume2 } from 'lucide-react'
+import { Play } from 'lucide-react'
+import { getMemoryState, type MemoryState } from '@/lib/srs'
 import type { HideStates, WordItem } from './types'
 
+const MEMORY_EDGE_COLOR: Record<MemoryState, string> = {
+  stable: 'var(--memory-stable)',
+  shaky: 'var(--memory-shaky)',
+  risk: 'var(--memory-risk)',
+  new: 'var(--memory-new)',
+}
+
 export interface WordRowProps {
-  /** 단어 데이터 */
   word: WordItem
-  /** 선택 여부 */
   isSelected: boolean
-  /** 펼침 여부 */
-  isExpanded: boolean
-  /** 재생 중 여부 */
   isPlaying: boolean
-  /** 숨김 상태 (영단어/뜻/예문) */
   hideStates: HideStates
-  /** 펼침 토글 */
-  onToggleExpand: (id: number) => void
-  /** 선택 토글 */
   onToggleSelect: (id: number) => void
-  /** 단어 재생 */
   onPlayWord: (id: number) => void
-  /** 예문 재생 */
-  onPlayExample: (id: number) => void
 }
 
 export function WordRow({
   word,
   isSelected,
-  isExpanded,
   isPlaying,
   hideStates,
-  onToggleExpand,
   onToggleSelect,
   onPlayWord,
-  onPlayExample,
 }: WordRowProps) {
   const stopBubble = (e: React.MouseEvent) => e.stopPropagation()
+
+  const memoryState = word.srs ? getMemoryState(word.srs) : 'new'
+  const edgeColor = MEMORY_EDGE_COLOR[memoryState]
 
   return (
     <div
       className={cn(
-        'relative border-b border-bd transition-colors duration-fast last:border-b-0',
-        isPlaying && 'bg-learn-fresh-light',
-        isSelected && !isPlaying && 'bg-learn-mastered-light'
+        'group relative transition-colors duration-fast',
+        // 부드러운 gradient bottom border
+        'after:pointer-events-none after:absolute after:bottom-0 after:left-3 after:right-3 after:h-px',
+        'after:bg-gradient-to-r after:from-transparent after:via-bd after:to-transparent',
+        'last:after:hidden',
+        isPlaying && 'bg-learn-fresh-light/50',
+        isSelected && !isPlaying && 'bg-learn-mastered-light/30',
+        !isPlaying && !isSelected && 'hover:bg-bg2/60'
       )}
       data-id={word.id}
     >
-      {isPlaying && (
-        <span
-          aria-hidden
-          className="bg-learn-fresh absolute bottom-0 left-0 top-0 w-[3px] rounded-r"
-        />
-      )}
-
-      {/* 메인 행 */}
-      <div
-        onClick={() => onToggleExpand(word.id)}
+      {/* 좌측 Memory state 엣지 — 4색 시각 단서 */}
+      <span
+        aria-hidden
         className={cn(
-          'grid cursor-pointer items-center gap-s-4 px-s-5 py-s-4',
-          'transition-colors duration-fast',
-          'hover:bg-bg2',
-          isSelected && 'hover:brightness-[0.98]'
+          'pointer-events-none absolute bottom-0 left-0 top-0 transition-all duration-normal',
+          isPlaying ? 'w-[2px]' : 'w-px opacity-50 group-hover:opacity-100'
+        )}
+        style={{ backgroundColor: isPlaying ? 'var(--memory-stable)' : edgeColor }}
+      />
+
+      {/* ── 메인 행 (8 column grid) ── */}
+      <div
+        onClick={() => onPlayWord(word.id)}
+        className={cn(
+          'grid cursor-pointer items-center gap-3 px-4 py-2.5 md:gap-4'
         )}
         style={{
-          gridTemplateColumns: 'auto auto 1fr auto auto',
+          gridTemplateColumns:
+            'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto',
         }}
       >
-        {/* 체크박스 */}
+        {/* 1. 체크박스 */}
         <button
           type="button"
           onClick={(e) => {
@@ -80,9 +96,7 @@ export function WordRow({
           aria-label={isSelected ? '선택 해제' : '선택'}
           aria-pressed={isSelected}
           className={cn(
-            'h-[18px] w-[18px] shrink-0 rounded-[5px] border-[1.5px]',
-            'flex items-center justify-center',
-            'transition-all duration-fast',
+            'flex h-[14px] w-[14px] shrink-0 items-center justify-center rounded-[3px] border-[1.5px] transition-all duration-fast',
             isSelected
               ? 'bg-learn-mastered border-learn-mastered'
               : 'border-bd-strong hover:border-learn-mastered bg-bg'
@@ -90,7 +104,7 @@ export function WordRow({
         >
           {isSelected && (
             <span
-              className="block h-[5px] w-[9px] -translate-y-px rotate-[-45deg]"
+              className="block h-[3.5px] w-[7px] -translate-y-[0.5px] rotate-[-45deg]"
               style={{
                 borderLeft: '1.5px solid white',
                 borderBottom: '1.5px solid white',
@@ -99,166 +113,103 @@ export function WordRow({
           )}
         </button>
 
-        {/* 재생 버튼 */}
-        <button
-          type="button"
-          onClick={(e) => {
-            stopBubble(e)
-            onPlayWord(word.id)
-          }}
-          aria-label="발음 재생"
+        {/* 2. 재생 버튼 (행 클릭과 동일 동작 — 시각 단서 보존) */}
+        <span
+          aria-hidden
           className={cn(
-            'h-9 w-9 shrink-0 rounded-md border',
-            'flex items-center justify-center',
-            'transition-all duration-fast',
+            'flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-all duration-fast',
             isPlaying
-              ? 'bg-learn-fresh border-learn-fresh text-white'
-              : 'group-hover:bg-learn-fresh border-bd bg-bg text-t2 group-hover:text-white'
+              ? 'bg-learn-fresh text-white shadow-sm ring-2 ring-learn-fresh/20'
+              : 'text-t3 group-hover:bg-learn-fresh-light group-hover:text-learn-fresh'
           )}
         >
-          <Play size={11} fill="currentColor" />
-        </button>
+          <Play size={10} fill="currentColor" />
+        </span>
 
-        {/* 좌우 분할 컨텐츠 */}
-        <div className="grid min-w-0 grid-cols-1 items-center gap-s-2 md:grid-cols-[320px_1fr] md:gap-s-6">
-          {/* 좌측 — 영단어 (★ L1) */}
-          <div className="flex min-w-0 flex-col gap-s-1">
-            <div
-              onClick={stopBubble}
-              className={cn(
-                'font-serif text-[30px] font-bold text-t1',
-                'leading-[1.15] tracking-[-0.02em]',
-                'transition-[filter] duration-normal',
-                'inline-flex items-baseline',
-                hideStates.word && 'cursor-pointer select-none blur-[10px] hover:blur-0'
-              )}
-            >
-              {word.word}
-            </div>
-            <div className="flex items-center gap-s-2">
-              <span className="font-mono text-[11px] font-semibold lowercase text-t3">
-                {word.pos}
-              </span>
-              <span className="flex items-center gap-[5px] font-display text-[11px] font-medium text-t4">
-                <Calendar size={10} className="opacity-70" />
-                {word.lastDays}일 전 학습
-              </span>
-            </div>
-          </div>
-
-          {/* 우측 — 뜻 (★ L2) */}
-          <div
+        {/* 3. 영단어 + Memory dot + POS */}
+        <div className="flex min-w-0 items-baseline gap-1.5">
+          <span
             onClick={stopBubble}
             className={cn(
-              'font-body text-[17px] font-semibold leading-[1.45] text-t1',
-              'tracking-[-0.01em]',
+              'truncate font-serif text-[16px] font-[600] leading-tight tracking-[-0.015em] text-t1',
               'transition-[filter] duration-normal',
-              hideStates.meaning && 'cursor-pointer select-none blur-[10px] hover:blur-0'
+              hideStates.word && 'cursor-pointer select-none blur-[8px] hover:blur-0'
             )}
           >
-            {word.meaning}
-          </div>
-        </div>
-
-        {/* 우측 메타 */}
-        <div className="flex shrink-0 items-center gap-s-3">
-          {/* 마스터 5단계 게이지 */}
-          <div className="flex items-center gap-[3px]" title={`마스터 ${word.mastery}/5`}>
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
-                key={i}
-                className={cn(
-                  'h-[18px] w-[6px] rounded-[2px] transition-all duration-normal',
-                  i > word.mastery && 'bg-bg2',
-                  i <= word.mastery && word.mastery === 1 && 'bg-t5',
-                  i <= word.mastery && word.mastery === 2 && 'bg-learn-fresh',
-                  i <= word.mastery && word.mastery === 3 && 'bg-learn-progress',
-                  i <= word.mastery && word.mastery === 4 && 'bg-learn-known',
-                  i <= word.mastery && word.mastery === 5 && 'bg-learn-mastered'
-                )}
-              />
-            ))}
-          </div>
-
-          {/* 난이도 칩 */}
-          <span
-            className={cn(
-              'rounded-sm px-s-2 py-[3px] font-mono text-[11px] font-bold tracking-[0.02em]',
-              `bg-level-${word.levelClass}-light text-level-${word.levelClass}`
-            )}
-          >
-            {word.level}
+            {word.word}
           </span>
-
-          {/* 펼침 화살표 */}
-          <button
-            type="button"
-            onClick={(e) => {
-              stopBubble(e)
-              onToggleExpand(word.id)
-            }}
-            aria-label={isExpanded ? '접기' : '펼치기'}
-            aria-expanded={isExpanded}
-            className={cn(
-              'flex h-7 w-7 items-center justify-center rounded-sm',
-              'text-t3 hover:bg-bg2 hover:text-t1',
-              'transition-all duration-fast',
-              isExpanded && 'text-learn-fresh rotate-180'
-            )}
-          >
-            <ChevronDown size={11} />
-          </button>
+          <MemoryBadge srs={word.srs} size="xs" />
+          <sup className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-t4">
+            {word.pos.replace(/\.$/, '')}
+          </sup>
         </div>
-      </div>
 
-      {/* 확장 영역 */}
-      {isExpanded && (
-        <div className="animate-[expandDown_250ms_cubic-bezier(0,0,.2,1)] px-s-5 pb-s-4 pl-[92px]">
-          {/* ★ 예문 — 숨김 적용 */}
-          <div className="border-learn-fresh flex items-start gap-s-3 rounded-lg border-l-[3px] bg-bg2 px-s-4 py-s-3">
-            <div
+        {/* 4. 뜻 */}
+        <div
+          onClick={stopBubble}
+          className={cn(
+            'min-w-0 truncate font-body text-[13px] font-[500] leading-snug text-t1',
+            'transition-[filter] duration-normal',
+            hideStates.meaning && 'cursor-pointer select-none blur-[8px] hover:blur-0'
+          )}
+        >
+          {word.meaning}
+        </div>
+
+        {/* 5. 예문 — 우측 정렬 (Lora italic + ❝❞) */}
+        <div
+          className="hidden min-w-0 md:block"
+          onClick={stopBubble}
+        >
+          {word.exampleEn ? (
+            <p
               className={cn(
-                'flex-1 font-serif text-sm font-medium italic text-t2',
-                'leading-[1.65] tracking-[0.005em]',
-                'before:text-learn-fresh before:mr-[2px] before:text-[18px] before:content-["\\201C"]',
-                'after:text-learn-fresh after:ml-[2px] after:text-[18px] after:content-["\\201D"]'
+                'truncate text-right font-serif text-[12.5px] font-[500] italic leading-[1.55] tracking-[0.005em] text-t3',
+                'before:mr-[1px] before:font-[700] before:text-t4 before:content-["\\201C"]',
+                'after:ml-[1px] after:font-[700] after:text-t4 after:content-["\\201D"]'
               )}
-              onClick={stopBubble}
             >
               {word.exampleEn}
-            </div>
-            <button
-              type="button"
-              onClick={(e) => {
-                stopBubble(e)
-                onPlayExample(word.id)
-              }}
-              aria-label="예문 듣기"
-              className="hover:bg-learn-fresh hover:border-learn-fresh flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-sm border border-bd bg-bg text-t2 transition-all duration-fast hover:text-white"
-            >
-              <Volume2 size={12} />
-            </button>
-          </div>
-
-          {/* SRS 메타 */}
-          <div className="mt-s-3 flex items-center gap-s-4 px-s-1 font-display text-[11px] font-medium text-t3">
-            <span className="flex items-center gap-[5px]">
-              <Calendar size={10} className="opacity-70" />
-              마지막: {word.lastDays}일 전
+            </p>
+          ) : (
+            <span className="block text-right font-body text-[12px] text-t4">
+              —
             </span>
-            <span className="text-t5">·</span>
-            <span className="flex items-center gap-[5px]">
-              <Repeat size={10} className="opacity-70" />
-              다음 복습: {word.nextDays}일 후
-            </span>
-            <span className="text-t5">·</span>
-            <span className="flex items-center gap-[5px]">
-              <Target size={10} className="opacity-70" />
-              마스터 {word.mastery}/5단계
-            </span>
-          </div>
+          )}
         </div>
-      )}
+
+        {/* 6. 마스터 5점 dot */}
+        <div
+          className="flex shrink-0 items-center gap-[3px]"
+          title={`마스터 ${word.mastery}/5`}
+          aria-label={`마스터 ${word.mastery} of 5`}
+        >
+          {[1, 2, 3, 4, 5].map((i) => (
+            <span
+              key={i}
+              className={cn(
+                'h-[5px] w-[5px] rounded-full transition-all duration-normal',
+                i > word.mastery && 'bg-bg3',
+                i <= word.mastery && word.mastery === 1 && 'bg-t4',
+                i <= word.mastery && word.mastery === 2 && 'bg-learn-fresh',
+                i <= word.mastery && word.mastery === 3 && 'bg-learn-progress',
+                i <= word.mastery && word.mastery === 4 && 'bg-learn-known',
+                i <= word.mastery && word.mastery === 5 && 'bg-learn-mastered'
+              )}
+            />
+          ))}
+        </div>
+
+        {/* 7. 레벨 칩 */}
+        <span
+          className={cn(
+            'shrink-0 rounded-[3px] px-1.5 py-px font-mono text-[10px] font-[700] tracking-wide',
+            `bg-level-${word.levelClass}-light text-level-${word.levelClass}`
+          )}
+        >
+          {word.level}
+        </span>
+      </div>
     </div>
   )
 }

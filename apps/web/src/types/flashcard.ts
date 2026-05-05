@@ -1,5 +1,7 @@
 // apps/web/src/types/flashcard.ts
 
+import type { SrsCard } from '@/lib/srs'
+
 export type SRSRating = 'again' | 'hard' | 'good' | 'easy'
 
 export type FlashcardPhase =
@@ -27,10 +29,16 @@ export interface FlashcardWord {
   pos: string
   exampleSentence: string
   exampleSentenceWithBlank: string
-  textId: string // 원문 ID
-  textTitle: string // 원문 제목
+  textId: string // 스크립트 ID
+  textTitle: string // 스크립트 제목
   textChapter: string // 챕터
-  srs: SRSState
+  srs: SRSState // 기존 SM-2 (UI 호환 — SRSBar 등이 소비)
+  /**
+   * §17 v2.0 FSRS 필드 — 병행 운영 (CLAUDE.md §17.4 "기존 sm2.ts wrapper 유지" 정합)
+   * undefined이면 FSRS 경로 비활성 — applyReview 호출 안 함.
+   * DB 연동 후엔 vocabularies row → rowToCard()로 채워짐.
+   */
+  srsV2?: SrsCard
 }
 
 export interface DifficultWord {

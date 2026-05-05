@@ -19,6 +19,12 @@ import { RecallCard } from '@/components/workspace/RecallCard'
 import { useFocusMode } from '@/hooks/useFocusMode'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
+import {
+  actionToHref,
+  getMockNextAction,
+  MOCK_USER_CONTEXTS,
+} from '@/lib/recommend/next-action.mock'
+
 import type { LibraryText, ModeKey, ModeStatus, Word } from '@/types/library'
 import type { SpellForgeWord } from '@/types/spellforge'
 
@@ -222,6 +228,12 @@ export default function WorkspacePage({ params }: PageProps) {
 
   const text: LibraryText = { ...MOCK_TEXT, id: params.id, currentPage }
 
+  // §17.3 추천 축 (3곳 중 1곳: FloatingSparkle)
+  // 사용자가 이미 Workspace에 있으므로 warm_urgent 컨텍스트 — Flashcard 추천이 학습 흐름의 자연스러운 다음 단계
+  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'workspace', textId })
+  const recommendation = useMemo(() => getMockNextAction(MOCK_USER_CONTEXTS.warm_urgent), [])
+  const recommendationHref = useMemo(() => actionToHref(recommendation), [recommendation])
+
   // Hooks
   const { isFocusMode, toggle: toggleFocus } = useFocusMode()
 
@@ -286,7 +298,7 @@ export default function WorkspacePage({ params }: PageProps) {
     return 0
   }, [playingSentenceId])
 
-  // SpellForge 모드용 — 원문 내 모든 학습 단어 수집
+  // SpellForge 모드용 — 스크립트 내 모든 학습 단어 수집
   const spellforgeWords: SpellForgeWord[] = useMemo(() => {
     const collected: SpellForgeWord[] = []
     for (const p of MOCK_PARAGRAPHS) {
@@ -437,9 +449,9 @@ export default function WorkspacePage({ params }: PageProps) {
       />
 
       <FloatingSparkle
-        message="이 페이지의 5개 새 단어를 카드로 다시 만나보면, 더 깊이 기억에 남을 거예요."
-        ctaLabel="Flashcard 시작"
-        ctaHref={`/text/${text.id}?mode=flashcard`}
+        message={recommendation.label}
+        ctaLabel="시작하기"
+        ctaHref={recommendationHref}
       />
 
       <InsightPanel

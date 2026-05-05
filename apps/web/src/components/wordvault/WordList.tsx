@@ -1,5 +1,7 @@
 // apps/web/src/components/wordvault/WordList.tsx
-// 단어 리스트 컨테이너 — 전체 선택 바 + 단어 행들
+// 단어 리스트 컨테이너 v2 (v06.21.5) — 펼침 메커니즘 제거
+//
+// 변경: expandedIds · onToggleExpand props 제거 — WordRow 가 펼침 미지원
 
 'use client'
 
@@ -8,26 +10,13 @@ import { WordRow } from './WordRow'
 import type { HideStates, WordItem } from './types'
 
 export interface WordListProps {
-  /** 단어 목록 */
   words: WordItem[]
-  /** 선택된 단어 ID */
   selectedIds: Set<number>
-  /** 선택 토글 */
   onToggleSelect: (id: number) => void
-  /** 전체 선택 토글 */
   onToggleSelectAll: () => void
-  /** 펼쳐진 단어 ID (controlled) */
-  expandedIds: Set<number>
-  /** 펼침 토글 (controlled) */
-  onToggleExpand: (id: number) => void
-  /** 재생 중인 단어 ID */
   playingId: number | null
-  /** 숨김 상태 */
   hideStates: HideStates
-  /** 단어 재생 */
   onPlayWord: (id: number) => void
-  /** 예문 재생 */
-  onPlayExample: (id: number) => void
 }
 
 export function WordList({
@@ -35,12 +24,9 @@ export function WordList({
   selectedIds,
   onToggleSelect,
   onToggleSelectAll,
-  expandedIds,
-  onToggleExpand,
   playingId,
   hideStates,
   onPlayWord,
-  onPlayExample,
 }: WordListProps) {
   const selectedCount = selectedIds.size
   const totalCount = words.length
@@ -94,13 +80,10 @@ export function WordList({
             key={w.id}
             word={w}
             isSelected={selectedIds.has(w.id)}
-            isExpanded={expandedIds.has(w.id)}
             isPlaying={playingId === w.id}
             hideStates={hideStates}
-            onToggleExpand={onToggleExpand}
             onToggleSelect={onToggleSelect}
             onPlayWord={onPlayWord}
-            onPlayExample={onPlayExample}
           />
         ))}
       </div>

@@ -5,7 +5,7 @@ export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 
 export interface ExtractedWord {
   id: string
-  /** 원문에 있던 형태 */
+  /** 스크립트에 있던 형태 */
   word: string
   /** 표제어 (lemma) */
   lemma: string
@@ -15,14 +15,14 @@ export interface ExtractedWord {
   meaning: string
   /** 품사 */
   partOfSpeech: 'n.' | 'v.' | 'adj.' | 'adv.' | 'prep.' | 'conj.' | 'pron.'
-  /** 원문에서 등장 횟수 */
+  /** 스크립트에서 등장 횟수 */
   frequency: number
-  /** 원문 내 첫 등장 인덱스 (하이라이트용) */
+  /** 스크립트 내 첫 등장 인덱스 (하이라이트용) */
   firstIndex?: number
 }
 
 export interface AnalysisResult {
-  /** 원문 */
+  /** 스크립트 */
   text: string
   /** 단어 수 */
   totalWords: number

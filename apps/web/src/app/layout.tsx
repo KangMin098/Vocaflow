@@ -44,7 +44,7 @@ const fontMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Vocaflow — 영어 원문 기반 종합 학습",
+    default: "Vocaflow — 영어 스크립트 기반 종합 학습",
     template: "%s | Vocaflow",
   },
   description:
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ko_KR",
     siteName: "Vocaflow",
-    title: "Vocaflow — 영어 원문 기반 종합 학습",
+    title: "Vocaflow — 영어 스크립트 기반 종합 학습",
     description: "AI가 만드는 나만의 영어 학습 코스",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vocaflow",
-    description: "영어 원문 기반 종합 학습 플랫폼",
+    description: "영어 스크립트 기반 종합 학습 플랫폼",
   },
   manifest: "/manifest.json",
   icons: {

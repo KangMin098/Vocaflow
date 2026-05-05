@@ -1,155 +1,149 @@
 // apps/web/src/components/dashboard/RecentActivity.tsx
-// 최근 학습 활동 리스트
+//
+// 최근 학습 활동 v3 — Phase 3-3: useHubData 연동.
+//
+// 디자인 (CLAUDE.md §13 / v06.21):
+//   [Activity 아이콘 · 최근 N건]  [chip][chip][chip][chip][chip]  [전체 →]
+//
+//   chip = [모듈 dot] [짧은 라벨] [본문(점수/✓✗)] [· 시간]
+//   - 좁은 viewport: 가로 스크롤
+//   - 빈 상태: "아직 학습 활동이 없어요" 격려형 안내
 
 'use client'
 
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
-import { BookMarked, Copy, HelpCircle, Pencil, Zap, type LucideIcon } from 'lucide-react'
+import { Activity } from 'lucide-react'
 
-// ══════════════════════════════════════════════════════════════
-// Types
-// ══════════════════════════════════════════════════════════════
-export interface ActivityItem {
-  id: string
-  module: 'WordVault' | 'Flashcard' | 'SpellForge' | 'WordBlitz' | 'ScriptQuiz'
-  action: string
-  detail: string
-  score?: number
-  timeAgo: string
+import { useHubData, type ModuleId } from '@/hooks/useHubData'
+
+// ════════════════════════════════════════════════════════════
+// 모듈별 시각 매핑 (FlowNav 단계 accent 정합)
+// ════════════════════════════════════════════════════════════
+const MODULE_COLOR: Partial<Record<ModuleId, string>> = {
+  textviewer: '#8B5CF6', // purple (스크립트)
+  workspace: '#8B5CF6',
+  wordvault: '#6366F1', // indigo (단어)
+  flashcard: '#EC4899', // pink (익히기)
+  spellforge: '#EC4899',
+  wordblitz: '#EC4899',
+  pairflip: '#EC4899',
+  scriptquiz: '#F59E0B', // amber (정복)
+  dictation: '#06B6D4', // cyan (완성)
+  pirate_quest: '#22C55E',
 }
 
-export interface RecentActivityProps {
-  /** 활동 목록 — 미제공 시 목업 데이터 사용 */
-  activities?: ActivityItem[]
+const MODULE_SHORT: Partial<Record<ModuleId, string>> = {
+  textviewer: '스크립트',
+  workspace: '워크',
+  wordvault: '단어장',
+  flashcard: '플래시',
+  spellforge: '스펠',
+  wordblitz: '블리츠',
+  pairflip: '페어',
+  scriptquiz: '퀴즈',
+  dictation: '딕테',
+  pirate_quest: '해적',
 }
 
-// ══════════════════════════════════════════════════════════════
-// 모듈 → 아이콘 + 색상
-// ══════════════════════════════════════════════════════════════
-const moduleConfig: Record<ActivityItem['module'], { icon: LucideIcon; color: string }> = {
-  WordVault: { icon: BookMarked, color: '#8B5CF6' },
-  Flashcard: { icon: Copy, color: '#EC4899' },
-  SpellForge: { icon: Pencil, color: '#F97316' },
-  WordBlitz: { icon: Zap, color: '#10B981' },
-  ScriptQuiz: { icon: HelpCircle, color: '#EAB308' },
-}
+// ════════════════════════════════════════════════════════════
+// RecentActivity — useHubData 자가 페치
+// ════════════════════════════════════════════════════════════
+export function RecentActivity() {
+  const { data, isLoading } = useHubData()
 
-// ══════════════════════════════════════════════════════════════
-// 목업 데이터 (activities prop 미제공 시 폴백)
-// ══════════════════════════════════════════════════════════════
-const defaultActivities: ActivityItem[] = [
-  {
-    id: '1',
-    module: 'Flashcard',
-    action: '학습 완료',
-    detail: 'Day 12 · 20개 단어',
-    score: 92,
-    timeAgo: '10분 전',
-  },
-  {
-    id: '2',
-    module: 'SpellForge',
-    action: '신기록 달성',
-    detail: '어려움 난이도',
-    score: 88,
-    timeAgo: '1시간 전',
-  },
-  {
-    id: '3',
-    module: 'WordVault',
-    action: '단어 12개 추가',
-    detail: 'TED Talk · The Power of Habit',
-    timeAgo: '3시간 전',
-  },
-  {
-    id: '4',
-    module: 'WordBlitz',
-    action: '라운드 완료',
-    detail: '정글 어드벤처 Stage 5',
-    score: 76,
-    timeAgo: '어제',
-  },
-  {
-    id: '5',
-    module: 'ScriptQuiz',
-    action: '퀴즈 풀이',
-    detail: 'BBC News · 5문제',
-    score: 80,
-    timeAgo: '2일 전',
-  },
-]
+  if (isLoading) {
+    return (
+      <div
+        aria-hidden
+        className="h-[58px] animate-pulse rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]"
+      />
+    )
+  }
 
-// ══════════════════════════════════════════════════════════════
-// RecentActivity
-// ══════════════════════════════════════════════════════════════
-export function RecentActivity({ activities = defaultActivities }: RecentActivityProps = {}) {
+  const activities = data?.recentActivities ?? []
+
   return (
-    <Card variant="default" padding="md" className="h-full rounded-xl">
-      <CardHeader>
-        <CardTitle>최근 학습 활동</CardTitle>
-        <CardDescription>지난 활동 {activities.length}건</CardDescription>
-      </CardHeader>
+    <section
+      aria-label={`최근 학습 활동 ${activities.length}건`}
+      className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3"
+    >
+      {/* Header */}
+      <header className="flex shrink-0 items-center gap-2 border-r border-[var(--bd)] pr-3">
+        <span
+          className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]"
+          aria-hidden="true"
+        >
+          <Activity size={12} strokeWidth={2.2} />
+        </span>
+        <div className="flex flex-col leading-none">
+          <span className="font-display text-[12px] font-[700] text-[var(--t1)]">최근</span>
+          <span className="mt-0.5 font-mono text-[10px] font-[600] text-[var(--t3)]">
+            {activities.length}건
+          </span>
+        </div>
+      </header>
 
-      <div className="space-y-s-1">
-        {activities.map((item) => {
-          const config = moduleConfig[item.module]
-          const Icon = config.icon
-
-          return (
-            <div
-              key={item.id}
-              className="group flex cursor-pointer items-start gap-s-3 rounded-lg p-s-2 transition-colors duration-normal hover:bg-bg2"
-            >
-              {/* 아이콘 칩 */}
-              <div
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-transform duration-normal group-hover:scale-105"
-                style={{
-                  background: `linear-gradient(135deg, ${config.color}25, ${config.color}10)`,
-                  border: `1px solid ${config.color}30`,
-                }}
-              >
-                <Icon size={15} style={{ color: config.color }} />
-              </div>
-
-              {/* 내용 */}
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-s-2">
-                  <span
-                    className="truncate font-display text-sm font-bold"
-                    style={{ color: config.color }}
-                  >
-                    {item.module}
-                  </span>
-                  <span className="shrink-0 font-body text-xs text-t1">· {item.action}</span>
-                </div>
-                <div className="mt-[1px] truncate font-body text-xs text-t3">{item.detail}</div>
-              </div>
-
-              {/* 우측: 점수 + 시간 */}
-              <div className="shrink-0 text-right">
-                {item.score !== undefined && (
-                  <div className="font-mono text-sm font-extrabold tabular-nums text-t1">
-                    {item.score}
-                    <span className="text-[10px] font-medium text-t3">점</span>
-                  </div>
-                )}
-                <div className="font-mono text-[10px] uppercase tracking-wider text-t3">
-                  {item.timeAgo}
-                </div>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* 더보기 */}
-      <button
-        type="button"
-        onClick={() => alert('전체 기록 (Phase 2)')}
-        className="mt-s-3 w-full rounded-lg py-s-2 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-t3 transition-colors duration-normal hover:bg-bg2 hover:text-p"
+      {/* Chip row */}
+      <ul
+        className="flex flex-1 items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        role="list"
       >
-        전체 기록 보기 →
-      </button>
-    </Card>
+        {activities.length === 0 ? (
+          <li className="font-body text-[12px] text-[var(--t3)]">
+            아직 학습 활동이 없어요 · 첫 학습을 시작해보세요
+          </li>
+        ) : (
+          activities.map((a) => <ActivityChip key={a.id} item={a} />)
+        )}
+      </ul>
+    </section>
+  )
+}
+
+// ════════════════════════════════════════════════════════════
+// ActivityChip
+// ════════════════════════════════════════════════════════════
+type ActivityItem = NonNullable<
+  ReturnType<typeof useHubData>['data']
+>['recentActivities'][number]
+
+function ActivityChip({ item }: { item: ActivityItem }) {
+  const color = MODULE_COLOR[item.module] ?? 'var(--t3)'
+  const short = MODULE_SHORT[item.module] ?? item.module
+
+  // 본문 라벨 — 게임 점수 우선, 학습 기록은 ✓/✗
+  let body: string
+  if (item.score !== null) {
+    body = `${item.score}점`
+  } else if (item.isCorrect === true) {
+    body = '✓'
+  } else if (item.isCorrect === false) {
+    body = '✗'
+  } else {
+    body = ''
+  }
+
+  return (
+    <li>
+      <span
+        title={`${short} · ${item.textTitle} · ${item.relativeTime}`}
+        className="group inline-flex h-7 shrink-0 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5"
+        aria-label={`${short} ${body}, ${item.relativeTime} — ${item.textTitle}`}
+      >
+        <span
+          aria-hidden="true"
+          className="h-1.5 w-1.5 shrink-0 rounded-full"
+          style={{ backgroundColor: color }}
+        />
+        <span className="font-display text-[11px] font-[700]" style={{ color }}>
+          {short}
+        </span>
+        {body && (
+          <span className="font-display text-[11px] font-[600] text-[var(--t1)]">{body}</span>
+        )}
+        <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+          · {item.relativeTime}
+        </span>
+      </span>
+    </li>
   )
 }

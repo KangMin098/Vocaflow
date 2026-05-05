@@ -97,7 +97,7 @@ export async function fetchHubData(supabase: SupabaseClient, userId: string): Pr
       .order('attempted_at', { ascending: false })
       .limit(50),
 
-    // 최근 학습 원문
+    // 최근 학습 스크립트
     supabase
       .from('texts')
       .select('id, title, content, created_at')
@@ -150,7 +150,7 @@ export async function fetchHubData(supabase: SupabaseClient, userId: string): Pr
     }
   }
 
-  // 최근 원문 처리
+  // 최근 스크립트 처리
   const recentTextData = recentTextRes.data?.[0]
   const recentText: RecentText | null = recentTextData
     ? {
@@ -159,7 +159,7 @@ export async function fetchHubData(supabase: SupabaseClient, userId: string): Pr
         preview: ((recentTextData.content as string) ?? '').slice(0, 200).trim(),
         progressPercent: 0, // TODO: 별도 progress 테이블 도입 시 갱신
         relativeTime: relativeTimeKo(new Date(recentTextData.created_at as string)),
-        moduleLabel: '원문',
+        moduleLabel: '스크립트',
       }
     : null
 

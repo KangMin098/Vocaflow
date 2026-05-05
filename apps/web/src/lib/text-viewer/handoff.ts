@@ -3,6 +3,7 @@
 
 import type { ExtractedWord } from '@/components/text-viewer/analysis-types'
 import type { WordItem } from '@/components/wordvault/types'
+import { createNewCard } from '@/lib/srs'
 
 const STORAGE_KEY = 'vocaflow.pending.extracted-words'
 
@@ -45,5 +46,6 @@ export function toWordItem(w: ExtractedWord, id: number): WordItem {
     mastery: 1,
     lastDays: 0,
     nextDays: 1,
+    srs: createNewCard(String(id)),
   }
 }

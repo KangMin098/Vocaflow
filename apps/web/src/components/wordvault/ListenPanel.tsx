@@ -1,5 +1,9 @@
 // apps/web/src/components/wordvault/ListenPanel.tsx
-// 듣기 패널 — 전체/선택/설정 + 재생 컨트롤
+// 듣기 패널 v2 (v06.21.7) — 설정 토글 제거 · 항상 노출
+//
+// 변경:
+//   - settingsOpen 상태 + 기어 버튼 제거 — 설정 옵션이 항상 노출되어 즉시 사용 가능
+//   - 4그룹(듣기 내용 / 속도 / 간격 / 반복) 컴팩트 한 줄 인라인 레이아웃 + 모바일 wrap
 
 'use client'
 
@@ -8,13 +12,11 @@ import {
   Headphones,
   Pause,
   Play,
-  Settings as SettingsIcon,
   Shuffle,
   SkipBack,
   SkipForward,
   Square,
 } from 'lucide-react'
-import { useState } from 'react'
 import type {
   ListenContent,
   ListenGap,
@@ -83,8 +85,6 @@ export function ListenPanel({
   queueLength,
   currentWord,
 }: ListenPanelProps) {
-  const [settingsOpen, setSettingsOpen] = useState(false)
-
   const selectedCount = selectedIds.size
 
   const handleToggleAll = () => {
@@ -193,20 +193,6 @@ export function ListenPanel({
             </span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => setSettingsOpen((v) => !v)}
-            className={cn(
-              'flex h-9 w-9 items-center justify-center rounded-md border',
-              'transition-all duration-fast',
-              settingsOpen
-                ? 'border-p bg-p text-bg'
-                : 'border-bd bg-bg text-t2 hover:bg-bg2 hover:text-t1'
-            )}
-            aria-label="설정"
-          >
-            <SettingsIcon size={14} />
-          </button>
         </div>
       </div>
 
@@ -284,60 +270,56 @@ export function ListenPanel({
         </div>
       )}
 
-      {/* 설정 패널 */}
-      {settingsOpen && (
-        <div className="mt-s-3 border-t border-bd pt-s-3">
-          <div className="grid grid-cols-1 gap-s-4 md:grid-cols-2">
-            <SettingGroup label="듣기 내용">
-              {CONTENT_OPTS.map((opt) => (
-                <OptBtn
-                  key={opt.value}
-                  active={settings.content === opt.value}
-                  onClick={() => updateSettings('content', opt.value)}
-                >
-                  {opt.label}
-                </OptBtn>
-              ))}
-            </SettingGroup>
+      {/* 설정 패널 — 항상 노출 (v06.21.7) · 한 줄 인라인 + 모바일 wrap */}
+      <div className="mt-s-3 flex flex-wrap items-center gap-x-s-5 gap-y-s-3 border-t border-bd pt-s-3">
+        <SettingGroup label="듣기 내용">
+          {CONTENT_OPTS.map((opt) => (
+            <OptBtn
+              key={opt.value}
+              active={settings.content === opt.value}
+              onClick={() => updateSettings('content', opt.value)}
+            >
+              {opt.label}
+            </OptBtn>
+          ))}
+        </SettingGroup>
 
-            <SettingGroup label="속도">
-              {SPEED_OPTS.map((s) => (
-                <OptBtn
-                  key={s}
-                  active={settings.speed === s}
-                  onClick={() => updateSettings('speed', s)}
-                >
-                  {s}x
-                </OptBtn>
-              ))}
-            </SettingGroup>
+        <SettingGroup label="속도">
+          {SPEED_OPTS.map((s) => (
+            <OptBtn
+              key={s}
+              active={settings.speed === s}
+              onClick={() => updateSettings('speed', s)}
+            >
+              {s}x
+            </OptBtn>
+          ))}
+        </SettingGroup>
 
-            <SettingGroup label="간격">
-              {GAP_OPTS.map((g) => (
-                <OptBtn
-                  key={g}
-                  active={settings.gap === g}
-                  onClick={() => updateSettings('gap', g)}
-                >
-                  {g}초
-                </OptBtn>
-              ))}
-            </SettingGroup>
+        <SettingGroup label="간격">
+          {GAP_OPTS.map((g) => (
+            <OptBtn
+              key={g}
+              active={settings.gap === g}
+              onClick={() => updateSettings('gap', g)}
+            >
+              {g}초
+            </OptBtn>
+          ))}
+        </SettingGroup>
 
-            <SettingGroup label="반복">
-              {REPEAT_OPTS.map((opt) => (
-                <OptBtn
-                  key={opt.value}
-                  active={settings.repeat === opt.value}
-                  onClick={() => updateSettings('repeat', opt.value)}
-                >
-                  {opt.label}
-                </OptBtn>
-              ))}
-            </SettingGroup>
-          </div>
-        </div>
-      )}
+        <SettingGroup label="반복">
+          {REPEAT_OPTS.map((opt) => (
+            <OptBtn
+              key={opt.value}
+              active={settings.repeat === opt.value}
+              onClick={() => updateSettings('repeat', opt.value)}
+            >
+              {opt.label}
+            </OptBtn>
+          ))}
+        </SettingGroup>
+      </div>
     </div>
   )
 }

@@ -1,202 +1,232 @@
-// apps/web/src/app/main/text/page.tsx
-// TextViewer — 입력 → 분석 → WordVault 인계
+// apps/web/src/app/(main)/text/page.tsx
+//
+// TextViewer 허브 — 사용자 입력 스크립트 라이브러리
+// CLAUDE.md §17.1 L1 Acquire — 누적 자산 관리 + 신규 입력 진입점
+//
+// 4 Tier IA:
+//   Tier 1: ModuleHero (통계 + 신규 추가 CTA)
+//   Tier 2: ContinueRow (가장 최근 진행 중 1개 — Zeigarnik)
+//   Tier 3: MyTextsGrid (CEFR 필터 + 검색 + 카드 그리드)
+//   Tier 4: DiscoveryFooter (/library 전환)
+//
+// 학습 과학 매핑:
+//   - Zeigarnik: Continue Row 미완료 surface
+//   - Endowment Effect: 통계로 자기 자산 인지
+//   - Self-determination: 4가지 행동 자율 선택
+//   - Cognitive Load: 4 Tier 제한
 
-'use client'
+import { BookOpen, FileText } from 'lucide-react'
+import Link from 'next/link'
 
-import { ArrowRight, FileText, Sparkles } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { ContinueRow } from '@/components/hub/ContinueRow'
+import { ModuleHero } from '@/components/hub/ModuleHero'
+import { DiscoveryFooter } from '@/components/textviewer/DiscoveryFooter'
+import { EmptyState } from '@/components/textviewer/EmptyState'
+import { MyTextsGrid } from '@/components/textviewer/MyTextsGrid'
+import type { LibraryText } from '@/types/library'
 
-import { useToast } from '@/components/ui/Toast'
-import { useTheme } from '@/hooks/useTheme'
+export const metadata = {
+  title: '스크립트 · Vocaflow',
+  description: '내가 쌓아온 영어 스크립트 라이브러리',
+}
 
-import { FileUploadArea } from '@/components/text-viewer/FileUploadArea'
-import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputModeTabs'
-import { SampleScripts } from '@/components/text-viewer/SampleScripts'
-import { TextInput } from '@/components/text-viewer/TextInput'
-import { UrlInput } from '@/components/text-viewer/UrlInput'
-import { mockAnalysisResult } from '@/components/text-viewer/analysis-types'
-import { saveExtractedWords } from '@/lib/text-viewer/handoff'
+// TextViewer accent — distinct from /flashcard, /spellforge
+const TEXT_ACCENT = '#8B5CF6'
 
-type ViewState = 'input' | 'analyzing'
+// Mock data — Phase 2: Supabase texts 테이블 fetch (user_id, last_opened DESC)
+const MOCK_TEXTS: LibraryText[] = [
+  {
+    id: '1',
+    title: 'The Great Gatsby — Chapter 1',
+    author: 'F. Scott Fitzgerald',
+    cefrLevel: 'B2',
+    category: '클래식',
+    preview: 'In my younger and more vulnerable years...',
+    wordCount: 32,
+    progressPercent: 72,
+    totalPages: 12,
+    currentPage: 9,
+    coverGradient: { from: '#0F766E', to: '#064E3B' },
+    addedAt: new Date('2024-12-01'),
+    lastStudiedAt: new Date(Date.now() - 1000 * 60 * 60 * 24),
+    isBookmarked: true,
+  },
+  {
+    id: '2',
+    title: 'TED · Power of Vulnerability',
+    author: 'Brené Brown',
+    cefrLevel: 'B1',
+    category: '강연',
+    preview: 'I have had a slightly different relationship with vulnerability...',
+    wordCount: 24,
+    progressPercent: 45,
+    totalPages: 6,
+    currentPage: 3,
+    coverGradient: { from: '#7C3AED', to: '#4C1D95' },
+    addedAt: new Date('2024-11-25'),
+    lastStudiedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
+    isBookmarked: false,
+  },
+  {
+    id: '3',
+    title: 'Steve Jobs Stanford Speech',
+    author: 'Steve Jobs',
+    cefrLevel: 'B2',
+    category: '연설',
+    preview: 'Today I want to tell you three stories from my life...',
+    wordCount: 18,
+    progressPercent: 100,
+    totalPages: 4,
+    currentPage: 4,
+    coverGradient: { from: '#DC2626', to: '#7F1D1D' },
+    addedAt: new Date('2024-11-15'),
+    lastStudiedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
+    isBookmarked: true,
+  },
+  {
+    id: '4',
+    title: 'NYT · Tech Trends 2024',
+    author: 'NYT Editorial',
+    cefrLevel: 'C1',
+    category: '뉴스',
+    preview: 'Artificial intelligence has reshaped how we approach...',
+    wordCount: 41,
+    progressPercent: 28,
+    totalPages: 8,
+    currentPage: 2,
+    coverGradient: { from: '#1F2937', to: '#0F172A' },
+    addedAt: new Date('2024-12-05'),
+    lastStudiedAt: new Date(Date.now() - 1000 * 60 * 60 * 6),
+    isBookmarked: false,
+  },
+  {
+    id: '5',
+    title: 'A Brief History of Time — Ch.1',
+    author: 'Stephen Hawking',
+    cefrLevel: 'C1',
+    category: '과학',
+    preview: 'The universe is everything that exists...',
+    wordCount: 27,
+    progressPercent: 12,
+    totalPages: 10,
+    currentPage: 1,
+    coverGradient: { from: '#0EA5E9', to: '#075985' },
+    addedAt: new Date('2024-12-03'),
+    lastStudiedAt: new Date(Date.now() - 1000 * 60 * 60 * 48),
+    isBookmarked: false,
+  },
+  {
+    id: '6',
+    title: 'Peter Pan — Opening',
+    author: 'J.M. Barrie',
+    cefrLevel: 'A2',
+    category: '단편',
+    preview: 'All children, except one, grow up...',
+    wordCount: 22,
+    progressPercent: 0,
+    totalPages: 5,
+    currentPage: 0,
+    coverGradient: { from: '#155E75', to: '#0E7490' },
+    addedAt: new Date('2024-12-08'),
+    lastStudiedAt: null,
+    isBookmarked: false,
+  },
+]
 
-export default function TextViewerPage() {
-  const router = useRouter()
-  const { theme, toggleTheme } = useTheme()
-  const toast = useToast()
+export default function TextViewerHubPage() {
+  // Stats summary
+  const total = MOCK_TEXTS.length
+  const conquered = MOCK_TEXTS.filter((t) => t.progressPercent >= 100).length
+  const inProgress = MOCK_TEXTS.filter(
+    (t) => t.progressPercent > 0 && t.progressPercent < 100,
+  ).length
 
-  const [view, setView] = useState<ViewState>('input')
-  const [mode, setMode] = useState<InputMode>('text')
-  const [text, setText] = useState('')
+  // Continue: most recent in-progress text
+  const continueText = MOCK_TEXTS
+    .filter((t) => t.progressPercent > 0 && t.progressPercent < 100)
+    .sort((a, b) => {
+      const aTime = a.lastStudiedAt?.getTime() ?? 0
+      const bTime = b.lastStudiedAt?.getTime() ?? 0
+      return bTime - aTime
+    })[0]
 
-  const canAnalyze = mode === 'text' ? text.trim().length > 0 : false
-
-  const handleAnalyze = () => {
-    if (!canAnalyze) return
-    setView('analyzing')
-
-    // 목업: 1.5초 후 WordVault로 인계
-    setTimeout(() => {
-      const words = mockAnalysisResult.words
-      saveExtractedWords(words)
-      toast.success(`${words.length}개 단어 추출 완료`, {
-        title: 'AI 분석 완료',
-      })
-      router.push('/wordvault')
-    }, 1500)
+  // Empty state
+  if (total === 0) {
+    return (
+      <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+        <EmptyState />
+      </div>
+    )
   }
 
   return (
-    <>
-      {/* ── 헤더 ── */}
-      <header className="flex h-[60px] flex-shrink-0 items-center gap-s-4 border-b border-bd bg-bg px-s-4 lg:px-s-6">
-        <div className="flex min-w-0 flex-col">
-          <h1 className="truncate font-display text-base font-bold leading-tight tracking-tight text-t1 sm:text-lg">
-            원문 입력
-          </h1>
-          <p className="truncate font-mono text-[10px] uppercase tracking-wider text-t3">
-            {view === 'input' && 'Step 01 / 학습 시작'}
-            {view === 'analyzing' && 'AI 분석 중...'}
+    <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+      {/* Tier 1: Hero */}
+      <ModuleHero
+        eyebrow="스크립트 · 내 라이브러리"
+        title="내 라이브러리"
+        note={
+          inProgress > 0
+            ? `진행 중 ${inProgress}권 · 정복 ${conquered}권`
+            : conquered > 0
+              ? `정복 ${conquered}권 · 새 스크립트을 시작해 보세요`
+              : `${total}권의 스크립트을 모았어요`
+        }
+        gradient={{ from: '#A78BFA', to: '#6D28D9' }}
+        icon={BookOpen}
+        stats={[
+          { label: '진행 중', value: inProgress, unit: '권', emphasis: true },
+          { label: '정복', value: conquered, unit: '권' },
+          { label: '내 스크립트', value: total, unit: '권' },
+        ]}
+      />
+
+      {/* Tier 1.5: New input CTA — visually integrated with Hero */}
+      <Link
+        href="/text/new"
+        className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
+      >
+        <span
+          className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#6D28D9] text-white shadow-[var(--sh-xs)]"
+          aria-hidden="true"
+        >
+          <FileText size={18} strokeWidth={2} />
+        </span>
+        <div className="flex-1">
+          <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
+            새 스크립트 추가하기
+          </p>
+          <p className="font-body text-[12px] text-[var(--t3)]">
+            텍스트 직접 입력 · PDF · DOCX · TXT · URL
           </p>
         </div>
-
-        <div className="flex-1" />
-
-        <button
-          onClick={toggleTheme}
-          aria-label="테마 전환"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+        <span
+          className="font-display text-[18px] font-[700] text-[var(--p)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-1"
+          aria-hidden="true"
         >
-          {theme === 'light' ? '🌙' : '☀️'}
-        </button>
-      </header>
+          →
+        </span>
+      </Link>
 
-      {/* ── 메인 ── */}
-      <main className="flex-1 overflow-y-auto p-s-4 lg:p-s-6">
-        <div className="mx-auto max-w-4xl">
-          {/* ──────────────────────
-               INPUT 화면
-               ────────────────────── */}
-          {view === 'input' && (
-            <>
-              <div className="mb-s-8">
-                <div className="mb-s-3 flex items-center gap-s-2">
-                  <FileText size={14} className="text-p" />
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-t3">
-                    — Step 01 / Script Input
-                  </span>
-                </div>
+      {/* Tier 2: Continue */}
+      {continueText && (
+        <ContinueRow
+          accent={TEXT_ACCENT}
+          href={`/text/${continueText.id}`}
+          session={{
+            title: continueText.title,
+            subtitle: `${continueText.currentPage} / ${continueText.totalPages} 페이지 — 어제 멈춘 자리에서 이어집니다`,
+            progress: continueText.progressPercent / 100,
+            hint: continueText.author,
+          }}
+        />
+      )}
 
-                <h2 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
-                  영어 스크립트를
-                  <br />
-                  <span className="text-p">AI가 분석</span>합니다
-                </h2>
+      {/* Tier 3: My Texts */}
+      <MyTextsGrid texts={MOCK_TEXTS} />
 
-                <p className="max-w-xl font-body text-sm leading-relaxed text-t2 sm:text-base">
-                  텍스트를 직접 입력하거나 PDF · DOCX · TXT 파일을 업로드하면, AI가 핵심 단어를
-                  추출해 학습용 단어장을 자동 생성합니다.
-                </p>
-              </div>
-
-              <InputModeTabs value={mode} onChange={setMode} />
-
-              <div className="mb-s-6">
-                {mode === 'text' && (
-                  <TextInput value={text} onChange={setText} onClear={() => setText('')} />
-                )}
-                {mode === 'file' && (
-                  <FileUploadArea
-                    onFileSelect={(file) =>
-                      toast.info(`파일 선택: ${file.name} (Phase 2에서 파싱)`)
-                    }
-                  />
-                )}
-                {mode === 'url' && (
-                  <UrlInput
-                    onUrlSubmit={async (url) => {
-                      toast.info(`URL: ${url} (Phase 2에서 본문 추출)`)
-                    }}
-                  />
-                )}
-              </div>
-
-              {mode === 'text' && (
-                <div className="mb-s-8">
-                  <SampleScripts
-                    onSelect={(sampleText, title) => {
-                      setText(sampleText)
-                      toast.success(`"${title}" 적용됨`)
-                    }}
-                  />
-                </div>
-              )}
-
-              <button
-                type="button"
-                onClick={handleAnalyze}
-                disabled={!canAnalyze}
-                className="group relative flex h-14 w-full items-center justify-center gap-s-3 overflow-hidden rounded-xl bg-p font-display text-base font-bold text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-p"
-              >
-                <Sparkles
-                  size={18}
-                  className="transition-transform duration-normal group-hover:rotate-12"
-                />
-                <span>AI로 단어 추출하기</span>
-                <ArrowRight
-                  size={18}
-                  className="transition-transform duration-normal group-hover:translate-x-1"
-                />
-              </button>
-
-              <p className="pt-s-4 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
-                평균 3-5초 소요 · GPT-4o-mini 사용
-              </p>
-            </>
-          )}
-
-          {/* ──────────────────────
-               ANALYZING (로딩)
-               ────────────────────── */}
-          {view === 'analyzing' && (
-            <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-              <div className="relative mb-s-6 h-20 w-20">
-                <div
-                  className="absolute inset-0 animate-spin rounded-full border-4 border-bg3 border-t-p"
-                  style={{ animationDuration: '1s' }}
-                />
-                <div
-                  className="absolute inset-3 flex items-center justify-center rounded-full"
-                  style={{
-                    background: 'linear-gradient(135deg, var(--p) 0%, var(--combo) 100%)',
-                  }}
-                >
-                  <Sparkles size={20} className="animate-pulse text-ti" />
-                </div>
-              </div>
-
-              <p className="mb-s-3 font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-t3">
-                — AI 분석 진행 중
-              </p>
-
-              <h2 className="mb-s-2 font-display text-2xl font-extrabold tracking-tight text-t1">
-                단어를 추출하고 있어요
-              </h2>
-
-              <p className="max-w-md font-body text-sm text-t2">
-                GPT-4o-mini가 텍스트를 분석하여
-                <br />
-                학습 가치가 높은 단어를 골라내는 중입니다.
-              </p>
-
-              <div className="mt-s-6 flex items-center gap-s-2 font-mono text-xs text-t3">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
-                <span>평균 3-5초 소요</span>
-              </div>
-            </div>
-          )}
-        </div>
-      </main>
-    </>
+      {/* Tier 4: Discovery */}
+      <DiscoveryFooter />
+    </div>
   )
 }

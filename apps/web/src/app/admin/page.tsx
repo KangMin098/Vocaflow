@@ -81,7 +81,7 @@ const SECTIONS: Section[] = [
   {
     href: '/admin/library',
     label: '콘텐츠 관리',
-    description: '원문 CRUD · 카테고리 · 큐레이션',
+    description: '스크립트 CRUD · 카테고리 · 큐레이션',
     icon: Library,
   },
   {

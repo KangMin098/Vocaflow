@@ -1,15 +1,113 @@
 // apps/web/src/app/(marketing)/privacy/page.tsx
-// 개인정보처리방침 — placeholder
+// 개인정보처리방침 — sticky TOC + 8 sections
+
+import { LegalPage, type LegalSection } from '@/components/marketing/LegalPage'
+
+const SECTIONS: LegalSection[] = [
+  {
+    id: 'overview',
+    title: '개요',
+    paragraphs: [
+      'Vocaflow(이하 "회사")는 회원의 개인정보를 소중하게 여기며, 「개인정보 보호법」을 비롯한 관련 법령을 준수합니다.',
+      '본 방침은 어떤 정보를 수집하고, 어떻게 사용·보관·파기하는지 가능한 한 쉬운 언어로 설명합니다.',
+    ],
+  },
+  {
+    id: 'collected',
+    title: '수집하는 정보',
+    paragraphs: ['회사가 수집하는 개인정보는 아래와 같습니다.'],
+    bullets: [
+      '필수: 이메일 주소, 비밀번호(해시 저장), 닉네임',
+      '선택: 프로필 이미지, 학습 목표, CEFR 레벨',
+      '자동: IP 주소, 접속 기기·브라우저 정보, 쿠키, 학습 행동 로그(어떤 모듈을 언제 사용했는지)',
+      '결제(유료 플랜): 결제대행사를 통한 카드 정보 — 회사는 마지막 4자리만 보관',
+      '소셜 로그인: Google 계정 사용 시 OAuth 표준 범위(이메일·이름·프로필 사진)',
+    ],
+  },
+  {
+    id: 'purpose',
+    title: '수집·이용 목적',
+    paragraphs: ['회사는 수집한 개인정보를 다음 목적에만 사용합니다.'],
+    bullets: [
+      '서비스 제공: 계정 인증, 학습 데이터 동기화, 결제 처리',
+      '서비스 개선: 학습 효과 분석(개인 식별 불가 통계), 신규 기능 검증',
+      '커뮤니케이션: 학습 진행 알림(선택), 중요 공지·약관 변경 안내',
+      '안전 운영: 부정 사용 탐지, 분쟁 대응, 법적 의무 이행',
+      '본 목적 이외의 용도로는 절대 사용하지 않으며, 추가 활용이 필요한 경우 별도 동의를 받습니다.',
+    ],
+  },
+  {
+    id: 'retention',
+    title: '보관 기간 및 파기',
+    paragraphs: [
+      '회원이 계정을 해지한 경우, 학습 데이터는 30일간 복원 가능한 상태로 보관 후 영구 삭제됩니다.',
+      '관련 법령에 따라 보관해야 하는 정보(전자상거래법 — 계약·결제 기록 5년, 통신비밀보호법 — 접속 로그 3개월)는 해당 기간 동안 별도 분리 보관합니다.',
+      '파기 시 전자적 정보는 복구 불가능한 방식으로 영구 삭제하며, 종이 문서는 분쇄·소각 처리합니다.',
+    ],
+  },
+  {
+    id: 'sharing',
+    title: '제3자 제공 및 위탁',
+    paragraphs: [
+      '회사는 회원의 동의 없이 개인정보를 제3자에게 제공하지 않습니다.',
+      '단, 서비스 제공을 위해 다음 업체에 정보 처리를 위탁하며, 위탁 사실은 본 방침에 명시합니다.',
+    ],
+    bullets: [
+      'Supabase(데이터베이스 호스팅) — 사용자 ID·이메일·학습 데이터, 미국·EU 리전 저장',
+      'OpenAI(AI 분석·TTS) — 회원이 입력한 스크립트·단어 / OpenAI Data Privacy Addendum 적용 (학습 데이터 미사용)',
+      'Vercel(웹 호스팅) — 접속 로그, 글로벌 CDN',
+      'Toss·Stripe(결제) — 결제 정보(필수 정보만), 카드 정보는 결제대행사 보관',
+    ],
+  },
+  {
+    id: 'rights',
+    title: '회원의 권리',
+    paragraphs: ['회원은 자신의 개인정보에 대해 다음 권리를 행사할 수 있습니다.'],
+    bullets: [
+      '열람: 마이페이지에서 수집된 정보 전체 확인',
+      '수정: 잘못된 정보를 직접 수정하거나 고객센터 요청',
+      '삭제: 계정 해지를 통한 일괄 삭제, 또는 특정 학습 기록 개별 삭제',
+      '처리 정지: 학습 통계 활용 동의 철회 — 마이페이지 > 설정 > 데이터에서 토글',
+      '이동: 본인 학습 데이터를 JSON 형식으로 내려받기 (마이페이지 > 데이터 내보내기)',
+    ],
+  },
+  {
+    id: 'security',
+    title: '보안 조치',
+    paragraphs: [
+      '회사는 개인정보를 보호하기 위해 다음 기술적·관리적 조치를 적용합니다.',
+    ],
+    bullets: [
+      '비밀번호 bcrypt 해시 저장 — 평문 저장 절대 없음',
+      'Supabase RLS(Row-Level Security) — DB 레벨에서 사용자별 데이터 격리',
+      '전송 구간 TLS 1.3 암호화',
+      '접근 권한 최소화 — 운영진 중 필수 인원만 데이터 접근, 모든 접근은 audit log 기록',
+      '연 1회 보안 점검 및 분기 1회 침해 모의 훈련',
+    ],
+  },
+  {
+    id: 'contact',
+    title: '문의 · 책임자',
+    paragraphs: [
+      '개인정보 보호 책임자: Vocaflow 개인정보팀',
+      '이메일: privacy@vocaflow.app',
+      '본 방침은 법령·서비스 변경에 따라 갱신되며, 중요한 변경은 시행 7일 전 공지합니다. 변경 이력은 페이지 상단 "버전" 표시로 확인할 수 있습니다.',
+    ],
+  },
+]
+
+export const metadata = {
+  title: '개인정보처리방침 · Vocaflow',
+}
 
 export default function PrivacyPage() {
   return (
-    <section className="mx-auto w-full max-w-3xl px-s-6 py-s-16">
-      <h1 className="mb-s-3 font-display text-3xl font-extrabold tracking-tight">
-        개인정보처리방침
-      </h1>
-      <p className="font-body text-base leading-relaxed text-t2">
-        본 페이지는 정식 운영 시점에 게시됩니다. (Phase 2)
-      </p>
-    </section>
+    <LegalPage
+      title="개인정보처리방침"
+      intro="Vocaflow는 회원의 개인정보를 소중히 다룹니다. 어떤 정보를 어떻게 사용하는지 가능한 한 쉽게 설명했습니다."
+      effectiveDate="2026-05-01"
+      version="1.0"
+      sections={SECTIONS}
+    />
   )
 }

@@ -4,6 +4,7 @@
 'use client'
 
 import {
+  Anchor,
   BarChart3,
   BookMarked,
   CheckCircle2,
@@ -13,6 +14,7 @@ import {
   FileText,
   Flag,
   FlaskConical,
+  Headphones,
   HelpCircle,
   Home as HomeIcon,
   LayoutDashboard,
@@ -21,6 +23,7 @@ import {
   LogIn,
   Mail,
   Menu,
+  PencilLine,
   Settings as SettingsIcon,
   ShieldCheck,
   Sliders,
@@ -68,16 +71,25 @@ const GROUPS: ScreenGroup[] = [
     accent: '#8B5CF6',
     screens: [
       { href: '/hub', label: '허브 (Home Hub)', description: 'Hero · 모듈 진입 · 이어하기', icon: HomeIcon, status: 'done' },
-      { href: '/library', label: '라이브러리', description: '원문 카드 · 카테고리 · 큐레이션', icon: Library, status: 'done' },
+      { href: '/library', label: '라이브러리', description: '스크립트 카드 · 카테고리 · 큐레이션', icon: Library, status: 'done' },
       { href: '/text', label: '직접 입력 (TextViewer)', description: '텍스트·파일·URL → AI 단어 추출', icon: FileText, status: 'done' },
-      { href: '/text/1', label: '학습 워크스페이스', description: '원문 읽기 + 단어 학습 (text/[id])', icon: Menu, status: 'done' },
+      { href: '/text/1', label: '학습 워크스페이스', description: '스크립트 읽기 + 단어 학습 (text/[id])', icon: Menu, status: 'done' },
       { href: '/wordvault', label: '단어장 (WordVault)', description: 'Browse · Study · Review 3-View', icon: BookMarked, status: 'done' },
-      { href: '/flashcard', label: '플래시카드', description: 'SM-2 SRS · 능동적 회상 3초 · 4단계 평가', icon: Layers, status: 'done' },
-      { href: '/spellforge', label: 'SpellForge', description: '스펠링 타이핑 · 파란 패널', icon: Type, status: 'pending' },
-      { href: '/wordblitz', label: 'WordBlitz', description: '타임어택 · 정글 테마 · 콤보', icon: Zap, status: 'pending' },
-      { href: '/scriptquiz', label: 'ScriptQuiz', description: '원문 독해 · AI 자동 생성', icon: HelpCircle, status: 'pending' },
-      { href: '/dashboard', label: '대시보드', description: '학습 통계 · 히트맵 · 점수 추이', icon: BarChart3, status: 'pending' },
-      { href: '/settings', label: '설정', description: '계정 · 테마 · TTS · 알림', icon: SettingsIcon, status: 'pending' },
+      { href: '/flashcard', label: '플래시카드 Hub', description: 'Continue · SRS Queue · 7일 정확도 · 시작 설정', icon: Layers, status: 'done' },
+      { href: '/flashcard/play', label: '플래시카드 세션', description: 'SM-2 SRS · 능동적 회상 3초 · 4단계 평가', icon: Layers, status: 'done' },
+      { href: '/spellforge', label: 'SpellForge Hub', description: 'Memory Decay · 모드/난이도 선택 · Best 점수', icon: Type, status: 'done' },
+      { href: '/spellforge/play', label: 'SpellForge 세션', description: '스펠링 타이핑 · 파란 패널 · IME 분리', icon: Type, status: 'done' },
+      { href: '/wordblitz', label: 'WordBlitz Hub', description: '게임 소개 · 최근 점수 · 시작 진입점', icon: Zap, status: 'done' },
+      { href: '/play/wordblitz', label: 'WordBlitz Play (3D)', description: '인형뽑기 3D · GLB 집게 · 풀스크린', icon: Zap, status: 'progress' },
+      { href: '/play/pirate-quest', label: "Pirate's Bounty (3D)", description: '해변 단어 매칭 · 21 GLB 해적 자산 · TTS 듣기', icon: Anchor, status: 'done' },
+      { href: '/scriptquiz', label: 'ScriptQuiz Hub', description: 'Chapter grid · 영어 immersion · 한영 토글', icon: HelpCircle, status: 'done' },
+      { href: '/scriptquiz/play', label: 'ScriptQuiz 세션', description: '3-screen · 영어 질문/선택지 · O/X 피드백', icon: HelpCircle, status: 'done' },
+      { href: '/dictate', label: 'Dictation Hub', description: 'CEFR 자동 감지 · 리소스 선택 · 직접 입력 · 최근 세션', icon: Headphones, status: 'done' },
+      { href: '/dictate/setup', label: 'Dictation Setup', description: '단위/갯수/순서/채점/속도/반복/힌트 설정', icon: PencilLine, status: 'done' },
+      { href: '/dictate/session', label: 'Dictation 세션', description: 'TTS 받아쓰기 · 단어별 채점 · 4단계 힌트 · Focus Mode', icon: PencilLine, status: 'done' },
+      { href: '/dictate/results', label: 'Dictation 결과', description: '정확도 · 오류 패턴 · 오답 단어 · 다음 단계 추천', icon: PencilLine, status: 'done' },
+      { href: '/dashboard', label: '대시보드', description: '학습 통계 · 히트맵 · 점수 추이', icon: BarChart3, status: 'done' },
+      { href: '/settings', label: '설정', description: '학습 흐름 · 외형 · 음성 · 알림 · 데이터', icon: SettingsIcon, status: 'done' },
     ],
   },
   {
@@ -85,10 +97,10 @@ const GROUPS: ScreenGroup[] = [
     description: '랜딩 · 가격 · 정책 · 회사 소개',
     accent: 'var(--info)',
     screens: [
-      { href: '/about', label: '소개', description: '서비스 소개 · 미션', icon: Sparkles, status: 'pending' },
-      { href: '/pricing', label: '가격', description: '요금제 · 비교표', icon: BarChart3, status: 'pending' },
-      { href: '/terms', label: '이용약관', description: '서비스 이용 약관', icon: ShieldCheck, status: 'pending' },
-      { href: '/privacy', label: '개인정보처리방침', description: '개인정보 보호 정책', icon: ShieldCheck, status: 'pending' },
+      { href: '/about', label: '소개', description: '미션 · 학습 철학 4 + 학습 과학 7', icon: Sparkles, status: 'done' },
+      { href: '/pricing', label: '가격', description: '3-tier · 비교표 · FAQ', icon: BarChart3, status: 'done' },
+      { href: '/terms', label: '이용약관', description: '9 sections · sticky TOC', icon: ShieldCheck, status: 'done' },
+      { href: '/privacy', label: '개인정보처리방침', description: '8 sections · sticky TOC', icon: ShieldCheck, status: 'done' },
     ],
   },
   {
@@ -97,13 +109,13 @@ const GROUPS: ScreenGroup[] = [
     accent: '#8B5CF6',
     screens: [
       { href: '/admin', label: '관리자 대시보드', description: 'KPI 개요 · 섹션 진입 · 최근 활동', icon: LayoutDashboard, status: 'done' },
-      { href: '/admin/users', label: '사용자 관리', description: '가입 · 제재 · 구독 · 학습 통계', icon: Users, status: 'pending' },
-      { href: '/admin/library', label: '콘텐츠 관리', description: '원문 CRUD · 카테고리 · 큐레이션', icon: Library, status: 'pending' },
-      { href: '/admin/vocabulary', label: '단어장 마스터', description: 'CEFR · 예문 · 발음 보정', icon: BookMarked, status: 'pending' },
-      { href: '/admin/analytics', label: '플랫폼 분석', description: 'DAU/MAU · retention · 학습 효과', icon: BarChart3, status: 'pending' },
-      { href: '/admin/reports', label: '신고/문의', description: '콘텐츠 신고 · 사용자 문의 · 버그', icon: Flag, status: 'pending' },
-      { href: '/admin/billing', label: '결제/구독', description: '요금제 · 결제 내역 · 환불', icon: CreditCard, status: 'pending' },
-      { href: '/admin/settings', label: '시스템 설정', description: 'feature flags · AI 프롬프트 · 공지', icon: Sliders, status: 'pending' },
+      { href: '/admin/users', label: '사용자 관리', description: 'KPI 4 · 검색·필터 · 7명 mock', icon: Users, status: 'done' },
+      { href: '/admin/library', label: '콘텐츠 관리', description: 'CRUD 카드 · CEFR · 큐레이션 · 6건 mock', icon: Library, status: 'done' },
+      { href: '/admin/vocabulary', label: '단어장 마스터', description: '표준 단어 · IPA 검증 · TTS 캐시', icon: BookMarked, status: 'done' },
+      { href: '/admin/analytics', label: '플랫폼 분석', description: 'DAU 라인 · 코호트 · funnel · 모듈 사용', icon: BarChart3, status: 'done' },
+      { href: '/admin/reports', label: '신고/문의', description: '큐 + 심각도 + SLA + 상태 흐름', icon: Flag, status: 'done' },
+      { href: '/admin/billing', label: '결제/구독', description: 'MRR 차트 · 트랜잭션 · 요금제 분포', icon: CreditCard, status: 'done' },
+      { href: '/admin/settings', label: '시스템 설정', description: 'feature flags · AI 프롬프트 · 공지 · 점검', icon: Sliders, status: 'done' },
     ],
   },
   {
@@ -157,7 +169,7 @@ export default function RootIndexPage() {
             Vocaflow
           </h1>
           <p className="mt-2 font-body text-[16px] text-[var(--t2)]">
-            영어 원문 기반 종합 학습 플랫폼
+            영어 스크립트 기반 종합 학습 플랫폼
           </p>
           <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t3)]">
             개발 진입점 · 화면 인덱스 + 진행 현황
@@ -237,7 +249,7 @@ export default function RootIndexPage() {
         {/* ── 푸터 ── */}
         <footer className="mt-12 text-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t3)]">
-            Vocaflow Design System v06.4 · Phase 1.5
+            Vocaflow Design System v06.6 · Phase 1.5
           </p>
           <p className="mt-2 font-body text-[12px] text-[var(--t3)]">
             완성형 화면은 클릭하여 검증할 수 있습니다 · 대기 화면은 placeholder가 표시됩니다

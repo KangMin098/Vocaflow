@@ -62,7 +62,7 @@ export default function SidebarFooter({
       </div>
 
       <Link
-        href="/main/settings"
+        href="/settings"
         className="flex h-[30px] w-[30px] flex-shrink-0 items-center justify-center rounded-[7px] text-[13px] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
       >
         ⚙

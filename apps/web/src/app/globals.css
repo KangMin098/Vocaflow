@@ -70,6 +70,14 @@
     --memory-risk:   #EF4444;
     --memory-new:    #94A3B8;
 
+    /* CEFR Distribution Fills — v06.19 (분포 시각화 전용 · badge 토큰과 분리) */
+    --cefr-a1: #86EFAC;
+    --cefr-a2: #22C55E;
+    --cefr-b1: #3B82F6;
+    --cefr-b2: #1D4ED8;
+    --cefr-c1: #7C3AED;
+    --cefr-c2: #581C87;
+
     /* Animation Duration */
     --dur-breath: 4s;
 
@@ -146,6 +154,14 @@
     --slot-empty-bd:   #1E2D42;
     --slot-current-bg: rgba(96,165,250,0.10);
     --slot-typed-bg:   #141E30;
+
+    /* CEFR Distribution Fills — 다크모드 (대비 4.5:1 WCAG AA) */
+    --cefr-a1: #4ADE80;
+    --cefr-a2: #16A34A;
+    --cefr-b1: #60A5FA;
+    --cefr-b2: #2563EB;
+    --cefr-c1: #A78BFA;
+    --cefr-c2: #6D28D9;
   }
 }
 

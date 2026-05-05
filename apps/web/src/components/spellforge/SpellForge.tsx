@@ -2,7 +2,7 @@
 
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { ConfirmButton } from './ConfirmButton'
 import { IMEIndicator } from './IMEIndicator'
@@ -19,7 +19,21 @@ import { useIMEDetection } from '@/hooks/useIMEDetection'
 import { useSpellForgeSession } from '@/hooks/useSpellForgeSession'
 import { useTypingMode } from '@/hooks/useTypingMode'
 
+import { SpellForgeCompletion } from './SpellForgeCompletion'
+
+import {
+  getMockNextAction,
+  MOCK_USER_CONTEXTS,
+} from '@/lib/recommend/next-action.mock'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
+import { applyReview, createNewCard } from '@/lib/srs'
+import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
+import {
+  cacheCard,
+  getCachedCard,
+  pushPendingResult,
+} from '@/lib/srs/session-storage'
+import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import type { Phase, SpellForgeWord } from '@/types/spellforge'
 
 interface SpellForgeProps {
@@ -57,7 +71,16 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
   const [showLength, setShowLength] = useState(false)
   const [pauseInfo, setPauseInfo] = useState<{ icon: string; message: string } | null>(null)
   const [reflectionMsg, setReflectionMsg] = useState('')
+  const [showCompletion, setShowCompletion] = useState(false)
   const errorTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
+  // SpellForge 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
+  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_spellforge' })
+  const recommendation = useMemo(
+    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
+    []
+  )
 
   // body class for studying mode
   useEffect(() => {
@@ -116,11 +139,34 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
     // 발음 자동 재생
     setTimeout(() => playWordAudio(currentWord.text), 200)
 
-    // Rating 기록
+    // §17 [4] 기억 축 — FSRS applyReview (L4b 시각 생성)
+    // sessionStorage 캐시 사용 — DB 연동 시 vocabularies 조회로 교체
+    const errorsCount = result?.errorPositions.length ?? 0
+    const existingCard = getCachedCard(currentWord.id) ?? createNewCard(currentWord.id)
+    const reviewResult = applyReview({
+      card: existingCard,
+      rating: spellforgeResultToRating({
+        finalCorrect: true,
+        hintsUsed: hintCount,
+        errors: errorsCount,
+      }),
+      reviewedAt: new Date(),
+      module: 'spellforge',
+    })
+    cacheCard(reviewResult.card)
+    pushPendingResult({
+      cardId: reviewResult.card.id,
+      cardUpdate: cardToUpdatePayload(reviewResult.card),
+      rating: reviewResult.log.rating,
+      reviewedAt: reviewResult.log.reviewedAt.toISOString(),
+      module: 'spellforge',
+    })
+
+    // Rating 기록 (UI 통계용 — 그대로 유지)
     recordRating({
       wordId: currentWord.id,
       attempts: 1,
-      errors: result?.errorPositions.length ?? 0,
+      errors: errorsCount,
       hintsUsed: hintCount,
       finalCorrect: true,
       timeSpentMs: Date.now() - session.startedAt.getTime(),
@@ -174,13 +220,18 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
 
   /**
    * Pause → 다음 단어
+   * 마지막 단어(isComplete) 처리 직후엔 nextWord 호출 대신 완료 화면으로 전환
    */
   const handlePauseSkip = useCallback(() => {
     setPauseInfo(null)
     setPhase('typing')
+    if (isComplete) {
+      setShowCompletion(true)
+      return
+    }
     nextWord()
     setTimeout(() => inputRef.current?.focus(), 100)
-  }, [nextWord])
+  }, [isComplete, nextWord])
 
   /**
    * 발음 재생
@@ -206,6 +257,27 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
   const handleSkip = useCallback(() => {
     if (!currentWord) return
     if (window.confirm('이 단어를 건너뛸까요? 다음에 다시 만나게 됩니다.')) {
+      // §17 [4] 기억 축 — FSRS applyReview (오답 처리, Again rating)
+      const existingCard = getCachedCard(currentWord.id) ?? createNewCard(currentWord.id)
+      const reviewResult = applyReview({
+        card: existingCard,
+        rating: spellforgeResultToRating({
+          finalCorrect: false,
+          hintsUsed: hintCount,
+          errors: 0,
+        }),
+        reviewedAt: new Date(),
+        module: 'spellforge',
+      })
+      cacheCard(reviewResult.card)
+      pushPendingResult({
+        cardId: reviewResult.card.id,
+        cardUpdate: cardToUpdatePayload(reviewResult.card),
+        rating: reviewResult.log.rating,
+        reviewedAt: reviewResult.log.reviewedAt.toISOString(),
+        module: 'spellforge',
+      })
+
       recordRating({
         wordId: currentWord.id,
         attempts: 0,
@@ -269,6 +341,18 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
       <div className="flex min-h-screen items-center justify-center">
         <p className="font-body text-[var(--t3)]">학습할 단어가 없어요.</p>
       </div>
+    )
+  }
+
+  if (showCompletion) {
+    return (
+      <SpellForgeCompletion
+        totalWords={session.words.length}
+        correctCount={session.totalCorrect}
+        startedAt={session.startedAt}
+        textId={textId}
+        recommendation={recommendation}
+      />
     )
   }
 

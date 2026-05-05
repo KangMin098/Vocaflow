@@ -1,23 +1,30 @@
 // apps/web/src/app/(auth)/verify-email/page.tsx
-// 이메일 인증 대기 화면
-// 회원가입 직후 도달하는 페이지
+// 이메일 인증 대기 화면 v2 — 실제 Supabase resend 연결
+//
+// 흐름:
+//   1) /signup 에서 supabase.auth.signUp 성공 → ?email=... 쿼리로 본 페이지 도달
+//   2) 사용자가 받은 메일의 confirm 링크 클릭 → Supabase 자동 처리 후 /api/auth/callback
+//   3) "인증 메일 다시 보내기" → supabase.auth.resend({ type: 'signup', email })
 
 'use client'
 
 import { ArrowRight, CheckCircle2, Mail, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
 import { useToast } from '@/components/ui/Toast'
+import { createClient } from '@/lib/supabase/client'
 
 export default function VerifyEmailPage() {
   const toast = useToast()
+  const searchParams = useSearchParams()
   const [resending, setResending] = useState(false)
   const [resendCooldown, setResendCooldown] = useState(0)
 
-  // 가입 시 사용한 이메일 (목업) — 실제로는 router state 또는 supabase user에서 가져옴
-  const email = 'user@vocaflow.com'
+  // 가입 시 사용한 이메일 — /signup 에서 ?email=... 로 전달
+  const email = searchParams.get('email') ?? ''
 
   // 재발송 쿨다운 타이머
   useEffect(() => {
@@ -28,19 +35,38 @@ export default function VerifyEmailPage() {
     return () => clearInterval(timer)
   }, [resendCooldown])
 
-  const handleResend = () => {
-    if (resendCooldown > 0 || resending) return
+  const handleResend = async () => {
+    if (resendCooldown > 0 || resending || !email) return
 
     setResending(true)
-    setTimeout(() => {
-      setResending(false)
+    try {
+      const supabase = createClient()
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          emailRedirectTo: `${origin}/api/auth/callback`,
+        },
+      })
+
+      if (error) {
+        // rate limit / not found 등 — 사용자 친화 메시지로
+        const msg = (error.message ?? '').toLowerCase()
+        if (msg.includes('rate limit') || msg.includes('too many')) {
+          toast.error('너무 많은 요청입니다. 잠시 후 다시 시도해주세요')
+        } else {
+          toast.error('재발송 중 오류가 발생했어요. 잠시 후 다시 시도해주세요')
+        }
+        return
+      }
+
       setResendCooldown(60) // 60초 쿨다운
       toast.success('인증 메일을 다시 보냈습니다')
-    }, 800)
-  }
-
-  const handleChangeEmail = () => {
-    toast.info('이메일 변경은 Phase 2에서 구현됩니다')
+    } finally {
+      setResending(false)
+    }
   }
 
   return (
@@ -64,9 +90,9 @@ export default function VerifyEmailPage() {
         </h1>
 
         <p className="mb-s-2 font-body text-sm leading-relaxed text-t2">
-          아래 주소로 인증 메일을 발송했습니다.
+          {email ? '아래 주소로 인증 메일을 발송했습니다.' : '회원가입 시 입력한 이메일을 확인해주세요.'}
         </p>
-        <p className="break-all font-mono text-sm text-t1">{email}</p>
+        {email && <p className="break-all font-mono text-sm text-t1">{email}</p>}
       </div>
 
       {/* 단계 안내 */}
@@ -141,13 +167,12 @@ export default function VerifyEmailPage() {
           )}
         </button>
 
-        <button
-          type="button"
-          onClick={handleChangeEmail}
-          className="h-11 w-full rounded-md font-display text-sm font-medium text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1 active:scale-[0.99]"
+        <Link
+          href="/signup"
+          className="flex h-11 w-full items-center justify-center rounded-md font-display text-sm font-medium text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1 active:scale-[0.99]"
         >
-          다른 이메일 주소로 변경
-        </button>
+          다른 이메일로 다시 가입하기
+        </Link>
       </div>
 
       {/* 하단 — 로그인 가능 안내 */}

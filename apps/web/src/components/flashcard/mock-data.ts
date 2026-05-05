@@ -1,5 +1,6 @@
 // apps/web/src/components/flashcard/mock-data.ts
 
+import { createNewCard } from '@/lib/srs'
 import { createInitialSRS } from '@/lib/srs/sm2'
 import type { FlashcardWord } from '@/types/flashcard'
 
@@ -16,6 +17,7 @@ export const MOCK_FLASHCARD_WORDS: FlashcardWord[] = [
     textTitle: 'The Great Gatsby',
     textChapter: 'Chapter 1',
     srs: createInitialSRS(),
+    srsV2: createNewCard('fw1'),
   },
   {
     id: 'fw2',
@@ -29,6 +31,7 @@ export const MOCK_FLASHCARD_WORDS: FlashcardWord[] = [
     textTitle: 'The Great Gatsby',
     textChapter: 'Chapter 1',
     srs: createInitialSRS(),
+    srsV2: createNewCard('fw2'),
   },
   {
     id: 'fw3',
@@ -42,6 +45,7 @@ export const MOCK_FLASHCARD_WORDS: FlashcardWord[] = [
     textTitle: 'The Great Gatsby',
     textChapter: 'Chapter 1',
     srs: createInitialSRS(),
+    srsV2: createNewCard('fw3'),
   },
   {
     id: 'fw4',
@@ -55,6 +59,7 @@ export const MOCK_FLASHCARD_WORDS: FlashcardWord[] = [
     textTitle: 'The Great Gatsby',
     textChapter: 'Chapter 1',
     srs: createInitialSRS(),
+    srsV2: createNewCard('fw4'),
   },
   {
     id: 'fw5',
@@ -68,5 +73,6 @@ export const MOCK_FLASHCARD_WORDS: FlashcardWord[] = [
     textTitle: 'The Great Gatsby',
     textChapter: 'Chapter 1',
     srs: createInitialSRS(),
+    srsV2: createNewCard('fw5'),
   },
 ]

@@ -17,7 +17,7 @@ export default function QuickStartCard({
 
   return (
     <Link
-      href="/main/flashcard?mode=review"
+      href="/flashcard?mode=review"
       className="relative mx-3.5 mb-2 block w-[calc(100%-28px)] overflow-hidden rounded-[14px] px-4 py-3.5 text-left text-white transition-all duration-[220ms] hover:-translate-y-px hover:shadow-[0_8px_20px_rgba(139,92,246,0.35)]"
       style={{
         background: 'linear-gradient(135deg, var(--combo) 0%, var(--streak) 100%)',

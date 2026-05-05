@@ -16,7 +16,7 @@ type SortKey = 'appearance' | 'level' | 'alphabetical'
 type LevelFilter = 'all' | CefrLevel
 
 const sortLabels: Record<SortKey, string> = {
-  appearance: '원문 순서',
+  appearance: '스크립트 순서',
   level: '난이도 순',
   alphabetical: '알파벳 순',
 }

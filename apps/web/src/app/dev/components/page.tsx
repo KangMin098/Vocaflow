@@ -168,7 +168,7 @@ export default function TokenTestPage() {
           <div className="space-y-s-3 bg-bg2 p-s-6 rounded-lg border border-bd">
             <p className="font-display text-3xl font-extrabold">Plus Jakarta Sans — Display / Heading</p>
             <p className="font-body text-base">DM Sans — Body 텍스트입니다. 영어 학습 플랫폼 Vocaflow.</p>
-            <p className="font-serif text-lg italic">Lora — The quick brown fox jumps over the lazy dog. (영어 원문 전용)</p>
+            <p className="font-serif text-lg italic">Lora — The quick brown fox jumps over the lazy dog. (영어 스크립트 전용)</p>
             <p className="font-mono text-sm">JetBrains Mono — const greeting = "Hello, Vocaflow";</p>
           </div>
         </section>
@@ -354,7 +354,7 @@ export default function TokenTestPage() {
             <CheckboxGroup
               label="관심 학습 모듈"
               options={[
-                { value: "reading", label: "📖 원문 독해" },
+                { value: "reading", label: "📖 스크립트 독해" },
                 { value: "vocabulary", label: "📚 단어장" },
                 { value: "spelling", label: "⚡ 스펠링" },
                 { value: "speed", label: "🌴 타임어택" },
@@ -846,7 +846,7 @@ export default function TokenTestPage() {
       <LoadingOverlay
         isOpen={loadingOpen}
         message="AI가 단어를 분석 중입니다"
-        description="영어 원문에서 핵심 단어를 추출하고 있습니다..."
+        description="영어 스크립트에서 핵심 단어를 추출하고 있습니다..."
         progress={loadingProgress}
       />
     </main>

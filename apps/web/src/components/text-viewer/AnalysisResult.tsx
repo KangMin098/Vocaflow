@@ -1,5 +1,5 @@
 // apps/web/src/components/text-viewer/AnalysisResult.tsx
-// AI 분석 결과 통합 화면 (좌: 원문 / 우: 단어 리스트)
+// AI 분석 결과 통합 화면 (좌: 스크립트 / 우: 단어 리스트)
 
 'use client'
 
@@ -93,7 +93,7 @@ export function AnalysisResult({ result, onBack, onSave, onPlayAudio }: Analysis
         </div>
       </div>
 
-      {/* ── 좌우 분할: 원문 + 단어 리스트 ── */}
+      {/* ── 좌우 분할: 스크립트 + 단어 리스트 ── */}
       <div className="grid min-h-[600px] grid-cols-1 gap-s-4 lg:grid-cols-2">
         <ScriptDisplay
           text={result.text}

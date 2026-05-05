@@ -1,6 +1,8 @@
 // apps/web/src/components/wordvault/types.ts
 // WordVault 도메인 타입
 
+import type { SrsCard } from '@/lib/srs'
+
 export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 export type LevelClass = 'a' | 'b' | 'c'
 export type LearnState = 'fresh' | 'progress' | 'known' | 'mastered' | 'review'
@@ -26,6 +28,12 @@ export interface WordItem {
   lastDays: number
   /** 다음 복습 며칠 후 */
   nextDays: number
+  /**
+   * §17 v2.0 SRS 필드 — FSRS 호환 (D/S/R)
+   * undefined = 'new' 처리 (mock 데이터 또는 DB 미연동 단어)
+   * DB 연동 후: vocabularies row에서 rowToCard()로 채움
+   */
+  srs?: SrsCard
 }
 
 export type ListenContent = 'word' | 'word-example'

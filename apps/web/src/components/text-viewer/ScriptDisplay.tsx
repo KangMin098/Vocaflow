@@ -1,5 +1,5 @@
 // apps/web/src/components/text-viewer/ScriptDisplay.tsx
-// 원문 표시 — Lora serif 폰트
+// 스크립트 표시 — Lora serif 폰트
 // 추출된 단어 하이라이트 (선택된 단어는 더 강하게)
 
 'use client'
@@ -64,13 +64,13 @@ export function ScriptDisplay({
         <div className="mb-s-1 flex items-center gap-s-2">
           <FileText size={12} className="text-p" />
           <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-t3">
-            — Step 02 / 원문
+            — Step 02 / 스크립트
           </span>
         </div>
         <h3 className="font-display text-base font-bold text-t1">분석된 영어 스크립트</h3>
       </div>
 
-      {/* 원문 본문 */}
+      {/* 스크립트 본문 */}
       <div className="flex-1 overflow-y-auto px-s-5 py-s-5">
         <p className="font-serif text-base leading-[1.85] text-t1">
           {tokens.map((token) => {
