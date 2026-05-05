@@ -15,7 +15,10 @@
     "db:diff": "npx supabase db diff --use-migra",
     "db:new": "npx supabase migration new",
     "db:seed-dictionary": "node --env-file=.env.local scripts/seed-dictionary.mjs",
-    "db:seed-dictionary:dry": "node --env-file=.env.local scripts/seed-dictionary.mjs --dry-run"
+    "db:seed-dictionary:dry": "node --env-file=.env.local scripts/seed-dictionary.mjs --dry-run",
+    "db:dict:fetch": "node scripts/dict-fetch-batch.mjs",
+    "db:dict:update": "node scripts/dict-update-batch.mjs",
+    "db:dict:status": "node scripts/dict-status.mjs"
   },
   "repository": {
     "type": "git",
