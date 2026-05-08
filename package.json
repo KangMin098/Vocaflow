@@ -9,6 +9,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
+    "test:wlp": "pnpm --filter @vocaflow/wlp test",
     "format": "prettier --write .",
     "db:types": "npx supabase gen types typescript --linked > packages/types/src/database.ts",
     "db:push": "npx supabase db push",

@@ -10,7 +10,10 @@ data/import/*
 !data/import/README.md
 !data/import/.gitkeep
 scripts/.tmp-batch*.json
-scripts/.tmp-batch*.json
+scripts/.tmp-fetch*.json
+
+# TypeScript incremental build info
+*.tsbuildinfo
 
 
 # 개인 폴더

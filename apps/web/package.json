@@ -17,6 +17,7 @@
     "@vocaflow/design-tokens": "workspace:*",
     "@vocaflow/types": "workspace:*",
     "@vocaflow/ui-shared": "workspace:*",
+    "@vocaflow/wlp": "workspace:*",
     "clsx": "^2.1.1",
     "lucide-react": "^1.11.0",
     "next": "14.2.35",
