@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-05-13",
+  "policy_note": "These brand/source names are forbidden in any field of VCB outputs (seed-list rationale_short, enrichment definitions/examples/notes). Both AI-generated content and curator-edited content are checked.",
+  "categories": {
+    "publishers_dictionary": [
+      "oxford",
+      "cambridge",
+      "longman",
+      "merriam",
+      "webster",
+      "collins",
+      "macmillan",
+      "wiktionary",
+      "wordnet"
+    ],
+    "korean_publishers": [
+      "능률",
+      "천일문",
+      "워드마스터",
+      "능률보카",
+      "해커스",
+      "이투스",
+      "메가스터디",
+      "EBS"
+    ],
+    "test_brands": [
+      "TOEFL",
+      "IELTS",
+      "OPIc",
+      "TEPS",
+      "SAT",
+      "GMAT"
+    ],
+    "textbook_series": [
+      "Word Smart",
+      "Vocabulary Workshop"
+    ]
+  }
+}

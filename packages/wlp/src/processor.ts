@@ -40,10 +40,12 @@ export function processText(text: string, options: WlpOptions = {}): WlpResult {
 
     sent.tokens().each((tk: ItemToken) => {
       const surface = tk.out(its.value) as string
-      const lemma = tk.out(its.lemma) as string
-      const pos = tk.out(its.pos) as string
-      const type = tk.out(its.type) as string
-      const isStopWord = tk.out(its.stopWordFlag) as boolean
+      // wink-nlp 가 일부 토큰(특수문자/숫자 등)에서 lemma 미정의 — surface 로 fallback
+      const rawLemma = tk.out(its.lemma) as string | undefined
+      const lemma = rawLemma ?? surface ?? ''
+      const pos = (tk.out(its.pos) as string | undefined) ?? ''
+      const type = (tk.out(its.type) as string | undefined) ?? ''
+      const isStopWord = (tk.out(its.stopWordFlag) as boolean | undefined) ?? false
       const isPunctuation = type === 'punctuation'
 
       const found = text.indexOf(surface, cursor)

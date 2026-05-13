@@ -19,7 +19,20 @@
     "db:seed-dictionary:dry": "node --env-file=.env.local scripts/seed-dictionary.mjs --dry-run",
     "db:dict:fetch": "node scripts/dict-fetch-batch.mjs",
     "db:dict:update": "node scripts/dict-update-batch.mjs",
-    "db:dict:status": "node scripts/dict-status.mjs"
+    "db:dict:status": "node scripts/dict-status.mjs",
+    "vcb:ingest": "tsx scripts/vcb/01-ingest.ts",
+    "vcb:normalize": "tsx scripts/vcb/02-normalize.ts",
+    "vcb:ingest-ai-seed": "tsx scripts/vcb/01b-ingest-ai-seed.ts",
+    "vcb:validate-seed-list": "node scripts/vcb/01c-validate-seed-list.mjs",
+    "vcb:extract": "tsx scripts/vcb/03-extract.ts",
+    "vcb:dict-lookup": "tsx scripts/vcb/04-dict-lookup.ts",
+    "vcb:export-job": "tsx scripts/vcb/05a-export-job.ts",
+    "vcb:validate-output": "node scripts/vcb/05c-validate-output.mjs",
+    "vcb:import-enriched": "tsx scripts/vcb/05d-import.ts",
+    "vcb:qa": "tsx scripts/vcb/06-qa.ts",
+    "vcb:curate": "tsx scripts/vcb/07-curate.ts",
+    "vcb:publish": "tsx scripts/vcb/08-publish.ts",
+    "vcb:publish-precheck": "tsx scripts/vcb/08b-publish-precheck.ts"
   },
   "repository": {
     "type": "git",
@@ -36,11 +49,16 @@
   "packageManager": "pnpm@9.0.0",
   "devDependencies": {
     "@supabase/supabase-js": "^2.104.1",
+    "@vocaflow/library-pipeline": "workspace:*",
+    "@vocaflow/vcb-core": "workspace:*",
+    "@vocaflow/vcb-curate-core": "workspace:*",
+    "@vocaflow/wlp": "workspace:*",
     "better-sqlite3": "^12.9.0",
     "dotenv": "^17.4.2",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
     "supabase": "^2.98.1",
+    "tsx": "^4.20.6",
     "turbo": "^2.9.6"
   }
 }
