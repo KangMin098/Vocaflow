@@ -13,7 +13,9 @@ import {
   Library,
   ShieldCheck,
   Sliders,
+  Sparkles,
   Users,
+  Workflow,
   type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
@@ -44,7 +46,9 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { href: '/admin/users', label: '사용자', Icon: Users },
       { href: '/admin/library', label: '콘텐츠', Icon: Library },
+      { href: '/admin/curation', label: '큐레이션', Icon: Sparkles },
       { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
+      { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Workflow },
     ],
   },
   {
