@@ -3,9 +3,14 @@
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, Eye, AlertTriangle, RefreshCw, XCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Eye, AlertTriangle, RefreshCcw, RefreshCw, XCircle } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { importSeedList, type SeedPreviewData, type SeedPreviewItem } from '@/lib/vcb/server/seed'
+import {
+  importSeedList,
+  deleteSeedListArtifacts,
+  type SeedPreviewData,
+  type SeedPreviewItem,
+} from '@/lib/vcb/server/seed'
 import { VcbPreviewHero } from './VcbPreviewHero'
 import { VcbPreviewFilters, type PreviewFilters } from './VcbPreviewFilters'
 import { VcbPreviewList } from './VcbPreviewList'
@@ -225,6 +230,31 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
     return () => window.removeEventListener('keydown', handler)
   }, [filtered, selectedKey, data.items, toggleReject])
 
+  const handleRegenerate = () => {
+    setImportError(null)
+    if (
+      !window.confirm(
+        '생성된 시드를 삭제하고 재생성 단계로 돌아갑니다.\n거부 표시도 함께 초기화됩니다.\n진행할까요?',
+      )
+    ) {
+      return
+    }
+    startTransition(async () => {
+      const result = await deleteSeedListArtifacts(runId)
+      if (!result.ok) {
+        setImportError(result.error ?? '재생성 실패')
+        return
+      }
+      try {
+        sessionStorage.removeItem(rejectionsKey(runId))
+      } catch {
+        /* ignore */
+      }
+      router.push(`/admin/vocab/runs/${runId}/seed`)
+      router.refresh()
+    })
+  }
+
   const handleImport = () => {
     setImportError(null)
     setImportSuccess(null)
@@ -261,18 +291,35 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
         title="시드 미리보기"
         description={`${data.spec.collection_title} · ${data.seed_list_file}`}
         actions={
-          <Link
-            href={`/admin/vocab/runs/${runId}/seed`}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
-            style={{
-              color: 'var(--t2)',
-              borderColor: 'var(--bd)',
-              background: 'var(--bg)',
-            }}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            시드 페이지로
-          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleRegenerate}
+              disabled={isPending}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
+              style={{
+                color: 'var(--warning)',
+                borderColor: 'var(--warning)',
+                background: 'var(--warning-light)',
+              }}
+              title="seed-list.jsonl 삭제 후 Step 2 로 복귀"
+            >
+              <RefreshCcw className="w-4 h-4" />
+              재생성
+            </button>
+            <Link
+              href={`/admin/vocab/runs/${runId}/seed`}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+              style={{
+                color: 'var(--t2)',
+                borderColor: 'var(--bd)',
+                background: 'var(--bg)',
+              }}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              시드 페이지로
+            </Link>
+          </div>
         }
       />
 

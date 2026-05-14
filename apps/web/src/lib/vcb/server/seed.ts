@@ -643,6 +643,116 @@ export async function loadSeedPreview(
   }
 }
 
+// ── 2d. Delete seed list artifacts (regenerate flow) ──
+
+export interface DeleteSeedArtifactsResult {
+  deleted_files: string[]
+  run_status_reset: boolean
+}
+
+/**
+ * Removes generated seed-list artifacts (jsonl + validation + log + prompt + marker)
+ * so the admin can regenerate Step 2 without manual file management.
+ *
+ * Preserves:
+ * - seed-spec.json (admin's input, useful for re-run)
+ * - vocab_sources / vocab_seed_candidates rows already in DB (none yet expected,
+ *   since regenerate is meant for pre-import flow only)
+ *
+ * Refuses if:
+ * - Run status is past 'extracted' (import already happened → user must reset DB manually)
+ * - A runner is currently in progress (marker present + no jsonl yet)
+ */
+export async function deleteSeedListArtifacts(
+  run_id: number,
+): Promise<ServerActionResult<DeleteSeedArtifactsResult>> {
+  try {
+    await requireAdmin('/admin/vocab')
+    const client = await createClient()
+
+    const runResult = await fetchRunForSeed(client, run_id)
+    if (!runResult.ok || !runResult.row) {
+      return { ok: false, error: runResult.error ?? `run #${run_id} not found` }
+    }
+    const r = runResult.row
+
+    // Block when import already happened.
+    if (r.status !== 'created' && r.status !== 'ingesting') {
+      return {
+        ok: false,
+        error: `cannot regenerate: run status is ${r.status} (이미 후속 단계 진행됨)`,
+      }
+    }
+
+    const cfg = r.config ?? {}
+    const specFile = typeof cfg.seed_spec_file === 'string' ? cfg.seed_spec_file : null
+    if (!specFile) {
+      return { ok: false, error: 'no spec file recorded — nothing to delete' }
+    }
+
+    const jobsDir = getVcbJobsDir()
+    const base = specFile.replace(/-seed-spec\.json$/, '')
+    const markerPath = path.join(jobsDir, `${base}-seed-list.running.json`)
+    const seedListPath = path.join(jobsDir, `${base}-seed-list.jsonl`)
+
+    // Block if a runner is in progress but hasn't produced the jsonl yet.
+    if (fs.existsSync(markerPath) && !fs.existsSync(seedListPath)) {
+      return {
+        ok: false,
+        error: 'a runner is currently in progress — wait for it to finish or remove the marker file',
+      }
+    }
+
+    const candidates = [
+      `${base}-seed-list.jsonl`,
+      `${base}-seed-list.validation.json`,
+      `${base}-seed-list.error.json`,
+      `${base}-seed-list.log`,
+      `${base}-seed-list.prompt.txt`,
+      `${base}-seed-list.running.json`,
+    ]
+
+    const deleted: string[] = []
+    for (const name of candidates) {
+      const p = path.join(jobsDir, name)
+      if (fs.existsSync(p)) {
+        try {
+          fs.unlinkSync(p)
+          deleted.push(name)
+        } catch (e) {
+          const msg = e instanceof Error ? e.message : String(e)
+          return { ok: false, error: `failed to delete ${name}: ${msg}` }
+        }
+      }
+    }
+
+    // Clear seed_list_file from config so checkSeedJobStatus reflects the reset.
+    // Keep seed_spec_file + spec params so admin can immediately re-run.
+    const newConfig = { ...cfg }
+    delete newConfig.seed_list_file
+    await updateRunConfig(client, r.id, newConfig)
+
+    // If run status drifted to 'ingesting' (rare), reset to 'created'
+    let runStatusReset = false
+    if (r.status === 'ingesting') {
+      const reset = await updateRunStatus(client, r.id, 'created')
+      runStatusReset = reset.ok
+    }
+
+    revalidatePath(`/admin/vocab/runs/${run_id}`)
+    revalidatePath(`/admin/vocab/runs/${run_id}/seed`)
+    revalidatePath(`/admin/vocab/runs/${run_id}/seed/preview`)
+
+    return {
+      ok: true,
+      data: { deleted_files: deleted, run_status_reset: runStatusReset },
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { ok: false, error: msg }
+  }
+}
+
 // ── 3. Import seed list ───────────────────────────
 
 export interface ImportSeedListResult {
