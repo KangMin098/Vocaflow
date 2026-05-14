@@ -367,17 +367,15 @@ export async function runSeedListCommand(
     // Substitute $ARGUMENTS with the actual spec path
     const promptBody = mdContent.replace(/\$ARGUMENTS/g, relSpec)
 
-    // Write prompt body to a temp file. We feed it to claude -p via stdin redirect.
-    // Multi-KB prompt as a command-line arg would be a quoting nightmare on Windows;
-    // file + redirect is the reliable pattern.
+    // Write prompt body to a temp file. The runner script reads from this.
     const promptFile = path.join(jobsDir, `${base}-seed-list.prompt.txt`)
     fs.writeFileSync(promptFile, promptBody, 'utf8')
 
-    // Write startup info to log BEFORE spawn — lets us debug even if the shell fails to launch.
+    // Initialize log with startup metadata (the runner script appends from here).
     fs.writeFileSync(
       logPath,
       [
-        `[runner ${startedAt}]`,
+        `[runSeedListCommand ${startedAt}]`,
         `cwd=${monorepoRoot}`,
         `model=${model} budget=$${budget}`,
         `spec=${relSpec}`,
@@ -390,33 +388,33 @@ export async function runSeedListCommand(
       'utf8',
     )
 
-    // Build a single shell command with all redirections handled by the shell.
+    // Delegate to scripts/vcb/run-seed-list.mjs (Node script). The runner
+    // handles claude invocation + stdio capture properly. We just fire-and-forget.
     //
-    // Why this pattern:
-    // - claude -p does NOT resolve slash commands; we inline the prompt body
-    // - shell `< prompt.txt` feeds the body as stdin (clean — no arg quoting issues)
-    // - shell `>> log 2>&1` captures all output
-    // - spawn(cmdLine, [], { shell: true }) passes the line verbatim to cmd.exe/sh,
-    //   avoiding Node's per-arg Windows quoting (which mangles "Read Write Bash(node:*)")
-    // - detached + unref → survives the Server Action lifetime (5~15min run)
-    const cmdLine = [
-      'claude',
-      '-p',
-      '--model', model,
-      '--allowed-tools', '"Read Write Bash(node:*)"',
-      '--max-budget-usd', String(budget),
-      `< "${promptFile}"`,
-      `>> "${logPath}"`,
-      '2>&1',
-    ].join(' ')
-
-    const proc = spawn(cmdLine, [], {
-      cwd: monorepoRoot,
-      detached: true,
-      stdio: 'ignore',
-      shell: true,
-      windowsHide: true,
-    })
+    // Why delegate instead of spawning claude directly:
+    // - Windows: detached + stdio:'ignore' + shell redirect (`>> log 2>&1`) is
+    //   unreliable — error messages get lost, exit codes inconsistent.
+    // - Doing the redirect inside a child Node process gives clean fs.appendFileSync
+    //   capture regardless of platform.
+    // - The runner is invokable from CLI too for debugging.
+    const runnerScript = path.join(monorepoRoot, 'scripts', 'vcb', 'run-seed-list.mjs')
+    const proc = spawn(
+      process.execPath,
+      [
+        runnerScript,
+        '--prompt-file', promptFile,
+        '--log-file', logPath,
+        '--marker-file', markerPath,
+        '--model', model,
+        '--budget-usd', String(budget),
+      ],
+      {
+        cwd: monorepoRoot,
+        detached: true,
+        stdio: 'ignore',
+        windowsHide: true,
+      },
+    )
 
     const pid = proc.pid ?? null
 
@@ -424,7 +422,7 @@ export async function runSeedListCommand(
     fs.writeFileSync(
       markerPath,
       JSON.stringify(
-        { pid, started_at: startedAt, model, budget, cmd: cmdLine },
+        { pid, started_at: startedAt, model, budget, runner: 'scripts/vcb/run-seed-list.mjs' },
         null,
         2,
       ) + '\n',
