@@ -7,6 +7,7 @@ import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
 import { VcbStep4LookupCard } from '@/components/admin/vcb/VcbStep4LookupCard'
 import { VcbStep5EnrichCard } from '@/components/admin/vcb/VcbStep5EnrichCard'
 import { VcbStep6QaCard } from '@/components/admin/vcb/VcbStep6QaCard'
+import { VcbStep8PublishCard } from '@/components/admin/vcb/VcbStep8PublishCard'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { precheckRun } from '@/lib/vcb/server/precheck'
 
@@ -32,10 +33,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
 
   const showSeedEntry =
     run.status === 'created' || run.status === 'ingesting' || run.config.seed_spec_file
-  const canEnrich = run.status === 'looked_up' || run.status === 'enriching'
-  const canQa = run.status === 'enriching' || run.status === 'qa'
   const canCurate = run.status === 'qa' || run.status === 'curating'
-  const canPublish = precheck.ok && (run.status === 'curating' || run.status === 'publishing')
 
   return (
     <div>
@@ -204,47 +202,46 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      <section>
+      <section className="mb-10">
         <h3
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
-          나머지 단계 (CLI / 큐레이션)
+          Curation (Step 7)
         </h3>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <VcbStepTriggerCard
-            step={7}
-            icon="sparkles"
-            title="Curation"
-            description="flagged 검토 + Approve/Reject"
-            enabled={canCurate}
-            primaryAction={{
-              label: '큐레이션 시작',
-              href: `/admin/vocab/curate/${runId}`,
-            }}
-            stats={[
-              { label: 'flagged', value: run.flagged_count },
-              { label: 'approved', value: run.approved_count },
-            ]}
-          />
-          <VcbStepTriggerCard
-            step={8}
-            icon="rocket"
-            title="Publish"
-            description="shared_word_sets 발행"
-            enabled={canPublish}
-            primaryAction={{
-              label: 'Publish',
-              command: `pnpm vcb:publish --run-id ${runId}`,
-            }}
-            stats={[
-              { label: 'publishable', value: precheck.stats.publishable_count },
-              { label: 'min', value: 50 },
-            ]}
-            blockers={precheck.blockers}
-          />
-        </div>
+        <VcbStepTriggerCard
+          step={7}
+          icon="sparkles"
+          title="Curation"
+          description="flagged 검토 + Approve/Reject"
+          enabled={canCurate}
+          primaryAction={{
+            label: '큐레이션 시작',
+            href: `/admin/vocab/curate/${runId}`,
+          }}
+          stats={[
+            { label: 'flagged', value: run.flagged_count },
+            { label: 'approved', value: run.approved_count },
+          ]}
+        />
       </section>
+
+      {(run.status === 'curating' || run.status === 'publishing' ||
+        run.status === 'published') && (
+        <section>
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
+            style={{ color: 'var(--t2)' }}
+          >
+            Publish (Step 8)
+          </h3>
+          <VcbStep8PublishCard
+            runId={runId}
+            runStatus={run.status}
+            precheck={precheck}
+          />
+        </section>
+      )}
     </div>
   )
 }
