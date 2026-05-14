@@ -8,13 +8,16 @@ import {
   Copy,
   FileText,
   Loader2,
+  Play,
   RefreshCw,
+  Terminal,
   Upload,
 } from 'lucide-react'
 import {
   generateSeedSpec,
   checkSeedJobStatus,
   importSeedList,
+  runSeedListCommand,
   type SeedJobStatus,
 } from '@/lib/vcb/server/seed'
 
@@ -69,9 +72,15 @@ export function VcbSeedFlow({
     initialConfig.reference_seeds ?? '',
   )
   const [licenseConstraint, setLicenseConstraint] = useState<string>(DEFAULT_LICENSE)
+  const [runModel, setRunModel] = useState<'opus' | 'sonnet'>('opus')
 
   const canGenerate = !isPending && targetCount >= 50 && targetCount <= 10000
   const canRefresh = !isPending && status.spec_exists
+  const canRun =
+    !isPending &&
+    status.spec_exists &&
+    !status.seed_list_exists &&
+    !status.running
   const canImport =
     !isPending &&
     status.seed_list_exists &&
@@ -108,6 +117,19 @@ export function VcbSeedFlow({
         return
       }
       setStatus(fresh.data)
+    })
+  }
+
+  const handleRun = () => {
+    setActionError(null)
+    startTransition(async () => {
+      const result = await runSeedListCommand(runId, { model: runModel })
+      if (!result.ok) {
+        setActionError(result.error ?? 'run trigger failed')
+        return
+      }
+      const fresh = await checkSeedJobStatus(runId)
+      if (fresh.ok && fresh.data) setStatus(fresh.data)
     })
   }
 
@@ -297,66 +319,100 @@ export function VcbSeedFlow({
         </div>
       </Section>
 
-      {/* ── Step 2: Slash command ─────────────── */}
+      {/* ── Step 2: Run seed-list (claude -p detached) ─ */}
       <Section
         step={2}
-        title="Claude Code 슬래시 명령 실행"
-        description="VS Code 의 Claude Code 세션에서 아래 명령을 실행하면 같은 디렉토리에 -seed-list.jsonl + validation.json 이 생성됩니다."
+        title="AI 시드 목록 생성 (자동 실행)"
+        description="claude -p 로 /vcb-seed-list 를 백그라운드 실행합니다. 5~15분 후 -seed-list.jsonl + validation.json 이 생성됩니다."
         done={status.seed_list_exists}
         disabled={!status.spec_exists}
       >
-        {slashCommand ? (
+        {/* Model picker + run button */}
+        <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <code
-              className="flex-1 px-3 py-2 rounded-[var(--r-md)] font-mono text-sm border break-all"
-              style={{
-                background: 'var(--bg)',
-                borderColor: 'var(--bd)',
-                color: 'var(--t1)',
-              }}
+            <span className="text-xs font-display" style={{ color: 'var(--t2)' }}>
+              모델
+            </span>
+            <div
+              className="inline-flex rounded-[var(--r-md)] border overflow-hidden"
+              style={{ borderColor: 'var(--bd)' }}
             >
-              {slashCommand}
-            </code>
-            <button
-              type="button"
-              onClick={() => copyToClipboard(slashCommand)}
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-sm border"
-              style={{
-                background: 'var(--bg)',
-                borderColor: 'var(--bd)',
-                color: 'var(--t2)',
-              }}
-              title="복사"
-            >
-              <Copy className="w-4 h-4" />
-            </button>
+              {(['opus', 'sonnet'] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setRunModel(m)}
+                  disabled={status.running || isPending}
+                  className="px-3 py-1.5 text-xs font-mono disabled:opacity-50"
+                  style={{
+                    background: runModel === m ? 'var(--p)' : 'var(--bg)',
+                    color: runModel === m ? 'var(--ti)' : 'var(--t2)',
+                  }}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
           </div>
-        ) : (
-          <p className="text-sm" style={{ color: 'var(--t3)' }}>
-            Step 1 에서 spec 을 먼저 생성하세요.
-          </p>
-        )}
 
+          <button
+            type="button"
+            onClick={handleRun}
+            disabled={!canRun}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+            style={{ background: 'var(--p)', color: 'var(--ti)' }}
+          >
+            {isPending ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Play className="w-4 h-4" />
+            )}
+            {status.running ? '실행 중…' : 'AI 실행'}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleRefresh}
+            disabled={!canRefresh}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm border disabled:opacity-50"
+            style={{
+              background: 'var(--bg)',
+              borderColor: 'var(--bd)',
+              color: 'var(--t2)',
+            }}
+          >
+            {isPending ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <RefreshCw className="w-4 h-4" />
+            )}
+            상태 새로고침
+          </button>
+        </div>
+
+        {/* Running indicator */}
+        {status.running ? (
+          <div
+            className="mt-3 p-3 rounded-[var(--r-md)] flex items-start gap-2"
+            style={{ background: 'var(--info-light)', color: 'var(--info)' }}
+          >
+            <Loader2 className="w-5 h-5 shrink-0 mt-0.5 animate-spin" />
+            <div className="text-sm flex-1 min-w-0">
+              <div className="font-semibold">실행 중</div>
+              <div className="text-xs mt-1">
+                pid {status.running_pid ?? 'n/a'}
+                {status.running_elapsed_seconds !== null
+                  ? ` · 경과 ${formatElapsed(status.running_elapsed_seconds)}`
+                  : null}
+                {' · 5~15분 소요 예상'}
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {/* File status row */}
         {status.spec_exists ? (
-          <div className="flex items-center gap-3 mt-4">
-            <button
-              type="button"
-              onClick={handleRefresh}
-              disabled={!canRefresh}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm border disabled:opacity-50"
-              style={{
-                background: 'var(--bg)',
-                borderColor: 'var(--bd)',
-                color: 'var(--t2)',
-              }}
-            >
-              {isPending ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <RefreshCw className="w-4 h-4" />
-              )}
-              파일 감지 새로고침
-            </button>
+          <div className="flex items-center gap-3 mt-3 flex-wrap">
             <FileStatus
               label="seed-list.jsonl"
               exists={status.seed_list_exists}
@@ -402,6 +458,67 @@ export function VcbSeedFlow({
           >
             {status.error_summary}
           </p>
+        ) : null}
+
+        {/* Log tail */}
+        {status.log_tail ? (
+          <details className="mt-3">
+            <summary
+              className="cursor-pointer inline-flex items-center gap-1 text-xs font-mono"
+              style={{ color: 'var(--t3)' }}
+            >
+              <Terminal className="w-3 h-3" />
+              로그 ({status.log_file})
+            </summary>
+            <pre
+              className="mt-2 p-3 rounded-[var(--r-md)] text-[11px] font-mono overflow-x-auto whitespace-pre-wrap break-all"
+              style={{
+                background: 'var(--bg3)',
+                color: 'var(--t2)',
+                maxHeight: '240px',
+                overflowY: 'auto',
+              }}
+            >
+              {status.log_tail}
+            </pre>
+          </details>
+        ) : null}
+
+        {/* Manual fallback: slash command for VS Code Claude Code panel */}
+        {slashCommand && !status.running && !status.seed_list_exists ? (
+          <details className="mt-3">
+            <summary
+              className="cursor-pointer text-xs"
+              style={{ color: 'var(--t3)' }}
+            >
+              수동 실행 (VS Code Claude Code 패널 또는 terminal)
+            </summary>
+            <div className="mt-2 flex items-center gap-2">
+              <code
+                className="flex-1 px-3 py-2 rounded-[var(--r-md)] font-mono text-xs border break-all"
+                style={{
+                  background: 'var(--bg)',
+                  borderColor: 'var(--bd)',
+                  color: 'var(--t2)',
+                }}
+              >
+                {slashCommand}
+              </code>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(slashCommand)}
+                className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs border"
+                style={{
+                  background: 'var(--bg)',
+                  borderColor: 'var(--bd)',
+                  color: 'var(--t2)',
+                }}
+                title="복사"
+              >
+                <Copy className="w-4 h-4" />
+              </button>
+            </div>
+          </details>
         ) : null}
       </Section>
 
@@ -467,6 +584,13 @@ export function VcbSeedFlow({
 }
 
 // ── helpers ────────────────────────────────────
+
+function formatElapsed(s: number): string {
+  if (s < 60) return `${s}s`
+  const m = Math.floor(s / 60)
+  const r = s % 60
+  return `${m}m ${r}s`
+}
 
 function Section({
   step,

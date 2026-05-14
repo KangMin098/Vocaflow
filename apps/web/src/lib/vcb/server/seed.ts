@@ -6,11 +6,13 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawn } from 'node:child_process'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   getVcbJobsDir,
+  findMonorepoRoot,
   timestampPrefix,
   jobFileName,
   checkEncoding,
@@ -125,6 +127,13 @@ export interface SeedJobStatus {
   error_file: string | null
   error_exists: boolean
   error_summary: string | null
+  // Runner state — claude -p detached process tracking
+  running: boolean
+  running_pid: number | null
+  running_started_at: string | null
+  running_elapsed_seconds: number | null
+  log_file: string | null
+  log_tail: string | null
   jobs_dir: string
 }
 
@@ -158,6 +167,12 @@ export async function checkSeedJobStatus(
       error_file: null,
       error_exists: false,
       error_summary: null,
+      running: false,
+      running_pid: null,
+      running_started_at: null,
+      running_elapsed_seconds: null,
+      log_file: null,
+      log_tail: null,
       jobs_dir: jobsDir,
     }
 
@@ -216,7 +231,179 @@ export async function checkSeedJobStatus(
       }
     }
 
+    // Runner state — claude -p marker + log
+    const markerPath = path.join(jobsDir, `${base}-seed-list.running.json`)
+    const logFileName = `${base}-seed-list.log`
+    const logPath = path.join(jobsDir, logFileName)
+    status.log_file = logFileName
+
+    if (fs.existsSync(markerPath)) {
+      // If seed-list.jsonl now exists, the run completed — clean up marker.
+      if (status.seed_list_exists) {
+        try {
+          fs.unlinkSync(markerPath)
+        } catch {
+          /* ignore */
+        }
+      } else {
+        try {
+          const m = JSON.parse(fs.readFileSync(markerPath, 'utf8')) as {
+            pid?: number
+            started_at?: string
+          }
+          status.running = true
+          status.running_pid = typeof m.pid === 'number' ? m.pid : null
+          status.running_started_at =
+            typeof m.started_at === 'string' ? m.started_at : null
+          if (status.running_started_at) {
+            const startMs = new Date(status.running_started_at).getTime()
+            if (!Number.isNaN(startMs)) {
+              status.running_elapsed_seconds = Math.floor((Date.now() - startMs) / 1000)
+            }
+          }
+        } catch {
+          /* malformed marker — treat as not running */
+        }
+      }
+    }
+
+    // Log tail (last ~2KB) for visibility
+    if (fs.existsSync(logPath)) {
+      try {
+        const fd = fs.openSync(logPath, 'r')
+        const stat = fs.fstatSync(fd)
+        const TAIL_BYTES = 2048
+        const len = Math.min(TAIL_BYTES, stat.size)
+        const buf = Buffer.alloc(len)
+        fs.readSync(fd, buf, 0, len, Math.max(0, stat.size - len))
+        fs.closeSync(fd)
+        status.log_tail = buf.toString('utf8')
+      } catch {
+        /* ignore log read errors */
+      }
+    }
+
     return { ok: true, data: status }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { ok: false, error: msg }
+  }
+}
+
+// ── 2b. Run /vcb-seed-list as detached claude -p ──
+
+export interface RunSeedListResult {
+  pid: number | null
+  spec_file: string
+  log_file: string
+  started_at: string
+}
+
+export async function runSeedListCommand(
+  run_id: number,
+  opts?: { model?: 'sonnet' | 'opus'; maxBudgetUsd?: number },
+): Promise<ServerActionResult<RunSeedListResult>> {
+  try {
+    await requireAdmin('/admin/vocab')
+    const client = await createClient()
+
+    const runResult = await fetchRunForSeed(client, run_id)
+    if (!runResult.ok || !runResult.row) {
+      return { ok: false, error: runResult.error ?? `run #${run_id} not found` }
+    }
+    const r = runResult.row
+
+    const specFile = typeof r.config?.seed_spec_file === 'string' ? r.config.seed_spec_file : null
+    if (!specFile) {
+      return { ok: false, error: 'seed_spec_file missing — generate spec first (Step 1)' }
+    }
+
+    const jobsDir = getVcbJobsDir()
+    const specPath = path.join(jobsDir, specFile)
+    if (!fs.existsSync(specPath)) {
+      return { ok: false, error: `spec file not found on disk: ${specFile}` }
+    }
+
+    const base = specFile.replace(/-seed-spec\.json$/, '')
+    const seedListFile = `${base}-seed-list.jsonl`
+    const seedListPath = path.join(jobsDir, seedListFile)
+    if (fs.existsSync(seedListPath)) {
+      return {
+        ok: false,
+        error: `seed list already generated: ${seedListFile}. Delete the file first if you want to regenerate.`,
+      }
+    }
+
+    const markerPath = path.join(jobsDir, `${base}-seed-list.running.json`)
+    if (fs.existsSync(markerPath)) {
+      return { ok: false, error: 'a run is already in progress — wait or remove the .running.json marker' }
+    }
+
+    const logPath = path.join(jobsDir, `${base}-seed-list.log`)
+    // Truncate log
+    fs.writeFileSync(logPath, '', 'utf8')
+
+    const model = opts?.model ?? 'opus'
+    const budget = opts?.maxBudgetUsd ?? 5
+    const monorepoRoot = findMonorepoRoot()
+
+    // Relative path from monorepo root → matches slash command convention
+    const relSpec = `exports/vcb-jobs/${specFile}`
+
+    const args = [
+      '-p',
+      '--model', model,
+      '--allowed-tools', 'Read Write Bash(node:*)',
+      '--max-budget-usd', String(budget),
+      `/vcb-seed-list ${relSpec}`,
+    ]
+
+    const logFd = fs.openSync(logPath, 'a')
+
+    // shell:true required on Windows for claude.cmd resolution.
+    // detached + unref + stdio redirected to log → survives request lifecycle.
+    const proc = spawn('claude', args, {
+      cwd: monorepoRoot,
+      detached: true,
+      stdio: ['ignore', logFd, logFd],
+      shell: true,
+      windowsHide: true,
+    })
+
+    const startedAt = new Date().toISOString()
+    const pid = proc.pid ?? null
+
+    // Write marker before unref so status check can pick it up immediately
+    fs.writeFileSync(
+      markerPath,
+      JSON.stringify({ pid, started_at: startedAt, model, budget }, null, 2) + '\n',
+      'utf8',
+    )
+
+    // Best-effort cleanup if spawn errors out very fast
+    proc.on('error', (err) => {
+      try {
+        fs.appendFileSync(logPath, `\n[spawn error] ${err.message}\n`, 'utf8')
+        fs.unlinkSync(markerPath)
+      } catch {
+        /* ignore */
+      }
+    })
+
+    // Detach so the Node process doesn't keep claude alive after server action returns
+    proc.unref()
+
+    revalidatePath(`/admin/vocab/runs/${run_id}/seed`)
+
+    return {
+      ok: true,
+      data: {
+        pid,
+        spec_file: specFile,
+        log_file: `${base}-seed-list.log`,
+        started_at: startedAt,
+      },
+    }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
     return { ok: false, error: msg }

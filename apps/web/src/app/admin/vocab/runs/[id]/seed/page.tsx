@@ -40,6 +40,12 @@ export default async function VcbRunSeedPage({ params }: PageProps) {
         error_file: null,
         error_exists: false,
         error_summary: null,
+        running: false,
+        running_pid: null,
+        running_started_at: null,
+        running_elapsed_seconds: null,
+        log_file: null,
+        log_tail: null,
         jobs_dir: '',
       }
 
