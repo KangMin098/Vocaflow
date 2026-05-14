@@ -1,10 +1,13 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { AlertCircle, Loader2, Info } from 'lucide-react'
-import { createSource } from '@/lib/vcb/server/sources'
+import { AlertCircle, Loader2, Info, Upload, FileText, X } from 'lucide-react'
+import { createSource, createSourceWithFile } from '@/lib/vcb/server/sources'
 import type { SourceKind, LicenseTier } from '@vocaflow/vcb-curate-core'
+
+const MAX_FILE_SIZE = 52_428_800
+const ALLOWED_EXT = ['.csv', '.txt', '.tsv']
 
 const KINDS: Array<{ value: SourceKind; label: string; hint: string }> = [
   { value: 'frequency_list', label: '빈도 리스트', hint: 'NGSL, COCA 등 빈도 순위 기반' },
@@ -35,6 +38,10 @@ export function VcbSourceCreateForm() {
   const [language, setLanguage] = useState('en')
   const [notes, setNotes] = useState('')
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const [file, setFile] = useState<File | null>(null)
+  const [fileError, setFileError] = useState<string | null>(null)
+
   const [submitError, setSubmitError] = useState<string | null>(null)
 
   const slugValid = SLUG_PATTERN.test(slug)
@@ -49,8 +56,41 @@ export function VcbSourceCreateForm() {
     setKind(newKind)
     if (newKind === 'ai_generated') {
       setLicenseTier('T1')
+      setFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
     }
   }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFileError(null)
+    const f = e.target.files?.[0] ?? null
+    if (!f) {
+      setFile(null)
+      return
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError(`파일이 너무 큽니다 (max 50MB, 현재 ${(f.size / 1024 / 1024).toFixed(1)}MB)`)
+      setFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+      return
+    }
+    const ext = f.name.slice(f.name.lastIndexOf('.')).toLowerCase()
+    if (!ALLOWED_EXT.includes(ext)) {
+      setFileError(`확장자 ${ext} 미지원 — .csv / .txt / .tsv 만 가능`)
+      setFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+      return
+    }
+    setFile(f)
+  }
+
+  const clearFile = () => {
+    setFile(null)
+    setFileError(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  const canUploadFile = kind !== 'ai_generated'
 
   const handleSubmit = () => {
     setSubmitError(null)
@@ -60,6 +100,29 @@ export function VcbSourceCreateForm() {
     }
 
     startTransition(async () => {
+      // Method A: file provided → uploadFile flow
+      if (file && canUploadFile) {
+        const fd = new FormData()
+        fd.append('slug', slug)
+        fd.append('title', title.trim())
+        fd.append('kind', kind)
+        fd.append('license_tier', licenseTier)
+        fd.append('citation', citation.trim())
+        fd.append('url', url.trim())
+        fd.append('language', language.trim())
+        fd.append('notes', notes.trim())
+        fd.append('file', file)
+
+        const result = await createSourceWithFile(fd)
+        if (!result.ok || !result.data) {
+          setSubmitError(result.error ?? 'Source 등록 실패')
+          return
+        }
+        router.push('/admin/vocab/sources')
+        return
+      }
+
+      // Metadata only (no file)
       const result = await createSource({
         slug,
         title: title.trim(),
@@ -346,6 +409,94 @@ export function VcbSourceCreateForm() {
           </label>
         </div>
       </section>
+
+      {canUploadFile && (
+        <section className="mb-8">
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-2"
+            style={{ color: 'var(--t2)' }}
+          >
+            파일 업로드 (Method A — 선택)
+          </h3>
+          <p className="text-xs mb-3" style={{ color: 'var(--t3)' }}>
+            CSV / TXT / TSV 파일을 업로드하면 vocab-sources-raw 버킷에 저장되어 Run ingest 시 사용됩니다.
+            파일 없이 메타데이터만 등록도 가능합니다 (Step 2 ingest 단계에서 storage key 직접 지정).
+          </p>
+
+          {file ? (
+            <div
+              className="flex items-center gap-3 p-3 rounded-[var(--r-md)] border"
+              style={{ background: 'var(--bg2)', borderColor: 'var(--bd)' }}
+            >
+              <div
+                className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
+                style={{ background: 'var(--p-light)', color: 'var(--p)' }}
+              >
+                <FileText className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div
+                  className="font-mono text-sm truncate"
+                  style={{ color: 'var(--t1)' }}
+                >
+                  {file.name}
+                </div>
+                <div className="text-xs" style={{ color: 'var(--t3)' }}>
+                  {(file.size / 1024).toFixed(1)} KB · {file.type || 'unknown MIME'}
+                  {slug ? (
+                    <>
+                      {' · '}storage key:{' '}
+                      <span className="font-mono" style={{ color: 'var(--t2)' }}>
+                        {slug}/source{file.name.slice(file.name.lastIndexOf('.')).toLowerCase()}
+                      </span>
+                    </>
+                  ) : (
+                    <span style={{ color: 'var(--warning)' }}> · slug 미입력</span>
+                  )}
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={clearFile}
+                className="w-8 h-8 rounded-[var(--r-md)] flex items-center justify-center"
+                style={{ color: 'var(--t3)' }}
+                title="파일 제거"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <label
+              className="flex items-center justify-center gap-2 p-4 rounded-[var(--r-md)] border-2 border-dashed cursor-pointer"
+              style={{ borderColor: 'var(--bd)', color: 'var(--t2)' }}
+            >
+              <Upload className="w-5 h-5" />
+              <span className="font-display text-sm">파일 선택 (CSV / TXT / TSV, max 50MB)</span>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv,.txt,.tsv,text/csv,text/plain,text/tab-separated-values"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+            </label>
+          )}
+
+          {fileError && (
+            <div
+              className="flex items-start gap-2 p-3 mt-3 rounded-[var(--r-md)] border"
+              style={{
+                background: 'var(--error-light)',
+                borderColor: 'var(--error)',
+                color: 'var(--error)',
+              }}
+            >
+              <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+              <p className="text-sm m-0">{fileError}</p>
+            </div>
+          )}
+        </section>
+      )}
 
       {submitError && (
         <div

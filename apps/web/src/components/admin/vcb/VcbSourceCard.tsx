@@ -1,7 +1,14 @@
 // apps/web/src/components/admin/vcb/VcbSourceCard.tsx
-// Source 목록 카드. P5c.2 는 클릭 시 sources/[id] 가 없으므로 비활성 (P5c.3+ 진행 시 활성).
+// Source 목록 카드. P5c.4 에서 storage_key 표시 추가.
 
+import { FileText } from 'lucide-react'
 import type { SourceSummary } from '@vocaflow/vcb-curate-core'
+
+function extractStorageKey(notes: string | null): string | null {
+  if (!notes) return null
+  const match = notes.match(/^storage_key=([^\n]+)$/m)
+  return match ? match[1]!.trim() : null
+}
 
 interface Props {
   source: SourceSummary
@@ -38,6 +45,7 @@ const TIER_LABELS: Record<string, string> = {
 export function VcbSourceCard({ source }: Props) {
   const kindStyle = KIND_COLORS[source.kind] ?? KIND_COLORS.corpus!
   const tierStyle = TIER_COLORS[source.license_tier] ?? TIER_COLORS.T2!
+  const storageKey = extractStorageKey(source.notes)
 
   return (
     <article
@@ -109,6 +117,17 @@ export function VcbSourceCard({ source }: Props) {
         >
           {source.url}
         </a>
+      )}
+
+      {storageKey && (
+        <div
+          className="flex items-center gap-1.5 text-[11px] font-mono"
+          style={{ color: 'var(--success)' }}
+          title="vocab-sources-raw 버킷에 업로드된 파일"
+        >
+          <FileText className="w-3 h-3" />
+          {storageKey}
+        </div>
       )}
 
       <footer
