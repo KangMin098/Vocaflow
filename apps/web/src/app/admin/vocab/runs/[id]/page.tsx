@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronRight, FileText, Sparkles } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { VcbRunStatusBadge } from '@/components/admin/vcb/VcbRunStatusBadge'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
+import { VcbStep4LookupCard } from '@/components/admin/vcb/VcbStep4LookupCard'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { precheckRun } from '@/lib/vcb/server/precheck'
 
@@ -145,6 +146,25 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
           </Link>
         </section>
       ) : null}
+
+      {(run.status === 'extracted' || run.status === 'looked_up' ||
+        run.status === 'enriching' || run.status === 'qa' ||
+        run.status === 'curating' || run.status === 'publishing' ||
+        run.status === 'published') && (
+        <section className="mb-10">
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
+            style={{ color: 'var(--t2)' }}
+          >
+            사전 매칭 (Step 4)
+          </h3>
+          <VcbStep4LookupCard
+            runId={runId}
+            runStatus={run.status}
+            seedCount={run.seed_count}
+          />
+        </section>
+      )}
 
       <section>
         <h3
