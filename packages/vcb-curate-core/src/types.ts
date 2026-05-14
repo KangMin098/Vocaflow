@@ -45,11 +45,18 @@ export interface RunConfig {
   target_cefr_range?: string[]
   target_segment?: Segment
   seed_method?: 'upload' | 'ai_generated' | 'hybrid'
+  seed_spec_id?: number
   seed_spec_file?: string | null
   seed_list_file?: string | null
   description?: string
   cover_emoji?: string
   sources?: number[]
+  // Method B 시드 spec 필드 (어드민이 UI 에서 입력)
+  target_count?: number
+  domain_hints?: string[]
+  must_include_keywords?: string[]
+  must_exclude_keywords?: string[]
+  reference_seeds?: string
 }
 
 export interface RunDetail extends RunSummary {

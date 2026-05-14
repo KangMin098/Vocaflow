@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Sparkles } from 'lucide-react'
+import { ArrowLeft, ChevronRight, FileText, Sparkles } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { VcbRunStatusBadge } from '@/components/admin/vcb/VcbRunStatusBadge'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
@@ -27,6 +27,8 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
 
   const precheck = await precheckRun(runId)
 
+  const showSeedEntry =
+    run.status === 'created' || run.status === 'ingesting' || run.config.seed_spec_file
   const canEnrich = run.status === 'looked_up' || run.status === 'enriching'
   const canQa = run.status === 'enriching' || run.status === 'qa'
   const canCurate = run.status === 'qa' || run.status === 'curating'
@@ -102,6 +104,47 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
           ))}
         </dl>
       </section>
+
+      {showSeedEntry ? (
+        <section className="mb-10">
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
+            style={{ color: 'var(--t2)' }}
+          >
+            시드 등록 (Step 1)
+          </h3>
+          <Link
+            href={`/admin/vocab/runs/${runId}/seed`}
+            className="group flex items-center gap-4 p-4 rounded-[var(--r-lg)] border transition-colors"
+            style={{
+              background: 'var(--bg)',
+              borderColor: 'var(--bd)',
+            }}
+          >
+            <div
+              className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
+              style={{ background: 'var(--p-light)', color: 'var(--p)' }}
+            >
+              <FileText className="w-5 h-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div
+                className="font-display font-semibold text-base"
+                style={{ color: 'var(--t1)' }}
+              >
+                Method B — AI 시드 생성
+              </div>
+              <div className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
+                seed-spec.json 생성 → /vcb-seed-list 실행 → DB import (3 단계)
+              </div>
+            </div>
+            <ChevronRight
+              className="w-5 h-5 shrink-0"
+              style={{ color: 'var(--t3)' }}
+            />
+          </Link>
+        </section>
+      ) : null}
 
       <section>
         <h3
