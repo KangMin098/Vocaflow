@@ -2,10 +2,14 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import {
   AlertCircle,
+  ArrowRight,
   CheckCircle2,
+  ChevronRight,
   Copy,
+  Eye,
   FileText,
   Loader2,
   Play,
@@ -522,28 +526,61 @@ export function VcbSeedFlow({
         ) : null}
       </Section>
 
-      {/* ── Step 3: Import ──────────────────────── */}
+      {/* ── Step 3: Preview & Import ────────────── */}
       <Section
         step={3}
-        title="DB 적재"
-        description="seed-list.jsonl 을 vocab_sources + vocab_seed_candidates 에 적재하고 run status 를 extracted 로 진행합니다."
+        title="미리보기 후 DB 적재"
+        description="결과를 둘러보고 의심스러운 단어를 거부 표시한 뒤 vocab_sources + vocab_seed_candidates 로 적재합니다."
         done={runStatus !== 'created' && runStatus !== 'ingesting'}
         disabled={!status.seed_list_exists}
       >
-        <button
-          type="button"
-          onClick={handleImport}
-          disabled={!canImport}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
-          style={{ background: 'var(--p)', color: 'var(--ti)' }}
-        >
-          {isPending ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : (
-            <Upload className="w-4 h-4" />
-          )}
-          DB 에 import
-        </button>
+        {status.seed_list_exists && canImport ? (
+          <Link
+            href={`/admin/vocab/runs/${runId}/seed/preview`}
+            className="group flex items-center gap-4 p-4 rounded-[var(--r-lg)] border transition-colors"
+            style={{
+              background: 'var(--bg2)',
+              borderColor: 'var(--p)',
+            }}
+          >
+            <div
+              className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
+              style={{ background: 'var(--p-light)', color: 'var(--p)' }}
+            >
+              <Eye className="w-5 h-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div
+                className="font-display font-semibold text-base"
+                style={{ color: 'var(--t1)' }}
+              >
+                {status.seed_list_line_count.toLocaleString()}건 미리보기 →
+              </div>
+              <div className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
+                CEFR 분포 · 신뢰도 · spec 매치 확인 후 import
+              </div>
+            </div>
+            <ArrowRight
+              className="w-5 h-5 shrink-0 transition-transform group-hover:translate-x-0.5"
+              style={{ color: 'var(--p)' }}
+            />
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={handleImport}
+            disabled={!canImport}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+            style={{ background: 'var(--p)', color: 'var(--ti)' }}
+          >
+            {isPending ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Upload className="w-4 h-4" />
+            )}
+            DB 에 import (미리보기 없이)
+          </button>
+        )}
 
         {!canImport && status.seed_list_exists ? (
           <p className="text-xs mt-2" style={{ color: 'var(--t3)' }}>

@@ -482,6 +482,167 @@ export async function runSeedListCommand(
   }
 }
 
+// ── 2c. Load seed preview (parse JSONL + validation) ──
+
+export interface SeedPreviewItem {
+  lemma: string
+  pos: string
+  cefr_estimate: string
+  frequency_tier: string
+  rationale_short: string
+  confidence: number
+}
+
+export interface SeedPreviewValidation {
+  ok: boolean | null
+  total_input: number | null
+  total_passed: number | null
+  total_failed: number | null
+  cefr_distribution: Record<string, number> | null
+  confidence_avg: number | null
+  encoding: { hasBom: boolean; hasCrlf: boolean } | null
+  errors: unknown[]
+  summary: string | null
+}
+
+export interface SeedPreviewSpec {
+  spec_id: number
+  collection_slug: string
+  collection_title: string
+  target_count: number | null
+  target_cefr_range: string[]
+  target_segment: string | null
+  must_include_keywords: string[]
+  must_exclude_keywords: string[]
+}
+
+export interface SeedPreviewData {
+  spec: SeedPreviewSpec
+  items: SeedPreviewItem[]
+  validation: SeedPreviewValidation
+  run_status: string
+  seed_list_file: string
+}
+
+export async function loadSeedPreview(
+  run_id: number,
+): Promise<ServerActionResult<SeedPreviewData>> {
+  try {
+    await requireAdmin('/admin/vocab')
+    const client = await createClient()
+
+    const runResult = await fetchRunForSeed(client, run_id)
+    if (!runResult.ok || !runResult.row) {
+      return { ok: false, error: runResult.error ?? `run #${run_id} not found` }
+    }
+    const r = runResult.row
+
+    const cfg = r.config ?? {}
+    const specFile = typeof cfg.seed_spec_file === 'string' ? cfg.seed_spec_file : null
+    if (!specFile) {
+      return { ok: false, error: 'seed_spec_file missing' }
+    }
+
+    const jobsDir = getVcbJobsDir()
+    const base = specFile.replace(/-seed-spec\.json$/, '')
+    const seedListPath = path.join(jobsDir, `${base}-seed-list.jsonl`)
+    const validationPath = path.join(jobsDir, `${base}-seed-list.validation.json`)
+
+    if (!fs.existsSync(seedListPath)) {
+      return { ok: false, error: 'seed-list.jsonl not found — generate first' }
+    }
+
+    const content = fs.readFileSync(seedListPath, 'utf8')
+    const items: SeedPreviewItem[] = []
+    const lines = content.split('\n').filter((l) => l.trim().length > 0)
+    for (const line of lines) {
+      try {
+        const parsed = JSON.parse(line) as SeedPreviewItem
+        if (
+          typeof parsed.lemma === 'string' &&
+          typeof parsed.pos === 'string' &&
+          typeof parsed.cefr_estimate === 'string' &&
+          typeof parsed.frequency_tier === 'string'
+        ) {
+          items.push({
+            lemma: parsed.lemma,
+            pos: parsed.pos,
+            cefr_estimate: parsed.cefr_estimate,
+            frequency_tier: parsed.frequency_tier,
+            rationale_short: parsed.rationale_short ?? '',
+            confidence: typeof parsed.confidence === 'number' ? parsed.confidence : 0,
+          })
+        }
+      } catch {
+        /* skip malformed lines — validation should have flagged them */
+      }
+    }
+
+    let validation: SeedPreviewValidation = {
+      ok: null,
+      total_input: null,
+      total_passed: null,
+      total_failed: null,
+      cefr_distribution: null,
+      confidence_avg: null,
+      encoding: null,
+      errors: [],
+      summary: null,
+    }
+    if (fs.existsSync(validationPath)) {
+      try {
+        const v = JSON.parse(fs.readFileSync(validationPath, 'utf8')) as Partial<
+          SeedPreviewValidation
+        > & { summary?: string }
+        validation = {
+          ok: typeof v.ok === 'boolean' ? v.ok : null,
+          total_input: typeof v.total_input === 'number' ? v.total_input : null,
+          total_passed: typeof v.total_passed === 'number' ? v.total_passed : null,
+          total_failed: typeof v.total_failed === 'number' ? v.total_failed : null,
+          cefr_distribution: (v.cefr_distribution as Record<string, number>) ?? null,
+          confidence_avg: typeof v.confidence_avg === 'number' ? v.confidence_avg : null,
+          encoding: (v.encoding as SeedPreviewValidation['encoding']) ?? null,
+          errors: Array.isArray(v.errors) ? v.errors : [],
+          summary: typeof v.summary === 'string' ? v.summary : null,
+        }
+      } catch {
+        /* malformed validation — leave as defaults */
+      }
+    }
+
+    const spec: SeedPreviewSpec = {
+      spec_id: r.id,
+      collection_slug: r.collection_slug,
+      collection_title: r.collection_title,
+      target_count: typeof cfg.target_count === 'number' ? cfg.target_count : null,
+      target_cefr_range: Array.isArray(cfg.target_cefr_range)
+        ? (cfg.target_cefr_range as string[])
+        : [],
+      target_segment: typeof cfg.target_segment === 'string' ? cfg.target_segment : null,
+      must_include_keywords: Array.isArray(cfg.must_include_keywords)
+        ? (cfg.must_include_keywords as string[])
+        : [],
+      must_exclude_keywords: Array.isArray(cfg.must_exclude_keywords)
+        ? (cfg.must_exclude_keywords as string[])
+        : [],
+    }
+
+    return {
+      ok: true,
+      data: {
+        spec,
+        items,
+        validation,
+        run_status: r.status,
+        seed_list_file: `${base}-seed-list.jsonl`,
+      },
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { ok: false, error: msg }
+  }
+}
+
 // ── 3. Import seed list ───────────────────────────
 
 export interface ImportSeedListResult {
@@ -492,8 +653,14 @@ export interface ImportSeedListResult {
   total: number
 }
 
+export interface ImportSeedListOptions {
+  /** Lemma keys to exclude. Format: `<lemma>|<pos>` (matches the dedup key). */
+  excluded_keys?: string[]
+}
+
 export async function importSeedList(
   run_id: number,
+  opts?: ImportSeedListOptions,
 ): Promise<ServerActionResult<ImportSeedListResult>> {
   try {
     await requireAdmin('/admin/vocab')
@@ -547,6 +714,17 @@ export async function importSeedList(
       }
     }
 
+    // Apply excludes from preview workspace (lemma|pos keys)
+    const excludeSet = new Set(opts?.excluded_keys ?? [])
+    const filteredItems =
+      excludeSet.size > 0
+        ? parsed.items.filter((it) => !excludeSet.has(`${it.lemma}|${it.pos}`))
+        : parsed.items
+
+    if (filteredItems.length === 0) {
+      return { ok: false, error: 'all items excluded — nothing to import' }
+    }
+
     const specMeta = extractSpecFromRunConfig(r.config)
 
     const ingResult = await updateRunStatus(client, r.id, 'ingesting')
@@ -558,13 +736,13 @@ export async function importSeedList(
       collectionTitle: r.collection_title,
       seedFileName: seedListFile,
       specId: specMeta?.spec_id ?? null,
-      itemCount: parsed.items.length,
+      itemCount: filteredItems.length,
     })
     if (!srcResult.ok || srcResult.source_id === undefined || srcResult.slug === undefined) {
       return { ok: false, error: srcResult.error ?? 'source insert failed' }
     }
 
-    const insertResult = await insertAiSeedCandidates(client, r.id, parsed.items)
+    const insertResult = await insertAiSeedCandidates(client, r.id, filteredItems)
     if (!insertResult.ok) {
       return { ok: false, error: insertResult.error ?? 'seed insert failed' }
     }
@@ -585,7 +763,7 @@ export async function importSeedList(
         source_slug: srcResult.slug,
         inserted: insertResult.inserted,
         skipped: insertResult.skipped,
-        total: parsed.items.length,
+        total: filteredItems.length,
       },
     }
   } catch (err) {
