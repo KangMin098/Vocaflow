@@ -340,8 +340,6 @@ export async function runSeedListCommand(
     }
 
     const logPath = path.join(jobsDir, `${base}-seed-list.log`)
-    // Truncate log
-    fs.writeFileSync(logPath, '', 'utf8')
 
     const model = opts?.model ?? 'opus'
     const budget = opts?.maxBudgetUsd ?? 5
@@ -349,36 +347,112 @@ export async function runSeedListCommand(
 
     // Relative path from monorepo root → matches slash command convention
     const relSpec = `exports/vcb-jobs/${specFile}`
+    const startedAt = new Date().toISOString()
 
-    const args = [
+    // ─── Inline the slash command body ────────────────
+    // claude -p (non-interactive print mode) does NOT resolve slash commands;
+    // it treats `/foo` as literal text. We must read the .md file and inject
+    // the body as the prompt, performing $ARGUMENTS substitution ourselves.
+    //
+    // This keeps `.claude/commands/vcb-seed-list.md` as the SSoT while enabling
+    // batch invocation. Interactive sessions still resolve the slash command
+    // via Claude Code's frontmatter parser.
+    const slashCmdPath = path.join(monorepoRoot, '.claude', 'commands', 'vcb-seed-list.md')
+    if (!fs.existsSync(slashCmdPath)) {
+      return { ok: false, error: 'slash command definition missing: .claude/commands/vcb-seed-list.md' }
+    }
+    let mdContent = fs.readFileSync(slashCmdPath, 'utf8')
+    // Strip frontmatter (--- ... ---) and arg-hint metadata
+    mdContent = mdContent.replace(/^---\n[\s\S]*?\n---\n/, '')
+    // Substitute $ARGUMENTS with the actual spec path
+    const promptBody = mdContent.replace(/\$ARGUMENTS/g, relSpec)
+
+    // Write prompt body to a temp file. We feed it to claude -p via stdin redirect.
+    // Multi-KB prompt as a command-line arg would be a quoting nightmare on Windows;
+    // file + redirect is the reliable pattern.
+    const promptFile = path.join(jobsDir, `${base}-seed-list.prompt.txt`)
+    fs.writeFileSync(promptFile, promptBody, 'utf8')
+
+    // Write startup info to log BEFORE spawn — lets us debug even if the shell fails to launch.
+    fs.writeFileSync(
+      logPath,
+      [
+        `[runner ${startedAt}]`,
+        `cwd=${monorepoRoot}`,
+        `model=${model} budget=$${budget}`,
+        `spec=${relSpec}`,
+        `platform=${process.platform}`,
+        `prompt_file=${path.basename(promptFile)}`,
+        `prompt_bytes=${Buffer.byteLength(promptBody, 'utf8')}`,
+        '---',
+        '',
+      ].join('\n'),
+      'utf8',
+    )
+
+    // Build a single shell command with all redirections handled by the shell.
+    //
+    // Why this pattern:
+    // - claude -p does NOT resolve slash commands; we inline the prompt body
+    // - shell `< prompt.txt` feeds the body as stdin (clean — no arg quoting issues)
+    // - shell `>> log 2>&1` captures all output
+    // - spawn(cmdLine, [], { shell: true }) passes the line verbatim to cmd.exe/sh,
+    //   avoiding Node's per-arg Windows quoting (which mangles "Read Write Bash(node:*)")
+    // - detached + unref → survives the Server Action lifetime (5~15min run)
+    const cmdLine = [
+      'claude',
       '-p',
       '--model', model,
-      '--allowed-tools', 'Read Write Bash(node:*)',
+      '--allowed-tools', '"Read Write Bash(node:*)"',
       '--max-budget-usd', String(budget),
-      `/vcb-seed-list ${relSpec}`,
-    ]
+      `< "${promptFile}"`,
+      `>> "${logPath}"`,
+      '2>&1',
+    ].join(' ')
 
-    const logFd = fs.openSync(logPath, 'a')
-
-    // shell:true required on Windows for claude.cmd resolution.
-    // detached + unref + stdio redirected to log → survives request lifecycle.
-    const proc = spawn('claude', args, {
+    const proc = spawn(cmdLine, [], {
       cwd: monorepoRoot,
       detached: true,
-      stdio: ['ignore', logFd, logFd],
+      stdio: 'ignore',
       shell: true,
       windowsHide: true,
     })
 
-    const startedAt = new Date().toISOString()
     const pid = proc.pid ?? null
 
     // Write marker before unref so status check can pick it up immediately
     fs.writeFileSync(
       markerPath,
-      JSON.stringify({ pid, started_at: startedAt, model, budget }, null, 2) + '\n',
+      JSON.stringify(
+        { pid, started_at: startedAt, model, budget, cmd: cmdLine },
+        null,
+        2,
+      ) + '\n',
       'utf8',
     )
+
+    // Capture early exit (within ~1s) — if claude.cmd fails to launch we want to know.
+    proc.on('exit', (code, signal) => {
+      try {
+        const now = new Date().toISOString()
+        fs.appendFileSync(
+          logPath,
+          `\n[runner ${now}] exit code=${code} signal=${signal ?? 'none'}\n`,
+          'utf8',
+        )
+        // If exit before seed-list.jsonl appears, leave marker for status-check to surface;
+        // but if we exit non-zero and no jsonl, drop marker so admin can retry.
+        if (code !== 0 && !fs.existsSync(seedListPath)) {
+          try {
+            fs.unlinkSync(markerPath)
+          } catch {
+            /* ignore */
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    })
 
     // Best-effort cleanup if spawn errors out very fast
     proc.on('error', (err) => {
