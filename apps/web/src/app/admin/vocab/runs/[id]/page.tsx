@@ -8,6 +8,7 @@ import { VcbStep4LookupCard } from '@/components/admin/vcb/VcbStep4LookupCard'
 import { VcbStep5EnrichCard } from '@/components/admin/vcb/VcbStep5EnrichCard'
 import { VcbStep6QaCard } from '@/components/admin/vcb/VcbStep6QaCard'
 import { VcbStep8PublishCard } from '@/components/admin/vcb/VcbStep8PublishCard'
+import { VcbMethodACard } from '@/components/admin/vcb/VcbMethodACard'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { precheckRun } from '@/lib/vcb/server/precheck'
 
@@ -105,6 +106,19 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
           ))}
         </dl>
       </section>
+
+      {(run.status === 'created' || run.status === 'ingesting' ||
+        run.status === 'normalized' || run.status === 'extracted') && (
+        <section className="mb-10">
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
+            style={{ color: 'var(--t2)' }}
+          >
+            Method A · 시드 추출 (Step 2 + 3)
+          </h3>
+          <VcbMethodACard runId={runId} runStatus={run.status} />
+        </section>
+      )}
 
       {showSeedEntry ? (
         <section className="mb-10">
