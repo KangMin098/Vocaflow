@@ -47,6 +47,46 @@ export interface ExportJobResult {
 }
 
 /**
+ * Reset queue rows marked exported into a list of stale paths back to 'pending'.
+ * Returns the number of rows updated.
+ */
+export async function resetStaleExportedRows(
+  client: SupabaseClient,
+  runId: number,
+  stalePaths: string[],
+): Promise<{ ok: boolean; reset_count?: number; error?: string }> {
+  if (stalePaths.length === 0) return { ok: true, reset_count: 0 }
+
+  const { data: seedRows, error: seedErr } = await client
+    .from('vocab_seed_candidates')
+    .select('id')
+    .eq('run_id', runId)
+  if (seedErr) return { ok: false, error: `fetch seed ids failed: ${seedErr.message}` }
+
+  const seedIds = ((seedRows ?? []) as unknown as Array<{ id: number }>).map((r) => r.id)
+  if (seedIds.length === 0) return { ok: true, reset_count: 0 }
+
+  const { data: updated, error: updErr } = await client
+    .from('vocab_enrichment_queue')
+    .update({
+      status: 'pending',
+      exported_job_file: null,
+      exported_at: null,
+    })
+    .eq('status', 'exported')
+    .in('exported_job_file', stalePaths)
+    .in('seed_id', seedIds)
+    .select('id')
+
+  if (updErr) return { ok: false, error: `reset failed: ${updErr.message}` }
+
+  return {
+    ok: true,
+    reset_count: ((updated ?? []) as unknown as Array<{ id: number }>).length,
+  }
+}
+
+/**
  * List all exported pending files associated with this run, via
  * vocab_enrichment_queue.exported_job_file.
  */

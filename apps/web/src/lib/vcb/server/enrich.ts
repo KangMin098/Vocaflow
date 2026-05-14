@@ -18,6 +18,7 @@ import {
   exportEnrichmentJob,
   importEnrichmentResult,
   listExportedPendingFiles,
+  resetStaleExportedRows,
   type ExportedFile,
   type ImportEnrichmentResult,
   type ExportJobOptions,
@@ -68,6 +69,8 @@ export interface EnrichmentJobFile {
   pending_path: string
   pending_lines: number
   exists: boolean
+  /** True when DB has exported_job_file but the file is missing on disk (stale state). */
+  file_missing: boolean
   enriched_file: string
   enriched_path: string
   enriched_exists: boolean
@@ -188,11 +191,13 @@ export async function checkEnrichmentStatus(
         }
       }
 
+      const pendingExists = fs.existsSync(pendingPath)
       jobs.push({
         pending_file: pendingFile,
         pending_path: pendingPath,
         pending_lines: countLines(pendingPath),
-        exists: fs.existsSync(pendingPath),
+        exists: pendingExists,
+        file_missing: !pendingExists && !fs.existsSync(enrichedPath),
         enriched_file: enrichedFile,
         enriched_path: enrichedPath,
         enriched_exists: fs.existsSync(enrichedPath),
@@ -347,6 +352,66 @@ export async function runEnrichmentCommand(
         enriched_file: enrichedFile,
         log_file: path.basename(logPath),
         started_at: startedAt,
+      },
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { ok: false, error: msg }
+  }
+}
+
+// ── 3b. Reset stale exported chunks ──────────────
+
+export interface ResetStaleResult {
+  reset_count: number
+  affected_files: string[]
+}
+
+/**
+ * Find queue rows marked as 'exported' whose pending JSONL is missing on disk,
+ * reset them to 'pending' so admin can re-export.
+ *
+ * Triggered manually via UI when user encounters "pending file not found".
+ */
+export async function resetStaleEnrichmentChunks(
+  run_id: number,
+): Promise<ServerActionResult<ResetStaleResult>> {
+  try {
+    await requireAdmin('/admin/vocab')
+    const client = await createClient()
+
+    const exportedPaths = await listExportedPendingFiles(client, run_id)
+    const jobsDir = getVcbJobsDir()
+    const stalePaths: string[] = []
+    for (const fullPath of exportedPaths) {
+      const localPath = path.isAbsolute(fullPath)
+        ? fullPath
+        : path.join(jobsDir, path.basename(fullPath))
+      // If neither pending nor enriched exists, it's stale
+      const base = path.basename(localPath).replace(/-pending(?:-\d+of\d+)?\.jsonl$/, '')
+      const matchSuffix = path.basename(localPath).match(/-pending(-\d+of\d+)?\.jsonl$/)
+      const suffix = matchSuffix?.[1] ?? ''
+      const enrichedPath = path.join(jobsDir, `${base}-enriched${suffix}.jsonl`)
+      if (!fs.existsSync(localPath) && !fs.existsSync(enrichedPath)) {
+        stalePaths.push(fullPath)
+      }
+    }
+
+    if (stalePaths.length === 0) {
+      return { ok: true, data: { reset_count: 0, affected_files: [] } }
+    }
+
+    const reset = await resetStaleExportedRows(client, run_id, stalePaths)
+    if (!reset.ok) {
+      return { ok: false, error: reset.error ?? 'reset failed' }
+    }
+
+    revalidatePath(`/admin/vocab/runs/${run_id}`)
+    return {
+      ok: true,
+      data: {
+        reset_count: reset.reset_count ?? 0,
+        affected_files: stalePaths.map((p) => path.basename(p)),
       },
     }
   } catch (err) {
