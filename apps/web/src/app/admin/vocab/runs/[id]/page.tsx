@@ -5,6 +5,7 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { VcbRunStatusBadge } from '@/components/admin/vcb/VcbRunStatusBadge'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
 import { VcbStep4LookupCard } from '@/components/admin/vcb/VcbStep4LookupCard'
+import { VcbStep5EnrichCard } from '@/components/admin/vcb/VcbStep5EnrichCard'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { precheckRun } from '@/lib/vcb/server/precheck'
 
@@ -166,29 +167,32 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         </section>
       )}
 
+      {(run.status === 'looked_up' || run.status === 'enriching' ||
+        run.status === 'qa' || run.status === 'curating' ||
+        run.status === 'publishing' || run.status === 'published') && (
+        <section className="mb-10">
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
+            style={{ color: 'var(--t2)' }}
+          >
+            AI Enrichment (Step 5)
+          </h3>
+          <VcbStep5EnrichCard
+            runId={runId}
+            runStatus={run.status}
+            pendingCount={run.pending_count}
+          />
+        </section>
+      )}
+
       <section>
         <h3
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
-          실행
+          나머지 단계 (CLI)
         </h3>
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-          <VcbStepTriggerCard
-            step={5}
-            icon="database"
-            title="Enrichment"
-            description="pending → JSONL export → /vcb-enrich"
-            enabled={canEnrich}
-            primaryAction={{
-              label: 'Export Job File',
-              command: `pnpm vcb:export-job --run-id ${runId}`,
-            }}
-            stats={[
-              { label: 'pending', value: run.pending_count },
-              { label: 'exported', value: 0 },
-            ]}
-          />
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
           <VcbStepTriggerCard
             step={6}
             icon="shieldCheck"
