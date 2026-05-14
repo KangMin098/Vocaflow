@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -77,6 +77,8 @@ export function VcbSeedFlow({
   )
   const [licenseConstraint, setLicenseConstraint] = useState<string>(DEFAULT_LICENSE)
   const [runModel, setRunModel] = useState<'opus' | 'sonnet'>('opus')
+  const [autoNavigating, setAutoNavigating] = useState<boolean>(false)
+  const prevSeedListExists = useRef<boolean>(initialStatus.seed_list_exists)
 
   const canGenerate = !isPending && targetCount >= 50 && targetCount <= 10000
   const canRefresh = !isPending && status.spec_exists
@@ -111,6 +113,31 @@ export function VcbSeedFlow({
       router.refresh()
     })
   }
+
+  // Auto-poll while runner is in progress (5s cadence)
+  useEffect(() => {
+    if (!status.running) return
+    const id = setInterval(async () => {
+      const fresh = await checkSeedJobStatus(runId)
+      if (fresh.ok && fresh.data) setStatus(fresh.data)
+    }, 5000)
+    return () => clearInterval(id)
+  }, [status.running, runId])
+
+  // Auto-navigate to preview when seed-list.jsonl transitions false → true
+  // during this session (e.g., user clicked AI 실행 and result just appeared).
+  useEffect(() => {
+    const wasExists = prevSeedListExists.current
+    prevSeedListExists.current = status.seed_list_exists
+    if (!wasExists && status.seed_list_exists && !autoNavigating) {
+      setAutoNavigating(true)
+      // Tiny delay so the UI can show the success indicator before navigation
+      const t = setTimeout(() => {
+        router.push(`/admin/vocab/runs/${runId}/seed/preview`)
+      }, 1200)
+      return () => clearTimeout(t)
+    }
+  }, [status.seed_list_exists, autoNavigating, router, runId])
 
   const handleRefresh = () => {
     setActionError(null)
@@ -402,17 +429,34 @@ export function VcbSeedFlow({
           >
             <Loader2 className="w-5 h-5 shrink-0 mt-0.5 animate-spin" />
             <div className="text-sm flex-1 min-w-0">
-              <div className="font-semibold">실행 중</div>
+              <div className="font-semibold">실행 중 · 자동 폴링 (5s)</div>
               <div className="text-xs mt-1">
                 pid {status.running_pid ?? 'n/a'}
                 {status.running_elapsed_seconds !== null
                   ? ` · 경과 ${formatElapsed(status.running_elapsed_seconds)}`
                   : null}
-                {' · 5~15분 소요 예상'}
+                {' · 5~15분 소요 예상 · 완료 시 미리보기로 자동 이동'}
               </div>
             </div>
           </div>
         ) : null}
+
+        {/* Auto-navigate indicator */}
+        {autoNavigating && (
+          <div
+            className="mt-3 p-3 rounded-[var(--r-md)] flex items-start gap-2"
+            style={{ background: 'var(--success-light)', color: 'var(--success)' }}
+            role="status"
+          >
+            <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+            <div className="text-sm flex-1 min-w-0">
+              <div className="font-semibold">생성 완료 · 미리보기로 이동합니다…</div>
+              <div className="text-xs mt-1" style={{ color: 'var(--t2)' }}>
+                {status.seed_list_line_count.toLocaleString()}건 lemma 감지됨
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* File status row */}
         {status.spec_exists ? (
