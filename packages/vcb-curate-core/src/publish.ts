@@ -173,20 +173,9 @@ async function fetchPublishableItems(
   client: SupabaseClient,
   runId: number,
 ): Promise<QueueItemForPublish[]> {
-  const { data, error } = await client
-    .from('vocab_enrichment_queue')
-    .select(
-      `id, status, enriched_payload,
-       vocab_seed_candidates!inner(lemma, pos, rank_in_run, run_id)`,
-    )
-    .eq('vocab_seed_candidates.run_id', runId)
-    .in('status', ['enriched', 'enriched_flagged'])
-
-  if (error) {
-    throw new Error(`fetch publishable items failed: ${error.message}`)
-  }
-
-  const rows = (data ?? []) as unknown as Array<{
+  // Paginate to bypass PostgREST default 1000-row cap.
+  const PAGE = 1000
+  const rows: Array<{
     id: number
     status: string
     enriched_payload: QueuePayload
@@ -195,7 +184,28 @@ async function fetchPublishableItems(
       pos: string
       rank_in_run: number | null
     }
-  }>
+  }> = []
+  let offset = 0
+  while (true) {
+    const { data, error } = await client
+      .from('vocab_enrichment_queue')
+      .select(
+        `id, status, enriched_payload,
+         vocab_seed_candidates!inner(lemma, pos, rank_in_run, run_id)`,
+      )
+      .eq('vocab_seed_candidates.run_id', runId)
+      .in('status', ['enriched', 'enriched_flagged'])
+      .order('id', { ascending: true })
+      .range(offset, offset + PAGE - 1)
+    if (error) {
+      throw new Error(`fetch publishable items failed: ${error.message}`)
+    }
+    const page = (data ?? []) as unknown as typeof rows
+    if (page.length === 0) break
+    rows.push(...page)
+    if (page.length < PAGE) break
+    offset += PAGE
+  }
 
   const queueIds = rows.map((r) => r.id)
   const { data: decData } = await client
