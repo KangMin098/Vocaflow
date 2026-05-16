@@ -1,7 +1,7 @@
 // scripts/vcb/05e-promote-to-dictionary.mjs
 // VCB Step 5e — Promote enriched_payload from vocab_enrichment_queue to shared_dictionary.
-// Fills example_en, synonyms, antonyms for matched (word, pos) rows.
-// Idempotent: only updates rows where target column IS NULL.
+// Fills example_en, synonyms, antonyms, ipa, collocations, register, korean_learner_note
+// for matched (word, pos) rows. Idempotent: only updates rows where target column IS NULL.
 //
 // Usage:
 //   node scripts/vcb/05e-promote-to-dictionary.mjs --run-id 1            # dry-run (default)
@@ -50,7 +50,7 @@ const updates = []
 
 for (const r of rows) {
   const { data: existing, error } = await sb.from('shared_dictionary')
-    .select('word, pos, example_en, synonyms, antonyms')
+    .select('word, pos, example_en, synonyms, antonyms, ipa, collocations, register, korean_learner_note')
     .eq('word', r.lemma)
     .eq('pos', r.posMapped)
     .maybeSingle()
@@ -66,6 +66,14 @@ for (const r of rows) {
   if (existing.example_en == null && Array.isArray(p.examples) && p.examples[0]?.en) patch.example_en = p.examples[0].en
   if ((existing.synonyms == null || existing.synonyms.length === 0) && Array.isArray(p.synonyms) && p.synonyms.length > 0) patch.synonyms = p.synonyms
   if ((existing.antonyms == null || existing.antonyms.length === 0) && Array.isArray(p.antonyms) && p.antonyms.length > 0) patch.antonyms = p.antonyms
+  if (existing.ipa == null && typeof p.ipa === 'string' && p.ipa.length > 0) patch.ipa = p.ipa
+  if ((existing.collocations == null || existing.collocations.length === 0) && Array.isArray(p.collocations) && p.collocations.length > 0) patch.collocations = p.collocations
+  // register: primary register = first definitions_ko[].register (3-value enum: formal/neutral/informal)
+  if (existing.register == null && Array.isArray(p.definitions_ko) && p.definitions_ko[0]?.register) {
+    const reg = p.definitions_ko[0].register
+    if (reg === 'formal' || reg === 'neutral' || reg === 'informal') patch.register = reg
+  }
+  if (existing.korean_learner_note == null && typeof p.korean_learner_note === 'string' && p.korean_learner_note.length > 0) patch.korean_learner_note = p.korean_learner_note
   if (Object.keys(patch).length === 0) { stats.already_filled++; continue }
   stats.will_update++
   updates.push({ lemma: r.lemma, pos: r.posMapped, patch })
@@ -83,7 +91,7 @@ if (noMatch.length > 0 && noMatch.length <= 20) {
   console.log('\nno-match samples (first 20 of', noMatch.length, '):', noMatch.slice(0, 20))
 }
 // Per-column counts
-const colCounts = { example_en: 0, synonyms: 0, antonyms: 0 }
+const colCounts = { example_en: 0, synonyms: 0, antonyms: 0, ipa: 0, collocations: 0, register: 0, korean_learner_note: 0 }
 for (const u of updates) for (const k of Object.keys(u.patch)) colCounts[k]++
 console.log('\nPer-column update counts:', colCounts)
 
