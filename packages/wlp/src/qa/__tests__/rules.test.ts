@@ -112,6 +112,25 @@ describe('R3 lemma in examples', () => {
     expect(lemmaInExample('I go home.', 'go')).toBe(true)
     expect(lemmaInExample('She left.', 'go')).toBe(false)
   })
+
+  it('lemmaInExample recognizes irregular verb forms', () => {
+    // production R3 false-positives from cast-2000 run
+    expect(lemmaInExample('They fought bravely.', 'fight')).toBe(true)
+    expect(lemmaInExample('The lake froze last winter.', 'freeze')).toBe(true)
+    expect(lemmaInExample('She hung the picture.', 'hang')).toBe(true)
+    expect(lemmaInExample('He bound the books with rope.', 'bind')).toBe(true)
+    expect(lemmaInExample('The shirt shrank in the wash.', 'shrink')).toBe(true)
+    expect(lemmaInExample('She overcame her fears.', 'overcome')).toBe(true)
+    expect(lemmaInExample('He lit the candle.', 'light')).toBe(true)
+    expect(lemmaInExample('The hikers walked on their feet.', 'foot')).toBe(true)
+  })
+
+  it('lemmaInExample uses word boundaries for irregular forms', () => {
+    // "sat" alone should not match inside "satisfy"
+    expect(lemmaInExample('Did this satisfy you?', 'sit')).toBe(false)
+    // but "sat" as a standalone word should match
+    expect(lemmaInExample('She sat down.', 'sit')).toBe(true)
+  })
 })
 
 describe('R4 ko length', () => {

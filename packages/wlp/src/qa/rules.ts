@@ -146,12 +146,104 @@ export function checkR2MinDefinitionsKo(item: QaItem): QaFlag[] {
 
 // ─── R3 ───────────────────────────────────────────
 
+// Irregular inflections that the heuristic stem-stripping below cannot detect.
+// Lemma → list of forms that should also satisfy "lemma appears in example".
+// Lowercase. Add forms as they surface in real QA failures.
+const IRREGULAR_FORMS: Readonly<Record<string, ReadonlyArray<string>>> = {
+  // verbs
+  be: ['am', 'is', 'are', 'was', 'were', 'been', 'being'],
+  bind: ['bound', 'binding'],
+  bring: ['brought', 'bringing'],
+  buy: ['bought', 'buying'],
+  catch: ['caught', 'catching'],
+  choose: ['chose', 'chosen', 'choosing'],
+  come: ['came', 'coming'],
+  do: ['does', 'did', 'done', 'doing'],
+  drink: ['drank', 'drunk', 'drinking'],
+  drive: ['drove', 'driven', 'driving'],
+  eat: ['ate', 'eaten', 'eating'],
+  fall: ['fell', 'fallen', 'falling'],
+  feel: ['felt', 'feeling'],
+  fight: ['fought', 'fighting'],
+  find: ['found', 'finding'],
+  fly: ['flew', 'flown', 'flying'],
+  forget: ['forgot', 'forgotten', 'forgetting'],
+  freeze: ['froze', 'frozen', 'freezing'],
+  get: ['got', 'gotten', 'getting'],
+  give: ['gave', 'given', 'giving'],
+  go: ['goes', 'went', 'gone', 'going'],
+  grow: ['grew', 'grown', 'growing'],
+  hang: ['hung', 'hanging'],
+  have: ['has', 'had', 'having'],
+  hear: ['heard', 'hearing'],
+  hold: ['held', 'holding'],
+  keep: ['kept', 'keeping'],
+  know: ['knew', 'known', 'knowing'],
+  lay: ['laid', 'laying'],
+  lead: ['led', 'leading'],
+  leave: ['left', 'leaving'],
+  light: ['lit', 'lighting'],
+  lose: ['lost', 'losing'],
+  make: ['made', 'making'],
+  mean: ['meant', 'meaning'],
+  meet: ['met', 'meeting'],
+  overcome: ['overcame', 'overcoming'],
+  pay: ['paid', 'paying'],
+  ride: ['rode', 'ridden', 'riding'],
+  run: ['ran', 'running'],
+  say: ['said', 'saying'],
+  see: ['saw', 'seen', 'seeing'],
+  seek: ['sought', 'seeking'],
+  sell: ['sold', 'selling'],
+  send: ['sent', 'sending'],
+  shrink: ['shrank', 'shrunk', 'shrinking'],
+  sing: ['sang', 'sung', 'singing'],
+  sit: ['sat', 'sitting'],
+  sleep: ['slept', 'sleeping'],
+  speak: ['spoke', 'spoken', 'speaking'],
+  spring: ['sprang', 'sprung', 'springing'],
+  stand: ['stood', 'standing'],
+  swim: ['swam', 'swum', 'swimming'],
+  take: ['took', 'taken', 'taking'],
+  teach: ['taught', 'teaching'],
+  tell: ['told', 'telling'],
+  think: ['thought', 'thinking'],
+  throw: ['threw', 'thrown', 'throwing'],
+  understand: ['understood', 'understanding'],
+  wear: ['wore', 'worn', 'wearing'],
+  win: ['won', 'winning'],
+  write: ['wrote', 'written', 'writing'],
+  // irregular plurals
+  child: ['children'],
+  foot: ['feet'],
+  goose: ['geese'],
+  man: ['men'],
+  mouse: ['mice'],
+  person: ['people'],
+  tooth: ['teeth'],
+  woman: ['women'],
+}
+
+function containsWholeWord(haystack: string, needle: string): boolean {
+  if (needle.length === 0) return false
+  const re = new RegExp(`\\b${needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`)
+  return re.test(haystack)
+}
+
 export function lemmaInExample(en: string, lemma: string): boolean {
   if (en.length === 0 || lemma.length === 0) return false
   const lowerEn = en.toLowerCase()
   const lowerLemma = lemma.toLowerCase()
 
   if (lowerEn.includes(lowerLemma)) return true
+
+  // Irregular forms — word-boundary match to avoid e.g. "sat" matching inside "satisfy".
+  const irregular = IRREGULAR_FORMS[lowerLemma]
+  if (irregular) {
+    for (const form of irregular) {
+      if (containsWholeWord(lowerEn, form)) return true
+    }
+  }
 
   if (lowerLemma.length >= 3) {
     const stem3 = lowerLemma.slice(0, lowerLemma.length - 1)
