@@ -4,12 +4,14 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   AlertCircle,
+  AlertTriangle,
   CheckCircle2,
   ChevronDown,
   Database,
   Loader2,
   Play,
   RefreshCw,
+  RotateCcw,
   Sparkles,
   Terminal,
   Upload,
@@ -18,6 +20,7 @@ import {
   checkEnrichmentStatus,
   exportEnrichmentPending,
   importEnrichmentFile,
+  resetStaleEnrichmentChunks,
   runEnrichmentCommand,
   type EnrichmentJobFile,
 } from '@/lib/vcb/server/enrich'
@@ -54,6 +57,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
   }, [refresh])
 
   const anyRunning = jobs.some((j) => j.running)
+  const staleCount = jobs.filter((j) => j.file_missing).length
 
   useEffect(() => {
     if (!anyRunning) return
@@ -87,6 +91,26 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
         return
       }
       await refresh()
+    })
+  }
+
+  const handleResetStale = () => {
+    setActionError(null)
+    if (
+      !window.confirm(
+        'pending 파일이 사라진 chunks 의 queue 상태를 pending 으로 되돌립니다.\nExport 를 다시 실행할 수 있게 됩니다.\n진행할까요?',
+      )
+    ) {
+      return
+    }
+    startTransition(async () => {
+      const r = await resetStaleEnrichmentChunks(runId)
+      if (!r.ok || !r.data) {
+        setActionError(r.error ?? 'reset failed')
+        return
+      }
+      await refresh()
+      router.refresh()
     })
   }
 
@@ -183,6 +207,42 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
         </div>
       </section>
 
+      {/* ── Stale detection banner ───────────── */}
+      {staleCount > 0 && (
+        <div
+          className="mb-3 p-3 rounded-[var(--r-md)] border flex items-start gap-2"
+          style={{
+            background: 'var(--warning-light)',
+            borderColor: 'var(--warning)',
+          }}
+          role="alert"
+        >
+          <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" style={{ color: 'var(--warning)' }} />
+          <div className="flex-1 text-sm">
+            <div className="font-semibold" style={{ color: 'var(--warning)' }}>
+              {staleCount}개 chunk 의 pending 파일이 사라졌습니다
+            </div>
+            <div className="text-xs mt-1" style={{ color: 'var(--t2)' }}>
+              DB 에는 exported 로 마킹돼 있지만 디스크 파일이 없어 AI 실행 불가.
+              아래 버튼으로 queue 상태를 pending 으로 되돌리면 Export 를 다시 할 수 있어요.
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={handleResetStale}
+            disabled={isPending}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
+            style={{
+              background: 'var(--warning)',
+              color: 'var(--ti)',
+            }}
+          >
+            {isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RotateCcw className="w-3.5 h-3.5" />}
+            Stale 정리
+          </button>
+        </div>
+      )}
+
       {/* ── Sub-step B & C: per-chunk ─────────── */}
       {jobs.length > 0 && (
         <div className="flex items-center gap-3 mb-3">
@@ -260,7 +320,16 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
                 {/* Sub-step B: Run */}
                 {!job.enriched_exists && (
                   <>
-                    {job.running ? (
+                    {job.file_missing ? (
+                      <div
+                        className="flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded-[var(--r-sm)]"
+                        style={{ background: 'var(--warning-light)', color: 'var(--warning)' }}
+                        title="pending 파일 사라짐 — Stale 정리 후 Export 재실행"
+                      >
+                        <AlertTriangle className="w-3 h-3" />
+                        파일 사라짐
+                      </div>
+                    ) : job.running ? (
                       <div className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--info)' }}>
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                         {job.running_elapsed_seconds !== null
