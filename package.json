@@ -59,6 +59,7 @@
     "prettier-plugin-tailwindcss": "^0.7.3",
     "supabase": "^2.98.1",
     "tsx": "^4.20.6",
-    "turbo": "^2.9.6"
+    "turbo": "^2.9.6",
+    "xlsx": "^0.18.5"
   }
 }

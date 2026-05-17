@@ -31,3 +31,9 @@ Downloads/
 
 # Pipeline intermediate artifacts
 tmp/
+
+# Frequency corpus data (large + external)
+data/freq-corpus/*.xlsx
+data/freq-corpus/*.jsonl
+data/freq-corpus/match_report.txt
+logs/

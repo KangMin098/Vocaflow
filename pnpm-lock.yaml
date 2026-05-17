@@ -44,6 +44,9 @@ importers:
       turbo:
         specifier: ^2.9.6
         version: 2.9.6
+      xlsx:
+        specifier: ^0.18.5
+        version: 0.18.5
 
   apps/mobile:
     dependencies:
