@@ -12,6 +12,9 @@ data/import/*
 scripts/.tmp-batch*.json
 scripts/.tmp-fetch*.json
 
+# Sprint process artifacts (regenerable JSONL + validation reports)
+exports/
+
 # TypeScript incremental build info
 *.tsbuildinfo
 
