@@ -1,0 +1,43 @@
+// packages/library-pipeline/src/types-article.ts
+// ACP v1.0 — 짧은 글(article) 도메인 타입.
+// 책(RawBook)과 구조 다름: chapter 없음 · 단일 content unit.
+
+export type ArticleSource = 'voa' | 'nasa' | 'nih' | 'cdc' | 'medlineplus' | 'arxiv' | 'manual'
+
+export interface RawArticle {
+  source: ArticleSource
+  source_id: string
+  source_url: string
+  title: string
+  author?: string
+  language: string
+  license: string
+  published_at: Date | null
+  content: string
+  /** ingester 가 알고 있는 사전 추정 CEFR (예: VOA Level 2 → B1). 없으면 analyze 단계에서 자동 감지 */
+  estimated_cefr: string | null
+  fetched_at: Date
+}
+
+export interface NormalizedArticle {
+  raw: RawArticle
+  body: string
+  body_hash: string
+}
+
+export interface ArticleWord {
+  word: string
+  frequency_in_article: number
+  first_sentence: string
+  base_learning_value: number
+}
+
+export interface AnalyzedArticle {
+  article_id: string
+  cefr_level: string
+  cefr_confidence: number
+  word_count: number
+  reading_minutes: number
+  words: ArticleWord[]
+  llm_cost_usd: number
+}

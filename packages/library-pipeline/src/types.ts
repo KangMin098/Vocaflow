@@ -5,6 +5,9 @@ export type LibrarySource =
   | 'gutenberg'
   | 'standard_ebooks'
   | 'wikisource'
+  | 'wikibooks'
+  | 'librivox'
+  | 'openstax'
   | 'manual'
 
 export type LibraryBookStatus =

@@ -286,6 +286,23 @@ export async function archiveBook(
   }
 }
 
+/**
+ * Dev-only — Admin UI "Process Now" 버튼.
+ * /api/lcp/dev-process 호출 (pg_cron 우회, in-process 파이프라인 실행).
+ * 프로덕션에서는 라우트가 403 반환.
+ */
+export async function devProcessBook(bookId: string): Promise<void> {
+  const res = await fetch('/api/lcp/dev-process', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ book_id: bookId }),
+  })
+  if (!res.ok) {
+    const payload = (await res.json().catch(() => ({}))) as { error?: string }
+    throw new Error(payload.error ?? `dev-process failed: ${res.status}`)
+  }
+}
+
 // ─────────────────────────────────────────────
 // 헬퍼 — UI에서 자주 쓰이는 변환
 // ─────────────────────────────────────────────

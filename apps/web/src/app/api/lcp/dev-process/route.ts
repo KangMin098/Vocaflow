@@ -1,7 +1,12 @@
-// apps/web/src/app/api/lcp/process/route.ts
-// LCP v2.0 Phase 7 — Library pipeline worker endpoint
-// pg_cron이 net.http_post로 호출. X-LCP-Token 헤더 인증.
-// 1 메시지 처리: ingest → normalize → segment → analyze → auto_curate
+// apps/web/src/app/api/lcp/dev-process/route.ts
+//
+// LCP dev-only worker — Admin UI 의 "Process Now" 버튼이 호출.
+// pg_cron / Vault 우회. Supabase Cloud 가 localhost 에 접근 못 하는 dev 환경 전용.
+//
+// 차이 (vs /api/lcp/process):
+//   - 인증: admin/curator role (requireAdmin) — X-LCP-Token 토큰 불필요
+//   - 트리거: 사용자 UI 클릭, msg_id 없음 (pgmq 큐 우회)
+//   - 환경 가드: NODE_ENV='production' 차단 (배포 환경에선 pg_cron 정상 경로 사용)
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
@@ -17,77 +22,66 @@ import {
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
+import { requireAdmin } from '@/lib/auth/require-admin'
+
 export const runtime = 'nodejs'
-export const maxDuration = 300 //                Vercel Pro 5분
+export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
-interface ProcessBody {
-  msg_id: number
+interface DevProcessBody {
   book_id: string
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  // ── 1. 환경 변수
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json(
+      { error: 'dev-process disabled in production — use pg_cron worker' },
+      { status: 403 },
+    )
+  }
+
+  await requireAdmin('/admin/curation')
+
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
-  const token = process.env['LCP_INTERNAL_TOKEN']
 
-  if (!supabaseUrl || !serviceKey || !token) {
+  if (!supabaseUrl || !serviceKey) {
     return NextResponse.json(
-      {
-        error:
-          'Server config missing (SUPABASE_URL / SERVICE_ROLE_KEY / LCP_INTERNAL_TOKEN)',
-      },
+      { error: 'NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY missing' },
       { status: 500 },
     )
   }
 
-  // ── 2. 인증
-  const reqToken = request.headers.get('X-LCP-Token')
-  if (reqToken !== token) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  // ── 3. 요청 파싱
-  let body: ProcessBody
+  let body: DevProcessBody
   try {
-    body = (await request.json()) as ProcessBody
+    body = (await request.json()) as DevProcessBody
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const { msg_id, book_id } = body
-  if (!book_id || typeof msg_id !== 'number') {
-    return NextResponse.json(
-      { error: 'msg_id (number) and book_id (string) required' },
-      { status: 400 },
-    )
+  const { book_id } = body
+  if (!book_id) {
+    return NextResponse.json({ error: 'book_id (string) required' }, { status: 400 })
   }
 
   const client = createClient(supabaseUrl, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   })
 
-  // ── 4. 파이프라인 실행
   try {
-    // 4-1. library_books row 조회
     const { data: book, error: fetchError } = await client
       .from('library_books')
-      .select('source, source_id')
+      .select('source, source_id, status')
       .eq('id', book_id)
       .single()
 
     if (fetchError || !book) {
-      throw new Error(
-        `Book not found: ${book_id} (${fetchError?.message ?? 'no row'})`,
-      )
+      throw new Error(`Book not found: ${book_id} (${fetchError?.message ?? 'no row'})`)
     }
-
     if (!book.source_id) {
       throw new Error(`Book has no source_id: ${book_id}`)
     }
 
-    // 4-2. status 업데이트 (각 단계별)
     const updateStatus = async (status: string): Promise<void> => {
       await client.from('library_books').update({ status }).eq('id', book_id)
     }
@@ -107,7 +101,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     } else if (book.source === 'openstax') {
       raw = await ingestFromOpenStax(book.source_id as string)
     } else {
-      throw new Error(`Source not implemented: ${book.source}`)
+      throw new Error(`Source not implemented in dev-process: ${book.source}`)
     }
 
     await updateStatus('normalizing')
@@ -115,7 +109,6 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     await updateStatus('segmenting')
     const chapters = segmentBook(norm)
-
     if (chapters.length === 0) {
       throw new Error('Segment failed: 0 chapters')
     }
@@ -123,7 +116,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     await updateStatus('analyzing')
     const result = await analyzeBook(book_id, norm, chapters)
 
-    // 4-3. library_books 메타 업데이트
+    // dev-process 는 auto_curate 우회 — 항상 'ready' 에서 정지.
+    // 이유: admin 이 본문 검수 후 명시적으로 '강제 게시' 또는 '보관' 결정하도록.
+    // (프로덕션 /api/lcp/process 는 auto_curate_book 호출하여 조건 충족 시 자동 publish)
     await client
       .from('library_books')
       .update({
@@ -141,30 +136,15 @@ export async function POST(request: Request): Promise<NextResponse> {
         chapter_count: result.chapter_count,
         reading_minutes: result.reading_minutes,
         llm_cost_usd: result.llm_cost_usd,
-        status: 'curating',
+        status: 'ready',
+        status_message: null,
       })
       .eq('id', book_id)
-
-    // 4-4. auto_curate
-    const { data: decision, error: curateError } = await client.rpc(
-      'auto_curate_book',
-      { p_book_id: book_id },
-    )
-
-    if (curateError) {
-      throw new Error(`auto_curate_book failed: ${curateError.message}`)
-    }
-
-    // 4-5. 메시지 archive (성공)
-    await client.rpc('pgmq_archive', {
-      p_queue_name: 'library_pipeline',
-      p_msg_id: msg_id,
-    })
 
     return NextResponse.json({
       ok: true,
       book_id,
-      decision,
+      decision: 'ready_for_review',
       cefr_level: result.cefr_level,
       cefr_confidence: result.cefr_confidence,
       vocab_count: result.words.length,
@@ -172,9 +152,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     })
   } catch (err) {
     const errMsg = err instanceof Error ? err.message : String(err)
-    console.error(`[lcp/process] book_id=${book_id} failed:`, err)
+    console.error(`[lcp/dev-process] book_id=${book_id} failed:`, err)
 
-    // 실패 status 기록
     await client
       .from('library_books')
       .update({
@@ -182,12 +161,6 @@ export async function POST(request: Request): Promise<NextResponse> {
         status_message: errMsg.slice(0, 500),
       })
       .eq('id', book_id)
-
-    // 메시지는 archive (재시도 무한루프 방지 — admin 이 status='failed' row 수동 검토)
-    await client.rpc('pgmq_archive', {
-      p_queue_name: 'library_pipeline',
-      p_msg_id: msg_id,
-    })
 
     return NextResponse.json({ ok: false, error: errMsg }, { status: 500 })
   }

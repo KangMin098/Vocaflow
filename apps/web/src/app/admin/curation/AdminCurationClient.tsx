@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BookOpen, FolderOpen, Hash, Library } from 'lucide-react';
+import { BookOpen, FolderOpen, GraduationCap, Globe, Hash, Headphones, Library, ScrollText } from 'lucide-react';
 import type {
   CurationStats,
   LibraryBookAdminRow,
@@ -14,6 +14,10 @@ import type {
 import { SourceCatalogTab } from '@/components/admin/curation/SourceCatalogTab';
 import { SeedTab } from '@/components/admin/curation/SeedTab';
 import { GutenbergIdTab } from '@/components/admin/curation/GutenbergIdTab';
+import { WikibooksIdTab } from '@/components/admin/curation/WikibooksIdTab';
+import { WikisourceIdTab } from '@/components/admin/curation/WikisourceIdTab';
+import { LibriVoxIdTab } from '@/components/admin/curation/LibriVoxIdTab';
+import { OpenStaxIdTab } from '@/components/admin/curation/OpenStaxIdTab';
 import { MyLibraryTab } from '@/components/admin/curation/MyLibraryTab';
 import {
   EnqueueModal,
@@ -21,8 +25,20 @@ import {
 } from '@/components/admin/curation/EnqueueModal';
 import type { SeedItem } from '@/components/admin/curation/SeedCard';
 import type { GutenbergPreview } from '@/components/admin/curation/GutenbergIdTab';
+import type { WikibooksPreview } from '@/components/admin/curation/WikibooksIdTab';
+import type { WikisourcePreview } from '@/components/admin/curation/WikisourceIdTab';
+import type { LibriVoxPreview } from '@/components/admin/curation/LibriVoxIdTab';
+import type { OpenStaxPreview } from '@/components/admin/curation/OpenStaxIdTab';
 
-type TabKey = 'sources' | 'seed' | 'id' | 'mine';
+type TabKey =
+  | 'sources'
+  | 'seed'
+  | 'id'
+  | 'wikibooks'
+  | 'wikisource'
+  | 'librivox'
+  | 'openstax'
+  | 'mine';
 
 type StatTone = 'neutral' | 'success' | 'info' | 'danger';
 
@@ -47,9 +63,30 @@ export function AdminCurationClient({
   function handlePickPreview(preview: GutenbergPreview) {
     setEnqueueSource({ kind: 'preview', data: preview });
   }
+  function handlePickWikibooks(preview: WikibooksPreview) {
+    setEnqueueSource({ kind: 'wikibooks', data: preview });
+  }
+  function handlePickWikisource(preview: WikisourcePreview) {
+    setEnqueueSource({ kind: 'wikisource', data: preview });
+  }
+  function handlePickLibriVox(preview: LibriVoxPreview) {
+    setEnqueueSource({ kind: 'librivox', data: preview });
+  }
+  function handlePickOpenStax(preview: OpenStaxPreview) {
+    setEnqueueSource({ kind: 'openstax', data: preview });
+  }
   function handleSourceClick(source: string) {
-    if (source === 'gutenberg') {
+    // 구현된 소스: gutenberg/standard_ebooks → 시드 탭, 그 외는 전용 ID 탭.
+    if (source === 'gutenberg' || source === 'standard_ebooks') {
       setTab('seed');
+    } else if (source === 'wikibooks') {
+      setTab('wikibooks');
+    } else if (source === 'wikisource') {
+      setTab('wikisource');
+    } else if (source === 'librivox') {
+      setTab('librivox');
+    } else if (source === 'openstax') {
+      setTab('openstax');
     }
   }
   function refetchAll() {
@@ -73,6 +110,10 @@ export function AdminCurationClient({
           <SeedTab existingBooks={books} onPickSeed={handlePickSeed} />
         )}
         {tab === 'id' && <GutenbergIdTab onPickPreview={handlePickPreview} />}
+        {tab === 'wikibooks' && <WikibooksIdTab onPickPreview={handlePickWikibooks} />}
+        {tab === 'wikisource' && <WikisourceIdTab onPickPreview={handlePickWikisource} />}
+        {tab === 'librivox' && <LibriVoxIdTab onPickPreview={handlePickLibriVox} />}
+        {tab === 'openstax' && <OpenStaxIdTab onPickPreview={handlePickOpenStax} />}
         {tab === 'mine' && <MyLibraryTab books={books} onRefetch={refetchAll} />}
       </div>
 
@@ -80,7 +121,10 @@ export function AdminCurationClient({
         source={enqueueSource}
         onClose={() => setEnqueueSource(null)}
         onSuccess={() => {
-          setTimeout(() => router.refresh(), 800);
+          // 큐 추가 직후 Curated Books 탭으로 자동 이동 — 새 책 상태 추적이
+          // 사용자의 다음 자연스러운 행동. router.refresh 로 RSC 재페치.
+          setTab('mine');
+          setTimeout(() => router.refresh(), 400);
         }}
       />
     </div>
@@ -158,7 +202,11 @@ interface TabListProps {
 const TABS: Array<{ key: TabKey; label: string; Icon: typeof BookOpen }> = [
   { key: 'sources', label: '소스 카탈로그', Icon: Library },
   { key: 'seed', label: '추천 시드', Icon: BookOpen },
-  { key: 'id', label: 'ID 직접 입력', Icon: Hash },
+  { key: 'id', label: 'Gutenberg ID', Icon: Hash },
+  { key: 'wikibooks', label: 'Wikibooks', Icon: Globe },
+  { key: 'wikisource', label: 'Wikisource', Icon: ScrollText },
+  { key: 'librivox', label: 'LibriVox', Icon: Headphones },
+  { key: 'openstax', label: 'OpenStax', Icon: GraduationCap },
   { key: 'mine', label: 'Curated Books', Icon: FolderOpen },
 ];
 

@@ -11,6 +11,7 @@ import {
   Flag,
   LayoutDashboard,
   Library,
+  Newspaper,
   ShieldCheck,
   Sliders,
   Sparkles,
@@ -46,9 +47,10 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { href: '/admin/users', label: '사용자', Icon: Users },
       { href: '/admin/library', label: '콘텐츠', Icon: Library },
-      { href: '/admin/curation', label: '큐레이션', Icon: Sparkles },
+      { href: '/admin/curation', label: 'LCP Pipeline', Icon: Workflow },
+      { href: '/admin/articles', label: 'ACP Pipeline', Icon: Newspaper },
       { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
-      { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Workflow },
+      { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Sparkles },
     ],
   },
   {

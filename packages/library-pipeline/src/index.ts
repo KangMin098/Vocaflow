@@ -5,9 +5,20 @@ export * from './types'
 export { loadEnv, type Env } from './env'
 export { getServiceClient } from './client'
 
-// S2 INGEST (Phase 4 — Gutenberg / Phase 13 — Standard Ebooks)
+// S2 INGEST — Books (LCP)
 export { ingestFromGutenberg } from './ingest/gutenberg'
 export { ingestFromStandardEbooks } from './ingest/standard-ebooks'
+export { ingestFromWikibooks } from './ingest/wikibooks'
+export { ingestFromWikisource } from './ingest/wikisource'
+export { ingestFromLibriVox } from './ingest/librivox'
+export { ingestFromOpenStax } from './ingest/openstax'
+
+// S2 INGEST — Articles (ACP — Phase 18)
+export { listVoaFeed, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
+export type { VoaListItem } from './ingest-article/voa'
+export * from './types-article'
+export { analyzeArticle } from './analyze/analyze-article'
+export type { AnalyzeArticleOptions } from './analyze/analyze-article'
 
 // S3 NORMALIZE + S4 SEGMENT (Phase 5)
 export {

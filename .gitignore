@@ -36,4 +36,8 @@ tmp/
 data/freq-corpus/*.xlsx
 data/freq-corpus/*.jsonl
 data/freq-corpus/match_report.txt
+
+# Dict-fill sprint working data (regeneratable via scripts/dict-fill/)
+data/dict-fill/
+
 logs/
