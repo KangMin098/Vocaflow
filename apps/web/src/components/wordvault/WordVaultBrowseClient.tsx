@@ -1,54 +1,50 @@
 // apps/web/src/components/wordvault/WordVaultBrowseClient.tsx
 //
-// WordVault Browse 풀스크린 세션 클라이언트 (v06.21.6)
+// WordVault Browse 풀스크린 세션 클라이언트 (v06.22+ — 실 데이터)
 //
-// 변경 (v06.21.6):
-//   - 풀스크린 세션 라우트로 분리 (`/wordvault/browse`) — SessionFrame 셸 자동 주입
-//   - 우측 상단 "단어 추가" / "학습 시작" 제거 (Flashcard 모듈 중복 / 자산 추가는 hub 영역)
-//   - StatsGrid (총단어/마스터/오늘 복습/평균 정확도) 제거 — 대시보드와 중복, 둘러보기 화면 의미 X
-//   - 스크립트 칩 nav 신규 — "전체 N" + 각 스크립트 단어 수, 클릭 시 필터
-//   - 듣기 옵션 항상 노출 — 토글 제거, 공간 절약
-//   - SessionFrame 에 리소스 컨텍스트 (스크립트명) 주입
+// 변경 (실 데이터화):
+//   - props 로 `words` / `textChips` / `setChips` 수신 (Server Component 가 fetch)
+//   - chip 필터: "전체" + 구독 단어장(보라 #8B5CF6) + 스크립트(인디고 #6366F1)
+//     ㄴ chip.id 포맷: "all" | "set:<uuid>" | "text:<uuid>"
+//   - 빈 상태 분기: 단어 0개 (라이브러리 안내) vs 필터 결과 0개
+//
+// 유지: SessionFrame · 검색 · Active Recall · ListenPanel · WordList
 
 'use client'
 
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Layers } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
+import type { BrowseChip, BrowseWord } from '@/lib/wordvault/browse-queries'
+
 import { HideToggleBar } from './HideToggleBar'
 import { ListenPanel } from './ListenPanel'
 import { ScriptsChipNav, type ScriptChip } from './ScriptsChipNav'
 import { SearchRow } from './SearchRow'
 import { WordList } from './WordList'
-import { MOCK_COLLECTIONS, MOCK_WORDS } from './mock-data'
 import type { HideStates, HideType, ListenSettings } from './types'
 
-// ── Mock: word → script 매핑 (Phase 2: vocabularies.text_id) ──
-const COLLECTION_IDS = ['gatsby', '1984', 'ted', 'bbc', 'favorites'] as const
-function getScriptId(wordId: number): string {
-  if (wordId <= 3) return 'gatsby'
-  if (wordId <= 6) return '1984'
-  if (wordId <= 9) return 'ted'
-  if (wordId <= 11) return 'bbc'
-  return 'favorites'
+interface Props {
+  words: BrowseWord[]
+  textChips: BrowseChip[]
+  setChips: BrowseChip[]
 }
 
-export function WordVaultBrowseClient() {
-  // ── 선택 ──
+const SET_ACCENT = '#8B5CF6' // 보라 — 라이브러리 단어장 정합
+const TEXT_ACCENT = '#6366F1' // 인디고 — FlowNav "단어" stage 정합
+
+export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: Props) {
+  const searchParams = useSearchParams()
+  const initialFilter = searchParams?.get('filter') ?? 'all'
+
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
-
-  // ── 숨김 (Active Recall) ──
-  const [hideStates, setHideStates] = useState<HideStates>({
-    word: false,
-    meaning: false,
-  })
-
-  // ── 스크립트 필터 ──
-  const [scriptFilter, setScriptFilter] = useState<string>('all')
-
-  // ── 듣기 설정 ──
+  const [hideStates, setHideStates] = useState<HideStates>({ word: false, meaning: false })
+  const [scriptFilter, setScriptFilter] = useState<string>(initialFilter)
   const [listenSettings, setListenSettings] = useState<ListenSettings>({
     content: 'word',
     speed: 1.0,
@@ -60,37 +56,25 @@ export function WordVaultBrowseClient() {
   const queue = useListenQueue(listenSettings)
   const { speak } = useSpeech()
 
-  // ── 필터된 단어 + 스크립트 칩 데이터 ──
-  const allWords = MOCK_WORDS
-
-  const scriptChips: ScriptChip[] = useMemo(() => {
-    const total = allWords.length
-    const counts = COLLECTION_IDS.reduce<Record<string, number>>((acc, id) => {
-      acc[id] = 0
-      return acc
-    }, {})
-    for (const w of allWords) {
-      const sid = getScriptId(w.id)
-      counts[sid] = (counts[sid] ?? 0) + 1
-    }
-    const chips: ScriptChip[] = [{ id: 'all', label: '전체', count: total }]
-    for (const c of MOCK_COLLECTIONS) {
-      if (c.id === 'all' || c.id === 'favorites') continue
-      const cnt = counts[c.id] ?? 0
-      if (cnt === 0) continue
-      chips.push({ id: c.id, label: c.name, count: cnt })
-    }
-    // 즐겨찾기는 마지막에 (별도)
-    const favCount = counts['favorites'] ?? 0
-    if (favCount > 0) {
-      chips.push({ id: 'favorites', label: '즐겨찾기', count: favCount, accent: '#F59E0B' })
-    }
-    return chips
-  }, [allWords])
+  // ── 통합 chip: 전체 + 구독 세트 + 스크립트 ──
+  const chips: ScriptChip[] = useMemo(() => {
+    const list: ScriptChip[] = [{ id: 'all', label: '전체', count: allWords.length }]
+    for (const c of setChips) list.push({ id: c.id, label: c.label, count: c.count, accent: SET_ACCENT })
+    for (const c of textChips) list.push({ id: c.id, label: c.label, count: c.count, accent: TEXT_ACCENT })
+    return list
+  }, [allWords.length, setChips, textChips])
 
   const words = useMemo(() => {
     if (scriptFilter === 'all') return allWords
-    return allWords.filter((w) => getScriptId(w.id) === scriptFilter)
+    if (scriptFilter.startsWith('set:')) {
+      const id = scriptFilter.slice(4)
+      return allWords.filter((w) => w.setId === id)
+    }
+    if (scriptFilter.startsWith('text:')) {
+      const id = scriptFilter.slice(5)
+      return allWords.filter((w) => w.textId === id)
+    }
+    return allWords
   }, [allWords, scriptFilter])
 
   // ── 핸들러 ──
@@ -140,13 +124,12 @@ export function WordVaultBrowseClient() {
     return () => window.removeEventListener('keydown', handler)
   }, [queue, words, handleToggleHide])
 
-  // 필터 변경 시 선택 초기화 (잘못된 ID 방지)
+  // 필터 변경 시 선택 초기화
   useEffect(() => {
     setSelectedIds(new Set())
   }, [scriptFilter])
 
-  // ── SessionFrame 셸에 리소스 컨텍스트 ──
-  const activeChip = scriptChips.find((c) => c.id === scriptFilter)
+  const activeChip = chips.find((c) => c.id === scriptFilter)
 
   return (
     <>
@@ -156,63 +139,93 @@ export function WordVaultBrowseClient() {
           label: '내 어휘 자산',
           position:
             scriptFilter === 'all'
-              ? `전체 ${words.length}개`
-              : `${activeChip?.label ?? ''} · ${words.length}개`,
+              ? `전체 ${words.length.toLocaleString()}개`
+              : `${activeChip?.label ?? ''} · ${words.length.toLocaleString()}개`,
           href: '/wordvault',
         }}
         total={words.length}
       />
 
       <div className="mx-auto flex max-w-[1200px] flex-col gap-3 px-4 py-4 md:px-6 md:py-5">
-        {/* ── 1. 스크립트 칩 nav ── */}
-        <ScriptsChipNav
-          chips={scriptChips}
-          active={scriptFilter}
-          onChange={setScriptFilter}
-        />
-
-        {/* ── 2. 듣기 옵션 (항상 노출) ── */}
-        <ListenPanel
-          allWords={words}
-          selectedIds={selectedIds}
-          settings={listenSettings}
-          onSettingsChange={setListenSettings}
-          onStartPlay={(q) => queue.startQueue(q)}
-          onStop={queue.stopQueue}
-          onTogglePause={queue.togglePause}
-          onNext={queue.next}
-          onPrev={queue.prev}
-          isPlaying={queue.isPlaying}
-          isPaused={queue.isPaused}
-          currentIndex={queue.currentIndex}
-          queueLength={queue.queueLength}
-          currentWord={queue.currentWord}
-        />
-
-        {/* ── 3. Active Recall 토글 + 검색 ── */}
-        <div className="flex flex-col gap-2">
-          <HideToggleBar hideStates={hideStates} onToggle={handleToggleHide} />
-          <SearchRow />
-        </div>
-
-        {/* ── 4. 단어 리스트 ── */}
-        {words.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t3)]">
-            이 스크립트에 등록된 단어가 없어요
-          </div>
+        {/* ── 단어 0개: 빈 상태 (라이브러리 안내) ── */}
+        {allWords.length === 0 ? (
+          <EmptyAll />
         ) : (
-          <WordList
-            words={words}
-            selectedIds={selectedIds}
-            onToggleSelect={handleToggleSelect}
-            onToggleSelectAll={handleToggleSelectAll}
-            playingId={queue.currentWord?.id ?? null}
-            hideStates={hideStates}
-            onPlayWord={handlePlayWord}
-          />
+          <>
+            {/* ── 1. chip nav (전체 + 세트 + 스크립트) ── */}
+            <ScriptsChipNav chips={chips} active={scriptFilter} onChange={setScriptFilter} />
+
+            {/* ── 2. 듣기 옵션 ── */}
+            <ListenPanel
+              allWords={words}
+              selectedIds={selectedIds}
+              settings={listenSettings}
+              onSettingsChange={setListenSettings}
+              onStartPlay={(q) => queue.startQueue(q)}
+              onStop={queue.stopQueue}
+              onTogglePause={queue.togglePause}
+              onNext={queue.next}
+              onPrev={queue.prev}
+              isPlaying={queue.isPlaying}
+              isPaused={queue.isPaused}
+              currentIndex={queue.currentIndex}
+              queueLength={queue.queueLength}
+              currentWord={queue.currentWord}
+            />
+
+            {/* ── 3. Active Recall + 검색 ── */}
+            <div className="flex flex-col gap-2">
+              <HideToggleBar hideStates={hideStates} onToggle={handleToggleHide} />
+              <SearchRow />
+            </div>
+
+            {/* ── 4. 단어 리스트 / 필터 빈 상태 ── */}
+            {words.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t3)]">
+                이 필터에 해당하는 단어가 없어요
+              </div>
+            ) : (
+              <WordList
+                words={words}
+                selectedIds={selectedIds}
+                onToggleSelect={handleToggleSelect}
+                onToggleSelectAll={handleToggleSelectAll}
+                playingId={queue.currentWord?.id ?? null}
+                hideStates={hideStates}
+                onPlayWord={handlePlayWord}
+              />
+            )}
+          </>
         )}
       </div>
-
     </>
+  )
+}
+
+function EmptyAll() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-16 text-center">
+      <Layers size={32} className="text-[var(--t3)]" aria-hidden />
+      <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
+        아직 보유한 단어가 없어요
+      </p>
+      <p className="max-w-[360px] font-body text-[13px] text-[var(--t3)]">
+        공용 단어장을 추가하거나, 내 스크립트에서 단어를 추출해 보세요.
+      </p>
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+        <Link
+          href="/library/vocab"
+          className="inline-flex h-10 items-center rounded-[var(--r-md)] bg-[#8B5CF6] px-4 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[#7C3AED] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-2"
+        >
+          공용 단어장 둘러보기
+        </Link>
+        <Link
+          href="/text"
+          className="inline-flex h-10 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
+        >
+          내 스크립트
+        </Link>
+      </div>
+    </div>
   )
 }

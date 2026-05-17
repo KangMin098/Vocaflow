@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-05-13",
+  "policy_note": "Profanity terms that trigger R7 reject. Word-boundary matching applied. Korean terms are also subject to boundary rules.",
+  "english": [
+    "fuck",
+    "shit",
+    "bitch",
+    "asshole",
+    "cunt",
+    "dick",
+    "pussy",
+    "bastard"
+  ],
+  "korean": [
+    "씨발",
+    "개새끼",
+    "병신",
+    "좆"
+  ]
+}

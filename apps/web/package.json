@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.92.0",
@@ -14,9 +17,13 @@
     "@react-three/fiber": "^8.17.10",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.104.1",
+    "@tanstack/react-virtual": "^3.13.24",
     "@vocaflow/design-tokens": "workspace:*",
     "@vocaflow/types": "workspace:*",
     "@vocaflow/ui-shared": "workspace:*",
+    "@vocaflow/library-pipeline": "workspace:*",
+    "@vocaflow/vcb-curate-core": "workspace:*",
+    "@vocaflow/wlp": "workspace:*",
     "clsx": "^2.1.1",
     "lucide-react": "^1.11.0",
     "next": "14.2.35",

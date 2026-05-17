@@ -22,6 +22,7 @@ import { StatsGrid } from '@/components/wordvault/StatsGrid'
 import { StudyMode } from '@/components/wordvault/StudyMode'
 import { WordList } from '@/components/wordvault/WordList'
 import { WordVaultHub } from '@/components/wordvault/hub/WordVaultHub'
+import { useHubStats } from '@/components/wordvault/hooks/useHubStats'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
 import { MOCK_WORDS } from '@/components/wordvault/mock-data'
@@ -54,6 +55,11 @@ export default function WordVaultPage() {
 
   // ── 데이터 ──
   const [words, setWords] = useState<WordItem[]>(MOCK_WORDS)
+
+  // ── 허브 Hero/VaultBar 실 데이터 (Phase 2 진입 — C-1) ──
+  // 로딩 중에는 undefined 로 전달 → mock 그대로 표시 (FOUC 회피)
+  const hubStatsState = useHubStats()
+  const realStats = hubStatsState.status === 'ready' ? hubStatsState.data : undefined
 
   // ── TextViewer 인계 단어 수신 → ?view=browse 자동 진입 ──
   useEffect(() => {
@@ -225,7 +231,7 @@ export default function WordVaultPage() {
       <main className="flex-1 overflow-y-auto bg-bg p-s-6 pb-s-12">
         <div className="mx-auto max-w-[1200px]">
           {/* ── HUB (기본 진입) ── */}
-          {view === 'hub' && <WordVaultHub words={words} />}
+          {view === 'hub' && <WordVaultHub words={words} realStats={realStats} />}
 
           {/* ── BROWSE ── */}
           {view === 'browse' && (
