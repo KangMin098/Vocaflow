@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-05-18",
+  "source": "manual_curation_v06.25",
+  "note": "18 H1 dictionary_categories — CEFR-J style top-level. Hand-curated Korean names + emojis matched to semantic theme.",
+  "level": 1,
+  "count": 18,
+  "items": [
+    { "id": "animals",                 "name_en": "Animals",               "name_ko": "동물",            "cover_emoji": "🐾" },
+    { "id": "appearance",              "name_en": "Appearance",            "name_ko": "외모",            "cover_emoji": "👤" },
+    { "id": "communication",           "name_en": "Communication",         "name_ko": "의사소통",        "cover_emoji": "💬" },
+    { "id": "culture",                 "name_en": "Culture",               "name_ko": "문화",            "cover_emoji": "🎭" },
+    { "id": "food-and-drink",          "name_en": "Food and drink",        "name_ko": "음식과 음료",     "cover_emoji": "🍽️" },
+    { "id": "functions",               "name_en": "Functions",             "name_ko": "기능 표현",       "cover_emoji": "🗣️" },
+    { "id": "health",                  "name_en": "Health",                "name_ko": "건강",            "cover_emoji": "🩺" },
+    { "id": "homes-and-buildings",     "name_en": "Homes and buildings",   "name_ko": "집과 건물",       "cover_emoji": "🏠" },
+    { "id": "leisure",                 "name_en": "Leisure",               "name_ko": "여가",            "cover_emoji": "🎲" },
+    { "id": "notions",                 "name_en": "Notions",               "name_ko": "개념",            "cover_emoji": "💡" },
+    { "id": "people",                  "name_en": "People",                "name_ko": "사람",            "cover_emoji": "👥" },
+    { "id": "politics-and-society",    "name_en": "Politics and society",  "name_ko": "정치와 사회",     "cover_emoji": "🏛️" },
+    { "id": "science-and-technology",  "name_en": "Science and technology","name_ko": "과학과 기술",     "cover_emoji": "🔬" },
+    { "id": "sport",                   "name_en": "Sport",                 "name_ko": "스포츠",          "cover_emoji": "⚽" },
+    { "id": "the-natural-world",       "name_en": "The natural world",     "name_ko": "자연 세계",       "cover_emoji": "🌿" },
+    { "id": "time-and-space",          "name_en": "Time and space",        "name_ko": "시간과 공간",     "cover_emoji": "⏰" },
+    { "id": "travel",                  "name_en": "Travel",                "name_ko": "여행",            "cover_emoji": "✈️" },
+    { "id": "work-and-business",       "name_en": "Work and business",     "name_ko": "직업과 비즈니스", "cover_emoji": "💼" }
+  ]
+}
