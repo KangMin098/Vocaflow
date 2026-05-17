@@ -22,7 +22,7 @@
 import { ArrowRight, Lock } from 'lucide-react'
 import Link from 'next/link'
 
-export type BookType = 'text' | 'level' | 'smart' | 'goal' | 'theme'
+export type BookType = 'text' | 'shared' | 'level' | 'smart' | 'goal' | 'theme'
 
 export interface VaultBook {
   id: string
@@ -46,6 +46,10 @@ const TYPE_BADGE: Record<BookType, { label: string; className: string }> = {
   text: {
     label: '스크립트',
     className: 'bg-[var(--p-light)] text-[var(--p-dark)]',
+  },
+  shared: {
+    label: '공용 단어장',
+    className: 'bg-[#8B5CF6]/10 text-[#6D28D9]',
   },
   level: {
     label: '레벨',
@@ -79,11 +83,12 @@ export function BookShelfSection({ books }: BookShelfSectionProps) {
 
   // 정렬: 활성(잠금 X) 먼저, 그 안에서 type 우선순위 (text → level → smart → goal → theme)
   const order: Record<BookType, number> = {
-    text: 0,
-    level: 1,
-    smart: 2,
-    goal: 3,
-    theme: 4,
+    shared: 0,
+    text: 1,
+    level: 2,
+    smart: 3,
+    goal: 4,
+    theme: 5,
   }
   const sorted = [...books].sort((a, b) => {
     if (!!a.isLocked !== !!b.isLocked) return a.isLocked ? 1 : -1

@@ -16,14 +16,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 loadDotenv({ path: resolve(__dirname, '../../.env.local') })
 
-interface CliOpts { tier: 'p1' | 'p2'; apply: boolean }
+interface CliOpts { tier: 'p1' | 'p2' | 'p3'; apply: boolean }
 
 function parseArgs(): CliOpts {
   const args = process.argv.slice(2)
   const tierIdx = args.indexOf('--tier')
   const tier = (tierIdx >= 0 ? args[tierIdx + 1] : 'p1') as CliOpts['tier']
   const apply = args.includes('--apply')
-  if (tier !== 'p1' && tier !== 'p2') { console.error(`invalid --tier: ${tier}`); process.exit(1) }
+  if (tier !== 'p1' && tier !== 'p2' && tier !== 'p3') { console.error(`invalid --tier: ${tier}`); process.exit(1) }
   return { tier, apply }
 }
 
@@ -41,7 +41,7 @@ interface EnrichedLine {
   error?: string
 }
 
-function findOutputFiles(tier: 'p1' | 'p2'): string[] {
+function findOutputFiles(tier: 'p1' | 'p2' | 'p3'): string[] {
   const dir = resolve(__dirname, '../../exports/dict-fill')
   if (!fs.existsSync(dir)) return []
   return fs.readdirSync(dir)

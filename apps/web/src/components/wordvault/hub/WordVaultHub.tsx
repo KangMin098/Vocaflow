@@ -26,6 +26,7 @@ import { ModuleHero } from '@/components/hub/ModuleHero'
 import { getMemoryState } from '@/lib/srs'
 import type { MemoryState } from '@/lib/srs'
 import { groupByMastery } from '@/lib/wordvault/mastery'
+import type { HubStats } from '../hooks/useHubStats'
 
 import {
   MOCK_ACCUMULATED_DAYS,
@@ -47,10 +48,16 @@ import { WordVaultEmptyState } from './WordVaultEmptyState'
 
 interface WordVaultHubProps {
   words: WordItem[]
+  /**
+   * Phase 2 — Hero/VaultBar 실 데이터 override.
+   * 제공 시 총 단어/컬렉션/누적/4-bucket 모두 DB 값으로 표시.
+   * 미제공 시 mock(words) 기반으로 계산 (개발용 / 비로그인 fallback).
+   */
+  realStats?: HubStats | null
 }
 
-export function WordVaultHub({ words }: WordVaultHubProps) {
-  const counts = useMemo(() => {
+export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
+  const mockCounts = useMemo(() => {
     const c: Record<MemoryState, number> = { stable: 0, shaky: 0, risk: 0, new: 0 }
     for (const w of words) {
       const state = w.srs ? getMemoryState(w.srs) : 'new'
@@ -58,6 +65,12 @@ export function WordVaultHub({ words }: WordVaultHubProps) {
     }
     return c
   }, [words])
+
+  // 실 데이터 있으면 우선 — Hero/VaultBar 만 적용
+  const counts = realStats?.buckets ?? mockCounts
+  const totalCount = realStats?.total ?? words.length
+  const collectionsCount = realStats?.collectionsCount ?? MOCK_BOOKS.filter((b) => !b.isLocked).length
+  const accumulatedDays = realStats?.accumulatedDays ?? MOCK_ACCUMULATED_DAYS
 
   const cefrBuckets = useMemo(() => tallyCEFR(words), [words])
 
@@ -70,15 +83,17 @@ export function WordVaultHub({ words }: WordVaultHubProps) {
     [words],
   )
 
-  if (words.length === 0) {
+  // 실 데이터가 ready 이고 단어 0개 → EmptyState (mock 폴백 X)
+  // 실 데이터 미제공(undefined) 인데 mock 도 비어 있으면 EmptyState
+  const shouldShowEmpty =
+    realStats !== undefined ? (realStats?.total ?? 0) === 0 : words.length === 0
+  if (shouldShowEmpty) {
     return (
       <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
         <WordVaultEmptyState />
       </div>
     )
   }
-
-  const collectionsCount = MOCK_BOOKS.filter((b) => !b.isLocked).length
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
@@ -88,17 +103,17 @@ export function WordVaultHub({ words }: WordVaultHubProps) {
         title="📖 내 어휘 자산"
         note={
           counts.new > 0
-            ? `최근 ${counts.new}개 새 단어 · ${MOCK_ACCUMULATED_DAYS}일 누적`
+            ? `최근 ${counts.new.toLocaleString()}개 새 단어 · ${accumulatedDays}일 누적`
             : counts.shaky > 0
-              ? `흔들리는 단어 ${counts.shaky}개 · ${MOCK_ACCUMULATED_DAYS}일 누적`
-              : `${MOCK_ACCUMULATED_DAYS}일 동안 ${words.length}개를 모았어요`
+              ? `흔들리는 단어 ${counts.shaky.toLocaleString()}개 · ${accumulatedDays}일 누적`
+              : `${accumulatedDays}일 동안 ${totalCount.toLocaleString()}개를 모았어요`
         }
         gradient={{ from: '#6366F1', to: '#3730A3' }}
         icon={Library}
         stats={[
-          { label: '총 단어', value: words.length, unit: '개', emphasis: true },
+          { label: '총 단어', value: totalCount, unit: '개', emphasis: true },
           { label: '단어장', value: collectionsCount, unit: '권' },
-          { label: '누적', value: MOCK_ACCUMULATED_DAYS, unit: '일' },
+          { label: '누적', value: accumulatedDays, unit: '일' },
         ]}
         bottomSlot={
           <VaultBar
@@ -111,8 +126,8 @@ export function WordVaultHub({ words }: WordVaultHubProps) {
         }
       />
 
-      {/* Tier 2: BookShelf — Source/Level/Smart pivot (5 Book Type) */}
-      <BookShelfSection books={MOCK_BOOKS} />
+      {/* Tier 2: BookShelf — 실 데이터 우선 (구독 공용 단어장 + 스크립트), 미제공 시 mock */}
+      <BookShelfSection books={realStats?.books ?? MOCK_BOOKS} />
 
       {/* Tier 3: Level pivot — CEFR 6단계 분포 */}
       <CEFRDistribution buckets={cefrBuckets} />

@@ -21,6 +21,7 @@
     "@vocaflow/design-tokens": "workspace:*",
     "@vocaflow/types": "workspace:*",
     "@vocaflow/ui-shared": "workspace:*",
+    "@vocaflow/library-pipeline": "workspace:*",
     "@vocaflow/vcb-curate-core": "workspace:*",
     "@vocaflow/wlp": "workspace:*",
     "clsx": "^2.1.1",

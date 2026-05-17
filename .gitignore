@@ -28,3 +28,6 @@ Downloads/
 # 대용량 바이너리 (필요시)
 *.zip
 *.glb
+
+# Pipeline intermediate artifacts
+tmp/

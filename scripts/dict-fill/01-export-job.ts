@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 loadDotenv({ path: resolve(__dirname, '../../.env.local') })
 
-interface CliOpts { tier: 'top1k' | 'top5k'; chunkSize: number; dryRun: boolean }
+interface CliOpts { tier: 'top1k' | 'top5k' | 'top5kplus'; chunkSize: number; dryRun: boolean }
 
 function parseArgs(): CliOpts {
   const args = process.argv.slice(2)
@@ -27,8 +27,8 @@ function parseArgs(): CliOpts {
   const tier = (tierIdx >= 0 ? args[tierIdx + 1] : 'top1k') as CliOpts['tier']
   const chunkSize = chunkIdx >= 0 ? parseInt(args[chunkIdx + 1], 10) : 50
   const dryRun = args.includes('--dry-run')
-  if (tier !== 'top1k' && tier !== 'top5k') {
-    console.error(`invalid --tier: ${tier} (expect top1k | top5k)`)
+  if (tier !== 'top1k' && tier !== 'top5k' && tier !== 'top5kplus') {
+    console.error(`invalid --tier: ${tier} (expect top1k | top5k | top5kplus)`)
     process.exit(1)
   }
   if (chunkSize < 1 || chunkSize > 200) {
@@ -56,21 +56,22 @@ async function fetchTargets(tier: CliOpts['tier']): Promise<DictRow[]> {
   }
   const sb = createClient(url, key)
 
-  const rangeMax = tier === 'top1k' ? 1000 : 5000
-  const rangeMin = tier === 'top1k' ? 0 : 1001
+  const rangeMax = tier === 'top1k' ? 1000 : (tier === 'top5k' ? 5000 : null)
+  const rangeMin = tier === 'top1k' ? 0 : (tier === 'top5k' ? 1001 : 5001)
 
   // Paginate past 1000-row cap
   const PAGE = 1000
   const rows: DictRow[] = []
   let offset = 0
   while (true) {
-    const { data, error } = await sb.from('shared_dictionary')
+    let query = sb.from('shared_dictionary')
       .select('word, pos, cefr_level, meaning_ko, meanings_ko, frequency_rank')
       .gte('frequency_rank', rangeMin)
-      .lte('frequency_rank', rangeMax)
       .is('example_en', null)
       .order('frequency_rank', { ascending: true })
       .range(offset, offset + PAGE - 1)
+    if (rangeMax !== null) query = query.lte('frequency_rank', rangeMax)
+    const { data, error } = await query
     if (error) { console.error(error.message); process.exit(1) }
     if (!data || data.length === 0) break
     rows.push(...(data as DictRow[]))
@@ -107,7 +108,7 @@ async function main(): Promise<void> {
   const outDir = resolve(__dirname, '../../exports/dict-fill')
   fs.mkdirSync(outDir, { recursive: true })
 
-  const phasePrefix = opts.tier === 'top1k' ? 'p1' : 'p2'
+  const phasePrefix = opts.tier === 'top1k' ? 'p1' : (opts.tier === 'top5k' ? 'p2' : 'p3')
   const total = chunks.length
   const manifest = { tier: opts.tier, chunkSize: opts.chunkSize, total, words: rows.length, chunks: [] as string[] }
 
