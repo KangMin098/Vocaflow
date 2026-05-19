@@ -31,3 +31,8 @@ Downloads/
 
 # Pipeline intermediate artifacts
 tmp/
+
+# KICE 13y sprint — raw data (license-safe, master row is SSoT)
+data/seed/kice-csat/*.xlsx
+data/import/kice-csat-*.csv
+logs/kice-csat-*.log

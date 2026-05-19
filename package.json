@@ -49,6 +49,7 @@
   "packageManager": "pnpm@9.0.0",
   "devDependencies": {
     "@supabase/supabase-js": "^2.104.1",
+    "@types/node": "^25.9.0",
     "@vocaflow/library-pipeline": "workspace:*",
     "@vocaflow/vcb-core": "workspace:*",
     "@vocaflow/vcb-curate-core": "workspace:*",
@@ -58,7 +59,8 @@
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
     "supabase": "^2.98.1",
-    "tsx": "^4.20.6",
-    "turbo": "^2.9.6"
+    "tsx": "^4.22.1",
+    "turbo": "^2.9.6",
+    "xlsx": "^0.18.5"
   }
 }
