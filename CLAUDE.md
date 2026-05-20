@@ -3598,7 +3598,9 @@ CREATE POLICY "read words of published" ON shared_words FOR SELECT USING (
 
 ---
 
-### 영단어 마스터 사전 시스템 (v06.23 신설 · v06.24 한국어 뜻 100% 완성)
+### 영단어 마스터 사전 시스템 (v06.23 신설 · v06.24 한국어 뜻 100% 완성 · v06.26 Phase 1 통합 확장)
+
+> **문서 버전: v06.26 Phase 1** (Lexicon Unification — Schema Expansion). `shared_dictionary` 11개 통합 컬럼 추가 (`senses` JSONB, `primary_pos`, `pos_set`, `ipa_uk/us`, `cefr_confidence`, `domain_tags`, `frequency_score`, `frequency_band`, `verified_by/at`). `lexicon_frequencies` 사이드카 신설 — KICE + WM + EBS + NGSL + AWL + COCA 다중 출처 지원. `vocabularies`·`shared_words`·`library_book_vocabularies`·`library_article_vocabularies` 에 `lemma TEXT REFERENCES shared_dictionary(word)` 추가. `vocab_seed_candidates`·`vocab_enrichment_queue`·`vocab_dict_hits` 에 `lemma_normalized` 추가. `word_lexicon` INSERT 차단 트리거 (`trg_word_lexicon_freeze`) 설치 — 5,421 row 보존 + Phase E DROP 예정. Migration `20260520_120000_lexicon_phase1_expand.sql` 적용 완료. Playwright 1.60 + chromium-headless-shell + e2e 3종 (Browse/Flashcard/Curation) `baseline-pre-phase2` 측정 완료 (5 PASS / 2 FAIL / 0 SKIPPED — FAIL은 selector/mock 데이터 이슈로 Phase 4 시점 자연 해결 예상). Phase 2 ETL 시작 전 orphan 121 처리 방침 결정 대기. 자세한 내용은 `docs/proposals/lexicon-unification/` 참고.
 
 #### shared_dictionary — 영단어 마스터 캐시
 
