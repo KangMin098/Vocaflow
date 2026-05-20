@@ -1,8 +1,9 @@
 # Phase 2 사전 합의 — ETL 작성 전 확정 필요 항목
 
-> 작성일: 2026-05-20
+> 작성일: 2026-05-20 · 갱신: 2026-05-21
 > 목적: Phase 2 (word_lexicon → shared_dictionary 머지 ETL) 작성 전 의사결정 사항 기록
-> 상태: 결정 대기
+> 상태: **결정 완료 — 옵션 A 채택**. 정찰 결과 orphan 121 → **66** 으로 보정됨.
+> ETL 실행 패키지: `phase2-plan.md` + `supabase/migrations/20260521_140000_lexicon_phase2_backfill.sql`
 
 ## 사전 확인된 데이터 분포 (production)
 
