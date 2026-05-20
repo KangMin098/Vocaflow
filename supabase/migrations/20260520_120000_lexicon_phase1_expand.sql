@@ -211,12 +211,36 @@ BEGIN
   END IF;
 END $$;
 
+-- ── 6. word_lexicon INSERT 동결 (Phase E 에서 DROP 예정) ──
+-- 이유: "신규 INSERT 동결" 정책을 코드 레벨에 의존하면 누락 위험.
+-- 5/19 KICE 13y sprint 스크립트가 재실행돼도 즉시 차단되도록 트리거로 강제.
+CREATE OR REPLACE FUNCTION reject_word_lexicon_insert()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  RAISE EXCEPTION 'word_lexicon is FROZEN since lexicon-phase-1 (20260520). New words must go to shared_dictionary instead. See docs/proposals/lexicon-unification/.';
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_word_lexicon_freeze ON word_lexicon;
+CREATE TRIGGER trg_word_lexicon_freeze
+BEFORE INSERT ON word_lexicon
+FOR EACH ROW EXECUTE FUNCTION reject_word_lexicon_insert();
+
+COMMENT ON TABLE word_lexicon IS 'FROZEN since 20260520. Phase 1 lexicon unification. New INSERTs blocked by trigger. Will be DROPped in Phase E. 5,421 existing rows preserved.';
+
+DO $$ BEGIN RAISE NOTICE '검증 6 통과: word_lexicon INSERT 동결 트리거 설치됨'; END $$;
+
 COMMIT;
 
 -- ═══════════════════════════════════════════════════════════════════════════
 -- ROLLBACK 스크립트 (필요시 별도 실행):
 --
 -- BEGIN;
+-- DROP TRIGGER IF EXISTS trg_word_lexicon_freeze ON word_lexicon;
+-- DROP FUNCTION IF EXISTS reject_word_lexicon_insert();
 -- ALTER TABLE shared_dictionary
 --   DROP COLUMN IF EXISTS senses, DROP COLUMN IF EXISTS primary_pos,
 --   DROP COLUMN IF EXISTS pos_set, DROP COLUMN IF EXISTS ipa_uk,
