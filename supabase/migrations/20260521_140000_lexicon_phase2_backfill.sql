@@ -1,12 +1,15 @@
 -- ═══════════════════════════════════════════════════════════════════════════
 -- Lexicon Unification Phase 2 — Data Backfill (Migrate)
 --
--- ⚠ 적용 보류 — 24h 모니터링 통과 후 사용자 결정으로 Dashboard 수동 실행.
+-- ⚠ 적용 보류 — 24h 모니터링 통과 + P5 enrichment 100% 완료 후 Dashboard 수동 실행.
 --   사전 확인 필요:
+--     0. **P5 enrichment 완료 확인** — meaning_ko/meanings_ko/ipa/cefr_level 채움 작업
+--        P5 진행 중 Phase 2 실행 시 Step 2-C 가 P5 대상 row 에 빈약한 단일 sense 박아넣어
+--        데이터 품질 손실. phase2-plan.md "P5 enrichment 충돌" 섹션 SQL 로 확인 필수.
 --     1. shared_dictionary.source 컬럼 CHECK 제약 — 'kice-orphan' 차단 여부
 --        차단 시: Step 4 에서 source='imported' + metadata JSONB 로 출처 기록
 --     2. Step 2-A 청크 루프 — 가독성 낮음. 동작은 맞으나 LIMIT 단독으로 충분
---     3. Step 5 — GET DIAGNOSTICS ROW_COUNT 로 실제 갱신 카운트 측정 권장
+--     3. Step 5 — GET DIAGNOSTICS ROW_COUNT 적용 완료
 --     4. 롤백: Step 5 보강(cefr/ipa) NULL→값 갱신은 원본 미보존 → 백업 의존 필수
 --
 -- 목적:

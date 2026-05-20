@@ -9,8 +9,35 @@
 | 결정 | 선택 | 근거 |
 |---|---|---|
 | orphan 처리 | **옵션 A** — `shared_dictionary` INSERT, `source='kice-orphan'` | 정찰 결과 orphan 66 row (당초 121 추정에서 보정). Phase 4 빠른 진행 + 추적 가능 source 태깅 |
-| 실행 시점 | **24h 모니터링 통과 후** | Phase 1 안정성 우선 |
+| 실행 시점 | **24h 모니터링 통과 후 + P5 enrichment 100% 완료 후** | Phase 1 안정성 + 데이터 품질 보호 |
 | 실행 방식 | **Dashboard 수동 SQL Editor** | 메모리 제약 — auto-apply 금지 |
+
+## ⚠ P5 enrichment 충돌 — 실행 전제 (강제)
+
+P5 (`scripts/dict-fill/p5-*`) 는 `shared_dictionary` 의 `meaning_ko` / `meanings_ko` / `ipa` / `cefr_level` 등을 LLM 으로 채우는 작업. Phase 2 Step 2 는 `meanings_ko → senses` JSONB 변환.
+
+**P5 미완 상태에서 Phase 2 실행 시 위험:**
+
+1. **Race condition** — P5 가 채운 신규 `meanings_ko` 가 Phase 2 변환 직후 도착 → senses JSONB 와 meanings_ko 불일치 (Phase 2 는 시점 스냅샷 변환)
+2. **Step 2-C 데이터 품질 손실** — Step 2-C 는 `meanings_ko IS NULL AND meaning_ko IS NOT NULL` row 를 *meaning_ko 텍스트 한 줄만* 으로 빈약한 단일 sense 생성. 해당 row 가 사실 *P5 작업 대상* (다의어/예문/register 등 풍부화 예정) 이라면, Phase 2 가 먼저 빈약 sense 를 박아 넣고 P5 결과가 sense 구조에 반영되지 못함.
+3. **Step 5 보강 race** — P5 가 shared_dictionary 의 `ipa` / `cefr_level` 을 채우는 동안 Phase 2 Step 5 가 word_lexicon 값으로 COALESCE 채우면 어느 값이 최종인지 불분명.
+
+**원칙**: **P5 enrichment 100% 완료 후에만 Phase 2 실행**. P5 진행 중 실행 금지.
+
+**적용 전 확인 SQL**:
+```sql
+-- P5 작업 큐 잔여 0 확인 (P5 정의 따라 쿼리 조정 필요)
+SELECT
+  -- meaning_ko 가 있으나 meanings_ko 가 비어있는 row — P5 backfill 대기군
+  (SELECT COUNT(*) FROM shared_dictionary
+   WHERE meaning_ko IS NOT NULL AND (meanings_ko IS NULL OR jsonb_array_length(meanings_ko) = 0)) AS p5_pending_meanings,
+  -- ipa 미채움
+  (SELECT COUNT(*) FROM shared_dictionary WHERE ipa IS NULL) AS p5_pending_ipa,
+  -- cefr_level 미채움
+  (SELECT COUNT(*) FROM shared_dictionary WHERE cefr_level IS NULL) AS p5_pending_cefr;
+```
+
+위 카운트가 P5 완료 시점 기대값에 도달 시에만 Phase 2 진행. P5 책임자(또는 P5 실행 스크립트 종료 로그) 의 100% 완료 신호 확인 필수.
 
 ## 영향 범위 (정찰 카운트)
 
@@ -57,6 +84,7 @@
 
 ## Phase 3 진입 조건
 
+- [ ] **Phase 2 실행 전 P5 enrichment 100% 완료 확인** (위 SQL)
 - [ ] senses 채움 ≥ 30,000
 - [ ] orphan 정확히 66 INSERT (source='kice-orphan')
 - [ ] lexicon_frequencies ≥ 8,500
