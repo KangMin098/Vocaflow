@@ -1,0 +1,110 @@
+{
+  "total_entries": 25002,
+  "lemma_matched": 9288,
+  "lemma_unmatched": 15714,
+  "match_rate": 0.3714902807775378,
+  "inflections_matched": 13520,
+  "inflections_total": 76108,
+  "by_band": {
+    "1k": {
+      "total": 1000,
+      "matched": 863
+    },
+    "2k": {
+      "total": 1000,
+      "matched": 933
+    },
+    "3k": {
+      "total": 1000,
+      "matched": 839
+    },
+    "4k": {
+      "total": 1000,
+      "matched": 759
+    },
+    "5k": {
+      "total": 1000,
+      "matched": 721
+    },
+    "6k": {
+      "total": 1001,
+      "matched": 640
+    },
+    "7k": {
+      "total": 1000,
+      "matched": 558
+    },
+    "8k": {
+      "total": 1000,
+      "matched": 519
+    },
+    "9k": {
+      "total": 1000,
+      "matched": 431
+    },
+    "10k": {
+      "total": 1000,
+      "matched": 431
+    },
+    "11k": {
+      "total": 1000,
+      "matched": 384
+    },
+    "12k": {
+      "total": 1000,
+      "matched": 357
+    },
+    "13k": {
+      "total": 999,
+      "matched": 304
+    },
+    "14k": {
+      "total": 1000,
+      "matched": 274
+    },
+    "15k": {
+      "total": 1000,
+      "matched": 213
+    },
+    "16k": {
+      "total": 1000,
+      "matched": 206
+    },
+    "17k": {
+      "total": 1000,
+      "matched": 194
+    },
+    "18k": {
+      "total": 1000,
+      "matched": 152
+    },
+    "19k": {
+      "total": 1000,
+      "matched": 146
+    },
+    "20k": {
+      "total": 1000,
+      "matched": 101
+    },
+    "21k": {
+      "total": 1000,
+      "matched": 88
+    },
+    "22k": {
+      "total": 1000,
+      "matched": 69
+    },
+    "23k": {
+      "total": 1002,
+      "matched": 44
+    },
+    "24k": {
+      "total": 1000,
+      "matched": 33
+    },
+    "25k": {
+      "total": 1000,
+      "matched": 29
+    }
+  }
+}

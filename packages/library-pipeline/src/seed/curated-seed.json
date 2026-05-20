@@ -742,5 +742,126 @@
     "estimated_cefr": "C1",
     "genre": "short-stories",
     "tags": ["horror", "mystery", "classic"]
+  },
+
+  {
+    "source": "wikibooks",
+    "source_id": "English_in_Use",
+    "title": "English in Use",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "B1",
+    "genre": "textbook",
+    "tags": ["esl", "grammar", "practical"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Basic_English",
+    "title": "Basic English",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "A2",
+    "genre": "textbook",
+    "tags": ["esl", "beginner", "vocabulary"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Wikijunior:Animal_Alphabet",
+    "title": "Wikijunior: Animal Alphabet",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "A1",
+    "genre": "reference",
+    "tags": ["kids", "alphabet", "animals"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Wikijunior:Solar_System",
+    "title": "Wikijunior: Solar System",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "A2",
+    "genre": "reference",
+    "tags": ["kids", "science", "space"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "How_to_Write_a_Cookbook",
+    "title": "How to Write a Cookbook",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "B1",
+    "genre": "textbook",
+    "tags": ["writing", "practical", "guide"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Cookbook:Recipes",
+    "title": "Cookbook: Recipes",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "B1",
+    "genre": "reference",
+    "tags": ["cooking", "practical", "instruction"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Speaking_English",
+    "title": "Speaking English",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "A2",
+    "genre": "textbook",
+    "tags": ["esl", "speaking", "pronunciation"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Communication_Theory",
+    "title": "Communication Theory",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "C1",
+    "genre": "textbook",
+    "tags": ["academic", "theory", "communication"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Travel_Guide",
+    "title": "Travel Guide",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "B1",
+    "genre": "reference",
+    "tags": ["travel", "practical", "guide"]
+  },
+  {
+    "source": "wikibooks",
+    "source_id": "Wikijunior:World_Religions",
+    "title": "Wikijunior: World Religions",
+    "author": "Wikibooks contributors",
+    "author_birth_year": null,
+    "author_death_year": null,
+    "license": "CC-BY-SA-3.0",
+    "estimated_cefr": "B1",
+    "genre": "reference",
+    "tags": ["kids", "religion", "culture"]
   }
 ]

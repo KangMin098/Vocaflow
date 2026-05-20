@@ -1,0 +1,142 @@
+// apps/web/src/app/api/acp/dev-process/route.ts
+// ACP v1.0 Phase 18 — Admin "지금 처리 (dev)" 트리거
+//
+// POST /api/acp/dev-process
+// body: { article_id: string }
+//
+// 동작: library_articles row → normalize → analyzeArticle → status='ready'
+// 프로덕션 차단 (NODE_ENV='production' → 403). pg_cron 워커는 별도 (article_pipeline 큐 추후 구현).
+
+import { NextResponse } from 'next/server'
+import { createClient as createServiceClient } from '@supabase/supabase-js'
+import {
+  analyzeArticle,
+  normalizePunctuation,
+  reflowSoftHyphens,
+} from '@vocaflow/library-pipeline'
+import type { RawArticle, NormalizedArticle } from '@vocaflow/library-pipeline'
+
+import { requireAdmin } from '@/lib/auth/require-admin'
+
+export const runtime = 'nodejs'
+export const maxDuration = 300
+export const dynamic = 'force-dynamic'
+
+interface DevProcessBody {
+  article_id: string
+}
+
+export async function POST(request: Request): Promise<NextResponse> {
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json(
+      { error: 'dev-process disabled in production' },
+      { status: 403 },
+    )
+  }
+
+  await requireAdmin('/admin/articles')
+
+  const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
+  const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
+  if (!supabaseUrl || !serviceKey) {
+    return NextResponse.json(
+      { error: 'NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY missing' },
+      { status: 500 },
+    )
+  }
+
+  let body: DevProcessBody
+  try {
+    body = (await request.json()) as DevProcessBody
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
+  if (!body.article_id) {
+    return NextResponse.json({ error: 'article_id required' }, { status: 400 })
+  }
+
+  const client = createServiceClient(supabaseUrl, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
+
+  try {
+    // 1) article row fetch
+    const { data: article, error: fetchErr } = await client
+      .from('library_articles')
+      .select(
+        'id, source, source_id, source_url, title, author, language, license, content, published_at, status',
+      )
+      .eq('id', body.article_id)
+      .single()
+    if (fetchErr || !article) {
+      throw new Error(`Article not found: ${body.article_id} (${fetchErr?.message ?? 'no row'})`)
+    }
+
+    const updateStatus = async (s: string): Promise<void> => {
+      await client.from('library_articles').update({ status: s }).eq('id', body.article_id)
+    }
+
+    // 2) normalize (구두점 통일 + reflow — article 은 boundary/TOC 단계 불필요)
+    await updateStatus('normalizing')
+    const body_text = reflowSoftHyphens(normalizePunctuation(article.content as string))
+    const norm: NormalizedArticle = {
+      raw: {
+        source: article.source,
+        source_id: article.source_id,
+        source_url: article.source_url ?? '',
+        title: article.title,
+        author: article.author ?? undefined,
+        language: article.language ?? 'en',
+        license: article.license,
+        published_at: article.published_at ? new Date(article.published_at) : null,
+        content: article.content,
+        estimated_cefr: null,
+        fetched_at: new Date(),
+      } as RawArticle,
+      body: body_text,
+      body_hash: await sha256(body_text),
+    }
+
+    // 3) analyze
+    await updateStatus('analyzing')
+    const result = await analyzeArticle(body.article_id, norm)
+
+    // 4) library_articles 메타 업데이트 + status='ready' (dev 는 auto_curate 우회)
+    await client
+      .from('library_articles')
+      .update({
+        cefr_level: result.cefr_level,
+        cefr_confidence: result.cefr_confidence,
+        word_count: result.word_count,
+        reading_minutes: result.reading_minutes,
+        llm_cost_usd: result.llm_cost_usd,
+        status: 'ready',
+        status_message: null,
+        content_hash: norm.body_hash,
+      })
+      .eq('id', body.article_id)
+
+    return NextResponse.json({
+      ok: true,
+      article_id: body.article_id,
+      decision: 'ready_for_review',
+      cefr_level: result.cefr_level,
+      cefr_confidence: result.cefr_confidence,
+      vocab_count: result.words.length,
+      llm_cost: result.llm_cost_usd,
+    })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error(`[acp/dev-process] article_id=${body.article_id} failed:`, err)
+    await client
+      .from('library_articles')
+      .update({ status: 'failed', status_message: msg.slice(0, 500) })
+      .eq('id', body.article_id)
+    return NextResponse.json({ ok: false, error: msg }, { status: 500 })
+  }
+}
+
+async function sha256(s: string): Promise<string> {
+  const crypto = await import('node:crypto')
+  return crypto.createHash('sha256').update(s).digest('hex')
+}

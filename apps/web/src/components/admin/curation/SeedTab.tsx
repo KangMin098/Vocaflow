@@ -14,25 +14,39 @@ import { SeedCard, type SeedItem } from './SeedCard';
 const SEED_DATA = seedDataRaw as SeedItem[];
 
 type CefrFilter = 'all' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
-type GenreFilter = 'all' | 'novel' | 'short-stories' | 'essay' | 'poetry';
+type GenreFilter =
+  | 'all'
+  | 'novel'
+  | 'short-stories'
+  | 'essay'
+  | 'poetry'
+  | 'textbook'
+  | 'reference';
 type StatusFilter = 'all' | 'available' | 'added';
+type SourceFilter = 'all' | 'gutenberg' | 'standard_ebooks' | 'wikibooks';
 
 interface SeedTabProps {
-  /** library_books의 (source='gutenberg', source_id) 매칭 row */
+  /** library_books 의 모든 row (source + source_id 복합키로 매칭) */
   existingBooks: LibraryBookAdminRow[];
   onPickSeed: (seed: SeedItem) => void;
+}
+
+/** Map key: `${source}::${source_id}` — gutenberg 와 standard_ebooks 시드 충돌 회피 */
+function statusKey(source: string, sourceId: string): string {
+  return `${source}::${sourceId}`;
 }
 
 export function SeedTab({ existingBooks, onPickSeed }: SeedTabProps) {
   const [cefrFilter, setCefrFilter] = useState<CefrFilter>('all');
   const [genreFilter, setGenreFilter] = useState<GenreFilter>('all');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+  const [sourceFilter, setSourceFilter] = useState<SourceFilter>('all');
 
   const statusMap = useMemo(() => {
     const map = new Map<string, BookStatus>();
     for (const b of existingBooks) {
-      if (b.source === 'gutenberg' && b.source_id) {
-        map.set(b.source_id, b.status);
+      if (b.source_id) {
+        map.set(statusKey(b.source, b.source_id), b.status);
       }
     }
     return map;
@@ -42,12 +56,13 @@ export function SeedTab({ existingBooks, onPickSeed }: SeedTabProps) {
     return SEED_DATA.filter((seed) => {
       if (cefrFilter !== 'all' && seed.estimated_cefr !== cefrFilter) return false;
       if (genreFilter !== 'all' && seed.genre !== genreFilter) return false;
-      const isAdded = statusMap.has(seed.source_id);
+      if (sourceFilter !== 'all' && seed.source !== sourceFilter) return false;
+      const isAdded = statusMap.has(statusKey(seed.source, seed.source_id));
       if (statusFilter === 'available' && isAdded) return false;
       if (statusFilter === 'added' && !isAdded) return false;
       return true;
     });
-  }, [cefrFilter, genreFilter, statusFilter, statusMap]);
+  }, [cefrFilter, genreFilter, statusFilter, sourceFilter, statusMap]);
 
   return (
     <section
@@ -68,6 +83,17 @@ export function SeedTab({ existingBooks, onPickSeed }: SeedTabProps) {
       </div>
 
       <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+        <FilterSelect
+          label="소스"
+          value={sourceFilter}
+          onChange={setSourceFilter}
+          options={[
+            { value: 'all', label: '전체' },
+            { value: 'gutenberg', label: 'Gutenberg' },
+            { value: 'standard_ebooks', label: 'Standard Ebooks' },
+            { value: 'wikibooks', label: 'Wikibooks' },
+          ]}
+        />
         <FilterSelect
           label="CEFR"
           value={cefrFilter}
@@ -92,6 +118,8 @@ export function SeedTab({ existingBooks, onPickSeed }: SeedTabProps) {
             { value: 'short-stories', label: '단편' },
             { value: 'essay', label: '에세이' },
             { value: 'poetry', label: '시' },
+            { value: 'textbook', label: '교재' },
+            { value: 'reference', label: '참고서' },
           ]}
         />
         <FilterSelect
@@ -123,7 +151,7 @@ export function SeedTab({ existingBooks, onPickSeed }: SeedTabProps) {
             <div role="listitem" key={`${seed.source}-${seed.source_id}`}>
               <SeedCard
                 seed={seed}
-                status={statusMap.get(seed.source_id)}
+                status={statusMap.get(statusKey(seed.source, seed.source_id))}
                 onSelect={() => onPickSeed(seed)}
               />
             </div>

@@ -9,11 +9,19 @@ import { createClient } from '@/lib/supabase/client';
 import { enqueueBookViaRpc } from '@/lib/library/admin-queries';
 import type { SeedItem } from './SeedCard';
 import type { GutenbergPreview } from './GutenbergIdTab';
+import type { WikibooksPreview } from './WikibooksIdTab';
+import type { WikisourcePreview } from './WikisourceIdTab';
+import type { LibriVoxPreview } from './LibriVoxIdTab';
+import type { OpenStaxPreview } from './OpenStaxIdTab';
 
-/** Union — Tab 2 (SeedItem) + Tab 3 (GutenbergPreview). */
+/** Union — Seed + Gutenberg + Wikibooks + Wikisource + LibriVox + OpenStax preview sources. */
 export type EnqueueSource =
   | { kind: 'seed'; data: SeedItem }
-  | { kind: 'preview'; data: GutenbergPreview };
+  | { kind: 'preview'; data: GutenbergPreview }
+  | { kind: 'wikibooks'; data: WikibooksPreview }
+  | { kind: 'wikisource'; data: WikisourcePreview }
+  | { kind: 'librivox'; data: LibriVoxPreview }
+  | { kind: 'openstax'; data: OpenStaxPreview };
 
 interface EnqueueModalProps {
   source: EnqueueSource | null;
@@ -192,6 +200,54 @@ function normalizeSource(s: EnqueueSource): NormalizedEnqueue {
       author: s.data.author,
       author_birth_year: s.data.author_birth_year,
       author_death_year: s.data.author_death_year,
+      license: s.data.license,
+    };
+  }
+  if (s.kind === 'wikibooks') {
+    return {
+      source: s.data.source,
+      source_id: s.data.source_id,
+      title: s.data.title,
+      author: s.data.author,
+      author_birth_year: null,
+      author_death_year: null,
+      license: s.data.license,
+    };
+  }
+  if (s.kind === 'wikisource') {
+    return {
+      source: s.data.source,
+      source_id: s.data.source_id,
+      title: s.data.title,
+      author: s.data.author,
+      author_birth_year: null,
+      author_death_year: null,
+      license: s.data.license,
+    };
+  }
+  if (s.kind === 'librivox') {
+    // LibriVox 는 author 생몰년이 API 에 포함되어 kr_safe 자동 계산 가능.
+    return {
+      source: s.data.source,
+      source_id: s.data.source_id,
+      title: s.data.title,
+      author: s.data.author,
+      author_birth_year: s.data.author_birth_year,
+      author_death_year: s.data.author_death_year,
+      license: s.data.license,
+    };
+  }
+  if (s.kind === 'openstax') {
+    // OpenStax 는 모두 CC BY 4.0 — author 는 'OpenStax (Rice University)' 고정,
+    // 생몰년 없음. license 가 CC BY 라 copyright_safe_in_kr 트리거가 70년 룰을
+    // 통과 못 함 → ready 상태에서 admin 이 강제 publish 결정.
+    return {
+      source: s.data.source,
+      source_id: s.data.source_id,
+      title: s.data.title,
+      author: s.data.author,
+      author_birth_year: null,
+      author_death_year: null,
       license: s.data.license,
     };
   }

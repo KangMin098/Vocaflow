@@ -7,6 +7,11 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import {
   ingestFromGutenberg,
+  ingestFromStandardEbooks,
+  ingestFromWikibooks,
+  ingestFromWikisource,
+  ingestFromLibriVox,
+  ingestFromOpenStax,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -91,6 +96,16 @@ export async function POST(request: Request): Promise<NextResponse> {
     let raw
     if (book.source === 'gutenberg') {
       raw = await ingestFromGutenberg(book.source_id as string)
+    } else if (book.source === 'standard_ebooks') {
+      raw = await ingestFromStandardEbooks(book.source_id as string)
+    } else if (book.source === 'wikibooks') {
+      raw = await ingestFromWikibooks(book.source_id as string)
+    } else if (book.source === 'wikisource') {
+      raw = await ingestFromWikisource(book.source_id as string)
+    } else if (book.source === 'librivox') {
+      raw = await ingestFromLibriVox(book.source_id as string)
+    } else if (book.source === 'openstax') {
+      raw = await ingestFromOpenStax(book.source_id as string)
     } else {
       throw new Error(`Source not implemented: ${book.source}`)
     }

@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-05-18",
+  "source": "manual_curation_v06.25",
+  "note": "76 H2 dictionary_categories — CEFR-J mid-level. Hand-curated Korean names following H1 conventions. No cover_emoji (H2 is list-style; H1 emojis suffice).",
+  "level": 2,
+  "count": 76,
+  "items": [
+    { "id": "animals-animals",                                       "name_en": "Animals",                                "name_ko": "동물 일반" },
+    { "id": "animals-birds",                                         "name_en": "Birds",                                  "name_ko": "새" },
+    { "id": "animals-fish-and-shellfish",                            "name_en": "Fish and shellfish",                     "name_ko": "물고기와 조개류" },
+    { "id": "animals-insects-worms-etc",                             "name_en": "Insects, worms, etc",                    "name_ko": "곤충과 벌레" },
+
+    { "id": "appearance-appearance",                                 "name_en": "Appearance",                             "name_ko": "외모" },
+    { "id": "appearance-body",                                       "name_en": "Body",                                   "name_ko": "신체" },
+    { "id": "appearance-clothes-and-fashion",                        "name_en": "Clothes and Fashion",                    "name_ko": "옷과 패션" },
+    { "id": "appearance-colours-and-shapes",                         "name_en": "Colours and Shapes",                     "name_ko": "색과 모양" },
+
+    { "id": "communication-language",                                "name_en": "Language",                               "name_ko": "언어" },
+    { "id": "communication-phones-email-and-the-internet",           "name_en": "Phones, email and the internet",         "name_ko": "전화·이메일·인터넷" },
+
+    { "id": "culture-art",                                           "name_en": "Art",                                    "name_ko": "미술" },
+    { "id": "culture-film-and-theatre",                              "name_en": "Film and theatre",                       "name_ko": "영화와 연극" },
+    { "id": "culture-literature-and-writing",                        "name_en": "Literature and writing",                 "name_ko": "문학과 글쓰기" },
+    { "id": "culture-music",                                         "name_en": "Music",                                  "name_ko": "음악" },
+    { "id": "culture-tv-radio-and-news",                             "name_en": "TV, radio and news",                     "name_ko": "TV·라디오·뉴스" },
+
+    { "id": "food-and-drink-cooking-and-eating",                     "name_en": "Cooking and eating",                     "name_ko": "요리와 식사" },
+    { "id": "food-and-drink-drinks",                                 "name_en": "Drinks",                                 "name_ko": "음료" },
+    { "id": "food-and-drink-food",                                   "name_en": "Food",                                   "name_ko": "음식" },
+
+    { "id": "functions-discussion-and-agreement",                    "name_en": "Discussion and agreement",               "name_ko": "토론과 합의" },
+    { "id": "functions-doubt-guessing-and-certainty",                "name_en": "Doubt, guessing and certainty",          "name_ko": "의심·추측·확신" },
+    { "id": "functions-opinion-and-argument",                        "name_en": "Opinion and argument",                   "name_ko": "의견과 주장" },
+    { "id": "functions-permission-and-obligation",                   "name_en": "Permission and obligation",              "name_ko": "허락과 의무" },
+    { "id": "functions-preferences-and-decisions",                   "name_en": "Preferences and decisions",              "name_ko": "선호와 결정" },
+    { "id": "functions-suggestions-and-advice",                      "name_en": "Suggestions and advice",                 "name_ko": "제안과 조언" },
+
+    { "id": "health-disability",                                     "name_en": "Disability",                             "name_ko": "장애" },
+    { "id": "health-health-and-fitness",                             "name_en": "Health and Fitness",                     "name_ko": "건강과 체력" },
+    { "id": "health-health-problems",                                "name_en": "Health problems",                        "name_ko": "건강 문제" },
+    { "id": "health-healthcare",                                     "name_en": "Healthcare",                             "name_ko": "의료" },
+    { "id": "health-mental-health",                                  "name_en": "Mental health",                          "name_ko": "정신 건강" },
+
+    { "id": "homes-and-buildings-buildings",                         "name_en": "Buildings",                              "name_ko": "건물" },
+    { "id": "homes-and-buildings-gardens",                           "name_en": "Gardens",                                "name_ko": "정원" },
+    { "id": "homes-and-buildings-houses-and-homes",                  "name_en": "Houses and homes",                       "name_ko": "주택과 가정" },
+
+    { "id": "leisure-games-and-toys",                                "name_en": "Games and toys",                         "name_ko": "놀이와 장난감" },
+    { "id": "leisure-hobbies",                                       "name_en": "Hobbies",                                "name_ko": "취미" },
+    { "id": "leisure-shopping",                                      "name_en": "Shopping",                               "name_ko": "쇼핑" },
+
+    { "id": "notions-change-cause-and-effect",                       "name_en": "Change, cause and effect",               "name_ko": "변화·원인·결과" },
+    { "id": "notions-danger",                                        "name_en": "Danger",                                 "name_ko": "위험" },
+    { "id": "notions-difficulty-and-failure",                        "name_en": "Difficulty and failure",                 "name_ko": "어려움과 실패" },
+    { "id": "notions-success",                                       "name_en": "Success",                                "name_ko": "성공" },
+
+    { "id": "people-education",                                      "name_en": "Education",                              "name_ko": "교육" },
+    { "id": "people-family-and-relationships",                       "name_en": "Family and relationships",               "name_ko": "가족과 인간관계" },
+    { "id": "people-feelings",                                       "name_en": "Feelings",                               "name_ko": "감정" },
+    { "id": "people-life-stages",                                    "name_en": "Life stages",                            "name_ko": "인생 단계" },
+    { "id": "people-personal-qualities",                             "name_en": "Personal qualities",                     "name_ko": "성격과 자질" },
+
+    { "id": "politics-and-society-crime-and-punishment",             "name_en": "Crime and punishment",                   "name_ko": "범죄와 처벌" },
+    { "id": "politics-and-society-law-and-justice",                  "name_en": "Law and justice",                        "name_ko": "법과 정의" },
+    { "id": "politics-and-society-people-in-society",                "name_en": "People in society",                      "name_ko": "사회 속 사람들" },
+    { "id": "politics-and-society-politics",                         "name_en": "Politics",                               "name_ko": "정치" },
+    { "id": "politics-and-society-religion-and-festivals",           "name_en": "Religion and festivals",                 "name_ko": "종교와 축제" },
+    { "id": "politics-and-society-social-issues",                    "name_en": "Social issues",                          "name_ko": "사회 문제" },
+
+    { "id": "science-and-technology-biology",                        "name_en": "Biology",                                "name_ko": "생물학" },
+    { "id": "science-and-technology-computers",                      "name_en": "Computers",                              "name_ko": "컴퓨터" },
+    { "id": "science-and-technology-engineering",                    "name_en": "Engineering",                            "name_ko": "공학" },
+    { "id": "science-and-technology-maths-and-measurement",          "name_en": "Maths and measurement",                  "name_ko": "수학과 측정" },
+    { "id": "science-and-technology-physics-and-chemistry",          "name_en": "Physics and chemistry",                  "name_ko": "물리와 화학" },
+    { "id": "science-and-technology-scientific-research",            "name_en": "Scientific research",                    "name_ko": "과학 연구" },
+
+    { "id": "sport-ball-and-racket-sports",                          "name_en": "ball and racket sports",                 "name_ko": "구기·라켓 스포츠" },
+    { "id": "sport-other-sports",                                    "name_en": "other sports",                           "name_ko": "기타 스포츠" },
+    { "id": "sport-water-sports",                                    "name_en": "water sports",                           "name_ko": "수상 스포츠" },
+
+    { "id": "the-natural-world-farming",                             "name_en": "Farming",                                "name_ko": "농업" },
+    { "id": "the-natural-world-geography",                           "name_en": "Geography",                               "name_ko": "지리" },
+    { "id": "the-natural-world-plants-and-trees",                    "name_en": "Plants and trees",                       "name_ko": "식물과 나무" },
+    { "id": "the-natural-world-the-environment",                     "name_en": "The environment",                        "name_ko": "환경" },
+
+    { "id": "time-and-space-history",                                "name_en": "History",                                "name_ko": "역사" },
+    { "id": "time-and-space-space",                                  "name_en": "Space",                                  "name_ko": "우주" },
+    { "id": "time-and-space-time",                                   "name_en": "Time",                                   "name_ko": "시간" },
+
+    { "id": "travel-holidays",                                       "name_en": "Holidays",                               "name_ko": "휴가" },
+    { "id": "travel-transport-by-air",                               "name_en": "Transport by air",                       "name_ko": "항공 교통" },
+    { "id": "travel-transport-by-bus-and-train",                     "name_en": "Transport by bus and train",             "name_ko": "버스와 기차" },
+    { "id": "travel-transport-by-car-or-lorry",                      "name_en": "Transport by car or lorry",              "name_ko": "자동차와 화물차" },
+    { "id": "travel-transport-by-water",                             "name_en": "Transport by water",                     "name_ko": "해상 교통" },
+
+    { "id": "work-and-business-business",                            "name_en": "Business",                               "name_ko": "비즈니스" },
+    { "id": "work-and-business-jobs",                                "name_en": "Jobs",                                   "name_ko": "직업" },
+    { "id": "work-and-business-money",                               "name_en": "Money",                                  "name_ko": "돈" },
+    { "id": "work-and-business-working-life",                        "name_en": "Working life",                           "name_ko": "직장 생활" }
+  ]
+}

@@ -281,6 +281,17 @@ body.focus-mode .sidebar:hover {
   opacity: 1;
 }
 
+/* Reading Prose — 깊은 가독성을 위한 미세 조정 (v06.26 워크스페이스 개선) */
+.reading-prose {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hanging-punctuation: first allow-end last;
+}
+.reading-prose p {
+  orphans: 2;
+  widows: 2;
+}
+
 /* Pulse Animations */
 @keyframes pulse-soft {
   0%, 100% { opacity: 1; }

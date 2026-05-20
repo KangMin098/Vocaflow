@@ -36,3 +36,13 @@ tmp/
 data/seed/kice-csat/*.xlsx
 data/import/kice-csat-*.csv
 logs/kice-csat-*.log
+
+# Frequency corpus data (large + external)
+data/freq-corpus/*.xlsx
+data/freq-corpus/*.jsonl
+data/freq-corpus/match_report.txt
+
+# Dict-fill sprint working data (regeneratable via scripts/dict-fill/)
+data/dict-fill/
+
+logs/

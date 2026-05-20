@@ -6,13 +6,14 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
-  X, Loader2, RefreshCw, CheckCircle2, Archive, AlertCircle, ExternalLink, BookOpen,
+  X, Loader2, RefreshCw, CheckCircle2, Archive, AlertCircle, ExternalLink, BookOpen, Play,
 } from 'lucide-react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
 import {
   archiveBook,
   classifyStatus,
+  devProcessBook,
   forcePublishBook,
   parseLlmCost,
   requeueBook,
@@ -227,6 +228,19 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
             📖 본문 검수
           </Link>
         )}
+        {/* dev-only "Process Now" — queued/failed/in-progress 한정.
+            pg_cron Vault config 가 없을 때 사용자가 수동으로 파이프라인 진행.
+            서버 라우트가 NODE_ENV='production' 차단. */}
+        {process.env.NODE_ENV !== 'production' &&
+          ['queued', 'ingesting', 'normalizing', 'segmenting', 'analyzing', 'curating', 'failed'].includes(book.status) && (
+            <ActionButton
+              icon={<Play size={12} />}
+              label="지금 처리 (dev)"
+              pending={actionPending === 'dev-process'}
+              onClick={() => runAction('dev-process', (id) => devProcessBook(id))}
+              tone="primary"
+            />
+          )}
         {book.status === 'failed' && (
           <ActionButton
             icon={<RefreshCw size={12} />}

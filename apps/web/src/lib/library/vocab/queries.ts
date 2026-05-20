@@ -22,11 +22,28 @@ export type VocabCategory =
   | 'business'
   | 'themed'
 
+/**
+ * dictionary_categories 노드 (v06.25 브릿지) — 새 카테고리 트리.
+ * category_id 가 채워진 세트만 비-null. WordVault hub / library UI 의 새 라벨/이모지 출처.
+ */
+export interface VocabCategoryNode {
+  id: string
+  nameKo: string | null
+  nameEn: string
+  coverEmoji: string | null
+  level: number
+}
+
 export interface PublishedVocabSet {
   id: string
   title: string
   description: string | null
+  /** @deprecated v06.25 — `categoryNode` 우선 사용. legacy free-text fallback. */
   category: VocabCategory
+  /** v06.25 신규 — dictionary_categories(566 트리) 매핑. null 이면 아직 매핑 안 됨. */
+  categoryNode: VocabCategoryNode | null
+  /** v06.25 신규 — 보조 카테고리 ID 배열 (gin 인덱스, dictionary_categories.id 참조). */
+  additionalCategoryIds: string[]
   cefrLevel: string | null
   coverEmoji: string | null
   sortOrder: number
@@ -46,18 +63,59 @@ export interface SamplePreviewWord {
  * 게시된 공용 단어장 전체. RLS 가 anon SELECT 를 허용하므로 로그인 여부 무관.
  * word_count 캐시가 stale 한 경우가 있어 shared_words 실측 count 와 머지.
  */
+/**
+ * SELECT 결과 raw row 타입 (v06.25 브릿지 컬럼 포함).
+ * `Database` 자동 생성 타입에 `category_id` / `additional_category_ids` 가
+ * 아직 없을 수 있어 (마이그레이션 적용 + `supabase gen types` 재생성 전), 로컬
+ * 보강 타입을 정의 — 컬럼이 row 에 없을 경우 fallback 안전.
+ */
+interface SharedSetRow {
+  id: string
+  title: string
+  description: string | null
+  category: string
+  cefr_level: string | null
+  cover_emoji: string | null
+  sort_order: number | null
+  word_count: number | null
+  created_at: string | null
+  category_id?: string | null
+  additional_category_ids?: string[] | null
+}
+
 export async function fetchPublishedSets(
   supabase: SupabaseClient<DB>,
 ): Promise<PublishedVocabSet[]> {
-  const { data: sets, error } = await supabase
+  const { data, error } = await supabase
     .from('shared_word_sets')
-    .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at')
+    .select(
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, category_id, additional_category_ids',
+    )
     .eq('is_published', true)
     .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
 
-  if (error) throw error
-  if (!sets || sets.length === 0) return []
+  if (error) {
+    // 마이그레이션 미적용 환경에선 category_id/additional_category_ids 컬럼이 없어
+    // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
+    const fallback = await supabase
+      .from('shared_word_sets')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at')
+      .eq('is_published', true)
+      .order('sort_order', { ascending: true })
+      .order('created_at', { ascending: false })
+    if (fallback.error) throw fallback.error
+    return enrichSets(supabase, (fallback.data ?? []) as SharedSetRow[])
+  }
+
+  return enrichSets(supabase, (data ?? []) as unknown as SharedSetRow[])
+}
+
+async function enrichSets(
+  supabase: SupabaseClient<DB>,
+  sets: SharedSetRow[],
+): Promise<PublishedVocabSet[]> {
+  if (sets.length === 0) return []
 
   // 실측 단어 수 보정 — id IN (...) 한 번에 가져와 set_id 별 집계
   const ids = sets.map((s) => s.id)
@@ -73,11 +131,35 @@ export async function fetchPublishedSets(
     counts.set(row.set_id, (counts.get(row.set_id) ?? 0) + 1)
   }
 
+  // category_id 노드 lookup (한 번에 fetch)
+  const categoryIds = sets
+    .map((s) => s.category_id)
+    .filter((id): id is string => typeof id === 'string')
+  const categoryNodeMap = new Map<string, VocabCategoryNode>()
+  if (categoryIds.length > 0) {
+    const { data: cats, error: cErr } = await supabase
+      .from('dictionary_categories')
+      .select('id, name_ko, name_en, cover_emoji, level')
+      .in('id', categoryIds)
+    if (cErr) throw cErr
+    for (const c of cats ?? []) {
+      categoryNodeMap.set(c.id, {
+        id: c.id,
+        nameKo: c.name_ko,
+        nameEn: c.name_en,
+        coverEmoji: c.cover_emoji,
+        level: c.level ?? 1,
+      })
+    }
+  }
+
   return sets.map((s) => ({
     id: s.id,
     title: s.title,
     description: s.description,
     category: s.category as VocabCategory,
+    categoryNode: s.category_id ? (categoryNodeMap.get(s.category_id) ?? null) : null,
+    additionalCategoryIds: s.additional_category_ids ?? [],
     cefrLevel: s.cefr_level,
     coverEmoji: s.cover_emoji,
     sortOrder: s.sort_order ?? 0,
