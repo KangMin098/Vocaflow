@@ -114,35 +114,85 @@ export function useHubStats(): HubStatsState {
       const setIds = Array.from(bySet.keys())
       const textIds = Array.from(byText.keys())
 
-      const [setsRes, textsRes] = await Promise.all([
-        setIds.length === 0
-          ? Promise.resolve({ data: [], error: null as null | { message: string } })
-          : supabase
-              .from('shared_word_sets')
-              .select('id, title, cover_emoji, category, cefr_level')
-              .in('id', setIds),
+      // v06.25 — category_id 컬럼이 마이그레이션 미적용 환경에서도 안전하도록
+      // try-catch + fallback. 컬럼 존재 시 dictionary_categories.name_ko 조인.
+      let setsData: Array<{
+        id: string
+        title: string
+        cover_emoji: string | null
+        category: string | null
+        cefr_level: string | null
+        category_id?: string | null
+      }> = []
+      if (setIds.length > 0) {
+        const withBridge = await supabase
+          .from('shared_word_sets')
+          .select('id, title, cover_emoji, category, cefr_level, category_id')
+          .in('id', setIds)
+        if (withBridge.error) {
+          // 컬럼 미존재 — legacy fallback
+          const legacy = await supabase
+            .from('shared_word_sets')
+            .select('id, title, cover_emoji, category, cefr_level')
+            .in('id', setIds)
+          setsData = (legacy.data ?? []) as typeof setsData
+        } else {
+          setsData = (withBridge.data ?? []) as unknown as typeof setsData
+        }
+      }
+
+      const textsRes =
         textIds.length === 0
-          ? Promise.resolve({ data: [], error: null as null | { message: string } })
-          : supabase
+          ? { data: [] as Array<{ id: string; title: string; status: string | null; cefr_level: string | null }>, error: null }
+          : await supabase
               .from('texts')
               .select('id, title, status, cefr_level')
               .eq('user_id', user.id)
-              .in('id', textIds),
-      ])
+              .in('id', textIds)
       if (cancelled) return
+
+      // category_id 노드 lookup (한 번에 fetch — 한국어 이름 보강)
+      const categoryIds = setsData
+        .map((s) => s.category_id)
+        .filter((v): v is string => typeof v === 'string')
+      const catNameMap = new Map<string, { nameKo: string | null; nameEn: string; coverEmoji: string | null }>()
+      if (categoryIds.length > 0) {
+        const { data: cats } = await supabase
+          .from('dictionary_categories')
+          .select('id, name_ko, name_en, cover_emoji')
+          .in('id', categoryIds)
+        for (const c of cats ?? []) {
+          catNameMap.set(c.id, {
+            nameKo: c.name_ko,
+            nameEn: c.name_en,
+            coverEmoji: c.cover_emoji,
+          })
+        }
+      }
 
       const books: VaultBook[] = []
 
       // 1) 공용 단어장 책 (보라 'shared' 타입)
-      for (const s of setsRes.data ?? []) {
+      for (const s of setsData) {
         const d = bySet.get(s.id) ?? emptyBucket()
         const wc = d.stable + d.shaky + d.risk + d.new
-        const emoji = s.cover_emoji ?? '📚'
+        const node = s.category_id ? catNameMap.get(s.category_id) : null
+        // 이모지: dictionary_categories.cover_emoji > shared_word_sets.cover_emoji > 📚
+        const emoji = node?.coverEmoji ?? s.cover_emoji ?? '📚'
+        // subtitle: 카테고리 한국어 이름(name_ko) > name_en > CEFR > 공용 단어장
+        const categoryLabel = node ? (node.nameKo ?? node.nameEn) : null
+        const subtitle = categoryLabel
+          ? s.cefr_level
+            ? `${categoryLabel} · CEFR ${s.cefr_level}`
+            : categoryLabel
+          : s.cefr_level
+            ? `CEFR ${s.cefr_level}`
+            : '공용 단어장'
         books.push({
           id: `set-${s.id}`,
           type: 'shared',
           title: `${emoji} ${s.title}`,
-          subtitle: s.cefr_level ? `CEFR ${s.cefr_level}` : '공용 단어장',
+          subtitle,
           wordCount: wc,
           distribution: d,
           href: `/wordvault/browse?filter=set:${s.id}`,

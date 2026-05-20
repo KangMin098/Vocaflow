@@ -44,11 +44,21 @@ export function VocabSetCard({
           </h3>
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
-          {cat && (
+          {/* v06.25: categoryNode 우선 (566 트리, name_ko→name_en fallback). 미매핑 시 legacy chip. */}
+          {set.categoryNode ? (
             <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-0.5 font-display text-[11px] font-[600] text-[#6D28D9]">
-              <span aria-hidden="true">{cat.emoji}</span>
-              {cat.label}
+              {set.categoryNode.coverEmoji && (
+                <span aria-hidden="true">{set.categoryNode.coverEmoji}</span>
+              )}
+              {set.categoryNode.nameKo ?? set.categoryNode.nameEn}
             </span>
+          ) : (
+            cat && (
+              <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-0.5 font-display text-[11px] font-[600] text-[#6D28D9]">
+                <span aria-hidden="true">{cat.emoji}</span>
+                {cat.label}
+              </span>
+            )
           )}
           {set.cefrLevel && (
             <span className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[11px] font-[600] text-[var(--t2)]">

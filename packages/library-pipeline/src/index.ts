@@ -13,9 +13,15 @@ export { ingestFromWikisource } from './ingest/wikisource'
 export { ingestFromLibriVox } from './ingest/librivox'
 export { ingestFromOpenStax } from './ingest/openstax'
 
-// S2 INGEST — Articles (ACP — Phase 18)
+// S2 INGEST — Articles (ACP — Phase 18: VOA / Phase 19: NASA · NIH · arXiv)
 export { listVoaFeed, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
 export type { VoaListItem } from './ingest-article/voa'
+export { listNasaFeed, ingestNasaArticle, NASA_FEEDS } from './ingest-article/nasa'
+export type { NasaListItem } from './ingest-article/nasa'
+export { listNihFeed, ingestNihArticle, NIH_FEEDS } from './ingest-article/nih'
+export type { NihListItem } from './ingest-article/nih'
+export { listArxivFeed, ingestArxivArticle, ARXIV_FEEDS } from './ingest-article/arxiv'
+export type { ArxivListItem } from './ingest-article/arxiv'
 export * from './types-article'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'

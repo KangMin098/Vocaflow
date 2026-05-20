@@ -6,15 +6,16 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo, useState } from 'react'
 
 import { SpellForge } from '@/components/spellforge/SpellForge'
-import { ContextBar } from '@/components/workspace/ContextBar'
+import { ChapterBottomNav } from '@/components/workspace/ChapterBottomNav'
 import { FloatingAudioPlayer } from '@/components/workspace/FloatingAudioPlayer'
 import { FloatingSparkle } from '@/components/workspace/FloatingSparkle'
 import { InsightPanel } from '@/components/workspace/InsightPanel'
 import { KeyboardHints } from '@/components/workspace/KeyboardHints'
-import { ModePills } from '@/components/workspace/ModePills'
 import { Pagination } from '@/components/workspace/Pagination'
 import { ReadingUniverse } from '@/components/workspace/ReadingUniverse'
 import { RecallCard } from '@/components/workspace/RecallCard'
+import { UnifiedHeader } from '@/components/workspace/UnifiedHeader'
+import type { ChapterDisplayStatus } from '@/components/workspace/CompleteChapterButton'
 
 import { useFocusMode } from '@/hooks/useFocusMode'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
@@ -28,7 +29,13 @@ import {
 import type { LibraryText, ModeKey, ModeStatus, Word } from '@/types/library'
 import type { SpellForgeWord } from '@/types/spellforge'
 
-// Mock data
+import {
+  useTextContentSafe,
+  type TextParagraph,
+} from './text-content-context'
+
+// Mock fallback — layout.tsx 가 textId 를 DB 에서 못 찾았을 때만 사용.
+// 실제 라이브러리 책/사용자 텍스트는 layout 의 TextContentProvider 가 전달.
 const MOCK_TEXT: LibraryText = {
   id: '1',
   title: 'The Great Gatsby',
@@ -224,9 +231,67 @@ export default function WorkspacePage({ params }: PageProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const currentMode = (searchParams.get('mode') ?? 'read') as ModeKey
-  const currentPage = parseInt(searchParams.get('page') ?? '3', 10)
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
 
-  const text: LibraryText = { ...MOCK_TEXT, id: params.id, currentPage }
+  // layout.tsx 가 v_text_content 에서 실 데이터 주입. 없으면 mock fallback.
+  const ctx = useTextContentSafe()
+
+  const text: LibraryText = useMemo(() => {
+    const base: LibraryText = { ...MOCK_TEXT, id: params.id, currentPage }
+    if (!ctx) return base
+    const t = ctx.text
+    // 실 데이터 기반 진척률: chapter list 에서 completed 비율
+    let progressPercent = base.progressPercent
+    if (ctx.chapters.length > 0) {
+      const completed = ctx.chapters.filter((c) => c.status === 'completed').length
+      const current = ctx.chapters.findIndex((c) => c.textId === ctx.textId)
+      // completed + 현재 chapter 의 0.5 기여 (in_progress 일 때만)
+      const inProgressBoost =
+        ctx.currentChapterStatus === 'in_progress' && current >= 0 ? 0.5 : 0
+      progressPercent = Math.round(((completed + inProgressBoost) / ctx.chapters.length) * 100)
+    }
+    return {
+      ...base,
+      ...(t.title ? { title: t.title } : {}),
+      ...(t.author ? { author: t.author } : {}),
+      ...(t.cefrLevel ? { cefrLevel: t.cefrLevel } : {}),
+      ...(typeof t.wordCount === 'number' ? { wordCount: t.wordCount } : {}),
+      progressPercent,
+      totalPages: t.totalPages ?? 1,
+      currentPage,
+    }
+  }, [ctx, params.id, currentPage])
+
+  // Chapter 메타 — ReadingUniverse 상단 kicker + 하단 풋터 공용
+  const chapterMeta = useMemo(() => {
+    if (!ctx) return undefined
+    // 라이브러리 도서이면 "Chapter N", 사용자 텍스트면 텍스트 title 그대로
+    const label =
+      ctx.libraryBookId && ctx.chapterIdx != null
+        ? `Chapter ${ctx.chapterIdx}`
+        : (ctx.text.title ?? '').trim()
+    if (!label) return undefined
+    const wc = ctx.text.wordCount ?? 0
+    // 영어 학습자 평균 ~ 150wpm — 1분 이하 0으로 처리
+    const readingMinutes = wc > 0 ? Math.max(1, Math.round(wc / 150)) : 0
+    return { label, readingMinutes }
+  }, [ctx])
+
+  const paragraphs: TextParagraph[] = useMemo(
+    () => (ctx && ctx.paragraphs.length > 0 ? ctx.paragraphs : MOCK_PARAGRAPHS),
+    [ctx],
+  )
+
+  // Chapter 내 학습 단어 카운트 (참고 풋터용)
+  const wordsOnPage = useMemo(() => {
+    let count = 0
+    for (const p of paragraphs) {
+      for (const s of p.sentences) {
+        for (const part of s.parts) if (part.word) count++
+      }
+    }
+    return count
+  }, [paragraphs])
 
   // §17.3 추천 축 (3곳 중 1곳: FloatingSparkle)
   // 사용자가 이미 Workspace에 있으므로 warm_urgent 컨텍스트 — Flashcard 추천이 학습 흐름의 자연스러운 다음 단계
@@ -283,33 +348,33 @@ export default function WorkspacePage({ params }: PageProps) {
 
   // Total sentences
   const totalSentences = useMemo(() => {
-    return MOCK_PARAGRAPHS.reduce((acc, p) => acc + p.sentences.length, 0)
-  }, [])
+    return paragraphs.reduce((acc, p) => acc + p.sentences.length, 0)
+  }, [paragraphs])
 
   const currentSentenceIdx = useMemo(() => {
     if (playingSentenceId === null) return 0
     let idx = 0
-    for (const p of MOCK_PARAGRAPHS) {
+    for (const p of paragraphs) {
       for (const s of p.sentences) {
         if (s.id === playingSentenceId) return idx + 1
         idx++
       }
     }
     return 0
-  }, [playingSentenceId])
+  }, [playingSentenceId, paragraphs])
 
   // SpellForge 모드용 — 스크립트 내 모든 학습 단어 수집
   const spellforgeWords: SpellForgeWord[] = useMemo(() => {
     const collected: SpellForgeWord[] = []
-    for (const p of MOCK_PARAGRAPHS) {
+    for (const p of paragraphs) {
       for (const s of p.sentences) {
         for (const part of s.parts) {
-          if (part.word) collected.push(part.word)
+          if (part.word) collected.push(part.word as SpellForgeWord)
         }
       }
     }
     return collected
-  }, [])
+  }, [paragraphs])
 
   // Audio handlers
   const handlePlayPause = () => setIsPlaying((p) => !p)
@@ -382,46 +447,66 @@ export default function WorkspacePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-[var(--reading-bg)]">
-      <ContextBar
+      <UnifiedHeader
         text={text}
+        book={ctx?.book ?? null}
+        chapters={ctx?.chapters ?? []}
+        currentChapterIdx={ctx?.chapterIdx ?? null}
+        currentTextId={text.id}
+        currentChapterStatus={(ctx?.currentChapterStatus ?? 'not_started') as ChapterDisplayStatus}
         isBookmarked={isBookmarked}
         onToggleBookmark={handleBookmarkToggle}
         onToggleInsight={() => setIsInsightOpen((o) => !o)}
         onToggleFocus={toggleFocus}
         isFocusMode={isFocusMode}
-      />
-
-      <ModePills
-        textId={text.id}
         currentMode={currentMode}
         modeStatus={MODE_STATUS}
-        isFocusMode={isFocusMode}
       />
 
       <ReadingUniverse
-        paragraphs={MOCK_PARAGRAPHS}
+        paragraphs={paragraphs}
         isFocusMode={isFocusMode}
         onWordHover={handleWordHover}
         onSentencePlay={handleSentencePlay}
         playingSentenceId={playingSentenceId}
+        chapterMeta={chapterMeta}
       />
 
-      <div className="mx-auto max-w-[760px] px-8 pb-12">
-        <Pagination textId={text.id} currentPage={currentPage} totalPages={text.totalPages} />
-        <p className="mt-4 text-center font-body text-[12px] italic text-[var(--t3)]">
-          이 페이지에서{' '}
-          <strong className="font-display font-[700] not-italic text-[var(--t1)]">5</strong>개의 새
-          단어를 만났어요 · 다음 페이지까지{' '}
-          <strong className="font-display font-[700] not-italic text-[var(--t1)]">5분</strong>
-        </p>
-      </div>
+      {/* Chapter bottom nav — 책 chapter context 만 (사용자 직접 입력 텍스트는 Pagination) */}
+      {ctx?.libraryBookId && ctx.chapterIdx != null && ctx.chapters.length > 1 && (
+        <div
+          className={`mx-auto max-w-[680px] px-6 pb-10 md:px-8 ${
+            isFocusMode ? 'opacity-30' : 'opacity-100'
+          } transition-opacity duration-[var(--dur-slower)]`}
+        >
+          <ChapterBottomNav chapters={ctx.chapters} currentChapterIdx={ctx.chapterIdx} />
+        </div>
+      )}
 
-      {/* Ambient Footer */}
+      {/* Pagination — 사용자 직접 입력 텍스트의 다중 page 일 때만 */}
+      {!ctx?.libraryBookId && text.totalPages > 1 && (
+        <div className="mx-auto max-w-[680px] px-6 pb-10 md:px-8">
+          <Pagination textId={text.id} currentPage={currentPage} totalPages={text.totalPages} />
+        </div>
+      )}
+
+      {/* Chapter Footer — 실 단어 수 + 격려 (Empathetic Feedback + Implicit Progress) */}
       <footer
-        className={`mx-auto mt-16 max-w-[760px] px-8 py-6 pb-12 text-center font-body text-[12px] italic tracking-[0.02em] text-[var(--t3)] transition-opacity duration-[var(--dur-slower)] ${isFocusMode ? 'opacity-40' : 'opacity-100'} `}
+        className={`mx-auto max-w-[680px] px-6 pb-16 pt-8 text-center md:px-8 ${
+          isFocusMode ? 'opacity-30' : 'opacity-100'
+        } transition-opacity duration-[var(--dur-slower)]`}
       >
-        <span className="mx-auto mb-3 block h-px w-8 bg-[var(--bd)]" aria-hidden="true" />
-        <p>20분의 깊은 시간 · 오늘 좋은 페이스예요</p>
+        <span className="mx-auto mb-4 block h-px w-10 bg-[var(--bd)]" aria-hidden="true" />
+        {wordsOnPage > 0 && (
+          <p className="font-body text-[12.5px] text-[var(--t3)]">
+            이 chapter 에서{' '}
+            <strong className="font-display font-[700] text-[var(--t1)]">{wordsOnPage}</strong>개의
+            학습 단어를 만났어요
+          </p>
+        )}
+        <p className="mt-1.5 font-body text-[12px] italic tracking-[0.01em] text-[var(--t3)]">
+          오늘도 좋은 페이스예요 · 잠깐 쉬어도 좋아요
+        </p>
       </footer>
 
       {/* Floating Components */}

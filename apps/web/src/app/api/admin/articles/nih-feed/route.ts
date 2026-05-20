@@ -1,0 +1,51 @@
+// apps/web/src/app/api/admin/articles/nih-feed/route.ts
+// ACP v1.0 Phase 19 — NIH RSS feed 항목 목록
+//
+// GET /api/admin/articles/nih-feed?feed=<feed_id>
+
+import { NextResponse, type NextRequest } from 'next/server'
+
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { listNihFeed, NIH_FEEDS } from '@vocaflow/library-pipeline'
+
+export const runtime = 'nodejs'
+export const revalidate = 600
+
+export async function GET(req: NextRequest) {
+  const adminOrError = await requireAdminApi()
+  if (adminOrError instanceof NextResponse) return adminOrError
+
+  const feedId = req.nextUrl.searchParams.get('feed') ?? 'news'
+  const feed = NIH_FEEDS.find((f) => f.id === feedId)
+  if (!feed) {
+    return NextResponse.json(
+      { error: 'BadRequest', message: `Unknown NIH feed: ${feedId}` },
+      { status: 400 },
+    )
+  }
+
+  try {
+    const items = await listNihFeed(feed.url)
+    return NextResponse.json(
+      { feed_id: feed.id, label: feed.label, items },
+      { status: 200, headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=3600' } },
+    )
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : 'unknown'
+    if (msg.includes('timeout') || msg.includes('AbortError')) {
+      return NextResponse.json(
+        { error: 'GatewayTimeout', message: 'NIH RSS 응답이 늦어 가져오지 못했습니다.' },
+        { status: 504 },
+      )
+    }
+    console.error('[nih-feed] failed:', msg)
+    // 상류 HTTP 상태(404 등) 를 사용자 메시지에 노출 — 디버깅 단서.
+    return NextResponse.json(
+      {
+        error: 'InternalError',
+        message: `NIH RSS 가져오기 실패: ${msg}. URL 직접 입력으로 우회하세요.`,
+      },
+      { status: 502 },
+    )
+  }
+}

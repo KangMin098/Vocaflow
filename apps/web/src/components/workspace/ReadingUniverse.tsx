@@ -21,12 +21,21 @@ interface ParagraphData {
   sentences: SentenceData[]
 }
 
+interface ChapterMeta {
+  label: string
+  /** 읽기 추정 분 (없으면 숨김) */
+  readingMinutes?: number
+  /** chapter 진행률 0~100 (없으면 숨김) */
+  progressPercent?: number
+}
+
 interface ReadingUniverseProps {
   paragraphs: ParagraphData[]
   isFocusMode: boolean
   onWordHover: (word: Word, anchorRect: DOMRect) => void
   onSentencePlay: (sentenceId: number) => void
   playingSentenceId: number | null
+  chapterMeta?: ChapterMeta
 }
 
 export function ReadingUniverse({
@@ -35,6 +44,7 @@ export function ReadingUniverse({
   onWordHover,
   onSentencePlay,
   playingSentenceId,
+  chapterMeta,
 }: ReadingUniverseProps) {
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [activeWordId, setActiveWordId] = useState<string | null>(null)
@@ -52,99 +62,118 @@ export function ReadingUniverse({
     if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current)
   }
 
+  // 첫 paragraph 에만 drop-cap 적용 — `first-of-type` 가 아닌 명시적 인덱스 (TOC strip 회귀 회피)
   return (
-    <article className="relative mx-auto max-w-[760px] px-8 py-16">
-      {/* Reading Meta */}
-      <div
-        className={`mb-8 flex items-center gap-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)] transition-opacity duration-[var(--dur-slower)] ${isFocusMode ? 'opacity-40' : 'opacity-100'} `}
-      >
-        <span>Chapter One · Page 3</span>
-        <span className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent" />
-        <span className="italic">5분 정도의 읽기</span>
-      </div>
+    <article className="relative mx-auto max-w-[680px] px-6 py-10 md:px-8 md:py-14">
+      {/* Chapter Meta — kicker line */}
+      {chapterMeta && (
+        <header
+          className={`mb-10 flex items-center gap-3 transition-opacity duration-[var(--dur-slower)] ${
+            isFocusMode ? 'opacity-30' : 'opacity-100'
+          } `}
+        >
+          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            {chapterMeta.label}
+          </span>
+          <span className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] via-[var(--bd)] to-transparent" />
+          {typeof chapterMeta.readingMinutes === 'number' && chapterMeta.readingMinutes > 0 && (
+            <span className="font-body text-[11.5px] italic text-[var(--t3)]">
+              약 {chapterMeta.readingMinutes}분 읽기
+            </span>
+          )}
+        </header>
+      )}
 
       {/* Reading Text */}
       <div
-        className="font-english text-[var(--reading-text)] [&_p:first-of-type::first-letter]:float-left [&_p:first-of-type::first-letter]:mr-2 [&_p:first-of-type::first-letter]:mt-1.5 [&_p:first-of-type::first-letter]:font-english [&_p:first-of-type::first-letter]:text-[3em] [&_p:first-of-type::first-letter]:font-[600] [&_p:first-of-type::first-letter]:leading-[0.9] [&_p:first-of-type::first-letter]:text-[var(--p)]"
+        className="reading-prose font-english text-[var(--reading-text)]"
         style={{
           fontSize: 'var(--reader-font-size)',
           lineHeight: 'var(--reader-line-height)',
-          letterSpacing: '0.005em',
-          fontFeatureSettings: '"liga" 1, "kern" 1',
+          letterSpacing: '0.003em',
+          fontFeatureSettings: '"liga" 1, "kern" 1, "onum" 1',
+          textRendering: 'optimizeLegibility',
           transition: 'font-size 200ms, line-height 200ms',
         }}
       >
-        {paragraphs.map((p) => (
-          <p key={p.id} className="group/paragraph mb-7">
+        {paragraphs.map((p, pIdx) => (
+          <p
+            key={p.id}
+            className={`group/paragraph relative mb-7 md:mb-8 ${
+              pIdx === 0
+                ? '[&::first-letter]:float-left [&::first-letter]:mr-2.5 [&::first-letter]:mt-1.5 [&::first-letter]:font-english [&::first-letter]:text-[3.2em] [&::first-letter]:font-[700] [&::first-letter]:leading-[0.9] [&::first-letter]:text-[var(--p)]'
+                : ''
+            } `}
+          >
             {p.sentences.map((s, sIdx) => {
               const isPlaying = playingSentenceId === s.id
               return (
-                <span key={s.id}>
-                  {/* Play Button */}
+                <span
+                  key={s.id}
+                  className={`group/sentence relative inline transition-colors duration-[var(--dur-normal)] ${
+                    isPlaying
+                      ? 'rounded-[3px] bg-[rgba(250,204,21,0.22)] shadow-[inset_0_-1px_0_rgba(234,179,8,0.28)] dark:bg-[rgba(250,204,21,0.16)]'
+                      : ''
+                  } `}
+                >
+                  {/* Play affordance — 항상 보이는 4px 도트, hover/playing 시 풀 버튼으로 확장 */}
                   <button
+                    type="button"
                     onClick={() => onSentencePlay(s.id)}
                     aria-label={`문장 ${s.id + 1} 듣기`}
                     aria-pressed={isPlaying}
-                    className={`mr-1.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)] align-middle transition-all duration-[var(--dur-normal)] ${
+                    className={`mr-1 inline-flex h-[18px] w-[18px] -translate-y-px items-center justify-center rounded-full align-middle transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--reading-bg)] ${
                       isPlaying
-                        ? 'animate-[playing-ring_1.5s_ease-in-out_infinite] border-[var(--p)] bg-[var(--p)] text-white opacity-100'
-                        : 'text-[var(--t3)] opacity-0 hover:scale-110 hover:border-[var(--p)] hover:bg-[var(--p)] hover:text-white group-hover/paragraph:opacity-100'
+                        ? 'animate-[playing-ring_1.6s_ease-in-out_infinite] bg-[var(--p)] text-white'
+                        : 'bg-[var(--bd)]/55 text-transparent hover:scale-110 hover:bg-[var(--p)] hover:text-white group-hover/sentence:bg-[var(--t4)]/85 group-hover/paragraph:bg-[var(--t4)]/55'
                     } `}
                   >
                     {isPlaying ? (
-                      <Pause size={10} fill="currentColor" strokeWidth={0} aria-hidden="true" />
+                      <Pause size={9} fill="currentColor" strokeWidth={0} aria-hidden="true" />
                     ) : (
-                      <Play size={10} fill="currentColor" strokeWidth={0} aria-hidden="true" />
+                      <Play size={9} fill="currentColor" strokeWidth={0} aria-hidden="true" />
                     )}
                   </button>
 
-                  {/* Sentence Content */}
-                  <span
-                    className={`inline transition-all duration-[var(--dur-normal)] ${
-                      isPlaying
-                        ? 'rounded-sm bg-gradient-to-b from-transparent from-[70%] to-[rgba(59,130,246,0.12)] to-[70%]'
-                        : ''
-                    } `}
-                  >
-                    {s.parts.map((part, pIdx) => {
-                      if (!part.word) {
-                        return <span key={pIdx}>{part.text}</span>
+                  {/* Sentence content */}
+                  {s.parts.map((part, partIdx) => {
+                    if (!part.word) {
+                      return <span key={partIdx}>{part.text}</span>
+                    }
+                    const word = part.word
+                    const isActive = activeWordId === word.id
+
+                    const statusClass = (() => {
+                      if (isActive) {
+                        return 'rounded-[var(--r-sm)] bg-[var(--p)] px-1 py-px font-[500] text-white'
                       }
-                      const word = part.word
-                      const isActive = activeWordId === word.id
+                      switch (word.status) {
+                        case 'stable':
+                          return 'border-b border-[rgba(34,197,94,0.38)] hover:border-[rgba(34,197,94,0.7)]'
+                        case 'shaky':
+                          return 'border-b-[1.5px] border-dashed border-[rgba(245,158,11,0.65)]'
+                        case 'risk':
+                          return 'animate-[word-pulse_4s_ease-in-out_infinite] border-b-[1.5px] border-dashed border-[rgba(239,68,68,0.72)]'
+                        case 'new':
+                          return 'bg-gradient-to-b from-transparent from-[62%] to-[rgba(59,130,246,0.18)] to-[62%]'
+                        default:
+                          return ''
+                      }
+                    })()
 
-                      const statusClass = (() => {
-                        if (isActive) {
-                          return 'rounded-[var(--r-sm)] bg-[var(--p)] px-1.5 py-px font-medium text-white'
-                        }
-                        switch (word.status) {
-                          case 'stable':
-                            return 'border-b border-[rgba(34,197,94,0.35)]'
-                          case 'shaky':
-                            return 'border-b-[1.5px] border-dashed border-[rgba(245,158,11,0.6)]'
-                          case 'risk':
-                            return 'animate-[word-pulse_4s_ease-in-out_infinite] border-b-[1.5px] border-dashed border-[rgba(239,68,68,0.7)]'
-                          case 'new':
-                            return 'bg-gradient-to-b from-transparent from-[65%] to-[rgba(59,130,246,0.16)] to-[65%]'
-                          default:
-                            return ''
-                        }
-                      })()
-
-                      return (
-                        <span
-                          key={pIdx}
-                          data-word={word.id}
-                          className={`relative cursor-pointer transition-all duration-[var(--dur-fast)] hover:bg-[rgba(59,130,246,0.08)] ${statusClass} `}
-                          onMouseEnter={(e) => handleWordEnter(word, e)}
-                          onMouseLeave={handleWordLeave}
-                          onClick={(e) => handleWordEnter(word, e)}
-                        >
-                          {word.text}
-                        </span>
-                      )
-                    })}
-                  </span>
+                    return (
+                      <span
+                        key={partIdx}
+                        data-word={word.id}
+                        className={`relative cursor-help transition-colors duration-[var(--dur-fast)] hover:bg-[rgba(59,130,246,0.10)] ${statusClass} `}
+                        onMouseEnter={(e) => handleWordEnter(word, e)}
+                        onMouseLeave={handleWordLeave}
+                        onClick={(e) => handleWordEnter(word, e)}
+                      >
+                        {word.text}
+                      </span>
+                    )
+                  })}
                   {sIdx < p.sentences.length - 1 && ' '}
                 </span>
               )
