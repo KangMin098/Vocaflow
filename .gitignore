@@ -41,3 +41,7 @@ data/freq-corpus/match_report.txt
 data/dict-fill/
 
 logs/
+
+# Playwright e2e — 매 실행마다 재생성, 산출물만 baseline-*.json 으로 docs 에 보존
+apps/web/playwright-report/
+apps/web/test-results/

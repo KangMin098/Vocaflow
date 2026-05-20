@@ -20,6 +20,9 @@ export default defineConfig({
     video: 'retain-on-failure',
     actionTimeout: 10_000,
     navigationTimeout: 30_000,
+    // headless-shell 사용 명시 (Playwright 1.49+ 기본동작이지만 명시화).
+    // channel 옵션 의도적 생략 — 'chrome'/'chromium' 지정 시 풀 Chromium 다운로드 필요.
+    headless: true,
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },

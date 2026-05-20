@@ -1,0 +1,482 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\kille\\Vocaflow\\apps\\web\\playwright.config.ts",
+    "rootDir": "C:/Users/kille/Vocaflow/apps/web/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/kille/Vocaflow/apps/web/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/kille/Vocaflow/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "playwright-report/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.60.0",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "01-wordvault-browse.spec.ts",
+      "file": "01-wordvault-browse.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "WordVault Browse 회귀",
+          "file": "01-wordvault-browse.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Browse 페이지가 seed 8개 이상 단어 리스트를 보여준다",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 19156,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]').first()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]').first()\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]').first()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]').first()\u001b[22m\n\n    at C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\01-wordvault-browse.spec.ts:23:36",
+                        "location": {
+                          "file": "C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\01-wordvault-browse.spec.ts",
+                          "column": 36,
+                          "line": 23
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 21 |\u001b[39m       \u001b[32m'[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 22 |\u001b[39m     )\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m expect(wordRows\u001b[33m.\u001b[39mfirst())\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m10\u001b[39m_000 })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mconst\u001b[39m count \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m wordRows\u001b[33m.\u001b[39mcount()\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m     expect(count)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[33mTEST_SEED_WORDS\u001b[39m\u001b[33m.\u001b[39mlength)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\01-wordvault-browse.spec.ts",
+                            "column": 36,
+                            "line": 23
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]').first()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]').first()\u001b[22m\n\n\n  21 |       '[data-testid=\"word-row\"], [class*=\"WordRow\"], [class*=\"word-row\"]',\n  22 |     );\n> 23 |     await expect(wordRows.first()).toBeVisible({ timeout: 10_000 });\n     |                                    ^\n  24 |\n  25 |     const count = await wordRows.count();\n  26 |     expect(count).toBeGreaterThanOrEqual(TEST_SEED_WORDS.length);\n    at C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\01-wordvault-browse.spec.ts:23:36"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:18:50.497Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\01-wordvault-browse-WordVa-6dd49-이지가-seed-8개-이상-단어-리스트를-보여준다-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\01-wordvault-browse-WordVa-6dd49-이지가-seed-8개-이상-단어-리스트를-보여준다-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\01-wordvault-browse-WordVa-6dd49-이지가-seed-8개-이상-단어-리스트를-보여준다-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\01-wordvault-browse-WordVa-6dd49-이지가-seed-8개-이상-단어-리스트를-보여준다-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\01-wordvault-browse.spec.ts",
+                        "column": 36,
+                        "line": 23
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "ab98ce3f70231bc5e6f2-0e50d1e4c9950fc84396",
+              "file": "01-wordvault-browse.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "CEFR B2 필터 클릭 시 B2 단어 ≥ 2개 표시된다",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2677,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[baseline] CEFR B2 filter button not found — spec soft-skipped\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:19:10.851Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ab98ce3f70231bc5e6f2-5c61ffef478cec16c2eb",
+              "file": "01-wordvault-browse.spec.ts",
+              "line": 32,
+              "column": 7
+            },
+            {
+              "title": "단어 검색 \"abandon\" 이 결과를 반환한다",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3421,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[baseline] Search \"abandon\" returned result\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:19:13.724Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ab98ce3f70231bc5e6f2-0fc031a4f6cdf8d79363",
+              "file": "01-wordvault-browse.spec.ts",
+              "line": 53,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-flashcard-session.spec.ts",
+      "file": "02-flashcard-session.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Flashcard 세션 회귀",
+          "file": "02-flashcard-session.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Flashcard Hub 에서 시작 가능",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3194,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[baseline] Flashcard Hub loaded\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:19:17.166Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "85c3a003e627400e6e2b-e208540c2f0985730572",
+              "file": "02-flashcard-session.spec.ts",
+              "line": 11,
+              "column": 7
+            },
+            {
+              "title": "Flashcard 세션에서 단어 + 뜻 + 발음이 표시된다",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 15809,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]').first()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]').first()\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]').first()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]').first()\u001b[22m\n\n    at C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\02-flashcard-session.spec.ts:32:33",
+                        "location": {
+                          "file": "C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\02-flashcard-session.spec.ts",
+                          "column": 33,
+                          "line": 32
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 30 |\u001b[39m         \u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]'\u001b[39m)\n \u001b[90m 31 |\u001b[39m         \u001b[33m.\u001b[39mfirst()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 32 |\u001b[39m       \u001b[36mawait\u001b[39m expect(wordDisplay)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m10\u001b[39m_000 })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 33 |\u001b[39m\n \u001b[90m 34 |\u001b[39m       \u001b[36mconst\u001b[39m text \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m wordDisplay\u001b[33m.\u001b[39mtextContent()\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m       expect(text)\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\02-flashcard-session.spec.ts",
+                            "column": 33,
+                            "line": 32
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]').first()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]').first()\u001b[22m\n\n\n  30 |         .locator('[data-testid=\"flashcard-word\"], [class*=\"flashcard\"]')\n  31 |         .first();\n> 32 |       await expect(wordDisplay).toBeVisible({ timeout: 10_000 });\n     |                                 ^\n  33 |\n  34 |       const text = await wordDisplay.textContent();\n  35 |       expect(text).toBeTruthy();\n    at C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\02-flashcard-session.spec.ts:32:33"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:19:20.377Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\02-flashcard-session-Flash-eb5b2-lashcard-세션에서-단어-뜻-발음이-표시된다-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\02-flashcard-session-Flash-eb5b2-lashcard-세션에서-단어-뜻-발음이-표시된다-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\02-flashcard-session-Flash-eb5b2-lashcard-세션에서-단어-뜻-발음이-표시된다-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Users\\kille\\Vocaflow\\apps\\web\\test-results\\02-flashcard-session-Flash-eb5b2-lashcard-세션에서-단어-뜻-발음이-표시된다-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\kille\\Vocaflow\\apps\\web\\tests\\e2e\\02-flashcard-session.spec.ts",
+                        "column": 33,
+                        "line": 32
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "85c3a003e627400e6e2b-68461c114b9935c4fed7",
+              "file": "02-flashcard-session.spec.ts",
+              "line": 20,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-admin-curation.spec.ts",
+      "file": "03-admin-curation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Admin Curation 회귀",
+          "file": "03-admin-curation.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "단어장 마스터 화면 접근",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3430,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[baseline] Admin vocabulary page accessible\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:19:37.157Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "396ee89a6152b1c06bb3-2c38cf4cb11cc0cedb3c",
+              "file": "03-admin-curation.spec.ts",
+              "line": 11,
+              "column": 7
+            },
+            {
+              "title": "Admin 대시보드 접근",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3401,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[baseline] Admin dashboard accessible\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-20T15:19:40.770Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "396ee89a6152b1c06bb3-d689730033d23911bcbf",
+              "file": "03-admin-curation.spec.ts",
+              "line": 18,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-20T15:18:39.040Z",
+    "duration": 65471.318,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

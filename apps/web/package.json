@@ -22,9 +22,9 @@
     "@supabase/supabase-js": "^2.104.1",
     "@tanstack/react-virtual": "^3.13.24",
     "@vocaflow/design-tokens": "workspace:*",
+    "@vocaflow/library-pipeline": "workspace:*",
     "@vocaflow/types": "workspace:*",
     "@vocaflow/ui-shared": "workspace:*",
-    "@vocaflow/library-pipeline": "workspace:*",
     "@vocaflow/vcb-curate-core": "workspace:*",
     "@vocaflow/wlp": "workspace:*",
     "clsx": "^2.1.1",
@@ -43,6 +43,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
