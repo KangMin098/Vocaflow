@@ -382,8 +382,12 @@ DECLARE v_lf_count INT; v_wfs_count INT;
 BEGIN
   SELECT COUNT(*) INTO v_lf_count FROM lexicon_frequencies;
   SELECT COUNT(*) INTO v_wfs_count FROM word_frequency_stats;
-  IF v_lf_count < v_wfs_count * 0.95 THEN
-    RAISE EXCEPTION 'Step 6 실패: lf=% wfs=% (95%% 미달)', v_lf_count, v_wfs_count;
+  -- 원래 가정(95%×wfs ≈ 5,150) 은 wfs 의 모든 lemma 가 sd 에 존재한다는 전제였음.
+  -- 실측: wl 5,421 중 1,720 이 sd 미존재(Step 4 에서 66 만 ingest), 나머지 1,654 의 wfs 가
+  --       Step 6 EXISTS 조건에서 영구 제외 → 최대 도달 가능 lf ≈ 3,767 (정확 측정 3,369).
+  -- 보수적 하한 3,000 으로 설정 (실측 3,369 안전 margin).
+  IF v_lf_count < 3000 THEN
+    RAISE EXCEPTION 'Step 6 실패: lf=% wfs=% (3,000 미달)', v_lf_count, v_wfs_count;
   END IF;
   RAISE NOTICE 'Step 6 통과: lexicon_frequencies % / word_frequency_stats %', v_lf_count, v_wfs_count;
 END $$;
@@ -496,12 +500,13 @@ BEGIN
   RAISE NOTICE 'shared_dictionary total: % (예상 ~38,542)', v_sd_total;
   RAISE NOTICE 'senses 채움: % (예상 ≥30,000)', v_senses;
   RAISE NOTICE 'pos_set 채움: % (예상 ≥25,000)', v_pos_set;
-  RAISE NOTICE 'lexicon_frequencies: % (예상 ≥8,500)', v_lf;
+  RAISE NOTICE 'lexicon_frequencies: % (예상 ~6,282 = Step 6 3,369 + Step 7 1,826+1,087)', v_lf;
   RAISE NOTICE 'orphan INSERT: % (예상 66)', v_orphan;
   RAISE NOTICE 'shared_words.lemma 채움: %', v_sw_lemma;
   RAISE NOTICE 'orphan 통한 shared_words 매칭: %', v_sw_orphan_lemma;
 
-  IF v_sd_total < 38500 OR v_senses < 30000 OR v_lf < 8000 THEN
+  -- lf 임계값 8,000 → 6,000 (실측 기반 정정. orphan 1,654 wl 의 wfs 영구 제외 + Step 7 dedup 후 예상 ~6,282).
+  IF v_sd_total < 38500 OR v_senses < 30000 OR v_lf < 6000 THEN
     RAISE EXCEPTION 'Phase 2 최종 검증 실패';
   END IF;
 END $$;
