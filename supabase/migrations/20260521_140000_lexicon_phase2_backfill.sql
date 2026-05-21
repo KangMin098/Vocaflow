@@ -6,8 +6,8 @@
 --     0. **P5 enrichment 완료 확인** — meaning_ko/meanings_ko/ipa/cefr_level 채움 작업
 --        P5 진행 중 Phase 2 실행 시 Step 2-C 가 P5 대상 row 에 빈약한 단일 sense 박아넣어
 --        데이터 품질 손실. phase2-plan.md "P5 enrichment 충돌" 섹션 SQL 로 확인 필수.
---     1. shared_dictionary.source 컬럼 CHECK 제약 — 'kice-orphan' 차단 여부
---        차단 시: Step 4 에서 source='imported' + metadata JSONB 로 출처 기록
+--     1. shared_dictionary.source 컬럼 CHECK 제약 — Step 0 에서 'kice-orphan' 값 추가
+--        (직전 정의: 20260504160708_prepare_dictionary_for_seed_import.sql)
 --     2. Step 2-A 청크 루프 — 가독성 낮음. 동작은 맞으나 LIMIT 단독으로 충분
 --     3. Step 5 — GET DIAGNOSTICS ROW_COUNT 적용 완료
 --     4. 롤백: Step 5 보강(cefr/ipa) NULL→값 갱신은 원본 미보존 → 백업 의존 필수
@@ -64,6 +64,44 @@ BEGIN
 
   RAISE NOTICE '안전 점검 통과: sd=%, columns=%, freeze=%, lf_initial=%',
     v_sd_count, v_phase1_columns, v_freeze_active, v_lf_initial;
+END $$;
+
+-- ═════════════════════════════════════════════════════════════════════════
+-- Step 0: shared_dictionary.source CHECK 제약 확장 — 'kice-orphan' 허용
+--   근거: Step 4 에서 word_lexicon orphan 66 row 를 source='kice-orphan' 으로 INSERT.
+--   직전 정의: 20260504160708_prepare_dictionary_for_seed_import.sql
+--             (oxford5000·cefrj·coca·ngsl·ai-generated·manual·imported)
+-- ═════════════════════════════════════════════════════════════════════════
+SAVEPOINT step0_source_check;
+
+ALTER TABLE shared_dictionary
+  DROP CONSTRAINT IF EXISTS shared_dictionary_source_check;
+
+ALTER TABLE shared_dictionary
+  ADD CONSTRAINT shared_dictionary_source_check
+  CHECK (source IN (
+    'oxford5000',
+    'cefrj',
+    'coca',
+    'ngsl',
+    'ai-generated',
+    'manual',
+    'imported',
+    'kice-orphan'  -- ★ Phase 2 신규 (word_lexicon orphan ingest 전용)
+  ));
+
+DO $$
+DECLARE v_constraint_exists BOOLEAN;
+BEGIN
+  SELECT EXISTS(
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'shared_dictionary_source_check'
+      AND conrelid = 'public.shared_dictionary'::regclass
+  ) INTO v_constraint_exists;
+  IF NOT v_constraint_exists THEN
+    RAISE EXCEPTION 'Step 0 실패: shared_dictionary_source_check 재설치 안 됨';
+  END IF;
+  RAISE NOTICE 'Step 0 완료: source CHECK 에 ''kice-orphan'' 추가';
 END $$;
 
 -- ═════════════════════════════════════════════════════════════════════════
