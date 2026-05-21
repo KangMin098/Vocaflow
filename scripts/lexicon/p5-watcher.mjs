@@ -3,16 +3,18 @@
 // P5 outputs regression checker
 //
 // 용도:
-//   - P5 enrichment sprint 완료 후 outputs/ 폴더 정합 검증
-//   - 향후 P6/P7 enrichment 시 chunk mismatch 자동 감지
-//   - 환각 보고 방지 (sub-agent 빈 결과 감지, 예: chunk-038 split 케이스)
+//   - P5 enrichment 결과 outputs/ 폴더 정합 검증
+//   - chunk count mismatch 자동 감지 (chunk-038 case 같은 LLM 분할 사고)
+//   - sub-agent 빈 결과 종료 감지 (이전 chunk 291 환각 사례 방지)
+//   - 향후 P6/P7 enrichment 라운드 회귀 검증 도구로 재사용
 //
 // 실행:
 //   node scripts/lexicon/p5-watcher.mjs
-//   → outputs/ 폴더의 433 chunks 정합 + line count + valid JSON 검증
 //
-// 참고: P5 본 import 도구는 scripts/dict-fill/p5-import-to-db.ts (TypeScript)
-//       이 watcher는 그 결과의 archive 검증용
+// 참고:
+//   - P5 본 import 도구: scripts/dict-fill/p5-import-to-db.ts (TypeScript 트랙)
+//   - P5 sprint는 commit f047d5e (2026-05-20 22:40 KST)에 완료됨
+//   - 본 watcher는 그 결과의 archive 검증 + 향후 회귀 도구
 //
 // Scans data/dict-fill/p5/outputs/ and reports:
 //   - which chunks (1-433) are missing or malformed
