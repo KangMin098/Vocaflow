@@ -106,6 +106,9 @@ END $$;
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- Step 1: primary_pos 채움 (NULLIF 'unknown' → NULL 보존)
+--   원래 가정: P5 enrichment 전 = pos='unknown' 12,976 row 존재 → primary_pos NULL 로 보존.
+--   실제 현재: e4471e4 (pos hygiene normalize, 25,546 row) + P5 ts-track import 후 'unknown' = 0.
+--   → assertion 을 현 상태에 맞춰 strict `<> 0` 로 변경 (legacy 12,976 가정 폐기).
 -- ═════════════════════════════════════════════════════════════════════════
 SAVEPOINT step1_primary_pos;
 
@@ -123,8 +126,9 @@ BEGIN
   IF v_filled < 25000 THEN
     RAISE EXCEPTION 'Step 1 실패: primary_pos 채움 % (25,000 미달)', v_filled;
   END IF;
-  IF v_unknown_null <> 12976 THEN
-    RAISE EXCEPTION 'Step 1 실패: unknown→NULL 보존 부정확 % (12,976 예상)', v_unknown_null;
+  -- 현재 정합: 0 (P5 + pos hygiene 완료 후). legacy 가정(12,976)은 폐기.
+  IF v_unknown_null <> 0 THEN
+    RAISE EXCEPTION 'Step 1 실패: unknown→NULL 보존 부정확 % (0 예상)', v_unknown_null;
   END IF;
   RAISE NOTICE 'Step 1 통과: primary_pos 채움 % / unknown 보존 %', v_filled, v_unknown_null;
 END $$;
