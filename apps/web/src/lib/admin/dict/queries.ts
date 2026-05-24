@@ -23,21 +23,10 @@ import type {
 // ─────────────────────────────────────────────────────────────
 
 /**
- * dict_categorical_distributions() RPC 결과 형식.
- * 모든 distribution 1회 호출로 정확 카운트 (서버 측 GROUP BY).
+ * dict_categorical_distributions() RPC 결과 형식 — types.ts 에서 re-export.
  */
-export interface DictCategoricalDistributions {
-  by_primary_pos: Record<string, number>
-  by_v_level: Record<string, number>
-  by_v_level_rule_v1: Record<string, number>
-  by_source: Record<string, number>
-  by_cefr_level: Record<string, number>
-  by_frequency_band: Record<string, number>
-  verified_by_v_level: Record<
-    string,
-    { total: number; verified: number; pct: number }
-  >
-}
+export type { DictCategoricalDistributions } from './types'
+import type { DictCategoricalDistributions } from './types'
 
 export async function fetchCategoricalDistributions(
   client: SupabaseClient,
@@ -656,6 +645,8 @@ export interface DictSnapshotRaw {
   integrity: IntegrityDefectsData
   freshness: FreshnessData
   schemaPresence: SchemaPresenceData
+  /** dict_categorical_distributions RPC 결과 — Step 8 Distribution Section 사용 */
+  categorical: DictCategoricalDistributions | null
   /** 각 fetch 별 실패 메시지 — UI 에 가시화 (silent failure 폐지) */
   _errors: string[]
 }
@@ -827,6 +818,7 @@ export async function fetchDictSnapshotRaw(
     integrity,
     freshness,
     schemaPresence: schema,
+    categorical,
     _errors: errors,
   }
 }

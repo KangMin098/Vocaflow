@@ -146,6 +146,22 @@ export interface SchemaPresenceData {
 }
 
 // ─────────────────────────────────────────────────────────────
+// 8b. Categorical Distributions (dict_categorical_distributions RPC)
+// ─────────────────────────────────────────────────────────────
+export interface DictCategoricalDistributions {
+  by_primary_pos: Record<string, number>
+  by_v_level: Record<string, number>
+  by_v_level_rule_v1: Record<string, number>
+  by_source: Record<string, number>
+  by_cefr_level: Record<string, number>
+  by_frequency_band: Record<string, number>
+  verified_by_v_level: Record<
+    string,
+    { total: number; verified: number; pct: number }
+  >
+}
+
+// ─────────────────────────────────────────────────────────────
 // 9. Schema Evolution (Tier 1-5 제안)
 // ─────────────────────────────────────────────────────────────
 export type SchemaTier = 1 | 2 | 3 | 4 | 5
@@ -288,6 +304,8 @@ export interface DictHealthSnapshot {
     integrity: IntegrityDefectsData
     freshness: FreshnessData
     schemaPresence: SchemaPresenceData
+    /** dict_categorical_distributions RPC 결과 — Step 8 Distribution Section */
+    categorical?: DictCategoricalDistributions | null
     /** Phase 2.6 — fetch 별 실패 메시지 (silent failure 가시화) */
     _errors?: string[]
   }
