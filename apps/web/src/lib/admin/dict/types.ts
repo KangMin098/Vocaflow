@@ -288,5 +288,7 @@ export interface DictHealthSnapshot {
     integrity: IntegrityDefectsData
     freshness: FreshnessData
     schemaPresence: SchemaPresenceData
+    /** Phase 2.6 — fetch 별 실패 메시지 (silent failure 가시화) */
+    _errors?: string[]
   }
 }
