@@ -197,18 +197,46 @@ export interface ResponsibilityReadiness {
 // ─────────────────────────────────────────────────────────────
 // Critical Defects (자동 탐지)
 // ─────────────────────────────────────────────────────────────
+export type DefectPriority = 'P0' | 'P1' | 'P2' | 'P3'
+
+export interface DefectMetrics {
+  current: number | string
+  target?: number | string
+  unit: string
+}
+
+export interface DefectImprovement {
+  action: string
+  cost: string
+  effect: string
+  /** Backlog 항목 id (B1/D1/S1/V1 등) */
+  backlogId?: string
+}
+
 export interface CriticalDefect {
   id: string
   severity: 'critical' | 'warning' | 'info'
+  /** 우선순위 (P0 가장 시급) */
+  priority: DefectPriority
   title: string
+  /** 1줄 상세 설명 */
+  description?: string
   /** 실측 evidence 한 줄 */
   evidence: string
+  /** 정량 메트릭 (current vs target) */
+  metrics?: DefectMetrics
   /** 영향받는 책임 id */
   impactsOn: ResponsibilityId[]
-  /** 정정 권장안 */
+  /** 영향 받는 파이프라인명 (LCP/TextViewer/VCB/Flashcard 등) */
+  pipelines?: string[]
+  /** 정정 권장안 (한 줄 요약) */
   remedy: string
+  /** 정정 작업 상세 (action/cost/effect/backlog) */
+  improvement?: DefectImprovement
   /** Schema Evolution Tier 와 연결 (옵션) */
   schemaTier?: SchemaTier
+  /** 탐지 시각 ISO string */
+  detectedAt?: string
 }
 
 // ─────────────────────────────────────────────────────────────
