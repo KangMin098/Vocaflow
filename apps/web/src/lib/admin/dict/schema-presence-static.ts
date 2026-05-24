@@ -21,17 +21,18 @@ export interface KnownSchemaPresence {
 
 export const KNOWN_SCHEMA_PRESENCE: KnownSchemaPresence = {
   shared_dictionary: {
-    // Tier 1 — 청각 학습 (SpellForge/WordBlitz)
-    audio_url: false,
-    audio_url_uk: false,
-    audio_url_us: false,
-    // Tier 1 — 시각/암기 (Flashcard)
-    image_url: false,
-    mnemonic_ko: false,
-    // Tier 1 — 품질/사용 통계
-    last_quality_audit_at: false,
+    // Tier 1 — 청각 학습 (SpellForge/WordBlitz) — Migration 20260524 적용 ✅
+    audio_url: true,
+    audio_url_uk: true,
+    audio_url_us: true,
+    // Tier 1 — 시각/암기 (Flashcard) — Migration 20260524 적용 ✅
+    image_url: true,
+    mnemonic_ko: true,
+    // Tier 1 — 품질 감사 — Migration 20260524 적용 ✅
+    last_quality_audit_at: true,
+    // Tier 1 — 사용 통계 (미적용)
     usage_count_30d: false,
-    // Tier 2 — 학습 보조
+    // Tier 2 — 학습 보조 (미적용)
     common_errors_ko: false,
     usage_warning_ko: false,
     difficulty_score: false,
