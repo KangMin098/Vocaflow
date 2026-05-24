@@ -1,19 +1,50 @@
 // apps/web/src/app/admin/vrl/page.tsx
-// VRL Pipeline · Dashboard (실 구현)
+// 사전DB 종합 모니터링 v3 — 8 sections 통합 (Step 10 마무리).
+//
+// 구성:
+//   StickyNav (sticky top, IntersectionObserver)
+//   Section 1 — HeroSection (overall + 4 책임 + 핵심 차원)
+//   Section 2 — ResponsibilitiesSection (R1-R4 카드, R3 본질 페인)
+//   Section 3 — DimensionsGrid (9 차원)
+//   Section 4 — CriticalDefectsSection (P0/P1/P2 그룹)
+//   Section 5 — PipelineImpactMatrix (4×15 매트릭스)
+//   Section 6 — SchemaEvolutionSection (Tier 1-5)
+//   Section 7 — DistributionAnalysisSection + RoundHistorySection
+//   Section 8 — BacklogSection + QuickActionsSection
+//
+// 데이터:
+//   fetchDictSnapshotRaw → composeOverallHealth(raw, defects, evolution)
+//   defects = detectCriticalDefects(raw)
+//   evolution = generateSchemaEvolutionPlan(raw.schemaPresence)
 
 import { Suspense } from 'react'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { Brain, AlertTriangle, GraduationCap, History, Users } from 'lucide-react'
-import Link from 'next/link'
+import { AlertTriangle, Brain } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { fetchVrlDashboard, type VrlDashboardData } from '@/lib/admin/vrl/queries'
+
+import { fetchDictSnapshotRaw } from '@/lib/admin/dict/queries'
+import { composeOverallHealth } from '@/lib/admin/dict/health-score-v2'
+import { detectCriticalDefects } from '@/lib/admin/dict/critical-defects-detector'
+import { generateSchemaEvolutionPlan } from '@/lib/admin/dict/schema-evolution-suggestions'
+
+import { StickyNav } from './_components/StickyNav'
+import { HeroSection } from './_components/HeroSection'
+import { ResponsibilitiesSection } from './_components/ResponsibilitiesSection'
+import { DimensionsGrid } from './_components/DimensionsGrid'
+import { CriticalDefectsSection } from './_components/CriticalDefectsSection'
+import { PipelineImpactMatrix } from './_components/PipelineImpactMatrix'
+import { SchemaEvolutionSection } from './_components/SchemaEvolutionSection'
+import { DistributionAnalysisSection } from './_components/DistributionAnalysisSection'
+import { RoundHistorySection } from './_components/RoundHistorySection'
+import { BacklogSection } from './_components/BacklogSection'
+import { QuickActionsSection } from './_components/QuickActionsSection'
 
 export const metadata = {
-  title: 'VRL Pipeline — Vocaflow Admin',
-  description: 'VRL 분류 시스템 대시보드',
+  title: 'Dictionary DB Health — Vocaflow Admin',
+  description: '사전DB 종합 모니터링 v3 — 9 차원 × 4 책임 × Critical Defects × Schema Evolution',
 }
 
 export const revalidate = 60
@@ -25,8 +56,8 @@ export default async function VrlDashboardPage() {
     <div className="flex flex-col gap-6 p-6">
       <AdminPageHeader
         icon={Brain}
-        title="VRL Pipeline"
-        description="VRL 분류 시스템 — shared_dictionary v_level 분류 진행, 데이터 정합, 사용자 V-Level 관리"
+        title="Dictionary DB Health"
+        description="사전DB 종합 모니터링 v3 — 플랫폼 4 파이프라인 (R1-R4) 의 기초 자산 점검"
       />
       <Suspense fallback={<DashboardFallback />}>
         <DashboardContent />
@@ -37,224 +68,105 @@ export default async function VrlDashboardPage() {
 
 async function DashboardContent() {
   const client = (await createClient()) as unknown as SupabaseClient
-  const data = await fetchVrlDashboard(client)
-  return <DashboardView data={data} />
-}
+  const raw = await fetchDictSnapshotRaw(client)
+  const defects = detectCriticalDefects(raw)
+  const evolution = generateSchemaEvolutionPlan(raw.schemaPresence)
+  const snapshot = composeOverallHealth(raw, defects, evolution)
+  const fetchErrors = raw._errors ?? []
 
-function DashboardView({ data }: { data: VrlDashboardData }) {
-  const { kpi, byLevel } = data
   return (
-    <div className="flex flex-col gap-6">
-      {/* Hero: 전체 진행률 */}
-      <section
-        className="rounded-[var(--r-xl)] border border-[#8B5CF6]/20 bg-gradient-to-br from-[#8B5CF6]/8 via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
-        aria-label="전체 분류 진행률"
-      >
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
-              전체 분류 진행
-            </p>
-            <h2 className="mt-1 font-display text-[32px] font-[800] leading-none text-[var(--t1)]">
-              {kpi.classified.toLocaleString()}
-              <span className="ml-2 font-body text-[16px] font-[500] text-[var(--t3)]">
-                / {kpi.totalWords.toLocaleString()}
-              </span>
-            </h2>
-          </div>
-          <div className="text-right">
-            <p className="font-display text-[28px] font-[800] text-[#8B5CF6]">
-              {kpi.classifiedPct}%
-            </p>
-            <p className="font-body text-[11px] text-[var(--t3)]">shared_dictionary</p>
-          </div>
-        </div>
-        <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-[var(--bg3)]">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] transition-[width] duration-500"
-            style={{ width: `${kpi.classifiedPct}%` }}
+    <div className="flex flex-col gap-8">
+      {/* sticky nav (8 jump links) */}
+      <StickyNav />
+
+      {/* fetch errors banner (silent failure 가시화) */}
+      {fetchErrors.length > 0 && (
+        <div
+          className="flex items-start gap-2.5 rounded-[var(--r-md)] border border-[var(--active)]/30 bg-[var(--warning-light)] p-3"
+          role="alert"
+        >
+          <AlertTriangle
+            size={15}
+            strokeWidth={2}
+            className="mt-0.5 shrink-0 text-[var(--active)]"
             aria-hidden
           />
-        </div>
-      </section>
-
-      {/* KPI 4 grid */}
-      <section className="grid grid-cols-2 gap-3 md:grid-cols-4" aria-label="KPI">
-        <KpiCard
-          icon={AlertTriangle}
-          label="의심 단어"
-          value={kpi.concernsOpen}
-          sub={`${kpi.concernsTotal} 총 / ${kpi.concernsTotal - kpi.concernsOpen} resolved`}
-          accent="var(--error)"
-          bg="var(--error-light)"
-          href="/admin/vrl/concerns"
-        />
-        <KpiCard
-          icon={GraduationCap}
-          label="진단 테스트"
-          value={kpi.diagnosticTests}
-          sub="활성 active"
-          accent="var(--info)"
-          bg="var(--info-light)"
-          href="/admin/vrl/diagnostic"
-        />
-        <KpiCard
-          icon={Users}
-          label="사용자 프로필"
-          value={kpi.userProfiles}
-          sub="V-Level 보유"
-          accent="#8B5CF6"
-          bg="#8B5CF61A"
-          href="/admin/vrl/users"
-        />
-        <KpiCard
-          icon={History}
-          label="레벨 Snapshot"
-          value={kpi.snapshots}
-          sub="audit log"
-          accent="var(--active)"
-          bg="var(--warning-light)"
-          href="/admin/vrl/snapshots"
-        />
-      </section>
-
-      {/* V-Level 12 진행 */}
-      <section
-        className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
-        aria-label="V-Level별 분류 진행"
-      >
-        <header className="mb-4 flex items-end justify-between gap-3">
-          <div>
-            <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-              V-Level 12단 분류 진행
-            </h3>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
-              각 레벨의 new_words_in_level 대비 shared_dictionary.v_level 채움률
+          <div className="min-w-0">
+            <p className="font-display text-[11px] font-[700] text-[var(--active)]">
+              일부 fetch 실패 ({fetchErrors.length}건) — fallback 기본값으로 진행
             </p>
+            <ul className="mt-1 list-disc pl-4 font-mono text-[10px] text-[var(--t2)]">
+              {fetchErrors.slice(0, 4).map((e, i) => (
+                <li key={i}>{e}</li>
+              ))}
+              {fetchErrors.length > 4 && (
+                <li className="text-[var(--t3)]">...외 {fetchErrors.length - 4}건</li>
+              )}
+            </ul>
           </div>
-          <Link
-            href="/admin/vrl/taxonomy"
-            className="font-display text-[12px] font-[600] text-[#8B5CF6] hover:underline"
-          >
-            Taxonomy 상세 →
-          </Link>
-        </header>
+        </div>
+      )}
 
-        <ul className="flex flex-col gap-2">
-          {byLevel.map((l) => (
-            <LevelRow key={l.level} row={l} />
-          ))}
-        </ul>
+      {/* ── Section 1 — Hero ── */}
+      <section id="s1-hero" className="scroll-mt-16">
+        <HeroSection snapshot={snapshot} />
       </section>
+
+      {/* ── Section 2 — Responsibilities (R3 본질 페인) ── */}
+      <section id="s2-responsibilities" className="scroll-mt-16">
+        <ResponsibilitiesSection snapshot={snapshot} />
+      </section>
+
+      {/* ── Section 3 — 9 Dimensions ── */}
+      <section id="s3-dimensions" className="scroll-mt-16">
+        <DimensionsGrid dimensions={snapshot.dimensions} />
+      </section>
+
+      {/* ── Section 4 — Critical Defects ── */}
+      <section id="s4-defects" className="scroll-mt-16">
+        <CriticalDefectsSection defects={snapshot.defects} />
+      </section>
+
+      {/* ── Section 5 — Pipeline Impact Matrix ── */}
+      <section id="s5-impact" className="scroll-mt-16">
+        <PipelineImpactMatrix snapshot={snapshot} />
+      </section>
+
+      {/* ── Section 6 — Schema Evolution ── */}
+      <section id="s6-schema" className="scroll-mt-16">
+        <SchemaEvolutionSection snapshot={snapshot} />
+      </section>
+
+      {/* ── Section 7 — Distribution + Round History ── */}
+      <section id="s7-distribution" className="flex flex-col gap-8 scroll-mt-16">
+        <DistributionAnalysisSection snapshot={snapshot} />
+        <RoundHistorySection snapshot={snapshot} />
+      </section>
+
+      {/* ── Section 8 — Backlog + Quick Actions ── */}
+      <section id="s8-backlog" className="flex flex-col gap-8 scroll-mt-16">
+        <BacklogSection />
+        <QuickActionsSection />
+      </section>
+
+      {/* footer — v3 진행 표시 */}
+      <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t3)]">
+        Dictionary DB Health v3 · 8 sections · Overall {snapshot.overallScore} /
+        100 · revalidate 60s
+      </footer>
     </div>
-  )
-}
-
-function KpiCard({
-  icon: Icon,
-  label,
-  value,
-  sub,
-  accent,
-  bg,
-  href,
-}: {
-  icon: typeof Brain
-  label: string
-  value: number
-  sub: string
-  accent: string
-  bg: string
-  href: string
-}) {
-  return (
-    <Link
-      href={href}
-      className="group flex flex-col gap-1 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
-    >
-      <div className="flex items-center justify-between">
-        <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
-          style={{ backgroundColor: bg, color: accent }}
-        >
-          <Icon size={16} strokeWidth={1.75} aria-hidden />
-        </span>
-        <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
-          {label}
-        </span>
-      </div>
-      <p
-        className="mt-1 font-display text-[28px] font-[800] leading-none"
-        style={{ color: accent }}
-      >
-        {value.toLocaleString()}
-      </p>
-      <p className="font-body text-[11px] text-[var(--t3)]">{sub}</p>
-    </Link>
-  )
-}
-
-const METHOD_BADGE: Record<string, { label: string; color: string; bg: string }> = {
-  claude_verified: { label: '검증', color: 'var(--success)', bg: 'var(--success-light)' },
-  partially_verified: {
-    label: '부분 검증',
-    color: 'var(--info)',
-    bg: 'var(--info-light)',
-  },
-  in_progress: { label: '진행 중', color: 'var(--active)', bg: 'var(--warning-light)' },
-  system_inferred: { label: '자동', color: 'var(--t3)', bg: 'var(--bg3)' },
-  unverified: { label: '미검증', color: 'var(--t3)', bg: 'var(--bg3)' },
-}
-
-function LevelRow({ row }: { row: VrlDashboardData['byLevel'][number] }) {
-  const badge =
-    row.method != null && METHOD_BADGE[row.method]
-      ? METHOD_BADGE[row.method]
-      : { label: row.method ?? '—', color: 'var(--t3)', bg: 'var(--bg3)' }
-  const pct = Math.max(0, Math.min(100, row.pct))
-  return (
-    <li className="grid grid-cols-[40px_minmax(0,1fr)_minmax(0,180px)_60px_90px] items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
-      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#8B5CF6]/10 font-display text-[12px] font-[700] text-[#8B5CF6]">
-        L{row.level}
-      </span>
-      <div className="min-w-0">
-        <p className="truncate font-display text-[13px] font-[600] text-[var(--t1)]">
-          {row.koreanName}
-        </p>
-        <p className="font-body text-[10px] text-[var(--t3)]">
-          {row.classifiedCount.toLocaleString()} / {(row.newWordsInLevel ?? 0).toLocaleString()}
-        </p>
-      </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--bg3)]">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9]"
-          style={{ width: `${pct}%` }}
-          aria-hidden
-        />
-      </div>
-      <span className="text-right font-mono text-[11px] font-[600] text-[var(--t2)]">
-        {pct}%
-      </span>
-      <span
-        className="justify-self-end rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
-        style={{ backgroundColor: badge.bg, color: badge.color }}
-      >
-        {badge.label}
-      </span>
-    </li>
   )
 }
 
 function DashboardFallback() {
   return (
-    <div className="flex flex-col gap-3">
-      <div className="h-24 animate-pulse rounded-[var(--r-xl)] bg-[var(--bg2)]" />
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <div className="flex flex-col gap-6">
+      <div className="h-40 animate-pulse rounded-[var(--r-xl)] bg-[var(--bg2)]" />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-24 animate-pulse rounded-[var(--r-lg)] bg-[var(--bg2)]" />
+          <div key={i} className="h-64 animate-pulse rounded-[var(--r-xl)] bg-[var(--bg2)]" />
         ))}
       </div>
-      <div className="h-96 animate-pulse rounded-[var(--r-xl)] bg-[var(--bg2)]" />
     </div>
   )
 }
