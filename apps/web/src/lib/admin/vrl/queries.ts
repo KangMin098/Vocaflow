@@ -1,10 +1,10 @@
 // apps/web/src/lib/admin/vrl/queries.ts
-// VRL Admin Dashboard / Taxonomy 데이터 쿼리 (Server-side only)
+// VRL Admin 6 page 데이터 쿼리 (Server-side only)
 //
 // 데이터 소스: shared_dictionary · vocaflow_levels · vocaflow_tracks ·
 //             vocaflow_domains · vocaflow_skills · vrl_data_integrity_concerns ·
-//             vrl_diagnostic_tests · user_profiles · user_level_snapshots ·
-//             user_diagnostic_results
+//             vrl_diagnostic_tests · vrl_diagnostic_questions ·
+//             user_profiles · user_level_snapshots · user_diagnostic_results
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
@@ -260,5 +260,370 @@ export async function fetchVrlTaxonomy(
       descriptionKo: s.description_ko,
       totalWords: s.total_words,
     })),
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// VRL Concerns
+// ─────────────────────────────────────────────────────────────
+
+export interface VrlConcernRow {
+  id: number
+  word: string
+  concernType: string
+  detectedAt: string | null
+  detectedDuring: string | null
+  reasoning: string | null
+  suggestedAction: string | null
+  resolved: boolean
+  resolvedAt: string | null
+  resolutionNote: string | null
+}
+
+export interface VrlConcernsData {
+  rows: VrlConcernRow[]
+  total: number
+  openCount: number
+  resolvedCount: number
+  /** concern_type 별 (open + resolved 합산) */
+  byType: Array<{ type: string; total: number; open: number }>
+}
+
+export async function fetchVrlConcerns(
+  client: SupabaseClient,
+): Promise<VrlConcernsData> {
+  const { data, error } = await client
+    .from('vrl_data_integrity_concerns')
+    .select(
+      'id, word, concern_type, detected_at, detected_during, reasoning, suggested_action, resolved, resolved_at, resolution_note',
+    )
+    .order('resolved', { ascending: true })
+    .order('detected_at', { ascending: false })
+    .limit(500)
+
+  if (error) {
+    console.error('[fetchVrlConcerns] failed:', error.message)
+    return { rows: [], total: 0, openCount: 0, resolvedCount: 0, byType: [] }
+  }
+
+  type Row = {
+    id: number
+    word: string
+    concern_type: string
+    detected_at: string | null
+    detected_during: string | null
+    reasoning: string | null
+    suggested_action: string | null
+    resolved: boolean
+    resolved_at: string | null
+    resolution_note: string | null
+  }
+  const rows = ((data ?? []) as Row[]).map((r) => ({
+    id: r.id,
+    word: r.word,
+    concernType: r.concern_type,
+    detectedAt: r.detected_at,
+    detectedDuring: r.detected_during,
+    reasoning: r.reasoning,
+    suggestedAction: r.suggested_action,
+    resolved: r.resolved,
+    resolvedAt: r.resolved_at,
+    resolutionNote: r.resolution_note,
+  }))
+
+  const openCount = rows.filter((r) => !r.resolved).length
+  const resolvedCount = rows.length - openCount
+
+  const byTypeMap = new Map<string, { total: number; open: number }>()
+  for (const r of rows) {
+    const entry = byTypeMap.get(r.concernType) ?? { total: 0, open: 0 }
+    entry.total += 1
+    if (!r.resolved) entry.open += 1
+    byTypeMap.set(r.concernType, entry)
+  }
+  const byType = [...byTypeMap.entries()]
+    .map(([type, v]) => ({ type, total: v.total, open: v.open }))
+    .sort((a, b) => b.total - a.total)
+
+  return { rows, total: rows.length, openCount, resolvedCount, byType }
+}
+
+// ─────────────────────────────────────────────────────────────
+// VRL Users
+// ─────────────────────────────────────────────────────────────
+
+export interface VrlUserRow {
+  userId: string
+  segment: string | null
+  currentVLevel: number | null
+  source: string | null
+  confidence: number | null
+  cefrLevel: string | null
+  learningGoal: string | null
+  diagnosticCompletedAt: string | null
+  lastActiveAt: string | null
+  nextLevelReviewDueAt: string | null
+  totalWordsSeen: number | null
+  totalWordsMastered: number | null
+}
+
+export interface VrlUsersData {
+  rows: VrlUserRow[]
+  total: number
+  diagnosticDone: number
+  /** L0~L11 distribution counts */
+  byLevel: number[]
+}
+
+export async function fetchVrlUsers(client: SupabaseClient): Promise<VrlUsersData> {
+  const { data, error } = await client
+    .from('user_profiles')
+    .select(
+      'user_id, segment, current_v_level, current_v_level_meta, cefr_level, learning_goal, diagnostic_completed_at, last_active_at, next_level_review_due_at, total_words_seen, total_words_mastered',
+    )
+    .order('created_at', { ascending: true })
+    .limit(500)
+
+  if (error) {
+    console.error('[fetchVrlUsers] failed:', error.message)
+    return { rows: [], total: 0, diagnosticDone: 0, byLevel: new Array(12).fill(0) }
+  }
+
+  type Row = {
+    user_id: string
+    segment: string | null
+    current_v_level: number | null
+    current_v_level_meta: { source?: string; confidence?: number } | null
+    cefr_level: string | null
+    learning_goal: string | null
+    diagnostic_completed_at: string | null
+    last_active_at: string | null
+    next_level_review_due_at: string | null
+    total_words_seen: number | null
+    total_words_mastered: number | null
+  }
+
+  const rows: VrlUserRow[] = ((data ?? []) as Row[]).map((r) => ({
+    userId: r.user_id,
+    segment: r.segment,
+    currentVLevel: r.current_v_level,
+    source: r.current_v_level_meta?.source ?? null,
+    confidence:
+      typeof r.current_v_level_meta?.confidence === 'number'
+        ? r.current_v_level_meta.confidence
+        : null,
+    cefrLevel: r.cefr_level,
+    learningGoal: r.learning_goal,
+    diagnosticCompletedAt: r.diagnostic_completed_at,
+    lastActiveAt: r.last_active_at,
+    nextLevelReviewDueAt: r.next_level_review_due_at,
+    totalWordsSeen: r.total_words_seen,
+    totalWordsMastered: r.total_words_mastered,
+  }))
+
+  const byLevel = new Array(12).fill(0) as number[]
+  for (const r of rows) {
+    if (typeof r.currentVLevel === 'number' && r.currentVLevel >= 0 && r.currentVLevel <= 11) {
+      byLevel[r.currentVLevel] = (byLevel[r.currentVLevel] ?? 0) + 1
+    }
+  }
+
+  const diagnosticDone = rows.filter((r) => r.diagnosticCompletedAt != null).length
+
+  return { rows, total: rows.length, diagnosticDone, byLevel }
+}
+
+// ─────────────────────────────────────────────────────────────
+// VRL Snapshots
+// ─────────────────────────────────────────────────────────────
+
+export interface VrlSnapshotRow {
+  id: string
+  userId: string
+  vLevel: number
+  previousVLevel: number | null
+  vLevelDelta: number | null
+  snapshotType: string | null
+  triggeredBy: string | null
+  takenReason: string
+  takenAt: string
+  source: string | null
+  confidence: number | null
+  segment: string | null
+  cefrLevel: string | null
+  triggerDetailsKeys: string[]
+}
+
+export interface VrlSnapshotsData {
+  rows: VrlSnapshotRow[]
+  total: number
+  byType: Array<{ type: string; n: number }>
+  byReason: Array<{ reason: string; n: number }>
+}
+
+export async function fetchVrlSnapshots(
+  client: SupabaseClient,
+): Promise<VrlSnapshotsData> {
+  const { data, error } = await client
+    .from('user_level_snapshots')
+    .select(
+      'id, user_id, v_level, previous_v_level, v_level_delta, snapshot_type, triggered_by, taken_reason, taken_at, v_level_meta, trigger_details, segment, cefr_level',
+    )
+    .order('taken_at', { ascending: false })
+    .limit(200)
+
+  if (error) {
+    console.error('[fetchVrlSnapshots] failed:', error.message)
+    return { rows: [], total: 0, byType: [], byReason: [] }
+  }
+
+  type Row = {
+    id: string
+    user_id: string
+    v_level: number
+    previous_v_level: number | null
+    v_level_delta: number | null
+    snapshot_type: string | null
+    triggered_by: string | null
+    taken_reason: string
+    taken_at: string
+    v_level_meta: { source?: string; confidence?: number } | null
+    trigger_details: Record<string, unknown> | null
+    segment: string | null
+    cefr_level: string | null
+  }
+
+  const rows: VrlSnapshotRow[] = ((data ?? []) as Row[]).map((r) => ({
+    id: r.id,
+    userId: r.user_id,
+    vLevel: r.v_level,
+    previousVLevel: r.previous_v_level,
+    vLevelDelta: r.v_level_delta,
+    snapshotType: r.snapshot_type,
+    triggeredBy: r.triggered_by,
+    takenReason: r.taken_reason,
+    takenAt: r.taken_at,
+    source: r.v_level_meta?.source ?? null,
+    confidence:
+      typeof r.v_level_meta?.confidence === 'number' ? r.v_level_meta.confidence : null,
+    segment: r.segment,
+    cefrLevel: r.cefr_level,
+    triggerDetailsKeys:
+      r.trigger_details && typeof r.trigger_details === 'object'
+        ? Object.keys(r.trigger_details)
+        : [],
+  }))
+
+  const typeMap = new Map<string, number>()
+  const reasonMap = new Map<string, number>()
+  for (const r of rows) {
+    const t = r.snapshotType ?? '—'
+    typeMap.set(t, (typeMap.get(t) ?? 0) + 1)
+    reasonMap.set(r.takenReason, (reasonMap.get(r.takenReason) ?? 0) + 1)
+  }
+
+  return {
+    rows,
+    total: rows.length,
+    byType: [...typeMap.entries()]
+      .map(([type, n]) => ({ type, n }))
+      .sort((a, b) => b.n - a.n),
+    byReason: [...reasonMap.entries()]
+      .map(([reason, n]) => ({ reason, n }))
+      .sort((a, b) => b.n - a.n),
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// VRL Diagnostic
+// ─────────────────────────────────────────────────────────────
+
+export interface VrlDiagnosticTest {
+  id: string
+  nameKo: string
+  testType: string
+  targetAxis: string
+  targetTrackId: string | null
+  targetDomainId: string | null
+  questionCount: number
+  estimatedMinutes: number
+  descriptionKo: string | null
+  isActive: boolean
+  createdAt: string | null
+  /** 실제 등록된 문항 수 (vrl_diagnostic_questions COUNT) */
+  questionsLoaded: number
+}
+
+export interface VrlDiagnosticData {
+  tests: VrlDiagnosticTest[]
+  totalTests: number
+  activeTests: number
+  totalQuestions: number
+  totalResults: number
+}
+
+export async function fetchVrlDiagnostic(
+  client: SupabaseClient,
+): Promise<VrlDiagnosticData> {
+  const [testsRes, qCountRes, rCountRes] = await Promise.all([
+    client
+      .from('vrl_diagnostic_tests')
+      .select(
+        'id, name_ko, test_type, target_axis, target_track_id, target_domain_id, question_count, estimated_minutes, description_ko, is_active, created_at',
+      )
+      .order('created_at', { ascending: false })
+      .limit(200),
+    client.from('vrl_diagnostic_questions').select('*', { count: 'exact', head: true }),
+    client.from('user_diagnostic_results').select('*', { count: 'exact', head: true }),
+  ])
+
+  type TestRow = {
+    id: string
+    name_ko: string
+    test_type: string
+    target_axis: string
+    target_track_id: string | null
+    target_domain_id: string | null
+    question_count: number
+    estimated_minutes: number
+    description_ko: string | null
+    is_active: boolean
+    created_at: string | null
+  }
+
+  const baseTests = (testsRes.data ?? []) as TestRow[]
+
+  // 각 test 의 실제 문항 수 — 병렬 head count
+  const counts = await Promise.all(
+    baseTests.map((t) =>
+      client
+        .from('vrl_diagnostic_questions')
+        .select('*', { count: 'exact', head: true })
+        .eq('test_id', t.id)
+        .then((res) => res.count ?? 0),
+    ),
+  )
+
+  const tests: VrlDiagnosticTest[] = baseTests.map((t, i) => ({
+    id: t.id,
+    nameKo: t.name_ko,
+    testType: t.test_type,
+    targetAxis: t.target_axis,
+    targetTrackId: t.target_track_id,
+    targetDomainId: t.target_domain_id,
+    questionCount: t.question_count,
+    estimatedMinutes: t.estimated_minutes,
+    descriptionKo: t.description_ko,
+    isActive: t.is_active,
+    createdAt: t.created_at,
+    questionsLoaded: counts[i] ?? 0,
+  }))
+
+  return {
+    tests,
+    totalTests: tests.length,
+    activeTests: tests.filter((t) => t.isActive).length,
+    totalQuestions: qCountRes.count ?? 0,
+    totalResults: rCountRes.count ?? 0,
   }
 }
