@@ -47,6 +47,9 @@ export type {
   AnalyzeBookOptions,
   AnalyzeBookStats,
 } from './analyze/analyze-book'
+// VRL v3 Krashen i+1 weight helper (Phase 2A · Stage B)
+export { vLevelWeightFor, classifyLV } from './analyze/learning-value'
+export type { ComputeLvOptions, UserSegment } from './analyze/learning-value'
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'

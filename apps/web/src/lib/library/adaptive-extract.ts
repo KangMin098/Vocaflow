@@ -11,6 +11,7 @@
 //   - shared_dictionary miss 단어는 skip + 다음 LV 단어 보충
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { vLevelWeightFor } from '@vocaflow/library-pipeline'
 import type { UserCefr, UserMastery } from './personalize'
 
 const VALID_CEFR = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
@@ -34,6 +35,11 @@ export interface AdaptiveExtractContext {
   userId: string
   userMastery: UserMastery
   userCefr: UserCefr
+  /**
+   * VRL v3 V-Level (0~11). 지정 시 shared_dictionary.v_level 거리 기반
+   * Krashen i+1 secondary re-ranking 적용. 미지정 시 base_learning_value 만 사용.
+   */
+  userVLevel?: number | null
   libraryBookId: string
   chapterIdx: number
   chapterWordCount: number
@@ -78,14 +84,17 @@ export async function adaptiveExtractWords(
     return { decidedCount: 0, attemptedCount: 0, insertedCount: 0 }
   }
 
-  // 3. library_book_vocabularies 에서 LV 상위 후보 가져오기 (N의 3배 — miss/이미학습 보충 buffer)
+  // 3. library_book_vocabularies 에서 LV 상위 후보 가져오기.
+  //    userVLevel 지정 시 i+1 zone 단어가 base LV 상위권에 적게 분포할 수 있으므로
+  //    fetch buffer 를 N×5 로 확장 (미지정 시 N×3 유지).
+  const fetchMultiplier = ctx.userVLevel != null ? 5 : 3
   const { data: candidates, error: candError } = await client
     .from('library_book_vocabularies')
     .select('word, first_sentence, frequency_in_chapter, base_learning_value')
     .eq('library_book_id', ctx.libraryBookId)
     .eq('chapter_idx', ctx.chapterIdx)
     .order('base_learning_value', { ascending: false })
-    .limit(N * 3)
+    .limit(N * fetchMultiplier)
 
   if (candError) {
     throw new Error(
@@ -96,11 +105,12 @@ export async function adaptiveExtractWords(
     return { decidedCount: N, attemptedCount: 0, insertedCount: 0 }
   }
 
-  // 4. shared_dictionary 일괄 lookup (RULE 3: pronunciation 컬럼 부재 — SELECT 절에서 제거)
+  // 4. shared_dictionary 일괄 lookup — VRL v3 v_level 포함 (Krashen weight 용)
+  //    (RULE 3: pronunciation 컬럼 부재 — SELECT 절에서 제거)
   const candidateWords = candidates.map((c) => c.word as string)
   const { data: dict, error: dictError } = await client
     .from('shared_dictionary')
-    .select('word, meaning_ko, example_en, pos, cefr_level')
+    .select('word, meaning_ko, example_en, pos, cefr_level, v_level')
     .in('word', candidateWords)
 
   if (dictError) {
@@ -108,6 +118,20 @@ export async function adaptiveExtractWords(
   }
 
   const dictMap = new Map((dict ?? []).map((d) => [d.word as string, d]))
+
+  // 4-B. userVLevel 지정 시 secondary re-ranking — Krashen i+1 weight 적용
+  //      base_learning_value 는 user-agnostic precomputed cache (pipeline 단계).
+  //      여기서 사용자 v_level 거리 가중치를 곱해 i+1 zone 단어를 상위로 부각.
+  const rankedCandidates =
+    ctx.userVLevel == null
+      ? candidates
+      : [...candidates].sort((a, b) => {
+          const aVL = (dictMap.get(a.word as string) as { v_level?: number | null } | undefined)?.v_level ?? null
+          const bVL = (dictMap.get(b.word as string) as { v_level?: number | null } | undefined)?.v_level ?? null
+          const aScore = (a.base_learning_value as number) * vLevelWeightFor(aVL, ctx.userVLevel)
+          const bScore = (b.base_learning_value as number) * vLevelWeightFor(bVL, ctx.userVLevel)
+          return bScore - aScore
+        })
 
   // 5. 사용자가 이미 학습 중인 단어 (UNIQUE 충돌 회피용 사전 필터)
   const { data: existing, error: existError } = await client
@@ -138,7 +162,7 @@ export async function adaptiveExtractWords(
     origin: 'library'
   }> = []
 
-  for (const c of candidates) {
+  for (const c of rankedCandidates) {
     if (rows.length >= N) break
 
     const word = c.word as string

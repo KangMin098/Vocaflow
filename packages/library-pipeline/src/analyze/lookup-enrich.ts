@@ -14,6 +14,8 @@ export interface DictionaryEntry {
   frequency_rank: number | null
   /** NGSL Project list memberships (Phase 14.5) — used by LV confidence weighting. */
   list_tags: string[]
+  /** VRL v3 V-Level 0~11 (Korean learner roadmap) — null = unclassified. */
+  v_level: number | null
 }
 
 export interface EnrichmentResult {
@@ -60,7 +62,9 @@ export async function lookupAndEnrich(
     const chunk = uniqueLower.slice(i, i + lookupChunkSize)
     const { data, error } = await client
       .from('shared_dictionary')
-      .select('word, meaning_ko, cefr_level, pos, example_en, frequency_rank, list_tags')
+      .select(
+        'word, meaning_ko, cefr_level, pos, example_en, frequency_rank, list_tags, v_level',
+      )
       .in('word', chunk)
     if (error) {
       throw new Error(`shared_dictionary lookup failed: ${error.message}`)
@@ -110,10 +114,11 @@ export async function lookupAndEnrich(
           cefr_level: r.cefr_level,
           pos: r.pos,
           example_en: r.example_en,
-          // LLM enrichment 단계에서는 NGSL rank/list_tags 미생성 — Phase 14.1/14.5
-          // batch import 또는 후속 hit lookup 으로 채워짐
+          // LLM enrichment 단계에서는 NGSL rank/list_tags/v_level 미생성
+          // — Phase 14.1/14.5 batch import 또는 VRL v3 후속 분류로 채워짐
           frequency_rank: null,
           list_tags: [],
+          v_level: null,
         })
       }
     }

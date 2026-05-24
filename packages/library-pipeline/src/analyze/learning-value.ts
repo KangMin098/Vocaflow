@@ -97,6 +97,38 @@ export interface ComputeLvOptions {
   totalChapters: number
   /** 사용자 segment — 미지정 시 'general' (가장 중립). */
   segment?: UserSegment
+  /**
+   * VRL v3 V-Level 사용자 기준점 (0~11). 지정 시 Krashen i+1 가중치 적용.
+   * 미지정 시 weight=1.0 (영향 없음 — 기존 pipeline 호환).
+   */
+  userVLevel?: number
+}
+
+/**
+ * VRL v3 Krashen i+1 가중치 — word v_level 와 user v_level 간 거리 기반.
+ * adaptive-extract 의 secondary re-ranking 에서도 재사용.
+ *
+ * 정합: §17.2 [2] 상태 축 — comfort/growth/frustration zone
+ *   - distance +1 = sweet spot (Krashen i+1)
+ *   - distance  0 = i+0 (review/refresh)
+ *   - distance +2 = growth zone
+ *   - distance -1 = known
+ *   - distance >=+3 = too hard
+ *   - distance <=-2 = too easy
+ *   - null (unclassified word 또는 user) = neutral (CEFR fallback 흐름 유지)
+ */
+export function vLevelWeightFor(
+  wordVLevel: number | null | undefined,
+  userVLevel: number | null | undefined,
+): number {
+  if (wordVLevel == null || userVLevel == null) return 0.7
+  const d = wordVLevel - userVLevel
+  if (d === 1) return 1.3
+  if (d === 0) return 1.0
+  if (d === 2) return 0.85
+  if (d === -1) return 0.55
+  if (d >= 3) return 0.4
+  return 0.2
 }
 
 /**
@@ -160,7 +192,13 @@ export function computeLearningValue(
     // 7. segmentBonus — user segment × matching list
     const segmentBonus = computeSegmentBonus(segment, listTags)
 
-    const lv = baseLv * globalFreqWeight * segmentBonus
+    // 8. VRL v3 Krashen i+1 weight — userVLevel 지정 시에만 적용 (미지정 = 1.0)
+    const vWeight =
+      opts.userVLevel == null
+        ? 1.0
+        : vLevelWeightFor(entry?.v_level ?? null, opts.userVLevel)
+
+    const lv = baseLv * globalFreqWeight * segmentBonus * vWeight
 
     result.push({
       word: lemma,

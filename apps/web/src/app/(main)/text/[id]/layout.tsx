@@ -9,6 +9,7 @@ import type { ReactNode } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 import { markChapterStarted } from '@/lib/library/mark-progress';
+import { activateChapterLearning } from '@/lib/library/activate-chapter';
 import type {
   BookContextChapter,
   ChapterStatus,
@@ -80,6 +81,23 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   // 2. G2 — status 자동 변경 (멱등)
   if (text) {
     await markChapterStarted(text.id);
+  }
+
+  // 2-B. Phase 2A — library chapter 진입 시 학습 활성화 (멱등)
+  //      personalizeChapter (reading_sessions) + adaptiveExtractWords (vocabularies)
+  //      VRL v3 user current_v_level 기반 i+1 zone 단어 부각.
+  if (
+    text?.library_book_id &&
+    text.chapter_idx != null &&
+    text.chapter_word_count != null
+  ) {
+    await activateChapterLearning(client, {
+      userId: text.user_id,
+      textId: text.id,
+      libraryBookId: text.library_book_id,
+      chapterIdx: text.chapter_idx,
+      chapterWordCount: text.chapter_word_count,
+    });
   }
 
   // 3. G1 — library_book_id 있을 때만 BookContext fetch
