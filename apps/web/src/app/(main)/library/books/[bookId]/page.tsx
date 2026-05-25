@@ -18,7 +18,10 @@ export default async function LibraryBookPreviewPage({ params }: PageProps) {
   const { data: book } = await client
     .from('library_books')
     .select(
-      'id, title, author, cefr_level, word_count, chapter_count, reading_minutes',
+      'id, title, author, cefr_level, cefr_band, book_v_level, ' +
+        'v_level_centroid_precise, cefrj_level, cefrj_confidence, ' +
+        'flesch_kincaid_grade, flesch_reading_ease, ' +
+        'word_count, chapter_count, reading_minutes, vrl_components',
     )
     .eq('id', params.bookId)
     .eq('status', 'published')
@@ -38,14 +41,22 @@ export default async function LibraryBookPreviewPage({ params }: PageProps) {
     }
   }
 
-  const b = book as {
+  const b = book as unknown as {
     id: string;
     title: string;
     author: string | null;
     cefr_level: string | null;
+    cefr_band: string | null;
+    book_v_level: number | null;
+    v_level_centroid_precise: string | null;
+    cefrj_level: string | null;
+    cefrj_confidence: string | null;
+    flesch_kincaid_grade: string | null;
+    flesch_reading_ease: string | null;
     word_count: number | null;
     chapter_count: number | null;
     reading_minutes: number | null;
+    vrl_components: Record<string, unknown> | null;
   };
 
   const chapters = await listChapters(client, b.id);
@@ -57,6 +68,18 @@ export default async function LibraryBookPreviewPage({ params }: PageProps) {
         title={b.title}
         author={b.author}
         cefrLevel={b.cefr_level}
+        cefrBand={b.cefr_band}
+        bookVLevel={b.book_v_level}
+        vLevelCentroid={b.v_level_centroid_precise}
+        cefrjLevel={b.cefrj_level}
+        cefrjConfidence={b.cefrj_confidence}
+        fleschKincaidGrade={b.flesch_kincaid_grade}
+        fleschReadingEase={b.flesch_reading_ease}
+        lemmaCoveragePct={
+          typeof b.vrl_components?.lemma_coverage_pct === 'number'
+            ? b.vrl_components.lemma_coverage_pct
+            : null
+        }
         totalWordCount={b.word_count ?? 0}
         readingMinutes={b.reading_minutes ?? 0}
         chapters={chapters}

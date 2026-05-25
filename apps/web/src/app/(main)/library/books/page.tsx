@@ -18,7 +18,8 @@ export default async function LibraryBooksPage() {
   const { data, error } = await client
     .from('library_books')
     .select(
-      'id, title, author, cefr_level, word_count, chapter_count, reading_minutes',
+      'id, title, author, cefr_level, cefr_band, book_v_level, ' +
+        'word_count, chapter_count, reading_minutes',
     )
     .eq('status', 'published')
     .eq('copyright_safe_in_kr', true)

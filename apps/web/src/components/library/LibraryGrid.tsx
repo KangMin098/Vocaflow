@@ -8,6 +8,10 @@ export interface PublishedBook {
   title: string
   author: string | null
   cefr_level: string | null
+  /** CLAUDE.md v06.29 — V-Level Centroid 기반 CEFR 6-band (canonical). Fallback: cefr_level */
+  cefr_band: string | null
+  /** CLAUDE.md v06.29 — Vocaflow V-Level (p75 centroid, 1-11 한국 학습자 부담) */
+  book_v_level: number | null
   word_count: number | null
   chapter_count: number | null
   reading_minutes: number | null
@@ -62,17 +66,34 @@ function BookCard({ book }: { book: PublishedBook }) {
           <h3 className="line-clamp-2 font-display text-[15px] font-[700] text-[var(--t1)]">
             {book.title}
           </h3>
-          {book.cefr_level && (
-            <span
-              className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700]"
-              style={{
-                backgroundColor: `var(--cefr-${book.cefr_level}-bg)`,
-                color: `var(--cefr-${book.cefr_level}-text)`,
-              }}
-            >
-              {book.cefr_level}
-            </span>
-          )}
+          <div className="flex shrink-0 items-center gap-1">
+            {/* CEFR — band(canonical) 우선, fallback cefr_level */}
+            {(book.cefr_band ?? book.cefr_level) && (
+              <span
+                className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                style={{
+                  backgroundColor: `var(--cefr-${book.cefr_band ?? book.cefr_level}-bg)`,
+                  color: `var(--cefr-${book.cefr_band ?? book.cefr_level}-text)`,
+                }}
+                title={
+                  book.cefr_band && book.cefr_level && book.cefr_band !== book.cefr_level
+                    ? `centroid: ${book.cefr_band} · analyze: ${book.cefr_level}`
+                    : undefined
+                }
+              >
+                {book.cefr_band ?? book.cefr_level}
+              </span>
+            )}
+            {/* V-Level — Vocaflow 한국 학습자 부담 (CLAUDE.md v06.29 메인 표시) */}
+            {book.book_v_level != null && (
+              <span
+                className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]"
+                title="V-Level (한국 학습자 어휘 부담, p75 centroid)"
+              >
+                V{book.book_v_level}
+              </span>
+            )}
+          </div>
         </div>
         {book.author && (
           <p className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">{book.author}</p>
