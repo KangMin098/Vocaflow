@@ -70,6 +70,20 @@ export interface LibraryBookAdminRow {
   published_at: string | null
   created_at: string
   updated_at: string
+  /** 4축 난이도 지수 (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수") */
+  book_v_level: number | null
+  /** NUMERIC(4,2) — supabase-js는 string으로 반환. */
+  v_level_centroid_precise: string | null
+  /** CEFR 6-band (cefr_band generated stored column) */
+  cefr_band: string | null
+  /** CEFR-J 12-band (internal heuristic) */
+  cefrj_level: string | null
+  /** NUMERIC(3,2) — supabase-js는 string으로 반환. */
+  cefrj_confidence: string | null
+  /** NUMERIC(4,2) Flesch-Kincaid Grade Level. */
+  flesch_kincaid_grade: string | null
+  /** NUMERIC(5,2) Flesch Reading Ease. */
+  flesch_reading_ease: string | null
 }
 
 export type BookStatus =
@@ -146,7 +160,9 @@ export async function listAllAdminBooks(
     .select(
       'id, source, source_id, title, author, cefr_level, cefr_confidence, ' +
         'word_count, chapter_count, reading_minutes, status, status_message, ' +
-        'llm_cost_usd, copyright_safe_in_kr, published_at, created_at, updated_at',
+        'llm_cost_usd, copyright_safe_in_kr, published_at, created_at, updated_at, ' +
+        'book_v_level, v_level_centroid_precise, cefr_band, cefrj_level, cefrj_confidence, ' +
+        'flesch_kincaid_grade, flesch_reading_ease',
     )
     .order('updated_at', { ascending: false })
 

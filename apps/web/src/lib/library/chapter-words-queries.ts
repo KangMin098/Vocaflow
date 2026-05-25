@@ -29,6 +29,9 @@ export async function getChapterWords(
     .select('word, first_sentence, base_learning_value, frequency_in_chapter')
     .eq('library_book_id', libraryBookId)
     .eq('chapter_idx', chapterIdx)
+    // 노이즈 가드 — 고유명사·contraction·미지 토큰(lemma 매칭 실패) 제외
+    // (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" 안티패턴 정합)
+    .not('lemma', 'is', null)
     .order('base_learning_value', { ascending: false })
     .limit(limit);
 

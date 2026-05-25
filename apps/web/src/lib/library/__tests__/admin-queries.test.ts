@@ -86,6 +86,13 @@ describe('admin-queries — pure helpers', () => {
       published_at: '2026-05-08T00:00:00Z',
       created_at: '2026-05-08T00:00:00Z',
       updated_at: '2026-05-08T00:00:00Z',
+      book_v_level: 8,
+      v_level_centroid_precise: '4.56',
+      cefr_band: 'B2',
+      cefrj_level: 'B2.1',
+      cefrj_confidence: '0.70',
+      flesch_kincaid_grade: '12.44',
+      flesch_reading_ease: '54.93',
     }
     expect(_catalog.composite_score).toBeGreaterThan(0)
     expect(_row.status).toBe('published')

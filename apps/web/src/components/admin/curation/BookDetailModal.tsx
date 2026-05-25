@@ -124,16 +124,6 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-5 py-4">
         <Section title="처리 정보">
           <DataRow label="상태" value={statusInfo.label} />
-          <DataRow label="CEFR" value={book.cefr_level ?? '—'} mono />
-          <DataRow
-            label="신뢰도"
-            value={
-              book.cefr_confidence != null
-                ? book.cefr_confidence.toFixed(2)
-                : '—'
-            }
-            mono
-          />
           <DataRow
             label="단어 수"
             value={book.word_count?.toLocaleString() ?? '—'}
@@ -157,6 +147,62 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
             label="KR safe"
             value={book.copyright_safe_in_kr ? 'safe ✓' : 'check ⚠'}
             tone={book.copyright_safe_in_kr ? 'success' : 'warn'}
+          />
+        </Section>
+
+        <Section title="4축 난이도 지수 (v06.29)">
+          <DataRow
+            label="CEFR (6-band)"
+            value={book.cefr_band ?? book.cefr_level ?? '—'}
+            mono
+          />
+          <DataRow
+            label="V-Level (p75)"
+            value={book.book_v_level != null ? `V${book.book_v_level}` : '—'}
+            mono
+          />
+          <DataRow
+            label="V Centroid (정밀)"
+            value={book.v_level_centroid_precise ?? '—'}
+            mono
+          />
+          <DataRow
+            label="CEFR-J (12-band)"
+            value={book.cefrj_level ?? '—'}
+            mono
+          />
+          <DataRow
+            label="CEFR-J 신뢰도"
+            value={book.cefrj_confidence ?? '—'}
+            tone={
+              book.cefrj_confidence
+                ? parseFloat(book.cefrj_confidence) >= 0.85
+                  ? 'success'
+                  : parseFloat(book.cefrj_confidence) < 0.7
+                    ? 'warn'
+                    : undefined
+                : undefined
+            }
+            mono
+          />
+          <DataRow
+            label="F-K Grade"
+            value={book.flesch_kincaid_grade ?? '—'}
+            mono
+          />
+          <DataRow
+            label="F-K Reading Ease"
+            value={book.flesch_reading_ease ?? '—'}
+            mono
+          />
+          <DataRow
+            label="CEFR (analyze)"
+            value={
+              book.cefr_level && book.cefr_confidence != null
+                ? `${book.cefr_level} · ${book.cefr_confidence.toFixed(2)}`
+                : (book.cefr_level ?? '—')
+            }
+            mono
           />
         </Section>
 

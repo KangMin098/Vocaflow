@@ -93,6 +93,9 @@ export async function adaptiveExtractWords(
     .select('word, first_sentence, frequency_in_chapter, base_learning_value')
     .eq('library_book_id', ctx.libraryBookId)
     .eq('chapter_idx', ctx.chapterIdx)
+    // 노이즈 가드 — 고유명사·contraction·미지 토큰 제외 (Krashen i+1 후보 밀도 보존)
+    // (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" 안티패턴 정합)
+    .not('lemma', 'is', null)
     .order('base_learning_value', { ascending: false })
     .limit(N * fetchMultiplier)
 
