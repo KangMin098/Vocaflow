@@ -23,25 +23,27 @@ import {
   type RssListItem,
 } from './_helpers'
 
-// NOTE: URL 검증 (2026-05-20):
-//   - NIH News Releases: nih.gov/news-releases/feed.xml  (NOT news-events/news-releases/feed.xml — 404)
-//   - MedlinePlus What's New: feeds/whatsnew.xml  (news_en.xml 은 존재 X)
-//   - Director's Blog: directorsblog.nih.gov/feed/ — WordPress 표준 (안정적)
+// NOTE: URL 검증 (2026-06-01):
+//   - NIH News Releases: nih.gov/news-releases/feed.xml — **현재 403 IP 차단** (server-side fetch 거부)
+//     → UI 에 "URL 직접 입력 사용" 안내
+//   - MedlinePlus What's New: feeds/whatsnew.xml — 200 OK (안정)
+//   - Director's Blog: directorsblog.nih.gov/feed/ — TLS handshake 이슈 가능
+// v06.34 — 작동 가능한 feed 만 default 노출. nih.gov news 는 우회 안내.
 export const NIH_FEEDS: Array<{ id: string; label: string; url: string }> = [
   {
-    id: 'news',
-    label: 'NIH News Releases',
-    url: 'https://www.nih.gov/news-releases/feed.xml',
-  },
-  {
     id: 'medlineplus',
-    label: "MedlinePlus What's New",
+    label: "MedlinePlus What's New (안정)",
     url: 'https://medlineplus.gov/feeds/whatsnew.xml',
   },
   {
     id: 'directors-blog',
     label: "NIH Director's Blog",
     url: 'https://directorsblog.nih.gov/feed/',
+  },
+  {
+    id: 'news',
+    label: 'NIH News Releases (현재 차단됨 · URL 직접 입력)',
+    url: 'https://www.nih.gov/news-releases/feed.xml',
   },
 ]
 

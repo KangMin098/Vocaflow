@@ -81,9 +81,9 @@
     /* Animation Duration */
     --dur-breath: 4s;
 
-    /* Reading Settings (User-adjustable) */
-    --reader-font-size:   19px;
-    --reader-line-height: 1.85;
+    /* Reading Settings (User-adjustable · v06.32 톤다운) */
+    --reader-font-size:   16px;
+    --reader-line-height: 1.7;
 
     /* Flashcard v2 — SRS 4단계 (한국 친화 그라디언트) */
     --srs-1: #EF4444;   /* 몰라요 */
@@ -266,6 +266,91 @@ code, pre, kbd, samp {
     min-width: 44px;
     min-height: 44px;
   }
+
+  /* ─────────────────────────────────────────────────────────────
+     Hub 디자인 시스템 (v06.34) — 9 hub 페이지 공통 카드 위계
+     설계 원칙: Cognitive Chunking + Calm UI + Progressive Disclosure
+     ───────────────────────────────────────────────────────────── */
+
+  /* Primary card — 이어하기 / Today CTA (시선 1순위)
+     특징: 좌측 3px accent strip + 6% accent tint + 일관 padding */
+  .hub-card-primary {
+    position: relative;
+    background: var(--bg);
+    border: 1px solid var(--bd);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    box-shadow: var(--sh-xs);
+    transition:
+      box-shadow var(--dur-normal) var(--ease),
+      border-color var(--dur-normal) var(--ease);
+  }
+  .hub-card-primary:hover {
+    box-shadow: var(--sh-sm);
+  }
+
+  /* Secondary card — Stats / List (시선 2순위)
+     특징: 표준 카드 톤 + 약한 호버 */
+  .hub-card-secondary {
+    background: var(--bg);
+    border: 1px solid var(--bd);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+    transition: background var(--dur-normal) var(--ease);
+  }
+  .hub-card-secondary:hover {
+    background: var(--bg2);
+  }
+
+  /* Tertiary card — Settings / Start (시선 3순위)
+     특징: 배경 톤 변경으로 약화 */
+  .hub-card-tertiary {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+  }
+
+  /* Section separator — "위는 회고 · 아래는 시작" Progressive Disclosure */
+  .hub-section-break {
+    position: relative;
+    margin: 8px 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--bd) 20%,
+      var(--bd) 80%,
+      transparent 100%
+    );
+  }
+
+  /* 카드 eyebrow / section label — 작은 라벨 통일 */
+  .hub-eyebrow {
+    font-family: var(--font-mono), 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: var(--t3);
+  }
+
+  /* Hub metric — KPI 수치 (s2 보다 한 단계 슬림: 28px → 24px) */
+  .hub-metric-lg {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .hub-metric-md {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -279,6 +364,155 @@ body.focus-mode .sidebar {
 }
 body.focus-mode .sidebar:hover {
   opacity: 1;
+}
+
+/* v06.33 — Apple 스러운 고급 책 cover (다층 그림자 + sheen + grain) */
+.book-cover-premium {
+  position: relative;
+  border-radius: 10px;
+  /* 다층 그림자 — ambient(넓게) + key(방향) + contact(가까이) */
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.10),
+    0 3px 6px rgba(0, 0, 0, 0.10),
+    0 12px 24px -6px rgba(0, 0, 0, 0.22),
+    0 28px 48px -16px rgba(0, 0, 0, 0.28);
+  transition:
+    box-shadow var(--dur-slow) var(--ease),
+    transform var(--dur-slow) var(--ease);
+}
+.book-cover-premium--center {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    0 6px 12px rgba(0, 0, 0, 0.14),
+    0 20px 40px -10px rgba(0, 0, 0, 0.30),
+    0 44px 72px -24px rgba(0, 0, 0, 0.34);
+}
+/* 표지 inner ring — 미세 입체 보더 */
+.book-cover-premium::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -20px 40px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+/* 종이 grain — 프리미엄 질감 (subtle) */
+.book-cover-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.05;
+}
+/* 상단 sheen — Apple glass 광택 */
+.book-cover-sheen {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.08) 22%,
+    transparent 45%
+  );
+}
+
+/* v06.32 도서관 v3 — 진짜 도서관 책장 (vertical wood frame + white shelves + dense books) */
+.bookshelf-frame {
+  background:
+    linear-gradient(135deg, #E8D5B5 0%, #D4BA8E 50%, #B89668 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 -2px 4px rgba(80,55,25,0.15) inset;
+}
+.bookshelf-wood-column {
+  background:
+    linear-gradient(90deg,
+      #D4BA8E 0%,
+      #E8D5B5 30%,
+      #C9A876 70%,
+      #A88555 100%);
+  box-shadow:
+    1px 0 0 rgba(255,255,255,0.25) inset,
+    -1px 0 2px rgba(80,55,25,0.2);
+}
+.bookshelf-shelf-plank {
+  /* 흰 선반 — 책이 놓이는 면 */
+  background: linear-gradient(180deg, #FAFAF7 0%, #ECECE7 60%, #C8C8C2 100%);
+  box-shadow:
+    0 -1px 2px rgba(0,0,0,0.08),
+    0 1px 1px rgba(255,255,255,0.6) inset;
+}
+.bookshelf-ambient-top {
+  /* 위에서 내려오는 부드러운 자연광 */
+  background: radial-gradient(ellipse at 50% 0%,
+    rgba(255,250,235,0.5) 0%,
+    rgba(255,250,235,0.18) 30%,
+    transparent 70%);
+}
+.book-spine-base {
+  /* 책등 — vertical with subtle 3D */
+  background-image:
+    linear-gradient(90deg,
+      rgba(0,0,0,0.18) 0%,
+      rgba(255,255,255,0.08) 25%,
+      rgba(255,255,255,0.04) 75%,
+      rgba(0,0,0,0.25) 100%);
+}
+.book-spine-text {
+  /* 책등 텍스트 — 90deg 회전 */
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+.library-book {
+  transform-origin: bottom center;
+  transition: transform var(--dur-normal) var(--ease), filter var(--dur-normal) var(--ease);
+  will-change: transform;
+}
+.library-book:hover,
+.library-book:focus-visible {
+  transform: translateY(-10px) rotateZ(0deg) !important;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.22));
+  z-index: 10;
+}
+.library-book {
+  transform-origin: bottom center;
+  transition: transform var(--dur-normal) var(--ease), filter var(--dur-normal) var(--ease);
+  will-change: transform;
+}
+.library-book:hover,
+.library-book:focus-visible {
+  transform: translateY(-12px) rotateZ(0deg) !important;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.18));
+}
+.library-book-spine {
+  /* 책 우측 두께 — 종이 묶음 + 표지 옆면 */
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.18) 30%,
+      rgba(255,255,255,0.06) 60%,
+      rgba(0,0,0,0.22) 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,248,230,0.4) 0px,
+      rgba(255,248,230,0.4) 1px,
+      rgba(160,140,110,0.3) 1px,
+      rgba(160,140,110,0.3) 2px
+    );
+  background-blend-mode: overlay;
+}
+.library-shelf-ambient {
+  /* 책장 위 부드러운 ambient light (상단 → 하단 밝기 감소) */
+  background: linear-gradient(180deg,
+    rgba(255,250,235,0.18) 0%,
+    rgba(255,250,235,0.06) 40%,
+    transparent 100%);
 }
 
 /* Reading Prose — 깊은 가독성을 위한 미세 조정 (v06.26 워크스페이스 개선) */

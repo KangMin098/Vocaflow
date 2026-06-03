@@ -32,9 +32,22 @@ const FETCH_TIMEOUT_MS = 15_000
  * @returns RawBook (Stage S3 NORMALIZE 입력)
  */
 export async function ingestFromWikibooks(pageTitle: string): Promise<RawBook> {
-  const normalized = pageTitle.trim().replace(/\s+/g, '_')
-  if (!/^[A-Za-z0-9_/().,:'\-]+$/.test(normalized)) {
-    throw new Error(`Invalid Wikibooks page title: ${pageTitle}`)
+  const raw = pageTitle.trim()
+
+  // v06.34 호환성: source_id 가 pageid (숫자) 인 legacy row 도 처리.
+  // 숫자만 입력되면 Wikibooks API 로 pageid → title 변환 후 진행.
+  let normalized: string
+  if (/^\d+$/.test(raw)) {
+    const resolvedTitle = await resolveTitleFromPageId(raw)
+    if (!resolvedTitle) {
+      throw new Error(`Wikibooks page id not found: ${raw}`)
+    }
+    normalized = resolvedTitle.replace(/\s+/g, '_')
+  } else {
+    normalized = raw.replace(/\s+/g, '_')
+    if (!/^[A-Za-z0-9_/().,:'\-]+$/.test(normalized)) {
+      throw new Error(`Invalid Wikibooks page title: ${pageTitle}`)
+    }
   }
 
   const isSubpage = normalized.includes('/')
@@ -104,6 +117,26 @@ export async function ingestFromWikibooks(pageTitle: string): Promise<RawBook> {
 interface WikibooksMeta {
   title: string
   pageId: number
+}
+
+/**
+ * pageid (숫자) → canonical title 변환.
+ * v06.34 — Wikibooks fetcher 가 source_id 에 pageid 저장하던 legacy seed_catalog row 호환.
+ */
+async function resolveTitleFromPageId(pageid: string): Promise<string | null> {
+  const url = `${WB_API}?action=query&format=json&prop=info&pageids=${pageid}&origin=*`
+  try {
+    const res = await fetchWithTimeout(url)
+    if (!res.ok) return null
+    const json = (await res.json()) as {
+      query?: { pages?: Record<string, { title?: string; missing?: '' }> }
+    }
+    const first = Object.values(json.query?.pages ?? {})[0]
+    if (!first || first.missing !== undefined || !first.title) return null
+    return first.title
+  } catch {
+    return null
+  }
 }
 
 async function fetchWikibooksMeta(title: string): Promise<WikibooksMeta | null> {

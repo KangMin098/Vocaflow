@@ -15,10 +15,11 @@ import { Search } from 'lucide-react'
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
-import { CategoryFilter } from './CategoryFilter'
-import type { VocabCategoryId } from './categories'
+import { CategoryMatrix } from './CategoryMatrix'
+import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
+import { VocabSetCarousel } from './VocabSetCarousel'
 import { VocabSetPreviewModal } from './VocabSetPreviewModal'
 
 type SortKey = 'recommended' | 'most_words' | 'fewest_words' | 'newest'
@@ -133,6 +134,20 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
   const isEmptyFiltered = !isEmptyAll && filtered.length === 0
   const mineCount = sets.filter((s) => subscribed.has(s.id)).length
 
+  // 카테고리별 세트 개수 (Information scent · CategoryMatrix 표시용)
+  const categoryCounts = useMemo(() => {
+    const map: Record<string, number> = {}
+    for (const s of sets) {
+      map[s.category] = (map[s.category] ?? 0) + 1
+    }
+    return map
+  }, [sets])
+
+  // '전체' + 검색·필터 미사용 시에만 카테고리별 섹션 그룹핑 (chunking — Miller 7±2).
+  // 검색/구독필터/특정 카테고리 선택 시에는 평탄 그리드 (사용자 의도 명확).
+  const isGrouped =
+    category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -148,7 +163,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="단어장 이름·설명 검색"
             aria-label="공용 단어장 검색"
-            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t3)] transition-colors focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20"
+            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t3)] transition-colors focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
           />
         </div>
 
@@ -160,7 +175,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
             id="vocab-sort"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20"
+            className="h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
           >
             <option value="recommended">추천순</option>
             <option value="most_words">단어 많은 순</option>
@@ -173,9 +188,9 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
               type="button"
               onClick={() => setMineOnly((v) => !v)}
               aria-pressed={mineOnly}
-              className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+              className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/20 focus-visible:ring-offset-1 ${
                 mineOnly
-                  ? 'border-[#8B5CF6] bg-[#8B5CF6] text-white'
+                  ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]'
               }`}
             >
@@ -192,13 +207,14 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
         </div>
       </div>
 
-      <CategoryFilter active={category} onChange={setCategory} />
-
-      {!isEmptyAll && (
-        <p className="font-body text-[12px] text-[var(--t3)]">
-          {filtered.length.toLocaleString()}개 단어장
-          {mineOnly && ' · 내가 구독한 것만'}
-        </p>
+      {/* 카테고리 선택 시에만 빠른 클리어를 위해 CategoryMatrix 유지 (필터 active 표시). 기본 matrix view 일 때는 hide. */}
+      {category !== 'all' && (
+        <CategoryMatrix
+          active={category}
+          onChange={setCategory}
+          counts={categoryCounts}
+          totalCount={sets.length}
+        />
       )}
 
       {isEmptyAll ? (
@@ -215,8 +231,20 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
               : '검색어나 카테고리를 바꿔보세요.'
           }
         />
+      ) : isGrouped ? (
+        // v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel
+        <VocabSetCarousel
+          sets={filtered}
+          subscribedIds={subscribed}
+          pendingId={pendingId}
+          isLoggedIn={isLoggedIn}
+          onPreview={setPreviewing}
+          onToggle={handleToggle}
+          onSelectCategory={(id) => setCategory(id)}
+        />
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        // Dense matrix grid — Are.na / Linear board 영감
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {filtered.map((set) => (
             <VocabSetCard
               key={set.id}

@@ -11,6 +11,10 @@ import type { ChapterListItem } from '@/lib/library/reader-queries';
 import { createClient } from '@/lib/supabase/client';
 import { enrollBook } from '@/lib/library/enroll';
 import { BookContentReader } from '@/components/library/reader/BookContentReader';
+import {
+  BookDetailClient,
+  type ChapterSet,
+} from '@/components/library/books/BookDetailClient';
 
 interface Props {
   bookId: string;
@@ -29,6 +33,10 @@ interface Props {
   totalWordCount: number;
   readingMinutes: number;
   chapters: ChapterListItem[];
+  /** v06.31 — 챕터 단어장 grid (도서 컨텍스트 안에서만 노출) */
+  chapterSets: ChapterSet[];
+  subscribedIds: string[];
+  isLoggedIn: boolean;
 }
 
 export function UserPreviewClient({
@@ -47,6 +55,9 @@ export function UserPreviewClient({
   totalWordCount,
   readingMinutes,
   chapters,
+  chapterSets,
+  subscribedIds,
+  isLoggedIn,
 }: Props) {
   const router = useRouter();
   const [enrolling, setEnrolling] = useState(false);
@@ -98,6 +109,17 @@ export function UserPreviewClient({
         fleschReadingEase={fleschReadingEase}
         lemmaCoveragePct={lemmaCoveragePct}
       />
+
+      {/* v06.31 — 챕터 단어장 grid (도서 컨텍스트 안 · 도서 매핑 원칙) */}
+      {chapterSets.length > 0 && (
+        <BookDetailClient
+          bookId={bookId}
+          bookVLevel={bookVLevel}
+          chapterSets={chapterSets}
+          subscribedIds={subscribedIds}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
 
       <BookContentReader
         libraryBookId={bookId}

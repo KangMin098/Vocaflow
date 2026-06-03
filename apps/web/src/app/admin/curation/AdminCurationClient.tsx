@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BookOpen, FolderOpen, GraduationCap, Globe, Hash, Headphones, Library, ScrollText } from 'lucide-react';
+import { BookOpen, FolderOpen, GraduationCap, Globe, Hash, Library, ScrollText, Download } from 'lucide-react';
 import type {
   CurationStats,
   LibraryBookAdminRow,
@@ -13,10 +13,10 @@ import type {
 } from '@/lib/library/admin-queries';
 import { SourceCatalogTab } from '@/components/admin/curation/SourceCatalogTab';
 import { SeedTab } from '@/components/admin/curation/SeedTab';
+import { BulkFetchTab } from '@/components/admin/curation/BulkFetchTab';
 import { GutenbergIdTab } from '@/components/admin/curation/GutenbergIdTab';
 import { WikibooksIdTab } from '@/components/admin/curation/WikibooksIdTab';
 import { WikisourceIdTab } from '@/components/admin/curation/WikisourceIdTab';
-import { LibriVoxIdTab } from '@/components/admin/curation/LibriVoxIdTab';
 import { OpenStaxIdTab } from '@/components/admin/curation/OpenStaxIdTab';
 import { MyLibraryTab } from '@/components/admin/curation/MyLibraryTab';
 import {
@@ -27,16 +27,15 @@ import type { SeedItem } from '@/components/admin/curation/SeedCard';
 import type { GutenbergPreview } from '@/components/admin/curation/GutenbergIdTab';
 import type { WikibooksPreview } from '@/components/admin/curation/WikibooksIdTab';
 import type { WikisourcePreview } from '@/components/admin/curation/WikisourceIdTab';
-import type { LibriVoxPreview } from '@/components/admin/curation/LibriVoxIdTab';
 import type { OpenStaxPreview } from '@/components/admin/curation/OpenStaxIdTab';
 
 type TabKey =
   | 'sources'
+  | 'bulk'
   | 'seed'
   | 'id'
   | 'wikibooks'
   | 'wikisource'
-  | 'librivox'
   | 'openstax'
   | 'mine';
 
@@ -54,7 +53,7 @@ export function AdminCurationClient({
   stats,
 }: AdminCurationClientProps) {
   const router = useRouter();
-  const [tab, setTab] = useState<TabKey>('sources');
+  const [tab, setTab] = useState<TabKey>('mine');
   const [enqueueSource, setEnqueueSource] = useState<EnqueueSource | null>(null);
 
   function handlePickSeed(seed: SeedItem) {
@@ -69,9 +68,6 @@ export function AdminCurationClient({
   function handlePickWikisource(preview: WikisourcePreview) {
     setEnqueueSource({ kind: 'wikisource', data: preview });
   }
-  function handlePickLibriVox(preview: LibriVoxPreview) {
-    setEnqueueSource({ kind: 'librivox', data: preview });
-  }
   function handlePickOpenStax(preview: OpenStaxPreview) {
     setEnqueueSource({ kind: 'openstax', data: preview });
   }
@@ -83,8 +79,6 @@ export function AdminCurationClient({
       setTab('wikibooks');
     } else if (source === 'wikisource') {
       setTab('wikisource');
-    } else if (source === 'librivox') {
-      setTab('librivox');
     } else if (source === 'openstax') {
       setTab('openstax');
     }
@@ -106,13 +100,13 @@ export function AdminCurationClient({
             onSelectSource={handleSourceClick}
           />
         )}
+        {tab === 'bulk' && <BulkFetchTab />}
         {tab === 'seed' && (
           <SeedTab existingBooks={books} onPickSeed={handlePickSeed} />
         )}
         {tab === 'id' && <GutenbergIdTab onPickPreview={handlePickPreview} />}
         {tab === 'wikibooks' && <WikibooksIdTab onPickPreview={handlePickWikibooks} />}
         {tab === 'wikisource' && <WikisourceIdTab onPickPreview={handlePickWikisource} />}
-        {tab === 'librivox' && <LibriVoxIdTab onPickPreview={handlePickLibriVox} />}
         {tab === 'openstax' && <OpenStaxIdTab onPickPreview={handlePickOpenStax} />}
         {tab === 'mine' && <MyLibraryTab books={books} onRefetch={refetchAll} />}
       </div>
@@ -200,14 +194,14 @@ interface TabListProps {
 }
 
 const TABS: Array<{ key: TabKey; label: string; Icon: typeof BookOpen }> = [
+  { key: 'mine', label: 'Curated Books', Icon: FolderOpen },
+  { key: 'bulk', label: '소스 GET (대량)', Icon: Download },
   { key: 'sources', label: '소스 카탈로그', Icon: Library },
   { key: 'seed', label: '추천 시드', Icon: BookOpen },
   { key: 'id', label: 'Gutenberg ID', Icon: Hash },
   { key: 'wikibooks', label: 'Wikibooks', Icon: Globe },
   { key: 'wikisource', label: 'Wikisource', Icon: ScrollText },
-  { key: 'librivox', label: 'LibriVox', Icon: Headphones },
   { key: 'openstax', label: 'OpenStax', Icon: GraduationCap },
-  { key: 'mine', label: 'Curated Books', Icon: FolderOpen },
 ];
 
 function TabList({ tab, onChange, stats }: TabListProps) {

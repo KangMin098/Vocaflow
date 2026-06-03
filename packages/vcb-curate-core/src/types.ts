@@ -57,6 +57,10 @@ export interface RunConfig {
   must_include_keywords?: string[]
   must_exclude_keywords?: string[]
   reference_seeds?: string
+  // VCB Wizard v2 — preset / filter / limits 스키마 (web/lib/vcb/filters.ts 정합)
+  preset_id?: string | null
+  filters?: Record<string, unknown>
+  limits?: Record<string, unknown>
 }
 
 export interface RunDetail extends RunSummary {

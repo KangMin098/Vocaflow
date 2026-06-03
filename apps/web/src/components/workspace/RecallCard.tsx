@@ -22,7 +22,7 @@ export function RecallCard({ word, anchorRect, onClose, onJudge }: RecallCardPro
     setIsRevealed(false)
   }, [word?.id])
 
-  // 카드 외부 클릭 시 닫기
+  // 카드 외부 클릭 시 닫기 — race-safe: setTimeout cleanup 보장
   useEffect(() => {
     if (!word) return
     const handler = (e: MouseEvent) => {
@@ -31,8 +31,15 @@ export function RecallCard({ word, anchorRect, onClose, onJudge }: RecallCardPro
         onClose()
       }
     }
-    setTimeout(() => document.addEventListener('mousedown', handler), 0)
-    return () => document.removeEventListener('mousedown', handler)
+    let added = false
+    const tid = window.setTimeout(() => {
+      document.addEventListener('mousedown', handler)
+      added = true
+    }, 0)
+    return () => {
+      window.clearTimeout(tid)
+      if (added) document.removeEventListener('mousedown', handler)
+    }
   }, [word, onClose])
 
   // ESC 키로 닫기

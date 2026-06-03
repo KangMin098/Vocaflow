@@ -12,31 +12,6 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
       achievements: {
@@ -66,6 +41,30 @@ export type Database = {
           module?: Database["public"]["Enums"]["module_id"] | null
           user_id?: string
           value?: number | null
+        }
+        Relationships: []
+      }
+      content_chunks: {
+        Row: {
+          byte_size: number
+          content: string
+          created_at: string
+          hash: string
+          ref_count: number
+        }
+        Insert: {
+          byte_size: number
+          content: string
+          created_at?: string
+          hash: string
+          ref_count?: number
+        }
+        Update: {
+          byte_size?: number
+          content?: string
+          created_at?: string
+          hash?: string
+          ref_count?: number
         }
         Relationships: []
       }
@@ -197,6 +196,13 @@ export type Database = {
             referencedRelation: "texts"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "dictation_sessions_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
+            referencedColumns: ["id"]
+          },
         ]
       }
       dictionary_categories: {
@@ -294,6 +300,33 @@ export type Database = {
           },
         ]
       }
+      frequency_data_sources: {
+        Row: {
+          citation: string
+          created_at: string | null
+          id: number
+          license: string
+          source_key: string
+          url: string | null
+        }
+        Insert: {
+          citation: string
+          created_at?: string | null
+          id?: number
+          license: string
+          source_key: string
+          url?: string | null
+        }
+        Update: {
+          citation?: string
+          created_at?: string | null
+          id?: number
+          license?: string
+          source_key?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       learning_records: {
         Row: {
           attempted_at: string | null
@@ -339,7 +372,586 @@ export type Database = {
             foreignKeyName: "learning_records_vocabulary_id_fkey"
             columns: ["vocabulary_id"]
             isOneToOne: false
+            referencedRelation: "user_vocab_enriched"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "learning_records_vocabulary_id_fkey"
+            columns: ["vocabulary_id"]
+            isOneToOne: false
             referencedRelation: "vocabularies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lexicon_frequencies: {
+        Row: {
+          appears_every_year: boolean | null
+          computed_at: string | null
+          frequency_tier: number | null
+          id: number
+          lemma: string
+          metadata: Json | null
+          normalized_freq: number | null
+          rank_in_source: number | null
+          raw_count: number | null
+          source_id: number
+          year_from: number | null
+          year_to: number | null
+        }
+        Insert: {
+          appears_every_year?: boolean | null
+          computed_at?: string | null
+          frequency_tier?: number | null
+          id?: number
+          lemma: string
+          metadata?: Json | null
+          normalized_freq?: number | null
+          rank_in_source?: number | null
+          raw_count?: number | null
+          source_id: number
+          year_from?: number | null
+          year_to?: number | null
+        }
+        Update: {
+          appears_every_year?: boolean | null
+          computed_at?: string | null
+          frequency_tier?: number | null
+          id?: number
+          lemma?: string
+          metadata?: Json | null
+          normalized_freq?: number | null
+          rank_in_source?: number | null
+          raw_count?: number | null
+          source_id?: number
+          year_from?: number | null
+          year_to?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lexicon_frequencies_lemma_fkey"
+            columns: ["lemma"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+          {
+            foreignKeyName: "lexicon_frequencies_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "frequency_data_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lexicon_source_tags: {
+        Row: {
+          added_at: string | null
+          lexicon_id: string
+          metadata: Json | null
+          source: string
+        }
+        Insert: {
+          added_at?: string | null
+          lexicon_id: string
+          metadata?: Json | null
+          source: string
+        }
+        Update: {
+          added_at?: string | null
+          lexicon_id?: string
+          metadata?: Json | null
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lexicon_source_tags_lexicon_id_fkey"
+            columns: ["lexicon_id"]
+            isOneToOne: false
+            referencedRelation: "word_lexicon"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      library_article_vocabularies: {
+        Row: {
+          base_learning_value: number
+          created_at: string
+          first_sentence: string | null
+          frequency_in_article: number
+          id: string
+          lemma: string | null
+          library_article_id: string
+          word: string
+        }
+        Insert: {
+          base_learning_value?: number
+          created_at?: string
+          first_sentence?: string | null
+          frequency_in_article?: number
+          id?: string
+          lemma?: string | null
+          library_article_id: string
+          word: string
+        }
+        Update: {
+          base_learning_value?: number
+          created_at?: string
+          first_sentence?: string | null
+          frequency_in_article?: number
+          id?: string
+          lemma?: string | null
+          library_article_id?: string
+          word?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_article_vocabularies_lemma_fkey"
+            columns: ["lemma"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+          {
+            foreignKeyName: "library_article_vocabularies_library_article_id_fkey"
+            columns: ["library_article_id"]
+            isOneToOne: false
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      library_articles: {
+        Row: {
+          author: string | null
+          category_tags: string[] | null
+          cefr_confidence: number | null
+          cefr_level: string | null
+          content: string
+          content_hash: string | null
+          copyright_safe_in_kr: boolean
+          created_at: string
+          id: string
+          language: string
+          license: string
+          llm_cost_usd: number | null
+          published_at: string | null
+          reading_minutes: number | null
+          source: string
+          source_fetched_at: string | null
+          source_id: string
+          source_url: string | null
+          status: string
+          status_message: string | null
+          title: string
+          updated_at: string
+          word_count: number | null
+        }
+        Insert: {
+          author?: string | null
+          category_tags?: string[] | null
+          cefr_confidence?: number | null
+          cefr_level?: string | null
+          content: string
+          content_hash?: string | null
+          copyright_safe_in_kr?: boolean
+          created_at?: string
+          id?: string
+          language?: string
+          license: string
+          llm_cost_usd?: number | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          source: string
+          source_fetched_at?: string | null
+          source_id: string
+          source_url?: string | null
+          status?: string
+          status_message?: string | null
+          title: string
+          updated_at?: string
+          word_count?: number | null
+        }
+        Update: {
+          author?: string | null
+          category_tags?: string[] | null
+          cefr_confidence?: number | null
+          cefr_level?: string | null
+          content?: string
+          content_hash?: string | null
+          copyright_safe_in_kr?: boolean
+          created_at?: string
+          id?: string
+          language?: string
+          license?: string
+          llm_cost_usd?: number | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          source?: string
+          source_fetched_at?: string | null
+          source_id?: string
+          source_url?: string | null
+          status?: string
+          status_message?: string | null
+          title?: string
+          updated_at?: string
+          word_count?: number | null
+        }
+        Relationships: []
+      }
+      library_book_vocabularies: {
+        Row: {
+          base_learning_value: number
+          chapter_idx: number
+          created_at: string
+          first_sentence: string | null
+          frequency_in_book: number
+          frequency_in_chapter: number
+          id: string
+          lemma: string | null
+          library_book_id: string
+          word: string
+        }
+        Insert: {
+          base_learning_value?: number
+          chapter_idx: number
+          created_at?: string
+          first_sentence?: string | null
+          frequency_in_book?: number
+          frequency_in_chapter?: number
+          id?: string
+          lemma?: string | null
+          library_book_id: string
+          word: string
+        }
+        Update: {
+          base_learning_value?: number
+          chapter_idx?: number
+          created_at?: string
+          first_sentence?: string | null
+          frequency_in_book?: number
+          frequency_in_chapter?: number
+          id?: string
+          lemma?: string | null
+          library_book_id?: string
+          word?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_book_vocabularies_lemma_fkey"
+            columns: ["lemma"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+          {
+            foreignKeyName: "library_book_vocabularies_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      library_books: {
+        Row: {
+          author: string | null
+          author_birth_year: number | null
+          author_death_year: number | null
+          book_v_level: number | null
+          book_vrl_score: number | null
+          category_tags: string[] | null
+          cefr_confidence: number | null
+          cefr_level: string | null
+          chapter_count: number | null
+          copyright_safe_in_kr: boolean
+          cover_from: string | null
+          cover_to: string | null
+          created_at: string
+          id: string
+          language: string
+          lexile_measure: number | null
+          lexile_source: string | null
+          license: string
+          llm_cost_usd: number | null
+          original_publish_year: number | null
+          published_at: string | null
+          reading_minutes: number | null
+          recommended_order: number | null
+          search_vector: unknown
+          source: string
+          source_fetched_at: string | null
+          source_id: string | null
+          source_url: string | null
+          status: string
+          status_message: string | null
+          title: string
+          updated_at: string
+          vrl_calculated_at: string | null
+          vrl_components: Json | null
+          word_count: number | null
+        }
+        Insert: {
+          author?: string | null
+          author_birth_year?: number | null
+          author_death_year?: number | null
+          book_v_level?: number | null
+          book_vrl_score?: number | null
+          category_tags?: string[] | null
+          cefr_confidence?: number | null
+          cefr_level?: string | null
+          chapter_count?: number | null
+          copyright_safe_in_kr?: boolean
+          cover_from?: string | null
+          cover_to?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          lexile_measure?: number | null
+          lexile_source?: string | null
+          license: string
+          llm_cost_usd?: number | null
+          original_publish_year?: number | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          recommended_order?: number | null
+          search_vector?: unknown
+          source: string
+          source_fetched_at?: string | null
+          source_id?: string | null
+          source_url?: string | null
+          status?: string
+          status_message?: string | null
+          title: string
+          updated_at?: string
+          vrl_calculated_at?: string | null
+          vrl_components?: Json | null
+          word_count?: number | null
+        }
+        Update: {
+          author?: string | null
+          author_birth_year?: number | null
+          author_death_year?: number | null
+          book_v_level?: number | null
+          book_vrl_score?: number | null
+          category_tags?: string[] | null
+          cefr_confidence?: number | null
+          cefr_level?: string | null
+          chapter_count?: number | null
+          copyright_safe_in_kr?: boolean
+          cover_from?: string | null
+          cover_to?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          lexile_measure?: number | null
+          lexile_source?: string | null
+          license?: string
+          llm_cost_usd?: number | null
+          original_publish_year?: number | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          recommended_order?: number | null
+          search_vector?: unknown
+          source?: string
+          source_fetched_at?: string | null
+          source_id?: string | null
+          source_url?: string | null
+          status?: string
+          status_message?: string | null
+          title?: string
+          updated_at?: string
+          vrl_calculated_at?: string | null
+          vrl_components?: Json | null
+          word_count?: number | null
+        }
+        Relationships: []
+      }
+      library_chapters_master: {
+        Row: {
+          cefr_level: string | null
+          chapter_idx: number
+          chapter_title: string | null
+          content_hash: string
+          created_at: string
+          id: string
+          library_book_id: string
+          paragraph_offsets: number[]
+          sentence_offsets: number[]
+          word_count: number
+        }
+        Insert: {
+          cefr_level?: string | null
+          chapter_idx: number
+          chapter_title?: string | null
+          content_hash: string
+          created_at?: string
+          id?: string
+          library_book_id: string
+          paragraph_offsets?: number[]
+          sentence_offsets?: number[]
+          word_count: number
+        }
+        Update: {
+          cefr_level?: string | null
+          chapter_idx?: number
+          chapter_title?: string | null
+          content_hash?: string
+          created_at?: string
+          id?: string
+          library_book_id?: string
+          paragraph_offsets?: number[]
+          sentence_offsets?: number[]
+          word_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_chapters_master_content_hash_fkey"
+            columns: ["content_hash"]
+            isOneToOne: false
+            referencedRelation: "content_chunks"
+            referencedColumns: ["hash"]
+          },
+          {
+            foreignKeyName: "library_chapters_master_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      library_source_catalogs: {
+        Row: {
+          api_endpoint: string | null
+          catalog_size: number | null
+          catalog_url: string | null
+          composite_score: number
+          copyright_safe_in_kr: boolean
+          created_at: string
+          description: string | null
+          display_name: string
+          documentation_url: string | null
+          id: string
+          is_enabled: boolean
+          is_implemented: boolean
+          license_summary: string
+          notes: string | null
+          quality_api: number
+          quality_learning: number
+          quality_license: number
+          quality_metadata: number
+          quality_text: number
+          quality_volume: number
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          api_endpoint?: string | null
+          catalog_size?: number | null
+          catalog_url?: string | null
+          composite_score?: number
+          copyright_safe_in_kr: boolean
+          created_at?: string
+          description?: string | null
+          display_name: string
+          documentation_url?: string | null
+          id?: string
+          is_enabled?: boolean
+          is_implemented?: boolean
+          license_summary: string
+          notes?: string | null
+          quality_api: number
+          quality_learning: number
+          quality_license: number
+          quality_metadata: number
+          quality_text: number
+          quality_volume: number
+          source: string
+          updated_at?: string
+        }
+        Update: {
+          api_endpoint?: string | null
+          catalog_size?: number | null
+          catalog_url?: string | null
+          composite_score?: number
+          copyright_safe_in_kr?: boolean
+          created_at?: string
+          description?: string | null
+          display_name?: string
+          documentation_url?: string | null
+          id?: string
+          is_enabled?: boolean
+          is_implemented?: boolean
+          license_summary?: string
+          notes?: string | null
+          quality_api?: number
+          quality_learning?: number
+          quality_license?: number
+          quality_metadata?: number
+          quality_text?: number
+          quality_volume?: number
+          source?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pending_words: {
+        Row: {
+          admin_note: string | null
+          context_snippet: string | null
+          created_at: string | null
+          encounter_count: number
+          id: string
+          lemma: string
+          resolved_at: string | null
+          status: string
+          surface: string | null
+          text_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          admin_note?: string | null
+          context_snippet?: string | null
+          created_at?: string | null
+          encounter_count?: number
+          id?: string
+          lemma: string
+          resolved_at?: string | null
+          status?: string
+          surface?: string | null
+          text_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          admin_note?: string | null
+          context_snippet?: string | null
+          created_at?: string | null
+          encounter_count?: number
+          id?: string
+          lemma?: string
+          resolved_at?: string | null
+          status?: string
+          surface?: string | null
+          text_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pending_words_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "texts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pending_words_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
             referencedColumns: ["id"]
           },
         ]
@@ -387,6 +999,70 @@ export type Database = {
             columns: ["text_id"]
             isOneToOne: false
             referencedRelation: "texts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quiz_questions_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reading_sessions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          end_paragraph_idx: number
+          estimated_minutes: number | null
+          id: string
+          session_idx: number
+          start_paragraph_idx: number
+          started_at: string | null
+          status: string
+          text_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          end_paragraph_idx: number
+          estimated_minutes?: number | null
+          id?: string
+          session_idx: number
+          start_paragraph_idx: number
+          started_at?: string | null
+          status?: string
+          text_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          end_paragraph_idx?: number
+          estimated_minutes?: number | null
+          id?: string
+          session_idx?: number
+          start_paragraph_idx?: number
+          started_at?: string | null
+          status?: string
+          text_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reading_sessions_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "texts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reading_sessions_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
             referencedColumns: ["id"]
           },
         ]
@@ -437,6 +1113,20 @@ export type Database = {
             columns: ["text_id"]
             isOneToOne: false
             referencedRelation: "texts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_vocabulary_id_fkey"
+            columns: ["vocabulary_id"]
+            isOneToOne: false
+            referencedRelation: "user_vocab_enriched"
             referencedColumns: ["id"]
           },
           {
@@ -499,138 +1189,359 @@ export type Database = {
             referencedRelation: "texts"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "scores_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
+            referencedColumns: ["id"]
+          },
         ]
       }
       shared_dictionary: {
         Row: {
           antonyms: string[] | null
+          audio_url: string | null
+          audio_url_uk: string | null
+          audio_url_us: string | null
+          cefr_confidence: number | null
           cefr_level: string | null
+          classified_by: string | null
+          claude_classified_at: string | null
+          claude_reasoning: string | null
+          collocations: string[] | null
           created_at: string | null
+          domain_levels: Json | null
+          domain_levels_rule_v1: Json | null
           example_en: string | null
+          frequency_band: string | null
           frequency_rank: number | null
-          meaning_ko: string
+          frequency_sources: Json | null
+          image_url: string | null
+          inflections: Json | null
+          ipa: string | null
+          ipa_uk: string | null
+          ipa_us: string | null
+          korean_learner_note: string | null
+          last_quality_audit_at: string | null
+          lemma_band: string | null
+          list_tags: string[]
+          meaning_ko: string | null
           meanings_ko: Json | null
+          mnemonic_ko: string | null
+          ngsl_sfi: number | null
           pos: string
-          pos_all: string[] | null
+          pos_set: string[]
+          primary_pos: string | null
+          register: string | null
+          senses: Json
+          skill_level: number | null
+          skill_level_rule_v1: number | null
+          skill_type: string | null
           source: string
           synonyms: string[] | null
+          track_levels: Json | null
+          track_levels_rule_v1: Json | null
           updated_at: string | null
+          v_level: number | null
+          v_level_rule_v1: number | null
           verified: boolean | null
+          vrl_calculated_at: string | null
           word: string
         }
         Insert: {
           antonyms?: string[] | null
+          audio_url?: string | null
+          audio_url_uk?: string | null
+          audio_url_us?: string | null
+          cefr_confidence?: number | null
           cefr_level?: string | null
+          classified_by?: string | null
+          claude_classified_at?: string | null
+          claude_reasoning?: string | null
+          collocations?: string[] | null
           created_at?: string | null
+          domain_levels?: Json | null
+          domain_levels_rule_v1?: Json | null
           example_en?: string | null
+          frequency_band?: string | null
           frequency_rank?: number | null
-          meaning_ko: string
+          frequency_sources?: Json | null
+          image_url?: string | null
+          inflections?: Json | null
+          ipa?: string | null
+          ipa_uk?: string | null
+          ipa_us?: string | null
+          korean_learner_note?: string | null
+          last_quality_audit_at?: string | null
+          lemma_band?: string | null
+          list_tags?: string[]
+          meaning_ko?: string | null
           meanings_ko?: Json | null
+          mnemonic_ko?: string | null
+          ngsl_sfi?: number | null
           pos: string
-          pos_all?: string[] | null
+          pos_set?: string[]
+          primary_pos?: string | null
+          register?: string | null
+          senses?: Json
+          skill_level?: number | null
+          skill_level_rule_v1?: number | null
+          skill_type?: string | null
           source?: string
           synonyms?: string[] | null
+          track_levels?: Json | null
+          track_levels_rule_v1?: Json | null
           updated_at?: string | null
+          v_level?: number | null
+          v_level_rule_v1?: number | null
           verified?: boolean | null
+          vrl_calculated_at?: string | null
           word: string
         }
         Update: {
           antonyms?: string[] | null
+          audio_url?: string | null
+          audio_url_uk?: string | null
+          audio_url_us?: string | null
+          cefr_confidence?: number | null
           cefr_level?: string | null
+          classified_by?: string | null
+          claude_classified_at?: string | null
+          claude_reasoning?: string | null
+          collocations?: string[] | null
           created_at?: string | null
+          domain_levels?: Json | null
+          domain_levels_rule_v1?: Json | null
           example_en?: string | null
+          frequency_band?: string | null
           frequency_rank?: number | null
-          meaning_ko?: string
+          frequency_sources?: Json | null
+          image_url?: string | null
+          inflections?: Json | null
+          ipa?: string | null
+          ipa_uk?: string | null
+          ipa_us?: string | null
+          korean_learner_note?: string | null
+          last_quality_audit_at?: string | null
+          lemma_band?: string | null
+          list_tags?: string[]
+          meaning_ko?: string | null
           meanings_ko?: Json | null
+          mnemonic_ko?: string | null
+          ngsl_sfi?: number | null
           pos?: string
-          pos_all?: string[] | null
+          pos_set?: string[]
+          primary_pos?: string | null
+          register?: string | null
+          senses?: Json
+          skill_level?: number | null
+          skill_level_rule_v1?: number | null
+          skill_type?: string | null
           source?: string
           synonyms?: string[] | null
+          track_levels?: Json | null
+          track_levels_rule_v1?: Json | null
           updated_at?: string | null
+          v_level?: number | null
+          v_level_rule_v1?: number | null
           verified?: boolean | null
+          vrl_calculated_at?: string | null
           word?: string
         }
         Relationships: []
       }
       shared_word_sets: {
         Row: {
+          auto_curated: boolean
           category: string
           cefr_level: string | null
           cover_emoji: string | null
           created_at: string | null
+          curation_query: Json | null
           description: string | null
           id: string
           is_published: boolean | null
+          parent_version_id: string | null
+          regenerated_at: string | null
+          slug: string
           sort_order: number | null
+          source_attributions: Json | null
+          source_run_id: number | null
+          subcategory: string | null
           title: string
+          version: number
           word_count: number | null
         }
         Insert: {
+          auto_curated?: boolean
           category: string
           cefr_level?: string | null
           cover_emoji?: string | null
           created_at?: string | null
+          curation_query?: Json | null
           description?: string | null
           id?: string
           is_published?: boolean | null
+          parent_version_id?: string | null
+          regenerated_at?: string | null
+          slug: string
           sort_order?: number | null
+          source_attributions?: Json | null
+          source_run_id?: number | null
+          subcategory?: string | null
           title: string
+          version?: number
           word_count?: number | null
         }
         Update: {
+          auto_curated?: boolean
           category?: string
           cefr_level?: string | null
           cover_emoji?: string | null
           created_at?: string | null
+          curation_query?: Json | null
           description?: string | null
           id?: string
           is_published?: boolean | null
+          parent_version_id?: string | null
+          regenerated_at?: string | null
+          slug?: string
           sort_order?: number | null
+          source_attributions?: Json | null
+          source_run_id?: number | null
+          subcategory?: string | null
           title?: string
+          version?: number
           word_count?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "shared_word_sets_parent_version_id_fkey"
+            columns: ["parent_version_id"]
+            isOneToOne: false
+            referencedRelation: "shared_word_sets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shared_word_sets_source_run_id_fkey"
+            columns: ["source_run_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_runs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       shared_words: {
         Row: {
+          antonyms: string[] | null
           cefr_level: string | null
+          collocations: string[] | null
+          confidence: number | null
+          created_at: string | null
+          definitions_en_full: Json | null
+          definitions_ko_full: Json | null
           example_en: string | null
+          examples_full: Json | null
           id: string
+          ipa: string | null
+          korean_learner_note: string | null
+          lemma: string | null
+          lexicon_id: string | null
           meaning_ko: string
           part_of_speech: string | null
           pronunciation: string | null
           set_id: string
           sort_order: number | null
+          source_queue_id: number | null
+          source_run_id: number | null
+          synonyms: string[] | null
           word: string
         }
         Insert: {
+          antonyms?: string[] | null
           cefr_level?: string | null
+          collocations?: string[] | null
+          confidence?: number | null
+          created_at?: string | null
+          definitions_en_full?: Json | null
+          definitions_ko_full?: Json | null
           example_en?: string | null
+          examples_full?: Json | null
           id?: string
+          ipa?: string | null
+          korean_learner_note?: string | null
+          lemma?: string | null
+          lexicon_id?: string | null
           meaning_ko: string
           part_of_speech?: string | null
           pronunciation?: string | null
           set_id: string
           sort_order?: number | null
+          source_queue_id?: number | null
+          source_run_id?: number | null
+          synonyms?: string[] | null
           word: string
         }
         Update: {
+          antonyms?: string[] | null
           cefr_level?: string | null
+          collocations?: string[] | null
+          confidence?: number | null
+          created_at?: string | null
+          definitions_en_full?: Json | null
+          definitions_ko_full?: Json | null
           example_en?: string | null
+          examples_full?: Json | null
           id?: string
+          ipa?: string | null
+          korean_learner_note?: string | null
+          lemma?: string | null
+          lexicon_id?: string | null
           meaning_ko?: string
           part_of_speech?: string | null
           pronunciation?: string | null
           set_id?: string
           sort_order?: number | null
+          source_queue_id?: number | null
+          source_run_id?: number | null
+          synonyms?: string[] | null
           word?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "shared_words_lemma_fkey"
+            columns: ["lemma"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+          {
+            foreignKeyName: "shared_words_lexicon_id_fkey"
+            columns: ["lexicon_id"]
+            isOneToOne: false
+            referencedRelation: "word_lexicon"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "shared_words_set_id_fkey"
             columns: ["set_id"]
             isOneToOne: false
             referencedRelation: "shared_word_sets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shared_words_source_queue_id_fkey"
+            columns: ["source_queue_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_enrichment_queue"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shared_words_source_run_id_fkey"
+            columns: ["source_run_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_runs"
             referencedColumns: ["id"]
           },
         ]
@@ -639,79 +1550,329 @@ export type Database = {
         Row: {
           author: string | null
           cefr_level: string | null
-          content: string
+          chapter_idx: number | null
+          chapter_title: string | null
+          content: string | null
           cover_from: string | null
           cover_to: string | null
           created_at: string | null
+          current_paragraph_idx: number | null
           id: string
           is_bookmarked: boolean | null
           last_opened: string | null
+          library_book_id: string | null
           progress_percent: number | null
           source: Database["public"]["Enums"]["text_source"] | null
           source_file_path: string | null
           source_url: string | null
           status: string | null
+          text_v_level: number | null
+          text_vrl_score: number | null
           title: string
           translation: string | null
           updated_at: string | null
           user_id: string
+          vrl_calculated_at: string | null
+          vrl_components: Json | null
         }
         Insert: {
           author?: string | null
           cefr_level?: string | null
-          content: string
+          chapter_idx?: number | null
+          chapter_title?: string | null
+          content?: string | null
           cover_from?: string | null
           cover_to?: string | null
           created_at?: string | null
+          current_paragraph_idx?: number | null
           id?: string
           is_bookmarked?: boolean | null
           last_opened?: string | null
+          library_book_id?: string | null
           progress_percent?: number | null
           source?: Database["public"]["Enums"]["text_source"] | null
           source_file_path?: string | null
           source_url?: string | null
           status?: string | null
+          text_v_level?: number | null
+          text_vrl_score?: number | null
           title: string
           translation?: string | null
           updated_at?: string | null
           user_id: string
+          vrl_calculated_at?: string | null
+          vrl_components?: Json | null
         }
         Update: {
           author?: string | null
           cefr_level?: string | null
-          content?: string
+          chapter_idx?: number | null
+          chapter_title?: string | null
+          content?: string | null
           cover_from?: string | null
           cover_to?: string | null
           created_at?: string | null
+          current_paragraph_idx?: number | null
           id?: string
           is_bookmarked?: boolean | null
           last_opened?: string | null
+          library_book_id?: string | null
           progress_percent?: number | null
           source?: Database["public"]["Enums"]["text_source"] | null
           source_file_path?: string | null
           source_url?: string | null
           status?: string | null
+          text_v_level?: number | null
+          text_vrl_score?: number | null
           title?: string
           translation?: string | null
           updated_at?: string | null
           user_id?: string
+          vrl_calculated_at?: string | null
+          vrl_components?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "texts_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_diagnostic_results: {
+        Row: {
+          confidence: number | null
+          estimated_domain_levels: Json | null
+          estimated_skill_levels: Json | null
+          estimated_track_levels: Json | null
+          estimated_v_level: number | null
+          id: string
+          responses: Json
+          taken_at: string | null
+          test_id: string
+          user_id: string
+        }
+        Insert: {
+          confidence?: number | null
+          estimated_domain_levels?: Json | null
+          estimated_skill_levels?: Json | null
+          estimated_track_levels?: Json | null
+          estimated_v_level?: number | null
+          id?: string
+          responses: Json
+          taken_at?: string | null
+          test_id: string
+          user_id: string
+        }
+        Update: {
+          confidence?: number | null
+          estimated_domain_levels?: Json | null
+          estimated_skill_levels?: Json | null
+          estimated_track_levels?: Json | null
+          estimated_v_level?: number | null
+          id?: string
+          responses?: Json
+          taken_at?: string | null
+          test_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_diagnostic_results_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "vrl_diagnostic_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_level_progress: {
+        Row: {
+          axis_id: string
+          axis_type: string
+          completion_pct: number | null
+          confidence: number | null
+          last_studied_at: string | null
+          learning_words: number | null
+          level: number
+          mastered_words: number | null
+          progress_meta: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          axis_id?: string
+          axis_type?: string
+          completion_pct?: number | null
+          confidence?: number | null
+          last_studied_at?: string | null
+          learning_words?: number | null
+          level: number
+          mastered_words?: number | null
+          progress_meta?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          axis_id?: string
+          axis_type?: string
+          completion_pct?: number | null
+          confidence?: number | null
+          last_studied_at?: string | null
+          learning_words?: number | null
+          level?: number
+          mastered_words?: number | null
+          progress_meta?: Json
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
+      }
+      user_level_snapshots: {
+        Row: {
+          cefr_level: string | null
+          diagnostic_result_id: string | null
+          domain_levels: Json | null
+          id: string
+          learning_activity_score: number | null
+          learning_goal: string | null
+          previous_snapshot_id: string | null
+          previous_v_level: number | null
+          segment: string | null
+          skill_levels: Json | null
+          snapshot_meta: Json
+          snapshot_type: string
+          taken_at: string
+          taken_reason: string
+          target_v_level: number | null
+          target_v_level_meta: Json | null
+          total_words_mastered: number | null
+          total_words_seen: number | null
+          track_levels: Json | null
+          trigger_details: Json
+          triggered_by: string
+          user_id: string
+          v_level: number
+          v_level_delta: number | null
+          v_level_meta: Json
+        }
+        Insert: {
+          cefr_level?: string | null
+          diagnostic_result_id?: string | null
+          domain_levels?: Json | null
+          id?: string
+          learning_activity_score?: number | null
+          learning_goal?: string | null
+          previous_snapshot_id?: string | null
+          previous_v_level?: number | null
+          segment?: string | null
+          skill_levels?: Json | null
+          snapshot_meta?: Json
+          snapshot_type: string
+          taken_at?: string
+          taken_reason: string
+          target_v_level?: number | null
+          target_v_level_meta?: Json | null
+          total_words_mastered?: number | null
+          total_words_seen?: number | null
+          track_levels?: Json | null
+          trigger_details?: Json
+          triggered_by: string
+          user_id: string
+          v_level: number
+          v_level_delta?: number | null
+          v_level_meta: Json
+        }
+        Update: {
+          cefr_level?: string | null
+          diagnostic_result_id?: string | null
+          domain_levels?: Json | null
+          id?: string
+          learning_activity_score?: number | null
+          learning_goal?: string | null
+          previous_snapshot_id?: string | null
+          previous_v_level?: number | null
+          segment?: string | null
+          skill_levels?: Json | null
+          snapshot_meta?: Json
+          snapshot_type?: string
+          taken_at?: string
+          taken_reason?: string
+          target_v_level?: number | null
+          target_v_level_meta?: Json | null
+          total_words_mastered?: number | null
+          total_words_seen?: number | null
+          track_levels?: Json | null
+          trigger_details?: Json
+          triggered_by?: string
+          user_id?: string
+          v_level?: number
+          v_level_delta?: number | null
+          v_level_meta?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_level_snapshots_diagnostic_result_id_fkey"
+            columns: ["diagnostic_result_id"]
+            isOneToOne: false
+            referencedRelation: "user_diagnostic_results"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_level_snapshots_previous_snapshot_id_fkey"
+            columns: ["previous_snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "user_level_snapshots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_level_snapshots_target_v_level_fkey"
+            columns: ["target_v_level"]
+            isOneToOne: false
+            referencedRelation: "vocaflow_levels"
+            referencedColumns: ["level"]
+          },
+          {
+            foreignKeyName: "user_level_snapshots_v_level_fkey"
+            columns: ["v_level"]
+            isOneToOne: false
+            referencedRelation: "vocaflow_levels"
+            referencedColumns: ["level"]
+          },
+        ]
       }
       user_profiles: {
         Row: {
           avatar_url: string | null
           cefr_level: string | null
           created_at: string | null
+          current_domain_levels: Json | null
+          current_skill_levels: Json | null
+          current_track_levels: Json | null
+          current_v_level: number | null
+          current_v_level_meta: Json | null
           daily_word_goal: number | null
+          diagnostic_completed_at: string | null
           display_name: string | null
+          last_active_at: string | null
+          learning_activity_score: number | null
+          learning_goal: string | null
           locale: string | null
+          next_level_review_due_at: string | null
           notify_email: boolean | null
           notify_push: boolean | null
           notify_streak_risk: boolean | null
           role: string
+          segment: string
           status: string
+          target_track_levels: Json | null
+          target_v_level: number | null
+          target_v_level_meta: Json | null
           theme: string | null
+          total_words_mastered: number | null
+          total_words_seen: number | null
           tts_speed: number | null
           tts_voice: string | null
           updated_at: string | null
@@ -721,15 +1882,31 @@ export type Database = {
           avatar_url?: string | null
           cefr_level?: string | null
           created_at?: string | null
+          current_domain_levels?: Json | null
+          current_skill_levels?: Json | null
+          current_track_levels?: Json | null
+          current_v_level?: number | null
+          current_v_level_meta?: Json | null
           daily_word_goal?: number | null
+          diagnostic_completed_at?: string | null
           display_name?: string | null
+          last_active_at?: string | null
+          learning_activity_score?: number | null
+          learning_goal?: string | null
           locale?: string | null
+          next_level_review_due_at?: string | null
           notify_email?: boolean | null
           notify_push?: boolean | null
           notify_streak_risk?: boolean | null
           role?: string
+          segment?: string
           status?: string
+          target_track_levels?: Json | null
+          target_v_level?: number | null
+          target_v_level_meta?: Json | null
           theme?: string | null
+          total_words_mastered?: number | null
+          total_words_seen?: number | null
           tts_speed?: number | null
           tts_voice?: string | null
           updated_at?: string | null
@@ -739,21 +1916,52 @@ export type Database = {
           avatar_url?: string | null
           cefr_level?: string | null
           created_at?: string | null
+          current_domain_levels?: Json | null
+          current_skill_levels?: Json | null
+          current_track_levels?: Json | null
+          current_v_level?: number | null
+          current_v_level_meta?: Json | null
           daily_word_goal?: number | null
+          diagnostic_completed_at?: string | null
           display_name?: string | null
+          last_active_at?: string | null
+          learning_activity_score?: number | null
+          learning_goal?: string | null
           locale?: string | null
+          next_level_review_due_at?: string | null
           notify_email?: boolean | null
           notify_push?: boolean | null
           notify_streak_risk?: boolean | null
           role?: string
+          segment?: string
           status?: string
+          target_track_levels?: Json | null
+          target_v_level?: number | null
+          target_v_level_meta?: Json | null
           theme?: string | null
+          total_words_mastered?: number | null
+          total_words_seen?: number | null
           tts_speed?: number | null
           tts_voice?: string | null
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "user_profiles_current_v_level_fk"
+            columns: ["current_v_level"]
+            isOneToOne: false
+            referencedRelation: "vocaflow_levels"
+            referencedColumns: ["level"]
+          },
+          {
+            foreignKeyName: "user_profiles_target_v_level_fk"
+            columns: ["target_v_level"]
+            isOneToOne: false
+            referencedRelation: "vocaflow_levels"
+            referencedColumns: ["level"]
+          },
+        ]
       }
       user_stats: {
         Row: {
@@ -814,14 +2022,379 @@ export type Database = {
           },
         ]
       }
+      vocab_collections: {
+        Row: {
+          id: number
+          notes: string | null
+          published_at: string | null
+          published_word_count: number
+          run_id: number
+          shared_word_set_id: string | null
+          slug: string
+          title: string
+          version: number
+        }
+        Insert: {
+          id?: number
+          notes?: string | null
+          published_at?: string | null
+          published_word_count: number
+          run_id: number
+          shared_word_set_id?: string | null
+          slug: string
+          title: string
+          version?: number
+        }
+        Update: {
+          id?: number
+          notes?: string | null
+          published_at?: string | null
+          published_word_count?: number
+          run_id?: number
+          shared_word_set_id?: string | null
+          slug?: string
+          title?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocab_collections_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vocab_collections_shared_word_set_id_fkey"
+            columns: ["shared_word_set_id"]
+            isOneToOne: false
+            referencedRelation: "shared_word_sets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocab_curation_decisions: {
+        Row: {
+          decided_at: string | null
+          decided_by: string | null
+          decision: string
+          edited_payload: Json | null
+          id: number
+          note: string | null
+          queue_id: number
+        }
+        Insert: {
+          decided_at?: string | null
+          decided_by?: string | null
+          decision: string
+          edited_payload?: Json | null
+          id?: number
+          note?: string | null
+          queue_id: number
+        }
+        Update: {
+          decided_at?: string | null
+          decided_by?: string | null
+          decision?: string
+          edited_payload?: Json | null
+          id?: number
+          note?: string | null
+          queue_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocab_curation_decisions_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_enrichment_queue"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocab_dict_hits: {
+        Row: {
+          checked_at: string | null
+          existing_payload: Json | null
+          hit_level: string
+          id: number
+          lemma_normalized: string | null
+          missing_fields: string[] | null
+          seed_id: number
+          source_table: string | null
+        }
+        Insert: {
+          checked_at?: string | null
+          existing_payload?: Json | null
+          hit_level: string
+          id?: number
+          lemma_normalized?: string | null
+          missing_fields?: string[] | null
+          seed_id: number
+          source_table?: string | null
+        }
+        Update: {
+          checked_at?: string | null
+          existing_payload?: Json | null
+          hit_level?: string
+          id?: number
+          lemma_normalized?: string | null
+          missing_fields?: string[] | null
+          seed_id?: number
+          source_table?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocab_dict_hits_seed_id_fkey"
+            columns: ["seed_id"]
+            isOneToOne: true
+            referencedRelation: "vocab_seed_candidates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocab_enrichment_queue: {
+        Row: {
+          created_at: string | null
+          enriched_at: string | null
+          enriched_job_file: string | null
+          enriched_payload: Json | null
+          exported_at: string | null
+          exported_job_file: string | null
+          hit_level: string | null
+          id: number
+          last_error: string | null
+          lemma_normalized: string | null
+          missing_fields: string[] | null
+          qa_flags: string[] | null
+          retry_count: number | null
+          seed_id: number
+          status: Database["public"]["Enums"]["vcb_queue_status"]
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          enriched_at?: string | null
+          enriched_job_file?: string | null
+          enriched_payload?: Json | null
+          exported_at?: string | null
+          exported_job_file?: string | null
+          hit_level?: string | null
+          id?: number
+          last_error?: string | null
+          lemma_normalized?: string | null
+          missing_fields?: string[] | null
+          qa_flags?: string[] | null
+          retry_count?: number | null
+          seed_id: number
+          status?: Database["public"]["Enums"]["vcb_queue_status"]
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          enriched_at?: string | null
+          enriched_job_file?: string | null
+          enriched_payload?: Json | null
+          exported_at?: string | null
+          exported_job_file?: string | null
+          hit_level?: string | null
+          id?: number
+          last_error?: string | null
+          lemma_normalized?: string | null
+          missing_fields?: string[] | null
+          qa_flags?: string[] | null
+          retry_count?: number | null
+          seed_id?: number
+          status?: Database["public"]["Enums"]["vcb_queue_status"]
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocab_enrichment_queue_seed_id_fkey"
+            columns: ["seed_id"]
+            isOneToOne: true
+            referencedRelation: "vocab_seed_candidates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocab_raw_texts: {
+        Row: {
+          content_bytes: number | null
+          content_hash: string
+          created_at: string | null
+          external_ref: string | null
+          id: number
+          run_id: number
+          source_id: number | null
+        }
+        Insert: {
+          content_bytes?: number | null
+          content_hash: string
+          created_at?: string | null
+          external_ref?: string | null
+          id?: number
+          run_id: number
+          source_id?: number | null
+        }
+        Update: {
+          content_bytes?: number | null
+          content_hash?: string
+          created_at?: string | null
+          external_ref?: string | null
+          id?: number
+          run_id?: number
+          source_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocab_raw_texts_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vocab_raw_texts_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocab_runs: {
+        Row: {
+          collection_slug: string
+          collection_title: string
+          config: Json
+          created_at: string | null
+          created_by: string | null
+          id: number
+          status: Database["public"]["Enums"]["vcb_run_status"]
+          updated_at: string | null
+        }
+        Insert: {
+          collection_slug: string
+          collection_title: string
+          config?: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: number
+          status?: Database["public"]["Enums"]["vcb_run_status"]
+          updated_at?: string | null
+        }
+        Update: {
+          collection_slug?: string
+          collection_title?: string
+          config?: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: number
+          status?: Database["public"]["Enums"]["vcb_run_status"]
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      vocab_seed_candidates: {
+        Row: {
+          context_samples: string[] | null
+          created_at: string | null
+          id: number
+          lemma: string
+          lemma_normalized: string | null
+          normalized_freq: number | null
+          pos: string
+          rank_in_run: number | null
+          raw_count: number
+          run_id: number
+          seed_origin: string
+        }
+        Insert: {
+          context_samples?: string[] | null
+          created_at?: string | null
+          id?: number
+          lemma: string
+          lemma_normalized?: string | null
+          normalized_freq?: number | null
+          pos: string
+          rank_in_run?: number | null
+          raw_count: number
+          run_id: number
+          seed_origin?: string
+        }
+        Update: {
+          context_samples?: string[] | null
+          created_at?: string | null
+          id?: number
+          lemma?: string
+          lemma_normalized?: string | null
+          normalized_freq?: number | null
+          pos?: string
+          rank_in_run?: number | null
+          raw_count?: number
+          run_id?: number
+          seed_origin?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocab_seed_candidates_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "vocab_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocab_sources: {
+        Row: {
+          citation: string
+          created_at: string | null
+          id: number
+          kind: string
+          language: string | null
+          license_tier: Database["public"]["Enums"]["vcb_license_tier"]
+          notes: string | null
+          slug: string
+          title: string
+          url: string | null
+        }
+        Insert: {
+          citation: string
+          created_at?: string | null
+          id?: number
+          kind: string
+          language?: string | null
+          license_tier: Database["public"]["Enums"]["vcb_license_tier"]
+          notes?: string | null
+          slug: string
+          title: string
+          url?: string | null
+        }
+        Update: {
+          citation?: string
+          created_at?: string | null
+          id?: number
+          kind?: string
+          language?: string | null
+          license_tier?: Database["public"]["Enums"]["vcb_license_tier"]
+          notes?: string | null
+          slug?: string
+          title?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       vocabularies: {
         Row: {
           cefr_level: string | null
           created_at: string | null
           difficulty: number | null
           example_sentence: string | null
+          extracted_pos: string | null
+          extracted_surface: string | null
           id: string
           last_review_at: string | null
+          lemma: string | null
           meaning: string
           module_history: string[] | null
           next_review_at: string | null
@@ -841,8 +2414,11 @@ export type Database = {
           created_at?: string | null
           difficulty?: number | null
           example_sentence?: string | null
+          extracted_pos?: string | null
+          extracted_surface?: string | null
           id?: string
           last_review_at?: string | null
+          lemma?: string | null
           meaning: string
           module_history?: string[] | null
           next_review_at?: string | null
@@ -862,8 +2438,11 @@ export type Database = {
           created_at?: string | null
           difficulty?: number | null
           example_sentence?: string | null
+          extracted_pos?: string | null
+          extracted_surface?: string | null
           id?: string
           last_review_at?: string | null
+          lemma?: string | null
           meaning?: string
           module_history?: string[] | null
           next_review_at?: string | null
@@ -880,6 +2459,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "vocabularies_lemma_fkey"
+            columns: ["lemma"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+          {
             foreignKeyName: "vocabularies_shared_set_id_fkey"
             columns: ["shared_set_id"]
             isOneToOne: false
@@ -893,14 +2479,887 @@ export type Database = {
             referencedRelation: "texts"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "vocabularies_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      vocaflow_domains: {
+        Row: {
+          created_at: string | null
+          data_source_keys: string[] | null
+          description_ko: string | null
+          display_order: number
+          id: string
+          name_ko: string
+          total_words: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          data_source_keys?: string[] | null
+          description_ko?: string | null
+          display_order: number
+          id: string
+          name_ko: string
+          total_words?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          data_source_keys?: string[] | null
+          description_ko?: string | null
+          display_order?: number
+          id?: string
+          name_ko?: string
+          total_words?: number | null
+        }
+        Relationships: []
+      }
+      vocaflow_levels: {
+        Row: {
+          age_range: string | null
+          cefr_max: string | null
+          cefr_min: string | null
+          classification_confidence: number | null
+          classification_meta: Json | null
+          classification_method: string | null
+          classification_notes: string | null
+          created_at: string | null
+          cumulative_word_count: number | null
+          description_ko: string | null
+          display_order: number
+          english_name: string | null
+          estimated_study_hours: number | null
+          external_hints: Json | null
+          korean_name: string
+          korean_school: string | null
+          last_classified_at: string | null
+          level: number
+          new_words_in_level: number | null
+          test_score_hints: string | null
+        }
+        Insert: {
+          age_range?: string | null
+          cefr_max?: string | null
+          cefr_min?: string | null
+          classification_confidence?: number | null
+          classification_meta?: Json | null
+          classification_method?: string | null
+          classification_notes?: string | null
+          created_at?: string | null
+          cumulative_word_count?: number | null
+          description_ko?: string | null
+          display_order: number
+          english_name?: string | null
+          estimated_study_hours?: number | null
+          external_hints?: Json | null
+          korean_name: string
+          korean_school?: string | null
+          last_classified_at?: string | null
+          level: number
+          new_words_in_level?: number | null
+          test_score_hints?: string | null
+        }
+        Update: {
+          age_range?: string | null
+          cefr_max?: string | null
+          cefr_min?: string | null
+          classification_confidence?: number | null
+          classification_meta?: Json | null
+          classification_method?: string | null
+          classification_notes?: string | null
+          created_at?: string | null
+          cumulative_word_count?: number | null
+          description_ko?: string | null
+          display_order?: number
+          english_name?: string | null
+          estimated_study_hours?: number | null
+          external_hints?: Json | null
+          korean_name?: string
+          korean_school?: string | null
+          last_classified_at?: string | null
+          level?: number
+          new_words_in_level?: number | null
+          test_score_hints?: string | null
+        }
+        Relationships: []
+      }
+      vocaflow_skills: {
+        Row: {
+          created_at: string | null
+          description_ko: string | null
+          display_order: number
+          id: string
+          name_ko: string
+          total_words: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description_ko?: string | null
+          display_order: number
+          id: string
+          name_ko: string
+          total_words?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description_ko?: string | null
+          display_order?: number
+          id?: string
+          name_ko?: string
+          total_words?: number | null
+        }
+        Relationships: []
+      }
+      vocaflow_tracks: {
+        Row: {
+          created_at: string | null
+          data_source_keys: string[] | null
+          description_ko: string | null
+          display_hint: string | null
+          display_order: number
+          external_test_hints: string[] | null
+          id: string
+          level_score_mapping: Json | null
+          name_en: string | null
+          name_ko: string
+          total_words: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          data_source_keys?: string[] | null
+          description_ko?: string | null
+          display_hint?: string | null
+          display_order: number
+          external_test_hints?: string[] | null
+          id: string
+          level_score_mapping?: Json | null
+          name_en?: string | null
+          name_ko: string
+          total_words?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          data_source_keys?: string[] | null
+          description_ko?: string | null
+          display_hint?: string | null
+          display_order?: number
+          external_test_hints?: string[] | null
+          id?: string
+          level_score_mapping?: Json | null
+          name_en?: string | null
+          name_ko?: string
+          total_words?: number | null
+        }
+        Relationships: []
+      }
+      vrl_data_integrity_concerns: {
+        Row: {
+          concern_type: string
+          detected_at: string | null
+          detected_during: string | null
+          id: number
+          reasoning: string | null
+          resolution_note: string | null
+          resolved: boolean | null
+          resolved_at: string | null
+          suggested_action: string | null
+          word: string
+        }
+        Insert: {
+          concern_type: string
+          detected_at?: string | null
+          detected_during?: string | null
+          id?: number
+          reasoning?: string | null
+          resolution_note?: string | null
+          resolved?: boolean | null
+          resolved_at?: string | null
+          suggested_action?: string | null
+          word: string
+        }
+        Update: {
+          concern_type?: string
+          detected_at?: string | null
+          detected_during?: string | null
+          id?: number
+          reasoning?: string | null
+          resolution_note?: string | null
+          resolved?: boolean | null
+          resolved_at?: string | null
+          suggested_action?: string | null
+          word?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vrl_data_integrity_concerns_word_fkey"
+            columns: ["word"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+        ]
+      }
+      vrl_diagnostic_questions: {
+        Row: {
+          created_at: string | null
+          difficulty_weight: number | null
+          display_order: number | null
+          id: string
+          target_track_level: number | null
+          target_v_level: number | null
+          test_id: string
+          word: string
+        }
+        Insert: {
+          created_at?: string | null
+          difficulty_weight?: number | null
+          display_order?: number | null
+          id?: string
+          target_track_level?: number | null
+          target_v_level?: number | null
+          test_id: string
+          word: string
+        }
+        Update: {
+          created_at?: string | null
+          difficulty_weight?: number | null
+          display_order?: number | null
+          id?: string
+          target_track_level?: number | null
+          target_v_level?: number | null
+          test_id?: string
+          word?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vrl_diagnostic_questions_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "vrl_diagnostic_tests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vrl_diagnostic_questions_word_fkey"
+            columns: ["word"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+        ]
+      }
+      vrl_diagnostic_tests: {
+        Row: {
+          created_at: string | null
+          description_ko: string | null
+          estimated_minutes: number
+          id: string
+          is_active: boolean | null
+          name_ko: string
+          question_count: number
+          target_axis: string
+          target_domain_id: string | null
+          target_track_id: string | null
+          test_type: string
+        }
+        Insert: {
+          created_at?: string | null
+          description_ko?: string | null
+          estimated_minutes?: number
+          id?: string
+          is_active?: boolean | null
+          name_ko: string
+          question_count?: number
+          target_axis: string
+          target_domain_id?: string | null
+          target_track_id?: string | null
+          test_type: string
+        }
+        Update: {
+          created_at?: string | null
+          description_ko?: string | null
+          estimated_minutes?: number
+          id?: string
+          is_active?: boolean | null
+          name_ko?: string
+          question_count?: number
+          target_axis?: string
+          target_domain_id?: string | null
+          target_track_id?: string | null
+          test_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vrl_diagnostic_tests_target_domain_id_fkey"
+            columns: ["target_domain_id"]
+            isOneToOne: false
+            referencedRelation: "vocaflow_domains"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vrl_diagnostic_tests_target_track_id_fkey"
+            columns: ["target_track_id"]
+            isOneToOne: false
+            referencedRelation: "vocaflow_tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      word_frequency_stats: {
+        Row: {
+          appears_every_year: boolean | null
+          computed_at: string | null
+          data_source_id: number
+          frequency_tier: number | null
+          id: string
+          lexicon_id: string
+          metadata: Json | null
+          normalized_freq: number | null
+          rank_in_source: number | null
+          raw_count: number
+          source: string
+          year_from: number | null
+          year_to: number | null
+        }
+        Insert: {
+          appears_every_year?: boolean | null
+          computed_at?: string | null
+          data_source_id: number
+          frequency_tier?: number | null
+          id?: string
+          lexicon_id: string
+          metadata?: Json | null
+          normalized_freq?: number | null
+          rank_in_source?: number | null
+          raw_count: number
+          source: string
+          year_from?: number | null
+          year_to?: number | null
+        }
+        Update: {
+          appears_every_year?: boolean | null
+          computed_at?: string | null
+          data_source_id?: number
+          frequency_tier?: number | null
+          id?: string
+          lexicon_id?: string
+          metadata?: Json | null
+          normalized_freq?: number | null
+          rank_in_source?: number | null
+          raw_count?: number
+          source?: string
+          year_from?: number | null
+          year_to?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "word_frequency_stats_data_source_id_fkey"
+            columns: ["data_source_id"]
+            isOneToOne: false
+            referencedRelation: "frequency_data_sources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "word_frequency_stats_lexicon_id_fkey"
+            columns: ["lexicon_id"]
+            isOneToOne: false
+            referencedRelation: "word_lexicon"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      word_lexicon: {
+        Row: {
+          cefr_level: string | null
+          created_at: string | null
+          id: string
+          ipa: string | null
+          lemma: string
+          meaning_ko: string
+          meaning_ko_alt: string[] | null
+          part_of_speech: string
+          pronunciation_us: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          cefr_level?: string | null
+          created_at?: string | null
+          id?: string
+          ipa?: string | null
+          lemma: string
+          meaning_ko: string
+          meaning_ko_alt?: string[] | null
+          part_of_speech: string
+          pronunciation_us?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          cefr_level?: string | null
+          created_at?: string | null
+          id?: string
+          ipa?: string | null
+          lemma?: string
+          meaning_ko?: string
+          meaning_ko_alt?: string[] | null
+          part_of_speech?: string
+          pronunciation_us?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
     }
     Views: {
-      [_ in never]: never
+      user_vocab_enriched: {
+        Row: {
+          dict_cefr: string | null
+          dict_meaning_ko: string | null
+          dict_v_level: number | null
+          difficulty: number | null
+          id: string | null
+          last_review_at: string | null
+          lemma: string | null
+          meaning: string | null
+          module_history: string[] | null
+          next_review_at: string | null
+          primary_pos: string | null
+          review_count: number | null
+          stability: number | null
+          user_cefr: string | null
+          user_id: string | null
+          word: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocabularies_lemma_fkey"
+            columns: ["lemma"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+        ]
+      }
+      v_text_content: {
+        Row: {
+          cefr_level: string | null
+          chapter_idx: number | null
+          chapter_title: string | null
+          chapter_word_count: number | null
+          content: string | null
+          current_paragraph_idx: number | null
+          id: string | null
+          library_book_id: string | null
+          paragraph_offsets: number[] | null
+          progress_percent: number | null
+          sentence_offsets: number[] | null
+          status: string | null
+          title: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "texts_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_user_book_progress: {
+        Row: {
+          author: string | null
+          avg_progress_percent: number | null
+          cefr_level: string | null
+          cover_from: string | null
+          cover_to: string | null
+          done_chapters: number | null
+          last_activity: string | null
+          library_book_id: string | null
+          title: string | null
+          total_chapters: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "texts_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
+      admin_archive_article: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
+      admin_archive_book: { Args: { p_book_id: string }; Returns: string }
+      admin_enqueue_article: {
+        Args: {
+          p_author?: string
+          p_content?: string
+          p_license?: string
+          p_published_at?: string
+          p_source: string
+          p_source_id: string
+          p_title: string
+          p_url?: string
+        }
+        Returns: string
+      }
+      admin_enqueue_book: {
+        Args: {
+          p_author?: string
+          p_author_birth_year?: number
+          p_author_death_year?: number
+          p_license?: string
+          p_source: string
+          p_source_id: string
+          p_title: string
+        }
+        Returns: string
+      }
+      admin_force_publish_article: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
+      admin_force_publish_book: { Args: { p_book_id: string }; Returns: string }
+      admin_requeue_article: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
+      admin_requeue_book: { Args: { p_book_id: string }; Returns: string }
+      admin_vrl_cron_jobs: {
+        Args: never
+        Returns: {
+          active: boolean
+          jobid: number
+          jobname: string
+          schedule: string
+        }[]
+      }
+      admin_vrl_cron_runs: {
+        Args: never
+        Returns: {
+          end_time: string
+          job_name: string
+          return_message: string
+          runid: number
+          start_time: string
+          status: string
+        }[]
+      }
+      admin_vrl_diagnostic_use: {
+        Args: never
+        Returns: {
+          name_ko: string
+          taken_count: number
+          test_id: string
+          test_type: string
+        }[]
+      }
+      admin_vrl_snapshot_counts: {
+        Args: never
+        Returns: {
+          count: number
+          scope: string
+          taken_reason: string
+        }[]
+      }
+      admin_vrl_track_distribution: {
+        Args: never
+        Returns: {
+          level: number
+          track_id: string
+          user_count: number
+        }[]
+      }
+      admin_vrl_v_level_distribution: {
+        Args: never
+        Returns: {
+          count: number
+          v_level: number
+        }[]
+      }
+      analyze_and_apply_comprehensive_diagnostic_result: {
+        Args: { p_result_id: string }
+        Returns: {
+          confidence: number
+          estimated_track_levels: Json
+          estimated_v_level: number
+          per_level: Json
+          user_id: string
+        }[]
+      }
+      analyze_and_apply_diagnostic_result: {
+        Args: { p_result_id: string }
+        Returns: {
+          confidence: number
+          estimated_v_level: number
+          per_level: Json
+          snapshot_id: string
+        }[]
+      }
+      analyze_and_apply_track_diagnostic_result: {
+        Args: { p_result_id: string }
+        Returns: {
+          confidence: number
+          estimated_track_level: number
+          per_level: Json
+          track_id: string
+          user_id: string
+        }[]
+      }
+      analyze_book_vrl: { Args: { p_book_id: string }; Returns: Json }
+      analyze_diagnostic_result: {
+        Args: { p_result_id: string }
+        Returns: {
+          confidence: number
+          estimated_v_level: number
+          per_level: Json
+        }[]
+      }
+      analyze_track_diagnostic_result: {
+        Args: { p_result_id: string }
+        Returns: {
+          confidence: number
+          estimated_track_level: number
+          per_level: Json
+          track_id: string
+        }[]
+      }
+      apply_diagnostic_result: {
+        Args: { p_diagnostic_id: string }
+        Returns: string
+      }
+      auto_curate_book: { Args: { p_book_id: string }; Returns: string }
+      auto_promote_track_level_for_user: {
+        Args: { p_track_id: string; p_user_id: string }
+        Returns: {
+          mastered_count: number
+          new_level: number
+          old_level: number
+          promoted: boolean
+          reason: string
+          threshold: number
+          track_id: string
+        }[]
+      }
+      auto_promote_v_level_for_user: {
+        Args: { p_user_id: string }
+        Returns: {
+          mastered_count: number
+          new_level: number
+          old_level: number
+          promoted: boolean
+          reason: string
+          threshold: number
+        }[]
+      }
+      calc_domain_level: {
+        Args: { p_domain: string; p_word: string }
+        Returns: number
+      }
+      calc_skill_level: { Args: { p_word: string }; Returns: number }
+      calc_track_level: {
+        Args: { p_track: string; p_word: string }
+        Returns: number
+      }
+      calc_v_level: { Args: { p_word: string }; Returns: number }
+      calculate_next_review_due:
+        | {
+            Args: {
+              p_activity_score: number
+              p_confidence: number
+              p_source: string
+            }
+            Returns: string
+          }
+        | { Args: { p_user_id: string }; Returns: string }
+      calculate_user_v_level_from_mastery: {
+        Args: { p_user_id: string }
+        Returns: {
+          confidence: number
+          evidence: Json
+          sample_size: number
+          suggested_level: number
+        }[]
+      }
+      compute_frequency_tier: { Args: { p_raw_count: number }; Returns: number }
+      cron_auto_promote_all_users: {
+        Args: never
+        Returns: {
+          base_promoted: number
+          failed: number
+          total_users: number
+          track_promoted: number
+        }[]
+      }
+      decr_chunk_refs: { Args: { p_hashes: string[] }; Returns: undefined }
+      dict_categorical_distributions: { Args: never; Returns: Json }
+      dict_inflections_by_pos: { Args: never; Returns: Json }
+      dict_polysemy_count: { Args: never; Returns: Json }
+      effective_confidence: { Args: { p_meta: Json }; Returns: number }
+      enrich_shared_dictionary: { Args: { p_words: Json }; Returns: number }
+      enroll_library_book: { Args: { p_book_id: string }; Returns: string[] }
+      extract_vocabulary_for_user: {
+        Args: {
+          p_level_strategy?: string
+          p_user_id: string
+          p_words: string[]
+        }
+        Returns: {
+          auto_n: number
+          cefr_level: string
+          composite_score: number
+          effective_user_v: number
+          example_en: string
+          frequency_rank: number
+          gap: number
+          level_source: string
+          meaning_ko: string
+          pos: string
+          rank: number
+          score_breakdown: Json
+          skill_level: number
+          text_v_level: number
+          track_levels: Json
+          user_v_level: number
+          v_level: number
+          word: string
+        }[]
+      }
+      extract_vocabulary_for_user_v2: {
+        Args: {
+          p_level_strategy?: string
+          p_limit?: number
+          p_user_id: string
+          p_words: string[]
+        }
+        Returns: {
+          auto_n: number
+          cefr_level: string
+          composite_score: number
+          effective_user_v: number
+          example_en: string
+          frequency_rank: number
+          gap: number
+          level_source: string
+          match_layer: number
+          matched_via_surface: string
+          meaning_ko: string
+          pos: string
+          rank: number
+          score_breakdown: Json
+          skill_level: number
+          text_v_level: number
+          total_candidates: number
+          track_levels: Json
+          user_v_level: number
+          v_level: number
+          v_threshold: number
+          word: string
+        }[]
+      }
+      find_unmatched_lemmas: {
+        Args: { p_words: string[] }
+        Returns: {
+          lemma: string
+        }[]
+      }
       get_category_path: { Args: { cat_id: string }; Returns: string[] }
+      get_chapter_content: { Args: { p_text_id: string }; Returns: string }
+      get_lcp_config: {
+        Args: never
+        Returns: {
+          internal_token: string
+          vercel_base_url: string
+        }[]
+      }
+      incr_chunk_refs: { Args: { p_hashes: string[] }; Returns: undefined }
+      insert_book_analysis: {
+        Args: { p_book_id: string; p_chapters: Json; p_words: Json }
+        Returns: undefined
+      }
+      is_admin_or_curator: { Args: never; Returns: boolean }
+      pgmq_archive: {
+        Args: { p_msg_id: number; p_queue_name: string }
+        Returns: boolean
+      }
+      process_library_pipeline_batch: {
+        Args: { p_batch_size?: number }
+        Returns: number
+      }
+      recommend_word_sets_for_user: {
+        Args: { p_interests?: string[]; p_user_id: string }
+        Returns: {
+          category: string
+          cover_emoji: string
+          priority: number
+          reason: string
+          recommendation_type: string
+          set_id: string
+          slug: string
+          title: string
+          word_count: number
+        }[]
+      }
+      record_pending_words: {
+        Args: { p_lemmas: string[]; p_text_id?: string; p_user_id: string }
+        Returns: number
+      }
+      regenerate_auto_curated_set: {
+        Args: { p_set_id: string }
+        Returns: number
+      }
+      show_limit: { Args: never; Returns: number }
+      show_trgm: { Args: { "": string }; Returns: string[] }
+      store_content_chunk: { Args: { p_content: string }; Returns: string }
+      update_pending_word_status: {
+        Args: { p_admin_note?: string; p_id: string; p_status: string }
+        Returns: {
+          admin_note: string | null
+          context_snippet: string | null
+          created_at: string | null
+          encounter_count: number
+          id: string
+          lemma: string
+          resolved_at: string | null
+          status: string
+          surface: string | null
+          text_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "pending_words"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      update_user_v_level: {
+        Args: {
+          p_confidence: number
+          p_diagnostic_id?: string
+          p_new_level: number
+          p_reason: string
+          p_source: string
+          p_trigger_details?: Json
+          p_triggered_by?: string
+          p_user_id: string
+        }
+        Returns: string
+      }
+      validate_axis_level_entry: {
+        Args: { p_axis_id: string; p_axis_type: string; p_level: number }
+        Returns: boolean
+      }
     }
     Enums: {
       module_id:
@@ -915,6 +3374,26 @@ export type Database = {
         | "textviewer"
         | "pirate_quest"
       text_source: "library" | "direct-script" | "direct-file" | "shared-set"
+      vcb_license_tier: "T1" | "T2" | "T3"
+      vcb_queue_status:
+        | "pending"
+        | "exported"
+        | "enriched"
+        | "enriched_flagged"
+        | "failed"
+        | "skipped"
+      vcb_run_status:
+        | "created"
+        | "ingesting"
+        | "normalized"
+        | "extracted"
+        | "looked_up"
+        | "enriching"
+        | "qa"
+        | "curating"
+        | "publishing"
+        | "published"
+        | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1040,9 +3519,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       module_id: [
@@ -1058,6 +3534,28 @@ export const Constants = {
         "pirate_quest",
       ],
       text_source: ["library", "direct-script", "direct-file", "shared-set"],
+      vcb_license_tier: ["T1", "T2", "T3"],
+      vcb_queue_status: [
+        "pending",
+        "exported",
+        "enriched",
+        "enriched_flagged",
+        "failed",
+        "skipped",
+      ],
+      vcb_run_status: [
+        "created",
+        "ingesting",
+        "normalized",
+        "extracted",
+        "looked_up",
+        "enriching",
+        "qa",
+        "curating",
+        "publishing",
+        "published",
+        "failed",
+      ],
     },
   },
 } as const

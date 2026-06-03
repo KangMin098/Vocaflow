@@ -19,6 +19,7 @@ import {
   ChevronRight,
   Focus,
   Info,
+  Layers,
   List,
   MoreHorizontal,
   Type,
@@ -50,6 +51,8 @@ interface UnifiedHeaderProps {
   currentChapterIdx: number | null
   currentTextId: string
   currentChapterStatus: ChapterDisplayStatus
+  /** v06.30 — 챕터 단어장 구독 통계 (library_book only). 클릭 시 InsightPanel 열림 */
+  bookWordSetStats: { subscribed: number; total: number } | null
   isBookmarked: boolean
   onToggleBookmark: () => void
   onToggleInsight: () => void
@@ -58,6 +61,8 @@ interface UnifiedHeaderProps {
   /** Phase 11.16.1 — ModePills 통합 (Row 3) */
   currentMode: ModeKey
   modeStatus: Record<ModeKey, ModeStatus>
+  /** "단어" 모드 클릭 시 이동할 단어장(WordVault) href — 자료별로 page.tsx 에서 계산 */
+  wordsHref: string
 }
 
 export function UnifiedHeader({
@@ -67,6 +72,7 @@ export function UnifiedHeader({
   currentChapterIdx,
   currentTextId,
   currentChapterStatus,
+  bookWordSetStats,
   isBookmarked,
   onToggleBookmark,
   onToggleInsight,
@@ -74,6 +80,7 @@ export function UnifiedHeader({
   isFocusMode,
   currentMode,
   modeStatus,
+  wordsHref,
 }: UnifiedHeaderProps) {
   const [isTypeOpen, setIsTypeOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -107,7 +114,7 @@ export function UnifiedHeader({
       {hasChapterContext && !isFocusMode && (
         <nav
           aria-label="breadcrumb"
-          className="mx-auto flex w-full max-w-[1080px] items-center gap-1.5 px-8 pt-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]"
+          className="mx-auto flex w-full max-w-[1080px] items-center gap-1.5 px-8 pt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]"
         >
           <Link
             href="/my/books"
@@ -132,7 +139,7 @@ export function UnifiedHeader({
       {/* ━━━ Row 2 — Content + Actions ━━━ */}
       <div
         className={`mx-auto flex w-full max-w-[1080px] items-center gap-4 px-8 transition-[padding] duration-[var(--dur-slower)] ${
-          isFocusMode ? 'py-2' : 'py-2.5'
+          isFocusMode ? 'py-1' : 'py-1.5'
         }`}
       >
         {/* Back Button — chapter context 없을 때만 노출 (chapter context 시 breadcrumb 사용) */}
@@ -186,6 +193,19 @@ export function UnifiedHeader({
                     <span className="font-mono font-[700] tabular-nums text-[var(--learn-known)]">
                       ✓{completedCount}
                     </span>
+                  )}
+                  {bookWordSetStats && bookWordSetStats.total > 0 && (
+                    <button
+                      type="button"
+                      onClick={onToggleInsight}
+                      aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} 구독 — 학습 인사이트 열기`}
+                      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                    >
+                      <Layers size={9} aria-hidden />
+                      <span className="tabular-nums">
+                        {bookWordSetStats.subscribed}/{bookWordSetStats.total}
+                      </span>
+                    </button>
                   )}
                 </>
               )}
@@ -336,6 +356,7 @@ export function UnifiedHeader({
         currentMode={currentMode}
         modeStatus={modeStatus}
         isFocusMode={isFocusMode}
+        wordsHref={wordsHref}
       />
 
       {hasChapterContext && navOpen && (

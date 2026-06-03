@@ -20,7 +20,11 @@ export function ModuleGrid() {
       className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7"
     >
       {modules.map((m) => (
-        <ModuleCard key={m.id} moduleId={m.id} lastStudiedAt={m.lastStudiedAt} />
+        <ModuleCard
+          key={m.id}
+          moduleId={m.id as Parameters<typeof ModuleCard>[0]['moduleId']}
+          lastStudiedAt={m.lastStudiedAt}
+        />
       ))}
     </div>
   )

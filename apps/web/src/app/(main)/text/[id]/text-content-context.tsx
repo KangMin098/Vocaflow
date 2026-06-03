@@ -43,6 +43,8 @@ export interface TextContentData {
   book: BookInfo | null;
   /** Phase 11.16 — CompleteChapterButton currentStatus prop */
   currentChapterStatus: string;
+  /** v06.30 — workspace UnifiedHeader 챕터 단어장 구독 chip (library_book only) */
+  bookWordSetStats: { subscribed: number; total: number } | null;
   text: Partial<LibraryText>;
   paragraphs: TextParagraph[];
 }

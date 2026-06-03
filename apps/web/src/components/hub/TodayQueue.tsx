@@ -58,7 +58,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
   return (
     <section
       aria-label="오늘의 학습 큐"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
+      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-xs)]"
     >
       <header className="mb-4 flex items-center gap-2">
         <span
@@ -104,10 +104,16 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
           return (
             <li
               key={kind}
-              className={`rounded-[var(--r-md)] border p-3 transition-all duration-[var(--dur-normal)] ${
-                dim ? 'border-[var(--bd)] bg-[var(--bg2)] opacity-60' : 'border-[var(--bd)] bg-[var(--bg)]'
-              }`}
-              style={!dim ? { borderColor: `${meta.color}40` } : undefined}
+              className="rounded-[var(--r-md)] border p-3 transition-all duration-[var(--dur-normal)]"
+              style={
+                dim
+                  ? { borderColor: 'var(--bd)', background: 'var(--bg2)', opacity: 0.55 }
+                  : {
+                      // 카드 active: 5% color wash + 30% border tint (Memory Decay 정체성)
+                      borderColor: `${meta.color}3D`,
+                      background: `${meta.color}0D`,
+                    }
+              }
             >
               <div className="flex items-center gap-1.5">
                 <span

@@ -8,7 +8,6 @@ import {
   Gamepad2,
   Layers,
   Maximize2,
-  Sparkles,
   Trophy,
   Zap,
 } from 'lucide-react'
@@ -59,192 +58,67 @@ export const metadata = {
 export default function WordBlitzHubPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 md:px-6 md:py-10">
-      {/* ── Hero ── */}
+      {/* ── Hero (v06.30 슬림화) ── */}
       <section
         aria-label="WordBlitz 소개"
-        className="relative isolate mb-6 overflow-hidden rounded-[var(--r-xl)] shadow-[var(--sh-md)]"
+        className="relative mb-4 overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-3.5"
         style={{
           background:
             'linear-gradient(135deg, #2d6a2d 0%, #3d8a3d 50%, #5ab540 100%)',
         }}
       >
-        {/* Layer 1 · Conic accent (Linear-style dimensional shift) */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-soft-light"
-          style={{
-            background:
-              'conic-gradient(from 220deg at 80% 20%, rgba(255,226,52,0.85), transparent 35%, rgba(255,255,255,0.20) 60%, transparent 90%)',
-          }}
-        />
-        {/* Layer 2 · 우상단 노란 highlight */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-30 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #FFE234 0%, transparent 70%)' }}
-        />
-        {/* Layer 2b · 좌하단 차가운 발광 */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-20 -left-12 h-48 w-48 rounded-full opacity-20 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #A7F3D0 0%, transparent 70%)' }}
-        />
-        {/* Layer 3 · Oversized ghost icon (Stripe-style decorative glyph) */}
-        <Gamepad2
-          aria-hidden
-          size={220}
-          strokeWidth={1}
-          className="pointer-events-none absolute -right-8 -top-10 text-[#FFE234] opacity-[0.08]"
-          style={{ transform: 'rotate(-12deg)' }}
-        />
-        {/* Layer 4 · 인쇄물 noise */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.08] mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>\")",
-            backgroundSize: '180px 180px',
-          }}
-        />
-        {/* Layer 5 · Iridescent gradient-mask border (Vercel/Linear signature) */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[var(--r-xl)] p-px"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(255,226,52,0.55) 0%, rgba(255,255,255,0.10) 30%, rgba(255,255,255,0.02) 60%, rgba(255,226,52,0.30) 100%)',
-            WebkitMask:
-              'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-            WebkitMaskComposite: 'xor',
-            mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-            maskComposite: 'exclude',
-          }}
-        />
-        {/* Layer 6 · 상단 광택 */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFE234]/55 to-transparent"
-        />
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <Gamepad2 size={14} aria-hidden strokeWidth={2.25} className="shrink-0 text-[#FFE234]" />
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[#FFE234]">
+              정글 어드벤처
+            </span>
+            <span className="opacity-30" aria-hidden>·</span>
+            <h1 className="font-display text-[15px] font-[800] leading-tight text-[#FFE234] md:text-[16px]">
+              WordBlitz
+            </h1>
+            <span className="hidden opacity-30 sm:inline" aria-hidden>·</span>
+            <p className="hidden truncate font-body text-[12px] opacity-85 sm:block">
+              Best 1410 · 콤보 11 · 정확도 94%
+            </p>
+          </div>
 
-        <div
-          className="relative px-5 py-6 text-[var(--ti)] md:px-8 md:py-7"
-          style={{ fontFeatureSettings: '"ss01", "cv11", "tnum"' }}
-        >
-          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="min-w-0 flex-1">
-              <span className="inline-flex items-center gap-2 rounded-full bg-[#FFE234]/20 px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[#FFE234] shadow-[inset_0_0_0_1px_rgba(255,226,52,0.30)] backdrop-blur-md">
-                {/* Live dot */}
-                <span className="relative inline-flex h-1.5 w-1.5 motion-safe:[&_span]:animate-ping">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-[#FFE234]/80 opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#FFE234] shadow-[0_0_6px_rgba(255,226,52,0.9)]" />
-                </span>
-                <Sparkles size={11} aria-hidden strokeWidth={2.25} />
-                정글 어드벤처
-              </span>
-              <h1
-                className="mt-2.5 font-display text-[28px] font-[800] leading-[1.05] tracking-tight text-[#FFE234] md:text-[36px]"
-                style={{ textShadow: '2px 2px 0 #1a4a08, 3px 3px 8px rgba(0,0,0,0.35)' }}
-              >
-                WordBlitz
-              </h1>
-              {/* Title underline accent */}
-              <div
-                aria-hidden
-                className="mt-2 h-px w-12 rounded-full bg-gradient-to-r from-[#FFE234]/80 via-[#FFE234]/30 to-transparent"
-              />
-              <p className="mt-2.5 max-w-md font-body text-[13px] leading-snug text-[var(--ti)]/90 md:text-[14px]">
-                Best 1410 · 콤보 11 · 정확도 94% — 더 높은 점수에 도전해 볼까요?
-              </p>
-
-              {/* Inline stats — Best/콤보/정확도 */}
-              <ul className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-[var(--r-md)] bg-[#FFE234]/10 p-px shadow-[inset_0_0_0_1px_rgba(255,226,52,0.15)] backdrop-blur-sm md:max-w-sm">
-                <li className="relative bg-gradient-to-b from-[#FFE234]/[0.08] to-transparent px-3.5 py-2.5">
-                  <p className="font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[#FFE234]/85">
-                    Best
-                  </p>
-                  <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[#FFE234]">
-                    1410
-                  </p>
-                  <span
-                    aria-hidden
-                    className="absolute bottom-1.5 left-3.5 block h-[2px] w-6 rounded-full bg-gradient-to-r from-[#FFE234]/80 to-transparent"
-                  />
-                </li>
-                <li className="bg-gradient-to-b from-white/[0.06] to-transparent px-3.5 py-2.5">
-                  <p className="font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-white/75">
-                    최고 콤보
-                  </p>
-                  <p className="mt-1 font-display text-[19px] font-[700] tabular-nums leading-none text-white">
-                    11
-                  </p>
-                </li>
-                <li className="bg-gradient-to-b from-white/[0.06] to-transparent px-3.5 py-2.5">
-                  <p className="font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-white/75">
-                    정확도
-                  </p>
-                  <p className="mt-1 font-display text-[19px] font-[700] tabular-nums leading-none text-white">
-                    94<span className="ml-0.5 text-[11px] font-[600] text-white/70">%</span>
-                  </p>
-                </li>
-              </ul>
-            </div>
-
-            {/* CTA + 크리처 — 우측 정렬 */}
-            <div className="flex flex-col items-end gap-3">
-              <div className="flex flex-wrap gap-2">
-                <Link
-                  href="/play/wordblitz"
-                  className="group inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[#FFE234] px-5 py-2.5 font-display text-[14px] font-[800] text-[#1a4a08] shadow-[0_3px_0_#B8860B,var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[#FFD93D] active:translate-y-0.5 active:shadow-[0_1px_0_#B8860B]"
-                >
-                  <Gamepad2 size={15} strokeWidth={2.5} aria-hidden />
-                  바로 시작
-                  <Zap
-                    size={12}
-                    strokeWidth={2.5}
-                    aria-hidden
-                    className="transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5"
-                  />
-                </Link>
-                <Link
-                  href="/play/wordblitz"
-                  aria-label="풀스크린으로 시작"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)] border border-[var(--ti)]/30 bg-[var(--ti)]/10 text-[var(--ti)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ti)]/20"
-                >
-                  <Maximize2 size={14} aria-hidden />
-                </Link>
-              </div>
-
-              {/* 크리처 — 4→3 축소, 12→10 size */}
-              <div className="hidden items-end gap-2 md:flex">
-                {['🐻', '🦊', '🐰'].map((c, i) => (
-                  <span
-                    key={i}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--ti)]/15 text-[20px] backdrop-blur"
-                    style={{
-                      animation: `creatureBob 2.5s ease-in-out ${i * 0.15}s infinite`,
-                    }}
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <div className="flex shrink-0 gap-1.5">
+            <Link
+              href="/play/wordblitz"
+              className="group inline-flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[#FFE234] px-3 py-1.5 font-display text-[12px] font-[800] text-[#1a4a08] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[#FFD93D] active:translate-y-0.5"
+            >
+              <Gamepad2 size={12} strokeWidth={2.5} aria-hidden />
+              바로 시작
+              <Zap size={10} strokeWidth={2.5} aria-hidden />
+            </Link>
+            <Link
+              href="/play/wordblitz"
+              aria-label="풀스크린으로 시작"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] border border-[var(--ti)]/30 bg-[var(--ti)]/10 text-[var(--ti)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ti)]/20"
+            >
+              <Maximize2 size={11} aria-hidden />
+            </Link>
           </div>
         </div>
 
-        {/* Aurora bottom edge */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FFE234]/40 to-transparent"
-        />
-
-        <style>{`
-          @keyframes creatureBob {
-            0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50%      { transform: translateY(-8px) rotate(3deg); }
-          }
-        `}</style>
+        {/* Stats — 인라인 가로 row */}
+        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-[#FFE234]/15 pt-2">
+          <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
+            <span className="text-[11px] font-[700] text-[#FFE234]">Best</span>
+            <span className="text-[15px] font-[800] text-[#FFE234]">1410</span>
+          </li>
+          <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
+            <span className="text-[11px] font-[700] text-white/75">콤보</span>
+            <span className="text-[13px] font-[700] text-white">11</span>
+          </li>
+          <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
+            <span className="text-[11px] font-[700] text-white/75">정확도</span>
+            <span className="text-[13px] font-[700] text-white">
+              94<span className="ml-0.5 text-[10px] font-[600] opacity-70">%</span>
+            </span>
+          </li>
+        </ul>
       </section>
 
       {/* ── 학습 효과 + 통계 (2 cols) ── */}

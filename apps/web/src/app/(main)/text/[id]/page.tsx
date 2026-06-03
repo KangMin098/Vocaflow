@@ -2,12 +2,16 @@
 
 'use client'
 
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { SpellForge } from '@/components/spellforge/SpellForge'
+import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 import { ChapterBottomNav } from '@/components/workspace/ChapterBottomNav'
 import { FloatingAudioPlayer } from '@/components/workspace/FloatingAudioPlayer'
+import { useTTS, type SentenceItem } from '@/lib/workspace/tts-controller'
 import { FloatingSparkle } from '@/components/workspace/FloatingSparkle'
 import { InsightPanel } from '@/components/workspace/InsightPanel'
 import { KeyboardHints } from '@/components/workspace/KeyboardHints'
@@ -51,6 +55,7 @@ const MOCK_TEXT: LibraryText = {
   addedAt: new Date(),
   lastStudiedAt: new Date(),
   isBookmarked: true,
+  bookId: null,
 }
 
 const MOCK_PARAGRAPHS = [
@@ -214,8 +219,9 @@ const MOCK_PARAGRAPHS = [
 ]
 
 const MODE_STATUS: Record<ModeKey, ModeStatus> = {
-  read: 'done',
   listen: 'done',
+  read: 'done',
+  shadow: 'pending',
   words: 'active',
   flashcard: 'pending',
   spellforge: 'pending',
@@ -256,6 +262,7 @@ export default function WorkspacePage({ params }: PageProps) {
       ...(t.author ? { author: t.author } : {}),
       ...(t.cefrLevel ? { cefrLevel: t.cefrLevel } : {}),
       ...(typeof t.wordCount === 'number' ? { wordCount: t.wordCount } : {}),
+      bookId: ctx.libraryBookId,
       progressPercent,
       totalPages: t.totalPages ?? 1,
       currentPage,
@@ -299,6 +306,26 @@ export default function WorkspacePage({ params }: PageProps) {
   const recommendation = useMemo(() => getMockNextAction(MOCK_USER_CONTEXTS.warm_urgent), [])
   const recommendationHref = useMemo(() => actionToHref(recommendation), [recommendation])
 
+  // "단어" 모드 목적지:
+  //   · 라이브러리 도서 chapter → 그 책의 단어장 home (/my/books/<bookId>)
+  //   · 사용자 스크립트        → 워크스페이스 내 추출 뷰 (?mode=words) — 아직 vocab 없을 수 있어 추출부터
+  const wordsHref = useMemo(
+    () =>
+      ctx?.libraryBookId
+        ? `/my/books/${ctx.libraryBookId}`
+        : `/text/${text.id}?mode=words`,
+    [ctx?.libraryBookId, text.id],
+  )
+
+  // 직접 스크립트 단어 추출용 — paragraphs 로부터 원문 재구성 (ExtractionPanel tokenize 입력)
+  const scriptContent = useMemo(
+    () =>
+      paragraphs
+        .map((p) => p.sentences.map((s) => s.parts.map((pt) => pt.text).join('')).join(' '))
+        .join('\n\n'),
+    [paragraphs],
+  )
+
   // Hooks
   const { isFocusMode, toggle: toggleFocus } = useFocusMode()
 
@@ -307,10 +334,45 @@ export default function WorkspacePage({ params }: PageProps) {
   const [isInsightOpen, setIsInsightOpen] = useState(false)
   const [recallWord, setRecallWord] = useState<Word | null>(null)
   const [recallAnchor, setRecallAnchor] = useState<DOMRect | null>(null)
-  const [playingSentenceId, setPlayingSentenceId] = useState<number | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [audioVisible, setAudioVisible] = useState(false)
-  const [audioSpeed, setAudioSpeed] = useState(1.0)
+  const tts = useTTS()
+  // v06.32 — 듣기 player 항상 가시화 (사용자 명시 요청)
+  const [audioVisible, setAudioVisible] = useState(true)
+
+  // 🚨 워크스페이스 진입 즉시 + 매번 body 상태 강제 reset (다른 페이지 stale 누적 차단)
+  // — sidebar / ModePills 클릭 결함 안전망. v06.34 — 진단 출력 추가.
+  useEffect(() => {
+    // 마운트 시점 진단 출력 (개발자가 콘솔에서 확인 가능)
+    if (process.env.NODE_ENV !== 'production') {
+      const stale = {
+        overflow: document.body.style.overflow,
+        focusMode: document.body.classList.contains('focus-mode'),
+        pointerEvents: document.body.style.pointerEvents,
+        overlays: document.querySelectorAll(
+          '.fixed.inset-0.pointer-events-auto, [role="dialog"][aria-hidden="false"]',
+        ).length,
+      }
+      if (
+        stale.overflow === 'hidden' ||
+        stale.focusMode ||
+        stale.pointerEvents === 'none' ||
+        stale.overlays > 0
+      ) {
+        // eslint-disable-next-line no-console
+        console.warn('[workspace] body stale detected on mount — forcing reset:', stale)
+      }
+    }
+    // 강제 reset (3중)
+    document.body.style.overflow = ''
+    document.body.style.pointerEvents = ''
+    document.body.classList.remove('focus-mode')
+    // raf 1 프레임 후 한 번 더 (다른 cleanup 보다 늦게 실행 보장)
+    const id = requestAnimationFrame(() => {
+      document.body.style.overflow = ''
+      document.body.style.pointerEvents = ''
+      document.body.classList.remove('focus-mode')
+    })
+    return () => cancelAnimationFrame(id)
+  }, [])
 
   // Word handlers
   const handleWordHover = useCallback((word: Word, anchorRect: DOMRect) => {
@@ -332,36 +394,40 @@ export default function WorkspacePage({ params }: PageProps) {
     [recallWord, handleRecallClose]
   )
 
-  // Sentence playback
-  const handleSentencePlay = useCallback(
-    (sentenceId: number) => {
-      if (playingSentenceId === sentenceId && isPlaying) {
-        setIsPlaying(false)
-      } else {
-        setPlayingSentenceId(sentenceId)
-        setIsPlaying(true)
-        setAudioVisible(true)
-      }
-    },
-    [playingSentenceId, isPlaying]
-  )
-
-  // Total sentences
-  const totalSentences = useMemo(() => {
-    return paragraphs.reduce((acc, p) => acc + p.sentences.length, 0)
+  // v06.32 — paragraphs → SentenceItem[] (TTS controller queue)
+  const sentenceItems: SentenceItem[] = useMemo(() => {
+    const items: SentenceItem[] = []
+    paragraphs.forEach((p) => {
+      p.sentences.forEach((s) => {
+        const text = s.parts.map((part) => part.text).join('')
+        items.push({
+          paragraphId: String(p.id),
+          sentenceIdx: s.id,
+          text,
+        })
+      })
+    })
+    return items
   }, [paragraphs])
 
-  const currentSentenceIdx = useMemo(() => {
-    if (playingSentenceId === null) return 0
-    let idx = 0
-    for (const p of paragraphs) {
-      for (const s of p.sentences) {
-        if (s.id === playingSentenceId) return idx + 1
-        idx++
+  // Sentence playback — controller playFromMode 호출
+  const handleSentencePlay = useCallback(
+    (sentenceId: number) => {
+      const idx = sentenceItems.findIndex((s) => s.sentenceIdx === sentenceId)
+      if (idx < 0) return
+      // 같은 문장 재생 중이면 pause toggle
+      if (tts.state.currentSentenceIdx === sentenceId && tts.state.state === 'playing') {
+        tts.pause()
+        return
       }
-    }
-    return 0
-  }, [playingSentenceId, paragraphs])
+      tts.playFromMode(tts.state.mode, sentenceItems, idx)
+      setAudioVisible(true)
+    },
+    [sentenceItems, tts]
+  )
+
+  // ReadingUniverse 표시용 — controller 현재 sentence
+  const playingSentenceId = tts.state.currentSentenceIdx
 
   // SpellForge 모드용 — 스크립트 내 모든 학습 단어 수집
   const spellforgeWords: SpellForgeWord[] = useMemo(() => {
@@ -376,27 +442,10 @@ export default function WorkspacePage({ params }: PageProps) {
     return collected
   }, [paragraphs])
 
-  // Audio handlers
-  const handlePlayPause = () => setIsPlaying((p) => !p)
-  const handlePrev = () => {
-    if (playingSentenceId !== null && playingSentenceId > 0) {
-      setPlayingSentenceId(playingSentenceId - 1)
-    }
-  }
-  const handleNext = () => {
-    if (playingSentenceId !== null && playingSentenceId < totalSentences - 1) {
-      setPlayingSentenceId(playingSentenceId + 1)
-    }
-  }
+  // Audio handler — close only (나머지 player 내부에서 controller 직접 호출)
   const handleAudioClose = () => {
     setAudioVisible(false)
-    setIsPlaying(false)
-    setPlayingSentenceId(null)
-  }
-  const handleSpeedChange = () => {
-    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5]
-    const idx = speeds.indexOf(audioSpeed)
-    setAudioSpeed(speeds[(idx + 1) % speeds.length])
+    tts.stop()
   }
 
   // Bookmark handler
@@ -421,8 +470,12 @@ export default function WorkspacePage({ params }: PageProps) {
     onArrowLeft: () => goToPage(currentPage - 1),
     onArrowRight: () => goToPage(currentPage + 1),
     onSpace: () => {
-      if (audioVisible) handlePlayPause()
-      else handleSentencePlay(0)
+      if (tts.state.state === 'playing') tts.pause()
+      else if (tts.state.state === 'paused') tts.resume()
+      else if (sentenceItems.length > 0) {
+        tts.playFromMode(tts.state.mode, sentenceItems, 0)
+        setAudioVisible(true)
+      }
     },
     onBookmark: handleBookmarkToggle,
     onInsight: () => setIsInsightOpen((o) => !o),
@@ -445,6 +498,38 @@ export default function WorkspacePage({ params }: PageProps) {
     return <SpellForge textId={text.id} textTitle={text.title} words={spellforgeWords} />
   }
 
+  // 단어 모드 (직접 스크립트) — 워크스페이스 내 추출 뷰. 추출 → 내 단어장(WordVault) 저장.
+  // (라이브러리 책의 '단어' 는 /my/books/<bookId> 로 이동하므로 여기 도달하지 않음)
+  if (currentMode === 'words' && !ctx?.libraryBookId) {
+    return (
+      <div className="min-h-screen bg-[var(--reading-bg)]">
+        <div className="mx-auto max-w-2xl px-5 py-8 md:px-8">
+          <div className="mb-5 flex items-center justify-between">
+            <Link
+              href={`/text/${text.id}?mode=read`}
+              className="inline-flex items-center gap-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
+            >
+              <ArrowLeft size={14} aria-hidden /> 본문으로
+            </Link>
+            <Link
+              href="/wordvault"
+              className="inline-flex items-center gap-1 font-display text-[13px] font-[600] text-[var(--p)] hover:underline"
+            >
+              내 단어장 <ArrowRight size={14} aria-hidden />
+            </Link>
+          </div>
+          <h1 className="font-english text-[22px] font-[600] leading-tight text-[var(--t1)]">
+            {text.title}
+          </h1>
+          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t3)]">
+            이 스크립트의 단어를 AI로 추출해 내 단어장에 담아보세요.
+          </p>
+          <ExtractionPanel text={scriptContent} textId={text.id} defaultStrategy="text" />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-[var(--reading-bg)]">
       <UnifiedHeader
@@ -454,6 +539,7 @@ export default function WorkspacePage({ params }: PageProps) {
         currentChapterIdx={ctx?.chapterIdx ?? null}
         currentTextId={text.id}
         currentChapterStatus={(ctx?.currentChapterStatus ?? 'not_started') as ChapterDisplayStatus}
+        bookWordSetStats={ctx?.bookWordSetStats ?? null}
         isBookmarked={isBookmarked}
         onToggleBookmark={handleBookmarkToggle}
         onToggleInsight={() => setIsInsightOpen((o) => !o)}
@@ -461,6 +547,7 @@ export default function WorkspacePage({ params }: PageProps) {
         isFocusMode={isFocusMode}
         currentMode={currentMode}
         modeStatus={MODE_STATUS}
+        wordsHref={wordsHref}
       />
 
       <ReadingUniverse
@@ -519,18 +606,8 @@ export default function WorkspacePage({ params }: PageProps) {
 
       <FloatingAudioPlayer
         isVisible={audioVisible}
-        isPlaying={isPlaying}
-        currentSentence={currentSentenceIdx}
-        totalSentences={totalSentences}
-        currentTime="0:09"
-        totalTime="0:24"
-        progress={38}
-        speed={audioSpeed}
-        onPlayPause={handlePlayPause}
-        onPrev={handlePrev}
-        onNext={handleNext}
+        sentences={sentenceItems}
         onClose={handleAudioClose}
-        onSpeedChange={handleSpeedChange}
       />
 
       <FloatingSparkle

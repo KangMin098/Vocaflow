@@ -34,15 +34,22 @@ export function InsightPanel({
   bookmarks,
   memoryStats,
 }: InsightPanelProps) {
-  // 패널 열릴 때 body 스크롤 잠금
+  // 패널 열릴 때 body 스크롤 잠금 — Stale-safe: cleanup 항상 reset
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-      return () => {
-        document.body.style.overflow = ''
-      }
+    }
+    return () => {
+      document.body.style.overflow = ''
     }
   }, [isOpen])
+
+  // unmount 시 (라우트 이동 등) 강제 reset
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   return (
     <>

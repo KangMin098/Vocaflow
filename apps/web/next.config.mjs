@@ -16,6 +16,25 @@ const nextConfig = {
     '@vocaflow/design-tokens',
     '@vocaflow/ui-shared',
   ],
+  // v06.32 — Windows dev server watchpack 가 시스템 파일 (pagefile/hiberfil/swapfile)
+  // lstat 시도 시 EINVAL 발생. node_modules + .next + .git + Windows 시스템 파일 제외.
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.watchOptions = {
+        ...(config.watchOptions ?? {}),
+        ignored: [
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/.next/**',
+          'C:/pagefile.sys',
+          'C:/hiberfil.sys',
+          'C:/swapfile.sys',
+          'C:/DumpStack.log.tmp',
+        ],
+      }
+    }
+    return config
+  },
 }
 
 export default nextConfig

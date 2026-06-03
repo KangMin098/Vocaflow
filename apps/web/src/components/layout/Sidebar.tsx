@@ -73,7 +73,7 @@ export function Sidebar({ streak }: SidebarProps) {
             aria-label="Vocaflow 홈"
           >
             <span
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_2px_8px_rgba(59,130,246,0.25)]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(59,130,246,0.16)]"
               aria-hidden="true"
             >
               V

@@ -53,3 +53,9 @@ logs/
 # Playwright e2e — 매 실행마다 재생성, 산출물만 baseline-*.json 으로 docs 에 보존
 apps/web/playwright-report/
 apps/web/test-results/
+
+# ONNX Runtime WebAssembly 바이너리 (75MB · CDN 또는 npm install 시 자동 다운로드 권장)
+apps/web/public/onnx/
+
+# Round/session payload 임시 파일 (regenerable)
+tmp_*.json

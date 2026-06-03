@@ -10,6 +10,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 export interface ChapterListItem {
   chapter_idx: number
   chapter_title: string | null
+  /** 계층 그룹 라벨 (Volume/Book·sub-book) — null 이면 평면. 사이드바 collapsible 그룹용 */
+  group_label: string | null
   word_count: number
   paragraph_count: number
 }
@@ -30,6 +32,62 @@ export interface SampleWord {
   cefr_level: string | null
 }
 
+/** 본문 단어 클릭 조회 결과 — lookup_word_meaning RPC 1행. */
+export interface WordLookup {
+  found: boolean
+  surface: string
+  resolvedWord: string | null
+  meaningKo: string | null
+  pos: string | null
+  cefrLevel: string | null
+  vLevel: number | null
+  exampleEn: string | null
+  /** 'direct' | 'inflection' | 'variant' | 'cluster' | 'not_found' | 'invalid' */
+  matchVia: string
+  /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
+  wordRegister: string | null
+}
+
+/**
+ * 표면 단어 → dict+lemma 체인 해소 (direct → 굴절 → 변이 → 클러스터).
+ * 고어(hadst→have)·굴절(houses→house)·변이(subtile)까지 우리 사전으로 해소.
+ * 미해소(불어·OCR)는 found=false. 외부 사전 의존 없음.
+ */
+export async function lookupWord(
+  client: SupabaseClient,
+  surface: string
+): Promise<WordLookup | null> {
+  const { data, error } = await client.rpc('lookup_word_meaning', { p_surface: surface })
+  if (error) throw new Error(`lookupWord failed: ${error.message}`)
+  const row = (data ?? [])[0] as
+    | {
+        found: boolean
+        surface: string
+        resolved_word: string | null
+        meaning_ko: string | null
+        pos: string | null
+        cefr_level: string | null
+        v_level: number | null
+        example_en: string | null
+        match_via: string
+        word_register: string | null
+      }
+    | undefined
+  if (!row) return null
+  return {
+    found: row.found,
+    surface: row.surface,
+    resolvedWord: row.resolved_word,
+    meaningKo: row.meaning_ko,
+    pos: row.pos,
+    cefrLevel: row.cefr_level,
+    vLevel: row.v_level,
+    exampleEn: row.example_en,
+    matchVia: row.match_via,
+    wordRegister: row.word_register,
+  }
+}
+
 /**
  * 책의 모든 chapter list (메타만 — content 제외).
  * Reader 사이드바용.
@@ -40,7 +98,7 @@ export async function listChapters(
 ): Promise<ChapterListItem[]> {
   const { data, error } = await client
     .from('library_chapters_master')
-    .select('chapter_idx, chapter_title, word_count, paragraph_offsets')
+    .select('chapter_idx, chapter_title, group_label, word_count, paragraph_offsets')
     .eq('library_book_id', libraryBookId)
     .order('chapter_idx', { ascending: true })
 
@@ -49,12 +107,14 @@ export async function listChapters(
     const r = row as {
       chapter_idx: number
       chapter_title: string | null
+      group_label: string | null
       word_count: number
       paragraph_offsets: number[] | null
     }
     return {
       chapter_idx: r.chapter_idx,
       chapter_title: r.chapter_title,
+      group_label: r.group_label ?? null,
       word_count: r.word_count,
       paragraph_count: r.paragraph_offsets?.length ?? 0,
     }

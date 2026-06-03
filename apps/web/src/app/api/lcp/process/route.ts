@@ -145,6 +145,28 @@ export async function POST(request: Request): Promise<NextResponse> {
       })
       .eq('id', book_id)
 
+    // 4-3.4 lemma backfill (best-effort) — direct-bind/추출/percentile 정상화 게이트.
+    //   collect 보다 먼저: 바인딩된 단어는 lemma 채워져 collect 대상에서 제외됨.
+    //   (Phase 3B 이후 추가 도서가 lemma NULL 로 누락되던 구조적 결함 차단)
+    try {
+      await client.rpc('backfill_book_lemmas', { p_book_id: book_id })
+    } catch (e) {
+      console.warn(`[lcp/process] backfill_book_lemmas skipped: ${e instanceof Error ? e.message : String(e)}`)
+    }
+
+    // 4-3.45 도서 난이도 지수 산정 (best-effort) — book_v_level/CEFR/CEFR-J.
+    //   backfill 직후(bound lemma 필요). LibraryCard 표시 + publish 게이트(publish_book_word_sets
+    //   가 v_level >= book_v_level 필터 → book_v_level NULL 이면 강제게시 실패) 의존.
+    try {
+      await client.rpc('compute_book_vrl', { p_book_id: book_id })
+      await client.rpc('compute_book_cefrj', { p_book_id: book_id })
+    } catch (e) {
+      console.warn(`[lcp/process] compute_book_vrl/cefrj skipped: ${e instanceof Error ? e.message : String(e)}`)
+    }
+
+    // 4-3.5 미바인딩 단어를 archaic_candidates 로 수집 (best-effort)
+    await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+
     // 4-4. auto_curate
     const { data: decision, error: curateError } = await client.rpc(
       'auto_curate_book',

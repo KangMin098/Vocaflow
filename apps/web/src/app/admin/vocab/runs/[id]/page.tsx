@@ -1,6 +1,14 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, ChevronRight, FileText, Sparkles } from 'lucide-react'
+import {
+  AlertTriangle,
+  ArrowLeft,
+  CheckCircle2,
+  ChevronRight,
+  ExternalLink,
+  FileText,
+  Sparkles,
+} from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { VcbRunStatusBadge } from '@/components/admin/vcb/VcbRunStatusBadge'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
@@ -9,7 +17,7 @@ import { VcbStep5EnrichCard } from '@/components/admin/vcb/VcbStep5EnrichCard'
 import { VcbStep6QaCard } from '@/components/admin/vcb/VcbStep6QaCard'
 import { VcbStep8PublishCard } from '@/components/admin/vcb/VcbStep8PublishCard'
 import { VcbMethodACard } from '@/components/admin/vcb/VcbMethodACard'
-import { fetchRunDetail } from '@/lib/vcb/server/runs'
+import { fetchRunDetail, fetchPublishedSetsForRun } from '@/lib/vcb/server/runs'
 import { precheckRun } from '@/lib/vcb/server/precheck'
 
 export const dynamic = 'force-dynamic'
@@ -31,10 +39,28 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
   }
 
   const precheck = await precheckRun(runId)
+  const publishedSets =
+    run.status === 'published' ? await fetchPublishedSetsForRun(runId) : []
 
+  // 🔴 Fix: published / publishing 단계에선 시드 등록 카드 숨김
+  //         (legacy run 들이 seed_spec_file 메타를 들고 있어 무한 노출되던 결함 차단)
+  const isTerminal = run.status === 'published' || run.status === 'publishing'
   const showSeedEntry =
-    run.status === 'created' || run.status === 'ingesting' || run.config.seed_spec_file
+    !isTerminal &&
+    (run.status === 'created' ||
+      run.status === 'ingesting' ||
+      Boolean(run.config.seed_spec_file))
   const canCurate = run.status === 'qa' || run.status === 'curating'
+
+  // 무결성 점검 — approved 단어 수 vs 발행 단어 수 미스매치 검출
+  const totalPublishedWords = publishedSets.reduce(
+    (sum, s) => sum + s.actual_word_count,
+    0,
+  )
+  const hasIntegrityMismatch =
+    run.status === 'published' &&
+    totalPublishedWords > 0 &&
+    totalPublishedWords !== run.approved_count
 
   return (
     <div>
@@ -58,8 +84,23 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         }
       />
 
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-3 mb-8 flex-wrap">
         <VcbRunStatusBadge status={run.status} size="md" />
+        {hasIntegrityMismatch && (
+          <div
+            className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--r-md)] border text-sm"
+            style={{
+              background: 'var(--warning-light)',
+              borderColor: 'var(--warning)',
+              color: 'var(--warning)',
+            }}
+          >
+            <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+            <span className="font-display font-medium">
+              무결성 미스매치 — approved {run.approved_count.toLocaleString()}건 vs 발행 {totalPublishedWords.toLocaleString()}건
+            </span>
+          </div>
+        )}
       </div>
 
       <section className="mb-10">
@@ -242,7 +283,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
 
       {(run.status === 'curating' || run.status === 'publishing' ||
         run.status === 'published') && (
-        <section>
+        <section className="mb-10">
           <h3
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
@@ -254,6 +295,95 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
             runStatus={run.status}
             precheck={precheck}
           />
+        </section>
+      )}
+
+      {run.status === 'published' && publishedSets.length > 0 && (
+        <section>
+          <h3
+            className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
+            style={{ color: 'var(--t2)' }}
+          >
+            발행 결과
+          </h3>
+          <div className="flex flex-col gap-3">
+            {publishedSets.map((set) => {
+              const setMismatch = set.actual_word_count !== set.word_count
+              return (
+                <div
+                  key={set.set_id}
+                  className="flex items-start gap-4 p-4 rounded-[var(--r-lg)] border"
+                  style={{ background: 'var(--bg)', borderColor: 'var(--bd)' }}
+                >
+                  <div
+                    className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
+                    style={{ background: 'var(--success-light)', color: 'var(--success)' }}
+                  >
+                    <CheckCircle2 className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span
+                        className="font-display font-semibold text-base"
+                        style={{ color: 'var(--t1)' }}
+                      >
+                        {set.title}
+                      </span>
+                      <span
+                        className="text-[11px] font-mono px-2 py-0.5 rounded-[var(--r-full)]"
+                        style={{ background: 'var(--bg3)', color: 'var(--t3)' }}
+                      >
+                        {set.category}
+                      </span>
+                      {set.is_published && (
+                        <span
+                          className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                          style={{
+                            background: 'var(--success-light)',
+                            color: 'var(--success)',
+                          }}
+                        >
+                          published
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-1 flex items-center gap-3 text-xs" style={{ color: 'var(--t3)' }}>
+                      <span className="font-mono">{set.slug}</span>
+                      <span>·</span>
+                      <span>
+                        <b style={{ color: 'var(--t1)' }}>
+                          {set.actual_word_count.toLocaleString()}
+                        </b>
+                        {' '}단어
+                      </span>
+                      {setMismatch && (
+                        <span
+                          className="inline-flex items-center gap-1 font-display"
+                          style={{ color: 'var(--warning)' }}
+                        >
+                          <AlertTriangle className="w-3 h-3" />
+                          캐시 {set.word_count.toLocaleString()} 불일치
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <Link
+                    href={`/library/vocab#set-${set.slug}`}
+                    target="_blank"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
+                    style={{
+                      borderColor: 'var(--bd)',
+                      color: 'var(--p)',
+                      background: 'var(--bg)',
+                    }}
+                  >
+                    라이브러리에서 보기
+                    <ExternalLink className="w-4 h-4" />
+                  </Link>
+                </div>
+              )
+            })}
+          </div>
         </section>
       )}
     </div>

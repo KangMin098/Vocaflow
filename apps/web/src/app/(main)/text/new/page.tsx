@@ -16,6 +16,7 @@ import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputMod
 import { SampleScripts } from '@/components/text-viewer/SampleScripts'
 import { TextInput } from '@/components/text-viewer/TextInput'
 import { saveText } from '@/lib/text-viewer/save-text'
+import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 
 const CONTENT_MIN = 50
 const TITLE_MAX = 200
@@ -111,7 +112,7 @@ export default function TextViewerNewPage() {
             </h2>
 
             <p className="max-w-xl font-body text-sm leading-relaxed text-t2 sm:text-base">
-              제목과 본문을 입력해 보관하세요. AI 단어 추출은 곧 만나보실 수 있어요.
+              제목과 본문을 입력해 보관하세요. 본문 입력 시 다축 VRL 기반 AI 단어 추출이 활성화됩니다.
             </p>
           </div>
 
@@ -183,6 +184,16 @@ export default function TextViewerNewPage() {
                   }}
                 />
               </div>
+
+              {/* Phase 3A: 다축 VRL AI 단어 추출 — composite score + evaluation breakdown */}
+              <ExtractionPanel
+                text={trimmedContent.length >= CONTENT_MIN ? trimmedContent : ''}
+                onSaved={(count) =>
+                  toast.success(`${count}개 단어를 내 단어장에 추가했어요`, {
+                    title: 'AI 단어 추출 완료',
+                  })
+                }
+              />
             </>
           )}
 

@@ -1,0 +1,441 @@
+// apps/web/src/components/library/vocab/VocabSetCarousel.tsx
+//
+// v06.33 — 도서관 책장 + iPhone coverflow 단어장 선택 인터페이스.
+// - 상단 카테고리 탭 (다차원 레벨 전환)
+// - 선택 카테고리의 단어장을 3D coverflow (LibraryGrid 패턴 재사용)
+// - 중앙 focus 카드 + 좌우 회전 · 화살표 · 키보드 ←/→ · 터치 swipe · dot
+// - 책 cover (3:4) 스타일 + 카테고리 색 gradient
+// - iOS easing — 부드러운 전환
+
+'use client'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
+
+import {
+  NetflixDetailSheet,
+  type DetailVariant,
+  type SampleWord,
+} from '@/components/library/shared/NetflixDetailSheet'
+import { createClient } from '@/lib/supabase/client'
+import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+
+import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
+
+const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
+const DURATION = 600
+
+const CATEGORY_COLOR: Record<string, { from: string; to: string; accent: string }> = {
+  elementary: { from: '#34D399', to: '#059669', accent: '#059669' },
+  middle: { from: '#22D3EE', to: '#0891B2', accent: '#0891B2' },
+  high: { from: '#60A5FA', to: '#2563EB', accent: '#2563EB' },
+  csat: { from: '#FBBF24', to: '#D97706', accent: '#D97706' },
+  eng_test: { from: '#A78BFA', to: '#7C3AED', accent: '#7C3AED' },
+  civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
+  business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },
+  themed: { from: '#818CF8', to: '#4F46E5', accent: '#4F46E5' },
+}
+
+function cardTransform(offset: number) {
+  const abs = Math.abs(offset)
+  if (abs > 3) {
+    return {
+      transform: `translate3d(${Math.sign(offset) * 540}px, 0, -700px) rotateY(${offset * -22}deg) scale(0.4)`,
+      opacity: 0,
+      zIndex: 0,
+      pointer: 'none' as const,
+    }
+  }
+  const sign = Math.sign(offset)
+  // OTT 넓게 — ±1: 165px, ±2: 305px, ±3: 425px (확실히 보임)
+  const x = sign * (abs === 0 ? 0 : 165 + (abs - 1) * 140)
+  const z = -abs * 70
+  const rotY = -offset * 17 // 덜 회전 (더 prominent)
+  const scale = 1 - abs * 0.10 // 덜 작아짐
+  const opacity = abs === 0 ? 1 : abs === 1 ? 0.92 : abs === 2 ? 0.7 : 0.5
+  return {
+    transform: `translate3d(${x}px, 0, ${z}px) rotateY(${rotY}deg) scale(${scale})`,
+    opacity,
+    zIndex: 30 - abs,
+    pointer: 'auto' as const,
+  }
+}
+
+interface Props {
+  sets: PublishedVocabSet[]
+  subscribedIds: Set<string>
+  pendingId: string | null
+  isLoggedIn: boolean
+  onPreview: (set: PublishedVocabSet) => void
+  onToggle: (set: PublishedVocabSet) => void
+  onSelectCategory: (id: VocabCategoryId) => void
+}
+
+export function VocabSetCarousel({
+  sets,
+  subscribedIds,
+  pendingId,
+  isLoggedIn,
+  onPreview,
+  onToggle,
+}: Props) {
+  // 데이터 있는 카테고리만 탭으로
+  const categories = VOCAB_CATEGORIES.filter(
+    (c) => c.id !== 'all' && sets.some((s) => s.category === c.id),
+  )
+  const [activeCat, setActiveCat] = useState<string>(categories[0]?.id ?? 'csat')
+  const [active, setActive] = useState(0)
+  const [detail, setDetail] = useState<DetailVariant | null>(null)
+  const touchStartX = useRef<number | null>(null)
+
+  async function openDetail(set: PublishedVocabSet) {
+    const cat = VOCAB_CATEGORIES.find((c) => c.id === set.category)
+    const color = CATEGORY_COLOR[set.category] ?? CATEGORY_COLOR.themed!
+    // 단어 sample fetch (8개)
+    const supabase = createClient()
+    const { data } = await supabase
+      .from('shared_words')
+      .select('word, meaning_ko, part_of_speech, cefr_level')
+      .eq('set_id', set.id)
+      .order('sort_order', { ascending: true })
+      .limit(8)
+    const samples: SampleWord[] = (data ?? []).map((r) => ({
+      word: (r as { word: string }).word,
+      meaningKo: (r as { meaning_ko: string }).meaning_ko,
+      partOfSpeech: (r as { part_of_speech: string | null }).part_of_speech,
+      cefrLevel: (r as { cefr_level: string | null }).cefr_level,
+    }))
+
+    setDetail({
+      type: 'vocab',
+      id: set.id,
+      title: set.title,
+      description: set.description,
+      category: set.category,
+      categoryLabel: cat?.label ?? set.category,
+      categoryColor: color,
+      cefrLevel: set.cefrLevel,
+      wordCount: set.wordCount,
+      coverEmoji: set.coverEmoji,
+      samples,
+      ctaLabel: subscribedIds.has(set.id) ? '추가됨 — 해지' : '내 단어장에 추가',
+      onCtaClick: () => {
+        onToggle(set)
+        setDetail(null)
+      },
+      ctaPending: pendingId === set.id,
+    })
+  }
+
+  const items = sets.filter((s) => s.category === activeCat)
+  const color = CATEGORY_COLOR[activeCat] ?? CATEGORY_COLOR.themed!
+  const last = items.length - 1
+  const activeSet = items[active]
+
+  const prev = useCallback(() => setActive((i) => Math.max(0, i - 1)), [])
+  const next = useCallback(() => setActive((i) => Math.min(last, i + 1)), [last])
+
+  // 카테고리 변경 시 인덱스 reset
+  function selectCategory(id: string) {
+    setActiveCat(id)
+    setActive(0)
+  }
+
+  // 키보드 ←/→
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        prev()
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        next()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [prev, next])
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0]?.clientX ?? null
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current == null) return
+    const delta = (e.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current
+    if (Math.abs(delta) > 50) (delta > 0 ? prev : next)()
+    touchStartX.current = null
+  }
+
+  if (items.length === 0) return null
+
+  return (
+    <div className="flex flex-col items-center gap-5">
+      {/* 카테고리 탭 (다차원 레벨 전환) */}
+      <div role="tablist" aria-label="카테고리" className="flex flex-wrap justify-center gap-2">
+        {categories.map((c) => {
+          const isActive = c.id === activeCat
+          const cc = CATEGORY_COLOR[c.id] ?? CATEGORY_COLOR.themed!
+          return (
+            <button
+              key={c.id}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => selectCategory(c.id)}
+              className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all ${
+                isActive ? 'text-white shadow-[var(--sh-sm)]' : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
+              }`}
+              style={isActive ? { backgroundColor: cc.accent } : undefined}
+            >
+              <span aria-hidden>{c.emoji}</span>
+              {c.label}
+              <span
+                className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
+                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                }`}
+              >
+                {sets.filter((s) => s.category === c.id).length}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Coverflow stage */}
+      <div className="relative w-full overflow-hidden">
+        <div
+          className="relative mx-auto flex h-[400px] w-full max-w-[1200px] items-center justify-center"
+          style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          {items.map((set, idx) => {
+            const offset = idx - active
+            const tf = cardTransform(offset)
+            const isCenter = idx === active
+            return (
+              <div
+                key={set.id}
+                className="absolute left-1/2 top-1/2"
+                style={{
+                  transform: `translate(-50%, -50%) ${tf.transform}`,
+                  opacity: tf.opacity,
+                  zIndex: tf.zIndex,
+                  pointerEvents: tf.pointer,
+                  transition: `transform ${DURATION}ms ${IOS_EASING}, opacity ${DURATION}ms ${IOS_EASING}`,
+                  transformStyle: 'preserve-3d',
+                  willChange: 'transform, opacity',
+                }}
+              >
+                <CoverCard
+                  set={set}
+                  color={color}
+                  isCenter={isCenter}
+                  isSubscribed={subscribedIds.has(set.id)}
+                  isPending={pendingId === set.id}
+                  onActivate={() => (isCenter ? void openDetail(set) : setActive(idx))}
+                />
+              </div>
+            )
+          })}
+        </div>
+
+        {/* 좌우 화살표 */}
+        <button
+          type="button"
+          onClick={prev}
+          disabled={active === 0}
+          aria-label="이전 단어장"
+          className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:left-6"
+        >
+          <ChevronLeft size={20} aria-hidden />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          disabled={active === last}
+          aria-label="다음 단어장"
+          className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:right-6"
+        >
+          <ChevronRight size={20} aria-hidden />
+        </button>
+      </div>
+
+      {/* 중앙 단어장 메타 + 구독 */}
+      {activeSet && (
+        <div
+          key={activeSet.id}
+          className="flex max-w-md flex-col items-center gap-2 px-4 text-center"
+          style={{ animation: `fadeInUp 0.5s ${IOS_EASING}` }}
+        >
+          <h2 className="font-display text-[20px] font-[700] leading-tight text-[var(--t1)]">
+            {activeSet.title}
+          </h2>
+          <p className="font-display text-[13px] text-[var(--t3)]">
+            <span className="font-[800] tabular-nums text-[var(--t1)]">
+              {activeSet.wordCount.toLocaleString()}
+            </span>{' '}
+            단어
+            {activeSet.description ? ` · ${activeSet.description}` : ''}
+          </p>
+          <div className="mt-2 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => void openDetail(activeSet)}
+              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            >
+              <Eye size={14} aria-hidden /> 상세
+            </button>
+            <button
+              type="button"
+              onClick={() => onToggle(activeSet)}
+              disabled={pendingId === activeSet.id}
+              className={`inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
+                subscribedIds.has(activeSet.id)
+                  ? 'border border-[var(--success)]/30 bg-[var(--success-light)] text-[#065f46]'
+                  : 'text-white'
+              }`}
+              style={
+                subscribedIds.has(activeSet.id) ? undefined : { backgroundColor: color.accent }
+              }
+            >
+              {pendingId === activeSet.id ? (
+                <Loader2 size={14} className="animate-spin" aria-hidden />
+              ) : subscribedIds.has(activeSet.id) ? (
+                <>
+                  <Check size={14} aria-hidden /> 추가됨
+                </>
+              ) : (
+                <>
+                  <Plus size={14} aria-hidden /> {isLoggedIn ? '내 단어장에 추가' : '담기'}
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Dot indicator */}
+      {items.length > 1 && (
+        <div role="tablist" aria-label="단어장 선택" className="flex items-center gap-2">
+          {items.map((s, idx) => (
+            <button
+              key={s.id}
+              type="button"
+              role="tab"
+              aria-selected={idx === active}
+              aria-label={`${idx + 1} / ${items.length}: ${s.title}`}
+              onClick={() => setActive(idx)}
+              className="h-1.5 rounded-full transition-all"
+              style={{
+                width: idx === active ? '24px' : '6px',
+                backgroundColor: idx === active ? color.accent : 'var(--t4)',
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      <NetflixDetailSheet variant={detail} onClose={() => setDetail(null)} />
+    </div>
+  )
+}
+
+// ─── 책 cover 스타일 카드 ─────────────────────────────
+function CoverCard({
+  set,
+  color,
+  isCenter,
+  isSubscribed,
+  isPending,
+  onActivate,
+}: {
+  set: PublishedVocabSet
+  color: { from: string; to: string; accent: string }
+  isCenter: boolean
+  isSubscribed: boolean
+  isPending: boolean
+  onActivate: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onActivate}
+      aria-label={isCenter ? `${set.title} 미리보기` : `${set.title} 선택`}
+      className="block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
+    >
+      <div
+        className={`book-cover-premium relative aspect-[3/4] w-[210px] overflow-hidden ${
+          isCenter ? 'book-cover-premium--center' : ''
+        }`}
+        style={{
+          background: `
+            radial-gradient(120% 80% at 25% 12%, rgba(255,255,255,0.22) 0%, transparent 45%),
+            linear-gradient(155deg, ${color.from} 0%, ${color.to} 78%, rgba(0,0,0,0.18) 100%)
+          `,
+        }}
+      >
+        {/* 책등 — 3-stop + 미세 highlight */}
+        <div
+          aria-hidden
+          className="absolute inset-y-0 left-0 w-[8px] bg-gradient-to-r from-black/45 via-black/22 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-y-0 left-[7px] w-[1px] bg-white/15"
+        />
+        {/* 상단 sheen (Apple glass) */}
+        <div aria-hidden className="book-cover-sheen absolute inset-0" />
+        {/* 종이 grain */}
+        <div aria-hidden className="book-cover-grain absolute inset-0" />
+
+        {/* 구독 배지 */}
+        {isSubscribed && (
+          <span
+            aria-hidden
+            className="absolute right-3 top-3 inline-flex items-center justify-center rounded-full bg-white/95 p-1 text-[var(--success)] shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
+          >
+            <Check size={12} strokeWidth={2.5} />
+          </span>
+        )}
+        {isPending && (
+          <span aria-hidden className="absolute right-3 top-3 text-white">
+            <Loader2 size={14} className="animate-spin" />
+          </span>
+        )}
+
+        {/* 이모지 (frosted 원) + 제목 + 단어수 */}
+        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between p-5 text-white">
+          {set.coverEmoji ? (
+            <span
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-[20px] leading-none backdrop-blur-sm"
+              aria-hidden
+            >
+              {set.coverEmoji}
+            </span>
+          ) : (
+            <span />
+          )}
+          <div className="flex flex-col gap-2.5">
+            <h3 className="line-clamp-4 font-display text-[17px] font-[700] leading-[1.18] tracking-[-0.01em] drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]">
+              {set.title}
+            </h3>
+            {/* 단어수 — 우아한 구분선 + mono */}
+            <div className="flex items-center gap-2">
+              <span aria-hidden className="h-px w-5 bg-white/40" />
+              <span className="font-mono text-[11px] font-[600] tracking-wide text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
+                {set.wordCount.toLocaleString()} words
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
+  )
+}

@@ -82,6 +82,7 @@ export async function analyzeBook(
     p_chapters: chapters.map((ch, i) => ({
       chapter_idx: ch.chapter_idx,
       chapter_title: ch.chapter_title ?? '',
+      group_label: ch.group_label ?? null,
       content_hash: chapterHashes[i],
       word_count: ch.word_count,
       cefr_level: cefr.level,
