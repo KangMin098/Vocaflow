@@ -59,6 +59,8 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
       { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Sparkles },
       { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
+      { href: '/admin/vrl/automation', label: 'VRL Automation', Icon: Workflow },
+      { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },
   {
@@ -93,7 +95,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
         className="flex h-[64px] shrink-0 items-center gap-2.5 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
       >
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_2px_8px_rgba(139,92,246,0.30)]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
           aria-hidden="true"
         >
           <ShieldCheck size={16} strokeWidth={2.25} />
@@ -164,7 +166,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                     >
                       {isActive && (
                         <span
-                          className="absolute bottom-1.5 left-0 top-1.5 w-[3px] rounded-r-full bg-[#8B5CF6] shadow-[2px_0_8px_-2px_#8B5CF6]"
+                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[#A78BFA]"
                           aria-hidden="true"
                         />
                       )}

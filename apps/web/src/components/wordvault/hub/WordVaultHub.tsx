@@ -42,6 +42,7 @@ import { CEFRDistribution } from './CEFRDistribution'
 import { FindAndMore } from './FindAndMore'
 import { LearningDimensionSection } from './LearningDimensionSection'
 import { MemoryDecayDistribution } from './MemoryDecayDistribution'
+import { RecommendedSetsSection } from './RecommendedSetsSection'
 import { VaultBar } from './VaultBar'
 import { WordPeekStrip } from './WordPeekStrip'
 import { WordVaultEmptyState } from './WordVaultEmptyState'
@@ -126,7 +127,10 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
         }
       />
 
-      {/* Tier 2: BookShelf — 실 데이터 우선 (구독 공용 단어장 + 스크립트), 미제공 시 mock */}
+      {/* Tier 2 (신규): VRL Placement 추천 — 진단 기반 맞춤 단어장 또는 진단 CTA */}
+      <RecommendedSetsSection />
+
+      {/* Tier 3 (기존 Tier 2): BookShelf — 실 데이터 우선 (구독 공용 단어장 + 스크립트), 미제공 시 mock */}
       <BookShelfSection books={realStats?.books ?? MOCK_BOOKS} />
 
       {/* Tier 3: Level pivot — CEFR 6단계 분포 */}
