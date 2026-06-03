@@ -50,6 +50,8 @@ export interface NormalizedBook {
 export interface ChapterSegment {
   chapter_idx: number
   chapter_title?: string
+  /** 계층 그룹 라벨 (Volume/Book 또는 sub-book) — 평면 chapter_idx 유지, 리더 그룹핑용. 평면책은 undefined */
+  group_label?: string
   content: string
   word_count: number
   paragraph_offsets: number[]

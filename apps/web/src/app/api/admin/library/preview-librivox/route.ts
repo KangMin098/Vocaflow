@@ -33,15 +33,48 @@ interface LibriVoxAuthor {
   dod?: string | null
 }
 
+interface LibriVoxReader {
+  display_name?: string | null
+}
+
+interface LibriVoxSection {
+  section_number?: string | number | null
+  title?: string | null
+  listen_url?: string | null
+  playtime?: string | number | null
+  readers?: LibriVoxReader[]
+}
+
 interface LibriVoxBook {
   id: number | string
   title: string
   description?: string
   language?: string
   totaltime?: string
+  totaltimesecs?: number | string | null
+  num_sections?: number | string | null
   url_text_source?: string | null
   url_librivox?: string | null
+  url_iarchive?: string | null
   authors?: LibriVoxAuthor[]
+  sections?: LibriVoxSection[]
+}
+
+// 큐레이션 본문 검수용 오디오 (archive.org 스트리밍 — 파일 저장 X)
+interface AudioSection {
+  n: number
+  title: string
+  url: string
+  secs: number | null
+  reader: string | null
+}
+
+interface AudioInfo {
+  archive_url: string | null
+  librivox_url: string
+  total_secs: number | null
+  section_count: number
+  sections: AudioSection[]
 }
 
 interface PreviewResponse {
@@ -58,6 +91,8 @@ interface PreviewResponse {
   text_source_url: string | null
   text_source_kind: 'gutenberg' | 'other' | 'none'
   totaltime: string | null
+  /** LibriVox 챕터별 archive.org 스트리밍 — 없으면 null */
+  audio: AudioInfo | null
   fetched_at: string
 }
 
@@ -117,6 +152,7 @@ export async function GET(req: NextRequest) {
       text_source_url: textSourceUrl,
       text_source_kind: textSourceKind,
       totaltime: book.totaltime ?? null,
+      audio: buildAudio(book, id),
       fetched_at: new Date().toISOString(),
     }
 
@@ -165,11 +201,64 @@ async function fetchWithTimeout(url: string): Promise<Response> {
 }
 
 async function fetchMeta(id: string): Promise<LibriVoxBook | null> {
-  const url = `${LV_API}/?id=${encodeURIComponent(id)}&format=json`
+  // extended=1 → sections[] (챕터별 archive.org listen_url) + url_iarchive 포함
+  const url = `${LV_API}/?id=${encodeURIComponent(id)}&format=json&extended=1`
   const res = await fetchWithTimeout(url)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const j = (await res.json()) as { books?: LibriVoxBook[] }
   return j.books?.[0] ?? null
+}
+
+// LibriVox extended sections → 검증된 archive.org 스트리밍 목록.
+// 외부 데이터이므로 listen_url 은 archive.org 호스트만 통과 (XSS/SSRF 방어).
+function buildAudio(book: LibriVoxBook, id: string): AudioInfo | null {
+  const raw = Array.isArray(book.sections) ? book.sections : []
+  const sections: AudioSection[] = []
+  for (const s of raw) {
+    const url = typeof s.listen_url === 'string' ? s.listen_url.trim() : ''
+    if (!isArchiveOrgUrl(url)) continue
+    sections.push({
+      n: toInt(s.section_number) ?? sections.length + 1,
+      title: (typeof s.title === 'string' && s.title.trim()) || `Section ${sections.length + 1}`,
+      url,
+      secs: toInt(s.playtime),
+      reader: s.readers?.[0]?.display_name?.trim() || null,
+    })
+  }
+  if (sections.length === 0) return null
+  return {
+    archive_url: isHttpUrl(book.url_iarchive) ? book.url_iarchive!.trim() : null,
+    librivox_url: book.url_librivox?.trim() || `https://librivox.org/?p=${id}`,
+    total_secs: toInt(book.totaltimesecs),
+    section_count: sections.length,
+    sections,
+  }
+}
+
+function isArchiveOrgUrl(url: string): boolean {
+  if (!url) return false
+  try {
+    const u = new URL(url)
+    return u.protocol === 'https:' && /(^|\.)archive\.org$/i.test(u.hostname)
+  } catch {
+    return false
+  }
+}
+
+function isHttpUrl(url: string | null | undefined): boolean {
+  if (!url) return false
+  try {
+    const u = new URL(url.trim())
+    return u.protocol === 'https:' || u.protocol === 'http:'
+  } catch {
+    return false
+  }
+}
+
+function toInt(v: string | number | null | undefined): number | null {
+  if (v == null) return null
+  const n = typeof v === 'number' ? v : parseInt(String(v).trim(), 10)
+  return Number.isFinite(n) ? n : null
 }
 
 async function fetchTextPreview(url: string): Promise<string | null> {

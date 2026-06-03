@@ -5,14 +5,15 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Beaker, FlaskConical, FolderOpen, Newspaper, Radio, Rocket } from 'lucide-react'
+import { Beaker, Download, FlaskConical, FolderOpen, Newspaper, Radio, Rocket } from 'lucide-react'
 
 import type { ArticleAdminRow, ArticleStats } from '@/lib/articles/types'
 import { VoaFeedTab } from './VoaFeedTab'
 import { RssFeedTab } from './RssFeedTab'
 import { CuratedArticlesTab } from './CuratedArticlesTab'
+import { BulkArticlesTab } from './BulkArticlesTab'
 
-type TabKey = 'voa' | 'nasa' | 'nih' | 'arxiv' | 'mine'
+type TabKey = 'mine' | 'bulk' | 'voa' | 'nasa' | 'nih' | 'arxiv'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -27,9 +28,9 @@ const NASA_FEEDS = [
 ]
 
 const NIH_FEEDS = [
-  { id: 'news', label: 'NIH News Releases' },
-  { id: 'medlineplus', label: "MedlinePlus What's New" },
+  { id: 'medlineplus', label: "MedlinePlus What's New (안정)" },
   { id: 'directors-blog', label: "Director's Blog" },
+  { id: 'news', label: 'NIH News Releases (현재 차단 · URL 직접 입력)' },
 ]
 
 const ARXIV_FEEDS = [
@@ -43,7 +44,7 @@ const ARXIV_FEEDS = [
 
 export function AcpClient({ articles, stats }: Props) {
   const router = useRouter()
-  const [tab, setTab] = useState<TabKey>('voa')
+  const [tab, setTab] = useState<TabKey>('mine')
 
   const refetchAll = (): void => {
     router.refresh()
@@ -60,6 +61,8 @@ export function AcpClient({ articles, stats }: Props) {
       <TabList tab={tab} onChange={setTab} stats={stats} />
 
       <div role="tabpanel" id={`acp-panel-${tab}`} aria-labelledby={`acp-tab-${tab}`}>
+        {tab === 'mine' && <CuratedArticlesTab articles={articles} onChanged={refetchAll} />}
+        {tab === 'bulk' && <BulkArticlesTab onEnqueued={goToMine} />}
         {tab === 'voa' && <VoaFeedTab onEnqueued={goToMine} />}
         {tab === 'nasa' && (
           <RssFeedTab
@@ -100,7 +103,6 @@ export function AcpClient({ articles, stats }: Props) {
             onEnqueued={goToMine}
           />
         )}
-        {tab === 'mine' && <CuratedArticlesTab articles={articles} onChanged={refetchAll} />}
       </div>
     </div>
   )
@@ -149,11 +151,12 @@ function StatsBar({ stats }: { stats: ArticleStats }) {
 // ── Tab list ─────────────────────────────────────
 
 const TABS: Array<{ key: TabKey; label: string; Icon: typeof Newspaper }> = [
+  { key: 'mine', label: 'Curated', Icon: FolderOpen },
+  { key: 'bulk', label: 'LCP 대량', Icon: Download },
   { key: 'voa', label: 'VOA', Icon: Radio },
   { key: 'nasa', label: 'NASA', Icon: Rocket },
   { key: 'nih', label: 'NIH', Icon: FlaskConical },
   { key: 'arxiv', label: 'arXiv', Icon: Beaker },
-  { key: 'mine', label: 'Curated', Icon: FolderOpen },
 ]
 
 function TabList({

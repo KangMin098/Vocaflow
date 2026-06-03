@@ -12,6 +12,10 @@ export interface CreateRunInput {
   target_cefr_range: Cefr[]
   description: string | null
   cover_emoji: string | null
+  // Wizard v2 — preset/filters/limits (선택 — 미지정 시 기존 단순 모드)
+  preset_id?: string | null
+  filters?: Record<string, unknown>
+  limits?: Record<string, unknown>
 }
 
 export interface CreateRunContext {
@@ -94,6 +98,9 @@ export async function createRun(
     target_cefr_range: input.target_cefr_range,
     description: input.description ?? undefined,
     cover_emoji: input.cover_emoji ?? undefined,
+    preset_id: input.preset_id ?? null,
+    filters: input.filters,
+    limits: input.limits,
   }
 
   const { data, error } = await client

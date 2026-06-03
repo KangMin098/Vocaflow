@@ -6,6 +6,10 @@
 import { useState, useTransition } from 'react'
 import { AlertCircle, BookOpen, Clock, ExternalLink, Headphones, Loader2, Search } from 'lucide-react'
 
+import { LibriVoxAudioPlayer, type LibriVoxAudio } from './LibriVoxAudioPlayer'
+
+export type { LibriVoxAudio, LibriVoxAudioSection } from './LibriVoxAudioPlayer'
+
 export interface LibriVoxPreview {
   source: 'librivox'
   source_id: string
@@ -20,6 +24,8 @@ export interface LibriVoxPreview {
   text_source_url: string | null
   text_source_kind: 'gutenberg' | 'other' | 'none'
   totaltime: string | null
+  /** 챕터별 archive.org 스트리밍 — 본문 검수 시 낭독 청취용 (없으면 null) */
+  audio: LibriVoxAudio | null
   fetched_at: string
 }
 
@@ -102,7 +108,7 @@ export function LibriVoxIdTab({ onPickPreview }: LibriVoxIdTabProps) {
             value={idInput}
             onChange={(e) => setIdInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="예: 1 (Pride and Prejudice) 또는 13"
+            placeholder="예: 253 (Pride and Prejudice) · 47 (몬테크리스토 백작)"
             className={[
               'min-h-[40px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
               'border border-[var(--bd)] bg-[var(--bg)]',
@@ -153,8 +159,9 @@ export function LibriVoxIdTab({ onPickPreview }: LibriVoxIdTabProps) {
         <p className="font-body text-[11px] text-[var(--t3)]">
           LibriVox 페이지 URL 의 <code>?p=</code> 뒤 숫자입니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
-            https://librivox.org/?p=<strong>1</strong>
-          </code>
+            https://librivox.org/?p=<strong>253</strong>
+          </code>{' '}
+          (작은 숫자 1·13 등은 존재하지 않는 id 입니다)
         </p>
 
         <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
@@ -252,6 +259,8 @@ function PreviewCard({
           {preview.preview_text}
         </p>
       </div>
+
+      {preview.audio && <LibriVoxAudioPlayer audio={preview.audio} />}
 
       <footer className="border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
         <div className="flex items-center justify-between gap-3">

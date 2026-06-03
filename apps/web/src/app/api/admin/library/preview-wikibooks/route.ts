@@ -41,6 +41,7 @@ export async function GET(req: NextRequest) {
   const adminOrError = await requireAdminApi()
   if (adminOrError instanceof NextResponse) return adminOrError
 
+  // title 또는 pageid 둘 다 허용 (legacy seed_catalog 호환)
   const raw = req.nextUrl.searchParams.get('title')
   if (!raw) {
     return NextResponse.json(
@@ -48,12 +49,30 @@ export async function GET(req: NextRequest) {
       { status: 400 },
     )
   }
-  const title = raw.trim().replace(/\s+/g, '_')
-  if (!/^[A-Za-z0-9_/().,:'\-]+$/.test(title) || title.length > 200) {
-    return NextResponse.json(
-      { error: 'BadRequest', message: '허용되지 않는 문자가 포함되어 있습니다.' },
-      { status: 400 },
-    )
+
+  // pageid (숫자만) 입력 시 title 로 자동 변환 (구버전 seed_catalog row)
+  const trimmed = raw.trim()
+  let title: string
+  if (/^\d+$/.test(trimmed)) {
+    const resolved = await resolveTitleFromPageId(trimmed)
+    if (!resolved) {
+      return NextResponse.json(
+        {
+          error: 'NotFound',
+          message: `Wikibooks page id ${trimmed} 가 존재하지 않습니다.`,
+        },
+        { status: 404 },
+      )
+    }
+    title = resolved.replace(/\s+/g, '_')
+  } else {
+    title = trimmed.replace(/\s+/g, '_')
+    if (!/^[A-Za-z0-9_/().,:'\-]+$/.test(title) || title.length > 200) {
+      return NextResponse.json(
+        { error: 'BadRequest', message: '허용되지 않는 문자가 포함되어 있습니다.' },
+        { status: 400 },
+      )
+    }
   }
 
   try {
@@ -126,6 +145,26 @@ async function fetchWithTimeout(url: string): Promise<Response> {
     })
   } finally {
     clearTimeout(t)
+  }
+}
+
+/**
+ * pageid (숫자) → title 변환 — 구버전 seed_catalog row 호환.
+ * v06.34 — wikibooks fetcher 가 source_id 에 pageid 저장하던 시점의 데이터 지원.
+ */
+async function resolveTitleFromPageId(pageid: string): Promise<string | null> {
+  const url = `${WB_API}?action=query&format=json&prop=info&pageids=${pageid}&origin=*`
+  try {
+    const res = await fetchWithTimeout(url)
+    if (!res.ok) return null
+    const j = (await res.json()) as {
+      query?: { pages?: Record<string, { title?: string; missing?: '' }> }
+    }
+    const first = Object.values(j.query?.pages ?? {})[0]
+    if (!first || first.missing !== undefined || !first.title) return null
+    return first.title
+  } catch {
+    return null
   }
 }
 
