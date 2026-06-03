@@ -6,6 +6,9 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 import { listChapters } from '@/lib/library/reader-queries';
 import { isBookEnrolled } from '@/lib/library/resume-queries';
+import { fetchBookChapterSets } from '@/lib/library/books/queries';
+import { fetchUserSubscriptions } from '@/lib/library/vocab/queries';
+import type { ChapterSet } from '@/components/library/books/BookDetailClient';
 import { UserPreviewClient } from './UserPreviewClient';
 
 interface PageProps {
@@ -59,7 +62,17 @@ export default async function LibraryBookPreviewPage({ params }: PageProps) {
     vrl_components: Record<string, unknown> | null;
   };
 
-  const chapters = await listChapters(client, b.id);
+  const [chapters, chapterSets, subscribedSet] = await Promise.all([
+    listChapters(client, b.id),
+    fetchBookChapterSets(
+      client as unknown as Parameters<typeof fetchBookChapterSets>[0],
+      b.id,
+    ) as Promise<ChapterSet[]>,
+    fetchUserSubscriptions(
+      client as unknown as Parameters<typeof fetchUserSubscriptions>[0],
+      user?.id ?? null,
+    ),
+  ]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -83,6 +96,9 @@ export default async function LibraryBookPreviewPage({ params }: PageProps) {
         totalWordCount={b.word_count ?? 0}
         readingMinutes={b.reading_minutes ?? 0}
         chapters={chapters}
+        chapterSets={chapterSets}
+        subscribedIds={Array.from(subscribedSet)}
+        isLoggedIn={!!user}
       />
     </div>
   );

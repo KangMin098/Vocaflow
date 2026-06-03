@@ -33,9 +33,17 @@ function relativeTimeKo(date: Date | null): string {
 export function TextCard({ text }: TextCardProps) {
   const lastStudied = relativeTimeKo(text.lastStudiedAt)
 
+  // v06.32 — 도서 단위 카드는 /my/books/[bookId] redirect 우회, nextTextId 로 직진.
+  // fallback: nextTextId 없으면 (이론적으로 unreachable) 기존 redirect 경로.
+  const href = text.bookId
+    ? text.nextTextId
+      ? `/text/${text.nextTextId}?mode=read`
+      : `/my/books/${text.bookId}`
+    : `/text/${text.id}`
+
   return (
     <Link
-      href={`/text/${text.id}`}
+      href={href}
       aria-label={`${text.title} 학습 (${text.progressPercent}%)`}
       className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-1 hover:border-[var(--p)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
     >

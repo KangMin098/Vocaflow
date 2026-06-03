@@ -47,7 +47,7 @@ export default async function LibraryVocabPage() {
         eyebrow="라이브러리 · 단어장"
         title="📚 공용 단어장"
         note={note}
-        gradient={{ from: '#8B5CF6', to: '#6D28D9' }}
+        gradient={{ from: '#1F2937', to: '#0F172A' }}
         icon={Layers}
       />
       <VocabSetGrid

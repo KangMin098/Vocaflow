@@ -1,18 +1,19 @@
 // apps/web/src/components/library/vocab/categories.ts
 //
-// 공용 단어장 8 카테고리 + '전체' — 사이드바 직접 노출 X (Calm UI 정합).
-// 페이지 내부 가로 스크롤 칩으로만 노출.
+// 공용 단어장 9 카테고리 + '전체' — 유아~테마 학습자 단계 정렬.
+// 매트릭스 그리드(CategoryMatrix)로 노출 (Calm UI 정합 — 보라 액센트 제거).
 
 export const VOCAB_CATEGORIES = [
-  { id: 'all', label: '전체', emoji: '✨' },
-  { id: 'elementary', label: '초등', emoji: '🌱' },
-  { id: 'middle', label: '중등', emoji: '📘' },
-  { id: 'high', label: '고등', emoji: '📚' },
-  { id: 'csat', label: '수능·내신', emoji: '🎯' },
-  { id: 'eng_test', label: '공인영어', emoji: '🌍' },
-  { id: 'civil', label: '공무원', emoji: '🏛️' },
-  { id: 'business', label: '비즈니스', emoji: '💼' },
-  { id: 'themed', label: '테마별', emoji: '🎨' },
+  { id: 'all', label: '전체', emoji: '✨', hint: '모든 단어장' },
+  { id: 'preschool', label: '유아', emoji: '🧸', hint: '5~7세 기초' },
+  { id: 'elementary', label: '초등', emoji: '🌱', hint: '1~6학년' },
+  { id: 'middle', label: '중등', emoji: '📘', hint: '중1~3' },
+  { id: 'high', label: '고등', emoji: '📚', hint: '고1~3' },
+  { id: 'csat', label: '수능·내신', emoji: '🎯', hint: '입시 필수' },
+  { id: 'eng_test', label: '공인영어', emoji: '🌍', hint: 'TOEIC·TOEFL·IELTS' },
+  { id: 'civil', label: '공무원', emoji: '🏛️', hint: '7·9급' },
+  { id: 'business', label: '비즈니스', emoji: '💼', hint: '실무 영어' },
+  { id: 'themed', label: '테마별', emoji: '🎨', hint: '관심사 큐레이션' },
 ] as const
 
 export type VocabCategoryId = (typeof VOCAB_CATEGORIES)[number]['id']

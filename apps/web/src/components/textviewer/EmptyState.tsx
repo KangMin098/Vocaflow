@@ -38,7 +38,7 @@ export function EmptyState() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/text/new"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#6D28D9] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.99]"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[#6366F1] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.02] hover:shadow-[var(--sh-sm)] active:scale-[0.99]"
           >
             <FileText size={16} aria-hidden="true" />
             <span>직접 입력하기</span>

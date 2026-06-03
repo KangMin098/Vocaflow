@@ -29,10 +29,10 @@ export function CategoryFilter({ active, onChange }: CategoryFilterProps) {
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(cat.id)}
-            className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+            className={`inline-flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-[var(--r-full)] border px-3.5 py-1.5 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/20 focus-visible:ring-offset-1 ${
               isActive
-                ? 'bg-[#8B5CF6] text-white'
-                : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
+                ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
+                : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:text-[var(--t1)]'
             }`}
           >
             <span aria-hidden="true">{cat.emoji}</span>

@@ -18,6 +18,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { ChapterContentView } from './ChapterContent'
 import { ChapterSidebar } from './ChapterSidebar'
+import { WordLookupPopover } from './WordLookupPopover'
+import { ChapterLevelWords } from './ChapterLevelWords'
 
 export type ReaderMode = 'admin-review' | 'user-preview'
 
@@ -49,9 +51,19 @@ export function BookContentReader({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // 본문 단어 클릭 조회 팝오버 (자체 dict+lemma)
+  const [lookup, setLookup] = useState<{ word: string; rect: DOMRect } | null>(null)
+
+  // chapter 전환 시 팝오버 닫기 (stale rect 방지)
+  useEffect(() => {
+    setLookup(null)
+  }, [activeIdx])
+
   // admin-review 토글
   const [showParagraphMarkers, setShowParagraphMarkers] = useState(false)
   const [showSampleWords, setShowSampleWords] = useState(false)
+  // 내 레벨 맞춤 단어(Krashen i+1) 패널 토글 — 양 모드 공통
+  const [showLevelWords, setShowLevelWords] = useState(false)
 
   const isLockedChapter = mode === 'user-preview' && activeIdx > 1
 
@@ -117,6 +129,7 @@ export function BookContentReader({
   const activeSamples = sampleCache[activeIdx] ?? []
 
   return (
+    <>
     <article
       className="flex h-[calc(100vh-180px)] flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]"
       aria-label={`${bookTitle} 본문 reader`}
@@ -146,23 +159,31 @@ export function BookContentReader({
           </p>
         </div>
 
-        {/* admin-review 토글 */}
-        {mode === 'admin-review' && (
-          <div className="flex items-center gap-1.5">
-            <ToggleButton
-              active={showParagraphMarkers}
-              onToggle={() => setShowParagraphMarkers((v) => !v)}
-              label="¶ 문단"
-              ariaLabel="문단 마커 표시 토글"
-            />
-            <ToggleButton
-              active={showSampleWords}
-              onToggle={() => setShowSampleWords((v) => !v)}
-              label="✦ 어휘"
-              ariaLabel="LV 상위 어휘 하이라이트 토글"
-            />
-          </div>
-        )}
+        {/* 토글 — 내 레벨(양 모드) + admin 검수 토글 */}
+        <div className="flex items-center gap-1.5">
+          <ToggleButton
+            active={showLevelWords}
+            onToggle={() => setShowLevelWords((v) => !v)}
+            label="🎯 내 레벨"
+            ariaLabel="내 레벨 맞춤 단어(Krashen i+1) 추출 토글"
+          />
+          {mode === 'admin-review' && (
+            <>
+              <ToggleButton
+                active={showParagraphMarkers}
+                onToggle={() => setShowParagraphMarkers((v) => !v)}
+                label="¶ 문단"
+                ariaLabel="문단 마커 표시 토글"
+              />
+              <ToggleButton
+                active={showSampleWords}
+                onToggle={() => setShowSampleWords((v) => !v)}
+                label="✦ 어휘"
+                ariaLabel="LV 상위 어휘 하이라이트 토글"
+              />
+            </>
+          )}
+        </div>
       </header>
 
       {/* Body — sidebar + content */}
@@ -213,11 +234,17 @@ export function BookContentReader({
             ) : error ? (
               <ContentError message={error} />
             ) : activeContent ? (
-              <ChapterContentView
-                content={activeContent}
-                showParagraphMarkers={showParagraphMarkers}
-                sampleWords={showSampleWords ? activeSamples : []}
-              />
+              <>
+                <ChapterContentView
+                  content={activeContent}
+                  showParagraphMarkers={showParagraphMarkers}
+                  sampleWords={showSampleWords ? activeSamples : []}
+                  onWordClick={(word, rect) => setLookup({ word, rect })}
+                />
+                {showLevelWords && (
+                  <ChapterLevelWords libraryBookId={libraryBookId} chapterIdx={activeIdx} />
+                )}
+              </>
             ) : (
               <div className="flex h-full items-center justify-center font-body text-[12px] text-[var(--t3)]">
                 본문 없음
@@ -234,6 +261,15 @@ export function BookContentReader({
         </footer>
       )}
     </article>
+
+    {lookup && (
+      <WordLookupPopover
+        surface={lookup.word}
+        anchorRect={lookup.rect}
+        onClose={() => setLookup(null)}
+      />
+    )}
+    </>
   )
 }
 

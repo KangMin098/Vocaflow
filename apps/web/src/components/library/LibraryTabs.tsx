@@ -1,18 +1,18 @@
 // apps/web/src/components/library/LibraryTabs.tsx
 //
-// /library 하위 3탭 네비게이션 — 스크립트 / 도서 / 단어장.
-// usePathname 기반 활성 표현, 보라(#8B5CF6 — Sidebar "스크립트" accent) 일관.
+// /library 하위 2탭 네비게이션 — 도서 / 공용 단어장.
+// v06.31 — 스크립트 탭 제거 (/library/scripts 폐기, /library/books 로 통합).
+// usePathname 기반 활성 표현, 보라(#8B5CF6) 일관.
 
 'use client'
 
-import { BookOpen, Compass, Layers } from 'lucide-react'
+import { BookOpen, Layers } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const TABS = [
-  { label: '스크립트', href: '/library/scripts', icon: Compass },
   { label: '도서', href: '/library/books', icon: BookOpen },
-  { label: '단어장', href: '/library/vocab', icon: Layers },
+  { label: '공용 단어장', href: '/library/vocab', icon: Layers },
 ] as const
 
 export function LibraryTabs() {

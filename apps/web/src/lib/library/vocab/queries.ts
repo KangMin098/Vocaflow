@@ -92,6 +92,9 @@ export async function fetchPublishedSets(
       'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, category_id, additional_category_ids',
     )
     .eq('is_published', true)
+    // 도서 챕터 단어장(category='library_book')은 공용 단어장 영역에 노출 X.
+    // 도서 컨텍스트(/library/scripts/{book_id} · /admin/curation/{book_id})에서만 노출.
+    .neq('category', 'library_book')
     .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
 
@@ -102,6 +105,7 @@ export async function fetchPublishedSets(
       .from('shared_word_sets')
       .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at')
       .eq('is_published', true)
+      .neq('category', 'library_book')
       .order('sort_order', { ascending: true })
       .order('created_at', { ascending: false })
     if (fallback.error) throw fallback.error

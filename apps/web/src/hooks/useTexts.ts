@@ -27,7 +27,8 @@ const CATEGORY_MAP: Record<string, string> = {
 }
 
 function mapDbToLibraryText(row: TextsRow): LibraryText {
-  const wordCount = row.content.split(/\s+/).filter(Boolean).length
+  const content = row.content ?? ''
+  const wordCount = content.split(/\s+/).filter(Boolean).length
   const totalPages = Math.max(1, Math.ceil(wordCount / 250))
   const progress = Number(row.progress_percent ?? 0)
   const currentPage = Math.floor((totalPages * progress) / 100)
@@ -39,7 +40,7 @@ function mapDbToLibraryText(row: TextsRow): LibraryText {
     cefrLevel: (row.cefr_level || 'B1') as CEFRLevel,
     category: CATEGORY_MAP[row.source ?? 'direct-script'] ?? '직접 입력',
     preview:
-      row.content.slice(0, 100).trim() + (row.content.length > 100 ? '…' : ''),
+      content.slice(0, 100).trim() + (content.length > 100 ? '…' : ''),
     wordCount,
     progressPercent: progress,
     totalPages,
@@ -51,6 +52,112 @@ function mapDbToLibraryText(row: TextsRow): LibraryText {
     addedAt: new Date(row.created_at || Date.now()),
     lastStudiedAt: row.last_opened ? new Date(row.last_opened) : null,
     isBookmarked: row.is_bookmarked ?? false,
+    bookId: null,
+  }
+}
+
+/**
+ * library_book_id 가 있는 chapter rows 를 도서 단위로 집계 → 1 LibraryText.
+ *   - title/author/cefr_band/book_v_level/chapter_count = library_books 메타 우선
+ *   - progressPercent = round(completed_chapters / chapter_count × 100)
+ *   - preview = "총 N장 · 진행 M장 · 완료 K장"
+ *   - lastStudiedAt = max(last_opened)
+ *   - id = library_book_id (카드 클릭 → /my/books/[bookId])
+ */
+interface LibraryBookMeta {
+  id: string
+  title: string | null
+  author: string | null
+  cefr_level: string | null
+  cefr_band: string | null
+  book_v_level: number | null
+  chapter_count: number | null
+  cover_from: string | null
+  cover_to: string | null
+}
+
+type JoinedRow = TextsRow & { library_books: LibraryBookMeta | null }
+
+/**
+ * v06.32 — getResumeTarget 로직 client-side 동일 적용 (서버 redirect 우회).
+ * 우선순위: in_progress > not_started > 첫 chapter.
+ */
+function pickResumeTextId(sortedChapters: JoinedRow[]): string | null {
+  const inProg = sortedChapters.find((r) => r.status === 'in_progress')
+  if (inProg) return inProg.id
+  const notStarted = sortedChapters.find(
+    (r) => !r.status || r.status === 'not_started',
+  )
+  if (notStarted) return notStarted.id
+  return sortedChapters[0]?.id ?? null
+}
+
+function aggregateBookChapters(
+  bookId: string,
+  rows: JoinedRow[],
+): LibraryText {
+  const sorted = [...rows].sort(
+    (a, b) => (a.chapter_idx ?? 0) - (b.chapter_idx ?? 0),
+  )
+  const first = sorted[0]!
+  const meta = first.library_books
+
+  const title = meta?.title ?? first.title ?? '제목 없음'
+  const author = meta?.author ?? first.author ?? '저자 미상'
+  const cefrLevel = (meta?.cefr_band ??
+    meta?.cefr_level ??
+    first.cefr_level ??
+    'B1') as CEFRLevel
+
+  const totalChapters = meta?.chapter_count ?? sorted.length
+  const completed = sorted.filter(
+    (r) => Number(r.progress_percent ?? 0) >= 100,
+  ).length
+  const inProgress = sorted.filter((r) => {
+    const p = Number(r.progress_percent ?? 0)
+    return p > 0 && p < 100
+  }).length
+
+  const progressPercent =
+    totalChapters > 0 ? Math.round((completed / totalChapters) * 100) : 0
+
+  const wordCount = sorted.reduce((acc, r) => {
+    const c = r.content ?? ''
+    return acc + c.split(/\s+/).filter(Boolean).length
+  }, 0)
+
+  let lastStudiedAt: Date | null = null
+  for (const r of sorted) {
+    const t = r.last_opened ? new Date(r.last_opened) : null
+    if (t && (!lastStudiedAt || t > lastStudiedAt)) lastStudiedAt = t
+  }
+
+  const previewParts: string[] = [`총 ${totalChapters}장`]
+  if (inProgress > 0) previewParts.push(`진행 ${inProgress}장`)
+  if (completed > 0) previewParts.push(`완료 ${completed}장`)
+
+  return {
+    id: bookId,
+    title,
+    author,
+    cefrLevel,
+    category: '라이브러리',
+    preview: previewParts.join(' · '),
+    wordCount,
+    progressPercent,
+    totalPages: totalChapters,
+    currentPage: completed,
+    coverGradient: {
+      from: meta?.cover_from ?? first.cover_from ?? '#A78BFA',
+      to: meta?.cover_to ?? first.cover_to ?? '#6D28D9',
+    },
+    addedAt: new Date(first.created_at || Date.now()),
+    lastStudiedAt,
+    isBookmarked: sorted.some((r) => r.is_bookmarked === true),
+    bookId,
+    nextTextId: pickResumeTextId(sorted),
+    chapterCount: totalChapters,
+    completedChapters: completed,
   }
 }
 
@@ -94,7 +201,9 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('texts')
-    .select('*')
+    .select(
+      '*, library_books (id, title, author, cefr_level, cefr_band, book_v_level, chapter_count, cover_from, cover_to)',
+    )
     .eq('user_id', userId)
     .order('last_opened', { ascending: false, nullsFirst: false })
 
@@ -104,7 +213,36 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
     return []
   }
 
-  return (data ?? []).map(mapDbToLibraryText)
+  const rows = (data ?? []) as unknown as JoinedRow[]
+
+  // library_book_id 가 있는 row 는 도서 단위로 집계, 없으면 직접 입력/파일 등 individual card.
+  const bookGroups = new Map<string, JoinedRow[]>()
+  const standalone: JoinedRow[] = []
+  for (const r of rows) {
+    const bid = r.library_book_id
+    if (bid) {
+      const arr = bookGroups.get(bid) ?? []
+      arr.push(r)
+      bookGroups.set(bid, arr)
+    } else {
+      standalone.push(r)
+    }
+  }
+
+  const out: LibraryText[] = []
+  for (const [bookId, chapters] of bookGroups) {
+    out.push(aggregateBookChapters(bookId, chapters))
+  }
+  for (const r of standalone) {
+    out.push(mapDbToLibraryText(r))
+  }
+  // lastStudiedAt DESC, null 마지막
+  out.sort((a, b) => {
+    const at = a.lastStudiedAt?.getTime() ?? 0
+    const bt = b.lastStudiedAt?.getTime() ?? 0
+    return bt - at
+  })
+  return out
 }
 
 export interface UseTextsResult {

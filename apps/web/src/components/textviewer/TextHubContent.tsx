@@ -12,10 +12,12 @@ import { ContinueRow } from '@/components/hub/ContinueRow'
 import { ModuleHero } from '@/components/hub/ModuleHero'
 import { DiscoveryFooter } from '@/components/textviewer/DiscoveryFooter'
 import { EmptyState } from '@/components/textviewer/EmptyState'
-import { MyTextsGrid } from '@/components/textviewer/MyTextsGrid'
+import { MyLibraryCarousel } from '@/components/textviewer/MyLibraryCarousel'
+import { useSubscribedSets } from '@/hooks/useSubscribedSets'
 import { useTexts } from '@/hooks/useTexts'
 
-const TEXT_ACCENT = '#8B5CF6'
+// v06.34 — 보라 saturate 폐기. 슬레이트 인디고 계열로 — Lora 영문 자료 정합 + Calm UI
+const TEXT_ACCENT = '#6366F1'
 
 function TextHubLoadingSkeleton() {
   return (
@@ -41,18 +43,23 @@ function TextHubLoadingSkeleton() {
 
 export function TextHubContent() {
   const { texts, isLoading, stats, continueText } = useTexts()
+  const { sets: subscribedSets } = useSubscribedSets()
 
   if (isLoading) {
     return <TextHubLoadingSkeleton />
   }
 
-  if (stats.total === 0) {
+  if (stats.total === 0 && subscribedSets.length === 0) {
     return (
       <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
         <EmptyState />
       </div>
     )
   }
+
+  // 도서 / 스크립트 분리
+  const books = texts.filter((t) => t.bookId)
+  const scripts = texts.filter((t) => !t.bookId)
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
@@ -66,12 +73,12 @@ export function TextHubContent() {
               ? `정복 ${stats.conquered}권 · 새 스크립트을 시작해 보세요`
               : `${stats.total}권의 스크립트을 모았어요`
         }
-        gradient={{ from: '#A78BFA', to: '#6D28D9' }}
+        gradient={{ from: '#A5B4FC', to: '#6366F1' }}
         icon={BookOpen}
         stats={[
-          { label: '진행 중', value: stats.inProgress, unit: '권', emphasis: true },
-          { label: '정복', value: stats.conquered, unit: '권' },
-          { label: '내 스크립트', value: stats.total, unit: '권' },
+          { label: '도서', value: books.length, unit: '권', emphasis: true },
+          { label: '스크립트', value: scripts.length, unit: '개' },
+          { label: '단어장', value: subscribedSets.length, unit: '개' },
         ]}
       />
 
@@ -80,7 +87,7 @@ export function TextHubContent() {
         className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
       >
         <span
-          className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#6D28D9] text-white shadow-[var(--sh-xs)]"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[#6366F1] text-white shadow-[var(--sh-xs)]"
           aria-hidden="true"
         >
           <FileText size={18} strokeWidth={2} />
@@ -114,7 +121,11 @@ export function TextHubContent() {
         />
       )}
 
-      <MyTextsGrid texts={texts} />
+      <MyLibraryCarousel
+        books={books}
+        scripts={scripts}
+        vocabSets={subscribedSets}
+      />
 
       <DiscoveryFooter />
     </div>

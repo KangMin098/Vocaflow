@@ -2,21 +2,35 @@
 // LCP v2.0 Phase 12.5 — Reader 본문 패널
 // paragraph 단위 렌더링 + 옵션 마커 + 옵션 sample words 하이라이트
 
+import { type MouseEvent, type ReactNode } from 'react'
 import type { ChapterContent, SampleWord } from '@/lib/library/reader-queries'
 
 interface ChapterContentViewProps {
   content: ChapterContent
   showParagraphMarkers: boolean
   sampleWords: SampleWord[]
+  /** 단어 클릭 시 호출 (word, 클릭한 단어의 viewport rect). 미지정 시 단어 비클릭. */
+  onWordClick?: (word: string, rect: DOMRect) => void
 }
 
 export function ChapterContentView({
   content,
   showParagraphMarkers,
   sampleWords,
+  onWordClick,
 }: ChapterContentViewProps) {
   const paragraphs = splitByOffsets(content.content, content.paragraph_offsets)
   const sampleSet = new Set(sampleWords.map((w) => w.word.toLowerCase()))
+  const clickable = !!onWordClick
+
+  // 이벤트 위임 — 수천 단어에 핸들러 N개 대신 컨테이너 1개.
+  const handleClick = (e: MouseEvent<HTMLDivElement>): void => {
+    if (!onWordClick) return
+    const el = (e.target as HTMLElement).closest('[data-word]') as HTMLElement | null
+    if (!el) return
+    const word = el.getAttribute('data-word')
+    if (word) onWordClick(word, el.getBoundingClientRect())
+  }
 
   return (
     <article
@@ -38,7 +52,11 @@ export function ChapterContentView({
         </span>
       </header>
 
-      <div className="flex flex-col gap-4 font-serif text-[16px] leading-[1.75] text-[var(--t1)]">
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+      <div
+        className="flex flex-col gap-4 font-serif text-[16px] leading-[1.75] text-[var(--t1)]"
+        onClick={clickable ? handleClick : undefined}
+      >
         {paragraphs.map((para, i) => (
           <Paragraph
             key={i}
@@ -46,6 +64,7 @@ export function ChapterContentView({
             index={i + 1}
             showMarker={showParagraphMarkers}
             sampleSet={sampleSet}
+            clickable={clickable}
           />
         ))}
       </div>
@@ -64,16 +83,14 @@ function Paragraph({
   index,
   showMarker,
   sampleSet,
+  clickable,
 }: {
   text: string
   index: number
   showMarker: boolean
   sampleSet: Set<string>
+  clickable: boolean
 }) {
-  // sample 단어가 있으면 하이라이트
-  const segments =
-    sampleSet.size > 0 ? highlightWords(text, sampleSet) : [{ text, highlight: false }]
-
   return (
     <div className="flex gap-3">
       {showMarker && (
@@ -84,20 +101,7 @@ function Paragraph({
           {index}
         </span>
       )}
-      <p className="flex-1 whitespace-pre-wrap">
-        {segments.map((seg, i) =>
-          seg.highlight ? (
-            <mark
-              key={i}
-              className="rounded-[2px] bg-[var(--cefr-C1-bg)] px-0.5 text-[var(--cefr-C1-text)]"
-            >
-              {seg.text}
-            </mark>
-          ) : (
-            <span key={i}>{seg.text}</span>
-          )
-        )}
-      </p>
+      <p className="flex-1 whitespace-pre-wrap">{renderTokens(text, sampleSet, clickable)}</p>
     </div>
   )
 }
@@ -157,20 +161,49 @@ function splitByOffsets(content: string, offsets: number[]): string[] {
   return result
 }
 
-function highlightWords(
+/**
+ * 본문을 단어/비단어 토큰으로 쪼개 렌더.
+ * - 단어: clickable 이면 data-word + hover 인터랙션 (위임 핸들러가 클릭 처리).
+ * - sample 단어: cefr 하이라이트.
+ * - 비단어(공백·구두점)·비인터랙티브 일반어: 문자열 그대로 (span 남발 회피).
+ */
+function renderTokens(
   text: string,
-  wordSet: Set<string>
-): Array<{ text: string; highlight: boolean }> {
-  const segments: Array<{ text: string; highlight: boolean }> = []
-  const regex = /([A-Za-z]+|[^A-Za-z]+)/g
+  sampleSet: Set<string>,
+  clickable: boolean
+): ReactNode[] {
+  const nodes: ReactNode[] = []
+  const regex = /([A-Za-z][A-Za-z'’\-]*)|([^A-Za-z]+)/g
   let match: RegExpExecArray | null
+  let key = 0
   while ((match = regex.exec(text)) !== null) {
-    const part = match[1]
-    if (/^[A-Za-z]+$/.test(part) && wordSet.has(part.toLowerCase())) {
-      segments.push({ text: part, highlight: true })
+    const word = match[1]
+    if (word) {
+      const isSample = sampleSet.has(word.toLowerCase())
+      if (!clickable && !isSample) {
+        nodes.push(word)
+        key++
+        continue
+      }
+      const highlightCls = isSample
+        ? 'rounded-[2px] bg-[var(--cefr-C1-bg)] px-0.5 text-[var(--cefr-C1-text)]'
+        : ''
+      const interactiveCls = clickable
+        ? 'cursor-pointer rounded-[2px] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--p-light)] hover:text-[var(--p-dark)]'
+        : ''
+      nodes.push(
+        <span
+          key={key++}
+          data-word={clickable ? word : undefined}
+          className={[highlightCls, interactiveCls].filter(Boolean).join(' ') || undefined}
+        >
+          {word}
+        </span>
+      )
     } else {
-      segments.push({ text: part, highlight: false })
+      nodes.push(match[2])
+      key++
     }
   }
-  return segments
+  return nodes
 }
