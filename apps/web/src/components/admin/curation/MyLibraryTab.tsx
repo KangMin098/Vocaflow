@@ -3,17 +3,27 @@
 
 'use client';
 
-import { useMemo, useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
+import { ChevronRight, Loader2, Search, Trash2, X } from 'lucide-react';
 import {
   classifyStatus,
-  parseLlmCost,
   type BookStatus,
   type LibraryBookAdminRow,
 } from '@/lib/library/admin-queries';
+import { deleteFailedBookAction } from '@/app/admin/curation/actions';
 import { BookDetailModal } from './BookDetailModal';
 
+// v06.34 — 실패 상태(삭제 가능 status set)
+const DELETABLE_FAILED_STATUSES: BookStatus[] = [
+  'failed',
+  'fetch_failed',
+  'preview_failed',
+  'ingest_failed',
+  'enrich_failed',
+] as BookStatus[];
+
 type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived';
+type SourceFilter = 'all' | string;
 type ToneKey = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
 interface MyLibraryTabProps {
@@ -34,17 +44,59 @@ const IN_PROGRESS_STATUSES: BookStatus[] = [
   'queued', 'ingesting', 'normalizing', 'segmenting', 'analyzing', 'curating',
 ];
 
+/** Source tier label — CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" §Source-Aware Confidence */
+const SOURCE_TIER: Record<string, 'S' | 'A' | 'B' | 'C' | 'M'> = {
+  standard_ebooks: 'S', openstax: 'S', voa_learning: 'S',
+  wikibooks: 'A', wikisource: 'A',
+  gutenberg: 'B', librivox: 'B',
+  open_library: 'C', hathitrust: 'C',
+  manual: 'M',
+};
+
 export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   const [filter, setFilter] = useState<StatusFilter>('all');
+  const [sourceFilter, setSourceFilter] = useState<SourceFilter>('all');
+  const [titleSearch, setTitleSearch] = useState('');
   const [selectedBook, setSelectedBook] = useState<LibraryBookAdminRow | null>(null);
 
+  // books prop 가 부모(router.refresh) 로 새로 들어오면 selectedBook 을 같은 id 의
+  // fresh row 로 교체. dev-process 후 status/extracted_count/word_set_count 등이
+  // 모달 안에서도 즉시 갱신되도록 (없으면 닫기 후 stale 상태 그대로 표시).
+  useEffect(() => {
+    if (!selectedBook) return;
+    const fresh = books.find((b) => b.id === selectedBook.id);
+    if (fresh && fresh !== selectedBook) setSelectedBook(fresh);
+  }, [books, selectedBook]);
+
+  /** 실제 데이터에 등장한 source 목록 (count 포함) */
+  const sourceOptions = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const b of books) counts.set(b.source, (counts.get(b.source) ?? 0) + 1);
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([source, count]) => ({ source, count }));
+  }, [books]);
+
   const visible = useMemo(() => {
-    if (filter === 'all') return books;
-    if (filter === 'in_progress') {
-      return books.filter((b) => IN_PROGRESS_STATUSES.includes(b.status));
+    let list = books;
+    if (sourceFilter !== 'all') {
+      list = list.filter((b) => b.source === sourceFilter);
     }
-    return books.filter((b) => b.status === (filter as BookStatus));
-  }, [books, filter]);
+    // v06.34 — 제목·저자 검색 필터 (대소문자 무시)
+    const q = titleSearch.trim().toLowerCase();
+    if (q) {
+      list = list.filter(
+        (b) =>
+          b.title.toLowerCase().includes(q) ||
+          (b.author?.toLowerCase().includes(q) ?? false),
+      );
+    }
+    if (filter === 'all') return list;
+    if (filter === 'in_progress') {
+      return list.filter((b) => IN_PROGRESS_STATUSES.includes(b.status));
+    }
+    return list.filter((b) => b.status === (filter as BookStatus));
+  }, [books, filter, sourceFilter, titleSearch]);
 
   return (
     <section className="flex flex-col gap-4" aria-label="Curated Books">
@@ -60,61 +112,119 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           </span>
         </div>
 
-        <div
-          role="radiogroup"
-          aria-label="상태 필터"
-          className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
-        >
-          {FILTER_OPTIONS.map((opt) => {
-            const active = opt.value === filter;
-            const count =
-              opt.value === 'all'
-                ? books.length
-                : opt.value === 'in_progress'
-                  ? books.filter((b) => IN_PROGRESS_STATUSES.includes(b.status)).length
-                  : books.filter((b) => b.status === (opt.value as BookStatus)).length;
-            return (
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Source filter — sources sorted by count, only shows actual data */}
+          {sourceOptions.length > 1 && (
+            <div
+              role="radiogroup"
+              aria-label="소스 필터"
+              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+            >
+              <FilterChip
+                label="전체"
+                count={books.length}
+                active={sourceFilter === 'all'}
+                onClick={() => setSourceFilter('all')}
+              />
+              {sourceOptions.map(({ source, count }) => {
+                const tier = SOURCE_TIER[source];
+                return (
+                  <FilterChip
+                    key={source}
+                    label={source}
+                    badge={tier ? `T${tier}` : undefined}
+                    count={count}
+                    active={sourceFilter === source}
+                    onClick={() => setSourceFilter(source)}
+                  />
+                );
+              })}
+            </div>
+          )}
+
+          {/* Title/author search */}
+          <div className="relative">
+            <Search
+              size={12}
+              aria-hidden
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            />
+            <input
+              type="text"
+              value={titleSearch}
+              onChange={(e) => setTitleSearch(e.target.value)}
+              placeholder="제목·저자 검색"
+              aria-label="제목 또는 저자 검색"
+              className="h-8 w-44 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] pl-7 pr-7 font-body text-[12px] text-[var(--t1)] placeholder:text-[var(--t3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            />
+            {titleSearch && (
               <button
-                key={opt.value}
                 type="button"
-                role="radio"
-                aria-checked={active}
-                onClick={() => setFilter(opt.value)}
-                className={[
-                  'rounded-[var(--r-sm)] px-3 py-1',
-                  'font-display text-[11px] font-[600]',
-                  'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
-                  active
-                    ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-                    : 'text-[var(--t3)] hover:text-[var(--t2)]',
-                ].join(' ')}
+                onClick={() => setTitleSearch('')}
+                aria-label="검색어 지우기"
+                className="absolute right-1 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
               >
-                {opt.label}
-                {count > 0 && (
-                  <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">
-                    {count}
-                  </span>
-                )}
+                <X size={11} />
               </button>
-            );
-          })}
+            )}
+          </div>
+
+          {/* Status filter */}
+          <div
+            role="radiogroup"
+            aria-label="상태 필터"
+            className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+          >
+            {FILTER_OPTIONS.map((opt) => {
+              const active = opt.value === filter;
+              const count =
+                opt.value === 'all'
+                  ? books.length
+                  : opt.value === 'in_progress'
+                    ? books.filter((b) => IN_PROGRESS_STATUSES.includes(b.status)).length
+                    : books.filter((b) => b.status === (opt.value as BookStatus)).length;
+              return (
+                <FilterChip
+                  key={opt.value}
+                  label={opt.label}
+                  count={count}
+                  active={active}
+                  onClick={() => setFilter(opt.value)}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {visible.length === 0 ? (
-        books.length === 0 ? <EmptyAll /> : <EmptyFiltered onReset={() => setFilter('all')} />
+        books.length === 0 ? (
+          <EmptyAll />
+        ) : (
+          <EmptyFiltered
+            onReset={() => {
+              setFilter('all');
+              setSourceFilter('all');
+              setTitleSearch('');
+            }}
+          />
+        )
       ) : (
         <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
-          <table className="w-full min-w-[720px]">
+          <table className="w-full min-w-[1080px]">
             <thead className="border-b border-[var(--bd)] bg-[var(--bg2)]">
               <tr>
                 <Th>제목</Th>
                 <Th>저자</Th>
+                <Th align="center">소스</Th>
                 <Th align="center">상태</Th>
-                <Th align="center">CEFR</Th>
+                <Th align="center" title="CEFR 6-band (cefr_band — V-Level centroid 자동 파생)">CEFR</Th>
+                <Th align="center" title="V-Level (p75) · 정밀 centroid">V · Cent</Th>
+                <Th align="center" title="CEFR-J 12-band (internal heuristic) · confidence">CEFR-J</Th>
+                <Th align="center" title="Flesch-Kincaid Grade Level">F-K</Th>
+                <Th align="center" title="단어 추출 + lemma 사전 매핑 진행도">추출</Th>
+                <Th align="center" title="발행된 챕터 단어장 수 (검수·발행 완료 여부)">단어장</Th>
                 <Th align="right">단어</Th>
-                <Th align="right">비용</Th>
                 <Th align="right">갱신</Th>
                 <Th align="center" srOnly>
                   상세
@@ -127,6 +237,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
                   key={book.id}
                   book={book}
                   onClick={() => setSelectedBook(book)}
+                  onAfterDelete={onRefetch}
                 />
               ))}
             </tbody>
@@ -150,12 +261,30 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
 function BookRow({
   book,
   onClick,
+  onAfterDelete,
 }: {
   book: LibraryBookAdminRow;
   onClick: () => void;
+  onAfterDelete: () => void;
 }) {
   const statusInfo = classifyStatus(book.status);
-  const cost = parseLlmCost(book.llm_cost_usd);
+  const [pending, startTransition] = useTransition();
+  const isDeletable = DELETABLE_FAILED_STATUSES.includes(book.status);
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!window.confirm(`"${book.title}" 을(를) 영구 삭제할까요?\n실패 상태 도서만 삭제 가능합니다.`)) {
+      return;
+    }
+    startTransition(async () => {
+      const res = await deleteFailedBookAction(book.id);
+      if (!res.ok) {
+        window.alert(`삭제 실패: ${res.error}`);
+        return;
+      }
+      onAfterDelete();
+    });
+  };
 
   return (
     <tr
@@ -177,21 +306,69 @@ function BookRow({
         </span>
       </Td>
       <Td align="center">
+        <SourceBadge source={book.source} />
+      </Td>
+      <Td align="center">
         <StatusPill tone={statusInfo.tone} label={statusInfo.label} />
       </Td>
       <Td align="center">
-        <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
-          {book.cefr_level ?? '—'}
+        <span className="font-mono text-[11px] tabular-nums text-[var(--t1)]">
+          {book.cefr_band ?? '—'}
         </span>
+      </Td>
+      <Td align="center">
+        <div className="flex flex-col items-center leading-tight">
+          <span className="font-display text-[12px] font-[700] tabular-nums text-[var(--t1)]">
+            {book.book_v_level != null ? `V${book.book_v_level}` : '—'}
+          </span>
+          {book.v_level_centroid_precise && (
+            <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+              {book.v_level_centroid_precise}
+            </span>
+          )}
+        </div>
+      </Td>
+      <Td align="center">
+        <div className="flex flex-col items-center leading-tight">
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
+            {book.cefrj_level ?? '—'}
+          </span>
+          {book.cefrj_confidence && (
+            <span
+              className="font-mono text-[10px] tabular-nums"
+              style={{ color: confidenceColor(parseFloat(book.cefrj_confidence)) }}
+              title="자동 부여 confidence (소스 tier × coverage)"
+            >
+              {book.cefrj_confidence}
+            </span>
+          )}
+        </div>
+      </Td>
+      <Td align="center">
+        <span
+          className="font-mono text-[11px] tabular-nums text-[var(--t2)]"
+          title={
+            book.flesch_reading_ease
+              ? `Reading Ease ${book.flesch_reading_ease}`
+              : 'Flesch-Kincaid Grade Level'
+          }
+        >
+          {book.flesch_kincaid_grade ?? '—'}
+        </span>
+      </Td>
+      <Td align="center">
+        <ExtractionCell
+          extracted={book.extracted_count}
+          coverage={book.lemma_coverage_pct ? parseFloat(book.lemma_coverage_pct) : null}
+          unbound={book.lemma_unbound}
+        />
+      </Td>
+      <Td align="center">
+        <WordSetCell count={book.word_set_count} />
       </Td>
       <Td align="right">
         <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
           {book.word_count?.toLocaleString() ?? '—'}
-        </span>
-      </Td>
-      <Td align="right">
-        <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
-          {cost > 0 ? `$${cost.toFixed(3)}` : '—'}
         </span>
       </Td>
       <Td align="right">
@@ -200,9 +377,164 @@ function BookRow({
         </span>
       </Td>
       <Td align="center">
-        <ChevronRight size={14} className="text-[var(--t3)]" aria-hidden />
+        <div className="flex items-center justify-end gap-1">
+          {isDeletable && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={pending}
+              title="실패 도서 영구 삭제"
+              aria-label={`${book.title} 영구 삭제`}
+              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] disabled:opacity-50"
+            >
+              {pending ? (
+                <Loader2 size={13} className="animate-spin" />
+              ) : (
+                <Trash2 size={13} />
+              )}
+            </button>
+          )}
+          <ChevronRight size={14} className="text-[var(--t3)]" aria-hidden />
+        </div>
       </Td>
     </tr>
+  );
+}
+
+/**
+ * 추출 진행도 셀 — v06.34
+ * 4-state:
+ *   - extracted=0/null: "—" 미추출 (회색)
+ *   - coverage=100%: "완료 ✓" (success)
+ *   - coverage≥95%: "{n}% · {unbound} 보강" (info — 사전 보완 일부 남음)
+ *   - coverage<95%: "{n}% · {unbound} 보강" (warning — 사전 보강 필요)
+ */
+function ExtractionCell({
+  extracted,
+  coverage,
+  unbound,
+}: {
+  extracted: number | null
+  coverage: number | null
+  unbound: number | null
+}) {
+  if (!extracted || extracted === 0) {
+    return <span className="font-mono text-[11px] text-[var(--t4)]">—</span>
+  }
+  if (coverage == null) {
+    return (
+      <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+        {extracted.toLocaleString()}
+      </span>
+    )
+  }
+
+  const isComplete = coverage >= 100 && (unbound ?? 0) === 0
+  const isHigh = coverage >= 95
+  const tone = isComplete ? 'success' : isHigh ? 'info' : 'warning'
+  const colors = {
+    success: { bg: 'var(--success-light)', fg: 'var(--success)', border: 'var(--success)' },
+    info: { bg: 'var(--p-light)', fg: 'var(--p-dark)', border: 'var(--p)' },
+    warning: { bg: 'var(--warning-light)', fg: 'var(--warning)', border: 'var(--warning)' },
+  }[tone]
+
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
+      style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
+      title={`추출 ${extracted.toLocaleString()}단어 · 매핑 ${coverage}% · 미매핑 ${unbound ?? 0}개`}
+    >
+      {isComplete ? (
+        <>✓ 완료</>
+      ) : (
+        <>
+          {coverage.toFixed(0)}%
+          {unbound != null && unbound > 0 && (
+            <span className="font-display text-[9px] opacity-80">·{unbound}↑</span>
+          )}
+        </>
+      )}
+    </span>
+  )
+}
+
+/**
+ * 발행 단어장 카운트 셀
+ * - 0/null: "—" 회색 (admin 검수·발행 미진행)
+ * - N > 0: "N권" 앰버 칩 (auto_curate / admin 발행 완료)
+ *
+ * 추출 컬럼(=1단계 데이터 적재) 과 시각적으로 분리:
+ *   추출 = 보라/초록 톤 (system 자동 결과)
+ *   단어장 = 앰버 톤 (admin 검수 후 발행 결과)
+ */
+function WordSetCell({ count }: { count: number | null }) {
+  if (!count || count === 0) {
+    return <span className="font-mono text-[11px] text-[var(--t4)]">—</span>
+  }
+  return (
+    <span
+      className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
+      style={{
+        background: 'var(--active-light)',
+        color: 'var(--active)',
+        borderColor: 'var(--active)',
+      }}
+      title={`${count}개 챕터 단어장 발행됨 (shared_word_sets, category=library_book)`}
+    >
+      {count}<span className="font-display text-[9px] opacity-80">권</span>
+    </span>
+  )
+}
+
+/** confidence 색: ≥0.85 success / ≥0.70 default / <0.70 warning */
+function confidenceColor(c: number): string {
+  if (c >= 0.85) return 'var(--success)';
+  if (c >= 0.7) return 'var(--t3)';
+  return 'var(--warning)';
+}
+
+function FilterChip({
+  label,
+  badge,
+  count,
+  active,
+  onClick,
+}: {
+  label: string;
+  badge?: string;
+  count: number;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={active}
+      onClick={onClick}
+      className={[
+        'rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center gap-1',
+        'font-display text-[11px] font-[600]',
+        'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
+        active
+          ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
+          : 'text-[var(--t3)] hover:text-[var(--t2)]',
+      ].join(' ')}
+    >
+      {badge && (
+        <span
+          className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 font-mono text-[9px] font-[700] text-[var(--t2)]"
+          aria-label={`tier ${badge}`}
+        >
+          {badge}
+        </span>
+      )}
+      {label}
+      {count > 0 && (
+        <span className="font-mono text-[10px] text-[var(--t3)]">{count}</span>
+      )}
+    </button>
   );
 }
 
@@ -210,10 +542,12 @@ function Th({
   children,
   align = 'left',
   srOnly,
+  title,
 }: {
   children: React.ReactNode;
   align?: 'left' | 'center' | 'right';
   srOnly?: boolean;
+  title?: string;
 }) {
   return (
     <th
@@ -221,8 +555,10 @@ function Th({
         'px-3 py-2',
         align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
         'font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]',
+        title ? 'cursor-help' : '',
       ].join(' ')}
       scope="col"
+      title={title}
     >
       {srOnly ? <span className="sr-only">{children}</span> : children}
     </th>
@@ -245,6 +581,31 @@ function Td({
     >
       {children}
     </td>
+  );
+}
+
+const SOURCE_BADGE: Record<string, { label: string; color: string }> = {
+  gutenberg: { label: 'Gutenberg', color: 'var(--p)' },
+  standard_ebooks: { label: 'Std Ebooks', color: 'var(--learn-known)' },
+  wikibooks: { label: 'Wikibooks', color: 'var(--info)' },
+  wikisource: { label: 'Wikisource', color: 'var(--info)' },
+  librivox: { label: 'LibriVox', color: 'var(--active)' },
+  openstax: { label: 'OpenStax', color: 'var(--learn-review)' },
+};
+
+function SourceBadge({ source }: { source: string }) {
+  const cfg = SOURCE_BADGE[source] ?? { label: source, color: 'var(--t3)' };
+  return (
+    <span
+      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+      style={{
+        color: cfg.color,
+        backgroundColor: `color-mix(in srgb, ${cfg.color} 12%, transparent)`,
+      }}
+      title={source}
+    >
+      {cfg.label}
+    </span>
   );
 }
 

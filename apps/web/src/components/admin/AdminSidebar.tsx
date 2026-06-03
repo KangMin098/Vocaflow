@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   BarChart3,
   BookMarked,
+  Brain,
   CreditCard,
   Database,
   Flag,
@@ -35,7 +36,13 @@ interface NavGroup {
   items: NavItem[]
 }
 
-const NAV_GROUPS: NavGroup[] = [
+interface AdminSidebarProps {
+  /** 미처리 신고 건수 — 0 또는 미지정 시 뱃지 숨김. layout.tsx에서 reports COUNT 주입. */
+  reportsBadge?: number
+}
+
+function buildNavGroups(reportsBadge: number): NavGroup[] {
+  return [
   {
     label: null,
     color: null,
@@ -51,6 +58,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: '/admin/articles', label: 'ACP Pipeline', Icon: Newspaper },
       { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
       { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Sparkles },
+      { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
     ],
   },
   {
@@ -58,7 +66,7 @@ const NAV_GROUPS: NavGroup[] = [
     color: 'var(--info)',
     items: [
       { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
-      { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: 7 },
+      { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: reportsBadge },
       { href: '/admin/billing', label: '결제/구독', Icon: CreditCard },
     ],
   },
@@ -67,10 +75,12 @@ const NAV_GROUPS: NavGroup[] = [
     color: 'var(--active)',
     items: [{ href: '/admin/settings', label: '시스템 설정', Icon: Sliders }],
   },
-]
+  ]
+}
 
-export function AdminSidebar() {
+export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
   const pathname = usePathname()
+  const NAV_GROUPS = buildNavGroups(reportsBadge)
 
   return (
     <aside

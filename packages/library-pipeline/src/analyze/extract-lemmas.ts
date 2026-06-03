@@ -80,6 +80,10 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
       for (const token of sentence.tokens) {
         // stopword/punct는 통계에서 제외 (WLP 기본 옵션과 동일 정책)
         if (token.isStopWord || token.isPunctuation) continue
+        // R3 (CLAUDE.md v06.29) — 고유명사 (PROPN) 차단
+        //   캐릭터명·지명 (Elizabeth/Darcy/Jim/London/Hispaniola) 학습 vocab 에서 제외.
+        //   winkNLP universal POS tag 기준 — 측정상 6권 noise 4~12% 모두 PROPN 패턴.
+        if (token.pos === 'PROPN') continue
         // Phase 14.7.1 노이즈 필터 (숫자/약어/외래기호/호칭/contraction)
         if (!isValidLearningWord(token.lemma)) continue
 

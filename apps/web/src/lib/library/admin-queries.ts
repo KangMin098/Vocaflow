@@ -70,6 +70,32 @@ export interface LibraryBookAdminRow {
   published_at: string | null
   created_at: string
   updated_at: string
+  /** 4축 난이도 지수 (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수") */
+  book_v_level: number | null
+  /** NUMERIC(4,2) — supabase-js는 string으로 반환. */
+  v_level_centroid_precise: string | null
+  /** CEFR 6-band (cefr_band generated stored column) */
+  cefr_band: string | null
+  /** CEFR-J 12-band (internal heuristic) */
+  cefrj_level: string | null
+  /** NUMERIC(3,2) — supabase-js는 string으로 반환. */
+  cefrj_confidence: string | null
+  /** NUMERIC(4,2) Flesch-Kincaid Grade Level. */
+  flesch_kincaid_grade: string | null
+  /** NUMERIC(5,2) Flesch Reading Ease. */
+  flesch_reading_ease: string | null
+  /** v06.34 — 추출 + lemma 매핑 진행도 (v_book_extraction_stats 도출) */
+  extracted_count: number | null
+  lemma_bound: number | null
+  lemma_unbound: number | null
+  /** NUMERIC(5,1) — supabase-js 는 string 반환 */
+  lemma_coverage_pct: string | null
+  /**
+   * 발행된 챕터 단어장 수 — `shared_word_sets` 중 category='library_book'
+   * AND is_published=true AND curation_query->>'book_id' = books.id.
+   * 0/null = admin 검수·발행 작업 안 됨, N = N개 챕터 단어장 발행됨.
+   */
+  word_set_count: number | null
 }
 
 export type BookStatus =
@@ -146,7 +172,9 @@ export async function listAllAdminBooks(
     .select(
       'id, source, source_id, title, author, cefr_level, cefr_confidence, ' +
         'word_count, chapter_count, reading_minutes, status, status_message, ' +
-        'llm_cost_usd, copyright_safe_in_kr, published_at, created_at, updated_at',
+        'llm_cost_usd, copyright_safe_in_kr, published_at, created_at, updated_at, ' +
+        'book_v_level, v_level_centroid_precise, cefr_band, cefrj_level, cefrj_confidence, ' +
+        'flesch_kincaid_grade, flesch_reading_ease',
     )
     .order('updated_at', { ascending: false })
 
@@ -161,7 +189,64 @@ export async function listAllAdminBooks(
   if (error) {
     throw new Error(`listAllAdminBooks failed: ${error.message}`)
   }
-  return (data ?? []) as unknown as LibraryBookAdminRow[]
+  const books = (data ?? []) as unknown as LibraryBookAdminRow[]
+  if (books.length === 0) return books
+
+  // v06.34 — 추출/매핑 stats 머지 (v_book_extraction_stats)
+  const ids = books.map((b) => b.id)
+  const { data: statsRows } = await client
+    .from('v_book_extraction_stats')
+    .select('book_id, extracted_count, lemma_bound, lemma_unbound, lemma_coverage_pct')
+    .in('book_id', ids)
+
+  const statsMap = new Map<
+    string,
+    Pick<LibraryBookAdminRow, 'extracted_count' | 'lemma_bound' | 'lemma_unbound' | 'lemma_coverage_pct'>
+  >()
+  for (const r of (statsRows ?? []) as Array<{
+    book_id: string
+    extracted_count: number | null
+    lemma_bound: number | null
+    lemma_unbound: number | null
+    lemma_coverage_pct: string | null
+  }>) {
+    statsMap.set(r.book_id, {
+      extracted_count: r.extracted_count,
+      lemma_bound: r.lemma_bound,
+      lemma_unbound: r.lemma_unbound,
+      lemma_coverage_pct: r.lemma_coverage_pct,
+    })
+  }
+
+  for (const b of books) {
+    const s = statsMap.get(b.id)
+    b.extracted_count = s?.extracted_count ?? null
+    b.lemma_bound = s?.lemma_bound ?? null
+    b.lemma_unbound = s?.lemma_unbound ?? null
+    b.lemma_coverage_pct = s?.lemma_coverage_pct ?? null
+  }
+
+  // 발행된 챕터 단어장 카운트 머지 — shared_word_sets.curation_query->>'book_id' 별 count.
+  // category='library_book' + is_published=true 한정.
+  // (마이그레이션 회피 — view 대신 client-side aggregation. 발행된 library_book 단어장
+  //  ~수백 개 수준이라 traffic 무시 가능.)
+  const { data: setRows } = await client
+    .from('shared_word_sets')
+    .select('curation_query')
+    .eq('category', 'library_book')
+    .eq('is_published', true)
+
+  const wsCounts = new Map<string, number>()
+  for (const r of (setRows ?? []) as Array<{ curation_query: { book_id?: string } | null }>) {
+    const bid = r.curation_query?.book_id
+    if (!bid) continue
+    wsCounts.set(bid, (wsCounts.get(bid) ?? 0) + 1)
+  }
+  for (const b of books) {
+    b.word_set_count = wsCounts.get(b.id) ?? 0
+  }
+
+  return books
 }
 
 // ─────────────────────────────────────────────
@@ -272,6 +357,51 @@ export async function forcePublishBook(
 }
 
 /**
+ * published 책을 'ready'로 되돌리고, 게시 트리거가 생성한 챕터 단어장 삭제.
+ * - shared_words / user_word_set_subscriptions 는 FK CASCADE.
+ * - published 상태가 아니면 RPC가 예외.
+ * @returns 삭제된 shared_word_sets 개수
+ */
+export async function revertPublishedBook(
+  client: AdminClient,
+  bookId: string,
+): Promise<number> {
+  const { data, error } = await client.rpc('admin_revert_published_book', {
+    p_book_id: bookId,
+  })
+  if (error) {
+    throw new Error(`revertPublishedBook failed: ${error.message}`)
+  }
+  const row = Array.isArray(data) ? data[0] : data
+  const n = (row as { deleted_word_sets?: number } | null)?.deleted_word_sets
+  return typeof n === 'number' ? n : 0
+}
+
+/**
+ * ready / archived 상태 도서 영구 삭제.
+ * - 게시 트리거가 만든 챕터 단어장 함께 정리
+ * - library_seed_catalog imported_to_books 해제 → 재enqueue 가능
+ * - published / 처리 중 도서는 RPC에서 거부
+ * @returns 삭제 통계 (word_sets/texts/seed unlinked 개수)
+ */
+export async function deleteBook(
+  client: AdminClient,
+  bookId: string,
+): Promise<{ status_was: string; word_sets_deleted: number; texts_unlinked: number; seed_unlocked: number }> {
+  const { data, error } = await client.rpc('admin_delete_book', { p_book_id: bookId })
+  if (error) {
+    throw new Error(`deleteBook failed: ${error.message}`)
+  }
+  const row = Array.isArray(data) ? data[0] : data
+  return {
+    status_was: (row as { status_was?: string } | null)?.status_was ?? '',
+    word_sets_deleted: (row as { word_sets_deleted?: number } | null)?.word_sets_deleted ?? 0,
+    texts_unlinked: (row as { texts_unlinked?: number } | null)?.texts_unlinked ?? 0,
+    seed_unlocked: (row as { seed_unlocked?: number } | null)?.seed_unlocked ?? 0,
+  }
+}
+
+/**
  * 책을 archived 상태로. published 책에서 호출하면 사용자에게 더 이상 노출 안 됨.
  */
 export async function archiveBook(
@@ -284,6 +414,352 @@ export async function archiveBook(
   if (error) {
     throw new Error(`archiveBook failed: ${error.message}`)
   }
+}
+
+// ─────────────────────────────────────────────
+// 7.5 library_seed_catalog — bulk-fetch 결과 조회
+// ─────────────────────────────────────────────
+
+export interface SeedCatalogRow {
+  id: string
+  source: 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'openstax'
+  source_id: string
+  title: string
+  author: string | null
+  language: string
+  genre: string | null
+  subjects: string[]
+  popularity_rank: number | null
+  cover_url: string | null
+  source_url: string | null
+  published_year: number | null
+  word_count: number | null
+  imported_to_books: boolean
+  imported_book_id: string | null
+  fetched_at: string
+  /** true = Standard Ebooks 가 같은 책을 가진 Gutenberg 행 (view에서 계산) */
+  shadowed_by_se?: boolean
+  /** D + C 에서 채워지는 enriched 필드 */
+  description: string | null
+  reading_time_minutes: number | null
+  enriched_at: string | null
+  /** 큐레이션 메타 (Claude Code 배치 생성) */
+  est_v_level: number | null
+  curation_meta: {
+    est_cefr?: string
+    est_basis?: string
+    age_band?: string
+    learning_value?: string
+    synopsis_ko?: string
+    genre_norm?: string
+    themes?: string[]
+  } | null
+  curation_status: 'pending' | 'queued' | 'done'
+}
+
+export interface ListCatalogOptions {
+  source?: string | null
+  /** @deprecated raw genre 정확 일치 — 신규 UI 는 genreKeyword(genre_norm) 사용 */
+  genre?: string | null
+  /** 유형 키워드 — 정규화 장르(curation_meta->>genre_norm) ilike. 현행화 v06.x */
+  genreKeyword?: string | null
+  search?: string | null
+  importedOnly?: boolean
+  notImportedOnly?: boolean
+  /** 난이도 하한 — est_v_level >= (포함). 사용자 정책: 난이도 = V-Level 기준 */
+  vLevelMin?: number | null
+  /** 난이도 상한 — est_v_level <= (포함) */
+  vLevelMax?: number | null
+  /** 연령 버킷 — 'child'(≤9세) | 'teen'(10–14세) | 'adult'(≥15세) (curation_meta->>age_band) */
+  ageBucket?: 'child' | 'teen' | 'adult' | null
+  /** 큐레이션 상태 (pending/queued/done) */
+  curationStatus?: 'pending' | 'queued' | 'done' | null
+  limit?: number
+  offset?: number
+  sort?: 'popularity' | 'recent' | 'title'
+  /** true (default) — Standard Ebooks 가 같은 책을 가진 Gutenberg 행 숨김 */
+  preferStandardEbooks?: boolean
+}
+
+/** 연령 버킷 → age_band 값 목록 (curation_meta->>age_band 는 '6+'…'18+' 텍스트) */
+const AGE_BUCKET_BANDS: Record<'child' | 'teen' | 'adult', string[]> = {
+  child: ['6+', '7+', '8+', '9+'],
+  teen: ['10+', '11+', '12+', '13+', '14+'],
+  adult: ['15+', '16+', '17+', '18+'],
+}
+
+export async function listSeedCatalog(
+  client: AdminClient,
+  options: ListCatalogOptions = {},
+): Promise<{ rows: SeedCatalogRow[]; total: number }> {
+  let query = client
+    .from('library_seed_catalog_view')
+    .select('*', { count: 'exact' })
+
+  // Std Ebooks 가 같은 책을 가진 Gutenberg 행 숨김 (default true)
+  if (options.preferStandardEbooks !== false) {
+    query = query.eq('shadowed_by_se', false)
+  }
+
+  if (options.source) query = query.eq('source', options.source)
+  if (options.genre) query = query.eq('genre', options.genre)
+  // 유형 키워드 — 정규화 장르(genre_norm) ilike (현행화: raw genre 대신 큐레이션 유형 사용)
+  if (options.genreKeyword) {
+    query = query.ilike('curation_meta->>genre_norm', `%${options.genreKeyword}%`)
+  }
+  if (options.search) {
+    const s = `%${options.search}%`
+    query = query.or(`title.ilike.${s},author.ilike.${s}`)
+  }
+  if (options.importedOnly) query = query.eq('imported_to_books', true)
+  if (options.notImportedOnly) query = query.eq('imported_to_books', false)
+  // 난이도 — est_v_level 밴드 (사용자 정책: 난이도 = V-Level 기준)
+  if (options.vLevelMin != null) query = query.gte('est_v_level', options.vLevelMin)
+  if (options.vLevelMax != null) query = query.lte('est_v_level', options.vLevelMax)
+  // 연령 버킷 — age_band 텍스트 목록 매칭
+  if (options.ageBucket) {
+    query = query.in('curation_meta->>age_band', AGE_BUCKET_BANDS[options.ageBucket])
+  }
+  if (options.curationStatus) query = query.eq('curation_status', options.curationStatus)
+
+  const sortCol =
+    options.sort === 'title'
+      ? 'title'
+      : options.sort === 'recent'
+        ? 'fetched_at'
+        : 'popularity_rank'
+  query = query.order(sortCol, { ascending: options.sort === 'title', nullsFirst: false })
+  query = query.range(options.offset ?? 0, (options.offset ?? 0) + (options.limit ?? 50) - 1)
+
+  const { data, error, count } = await query
+  if (error) throw new Error(`listSeedCatalog failed: ${error.message}`)
+  return { rows: (data ?? []) as unknown as SeedCatalogRow[], total: count ?? 0 }
+}
+
+export interface QueueCurationResult {
+  queued: number
+  total_pending: number
+  total_queued: number
+}
+
+/**
+ * 소스 후보(library_seed_catalog) 중 큐레이션 메타가 없는 도서를 인기순 우선 "큐"에 추가.
+ * 실제 메타(유형·연령·인기도·학습도움·추정 V-Level·줄거리) 생성은 Claude Code 배치가
+ * curation_status='queued' 행을 drain (런타임 LLM 키 불요).
+ */
+export async function queueSeedCatalogForCuration(
+  client: AdminClient,
+  opts: { limit?: number; source?: string | null; notImportedOnly?: boolean } = {},
+): Promise<QueueCurationResult> {
+  const { data, error } = await client.rpc('queue_seed_catalog_for_curation', {
+    p_limit: opts.limit ?? 100,
+    p_source: opts.source ?? null,
+    p_not_imported_only: opts.notImportedOnly ?? true,
+  })
+  if (error) throw new Error(`queueSeedCatalogForCuration failed: ${error.message}`)
+  const row = (data ?? [])[0] as QueueCurationResult | undefined
+  return row ?? { queued: 0, total_pending: 0, total_queued: 0 }
+}
+
+/** library_seed_catalog 소스 enum (CHECK 정합) — bySource 카운트 대상 */
+const CATALOG_SOURCES = ['gutenberg', 'standard_ebooks', 'wikibooks', 'librivox', 'openstax'] as const
+
+export async function getCatalogStats(
+  client: AdminClient,
+): Promise<{ total: number; bySource: Record<string, number>; imported: number; shadowed: number }> {
+  // ⚠️ 이전 구현은 모든 row 를 fetch 해 JS 에서 count → PostgREST 기본 1,000행 제한에
+  //    걸려 total/bySource 가 1,000 에서 잘림. count:'exact', head:true 로 정확 집계 (행 전송 0).
+  const headCount = () =>
+    client.from('library_seed_catalog_view').select('*', { count: 'exact', head: true })
+
+  const [totalRes, importedRes, shadowedRes, ...sourceRes] = await Promise.all([
+    headCount(),
+    headCount().eq('imported_to_books', true),
+    headCount().eq('shadowed_by_se', true),
+    ...CATALOG_SOURCES.map((s) => headCount().eq('source', s)),
+  ])
+
+  const firstErr =
+    totalRes.error ?? importedRes.error ?? shadowedRes.error ?? sourceRes.find((r) => r.error)?.error
+  if (firstErr) throw new Error(`getCatalogStats failed: ${firstErr.message}`)
+
+  const bySource: Record<string, number> = {}
+  CATALOG_SOURCES.forEach((s, i) => {
+    const c = sourceRes[i]?.count ?? 0
+    if (c > 0) bySource[s] = c
+  })
+
+  return {
+    total: totalRes.count ?? 0,
+    bySource,
+    imported: importedRes.count ?? 0,
+    shadowed: shadowedRes.count ?? 0,
+  }
+}
+
+/** library_seed_catalog 1건을 library_books 큐에 enqueue + imported 플래그 갱신 */
+export async function enqueueSeedRow(
+  client: AdminClient,
+  row: SeedCatalogRow,
+): Promise<string> {
+  const bookId = await enqueueBookViaRpc(client, {
+    source: row.source,
+    source_id: row.source_id,
+    title: row.title,
+    author: row.author,
+  })
+  await client
+    .from('library_seed_catalog')
+    .update({ imported_to_books: true, imported_book_id: bookId })
+    .eq('id', row.id)
+  return bookId
+}
+
+// ─────────────────────────────────────────────
+// 8. Tab 4 — 책 단어 재추출 preview (P70/75/80)
+// ─────────────────────────────────────────────
+
+export type ExtractPercentile = 70 | 75 | 80
+
+export interface ExtractedBookWord {
+  book_v_level: number
+  v_threshold: number
+  percentile_used: number
+  total_candidates: number
+  word: string
+  meaning_ko: string | null
+  v_level: number
+  cefr_level: string | null
+  pos: string | null
+  example_en: string | null
+  frequency_rank: number | null
+  skill_level: number | null
+  composite_score: string
+  score_breakdown: Record<string, unknown>
+  rank: number
+  /** 'lemma' (직접 매칭) | 'spelling_variant' (US/UK 철자 회수) | 'inflection' (굴절 회수) */
+  match_via: 'lemma' | 'spelling_variant' | 'inflection'
+  /** spelling_variant 인 경우 책 원문 표면형 (예: 'ardor') */
+  matched_from: string | null
+  /** V11 register (standard|modern_advanced|period_cultural|archaic_literary|phrase_unit) — archaic/period 는 학습 하향 + 배지 */
+  word_register: string | null
+}
+
+/**
+ * 책 자체 V-Level(P70/75/80) 을 baseline 으로 책 vocab 풀에서 점수화 + 정렬.
+ * /text/new ExtractionPanel 과 동일 composite (track_boost=0).
+ * read-only — 영구 저장 없음. preview/검수 전용.
+ */
+export async function extractBookVocabularyAdmin(
+  client: AdminClient,
+  bookId: string,
+  percentile: ExtractPercentile = 75,
+): Promise<ExtractedBookWord[]> {
+  // range 페이지네이션 — PostgREST 행 상한(기본/서비스 1000)을 우회해 후보 전량 수신.
+  // 각 .range 요청은 상한 이하라 항상 안전. 짧은 페이지가 나오면 종료. (추출 1회당 1~수 회 호출)
+  const PAGE = 1000
+  const MAX = 20000 // 안전 상한 (어떤 책도 초과 안 함)
+  const all: ExtractedBookWord[] = []
+  for (let from = 0; from < MAX; from += PAGE) {
+    const { data, error } = await client
+      .rpc('extract_book_vocabulary_admin', {
+        p_book_id: bookId,
+        p_percentile: percentile,
+      })
+      .range(from, from + PAGE - 1)
+    if (error) {
+      throw new Error(`extractBookVocabularyAdmin failed: ${error.message}`)
+    }
+    const batch = (data ?? []) as unknown as ExtractedBookWord[]
+    all.push(...batch)
+    if (batch.length < PAGE) break // 마지막 페이지
+  }
+  return all
+}
+
+// ─────────────────────────────────────────────
+// 9. 책 lemma 사전 바인딩 실패 진단 (원인별)
+// ─────────────────────────────────────────────
+
+export type UnboundReason =
+  | 'spelling_variant'  // US/UK 철자 변형 시 사전 히트 (variant_hit 에 canonical)
+  | 'genuine_miss'      // 영단어로 보이나 사전 미등재 — seed 후보
+  | 'noise'             // 고유명사·로마숫자·단편 (학습 대상 아님)
+  | 'no_v_level'        // dict row 있으나 v_level NULL
+  | 'not_classified'    // classified_by NULL (자동 분류 미완료)
+  | 'no_meaning'        // meaning_ko 비어있음
+
+export interface UnboundLemma {
+  lemma: string
+  reason: UnboundReason
+  dict_v_level: number | null
+  dict_meaning_ko: string | null
+  dict_classified_by: string | null
+  book_occurrences: number
+  /** spelling_variant 인 경우 사전에 실재하는 canonical 철자 (예: 'ardour') */
+  variant_hit: string | null
+  /**
+   * 추출기(extract_*)가 freq_external_a inflections 클러스터로 회수하는 base 표제어.
+   * non-null 이면 이 lemma 는 reason 과 무관하게 추출 시 base 단어로 이미 surface 됨
+   * (예: 'abundance' → 'abundant'). seed 우선순위 판단용 — null 이면 클러스터 미회수.
+   */
+  cluster_base: string | null
+  /**
+   * en_inflection_bases 규칙으로 나온 굴절 base 중 사전에 실재하는 표제어(meta 무관).
+   * 미바인딩 row 에서 non-null 이면 "굴절형인데 base 가 사전엔 있으나 미완성" — dict_v_level/뜻과 함께 점검.
+   */
+  inflection_base: string | null
+  /**
+   * en_derivational_bases 규칙으로 나온 파생 base 중 완전한 표제어(v_level+classified_by+meaning_ko).
+   * "이 lemma 는 X 의 파생형" — seed 후보 판단용.
+   */
+  deriv_base: string | null
+  /**
+   * archaic_candidates.classification — classify 파이프라인 위치
+   * (processed/addable_modern/person_noise/geo_noise/spelling_variant/pending). 미수집 시 null.
+   */
+  archaic_class: string | null
+}
+
+export async function findUnboundBookLemmas(
+  client: AdminClient,
+  bookId: string,
+  limit = 500,
+): Promise<UnboundLemma[]> {
+  const { data, error } = await client.rpc('find_unbound_book_lemmas', {
+    p_book_id: bookId,
+    p_limit: limit,
+  })
+  if (error) {
+    throw new Error(`findUnboundBookLemmas failed: ${error.message}`)
+  }
+  return (data ?? []) as unknown as UnboundLemma[]
+}
+
+export interface StageDictResult {
+  /** 이번에 pending → addable_modern 으로 올린 건수 */
+  staged: number
+  /** 이 책에서 addable_modern(등재 대기) 총건수 */
+  already_addable: number
+  /** 아직 분류되지 않은(pending) 잔여 */
+  book_pending_remaining: number
+}
+
+/**
+ * 본문검수 중인 도서의 미등재 실단어를 "사전 등재 큐"(archaic_candidates.addable_modern)로 즉시 올림.
+ * 재출현 게이트(cron)를 우회 — admin 이 적극 검수하는 책은 바로 등재 대상으로 큐잉.
+ * 실제 뜻 생성·사전 등재는 Claude Code 배치가 addable_modern 을 drain (런타임 LLM 키 불요).
+ */
+export async function stageBookDictCandidates(
+  client: AdminClient,
+  bookId: string,
+): Promise<StageDictResult> {
+  const { data, error } = await client.rpc('stage_book_dict_candidates', { p_book_id: bookId })
+  if (error) {
+    throw new Error(`stageBookDictCandidates failed: ${error.message}`)
+  }
+  const row = (data ?? [])[0] as StageDictResult | undefined
+  return row ?? { staged: 0, already_addable: 0, book_pending_remaining: 0 }
 }
 
 /**
@@ -301,6 +777,35 @@ export async function devProcessBook(bookId: string): Promise<void> {
     const payload = (await res.json().catch(() => ({}))) as { error?: string }
     throw new Error(payload.error ?? `dev-process failed: ${res.status}`)
   }
+}
+
+export interface DevValidateResult {
+  ok: boolean
+  chapter_count?: number
+  word_count?: number
+  avg_chapter_words?: number
+  length_cv?: number
+  warnings: string[]
+  verdict: 'OK' | 'REVIEW' | 'FAIL'
+  error?: string
+}
+
+/**
+ * 재처리 '커밋 전' dry-run 검증 — ingest→normalize→segment 만 (쓰기 X · LLM X).
+ * 예상 챕터 수 + 경고(under/over-split·fragment) 반환. 실제 재처리(devProcessBook) 전 확인용.
+ */
+export async function devValidateBook(bookId: string): Promise<DevValidateResult> {
+  const res = await fetch('/api/lcp/dev-validate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ book_id: bookId }),
+  })
+  const payload = (await res.json().catch(() => ({}))) as DevValidateResult
+  // dev-validate 는 ingest 실패도 200 + verdict='FAIL' 로 반환 — 비-200 은 auth/config 오류
+  if (!res.ok) {
+    throw new Error(payload.error ?? `dev-validate failed: ${res.status}`)
+  }
+  return { ...payload, warnings: payload.warnings ?? [] }
 }
 
 // ─────────────────────────────────────────────

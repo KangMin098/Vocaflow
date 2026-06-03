@@ -72,6 +72,9 @@ export async function buildWordBlitzPool(
     .select('word, base_learning_value')
     .eq('library_book_id', libraryBookId)
     .eq('chapter_idx', chapterIdx)
+    // 노이즈 가드 — 고유명사·contraction·미지 토큰 제외 (게임 후보에 jim/john 출현 방지)
+    // (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" 안티패턴 정합)
+    .not('lemma', 'is', null)
     .order('base_learning_value', { ascending: false })
     .limit(need * 3); // 사용자 단어와 중복 제거 buffer
 

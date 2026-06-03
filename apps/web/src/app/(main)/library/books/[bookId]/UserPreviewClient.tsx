@@ -17,6 +17,15 @@ interface Props {
   title: string;
   author: string | null;
   cefrLevel: string | null;
+  /** CLAUDE.md v06.29 4축 — detail 화면 노출 */
+  cefrBand: string | null;
+  bookVLevel: number | null;
+  vLevelCentroid: string | null;
+  cefrjLevel: string | null;
+  cefrjConfidence: string | null;
+  fleschKincaidGrade: string | null;
+  fleschReadingEase: string | null;
+  lemmaCoveragePct: number | null;
   totalWordCount: number;
   readingMinutes: number;
   chapters: ChapterListItem[];
@@ -27,6 +36,14 @@ export function UserPreviewClient({
   title,
   author,
   cefrLevel,
+  cefrBand,
+  bookVLevel,
+  vLevelCentroid,
+  cefrjLevel,
+  cefrjConfidence,
+  fleschKincaidGrade,
+  fleschReadingEase,
+  lemmaCoveragePct,
   totalWordCount,
   readingMinutes,
   chapters,
@@ -70,6 +87,18 @@ export function UserPreviewClient({
         )}
       </div>
 
+      <DifficultyCard
+        cefrBand={cefrBand}
+        cefrLevel={cefrLevel}
+        bookVLevel={bookVLevel}
+        vLevelCentroid={vLevelCentroid}
+        cefrjLevel={cefrjLevel}
+        cefrjConfidence={cefrjConfidence}
+        fleschKincaidGrade={fleschKincaidGrade}
+        fleschReadingEase={fleschReadingEase}
+        lemmaCoveragePct={lemmaCoveragePct}
+      />
+
       <BookContentReader
         libraryBookId={bookId}
         bookTitle={title}
@@ -106,5 +135,116 @@ export function UserPreviewClient({
         }
       />
     </>
+  );
+}
+
+// ─────────────────────────────────────────────
+// DifficultyCard — CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" detail 표시
+// 메인은 cefr_band + V-Level / detail 은 centroid 정밀값 + F-K + coverage + CEFR-J
+// ─────────────────────────────────────────────
+function DifficultyCard({
+  cefrBand,
+  cefrLevel,
+  bookVLevel,
+  vLevelCentroid,
+  cefrjLevel,
+  cefrjConfidence,
+  fleschKincaidGrade,
+  fleschReadingEase,
+  lemmaCoveragePct,
+}: {
+  cefrBand: string | null;
+  cefrLevel: string | null;
+  bookVLevel: number | null;
+  vLevelCentroid: string | null;
+  cefrjLevel: string | null;
+  cefrjConfidence: string | null;
+  fleschKincaidGrade: string | null;
+  fleschReadingEase: string | null;
+  lemmaCoveragePct: number | null;
+}) {
+  const canonicalCefr = cefrBand ?? cefrLevel;
+  const hasAny =
+    canonicalCefr ||
+    bookVLevel != null ||
+    vLevelCentroid ||
+    cefrjLevel ||
+    fleschKincaidGrade;
+  if (!hasAny) return null;
+
+  return (
+    <section
+      aria-label="난이도 지수"
+      className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4"
+    >
+      <header className="mb-3 flex items-baseline justify-between gap-2">
+        <h2 className="font-display text-[12px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+          난이도 지수
+        </h2>
+        <span
+          className="font-mono text-[10px] text-[var(--t3)]"
+          title="네 가지 지수가 책의 서로 다른 측면을 잡아냅니다."
+        >
+          4축
+        </span>
+      </header>
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat
+          label="CEFR (6-band)"
+          value={canonicalCefr ?? '—'}
+          sub={
+            cefrBand && cefrLevel && cefrBand !== cefrLevel
+              ? `analyze: ${cefrLevel}`
+              : '한국 학습자 어휘 부담'
+          }
+        />
+        <Stat
+          label="V-Level"
+          value={bookVLevel != null ? `V${bookVLevel}` : '—'}
+          sub={vLevelCentroid ? `centroid ${vLevelCentroid}` : 'Vocaflow 자체'}
+        />
+        <Stat
+          label="CEFR-J"
+          value={cefrjLevel ?? '—'}
+          sub={cefrjConfidence ? `신뢰도 ${cefrjConfidence}` : '12-band'}
+        />
+        <Stat
+          label="F-K Grade"
+          value={fleschKincaidGrade ?? '—'}
+          sub={fleschReadingEase ? `ease ${fleschReadingEase}` : '통사 복잡도'}
+        />
+      </div>
+
+      {lemmaCoveragePct != null && (
+        <p className="mt-3 font-body text-[11px] text-[var(--t3)]">
+          어휘 매칭 {lemmaCoveragePct}% · 외부 표준: CEFR-J Wordlist v1.6 (© Tono Lab, Tokyo University of Foreign Studies)
+        </p>
+      )}
+    </section>
+  );
+}
+
+function Stat({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: string;
+  sub?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="font-display text-[10px] font-[600] uppercase tracking-wide text-[var(--t3)]">
+        {label}
+      </span>
+      <span className="font-display text-[18px] font-[700] tabular-nums text-[var(--t1)]">
+        {value}
+      </span>
+      {sub && (
+        <span className="font-mono text-[10px] text-[var(--t3)]">{sub}</span>
+      )}
+    </div>
   );
 }

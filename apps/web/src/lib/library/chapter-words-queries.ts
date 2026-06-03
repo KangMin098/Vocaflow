@@ -11,6 +11,8 @@ export interface ChapterWord {
   meaning: string | null;
   pos: string | null;
   cefrLevel: string | null;
+  /** VRL v3 V-Level 0~11 (한국 학습자 로드맵). null = 미분류. */
+  vLevel: number | null;
   exampleSentence: string | null;
   baseLearningValue: number;
   frequencyInChapter: number;
@@ -27,6 +29,9 @@ export async function getChapterWords(
     .select('word, first_sentence, base_learning_value, frequency_in_chapter')
     .eq('library_book_id', libraryBookId)
     .eq('chapter_idx', chapterIdx)
+    // 노이즈 가드 — 고유명사·contraction·미지 토큰(lemma 매칭 실패) 제외
+    // (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" 안티패턴 정합)
+    .not('lemma', 'is', null)
     .order('base_learning_value', { ascending: false })
     .limit(limit);
 
@@ -47,23 +52,30 @@ export async function getChapterWords(
   const words = lbvRows.map((r) => r.word);
   const { data: dictData } = await client
     .from('shared_dictionary')
-    .select('word, meaning_ko, pos, cefr_level')
+    .select('word, meaning_ko, pos, cefr_level, v_level')
     .in('word', words);
 
   const dictMap = new Map<
     string,
-    { meaning: string | null; pos: string | null; cefr_level: string | null }
+    {
+      meaning: string | null;
+      pos: string | null;
+      cefr_level: string | null;
+      v_level: number | null;
+    }
   >();
   for (const d of (dictData ?? []) as Array<{
     word: string;
     meaning_ko: string | null;
     pos: string | null;
     cefr_level: string | null;
+    v_level: number | null;
   }>) {
     dictMap.set(d.word, {
       meaning: d.meaning_ko,
       pos: d.pos,
       cefr_level: d.cefr_level,
+      v_level: d.v_level,
     });
   }
 
@@ -74,6 +86,7 @@ export async function getChapterWords(
       meaning: dict?.meaning ?? null,
       pos: dict?.pos ?? null,
       cefrLevel: dict?.cefr_level ?? null,
+      vLevel: dict?.v_level ?? null,
       exampleSentence: r.first_sentence,
       baseLearningValue: r.base_learning_value,
       frequencyInChapter: r.frequency_in_chapter,
