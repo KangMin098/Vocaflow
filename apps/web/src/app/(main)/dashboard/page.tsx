@@ -1,122 +1,34 @@
 // apps/web/src/app/(main)/dashboard/page.tsx
-// 대시보드 — CLAUDE.md §13 + §"디자인 철학" 적용
-//   · 암묵적 진행 (Implicit Progress) — 숫자보다 환경 변화로 성장 시각화
-//   · 정서적 부호화 — Streak·신기록을 자기효능감으로 연결
-//   · 인지 부하 관리 — 4 KPI + 4 위젯 (한 화면에 8 항목 한계)
+// 대시보드 — 학습자에게 필요한 정보만 (Calm UI · Implicit Progress · Cognitive Load).
 //
-// 'use client' — KPIS 배열에 LucideIcon (함수 참조) 를 담아 client-only StatCard 로
-// 전달하므로 페이지 자체가 Client Component 여야 함. metadata 는 layout.tsx 로 분리.
+// 구성 (중복·과분석 제거):
+//   1. TodayHero      — 오늘 목표 진행 + 인사 + 이어서 학습 (오늘 한 가지)
+//   2. WeeklyHeatmap  — 28일 활동 + 연속(streak)  (성장·모멘텀)
+//   3. MemoryStatus   — 기억 4상태 분포 + 복습 CTA (가장 actionable)
+//   4. RecentActivity — 최근 학습 (회고)
+//
+// 제거: 중복 KPI 그리드(streak·단어 3중복) · ModuleAccuracyRing · ScoreTrendChart
+//       (모듈별 정확도·점수추이는 일상 학습에 불필요한 과분석 — Calm UI 정합).
+// metadata 는 dashboard/layout.tsx 에 분리.
 
-'use client'
-
-import { BookMarked, Flame, Sparkles, Target, type LucideIcon } from 'lucide-react'
-
-import { ModuleAccuracyRing } from '@/components/dashboard/ModuleAccuracyRing'
+import { MemoryStatus } from '@/components/dashboard/MemoryStatus'
 import { RecentActivity } from '@/components/dashboard/RecentActivity'
-import { ScoreTrendChart } from '@/components/dashboard/ScoreTrendChart'
-import { StatCard } from '@/components/dashboard/StatCard'
+import { TodayHero } from '@/components/dashboard/TodayHero'
 import { WeeklyHeatmap } from '@/components/dashboard/WeeklyHeatmap'
-import { WelcomeBanner } from '@/components/dashboard/WelcomeBanner'
-
-interface KPI {
-  label: string
-  value: string | number
-  unit?: string
-  icon: LucideIcon
-  accent: string
-  trend: 'up' | 'down' | 'flat' | 'record'
-  trendText: string
-  subtext: string
-}
-
-const KPIS: KPI[] = [
-  {
-    label: '오늘 학습',
-    value: 23,
-    unit: '단어',
-    icon: BookMarked,
-    accent: 'var(--p)',
-    trend: 'up',
-    trendText: '+5',
-    subtext: '/30 단어 목표',
-  },
-  {
-    label: '연속 학습',
-    value: 12,
-    unit: '일',
-    icon: Flame,
-    accent: '#EC4899',
-    trend: 'record',
-    trendText: '신기록',
-    subtext: '이번 달 최장',
-  },
-  {
-    label: '누적 단어',
-    value: '847',
-    icon: Sparkles,
-    accent: '#8B5CF6',
-    trend: 'up',
-    trendText: '+47',
-    subtext: '이번 주',
-  },
-  {
-    label: '평균 정확도',
-    value: 87,
-    unit: '%',
-    icon: Target,
-    accent: 'var(--success)',
-    trend: 'up',
-    trendText: '+3%',
-    subtext: '지난 주 대비',
-  },
-]
 
 export default function DashboardPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-10">
-      {/* ── Welcome ── */}
-      <WelcomeBanner userName="학습자" weekDays={5} weekWords={47} />
+    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8 md:px-6 md:py-10">
+      <TodayHero userName="학습자" todayWords={23} goal={30} />
 
-      {/* ── KPI 4종 ── (헤더 생략 — WelcomeBanner 가 충분한 컨텍스트 제공) */}
-      <section aria-label="핵심 지표" className="mb-6">
-        <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {KPIS.map((k) => (
-            <li key={k.label}>
-              <StatCard
-                variant="card"
-                label={k.label}
-                value={k.value}
-                unit={k.unit}
-                icon={k.icon}
-                accentColor={k.accent}
-                trend={k.trend}
-                trendText={k.trendText}
-                subtext={k.subtext}
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <WeeklyHeatmap />
 
-      {/* ── Weekly heatmap (full width) ── */}
-      <section aria-label="주간 학습 히트맵" className="mb-6">
-        <WeeklyHeatmap />
-      </section>
+      <MemoryStatus />
 
-      {/* ── Module Accuracy + Score Trend (2 cols) ── */}
-      <section
-        aria-label="모듈 정확도 및 점수 추이"
-        className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-2"
-      >
-        <ModuleAccuracyRing />
-        <ScoreTrendChart />
-      </section>
-
-      {/* ── Recent Activity (compact pill row) ── */}
       <RecentActivity />
 
-      {/* ── Calm closing message — 정서적 부호화 ── */}
-      <footer className="mt-12 text-center">
+      {/* Calm closing — 정서적 부호화 */}
+      <footer className="mt-6 text-center">
         <p className="font-english text-[14px] italic leading-relaxed text-[var(--t3)]">
           “Slow is smooth, smooth is fast.”
         </p>

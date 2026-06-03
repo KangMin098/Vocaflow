@@ -44,6 +44,7 @@ export interface NavGroup {
 export const META_ITEMS: NavItem[] = [
   { label: 'Hub', href: '/hub', icon: Home },
   { label: 'Dashboard', href: '/dashboard', icon: BarChart3 },
+  { label: '진단', href: '/diagnostic', icon: Compass, ariaLabel: 'VRL Placement 진단 + V-Level 변천사' },
 ]
 
 export const NAV_GROUPS: NavGroup[] = [

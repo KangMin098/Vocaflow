@@ -76,7 +76,7 @@ function StatCardInline({ label, value, unit, subtext }: StatCardInlineProps) {
         {label}
       </span>
       <div className="flex items-baseline gap-1">
-        <span className="font-display text-[32px] font-[800] leading-none tabular-nums md:text-[40px]">
+        <span className="font-display text-[26px] font-[800] leading-none tabular-nums tracking-[-0.01em] md:text-[30px]">
           {value}
         </span>
         {unit && (
@@ -157,7 +157,7 @@ function StatCardBox({
 
       {/* 가운데 — 큰 숫자 */}
       <div className="relative mb-s-3 flex items-baseline gap-s-1">
-        <span className="font-display text-3xl font-extrabold tabular-nums leading-none tracking-[-0.02em] text-t1 sm:text-4xl">
+        <span className="font-display text-[24px] font-extrabold tabular-nums leading-none tracking-[-0.01em] text-t1 sm:text-[28px]">
           {value}
         </span>
         {unit && <span className="font-display text-base font-semibold text-t2">{unit}</span>}

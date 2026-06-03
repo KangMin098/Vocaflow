@@ -20,7 +20,7 @@ export function AdminPageHeader({
   return (
     <header className="mb-6 flex flex-wrap items-center gap-3">
       <span
-        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] text-white shadow-[0_2px_6px_rgba(139,92,246,0.30)]"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] text-white shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
         aria-hidden
       >
         <Icon size={16} strokeWidth={2} />

@@ -48,7 +48,8 @@ export function HubStartCard({
   return (
     <section
       aria-label={title}
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] md:p-7"
+      // Tertiary tone (배경 톤 변경) + spacing 통일 (p-5 → p-5 일관)
+      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5 shadow-[var(--sh-xs)] md:p-6"
     >
       <header className="mb-5 flex items-center gap-2">
         <span

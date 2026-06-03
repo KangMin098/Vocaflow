@@ -55,8 +55,14 @@ export function ContinueRow({
   return (
     <Link
       href={href}
-      className="group block rounded-[var(--r-lg)] border-l-4 bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
-      style={{ borderLeftColor: accent }}
+      className="group block rounded-[var(--r-lg)] border border-l-[3px] p-4 transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-sm)]"
+      style={{
+        // accent strip 4px → 3px (slim) + 4% accent wash background (모듈 정체성 + Calm)
+        borderColor: 'var(--bd)',
+        borderLeftColor: accent,
+        background: `linear-gradient(to right, ${accent}0A, var(--bg) 40%)`,
+        boxShadow: 'var(--sh-xs)',
+      }}
     >
       <div className="flex items-center gap-4">
         <span
@@ -100,8 +106,12 @@ export function ContinueRow({
         </div>
 
         <span
-          className="hidden shrink-0 items-center gap-1 rounded-[var(--r-md)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] sm:inline-flex"
-          style={{ backgroundColor: accent }}
+          className="hidden shrink-0 items-center gap-1 rounded-[var(--r-md)] border px-3 py-1.5 font-display text-[12px] font-[700] sm:inline-flex"
+          style={{
+            background: `${accent}1A`,
+            borderColor: accent,
+            color: accent,
+          }}
         >
           이어하기
           <ArrowRight

@@ -54,6 +54,13 @@ export interface HubData {
     accuracy: number
     reviewDueCount: number
   }
+  /** Vocaflow 특화 — VRL 진단 상태 + 위급 단어 카운트 */
+  vrl: {
+    currentVLevel: number | null
+    isDiagnosed: boolean
+    trackLevels: Record<string, number>
+    riskWordCount: number // R(t) < 0.7 추정 — next_review_at 이미 지난 단어
+  }
   continueCard: {
     textId: string
     title: string
@@ -173,10 +180,10 @@ async function fetchHubData(userId: string, userEmail: string | null): Promise<H
   const nowIso = new Date().toISOString()
 
   const queries = await Promise.allSettled([
-    // 0) profile
+    // 0) profile — current_v_level + current_track_levels 포함 (Vocaflow VRL)
     supabase
       .from('user_profiles')
-      .select('display_name, avatar_url, role')
+      .select('display_name, avatar_url, role, current_v_level, current_track_levels')
       .eq('user_id', userId)
       .maybeSingle(),
 
@@ -251,10 +258,13 @@ async function fetchHubData(userId: string, userEmail: string | null): Promise<H
       .limit(50),
   ])
 
-  const profileQ = unwrap<{ display_name: string | null; avatar_url: string | null; role: string }>(
-    queries[0],
-    'user_profiles',
-  )
+  const profileQ = unwrap<{
+    display_name: string | null
+    avatar_url: string | null
+    role: string
+    current_v_level: number | null
+    current_track_levels: Record<string, number> | null
+  }>(queries[0], 'user_profiles')
   const statsQ = unwrap<{ current_streak: number | null }>(queries[1], 'user_stats')
   const todayCountQ = unwrap<unknown>(queries[2], 'today_count')
   const totalWordsQ = unwrap<unknown>(queries[3], 'total_words')
@@ -304,6 +314,15 @@ async function fetchHubData(userId: string, userEmail: string | null): Promise<H
     totalWords: totalWordsQ.count ?? 0,
     accuracy: accuracyTotal > 0 ? Math.round((accuracyCorrect / accuracyTotal) * 100) : 0,
     reviewDueCount: reviewDueQ.count ?? 0,
+  }
+
+  // ── VRL — V-Level + 진단 상태 + risk 단어 (reviewDueCount 재활용) ──
+  const vLevelRaw = profileQ.data?.current_v_level ?? null
+  const vrl = {
+    currentVLevel: vLevelRaw,
+    isDiagnosed: vLevelRaw !== null && vLevelRaw > 0,
+    trackLevels: (profileQ.data?.current_track_levels ?? {}) as Record<string, number>,
+    riskWordCount: reviewDueQ.count ?? 0,
   }
 
   // ── 모듈별 lastStudiedAt — records + scores 머지 후 최신 시각 ──
@@ -388,7 +407,7 @@ async function fetchHubData(userId: string, userEmail: string | null): Promise<H
   merged.sort((a, b) => (a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0))
   const recentActivities = merged.slice(0, 5)
 
-  return { user, stats, continueCard, modules, recentActivities }
+  return { user, stats, vrl, continueCard, modules, recentActivities }
 }
 
 // ════════════════════════════════════════════════════════════════════
