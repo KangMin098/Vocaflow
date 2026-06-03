@@ -64,7 +64,7 @@ export function ReadingUniverse({
 
   // 첫 paragraph 에만 drop-cap 적용 — `first-of-type` 가 아닌 명시적 인덱스 (TOC strip 회귀 회피)
   return (
-    <article className="relative mx-auto max-w-[680px] px-6 py-10 md:px-8 md:py-14">
+    <article className="relative mx-auto max-w-[680px] px-6 py-4 md:px-8 md:py-6">
       {/* Chapter Meta — kicker line */}
       {chapterMeta && (
         <header

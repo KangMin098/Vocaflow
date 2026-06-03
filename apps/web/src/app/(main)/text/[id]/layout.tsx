@@ -21,6 +21,7 @@ import {
   getChapterWords,
   type ChapterWord,
 } from '@/lib/library/chapter-words-queries';
+import { fetchBookWordSetSubscriptionStats } from '@/lib/library/books/queries';
 
 interface LayoutProps {
   children: ReactNode;
@@ -148,6 +149,16 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
     chapterWords = await getChapterWords(client, text.library_book_id, text.chapter_idx, 30);
   }
 
+  // 4.5. v06.30 — workspace UnifiedHeader 챕터 단어장 구독 통계 (library_book only)
+  let bookWordSetStats: { subscribed: number; total: number } | null = null;
+  if (text?.library_book_id) {
+    bookWordSetStats = await fetchBookWordSetSubscriptionStats(
+      client as unknown as Parameters<typeof fetchBookWordSetSubscriptionStats>[0],
+      text.library_book_id,
+      text.user_id,
+    );
+  }
+
   // 5. Phase 11.6 + 11.7 — TextContentProvider 데이터 정합
   let textContentValue: TextContentData | null = null;
 
@@ -185,6 +196,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
           }
         : null,
       currentChapterStatus: text.status ?? 'not_started',
+      bookWordSetStats,
       text: partial,
       paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
     };
