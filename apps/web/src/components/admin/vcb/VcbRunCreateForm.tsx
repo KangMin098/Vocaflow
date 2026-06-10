@@ -120,7 +120,7 @@ export function VcbRunCreateForm() {
           ...filters,
           variant_id: selectedVariantId,
         },
-        limits,
+        limits: { ...limits },
       })
 
       if (!result.ok || !result.data) {

@@ -4,7 +4,7 @@
 
 'use client'
 
-import { ArrowLeft, ArrowRight, FileText, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, FileText, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -15,11 +15,19 @@ import { useTheme } from '@/hooks/useTheme'
 import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputModeTabs'
 import { SampleScripts } from '@/components/text-viewer/SampleScripts'
 import { TextInput } from '@/components/text-viewer/TextInput'
+import { BookChapterInput } from '@/components/text-viewer/BookChapterInput'
 import { saveText } from '@/lib/text-viewer/save-text'
+import {
+  saveUserBook,
+  type UserBookChapter,
+} from '@/lib/text-viewer/save-user-book'
 import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 
 const CONTENT_MIN = 50
 const TITLE_MAX = 200
+
+/** 단일 스크립트 입력 vs 책(챕터별) 입력 — InputModeTabs 의 file/url 과는 별개 축 */
+type StructureMode = 'single' | 'book'
 
 export default function TextViewerNewPage() {
   const router = useRouter()
@@ -27,37 +35,82 @@ export default function TextViewerNewPage() {
   const toast = useToast()
 
   const [mode, setMode] = useState<InputMode>('text')
+  /** v06.34 — 단일 스크립트 vs 책(챕터별) 구조 모드 */
+  const [structure, setStructure] = useState<StructureMode>('single')
+
+  // 단일 모드 상태
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [text, setText] = useState('')
+
+  // 책 모드 상태
+  const [bookTitle, setBookTitle] = useState('')
+  const [bookAuthor, setBookAuthor] = useState('')
+  const [chapters, setChapters] = useState<UserBookChapter[]>([
+    { title: '', content: '' },
+  ])
+
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const trimmedTitle = title.trim()
   const trimmedContent = text.trim()
-  const canSave =
-    mode === 'text' &&
+  const trimmedBookTitle = bookTitle.trim()
+  const validChapters = chapters
+    .map((c) => ({ title: c.title.trim(), content: c.content.trim() }))
+    .filter((c) => c.title || c.content)
+
+  // 단일 모드 저장 가능 조건
+  const canSaveSingle =
+    structure === 'single' &&
     trimmedTitle.length > 0 &&
     trimmedTitle.length <= TITLE_MAX &&
     trimmedContent.length >= CONTENT_MIN
+
+  // 책 모드 저장 가능 조건 — 책 제목 + 모든 챕터 (제목 + content≥CONTENT_MIN)
+  const canSaveBook =
+    structure === 'book' &&
+    trimmedBookTitle.length > 0 &&
+    trimmedBookTitle.length <= TITLE_MAX &&
+    validChapters.length > 0 &&
+    validChapters.every((c) => c.title && c.content.length >= CONTENT_MIN)
+
+  const canSave = mode === 'text' && (canSaveSingle || canSaveBook)
 
   const handleSave = async () => {
     if (!canSave || isSaving) return
     setError(null)
     setIsSaving(true)
 
-    const result = await saveText({
-      title: trimmedTitle,
-      content: trimmedContent,
-      author: author.trim() || undefined,
-    })
-
-    if (result.ok) {
-      toast.success('스크립트가 저장됐어요', { title: '저장 완료' })
-      router.push('/text')
+    if (structure === 'single') {
+      const result = await saveText({
+        title: trimmedTitle,
+        content: trimmedContent,
+        author: author.trim() || undefined,
+      })
+      if (result.ok) {
+        toast.success('스크립트가 저장됐어요', { title: '저장 완료' })
+        router.push('/text')
+      } else {
+        setError(result.error)
+        setIsSaving(false)
+      }
     } else {
-      setError(result.error)
-      setIsSaving(false)
+      const result = await saveUserBook({
+        bookTitle: trimmedBookTitle,
+        author: bookAuthor.trim() || undefined,
+        chapters: validChapters,
+      })
+      if (result.ok) {
+        toast.success(
+          `${result.count}개 챕터로 "${trimmedBookTitle}" 저장됐어요`,
+          { title: '책 저장 완료' },
+        )
+        router.push('/text')
+      } else {
+        setError(result.error)
+        setIsSaving(false)
+      }
     }
   }
 
@@ -120,80 +173,145 @@ export default function TextViewerNewPage() {
 
           {mode === 'text' && (
             <>
-              {/* 제목 */}
-              <div className="mb-s-4">
-                <label
-                  htmlFor="text-title"
-                  className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
+              {/* v06.34 — 구조 모드 토글: 단일 스크립트 vs 책 (챕터별) */}
+              <div className="mb-s-4 flex flex-col gap-s-2">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-t3">
+                  입력 구조
+                </span>
+                <div
+                  role="radiogroup"
+                  aria-label="스크립트 구조"
+                  className="grid grid-cols-2 gap-s-2 rounded-xl border border-bd bg-bg2 p-s-1"
                 >
-                  제목 <span className="text-error">*</span>
-                </label>
-                <input
-                  id="text-title"
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  maxLength={TITLE_MAX + 20}
-                  placeholder="예: The Great Gatsby — Chapter 1"
-                  className="w-full rounded-lg border border-bd bg-bg px-s-4 py-s-3 font-display text-base text-t1 placeholder:text-t3 transition-all duration-normal focus:border-bdf focus:outline-none focus:ring-2 focus:ring-p/20"
-                />
-                <div className="mt-s-1 flex justify-end font-mono text-[10px] text-t3">
-                  <span className={trimmedTitle.length > TITLE_MAX ? 'text-error' : ''}>
-                    {trimmedTitle.length} / {TITLE_MAX}
-                  </span>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={structure === 'single'}
+                    onClick={() => setStructure('single')}
+                    className={[
+                      'flex items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
+                      structure === 'single'
+                        ? 'bg-bg text-t1 shadow-sm'
+                        : 'text-t3 hover:text-t1',
+                    ].join(' ')}
+                  >
+                    <FileText size={14} aria-hidden />
+                    <span>단일 스크립트</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={structure === 'book'}
+                    onClick={() => setStructure('book')}
+                    className={[
+                      'flex items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
+                      structure === 'book'
+                        ? 'bg-bg text-t1 shadow-sm'
+                        : 'text-t3 hover:text-t1',
+                    ].join(' ')}
+                  >
+                    <BookOpen size={14} aria-hidden />
+                    <span>책 (챕터별)</span>
+                  </button>
                 </div>
+                <p className="font-body text-xs text-t3">
+                  {structure === 'single'
+                    ? '단일 본문 1개를 그대로 저장합니다.'
+                    : '책 1권을 챕터별로 입력해 하나의 책으로 묶입니다.'}
+                </p>
               </div>
 
-              {/* 저자 (선택) */}
-              <div className="mb-s-4">
-                <label
-                  htmlFor="text-author"
-                  className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
-                >
-                  저자 <span className="text-t4">(선택)</span>
-                </label>
-                <input
-                  id="text-author"
-                  type="text"
-                  value={author}
-                  onChange={(e) => setAuthor(e.target.value)}
-                  maxLength={120}
-                  placeholder="예: F. Scott Fitzgerald"
-                  className="w-full rounded-lg border border-bd bg-bg px-s-4 py-s-3 font-body text-sm text-t1 placeholder:text-t3 transition-all duration-normal focus:border-bdf focus:outline-none focus:ring-2 focus:ring-p/20"
-                />
-              </div>
+              {structure === 'single' && (
+                <>
+                  {/* 제목 */}
+                  <div className="mb-s-4">
+                    <label
+                      htmlFor="text-title"
+                      className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
+                    >
+                      제목 <span className="text-error">*</span>
+                    </label>
+                    <input
+                      id="text-title"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      maxLength={TITLE_MAX + 20}
+                      placeholder="예: The Great Gatsby — Chapter 1"
+                      className="w-full rounded-lg border border-bd bg-bg px-s-4 py-s-3 font-display text-base text-t1 placeholder:text-t3 transition-all duration-normal focus:border-bdf focus:outline-none focus:ring-2 focus:ring-p/20"
+                    />
+                    <div className="mt-s-1 flex justify-end font-mono text-[10px] text-t3">
+                      <span className={trimmedTitle.length > TITLE_MAX ? 'text-error' : ''}>
+                        {trimmedTitle.length} / {TITLE_MAX}
+                      </span>
+                    </div>
+                  </div>
 
-              {/* 본문 */}
-              <div className="mb-s-2">
-                <label
-                  htmlFor="text-content"
-                  className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
-                >
-                  본문 <span className="text-error">*</span>{' '}
-                  <span className="text-t4">최소 {CONTENT_MIN}자</span>
-                </label>
-                <TextInput value={text} onChange={setText} onClear={() => setText('')} />
-              </div>
+                  {/* 저자 (선택) */}
+                  <div className="mb-s-4">
+                    <label
+                      htmlFor="text-author"
+                      className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
+                    >
+                      저자 <span className="text-t4">(선택)</span>
+                    </label>
+                    <input
+                      id="text-author"
+                      type="text"
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                      maxLength={120}
+                      placeholder="예: F. Scott Fitzgerald"
+                      className="w-full rounded-lg border border-bd bg-bg px-s-4 py-s-3 font-body text-sm text-t1 placeholder:text-t3 transition-all duration-normal focus:border-bdf focus:outline-none focus:ring-2 focus:ring-p/20"
+                    />
+                  </div>
 
-              <div className="mb-s-6">
-                <SampleScripts
-                  onSelect={(sampleText, sampleTitle) => {
-                    setText(sampleText)
-                    if (!trimmedTitle) setTitle(sampleTitle)
-                    toast.success(`"${sampleTitle}" 적용됨`)
-                  }}
-                />
-              </div>
+                  {/* 본문 */}
+                  <div className="mb-s-2">
+                    <label
+                      htmlFor="text-content"
+                      className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
+                    >
+                      본문 <span className="text-error">*</span>{' '}
+                      <span className="text-t4">최소 {CONTENT_MIN}자</span>
+                    </label>
+                    <TextInput value={text} onChange={setText} onClear={() => setText('')} />
+                  </div>
 
-              {/* Phase 3A: 다축 VRL AI 단어 추출 — composite score + evaluation breakdown */}
-              <ExtractionPanel
-                text={trimmedContent.length >= CONTENT_MIN ? trimmedContent : ''}
-                onSaved={(count) =>
-                  toast.success(`${count}개 단어를 내 단어장에 추가했어요`, {
-                    title: 'AI 단어 추출 완료',
-                  })
-                }
-              />
+                  <div className="mb-s-6">
+                    <SampleScripts
+                      onSelect={(sampleText, sampleTitle) => {
+                        setText(sampleText)
+                        if (!trimmedTitle) setTitle(sampleTitle)
+                        toast.success(`"${sampleTitle}" 적용됨`)
+                      }}
+                    />
+                  </div>
+
+                  {/* Phase 3A: 다축 VRL AI 단어 추출 — composite score + evaluation breakdown */}
+                  <ExtractionPanel
+                    text={trimmedContent.length >= CONTENT_MIN ? trimmedContent : ''}
+                    onSaved={(count) =>
+                      toast.success(`${count}개 단어를 내 단어장에 추가했어요`, {
+                        title: 'AI 단어 추출 완료',
+                      })
+                    }
+                  />
+                </>
+              )}
+
+              {structure === 'book' && (
+                <div className="mb-s-6">
+                  <BookChapterInput
+                    bookTitle={bookTitle}
+                    onBookTitleChange={setBookTitle}
+                    author={bookAuthor}
+                    onAuthorChange={setBookAuthor}
+                    chapters={chapters}
+                    onChaptersChange={setChapters}
+                  />
+                </div>
+              )}
             </>
           )}
 
@@ -244,8 +362,12 @@ export default function TextViewerNewPage() {
               </>
             ) : (
               <>
-                <FileText size={18} />
-                <span>저장하기</span>
+                {structure === 'book' ? <BookOpen size={18} /> : <FileText size={18} />}
+                <span>
+                  {structure === 'book' && validChapters.length > 0
+                    ? `저장하기 (${validChapters.length}개 챕터)`
+                    : '저장하기'}
+                </span>
                 <ArrowRight
                   size={18}
                   className="transition-transform duration-normal group-hover:translate-x-1"

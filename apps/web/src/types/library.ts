@@ -38,10 +38,20 @@ export interface LibraryText {
   /** v06.32 — 도서 단위 카드 resume target. /my/books/[bookId] 중간 redirect 우회.
    *  in_progress > not_started > 첫 chapter 순서로 결정. */
   nextTextId?: string | null
+  /** v06.34 — 사용자 직접 입력 책 그룹 식별자 (texts.user_book_group_id).
+   *  bookId=null + userBookGroupId=string 이면 사용자 책 (챕터 그룹).
+   *  카드 클릭 → /text/[nextTextId]?mode=read 직진. */
+  userBookGroupId?: string | null
   /** 도서 단위 카드일 때 — enrolled chapter 총수 (= library_books.chapter_count) */
   chapterCount?: number
   /** 도서 단위 카드일 때 — 완료(progress=100) chapter 수 */
   completedChapters?: number
+  /** 도서 단위 카드일 때 — book_v_level (i+1 레벨 권장 표시용) */
+  bookVLevel?: number | null
+  /** 도서 단위 카드일 때 — V레벨별 기지어 커버리지 (i+1 적합도 판정) */
+  lexicalCoverage?: Record<string, number> | null
+  /** 도서 단위 카드일 때 — 원천 표지 이미지 URL (상세 sheet hero) */
+  coverImageUrl?: string | null
 }
 
 export interface CategoryItem {

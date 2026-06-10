@@ -74,6 +74,8 @@ interface LibraryBookMeta {
   chapter_count: number | null
   cover_from: string | null
   cover_to: string | null
+  lexical_coverage: Record<string, number> | null
+  cover_image_url: string | null
 }
 
 type JoinedRow = TextsRow & { library_books: LibraryBookMeta | null }
@@ -90,6 +92,76 @@ function pickResumeTextId(sortedChapters: JoinedRow[]): string | null {
   )
   if (notStarted) return notStarted.id
   return sortedChapters[0]?.id ?? null
+}
+
+/**
+ * v06.34 — 사용자 직접 입력 책 그룹(user_book_group_id) 의 챕터들을 1 LibraryText 로 집계.
+ * library_books 메타가 없는 점만 다르고 나머지는 aggregateBookChapters 와 동일 구조.
+ */
+function aggregateUserBookChapters(
+  groupId: string,
+  rows: JoinedRow[],
+): LibraryText {
+  const sorted = [...rows].sort(
+    (a, b) => (a.chapter_idx ?? 0) - (b.chapter_idx ?? 0),
+  )
+  const first = sorted[0]!
+
+  const title = first.title || '제목 없음'
+  const author = first.author || '저자 미상'
+  const cefrLevel = (first.cefr_level || 'B1') as CEFRLevel
+
+  const totalChapters = sorted.length
+  const completed = sorted.filter(
+    (r) => Number(r.progress_percent ?? 0) >= 100,
+  ).length
+  const inProgress = sorted.filter((r) => {
+    const p = Number(r.progress_percent ?? 0)
+    return p > 0 && p < 100
+  }).length
+
+  const progressPercent =
+    totalChapters > 0 ? Math.round((completed / totalChapters) * 100) : 0
+
+  const wordCount = sorted.reduce((acc, r) => {
+    const c = r.content ?? ''
+    return acc + c.split(/\s+/).filter(Boolean).length
+  }, 0)
+
+  let lastStudiedAt: Date | null = null
+  for (const r of sorted) {
+    const t = r.last_opened ? new Date(r.last_opened) : null
+    if (t && (!lastStudiedAt || t > lastStudiedAt)) lastStudiedAt = t
+  }
+
+  const previewParts: string[] = [`총 ${totalChapters}장`]
+  if (inProgress > 0) previewParts.push(`진행 ${inProgress}장`)
+  if (completed > 0) previewParts.push(`완료 ${completed}장`)
+
+  return {
+    id: groupId,
+    title,
+    author,
+    cefrLevel,
+    category: '내 책',
+    preview: previewParts.join(' · '),
+    wordCount,
+    progressPercent,
+    totalPages: totalChapters,
+    currentPage: completed,
+    coverGradient: {
+      from: first.cover_from ?? '#A78BFA',
+      to: first.cover_to ?? '#6D28D9',
+    },
+    addedAt: new Date(first.created_at || Date.now()),
+    lastStudiedAt,
+    isBookmarked: sorted.some((r) => r.is_bookmarked === true),
+    bookId: null,
+    userBookGroupId: groupId,
+    nextTextId: pickResumeTextId(sorted),
+    chapterCount: totalChapters,
+    completedChapters: completed,
+  }
 }
 
 function aggregateBookChapters(
@@ -158,6 +230,9 @@ function aggregateBookChapters(
     nextTextId: pickResumeTextId(sorted),
     chapterCount: totalChapters,
     completedChapters: completed,
+    bookVLevel: meta?.book_v_level ?? null,
+    lexicalCoverage: meta?.lexical_coverage ?? null,
+    coverImageUrl: meta?.cover_image_url ?? null,
   }
 }
 
@@ -202,7 +277,7 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
   const { data, error } = await supabase
     .from('texts')
     .select(
-      '*, library_books (id, title, author, cefr_level, cefr_band, book_v_level, chapter_count, cover_from, cover_to)',
+      '*, library_books (id, title, author, cefr_level, cefr_band, book_v_level, chapter_count, cover_from, cover_to, lexical_coverage, cover_image_url)',
     )
     .eq('user_id', userId)
     .order('last_opened', { ascending: false, nullsFirst: false })
@@ -215,15 +290,24 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
 
   const rows = (data ?? []) as unknown as JoinedRow[]
 
-  // library_book_id 가 있는 row 는 도서 단위로 집계, 없으면 직접 입력/파일 등 individual card.
+  // library_book_id (curated) → bookGroups
+  // user_book_group_id (사용자 직접 입력 책) → userBookGroups
+  // 둘 다 없는 row → standalone (단일 스크립트)
   const bookGroups = new Map<string, JoinedRow[]>()
+  const userBookGroups = new Map<string, JoinedRow[]>()
   const standalone: JoinedRow[] = []
   for (const r of rows) {
     const bid = r.library_book_id
+    const ugid = (r as JoinedRow & { user_book_group_id: string | null })
+      .user_book_group_id
     if (bid) {
       const arr = bookGroups.get(bid) ?? []
       arr.push(r)
       bookGroups.set(bid, arr)
+    } else if (ugid) {
+      const arr = userBookGroups.get(ugid) ?? []
+      arr.push(r)
+      userBookGroups.set(ugid, arr)
     } else {
       standalone.push(r)
     }
@@ -232,6 +316,9 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
   const out: LibraryText[] = []
   for (const [bookId, chapters] of bookGroups) {
     out.push(aggregateBookChapters(bookId, chapters))
+  }
+  for (const [groupId, chapters] of userBookGroups) {
+    out.push(aggregateUserBookChapters(groupId, chapters))
   }
   for (const r of standalone) {
     out.push(mapDbToLibraryText(r))
