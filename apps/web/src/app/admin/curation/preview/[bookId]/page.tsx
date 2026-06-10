@@ -31,7 +31,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
   const { data: book, error } = await client
     .from('library_books')
     .select(
-      'id, title, author, cefr_level, cefr_confidence, word_count, chapter_count, status, copyright_safe_in_kr, book_v_level, source, source_id'
+      'id, title, author, cefr_level, cefr_confidence, word_count, chapter_count, status, copyright_safe_in_kr, book_v_level, source, source_id, librivox_audio'
     )
     .eq('id', params.bookId)
     .maybeSingle()
@@ -53,6 +53,59 @@ export default async function AdminPreviewPage({ params }: PageProps) {
     book_v_level: number | null
     source: string
     source_id: string | null
+    librivox_audio: {
+      mode?: string | null
+      mapped_chapters?: number | null
+      section_count?: number | null
+      aligned?: boolean | null
+      chapter_map?: Record<string, { roman: number; parts: { url: string; title: string | null }[] }> | null
+      sections?: Array<{ n?: number | null; title?: string | null; url?: string | null }> | null
+    } | null
+  }
+
+  // LibriVox 저장본 → 두 모드 인식 (panel 이 'chapter_parts' 외 'flat' 도 connected 로 판정).
+  //   - chapter_parts: 다권 Roman 매핑 (chapter_map).
+  //   - flat: 1섹션=1챕터 — section_count == chapter_count 인 단권 (sections[i] 1:1).
+  //   레거시 mode==null + aligned=true 도 flat 로 간주 (구버전 저장본 호환).
+  const lv = b.librivox_audio
+  let savedMode: 'chapter_parts' | 'flat' | null = null
+  if (lv?.mode === 'chapter_parts' && lv.chapter_map) {
+    savedMode = 'chapter_parts'
+  } else if (
+    lv &&
+    Array.isArray(lv.sections) &&
+    lv.sections.length > 0 &&
+    (lv.aligned === true ||
+      (typeof lv.section_count === 'number' &&
+        lv.section_count === lv.sections.length &&
+        lv.section_count === (b.chapter_count ?? -1)))
+  ) {
+    savedMode = 'flat'
+  }
+
+  // 매핑 리스트 빌드 (정렬)
+  let savedChapters: Array<{ idx: number; roman: number; title: string; parts: number; url: string }> = []
+  let savedMappedChapters: number | null = null
+  if (savedMode === 'chapter_parts' && lv?.chapter_map) {
+    savedChapters = Object.entries(lv.chapter_map)
+      .map(([idx, v]) => ({
+        idx: Number(idx),
+        roman: v.roman,
+        title: v.parts?.[0]?.title ?? '',
+        parts: v.parts?.length ?? 0,
+        url: v.parts?.[0]?.url ?? '',
+      }))
+      .sort((x, y) => x.idx - y.idx)
+    savedMappedChapters = lv.mapped_chapters ?? savedChapters.length
+  } else if (savedMode === 'flat' && lv?.sections) {
+    savedChapters = lv.sections.map((s, i) => ({
+      idx: i + 1,
+      roman: typeof s.n === 'number' ? s.n : i + 1,
+      title: s.title ?? '',
+      parts: 1,
+      url: s.url ?? '',
+    }))
+    savedMappedChapters = savedChapters.length
   }
 
   const chapters = await listChapters(client, b.id)
@@ -73,17 +126,19 @@ export default async function AdminPreviewPage({ params }: PageProps) {
         status={b.status}
         copyrightSafeInKr={b.copyright_safe_in_kr}
         chapters={chapters}
+        source={b.source}
+        sourceId={b.source_id}
       />
 
-      {/* LibriVox 보이스 연결 — Gutenberg/SE 도서에 낭독 매칭 (독립 소스 GET 아님).
-          gutenberg id EXACT 매칭(신뢰) · SE 제목·저자 best-effort · 솔로 우선. archive.org 스트리밍. */}
+      {/* LibriVox 보이스 — 도서 챕터 ↔ 보이스 챕터 직관 매핑 (섹션 제목의 챕터 번호로 자동).
+          archive.org 스트리밍 · 리더에서 챕터별 재생. */}
       {(b.source === 'gutenberg' || b.source === 'standard_ebooks' || b.source === 'librivox') && (
         <LibriVoxAudioPanel
-          gutenbergId={b.source === 'gutenberg' ? b.source_id : null}
-          seSlug={b.source === 'standard_ebooks' ? b.source_id : null}
-          title={b.title}
-          author={b.author}
+          bookId={b.id}
           chapterCount={chapters.length}
+          savedMode={savedMode}
+          savedMappedChapters={savedMappedChapters}
+          savedChapters={savedChapters}
         />
       )}
 

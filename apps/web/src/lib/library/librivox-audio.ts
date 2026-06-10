@@ -39,8 +39,11 @@ export interface LibriVoxMatch {
 }
 
 export interface ResolveResult {
+  /** 추천(best) 권 — 하위호환. matches[0] 과 동일. */
   audio: LibriVoxAudioInfo | null
   match: LibriVoxMatch | null
+  /** 매칭된 모든 권(volume). 단권이면 1개, 다권 저작이면 N개. 큐레이터가 선택. */
+  matches: Array<{ match: LibriVoxMatch; audio: LibriVoxAudioInfo }>
 }
 
 interface LVReader {
@@ -87,7 +90,7 @@ export async function resolveLibriVoxAudioForBook(input: {
   if (sname) collect(await lvSearch(`author=${encodeURIComponent('^' + sname)}`))
   collect(await lvSearch(`title=${encodeURIComponent('^' + titleQuery(input.title))}`))
   const candidates = [...seen.values()]
-  if (candidates.length === 0) return { audio: null, match: null }
+  if (candidates.length === 0) return { audio: null, match: null, matches: [] }
 
   let matched: LVBook[] = []
   let via: LibriVoxMatch['via'] = 'gutenberg_id'
@@ -113,7 +116,7 @@ export async function resolveLibriVoxAudioForBook(input: {
     })
     via = 'title_author'
   }
-  if (matched.length === 0) return { audio: null, match: null }
+  if (matched.length === 0) return { audio: null, match: null, matches: [] }
 
   // 정렬 우선순위:
   //   1) 도서 챕터 수에 섹션 수가 가장 근접 (텍스트↔낭독 챕터 정합 — 사용자 요청)
@@ -132,20 +135,26 @@ export async function resolveLibriVoxAudioForBook(input: {
     return (b.sections?.length ?? 0) - (a.sections?.length ?? 0)
   })
 
-  const chosen = matched[0]!
-  const audio = buildAudio(chosen)
-  if (!audio) return { audio: null, match: null }
-  const voices = readerCount(chosen)
-  return {
-    audio,
-    match: {
-      librivox_id: String(chosen.id),
-      librivox_title: chosen.title,
-      voices,
-      consistency: voices === 0 ? 'unknown' : voices === 1 ? 'solo' : 'multi',
-      via,
-    },
-  }
+  // 매칭된 모든 권을 audio 와 함께 빌드 — 다권 저작이면 여러 개.
+  // (위 정렬: 챕터 근접 → solo → 완본. matches[0] 이 추천 권.)
+  const built = matched
+    .map((b) => {
+      const audio = buildAudio(b)
+      if (!audio) return null
+      const voices = readerCount(b)
+      const m: LibriVoxMatch = {
+        librivox_id: String(b.id),
+        librivox_title: b.title,
+        voices,
+        consistency: voices === 0 ? 'unknown' : voices === 1 ? 'solo' : 'multi',
+        via,
+      }
+      return { audio, match: m }
+    })
+    .filter((x): x is { audio: LibriVoxAudioInfo; match: LibriVoxMatch } => x !== null)
+
+  if (built.length === 0) return { audio: null, match: null, matches: [] }
+  return { audio: built[0]!.audio, match: built[0]!.match, matches: built }
 }
 
 /** LibriVox project id 로 직접 오디오 조회 (기존 librivox 도서 호환). */
@@ -273,7 +282,14 @@ function norm(s: string): string {
 }
 
 function normTitle(s: string): string {
-  return norm((s || '').replace(/[:;(].*$/, ''))
+  // 선행 관사 제거 후 비교 — LibriVox 는 "The" 를 자주 생략하므로
+  // "The History of…"(SE) ↔ "History of…"(LibriVox) 가 어긋나면 안 됨.
+  return norm(stripLeadingArticle((s || '').replace(/[:;(].*$/, '')))
+}
+
+/** 선행 관사(the/a/an) 제거 — SE↔LibriVox 제목 정관사 차이 흡수. */
+function stripLeadingArticle(s: string): string {
+  return (s || '').replace(/^\s*(the|a|an)\s+/i, '')
 }
 
 /** "Last, First" → Last / "First Last" → Last (소문자 정규화) */
@@ -285,11 +301,9 @@ function surname(author: string | null | undefined): string {
   return norm(parts[parts.length - 1]!)
 }
 
-/** LibriVox title prefix 검색용 — 관사 보존, 앞 3단어. */
+/** LibriVox title prefix 검색용 — 선행 관사 제거(LibriVox 가 "The" 생략) + 앞 3단어. */
 function titleQuery(title: string): string {
-  return (title || '')
-    .replace(/[:;].*$/, '')
-    .trim()
+  return stripLeadingArticle((title || '').replace(/[:;].*$/, '').trim())
     .split(/\s+/)
     .slice(0, 3)
     .join(' ')
