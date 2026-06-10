@@ -26,3 +26,37 @@ export async function enrollBook(
 
   return data as string[]
 }
+
+export interface UnenrollResult {
+  textsDeleted: number
+  subsDeleted: number
+  vocabsDeleted: number
+}
+
+/**
+ * v06.34 — 도서 학습 제외 (enroll 역동작).
+ * texts row + chapter sets 구독 + origin='shared_set' vocab 일괄 삭제.
+ * 사용자 직접 수정 vocab (origin != 'shared_set') 은 보존.
+ * 멱등: 이미 unenrolled 면 모든 count 0 반환.
+ */
+export async function unenrollBook(
+  client: SupabaseClient,
+  bookId: string,
+): Promise<UnenrollResult> {
+  const { data, error } = await client.rpc('unenroll_library_book', {
+    p_book_id: bookId,
+  })
+  if (error) {
+    throw new Error(`unenrollBook failed: ${error.message}`)
+  }
+  const row = (Array.isArray(data) ? data[0] : data) as {
+    texts_deleted: number
+    subs_deleted: number
+    vocabs_deleted: number
+  } | null
+  return {
+    textsDeleted: row?.texts_deleted ?? 0,
+    subsDeleted: row?.subs_deleted ?? 0,
+    vocabsDeleted: row?.vocabs_deleted ?? 0,
+  }
+}

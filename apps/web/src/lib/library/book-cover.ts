@@ -70,6 +70,29 @@ export function bookCover({
   return { from, to, textTone: 'light' }
 }
 
+/**
+ * CEFR → V-Level (표지 명도 매핑용). 기본값 6 → Pinocchio 와 동일한 mid-dark 톤.
+ * 단어장/스크립트가 도서와 같은 무채도 높은(형광 아닌) 톤을 갖도록.
+ */
+export function cefrToVLevel(cefr: string | null | undefined): number {
+  switch (cefr) {
+    case 'A1':
+      return 1
+    case 'A2':
+      return 2
+    case 'B1':
+      return 4
+    case 'B2':
+      return 6
+    case 'C1':
+      return 8
+    case 'C2':
+      return 10
+    default:
+      return 6
+  }
+}
+
 export function bookTilt(title: string, indexInShelf: number, totalInShelf: number): number {
   const sum = titleHash(title)
   const base = (sum % 5) - 2

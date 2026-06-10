@@ -12,7 +12,6 @@ import {
   findUnboundBookLemmas,
   stageBookDictCandidates,
   type ExtractedBookWord,
-  type ExtractPercentile,
   type StageDictResult,
   type UnboundLemma,
   type UnboundReason,
@@ -42,30 +41,21 @@ interface BookExtractionPanelProps {
   bookVLevel: number | null
 }
 
-const PERCENTILES: Array<{
-  value: ExtractPercentile
-  label: string
-  hint: string
-}> = [
-  { value: 70, label: '70% (쉽게)', hint: 'baseline -5%' },
-  { value: 75, label: '75% (기본)', hint: 'book_v_level 과 동일' },
-  { value: 80, label: '80% (어렵게)', hint: 'baseline +5%' },
-]
-
 export function BookExtractionPanel({
   bookId,
   bookVLevel,
 }: BookExtractionPanelProps) {
-  const [percentile, setPercentile] = useState<ExtractPercentile>(75)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [rows, setRows] = useState<ExtractedBookWord[] | null>(null)
   const [limit, setLimit] = useState<number>(50)
   const [unbound, setUnbound] = useState<UnboundLemma[] | null>(null)
+  const [unboundLimit, setUnboundLimit] = useState<number>(100)
   const [staging, setStaging] = useState(false)
   const [stageResult, setStageResult] = useState<StageDictResult | null>(null)
 
   const meta = rows && rows.length > 0 ? rows[0] : null
+  const chapterCount = rows ? new Set(rows.map((r) => r.chapter_idx)).size : 0
 
   // 미등재 실단어를 "사전 등재 큐"(addable_modern)로 올림 — 뜻 생성·등재는 Claude Code 배치.
   async function handleStage() {
@@ -81,27 +71,22 @@ export function BookExtractionPanel({
     }
   }
 
-  // pct 를 인자로 받아 stale state 회피. withUnbound=false 이면 추출만 재실행
-  // (미바인딩 진단은 percentile 과 무관 — 기준 변경 시 재호출 불필요).
-  async function run(pct: ExtractPercentile, withUnbound: boolean) {
+  // v06.35 — preview == publish. threshold 는 항상 book_v_level (percentile 미사용).
+  async function run() {
     setLoading(true)
     setError(null)
     setRows(null)
     setLimit(50)
-    if (withUnbound) setUnbound(null)
+    setUnbound(null)
+    setUnboundLimit(100)
     try {
       const client = createClient()
-      if (withUnbound) {
-        const [data, unboundData] = await Promise.all([
-          extractBookVocabularyAdmin(client, bookId, pct),
-          findUnboundBookLemmas(client, bookId, 5000),
-        ])
-        setRows(data)
-        setUnbound(unboundData)
-      } else {
-        const data = await extractBookVocabularyAdmin(client, bookId, pct)
-        setRows(data)
-      }
+      const [data, unboundData] = await Promise.all([
+        extractBookVocabularyAdmin(client, bookId),
+        findUnboundBookLemmas(client, bookId, 5000),
+      ])
+      setRows(data)
+      setUnbound(unboundData)
     } catch (e) {
       setError(e instanceof Error ? e.message : '추출 실패')
     } finally {
@@ -110,14 +95,7 @@ export function BookExtractionPanel({
   }
 
   function handleRun() {
-    void run(percentile, true)
-  }
-
-  // 기준(percentile) 변경 — 이미 추출 결과가 있으면 즉시 재추출(추출만).
-  function handlePercentile(pct: ExtractPercentile) {
-    if (pct === percentile) return
-    setPercentile(pct)
-    if (rows) void run(pct, false)
+    void run()
   }
 
   const unboundByReason = (() => {
@@ -137,80 +115,42 @@ export function BookExtractionPanel({
   ).length
 
   const visible = rows ? rows.slice(0, limit) : []
+  const visibleUnbound = unbound ? unbound.slice(0, unboundLimit) : []
 
   return (
     <section
       aria-labelledby="extract-panel-title"
       className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
     >
-      <header className="flex items-center justify-between gap-3">
+      <header className="flex items-start justify-between gap-3">
         <div>
           <h2
             id="extract-panel-title"
             className="font-display text-[14px] font-[700] text-[var(--t1)]"
           >
-            단어 재추출 — Composite scoring
+            학습 단어 추출 — 미리보기 = 실제 발행
           </h2>
           <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">
-            책 V-Level P{'{70/75/80}'} 이상 · freq_boost 0.70 · register 가중 (📜 고어·🏛 시대어 하향)
-            {bookVLevel != null && (
-              <>
-                {' · 현재 book_v_level: '}
-                <strong className="text-[var(--t2)]">V{bookVLevel}</strong>
-              </>
-            )}
+            book_v_level{bookVLevel != null ? ` V${bookVLevel}` : ''} 이상 · 📜 고어·🏛 시대어
+            제외(본문 툴팁으로) · composite = freq_boost 0.70 + 챕터 salience 0.10 + skill
+            penalty · 발행 단어장과 동일 결과·순서
           </p>
         </div>
-      </header>
-
-      <div
-        role="radiogroup"
-        aria-label="레벨 기준 percentile"
-        className="flex flex-wrap gap-1.5"
-      >
-        {PERCENTILES.map((p) => {
-          const active = percentile === p.value
-          return (
-            <button
-              key={p.value}
-              type="button"
-              role="radio"
-              aria-checked={active}
-              onClick={() => handlePercentile(p.value)}
-              disabled={loading}
-              className={[
-                'inline-flex flex-col items-start gap-0.5 rounded-[var(--r-sm)] border px-3 py-1.5',
-                'font-display text-[12px] font-[600]',
-                'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2',
-                'disabled:opacity-50',
-                active
-                  ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p)]'
-                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]',
-              ].join(' ')}
-            >
-              <span>{p.label}</span>
-              <span className="font-body text-[10px] font-[400] text-[var(--t3)]">
-                {p.hint}
-              </span>
-            </button>
-          )
-        })}
 
         <button
           type="button"
           onClick={handleRun}
           disabled={loading}
-          className="ml-auto inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+          className="inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
           ) : (
             <Zap size={12} aria-hidden />
           )}
-          {loading ? '추출 중…' : '재추출'}
+          {loading ? '추출 중…' : '추출'}
         </button>
-      </div>
+      </header>
 
       {error && (
         <div
@@ -224,10 +164,10 @@ export function BookExtractionPanel({
 
       {meta && (
         <div className="grid grid-cols-2 gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3 sm:grid-cols-4">
-          <MetaCell label="P 사용" value={`P${meta.percentile_used}`} />
-          <MetaCell label="Baseline" value={`V${meta.book_v_level}`} />
-          <MetaCell label="Threshold" value={`≥ V${meta.v_threshold}`} />
-          <MetaCell label="후보 단어" value={`${meta.total_candidates}개`} />
+          <MetaCell label="발행 기준" value={`≥ V${meta.v_threshold}`} />
+          <MetaCell label="book_v_level" value={`V${meta.book_v_level}`} />
+          <MetaCell label="챕터" value={`${chapterCount}개`} />
+          <MetaCell label="단어 (챕터×단어)" value={`${meta.total_candidates}개`} />
         </div>
       )}
 
@@ -237,6 +177,7 @@ export function BookExtractionPanel({
             <thead className="bg-[var(--bg2)] text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
               <tr>
                 <Th>#</Th>
+                <Th className="text-right">Ch</Th>
                 <Th>단어</Th>
                 <Th>뜻</Th>
                 <Th className="text-right">V</Th>
@@ -247,10 +188,11 @@ export function BookExtractionPanel({
             <tbody>
               {visible.map((r) => (
                 <tr
-                  key={r.word}
+                  key={`${r.chapter_idx}-${r.word}`}
                   className="border-t border-[var(--bd)] font-body text-[12px] text-[var(--t1)] hover:bg-[var(--bg2)]"
                 >
                   <Td className="font-mono text-[var(--t3)]">{r.rank}</Td>
+                  <Td className="text-right font-mono text-[var(--t3)]">{r.chapter_idx}</Td>
                   <Td className="font-display font-[600]">
                     <span className="inline-flex items-center gap-1.5">
                       {r.word}
@@ -409,7 +351,7 @@ export function BookExtractionPanel({
                 </tr>
               </thead>
               <tbody>
-                {unbound.map((r, i) => (
+                {visibleUnbound.map((r, i) => (
                   <tr
                     key={r.lemma}
                     className="border-t border-[var(--bd)] font-body text-[11px] text-[var(--t1)]"
@@ -508,6 +450,37 @@ export function BookExtractionPanel({
               </tbody>
             </table>
 
+            {unbound.length > 100 && (
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 border-t border-[var(--bd)] bg-[var(--bg2)] p-2">
+                {unbound.length > unboundLimit && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setUnboundLimit((n) => n + 100)}
+                      className="font-display text-[12px] font-[600] text-[var(--p)] hover:underline"
+                    >
+                      다음 100개 보기 ({unbound.length - unboundLimit}개 남음)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setUnboundLimit(unbound.length)}
+                      className="font-display text-[12px] font-[600] text-[var(--p)] hover:underline"
+                    >
+                      전체 보기 (총 {unbound.length}개)
+                    </button>
+                  </>
+                )}
+                {unboundLimit > 100 && unbound.length <= unboundLimit && (
+                  <button
+                    type="button"
+                    onClick={() => setUnboundLimit(100)}
+                    className="font-display text-[12px] font-[600] text-[var(--t3)] hover:underline"
+                  >
+                    접기 (100개만 보기)
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </section>
       )}

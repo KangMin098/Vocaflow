@@ -12,11 +12,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
 
+import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import {
   NetflixDetailSheet,
   type DetailVariant,
   type SampleWord,
 } from '@/components/library/shared/NetflixDetailSheet'
+import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
@@ -40,19 +42,19 @@ function cardTransform(offset: number) {
   const abs = Math.abs(offset)
   if (abs > 3) {
     return {
-      transform: `translate3d(${Math.sign(offset) * 540}px, 0, -700px) rotateY(${offset * -22}deg) scale(0.4)`,
+      transform: `translate3d(${Math.sign(offset) * 660}px, 0, -700px) rotateY(${offset * -20}deg) scale(0.45)`,
       opacity: 0,
       zIndex: 0,
       pointer: 'none' as const,
     }
   }
   const sign = Math.sign(offset)
-  // OTT 넓게 — ±1: 165px, ±2: 305px, ±3: 425px (확실히 보임)
-  const x = sign * (abs === 0 ? 0 : 165 + (abs - 1) * 140)
-  const z = -abs * 70
-  const rotY = -offset * 17 // 덜 회전 (더 prominent)
-  const scale = 1 - abs * 0.10 // 덜 작아짐
-  const opacity = abs === 0 ? 1 : abs === 1 ? 0.92 : abs === 2 ? 0.7 : 0.5
+  // 270px 책 — ±1: 200px, ±2: 360px, ±3: 510px (LibraryGrid 정합)
+  const x = sign * (abs === 0 ? 0 : 200 + (abs - 1) * 160)
+  const z = -abs * 60
+  const rotY = -offset * 13
+  const scale = 1 - abs * 0.07
+  const opacity = abs === 0 ? 1 : abs === 1 ? 0.96 : abs === 2 ? 0.8 : 0.6
   return {
     transform: `translate3d(${x}px, 0, ${z}px) rotateY(${rotY}deg) scale(${scale})`,
     opacity,
@@ -203,7 +205,7 @@ export function VocabSetCarousel({
       {/* Coverflow stage */}
       <div className="relative w-full overflow-hidden">
         <div
-          className="relative mx-auto flex h-[400px] w-full max-w-[1200px] items-center justify-center"
+          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center"
           style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -228,7 +230,6 @@ export function VocabSetCarousel({
               >
                 <CoverCard
                   set={set}
-                  color={color}
                   isCenter={isCenter}
                   isSubscribed={subscribedIds.has(set.id)}
                   isPending={pendingId === set.id}
@@ -350,19 +351,24 @@ export function VocabSetCarousel({
 // ─── 책 cover 스타일 카드 ─────────────────────────────
 function CoverCard({
   set,
-  color,
   isCenter,
   isSubscribed,
   isPending,
   onActivate,
 }: {
   set: PublishedVocabSet
-  color: { from: string; to: string; accent: string }
   isCenter: boolean
   isSubscribed: boolean
   isPending: boolean
   onActivate: () => void
 }) {
+  // 도서와 동일한 무채도 높은(형광 아닌) 톤 — 카테고리 형광색 대신 bookCover 팔레트
+  const cover = bookCover({
+    title: set.title,
+    bookVLevel: cefrToVLevel(set.cefrLevel),
+    coverFrom: null,
+    coverTo: null,
+  })
   return (
     <button
       type="button"
@@ -371,29 +377,29 @@ function CoverCard({
       className="block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
     >
       <div
-        className={`book-cover-premium relative aspect-[3/4] w-[210px] overflow-hidden ${
+        className={`book-cover-premium relative aspect-[3/4] w-[270px] overflow-hidden ${
           isCenter ? 'book-cover-premium--center' : ''
         }`}
         style={{
           background: `
             radial-gradient(120% 80% at 25% 12%, rgba(255,255,255,0.22) 0%, transparent 45%),
-            linear-gradient(155deg, ${color.from} 0%, ${color.to} 78%, rgba(0,0,0,0.18) 100%)
+            linear-gradient(155deg, ${cover.from} 0%, ${cover.to} 78%, rgba(0,0,0,0.18) 100%)
           `,
         }}
       >
-        {/* 책등 — 3-stop + 미세 highlight */}
-        <div
-          aria-hidden
-          className="absolute inset-y-0 left-0 w-[8px] bg-gradient-to-r from-black/45 via-black/22 to-transparent"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-y-0 left-[7px] w-[1px] bg-white/15"
+        {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 */}
+        <GradientBookCover
+          title={set.title}
+          subtitle={`${set.wordCount.toLocaleString()} 단어`}
+          ornament={set.coverEmoji}
         />
         {/* 상단 sheen (Apple glass) */}
         <div aria-hidden className="book-cover-sheen absolute inset-0" />
         {/* 종이 grain */}
         <div aria-hidden className="book-cover-grain absolute inset-0" />
+        {/* 입체 책등(좌) + 페이지 단면(우) */}
+        <div aria-hidden className="book-spine3d" />
+        <div aria-hidden className="book-foreedge" />
 
         {/* 구독 배지 */}
         {isSubscribed && (
@@ -409,32 +415,6 @@ function CoverCard({
             <Loader2 size={14} className="animate-spin" />
           </span>
         )}
-
-        {/* 이모지 (frosted 원) + 제목 + 단어수 */}
-        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between p-5 text-white">
-          {set.coverEmoji ? (
-            <span
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-[20px] leading-none backdrop-blur-sm"
-              aria-hidden
-            >
-              {set.coverEmoji}
-            </span>
-          ) : (
-            <span />
-          )}
-          <div className="flex flex-col gap-2.5">
-            <h3 className="line-clamp-4 font-display text-[17px] font-[700] leading-[1.18] tracking-[-0.01em] drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]">
-              {set.title}
-            </h3>
-            {/* 단어수 — 우아한 구분선 + mono */}
-            <div className="flex items-center gap-2">
-              <span aria-hidden className="h-px w-5 bg-white/40" />
-              <span className="font-mono text-[11px] font-[600] tracking-wide text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
-                {set.wordCount.toLocaleString()} words
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </button>
   )

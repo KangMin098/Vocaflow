@@ -12,17 +12,30 @@
 
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { X, Clock, BookOpen, Layers, Sparkles, Volume2 } from 'lucide-react'
 
 import { bookCover } from '@/lib/library/book-cover'
+import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 
 export interface SampleWord {
   word: string
   meaningKo: string
   partOfSpeech?: string | null
   cefrLevel?: string | null
+}
+
+// 내 라이브러리(/text) 전용 개인화 — 진도·상태. 공용(/library/books)에선 미전달.
+export interface MyProgress {
+  status: 'not_started' | 'in_progress' | 'completed'
+  progressPercent?: number | null
+  /** 완료 단위 (챕터/페이지/단어) */
+  completedUnits?: number | null
+  totalUnits?: number | null
+  /** '챕터' | '페이지' | '단어' */
+  unitLabel?: string
 }
 
 interface BookVariant {
@@ -43,6 +56,13 @@ interface BookVariant {
   progressPercent?: number | null
   coverFrom?: string | null
   coverTo?: string | null
+  /** 원천 표지 이미지 URL (Gutenberg/SE). 있으면 hero 에 실 표지 표시 */
+  coverImageUrl?: string | null
+  // i+1 적합도 — V레벨별 기지어 커버리지 + 학습자 V레벨
+  lexicalCoverage?: Record<string, number> | null
+  userVLevel?: number | null
+  // 내 라이브러리(/text) 개인화 — 진도·상태 (공용 /library/books 에선 미전달)
+  mine?: MyProgress
   ctaHref: string
   ctaLabel: string
   // v06.34 — 큐레이션 메타 (선택 의사결정 보조)
@@ -54,6 +74,10 @@ interface BookVariant {
   ageBand?: string | null
   genreNorm?: string | null
   descriptionEn?: string | null
+  // v06.34 — 학습 제외 (enrolled 도서에서만 노출)
+  isEnrolled?: boolean
+  onUnenroll?: () => void
+  unenrollPending?: boolean
 }
 
 interface ScriptVariant {
@@ -68,6 +92,7 @@ interface ScriptVariant {
   preview?: string | null
   coverFrom: string
   coverTo: string
+  mine?: MyProgress
   ctaHref: string
   ctaLabel: string
 }
@@ -84,6 +109,7 @@ interface VocabVariant {
   wordCount: number
   coverEmoji?: string | null
   samples?: SampleWord[]
+  mine?: MyProgress
   ctaHref?: string
   ctaLabel: string
   onCtaClick?: () => void
@@ -212,31 +238,64 @@ function Hero({ variant }: { variant: DetailVariant }) {
     to = variant.categoryColor.to
   }
 
+  const coverImageUrl = variant.type === 'book' ? (variant.coverImageUrl ?? null) : null
+
   return (
     <div
       className="relative h-[200px] shrink-0 overflow-hidden md:h-[240px]"
-      style={{
-        // Calm UI — sheen 보강 (22%→28%) + 추가 white veil 12% 로 풀-saturate 톤다운
-        // bottom black (40%) 도 24% 로 완화 (vignette 약화)
-        background: `
+      style={
+        coverImageUrl
+          ? { backgroundColor: '#0B0B0F' }
+          : {
+              // Calm UI — sheen 보강 + white veil 로 풀-saturate 톤다운
+              background: `
           linear-gradient(rgba(255,255,255,0.12), rgba(255,255,255,0.12)),
           radial-gradient(120% 80% at 20% 10%, rgba(255,255,255,0.28) 0%, transparent 55%),
           linear-gradient(155deg, ${from} 0%, ${to} 75%, rgba(0,0,0,0.24) 100%)
         `,
-      }}
+            }
+      }
     >
-      {/* sheen + grain */}
-      <div aria-hidden className="book-cover-sheen absolute inset-0" />
-      <div aria-hidden className="book-cover-grain absolute inset-0" />
+      {coverImageUrl ? (
+        <>
+          {/* 실 표지 — 블러 backdrop(landscape 채움) + 중앙 contained cover (portrait) */}
+          <Image
+            src={coverImageUrl}
+            alt=""
+            aria-hidden
+            fill
+            sizes="720px"
+            className="scale-110 object-cover blur-2xl brightness-[0.5]"
+          />
+          <Image
+            src={coverImageUrl}
+            alt={variant.type === 'book' ? `${variant.title} 표지` : ''}
+            fill
+            sizes="(max-width: 768px) 90vw, 720px"
+            className="z-[1] object-contain p-3"
+          />
+          {/* 하단 scrim — 제목 가독성 */}
+          <div
+            aria-hidden
+            className="absolute inset-0 z-[1] bg-gradient-to-t from-black/75 via-transparent to-black/5"
+          />
+        </>
+      ) : (
+        <>
+          {/* sheen + grain (그라디언트 표지) */}
+          <div aria-hidden className="book-cover-sheen absolute inset-0" />
+          <div aria-hidden className="book-cover-grain absolute inset-0" />
+        </>
+      )}
 
       {/* bottom fade to bg */}
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-[var(--bg)]"
+        className="absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-[var(--bg)]"
       />
 
       {/* 좌상단 카테고리/타입 */}
-      <div className="absolute left-5 top-5 inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-black/40 px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-white backdrop-blur-md md:left-7 md:top-7">
+      <div className="absolute left-5 top-5 z-[2] inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-black/40 px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-white backdrop-blur-md md:left-7 md:top-7">
         {variant.type === 'book' && (
           <>
             <BookOpen size={11} aria-hidden /> 도서
@@ -265,7 +324,7 @@ function Hero({ variant }: { variant: DetailVariant }) {
       )}
 
       {/* 제목 + 저자 (좌하단) */}
-      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 px-6 pb-5 text-white md:px-8 md:pb-6">
+      <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col gap-1.5 px-6 pb-5 text-white md:px-8 md:pb-6">
         <h2
           className={`line-clamp-2 font-display font-[800] leading-[1.1] tracking-[-0.015em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)] ${
             variant.type === 'book'
@@ -289,6 +348,16 @@ function Hero({ variant }: { variant: DetailVariant }) {
 function BookBody({ v }: { v: BookVariant }) {
   return (
     <div className="flex flex-col gap-5">
+      {/* 내 학습 (내 라이브러리 전용 — 상태·진도·레벨 권장) */}
+      {v.mine && (
+        <MyProgressSection
+          kind="book"
+          mine={v.mine}
+          coverage={v.lexicalCoverage}
+          userVLevel={v.userVLevel ?? 0}
+        />
+      )}
+
       {/* 4축 난이도 + 분량 */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label="CEFR" value={v.cefrBand ?? v.cefrLevel ?? '—'} />
@@ -304,6 +373,11 @@ function BookBody({ v }: { v: BookVariant }) {
           sub="통사 복잡도"
         />
       </div>
+
+      {/* i+1 적합도 — 공용(/library/books)에서만. 내 라이브러리는 위 '내 학습'에 포함 */}
+      {!v.mine && (
+        <IPlusOneRow coverage={v.lexicalCoverage} userVLevel={v.userVLevel ?? 0} />
+      )}
 
       {/* 분량 */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
@@ -435,10 +509,209 @@ function Section({
   )
 }
 
+// ── 내 학습 섹션 (내 라이브러리 /text 전용) ───────────────────────
+// 상태 배지 + 진도(챕터/페이지) + 레벨 적합도(i+1, 도서 한정) + 상황별 권장 1줄.
+const STATUS_META = {
+  not_started: { label: { book: '미시작', script: '미시작', vocab: '학습 전' }, fg: 'var(--t2)', bg: 'var(--bg3)' },
+  in_progress: { label: { book: '진행 중', script: '읽는 중', vocab: '학습 중' }, fg: 'var(--p)', bg: 'var(--p-light)' },
+  completed: { label: { book: '정복', script: '완독', vocab: '완료' }, fg: 'var(--success)', bg: 'var(--success-light)' },
+} as const
+
+function buildGuidance(
+  kind: 'book' | 'script' | 'vocab',
+  status: MyProgress['status'],
+  tier: 'easy' | 'ideal' | 'challenge' | 'hard' | null,
+): string {
+  if (kind === 'book') {
+    if (status === 'completed') return '이 책을 정복했어요. 다른 책에도 도전해 보세요.'
+    if (status === 'in_progress') return '이어서 학습하면 흐름을 유지할 수 있어요.'
+    // not_started — 레벨 적합도에 따라 권장 분기 (레벨 관리)
+    if (tier === 'hard') return '모르는 단어가 많아요 — 챕터 단어장으로 먼저 다지면 수월해요.'
+    if (tier === 'challenge') return '약간 도전적이에요. 단어를 함께 익히며 읽어보세요.'
+    if (tier === 'ideal') return '지금 시작하기 딱 좋은 난이도예요.'
+    if (tier === 'easy') return '대부분 아는 단어라 편하게 읽혀요.'
+    return '첫 챕터부터 천천히 시작해 보세요.'
+  }
+  if (kind === 'script') {
+    if (status === 'completed') return '다 읽었어요. 단어 학습으로 마무리해 보세요.'
+    if (status === 'in_progress') return '이어서 읽어보세요.'
+    return '본문을 읽으며 단어를 추출해 보세요.'
+  }
+  // vocab
+  if (status === 'completed') return '복습으로 기억을 단단히 굳혀보세요.'
+  if (status === 'in_progress') return '오늘도 몇 단어 더 만나볼까요?'
+  return 'Flashcard 로 학습을 시작해 보세요.'
+}
+
+function MyProgressSection({
+  kind,
+  mine,
+  coverage,
+  userVLevel,
+}: {
+  kind: 'book' | 'script' | 'vocab'
+  mine: MyProgress
+  coverage?: Record<string, number> | null
+  userVLevel?: number | null
+}) {
+  const sm = STATUS_META[mine.status]
+  const fit =
+    kind === 'book' && coverage && userVLevel && userVLevel >= 1
+      ? judgeIPlusOne(coverage, userVLevel)
+      : null
+  const pct = Math.max(0, Math.min(100, mine.progressPercent ?? 0))
+  const hasUnits = mine.completedUnits != null && mine.totalUnits != null && mine.totalUnits > 0
+  const guidance = buildGuidance(kind, mine.status, fit?.tier ?? null)
+
+  return (
+    <section className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]">
+          내 학습
+        </h3>
+        <span
+          className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700]"
+          style={{ color: sm.fg, background: sm.bg }}
+        >
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: sm.fg }} />
+          {sm.label[kind]}
+        </span>
+      </div>
+
+      {/* 진도 */}
+      {(hasUnits || pct > 0) && (
+        <div>
+          <div className="mb-1 flex items-baseline justify-between">
+            <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+              진도
+            </span>
+            <span className="font-display text-[12px] font-[700] tabular-nums text-[var(--t1)]">
+              {hasUnits
+                ? `${mine.completedUnits} / ${mine.totalUnits} ${mine.unitLabel ?? ''}`
+                : `${pct}%`}
+            </span>
+          </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bg3)]">
+            <div
+              className="h-full transition-[width] duration-[var(--dur-slow)]"
+              style={{ width: `${pct}%`, backgroundColor: sm.fg }}
+              aria-hidden
+            />
+          </div>
+        </div>
+      )}
+
+      {/* 레벨 적합도 (i+1) — 도서 한정 */}
+      {fit && (
+        <div className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border bg-[var(--bg)] px-3 py-2" style={{ borderColor: fit.color }}>
+          <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[700]">
+            <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: fit.color }} />
+            <span style={{ color: fit.color }}>레벨 {fit.label}</span>
+          </span>
+          <span className="font-mono text-[11px] text-[var(--t2)]">
+            V{userVLevel} · 아는 단어{' '}
+            <strong className="font-display font-[700]" style={{ color: fit.color }}>
+              {fit.coverage}%
+            </strong>
+          </span>
+        </div>
+      )}
+
+      {/* 미진단 안내 (도서이고 coverage 있는데 V레벨 미설정) */}
+      {kind === 'book' && coverage && (!userVLevel || userVLevel < 1) && (
+        <Link
+          href="/diagnostic"
+          className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-3 py-2 transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)]"
+        >
+          <span className="font-body text-[11.5px] text-[var(--t2)]">
+            레벨을 진단하면 이 책이 나에게 맞는지 알려드려요
+          </span>
+          <span className="shrink-0 font-display text-[11.5px] font-[700] text-[var(--p)]">진단 →</span>
+        </Link>
+      )}
+
+      {/* 권장 1줄 */}
+      <p className="font-body text-[11.5px] leading-relaxed text-[var(--t2)]">💡 {guidance}</p>
+    </section>
+  )
+}
+
+// ── i+1 적합도 row ───────────────────────
+// 학습자 V레벨 기준 기지어 커버리지 → "나에게 딱 맞아요 · 95%" + 진행 막대.
+// 미진단(userVLevel 0)이면 진단 유도 안내. coverage 데이터 없으면 미표시.
+function IPlusOneRow({
+  coverage,
+  userVLevel,
+}: {
+  coverage?: Record<string, number> | null
+  userVLevel: number
+}) {
+  if (!userVLevel || userVLevel < 1) {
+    return (
+      <Link
+        href="/diagnostic"
+        className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)]"
+      >
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          내 레벨을 진단하면 이 책이 나에게 맞는지 알려드려요
+        </span>
+        <span className="shrink-0 font-display text-[12px] font-[700] text-[var(--p)]">
+          진단 →
+        </span>
+      </Link>
+    )
+  }
+
+  const fit = judgeIPlusOne(coverage, userVLevel)
+  if (!fit) return null
+
+  return (
+    <div
+      className="rounded-[var(--r-md)] border bg-[var(--bg2)] px-4 py-3"
+      style={{ borderColor: fit.color }}
+    >
+      <div className="mb-1.5 flex items-baseline justify-between gap-2">
+        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[700]">
+          <span
+            aria-hidden
+            className="h-2 w-2 rounded-full"
+            style={{ backgroundColor: fit.color }}
+          />
+          <span style={{ color: fit.color }}>나에게 {fit.label}</span>
+        </span>
+        <span className="font-mono text-[12px] text-[var(--t2)]">
+          V{userVLevel} 학습자가 아는 단어{' '}
+          <strong className="font-display font-[700] tabular-nums" style={{ color: fit.color }}>
+            {fit.coverage}%
+          </strong>
+        </span>
+      </div>
+      <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bg3)]">
+        <div
+          className="h-full transition-[width] duration-[var(--dur-slow)]"
+          style={{ width: `${fit.coverage}%`, backgroundColor: fit.color }}
+          aria-hidden
+        />
+      </div>
+      <p className="mt-1.5 font-body text-[10.5px] leading-relaxed text-[var(--t3)]">
+        {fit.tier === 'ideal'
+          ? '모르는 단어가 적당해서 맥락으로 익히기 좋아요 (i+1).'
+          : fit.tier === 'easy'
+            ? '대부분 아는 단어라 편하게 읽혀요.'
+            : fit.tier === 'challenge'
+              ? '모르는 단어가 다소 있어요 — 단어장으로 먼저 다지면 수월해요.'
+              : '모르는 단어가 많아요 — 단어장 학습 후 도전을 권해요.'}
+      </p>
+    </div>
+  )
+}
+
 // ─── ScriptBody ──────────────────────────────────────────
 function ScriptBody({ v }: { v: ScriptVariant }) {
   return (
     <div className="flex flex-col gap-5">
+      {v.mine && <MyProgressSection kind="script" mine={v.mine} />}
+
       <div className="grid grid-cols-3 gap-3">
         <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
         <Stat
@@ -476,6 +749,8 @@ function ScriptBody({ v }: { v: ScriptVariant }) {
 function VocabBody({ v }: { v: VocabVariant }) {
   return (
     <div className="flex flex-col gap-5">
+      {v.mine && <MyProgressSection kind="vocab" mine={v.mine} />}
+
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Stat label="단어 수" value={v.wordCount.toLocaleString()} />
         <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
@@ -549,23 +824,42 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
     )
   }
 
+  // v06.34 — enrolled 도서면 좌측에 "내 학습에서 제외" 보조 액션 노출
+  const showUnenroll =
+    variant.type === 'book' && variant.isEnrolled === true && !!variant.onUnenroll
+
   return (
-    <footer className="flex shrink-0 items-center justify-end gap-2 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-3 md:px-8">
-      <button
-        type="button"
-        onClick={onClose}
-        className="inline-flex items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-      >
-        나중에
-      </button>
-      <Link
-        href={variant.ctaHref}
-        onClick={onClose}
-        className="inline-flex items-center rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
-        style={{ backgroundColor: accent }}
-      >
-        {variant.ctaLabel}
-      </Link>
+    <footer className="flex shrink-0 items-center justify-between gap-2 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-3 md:px-8">
+      <div className="flex items-center">
+        {showUnenroll && variant.type === 'book' && (
+          <button
+            type="button"
+            onClick={() => variant.onUnenroll?.()}
+            disabled={variant.unenrollPending}
+            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t3)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error)] disabled:opacity-50"
+            title="내 학습 도서 목록에서 빼기 (단어 학습 기록은 보존)"
+          >
+            {variant.unenrollPending ? '제외 중…' : '− 내 학습에서 제외'}
+          </button>
+        )}
+      </div>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={onClose}
+          className="inline-flex items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+        >
+          나중에
+        </button>
+        <Link
+          href={variant.ctaHref}
+          onClick={onClose}
+          className="inline-flex items-center rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
+          style={{ backgroundColor: accent }}
+        >
+          {variant.ctaLabel}
+        </Link>
+      </div>
     </footer>
   )
 }

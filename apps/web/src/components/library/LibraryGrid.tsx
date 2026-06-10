@@ -10,38 +10,27 @@
 
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 
 import { bookCover } from '@/lib/library/book-cover'
+import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { judgeIPlusOne } from '@/lib/library/i-plus-one'
+import { unenrollBook } from '@/lib/library/enroll'
+import { createClient } from '@/lib/supabase/client'
 import { NetflixDetailSheet, type DetailVariant } from '@/components/library/shared/NetflixDetailSheet'
+import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
+import type { EnrollmentState, PublishedBook } from '@/lib/library/published-book'
 
-export interface PublishedBook {
-  id: string
-  title: string
-  author: string | null
-  cefr_level: string | null
-  cefr_band: string | null
-  book_v_level: number | null
-  word_count: number | null
-  chapter_count: number | null
-  reading_minutes: number | null
-  word_set_count?: number
-  cover_from?: string | null
-  cover_to?: string | null
-  // v06.34 — 큐레이션 메타 (library_seed_catalog join)
-  synopsis_ko?: string | null
-  learning_value?: string | null
-  themes?: string[] | null
-  est_basis?: string | null
-  est_cefr?: string | null
-  age_band?: string | null
-  genre_norm?: string | null
-  description_en?: string | null
-}
+// 타입 단일 출처 = lib/library/published-book. 기존 import 경로 호환 위해 re-export.
+export type { EnrollmentState, PublishedBook }
 
 interface LibraryGridProps {
   books: PublishedBook[]
+  /** 학습자 현재 V레벨 — i+1 적합도 배지 판정 (0 = 미진단 → 배지 미표시) */
+  userVLevel?: number
 }
 
 // iOS native easing — Apple HIG interactive curves.
@@ -79,39 +68,44 @@ function cardTransform(offset: number) {
   }
 }
 
-export function LibraryGrid({ books }: LibraryGridProps) {
+export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
+  const router = useRouter()
   const [active, setActive] = useState(0)
   const [detail, setDetail] = useState<DetailVariant | null>(null)
+  const [unenrollPending, startUnenrollTransition] = useTransition()
   const touchStartX = useRef<number | null>(null)
   const stageRef = useRef<HTMLDivElement>(null)
 
-  function openDetail(book: PublishedBook) {
-    setDetail({
-      type: 'book',
-      id: book.id,
-      title: book.title,
-      author: book.author,
-      cefrBand: book.cefr_band,
-      cefrLevel: book.cefr_level,
-      bookVLevel: book.book_v_level,
-      wordCount: book.word_count,
-      chapterCount: book.chapter_count,
-      readingMinutes: book.reading_minutes,
-      wordSetCount: book.word_set_count,
-      coverFrom: book.cover_from,
-      coverTo: book.cover_to,
-      ctaHref: `/library/books/${book.id}`,
-      ctaLabel: '학습 시작',
-      // v06.34 — 큐레이션 메타 (library_seed_catalog 에서 join)
-      synopsisKo: book.synopsis_ko,
-      learningValue: book.learning_value,
-      themes: book.themes,
-      estBasis: book.est_basis,
-      estCefr: book.est_cefr,
-      ageBand: book.age_band,
-      genreNorm: book.genre_norm,
-      descriptionEn: book.description_en,
+  function handleUnenroll(book: PublishedBook) {
+    if (
+      !window.confirm(
+        `"${book.title}" 을(를) 내 학습에서 제외할까요?\n` +
+          '· 챕터 진도와 챕터 단어장 구독이 해제됩니다.\n' +
+          '· 사용자가 직접 추가/수정한 단어는 보존됩니다.\n' +
+          '· 언제든 다시 추가할 수 있어요.',
+      )
+    ) {
+      return
+    }
+    startUnenrollTransition(async () => {
+      try {
+        const client = createClient()
+        await unenrollBook(client, book.id)
+        setDetail(null)
+        router.refresh()
+      } catch (e) {
+        window.alert(`제외 실패: ${e instanceof Error ? e.message : 'unknown'}`)
+      }
     })
+  }
+
+  function openDetail(book: PublishedBook) {
+    setDetail(
+      toBookDetailVariant(book, userVLevel, {
+        onUnenroll: () => handleUnenroll(book),
+        unenrollPending,
+      }),
+    )
   }
 
   const last = books.length - 1
@@ -155,7 +149,8 @@ export function LibraryGrid({ books }: LibraryGridProps) {
     const endX = e.changedTouches[0]?.clientX ?? touchStartX.current
     const delta = endX - touchStartX.current
     if (Math.abs(delta) > 50) {
-      delta > 0 ? prev() : next()
+      if (delta > 0) prev()
+      else next()
     }
     touchStartX.current = null
   }
@@ -280,13 +275,58 @@ export function LibraryGrid({ books }: LibraryGridProps) {
             </span>
           )}
         </div>
-        <button
-          type="button"
-          onClick={() => openDetail(activeBook)}
-          className="mt-3 inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--t1)] px-5 py-2.5 font-display text-[13px] font-[700] text-[var(--bg)] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
-        >
-          상세 보기
-        </button>
+
+        {/* i+1 적합도 — 학습자 V레벨 기준 기지어 커버리지 */}
+        {(() => {
+          const fit = judgeIPlusOne(activeBook.lexical_coverage, userVLevel)
+          if (!fit) return null
+          return (
+            <span
+              className="mt-1.5 inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-[700]"
+              style={{ color: fit.color, borderColor: fit.color }}
+              title={`V${userVLevel} 학습자가 이 책 단어의 ${fit.coverage}% 를 이미 알아요`}
+              aria-label={`나에게 ${fit.label}, 아는 단어 ${fit.coverage}퍼센트`}
+            >
+              <span
+                aria-hidden
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ backgroundColor: fit.color }}
+              />
+              나에게 {fit.label}
+              <span className="font-mono font-[600] opacity-70">{fit.coverage}%</span>
+            </span>
+          )
+        })()}
+
+        {/* v06.34 — Hero CTA: enrolled 일 때 상태별 라벨 + 색 차등 */}
+        {(() => {
+          const state = activeBook.enrollment_state ?? 'not_enrolled'
+          const label =
+            state === 'in_progress'
+              ? '이어서 학습 · 상세'
+              : state === 'completed'
+                ? '다시 학습 · 상세'
+                : state === 'enrolled'
+                  ? '학습 시작 · 상세'
+                  : '미리보기 · 상세'
+          const bg =
+            state === 'in_progress'
+              ? 'bg-[var(--p)] text-white'
+              : state === 'completed'
+                ? 'bg-[var(--success)] text-white'
+                : state === 'enrolled'
+                  ? 'bg-[var(--p)] text-white'
+                  : 'bg-[var(--t1)] text-[var(--bg)]'
+          return (
+            <button
+              type="button"
+              onClick={() => openDetail(activeBook)}
+              className={`mt-3 inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
+            >
+              {label}
+            </button>
+          )
+        })()}
       </div>
 
       {/* Dot indicator */}
@@ -339,6 +379,7 @@ function CarouselBook({
     coverFrom: book.cover_from,
     coverTo: book.cover_to,
   })
+  const coverImageUrl = book.cover_image_url ?? null
 
   const inner = (
     <div
@@ -346,21 +387,45 @@ function CarouselBook({
         isActive ? 'book-cover-premium--center' : ''
       }`}
       style={{
-        background: `
+        background: coverImageUrl
+          ? '#0B0B0F'
+          : `
           radial-gradient(120% 80% at 25% 12%, rgba(255,255,255,0.22) 0%, transparent 45%),
           linear-gradient(155deg, ${cover.from} 0%, ${cover.to} 78%, rgba(0,0,0,0.18) 100%)
         `,
       }}
     >
-      {/* 책등 좌측 — 3-stop + highlight */}
-      <div
-        aria-hidden
-        className="absolute inset-y-0 left-0 w-[8px] bg-gradient-to-r from-black/45 via-black/22 to-transparent"
-      />
-      <div aria-hidden className="absolute inset-y-0 left-[7px] w-[1px] bg-white/15" />
-      {/* 상단 sheen + grain */}
-      <div aria-hidden className="book-cover-sheen absolute inset-0" />
-      <div aria-hidden className="book-cover-grain absolute inset-0" />
+      {coverImageUrl ? (
+        <>
+          {/* 실 표지 — portrait 카드에 object-cover (letterbox 없음) */}
+          <Image
+            src={coverImageUrl}
+            alt={`${book.title} 표지`}
+            fill
+            sizes="270px"
+            className="object-cover"
+          />
+          {/* 상하 엣지 vignette — 칩/진행바 가독성 (중앙 표지는 선명 유지) */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35"
+          />
+          {/* 라미네이트 광택 — 실제 양장본이 스튜디오 조명을 받는 specular */}
+          <div aria-hidden className="book-cover-laminate absolute inset-0" />
+        </>
+      ) : (
+        <>
+          {/* 그라디언트 표지 — 클로스바운드 클래식 풍 (실 표지엔 제목 박혀있어 미표시) */}
+          <GradientBookCover title={book.title} author={book.author} />
+          {/* 상단 sheen + grain (그라디언트 표지) */}
+          <div aria-hidden className="book-cover-sheen absolute inset-0" />
+          <div aria-hidden className="book-cover-grain absolute inset-0" />
+        </>
+      )}
+
+      {/* 실제 책 입체 — 입체 책등(좌) + 페이지 단면(우). 모든 표지 공통 (커버 위 overlay) */}
+      <div aria-hidden className="book-spine3d" />
+      <div aria-hidden className="book-foreedge" />
 
       {/* CEFR + V-Level 상단 우측 */}
       <div className="absolute right-3.5 top-3.5 flex flex-col items-end gap-1">
@@ -376,34 +441,60 @@ function CarouselBook({
         )}
       </div>
 
-      {/* 단어장 indicator */}
-      {book.word_set_count != null && book.word_set_count > 0 && (
-        <span
-          aria-hidden
-          className="absolute left-3 top-3 inline-flex items-center justify-center rounded-full bg-white/20 p-1 text-white/95 backdrop-blur-sm"
-          title="챕터 단어장 포함"
-        >
-          <Sparkles size={10} />
-        </span>
-      )}
-
-      {/* 제목 + 저자 */}
-      <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between p-6 text-white">
-        <div />
-        <div className="flex flex-col gap-2">
-          <h3 className="line-clamp-4 font-display text-[22px] font-[800] leading-[1.15] tracking-[-0.02em] drop-shadow-[0_2px_5px_rgba(0,0,0,0.55)]">
-            {book.title}
-          </h3>
-          {book.author && (
-            <>
-              <span aria-hidden className="h-px w-6 bg-white/45" />
-              <p className="line-clamp-1 font-body text-[12.5px] font-[500] text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
-                {book.author}
-              </p>
-            </>
-          )}
-        </div>
+      {/* v06.34 — 좌상단: enrollment + 단어장 indicator 스택 (위→아래) */}
+      <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+        {/* 학습 상태 배지 — 가장 가시성 높은 위치 */}
+        {book.enrollment_state === 'completed' && (
+          <span
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            title="완독한 도서"
+            aria-label="완독한 도서"
+          >
+            <Check size={10} strokeWidth={2.5} aria-hidden /> 완독
+          </span>
+        )}
+        {book.enrollment_state === 'in_progress' && (
+          <span
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            title={`학습 중 · ${book.progress_pct ?? 0}% 진행`}
+            aria-label={`학습 중 ${book.progress_pct ?? 0}퍼센트 진행`}
+          >
+            ● 학습 중 {book.progress_pct != null && <span className="font-mono opacity-80">{book.progress_pct}%</span>}
+          </span>
+        )}
+        {book.enrollment_state === 'enrolled' && (
+          <span
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-white/95 px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--p)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+            title="라이브러리에 추가됨 — 학습 시작 대기"
+            aria-label="라이브러리에 추가됨"
+          >
+            <Check size={10} strokeWidth={2.5} aria-hidden /> 내 학습
+          </span>
+        )}
+        {/* 챕터 단어장 indicator (기존) */}
+        {book.word_set_count != null && book.word_set_count > 0 && (
+          <span
+            aria-hidden
+            className="inline-flex items-center justify-center rounded-full bg-white/20 p-1 text-white/95 backdrop-blur-sm"
+            title="챕터 단어장 포함"
+          >
+            <Sparkles size={10} />
+          </span>
+        )}
       </div>
+
+      {/* v06.34 — in_progress 책 하단 진행 바 (1.5px slim) */}
+      {book.enrollment_state === 'in_progress' && (
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-[2px] bg-black/30"
+        >
+          <div
+            className="h-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+            style={{ width: `${book.progress_pct ?? 0}%` }}
+          />
+        </div>
+      )}
     </div>
   )
 

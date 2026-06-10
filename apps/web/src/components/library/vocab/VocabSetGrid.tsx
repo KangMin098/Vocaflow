@@ -52,9 +52,19 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
       router.push(`/login?next=${encodeURIComponent('/library/vocab')}`)
       return
     }
+    const wasSubscribed = subscribed.has(set.id)
+    // v06.34 — 제외 시 confirm (실수 방지)
+    if (wasSubscribed) {
+      const ok = window.confirm(
+        `"${set.title}" 을(를) 내 학습에서 제외할까요?\n` +
+          '· 단어장 구독이 해제됩니다.\n' +
+          '· 이미 학습한 단어와 학습 기록은 보존됩니다.\n' +
+          '· 언제든 다시 추가할 수 있어요.',
+      )
+      if (!ok) return
+    }
     setErrors((m) => ({ ...m, [set.id]: null }))
     setPendingId(set.id)
-    const wasSubscribed = subscribed.has(set.id)
 
     startTransition(async () => {
       try {

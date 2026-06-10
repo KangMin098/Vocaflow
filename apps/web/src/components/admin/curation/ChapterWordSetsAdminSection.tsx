@@ -77,10 +77,16 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
       </header>
 
       {sets.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[13px] text-[var(--t3)]">
-          챕터 단어장이 아직 발행되지 않았어요. <code className="font-mono text-[11px]">status=&apos;published&apos;</code> 전환 시 trigger 자동 발행, 또는{' '}
-          <code className="font-mono text-[11px]">SELECT publish_book_word_sets(&apos;{bookId}&apos;);</code> 수동 호출.
-        </p>
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[13px] text-[var(--t3)]">
+          <p>챕터 단어장이 아직 발행되지 않았어요.</p>
+          <p className="mt-1.5">
+            상단 검수 영역에서 책을 <strong className="text-[var(--t2)]">게시</strong>하면
+            챕터 단어장이 자동 생성됩니다 (status=&apos;published&apos; trigger).
+          </p>
+          <p className="mt-1.5 font-mono text-[11px] text-[var(--t4)]">
+            dev: SELECT publish_book_word_sets(&apos;{bookId}&apos;);
+          </p>
+        </div>
       ) : (
         <>
           {lowChapters.length > 0 && (
