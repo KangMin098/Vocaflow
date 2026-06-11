@@ -41,10 +41,9 @@ const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string 
 
 // 워크스페이스 본문 모드가 아니라 각 학습 모듈로 이동하는 pill.
 //   listen/read = 워크스페이스 본문 모드 (?mode=) · spellforge = 인라인 렌더 (page.tsx)
-//   shadow = /echo · words = wordsHref · 아래 게임 모드 = 해당 모듈 hub
+//   shadow = /echo · words = wordsHref · flashcard = flashcardHref · wordblitz = wordblitzHref (자료 스코프)
+//   quiz = 해당 모듈 hub (스크립트 기반 AI 문제 생성 필요 — 미연결)
 const MODULE_ROUTES: Partial<Record<ModeKey, string>> = {
-  flashcard: '/flashcard',
-  wordblitz: '/wordblitz',
   quiz: '/scriptquiz',
 }
 
@@ -55,6 +54,10 @@ interface ModePillsProps {
   isFocusMode: boolean
   /** "단어" pill 목적지 — 본문 모드가 아니라 해당 자료의 단어장(WordVault) 으로 이동 */
   wordsHref: string
+  /** "카드" pill 목적지 — 해당 자료의 단어로 Flashcard 세션 진입 (?set/?text 스코프) */
+  flashcardHref: string
+  /** "블리츠" pill 목적지 — 해당 자료의 단어로 WordBlitz 진입 (?set/?text 스코프) */
+  wordblitzHref: string
 }
 
 export function ModePills({
@@ -63,12 +66,19 @@ export function ModePills({
   modeStatus,
   isFocusMode,
   wordsHref,
+  flashcardHref,
+  wordblitzHref,
 }: ModePillsProps) {
   // 그룹별 modes 분리
   const grouped = GROUPS.map((g) => ({
     ...g,
     modes: MODES.filter((m) => m.group === g.key),
   }))
+
+  // 풀스크린 세션(단어·카드·블리츠·따라읽기)으로 나갈 때 출처를 실어, 닫기/Esc 시 이 워크스페이스로 복귀.
+  const fromParam = `from=${encodeURIComponent(`/text/${textId}`)}`
+  const withReturn = (href: string): string =>
+    `${href}${href.includes('?') ? '&' : '?'}${fromParam}`
 
   return (
     <nav
@@ -110,10 +120,14 @@ export function ModePills({
                   //   listen/read/spellforge → 워크스페이스 내부 (?mode=)
                   const href =
                     mode.key === 'shadow'
-                      ? `/text/${textId}/echo`
+                      ? withReturn(`/text/${textId}/echo`)
                       : mode.key === 'words'
-                        ? wordsHref
-                        : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
+                        ? withReturn(wordsHref)
+                        : mode.key === 'flashcard'
+                          ? withReturn(flashcardHref)
+                          : mode.key === 'wordblitz'
+                            ? withReturn(wordblitzHref)
+                            : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
                   return (
                     <span key={mode.key} className="inline-flex items-center">
                       {mIdx > 0 && (

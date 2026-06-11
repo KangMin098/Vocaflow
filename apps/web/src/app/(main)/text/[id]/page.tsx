@@ -18,6 +18,8 @@ import { KeyboardHints } from '@/components/workspace/KeyboardHints'
 import { Pagination } from '@/components/workspace/Pagination'
 import { ReadingUniverse } from '@/components/workspace/ReadingUniverse'
 import { RecallCard } from '@/components/workspace/RecallCard'
+import { SupportGloss } from '@/components/workspace/SupportGloss'
+import { WordLookupPopover } from '@/components/library/reader/WordLookupPopover'
 import { UnifiedHeader } from '@/components/workspace/UnifiedHeader'
 import type { ChapterDisplayStatus } from '@/components/workspace/CompleteChapterButton'
 
@@ -32,11 +34,13 @@ import {
 
 import type { LibraryText, ModeKey, ModeStatus, Word } from '@/types/library'
 import type { SpellForgeWord } from '@/types/spellforge'
+import type { SupportToken } from '@/lib/workspace/support'
 
 import {
   useTextContentSafe,
   type TextParagraph,
 } from './text-content-context'
+import { annotateSupport } from './text-content-helpers'
 
 // Mock fallback — layout.tsx 가 textId 를 DB 에서 못 찾았을 때만 사용.
 // 실제 라이브러리 책/사용자 텍스트는 layout 의 TextContentProvider 가 전달.
@@ -285,7 +289,7 @@ export default function WorkspacePage({ params }: PageProps) {
   }, [ctx])
 
   const paragraphs: TextParagraph[] = useMemo(
-    () => (ctx && ctx.paragraphs.length > 0 ? ctx.paragraphs : MOCK_PARAGRAPHS),
+    () => annotateSupport(ctx && ctx.paragraphs.length > 0 ? ctx.paragraphs : MOCK_PARAGRAPHS),
     [ctx],
   )
 
@@ -306,16 +310,40 @@ export default function WorkspacePage({ params }: PageProps) {
   const recommendation = useMemo(() => getMockNextAction(MOCK_USER_CONTEXTS.warm_urgent), [])
   const recommendationHref = useMemo(() => actionToHref(recommendation), [recommendation])
 
-  // "단어" 모드 목적지:
-  //   · 라이브러리 도서 chapter → 그 책의 단어장 home (/my/books/<bookId>)
-  //   · 사용자 스크립트        → 워크스페이스 내 추출 뷰 (?mode=words) — 아직 vocab 없을 수 있어 추출부터
-  const wordsHref = useMemo(
-    () =>
-      ctx?.libraryBookId
-        ? `/my/books/${ctx.libraryBookId}`
-        : `/text/${text.id}?mode=words`,
-    [ctx?.libraryBookId, text.id],
-  )
+  // "단어" 모드 목적지: WordVault Browse 풀스크린 + 현재 chapter 단어장 자동 활성
+  //   · 라이브러리 도서 chapter (단어장 발행됨) → filter=set:{setId} + book/chapter query
+  //     - ScriptsChipNav 자동 활성 + SessionFrame resource (book › Chapter N)
+  //     - Browse 안에서 prev/next chapter nav 가능 (allChapterWordSets 전달)
+  //   · 라이브러리 도서 chapter (단어장 없음)   → filter={textId}
+  //   · 사용자 스크립트                        → filter={textId}
+  //   · ctx 없음                               → 전체
+  const wordsHref = useMemo(() => {
+    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
+      const qs = new URLSearchParams({
+        filter: `set:${ctx.currentChapterWordSet.id}`,
+        book: ctx.libraryBookId,
+        chapter: String(ctx.chapterIdx),
+      })
+      return `/wordvault/browse?${qs.toString()}`
+    }
+    if (ctx?.textId) return `/wordvault/browse?filter=${encodeURIComponent(ctx.textId)}`
+    return `/wordvault/browse`
+  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+
+  // 게임 모드(카드·블리츠) 자료 스코프 — wordsHref 와 동일 규칙.
+  //   · 도서 챕터(단어장 발행됨) → ?set={setId}  (shared_words)
+  //   · 사용자 스크립트          → ?text={textId} (vocabularies)
+  //   · ctx 없음(스코프 X)       → null → 각 모듈 일반 허브로
+  const scopeQuery = useMemo(() => {
+    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
+      return `?set=${ctx.currentChapterWordSet.id}`
+    }
+    if (ctx?.textId) return `?text=${encodeURIComponent(ctx.textId)}`
+    return null
+  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+
+  const flashcardHref = scopeQuery ? `/flashcard/play${scopeQuery}` : '/flashcard'
+  const wordblitzHref = scopeQuery ? `/play/wordblitz${scopeQuery}` : '/wordblitz'
 
   // 직접 스크립트 단어 추출용 — paragraphs 로부터 원문 재구성 (ExtractionPanel tokenize 입력)
   const scriptContent = useMemo(
@@ -334,9 +362,37 @@ export default function WorkspacePage({ params }: PageProps) {
   const [isInsightOpen, setIsInsightOpen] = useState(false)
   const [recallWord, setRecallWord] = useState<Word | null>(null)
   const [recallAnchor, setRecallAnchor] = useState<DOMRect | null>(null)
+  const [supportToken, setSupportToken] = useState<SupportToken | null>(null)
+  const [supportAnchor, setSupportAnchor] = useState<DOMRect | null>(null)
+  const [lookupSurface, setLookupSurface] = useState<string | null>(null)
+  const [lookupAnchor, setLookupAnchor] = useState<DOMRect | null>(null)
   const tts = useTTS()
   // v06.32 — 듣기 player 항상 가시화 (사용자 명시 요청)
   const [audioVisible, setAudioVisible] = useState(true)
+
+  // v06.x — 듣기 소스: 브라우저 TTS(문장/단락) vs LibriVox 원어민 보이스(챕터 전체)
+  // 현재 챕터에 연결된 보이스가 있을 때만 LibriVox 선택 가능.
+  const chapterAudio = ctx?.chapterAudio ?? null
+  const [audioSource, setAudioSource] = useState<'browser' | 'librivox'>('browser')
+  // 사용자 명시 선택은 챕터 이동 후에도 기억 (LS). 문장 클릭으로 인한 전환은 비저장.
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('vocaflow:audio:source')
+      if (saved === 'librivox' || saved === 'browser') setAudioSource(saved)
+    } catch {
+      // localStorage 차단 — 기본값 browser
+    }
+  }, [])
+  const handleSourceChange = useCallback((s: 'browser' | 'librivox') => {
+    setAudioSource(s)
+    try {
+      localStorage.setItem('vocaflow:audio:source', s)
+    } catch {
+      // silent
+    }
+  }, [])
+  // 연결된 보이스가 없으면 항상 브라우저 (LibriVox 선택 무효화)
+  const effectiveSource: 'browser' | 'librivox' = chapterAudio ? audioSource : 'browser'
 
   // 🚨 워크스페이스 진입 즉시 + 매번 body 상태 강제 reset (다른 페이지 stale 누적 차단)
   // — sidebar / ModePills 클릭 결함 안전망. v06.34 — 진단 출력 추가.
@@ -376,6 +432,11 @@ export default function WorkspacePage({ params }: PageProps) {
 
   // Word handlers
   const handleWordHover = useCallback((word: Word, anchorRect: DOMRect) => {
+    // 팝오버 상호배타 — 학습 카드 열 때 지원 gloss·사전 lookup 닫기
+    setSupportToken(null)
+    setSupportAnchor(null)
+    setLookupSurface(null)
+    setLookupAnchor(null)
     setRecallWord(word)
     setRecallAnchor(anchorRect)
   }, [])
@@ -385,14 +446,35 @@ export default function WorkspacePage({ params }: PageProps) {
     setRecallAnchor(null)
   }, [])
 
-  const handleJudge = useCallback(
-    (judgment: 'knew' | 'unsure' | 'didnt') => {
-      // TODO: Supabase 저장
-      console.log('Judged:', recallWord?.text, judgment)
-      setTimeout(handleRecallClose, 300)
-    },
-    [recallWord, handleRecallClose]
-  )
+  // 읽기-중 이해 지원 — RecallCard 와 분리된 수동 gloss (학습 플로우 진입 없음)
+  const handleSupportTap = useCallback((support: SupportToken, anchorRect: DOMRect) => {
+    setRecallWord(null)
+    setRecallAnchor(null)
+    setLookupSurface(null)
+    setLookupAnchor(null)
+    setSupportToken(support)
+    setSupportAnchor(anchorRect)
+  }, [])
+
+  const handleSupportClose = useCallback(() => {
+    setSupportToken(null)
+    setSupportAnchor(null)
+  }, [])
+
+  // 평범한 단어 클릭 — 사전 lookup (학습 대상·노이즈 아님). SRS·단어장 진입 없음.
+  const handleWordLookup = useCallback((surface: string, anchorRect: DOMRect) => {
+    setRecallWord(null)
+    setRecallAnchor(null)
+    setSupportToken(null)
+    setSupportAnchor(null)
+    setLookupSurface(surface)
+    setLookupAnchor(anchorRect)
+  }, [])
+
+  const handleLookupClose = useCallback(() => {
+    setLookupSurface(null)
+    setLookupAnchor(null)
+  }, [])
 
   // v06.32 — paragraphs → SentenceItem[] (TTS controller queue)
   const sentenceItems: SentenceItem[] = useMemo(() => {
@@ -415,6 +497,8 @@ export default function WorkspacePage({ params }: PageProps) {
     (sentenceId: number) => {
       const idx = sentenceItems.findIndex((s) => s.sentenceIdx === sentenceId)
       if (idx < 0) return
+      // 문장 클릭은 문장 단위 재생 — 브라우저 TTS 로 전환 (비저장: 사용자의 LibriVox 선호는 유지)
+      setAudioSource('browser')
       // 같은 문장 재생 중이면 pause toggle
       if (tts.state.currentSentenceIdx === sentenceId && tts.state.state === 'playing') {
         tts.pause()
@@ -426,8 +510,11 @@ export default function WorkspacePage({ params }: PageProps) {
     [sentenceItems, tts]
   )
 
-  // ReadingUniverse 표시용 — controller 현재 sentence
-  const playingSentenceId = tts.state.currentSentenceIdx
+  // ReadingUniverse 표시용 — 현재 재생 문장 (브라우저 TTS 만 정확히 추적).
+  //   LibriVox 는 챕터 단일 스트림이라 문장 타임스탬프가 없어 정확한 매핑 불가 →
+  //   부정확한 추정 하이라이트는 표시하지 않음 (원어민 성우 선택 시 하이라이트 없음).
+  const playingSentenceId =
+    effectiveSource === 'librivox' ? null : tts.state.currentSentenceIdx
 
   // SpellForge 모드용 — 스크립트 내 모든 학습 단어 수집
   const spellforgeWords: SpellForgeWord[] = useMemo(() => {
@@ -470,6 +557,8 @@ export default function WorkspacePage({ params }: PageProps) {
     onArrowLeft: () => goToPage(currentPage - 1),
     onArrowRight: () => goToPage(currentPage + 1),
     onSpace: () => {
+      // LibriVox 활성 시 Space 는 브라우저 TTS 를 가로채지 않음 (player 의 재생 버튼 사용)
+      if (effectiveSource === 'librivox') return
       if (tts.state.state === 'playing') tts.pause()
       else if (tts.state.state === 'paused') tts.resume()
       else if (sentenceItems.length > 0) {
@@ -483,6 +572,8 @@ export default function WorkspacePage({ params }: PageProps) {
     onEscape: () => {
       setIsInsightOpen(false)
       handleRecallClose()
+      handleSupportClose()
+      handleLookupClose()
     },
   })
 
@@ -548,6 +639,8 @@ export default function WorkspacePage({ params }: PageProps) {
         currentMode={currentMode}
         modeStatus={MODE_STATUS}
         wordsHref={wordsHref}
+        flashcardHref={flashcardHref}
+        wordblitzHref={wordblitzHref}
       />
 
       <ReadingUniverse
@@ -557,6 +650,8 @@ export default function WorkspacePage({ params }: PageProps) {
         onSentencePlay={handleSentencePlay}
         playingSentenceId={playingSentenceId}
         chapterMeta={chapterMeta}
+        onSupportTap={handleSupportTap}
+        onWordLookup={handleWordLookup}
       />
 
       {/* Chapter bottom nav — 책 chapter context 만 (사용자 직접 입력 텍스트는 Pagination) */}
@@ -601,13 +696,29 @@ export default function WorkspacePage({ params }: PageProps) {
         word={recallWord}
         anchorRect={recallAnchor}
         onClose={handleRecallClose}
-        onJudge={handleJudge}
       />
+
+      <SupportGloss
+        support={supportToken}
+        anchorRect={supportAnchor}
+        onClose={handleSupportClose}
+      />
+
+      {lookupSurface && lookupAnchor && (
+        <WordLookupPopover
+          surface={lookupSurface}
+          anchorRect={lookupAnchor}
+          onClose={handleLookupClose}
+        />
+      )}
 
       <FloatingAudioPlayer
         isVisible={audioVisible}
         sentences={sentenceItems}
         onClose={handleAudioClose}
+        chapterAudio={chapterAudio}
+        source={effectiveSource}
+        onSourceChange={handleSourceChange}
       />
 
       <FloatingSparkle

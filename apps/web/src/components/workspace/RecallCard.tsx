@@ -1,156 +1,123 @@
 // apps/web/src/components/workspace/RecallCard.tsx
+// v06.34 — 가장 간단한 단어 팝업: 단어·뜻·듣기만, 인터랙션 없음.
+//   - "기억나시나요?" 헤더 제거
+//   - 뜻 blur reveal 제거 → 즉시 표시
+//   - 모름/애매/안다 3-button 판정 제거
+//   - 단어 노출 시 자동 TTS 1회 + 듣기 버튼으로 재재생 가능
 
 'use client'
 
 import type { Word } from '@/types/library'
-import { Brain, Check, X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Volume2 } from 'lucide-react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis'
+import { PosBadge } from '@/components/library/PosBadge'
 
 interface RecallCardProps {
   word: Word | null
   anchorRect: DOMRect | null
   onClose: () => void
-  onJudge: (judgment: 'knew' | 'unsure' | 'didnt') => void
 }
 
-export function RecallCard({ word, anchorRect, onClose, onJudge }: RecallCardProps) {
-  const [isRevealed, setIsRevealed] = useState(false)
+export function RecallCard({ word, anchorRect, onClose }: RecallCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null)
+  const { speak, isPlaying } = useSpeechSynthesis({ lang: 'en-US', rate: 0.9 })
 
-  // 카드가 변경될 때 reveal 초기화
-  useEffect(() => {
-    setIsRevealed(false)
-  }, [word?.id])
+  // 위치 계산 — fixed(뷰포트). 위 공간 충분하면 위, 아니면 아래.
+  useLayoutEffect(() => {
+    if (!word || !anchorRect) {
+      setPos(null)
+      return
+    }
+    const CARD_WIDTH = 264
+    const margin = 12
+    const gap = 8
+    const cardH = cardRef.current?.offsetHeight ?? 140
+    let left = anchorRect.left + anchorRect.width / 2 - CARD_WIDTH / 2
+    left = Math.min(Math.max(margin, left), window.innerWidth - CARD_WIDTH - margin)
+    const top =
+      anchorRect.top >= cardH + gap
+        ? anchorRect.top - cardH - gap
+        : anchorRect.bottom + gap
+    setPos({ top, left })
+  }, [word?.id, anchorRect])
 
-  // 카드 외부 클릭 시 닫기 — race-safe: setTimeout cleanup 보장
+  // 단어 변경 시 자동 1회 발음 (Dual Coding — 시각+청각)
   useEffect(() => {
     if (!word) return
-    const handler = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (cardRef.current && !cardRef.current.contains(target) && !target.closest('[data-word]')) {
+    const id = window.setTimeout(() => speak(word.text), 80)
+    return () => window.clearTimeout(id)
+  }, [word?.id, word?.text, speak])
+
+  // 외부 클릭 / ESC 로 닫기
+  useEffect(() => {
+    if (!word) return
+    const onMouse = (e: MouseEvent) => {
+      const t = e.target as HTMLElement
+      if (cardRef.current && !cardRef.current.contains(t) && !t.closest('[data-word]')) {
         onClose()
       }
     }
-    let added = false
-    const tid = window.setTimeout(() => {
-      document.addEventListener('mousedown', handler)
-      added = true
-    }, 0)
-    return () => {
-      window.clearTimeout(tid)
-      if (added) document.removeEventListener('mousedown', handler)
-    }
-  }, [word, onClose])
-
-  // ESC 키로 닫기
-  useEffect(() => {
-    if (!word) return
-    const handler = (e: KeyboardEvent) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
+    document.addEventListener('keydown', onKey)
+    const tid = window.setTimeout(() => document.addEventListener('mousedown', onMouse), 0)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      window.clearTimeout(tid)
+      document.removeEventListener('mousedown', onMouse)
+    }
   }, [word, onClose])
 
   if (!word || !anchorRect) return null
-
-  // 위치 계산
-  const cardWidth = 280
-  const margin = 16
-  let left = anchorRect.left + anchorRect.width / 2 - cardWidth / 2
-  let top = anchorRect.top + window.scrollY - 8
-  let isAbove = true
-
-  if (left < margin) left = margin
-  if (left + cardWidth > window.innerWidth - margin) {
-    left = window.innerWidth - cardWidth - margin
-  }
-
-  // 위 공간 부족하면 아래로
-  if (anchorRect.top < 200) {
-    top = anchorRect.bottom + window.scrollY + 8
-    isAbove = false
-  }
 
   return (
     <div
       ref={cardRef}
       role="dialog"
-      aria-label="단어 회상"
-      className="fixed z-[100] w-[280px] animate-[fadeInScale_200ms_cubic-bezier(.34,1.56,.64,1)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-xl)]"
+      aria-label={`${word.text} 뜻: ${word.meaning}`}
+      className="fixed z-[100] w-[264px] animate-[fadeInScale_180ms_cubic-bezier(.34,1.56,.64,1)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-lg)]"
       style={{
-        left: `${left}px`,
-        top: isAbove ? `${top - (cardRef.current?.offsetHeight ?? 240)}px` : `${top}px`,
+        left: pos ? `${pos.left}px` : '-9999px',
+        top: pos ? `${pos.top}px` : '0px',
+        visibility: pos ? 'visible' : 'hidden',
       }}
     >
-      <p className="mb-2 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
-        <Brain size={11} strokeWidth={2} aria-hidden="true" />
-        <span>기억나시나요?</span>
-      </p>
+      {/* 단어 + 듣기 한 줄 */}
+      <div className="flex items-baseline justify-between gap-2">
+        <p className="font-english text-[22px] font-[600] leading-tight text-[var(--t1)]">
+          {word.text}
+        </p>
+        <button
+          type="button"
+          onClick={() => speak(word.text)}
+          aria-label="발음 듣기"
+          className={`shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] transition-colors ${
+            isPlaying
+              ? 'bg-[var(--p)] text-[var(--ti)]'
+              : 'bg-[var(--p-light)] text-[var(--p)] hover:bg-[var(--p)] hover:text-[var(--ti)]'
+          }`}
+        >
+          <Volume2 size={13} strokeWidth={2.2} aria-hidden="true" />
+        </button>
+      </div>
 
-      <p className="mb-1 font-english text-[22px] font-[600] text-[var(--t1)]">{word.text}</p>
-      <p className="mb-4 font-mono text-[12px] text-[var(--t3)]">{word.pronunciation}</p>
-
-      {/* Meaning Blur */}
-      <div
-        onClick={() => setIsRevealed(true)}
-        role="button"
-        tabIndex={0}
-        aria-label="뜻 확인"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') setIsRevealed(true)
-        }}
-        className={`relative mb-4 flex h-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-[var(--r-md)] transition-all duration-[var(--dur-normal)] ${
-          isRevealed
-            ? 'bg-gradient-to-br from-[var(--bg2)] to-[var(--bg3)]'
-            : 'bg-gradient-to-br from-[var(--bg2)] to-[var(--bg3)] hover:from-[var(--p-light)] hover:to-[var(--bg2)]'
-        } `}
-      >
-        {!isRevealed && (
-          <>
-            <span
-              className="pointer-events-none absolute inset-0 opacity-60"
-              style={{
-                backgroundImage:
-                  'repeating-linear-gradient(45deg, var(--bg2) 0, var(--bg2) 8px, var(--bg3) 8px, var(--bg3) 16px)',
-              }}
-              aria-hidden="true"
-            />
-            <span className="relative font-display text-[11px] font-[600] uppercase tracking-[0.05em] text-[var(--t3)]">
-              탭해서 뜻 확인
+      {/* 품사 배지 + 발음 IPA */}
+      {(word.pos || word.pronunciation) && (
+        <div className="mt-1 flex items-center gap-2">
+          <PosBadge pos={word.pos} />
+          {word.pronunciation && (
+            <span className="font-mono text-[11.5px] text-[var(--t3)]">
+              {word.pronunciation}
             </span>
-          </>
-        )}
-        {isRevealed && (
-          <p className="px-3 text-center font-body text-[14px] leading-snug text-[var(--t1)]">
-            {word.meaning}
-          </p>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
-      {/* Actions */}
-      <div className="flex gap-1.5">
-        <button
-          onClick={() => onJudge('didnt')}
-          className="border-[var(--error)]/30 hover:bg-[var(--error)]/15 inline-flex flex-1 items-center justify-center gap-1 rounded-[var(--r-md)] border bg-[var(--error-light)] px-2.5 py-2 font-display text-[12px] font-[600] text-[var(--error)] transition-all duration-[var(--dur-normal)]"
-        >
-          <X size={11} strokeWidth={2.5} aria-hidden="true" />
-          모름
-        </button>
-        <button
-          onClick={() => onJudge('unsure')}
-          className="flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-        >
-          애매
-        </button>
-        <button
-          onClick={() => onJudge('knew')}
-          className="border-[var(--success)]/30 hover:bg-[var(--success)]/15 inline-flex flex-1 items-center justify-center gap-1 rounded-[var(--r-md)] border bg-[var(--success-light)] px-2.5 py-2 font-display text-[12px] font-[600] text-[var(--success)] transition-all duration-[var(--dur-normal)]"
-        >
-          <Check size={11} strokeWidth={2.5} aria-hidden="true" />
-          안다
-        </button>
-      </div>
+      {/* 뜻 — DM Sans 즉시 표시 */}
+      <p className="mt-2 font-body text-[14px] leading-snug text-[var(--t1)]">{word.meaning}</p>
     </div>
   )
 }
