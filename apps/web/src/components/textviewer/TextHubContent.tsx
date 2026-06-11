@@ -15,6 +15,8 @@ import { EmptyState } from '@/components/textviewer/EmptyState'
 import { MyLibraryCarousel } from '@/components/textviewer/MyLibraryCarousel'
 import { useSubscribedSets } from '@/hooks/useSubscribedSets'
 import { useTexts } from '@/hooks/useTexts'
+import { useUserVLevel } from '@/hooks/useUserVLevel'
+import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 
 // v06.34 — 보라 saturate 폐기. 슬레이트 인디고 계열로 — Lora 영문 자료 정합 + Calm UI
 const TEXT_ACCENT = '#6366F1'
@@ -44,6 +46,7 @@ function TextHubLoadingSkeleton() {
 export function TextHubContent() {
   const { texts, isLoading, stats, continueText } = useTexts()
   const { sets: subscribedSets } = useSubscribedSets()
+  const userVLevel = useUserVLevel()
 
   if (isLoading) {
     return <TextHubLoadingSkeleton />
@@ -111,7 +114,7 @@ export function TextHubContent() {
       {continueText && (
         <ContinueRow
           accent={TEXT_ACCENT}
-          href={`/text/${continueText.id}`}
+          href={workspaceHref(continueText)}
           session={{
             title: continueText.title,
             subtitle: `${continueText.currentPage} / ${continueText.totalPages} 페이지 — 어제 멈춘 자리에서 이어집니다`,
@@ -125,6 +128,7 @@ export function TextHubContent() {
         books={books}
         scripts={scripts}
         vocabSets={subscribedSets}
+        userVLevel={userVLevel}
       />
 
       <DiscoveryFooter />

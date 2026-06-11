@@ -84,7 +84,11 @@ export async function fetchUserTextChips(
     .sort((a, b) => b.count - a.count)
 }
 
-/** 구독 공용 단어장별 chip — 사용자가 보유한 단어가 1+인 세트만. */
+/**
+ * 구독 공용 단어장별 chip — 사용자가 보유한 단어가 1+인 세트만.
+ * 노출 분리: 도서 챕터 단어장(category='library_book')은 제외 — 도서 컨텍스트
+ *   (?book=&chapter= 진입)에서 챕터 셀렉터로 탐색. 일반 chip nav 에 90+개 챕터 폭발 차단.
+ */
 export async function fetchUserSetChips(
   supabase: SupabaseClient<DB>,
   rows: VocabRow[],
@@ -97,8 +101,9 @@ export async function fetchUserSetChips(
 
   const { data, error } = await supabase
     .from('shared_word_sets')
-    .select('id, title, cover_emoji')
+    .select('id, title, cover_emoji, category')
     .in('id', Array.from(counts.keys()))
+    .neq('category', 'library_book')
   if (error) throw error
 
   return (data ?? [])

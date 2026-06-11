@@ -29,7 +29,7 @@ const HIDE_TOGGLES: ToggleConfig[] = [
 
 export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {
   return (
-    <div className="py-s-2.5 mb-s-2 flex flex-col gap-s-3 rounded-lg border border-bd bg-bg2 px-s-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="py-s-2.5 flex flex-col gap-s-3 rounded-lg border border-bd bg-bg2 px-s-4 sm:flex-row sm:items-center sm:justify-between">
       {/* ── Active Recall 그룹 ── */}
       <div className="flex flex-wrap items-center gap-s-3">
         <div className="flex items-center gap-s-2">
