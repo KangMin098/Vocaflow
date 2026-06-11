@@ -137,8 +137,18 @@ export function SessionFrame({ children }: { children: ReactNode }) {
   const isFullScreen = isFullScreenRoute(pathname)
   const meta = SESSION_META[pathname] ?? DEFAULT_META
 
-  // ESC 로 닫기
-  const closeHref = meta.closeHref
+  // 진입 출처(?from=) — 워크스페이스(/text/[id]) 등에서 세션 진입 시 닫기/Esc 가 그 자리로 복귀.
+  //   layout 레벨 useSearchParams 정적 deopt 회피 위해 window.location 으로 읽음 (client-only).
+  const [fromHref, setFromHref] = useState<string | null>(null)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const f = new URLSearchParams(window.location.search).get('from')
+    // 내부 절대경로만 허용 (open-redirect 차단)
+    setFromHref(f && f.startsWith('/') && !f.startsWith('//') ? f : null)
+  }, [pathname])
+
+  // 닫기 목적지 — 출처가 있으면 그곳, 없으면 모듈 hub.
+  const closeHref = fromHref ?? meta.closeHref
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -211,7 +221,13 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                 <select
                   value={currentOptionMatch ? pathname : ''}
                   onChange={(e) => {
-                    if (e.target.value) router.push(e.target.value)
+                    if (!e.target.value) return
+                    // 세션 전환 시에도 출처(워크스페이스) 유지
+                    router.push(
+                      fromHref
+                        ? `${e.target.value}?from=${encodeURIComponent(fromHref)}`
+                        : e.target.value,
+                    )
                   }}
                   aria-label="다른 학습 세션으로 이동"
                   title="단계 이동"
