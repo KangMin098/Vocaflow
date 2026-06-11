@@ -41,7 +41,7 @@ const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string 
 
 // 워크스페이스 본문 모드가 아니라 각 학습 모듈로 이동하는 pill.
 //   listen/read = 워크스페이스 본문 모드 (?mode=) · spellforge = 인라인 렌더 (page.tsx)
-//   shadow = /echo · words = wordsHref · flashcard = flashcardHref · wordblitz = wordblitzHref (자료 스코프)
+//   shadow = 인라인 따라읽기 (?mode=shadow) · words = wordsHref · flashcard = flashcardHref · wordblitz = wordblitzHref (자료 스코프)
 //   quiz = 해당 모듈 hub (스크립트 기반 AI 문제 생성 필요 — 미연결)
 const MODULE_ROUTES: Partial<Record<ModeKey, string>> = {
   quiz: '/scriptquiz',
@@ -116,11 +116,11 @@ export function ModePills({
                   const status = modeStatus[mode.key]
                   const isDone = status === 'done'
                   // 모드별 목적지:
-                  //   shadow → /echo · words → 단어장(WordVault) · 게임 → 모듈 hub
+                  //   shadow → 같은 페이지 인라인 따라읽기 (?mode=shadow) · words → 단어장(WordVault) · 게임 → 모듈 hub
                   //   listen/read/spellforge → 워크스페이스 내부 (?mode=)
                   const href =
                     mode.key === 'shadow'
-                      ? withReturn(`/text/${textId}/echo`)
+                      ? `/text/${textId}?mode=shadow`
                       : mode.key === 'words'
                         ? withReturn(wordsHref)
                         : mode.key === 'flashcard'

@@ -73,8 +73,11 @@
 - `RecallCard.tsx` (의미 회상 카드, 3단계 판정)
 - `ModePills.tsx` (7모듈 진입 — read/listen/shadow/words/flashcard/spellforge/wordblitz/quiz)
 - `Pagination.tsx`
-- `FloatingAudioPlayer.tsx` (4 mode: 문장/단락/전체/**따라하기**(v06.35) — 듀얼 소스: 브라우저 TTS + LibriVox)
-  - **Step (따라하기)** mode: 문장 1개씩 듣고 자동 일시정지(따라 말하기 구간) + 카운트다운(단어수 비례 2~8초) + 사용자 액션 (다시 듣기 / 즉시 다음)
+- `FloatingAudioPlayer.tsx` (v06.35 풀 재설계) — 하단 dock + 글라스 + Step Hero
+  - **하단 dock**: `fixed inset-x-0 bottom-0` 전체 폭, max-w 920px 콘텐츠, `border-t` + `backdrop-blur-2xl` 글라스
+  - **4 mode**: 문장 / 단락 / 전체 / **따라하기** (underline 탭 style)
+  - **Step (따라하기)** mode: 문장 hero (Lora 17-19px) + countdown ring (play button 주변 SVG) + pulsing 상태 dot (듣는 중 / 따라 말해 보세요)
+  - **듀얼 소스**: 브라우저 TTS + LibriVox (별도 source 토글 row)
 - `FloatingSparkle.tsx` (다음 단계 추천)
 - `InsightPanel.tsx` (북마크·기억 상태)
 - `KeyboardHints.tsx`

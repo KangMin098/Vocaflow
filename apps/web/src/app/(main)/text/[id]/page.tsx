@@ -12,12 +12,14 @@ import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 import { ChapterBottomNav } from '@/components/workspace/ChapterBottomNav'
 import { FloatingAudioPlayer } from '@/components/workspace/FloatingAudioPlayer'
 import { useTTS, type SentenceItem } from '@/lib/workspace/tts-controller'
+import { useShadowSession } from '@/lib/workspace/use-shadow-session'
 import { FloatingSparkle } from '@/components/workspace/FloatingSparkle'
 import { InsightPanel } from '@/components/workspace/InsightPanel'
 import { KeyboardHints } from '@/components/workspace/KeyboardHints'
 import { Pagination } from '@/components/workspace/Pagination'
 import { ReadingUniverse } from '@/components/workspace/ReadingUniverse'
 import { RecallCard } from '@/components/workspace/RecallCard'
+import { ShadowReadAlong } from '@/components/workspace/ShadowReadAlong'
 import { SupportGloss } from '@/components/workspace/SupportGloss'
 import { WordLookupPopover } from '@/components/library/reader/WordLookupPopover'
 import { UnifiedHeader } from '@/components/workspace/UnifiedHeader'
@@ -492,6 +494,21 @@ export default function WorkspacePage({ params }: PageProps) {
     return items
   }, [paragraphs])
 
+  // v06.x — 따라읽기(shadow): 같은 페이지에서 문장 듣기 → 따라 말하기 연속 루프
+  const shadow = useShadowSession(sentenceItems, tts.state.selectedVoiceURI)
+  const isShadow = currentMode === 'shadow'
+
+  // 따라읽기 진입 시 듣기 player 정리(speechSynthesis 자원 충돌 차단) · 이탈 시 세션 종료
+  useEffect(() => {
+    if (isShadow) {
+      tts.stop()
+      setAudioVisible(false)
+    } else {
+      shadow.controls.stop()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isShadow])
+
   // Sentence playback — controller playFromMode 호출
   const handleSentencePlay = useCallback(
     (sentenceId: number) => {
@@ -513,8 +530,11 @@ export default function WorkspacePage({ params }: PageProps) {
   // ReadingUniverse 표시용 — 현재 재생 문장 (브라우저 TTS 만 정확히 추적).
   //   LibriVox 는 챕터 단일 스트림이라 문장 타임스탬프가 없어 정확한 매핑 불가 →
   //   부정확한 추정 하이라이트는 표시하지 않음 (원어민 성우 선택 시 하이라이트 없음).
-  const playingSentenceId =
-    effectiveSource === 'librivox' ? null : tts.state.currentSentenceIdx
+  const playingSentenceId = isShadow
+    ? shadow.state.sentenceIdx
+    : effectiveSource === 'librivox'
+      ? null
+      : tts.state.currentSentenceIdx
 
   // SpellForge 모드용 — 스크립트 내 모든 학습 단어 수집
   const spellforgeWords: SpellForgeWord[] = useMemo(() => {
@@ -643,11 +663,20 @@ export default function WorkspacePage({ params }: PageProps) {
         wordblitzHref={wordblitzHref}
       />
 
+      {isShadow && (
+        <ShadowReadAlong
+          sentences={sentenceItems}
+          state={shadow.state}
+          controls={shadow.controls}
+          onExit={() => router.push(`/text/${text.id}?mode=read`)}
+        />
+      )}
+
       <ReadingUniverse
         paragraphs={paragraphs}
         isFocusMode={isFocusMode}
         onWordHover={handleWordHover}
-        onSentencePlay={handleSentencePlay}
+        onSentencePlay={isShadow ? shadow.controls.jumpTo : handleSentencePlay}
         playingSentenceId={playingSentenceId}
         chapterMeta={chapterMeta}
         onSupportTap={handleSupportTap}
@@ -712,14 +741,17 @@ export default function WorkspacePage({ params }: PageProps) {
         />
       )}
 
-      <FloatingAudioPlayer
-        isVisible={audioVisible}
-        sentences={sentenceItems}
-        onClose={handleAudioClose}
-        chapterAudio={chapterAudio}
-        source={effectiveSource}
-        onSourceChange={handleSourceChange}
-      />
+      {/* 따라읽기 중엔 듣기 player 숨김 — speechSynthesis 자원 충돌 차단 */}
+      {!isShadow && (
+        <FloatingAudioPlayer
+          isVisible={audioVisible}
+          sentences={sentenceItems}
+          onClose={handleAudioClose}
+          chapterAudio={chapterAudio}
+          source={effectiveSource}
+          onSourceChange={handleSourceChange}
+        />
+      )}
 
       <FloatingSparkle
         message={recommendation.label}
