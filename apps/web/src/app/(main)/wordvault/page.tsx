@@ -172,64 +172,64 @@ export default function WordVaultPage() {
 
   return (
     <>
-      {/* ── 헤더 ── */}
-      <header className="sticky top-0 z-50 flex h-[56px] items-center gap-s-3 border-b border-bd bg-bg px-s-6">
-        <h1 className="font-display text-base font-semibold tracking-[-0.01em] text-t1">
-          WordVault
-        </h1>
+      {/* ── 헤더 (v06.35 Editorial) ── */}
+      <header className="sticky top-0 z-50 flex h-[56px] items-center gap-3 border-b border-[var(--bd)] bg-[var(--bg)] px-6">
+        <div className="flex items-baseline gap-3">
+          <h1 className="font-display text-[15px] font-[700] tracking-[-0.01em] text-[var(--t1)]">
+            WordVault
+          </h1>
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t3)]">
+            내 어휘
+          </span>
+        </div>
 
         <div className="flex-1" />
 
-        {/* View Switcher — URL 기반 */}
-        <div className="inline-flex rounded-lg border border-bd bg-bg2 p-[3px]">
-          <Link
-            href="/wordvault"
-            aria-current={view === 'hub' ? 'page' : undefined}
-            className={cn(
-              'flex items-center gap-s-2 rounded-md px-s-3 py-[5px]',
-              'font-display text-[13px] font-semibold tracking-[-0.01em] no-underline',
-              'transition-all duration-fast',
-              view === 'hub' ? 'bg-bg text-t1 shadow-xs' : 'text-t3 hover:text-t1'
-            )}
-          >
-            허브
-          </Link>
-          {(['browse', 'study', 'review'] as const).map((s) => {
-            const isActive = view === s
-            const labels = { browse: '둘러보기', study: '학습', review: '복습' } as const
-            // browse 는 풀스크린 라우트로 이동 (v06.21.6)
-            const href = s === 'browse' ? '/wordvault/browse' : `/wordvault?view=${s}`
+        {/* View Switcher — 단순화 (허브 / 학습 / 복습 — 둘러보기는 풀스크린 별도) */}
+        <nav
+          aria-label="WordVault 뷰"
+          className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-[3px]"
+        >
+          {(
+            [
+              { key: 'hub', label: '허브', href: '/wordvault' },
+              { key: 'browse', label: '둘러보기', href: '/wordvault/browse' },
+              { key: 'study', label: '학습', href: '/wordvault?view=study' },
+              { key: 'review', label: '복습', href: '/wordvault?view=review' },
+            ] as const
+          ).map((item) => {
+            const isActive = view === item.key
             return (
               <Link
-                key={s}
-                href={href}
+                key={item.key}
+                href={item.href}
                 aria-current={isActive ? 'page' : undefined}
                 className={cn(
-                  'flex items-center gap-s-2 rounded-md px-s-3 py-[5px]',
-                  'font-display text-[13px] font-semibold tracking-[-0.01em] no-underline',
-                  'transition-all duration-fast',
-                  isActive ? 'bg-bg text-t1 shadow-xs' : 'text-t3 hover:text-t1'
+                  'rounded-[var(--r-sm)] px-3 py-[5px] font-display text-[12px] font-[600] no-underline transition-colors duration-[var(--dur-fast)]',
+                  isActive
+                    ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
+                    : 'text-[var(--t3)] hover:text-[var(--t1)]',
                 )}
               >
-                {labels[s]}
+                {item.label}
               </Link>
             )
           })}
-        </div>
+        </nav>
 
         <button
           type="button"
           onClick={toggleTheme}
           aria-label="테마 전환"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-colors duration-fast hover:bg-bg2 hover:text-t1"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
         >
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
       </header>
 
-      {/* ── 메인 ── */}
-      <main className="flex-1 overflow-y-auto bg-bg p-s-6 pb-s-12">
-        <div className="mx-auto max-w-[1200px]">
+      {/* ── 메인 (v06.35: 허브는 자체 max-width 적용 — 외곽 wrapper 제거) ── */}
+      <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
+        <div className={view === 'hub' ? '' : 'mx-auto max-w-[1200px] p-6'}>
           {/* ── HUB (기본 진입) ── */}
           {view === 'hub' && <WordVaultHub words={words} realStats={realStats} />}
 

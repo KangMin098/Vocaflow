@@ -109,19 +109,34 @@ R < 0.70              → risk     #EF4444 (빨강)
 
 **중요**: `memory_state` 컬럼 의도적 부재 — DB 저장 X, R(t) 동적 계산만 (저장 + 시간 흐름 = 데이터 stale).
 
-### Hub 컴포넌트 (`components/wordvault/hub/`)
-- `WordVaultHub.tsx` — 6 Tier 합성
+### Hub 컴포넌트 (`components/wordvault/hub/`) — v06.35 4 Zone Editorial 재설계
+
+**현재 활성 (4 Zone)**:
+- `WordVaultHub.tsx` — 4 Zone 조립 + 주간 목표 fetch
+- `VaultIdentity.tsx` ★v06.35 — Zone 1 큰 숫자 + 4색 bar + 주간 목표 진행 바 + 단일 CTA (risk→shaky→new→browse 우선순위)
+- `NextStepList.tsx` ★v06.35 — Zone 2 `recommend_word_sets_for_user` 3-5개 text list, 진단 미완료 시 `/diagnostic` CTA
+- `AssetGrid.tsx` ★v06.35 — Zone 3 검색 + 단어장 grid (1/2/3 col, 카드별 4색 mini bar)
+- `FlowStripe.tsx` ★v06.35 — Zone 4 28일 sparkline (`daily_activity`) + 평균/활동/총합 + 마지막 활동
+
+**보존 (현재 hub 미사용 — Phase 2 추가 view 재활용 가능)**:
 - `VaultBar.tsx` — Hero 슬림 8px 4색 막대 (v06.18)
 - `AssetCollectionsRow.tsx` — 출처별 컬렉션 카드
-- `BookShelfSection.tsx` — 5 Book Type 카드 (v06.20)
+- `BookShelfSection.tsx` — 5 Book Type 카드 (v06.20) · `VaultBook` 타입은 AssetGrid 가 재사용
 - `CEFRDistribution.tsx` — 6단계 horizontal bar (v06.19)
-- `FindAndMore.tsx` — 인라인 검색 진입
-- `LearningDimensionSection.tsx` — module_history 3그룹 (unmet/recognizing/multichannel)
-- `MemoryDecayDistribution.tsx` — 4색 stacked bar + Bucket 카드
-- `TrendIndicator.tsx` — week-over-week 추세 (Calm UI)
+- `FindAndMore.tsx` — 인라인 검색 진입 (AssetGrid 검색바로 흡수)
+- `LearningDimensionSection.tsx` — module_history 3그룹
+- `MemoryDecayDistribution.tsx` — 4색 stacked bar + Bucket 카드 (VaultIdentity 가 통합)
+- `TrendIndicator.tsx` — week-over-week 추세 (FlowStripe 가 통합)
 - `WordPeekStrip.tsx` — 데스크톱 최근 단어 5개 chip
-- `RecommendedSetsSection.tsx` — 진단 후 추천 (v06.30)
+- `RecommendedSetsSection.tsx` — 진단 후 추천 (NextStepList 가 단순화)
 - `VLevelPromotionCheck.tsx` — i+1 자동 promotion 확인
+
+**Editorial 디자인 톤** (v06.35):
+- gradient · 이모지 · 큰 그림자 모두 제거
+- 회색 (`--t1`/`--t2`/`--t3`/`--t4`) + brand `--p` 액센트만
+- 큰 여백 + 1px border (`--bd`)
+- 수치는 모두 `tabular-nums` (전문 인상)
+- 4 Memory Decay 색은 정보 전달용으로만 유지 (`#22C55E`/`#F59E0B`/`#EF4444`/`#94A3B8`)
 
 ### Browse (`/wordvault/browse`)
 - `WordVaultBrowseClient.tsx` — 풀스크린 클라이언트
