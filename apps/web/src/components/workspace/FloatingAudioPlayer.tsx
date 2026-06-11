@@ -27,6 +27,8 @@ import {
   X,
 } from 'lucide-react'
 
+import { RotateCcw, StepForward } from 'lucide-react'
+
 import { useTTS, type PlayMode, type SentenceItem } from '@/lib/workspace/tts-controller'
 import { formatAudioTime, type ChapterAudio, type ChapterAudioPart } from '@/lib/workspace/chapter-audio'
 
@@ -53,6 +55,7 @@ const MODE_OPTIONS: { mode: PlayMode; label: string; tooltip: string }[] = [
   { mode: 'sentence', label: '문장', tooltip: '한 문장만 듣기' },
   { mode: 'paragraph', label: '단락', tooltip: '현재 단락만 듣기' },
   { mode: 'all', label: '전체', tooltip: '챕터 전체 듣기' },
+  { mode: 'step', label: '따라하기', tooltip: '문장 한 개씩 듣고 따라 말하기 (Step)' },
 ]
 
 const SPEED_OPTIONS = [0.75, 1.0, 1.25, 1.5] as const
@@ -472,7 +475,9 @@ function BrowserBody({
   const { state, mode } = { state: tts.state.state, mode: tts.state.mode }
   const isPlaying = state === 'playing'
   const isPaused = state === 'paused'
+  const isAwaitingRepeat = state === 'awaiting_repeat'
   const isIdle = state === 'idle'
+  const isStepActive = mode === 'step' && !isIdle
 
   const currentIdx = tts.state.currentSentenceIdx ?? 0
   const total = tts.state.totalSentences || sentences.length
@@ -488,9 +493,11 @@ function BrowserBody({
       return
     }
     if (sentences.length > 0) {
-      // 중앙 재생 = 연속 재생(전체) — 한 문장/단락 one-shot 으로 끝나 "일시정지 불가" 되는 문제 방지.
-      // 문장/단락 단위 듣기는 본문의 각 문장 ▶ 버튼으로 (mode 적용).
-      tts.playFromMode('all', sentences, 0)
+      // 중앙 재생 — 모드별 적합 동작:
+      //   step → 따라하기 시작 (문장 1부터 카운트다운 자동 진행)
+      //   그 외 → 전체 연속 재생
+      const m = mode === 'step' ? 'step' : 'all'
+      tts.playFromMode(m, sentences, 0)
     }
   }
 
@@ -530,7 +537,11 @@ function BrowserBody({
         </div>
 
         <span className="hidden font-mono text-[10px] text-white/75 tabular-nums sm:inline">
-          {total > 0 ? `${currentIdx + 1} / ${total}` : '0 / 0'}
+          {mode === 'step' && isStepActive
+            ? `STEP ${currentIdx + 1} / ${total}`
+            : total > 0
+              ? `${currentIdx + 1} / ${total}`
+              : '0 / 0'}
         </span>
 
         <div className="flex items-center gap-1.5">
@@ -547,6 +558,21 @@ function BrowserBody({
           )}
         </div>
       </div>
+
+      {/* v06.35 — Step mode 활성 시 — 현재 문장 카드 + 따라하기 카운트다운 + Replay/Next */}
+      {isStepActive && tts.state.currentText && (
+        <StepCard
+          stepNumber={currentIdx + 1}
+          totalSteps={total}
+          text={tts.state.currentText}
+          isAwaitingRepeat={isAwaitingRepeat}
+          countdown={tts.state.repeatCountdown}
+          totalCountdown={tts.state.repeatTotalSec}
+          onReplay={() => tts.stepReplay()}
+          onAdvance={() => tts.stepAdvance()}
+          isLastStep={currentIdx + 1 >= total}
+        />
+      )}
 
       {/* Row 2 — Controls + Progress */}
       <div className="flex items-center gap-2">
@@ -632,6 +658,106 @@ function BrowserBody({
           className="inline-flex h-7 min-w-[42px] items-center justify-center rounded-[var(--r-full)] bg-white/10 px-2 font-mono text-[10.5px] font-[700] text-white transition-colors hover:bg-white/20"
         >
           {tts.state.rate}x
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─── v06.35 — Step (따라하기) 카드 — 리틀팍스 스타일 ───────────────
+function StepCard({
+  stepNumber,
+  totalSteps,
+  text,
+  isAwaitingRepeat,
+  countdown,
+  totalCountdown,
+  onReplay,
+  onAdvance,
+  isLastStep,
+}: {
+  stepNumber: number
+  totalSteps: number
+  text: string
+  isAwaitingRepeat: boolean
+  countdown: number | null
+  totalCountdown: number
+  onReplay: () => void
+  onAdvance: () => void
+  isLastStep: boolean
+}) {
+  const countdownPct =
+    isAwaitingRepeat && totalCountdown > 0
+      ? Math.max(0, Math.min(100, ((countdown ?? 0) / totalCountdown) * 100))
+      : 100
+
+  return (
+    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-white/15 bg-white/[0.06] px-3 py-2.5">
+      {/* 상단 — Step 번호 + 상태 라벨 */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="inline-flex items-center gap-1.5">
+          <span
+            aria-hidden
+            className="inline-flex h-6 min-w-[28px] items-center justify-center rounded-[var(--r-full)] bg-white px-2 font-mono text-[10.5px] font-[700] tabular-nums text-[var(--t1)]"
+          >
+            {stepNumber}
+          </span>
+          <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-white/55">
+            STEP · {stepNumber} / {totalSteps}
+          </span>
+        </div>
+        <span
+          className={`font-display text-[10.5px] font-[700] transition-colors ${
+            isAwaitingRepeat ? 'text-[var(--success)]' : 'text-white/65'
+          }`}
+        >
+          {isAwaitingRepeat ? '👤 따라 말해 보세요' : '🔊 듣는 중'}
+        </span>
+      </div>
+
+      {/* 영어 문장 — Lora */}
+      <p className="font-english text-[15px] leading-snug text-white">{text}</p>
+
+      {/* 카운트다운 bar (따라하기 대기 중에만) */}
+      <div
+        className="h-[3px] w-full overflow-hidden rounded-full bg-white/12"
+        aria-hidden
+      >
+        <div
+          className="h-full rounded-full bg-[var(--success)] transition-[width] duration-[1000ms] ease-linear"
+          style={{ width: `${countdownPct}%` }}
+        />
+      </div>
+
+      {/* 액션 row — 다시 듣기 / 카운트다운 표시 / 다음 */}
+      <div className="flex items-center justify-between gap-2 pt-0.5">
+        <button
+          type="button"
+          onClick={onReplay}
+          aria-label="이 문장 다시 듣기"
+          title="다시 듣기"
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-white/10 px-2.5 py-1 font-display text-[10.5px] font-[700] text-white transition-colors hover:bg-white/20"
+        >
+          <RotateCcw size={11} aria-hidden />
+          다시 듣기
+        </button>
+
+        {isAwaitingRepeat && countdown != null && (
+          <span className="font-mono text-[10.5px] tabular-nums text-white/75">
+            {countdown}s 후 다음
+          </span>
+        )}
+
+        <button
+          type="button"
+          onClick={onAdvance}
+          aria-label={isLastStep ? '학습 끝' : '다음 문장으로'}
+          title={isLastStep ? '학습 끝' : '다음 문장'}
+          disabled={isLastStep && !isAwaitingRepeat}
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-3 py-1 font-display text-[10.5px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] transition-all hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {isLastStep ? '끝' : '다음'}
+          {!isLastStep && <StepForward size={11} aria-hidden />}
         </button>
       </div>
     </div>

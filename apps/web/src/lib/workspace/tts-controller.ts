@@ -12,8 +12,8 @@
 
 import { useEffect, useSyncExternalStore } from 'react';
 
-export type PlayMode = 'all' | 'paragraph' | 'sentence';
-export type PlayState = 'idle' | 'playing' | 'paused';
+export type PlayMode = 'all' | 'paragraph' | 'sentence' | 'step';
+export type PlayState = 'idle' | 'playing' | 'paused' | 'awaiting_repeat';
 
 export interface SentenceItem {
   paragraphId: string;
@@ -32,6 +32,16 @@ export interface TTSState {
   selectedVoiceURI: string | null;
   /** Phase 11.17 — 현재 미리듣기 중인 voice URI (null = 미리듣기 없음) */
   previewingVoiceURI: string | null;
+  /**
+   * v06.35 — Step (따라하기) 모드 — 문장 재생 직후 자동 일시정지하고 학습자가
+   * 따라 말할 시간 동안 카운트다운. 0 이 되면 자동으로 다음 문장 진행.
+   * null = step mode 아님 또는 재생 중.
+   */
+  repeatCountdown: number | null;
+  /** 카운트다운 시작 시 총 초 (UI ring 비율 계산용) */
+  repeatTotalSec: number;
+  /** v06.35 — Step 모드의 현재 문장 텍스트 (player 카드에 노출) */
+  currentText: string | null;
 }
 
 const INITIAL: TTSState = {
@@ -43,6 +53,9 @@ const INITIAL: TTSState = {
   rate: 1.0,
   selectedVoiceURI: null,
   previewingVoiceURI: null,
+  repeatCountdown: null,
+  repeatTotalSec: 0,
+  currentText: null,
 };
 
 const VOICE_LS_KEY = 'vocaflow:tts:voice-uri';
@@ -238,6 +251,18 @@ class TTSController {
     }, 50);
   }
 
+  // v06.35 — step mode countdown 타이머 핸들
+  private repeatTimer: ReturnType<typeof setInterval> | null = null;
+  // step mode 의 따라하기 대기 시간 (초)
+  private repeatPauseSec = 3;
+
+  private clearRepeatTimer(): void {
+    if (this.repeatTimer != null) {
+      clearInterval(this.repeatTimer);
+      this.repeatTimer = null;
+    }
+  }
+
   private playNext(): void {
     if (this.cancelled || this.currentIdx >= this.queue.length) {
       this.finish();
@@ -246,8 +271,12 @@ class TTSController {
     const item = this.queue[this.currentIdx]!;
     this.state = {
       ...this.state,
+      state: 'playing',
       currentParagraphId: item.paragraphId,
       currentSentenceIdx: item.sentenceIdx,
+      currentText: item.text,
+      repeatCountdown: null,
+      repeatTotalSec: 0,
     };
     this.notify();
 
@@ -259,6 +288,23 @@ class TTSController {
     utter.onend = () => {
       if (this.cancelled) return;
       const mode = this.state.mode;
+
+      // v06.35 — step mode: 문장 종료 후 따라하기 카운트다운 시작.
+      // 시간 끝나면 자동으로 다음 문장. 사용자가 nextSentence() 누르면 즉시 진행.
+      if (mode === 'step') {
+        // 마지막 문장이면 그냥 종료 (다음 없음)
+        if (this.currentIdx + 1 >= this.queue.length) {
+          this.finish();
+          return;
+        }
+        // 단어 수 비례 pause — 짧은 문장은 빨리, 긴 문장은 천천히 (max 8초)
+        const wordCount = item.text.trim().split(/\s+/).length;
+        const baseSec = Math.min(8, Math.max(2, Math.round(wordCount * 0.35)));
+        const pauseSec = Math.max(this.repeatPauseSec, baseSec);
+        this.startRepeatCountdown(pauseSec);
+        return;
+      }
+
       if (mode === 'sentence') {
         this.finish();
         return;
@@ -280,13 +326,75 @@ class TTSController {
     window.speechSynthesis.speak(utter);
   }
 
+  /** v06.35 — Step mode 의 따라하기 카운트다운. */
+  private startRepeatCountdown(totalSec: number): void {
+    this.clearRepeatTimer();
+    this.state = {
+      ...this.state,
+      state: 'awaiting_repeat',
+      repeatCountdown: totalSec,
+      repeatTotalSec: totalSec,
+    };
+    this.notify();
+    this.repeatTimer = setInterval(() => {
+      if (this.cancelled) {
+        this.clearRepeatTimer();
+        return;
+      }
+      const next = (this.state.repeatCountdown ?? 0) - 1;
+      if (next <= 0) {
+        this.clearRepeatTimer();
+        // 다음 문장 자동 진행
+        if (this.currentIdx + 1 < this.queue.length) {
+          this.currentIdx += 1;
+          this.playNext();
+        } else {
+          this.finish();
+        }
+        return;
+      }
+      this.state = { ...this.state, repeatCountdown: next };
+      this.notify();
+    }, 1000);
+  }
+
   private finish(): void {
+    this.clearRepeatTimer();
     this.state = {
       ...INITIAL,
       mode: this.state.mode,
       rate: this.state.rate,
+      selectedVoiceURI: this.state.selectedVoiceURI,
     };
     this.notify();
+  }
+
+  /** v06.35 — Step mode: 카운트다운 중 다음 문장으로 즉시 이동 (사용자 액션). */
+  stepAdvance(): void {
+    if (this.state.mode !== 'step') {
+      this.nextSentence();
+      return;
+    }
+    this.clearRepeatTimer();
+    if (this.currentIdx + 1 < this.queue.length) {
+      this.currentIdx += 1;
+      this.modeStartParagraphId = this.queue[this.currentIdx]!.paragraphId;
+      this.playNext();
+    } else {
+      this.finish();
+    }
+  }
+
+  /** v06.35 — Step mode: 현재 문장 다시 듣기. */
+  stepReplay(): void {
+    if (this.state.mode !== 'step' || this.queue.length === 0) return;
+    this.clearRepeatTimer();
+    this.cancelled = true;
+    if (this.hasSynth()) window.speechSynthesis.cancel();
+    setTimeout(() => {
+      this.cancelled = false;
+      this.playNext();
+    }, 50);
   }
 
   /** sentence 단위 — 다음 문장. */
@@ -397,6 +505,7 @@ class TTSController {
 
   stop(): void {
     if (!this.hasSynth()) return;
+    this.clearRepeatTimer();
     this.cancelled = true;
     window.speechSynthesis.cancel();
     this.queue = [];
@@ -443,6 +552,9 @@ export function useTTS() {
     classifyVoice: controller.classifyVoice.bind(controller),
     previewVoice: controller.previewVoice.bind(controller),
     cancelPreview: controller.cancelPreview.bind(controller),
+    // v06.35 — Step (따라하기) 모드 액션
+    stepAdvance: controller.stepAdvance.bind(controller),
+    stepReplay: controller.stepReplay.bind(controller),
   };
 }
 
