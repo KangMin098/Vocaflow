@@ -43,6 +43,20 @@ export interface ArticleStats {
   failed: number
 }
 
+/** 학습자 노출용 — published + copyright_safe 아티클 (스크립트 탭) */
+export interface PublishedArticle {
+  id: string
+  title: string
+  author: string | null
+  source: string
+  source_url: string | null
+  cefr_level: string | null
+  word_count: number | null
+  reading_minutes: number | null
+  category_tags: string[] | null
+  published_at: string | null
+}
+
 export const ARTICLE_IN_PROGRESS_STATUSES: ArticleStatus[] = [
   'queued',
   'ingesting',

@@ -12,6 +12,7 @@ export { ingestFromWikibooks } from './ingest/wikibooks'
 export { ingestFromWikisource } from './ingest/wikisource'
 export { ingestFromLibriVox } from './ingest/librivox'
 export { ingestFromOpenStax } from './ingest/openstax'
+export { ingestFromSimpleWikipedia } from './ingest/simple-wikipedia'
 
 // S2 INGEST — Articles (ACP — Phase 18: VOA / Phase 19: NASA · NIH · arXiv)
 export { listVoaFeed, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'

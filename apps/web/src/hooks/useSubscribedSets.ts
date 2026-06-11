@@ -1,6 +1,12 @@
 // apps/web/src/hooks/useSubscribedSets.ts
 //
 // 사용자가 구독한 공용 단어장 fetch — /text 허브 my library carousel 의 '단어장' 탭.
+//
+// 노출 분리 정책 (lib/library/vocab/queries.ts 와 정합):
+//   도서 챕터 단어장(category='library_book')은 단어장 카탈로그에 노출하지 않는다.
+//   enroll 시 자동 구독되지만(도서 상세의 챕터별 구독상태 표시용), "단어장"은 사용자가
+//   의도적으로 고른 독립 큐레이션(수능·TOEIC 등) 전용. 도서 vocab 은 도서 컨텍스트
+//   (/library/books/[id]) + WordVault(import된 단어)로만 접근.
 
 'use client'
 
@@ -78,6 +84,8 @@ async function fetchSubscribedSets(userId: string): Promise<SubscribedSet[]> {
   return (data ?? [])
     .map((r) => r as unknown as Row)
     .filter((r) => r.shared_word_sets && r.shared_word_sets.is_published)
+    // 노출 분리 — 도서 챕터 단어장은 단어장 카탈로그에서 제외 (도서 컨텍스트 전용)
+    .filter((r) => r.shared_word_sets!.category !== 'library_book')
     .map((r) => ({
       id: r.shared_word_sets!.id,
       title: r.shared_word_sets!.title,

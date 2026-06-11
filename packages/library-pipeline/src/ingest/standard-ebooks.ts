@@ -143,7 +143,62 @@ function parseMetaHtml(html: string): SEMeta {
 }
 
 /**
+ * front/back-matter <section> 을 본문(+제목)째 제거 — 중첩 깊이 추적.
+ *
+ * SE 는 <section epub:type="frontmatter …"> / "backmatter …" 로 일관 태깅한다.
+ * 이를 제거하지 않으면 **미주(endnotes, 수십만 단어)·부록·colophon 이 챕터로 적재**되어
+ * (예: Gibbon idx 74 = 473k 미주 = 책의 30%) 단어추출·난이도·LibriVox 매핑을 오염시킨다.
+ * 정규식 단순 치환은 중첩 <section> 에서 깨지므로 깊이 추적 토크나이저로 안전 제거.
+ * (frontmatter 는 어차피 첫 챕터 이전이라 대부분 버려졌지만, backmatter 차단이 핵심.)
+ */
+function stripMatterSections(html: string): string {
+  const re = /<section\b([^>]*)>|<\/section\s*>/gi
+  let out = ''
+  let pos = 0
+  let depth = 0
+  let skipDepth = -1 // 제거 중인 matter 섹션의 진입 시점 depth (-1 = 보존 모드)
+  let m: RegExpExecArray | null
+  while ((m = re.exec(html)) !== null) {
+    const isClose = m[0].startsWith('</')
+    if (skipDepth === -1) {
+      // 보존 모드 — 태그 직전까지 텍스트 방출
+      out += html.slice(pos, m.index)
+      if (!isClose) {
+        const ty = (m[1]?.match(/epub:type="([^"]*)"/i)?.[1] ?? '').toLowerCase()
+        if (/\b(?:frontmatter|backmatter)\b/.test(ty)) {
+          skipDepth = depth // 이 섹션부터 제거 시작 (여는 태그도 미방출)
+          depth++
+          pos = re.lastIndex
+          continue
+        }
+        out += m[0]
+        depth++
+        pos = re.lastIndex
+      } else {
+        out += m[0]
+        depth = Math.max(0, depth - 1)
+        pos = re.lastIndex
+      }
+    } else {
+      // 제거 모드 — 아무것도 방출하지 않음
+      if (!isClose) {
+        depth++
+      } else {
+        depth = Math.max(0, depth - 1)
+        if (depth === skipDepth) {
+          skipDepth = -1
+          pos = re.lastIndex // 닫는 태그 직후부터 다시 보존
+        }
+      }
+    }
+  }
+  out += html.slice(pos)
+  return out
+}
+
+/**
  * SE single-page HTML → plain text 변환.
+ * - front/back-matter 섹션 제거 (미주·부록 오염 차단)
  * - <section> 경계: 빈 줄 2개 (segmenter chapter 감지 도움)
  * - <h2>~<h6>: 줄바꿈 + 제목 (segmenter chapter 패턴 감지)
  * - <p>: 줄바꿈
@@ -159,6 +214,9 @@ function htmlToPlainText(html: string): string {
   //   ⚠ <header> 는 제거하지 않음 — SE 는 챕터 제목(hgroup)을 <section><header><hgroup>…
   //   으로 감싸므로(에피그래프 있는 챕터), header 를 지우면 제목이 사라져 일부만 null 됨.
   work = work.replace(/<(nav|footer|script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+
+  // 2.3. front/back-matter 섹션 제거 (미주·부록·colophon·titlepage 등) — 챕터 오염 차단.
+  work = stripMatterSections(work)
 
   // 2.5. SE 구조 섹션 → segmenter "CHAPTER N" 마커 주입 + 계층(Volume/Book·sub-book)을
   //   group_label 로 반영 (옵션 1-full — 평면 chapter_idx 유지, 계층은 별도 라벨).
@@ -218,7 +276,11 @@ function htmlToPlainText(html: string): string {
         return '\n\n\n'
       }
       // leaf 단위: scene(scene 2개+) 또는 일반 unit(chapter/short-story/poem/fable)
-      if ((useScenes && ty.includes('z3998:scene')) || UNIT_TYPES.some((k) => ty.includes(k))) {
+      //   ⚠ 'z3998:subchapter'(간지 — General Observations·Digression 등)는 substring 으로
+      //     'chapter' 에 오매칭되어 챕터 번호를 먹어 전체 번호가 밀렸다. subchapter 는 unit 에서
+      //     제외 → 마커 없이 직전 챕터에 병합 (번호가 LibriVox 정통 Roman 과 정합).
+      const isUnit = !ty.includes('subchapter') && UNIT_TYPES.some((k) => ty.includes(k))
+      if ((useScenes && ty.includes('z3998:scene')) || isUnit) {
         chapterSeq++
         const title = chapterLabel(block)
         let group = [curVolume, curBook].filter(Boolean).join(' › ')

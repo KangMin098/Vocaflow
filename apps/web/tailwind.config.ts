@@ -18,9 +18,34 @@ const config: Config = {
         bdf: "var(--bdf)",
         p: "var(--p)",
         "p-hover": "var(--p-hover)",
+        "p-light": "var(--p-light)",
+        "p-dark": "var(--p-dark)",
+        ti: "var(--ti)",
+        bde: "var(--bde)",
         accent: "var(--accent)",
         "accent-hover": "var(--accent-hover)",
         "accent-light": "var(--accent-light)",
+
+        // ── v06.35 — semantic 색 (그동안 테마 누락으로 text-error / bg-success-light /
+        //   text-ti / bg-p-light 등 단축 클래스가 no-op 이었음. CSS 변수는 globals.css 에
+        //   이미 존재 → 매핑만 추가하면 앱 전역의 의도된 색이 한 번에 살아남) ──
+        active: "var(--active)",
+        "active-light": "var(--active-light)",
+        success: "var(--success)",
+        "success-light": "var(--success-light)",
+        error: "var(--error)",
+        "error-light": "var(--error-light)",
+        warning: "var(--warning)",
+        "warning-light": "var(--warning-light)",
+        info: "var(--info)",
+        "info-light": "var(--info-light)",
+
+        // ── 게임 전용 (CLAUDE.md §Colors Game Specific) ──
+        gold: "var(--gold)",
+        silver: "var(--silver)",
+        bronze: "var(--bronze)",
+        combo: "var(--combo)",
+        streak: "var(--streak)",
 
         // ★ v6 — 학습 단계
         "learn-fresh": "var(--learn-fresh)",

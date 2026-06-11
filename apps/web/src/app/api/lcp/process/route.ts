@@ -12,10 +12,13 @@ import {
   ingestFromWikisource,
   ingestFromLibriVox,
   ingestFromOpenStax,
+  ingestFromSimpleWikipedia,
   normalizeBook,
   segmentBook,
   analyzeBook,
 } from '@vocaflow/library-pipeline'
+
+import { resolveCoverImageUrl } from '@/lib/library/cover-image'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300 //                Vercel Pro 5분
@@ -106,6 +109,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromLibriVox(book.source_id as string)
     } else if (book.source === 'openstax') {
       raw = await ingestFromOpenStax(book.source_id as string)
+    } else if (book.source === 'simple_wikipedia') {
+      raw = await ingestFromSimpleWikipedia(book.source_id as string)
     } else {
       throw new Error(`Source not implemented: ${book.source}`)
     }
@@ -160,8 +165,22 @@ export async function POST(request: Request): Promise<NextResponse> {
     try {
       await client.rpc('compute_book_vrl', { p_book_id: book_id })
       await client.rpc('compute_book_cefrj', { p_book_id: book_id })
+      await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
     } catch (e) {
-      console.warn(`[lcp/process] compute_book_vrl/cefrj skipped: ${e instanceof Error ? e.message : String(e)}`)
+      console.warn(`[lcp/process] compute_book_vrl/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
+    }
+
+    // 4-3.47 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
+    try {
+      const coverUrl = await resolveCoverImageUrl({
+        source: book.source as string,
+        sourceId: book.source_id as string,
+      })
+      if (coverUrl) {
+        await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+      }
+    } catch (e) {
+      console.warn(`[lcp/process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
     }
 
     // 4-3.5 미바인딩 단어를 archaic_candidates 로 수집 (best-effort)

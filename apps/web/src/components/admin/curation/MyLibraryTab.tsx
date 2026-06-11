@@ -4,7 +4,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
-import { ChevronRight, CornerUpLeft, ExternalLink, Loader2, PlayCircle, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
+import { ChevronRight, CornerUpLeft, ExternalLink, Loader2, PlayCircle, RotateCcw, Search, Trash2, Wand2, X } from 'lucide-react';
 import {
   classifyStatus,
   type BookStatus,
@@ -17,7 +17,6 @@ import {
   bulkRequeueBooksAction,
   bulkSetBooksToInProgressAction,
   deleteFailedBookAction,
-  enqueueCurationJobsAction,
   fetchCurationJobsAction,
 } from '@/app/admin/curation/actions';
 import { BookDetailModal } from './BookDetailModal';
@@ -305,7 +304,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
 
   // ── Dev 일괄 처리 — 선택 도서를 로직 파이프라인(/api/lcp/dev-process)으로 순차 실행 ──
   //    결정론적 단계(ingest·normalize·segment·analyze·extract·V-Level·cover)는 전부 로직.
-  //    LibriVox/챕터 매핑 등 판단이 필요한 부분만 별도 단계(Claude Code)에서 처리 (step 2).
+  //    v06.35 — LibriVox 보이스 매핑도 로직에 흡수: count-gate 통과 시 자동 저장,
+  //    정합 실패본만 dev-process 가 매핑 큐(book_curation_jobs)에 자동 등록 → Claude 수동 정합.
   const devBatchIds = useMemo(
     () => [...inProgressIds, ...readyIds],
     [inProgressIds, readyIds],
@@ -320,6 +320,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     startedAt: number;
     finishedAt?: 'empty' | 'stopped' | 'no-progress' | 'error';
     lastError?: string;
+    mapped?: number; // LibriVox 자동 매핑 성공 권수
+    mappingQueued?: number; // 정합 실패로 매핑 큐 자동 등록된 권수
   } | null>(null);
   const devStopRef = useRef(false);
   const [devTick, setDevTick] = useState(0);
@@ -353,6 +355,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     void (async () => {
       let succeeded = 0;
       let failed = 0;
+      let mapped = 0;
+      let mappingQueued = 0;
       let lastError: string | undefined;
       let finish: 'empty' | 'stopped' | 'error' = 'empty';
 
@@ -376,13 +380,15 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             finish = 'error';
             break;
           }
-          const data = (await res.json()) as { error?: string };
+          const data = (await res.json()) as { error?: string; librivox?: string };
           if (!res.ok || data.error) {
             failed += 1;
             lastError = data.error ?? `HTTP ${res.status}`;
             console.error(`[dev-batch] ${bookId.slice(0, 8)} 실패: ${lastError}`);
           } else {
             succeeded += 1;
+            if (data.librivox === 'mapped') mapped += 1;
+            else if (data.librivox === 'queued') mappingQueued += 1;
           }
         } catch (e) {
           failed += 1;
@@ -396,6 +402,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           remaining: ids.length - (i + 1),
           round: i + 1,
           startedAt,
+          mapped,
+          mappingQueued,
         });
         onRefetch();
         await new Promise((r) => setTimeout(r, 300));
@@ -410,45 +418,13 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         startedAt,
         finishedAt: finish,
         lastError,
+        mapped,
+        mappingQueued,
       });
       devStopRef.current = false;
       setJobReloadKey((k) => k + 1);
       onRefetch();
     })();
-  };
-
-  // ── 매핑 큐 등록 (Claude Code 전용) ──
-  //    로직 처리가 끝난 '검토대기' 도서의 챕터/LibriVox 매핑만 book_curation_jobs 에 등록.
-  //    RPC 가 로직 분절 결과(library_chapters_master)를 source_chapters 스냅샷으로 담음 →
-  //    Claude Code 가 build-librivox-map 으로 librivox_mapping(+필요 시 chapter_definition)만 생성.
-  //    로직(수집·분석)은 재실행하지 않음.
-  const runEnqueueMapping = () => {
-    if (readyIds.length === 0) return;
-    if (
-      !window.confirm(
-        `검토대기 도서 ${readyIds.length}권의 챕터/LibriVox 매핑을 Claude Code 큐에 등록할까요?\n\n` +
-          `· 로직 분절 결과를 스냅샷으로 담아 매핑 작업만 큐잉합니다 (로직 재실행 X).\n` +
-          `· Claude Code 가 LibriVox 오디오↔챕터 매핑 (+ 필요 시 챕터 정의 보정) 만 생성합니다.\n` +
-          `· 처리중/게시/실패 등은 자동 제외 (검토대기만 등록).`,
-      )
-    ) {
-      return;
-    }
-    startBulkTransition(async () => {
-      const res = await enqueueCurationJobsAction(readyIds);
-      if (!res.ok) {
-        window.alert(`매핑 큐 등록 실패: ${res.error}`);
-        return;
-      }
-      const d = res.data;
-      window.alert(
-        `${d?.queued ?? 0}권 매핑 큐 등록됨` +
-          (d && d.skipped > 0 ? ` · ${d.skipped}권 제외 (검토대기 외)` : '') +
-          `\n\nClaude Code 가 챕터/LibriVox 매핑을 드레인합니다 (로직 재실행 없음).`,
-      );
-      setJobReloadKey((k) => k + 1);
-      onRefetch();
-    });
   };
 
   // ── 큐 처리 (dev only) ──
@@ -459,6 +435,26 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     () => books.filter((b) => b.status === 'queued').length,
     [books],
   );
+
+  // 작업 순서 가이드용 단계별 카운트
+  const workflowCounts = useMemo(() => {
+    let processing = 0;
+    let ready = 0;
+    let published = 0;
+    for (const b of books) {
+      if (b.status === 'ready') ready += 1;
+      else if (b.status === 'published') published += 1;
+      else if (b.status !== 'queued' && IN_PROGRESS_STATUSES.includes(b.status)) processing += 1;
+    }
+    let mapping = 0;
+    for (const j of jobsByBook.values()) {
+      if (j.status === 'pending' || j.status === 'running' || j.status === 'awaiting_mapping') {
+        mapping += 1;
+      }
+    }
+    return { queued: queuedBookCount, processing, ready, mapping, published };
+  }, [books, jobsByBook, queuedBookCount]);
+
   // 자동 반복 drain — option 3: 한 번 클릭하면 큐가 빌 때까지 5권씩 자동 호출
   const [drainState, setDrainState] = useState<{
     running: boolean;
@@ -750,6 +746,17 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         </div>
       </div>
 
+      {/* v06.35 — 작업 순서 가이드 (단계별 카운트 + 현재 권장 액션) */}
+      {books.length > 0 && (
+        <CurationWorkflowGuide
+          counts={workflowCounts}
+          activeFilter={filter}
+          drainRunning={drainState?.running ?? false}
+          onFocus={(f) => setFilter(f)}
+          onRunQueue={runDrainQueue}
+        />
+      )}
+
       {/* v06.34 — Dev 큐 자동 처리 banner (실행 중 / 완료 결과) */}
       {drainState && (
         <DrainBanner
@@ -788,7 +795,6 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           pending={bulkPending}
           onClear={clearSelection}
           onDevBatch={runDevBatch}
-          onEnqueueMapping={runEnqueueMapping}
           onReadyToCurating={runReadyToCurating}
           onInProgressToQueued={runInProgressToQueued}
           onReadyToQueued={runReadyToQueued}
@@ -1333,6 +1339,155 @@ function JobQueueBadge({
   );
 }
 
+// ─────────────────────────────────────────────
+// Sub: 작업 순서 가이드 (워크플로우 스테퍼 + 현재 권장 액션)
+// ─────────────────────────────────────────────
+
+function CurationWorkflowGuide({
+  counts,
+  activeFilter,
+  drainRunning,
+  onFocus,
+  onRunQueue,
+}: {
+  counts: { queued: number; processing: number; ready: number; mapping: number; published: number };
+  activeFilter: StatusFilter;
+  drainRunning: boolean;
+  onFocus: (f: StatusFilter) => void;
+  onRunQueue: () => void;
+}) {
+  const { queued, processing, ready, mapping, published } = counts;
+
+  // 현재 권장 단계 = 작업이 필요한 가장 이른 단계
+  const current: 'queued' | 'processing' | 'ready' | 'mapping' | 'done' =
+    queued > 0
+      ? 'queued'
+      : processing > 0
+        ? 'processing'
+        : ready > 0
+          ? 'ready'
+          : mapping > 0
+            ? 'mapping'
+            : 'done';
+
+  const STAGES: Array<{
+    key: 'queued' | 'processing' | 'ready' | 'mapping' | 'published';
+    n: number;
+    label: string;
+    count: number;
+    filter: StatusFilter;
+  }> = [
+    { key: 'queued', n: 1, label: '소스 처리', count: queued, filter: 'in_progress' },
+    { key: 'processing', n: 2, label: '로직 처리중', count: processing, filter: 'in_progress' },
+    { key: 'ready', n: 3, label: '검토 대기', count: ready, filter: 'ready' },
+    { key: 'mapping', n: 4, label: '매핑 큐', count: mapping, filter: 'ready' },
+    { key: 'published', n: 5, label: '게시됨', count: published, filter: 'published' },
+  ];
+
+  let calloutText: string;
+  let action: React.ReactNode = null;
+  if (current === 'queued') {
+    calloutText = `소스 처리 대기 ${queued}권 — 로직 파이프라인으로 처리하세요 (코드).`;
+    action = (
+      <button
+        type="button"
+        onClick={onRunQueue}
+        disabled={drainRunning}
+        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <PlayCircle size={13} aria-hidden /> 큐 처리 (dev · {queued}권)
+      </button>
+    );
+  } else if (current === 'processing') {
+    calloutText = `로직 처리 중 ${processing}권 — 완료를 기다리세요.`;
+  } else if (current === 'ready') {
+    calloutText = `검토 대기 ${ready}권 — 검수 후 ‘매핑 큐 등록(Claude)’ 또는 강제 게시.`;
+    action = (
+      <button
+        type="button"
+        onClick={() => onFocus('ready')}
+        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
+      >
+        검토대기 보기
+      </button>
+    );
+  } else if (current === 'mapping') {
+    calloutText = `매핑 큐 ${mapping}권 — Claude Code 매핑 드레인 대기 (챕터/LibriVox).`;
+    action = (
+      <button
+        type="button"
+        onClick={() => onFocus('ready')}
+        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
+      >
+        대상 보기
+      </button>
+    );
+  } else {
+    calloutText =
+      published > 0 ? `모든 처리 완료 — 게시 ${published}권 🎉` : '처리할 도서가 없어요.';
+  }
+
+  return (
+    <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+          작업 순서
+        </span>
+        <span className="font-mono text-[10px] text-[var(--t4)]">단계를 클릭하면 목록이 필터됩니다</span>
+      </div>
+
+      {/* 스테퍼 */}
+      <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
+        {STAGES.map((s, i) => {
+          const isCurrent = current === s.key;
+          const isViewing = activeFilter !== 'all' && s.filter === activeFilter;
+          return (
+            <div key={s.key} className="flex shrink-0 items-center gap-1">
+              {i > 0 && (
+                <ChevronRight size={13} className="shrink-0 text-[var(--t4)]" aria-hidden />
+              )}
+              <button
+                type="button"
+                onClick={() => onFocus(s.filter)}
+                aria-current={isCurrent ? 'step' : undefined}
+                className={[
+                  'inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-2.5 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)]',
+                  isCurrent
+                    ? 'bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+                    : s.count > 0
+                      ? 'bg-[var(--bg)] text-[var(--t1)] ring-1 ring-[var(--bd)] hover:ring-[var(--p)]'
+                      : 'bg-transparent text-[var(--t4)] hover:text-[var(--t2)]',
+                  isViewing && !isCurrent ? 'ring-2 ring-[var(--p)]' : '',
+                ].join(' ')}
+                title={`${s.label} ${s.count}권 — 클릭 시 목록 필터`}
+              >
+                <span
+                  className={`flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-[800] ${
+                    isCurrent ? 'bg-white/25 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                  }`}
+                >
+                  {s.n}
+                </span>
+                {s.label}
+                <span className="font-mono text-[11px] tabular-nums">{s.count}</span>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 현재 권장 액션 */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--bd)] pt-2.5">
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          <span aria-hidden>👉 </span>
+          <strong className="font-[700] text-[var(--t1)]">지금 할 일</strong> — {calloutText}
+        </span>
+        {action}
+      </div>
+    </div>
+  );
+}
+
 function EmptyAll() {
   return (
     <div
@@ -1384,7 +1539,6 @@ function BulkActionToolbar({
   pending,
   onClear,
   onDevBatch,
-  onEnqueueMapping,
   onReadyToCurating,
   onInProgressToQueued,
   onReadyToQueued,
@@ -1397,7 +1551,6 @@ function BulkActionToolbar({
   pending: boolean;
   onClear: () => void;
   onDevBatch: () => void;
-  onEnqueueMapping: () => void;
   onReadyToCurating: () => void;
   onInProgressToQueued: () => void;
   onReadyToQueued: () => void;

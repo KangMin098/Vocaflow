@@ -73,6 +73,7 @@ const GUTENDEX_TOPICS: Array<{ value: string; label: string }> = [
 // ─── Gutendex API 호출 ────────────────────────────────
 async function fetchFromGutendex(params: FetchBatchParams): Promise<FetchBatchResult> {
   const offset = params.offset ?? 0
+  const limit = params.limit ?? PAGE_SIZE_GUTENDEX
   const page = Math.floor(offset / PAGE_SIZE_GUTENDEX) + 1
 
   const url = new URL(GUTENDEX_BASE + '/')
@@ -135,7 +136,7 @@ async function fetchFromGutendex(params: FetchBatchParams): Promise<FetchBatchRe
     if (!res.ok) throw new Error(`gutendex HTTP ${res.status}`)
     const data = (await res.json()) as GutendexResponse
 
-    const rows: SeedRow[] = data.results.map((b) => {
+    const allRows: SeedRow[] = data.results.map((b) => {
       const author = b.authors[0]?.name ?? null
       const lang = b.languages[0] ?? 'en'
       const coverUrl =
@@ -165,11 +166,15 @@ async function fetchFromGutendex(params: FetchBatchParams): Promise<FetchBatchRe
       }
     })
 
+    // limit 존중 — 페이지(32) 중 offset 이후 limit 개만 반환 (배치 수 일치)
+    const within = offset - (page - 1) * PAGE_SIZE_GUTENDEX
+    const rows = allRows.slice(within, within + limit)
+    const hasMore = data.next != null || within + rows.length < allRows.length
     return {
       source: 'gutenberg',
       total_available: data.count,
       fetched: rows,
-      next_offset: data.next ? offset + PAGE_SIZE_GUTENDEX : null,
+      next_offset: hasMore && rows.length > 0 ? offset + rows.length : null,
     }
   } finally {
     clearTimeout(timer)
@@ -241,6 +246,7 @@ function parseHtmlPage(html: string): SeedRow[] {
 }
 async function fetchFromHtml(params: FetchBatchParams): Promise<FetchBatchResult> {
   const offset = params.offset ?? 0
+  const limit = params.limit ?? PAGE_SIZE_HTML
   const page = Math.floor(offset / PAGE_SIZE_HTML) + 1
   const url = new URL(GUTENBERG_HTML_BASE)
   url.searchParams.set(
@@ -263,14 +269,18 @@ async function fetchFromHtml(params: FetchBatchParams): Promise<FetchBatchResult
     })
     if (!res.ok) throw new Error(`gutenberg HTTP ${res.status}`)
     const html = await res.text()
-    const rows = parseHtmlPage(html)
-    const hasNext =
-      /href="[^"]*page=\d+"[^>]*>Next/i.test(html) || rows.length === PAGE_SIZE_HTML
+    const allRows = parseHtmlPage(html)
+    // limit 존중 — 페이지(25) 중 offset 이후 limit 개만 반환
+    const within = offset - (page - 1) * PAGE_SIZE_HTML
+    const rows = allRows.slice(within, within + limit)
+    const pageHasNext =
+      /href="[^"]*page=\d+"[^>]*>Next/i.test(html) || allRows.length === PAGE_SIZE_HTML
+    const hasMore = pageHasNext || within + rows.length < allRows.length
     return {
       source: 'gutenberg',
       total_available: null,
       fetched: rows,
-      next_offset: hasNext ? offset + PAGE_SIZE_HTML : null,
+      next_offset: hasMore && rows.length > 0 ? offset + rows.length : null,
     }
   } finally {
     clearTimeout(timer)

@@ -39,6 +39,27 @@ export function extractBody(rawContent: string): string {
 }
 
 /**
+ * Project Gutenberg 텍스트의 illustration / sidenote / footnote 마커 제거.
+ * 학습 가치 0 + 본문 흐름 단절 — 안전한 제거.
+ *
+ * 패턴:
+ *   1. [Illustration]                     단순 마커
+ *   2. [Illustration: caption ...]        단순 캡션
+ *   3. [Illustration: caption [_inner_]]  nested (copyright/credit 포함)
+ *   4. [Sidenote: ...]                    옆 주
+ *   5. [Footnote N: ...]                  각주
+ *
+ * 호출 시점: extractBody 후, normalizePunctuation 전 (raw 마커가 살아있을 때).
+ */
+export function stripIllustrations(content: string): string {
+  return content
+    .replace(/\[Illustration(?::[\s\S]*?(?:\[[\s\S]*?\][\s\S]*?)?)?\]/g, '')
+    .replace(/\[Sidenote:[\s\S]*?\]/g, '')
+    .replace(/\[Footnote\s+\d+:[\s\S]*?\]/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+}
+
+/**
  * Phase 11.12 — Project Gutenberg style 목차(Table of Contents) 제거.
  *
  * TOC 패턴:

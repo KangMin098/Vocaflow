@@ -12,6 +12,7 @@ export type SeedSource =
   | 'standard_ebooks'
   | 'wikibooks'
   | 'librivox'
+  | 'simple_wikipedia'
 
 export interface FetchBatchParams {
   // ── 공통 ─────────────────────────────────

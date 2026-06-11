@@ -18,6 +18,7 @@ import {
   ingestFromWikisource,
   ingestFromLibriVox,
   ingestFromOpenStax,
+  ingestFromSimpleWikipedia,
   normalizeBook,
   segmentBook,
 } from '@vocaflow/library-pipeline'
@@ -102,6 +103,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     else if (source === 'wikisource') raw = await ingestFromWikisource(source_id)
     else if (source === 'librivox') raw = await ingestFromLibriVox(source_id)
     else if (source === 'openstax') raw = await ingestFromOpenStax(source_id)
+    else if (source === 'simple_wikipedia') raw = await ingestFromSimpleWikipedia(source_id)
     else return NextResponse.json({ error: `Source not supported: ${source}` }, { status: 400 })
 
     const norm = normalizeBook(raw)
@@ -125,6 +127,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     const tinyCount = chapters.filter((c) => c.word_count < 120).length
     const tinyFrac = chapterCount > 0 ? tinyCount / chapterCount : 0
 
+    // 거대 챕터 — 미주(endnotes)·부록·노트가 한 챕터로 적재되면 median 대비 과대.
+    // (희곡 act 는 median 대비 ~2배라 통과 / 미주는 ~6~80배 → 분리 탐지)
+    const sortedWc = chapters.map((c) => c.word_count).sort((a, b) => a - b)
+    const medianWc = sortedWc.length ? (sortedWc[Math.floor(sortedWc.length / 2)] ?? 0) : 0
+    const maxWc = sortedWc.length ? (sortedWc[sortedWc.length - 1] ?? 0) : 0
+    const giantPct = wordCount > 0 ? Math.round((maxWc / wordCount) * 100) : 0
+
     // ── 경고 탐지 ──
     const warnings: string[] = []
     if (chapterCount === 0) warnings.push('TOO_FEW: 0 chapters (분할 실패 — 실제 재처리 시 throw)')
@@ -137,6 +146,11 @@ export async function POST(request: Request): Promise<NextResponse> {
     // 길이 다양한 진짜 다(多)챕터 책(Les Mis)은 fragment 비율 낮아 통과.
     if (chapterCount > OVER_SPLIT && tinyFrac > 0.25)
       warnings.push(`OVER_SPLIT: ${chapterCount} chapters 중 ${tinyCount}개 <120단어 (중첩/빈 섹션 오탐 의심)`)
+    // 미주/부록이 챕터로 적재 — 한 챕터가 median 의 6배+ (희곡 act 는 ~2배라 통과)
+    if (chapterCount >= 3 && medianWc > 0 && maxWc > 6 * medianWc)
+      warnings.push(
+        `GIANT_CHAPTER: 한 챕터 ${maxWc}w = median(${medianWc}w)의 ${(maxWc / medianWc).toFixed(0)}배, 책의 ${giantPct}% (미주/부록이 챕터로 적재 의심)`,
+      )
 
     return NextResponse.json({
       ok: true,
@@ -146,6 +160,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       chapter_count: chapterCount,
       word_count: wordCount,
       avg_chapter_words: avg,
+      max_chapter_words: maxWc,
+      giant_chapter_pct: giantPct,
       length_cv: Number(cv.toFixed(2)),
       tiny_chapters: tinyCount,
       titled_chapters: titledCount,
