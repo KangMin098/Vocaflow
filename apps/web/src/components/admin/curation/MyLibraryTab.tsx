@@ -1401,7 +1401,7 @@ function CurationWorkflowGuide({
   } else if (current === 'processing') {
     calloutText = `로직 처리 중 ${processing}권 — 완료를 기다리세요.`;
   } else if (current === 'ready') {
-    calloutText = `검토 대기 ${ready}권 — 검수 후 ‘매핑 큐 등록(Claude)’ 또는 강제 게시.`;
+    calloutText = `검토 대기 ${ready}권 — 검수 후 강제 게시. (LibriVox 매핑은 dev 처리에 자동 포함 — 정합 실패 시만 매핑 큐로)`;
     action = (
       <button
         type="button"
@@ -1412,7 +1412,7 @@ function CurationWorkflowGuide({
       </button>
     );
   } else if (current === 'mapping') {
-    calloutText = `매핑 큐 ${mapping}권 — Claude Code 매핑 드레인 대기 (챕터/LibriVox).`;
+    calloutText = `매핑 큐 ${mapping}권 — LibriVox 정합 실패본 (자동 등록). Claude Code 수동 매핑 대기.`;
     action = (
       <button
         type="button"
@@ -1578,7 +1578,7 @@ function BulkActionToolbar({
           title={
             devBatchCount === 0
               ? '선택한 도서 중 처리중/검토대기 상태가 없습니다'
-              : `처리중 ${inProgressCount} + 검토대기 ${readyCount} = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level). LibriVox/챕터 매핑은 별도 단계.`
+              : `처리중 ${inProgressCount} + 검토대기 ${readyCount} = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level·LibriVox 자동매핑). 정합 실패본만 매핑 큐 자동 등록.`
           }
           className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -1594,21 +1594,6 @@ function BulkActionToolbar({
             </span>
           )}
         </button>
-
-        {/* 0.5) 매핑 큐 등록 (Claude) — 검토대기 도서의 챕터/LibriVox 매핑만 (로직 재실행 X) */}
-        <ToolbarBtn
-          icon={<Sparkles size={12} aria-hidden />}
-          label="매핑 큐 등록 (Claude)"
-          count={readyCount}
-          disabled={pending || readyCount === 0}
-          pending={pending}
-          onClick={onEnqueueMapping}
-          title={
-            readyCount === 0
-              ? '검토대기(로직 처리 완료) 도서가 선택돼야 합니다'
-              : `검토대기 ${readyCount}권의 챕터/LibriVox 매핑만 Claude Code 큐에 등록 (로직 재실행 없음)`
-          }
-        />
 
         {/* 1) 검토대기 → 처리중 (한 단계만 rollback, draft 단어장 삭제) */}
         <ToolbarBtn
@@ -1690,6 +1675,8 @@ function DrainBanner({
     startedAt: number;
     finishedAt?: 'empty' | 'stopped' | 'no-progress' | 'error';
     lastError?: string;
+    mapped?: number; // LibriVox 자동 매핑 성공 (dev 배치 전용 — drain 은 미사용)
+    mappingQueued?: number; // 정합 실패로 매핑 큐 자동 등록
   };
   tick: number;
   label?: string;
@@ -1704,6 +1691,12 @@ function DrainBanner({
   const ss = String(elapsed % 60).padStart(2, '0');
   const elapsedStr = `${mm}:${ss}`;
 
+  // LibriVox 자동 매핑 요약 (dev 배치에만 존재 — drain 은 undefined → 미표시)
+  const mapSummary =
+    state.mapped != null || state.mappingQueued != null
+      ? ` · 🔊 매핑 ${state.mapped ?? 0} · ⏳ 매핑큐 ${state.mappingQueued ?? 0}`
+      : '';
+
   // tone 결정
   let tone: 'info' | 'success' | 'warning' | 'error' = 'info';
   let headline = '';
@@ -1712,13 +1705,13 @@ function DrainBanner({
   if (state.running) {
     tone = 'info';
     headline = `🔄 ${label} 중 — ${state.round}번째 진행...`;
-    detail = `누적 ${state.succeeded}권 성공 · ${state.failed}권 실패 · 남은 ${state.remaining}권 · 경과 ${elapsedStr}`;
+    detail = `누적 ${state.succeeded}권 성공 · ${state.failed}권 실패 · 남은 ${state.remaining}권 · 경과 ${elapsedStr}${mapSummary}`;
   } else if (state.finishedAt === 'empty') {
     tone = state.failed > 0 ? 'warning' : 'success';
     headline = state.failed > 0
       ? `✓ ${label} 완료 (일부 실패) — ${elapsedStr}`
       : `✓ ${label} 완료 — ${elapsedStr}`;
-    detail = `${state.succeeded}권 성공 · ${state.failed}권 실패 · ${state.round}회`;
+    detail = `${state.succeeded}권 성공 · ${state.failed}권 실패 · ${state.round}회${mapSummary}`;
   } else if (state.finishedAt === 'stopped') {
     tone = 'warning';
     headline = `⏸ 사용자 중지 — ${elapsedStr}`;
