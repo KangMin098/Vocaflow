@@ -73,6 +73,34 @@ const config: Config = {
         "bg-strong": "var(--bg-strong)",
         "bd-strong": "var(--bd-strong)",
         t5: "var(--t5)",
+
+        // ─── iOS HIG 시스템 컬러 (v06.36) ───
+        // 사용 예: bg-ios-blue, text-ios-red, bg-ios-green-tint
+        "ios-red": "var(--ios-red)",
+        "ios-orange": "var(--ios-orange)",
+        "ios-yellow": "var(--ios-yellow)",
+        "ios-green": "var(--ios-green)",
+        "ios-mint": "var(--ios-mint)",
+        "ios-teal": "var(--ios-teal)",
+        "ios-cyan": "var(--ios-cyan)",
+        "ios-blue": "var(--ios-blue)",
+        "ios-indigo": "var(--ios-indigo)",
+        "ios-purple": "var(--ios-purple)",
+        "ios-pink": "var(--ios-pink)",
+        "ios-brown": "var(--ios-brown)",
+        "ios-gray-1": "var(--ios-gray-1)",
+        "ios-gray-2": "var(--ios-gray-2)",
+        "ios-gray-3": "var(--ios-gray-3)",
+        "ios-gray-4": "var(--ios-gray-4)",
+        "ios-gray-5": "var(--ios-gray-5)",
+        "ios-gray-6": "var(--ios-gray-6)",
+        "ios-red-tint": "var(--ios-red-tint)",
+        "ios-orange-tint": "var(--ios-orange-tint)",
+        "ios-yellow-tint": "var(--ios-yellow-tint)",
+        "ios-green-tint": "var(--ios-green-tint)",
+        "ios-blue-tint": "var(--ios-blue-tint)",
+        "ios-purple-tint": "var(--ios-purple-tint)",
+        "ios-pink-tint": "var(--ios-pink-tint)",
       },
 
       fontFamily: {
@@ -112,6 +140,37 @@ const config: Config = {
         md: "0 4px 8px -2px rgba(15,23,42,.10), 0 2px 4px -2px rgba(15,23,42,.06)",
         lg: "0 12px 16px -4px rgba(15,23,42,.10), 0 4px 6px -2px rgba(15,23,42,.05)",
         xl: "0 20px 25px -5px rgba(15,23,42,.10), 0 10px 10px -5px rgba(15,23,42,.04)",
+
+        // ─── iOS HIG shadows (v06.36) ───
+        "ios-1": "var(--sh-ios-1)",
+        "ios-2": "var(--sh-ios-2)",
+        "ios-3": "var(--sh-ios-3)",
+        "ios-4": "var(--sh-ios-4)",
+        "ios-button": "var(--sh-ios-button)",
+        "ios-glow-blue": "var(--sh-ios-glow-blue)",
+        "ios-glow-green": "var(--sh-ios-glow-green)",
+        "ios-glow-red": "var(--sh-ios-glow-red)",
+        "ios-glow-orange": "var(--sh-ios-glow-orange)",
+      },
+
+      borderRadius: {
+        // ─── iOS HIG radius (v06.36) ───
+        "ios-xs": "var(--r-ios-xs)",
+        "ios-sm": "var(--r-ios-sm)",
+        "ios-md": "var(--r-ios-md)",
+        "ios-lg": "var(--r-ios-lg)",
+        "ios-xl": "var(--r-ios-xl)",
+        "ios-2xl": "var(--r-ios-2xl)",
+        "ios-3xl": "var(--r-ios-3xl)",
+        "ios-modal": "var(--r-ios-modal)",
+        "ios-pill": "var(--r-ios-pill)",
+      },
+
+      transitionTimingFunction: {
+        "ios-standard": "var(--ease-ios-standard)",
+        "ios-emphasized": "var(--ease-ios-emphasized)",
+        "ios-spring": "var(--ease-ios-spring)",
+        "ios-spring-bouncy": "var(--ease-ios-spring-bouncy)",
       },
 
       keyframes: {

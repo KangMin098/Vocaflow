@@ -10,6 +10,60 @@
 
 ## Unreleased (v06.34 → next)
 
+### iOS Design System — 플랫폼 디자인 뼈대 v06.36 ★
+
+사용자 명시 — "iOS 디자인 설계 철학, 개념, 특징 등 모든 요소를 정의하고 플랫폼 전체에 적용되도록 디자인 뼈대를 구성". 플랫폼 전체 SSoT 재구성:
+
+**1. 토큰 확장** ([tokens.css](../packages/design-tokens/src/tokens.css) + [colors.ts](../packages/design-tokens/src/colors.ts))
+- **iOS 시스템 컬러 12종** + 6단계 그레이 + 7 tints (HIG light) + Vivid dark 셋 (`--ios-{red,orange,yellow,green,mint,teal,cyan,blue,indigo,purple,pink,brown}`, `--ios-gray-{1..6}`)
+- **iOS Radius 스케일** 9단 (`--r-ios-{xs:6 .. 3xl:32, modal:38, pill}`)
+- **iOS Shadow 스케일** 4단 + 컬러 글로우 4종 (`--sh-ios-{1..4}`, `--sh-ios-glow-{blue,green,red,orange}`)
+- **iOS Material 글라스** 3단 (`--mat-glass-bg-{thin,regular,thick}` + `--mat-glass-filter`)
+- **iOS Motion** — Spring/Standard/Emphasized 4 easing + 4 duration
+- **iOS Layout Inset** — Reading 폭 820/1024px, safe-area inset, NavBar/Toolbar/TabBar h
+- **iOS Type ramp** — large-title → caption-2 (SF Display/Text 정합)
+
+**2. Tailwind 조인** ([tailwind.config.ts](../apps/web/tailwind.config.ts))
+- `bg-ios-*` / `text-ios-*` 25종 컬러 utility · `rounded-ios-{xs..pill}` 9종 · `shadow-ios-{1..4}` + glow · `ease-ios-{standard,emphasized,spring,spring-bouncy}` timing function
+
+**3. Foundation 프리미티브 10개** ([apps/web/src/components/ui/ios/](../apps/web/src/components/ui/ios/))
+- `Card` — 떠있는 카드 (size · elevation · as 슬롯)
+- `Frame` — Card + section header (title + meta + More 링크)
+- `SegmentControl` — UISegmentedControl 캡슐 (Link/button 모드, count 배지)
+- `InsetGroup` — Settings 인셋 그룹 + header/footer 캡션
+- `InsetRow` — Settings 셀 (icon box + title/subtitle + progress + chevron)
+- `Capsule` — 정보·상태 캡슐 (9 tone, sm/md size)
+- `StatPill` — Health Categories KPI 셀
+- `ActivityRing` — Fitness 원형 진행도 (gradient + glow + emphasized easing)
+- `PrimaryButton` — iOS Primary CTA (6 tone × 3 size, count 배지)
+- `GlassBar` — Navigation glass header (thin/regular/thick material)
+
+**4. WordVault Hub 6 Section 리팩토링** — 모두 프리미티브 기반으로 재림
+- `page.tsx` 헤더 → `<GlassBar>` + `<SegmentControl>`
+- VaultIdentity → `<Card>` + `<ActivityRing>` + `<Capsule>` + `<StatPill>` + `<PrimaryButton>`
+- VocabularyLevelMap → `<Frame>` + `<Capsule>` + `<InsetGroup>`/`<InsetRow>`
+- ResourcePortfolio → `<Frame>` + `<SegmentControl>` + `<InsetGroup>`/`<InsetRow>`
+- RecommendedBooks → `<Frame>` + `<PrimaryButton>` (no-diagnostic CTA)
+- NextStepList → `<Frame>` + `<Capsule>` (type 배지) + `InsetGroup` 구조
+- FlowStripe → `<Frame>` + `<StatPill>`
+
+**5. SSoT 문서** ([DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §iOS / iPadOS 디자인 언어)
+- HIG 3대 원칙 (Clarity · Deference · Depth) → Vocaflow 적용 매핑
+- 핵심 개념 10종 (Continuous Corner · Gray Canvas · Glass Material · Capsule · Inset Grouped List · Segmented Control · Activity Ring · Hero Numerals · Primary CTA · iOS Color Glow)
+- 시스템 컬러 의미 슬롯 매핑 (red=critical, green=success/i+1, orange=warning/도서, purple=단어장, ...)
+- 토큰 카탈로그 + Foundation 컴포넌트 사용 규약 10조
+
+### admin 검수 — 챕터별 원본 소스 deep-link 정확화 (v06.35)
+
+**문제** — `/admin/curation/preview/[bookId]` 챕터 목록의 "원본 소스" 외부링크가 챕터를 못 찾음(404). `source-urls.ts` 가 Standard Ebooks 챕터 URL 을 `/text/chapter-N` 으로 **추측**했으나, SE 실제 챕터 URL 은 도서 구조마다 4종으로 갈림(검증):
+- 파일분리 `/text/chapter-1` (단권 소설) · 앵커 `/text/fables#the-fox-and-the-grapes` (우화·시 모음) · 명명 `/text/charmides` (플라톤 대화편) · 중첩 `/text/chapter-1-1-1` (Les Mis 다권). DB 메타만으로는 형식 구분 불가.
+
+**해결** — 적재 시점에 소스 TOC(`{ebookUrl}/text`)를 파싱해 챕터별 **실제 href 를 DB 저장**:
+- migration `20260613120000_library_chapters_source_href` — `library_chapters_master.source_href text` 추가 + `insert_book_analysis` 가 `p_chapters[].source_href` 적재하도록 확장
+- SE ingest(`standard-ebooks.ts`) — single-page `<section id>` ↔ TOC href fragment 조인 → 챕터 마커에 href 동봉(`CHAPTER_HREF_SEP` U+001E). segment 가 분리해 `ChapterSegment.source_href` 로 전달
+- 렌더 — `listChapters` 가 `source_href` select, `ChapterSidebar` 가 저장값 우선 사용. `chapterSourceUrl` SE fallback 은 추측 `/text/chapter-N` → 안전한 도서 TOC(`/text`)로 변경(절대 404 없음)
+- 백필(`scripts/lcp/backfill-se-chapter-hrefs.mjs`) — 기존 13권 ingest+segment 재실행 후 (group,title) 조인·idx 조인으로 `source_href` 만 UPDATE(본문/어휘 불변). **859/955 챕터 정확 매핑**(10권 100% · Les Mis 364 중첩 포함). 잔여는 안전 TOC fallback: Fables/Poetry 에디션 drift(intersection 만) · Dialogues 본문 손상(별도) · Alice·Marvelous Oz 미적재(0행, 별도 ingest 버그)
+
 ### 도서 lemma 바인딩 self-heal — 추출 시 자동 backfill (v06.35)
 
 **문제** — Les Misérables(364장)가 수동 재분절로 `library_book_vocabularies` 재삽입되며 lemma backfill 누락 → 13,351 단어 전부 미바인딩(0 bound). 영향: 굴절형 어휘 추출 누락 + `lexical_coverage` NULL + 미바인딩 진단 13,351건이 "노이즈 1,000"으로 부풀려져 표시. (추출 SSoT 가 `COALESCE(bv.lemma, bv.word)` 라 base 형은 매칭됐으나 굴절형은 누락.)

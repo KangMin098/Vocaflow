@@ -2,10 +2,18 @@
    ★★ CSS Variables 본체 — 웹 SSoT.
    apps/web/src/app/globals.css 에서 @import '@vocaflow/design-tokens/tokens.css' 로 로드.
    값 변경 시 colors.ts 와 동기화 필수.
+
+   v06.36 — iOS/iPadOS HIG 토큰 도입:
+   · iOS 시스템 컬러 (--ios-*)
+   · iOS 반경 스케일 (--r-ios-*)
+   · iOS 그림자 + 컬러 글로우 (--sh-ios-*)
+   · iOS 모션 (--ease-ios, --dur-ios-*)
+   · iOS 머터리얼 + 글라스 (--mat-glass-*)
+   · iOS 콘텐츠 인셋 (--ios-inset-*)
 */
 
 :root {
-  /* Brand */
+  /* ─────── Brand ─────── */
   --p: #3B82F6;
   --p-hover: #2563EB;
   --p-light: #EFF6FF;
@@ -15,7 +23,7 @@
   --active: #F59E0B;
   --active-light: #FEF3C7;
 
-  /* Semantic */
+  /* ─────── Semantic ─────── */
   --success: #22C55E;
   --success-light: #DCFCE7;
   --error: #EF4444;
@@ -25,38 +33,38 @@
   --info: #06B6D4;
   --info-light: #CFFAFE;
 
-  /* Surface */
+  /* ─────── Surface ─────── */
   --bg: #FFFFFF;
   --bg2: #F8FAFC;
   --bg3: #F1F5F9;
 
-  /* Text */
+  /* ─────── Text ─────── */
   --t1: #0F172A;
   --t2: #475569;
   --t3: #94A3B8;
   --t4: #CBD5E1;
   --ti: #FFFFFF;
 
-  /* Border */
+  /* ─────── Border ─────── */
   --bd: #E2E8F0;
   --bdf: #3B82F6;
   --bde: #EF4444;
 
-  /* Game Specific — 변경 금지 */
+  /* ─────── Game Specific — 변경 금지 ─────── */
   --gold: #EAB308;
   --silver: #94A3B8;
   --bronze: #D97706;
   --combo: #8B5CF6;
   --streak: #EC4899;
 
-  /* Shadow */
+  /* ─────── Shadow (legacy) ─────── */
   --sh-xs: 0 1px 2px rgba(0, 0, 0, .05);
   --sh-sm: 0 1px 3px rgba(0, 0, 0, .10), 0 1px 2px rgba(0, 0, 0, .06);
   --sh-md: 0 4px 6px rgba(0, 0, 0, .07), 0 2px 4px rgba(0, 0, 0, .06);
   --sh-lg: 0 10px 15px rgba(0, 0, 0, .10), 0 4px 6px rgba(0, 0, 0, .05);
   --sh-xl: 0 20px 25px rgba(0, 0, 0, .10), 0 10px 10px rgba(0, 0, 0, .04);
 
-  /* Radius */
+  /* ─────── Radius (legacy) ─────── */
   --r-sm: 6px;
   --r-md: 8px;
   --r-lg: 12px;
@@ -64,7 +72,7 @@
   --r-2xl: 24px;
   --r-full: 9999px;
 
-  /* Spacing — 4px 기반 */
+  /* ─────── Spacing — 4px 기반 ─────── */
   --s-0: 0px;
   --s-1: 4px;
   --s-2: 8px;
@@ -77,7 +85,7 @@
   --s-12: 48px;
   --s-16: 64px;
 
-  /* Motion */
+  /* ─────── Motion (legacy) ─────── */
   --dur-fast: 100ms;
   --dur-normal: 200ms;
   --dur-slow: 300ms;
@@ -86,6 +94,138 @@
   --ease-in: cubic-bezier(.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, .2, 1);
   --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+
+  /* ═══════════════════════════════════════════════════════
+     iOS / iPadOS HIG 토큰 (v06.36)
+     SF Symbols · System Colors · Materials · Motion 정합
+     ═══════════════════════════════════════════════════════ */
+
+  /* ─────── iOS System Colors (light) ─────── */
+  /*  Apple HIG 시스템 컬러. UI 의미별 액센트로 사용 (브랜드 --p 와 별도) */
+  --ios-red: #FF3B30;
+  --ios-orange: #FF9500;
+  --ios-yellow: #FFCC00;
+  --ios-green: #34C759;
+  --ios-mint: #00C7BE;
+  --ios-teal: #30B0C7;
+  --ios-cyan: #32ADE6;
+  --ios-blue: #007AFF;
+  --ios-indigo: #5856D6;
+  --ios-purple: #AF52DE;
+  --ios-pink: #FF2D55;
+  --ios-brown: #A2845E;
+
+  /* iOS Gray scale — 6 단계 (system gray 1~6) */
+  --ios-gray-1: #8E8E93;
+  --ios-gray-2: #AEAEB2;
+  --ios-gray-3: #C7C7CC;
+  --ios-gray-4: #D1D1D6;
+  --ios-gray-5: #E5E5EA;
+  --ios-gray-6: #F2F2F7;
+
+  /* iOS Vivid (강조 — 다크 호환) */
+  --ios-red-vivid: #FF453A;
+  --ios-orange-vivid: #FF9F0A;
+  --ios-yellow-vivid: #FFD60A;
+  --ios-green-vivid: #30D158;
+  --ios-blue-vivid: #0A84FF;
+  --ios-indigo-vivid: #5E5CE6;
+  --ios-purple-vivid: #BF5AF2;
+  --ios-pink-vivid: #FF375F;
+
+  /* iOS 컬러 light tint — bg 용 (UI 캡슐 배지) */
+  --ios-red-tint: #FFE5E5;
+  --ios-orange-tint: #FFF1E5;
+  --ios-yellow-tint: #FEF3C7;
+  --ios-green-tint: #E8F8EE;
+  --ios-blue-tint: #E5F2FF;
+  --ios-purple-tint: #F3E8FF;
+  --ios-pink-tint: #FCE7F3;
+
+  /* iOS Status Bar / Label 대비 텍스트 */
+  --ios-label-primary: var(--t1);
+  --ios-label-secondary: var(--t2);
+  --ios-label-tertiary: var(--t3);
+  --ios-label-quaternary: var(--t4);
+
+  /* ─────── iOS Radius 스케일 ─────── */
+  /*  iOS 표준 라운드 — SF Symbols 컨테이너, 카드, 인셋 그룹 */
+  --r-ios-xs: 6px;   /* badge inner */
+  --r-ios-sm: 8px;   /* small icon box */
+  --r-ios-md: 12px;  /* button, cell inner */
+  --r-ios-lg: 14px;  /* inset group */
+  --r-ios-xl: 18px;  /* primary button */
+  --r-ios-2xl: 24px; /* card surface (continuous) */
+  --r-ios-3xl: 32px; /* hero card */
+  --r-ios-modal: 38px; /* sheet, modal (continuous) */
+  --r-ios-pill: 9999px;
+
+  /* ─────── iOS Shadow 스케일 ─────── */
+  /*  iOS 카드 그림자 — 부드러운 ambient + soft contact */
+  --sh-ios-1: 0 1px 2px rgba(0, 0, 0, .04);
+  --sh-ios-2: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px -12px rgba(0, 0, 0, .08);
+  --sh-ios-3: 0 2px 4px rgba(0, 0, 0, .06), 0 12px 32px -8px rgba(0, 0, 0, .12);
+  --sh-ios-4: 0 4px 8px rgba(0, 0, 0, .08), 0 20px 48px -8px rgba(0, 0, 0, .16);
+  --sh-ios-button: 0 1px 2px rgba(0, 0, 0, .06), 0 2px 8px rgba(0, 0, 0, .04);
+
+  /* iOS 컬러 글로우 — CTA · 상태 강조 */
+  --sh-ios-glow-blue: 0 4px 16px rgba(59, 130, 246, .22);
+  --sh-ios-glow-green: 0 4px 16px rgba(52, 199, 89, .22);
+  --sh-ios-glow-red: 0 4px 16px rgba(255, 69, 58, .25);
+  --sh-ios-glow-orange: 0 4px 16px rgba(255, 159, 10, .22);
+
+  /* ─────── iOS Material (글라스) ─────── */
+  /*  iOS UIVisualEffectView — Material.thin/regular/thick 정합. */
+  /*  사용: background-color: var(--mat-glass-bg-regular); backdrop-filter: var(--mat-glass-filter); */
+  --mat-glass-bg-thin: rgba(255, 255, 255, .72);
+  --mat-glass-bg-regular: rgba(255, 255, 255, .85);
+  --mat-glass-bg-thick: rgba(255, 255, 255, .92);
+  --mat-glass-filter: blur(20px) saturate(1.5);
+  --mat-glass-filter-strong: blur(40px) saturate(1.8);
+
+  /* ─────── iOS Motion ─────── */
+  /*  iOS Spring · Standard easing */
+  --ease-ios-standard: cubic-bezier(.4, 0, .2, 1);
+  --ease-ios-emphasized: cubic-bezier(.2, 0, 0, 1);    /* emphasized in/out */
+  --ease-ios-spring: cubic-bezier(.34, 1.56, .64, 1);  /* gentle spring */
+  --ease-ios-spring-bouncy: cubic-bezier(.5, 1.8, .5, 1); /* bouncy */
+
+  --dur-ios-fast: 150ms;   /* tap response, capsule swap */
+  --dur-ios-normal: 250ms;  /* card hover, segment switch */
+  --dur-ios-slow: 400ms;    /* ring fill, page transition */
+  --dur-ios-slower: 700ms;  /* hero reveal, splash */
+
+  /* ─────── iOS Layout Inset ─────── */
+  /*  iOS Reading 폭, contents margin (iPad ≈ 720pt) */
+  --ios-content-max: 820px;
+  --ios-content-wide-max: 1024px;
+  --ios-inset-x: 20px;       /* iPhone safe area horizontal */
+  --ios-inset-x-compact: 16px;
+  --ios-inset-y: 24px;       /* section vertical rhythm */
+  --ios-card-gap: 16px;      /* between cards */
+
+  /* iOS 헤더 (NavBar) */
+  --ios-navbar-h: 52px;
+  --ios-toolbar-h: 49px;
+  --ios-tabbar-h: 83px;
+
+  /* iOS Typography 추가 (SF Display 정합) */
+  --ios-font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
+  --ios-font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'DM Sans', system-ui, sans-serif;
+  --ios-font-mono: 'SF Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* iOS Type ramp (HIG large title → caption) — 모든 letter-spacing tight */
+  --ios-text-large-title: 700 34px/40px var(--ios-font-display);
+  --ios-text-title-1: 700 28px/34px var(--ios-font-display);
+  --ios-text-title-2: 700 22px/28px var(--ios-font-display);
+  --ios-text-title-3: 600 20px/25px var(--ios-font-display);
+  --ios-text-headline: 600 17px/22px var(--ios-font-text);
+  --ios-text-body: 400 17px/22px var(--ios-font-text);
+  --ios-text-callout: 400 16px/21px var(--ios-font-text);
+  --ios-text-subheadline: 400 15px/20px var(--ios-font-text);
+  --ios-text-footnote: 400 13px/18px var(--ios-font-text);
+  --ios-text-caption-1: 400 12px/16px var(--ios-font-text);
+  --ios-text-caption-2: 400 11px/13px var(--ios-font-text);
 }
 
 [data-theme="dark"] {
@@ -113,4 +253,42 @@
 
   --bd: #1E2D42;
   --bdf: #60A5FA;
+
+  /* ─────── iOS Dark — Vivid 컬러 사용 (HIG 다크 모드 spec) ─────── */
+  --ios-red: var(--ios-red-vivid);
+  --ios-orange: var(--ios-orange-vivid);
+  --ios-yellow: var(--ios-yellow-vivid);
+  --ios-green: var(--ios-green-vivid);
+  --ios-blue: var(--ios-blue-vivid);
+  --ios-indigo: var(--ios-indigo-vivid);
+  --ios-purple: var(--ios-purple-vivid);
+  --ios-pink: var(--ios-pink-vivid);
+
+  /* Gray scale flipped */
+  --ios-gray-1: #8E8E93;
+  --ios-gray-2: #636366;
+  --ios-gray-3: #48484A;
+  --ios-gray-4: #3A3A3C;
+  --ios-gray-5: #2C2C2E;
+  --ios-gray-6: #1C1C1E;
+
+  /* Dark tints (deeper) */
+  --ios-red-tint: rgba(255, 69, 58, .15);
+  --ios-orange-tint: rgba(255, 159, 10, .15);
+  --ios-yellow-tint: rgba(255, 214, 10, .15);
+  --ios-green-tint: rgba(48, 209, 88, .15);
+  --ios-blue-tint: rgba(10, 132, 255, .15);
+  --ios-purple-tint: rgba(191, 90, 242, .15);
+  --ios-pink-tint: rgba(255, 55, 95, .15);
+
+  /* Glass dark */
+  --mat-glass-bg-thin: rgba(28, 28, 30, .72);
+  --mat-glass-bg-regular: rgba(28, 28, 30, .85);
+  --mat-glass-bg-thick: rgba(28, 28, 30, .92);
+
+  /* Shadows softer in dark */
+  --sh-ios-1: 0 1px 2px rgba(0, 0, 0, .35);
+  --sh-ios-2: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 24px -12px rgba(0, 0, 0, .5);
+  --sh-ios-3: 0 2px 4px rgba(0, 0, 0, .4), 0 12px 32px -8px rgba(0, 0, 0, .55);
+  --sh-ios-4: 0 4px 8px rgba(0, 0, 0, .45), 0 20px 48px -8px rgba(0, 0, 0, .6);
 }

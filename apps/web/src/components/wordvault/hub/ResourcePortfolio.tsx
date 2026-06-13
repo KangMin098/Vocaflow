@@ -17,6 +17,13 @@ import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import {
+  Frame,
+  InsetGroup,
+  InsetRow,
+  SegmentControl,
+} from '@/components/ui/ios'
+import type { SegmentItem } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/client'
 
 interface BookEntry {
@@ -60,9 +67,9 @@ type Tab = 'books' | 'scripts' | 'sets'
 const NF = new Intl.NumberFormat('en-US')
 
 const TAB_META: Record<Tab, { label: string; icon: LucideIcon; color: string }> = {
-  books: { label: '도서', icon: BookOpen, color: '#FF9F0A' /* iOS orange */ },
-  scripts: { label: '스크립트', icon: FileText, color: 'var(--p)' /* iOS blue */ },
-  sets: { label: '단어장', icon: Library, color: '#AF52DE' /* iOS purple */ },
+  books: { label: '도서', icon: BookOpen, color: 'var(--ios-orange)' },
+  scripts: { label: '스크립트', icon: FileText, color: 'var(--p)' },
+  sets: { label: '단어장', icon: Library, color: 'var(--ios-purple)' },
 }
 
 export function ResourcePortfolio() {
@@ -313,48 +320,32 @@ export function ResourcePortfolio() {
     )
   }
 
+  const segmentItems: SegmentItem<Tab>[] = (['books', 'scripts', 'sets'] as Tab[]).map((t) => ({
+    key: t,
+    label: TAB_META[t].label,
+    icon: TAB_META[t].icon,
+    count: counts[t],
+  }))
+
   return (
     <Frame title="학습 자산">
-      {/* iOS Segment Control */}
-      <nav aria-label="자산 종류" className="mb-5 inline-flex w-full items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg2)] p-[3px]">
-        {(['books', 'scripts', 'sets'] as Tab[]).map((t) => {
-          const meta = TAB_META[t]
-          const isActive = tab === t
-          const Icon = meta.icon
-          return (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setTab(t)}
-              aria-current={isActive ? 'page' : undefined}
-              className={`flex flex-1 items-center justify-center gap-1.5 rounded-[var(--r-full)] py-[7px] font-display text-[12.5px] font-[600] transition-all duration-[var(--dur-fast)] ${
-                isActive
-                  ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]'
-                  : 'text-[var(--t3)] hover:text-[var(--t2)]'
-              }`}
-            >
-              <Icon size={14} className="opacity-80" />
-              <span>{meta.label}</span>
-              <span
-                className={`rounded-[var(--r-full)] px-1.5 py-px font-mono text-[10px] tabular-nums ${
-                  isActive ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'text-[var(--t3)]'
-                }`}
-              >
-                {counts[t]}
-              </span>
-            </button>
-          )
-        })}
-      </nav>
+      <SegmentControl
+        ariaLabel="자산 종류"
+        active={tab}
+        onChange={setTab}
+        items={segmentItems}
+        block
+        className="mb-5"
+      />
 
       {/* List body */}
       {tab === 'books' && (
-        <InsetGroup color={TAB_META.books.color}>
+        <InsetGroup>
           {books.length === 0 ? (
             <EmptyRow text="라이브러리 도서를 학습 시작하세요." href="/library/books" />
           ) : (
             books.slice(0, 5).map((b) => (
-              <Row
+              <InsetRow
                 key={b.bookId}
                 href={b.resumeTextId ? `/text/${b.resumeTextId}?mode=read` : `/library/books/${b.bookId}`}
                 icon={<BookOpen size={14} aria-hidden />}
@@ -369,12 +360,12 @@ export function ResourcePortfolio() {
       )}
 
       {tab === 'scripts' && (
-        <InsetGroup color={TAB_META.scripts.color}>
+        <InsetGroup>
           {scripts.length === 0 ? (
             <EmptyRow text="스크립트를 입력해 보세요." href="/text/new" />
           ) : (
             scripts.slice(0, 5).map((s) => (
-              <Row
+              <InsetRow
                 key={s.id}
                 href={s.href}
                 icon={<FileText size={14} aria-hidden />}
@@ -394,12 +385,12 @@ export function ResourcePortfolio() {
       )}
 
       {tab === 'sets' && (
-        <InsetGroup color={TAB_META.sets.color}>
+        <InsetGroup>
           {sets.length === 0 ? (
             <EmptyRow text="진단 후 단어장을 구독해 보세요." href="/library/vocab" />
           ) : (
             sets.slice(0, 5).map((s, i) => (
-              <Row
+              <InsetRow
                 key={s.bookId ?? `set-${i}`}
                 href={s.href}
                 icon={<Library size={14} aria-hidden />}
@@ -416,97 +407,11 @@ export function ResourcePortfolio() {
   )
 }
 
-// ─── iOS Inset Group ─────────────────────────────────────
-function InsetGroup({
-  color,
-  children,
-}: {
-  color: string
-  children: React.ReactNode
-}) {
-  void color
-  return (
-    <div className="overflow-hidden rounded-[14px] bg-[var(--bg2)]">
-      <div className="bg-[var(--bg)] divide-y divide-[var(--bd)]/60">
-        {children}
-      </div>
-    </div>
-  )
-}
-
-// ─── Row (iOS Settings cell) ─────────────────────────────
-function Row({
-  href,
-  icon,
-  iconBg,
-  title,
-  subtitle,
-  progress,
-  metaRight,
-}: {
-  href: string
-  icon: React.ReactNode
-  iconBg: string
-  title: string
-  subtitle: string
-  progress?: { done: number; total: number; unit: string }
-  metaRight?: string
-}) {
-  return (
-    <Link
-      href={href}
-      className="group flex items-center gap-3 px-4 py-3 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)]"
-    >
-      <span
-        aria-hidden
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] text-white"
-        style={{ backgroundColor: iconBg }}
-      >
-        {icon}
-      </span>
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
-          {title}
-        </span>
-        <div className="flex items-center gap-2">
-          <span className="line-clamp-1 font-body text-[11.5px] text-[var(--t3)]">
-            {subtitle}
-          </span>
-          {progress && (
-            <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] tabular-nums text-[var(--t2)]">
-              {progress.done}/{progress.total}{progress.unit}
-            </span>
-          )}
-        </div>
-        {progress && progress.total > 0 && (
-          <div className="h-[3px] w-full overflow-hidden rounded-full bg-[var(--bg3)]">
-            <div
-              className="h-full rounded-full transition-[width] duration-[var(--dur-slow)]"
-              style={{
-                width: `${Math.min(100, (progress.done / progress.total) * 100)}%`,
-                backgroundColor: progress.done >= progress.total ? '#34C759' : 'var(--p)',
-              }}
-            />
-          </div>
-        )}
-      </div>
-      <div className="flex shrink-0 items-center gap-1.5">
-        {metaRight && (
-          <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
-            {metaRight}
-          </span>
-        )}
-        <ChevronRight size={16} className="text-[var(--t3)]/70" aria-hidden />
-      </div>
-    </Link>
-  )
-}
-
 function EmptyRow({ text, href }: { text: string; href: string }) {
   return (
     <Link
       href={href}
-      className="flex items-center justify-between px-4 py-4 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)]"
+      className="flex items-center justify-between px-4 py-4 transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)]"
     >
       <span className="font-body text-[13px] text-[var(--t3)]">{text}</span>
       <ChevronRight size={16} className="text-[var(--t3)]/70" aria-hidden />
@@ -555,24 +460,3 @@ function relativeTimeKo(t: number | null): string {
   return '오래 전'
 }
 
-function Frame({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
-  return (
-    <section
-      aria-label={title}
-      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
-    >
-      <header className="mb-4">
-        <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
-          {title}
-        </h2>
-      </header>
-      {children}
-    </section>
-  )
-}

@@ -1,9 +1,152 @@
 # Design System
 
-> Vocaflow 디자인 시스템 SSoT. Quizlet Parts Kit v06 분석 기반, 영어 학습앱 최적화.
-> CSS Variables · 폰트 · 컴포넌트 패턴 · 모션 · 접근성 통합. 작성 시점: 2026-06-08.
+> Vocaflow 디자인 시스템 SSoT. **v06.36 — iOS/iPadOS HIG 디자인 언어 풀 도입**.
+> 토큰 · 폰트 · 컴포넌트 패턴 · 모션 · 머터리얼 · 접근성 통합. 최근 갱신: 2026-06-13.
 >
-> **토큰 위치**: `packages/design-tokens/src/colors.ts` (앱·웹 공유) + `apps/web/src/app/globals.css` (웹 전용 보충).
+> **토큰 위치**: `packages/design-tokens/src/tokens.css` (웹 SSoT) + `colors.ts` (RN 공유).
+> **iOS 프리미티브**: `apps/web/src/components/ui/ios/` (Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar).
+
+---
+
+## 🍎 iOS / iPadOS 디자인 언어 (v06.36 풀 적용)
+
+### 철학 — Apple HIG 3대 원칙 (학습 컨텍스트로 번역)
+
+| # | 원칙 | iOS 정의 | Vocaflow 적용 |
+|---|---|---|---|
+| 1 | **Clarity (명료성)** | 텍스트가 모든 크기에서 가독, 아이콘이 정확·이해, 장식 절제, 기능이 동기 부여 | Hero 숫자 88px · Lora 17-19px 본문 · 캡슐 배지 의미별 1색 · 절대 모달 캡 없음 |
+| 2 | **Deference (양보)** | 콘텐츠가 주역, 인터페이스는 보조 (반투명 머터리얼·minimal chrome·Z-axis 위계 콘텐츠 우선) | 그레이 캔버스(`bg2`) + 떠있는 흰 카드 · 글라스 네비 bar · 학습 중 sidebar dim |
+| 3 | **Depth (깊이)** | 시각 레이어·실사적 모션이 위계와 의미 전달, 직접 조작 즐거움 | Activity Ring 그라데이션 + glow · 카드 hover `-translate-y-1` · spring easing · 캡슐 shadow stack |
+
+### 핵심 개념 (Composition Vocabulary)
+
+| 개념 | 정의 | 토큰/프리미티브 |
+|---|---|---|
+| **Continuous Corner** | iOS 라운드는 squircle (G2 continuous). Vocaflow는 CSS `border-radius`로 근사 — radius 18px 이상은 비례 패딩으로 보강 | `--r-ios-{xs..3xl}`, `rounded-ios-{md..3xl}` |
+| **Gray Canvas + Floating Card** | 메인 backdrop은 `bg2`(그레이), 카드는 흰 surface + soft shadow로 부유감 | `<Card>`, `--sh-ios-2` |
+| **Glass Material** | UIVisualEffectView Material — backdrop-blur + saturate. thin/regular/thick 3단 | `--mat-glass-bg-{thin,regular,thick}`, `<GlassBar>` |
+| **Capsule** | 정보·상태 캡슐 (pill 반경). 의미별 7+ tone (iOS 시스템 컬러 매핑) | `<Capsule>`, `--r-ios-pill` |
+| **Inset Grouped List** | Settings 인셋 그룹 — rounded-14 바깥 + 흰 안쪽 divide-y + 8px SF Symbol 아이콘 box | `<InsetGroup>` + `<InsetRow>`, `--r-ios-lg` |
+| **Segmented Control** | UISegmentedControl — 캡슐 컨테이너 + 활성 흰 캡슐 + `--sh-ios-button` | `<SegmentControl>` |
+| **Activity Ring** | Fitness 앱 원형 진행도 — 그라디언트 + glow + emphasized cubic-bezier (700ms) | `<ActivityRing>` |
+| **Hero Numerals** | SF Display 거대 숫자 — `font-[800] tracking-[-0.045em] tabular-nums` 64-128px | `font-display` + `text-[64px..128px]` |
+| **Primary CTA** | 큰 캡슐 버튼, 6 tone (neutral/brand/critical/warning/info/success), tone별 glow | `<PrimaryButton>`, `--sh-ios-glow-*` |
+| **iOS Color Glow** | CTA·상태 강조용 컬러 그림자 (rgba 22-25% × 16px blur) | `--sh-ios-glow-{blue,green,red,orange}` |
+
+### iOS 시스템 컬러 — 의미별 액센트 (브랜드 `--p` 와 별도)
+
+| 컬러 | Hex (light) | Hex (dark vivid) | Tint | 의미 슬롯 |
+|---|---|---|---|---|
+| ios-red | `#FF3B30` | `#FF453A` | `#FFE5E5` | critical · destructive · risk |
+| ios-orange | `#FF9500` | `#FF9F0A` | `#FFF1E5` | warning · 도서 · review |
+| ios-yellow | `#FFCC00` | `#FFD60A` | `#FEF3C7` | caution · 수능 트랙 |
+| ios-green | `#34C759` | `#30D158` | `#E8F8EE` | success · stable · i+1 zone |
+| ios-mint / teal / cyan | — | — | — | utility (예약) |
+| ios-blue | `#007AFF` | `#0A84FF` | `#E5F2FF` | 정보 · 스크립트 · 비즈 트랙 |
+| ios-indigo | `#5856D6` | `#5E5CE6` | — | 보조 액션 |
+| ios-purple | `#AF52DE` | `#BF5AF2` | `#F3E8FF` | 단어장 · specialty |
+| ios-pink | `#FF2D55` | `#FF375F` | `#FCE7F3` | 학술 트랙 · streak (예약) |
+| ios-gray-1..6 | `#8E8E93..#F2F2F7` | (flipped) | — | neutral · 비활성 · 구분 |
+
+### 토큰 카탈로그 (iOS 전용)
+
+```css
+/* Radius — iOS HIG */
+--r-ios-xs    : 6px    /* badge inner */
+--r-ios-sm    : 8px    /* small icon box (SF Symbol container) */
+--r-ios-md    : 12px   /* button, cell inner */
+--r-ios-lg    : 14px   /* inset group outer */
+--r-ios-xl    : 18px   /* primary button */
+--r-ios-2xl   : 24px   /* card surface */
+--r-ios-3xl   : 32px   /* hero card */
+--r-ios-modal : 38px   /* sheet, modal */
+--r-ios-pill  : 9999px /* capsule */
+
+/* Shadow — iOS HIG */
+--sh-ios-1       : 0 1px 2px rgba(0,0,0,.04)                                /* subtle */
+--sh-ios-2       : 0 1px 2px rgba(0,0,0,.04), 0 8px 24px -12px rgba(0,0,0,.08) /* card */
+--sh-ios-3       : 0 2px 4px rgba(0,0,0,.06), 0 12px 32px -8px rgba(0,0,0,.12) /* elevated */
+--sh-ios-4       : 0 4px 8px rgba(0,0,0,.08), 0 20px 48px -8px rgba(0,0,0,.16) /* modal */
+--sh-ios-button  : 0 1px 2px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04)
+--sh-ios-glow-blue  : 0 4px 16px rgba(59,130,246,.22)
+--sh-ios-glow-green : 0 4px 16px rgba(52,199,89,.22)
+--sh-ios-glow-red   : 0 4px 16px rgba(255,69,58,.25)
+--sh-ios-glow-orange: 0 4px 16px rgba(255,159,10,.22)
+
+/* Material — UIVisualEffectView 정합 */
+--mat-glass-bg-thin    : rgba(255,255,255,.72)
+--mat-glass-bg-regular : rgba(255,255,255,.85)
+--mat-glass-bg-thick   : rgba(255,255,255,.92)
+--mat-glass-filter     : blur(20px) saturate(1.5)
+
+/* Motion — Spring + Standard easing */
+--ease-ios-standard      : cubic-bezier(.4, 0, .2, 1)
+--ease-ios-emphasized    : cubic-bezier(.2, 0, 0, 1)
+--ease-ios-spring        : cubic-bezier(.34, 1.56, .64, 1)
+--ease-ios-spring-bouncy : cubic-bezier(.5, 1.8, .5, 1)
+
+--dur-ios-fast   : 150ms  /* tap, capsule swap */
+--dur-ios-normal : 250ms  /* card hover, segment switch */
+--dur-ios-slow   : 400ms  /* ring fill */
+--dur-ios-slower : 700ms  /* hero reveal */
+
+/* Layout Inset (iPhone/iPad safe area + Reading 폭) */
+--ios-content-max      : 820px   /* iPad Reading 폭 */
+--ios-content-wide-max : 1024px
+--ios-inset-x          : 20px    /* iPhone safe area horizontal */
+--ios-inset-x-compact  : 16px
+--ios-card-gap         : 16px
+
+--ios-navbar-h  : 52px
+--ios-toolbar-h : 49px
+--ios-tabbar-h  : 83px
+
+/* iOS Typography (SF Display/Text 정합) */
+--ios-text-large-title : 700 34px/40px var(--ios-font-display)
+--ios-text-title-1     : 700 28px/34px var(--ios-font-display)
+--ios-text-title-2     : 700 22px/28px var(--ios-font-display)
+--ios-text-title-3     : 600 20px/25px var(--ios-font-display)
+--ios-text-headline    : 600 17px/22px var(--ios-font-text)
+--ios-text-body        : 400 17px/22px var(--ios-font-text)
+--ios-text-callout     : 400 16px/21px var(--ios-font-text)
+--ios-text-subheadline : 400 15px/20px var(--ios-font-text)
+--ios-text-footnote    : 400 13px/18px var(--ios-font-text)
+--ios-text-caption-1   : 400 12px/16px var(--ios-font-text)
+--ios-text-caption-2   : 400 11px/13px var(--ios-font-text)
+```
+
+### Foundation 프리미티브 카탈로그 (`@/components/ui/ios`)
+
+| 컴포넌트 | 역할 | 핵심 props |
+|---|---|---|
+| **`Card`** | iOS 떠있는 카드 — 24px radius + soft shadow | `size: sm\|md\|lg\|xl` (16-28px 패딩) · `elevation: 1\|2\|3\|4` (그림자 강도) · `as: section\|article\|div` |
+| **`Frame`** | Card + iOS section header (title + meta + More →) | `title`, `meta`, `moreHref`, `moreLabel`, `headerRight` |
+| **`SegmentControl`** | UISegmentedControl 캡슐 세그먼트 | `items: SegmentItem<TKey>[]` · `active: TKey` · `onChange` or `href` · `block` |
+| **`InsetGroup`** | Settings 인셋 그룹 컨테이너 (header/footer 캡션) | `header`, `footer` |
+| **`InsetRow`** | Settings 셀 — 아이콘 + title + subtitle + chevron + 진도 | `href` or `onClick` · `icon` + `iconBg` · `progress` · `metaRight` · `hideChevron` |
+| **`Capsule`** | 정보·상태 캡슐. label+value 또는 단일 children | `tone: 9종` · `size: sm\|md` · `label`+`value` or `children` |
+| **`StatPill`** | Health Categories KPI 셀 — 라벨 + 큰 숫자 + 단위 | `label`, `value`, `unit`, `accent`, `dotColor`, `ratio` |
+| **`ActivityRing`** | Fitness 원형 진행도 — 그라데이션 + glow | `pct`, `reached`, `size`, `stroke`, `capLabel`, `centerValue`, `centerSub` |
+| **`PrimaryButton`** | iOS Primary CTA — 큰 캡슐, 6 tone | `tone`, `size: sm\|md\|lg` · `count` · `rightIcon` · `block` |
+| **`GlassBar`** | NavigationBar — 글라스 sticky/fixed (52px) | `leading`, `center`, `trailing`, `material: thin\|regular\|thick` |
+
+### 사용 규약 (Always-on)
+
+1. **카드 = `<Card>` 또는 `<Frame>`** — `bg-[var(--bg)]` 직접 셀 금지 (그림자·radius 누락 위험).
+2. **세그먼트 = `<SegmentControl>`** — 자체 캡슐 nav 금지 (활성 그림자 토큰 누락).
+3. **Settings list = `<InsetGroup>` + `<InsetRow>`** — `divide-y` 직접 셀 금지.
+4. **상태 캡슐 = `<Capsule>`** — 인라인 `rounded-[var(--r-full)] px-2.5` 금지.
+5. **CTA = `<PrimaryButton>`** — 자체 큰 버튼 금지 (tone별 컬러 글로우 누락).
+6. **네비 헤더 = `<GlassBar>`** — 자체 `sticky top-0 backdrop-blur` 금지.
+7. **거대 숫자 = `font-display text-[64px..128px] font-[800] tracking-[-0.045em] tabular-nums`** — 4축 한 세트로 사용.
+8. **iOS 시스템 컬러 사용 시 always tint와 페어로** — `bg-ios-green-tint` + `text-ios-green` (대비 보장).
+9. **Reading 폭 `max-w-[var(--ios-content-max)]`** (820px) — Hub·Reader류 콘텐츠. wider 페이지는 `--ios-content-wide-max` (1024px).
+10. **모션은 `ease-ios-*` 토큰 사용** — 임의 cubic-bezier 금지.
+
+### 적용 범위 (v06.36 1단계)
+
+- ✅ **WordVault Hub** (6 Section) — VaultIdentity · VocabularyLevelMap · ResourcePortfolio · RecommendedBooks · NextStepList · FlowStripe + 헤더 (page.tsx)
+- 🟡 **다음 단계** (Phase 14.6 후속): TextViewer · Workspace · Library Books Browse · Diagnostic · Admin Console — 같은 프리미티브로 점진 마이그레이션
 
 ---
 

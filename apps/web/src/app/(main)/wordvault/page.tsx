@@ -8,10 +8,10 @@
 
 'use client'
 
-import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
+import { GlassBar, SegmentControl } from '@/components/ui/ios'
 import { useToast } from '@/components/ui/Toast'
 import { CollectionsRow } from '@/components/wordvault/CollectionsRow'
 import { HideToggleBar } from '@/components/wordvault/HideToggleBar'
@@ -35,7 +35,6 @@ import type {
 } from '@/components/wordvault/types'
 import { useTheme } from '@/hooks/useTheme'
 import { consumePendingWords, toWordItem } from '@/lib/text-viewer/handoff'
-import { cn } from '@/lib/utils/cn'
 
 type ViewName = 'hub' | ScreenName
 
@@ -172,55 +171,36 @@ export default function WordVaultPage() {
 
   return (
     <>
-      {/* ── 헤더 (v06.35 iOS — 캡슐 세그먼트 + 글라스 sticky) ── */}
-      <header className="sticky top-0 z-50 flex h-[52px] items-center gap-3 border-b border-[var(--bd)]/60 bg-[var(--bg)]/85 px-5 backdrop-blur-xl backdrop-saturate-150">
-        <h1 className="font-display text-[15px] font-[700] tracking-[-0.012em] text-[var(--t1)]">
-          WordVault
-        </h1>
-
-        <div className="flex-1" />
-
-        {/* iOS 세그먼트 컨트롤 — 캡슐 + 활성 그림자 */}
-        <nav
-          aria-label="WordVault 뷰"
-          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg3)] p-[3px]"
-        >
-          {(
-            [
-              { key: 'hub', label: '허브', href: '/wordvault' },
-              { key: 'browse', label: '둘러보기', href: '/wordvault/browse' },
-              { key: 'study', label: '학습', href: '/wordvault?view=study' },
-              { key: 'review', label: '복습', href: '/wordvault?view=review' },
-            ] as const
-          ).map((item) => {
-            const isActive = view === item.key
-            return (
-              <Link
-                key={item.key}
-                href={item.href}
-                aria-current={isActive ? 'page' : undefined}
-                className={cn(
-                  'rounded-[var(--r-full)] px-3.5 py-[5px] font-display text-[12.5px] font-[600] no-underline transition-all duration-[var(--dur-fast)]',
-                  isActive
-                    ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]'
-                    : 'text-[var(--t3)] hover:text-[var(--t2)]',
-                )}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
-
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label="테마 전환"
-          className="flex h-8 w-8 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-        >
-          {theme === 'light' ? '🌙' : '☀️'}
-        </button>
-      </header>
+      {/* ── 헤더 (v06.36 GlassBar + SegmentControl 프리미티브) ── */}
+      <GlassBar
+        leading={
+          <h1 className="font-display text-[15px] font-[700] tracking-[-0.012em] text-[var(--t1)]">
+            WordVault
+          </h1>
+        }
+        trailing={
+          <>
+            <SegmentControl
+              ariaLabel="WordVault 뷰"
+              active={view}
+              items={[
+                { key: 'hub', label: '허브', href: '/wordvault' },
+                { key: 'browse', label: '둘러보기', href: '/wordvault/browse' },
+                { key: 'study', label: '학습', href: '/wordvault?view=study' },
+                { key: 'review', label: '복습', href: '/wordvault?view=review' },
+              ]}
+            />
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label="테마 전환"
+              className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            >
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
+          </>
+        }
+      />
 
       {/* ── 메인 (iOS 그레이 캔버스) ── */}
       <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">

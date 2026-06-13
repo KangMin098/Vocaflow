@@ -11,11 +11,12 @@
 
 'use client'
 
-import { ArrowRight, Compass } from 'lucide-react'
+import { Compass } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 
+import { Frame, PrimaryButton } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/client'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { scoreBook } from '@/lib/library/recommend-books'
@@ -125,17 +126,22 @@ export function RecommendedBooks() {
   if (state.kind === 'unauth' || state.kind === 'no-diagnostic') {
     return (
       <Frame title="다음 권장 도서">
-        <div className="flex items-center justify-between gap-4 rounded-[18px] bg-[var(--bg2)] px-5 py-4">
+        <div className="flex items-center justify-between gap-4 rounded-ios-xl bg-[var(--bg2)] px-5 py-4">
           <p className="font-body text-[13px] text-[var(--t2)]">
             진단을 받으면 수준에 맞는 도서를 추천해드려요.
           </p>
-          <Link
+          <PrimaryButton
             href="/diagnostic"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(59,130,246,0.22)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+            tone="brand"
+            size="sm"
+            block={false}
+            rightIcon={null}
           >
-            <Compass size={13} aria-hidden />
-            진단 받기
-          </Link>
+            <span className="inline-flex items-center gap-1.5">
+              <Compass size={13} aria-hidden />
+              진단 받기
+            </span>
+          </PrimaryButton>
         </div>
       </Frame>
     )
@@ -289,42 +295,3 @@ function MiniChip({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Frame({
-  title,
-  meta,
-  moreHref,
-  children,
-}: {
-  title: string
-  meta?: string
-  moreHref?: string
-  children: React.ReactNode
-}) {
-  return (
-    <section
-      aria-label={title}
-      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
-    >
-      <header className="mb-4 flex items-baseline justify-between gap-3">
-        <div className="flex items-baseline gap-2.5">
-          <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
-            {title}
-          </h2>
-          {meta && (
-            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">{meta}</span>
-          )}
-        </div>
-        {moreHref && (
-          <Link
-            href={moreHref}
-            className="inline-flex items-center gap-0.5 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-fast)] hover:text-[var(--p-hover)]"
-          >
-            더보기
-            <ArrowRight size={13} aria-hidden />
-          </Link>
-        )}
-      </header>
-      {children}
-    </section>
-  )
-}

@@ -11,6 +11,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 
+import { Frame, StatPill } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/client'
 
 interface Day {
@@ -129,9 +130,9 @@ export function FlowStripe() {
     <Frame title="지난 28일">
       {/* Stats — iOS Health 캡슐 row */}
       <div className="mb-5 grid grid-cols-3 gap-2.5">
-        <StatCell label="평균" value={NF.format(avg)} unit="개/일" />
-        <StatCell label="활동" value={NF.format(activeDays)} unit="일" />
-        <StatCell label="총합" value={NF.format(total)} unit="개" />
+        <StatPill label="평균" value={NF.format(avg)} unit="개/일" />
+        <StatPill label="활동" value={NF.format(activeDays)} unit="일" />
+        <StatPill label="총합" value={NF.format(total)} unit="개" />
       </div>
 
       {/* Sparkline — 캡슐 막대 28일 */}
@@ -156,30 +157,6 @@ export function FlowStripe() {
         </div>
       )}
     </Frame>
-  )
-}
-
-function StatCell({
-  label,
-  value,
-  unit,
-}: {
-  label: string
-  value: string
-  unit: string
-}) {
-  return (
-    <div className="flex flex-col gap-1.5 rounded-[18px] bg-[var(--bg2)] p-3.5">
-      <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
-        {label}
-      </span>
-      <div className="flex items-baseline gap-1">
-        <span className="font-display text-[22px] font-[800] leading-none tracking-[-0.025em] tabular-nums text-[var(--t1)]">
-          {value}
-        </span>
-        <span className="font-mono text-[10.5px] text-[var(--t3)]">{unit}</span>
-      </div>
-    </div>
   )
 }
 
@@ -249,18 +226,3 @@ function prettyModule(id: string): string {
   return map[id] ?? id
 }
 
-function Frame({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section
-      aria-label={title}
-      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
-    >
-      <header className="mb-4">
-        <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
-          {title}
-        </h2>
-      </header>
-      {children}
-    </section>
-  )
-}

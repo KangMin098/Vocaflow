@@ -62,6 +62,61 @@ export const colorsDark = {
   bdf: '#60A5FA',
 } as const;
 
+// iOS 시스템 컬러 (HIG light) — 의미별 액센트. 브랜드 --p 와 별도로 사용.
+// v06.36 도입 — UI 캡슐 배지·CTA tone·상태 강조에 사용.
+export const iosColors = {
+  red: '#FF3B30',
+  orange: '#FF9500',
+  yellow: '#FFCC00',
+  green: '#34C759',
+  mint: '#00C7BE',
+  teal: '#30B0C7',
+  cyan: '#32ADE6',
+  blue: '#007AFF',
+  indigo: '#5856D6',
+  purple: '#AF52DE',
+  pink: '#FF2D55',
+  brown: '#A2845E',
+
+  gray1: '#8E8E93',
+  gray2: '#AEAEB2',
+  gray3: '#C7C7CC',
+  gray4: '#D1D1D6',
+  gray5: '#E5E5EA',
+  gray6: '#F2F2F7',
+
+  // tints (UI 배지 bg)
+  redTint: '#FFE5E5',
+  orangeTint: '#FFF1E5',
+  yellowTint: '#FEF3C7',
+  greenTint: '#E8F8EE',
+  blueTint: '#E5F2FF',
+  purpleTint: '#F3E8FF',
+  pinkTint: '#FCE7F3',
+} as const;
+
+// iOS 다크 — Vivid 컬러로 대비 보장 (HIG spec)
+export const iosColorsDark = {
+  ...iosColors,
+  red: '#FF453A',
+  orange: '#FF9F0A',
+  yellow: '#FFD60A',
+  green: '#30D158',
+  blue: '#0A84FF',
+  indigo: '#5E5CE6',
+  purple: '#BF5AF2',
+  pink: '#FF375F',
+
+  gray1: '#8E8E93',
+  gray2: '#636366',
+  gray3: '#48484A',
+  gray4: '#3A3A3C',
+  gray5: '#2C2C2E',
+  gray6: '#1C1C1E',
+} as const;
+
+export type IosColors = typeof iosColors;
+
 // 게임 전용 — 변경 금지 (CLAUDE.md §게임 전용 하드코딩 색상 예외)
 export const gameColors = {
   gold: '#EAB308',

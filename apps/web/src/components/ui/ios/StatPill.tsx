@@ -1,0 +1,82 @@
+// apps/web/src/components/ui/ios/StatPill.tsx
+//
+// iOS Health Categories 스타일 통계 셀.
+// 라벨 + 큰 숫자 + 단위. 그리드 안에 일렬로 배치하여 한 화면에 KPI 요약.
+
+import { cn } from '@/lib/utils/cn'
+
+export interface StatPillProps {
+  label: string
+  value: string | number
+  unit?: string
+  /** 큰 숫자 색상. default t1, 옵션으로 iOS 컬러 사용 */
+  accent?: 'neutral' | 'brand' | 'green' | 'orange' | 'red' | 'purple' | 'blue'
+  /** dot indicator (왼쪽). 빠지면 미표시 */
+  dotColor?: string
+  /** 보조 비율 텍스트 (값 옆 작게) */
+  ratio?: string
+  className?: string
+}
+
+const ACCENT_COLORS: Record<NonNullable<StatPillProps['accent']>, string> = {
+  neutral: 'var(--t1)',
+  brand: 'var(--p)',
+  green: 'var(--ios-green)',
+  orange: 'var(--ios-orange)',
+  red: 'var(--ios-red)',
+  purple: 'var(--ios-purple)',
+  blue: 'var(--ios-blue)',
+}
+
+export function StatPill({
+  label,
+  value,
+  unit,
+  accent = 'neutral',
+  dotColor,
+  ratio,
+  className,
+}: StatPillProps) {
+  const valueColor = ACCENT_COLORS[accent]
+
+  return (
+    <div
+      className={cn(
+        'flex flex-col gap-1.5 rounded-ios-xl bg-[var(--bg2)] p-3.5',
+        className,
+      )}
+    >
+      <div className="flex items-center gap-1.5">
+        {dotColor && (
+          <span
+            aria-hidden
+            className="h-[8px] w-[8px] shrink-0 rounded-full"
+            style={{
+              backgroundColor: dotColor,
+              boxShadow: `0 0 0 3px ${dotColor}22`,
+            }}
+          />
+        )}
+        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
+          {label}
+        </span>
+      </div>
+      <div className="flex items-baseline gap-1.5">
+        <span
+          className="font-display text-[22px] font-[800] leading-none tracking-[-0.025em] tabular-nums"
+          style={{ color: valueColor }}
+        >
+          {value}
+        </span>
+        {unit && (
+          <span className="font-mono text-[10.5px] text-[var(--t3)]">{unit}</span>
+        )}
+        {ratio && (
+          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+            {ratio}
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}

@@ -11,6 +11,7 @@ import { ChevronRight, Compass } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import { Capsule, Frame } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/client'
 
 type RecommendationType =
@@ -52,18 +53,20 @@ type State =
   | { kind: 'ready'; sets: RecommendedSet[]; vLevel: number | null }
   | { kind: 'error'; message: string }
 
+type CapsuleTone = 'brand' | 'green' | 'orange' | 'purple' | 'yellow' | 'blue' | 'pink' | 'gray'
+
 const TYPE_META: Record<
   RecommendationType,
-  { label: string; bg: string; color: string }
+  { label: string; tone: CapsuleTone }
 > = {
-  primary: { label: '현재', bg: 'var(--p-light)', color: 'var(--p-dark)' },
-  stretch: { label: '다음', bg: '#E8F8EE', color: '#15803D' },
-  review: { label: '복습', bg: '#FFF1E5', color: '#9A3412' },
-  specialty: { label: '관심', bg: '#F3E8FF', color: '#7C3AED' },
-  track_csat: { label: '수능', bg: '#FEF3C7', color: '#92400E' },
-  track_business: { label: '비즈', bg: '#E0F2FE', color: '#075985' },
-  track_academic: { label: '학술', bg: '#FCE7F3', color: '#9D174D' },
-  fallback: { label: '추천', bg: 'var(--bg2)', color: 'var(--t2)' },
+  primary: { label: '현재', tone: 'brand' },
+  stretch: { label: '다음', tone: 'green' },
+  review: { label: '복습', tone: 'orange' },
+  specialty: { label: '관심', tone: 'purple' },
+  track_csat: { label: '수능', tone: 'yellow' },
+  track_business: { label: '비즈', tone: 'blue' },
+  track_academic: { label: '학술', tone: 'pink' },
+  fallback: { label: '추천', tone: 'gray' },
 }
 
 export function NextStepList() {
@@ -176,13 +179,7 @@ export function NextStepList() {
                 href={`/library/vocab#set-${set.slug}`}
                 className="group flex items-center gap-3 px-4 py-3.5 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)]"
               >
-                {/* Type 배지 — 컬러 캡슐 */}
-                <span
-                  className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] px-2.5 py-1 font-display text-[10.5px] font-[700]"
-                  style={{ backgroundColor: typeMeta.bg, color: typeMeta.color }}
-                >
-                  {typeMeta.label}
-                </span>
+                <Capsule tone={typeMeta.tone}>{typeMeta.label}</Capsule>
 
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
@@ -205,31 +202,3 @@ export function NextStepList() {
   )
 }
 
-function Frame({
-  title,
-  meta,
-  children,
-}: {
-  title: string
-  meta?: string
-  children: React.ReactNode
-}) {
-  return (
-    <section
-      aria-label={title}
-      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
-    >
-      <header className="mb-4 flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
-          {title}
-        </h2>
-        {meta && (
-          <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
-            {meta}
-          </span>
-        )}
-      </header>
-      {children}
-    </section>
-  )
-}
