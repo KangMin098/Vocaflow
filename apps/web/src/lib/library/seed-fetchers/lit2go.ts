@@ -89,17 +89,20 @@ function parseListing(html: string, sourceUrl: string): SeedRow[] {
   const rows: SeedRow[] = []
   // 1) item 블록 찾기 — Lit2Go 는 책 카드를 <article> or <li> 로 감쌈.
   //    href="/lit2go/{book-id}/" 패턴이 안정적인 식별 키.
-  const cardRe = /<a\s+[^>]*href="\/lit2go\/(\d+)\/(?:([^"\/]+)\/)?"[^>]*>([^<]+)<\/a>([\s\S]{0,1200})/gi
+  // Lit2Go 책 링크는 **절대 URL** (href="https://etc.usf.edu/lit2go/21/slug/") 이고,
+  // 한 책당 anchor 2개(book_icon=img·no-text / figcaption.title=텍스트). 텍스트 있는 것만 채택.
+  const cardRe =
+    /<a\s+[^>]*href="(?:https?:\/\/etc\.usf\.edu)?\/lit2go\/(\d+)\/(?:([^"\/]+)\/)?"[^>]*>([^<]+)<\/a>([\s\S]{0,1200})/gi
   let m: RegExpExecArray | null
   const seen = new Set<string>()
 
   while ((m = cardRe.exec(html)) !== null) {
     const bookId = m[1]!
+    const title = stripTags(m[3] ?? '')
+    // 빈 제목(book_icon anchor — img 만) 은 dedup 전에 skip → 제목 anchor 가 채택되도록.
+    if (!title || title.length < 2) continue
     if (seen.has(bookId)) continue
     seen.add(bookId)
-
-    const title = stripTags(m[3] ?? '')
-    if (!title || title.length < 2) continue
 
     const ctx = m[4] ?? ''
 
@@ -161,30 +164,32 @@ function parseListing(html: string, sourceUrl: string): SeedRow[] {
   return rows
 }
 
+// Lit2Go 실제 genre URL = /lit2go/genres/{id}/{slug}/ — value 에 "{id}/{slug}" 보존.
 const LIT2GO_GENRE_OPTIONS: Array<{ value: string; label: string }> = [
   { value: '', label: '장르 전체' },
-  { value: 'adventure', label: 'Adventure (모험)' },
-  { value: 'fable', label: 'Fable (우화)' },
-  { value: 'fairy-tale', label: 'Fairy Tale (동화)' },
-  { value: 'fiction', label: 'Fiction (소설)' },
-  { value: 'historical-fiction', label: 'Historical Fiction (역사 소설)' },
-  { value: 'mystery', label: 'Mystery (추리)' },
-  { value: 'mythology', label: 'Mythology (신화)' },
-  { value: 'nonfiction', label: 'Nonfiction (논픽션)' },
-  { value: 'poetry', label: 'Poetry (시)' },
-  { value: 'science-fiction', label: 'Science Fiction (SF)' },
-  { value: 'short-story', label: 'Short Story (단편)' },
+  { value: '2/adventure', label: 'Adventure (모험)' },
+  { value: '3/epic', label: 'Epic (서사시)' },
+  { value: '19/essay', label: 'Essay (에세이)' },
+  { value: '12/fable', label: 'Fable (우화)' },
+  { value: '13/fairy-talefolk-tale', label: 'Fairy/Folk Tale (동화·민담)' },
+  { value: '1/fantasy', label: 'Fantasy (판타지)' },
+  { value: '27/gothic', label: 'Gothic (고딕)' },
+  { value: '11/historical-fiction', label: 'Historical Fiction (역사소설)' },
+  { value: '14/history', label: 'History (역사)' },
+  { value: '7/horror', label: 'Horror (공포)' },
+  { value: '15/informational', label: 'Informational (정보)' },
+  { value: '17/memoir', label: 'Memoir (회고록)' },
+  { value: '8/mystery', label: 'Mystery (추리)' },
+  { value: '25/nursery-rhyme', label: 'Nursery Rhyme (동요)' },
+  { value: '5/philosophy', label: 'Philosophy (철학)' },
+  { value: '24/poetry', label: 'Poetry (시)' },
+  { value: '26/realism', label: 'Realism (사실주의)' },
+  { value: '9/romance', label: 'Romance (로맨스)' },
+  { value: '28/satire', label: 'Satire (풍자)' },
+  { value: '6/science-fiction', label: 'Science Fiction (SF)' },
+  { value: '20/speech', label: 'Speech (연설)' },
+  { value: '10/tragedy', label: 'Tragedy (비극)' },
 ]
-
-function gradeBandToReadabilityPath(band: FetchBatchParams['lit2goGradeBand']): string | null {
-  switch (band) {
-    case 'k-2':  return 'readability/0-1-2-3'
-    case '3-5':  return 'readability/4-5-6'
-    case '6-8':  return 'readability/7-8-9'
-    case '9-12': return 'readability/10-11-12'
-    default:     return null
-  }
-}
 
 async function fetchListingPage(url: string): Promise<string> {
   const res = await fetch(url, {
@@ -207,7 +212,9 @@ export const lit2goFetcher: SourceFetcher = {
         { value: 'alpha', label: '제목 가나다순' },
       ],
       genres: LIT2GO_GENRE_OPTIONS,
-      advanced: ['search', 'lit2goGradeBand', 'lit2goAudioOnly'],
+      // Lit2Go 는 per-grade·audio-only listing URL 이 없음 → 작동하는 필터만 노출.
+      //   grade(US FK)·audio 여부는 enqueue 후 curation/analyze 단계에서 보강.
+      advanced: ['search'],
       maxBatch: 40,
       hint:
         'USF Lit2Go — K-12 학습 지문·시·단편. 본문 PD / USF 요약 CC-BY. ' +
@@ -216,17 +223,14 @@ export const lit2goFetcher: SourceFetcher = {
   },
 
   async fetchBatch(params: FetchBatchParams): Promise<FetchBatchResult> {
-    const { genre, lit2goGradeBand, limit = 32, offset = 0, search } = params
+    const { genre, limit = 32, offset = 0, search } = params
 
-    // 우선순위: gradeBand > genre > search > 전체
+    // genre → /lit2go/genres/{id}/{slug}/ (value 에 slash 포함 — encode X).
+    //   검색 포함 그 외는 /books/ 전체(408권)를 받아 클라이언트에서 필터.
+    //   (Lit2Go 는 per-grade·?s= listing 이 불안정/없음 → /books/ + 클라 필터가 안전.)
     let listingUrl = `${LIT2GO_BASE}/books/`
-    if (lit2goGradeBand && lit2goGradeBand !== 'all') {
-      const path = gradeBandToReadabilityPath(lit2goGradeBand)
-      if (path) listingUrl = `${LIT2GO_BASE}/${path}/`
-    } else if (genre && genre.length > 0) {
-      listingUrl = `${LIT2GO_BASE}/genres/${encodeURIComponent(genre)}/`
-    } else if (search && search.trim().length > 0) {
-      listingUrl = `${LIT2GO_BASE}/?s=${encodeURIComponent(search.trim())}`
+    if (genre && genre.length > 0) {
+      listingUrl = `${LIT2GO_BASE}/genres/${genre}/`
     }
 
     const html = await fetchListingPage(listingUrl)
