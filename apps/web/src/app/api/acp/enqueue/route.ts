@@ -23,6 +23,7 @@ import {
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
+import { markSeedImported, type SeedSource } from '@/lib/acp/seed-upsert'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -127,6 +128,16 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     if (error) {
       throw new Error(`admin_enqueue_article failed: ${error.message}`)
+    }
+
+    // v06.46 — seed_catalog 추적: 해당 seed 에 imported_to_articles=true 마킹
+    if (typeof data === 'string' && data.length > 0) {
+      await markSeedImported(
+        supabase as unknown as Parameters<typeof markSeedImported>[0],
+        article.source as SeedSource,
+        article.source_id,
+        data,
+      )
     }
 
     return NextResponse.json({

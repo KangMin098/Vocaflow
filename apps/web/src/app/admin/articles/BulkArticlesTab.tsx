@@ -28,7 +28,7 @@ import {
   Beaker,
   GraduationCap,
 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 // 배럴(@vocaflow/library-pipeline) 대신 client-safe 서브패스만 import.
 //   배럴은 normalize(node:crypto) 까지 끌어와 클라이언트 번들을 깨뜨림(dev 는 tree-shake X).
@@ -176,6 +176,71 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       })
       .filter((x): x is SourceConfig & { isRecommended: boolean; priority: number } => x !== null)
   }, [learnerLevel])
+
+  // v06.46 — 마운트 시 seed_catalog 자동 로드 (LCP 와 동일하게 새로고침해도 보존됨)
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch('/api/admin/articles/seed-list?limit=300')
+        if (!res.ok) return
+        const data = (await res.json()) as {
+          items: Array<{
+            id: string
+            source: SourceKey
+            source_id: string
+            feed_id: string | null
+            feed_label: string | null
+            title: string
+            source_url: string | null
+            published_at: string | null
+            description: string | null
+            score_total: number | null
+            score_recency: number | null
+            score_source: number | null
+            score_length: number | null
+            score_level: number | null
+            has_audio: boolean
+            imported_to_articles: boolean
+            imported_article_id: string | null
+          }>
+        }
+        if (cancelled) return
+
+        const rows: BulkRow[] = data.items.map((s) => ({
+          source: s.source,
+          source_id: s.source_id,
+          title: s.title,
+          url: s.source_url ?? '',
+          published_at: s.published_at,
+          description: s.description ?? '',
+          score:
+            s.score_total !== null
+              ? {
+                  total: s.score_total,
+                  recency: s.score_recency ?? 0,
+                  source: s.score_source ?? 0,
+                  length: s.score_length ?? 0,
+                  level: s.score_level ?? 0,
+                }
+              : undefined,
+          has_audio: s.has_audio,
+          feed_id: s.feed_id ?? '',
+          feed_label: s.feed_label ?? '',
+          isPublished: s.imported_to_articles,
+        }))
+        // 이미 enqueue 된 seed 도 화면에 표시 — 사용자 정책 (이미 발행 가시화)
+        if (rows.length > 0) {
+          setRows(rows.sort((a, b) => (b.score?.total ?? 0) - (a.score?.total ?? 0)))
+        }
+      } catch {
+        // seed_catalog 없거나 빈 상태 — silent
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   // 소스 토글
   const toggleSource = (key: SourceKey) => {
