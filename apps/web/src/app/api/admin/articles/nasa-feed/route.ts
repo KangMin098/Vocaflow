@@ -6,6 +6,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { createClient } from '@/lib/supabase/server'
 import { listNasaFeed, NASA_FEEDS } from '@vocaflow/library-pipeline'
 
 export const runtime = 'nodejs'
@@ -25,9 +26,20 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const items = await listNasaFeed(feed.url)
+    const items = await listNasaFeed(feed.url, feed.id)
+
+    let publishedSourceIds: string[] = []
+    if (items.length > 0) {
+      const supabase = await createClient()
+      const { data } = await supabase
+        .from('library_articles')
+        .select('source_id')
+        .in('source_id', items.map((i) => i.source_id))
+      publishedSourceIds = (data ?? []).map((r: { source_id: string }) => r.source_id)
+    }
+
     return NextResponse.json(
-      { feed_id: feed.id, label: feed.label, items },
+      { feed_id: feed.id, label: feed.label, items, publishedSourceIds },
       { status: 200, headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=3600' } },
     )
   } catch (e) {

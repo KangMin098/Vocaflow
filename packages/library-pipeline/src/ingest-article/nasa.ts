@@ -22,6 +22,7 @@ import {
   parseRssFeed,
   type RssListItem,
 } from './_helpers'
+import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 export const NASA_FEEDS: Array<{ id: string; label: string; url: string }> = [
   {
@@ -47,13 +48,21 @@ export interface NasaListItem {
   url: string
   published_at: string | null
   description: string
+  /** v06.41 — 학습 친화도 score */
+  score?: ArticleScore
 }
 
-export async function listNasaFeed(feedUrl: string, limit = 20): Promise<NasaListItem[]> {
+export async function listNasaFeed(
+  feedUrl: string,
+  feedId: string = 'news',
+  _limit: number = 20,
+): Promise<NasaListItem[]> {
+  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) throw new Error(`NASA RSS fetch failed: ${res.status}`)
   const xml = await res.text()
-  return parseRssFeed(xml).slice(0, limit).map(toNasaItem)
+  const raw = parseRssFeed(xml).map(toNasaItem)
+  return applyArticleCurationSpec(raw, 'nasa', feedId)
 }
 
 function toNasaItem(it: RssListItem): NasaListItem {

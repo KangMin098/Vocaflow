@@ -22,6 +22,7 @@ import {
   parseRssFeed,
   type RssListItem,
 } from './_helpers'
+import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 // NOTE: URL 검증 (2026-06-01):
 //   - NIH News Releases: nih.gov/news-releases/feed.xml — **현재 403 IP 차단** (server-side fetch 거부)
@@ -53,13 +54,21 @@ export interface NihListItem {
   url: string
   published_at: string | null
   description: string
+  /** v06.41 — 학습 친화도 score */
+  score?: ArticleScore
 }
 
-export async function listNihFeed(feedUrl: string, limit = 20): Promise<NihListItem[]> {
+export async function listNihFeed(
+  feedUrl: string,
+  feedId: string = 'medlineplus',
+  _limit: number = 20,
+): Promise<NihListItem[]> {
+  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) throw new Error(`NIH RSS fetch failed: ${res.status}`)
   const xml = await res.text()
-  return parseRssFeed(xml).slice(0, limit).map(toNihItem)
+  const raw = parseRssFeed(xml).map(toNihItem)
+  return applyArticleCurationSpec(raw, 'nih', feedId)
 }
 
 function toNihItem(it: RssListItem): NihListItem {

@@ -27,6 +27,63 @@
 
 남은 dead code(enrich-seed 라우트·languages 고급필터·requeueBook·book_curation_jobs 이중 fetch)는 영향 작아 후속 정리 대상.
 
+### LCP 대량 GET — 소스별 큐레이션 spec + 학습 친화도 score (v06.41)
+
+사용자 명시 — "LCP 대량에서 소스별 가져오는 조건/기준/순위 검토해서 적용". 진단 결과 4 source 모두 단순 `slice(0, 20)` 하드코딩 — 필터/순위/dedup 부재.
+
+**진단**
+| 영역 | 이전 | 문제 |
+|---|---|---|
+| 가져오는 양 | 하드코딩 20 | 학습 친화도 무관 |
+| 필터 | 없음 | placeholder · 짧은 stub · stale 항목 통과 |
+| 순위 | RSS 원순 (대개 최신) | 학습 적합도 무시 |
+| 신선도 | 컷오프 없음 | arXiv 7일↑ stale, APOD 영원 등 차등 X |
+| 중복 | client enqueuedKeys | `library_articles` 이미 발행 X · 큐 이미 있음 X |
+| 소스 차등 | 일률 | VOA L1 = arXiv = 동일 가중치 |
+
+**개선 4 축**
+
+**1. 소스/피드별 큐레이션 spec** ([_curation-spec.ts](../packages/library-pipeline/src/ingest-article/_curation-spec.ts) NEW) — 15 feed × 8 dimension
+- `recencyDays` — VOA L1=365 (학습용 stale OK) / NASA news=30 / NASA APOD=∞ (timeless) / arXiv=7
+- `minDescriptionLen` — 50-150 (소스별, description 길이 = 본문 quality proxy)
+- `minTitleLen` — 8-25 (placeholder 제거)
+- `sourceWeight` — 0.50-1.00 (VOA L1=1.0 > NASA APOD=0.90 > NIH=0.78 > arXiv=0.55)
+- `levelBonus` — −0.20~+0.30 (VOA Let's Learn=+0.30, arXiv q-bio=−0.20)
+- `idealDescLen` — bell curve 정점
+- `noiseKeywords` — title 포함시 제외 (`archive`/`advisory`/`recall`/`erratum` 등)
+- `maxItems` — 6-15 (소스별 차등)
+
+**2. 학습 친화도 score** — 합성 0~1
+```
+score = recency(0.40) + sourceWeight(0.30) + lengthFit(0.20) + levelBonus(0.10)
+```
+- recency = `1 - ageDays / recencyDays` (timeless feed=0.7 default)
+- lengthFit = bell curve (idealDescLen 정점)
+- 각 항목에 `score: { total, recency, source, length, level }` 부여
+
+**3. DB dedup** — 4 route 모두 `library_articles` 이미 발행 source_id 조회 후 `publishedSourceIds` 응답
+- 제거 X (가시화) — 클라이언트에 "발행됨" 배지 표시
+- 토글: 발행 숨김 default ON
+
+**4. UI 강화** ([BulkArticlesTab.tsx](../apps/web/src/app/admin/articles/BulkArticlesTab.tsx))
+- **★ score chip** (75↑=green / 55↑=blue / 35↑=amber / 그 외=red) + hover tooltip (recency/source/length/level breakdown)
+- **발행됨 배지** (회색) — checkbox disabled
+- **정렬 토글** — 적합도 / 최신순
+- **발행 숨김 토글** — default ON
+- 전체 선택: 보이는 항목만 (숨김 항목 제외)
+
+**파급**
+- VOA Let's Learn (L1) `lets-learn-english` = 학습 적합 최우선 (score 0.85+)
+- NASA APOD = 시각 매력 + timeless = 두 번째 우선 (score 0.80+)
+- arXiv = score 0.45 권역 → 최상단 X (사용자가 학술 원할 때만 선택)
+- 같은 항목 두 번 큐잉 방지 (DB dedup)
+
+**구현 통계**
+- 15 feed spec 정의 (VOA 4 / NASA 3 / NIH 3 / arXiv 6 — 미스매치 없음 정합)
+- 4 source list 함수 시그니처 변경 (feedId 추가)
+- 4 route 업데이트 (publishedSourceIds 동봉)
+- BulkArticlesTab UI 4 신규 컨트롤
+
 ### 🌍 Contemporary Editorial v06.40 ★★★ (세계 최고 수준 벤치마크 정제)
 
 사용자 명시 — "세계 최고 수준의 작품들을 찾아서 분석해서 검토한 후 적용". Reading Room v06.39 위에 Apple Books × Linear × Things 3 × Notion × Substack × Reflect × Bear 7개 분석 → "Contemporary Editorial" 정제.
