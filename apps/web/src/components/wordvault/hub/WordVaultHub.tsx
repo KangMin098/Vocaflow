@@ -1,15 +1,13 @@
 // apps/web/src/components/wordvault/hub/WordVaultHub.tsx
 //
-// WordVault 허브 v6.35 — 4 Zone Editorial 재설계
+// WordVault 허브 v06.35 패치 — 학습 진행 정보 "한눈에"
 //
-// Zone 구조 (7 tier → 4 zone 단순화):
-//   1. VaultIdentity     — 자산 (큰 숫자) + 4색 bar + 주간 목표 + 단일 CTA
-//   2. NextStepList      — 진단 기반 추천 단어장 3-5개 (text list, 카드 X)
-//   3. AssetGrid         — 검색 + 단어장 grid (4색 mini bar)
-//   4. FlowStripe        — 28일 sparkline + 평균/활동/총합 + 마지막 학습
+// 변경 (이전 v06.35 4 zone → 3 zone):
+//   · AssetGrid 제거 (collection grid 불필요 — 사용자는 "학습 정보" 가 알고 싶음)
+//   · VaultIdentity 강화 — V-Level 메타 + 4 bucket 가로 막대 + 단일 CTA
+//   · FlowStripe / NextStepList 그대로 (각각 추세·다음 단계)
 //
-// 디자인 톤: Editorial monochrome — 그라디언트/이모지 제거, 회색 + --p 액센트만.
-// 큰 여백 + 1px 경계 + tabular-nums 수치 (전문 인상).
+// 디자인 톤: Editorial monochrome — 회색 + --p 액센트만.
 
 'use client'
 
@@ -23,7 +21,6 @@ import { MOCK_BOOKS } from '../mock-data'
 import type { WordItem } from '../types'
 
 import type { HubStats } from '../hooks/useHubStats'
-import { AssetGrid } from './AssetGrid'
 import { FlowStripe } from './FlowStripe'
 import { NextStepList } from './NextStepList'
 import { VaultIdentity } from './VaultIdentity'
@@ -36,10 +33,10 @@ interface WordVaultHubProps {
   realStats?: HubStats | null
 }
 
-const DEFAULT_DAILY_GOAL = 12 // user_profiles.daily_word_goal 미설정 시 기본
+const DEFAULT_DAILY_GOAL = 12
 
 export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
-  // 주간 목표 + 주간 완료 — daily_activity (월~일) 집계
+  // 주간 목표 + 주간 완료
   const [weekly, setWeekly] = useState<{ done: number; target: number } | null>(null)
 
   useEffect(() => {
@@ -51,7 +48,6 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
       } = await supabase.auth.getUser()
       if (cancelled || !user) return
 
-      // 주간 목표: user_profiles.daily_word_goal × 7
       const { data: profile } = await supabase
         .from('user_profiles')
         .select('daily_word_goal')
@@ -61,9 +57,8 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
         (profile as { daily_word_goal: number | null } | null)?.daily_word_goal ?? DEFAULT_DAILY_GOAL
       const target = dailyGoal * 7
 
-      // 이번 주 (월요일 기준 → 일요일 23:59)
       const now = new Date()
-      const day = now.getDay() // 0=일
+      const day = now.getDay()
       const offset = day === 0 ? 6 : day - 1
       const monday = new Date(now)
       monday.setDate(now.getDate() - offset)
@@ -82,29 +77,23 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
       )
       if (cancelled) return
       setWeekly({ done, target })
-    })().catch(() => {
-      // 조용히 fallback (weekly null → DEFAULT 사용)
-    })
+    })().catch(() => {})
     return () => {
       cancelled = true
     }
   }, [])
 
-  // mock buckets (실 데이터 없을 때만)
   const mockCounts: Record<MemoryState, number> = { stable: 0, shaky: 0, risk: 0, new: 0 }
   for (const w of words) {
     const state = w.srs ? getMemoryState(w.srs) : 'new'
     mockCounts[state] += 1
   }
 
-  // 실 데이터 우선
   const buckets = realStats?.buckets ?? mockCounts
   const total = realStats?.total ?? words.length
   const collections = realStats?.collectionsCount ?? MOCK_BOOKS.filter((b) => !b.isLocked).length
   const accumulatedDays = realStats?.accumulatedDays ?? 0
-  const books = realStats?.books ?? MOCK_BOOKS
 
-  // EmptyState 조건 — realStats 가 ready 인데 단어 0개
   const shouldShowEmpty =
     realStats !== undefined ? (realStats?.total ?? 0) === 0 : words.length === 0
 
@@ -118,7 +107,7 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
-      {/* Zone 1 — Identity + Goal + CTA */}
+      {/* Zone 1 — Mastery Hero: 큰 숫자 + V-Level + 4 bucket 가로 비교 + 단일 CTA + 주간 목표 */}
       <VaultIdentity
         total={total}
         buckets={buckets}
@@ -128,14 +117,11 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
         weeklyTarget={weekly?.target ?? DEFAULT_DAILY_GOAL * 7}
       />
 
-      {/* Zone 2 — 다음 한 단계 */}
-      <NextStepList />
-
-      {/* Zone 3 — 내 자산 */}
-      <AssetGrid books={books} />
-
-      {/* Zone 4 — 학습 흐름 */}
+      {/* Zone 2 — Flow: 28일 sparkline + 평균/활동/총합 + 마지막 학습 */}
       <FlowStripe />
+
+      {/* Zone 3 — Next Step: 진단 기반 추천 (V-Level 다지기 · 한 단계 위 · 복습 · 트랙) */}
+      <NextStepList />
     </div>
   )
 }

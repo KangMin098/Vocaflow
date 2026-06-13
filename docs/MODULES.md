@@ -115,12 +115,14 @@ R < 0.70              → risk     #EF4444 (빨강)
 
 ### Hub 컴포넌트 (`components/wordvault/hub/`) — v06.35 4 Zone Editorial 재설계
 
-**현재 활성 (4 Zone)**:
-- `WordVaultHub.tsx` — 4 Zone 조립 + 주간 목표 fetch
-- `VaultIdentity.tsx` ★v06.35 — Zone 1 큰 숫자 + 4색 bar + 주간 목표 진행 바 + 단일 CTA (risk→shaky→new→browse 우선순위)
-- `NextStepList.tsx` ★v06.35 — Zone 2 `recommend_word_sets_for_user` 3-5개 text list, 진단 미완료 시 `/diagnostic` CTA
-- `AssetGrid.tsx` ★v06.35 — Zone 3 검색 + 단어장 grid (1/2/3 col, 카드별 4색 mini bar)
-- `FlowStripe.tsx` ★v06.35 — Zone 4 28일 sparkline (`daily_activity`) + 평균/활동/총합 + 마지막 활동
+**현재 활성 (3 Zone — 한눈에 학습 정보)** v06.35 패치 — AssetGrid 제거:
+- `WordVaultHub.tsx` — 3 Zone 조립 + 주간 목표 fetch
+- `VaultIdentity.tsx` ★v06.35 — Mastery Hero (큰 숫자 + V-Level 메타 칩 + **4 bucket 가로 비교 막대** + 단일 CTA + 주간 목표 진행 바)
+- `FlowStripe.tsx` ★v06.35 — 28일 sparkline (`daily_activity`) + 평균/활동/총합 + 마지막 활동
+- `NextStepList.tsx` ★v06.35 — `recommend_word_sets_for_user` 3-5개 text list
+
+**보존 (현재 hub 미사용)**:
+- `AssetGrid.tsx` ★v06.35 — 단어장 grid (browse view 등에서 재활용 가능)
 
 **보존 (현재 hub 미사용 — Phase 2 추가 view 재활용 가능)**:
 - `VaultBar.tsx` — Hero 슬림 8px 4색 막대 (v06.18)

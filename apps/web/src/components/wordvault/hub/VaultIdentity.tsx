@@ -1,15 +1,23 @@
 // apps/web/src/components/wordvault/hub/VaultIdentity.tsx
 //
-// WordVault Zone 1 (v06.35 재설계) — 자산 + 이번 주 목표 + 단일 CTA.
+// WordVault Mastery Hero (v06.35 패치) — 한눈에 학습 진행도.
 //
-// Editorial monochrome — gradient/이모지 제거, 회색 + --p 액센트만.
-// 핵심 메시지 1개: "이번 주 X/Y · 지금 복습 (risk N)".
+// "학습자의 단어 학습 정보를 한눈에" 요청 정합 — collection grid 폐기 후
+// 1 zone 안에 핵심 학습 정보를 모두 packed:
+//   · 큰 숫자 (총 단어) + V-Level 배지 + 누적
+//   · 4 bucket 가로 비교 막대 (각각 수치 인라인)
+//   · 단일 CTA (risk → shaky → new → review)
+//   · 이번 주 목표 진행 바
+//
+// Editorial monochrome — 회색 + brand --p 액센트.
 
 'use client'
 
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
+import { createClient } from '@/lib/supabase/client'
 import type { MemoryState } from '@/lib/srs'
 
 export interface VaultIdentityProps {
@@ -17,17 +25,27 @@ export interface VaultIdentityProps {
   total: number
   /** 4색 분포 — R(t) 기반 */
   buckets: Record<MemoryState, number>
-  /** 단어장 수 (스크립트 + 구독 단어장 합) */
+  /** 단어장 수 — 보조 metadata only */
   collections: number
   /** 학습 시작 후 누적일 */
   accumulatedDays: number
   /** 이번 주 (월~일) 학습한 단어 수 */
   weeklyDone: number
-  /** 이번 주 목표 단어 수 (user_profiles.daily_word_goal × 7) */
+  /** 이번 주 목표 단어 수 */
   weeklyTarget: number
 }
 
 const NF = new Intl.NumberFormat('en-US')
+
+const BUCKET_META: Record<
+  MemoryState,
+  { label: string; color: string; hint: string }
+> = {
+  stable: { label: '확실히 기억', color: '#22C55E', hint: '정복한 단어' },
+  shaky: { label: '익숙해지는 중', color: '#F59E0B', hint: '한 번 더 다지면 안정' },
+  risk: { label: '잊혀가는 중', color: '#EF4444', hint: '지금 다시 만나면 회복' },
+  new: { label: '새로 만난', color: '#94A3B8', hint: '아직 학습 시작 전' },
+}
 
 export function VaultIdentity({
   total,
@@ -37,15 +55,37 @@ export function VaultIdentity({
   weeklyDone,
   weeklyTarget,
 }: VaultIdentityProps) {
+  // V-Level (user_profiles) — at-a-glance 메타로 inline 표시
+  const [vLevel, setVLevel] = useState<number | null>(null)
+  useEffect(() => {
+    let cancelled = false
+    const supabase = createClient()
+    ;(async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      if (cancelled || !user) return
+      const { data } = await supabase
+        .from('user_profiles')
+        .select('current_v_level')
+        .eq('user_id', user.id)
+        .maybeSingle()
+      if (cancelled) return
+      const lv = (data as { current_v_level: number | null } | null)?.current_v_level
+      if (lv != null) setVLevel(lv)
+    })().catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   const goalPct = weeklyTarget > 0 ? Math.min(100, (weeklyDone / weeklyTarget) * 100) : 0
   const goalReached = weeklyTarget > 0 && weeklyDone >= weeklyTarget
 
-  const totalNonNew = buckets.stable + buckets.shaky + buckets.risk
-  const sStable = totalNonNew > 0 ? (buckets.stable / totalNonNew) * 100 : 0
-  const sShaky = totalNonNew > 0 ? (buckets.shaky / totalNonNew) * 100 : 0
-  const sRisk = totalNonNew > 0 ? (buckets.risk / totalNonNew) * 100 : 0
+  // 가장 큰 bucket — 가로 bar 정규화 기준
+  const maxBucket = Math.max(buckets.stable, buckets.shaky, buckets.risk, buckets.new, 1)
 
-  // 단일 CTA 우선순위: risk → shaky → new → 둘러보기
+  // CTA 우선순위
   let ctaLabel = '단어 둘러보기'
   let ctaHref = '/wordvault/browse'
   let ctaCount = 0
@@ -65,79 +105,61 @@ export function VaultIdentity({
 
   return (
     <section
-      aria-label="내 어휘 자산"
+      aria-label="내 어휘 학습 현황"
       className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 md:p-8"
     >
-      {/* 상단 메타 row */}
-      <div className="mb-6 flex items-baseline justify-between gap-4">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
-          내 어휘
-        </span>
-        <div className="flex items-baseline gap-4 font-mono text-[11px] text-[var(--t3)]">
-          <span>
-            <strong className="font-display font-[700] tabular-nums text-[var(--t1)]">
-              {NF.format(collections)}
-            </strong>
-            <span className="ml-1">단어장</span>
+      {/* ─── 상단 Hero ─── */}
+      <div className="mb-7 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-end">
+        {/* 큰 숫자 */}
+        <div className="flex flex-col">
+          <span className="mb-1 font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+            내 어휘
           </span>
-          <span aria-hidden className="text-[var(--t4)]">·</span>
-          <span>
-            <strong className="font-display font-[700] tabular-nums text-[var(--t1)]">
-              {NF.format(accumulatedDays)}
-            </strong>
-            <span className="ml-1">일</span>
-          </span>
-        </div>
-      </div>
-
-      {/* 큰 숫자 — 자산 전체 */}
-      <div className="mb-7 flex items-end gap-3">
-        <span className="font-display text-[64px] font-[800] leading-[0.9] tracking-[-0.04em] tabular-nums text-[var(--t1)] md:text-[88px]">
-          {NF.format(total)}
-        </span>
-        <span className="mb-2 font-body text-[13px] text-[var(--t3)]">단어</span>
-      </div>
-
-      {/* 4색 분포 bar — stable/shaky/risk + new 별도 표시 */}
-      <div className="mb-6">
-        {totalNonNew > 0 ? (
-          <div
-            role="img"
-            aria-label={`stable ${buckets.stable}, shaky ${buckets.shaky}, risk ${buckets.risk}`}
-            className="flex h-[6px] w-full overflow-hidden rounded-full bg-[var(--bg3)]"
-          >
-            {sStable > 0 && (
-              <div
-                style={{ width: `${sStable}%`, backgroundColor: '#22C55E' }}
-                title={`stable ${buckets.stable}`}
-              />
-            )}
-            {sShaky > 0 && (
-              <div
-                style={{ width: `${sShaky}%`, backgroundColor: '#F59E0B' }}
-                title={`shaky ${buckets.shaky}`}
-              />
-            )}
-            {sRisk > 0 && (
-              <div
-                style={{ width: `${sRisk}%`, backgroundColor: '#EF4444' }}
-                title={`risk ${buckets.risk}`}
-              />
-            )}
+          <div className="flex items-end gap-2">
+            <span className="font-display text-[68px] font-[800] leading-[0.9] tracking-[-0.04em] tabular-nums text-[var(--t1)] md:text-[88px]">
+              {NF.format(total)}
+            </span>
+            <span className="mb-2 font-body text-[13px] text-[var(--t3)]">단어</span>
           </div>
-        ) : (
-          <div className="h-[6px] w-full rounded-full bg-[var(--bg3)]" />
-        )}
+        </div>
 
-        <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
-          <BucketLabel color="#22C55E" label="stable" count={buckets.stable} />
-          <BucketLabel color="#F59E0B" label="shaky" count={buckets.shaky} />
-          <BucketLabel color="#EF4444" label="risk" count={buckets.risk} />
-          <BucketLabel color="#94A3B8" label="new" count={buckets.new} />
+        {/* 메타 칩 row */}
+        <div className="flex flex-wrap items-end justify-start gap-4 sm:justify-end">
+          {vLevel != null && (
+            <MetaBadge label="현재 수준" value={`V${vLevel}`} highlight />
+          )}
+          <MetaBadge label="누적" value={`${NF.format(accumulatedDays)}일`} />
+          <MetaBadge label="단어장" value={`${NF.format(collections)}권`} />
         </div>
       </div>
 
-      {/* 이번 주 목표 + 단일 CTA */}
+      {/* ─── 학습 상태 — 4 bucket 가로 비교 ─── */}
+      <div className="mb-6 flex flex-col gap-2">
+        <div className="mb-1 flex items-baseline justify-between">
+          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+            학습 상태
+          </span>
+          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+            {total > 0 && (
+              <>
+                기억{' '}
+                <strong className="font-display text-[var(--t1)]">
+                  {Math.round(((buckets.stable + buckets.shaky) / total) * 100)}%
+                </strong>
+              </>
+            )}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <BucketRow state="stable" count={buckets.stable} total={total} maxBucket={maxBucket} />
+          <BucketRow state="shaky" count={buckets.shaky} total={total} maxBucket={maxBucket} />
+          <BucketRow state="risk" count={buckets.risk} total={total} maxBucket={maxBucket} />
+          <BucketRow state="new" count={buckets.new} total={total} maxBucket={maxBucket} />
+        </div>
+      </div>
+
+      {/* ─── 단일 CTA + 주간 목표 ─── */}
       <div className="flex flex-col gap-4 border-t border-[var(--bd)] pt-5 md:flex-row md:items-center md:justify-between">
         {/* 주간 목표 */}
         <div className="flex flex-col gap-1.5">
@@ -152,7 +174,7 @@ export function VaultIdentity({
             aria-valuenow={weeklyDone}
             aria-valuemin={0}
             aria-valuemax={weeklyTarget}
-            className="h-[3px] w-[200px] overflow-hidden rounded-full bg-[var(--bg3)]"
+            className="h-[3px] w-[220px] overflow-hidden rounded-full bg-[var(--bg3)]"
           >
             <div
               className="h-full rounded-full transition-all duration-[var(--dur-slow)] ease-[var(--ease-out)]"
@@ -182,24 +204,87 @@ export function VaultIdentity({
   )
 }
 
-function BucketLabel({
-  color,
-  label,
+// ─── Bucket Row (가로 막대 + 레이블 + 수치) ─────────────
+function BucketRow({
+  state,
   count,
+  total,
+  maxBucket,
 }: {
-  color: string
-  label: string
+  state: MemoryState
   count: number
+  total: number
+  maxBucket: number
+}) {
+  const meta = BUCKET_META[state]
+  const widthPct = maxBucket > 0 ? (count / maxBucket) * 100 : 0
+  const sharePct = total > 0 ? (count / total) * 100 : 0
+
+  return (
+    <div className="grid grid-cols-[110px_1fr_auto] items-center gap-3">
+      {/* 레이블 + dot */}
+      <div className="flex items-center gap-1.5 font-display text-[11.5px] font-[600] text-[var(--t2)]">
+        <span
+          aria-hidden
+          className="h-[7px] w-[7px] shrink-0 rounded-full"
+          style={{ backgroundColor: meta.color }}
+        />
+        {meta.label}
+      </div>
+
+      {/* 가로 막대 */}
+      <div
+        role="progressbar"
+        aria-valuenow={count}
+        aria-valuemin={0}
+        aria-valuemax={maxBucket}
+        className="h-[6px] w-full overflow-hidden rounded-full bg-[var(--bg3)]"
+      >
+        <div
+          className="h-full rounded-full transition-[width] duration-[var(--dur-slow)] ease-[var(--ease-out)]"
+          style={{ width: `${widthPct}%`, backgroundColor: meta.color }}
+        />
+      </div>
+
+      {/* 수치 + 비율 */}
+      <div className="flex items-baseline gap-1.5 font-mono text-[11px] tabular-nums">
+        <span className="font-display font-[700] text-[var(--t1)]">
+          {new Intl.NumberFormat('en-US').format(count)}
+        </span>
+        <span className="text-[var(--t3)]">{sharePct.toFixed(0)}%</span>
+      </div>
+    </div>
+  )
+}
+
+// ─── Meta Badge (V-Level / 누적 / 단어장 chip) ─────────
+function MetaBadge({
+  label,
+  value,
+  highlight,
+}: {
+  label: string
+  value: string
+  highlight?: boolean
 }) {
   return (
-    <span className="inline-flex items-center gap-1.5">
+    <div
+      className={`flex flex-col items-end gap-0.5 ${
+        highlight ? 'rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1.5' : ''
+      }`}
+    >
+      <span className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+        {label}
+      </span>
       <span
-        aria-hidden
-        className="h-[7px] w-[7px] rounded-full"
-        style={{ backgroundColor: color }}
-      />
-      <span className="text-[var(--t3)]">{label}</span>
-      <span className="text-[var(--t1)]">{NF.format(count)}</span>
-    </span>
+        className={`font-display tabular-nums ${
+          highlight
+            ? 'text-[16px] font-[800] text-[var(--p-dark)]'
+            : 'text-[14px] font-[700] text-[var(--t1)]'
+        }`}
+      >
+        {value}
+      </span>
+    </div>
   )
 }

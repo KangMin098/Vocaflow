@@ -10,6 +10,25 @@
 
 ## Unreleased (v06.34 → next)
 
+### WordVault — 한눈에 보이는 학습 대시보드로 재설계 (v06.35)
+
+이전 4 zone (VaultIdentity / NextStepList / AssetGrid / FlowStripe) → **3 zone 압축**.
+
+**문제**: AssetGrid (단어장 grid) 가 사용자가 알고 싶은 "학습 진행 정보" 가 아닌 "내 컬렉션 목록" 만 보여줌. 사용자는 학습 상태·진행도·다음 단계를 한눈에 보고 싶음.
+
+**해결**:
+- **AssetGrid 제거** (`components/wordvault/hub/AssetGrid.tsx` import 폐기 — 파일 보존)
+- [VaultIdentity.tsx](../apps/web/src/components/wordvault/hub/VaultIdentity.tsx) 강화 — Mastery Hero
+  - V-Level 메타 칩 추가 (`user_profiles.current_v_level` fetch · 강조 색 박스)
+  - 4 bucket **가로 비교 막대** (이전 한 줄 stacked bar 폐기) — 각 bucket 별 레이블/dot/막대/수치/비율 동시
+  - 레이블: "확실히 기억 / 익숙해지는 중 / 잊혀가는 중 / 새로 만난" (사용자 친화 문구)
+  - "기억 X%" inline 요약 (stable + shaky / total)
+  - 단일 CTA (이전 동일 — risk→shaky→new 우선순위)
+- FlowStripe / NextStepList 그대로 유지 (각각 추세·다음 단계)
+- max-width 4xl · 3 zone · 한 스크롤 안에 모든 학습 정보 가시
+
+**보존**: AssetGrid.tsx 파일은 import 없이 보존 (필요 시 `/wordvault/browse` 등 다른 view 에서 재활용 가능).
+
 ### Workspace Player — 풀 재설계 (하단 dock + 글라스 + Step Hero) (v06.35)
 
 [FloatingAudioPlayer.tsx](../apps/web/src/components/workspace/FloatingAudioPlayer.tsx) 전면 재설계 — 모던/심플/최고 수준 톤:
