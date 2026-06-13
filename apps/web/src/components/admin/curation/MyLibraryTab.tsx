@@ -4,7 +4,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
-import { ChevronRight, CornerUpLeft, ExternalLink, Loader2, PlayCircle, RotateCcw, Search, Trash2, Wand2, X } from 'lucide-react';
+import { ChevronRight, CornerUpLeft, ExternalLink, Loader2, PlayCircle, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
 import {
   classifyStatus,
   type BookStatus,
@@ -31,7 +31,7 @@ const DELETABLE_FAILED_STATUSES: BookStatus[] = [
   'enrich_failed',
 ] as BookStatus[];
 
-type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived';
+type StatusFilter = 'all' | 'queued' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived';
 type SourceFilter = 'all' | string;
 // 'all' | 'none'(미분류) | V-Level 숫자 문자열('0'~'11')
 type LevelFilter = 'all' | 'none' | string;
@@ -44,6 +44,7 @@ interface MyLibraryTabProps {
 
 const FILTER_OPTIONS: Array<{ value: StatusFilter; label: string }> = [
   { value: 'all', label: '전체' },
+  { value: 'queued', label: '대기 중' },
   { value: 'in_progress', label: '처리 중' },
   { value: 'ready', label: '검토 대기' },
   { value: 'published', label: '게시됨' },
@@ -172,7 +173,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     }
     if (filter === 'all') return list;
     if (filter === 'in_progress') {
-      return list.filter((b) => IN_PROGRESS_STATUSES.includes(b.status));
+      // '처리 중' = 실제 처리 단계만 (queued 는 '대기 중' 으로 분리 — 스텝퍼/카운트 정합)
+      return list.filter((b) => b.status !== 'queued' && IN_PROGRESS_STATUSES.includes(b.status));
     }
     return list.filter((b) => b.status === (filter as BookStatus));
   }, [books, filter, sourceFilter, levelFilter, titleSearch]);
@@ -730,7 +732,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
                 opt.value === 'all'
                   ? books.length
                   : opt.value === 'in_progress'
-                    ? books.filter((b) => IN_PROGRESS_STATUSES.includes(b.status)).length
+                    ? books.filter((b) => b.status !== 'queued' && IN_PROGRESS_STATUSES.includes(b.status)).length
                     : books.filter((b) => b.status === (opt.value as BookStatus)).length;
               return (
                 <FilterChip
@@ -1377,7 +1379,7 @@ function CurationWorkflowGuide({
     count: number;
     filter: StatusFilter;
   }> = [
-    { key: 'queued', n: 1, label: '소스 처리', count: queued, filter: 'in_progress' },
+    { key: 'queued', n: 1, label: '소스 처리', count: queued, filter: 'queued' },
     { key: 'processing', n: 2, label: '로직 처리중', count: processing, filter: 'in_progress' },
     { key: 'ready', n: 3, label: '검토 대기', count: ready, filter: 'ready' },
     { key: 'mapping', n: 4, label: '매핑 큐', count: mapping, filter: 'ready' },

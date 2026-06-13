@@ -60,6 +60,8 @@ queued
 - `segmentBook(norm)` → chapters 배열
 - 0 챕터 → throw "Segment failed"
 
+**챕터 원본 deep-link (`source_href`, v06.35)** — admin 검수의 "원본 소스" 챕터별 링크 정확도. Standard Ebooks 챕터 URL 은 도서 구조마다 4종(파일분리 `/text/chapter-1` · 앵커 `/text/fables#slug` · 명명 `/text/charmides` · 중첩 `/text/chapter-1-1-1`)이라 `/text/chapter-N` 추측은 404. ingest 가 소스 TOC(`{ebookUrl}/text`)를 파싱해 `single-page <section id>` ↔ TOC href fragment 를 조인 → 챕터 마커에 href 동봉(`CHAPTER_HREF_SEP`), segment 가 `ChapterSegment.source_href` 로 분리, `insert_book_analysis` 가 `library_chapters_master.source_href` 적재. 렌더(`ChapterSidebar`)는 저장값 우선, 없으면 `chapterSourceUrl` fallback(SE 는 안전한 도서 TOC). 기존 도서는 `scripts/lcp/backfill-se-chapter-hrefs.mjs` 로 백필(본문/어휘 불변 · source_href 만 UPDATE).
+
 #### 4. Analyze
 - `analyzeBook(book_id, norm, chapters)` — LLM 호출 (Anthropic SDK)
 - 출력: cefr_level + cefr_confidence + word_count + chapter_count + reading_minutes + llm_cost_usd + words[]
@@ -73,6 +75,8 @@ queued
 - `compute_book_coverage(p_book_id)` — 레벨별 기지어 커버리지 (i+1)
 - `resolveCoverImageUrl()` — Gutenberg pg{id}.cover / SE og:image
 - `collect_archaic_candidates(p_book_id)` — 미바인딩 단어 archaic_candidates 적재
+
+**lemma self-heal 게이트 (v06.35)** — best-effort backfill 이 누락/실패하는 경로(수동 재분절 `reprocess-book.mjs` 등)를 대비해, **추출 시점에도 자동 backfill**. `extract_book_vocabulary_admin(p_book_id, p_percentile)` 시작부에 `PERFORM backfill_book_lemmas(p_book_id)` (멱등 · `lemma IS NULL` 행만) — migration `20260613022941_extract_admin_self_heal_lemmas`. 어떤 ingest 경로로 lemma 가 비었든 추출하는 순간 복구되고, 신규 등재 사전 단어도 다음 추출에서 즉시 바인딩. (계기: Les Misérables 364장이 수동 재분절로 0 bound → 추출 굴절형 누락·coverage NULL·진단 부풀림. backfill 로 0→11,808(88.4%) 복구.) 주의: 추출 SSoT `select_book_chapter_vocab` 는 `COALESCE(bv.lemma, bv.word)` 이므로 base 형은 lemma NULL 이어도 추출됨 — NULL 의 실손실은 **굴절형** + 진단·coverage.
 
 #### 7. Auto Curate
 - `auto_curate_book(p_book_id)` RETURNS text — 3분기 게이트:
@@ -173,6 +177,26 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 - `buildVoiceChapters` — `(book, chapter)` 그룹핑 · insertion order
 - `verifyWithinBookContiguity` — 책별 1..N
 - 1차 outlier 제외 + 실패 시 2차 재시도 (긴 챕터 보호)
+
+**자동 매핑 (로직 흡수, v06.35)** — `librivox-automap.ts` 공유 헬퍼:
+- `autoMapLibriVoxForBook(client, bookId)` = resolve → count-gate → flat 폴백 → `librivox_audio` 저장.
+  `save-librivox-audio`(큐레이터 수동)와 `lcp/dev-process`(파이프라인 자동)가 **동일 헬퍼** 사용 (중복 제거).
+- `dev-process` 가 분석 직후 자동 호출 → **count-gate 통과 시 즉시 저장** (별도 버튼·CLI·큐 불필요).
+- 결과 3분기: `mapped`(저장) / `queued`(녹음은 있으나 정합 실패 → 사람 판단 필요 → `book_curation_jobs` 자동 등록) / `no_recording`(낭독 없음 → 브라우저 TTS).
+- **`book_curation_jobs` 큐 = count-gate 실패본만** (Claude Code 수동 정합 대상). 성공/녹음없음은 큐 잡 자동 삭제 → 큐는 항상 "사람 손이 필요한 책"만.
+- 이전(v06.34)의 수동 "매핑 큐 등록(Claude)" 버튼은 제거 — dev 처리가 자동 등록.
+
+**Claude Code 드레인 정합기 (v06.35)** — `librivox-chapter-map.ts` + `scripts/lcp/librivox-align.mjs`. count-gate 가 안전 중단하는 다권/포맷불일치 도서를 두 목록(소스 챕터 + LibriVox 섹션) 구조 분석으로 매핑. 다권+권번호면 **volume**, 단권이면 **title** 자동 선택.
+
+- **`alignChaptersByVolume` (다권 — Les Mis 5권: 364/364 = 100%)**: 권 N = 텍스트 Part N, 권 내 섹션이 `(Book,Chapter)` 순서 → 권 단위 번호 매핑(권 내 "Bk 01" 유일 → 충돌 0). 4-pass:
+  1. 번호 매핑 (권 N → Part N, group_label "Part›Book" 순서로 Book/Chapter 번호화)
+  2. 퍼지 제목 교차검증 (Levenshtein ≥0.7 + 토큰 + 접두 — 표기차 Quartet/Quartett·Humor/Humour·악센트·`<b>`·`...`절단 흡수, 완전히 다른 제목만 보류)
+  3. **PASS 2 제목 복구** — edition shift(오디오에 추가/병합 챕터)로 번호가 어긋난 챕터를 권 안에서 제목으로 재배정
+  4. **PASS 3 번호 신뢰** — 제목 절단/오타지만 라벨=구조위치 단일·미사용 섹션은 번호 신뢰(`number_trusted` 로 보고, spot-check)
+  - 묶음 `"Ch 01-04"` → 그 4장에 같은 파일(블록 재생) · `"Ch 20 part 1/2/3"` → 한 챕터 멀티파트
+- **`alignChaptersByTitle` (단권 titled)**: 섹션 제목 ↔ 챕터 제목 유일 1:1, 미일치는 gap(TTS).
+- **정확도 100% 원칙**: 검증/복구 못 한 건 omit → `pickChapterAudio` null → TTS. "강제 채움 금지 = 틀린 오디오 0".
+- 드레인: `tsx scripts/lcp/librivox-align.mjs <book_id>` (dry-run) → `--commit`. 진단 덤프: `librivox-dump.mjs`. (계기: Les Mis 가 번호 시퀀스 flatten 으로 92장 오배정 → 권-인지 정합으로 364/364 교정.)
 
 ### Lexical Coverage (i+1 metric)
 

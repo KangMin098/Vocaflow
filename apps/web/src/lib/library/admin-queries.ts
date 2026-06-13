@@ -441,24 +441,6 @@ export interface CurationJobRow {
   updatedAt: string
 }
 
-export interface EnqueueCurationJobsResult {
-  queued: number
-  skipped: number
-}
-
-/** 선택 도서들을 book_curation_jobs 에 pending 으로 upsert (RPC 가 status→mode 판정). */
-export async function enqueueCurationJobs(
-  client: AdminClient,
-  bookIds: string[],
-): Promise<EnqueueCurationJobsResult> {
-  const { data, error } = await client.rpc('enqueue_curation_jobs', { p_book_ids: bookIds })
-  if (error) throw new Error(`enqueueCurationJobs failed: ${error.message}`)
-  const row = (Array.isArray(data) ? data[0] : data) as
-    | { queued: number; skipped: number }
-    | null
-  return { queued: row?.queued ?? 0, skipped: row?.skipped ?? 0 }
-}
-
 /** 큐 상태 뷰용 — 최근 작업 N건 + book 제목/현재 status (2 쿼리 merge, embed 의존 X). */
 export async function fetchCurationJobs(
   client: AdminClient,
@@ -742,8 +724,15 @@ export async function queueSeedCatalogForCuration(
   return row ?? { queued: 0, total_pending: 0, total_queued: 0 }
 }
 
-/** library_seed_catalog 소스 enum (CHECK 정합) — bySource 카운트 대상 */
-const CATALOG_SOURCES = ['gutenberg', 'standard_ebooks', 'wikibooks', 'librivox', 'openstax'] as const
+/** library_seed_catalog 소스 (실제 seed fetcher 5종 — bySource 카운트 대상).
+ *  openstax/wikisource 는 bulk fetcher 가 없어 catalog 에 안 들어옴. simple_wikipedia 가 기본 소스. */
+const CATALOG_SOURCES = [
+  'gutenberg',
+  'standard_ebooks',
+  'wikibooks',
+  'librivox',
+  'simple_wikipedia',
+] as const
 
 export async function getCatalogStats(
   client: AdminClient,
@@ -789,10 +778,15 @@ export async function enqueueSeedRow(
     title: row.title,
     author: row.author,
   })
-  await client
+  // imported 플래그 갱신 — 실패 시 throw (안 그러면 큐엔 들어갔는데 catalog 가 미반영 →
+  //   UI 가 enqueue 재허용 → 중복 등록). RPC 가 idempotent 라 에러 surface 는 안전.
+  const { error: flagErr } = await client
     .from('library_seed_catalog')
     .update({ imported_to_books: true, imported_book_id: bookId })
     .eq('id', row.id)
+  if (flagErr) {
+    throw new Error(`enqueueSeedRow: imported 플래그 갱신 실패 (book ${bookId}): ${flagErr.message}`)
+  }
   return bookId
 }
 

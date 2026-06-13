@@ -192,9 +192,18 @@ export async function POST(request: Request): Promise<NextResponse> {
       const map = await autoMapLibriVoxForBook(client, book_id, { savedBy: null })
       if (map.ok) {
         librivox = 'mapped'
+        // 자동 매핑 성공 → Claude 수동 매핑 불필요. 이전 큐 잡 정리.
+        //   진행 중인 수동 매핑(running/awaiting_mapping/done)은 보존 — pending/failed 만 삭제.
+        await client
+          .from('book_curation_jobs')
+          .delete()
+          .eq('book_id', book_id)
+          .in('status', ['pending', 'failed'])
       } else if (map.recording_found) {
         // 정합 실패 → 매핑 큐 자동 등록. dev-process 는 service-role(auth.uid 없음)이라
         // enqueue_curation_jobs RPC(admin 가드) 대신 직접 upsert (RLS 우회 + 동일 reset 시맨틱).
+        // mode 는 원본(처리 전) status 로 판정 — 첫 처리=dev_process / 재처리(ready)=dev_reprocess.
+        const jobMode = book.status === 'ready' ? 'dev_reprocess' : 'dev_process'
         const { data: snap } = await client
           .from('library_chapters_master')
           .select('chapter_idx, chapter_title, group_label, word_count')
@@ -214,7 +223,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         await client.from('book_curation_jobs').upsert(
           {
             book_id,
-            mode: 'dev_reprocess',
+            mode: jobMode,
             status: 'pending',
             source_chapters: sourceChapters,
             librivox_chapters: null,
@@ -229,6 +238,12 @@ export async function POST(request: Request): Promise<NextResponse> {
         librivox = 'queued'
       } else {
         librivox = 'no_recording'
+        // 낭독 자체 없음 → 매핑 큐 불필요. 이전 큐 잡 정리 (진행 중 수동 매핑은 보존).
+        await client
+          .from('book_curation_jobs')
+          .delete()
+          .eq('book_id', book_id)
+          .in('status', ['pending', 'failed'])
       }
     } catch (e) {
       console.warn(
@@ -237,7 +252,14 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // 미바인딩 단어를 archaic_candidates 로 수집 (best-effort — 실패해도 파이프라인 성공 유지)
-    await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+    //   ⚠️ 반드시 try/catch — 미가드 시 throw 가 catch 로 떨어져 이미 'ready' 인 책을 'failed' 로 뒤집음.
+    try {
+      await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+    } catch (e) {
+      console.warn(
+        `[lcp/dev-process] collect_archaic_candidates skipped: ${e instanceof Error ? e.message : String(e)}`,
+      )
+    }
 
     // pgmq:library_pipeline 큐의 동일 book_id 메시지 archive (dev 환경에서 pg_cron worker 부재 — 직접 정리).
     // best-effort — 실패해도 파이프라인 성공 유지.

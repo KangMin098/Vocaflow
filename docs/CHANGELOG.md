@@ -10,15 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
-### LibriVox 제목 기반 정합 — 다권 도서 100% 정확 드레인 (v06.35)
+### LibriVox 권-인지 정합 — 다권 도서 100% 드레인 (v06.35)
 
-**문제** — Les Misérables(5권) LibriVox 매핑이 92장 오배정. 원인: 이전 드레인이 `(book,chapter)` **번호** 시퀀스로 매핑 → 5권이 각각 "Bk 01"부터 재시작해 권 간 충돌 + 묶음파일("Ch 01-04")·포맷불일치("Bk 1" vs "Bk 01")·`<b>` 태그. 364/364 를 강제로 채우며 272 distinct 오디오를 92회 중복 배정.
+**문제** — Les Misérables(5권) LibriVox 매핑이 92장 오배정. 원인: 이전 드레인이 5권을 flatten 후 `(book,chapter)` **번호**로 매핑 → 각 권이 "Bk 01"부터 재시작해 권 간 충돌 + 묶음파일("Ch 01-04")·포맷불일치("Bk 1" vs "Bk 01")·`<b>` 태그.
 
-**해결 — 제목 기반 정합**:
-- **NEW** `alignChaptersByTitle()` + `normalizeChapterTitleForMatch()` ([librivox-chapter-map.ts](../apps/web/src/lib/library/librivox-chapter-map.ts)) — 섹션 제목 본문(`"Bk 01, ch. 02: M. Myriel becomes M. Welcome"` → `M. Myriel becomes M. Welcome`)을 도서 챕터 제목과 정규화 비교. 제목이 책 전체 유일 키라 **권 충돌 원천 제거**(flatten 무방).
-- **NEW** `scripts/lcp/librivox-align.mjs` — Claude Code 드레인 스크립트 (dry-run → `--commit`).
-- **정확도 100% 원칙**: 유일 1:1 일치만 배정, 묶음/중복/미일치는 omit → TTS fallback. "강제 채움 금지 = 틀린 오디오 0". coverage 와 accuracy 분리.
-- `build-librivox-map.mjs` 헤더에 다권/포맷불일치 시 librivox-align 사용 안내.
+**해결 — 두 목록(소스 챕터 + LibriVox 섹션) 구조 분석 후 권-인지 매핑** ([librivox-chapter-map.ts](../apps/web/src/lib/library/librivox-chapter-map.ts) + `scripts/lcp/librivox-align.mjs`):
+- **`alignChaptersByVolume`** — 권 N = 텍스트 Part N, 권 내 `(Book,Chapter)` 순서로 매핑(권 내 "Bk 01" 유일 → 충돌 0). 4-pass: ①번호매핑 ②퍼지 제목 교차검증(Levenshtein≥0.7+토큰+접두 — 표기차/악센트/`<b>`/`...`절단 흡수) ③**PASS2 제목복구**(edition shift: 오디오 추가/병합 챕터) ④**PASS3 번호신뢰**(제목 오타지만 라벨=위치 단일 미사용 섹션, `number_trusted` 보고). 묶음→블록재생, multi-part→멀티파트.
+- **`alignChaptersByTitle`** — 단권 titled 용 (섹션↔챕터 제목 1:1).
+- **결과**: Les Mis **364/364 (100%)** — gap 0, conflict 0, number_trusted 1(ch103 제목오타). 이전 92장 오배정 완전 교체.
+- **정확도 원칙**: 검증/복구 못 한 건 omit → `pickChapterAudio` null → TTS. "강제 채움 금지 = 틀린 오디오 0".
+- **NEW** `scripts/lcp/librivox-align.mjs`(드레인) + `librivox-dump.mjs`(두 목록 진단 덤프). `build-librivox-map.mjs` 헤더에 다권 시 librivox-align 안내.
 
 ### 큐레이션 파이프라인 점검 — 오류 6 + dead code 정리 (v06.35)
 

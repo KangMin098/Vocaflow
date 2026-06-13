@@ -12,7 +12,6 @@ import {
   bulkRequeueBooks,
   bulkSetBooksCurating,
   deleteBook,
-  enqueueCurationJobs,
   fetchCurationJobs,
   type CurationJobRow,
 } from '@/lib/library/admin-queries'
@@ -132,29 +131,6 @@ export async function bulkRequeueBooksAction(
     return {
       ok: false,
       error: e instanceof Error ? e.message : '소스 복귀 실패',
-    }
-  }
-}
-
-/**
- * 선택 도서 일괄 dev 처리 큐 등록 (book_curation_jobs).
- * 처리중→dev_process · 검토대기→dev_reprocess · 그 외 status 는 RPC 가 skip.
- * 실제 챕터 정의 + LibriVox 매핑은 Claude Code 배치(MCP 드레인)가 처리.
- */
-export async function enqueueCurationJobsAction(
-  bookIds: string[],
-): Promise<ActionResult<{ queued: number; skipped: number }>> {
-  try {
-    await requireAdmin('/admin/curation')
-    if (bookIds.length === 0) return { ok: true, data: { queued: 0, skipped: 0 } }
-    const client = (await createClient()) as unknown as SupabaseClient
-    const result = await enqueueCurationJobs(client, bookIds)
-    revalidatePath('/admin/curation')
-    return { ok: true, data: result }
-  } catch (e) {
-    return {
-      ok: false,
-      error: e instanceof Error ? e.message : '큐 등록 실패',
     }
   }
 }

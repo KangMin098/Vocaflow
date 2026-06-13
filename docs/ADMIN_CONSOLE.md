@@ -77,12 +77,14 @@
 
 #### 일괄 액션 (체크박스 + Toolbar)
 
-3 버튼:
-| 버튼 | RPC | 효과 |
+| 버튼 | RPC / 엔드포인트 | 효과 |
 |---|---|---|
+| **Dev 일괄 처리** | `/api/lcp/dev-process` (순차) | 처리중+검토대기 선택분을 로직 파이프라인으로 dev 처리 — 수집·정규화·분절·분석·추출·V-Level·**LibriVox 자동매핑**까지. 배너에 `🔊 매핑 N · ⏳ 매핑큐 M` 집계 |
 | 검토대기 → 처리중 | `admin_bulk_set_books_curating(uuid[])` | ready → curating · draft 단어장만 삭제 |
 | 처리중 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | library_books DELETE → BulkFetchTab 복귀 (in_progress) |
 | 검토대기 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | 동일 (ready) |
+
+**LibriVox 매핑 자동화 (v06.35)**: 이전의 수동 "매핑 큐 등록(Claude)" 버튼은 제거. `dev-process` 가 분석 직후 `autoMapLibriVoxForBook` 를 호출해 **count-gate 통과 시 즉시 `librivox_audio` 저장**. 정합 실패본만 `book_curation_jobs` 큐에 자동 등록(Claude Code 수동 정합 대상) → 리스트 행에 `JobQueueBadge` 노출. 성공/녹음없음은 큐 잡 자동 삭제.
 
 안전 가드 (자동 스킵):
 - `is_published=true` 단어장 존재 (학습자 노출)
@@ -249,7 +251,6 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 | `deleteFailedBookAction(bookId)` | 실패 도서 영구 삭제 (admin_delete_book RPC) |
 | `bulkSetBooksToInProgressAction(bookIds)` | ready → curating · draft 단어장 삭제 |
 | `bulkRequeueBooksAction(bookIds)` | library_books DELETE · seed unlock (v06.34) |
-| `enqueueCurationJobsAction(bookIds)` | dev 일괄 처리 큐 등록 |
 | `fetchCurationJobsAction()` | 큐 상태 뷰 |
 
 ### `/app/(main)/text/actions.ts`

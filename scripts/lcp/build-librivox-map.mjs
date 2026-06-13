@@ -7,6 +7,10 @@
 //   --commit 없으면 dry-run (매핑 결과만 출력, DB 미변경).
 //
 // 전제: 도서 챕터가 LibriVox Roman 챕터와 정합(간지/미주 제거됨). count-gate 로 안전 검증.
+//
+// ⚠️ 다권(Les Mis 5권 — Book 번호 재시작)·제목 포맷 불일치·묶음파일("Ch 01-04") 도서는
+//    이 (book,chapter) 번호 시퀀스 방식이 권 간 충돌 → 틀린 오디오 배정. 그 경우엔
+//    제목 기반 정합 librivox-align.mjs 를 사용 (정확도 100% 우선, 미매핑은 TTS fallback).
 
 import fs from 'node:fs'
 import path from 'node:path'
