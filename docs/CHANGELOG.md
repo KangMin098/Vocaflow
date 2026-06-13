@@ -10,6 +10,60 @@
 
 ## Unreleased (v06.34 → next)
 
+### iOS 학습 브랜드 + Learning Color v06.38 ★★ (Indigo + Memory Decay iOS 정렬)
+
+사용자 재진단 — "색상이 플랫폼에 안맞음. ios 색상 + 디자인 & 학습적 효과 색상 + 디자인". v06.37 systemBlue 채택의 문제 진단 + 재정렬:
+
+**v06.37 진단**
+- `--p` = `#007AFF` iOS systemBlue → "Apple Settings" 톤. system 앱(Settings/Files)이 쓰는 색을 학습 플랫폼이 차용 → 정체성 무력화
+- 3rd party iOS 앱은 모두 **브랜드 색 + iOS 구조**: Duolingo(그린)·Things 3(블루)·Linear(퍼플)·Notion(블랙)·Spotify(그린). systemBlue 그대로 쓰는 건 시스템 앱뿐
+- 학습 플랫폼 색채 심리 → 보라/인디고 = 학구열·사색·집중 (Korean academic 정서)
+
+**결정 — `--p` = iOS systemIndigo `#5856D6`** (다크 `#5E5CE6` vivid)
+- iOS systemColor 12종 중 하나 → HIG 정합 100%
+- 학구열·사색 정서 → 학습 플랫폼 정합
+- 다른 영어 학습 앱(블루/그린 위주)과 시각 차별
+
+**토큰 재정렬** ([tokens.css](../packages/design-tokens/src/tokens.css) + [colors.ts](../packages/design-tokens/src/colors.ts))
+- `--p` `#007AFF` → `#5856D6` (light) + `#0A84FF` → `#5E5CE6` (dark vivid)
+- `--p-hover/--p-light/--p-dark` 인디고 단계로 일괄 재정렬
+- `--bdf` (focused border) `#007AFF` → `#5856D6`
+- **새 토큰** `--sh-ios-glow-tint` (인디고 브랜드 글로우) — `--sh-ios-glow-blue` (iOS Blue, info 액션 보존) 와 분리
+
+**Tailwind + 컴포넌트**
+- [tailwind.config.ts](../apps/web/tailwind.config.ts) — `shadow-ios-glow-tint` 추가
+- [PrimaryButton](../apps/web/src/components/ui/ios/PrimaryButton.tsx) — `tone="brand"` glow → `shadow-ios-glow-tint`. `tone="info"` 는 iOS Blue 글로우 유지
+
+**Memory Decay 4색 — Tailwind hex → iOS systemColor 1:1**
+- [globals.css §Memory Decay Colors](../apps/web/src/app/globals.css) `--memory-{stable/shaky/risk/new}` 토큰 신규
+- stable: `#22C55E` → **`#34C759`** iOS systemGreen
+- shaky: `#F59E0B` → **`#FF9500`** iOS systemOrange
+- risk: `#EF4444` → **`#FF3B30`** iOS systemRed
+- new: `#94A3B8` → **`#8E8E93`** iOS systemGray
+- [srs/state.ts](../apps/web/src/lib/srs/state.ts) 주석 정렬 + [VaultIdentity](../apps/web/src/components/wordvault/hub/VaultIdentity.tsx) `BUCKET_META` → 토큰화 (`var(--memory-stable)` 등)
+- [CLAUDE.md §Memory Decay 표](../CLAUDE.md) iOS hex 정렬
+
+**인라인 brand glow 일괄 정렬**
+- [HubHero](../apps/web/src/components/home/HubHero.tsx) 그라데이션 — iOS Blue 3단 → **iOS Indigo 3단** (`#3C3AAB → #5856D6 → #7B79E0`)
+- [ActivityRing](../apps/web/src/components/ui/ios/ActivityRing.tsx) · [VocabularyLevelMap](../apps/web/src/components/wordvault/hub/VocabularyLevelMap.tsx) · [NextStepList](../apps/web/src/components/wordvault/hub/NextStepList.tsx) · [FlowStripe](../apps/web/src/components/wordvault/hub/FlowStripe.tsx) — `rgba(0,122,255)` → `rgba(88,86,214)` iOS Indigo
+
+**SSoT 문서** ([DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §iOS Color SSoT v06.38)
+- Indigo 채택 이유 명시 (systemBlue = Apple Settings 톤 / 3rd party 정합 / 학습 정서)
+- 토큰 카탈로그 인디고 정렬
+- **§학습 효과 색채 (NEW)**
+  · Memory Decay 4색 iOS systemColor 1:1 표
+  · 학습 플랫폼 색채 철학 5조 (단일 브랜드 액센트 / 의미별 1:1 / 동기부여 ≠ 압박 / V-Level 시각 진행 / Calm UI 자극 절제)
+  · 색-의미 1:1 매핑 표 (Indigo=brand, Green=달성/i+1, Orange=주의/streak, Red=회복, Gray=중립)
+  · 동기부여 vs 압박 색 사용 원칙 (risk 옅게, streak warm, 정답 spring, 오답 0.6초)
+  · V-Level 시각 진행 (현재=Indigo, i+1=Green, 분포=ios-gray-3, V0/미진단=Gray)
+- §don'ts 안티패턴 — "iOS systemBlue 를 브랜드로 사용 금지" 추가
+
+**파급 효과**
+- 모든 `bg-[var(--p)]` 버튼 = 즉시 인디고 (학습 정서)
+- 모든 `--memory-*` 사용처 = iOS systemColor (시각 일관성)
+- WordVault Hub 4 bucket (확실/익숙/회복/신규) = 학습 의미 명확
+- HubHero 그라데이션 = "사색하는 깊이감" Apple Music 카드 톤
+
 ### iOS Color SSoT 풀 재정렬 v06.37 ★ (브랜드 → System Blue + Grouped Background + Label Color)
 
 사용자 명시 — "ios 감성이 느낌이 아직 임. 특히 색상에 대해서는 ios 설계가 안되 있는거 같음". 진단 결과 토큰 핵심 3가지가 **Tailwind 톤 그대로** → iOS HIG와 1:1 정합으로 재정렬:

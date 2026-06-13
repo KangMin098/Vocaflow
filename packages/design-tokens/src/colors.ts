@@ -9,10 +9,11 @@
 //  · 다크 = iOS 순흑 캔버스 + #1C1C1E 카드
 
 export const colorsLight = {
-  p: '#007AFF',          // iOS systemBlue
-  pHover: '#0066D6',
-  pLight: '#E5F1FF',
-  pDark: '#0051A8',
+  // 브랜드 = iOS systemIndigo (학습 플랫폼 정합 — systemBlue 가 아닌 이유 § DESIGN_SYSTEM.md)
+  p: '#5856D6',          // iOS systemIndigo
+  pHover: '#4946C2',
+  pLight: '#EBEAFB',
+  pDark: '#3C3AAB',
 
   active: '#FF9500',     // iOS systemOrange (active)
   activeLight: '#FFF1E5',
@@ -43,10 +44,10 @@ export const colorsLight = {
 
 export const colorsDark = {
   ...colorsLight,
-  p: '#0A84FF',                              // iOS systemBlue dark vivid
-  pHover: '#409CFF',
-  pLight: 'rgba(10, 132, 255, 0.18)',
-  pDark: '#007AFF',
+  p: '#5E5CE6',                              // iOS systemIndigo dark vivid
+  pHover: '#7270E8',
+  pLight: 'rgba(94, 92, 230, 0.18)',
+  pDark: '#4F4DD0',
 
   active: '#FF9F0A',
   activeLight: 'rgba(255, 159, 10, 0.18)',

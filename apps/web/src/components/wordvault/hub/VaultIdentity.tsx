@@ -22,14 +22,16 @@ export interface VaultIdentityProps {
 
 const NF = new Intl.NumberFormat('en-US')
 
+// 4 메모리 상태 색 = iOS systemColor 1:1 (--memory-{stable/shaky/risk/new} 토큰과 정합)
+// 학습 효과 — 의미별 명확 매핑 (green=달성, orange=주의, red=회복, gray=중립)
 const BUCKET_META: Record<
   MemoryState,
   { label: string; color: string; accent: 'green' | 'orange' | 'red' | 'neutral' }
 > = {
-  stable: { label: '확실', color: 'var(--ios-green)', accent: 'green' },
-  shaky: { label: '익숙', color: 'var(--ios-orange)', accent: 'orange' },
-  risk: { label: '회복', color: 'var(--ios-red)', accent: 'red' },
-  new: { label: '신규', color: 'var(--ios-gray-1)', accent: 'neutral' },
+  stable: { label: '확실', color: 'var(--memory-stable)', accent: 'green' },
+  shaky: { label: '익숙', color: 'var(--memory-shaky)', accent: 'orange' },
+  risk: { label: '회복', color: 'var(--memory-risk)', accent: 'red' },
+  new: { label: '신규', color: 'var(--memory-new)', accent: 'neutral' },
 }
 
 export function VaultIdentity({

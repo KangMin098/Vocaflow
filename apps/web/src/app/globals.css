@@ -64,11 +64,12 @@
     --reading-bg:   #FAFAF7;
     --reading-text: #1A1A1A;
 
-    /* Memory Decay Colors */
-    --memory-stable: #22C55E;
-    --memory-shaky:  #F59E0B;
-    --memory-risk:   #EF4444;
-    --memory-new:    #94A3B8;
+    /* Memory Decay Colors — v06.38 iOS systemColor 정렬
+       의미별 1:1 매핑 — 학습자 메모리 상태 인식 보조 (학습 효과 검증된 4색) */
+    --memory-stable: #34C759;  /* iOS systemGreen — "이건 알아요" 달성 */
+    --memory-shaky:  #FF9500;  /* iOS systemOrange — "익숙해요" 주의 */
+    --memory-risk:   #FF3B30;  /* iOS systemRed — "흐릿해요" 회복 필요 */
+    --memory-new:    #8E8E93;  /* iOS systemGray — "처음 만나는 단어" 중립 */
 
     /* CEFR Distribution Fills — v06.19 (분포 시각화 전용 · badge 토큰과 분리) */
     --cefr-a1: #86EFAC;

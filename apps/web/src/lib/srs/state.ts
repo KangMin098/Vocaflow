@@ -8,12 +8,12 @@
 import type { SrsCard, MemoryState } from './types';
 
 /**
- * Memory Decay 4색 매핑 임계값 — CLAUDE.md §17.2
+ * Memory Decay 4색 매핑 임계값 — CLAUDE.md §17.2 (v06.38 iOS systemColor 정렬)
  *
- * R ≥ 0.95           → stable  (#22C55E, 초록 — "이건 알아요")
- * 0.70 ≤ R < 0.95    → shaky   (#F59E0B, 주황 — "익숙해요")
- * R < 0.70           → risk    (#EF4444, 빨강 — "흐릿해요")
- * 신규(D/S 미부여)    → new     (#94A3B8, 회색 — "처음 만나는 단어")
+ * R ≥ 0.95           → stable  (#34C759 iOS green   — "이건 알아요")
+ * 0.70 ≤ R < 0.95    → shaky   (#FF9500 iOS orange  — "익숙해요")
+ * R < 0.70           → risk    (#FF3B30 iOS red     — "흐릿해요")
+ * 신규(D/S 미부여)    → new     (#8E8E93 iOS gray    — "처음 만나는 단어")
  */
 export const MEMORY_THRESHOLD = {
   STABLE: 0.95,

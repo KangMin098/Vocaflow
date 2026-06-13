@@ -57,7 +57,7 @@ const TONE: Record<PrimaryButtonTone, ToneStyle> = {
     bg: 'bg-[var(--p)]',
     text: 'text-white',
     hoverBg: 'hover:bg-[var(--p-hover)]',
-    glow: 'shadow-ios-glow-blue',
+    glow: 'shadow-ios-glow-tint',
   },
   critical: {
     bg: 'bg-ios-red',

@@ -186,7 +186,7 @@ function Sparkline({ days }: { days: Day[] }) {
                 height: `${Math.max(6, h)}%`,
                 backgroundColor: bg,
                 opacity: d.words === 0 ? 0.5 : 1,
-                boxShadow: isToday && d.words > 0 ? '0 2px 8px rgba(0,122,255,0.30)' : 'none',
+                boxShadow: isToday && d.words > 0 ? '0 2px 8px rgba(88,86,214,0.30)' : 'none',
               }}
               title={`${d.date} · ${d.words} 단어`}
             />

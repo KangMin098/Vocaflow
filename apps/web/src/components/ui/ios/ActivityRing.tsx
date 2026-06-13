@@ -60,7 +60,7 @@ export function ActivityRing({
   const glow = reached
     ? 'drop-shadow(0 0 8px rgba(52,199,89,0.35))'
     : pct > 0
-      ? 'drop-shadow(0 0 8px rgba(0,122,255,0.30))'
+      ? 'drop-shadow(0 0 8px rgba(88,86,214,0.30))'
       : 'none'
 
   return (

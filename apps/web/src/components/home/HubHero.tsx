@@ -75,9 +75,10 @@ export function HubHero() {
     <header
       className="relative overflow-hidden rounded-ios-2xl px-6 py-5 text-[var(--ti)] shadow-ios-3 md:px-7 md:py-6"
       style={{
-        // iOS Blue (#007AFF) 풀 정합 그라데이션 — Apple Music 카드 톤
+        // iOS Indigo (#5856D6) 3단 그라데이션 — Vocaflow 학습 브랜드 톤.
+        // 깊은 인디고 → 시그니처 인디고 → 보라빛 라이트 = "사색하는 깊이감"
         backgroundImage:
-          'linear-gradient(135deg, #0051A8 0%, #007AFF 55%, #2A8BFF 100%)',
+          'linear-gradient(135deg, #3C3AAB 0%, #5856D6 55%, #7B79E0 100%)',
       }}
     >
       <div className="flex flex-wrap items-start justify-between gap-4">

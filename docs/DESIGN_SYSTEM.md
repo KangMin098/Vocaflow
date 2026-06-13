@@ -8,30 +8,38 @@
 
 ---
 
-## 🎨 iOS Color SSoT (v06.37 — 풀 재정렬)
+## 🎨 iOS Color SSoT (v06.38 — Indigo 학습 브랜드 + Learning Color Effect)
 
-> **이전 문제**: 브랜드 `--p` = `#3B82F6` (Tailwind blue), 캔버스 `--bg2` = `#F8FAFC` (Tailwind slate), 텍스트 = `#0F172A` cool slate. 시각적으로 **Tailwind 느낌**이 남음.
+> **재진단 (v06.37 → v06.38)**:
+> v06.37에서 `--p`를 `#007AFF` iOS Blue 로 정렬했으나 사용자 진단 — "색상이 플랫폼에 안맞음, 학습적 효과 색상 필요". 정확한 진단:
 >
-> **현재 (v06.37)**: 모든 핵심 토큰을 Apple Human Interface Guidelines의 System Colors / Label Colors / Grouped Backgrounds 와 1:1 정합.
+> - **iOS Blue = "Apple Settings" 톤** — Vocaflow 는 system 앱이 아닌 학습 플랫폼. systemBlue 는 Apple 시스템 앱(Settings/Files/Mail)의 표준 → 학습 플랫폼에 쓰면 "Apple Settings" 처럼 읽힘
+> - **3rd party iOS 앱은 브랜드 색 + iOS 구조** — Duolingo(그린)·Things 3(블루)·Linear(퍼플)·Notion(블랙)·Spotify(그린) 모두 자기 브랜드 색을 유지하면서 iOS 레이아웃·타이포·모션을 차용
+> - **학습 플랫폼 색채 심리** — 보라/인디고 = 학구열·사색·집중 (Korean academic 정서, 산타토익/클래스101 정합). 청록/블루 위주의 영어 학습 앱들과 시각 차별
+>
+> **결정 (v06.38)**: `--p` = **iOS systemIndigo `#5856D6`** (다크 `#5E5CE6` vivid).
+> · 시스템 컬러 12종 중 하나 → HIG 정합 100%
+> · 학구열·사색 정서 → 학습 플랫폼 정합
+> · 다른 영어 학습 앱과 시각 차별
 
 ### iOS HIG 3대 색상 시스템
 
-| 시스템 | iOS Spec | Vocaflow 토큰 | 용도 |
+| 시스템 | iOS Spec (Vocaflow 채택) | Vocaflow 토큰 | 용도 |
 |---|---|---|---|
-| **System Tint (브랜드)** | `systemBlue` `#007AFF` (light) / `#0A84FF` (dark) | `--p` | 모든 액션·링크·액센트의 표준 — 단 하나의 tint |
+| **System Tint (브랜드)** | **`systemIndigo` `#5856D6`** (light) / `#5E5CE6` (dark vivid) | `--p` | 모든 액션·링크·액센트의 표준 — 단 하나의 tint |
 | **System Colors** | red/orange/yellow/green/blue/indigo/purple/pink 등 | `--ios-*` + semantic `--success/--error/--warning/--info` | 의미별 액센트 (red=destructive, green=success, orange=warning) |
 | **Grouped Background** | `systemGroupedBackground` `#F2F2F7` light / `#000000` dark | `--bg2` (캔버스) + `--bg` (카드) + `--bg3` (셀 fill) | 그레이 캔버스 위에 떠있는 흰 카드 — iOS Settings 시그니처 |
 | **Label Colors** | `label` `#000000` → `quaternaryLabel` `rgba(60,60,67,.18)` (4단계 알파) | `--t1` → `--t4` | warm-neutral 라벨, 어떤 배경 위에서도 자연스러운 알파 기반 |
 | **Separator** | `#C6C6C8` light / `#38383A` dark | `--bd` | 셀 구분선 — 정확한 iOS 그레이 |
 
-### 색상 토큰 카탈로그 (v06.37)
+### 색상 토큰 카탈로그 (v06.38)
 
 ```css
-/* Light Mode — iOS HIG 정확 */
---p           : #007AFF              /* systemBlue */
---p-hover     : #0066D6
---p-light     : #E5F1FF              /* tint badge bg */
---p-dark      : #0051A8
+/* Light Mode — iOS HIG 정확 + 학습 브랜드 (Indigo) */
+--p           : #5856D6              /* systemIndigo — 학습 브랜드 */
+--p-hover     : #4946C2
+--p-light     : #EBEAFB              /* tint badge bg */
+--p-dark      : #3C3AAB
 
 --success     : #34C759              /* systemGreen */
 --error       : #FF3B30              /* systemRed */
@@ -50,7 +58,7 @@
 --bd          : #C6C6C8              /* separator (opaque) */
 
 /* Dark Mode — iOS 순흑 캔버스 */
---p           : #0A84FF              /* systemBlue dark vivid */
+--p           : #5E5CE6              /* systemIndigo dark vivid */
 --bg          : #1C1C1E              /* card */
 --bg2         : #000000              /* canvas — 순흑 */
 --bg3         : #2C2C2E              /* fill */
@@ -79,7 +87,8 @@
 
 | 안티패턴 | 이유 |
 |---|---|
-| ❌ `#3B82F6` (Tailwind blue) 사용 | iOS Blue (`#007AFF`) 와 미세하게 다른 cyan-shift → Tailwind 티 100% |
+| ❌ `#3B82F6` (Tailwind blue) 사용 | 미세한 cyan-shift → Tailwind 티 |
+| ❌ `#007AFF` (iOS systemBlue) 를 브랜드로 사용 | "Apple Settings" 톤 → 학습 플랫폼 정체성 무력화. 단, iOS Blue 는 `<PrimaryButton tone="info">` 일 때만 사용 가능 (구독/공유 등 system 의미) |
 | ❌ `text-slate-*` `bg-slate-*` 사용 | iOS는 warm-neutral, Tailwind slate 는 cool-blue 톤 → 즉시 non-iOS 느낌 |
 | ❌ `border-gray-200` 임의 border | iOS separator 와 톤 불일치, 너무 진해보임 |
 | ❌ 색상 3개 이상으로 강조 분류 | iOS는 한 화면에 색 액센트 1-2개. 다색 = 안드로이드 Material 느낌 |
@@ -87,10 +96,75 @@
 | ❌ 다크 모드 `bg-gray-900` 임의 | iOS 다크는 `#000000` 캔버스 + `#1C1C1E` 카드. 회색 9 색 (Tailwind) X |
 | ❌ 임의 hex 색상 `bg-[#xxxxxx]` | 디자인 토큰 우회 → 다크 모드 비정합 + 일관성 손실 |
 
+### 학습 효과 색채 — 4 Memory Decay (v06.38 iOS 정렬)
+
+학습 과학 검증 4색 (Karpicke 2008 retrieval + Ebbinghaus 망각곡선 시각화). v06.38에서 모든 4색을 iOS systemColor 와 1:1 정합:
+
+| 상태 | 의미 | 이전 (Tailwind) | 신규 (iOS systemColor) | 임계값 |
+|---|---|---|---|---|
+| **stable** | "이건 알아요" — 안정적 회상 | `#22C55E` Tailwind green | **`#34C759`** iOS systemGreen | R ≥ 0.95 |
+| **shaky** | "익숙해요" — 조금 흐려짐 | `#F59E0B` Tailwind amber | **`#FF9500`** iOS systemOrange | 0.70 ≤ R < 0.95 |
+| **risk** | "흐릿해요" — 다시 만나야 함 | `#EF4444` Tailwind red | **`#FF3B30`** iOS systemRed | R < 0.70 |
+| **new** | "처음 만나는 단어" — 중립 | `#94A3B8` Tailwind slate | **`#8E8E93`** iOS systemGray | D/S 미부여 |
+
+토큰: `--memory-stable/shaky/risk/new` ([globals.css §Memory Decay Colors](../apps/web/src/app/globals.css)). 코드 사용 — `bg-[var(--memory-stable)]` 식.
+
+### 학습 플랫폼 색채 철학 (v06.38)
+
+#### 1) 단일 학습 브랜드 액센트 = `--p` (Indigo)
+
+학습자의 인지 부하 최소화 (Sweller — 작업기억 ~4 항목). 모든 인터랙티브 = 한 색.
+- **버튼·링크·포커스링·V-Level 현재 위치** = `--p` Indigo
+- 이를 통해 학습자는 "다음에 할 행동"을 색만으로도 학습 — 매번 인지 자원 소모 X
+
+#### 2) 의미별 1:1 색 → 즉각 인식
+
+학습 효과 = 색-의미 연결의 일관성. 한 번 학습된 색-의미 연결이 화면마다 동일해야 학습자의 인지 부하 최소화.
+
+| 색 (iOS) | 학습 의미 | 사용처 |
+|---|---|---|
+| **Indigo `#5856D6`** (brand) | 현재 위치 · 메인 액션 · 다음 단계 안내 | 모든 CTA · V-Level 현재 · 진행 막대 |
+| **Green `#34C759`** | 달성 · 안정 · 정답 · i+1 (다음 단계 도전) | stable 메모리 · 정답 피드백 · i+1 zone 강조 · 도서 "딱 맞아요" |
+| **Orange `#FF9500`** | 주의 · 익숙 (불안정) · streak · 진행 중 | shaky 메모리 · streak 카운터 · 학습 중 도서 |
+| **Red `#FF3B30`** | 회복 필요 · critical · 망각 | risk 메모리 · 오답 · 삭제 confirm |
+| **Gray `#8E8E93`** | 중립 · 신규 · 미완료 | new 메모리 · 미진단 · 비활성 |
+
+#### 3) 동기부여 색 ≠ 압박 색 — Calm UI 원칙
+
+학습 동기는 색만으로도 영향 받음 (Mehta 2009, Color Psychology in Learning).
+
+| 원칙 | 적용 |
+|---|---|
+| **risk = 빨강이지만 옅게** | 옅은 background tint (`#FFE5E5`) 위에 진한 텍스트. 압박 X, 회복 안내 톤 |
+| **i+1 zone = 그린 강조** | 도파민 보상 (Krashen i+1) → 다음 단계 = 그린 (성장의 색) |
+| **streak = orange (warm)** | 차가운 색(blue/red) X — 따뜻한 색이 자기효능감 증진 |
+| **정답 피드백 = green + spring 애니메이션** | 즉각 vmPFC 보상 신호 — 색만으로 부족, 모션과 결합 |
+| **오답 = red 짧게 + 격려 메시지** | "다시 만나봐요" — 색은 짧게(0.6초), 텍스트로 회복 안내 |
+
+#### 4) V-Level 시각 진행 (Krashen i+1)
+
+V0-V11 12 레벨의 학습자 위치 표시 — 단조 색 X, 의미별 색 분기:
+
+| V-Level | 색상 | 의미 |
+|---|---|---|
+| **현재 V-Level** | `--p` Indigo (saturated) | 학습자 위치 — 강조 |
+| **i+1 zone (V+1)** | `--memory-stable` Green | Krashen 권장 다음 단계 — 도파민 |
+| **그 외 (V-Level 분포 막대)** | `--ios-gray-3` (light gray) | 분포 표시만 — 차분 |
+| **V0 / 미진단** | `--memory-new` Gray | 중립 |
+
+#### 5) Calm UI = 자극 절제
+
+학습 중 시각 자극 최소화 (CLAUDE.md §디자인 철학 #1). 색채 적용 규칙:
+
+- **한 화면에 saturated 색 최대 2개** — Indigo brand + 하나의 의미 색
+- **나머지는 알파 라벨 (warm-neutral) + 그레이** — 인지 자원 보존
+- **rainbow palette 금지** — V-Level 12색 무지개·정확도 빨강↔초록 X
+- **광고·뱃지 알림 색 금지** — 모든 카운트 = neutral capsule
+
 ### Capsule tone 매핑 (의미-색 1:1)
 
 ```
-brand   = systemBlue       — 메인/현재/primary action
+brand   = systemIndigo     — 메인/현재/primary action (학습 브랜드)
 green   = systemGreen      — 완료/달성/다음 단계/딱 맞아요
 orange  = systemOrange     — 진행 중/주의/도서/복습
 red     = systemRed        — 위험/critical/회복 필요

@@ -141,13 +141,14 @@ const config: Config = {
         lg: "0 12px 16px -4px rgba(15,23,42,.10), 0 4px 6px -2px rgba(15,23,42,.05)",
         xl: "0 20px 25px -5px rgba(15,23,42,.10), 0 10px 10px -5px rgba(15,23,42,.04)",
 
-        // ─── iOS HIG shadows (v06.36) ───
+        // ─── iOS HIG shadows (v06.36+) ───
         "ios-1": "var(--sh-ios-1)",
         "ios-2": "var(--sh-ios-2)",
         "ios-3": "var(--sh-ios-3)",
         "ios-4": "var(--sh-ios-4)",
         "ios-button": "var(--sh-ios-button)",
-        "ios-glow-blue": "var(--sh-ios-glow-blue)",
+        "ios-glow-tint": "var(--sh-ios-glow-tint)",     // brand tint glow (Indigo)
+        "ios-glow-blue": "var(--sh-ios-glow-blue)",     // iOS Blue (info)
         "ios-glow-green": "var(--sh-ios-glow-green)",
         "ios-glow-red": "var(--sh-ios-glow-red)",
         "ios-glow-orange": "var(--sh-ios-glow-orange)",
