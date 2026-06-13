@@ -9,65 +9,69 @@
 //  · 다크 = warm ink dark (#16130E), 순흑 X
 //  · iOS HIG 골격 (Card/Frame/Screen/SegmentControl/etc.) 그대로 유지
 
+// v06.40 — Contemporary Editorial refinement
+// Benchmark: Apple Books (warm off-white) + Linear (single accent) +
+// Things 3 (precision) + Reflect (cream sophistication) + Substack (serif)
 export const colorsLight = {
-  // 브랜드 = Ink Navy (제네릭 system blue 탈출 · 차분한 권위)
-  p: '#1E3A5F',          // ink navy
-  pHover: '#152A45',
-  pLight: '#E5EAF1',     // pale navy tint
-  pDark: '#0F1E33',
+  // 브랜드 = Deep Ink (contemporary depth, NOT old-map navy)
+  p: '#0F2540',          // deep ink — modern editorial
+  pHover: '#081832',
+  pLight: '#E3E8EE',
+  pDark: '#051428',
 
-  active: '#B8893B',     // muted gold (금고/금박 — 보상색)
-  activeLight: '#F5EBD4',
+  // 시그니처 모먼트 ONLY — Linear single-accent 원칙
+  active: '#B0843A',     // muted gold (적용 면적 5% 미만)
+  activeLight: '#F4EAD3',
 
-  // semantic — paper-tone 채도 하향
-  success: '#2E7D5A',    // muted forest green
+  // semantic — sophisticated muted
+  success: '#2E7D5A',
   successLight: '#E1EFE6',
-  error: '#A03A2E',      // warm red
-  errorLight: '#F5E1DD',
-  warning: '#C68A2C',    // warm amber (gold 계열)
-  warningLight: '#F5EBD4',
-  info: '#5B7A98',       // dusty blue-gray
+  error: '#9C3A30',      // deeper warm red
+  errorLight: '#F4E0DC',
+  warning: '#B5803A',    // deeper warm amber
+  warningLight: '#F2E8D2',
+  info: '#5B7A98',
   infoLight: '#E1E8EF',
 
-  // surface — paper
-  bg: '#FAF8F3',         // warm paper card
-  bg2: '#F2EEE6',        // page canvas
-  bg3: '#EAE4D8',        // page edge fill
+  // surface — Apple Books 정합 (less yellow, more modern)
+  bg: '#FBFAF6',         // contemporary off-white paper
+  bg2: '#F4F0E9',        // page canvas
+  bg3: '#ECE6DA',        // page edge fill
 
-  // text — ink (warm, NOT pure black)
-  t1: '#1C1815',                          // ink primary
-  t2: 'rgba(28, 24, 21, 0.62)',            // secondary ink
-  t3: 'rgba(28, 24, 21, 0.38)',            // tertiary ink
-  t4: 'rgba(28, 24, 21, 0.20)',            // quaternary ink
-  ti: '#FAF8F3',                          // on-tint = paper
+  // text — ink (deeper, more refined)
+  t1: '#1A1714',
+  t2: 'rgba(26, 23, 20, 0.62)',
+  t3: 'rgba(26, 23, 20, 0.38)',
+  t4: 'rgba(26, 23, 20, 0.20)',
+  ti: '#FBFAF6',
 
-  bd: '#D8D2C2',         // paper hairline
-  bdf: '#1E3A5F',        // focused = ink navy
-  bde: '#A03A2E',        // error = warm red
+  bd: '#E0DBD0',         // subtler hairline (Linear 정합)
+  bdf: '#0F2540',
+  bde: '#9C3A30',
 } as const;
 
-// Dark — warm ink dark (서재 야간), 순흑 X
+// Dark v06.40 — Reflect/Linear 정합 (warm dark, NOT 순흑)
 export const colorsDark = {
   ...colorsLight,
-  p: '#5F8FC0',                              // lighter ink navy (다크 대비)
-  pHover: '#7BA3CE',
-  pLight: 'rgba(95, 143, 192, 0.18)',
-  pDark: '#4A7AAA',
+  p: '#6B9BD1',
+  pHover: '#87B0DC',
+  pLight: 'rgba(107, 155, 209, 0.18)',
+  pDark: '#4F84BC',
 
-  active: '#D4A856',                         // lighter muted gold
+  active: '#D4A856',
   activeLight: 'rgba(212, 168, 86, 0.18)',
   success: '#5BA47D',
   successLight: 'rgba(91, 164, 125, 0.18)',
-  error: '#C8645A',
-  errorLight: 'rgba(200, 100, 90, 0.18)',
-  warning: '#D4A856',
-  warningLight: 'rgba(212, 168, 86, 0.18)',
+  error: '#C25E54',
+  errorLight: 'rgba(194, 94, 84, 0.18)',
+  warning: '#CEA254',
+  warningLight: 'rgba(206, 162, 84, 0.18)',
   info: '#8AA8C0',
   infoLight: 'rgba(138, 168, 192, 0.18)',
 
-  bg: '#1F1A14',         // 카드 (warm dark paper)
-  bg2: '#16130E',        // canvas (warm dark, 순흑 X)
-  bg3: '#2A241E',        // fill
+  bg: '#231D17',         // card (살짝 lighter warm dark)
+  bg2: '#181410',        // canvas
+  bg3: '#2D261F',        // fill
 
   t1: '#F0EAE0',
   t2: 'rgba(240, 234, 224, 0.62)',
@@ -75,8 +79,8 @@ export const colorsDark = {
   t4: 'rgba(240, 234, 224, 0.20)',
   ti: '#F0EAE0',
 
-  bd: '#3A332B',         // warm hairline dark
-  bdf: '#5F8FC0',
+  bd: '#3D362D',
+  bdf: '#6B9BD1',
 } as const;
 
 // iOS 시스템 컬러 (HIG light) — 의미별 액센트. 브랜드 --p 와 별도로 사용.

@@ -245,7 +245,7 @@ export default async function LibraryBooksPage() {
             >
               <Library size={16} />
             </span>
-            <h1 className="font-editorial text-[42px] font-[600] tracking-[-0.018em] leading-[1.02] text-[var(--t1)] md:text-[52px]">
+            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
               라이브러리
             </h1>
           </div>

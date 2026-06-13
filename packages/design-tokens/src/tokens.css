@@ -35,43 +35,50 @@
      · Lora = display 폰트로 승격 (Dual Coding 시그니처)
      ═════════════════════════════════════════════════════════════ */
 
-  /* ─────── Brand = Ink Navy (제네릭 탈출, 차분한 권위) ─────── */
-  --p: #1E3A5F;          /* ink navy — 주 액션·링크·포커스 */
-  --p-hover: #152A45;
-  --p-light: #E5EAF1;    /* pale navy tint — 캡슐/배지 bg */
-  --p-dark: #0F1E33;     /* pressed / 그라데이션 끝 */
+  /* ─────── Brand = Deep Ink (contemporary depth, NOT "old map" navy) ─────── */
+  /*  v06.40 — 세계 최고 수준 벤치마크 (Linear/Apple Books/Notion) 정제 후:
+      이전 #1E3A5F 는 살짝 19세기 톤. 더 깊은 #0F2540 으로 contemporary edge */
+  --p: #0F2540;          /* deep ink (modern editorial) */
+  --p-hover: #081832;
+  --p-light: #E3E8EE;    /* pale tint */
+  --p-dark: #051428;
 
-  /* Active = Muted Gold (금고/금박 — 보상색 · streak · 강조 액센트) */
-  --active: #B8893B;     /* muted gold (warm vintage) */
-  --active-light: #F5EBD4;
+  /* Active = Muted Gold — 시그니처 모먼트 ONLY (Linear single-accent 원칙)
+     v06.40 — 적용 면적 5% 미만으로 제한 (HubHero CTA, streak chip, 보상 모먼트만) */
+  --active: #B0843A;     /* muted gold (살짝 less yellow) */
+  --active-light: #F4EAD3;
 
-  /* ─────── Semantic = paper-tone (채도 1-2단 하향 · paper 톤 정합) ─────── */
+  /* ─────── Semantic = paper-tone (채도 하향 · sophisticated) ─────── */
+  /*  v06.40 — Reflect/Bear 정제: 더 muted, 덜 mustard */
   --success: #2E7D5A;       /* muted forest green — 달성 */
   --success-light: #E1EFE6;
-  --error: #A03A2E;         /* warm red — 회복 */
-  --error-light: #F5E1DD;
-  --warning: #C68A2C;       /* warm amber (gold 계열) — 주의 */
-  --warning-light: #F5EBD4;
+  --error: #9C3A30;         /* deeper warm red — 회복 (덜 saturated) */
+  --error-light: #F4E0DC;
+  --warning: #B5803A;       /* deeper warm amber — 주의 (덜 mustard) */
+  --warning-light: #F2E8D2;
   --info: #5B7A98;          /* dusty blue-gray — 정보 */
   --info-light: #E1E8EF;
 
-  /* ─────── Surface = Paper (warm, NOT cold white) ─────── */
-  --bg: #FAF8F3;       /* warm paper — 카드/시트 (순백 #FFFFFF 의 차가움 제거) */
-  --bg2: #F2EEE6;      /* page canvas — 화면 배경 (페이퍼 톤 한 단 어두움) */
-  --bg3: #EAE4D8;      /* page edge — fill (캡슐/배지 배경) */
+  /* ─────── Surface = Paper (less yellow, more contemporary) ─────── */
+  /*  v06.40 — Apple Books 정합: #FAFAF6 정도가 modern editorial.
+      이전 #FAF8F3 은 너무 yellow → vintage 느낌. 살짝 cooler 로 정제 */
+  --bg: #FBFAF6;       /* contemporary off-white paper (덜 yellow, 살짝 warm) */
+  --bg2: #F4F0E9;      /* page canvas (cleaner contrast) */
+  --bg3: #ECE6DA;      /* page edge fill */
 
   /* ─────── Text = Ink (warm-brown, NOT pure black) ─────── */
-  /*  잉크 토큰은 warm 정합 alpha → 어떤 페이퍼 톤에서도 자연 */
-  --t1: #1C1815;                       /* ink (primary) — 잉크 검정 */
-  --t2: rgba(28, 24, 21, 0.62);         /* secondary ink */
-  --t3: rgba(28, 24, 21, 0.38);         /* tertiary ink */
-  --t4: rgba(28, 24, 21, 0.20);         /* quaternary ink */
-  --ti: #FAF8F3;                       /* on-tint = paper (역시 warm) */
+  /*  v06.40 — Apple Books / Substack 정합 잉크 톤 */
+  --t1: #1A1714;                       /* ink primary — 살짝 더 deeper */
+  --t2: rgba(26, 23, 20, 0.62);         /* secondary ink */
+  --t3: rgba(26, 23, 20, 0.38);         /* tertiary ink */
+  --t4: rgba(26, 23, 20, 0.20);         /* quaternary ink */
+  --ti: #FBFAF6;                       /* on-tint = paper */
 
-  /* ─────── Border = Paper hairline (헤어라인, NOT 1px 진한 선) ─────── */
-  --bd: #D8D2C2;        /* paper edge hairline — 잉크 톤 정합 */
-  --bdf: #1E3A5F;       /* focused = ink navy */
-  --bde: #A03A2E;       /* error = warm red */
+  /* ─────── Border = Paper hairline (subtler, 거의 안 보이게) ─────── */
+  /*  v06.40 — Linear 정합: hairline 거의 visible 직전 (전반 여백이 구조 담당) */
+  --bd: #E0DBD0;        /* paper hairline (subtler) */
+  --bdf: #0F2540;       /* focused = deep ink */
+  --bde: #9C3A30;       /* error border */
 
   /* ─────── Game Specific — 변경 금지 ─────── */
   --gold: #EAB308;
@@ -191,18 +198,17 @@
   --sh-ios-4: 0 4px 8px rgba(0, 0, 0, .08), 0 20px 48px -8px rgba(0, 0, 0, .16);
   --sh-ios-button: 0 1px 2px rgba(0, 0, 0, .06), 0 2px 8px rgba(0, 0, 0, .04);
 
-  /* Reading Room 컬러 글로우 — 조용한 그림자 (saturated glow 회피 · 잉크/골드 톤) */
-  --sh-ios-glow-tint: 0 4px 16px rgba(30, 58, 95, .22);     /* ink navy glow — Primary CTA */
-  --sh-ios-glow-blue: 0 4px 16px rgba(91, 122, 152, .22);   /* dusty blue — info */
-  --sh-ios-glow-green: 0 4px 16px rgba(46, 125, 90, .18);   /* muted green — success */
-  --sh-ios-glow-red: 0 4px 16px rgba(160, 58, 46, .20);     /* warm red — critical */
-  --sh-ios-glow-orange: 0 4px 16px rgba(184, 137, 59, .20); /* muted gold — warning/golden moment */
+  /* v06.40 Reading Room glow — Linear/Things 3 정합 (절제) */
+  --sh-ios-glow-tint: 0 4px 16px rgba(15, 37, 64, .20);      /* deep ink — Primary CTA */
+  --sh-ios-glow-blue: 0 4px 16px rgba(91, 122, 152, .18);    /* dusty blue — info */
+  --sh-ios-glow-green: 0 4px 16px rgba(46, 125, 90, .16);    /* muted green — success */
+  --sh-ios-glow-red: 0 4px 16px rgba(156, 58, 48, .18);      /* warm red — critical */
+  --sh-ios-glow-orange: 0 4px 16px rgba(176, 132, 58, .18);  /* muted gold — golden moment ONLY */
 
-  /* ─────── Material (글라스 = warm paper translucent) ─────── */
-  /*  순백 위 반투명이 아닌 paper 톤 반투명 → 차가운 느낌 제거 */
-  --mat-glass-bg-thin: rgba(250, 248, 243, .72);
-  --mat-glass-bg-regular: rgba(250, 248, 243, .85);
-  --mat-glass-bg-thick: rgba(250, 248, 243, .92);
+  /* ─────── Material (paper translucent — v06.40 정제 톤) ─────── */
+  --mat-glass-bg-thin: rgba(251, 250, 246, .72);
+  --mat-glass-bg-regular: rgba(251, 250, 246, .85);
+  --mat-glass-bg-thick: rgba(251, 250, 246, .92);
   --mat-glass-filter: blur(20px) saturate(1.5);
   --mat-glass-filter-strong: blur(40px) saturate(1.8);
 
@@ -252,38 +258,37 @@
 }
 
 [data-theme="dark"] {
-  /* ─────── Reading Room Dark = warm ink dark (서재 야간) ─────── */
-  /*  순흑 X (차가움) → warm dark paper (잉크 색조 보존) */
-  --p: #5F8FC0;          /* lighter ink navy — 다크 대비 */
-  --p-hover: #7BA3CE;
-  --p-light: rgba(95, 143, 192, 0.18);
-  --p-dark: #4A7AAA;
+  /* ─────── Dark = Reflect/Linear 정합 (warm dark, NOT 순흑) ─────── */
+  --p: #6B9BD1;          /* lighter ink navy — 다크 contrast */
+  --p-hover: #87B0DC;
+  --p-light: rgba(107, 155, 209, 0.18);
+  --p-dark: #4F84BC;
 
-  --active: #D4A856;     /* lighter muted gold — 다크 대비 */
+  --active: #D4A856;     /* lighter muted gold */
   --active-light: rgba(212, 168, 86, 0.18);
   --success: #5BA47D;
   --success-light: rgba(91, 164, 125, 0.18);
-  --error: #C8645A;
-  --error-light: rgba(200, 100, 90, 0.18);
-  --warning: #D4A856;
-  --warning-light: rgba(212, 168, 86, 0.18);
+  --error: #C25E54;
+  --error-light: rgba(194, 94, 84, 0.18);
+  --warning: #CEA254;
+  --warning-light: rgba(206, 162, 84, 0.18);
   --info: #8AA8C0;
   --info-light: rgba(138, 168, 192, 0.18);
 
-  /* Warm ink dark — canvas=warm dark, 카드=조금 더 밝은 warm */
-  --bg: #1F1A14;         /* 카드 (warm dark paper) */
-  --bg2: #16130E;        /* canvas (warm dark, 순흑 X) */
-  --bg3: #2A241E;        /* fill */
+  /* v06.40 — 살짝 더 cool dark (덜 brown, 더 contemporary editorial dark) */
+  --bg: #231D17;         /* card (warm dark paper, 살짝 lighter) */
+  --bg2: #181410;        /* canvas (warm dark) */
+  --bg3: #2D261F;        /* fill */
 
   /* Warm paper text on warm dark */
-  --t1: #F0EAE0;                          /* primary (warm paper) */
+  --t1: #F0EAE0;
   --t2: rgba(240, 234, 224, 0.62);
   --t3: rgba(240, 234, 224, 0.38);
   --t4: rgba(240, 234, 224, 0.20);
-  --ti: #F0EAE0;                          /* on-tint */
+  --ti: #F0EAE0;
 
-  --bd: #3A332B;         /* warm hairline dark */
-  --bdf: #5F8FC0;        /* focused = ink navy lighter */
+  --bd: #3D362D;         /* warm hairline dark */
+  --bdf: #6B9BD1;
 
   /* ─────── iOS Dark — Vivid 컬러 사용 (HIG 다크 모드 spec) ─────── */
   --ios-red: var(--ios-red-vivid);
@@ -312,10 +317,10 @@
   --ios-purple-tint: rgba(191, 90, 242, .15);
   --ios-pink-tint: rgba(255, 55, 95, .15);
 
-  /* Glass dark — warm dark paper translucent */
-  --mat-glass-bg-thin: rgba(31, 26, 20, .72);
-  --mat-glass-bg-regular: rgba(31, 26, 20, .85);
-  --mat-glass-bg-thick: rgba(31, 26, 20, .92);
+  /* Glass dark — v06.40 정제 */
+  --mat-glass-bg-thin: rgba(35, 29, 23, .72);
+  --mat-glass-bg-regular: rgba(35, 29, 23, .85);
+  --mat-glass-bg-thick: rgba(35, 29, 23, .92);
 
   /* Shadows softer in dark */
   --sh-ios-1: 0 1px 2px rgba(0, 0, 0, .35);

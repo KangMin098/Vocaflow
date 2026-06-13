@@ -45,7 +45,7 @@ export default async function LibraryScriptsPage() {
             >
               <FileText size={16} />
             </span>
-            <h1 className="font-editorial text-[42px] font-[600] tracking-[-0.018em] leading-[1.02] text-[var(--t1)] md:text-[52px]">
+            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
               스크립트
             </h1>
           </div>

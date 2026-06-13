@@ -27,6 +27,71 @@
 
 남은 dead code(enrich-seed 라우트·languages 고급필터·requeueBook·book_curation_jobs 이중 fetch)는 영향 작아 후속 정리 대상.
 
+### 🌍 Contemporary Editorial v06.40 ★★★ (세계 최고 수준 벤치마크 정제)
+
+사용자 명시 — "세계 최고 수준의 작품들을 찾아서 분석해서 검토한 후 적용". Reading Room v06.39 위에 Apple Books × Linear × Things 3 × Notion × Substack × Reflect × Bear 7개 분석 → "Contemporary Editorial" 정제.
+
+**v06.39 진단**
+- Paper `#FAF8F3` 너무 yellow → vintage 느낌 (Apple Books `#FAFAF6` 가 modern editorial)
+- Navy `#1E3A5F` "old map" 톤 → contemporary depth 부족 (Linear 비교)
+- Gold 적용 3곳 분산 (active + memory shaky + CTA) → Linear single-accent 원칙 위반
+- Hairline 약간 visible → Reflect 가 입증한 "거의 invisible + 여백 구조" 원칙 미적용
+
+**토큰 정제** ([tokens.css](../packages/design-tokens/src/tokens.css) + [colors.ts](../packages/design-tokens/src/colors.ts))
+
+| 토큰 | v06.39 | v06.40 |
+|---|---|---|
+| `--p` | `#1E3A5F` | **`#0F2540`** deep ink (contemporary depth) |
+| `--active` | `#B8893B` | **`#B0843A`** (살짝 less yellow + 적용 면적 제한) |
+| `--bg` | `#FAF8F3` warm yellow paper | **`#FBFAF6`** Apple Books off-white |
+| `--bg2` | `#F2EEE6` | **`#F4F0E9`** cleaner contrast |
+| `--bg3` | `#EAE4D8` | **`#ECE6DA`** |
+| `--t1` | `#1C1815` | **`#1A1714`** deeper ink |
+| `--bd` | `#D8D2C2` visible | **`#E0DBD0`** subtler (Linear 정합) |
+| `--error` | `#A03A2E` | **`#9C3A30`** deeper |
+| `--warning` | `#C68A2C` mustard | **`#B5803A`** sophisticated |
+| 다크 `--p` | `#5F8FC0` | **`#6B9BD1`** (다크 contrast 강화) |
+| 다크 `--bg` | `#1F1A14` | **`#231D17`** (살짝 lighter) |
+| 다크 `--bg2` | `#16130E` | **`#181410`** (덜 brown, 더 contemporary dark) |
+| 다크 `--bd` | `#3A332B` | **`#3D362D`** |
+
+**Memory Decay 정제** ([globals.css](../apps/web/src/app/globals.css))
+- shaky `#C68A2C` mustard → **`#B5803A`** deeper amber (sophisticated)
+- risk `#A03A2E` → **`#9C3A30`** deeper warm red
+- new `#7A726A` → **`#8A8278`** lighter warm gray
+- stable `#2E7D5A` 유지
+
+**Hero typography 최종 polish**
+- 5 페이지 hero (`/library/books`, `/vocab`, `/scripts`, `/diagnostic/history`, `/settings`)
+  - 42→52px font-[600] → **44→56px font-[500] tracking-[-0.012em]**
+  - 가벼운 weight + 큰 사이즈 = Substack/Bear 가 입증한 editorial 효과 ↑
+
+**Frame 호흡 강화** ([Frame.tsx](../apps/web/src/components/ui/ios/Frame.tsx))
+- title weight 700 → **600** (Linear/Things 3 정밀)
+- tracking `-0.024em` → `-0.022em`
+- header `mb-5` → **`mb-6`** (Reflect 정합)
+
+**HubHero 정제**
+- 그라데이션 더 깊은 ink (`#051428 → #0F2540 → #1F3B66`) + 금빛 light leak 채도 ↓ (0.20 → 0.16) — "촛불 켜진 서재" 정제
+
+**glow tokens 절제**
+- `--sh-ios-glow-tint` `.22` → `.20` (Linear 정합 절제)
+- 모든 glow 채도 한 단 더 ↓
+
+**SSoT 문서** ([DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §World-class Benchmarks)
+- 7개 작품 분석 표 (Apple Books / Linear / Things 3 / Notion / Substack / Reflect / Bear)
+- 종합 진단 (v06.39 → v06.40 정제) 표
+- 세계 최고 수준 적용 5조 (Single accent / Less yellow / Deeper ink / Subtler hairlines / Lora editorial 가벼움)
+
+**파급 효과**
+- 카드 = 더 modern off-white (vintage 느낌 사라짐)
+- 텍스트 = deeper ink (premium contrast)
+- 버튼 = deep ink navy (contemporary)
+- 헤어라인 = 거의 invisible, 여백이 구조 책임 (Reflect 정합)
+- Hero = 가벼운 Lora 큰 사이즈 = editorial 정점
+- Frame 카드 사이 호흡 ↑ — Reflect 식 거대 여백 정합
+- 컴포넌트 코드 0줄 수정 — CSS 변수 단일 체계의 이점 (v06.39 와 동일)
+
 ### 🎨 Reading Room Art Direction v06.39 ★★★ (iOS 골격 + 잉크/페이퍼/금)
 
 외부 디자인 비평 검토 → 사용자 명시 (a) Reading Room 풀 피벗. iOS 정합은 **"안 깨져 보이는" floor 였고 ceiling 이 아니었음** 진단 + 아트 디렉션 단일 컨셉 커밋.

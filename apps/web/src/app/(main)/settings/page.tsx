@@ -217,7 +217,7 @@ export default function SettingsPage() {
         <SaveIndicator />
         {/* ── Header ── */}
         <header className="mb-6 px-1">
-          <h1 className="font-editorial text-[42px] font-[600] tracking-[-0.018em] leading-[1.02] text-[var(--t1)] md:text-[52px]">
+          <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
             설정
           </h1>
           <p className="mt-2 font-body text-[15px] leading-relaxed text-[var(--t2)]">

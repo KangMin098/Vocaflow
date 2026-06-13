@@ -8,12 +8,12 @@
 import type { SrsCard, MemoryState } from './types';
 
 /**
- * Memory Decay 4색 매핑 임계값 — CLAUDE.md §17.2 (v06.39 Reading Room paper 톤)
+ * Memory Decay 4색 매핑 임계값 — CLAUDE.md §17.2 (v06.40 Contemporary Editorial)
  *
  * R ≥ 0.95           → stable  (#2E7D5A muted forest — "이건 알아요")
- * 0.70 ≤ R < 0.95    → shaky   (#C68A2C warm amber  — "익숙해요")
- * R < 0.70           → risk    (#A03A2E warm red    — "흐릿해요")
- * 신규(D/S 미부여)    → new     (#7A726A warm gray   — "처음 만나는 단어")
+ * 0.70 ≤ R < 0.95    → shaky   (#B5803A deeper amber — "익숙해요")
+ * R < 0.70           → risk    (#9C3A30 deeper red   — "흐릿해요")
+ * 신규(D/S 미부여)    → new     (#8A8278 warm gray    — "처음 만나는 단어")
  */
 export const MEMORY_THRESHOLD = {
   STABLE: 0.95,

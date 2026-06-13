@@ -52,7 +52,7 @@ export default async function DiagnosticHistoryPage() {
             <ArrowLeft size={14} aria-hidden />
             진단으로 돌아가기
           </Link>
-          <h1 className="mt-3 font-editorial text-[42px] font-[600] tracking-[-0.018em] leading-[1.02] text-[var(--t1)] md:text-[52px]">
+          <h1 className="mt-3 font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
             V-Level 변천사
           </h1>
           <p className="mt-2 font-body text-[14px] text-[var(--t2)]">

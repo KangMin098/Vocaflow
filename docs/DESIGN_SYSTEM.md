@@ -4,7 +4,43 @@
 
 ---
 
-## 🎨 Reading Room Art Direction (v06.39 — 컨셉 풀 적용)
+## 🌍 World-class Benchmarks (v06.40 — 정제 근거)
+
+세계 최고 수준 7개 작품 분석 → "Contemporary Editorial" 정제 방향 추출.
+
+| 제품 | 시그니처 | Vocaflow 적용 |
+|---|---|---|
+| **Apple Books** (iOS) | Warm off-white `#FAFAF6` (less yellow) · brown-red `#A05537` 액센트 · 시스템 세리프 hero | `--bg` 살짝 cooler `#FBFAF6` 으로 정제 (v06.39 `#FAF8F3` 은 너무 yellow → vintage) |
+| **Linear** | 단일 일렉트릭 블루 `#5E6AD2` · single accent commit · 디테일 obsession | **Gold 적용 면적 5% 미만 제한** (CTA 1곳만, 다른 곳 분산 X) |
+| **Things 3** | Things blue · 정밀 SF Pro · 전략적 yellow vs blue 분리 | semantic 색 분기 정확 (success/error/warning 각자 명확) |
+| **Notion** | 순백 · 흑색 · 색 절제 · content-first | 동시 노출 색 2-3개 limit (navy + 한 의미 색 + 메모리 상태 1개) |
+| **Substack** | Times Old Style 시그니처 · 강한 serif 정체성 | **Lora editorial 승격** (v06.39 시작) — display 폰트 변경 X, 사용 영역 ↑ |
+| **Reflect** | Cream `#F8F5EE` · 미니멀 sophistication · 거대 여백 | 페이퍼 톤 + 카드 호흡 강화 (Frame `mb-5` → `mb-6`) |
+| **Bear** | PT Serif · 세피아 · subtle pink 액센트 | semantic 채도 deeper sophisticated (mustard 회피) |
+
+### 종합 진단 (v06.39 → v06.40)
+
+| 영역 | v06.39 진단 | v06.40 정제 |
+|---|---|---|
+| Paper | `#FAF8F3` — 너무 yellow, vintage 느낌 | **`#FBFAF6`** — Apple Books 정합, contemporary |
+| Navy | `#1E3A5F` — "old map" 느낌 | **`#0F2540`** — deeper, Linear 정합 contemporary depth |
+| Gold | 3곳 분산 (active token + memory shaky + CTA) | **CTA 1곳만 + memory amber 톤 deeper** (Linear single-accent) |
+| Hairline | `#D8D2C2` — 약간 visible | **`#E0DBD0`** — 거의 invisible (여백이 구조 담당) |
+| Hero typo | 42→52px font-[600] | **44→56px font-[500]** (Lora 가벼움이 editorial 효과 ↑) |
+| Frame 호흡 | `mb-5` | **`mb-6`** (Reflect 정합 카드 여백) |
+| 다크 | warm brown 너무 진함 | **살짝 lighter + cooler** (Reflect dark 정합) |
+
+### 세계 최고 수준 적용 5조
+
+1. **Single accent commit** — Gold 는 CTA 1곳에만 (Linear)
+2. **Less yellow paper** — Apple Books `#FAFAF6` 톤 (modern editorial)
+3. **Deeper ink** — `#0F2540` contemporary depth (vs `#1E3A5F` antique)
+4. **Subtler hairlines** — `#E0DBD0` 거의 안 보이게, 여백이 구조 (Reflect)
+5. **Lora editorial 가벼움** — font-[500] 큰 사이즈 = 가장 editorial (Substack/Bear)
+
+---
+
+## 🎨 Reading Room Art Direction (v06.39 → v06.40 정제)
 
 > **이전 진단** (v06.38 직후):
 > iOS HIG 준수는 "안 깨져 보이는" 수준의 **floor**. 그 위에 아트 디렉션이 없으면 **모든 iOS 앱이 똑같이 보인다.** 사용자가 "iOS 감성이 아직 안 느껴짐"이라 한 진짜 이유는 색·타이포·여백이 잘못된 게 아니라 **관점이 없었다**는 것.

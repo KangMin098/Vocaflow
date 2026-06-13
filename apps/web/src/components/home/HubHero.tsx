@@ -75,10 +75,10 @@ export function HubHero() {
     <header
       className="relative overflow-hidden rounded-ios-2xl px-6 py-7 text-[var(--ti)] shadow-ios-3 md:px-8 md:py-9"
       style={{
-        // Reading Room — 잉크 네이비 그라데이션 + 우측 상단 금빛 light leak
-        // "촛불 켜진 서재" 분위기: 깊은 잉크 → 살짝 따뜻한 잉크 → 금빛 가장자리
+        // v06.40 Contemporary Editorial — 더 깊은 ink + 절제된 금빛 light leak
+        // Apple Books × Linear: 깊이감 ↑, 채도 ↓, 시그니처 모먼트는 우측 상단에만
         backgroundImage:
-          'linear-gradient(135deg, #0F1E33 0%, #1E3A5F 55%, #2D5380 100%), radial-gradient(circle at 100% 0%, rgba(184,137,59,0.20), transparent 50%)',
+          'linear-gradient(135deg, #051428 0%, #0F2540 55%, #1F3B66 100%), radial-gradient(circle at 100% 0%, rgba(176,132,58,0.16), transparent 55%)',
         backgroundBlendMode: 'normal, soft-light',
       }}
     >
