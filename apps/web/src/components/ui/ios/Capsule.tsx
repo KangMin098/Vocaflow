@@ -65,7 +65,7 @@ export function Capsule({
     return (
       <span
         className={cn(
-          'inline-flex items-center rounded-ios-pill font-display font-[700]',
+          'inline-flex items-center rounded-ios-pill font-display font-[600]',
           padClass,
           className,
         )}
@@ -95,7 +95,7 @@ export function Capsule({
       )}
       {value != null && (
         <span
-          className="font-display font-[700] tabular-nums"
+          className="font-display font-[600] tabular-nums"
           style={{ color: t.value, fontSize: size === 'sm' ? '11px' : '12.5px' }}
         >
           {value}

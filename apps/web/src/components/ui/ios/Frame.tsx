@@ -38,13 +38,14 @@ export function Frame({
 }: FrameProps) {
   return (
     <Card size={size} elevation={elevation} className={className} {...rest}>
-      <header className="mb-4 flex items-baseline justify-between gap-3">
+      {/* iOS Section Header — Title 22px font-700 (iOS Title 2) + meta caption + More */}
+      <header className="mb-5 flex items-baseline justify-between gap-3">
         <div className="flex items-baseline gap-2.5">
-          <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
+          <h2 className="font-display text-[22px] font-[700] tracking-[-0.024em] leading-[1.1] text-[var(--t1)]">
             {title}
           </h2>
           {meta && (
-            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[12px] tabular-nums text-[var(--t3)]">
               {meta}
             </span>
           )}
@@ -55,12 +56,12 @@ export function Frame({
             <Link
               href={moreHref}
               className={cn(
-                'inline-flex items-center gap-0.5 font-display text-[13px] font-[600] text-[var(--p)]',
+                'inline-flex items-center gap-0.5 font-display text-[14px] font-[600] text-[var(--p)]',
                 'transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]',
               )}
             >
               {moreLabel}
-              <ArrowRight size={13} aria-hidden />
+              <ArrowRight size={14} aria-hidden />
             </Link>
           )}
         </div>

@@ -245,11 +245,11 @@ export default async function LibraryBooksPage() {
             >
               <Library size={16} />
             </span>
-            <h1 className="font-display text-[28px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[32px]">
+            <h1 className="font-display text-[32px] font-[700] tracking-[-0.028em] leading-[1.05] text-[var(--t1)] md:text-[34px]">
               라이브러리
             </h1>
           </div>
-          <p className="font-body text-[14px] text-[var(--t2)]">
+          <p className="font-body text-[15px] text-[var(--t2)]">
             큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요.
           </p>
           {totalBooks > 0 && (

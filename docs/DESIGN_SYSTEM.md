@@ -22,6 +22,52 @@
 > · 학구열·사색 정서 → 학습 플랫폼 정합
 > · 다른 영어 학습 앱과 시각 차별
 
+### 🔤 iOS Typography SSoT (v06.38.1 — 강화)
+
+타이포그래피가 iOS 감성을 결정하는 두 번째 축. 색상 → 형태 → **타이포** 순으로 인지된다.
+
+#### 폰트 스택 — iOS/macOS는 진짜 SF Pro 렌더
+
+```ts
+// tailwind.config.ts (v06.38.1)
+display: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display",
+          "Plus Jakarta Sans", "system-ui", "sans-serif"]
+body:    ["-apple-system", "BlinkMacSystemFont", "SF Pro Text",
+          "DM Sans", "system-ui", "sans-serif"]
+```
+
+**효과**: iOS/macOS 사용자 → 시스템이 자동으로 **SF Pro Display** (Large Title) / **SF Pro Text** (Body) 적용. 다른 OS(Windows·Linux·Android) → Plus Jakarta Sans / DM Sans fallback. **사용자 디바이스가 Apple이면 진짜 iOS 폰트**가 렌더링됨.
+
+#### iOS Type Ramp (Vocaflow 적용)
+
+| iOS HIG | Spec | Vocaflow 사용처 |
+|---|---|---|
+| **Large Title** | 34pt / `font-[700]` / `tracking-[-0.028em]` / `leading-[1.05]` | 페이지 메인 타이틀 (Library/Settings/Diagnostic 등 5 페이지) |
+| **Title 1** | 28pt / `font-[700]` / `tracking-[-0.026em]` | 페이지 부 타이틀 |
+| **Title 2** | 22pt / `font-[700]` / `tracking-[-0.024em]` / `leading-[1.1]` | **Frame 섹션 타이틀** (Card 내부 헤더) |
+| **Title 3** | 20pt / `font-[600]` / `tracking-[-0.022em]` | 소섹션 타이틀 |
+| **Headline** | 17pt / `font-[600]` / `tracking-[-0.018em]` | InsetRow title · 강조 메타 |
+| **Body** | 17pt / `font-[400]` | 본문 텍스트 (Workspace Reading) |
+| **Callout** | 16pt / `font-[400]` | 보조 본문 |
+| **Subheadline** | 15pt / `font-[400]` | **페이지 hero 부제** · InsetRow subtitle |
+| **Footnote** | 13pt / `font-[600]` | More 링크 · 메타 캡션 (Frame meta) |
+| **Caption 1** | 12pt / `font-[600]` mono uppercase | InsetGroup header · stats 캡션 |
+| **Caption 2** | 11pt / `font-[600]` mono | 작은 라벨 |
+
+#### iOS Typography 핵심 원칙
+
+| # | 원칙 | Vocaflow 적용 | 안티패턴 |
+|---|---|---|---|
+| 1 | **Bold = `font-[700]`, 절대 `font-[800]` X** | Hero/Title 전부 700 | ❌ `font-extrabold` (안드로이드 Material 톤) |
+| 2 | **Display 트래킹 매우 타이트** | Large Title `-0.028em` | ❌ `tracking-tight` (Tailwind 기본 -0.025em → 약함) |
+| 3 | **Large Title line-height 매우 좁게** | `leading-[1.05]` | ❌ `leading-tight` (1.25 — 너무 떨어져 보임) |
+| 4 | **Body는 17pt 표준, 부제는 15pt** | hero subtitle 15px | ❌ 14px 이하 (정보 밀도만 높고 가독 X) |
+| 5 | **Footnote = bold semibold 600** | More 링크 14px 600 | ❌ 13px 700 (너무 진해 보임) |
+| 6 | **Caption은 mono uppercase tracking-wide** | InsetGroup header 9.5px 700 0.16em | (이미 적용) |
+| 7 | **숫자는 항상 `tabular-nums`** | Hero/StatPill 모든 숫자 | ❌ proportional figures (정렬 깨짐) |
+
+---
+
 ### iOS HIG 3대 색상 시스템
 
 | 시스템 | iOS Spec (Vocaflow 채택) | Vocaflow 토큰 | 용도 |

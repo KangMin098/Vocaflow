@@ -217,10 +217,10 @@ export default function SettingsPage() {
         <SaveIndicator />
         {/* ── Header ── */}
         <header className="mb-6 px-1">
-          <h1 className="font-display text-[32px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[34px]">
+          <h1 className="font-display text-[32px] font-[700] tracking-[-0.028em] leading-[1.05] text-[var(--t1)] md:text-[34px]">
             설정
           </h1>
-          <p className="mt-2 font-body text-[14px] leading-relaxed text-[var(--t2)]">
+          <p className="mt-2 font-body text-[15px] leading-relaxed text-[var(--t2)]">
             학습 흐름은 당신의 것이에요. 무엇이든 자유롭게 바꿔보세요.
           </p>
         </header>

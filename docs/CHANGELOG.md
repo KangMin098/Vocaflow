@@ -10,6 +10,59 @@
 
 ## Unreleased (v06.34 → next)
 
+### iOS Design Polish v06.38.1 ★ (타이포 + 디테일 모션 + 폰트 스택)
+
+사용자 — "디자인 부분도 ios 감성을 더 강하게 해줘". 색상 v06.38 이후 **타이포·간격·디테일 모션** 으로 iOS 감성 풀 보강.
+
+**진단 — 덜 iOS인 부분**
+- Hero 타이틀 `font-[800]` ExtraBold → iOS Display는 `font-[700]` (800은 안드로이드 Material 톤)
+- Hero 사이즈 28-32px → iOS Large Title 표준 **34px**
+- 트래킹 `-0.025em` → iOS는 `-0.028em` (Display는 매우 타이트)
+- Line-height `leading-tight` (1.25) → iOS Large Title은 **`leading-[1.05]`** (좁게)
+- Body 13-14px → iOS는 17pt 표준, 부제 15pt
+- 폰트 스택 Plus Jakarta Sans 우선 → **`-apple-system` 우선** (iOS/macOS는 진짜 SF Pro)
+- 카드 hover 변화 X → **`hover:shadow-ios-3 + -translate-y-0.5`** + iOS spring
+- 아이콘 컨테이너 `rounded-ios-sm` 8px → **`rounded-ios-md`** 12px continuous
+- Chevron `text-t3/70` → iOS 정확 `rgba(0,0,0,0.30)` (dark에선 `rgba(235,235,245,0.30)`)
+- Capsule font-700 → **font-600** (iOS Footnote bold)
+
+**Hero Large Title 5 페이지 일괄 재정렬**
+- [/library/books](../apps/web/src/app/(main)/library/books/page.tsx) · [/library/vocab](../apps/web/src/app/(main)/library/vocab/page.tsx) · [/library/scripts](../apps/web/src/app/(main)/library/scripts/page.tsx) · [/diagnostic/history](../apps/web/src/app/(main)/diagnostic/history/page.tsx) · [/settings](../apps/web/src/app/(main)/settings/page.tsx)
+- `text-[28px] font-[800] tracking-[-0.025em] md:text-[32px]` → `text-[32px] font-[700] tracking-[-0.028em] leading-[1.05] md:text-[34px]`
+- body subtitle 14px → 15px (iOS Subheadline)
+
+**Frame 컴포넌트 강화** ([Frame.tsx](../apps/web/src/components/ui/ios/Frame.tsx))
+- 섹션 타이틀 20→**22px** (iOS Title 2) · weight 700 유지 · tracking-[-0.022em]→**-0.024em** · leading-[1.1]
+- meta 11→12px · More 링크 13→14px font-600 (iOS Footnote)
+- mb-4 → mb-5 (헤더 호흡 증가)
+
+**Card interactive prop** ([Card.tsx](../apps/web/src/components/ui/ios/Card.tsx))
+- `interactive` boolean prop 추가
+- 활성화 시: `hover:shadow-ios-3 + -translate-y-0.5 + active:scale-[0.99]` + ease-ios-emphasized + cursor-pointer
+- motion-safe 가드 (Reduce Motion 사용자 비활성)
+
+**InsetRow polish** ([InsetRow.tsx](../apps/web/src/components/ui/ios/InsetRow.tsx))
+- 아이콘 컨테이너 `h-8 w-8 rounded-ios-sm` → **`h-[30px] w-[30px] rounded-ios-md`** + `shadow-[0_1px_2px_rgba(0,0,0,0.08)]` (iOS Settings 정확)
+- title 14px font-600 → **15px font-500** (iOS Headline)
+- metaRight `text-mono-11-t3` → **`text-display-15-400-t2`** (iOS 정확 우측 메타)
+- chevron `text-t3/70 size-16` → **`text-[rgba(60,60,67,0.30)] size-17 strokeWidth-2.25`** (iOS 정확 + dark mode 분기)
+- 셀 패딩 `py-3` → `py-2.5 + min-h-[44px]` (iOS 44pt 표준)
+- 사이 gap `gap-1.5` → `gap-2` (메타-chevron 호흡)
+
+**Capsule weight** ([Capsule.tsx](../apps/web/src/components/ui/ios/Capsule.tsx))
+- `font-display font-[700]` → **`font-[600]`** 일괄 (iOS Footnote bold)
+
+**Tailwind font stack** ([tailwind.config.ts](../apps/web/tailwind.config.ts))
+- display/body 폰트 첫 fallback: **`-apple-system` + `BlinkMacSystemFont`**
+- 효과: iOS/macOS 사용자 → 시스템이 **진짜 SF Pro Display/Text** 렌더링. 다른 OS는 Plus Jakarta Sans / DM Sans
+- mono: `SF Mono` 우선
+
+**SSoT 문서** ([DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §iOS Typography SSoT)
+- iOS Type Ramp 11단 (Large Title → Caption 2) Vocaflow 사용처 매핑
+- 폰트 스택 설명 (왜 `-apple-system` 우선이 진짜 iOS인지)
+- iOS Typography 핵심 원칙 7조 (font-700 / -0.028em / leading-1.05 / Body 17pt / Footnote 600 / Caption mono / tabular-nums)
+- 안티패턴 (font-extrabold = 안드로이드 톤, tracking-tight = 약함, leading-tight = 1.25 너무 떨어짐)
+
 ### iOS 학습 브랜드 + Learning Color v06.38 ★★ (Indigo + Memory Decay iOS 정렬)
 
 사용자 재진단 — "색상이 플랫폼에 안맞음. ios 색상 + 디자인 & 학습적 효과 색상 + 디자인". v06.37 systemBlue 채택의 문제 진단 + 재정렬:

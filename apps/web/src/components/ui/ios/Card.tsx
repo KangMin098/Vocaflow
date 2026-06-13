@@ -13,6 +13,8 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
   elevation?: 1 | 2 | 3 | 4
   /** Semantic landmark tag. Default 'section' */
   as?: 'section' | 'article' | 'div'
+  /** Interactive card — hover elevation lift + active scale (iOS spring) */
+  interactive?: boolean
   children: ReactNode
 }
 
@@ -34,6 +36,7 @@ export function Card({
   size = 'md',
   elevation = 2,
   as = 'section',
+  interactive = false,
   className,
   children,
   ...rest
@@ -45,6 +48,9 @@ export function Card({
         'rounded-ios-2xl bg-[var(--bg)]',
         SIZE_PAD[size],
         ELEVATION[elevation],
+        // iOS spring: tap에서 살짝 줄어들고 hover에 elevation 한 단계 올라옴
+        interactive &&
+          'motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-emphasized motion-safe:hover:shadow-ios-3 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.99] motion-safe:active:translate-y-0 cursor-pointer',
         className,
       )}
       {...rest}

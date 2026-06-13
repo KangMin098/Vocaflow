@@ -45,11 +45,11 @@ export default async function LibraryScriptsPage() {
             >
               <FileText size={16} />
             </span>
-            <h1 className="font-display text-[28px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[32px]">
+            <h1 className="font-display text-[32px] font-[700] tracking-[-0.028em] leading-[1.05] text-[var(--t1)] md:text-[34px]">
               스크립트
             </h1>
           </div>
-          <p className="font-body text-[14px] text-[var(--t2)]">
+          <p className="font-body text-[15px] text-[var(--t2)]">
             큐레이션된 짧은 영어 글 — arXiv · NASA · NIH · VOA 출처.
           </p>
           {articles.length > 0 && (

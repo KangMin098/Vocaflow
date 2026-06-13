@@ -48,14 +48,15 @@ export function InsetRow({
       {icon && (
         <span
           aria-hidden
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-ios-sm text-white"
+          // iOS Settings icon container — 12px continuous, larger SF Symbol weight
+          className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-ios-md text-white shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
           style={{ backgroundColor: iconBg }}
         >
           {icon}
         </span>
       )}
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
+        <span className="line-clamp-1 font-display text-[15px] font-[500] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
           {title}
         </span>
         {(subtitle || (progress && progress.total > 0)) && (
@@ -86,21 +87,28 @@ export function InsetRow({
           </div>
         )}
       </div>
-      <div className="flex shrink-0 items-center gap-1.5">
+      <div className="flex shrink-0 items-center gap-2">
         {metaRight && (
-          <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+          <span className="font-display text-[15px] font-[400] tabular-nums text-[var(--t2)]">
             {metaRight}
           </span>
         )}
         {!hideChevron && (
-          <ChevronRight size={16} className="text-[var(--t3)]/70" aria-hidden />
+          /* iOS disclosure chevron — 정확한 시스템 그레이 */
+          <ChevronRight
+            size={17}
+            strokeWidth={2.25}
+            className="text-[rgba(60,60,67,0.30)] dark:text-[rgba(235,235,245,0.30)]"
+            aria-hidden
+          />
         )}
       </div>
     </>
   )
 
   const cls = cn(
-    'group flex items-center gap-3 px-4 py-3',
+    /* iOS Settings cell — 최소 44pt 높이 보장 + 16pt edge padding */
+    'group flex min-h-[44px] items-center gap-3 px-4 py-2.5',
     'transition-colors duration-[var(--dur-ios-fast)]',
     (href || onClick) && 'hover:bg-[var(--bg2)] active:bg-[var(--bg3)]',
     className,

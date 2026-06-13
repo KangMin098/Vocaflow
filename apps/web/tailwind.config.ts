@@ -104,13 +104,36 @@ const config: Config = {
       },
 
       fontFamily: {
-        display: ["var(--font-display)", "Plus Jakarta Sans", "sans-serif"],
-        body: ["var(--font-body)", "DM Sans", "sans-serif"],
+        // iOS/macOS 는 진짜 SF Pro 렌더링 (-apple-system / BlinkMacSystemFont)
+        // 다른 OS 는 Plus Jakarta Sans / DM Sans 로 fallback
+        display: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "SF Pro Display",
+          "var(--font-display)",
+          "Plus Jakarta Sans",
+          "system-ui",
+          "sans-serif",
+        ],
+        body: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "SF Pro Text",
+          "var(--font-body)",
+          "DM Sans",
+          "system-ui",
+          "sans-serif",
+        ],
         // CLAUDE.md §Typography — 영어 원문 전용 alias는 `english`
         english: ["var(--font-serif)", "Lora", "serif"],
-        // 레거시 alias (font-serif → 동일 Lora 폰트로 매핑)
         serif: ["var(--font-serif)", "Lora", "serif"],
-        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        mono: [
+          "SF Mono",
+          "var(--font-mono)",
+          "JetBrains Mono",
+          "ui-monospace",
+          "monospace",
+        ],
       },
 
       spacing: {

@@ -45,11 +45,11 @@ export default async function LibraryVocabPage() {
             >
               <Layers size={16} />
             </span>
-            <h1 className="font-display text-[28px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[32px]">
+            <h1 className="font-display text-[32px] font-[700] tracking-[-0.028em] leading-[1.05] text-[var(--t1)] md:text-[34px]">
               공용 단어장
             </h1>
           </div>
-          <p className="font-body text-[14px] text-[var(--t2)]">
+          <p className="font-body text-[15px] text-[var(--t2)]">
             함께 만든 어휘 자산 — 큐레이션된 단어 컬렉션을 내 단어장에 추가하세요.
           </p>
           {setCount > 0 && (
