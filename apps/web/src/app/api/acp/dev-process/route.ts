@@ -137,6 +137,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 async function sha256(s: string): Promise<string> {
-  const crypto = await import('node:crypto')
+  // bare 'crypto' — Next.js 14 webpack 이 'node:' scheme 동적 import 를 못 다룸(UnhandledSchemeError).
+  const crypto = await import('crypto')
   return crypto.createHash('sha256').update(s).digest('hex')
 }

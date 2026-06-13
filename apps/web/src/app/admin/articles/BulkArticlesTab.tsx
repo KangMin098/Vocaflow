@@ -30,13 +30,16 @@ import {
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+// 배럴(@vocaflow/library-pipeline) 대신 client-safe 서브패스만 import.
+//   배럴은 normalize(node:crypto) 까지 끌어와 클라이언트 번들을 깨뜨림(dev 는 tree-shake X).
+//   _curation-spec 은 import 0 의 순수 모듈이라 안전.
 import {
   SOURCE_SPECS,
   applySourceLevelCap,
   getSourceOrderForLevel,
   type LearnerLevel,
   type SourceKey,
-} from '@vocaflow/library-pipeline'
+} from '@vocaflow/library-pipeline/curation-spec'
 
 interface ArticleScore {
   total: number
