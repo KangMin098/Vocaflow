@@ -1,14 +1,14 @@
 // apps/web/src/components/workspace/FloatingAudioPlayer.tsx
 //
-// v06.41 — 가독성 재설계: theme-aware frosted paper-glass dock.
+// v06.42 — 하단 고정형 바 재설계 (theme-aware frosted paper-glass).
 //
-// 이전(v06.35)은 `bg-[var(--t1)]/95 + text-white` 였다 — `--t1` 은 *텍스트* 토큰이라
-// 다크모드에서 near-white 가 되어 흰 글자가 흰 배경에 묻혀 가독성 0 이었다.
-// 이제 표면은 `--mat-glass-*`(테마별 종이/먹 글라스), 글자는 ink 토큰(--t1/t2/t3),
-// 액센트는 --p(deep ink/light navy). 라이트·다크 모두 충분한 대비.
+// 표면은 `--mat-glass-*`(테마별 종이/먹 글라스), 글자는 ink 토큰(--t1/t2/t3),
+// 액센트는 --p(비텍스트만) + ink-flip(--t1/--bg, 텍스트 동반 버튼). 라이트·다크 모두 대비 충분.
+//   (이전 `bg-[var(--t1)]/95 + text-white` 는 --t1=텍스트 토큰이라 다크모드 흰-위-흰 가독성 0 버그였음.)
 //
 // 디자인 원칙:
-//   · 하단 floating dock — 가장자리 여백 + continuous radius + 상단 hairline + soft glow
+//   · 하단 고정 바 — fixed bottom-0 가장자리 flush(여백·radius 없음) + 상단 hairline + 위로 향한 soft shadow
+//     + 콘텐츠 중앙 정렬(max-w 920) + 모바일 safe-area-inset 하단 패딩 · translate-y-full 로 숨김
 //   · iOS 세그먼트 컨트롤(소스·모드) · Lora 영문 Step Hero · tabular-nums 시간
 //   · 모든 인터랙티브: hover/active/focus-visible/disabled 4상태 · 터치타겟 ≥40px
 //
@@ -122,49 +122,44 @@ export function FloatingAudioPlayer({
     <div
       role="region"
       aria-label="오디오 플레이어"
-      className={`fixed inset-x-0 bottom-0 z-[70] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] ${
-        isVisible ? 'translate-y-0' : 'translate-y-[120%]'
+      className={`fixed inset-x-0 bottom-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] ${
+        isVisible ? 'translate-y-0' : 'translate-y-full'
       }`}
+      style={{
+        background: 'var(--mat-glass-bg-thick)',
+        backdropFilter: 'blur(24px) saturate(1.6)',
+        WebkitBackdropFilter: 'blur(24px) saturate(1.6)',
+      }}
     >
-      <div className="mx-auto w-full max-w-[920px] px-3 pb-3 sm:px-4 sm:pb-4">
-        <div
-          className="overflow-hidden rounded-[var(--r-ios-2xl)] border border-[var(--bd)] text-[var(--t1)] shadow-[0_10px_44px_-10px_rgba(0,0,0,0.32)]"
-          style={{
-            background: 'var(--mat-glass-bg-thick)',
-            backdropFilter: 'blur(24px) saturate(1.6)',
-            WebkitBackdropFilter: 'blur(24px) saturate(1.6)',
-          }}
-        >
-          <div className="flex w-full flex-col gap-2.5 px-4 py-3.5 sm:px-5">
-            {/* 소스 토글 (보이스 연결된 챕터만) */}
-            {hasVoice && (
-              <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
-            )}
+      {/* 하단 고정 바 — 가장자리 flush · 상단 hairline + 위로 향한 soft shadow · 콘텐츠는 중앙 정렬 */}
+      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-2.5 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6 sm:pt-3.5">
+        {/* 소스 토글 (보이스 연결된 챕터만) */}
+        {hasVoice && (
+          <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
+        )}
 
-            {/* 영구 오디오 엘리먼트 */}
-            {chapterAudio && currentPart && (
-              <audio ref={audioRef} src={currentPart.url} preload="none" className="hidden" />
-            )}
+        {/* 영구 오디오 엘리먼트 */}
+        {chapterAudio && currentPart && (
+          <audio ref={audioRef} src={currentPart.url} preload="none" className="hidden" />
+        )}
 
-            {/* 브라우저 음성 body */}
-            <div className={source === 'browser' || !hasVoice ? '' : 'hidden'}>
-              <BrowserBody sentences={sentences} onClose={onClose} hideClose={hasVoice} />
-            </div>
-
-            {/* 원어민 보이스 body */}
-            {chapterAudio && (
-              <div className={source === 'librivox' ? '' : 'hidden'}>
-                <LibriVoxBody
-                  audio={chapterAudio}
-                  audioRef={audioRef}
-                  parts={parts}
-                  partIdx={partIdx}
-                  setPartIdx={setPartIdx}
-                />
-              </div>
-            )}
-          </div>
+        {/* 브라우저 음성 body */}
+        <div className={source === 'browser' || !hasVoice ? '' : 'hidden'}>
+          <BrowserBody sentences={sentences} onClose={onClose} hideClose={hasVoice} />
         </div>
+
+        {/* 원어민 보이스 body */}
+        {chapterAudio && (
+          <div className={source === 'librivox' ? '' : 'hidden'}>
+            <LibriVoxBody
+              audio={chapterAudio}
+              audioRef={audioRef}
+              parts={parts}
+              partIdx={partIdx}
+              setPartIdx={setPartIdx}
+            />
+          </div>
+        )}
       </div>
     </div>
   )
