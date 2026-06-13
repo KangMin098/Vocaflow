@@ -1,13 +1,22 @@
 // apps/web/src/components/wordvault/hub/WordVaultHub.tsx
 //
-// WordVault 허브 v06.35 패치 — 학습 진행 정보 "한눈에"
+// WordVault 허브 v06.35 Portfolio 재설계 — 단어 관점 종합 포트폴리오.
 //
-// 변경 (이전 v06.35 4 zone → 3 zone):
-//   · AssetGrid 제거 (collection grid 불필요 — 사용자는 "학습 정보" 가 알고 싶음)
-//   · VaultIdentity 강화 — V-Level 메타 + 4 bucket 가로 막대 + 단일 CTA
-//   · FlowStripe / NextStepList 그대로 (각각 추세·다음 단계)
+// 사용자 요청 정합:
+//   · 학습자의 도서/스크립트/단어장 리소스 이력·진행 상태
+//   · 학습자의 단어 레벨 정보 (V-Level 분포 + 트랙)
+//   · 권장 학습 도서 (i+1 Krashen)
+//   · 단어 관점 종합 포트폴리오
 //
-// 디자인 톤: Editorial monochrome — 회색 + --p 액센트만.
+// 5 Section 구조:
+//   1. VaultIdentity        — 자산 hero (큰 숫자 + V-Level + 4 bucket + 단일 CTA)
+//   2. VocabularyLevelMap   — V-Level 분포 + i+1 zone + 트랙별 수준 (단어 수준 지도)
+//   3. ResourcePortfolio    — 도서/스크립트/공용 단어장 학습 이력 (3-column grid)
+//   4. RecommendedBooks     — i+1 권장 도서 4권 (Krashen)
+//   5. NextStepList         — recommend_word_sets_for_user (단어장 추천)
+//   6. FlowStripe           — 28일 추세 + 마지막 활동
+//
+// Editorial monochrome — 회색 + brand --p 액센트.
 
 'use client'
 
@@ -23,20 +32,20 @@ import type { WordItem } from '../types'
 import type { HubStats } from '../hooks/useHubStats'
 import { FlowStripe } from './FlowStripe'
 import { NextStepList } from './NextStepList'
+import { RecommendedBooks } from './RecommendedBooks'
+import { ResourcePortfolio } from './ResourcePortfolio'
 import { VaultIdentity } from './VaultIdentity'
+import { VocabularyLevelMap } from './VocabularyLevelMap'
 import { WordVaultEmptyState } from './WordVaultEmptyState'
 
 interface WordVaultHubProps {
-  /** mock 단어 (개발/비로그인 fallback) */
   words: WordItem[]
-  /** Phase 2 실 데이터 — useHubStats 결과 */
   realStats?: HubStats | null
 }
 
 const DEFAULT_DAILY_GOAL = 12
 
 export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
-  // 주간 목표 + 주간 완료
   const [weekly, setWeekly] = useState<{ done: number; target: number } | null>(null)
 
   useEffect(() => {
@@ -106,8 +115,8 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
   }
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
-      {/* Zone 1 — Mastery Hero: 큰 숫자 + V-Level + 4 bucket 가로 비교 + 단일 CTA + 주간 목표 */}
+    <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+      {/* Section 1 — Identity Hero: 자산 + V-Level + 4 bucket + 주간 목표 + 단일 CTA */}
       <VaultIdentity
         total={total}
         buckets={buckets}
@@ -117,11 +126,20 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
         weeklyTarget={weekly?.target ?? DEFAULT_DAILY_GOAL * 7}
       />
 
-      {/* Zone 2 — Flow: 28일 sparkline + 평균/활동/총합 + 마지막 학습 */}
-      <FlowStripe />
+      {/* Section 2 — Vocabulary Level Map: V-Level 분포 + i+1 zone + 트랙 */}
+      <VocabularyLevelMap />
 
-      {/* Zone 3 — Next Step: 진단 기반 추천 (V-Level 다지기 · 한 단계 위 · 복습 · 트랙) */}
+      {/* Section 3 — Resource Portfolio: 도서 / 스크립트 / 공용 단어장 학습 이력 */}
+      <ResourcePortfolio />
+
+      {/* Section 4 — Recommended Books: i+1 권장 도서 4권 */}
+      <RecommendedBooks />
+
+      {/* Section 5 — Next Step (단어장 추천): recommend_word_sets_for_user */}
       <NextStepList />
+
+      {/* Section 6 — Flow: 28일 sparkline + 마지막 활동 */}
+      <FlowStripe />
     </div>
   )
 }

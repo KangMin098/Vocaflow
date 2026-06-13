@@ -10,6 +10,38 @@
 
 ## Unreleased (v06.34 → next)
 
+### WordVault — 단어 관점 종합 포트폴리오 6 Section 재설계 (v06.35)
+
+사용자 요청 정합 — 학습자의 리소스 이력 + V-Level 정보 + 권장 도서 통합:
+
+**1. Identity Hero** (VaultIdentity) — 자산 hero (큰 숫자 + V-Level 메타 + 4 bucket 가로 비교 + 단일 CTA + 주간 목표)
+
+**2. Vocabulary Level Map** ★신규 ([VocabularyLevelMap.tsx](../apps/web/src/components/wordvault/hub/VocabularyLevelMap.tsx))
+- 사용자 보유 단어를 V-Level 0-11 별 분포 막대 (120px 높이)
+- 현재 V-Level → `var(--p)` 강조 / **i+1 zone (V+1) → `var(--success)` 강조** (Krashen 권장)
+- 트랙별 수준 inline (csat_korean / business / academic — `user_profiles.current_track_levels` JSONB)
+- 데이터: `vocabularies.lemma` JOIN `shared_dictionary.v_level` (500 chunk in() 쿼리)
+
+**3. Resource Portfolio** ★신규 ([ResourcePortfolio.tsx](../apps/web/src/components/wordvault/hub/ResourcePortfolio.tsx))
+- 3-column grid: 도서 / 스크립트 / 공용 단어장
+- 각 row: 제목 + 진도 막대 + 마지막 학습 시점
+- 도서: `texts.library_book_id` 그룹 + `library_books` 메타 fetch
+- 스크립트: `texts.user_book_group_id` + 직접 입력
+- 단어장: `user_word_set_subscriptions` (library_book 카테고리는 도서 단위 그룹화)
+- 각 그룹 상위 4개만 + 마지막 시점 relative time
+
+**4. Recommended Books** ★신규 ([RecommendedBooks.tsx](../apps/web/src/components/wordvault/hub/RecommendedBooks.tsx))
+- 사용자 V-Level 기준 i+1 도서 4권 (이미 enrolled 도서 제외)
+- `scoreBook(book, ctx)` ([recommend-books.ts](../apps/web/src/lib/library/recommend-books.ts)) 점수 매김
+- `judgeIPlusOne(coverage, vLevel)` ([i-plus-one.ts](../apps/web/src/lib/library/i-plus-one.ts)) 적합도 태그 (딱 맞아요/도전/쉬워요/어려워요)
+- 진단 미완료 시 /diagnostic CTA
+
+**5. Next Step List** (NextStepList) — `recommend_word_sets_for_user(uuid)` 단어장 추천 (그대로)
+
+**6. Flow Stripe** (FlowStripe) — 28일 sparkline + 평균/활동/총합 + 마지막 활동 (그대로)
+
+**max-width**: 4xl → **5xl** (Portfolio 정보 밀도 ↑)
+
 ### WordVault — 한눈에 보이는 학습 대시보드로 재설계 (v06.35)
 
 이전 4 zone (VaultIdentity / NextStepList / AssetGrid / FlowStripe) → **3 zone 압축**.

@@ -115,11 +115,14 @@ R < 0.70              → risk     #EF4444 (빨강)
 
 ### Hub 컴포넌트 (`components/wordvault/hub/`) — v06.35 4 Zone Editorial 재설계
 
-**현재 활성 (3 Zone — 한눈에 학습 정보)** v06.35 패치 — AssetGrid 제거:
-- `WordVaultHub.tsx` — 3 Zone 조립 + 주간 목표 fetch
-- `VaultIdentity.tsx` ★v06.35 — Mastery Hero (큰 숫자 + V-Level 메타 칩 + **4 bucket 가로 비교 막대** + 단일 CTA + 주간 목표 진행 바)
-- `FlowStripe.tsx` ★v06.35 — 28일 sparkline (`daily_activity`) + 평균/활동/총합 + 마지막 활동
-- `NextStepList.tsx` ★v06.35 — `recommend_word_sets_for_user` 3-5개 text list
+**현재 활성 (6 Section — 단어 관점 종합 포트폴리오)** v06.35 Portfolio 재설계:
+- `WordVaultHub.tsx` — 6 Section 조립 + 주간 목표 fetch · max-w 5xl
+- `VaultIdentity.tsx` ★v06.35 — Section 1 Mastery Hero (큰 숫자 + V-Level 메타 칩 + 4 bucket 가로 비교 막대 + 단일 CTA + 주간 목표)
+- `VocabularyLevelMap.tsx` ★v06.35 — Section 2 단어 수준 지도 (V0-V11 분포 + i+1 zone 강조 + 트랙별 수준)
+- `ResourcePortfolio.tsx` ★v06.35 — Section 3 학습 자산 (도서/스크립트/공용 단어장 3-col grid)
+- `RecommendedBooks.tsx` ★v06.35 — Section 4 i+1 권장 도서 4권 (`scoreBook` + `judgeIPlusOne`)
+- `NextStepList.tsx` ★v06.35 — Section 5 단어장 추천 (`recommend_word_sets_for_user`)
+- `FlowStripe.tsx` ★v06.35 — Section 6 28일 sparkline + 평균/활동/총합 + 마지막 활동
 
 **보존 (현재 hub 미사용)**:
 - `AssetGrid.tsx` ★v06.35 — 단어장 grid (browse view 등에서 재활용 가능)
