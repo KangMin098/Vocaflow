@@ -5,6 +5,8 @@
 
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+
+import { Card, Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
 import { HistoryTimeline } from '@/components/diagnostic/HistoryTimeline'
 
@@ -23,9 +25,11 @@ export default async function DiagnosticHistoryPage() {
 
   if (!user) {
     return (
-      <div className="mx-auto max-w-2xl p-8">
-        <p className="font-body text-[var(--t3)]">로그인이 필요해요.</p>
-      </div>
+      <Screen width="content" background="bg2" padX="md">
+        <div className="py-8">
+          <p className="font-body text-[var(--t3)]">로그인이 필요해요.</p>
+        </div>
+      </Screen>
     )
   }
 
@@ -38,30 +42,34 @@ export default async function DiagnosticHistoryPage() {
     .order('taken_at', { ascending: false })
 
   return (
-    <div className="mx-auto max-w-3xl p-8">
-      <header className="mb-8">
-        <Link
-          href="/diagnostic"
-          className="inline-flex items-center gap-1.5 font-body text-[12px] text-[var(--t3)] hover:text-[var(--t2)]"
-        >
-          <ArrowLeft size={12} />
-          진단으로 돌아가기
-        </Link>
-        <h1 className="mt-3 font-display text-[28px] font-[800] text-[var(--t1)]">
-          V-Level 변천사
-        </h1>
-        <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
-          진단·학습·수동 갱신의 audit chain — 시간 순으로 V-Level 변화 추적
-        </p>
-      </header>
+    <Screen width="content" background="bg2" padX="md">
+      <div className="flex flex-col gap-5 py-6 md:py-8">
+        <header className="px-1">
+          <Link
+            href="/diagnostic"
+            className="inline-flex items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
+          >
+            <ArrowLeft size={14} aria-hidden />
+            진단으로 돌아가기
+          </Link>
+          <h1 className="mt-3 font-display text-[28px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[32px]">
+            V-Level 변천사
+          </h1>
+          <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
+            진단·학습·수동 갱신의 audit chain — 시간 순으로 V-Level 변화 추적
+          </p>
+        </header>
 
-      {error && (
-        <div className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-4">
-          <p className="font-body text-[var(--error)]">{error.message}</p>
-        </div>
-      )}
+        {error && (
+          <Card size="md" elevation={1}>
+            <p className="font-body text-[var(--ios-red)]">{error.message}</p>
+          </Card>
+        )}
 
-      <HistoryTimeline snapshots={(snapshots ?? []) as unknown as Parameters<typeof HistoryTimeline>[0]['snapshots']} />
-    </div>
+        <Card size="lg">
+          <HistoryTimeline snapshots={(snapshots ?? []) as unknown as Parameters<typeof HistoryTimeline>[0]['snapshots']} />
+        </Card>
+      </div>
+    </Screen>
   )
 }

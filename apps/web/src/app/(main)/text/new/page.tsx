@@ -149,7 +149,7 @@ export default function TextViewerNewPage() {
 
       {/* ── 메인 ── */}
       <main className="flex-1 overflow-y-auto p-s-4 lg:p-s-6">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-[var(--ios-content-wide-max)]">
           <div className="mb-s-8">
             <div className="mb-s-3 flex items-center gap-s-2">
               <FileText size={14} className="text-p" />

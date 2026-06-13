@@ -6,6 +6,7 @@
 //   - interests 선택 → specialty 단어장 추천
 //   - WordVault hub 추천 카드 활성화 + Library Krashen i+1 weight
 
+import { Screen } from '@/components/ui/ios'
 import { DiagnosticClient } from '@/components/diagnostic/DiagnosticClient'
 
 export const metadata = {
@@ -14,5 +15,9 @@ export const metadata = {
 }
 
 export default function DiagnosticPage() {
-  return <DiagnosticClient />
+  return (
+    <Screen width="full" background="bg2" padX="none">
+      <DiagnosticClient />
+    </Screen>
+  )
 }

@@ -57,7 +57,7 @@ export const metadata = {
 
 export default function WordBlitzHubPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 md:px-6 md:py-10">
+    <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
       {/* ── Hero (v06.30 슬림화) ── */}
       <section
         aria-label="WordBlitz 소개"

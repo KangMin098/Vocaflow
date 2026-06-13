@@ -85,7 +85,7 @@ export default function ScriptQuizHubPage() {
   const weakChapters = attempted.filter((c) => c.bestAccuracy < 70)
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 md:px-6 md:py-10">
+    <div className="mx-auto flex max-w-[var(--ios-content-wide-max)] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
       {/* ── 1. Hero ── */}
       <ModuleHero
         eyebrow="ScriptQuiz · 스크립트 독해"

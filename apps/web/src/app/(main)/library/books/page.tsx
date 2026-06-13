@@ -5,6 +5,8 @@
 
 import { Library } from 'lucide-react';
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+import { Capsule, Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
 import type { PublishedBook } from '@/lib/library/published-book';
@@ -233,57 +235,41 @@ export default async function LibraryBooksPage() {
   const inProgressCount = books.filter((b) => b.enrollment_state === 'in_progress').length;
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Slim header — 1 row, 인지 부하 최소화 */}
-      <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-[var(--bd)] pb-3">
-        <div className="flex items-baseline gap-2.5">
-          <Library size={16} className="self-center text-[#8B6A3F]" aria-hidden />
-          <h1 className="font-display text-[18px] font-[700] text-[var(--t1)]">
-            라이브러리
-          </h1>
-          <span className="font-body text-[12px] text-[var(--t3)]">
-            큐레이션된 영어 원서
-          </span>
-        </div>
-        {totalBooks > 0 && (
-          <div className="flex items-center gap-3 font-mono text-[11px] text-[var(--t3)]">
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">
-                {totalBooks}
-              </strong>
-              권
+    <Screen width="wide" background="bg2" padX="md">
+      <div className="flex flex-col gap-5 py-6 md:py-8">
+        <header className="flex flex-col gap-3 px-1">
+          <div className="flex items-center gap-2.5">
+            <span
+              aria-hidden
+              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-orange text-white"
+            >
+              <Library size={16} />
             </span>
-            <span aria-hidden>·</span>
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">
-                {totalChapters}
-              </strong>
-              장
-            </span>
-            <span aria-hidden>·</span>
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">
-                {(totalWords / 1000).toFixed(0)}k
-              </strong>
-              단어
-            </span>
-            {myCount > 0 && (
-              <>
-                <span aria-hidden>·</span>
-                <span
-                  className="rounded-[var(--r-full)] bg-[var(--success-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--success)]"
-                  title={`학습 중 ${inProgressCount}권 · 전체 ${myCount}권`}
-                >
-                  내 학습 {myCount}권{inProgressCount > 0 && ` · 진행 ${inProgressCount}`}
-                </span>
-              </>
-            )}
+            <h1 className="font-display text-[28px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[32px]">
+              라이브러리
+            </h1>
           </div>
-        )}
-      </header>
+          <p className="font-body text-[14px] text-[var(--t2)]">
+            큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요.
+          </p>
+          {totalBooks > 0 && (
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              <Capsule label="도서" value={`${totalBooks}권`} />
+              <Capsule label="챕터" value={`${totalChapters}`} />
+              <Capsule label="단어" value={`${(totalWords / 1000).toFixed(0)}k`} />
+              {myCount > 0 && (
+                <Capsule
+                  tone="green"
+                  label="내 학습"
+                  value={inProgressCount > 0 ? `${myCount}권 · 진행 ${inProgressCount}` : `${myCount}권`}
+                />
+              )}
+            </div>
+          )}
+        </header>
 
-      {/* 추천 스포트라이트 + 셸프 레일 + 필터 그리드 */}
-      <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} />
-    </div>
+        <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} />
+      </div>
+    </Screen>
   );
 }

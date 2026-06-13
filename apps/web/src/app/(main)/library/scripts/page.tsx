@@ -6,6 +6,7 @@
 import { FileText } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { Capsule, Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
 import { ArticlesExplorer } from '@/components/library/browse/ArticlesExplorer'
 import type { PublishedArticle } from '@/lib/articles/types'
@@ -34,35 +35,35 @@ export default async function LibraryScriptsPage() {
   const totalWords = articles.reduce((s, a) => s + (a.word_count ?? 0), 0)
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Slim header */}
-      <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-[var(--bd)] pb-3">
-        <div className="flex items-baseline gap-2.5">
-          <FileText size={16} className="self-center text-[#8B5CF6]" aria-hidden />
-          <h1 className="font-display text-[18px] font-[700] text-[var(--t1)]">스크립트</h1>
-          <span className="font-body text-[12px] text-[var(--t3)]">큐레이션된 짧은 영어 글</span>
-        </div>
-        {articles.length > 0 && (
-          <div className="flex items-center gap-3 font-mono text-[11px] text-[var(--t3)]">
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">{articles.length}</strong>편
+    <Screen width="wide" background="bg2" padX="md">
+      <div className="flex flex-col gap-5 py-6 md:py-8">
+        <header className="flex flex-col gap-3 px-1">
+          <div className="flex items-center gap-2.5">
+            <span
+              aria-hidden
+              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-[var(--p)] text-white"
+            >
+              <FileText size={16} />
             </span>
-            {totalWords > 0 && (
-              <>
-                <span aria-hidden>·</span>
-                <span>
-                  <strong className="font-display font-[700] text-[var(--t1)]">
-                    {(totalWords / 1000).toFixed(1)}k
-                  </strong>
-                  단어
-                </span>
-              </>
-            )}
+            <h1 className="font-display text-[28px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[32px]">
+              스크립트
+            </h1>
           </div>
-        )}
-      </header>
+          <p className="font-body text-[14px] text-[var(--t2)]">
+            큐레이션된 짧은 영어 글 — arXiv · NASA · NIH · VOA 출처.
+          </p>
+          {articles.length > 0 && (
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              <Capsule label="아티클" value={`${articles.length}편`} />
+              {totalWords > 0 && (
+                <Capsule label="단어" value={`${(totalWords / 1000).toFixed(1)}k`} />
+              )}
+            </div>
+          )}
+        </header>
 
-      <ArticlesExplorer articles={articles} />
-    </div>
+        <ArticlesExplorer articles={articles} />
+      </div>
+    </Screen>
   )
 }

@@ -11,6 +11,7 @@
 //       (모듈별 정확도·점수추이는 일상 학습에 불필요한 과분석 — Calm UI 정합).
 // metadata 는 dashboard/layout.tsx 에 분리.
 
+import { Screen } from '@/components/ui/ios'
 import { MemoryStatus } from '@/components/dashboard/MemoryStatus'
 import { RecentActivity } from '@/components/dashboard/RecentActivity'
 import { TodayHero } from '@/components/dashboard/TodayHero'
@@ -18,24 +19,26 @@ import { WeeklyHeatmap } from '@/components/dashboard/WeeklyHeatmap'
 
 export default function DashboardPage() {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8 md:px-6 md:py-10">
-      <TodayHero userName="학습자" todayWords={23} goal={30} />
+    <Screen width="content" background="bg2" padX="md">
+      <div className="flex flex-col gap-4 py-6 md:py-8">
+        <TodayHero userName="학습자" todayWords={23} goal={30} />
 
-      <WeeklyHeatmap />
+        <WeeklyHeatmap />
 
-      <MemoryStatus />
+        <MemoryStatus />
 
-      <RecentActivity />
+        <RecentActivity />
 
-      {/* Calm closing — 정서적 부호화 */}
-      <footer className="mt-6 text-center">
-        <p className="font-english text-[14px] italic leading-relaxed text-[var(--t3)]">
-          “Slow is smooth, smooth is fast.”
-        </p>
-        <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
-          오늘도 차분한 페이스로 잘 해내고 있어요.
-        </p>
-      </footer>
-    </div>
+        {/* Calm closing — 정서적 부호화 */}
+        <footer className="mt-6 text-center">
+          <p className="font-english text-[14px] italic leading-relaxed text-[var(--t3)]">
+            “Slow is smooth, smooth is fast.”
+          </p>
+          <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+            오늘도 차분한 페이스로 잘 해내고 있어요.
+          </p>
+        </footer>
+      </div>
+    </Screen>
   )
 }

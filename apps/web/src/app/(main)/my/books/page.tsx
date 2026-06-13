@@ -16,7 +16,7 @@ export const revalidate = 60;
 
 export default function MyBooksPage() {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 p-6 md:p-8">
+    <main className="mx-auto flex w-full max-w-[var(--ios-content-wide-max)] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
       <Suspense fallback={<Loading />}>
         <BookList />
       </Suspense>

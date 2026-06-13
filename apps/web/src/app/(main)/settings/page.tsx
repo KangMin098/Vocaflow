@@ -82,6 +82,7 @@ function SaveIndicator() {
   )
 }
 
+import { Screen } from '@/components/ui/ios'
 import { Toggle } from '@/components/ui/Toggle'
 
 // ══════════════════════════════════════════════════════════════
@@ -101,11 +102,11 @@ function Section({ id, icon: Icon, title, description, accent, children }: Secti
     <section
       id={id}
       aria-label={title}
-      className="scroll-mt-20 rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] md:p-8"
+      className="scroll-mt-20 rounded-ios-2xl bg-[var(--bg)] p-6 shadow-ios-2 md:p-8"
     >
       <header className="mb-6 flex items-start gap-4">
         <span
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--r-md)]"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-ios-md"
           style={{ backgroundColor: `${accent}15`, color: accent }}
           aria-hidden
         >
@@ -211,39 +212,37 @@ export default function SettingsPage() {
   const [notifyEmail, setNotifyEmail] = useStateWithSave(true)
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-10">
-      <SaveIndicator />
-      {/* ── Header ── */}
-      <header className="mb-8">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
-          Settings
-        </p>
-        <h1 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[32px]">
-          설정
-        </h1>
-        <p className="mt-2 font-body text-[14px] leading-relaxed text-[var(--t2)]">
-          학습 흐름은 당신의 것이에요. 무엇이든 자유롭게 바꿔보세요.
-        </p>
-      </header>
+    <Screen width="content" background="bg2" padX="md">
+      <div className="py-6 md:py-8">
+        <SaveIndicator />
+        {/* ── Header ── */}
+        <header className="mb-6 px-1">
+          <h1 className="font-display text-[32px] font-[800] tracking-[-0.025em] text-[var(--t1)] md:text-[34px]">
+            설정
+          </h1>
+          <p className="mt-2 font-body text-[14px] leading-relaxed text-[var(--t2)]">
+            학습 흐름은 당신의 것이에요. 무엇이든 자유롭게 바꿔보세요.
+          </p>
+        </header>
 
-      {/* ── Quick TOC ── */}
-      <nav aria-label="섹션 바로가기" className="mb-8 flex flex-wrap gap-2">
-        {[
-          { href: '#learning', label: '학습 흐름' },
-          { href: '#appearance', label: '외형' },
-          { href: '#audio', label: '음성' },
-          { href: '#notifications', label: '알림' },
-          { href: '#account', label: '계정·데이터' },
-        ].map((c) => (
-          <a
-            key={c.href}
-            href={c.href}
-            className="rounded-full border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)]/40 hover:bg-[var(--p-light)] hover:text-[var(--p)]"
-          >
-            {c.label}
-          </a>
-        ))}
-      </nav>
+        {/* ── Quick TOC — iOS 캡슐 ── */}
+        <nav aria-label="섹션 바로가기" className="mb-6 flex flex-wrap gap-2 px-1">
+          {[
+            { href: '#learning', label: '학습 흐름' },
+            { href: '#appearance', label: '외형' },
+            { href: '#audio', label: '음성' },
+            { href: '#notifications', label: '알림' },
+            { href: '#account', label: '계정·데이터' },
+          ].map((c) => (
+            <a
+              key={c.href}
+              href={c.href}
+              className="rounded-ios-pill bg-[var(--bg)] px-3 py-1.5 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--p)] active:scale-[0.97]"
+            >
+              {c.label}
+            </a>
+          ))}
+        </nav>
 
       <div className="space-y-5">
         {/* ── 학습 흐름 ── */}
@@ -532,11 +531,12 @@ export default function SettingsPage() {
         </Section>
       </div>
 
-      <footer className="mt-10 text-center">
-        <p className="font-body text-[12px] italic text-[var(--t3)]">
-          변경 사항은 자동으로 저장됩니다.
-        </p>
-      </footer>
-    </div>
+        <footer className="mt-10 text-center">
+          <p className="font-body text-[12px] italic text-[var(--t3)]">
+            변경 사항은 자동으로 저장됩니다.
+          </p>
+        </footer>
+      </div>
+    </Screen>
   )
 }

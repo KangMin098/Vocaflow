@@ -1,6 +1,7 @@
 // apps/web/src/app/(main)/pairflip/page.tsx
 // PairFlip Hub — Stats + StartScreen 통합 (Flashcard Hub 패턴 정합)
 
+import { Screen } from '@/components/ui/ios'
 import { PairFlipHub } from '@/components/pairflip/PairFlipHub'
 
 export const metadata = {
@@ -9,5 +10,9 @@ export const metadata = {
 }
 
 export default function PairFlipHubPage() {
-  return <PairFlipHub />
+  return (
+    <Screen width="content" background="bg2" padX="md">
+      <PairFlipHub />
+    </Screen>
+  )
 }
