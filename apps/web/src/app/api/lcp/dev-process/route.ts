@@ -18,6 +18,7 @@ import {
   ingestFromLibriVox,
   ingestFromOpenStax,
   ingestFromSimpleWikipedia,
+  ingestFromLit2Go,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -110,6 +111,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromOpenStax(book.source_id as string)
     } else if (book.source === 'simple_wikipedia') {
       raw = await ingestFromSimpleWikipedia(book.source_id as string)
+    } else if (book.source === 'lit2go') {
+      raw = await ingestFromLit2Go(book.source_id as string)
     } else {
       throw new Error(`Source not implemented in dev-process: ${book.source}`)
     }

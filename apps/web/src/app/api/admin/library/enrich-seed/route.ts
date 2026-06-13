@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { fetchGutenbergDetail, fetchStandardEbooksDetail, type DetailFields } from '@/lib/library/seed-fetchers/detail-fetchers'
+import { fetchGutenbergDetail, fetchStandardEbooksDetail, fetchLit2GoDetail, type DetailFields } from '@/lib/library/seed-fetchers/detail-fetchers'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -54,6 +54,11 @@ export async function POST(request: Request): Promise<NextResponse> {
     } else if (r.source === 'standard_ebooks') {
       detail = await Promise.race([
         fetchStandardEbooksDetail(r.source_id),
+        new Promise<never>((_, rej) => setTimeout(() => rej(new Error('timeout 20s')), 20_000)),
+      ])
+    } else if (r.source === 'lit2go') {
+      detail = await Promise.race([
+        fetchLit2GoDetail(r.source_id),
         new Promise<never>((_, rej) => setTimeout(() => rej(new Error('timeout 20s')), 20_000)),
       ])
     } else {

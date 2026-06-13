@@ -60,6 +60,8 @@ const IN_PROGRESS_STATUSES: BookStatus[] = [
 const SOURCE_TIER: Record<string, 'S' | 'A' | 'B' | 'C' | 'M'> = {
   standard_ebooks: 'S', openstax: 'S', voa_learning: 'S',
   wikibooks: 'A', wikisource: 'A',
+  // v06.43 — Lit2Go (USF) = K-12 큐레이션 + USF 메타 (US grade · audio · collection) 풍부 → A tier
+  lit2go: 'A',
   gutenberg: 'B', librivox: 'B',
   open_library: 'C', hathitrust: 'C',
   manual: 'M',
@@ -1240,6 +1242,8 @@ const SOURCE_BADGE: Record<string, { label: string; color: string }> = {
   wikisource: { label: 'Wikisource', color: 'var(--info)' },
   librivox: { label: 'LibriVox', color: 'var(--active)' },
   openstax: { label: 'OpenStax', color: 'var(--learn-review)' },
+  // v06.43 — Lit2Go (USF) K-12 학습 큐레이션
+  lit2go: { label: 'Lit2Go', color: 'var(--memory-shaky)' },
 };
 
 function SourceBadge({
