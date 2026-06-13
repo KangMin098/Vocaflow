@@ -5,6 +5,7 @@
 // 보유한 원문(text)에서 단어 출현 문장을 직접 뽑아 example_sentence 로 저장한다.
 
 import { splitIntoSentences } from '@/lib/echo/sentence-splitter'
+import { matchSurface } from '@/lib/text/surface-match'
 
 const MAX_LEN = 300
 
@@ -33,19 +34,17 @@ export function firstSentenceContaining(
   surface: string | null | undefined,
   word: string,
 ): string | null {
-  const targets = [surface, word].filter(
-    (t): t is string => typeof t === 'string' && t.length >= 2,
-  )
-  for (const t of targets) {
-    const whole = new RegExp(`\\b${escapeRegExp(t)}\\b`, 'i')
+  // 1) surface(추출이 실제 매칭한 표면형) 우선 — 정확한 whole-word
+  if (surface && surface.length >= 2) {
+    const whole = new RegExp(`\\b${escapeRegExp(surface)}\\b`, 'i')
     for (const s of sentences) {
       if (whole.test(s)) return cap(s)
     }
   }
-  if (word.length >= 4) {
-    const stem = new RegExp(`\\b${escapeRegExp(word)}[a-z]*\\b`, 'i')
+  // 2) lemma 기준 표면형(굴절 포함) — surface-match 재사용 (act→action 같은 greedy 오매칭 차단)
+  if (word.length >= 2) {
     for (const s of sentences) {
-      if (stem.test(s)) return cap(s)
+      if (matchSurface(s, word)) return cap(s)
     }
   }
   return null

@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createNewCard } from '@/lib/srs'
 import { createInitialSRS } from '@/lib/srs/sm2'
 import { fetchScopedWords } from '@/lib/workspace/scoped-words'
+import { blankSurface } from '@/lib/text/surface-match'
 import type { FlashcardWord } from '@/types/flashcard'
 
 export interface ScopedFlashcardResult {
@@ -17,11 +18,11 @@ export interface ScopedFlashcardResult {
   subtitle: string
 }
 
-/** 예문에서 학습 단어를 ___ 로 치환 (대소문자 무시, 첫 1회). */
+/** 예문에서 학습 단어를 ___ 로 치환 (굴절형 인식 · 첫 1회). */
 function withBlank(example: string, word: string): string {
   if (!example || !word) return example
-  const esc = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  return example.replace(new RegExp(`\\b${esc}\\b`, 'i'), '___')
+  // 예문이 원문 문장이라 굴절형(running 등)이 올 수 있어 inflection-aware 치환.
+  return blankSurface(example, word)
 }
 
 export async function fetchScopedFlashcardWords(

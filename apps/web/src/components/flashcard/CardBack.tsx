@@ -4,6 +4,7 @@
 
 import type { FlashcardWord } from '@/types/flashcard'
 import { Volume2 } from 'lucide-react'
+import { matchSurface } from '@/lib/text/surface-match'
 
 interface CardBackProps {
   word: FlashcardWord
@@ -63,26 +64,33 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
   )
 }
 
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 function ExampleWithMark({ text, target }: { text: string; target: string }) {
-  const regex = new RegExp(`(${target})`, 'gi')
+  if (!text || !target) return <>{text}</>
+  // 예문이 원문 문장(굴절형 포함)이므로 lemma 가 아니라 실제 표면형(running 등)을 찾아 하이라이트.
+  // 못 찾으면 lemma whole-word 로 폴백 (둘 다 word-boundary — substring 오매칭 차단).
+  const surface = matchSurface(text, target)?.surface ?? target
+  const regex = new RegExp(`\\b(${escapeRegExp(surface)})\\b`, 'gi')
   const parts = text.split(regex)
+  const surfaceLc = surface.toLowerCase()
 
   return (
     <>
-      {parts.map((part, i) => {
-        const isTarget = part.toLowerCase() === target.toLowerCase()
-        if (isTarget) {
-          return (
-            <mark
-              key={i}
-              className="rounded-[2px] bg-[rgba(59,130,246,0.18)] px-0.5 font-[600] italic text-[var(--p)]"
-            >
-              {part}
-            </mark>
-          )
-        }
-        return <span key={i}>{part}</span>
-      })}
+      {parts.map((part, i) =>
+        part.toLowerCase() === surfaceLc ? (
+          <mark
+            key={i}
+            className="rounded-[3px] bg-[var(--active-light)] px-1 font-[700] not-italic text-[var(--t1)]"
+          >
+            {part}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        ),
+      )}
     </>
   )
 }
