@@ -1,76 +1,82 @@
 // packages/design-tokens/src/colors.ts
 // SSoT (CLAUDE.md §Colors). Web 은 tokens.css 의 CSS 변수, RN 은 아래 객체를 사용.
 //
-// v06.37 — iOS HIG 색상 풀 정렬:
-//  · 브랜드 = iOS systemBlue (#007AFF)
-//  · semantic = iOS systemGreen/Red/Orange/Cyan
-//  · 캔버스 = iOS systemGroupedBackground (#F2F2F7)
-//  · 텍스트 = iOS label (warm-neutral alpha, NOT cool slate)
-//  · 다크 = iOS 순흑 캔버스 + #1C1C1E 카드
+// v06.39 — Reading Room Art Direction:
+//  · 브랜드 = ink navy (#1E3A5F) — 차분한 권위 (제네릭 blue 탈출)
+//  · 액센트 = muted gold (#B8893B) — 금고/금박 보상색
+//  · semantic = paper-tone (채도 1-2단 하향)
+//  · canvas = warm paper #F2EEE6, card = #FAF8F3, 텍스트 = ink #1C1815
+//  · 다크 = warm ink dark (#16130E), 순흑 X
+//  · iOS HIG 골격 (Card/Frame/Screen/SegmentControl/etc.) 그대로 유지
 
 export const colorsLight = {
-  // 브랜드 = iOS systemIndigo (학습 플랫폼 정합 — systemBlue 가 아닌 이유 § DESIGN_SYSTEM.md)
-  p: '#5856D6',          // iOS systemIndigo
-  pHover: '#4946C2',
-  pLight: '#EBEAFB',
-  pDark: '#3C3AAB',
+  // 브랜드 = Ink Navy (제네릭 system blue 탈출 · 차분한 권위)
+  p: '#1E3A5F',          // ink navy
+  pHover: '#152A45',
+  pLight: '#E5EAF1',     // pale navy tint
+  pDark: '#0F1E33',
 
-  active: '#FF9500',     // iOS systemOrange (active)
-  activeLight: '#FFF1E5',
+  active: '#B8893B',     // muted gold (금고/금박 — 보상색)
+  activeLight: '#F5EBD4',
 
-  success: '#34C759',    // iOS systemGreen
-  successLight: '#E5F8EC',
-  error: '#FF3B30',      // iOS systemRed
-  errorLight: '#FFE5E5',
-  warning: '#FF9500',    // iOS systemOrange
-  warningLight: '#FFF1E5',
-  info: '#32ADE6',       // iOS systemCyan
-  infoLight: '#E5F4FB',
+  // semantic — paper-tone 채도 하향
+  success: '#2E7D5A',    // muted forest green
+  successLight: '#E1EFE6',
+  error: '#A03A2E',      // warm red
+  errorLight: '#F5E1DD',
+  warning: '#C68A2C',    // warm amber (gold 계열)
+  warningLight: '#F5EBD4',
+  info: '#5B7A98',       // dusty blue-gray
+  infoLight: '#E1E8EF',
 
-  bg: '#FFFFFF',         // secondarySystemGroupedBackground (card)
-  bg2: '#F2F2F7',        // systemGroupedBackground (canvas) — ★ iOS 시그니처 톤
-  bg3: '#E5E5EA',        // systemGray5 (fill)
+  // surface — paper
+  bg: '#FAF8F3',         // warm paper card
+  bg2: '#F2EEE6',        // page canvas
+  bg3: '#EAE4D8',        // page edge fill
 
-  t1: '#000000',                          // label
-  t2: 'rgba(60, 60, 67, 0.60)',            // secondaryLabel
-  t3: 'rgba(60, 60, 67, 0.30)',            // tertiaryLabel
-  t4: 'rgba(60, 60, 67, 0.18)',            // quaternaryLabel
-  ti: '#FFFFFF',
+  // text — ink (warm, NOT pure black)
+  t1: '#1C1815',                          // ink primary
+  t2: 'rgba(28, 24, 21, 0.62)',            // secondary ink
+  t3: 'rgba(28, 24, 21, 0.38)',            // tertiary ink
+  t4: 'rgba(28, 24, 21, 0.20)',            // quaternary ink
+  ti: '#FAF8F3',                          // on-tint = paper
 
-  bd: '#C6C6C8',         // iOS separator (opaque)
-  bdf: '#007AFF',
-  bde: '#FF3B30',
+  bd: '#D8D2C2',         // paper hairline
+  bdf: '#1E3A5F',        // focused = ink navy
+  bde: '#A03A2E',        // error = warm red
 } as const;
 
+// Dark — warm ink dark (서재 야간), 순흑 X
 export const colorsDark = {
   ...colorsLight,
-  p: '#5E5CE6',                              // iOS systemIndigo dark vivid
-  pHover: '#7270E8',
-  pLight: 'rgba(94, 92, 230, 0.18)',
-  pDark: '#4F4DD0',
+  p: '#5F8FC0',                              // lighter ink navy (다크 대비)
+  pHover: '#7BA3CE',
+  pLight: 'rgba(95, 143, 192, 0.18)',
+  pDark: '#4A7AAA',
 
-  active: '#FF9F0A',
-  activeLight: 'rgba(255, 159, 10, 0.18)',
-  success: '#30D158',
-  successLight: 'rgba(48, 209, 88, 0.18)',
-  error: '#FF453A',
-  errorLight: 'rgba(255, 69, 58, 0.18)',
-  warning: '#FF9F0A',
-  warningLight: 'rgba(255, 159, 10, 0.18)',
-  info: '#64D2FF',
-  infoLight: 'rgba(100, 210, 255, 0.18)',
+  active: '#D4A856',                         // lighter muted gold
+  activeLight: 'rgba(212, 168, 86, 0.18)',
+  success: '#5BA47D',
+  successLight: 'rgba(91, 164, 125, 0.18)',
+  error: '#C8645A',
+  errorLight: 'rgba(200, 100, 90, 0.18)',
+  warning: '#D4A856',
+  warningLight: 'rgba(212, 168, 86, 0.18)',
+  info: '#8AA8C0',
+  infoLight: 'rgba(138, 168, 192, 0.18)',
 
-  bg: '#1C1C1E',         // secondarySystemGroupedBackground dark (card)
-  bg2: '#000000',        // systemGroupedBackground dark (canvas) — 순흑
-  bg3: '#2C2C2E',        // tertiarySystemFill dark
+  bg: '#1F1A14',         // 카드 (warm dark paper)
+  bg2: '#16130E',        // canvas (warm dark, 순흑 X)
+  bg3: '#2A241E',        // fill
 
-  t1: '#FFFFFF',
-  t2: 'rgba(235, 235, 245, 0.60)',
-  t3: 'rgba(235, 235, 245, 0.30)',
-  t4: 'rgba(235, 235, 245, 0.16)',
+  t1: '#F0EAE0',
+  t2: 'rgba(240, 234, 224, 0.62)',
+  t3: 'rgba(240, 234, 224, 0.38)',
+  t4: 'rgba(240, 234, 224, 0.20)',
+  ti: '#F0EAE0',
 
-  bd: '#38383A',         // iOS separator dark
-  bdf: '#0A84FF',
+  bd: '#3A332B',         // warm hairline dark
+  bdf: '#5F8FC0',
 } as const;
 
 // iOS 시스템 컬러 (HIG light) — 의미별 액센트. 브랜드 --p 와 별도로 사용.

@@ -73,21 +73,23 @@ export function HubHero() {
 
   return (
     <header
-      className="relative overflow-hidden rounded-ios-2xl px-6 py-5 text-[var(--ti)] shadow-ios-3 md:px-7 md:py-6"
+      className="relative overflow-hidden rounded-ios-2xl px-6 py-7 text-[var(--ti)] shadow-ios-3 md:px-8 md:py-9"
       style={{
-        // iOS Indigo (#5856D6) 3단 그라데이션 — Vocaflow 학습 브랜드 톤.
-        // 깊은 인디고 → 시그니처 인디고 → 보라빛 라이트 = "사색하는 깊이감"
+        // Reading Room — 잉크 네이비 그라데이션 + 우측 상단 금빛 light leak
+        // "촛불 켜진 서재" 분위기: 깊은 잉크 → 살짝 따뜻한 잉크 → 금빛 가장자리
         backgroundImage:
-          'linear-gradient(135deg, #3C3AAB 0%, #5856D6 55%, #7B79E0 100%)',
+          'linear-gradient(135deg, #0F1E33 0%, #1E3A5F 55%, #2D5380 100%), radial-gradient(circle at 100% 0%, rgba(184,137,59,0.20), transparent 50%)',
+        backgroundBlendMode: 'normal, soft-light',
       }}
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         {/* 인사 + Streak + V-Level — 좌측 column */}
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           {isLoading ? (
-            <span aria-hidden className="h-[22px] w-[220px] animate-pulse rounded bg-white/20" />
+            <span aria-hidden className="h-[28px] w-[260px] animate-pulse rounded bg-white/20" />
           ) : (
-            <h1 className="truncate font-display text-[20px] font-[700] leading-tight tracking-[-0.018em] md:text-[22px]">
+            // Reading Room — Lora editorial 승격: 인사가 hero 의 hero
+            <h1 className="truncate font-editorial text-[26px] font-[500] leading-[1.05] tracking-[-0.012em] md:text-[30px]">
               {greeting}
             </h1>
           )}
@@ -132,18 +134,19 @@ export function HubHero() {
           )}
         </div>
 
-        {/* 우측: Today CTA — iOS Primary 캡슐 (글라스) */}
+        {/* 우측 CTA — Reading Room 시그니처 골드 (금고에서 꺼낸 보상) */}
         <Link
           href={cta.href}
           aria-label={cta.ariaLabel}
-          className="motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-standard motion-safe:active:scale-[0.97] focus-visible:ring-white/60 inline-flex shrink-0 items-center gap-2 rounded-ios-pill bg-white px-4 py-2.5 font-display text-[13px] font-[700] text-[var(--p)] shadow-[0_4px_16px_rgba(0,0,0,0.18)] focus-visible:outline-none focus-visible:ring-2"
+          className="motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-standard motion-safe:active:scale-[0.97] motion-safe:hover:brightness-110 focus-visible:ring-[var(--active)]/60 inline-flex shrink-0 items-center gap-2 rounded-ios-pill px-4 py-2.5 font-display text-[13px] font-[600] shadow-[0_4px_16px_rgba(184,137,59,0.30)] focus-visible:outline-none focus-visible:ring-2"
+          style={{ background: '#D4A856', color: '#0F1E33' }}
         >
           <Sparkles size={13} aria-hidden />
           <span>{cta.label}</span>
           {cta.badge !== null && (
             <span
               className="inline-flex min-w-[20px] items-center justify-center rounded-ios-pill px-1.5 py-0.5 font-mono text-[10.5px] font-[700] tabular-nums"
-              style={{ background: 'var(--ios-orange-tint)', color: 'var(--ios-orange)' }}
+              style={{ background: 'rgba(15, 30, 51, 0.18)', color: '#0F1E33' }}
             >
               {cta.badge}
             </span>
@@ -180,7 +183,7 @@ function BigStat({
         {label}
       </span>
       <div className="flex items-baseline gap-0.5">
-        <span className="font-display text-[24px] font-[700] leading-none tracking-[-0.025em] tabular-nums">
+        <span className="font-editorial text-[30px] font-[500] leading-none tracking-[-0.015em] tabular-nums">
           {value}
         </span>
         {unit && (

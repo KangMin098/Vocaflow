@@ -84,10 +84,10 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 | 상태 | 색 | 조건 |
 |---|---|---|
-| stable | `#34C759` (iOS green) | R ≥ 0.95 |
-| shaky | `#FF9500` (iOS orange) | 0.70 ≤ R < 0.95 |
-| risk | `#FF3B30` (iOS red) | R < 0.70 |
-| new | `#8E8E93` (iOS gray) | 신규 등록 (D/S 미부여) |
+| stable | `#2E7D5A` (muted forest) | R ≥ 0.95 |
+| shaky | `#C68A2C` (warm amber) | 0.70 ≤ R < 0.95 |
+| risk | `#A03A2E` (warm red) | R < 0.70 |
+| new | `#7A726A` (warm gray) | 신규 등록 (D/S 미부여) |
 
 ---
 

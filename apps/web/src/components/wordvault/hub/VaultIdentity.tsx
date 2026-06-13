@@ -105,7 +105,7 @@ export function VaultIdentity({
 
         <div className="flex flex-col gap-3">
           <div className="flex items-end gap-2.5">
-            <span className="font-display text-[64px] font-[800] leading-[0.85] tracking-[-0.045em] tabular-nums text-[var(--t1)] md:text-[88px]">
+            <span className="font-editorial text-[72px] font-[500] leading-[0.95] tracking-[-0.022em] tabular-nums text-[var(--t1)] md:text-[96px]">
               {NF.format(total)}
             </span>
             <span className="mb-2 font-body text-[14px] font-[500] text-[var(--t3)]">

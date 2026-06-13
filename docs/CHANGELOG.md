@@ -10,6 +10,92 @@
 
 ## Unreleased (v06.34 → next)
 
+### 큐레이션 파이프라인 점검 — 오류 6 + dead code 정리 (v06.35)
+
+소스 GET(대량) → Curated Books 전 과정 2-에이전트 리뷰 + RPC 실측 후 일괄 수정:
+
+**🔴 버그 픽스**
+- [dev-process/route.ts](../apps/web/src/app/api/lcp/dev-process/route.ts) `collect_archaic_candidates` **try/catch 누락** → throw 시 이미 `ready` 인 책이 `failed` 로 뒤집히던 것 가드 (주석은 best-effort 인데 실제 미가드였음).
+- [admin-queries.ts](../apps/web/src/lib/library/admin-queries.ts) `CATALOG_SOURCES` 가 기본 소스 `simple_wikipedia` 누락 + 미사용 `openstax` 포함 → 실제 fetcher 5종으로 교정 (BulkFetch 통계 0 표시 해결).
+- `enqueueSeedRow` 의 `imported_to_books` UPDATE 에러 미확인 → throw 추가 (중복 enqueue 차단).
+- dev-process 자동매핑 성공/녹음없음 시 `book_curation_jobs` 무조건 DELETE → `status IN ('pending','failed')` 가드 (진행 중 수동 매핑 잡 보존).
+- dev-process 자동 enqueue `mode` 하드코딩 `dev_reprocess` → 원본 status 로 판정 (`dev_process`/`dev_reprocess`).
+- [MyLibraryTab.tsx](../apps/web/src/components/admin/curation/MyLibraryTab.tsx) 워크플로 스텝퍼 **queued vs in_progress 불일치** → `'queued'` StatusFilter 신설 (필터/카운트/스텝 정합, `대기 중` 칩).
+
+**🟡 dead code**
+- `enqueueCurationJobsAction` + `enqueueCurationJobs` wrapper + `EnqueueCurationJobsResult` 제거 (이번 세션 "매핑 큐 등록" 버튼 삭제로 호출부 소멸 — dev-process 자동 등록이 대체).
+
+남은 dead code(enrich-seed 라우트·languages 고급필터·requeueBook·book_curation_jobs 이중 fetch)는 영향 작아 후속 정리 대상.
+
+### 🎨 Reading Room Art Direction v06.39 ★★★ (iOS 골격 + 잉크/페이퍼/금)
+
+외부 디자인 비평 검토 → 사용자 명시 (a) Reading Room 풀 피벗. iOS 정합은 **"안 깨져 보이는" floor 였고 ceiling 이 아니었음** 진단 + 아트 디렉션 단일 컨셉 커밋.
+
+**진단 (외부 비평 검증)**
+- 팔레트가 프레임워크 기본값 (Tailwind blue → iOS Indigo — 둘 다 system default, 브랜드 관점 0)
+- 가장 강한 자산 Lora 가 본문 20px 유틸에만 갇힘. Hero/Display 는 평범한 Plus Jakarta
+- 모듈마다 다른 "세계" (정글 / 하늘 / 네이비-골드 / 하늘) → "한 사람이 설계한 제품"이 아님
+- iOS HIG = 안 깨져 보이는 floor. 그 위에 관점 없으면 모든 iOS 앱과 똑같이 보임
+
+**Reading Room 컨셉 — "조용한 서재 / 문학적 도구"**
+금고에서 꺼낸 종이와 잉크, 절제된 한 줄기 금빛. WordVault(금고/서재) + Calm UI + Memory Decay + PairFlip 검증된 네이비/골드 + Lora 시그니처 — 프로젝트가 이미 내포한 정체성 표면화.
+
+**토큰 풀 재정렬** ([tokens.css](../packages/design-tokens/src/tokens.css) + [colors.ts](../packages/design-tokens/src/colors.ts))
+
+| 토큰 | iOS Indigo (v06.38) | Reading Room (v06.39) |
+|---|---|---|
+| `--p` | `#5856D6` iOS Indigo | **`#1E3A5F`** ink navy |
+| `--active` | `#FF9500` iOS Orange | **`#B8893B`** muted gold (시그니처) |
+| `--bg` | `#FFFFFF` 순백 | **`#FAF8F3`** warm paper |
+| `--bg2` | `#F2F2F7` | **`#F2EEE6`** page canvas |
+| `--t1` | `#000000` 순흑 | **`#1C1815`** ink (warm) |
+| `--t2~t4` | cool 알파 (60,60,67) | **warm 알파 (28,24,21)** |
+| `--bd` | `#C6C6C8` | **`#D8D2C2`** paper hairline |
+| `--success` | `#34C759` | **`#2E7D5A`** muted forest |
+| `--error` | `#FF3B30` | **`#A03A2E`** warm red |
+| `--warning` | `#FF9500` | **`#C68A2C`** warm amber (gold) |
+| 다크 `--bg` | `#1C1C1E` | **`#1F1A14`** warm dark paper |
+| 다크 `--bg2` | `#000000` 순흑 | **`#16130E`** warm dark (순흑 X) |
+| 다크 `--t1` | `#FFFFFF` 순백 | **`#F0EAE0`** warm paper |
+| Material 글라스 | white translucent | **paper translucent** |
+
+**Memory Decay paper 톤 정합** — 채도 1-2단 하향, 의미 1:1 유지
+- stable `#34C759` → `#2E7D5A` muted forest
+- shaky `#FF9500` → `#C68A2C` warm amber (gold 계열, 시그니처 정합)
+- risk `#FF3B30` → `#A03A2E` warm red
+- new `#8E8E93` → `#7A726A` warm gray
+
+**Lora editorial 승격** — Plus Jakarta 가 차지하던 모든 hero 자리 → Lora
+- [tailwind.config.ts](../apps/web/tailwind.config.ts) — `font-editorial` (Lora) 유틸리티 신규
+- 5 페이지 hero — `font-display 32-34px` → **`font-editorial 42-52px font-[600]`**
+- HubHero greeting — Plus Jakarta 20px → **Lora editorial 26-30px**
+- HubHero BigStat — Plus Jakarta 24px → **Lora editorial 30px**
+- TodayHero h1 — Plus Jakarta 22-26px → **Lora editorial 28-34px**
+- VaultIdentity hero 숫자 — Plus Jakarta 64-88px → **Lora editorial 72-96px**
+
+**HubHero 풀 재설계** ([HubHero.tsx](../apps/web/src/components/home/HubHero.tsx))
+- 그라데이션 iOS Indigo 3단 → **ink navy 3단 + 우측 상단 금빛 light leak** (`#0F1E33 → #1E3A5F → #2D5380` + `radial(#B8893B 20%) soft-light`) = "촛불 켜진 서재"
+- CTA 흰 캡슐 → **금빛 캡슐** (`#D4A856` bg, `#0F1E33` text, gold glow) — 금고에서 꺼낸 보상
+
+**glow tokens 정렬** — 모든 saturated glow → muted 톤 (paper 정합)
+
+**SSoT 문서** ([DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §Reading Room Art Direction)
+- 컨셉 정의 ("조용한 서재 / 문학적 도구")
+- 시그니처 3축 (paper bg / ink text / navy + gold brand) iOS Indigo 비교표
+- 색상 토큰 카탈로그 (light + dark)
+- Lora editorial 승격 hierarchy 표
+- 5조 디자인 철학 (순백 X 순흑 X / Lora hero / 금빛 시그니처 모먼트 / 헤어라인 + 여백 / 동시 노출 색 3개 이하)
+
+**파급 효과 — 토큰 1곳 변경 = 화면 전체 톤 교체**
+- 모든 `bg-[var(--bg)]` 카드 = warm paper
+- 모든 `text-[var(--t1)]` = warm ink
+- 모든 `bg-[var(--p)]` 버튼 = ink navy
+- 모든 `--memory-*` = paper 톤
+- 다크 모드 = 진짜 "서재 야간" (warm dark + warm paper)
+- **컴포넌트 코드 0줄 수정** — CSS 변수 단일 체계의 이점
+
+**기존 iOS 골격 유지** — 12+ 프리미티브 (Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar · SheetContainer · Screen), 모션 토큰, 접근성 훅 모두 그대로. iOS 작업은 골격, Reading Room 은 표현.
+
 ### iOS 디자인 일관성 감사 v06.38.2 ★ (6 미정합 일괄 정리)
 
 사용자 — "전체 화면의 디자인 컨셉의 일괄성을 점검해줘". 광범위 grep 으로 6 미정합 발견 + 일괄 정리.

@@ -19,54 +19,59 @@
      모든 클릭/액센트 토큰 = iOS System Blue. 캔버스 = systemGroupedBackground.
      ═══════════════════════════════════════════════════════════ */
 
-  /* ─────── Brand = iOS systemIndigo (학습 플랫폼 의도적 선택) ─────── */
-  /*  결정 — 일반 iOS Blue 가 아닌 iOS Indigo (#5856D6) 선택 이유:
-      · Vocaflow 는 system 앱이 아닌 학습 플랫폼 → systemBlue 사용 시
-        "Apple Settings" 톤으로 읽힘
-      · iOS Indigo = 시스템 컬러 12종 중 하나 → HIG 정합 100%
-      · 보라빛 = 학구열·집중·사색 (Korean academic 정서, 산타토익/클래스101 정합)
-      · 다른 영어 학습 앱(블루/그린 위주)과 시각 차별
-      · Linear / Things 3 가 검증한 "사고하는 사용자" 톤 */
-  --p: #5856D6;          /* iOS systemIndigo (light) */
-  --p-hover: #4946C2;    /* -7% lightness */
-  --p-light: #EBEAFB;    /* tint badge bg — 캡슐/배지 */
-  --p-dark: #3C3AAB;     /* pressed / 그라데이션 끝 */
+  /* ═════════════════════════════════════════════════════════════
+     v06.39 — Reading Room Art Direction
+     ─────────────────────────────────────────────────────────────
+     컨셉: "조용한 서재 / 문학적 도구". 금고에서 꺼낸 종이와 잉크,
+     절제된 한 줄기 금빛. iOS 정합 (Card/Frame/Screen/SegmentControl/
+     Capsule/StatPill/ActivityRing/PrimaryButton/GlassBar/SheetContainer/
+     Motion/Accessibility) 골격 그대로 유지 + 토큰 값만 교체.
 
-  /* Active (시스템 옐로/오렌지 — 강조 active state) */
-  --active: #FF9500;     /* iOS systemOrange — streak/주의 액센트 */
-  --active-light: #FFF1E5;
+     기존 정체성과 정합:
+     · WordVault = 금고/서재
+     · Calm UI = 자극 절제
+     · Memory Decay = 기억을 환경으로
+     · PairFlip = 이미 검증된 네이비/골드 톤
+     · Lora = display 폰트로 승격 (Dual Coding 시그니처)
+     ═════════════════════════════════════════════════════════════ */
 
-  /* ─────── Semantic = iOS System Colors ─────── */
-  --success: #34C759;       /* iOS systemGreen */
-  --success-light: #E5F8EC;
-  --error: #FF3B30;         /* iOS systemRed */
-  --error-light: #FFE5E5;
-  --warning: #FF9500;       /* iOS systemOrange */
-  --warning-light: #FFF1E5;
-  --info: #32ADE6;          /* iOS systemCyan */
-  --info-light: #E5F4FB;
+  /* ─────── Brand = Ink Navy (제네릭 탈출, 차분한 권위) ─────── */
+  --p: #1E3A5F;          /* ink navy — 주 액션·링크·포커스 */
+  --p-hover: #152A45;
+  --p-light: #E5EAF1;    /* pale navy tint — 캡슐/배지 bg */
+  --p-dark: #0F1E33;     /* pressed / 그라데이션 끝 */
 
-  /* ─────── Surface = iOS Grouped Backgrounds (HIG 정확) ─────── */
-  /*  iOS Settings/grouped tableview 정합.
-      bg=secondarySystemGroupedBackground (흰 카드)
-      bg2=systemGroupedBackground (그레이 캔버스 — 이게 진짜 iOS 톤)
-      bg3=tertiarySystemFill (셀 내부 fill — 캡슐/배지 배경) */
-  --bg: #FFFFFF;
-  --bg2: #F2F2F7;     /* ★ 진짜 iOS 캔버스 — Tailwind #F8FAFC 보다 약간 따뜻한 중성 */
-  --bg3: #E5E5EA;     /* iOS systemGray5 = 셀 내부 fill */
+  /* Active = Muted Gold (금고/금박 — 보상색 · streak · 강조 액센트) */
+  --active: #B8893B;     /* muted gold (warm vintage) */
+  --active-light: #F5EBD4;
 
-  /* ─────── Text = iOS Label Colors (warm-neutral, NOT cool slate) ─────── */
-  /*  iOS Human Interface 4단계 라벨. 알파 기반 → 어떤 배경 위에서도 자연 */
-  --t1: #000000;                    /* label (primary) */
-  --t2: rgba(60, 60, 67, 0.60);     /* secondaryLabel */
-  --t3: rgba(60, 60, 67, 0.30);     /* tertiaryLabel */
-  --t4: rgba(60, 60, 67, 0.18);     /* quaternaryLabel */
-  --ti: #FFFFFF;                    /* tint 위 텍스트 (on-color) */
+  /* ─────── Semantic = paper-tone (채도 1-2단 하향 · paper 톤 정합) ─────── */
+  --success: #2E7D5A;       /* muted forest green — 달성 */
+  --success-light: #E1EFE6;
+  --error: #A03A2E;         /* warm red — 회복 */
+  --error-light: #F5E1DD;
+  --warning: #C68A2C;       /* warm amber (gold 계열) — 주의 */
+  --warning-light: #F5EBD4;
+  --info: #5B7A98;          /* dusty blue-gray — 정보 */
+  --info-light: #E1E8EF;
 
-  /* ─────── Border = iOS Separator (HIG 정확) ─────── */
-  --bd: #C6C6C8;        /* iOS separator (opaque equivalent) */
-  --bdf: #5856D6;       /* focused border = brand Indigo */
-  --bde: #FF3B30;       /* error border = iOS Red */
+  /* ─────── Surface = Paper (warm, NOT cold white) ─────── */
+  --bg: #FAF8F3;       /* warm paper — 카드/시트 (순백 #FFFFFF 의 차가움 제거) */
+  --bg2: #F2EEE6;      /* page canvas — 화면 배경 (페이퍼 톤 한 단 어두움) */
+  --bg3: #EAE4D8;      /* page edge — fill (캡슐/배지 배경) */
+
+  /* ─────── Text = Ink (warm-brown, NOT pure black) ─────── */
+  /*  잉크 토큰은 warm 정합 alpha → 어떤 페이퍼 톤에서도 자연 */
+  --t1: #1C1815;                       /* ink (primary) — 잉크 검정 */
+  --t2: rgba(28, 24, 21, 0.62);         /* secondary ink */
+  --t3: rgba(28, 24, 21, 0.38);         /* tertiary ink */
+  --t4: rgba(28, 24, 21, 0.20);         /* quaternary ink */
+  --ti: #FAF8F3;                       /* on-tint = paper (역시 warm) */
+
+  /* ─────── Border = Paper hairline (헤어라인, NOT 1px 진한 선) ─────── */
+  --bd: #D8D2C2;        /* paper edge hairline — 잉크 톤 정합 */
+  --bdf: #1E3A5F;       /* focused = ink navy */
+  --bde: #A03A2E;       /* error = warm red */
 
   /* ─────── Game Specific — 변경 금지 ─────── */
   --gold: #EAB308;
@@ -186,19 +191,18 @@
   --sh-ios-4: 0 4px 8px rgba(0, 0, 0, .08), 0 20px 48px -8px rgba(0, 0, 0, .16);
   --sh-ios-button: 0 1px 2px rgba(0, 0, 0, .06), 0 2px 8px rgba(0, 0, 0, .04);
 
-  /* iOS 컬러 글로우 — CTA · 상태 강조 (모두 iOS system color RGB 기반) */
-  --sh-ios-glow-tint: 0 4px 16px rgba(88, 86, 214, .30);    /* brand tint (Indigo) — Primary CTA */
-  --sh-ios-glow-blue: 0 4px 16px rgba(0, 122, 255, .25);    /* iOS Blue — info 액션 (구독/공유 등) */
-  --sh-ios-glow-green: 0 4px 16px rgba(52, 199, 89, .22);   /* iOS Green — success/달성 */
-  --sh-ios-glow-red: 0 4px 16px rgba(255, 59, 48, .25);     /* iOS Red — critical/destructive */
-  --sh-ios-glow-orange: 0 4px 16px rgba(255, 149, 0, .22);  /* iOS Orange — warning */
+  /* Reading Room 컬러 글로우 — 조용한 그림자 (saturated glow 회피 · 잉크/골드 톤) */
+  --sh-ios-glow-tint: 0 4px 16px rgba(30, 58, 95, .22);     /* ink navy glow — Primary CTA */
+  --sh-ios-glow-blue: 0 4px 16px rgba(91, 122, 152, .22);   /* dusty blue — info */
+  --sh-ios-glow-green: 0 4px 16px rgba(46, 125, 90, .18);   /* muted green — success */
+  --sh-ios-glow-red: 0 4px 16px rgba(160, 58, 46, .20);     /* warm red — critical */
+  --sh-ios-glow-orange: 0 4px 16px rgba(184, 137, 59, .20); /* muted gold — warning/golden moment */
 
-  /* ─────── iOS Material (글라스) ─────── */
-  /*  iOS UIVisualEffectView — Material.thin/regular/thick 정합. */
-  /*  사용: background-color: var(--mat-glass-bg-regular); backdrop-filter: var(--mat-glass-filter); */
-  --mat-glass-bg-thin: rgba(255, 255, 255, .72);
-  --mat-glass-bg-regular: rgba(255, 255, 255, .85);
-  --mat-glass-bg-thick: rgba(255, 255, 255, .92);
+  /* ─────── Material (글라스 = warm paper translucent) ─────── */
+  /*  순백 위 반투명이 아닌 paper 톤 반투명 → 차가운 느낌 제거 */
+  --mat-glass-bg-thin: rgba(250, 248, 243, .72);
+  --mat-glass-bg-regular: rgba(250, 248, 243, .85);
+  --mat-glass-bg-thick: rgba(250, 248, 243, .92);
   --mat-glass-filter: blur(20px) saturate(1.5);
   --mat-glass-filter-strong: blur(40px) saturate(1.8);
 
@@ -248,36 +252,38 @@
 }
 
 [data-theme="dark"] {
-  /* ─────── iOS Dark = Vivid system colors + 순흑 캔버스 ─────── */
-  --p: #5E5CE6;          /* iOS systemIndigo (dark vivid) */
-  --p-hover: #7270E8;
-  --p-light: rgba(94, 92, 230, 0.18);   /* tint bg dark — 알파 위에 차곡 */
-  --p-dark: #4F4DD0;
+  /* ─────── Reading Room Dark = warm ink dark (서재 야간) ─────── */
+  /*  순흑 X (차가움) → warm dark paper (잉크 색조 보존) */
+  --p: #5F8FC0;          /* lighter ink navy — 다크 대비 */
+  --p-hover: #7BA3CE;
+  --p-light: rgba(95, 143, 192, 0.18);
+  --p-dark: #4A7AAA;
 
-  --active: #FF9F0A;
-  --active-light: rgba(255, 159, 10, 0.18);
-  --success: #30D158;
-  --success-light: rgba(48, 209, 88, 0.18);
-  --error: #FF453A;
-  --error-light: rgba(255, 69, 58, 0.18);
-  --warning: #FF9F0A;
-  --warning-light: rgba(255, 159, 10, 0.18);
-  --info: #64D2FF;
-  --info-light: rgba(100, 210, 255, 0.18);
+  --active: #D4A856;     /* lighter muted gold — 다크 대비 */
+  --active-light: rgba(212, 168, 86, 0.18);
+  --success: #5BA47D;
+  --success-light: rgba(91, 164, 125, 0.18);
+  --error: #C8645A;
+  --error-light: rgba(200, 100, 90, 0.18);
+  --warning: #D4A856;
+  --warning-light: rgba(212, 168, 86, 0.18);
+  --info: #8AA8C0;
+  --info-light: rgba(138, 168, 192, 0.18);
 
-  /* iOS Settings dark — canvas=순흑, 카드=#1C1C1E (HIG 정확) */
-  --bg: #1C1C1E;       /* secondarySystemGroupedBackground dark = 카드 */
-  --bg2: #000000;      /* systemGroupedBackground dark = 진짜 검정 캔버스 */
-  --bg3: #2C2C2E;      /* tertiarySystemFill dark */
+  /* Warm ink dark — canvas=warm dark, 카드=조금 더 밝은 warm */
+  --bg: #1F1A14;         /* 카드 (warm dark paper) */
+  --bg2: #16130E;        /* canvas (warm dark, 순흑 X) */
+  --bg3: #2A241E;        /* fill */
 
-  /* iOS Label dark — 알파 기반 (어떤 배경에도 자연) */
-  --t1: #FFFFFF;                          /* label dark */
-  --t2: rgba(235, 235, 245, 0.60);         /* secondaryLabel dark */
-  --t3: rgba(235, 235, 245, 0.30);         /* tertiaryLabel dark */
-  --t4: rgba(235, 235, 245, 0.16);         /* quaternaryLabel dark */
+  /* Warm paper text on warm dark */
+  --t1: #F0EAE0;                          /* primary (warm paper) */
+  --t2: rgba(240, 234, 224, 0.62);
+  --t3: rgba(240, 234, 224, 0.38);
+  --t4: rgba(240, 234, 224, 0.20);
+  --ti: #F0EAE0;                          /* on-tint */
 
-  --bd: #38383A;        /* iOS separator dark (opaque equivalent) */
-  --bdf: #5E5CE6;       /* focused border = brand Indigo dark */
+  --bd: #3A332B;         /* warm hairline dark */
+  --bdf: #5F8FC0;        /* focused = ink navy lighter */
 
   /* ─────── iOS Dark — Vivid 컬러 사용 (HIG 다크 모드 spec) ─────── */
   --ios-red: var(--ios-red-vivid);
@@ -306,10 +312,10 @@
   --ios-purple-tint: rgba(191, 90, 242, .15);
   --ios-pink-tint: rgba(255, 55, 95, .15);
 
-  /* Glass dark */
-  --mat-glass-bg-thin: rgba(28, 28, 30, .72);
-  --mat-glass-bg-regular: rgba(28, 28, 30, .85);
-  --mat-glass-bg-thick: rgba(28, 28, 30, .92);
+  /* Glass dark — warm dark paper translucent */
+  --mat-glass-bg-thin: rgba(31, 26, 20, .72);
+  --mat-glass-bg-regular: rgba(31, 26, 20, .85);
+  --mat-glass-bg-thick: rgba(31, 26, 20, .92);
 
   /* Shadows softer in dark */
   --sh-ios-1: 0 1px 2px rgba(0, 0, 0, .35);

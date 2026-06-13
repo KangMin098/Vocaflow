@@ -53,7 +53,7 @@ export function TodayHero({ userName = '학습자', todayWords = 23, goal = 30 }
           <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
             {dateStr}
           </span>
-          <h1 className="font-display text-[22px] font-[700] leading-tight tracking-[-0.022em] text-[var(--t1)] md:text-[26px]">
+          <h1 className="font-editorial text-[28px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[34px]">
             {greeting},{' '}
             <span className="text-[var(--p)]">{userName}</span>
             <span className="text-[var(--t1)]">님</span>

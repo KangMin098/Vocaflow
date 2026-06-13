@@ -104,33 +104,34 @@ const config: Config = {
       },
 
       fontFamily: {
-        // iOS/macOS 는 진짜 SF Pro 렌더링 (-apple-system / BlinkMacSystemFont)
-        // 다른 OS 는 Plus Jakarta Sans / DM Sans 로 fallback
+        // v06.39 Reading Room — Lora 를 display 로 승격 (Dual Coding 시그니처)
+        // editorial: Hero/Title/단어 카드 (Lora — 가장 개성 있는 자산, 더 이상 본문에 갇히지 않음)
+        editorial: ["var(--font-serif)", "Lora", "Iowan Old Style", "Georgia", "serif"],
+        // display: UI 라벨 · nav · 작은 헤딩 (Plus Jakarta — geometric sans, 정밀한 UI 텍스트)
         display: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "SF Pro Display",
           "var(--font-display)",
           "Plus Jakarta Sans",
-          "system-ui",
-          "sans-serif",
-        ],
-        body: [
           "-apple-system",
           "BlinkMacSystemFont",
-          "SF Pro Text",
-          "var(--font-body)",
-          "DM Sans",
           "system-ui",
           "sans-serif",
         ],
-        // CLAUDE.md §Typography — 영어 원문 전용 alias는 `english`
-        english: ["var(--font-serif)", "Lora", "serif"],
+        // body: 한글 본문 + 작은 영문 UI 텍스트 (DM Sans + 한글)
+        body: [
+          "var(--font-body)",
+          "DM Sans",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "system-ui",
+          "sans-serif",
+        ],
+        // english: 영어 원문/본문 전용 (Lora 본문 weight)
+        english: ["var(--font-serif)", "Lora", "Iowan Old Style", "Georgia", "serif"],
         serif: ["var(--font-serif)", "Lora", "serif"],
         mono: [
-          "SF Mono",
           "var(--font-mono)",
           "JetBrains Mono",
+          "SF Mono",
           "ui-monospace",
           "monospace",
         ],

@@ -1,6 +1,123 @@
 # Design System
 
-> Vocaflow 디자인 시스템 SSoT. **v06.36 — iOS/iPadOS HIG 디자인 언어 풀 도입**.
+> Vocaflow 디자인 시스템 SSoT. **v06.39 — Reading Room Art Direction (iOS 골격 위 잉크/페이퍼/금)**.
+
+---
+
+## 🎨 Reading Room Art Direction (v06.39 — 컨셉 풀 적용)
+
+> **이전 진단** (v06.38 직후):
+> iOS HIG 준수는 "안 깨져 보이는" 수준의 **floor**. 그 위에 아트 디렉션이 없으면 **모든 iOS 앱이 똑같이 보인다.** 사용자가 "iOS 감성이 아직 안 느껴짐"이라 한 진짜 이유는 색·타이포·여백이 잘못된 게 아니라 **관점이 없었다**는 것.
+>
+> **결정 (v06.39)**:
+> "iOS 인디고/오렌지 시스템 컬러" → **"Reading Room"** 단일 아트 디렉션으로 풀 피벗.
+
+### 컨셉 — "조용한 서재 / 문학적 도구"
+
+금고에서 꺼낸 종이와 잉크, 절제된 한 줄기 금빛. **WordVault(금고/서재) + Calm UI + Memory Decay(기억을 환경으로) + PairFlip 검증된 네이비/골드 + Lora 시그니처** — 프로젝트가 이미 내포한 정체성을 표면화.
+
+### 시그니처 3축
+
+| 축 | Reading Room | 이전 (iOS Indigo) |
+|---|---|---|
+| **배경** | Paper `#FAF8F3` (warm) + canvas `#F2EEE6` | 흰 `#FFFFFF` + 그레이 `#F2F2F7` |
+| **텍스트** | Ink `#1C1815` (warm brown-black) + warm alpha labels | 순흑 + 쿨 알파 |
+| **브랜드** | Ink Navy `#1E3A5F` + Muted Gold `#B8893B` accent | iOS systemIndigo `#5856D6` |
+| **타이포** | **Lora editorial** hero (42-52px display) + Plus Jakarta UI 칩 + DM Sans 한글 | Plus Jakarta hero 32-34px |
+
+### 색상 토큰 (Reading Room)
+
+```css
+/* Light Mode — paper + ink + navy + gold */
+--p           : #1E3A5F             /* ink navy (brand action) */
+--p-hover     : #152A45
+--p-light     : #E5EAF1             /* pale navy tint */
+--p-dark      : #0F1E33
+
+--active      : #B8893B             /* muted gold — streak, 보상, 시그니처 강조 */
+--active-light: #F5EBD4
+
+--success     : #2E7D5A             /* muted forest green */
+--error       : #A03A2E             /* warm red (saturated 회피) */
+--warning     : #C68A2C             /* warm amber (gold 계열) */
+--info        : #5B7A98             /* dusty blue-gray */
+
+--bg          : #FAF8F3             /* warm paper (card) */
+--bg2         : #F2EEE6             /* page canvas */
+--bg3         : #EAE4D8             /* page edge fill */
+
+--t1          : #1C1815             /* ink primary */
+--t2          : rgba(28,24,21,.62)  /* secondary ink */
+--t3          : rgba(28,24,21,.38)
+--t4          : rgba(28,24,21,.20)
+
+--bd          : #D8D2C2             /* paper hairline */
+
+/* Memory Decay — paper 톤 정합 (채도 1-2단 하향) */
+--memory-stable : #2E7D5A
+--memory-shaky  : #C68A2C  /* gold 계열 — Reading Room 시그니처 정합 */
+--memory-risk   : #A03A2E
+--memory-new    : #7A726A
+
+/* Dark Mode — warm ink dark (서재 야간 · 순흑 X) */
+--p   (dark)  : #5F8FC0   /* lighter ink navy */
+--active(dark): #D4A856   /* lighter muted gold */
+--bg  (dark)  : #1F1A14   /* warm dark paper card */
+--bg2 (dark)  : #16130E   /* warm dark canvas */
+--t1  (dark)  : #F0EAE0   /* warm paper text */
+```
+
+### 타이포 시그니처 — Lora editorial 승격
+
+이전: Lora 가 `font-english` (영어 본문 20px) 에만 갇혀 있음. Plus Jakarta(평범한 지오메트릭 산세리프)가 모든 hero 차지.
+
+**v06.39**: Lora 를 **`font-editorial`** 로 승격 → 모든 hero/대형 표시는 Lora. **Dual Coding (Paivio) 의 시각 구현**:
+- **영어 표시 → Lora 세리프** (서재의 잉크)
+- **한글 표시 → DM Sans 산세리프**
+- **UI 칩/메타 → Plus Jakarta** (정밀한 산세리프)
+
+타이포 hierarchy:
+
+```
+font-editorial   = Lora bold 500-600  → Hero 42-96px (Page title / 단어카드 / 큰 숫자)
+font-display     = Plus Jakarta 600-700 → UI labels / nav / 작은 헤딩 22-26px
+font-body        = DM Sans 400-500     → 한글 본문 + UI 14-17px
+font-english     = Lora 400            → 영어 본문 17-20px
+font-mono        = JetBrains Mono      → 캡션 · 숫자 · 9-12px
+```
+
+| 사용처 | 폰트 | 크기 | weight |
+|---|---|---|---|
+| 페이지 Large Title | `font-editorial` Lora | 42→52px | 600 |
+| WordVault hero 숫자 | `font-editorial` Lora | 72→96px | 500 |
+| Hub greeting | `font-editorial` Lora | 26→30px | 500 |
+| Dashboard greeting | `font-editorial` Lora | 28→34px | 500 |
+| BigStat (Hub stats) | `font-editorial` Lora | 30px | 500 |
+| Frame section title | `font-display` Plus Jakarta | 22px | 700 |
+| 캡슐/배지 | `font-display` Plus Jakarta | 11-13px | 600 |
+| 한글 부제 | `font-body` DM Sans | 14-15px | 400 |
+| 영어 본문 | `font-english` Lora | 17-20px | 400 |
+
+### Reading Room 디자인 철학 5조
+
+| # | 원칙 | 적용 |
+|---|---|---|
+| 1 | **순백 X · 순흑 X** | `#FFFFFF` 와 `#000000` 절대 금지. `#FAF8F3` paper / `#1C1815` ink |
+| 2 | **Lora 가 hero, Plus Jakarta 는 UI** | 가장 개성 있는 자산을 가장 눈에 띄는 자리에 |
+| 3 | **금빛은 시그니처 모먼트에만** | streak / 보상 / 메인 CTA — 화면 면적 5% 미만 |
+| 4 | **헤어라인 0.5px + 여백** | 1px 진한 보더 대신 hairline `--bd` + 넉넉한 여백 (카드보다 공기) |
+| 5 | **동시 노출 색 3개 이하** | navy(brand) + gold(accent) + memory state 1개 — 그 외 ink + paper |
+
+### iOS 골격은 그대로 (v06.36-v06.38 유산)
+
+토큰 값만 바뀌고 **모든 iOS 프리미티브 + 레이아웃 + 모션 + 접근성 골격은 유지**:
+- Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar · SheetContainer · Screen
+- `--ios-content-max/wide-max` · `--r-ios-*` · `--sh-ios-*` · `--ease-ios-*` · `--dur-ios-*`
+- safe-area / useReduceMotion / prefers-reduced-motion CSS
+
+**이게 CSS 변수 단일 체계의 이점** — 컴포넌트 코드 0줄 수정으로 전체 톤 교체.
+
+---
 > 토큰 · 폰트 · 컴포넌트 패턴 · 모션 · 머터리얼 · 접근성 통합. 최근 갱신: 2026-06-13.
 >
 > **토큰 위치**: `packages/design-tokens/src/tokens.css` (웹 SSoT) + `colors.ts` (RN 공유).
