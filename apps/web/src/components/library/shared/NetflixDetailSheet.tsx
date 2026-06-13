@@ -219,7 +219,7 @@ export function NetflixDetailSheet({ variant, onClose }: Props) {
 // ─── Hero ────────────────────────────────────────────────
 function Hero({ variant }: { variant: DetailVariant }) {
   // gradient 결정
-  let from = '#3B82F6'
+  let from = '#5856D6'
   let to = '#1D4ED8'
   if (variant.type === 'book') {
     const c = bookCover({
@@ -726,7 +726,7 @@ function ScriptBody({ v }: { v: ScriptVariant }) {
       </div>
 
       {v.preview && (
-        <div className="rounded-[var(--r-md)] border-l-[3px] border-[#3B82F6] bg-[var(--bg2)] px-4 py-3">
+        <div className="rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3">
           <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
             미리보기
           </p>
@@ -737,7 +737,7 @@ function ScriptBody({ v }: { v: ScriptVariant }) {
       )}
 
       {v.progressPercent != null && v.progressPercent > 0 && (
-        <ProgressRow percent={v.progressPercent} accent="#3B82F6" />
+        <ProgressRow percent={v.progressPercent} accent="var(--p)" />
       )}
 
       <Tip text="단어 hover · 본문 듣기 · 따라읽기로 단계적 학습이 가능해요." />
@@ -795,7 +795,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
     variant.type === 'book'
       ? '#7C3AED'
       : variant.type === 'script'
-        ? '#3B82F6'
+        ? '#5856D6'
         : variant.categoryColor.accent
 
   if (variant.type === 'vocab') {

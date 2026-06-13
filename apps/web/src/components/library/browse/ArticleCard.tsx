@@ -23,8 +23,8 @@ const SOURCE_META: Record<string, { label: string; color: string }> = {
 
 const CEFR_COLOR: Record<string, string> = {
   A1: '#86EFAC',
-  A2: '#22C55E',
-  B1: '#3B82F6',
+  A2: 'var(--ios-green)',
+  B1: 'var(--p)',
   B2: '#1D4ED8',
   C1: '#7C3AED',
   C2: '#581C87',

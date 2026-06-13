@@ -229,7 +229,7 @@ function Hero({
           </div>
           <h1
             id="bookvault-title"
-            className="font-display text-[22px] font-[800] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
+            className="font-display text-[22px] font-[700] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
           >
             내 책장
           </h1>
@@ -260,7 +260,7 @@ function Stat({
   return (
     <div className="flex flex-col items-end gap-0.5 md:items-start">
       <dd
-        className={`font-display text-[22px] font-[800] leading-none tabular-nums md:text-[26px] ${
+        className={`font-display text-[22px] font-[700] leading-none tabular-nums md:text-[26px] ${
           highlight ? 'text-[var(--p)]' : 'text-[var(--t1)]'
         }`}
       >

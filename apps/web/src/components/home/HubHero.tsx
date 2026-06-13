@@ -180,7 +180,7 @@ function BigStat({
         {label}
       </span>
       <div className="flex items-baseline gap-0.5">
-        <span className="font-display text-[24px] font-[800] leading-none tracking-[-0.025em] tabular-nums">
+        <span className="font-display text-[24px] font-[700] leading-none tracking-[-0.025em] tabular-nums">
           {value}
         </span>
         {unit && (

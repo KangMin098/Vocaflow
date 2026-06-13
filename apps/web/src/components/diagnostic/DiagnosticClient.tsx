@@ -414,7 +414,7 @@ export function DiagnosticClient() {
           <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--ti)]">
             ★ 처음이라면 여기서 시작
           </span>
-          <h2 className="mt-3 font-display text-[24px] font-[800] leading-tight">{p.title}</h2>
+          <h2 className="mt-3 font-display text-[24px] font-[700] leading-tight">{p.title}</h2>
           <p className="mt-1.5 font-body text-[14px] leading-relaxed opacity-90">
             목표가 뚜렷하지 않다면, 이 진단 하나로 충분해요.
           </p>
@@ -480,7 +480,7 @@ export function DiagnosticClient() {
     return (
       <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
         <header className="mb-6">
-          <h1 className="font-display text-[28px] font-[800] text-[var(--t1)] md:text-[32px]">
+          <h1 className="font-display text-[28px] font-[700] text-[var(--t1)] md:text-[32px]">
             어휘 진단
           </h1>
           <p className="mt-3 font-body text-[15px] leading-relaxed text-[var(--t2)]">
@@ -655,7 +655,7 @@ export function DiagnosticClient() {
     <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
       <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--ti)] shadow-[var(--sh-md)]">
         <p className="font-body text-[14px] opacity-85">진단 완료 · 내 수준은</p>
-        <p className="mt-1 font-display text-[56px] font-[800] leading-none text-[var(--active)]">
+        <p className="mt-1 font-display text-[56px] font-[700] leading-none text-[var(--active)]">
           {levelLabel}
         </p>
         {band && !isTrack && (
@@ -1048,7 +1048,7 @@ function LevelGuideModal({
                   }`}
                 >
                   <span
-                    className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] font-display text-[12px] font-[800] ${
+                    className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] font-display text-[12px] font-[700] ${
                       active ? 'bg-[var(--p)] text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                     }`}
                   >

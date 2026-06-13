@@ -190,7 +190,7 @@ export default function ScriptQuizHubPage() {
                       </p>
                     </div>
                     <span
-                      className="font-display text-[16px] font-[800] tabular-nums leading-none"
+                      className="font-display text-[16px] font-[700] tabular-nums leading-none"
                       style={{ color: accColor }}
                     >
                       {isUnattempted ? '—' : `${ch.bestAccuracy}%`}
@@ -243,7 +243,7 @@ export default function ScriptQuizHubPage() {
                 </p>
               </div>
               <p
-                className="mt-2 font-display text-[24px] font-[800] tabular-nums leading-none"
+                className="mt-2 font-display text-[24px] font-[700] tabular-nums leading-none"
                 style={{ color: m.color }}
               >
                 {m.value}

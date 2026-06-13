@@ -41,7 +41,7 @@ export function MemoryStatus({
   return (
     <section
       aria-label="기억 상태"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-4"
+      className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-2"
     >
       <header className="mb-3 flex items-center justify-between gap-3">
         <div className="flex items-baseline gap-2">

@@ -37,14 +37,15 @@ interface ModuleMeta {
   color: string
 }
 
+// 모듈 식별 색 — iOS systemColor 1:1 정합 (DESIGN_SYSTEM.md §iOS 시스템 컬러)
 const MODULE_META: Record<HubModuleId, ModuleMeta> = {
-  textviewer: { Icon: BookOpen, label: '스크립트', href: '/text', color: 'var(--p)' },
-  wordvault: { Icon: Library, label: '단어장', href: '/wordvault', color: 'var(--p-dark)' },
-  flashcard: { Icon: Layers, label: '플래시카드', href: '/flashcard', color: '#F59E0B' },
-  spellforge: { Icon: Type, label: 'SpellForge', href: '/spellforge', color: '#4A9FCF' },
-  wordblitz: { Icon: Zap, label: 'WordBlitz', href: '/wordblitz', color: '#22C55E' },
-  pairflip: { Icon: Shuffle, label: 'PairFlip', href: '/pairflip', color: '#8B5CF6' },
-  scriptquiz: { Icon: HelpCircle, label: 'ScriptQuiz', href: '/scriptquiz', color: 'var(--active)' },
+  textviewer: { Icon: BookOpen, label: '스크립트', href: '/text', color: 'var(--p)' },           // brand indigo
+  wordvault: { Icon: Library, label: '단어장', href: '/wordvault', color: 'var(--ios-purple)' }, // iOS purple
+  flashcard: { Icon: Layers, label: '플래시카드', href: '/flashcard', color: 'var(--ios-orange)' }, // iOS orange
+  spellforge: { Icon: Type, label: 'SpellForge', href: '/spellforge', color: 'var(--ios-blue)' },  // iOS blue
+  wordblitz: { Icon: Zap, label: 'WordBlitz', href: '/wordblitz', color: 'var(--ios-green)' },     // iOS green
+  pairflip: { Icon: Shuffle, label: 'PairFlip', href: '/pairflip', color: 'var(--ios-pink)' },     // iOS pink
+  scriptquiz: { Icon: HelpCircle, label: 'ScriptQuiz', href: '/scriptquiz', color: 'var(--ios-yellow)' }, // iOS yellow
 }
 
 interface ModuleCardProps {
@@ -63,7 +64,7 @@ function ModuleCardImpl({ moduleId, lastStudiedAt }: ModuleCardProps) {
     <Link
       href={href}
       aria-label={`${label} — ${lastStudiedAt ? `마지막 학습 ${subline}` : '아직 학습 전'}`}
-      className="group relative flex aspect-square min-h-[110px] flex-col items-center justify-center gap-2 overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.97]"
+      className="group relative flex aspect-square min-h-[110px] flex-col items-center justify-center gap-2 overflow-hidden rounded-ios-2xl bg-[var(--bg)] shadow-ios-2 motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-emphasized motion-safe:hover:shadow-ios-3 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
     >
       <Icon
         size={28}

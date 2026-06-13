@@ -10,6 +10,41 @@
 
 ## Unreleased (v06.34 → next)
 
+### iOS 디자인 일관성 감사 v06.38.2 ★ (6 미정합 일괄 정리)
+
+사용자 — "전체 화면의 디자인 컨셉의 일괄성을 점검해줘". 광범위 grep 으로 6 미정합 발견 + 일괄 정리.
+
+**진단 발견 (6 미정합)**
+1. `/library/layout.tsx` + `/my/layout.tsx` 가 `max-w-6xl + p-4 md:p-8` 로 자식을 감싸 → Screen 이중 적용 충돌
+2. `font-[800]` 19곳 잔존 (Flashcard / SpellForge / ScriptQuiz / MyBooks / DiagnosticClient / HistoryTimeline / WeeklyHeatmap / StatCard / HubHero BigStat / TodayHero / BookDetailClient)
+3. Tailwind hex 잔존 (TodayFocus `#3B82F6/#F59E0B`, ModuleCard `#F59E0B/#22C55E/#8B5CF6/#4A9FCF`, NetflixDetailSheet `#3B82F6`, ArticleCard CEFR, RecentActivity SRS 색)
+4. Ad-hoc card div 15+ (`border bg shadow rounded-r-lg`) — Frame/Card 프리미티브 미사용 (Dashboard 3, HistoryTimeline, ContinueCard, ModuleCard)
+5. 6 페이지 Screen 미사용 (재확인: flashcard/spellforge/scriptquiz/wordblitz 는 max-w-wide 폭만 통일됨 — 기능적 OK)
+6. `page.tsx.bak` 백업 잔존
+
+**수정**
+- **P1 layout 충돌** — `/library/layout.tsx` + `/my/layout.tsx` 의 `max-w-6xl bg-gradient` 제거, 상단 Tabs 컨테이너만 `max-w-[var(--ios-content-wide-max)]` 로 통일. 자식 페이지의 `<Screen>` 이 폭/패딩 책임
+- **P2 font-[800] → font-[700]** 일괄 (11 파일 19곳): Flashcard/SpellForge/ScriptQuiz/MyBooks hero stats, HubHero BigStat (24px), TodayHero h1, DiagnosticClient 5곳, HistoryTimeline 2곳, WeeklyHeatmap, StatCard 등 → 모두 iOS Display Bold (700) 정합
+- **P3 Tailwind hex → iOS 토큰** (5 파일):
+  · TodayFocus accent `#3B82F6/#F59E0B/#8B5CF6/#10B981` → `#5856D6/#FF9500/#AF52DE/#34C759` (iOS Indigo/Orange/Purple/Green)
+  · ModuleCard 모듈 색 hardcoded → iOS systemColor 토큰화 (textviewer=brand / wordvault=purple / flashcard=orange / spellforge=blue / wordblitz=green / pairflip=pink / scriptquiz=yellow)
+  · RecentActivity SRS hex → `var(--memory-*)` 토큰
+  · NetflixDetailSheet `#3B82F6` → `#5856D6` / `var(--p)`
+  · ArticleCard CEFR A2/B1 → `var(--ios-green) / var(--p)`
+- **P4 ad-hoc card → iOS 정렬** (6 파일):
+  · MemoryStatus / WeeklyHeatmap → `rounded-ios-2xl bg-bg shadow-ios-2`
+  · RecentActivity → `rounded-ios-xl shadow-ios-1`
+  · ContinueCard / ModuleCard → iOS interactive (rounded-ios-2xl + shadow-ios-2 + motion-safe hover:shadow-ios-3 + -translate-y-0.5 + ease-ios-emphasized + active scale)
+  · HistoryTimeline → `rounded-ios-xl shadow-ios-2`
+- **P6** `hub/page.tsx.bak` 삭제
+
+**파급**
+- /library/* 페이지 폭/패딩 = 모든 페이지 동일 (Screen이 일괄 처리)
+- /my/* 페이지 동일
+- 모든 카드 컴포넌트 = iOS radius + shadow + hover motion 정합
+- 모든 hero stat 숫자 = font-700 (iOS Bold, ExtraBold 안드로이드 톤 제거)
+- 모든 액센트 색 = iOS systemColor 토큰 (Tailwind hex 잔존 0)
+
 ### iOS Design Polish v06.38.1 ★ (타이포 + 디테일 모션 + 폰트 스택)
 
 사용자 — "디자인 부분도 ios 감성을 더 강하게 해줘". 색상 v06.38 이후 **타이포·간격·디테일 모션** 으로 iOS 감성 풀 보강.

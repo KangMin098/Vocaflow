@@ -167,7 +167,7 @@ export function BookDetailClient({
                         <CheckCircle2 size={12} className="text-[var(--success)]" aria-hidden />
                       ) : null}
                     </div>
-                    <span className="font-display text-[18px] font-[800] tabular-nums leading-none text-[var(--t1)]">
+                    <span className="font-display text-[18px] font-[700] tabular-nums leading-none text-[var(--t1)]">
                       {set.wordCount}
                       <span className="ml-1 font-display text-[10px] font-[600] text-[var(--t3)]">
                         단어

@@ -103,7 +103,7 @@ export function WeeklyHeatmap() {
   return (
     <section
       aria-label="학습 활동 — 지난 28일"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-4"
+      className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-2"
     >
       {/* Header — 제목 + Streak 배지 */}
       <header className="mb-3 flex items-center justify-between gap-3">
@@ -259,7 +259,7 @@ function Stat({
       <dd
         className={`tabular-nums leading-none ${
           emphasis
-            ? 'font-display text-[16px] font-[800] text-[var(--t1)]'
+            ? 'font-display text-[16px] font-[700] text-[var(--t1)]'
             : 'font-display text-[14px] font-[700] text-[var(--t1)]'
         }`}
       >
