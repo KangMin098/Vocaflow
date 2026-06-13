@@ -16,6 +16,11 @@ export interface RawArticle {
   content: string
   /** ingester 가 알고 있는 사전 추정 CEFR (예: VOA Level 2 → B1). 없으면 analyze 단계에서 자동 감지 */
   estimated_cefr: string | null
+  /** v06.45 — article HTML 에서 추출한 audio MP3 URL (도서 LCP librivox_audio 와 동일 패턴).
+   *  VOA Learning English = 학습 정체성으로 100% audio.
+   *  Lit2Go = passage 별 mp3.
+   *  /text/[id] 학습 화면에서 native player 자동 노출 (LibriVox 와 동일 연계). */
+  audio_url?: string | null
   fetched_at: Date
 }
 

@@ -69,6 +69,8 @@ export interface VoaListItem {
   description: string
   /** 학습 친화도 score (0~1) + breakdown — v06.41 큐레이션 spec */
   score?: ArticleScore
+  /** v06.45 — audio 보유 여부 (LCP 연계). VOA Learning English 는 학습 정체성으로 100% true */
+  has_audio?: boolean
 }
 
 export async function listVoaFeed(
@@ -83,7 +85,10 @@ export async function listVoaFeed(
   }
   const xml = await res.text()
   const raw = parseRssItems(xml)
-  return applyArticleCurationSpec(raw, 'voa', feedId)
+  // v06.45 — VOA Learning English 는 모두 audio 가 article HTML 에 존재 (학습 정체성).
+  //          list 단계에서 RSS 만으로는 확정 불가하지만 has_audio=true 휴리스틱.
+  const withAudio = raw.map((it) => ({ ...it, has_audio: true }))
+  return applyArticleCurationSpec(withAudio, 'voa', feedId)
 }
 
 /**
@@ -120,6 +125,15 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
   const slugMatch = itemUrl.match(/\/([a-z0-9\-]+)\/?(?:\?|$)/i)
   const sourceId = `voa:${slugMatch?.[1] ?? hashString(itemUrl).toString(36)}`
 
+  // v06.45 — audio_url 추출 (LCP librivox_audio 와 동일 연계 패턴):
+  //   VOA Learning English = 학습 정체성으로 거의 100% audio (transcript + voice).
+  //   우선순위: <audio src="..."> → voa-audio.voanews.eu/*.mp3 → 일반 mp3.
+  const audioUrl =
+    html.match(/<audio[^>]+src="(https?:[^"]+\.mp3[^"]*)"/i)?.[1] ??
+    html.match(/(https?:\/\/voa-audio\.voanews\.eu\/[^\s<>"']+\.mp3[^\s<>"']*)/i)?.[1] ??
+    html.match(/(https?:[^\s<>"']+\.mp3[^\s<>"']*)/i)?.[1] ??
+    null
+
   return {
     source: 'voa',
     source_id: sourceId,
@@ -131,6 +145,7 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     published_at: publishedAt ? new Date(publishedAt) : null,
     content,
     estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
+    audio_url: audioUrl,
     fetched_at: new Date(),
   }
 }

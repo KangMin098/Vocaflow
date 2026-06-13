@@ -78,6 +78,8 @@ export interface ArxivListItem {
   arxiv_id: string
   /** v06.41 — 학습 친화도 score */
   score?: ArticleScore
+  /** v06.45 — audio 보유 여부 (arXiv 학술 abstract → 대부분 false) */
+  has_audio?: boolean
 }
 
 export async function listArxivFeed(

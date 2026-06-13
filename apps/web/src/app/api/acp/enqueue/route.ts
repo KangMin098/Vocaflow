@@ -121,6 +121,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       p_published_at: article.published_at?.toISOString() ?? null,
       p_license: article.license,
       p_content: article.content,
+      // v06.45 — audio_url (LCP librivox_audio 와 동일 연계). VOA = 학습 정체성으로 거의 100% 존재.
+      p_audio_url: article.audio_url ?? null,
     })
 
     if (error) {

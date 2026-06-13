@@ -56,6 +56,8 @@ interface FeedItem {
   published_at: string | null
   description: string
   score?: ArticleScore
+  /** v06.45 — audio 보유 (VOA 학습 정체성으로 100% true, NASA 일부) */
+  has_audio?: boolean
 }
 
 interface BulkRow extends FeedItem {
@@ -158,6 +160,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
   // v06.41 — 정렬 / 발행 숨김 토글
   const [sortBy, setSortBy] = useState<'score' | 'date'>('score')
   const [hidePublished, setHidePublished] = useState(true)
+  // v06.45 — 듣기(audio) 보유 항목만 보기 (LCP librivox 와 동일 연계)
+  const [audioOnly, setAudioOnly] = useState(false)
 
   // v06.42 — 학습자 수준 (소스 자동 정렬 + 추천 강조)
   const [learnerLevel, setLearnerLevel] = useState<LearnerLevel>('intermediate')
@@ -504,8 +508,10 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
       {/* 결과 list */}
       {rows.length > 0 && (() => {
-        // v06.41 — 정렬 + 숨김 토글 적용
-        const visibleRows = (hidePublished ? rows.filter((r) => !r.isPublished) : rows)
+        // v06.41 + v06.45 — 정렬 + 숨김 토글 + audioOnly 필터 적용
+        const visibleRows = rows
+          .filter((r) => (hidePublished ? !r.isPublished : true))
+          .filter((r) => (audioOnly ? r.has_audio === true : true))
         const displayRows = [...visibleRows].sort((a, b) => {
           if (sortBy === 'score') return (b.score?.total ?? 0) - (a.score?.total ?? 0)
           return (b.published_at ?? '').localeCompare(a.published_at ?? '')
@@ -578,6 +584,19 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 className="h-3 w-3"
               />
               <span title="library_articles 에 이미 등재된 항목 숨김">발행 숨김</span>
+            </label>
+
+            {/* v06.45 — 듣기 보유만 (LCP librivox 와 동일 연계) */}
+            <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
+              <input
+                type="checkbox"
+                checked={audioOnly}
+                onChange={(e) => setAudioOnly(e.target.checked)}
+                className="h-3 w-3"
+              />
+              <span title="audio (mp3) 가 있는 항목만 — VOA Learning English 는 학습용 mp3 100% / NASA news 일부 / Lit2Go 일부">
+                🎧 듣기만
+              </span>
             </label>
 
             <div className="ml-auto">
@@ -659,6 +678,15 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t3)]">
                           <Calendar size={9} />
                           {new Date(r.published_at).toISOString().slice(0, 10)}
+                        </span>
+                      )}
+                      {r.has_audio && (
+                        <span
+                          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                          style={{ color: 'var(--active)', background: 'color-mix(in srgb, var(--active) 14%, transparent)' }}
+                          title="audio (mp3) 포함 — LCP librivox_audio 와 동일 연계로 reader 에서 player 자동 노출"
+                        >
+                          🎧 듣기
                         </span>
                       )}
                       {r.isPublished && (

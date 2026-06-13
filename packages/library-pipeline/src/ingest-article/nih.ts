@@ -56,6 +56,8 @@ export interface NihListItem {
   description: string
   /** v06.41 — 학습 친화도 score */
   score?: ArticleScore
+  /** v06.45 — audio 보유 여부 (NIH 대부분 false) */
+  has_audio?: boolean
 }
 
 export async function listNihFeed(
