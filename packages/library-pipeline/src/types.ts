@@ -9,6 +9,7 @@ export type LibrarySource =
   | 'librivox'
   | 'openstax'
   | 'simple_wikipedia'
+  | 'lit2go'
   | 'manual'
 
 export type LibraryBookStatus =

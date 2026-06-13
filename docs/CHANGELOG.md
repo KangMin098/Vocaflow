@@ -38,6 +38,67 @@
 
 남은 dead code(enrich-seed 라우트·languages 고급필터·requeueBook·book_curation_jobs 이중 fetch)는 영향 작아 후속 정리 대상.
 
+### LCP 도서 소스 — Lit2Go (USF) 추가 + V-Level SSoT 정책 명시 (v06.43)
+
+사용자 명시 — "Lit2Go (USF) 를 라이브러리 소스 get 대상으로 추가. 프로세스는 기존 준용, 레벨은 v level 로 제산". 외부 비평 (Lit2Go US grade ≠ CEFR ≠ EFL) 검토 후 정책 정합.
+
+**핵심 정책 — V-Level SSoT 보호**
+
+| 축 | Lit2Go 제공 | Vocaflow 처리 |
+|---|---|---|
+| US 학년 (Flesch-Kincaid) | ✓ | **`curation_meta.lit2go_grade` 보존만** (final 매핑 X) |
+| 장르 (K-12 분류) | ✓ | curation_meta 저장 |
+| 연령 (간접) | ✓ | `content_maturity` 플래그 (kids/teen/adult) — hi-lo 표시 |
+| 컬렉션 | ✓ | curation_meta |
+| 오디오 (USF MP3) | ✓ | curation_meta.audio_url |
+| 본문 라이선스 | PD | source: 'lit2go' |
+| 요약 라이선스 | CC-BY (USF) | 인용 권장 표시 |
+| **V-Level** | ✗ | **coverage 모델이 SSoT** (analyze 단계 lexical_coverage + lemma_coverage_pct) |
+
+**`est_v_level` 보정 매핑 — 보정 참조용 (final X)**
+- US grade 1-2 → est V4 (A2/B1)
+- US grade 3-5 → est V6 (B1)
+- US grade 6-8 → est V7 (B1-B2)
+- US grade 9-12 → est V8 (B2)
+- College+ → est V9 (C1)
+이 값은 `curation_meta.est_v_level` 로 보존되어 admin 검수 cross-check 신호.
+
+**구현 — 기존 fetcher 패턴 준용**
+
+1. **seed-fetchers/lit2go.ts** 신규 (admin 브라우징)
+   - HTML scrape (Lit2Go API 없음)
+   - 장르/학년 밴드/검색 필터링
+   - `lit2goGradeToEstVLevel(grade)` + `lit2goInferMaturity(grade, genre)` 보정 helpers
+   - `getOptions()` — sorts 2 / genres 11 / advanced (search, lit2goGradeBand, lit2goAudioOnly) / maxBatch 40 / ⚠ EFL 차이 hint
+
+2. **types.ts SeedSource 확장** — 'lit2go' 추가 + `lit2goGradeBand` / `lit2goAudioOnly` FetchBatchParams 필드 + AdvancedFieldKey 확장
+
+3. **index.ts FETCHERS / SOURCE_LABELS 등록** + 보정 helpers export
+
+4. **library-pipeline ingest/lit2go.ts** (Stage S2 — 본문 fetch)
+   - 책 페이지 + passage 목록 파싱
+   - 각 passage 본문 결합 (USF 서버 보호 150ms sleep)
+   - 메타 (US grade · 컬렉션 · 장르 · 오디오 · USF 요약) 보존
+   - `LibrarySource` type 에 'lit2go' 추가
+   - 라이선스 'PD-Body / CC-BY-Summary'
+
+5. **AdvancedFetchPanel** — 'lit2goGradeBand' / 'lit2goAudioOnly' 필드 + state + buildAdvancedBody + countActive 정합
+
+6. **BulkFetchTab UI** — SOURCE_OPTIONS / SOURCE_OPTS 에 'lit2go' 추가 + ⚠ hint 가시화
+
+**hi-lo (high-interest / low-readability) 정책**
+EFL 한국 학습자 — "쉬운 영어 + 연령 적합 흥미":
+- US grade 1-2 picture book = 쉬운 영어 ✓ but 10대에게 유치 ✗ → `kids` 표시
+- US grade 6-8 모험 = 적정 흥미 + 적정 어휘 → `teen`
+- 어른 문학 = `adult`
+admin 검수 시 hi-lo 미스매치 판단 가능 (kids + V8 = 모순 → reject)
+
+**파급**
+- BulkFetchTab 소스 6종 확장 (gutenberg/SE/wikibooks/librivox/simple_wiki/**lit2go**)
+- 짧은 지문 부족 보완 (SE = 완본 / Lit2Go = passage 단위 granular)
+- 학년별 탐색 가능 (Lit2Go readability/k-2, 3-5, 6-8, 9-12)
+- **US grade ≠ V-Level 정책 명시** → 향후 다른 grade 기반 소스 추가 시 동일 패턴
+
 ### LCP 대량 GET — 소스 레벨 spec + 학습자 수준별 순위 (v06.42)
 
 사용자 명시 — "소스별 가져오기 할때 조건/기준/순위가 필요함. 소스별로 검토하여 구성". v06.41 feed-level spec 위에 **소스 레벨 거버넌스** 추가.

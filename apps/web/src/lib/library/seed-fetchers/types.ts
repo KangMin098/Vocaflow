@@ -13,6 +13,7 @@ export type SeedSource =
   | 'wikibooks'
   | 'librivox'
   | 'simple_wikipedia'
+  | 'lit2go'
 
 export interface FetchBatchParams {
   // ── 공통 ─────────────────────────────────
@@ -57,6 +58,11 @@ export interface FetchBatchParams {
 
   /** LibriVox — author 직접 지정 */
   author?: string | null
+
+  /** Lit2Go — US Flesch-Kincaid 학년 필터 (예: '6-8' / '9-12' / 'all') */
+  lit2goGradeBand?: 'k-2' | '3-5' | '6-8' | '9-12' | 'all' | null
+  /** Lit2Go — 오디오 보유 항목만 (USF audiobooks) */
+  lit2goAudioOnly?: boolean
 }
 
 export interface SeedRow {
@@ -100,6 +106,8 @@ export type AdvancedFieldKey =
   | 'genreId'
   | 'publishedSince'
   | 'author'
+  | 'lit2goGradeBand'
+  | 'lit2goAudioOnly'
 
 export interface SourceOptions {
   sorts: Array<{ value: string; label: string }>
