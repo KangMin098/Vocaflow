@@ -90,28 +90,14 @@ export function ModePills({
           : 'opacity-100'
       }`}
     >
-      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-1 px-4 py-2 md:gap-2 md:px-8">
+      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-0.5 px-4 py-1.5 md:gap-1.5 md:px-8">
         {grouped.map((group, gIdx) => (
-          <div key={group.key} className="flex items-center gap-1.5 md:gap-2">
+          <div key={group.key} className="flex items-center gap-0.5">
             {gIdx > 0 && (
-              <span
-                aria-hidden
-                className="mx-1 h-4 w-px shrink-0 bg-[var(--bd)] md:mx-2"
-              />
+              <span aria-hidden className="mx-1.5 h-4 w-px shrink-0 bg-[var(--bd)] md:mx-2" />
             )}
-
-            {/* Group 컨테이너 */}
-            <div className="flex flex-col items-start gap-0.5">
-              {/* Group label */}
-              <span
-                className="ml-1 font-display text-[8.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]"
-                style={{ color: group.color }}
-              >
-                {group.label}
-              </span>
-              {/* Modes row */}
-              <div className="flex items-center gap-0.5">
-                {group.modes.map((mode, mIdx) => {
+            {/* 모드 pills — 그룹 라벨 제거(컴팩트). divider + pill 색으로 그룹 구분 */}
+            {group.modes.map((mode, mIdx) => {
                   const isActive = currentMode === mode.key
                   const status = modeStatus[mode.key]
                   const isDone = status === 'done'
@@ -178,8 +164,6 @@ export function ModePills({
                     </span>
                   )
                 })}
-              </div>
-            </div>
           </div>
         ))}
       </div>

@@ -119,7 +119,7 @@ export function UnifiedHeader({
           insight·더보기 중복 아이콘 제거(단어장 칩이 insight 트리거). */}
       <div
         className={`mx-auto flex w-full max-w-[1080px] items-center gap-3 px-5 transition-[padding] duration-[var(--dur-slower)] sm:px-8 ${
-          isFocusMode ? 'py-1.5' : 'py-2'
+          isFocusMode ? 'py-1' : 'py-1.5'
         }`}
       >
         {/* Back — 책(chapter context) 또는 라이브러리로 */}

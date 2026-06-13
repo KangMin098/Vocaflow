@@ -131,7 +131,7 @@ export function FloatingAudioPlayer({
       }}
     >
       {/* 하단 고정 바 — 가장자리 flush · 상단 hairline + 위로 향한 soft shadow · 콘텐츠는 중앙 정렬 · 최소 높이 */}
-      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-2 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-2.5">
+      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-1.5 px-3 pt-1.5 pb-[max(0.4rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-2">
         {/* 소스 토글 (보이스 연결된 챕터만) */}
         {hasVoice && (
           <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
@@ -243,9 +243,9 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       type="button"
       onClick={onClose}
       aria-label="닫기"
-      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
     >
-      <X size={15} aria-hidden />
+      <X size={14} aria-hidden />
     </button>
   )
 }
@@ -305,9 +305,9 @@ function BrowserBody({
       type="button"
       onClick={handlePlayPause}
       aria-label={isPlaying ? '일시정지' : '재생'}
-      className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-2)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
+      className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-2)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
     >
-      {isPlaying ? <Pause size={18} aria-hidden /> : <Play size={18} className="ml-0.5" aria-hidden />}
+      {isPlaying ? <Pause size={17} aria-hidden /> : <Play size={17} className="ml-0.5" aria-hidden />}
     </button>
   )
 
@@ -435,7 +435,7 @@ function TransportButton({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className={`flex h-10 w-10 items-center justify-center rounded-full text-[var(--t2)] transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent ${RING}`}
+      className={`flex h-9 w-9 items-center justify-center rounded-full text-[var(--t2)] transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent ${RING}`}
     >
       {icon}
     </button>
@@ -450,7 +450,7 @@ function SpeedButton({ rate, onClick }: { rate: number; onClick: () => void }) {
       onClick={onClick}
       aria-label={`재생 속도 ${rate}x`}
       title="재생 속도"
-      className={`inline-flex h-9 min-w-[46px] shrink-0 items-center justify-center rounded-[var(--r-ios-pill)] border border-[var(--bd)] px-2.5 font-mono text-[11px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:border-[var(--p)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+      className={`inline-flex h-8 min-w-[40px] shrink-0 items-center justify-center rounded-[var(--r-ios-pill)] border border-[var(--bd)] px-2 font-mono text-[10.5px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:border-[var(--p)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
     >
       {rate}x
     </button>
