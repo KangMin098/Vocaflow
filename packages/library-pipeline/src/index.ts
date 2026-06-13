@@ -23,6 +23,27 @@ export { listNihFeed, ingestNihArticle, NIH_FEEDS } from './ingest-article/nih'
 export type { NihListItem } from './ingest-article/nih'
 export { listArxivFeed, ingestArxivArticle, ARXIV_FEEDS } from './ingest-article/arxiv'
 export type { ArxivListItem } from './ingest-article/arxiv'
+// v06.41 feed-level + v06.42 source-level curation spec
+export {
+  FEED_SPECS,
+  SOURCE_DEFAULT_SPEC,
+  SOURCE_SPECS,
+  SOURCE_RANKINGS_BY_LEVEL,
+  applyArticleCurationSpec,
+  applySourceLevelCap,
+  scoreArticleFit,
+  passesArticleFilter,
+  getFeedSpec,
+  getSourceSpec,
+  getSourceOrderForLevel,
+} from './ingest-article/_curation-spec'
+export type {
+  SourceKey,
+  FeedSpec,
+  SourceSpec,
+  LearnerLevel,
+  ArticleScore,
+} from './ingest-article/_curation-spec'
 export * from './types-article'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'

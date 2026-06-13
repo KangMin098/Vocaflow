@@ -365,3 +365,223 @@ export function applyArticleCurationSpec<T extends ScorableItem>(
 export function getFeedSpec(source: SourceKey, feedId: string): FeedSpec {
   return FEED_SPECS[`${source}:${feedId}`] ?? SOURCE_DEFAULT_SPEC[source]
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// SOURCE-LEVEL SPEC (v06.42)
+// ─────────────────────────────────────────────────────────────────
+// feed 레벨 spec 위에 적용되는 소스 레벨 거버넌스:
+//   · 학습자 수준별 추천 순위 (beginner/intermediate/advanced)
+//   · 소스당 배치 cap (한 소스가 결과 과점 방지)
+//   · 소스 minScore floor (소스 본질적 품질 한계 정합)
+//   · target CEFR 범위 (학습자 매칭)
+//   · 라이선스 + attribution 의무
+//   · 토픽 도메인 + 문체 (학습자에게 가시화)
+//   · 소스내 feed 비중 (preferredFeedMix — 균등 X)
+// ═══════════════════════════════════════════════════════════════════
+
+export type LearnerLevel = 'beginner' | 'intermediate' | 'advanced'
+
+export interface SourceSpec {
+  /** 적합한 학습자 수준 (multi) */
+  targetLevels: ReadonlyArray<LearnerLevel>
+  /** target CEFR 범위 — 학습자 매칭 가이드 */
+  targetCefr: { min: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'; max: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' }
+  /** 한 batch 에서 이 소스로부터 최대 가져올 항목 수 (모든 feed 합산 후 cap) */
+  maxItemsPerBatch: number
+  /** 이 소스의 학습 적합도 minScore (이하 자동 제거) */
+  minScore: number
+  /** 기본 bulk 우선순위 (낮을수록 우선, 1=최우선) */
+  bulkPriority: number
+  /** 라이선스 — UI 표시 + analyze 단계 입력 */
+  license: string
+  /** attribution 의무 여부 (학술 인용 등) */
+  attributionRequired: boolean
+  /** 강점 토픽 도메인 */
+  topicDomain: ReadonlyArray<string>
+  /** 문체 특성 (학습자에게 가시화) */
+  styleGuide: string
+  /** 소스내 feed 비중 (균등 X — 학습 적합도 차이 반영) */
+  preferredFeedMix: ReadonlyArray<{ feedId: string; weight: number }>
+}
+
+/**
+ * 소스별 spec — 학습 친화도 · 라이선스 · 토픽 · 우선순위 종합.
+ *
+ * 설계 근거:
+ *  · VOA = U.S. federal government Learning English → 학습 적합 최우선, PD
+ *  · NASA = PD, 천문·우주 흥미 매력 ↑, APOD 시각 자료
+ *  · NIH = PD 의학·건강, MedlinePlus consumer-facing
+ *  · arXiv = 학술 preprint, advanced learners only, CC-BY (attribution 의무)
+ */
+export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
+  voa: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B2' },
+    maxItemsPerBatch: 30,        // 4 feeds × ~12-15 → 30 cap
+    minScore: 0.40,
+    bulkPriority: 1,             // 학습 친화 최우선
+    license: 'PD-Government',
+    attributionRequired: false,  // VOA = U.S. federal → 인용 자유
+    topicDomain: ['news', 'idioms', 'science', 'culture', 'language-learning'],
+    styleGuide: '학습자 친화 단순 문체 · CEFR 1-3 등급 명시 콘텐츠',
+    preferredFeedMix: [
+      { feedId: 'as-it-is', weight: 0.30 },
+      { feedId: 'lets-learn-english', weight: 0.30 },     // L1 - 입문 강조
+      { feedId: 'science-technology', weight: 0.25 },
+      { feedId: 'words-and-their-stories', weight: 0.15 }, // idiom 학습
+    ],
+  },
+  nasa: {
+    targetLevels: ['intermediate'],
+    targetCefr: { min: 'B1', max: 'C1' },
+    maxItemsPerBatch: 24,        // 3 feeds × ~12-15 → 24 cap
+    minScore: 0.45,
+    bulkPriority: 2,             // 학습 친화 ↑ (시각 매력 + 흥미)
+    license: 'PD-Government',
+    attributionRequired: false,  // 권장이지만 법적 의무 X
+    topicDomain: ['astronomy', 'space', 'science', 'engineering'],
+    styleGuide: '뉴스 기사 + 천문 일사진 (시각 자료 풍부 · 학습자 호기심 자극)',
+    preferredFeedMix: [
+      { feedId: 'apod', weight: 0.50 },   // 천문 사진 - 학습자 흥미 최고
+      { feedId: 'news', weight: 0.30 },
+      { feedId: 'iotd', weight: 0.20 },
+    ],
+  },
+  nih: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 18,        // 3 feeds × ~10-12 → 18 cap
+    minScore: 0.45,
+    bulkPriority: 3,
+    license: 'PD-Government',
+    attributionRequired: false,
+    topicDomain: ['health', 'medical', 'biomedical-research', 'public-health'],
+    styleGuide: '의학·건강 뉴스 (MedlinePlus = consumer-facing, 그 외 전문)',
+    preferredFeedMix: [
+      { feedId: 'medlineplus', weight: 0.60 },   // 환자친화 · 학습 적합 ↑
+      { feedId: 'directors-blog', weight: 0.25 },
+      { feedId: 'news', weight: 0.15 },           // 현재 403 차단 - 백업
+    ],
+  },
+  arxiv: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 18,        // 6 feeds × ~6-8 → 18 cap
+    minScore: 0.35,              // 학술 본질적 어려움 - minScore 낮춤
+    bulkPriority: 4,             // 학습 친화 최후 (advanced 의도일 때만)
+    license: 'CC-BY-4.0',        // 대부분 CC-BY (정확도는 paper-level 메타로 보강)
+    attributionRequired: true,   // 학술 인용 의무
+    topicDomain: ['cs-AI', 'cs-NLP', 'cs-ML', 'math', 'physics', 'q-bio'],
+    styleGuide: '학술 abstract · 전문 용어 多 · advanced learners only',
+    preferredFeedMix: [
+      { feedId: 'cs-CL', weight: 0.30 },        // NLP - 영어학습자 관심 ↑
+      { feedId: 'math-HO', weight: 0.20 },      // History/Overview - 접근 쉬움
+      { feedId: 'cs-AI', weight: 0.15 },
+      { feedId: 'cs-LG', weight: 0.15 },
+      { feedId: 'q-bio', weight: 0.10 },
+      { feedId: 'physics-gen-ph', weight: 0.10 },
+    ],
+  },
+}
+
+/**
+ * 학습자 수준별 소스 추천 순위.
+ *
+ *  · beginner    (A1-A2): VOA 압도적, NASA 일부 가능, NIH/arXiv 비추천
+ *  · intermediate(B1-B2): VOA + NASA 추천, NIH 보조, arXiv 제한
+ *  · advanced    (C1+):    arXiv 우선, NIH/NASA 보조, VOA 너무 쉬움
+ *
+ * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
+ */
+export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
+  beginner:     ['voa', 'nasa', 'nih', 'arxiv'],
+  intermediate: ['voa', 'nasa', 'nih', 'arxiv'],
+  advanced:     ['arxiv', 'nih', 'nasa', 'voa'],
+}
+
+/**
+ * 소스 spec 가져오기 — UI 표시용
+ */
+export function getSourceSpec(source: SourceKey): SourceSpec {
+  return SOURCE_SPECS[source]
+}
+
+/**
+ * 학습자 수준에 맞는 소스 순서 반환 (BulkArticlesTab 자동 정렬용).
+ *
+ * 동시에 각 소스가 해당 학습자 수준에 fit 한지 (targetLevels 포함 여부) 도 표시.
+ */
+export function getSourceOrderForLevel(level: LearnerLevel): Array<{
+  source: SourceKey
+  isRecommended: boolean
+  priority: number
+}> {
+  return SOURCE_RANKINGS_BY_LEVEL[level].map((source, i) => ({
+    source,
+    isRecommended: SOURCE_SPECS[source].targetLevels.includes(level),
+    priority: i + 1,
+  }))
+}
+
+/**
+ * 소스 레벨 cap 적용 — bulk merge 후 같은 소스 그룹별로 호출.
+ *
+ *  1. 학습 적합도 score 내림차순 정렬
+ *  2. 소스 minScore 이하 제거
+ *  3. 소스 maxItemsPerBatch 까지만 유지
+ *  4. 소스내 feed mix 비중에 따라 균등 분포 보장 (특정 feed 가 과점 방지)
+ */
+export function applySourceLevelCap<T extends { feed_id: string; score?: ArticleScore }>(
+  items: T[],
+  source: SourceKey,
+): T[] {
+  const spec = SOURCE_SPECS[source]
+
+  // 1+2: minScore 필터 + score 내림차순
+  const sorted = items
+    .filter((it) => (it.score?.total ?? 0) >= spec.minScore)
+    .sort((a, b) => (b.score?.total ?? 0) - (a.score?.total ?? 0))
+
+  if (sorted.length <= spec.maxItemsPerBatch) {
+    return sorted
+  }
+
+  // 4: feed mix 균등 분포 — preferredFeedMix 비중에 따라 각 feed 가 받을 quota 계산
+  const feedQuotas = new Map<string, number>()
+  let allocatedTotal = 0
+  for (const m of spec.preferredFeedMix) {
+    const q = Math.floor(spec.maxItemsPerBatch * m.weight)
+    feedQuotas.set(m.feedId, q)
+    allocatedTotal += q
+  }
+  // 남은 quota 는 첫 feed (최고 priority) 에 추가
+  if (allocatedTotal < spec.maxItemsPerBatch && spec.preferredFeedMix.length > 0) {
+    const first = spec.preferredFeedMix[0]!.feedId
+    feedQuotas.set(first, (feedQuotas.get(first) ?? 0) + (spec.maxItemsPerBatch - allocatedTotal))
+  }
+
+  // greedy pick — 각 feed quota 채우며 score 내림차순으로 선택
+  const taken = new Map<string, number>()
+  const picked: T[] = []
+  for (const it of sorted) {
+    const usedInFeed = taken.get(it.feed_id) ?? 0
+    const quota = feedQuotas.get(it.feed_id) ?? 0
+    if (usedInFeed < quota) {
+      picked.push(it)
+      taken.set(it.feed_id, usedInFeed + 1)
+    }
+    if (picked.length >= spec.maxItemsPerBatch) break
+  }
+
+  // quota 가 못 채워서 부족하면 score 순으로 추가 (예: 한 feed 가 spec quota 보다 적은 항목 보유)
+  if (picked.length < spec.maxItemsPerBatch) {
+    const pickedKeys = new Set(picked)
+    for (const it of sorted) {
+      if (pickedKeys.has(it)) continue
+      picked.push(it)
+      if (picked.length >= spec.maxItemsPerBatch) break
+    }
+  }
+
+  return picked
+}

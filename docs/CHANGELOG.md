@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### LibriVox 제목 기반 정합 — 다권 도서 100% 정확 드레인 (v06.35)
+
+**문제** — Les Misérables(5권) LibriVox 매핑이 92장 오배정. 원인: 이전 드레인이 `(book,chapter)` **번호** 시퀀스로 매핑 → 5권이 각각 "Bk 01"부터 재시작해 권 간 충돌 + 묶음파일("Ch 01-04")·포맷불일치("Bk 1" vs "Bk 01")·`<b>` 태그. 364/364 를 강제로 채우며 272 distinct 오디오를 92회 중복 배정.
+
+**해결 — 제목 기반 정합**:
+- **NEW** `alignChaptersByTitle()` + `normalizeChapterTitleForMatch()` ([librivox-chapter-map.ts](../apps/web/src/lib/library/librivox-chapter-map.ts)) — 섹션 제목 본문(`"Bk 01, ch. 02: M. Myriel becomes M. Welcome"` → `M. Myriel becomes M. Welcome`)을 도서 챕터 제목과 정규화 비교. 제목이 책 전체 유일 키라 **권 충돌 원천 제거**(flatten 무방).
+- **NEW** `scripts/lcp/librivox-align.mjs` — Claude Code 드레인 스크립트 (dry-run → `--commit`).
+- **정확도 100% 원칙**: 유일 1:1 일치만 배정, 묶음/중복/미일치는 omit → TTS fallback. "강제 채움 금지 = 틀린 오디오 0". coverage 와 accuracy 분리.
+- `build-librivox-map.mjs` 헤더에 다권/포맷불일치 시 librivox-align 사용 안내.
+
 ### 큐레이션 파이프라인 점검 — 오류 6 + dead code 정리 (v06.35)
 
 소스 GET(대량) → Curated Books 전 과정 2-에이전트 리뷰 + RPC 실측 후 일괄 수정:
@@ -26,6 +36,56 @@
 - `enqueueCurationJobsAction` + `enqueueCurationJobs` wrapper + `EnqueueCurationJobsResult` 제거 (이번 세션 "매핑 큐 등록" 버튼 삭제로 호출부 소멸 — dev-process 자동 등록이 대체).
 
 남은 dead code(enrich-seed 라우트·languages 고급필터·requeueBook·book_curation_jobs 이중 fetch)는 영향 작아 후속 정리 대상.
+
+### LCP 대량 GET — 소스 레벨 spec + 학습자 수준별 순위 (v06.42)
+
+사용자 명시 — "소스별 가져오기 할때 조건/기준/순위가 필요함. 소스별로 검토하여 구성". v06.41 feed-level spec 위에 **소스 레벨 거버넌스** 추가.
+
+**v06.41 부족 진단**
+- v06.41 = feed 레벨 spec (15 feed × 8 dim) 만 존재
+- 소스간 우선순위 X · 소스당 batch cap X · 학습자 수준 매칭 X
+- VOA 4 feed × 15 + arXiv 6 feed × 8 = 108건 부담 + arXiv 과점 위험
+
+**소스 레벨 spec 확장** ([_curation-spec.ts](../packages/library-pipeline/src/ingest-article/_curation-spec.ts))
+
+새 `SourceSpec` 9 dimension — targetLevels / targetCefr / maxItemsPerBatch / minScore / bulkPriority / license + attributionRequired / topicDomain + styleGuide / preferredFeedMix.
+
+**4 소스 spec 정의**
+
+| Source | targetLevels | CEFR | cap | minScore | priority | preferredFeedMix |
+|---|---|---|---|---|---|---|
+| **VOA** | beginner+intermediate | A2-B2 | 30 | 0.40 | **1** | as-it-is 30 / lets-learn 30 / sci-tech 25 / words 15 |
+| **NASA** | intermediate | B1-C1 | 24 | 0.45 | 2 | **APOD 50** / news 30 / iotd 20 |
+| **NIH** | intermediate+advanced | B2-C1 | 18 | 0.45 | 3 | **medlineplus 60** / blog 25 / news 15 |
+| **arXiv** | advanced | C1-C2 | 18 | 0.35 | 4 | cs-CL 30 / math-HO 20 / cs-AI 15 / cs-LG 15 / q-bio 10 / phys 10 |
+
+**학습자 수준별 소스 순위** `SOURCE_RANKINGS_BY_LEVEL`
+- **beginner** (A1-A2): VOA → NASA → NIH → arXiv
+- **intermediate** (B1-B2): VOA → NASA → NIH → arXiv
+- **advanced** (C1+): **arXiv → NIH → NASA → VOA** (역전)
+
+**Helper 함수**
+- `applySourceLevelCap(items, source)` — feed-level cap 후 소스 레벨 적용
+  · 학습 적합도 score 내림차순 → minScore 이하 제거 → maxItemsPerBatch 까지 → preferredFeedMix 비중 분포 (greedy pick)
+- `getSourceOrderForLevel(level)` — 학습자 수준 기반 순서 + 추천 여부
+
+**Public API 추가** ([index.ts](../packages/library-pipeline/src/index.ts))
+- 12 함수/상수 export (FEED_SPECS / SOURCE_SPECS / SOURCE_RANKINGS_BY_LEVEL / 6 helpers / 5 types)
+
+**BulkArticlesTab UI 강화** ([BulkArticlesTab.tsx](../apps/web/src/app/admin/articles/BulkArticlesTab.tsx))
+- **학습자 수준 선택기** — 입문/중급/고급 → 소스 카드 자동 재정렬 + "추천" 배지
+- **소스 명세 카드** (단순 chip → 4 line spec):
+  · 1행: priority 번호 + 라벨 + feed 수 + cap + 추천 배지
+  · 2행: CEFR 범위 · 라이선스 · 인용 의무 · min ★
+  · 3행: 문체 (styleGuide)
+- **bulk fetch 후 소스 레벨 cap 적용** — applySourceLevelCap 호출 (소스당 max / minScore / feed mix 보장)
+
+**파급**
+- **고급 학습자** 선택 → arXiv 최상단 (이전 항상 4번째)
+- **VOA 60건 → 30건** (cap 적용, 다른 소스에 자리 양보)
+- **NASA APOD 50% 비중 보장** (news 가 많아도 APOD 절반 차지)
+- **arXiv minScore 0.35** — 학술 본질 어려움 인정, 관대
+- **인용 의무 가시화** — arXiv CC-BY 표시
 
 ### LCP 대량 GET — 소스별 큐레이션 spec + 학습 친화도 score (v06.41)
 

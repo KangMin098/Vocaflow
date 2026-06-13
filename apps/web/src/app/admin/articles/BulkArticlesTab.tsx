@@ -26,8 +26,17 @@ import {
   Radio,
   Rocket,
   Beaker,
+  GraduationCap,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import {
+  SOURCE_SPECS,
+  applySourceLevelCap,
+  getSourceOrderForLevel,
+  type LearnerLevel,
+  type SourceKey,
+} from '@vocaflow/library-pipeline'
 
 interface ArticleScore {
   total: number
@@ -65,8 +74,6 @@ interface SourceConfig {
   color: string
   feeds: FeedConfig[]
 }
-
-type SourceKey = 'voa' | 'nasa' | 'nih' | 'arxiv'
 
 const SOURCES: SourceConfig[] = [
   {
@@ -149,6 +156,20 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
   const [sortBy, setSortBy] = useState<'score' | 'date'>('score')
   const [hidePublished, setHidePublished] = useState(true)
 
+  // v06.42 — 학습자 수준 (소스 자동 정렬 + 추천 강조)
+  const [learnerLevel, setLearnerLevel] = useState<LearnerLevel>('intermediate')
+
+  // 학습자 수준 기반 소스 정렬 + 추천 여부
+  const orderedSources = useMemo(() => {
+    const order = getSourceOrderForLevel(learnerLevel)
+    return order
+      .map((entry) => {
+        const cfg = SOURCES.find((s) => s.key === entry.source)
+        return cfg ? { ...cfg, isRecommended: entry.isRecommended, priority: entry.priority } : null
+      })
+      .filter((x): x is SourceConfig & { isRecommended: boolean; priority: number } => x !== null)
+  }, [learnerLevel])
+
   // 소스 토글
   const toggleSource = (key: SourceKey) => {
     setSelected(new Set())
@@ -220,10 +241,19 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       }
     })
 
-    // v06.41 — 학습 친화도순 우선 (sortBy state 따라 client에서 다시 정렬)
-    accRows.sort((a, b) => (b.score?.total ?? 0) - (a.score?.total ?? 0))
+    // v06.42 — 소스 레벨 cap 적용 (소스당 maxItemsPerBatch + minScore + feed mix quota)
+    const byCappedSource: BulkRow[] = []
+    for (const key of (['voa', 'nasa', 'nih', 'arxiv'] as SourceKey[])) {
+      const ofSource = accRows.filter((r) => r.source === key)
+      if (ofSource.length === 0) continue
+      const capped = applySourceLevelCap(ofSource, key)
+      byCappedSource.push(...capped)
+    }
 
-    setRows(accRows)
+    // 학습 친화도순 정렬 (sortBy state 따라 client에서 다시 정렬)
+    byCappedSource.sort((a, b) => (b.score?.total ?? 0) - (a.score?.total ?? 0))
+
+    setRows(byCappedSource)
     setFailedFeeds(accFail)
     setFetching(false)
   }
@@ -301,31 +331,106 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         </div>
       </header>
 
-      {/* 소스 선택 */}
+      {/* v06.42 — 학습자 수준 선택기 + 소스 자동 정렬 + 소스 명세 카드 */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-        <h3 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
-          소스 선택 (multi)
+        {/* 학습자 수준 — 소스 자동 정렬 기준 */}
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <GraduationCap size={13} className="text-[var(--t3)]" />
+          <span className="font-display text-[11.5px] font-[600] text-[var(--t2)]">
+            학습자 수준 (소스 정렬 기준):
+          </span>
+          <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+            {(['beginner', 'intermediate', 'advanced'] as LearnerLevel[]).map((lv) => (
+              <button
+                key={lv}
+                type="button"
+                onClick={() => setLearnerLevel(lv)}
+                className={`rounded-[var(--r-sm)] px-2.5 py-0.5 font-display text-[11px] font-[600] transition-all ${
+                  learnerLevel === lv
+                    ? 'bg-[var(--p)] text-[var(--ti)]'
+                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                }`}
+              >
+                {lv === 'beginner' ? '입문 (A1-A2)' : lv === 'intermediate' ? '중급 (B1-B2)' : '고급 (C1+)'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">
+          소스 명세 (multi · 학습자 수준 기반 순위)
         </h3>
-        <div className="flex flex-wrap gap-2">
-          {SOURCES.map((s) => {
+
+        {/* 소스 카드 list — 학습자 수준에 맞춰 자동 정렬, 각 소스의 spec 가시화 */}
+        <div className="grid gap-2 sm:grid-cols-2">
+          {orderedSources.map((s) => {
             const active = selectedSources.has(s.key)
             const Icon = s.Icon
+            const spec = SOURCE_SPECS[s.key]
             return (
               <button
                 key={s.key}
                 type="button"
                 onClick={() => toggleSource(s.key)}
                 disabled={fetching}
-                className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border px-3 py-1.5 font-display text-[12px] font-[600] transition-all"
+                className="group relative flex flex-col gap-1.5 rounded-[var(--r-sm)] border p-2.5 text-left transition-all"
                 style={{
-                  background: active ? `color-mix(in srgb, ${s.color} 14%, transparent)` : 'var(--bg)',
+                  background: active ? `color-mix(in srgb, ${s.color} 8%, transparent)` : 'var(--bg)',
                   borderColor: active ? s.color : 'var(--bd)',
-                  color: active ? s.color : 'var(--t3)',
                 }}
               >
-                <Icon size={12} />
-                {s.label}
-                <span className="font-mono text-[10px] opacity-70">({s.feeds.length})</span>
+                {/* 1행 — 우선순위 · 라벨 · feed 수 · 추천 배지 */}
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-mono text-[9px] font-[700]"
+                    style={{
+                      background: active ? s.color : 'var(--bg2)',
+                      color: active ? 'white' : 'var(--t3)',
+                    }}
+                  >
+                    {s.priority}
+                  </span>
+                  <Icon size={12} style={{ color: active ? s.color : 'var(--t3)' }} />
+                  <span
+                    className="font-display text-[12.5px] font-[700]"
+                    style={{ color: active ? s.color : 'var(--t1)' }}
+                  >
+                    {s.label}
+                  </span>
+                  <span className="font-mono text-[9.5px] text-[var(--t3)]">
+                    {s.feeds.length} feed · cap {spec.maxItemsPerBatch}
+                  </span>
+                  {s.isRecommended && (
+                    <span
+                      className="ml-auto rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[8.5px] font-[700]"
+                      style={{
+                        background: 'color-mix(in srgb, var(--memory-stable) 14%, transparent)',
+                        color: 'var(--memory-stable)',
+                      }}
+                      title="이 학습자 수준에 적합한 소스"
+                    >
+                      추천
+                    </span>
+                  )}
+                </div>
+                {/* 2행 — target CEFR + 라이선스 */}
+                <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t3)]">
+                  <span>CEFR {spec.targetCefr.min}–{spec.targetCefr.max}</span>
+                  <span aria-hidden>·</span>
+                  <span>{spec.license}</span>
+                  {spec.attributionRequired && (
+                    <>
+                      <span aria-hidden>·</span>
+                      <span className="text-[var(--memory-shaky)]">인용 의무</span>
+                    </>
+                  )}
+                  <span aria-hidden>·</span>
+                  <span>min ★{Math.round(spec.minScore * 100)}</span>
+                </div>
+                {/* 3행 — 문체 */}
+                <div className="line-clamp-1 font-body text-[10.5px] text-[var(--t3)]">
+                  {spec.styleGuide}
+                </div>
               </button>
             )
           })}
