@@ -92,6 +92,30 @@ export async function listVoaFeed(
 }
 
 /**
+ * class 에 주어진 단어를 가진 첫 <div> 를 div 중첩을 세어 균형 있게 추출 (inner HTML).
+ * 중첩 div(오디오 플레이어 등)로 시작하는 컨테이너를 non-greedy 정규식이 첫 `</div></div>`
+ * 에서 잘라내던 문제 해결 — 매칭 div 의 진짜 짝을 찾아 컨테이너 전체를 반환.
+ */
+function extractDivByClass(html: string, className: string): string | null {
+  const open = new RegExp(`<div[^>]*\\bclass="[^"]*\\b${className}\\b[^"]*"[^>]*>`, 'i').exec(html)
+  if (!open) return null
+  const start = open.index + open[0].length
+  const tagRe = /<\/?div\b[^>]*>/gi
+  tagRe.lastIndex = start
+  let depth = 1
+  let m: RegExpExecArray | null
+  while ((m = tagRe.exec(html)) !== null) {
+    if (m[0].startsWith('</')) {
+      depth -= 1
+      if (depth === 0) return html.slice(start, m.index)
+    } else {
+      depth += 1
+    }
+  }
+  return html.slice(start) // 짝 없으면 끝까지 (안전 폴백)
+}
+
+/**
  * 단일 VOA article fetch — RawArticle 반환 (ACP 파이프라인 입력).
  */
 export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): Promise<RawArticle> {
@@ -110,15 +134,26 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     /<time[^>]*datetime="([^"]+)"/i,
   ])
 
-  // VOA 본문: <div class="wsw"> (their wysiwyg 본문 컨테이너) 또는 <article>
-  const bodyMatch =
-    html.match(/<div[^>]*class="[^"]*wsw[^"]*"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/i) ??
-    html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)
-  const bodyHtml = bodyMatch?.[1] ?? html
-  const content = htmlToPlainText(bodyHtml)
+  // VOA 본문: <div class="wsw"> 컨테이너를 div 중첩 균형으로 추출.
+  //   wsw 가 오디오 플레이어 div 로 시작해서, 기존 non-greedy `</div></div>` 정규식은
+  //   첫 블록(~100자)에서 끊겨 본문(transcript) 22개 단락을 통째로 놓쳤음 → "too short" 오발.
+  //   균형 추출 후 <p> transcript 우선(플레이어/캡션 잡음 배제), 빈약하면 컨테이너 전체.
+  // wsw 컨테이너가 있어야 transcript 기사. <article>/whole-html 폴백은 클립(transcript 없는
+  //   오디오/비디오)에서 nav·footer chrome 을 본문으로 긁으므로 쓰지 않음 — 없으면 reject.
+  const containerHtml = extractDivByClass(html, 'wsw')
+  if (!containerHtml) {
+    throw new Error('VOA article has no transcript body (no wsw container — audio/video clip?)')
+  }
+  const paraText = htmlToPlainText(
+    [...containerHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => m[1] ?? '').join('\n'),
+  )
+  const content = (paraText.trim().length >= 200 ? paraText : htmlToPlainText(containerHtml))
+    .replace(/no media source currently available\.?/gi, '') // VOA 오디오 플레이어 boilerplate
+    .replace(/[ \t ]+/g, ' ')
+    .trim()
 
-  if (content.trim().length < 200) {
-    throw new Error(`VOA article body too short: ${content.trim().length} chars`)
+  if (content.length < 200) {
+    throw new Error(`VOA article body too short: ${content.length} chars`)
   }
 
   // source_id: URL 의 마지막 슬러그
