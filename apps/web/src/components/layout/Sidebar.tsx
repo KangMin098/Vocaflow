@@ -38,6 +38,13 @@ export function Sidebar({ streak }: SidebarProps) {
     setMounted(true)
   }, [])
 
+  // 현재 사이드바 폭을 CSS 변수로 노출 — fixed 오버레이(워크스페이스 하단 player 등)가
+  //   `md:left-[var(--sidebar-w)]` 로 사이드바를 침범하지 않게. 풀스크린/모바일(hidden)은 0.
+  useEffect(() => {
+    const w = isFullScreenRoute(pathname) ? '0px' : collapsed ? '72px' : '240px'
+    document.documentElement.style.setProperty('--sidebar-w', w)
+  }, [collapsed, pathname])
+
   const toggleCollapsed = () => {
     setCollapsed((prev) => {
       const next = !prev

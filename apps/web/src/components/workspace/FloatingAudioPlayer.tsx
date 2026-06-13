@@ -28,7 +28,6 @@ import {
   RotateCcw,
   SkipBack,
   SkipForward,
-  Square,
   StepForward,
   Volume2,
   X,
@@ -122,7 +121,7 @@ export function FloatingAudioPlayer({
     <div
       role="region"
       aria-label="오디오 플레이어"
-      className={`fixed inset-x-0 bottom-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] ${
+      className={`fixed bottom-0 left-0 right-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] md:left-[var(--sidebar-w,240px)] ${
         isVisible ? 'translate-y-0' : 'translate-y-full'
       }`}
       style={{
@@ -131,8 +130,8 @@ export function FloatingAudioPlayer({
         WebkitBackdropFilter: 'blur(24px) saturate(1.6)',
       }}
     >
-      {/* 하단 고정 바 — 가장자리 flush · 상단 hairline + 위로 향한 soft shadow · 콘텐츠는 중앙 정렬 */}
-      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-2.5 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6 sm:pt-3.5">
+      {/* 하단 고정 바 — 가장자리 flush · 상단 hairline + 위로 향한 soft shadow · 콘텐츠는 중앙 정렬 · 최소 높이 */}
+      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-2 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-2.5">
         {/* 소스 토글 (보이스 연결된 챕터만) */}
         {hasVoice && (
           <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
@@ -300,35 +299,21 @@ function BrowserBody({
       ? Math.max(0, Math.min(1, (tts.state.repeatCountdown ?? 0) / tts.state.repeatTotalSec))
       : 1
 
+  // 재생/일시정지 버튼 (step·non-step 공용 — focal, ink-flip)
+  const playBtn = (
+    <button
+      type="button"
+      onClick={handlePlayPause}
+      aria-label={isPlaying ? '일시정지' : '재생'}
+      className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-2)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
+    >
+      {isPlaying ? <Pause size={18} aria-hidden /> : <Play size={18} className="ml-0.5" aria-hidden />}
+    </button>
+  )
+
   return (
-    <div className="flex flex-col gap-3">
-      {/* ── Row 1: Mode tabs (segmented) + meta + voice/close ── */}
-      <div className="flex items-center justify-between gap-3">
-        <Segmented<PlayMode>
-          ariaLabel="듣기 모드"
-          value={mode}
-          onChange={(m) => tts.setMode(m)}
-          options={MODE_OPTIONS.map((o) => ({
-            key: o.mode,
-            label: o.label,
-            tooltip: o.tooltip,
-          }))}
-        />
-
-        <div className="flex items-center gap-2">
-          {!isStepMode && total > 0 && (
-            <span className="hidden font-mono text-[11px] tabular-nums text-[var(--t3)] sm:inline">
-              <span className="text-[var(--t1)]">{currentIdx + 1}</span>
-              <span className="mx-1 text-[var(--t4)]">/</span>
-              {total}
-            </span>
-          )}
-          <VoicePickerPopover />
-          {!hideClose && <CloseButton onClose={onClose} />}
-        </div>
-      </div>
-
-      {/* ── Step Hero — Lora 문장 텍스트 (step mode 활성 시) ── */}
+    <div className="flex flex-col gap-2">
+      {/* Step Hero — 따라하기 모드 활성 시만 (문장 텍스트 노출 필요) */}
       {isStepActive && tts.state.currentText && (
         <StepHero
           stepNumber={currentIdx + 1}
@@ -339,132 +324,93 @@ function BrowserBody({
         />
       )}
 
-      {/* ── Transport row ── */}
-      <div className="flex items-center gap-1.5">
-        {/* 좌측 — 이전 단락 / 이전 문장 (or 다시 듣기 in step mode) */}
+      {/* ── 단일 컨트롤 행 (최소 높이) ── */}
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+        {/* 모드 (compact) */}
+        <Segmented<PlayMode>
+          ariaLabel="듣기 모드"
+          size="sm"
+          value={mode}
+          onChange={(m) => tts.setMode(m)}
+          options={MODE_OPTIONS.map((o) => ({ key: o.mode, label: o.label, tooltip: o.tooltip }))}
+        />
+
+        {/* 트랜스포트 — 문장 단위 (단락은 모드로, 정지는 닫기/일시정지로) */}
         {isStepActive ? (
-          <TransportButton
-            onClick={() => tts.stepReplay()}
-            label="이 문장 다시 듣기"
-            icon={<RotateCcw size={16} aria-hidden />}
-          />
-        ) : (
-          <>
+          <div className="flex items-center gap-1">
             <TransportButton
-              onClick={() => !isIdle && tts.prevParagraph()}
-              disabled={isIdle}
-              label="이전 단락"
-              icon={<ChevronsLeft size={17} aria-hidden />}
+              onClick={() => tts.stepReplay()}
+              label="이 문장 다시 듣기"
+              icon={<RotateCcw size={15} aria-hidden />}
             />
+            <div className="relative">
+              {isAwaitingRepeat && (
+                <svg className="pointer-events-none absolute inset-0 -m-1" width="52" height="52" viewBox="0 0 52 52" aria-hidden>
+                  <circle cx="26" cy="26" r="23" fill="none" stroke="var(--bd)" strokeWidth="2.5" />
+                  <circle
+                    cx="26" cy="26" r="23" fill="none" stroke="var(--success)" strokeWidth="2.5" strokeLinecap="round"
+                    strokeDasharray={`${2 * Math.PI * 23}`}
+                    strokeDashoffset={`${2 * Math.PI * 23 * (1 - countdownRatio)}`}
+                    style={{ transform: 'rotate(-90deg)', transformOrigin: '26px 26px', transition: 'stroke-dashoffset 1000ms linear' }}
+                  />
+                </svg>
+              )}
+              {playBtn}
+            </div>
+            <button
+              type="button"
+              onClick={() => tts.stepAdvance()}
+              aria-label="다음 문장"
+              title="다음 문장"
+              disabled={currentIdx + 1 >= total && !isAwaitingRepeat}
+              className={`flex h-9 items-center gap-1 rounded-[var(--r-ios-pill)] bg-[var(--t1)] px-3 font-display text-[12px] font-[700] text-[var(--bg)] transition-all duration-[var(--dur-ios-fast)] hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${RING}`}
+            >
+              다음
+              <StepForward size={12} aria-hidden />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1">
             <TransportButton
               onClick={() => !isIdle && tts.prevSentence()}
               disabled={isIdle}
               label="이전 문장"
               icon={<SkipBack size={15} aria-hidden />}
             />
-          </>
-        )}
-
-        {/* 중앙 — Play button (with countdown ring in step+awaiting_repeat) */}
-        <div className="relative mx-auto sm:mx-0 sm:ml-1.5">
-          {/* Countdown ring */}
-          {isAwaitingRepeat && (
-            <svg
-              className="pointer-events-none absolute inset-0 -m-1.5"
-              width="60"
-              height="60"
-              viewBox="0 0 60 60"
-              aria-hidden
-            >
-              <circle cx="30" cy="30" r="27" fill="none" stroke="var(--bd)" strokeWidth="2.5" />
-              <circle
-                cx="30"
-                cy="30"
-                r="27"
-                fill="none"
-                stroke="var(--success)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeDasharray={`${2 * Math.PI * 27}`}
-                strokeDashoffset={`${2 * Math.PI * 27 * (1 - countdownRatio)}`}
-                style={{
-                  transform: 'rotate(-90deg)',
-                  transformOrigin: '30px 30px',
-                  transition: 'stroke-dashoffset 1000ms linear',
-                }}
-              />
-            </svg>
-          )}
-          <button
-            type="button"
-            onClick={handlePlayPause}
-            aria-label={isPlaying ? '일시정지' : '재생'}
-            className={`relative flex h-12 w-12 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-3)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
-          >
-            {isPlaying ? (
-              <Pause size={20} aria-hidden />
-            ) : (
-              <Play size={20} className="ml-0.5" aria-hidden />
-            )}
-          </button>
-        </div>
-
-        {/* Stop (모든 모드 공통, hidden when idle) */}
-        {!isIdle && !isStepActive && (
-          <TransportButton
-            onClick={() => tts.stop()}
-            label="정지"
-            icon={<Square size={12} fill="currentColor" aria-hidden />}
-          />
-        )}
-
-        {/* 우측 — 다음 문장 / 다음 단락 (or 즉시 다음 in step mode) */}
-        {isStepActive ? (
-          <button
-            type="button"
-            onClick={() => tts.stepAdvance()}
-            aria-label="다음 문장"
-            title="다음 문장"
-            disabled={currentIdx + 1 >= total && !isAwaitingRepeat}
-            className={`flex h-10 items-center gap-1 rounded-[var(--r-ios-pill)] bg-[var(--t1)] px-4 font-display text-[12.5px] font-[700] text-[var(--bg)] shadow-[var(--sh-ios-2)] transition-all duration-[var(--dur-ios-fast)] hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${RING}`}
-          >
-            다음
-            <StepForward size={13} aria-hidden />
-          </button>
-        ) : (
-          <>
+            {playBtn}
             <TransportButton
               onClick={() => !isIdle && tts.nextSentence()}
               disabled={isIdle}
               label="다음 문장"
               icon={<SkipForward size={15} aria-hidden />}
             />
-            <TransportButton
-              onClick={() => !isIdle && tts.nextParagraph()}
-              disabled={isIdle}
-              label="다음 단락"
-              icon={<ChevronsRight size={17} aria-hidden />}
-            />
-          </>
-        )}
-
-        {/* Progress bar — non-step mode */}
-        {!isStepMode && (
-          <div className="relative mx-2 hidden flex-1 sm:block">
-            <div className="h-[4px] overflow-hidden rounded-full bg-[var(--bd)]">
-              <div
-                className="h-full rounded-full bg-[var(--p)] transition-[width] duration-[var(--dur-slow)]"
-                style={{
-                  width: `${total > 0 ? Math.round(((currentIdx + 1) / total) * 100) : 0}%`,
-                }}
-                aria-hidden
-              />
-            </div>
           </div>
         )}
 
-        {/* 속도 */}
-        <SpeedButton rate={tts.state.rate} onClick={handleSpeedChange} />
+        {/* 진행바 + 위치 (non-step · ≥sm) */}
+        {!isStepMode && (
+          <div className="hidden min-w-0 flex-1 items-center gap-2 sm:flex">
+            <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-[var(--bd)]">
+              <div
+                className="h-full rounded-full bg-[var(--p)] transition-[width] duration-[var(--dur-slow)]"
+                style={{ width: `${total > 0 ? Math.round(((currentIdx + 1) / total) * 100) : 0}%` }}
+                aria-hidden
+              />
+            </div>
+            <span className="shrink-0 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+              <span className="text-[var(--t1)]">{currentIdx + 1}</span>
+              <span className="mx-0.5 text-[var(--t4)]">/</span>
+              {total}
+            </span>
+          </div>
+        )}
+
+        {/* 우측 — 속도 · voice · 닫기 */}
+        <div className="ml-auto flex items-center gap-1.5">
+          <SpeedButton rate={tts.state.rate} onClick={handleSpeedChange} />
+          <VoicePickerPopover />
+          {!hideClose && <CloseButton onClose={onClose} />}
+        </div>
       </div>
     </div>
   )
