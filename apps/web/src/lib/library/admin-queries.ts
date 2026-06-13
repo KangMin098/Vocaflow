@@ -732,6 +732,7 @@ const CATALOG_SOURCES = [
   'wikibooks',
   'librivox',
   'simple_wikipedia',
+  'lit2go',
 ] as const
 
 export async function getCatalogStats(
