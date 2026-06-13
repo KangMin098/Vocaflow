@@ -1,25 +1,47 @@
 // apps/web/src/components/wordvault/hub/NextStepList.tsx
 //
-// WordVault Zone 2 (v06.35) — 다음 한 단계.
-// 진단 결과 기반 추천 단어장 3-5개를 텍스트 list (Editorial). 카드/배지 X.
-// 진단 미완료 시 단일 CTA (지단 받기).
+// WordVault Section 5 (v06.35 iOS) — 다음 한 단계 (단어장 추천).
+//
+// iOS Settings 인셋 그룹 + 컬러 캡슐 type 배지.
+// recommend_word_sets_for_user RPC → 5-tier 추천.
 
 'use client'
 
-import { ArrowRight, Compass } from 'lucide-react'
+import { ChevronRight, Compass } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import { createClient } from '@/lib/supabase/client'
 
+type RecommendationType =
+  | 'primary'
+  | 'stretch'
+  | 'review'
+  | 'specialty'
+  | 'track_csat'
+  | 'track_business'
+  | 'track_academic'
+  | 'fallback'
+
+interface RawRecommendation {
+  set_id: string
+  slug: string
+  title: string
+  category: string | null
+  word_count: number | null
+  cover_emoji: string | null
+  recommendation_type: string
+  reason: string | null
+  priority: number | null
+}
+
 interface RecommendedSet {
   id: string
   slug: string
   title: string
-  type: 'primary' | 'stretch' | 'review' | 'specialty' | 'track_csat' | 'track_business' | 'track_academic'
-  vlevel: number | null
-  category?: string | null
-  word_count?: number | null
+  type: RecommendationType
+  category: string | null
+  word_count: number | null
 }
 
 type State =
@@ -30,14 +52,18 @@ type State =
   | { kind: 'ready'; sets: RecommendedSet[]; vLevel: number | null }
   | { kind: 'error'; message: string }
 
-const TYPE_LABEL: Record<RecommendedSet['type'], string> = {
-  primary: '현재 수준',
-  stretch: '한 단계 위',
-  review: '복습',
-  specialty: '관심 분야',
-  track_csat: '수능',
-  track_business: '비즈니스',
-  track_academic: '학술',
+const TYPE_META: Record<
+  RecommendationType,
+  { label: string; bg: string; color: string }
+> = {
+  primary: { label: '현재', bg: 'var(--p-light)', color: 'var(--p-dark)' },
+  stretch: { label: '다음', bg: '#E8F8EE', color: '#15803D' },
+  review: { label: '복습', bg: '#FFF1E5', color: '#9A3412' },
+  specialty: { label: '관심', bg: '#F3E8FF', color: '#7C3AED' },
+  track_csat: { label: '수능', bg: '#FEF3C7', color: '#92400E' },
+  track_business: { label: '비즈', bg: '#E0F2FE', color: '#075985' },
+  track_academic: { label: '학술', bg: '#FCE7F3', color: '#9D174D' },
+  fallback: { label: '추천', bg: 'var(--bg2)', color: 'var(--t2)' },
 }
 
 export function NextStepList() {
@@ -77,7 +103,17 @@ export function NextStepList() {
         return
       }
 
-      const sets = ((data ?? []) as RecommendedSet[]).slice(0, 5)
+      const raws = (data ?? []) as RawRecommendation[]
+      const sets: RecommendedSet[] = raws
+        .map((r) => ({
+          id: r.set_id,
+          slug: r.slug,
+          title: r.title,
+          type: ((r.recommendation_type as RecommendationType) ?? 'fallback'),
+          category: r.category,
+          word_count: r.word_count,
+        }))
+        .slice(0, 5)
       if (sets.length === 0) {
         setState({ kind: 'empty', vLevel })
         return
@@ -99,17 +135,18 @@ export function NextStepList() {
   if (state.kind === 'unauth' || state.kind === 'no-diagnostic') {
     return (
       <Frame title="다음 한 단계">
-        <p className="font-body text-[14px] leading-relaxed text-[var(--t2)]">
-          진단을 마치면 V-Level 에 맞는 단어장 3-5개를 추천해드려요.{' '}
+        <div className="flex items-center justify-between gap-4 rounded-[18px] bg-[var(--bg2)] px-5 py-4">
+          <p className="font-body text-[13px] text-[var(--t2)]">
+            진단을 받으면 수준에 맞는 단어장을 추천해드려요.
+          </p>
           <Link
             href="/diagnostic"
-            className="inline-flex items-baseline gap-1 font-display font-[600] text-[var(--p)] underline-offset-2 hover:underline"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(59,130,246,0.22)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
           >
             <Compass size={13} aria-hidden />
             진단 받기
-            <ArrowRight size={12} aria-hidden />
           </Link>
-        </p>
+        </div>
       </Frame>
     )
   }
@@ -127,50 +164,43 @@ export function NextStepList() {
   return (
     <Frame
       title="다음 한 단계"
-      meta={state.vLevel != null ? `V${state.vLevel} 기준 추천` : undefined}
+      meta={state.vLevel != null ? `V${state.vLevel} 기준` : undefined}
     >
-      <ol className="flex flex-col">
-        {state.sets.map((set, i) => (
-          <li
-            key={set.id}
-            className="border-b border-[var(--bd)] last:border-b-0"
-          >
-            <Link
-              href={`/library/vocab#set-${set.slug}`}
-              className="group flex items-center gap-4 py-3.5 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)]"
-            >
-              <span className="w-6 shrink-0 font-mono text-[11px] font-[700] tabular-nums text-[var(--t4)]">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="truncate font-display text-[14px] font-[600] text-[var(--t1)]">
-                  {set.title}
-                </div>
-                <div className="mt-0.5 flex items-center gap-2 font-mono text-[10px] text-[var(--t3)]">
-                  <span>{TYPE_LABEL[set.type] ?? set.type}</span>
-                  {set.vlevel != null && (
-                    <>
-                      <span aria-hidden className="text-[var(--t4)]">·</span>
-                      <span className="tabular-nums">V{set.vlevel}</span>
-                    </>
-                  )}
-                  {set.word_count != null && set.word_count > 0 && (
-                    <>
-                      <span aria-hidden className="text-[var(--t4)]">·</span>
+      <div className="overflow-hidden rounded-[14px] bg-[var(--bg2)]">
+        <div className="divide-y divide-[var(--bd)]/60 bg-[var(--bg)]">
+          {state.sets.map((set) => {
+            const typeMeta = TYPE_META[set.type]
+            return (
+              <Link
+                key={set.id}
+                href={`/library/vocab#set-${set.slug}`}
+                className="group flex items-center gap-3 px-4 py-3.5 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)]"
+              >
+                {/* Type 배지 — 컬러 캡슐 */}
+                <span
+                  className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] px-2.5 py-1 font-display text-[10.5px] font-[700]"
+                  style={{ backgroundColor: typeMeta.bg, color: typeMeta.color }}
+                >
+                  {typeMeta.label}
+                </span>
+
+                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
+                    {set.title}
+                  </span>
+                  <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t3)]">
+                    {set.word_count != null && set.word_count > 0 && (
                       <span className="tabular-nums">{set.word_count}개</span>
-                    </>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-              <ArrowRight
-                size={13}
-                aria-hidden
-                className="text-[var(--t4)] transition-colors group-hover:text-[var(--p)]"
-              />
-            </Link>
-          </li>
-        ))}
-      </ol>
+
+                <ChevronRight size={16} className="shrink-0 text-[var(--t3)]/70" aria-hidden />
+              </Link>
+            )
+          })}
+        </div>
+      </div>
     </Frame>
   )
 }
@@ -187,14 +217,14 @@ function Frame({
   return (
     <section
       aria-label={title}
-      className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 md:p-7"
+      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
     >
-      <header className="mb-3 flex items-baseline justify-between gap-3">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+      <header className="mb-4 flex items-baseline justify-between gap-3">
+        <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
           {title}
-        </span>
+        </h2>
         {meta && (
-          <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
             {meta}
           </span>
         )}

@@ -1,8 +1,11 @@
 // apps/web/src/components/wordvault/hub/FlowStripe.tsx
 //
-// WordVault Zone 4 (v06.35) — 학습 흐름.
-// 28일 sparkline + 평균 + 마지막 학습 시점.
-// daily_activity 테이블에서 직접 fetch (0이면 차분한 안내).
+// WordVault Section 6 (v06.35 iOS) — 학습 흐름 28일.
+//
+// iOS Fitness / Stocks "흐름" 감성:
+//   · 두꺼운 캡슐 막대 (rounded-full), 그라디언트 색상
+//   · 활동일 = brand --p, 오늘 = solid, 비활동 = bg3
+//   · Stats 행 = 3개 통계 캡슐 (iOS Health Categories)
 
 'use client'
 
@@ -11,7 +14,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 interface Day {
-  date: string // YYYY-MM-DD
+  date: string
   words: number
   minutes: number
 }
@@ -40,7 +43,6 @@ export function FlowStripe() {
         return
       }
 
-      // 최근 28일 (오늘 기준)
       const today = new Date()
       const cutoff = new Date(today)
       cutoff.setDate(today.getDate() - 27)
@@ -73,7 +75,6 @@ export function FlowStripe() {
         })
       }
 
-      // 28일 채우기 (없는 날은 0)
       const days: Day[] = []
       for (let i = 0; i < 28; i++) {
         const d = new Date(cutoff)
@@ -87,7 +88,6 @@ export function FlowStripe() {
         })
       }
 
-      // 마지막 학습 활동
       let lastActivity: { date: string; modules: string[] } | null = null
       const lastWithActivity = [...(data ?? [])]
         .filter(
@@ -127,56 +127,59 @@ export function FlowStripe() {
 
   return (
     <Frame title="지난 28일">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {/* Sparkline */}
-        <div className="flex-1">
-          <Sparkline days={days} />
-        </div>
-
-        {/* Stats */}
-        <div className="flex shrink-0 items-baseline gap-5 font-mono text-[11px] text-[var(--t3)] sm:flex-col sm:items-end sm:gap-2">
-          <span>
-            평균{' '}
-            <strong className="ml-1 font-display tabular-nums text-[var(--t1)]">
-              {NF.format(avg)}
-            </strong>
-            <span className="ml-0.5">개/일</span>
-          </span>
-          <span>
-            활동
-            <strong className="ml-1 font-display tabular-nums text-[var(--t1)]">
-              {NF.format(activeDays)}
-            </strong>
-            <span className="ml-0.5">일</span>
-          </span>
-          <span>
-            총
-            <strong className="ml-1 font-display tabular-nums text-[var(--t1)]">
-              {NF.format(total)}
-            </strong>
-            <span className="ml-0.5">개</span>
-          </span>
-        </div>
+      {/* Stats — iOS Health 캡슐 row */}
+      <div className="mb-5 grid grid-cols-3 gap-2.5">
+        <StatCell label="평균" value={NF.format(avg)} unit="개/일" />
+        <StatCell label="활동" value={NF.format(activeDays)} unit="일" />
+        <StatCell label="총합" value={NF.format(total)} unit="개" />
       </div>
+
+      {/* Sparkline — 캡슐 막대 28일 */}
+      <Sparkline days={days} />
 
       {/* Last activity */}
       {lastActivity && (
-        <div className="mt-4 border-t border-[var(--bd)] pt-3 font-body text-[12px] text-[var(--t2)]">
-          마지막 학습 ·{' '}
-          <strong className="font-display text-[var(--t1)]">
-            {relativeDay(lastActivity.date)}
-          </strong>
-          {lastActivity.modules.length > 0 && (
-            <>
-              {' · '}
-              <span className="text-[var(--t3)]">
-                {lastActivity.modules.map(prettyModule).join(' · ')}
+        <div className="mt-5 flex items-center justify-between rounded-[14px] bg-[var(--bg2)] px-4 py-3">
+          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+            마지막 학습
+          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
+              {relativeDay(lastActivity.date)}
+            </span>
+            {lastActivity.modules.length > 0 && (
+              <span className="font-body text-[11.5px] text-[var(--t3)]">
+                · {lastActivity.modules.map(prettyModule).join(', ')}
               </span>
-            </>
-          )}
+            )}
+          </div>
         </div>
       )}
     </Frame>
+  )
+}
+
+function StatCell({
+  label,
+  value,
+  unit,
+}: {
+  label: string
+  value: string
+  unit: string
+}) {
+  return (
+    <div className="flex flex-col gap-1.5 rounded-[18px] bg-[var(--bg2)] p-3.5">
+      <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
+        {label}
+      </span>
+      <div className="flex items-baseline gap-1">
+        <span className="font-display text-[22px] font-[800] leading-none tracking-[-0.025em] tabular-nums text-[var(--t1)]">
+          {value}
+        </span>
+        <span className="font-mono text-[10.5px] text-[var(--t3)]">{unit}</span>
+      </div>
+    </div>
   )
 }
 
@@ -185,28 +188,32 @@ function Sparkline({ days }: { days: Day[] }) {
   return (
     <div
       role="img"
-      aria-label={`최근 28일 학습량 추세`}
-      className="flex h-12 items-end gap-[3px]"
+      aria-label="최근 28일 학습량 추세"
+      className="flex h-[68px] items-end gap-1"
     >
       {days.map((d, i) => {
         const h = (d.words / max) * 100
         const isToday = i === days.length - 1
+        let bg = 'var(--bg3)'
+        if (d.words > 0) {
+          bg = isToday ? 'var(--p)' : 'var(--p-light)'
+        }
         return (
           <div
             key={d.date}
-            className="flex-1 rounded-t-[2px] transition-colors duration-[var(--dur-fast)]"
-            style={{
-              height: `${Math.max(2, h)}%`,
-              backgroundColor:
-                d.words === 0
-                  ? 'var(--bg3)'
-                  : isToday
-                    ? 'var(--p)'
-                    : 'var(--t3)',
-              opacity: d.words === 0 ? 0.5 : 1,
-            }}
-            title={`${d.date} · ${d.words} 단어`}
-          />
+            className="flex flex-1 items-end justify-center"
+          >
+            <div
+              className="w-full rounded-full transition-all duration-[var(--dur-fast)]"
+              style={{
+                height: `${Math.max(6, h)}%`,
+                backgroundColor: bg,
+                opacity: d.words === 0 ? 0.5 : 1,
+                boxShadow: isToday && d.words > 0 ? '0 2px 8px rgba(59,130,246,0.25)' : 'none',
+              }}
+              title={`${d.date} · ${d.words} 단어`}
+            />
+          </div>
         )
       })}
     </div>
@@ -246,12 +253,12 @@ function Frame({ title, children }: { title: string; children: React.ReactNode }
   return (
     <section
       aria-label={title}
-      className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 md:p-7"
+      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
     >
       <header className="mb-4">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+        <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
           {title}
-        </span>
+        </h2>
       </header>
       {children}
     </section>

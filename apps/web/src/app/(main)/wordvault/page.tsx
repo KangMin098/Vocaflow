@@ -172,23 +172,18 @@ export default function WordVaultPage() {
 
   return (
     <>
-      {/* ── 헤더 (v06.35 Editorial) ── */}
-      <header className="sticky top-0 z-50 flex h-[56px] items-center gap-3 border-b border-[var(--bd)] bg-[var(--bg)] px-6">
-        <div className="flex items-baseline gap-3">
-          <h1 className="font-display text-[15px] font-[700] tracking-[-0.01em] text-[var(--t1)]">
-            WordVault
-          </h1>
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t3)]">
-            내 어휘
-          </span>
-        </div>
+      {/* ── 헤더 (v06.35 iOS — 캡슐 세그먼트 + 글라스 sticky) ── */}
+      <header className="sticky top-0 z-50 flex h-[52px] items-center gap-3 border-b border-[var(--bd)]/60 bg-[var(--bg)]/85 px-5 backdrop-blur-xl backdrop-saturate-150">
+        <h1 className="font-display text-[15px] font-[700] tracking-[-0.012em] text-[var(--t1)]">
+          WordVault
+        </h1>
 
         <div className="flex-1" />
 
-        {/* View Switcher — 단순화 (허브 / 학습 / 복습 — 둘러보기는 풀스크린 별도) */}
+        {/* iOS 세그먼트 컨트롤 — 캡슐 + 활성 그림자 */}
         <nav
           aria-label="WordVault 뷰"
-          className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-[3px]"
+          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg3)] p-[3px]"
         >
           {(
             [
@@ -205,10 +200,10 @@ export default function WordVaultPage() {
                 href={item.href}
                 aria-current={isActive ? 'page' : undefined}
                 className={cn(
-                  'rounded-[var(--r-sm)] px-3 py-[5px] font-display text-[12px] font-[600] no-underline transition-colors duration-[var(--dur-fast)]',
+                  'rounded-[var(--r-full)] px-3.5 py-[5px] font-display text-[12.5px] font-[600] no-underline transition-all duration-[var(--dur-fast)]',
                   isActive
-                    ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-                    : 'text-[var(--t3)] hover:text-[var(--t1)]',
+                    ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]'
+                    : 'text-[var(--t3)] hover:text-[var(--t2)]',
                 )}
               >
                 {item.label}
@@ -221,13 +216,13 @@ export default function WordVaultPage() {
           type="button"
           onClick={toggleTheme}
           aria-label="테마 전환"
-          className="flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
         >
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
       </header>
 
-      {/* ── 메인 (v06.35: 허브는 자체 max-width 적용 — 외곽 wrapper 제거) ── */}
+      {/* ── 메인 (iOS 그레이 캔버스) ── */}
       <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
         <div className={view === 'hub' ? '' : 'mx-auto max-w-[1200px] p-6'}>
           {/* ── HUB (기본 진입) ── */}

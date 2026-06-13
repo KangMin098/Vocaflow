@@ -1,14 +1,18 @@
 // apps/web/src/components/wordvault/hub/RecommendedBooks.tsx
 //
-// WordVault Portfolio — i+1 권장 도서 (v06.35).
+// WordVault Section 4 (v06.35 iOS) — App Store style 권장 도서 캐러셀.
 //
-// recommend-books.ts scoreBook 으로 사용자 V-Level 기반 점수 매김.
-// 도서 학습 단어 시각에서: book_v_level + lexical_coverage 가 핵심.
-// 상위 3-4권 list 표시 (스크롤 X · 한눈에).
+// iOS App Store "Today" / Books 감성:
+//   · 가로 스크롤 카드 (snap)
+//   · 큰 그라디언트 표지 (cover_image_url or cover_from→cover_to)
+//   · 카드 우측 상단 캡슐 fit-tier 배지
+//   · 메타 = author / V-Level / CEFR
+//   · 헤더에 "More →" 링크 (iOS section header 패턴)
 
 'use client'
 
-import { ArrowRight, BookOpen, Compass } from 'lucide-react'
+import { ArrowRight, Compass } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -24,6 +28,15 @@ type State =
   | { kind: 'empty' }
   | { kind: 'ready'; vLevel: number; books: PublishedBook[] }
   | { kind: 'error'; message: string }
+
+type FitTier = NonNullable<ReturnType<typeof judgeIPlusOne>>['tier']
+
+const FIT_META: Record<FitTier, { label: string; bg: string; color: string }> = {
+  ideal: { label: '딱 맞아요', bg: '#E8F8EE', color: '#15803D' },
+  challenge: { label: '도전', bg: 'var(--p-light)', color: 'var(--p-dark)' },
+  easy: { label: '쉬워요', bg: '#F1F5F9', color: '#475569' },
+  hard: { label: '어려워요', bg: '#FFF1E5', color: '#9A3412' },
+}
 
 export function RecommendedBooks() {
   const [state, setState] = useState<State>({ kind: 'loading' })
@@ -54,7 +67,6 @@ export function RecommendedBooks() {
         return
       }
 
-      // 출시 도서 fetch + 사용자 진도 도서 제외
       const { data: enrolled } = await supabase
         .from('texts')
         .select('library_book_id')
@@ -97,7 +109,6 @@ export function RecommendedBooks() {
     }
   }, [])
 
-  // 점수 매김 + 상위 4권 (한눈에)
   const ranked = useMemo(() => {
     if (state.kind !== 'ready') return []
     return state.books
@@ -108,22 +119,24 @@ export function RecommendedBooks() {
       })
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 4)
+      .slice(0, 6)
   }, [state])
 
   if (state.kind === 'unauth' || state.kind === 'no-diagnostic') {
     return (
       <Frame title="다음 권장 도서">
-        <p className="font-body text-[14px] leading-relaxed text-[var(--t2)]">
-          진단을 마치면 V-Level 에 맞는 도서 4권을 추천해드려요.{' '}
+        <div className="flex items-center justify-between gap-4 rounded-[18px] bg-[var(--bg2)] px-5 py-4">
+          <p className="font-body text-[13px] text-[var(--t2)]">
+            진단을 받으면 수준에 맞는 도서를 추천해드려요.
+          </p>
           <Link
             href="/diagnostic"
-            className="inline-flex items-baseline gap-1 font-display font-[600] text-[var(--p)] underline-offset-2 hover:underline"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(59,130,246,0.22)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
           >
             <Compass size={13} aria-hidden />
-            진단 받기 <ArrowRight size={12} aria-hidden />
+            진단 받기
           </Link>
-        </p>
+        </div>
       </Frame>
     )
   }
@@ -131,7 +144,15 @@ export function RecommendedBooks() {
   if (state.kind === 'loading') {
     return (
       <Frame title="다음 권장 도서">
-        <p className="font-body text-[13px] text-[var(--t3)]">불러오는 중…</p>
+        <div className="flex gap-3 overflow-hidden">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              key={i}
+              className="h-[228px] w-[156px] shrink-0 rounded-[16px] bg-[var(--bg2)]"
+              style={{ animation: `pulse 1.6s ease-in-out ${i * 100}ms infinite` }}
+            />
+          ))}
+        </div>
       </Frame>
     )
   }
@@ -153,116 +174,154 @@ export function RecommendedBooks() {
   }
 
   return (
-    <Frame title="다음 권장 도서" meta={`V${state.kind === 'ready' ? state.vLevel : '?'} 기준 · i+1`}>
-      <ol className="flex flex-col">
-        {ranked.map((r, i) => (
-          <li key={r.book.id} className="border-b border-[var(--bd)] last:border-b-0">
-            <Link
-              href={`/library/books/${r.book.id}`}
-              className="group flex items-center gap-4 py-3 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)]"
-            >
-              <span className="w-6 shrink-0 font-mono text-[11px] font-[700] tabular-nums text-[var(--t4)]">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <BookOpen
-                size={16}
-                aria-hidden
-                className="shrink-0 text-[var(--t3)] group-hover:text-[var(--p)]"
-              />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)]">
-                    {r.book.title}
-                  </span>
-                </div>
-                <div className="mt-0.5 flex flex-wrap items-center gap-x-2 font-mono text-[10px] text-[var(--t3)]">
-                  {r.book.author && <span className="truncate">{r.book.author}</span>}
-                  {r.book.book_v_level != null && (
-                    <>
-                      {r.book.author && <span aria-hidden className="text-[var(--t4)]">·</span>}
-                      <span className="tabular-nums">V{r.book.book_v_level}</span>
-                    </>
-                  )}
-                  {r.book.cefr_band && (
-                    <>
-                      <span aria-hidden className="text-[var(--t4)]">·</span>
-                      <span>CEFR {r.book.cefr_band}</span>
-                    </>
-                  )}
-                  {r.fit && r.fit.tier && (
-                    <>
-                      <span aria-hidden className="text-[var(--t4)]">·</span>
-                      <span
-                        className={`font-display font-[700] ${
-                          r.fit.tier === 'ideal'
-                            ? 'text-[var(--success)]'
-                            : r.fit.tier === 'challenge'
-                              ? 'text-[var(--p)]'
-                              : r.fit.tier === 'easy'
-                                ? 'text-[var(--t2)]'
-                                : 'text-[var(--warning)]'
-                        }`}
-                      >
-                        {r.fit.tier === 'ideal'
-                          ? '딱 맞아요'
-                          : r.fit.tier === 'challenge'
-                            ? '도전'
-                            : r.fit.tier === 'easy'
-                              ? '쉬워요'
-                              : '어려워요'}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
-              <ArrowRight
-                size={13}
-                aria-hidden
-                className="shrink-0 text-[var(--t4)] transition-colors group-hover:text-[var(--p)]"
-              />
-            </Link>
-          </li>
-        ))}
-      </ol>
-
-      {/* 라이브러리 전체 */}
-      <div className="mt-3 flex justify-end border-t border-[var(--bd)] pt-3">
-        <Link
-          href="/library/books"
-          className="group inline-flex items-center gap-1.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] hover:text-[var(--p)]"
-        >
-          전체 라이브러리 둘러보기
-          <ArrowRight
-            size={11}
-            aria-hidden
-            className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-0.5"
+    <Frame
+      title="다음 권장 도서"
+      meta={state.kind === 'ready' ? `V${state.vLevel} 기준 · i+1` : undefined}
+      moreHref="/library/books"
+    >
+      {/* iOS horizontal scroll snap */}
+      <div
+        className="-mx-6 flex gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollSnapType: 'x mandatory' }}
+      >
+        {ranked.map((r) => (
+          <BookCard
+            key={r.book.id}
+            book={r.book}
+            fit={r.fit ? r.fit.tier : null}
           />
-        </Link>
+        ))}
       </div>
     </Frame>
+  )
+}
+
+// ─── iOS App Store 카드 ─────────────────────────────────
+function BookCard({
+  book,
+  fit,
+}: {
+  book: PublishedBook
+  fit: FitTier | null
+}) {
+  const fitMeta = fit ? FIT_META[fit] : null
+  const coverUrl = (book as { cover_image_url?: string | null }).cover_image_url ?? null
+  const fromColor = book.cover_from ?? '#3B82F6'
+  const toColor = book.cover_to ?? '#1D4ED8'
+
+  return (
+    <Link
+      href={`/library/books/${book.id}`}
+      className="group flex w-[156px] shrink-0 flex-col gap-2.5"
+      style={{ scrollSnapAlign: 'start' }}
+    >
+      {/* Cover */}
+      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[14px] shadow-[0_4px_16px_-4px_rgba(0,0,0,0.18)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] group-hover:-translate-y-1 group-active:scale-[0.97]">
+        {coverUrl ? (
+          <Image
+            src={coverUrl}
+            alt={book.title}
+            fill
+            sizes="156px"
+            className="object-cover"
+            unoptimized
+          />
+        ) : (
+          <div
+            className="h-full w-full"
+            style={{
+              background: `linear-gradient(135deg, ${fromColor} 0%, ${toColor} 100%)`,
+            }}
+            aria-hidden
+          />
+        )}
+        {/* 표지 위 darken + 제목 fallback (no image only) */}
+        {!coverUrl && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
+            <span
+              className="line-clamp-3 font-display text-[12px] font-[700] leading-tight tracking-[-0.01em] text-white"
+              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+            >
+              {book.title}
+            </span>
+          </div>
+        )}
+        {/* Fit 배지 (캡슐) */}
+        {fitMeta && (
+          <span
+            className="absolute right-2 top-2 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] backdrop-blur-md"
+            style={{
+              backgroundColor: `${fitMeta.bg}E6`,
+              color: fitMeta.color,
+            }}
+          >
+            {fitMeta.label}
+          </span>
+        )}
+      </div>
+
+      {/* Meta */}
+      <div className="flex flex-col gap-1 px-0.5">
+        <span className="line-clamp-2 font-display text-[12.5px] font-[600] leading-tight tracking-[-0.01em] text-[var(--t1)]">
+          {book.title}
+        </span>
+        {book.author && (
+          <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">
+            {book.author}
+          </span>
+        )}
+        <div className="mt-0.5 flex flex-wrap items-center gap-1">
+          {book.book_v_level != null && (
+            <MiniChip>V{book.book_v_level}</MiniChip>
+          )}
+          {book.cefr_band && <MiniChip>{book.cefr_band}</MiniChip>}
+        </div>
+      </div>
+    </Link>
+  )
+}
+
+function MiniChip({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center rounded-[5px] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] font-[600] tabular-nums text-[var(--t2)]">
+      {children}
+    </span>
   )
 }
 
 function Frame({
   title,
   meta,
+  moreHref,
   children,
 }: {
   title: string
   meta?: string
+  moreHref?: string
   children: React.ReactNode
 }) {
   return (
     <section
       aria-label={title}
-      className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 md:p-7"
+      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
     >
-      <header className="mb-3 flex items-baseline justify-between gap-3">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
-          {title}
-        </span>
-        {meta && (
-          <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">{meta}</span>
+      <header className="mb-4 flex items-baseline justify-between gap-3">
+        <div className="flex items-baseline gap-2.5">
+          <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
+            {title}
+          </h2>
+          {meta && (
+            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">{meta}</span>
+          )}
+        </div>
+        {moreHref && (
+          <Link
+            href={moreHref}
+            className="inline-flex items-center gap-0.5 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-fast)] hover:text-[var(--p-hover)]"
+          >
+            더보기
+            <ArrowRight size={13} aria-hidden />
+          </Link>
         )}
       </header>
       {children}

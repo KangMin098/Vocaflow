@@ -1,18 +1,19 @@
 // apps/web/src/components/wordvault/hub/ResourcePortfolio.tsx
 //
-// WordVault Portfolio — 학습 자산 이력 + 진행 상태 (v06.35).
+// WordVault Section 3 (v06.35 iOS) — 학습 자산 (Settings 인셋 그룹 list).
 //
-// 3 그룹 표시:
-//   · 도서 — texts.library_book_id (curated 도서, 챕터 그룹)
-//   · 스크립트 — texts.user_book_group_id (사용자 책) + 직접 입력
-//   · 공용 단어장 — user_word_set_subscriptions (도서 단위로 그룹 — useHubStats 동일 로직)
+// iOS Settings 감성:
+//   · 캡슐 세그먼트로 도서/스크립트/단어장 전환
+//   · 흰 카드 위에 인셋 그룹 list (rounded-[14px], divider, disclosure chevron)
+//   · 행 좌측 SF Symbol 컬러 사각형 아이콘
+//   · 우측 chevron + 메타 텍스트
 //
-// 각 row: 제목 + 진행도 (장수/완독율) + 마지막 학습 시점. 클릭 → /text/[id] or /wordvault/browse.
-// "한눈에" — 그룹별 카운트 + 상위 3-5 항목만 (전체는 별도 라우트로).
+// 3 그룹: 도서 (texts.library_book_id) / 스크립트 (user_book_group_id) / 공용 단어장 (book grouped).
 
 'use client'
 
-import { ArrowRight, BookOpen, FileText, Library } from 'lucide-react'
+import { BookOpen, ChevronRight, FileText, Library } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -54,10 +55,19 @@ type State =
   | { kind: 'ready'; books: BookEntry[]; scripts: ScriptEntry[]; sets: SetEntry[] }
   | { kind: 'error'; message: string }
 
+type Tab = 'books' | 'scripts' | 'sets'
+
 const NF = new Intl.NumberFormat('en-US')
+
+const TAB_META: Record<Tab, { label: string; icon: LucideIcon; color: string }> = {
+  books: { label: '도서', icon: BookOpen, color: '#FF9F0A' /* iOS orange */ },
+  scripts: { label: '스크립트', icon: FileText, color: 'var(--p)' /* iOS blue */ },
+  sets: { label: '단어장', icon: Library, color: '#AF52DE' /* iOS purple */ },
+}
 
 export function ResourcePortfolio() {
   const [state, setState] = useState<State>({ kind: 'loading' })
+  const [tab, setTab] = useState<Tab>('books')
 
   useEffect(() => {
     let cancelled = false
@@ -72,7 +82,6 @@ export function ResourcePortfolio() {
         return
       }
 
-      // 1) texts (사용자 enrolled chapter 또는 직접 입력)
       const { data: textsData } = await supabase
         .from('texts')
         .select(
@@ -94,7 +103,6 @@ export function ResourcePortfolio() {
         last_opened: string | null
       }>
 
-      // 도서 그룹화 (library_book_id)
       const bookGroups = new Map<string, typeof texts>()
       const userBookGroups = new Map<string, typeof texts>()
       const standalone: typeof texts = []
@@ -112,7 +120,6 @@ export function ResourcePortfolio() {
         }
       }
 
-      // 도서 메타 fetch
       const bookIds = Array.from(bookGroups.keys())
       const bookMetaMap = new Map<string, { title: string; author: string | null }>()
       if (bookIds.length > 0) {
@@ -186,7 +193,6 @@ export function ResourcePortfolio() {
       }
       scripts.sort((a, b) => (b.lastStudiedAt ?? 0) - (a.lastStudiedAt ?? 0))
 
-      // 2) 공용 단어장 (도서 단위 그룹화 — useHubStats 동일 로직 간소화)
       const { data: subsData } = await supabase
         .from('user_word_set_subscriptions')
         .select('set_id')
@@ -208,7 +214,6 @@ export function ResourcePortfolio() {
         setsRows = (data ?? []) as typeof setsRows
       }
 
-      // 도서 단위 그룹화 — library_book sets 만
       const setBookGroups = new Map<string, typeof setsRows>()
       const otherSets: typeof setsRows = []
       for (const s of setsRows) {
@@ -225,7 +230,6 @@ export function ResourcePortfolio() {
         }
       }
 
-      // 도서 메타 (setBookGroups 용 — books map 와 합쳐 fetch)
       const setBookIds = Array.from(setBookGroups.keys()).filter((id) => !bookMetaMap.has(id))
       if (setBookIds.length > 0) {
         const { data: bookMeta } = await supabase
@@ -237,7 +241,6 @@ export function ResourcePortfolio() {
         }
       }
 
-      // 사용자 vocab counts per set (개략적으로 별도 쿼리)
       let countsPerSet = new Map<string, number>()
       if (setIds.length > 0) {
         const { data: vocabsBySet } = await supabase
@@ -293,178 +296,248 @@ export function ResourcePortfolio() {
   if (state.kind !== 'ready') {
     return (
       <Frame title="학습 자산">
-        <p className="font-body text-[13px] text-[var(--t3)]">
-          {state.kind === 'loading' ? '불러오는 중…' : '아직 학습 자산이 없어요.'}
-        </p>
+        <EmptyState text={state.kind === 'loading' ? '불러오는 중…' : '학습 자산이 없어요.'} />
       </Frame>
     )
   }
 
   const { books, scripts, sets } = state
-  const isEmpty = books.length === 0 && scripts.length === 0 && sets.length === 0
+  const counts = { books: books.length, scripts: scripts.length, sets: sets.length }
+  const isEmpty = counts.books === 0 && counts.scripts === 0 && counts.sets === 0
 
   if (isEmpty) {
     return (
       <Frame title="학습 자산">
-        <p className="font-body text-[13px] text-[var(--t3)]">
-          아직 학습 중인 자산이 없어요.{' '}
-          <Link href="/library/books" className="font-display font-[600] text-[var(--p)] underline-offset-2 hover:underline">
-            라이브러리 둘러보기 →
-          </Link>
-        </p>
+        <EmptyState text="아직 학습 중인 자산이 없어요." href="/library/books" linkLabel="라이브러리 둘러보기" />
       </Frame>
     )
   }
 
   return (
-    <Frame
-      title="학습 자산"
-      meta={`도서 ${books.length} · 스크립트 ${scripts.length} · 단어장 ${sets.length}`}
-    >
-      <div className="grid gap-5 sm:grid-cols-3">
-        <ResourceGroup
-          icon={<BookOpen size={13} aria-hidden />}
-          title="도서"
-          count={books.length}
-          emptyText="라이브러리 도서를 학습 추가하세요."
-          emptyHref="/library/books"
-        >
-          {books.slice(0, 4).map((b) => (
-            <Link
-              key={b.bookId}
-              href={b.resumeTextId ? `/text/${b.resumeTextId}?mode=read` : `/library/books/${b.bookId}`}
-              className="group flex flex-col gap-1 border-b border-[var(--bd)] py-2 last:border-b-0 last:pb-0 hover:bg-[var(--bg2)]"
+    <Frame title="학습 자산">
+      {/* iOS Segment Control */}
+      <nav aria-label="자산 종류" className="mb-5 inline-flex w-full items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg2)] p-[3px]">
+        {(['books', 'scripts', 'sets'] as Tab[]).map((t) => {
+          const meta = TAB_META[t]
+          const isActive = tab === t
+          const Icon = meta.icon
+          return (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTab(t)}
+              aria-current={isActive ? 'page' : undefined}
+              className={`flex flex-1 items-center justify-center gap-1.5 rounded-[var(--r-full)] py-[7px] font-display text-[12.5px] font-[600] transition-all duration-[var(--dur-fast)] ${
+                isActive
+                  ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]'
+                  : 'text-[var(--t3)] hover:text-[var(--t2)]'
+              }`}
             >
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="line-clamp-1 font-display text-[12.5px] font-[600] text-[var(--t1)] group-hover:text-[var(--p)]">
-                  {b.title}
-                </span>
-                <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
-                  {b.completedChapters}/{b.totalChapters}장
-                </span>
-              </div>
-              <ProgressBar value={b.completedChapters} total={b.totalChapters} />
-              <span className="font-mono text-[9.5px] text-[var(--t3)]">
-                {relativeTimeKo(b.lastStudiedAt)}
-                {b.author ? ` · ${b.author}` : ''}
+              <Icon size={14} className="opacity-80" />
+              <span>{meta.label}</span>
+              <span
+                className={`rounded-[var(--r-full)] px-1.5 py-px font-mono text-[10px] tabular-nums ${
+                  isActive ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'text-[var(--t3)]'
+                }`}
+              >
+                {counts[t]}
               </span>
-            </Link>
-          ))}
-        </ResourceGroup>
+            </button>
+          )
+        })}
+      </nav>
 
-        <ResourceGroup
-          icon={<FileText size={13} aria-hidden />}
-          title="스크립트"
-          count={scripts.length}
-          emptyText="스크립트를 입력해 보세요."
-          emptyHref="/text/new"
-        >
-          {scripts.slice(0, 4).map((s) => (
-            <Link
-              key={s.id}
-              href={s.href}
-              className="group flex flex-col gap-1 border-b border-[var(--bd)] py-2 last:border-b-0 last:pb-0 hover:bg-[var(--bg2)]"
-            >
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="line-clamp-1 font-display text-[12.5px] font-[600] text-[var(--t1)] group-hover:text-[var(--p)]">
-                  {s.title}
-                </span>
-                <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
-                  {s.isUserBook ? `${s.completedChapters}/${s.chapterCount}장` : '단일'}
-                </span>
-              </div>
-              {s.isUserBook && <ProgressBar value={s.completedChapters} total={s.chapterCount} />}
-              <span className="font-mono text-[9.5px] text-[var(--t3)]">
-                {relativeTimeKo(s.lastStudiedAt)} · {s.isUserBook ? '내 책' : '직접 입력'}
-              </span>
-            </Link>
-          ))}
-        </ResourceGroup>
+      {/* List body */}
+      {tab === 'books' && (
+        <InsetGroup color={TAB_META.books.color}>
+          {books.length === 0 ? (
+            <EmptyRow text="라이브러리 도서를 학습 시작하세요." href="/library/books" />
+          ) : (
+            books.slice(0, 5).map((b) => (
+              <Row
+                key={b.bookId}
+                href={b.resumeTextId ? `/text/${b.resumeTextId}?mode=read` : `/library/books/${b.bookId}`}
+                icon={<BookOpen size={14} aria-hidden />}
+                iconBg={TAB_META.books.color}
+                title={b.title}
+                subtitle={`${relativeTimeKo(b.lastStudiedAt)}${b.author ? ` · ${b.author}` : ''}`}
+                progress={{ done: b.completedChapters, total: b.totalChapters, unit: '장' }}
+              />
+            ))
+          )}
+        </InsetGroup>
+      )}
 
-        <ResourceGroup
-          icon={<Library size={13} aria-hidden />}
-          title="공용 단어장"
-          count={sets.length}
-          emptyText="진단 후 단어장을 구독해 보세요."
-          emptyHref="/library/vocab"
-        >
-          {sets.slice(0, 4).map((s, i) => (
-            <Link
-              key={s.bookId ?? `set-${i}`}
-              href={s.href}
-              className="group flex flex-col gap-1 border-b border-[var(--bd)] py-2 last:border-b-0 last:pb-0 hover:bg-[var(--bg2)]"
-            >
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="line-clamp-1 font-display text-[12.5px] font-[600] text-[var(--t1)] group-hover:text-[var(--p)]">
-                  {s.title}
-                </span>
-                <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
-                  {NF.format(s.wordCount)}개
-                </span>
-              </div>
-              <span className="font-mono text-[9.5px] text-[var(--t3)]">
-                {s.chapters != null ? `${s.chapters}장` : '공용 단어장'}
-                {s.author ? ` · ${s.author}` : ''}
-              </span>
-            </Link>
-          ))}
-        </ResourceGroup>
-      </div>
+      {tab === 'scripts' && (
+        <InsetGroup color={TAB_META.scripts.color}>
+          {scripts.length === 0 ? (
+            <EmptyRow text="스크립트를 입력해 보세요." href="/text/new" />
+          ) : (
+            scripts.slice(0, 5).map((s) => (
+              <Row
+                key={s.id}
+                href={s.href}
+                icon={<FileText size={14} aria-hidden />}
+                iconBg={TAB_META.scripts.color}
+                title={s.title}
+                subtitle={`${relativeTimeKo(s.lastStudiedAt)} · ${s.isUserBook ? '내 책' : '직접 입력'}`}
+                progress={
+                  s.isUserBook
+                    ? { done: s.completedChapters, total: s.chapterCount, unit: '장' }
+                    : undefined
+                }
+                metaRight={s.isUserBook ? undefined : '단일'}
+              />
+            ))
+          )}
+        </InsetGroup>
+      )}
+
+      {tab === 'sets' && (
+        <InsetGroup color={TAB_META.sets.color}>
+          {sets.length === 0 ? (
+            <EmptyRow text="진단 후 단어장을 구독해 보세요." href="/library/vocab" />
+          ) : (
+            sets.slice(0, 5).map((s, i) => (
+              <Row
+                key={s.bookId ?? `set-${i}`}
+                href={s.href}
+                icon={<Library size={14} aria-hidden />}
+                iconBg={TAB_META.sets.color}
+                title={s.title}
+                subtitle={s.chapters != null ? `${s.chapters}장${s.author ? ` · ${s.author}` : ''}` : '공용 단어장'}
+                metaRight={`${NF.format(s.wordCount)}개`}
+              />
+            ))
+          )}
+        </InsetGroup>
+      )}
     </Frame>
   )
 }
 
-function ResourceGroup({
-  icon,
-  title,
-  count,
-  emptyText,
-  emptyHref,
+// ─── iOS Inset Group ─────────────────────────────────────
+function InsetGroup({
+  color,
   children,
 }: {
-  icon: React.ReactNode
-  title: string
-  count: number
-  emptyText: string
-  emptyHref: string
-  children?: React.ReactNode
+  color: string
+  children: React.ReactNode
 }) {
+  void color
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex items-baseline justify-between gap-2 border-b border-[var(--bd)] pb-2">
-        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
-          {icon}
-          {title}
-        </span>
-        <span className="font-display text-[12px] font-[700] tabular-nums text-[var(--t1)]">
-          {NF.format(count)}
-        </span>
+    <div className="overflow-hidden rounded-[14px] bg-[var(--bg2)]">
+      <div className="bg-[var(--bg)] divide-y divide-[var(--bd)]/60">
+        {children}
       </div>
-      {count > 0 ? (
-        children
-      ) : (
-        <Link
-          href={emptyHref}
-          className="block py-3 font-body text-[11.5px] text-[var(--t3)] hover:text-[var(--p)]"
-        >
-          {emptyText}{' '}
-          <ArrowRight size={11} className="inline" aria-hidden />
-        </Link>
-      )}
     </div>
   )
 }
 
-function ProgressBar({ value, total }: { value: number; total: number }) {
-  const pct = total > 0 ? Math.min(100, (value / total) * 100) : 0
-  const complete = value >= total && total > 0
+// ─── Row (iOS Settings cell) ─────────────────────────────
+function Row({
+  href,
+  icon,
+  iconBg,
+  title,
+  subtitle,
+  progress,
+  metaRight,
+}: {
+  href: string
+  icon: React.ReactNode
+  iconBg: string
+  title: string
+  subtitle: string
+  progress?: { done: number; total: number; unit: string }
+  metaRight?: string
+}) {
   return (
-    <div className="h-[3px] w-full overflow-hidden rounded-full bg-[var(--bg3)]">
-      <div
-        className="h-full rounded-full transition-[width] duration-[var(--dur-slow)]"
-        style={{ width: `${pct}%`, backgroundColor: complete ? '#22C55E' : 'var(--p)' }}
-      />
-    </div>
+    <Link
+      href={href}
+      className="group flex items-center gap-3 px-4 py-3 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)]"
+    >
+      <span
+        aria-hidden
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] text-white"
+        style={{ backgroundColor: iconBg }}
+      >
+        {icon}
+      </span>
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
+          {title}
+        </span>
+        <div className="flex items-center gap-2">
+          <span className="line-clamp-1 font-body text-[11.5px] text-[var(--t3)]">
+            {subtitle}
+          </span>
+          {progress && (
+            <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] tabular-nums text-[var(--t2)]">
+              {progress.done}/{progress.total}{progress.unit}
+            </span>
+          )}
+        </div>
+        {progress && progress.total > 0 && (
+          <div className="h-[3px] w-full overflow-hidden rounded-full bg-[var(--bg3)]">
+            <div
+              className="h-full rounded-full transition-[width] duration-[var(--dur-slow)]"
+              style={{
+                width: `${Math.min(100, (progress.done / progress.total) * 100)}%`,
+                backgroundColor: progress.done >= progress.total ? '#34C759' : 'var(--p)',
+              }}
+            />
+          </div>
+        )}
+      </div>
+      <div className="flex shrink-0 items-center gap-1.5">
+        {metaRight && (
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            {metaRight}
+          </span>
+        )}
+        <ChevronRight size={16} className="text-[var(--t3)]/70" aria-hidden />
+      </div>
+    </Link>
+  )
+}
+
+function EmptyRow({ text, href }: { text: string; href: string }) {
+  return (
+    <Link
+      href={href}
+      className="flex items-center justify-between px-4 py-4 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)]"
+    >
+      <span className="font-body text-[13px] text-[var(--t3)]">{text}</span>
+      <ChevronRight size={16} className="text-[var(--t3)]/70" aria-hidden />
+    </Link>
+  )
+}
+
+function EmptyState({
+  text,
+  href,
+  linkLabel,
+}: {
+  text: string
+  href?: string
+  linkLabel?: string
+}) {
+  return (
+    <p className="font-body text-[13px] text-[var(--t3)]">
+      {text}
+      {href && linkLabel && (
+        <>
+          {' '}
+          <Link
+            href={href}
+            className="font-display font-[600] text-[var(--p)] underline-offset-2 hover:underline"
+          >
+            {linkLabel} →
+          </Link>
+        </>
+      )}
+    </p>
   )
 }
 
@@ -484,25 +557,20 @@ function relativeTimeKo(t: number | null): string {
 
 function Frame({
   title,
-  meta,
   children,
 }: {
   title: string
-  meta?: string
   children: React.ReactNode
 }) {
   return (
     <section
       aria-label={title}
-      className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 md:p-7"
+      className="rounded-[24px] bg-[var(--bg)] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)] md:p-7"
     >
-      <header className="mb-4 flex items-baseline justify-between gap-3">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+      <header className="mb-4">
+        <h2 className="font-display text-[20px] font-[700] tracking-[-0.022em] text-[var(--t1)]">
           {title}
-        </span>
-        {meta && (
-          <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">{meta}</span>
-        )}
+        </h2>
       </header>
       {children}
     </section>
