@@ -13,42 +13,53 @@
 */
 
 :root {
-  /* ─────── Brand ─────── */
-  --p: #3B82F6;
-  --p-hover: #2563EB;
-  --p-light: #EFF6FF;
-  --p-dark: #1D4ED8;
+  /* ═══════════════════════════════════════════════════════════
+     v06.37 — iOS HIG 색상 풀 정렬.
+     이전 Tailwind slate/blue → Apple System Colors + iOS Label.
+     모든 클릭/액센트 토큰 = iOS System Blue. 캔버스 = systemGroupedBackground.
+     ═══════════════════════════════════════════════════════════ */
 
-  /* Active (yellow) */
-  --active: #F59E0B;
-  --active-light: #FEF3C7;
+  /* ─────── Brand = iOS System Blue ─────── */
+  --p: #007AFF;          /* iOS systemBlue (light) — 모든 액션·링크·액센트의 표준 */
+  --p-hover: #0066D6;    /* 약 -8% lightness — hover */
+  --p-light: #E5F1FF;    /* tint bg — capsule/badge background */
+  --p-dark: #0051A8;     /* pressed / 강조 그라데이션 끝 */
 
-  /* ─────── Semantic ─────── */
-  --success: #22C55E;
-  --success-light: #DCFCE7;
-  --error: #EF4444;
-  --error-light: #FEE2E2;
-  --warning: #F59E0B;
-  --warning-light: #FEF3C7;
-  --info: #06B6D4;
-  --info-light: #CFFAFE;
+  /* Active (시스템 옐로/오렌지 — 강조 active state) */
+  --active: #FF9500;     /* iOS systemOrange — streak/주의 액센트 */
+  --active-light: #FFF1E5;
 
-  /* ─────── Surface ─────── */
+  /* ─────── Semantic = iOS System Colors ─────── */
+  --success: #34C759;       /* iOS systemGreen */
+  --success-light: #E5F8EC;
+  --error: #FF3B30;         /* iOS systemRed */
+  --error-light: #FFE5E5;
+  --warning: #FF9500;       /* iOS systemOrange */
+  --warning-light: #FFF1E5;
+  --info: #32ADE6;          /* iOS systemCyan */
+  --info-light: #E5F4FB;
+
+  /* ─────── Surface = iOS Grouped Backgrounds (HIG 정확) ─────── */
+  /*  iOS Settings/grouped tableview 정합.
+      bg=secondarySystemGroupedBackground (흰 카드)
+      bg2=systemGroupedBackground (그레이 캔버스 — 이게 진짜 iOS 톤)
+      bg3=tertiarySystemFill (셀 내부 fill — 캡슐/배지 배경) */
   --bg: #FFFFFF;
-  --bg2: #F8FAFC;
-  --bg3: #F1F5F9;
+  --bg2: #F2F2F7;     /* ★ 진짜 iOS 캔버스 — Tailwind #F8FAFC 보다 약간 따뜻한 중성 */
+  --bg3: #E5E5EA;     /* iOS systemGray5 = 셀 내부 fill */
 
-  /* ─────── Text ─────── */
-  --t1: #0F172A;
-  --t2: #475569;
-  --t3: #94A3B8;
-  --t4: #CBD5E1;
-  --ti: #FFFFFF;
+  /* ─────── Text = iOS Label Colors (warm-neutral, NOT cool slate) ─────── */
+  /*  iOS Human Interface 4단계 라벨. 알파 기반 → 어떤 배경 위에서도 자연 */
+  --t1: #000000;                    /* label (primary) */
+  --t2: rgba(60, 60, 67, 0.60);     /* secondaryLabel */
+  --t3: rgba(60, 60, 67, 0.30);     /* tertiaryLabel */
+  --t4: rgba(60, 60, 67, 0.18);     /* quaternaryLabel */
+  --ti: #FFFFFF;                    /* tint 위 텍스트 (on-color) */
 
-  /* ─────── Border ─────── */
-  --bd: #E2E8F0;
-  --bdf: #3B82F6;
-  --bde: #EF4444;
+  /* ─────── Border = iOS Separator (HIG 정확) ─────── */
+  --bd: #C6C6C8;        /* iOS separator (opaque equivalent) */
+  --bdf: #007AFF;       /* focused border = iOS Blue */
+  --bde: #FF3B30;       /* error border = iOS Red */
 
   /* ─────── Game Specific — 변경 금지 ─────── */
   --gold: #EAB308;
@@ -168,11 +179,11 @@
   --sh-ios-4: 0 4px 8px rgba(0, 0, 0, .08), 0 20px 48px -8px rgba(0, 0, 0, .16);
   --sh-ios-button: 0 1px 2px rgba(0, 0, 0, .06), 0 2px 8px rgba(0, 0, 0, .04);
 
-  /* iOS 컬러 글로우 — CTA · 상태 강조 */
-  --sh-ios-glow-blue: 0 4px 16px rgba(59, 130, 246, .22);
-  --sh-ios-glow-green: 0 4px 16px rgba(52, 199, 89, .22);
-  --sh-ios-glow-red: 0 4px 16px rgba(255, 69, 58, .25);
-  --sh-ios-glow-orange: 0 4px 16px rgba(255, 159, 10, .22);
+  /* iOS 컬러 글로우 — CTA · 상태 강조 (모두 iOS system color RGB 기반) */
+  --sh-ios-glow-blue: 0 4px 16px rgba(0, 122, 255, .25);     /* iOS Blue */
+  --sh-ios-glow-green: 0 4px 16px rgba(52, 199, 89, .22);   /* iOS Green */
+  --sh-ios-glow-red: 0 4px 16px rgba(255, 59, 48, .25);     /* iOS Red */
+  --sh-ios-glow-orange: 0 4px 16px rgba(255, 149, 0, .22);  /* iOS Orange */
 
   /* ─────── iOS Material (글라스) ─────── */
   /*  iOS UIVisualEffectView — Material.thin/regular/thick 정합. */
@@ -229,30 +240,36 @@
 }
 
 [data-theme="dark"] {
-  --p: #60A5FA;
-  --p-hover: #93C5FD;
-  --p-light: #1E3A5F;
-  --p-dark: #3B82F6;
+  /* ─────── iOS Dark = Vivid system colors + 순흑 캔버스 ─────── */
+  --p: #0A84FF;          /* iOS systemBlue (dark vivid) */
+  --p-hover: #409CFF;
+  --p-light: rgba(10, 132, 255, 0.18);   /* tint bg dark — 알파 위에 차곡 */
+  --p-dark: #007AFF;
 
-  --active-light: #451A03;
-  --success: #4ADE80;
-  --success-light: #052E16;
-  --error: #F87171;
-  --error-light: #3B0A0A;
-  --info-light: #083344;
-  --warning-light: #3B2000;
+  --active: #FF9F0A;
+  --active-light: rgba(255, 159, 10, 0.18);
+  --success: #30D158;
+  --success-light: rgba(48, 209, 88, 0.18);
+  --error: #FF453A;
+  --error-light: rgba(255, 69, 58, 0.18);
+  --warning: #FF9F0A;
+  --warning-light: rgba(255, 159, 10, 0.18);
+  --info: #64D2FF;
+  --info-light: rgba(100, 210, 255, 0.18);
 
-  --bg: #0B1120;
-  --bg2: #141E30;
-  --bg3: #1E2D42;
+  /* iOS Settings dark — canvas=순흑, 카드=#1C1C1E (HIG 정확) */
+  --bg: #1C1C1E;       /* secondarySystemGroupedBackground dark = 카드 */
+  --bg2: #000000;      /* systemGroupedBackground dark = 진짜 검정 캔버스 */
+  --bg3: #2C2C2E;      /* tertiarySystemFill dark */
 
-  --t1: #F1F5F9;
-  --t2: #CBD5E1;
-  --t3: #64748B;
-  --t4: #334155;
+  /* iOS Label dark — 알파 기반 (어떤 배경에도 자연) */
+  --t1: #FFFFFF;                          /* label dark */
+  --t2: rgba(235, 235, 245, 0.60);         /* secondaryLabel dark */
+  --t3: rgba(235, 235, 245, 0.30);         /* tertiaryLabel dark */
+  --t4: rgba(235, 235, 245, 0.16);         /* quaternaryLabel dark */
 
-  --bd: #1E2D42;
-  --bdf: #60A5FA;
+  --bd: #38383A;        /* iOS separator dark (opaque equivalent) */
+  --bdf: #0A84FF;
 
   /* ─────── iOS Dark — Vivid 컬러 사용 (HIG 다크 모드 spec) ─────── */
   --ios-red: var(--ios-red-vivid);

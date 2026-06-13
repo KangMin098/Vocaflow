@@ -56,10 +56,11 @@ export function ActivityRing({
   const clamped = Math.max(0, Math.min(100, pct))
   const offset = circ * (1 - clamped / 100)
   const ringColor = reached ? 'var(--ios-green)' : color
+  // iOS system color glow — green(달성) / blue(진행)
   const glow = reached
     ? 'drop-shadow(0 0 8px rgba(52,199,89,0.35))'
     : pct > 0
-      ? 'drop-shadow(0 0 8px rgba(59,130,246,0.25))'
+      ? 'drop-shadow(0 0 8px rgba(0,122,255,0.30))'
       : 'none'
 
   return (

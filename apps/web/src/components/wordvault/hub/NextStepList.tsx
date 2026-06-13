@@ -144,7 +144,7 @@ export function NextStepList() {
           </p>
           <Link
             href="/diagnostic"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(59,130,246,0.22)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(0,122,255,0.25)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
           >
             <Compass size={13} aria-hidden />
             진단 받기

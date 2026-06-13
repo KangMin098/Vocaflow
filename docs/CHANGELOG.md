@@ -10,6 +10,63 @@
 
 ## Unreleased (v06.34 → next)
 
+### iOS Color SSoT 풀 재정렬 v06.37 ★ (브랜드 → System Blue + Grouped Background + Label Color)
+
+사용자 명시 — "ios 감성이 느낌이 아직 임. 특히 색상에 대해서는 ios 설계가 안되 있는거 같음". 진단 결과 토큰 핵심 3가지가 **Tailwind 톤 그대로** → iOS HIG와 1:1 정합으로 재정렬:
+
+**근본 진단 (3 주요 미스매치)**
+1. 브랜드 `--p` = `#3B82F6` (Tailwind blue) → **iOS는 `#007AFF` systemBlue** — 미세하게 다른 cyan-shift, Tailwind 티 100%
+2. 캔버스 `--bg2` = `#F8FAFC` (Tailwind slate-50) → **iOS는 `#F2F2F7` systemGroupedBackground** — Tailwind는 푸른빛, iOS는 중성 톤
+3. 텍스트 `--t1` = `#0F172A` (Tailwind slate cool) → **iOS는 `rgba(60,60,67,*)` label color (warm-neutral 알파)** — cool slate → warm-neutral
+
+**토큰 풀 재정렬** ([tokens.css](../packages/design-tokens/src/tokens.css) + [colors.ts](../packages/design-tokens/src/colors.ts))
+
+| 토큰 | 이전 (Tailwind) | 신규 (iOS HIG) |
+|---|---|---|
+| `--p` | `#3B82F6` | `#007AFF` systemBlue |
+| `--p-hover` | `#2563EB` | `#0066D6` |
+| `--p-light` | `#EFF6FF` | `#E5F1FF` |
+| `--success` | `#22C55E` | `#34C759` systemGreen |
+| `--error` | `#EF4444` | `#FF3B30` systemRed |
+| `--warning` | `#F59E0B` | `#FF9500` systemOrange |
+| `--info` | `#06B6D4` | `#32ADE6` systemCyan |
+| `--bg2` (캔버스) | `#F8FAFC` | `#F2F2F7` systemGroupedBackground ★ |
+| `--bg3` | `#F1F5F9` | `#E5E5EA` systemGray5 |
+| `--t1` | `#0F172A` | `#000000` label |
+| `--t2` | `#475569` | `rgba(60,60,67,.60)` secondaryLabel |
+| `--t3` | `#94A3B8` | `rgba(60,60,67,.30)` tertiaryLabel |
+| `--t4` | `#CBD5E1` | `rgba(60,60,67,.18)` quaternaryLabel |
+| `--bd` | `#E2E8F0` | `#C6C6C8` separator opaque |
+
+**다크 모드 — iOS 정확** (이전 진청 + 차가운 slate → 순흑 + warm-neutral)
+- `--p` `#60A5FA` → `#0A84FF` (systemBlue dark vivid)
+- `--bg` `#0B1120` → `#1C1C1E` (card)
+- `--bg2` `#141E30` → `#000000` (순흑 캔버스, iOS Settings Dark 시그니처)
+- `--bd` `#1E2D42` → `#38383A` (separator dark)
+- 라벨 모두 알파 기반 (`rgba(235,235,245,.60/.30/.16)`)
+
+**컴포넌트 정합 수정**
+- [Capsule](../apps/web/src/components/ui/ios/Capsule.tsx) — `neutral` tone 배경 `--bg2` → `--bg3` (다크에서 캔버스 순흑과 겹침 방지)
+- [Capsule](../apps/web/src/components/ui/ios/Capsule.tsx) — `green/purple/pink` 등 hex (`#15803D` 등) → iOS system color 토큰 (`var(--ios-green)` 등)
+- [StatPill](../apps/web/src/components/ui/ios/StatPill.tsx) — 배경 `--bg2` → `--bg3` (동일 이유)
+- [ActivityRing](../apps/web/src/components/ui/ios/ActivityRing.tsx) — glow `rgba(59,130,246,.25)` → `rgba(0,122,255,.30)` (iOS Blue)
+- [FlowStripe](../apps/web/src/components/wordvault/hub/FlowStripe.tsx) · [NextStepList](../apps/web/src/components/wordvault/hub/NextStepList.tsx) · [VocabularyLevelMap](../apps/web/src/components/wordvault/hub/VocabularyLevelMap.tsx) — 인라인 glow Tailwind blue → iOS Blue
+- [HubHero](../apps/web/src/components/home/HubHero.tsx) — 그라데이션 `var(--p-dark) → var(--p)` 토큰 → 명시 iOS Blue 3단계 그라데이션 `#0051A8 → #007AFF → #2A8BFF` (Apple Music 카드 톤)
+- `--sh-ios-glow-{blue,red,orange}` shadow tokens — 모두 iOS system color RGB 기반으로 재정의
+
+**SSoT 문서** ([DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §iOS Color SSoT)
+- iOS HIG 3대 색상 시스템 표 (System Tint / System Colors / Grouped Background / Label / Separator)
+- 색상 토큰 카탈로그 (light + dark)
+- iOS 색상 철학 dos/don'ts 14조
+- Capsule tone 의미-색 1:1 매핑
+
+**파급 효과 (자동 정렬)**
+- 모든 `bg-[var(--bg2)]` 페이지 = 즉시 iOS 시그니처 그레이 캔버스
+- 모든 `text-[var(--t1~t4)]` = warm-neutral 알파 라벨 (Tailwind cool slate 사라짐)
+- 모든 `bg-[var(--p)]` 버튼 = iOS Blue (#007AFF), 즉시 Apple 앱 톤
+- 모든 `border-[var(--bd)]` = 정확한 iOS separator
+- 다크 모드 = 진짜 iOS Settings Dark (순흑 + 카드)
+
 ### iOS Design System — 전체 화면 일괄 적용 v06.36.2 (Tier A + 학습 모듈)
 
 사용자 명시 — "전체 화면을 iOS 디자인 적용해줘. 최고 수준으로". 학습자 노출 빈도순 Tier A 5+α 화면 일괄 적용:

@@ -1,65 +1,75 @@
 // packages/design-tokens/src/colors.ts
 // SSoT (CLAUDE.md §Colors). Web 은 tokens.css 의 CSS 변수, RN 은 아래 객체를 사용.
+//
+// v06.37 — iOS HIG 색상 풀 정렬:
+//  · 브랜드 = iOS systemBlue (#007AFF)
+//  · semantic = iOS systemGreen/Red/Orange/Cyan
+//  · 캔버스 = iOS systemGroupedBackground (#F2F2F7)
+//  · 텍스트 = iOS label (warm-neutral alpha, NOT cool slate)
+//  · 다크 = iOS 순흑 캔버스 + #1C1C1E 카드
 
 export const colorsLight = {
-  p: '#3B82F6',
-  pHover: '#2563EB',
-  pLight: '#EFF6FF',
-  pDark: '#1D4ED8',
+  p: '#007AFF',          // iOS systemBlue
+  pHover: '#0066D6',
+  pLight: '#E5F1FF',
+  pDark: '#0051A8',
 
-  active: '#F59E0B',
-  activeLight: '#FEF3C7',
+  active: '#FF9500',     // iOS systemOrange (active)
+  activeLight: '#FFF1E5',
 
-  success: '#22C55E',
-  successLight: '#DCFCE7',
-  error: '#EF4444',
-  errorLight: '#FEE2E2',
-  warning: '#F59E0B',
-  warningLight: '#FEF3C7',
-  info: '#06B6D4',
-  infoLight: '#CFFAFE',
+  success: '#34C759',    // iOS systemGreen
+  successLight: '#E5F8EC',
+  error: '#FF3B30',      // iOS systemRed
+  errorLight: '#FFE5E5',
+  warning: '#FF9500',    // iOS systemOrange
+  warningLight: '#FFF1E5',
+  info: '#32ADE6',       // iOS systemCyan
+  infoLight: '#E5F4FB',
 
-  bg: '#FFFFFF',
-  bg2: '#F8FAFC',
-  bg3: '#F1F5F9',
+  bg: '#FFFFFF',         // secondarySystemGroupedBackground (card)
+  bg2: '#F2F2F7',        // systemGroupedBackground (canvas) — ★ iOS 시그니처 톤
+  bg3: '#E5E5EA',        // systemGray5 (fill)
 
-  t1: '#0F172A',
-  t2: '#475569',
-  t3: '#94A3B8',
-  t4: '#CBD5E1',
+  t1: '#000000',                          // label
+  t2: 'rgba(60, 60, 67, 0.60)',            // secondaryLabel
+  t3: 'rgba(60, 60, 67, 0.30)',            // tertiaryLabel
+  t4: 'rgba(60, 60, 67, 0.18)',            // quaternaryLabel
   ti: '#FFFFFF',
 
-  bd: '#E2E8F0',
-  bdf: '#3B82F6',
-  bde: '#EF4444',
+  bd: '#C6C6C8',         // iOS separator (opaque)
+  bdf: '#007AFF',
+  bde: '#FF3B30',
 } as const;
 
 export const colorsDark = {
   ...colorsLight,
-  p: '#60A5FA',
-  pHover: '#93C5FD',
-  pLight: '#1E3A5F',
-  pDark: '#3B82F6',
+  p: '#0A84FF',                              // iOS systemBlue dark vivid
+  pHover: '#409CFF',
+  pLight: 'rgba(10, 132, 255, 0.18)',
+  pDark: '#007AFF',
 
-  activeLight: '#451A03',
-  success: '#4ADE80',
-  successLight: '#052E16',
-  error: '#F87171',
-  errorLight: '#3B0A0A',
-  infoLight: '#083344',
-  warningLight: '#3B2000',
+  active: '#FF9F0A',
+  activeLight: 'rgba(255, 159, 10, 0.18)',
+  success: '#30D158',
+  successLight: 'rgba(48, 209, 88, 0.18)',
+  error: '#FF453A',
+  errorLight: 'rgba(255, 69, 58, 0.18)',
+  warning: '#FF9F0A',
+  warningLight: 'rgba(255, 159, 10, 0.18)',
+  info: '#64D2FF',
+  infoLight: 'rgba(100, 210, 255, 0.18)',
 
-  bg: '#0B1120',
-  bg2: '#141E30',
-  bg3: '#1E2D42',
+  bg: '#1C1C1E',         // secondarySystemGroupedBackground dark (card)
+  bg2: '#000000',        // systemGroupedBackground dark (canvas) — 순흑
+  bg3: '#2C2C2E',        // tertiarySystemFill dark
 
-  t1: '#F1F5F9',
-  t2: '#CBD5E1',
-  t3: '#64748B',
-  t4: '#334155',
+  t1: '#FFFFFF',
+  t2: 'rgba(235, 235, 245, 0.60)',
+  t3: 'rgba(235, 235, 245, 0.30)',
+  t4: 'rgba(235, 235, 245, 0.16)',
 
-  bd: '#1E2D42',
-  bdf: '#60A5FA',
+  bd: '#38383A',         // iOS separator dark
+  bdf: '#0A84FF',
 } as const;
 
 // iOS 시스템 컬러 (HIG light) — 의미별 액센트. 브랜드 --p 와 별도로 사용.

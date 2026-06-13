@@ -36,16 +36,17 @@ interface ToneStyle {
   value: string
 }
 
+// 다크 정합 — neutral/gray 캡슐은 캔버스(--bg2 = 다크 순흑)와 겹침 방지 위해 --bg3 사용.
 const TONE_STYLES: Record<CapsuleTone, ToneStyle> = {
-  neutral: { bg: 'var(--bg2)', label: 'var(--t3)', value: 'var(--t1)' },
-  brand: { bg: 'var(--p-light)', label: 'var(--p-dark)', value: 'var(--p-dark)' },
+  neutral: { bg: 'var(--bg3)', label: 'var(--t3)', value: 'var(--t1)' },
+  brand: { bg: 'var(--p-light)', label: 'var(--p)', value: 'var(--p)' },
   red: { bg: 'var(--ios-red-tint)', label: 'var(--ios-red)', value: 'var(--ios-red)' },
   orange: { bg: 'var(--ios-orange-tint)', label: 'var(--ios-orange)', value: 'var(--ios-orange)' },
   yellow: { bg: 'var(--ios-yellow-tint)', label: '#92400E', value: '#92400E' },
-  green: { bg: 'var(--ios-green-tint)', label: '#15803D', value: '#15803D' },
+  green: { bg: 'var(--ios-green-tint)', label: 'var(--ios-green)', value: 'var(--ios-green)' },
   blue: { bg: 'var(--ios-blue-tint)', label: 'var(--ios-blue)', value: 'var(--ios-blue)' },
-  purple: { bg: 'var(--ios-purple-tint)', label: '#7C3AED', value: '#7C3AED' },
-  pink: { bg: 'var(--ios-pink-tint)', label: '#9D174D', value: '#9D174D' },
+  purple: { bg: 'var(--ios-purple-tint)', label: 'var(--ios-purple)', value: 'var(--ios-purple)' },
+  pink: { bg: 'var(--ios-pink-tint)', label: 'var(--ios-pink)', value: 'var(--ios-pink)' },
   gray: { bg: 'var(--bg3)', label: 'var(--t3)', value: 'var(--t2)' },
 }
 

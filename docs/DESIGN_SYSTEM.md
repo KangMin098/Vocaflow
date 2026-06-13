@@ -8,6 +8,103 @@
 
 ---
 
+## 🎨 iOS Color SSoT (v06.37 — 풀 재정렬)
+
+> **이전 문제**: 브랜드 `--p` = `#3B82F6` (Tailwind blue), 캔버스 `--bg2` = `#F8FAFC` (Tailwind slate), 텍스트 = `#0F172A` cool slate. 시각적으로 **Tailwind 느낌**이 남음.
+>
+> **현재 (v06.37)**: 모든 핵심 토큰을 Apple Human Interface Guidelines의 System Colors / Label Colors / Grouped Backgrounds 와 1:1 정합.
+
+### iOS HIG 3대 색상 시스템
+
+| 시스템 | iOS Spec | Vocaflow 토큰 | 용도 |
+|---|---|---|---|
+| **System Tint (브랜드)** | `systemBlue` `#007AFF` (light) / `#0A84FF` (dark) | `--p` | 모든 액션·링크·액센트의 표준 — 단 하나의 tint |
+| **System Colors** | red/orange/yellow/green/blue/indigo/purple/pink 등 | `--ios-*` + semantic `--success/--error/--warning/--info` | 의미별 액센트 (red=destructive, green=success, orange=warning) |
+| **Grouped Background** | `systemGroupedBackground` `#F2F2F7` light / `#000000` dark | `--bg2` (캔버스) + `--bg` (카드) + `--bg3` (셀 fill) | 그레이 캔버스 위에 떠있는 흰 카드 — iOS Settings 시그니처 |
+| **Label Colors** | `label` `#000000` → `quaternaryLabel` `rgba(60,60,67,.18)` (4단계 알파) | `--t1` → `--t4` | warm-neutral 라벨, 어떤 배경 위에서도 자연스러운 알파 기반 |
+| **Separator** | `#C6C6C8` light / `#38383A` dark | `--bd` | 셀 구분선 — 정확한 iOS 그레이 |
+
+### 색상 토큰 카탈로그 (v06.37)
+
+```css
+/* Light Mode — iOS HIG 정확 */
+--p           : #007AFF              /* systemBlue */
+--p-hover     : #0066D6
+--p-light     : #E5F1FF              /* tint badge bg */
+--p-dark      : #0051A8
+
+--success     : #34C759              /* systemGreen */
+--error       : #FF3B30              /* systemRed */
+--warning     : #FF9500              /* systemOrange */
+--info        : #32ADE6              /* systemCyan */
+
+--bg          : #FFFFFF              /* secondarySystemGroupedBackground = card */
+--bg2         : #F2F2F7              /* systemGroupedBackground = canvas ★ iOS 시그니처 */
+--bg3         : #E5E5EA              /* systemGray5 = fill */
+
+--t1          : #000000              /* label */
+--t2          : rgba(60,60,67,.60)   /* secondaryLabel */
+--t3          : rgba(60,60,67,.30)   /* tertiaryLabel */
+--t4          : rgba(60,60,67,.18)   /* quaternaryLabel */
+
+--bd          : #C6C6C8              /* separator (opaque) */
+
+/* Dark Mode — iOS 순흑 캔버스 */
+--p           : #0A84FF              /* systemBlue dark vivid */
+--bg          : #1C1C1E              /* card */
+--bg2         : #000000              /* canvas — 순흑 */
+--bg3         : #2C2C2E              /* fill */
+
+--t1          : #FFFFFF              /* label */
+--t2          : rgba(235,235,245,.60) /* secondaryLabel */
+
+--bd          : #38383A              /* separator */
+```
+
+### iOS 색상 철학 (HIG 핵심 dos/don'ts)
+
+#### ✅ DO
+
+| 원칙 | 적용 |
+|---|---|
+| **단일 tint** | 모든 interactive element (버튼, 링크, 액세서리, 포커스링) = `--p` 단 하나. 절대 다른 임의 액센트 사용 X. |
+| **의미 = 색** | 색은 의미에 종속. red=destructive 만, green=success/달성 만, orange=warning 만. 의미와 무관한 장식 색 금지. |
+| **알파 기반 라벨** | 텍스트는 알파 라벨 (`--t1~t4`) — 어떤 배경 (흰/그레이/컬러 카드 위) 에도 일관 가독. |
+| **그레이 캔버스 = 정체성** | `bg2 = #F2F2F7` 캔버스 + `bg = #FFFFFF` 카드 = 떠있는 카드. 이 패턴이 iOS 시그니처. |
+| **시스템 컬러 = vivid dark** | 다크 모드는 `#0A84FF/#FF453A` 등 vivid 변형 사용. 라이트 색상 그대로 X. |
+| **separator = `--bd`** | `border-[var(--bd)]` (light: `#C6C6C8`, dark: `#38383A`). Tailwind gray border 사용 X. |
+| **CTA 글로우** | Primary CTA 에 `--sh-ios-glow-blue` (`rgba(0,122,255,.25)`) 컬러 그림자로 떠있음 표현. |
+
+#### ❌ DON'T
+
+| 안티패턴 | 이유 |
+|---|---|
+| ❌ `#3B82F6` (Tailwind blue) 사용 | iOS Blue (`#007AFF`) 와 미세하게 다른 cyan-shift → Tailwind 티 100% |
+| ❌ `text-slate-*` `bg-slate-*` 사용 | iOS는 warm-neutral, Tailwind slate 는 cool-blue 톤 → 즉시 non-iOS 느낌 |
+| ❌ `border-gray-200` 임의 border | iOS separator 와 톤 불일치, 너무 진해보임 |
+| ❌ 색상 3개 이상으로 강조 분류 | iOS는 한 화면에 색 액센트 1-2개. 다색 = 안드로이드 Material 느낌 |
+| ❌ `text-black` `text-white` 하드코드 | 알파 라벨 (`--t1~t4`) 무력화 → 다크 모드 비정합 |
+| ❌ 다크 모드 `bg-gray-900` 임의 | iOS 다크는 `#000000` 캔버스 + `#1C1C1E` 카드. 회색 9 색 (Tailwind) X |
+| ❌ 임의 hex 색상 `bg-[#xxxxxx]` | 디자인 토큰 우회 → 다크 모드 비정합 + 일관성 손실 |
+
+### Capsule tone 매핑 (의미-색 1:1)
+
+```
+brand   = systemBlue       — 메인/현재/primary action
+green   = systemGreen      — 완료/달성/다음 단계/딱 맞아요
+orange  = systemOrange     — 진행 중/주의/도서/복습
+red     = systemRed        — 위험/critical/회복 필요
+yellow  = systemYellow     — caution/수능 트랙
+purple  = systemPurple     — 단어장/specialty
+pink    = systemPink       — streak/학술 트랙
+neutral = bg3 + t1         — 일반 메타 (수치, 카운트)
+gray    = bg3 + t2         — secondary 정보
+```
+
+이 의미 슬롯은 [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) §iOS 시스템 컬러 의미 슬롯 표와 동일.
+
+---
+
 ## 🍎 iOS / iPadOS 디자인 언어 (v06.36 풀 적용)
 
 ### 철학 — Apple HIG 3대 원칙 (학습 컨텍스트로 번역)

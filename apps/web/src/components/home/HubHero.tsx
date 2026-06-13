@@ -75,8 +75,9 @@ export function HubHero() {
     <header
       className="relative overflow-hidden rounded-ios-2xl px-6 py-5 text-[var(--ti)] shadow-ios-3 md:px-7 md:py-6"
       style={{
+        // iOS Blue (#007AFF) 풀 정합 그라데이션 — Apple Music 카드 톤
         backgroundImage:
-          'linear-gradient(rgba(255,255,255,0.12), rgba(255,255,255,0.12)), linear-gradient(135deg, var(--p-dark) 0%, var(--p) 100%)',
+          'linear-gradient(135deg, #0051A8 0%, #007AFF 55%, #2A8BFF 100%)',
       }}
     >
       <div className="flex flex-wrap items-start justify-between gap-4">

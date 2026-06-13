@@ -178,7 +178,7 @@ export function VocabularyLevelMap() {
                     opacity: count === 0 ? 0.35 : 1,
                     boxShadow:
                       isCurrent || isIPlusOne
-                        ? `0 2px 8px ${isCurrent ? 'rgba(59,130,246,0.25)' : 'rgba(52,199,89,0.22)'}`
+                        ? `0 2px 8px ${isCurrent ? 'rgba(0,122,255,0.30)' : 'rgba(52,199,89,0.22)'}`
                         : 'none',
                   }}
                   title={`V${lv} · ${NF.format(count)}개`}
