@@ -54,7 +54,7 @@ async function fetchBySet(
 
   const { data, error } = await client
     .from('shared_words')
-    .select('id, word, meaning_ko, example_en, pronunciation, part_of_speech')
+    .select('id, word, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech')
     .eq('set_id', setId)
     .order('sort_order', { ascending: true })
   if (error) return null
@@ -63,6 +63,7 @@ async function fetchBySet(
     id: string
     word: string
     meaning_ko: string | null
+    source_sentence: string | null
     example_en: string | null
     pronunciation: string | null
     part_of_speech: string | null
@@ -75,7 +76,8 @@ async function fetchBySet(
     meaning: r.meaning_ko ?? '',
     pronunciation: r.pronunciation ?? '',
     pos: r.part_of_speech ?? '',
-    example: r.example_en ?? '',
+    // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백 (auto-V/specialty 단어장 등)
+    example: r.source_sentence ?? r.example_en ?? '',
   }))
 
   return {

@@ -47,7 +47,7 @@
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
 | `shared_dictionary` | **45,292** | **183 MB** | 영단어 마스터 캐시 — meaning_ko 100% (v06.24) · 11개 통합 컬럼 (Phase 1) · senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2) |
-| `shared_words` | 13,437 | 46 MB | 공용 단어장 — `source_queue_id` FK to vocab_enrichment_queue (cast-2000 audit) |
+| `shared_words` | 13,437 | 46 MB | 공용 단어장 — `source_queue_id` FK to vocab_enrichment_queue (cast-2000 audit) · `source_sentence`(원문 출현 문장 · 도서 단어장 예문, 렌더는 source_sentence→example_en 폴백) |
 | `shared_word_sets` | 277 | 2.8 MB | 단어장 헤더 — category(8 enum)+`category_id`/`additional_category_ids[]` (브릿지) · is_published · curation_query JSONB |
 | `user_word_set_subscriptions` | 225 | 104 kB | 다중 구독 · source_book_id ref (자동 import 추적) |
 | `dictionary_categories` | 566 | 288 kB | 3계층 카테고리 트리 (H1=18 / H2=76 / H3=472) · self-ref parent_id |
@@ -283,7 +283,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 65건. 디렉토리: `supabase/migrations/`. (최신: `20260613120000_library_chapters_source_href` — 챕터 `source_href` + `insert_book_analysis` 확장)
+전체 누적 66건. 디렉토리: `supabase/migrations/`. (최신: `20260613130000_word_set_source_sentence` — `shared_words.source_sentence` + `select_book_chapter_vocab`/`publish_book_word_sets` 확장)
 
 ---
 

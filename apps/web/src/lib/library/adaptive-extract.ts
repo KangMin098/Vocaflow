@@ -189,9 +189,10 @@ export async function adaptiveExtractWords(
       text_id: textId,
       word,
       meaning,
+      // 도서 챕터 본문 문장 우선 (context-dependent) → dict 일반 예문 폴백
       example_sentence:
-        ((d['example_en'] as string | null) ??
-          (c.first_sentence as string | null)) ??
+        ((c.first_sentence as string | null) ??
+          (d['example_en'] as string | null)) ??
         null,
       pos: (d['pos'] as string | null) ?? null,
       cefr_level: cefr,

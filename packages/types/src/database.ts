@@ -1941,6 +1941,7 @@ export type Database = {
           sort_order: number | null
           source_queue_id: number | null
           source_run_id: number | null
+          source_sentence: string | null
           synonyms: string[] | null
           word: string
         }
@@ -1967,6 +1968,7 @@ export type Database = {
           sort_order?: number | null
           source_queue_id?: number | null
           source_run_id?: number | null
+          source_sentence?: string | null
           synonyms?: string[] | null
           word: string
         }
@@ -1993,6 +1995,7 @@ export type Database = {
           sort_order?: number | null
           source_queue_id?: number | null
           source_run_id?: number | null
+          source_sentence?: string | null
           synonyms?: string[] | null
           word?: string
         }
@@ -4122,6 +4125,7 @@ export type Database = {
           chapter_idx: number
           composite_score: number
           example_en: string
+          first_sentence: string
           frequency_in_chapter: number
           frequency_rank: number
           lemma: string
