@@ -131,7 +131,7 @@ export function FloatingAudioPlayer({
       }}
     >
       {/* 하단 고정 바 — 가장자리 flush · 상단 hairline + 위로 향한 soft shadow · 콘텐츠는 중앙 정렬 · 최소 높이 */}
-      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-1.5 px-3 pt-1.5 pb-[max(0.4rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-2">
+      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-1 px-3 pt-1 pb-[max(0.4rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-1.5">
         {/* 소스 토글 (보이스 연결된 챕터만) */}
         {hasVoice && (
           <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
@@ -178,7 +178,7 @@ function Segmented<T extends string>({
   ariaLabel: string
   size?: 'sm' | 'md'
 }) {
-  const pad = size === 'sm' ? 'px-2.5 py-1 text-[10.5px]' : 'px-3 py-1.5 text-[12px]'
+  const pad = size === 'sm' ? 'px-2 py-0.5 text-[10.5px]' : 'px-3 py-1 text-[12px]'
   return (
     <div
       role="tablist"
@@ -325,7 +325,7 @@ function BrowserBody({
       )}
 
       {/* ── 단일 컨트롤 행 (최소 높이) ── */}
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+      <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
         {/* 모드 (compact) */}
         <Segmented<PlayMode>
           ariaLabel="듣기 모드"
@@ -631,106 +631,80 @@ function LibriVoxBody({
   }
 
   return (
-    <div className="flex flex-col gap-2.5">
-      {/* 챕터 정보 + 성우 */}
-      <div className="flex items-center justify-between gap-2 px-0.5">
-        <span className="inline-flex min-w-0 items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
-          <Mic size={12} className="shrink-0 text-[var(--t3)]" aria-hidden />
-          <span className="truncate">
-            {currentPart?.reader
-              ? currentPart.reader
-              : audio.reader
-                ? audio.reader
-                : '원어민 낭독'}
+    <div className="flex items-center gap-1.5">
+      {/* 성우 — 최소화 (작게·truncate·모바일 숨김. 전체 이름은 title) */}
+      <span
+        className="hidden min-w-0 max-w-[100px] items-center gap-1 font-body text-[10.5px] text-[var(--t3)] sm:inline-flex"
+        title={currentPart?.reader ?? audio.reader ?? '원어민 낭독'}
+      >
+        <Mic size={11} className="shrink-0 text-[var(--t4)]" aria-hidden />
+        <span className="truncate">{currentPart?.reader ?? audio.reader ?? '원어민'}</span>
+        {multiPart && (
+          <span className="shrink-0 font-mono text-[9px] tabular-nums text-[var(--t4)]">
+            {partIdx + 1}/{parts.length}
           </span>
-          {multiPart && (
-            <span className="shrink-0 rounded-[var(--r-ios-pill)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700] tabular-nums text-[var(--t2)]">
-              파트 {partIdx + 1}/{parts.length}
-            </span>
-          )}
-          {!multiPart && audio.consistency === 'multi' && (
-            <span className="shrink-0 text-[var(--t3)]">· 챕터마다 성우 바뀜</span>
-          )}
-        </span>
-        {audio.librivoxUrl && (
-          <a
-            href={audio.librivoxUrl}
-            target="_blank"
-            rel="noreferrer"
-            className={`inline-flex shrink-0 items-center gap-0.5 rounded-[var(--r-sm)] px-1 font-mono text-[9.5px] text-[var(--t3)] transition-colors hover:text-[var(--p)] ${RING}`}
-            aria-label="LibriVox 출처 보기"
-          >
-            LibriVox <ExternalLink size={9} aria-hidden />
-          </a>
         )}
-      </div>
+      </span>
 
       {/* 트랜스포트 */}
-      <div className="flex items-center gap-1.5">
-        {multiPart && (
-          <TransportButton
-            onClick={() => goPart(partIdx - 1)}
-            disabled={partIdx === 0}
-            label="이전 파트"
-            icon={<SkipBack size={15} aria-hidden />}
-          />
-        )}
-
+      {multiPart && (
         <TransportButton
-          onClick={() => skip(-10)}
-          label="10초 뒤로"
-          icon={<ChevronsLeft size={17} aria-hidden />}
+          onClick={() => goPart(partIdx - 1)}
+          disabled={partIdx === 0}
+          label="이전 파트"
+          icon={<SkipBack size={15} aria-hidden />}
         />
+      )}
+      <TransportButton onClick={() => skip(-10)} label="10초 뒤로" icon={<ChevronsLeft size={17} aria-hidden />} />
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? '일시정지' : '재생'}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-2)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
+      >
+        {playing ? <Pause size={17} aria-hidden /> : <Play size={17} className="ml-0.5" aria-hidden />}
+      </button>
+      <TransportButton onClick={() => skip(10)} label="10초 앞으로" icon={<ChevronsRight size={17} aria-hidden />} />
+      {multiPart && (
+        <TransportButton
+          onClick={() => goPart(partIdx + 1)}
+          disabled={partIdx >= parts.length - 1}
+          label="다음 파트"
+          icon={<SkipForward size={15} aria-hidden />}
+        />
+      )}
 
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={playing ? '일시정지' : '재생'}
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-3)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
+      {/* 시간 + seek */}
+      <span className="ml-1 shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
+        {formatAudioTime(cur)}
+        <span className="mx-0.5 text-[var(--t4)]">/</span>
+        {formatAudioTime(total)}
+      </span>
+      <input
+        type="range"
+        min={0}
+        max={total || 0}
+        step={1}
+        value={Math.min(cur, total || cur)}
+        onChange={(e) => seek(Number(e.target.value))}
+        aria-label="재생 위치"
+        className={`audio-seek mx-1 min-w-0 flex-1 accent-[var(--p)] ${RING} rounded-full`}
+      />
+
+      {/* 속도 + LibriVox 출처 (아이콘만 — 최소화) */}
+      <SpeedButton rate={rate} onClick={cycleRate} />
+      {audio.librivoxUrl && (
+        <a
+          href={audio.librivoxUrl}
+          target="_blank"
+          rel="noreferrer"
+          title="LibriVox 출처"
+          aria-label="LibriVox 출처 보기"
+          className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t4)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
         >
-          {playing ? (
-            <Pause size={20} aria-hidden />
-          ) : (
-            <Play size={20} className="ml-0.5" aria-hidden />
-          )}
-        </button>
-
-        <TransportButton
-          onClick={() => skip(10)}
-          label="10초 앞으로"
-          icon={<ChevronsRight size={17} aria-hidden />}
-        />
-
-        {multiPart && (
-          <TransportButton
-            onClick={() => goPart(partIdx + 1)}
-            disabled={partIdx >= parts.length - 1}
-            label="다음 파트"
-            icon={<SkipForward size={15} aria-hidden />}
-          />
-        )}
-
-        <span className="ml-2 shrink-0 font-mono text-[11px] tabular-nums text-[var(--t2)]">
-          {formatAudioTime(cur)} <span className="text-[var(--t4)]">/</span> {formatAudioTime(total)}
-        </span>
-
-        <input
-          type="range"
-          min={0}
-          max={total || 0}
-          step={1}
-          value={Math.min(cur, total || cur)}
-          onChange={(e) => seek(Number(e.target.value))}
-          aria-label="재생 위치"
-          className={`audio-seek mx-2 flex-1 accent-[var(--p)] ${RING} rounded-full`}
-        />
-
-        <SpeedButton rate={rate} onClick={cycleRate} />
-      </div>
-
-      <p className="px-0.5 font-body text-[10px] text-[var(--t3)]">
-        문장 · 단락 단위 듣기는 ‘브라우저 음성’ 에서 가능해요
-      </p>
+          <ExternalLink size={13} aria-hidden />
+        </a>
+      )}
     </div>
   )
 }
