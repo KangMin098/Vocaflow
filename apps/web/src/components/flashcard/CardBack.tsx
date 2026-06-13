@@ -54,7 +54,11 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           <span>듣기</span>
         </span>
 
-        <ExampleWithMark text={word.exampleSentence} target={word.text} />
+        <ExampleWithMark
+          text={word.exampleSentence}
+          target={word.text}
+          forms={word.inflectedForms}
+        />
 
         <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t3)]">
           — {word.textTitle}, {word.textChapter}
@@ -68,11 +72,19 @@ function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-function ExampleWithMark({ text, target }: { text: string; target: string }) {
+function ExampleWithMark({
+  text,
+  target,
+  forms,
+}: {
+  text: string
+  target: string
+  forms?: string[]
+}) {
   if (!text || !target) return <>{text}</>
-  // 예문이 원문 문장(굴절형 포함)이므로 lemma 가 아니라 실제 표면형(running 등)을 찾아 하이라이트.
-  // 못 찾으면 lemma whole-word 로 폴백 (둘 다 word-boundary — substring 오매칭 차단).
-  const surface = matchSurface(text, target)?.surface ?? target
+  // 예문이 원문 문장(굴절형 포함)이므로 lemma 가 아니라 실제 표면형(running·was·went 등)을 찾아 하이라이트.
+  // 사전 DB inflected_forms(forms) 우선 → 불규칙까지 정확. 못 찾으면 lemma whole-word 폴백.
+  const surface = matchSurface(text, target, forms)?.surface ?? target
   const regex = new RegExp(`\\b(${escapeRegExp(surface)})\\b`, 'gi')
   const parts = text.split(regex)
   const surfaceLc = surface.toLowerCase()

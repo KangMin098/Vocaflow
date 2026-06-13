@@ -1681,6 +1681,7 @@ export type Database = {
           frequency_rank: number | null
           frequency_sources: Json | null
           image_url: string | null
+          inflected_forms: string[] | null
           inflections: Json | null
           ipa: string | null
           ipa_uk: string | null
@@ -1737,6 +1738,7 @@ export type Database = {
           frequency_rank?: number | null
           frequency_sources?: Json | null
           image_url?: string | null
+          inflected_forms?: string[] | null
           inflections?: Json | null
           ipa?: string | null
           ipa_uk?: string | null
@@ -1793,6 +1795,7 @@ export type Database = {
           frequency_rank?: number | null
           frequency_sources?: Json | null
           image_url?: string | null
+          inflected_forms?: string[] | null
           inflections?: Json | null
           ipa?: string | null
           ipa_uk?: string | null

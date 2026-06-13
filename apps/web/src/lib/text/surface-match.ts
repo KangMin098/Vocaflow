@@ -30,25 +30,39 @@ function inflectionPatterns(lemma: string): string[] {
 }
 
 /**
- * 문장에서 lemma 에 해당하는 표면형 첫 출현. exact 우선, 없으면 규칙형 굴절.
- * 못 찾으면 null (불규칙·부재).
+ * 문장에서 lemma 에 해당하는 표면형 첫(leftmost) 출현.
+ *   knownForms (사전 DB `inflected_forms`) 가 주어지면 그 집합 ∪ {lemma} ∪ 규칙형 을 모두 후보로 →
+ *   불규칙(was/were/been, went, saw…)까지 정확. knownForms 가 없으면 규칙형만(현행).
+ * 못 찾으면 null (데이터·규칙 모두 미스 = 불규칙 미수록 등 → 호출부 graceful).
  */
-export function matchSurface(sentence: string, lemma: string): SurfaceMatch | null {
+export function matchSurface(
+  sentence: string,
+  lemma: string,
+  knownForms?: string[] | null,
+): SurfaceMatch | null {
   const w = lemma.trim()
   if (!sentence || w.length < 2) return null
-  for (const p of inflectionPatterns(w)) {
-    const m = new RegExp(`\\b${p}\\b`, 'i').exec(sentence)
-    if (m) return { surface: m[0], index: m.index, length: m[0].length }
-  }
-  return null
+  // 데이터 기반 literal 후보 (lemma + knownForms) — 긴 것 우선(부분매칭 방지)
+  const literals = [...new Set(
+    [w, ...(knownForms ?? [])].map((f) => f.trim().toLowerCase()).filter((f) => f.length >= 2),
+  )].sort((a, b) => b.length - a.length)
+  // 규칙형 패턴과 합쳐 단일 alternation → 문장 내 leftmost 출현을 잡는다
+  const alts = [...literals.map(esc), ...inflectionPatterns(w)]
+  const m = new RegExp(`\\b(?:${alts.join('|')})\\b`, 'i').exec(sentence)
+  return m ? { surface: m[0], index: m.index, length: m[0].length } : null
 }
 
 /**
- * 문장에서 학습 단어 표면형을 ___ 로 치환 (첫 1회). 굴절형까지 인식.
+ * 문장에서 학습 단어 표면형을 ___ 로 치환 (첫 1회). 굴절형(knownForms 포함) 인식.
  * 표면형을 못 찾으면 원문 그대로 반환 (정답 노출은 피하되 깨지지 않음).
  */
-export function blankSurface(sentence: string, lemma: string, blank = '___'): string {
-  const m = matchSurface(sentence, lemma)
+export function blankSurface(
+  sentence: string,
+  lemma: string,
+  knownForms?: string[] | null,
+  blank = '___',
+): string {
+  const m = matchSurface(sentence, lemma, knownForms)
   if (!m) return sentence
   return sentence.slice(0, m.index) + blank + sentence.slice(m.index + m.length)
 }
