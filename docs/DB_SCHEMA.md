@@ -283,7 +283,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 68건. 디렉토리: `supabase/migrations/`. (최신: `20260613150000_inflected_forms_irregulars` — 불규칙 동사/명사 ~145 lemma 권위 패러다임 REPLACE)
+전체 누적 69건. 디렉토리: `supabase/migrations/`. (최신: `20260613160000_resolve_via_inflected_forms` — lookup_word_meaning·extract L2 정방향 해소를 inflected_forms 로 통일, noisy inflections jsonpath 제거 + 주입 차단)
 
 ---
 
