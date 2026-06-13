@@ -283,7 +283,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 67건. 디렉토리: `supabase/migrations/`. (최신: `20260613140000_shared_dictionary_inflected_forms` — 정제 굴절형 text[]+GIN, 예문 하이라이트/빈칸 불규칙 인식)
+전체 누적 68건. 디렉토리: `supabase/migrations/`. (최신: `20260613150000_inflected_forms_irregulars` — 불규칙 동사/명사 ~145 lemma 권위 패러다임 REPLACE)
 
 ---
 
