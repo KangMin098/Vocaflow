@@ -173,8 +173,18 @@ function parseRssItems(xml: string): VoaListItem[] {
     const desc = extractTag(block, 'description')
 
     if (!link) continue
+    // v06.45.1 — source_id 는 link URL 의 article ID 우선 (guid 가 URL 일 때
+    //  옛 slugFromGuid 가 .html 의 'html' 만 매치해 모든 item 이 동일 ID 가 되는 버그 수정).
+    //  우선순위: /1234567.html article ID → 끝 slug → link hash.
+    const fromLink =
+      link.match(/\/(\d{4,})\.html?$/)?.[1] ??           // /8010609.html 형식
+      link.match(/\/([a-z0-9\-]{6,})\/?$/i)?.[1] ??      // /article-slug/
+      null
+    const slug = (fromLink && fromLink !== 'html')
+      ? fromLink
+      : (guid ? slugFromGuid(guid) : hashString(link).toString(36))
     items.push({
-      source_id: guid ? `voa:${slugFromGuid(guid)}` : `voa:${hashString(link).toString(36)}`,
+      source_id: `voa:${slug && slug !== 'html' ? slug : hashString(link).toString(36)}`,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
       published_at: pubDate ? new Date(pubDate).toISOString() : null,
