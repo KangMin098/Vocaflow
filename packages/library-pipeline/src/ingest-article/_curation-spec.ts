@@ -48,8 +48,10 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 15,
   },
   'voa:as-it-is': {
-    recencyDays: 180,
-    minDescriptionLen: 80,
+    // v06.44 — recencyDays 180→365 (VOA 학습용 자료 stale 잘 안 됨, lets-learn/words 와 정합)
+    //           minDescriptionLen 80→40 (VOA RSS 일부 항목 description 빈 패턴 흡수)
+    recencyDays: 365,
+    minDescriptionLen: 40,
     minTitleLen: 18,
     sourceWeight: 0.95,
     levelBonus: 0.15,       // B1
@@ -58,8 +60,8 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 15,
   },
   'voa:science-technology': {
-    recencyDays: 180,
-    minDescriptionLen: 80,
+    recencyDays: 365,
+    minDescriptionLen: 40,
     minTitleLen: 18,
     sourceWeight: 0.90,
     levelBonus: 0.10,
@@ -69,7 +71,7 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
   },
   'voa:words-and-their-stories': {
     recencyDays: 365,       // idiom 학습 자료 1년+ OK
-    minDescriptionLen: 80,
+    minDescriptionLen: 40,  // v06.44 — VOA RSS description 빈 항목 흡수
     minTitleLen: 15,
     sourceWeight: 0.92,
     levelBonus: 0.05,       // B2

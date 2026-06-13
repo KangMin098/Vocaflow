@@ -22,31 +22,38 @@ const USER_AGENT =
 const FETCH_TIMEOUT_MS = 15_000
 const MAX_ITEMS_PER_FEED = 20
 
-/** VOA RSS feed 목록 — 카테고리별. id 는 admin UI 에서 선택. */
+/** VOA RSS feed 목록 — 카테고리별. id 는 admin UI 에서 선택.
+ *  v06.44 — VOA endpoint 변경 (2026-06-14 확인):
+ *    옛 /api/{slug} 형식 → 'Invalid url' 반환 (deprecated).
+ *    새 /rss/?count=N&zoneid={N} 패턴 표준.
+ *  zoneid 매핑 (main page navigation auto-discover):
+ *    3521 = As It Is · 987 = Words & Their Stories · 1579 = Science & Tech
+ *    952 = Lessons of the Day (Anna 시리즈 — Let's Learn English 대체)
+ */
 export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url: string }> = [
   {
     id: 'as-it-is',
     label: 'As It Is (Level 2)',
     level: 2,
-    url: 'https://learningenglish.voanews.com/api/zrgoqe$omp',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=3521',
   },
   {
     id: 'words-and-their-stories',
     label: 'Words and Their Stories (Level 3)',
     level: 3,
-    url: 'https://learningenglish.voanews.com/api/zjroyeuvy_',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=987',
   },
   {
     id: 'science-technology',
     label: 'Science & Technology (Level 2)',
     level: 2,
-    url: 'https://learningenglish.voanews.com/api/zptp_e-p_t',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=1579',
   },
   {
     id: 'lets-learn-english',
-    label: "Let's Learn English (Level 1)",
+    label: "Let's Learn English (Level 1) — Lessons of the Day",
     level: 1,
-    url: 'https://learningenglish.voanews.com/api/zmgqee$lpi',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=952',
   },
 ]
 
