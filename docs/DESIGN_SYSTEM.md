@@ -129,6 +129,19 @@
 | **`ActivityRing`** | Fitness 원형 진행도 — 그라데이션 + glow | `pct`, `reached`, `size`, `stroke`, `capLabel`, `centerValue`, `centerSub` |
 | **`PrimaryButton`** | iOS Primary CTA — 큰 캡슐, 6 tone | `tone`, `size: sm\|md\|lg` · `count` · `rightIcon` · `block` |
 | **`GlassBar`** | NavigationBar — 글라스 sticky/fixed (52px) | `leading`, `center`, `trailing`, `material: thin\|regular\|thick` |
+| **`SheetContainer`** | iOS bottom sheet — Modal presentation. 전역 keyframe + solid scrim + Esc/scrim 닫힘 + body scroll lock | `visible`, `onClose`, `detent: medium\|large`, `labelledBy`/`ariaLabel`, `disableBackdropClose` |
+| **`Screen`** | 화면 셸 — 폭 variant + safe-area + 배경 | `width: compact\|content\|wide\|full`, `background: bg\|bg2\|transparent`, `padX` |
+
+### 접근성 패턴 (Always-on · v06.36)
+
+| 패턴 | 1차 (전역) | 2차 (JS 분기) |
+|---|---|---|
+| **Reduce Motion** | `globals.css` `@media (prefers-reduced-motion: reduce)` — `animation-duration:.01ms!important` 등 글로벌 가드 | `useReduceMotion()` ([useReduceMotion.ts](../apps/web/src/hooks/useReduceMotion.ts)) — `transition: 'none'` 등 inline style 분기. ActivityRing/SheetContainer 등 JS-driven 애니메이션은 inline style 우선순위가 CSS guard 보다 높아 명시 분기 필수. |
+| **Focus visible** | `:focus-visible { outline: 2px solid var(--bdf) }` 글로벌 | — |
+| **Safe area** | Screen/Sheet 가 `env(safe-area-inset-{top,bottom,left,right})` 자동 처리 | — |
+| **ESC 닫힘 + body scroll lock** | SheetContainer 내 `useEffect` 가 키 핸들러 + `document.body.style.overflow = 'hidden'` | — |
+| **ARIA 라벨링** | `role="dialog" aria-modal="true"` · `aria-labelledby` 우선, `aria-label` fallback | — |
+| **한국어 IME 조합 보호** | **셸 책임 X** — 입력 컴포넌트(SpellForge/Dictation) 의 `<input>` 레벨에서 `composition*` 이벤트 처리 또는 비제어 ref 사용. (audit D9 정합) | — |
 
 ### 사용 규약 (Always-on)
 
@@ -142,11 +155,29 @@
 8. **iOS 시스템 컬러 사용 시 always tint와 페어로** — `bg-ios-green-tint` + `text-ios-green` (대비 보장).
 9. **Reading 폭 `max-w-[var(--ios-content-max)]`** (820px) — Hub·Reader류 콘텐츠. wider 페이지는 `--ios-content-wide-max` (1024px).
 10. **모션은 `ease-ios-*` 토큰 사용** — 임의 cubic-bezier 금지.
+11. **JS-driven 애니메이션은 `useReduceMotion()` 분기 필수** — inline style `transition` 은 CSS @media 가드를 우회. ActivityRing, SheetContainer, 커스텀 슬라이더 등.
+12. **bottom sheet = `<SheetContainer>`** — 자체 `<Modal>`+keyframe 금지 (전역 sheetUp keyframe + scrim + body scroll lock 누락 위험).
+13. **화면 셸 = `<Screen>`** — `min-h-dvh` 직접 셀 금지 (safe-area + 폭 variant 누락).
+
+### Mobile / RN (Phase 2 — Native Layer iOS-led)
+
+웹 iOS 프리미티브와 동일 철학을 React Native + Expo 위에 구현. 8 파일 corrected 스펙은 [MOBILE_SHELL_SPEC.md](./MOBILE_SHELL_SPEC.md) 보존 — Phase 2 진입 시 1:1 복붙.
+
+핵심 차이 (audit D4 정합):
+- **명명 = "Native Layer (iOS-led)"** — Android 동시 타깃 고려, "iOS Layer" 명칭 폐기.
+- **Android 실 블러 보장** — `expo-blur` `experimentalBlurMethod="dimezisBlurView"` 분기.
+- **Reduce Transparency 폴백** — iOS 만 의미 (Android 항상 false). `useReduceTransparency` 시 Material → 불투명 View.
+- **회전·폴더블** — Sheet 는 `useWindowDimensions` (Dimensions.get 금지).
+- **공간 회수** — large title 은 스크롤 콘텐츠 첫 요소로 배치 (opacity 페이드만으론 공간 잔존).
+- **자동 탭 등록 차단** — Expo Router `<Tabs.Screen options={{ href: null }}>` 명시.
 
 ### 적용 범위 (v06.36 1단계)
 
 - ✅ **WordVault Hub** (6 Section) — VaultIdentity · VocabularyLevelMap · ResourcePortfolio · RecommendedBooks · NextStepList · FlowStripe + 헤더 (page.tsx)
+- ✅ **공통 기반** — Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar · SheetContainer · Screen (12종)
+- ✅ **접근성** — `prefers-reduced-motion` 전역 + `useReduceMotion` JS · ActivityRing/RecommendedBooks 카드 hover 분기
 - 🟡 **다음 단계** (Phase 14.6 후속): TextViewer · Workspace · Library Books Browse · Diagnostic · Admin Console — 같은 프리미티브로 점진 마이그레이션
+- 🟡 **Mobile (Phase 2)** — [MOBILE_SHELL_SPEC.md](./MOBILE_SHELL_SPEC.md) corrected 형태 그대로 구현, TAB-IA 결정 후 진입
 
 ---
 

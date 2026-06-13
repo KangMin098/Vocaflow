@@ -216,7 +216,7 @@ code, pre, kbd, samp {
   outline-offset: 2px;
 }
 
-/* 모션 감소 선호 사용자 */
+/* 모션 감소 선호 사용자 — RN useReduceMotion 과 동일 정책 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -226,6 +226,26 @@ code, pre, kbd, samp {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   4.5 iOS Layer — 전역 keyframes (v06.36)
+   styled-jsx 스코프 해시 회피 → Tailwind animate-[...] 매칭 보장.
+   사용처: SheetContainer (sheetUp).
+   ══════════════════════════════════════════════════════════════ */
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes sheetDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+@keyframes scrimFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ══════════════════════════════════════════════════════════════

@@ -222,7 +222,7 @@ function BookCard({
       style={{ scrollSnapAlign: 'start' }}
     >
       {/* Cover */}
-      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[14px] shadow-[0_4px_16px_-4px_rgba(0,0,0,0.18)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] group-hover:-translate-y-1 group-active:scale-[0.97]">
+      <div className="motion-safe:transition-transform motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-standard motion-safe:group-hover:-translate-y-1 motion-safe:group-active:scale-[0.97] relative aspect-[2/3] w-full overflow-hidden rounded-[14px] shadow-[0_4px_16px_-4px_rgba(0,0,0,0.18)]">
         {coverUrl ? (
           <Image
             src={coverUrl}

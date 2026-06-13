@@ -2,8 +2,16 @@
 //
 // iOS Activity Ring (Fitness 앱 감성).
 // 원형 진행도 + 중앙 텍스트. 도달 시 그린 그라데이션 + glow.
+//
+// 접근성: prefers-reduced-motion 시 SVG stroke-dashoffset transition 0ms 로 즉시 반영.
+// (CSS @media 전역 가드가 1차로 잡지만, inline style transition 은 우선순위가 높아
+//  CSS guard 가 닿지 않음 → JS 분기로 명시.)
+
+'use client'
 
 import { useId } from 'react'
+
+import { useReduceMotion } from '@/hooks/useReduceMotion'
 
 export interface ActivityRingProps {
   /** 0-100 진행도 */
@@ -41,6 +49,7 @@ export function ActivityRing({
   ariaLabel,
 }: ActivityRingProps) {
   const id = useId()
+  const reduceMotion = useReduceMotion()
   const r = (size - stroke) / 2
   const cx = size / 2
   const circ = 2 * Math.PI * r
@@ -89,7 +98,9 @@ export function ActivityRing({
           style={{
             transform: 'rotate(-90deg)',
             transformOrigin: `${cx}px ${cx}px`,
-            transition: 'stroke-dashoffset 700ms var(--ease-ios-emphasized)',
+            transition: reduceMotion
+              ? 'none'
+              : 'stroke-dashoffset 700ms var(--ease-ios-emphasized)',
           }}
         />
       </svg>
