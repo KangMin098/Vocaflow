@@ -83,6 +83,7 @@ export async function analyzeBook(
       chapter_idx: ch.chapter_idx,
       chapter_title: ch.chapter_title ?? '',
       group_label: ch.group_label ?? null,
+      source_href: ch.source_href ?? null,
       content_hash: chapterHashes[i],
       word_count: ch.word_count,
       cefr_level: cefr.level,

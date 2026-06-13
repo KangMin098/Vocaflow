@@ -66,7 +66,7 @@
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
 | `library_books` | 20 | 760 kB | 도서 마스터 — status 10 단계 · 4축 난이도 (book_v_level · cefr_band · cefrj_level · flesch_kincaid_grade) · `librivox_audio` JSONB · `cover_image_url` · `copyright_safe_in_kr` |
-| `library_chapters_master` | 1,174 | 1.4 MB | chapter 정본 — `content_hash` ref content_chunks · paragraph_offsets · sentence_offsets · word_count |
+| `library_chapters_master` | 1,174 | 1.4 MB | chapter 정본 — `content_hash` ref content_chunks · paragraph_offsets · sentence_offsets · word_count · `group_label` · `source_href`(원본 챕터 deep-link, SE TOC 매핑 · NULL→도서 TOC fallback) |
 | `content_chunks` | 1,174 | 13 MB | SHA-256 dedup 본문 저장 — PK=hash only · TOAST 대형 |
 | `library_book_vocabularies` | 94,915 | 39 MB | chapter별 사전계산 단어 (v06.34 VACUUM FULL 후 233→39 MB) |
 | `library_articles` | 4 | 104 kB | ACP — 짧은 글 |
@@ -283,7 +283,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 57건. 디렉토리: `supabase/migrations/`.
+전체 누적 65건. 디렉토리: `supabase/migrations/`. (최신: `20260613120000_library_chapters_source_href` — 챕터 `source_href` + `insert_book_analysis` 확장)
 
 ---
 

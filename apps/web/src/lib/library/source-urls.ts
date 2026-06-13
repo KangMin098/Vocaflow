@@ -72,11 +72,12 @@ export function chapterSourceUrl(
 
   switch (source) {
     case 'standard_ebooks': {
-      // Standard Ebooks 본문 = /text/chapter-1 .. chapter-N (1-base · front-matter 는 별도 slug).
-      // 우리 chapter_idx 도 1-base (library_chapters_master min=1) → 그대로 매핑.
-      // (이전엔 0-base 로 오인해 +1 → 전 챕터가 한 칸씩 밀렸음 — Jane Eyre "챕터 안맞음" 원인.)
-      // 평면 단권 novel 기준 best-effort. 다권/희곡(act-N) 구조는 매칭 안 될 수 있음.
-      return `${bookUrl}/text/chapter-${chapterIdx}`
+      // 정확한 챕터 URL 은 library_chapters_master.source_href (적재 시 TOC 매핑) 가 제공한다.
+      // 여기는 그 매핑이 없을 때의 fallback — SE 챕터 URL 형식이 4종(파일분리/앵커/명명/중첩)이라
+      //   /text/chapter-N 추측은 모음집·다권에서 404 를 낸다. 따라서 추측 대신 도서 목차(/text)로 보냄
+      //   (절대 404 안 남 · 큐레이터가 목차에서 해당 장 1클릭). chapter_idx 는 미사용.
+      void chapterIdx
+      return `${bookUrl}/text`
     }
     case 'wikisource': {
       // chapter_title 이 있으면 sub-page, 없으면 도서 메인.

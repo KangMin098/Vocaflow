@@ -1113,6 +1113,7 @@ export type Database = {
           library_book_id: string
           paragraph_offsets: number[]
           sentence_offsets: number[]
+          source_href: string | null
           word_count: number
         }
         Insert: {
@@ -1126,6 +1127,7 @@ export type Database = {
           library_book_id: string
           paragraph_offsets?: number[]
           sentence_offsets?: number[]
+          source_href?: string | null
           word_count: number
         }
         Update: {
@@ -1139,6 +1141,7 @@ export type Database = {
           library_book_id?: string
           paragraph_offsets?: number[]
           sentence_offsets?: number[]
+          source_href?: string | null
           word_count?: number
         }
         Relationships: [

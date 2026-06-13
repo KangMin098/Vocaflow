@@ -131,7 +131,9 @@ export function ChapterSidebar({
                       onSelect={onSelect}
                       sourceUrl={
                         showSourceLink
-                          ? chapterSourceUrl(source!, sourceId!, ch.chapter_idx, ch.chapter_title)
+                          ? // 적재 시 매핑된 정확한 챕터 deep-link 우선, 없으면 소스별 best-effort/TOC fallback
+                            (ch.source_href ??
+                              chapterSourceUrl(source!, sourceId!, ch.chapter_idx, ch.chapter_title))
                           : null
                       }
                     />

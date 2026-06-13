@@ -53,6 +53,8 @@ export interface ChapterSegment {
   chapter_title?: string
   /** 계층 그룹 라벨 (Volume/Book 또는 sub-book) — 평면 chapter_idx 유지, 리더 그룹핑용. 평면책은 undefined */
   group_label?: string
+  /** 원본 소스의 해당 챕터 deep-link URL (SE: TOC href 매핑). 매핑 실패·타 소스는 undefined → 렌더가 도서 TOC 로 fallback */
+  source_href?: string
   content: string
   word_count: number
   paragraph_offsets: number[]
