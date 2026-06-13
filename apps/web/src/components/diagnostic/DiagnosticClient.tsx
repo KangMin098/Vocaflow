@@ -371,7 +371,7 @@ export function DiagnosticClient() {
   // ── Render ──
   if (error) {
     return (
-      <div className="mx-auto max-w-xl p-6 md:p-8">
+      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="rounded-[var(--r-lg)] border border-[var(--bde)] bg-[var(--error-light)] p-6">
           <p className="font-body text-[var(--error)]">{error}</p>
           <button
@@ -414,7 +414,7 @@ export function DiagnosticClient() {
           <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--ti)]">
             ★ 처음이라면 여기서 시작
           </span>
-          <h2 className="mt-3 font-display text-[24px] font-[800] leading-tight">{p.title}</h2>
+          <h2 className="mt-3 font-display text-[24px] font-[700] leading-tight">{p.title}</h2>
           <p className="mt-1.5 font-body text-[14px] leading-relaxed opacity-90">
             목표가 뚜렷하지 않다면, 이 진단 하나로 충분해요.
           </p>
@@ -478,9 +478,9 @@ export function DiagnosticClient() {
     }
 
     return (
-      <div className="mx-auto max-w-2xl p-6 md:p-8">
+      <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
         <header className="mb-6">
-          <h1 className="font-display text-[28px] font-[800] text-[var(--t1)] md:text-[32px]">
+          <h1 className="font-display text-[28px] font-[700] text-[var(--t1)] md:text-[32px]">
             어휘 진단
           </h1>
           <p className="mt-3 font-body text-[15px] leading-relaxed text-[var(--t2)]">
@@ -558,7 +558,7 @@ export function DiagnosticClient() {
 
   if (phase === 'submitting') {
     return (
-      <div className="mx-auto max-w-xl p-8 text-center">
+      <div className="mx-auto max-w-[var(--ios-content-max)] px-6 py-8 text-center">
         <Loader2 size={32} className="mx-auto animate-spin text-[var(--p)]" />
         <p className="mt-4 font-display text-[14px] font-[600] text-[var(--t2)]">결과 분석 중…</p>
       </div>
@@ -570,7 +570,7 @@ export function DiagnosticClient() {
     if (!q) return null
     const progress = ((currentIdx + 1) / questions.length) * 100
     return (
-      <div className="mx-auto max-w-xl p-6 md:p-8">
+      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="mb-8">
           <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
             <span>
@@ -652,10 +652,10 @@ export function DiagnosticClient() {
       ]
 
   return (
-    <div className="mx-auto max-w-xl p-6 md:p-8">
+    <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
       <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--ti)] shadow-[var(--sh-md)]">
         <p className="font-body text-[14px] opacity-85">진단 완료 · 내 수준은</p>
-        <p className="mt-1 font-display text-[56px] font-[800] leading-none text-[var(--active)]">
+        <p className="mt-1 font-display text-[56px] font-[700] leading-none text-[var(--active)]">
           {levelLabel}
         </p>
         {band && !isTrack && (
@@ -1048,7 +1048,7 @@ function LevelGuideModal({
                   }`}
                 >
                   <span
-                    className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] font-display text-[12px] font-[800] ${
+                    className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] font-display text-[12px] font-[700] ${
                       active ? 'bg-[var(--p)] text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                     }`}
                   >

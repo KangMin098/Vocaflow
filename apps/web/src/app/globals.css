@@ -64,11 +64,12 @@
     --reading-bg:   #FAFAF7;
     --reading-text: #1A1A1A;
 
-    /* Memory Decay Colors */
-    --memory-stable: #22C55E;
-    --memory-shaky:  #F59E0B;
-    --memory-risk:   #EF4444;
-    --memory-new:    #94A3B8;
+    /* Memory Decay Colors — v06.40 Contemporary Editorial 정제
+       Bear/Reflect 정합: 더 sophisticated, 덜 mustard, 더 한국 학습 정서 */
+    --memory-stable: #2E7D5A;  /* muted forest green — "이건 알아요" 달성 */
+    --memory-shaky:  #B5803A;  /* deeper warm amber — "익숙해요" 주의 (덜 mustard) */
+    --memory-risk:   #9C3A30;  /* deeper warm red — "흐릿해요" 회복 필요 */
+    --memory-new:    #8A8278;  /* warm gray (살짝 lighter) — "처음 만나는 단어" 중립 */
 
     /* CEFR Distribution Fills — v06.19 (분포 시각화 전용 · badge 토큰과 분리) */
     --cefr-a1: #86EFAC;
@@ -216,7 +217,7 @@ code, pre, kbd, samp {
   outline-offset: 2px;
 }
 
-/* 모션 감소 선호 사용자 */
+/* 모션 감소 선호 사용자 — RN useReduceMotion 과 동일 정책 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -226,6 +227,26 @@ code, pre, kbd, samp {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   4.5 iOS Layer — 전역 keyframes (v06.36)
+   styled-jsx 스코프 해시 회피 → Tailwind animate-[...] 매칭 보장.
+   사용처: SheetContainer (sheetUp).
+   ══════════════════════════════════════════════════════════════ */
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes sheetDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+@keyframes scrimFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -369,34 +390,86 @@ body.focus-mode .sidebar:hover {
 /* v06.33 — Apple 스러운 고급 책 cover (다층 그림자 + sheen + grain) */
 .book-cover-premium {
   position: relative;
-  border-radius: 10px;
-  /* 다층 그림자 — ambient(넓게) + key(방향) + contact(가까이) */
+  /* 책 모서리 — 책등(좌) sharp · fore-edge(우) 둥근 페이지. 앱 카드가 아닌 실제 책 */
+  border-radius: 2px 7px 7px 2px;
+  /* 다층 그림자 — ambient(넓게) + key(방향) + contact(가까이). 종이/가죽 책의
+     따뜻한 캐스트 섀도 (중성 검정이 아닌 살짝 갈색 톤) */
   box-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.10),
-    0 3px 6px rgba(0, 0, 0, 0.10),
-    0 12px 24px -6px rgba(0, 0, 0, 0.22),
-    0 28px 48px -16px rgba(0, 0, 0, 0.28);
+    0 1px 1px rgba(28, 20, 12, 0.12),
+    0 3px 6px rgba(28, 20, 12, 0.12),
+    0 14px 26px -6px rgba(28, 20, 12, 0.24),
+    0 34px 58px -18px rgba(35, 24, 14, 0.34);
   transition:
     box-shadow var(--dur-slow) var(--ease),
     transform var(--dur-slow) var(--ease);
+  /* 유광 바닥 반사 — Apple Coverflow 시그니처. 책 아래 짧고 옅게 (webkit 한정,
+     미지원 브라우저는 자연 degrade). hover 로 책이 들리면 반사도 함께 따라옴. */
+  -webkit-box-reflect: below 3px
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.16) 0%,
+      rgba(0, 0, 0, 0.05) 16%,
+      transparent 30%
+    );
 }
 .book-cover-premium--center {
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.12),
-    0 6px 12px rgba(0, 0, 0, 0.14),
-    0 20px 40px -10px rgba(0, 0, 0, 0.30),
-    0 44px 72px -24px rgba(0, 0, 0, 0.34);
+    0 1px 2px rgba(28, 20, 12, 0.14),
+    0 7px 14px rgba(28, 20, 12, 0.16),
+    0 24px 46px -10px rgba(30, 21, 12, 0.32),
+    0 52px 84px -26px rgba(35, 24, 14, 0.40);
+  /* 중앙(focus) 책은 반사 살짝 더 또렷 — 스포트라이트 받는 진열 */
+  -webkit-box-reflect: below 3px
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.24) 0%,
+      rgba(0, 0, 0, 0.08) 18%,
+      transparent 34%
+    );
 }
-/* 표지 inner ring — 미세 입체 보더 */
+/* 중앙 책 hover — 유광 라이트 스윕 (조명이 표지를 가로지름). 상호작용 한정 (Calm UI) */
+.book-cover-premium--center::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.1) 46%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.1) 54%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-8deg);
+  opacity: 0;
+  transition:
+    transform 0.85s var(--ease),
+    opacity 0.25s var(--ease);
+}
+.book-cover-premium--center:hover::before {
+  transform: translateX(130%) skewX(-8deg);
+  opacity: 1;
+}
+/* 모션 민감 사용자 — 라이트 스윕 비활성 (반사는 정적이라 유지) */
+@media (prefers-reduced-motion: reduce) {
+  .book-cover-premium--center::before {
+    display: none;
+  }
+}
+/* 표지 emboss — 양장본 hardboard 의 방향성 베벨 (좌상단 빛 · 우하단 그늘) */
 .book-cover-premium::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.18),
-    inset 0 1px 1px rgba(255, 255, 255, 0.22),
-    inset 0 -20px 40px rgba(0, 0, 0, 0.12);
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.14),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.30), /* top-left 하이라이트 */
+    inset -1px -1px 2px rgba(0, 0, 0, 0.26),      /* bottom-right 그늘 */
+    inset 0 -22px 42px rgba(0, 0, 0, 0.14);       /* 하단 gutter */
   pointer-events: none;
 }
 /* 종이 grain — 프리미엄 질감 (subtle) */
@@ -413,6 +486,111 @@ body.focus-mode .sidebar:hover {
     rgba(255, 255, 255, 0.08) 22%,
     transparent 45%
   );
+}
+/* 실 표지 라미네이트 광택 — 양장본 코팅이 스튜디오 조명을 받는 비스듬한 specular.
+   표지 사진을 덮되 매우 옅게(아트 보존), 좌상단→우측으로 흐르는 광 띠. */
+.book-cover-laminate {
+  background:
+    linear-gradient(
+      118deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.10) 30%,
+      rgba(255, 255, 255, 0.16) 38%,
+      rgba(255, 255, 255, 0.0) 52%,
+      transparent 100%
+    ),
+    radial-gradient(
+      150% 90% at 18% 6%,
+      rgba(255, 255, 255, 0.16) 0%,
+      transparent 42%
+    );
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* v06.x — 실제 책 입체화 -----------------------------------------------
+   fore-edge(오른쪽 페이지 단면) + 입체 책등 + hover 들어올림.
+   두께감의 핵심은 페이지 단면(striation). gradient/실표지 모두 적용. */
+
+/* 오른쪽 페이지 단면 — 미세 cream striation + 커버 overhang 그림자 */
+.book-foreedge {
+  position: absolute;
+  /* 커버가 페이지 상·하단을 살짝 덮는 hardcover overhang */
+  top: 5px;
+  bottom: 5px;
+  right: 1px;
+  width: 11px;
+  border-radius: 0 6px 6px 0;
+  /* 3-톤 종이 단면 — 더 촘촘하고 풍부한 페이지 결 */
+  background: repeating-linear-gradient(
+    90deg,
+    #f7f1e3 0px,
+    #f7f1e3 0.5px,
+    #e9e0cc 0.5px,
+    #e9e0cc 1.4px,
+    #d6cab0 1.4px,
+    #d6cab0 1.8px
+  );
+  box-shadow:
+    inset 3px 0 5px rgba(0, 0, 0, 0.5),       /* 커버 lip 이 페이지에 드리운 깊은 그림자 */
+    inset -1px 0 0 rgba(255, 255, 255, 0.7),  /* 바깥 페이지 하이라이트 */
+    1px 0 4px rgba(35, 24, 14, 0.28);         /* 책 외곽 따뜻한 미세 그림자 */
+  pointer-events: none;
+}
+/* 상하 살짝 어둡게 — 페이지 블록 둥근 단면감 */
+.book-foreedge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.22) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+}
+
+/* 입체 책등 — 왼쪽 binding joint (커버↔책등 경첩 그림자 + 하이라이트) */
+.book-spine3d {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 14px;
+  pointer-events: none;
+  /* 책등 joint — 커버가 binding 으로 접히는 오목한 groove 그림자 */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.56) 0%,
+    rgba(0, 0, 0, 0.34) 24%,
+    rgba(0, 0, 0, 0.1) 58%,
+    transparent 100%
+  );
+}
+.book-spine3d::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 9px;
+  width: 1.5px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.32),
+    rgba(255, 255, 255, 0.12)
+  );
+}
+
+/* 중앙(focus) 책 hover — 들어 올리며 그림자 깊어짐 (책을 집어드는 느낌) */
+.book-cover-premium--center:hover {
+  transform: translateY(-8px) scale(1.014);
+  box-shadow:
+    0 2px 4px rgba(28, 20, 12, 0.14),
+    0 12px 24px rgba(28, 20, 12, 0.16),
+    0 32px 56px -12px rgba(30, 21, 12, 0.34),
+    0 64px 100px -30px rgba(35, 24, 14, 0.42);
 }
 
 /* v06.32 도서관 v3 — 진짜 도서관 책장 (vertical wood frame + white shelves + dense books) */

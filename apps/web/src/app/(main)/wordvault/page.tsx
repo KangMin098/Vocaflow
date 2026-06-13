@@ -8,10 +8,10 @@
 
 'use client'
 
-import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
+import { GlassBar, SegmentControl } from '@/components/ui/ios'
 import { useToast } from '@/components/ui/Toast'
 import { CollectionsRow } from '@/components/wordvault/CollectionsRow'
 import { HideToggleBar } from '@/components/wordvault/HideToggleBar'
@@ -35,7 +35,6 @@ import type {
 } from '@/components/wordvault/types'
 import { useTheme } from '@/hooks/useTheme'
 import { consumePendingWords, toWordItem } from '@/lib/text-viewer/handoff'
-import { cn } from '@/lib/utils/cn'
 
 type ViewName = 'hub' | ScreenName
 
@@ -172,64 +171,40 @@ export default function WordVaultPage() {
 
   return (
     <>
-      {/* ── 헤더 ── */}
-      <header className="sticky top-0 z-50 flex h-[56px] items-center gap-s-3 border-b border-bd bg-bg px-s-6">
-        <h1 className="font-display text-base font-semibold tracking-[-0.01em] text-t1">
-          WordVault
-        </h1>
+      {/* ── 헤더 (v06.36 GlassBar + SegmentControl 프리미티브) ── */}
+      <GlassBar
+        leading={
+          <h1 className="font-display text-[15px] font-[700] tracking-[-0.012em] text-[var(--t1)]">
+            WordVault
+          </h1>
+        }
+        trailing={
+          <>
+            <SegmentControl
+              ariaLabel="WordVault 뷰"
+              active={view}
+              items={[
+                { key: 'hub', label: '허브', href: '/wordvault' },
+                { key: 'browse', label: '둘러보기', href: '/wordvault/browse' },
+                { key: 'study', label: '학습', href: '/wordvault?view=study' },
+                { key: 'review', label: '복습', href: '/wordvault?view=review' },
+              ]}
+            />
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label="테마 전환"
+              className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            >
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
+          </>
+        }
+      />
 
-        <div className="flex-1" />
-
-        {/* View Switcher — URL 기반 */}
-        <div className="inline-flex rounded-lg border border-bd bg-bg2 p-[3px]">
-          <Link
-            href="/wordvault"
-            aria-current={view === 'hub' ? 'page' : undefined}
-            className={cn(
-              'flex items-center gap-s-2 rounded-md px-s-3 py-[5px]',
-              'font-display text-[13px] font-semibold tracking-[-0.01em] no-underline',
-              'transition-all duration-fast',
-              view === 'hub' ? 'bg-bg text-t1 shadow-xs' : 'text-t3 hover:text-t1'
-            )}
-          >
-            허브
-          </Link>
-          {(['browse', 'study', 'review'] as const).map((s) => {
-            const isActive = view === s
-            const labels = { browse: '둘러보기', study: '학습', review: '복습' } as const
-            // browse 는 풀스크린 라우트로 이동 (v06.21.6)
-            const href = s === 'browse' ? '/wordvault/browse' : `/wordvault?view=${s}`
-            return (
-              <Link
-                key={s}
-                href={href}
-                aria-current={isActive ? 'page' : undefined}
-                className={cn(
-                  'flex items-center gap-s-2 rounded-md px-s-3 py-[5px]',
-                  'font-display text-[13px] font-semibold tracking-[-0.01em] no-underline',
-                  'transition-all duration-fast',
-                  isActive ? 'bg-bg text-t1 shadow-xs' : 'text-t3 hover:text-t1'
-                )}
-              >
-                {labels[s]}
-              </Link>
-            )
-          })}
-        </div>
-
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label="테마 전환"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-colors duration-fast hover:bg-bg2 hover:text-t1"
-        >
-          {theme === 'light' ? '🌙' : '☀️'}
-        </button>
-      </header>
-
-      {/* ── 메인 ── */}
-      <main className="flex-1 overflow-y-auto bg-bg p-s-6 pb-s-12">
-        <div className="mx-auto max-w-[1200px]">
+      {/* ── 메인 (iOS 그레이 캔버스) ── */}
+      <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
+        <div className={view === 'hub' ? '' : 'mx-auto max-w-[1200px] p-6'}>
           {/* ── HUB (기본 진입) ── */}
           {view === 'hub' && <WordVaultHub words={words} realStats={realStats} />}
 

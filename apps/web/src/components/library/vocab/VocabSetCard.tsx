@@ -1,18 +1,18 @@
 // apps/web/src/components/library/vocab/VocabSetCard.tsx
 //
-// Square poster tile — Are.na · Spotify · Linear 영감.
-// - aspect-square 모노크롬 카드, emoji = 시각 anchor
-// - 우상단 CEFR 배지 (단일 컬러 hint)
-// - hover/focus 시 + 추가 액션 reveal
-// - 카드 전체 = 미리보기 affordance
+// 클로스바운드 클래식 책 표지 타일 — /library/books 와 동일한 "책 한 권" 메타포.
+// - aspect-[3/4] 책 표지 (그라디언트 + 중앙 serif 제목 + 이모지 장식 + 단어수)
+// - 우상단 CEFR 배지 · 좌상단 구독 배지
+// - hover/focus 시 + 추가/제외 액션 reveal
+// - 그리드라 반사(-webkit-box-reflect)는 끔 (행 간 겹침 방지)
 
 'use client'
 
-import { Check, Loader2, Plus } from 'lucide-react'
+import { Check, Loader2, Minus, Plus } from 'lucide-react'
 
+import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
-
-import { VOCAB_CATEGORIES } from './categories'
 
 interface VocabSetCardProps {
   set: PublishedVocabSet
@@ -23,17 +23,6 @@ interface VocabSetCardProps {
   onPreview: (set: PublishedVocabSet) => void
 }
 
-// CEFR level → subtle tonal shift (A1 lightest → C2 darkest)
-// 단일 모노크롬 척도로 난이도 시각 인코딩 (Dual Coding)
-const LEVEL_TONE: Record<string, string> = {
-  A1: 'bg-[#F8FAFC] text-[#475569] ring-[#E2E8F0]',
-  A2: 'bg-[#F1F5F9] text-[#334155] ring-[#CBD5E1]',
-  B1: 'bg-[#E2E8F0] text-[#1E293B] ring-[#94A3B8]',
-  B2: 'bg-[#CBD5E1] text-[#0F172A] ring-[#64748B]',
-  C1: 'bg-[#94A3B8] text-[#FFFFFF] ring-[#475569]',
-  C2: 'bg-[#475569] text-[#FFFFFF] ring-[#1E293B]',
-}
-
 export function VocabSetCard({
   set,
   isSubscribed,
@@ -42,13 +31,12 @@ export function VocabSetCard({
   onToggle,
   onPreview,
 }: VocabSetCardProps) {
-  const cat = VOCAB_CATEGORIES.find((c) => c.id === set.category)
-  const label = set.categoryNode
-    ? (set.categoryNode.nameKo ?? set.categoryNode.nameEn)
-    : (cat?.label ?? '')
-  const levelTone = set.cefrLevel
-    ? (LEVEL_TONE[set.cefrLevel] ?? LEVEL_TONE.B1)
-    : 'bg-[var(--bg3)] text-[var(--t3)] ring-[var(--bd)]'
+  const cover = bookCover({
+    title: set.title,
+    bookVLevel: cefrToVLevel(set.cefrLevel),
+    coverFrom: null,
+    coverTo: null,
+  })
 
   function handleSubscribeClick(e: React.MouseEvent) {
     e.stopPropagation()
@@ -56,85 +44,80 @@ export function VocabSetCard({
   }
 
   return (
-    <article id={`set-${set.id}`} className="group relative scroll-mt-24">
+    <article
+      id={`set-${set.id}`}
+      className="group relative scroll-mt-24 rounded-[12px] target:ring-2 target:ring-[var(--p)] target:ring-offset-4"
+    >
       <button
         type="button"
         onClick={() => onPreview(set)}
         aria-label={`${set.title} 미리보기 열기`}
-        className="relative flex aspect-square w-full flex-col justify-between overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-left transition-all duration-[var(--dur-normal)] hover:border-[var(--t1)] hover:shadow-[var(--sh-md)] target:border-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-2"
+        className="book-cover-premium relative aspect-[3/4] w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2"
+        style={{
+          // 그리드 카드 — 반사 비활성 (행 간 겹침 방지)
+          WebkitBoxReflect: 'none',
+          background: `
+            radial-gradient(120% 80% at 25% 12%, rgba(255,255,255,0.22) 0%, transparent 45%),
+            linear-gradient(155deg, ${cover.from} 0%, ${cover.to} 78%, rgba(0,0,0,0.18) 100%)
+          `,
+        }}
       >
-        {/* 상단: CEFR 배지 + 구독 상태 표시 */}
-        <div className="flex items-start justify-between">
-          {set.cefrLevel ? (
-            <span
-              className={`inline-flex h-6 items-center rounded-[var(--r-sm)] px-2 font-mono text-[10px] font-[700] uppercase tracking-wider ring-1 ${levelTone}`}
-            >
-              {set.cefrLevel}
-            </span>
-          ) : (
-            <span className="h-6" />
-          )}
-          {isSubscribed && (
-            <span
-              aria-label="구독 중"
-              className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)]"
-            >
-              <Check size={12} strokeWidth={3} aria-hidden />
-            </span>
-          )}
-        </div>
+        {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 (그리드라 compact) */}
+        <GradientBookCover
+          title={set.title}
+          subtitle={`${set.wordCount.toLocaleString()} 단어`}
+          ornament={set.coverEmoji}
+          compact
+        />
+        <div aria-hidden className="book-cover-sheen absolute inset-0" />
+        <div aria-hidden className="book-cover-grain absolute inset-0" />
+        <div aria-hidden className="book-spine3d" />
+        <div aria-hidden className="book-foreedge" />
 
-        {/* 중앙: emoji = 시각 anchor (poster style) */}
-        <div className="flex flex-1 items-center justify-center py-2">
-          {set.coverEmoji ? (
-            <span
-              aria-hidden="true"
-              className="text-[64px] leading-none transition-transform duration-[var(--dur-slow)] group-hover:scale-110"
-            >
-              {set.coverEmoji}
-            </span>
-          ) : (
-            <span
-              aria-hidden="true"
-              className="font-display text-[40px] font-[800] text-[var(--t4)]"
-            >
-              {set.title.slice(0, 1).toUpperCase()}
-            </span>
-          )}
-        </div>
+        {/* 좌상단: 구독 배지 */}
+        {isSubscribed && (
+          <span
+            aria-label="내 학습에 추가됨"
+            title="내 학습에 추가됨"
+            className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-white/95 px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--p)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+          >
+            <Check size={10} strokeWidth={3} aria-hidden /> 내 학습
+          </span>
+        )}
 
-        {/* 하단: 제목 + 메타 */}
-        <div className="space-y-0.5">
-          <h3 className="line-clamp-2 font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">
-            {set.title}
-          </h3>
-          <p className="truncate font-body text-[11px] text-[var(--t3)]">
-            {label && <span>{label} · </span>}
-            <span className="tabular-nums">
-              {set.wordCount.toLocaleString()}단어
-            </span>
-          </p>
-        </div>
+        {/* 우상단: CEFR 배지 */}
+        {set.cefrLevel && (
+          <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+            {set.cefrLevel}
+          </span>
+        )}
       </button>
 
-      {/* 빠른 추가 액션 — hover/focus 시 reveal */}
+      {/* 빠른 추가/제외 액션 — hover/focus 시 reveal */}
       <button
         type="button"
         onClick={handleSubscribeClick}
         disabled={isPending}
         aria-label={
           isSubscribed
-            ? `${set.title} 구독 해지`
+            ? `${set.title} 내 학습에서 제외`
             : `${set.title} 내 단어장에 추가`
         }
-        className={`absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 ${
+        title={
           isSubscribed
-            ? 'pointer-events-none opacity-0'
-            : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 bg-[var(--t1)] text-[var(--bg)] hover:scale-110 focus-visible:opacity-100 focus-visible:ring-[var(--t1)]/40'
+            ? '내 학습에서 제외 (학습한 단어는 보존)'
+            : '내 단어장에 추가'
+        }
+        className={`absolute bottom-3 right-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-[var(--dur-normal)] group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 ${
+          isSubscribed
+            ? 'bg-[var(--error-light)] text-[var(--error)] ring-1 ring-[var(--error)] hover:scale-110 focus-visible:ring-[var(--error)]/40'
+            : 'bg-white text-[var(--t1)] hover:scale-110 focus-visible:ring-white/60'
         }`}
       >
         {isPending ? (
           <Loader2 size={14} className="animate-spin" aria-hidden />
+        ) : isSubscribed ? (
+          <Minus size={16} strokeWidth={2.5} aria-hidden />
         ) : (
           <Plus size={16} strokeWidth={2.5} aria-hidden />
         )}

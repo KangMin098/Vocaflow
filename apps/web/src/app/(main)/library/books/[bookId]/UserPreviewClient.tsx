@@ -70,11 +70,7 @@ export function UserPreviewClient({
       const client = createClient();
       const textIds = await enrollBook(client, bookId);
       const firstTextId = textIds[0];
-      if (firstTextId) {
-        router.push(`/text/${firstTextId}`);
-      } else {
-        router.push('/');
-      }
+      router.push(firstTextId ? `/text/${firstTextId}` : '/');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'unknown');
       setEnrolling(false);

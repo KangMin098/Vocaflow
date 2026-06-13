@@ -25,16 +25,41 @@ const DEFAULT_OPTIONS: Required<SegmentOptions> = {
  */
 export const CHAPTER_GROUP_SEP = '\u001F'
 
-function splitTitleGroup(raw: string | undefined): { title?: string; group?: string } {
+/**
+ * 챕터 마커에 원본 소스 챕터 URL 을 실어 나르는 구분자 (U+001E, RECORD SEP).
+ * SE ingest 가 "CHAPTER N. <title><US><group><RS><href>" 로 emit → 여기서 분리.
+ * href 는 항상 마지막 필드 (URL 은 단일 라인·구분자 미포함이라 안전). 없으면 source_href=undefined.
+ */
+export const CHAPTER_HREF_SEP = String.fromCharCode(0x1e)
+
+function splitTitleGroup(raw: string | undefined): {
+  title?: string
+  group?: string
+  source_href?: string
+} {
   if (raw == null) return {}
-  const idx = raw.indexOf(CHAPTER_GROUP_SEP)
-  if (idx < 0) {
-    const t = raw.trim()
-    return t ? { title: t } : {}
+  // 1) href 분리 (RS) — 항상 마지막 필드 (title/group 보다 뒤)
+  let rest = raw
+  let source_href: string | undefined
+  const hi = rest.indexOf(CHAPTER_HREF_SEP)
+  if (hi >= 0) {
+    const h = rest.slice(hi + 1).trim()
+    rest = rest.slice(0, hi)
+    if (h) source_href = h
   }
-  const t = raw.slice(0, idx).trim()
-  const g = raw.slice(idx + 1).trim()
-  return { ...(t && { title: t }), ...(g && { group: g }) }
+  // 2) title / group 분리 (US)
+  const idx = rest.indexOf(CHAPTER_GROUP_SEP)
+  if (idx < 0) {
+    const t = rest.trim()
+    return { ...(t && { title: t }), ...(source_href && { source_href }) }
+  }
+  const t = rest.slice(0, idx).trim()
+  const g = rest.slice(idx + 1).trim()
+  return {
+    ...(t && { title: t }),
+    ...(g && { group: g }),
+    ...(source_href && { source_href }),
+  }
 }
 
 /**
@@ -65,11 +90,12 @@ export function segmentBook(
     const content = body.slice(start, end).trim()
     const wc = countWords(content)
 
-    const { title, group } = splitTitleGroup(b.title)
+    const { title, group, source_href } = splitTitleGroup(b.title)
     chapters.push({
       chapter_idx: i + 1,
       ...(title && { chapter_title: title }),
       ...(group && { group_label: group }),
+      ...(source_href && { source_href }),
       content,
       word_count: wc,
       paragraph_offsets: computeParagraphOffsets(content),

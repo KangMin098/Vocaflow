@@ -6,11 +6,14 @@
 
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { BookOpen, ChevronLeft, ChevronRight, FileText, Layers, Sparkles } from 'lucide-react'
 
-import { bookCover } from '@/lib/library/book-cover'
+import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
+import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 import type { LibraryText } from '@/types/library'
 import type { SubscribedSet } from '@/hooks/useSubscribedSets'
 import {
@@ -27,6 +30,15 @@ interface Props {
   books: LibraryText[]      // texts with bookId (aggregated)
   scripts: LibraryText[]    // texts without bookId
   vocabSets: SubscribedSet[]
+  /** 학습자 V레벨 — 도서 상세의 i+1 레벨 권장 (0 = 미진단) */
+  userVLevel?: number
+}
+
+/** progressPercent → 학습 상태 */
+function deriveStatus(p: number): 'not_started' | 'in_progress' | 'completed' {
+  if (p >= 100) return 'completed'
+  if (p > 0) return 'in_progress'
+  return 'not_started'
 }
 
 const VOCAB_COLOR: Record<string, { from: string; to: string; accent: string }> = {
@@ -67,7 +79,7 @@ function cardTransform(offset: number) {
   }
 }
 
-export function MyLibraryCarousel({ books, scripts, vocabSets }: Props) {
+export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }: Props) {
   // 첫 진입 탭 — 가장 많은 항목 기준
   const initial: TabKey =
     books.length > 0 ? 'books' : scripts.length > 0 ? 'scripts' : 'vocab'
@@ -89,12 +101,24 @@ export function MyLibraryCarousel({ books, scripts, vocabSets }: Props) {
         title: t.title,
         author: t.author,
         cefrLevel: t.cefrLevel,
+        bookVLevel: t.bookVLevel ?? null,
         wordCount: t.wordCount,
         chapterCount: t.chapterCount,
         progressPercent: t.progressPercent,
         coverFrom: t.coverGradient.from,
         coverTo: t.coverGradient.to,
-        ctaHref: `/text/${t.id}?mode=read`,
+        coverImageUrl: t.coverImageUrl ?? null,
+        // 개인화 — 진도·상태·레벨 권장
+        lexicalCoverage: t.lexicalCoverage ?? null,
+        userVLevel,
+        mine: {
+          status: deriveStatus(t.progressPercent),
+          progressPercent: t.progressPercent,
+          completedUnits: t.completedChapters ?? null,
+          totalUnits: t.chapterCount ?? null,
+          unitLabel: '챕터',
+        },
+        ctaHref: workspaceHref(t),
         ctaLabel: t.progressPercent > 0 ? '이어 학습' : '학습 시작',
       })
     } else if (type === 'scripts') {
@@ -111,7 +135,14 @@ export function MyLibraryCarousel({ books, scripts, vocabSets }: Props) {
         preview: t.preview,
         coverFrom: t.coverGradient.from,
         coverTo: t.coverGradient.to,
-        ctaHref: `/text/${t.id}?mode=read`,
+        mine: {
+          status: deriveStatus(t.progressPercent),
+          progressPercent: t.progressPercent,
+          completedUnits: t.currentPage,
+          totalUnits: t.totalPages,
+          unitLabel: '페이지',
+        },
+        ctaHref: workspaceHref(t),
         ctaLabel: t.progressPercent > 0 ? '이어 학습' : '학습 시작',
       })
     } else {
@@ -128,6 +159,8 @@ export function MyLibraryCarousel({ books, scripts, vocabSets }: Props) {
         cefrLevel: v.cefrLevel,
         wordCount: v.wordCount,
         coverEmoji: v.coverEmoji,
+        // 구독 = 활성 학습 풀에 포함 (진도 세부는 Phase 2 — Memory Decay 집계)
+        mine: { status: 'in_progress' },
         ctaLabel: '단어장 열기',
         secondaryHref: `/wordvault?set=${v.id}`,
         secondaryLabel: '단어장 보기',
@@ -371,7 +404,17 @@ function BookCard({
       onClick={onClick}
       ariaLabel={item.title}
     >
-      <CoverShell from={cover.from} to={cover.to} isCenter={isCenter}>
+      <CoverShell
+        from={cover.from}
+        to={cover.to}
+        isCenter={isCenter}
+        imageUrl={item.coverImageUrl ?? null}
+        imageAlt={`${item.title} 표지`}
+        coverSlot={
+          /* 그라디언트 표지 — 클로스바운드 클래식 풍 (실 표지엔 제목 박혀있어 미표시) */
+          !item.coverImageUrl ? <GradientBookCover title={item.title} author={item.author} /> : null
+        }
+      >
         {/* 진행 배지 우상단 */}
         {item.progressPercent > 0 && (
           <span
@@ -388,19 +431,6 @@ function BookCard({
         >
           {item.cefrLevel}
         </span>
-
-        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between p-6 text-white">
-          <div />
-          <div className="flex flex-col gap-2">
-            <h3 className="line-clamp-4 font-english text-[22px] font-[700] leading-[1.15] tracking-[-0.02em] drop-shadow-[0_2px_5px_rgba(0,0,0,0.55)]">
-              {item.title}
-            </h3>
-            <span aria-hidden className="h-px w-6 bg-white/45" />
-            <p className="line-clamp-1 font-body text-[12.5px] font-[500] text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
-              {item.author}
-            </p>
-          </div>
-        </div>
       </CoverShell>
     </CardWrap>
   )
@@ -416,15 +446,27 @@ function ScriptCard({
   isCenter: boolean
   onClick: () => void
 }) {
+  const cover = bookCover({
+    title: item.title,
+    bookVLevel: cefrToVLevel(item.cefrLevel),
+    coverFrom: null,
+    coverTo: null,
+  })
   return (
     <CardWrap
       onClick={onClick}
       ariaLabel={item.title}
     >
       <CoverShell
-        from={item.coverGradient.from}
-        to={item.coverGradient.to}
+        from={cover.from}
+        to={cover.to}
         isCenter={isCenter}
+        coverSlot={
+          <GradientBookCover
+            title={item.title}
+            author={item.author && item.author !== '저자 미상' ? item.author : null}
+          />
+        }
       >
         <span
           aria-hidden
@@ -440,23 +482,6 @@ function ScriptCard({
             {item.progressPercent}%
           </span>
         )}
-
-        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between p-6 text-white">
-          <div />
-          <div className="flex flex-col gap-2">
-            <h3 className="line-clamp-4 font-display text-[22px] font-[800] leading-[1.15] tracking-[-0.02em] drop-shadow-[0_2px_5px_rgba(0,0,0,0.55)]">
-              {item.title}
-            </h3>
-            {item.author && item.author !== '저자 미상' && (
-              <>
-                <span aria-hidden className="h-px w-6 bg-white/45" />
-                <p className="line-clamp-1 font-body text-[12.5px] font-[500] text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
-                  {item.author}
-                </p>
-              </>
-            )}
-          </div>
-        </div>
       </CoverShell>
     </CardWrap>
   )
@@ -472,43 +497,35 @@ function VocabCard({
   isCenter: boolean
   onClick: () => void
 }) {
-  const color = VOCAB_COLOR[item.category] ?? VOCAB_COLOR.themed!
+  const cover = bookCover({
+    title: item.title,
+    bookVLevel: cefrToVLevel(item.cefrLevel),
+    coverFrom: null,
+    coverTo: null,
+  })
   return (
     <CardWrap
       onClick={onClick}
       ariaLabel={item.title}
     >
-      <CoverShell from={color.from} to={color.to} isCenter={isCenter}>
+      <CoverShell
+        from={cover.from}
+        to={cover.to}
+        isCenter={isCenter}
+        coverSlot={
+          <GradientBookCover
+            title={item.title}
+            subtitle={`${item.wordCount.toLocaleString()} 단어`}
+            ornament={item.coverEmoji}
+          />
+        }
+      >
         <span
           aria-hidden
           className="absolute right-3.5 top-3.5 inline-flex items-center justify-center rounded-full bg-white/95 p-1 text-[var(--success)] shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
         >
           <Sparkles size={11} strokeWidth={2.5} />
         </span>
-
-        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between p-6 text-white">
-          {item.coverEmoji ? (
-            <span
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-[22px] leading-none backdrop-blur-sm"
-              aria-hidden
-            >
-              {item.coverEmoji}
-            </span>
-          ) : (
-            <span />
-          )}
-          <div className="flex flex-col gap-2">
-            <h3 className="line-clamp-4 font-display text-[20px] font-[700] leading-[1.18] tracking-[-0.01em] drop-shadow-[0_2px_5px_rgba(0,0,0,0.55)]">
-              {item.title}
-            </h3>
-            <div className="flex items-center gap-2">
-              <span aria-hidden className="h-px w-5 bg-white/45" />
-              <span className="font-mono text-[11.5px] font-[600] tracking-wide text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]">
-                {item.wordCount.toLocaleString()} words
-              </span>
-            </div>
-          </div>
-        </div>
       </CoverShell>
     </CardWrap>
   )
@@ -520,11 +537,19 @@ function CoverShell({
   to,
   isCenter,
   children,
+  coverSlot,
+  imageUrl,
+  imageAlt,
 }: {
   from: string
   to: string
   isCenter: boolean
   children: React.ReactNode
+  /** 책 표지면 — spine/fore-edge 입체 엣지 *아래*에 깔림 (커버 위로 페이지/책등이 덮음) */
+  coverSlot?: React.ReactNode
+  /** 원천 표지 이미지 — 있으면 그라디언트 대신 실 표지 (portrait object-cover) */
+  imageUrl?: string | null
+  imageAlt?: string
 }) {
   return (
     <div
@@ -532,19 +557,36 @@ function CoverShell({
         isCenter ? 'book-cover-premium--center' : ''
       }`}
       style={{
-        background: `
+        background: imageUrl
+          ? '#0B0B0F'
+          : `
           radial-gradient(120% 80% at 25% 12%, rgba(255,255,255,0.22) 0%, transparent 45%),
           linear-gradient(155deg, ${from} 0%, ${to} 78%, rgba(0,0,0,0.18) 100%)
         `,
       }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-y-0 left-0 w-[8px] bg-gradient-to-r from-black/45 via-black/22 to-transparent"
-      />
-      <div aria-hidden className="absolute inset-y-0 left-[7px] w-[1px] bg-white/15" />
-      <div aria-hidden className="book-cover-sheen absolute inset-0" />
-      <div aria-hidden className="book-cover-grain absolute inset-0" />
+      {imageUrl ? (
+        <>
+          <Image src={imageUrl} alt={imageAlt ?? ''} fill sizes="270px" className="object-cover" />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35"
+          />
+          {/* 라미네이트 광택 — 양장본 코팅 specular */}
+          <div aria-hidden className="book-cover-laminate absolute inset-0" />
+        </>
+      ) : (
+        <>
+          {/* 표지면 (그라디언트 위 클로스바운드 제목) — 입체 엣지 아래 */}
+          {coverSlot}
+          <div aria-hidden className="book-cover-sheen absolute inset-0" />
+          <div aria-hidden className="book-cover-grain absolute inset-0" />
+        </>
+      )}
+
+      {/* 실제 책 입체 — 입체 책등(좌) + 페이지 단면(우). 모든 표지 공통 (커버 위 overlay) */}
+      <div aria-hidden className="book-spine3d" />
+      <div aria-hidden className="book-foreedge" />
       {children}
     </div>
   )
@@ -595,7 +637,7 @@ function HeroInfo({
     if (t.progressPercent > 0) parts.push(`진행 ${t.progressPercent}%`)
     if (t.wordCount > 0) parts.push(`${t.wordCount.toLocaleString()}단어`)
     subtitle = parts.join(' · ')
-    href = `/text/${t.id}?mode=read`
+    href = workspaceHref(t)
     cta = t.progressPercent > 0 ? '이어 학습' : '학습 시작'
   } else {
     const v = item as SubscribedSet

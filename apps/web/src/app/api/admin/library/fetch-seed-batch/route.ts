@@ -87,13 +87,27 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const client = await createClient()
-  const { data: upserted, error } = await client
+
+  // 실제 신규 vs 기존 구분 — upsert(ignoreDuplicates:false) 는 insert+update 를 모두
+  // 반환해 카운트가 항상 전량 "신규" 로 부정확. 사전 조회로 정확히 구분한다.
+  const ids = result.fetched.map((r) => r.source_id)
+  const { data: existingRows } = await client
+    .from('library_seed_catalog' as never)
+    .select('source_id')
+    .eq('source', body.source)
+    .in('source_id', ids)
+  const existing = new Set(
+    ((existingRows ?? []) as Array<{ source_id: string }>).map((e) => e.source_id),
+  )
+  const insertedCount = result.fetched.filter((r) => !existing.has(r.source_id)).length
+
+  // upsert 는 기존 행 메타 갱신 겸용으로 그대로 유지 (ignoreDuplicates:false)
+  const { error } = await client
     .from('library_seed_catalog' as never)
     .upsert(result.fetched as never, {
       onConflict: 'source,source_id',
       ignoreDuplicates: false,
     })
-    .select('id')
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
@@ -101,8 +115,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   return NextResponse.json({
     source: body.source,
-    inserted: upserted?.length ?? 0,
-    skipped: result.fetched.length - (upserted?.length ?? 0),
+    inserted: insertedCount,
+    skipped: result.fetched.length - insertedCount,
+    fetched: result.fetched.length,
     total_available: result.total_available,
     next_offset: result.next_offset,
   })

@@ -76,22 +76,3 @@ export async function getResumeTarget(
     status: 'completed',
   };
 }
-
-/**
- * 책 enroll 상태 검사 (texts에 library_book_id 존재 여부).
- * 미리보기 라우트가 enroll한 사용자를 학습 재개로 redirect하기 위함.
- */
-export async function isBookEnrolled(
-  client: SupabaseClient,
-  userId: string,
-  libraryBookId: string,
-): Promise<boolean> {
-  const { count, error } = await client
-    .from('texts')
-    .select('id', { count: 'exact', head: true })
-    .eq('user_id', userId)
-    .eq('library_book_id', libraryBookId);
-
-  if (error) return false;
-  return (count ?? 0) > 0;
-}

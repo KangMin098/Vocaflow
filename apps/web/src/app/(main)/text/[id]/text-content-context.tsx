@@ -8,6 +8,7 @@
 
 import { createContext, useContext, type ReactNode } from 'react';
 import type { LibraryText } from '@/types/library';
+import type { ChapterAudio } from '@/lib/workspace/chapter-audio';
 import type { TextParagraph } from './text-content-helpers';
 
 export type {
@@ -45,6 +46,12 @@ export interface TextContentData {
   currentChapterStatus: string;
   /** v06.30 — workspace UnifiedHeader 챕터 단어장 구독 chip (library_book only) */
   bookWordSetStats: { subscribed: number; total: number } | null;
+  /** v06.34 — 현재 챕터의 단어장 set (워크스페이스 "단어" pill → /wordvault/browse?filter=set:{id}) */
+  currentChapterWordSet: { id: string; title: string } | null;
+  /** v06.34 — 도서의 모든 챕터 단어장 (Browse 안에서 prev/next chapter nav) */
+  allChapterWordSets: Array<{ id: string; chapterIdx: number; title: string }>;
+  /** v06.x — 현재 챕터의 LibriVox 원어민 보이스 (큐레이터 연결 + 챕터 정합 시만 non-null) */
+  chapterAudio: ChapterAudio | null;
   text: Partial<LibraryText>;
   paragraphs: TextParagraph[];
 }

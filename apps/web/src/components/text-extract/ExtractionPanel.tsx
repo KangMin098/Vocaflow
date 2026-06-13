@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
+import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
 
 interface ExtractedWord {
   text_v_level: number
@@ -51,6 +52,8 @@ interface ExtractedWord {
   // v2 추가 컬럼 (L2 inflections 회수 표시)
   match_layer: 1 | 2
   matched_via_surface: string | null
+  // 클라이언트 계산 — 원문(this script)에서의 출현 문장. 단어장 예문에 dict 보다 우선.
+  source_sentence?: string | null
 }
 
 interface ExtractionPanelProps {
@@ -133,7 +136,12 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       return
     }
 
-    const rows = (data ?? []) as ExtractedWord[]
+    // 원문에서 단어별 출현 문장 부착 (context-dependent 예문). 문장 분리는 1회만.
+    const sentences = buildSentenceIndex(text)
+    const rows = ((data ?? []) as ExtractedWord[]).map((r) => ({
+      ...r,
+      source_sentence: firstSentenceContaining(sentences, r.matched_via_surface, r.word),
+    }))
     setResults(rows)
     setMeta(rows[0] ?? null)
     setSelected(new Set(rows.map((r) => r.word)))
@@ -185,7 +193,8 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         user_id: userData.user!.id,
         word: r.word,
         meaning: r.meaning_ko ?? '',
-        example_sentence: r.example_en ?? null,
+        // 원문(스크립트) 문장 우선 → dict 일반 예문 폴백
+        example_sentence: r.source_sentence ?? r.example_en ?? null,
         pos: r.pos ?? null,
         cefr_level: r.cefr_level ?? null,
         pronunciation: null as string | null,
@@ -438,8 +447,15 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
                     {isExpanded && (
                       <div className="border-t border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[11px]">
-                        {r.example_en && (
-                          <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">"{r.example_en}"</p>
+                        {(r.source_sentence ?? r.example_en) && (
+                          <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">
+                            "{r.source_sentence ?? r.example_en}"
+                            {r.source_sentence && (
+                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 align-middle font-display text-[9px] font-[700] not-italic text-[var(--p)]">
+                                본문
+                              </span>
+                            )}
+                          </p>
                         )}
                         <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
                           스코어 breakdown (composite = {r.composite_score.toFixed(4)})

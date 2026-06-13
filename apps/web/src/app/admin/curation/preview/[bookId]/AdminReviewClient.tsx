@@ -12,7 +12,7 @@ import {
 } from '@/lib/library/admin-queries'
 import type { ChapterListItem } from '@/lib/library/reader-queries'
 import { createClient } from '@/lib/supabase/client'
-import { AlertCircle, Archive, ArrowLeft, CheckCircle2, Loader2, RefreshCw } from 'lucide-react'
+import { AlertCircle, Archive, ArrowLeft, Ban, CheckCircle2, Loader2, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -27,6 +27,9 @@ interface Props {
   status: string
   copyrightSafeInKr: boolean
   chapters: ChapterListItem[]
+  /** v06.34 — chapter list 옆 원본 소스 외부링크 */
+  source?: string | null
+  sourceId?: string | null
 }
 
 export function AdminReviewClient({
@@ -39,12 +42,15 @@ export function AdminReviewClient({
   status,
   copyrightSafeInKr,
   chapters,
+  source,
+  sourceId,
 }: Props) {
   const router = useRouter()
   const [pending, setPending] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const statusInfo = classifyStatus(status as BookStatus)
+  const publishGate = computePublishGate(status, copyrightSafeInKr)
 
   async function runAction(label: string, fn: () => Promise<void>) {
     setPending(label)
@@ -72,7 +78,7 @@ export function AdminReviewClient({
           큐레이션으로
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span
             className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
             style={{
@@ -87,6 +93,11 @@ export function AdminReviewClient({
               confidence {cefrConfidence.toFixed(2)}
             </span>
           )}
+          <PublishControl
+            gate={publishGate}
+            pending={pending === 'publish'}
+            onPublish={() => runAction('publish', () => forcePublishBook(createClient(), bookId))}
+          />
         </div>
       </div>
 
@@ -99,6 +110,8 @@ export function AdminReviewClient({
         totalWordCount={totalWordCount}
         chapters={chapters}
         mode="admin-review"
+        source={source}
+        sourceId={sourceId}
         footerSlot={
           <div className="flex flex-wrap items-center justify-between gap-3">
             {error ? (
@@ -118,17 +131,6 @@ export function AdminReviewClient({
                   label="재처리"
                   pending={pending === 'requeue'}
                   onClick={() => runAction('requeue', () => requeueBook(createClient(), bookId))}
-                  tone="primary"
-                />
-              )}
-              {(status === 'ready' || status === 'failed') && copyrightSafeInKr && (
-                <ActionButton
-                  icon={<CheckCircle2 size={12} />}
-                  label="강제 게시"
-                  pending={pending === 'publish'}
-                  onClick={() =>
-                    runAction('publish', () => forcePublishBook(createClient(), bookId))
-                  }
                   tone="primary"
                 />
               )}
@@ -176,6 +178,69 @@ function ActionButton({
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
     </button>
+  )
+}
+
+// 게시 가능 여부 + 차단 사유 — 무음 숨김 대신 명시적 사유 표시.
+type PublishGateKind = 'publishable' | 'published' | 'archived' | 'copyright' | 'processing'
+
+function computePublishGate(status: string, copyrightSafe: boolean): PublishGateKind {
+  if (status === 'published') return 'published'
+  if (status === 'archived') return 'archived'
+  if (!copyrightSafe) return 'copyright'
+  if (status === 'ready' || status === 'failed') return 'publishable'
+  return 'processing'
+}
+
+const GATE_REASON: Record<Exclude<PublishGateKind, 'publishable' | 'published'>, string> = {
+  archived: '보관됨 — 게시 불가',
+  copyright: '저작권 미확인 — 게시 불가',
+  processing: '처리 중 — 게시 불가',
+}
+
+function PublishControl({
+  gate,
+  pending,
+  onPublish,
+}: {
+  gate: PublishGateKind
+  pending: boolean
+  onPublish: () => void
+}) {
+  if (gate === 'publishable') {
+    return (
+      <button
+        type="button"
+        onClick={onPublish}
+        disabled={pending}
+        title="신뢰도 임계값과 무관하게 즉시 게시 (admin_force_publish_book). 게시하면 챕터 단어장이 자동 생성됩니다."
+        className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--ti)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {pending ? (
+          <Loader2 size={13} className="animate-spin" aria-hidden />
+        ) : (
+          <CheckCircle2 size={13} aria-hidden />
+        )}
+        게시
+      </button>
+    )
+  }
+  if (gate === 'published') {
+    return (
+      <span className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-known)]/40 bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+        <CheckCircle2 size={13} aria-hidden />
+        게시됨
+      </span>
+    )
+  }
+  return (
+    <span
+      title={GATE_REASON[gate]}
+      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t3)]"
+    >
+      <Ban size={12} aria-hidden />
+      {GATE_REASON[gate]}
+    </span>
   )
 }
 

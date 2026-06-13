@@ -5,11 +5,19 @@
 
 'use client'
 
-import { Bookmark } from 'lucide-react'
+import { Bookmark, Loader2, X } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 
 import { TextStatusBadge } from './TextStatusBadge'
 
+import {
+  deleteUserBookGroupAction,
+  deleteUserTextAction,
+  unenrollBookAction,
+} from '@/app/(main)/text/actions'
+import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 import type { LibraryText } from '@/types/library'
 
 interface TextCardProps {
@@ -31,21 +39,58 @@ function relativeTimeKo(date: Date | null): string {
 }
 
 export function TextCard({ text }: TextCardProps) {
+  const router = useRouter()
+  const [pending, startTransition] = useTransition()
   const lastStudied = relativeTimeKo(text.lastStudiedAt)
 
   // v06.32 — 도서 단위 카드는 /my/books/[bookId] redirect 우회, nextTextId 로 직진.
-  // fallback: nextTextId 없으면 (이론적으로 unreachable) 기존 redirect 경로.
-  const href = text.bookId
-    ? text.nextTextId
-      ? `/text/${text.nextTextId}?mode=read`
-      : `/my/books/${text.bookId}`
-    : `/text/${text.id}`
+  const href = workspaceHref(text)
+  // 카드 종류 판정 — 우선순위: 라이브러리 도서 > 사용자 책 그룹 > 단일 텍스트
+  const isLibraryBookCard = !!text.bookId
+  const isUserBookCard = !isLibraryBookCard && !!text.userBookGroupId
+  const chapterN = text.chapterCount ?? 0
+
+  function handleRemove(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    let confirmMsg: string
+    if (isLibraryBookCard) {
+      confirmMsg =
+        `"${text.title}" 을(를) 내 학습에서 제외할까요?\n` +
+        '· 챕터 진도와 챕터 단어장 구독이 해제됩니다.\n' +
+        '· 사용자가 직접 추가/수정한 단어는 보존됩니다.'
+    } else if (isUserBookCard) {
+      confirmMsg =
+        `"${text.title}" 책 전체를 삭제할까요?\n` +
+        `· ${chapterN}개 챕터 본문과 학습 진도가 모두 영구 삭제됩니다.\n` +
+        '· 학습한 단어는 보존됩니다.'
+    } else {
+      confirmMsg = `"${text.title}" 을(를) 삭제할까요?\n· 본문과 학습 진도가 영구 삭제됩니다.\n· 학습한 단어는 보존됩니다.`
+    }
+    if (!window.confirm(confirmMsg)) return
+    startTransition(async () => {
+      let res
+      if (isLibraryBookCard) {
+        res = await unenrollBookAction(text.bookId!)
+      } else if (isUserBookCard) {
+        res = await deleteUserBookGroupAction(text.userBookGroupId!)
+      } else {
+        res = await deleteUserTextAction(text.id)
+      }
+      if (!res.ok) {
+        window.alert(`실패: ${res.message ?? res.reason}`)
+        return
+      }
+      router.refresh()
+    })
+  }
 
   return (
+    <div className="group relative">
     <Link
       href={href}
       aria-label={`${text.title} 학습 (${text.progressPercent}%)`}
-      className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-1 hover:border-[var(--p)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+      className="group/link flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-1 hover:border-[var(--p)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
     >
       {/* Cover gradient */}
       <div
@@ -120,5 +165,22 @@ export function TextCard({ text }: TextCardProps) {
         </div>
       </div>
     </Link>
+
+    {/* v06.34 — hover 시 우상단 제외/삭제 버튼 (Link 외부 — 이벤트 격리) */}
+    <button
+      type="button"
+      onClick={handleRemove}
+      disabled={pending}
+      aria-label={isLibraryBookCard ? `${text.title} 내 학습에서 제외` : `${text.title} 삭제`}
+      title={isLibraryBookCard ? '내 학습에서 제외' : '삭제'}
+      className="absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-[var(--t3)] opacity-0 shadow-[var(--sh-sm)] backdrop-blur transition-all duration-[var(--dur-normal)] group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error)] disabled:opacity-50"
+    >
+      {pending ? (
+        <Loader2 size={12} className="animate-spin" aria-hidden />
+      ) : (
+        <X size={13} strokeWidth={2.5} aria-hidden />
+      )}
+    </button>
+    </div>
   )
 }

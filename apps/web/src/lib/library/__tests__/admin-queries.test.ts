@@ -93,6 +93,7 @@ describe('admin-queries — pure helpers', () => {
       cefrj_confidence: '0.70',
       flesch_kincaid_grade: '12.44',
       flesch_reading_ease: '54.93',
+      lexical_coverage: { '7': 88.2, '8': 93.1, '9': 97.0 },
       extracted_count: 2027,
       lemma_bound: 1958,
       lemma_unbound: 69,

@@ -5,8 +5,11 @@
 
 import { Library } from 'lucide-react';
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+import { Capsule, Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
-import { LibraryGrid, type PublishedBook } from '@/components/library/LibraryGrid';
+import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
+import type { PublishedBook } from '@/lib/library/published-book';
 
 export const metadata = {
   title: '도서 — Vocaflow Library',
@@ -18,14 +21,51 @@ export const revalidate = 60;
 export default async function LibraryBooksPage() {
   const client = (await createClient()) as unknown as SupabaseClient;
 
+  // 학습자 V레벨 — i+1 적합도 판정용 (미진단 시 0 → 배지 미표시)
+  let userVLevel = 0;
+  // 학습자 단계 — 추천 길이/cold-start 가중 (user_stats 미존재 시 cold)
+  let userMastery: 'cold' | 'warm' | 'hot' = 'cold';
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (user) {
+    const { data: profile } = await client
+      .from('user_profiles')
+      .select('current_v_level')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    userVLevel = (profile as { current_v_level: number | null } | null)?.current_v_level ?? 0;
+
+    const { data: stats } = await client
+      .from('user_stats')
+      .select('mastery_level')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    const m = (stats as { mastery_level: string | null } | null)?.mastery_level;
+    if (m === 'warm' || m === 'hot') userMastery = m;
+  }
+
+  // v06.34 — 사용자별 enrollment + 진행도 fetch (texts 1 쿼리).
+  //   bookId → { totalChapters, completedChapters, resumeTextId(첫 미완료 chapter) }
+  // resumeTextId 가 없으면 첫 chapter 또는 마지막 chapter 의 textId 사용 (재학습 CTA).
+  const enrollmentByBook = new Map<
+    string,
+    { completed: number; total: number; resumeTextId: string | null; firstTextId: string }
+  >();
+
+  // 공개 출시 판정은 published_at (정식 publish RPC 가 찍음) 으로 한다.
+  // status='published' 단독은 부족 — 그 값은 챕터 단어장 발행 트리거를 쏘는
+  // 메커니즘으로도 쓰여(ready→published) published_at 없이 올라간 도서가 섞임.
   const { data, error } = await client
     .from('library_books')
     .select(
       'id, title, author, cefr_level, cefr_band, book_v_level, ' +
-        'word_count, chapter_count, reading_minutes, cover_from, cover_to',
+        'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
+        'librivox_audio, published_at, curation_metadata',
     )
     .eq('status', 'published')
     .eq('copyright_safe_in_kr', true)
+    .not('published_at', 'is', null)
     .order('published_at', { ascending: false });
 
   let books: PublishedBook[] = error
@@ -51,7 +91,7 @@ export default async function LibraryBooksPage() {
     // v06.34 — library_seed_catalog 에서 curation_meta 가져와 도서별 매핑 (선택 모달용)
     const { data: seeds } = await client
       .from('library_seed_catalog')
-      .select('imported_book_id, est_v_level, curation_meta, description')
+      .select('imported_book_id, est_v_level, curation_meta, description, popularity_rank')
       .in('imported_book_id', ids);
 
     const curationByBook = new Map<
@@ -60,6 +100,7 @@ export default async function LibraryBooksPage() {
         est_v_level: number | null;
         curation_meta: Record<string, unknown> | null;
         description: string | null;
+        popularity_rank: number | null;
       }
     >();
     for (const s of (seeds ?? []) as Array<{
@@ -67,18 +108,57 @@ export default async function LibraryBooksPage() {
       est_v_level: number | null;
       curation_meta: Record<string, unknown> | null;
       description: string | null;
+      popularity_rank: number | null;
     }>) {
       if (!s.imported_book_id) continue;
       curationByBook.set(s.imported_book_id, {
         est_v_level: s.est_v_level,
         curation_meta: s.curation_meta,
         description: s.description,
+        popularity_rank: s.popularity_rank,
       });
     }
 
+    // 사용자 enrolled 도서들의 texts row 한 번에 fetch (chapter_idx ASC).
+    if (user) {
+      const { data: texts } = await client
+        .from('texts')
+        .select('id, library_book_id, chapter_idx, status')
+        .eq('user_id', user.id)
+        .in('library_book_id', ids)
+        .order('chapter_idx', { ascending: true });
+      const rows = (texts ?? []) as Array<{
+        id: string;
+        library_book_id: string;
+        chapter_idx: number;
+        status: string;
+      }>;
+      for (const r of rows) {
+        const cur = enrollmentByBook.get(r.library_book_id) ?? {
+          completed: 0,
+          total: 0,
+          resumeTextId: null as string | null,
+          firstTextId: r.id,
+        };
+        cur.total += 1;
+        if (r.status === 'completed') cur.completed += 1;
+        // 첫 미완료 chapter = resume target (chapter_idx ASC 정렬됨)
+        else if (cur.resumeTextId == null) cur.resumeTextId = r.id;
+        enrollmentByBook.set(r.library_book_id, cur);
+      }
+    }
+
     books = books.map((b) => {
+      // librivox_audio(jsonb) 는 has_audio 로 축약, curation_metadata 는 추출 후 제외.
+      const { librivox_audio, curation_metadata, ...rest } = b as PublishedBook & {
+        librivox_audio?: unknown;
+        curation_metadata?: Record<string, unknown> | null;
+      };
       const c = curationByBook.get(b.id);
-      const cm = c?.curation_meta as
+      // 큐레이션 메타: library_books.curation_metadata(공개 RLS) 우선,
+      // 없으면 library_seed_catalog(admin/curator 전용 RLS) fallback.
+      const lbMeta = curation_metadata ?? null;
+      const cm = (lbMeta ?? c?.curation_meta) as
         | {
             synopsis_ko?: string;
             learning_value?: string;
@@ -90,9 +170,43 @@ export default async function LibraryBooksPage() {
           }
         | null
         | undefined;
+      const popularityRank =
+        (typeof lbMeta?.popularity_rank === 'number'
+          ? (lbMeta.popularity_rank as number)
+          : null) ??
+        c?.popularity_rank ??
+        null;
+      const descriptionEn =
+        (typeof lbMeta?.description === 'string' ? (lbMeta.description as string) : null) ??
+        c?.description ??
+        null;
+      // v06.34 — enrollment 상태 + CTA 결정
+      const e = enrollmentByBook.get(b.id) ?? null;
+      let enrollState: 'not_enrolled' | 'enrolled' | 'in_progress' | 'completed' = 'not_enrolled';
+      let ctaHref = `/library/books/${b.id}`;
+      let ctaLabel = '미리보기';
+      let progressPct = 0;
+      if (e && e.total > 0) {
+        progressPct = Math.round((e.completed / e.total) * 100);
+        if (e.completed >= e.total) {
+          enrollState = 'completed';
+          ctaLabel = '다시 학습';
+          ctaHref = `/text/${e.firstTextId}?mode=read`;
+        } else if (e.completed > 0 || e.resumeTextId !== e.firstTextId) {
+          enrollState = 'in_progress';
+          ctaLabel = '이어서 학습';
+          ctaHref = `/text/${e.resumeTextId ?? e.firstTextId}?mode=read`;
+        } else {
+          enrollState = 'enrolled';
+          ctaLabel = '학습 시작';
+          ctaHref = `/text/${e.firstTextId}?mode=read`;
+        }
+      }
       return {
-        ...b,
+        ...rest,
         word_set_count: countsByBook.get(b.id) ?? 0,
+        has_audio: librivox_audio != null,
+        popularity_rank: popularityRank,
         synopsis_ko: cm?.synopsis_ko ?? null,
         learning_value: cm?.learning_value ?? null,
         themes: cm?.themes ?? null,
@@ -100,7 +214,11 @@ export default async function LibraryBooksPage() {
         est_cefr: cm?.est_cefr ?? null,
         age_band: cm?.age_band ?? null,
         genre_norm: cm?.genre_norm ?? null,
-        description_en: c?.description ?? null,
+        description_en: descriptionEn,
+        enrollment_state: enrollState,
+        progress_pct: progressPct,
+        cta_href: ctaHref,
+        cta_label: ctaLabel,
       };
     });
   }
@@ -108,48 +226,50 @@ export default async function LibraryBooksPage() {
   const totalBooks = books.length;
   const totalChapters = books.reduce((s, b) => s + (b.chapter_count ?? 0), 0);
   const totalWords = books.reduce((s, b) => s + (b.word_count ?? 0), 0);
+  const myCount = books.filter(
+    (b) =>
+      b.enrollment_state === 'enrolled' ||
+      b.enrollment_state === 'in_progress' ||
+      b.enrollment_state === 'completed',
+  ).length;
+  const inProgressCount = books.filter((b) => b.enrollment_state === 'in_progress').length;
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Slim header — 1 row, 인지 부하 최소화 */}
-      <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-[var(--bd)] pb-3">
-        <div className="flex items-baseline gap-2.5">
-          <Library size={16} className="self-center text-[#8B6A3F]" aria-hidden />
-          <h1 className="font-display text-[18px] font-[700] text-[var(--t1)]">
-            라이브러리
-          </h1>
-          <span className="font-body text-[12px] text-[var(--t3)]">
-            큐레이션된 영어 원서
-          </span>
-        </div>
-        {totalBooks > 0 && (
-          <div className="flex items-center gap-3 font-mono text-[11px] text-[var(--t3)]">
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">
-                {totalBooks}
-              </strong>
-              권
+    <Screen width="wide" background="bg2" padX="md">
+      <div className="flex flex-col gap-5 py-6 md:py-8">
+        <header className="flex flex-col gap-3 px-1">
+          <div className="flex items-center gap-2.5">
+            <span
+              aria-hidden
+              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-orange text-white"
+            >
+              <Library size={16} />
             </span>
-            <span aria-hidden>·</span>
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">
-                {totalChapters}
-              </strong>
-              장
-            </span>
-            <span aria-hidden>·</span>
-            <span>
-              <strong className="font-display font-[700] text-[var(--t1)]">
-                {(totalWords / 1000).toFixed(0)}k
-              </strong>
-              단어
-            </span>
+            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
+              라이브러리
+            </h1>
           </div>
-        )}
-      </header>
+          <p className="font-body text-[15px] text-[var(--t2)]">
+            큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요.
+          </p>
+          {totalBooks > 0 && (
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              <Capsule label="도서" value={`${totalBooks}권`} />
+              <Capsule label="챕터" value={`${totalChapters}`} />
+              <Capsule label="단어" value={`${(totalWords / 1000).toFixed(0)}k`} />
+              {myCount > 0 && (
+                <Capsule
+                  tone="green"
+                  label="내 학습"
+                  value={inProgressCount > 0 ? `${myCount}권 · 진행 ${inProgressCount}` : `${myCount}권`}
+                />
+              )}
+            </div>
+          )}
+        </header>
 
-      {/* 책장 그리드 */}
-      <LibraryGrid books={books} />
-    </div>
+        <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} />
+      </div>
+    </Screen>
   );
 }

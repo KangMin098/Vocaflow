@@ -78,7 +78,7 @@ export function ContinueCard() {
     <Link
       href={`/text/${cc.textId}`}
       aria-label={`${cc.title} 이어서 학습 (${cc.progressPercent}% 진행)`}
-      className="group flex flex-col gap-0 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+      className="group flex flex-col gap-0 rounded-ios-2xl bg-[var(--bg)] p-6 shadow-ios-2 motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-emphasized motion-safe:hover:shadow-ios-3 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
     >
       {/* 제목 (Lora) — cover emoji 있으면 prefix */}
       <h3 className="mb-2 flex items-baseline gap-2 font-english text-[20px] font-[600] leading-tight text-[var(--t1)]">

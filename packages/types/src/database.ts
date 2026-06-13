@@ -44,6 +44,157 @@ export type Database = {
         }
         Relationships: []
       }
+      archaic_candidates: {
+        Row: {
+          ai_generated: boolean | null
+          book_count: number
+          classification: string | null
+          created_at: string | null
+          first_seen_book_id: string | null
+          processed_at: string | null
+          sample_sentence: string | null
+          total_frequency: number
+          updated_at: string | null
+          word: string
+        }
+        Insert: {
+          ai_generated?: boolean | null
+          book_count?: number
+          classification?: string | null
+          created_at?: string | null
+          first_seen_book_id?: string | null
+          processed_at?: string | null
+          sample_sentence?: string | null
+          total_frequency?: number
+          updated_at?: string | null
+          word: string
+        }
+        Update: {
+          ai_generated?: boolean | null
+          book_count?: number
+          classification?: string | null
+          created_at?: string | null
+          first_seen_book_id?: string | null
+          processed_at?: string | null
+          sample_sentence?: string | null
+          total_frequency?: number
+          updated_at?: string | null
+          word?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "archaic_candidates_first_seen_book_id_fkey"
+            columns: ["first_seen_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      archaic_dictionary: {
+        Row: {
+          book_count: number | null
+          created_at: string | null
+          era: string | null
+          generated_by: string | null
+          is_learnable: boolean | null
+          meaning_ko: string
+          modern_equivalent: string | null
+          pos: string | null
+          source: string | null
+          total_frequency: number | null
+          usage_note: string | null
+          word: string
+        }
+        Insert: {
+          book_count?: number | null
+          created_at?: string | null
+          era?: string | null
+          generated_by?: string | null
+          is_learnable?: boolean | null
+          meaning_ko: string
+          modern_equivalent?: string | null
+          pos?: string | null
+          source?: string | null
+          total_frequency?: number | null
+          usage_note?: string | null
+          word: string
+        }
+        Update: {
+          book_count?: number | null
+          created_at?: string | null
+          era?: string | null
+          generated_by?: string | null
+          is_learnable?: boolean | null
+          meaning_ko?: string
+          modern_equivalent?: string | null
+          pos?: string | null
+          source?: string | null
+          total_frequency?: number | null
+          usage_note?: string | null
+          word?: string
+        }
+        Relationships: []
+      }
+      book_curation_jobs: {
+        Row: {
+          book_id: string
+          chapter_definition: Json | null
+          claimed_at: string | null
+          created_at: string
+          created_by: string | null
+          error: string | null
+          id: string
+          librivox_chapters: Json | null
+          librivox_mapping: Json | null
+          mode: string
+          note: string | null
+          source_chapters: Json | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          book_id: string
+          chapter_definition?: Json | null
+          claimed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          error?: string | null
+          id?: string
+          librivox_chapters?: Json | null
+          librivox_mapping?: Json | null
+          mode: string
+          note?: string | null
+          source_chapters?: Json | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          book_id?: string
+          chapter_definition?: Json | null
+          claimed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          error?: string | null
+          id?: string
+          librivox_chapters?: Json | null
+          librivox_mapping?: Json | null
+          mode?: string
+          note?: string | null
+          source_chapters?: Json | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "book_curation_jobs_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: true
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_chunks: {
         Row: {
           byte_size: number
@@ -299,6 +450,153 @@ export type Database = {
             referencedColumns: ["word"]
           },
         ]
+      }
+      echo_match_attempts: {
+        Row: {
+          attempt_number: number
+          created_at: string | null
+          duration_ms: number | null
+          energy_score: number | null
+          id: string
+          overall_score: number | null
+          pitch_score: number | null
+          sentence_id: string
+          session_id: string
+          timing_score: number | null
+          user_id: string
+        }
+        Insert: {
+          attempt_number?: number
+          created_at?: string | null
+          duration_ms?: number | null
+          energy_score?: number | null
+          id?: string
+          overall_score?: number | null
+          pitch_score?: number | null
+          sentence_id: string
+          session_id: string
+          timing_score?: number | null
+          user_id: string
+        }
+        Update: {
+          attempt_number?: number
+          created_at?: string | null
+          duration_ms?: number | null
+          energy_score?: number | null
+          id?: string
+          overall_score?: number | null
+          pitch_score?: number | null
+          sentence_id?: string
+          session_id?: string
+          timing_score?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "echo_match_attempts_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "echo_match_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      echo_match_sessions: {
+        Row: {
+          avg_energy_score: number | null
+          avg_overall_score: number | null
+          avg_pitch_score: number | null
+          avg_timing_score: number | null
+          best_sentence_score: number | null
+          completed_sentences: number | null
+          ended_at: string | null
+          id: string
+          library_book_id: string | null
+          retried_sentence_ids: string[] | null
+          started_at: string | null
+          text_id: string
+          total_sentences: number | null
+          user_id: string
+          worst_sentence_score: number | null
+        }
+        Insert: {
+          avg_energy_score?: number | null
+          avg_overall_score?: number | null
+          avg_pitch_score?: number | null
+          avg_timing_score?: number | null
+          best_sentence_score?: number | null
+          completed_sentences?: number | null
+          ended_at?: string | null
+          id?: string
+          library_book_id?: string | null
+          retried_sentence_ids?: string[] | null
+          started_at?: string | null
+          text_id: string
+          total_sentences?: number | null
+          user_id: string
+          worst_sentence_score?: number | null
+        }
+        Update: {
+          avg_energy_score?: number | null
+          avg_overall_score?: number | null
+          avg_pitch_score?: number | null
+          avg_timing_score?: number | null
+          best_sentence_score?: number | null
+          completed_sentences?: number | null
+          ended_at?: string | null
+          id?: string
+          library_book_id?: string | null
+          retried_sentence_ids?: string[] | null
+          started_at?: string | null
+          text_id?: string
+          total_sentences?: number | null
+          user_id?: string
+          worst_sentence_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "echo_match_sessions_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "echo_match_sessions_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "texts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "echo_match_sessions_text_id_fkey"
+            columns: ["text_id"]
+            isOneToOne: false
+            referencedRelation: "v_text_content"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      english_irregular_forms: {
+        Row: {
+          base: string
+          form: string
+          note: string | null
+          pos: string | null
+        }
+        Insert: {
+          base: string
+          form: string
+          note?: string | null
+          pos?: string | null
+        }
+        Update: {
+          base?: string
+          form?: string
+          note?: string | null
+          pos?: string | null
+        }
+        Relationships: []
       }
       frequency_data_sources: {
         Row: {
@@ -661,21 +959,32 @@ export type Database = {
           book_v_level: number | null
           book_vrl_score: number | null
           category_tags: string[] | null
+          cefr_band: string | null
           cefr_confidence: number | null
           cefr_level: string | null
+          cefrj_confidence: number | null
+          cefrj_level: string | null
           chapter_count: number | null
           copyright_safe_in_kr: boolean
           cover_from: string | null
+          cover_image_url: string | null
           cover_to: string | null
           created_at: string
+          curation_meta_status: string
+          curation_metadata: Json | null
+          flesch_kincaid_grade: number | null
+          flesch_reading_ease: number | null
           id: string
           language: string
+          lexical_coverage: Json | null
           lexile_measure: number | null
           lexile_source: string | null
+          librivox_audio: Json | null
           license: string
           llm_cost_usd: number | null
           original_publish_year: number | null
           published_at: string | null
+          readability_computed_at: string | null
           reading_minutes: number | null
           recommended_order: number | null
           search_vector: unknown
@@ -687,6 +996,7 @@ export type Database = {
           status_message: string | null
           title: string
           updated_at: string
+          v_level_centroid_precise: number | null
           vrl_calculated_at: string | null
           vrl_components: Json | null
           word_count: number | null
@@ -698,21 +1008,32 @@ export type Database = {
           book_v_level?: number | null
           book_vrl_score?: number | null
           category_tags?: string[] | null
+          cefr_band?: string | null
           cefr_confidence?: number | null
           cefr_level?: string | null
+          cefrj_confidence?: number | null
+          cefrj_level?: string | null
           chapter_count?: number | null
           copyright_safe_in_kr?: boolean
           cover_from?: string | null
+          cover_image_url?: string | null
           cover_to?: string | null
           created_at?: string
+          curation_meta_status?: string
+          curation_metadata?: Json | null
+          flesch_kincaid_grade?: number | null
+          flesch_reading_ease?: number | null
           id?: string
           language?: string
+          lexical_coverage?: Json | null
           lexile_measure?: number | null
           lexile_source?: string | null
+          librivox_audio?: Json | null
           license: string
           llm_cost_usd?: number | null
           original_publish_year?: number | null
           published_at?: string | null
+          readability_computed_at?: string | null
           reading_minutes?: number | null
           recommended_order?: number | null
           search_vector?: unknown
@@ -724,6 +1045,7 @@ export type Database = {
           status_message?: string | null
           title: string
           updated_at?: string
+          v_level_centroid_precise?: number | null
           vrl_calculated_at?: string | null
           vrl_components?: Json | null
           word_count?: number | null
@@ -735,21 +1057,32 @@ export type Database = {
           book_v_level?: number | null
           book_vrl_score?: number | null
           category_tags?: string[] | null
+          cefr_band?: string | null
           cefr_confidence?: number | null
           cefr_level?: string | null
+          cefrj_confidence?: number | null
+          cefrj_level?: string | null
           chapter_count?: number | null
           copyright_safe_in_kr?: boolean
           cover_from?: string | null
+          cover_image_url?: string | null
           cover_to?: string | null
           created_at?: string
+          curation_meta_status?: string
+          curation_metadata?: Json | null
+          flesch_kincaid_grade?: number | null
+          flesch_reading_ease?: number | null
           id?: string
           language?: string
+          lexical_coverage?: Json | null
           lexile_measure?: number | null
           lexile_source?: string | null
+          librivox_audio?: Json | null
           license?: string
           llm_cost_usd?: number | null
           original_publish_year?: number | null
           published_at?: string | null
+          readability_computed_at?: string | null
           reading_minutes?: number | null
           recommended_order?: number | null
           search_vector?: unknown
@@ -761,6 +1094,7 @@ export type Database = {
           status_message?: string | null
           title?: string
           updated_at?: string
+          v_level_centroid_precise?: number | null
           vrl_calculated_at?: string | null
           vrl_components?: Json | null
           word_count?: number | null
@@ -774,10 +1108,12 @@ export type Database = {
           chapter_title: string | null
           content_hash: string
           created_at: string
+          group_label: string | null
           id: string
           library_book_id: string
           paragraph_offsets: number[]
           sentence_offsets: number[]
+          source_href: string | null
           word_count: number
         }
         Insert: {
@@ -786,10 +1122,12 @@ export type Database = {
           chapter_title?: string | null
           content_hash: string
           created_at?: string
+          group_label?: string | null
           id?: string
           library_book_id: string
           paragraph_offsets?: number[]
           sentence_offsets?: number[]
+          source_href?: string | null
           word_count: number
         }
         Update: {
@@ -798,10 +1136,12 @@ export type Database = {
           chapter_title?: string | null
           content_hash?: string
           created_at?: string
+          group_label?: string | null
           id?: string
           library_book_id?: string
           paragraph_offsets?: number[]
           sentence_offsets?: number[]
+          source_href?: string | null
           word_count?: number
         }
         Relationships: [
@@ -821,11 +1161,104 @@ export type Database = {
           },
         ]
       }
+      library_seed_catalog: {
+        Row: {
+          author: string | null
+          author_birth_year: number | null
+          author_death_year: number | null
+          cover_url: string | null
+          curation_meta: Json | null
+          curation_status: string
+          dedup_key: string | null
+          description: string | null
+          enriched_at: string | null
+          est_v_level: number | null
+          fetched_at: string | null
+          genre: string | null
+          id: string
+          imported_book_id: string | null
+          imported_to_books: boolean | null
+          language: string | null
+          popularity_rank: number | null
+          published_year: number | null
+          reading_time_minutes: number | null
+          source: string
+          source_id: string
+          source_url: string | null
+          subjects: string[] | null
+          title: string
+          word_count: number | null
+        }
+        Insert: {
+          author?: string | null
+          author_birth_year?: number | null
+          author_death_year?: number | null
+          cover_url?: string | null
+          curation_meta?: Json | null
+          curation_status?: string
+          dedup_key?: string | null
+          description?: string | null
+          enriched_at?: string | null
+          est_v_level?: number | null
+          fetched_at?: string | null
+          genre?: string | null
+          id?: string
+          imported_book_id?: string | null
+          imported_to_books?: boolean | null
+          language?: string | null
+          popularity_rank?: number | null
+          published_year?: number | null
+          reading_time_minutes?: number | null
+          source: string
+          source_id: string
+          source_url?: string | null
+          subjects?: string[] | null
+          title: string
+          word_count?: number | null
+        }
+        Update: {
+          author?: string | null
+          author_birth_year?: number | null
+          author_death_year?: number | null
+          cover_url?: string | null
+          curation_meta?: Json | null
+          curation_status?: string
+          dedup_key?: string | null
+          description?: string | null
+          enriched_at?: string | null
+          est_v_level?: number | null
+          fetched_at?: string | null
+          genre?: string | null
+          id?: string
+          imported_book_id?: string | null
+          imported_to_books?: boolean | null
+          language?: string | null
+          popularity_rank?: number | null
+          published_year?: number | null
+          reading_time_minutes?: number | null
+          source?: string
+          source_id?: string
+          source_url?: string | null
+          subjects?: string[] | null
+          title?: string
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_seed_catalog_imported_book_id_fkey"
+            columns: ["imported_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       library_source_catalogs: {
         Row: {
           api_endpoint: string | null
           catalog_size: number | null
           catalog_url: string | null
+          cefrj_auto_assign_tier: string | null
           composite_score: number
           copyright_safe_in_kr: boolean
           created_at: string
@@ -850,6 +1283,7 @@ export type Database = {
           api_endpoint?: string | null
           catalog_size?: number | null
           catalog_url?: string | null
+          cefrj_auto_assign_tier?: string | null
           composite_score?: number
           copyright_safe_in_kr: boolean
           created_at?: string
@@ -874,6 +1308,7 @@ export type Database = {
           api_endpoint?: string | null
           catalog_size?: number | null
           catalog_url?: string | null
+          cefrj_auto_assign_tier?: string | null
           composite_score?: number
           copyright_safe_in_kr?: boolean
           created_at?: string
@@ -893,6 +1328,30 @@ export type Database = {
           quality_volume?: number
           source?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      noise_blacklist: {
+        Row: {
+          category: string
+          created_at: string | null
+          form: string
+          note: string | null
+          source: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          form: string
+          note?: string | null
+          source?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          form?: string
+          note?: string | null
+          source?: string | null
         }
         Relationships: []
       }
@@ -1204,13 +1663,17 @@ export type Database = {
           audio_url: string | null
           audio_url_uk: string | null
           audio_url_us: string | null
+          base_word: string | null
           cefr_confidence: number | null
           cefr_level: string | null
+          cefrj_domain_tags: string[] | null
+          cefrj_wordlist_band: string | null
           classified_by: string | null
           claude_classified_at: string | null
           claude_reasoning: string | null
           collocations: string[] | null
           created_at: string | null
+          derivation_suffix: string | null
           domain_levels: Json | null
           domain_levels_rule_v1: Json | null
           example_en: string | null
@@ -1239,6 +1702,7 @@ export type Database = {
           skill_level_rule_v1: number | null
           skill_type: string | null
           source: string
+          spelling_variants: string[] | null
           synonyms: string[] | null
           track_levels: Json | null
           track_levels_rule_v1: Json | null
@@ -1248,19 +1712,24 @@ export type Database = {
           verified: boolean | null
           vrl_calculated_at: string | null
           word: string
+          word_register: string | null
         }
         Insert: {
           antonyms?: string[] | null
           audio_url?: string | null
           audio_url_uk?: string | null
           audio_url_us?: string | null
+          base_word?: string | null
           cefr_confidence?: number | null
           cefr_level?: string | null
+          cefrj_domain_tags?: string[] | null
+          cefrj_wordlist_band?: string | null
           classified_by?: string | null
           claude_classified_at?: string | null
           claude_reasoning?: string | null
           collocations?: string[] | null
           created_at?: string | null
+          derivation_suffix?: string | null
           domain_levels?: Json | null
           domain_levels_rule_v1?: Json | null
           example_en?: string | null
@@ -1289,6 +1758,7 @@ export type Database = {
           skill_level_rule_v1?: number | null
           skill_type?: string | null
           source?: string
+          spelling_variants?: string[] | null
           synonyms?: string[] | null
           track_levels?: Json | null
           track_levels_rule_v1?: Json | null
@@ -1298,19 +1768,24 @@ export type Database = {
           verified?: boolean | null
           vrl_calculated_at?: string | null
           word: string
+          word_register?: string | null
         }
         Update: {
           antonyms?: string[] | null
           audio_url?: string | null
           audio_url_uk?: string | null
           audio_url_us?: string | null
+          base_word?: string | null
           cefr_confidence?: number | null
           cefr_level?: string | null
+          cefrj_domain_tags?: string[] | null
+          cefrj_wordlist_band?: string | null
           classified_by?: string | null
           claude_classified_at?: string | null
           claude_reasoning?: string | null
           collocations?: string[] | null
           created_at?: string | null
+          derivation_suffix?: string | null
           domain_levels?: Json | null
           domain_levels_rule_v1?: Json | null
           example_en?: string | null
@@ -1339,6 +1814,7 @@ export type Database = {
           skill_level_rule_v1?: number | null
           skill_type?: string | null
           source?: string
+          spelling_variants?: string[] | null
           synonyms?: string[] | null
           track_levels?: Json | null
           track_levels_rule_v1?: Json | null
@@ -1348,8 +1824,17 @@ export type Database = {
           verified?: boolean | null
           vrl_calculated_at?: string | null
           word?: string
+          word_register?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "shared_dictionary_base_word_fkey"
+            columns: ["base_word"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
+        ]
       }
       shared_word_sets: {
         Row: {
@@ -1448,6 +1933,7 @@ export type Database = {
           korean_learner_note: string | null
           lemma: string | null
           lexicon_id: string | null
+          library_book_vocabulary_id: string | null
           meaning_ko: string
           part_of_speech: string | null
           pronunciation: string | null
@@ -1455,6 +1941,7 @@ export type Database = {
           sort_order: number | null
           source_queue_id: number | null
           source_run_id: number | null
+          source_sentence: string | null
           synonyms: string[] | null
           word: string
         }
@@ -1473,6 +1960,7 @@ export type Database = {
           korean_learner_note?: string | null
           lemma?: string | null
           lexicon_id?: string | null
+          library_book_vocabulary_id?: string | null
           meaning_ko: string
           part_of_speech?: string | null
           pronunciation?: string | null
@@ -1480,6 +1968,7 @@ export type Database = {
           sort_order?: number | null
           source_queue_id?: number | null
           source_run_id?: number | null
+          source_sentence?: string | null
           synonyms?: string[] | null
           word: string
         }
@@ -1498,6 +1987,7 @@ export type Database = {
           korean_learner_note?: string | null
           lemma?: string | null
           lexicon_id?: string | null
+          library_book_vocabulary_id?: string | null
           meaning_ko?: string
           part_of_speech?: string | null
           pronunciation?: string | null
@@ -1505,6 +1995,7 @@ export type Database = {
           sort_order?: number | null
           source_queue_id?: number | null
           source_run_id?: number | null
+          source_sentence?: string | null
           synonyms?: string[] | null
           word?: string
         }
@@ -1521,6 +2012,13 @@ export type Database = {
             columns: ["lexicon_id"]
             isOneToOne: false
             referencedRelation: "word_lexicon"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shared_words_library_book_vocabulary_id_fkey"
+            columns: ["library_book_vocabulary_id"]
+            isOneToOne: false
+            referencedRelation: "library_book_vocabularies"
             referencedColumns: ["id"]
           },
           {
@@ -1571,6 +2069,7 @@ export type Database = {
           title: string
           translation: string | null
           updated_at: string | null
+          user_book_group_id: string | null
           user_id: string
           vrl_calculated_at: string | null
           vrl_components: Json | null
@@ -1599,6 +2098,7 @@ export type Database = {
           title: string
           translation?: string | null
           updated_at?: string | null
+          user_book_group_id?: string | null
           user_id: string
           vrl_calculated_at?: string | null
           vrl_components?: Json | null
@@ -1627,6 +2127,7 @@ export type Database = {
           title?: string
           translation?: string | null
           updated_at?: string | null
+          user_book_group_id?: string | null
           user_id?: string
           vrl_calculated_at?: string | null
           vrl_components?: Json | null
@@ -1999,17 +2500,23 @@ export type Database = {
       user_word_set_subscriptions: {
         Row: {
           set_id: string
+          source_book_id: string | null
           subscribed_at: string | null
+          subscription_source: string | null
           user_id: string
         }
         Insert: {
           set_id: string
+          source_book_id?: string | null
           subscribed_at?: string | null
+          subscription_source?: string | null
           user_id: string
         }
         Update: {
           set_id?: string
+          source_book_id?: string | null
           subscribed_at?: string | null
+          subscription_source?: string | null
           user_id?: string
         }
         Relationships: [
@@ -2018,6 +2525,13 @@ export type Database = {
             columns: ["set_id"]
             isOneToOne: false
             referencedRelation: "shared_word_sets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_word_set_subscriptions_source_book_id_fkey"
+            columns: ["source_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
             referencedColumns: ["id"]
           },
         ]
@@ -2912,6 +3426,101 @@ export type Database = {
       }
     }
     Views: {
+      library_seed_catalog_view: {
+        Row: {
+          author: string | null
+          author_birth_year: number | null
+          author_death_year: number | null
+          cover_url: string | null
+          curation_meta: Json | null
+          curation_status: string | null
+          dedup_key: string | null
+          description: string | null
+          enriched_at: string | null
+          est_v_level: number | null
+          fetched_at: string | null
+          genre: string | null
+          id: string | null
+          imported_book_id: string | null
+          imported_to_books: boolean | null
+          language: string | null
+          popularity_rank: number | null
+          published_year: number | null
+          reading_time_minutes: number | null
+          shadowed_by_se: boolean | null
+          source: string | null
+          source_id: string | null
+          source_url: string | null
+          subjects: string[] | null
+          title: string | null
+          word_count: number | null
+        }
+        Insert: {
+          author?: string | null
+          author_birth_year?: number | null
+          author_death_year?: number | null
+          cover_url?: string | null
+          curation_meta?: Json | null
+          curation_status?: string | null
+          dedup_key?: string | null
+          description?: string | null
+          enriched_at?: string | null
+          est_v_level?: number | null
+          fetched_at?: string | null
+          genre?: string | null
+          id?: string | null
+          imported_book_id?: string | null
+          imported_to_books?: boolean | null
+          language?: string | null
+          popularity_rank?: number | null
+          published_year?: number | null
+          reading_time_minutes?: number | null
+          shadowed_by_se?: never
+          source?: string | null
+          source_id?: string | null
+          source_url?: string | null
+          subjects?: string[] | null
+          title?: string | null
+          word_count?: number | null
+        }
+        Update: {
+          author?: string | null
+          author_birth_year?: number | null
+          author_death_year?: number | null
+          cover_url?: string | null
+          curation_meta?: Json | null
+          curation_status?: string | null
+          dedup_key?: string | null
+          description?: string | null
+          enriched_at?: string | null
+          est_v_level?: number | null
+          fetched_at?: string | null
+          genre?: string | null
+          id?: string | null
+          imported_book_id?: string | null
+          imported_to_books?: boolean | null
+          language?: string | null
+          popularity_rank?: number | null
+          published_year?: number | null
+          reading_time_minutes?: number | null
+          shadowed_by_se?: never
+          source?: string | null
+          source_id?: string | null
+          source_url?: string | null
+          subjects?: string[] | null
+          title?: string | null
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_seed_catalog_imported_book_id_fkey"
+            columns: ["imported_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_vocab_enriched: {
         Row: {
           dict_cefr: string | null
@@ -2941,6 +3550,24 @@ export type Database = {
           },
         ]
       }
+      v_book_extraction_stats: {
+        Row: {
+          book_id: string | null
+          extracted_count: number | null
+          lemma_bound: number | null
+          lemma_coverage_pct: number | null
+          lemma_unbound: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_book_vocabularies_library_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       v_text_content: {
         Row: {
           cefr_level: string | null
@@ -2956,6 +3583,7 @@ export type Database = {
           sentence_offsets: number[] | null
           status: string | null
           title: string | null
+          user_book_group_id: string | null
           user_id: string | null
         }
         Relationships: [
@@ -2994,11 +3622,46 @@ export type Database = {
       }
     }
     Functions: {
+      _enroll_book_subscribe_word_sets: {
+        Args: { p_book_id: string; p_user_id: string }
+        Returns: undefined
+      }
       admin_archive_article: {
         Args: { p_article_id: string }
         Returns: undefined
       }
       admin_archive_book: { Args: { p_book_id: string }; Returns: string }
+      admin_bulk_requeue_books: {
+        Args: { p_book_ids: string[] }
+        Returns: {
+          blocked_by_published: number
+          blocked_by_users: number
+          deleted_count: number
+          seed_unlocked: number
+          skipped_count: number
+          word_sets_deleted: number
+        }[]
+      }
+      admin_bulk_set_books_curating: {
+        Args: { p_book_ids: string[] }
+        Returns: {
+          blocked_by_published: number
+          blocked_by_users: number
+          skipped_count: number
+          updated_count: number
+          word_sets_deleted: number
+        }[]
+      }
+      admin_delete_book: {
+        Args: { p_book_id: string }
+        Returns: {
+          deleted_book_id: string
+          seed_unlocked: number
+          status_was: string
+          texts_unlinked: number
+          word_sets_deleted: number
+        }[]
+      }
       admin_enqueue_article: {
         Args: {
           p_author?: string
@@ -3034,6 +3697,13 @@ export type Database = {
         Returns: undefined
       }
       admin_requeue_book: { Args: { p_book_id: string }; Returns: string }
+      admin_revert_published_book: {
+        Args: { p_book_id: string }
+        Returns: {
+          deleted_word_sets: number
+          reverted_book_id: string
+        }[]
+      }
       admin_vrl_cron_jobs: {
         Args: never
         Returns: {
@@ -3137,6 +3807,10 @@ export type Database = {
         Args: { p_diagnostic_id: string }
         Returns: string
       }
+      archive_book_pipeline_messages: {
+        Args: { p_book_id: string }
+        Returns: number
+      }
       auto_curate_book: { Args: { p_book_id: string }; Returns: string }
       auto_promote_track_level_for_user: {
         Args: { p_track_id: string; p_user_id: string }
@@ -3159,6 +3833,16 @@ export type Database = {
           promoted: boolean
           reason: string
           threshold: number
+        }[]
+      }
+      backfill_book_lemmas: { Args: { p_book_id: string }; Returns: number }
+      bulk_compute_cefrj_for_all_sources: {
+        Args: never
+        Returns: {
+          cefrj_assigned: number
+          errors: number
+          source: string
+          total_books: number
         }[]
       }
       calc_domain_level: {
@@ -3190,6 +3874,21 @@ export type Database = {
           suggested_level: number
         }[]
       }
+      classify_archaic_candidates: {
+        Args: never
+        Returns: {
+          marked_addable: number
+          marked_processed: number
+          remaining_pending: number
+        }[]
+      }
+      collect_archaic_candidates: {
+        Args: { p_book_id: string }
+        Returns: number
+      }
+      compute_book_cefrj: { Args: { p_book_id: string }; Returns: undefined }
+      compute_book_coverage: { Args: { p_book_id: string }; Returns: undefined }
+      compute_book_vrl: { Args: { p_book_id: string }; Returns: undefined }
       compute_frequency_tier: { Args: { p_raw_count: number }; Returns: number }
       cron_auto_promote_all_users: {
         Args: never
@@ -3205,8 +3904,41 @@ export type Database = {
       dict_inflections_by_pos: { Args: never; Returns: Json }
       dict_polysemy_count: { Args: never; Returns: Json }
       effective_confidence: { Args: { p_meta: Json }; Returns: number }
+      en_derivational_bases: { Args: { p: string }; Returns: string[] }
+      en_inflection_bases: { Args: { p: string }; Returns: string[] }
+      en_spelling_variants: { Args: { p: string }; Returns: string[] }
+      enqueue_curation_jobs: {
+        Args: { p_book_ids: string[] }
+        Returns: {
+          queued: number
+          skipped: number
+        }[]
+      }
       enrich_shared_dictionary: { Args: { p_words: Json }; Returns: number }
       enroll_library_book: { Args: { p_book_id: string }; Returns: string[] }
+      extract_book_vocabulary_admin: {
+        Args: { p_book_id: string; p_percentile?: number }
+        Returns: {
+          book_v_level: number
+          cefr_level: string
+          chapter_idx: number
+          composite_score: number
+          example_en: string
+          frequency_in_chapter: number
+          frequency_rank: number
+          meaning_ko: string
+          percentile_used: number
+          pos: string
+          rank: number
+          score_breakdown: Json
+          skill_level: number
+          total_candidates: number
+          v_level: number
+          v_threshold: number
+          word: string
+          word_register: string
+        }[]
+      }
       extract_vocabulary_for_user: {
         Args: {
           p_level_strategy?: string
@@ -3266,6 +3998,36 @@ export type Database = {
           word: string
         }[]
       }
+      find_derivational_candidates: {
+        Args: never
+        Returns: {
+          base: string
+          base_cefr: string
+          base_meaning: string
+          base_pos: string
+          base_v_level: number
+          books_seen: number
+          suffix: string
+          total_occurrence: number
+          variant: string
+        }[]
+      }
+      find_unbound_book_lemmas: {
+        Args: { p_book_id: string; p_limit?: number }
+        Returns: {
+          archaic_class: string
+          book_occurrences: number
+          cluster_base: string
+          deriv_base: string
+          dict_classified_by: string
+          dict_meaning_ko: string
+          dict_v_level: number
+          inflection_base: string
+          lemma: string
+          reason: string
+          variant_hit: string
+        }[]
+      }
       find_unmatched_lemmas: {
         Args: { p_words: string[] }
         Returns: {
@@ -3287,6 +4049,25 @@ export type Database = {
         Returns: undefined
       }
       is_admin_or_curator: { Args: never; Returns: boolean }
+      library_seed_dedup_key: {
+        Args: { p_author: string; p_title: string }
+        Returns: string
+      }
+      lookup_word_meaning: {
+        Args: { p_surface: string }
+        Returns: {
+          cefr_level: string
+          example_en: string
+          found: boolean
+          match_via: string
+          meaning_ko: string
+          pos: string
+          resolved_word: string
+          surface: string
+          v_level: number
+          word_register: string
+        }[]
+      }
       pgmq_archive: {
         Args: { p_msg_id: number; p_queue_name: string }
         Returns: boolean
@@ -3294,6 +4075,26 @@ export type Database = {
       process_library_pipeline_batch: {
         Args: { p_batch_size?: number }
         Returns: number
+      }
+      publish_book_word_sets: {
+        Args: { p_book_id: string }
+        Returns: {
+          chapter_idx: number
+          set_id: string
+          word_count: number
+        }[]
+      }
+      queue_seed_catalog_for_curation: {
+        Args: {
+          p_limit?: number
+          p_not_imported_only?: boolean
+          p_source?: string
+        }
+        Returns: {
+          queued: number
+          total_pending: number
+          total_queued: number
+        }[]
       }
       recommend_word_sets_for_user: {
         Args: { p_interests?: string[]; p_user_id: string }
@@ -3317,9 +4118,46 @@ export type Database = {
         Args: { p_set_id: string }
         Returns: number
       }
+      select_book_chapter_vocab: {
+        Args: { p_book_id: string }
+        Returns: {
+          cefr_level: string
+          chapter_idx: number
+          composite_score: number
+          example_en: string
+          first_sentence: string
+          frequency_in_chapter: number
+          frequency_rank: number
+          lemma: string
+          library_book_vocabulary_id: string
+          meaning_ko: string
+          pos: string
+          skill_level: number
+          sort_order: number
+          v_level: number
+          word: string
+          word_register: string
+        }[]
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      stage_book_dict_candidates: {
+        Args: { p_book_id: string }
+        Returns: {
+          already_addable: number
+          book_pending_remaining: number
+          staged: number
+        }[]
+      }
       store_content_chunk: { Args: { p_content: string }; Returns: string }
+      unenroll_library_book: {
+        Args: { p_book_id: string }
+        Returns: {
+          subs_deleted: number
+          texts_deleted: number
+          vocabs_deleted: number
+        }[]
+      }
       update_pending_word_status: {
         Args: { p_admin_note?: string; p_id: string; p_status: string }
         Returns: {
@@ -3359,6 +4197,19 @@ export type Database = {
       validate_axis_level_entry: {
         Args: { p_axis_id: string; p_axis_type: string; p_level: number }
         Returns: boolean
+      }
+      vcb_count_words_matching: { Args: { p_filters: Json }; Returns: number }
+      vcb_distribution_for_filters: { Args: { p_filters: Json }; Returns: Json }
+      vcb_sample_words_for_filters: {
+        Args: { p_filters: Json; p_limit?: number }
+        Returns: {
+          cefr_level: string
+          frequency_rank: number
+          meaning_ko: string
+          primary_pos: string
+          v_level: number
+          word: string
+        }[]
       }
     }
     Enums: {

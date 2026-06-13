@@ -3,6 +3,7 @@
 
 'use server'
 
+import type { Json } from '@vocaflow/types'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import type { VocabFilters } from '../filters'
@@ -24,7 +25,7 @@ export interface SampleWord {
 }
 
 // VocabFilters 의 v_level_min/max null → 0 변환 (RPC 호환)
-function toJsonbPayload(filters: VocabFilters): Record<string, unknown> {
+function toJsonbPayload(filters: VocabFilters): Json {
   return {
     v_level_min: filters.v_level_min ?? 0,
     v_level_max: filters.v_level_max ?? 0,

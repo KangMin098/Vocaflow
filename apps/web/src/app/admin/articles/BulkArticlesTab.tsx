@@ -26,8 +26,25 @@ import {
   Radio,
   Rocket,
   Beaker,
+  GraduationCap,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import {
+  SOURCE_SPECS,
+  applySourceLevelCap,
+  getSourceOrderForLevel,
+  type LearnerLevel,
+  type SourceKey,
+} from '@vocaflow/library-pipeline'
+
+interface ArticleScore {
+  total: number
+  recency: number
+  source: number
+  length: number
+  level: number
+}
 
 interface FeedItem {
   source_id: string
@@ -35,12 +52,14 @@ interface FeedItem {
   url: string
   published_at: string | null
   description: string
+  score?: ArticleScore
 }
 
 interface BulkRow extends FeedItem {
   source: SourceKey
   feed_id: string
   feed_label: string
+  isPublished: boolean
 }
 
 interface FeedConfig {
@@ -55,8 +74,6 @@ interface SourceConfig {
   color: string
   feeds: FeedConfig[]
 }
-
-type SourceKey = 'voa' | 'nasa' | 'nih' | 'arxiv'
 
 const SOURCES: SourceConfig[] = [
   {
@@ -135,6 +152,24 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
   } | null>(null)
   const [enqueuedKeys, setEnqueuedKeys] = useState<Set<string>>(new Set())
 
+  // v06.41 — 정렬 / 발행 숨김 토글
+  const [sortBy, setSortBy] = useState<'score' | 'date'>('score')
+  const [hidePublished, setHidePublished] = useState(true)
+
+  // v06.42 — 학습자 수준 (소스 자동 정렬 + 추천 강조)
+  const [learnerLevel, setLearnerLevel] = useState<LearnerLevel>('intermediate')
+
+  // 학습자 수준 기반 소스 정렬 + 추천 여부
+  const orderedSources = useMemo(() => {
+    const order = getSourceOrderForLevel(learnerLevel)
+    return order
+      .map((entry) => {
+        const cfg = SOURCES.find((s) => s.key === entry.source)
+        return cfg ? { ...cfg, isRecommended: entry.isRecommended, priority: entry.priority } : null
+      })
+      .filter((x): x is SourceConfig & { isRecommended: boolean; priority: number } => x !== null)
+  }, [learnerLevel])
+
   // 소스 토글
   const toggleSource = (key: SourceKey) => {
     setSelected(new Set())
@@ -170,7 +205,13 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         if (!res.ok) {
           throw new Error(data.message ?? `HTTP ${res.status}`)
         }
-        return { source, feed_id: feed.id, feed_label: feed.label, items: (data.items ?? []) as FeedItem[] }
+        return {
+          source,
+          feed_id: feed.id,
+          feed_label: feed.label,
+          items: (data.items ?? []) as FeedItem[],
+          publishedSourceIds: (data.publishedSourceIds ?? []) as string[],
+        }
       }),
     )
 
@@ -180,12 +221,14 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     results.forEach((r, idx) => {
       const { source, feed } = feedsToFetch[idx]!
       if (r.status === 'fulfilled') {
+        const publishedSet = new Set(r.value.publishedSourceIds)
         for (const item of r.value.items) {
           accRows.push({
             ...item,
             source,
             feed_id: feed.id,
             feed_label: feed.label,
+            isPublished: publishedSet.has(item.source_id),
           })
         }
       } else {
@@ -198,14 +241,19 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       }
     })
 
-    // 최신순 정렬 (published_at 내림차순)
-    accRows.sort((a, b) => {
-      const pa = a.published_at ?? ''
-      const pb = b.published_at ?? ''
-      return pb.localeCompare(pa)
-    })
+    // v06.42 — 소스 레벨 cap 적용 (소스당 maxItemsPerBatch + minScore + feed mix quota)
+    const byCappedSource: BulkRow[] = []
+    for (const key of (['voa', 'nasa', 'nih', 'arxiv'] as SourceKey[])) {
+      const ofSource = accRows.filter((r) => r.source === key)
+      if (ofSource.length === 0) continue
+      const capped = applySourceLevelCap(ofSource, key)
+      byCappedSource.push(...capped)
+    }
 
-    setRows(accRows)
+    // 학습 친화도순 정렬 (sortBy state 따라 client에서 다시 정렬)
+    byCappedSource.sort((a, b) => (b.score?.total ?? 0) - (a.score?.total ?? 0))
+
+    setRows(byCappedSource)
     setFailedFeeds(accFail)
     setFetching(false)
   }
@@ -283,31 +331,106 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         </div>
       </header>
 
-      {/* 소스 선택 */}
+      {/* v06.42 — 학습자 수준 선택기 + 소스 자동 정렬 + 소스 명세 카드 */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-        <h3 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
-          소스 선택 (multi)
+        {/* 학습자 수준 — 소스 자동 정렬 기준 */}
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <GraduationCap size={13} className="text-[var(--t3)]" />
+          <span className="font-display text-[11.5px] font-[600] text-[var(--t2)]">
+            학습자 수준 (소스 정렬 기준):
+          </span>
+          <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+            {(['beginner', 'intermediate', 'advanced'] as LearnerLevel[]).map((lv) => (
+              <button
+                key={lv}
+                type="button"
+                onClick={() => setLearnerLevel(lv)}
+                className={`rounded-[var(--r-sm)] px-2.5 py-0.5 font-display text-[11px] font-[600] transition-all ${
+                  learnerLevel === lv
+                    ? 'bg-[var(--p)] text-[var(--ti)]'
+                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                }`}
+              >
+                {lv === 'beginner' ? '입문 (A1-A2)' : lv === 'intermediate' ? '중급 (B1-B2)' : '고급 (C1+)'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">
+          소스 명세 (multi · 학습자 수준 기반 순위)
         </h3>
-        <div className="flex flex-wrap gap-2">
-          {SOURCES.map((s) => {
+
+        {/* 소스 카드 list — 학습자 수준에 맞춰 자동 정렬, 각 소스의 spec 가시화 */}
+        <div className="grid gap-2 sm:grid-cols-2">
+          {orderedSources.map((s) => {
             const active = selectedSources.has(s.key)
             const Icon = s.Icon
+            const spec = SOURCE_SPECS[s.key]
             return (
               <button
                 key={s.key}
                 type="button"
                 onClick={() => toggleSource(s.key)}
                 disabled={fetching}
-                className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border px-3 py-1.5 font-display text-[12px] font-[600] transition-all"
+                className="group relative flex flex-col gap-1.5 rounded-[var(--r-sm)] border p-2.5 text-left transition-all"
                 style={{
-                  background: active ? `color-mix(in srgb, ${s.color} 14%, transparent)` : 'var(--bg)',
+                  background: active ? `color-mix(in srgb, ${s.color} 8%, transparent)` : 'var(--bg)',
                   borderColor: active ? s.color : 'var(--bd)',
-                  color: active ? s.color : 'var(--t3)',
                 }}
               >
-                <Icon size={12} />
-                {s.label}
-                <span className="font-mono text-[10px] opacity-70">({s.feeds.length})</span>
+                {/* 1행 — 우선순위 · 라벨 · feed 수 · 추천 배지 */}
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-mono text-[9px] font-[700]"
+                    style={{
+                      background: active ? s.color : 'var(--bg2)',
+                      color: active ? 'white' : 'var(--t3)',
+                    }}
+                  >
+                    {s.priority}
+                  </span>
+                  <Icon size={12} style={{ color: active ? s.color : 'var(--t3)' }} />
+                  <span
+                    className="font-display text-[12.5px] font-[700]"
+                    style={{ color: active ? s.color : 'var(--t1)' }}
+                  >
+                    {s.label}
+                  </span>
+                  <span className="font-mono text-[9.5px] text-[var(--t3)]">
+                    {s.feeds.length} feed · cap {spec.maxItemsPerBatch}
+                  </span>
+                  {s.isRecommended && (
+                    <span
+                      className="ml-auto rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[8.5px] font-[700]"
+                      style={{
+                        background: 'color-mix(in srgb, var(--memory-stable) 14%, transparent)',
+                        color: 'var(--memory-stable)',
+                      }}
+                      title="이 학습자 수준에 적합한 소스"
+                    >
+                      추천
+                    </span>
+                  )}
+                </div>
+                {/* 2행 — target CEFR + 라이선스 */}
+                <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t3)]">
+                  <span>CEFR {spec.targetCefr.min}–{spec.targetCefr.max}</span>
+                  <span aria-hidden>·</span>
+                  <span>{spec.license}</span>
+                  {spec.attributionRequired && (
+                    <>
+                      <span aria-hidden>·</span>
+                      <span className="text-[var(--memory-shaky)]">인용 의무</span>
+                    </>
+                  )}
+                  <span aria-hidden>·</span>
+                  <span>min ★{Math.round(spec.minScore * 100)}</span>
+                </div>
+                {/* 3행 — 문체 */}
+                <div className="line-clamp-1 font-body text-[10.5px] text-[var(--t3)]">
+                  {spec.styleGuide}
+                </div>
               </button>
             )
           })}
@@ -377,24 +500,82 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       )}
 
       {/* 결과 list */}
-      {rows.length > 0 && (
+      {rows.length > 0 && (() => {
+        // v06.41 — 정렬 + 숨김 토글 적용
+        const visibleRows = (hidePublished ? rows.filter((r) => !r.isPublished) : rows)
+        const displayRows = [...visibleRows].sort((a, b) => {
+          if (sortBy === 'score') return (b.score?.total ?? 0) - (a.score?.total ?? 0)
+          return (b.published_at ?? '').localeCompare(a.published_at ?? '')
+        })
+        const visibleKeys = new Set(displayRows.map(rowKey))
+        const visibleSelected = new Set([...selected].filter((k) => visibleKeys.has(k)))
+
+      return (
         <section className="overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]">
           {/* 헤더 */}
           <div className="flex flex-wrap items-center gap-2 border-b border-[var(--bd)] bg-[var(--bg2)] p-2.5 font-mono text-[11px]">
             <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
               <input
                 type="checkbox"
-                checked={selected.size > 0 && selected.size === rows.length}
-                onChange={toggleAll}
+                checked={visibleSelected.size > 0 && visibleSelected.size === displayRows.length}
+                onChange={() => {
+                  if (visibleSelected.size === displayRows.length) {
+                    setSelected(new Set())
+                  } else {
+                    setSelected(new Set(displayRows.map(rowKey)))
+                  }
+                }}
                 className="h-3 w-3"
               />
               전체
             </label>
             <span className="text-[var(--t3)]">
-              <strong className="text-[var(--t1)]">{rows.length}</strong>건 ·{' '}
-              선택{' '}
-              <strong className="text-[var(--p)]">{selected.size}</strong>건
+              <strong className="text-[var(--t1)]">{displayRows.length}</strong>건
+              {hidePublished && rows.length > displayRows.length && (
+                <span className="text-[var(--t3)]"> (발행 {rows.length - displayRows.length} 숨김)</span>
+              )}
+              {' · 선택 '}
+              <strong className="text-[var(--p)]">{visibleSelected.size}</strong>건
             </span>
+
+            {/* v06.41 — 정렬 토글 */}
+            <div className="ml-2 inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+              <button
+                type="button"
+                onClick={() => setSortBy('score')}
+                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all ${
+                  sortBy === 'score'
+                    ? 'bg-[var(--p)] text-[var(--ti)]'
+                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                }`}
+                title="학습 친화도 순 (recency + source + length + level)"
+              >
+                적합도
+              </button>
+              <button
+                type="button"
+                onClick={() => setSortBy('date')}
+                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all ${
+                  sortBy === 'date'
+                    ? 'bg-[var(--p)] text-[var(--ti)]'
+                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                }`}
+                title="발행일 내림차순"
+              >
+                최신순
+              </button>
+            </div>
+
+            {/* v06.41 — 발행 숨김 토글 */}
+            <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
+              <input
+                type="checkbox"
+                checked={hidePublished}
+                onChange={(e) => setHidePublished(e.target.checked)}
+                className="h-3 w-3"
+              />
+              <span title="library_articles 에 이미 등재된 항목 숨김">발행 숨김</span>
+            </label>
 
             <div className="ml-auto">
               <button
@@ -414,23 +595,24 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           </div>
 
           <ul className="divide-y divide-[var(--bd)]">
-            {rows.map((r) => {
+            {displayRows.map((r) => {
               const key = rowKey(r)
               const isSelected = selected.has(key)
               const isEnqueued = enqueuedKeys.has(key)
               const sourceCfg = SOURCES.find((s) => s.key === r.source)
+              const scorePct = r.score ? Math.round(r.score.total * 100) : null
               return (
                 <li
                   key={key}
                   className={`flex items-start gap-3 p-3 transition-colors ${
-                    isEnqueued ? 'opacity-60' : 'hover:bg-[var(--bg2)]'
+                    isEnqueued || r.isPublished ? 'opacity-60' : 'hover:bg-[var(--bg2)]'
                   }`}
                 >
                   <input
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => toggleRow(key)}
-                    disabled={isEnqueued}
+                    disabled={isEnqueued || r.isPublished}
                     className="mt-1 h-3.5 w-3.5 shrink-0"
                   />
                   <div className="min-w-0 flex-1">
@@ -450,14 +632,42 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       <span className="font-mono text-[9.5px] text-[var(--t3)]">
                         {r.feed_label}
                       </span>
+                      {scorePct !== null && (
+                        <span
+                          className="inline-flex items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700] tabular-nums"
+                          style={{
+                            color:
+                              scorePct >= 75 ? 'var(--memory-stable)' :
+                              scorePct >= 55 ? 'var(--p)' :
+                              scorePct >= 35 ? 'var(--memory-shaky)' :
+                              'var(--memory-risk)',
+                            background:
+                              scorePct >= 75 ? 'color-mix(in srgb, var(--memory-stable) 12%, transparent)' :
+                              scorePct >= 55 ? 'var(--p-light)' :
+                              scorePct >= 35 ? 'color-mix(in srgb, var(--memory-shaky) 12%, transparent)' :
+                              'color-mix(in srgb, var(--memory-risk) 12%, transparent)',
+                          }}
+                          title={`적합도 ${scorePct} — recency ${Math.round((r.score?.recency ?? 0) * 100)} · source ${Math.round((r.score?.source ?? 0) * 100)} · length ${Math.round((r.score?.length ?? 0) * 100)} · level ${((r.score?.level ?? 0) * 100).toFixed(0)}`}
+                        >
+                          ★ {scorePct}
+                        </span>
+                      )}
                       {r.published_at && (
                         <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t3)]">
                           <Calendar size={9} />
                           {new Date(r.published_at).toISOString().slice(0, 10)}
                         </span>
                       )}
+                      {r.isPublished && (
+                        <span
+                          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                          style={{ color: 'var(--memory-new)', background: 'color-mix(in srgb, var(--memory-new) 12%, transparent)' }}
+                        >
+                          <CheckCircle2 size={9} /> 발행됨
+                        </span>
+                      )}
                       {isEnqueued && (
-                        <span className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--learn-known)]">
+                        <span className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border border-[var(--memory-stable)] bg-[var(--success-light)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--memory-stable)]">
                           <CheckCircle2 size={9} /> 큐
                         </span>
                       )}
@@ -485,7 +695,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             })}
           </ul>
         </section>
-      )}
+      )
+      })()}
 
       {/* 빈 상태 */}
       {rows.length === 0 && !fetching && failedFeeds.length === 0 && (

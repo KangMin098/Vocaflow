@@ -63,6 +63,10 @@ interface UnifiedHeaderProps {
   modeStatus: Record<ModeKey, ModeStatus>
   /** "단어" 모드 클릭 시 이동할 단어장(WordVault) href — 자료별로 page.tsx 에서 계산 */
   wordsHref: string
+  /** "카드" 모드 클릭 시 이동할 Flashcard href — 자료 스코프(?set/?text) 포함 */
+  flashcardHref: string
+  /** "블리츠" 모드 클릭 시 이동할 WordBlitz href — 자료 스코프(?set/?text) 포함 */
+  wordblitzHref: string
 }
 
 export function UnifiedHeader({
@@ -81,6 +85,8 @@ export function UnifiedHeader({
   currentMode,
   modeStatus,
   wordsHref,
+  flashcardHref,
+  wordblitzHref,
 }: UnifiedHeaderProps) {
   const [isTypeOpen, setIsTypeOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -357,6 +363,8 @@ export function UnifiedHeader({
         modeStatus={modeStatus}
         isFocusMode={isFocusMode}
         wordsHref={wordsHref}
+        flashcardHref={flashcardHref}
+        wordblitzHref={wordblitzHref}
       />
 
       {hasChapterContext && navOpen && (

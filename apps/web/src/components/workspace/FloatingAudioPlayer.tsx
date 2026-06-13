@@ -1,50 +1,282 @@
 // apps/web/src/components/workspace/FloatingAudioPlayer.tsx
 //
-// v06.32 — 풍부한 audio player.
-// - 3 mode toggle: 한 문장씩 / 단락 / 전체
-// - prev/play-pause/next + paragraph nav (skip 2)
-// - speed (0.5-1.5)
-// - voice picker popover (브라우저 음성)
-// - 진행 카운터 (현재 / 총 문장)
+// v06.41 — 가독성 재설계: theme-aware frosted paper-glass dock.
 //
-// tts-controller (singleton) 와 직접 wire.
-// page.tsx 는 sentences[] 전달만 — 재생은 player 내부에서 controller 호출.
+// 이전(v06.35)은 `bg-[var(--t1)]/95 + text-white` 였다 — `--t1` 은 *텍스트* 토큰이라
+// 다크모드에서 near-white 가 되어 흰 글자가 흰 배경에 묻혀 가독성 0 이었다.
+// 이제 표면은 `--mat-glass-*`(테마별 종이/먹 글라스), 글자는 ink 토큰(--t1/t2/t3),
+// 액센트는 --p(deep ink/light navy). 라이트·다크 모두 충분한 대비.
+//
+// 디자인 원칙:
+//   · 하단 floating dock — 가장자리 여백 + continuous radius + 상단 hairline + soft glow
+//   · iOS 세그먼트 컨트롤(소스·모드) · Lora 영문 Step Hero · tabular-nums 시간
+//   · 모든 인터랙티브: hover/active/focus-visible/disabled 4상태 · 터치타겟 ≥40px
+//
+// 듀얼 소스 구조 보존:
+//   ● 브라우저 음성 (TTS): 문장/단락/전체/따라하기
+//   ● 원어민 보이스 (LibriVox): 챕터 스트림 — 문장 단위 X
 
 'use client'
 
-import { ChevronsLeft, ChevronsRight, Pause, Play, SkipBack, SkipForward, Square, X } from 'lucide-react'
+import {
+  ChevronsLeft,
+  ChevronsRight,
+  ExternalLink,
+  Mic,
+  Pause,
+  Play,
+  RotateCcw,
+  SkipBack,
+  SkipForward,
+  Square,
+  StepForward,
+  Volume2,
+  X,
+} from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useTTS, type PlayMode, type SentenceItem } from '@/lib/workspace/tts-controller'
+import {
+  formatAudioTime,
+  type ChapterAudio,
+  type ChapterAudioPart,
+} from '@/lib/workspace/chapter-audio'
 
 import { VoicePickerPopover } from './VoicePickerPopover'
 
+export type AudioSource = 'browser' | 'librivox'
+
 interface Props {
-  /** 챕터 전체 sentence 큐 */
+  /** 챕터 전체 sentence 큐 (브라우저 TTS) */
   sentences: SentenceItem[]
   /** 닫기 (player 숨김) */
   onClose: () => void
   /** 항상 보임 여부 */
   isVisible: boolean
+  /** 현재 챕터의 LibriVox 보이스 — null 이면 브라우저 전용 */
+  chapterAudio?: ChapterAudio | null
+  /** 활성 소스 (page.tsx 보유) */
+  source: AudioSource
+  /** 소스 토글 (사용자 명시 선택 — LS 저장) */
+  onSourceChange: (s: AudioSource) => void
 }
 
 const MODE_OPTIONS: { mode: PlayMode; label: string; tooltip: string }[] = [
   { mode: 'sentence', label: '문장', tooltip: '한 문장만 듣기' },
   { mode: 'paragraph', label: '단락', tooltip: '현재 단락만 듣기' },
   { mode: 'all', label: '전체', tooltip: '챕터 전체 듣기' },
+  { mode: 'step', label: '따라하기', tooltip: '문장 한 개씩 듣고 따라 말하기' },
 ]
 
 const SPEED_OPTIONS = [0.75, 1.0, 1.25, 1.5] as const
 
-export function FloatingAudioPlayer({ sentences, onClose, isVisible }: Props) {
+// 공용 인터랙션 토큰 — focus-visible 링 (모든 버튼 일관)
+const RING =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]'
+
+export function FloatingAudioPlayer({
+  sentences,
+  onClose,
+  isVisible,
+  chapterAudio,
+  source,
+  onSourceChange,
+}: Props) {
+  const tts = useTTS()
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const hasVoice = !!chapterAudio
+
+  // 현재 챕터의 오디오 파트들 (다권=여러 파트, flat=1파트). 순차 재생.
+  const parts: ChapterAudioPart[] =
+    chapterAudio?.parts && chapterAudio.parts.length > 0
+      ? chapterAudio.parts
+      : chapterAudio
+        ? [
+            {
+              url: chapterAudio.url,
+              title: chapterAudio.title,
+              reader: chapterAudio.reader,
+              secs: chapterAudio.secs,
+            },
+          ]
+        : []
+  const [partIdx, setPartIdx] = useState(0)
+  const chapterKey = chapterAudio?.url ?? null
+  useEffect(() => {
+    setPartIdx(0)
+  }, [chapterKey])
+  const currentPart = parts[partIdx] ?? parts[0] ?? null
+
+  // 소스 전환 부수효과 — 상호 배타 재생.
+  useEffect(() => {
+    if (!hasVoice) return
+    if (source === 'librivox') {
+      tts.stop()
+    } else {
+      audioRef.current?.pause()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [source, hasVoice])
+
+  return (
+    <div
+      role="region"
+      aria-label="오디오 플레이어"
+      className={`fixed inset-x-0 bottom-0 z-[70] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] ${
+        isVisible ? 'translate-y-0' : 'translate-y-[120%]'
+      }`}
+    >
+      <div className="mx-auto w-full max-w-[920px] px-3 pb-3 sm:px-4 sm:pb-4">
+        <div
+          className="overflow-hidden rounded-[var(--r-ios-2xl)] border border-[var(--bd)] text-[var(--t1)] shadow-[0_10px_44px_-10px_rgba(0,0,0,0.32)]"
+          style={{
+            background: 'var(--mat-glass-bg-thick)',
+            backdropFilter: 'blur(24px) saturate(1.6)',
+            WebkitBackdropFilter: 'blur(24px) saturate(1.6)',
+          }}
+        >
+          <div className="flex w-full flex-col gap-2.5 px-4 py-3.5 sm:px-5">
+            {/* 소스 토글 (보이스 연결된 챕터만) */}
+            {hasVoice && (
+              <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
+            )}
+
+            {/* 영구 오디오 엘리먼트 */}
+            {chapterAudio && currentPart && (
+              <audio ref={audioRef} src={currentPart.url} preload="none" className="hidden" />
+            )}
+
+            {/* 브라우저 음성 body */}
+            <div className={source === 'browser' || !hasVoice ? '' : 'hidden'}>
+              <BrowserBody sentences={sentences} onClose={onClose} hideClose={hasVoice} />
+            </div>
+
+            {/* 원어민 보이스 body */}
+            {chapterAudio && (
+              <div className={source === 'librivox' ? '' : 'hidden'}>
+                <LibriVoxBody
+                  audio={chapterAudio}
+                  audioRef={audioRef}
+                  parts={parts}
+                  partIdx={partIdx}
+                  setPartIdx={setPartIdx}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── iOS 세그먼트 컨트롤 (소스·모드 공용) ─────────────────
+function Segmented<T extends string>({
+  options,
+  value,
+  onChange,
+  ariaLabel,
+  size = 'md',
+}: {
+  options: { key: T; label: string; icon?: React.ReactNode; tooltip?: string }[]
+  value: T
+  onChange: (v: T) => void
+  ariaLabel: string
+  size?: 'sm' | 'md'
+}) {
+  const pad = size === 'sm' ? 'px-2.5 py-1 text-[10.5px]' : 'px-3 py-1.5 text-[12px]'
+  return (
+    <div
+      role="tablist"
+      aria-label={ariaLabel}
+      className="inline-flex items-center gap-0.5 rounded-[var(--r-ios-pill)] bg-[var(--bg2)] p-0.5"
+    >
+      {options.map((o) => {
+        const active = value === o.key
+        return (
+          <button
+            key={o.key}
+            type="button"
+            role="tab"
+            aria-selected={active}
+            title={o.tooltip}
+            onClick={() => onChange(o.key)}
+            className={`inline-flex items-center gap-1 rounded-[var(--r-ios-pill)] font-display font-[700] transition-all duration-[var(--dur-ios-fast)] ${pad} ${RING} ${
+              active
+                ? 'bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-1)]'
+                : 'text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
+            }`}
+          >
+            {o.icon}
+            {o.label}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+// ─── 소스 토글 row ───────────────────────────────────────
+function SourceToggleRow({
+  source,
+  onSourceChange,
+  onClose,
+}: {
+  source: AudioSource
+  onSourceChange: (s: AudioSource) => void
+  onClose: () => void
+}) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <Segmented<AudioSource>
+        ariaLabel="듣기 소스"
+        size="sm"
+        value={source}
+        onChange={onSourceChange}
+        options={[
+          { key: 'browser', label: '브라우저 음성', icon: <Volume2 size={11} aria-hidden /> },
+          { key: 'librivox', label: '원어민 성우', icon: <Mic size={11} aria-hidden /> },
+        ]}
+      />
+      <CloseButton onClose={onClose} />
+    </div>
+  )
+}
+
+function CloseButton({ onClose }: { onClose: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClose}
+      aria-label="닫기"
+      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+    >
+      <X size={15} aria-hidden />
+    </button>
+  )
+}
+
+// ─── 브라우저 음성 body ───────────────────────────────────
+function BrowserBody({
+  sentences,
+  onClose,
+  hideClose,
+}: {
+  sentences: SentenceItem[]
+  onClose: () => void
+  hideClose: boolean
+}) {
   const tts = useTTS()
   const { state, mode } = { state: tts.state.state, mode: tts.state.mode }
   const isPlaying = state === 'playing'
   const isPaused = state === 'paused'
+  const isAwaitingRepeat = state === 'awaiting_repeat'
   const isIdle = state === 'idle'
+  const isStepMode = mode === 'step'
+  const isStepActive = isStepMode && !isIdle
 
   const currentIdx = tts.state.currentSentenceIdx ?? 0
   const total = tts.state.totalSentences || sentences.length
-  const progress = total > 0 ? Math.round(((currentIdx + 1) / total) * 100) : 0
 
   function handlePlayPause() {
     if (isPlaying) {
@@ -55,193 +287,509 @@ export function FloatingAudioPlayer({ sentences, onClose, isVisible }: Props) {
       tts.resume()
       return
     }
-    // idle → 현재 mode 로 처음부터 재생
     if (sentences.length > 0) {
-      tts.playFromMode(mode, sentences, 0)
+      const m = mode === 'step' ? 'step' : 'all'
+      tts.playFromMode(m, sentences, 0)
     }
   }
 
-  function handlePrev() {
-    if (isIdle) return
-    tts.prevSentence()
-  }
-
-  function handleNext() {
-    if (isIdle) return
-    tts.nextSentence()
-  }
-
-  function handlePrevParagraph() {
-    if (isIdle) return
-    tts.prevParagraph()
-  }
-
-  function handleNextParagraph() {
-    if (isIdle) return
-    tts.nextParagraph()
-  }
-
-  function handleStop() {
-    tts.stop()
-  }
-
   function handleSpeedChange() {
-    const i = SPEED_OPTIONS.indexOf(tts.state.rate as 0.75 | 1.0 | 1.25 | 1.5)
+    const i = SPEED_OPTIONS.indexOf(tts.state.rate as (typeof SPEED_OPTIONS)[number])
     const next = SPEED_OPTIONS[(i + 1) % SPEED_OPTIONS.length]!
     tts.setRate(next)
   }
 
-  function handleModeChange(next: PlayMode) {
-    tts.setMode(next)
+  // countdown ring 비율 (0~1) — awaiting_repeat 일 때만 의미.
+  const countdownRatio =
+    isAwaitingRepeat && tts.state.repeatTotalSec > 0
+      ? Math.max(0, Math.min(1, (tts.state.repeatCountdown ?? 0) / tts.state.repeatTotalSec))
+      : 1
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* ── Row 1: Mode tabs (segmented) + meta + voice/close ── */}
+      <div className="flex items-center justify-between gap-3">
+        <Segmented<PlayMode>
+          ariaLabel="듣기 모드"
+          value={mode}
+          onChange={(m) => tts.setMode(m)}
+          options={MODE_OPTIONS.map((o) => ({
+            key: o.mode,
+            label: o.label,
+            tooltip: o.tooltip,
+          }))}
+        />
+
+        <div className="flex items-center gap-2">
+          {!isStepMode && total > 0 && (
+            <span className="hidden font-mono text-[11px] tabular-nums text-[var(--t3)] sm:inline">
+              <span className="text-[var(--t1)]">{currentIdx + 1}</span>
+              <span className="mx-1 text-[var(--t4)]">/</span>
+              {total}
+            </span>
+          )}
+          <VoicePickerPopover />
+          {!hideClose && <CloseButton onClose={onClose} />}
+        </div>
+      </div>
+
+      {/* ── Step Hero — Lora 문장 텍스트 (step mode 활성 시) ── */}
+      {isStepActive && tts.state.currentText && (
+        <StepHero
+          stepNumber={currentIdx + 1}
+          totalSteps={total}
+          text={tts.state.currentText}
+          isAwaitingRepeat={isAwaitingRepeat}
+          countdown={tts.state.repeatCountdown}
+        />
+      )}
+
+      {/* ── Transport row ── */}
+      <div className="flex items-center gap-1.5">
+        {/* 좌측 — 이전 단락 / 이전 문장 (or 다시 듣기 in step mode) */}
+        {isStepActive ? (
+          <TransportButton
+            onClick={() => tts.stepReplay()}
+            label="이 문장 다시 듣기"
+            icon={<RotateCcw size={16} aria-hidden />}
+          />
+        ) : (
+          <>
+            <TransportButton
+              onClick={() => !isIdle && tts.prevParagraph()}
+              disabled={isIdle}
+              label="이전 단락"
+              icon={<ChevronsLeft size={17} aria-hidden />}
+            />
+            <TransportButton
+              onClick={() => !isIdle && tts.prevSentence()}
+              disabled={isIdle}
+              label="이전 문장"
+              icon={<SkipBack size={15} aria-hidden />}
+            />
+          </>
+        )}
+
+        {/* 중앙 — Play button (with countdown ring in step+awaiting_repeat) */}
+        <div className="relative mx-auto sm:mx-0 sm:ml-1.5">
+          {/* Countdown ring */}
+          {isAwaitingRepeat && (
+            <svg
+              className="pointer-events-none absolute inset-0 -m-1.5"
+              width="60"
+              height="60"
+              viewBox="0 0 60 60"
+              aria-hidden
+            >
+              <circle cx="30" cy="30" r="27" fill="none" stroke="var(--bd)" strokeWidth="2.5" />
+              <circle
+                cx="30"
+                cy="30"
+                r="27"
+                fill="none"
+                stroke="var(--success)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 27}`}
+                strokeDashoffset={`${2 * Math.PI * 27 * (1 - countdownRatio)}`}
+                style={{
+                  transform: 'rotate(-90deg)',
+                  transformOrigin: '30px 30px',
+                  transition: 'stroke-dashoffset 1000ms linear',
+                }}
+              />
+            </svg>
+          )}
+          <button
+            type="button"
+            onClick={handlePlayPause}
+            aria-label={isPlaying ? '일시정지' : '재생'}
+            className={`relative flex h-12 w-12 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-3)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
+          >
+            {isPlaying ? (
+              <Pause size={20} aria-hidden />
+            ) : (
+              <Play size={20} className="ml-0.5" aria-hidden />
+            )}
+          </button>
+        </div>
+
+        {/* Stop (모든 모드 공통, hidden when idle) */}
+        {!isIdle && !isStepActive && (
+          <TransportButton
+            onClick={() => tts.stop()}
+            label="정지"
+            icon={<Square size={12} fill="currentColor" aria-hidden />}
+          />
+        )}
+
+        {/* 우측 — 다음 문장 / 다음 단락 (or 즉시 다음 in step mode) */}
+        {isStepActive ? (
+          <button
+            type="button"
+            onClick={() => tts.stepAdvance()}
+            aria-label="다음 문장"
+            title="다음 문장"
+            disabled={currentIdx + 1 >= total && !isAwaitingRepeat}
+            className={`flex h-10 items-center gap-1 rounded-[var(--r-ios-pill)] bg-[var(--t1)] px-4 font-display text-[12.5px] font-[700] text-[var(--bg)] shadow-[var(--sh-ios-2)] transition-all duration-[var(--dur-ios-fast)] hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${RING}`}
+          >
+            다음
+            <StepForward size={13} aria-hidden />
+          </button>
+        ) : (
+          <>
+            <TransportButton
+              onClick={() => !isIdle && tts.nextSentence()}
+              disabled={isIdle}
+              label="다음 문장"
+              icon={<SkipForward size={15} aria-hidden />}
+            />
+            <TransportButton
+              onClick={() => !isIdle && tts.nextParagraph()}
+              disabled={isIdle}
+              label="다음 단락"
+              icon={<ChevronsRight size={17} aria-hidden />}
+            />
+          </>
+        )}
+
+        {/* Progress bar — non-step mode */}
+        {!isStepMode && (
+          <div className="relative mx-2 hidden flex-1 sm:block">
+            <div className="h-[4px] overflow-hidden rounded-full bg-[var(--bd)]">
+              <div
+                className="h-full rounded-full bg-[var(--p)] transition-[width] duration-[var(--dur-slow)]"
+                style={{
+                  width: `${total > 0 ? Math.round(((currentIdx + 1) / total) * 100) : 0}%`,
+                }}
+                aria-hidden
+              />
+            </div>
+          </div>
+        )}
+
+        {/* 속도 */}
+        <SpeedButton rate={tts.state.rate} onClick={handleSpeedChange} />
+      </div>
+    </div>
+  )
+}
+
+// ─── Transport button (정제된 ghost button, 터치타겟 40px) ──
+function TransportButton({
+  onClick,
+  disabled,
+  label,
+  icon,
+}: {
+  onClick: () => void
+  disabled?: boolean
+  label: string
+  icon: React.ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      title={label}
+      className={`flex h-10 w-10 items-center justify-center rounded-full text-[var(--t2)] transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent ${RING}`}
+    >
+      {icon}
+    </button>
+  )
+}
+
+// ─── 속도 토글 버튼 (브라우저·LibriVox 공용 룩) ──────────
+function SpeedButton({ rate, onClick }: { rate: number; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`재생 속도 ${rate}x`}
+      title="재생 속도"
+      className={`inline-flex h-9 min-w-[46px] shrink-0 items-center justify-center rounded-[var(--r-ios-pill)] border border-[var(--bd)] px-2.5 font-mono text-[11px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:border-[var(--p)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+    >
+      {rate}x
+    </button>
+  )
+}
+
+// ─── Step Hero — 문장 텍스트 hero 카드 ──────────────────
+function StepHero({
+  stepNumber,
+  totalSteps,
+  text,
+  isAwaitingRepeat,
+  countdown,
+}: {
+  stepNumber: number
+  totalSteps: number
+  text: string
+  isAwaitingRepeat: boolean
+  countdown: number | null
+}) {
+  return (
+    <div className="flex flex-col gap-2 rounded-[var(--r-ios-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+      {/* meta: step number + status */}
+      <div className="flex items-center justify-between gap-3">
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t3)]">
+          STEP <span className="font-display tabular-nums text-[var(--t1)]">{stepNumber}</span>
+          <span className="mx-1 text-[var(--t4)]">/</span>
+          <span className="font-display tabular-nums text-[var(--t3)]">{totalSteps}</span>
+        </span>
+        <span
+          className={`inline-flex items-center gap-1.5 font-display text-[11px] font-[700] transition-colors ${
+            isAwaitingRepeat ? 'text-[var(--success)]' : 'text-[var(--t2)]'
+          }`}
+        >
+          <span
+            aria-hidden
+            className={`inline-block h-1.5 w-1.5 rounded-full ${
+              isAwaitingRepeat ? 'animate-pulse bg-[var(--success)]' : 'bg-[var(--t4)]'
+            }`}
+          />
+          {isAwaitingRepeat
+            ? countdown != null
+              ? `따라 말해 보세요 · ${countdown}s`
+              : '따라 말해 보세요'
+            : '듣는 중'}
+        </span>
+      </div>
+
+      {/* sentence — Lora hero */}
+      <p className="font-english text-[18px] leading-relaxed text-[var(--t1)] sm:text-[20px]">
+        {text}
+      </p>
+    </div>
+  )
+}
+
+// ─── 원어민 보이스 body (LibriVox — 로직 보존, 색만 재설계) ──
+function LibriVoxBody({
+  audio,
+  audioRef,
+  parts,
+  partIdx,
+  setPartIdx,
+}: {
+  audio: ChapterAudio
+  audioRef: React.RefObject<HTMLAudioElement>
+  parts: ChapterAudioPart[]
+  partIdx: number
+  setPartIdx: (i: number) => void
+}) {
+  const [playing, setPlaying] = useState(false)
+  const [cur, setCur] = useState(0)
+  const [dur, setDur] = useState(parts[partIdx]?.secs ?? audio.secs ?? 0)
+  const [rate, setRate] = useState(1.0)
+
+  const multiPart = parts.length > 1
+  const currentPart = parts[partIdx] ?? parts[0] ?? null
+
+  const partIdxRef = useRef(partIdx)
+  partIdxRef.current = partIdx
+  const partsLenRef = useRef(parts.length)
+  partsLenRef.current = parts.length
+  const rateRef = useRef(rate)
+  rateRef.current = rate
+  const autoPlayNextRef = useRef(false)
+
+  useEffect(() => {
+    const el = audioRef.current
+    if (!el) return
+    const onTime = () => setCur(el.currentTime)
+    const onMeta = () => {
+      if (Number.isFinite(el.duration) && el.duration > 0) setDur(el.duration)
+    }
+    const onPlay = () => setPlaying(true)
+    const onPause = () => setPlaying(false)
+    const onEnded = () => {
+      if (partIdxRef.current < partsLenRef.current - 1) {
+        autoPlayNextRef.current = true
+        setPartIdx(partIdxRef.current + 1)
+      } else {
+        setPlaying(false)
+        setCur(0)
+      }
+    }
+    el.addEventListener('timeupdate', onTime)
+    el.addEventListener('loadedmetadata', onMeta)
+    el.addEventListener('play', onPlay)
+    el.addEventListener('pause', onPause)
+    el.addEventListener('ended', onEnded)
+    setPlaying(!el.paused)
+    setCur(el.currentTime)
+    if (Number.isFinite(el.duration) && el.duration > 0) setDur(el.duration)
+    return () => {
+      el.removeEventListener('timeupdate', onTime)
+      el.removeEventListener('loadedmetadata', onMeta)
+      el.removeEventListener('play', onPlay)
+      el.removeEventListener('pause', onPause)
+      el.removeEventListener('ended', onEnded)
+    }
+  }, [audioRef, setPartIdx])
+
+  useEffect(() => {
+    setCur(0)
+    setDur(parts[partIdx]?.secs ?? 0)
+    const el = audioRef.current
+    if (!el) return
+    if (autoPlayNextRef.current) {
+      autoPlayNextRef.current = false
+      el.playbackRate = rateRef.current
+      const p = el.play()
+      if (p && typeof p.catch === 'function') p.catch(() => {})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [partIdx])
+
+  const total = dur && Number.isFinite(dur) && dur > 0 ? dur : currentPart?.secs ?? 0
+
+  function goPart(next: number) {
+    if (next < 0 || next >= parts.length || next === partIdx) return
+    autoPlayNextRef.current = playing
+    setPartIdx(next)
+  }
+
+  function toggle() {
+    const el = audioRef.current
+    if (!el) return
+    if (el.paused) {
+      el.playbackRate = rate
+      void el.play()
+    } else {
+      el.pause()
+    }
+  }
+
+  function skip(deltaSec: number) {
+    const el = audioRef.current
+    if (!el) return
+    const target = el.currentTime + deltaSec
+    const upper = total > 0 ? total : target
+    const next = Math.max(0, Math.min(target, upper))
+    el.currentTime = next
+    setCur(next)
+  }
+
+  function seek(v: number) {
+    const el = audioRef.current
+    if (!el) return
+    el.currentTime = v
+    setCur(v)
+  }
+
+  function cycleRate() {
+    const i = SPEED_OPTIONS.indexOf(rate as (typeof SPEED_OPTIONS)[number])
+    const next = SPEED_OPTIONS[(i + 1) % SPEED_OPTIONS.length]!
+    setRate(next)
+    const el = audioRef.current
+    if (el) el.playbackRate = next
   }
 
   return (
-    <div
-      role="region"
-      aria-label="오디오 플레이어"
-      className={`fixed bottom-5 left-1/2 z-[70] flex w-[min(640px,calc(100vw-2rem))] flex-col gap-2 rounded-[var(--r-xl)] bg-[var(--t1)] px-3 py-2.5 text-white shadow-[var(--sh-xl)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-spring)] sm:px-4 ${
-        isVisible
-          ? '-translate-x-1/2 translate-y-0'
-          : '-translate-x-1/2 translate-y-[calc(100%+32px)]'
-      } `}
-    >
-      {/* Row 1 — Mode toggle + 진행 + Voice + 닫기 */}
-      <div className="flex items-center justify-between gap-2">
-        {/* Mode toggle (segmented control) */}
-        <div role="tablist" aria-label="듣기 모드" className="flex items-center gap-0.5 rounded-[var(--r-full)] bg-white/10 p-0.5">
-          {MODE_OPTIONS.map((opt) => {
-            const active = mode === opt.mode
-            return (
-              <button
-                key={opt.mode}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                title={opt.tooltip}
-                onClick={() => handleModeChange(opt.mode)}
-                className={`rounded-[var(--r-full)] px-2.5 py-0.5 font-display text-[10.5px] font-[700] transition-colors ${
-                  active ? 'bg-white text-[var(--t1)]' : 'text-white/80 hover:text-white'
-                }`}
-              >
-                {opt.label}
-              </button>
-            )
-          })}
-        </div>
+    <div className="flex flex-col gap-2.5">
+      {/* 챕터 정보 + 성우 */}
+      <div className="flex items-center justify-between gap-2 px-0.5">
+        <span className="inline-flex min-w-0 items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
+          <Mic size={12} className="shrink-0 text-[var(--t3)]" aria-hidden />
+          <span className="truncate">
+            {currentPart?.reader
+              ? currentPart.reader
+              : audio.reader
+                ? audio.reader
+                : '원어민 낭독'}
+          </span>
+          {multiPart && (
+            <span className="shrink-0 rounded-[var(--r-ios-pill)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700] tabular-nums text-[var(--t2)]">
+              파트 {partIdx + 1}/{parts.length}
+            </span>
+          )}
+          {!multiPart && audio.consistency === 'multi' && (
+            <span className="shrink-0 text-[var(--t3)]">· 챕터마다 성우 바뀜</span>
+          )}
+        </span>
+        {audio.librivoxUrl && (
+          <a
+            href={audio.librivoxUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={`inline-flex shrink-0 items-center gap-0.5 rounded-[var(--r-sm)] px-1 font-mono text-[9.5px] text-[var(--t3)] transition-colors hover:text-[var(--p)] ${RING}`}
+            aria-label="LibriVox 출처 보기"
+          >
+            LibriVox <ExternalLink size={9} aria-hidden />
+          </a>
+        )}
+      </div>
 
-        {/* 진행 카운터 */}
-        <span className="hidden font-mono text-[10px] text-white/75 tabular-nums sm:inline">
-          {total > 0 ? `${currentIdx + 1} / ${total}` : '0 / 0'}
+      {/* 트랜스포트 */}
+      <div className="flex items-center gap-1.5">
+        {multiPart && (
+          <TransportButton
+            onClick={() => goPart(partIdx - 1)}
+            disabled={partIdx === 0}
+            label="이전 파트"
+            icon={<SkipBack size={15} aria-hidden />}
+          />
+        )}
+
+        <TransportButton
+          onClick={() => skip(-10)}
+          label="10초 뒤로"
+          icon={<ChevronsLeft size={17} aria-hidden />}
+        />
+
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={playing ? '일시정지' : '재생'}
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-ios-3)] transition-transform duration-[var(--dur-ios-fast)] hover:scale-105 active:scale-95 ${RING}`}
+        >
+          {playing ? (
+            <Pause size={20} aria-hidden />
+          ) : (
+            <Play size={20} className="ml-0.5" aria-hidden />
+          )}
+        </button>
+
+        <TransportButton
+          onClick={() => skip(10)}
+          label="10초 앞으로"
+          icon={<ChevronsRight size={17} aria-hidden />}
+        />
+
+        {multiPart && (
+          <TransportButton
+            onClick={() => goPart(partIdx + 1)}
+            disabled={partIdx >= parts.length - 1}
+            label="다음 파트"
+            icon={<SkipForward size={15} aria-hidden />}
+          />
+        )}
+
+        <span className="ml-2 shrink-0 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+          {formatAudioTime(cur)} <span className="text-[var(--t4)]">/</span> {formatAudioTime(total)}
         </span>
 
-        {/* Right: Voice + Close */}
-        <div className="flex items-center gap-1.5">
-          <VoicePickerPopover />
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="닫기"
-            className="flex h-7 w-7 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-          >
-            <X size={13} aria-hidden />
-          </button>
-        </div>
+        <input
+          type="range"
+          min={0}
+          max={total || 0}
+          step={1}
+          value={Math.min(cur, total || cur)}
+          onChange={(e) => seek(Number(e.target.value))}
+          aria-label="재생 위치"
+          className={`audio-seek mx-2 flex-1 accent-[var(--p)] ${RING} rounded-full`}
+        />
+
+        <SpeedButton rate={rate} onClick={cycleRate} />
       </div>
 
-      {/* Row 2 — Controls + Progress */}
-      <div className="flex items-center gap-2">
-        {/* Prev paragraph */}
-        <button
-          type="button"
-          onClick={handlePrevParagraph}
-          disabled={isIdle}
-          aria-label="이전 단락"
-          title="이전 단락"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
-        >
-          <ChevronsLeft size={15} aria-hidden />
-        </button>
-
-        {/* Prev sentence */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          disabled={isIdle}
-          aria-label="이전 문장"
-          title="이전 문장"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
-        >
-          <SkipBack size={14} aria-hidden />
-        </button>
-
-        {/* Play / Pause */}
-        <button
-          type="button"
-          onClick={handlePlayPause}
-          aria-label={isPlaying ? '일시정지' : '재생'}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--t1)] shadow-[0_2px_6px_rgba(0,0,0,0.3)] transition-transform hover:scale-105 active:scale-95"
-        >
-          {isPlaying ? <Pause size={17} aria-hidden /> : <Play size={17} className="ml-0.5" aria-hidden />}
-        </button>
-
-        {/* Stop (idle 아닐 때만 활성) */}
-        <button
-          type="button"
-          onClick={handleStop}
-          disabled={isIdle}
-          aria-label="정지"
-          title="정지"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
-        >
-          <Square size={11} fill="currentColor" aria-hidden />
-        </button>
-
-        {/* Next sentence */}
-        <button
-          type="button"
-          onClick={handleNext}
-          disabled={isIdle}
-          aria-label="다음 문장"
-          title="다음 문장"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
-        >
-          <SkipForward size={14} aria-hidden />
-        </button>
-
-        {/* Next paragraph */}
-        <button
-          type="button"
-          onClick={handleNextParagraph}
-          disabled={isIdle}
-          aria-label="다음 단락"
-          title="다음 단락"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
-        >
-          <ChevronsRight size={15} aria-hidden />
-        </button>
-
-        {/* Progress bar */}
-        <div className="relative mx-2 flex-1">
-          <div className="h-1 overflow-hidden rounded-full bg-white/15">
-            <div
-              className="h-full bg-white transition-[width] duration-[var(--dur-slow)]"
-              style={{ width: `${progress}%` }}
-              aria-hidden
-            />
-          </div>
-        </div>
-
-        {/* Speed */}
-        <button
-          type="button"
-          onClick={handleSpeedChange}
-          aria-label={`재생 속도 ${tts.state.rate}x`}
-          title="재생 속도"
-          className="inline-flex h-7 min-w-[42px] items-center justify-center rounded-[var(--r-full)] bg-white/10 px-2 font-mono text-[10.5px] font-[700] text-white transition-colors hover:bg-white/20"
-        >
-          {tts.state.rate}x
-        </button>
-      </div>
+      <p className="px-0.5 font-body text-[10px] text-[var(--t3)]">
+        문장 · 단락 단위 듣기는 ‘브라우저 음성’ 에서 가능해요
+      </p>
     </div>
   )
 }

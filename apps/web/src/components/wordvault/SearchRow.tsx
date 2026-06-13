@@ -21,7 +21,7 @@ export function SearchRow({ onSearchChange, onLevelChange, onSortChange }: Searc
   }
 
   return (
-    <div className="mb-s-3 flex flex-wrap items-center gap-s-2 sm:flex-nowrap">
+    <div className="flex flex-wrap items-center gap-s-2 sm:flex-nowrap">
       <div className="relative min-w-[200px] flex-1">
         <Search size={13} className="absolute left-[13px] top-1/2 -translate-y-1/2 text-t3" />
         <input

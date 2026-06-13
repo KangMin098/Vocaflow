@@ -76,7 +76,7 @@ function StatCardInline({ label, value, unit, subtext }: StatCardInlineProps) {
         {label}
       </span>
       <div className="flex items-baseline gap-1">
-        <span className="font-display text-[26px] font-[800] leading-none tabular-nums tracking-[-0.01em] md:text-[30px]">
+        <span className="font-display text-[26px] font-[700] leading-none tabular-nums tracking-[-0.01em] md:text-[30px]">
           {value}
         </span>
         {unit && (

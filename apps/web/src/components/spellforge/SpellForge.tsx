@@ -3,6 +3,8 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
+import { X } from 'lucide-react'
 
 import { ConfirmButton } from './ConfirmButton'
 import { IMEIndicator } from './IMEIndicator'
@@ -368,6 +370,16 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
       <div className="fixed left-[260px] top-4 z-[55]">
         <IMEIndicator status={imeStatus} />
       </div>
+
+      {/* 닫기 — 학습하던 스크립트로 복귀 (우상단 fixed) */}
+      <Link
+        href={`/text/${textId}`}
+        aria-label="스펠 닫기 — 스크립트로 돌아가기"
+        title="스크립트로 돌아가기"
+        className="fixed right-4 top-4 z-[55] inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      >
+        <X size={18} strokeWidth={2} aria-hidden />
+      </Link>
 
       {/* Word Stage */}
       <section className="flex flex-1 flex-col items-center justify-center px-8 py-8">

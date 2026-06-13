@@ -18,9 +18,34 @@ const config: Config = {
         bdf: "var(--bdf)",
         p: "var(--p)",
         "p-hover": "var(--p-hover)",
+        "p-light": "var(--p-light)",
+        "p-dark": "var(--p-dark)",
+        ti: "var(--ti)",
+        bde: "var(--bde)",
         accent: "var(--accent)",
         "accent-hover": "var(--accent-hover)",
         "accent-light": "var(--accent-light)",
+
+        // ── v06.35 — semantic 색 (그동안 테마 누락으로 text-error / bg-success-light /
+        //   text-ti / bg-p-light 등 단축 클래스가 no-op 이었음. CSS 변수는 globals.css 에
+        //   이미 존재 → 매핑만 추가하면 앱 전역의 의도된 색이 한 번에 살아남) ──
+        active: "var(--active)",
+        "active-light": "var(--active-light)",
+        success: "var(--success)",
+        "success-light": "var(--success-light)",
+        error: "var(--error)",
+        "error-light": "var(--error-light)",
+        warning: "var(--warning)",
+        "warning-light": "var(--warning-light)",
+        info: "var(--info)",
+        "info-light": "var(--info-light)",
+
+        // ── 게임 전용 (CLAUDE.md §Colors Game Specific) ──
+        gold: "var(--gold)",
+        silver: "var(--silver)",
+        bronze: "var(--bronze)",
+        combo: "var(--combo)",
+        streak: "var(--streak)",
 
         // ★ v6 — 학습 단계
         "learn-fresh": "var(--learn-fresh)",
@@ -48,16 +73,68 @@ const config: Config = {
         "bg-strong": "var(--bg-strong)",
         "bd-strong": "var(--bd-strong)",
         t5: "var(--t5)",
+
+        // ─── iOS HIG 시스템 컬러 (v06.36) ───
+        // 사용 예: bg-ios-blue, text-ios-red, bg-ios-green-tint
+        "ios-red": "var(--ios-red)",
+        "ios-orange": "var(--ios-orange)",
+        "ios-yellow": "var(--ios-yellow)",
+        "ios-green": "var(--ios-green)",
+        "ios-mint": "var(--ios-mint)",
+        "ios-teal": "var(--ios-teal)",
+        "ios-cyan": "var(--ios-cyan)",
+        "ios-blue": "var(--ios-blue)",
+        "ios-indigo": "var(--ios-indigo)",
+        "ios-purple": "var(--ios-purple)",
+        "ios-pink": "var(--ios-pink)",
+        "ios-brown": "var(--ios-brown)",
+        "ios-gray-1": "var(--ios-gray-1)",
+        "ios-gray-2": "var(--ios-gray-2)",
+        "ios-gray-3": "var(--ios-gray-3)",
+        "ios-gray-4": "var(--ios-gray-4)",
+        "ios-gray-5": "var(--ios-gray-5)",
+        "ios-gray-6": "var(--ios-gray-6)",
+        "ios-red-tint": "var(--ios-red-tint)",
+        "ios-orange-tint": "var(--ios-orange-tint)",
+        "ios-yellow-tint": "var(--ios-yellow-tint)",
+        "ios-green-tint": "var(--ios-green-tint)",
+        "ios-blue-tint": "var(--ios-blue-tint)",
+        "ios-purple-tint": "var(--ios-purple-tint)",
+        "ios-pink-tint": "var(--ios-pink-tint)",
       },
 
       fontFamily: {
-        display: ["var(--font-display)", "Plus Jakarta Sans", "sans-serif"],
-        body: ["var(--font-body)", "DM Sans", "sans-serif"],
-        // CLAUDE.md §Typography — 영어 원문 전용 alias는 `english`
-        english: ["var(--font-serif)", "Lora", "serif"],
-        // 레거시 alias (font-serif → 동일 Lora 폰트로 매핑)
+        // v06.39 Reading Room — Lora 를 display 로 승격 (Dual Coding 시그니처)
+        // editorial: Hero/Title/단어 카드 (Lora — 가장 개성 있는 자산, 더 이상 본문에 갇히지 않음)
+        editorial: ["var(--font-serif)", "Lora", "Iowan Old Style", "Georgia", "serif"],
+        // display: UI 라벨 · nav · 작은 헤딩 (Plus Jakarta — geometric sans, 정밀한 UI 텍스트)
+        display: [
+          "var(--font-display)",
+          "Plus Jakarta Sans",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "system-ui",
+          "sans-serif",
+        ],
+        // body: 한글 본문 + 작은 영문 UI 텍스트 (DM Sans + 한글)
+        body: [
+          "var(--font-body)",
+          "DM Sans",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "system-ui",
+          "sans-serif",
+        ],
+        // english: 영어 원문/본문 전용 (Lora 본문 weight)
+        english: ["var(--font-serif)", "Lora", "Iowan Old Style", "Georgia", "serif"],
         serif: ["var(--font-serif)", "Lora", "serif"],
-        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        mono: [
+          "var(--font-mono)",
+          "JetBrains Mono",
+          "SF Mono",
+          "ui-monospace",
+          "monospace",
+        ],
       },
 
       spacing: {
@@ -87,6 +164,38 @@ const config: Config = {
         md: "0 4px 8px -2px rgba(15,23,42,.10), 0 2px 4px -2px rgba(15,23,42,.06)",
         lg: "0 12px 16px -4px rgba(15,23,42,.10), 0 4px 6px -2px rgba(15,23,42,.05)",
         xl: "0 20px 25px -5px rgba(15,23,42,.10), 0 10px 10px -5px rgba(15,23,42,.04)",
+
+        // ─── iOS HIG shadows (v06.36+) ───
+        "ios-1": "var(--sh-ios-1)",
+        "ios-2": "var(--sh-ios-2)",
+        "ios-3": "var(--sh-ios-3)",
+        "ios-4": "var(--sh-ios-4)",
+        "ios-button": "var(--sh-ios-button)",
+        "ios-glow-tint": "var(--sh-ios-glow-tint)",     // brand tint glow (Indigo)
+        "ios-glow-blue": "var(--sh-ios-glow-blue)",     // iOS Blue (info)
+        "ios-glow-green": "var(--sh-ios-glow-green)",
+        "ios-glow-red": "var(--sh-ios-glow-red)",
+        "ios-glow-orange": "var(--sh-ios-glow-orange)",
+      },
+
+      borderRadius: {
+        // ─── iOS HIG radius (v06.36) ───
+        "ios-xs": "var(--r-ios-xs)",
+        "ios-sm": "var(--r-ios-sm)",
+        "ios-md": "var(--r-ios-md)",
+        "ios-lg": "var(--r-ios-lg)",
+        "ios-xl": "var(--r-ios-xl)",
+        "ios-2xl": "var(--r-ios-2xl)",
+        "ios-3xl": "var(--r-ios-3xl)",
+        "ios-modal": "var(--r-ios-modal)",
+        "ios-pill": "var(--r-ios-pill)",
+      },
+
+      transitionTimingFunction: {
+        "ios-standard": "var(--ease-ios-standard)",
+        "ios-emphasized": "var(--ease-ios-emphasized)",
+        "ios-spring": "var(--ease-ios-spring)",
+        "ios-spring-bouncy": "var(--ease-ios-spring-bouncy)",
       },
 
       keyframes: {

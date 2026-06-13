@@ -1,152 +1,143 @@
 // apps/web/src/components/wordvault/hub/WordVaultHub.tsx
 //
-// WordVault 허브 v6 (v06.20) — Hybrid: v06.19 5 Tier + v06.14 BookShelf/LearningDimension/WordPeek
+// WordVault 허브 v06.35 — iOS/iPadOS 감성 + 단어 관점 종합 포트폴리오.
 //
-// v5 → v6 변경:
-//   - AssetCollectionsRow → BookShelfSection (5 Book Type 으로 확장)
-//   - LearningDimensionSection 신규 (Tier 추가)
-//   - WordPeekStrip 신규 (데스크톱 전용 푸터)
-//   - v06.17 Asset/Learning boundary 보존 — ModeEntryGrid 부활 X
+// iOS HIG 핵심:
+//   · 그레이 캔버스 (bg2) 위에 떠있는 흰 카드 (24px radius + soft shadow)
+//   · 거대한 hero 숫자 + Activity Ring + 캡슐
+//   · iOS Settings 인셋 그룹 list (탭 segment control)
+//   · App Store 카드 가로 스크롤
 //
-// 6 Tier IA:
-//   Tier 1: ModuleHero + VaultBar       — Identity (총·컬렉션·누적)
-//   Tier 2: BookShelfSection            — Source/Level/Smart pivot (출처·레벨·스마트 큐)
-//   Tier 3: CEFRDistribution            — Level facet 6 막대
-//   Tier 4: FindAndMore                 — 검색 진입 + 보조 작업
-//   Tier 5: LearningDimensionSection    — module_history 3그룹 (어떻게 익혔나)
-//   Tier 6: MemoryDecayDistribution + TrendIndicator — State pivot + 추세
-//   Footer (md+): WordPeekStrip         — 최근 만난 단어 5개
+// 6 Section 구조:
+//   1. VaultIdentity        — Activity Ring + 거대 숫자 + 4 bucket + CTA
+//   2. VocabularyLevelMap   — V-Level 캡슐 막대 + 트랙별 인셋 list
+//   3. ResourcePortfolio    — 도서/스크립트/단어장 (세그먼트 + 인셋 list)
+//   4. RecommendedBooks     — App Store 가로 스크롤 카드
+//   5. NextStepList         — 추천 단어장 인셋 list + 컬러 type 캡슐
+//   6. FlowStripe           — Stats 캡슐 + 28일 캡슐 막대
 
 'use client'
 
-import { Library } from 'lucide-react'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 
-import { ModuleHero } from '@/components/hub/ModuleHero'
+import { createClient } from '@/lib/supabase/client'
 import { getMemoryState } from '@/lib/srs'
 import type { MemoryState } from '@/lib/srs'
-import { groupByMastery } from '@/lib/wordvault/mastery'
-import type { HubStats } from '../hooks/useHubStats'
 
-import {
-  MOCK_ACCUMULATED_DAYS,
-  MOCK_BOOKS,
-  MOCK_RECENT_WORDS,
-  MOCK_TREND,
-  tallyCEFR,
-} from '../mock-data'
+import { MOCK_BOOKS } from '../mock-data'
 import type { WordItem } from '../types'
 
-import { BookShelfSection } from './BookShelfSection'
-import { CEFRDistribution } from './CEFRDistribution'
-import { FindAndMore } from './FindAndMore'
-import { LearningDimensionSection } from './LearningDimensionSection'
-import { MemoryDecayDistribution } from './MemoryDecayDistribution'
-import { RecommendedSetsSection } from './RecommendedSetsSection'
-import { VaultBar } from './VaultBar'
-import { WordPeekStrip } from './WordPeekStrip'
+import type { HubStats } from '../hooks/useHubStats'
+import { FlowStripe } from './FlowStripe'
+import { NextStepList } from './NextStepList'
+import { RecommendedBooks } from './RecommendedBooks'
+import { ResourcePortfolio } from './ResourcePortfolio'
+import { VaultIdentity } from './VaultIdentity'
+import { VocabularyLevelMap } from './VocabularyLevelMap'
 import { WordVaultEmptyState } from './WordVaultEmptyState'
 
 interface WordVaultHubProps {
   words: WordItem[]
-  /**
-   * Phase 2 — Hero/VaultBar 실 데이터 override.
-   * 제공 시 총 단어/컬렉션/누적/4-bucket 모두 DB 값으로 표시.
-   * 미제공 시 mock(words) 기반으로 계산 (개발용 / 비로그인 fallback).
-   */
   realStats?: HubStats | null
 }
 
+const DEFAULT_DAILY_GOAL = 12
+
 export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
-  const mockCounts = useMemo(() => {
-    const c: Record<MemoryState, number> = { stable: 0, shaky: 0, risk: 0, new: 0 }
-    for (const w of words) {
-      const state = w.srs ? getMemoryState(w.srs) : 'new'
-      c[state] += 1
+  const [weekly, setWeekly] = useState<{ done: number; target: number } | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    const supabase = createClient()
+    ;(async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      if (cancelled || !user) return
+
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('daily_word_goal')
+        .eq('user_id', user.id)
+        .maybeSingle()
+      const dailyGoal =
+        (profile as { daily_word_goal: number | null } | null)?.daily_word_goal ?? DEFAULT_DAILY_GOAL
+      const target = dailyGoal * 7
+
+      const now = new Date()
+      const day = now.getDay()
+      const offset = day === 0 ? 6 : day - 1
+      const monday = new Date(now)
+      monday.setDate(now.getDate() - offset)
+      monday.setHours(0, 0, 0, 0)
+      const mondayStr = monday.toISOString().slice(0, 10)
+
+      const { data: activity } = await supabase
+        .from('daily_activity')
+        .select('total_words')
+        .eq('user_id', user.id)
+        .gte('date', mondayStr)
+
+      const done = (activity ?? []).reduce(
+        (s: number, r: { total_words: number | null }) => s + (r.total_words ?? 0),
+        0,
+      )
+      if (cancelled) return
+      setWeekly({ done, target })
+    })().catch(() => {})
+    return () => {
+      cancelled = true
     }
-    return c
-  }, [words])
+  }, [])
 
-  // 실 데이터 있으면 우선 — Hero/VaultBar 만 적용
-  const counts = realStats?.buckets ?? mockCounts
-  const totalCount = realStats?.total ?? words.length
-  const collectionsCount = realStats?.collectionsCount ?? MOCK_BOOKS.filter((b) => !b.isLocked).length
-  const accumulatedDays = realStats?.accumulatedDays ?? MOCK_ACCUMULATED_DAYS
+  const mockCounts: Record<MemoryState, number> = { stable: 0, shaky: 0, risk: 0, new: 0 }
+  for (const w of words) {
+    const state = w.srs ? getMemoryState(w.srs) : 'new'
+    mockCounts[state] += 1
+  }
 
-  const cefrBuckets = useMemo(() => tallyCEFR(words), [words])
+  const buckets = realStats?.buckets ?? mockCounts
+  const total = realStats?.total ?? words.length
+  const collections = realStats?.collectionsCount ?? MOCK_BOOKS.filter((b) => !b.isLocked).length
+  const accumulatedDays = realStats?.accumulatedDays ?? 0
 
-  // mock 단어로 mastery 그룹 산출 (Phase 2: DB module_history 직접 사용)
-  const masteryGroups = useMemo(
-    () =>
-      groupByMastery(
-        words.map((w) => ({ moduleHistory: w.srs?.moduleHistory ?? [] })),
-      ),
-    [words],
-  )
-
-  // 실 데이터가 ready 이고 단어 0개 → EmptyState (mock 폴백 X)
-  // 실 데이터 미제공(undefined) 인데 mock 도 비어 있으면 EmptyState
   const shouldShowEmpty =
     realStats !== undefined ? (realStats?.total ?? 0) === 0 : words.length === 0
+
   if (shouldShowEmpty) {
     return (
-      <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+      <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-10 md:px-6 md:py-14">
         <WordVaultEmptyState />
       </div>
     )
   }
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
-      {/* Tier 1: Hero + VaultBar — Identity */}
-      <ModuleHero
-        eyebrow="단어장 · 내 어휘 자산"
-        title="📖 내 어휘 자산"
-        note={
-          counts.new > 0
-            ? `최근 ${counts.new.toLocaleString()}개 새 단어 · ${accumulatedDays}일 누적`
-            : counts.shaky > 0
-              ? `흔들리는 단어 ${counts.shaky.toLocaleString()}개 · ${accumulatedDays}일 누적`
-              : `${accumulatedDays}일 동안 ${totalCount.toLocaleString()}개를 모았어요`
-        }
-        gradient={{ from: '#6366F1', to: '#3730A3' }}
-        icon={Library}
-        stats={[
-          { label: '총 단어', value: totalCount, unit: '개', emphasis: true },
-          { label: '단어장', value: collectionsCount, unit: '권' },
-          { label: '누적', value: accumulatedDays, unit: '일' },
-        ]}
-        bottomSlot={
-          <VaultBar
-            stable={counts.stable}
-            shaky={counts.shaky}
-            risk={counts.risk}
-            new={counts.new}
-            onDark
-          />
-        }
+    <div className="mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
+      {/* Section 1 — Identity Hero: 자산 + V-Level + 4 bucket + 주간 목표 + 단일 CTA */}
+      <VaultIdentity
+        total={total}
+        buckets={buckets}
+        collections={collections}
+        accumulatedDays={accumulatedDays}
+        weeklyDone={weekly?.done ?? 0}
+        weeklyTarget={weekly?.target ?? DEFAULT_DAILY_GOAL * 7}
       />
 
-      {/* Tier 2 (신규): VRL Placement 추천 — 진단 기반 맞춤 단어장 또는 진단 CTA */}
-      <RecommendedSetsSection />
+      {/* Section 2 — Vocabulary Level Map: V-Level 분포 + i+1 zone + 트랙 */}
+      <VocabularyLevelMap />
 
-      {/* Tier 3 (기존 Tier 2): BookShelf — 실 데이터 우선 (구독 공용 단어장 + 스크립트), 미제공 시 mock */}
-      <BookShelfSection books={realStats?.books ?? MOCK_BOOKS} />
+      {/* Section 3 — Resource Portfolio: 도서 / 스크립트 / 공용 단어장 학습 이력 */}
+      <ResourcePortfolio />
 
-      {/* Tier 3: Level pivot — CEFR 6단계 분포 */}
-      <CEFRDistribution buckets={cefrBuckets} />
+      {/* Section 4 — Recommended Books: i+1 권장 도서 4권 */}
+      <RecommendedBooks />
 
-      {/* Tier 4: Find & More — 검색 진입 + 보조 작업 */}
-      <FindAndMore />
+      {/* Section 5 — Next Step (단어장 추천): recommend_word_sets_for_user */}
+      <NextStepList />
 
-      {/* Tier 5: Learning Dimension — module_history 3그룹 */}
-      <LearningDimensionSection groups={masteryGroups} />
-
-      {/* Tier 6: State pivot + 추세 — Memory health */}
-      <MemoryDecayDistribution words={words} trend={MOCK_TREND} />
-
-      {/* Footer (데스크톱 전용) — Word Peek */}
-      <WordPeekStrip words={MOCK_RECENT_WORDS} />
+      {/* Section 6 — Flow: 28일 sparkline + 마지막 활동 */}
+      <FlowStripe />
     </div>
   )
 }

@@ -23,6 +23,7 @@ import {
   type DevValidateResult,
   type LibraryBookAdminRow,
 } from '@/lib/library/admin-queries';
+import { bookSourceUrl, sourceLabel } from '@/lib/library/source-urls';
 import { ModalShell } from './EnqueueModal';
 
 interface BookDetailModalProps {
@@ -151,7 +152,24 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
             <StatusPill tone={statusInfo.tone} label={statusInfo.label} />
           </div>
           <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
-            {book.author ?? '저자 미상'} · {book.source} ID {book.source_id ?? '?'}
+            {book.author ?? '저자 미상'} ·{' '}
+            {(() => {
+              const url = bookSourceUrl(book.source, book.source_id)
+              const label = `${sourceLabel(book.source)} ID ${book.source_id ?? '?'}`
+              return url ? (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--p)] rounded-sm"
+                >
+                  {label}
+                  <ExternalLink size={10} aria-hidden />
+                </a>
+              ) : (
+                label
+              )
+            })()}
           </p>
         </div>
         <button
@@ -250,6 +268,12 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
           />
         </Section>
 
+        {book.lexical_coverage && (
+          <Section title="레벨별 기지어 커버리지 (i+1)">
+            <CoverageCurve coverage={book.lexical_coverage} />
+          </Section>
+        )}
+
         {(book.status === 'published' || book.status === 'ready') && (
           <Section title="처리 결과">
             {statsLoading ? (
@@ -288,17 +312,21 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
           )}
         </Section>
 
-        {book.source === 'gutenberg' && book.source_id && (
-          <a
-            href={`https://www.gutenberg.org/ebooks/${book.source_id}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            Gutenberg 페이지 열기
-            <ExternalLink size={10} aria-hidden />
-          </a>
-        )}
+        {(() => {
+          const url = bookSourceUrl(book.source, book.source_id)
+          if (!url) return null
+          return (
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            >
+              {sourceLabel(book.source)} 페이지 열기
+              <ExternalLink size={10} aria-hidden />
+            </a>
+          )
+        })()}
 
         {error && (
           <div role="alert" className="flex items-start gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2">
@@ -609,6 +637,51 @@ async function fetchStats(bookId: string): Promise<ChapterStats> {
 // ─────────────────────────────────────────────
 // Sub components
 // ─────────────────────────────────────────────
+
+// 레벨별 기지어 커버리지 곡선 — coverage[L] = "V레벨 L 학습자가 아는 토큰 %".
+// i+1 색 코딩: ≥95 이해가능(known) · 85~95 i+1 도전(review) · <85 과난(error).
+function CoverageCurve({
+  coverage,
+}: {
+  coverage: Record<string, number>;
+}) {
+  const levels = [4, 5, 6, 7, 8, 9, 10];
+  const colorOf = (pct: number): string =>
+    pct >= 95
+      ? 'var(--learn-known)'
+      : pct >= 85
+        ? 'var(--learn-review)'
+        : 'var(--learn-error)';
+  const present = levels.filter((l) => coverage[String(l)] != null);
+  if (present.length === 0) {
+    return <p className="font-body text-[11px] text-[var(--t3)]">커버리지 데이터 없음</p>;
+  }
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        {present.map((l) => {
+          const pct = coverage[String(l)] as number;
+          return (
+            <span
+              key={l}
+              className="inline-flex items-baseline gap-1 font-mono text-[11px]"
+              title={`V${l} 학습자가 이 도서 토큰의 ${pct}% 를 안다`}
+            >
+              <span className="text-[var(--t3)]">V{l}</span>
+              <strong style={{ color: colorOf(pct) }}>{pct}%</strong>
+            </span>
+          );
+        })}
+      </div>
+      <p className="font-body text-[10px] leading-relaxed text-[var(--t3)]">
+        V레벨 학습자가 아는 토큰 비율 ·{' '}
+        <span style={{ color: 'var(--learn-known)' }}>≥95 이해가능</span> ·{' '}
+        <span style={{ color: 'var(--learn-review)' }}>85–95 i+1 도전</span> ·{' '}
+        <span style={{ color: 'var(--learn-error)' }}>&lt;85 과난</span>
+      </p>
+    </div>
+  );
+}
 
 function Section({
   title,

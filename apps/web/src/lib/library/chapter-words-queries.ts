@@ -142,22 +142,44 @@ export interface ChapterWord {
   frequencyInChapter: number;
 }
 
+/**
+ * 라이브러리 도서 chapter 의 학습 단어를 base_learning_value 순으로 반환.
+ *
+ * 큐레이션 경로 정합 (★fix) — `extract_book_vocabulary_admin` / `publish_book_word_sets`
+ * 와 동일하게 **`v_level >= book_v_level` 절대 바닥선**을 적용한다. 이전엔 바닥선 없이
+ * blv 상위 N 만 잘라, 도서 centroid 이하 단어가 자리를 차지하고 고가치어(예: V9
+ * "conspirator")가 동점 무더기 + N컷에 밀려 리더 인라인에서 누락됐다 — 발행 단어장과
+ * 어긋나던 유일한 seam. book_v_level 미산정(null) 도서는 floor 생략 → 기존 동작 보존.
+ *
+ * dict 조인도 lemma 기준으로 교정 (큐레이션 함수들과 동일 — d.word = lbv.lemma).
+ * 본문 매칭·표시 표면형은 lbv.word 유지, 뜻·품사·v_level 은 lemma 사전 entry 에서.
+ */
 export async function getChapterWords(
   client: SupabaseClient,
   libraryBookId: string,
   chapterIdx: number,
   limit = 30,
 ): Promise<ChapterWord[]> {
+  // 0. 도서 centroid — 학습 단어 바닥선 (null 이면 floor 생략)
+  const { data: bookRow } = await client
+    .from('library_books')
+    .select('book_v_level')
+    .eq('id', libraryBookId)
+    .maybeSingle();
+  const floor = (bookRow as { book_v_level: number | null } | null)?.book_v_level ?? null;
+
+  // 1. chapter 내 바인딩 단어 전체를 blv 순으로 (floor 를 dict 조인 후 적용하므로
+  //    DB 측 limit 대신 넉넉히 fetch — 챕터당 수백 row, 단일 인덱스 스캔).
   const { data: lbvData, error: lbvError } = await client
     .from('library_book_vocabularies')
-    .select('word, first_sentence, base_learning_value, frequency_in_chapter')
+    .select('word, lemma, first_sentence, base_learning_value, frequency_in_chapter')
     .eq('library_book_id', libraryBookId)
     .eq('chapter_idx', chapterIdx)
     // 노이즈 가드 — 고유명사·contraction·미지 토큰(lemma 매칭 실패) 제외
     // (CLAUDE.md v06.29 §"라이브러리 도서 난이도 지수" 안티패턴 정합)
     .not('lemma', 'is', null)
     .order('base_learning_value', { ascending: false })
-    .limit(limit);
+    .limit(500);
 
   if (lbvError) {
     console.error('[getChapterWords] lbv fetch failed:', lbvError.message);
@@ -166,6 +188,7 @@ export async function getChapterWords(
 
   const lbvRows = (lbvData ?? []) as Array<{
     word: string;
+    lemma: string;
     first_sentence: string | null;
     base_learning_value: number;
     frequency_in_chapter: number;
@@ -173,11 +196,12 @@ export async function getChapterWords(
 
   if (lbvRows.length === 0) return [];
 
-  const words = lbvRows.map((r) => r.word);
+  // 2. dict 조인 — lemma 기준 (surface 가 아닌 lemma 의 뜻·v_level)
+  const lemmas = Array.from(new Set(lbvRows.map((r) => r.lemma.toLowerCase())));
   const { data: dictData } = await client
     .from('shared_dictionary')
     .select('word, meaning_ko, pos, cefr_level, v_level')
-    .in('word', words);
+    .in('word', lemmas);
 
   const dictMap = new Map<
     string,
@@ -195,7 +219,7 @@ export async function getChapterWords(
     cefr_level: string | null;
     v_level: number | null;
   }>) {
-    dictMap.set(d.word, {
+    dictMap.set(d.word.toLowerCase(), {
       meaning: d.meaning_ko,
       pos: d.pos,
       cefr_level: d.cefr_level,
@@ -203,9 +227,13 @@ export async function getChapterWords(
     });
   }
 
-  return lbvRows.map((r) => {
-    const dict = dictMap.get(r.word);
-    return {
+  // 3. floor 적용 + blv 순 상위 limit (lbvRows 는 이미 blv desc).
+  const out: ChapterWord[] = [];
+  for (const r of lbvRows) {
+    const dict = dictMap.get(r.lemma.toLowerCase());
+    // book_v_level 이 있으면 v_level 미상/이하 단어 제외 (큐레이션 정합).
+    if (floor != null && (dict?.v_level == null || dict.v_level < floor)) continue;
+    out.push({
       word: r.word,
       meaning: dict?.meaning ?? null,
       pos: dict?.pos ?? null,
@@ -214,6 +242,8 @@ export async function getChapterWords(
       exampleSentence: r.first_sentence,
       baseLearningValue: r.base_learning_value,
       frequencyInChapter: r.frequency_in_chapter,
-    };
-  });
+    });
+    if (out.length >= limit) break;
+  }
+  return out;
 }

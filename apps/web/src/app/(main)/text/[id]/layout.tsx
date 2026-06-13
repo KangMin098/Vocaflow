@@ -22,6 +22,7 @@ import {
   type ChapterWord,
 } from '@/lib/library/chapter-words-queries';
 import { fetchBookWordSetSubscriptionStats } from '@/lib/library/books/queries';
+import { pickChapterAudio, type ChapterAudio } from '@/lib/workspace/chapter-audio';
 
 interface LayoutProps {
   children: ReactNode;
@@ -35,6 +36,8 @@ interface TextContentRow {
   cefr_level: string | null;
   status: string | null;
   library_book_id: string | null;
+  /** v06.34 — 사용자 직접 입력 책 그룹 식별자 */
+  user_book_group_id: string | null;
   chapter_idx: number | null;
   chapter_title: string | null;
   content: string | null;
@@ -48,6 +51,8 @@ interface BookRow {
   title: string;
   author: string | null;
   cefr_level: string | null;
+  chapter_count: number | null;
+  librivox_audio: unknown;
 }
 
 interface SiblingRow {
@@ -72,7 +77,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   const { data: textData } = await client
     .from('v_text_content')
     .select(
-      'id, user_id, title, cefr_level, status, library_book_id, chapter_idx, chapter_title, content, paragraph_offsets, sentence_offsets, chapter_word_count',
+      'id, user_id, title, cefr_level, status, library_book_id, user_book_group_id, chapter_idx, chapter_title, content, paragraph_offsets, sentence_offsets, chapter_word_count',
     )
     .eq('id', params.id)
     .maybeSingle();
@@ -109,12 +114,14 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   } | null = null;
 
   let bookAuthor: string | null = null;
+  // v06.x — 현재 챕터의 LibriVox 보이스 (큐레이터가 "챕터 일치" 확인 후 저장한 경우만)
+  let chapterAudio: ChapterAudio | null = null;
 
   if (text?.library_book_id && text.chapter_idx != null) {
     const [{ data: bookData }, { data: siblingsData }] = await Promise.all([
       client
         .from('library_books')
-        .select('id, title, author, cefr_level')
+        .select('id, title, author, cefr_level, chapter_count, librivox_audio')
         .eq('id', text.library_book_id)
         .maybeSingle(),
       client
@@ -140,6 +147,50 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         currentChapterIdx: text.chapter_idx,
       };
       bookAuthor = book.author;
+
+      // 정합 게이트 통과 시에만 현재 챕터 오디오 노출 (섹션 수 == 도서 챕터 수)
+      chapterAudio = pickChapterAudio(
+        book.librivox_audio,
+        text.chapter_idx,
+        book.chapter_count ?? siblings.length,
+      );
+    }
+  } else if (text?.user_book_group_id && text.chapter_idx != null) {
+    // v06.34 — 사용자 직접 입력 책 그룹: library_books 메타 없음, 형제 chapters 만 fetch.
+    //   첫 chapter 의 title/author 를 책 메타로 합성.
+    const { data: siblingsData } = await client
+      .from('texts')
+      .select('id, chapter_idx, chapter_title, status, title, author')
+      .eq('user_id', text.user_id)
+      .eq('user_book_group_id', text.user_book_group_id)
+      .order('chapter_idx', { ascending: true });
+
+    const siblings = (siblingsData ?? []) as Array<
+      SiblingRow & { title: string | null; author: string | null }
+    >;
+    if (siblings.length > 0) {
+      const first = siblings[0]!;
+      // user book context — library_books 가 없으므로 synthetic book object
+      const syntheticBook: BookRow = {
+        id: text.user_book_group_id,
+        title: first.title ?? '내 책',
+        author: first.author,
+        cefr_level: text.cefr_level,
+        chapter_count: siblings.length,
+        librivox_audio: null,
+      };
+      bookContext = {
+        book: syntheticBook,
+        chapters: siblings.map((s) => ({
+          textId: s.id,
+          chapterIdx: s.chapter_idx,
+          chapterTitle: s.chapter_title,
+          status: s.status as ChapterStatus,
+        })),
+        currentChapterIdx: text.chapter_idx,
+      };
+      bookAuthor = first.author;
+      // librivox_audio 없음 — chapterAudio NULL (TTS fallback)
     }
   }
 
@@ -157,6 +208,36 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       text.library_book_id,
       text.user_id,
     );
+  }
+
+  // 4.6. v06.34 — 현재 챕터의 단어장 set + 도서의 모든 챕터 단어장 (workspace "단어" pill 진입용)
+  //   - currentChapterWordSet: filter=set:{id} 즉시 적용
+  //   - allChapterWordSets   : WordVault Browse 의 prev/next chapter 네비
+  let currentChapterWordSet: { id: string; title: string } | null = null;
+  let allChapterWordSets: Array<{ id: string; chapterIdx: number; title: string }> = [];
+  if (text?.library_book_id) {
+    const { data: sets } = await client
+      .from('shared_word_sets')
+      .select('id, title, curation_query')
+      .eq('is_published', true)
+      .eq('category', 'library_book')
+      .eq('curation_query->>book_id', text.library_book_id);
+    const rows = (sets ?? []) as Array<{
+      id: string;
+      title: string;
+      curation_query: Record<string, unknown> | null;
+    }>;
+    allChapterWordSets = rows
+      .map((r) => ({
+        id: r.id,
+        title: r.title,
+        chapterIdx: Number(r.curation_query?.chapter_idx ?? 0),
+      }))
+      .sort((a, b) => a.chapterIdx - b.chapterIdx);
+    if (text.chapter_idx != null) {
+      const match = allChapterWordSets.find((s) => s.chapterIdx === text.chapter_idx);
+      if (match) currentChapterWordSet = { id: match.id, title: match.title };
+    }
   }
 
   // 5. Phase 11.6 + 11.7 — TextContentProvider 데이터 정합
@@ -197,6 +278,9 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         : null,
       currentChapterStatus: text.status ?? 'not_started',
       bookWordSetStats,
+      currentChapterWordSet,
+      allChapterWordSets,
+      chapterAudio,
       text: partial,
       paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
     };

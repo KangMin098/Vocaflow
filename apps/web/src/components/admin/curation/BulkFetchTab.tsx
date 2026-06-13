@@ -4,7 +4,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { Loader2, Download, Plus, BookOpen, ExternalLink, Search, AlertCircle, CheckCircle2, Info, Clock, Calendar, FileText } from 'lucide-react'
+import { Loader2, Download, Plus, BookOpen, ExternalLink, Search, AlertCircle, CheckCircle2, Info, Clock, Calendar, FileText, Trash2, ArrowRightLeft } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import {
@@ -24,18 +24,19 @@ import {
 import { SeedDetailModal } from './SeedDetailModal'
 import { FETCHERS } from '@/lib/library/seed-fetchers'
 
-type SourceKey = 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox'
+type SourceKey = 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'simple_wikipedia'
 
 const SOURCE_OPTIONS: Array<{ value: SourceKey; label: string; color: string }> = [
-  { value: 'gutenberg', label: 'Project Gutenberg', color: 'var(--p)' },
+  { value: 'simple_wikipedia', label: 'Simple English Wikipedia', color: 'var(--learn-known)' },
   { value: 'standard_ebooks', label: 'Standard Ebooks', color: 'var(--learn-known)' },
+  { value: 'gutenberg', label: 'Project Gutenberg', color: 'var(--p)' },
   { value: 'wikibooks', label: 'Wikibooks', color: 'var(--info)' },
   { value: 'librivox', label: 'LibriVox', color: 'var(--active)' },
 ]
 
 // v06.34 — fetcher.getOptions() 가 단일 진실 소스. UI 는 도출만.
 const SOURCE_OPTS = Object.fromEntries(
-  (['gutenberg', 'standard_ebooks', 'wikibooks', 'librivox'] as SourceKey[]).map((k) => [
+  (['simple_wikipedia', 'standard_ebooks', 'gutenberg', 'wikibooks', 'librivox'] as SourceKey[]).map((k) => [
     k,
     FETCHERS[k].getOptions(),
   ]),
@@ -58,9 +59,16 @@ const AGE_BUCKETS: Array<{ value: string; label: string; bucket: 'child' | 'teen
   { value: 'adult', label: '성인 (15세+)', bucket: 'adult' },
 ]
 
+// SE 중복 정리 상태 — 삭제 대상(SE 중복) / Gutenberg 단독(SE 변환 후보) 필터.
+const DUP_OPTIONS: Array<{ value: 'all' | 'shadowed' | 'gutenberg_only'; label: string }> = [
+  { value: 'all', label: 'SE 정리 전체' },
+  { value: 'gutenberg_only', label: 'Gutenberg 단독 (SE 변환 후보)' },
+  { value: 'shadowed', label: '삭제 대상 (SE 중복)' },
+]
+
 export function BulkFetchTab() {
   // Picker state
-  const [source, setSource] = useState<SourceKey>('gutenberg')
+  const [source, setSource] = useState<SourceKey>('simple_wikipedia')
   const [sort, setSort] = useState<string>('popular')
   const [genre, setGenre] = useState<string>('')
   const [batchSize, setBatchSize] = useState<number>(32)
@@ -82,6 +90,7 @@ export function BulkFetchTab() {
   const [filterVBand, setFilterVBand] = useState<string>('all')
   const [filterAge, setFilterAge] = useState<string>('all')
   const [filterImported, setFilterImported] = useState<'all' | 'imported' | 'not'>('all')
+  const [filterDup, setFilterDup] = useState<'all' | 'shadowed' | 'gutenberg_only'>('all')
   const [search, setSearch] = useState('')
   const [listOffset, setListOffset] = useState(0)
   const PAGE = 30
@@ -92,6 +101,9 @@ export function BulkFetchTab() {
   // 큐레이션 메타 큐잉 (Claude Code 배치가 drain)
   const [queuingCuration, setQueuingCuration] = useState(false)
   const [curationResult, setCurationResult] = useState<QueueCurationResult | null>(null)
+  // SE 중복 정리 — 행별 액션(삭제/변환) pending + 일괄 삭제 pending
+  const [rowActionId, setRowActionId] = useState<string | null>(null)
+  const [bulkDeleting, setBulkDeleting] = useState(false)
 
   // Reset sort/genre/advanced when source changes
   useEffect(() => {
@@ -119,12 +131,13 @@ export function BulkFetchTab() {
       offset: listOffset,
       sort: 'popularity',
       preferStandardEbooks: !showShadowed,
+      dupState: filterDup,
     })
     setRows(rows)
     setTotal(total)
     const s = await getCatalogStats(client)
     setStats(s)
-  }, [filterSource, filterGenre, filterVBand, filterAge, filterImported, search, listOffset, showShadowed])
+  }, [filterSource, filterGenre, filterVBand, filterAge, filterImported, filterDup, search, listOffset, showShadowed])
 
   useEffect(() => { void loadList() }, [loadList])
 
@@ -189,6 +202,115 @@ export function BulkFetchTab() {
       alert(e instanceof Error ? e.message : '큐레이션 큐잉 실패')
     } finally {
       setQueuingCuration(false)
+    }
+  }
+
+  // 요건 2 — Gutenberg 만 있는 도서를 SE 로 변환(교체). 제목 우선 유연 매칭.
+  async function handleConvertToSe(row: SeedCatalogRow) {
+    if (
+      !window.confirm(
+        `"${row.title}" 을(를) Standard Ebooks 판으로 변환할까요?\n` +
+          '· SE 동일 도서(제목 우선 매칭)를 카탈로그에 추가합니다.\n' +
+          '· 이 Gutenberg 행은 카탈로그에서 제거됩니다 (큐에 추가된 경우 보존).',
+      )
+    ) {
+      return
+    }
+    setRowActionId(row.id)
+    try {
+      const res = await fetch('/api/admin/library/convert-to-se', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rowId: row.id }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
+      if (data.found) {
+        await loadList()
+        alert(
+          `Standard Ebooks 판으로 변환했어요 — "${data.seTitle}".` +
+            (data.gutenbergDeleted
+              ? '\nGutenberg 행은 카탈로그에서 제거되었습니다.'
+              : '\n(이 Gutenberg 행은 큐에 추가돼 있어 보존했습니다.)'),
+        )
+      } else {
+        alert('Standard Ebooks 에 동일 제목 도서가 없습니다 — Gutenberg 판을 그대로 사용하세요.')
+      }
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'SE 변환 실패')
+    } finally {
+      setRowActionId(null)
+    }
+  }
+
+  // 요건 1 — 삭제 대상(SE 가 대체한 Gutenberg 중복) 단건 삭제
+  async function handleDeleteRow(row: SeedCatalogRow) {
+    if (
+      !window.confirm(
+        `"${row.title}" (Gutenberg) 을(를) 카탈로그에서 삭제할까요?\n` +
+          'Standard Ebooks 판이 이미 있는 중복 행입니다.',
+      )
+    ) {
+      return
+    }
+    setRowActionId(row.id)
+    try {
+      const res = await fetch('/api/admin/library/delete-seed-catalog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: [row.id] }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
+      if (data.deleted === 0 && data.skipped > 0) {
+        alert('이미 큐에 추가된 행이라 보호되어 삭제하지 않았어요.')
+      }
+      await loadList()
+    } catch (e) {
+      alert(e instanceof Error ? e.message : '삭제 실패')
+    } finally {
+      setRowActionId(null)
+    }
+  }
+
+  // 요건 1 — 삭제 대상 전체 일괄 삭제 (shadowed_by_se=true 인 Gutenberg 모두)
+  async function handleDeleteAllShadowed() {
+    const n = stats?.shadowed ?? 0
+    if (n === 0) return
+    if (
+      !window.confirm(
+        `Standard Ebooks 가 대체한 Gutenberg 중복 ${n}건을 모두 삭제할까요?\n` +
+          '큐에 이미 추가된 행은 보호됩니다.',
+      )
+    ) {
+      return
+    }
+    setBulkDeleting(true)
+    try {
+      const client = createClient() as unknown as SupabaseClient
+      const { data, error } = await client
+        .from('library_seed_catalog_view')
+        .select('id')
+        .eq('shadowed_by_se', true)
+      if (error) throw new Error(error.message)
+      const ids = (data ?? []).map((r) => (r as { id: string }).id)
+      if (ids.length === 0) {
+        setBulkDeleting(false)
+        return
+      }
+      const res = await fetch('/api/admin/library/delete-seed-catalog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids }),
+      })
+      const j = await res.json()
+      if (!res.ok) throw new Error(j.message ?? j.error ?? `HTTP ${res.status}`)
+      alert(`${j.deleted}건 삭제${j.skipped ? ` · ${j.skipped}건 보호(큐 추가됨)` : ''}`)
+      await loadList()
+    } catch (e) {
+      alert(e instanceof Error ? e.message : '일괄 삭제 실패')
+    } finally {
+      setBulkDeleting(false)
     }
   }
 
@@ -307,6 +429,18 @@ export function BulkFetchTab() {
               Std Ebooks 가 대체한 Gutenberg <strong className="font-display tabular-nums">{stats.shadowed}</strong>건 표시
             </label>
           )}
+          {stats.shadowed > 0 && showShadowed && (
+            <button
+              type="button"
+              onClick={handleDeleteAllShadowed}
+              disabled={bulkDeleting}
+              title="SE 가 대체한 Gutenberg 중복 행 전체 삭제 (큐 추가된 행은 보호)"
+              className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
+            >
+              {bulkDeleting ? <Loader2 size={11} className="animate-spin" /> : <Trash2 size={11} />}
+              삭제 대상 {stats.shadowed}건 모두 삭제
+            </button>
+          )}
         </div>
       )}
 
@@ -328,6 +462,14 @@ export function BulkFetchTab() {
           <option value="all">큐 상태 전체</option>
           <option value="imported">이미 큐에 있음</option>
           <option value="not">미추가</option>
+        </select>
+        <select
+          value={filterDup}
+          onChange={(e) => { setFilterDup(e.target.value as 'all' | 'shadowed' | 'gutenberg_only'); setListOffset(0) }}
+          className={filterCls}
+          title="SE 중복 정리 상태 — 삭제 대상(SE 중복) / Gutenberg 단독(SE 변환 후보)"
+        >
+          {DUP_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
         <div className="relative ml-auto flex-1 max-w-xs">
           <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t3)]" />
@@ -410,10 +552,10 @@ export function BulkFetchTab() {
                       <SourcePill source={r.source} />
                       {r.shadowed_by_se && (
                         <span
-                          className="inline-flex items-center rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--learn-review)]"
-                          title="Standard Ebooks 가 같은 책을 가짐 — 그쪽 사용 권장"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--learn-error)]"
+                          title="Standard Ebooks 에 동일 도서 존재 — 이 Gutenberg 행은 삭제 대상"
                         >
-                          Std Ebooks 대체 가능
+                          <Trash2 size={9} aria-hidden /> 삭제 대상
                         </span>
                       )}
                       {(cm?.genre_norm || r.genre) && <Chip>{cm?.genre_norm ?? r.genre}</Chip>}
@@ -498,6 +640,40 @@ export function BulkFetchTab() {
                       >
                         <ExternalLink size={12} />
                       </a>
+                    )}
+                    {/* 요건 2 — Gutenberg 만 있음(SE 없음) → SE 로 변환 */}
+                    {r.source === 'gutenberg' && !r.shadowed_by_se && (
+                      <button
+                        type="button"
+                        onClick={() => handleConvertToSe(r)}
+                        disabled={rowActionId === r.id}
+                        title="Standard Ebooks 에서 같은 도서를 찾아 카탈로그에 추가 (있으면 이 Gutenberg 는 삭제 대상으로 전환)"
+                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known)] hover:opacity-90 disabled:opacity-50"
+                      >
+                        {rowActionId === r.id ? (
+                          <Loader2 size={11} className="animate-spin" />
+                        ) : (
+                          <ArrowRightLeft size={11} />
+                        )}
+                        SE 변환
+                      </button>
+                    )}
+                    {/* 요건 1 — 삭제 대상(SE 가 대체한 Gutenberg 중복) → 삭제 */}
+                    {r.shadowed_by_se && (
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteRow(r)}
+                        disabled={rowActionId === r.id}
+                        title="SE 가 대체한 Gutenberg 중복 행 삭제"
+                        aria-label={`${r.title} Gutenberg 중복 삭제`}
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"
+                      >
+                        {rowActionId === r.id ? (
+                          <Loader2 size={11} className="animate-spin" />
+                        ) : (
+                          <Trash2 size={12} />
+                        )}
+                      </button>
                     )}
                     {r.imported_to_books ? (
                       <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2.5 font-mono text-[10px] font-[700] text-[var(--learn-known)]">

@@ -3,6 +3,7 @@
 // TextViewer 허브 — Server Component (metadata + 정적 wrapper)
 // 실 데이터 페치는 TextHubContent (Client Component) 에 위임
 
+import { Screen } from '@/components/ui/ios'
 import { TextHubContent } from '@/components/textviewer/TextHubContent'
 
 export const metadata = {
@@ -11,5 +12,9 @@ export const metadata = {
 }
 
 export default function TextViewerHubPage() {
-  return <TextHubContent />
+  return (
+    <Screen width="wide" background="bg2" padX="md">
+      <TextHubContent />
+    </Screen>
+  )
 }

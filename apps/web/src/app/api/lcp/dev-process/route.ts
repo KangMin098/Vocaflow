@@ -17,12 +17,15 @@ import {
   ingestFromWikisource,
   ingestFromLibriVox,
   ingestFromOpenStax,
+  ingestFromSimpleWikipedia,
   normalizeBook,
   segmentBook,
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
+import { resolveCoverImageUrl } from '@/lib/library/cover-image'
+import { autoMapLibriVoxForBook } from '@/lib/library/librivox-automap'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -105,6 +108,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromLibriVox(book.source_id as string)
     } else if (book.source === 'openstax') {
       raw = await ingestFromOpenStax(book.source_id as string)
+    } else if (book.source === 'simple_wikipedia') {
+      raw = await ingestFromSimpleWikipedia(book.source_id as string)
     } else {
       throw new Error(`Source not implemented in dev-process: ${book.source}`)
     }
@@ -159,12 +164,102 @@ export async function POST(request: Request): Promise<NextResponse> {
     try {
       await client.rpc('compute_book_vrl', { p_book_id: book_id })
       await client.rpc('compute_book_cefrj', { p_book_id: book_id })
+      await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
     } catch (e) {
-      console.warn(`[lcp/dev-process] compute_book_vrl/cefrj skipped: ${e instanceof Error ? e.message : String(e)}`)
+      console.warn(`[lcp/dev-process] compute_book_vrl/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
+    }
+
+    // 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
+    try {
+      const coverUrl = await resolveCoverImageUrl({
+        source: book.source as string,
+        sourceId: book.source_id as string,
+      })
+      if (coverUrl) {
+        await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+      }
+    } catch (e) {
+      console.warn(`[lcp/dev-process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
+    }
+
+    // LibriVox 보이스 자동 매핑 (best-effort) — 로직 단계로 흡수 (v06.35).
+    //   count-gate 통과 → library_books.librivox_audio 저장 (chapter_parts/flat).
+    //   녹음은 있으나 정합 실패 → 사람 판단 필요 → book_curation_jobs 큐에 자동 등록.
+    //   녹음 자체 없음 → 정상(브라우저 TTS) → 큐 등록 안 함.
+    //   (실패해도 도서 파이프라인은 'ready' 로 정상 완료 — 매핑은 부가 자산.)
+    let librivox: 'mapped' | 'queued' | 'no_recording' | 'skipped' = 'skipped'
+    try {
+      const map = await autoMapLibriVoxForBook(client, book_id, { savedBy: null })
+      if (map.ok) {
+        librivox = 'mapped'
+        // 자동 매핑 성공 → Claude 수동 매핑 불필요. 이전 큐 잡 정리.
+        //   진행 중인 수동 매핑(running/awaiting_mapping/done)은 보존 — pending/failed 만 삭제.
+        await client
+          .from('book_curation_jobs')
+          .delete()
+          .eq('book_id', book_id)
+          .in('status', ['pending', 'failed'])
+      } else if (map.recording_found) {
+        // 정합 실패 → 매핑 큐 자동 등록. dev-process 는 service-role(auth.uid 없음)이라
+        // enqueue_curation_jobs RPC(admin 가드) 대신 직접 upsert (RLS 우회 + 동일 reset 시맨틱).
+        // mode 는 원본(처리 전) status 로 판정 — 첫 처리=dev_process / 재처리(ready)=dev_reprocess.
+        const jobMode = book.status === 'ready' ? 'dev_reprocess' : 'dev_process'
+        const { data: snap } = await client
+          .from('library_chapters_master')
+          .select('chapter_idx, chapter_title, group_label, word_count')
+          .eq('library_book_id', book_id)
+          .order('chapter_idx', { ascending: true })
+        const sourceChapters = ((snap ?? []) as Array<{
+          chapter_idx: number
+          chapter_title: string | null
+          group_label: string | null
+          word_count: number
+        }>).map((m) => ({
+          chapter_idx: m.chapter_idx,
+          title: m.chapter_title,
+          group: m.group_label,
+          word_count: m.word_count,
+        }))
+        await client.from('book_curation_jobs').upsert(
+          {
+            book_id,
+            mode: jobMode,
+            status: 'pending',
+            source_chapters: sourceChapters,
+            librivox_chapters: null,
+            chapter_definition: null,
+            librivox_mapping: null,
+            error: null,
+            note: `auto: LibriVox 정합 실패 — ${map.reason ?? ''} (실챕터 ${map.real_chapter_count} / LV ${map.lv_chapter_count}, ${map.volume_count}권)`,
+            claimed_at: null,
+          },
+          { onConflict: 'book_id' },
+        )
+        librivox = 'queued'
+      } else {
+        librivox = 'no_recording'
+        // 낭독 자체 없음 → 매핑 큐 불필요. 이전 큐 잡 정리 (진행 중 수동 매핑은 보존).
+        await client
+          .from('book_curation_jobs')
+          .delete()
+          .eq('book_id', book_id)
+          .in('status', ['pending', 'failed'])
+      }
+    } catch (e) {
+      console.warn(
+        `[lcp/dev-process] LibriVox autoMap skipped: ${e instanceof Error ? e.message : String(e)}`,
+      )
     }
 
     // 미바인딩 단어를 archaic_candidates 로 수집 (best-effort — 실패해도 파이프라인 성공 유지)
-    await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+    //   ⚠️ 반드시 try/catch — 미가드 시 throw 가 catch 로 떨어져 이미 'ready' 인 책을 'failed' 로 뒤집음.
+    try {
+      await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+    } catch (e) {
+      console.warn(
+        `[lcp/dev-process] collect_archaic_candidates skipped: ${e instanceof Error ? e.message : String(e)}`,
+      )
+    }
 
     // pgmq:library_pipeline 큐의 동일 book_id 메시지 archive (dev 환경에서 pg_cron worker 부재 — 직접 정리).
     // best-effort — 실패해도 파이프라인 성공 유지.
@@ -184,6 +279,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       cefr_confidence: result.cefr_confidence,
       vocab_count: result.words.length,
       llm_cost: result.llm_cost_usd,
+      librivox, // 'mapped' | 'queued' | 'no_recording' | 'skipped'
     })
   } catch (err) {
     const errMsg = err instanceof Error ? err.message : String(err)

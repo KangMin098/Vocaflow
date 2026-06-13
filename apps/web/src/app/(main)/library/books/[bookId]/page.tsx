@@ -5,7 +5,7 @@ import { notFound, redirect } from 'next/navigation';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 import { listChapters } from '@/lib/library/reader-queries';
-import { isBookEnrolled } from '@/lib/library/resume-queries';
+import { getResumeTarget } from '@/lib/library/resume-queries';
 import { fetchBookChapterSets } from '@/lib/library/books/queries';
 import { fetchUserSubscriptions } from '@/lib/library/vocab/queries';
 import type { ChapterSet } from '@/components/library/books/BookDetailClient';
@@ -13,9 +13,13 @@ import { UserPreviewClient } from './UserPreviewClient';
 
 interface PageProps {
   params: { bookId: string };
+  searchParams: { preview?: string };
 }
 
-export default async function LibraryBookPreviewPage({ params }: PageProps) {
+export default async function LibraryBookPreviewPage({
+  params,
+  searchParams,
+}: PageProps) {
   const client = (await createClient()) as unknown as SupabaseClient;
 
   const { data: book } = await client
@@ -33,14 +37,19 @@ export default async function LibraryBookPreviewPage({ params }: PageProps) {
 
   if (!book) notFound();
 
-  // enroll한 사용자는 학습 재개 라우트로 자동 redirect (미리보기 우회)
+  // enroll한 사용자는 학습 재개 대상(/text)으로 직접 redirect (미리보기 우회).
+  // getResumeTarget 이 null → 미enroll 과 동치이므로 별도 enrollment 쿼리 불필요.
+  // (이전: /my/books/[bookId] 재개 라우트를 한 번 더 거쳐 이중 redirect + texts 중복 조회)
+  // v06.34 — ?preview=1 escape hatch: workspace "단어" pill → 도서 단어장 페이지
+  //   직접 진입 의도 명시 (학습 재개 우회 차단)
   const {
     data: { user },
   } = await client.auth.getUser();
-  if (user) {
-    const enrolled = await isBookEnrolled(client, user.id, params.bookId);
-    if (enrolled) {
-      redirect(`/my/books/${params.bookId}`);
+  const skipEnrollRedirect = searchParams?.preview === '1';
+  if (user && !skipEnrollRedirect) {
+    const target = await getResumeTarget(client, user.id, params.bookId);
+    if (target) {
+      redirect(`/text/${target.textId}?mode=read`);
     }
   }
 

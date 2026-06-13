@@ -26,9 +26,9 @@ const MODULE_COLOR: Partial<Record<ModuleId, string>> = {
   spellforge: '#EC4899',
   wordblitz: '#EC4899',
   pairflip: '#EC4899',
-  scriptquiz: '#F59E0B', // amber (정복)
+  scriptquiz: 'var(--memory-shaky)', // amber (정복)
   dictation: '#06B6D4', // cyan (완성)
-  pirate_quest: '#22C55E',
+  pirate_quest: 'var(--memory-stable)',
 }
 
 const MODULE_SHORT: Partial<Record<ModuleId, string>> = {
@@ -64,7 +64,7 @@ export function RecentActivity() {
   return (
     <section
       aria-label={`최근 학습 활동 ${activities.length}건`}
-      className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3"
+      className="flex items-center gap-3 rounded-ios-xl bg-[var(--bg)] px-4 py-3 shadow-ios-1"
     >
       {/* Header */}
       <header className="flex shrink-0 items-center gap-2 border-r border-[var(--bd)] pr-3">

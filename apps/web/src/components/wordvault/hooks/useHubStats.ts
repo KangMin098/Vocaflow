@@ -116,6 +116,7 @@ export function useHubStats(): HubStatsState {
 
       // v06.25 — category_id 컬럼이 마이그레이션 미적용 환경에서도 안전하도록
       // try-catch + fallback. 컬럼 존재 시 dictionary_categories.name_ko 조인.
+      // v06.35 — curation_query 도 fetch (도서 챕터 단어장 그룹화 기준)
       let setsData: Array<{
         id: string
         title: string
@@ -123,17 +124,18 @@ export function useHubStats(): HubStatsState {
         category: string | null
         cefr_level: string | null
         category_id?: string | null
+        curation_query: Record<string, unknown> | null
       }> = []
       if (setIds.length > 0) {
         const withBridge = await supabase
           .from('shared_word_sets')
-          .select('id, title, cover_emoji, category, cefr_level, category_id')
+          .select('id, title, cover_emoji, category, cefr_level, category_id, curation_query')
           .in('id', setIds)
         if (withBridge.error) {
           // 컬럼 미존재 — legacy fallback
           const legacy = await supabase
             .from('shared_word_sets')
-            .select('id, title, cover_emoji, category, cefr_level')
+            .select('id, title, cover_emoji, category, cefr_level, curation_query')
             .in('id', setIds)
           setsData = (legacy.data ?? []) as typeof setsData
         } else {
@@ -172,8 +174,108 @@ export function useHubStats(): HubStatsState {
 
       const books: VaultBook[] = []
 
-      // 1) 공용 단어장 책 (보라 'shared' 타입)
+      // v06.35 — 도서 챕터 단어장 그룹화
+      //   category='library_book' 인 set 들은 curation_query->>'book_id' 별로 그룹.
+      //   한 도서당 카드 1개로 (61개 챕터 단어장 → 1개 카드) emit.
+      //   group meta: 도서 제목/저자/cover 는 library_books 에서 fetch.
+      const libraryBookGroups = new Map<
+        string,
+        {
+          setIds: string[]
+          firstSetId: string
+          firstChapterIdx: number
+          distribution: PerBucket
+        }
+      >()
+      const nonBookSets: typeof setsData = []
       for (const s of setsData) {
+        const isLibraryBook = s.category === 'library_book'
+        const bookId =
+          isLibraryBook && s.curation_query
+            ? (s.curation_query['book_id'] as string | undefined) ?? null
+            : null
+        const chapterIdx =
+          isLibraryBook && s.curation_query
+            ? Number(s.curation_query['chapter_idx'] ?? 0) || 0
+            : 0
+        if (bookId) {
+          const d = bySet.get(s.id) ?? emptyBucket()
+          const g = libraryBookGroups.get(bookId)
+          if (g) {
+            g.setIds.push(s.id)
+            g.distribution.stable += d.stable
+            g.distribution.shaky += d.shaky
+            g.distribution.risk += d.risk
+            g.distribution.new += d.new
+            if (chapterIdx > 0 && chapterIdx < g.firstChapterIdx) {
+              g.firstChapterIdx = chapterIdx
+              g.firstSetId = s.id
+            }
+          } else {
+            libraryBookGroups.set(bookId, {
+              setIds: [s.id],
+              firstSetId: s.id,
+              firstChapterIdx: chapterIdx > 0 ? chapterIdx : Number.POSITIVE_INFINITY,
+              distribution: { ...d },
+            })
+          }
+        } else {
+          nonBookSets.push(s)
+        }
+      }
+
+      // 도서 메타 일괄 fetch (id, title, author, cover_image_url)
+      const bookIds = Array.from(libraryBookGroups.keys())
+      let bookMetaMap = new Map<
+        string,
+        { title: string; author: string | null; cover_image_url: string | null; cefr_band: string | null }
+      >()
+      if (bookIds.length > 0) {
+        const { data: bookMeta } = await supabase
+          .from('library_books')
+          .select('id, title, author, cover_image_url, cefr_band')
+          .in('id', bookIds)
+        if (cancelled) return
+        for (const b of (bookMeta ?? []) as Array<{
+          id: string
+          title: string
+          author: string | null
+          cover_image_url: string | null
+          cefr_band: string | null
+        }>) {
+          bookMetaMap.set(b.id, {
+            title: b.title,
+            author: b.author,
+            cover_image_url: b.cover_image_url,
+            cefr_band: b.cefr_band,
+          })
+        }
+      }
+
+      // 1a) 도서 1권당 단어장 카드 1개 (챕터 합산)
+      for (const [bookId, g] of libraryBookGroups) {
+        const wc = g.distribution.stable + g.distribution.shaky + g.distribution.risk + g.distribution.new
+        const meta = bookMetaMap.get(bookId)
+        const title = meta?.title ?? '도서 단어장'
+        const subtitle = meta?.author
+          ? meta.cefr_band
+            ? `${meta.author} · CEFR ${meta.cefr_band} · ${g.setIds.length}장`
+            : `${meta.author} · ${g.setIds.length}장`
+          : `도서 · ${g.setIds.length}장`
+        books.push({
+          id: `book-${bookId}`,
+          type: 'shared',
+          title,
+          subtitle,
+          wordCount: wc,
+          distribution: g.distribution,
+          // 도서의 첫 챕터 set 으로 link + book context (browse 가 prev/next 챕터 nav 활성)
+          href: `/wordvault/browse?filter=set:${g.firstSetId}&book=${bookId}`,
+        })
+      }
+
+      // 1b) 도서 외 공용 단어장 (category != 'library_book')
+      for (const s of nonBookSets) {
         const d = bySet.get(s.id) ?? emptyBucket()
         const wc = d.stable + d.shaky + d.risk + d.new
         const node = s.category_id ? catNameMap.get(s.category_id) : null
@@ -222,12 +324,16 @@ export function useHubStats(): HubStatsState {
         })
       }
 
+      // v06.35 — 도서 단어장은 챕터별로 X, 도서 단위로 1 (libraryBookGroups.size)
+      const collectionsCount =
+        textIds.length + libraryBookGroups.size + nonBookSets.length
+
       setState({
         status: 'ready',
         data: {
           total,
           buckets,
-          collectionsCount: textIds.length + setIds.length,
+          collectionsCount,
           accumulatedDays,
           books,
         },

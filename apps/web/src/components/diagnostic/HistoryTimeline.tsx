@@ -81,7 +81,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
             </span>
 
             {/* card */}
-            <article className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
+            <article className="rounded-ios-xl bg-[var(--bg)] p-4 shadow-ios-2">
               <header className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span
@@ -117,7 +117,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
                       <span className="font-body text-[10px] text-[var(--t4)]">→</span>
                     </>
                   )}
-                  <span className="font-display text-[22px] font-[800] tabular-nums text-[var(--t1)]">
+                  <span className="font-display text-[22px] font-[700] tabular-nums text-[var(--t1)]">
                     L{String((s.snapshot_meta as { estimated_track_level?: number } | null | undefined)?.estimated_track_level ?? '-')}
                   </span>
                 </div>
@@ -131,7 +131,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
                       <span className="font-body text-[10px] text-[var(--t4)]">→</span>
                     </>
                   )}
-                  <span className="font-display text-[22px] font-[800] tabular-nums text-[var(--t1)]">
+                  <span className="font-display text-[22px] font-[700] tabular-nums text-[var(--t1)]">
                     V{s.v_level}
                   </span>
                 </div>

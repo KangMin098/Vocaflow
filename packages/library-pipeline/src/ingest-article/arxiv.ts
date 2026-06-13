@@ -26,6 +26,7 @@ import {
   parseRssFeed,
   stripTags,
 } from './_helpers'
+import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 export const ARXIV_FEEDS: Array<{ id: string; label: string; url: string; field: string }> = [
   {
@@ -75,16 +76,21 @@ export interface ArxivListItem {
   description: string
   /** 추출된 arXiv ID — 'arxiv:' prefix 없음 (예: '2401.12345') */
   arxiv_id: string
+  /** v06.41 — 학습 친화도 score */
+  score?: ArticleScore
 }
 
-export async function listArxivFeed(feedUrl: string, limit = 20): Promise<ArxivListItem[]> {
+export async function listArxivFeed(
+  feedUrl: string,
+  feedId: string = 'cs-AI',
+  _limit: number = 20,
+): Promise<ArxivListItem[]> {
+  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) throw new Error(`arXiv RSS fetch failed: ${res.status}`)
   const xml = await res.text()
-  const raw = parseRssFeed(xml).slice(0, limit)
-  return raw.map((it) => {
+  const raw = parseRssFeed(xml).map((it) => {
     const arxivId = parseArxivId(it.url) ?? parseArxivId(it.guid ?? '') ?? hashString(it.url).toString(36)
-    // 제목에서 "arXiv:XXXX.XXXXXvN" 패턴 제거 (RSS 가 제목에 ID 붙임)
     const cleanTitle = it.title.replace(/^arXiv:\s*[\d.v]+\s*/i, '').trim()
     return {
       source_id: `arxiv:${arxivId}`,
@@ -95,6 +101,7 @@ export async function listArxivFeed(feedUrl: string, limit = 20): Promise<ArxivL
       arxiv_id: arxivId,
     }
   })
+  return applyArticleCurationSpec(raw, 'arxiv', feedId)
 }
 
 /**
@@ -119,7 +126,8 @@ export async function ingestArxivArticle(
   // Fast path: RSS feed 가 주어지면 거기서 직접 추출
   if (feedUrl) {
     try {
-      const items = await listArxivFeed(feedUrl, 100)
+      // ingest 시점에는 spec 무관하게 raw item 만 필요 — 임의 feedId 로 호출 (filter 후 못 찾으면 fallthrough)
+      const items = await listArxivFeed(feedUrl, 'cs-AI')
       const match = items.find((it) => it.arxiv_id === arxivId || it.url === absUrl)
       if (match && match.description.length >= 100) {
         return buildArticle(match.arxiv_id, match.title, match.description, absUrl, match.published_at)

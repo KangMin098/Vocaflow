@@ -16,7 +16,7 @@ export const revalidate = 60;
 
 export default function MyBooksPage() {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 p-6 md:p-8">
+    <main className="mx-auto flex w-full max-w-[var(--ios-content-wide-max)] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
       <Suspense fallback={<Loading />}>
         <BookList />
       </Suspense>
@@ -229,7 +229,7 @@ function Hero({
           </div>
           <h1
             id="bookvault-title"
-            className="font-display text-[22px] font-[800] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
+            className="font-display text-[22px] font-[700] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
           >
             내 책장
           </h1>
@@ -260,7 +260,7 @@ function Stat({
   return (
     <div className="flex flex-col items-end gap-0.5 md:items-start">
       <dd
-        className={`font-display text-[22px] font-[800] leading-none tabular-nums md:text-[26px] ${
+        className={`font-display text-[22px] font-[700] leading-none tabular-nums md:text-[26px] ${
           highlight ? 'text-[var(--p)]' : 'text-[var(--t1)]'
         }`}
       >

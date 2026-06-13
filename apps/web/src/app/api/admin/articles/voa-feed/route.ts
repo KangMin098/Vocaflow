@@ -10,6 +10,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { createClient } from '@/lib/supabase/server'
 import { listVoaFeed, VOA_FEEDS } from '@vocaflow/library-pipeline'
 
 export const runtime = 'nodejs'
@@ -29,13 +30,27 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const items = await listVoaFeed(feed.url)
+    const items = await listVoaFeed(feed.url, feed.id)
+
+    // v06.41 — 이미 발행된 source_id 표시 (제거 X, 가시화)
+    let publishedSourceIds: string[] = []
+    if (items.length > 0) {
+      const supabase = await createClient()
+      const sourceIds = items.map((i) => i.source_id)
+      const { data } = await supabase
+        .from('library_articles')
+        .select('source_id')
+        .in('source_id', sourceIds)
+      publishedSourceIds = (data ?? []).map((r: { source_id: string }) => r.source_id)
+    }
+
     return NextResponse.json(
       {
         feed_id: feed.id,
         label: feed.label,
         level: feed.level,
         items,
+        publishedSourceIds,
       },
       {
         status: 200,

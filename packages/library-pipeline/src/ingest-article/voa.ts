@@ -14,6 +14,7 @@
 // MVP 동작: RSS 1개 카테고리 fetch → item N 개 → 각 item URL → HTML → transcript 추출
 
 import type { RawArticle } from '../types-article'
+import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 // VOA WAF 는 비브라우저 UA (curl/bot) 를 403 차단 → 일반 브라우저 UA 로 fetch.
 const USER_AGENT =
@@ -51,6 +52,7 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
 
 /**
  * RSS feed 의 최근 article N개 가져오기 (메타만 — 본문은 별도 fetch).
+ * v06.41 — 큐레이션 spec 적용: 필터 + score + sort + top N (_curation-spec.ts)
  */
 export interface VoaListItem {
   source_id: string // voa:<guid>
@@ -58,15 +60,23 @@ export interface VoaListItem {
   url: string
   published_at: string | null
   description: string
+  /** 학습 친화도 score (0~1) + breakdown — v06.41 큐레이션 spec */
+  score?: ArticleScore
 }
 
-export async function listVoaFeed(feedUrl: string, limit = MAX_ITEMS_PER_FEED): Promise<VoaListItem[]> {
+export async function listVoaFeed(
+  feedUrl: string,
+  feedId: string = 'as-it-is',
+  _limit: number = MAX_ITEMS_PER_FEED,
+): Promise<VoaListItem[]> {
+  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) {
     throw new Error(`VOA RSS fetch failed: ${res.status}`)
   }
   const xml = await res.text()
-  return parseRssItems(xml).slice(0, limit)
+  const raw = parseRssItems(xml)
+  return applyArticleCurationSpec(raw, 'voa', feedId)
 }
 
 /**

@@ -33,6 +33,9 @@ interface BookContentReaderProps {
   mode: ReaderMode
   /** 좌측 상단 footer slot — 모드별 액션 영역 (admin: 액션 버튼, user: enroll CTA) */
   footerSlot?: React.ReactNode
+  /** v06.34 — admin 모드에서 chapter list 옆에 원본 소스 외부링크 표시 */
+  source?: string | null
+  sourceId?: string | null
 }
 
 export function BookContentReader({
@@ -44,6 +47,8 @@ export function BookContentReader({
   chapters,
   mode,
   footerSlot,
+  source,
+  sourceId,
 }: BookContentReaderProps) {
   const [activeIdx, setActiveIdx] = useState(1)
   const [contentCache, setContentCache] = useState<Record<number, ChapterContent>>({})
@@ -193,6 +198,8 @@ export function BookContentReader({
           activeIdx={activeIdx}
           mode={mode}
           onSelect={setActiveIdx}
+          source={source}
+          sourceId={sourceId}
         />
 
         <div className="flex flex-1 flex-col overflow-hidden">

@@ -15,6 +15,7 @@
 //   - SDT 자율성 70% — 추천은 Focus 1곳 + Recommended 1곳, ModuleGrid 항상 동등 노출
 //   - Calm UI — 풀-saturate accent 는 명시적 CTA 한정
 
+import { Screen } from '@/components/ui/ios'
 import { ContinueCard } from '@/components/home/ContinueCard'
 import { HubHero } from '@/components/home/HubHero'
 import { ModuleGrid } from '@/components/home/ModuleGrid'
@@ -29,37 +30,38 @@ export const metadata = {
 
 export default function HubPage() {
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 p-4 md:p-8">
-      {/* ① Hero — 인사 + Streak + V-Level 배지 + Today CTA */}
-      <HubHero />
+    <Screen width="wide" background="bg2" padX="md">
+      <div className="flex flex-col gap-4 py-6 md:py-8">
+        {/* ① Hero — 인사 + Streak + V-Level 배지 + Today CTA */}
+        <HubHero />
 
-      {/* ② Today's Focus — 페르소나 분기 1순위 액션 */}
-      <TodayFocus />
+        {/* ② Today's Focus — 페르소나 분기 1순위 액션 */}
+        <TodayFocus />
 
-      {/* ③ Continue — 이어하기 */}
-      <section aria-label="이어하기">
-        <h2 className="sr-only">이어하기</h2>
-        <ContinueCard />
-      </section>
+        {/* ③ Continue — 이어하기 */}
+        <section aria-label="이어하기">
+          <h2 className="sr-only">이어하기</h2>
+          <ContinueCard />
+        </section>
 
-      {/* ④ Module Grid — 7개 학습 모듈 */}
-      <section aria-label="학습 모듈">
-        <h2 className="sr-only">학습 모듈</h2>
-        <ModuleGrid />
-      </section>
+        {/* ④ Module Grid — 7개 학습 모듈 */}
+        <section aria-label="학습 모듈">
+          <h2 className="sr-only">학습 모듈</h2>
+          <ModuleGrid />
+        </section>
 
-      {/* ⑤ Recommended Sets — V-Level + Track + Interest 기반 추천
-            (미진단 사용자는 TodayFocus 가 이미 진단 안내 → 중복 회피) */}
-      <section aria-label="추천 단어장">
-        <h2 className="sr-only">추천 단어장</h2>
-        <RecommendedSetsSection hideUndiagnosedCard />
-      </section>
+        {/* ⑤ Recommended Sets — V-Level + Track + Interest 기반 추천 */}
+        <section aria-label="추천 단어장">
+          <h2 className="sr-only">추천 단어장</h2>
+          <RecommendedSetsSection hideUndiagnosedCard />
+        </section>
 
-      {/* ⑥ Recent Activity — 최근 학습 흐름 */}
-      <section aria-label="최근 학습 활동">
-        <h2 className="sr-only">최근 학습 활동</h2>
-        <RecentActivity />
-      </section>
-    </div>
+        {/* ⑥ Recent Activity — 최근 학습 흐름 */}
+        <section aria-label="최근 학습 활동">
+          <h2 className="sr-only">최근 학습 활동</h2>
+          <RecentActivity />
+        </section>
+      </div>
+    </Screen>
   )
 }

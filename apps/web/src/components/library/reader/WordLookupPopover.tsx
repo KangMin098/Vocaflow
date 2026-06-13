@@ -14,6 +14,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Volume2, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { RegisterBadge } from '@/components/library/RegisterBadge'
+import { PosBadge } from '@/components/library/PosBadge'
 
 interface WordLookupPopoverProps {
   surface: string
@@ -141,11 +142,7 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
       {/* meta badges */}
       <div className="flex flex-wrap items-center gap-1.5">
         <RegisterBadge register={result.wordRegister} />
-        {result.pos && (
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)]">
-            {result.pos}
-          </span>
-        )}
+        <PosBadge pos={result.pos} />
         {result.cefrLevel && (
           <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--p)]">
             {result.cefrLevel}

@@ -16,6 +16,15 @@ const nextConfig = {
     '@vocaflow/design-tokens',
     '@vocaflow/ui-shared',
   ],
+  // 도서 원천 표지 이미지 (next/image 서버 캐시·webp·리사이즈). 핫링크 회피 + 최적화.
+  //   - Project Gutenberg: pg{id}.cover.medium.jpg
+  //   - Standard Ebooks: og:image (CC0)
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'www.gutenberg.org' },
+      { protocol: 'https', hostname: 'standardebooks.org' },
+    ],
+  },
   // v06.32 — Windows dev server watchpack 가 시스템 파일 (pagefile/hiberfil/swapfile)
   // lstat 시도 시 EINVAL 발생. node_modules + .next + .git + Windows 시스템 파일 제외.
   webpack: (config, { dev }) => {

@@ -53,7 +53,7 @@ export async function subscribeSet(setId: string): Promise<SubscribeResult> {
   // 2) shared_words → vocabularies import
   const { data: words, error: wErr } = await supabase
     .from('shared_words')
-    .select('word, meaning_ko, example_en, pronunciation, part_of_speech, cefr_level')
+    .select('word, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech, cefr_level')
     .eq('set_id', setId)
   if (wErr) return { ok: false, reason: 'error', message: wErr.message }
 
@@ -79,7 +79,8 @@ export async function subscribeSet(setId: string): Promise<SubscribeResult> {
     user_id: user.id,
     word: w.word,
     meaning: w.meaning_ko,
-    example_sentence: w.example_en,
+    // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백
+    example_sentence: w.source_sentence ?? w.example_en,
     pronunciation: w.pronunciation,
     pos: w.part_of_speech,
     cefr_level: w.cefr_level,

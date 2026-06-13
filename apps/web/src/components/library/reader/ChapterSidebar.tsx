@@ -6,8 +6,9 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { ChevronDown, ChevronRight, Lock } from 'lucide-react'
+import { ChevronDown, ChevronRight, ExternalLink, Lock } from 'lucide-react'
 import type { ChapterListItem } from '@/lib/library/reader-queries'
+import { chapterSourceUrl } from '@/lib/library/source-urls'
 import type { ReaderMode } from './BookContentReader'
 
 interface ChapterSidebarProps {
@@ -15,6 +16,9 @@ interface ChapterSidebarProps {
   activeIdx: number
   mode: ReaderMode
   onSelect: (idx: number) => void
+  /** v06.34 — admin-review 모드에서 챕터 옆에 원본 소스 외부링크 표시 */
+  source?: string | null
+  sourceId?: string | null
 }
 
 interface Segment {
@@ -35,7 +39,15 @@ function buildSegments(chapters: ChapterListItem[]): Segment[] {
   return segs
 }
 
-export function ChapterSidebar({ chapters, activeIdx, mode, onSelect }: ChapterSidebarProps) {
+export function ChapterSidebar({
+  chapters,
+  activeIdx,
+  mode,
+  onSelect,
+  source,
+  sourceId,
+}: ChapterSidebarProps) {
+  const showSourceLink = mode === 'admin-review' && !!source && !!sourceId
   const segments = useMemo(() => buildSegments(chapters), [chapters])
   const hasGroups = useMemo(() => segments.some((s) => s.label), [segments])
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set())
@@ -117,6 +129,13 @@ export function ChapterSidebar({ chapters, activeIdx, mode, onSelect }: ChapterS
                       active={ch.chapter_idx === activeIdx}
                       locked={mode === 'user-preview' && ch.chapter_idx > 1}
                       onSelect={onSelect}
+                      sourceUrl={
+                        showSourceLink
+                          ? // 적재 시 매핑된 정확한 챕터 deep-link 우선, 없으면 소스별 best-effort/TOC fallback
+                            (ch.source_href ??
+                              chapterSourceUrl(source!, sourceId!, ch.chapter_idx, ch.chapter_title))
+                          : null
+                      }
                     />
                   ))}
                 </ul>
@@ -134,14 +153,17 @@ function ChapterRow({
   active,
   locked,
   onSelect,
+  sourceUrl,
 }: {
   ch: ChapterListItem
   active: boolean
   locked: boolean
   onSelect: (idx: number) => void
+  /** v06.34 — admin 모드에서 챕터별 원본 소스 URL */
+  sourceUrl?: string | null
 }) {
   return (
-    <li>
+    <li className="relative">
       <button
         type="button"
         onClick={() => !locked && onSelect(ch.chapter_idx)}
@@ -150,6 +172,7 @@ function ChapterRow({
         className={[
           'group flex w-full items-center justify-between gap-2',
           'rounded-[var(--r-sm)] px-2.5 py-2 text-left',
+          sourceUrl ? 'pr-9' : '',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
           active
@@ -186,6 +209,28 @@ function ChapterRow({
           </span>
         )}
       </button>
+
+      {sourceUrl && (
+        <a
+          href={sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          title={`Chapter ${ch.chapter_idx} 원본 소스 열기`}
+          aria-label={`Chapter ${ch.chapter_idx} 원본 소스 열기`}
+          className={[
+            'absolute right-1 top-1/2 -translate-y-1/2',
+            'inline-flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)]',
+            'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
+            active
+              ? 'text-[var(--ti)] opacity-70 hover:opacity-100'
+              : 'text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--p)]',
+          ].join(' ')}
+        >
+          <ExternalLink size={11} aria-hidden />
+        </a>
+      )}
     </li>
   )
 }

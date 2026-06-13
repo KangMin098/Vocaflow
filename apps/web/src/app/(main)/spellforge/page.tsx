@@ -59,7 +59,7 @@ export default function SpellForgeHubPage() {
   })()
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 md:px-6 md:py-10">
+    <div className="mx-auto flex max-w-[var(--ios-content-wide-max)] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
       {/* ── 1. Hero ── */}
       <ModuleHero
         eyebrow="SpellForge · 타이핑 단련"
@@ -112,7 +112,7 @@ export default function SpellForgeHubPage() {
           </header>
           <div className="flex items-end gap-4">
             <div>
-              <p className="font-display text-[36px] font-[800] tabular-nums leading-none text-[var(--t1)]">
+              <p className="font-display text-[36px] font-[700] tabular-nums leading-none text-[var(--t1)]">
                 92<span className="ml-1 text-[16px] text-[var(--t3)]">%</span>
               </p>
               <p className="mt-1 font-body text-[11px] text-[var(--t3)]">평균 IME 정확도</p>
@@ -148,7 +148,7 @@ export default function SpellForgeHubPage() {
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최고 점수</h2>
           </header>
-          <p className="mt-3 font-display text-[36px] font-[800] tabular-nums leading-none text-[var(--t1)]">
+          <p className="mt-3 font-display text-[36px] font-[700] tabular-nums leading-none text-[var(--t1)]">
             1,240<span className="ml-1 text-[14px] text-[var(--t3)]">점</span>
           </p>
           <ul className="mt-3 divide-y divide-[var(--bd)]">

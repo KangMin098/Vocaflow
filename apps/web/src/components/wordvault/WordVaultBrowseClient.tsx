@@ -13,15 +13,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Layers } from 'lucide-react'
+import { FileText, Layers } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
 import type { BrowseChip, BrowseWord } from '@/lib/wordvault/browse-queries'
 
+import { BrowseSourceBar } from './BrowseSourceBar'
 import { HideToggleBar } from './HideToggleBar'
 import { ListenPanel } from './ListenPanel'
 import { ScriptsChipNav, type ScriptChip } from './ScriptsChipNav'
@@ -29,22 +30,61 @@ import { SearchRow } from './SearchRow'
 import { WordList } from './WordList'
 import type { HideStates, HideType, ListenSettings } from './types'
 
+interface BookContext {
+  bookId: string
+  bookTitle: string
+  chapterIdx: number
+  /** v06.34 — 사용자가 그 chapter 를 enroll 한 경우 texts.id. ResourceContext "본문으로" 직링크용. */
+  currentTextId: string | null
+  chapters: Array<{
+    id: string
+    chapterIdx: number
+    title: string
+    isCurrent: boolean
+  }>
+}
+
 interface Props {
   words: BrowseWord[]
   textChips: BrowseChip[]
   setChips: BrowseChip[]
+  /** v06.34 — workspace "단어" pill 에서 ?book&chapter 진입 시 컨텍스트 */
+  bookContext?: BookContext | null
 }
 
 const SET_ACCENT = '#8B5CF6' // 보라 — 라이브러리 단어장 정합
 const TEXT_ACCENT = '#6366F1' // 인디고 — FlowNav "단어" stage 정합
 
-export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: Props) {
+export function WordVaultBrowseClient({
+  words: allWords,
+  textChips,
+  setChips,
+  bookContext,
+}: Props) {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const initialFilter = searchParams?.get('filter') ?? 'all'
+
+  const goToChapter = useCallback(
+    (chapter: { id: string; chapterIdx: number }) => {
+      if (!bookContext) return
+      const qs = new URLSearchParams({
+        filter: `set:${chapter.id}`,
+        book: bookContext.bookId,
+        chapter: String(chapter.chapterIdx),
+      })
+      router.push(`/wordvault/browse?${qs.toString()}`)
+    },
+    [bookContext, router],
+  )
 
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
   const [hideStates, setHideStates] = useState<HideStates>({ word: false, meaning: false })
   const [scriptFilter, setScriptFilter] = useState<string>(initialFilter)
+  // 검색/난이도/정렬 — 이전엔 렌더만 되고 미연결(dead). 실제 필터링 연결.
+  const [searchQuery, setSearchQuery] = useState('')
+  const [levelFilter, setLevelFilter] = useState('all') // all | a | b | c
+  const [sortBy, setSortBy] = useState('recent') // recent | alpha | mastery
   const [listenSettings, setListenSettings] = useState<ListenSettings>({
     content: 'word',
     speed: 1.0,
@@ -65,17 +105,34 @@ export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: 
   }, [allWords.length, setChips, textChips])
 
   const words = useMemo(() => {
-    if (scriptFilter === 'all') return allWords
+    let list = allWords
+    // 1) 소스 필터 (set / text)
     if (scriptFilter.startsWith('set:')) {
       const id = scriptFilter.slice(4)
-      return allWords.filter((w) => w.setId === id)
-    }
-    if (scriptFilter.startsWith('text:')) {
+      list = list.filter((w) => w.setId === id)
+    } else if (scriptFilter.startsWith('text:')) {
       const id = scriptFilter.slice(5)
-      return allWords.filter((w) => w.textId === id)
+      list = list.filter((w) => w.textId === id)
     }
-    return allWords
-  }, [allWords, scriptFilter])
+    // 2) 검색 (단어/뜻)
+    const q = searchQuery.trim().toLowerCase()
+    if (q) {
+      list = list.filter(
+        (w) => w.word.toLowerCase().includes(q) || w.meaning.toLowerCase().includes(q),
+      )
+    }
+    // 3) 난이도 (levelClass a/b/c)
+    if (levelFilter !== 'all') {
+      list = list.filter((w) => w.levelClass === levelFilter)
+    }
+    // 4) 정렬 (recent = 원본 순서 유지)
+    if (sortBy === 'alpha') {
+      list = [...list].sort((a, b) => a.word.localeCompare(b.word))
+    } else if (sortBy === 'mastery') {
+      list = [...list].sort((a, b) => a.mastery - b.mastery)
+    }
+    return list
+  }, [allWords, scriptFilter, searchQuery, levelFilter, sortBy])
 
   // ── 핸들러 ──
   const handleToggleSelect = useCallback((id: number) => {
@@ -124,6 +181,14 @@ export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: 
     return () => window.removeEventListener('keydown', handler)
   }, [queue, words, handleToggleHide])
 
+  // 챕터 이동 등 URL filter 변경 시 scriptFilter 동기화.
+  //   goToChapter 는 router.push 로 ?filter=set:{새 챕터 id} 를 갱신하지만 soft navigation 이라
+  //   클라이언트가 언마운트되지 않아 useState(initialFilter) 가 이전 set 에 고정됨 → 단어 미갱신.
+  //   initialFilter 는 매 렌더 URL 값으로 재계산되므로 dep 으로 안전 (chip 클릭은 URL 불변 → 미발화).
+  useEffect(() => {
+    setScriptFilter(initialFilter)
+  }, [initialFilter])
+
   // 필터 변경 시 선택 초기화
   useEffect(() => {
     setSelectedIds(new Set())
@@ -134,15 +199,28 @@ export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: 
   return (
     <>
       <ResourceContext
-        resource={{
-          type: 'vocab',
-          label: '내 어휘 자산',
-          position:
-            scriptFilter === 'all'
-              ? `전체 ${words.length.toLocaleString()}개`
-              : `${activeChip?.label ?? ''} · ${words.length.toLocaleString()}개`,
-          href: '/wordvault',
-        }}
+        resource={
+          bookContext
+            ? {
+                // v06.34 — workspace 진입: book title › Chapter N · 단어 수
+                // href: currentTextId 있으면 본문 직링크 / 없으면 preview
+                type: 'script',
+                label: bookContext.bookTitle,
+                position: `Chapter ${bookContext.chapterIdx} · ${words.length.toLocaleString()}개`,
+                href: bookContext.currentTextId
+                  ? `/text/${bookContext.currentTextId}?mode=read`
+                  : `/library/books/${bookContext.bookId}?preview=1`,
+              }
+            : {
+                type: 'vocab',
+                label: '내 어휘 자산',
+                position:
+                  scriptFilter === 'all'
+                    ? `전체 ${words.length.toLocaleString()}개`
+                    : `${activeChip?.label ?? ''} · ${words.length.toLocaleString()}개`,
+                href: '/wordvault',
+              }
+        }
         total={words.length}
       />
 
@@ -152,10 +230,33 @@ export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: 
           <EmptyAll />
         ) : (
           <>
-            {/* ── 1. chip nav (전체 + 세트 + 스크립트) ── */}
-            <ScriptsChipNav chips={chips} active={scriptFilter} onChange={setScriptFilter} />
+            {/* ── 소스 바: 도서 컨텍스트 = 컴팩트 챕터/소스 바 / 일반 = chip nav ── */}
+            {bookContext ? (
+              <BrowseSourceBar
+                bookId={bookContext.bookId}
+                chapterIdx={bookContext.chapterIdx}
+                currentTextId={bookContext.currentTextId}
+                chapters={bookContext.chapters}
+                wordCount={words.length}
+                onGoToChapter={goToChapter}
+              />
+            ) : (
+              <div className="flex flex-col gap-1.5">
+                <ScriptsChipNav chips={chips} active={scriptFilter} onChange={setScriptFilter} />
+                {/* 스크립트 필터 시 해당 스크립트 본문으로 바로가기 */}
+                {scriptFilter.startsWith('text:') && (
+                  <Link
+                    href={`/text/${scriptFilter.slice(5)}`}
+                    className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[#6366F1] transition-colors hover:bg-[var(--bg2)]"
+                  >
+                    <FileText size={12} aria-hidden />
+                    이 스크립트 본문 열기 →
+                  </Link>
+                )}
+              </div>
+            )}
 
-            {/* ── 2. 듣기 옵션 ── */}
+            {/* ── 듣기 옵션 ── */}
             <ListenPanel
               allWords={words}
               selectedIds={selectedIds}
@@ -173,10 +274,16 @@ export function WordVaultBrowseClient({ words: allWords, textChips, setChips }: 
               currentWord={queue.currentWord}
             />
 
-            {/* ── 3. Active Recall + 검색 ── */}
-            <div className="flex flex-col gap-2">
+            {/* ── 도구 모음: 검색 + 난이도 + 정렬 + Active Recall (1행 컴팩트) ── */}
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div className="min-w-0 flex-1">
+                <SearchRow
+                  onSearchChange={setSearchQuery}
+                  onLevelChange={setLevelFilter}
+                  onSortChange={setSortBy}
+                />
+              </div>
               <HideToggleBar hideStates={hideStates} onToggle={handleToggleHide} />
-              <SearchRow />
             </div>
 
             {/* ── 4. 단어 리스트 / 필터 빈 상태 ── */}
