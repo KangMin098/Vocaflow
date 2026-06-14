@@ -88,11 +88,16 @@ class TTSController {
   private loadVoices(): void {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
     this.voicesCache = window.speechSynthesis.getVoices();
-    // Phase 11.15.3 — LS 저장값이 없으면 best voice 자동 선택 (Edge Neural/Online > Chrome Google > 로컬)
-    if (!this.state.selectedVoiceURI && this.voicesCache.length > 0) {
-      const best = pickBestVoice(this.voicesCache);
-      if (best) {
-        this.state = { ...this.state, selectedVoiceURI: best.voiceURI };
+    // best voice 자동 선택 — (1) LS 미설정 OR (2) 저장값이 이 기기에 없음(stale).
+    //   stale 미처리 시 getSelectedVoice()=undefined → 브라우저 기본(로봇) 음성으로 강등.
+    //   (LS 는 덮어쓰지 않음 — 원 기기 복귀 시 사용자 선택 보존, 이 기기선 best 사용.)
+    if (this.voicesCache.length > 0) {
+      const hasSelected =
+        !!this.state.selectedVoiceURI &&
+        this.voicesCache.some((v) => v.voiceURI === this.state.selectedVoiceURI);
+      if (!hasSelected) {
+        const best = pickBestVoice(this.voicesCache);
+        if (best) this.state = { ...this.state, selectedVoiceURI: best.voiceURI };
       }
     }
     this.notify();
@@ -169,10 +174,12 @@ class TTSController {
     }
   }
 
-  /** 영어 voices만 필터링. */
+  /** 영어 voices만 필터링 — 품질 best-first 정렬 (피커 상단 = 최선 음성). */
   getEnglishVoices(): SpeechSynthesisVoice[] {
     if (this.voicesCache.length === 0) this.loadVoices();
-    return this.voicesCache.filter((v) => v.lang.toLowerCase().startsWith('en'));
+    return this.voicesCache
+      .filter((v) => v.lang.toLowerCase().startsWith('en'))
+      .sort((a, b) => voiceScore(b) - voiceScore(a));
   }
 
   /** voice 선택 — null = 브라우저 default. localStorage 저장. */
@@ -564,45 +571,63 @@ export function useTTS() {
 
 export type VoiceQuality = 'neural' | 'premium' | 'standard';
 
-const NEURAL_KEYWORDS = [
-  'Neural',
-  'Natural',
-  'Online', // Edge online voices = Neural backend
-  'WaveNet',
-  'Studio',
-];
-const PREMIUM_KEYWORDS = ['Premium', 'Enhanced'];
+// 품질 등급(배지용). "Google"(Chrome 클라우드 WaveNet)·Online(Edge neural)·Siri 도 고품질.
+const NEURAL_RE = /neural|natural|wavenet|studio|\bonline\b|\bgoogle\b/i;
+const PREMIUM_RE = /siri|premium|enhanced/i;
+// 잘 알려진 양질 named 음성 (동급 내 선호 — 학습용 명료/자연).
+const PREFERRED_RE = /\b(aria|jenny|ava|emma|michelle|guy|eric|samantha|allison|libby|sonia)\b/i;
+// 레거시 로컬(로봇 음질) — 감점. espeak(Linux) + 구형 MS SAPI5.
+const LEGACY_BAD_RE = /espeak|\b(david|zira|mark|hazel|george)\b/i;
 
 function classifyVoiceQuality(voice: SpeechSynthesisVoice): VoiceQuality {
   const name = voice.name;
-  if (NEURAL_KEYWORDS.some((kw) => name.includes(kw))) return 'neural';
-  if (PREMIUM_KEYWORDS.some((kw) => name.includes(kw))) return 'premium';
+  if (NEURAL_RE.test(name)) return 'neural';
+  if (PREMIUM_RE.test(name)) return 'premium';
   return 'standard';
 }
 
 /**
- * 사용자 LS 미설정 시 best voice 자동 선택.
- * 우선순위: Neural > Premium > Standard.
- * 동일 등급 내: en-US > en-GB > en-* > 기타. localService 가산점.
+ * Voice 품질 점수 — best 자동 선택 + 피커 정렬 공용 SSoT.
+ * 음질 키워드 우선(클라우드 neural > Google > premium > 양질 named > 표준),
+ * 레거시 로컬 감점, 로케일(en-US 우선). localService 는 품질 신호 아님 → 미반영
+ * (최고 음질은 클라우드 neural=non-local · macOS premium=local — 이름 기반 판정).
+ */
+export function voiceScore(voice: SpeechSynthesisVoice): number {
+  const name = voice.name.toLowerCase();
+  const lang = voice.lang.toLowerCase();
+  let s = 0;
+  if (/neural|natural|wavenet|studio/.test(name)) s += 100;
+  else if (/\bonline\b/.test(name)) s += 95; // Edge online (neural backend)
+  else if (/\bgoogle\b/.test(name)) s += 85; // Chrome 클라우드 (WaveNet)
+  else if (PREMIUM_RE.test(name)) s += 70; // Apple Siri / Premium / Enhanced
+  else if (/samantha|ava|allison|serena|karen|moira|tessa|fiona|daniel|arthur|martha/.test(name))
+    s += 45; // Apple 기본 named (로컬이지만 양호)
+  if (LEGACY_BAD_RE.test(name)) s -= 60; // 로봇 음질 강등
+  if (lang.startsWith('en-us')) s += 15;
+  else if (lang.startsWith('en-gb')) s += 10;
+  else if (lang.startsWith('en')) s += 4;
+  if (PREFERRED_RE.test(name)) s += 8; // 동급 내 학습 친화 음성 nudge
+  if (voice.default) s += 2;
+  return s;
+}
+
+/**
+ * best voice 자동 선택 (LS 미설정 또는 저장값 무효 시).
+ * 영어 음성 중 voiceScore 최고. 영어 없으면 전체 default/첫 항목.
  */
 function pickBestVoice(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
   const englishVoices = voices.filter((v) => v.lang.toLowerCase().startsWith('en'));
-  if (englishVoices.length === 0) return voices[0] ?? null;
-
-  const scored = englishVoices.map((voice) => {
-    let score = 0;
-    const quality = classifyVoiceQuality(voice);
-    if (quality === 'neural') score += 100;
-    else if (quality === 'premium') score += 50;
-    if (voice.localService) score += 20;
-    if (voice.default) score += 10;
-    const lang = voice.lang.toLowerCase();
-    if (lang.startsWith('en-us')) score += 15;
-    else if (lang.startsWith('en-gb')) score += 10;
-    return { voice, score };
-  });
-  scored.sort((a, b) => b.score - a.score);
-  return scored[0]?.voice ?? null;
+  if (englishVoices.length === 0) return voices.find((v) => v.default) ?? voices[0] ?? null;
+  let best = englishVoices[0]!;
+  let bestScore = voiceScore(best);
+  for (const v of englishVoices) {
+    const sc = voiceScore(v);
+    if (sc > bestScore) {
+      best = v;
+      bestScore = sc;
+    }
+  }
+  return best;
 }
 
 /** 페이지 이탈 시 자동 stop. */
