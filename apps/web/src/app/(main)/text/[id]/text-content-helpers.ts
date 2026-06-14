@@ -81,19 +81,30 @@ export function buildParagraphsFromContent(
   if (!content) return [];
 
   // v06.58 — boilerplate strip 제거. 검수(BookContentReader.splitByOffsets) 와 동일.
-  const rawSplits: string[] =
-    paragraphOffsets && paragraphOffsets.length > 0
-      ? paragraphOffsets.map((start, i) => {
-          const end =
-            i + 1 < paragraphOffsets.length ? paragraphOffsets[i + 1]! : content.length;
-          // 시작/끝만 trim — paragraph 내부 \n 은 sentence text 에 보존.
-          return content.slice(start, end).replace(/^\s+|\s+$/g, '');
-        })
-      : content
-          // offsets 없을 때만 double-newline fallback
-          .split(/\n\s*\n/)
-          .map((p) => p.replace(/^\s+|\s+$/g, ''))
-          .filter(Boolean);
+  // v06.59 — paragraph_offsets 없을 때(article 의 texts.paragraph_offsets=NULL 케이스)
+  //   AdminArticleReviewClient 와 동일한 fallback:
+  //   ① double-newline 분리 시도, 1개뿐이면 ② single-newline 분리 (article 본문 보존).
+  let rawSplits: string[];
+  if (paragraphOffsets && paragraphOffsets.length > 0) {
+    rawSplits = paragraphOffsets.map((start, i) => {
+      const end =
+        i + 1 < paragraphOffsets.length ? paragraphOffsets[i + 1]! : content.length;
+      // 시작/끝만 trim — paragraph 내부 \n 은 sentence text 에 보존.
+      return content.slice(start, end).replace(/^\s+|\s+$/g, '');
+    });
+  } else {
+    const byBlank = content
+      .split(/\n{2,}/)
+      .map((p) => p.replace(/^\s+|\s+$/g, ''))
+      .filter(Boolean);
+    rawSplits =
+      byBlank.length > 1
+        ? byBlank
+        : content
+            .split(/\n+/)
+            .map((p) => p.replace(/^\s+|\s+$/g, ''))
+            .filter(Boolean);
+  }
 
   const filteredParas = rawSplits.filter((p) => p.length > 0);
 
