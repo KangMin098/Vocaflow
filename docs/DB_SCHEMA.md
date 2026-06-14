@@ -118,6 +118,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `library_seed_catalog_view` | seed catalog UI 용 가공 |
 | `user_vocab_enriched` | 사용자 단어장 + 사전 메타 enriched |
 
+**보안 옵션 (v06.47)**: 5 view 모두 `SECURITY INVOKER` (`ALTER VIEW ... SET (security_invoker = true)`) — 호출자 권한으로 기반 테이블 RLS 적용. SECURITY DEFINER (PG15 default) 의 RLS 우회 위험 차단. Supabase advisor "Security Definer View" 경고 해결 migration `20260614150000_views_security_invoker`.
+
 ---
 
 ## Functions (요약)
