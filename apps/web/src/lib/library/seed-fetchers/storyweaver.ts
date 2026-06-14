@@ -21,6 +21,11 @@ const UA =
 /**
  * StoryWeaver JSON fetch — undici fetch 우선, 실패(Cloudflare 403) 시 curl 폴백.
  *   Cloudflare 가 Node TLS 핸드셰이크를 핑거프린트 차단(curl 통과) → admin/dev 서버에서 curl 폴백.
+ *
+ * ⚠ 이 모듈은 BulkFetchTab('use client') 가 getOptions() 용으로 import → webpack client 번들에
+ *   포함됨. child_process 를 정적 import 하면 client 번들 resolve 실패 (Module not found).
+ *   curl 폴백은 fetchBatch(서버 전용 API 경로)에서만 실행되므로, node 모듈을 webpack 이
+ *   추적 못 하는 간접 require 로 로드한다 (client 번들엔 child_process 미포함).
  */
 async function swFetchJson(url: string): Promise<unknown> {
   try {
@@ -30,8 +35,10 @@ async function swFetchJson(url: string): Promise<unknown> {
     /* 네트워크/TLS 오류 → curl 폴백 */
   }
   try {
-    const { execFile } = await import('child_process')
-    const { promisify } = await import('util')
+    // eslint-disable-next-line no-eval
+    const nodeRequire = (0, eval)('require') as (m: string) => unknown
+    const { execFile } = nodeRequire('child_process') as typeof import('child_process')
+    const { promisify } = nodeRequire('util') as typeof import('util')
     const run = promisify(execFile)
     const { stdout } = await run(
       'curl',
