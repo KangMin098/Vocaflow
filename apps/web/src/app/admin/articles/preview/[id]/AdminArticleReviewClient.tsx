@@ -22,6 +22,8 @@ import {
   Loader2,
   Play,
   RefreshCw,
+  Trash2,
+  Undo2,
 } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
@@ -235,13 +237,54 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
                 tone="primary"
               />
             )}
-            {article.status !== 'archived' && (
+            {article.status === 'published' && (
+              <ActionButton
+                icon={<Undo2 size={12} />}
+                label="검토대기로 되돌리기"
+                pending={pending === 'revert'}
+                onClick={() => {
+                  if (
+                    !window.confirm(
+                      `"${article.title}" 을(를) 검토대기로 되돌릴까요?\n\n` +
+                        '· status: published → ready\n' +
+                        '· 게시 시 자동 생성된 챕터 단어장 삭제\n' +
+                        '· 본문/추출 어휘는 보존 — 재게시 시 단어장 자동 재생성',
+                    )
+                  ) return
+                  rpcAction('admin_revert_published_article', 'revert', 'refresh')
+                }}
+                tone="neutral"
+              />
+            )}
+            {article.status !== 'archived' && article.status !== 'published' && (
               <ActionButton
                 icon={<Archive size={12} />}
                 label="보관"
                 pending={pending === 'archive'}
                 onClick={() => rpcAction('admin_archive_article', 'archive', 'back')}
                 tone="neutral"
+              />
+            )}
+            {['ready', 'archived', 'queued', 'failed'].includes(article.status) && (
+              <ActionButton
+                icon={<Trash2 size={12} />}
+                label="영구 삭제"
+                pending={pending === 'delete'}
+                onClick={() => {
+                  if (
+                    !window.confirm(
+                      `"${article.title}" 을(를) 영구 삭제할까요?\n\n` +
+                        '· library_articles 본체 삭제\n' +
+                        '· library_article_vocabularies CASCADE 삭제\n' +
+                        '· library_article_seed_catalog imported 해제\n' +
+                        '· shared_word_sets(library_article) 이전 발행분 삭제\n' +
+                        '· texts.source_url 마커는 보존 (사용자 학습 진도 유지)\n\n' +
+                        '되돌릴 수 없습니다.',
+                    )
+                  ) return
+                  rpcAction('admin_delete_article', 'delete', 'back')
+                }}
+                tone="danger"
               />
             )}
           </div>
@@ -281,12 +324,14 @@ function ActionButton({
   label: string
   pending: boolean
   onClick: () => void
-  tone: 'primary' | 'neutral'
+  tone: 'primary' | 'neutral' | 'danger'
 }) {
   const cls =
     tone === 'primary'
       ? 'bg-[var(--p)] hover:bg-[var(--p-light)] text-[var(--ti)]'
-      : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]'
+      : tone === 'danger'
+        ? 'border border-[var(--learn-error)] bg-[var(--bg)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)]'
+        : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]'
   return (
     <button
       type="button"
