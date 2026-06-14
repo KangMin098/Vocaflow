@@ -1,81 +1,14 @@
 // apps/web/src/app/(main)/text/[id]/text-content-helpers.ts
 // Phase 11.6 — server/client 양쪽에서 사용 가능한 순수 헬퍼.
-// Phase 11.12.1 — boilerplate (TOC + 반복 chapter 헤더) client-side strip
-//                 (DB content_chunks는 보존, A 옵션 자동화 후 normalize.ts 재처리로 동기화)
+// v06.58 — 검수 페이지(BookContentReader)와 본문/줄바꿈 정합:
+//   • boilerplate (TOC + 반복 chapter 헤더) client-side strip 제거.
+//     ingest/normalize 단계가 SSoT — workspace 가 raw DB content 그대로 표시.
+//   • paragraph 내부 newline 도 paragraph break 로 인정 (단락 분리).
 
 import type { Word } from '@/types/library';
 import type { ChapterWord } from '@/lib/library/chapter-words-queries';
 import { enrichBook } from './word-enrichment';
 import { findSupportSpans, type SupportToken } from '@/lib/workspace/support';
-
-// Phase 11.12.1 — boilerplate 정규식 (normalize/boundary.ts와 동일 정책)
-const TOC_PATTERN =
-  /^([\s\r\n]*(?:CHAPTER|Chapter)\s+[IVXLC0-9]+[.:]?[^\n]{0,120}\n+){3,}/;
-const HEADER_PATTERN =
-  /^[\s\r\n]*(?:CHAPTER|Chapter)\s+[IVXLC0-9]+\.[\s\r\n]+[^\r\n]+[\s\r\n]+/;
-const SIMPLE_HEADER_PATTERN =
-  /^[\s\r\n]*(?:CHAPTER|Chapter)\s+[IVXLC0-9]+\.?[\s\r\n]+/;
-const MAX_BOILERPLATE_SCAN = 1500;
-
-interface StripResult {
-  content: string;
-  trimmedChars: number;
-}
-
-/**
- * 본문 시작에서 TOC + 반복 chapter 헤더 제거.
- * 본문 1500자 이내에 패턴 있을 때만 (중간 character의 "Chapter X" 언급 오탐 회피).
- * 사용자 직접 입력 텍스트는 정규식 미매칭 → trimmedChars=0 (회귀 0).
- */
-function stripBoilerplate(content: string): StripResult {
-  if (content.length === 0) return { content, trimmedChars: 0 };
-
-  let trimmed = content;
-  let trimmedChars = 0;
-
-  const tocScan = trimmed.slice(0, MAX_BOILERPLATE_SCAN);
-  const tocMatch = tocScan.match(TOC_PATTERN);
-  if (tocMatch && tocMatch.index === 0) {
-    trimmed = trimmed.slice(tocMatch[0].length);
-    trimmedChars += tocMatch[0].length;
-  }
-
-  const headerScan = trimmed.slice(0, MAX_BOILERPLATE_SCAN);
-  const headerMatch = headerScan.match(HEADER_PATTERN);
-  if (headerMatch && headerMatch.index === 0) {
-    trimmed = trimmed.slice(headerMatch[0].length);
-    trimmedChars += headerMatch[0].length;
-  } else {
-    const simpleScan = trimmed.slice(0, MAX_BOILERPLATE_SCAN);
-    const simpleMatch = simpleScan.match(SIMPLE_HEADER_PATTERN);
-    if (simpleMatch && simpleMatch.index === 0) {
-      trimmed = trimmed.slice(simpleMatch[0].length);
-      trimmedChars += simpleMatch[0].length;
-    }
-  }
-
-  const lead = trimmed.match(/^[\s\r\n]+/);
-  if (lead) {
-    trimmed = trimmed.slice(lead[0].length);
-    trimmedChars += lead[0].length;
-  }
-
-  return { content: trimmed, trimmedChars };
-}
-
-/**
- * paragraph_offsets를 trimmedChars만큼 shift.
- * 음수는 0으로 clamp. 0이 연속되면 첫 번째만 유지.
- */
-function shiftOffsets(
-  offsets: number[] | null | undefined,
-  trimmedChars: number,
-): number[] {
-  if (!offsets || offsets.length === 0) return [];
-  if (trimmedChars === 0) return offsets;
-  const shifted = offsets.map((o) => Math.max(0, o - trimmedChars));
-  return shifted.filter((o, i, arr) => i === 0 || o !== arr[i - 1]);
-}
 
 export interface TextParagraphPart {
   text: string;
@@ -103,9 +36,16 @@ const SENT_ABBR = [
 ];
 const DOT_SENTINEL = '@@DOTSENT@@'; // 본문에 등장하지 않을 토큰
 
-/** 단락 텍스트 → 문장 리스트. 약어/이니셜 마침표는 경계로 보지 않음. */
+/** 단락 텍스트 → 문장 리스트. 약어/이니셜 마침표는 경계로 보지 않음.
+ *
+ *  v06.58 — sentence 경계 separator 를 `\s+` → `[ \t]+` 로 변경.
+ *    `\n` 은 sentence 경계로 보지 않고 sentence text 안에 보존.
+ *    → ReadingUniverse 의 `whitespace-pre-line` 으로 `<br>` 효과 (검수와 정합).
+ *    예: "Hello.\nWorld."  → ["Hello.\nWorld."]  (한 sentence, \n 보존)
+ *        "Hello.  World."  → ["Hello.", "World."] (한 줄, 일반 sentence 경계)
+ */
 function splitIntoSentences(text: string): string[] {
-  const t = text.trim();
+  const t = text.replace(/^\s+|\s+$/g, '');
   if (!t) return [];
   let safe = t;
   for (const a of SENT_ABBR) {
@@ -113,10 +53,10 @@ function splitIntoSentences(text: string): string[] {
   }
   // 이니셜 (A.  J. R.) — 단일 대문자 + 마침표 + 공백
   safe = safe.replace(/\b([A-Z])\.(?=\s)/g, `$1${DOT_SENTINEL}`);
-  // 경계: .?! (+ 닫는 따옴표/괄호) + 공백 + (여는 따옴표/괄호)?대문자|숫자
+  // 경계: .?! (+ 닫는 따옴표/괄호) + 공백/탭(\n 제외) + (여는 따옴표/괄호)?대문자|숫자
   const parts = safe
-    .split(/(?<=[.!?]["'”’)\]]?)\s+(?=["'“‘([]?[A-Z0-9])/g)
-    .map((s) => s.split(DOT_SENTINEL).join('.').trim())
+    .split(/(?<=[.!?]["'”’)\]]?)[ \t]+(?=["'“‘([]?[A-Z0-9])/g)
+    .map((s) => s.split(DOT_SENTINEL).join('.').replace(/^[ \t]+|[ \t]+$/g, ''))
     .filter((s) => s.length > 0);
   return parts.length > 0 ? parts : [t];
 }
@@ -125,6 +65,13 @@ function splitIntoSentences(text: string): string[] {
  * 본문 + paragraph_offsets → Workspace paragraph 구조로 변환.
  * offsets 없으면 double-newline split fallback.
  * 각 단락을 실제 문장으로 분할 — 전역 고유 sentence id (재생/하이라이트 문장 단위).
+ *
+ * v06.58 — 검수 페이지(BookContentReader)와 본문/줄바꿈 정합:
+ *   • boilerplate strip 제거 (raw content 그대로) — 검수와 동일 SSoT.
+ *     TOC/chapter header 정리는 ingest/normalize 단계에서 처리.
+ *   • paragraph 경계는 paragraph_offsets 만 사용 (검수와 동일).
+ *     paragraph 내부 `\n` 은 sentence text 에 보존 → ReadingUniverse 의
+ *     `whitespace-pre-line` 으로 `<br>` 효과 (검수 `whitespace-pre-wrap` 와 동등).
  */
 export function buildParagraphsFromContent(
   content: string,
@@ -133,23 +80,22 @@ export function buildParagraphsFromContent(
 ): TextParagraph[] {
   if (!content) return [];
 
-  // Phase 11.12.1 — boilerplate 제거 + offset shift
-  const { content: cleanContent, trimmedChars } = stripBoilerplate(content);
-  const adjustedOffsets = shiftOffsets(paragraphOffsets, trimmedChars);
-
-  const splits: string[] =
-    adjustedOffsets && adjustedOffsets.length > 0
-      ? adjustedOffsets.map((start, i) => {
+  // v06.58 — boilerplate strip 제거. 검수(BookContentReader.splitByOffsets) 와 동일.
+  const rawSplits: string[] =
+    paragraphOffsets && paragraphOffsets.length > 0
+      ? paragraphOffsets.map((start, i) => {
           const end =
-            i + 1 < adjustedOffsets.length ? adjustedOffsets[i + 1]! : cleanContent.length;
-          return cleanContent.slice(start, end).trim();
+            i + 1 < paragraphOffsets.length ? paragraphOffsets[i + 1]! : content.length;
+          // 시작/끝만 trim — paragraph 내부 \n 은 sentence text 에 보존.
+          return content.slice(start, end).replace(/^\s+|\s+$/g, '');
         })
-      : cleanContent
+      : content
+          // offsets 없을 때만 double-newline fallback
           .split(/\n\s*\n/)
-          .map((p) => p.trim())
+          .map((p) => p.replace(/^\s+|\s+$/g, ''))
           .filter(Boolean);
 
-  const filteredParas = splits.filter((p) => p.length > 0);
+  const filteredParas = rawSplits.filter((p) => p.length > 0);
 
   // 단락 → 실제 문장 분할 (reading order). 빈 분할은 단락 전체 1문장 fallback.
   const perPara: string[][] = filteredParas.map((para) => splitIntoSentences(para));

@@ -10,6 +10,39 @@
 
 ## Unreleased (v06.34 → next)
 
+### /text/[id] 본문 — 검수 페이지와 줄바꿈/내용 정합 (v06.58)
+
+`/text/[id]` 워크스페이스 본문 표시가 `/admin/curation/preview` 검수 페이지 본문과 어긋남. 사용자: "원문 내용의 검수한 내용으로 보이지 않음. 줄바꿈이 전체 안 맞음."
+
+**원인 진단** (검수 ↔ 워크스페이스 본문 처리 비교):
+
+| 항목 | 검수 (`ChapterContent`) | 워크스페이스 (`ReadingUniverse`, before) |
+|---|---|---|
+| boilerplate strip | ❌ (raw DB content) | ✅ (TOC/chapter header 잘라냄 + offsets shift) — **검수와 불일치** |
+| paragraph 경계 | `splitByOffsets(paragraph_offsets)` | `splitByOffsets` + `stripBoilerplate` 적용 후 — **검수와 불일치** |
+| paragraph 내부 `\n` | `whitespace-pre-wrap` 으로 보존 | `splitIntoSentences` 의 `\s+` 가 `\n` 흡수 → **줄바꿈 손실** |
+| sentence 사이 구분 | (paragraph 단위라 무관) | `<span>` inline + `' '` 1개만 — `\n` 표현 없음 |
+
+**실측** (published 책 ch1 newline 분포):
+
+| 책 | content_len | para_offsets | total `\n` | single `\n` |
+|---|---:|---:|---:|---:|
+| Pride and Prejudice | 825 | 43 | 25 | **25** |
+| Twenty years after | 24,995 | 82 | 506 | **506** |
+| Pinocchio | 3,163 | 18 | 34 | 0 |
+| Decline and Fall of Roman Empire | 54,189 | 41 | 80 | 0 |
+
+→ Pride/Twenty 같은 소스는 paragraph 내부에 single newline 다수 — 이전 워크스페이스에서 모두 한 줄로 합쳐졌음.
+
+**수정** (3 처):
+- [text-content-helpers.ts](../apps/web/src/app/(main)/text/[id]/text-content-helpers.ts):
+  - `stripBoilerplate` + `shiftOffsets` + 관련 정규식 4종 dead code 제거. ingest/normalize 가 SSoT, 워크스페이스는 raw content 사용 (검수와 정합).
+  - paragraph 경계 = `paragraph_offsets` 만 사용 (검수 `splitByOffsets` 와 동일).
+  - `splitIntoSentences` 의 sentence 경계 separator: `\s+` → `[ \t]+`. `\n` 은 sentence 경계로 보지 않고 sentence text 안에 보존.
+- [ReadingUniverse.tsx](../apps/web/src/components/workspace/ReadingUniverse.tsx) `<p>` 에 `whitespace-pre-line` 추가 — sentence text 안의 `\n` 이 자동으로 `<br>` 효과. 검수의 `whitespace-pre-wrap` 와 동등 (paragraph 단위 표시).
+
+결과: paragraph 개수는 검수와 동일 (paragraph_offsets 기준), paragraph 내부 줄바꿈은 보존, sentence 단위 재생/하이라이트 기능도 유지.
+
 ### 글 게시 2건 수정 — CHECK 위반 + dev-bypass 무반응 (v06.57)
 
 **증상**

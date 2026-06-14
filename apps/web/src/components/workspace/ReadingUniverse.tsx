@@ -193,7 +193,7 @@ export function ReadingUniverse({
             </figure>
           )}
           <p
-            className={`group/paragraph relative mb-7 md:mb-8 ${
+            className={`group/paragraph relative mb-7 whitespace-pre-line md:mb-8 ${
               pIdx === 0
                 ? '[&::first-letter]:float-left [&::first-letter]:mr-2.5 [&::first-letter]:mt-1.5 [&::first-letter]:font-english [&::first-letter]:text-[3.2em] [&::first-letter]:font-[700] [&::first-letter]:leading-[0.9] [&::first-letter]:text-[var(--p)]'
                 : ''
