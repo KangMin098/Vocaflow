@@ -30,8 +30,10 @@ import {
   Newspaper,
   Plus,
   Radio,
+  RefreshCw,
   Rocket,
   Square,
+  Trash2,
   GraduationCap,
   Info,
 } from 'lucide-react'
@@ -67,11 +69,28 @@ interface FeedItem {
   has_audio?: boolean
 }
 
+// v06.74 — article 단계 상태 (큐레이터가 list 에서 한눈에 진행 단계 확인)
+type ArticleStatusValue =
+  | 'queued'
+  | 'normalizing'
+  | 'analyzing'
+  | 'curating'
+  | 'ready'
+  | 'published'
+  | 'failed'
+  | 'archived'
+
 interface BulkRow extends FeedItem {
   source: SourceKey
   feed_id: string
   feed_label: string
   isPublished: boolean
+  // v06.74 — seed_catalog row id (삭제 액션용)
+  seedId?: string
+  // v06.74 — library_articles.status (imported_article_id 가 있을 때)
+  articleStatus?: ArticleStatusValue | null
+  // v06.74 — article.status_message (failed 시 원인)
+  articleStatusMessage?: string | null
 }
 
 interface FeedConfig {
@@ -194,6 +213,33 @@ const PRESET_LABEL: Record<Preset, string> = {
   advanced: '고급 (학자 논증 · 백과)',
 }
 
+// v06.74 — article 단계 → badge 표시 메타
+const STATUS_BADGE: Record<
+  ArticleStatusValue | 'none',
+  { label: string; bg: string; fg: string; title?: string }
+> = {
+  none: { label: '후보', bg: 'var(--bg2)', fg: 'var(--t3)', title: 'enqueue 안 한 후보' },
+  queued: { label: '대기', bg: 'var(--learn-fresh-light)', fg: 'var(--learn-fresh)' },
+  normalizing: { label: '정규화', bg: 'var(--learn-fresh-light)', fg: 'var(--learn-fresh)' },
+  analyzing: { label: '분석중', bg: 'var(--learn-review-light)', fg: 'var(--learn-review)' },
+  curating: { label: '큐레이션', bg: 'var(--learn-review-light)', fg: 'var(--learn-review)' },
+  ready: { label: '검토대기', bg: 'var(--memory-stable-light)', fg: 'var(--memory-stable)' },
+  published: { label: '발행됨', bg: 'var(--learn-known-light)', fg: 'var(--learn-known)' },
+  failed: { label: '실패', bg: 'var(--learn-error-light)', fg: 'var(--learn-error)' },
+  archived: { label: '보관', bg: 'var(--bg2)', fg: 'var(--t3)' },
+}
+const STATUS_OPTIONS: Array<ArticleStatusValue | 'none'> = [
+  'none',
+  'queued',
+  'normalizing',
+  'analyzing',
+  'curating',
+  'ready',
+  'published',
+  'failed',
+  'archived',
+]
+
 function defaultSourceConfig(): Map<SourceKey, PerSourceConfig> {
   const m = new Map<SourceKey, PerSourceConfig>()
   for (const s of SOURCES) {
@@ -252,6 +298,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
   // v06.41 — 정렬
   const [sortBy, setSortBy] = useState<'score' | 'date'>('score')
   // v06.73 — list 필터 7축 통합 (검색/소스/점수/CEFR/발행/audio/기간)
+  // v06.74 — articleStatus 8축 추가 (큐 단계별 필터)
   const [listFilters, setListFilters] = useState<{
     search: string
     sources: Set<SourceKey>
@@ -260,16 +307,20 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     publishStatus: 'all' | 'unpublished' | 'published'
     audioStatus: 'all' | 'with' | 'without'
     recencyDays: number | null
+    articleStatuses: Set<ArticleStatusValue | 'none'> // 'none' = enqueue 안 한 후보
   }>({
     search: '',
     sources: new Set(),
     minScore: 0,
     cefrLevels: new Set(),
-    publishStatus: 'unpublished',
+    publishStatus: 'all',
     audioStatus: 'all',
     recencyDays: null,
+    articleStatuses: new Set(),
   })
   const [listFiltersExpanded, setListFiltersExpanded] = useState(false)
+  // v06.74 — bulk 삭제 진행
+  const [deleting, setDeleting] = useState(false)
 
   // v06.42 — 학습자 수준 (소스 자동 정렬 + 추천 강조)
   const [learnerLevel, setLearnerLevel] = useState<LearnerLevel>('intermediate')
@@ -290,7 +341,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     let cancelled = false
     ;(async () => {
       try {
-        const res = await fetch('/api/admin/articles/seed-list?limit=300')
+        // v06.74 — includeImported=true 로 enqueue 한 seed 도 가져와 article 단계 상태 표시
+        const res = await fetch('/api/admin/articles/seed-list?limit=300&includeImported=true')
         if (!res.ok) return
         const data = (await res.json()) as {
           items: Array<{
@@ -311,6 +363,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             has_audio: boolean
             imported_to_articles: boolean
             imported_article_id: string | null
+            article_status: ArticleStatusValue | null
+            article_status_message: string | null
           }>
         }
         if (cancelled) return
@@ -336,6 +390,9 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           feed_id: s.feed_id ?? '',
           feed_label: s.feed_label ?? '',
           isPublished: s.imported_to_articles,
+          seedId: s.id,
+          articleStatus: s.article_status,
+          articleStatusMessage: s.article_status_message,
         }))
         // 이미 enqueue 된 seed 도 화면에 표시 — 사용자 정책 (이미 발행 가시화)
         if (rows.length > 0) {
@@ -415,6 +472,57 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       next.set(sourceKey, { ...cur, maxItems: clamped })
       return next
     })
+  }
+
+  // v06.74 — row 삭제 (seed_catalog.curation_status='hidden' + article.delete 분기)
+  //   selectedRowKeys 의 row 들 (selected state + rowKey) 또는 명시 ids.
+  async function handleDeleteRows(specificRows?: BulkRow[]) {
+    const target = specificRows ?? rows.filter((r) => selected.has(rowKey(r)))
+    if (target.length === 0) return
+    const withArticles = target.filter((r) => r.articleStatus != null).length
+    const confirmMsg =
+      `${target.length}건 삭제할까요?\n\n` +
+      `· 미발행 후보 (${target.length - withArticles}건): seed_catalog 에서 '숨김' 처리 — 다시 GET 시 재노출 안 됨.\n` +
+      `· 발행/큐 진행 (${withArticles}건): library_articles 영구 삭제 (CASCADE 로 vocabularies/word_sets 정리).\n` +
+      `· published 상태는 먼저 검토대기로 되돌려야 합니다.`
+    if (!window.confirm(confirmMsg)) return
+
+    const seedIds = target.map((r) => r.seedId).filter((id): id is string => !!id)
+    if (seedIds.length === 0) {
+      alert('삭제 가능한 seed_id 가 없습니다 (이전 세션 row 일 수 있음 — 새로고침 후 다시 시도).')
+      return
+    }
+
+    setDeleting(true)
+    try {
+      const res = await fetch('/api/admin/articles/seed/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ seed_ids: seedIds }),
+      })
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean
+        hidden?: number
+        articleDeleted?: number
+        errors?: string[]
+      }
+      if (!res.ok) {
+        alert(`삭제 실패: HTTP ${res.status}`)
+        return
+      }
+      // 결과 row 에서 제거 (낙관적 갱신)
+      const seedIdSet = new Set(seedIds)
+      setRows((prev) => prev.filter((r) => !r.seedId || !seedIdSet.has(r.seedId)))
+      setSelected(new Set())
+      const errLine = data.errors && data.errors.length > 0 ? `\n오류:\n${data.errors.join('\n')}` : ''
+      alert(
+        `완료\n· seed 숨김: ${data.hidden ?? 0}건\n· article 삭제: ${data.articleDeleted ?? 0}건${errLine}`,
+      )
+    } catch (e) {
+      alert(`삭제 네트워크 오류: ${e instanceof Error ? e.message : 'unknown'}`)
+    } finally {
+      setDeleting(false)
+    }
   }
 
   // 모든 feed 순회
@@ -1132,6 +1240,11 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             const age = now - new Date(r.published_at).getTime()
             if (age > lfRecencyMs) return false
           }
+          // v06.74 — article 단계 상태 필터 ('none' = 후보 (article 없음))
+          if (listFilters.articleStatuses.size > 0) {
+            const stat = r.articleStatus ?? 'none'
+            if (!listFilters.articleStatuses.has(stat)) return false
+          }
           return true
         })
         const displayRows = [...visibleRows].sort((a, b) => {
@@ -1215,9 +1328,10 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 if (listFilters.sources.size > 0) n++
                 if (listFilters.minScore > 0) n++
                 if (listFilters.cefrLevels.size > 0) n++
-                if (listFilters.publishStatus !== 'unpublished') n++
+                if (listFilters.publishStatus !== 'all') n++
                 if (listFilters.audioStatus !== 'all') n++
                 if (listFilters.recencyDays != null) n++
+                if (listFilters.articleStatuses.size > 0) n++
                 return n > 0 ? (
                   <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 font-mono text-[9px] text-[var(--ti)]">
                     {n}
@@ -1226,7 +1340,22 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               })()}
             </button>
 
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-1.5">
+              {/* v06.74 — 선택 일괄 삭제 */}
+              <button
+                type="button"
+                onClick={() => handleDeleteRows()}
+                disabled={deleting || selected.size === 0}
+                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"
+                title="선택 항목을 seed_catalog 에서 숨기거나 (미발행) library_articles 영구 삭제 (큐 진행 중)"
+              >
+                {deleting ? (
+                  <Loader2 size={11} className="animate-spin" />
+                ) : (
+                  <Trash2 size={11} />
+                )}
+                삭제 {selected.size > 0 ? `(${selected.size})` : ''}
+              </button>
               <button
                 type="button"
                 onClick={handleBulkEnqueue}
@@ -1403,6 +1532,41 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 </div>
               </div>
 
+              {/* v06.74 — article 단계 상태 다중 선택 */}
+              <div className="flex flex-col gap-1 sm:col-span-2">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  큐 단계 ({listFilters.articleStatuses.size === 0 ? '전체' : `${listFilters.articleStatuses.size} 선택`})
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {STATUS_OPTIONS.map((opt) => {
+                    const checked = listFilters.articleStatuses.has(opt)
+                    const meta = STATUS_BADGE[opt]
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() =>
+                          setListFilters((f) => {
+                            const next = new Set(f.articleStatuses)
+                            if (next.has(opt)) next.delete(opt)
+                            else next.add(opt)
+                            return { ...f, articleStatuses: next }
+                          })
+                        }
+                        className="inline-flex items-center rounded-[var(--r-full)] border px-2 py-0.5 font-mono text-[10px] font-[700]"
+                        style={{
+                          background: checked ? meta.bg : 'var(--bg)',
+                          borderColor: checked ? meta.fg : 'var(--bd)',
+                          color: checked ? meta.fg : 'var(--t3)',
+                        }}
+                      >
+                        {meta.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
               {/* 기간 recencyDays */}
               <label className="flex flex-col gap-1 sm:col-span-2">
                 <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
@@ -1436,14 +1600,15 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     sources: new Set(),
                     minScore: 0,
                     cefrLevels: new Set(),
-                    publishStatus: 'unpublished',
+                    publishStatus: 'all',
                     audioStatus: 'all',
                     recencyDays: null,
+                    articleStatuses: new Set(),
                   })
                 }
                 className="font-display text-[10.5px] font-[600] text-[var(--t3)] hover:text-[var(--p)] sm:col-span-2"
               >
-                필터 초기화 (기본값: 미발행만)
+                필터 초기화
               </button>
             </div>
           )}
@@ -1526,15 +1691,22 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                           🎧 듣기
                         </span>
                       )}
-                      {r.isPublished && (
-                        <span
-                          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
-                          style={{ color: 'var(--memory-new)', background: 'color-mix(in srgb, var(--memory-new) 12%, transparent)' }}
-                        >
-                          <CheckCircle2 size={9} /> 발행됨
-                        </span>
-                      )}
-                      {isEnqueued && (
+                      {/* v06.74 — article 단계 상태 badge (있으면 표시) */}
+                      {(() => {
+                        const stat: ArticleStatusValue | 'none' = r.articleStatus ?? 'none'
+                        if (stat === 'none' && !r.isPublished && !isEnqueued) return null
+                        const meta = STATUS_BADGE[stat]
+                        return (
+                          <span
+                            className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                            style={{ color: meta.fg, background: meta.bg }}
+                            title={r.articleStatusMessage ?? meta.title}
+                          >
+                            {meta.label}
+                          </span>
+                        )
+                      })()}
+                      {isEnqueued && !r.articleStatus && (
                         <span className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border border-[var(--memory-stable)] bg-[var(--success-light)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--memory-stable)]">
                           <CheckCircle2 size={9} /> 큐
                         </span>
@@ -1549,15 +1721,41 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       </p>
                     )}
                   </div>
-                  <a
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="원문"
-                    className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-                  >
-                    <ExternalLink size={11} />
-                  </a>
+                  <div className="flex shrink-0 items-center gap-0.5">
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="원문"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                    >
+                      <ExternalLink size={11} />
+                    </a>
+                    {r.articleStatus === 'failed' && (
+                      <span
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-review)]"
+                        title="실패 — 재처리는 /admin/articles 검수 페이지의 '재처리' 액션"
+                      >
+                        <RefreshCw size={11} />
+                      </span>
+                    )}
+                    {/* v06.74 — 단건 삭제 (seed_catalog hide + article delete 분기) */}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteRows([r])}
+                      disabled={deleting}
+                      title={
+                        r.articleStatus === 'published'
+                          ? 'published 상태는 먼저 검토대기로 되돌려야 삭제 가능'
+                          : r.articleStatus
+                            ? 'library_articles 영구 삭제'
+                            : 'seed_catalog 에서 숨김 (다음 GET 시 재노출 안 됨)'
+                      }
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--learn-error-light)] hover:text-[var(--learn-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)] disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      <Trash2 size={11} />
+                    </button>
+                  </div>
                 </li>
               )
             })}

@@ -105,6 +105,44 @@ export async function upsertArticleSeeds(
  *
  * `includeImported=false` 면 imported_to_articles=true 항목 제외 (이미 큐잉됨).
  */
+// v06.74 — article.status 까지 매핑하여 큐레이터가 단계별 상태 한눈에 파악 가능.
+export type ArticleStatusValue =
+  | 'queued'
+  | 'normalizing'
+  | 'analyzing'
+  | 'curating'
+  | 'ready'
+  | 'published'
+  | 'failed'
+  | 'archived'
+
+export interface SeedListRow {
+  id: string
+  source: SeedSource
+  source_id: string
+  feed_id: string | null
+  feed_label: string | null
+  title: string
+  author: string | null
+  source_url: string | null
+  published_at: string | null
+  description: string | null
+  score_total: number | null
+  score_recency: number | null
+  score_source: number | null
+  score_length: number | null
+  score_level: number | null
+  has_audio: boolean
+  fetched_at: string
+  imported_to_articles: boolean
+  imported_article_id: string | null
+  curation_status: 'pending' | 'enqueued' | 'published' | 'rejected' | 'hidden'
+  /** v06.74 — imported_article_id 로 연결된 library_articles.status (없으면 null) */
+  article_status: ArticleStatusValue | null
+  /** v06.74 — article.status_message (failed 시 원인) */
+  article_status_message: string | null
+}
+
 export async function listArticleSeeds(
   supabase: SupabaseClient,
   opts: {
@@ -113,30 +151,7 @@ export async function listArticleSeeds(
     includeImported?: boolean
     limit?: number
   } = {},
-): Promise<
-  Array<{
-    id: string
-    source: SeedSource
-    source_id: string
-    feed_id: string | null
-    feed_label: string | null
-    title: string
-    author: string | null
-    source_url: string | null
-    published_at: string | null
-    description: string | null
-    score_total: number | null
-    score_recency: number | null
-    score_source: number | null
-    score_length: number | null
-    score_level: number | null
-    has_audio: boolean
-    fetched_at: string
-    imported_to_articles: boolean
-    imported_article_id: string | null
-    curation_status: 'pending' | 'enqueued' | 'published' | 'rejected' | 'hidden'
-  }>
-> {
+): Promise<SeedListRow[]> {
   const { sources, feedId, includeImported = false, limit = 200 } = opts
   let q = supabase
     .from('library_article_seed_catalog')
@@ -157,7 +172,40 @@ export async function listArticleSeeds(
     console.error('[listArticleSeeds] failed:', error.message)
     return []
   }
-  return (data ?? []) as never[]
+  const seeds = (data ?? []) as unknown as Array<
+    Omit<SeedListRow, 'article_status' | 'article_status_message'>
+  >
+
+  // v06.74 — imported_article_id 로 article.status 매핑 (별도 query — JOIN 안 되는 nullable FK)
+  const articleIds = seeds
+    .map((s) => s.imported_article_id)
+    .filter((id): id is string => typeof id === 'string' && id.length > 0)
+
+  const articleStatusMap = new Map<string, { status: ArticleStatusValue; message: string | null }>()
+  if (articleIds.length > 0) {
+    const { data: articles, error: artErr } = await supabase
+      .from('library_articles')
+      .select('id, status, status_message')
+      .in('id', articleIds)
+    if (!artErr && articles) {
+      for (const a of articles as Array<{
+        id: string
+        status: ArticleStatusValue
+        status_message: string | null
+      }>) {
+        articleStatusMap.set(a.id, { status: a.status, message: a.status_message })
+      }
+    }
+  }
+
+  return seeds.map((s) => {
+    const am = s.imported_article_id ? articleStatusMap.get(s.imported_article_id) : undefined
+    return {
+      ...s,
+      article_status: am?.status ?? null,
+      article_status_message: am?.message ?? null,
+    }
+  })
 }
 
 /** seed → library_articles 이동 후 imported_to_articles=true, imported_article_id 설정 */

@@ -10,6 +10,46 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 대량 list — 단계별 상태 + 삭제 기능 (v06.75)
+
+사용자 요청: "LCP 대량 리스트에 단계별 상태(큐상태 등), 삭제 기능 등 필요한 기능 있어야함. 전체적으로 검토 다시 해서 적용해줘."
+
+### 단계별 상태 가시화
+
+- [seed-upsert.ts](../apps/web/src/lib/acp/seed-upsert.ts) `listArticleSeeds` 에 article.status / status_message JOIN — `imported_article_id` 별도 query 로 `library_articles` status 매핑. 신규 타입 `SeedListRow` + `ArticleStatusValue` 8종.
+- mount 시 `seed-list?includeImported=true` — 큐에 진행 중인 article 도 표시.
+- 신규 row badge 9종 (`STATUS_BADGE`): 후보 / 대기 / 정규화 / 분석중 / 큐레이션 / 검토대기 / 발행됨 / 실패 / 보관.
+- 색상 단계 직관화 (fresh→review→stable→known / failed=error).
+- `articleStatusMessage` 가 tooltip 으로 표시 (실패 사유 즉시 확인).
+
+### 삭제 기능 (단건 + bulk)
+
+- 신규 API [`/api/admin/articles/seed/delete`](../apps/web/src/app/api/admin/articles/seed/delete/route.ts):
+  - 미발행 후보: `curation_status='hidden'` soft hide (다시 GET 시 재노출 안 됨)
+  - 진행 중/검수 대기/실패: `library_articles` 영구 삭제 (CASCADE 로 vocabularies + word_sets 정리)
+  - `published` 는 차단 + 안내 ("먼저 검토대기로 되돌리세요")
+- `requireAdmin` + service_role + dev-bypass 호환.
+- UI:
+  - **row 별 휴지통 아이콘** — confirm 후 즉시 삭제. tooltip 으로 분기 동작 명시 (`seed hide` / `article delete`)
+  - **헤더에 bulk 삭제 버튼** (선택 N건) — 잘못 가져온 묶음 일괄 정리
+  - 실패 row 에 RefreshCw 아이콘 (검수 페이지의 재처리 액션 안내)
+
+### 필터 패널에 큐 단계 축 추가 (8축)
+
+기존 7축 (검색/소스/점수/CEFR/발행/audio/기간) + **신규 `articleStatuses` chip 다중 선택** (9 옵션 `STATUS_OPTIONS`). 토글 옆 활성 카운트 chip 도 8축 기준 갱신. 발행 상태 기본값 `unpublished` → `all` 로 변경 (큐 진행 중도 보이도록).
+
+### 새 흐름
+
+```
+mount → seed-list (includeImported=true) → rows {seedId, articleStatus, articleStatusMessage}
+                          ↓
+              filter 8축 + sort → displayRows
+                          ↓
+       row 각각: 단계 badge + 휴지통 / bulk 헤더: 삭제 + 큐 추가
+```
+
+큐레이터가 단순 "후보 → 큐 추가" 흐름 외에도 진행 중 article 모니터링 + 잘못된 항목 즉시 정리까지 한 화면에서 해결.
+
 ### 워크스페이스 브라우저 TTS — best voice 자동 선택 재설계 (v06.74)
 
 `/text/[id]` 하단 플레이어의 브라우저 음성(Web Speech) 자동 선택 품질 개선. 기존 `pickBestVoice` 결함 4건 수정:
