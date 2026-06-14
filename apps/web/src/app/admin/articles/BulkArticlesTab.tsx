@@ -18,6 +18,7 @@ import {
   AlertCircle,
   Calendar,
   CheckCircle2,
+  CheckSquare,
   Download,
   ExternalLink,
   FlaskConical,
@@ -25,7 +26,7 @@ import {
   Plus,
   Radio,
   Rocket,
-  Beaker,
+  Square,
   GraduationCap,
   Info,
 } from 'lucide-react'
@@ -116,20 +117,7 @@ const SOURCES: SourceConfig[] = [
       { id: 'directors-blog', label: "Director's Blog" },
     ],
   },
-  {
-    key: 'arxiv',
-    label: 'arXiv',
-    Icon: Beaker,
-    color: 'var(--active)',
-    feeds: [
-      { id: 'cs-AI', label: 'CS — AI' },
-      { id: 'cs-CL', label: 'CS — NLP' },
-      { id: 'cs-LG', label: 'CS — ML' },
-      { id: 'q-bio', label: 'Quantitative Biology' },
-      { id: 'math-HO', label: 'Math History' },
-      { id: 'physics-gen-ph', label: 'Physics General' },
-    ],
-  },
+  // v06.35 (ACP §18) — arXiv 루틴 제거 (라이선스 비자유·C2+·텍스트 오염).
 ]
 
 interface Props {
@@ -139,7 +127,7 @@ interface Props {
 export function BulkArticlesTab({ onEnqueued }: Props) {
   // 선택된 소스
   const [selectedSources, setSelectedSources] = useState<Set<SourceKey>>(
-    new Set(['voa', 'nasa', 'nih', 'arxiv']),
+    new Set(['voa', 'nasa', 'nih']),
   )
   // 결과
   const [rows, setRows] = useState<BulkRow[]>([])
@@ -255,6 +243,14 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     })
   }
 
+  // v06.63 — 전체 선택/해제 (소스 카드 일일이 클릭 번거로움 해소)
+  const allSelected = selectedSources.size === SOURCES.length
+  const toggleAllSources = () => {
+    setSelected(new Set())
+    setEnqueueResult(null)
+    setSelectedSources(allSelected ? new Set() : new Set(SOURCES.map((s) => s.key)))
+  }
+
   // 모든 feed 순회
   async function handleBulkFetch() {
     setFetching(true)
@@ -316,7 +312,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
     // v06.42 — 소스 레벨 cap 적용 (소스당 maxItemsPerBatch + minScore + feed mix quota)
     const byCappedSource: BulkRow[] = []
-    for (const key of (['voa', 'nasa', 'nih', 'arxiv'] as SourceKey[])) {
+    for (const key of (['voa', 'nasa', 'nih'] as SourceKey[])) {
       const ofSource = accRows.filter((r) => r.source === key)
       if (ofSource.length === 0) continue
       const capped = applySourceLevelCap(ofSource, key)
@@ -441,9 +437,23 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           </span>
         </p>
 
-        <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">
-          소스 명세 (multi · 학습자 수준 기반 순위)
-        </h3>
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
+            소스 명세 (multi · 학습자 수준 기반 순위)
+            <span className="ml-2 font-mono text-[10.5px] font-[500] text-[var(--t3)]">
+              {selectedSources.size}/{SOURCES.length} 선택
+            </span>
+          </h3>
+          <button
+            type="button"
+            onClick={toggleAllSources}
+            disabled={fetching}
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+            title={allSelected ? '전체 소스 해제' : '전체 소스 선택 (한 번에 모두 가져오기 준비)'}
+          >
+            {allSelected ? '전체 해제' : '전체 선택'}
+          </button>
+        </div>
 
         {/* 소스 카드 list — 학습자 수준에 맞춰 자동 정렬, 각 소스의 spec 가시화 */}
         <div className="grid gap-2 sm:grid-cols-2">
@@ -463,8 +473,14 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   borderColor: active ? s.color : 'var(--bd)',
                 }}
               >
-                {/* 1행 — 우선순위 · 라벨 · feed 수 · 추천 배지 */}
+                {/* 1행 — 체크박스 · 우선순위 · 라벨 · feed 수 · 추천 배지 */}
                 <div className="flex items-center gap-1.5">
+                  {/* v06.63 — 명시적 체크박스 (이전 색깔 변화만으로는 선택 상태 불명확) */}
+                  {active ? (
+                    <CheckSquare size={14} aria-hidden style={{ color: s.color }} />
+                  ) : (
+                    <Square size={14} aria-hidden className="text-[var(--t4)]" />
+                  )}
                   <span
                     className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-mono text-[9px] font-[700]"
                     style={{
