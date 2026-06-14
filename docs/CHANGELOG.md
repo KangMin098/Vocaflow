@@ -10,16 +10,21 @@
 
 ## Unreleased (v06.34 → next)
 
-### ACP 글 검수 페이지 — Curated 탭에 LCP식 큐레이션 프로세스 (v06.51)
+### ACP 글 검수 페이지 — LCP 책 검수와 동등한 큐레이션 프로세스 (v06.51)
 
-기존 `/admin/articles` Curated 탭은 **목록 + 행 액션 버튼**뿐 — 본문을 읽지 않고 게시/보관해야 했음("목록만 보고 큐레이션?"). LCP 책 검수(`/admin/curation/preview/[bookId]`)와 동일한 read → analyze → curate 흐름을 글에 도입.
+기존 `/admin/articles` Curated 탭은 **목록 + 행 액션 버튼**뿐 — 본문을 읽지 않고 게시/보관해야 했음("목록만 보고 큐레이션?"). LCP 책 검수(`/admin/curation/preview/[bookId]`)의 **4패널을 글에 1:1 미러** — 할 수 있는 부분 모두 동일, 화면 골격 동일. (책=다챕터, 글=단일 섹션이 유일한 본질 차이.)
 
-**신규 라우트** `/admin/articles/preview/[id]`
-- [page.tsx](../apps/web/src/app/admin/articles/preview/[id]/page.tsx) (RSC) — `library_articles` 본문 + `library_article_vocabularies` 상위 40 단어(`base_learning_value` desc) + `shared_dictionary` 뜻/CEFR/V-Level 조인.
-- [AdminArticleReviewClient.tsx](../apps/web/src/app/admin/articles/preview/[id]/AdminArticleReviewClient.tsx) — 좌: 본문 리더(문단 분할 정독) / 우: 분석 사이드바(CEFR·신뢰도·단어수·읽기시간·라이선스·저작권 게이트) + 상위 학습 단어 테이블 + 큐레이션 액션(지금 처리/게시/보관/재처리, 기존 `dev-process` API + `admin_force_publish_article`/`admin_archive_article`/`admin_requeue_article` RPC 재사용).
-- loading.tsx 스켈레톤.
+**신규 라우트** `/admin/articles/preview/[id]` — 책 검수 4패널 미러:
+1. **본문 리더 + 게시 게이트** ([AdminArticleReviewClient.tsx](../apps/web/src/app/admin/articles/preview/[id]/AdminArticleReviewClient.tsx)) ↔ AdminReviewClient — 상단바(뒤로/상태/신뢰도/PublishControl) + 단일 섹션 리더 + 푸터 액션(지금 처리·재분석/재처리/보관). 게시 게이트 = `copyright_safe_in_kr` 강제(`admin_force_publish_article` 정합).
+2. **보이스 연결** ([ArticleAudioPanel.tsx](../apps/web/src/components/admin/articles/ArticleAudioPanel.tsx)) ↔ LibriVoxAudioPanel — 글은 단일 오디오라 챕터 매핑 대신 `audio_url` 검증/미리듣기/연결·해제. 신규 [/api/acp/set-audio](../apps/web/src/app/api/acp/set-audio/route.ts) (service-role).
+3. **학습 단어 추출** ([ArticleExtractionPanel.tsx](../apps/web/src/components/admin/articles/ArticleExtractionPanel.tsx)) ↔ BookExtractionPanel — meta cells(CEFR/단어수/추출수/읽기시간) + LV 내림차순 랭킹 테이블 + 📜/🏛 RegisterBadge + 미등재 경고.
+4. **검수 팝업** ([ArticleWordSetPreviewModal.tsx](../apps/web/src/components/admin/articles/ArticleWordSetPreviewModal.tsx)) ↔ ChapterWordSetPreviewModal — 단어 전수 + 뜻 + 발음(TTS) + 본문 첫 문장 + register.
 
-**진입 wire** [CuratedArticlesTab.tsx](../apps/web/src/app/admin/articles/CuratedArticlesTab.tsx) — 제목 클릭 + 행 "검수" 버튼(SearchCheck) → 검수 페이지. (직전 RLS fix `admin_curator_all_articles` 로 비공개 상태 글도 읽기 가능 → 검수 데이터 확보.)
+**데이터** — [page.tsx](../apps/web/src/app/admin/articles/preview/[id]/page.tsx) (RSC) service-role 로 `library_article_vocabularies` 전량 + `shared_dictionary`(meaning_ko/pos/cefr/v_level/word_register/frequency_rank) 조인 (vocab 테이블에 admin RLS 없음 → ready 상태도 검수 가능). 진입 = [CuratedArticlesTab.tsx](../apps/web/src/app/admin/articles/CuratedArticlesTab.tsx) 제목/검수 버튼.
+
+**버그 fix** — [analyze-article.ts](../packages/library-pipeline/src/analyze/analyze-article.ts): vocab INSERT 전 기존 행 DELETE (재분석 시 중복 누적 방지 — 멱등).
+
+**남은 follow-up** — 학습자 워크스페이스(`/text/[id]`)는 아직 글 `audio_url` 미재생(direct-script texts 오디오 미배선); 책의 chapterAudio 경로에 article 분기 추가 필요.
 
 ### Dev 일괄 처리 대상에 failed 도서 포함 (v06.50)
 
