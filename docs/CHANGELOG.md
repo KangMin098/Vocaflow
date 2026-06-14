@@ -10,6 +10,23 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 대량 — The Conversation description 추출 수정 (v06.70)
+
+사용자 피드백: "LCP 대량에서 The Conversation 가져오기 기능 안되는 거 같음."
+
+진단 (curl + Node 시뮬레이션):
+- 외부 endpoint 정상 (HTTP 200, atom 50 entries)
+- 라우트 정상 호출
+- parseRssFeed 가 entry 별 description 추출 시 **`<summary>` (68자) 가 `<content>` (5720자) 보다 우선** → score 가드 `minDescriptionLen: 200` 통과 못해 모두 reject
+
+수정 ([_helpers.ts](../packages/library-pipeline/src/ingest-article/_helpers.ts)):
+1. `description / content / summary` 후보 중 **가장 긴 것** 선택 (이전: description → summary → content 순 fallback)
+2. entity-encoded HTML 처리 순서: 이전 `decodeEntities(stripTags(desc))` 는 stripTags 가 `&lt;p&gt;` 같은 entity 를 못 풀어 HTML 태그 잔존 → `stripTags(decodeEntities(desc))` 로 변경. `\s+` 정규화 추가.
+
+검증 (사후 시뮬레이션): 50 entries 모두 descLen ≥ 200 (이전 0건 통과). 평균 400 (slice 한계).
+
+영향 — VOA / NASA / NIH / Wikinews / Simple Wikipedia 같은 다른 atom/RSS 소스도 동일 헬퍼 사용. content/summary 분리된 소스 모두 회복 가능 (지금까지는 description 또는 summary 만 잡혔던 케이스).
+
 ### ACP arxiv 소스 — 플랫폼 전체 삭제 (v06.69)
 
 사용자 명시: "arxiv 삭제 (플랫폼 전체에서)."

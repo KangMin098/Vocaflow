@@ -42,11 +42,15 @@ export function parseRssFeed(xml: string): RssListItem[] {
       extractTag(block, 'link') ?? block.match(/<link[^>]+href="([^"]+)"/i)?.[1] ?? null
     const guid = extractTag(block, 'guid') ?? extractTag(block, 'id') ?? null
     const pubDate = extractTag(block, 'pubDate') ?? extractTag(block, 'published') ?? null
-    const desc =
-      extractTag(block, 'description') ??
-      extractTag(block, 'summary') ??
-      extractTag(block, 'content') ??
-      ''
+    // v06.70 — The Conversation atom 의 <summary>(짧은 요약) vs <content>(풀 본문) 우선순위 수정.
+    //   summary 우선 시 minDescriptionLen 가드 통과 못함 → content 가 있으면 우선.
+    //   여러 후보 중 가장 긴 것 선택 (description/content/summary 모두 후보).
+    const candidates = [
+      extractTag(block, 'description'),
+      extractTag(block, 'content'),
+      extractTag(block, 'summary'),
+    ].filter((s): s is string => typeof s === 'string' && s.length > 0)
+    const desc = candidates.sort((a, b) => b.length - a.length)[0] ?? ''
 
     if (!link) continue
     items.push({
@@ -54,7 +58,9 @@ export function parseRssFeed(xml: string): RssListItem[] {
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
       published_at: safeDateISO(pubDate),
-      description: decodeEntities(stripTags(desc)).trim().slice(0, 400),
+      // v06.70 — entity-encoded HTML(&lt;p&gt;...&lt;/p&gt;) 처리:
+      //   decodeEntities 먼저 → stripTags. 이전 순서는 stripTags 가 entity 못 풀어 HTML 태그 잔존.
+      description: stripTags(decodeEntities(desc)).replace(/\s+/g, ' ').trim().slice(0, 400),
     })
   }
   return items
