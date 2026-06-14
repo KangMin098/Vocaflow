@@ -49,6 +49,8 @@ const SOURCE_OPTS = Object.fromEntries(
 // 난이도 밴드 — est_v_level 기준 (사용자 정책: 난이도 = V-Level). CEFR 은 보조 표기.
 const V_BANDS: Array<{ value: string; label: string; min: number | null; max: number | null }> = [
   { value: 'all', label: '난이도 전체', min: null, max: null },
+  // v06.56 — 초급(A1–A2) 밴드. StoryWeaver 그림책 등 leveled reader 본체 (est_v_level 1–4).
+  { value: 'a', label: '초급 · A1–A2 (V1–4)', min: 1, max: 4 },
   { value: 'b1', label: '입문 · B1 (V5–6)', min: 5, max: 6 },
   { value: 'b2', label: '다독 · B2 (V7)', min: 7, max: 7 },
   { value: 'c1', label: '고급 · C1 (V8–9)', min: 8, max: 9 },

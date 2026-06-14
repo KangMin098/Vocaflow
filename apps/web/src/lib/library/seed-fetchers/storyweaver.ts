@@ -58,6 +58,23 @@ interface SWBook {
   coverImage?: { sizes?: Array<{ url: string; width: number; height: number }> } | null
 }
 
+/** StoryWeaver 레벨(1-4) → 추정 V-Level. 레벨이 곧 난이도(leveled reader) — A1~B1 권역.
+ *  최종 난이도는 analyze coverage 가 SSoT (이 값은 카탈로그 난이도 밴드 필터용 추정). */
+function levelToEstV(level: string | null): number | null {
+  switch ((level ?? '').trim()) {
+    case '1':
+      return 2 // A1
+    case '2':
+      return 3 // A1-A2
+    case '3':
+      return 4 // A2-B1
+    case '4':
+      return 5 // B1
+    default:
+      return null
+  }
+}
+
 /** coverImage.sizes 중 리스트 썸네일에 맞는 ~320px 폭 선택 (없으면 첫/마지막). */
 function pickCover(b: SWBook): string | null {
   const sizes = b.coverImage?.sizes
@@ -133,6 +150,8 @@ export const storyweaverFetcher: SourceFetcher = {
         description: null,
         reading_time_minutes: null,
         enriched_at: null,
+        // 레벨은 신뢰 가능한 난이도 신호 → fetch 시점에 est_v_level 설정 (난이도 밴드 필터용).
+        est_v_level: levelToEstV(b.level),
       }))
 
     const total = json.metadata?.hits ?? null
