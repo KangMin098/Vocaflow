@@ -27,6 +27,7 @@ import {
   Rocket,
   Beaker,
   GraduationCap,
+  Info,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -429,6 +430,17 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           </div>
         </div>
 
+        {/* v06.47 — 수준 선택의 실제 의미를 화면에서 명시 (오해 방지) */}
+        <p className="mb-3 flex items-start gap-1.5 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-2 font-body text-[10.5px] leading-relaxed text-[var(--t3)]">
+          <Info size={12} className="mt-0.5 shrink-0 text-[var(--t3)]" aria-hidden />
+          <span>
+            <strong className="text-[var(--t2)]">수준 선택은 소스 우선순위·추천만 바꿉니다</strong> — 기사 내용을 레벨로 골라오지는
+            않아요. 각 소스는 아래의 <strong className="text-[var(--t2)]">고정 CEFR 밴드</strong>로 묶이고,{' '}
+            <strong className="text-[var(--t2)]">VOA 피드만 실제 등급제</strong>(A2/B1/B2)예요. 기사별 실제 난이도(V-Level)는{' '}
+            <strong className="text-[var(--t2)]">등재(ingest) 후</strong> 측정됩니다.
+          </span>
+        </p>
+
         <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">
           소스 명세 (multi · 학습자 수준 기반 순위)
         </h3>
@@ -472,18 +484,28 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   <span className="font-mono text-[9.5px] text-[var(--t3)]">
                     {s.feeds.length} feed · cap {spec.maxItemsPerBatch}
                   </span>
-                  {s.isRecommended && (
-                    <span
-                      className="ml-auto rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[8.5px] font-[700]"
-                      style={{
-                        background: 'color-mix(in srgb, var(--memory-stable) 14%, transparent)',
-                        color: 'var(--memory-stable)',
-                      }}
-                      title="이 학습자 수준에 적합한 소스"
-                    >
-                      추천
-                    </span>
-                  )}
+                  {(() => {
+                    // 선택 수준 대비 이 소스의 난이도 — 소스 고정 CEFR 밴드 기준 (기사별 실측 아님)
+                    const fit = fitForLevel(spec, learnerLevel)
+                    const cfg =
+                      fit === 'fit'
+                        ? { label: '이 수준에 적합', color: 'var(--memory-stable)' }
+                        : fit === 'easy'
+                          ? { label: '이 수준엔 쉬움', color: 'var(--info)' }
+                          : { label: '이 수준엔 어려움', color: 'var(--memory-shaky)' }
+                    return (
+                      <span
+                        className="ml-auto rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[8.5px] font-[700]"
+                        style={{
+                          background: `color-mix(in srgb, ${cfg.color} 14%, transparent)`,
+                          color: cfg.color,
+                        }}
+                        title="선택한 학습자 수준 대비 이 소스의 난이도 — 소스 고정 CEFR 밴드 기준 (기사별 실측 아님)"
+                      >
+                        {cfg.label}
+                      </span>
+                    )
+                  })()}
                 </div>
                 {/* 2행 — target CEFR + 라이선스 */}
                 <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t3)]">
@@ -820,4 +842,27 @@ function countFeeds(selectedSources: Set<SourceKey>): number {
   let n = 0
   for (const s of SOURCES) if (selectedSources.has(s.key)) n += s.feeds.length
   return n
+}
+
+// 선택한 학습자 수준 대비 소스 고정 CEFR 밴드의 적합도.
+//   fit  = 밴드가 수준대와 겹침 (적합)
+//   easy = 소스가 수준보다 쉬움 (밴드가 아래)
+//   hard = 소스가 수준보다 어려움 (밴드가 위)
+// ※ 소스 밴드 기준이지 기사별 실측 난이도가 아님.
+const CEFR_RANK: Record<string, number> = { A1: 0, A2: 1, B1: 2, B2: 3, C1: 4, C2: 5 }
+const LEVEL_BAND: Record<LearnerLevel, [number, number]> = {
+  beginner: [0, 1], // A1–A2
+  intermediate: [2, 3], // B1–B2
+  advanced: [4, 5], // C1–C2
+}
+function fitForLevel(
+  spec: { targetCefr: { min: string; max: string } },
+  level: LearnerLevel,
+): 'fit' | 'easy' | 'hard' {
+  const [lo, hi] = LEVEL_BAND[level]
+  const smin = CEFR_RANK[spec.targetCefr.min] ?? 0
+  const smax = CEFR_RANK[spec.targetCefr.max] ?? 5
+  if (smin > hi) return 'hard'
+  if (smax < lo) return 'easy'
+  return 'fit'
 }
