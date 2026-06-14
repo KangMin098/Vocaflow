@@ -10,6 +10,68 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 대량 GET — 전체 재설계 (v06.72)
+
+사용자 명시: "전체 재설계 해달라는것임" (선택 / 가져오기 개수 / 종류 / 결과 조건 모두 사용자 컨트롤). v06.71 의 부분 fix 가 부족 → 4축 동시 재구성.
+
+### 신 state schema
+
+| state | 역할 |
+|---|---|
+| `sourceConfig: Map<SourceKey, { selectedFeeds, maxItems }>` | 소스별 세부 — feed 개별 선택 + 가져올 최대 개수 (1~50) |
+| `globalFilters: { minScoreOverride, recencyDaysOverride }` | 전역 spec override (null = spec 기본) |
+| `expandedSources: Set<SourceKey>` | 어떤 카드가 펼쳐졌는지 |
+| `fetchProgress: { current, total }` | fetch 진행 상태 (실시간 N/M feed) |
+
+### 4축 UI 재구조 ([BulkArticlesTab.tsx](../apps/web/src/app/admin/articles/BulkArticlesTab.tsx))
+
+#### A. 선택 — 빠른 선택 preset chips
+상단에 `기본 (VOA+NASA+NIH)` · `전체 (6 소스)` · `고급 (학자+백과)` 칩 3종. 한 번에 합리적 묶음 선택.
+
+#### B. 종류 — 카드 expand → feed 개별 체크박스
+각 소스 카드에 "세부 설정" 토글 (ChevronDown). 펼치면 해당 소스의 feed 별 체크박스. 헤더에 `{선택}/{전체} feed` 표시.
+
+#### C. 가져오기 개수 — 카드별 maxItems slider+input
+펼친 영역에 maxItems range slider (1~50) + number input (양방향 동기). 기본값 = `SOURCE_SPECS[source].maxItemsPerBatch`. 카드 헤더에 `최대 N` 가시화.
+
+#### D. 결과 조건 — 글로벌 필터 패널 (펼치기)
+🎚 패널 토글. 펼치면:
+- **최소 점수 override** (★ 0~100 slider) — spec.minScore 이상으로 강화 (낮추지는 못함; 다른 소스 spec 들 보호).
+- **신선도 cutoff override** (1~365일 slider).
+- `spec 기본값으로 초기화` 버튼.
+
+펼침 헤더에 현재 override 값 표시 (`min★50 · 30d` 또는 `spec · spec`).
+
+### 진행 상태 표시
+
+fetch 중 버튼 라벨이 `가져오는 중… 3/9 feed` 로 실시간 갱신 + 아래 progress bar (0~100%) 표시. 사용자가 어느 정도 진행 중인지 한눈에 파악.
+
+### handleBulkFetch 재구성
+
+```
+feedsToFetch = SOURCES 순회 → selectedSources & sourceConfig.selectedFeeds 만 추가
+fetch 각 feed → done 카운터 + setFetchProgress
+cap 단계 → globalMinScore = max(spec.minScore, globalFilters.minScoreOverride)
+            (낮춤 X — 다른 소스 spec 보호)
+        → spec 통과 후 applySourceLevelCap
+        → sourceConfig.maxItems 추가 slice
+```
+
+### 결과 패널 (v06.71 그대로)
+
+소스별 분포 (최종 / 원본 −드롭) + N feed. 0건 회색. drop 사유 tooltip.
+
+### 사용자 흐름 (전후)
+
+| 단계 | v06.71 | v06.72 |
+|---|---|---|
+| 빠른 시작 | 카드 일일이 클릭 | preset chip 1 클릭 |
+| 종류 조절 | 불가 (spec 자동) | 카드 펼치고 feed 체크박스 |
+| 개수 조절 | 불가 (spec 고정) | 카드 펼치고 slider 즉시 변경 |
+| 결과 조건 | 불가 (spec 고정) | 글로벌 필터 패널 slider |
+| 진행 상태 | "가져오는 중…" 만 | `3/9 feed` + progress bar |
+| 결과 분포 | 텍스트 row 만 | sourceStats 패널 + tooltip |
+
 ### LCP 대량 GET — 인터페이스/결과 고도화 + 3건 fix (v06.71)
 
 사용자 피드백: "VOA, NASA 외 전부 LCP 대량 가져오기 안됨. 선택, 가져오기 개수, 종류 등 가져오기 인터페이스, 결과 조건 등 고도화 해줘. 많이 불편함."

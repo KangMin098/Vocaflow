@@ -20,6 +20,8 @@ import {
   Calendar,
   CheckCircle2,
   CheckSquare,
+  ChevronDown,
+  ChevronRight,
   Download,
   ExternalLink,
   FlaskConical,
@@ -167,11 +169,65 @@ interface Props {
   onEnqueued: () => void
 }
 
+// v06.72 — 소스별 설정 (feed 개별 선택 + maxItems override)
+interface PerSourceConfig {
+  selectedFeeds: Set<string>
+  maxItems: number
+}
+
+// v06.72 — 글로벌 필터 (null = spec 기본값 사용)
+interface GlobalFilters {
+  minScoreOverride: number | null // 0.0 ~ 1.0
+  recencyDaysOverride: number | null // 1 ~ 9999
+}
+
+// v06.72 — 빠른 선택 preset
+type Preset = 'basic' | 'all' | 'advanced'
+const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
+  basic: ['voa', 'nasa', 'nih'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation'],
+  advanced: ['the_conversation', 'simple_wikipedia'],
+}
+const PRESET_LABEL: Record<Preset, string> = {
+  basic: '기본 (VOA + NASA + NIH)',
+  all: '전체 (6 소스)',
+  advanced: '고급 (학자 논증 · 백과)',
+}
+
+function defaultSourceConfig(): Map<SourceKey, PerSourceConfig> {
+  const m = new Map<SourceKey, PerSourceConfig>()
+  for (const s of SOURCES) {
+    m.set(s.key, {
+      selectedFeeds: new Set(s.feeds.map((f) => f.id)),
+      maxItems: SOURCE_SPECS[s.key].maxItemsPerBatch,
+    })
+  }
+  return m
+}
+
 export function BulkArticlesTab({ onEnqueued }: Props) {
   // 선택된 소스
   const [selectedSources, setSelectedSources] = useState<Set<SourceKey>>(
     new Set(['voa', 'nasa', 'nih']),
   )
+  // v06.72 — 소스별 세부 (feed 선택 + maxItems)
+  const [sourceConfig, setSourceConfig] = useState<Map<SourceKey, PerSourceConfig>>(
+    defaultSourceConfig(),
+  )
+  // v06.72 — 어떤 소스 카드가 펼쳐졌는지
+  const [expandedSources, setExpandedSources] = useState<Set<SourceKey>>(new Set())
+  // v06.72 — 글로벌 필터 (모두 null = spec 기본)
+  const [globalFilters, setGlobalFilters] = useState<GlobalFilters>({
+    minScoreOverride: null,
+    recencyDaysOverride: null,
+  })
+  // v06.72 — 글로벌 필터 패널 펼침 상태
+  const [filtersExpanded, setFiltersExpanded] = useState(false)
+  // v06.72 — fetch 진행 상태 (current/total feeds)
+  const [fetchProgress, setFetchProgress] = useState<{ current: number; total: number } | null>(
+    null,
+  )
+
   // 결과
   const [rows, setRows] = useState<BulkRow[]>([])
   const [failedFeeds, setFailedFeeds] = useState<
@@ -298,6 +354,53 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     setSelectedSources(allSelected ? new Set() : new Set(SOURCES.map((s) => s.key)))
   }
 
+  // v06.72 — preset 적용 (빠른 선택 칩)
+  const applyPreset = (preset: Preset) => {
+    setSelected(new Set())
+    setEnqueueResult(null)
+    setSelectedSources(new Set(PRESET_SOURCES[preset]))
+  }
+
+  // v06.72 — 카드 펼침 토글
+  const toggleExpand = (key: SourceKey) => {
+    setExpandedSources((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  // v06.72 — 카드 안 feed 개별 토글
+  const toggleFeed = (sourceKey: SourceKey, feedId: string) => {
+    setSourceConfig((prev) => {
+      const next = new Map(prev)
+      const cur = next.get(sourceKey) ?? {
+        selectedFeeds: new Set<string>(),
+        maxItems: SOURCE_SPECS[sourceKey].maxItemsPerBatch,
+      }
+      const feeds = new Set(cur.selectedFeeds)
+      if (feeds.has(feedId)) feeds.delete(feedId)
+      else feeds.add(feedId)
+      next.set(sourceKey, { ...cur, selectedFeeds: feeds })
+      return next
+    })
+  }
+
+  // v06.72 — 소스별 maxItems 변경
+  const setSourceMaxItems = (sourceKey: SourceKey, value: number) => {
+    const clamped = Math.max(1, Math.min(50, Math.round(value || 1)))
+    setSourceConfig((prev) => {
+      const next = new Map(prev)
+      const cur = next.get(sourceKey) ?? {
+        selectedFeeds: new Set<string>(),
+        maxItems: SOURCE_SPECS[sourceKey].maxItemsPerBatch,
+      }
+      next.set(sourceKey, { ...cur, maxItems: clamped })
+      return next
+    })
+  }
+
   // 모든 feed 순회
   async function handleBulkFetch() {
     setFetching(true)
@@ -308,26 +411,39 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     setSelected(new Set())
 
     const feedsToFetch: Array<{ source: SourceKey; feed: FeedConfig }> = []
+    // v06.72 — sourceConfig.selectedFeeds 만 fetch (이전: 모든 feeds 일괄)
     for (const s of SOURCES) {
       if (!selectedSources.has(s.key)) continue
-      for (const f of s.feeds) feedsToFetch.push({ source: s.key, feed: f })
+      const cfg = sourceConfig.get(s.key)
+      const allowed = cfg?.selectedFeeds ?? new Set(s.feeds.map((f) => f.id))
+      for (const f of s.feeds) {
+        if (allowed.has(f.id)) feedsToFetch.push({ source: s.key, feed: f })
+      }
     }
 
+    // v06.72 — fetch 진행 추적 (current/total). 완료마다 +1.
+    setFetchProgress({ current: 0, total: feedsToFetch.length })
+    let done = 0
     const results = await Promise.allSettled(
       feedsToFetch.map(async ({ source, feed }) => {
-        const res = await fetch(
-          `/api/admin/articles/${source}-feed?feed=${encodeURIComponent(feed.id)}`,
-        )
-        const data = await res.json()
-        if (!res.ok) {
-          throw new Error(data.message ?? `HTTP ${res.status}`)
-        }
-        return {
-          source,
-          feed_id: feed.id,
-          feed_label: feed.label,
-          items: (data.items ?? []) as FeedItem[],
-          publishedSourceIds: (data.publishedSourceIds ?? []) as string[],
+        try {
+          const res = await fetch(
+            `/api/admin/articles/${source}-feed?feed=${encodeURIComponent(feed.id)}`,
+          )
+          const data = await res.json()
+          if (!res.ok) {
+            throw new Error(data.message ?? `HTTP ${res.status}`)
+          }
+          return {
+            source,
+            feed_id: feed.id,
+            feed_label: feed.label,
+            items: (data.items ?? []) as FeedItem[],
+            publishedSourceIds: (data.publishedSourceIds ?? []) as string[],
+          }
+        } finally {
+          done += 1
+          setFetchProgress({ current: done, total: feedsToFetch.length })
         }
       }),
     )
@@ -358,9 +474,9 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       }
     })
 
-    // v06.42 소스 레벨 cap 적용. v06.71 — 하드코딩 ['voa','nasa','nih'] 만 처리되던 버그
-    //   수정 (wikinews/the_conversation/simple_wikipedia 가 결과 빠짐). SOURCES 전수 순회.
-    // v06.71 — sourceStats 동시 누적 (사용자에게 fetched/passed/capped 분포 표시).
+    // v06.42 소스 레벨 cap 적용. v06.71 SOURCES 전수 순회.
+    // v06.72 — sourceConfig.maxItems override (각 소스별 사용자 지정 cap).
+    //   globalFilters.minScoreOverride 추가 가드 적용 (spec minScore 위로만 덮어쓰기).
     const byCappedSource: BulkRow[] = []
     const stats: Record<string, { fetched: number; passed: number; capped: number; feeds: number }> = {}
     const feedsPerSource = new Map<string, Set<string>>()
@@ -368,17 +484,27 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       if (!feedsPerSource.has(ff.source)) feedsPerSource.set(ff.source, new Set())
       feedsPerSource.get(ff.source)!.add(ff.feed.id)
     }
+    const globalMinScore = globalFilters.minScoreOverride
     for (const sourceCfg of SOURCES) {
       const ofSource = accRows.filter((r) => r.source === sourceCfg.key)
       const fetched = ofSource.length
-      const passed = ofSource.filter(
-        (r) => (r.score?.total ?? 0) >= SOURCE_SPECS[sourceCfg.key].minScore,
-      ).length
-      const capped = ofSource.length > 0 ? applySourceLevelCap(ofSource, sourceCfg.key) : []
-      byCappedSource.push(...capped)
+      const specMinScore = SOURCE_SPECS[sourceCfg.key].minScore
+      const effMinScore = globalMinScore != null ? Math.max(specMinScore, globalMinScore) : specMinScore
+      // v06.72 — global minScore override 후 추가 필터링
+      const passedItems = ofSource.filter((r) => (r.score?.total ?? 0) >= effMinScore)
+      const capped = passedItems.length > 0 ? applySourceLevelCap(passedItems, sourceCfg.key) : []
+      // v06.72 — 사용자 지정 maxItems 추가 cap (slice).
+      const userMax = sourceConfig.get(sourceCfg.key)?.maxItems
+      const finalCapped = userMax != null && userMax < capped.length ? capped.slice(0, userMax) : capped
+      byCappedSource.push(...finalCapped)
       const feedsCount = feedsPerSource.get(sourceCfg.key)?.size ?? 0
       if (fetched > 0 || feedsCount > 0) {
-        stats[sourceCfg.key] = { fetched, passed, capped: capped.length, feeds: feedsCount }
+        stats[sourceCfg.key] = {
+          fetched,
+          passed: passedItems.length,
+          capped: finalCapped.length,
+          feeds: feedsCount,
+        }
       }
     }
 
@@ -389,6 +515,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     setFailedFeeds(accFail)
     setSourceStats(stats)
     setFetching(false)
+    setFetchProgress(null)
   }
 
   // row 선택 토글
@@ -466,6 +593,22 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
       {/* v06.42 — 학습자 수준 선택기 + 소스 자동 정렬 + 소스 명세 카드 */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        {/* v06.72 — 빠른 선택 preset (한 번에 합리적 묶음) */}
+        <div className="mb-3 flex flex-wrap items-center gap-1.5">
+          <span className="font-display text-[11.5px] font-[600] text-[var(--t2)]">빠른 선택:</span>
+          {(['basic', 'all', 'advanced'] as Preset[]).map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => applyPreset(p)}
+              disabled={fetching}
+              className="inline-flex h-7 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[10.5px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {PRESET_LABEL[p]}
+            </button>
+          ))}
+        </div>
+
         {/* 학습자 수준 — 소스 자동 정렬 기준 */}
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <GraduationCap size={13} className="text-[var(--t3)]" />
@@ -488,6 +631,96 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* v06.72 — 글로벌 필터 패널 (펼치기) */}
+        <div className="mb-4 rounded-[var(--r-sm)] border border-[var(--bd)]">
+          <button
+            type="button"
+            onClick={() => setFiltersExpanded((v) => !v)}
+            className="flex w-full items-center justify-between gap-2 rounded-[var(--r-sm)] px-3 py-2 text-left font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+          >
+            <span>🎚 결과 조건 (글로벌 필터 override)</span>
+            <span className="font-mono text-[10px] text-[var(--t3)]">
+              {globalFilters.minScoreOverride != null
+                ? `min★${Math.round(globalFilters.minScoreOverride * 100)}`
+                : 'spec'}
+              {' · '}
+              {globalFilters.recencyDaysOverride != null
+                ? `${globalFilters.recencyDaysOverride}d`
+                : 'spec'}
+            </span>
+          </button>
+          {filtersExpanded && (
+            <div className="grid gap-3 border-t border-[var(--bd)] p-3 sm:grid-cols-2">
+              {/* minScore override */}
+              <label className="flex flex-col gap-1">
+                <span className="font-mono text-[10.5px] uppercase tracking-wider text-[var(--t3)]">
+                  최소 점수 (★ override · 비우면 spec 기본)
+                </span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={globalFilters.minScoreOverride ?? 0}
+                    onChange={(e) => {
+                      const v = parseInt(e.target.value, 10)
+                      setGlobalFilters((g) => ({
+                        ...g,
+                        minScoreOverride: v === 0 ? null : v / 100,
+                      }))
+                    }}
+                    className="h-1.5 flex-1 cursor-pointer accent-[var(--p)]"
+                  />
+                  <span className="w-12 text-right font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                    {globalFilters.minScoreOverride != null
+                      ? `★${Math.round(globalFilters.minScoreOverride * 100)}`
+                      : 'spec'}
+                  </span>
+                </div>
+              </label>
+
+              {/* recencyDays override */}
+              <label className="flex flex-col gap-1">
+                <span className="font-mono text-[10.5px] uppercase tracking-wider text-[var(--t3)]">
+                  신선도 cutoff (일 · 비우면 spec 기본)
+                </span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={0}
+                    max={365}
+                    step={1}
+                    value={globalFilters.recencyDaysOverride ?? 0}
+                    onChange={(e) => {
+                      const v = parseInt(e.target.value, 10)
+                      setGlobalFilters((g) => ({
+                        ...g,
+                        recencyDaysOverride: v === 0 ? null : v,
+                      }))
+                    }}
+                    className="h-1.5 flex-1 cursor-pointer accent-[var(--p)]"
+                  />
+                  <span className="w-12 text-right font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                    {globalFilters.recencyDaysOverride != null
+                      ? `${globalFilters.recencyDaysOverride}d`
+                      : 'spec'}
+                  </span>
+                </div>
+              </label>
+              <button
+                type="button"
+                onClick={() =>
+                  setGlobalFilters({ minScoreOverride: null, recencyDaysOverride: null })
+                }
+                className="font-display text-[11px] font-[600] text-[var(--t3)] hover:text-[var(--p)] sm:col-span-2"
+              >
+                spec 기본값으로 초기화
+              </button>
+            </div>
+          )}
         </div>
 
         {/* v06.47 — 수준 선택의 실제 의미를 화면에서 명시 (오해 방지) */}
@@ -520,26 +753,32 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         </div>
 
         {/* 소스 카드 list — 학습자 수준에 맞춰 자동 정렬, 각 소스의 spec 가시화 */}
+        {/* v06.72 — 카드 expand: feed 개별 토글 + maxItems input */}
         <div className="grid gap-2 sm:grid-cols-2">
           {orderedSources.map((s) => {
             const active = selectedSources.has(s.key)
+            const expanded = expandedSources.has(s.key)
             const Icon = s.Icon
             const spec = SOURCE_SPECS[s.key]
+            const cfg = sourceConfig.get(s.key)
+            const selectedFeedCount = cfg?.selectedFeeds.size ?? s.feeds.length
+            const userMaxItems = cfg?.maxItems ?? spec.maxItemsPerBatch
             return (
-              <button
+              <div
                 key={s.key}
-                type="button"
-                onClick={() => toggleSource(s.key)}
-                disabled={fetching}
                 className="group relative flex flex-col gap-1.5 rounded-[var(--r-sm)] border p-2.5 text-left transition-all"
                 style={{
                   background: active ? `color-mix(in srgb, ${s.color} 8%, transparent)` : 'var(--bg)',
                   borderColor: active ? s.color : 'var(--bd)',
                 }}
               >
-                {/* 1행 — 체크박스 · 우선순위 · 라벨 · feed 수 · 추천 배지 */}
-                <div className="flex items-center gap-1.5">
-                  {/* v06.63 — 명시적 체크박스 (이전 색깔 변화만으로는 선택 상태 불명확) */}
+                {/* clickable header — 소스 토글 */}
+                <button
+                  type="button"
+                  onClick={() => toggleSource(s.key)}
+                  disabled={fetching}
+                  className="flex items-center gap-1.5 text-left disabled:cursor-not-allowed"
+                >
                   {active ? (
                     <CheckSquare size={14} aria-hidden style={{ color: s.color }} />
                   ) : (
@@ -562,12 +801,11 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     {s.label}
                   </span>
                   <span className="font-mono text-[9.5px] text-[var(--t3)]">
-                    {s.feeds.length} feed · cap {spec.maxItemsPerBatch}
+                    {selectedFeedCount}/{s.feeds.length} feed · 최대 {userMaxItems}
                   </span>
                   {(() => {
-                    // 선택 수준 대비 이 소스의 난이도 — 소스 고정 CEFR 밴드 기준 (기사별 실측 아님)
                     const fit = fitForLevel(spec, learnerLevel)
-                    const cfg =
+                    const c =
                       fit === 'fit'
                         ? { label: '이 수준에 적합', color: 'var(--memory-stable)' }
                         : fit === 'easy'
@@ -577,16 +815,16 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       <span
                         className="ml-auto rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[8.5px] font-[700]"
                         style={{
-                          background: `color-mix(in srgb, ${cfg.color} 14%, transparent)`,
-                          color: cfg.color,
+                          background: `color-mix(in srgb, ${c.color} 14%, transparent)`,
+                          color: c.color,
                         }}
-                        title="선택한 학습자 수준 대비 이 소스의 난이도 — 소스 고정 CEFR 밴드 기준 (기사별 실측 아님)"
                       >
-                        {cfg.label}
+                        {c.label}
                       </span>
                     )
                   })()}
-                </div>
+                </button>
+
                 {/* 2행 — target CEFR + 라이선스 */}
                 <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t3)]">
                   <span>CEFR {spec.targetCefr.min}–{spec.targetCefr.max}</span>
@@ -605,7 +843,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 <div className="line-clamp-1 font-body text-[10.5px] text-[var(--t3)]">
                   {spec.styleGuide}
                 </div>
-                {/* v06.71 — health 상태 표시 (inactive/unstable 시) */}
+
+                {/* v06.71 — health 상태 표시 */}
                 {s.health && s.health !== 'ok' && (
                   <div
                     className="flex items-start gap-1 rounded-[var(--r-sm)] px-1.5 py-1 font-body text-[9.5px]"
@@ -616,7 +855,6 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                           : 'color-mix(in srgb, var(--warning) 12%, transparent)',
                       color: s.health === 'inactive' ? 'var(--memory-shaky)' : 'var(--warning)',
                     }}
-                    title={s.healthNote}
                   >
                     <AlertCircle size={10} aria-hidden className="mt-0.5 shrink-0" />
                     <span>
@@ -625,26 +863,127 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     </span>
                   </div>
                 )}
-              </button>
+
+                {/* v06.72 — expand toggle (feed 선택 + maxItems) */}
+                <button
+                  type="button"
+                  onClick={() => toggleExpand(s.key)}
+                  disabled={fetching}
+                  className="inline-flex items-center gap-1 self-start rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed"
+                  aria-expanded={expanded}
+                >
+                  {expanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
+                  {expanded ? '세부 닫기' : '세부 설정 (feed · 개수)'}
+                </button>
+
+                {expanded && (
+                  <div className="mt-1 flex flex-col gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
+                    {/* maxItems */}
+                    <label className="flex flex-wrap items-center gap-1.5">
+                      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t3)]">
+                        가져올 최대 개수
+                      </span>
+                      <input
+                        type="range"
+                        min={1}
+                        max={50}
+                        step={1}
+                        value={userMaxItems}
+                        onChange={(e) => setSourceMaxItems(s.key, parseInt(e.target.value, 10))}
+                        disabled={fetching}
+                        className="h-1.5 flex-1 cursor-pointer accent-[var(--p)]"
+                      />
+                      <input
+                        type="number"
+                        min={1}
+                        max={50}
+                        value={userMaxItems}
+                        onChange={(e) => setSourceMaxItems(s.key, parseInt(e.target.value, 10) || 1)}
+                        disabled={fetching}
+                        className="h-6 w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 font-mono text-[11px] tabular-nums text-[var(--t1)]"
+                      />
+                    </label>
+                    {/* feed checkboxes */}
+                    <div className="flex flex-col gap-1">
+                      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t3)]">
+                        Feed 선택 ({selectedFeedCount}/{s.feeds.length})
+                      </span>
+                      {s.feeds.map((f) => {
+                        const fSelected = cfg?.selectedFeeds.has(f.id) ?? true
+                        return (
+                          <label
+                            key={f.id}
+                            className="flex cursor-pointer items-center gap-1.5 rounded-[var(--r-sm)] px-1.5 py-0.5 text-[10.5px] hover:bg-[var(--bg2)]"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={fSelected}
+                              onChange={() => toggleFeed(s.key, f.id)}
+                              disabled={fetching}
+                              className="h-3 w-3 accent-[var(--p)]"
+                            />
+                            <span
+                              className="font-body text-[var(--t2)]"
+                              style={fSelected ? undefined : { color: 'var(--t4)' }}
+                            >
+                              {f.label}
+                            </span>
+                          </label>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             )
           })}
         </div>
 
-        <button
-          type="button"
-          onClick={handleBulkFetch}
-          disabled={fetching || selectedSources.size === 0}
-          className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
-        >
-          {fetching ? (
-            <Loader2 size={12} className="animate-spin" />
-          ) : (
-            <Download size={12} />
+        {/* v06.72 — fetch 버튼 + 진행 bar */}
+        <div className="mt-3 flex flex-col gap-1.5">
+          <button
+            type="button"
+            onClick={handleBulkFetch}
+            disabled={fetching || selectedSources.size === 0}
+            className="inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+          >
+            {fetching ? (
+              <Loader2 size={12} className="animate-spin" />
+            ) : (
+              <Download size={12} />
+            )}
+            {fetching
+              ? fetchProgress
+                ? `가져오는 중… ${fetchProgress.current}/${fetchProgress.total} feed`
+                : '가져오는 중…'
+              : (() => {
+                  // v06.72 — 실제 fetch 대상 feed 수 (sourceConfig.selectedFeeds)
+                  let feeds = 0
+                  for (const s of SOURCES) {
+                    if (!selectedSources.has(s.key)) continue
+                    const cfg = sourceConfig.get(s.key)
+                    feeds += cfg?.selectedFeeds.size ?? s.feeds.length
+                  }
+                  return `${[...selectedSources].length} 소스 · ${feeds} 카테고리 일괄 가져오기`
+                })()}
+          </button>
+          {fetching && fetchProgress && fetchProgress.total > 0 && (
+            <div
+              className="h-1.5 overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]"
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={fetchProgress.total}
+              aria-valuenow={fetchProgress.current}
+            >
+              <div
+                className="h-full rounded-[var(--r-full)] bg-[var(--p)] transition-[width] duration-200"
+                style={{
+                  width: `${Math.round((fetchProgress.current / fetchProgress.total) * 100)}%`,
+                }}
+              />
+            </div>
           )}
-          {fetching
-            ? '가져오는 중…'
-            : `${[...selectedSources].length} 소스 · ${countFeeds(selectedSources)} 카테고리 일괄 가져오기`}
-        </button>
+        </div>
       </section>
 
       {/* v06.71 — 소스별 결과 분포 (fetched/passed/capped) */}
