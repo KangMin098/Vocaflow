@@ -17,6 +17,8 @@ import { ArticleWordSetPreviewModal } from './ArticleWordSetPreviewModal'
 interface Props {
   title: string
   cefrLevel: string | null
+  /** v06.51 — V-Level baseline (compute_article_vrl P75). select_article_vocab 게이트 결과. */
+  articleVLevel: number | null
   wordCount: number | null
   readingMinutes: number | null
   vocab: ReviewVocab[]
@@ -25,6 +27,7 @@ interface Props {
 export function ArticleExtractionPanel({
   title,
   cefrLevel,
+  articleVLevel,
   wordCount,
   readingMinutes,
   vocab,
@@ -51,8 +54,9 @@ export function ArticleExtractionPanel({
               학습 단어 추출 — 분석 결과
             </h2>
             <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">
-              글 발행 시 학습자 WordVault 추출 대상 · composite = freq_boost 0.70 + salience 0.10 +
-              skill penalty · 📜 고어·🏛 시대어는 본문 툴팁
+              article_v_level{articleVLevel != null ? ` V${articleVLevel}` : ''} 이상 · 📜 고어·🏛
+              시대어 제외(본문 툴팁으로) · composite = freq_boost 0.70 + salience 0.10 + skill
+              penalty · 발행 단어장과 동일 결과·순서 (LCP SSoT)
             </p>
           </div>
         </div>
@@ -69,12 +73,16 @@ export function ArticleExtractionPanel({
         )}
       </header>
 
-      <div className="grid grid-cols-2 gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3 sm:grid-cols-5">
+        <MetaCell label="발행 기준" value={articleVLevel != null ? `≥ V${articleVLevel}` : '≥ V4'} />
+        <MetaCell label="article_v_level" value={articleVLevel != null ? `V${articleVLevel}` : '—'} />
         <MetaCell label="CEFR" value={cefrLevel ?? '—'} />
         <MetaCell label="본문 단어수" value={wordCount?.toLocaleString() ?? '—'} />
         <MetaCell label="추출 단어" value={`${vocab.length}개`} />
-        <MetaCell label="읽기 시간" value={readingMinutes ? `${readingMinutes}분` : '—'} />
       </div>
+      {readingMinutes != null && (
+        <p className="font-mono text-[10px] text-[var(--t3)]">읽기 시간: {readingMinutes}분</p>
+      )}
 
       {missing > 0 && (
         <p className="rounded-[var(--r-sm)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2 font-body text-[11px] text-[#92400E]">

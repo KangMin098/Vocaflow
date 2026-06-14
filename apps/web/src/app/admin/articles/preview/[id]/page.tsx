@@ -71,82 +71,62 @@ export default async function AdminArticlePreviewPage({ params }: PageProps) {
   }
   const a = article as ArticleRow
 
-  // 추출 단어 전량 (base_learning_value desc) — 발행 결과 = 학습 단어
-  const { data: vocabRows } = await client
-    .from('library_article_vocabularies')
-    .select('word, lemma, first_sentence, base_learning_value, frequency_in_article')
-    .eq('library_article_id', a.id)
-    .order('base_learning_value', { ascending: false, nullsFirst: false })
+  // v06.51 — select_article_vocab RPC (LCP SSoT 동일 패턴):
+  //   • V-Level >= article_v_level 게이트 (없으면 V4 fallback)
+  //   • skill penalty (skill=4 AND avl<6 → -0.10)
+  //   • register filter (archaic_literary/period_cultural/phrase_unit 제외)
+  //   • composite_score 정렬 — preview == publish 100% 동일
+  //   shared_dictionary 조인은 RPC 내부에서 완료 → page 단계 JOIN 불필요.
+  const sb = client as unknown as {
+    rpc: (
+      n: string,
+      p: Record<string, unknown>,
+    ) => Promise<{ data: unknown; error: { message: string } | null }>
+  }
+  const { data: vocabRows } = await sb.rpc('select_article_vocab', { p_article_id: a.id })
 
-  const rows = (vocabRows ?? []) as Array<{
+  type SelectedRow = {
     word: string
     lemma: string | null
-    first_sentence: string | null
-    base_learning_value: number | null
+    meaning_ko: string | null
+    v_level: number | null
+    cefr_level: string | null
+    pos: string | null
+    example_en: string | null
+    word_register: string | null
+    frequency_rank: number | null
     frequency_in_article: number | null
-  }>
-
-  // 뜻 / pos / CEFR / V-Level / register / frequency_rank 조인 (shared_dictionary)
-  const lemmaList = [...new Set(rows.map((r) => r.lemma ?? r.word))]
-  const dictMap = new Map<
-    string,
-    {
-      meaning_ko: string | null
-      pos: string | null
-      cefr_level: string | null
-      v_level: number | null
-      word_register: string | null
-      frequency_rank: number | null
-    }
-  >()
-  if (lemmaList.length > 0) {
-    // .in() 청크 (대용량 article 대비)
-    const CHUNK = 500
-    for (let i = 0; i < lemmaList.length; i += CHUNK) {
-      const slice = lemmaList.slice(i, i + CHUNK)
-      const { data: dict } = await client
-        .from('shared_dictionary')
-        .select('word, meaning_ko, pos, cefr_level, v_level, word_register, frequency_rank')
-        .in('word', slice)
-      for (const d of (dict ?? []) as Array<{
-        word: string
-        meaning_ko: string | null
-        pos: string | null
-        cefr_level: string | null
-        v_level: number | null
-        word_register: string | null
-        frequency_rank: number | null
-      }>) {
-        dictMap.set(d.word, {
-          meaning_ko: d.meaning_ko,
-          pos: d.pos,
-          cefr_level: d.cefr_level,
-          v_level: d.v_level,
-          word_register: d.word_register,
-          frequency_rank: d.frequency_rank,
-        })
-      }
-    }
+    skill_level: number | null
+    composite_score: number | null
+    sort_order: number | null
+    first_sentence: string | null
   }
+  const rows = (vocabRows ?? []) as SelectedRow[]
 
-  const vocab: ReviewVocab[] = rows.map((r, i) => {
-    const key = r.lemma ?? r.word
-    const m = dictMap.get(key)
-    return {
-      rank: i + 1,
-      word: r.word,
-      lemma: r.lemma,
-      firstSentence: r.first_sentence,
-      baseLearningValue: r.base_learning_value,
-      frequencyInArticle: r.frequency_in_article,
-      meaningKo: m?.meaning_ko ?? null,
-      pos: m?.pos ?? null,
-      cefrLevel: m?.cefr_level ?? null,
-      vLevel: m?.v_level ?? null,
-      wordRegister: m?.word_register ?? null,
-      frequencyRank: m?.frequency_rank ?? null,
-    }
-  })
+  // article_v_level (UI 헤더 baseline 칩에 사용) — RPC 가 게이트로 이미 사용한 값.
+  const { data: vlRow } = await client
+    .from('library_articles')
+    .select('article_v_level')
+    .eq('id', a.id)
+    .maybeSingle()
+  const articleVLevel =
+    (vlRow as { article_v_level: number | null } | null)?.article_v_level ?? null
+
+  const vocab: ReviewVocab[] = rows.map((r) => ({
+    rank: r.sort_order ?? 0,
+    word: r.word,
+    lemma: r.lemma,
+    firstSentence: r.first_sentence,
+    // baseLearningValue 자리에 composite_score 매핑 — UI "LV" 컬럼이 SSoT score 표시.
+    baseLearningValue: r.composite_score,
+    frequencyInArticle: r.frequency_in_article,
+    meaningKo: r.meaning_ko,
+    pos: r.pos,
+    cefrLevel: r.cefr_level,
+    vLevel: r.v_level,
+    wordRegister: r.word_register,
+    frequencyRank: r.frequency_rank,
+  }))
 
   return (
     <div className="flex flex-col gap-4 p-6">
@@ -160,6 +140,7 @@ export default async function AdminArticlePreviewPage({ params }: PageProps) {
           author: a.author,
           cefrLevel: a.cefr_level,
           cefrConfidence: a.cefr_confidence,
+          articleVLevel: articleVLevel,
           wordCount: a.word_count,
           readingMinutes: a.reading_minutes,
           status: a.status,

@@ -101,6 +101,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     await updateStatus('analyzing')
     const result = await analyzeArticle(body.article_id, norm)
 
+    // 3-1) v06.51 — article_v_level (book_v_level 동일 알고리즘: P75 DISTINCT lemma, V11 제외)
+    //      vocab INSERT 직후 호출 — select_article_vocab 의 V-Level 게이트 baseline.
+    {
+      const sb = client as unknown as {
+        rpc: (n: string, p: Record<string, unknown>) => Promise<{ error: { message: string } | null }>
+      }
+      const { error: vrlErr } = await sb.rpc('compute_article_vrl', { p_article_id: body.article_id })
+      if (vrlErr) {
+        // VRL 산출 실패는 치명적 X — article_v_level NULL 이면 select_article_vocab 가 V4 fallback
+        console.warn('[acp/dev-process] compute_article_vrl warning:', vrlErr.message)
+      }
+    }
+
     // 4) library_articles 메타 업데이트 + status='ready' (dev 는 auto_curate 우회)
     await client
       .from('library_articles')

@@ -236,6 +236,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
       <ArticleExtractionPanel
         title={article.title}
         cefrLevel={article.cefrLevel}
+        articleVLevel={article.articleVLevel}
         wordCount={article.wordCount}
         readingMinutes={article.readingMinutes}
         vocab={vocab}

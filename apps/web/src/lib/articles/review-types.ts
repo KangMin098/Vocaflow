@@ -29,6 +29,8 @@ export interface ReviewArticle {
   author: string | null
   cefrLevel: string | null
   cefrConfidence: number | null
+  /** v06.51 — V-Level baseline (compute_article_vrl P75, V11 제외). select_article_vocab 게이트. */
+  articleVLevel: number | null
   wordCount: number | null
   readingMinutes: number | null
   status: ArticleStatus
