@@ -19,6 +19,7 @@ import {
   ingestFromLibriVox,
   ingestFromOpenStax,
   ingestFromSimpleWikipedia,
+  ingestFromStoryWeaver,
   normalizeBook,
   segmentBook,
 } from '@vocaflow/library-pipeline'
@@ -104,6 +105,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     else if (source === 'librivox') raw = await ingestFromLibriVox(source_id)
     else if (source === 'openstax') raw = await ingestFromOpenStax(source_id)
     else if (source === 'simple_wikipedia') raw = await ingestFromSimpleWikipedia(source_id)
+    else if (source === 'storyweaver') raw = await ingestFromStoryWeaver(source_id)
     else return NextResponse.json({ error: `Source not supported: ${source}` }, { status: 400 })
 
     const norm = normalizeBook(raw)

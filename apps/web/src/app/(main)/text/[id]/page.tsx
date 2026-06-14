@@ -675,6 +675,7 @@ export default function WorkspacePage({ params }: PageProps) {
 
       <ReadingUniverse
         paragraphs={paragraphs}
+        illustrations={ctx?.illustrations ?? null}
         isFocusMode={isFocusMode}
         onWordHover={handleWordHover}
         onSentencePlay={isShadow ? shadow.controls.jumpTo : handleSentencePlay}

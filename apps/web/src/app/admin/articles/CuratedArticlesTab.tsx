@@ -54,8 +54,33 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
     })
   }
 
+  // v06.56 — admin_force_publish_article 등 SECURITY DEFINER RPC 는 DEV_ADMIN_BYPASS=1
+  //   환경에서 auth.uid()=NULL → is_admin_or_curator()=false → "Forbidden". 서버 API
+  //   route 경유로 전환 (requireAdmin + service_role 패턴). 다른 RPC (보관/되돌리기 등)
+  //   는 같은 함정 잠재하나 호출 시점에 별도 라우트 신설.
+  const RPC_ROUTE: Record<string, string> = {
+    admin_force_publish_article: '/api/admin/articles/force-publish',
+  }
   async function rpcAction(name: string, id: string, actionLabel: string) {
     await runAction(actionLabel, async () => {
+      const route = RPC_ROUTE[name]
+      if (route) {
+        const res = await fetch(route, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ article_id: id }),
+        })
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string
+          message?: string
+          ok?: boolean
+        }
+        if (!res.ok || !data.ok) {
+          throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
+        }
+        return
+      }
+      // 그 외 액션은 기존 browser RPC 유지 (향후 같은 패턴 적용 가능).
       const client = createClient() as unknown as {
         rpc: (
           n: string,

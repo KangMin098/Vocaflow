@@ -13,15 +13,17 @@ import type { WikibooksPreview } from './WikibooksIdTab';
 import type { WikisourcePreview } from './WikisourceIdTab';
 import type { LibriVoxPreview } from './LibriVoxIdTab';
 import type { OpenStaxPreview } from './OpenStaxIdTab';
+import type { StoryWeaverPreview } from './StoryWeaverIdTab';
 
-/** Union — Seed + Gutenberg + Wikibooks + Wikisource + LibriVox + OpenStax preview sources. */
+/** Union — Seed + Gutenberg + Wikibooks + Wikisource + LibriVox + OpenStax + StoryWeaver preview sources. */
 export type EnqueueSource =
   | { kind: 'seed'; data: SeedItem }
   | { kind: 'preview'; data: GutenbergPreview }
   | { kind: 'wikibooks'; data: WikibooksPreview }
   | { kind: 'wikisource'; data: WikisourcePreview }
   | { kind: 'librivox'; data: LibriVoxPreview }
-  | { kind: 'openstax'; data: OpenStaxPreview };
+  | { kind: 'openstax'; data: OpenStaxPreview }
+  | { kind: 'storyweaver'; data: StoryWeaverPreview };
 
 interface EnqueueModalProps {
   source: EnqueueSource | null;
@@ -241,6 +243,18 @@ function normalizeSource(s: EnqueueSource): NormalizedEnqueue {
     // OpenStax 는 모두 CC BY 4.0 — author 는 'OpenStax (Rice University)' 고정,
     // 생몰년 없음. license 가 CC BY 라 copyright_safe_in_kr 트리거가 70년 룰을
     // 통과 못 함 → ready 상태에서 admin 이 강제 publish 결정.
+    return {
+      source: s.data.source,
+      source_id: s.data.source_id,
+      title: s.data.title,
+      author: s.data.author,
+      author_birth_year: null,
+      author_death_year: null,
+      license: s.data.license,
+    };
+  }
+  if (s.kind === 'storyweaver') {
+    // StoryWeaver 는 모두 CC BY 4.0 — lb_compute_kr_safe 가 license ILIKE 'CC%' → safe ✓.
     return {
       source: s.data.source,
       source_id: s.data.source_id,

@@ -53,6 +53,17 @@ interface BookRow {
   cefr_level: string | null;
   chapter_count: number | null;
   librivox_audio: unknown;
+  /** v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등). [{idx,url,alt}] */
+  illustrations: BookIllustration[] | null;
+  /** v06.53 — 단일 스트림 낭독 오디오 (StoryWeaver readalong). */
+  audio_url: string | null;
+}
+
+/** 그림책 삽화 (library_books.illustrations) — 본문 문단 idx 정합 */
+interface BookIllustration {
+  idx: number;
+  url: string;
+  alt?: string;
 }
 
 interface SiblingRow {
@@ -116,12 +127,14 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   let bookAuthor: string | null = null;
   // v06.x — 현재 챕터의 LibriVox 보이스 (큐레이터가 "챕터 일치" 확인 후 저장한 경우만)
   let chapterAudio: ChapterAudio | null = null;
+  // v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등) — 현재 챕터에 노출
+  let illustrations: BookIllustration[] | null = null;
 
   if (text?.library_book_id && text.chapter_idx != null) {
     const [{ data: bookData }, { data: siblingsData }] = await Promise.all([
       client
         .from('library_books')
-        .select('id, title, author, cefr_level, chapter_count, librivox_audio')
+        .select('id, title, author, cefr_level, chapter_count, librivox_audio, illustrations, audio_url')
         .eq('id', text.library_book_id)
         .maybeSingle(),
       client
@@ -154,6 +167,32 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         text.chapter_idx,
         book.chapter_count ?? siblings.length,
       );
+
+      // v06.53 — StoryWeaver 등 단일 스트림 낭독: LibriVox 매핑 없을 때 audio_url fallback.
+      if (!chapterAudio && typeof book.audio_url === 'string' && /^https?:\/\//.test(book.audio_url)) {
+        chapterAudio = {
+          url: book.audio_url,
+          title: book.title,
+          reader: null,
+          secs: null,
+          librivoxUrl: null,
+          consistency: 'solo',
+          sectionNumber: text.chapter_idx,
+          sectionCount: book.chapter_count ?? siblings.length,
+          parts: [{ url: book.audio_url, title: book.title, reader: null, secs: null }],
+        };
+      }
+
+      // v06.53 — 그림책 삽화: 단일 챕터(그림책 본체) 기준 본문 문단 idx 정합.
+      //   삽화 idx 는 책 전체 문단 순서 → 1챕터 그림책에서 챕터 문단과 직접 일치.
+      //   (다챕터 책은 ch1 만 정합 — 그림책은 사실상 1챕터라 안전.)
+      if (
+        Array.isArray(book.illustrations) &&
+        book.illustrations.length > 0 &&
+        text.chapter_idx === 1
+      ) {
+        illustrations = book.illustrations as BookIllustration[];
+      }
     }
   } else if (text?.user_book_group_id && text.chapter_idx != null) {
     // v06.34 — 사용자 직접 입력 책 그룹: library_books 메타 없음, 형제 chapters 만 fetch.
@@ -178,6 +217,8 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         cefr_level: text.cefr_level,
         chapter_count: siblings.length,
         librivox_audio: null,
+        illustrations: null,
+        audio_url: null,
       };
       bookContext = {
         book: syntheticBook,
@@ -336,6 +377,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       currentChapterWordSet,
       allChapterWordSets,
       chapterAudio,
+      illustrations,
       text: partial,
       paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
     };

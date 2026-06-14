@@ -5,7 +5,7 @@
 import type { Word } from '@/types/library'
 import type { SupportToken } from '@/lib/workspace/support'
 import { Pause, Play } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 interface SentencePart {
   text: string
@@ -33,6 +33,8 @@ interface ChapterMeta {
 
 interface ReadingUniverseProps {
   paragraphs: ParagraphData[]
+  /** v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등). idx = 문단 인덱스, 해당 문단 위에 렌더. */
+  illustrations?: Array<{ idx: number; url: string; alt?: string }> | null
   isFocusMode: boolean
   onWordHover: (word: Word, anchorRect: DOMRect) => void
   onSentencePlay: (sentenceId: number) => void
@@ -76,6 +78,7 @@ function renderLookupTokens(text: string): React.ReactNode[] {
 
 export function ReadingUniverse({
   paragraphs,
+  illustrations,
   isFocusMode,
   onWordHover,
   onSentencePlay,
@@ -126,6 +129,14 @@ export function ReadingUniverse({
     if (surface) onWordLookup(surface, el.getBoundingClientRect())
   }
 
+  // v06.53 — 그림책 삽화 idx→url 맵 (해당 문단 위에 렌더). StoryWeaver 등.
+  const illusByIdx = new Map<number, { url: string; alt?: string }>()
+  for (const it of illustrations ?? []) {
+    if (it && typeof it.idx === 'number' && typeof it.url === 'string') {
+      illusByIdx.set(it.idx, { url: it.url, ...(it.alt ? { alt: it.alt } : {}) })
+    }
+  }
+
   // 첫 paragraph 에만 drop-cap 적용 — `first-of-type` 가 아닌 명시적 인덱스 (TOC strip 회귀 회피)
   return (
     <article className="relative mx-auto max-w-[680px] px-6 py-4 md:px-8 md:py-6">
@@ -162,9 +173,26 @@ export function ReadingUniverse({
           transition: 'font-size 200ms, line-height 200ms',
         }}
       >
-        {paragraphs.map((p, pIdx) => (
+        {paragraphs.map((p, pIdx) => {
+          const illus = illusByIdx.get(pIdx)
+          return (
+          <Fragment key={p.id}>
+          {illus && (
+            <figure
+              className={`mb-5 overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] shadow-[var(--sh-sm)] transition-opacity duration-[var(--dur-slower)] ${
+                isFocusMode ? 'opacity-40' : 'opacity-100'
+              }`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={illus.url}
+                alt={illus.alt ?? ''}
+                loading="lazy"
+                className="mx-auto block h-auto w-full max-w-[560px] object-contain"
+              />
+            </figure>
+          )}
           <p
-            key={p.id}
             className={`group/paragraph relative mb-7 md:mb-8 ${
               pIdx === 0
                 ? '[&::first-letter]:float-left [&::first-letter]:mr-2.5 [&::first-letter]:mt-1.5 [&::first-letter]:font-english [&::first-letter]:text-[3.2em] [&::first-letter]:font-[700] [&::first-letter]:leading-[0.9] [&::first-letter]:text-[var(--p)]'
@@ -271,7 +299,9 @@ export function ReadingUniverse({
               )
             })}
           </p>
-        ))}
+          </Fragment>
+          )
+        })}
       </div>
     </article>
   )

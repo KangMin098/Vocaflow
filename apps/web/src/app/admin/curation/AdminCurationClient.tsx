@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BookOpen, FolderOpen, GraduationCap, Globe, Hash, Library, ScrollText, Download } from 'lucide-react';
+import { BookOpen, FolderOpen, GraduationCap, Globe, Hash, Library, ScrollText, Download, Palette } from 'lucide-react';
 import type {
   CurationStats,
   LibraryBookAdminRow,
@@ -18,6 +18,7 @@ import { GutenbergIdTab } from '@/components/admin/curation/GutenbergIdTab';
 import { WikibooksIdTab } from '@/components/admin/curation/WikibooksIdTab';
 import { WikisourceIdTab } from '@/components/admin/curation/WikisourceIdTab';
 import { OpenStaxIdTab } from '@/components/admin/curation/OpenStaxIdTab';
+import { StoryWeaverIdTab } from '@/components/admin/curation/StoryWeaverIdTab';
 import { MyLibraryTab } from '@/components/admin/curation/MyLibraryTab';
 import {
   EnqueueModal,
@@ -28,6 +29,7 @@ import type { GutenbergPreview } from '@/components/admin/curation/GutenbergIdTa
 import type { WikibooksPreview } from '@/components/admin/curation/WikibooksIdTab';
 import type { WikisourcePreview } from '@/components/admin/curation/WikisourceIdTab';
 import type { OpenStaxPreview } from '@/components/admin/curation/OpenStaxIdTab';
+import type { StoryWeaverPreview } from '@/components/admin/curation/StoryWeaverIdTab';
 
 type TabKey =
   | 'sources'
@@ -37,6 +39,7 @@ type TabKey =
   | 'wikibooks'
   | 'wikisource'
   | 'openstax'
+  | 'storyweaver'
   | 'mine';
 
 type StatTone = 'neutral' | 'success' | 'info' | 'danger';
@@ -71,6 +74,9 @@ export function AdminCurationClient({
   function handlePickOpenStax(preview: OpenStaxPreview) {
     setEnqueueSource({ kind: 'openstax', data: preview });
   }
+  function handlePickStoryWeaver(preview: StoryWeaverPreview) {
+    setEnqueueSource({ kind: 'storyweaver', data: preview });
+  }
   function handleSourceClick(source: string) {
     // 구현된 소스: gutenberg/standard_ebooks → 시드 탭, 그 외는 전용 ID 탭.
     if (source === 'gutenberg' || source === 'standard_ebooks') {
@@ -81,6 +87,8 @@ export function AdminCurationClient({
       setTab('wikisource');
     } else if (source === 'openstax') {
       setTab('openstax');
+    } else if (source === 'storyweaver') {
+      setTab('storyweaver');
     }
   }
   function refetchAll() {
@@ -108,6 +116,7 @@ export function AdminCurationClient({
         {tab === 'wikibooks' && <WikibooksIdTab onPickPreview={handlePickWikibooks} />}
         {tab === 'wikisource' && <WikisourceIdTab onPickPreview={handlePickWikisource} />}
         {tab === 'openstax' && <OpenStaxIdTab onPickPreview={handlePickOpenStax} />}
+        {tab === 'storyweaver' && <StoryWeaverIdTab onPickPreview={handlePickStoryWeaver} />}
         {tab === 'mine' && <MyLibraryTab books={books} onRefetch={refetchAll} />}
       </div>
 
@@ -202,6 +211,7 @@ const TABS: Array<{ key: TabKey; label: string; Icon: typeof BookOpen }> = [
   { key: 'wikibooks', label: 'Wikibooks', Icon: Globe },
   { key: 'wikisource', label: 'Wikisource', Icon: ScrollText },
   { key: 'openstax', label: 'OpenStax', Icon: GraduationCap },
+  { key: 'storyweaver', label: 'StoryWeaver', Icon: Palette },
 ];
 
 function TabList({ tab, onChange, stats }: TabListProps) {

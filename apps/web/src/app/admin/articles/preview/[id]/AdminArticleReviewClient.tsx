@@ -86,10 +86,33 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
     )
   }
 
+  // v06.56 — admin_force_publish_article 등 SECURITY DEFINER RPC 는 DEV_ADMIN_BYPASS=1
+  //   환경에서 auth.uid()=NULL → is_admin_or_curator()=false → "Forbidden". 서버 API
+  //   route 경유로 전환 (requireAdmin + service_role 패턴).
+  const RPC_ROUTE: Record<string, string> = {
+    admin_force_publish_article: '/api/admin/articles/force-publish',
+  }
   function rpcAction(name: string, key: string, after: 'refresh' | 'back') {
     void runAction(
       key,
       async () => {
+        const route = RPC_ROUTE[name]
+        if (route) {
+          const res = await fetch(route, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ article_id: article.id }),
+          })
+          const data = (await res.json().catch(() => ({}))) as {
+            error?: string
+            message?: string
+            ok?: boolean
+          }
+          if (!res.ok || !data.ok) {
+            throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
+          }
+          return
+        }
         const client = createClient() as unknown as {
           rpc: (
             n: string,

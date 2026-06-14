@@ -31,13 +31,14 @@ queued
   → (admin archive) → archived
 ```
 
-### 9 외부 소스 (`library_source_catalogs`)
+### 외부 소스 (`library_source_catalogs`)
 
 | Tier | Source | Quality |
 |---|---|---|
 | **S** | standard_ebooks | 정제 EPUB · 무료 PD |
 | **S** | openstax | 교과서 |
 | **S** | voa_learning | VOA Learning English |
+| **S** | storyweaver | StoryWeaver 그림책 CC BY 4.0 (삽화+낭독, v06.56) |
 | **A** | wikibooks | 위키북스 |
 | **A** | wikisource | 위키소스 |
 | **B** | gutenberg | Project Gutenberg PD |
@@ -46,6 +47,8 @@ queued
 | **C** | hathitrust | HathiTrust |
 | **M** | manual | 수동 등록 |
 | (추가) | simple_wikipedia | Simple English Wikipedia (v06.34) |
+
+**그림책 삽화/낭독 (StoryWeaver, v06.56)** — `library_books.illustrations`(`[{idx,url,alt}]` 링크, 문단 idx 정합) + `library_books.audio_url`(readalong mp3). ingester `storyweaver.ts` 가 `/api/v1/stories/{id|slug}/read` 파싱(StoryPage→문단, coverImage→삽화, FrontCover→표지, audioPath→낭독). ReadingUniverse 가 문단별 `<figure>` 렌더, workspace layout 이 audio_url→단일 스트림 chapterAudio. 자체 표지·오디오 제공 → resolveCoverImageUrl·LibriVox 매핑 우회.
 
 ### 데이터 흐름
 
