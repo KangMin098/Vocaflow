@@ -8,7 +8,15 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-export type SeedSource = 'voa' | 'nasa' | 'nih' | 'arxiv'
+// v06.66 — 가용 ingester 7종 (사용자 명시: "전체 가용 소스 노출이 기본")
+export type SeedSource =
+  | 'voa'
+  | 'nasa'
+  | 'nih'
+  | 'arxiv'
+  | 'wikinews'
+  | 'the_conversation'
+  | 'simple_wikipedia'
 
 interface ArticleScore {
   total: number

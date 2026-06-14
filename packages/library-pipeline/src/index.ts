@@ -25,6 +25,29 @@ export { listNihFeed, ingestNihArticle, NIH_FEEDS } from './ingest-article/nih'
 export type { NihListItem } from './ingest-article/nih'
 export { listArxivFeed, ingestArxivArticle, ARXIV_FEEDS } from './ingest-article/arxiv'
 export type { ArxivListItem } from './ingest-article/arxiv'
+// ACP §18 — Simple English Wikipedia (MediaWiki API · A2~B1 설명문). v06.66 listFeed.
+export {
+  ingestSimpleWikipediaArticle,
+  listSimpleWikipediaFeed,
+  SIMPLE_WIKIPEDIA_FEEDS,
+} from './ingest-article/simple-wikipedia'
+export type { SimpleWikipediaListItem } from './ingest-article/simple-wikipedia'
+// ACP §18 — The Conversation (CC-BY-ND 논증문 · display_only). v06.66 listFeed.
+export {
+  ingestTheConversationArticle,
+  listTheConversationFeed,
+  THE_CONVERSATION_FEEDS,
+} from './ingest-article/the-conversation'
+export type { TheConversationListItem } from './ingest-article/the-conversation'
+// ACP §18 — Wikinews (CC-BY 시사). v06.66 listFeed.
+export {
+  ingestWikinewsArticle,
+  listWikinewsFeed,
+  WIKINEWS_FEEDS,
+} from './ingest-article/wikinews'
+export type { WikinewsListItem } from './ingest-article/wikinews'
+// ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
+export { computeLexicalNoise } from './ingest-article/_helpers'
 // v06.41 feed-level + v06.42 source-level curation spec
 export {
   FEED_SPECS,

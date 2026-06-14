@@ -16,6 +16,7 @@
 
 import {
   AlertCircle,
+  BookText,
   Calendar,
   CheckCircle2,
   CheckSquare,
@@ -23,6 +24,8 @@ import {
   ExternalLink,
   FlaskConical,
   Loader2,
+  MessageSquareText,
+  Newspaper,
   Plus,
   Radio,
   Rocket,
@@ -117,7 +120,7 @@ const SOURCES: SourceConfig[] = [
       { id: 'directors-blog', label: "Director's Blog" },
     ],
   },
-  // v06.65 — arXiv 재추가 (코드/spec 완비, "라이선스 비자유·C2+·텍스트 오염" 은 spec.minScore/
+  // v06.66 — arXiv 재추가 (코드/spec 완비, "라이선스 비자유·C2+·텍스트 오염" 은 spec.minScore/
   // targetLevels='advanced' + targetCefr 로 가드됨. 사용자가 모든 가용 소스 선택 가능해야 함.)
   {
     key: 'arxiv',
@@ -131,6 +134,40 @@ const SOURCES: SourceConfig[] = [
       { id: 'q-bio', label: 'Quantitative Biology' },
       { id: 'math-HO', label: 'Math — History & Overview' },
       { id: 'physics-gen-ph', label: 'Physics — General' },
+    ],
+  },
+  // v06.66 — Simple English Wikipedia (A2-B1 통제 어휘, MediaWiki API categorymembers)
+  {
+    key: 'simple_wikipedia',
+    label: 'Simple Wikipedia',
+    Icon: BookText,
+    color: 'var(--learn-fresh)',
+    feeds: [
+      { id: 'very-good', label: 'Very Good Articles' },
+      { id: 'good', label: 'Good Articles' },
+    ],
+  },
+  // v06.66 — Wikinews (B1-B2 시사 뉴스, CC-BY-2.5)
+  {
+    key: 'wikinews',
+    label: 'Wikinews',
+    Icon: Newspaper,
+    color: 'var(--learn-review)',
+    feeds: [
+      { id: 'latest', label: 'Latest news' },
+    ],
+  },
+  // v06.66 — The Conversation (B2-C1 학자 논증문, CC-BY-ND → display_only)
+  {
+    key: 'the_conversation',
+    label: 'The Conversation',
+    Icon: MessageSquareText,
+    color: 'var(--memory-stable)',
+    feeds: [
+      { id: 'all', label: 'All articles' },
+      { id: 'science', label: 'Science + Tech' },
+      { id: 'health', label: 'Health + Medicine' },
+      { id: 'politics', label: 'Politics + Society' },
     ],
   },
 ]

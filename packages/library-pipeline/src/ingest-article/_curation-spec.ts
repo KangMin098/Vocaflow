@@ -13,7 +13,15 @@
 //
 // 사용처: list*Feed() 직후 applyArticleCurationSpec() 호출 → score 부여 + 필터링.
 
-export type SourceKey = 'voa' | 'nasa' | 'nih' | 'arxiv'
+// v06.66 — 가용 ingester 7종 (사용자 명시: "전체 가용 소스 노출이 기본").
+export type SourceKey =
+  | 'voa'
+  | 'nasa'
+  | 'nih'
+  | 'arxiv'
+  | 'wikinews'
+  | 'the_conversation'
+  | 'simple_wikipedia'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -248,6 +256,37 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 400,
     noiseKeywords: ['supplementary', 'erratum'],
     maxItems: 8,
+  },
+  // v06.66 — 신규 3종
+  wikinews: {
+    recencyDays: 30,
+    minDescriptionLen: 80,
+    minTitleLen: 20,
+    sourceWeight: 0.70,
+    levelBonus: 0,
+    idealDescLen: 280,
+    noiseKeywords: ['talk:', 'wikinews:'],
+    maxItems: 24,
+  },
+  the_conversation: {
+    recencyDays: 21,
+    minDescriptionLen: 200,
+    minTitleLen: 30,
+    sourceWeight: 0.75,
+    levelBonus: -0.05,
+    idealDescLen: 400,
+    noiseKeywords: ['retraction', 'correction'],
+    maxItems: 20,
+  },
+  simple_wikipedia: {
+    recencyDays: 9999,    // wikipedia 는 시간 무관 — recencyDays 사실상 비활성
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.85,    // 학습 친화 ↑ (통제 어휘)
+    levelBonus: 0.08,
+    idealDescLen: 300,
+    noiseKeywords: ['disambiguation', 'list of'],
+    maxItems: 30,
   },
 }
 
@@ -484,6 +523,52 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'physics-gen-ph', weight: 0.10 },
     ],
   },
+  // v06.66 — Wikinews: 시사 뉴스, CC-BY-2.5, B1-B2 적합
+  wikinews: {
+    targetLevels: ['intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.40,
+    bulkPriority: 5,
+    license: 'CC-BY-2.5',
+    attributionRequired: true,   // CC-BY — Wikinews contributors 인용
+    topicDomain: ['news', 'politics', 'world', 'culture'],
+    styleGuide: '시사 뉴스 (Wikipedia 자매 프로젝트, neutral POV)',
+    preferredFeedMix: [
+      { feedId: 'latest', weight: 1.00 },
+    ],
+  },
+  // v06.66 — The Conversation: 학자 논증문, CC-BY-ND (display_only), B2-C1, CSAT 최난이도 유사
+  the_conversation: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 20,
+    minScore: 0.45,
+    bulkPriority: 6,
+    license: 'CC-BY-ND-4.0',
+    attributionRequired: true,
+    topicDomain: ['analysis', 'science', 'politics', 'economy', 'culture'],
+    styleGuide: '학자 논증문 (CSAT 최난이도 지문과 최유사) · 본문 verbatim only',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
+  // v06.66 — Simple Wikipedia: A2-B1 통제 어휘, CC-BY-SA, MediaWiki API categorymembers
+  simple_wikipedia: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B1' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 7,
+    license: 'CC-BY-SA-4.0',
+    attributionRequired: true,
+    topicDomain: ['reference', 'science', 'history', 'culture', 'biology'],
+    styleGuide: 'Simple English 통제 어휘 (Basic English 850 단어 권장) · 학습 친화 ↑',
+    preferredFeedMix: [
+      { feedId: 'very-good', weight: 0.60 },     // Very good articles 카테고리
+      { feedId: 'good', weight: 0.40 },          // Good articles 카테고리
+    ],
+  },
 }
 
 /**
@@ -496,9 +581,9 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'nasa', 'nih', 'arxiv'],
-  intermediate: ['voa', 'nasa', 'nih', 'arxiv'],
-  advanced:     ['arxiv', 'nih', 'nasa', 'voa'],
+  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation', 'arxiv'],
+  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation', 'arxiv'],
+  advanced:     ['the_conversation', 'arxiv', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
 }
 
 /**
