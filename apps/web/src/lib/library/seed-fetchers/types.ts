@@ -14,6 +14,7 @@ export type SeedSource =
   | 'librivox'
   | 'simple_wikipedia'
   | 'lit2go'
+  | 'storyweaver'
 
 export interface FetchBatchParams {
   // ── 공통 ─────────────────────────────────

@@ -24,7 +24,7 @@ import {
 import { SeedDetailModal } from './SeedDetailModal'
 import { FETCHERS } from '@/lib/library/seed-fetchers'
 
-type SourceKey = 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'simple_wikipedia' | 'lit2go'
+type SourceKey = 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'simple_wikipedia' | 'lit2go' | 'storyweaver'
 
 const SOURCE_OPTIONS: Array<{ value: SourceKey; label: string; color: string }> = [
   { value: 'simple_wikipedia', label: 'Simple English Wikipedia', color: 'var(--learn-known)' },
@@ -34,11 +34,13 @@ const SOURCE_OPTIONS: Array<{ value: SourceKey; label: string; color: string }> 
   { value: 'librivox', label: 'LibriVox', color: 'var(--active)' },
   // v06.43 — Lit2Go (USF) 추가. US grade 는 보정 참조용, V-Level 은 coverage 모델 (SSoT)
   { value: 'lit2go', label: 'Lit2Go (USF)', color: 'var(--memory-shaky)' },
+  // v06.56 — StoryWeaver (Pratham Books) 그림책. 삽화+낭독, CC BY 4.0.
+  { value: 'storyweaver', label: 'StoryWeaver (그림책)', color: 'var(--learn-review)' },
 ]
 
 // v06.34 — fetcher.getOptions() 가 단일 진실 소스. UI 는 도출만.
 const SOURCE_OPTS = Object.fromEntries(
-  (['simple_wikipedia', 'standard_ebooks', 'gutenberg', 'wikibooks', 'librivox', 'lit2go'] as SourceKey[]).map((k) => [
+  (['simple_wikipedia', 'standard_ebooks', 'gutenberg', 'wikibooks', 'librivox', 'lit2go', 'storyweaver'] as SourceKey[]).map((k) => [
     k,
     FETCHERS[k].getOptions(),
   ]),
