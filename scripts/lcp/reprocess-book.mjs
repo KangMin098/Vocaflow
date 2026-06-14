@@ -48,6 +48,7 @@ const {
   ingestFromLibriVox,
   ingestFromOpenStax,
   ingestFromSimpleWikipedia,
+  ingestFromLit2Go,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -69,6 +70,7 @@ const INGEST = {
   librivox: ingestFromLibriVox,
   openstax: ingestFromOpenStax,
   simple_wikipedia: ingestFromSimpleWikipedia,
+  lit2go: ingestFromLit2Go,
 }
 
 const { data: book, error: bErr } = await db

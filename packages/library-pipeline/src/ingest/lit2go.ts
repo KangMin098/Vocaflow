@@ -221,5 +221,11 @@ function decodeEntities(s: string): string {
     .replace(/&hellip;/g, '…')
     .replace(/&mdash;/g, '—')
     .replace(/&ndash;/g, '–')
+    // USF Lit2Go 본문은 곱슬따옴표를 named entity 로 씀 — 미디코딩 시 ldquo/rdquo/
+    //   lsquo/rsquo 가 단어로 잡히고 s&rsquo;pose 류 contraction 이 쪼개짐 (Huck Finn 618 미바인딩 주범).
+    .replace(/&rsquo;/g, '’')
+    .replace(/&lsquo;/g, '‘')
+    .replace(/&rdquo;/g, '”')
+    .replace(/&ldquo;/g, '“')
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
 }
