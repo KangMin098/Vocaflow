@@ -3,17 +3,16 @@
 // ACP article RSS GET 결과를 library_article_seed_catalog 에 upsert.
 // LCP library_seed_catalog 동형 — 한 번 GET 한 항목은 영구 보존, 같은 source_id 면 UPDATE.
 //
-// 호출: 4 feed route (voa/nasa/nih/arxiv) 가 RSS fetch 직후 호출.
+// 호출: 6 feed route (voa/nasa/nih/wikinews/the_conversation/simple_wikipedia) 가 RSS fetch 직후 호출.
 // 반환: 각 source_id 에 대해 seed_catalog 에서의 row id + 상태 정보.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-// v06.66 — 가용 ingester 7종 (사용자 명시: "전체 가용 소스 노출이 기본")
+// v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종 가용.
 export type SeedSource =
   | 'voa'
   | 'nasa'
   | 'nih'
-  | 'arxiv'
   | 'wikinews'
   | 'the_conversation'
   | 'simple_wikipedia'

@@ -50,7 +50,7 @@ export default async function LibraryScriptsPage() {
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
-            큐레이션된 짧은 영어 글 — arXiv · NASA · NIH · VOA 출처.
+            큐레이션된 짧은 영어 글 — VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation 출처.
           </p>
           {articles.length > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">

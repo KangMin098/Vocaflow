@@ -6,19 +6,18 @@
 // listXxxFeed() 에서 import 해 적용.
 //
 // 설계 원칙:
-//   1. 학습 친화도(LearningFit) — VOA L1 > L2 > L3 > 일반 뉴스 > arXiv 학술
-//   2. 신선도(Recency)        — feed 성격에 따라 cutoff 차등 (arXiv 7일, APOD ∞)
+//   1. 학습 친화도(LearningFit) — VOA L1 > L2 > L3 > 일반 뉴스
+//   2. 신선도(Recency)        — feed 성격에 따라 cutoff 차등 (APOD ∞)
 //   3. 길이 적합(LengthFit)   — description 길이가 학습용 본문 추정에 비례
 //   4. 노이즈 제거(Filter)    — stub/placeholder/공지 type 제외
 //
 // 사용처: list*Feed() 직후 applyArticleCurationSpec() 호출 → score 부여 + 필터링.
 
-// v06.66 — 가용 ingester 7종 (사용자 명시: "전체 가용 소스 노출이 기본").
+// v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종 가용.
 export type SourceKey =
   | 'voa'
   | 'nasa'
   | 'nih'
-  | 'arxiv'
   | 'wikinews'
   | 'the_conversation'
   | 'simple_wikipedia'
@@ -30,7 +29,7 @@ export interface FeedSpec {
   minDescriptionLen: number
   /** title 최소 길이 (placeholder 제거) */
   minTitleLen: number
-  /** 소스 가중치 (0~1) — 학습자 친화 정도. VOA > NASA > NIH > arXiv */
+  /** 소스 가중치 (0~1) — 학습자 친화 정도. VOA > NASA > NIH */
   sourceWeight: number
   /** 레벨 보너스 — VOA L1 강조용 (-1 ~ +1) */
   levelBonus: number
@@ -152,67 +151,7 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 10,
   },
 
-  // ─── arXiv — 학술 (advanced learners 대상, 가중치 ↓) ─────────
-  'arxiv:cs-AI': {
-    recencyDays: 7,         // 학술 preprint 빠르게 stale
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.55,     // 학습 친화 ↓
-    levelBonus: -0.15,      // C1+ 어려움
-    idealDescLen: 400,
-    noiseKeywords: ['supplementary', 'erratum'],
-    maxItems: 8,
-  },
-  'arxiv:cs-CL': {
-    recencyDays: 7,
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.60,     // NLP = 영어 학습자 관심도 ↑
-    levelBonus: -0.10,
-    idealDescLen: 400,
-    noiseKeywords: ['supplementary', 'erratum'],
-    maxItems: 8,
-  },
-  'arxiv:cs-LG': {
-    recencyDays: 7,
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.55,
-    levelBonus: -0.15,
-    idealDescLen: 400,
-    noiseKeywords: ['supplementary', 'erratum'],
-    maxItems: 8,
-  },
-  'arxiv:q-bio': {
-    recencyDays: 14,
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.50,
-    levelBonus: -0.20,
-    idealDescLen: 400,
-    noiseKeywords: ['supplementary'],
-    maxItems: 6,
-  },
-  'arxiv:math-HO': {
-    recencyDays: 30,        // 수학사·overview — 비교적 timeless
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.55,
-    levelBonus: -0.10,      // History/Overview = 학습 친화 ↑
-    idealDescLen: 400,
-    noiseKeywords: [],
-    maxItems: 6,
-  },
-  'arxiv:physics-gen-ph': {
-    recencyDays: 14,
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.50,
-    levelBonus: -0.15,
-    idealDescLen: 400,
-    noiseKeywords: [],
-    maxItems: 6,
-  },
+  // v06.69 — arXiv 관련 FEED_SPECS 6종 제거 (소스 자체가 플랫폼에서 삭제됨).
 }
 
 /** Source 기본 spec — feed 별 spec 미정 시 fallback */
@@ -246,16 +185,6 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 300,
     noiseKeywords: ['recall', 'advisory'],
     maxItems: 10,
-  },
-  arxiv: {
-    recencyDays: 7,
-    minDescriptionLen: 150,
-    minTitleLen: 25,
-    sourceWeight: 0.55,
-    levelBonus: -0.15,
-    idealDescLen: 400,
-    noiseKeywords: ['supplementary', 'erratum'],
-    maxItems: 8,
   },
   // v06.66 — 신규 3종
   wikinews: {
@@ -452,7 +381,9 @@ export interface SourceSpec {
  *  · VOA = U.S. federal government Learning English → 학습 적합 최우선, PD
  *  · NASA = PD, 천문·우주 흥미 매력 ↑, APOD 시각 자료
  *  · NIH = PD 의학·건강, MedlinePlus consumer-facing
- *  · arXiv = 학술 preprint, advanced learners only, CC-BY (attribution 의무)
+ *  · Simple Wikipedia = A2-B1 통제 어휘, CC-BY-SA
+ *  · Wikinews = CC-BY 시사 (현재 거의 비활성)
+ *  · The Conversation = CC-BY-ND 학자 논증문, display_only
  */
 export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
   voa: {
@@ -504,25 +435,7 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'news', weight: 0.15 },           // 현재 403 차단 - 백업
     ],
   },
-  arxiv: {
-    targetLevels: ['advanced'],
-    targetCefr: { min: 'C1', max: 'C2' },
-    maxItemsPerBatch: 18,        // 6 feeds × ~6-8 → 18 cap
-    minScore: 0.35,              // 학술 본질적 어려움 - minScore 낮춤
-    bulkPriority: 4,             // 학습 친화 최후 (advanced 의도일 때만)
-    license: 'CC-BY-4.0',        // 대부분 CC-BY (정확도는 paper-level 메타로 보강)
-    attributionRequired: true,   // 학술 인용 의무
-    topicDomain: ['cs-AI', 'cs-NLP', 'cs-ML', 'math', 'physics', 'q-bio'],
-    styleGuide: '학술 abstract · 전문 용어 多 · advanced learners only',
-    preferredFeedMix: [
-      { feedId: 'cs-CL', weight: 0.30 },        // NLP - 영어학습자 관심 ↑
-      { feedId: 'math-HO', weight: 0.20 },      // History/Overview - 접근 쉬움
-      { feedId: 'cs-AI', weight: 0.15 },
-      { feedId: 'cs-LG', weight: 0.15 },
-      { feedId: 'q-bio', weight: 0.10 },
-      { feedId: 'physics-gen-ph', weight: 0.10 },
-    ],
-  },
+  // v06.69 — arXiv SOURCE_SPECS 제거 (소스 자체가 플랫폼에서 삭제됨).
   // v06.66 — Wikinews: 시사 뉴스, CC-BY-2.5, B1-B2 적합
   wikinews: {
     targetLevels: ['intermediate'],
@@ -574,16 +487,16 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
 /**
  * 학습자 수준별 소스 추천 순위.
  *
- *  · beginner    (A1-A2): VOA 압도적, NASA 일부 가능, NIH/arXiv 비추천
- *  · intermediate(B1-B2): VOA + NASA 추천, NIH 보조, arXiv 제한
- *  · advanced    (C1+):    arXiv 우선, NIH/NASA 보조, VOA 너무 쉬움
+ *  · beginner    (A1-A2): VOA 압도적 + Simple Wikipedia, NASA 일부 가능
+ *  · intermediate(B1-B2): VOA + Simple Wikipedia + NASA + Wikinews + NIH
+ *  · advanced    (C1+):    The Conversation 우선, NIH/NASA 보조, VOA 너무 쉬움
  *
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation', 'arxiv'],
-  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation', 'arxiv'],
-  advanced:     ['the_conversation', 'arxiv', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
+  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
+  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
+  advanced:     ['the_conversation', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
 }
 
 /**

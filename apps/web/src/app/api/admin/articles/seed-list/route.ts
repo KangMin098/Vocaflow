@@ -14,7 +14,14 @@ import { listArticleSeeds, type SeedSource } from '@/lib/acp/seed-upsert'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const VALID_SOURCES: SeedSource[] = ['voa', 'nasa', 'nih', 'arxiv']
+const VALID_SOURCES: SeedSource[] = [
+  'voa',
+  'nasa',
+  'nih',
+  'wikinews',
+  'the_conversation',
+  'simple_wikipedia',
+]
 
 export async function GET(req: NextRequest) {
   const adminOrError = await requireAdminApi()

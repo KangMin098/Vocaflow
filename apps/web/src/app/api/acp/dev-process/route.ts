@@ -11,12 +11,24 @@ import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
   analyzeArticle,
+  computeLexicalNoise,
   normalizePunctuation,
   reflowSoftHyphens,
 } from '@vocaflow/library-pipeline'
 import type { RawArticle, NormalizedArticle } from '@vocaflow/library-pipeline'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
+
+// ACP §18 §4-B — 소스별 register 기본값 (문서별 재분류 가능)
+const REGISTER_BY_SOURCE: Record<string, string> = {
+  voa: 'news',
+  nasa: 'expository',
+  nih: 'expository',
+  medlineplus: 'expository',
+  simple_wikipedia: 'expository',
+  the_conversation: 'argumentative',
+  wikinews: 'news',
+}
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -115,6 +127,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // 4) library_articles 메타 업데이트 + status='ready' (dev 는 auto_curate 우회)
+    //    ACP §18 §4-B/§4-C — register(소스 기본) + lexical_noise(텍스트 청결) 산출.
+    //    noise>0.08 이면 발행 트리거가 단어세트 발행 SKIP(읽기용만).
+    const lexicalNoise = computeLexicalNoise(body_text)
     await client
       .from('library_articles')
       .update({
@@ -123,8 +138,13 @@ export async function POST(request: Request): Promise<NextResponse> {
         word_count: result.word_count,
         reading_minutes: result.reading_minutes,
         llm_cost_usd: result.llm_cost_usd,
+        register: REGISTER_BY_SOURCE[article.source as string] ?? null,
+        lexical_noise: lexicalNoise,
         status: 'ready',
-        status_message: null,
+        status_message:
+          lexicalNoise > 0.08
+            ? `lexical_noise ${lexicalNoise} > 0.08 — 단어세트 미발행(읽기용)`
+            : null,
         content_hash: norm.body_hash,
       })
       .eq('id', body.article_id)

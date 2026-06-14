@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP arxiv 소스 — 플랫폼 전체 삭제 (v06.69)
+
+사용자 명시: "arxiv 삭제 (플랫폼 전체에서)."
+
+**사전 확인**: `library_articles.source='arxiv'` 2 row (vocabularies / shared_word_sets / seed_catalog 연결 0). 데이터 손실 위험 없음.
+
+**DB** migration [20260614240000_acp_remove_arxiv_source](../supabase/migrations/20260614240000_acp_remove_arxiv_source.sql):
+- 잔존 2 article DELETE
+- `library_articles_source_check` + `library_article_seed_catalog_source_check` 양쪽 CHECK 에서 `'arxiv'` 제거
+
+**파일 제거**:
+- `packages/library-pipeline/src/ingest-article/arxiv.ts`
+- `apps/web/src/app/api/admin/articles/arxiv-feed/` (폴더 전체)
+
+**타입/spec 정리**:
+- `ArticleSource` (types-article.ts) — `'arxiv'` 제거
+- `SourceKey` (_curation-spec.ts) — `'arxiv'` 제거. SOURCE_SPECS + SOURCE_DEFAULT_SPEC + 6 FEED_SPECS + SOURCE_RANKINGS_BY_LEVEL 모든 arxiv 항목 제거
+- `SeedSource` (seed-upsert.ts) — `'arxiv'` 제거
+- `index.ts` — `listArxivFeed` / `ingestArxivArticle` / `ARXIV_FEEDS` / `ArxivListItem` export 제거
+
+**route/UI 정리**:
+- `/api/acp/enqueue` — `HOST_TO_SOURCE` arxiv 패턴 제거, switch 분기 제거, `arxiv:ID` 직접 입력 처리 제거, 에러 메시지 갱신
+- `/api/admin/articles/seed-list` — `VALID_SOURCES` 갱신 (6종)
+- `BulkArticlesTab.tsx` — SOURCES 에서 arxiv entry 제거 (UI 노출 0)
+- `RssFeedTab.tsx` — `source` prop 타입에서 `'arxiv'` 제거
+- `AcpClient.tsx` / `page.tsx` / `(main)/library/scripts/page.tsx` — 헤더/설명 문구 갱신
+- `ArticleCard.tsx` — `SOURCE_META.arxiv` 제거, 3종 신규 (simple_wikipedia / wikinews / the_conversation) 추가
+
+**활성 ACP 소스 6종**: VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation.
+
 ### LCP 대량 GET — 7종 소스 endpoint 실측 점검 + 3건 fix (v06.68)
 
 사용자 요청: "LCP 대량 GET 각 소스별 가져오기 점검해줘."

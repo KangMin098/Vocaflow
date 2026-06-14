@@ -16,15 +16,14 @@ export { ingestFromSimpleWikipedia } from './ingest/simple-wikipedia'
 export { ingestFromLit2Go } from './ingest/lit2go'
 export { ingestFromStoryWeaver } from './ingest/storyweaver'
 
-// S2 INGEST — Articles (ACP — Phase 18: VOA / Phase 19: NASA · NIH · arXiv)
+// S2 INGEST — Articles (ACP — VOA / NASA / NIH + v06.66 wikinews/the_conversation/simple_wikipedia.
+// v06.69 arXiv 제거 — 사용자 명시 플랫폼 전체 삭제)
 export { listVoaFeed, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
 export type { VoaListItem } from './ingest-article/voa'
 export { listNasaFeed, ingestNasaArticle, NASA_FEEDS } from './ingest-article/nasa'
 export type { NasaListItem } from './ingest-article/nasa'
 export { listNihFeed, ingestNihArticle, NIH_FEEDS } from './ingest-article/nih'
 export type { NihListItem } from './ingest-article/nih'
-export { listArxivFeed, ingestArxivArticle, ARXIV_FEEDS } from './ingest-article/arxiv'
-export type { ArxivListItem } from './ingest-article/arxiv'
 // ACP §18 — Simple English Wikipedia (MediaWiki API · A2~B1 설명문). v06.66 listFeed.
 export {
   ingestSimpleWikipediaArticle,

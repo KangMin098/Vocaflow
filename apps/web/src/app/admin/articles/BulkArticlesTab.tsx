@@ -5,7 +5,7 @@
 // 결과 통합 list + checkbox 일괄 enqueue.
 //
 // 사용 흐름:
-//   1. 소스 선택 (VOA / NASA / NIH / arXiv — multi 체크박스)
+//   1. 소스 선택 (VOA / NASA / NIH / Simple Wikipedia / Wikinews / The Conversation — multi 체크박스)
 //   2. 각 소스의 모든 feed 를 Promise.allSettled 순회
 //   3. 결과 통합 list (소스/카테고리/제목/발행일/설명)
 //   4. 체크박스 선택 → 일괄 enqueue
@@ -120,23 +120,7 @@ const SOURCES: SourceConfig[] = [
       { id: 'directors-blog', label: "Director's Blog" },
     ],
   },
-  // v06.66 — arXiv 재추가 (코드/spec 완비, "라이선스 비자유·C2+·텍스트 오염" 은 spec.minScore/
-  // targetLevels='advanced' + targetCefr 로 가드됨. 사용자가 모든 가용 소스 선택 가능해야 함.)
-  // 주의: arXiv RSS 는 <skipDays>Sat/Sun</skipDays> — 주말 fetch 시 0건 정상.
-  {
-    key: 'arxiv',
-    label: 'arXiv (월~금만 publish)',
-    Icon: GraduationCap,
-    color: 'var(--memory-shaky)',
-    feeds: [
-      { id: 'cs-AI', label: 'CS — AI' },
-      { id: 'cs-CL', label: 'CS — Computation & Language' },
-      { id: 'cs-LG', label: 'CS — Machine Learning' },
-      { id: 'q-bio', label: 'Quantitative Biology' },
-      { id: 'math-HO', label: 'Math — History & Overview' },
-      { id: 'physics-gen-ph', label: 'Physics — General' },
-    ],
-  },
+  // v06.69 — arXiv 제거 (사용자 명시: "플랫폼 전체에서 삭제").
   // v06.66 — Simple English Wikipedia (A2-B1 통제 어휘, MediaWiki API categorymembers)
   {
     key: 'simple_wikipedia',

@@ -2,7 +2,16 @@
 // ACP v1.0 — 짧은 글(article) 도메인 타입.
 // 책(RawBook)과 구조 다름: chapter 없음 · 단일 content unit.
 
-export type ArticleSource = 'voa' | 'nasa' | 'nih' | 'cdc' | 'medlineplus' | 'arxiv' | 'manual'
+export type ArticleSource =
+  | 'voa'
+  | 'nasa'
+  | 'nih'
+  | 'cdc'
+  | 'medlineplus'
+  | 'simple_wikipedia' // ACP §18 — A2~B1 설명문 갭 (CC-BY-SA)
+  | 'the_conversation' // ACP §18 — B2~C1 논증문 (CC-BY-ND → display_only)
+  | 'wikinews' // ACP §18 — A2~B2 시사 (CC-BY 2.5)
+  | 'manual'
 
 export interface RawArticle {
   source: ArticleSource
