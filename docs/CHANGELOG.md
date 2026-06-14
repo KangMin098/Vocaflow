@@ -10,6 +10,18 @@
 
 ## Unreleased (v06.34 → next)
 
+### Dev 일괄 처리 대상에 failed 도서 포함 (v06.50)
+
+[MyLibraryTab.tsx](../apps/web/src/components/admin/curation/MyLibraryTab.tsx) — Dev 일괄 처리 (`devBatchIds`) 가 `inProgressIds + readyIds` 만 모았는데 **failed 도서가 빠져 있어** 정규식/네트워크 일시 실패 후 fix 한 도서를 batch 로 다시 못 돌림. failed 도서 1권을 다시 처리하려면 모달에서 한 건씩 dev-process 호출하는 번거로움.
+
+수정:
+- `failedIds` memo 신설 (`b.status === 'failed'`).
+- `devBatchIds = [...inProgressIds, ...readyIds, ...failedIds]`.
+- confirm 다이얼로그 + 카운트 chip + 버튼 title 에 실패 N 권 노출.
+- failed 도서는 `dev-process` 가 status 게이트 없이 ingest 부터 재시작 (이미 그렇게 설계됨 — UI 만 막혀 있었던 것).
+
+이번 세션의 Lit2Go 정규식 fix (v06.49) 같은 케이스에서 실패 도서를 batch 재처리하는 것이 자연스러운 흐름. 무한 루프 위험 0 (단일 round) — 다시 실패하면 그저 status 유지.
+
 ### Lit2Go 본문 ingest 실패 수정 — 0 chars (v06.49)
 
 `/admin/curation → Curated Books → Lit2Go dev 일괄 처리` 시 `Lit2Go book body too short: 0 chars` 발생. 원인은 ingest 정규식이 실제 USF 마크업과 안 맞음 (WordPress 기본 wrapper 가정).
