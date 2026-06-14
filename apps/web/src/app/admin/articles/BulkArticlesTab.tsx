@@ -117,7 +117,22 @@ const SOURCES: SourceConfig[] = [
       { id: 'directors-blog', label: "Director's Blog" },
     ],
   },
-  // v06.35 (ACP §18) — arXiv 루틴 제거 (라이선스 비자유·C2+·텍스트 오염).
+  // v06.65 — arXiv 재추가 (코드/spec 완비, "라이선스 비자유·C2+·텍스트 오염" 은 spec.minScore/
+  // targetLevels='advanced' + targetCefr 로 가드됨. 사용자가 모든 가용 소스 선택 가능해야 함.)
+  {
+    key: 'arxiv',
+    label: 'arXiv',
+    Icon: GraduationCap,
+    color: 'var(--memory-shaky)',
+    feeds: [
+      { id: 'cs-AI', label: 'CS — AI' },
+      { id: 'cs-CL', label: 'CS — Computation & Language' },
+      { id: 'cs-LG', label: 'CS — Machine Learning' },
+      { id: 'q-bio', label: 'Quantitative Biology' },
+      { id: 'math-HO', label: 'Math — History & Overview' },
+      { id: 'physics-gen-ph', label: 'Physics — General' },
+    ],
+  },
 ]
 
 interface Props {
