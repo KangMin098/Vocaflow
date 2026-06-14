@@ -14,7 +14,40 @@ import type {
 } from './types'
 
 const API = 'https://storyweaver.org.in/api/v1/books-search'
-const UA = 'Vocaflow-LCP-StoryWeaver/1.0 (admin curation)'
+// StoryWeaver 는 Cloudflare 가 Node TLS(JA3) 핑거프린트를 403 차단 — 브라우저 UA 사용.
+const UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+
+/**
+ * StoryWeaver JSON fetch — undici fetch 우선, 실패(Cloudflare 403) 시 curl 폴백.
+ *   Cloudflare 가 Node TLS 핸드셰이크를 핑거프린트 차단(curl 통과) → admin/dev 서버에서 curl 폴백.
+ */
+async function swFetchJson(url: string): Promise<unknown> {
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
+    if (res.ok) return await res.json()
+  } catch {
+    /* 네트워크/TLS 오류 → curl 폴백 */
+  }
+  try {
+    const { execFile } = await import('child_process')
+    const { promisify } = await import('util')
+    const run = promisify(execFile)
+    const { stdout } = await run(
+      'curl',
+      ['-s', '--max-time', '30', '-H', `User-Agent: ${UA}`, '-H', 'Accept: application/json', url],
+      { maxBuffer: 32 * 1024 * 1024 },
+    )
+    if (stdout && stdout.trim()) return JSON.parse(stdout)
+    throw new Error('empty response')
+  } catch (e) {
+    throw new Error(
+      `StoryWeaver books-search failed (fetch blocked + curl fallback): ${
+        e instanceof Error ? e.message : String(e)
+      }`,
+    )
+  }
+}
 
 interface SWBook {
   id: number
@@ -73,11 +106,7 @@ export const storyweaverFetcher: SourceFetcher = {
     if (genre && /^[1-4]$/.test(genre)) qs.append('reading_levels[]', genre)
     if (search && search.trim()) qs.set('query', search.trim())
 
-    const res = await fetch(`${API}?${qs.toString()}`, {
-      headers: { 'User-Agent': UA, Accept: 'application/json' },
-    })
-    if (!res.ok) throw new Error(`StoryWeaver books-search failed: ${res.status}`)
-    const json = (await res.json()) as {
+    const json = (await swFetchJson(`${API}?${qs.toString()}`)) as {
       ok?: boolean
       metadata?: { hits?: number; totalPages?: number }
       data?: SWBook[]

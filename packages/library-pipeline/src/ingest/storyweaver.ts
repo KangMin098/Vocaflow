@@ -11,8 +11,42 @@
 
 import type { RawBook, BookIllustration } from '../types'
 
-const UA = 'Vocaflow-LCP-StoryWeaver/1.0 (education/research)'
+// StoryWeaver 는 Cloudflare 가 Node TLS(JA3) 핑거프린트를 403 차단 — 브라우저 UA 사용.
+const UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
 const API = 'https://storyweaver.org.in/api/v1'
+
+/**
+ * StoryWeaver JSON fetch — undici fetch 우선, 실패(Cloudflare 403/네트워크) 시 curl 폴백.
+ *   Cloudflare 가 Node 의 TLS 핸드셰이크를 핑거프린트 차단하므로(curl 은 통과),
+ *   admin/dev 서버 작업인 큐레이션 fetch 는 curl 로 폴백한다.
+ */
+async function swFetchJson(url: string): Promise<unknown> {
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
+    if (res.ok) return await res.json()
+  } catch {
+    /* 네트워크/TLS 오류 → curl 폴백 */
+  }
+  try {
+    const { execFile } = await import('child_process')
+    const { promisify } = await import('util')
+    const run = promisify(execFile)
+    const { stdout } = await run(
+      'curl',
+      ['-s', '--max-time', '30', '-H', `User-Agent: ${UA}`, '-H', 'Accept: application/json', url],
+      { maxBuffer: 32 * 1024 * 1024 },
+    )
+    if (stdout && stdout.trim()) return JSON.parse(stdout)
+    throw new Error('empty response')
+  } catch (e) {
+    throw new Error(
+      `StoryWeaver fetch failed (fetch blocked + curl fallback): ${
+        e instanceof Error ? e.message : String(e)
+      } — ${url}`,
+    )
+  }
+}
 
 interface SWSize {
   url: string
@@ -103,10 +137,7 @@ export async function ingestFromStoryWeaver(sourceId: string): Promise<RawBook> 
   if (!key) throw new Error('StoryWeaver: empty source_id')
 
   const url = `${API}/stories/${encodeURIComponent(key)}/read`
-  const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
-  if (!res.ok) throw new Error(`StoryWeaver fetch failed: ${res.status} ${url}`)
-
-  const json = (await res.json()) as SWRead
+  const json = (await swFetchJson(url)) as SWRead
   const d = json?.data
   if (!d || !Array.isArray(d.pages) || d.pages.length === 0) {
     throw new Error(`StoryWeaver: unexpected response shape for ${key}`)
