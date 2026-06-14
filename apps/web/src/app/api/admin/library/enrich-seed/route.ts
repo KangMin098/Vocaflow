@@ -2,8 +2,7 @@
 // → 해당 library_seed_catalog 행의 소스 디테일 페이지 fetch 후 메타 채움.
 
 import { NextResponse } from 'next/server'
-import type { SupabaseClient } from '@supabase/supabase-js'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { fetchGutenbergDetail, fetchStandardEbooksDetail, fetchLit2GoDetail, type DetailFields } from '@/lib/library/seed-fetchers/detail-fetchers'
 
@@ -22,7 +21,21 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: e instanceof Error ? e.message : 'bad request' }, { status: 400 })
   }
 
-  const client = (await createClient()) as unknown as SupabaseClient
+  // dev-bypass 모드(또는 cookie 세션 없는 admin 호출)에서 RLS 거부 방지 위해
+  // service_role client 사용 — 다른 admin write route 와 동일 패턴.
+  // requireAdmin 으로 이미 가드 통과한 상태.
+  const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
+  const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
+  if (!supabaseUrl || !serviceKey) {
+    return NextResponse.json(
+      { error: 'ServerConfig', message: 'SUPABASE_URL / SERVICE_ROLE_KEY 누락' },
+      { status: 500 },
+    )
+  }
+  const client = createClient(supabaseUrl, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
+
   const { data: row, error: fetchErr } = await client
     .from('library_seed_catalog')
     .select('id, source, source_id, enriched_at')
