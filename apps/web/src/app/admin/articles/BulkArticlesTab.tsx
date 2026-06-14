@@ -739,12 +739,17 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                           ★ {scorePct}
                         </span>
                       )}
-                      {r.published_at && (
-                        <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t3)]">
-                          <Calendar size={9} />
-                          {new Date(r.published_at).toISOString().slice(0, 10)}
-                        </span>
-                      )}
+                      {(() => {
+                        // Invalid Date 방어 — toISOString() throw 차단 (잘못된 published_at)
+                        const d = r.published_at ? new Date(r.published_at) : null
+                        if (!d || Number.isNaN(d.getTime())) return null
+                        return (
+                          <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t3)]">
+                            <Calendar size={9} />
+                            {d.toISOString().slice(0, 10)}
+                          </span>
+                        )
+                      })()}
                       {r.has_audio && (
                         <span
                           className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"

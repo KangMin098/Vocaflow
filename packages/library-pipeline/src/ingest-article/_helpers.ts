@@ -52,11 +52,27 @@ export function parseRssFeed(xml: string): RssListItem[] {
       guid,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
-      published_at: pubDate ? new Date(pubDate).toISOString() : null,
+      published_at: safeDateISO(pubDate),
       description: decodeEntities(stripTags(desc)).trim().slice(0, 400),
     })
   }
   return items
+}
+
+/**
+ * 안전한 날짜 파싱 — `new Date(s)` 가 **Invalid Date**(truthy)를 만들 수 있어,
+ * 이후 `.toISOString()` 이 "Invalid time value" 로 throw 되는 것을 차단.
+ * 파싱 불가/빈 값이면 null 반환.
+ */
+export function safeDate(s: string | null | undefined): Date | null {
+  if (!s || !s.trim()) return null
+  const d = new Date(s)
+  return Number.isNaN(d.getTime()) ? null : d
+}
+
+/** 안전한 날짜 → ISO 문자열. 파싱 불가면 null (toISOString throw 차단). */
+export function safeDateISO(s: string | null | undefined): string | null {
+  return safeDate(s)?.toISOString() ?? null
 }
 
 /** HTML <tag> 내용 추출 (CDATA + 일반 텍스트 지원). 첫 매치만. */

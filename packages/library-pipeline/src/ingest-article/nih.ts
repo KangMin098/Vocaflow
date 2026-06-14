@@ -20,6 +20,7 @@ import {
   hashString,
   htmlToPlainText,
   parseRssFeed,
+  safeDate,
   type RssListItem,
 } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -128,7 +129,7 @@ export async function ingestNihArticle(itemUrl: string): Promise<RawArticle> {
     author: isMedlinePlus ? 'MedlinePlus / NLM' : 'NIH',
     language: 'en',
     license: 'PD-Government',
-    published_at: publishedAt ? new Date(publishedAt) : null,
+    published_at: safeDate(publishedAt),
     content,
     estimated_cefr: null,
     fetched_at: new Date(),

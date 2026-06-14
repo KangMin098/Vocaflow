@@ -119,7 +119,11 @@ export async function POST(request: Request): Promise<NextResponse> {
       p_title: article.title,
       p_author: article.author ?? null,
       p_url: article.source_url,
-      p_published_at: article.published_at?.toISOString() ?? null,
+      // Invalid Date 방어 — getTime() NaN 이면 toISOString() 이 "Invalid time value" throw.
+      p_published_at:
+        article.published_at && !Number.isNaN(article.published_at.getTime())
+          ? article.published_at.toISOString()
+          : null,
       p_license: article.license,
       p_content: article.content,
       // v06.45 — audio_url (LCP librivox_audio 와 동일 연계). VOA = 학습 정체성으로 거의 100% 존재.

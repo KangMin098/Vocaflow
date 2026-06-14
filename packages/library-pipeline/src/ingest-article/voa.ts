@@ -15,6 +15,7 @@
 
 import type { RawArticle } from '../types-article'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
+import { safeDate, safeDateISO } from './_helpers'
 
 // VOA WAF 는 비브라우저 UA (curl/bot) 를 403 차단 → 일반 브라우저 UA 로 fetch.
 const USER_AGENT =
@@ -177,7 +178,7 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     author: 'VOA Learning English',
     language: 'en',
     license: 'PD-Government',
-    published_at: publishedAt ? new Date(publishedAt) : null,
+    published_at: safeDate(publishedAt),
     content,
     estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
     audio_url: audioUrl,
@@ -222,7 +223,7 @@ function parseRssItems(xml: string): VoaListItem[] {
       source_id: `voa:${slug && slug !== 'html' ? slug : hashString(link).toString(36)}`,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
-      published_at: pubDate ? new Date(pubDate).toISOString() : null,
+      published_at: safeDateISO(pubDate),
       description: decodeEntities(stripTags(desc ?? '')).trim().slice(0, 400),
     })
   }
