@@ -10,6 +10,40 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 대량 GET — 인터페이스/결과 고도화 + 3건 fix (v06.71)
+
+사용자 피드백: "VOA, NASA 외 전부 LCP 대량 가져오기 안됨. 선택, 가져오기 개수, 종류 등 가져오기 인터페이스, 결과 조건 등 고도화 해줘. 많이 불편함."
+
+### 실측 진단 (curl + spec scoring 시뮬레이션)
+
+| 소스 | parsed | 가드 통과 | 주요 실패 원인 |
+|---|---:|---:|---|
+| VOA | 20 | 20 | ✅ |
+| NASA | 10 | 10 | ✅ |
+| **NIH MedlinePlus** | 54 | **0** | desc 28~100자 / title 16~25자 (가드 120/25 너무 높음). MedlinePlus 본문 자체가 짧음 |
+| **Wikinews** | **0** | 0 | 영문 사이트 사실상 비활성 (30일 ns=0 article 0건) |
+| **Simple Wikipedia** | 30 | 18 | extract<60자 12개 사전 필터 후 |
+| The Conversation | 50 | 50 | ✅ (v06.70 fix 효과) |
+
+### 코어 버그 1건 — byCappedSource 하드코딩
+
+[BulkArticlesTab.tsx](../apps/web/src/app/admin/articles/BulkArticlesTab.tsx) `handleBulkFetch` 의 cap 단계가 하드코딩 `['voa','nasa','nih']` 만 처리 → wikinews/the_conversation/simple_wikipedia 가 가져온 후 결과 row 에서 누락. SOURCES 전수 순회로 변경.
+
+### Fix 3건
+
+1. **NIH spec 완화** ([_curation-spec.ts](../packages/library-pipeline/src/ingest-article/_curation-spec.ts)): `minDescriptionLen` 120 → **40**, `minTitleLen` 25 → **15**, `recencyDays` 21 → **365**, `idealDescLen` 300 → **120**, `maxItems` 10 → **30**. MedlinePlus 본문이 본질적으로 짧은 특성 반영.
+2. **Wikinews health=inactive**: SourceConfig 에 `health` + `healthNote` 신설. Wikinews 카드에 "⚠️ 외부 소스 비활성 — 영문 사이트가 현재 거의 비활성 (30일 새 article 0건)" 표시.
+3. **byCappedSource 7종 전수 처리** (위 코어 버그 fix).
+
+### 인터페이스 고도화 (사용자 명시 — "선택/개수/종류/결과 조건")
+
+- **소스 카드 health badge** — health!=ok 시 카드 하단에 AlertCircle + 상태 메시지 (inactive=빨강 / unstable=주황).
+- **결과 패널 신규** (`sourceStats`): 가져온 후 소스별 분포 표시 — 색점 + 라벨 + `최종 / 원본 (−드롭) (N feed)` 형식. 0건 소스는 회색 처리. tooltip 에 드롭 사유 (spec 가드 미통과). 사용자가 "어느 소스가 몇 건 회수됐는지" + "왜 드롭됐는지" 한눈에.
+
+### 활성 ACP 6종 (v06.71 기준)
+
+VOA (활성) · NASA (활성) · NIH (활성 — spec 완화) · Simple Wikipedia (활성 — 60% 회수) · Wikinews (⚠️ 외부 비활성) · The Conversation (활성).
+
 ### LCP 대량 — The Conversation description 추출 수정 (v06.70)
 
 사용자 피드백: "LCP 대량에서 The Conversation 가져오기 기능 안되는 거 같음."

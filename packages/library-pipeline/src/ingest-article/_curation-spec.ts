@@ -177,14 +177,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     maxItems: 12,
   },
   nih: {
-    recencyDays: 21,
-    minDescriptionLen: 120,
-    minTitleLen: 25,
+    // v06.71 — MedlinePlus What's New 본문이 본질적으로 매우 짧음 (대부분 30-60자).
+    //   가드 완화: minDescriptionLen 120→40, minTitleLen 25→15, recencyDays 21→365.
+    //   실측: 54 parsed → 가드 완화 후 ~30+ pass.
+    recencyDays: 365,
+    minDescriptionLen: 40,
+    minTitleLen: 15,
     sourceWeight: 0.78,
     levelBonus: 0,
-    idealDescLen: 300,
+    idealDescLen: 120,
     noiseKeywords: ['recall', 'advisory'],
-    maxItems: 10,
+    maxItems: 30,
   },
   // v06.66 — 신규 3종
   wikinews: {

@@ -83,6 +83,9 @@ interface SourceConfig {
   Icon: typeof Radio
   color: string
   feeds: FeedConfig[]
+  /** v06.71 — health: 외부 사이트 활성 상태. 'unstable' = 가져오기 0건 빈번. */
+  health?: 'ok' | 'unstable' | 'inactive'
+  healthNote?: string
 }
 
 const SOURCES: SourceConfig[] = [
@@ -133,6 +136,7 @@ const SOURCES: SourceConfig[] = [
     ],
   },
   // v06.66 — Wikinews (B1-B2 시사 뉴스, CC-BY-2.5)
+  // v06.71 — 영문 사이트가 30일 ns=0 article 0건 (사실상 비활성) → health=inactive
   {
     key: 'wikinews',
     label: 'Wikinews',
@@ -141,6 +145,8 @@ const SOURCES: SourceConfig[] = [
     feeds: [
       { id: 'latest', label: 'Latest news' },
     ],
+    health: 'inactive',
+    healthNote: '영문 사이트가 현재 거의 비활성 (30일 새 article 0건)',
   },
   // v06.66 — The Conversation (B2-C1 학자 논증문, CC-BY-ND → display_only)
   {
@@ -171,6 +177,10 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
   const [failedFeeds, setFailedFeeds] = useState<
     Array<{ source: SourceKey; feed_id: string; feed_label: string; error: string }>
   >([])
+  // v06.71 — 소스별 결과 통계 (fetched=원본 / passed=spec 통과 / capped=cap 적용 후)
+  const [sourceStats, setSourceStats] = useState<
+    Record<string, { fetched: number; passed: number; capped: number; feeds: number }>
+  >({})
   const [fetching, setFetching] = useState(false)
   // 선택된 항목
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -294,6 +304,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     setEnqueueResult(null)
     setRows([])
     setFailedFeeds([])
+    setSourceStats({})
     setSelected(new Set())
 
     const feedsToFetch: Array<{ source: SourceKey; feed: FeedConfig }> = []
@@ -347,13 +358,28 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       }
     })
 
-    // v06.42 — 소스 레벨 cap 적용 (소스당 maxItemsPerBatch + minScore + feed mix quota)
+    // v06.42 소스 레벨 cap 적용. v06.71 — 하드코딩 ['voa','nasa','nih'] 만 처리되던 버그
+    //   수정 (wikinews/the_conversation/simple_wikipedia 가 결과 빠짐). SOURCES 전수 순회.
+    // v06.71 — sourceStats 동시 누적 (사용자에게 fetched/passed/capped 분포 표시).
     const byCappedSource: BulkRow[] = []
-    for (const key of (['voa', 'nasa', 'nih'] as SourceKey[])) {
-      const ofSource = accRows.filter((r) => r.source === key)
-      if (ofSource.length === 0) continue
-      const capped = applySourceLevelCap(ofSource, key)
+    const stats: Record<string, { fetched: number; passed: number; capped: number; feeds: number }> = {}
+    const feedsPerSource = new Map<string, Set<string>>()
+    for (const ff of feedsToFetch) {
+      if (!feedsPerSource.has(ff.source)) feedsPerSource.set(ff.source, new Set())
+      feedsPerSource.get(ff.source)!.add(ff.feed.id)
+    }
+    for (const sourceCfg of SOURCES) {
+      const ofSource = accRows.filter((r) => r.source === sourceCfg.key)
+      const fetched = ofSource.length
+      const passed = ofSource.filter(
+        (r) => (r.score?.total ?? 0) >= SOURCE_SPECS[sourceCfg.key].minScore,
+      ).length
+      const capped = ofSource.length > 0 ? applySourceLevelCap(ofSource, sourceCfg.key) : []
       byCappedSource.push(...capped)
+      const feedsCount = feedsPerSource.get(sourceCfg.key)?.size ?? 0
+      if (fetched > 0 || feedsCount > 0) {
+        stats[sourceCfg.key] = { fetched, passed, capped: capped.length, feeds: feedsCount }
+      }
     }
 
     // 학습 친화도순 정렬 (sortBy state 따라 client에서 다시 정렬)
@@ -361,6 +387,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
     setRows(byCappedSource)
     setFailedFeeds(accFail)
+    setSourceStats(stats)
     setFetching(false)
   }
 
@@ -578,6 +605,26 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 <div className="line-clamp-1 font-body text-[10.5px] text-[var(--t3)]">
                   {spec.styleGuide}
                 </div>
+                {/* v06.71 — health 상태 표시 (inactive/unstable 시) */}
+                {s.health && s.health !== 'ok' && (
+                  <div
+                    className="flex items-start gap-1 rounded-[var(--r-sm)] px-1.5 py-1 font-body text-[9.5px]"
+                    style={{
+                      background:
+                        s.health === 'inactive'
+                          ? 'color-mix(in srgb, var(--memory-shaky) 12%, transparent)'
+                          : 'color-mix(in srgb, var(--warning) 12%, transparent)',
+                      color: s.health === 'inactive' ? 'var(--memory-shaky)' : 'var(--warning)',
+                    }}
+                    title={s.healthNote}
+                  >
+                    <AlertCircle size={10} aria-hidden className="mt-0.5 shrink-0" />
+                    <span>
+                      {s.health === 'inactive' ? '⚠️ 외부 소스 비활성' : '⚠️ 불안정'}
+                      {s.healthNote ? ` — ${s.healthNote}` : ''}
+                    </span>
+                  </div>
+                )}
               </button>
             )
           })}
@@ -599,6 +646,53 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             : `${[...selectedSources].length} 소스 · ${countFeeds(selectedSources)} 카테고리 일괄 가져오기`}
         </button>
       </section>
+
+      {/* v06.71 — 소스별 결과 분포 (fetched/passed/capped) */}
+      {Object.keys(sourceStats).length > 0 && (
+        <section className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+          <h3 className="mb-1.5 inline-flex items-center gap-1.5 font-display text-[12px] font-[700] text-[var(--t1)]">
+            📊 소스별 결과
+          </h3>
+          <ul className="grid gap-1 font-mono text-[10.5px] sm:grid-cols-2">
+            {SOURCES.filter((s) => sourceStats[s.key]).map((s) => {
+              const st = sourceStats[s.key]!
+              const dropped = st.fetched - st.passed
+              const isZero = st.capped === 0
+              return (
+                <li
+                  key={s.key}
+                  className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--bg)] px-2 py-1"
+                  style={{ color: isZero ? 'var(--t3)' : 'var(--t1)' }}
+                >
+                  <span
+                    className="inline-block h-2 w-2 rounded-full"
+                    style={{ background: isZero ? 'var(--bd)' : s.color }}
+                    aria-hidden
+                  />
+                  <span className="font-display font-[700]">{s.label}</span>
+                  <span className="ml-auto">
+                    <strong className="text-[var(--t1)]">{st.capped}</strong>
+                    <span className="text-[var(--t3)]"> / {st.fetched}</span>
+                    {dropped > 0 && (
+                      <span
+                        className="ml-1 text-[var(--memory-shaky)]"
+                        title={`${dropped}건 가드 미통과 (minScore/minDescriptionLen/recencyDays 등)`}
+                      >
+                        −{dropped}
+                      </span>
+                    )}
+                    <span className="ml-1 text-[var(--t4)]">({st.feeds} feed)</span>
+                  </span>
+                </li>
+              )
+            })}
+          </ul>
+          <p className="mt-1.5 font-body text-[9.5px] text-[var(--t3)]">
+            형식: <strong>최종/원본</strong> (−드롭). 드롭은 spec 가드(점수·길이·기간) 미통과. 소스
+            카드 클릭으로 spec 확인 가능.
+          </p>
+        </section>
+      )}
 
       {/* 실패한 feed 안내 */}
       {failedFeeds.length > 0 && (
