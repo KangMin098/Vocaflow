@@ -113,20 +113,24 @@ export async function ingestFromLit2Go(sourceId: string): Promise<RawBook> {
 // ───────────────────────────────────────────────────────
 
 function parseBookMeta(html: string): Lit2GoMeta {
-  const titleMatch = html.match(/<h1[^>]*>([^<]+)<\/h1>/i)
+  // 책 제목 — Lit2Go 는 <h2> 사용 (멀티라인). <h1> 은 사이트 로고.
+  const titleMatch = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i)
   const title = stripHtml(titleMatch?.[1] ?? '').trim()
 
+  // 저자/컬렉션/장르 anchor — 절대/상대 URL 모두 매칭.
   const authorMatch = html.match(
-    /<a[^>]+href="\/lit2go\/authors\/[^"]+"[^>]*>([^<]+)<\/a>/i,
+    /<a[^>]+href="(?:https?:\/\/etc\.usf\.edu)?\/lit2go\/authors\/[^"]+"[^>]*>([^<]+)<\/a>/i,
   )
   const author = authorMatch ? stripHtml(authorMatch[1] ?? '').trim() : undefined
 
   const collectionMatch = html.match(
-    /<a[^>]+href="\/lit2go\/collections\/[^"]+"[^>]*>([^<]+)<\/a>/i,
+    /<a[^>]+href="(?:https?:\/\/etc\.usf\.edu)?\/lit2go\/collections\/[^"]+"[^>]*>([^<]+)<\/a>/i,
   )
   const collection = collectionMatch ? stripHtml(collectionMatch[1] ?? '').trim() : undefined
 
-  const genreMatch = html.match(/<a[^>]+href="\/lit2go\/genres\/[^"]+"[^>]*>([^<]+)<\/a>/i)
+  const genreMatch = html.match(
+    /<a[^>]+href="(?:https?:\/\/etc\.usf\.edu)?\/lit2go\/genres\/[^"]+"[^>]*>([^<]+)<\/a>/i,
+  )
   const genre = genreMatch ? stripHtml(genreMatch[1] ?? '').trim() : undefined
 
   const gradeMatch = html.match(/Reading\s+Level[^0-9]*([\d.]+)/i)
@@ -150,9 +154,14 @@ function parseBookMeta(html: string): Lit2GoMeta {
 }
 
 function parsePassageUrls(html: string, bookId: string): string[] {
-  // passage URL: /lit2go/{book-id}/{passage-slug}/
+  // 실제 passage URL = 5 segments + 절대 URL (책 페이지 confirmed 마크업):
+  //   https://etc.usf.edu/lit2go/{book-id}/{book-slug}/{passage-id}/{passage-slug}/
+  // 책 자체 짧은 URL (`/lit2go/{book-id}/`) 은 redirect 만 있고 본문 없음 → 5-seg 만 채택.
   const urls = new Set<string>()
-  const re = new RegExp(`<a[^>]+href="(\\/lit2go\\/${bookId}\\/[a-z0-9\\-]+\\/)"`, 'gi')
+  const re = new RegExp(
+    `<a[^>]+href="(?:https?:\\/\\/etc\\.usf\\.edu)?(\\/lit2go\\/${bookId}\\/[a-z0-9\\-]+\\/\\d+\\/[a-z0-9\\-]+\\/)"`,
+    'gi',
+  )
   let m: RegExpExecArray | null
   while ((m = re.exec(html)) !== null) {
     urls.add(`https://etc.usf.edu${m[1]!}`)
@@ -161,12 +170,24 @@ function parsePassageUrls(html: string, bookId: string): string[] {
 }
 
 function extractPassageBody(html: string): string {
-  // Lit2Go passage 본문: <div class="entry-content"> 또는 <article> 중 첫 매치
-  const m =
-    html.match(/<div[^>]+class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>\s*<\/(?:div|main|article)>/i) ??
-    html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)
-  if (!m) return ''
-  return htmlToPlainText(m[1] ?? '')
+  // Lit2Go passage 본문은 `<div id="i_apologize_for_the_soup">` 안 <p> 들 (confirmed).
+  // (이전 entry-content / <article> wrapper 가정은 WordPress 기본 가정 — Lit2Go 와 안 맞음.)
+  // 컨테이너 안에는 <audio> / <source> / <nav class="passage"> 등 노이즈가 함께 있어 사전 제거.
+  const m = html.match(
+    /<div[^>]+id="i_apologize_for_the_soup"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/i,
+  )
+  if (!m) {
+    // 폴백 1: id 변경 시 <article> 시도
+    const am = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)
+    if (am) return htmlToPlainText(am[1] ?? '')
+    return ''
+  }
+  let body = m[1] ?? ''
+  // 오디오 플레이어 / 캡션 / 네비게이션 제거
+  body = body.replace(/<audio[\s\S]*?<\/audio>/gi, '')
+  body = body.replace(/<source[^>]*\/?>/gi, '')
+  body = body.replace(/<nav[\s\S]*?<\/nav>/gi, '')
+  return htmlToPlainText(body)
 }
 
 function htmlToPlainText(html: string): string {
