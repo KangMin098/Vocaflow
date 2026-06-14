@@ -136,6 +136,9 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 
 `/api/admin/articles/{arxiv|nasa|nih|voa}-feed` 4 feed → article 큐 등록 → `/api/acp/dev-process` 처리.
 
+**Curated 탭 검수 프로세스 (v06.51)** — 목록 행 제목/"검수" → `/admin/articles/preview/[id]` (LCP 책 검수 미러):
+본문 정독 + 분석(CEFR·단어수·읽기시간·상위 학습 단어) + 큐레이션 액션(지금 처리 `dev-process` / 게시 `admin_force_publish_article` / 보관 `admin_archive_article` / 재처리 `admin_requeue_article`).
+
 ---
 
 ## /admin/vocab/* — VCB

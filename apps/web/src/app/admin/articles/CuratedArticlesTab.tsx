@@ -4,7 +4,8 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Archive, CheckCircle2, ExternalLink, Loader2, Play, RefreshCw } from 'lucide-react'
+import Link from 'next/link'
+import { Archive, CheckCircle2, ExternalLink, Loader2, Play, RefreshCw, SearchCheck } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import type { ArticleAdminRow, ArticleStatus } from '@/lib/articles/types'
@@ -116,9 +117,12 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
                   >
                     <Td>
                       <div className="flex flex-col gap-0.5">
-                        <span className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)]">
+                        <Link
+                          href={`/admin/articles/preview/${a.id}`}
+                          className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                        >
                           {a.title}
-                        </span>
+                        </Link>
                         {a.author && (
                           <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">
                             {a.author}
@@ -161,6 +165,14 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
                     </Td>
                     <Td align="right">
                       <div className="flex items-center justify-end gap-1">
+                        <Link
+                          href={`/admin/articles/preview/${a.id}`}
+                          className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                          aria-label="글 검수 페이지 열기"
+                        >
+                          <SearchCheck size={11} aria-hidden />
+                          검수
+                        </Link>
                         {a.source_url && (
                           <a
                             href={a.source_url}

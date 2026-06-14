@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 글 검수 페이지 — Curated 탭에 LCP식 큐레이션 프로세스 (v06.51)
+
+기존 `/admin/articles` Curated 탭은 **목록 + 행 액션 버튼**뿐 — 본문을 읽지 않고 게시/보관해야 했음("목록만 보고 큐레이션?"). LCP 책 검수(`/admin/curation/preview/[bookId]`)와 동일한 read → analyze → curate 흐름을 글에 도입.
+
+**신규 라우트** `/admin/articles/preview/[id]`
+- [page.tsx](../apps/web/src/app/admin/articles/preview/[id]/page.tsx) (RSC) — `library_articles` 본문 + `library_article_vocabularies` 상위 40 단어(`base_learning_value` desc) + `shared_dictionary` 뜻/CEFR/V-Level 조인.
+- [AdminArticleReviewClient.tsx](../apps/web/src/app/admin/articles/preview/[id]/AdminArticleReviewClient.tsx) — 좌: 본문 리더(문단 분할 정독) / 우: 분석 사이드바(CEFR·신뢰도·단어수·읽기시간·라이선스·저작권 게이트) + 상위 학습 단어 테이블 + 큐레이션 액션(지금 처리/게시/보관/재처리, 기존 `dev-process` API + `admin_force_publish_article`/`admin_archive_article`/`admin_requeue_article` RPC 재사용).
+- loading.tsx 스켈레톤.
+
+**진입 wire** [CuratedArticlesTab.tsx](../apps/web/src/app/admin/articles/CuratedArticlesTab.tsx) — 제목 클릭 + 행 "검수" 버튼(SearchCheck) → 검수 페이지. (직전 RLS fix `admin_curator_all_articles` 로 비공개 상태 글도 읽기 가능 → 검수 데이터 확보.)
+
 ### Dev 일괄 처리 대상에 failed 도서 포함 (v06.50)
 
 [MyLibraryTab.tsx](../apps/web/src/components/admin/curation/MyLibraryTab.tsx) — Dev 일괄 처리 (`devBatchIds`) 가 `inProgressIds + readyIds` 만 모았는데 **failed 도서가 빠져 있어** 정규식/네트워크 일시 실패 후 fix 한 도서를 batch 로 다시 못 돌림. failed 도서 1권을 다시 처리하려면 모달에서 한 건씩 dev-process 호출하는 번거로움.
