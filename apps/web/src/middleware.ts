@@ -9,6 +9,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import type { Database } from '@vocaflow/types'
+import { devAdminBypass } from '@/lib/auth/dev-bypass'
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request })
@@ -51,6 +52,10 @@ export async function middleware(request: NextRequest) {
 
   // /admin/* 가드
   if (request.nextUrl.pathname.startsWith('/admin')) {
+    // 개발 전용 우회 (DEV_ADMIN_BYPASS=1, 프로덕션 무효) — 로그인 없이 통과
+    if (devAdminBypass()) {
+      return response
+    }
     if (!user) {
       return redirectTo('/login', true)
     }

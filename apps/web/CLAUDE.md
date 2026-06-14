@@ -14,6 +14,12 @@
 
 서버 컴포넌트는 `lib/supabase/server.ts`, 클라이언트 컴포넌트는 `lib/supabase/client.ts` 사용. 라우트 보호는 `src/middleware.ts` 에서 처리.
 
+admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`(RSC, `lib/auth/require-admin.ts`) + `requireAdminApi`(API, `lib/auth/require-admin-api.ts`). 셋 다 `getUser` + `user_profiles.role` 검사.
+
+### 개발 전용 admin 우회 (로그인 없이 /admin)
+
+`lib/auth/dev-bypass.ts` 의 `devAdminBypass()` 를 위 3층 진입부에서 호출. `apps/web/.env.local` 에 `DEV_ADMIN_BYPASS=1` + `DEV_ADMIN_USER_ID=<admin uuid>` 설정 시 합성 admin 으로 통과. **프로덕션 무효** — `NODE_ENV==='production'` 이면 코드가 무조건 `null` 반환(하드 게이트). 끄려면 플래그 삭제 후 dev 서버 재시작. (`.env.local` 은 git 추적 안 됨.)
+
 ## App Router 그룹 / 세그먼트
 
 - `(auth)` — 인증 라우트 (헤더 없음)
