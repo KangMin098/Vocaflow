@@ -336,8 +336,18 @@ export function BulkFetchTab() {
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           <PickerField label="소스">
-            <select value={source} onChange={(e) => setSource(e.target.value as SourceKey)}
-              className={selectCls} disabled={fetching}>
+            <select
+              value={source}
+              onChange={(e) => {
+                const s = e.target.value as SourceKey
+                setSource(s)
+                // 아래 카탈로그 리스트도 동일 소스로 필터 — 방금 GET 한 도서를 바로 확인.
+                setFilterSource(s)
+                setListOffset(0)
+              }}
+              className={selectCls}
+              disabled={fetching}
+            >
               {/* LibriVox 는 독립 GET 제외 — Gutenberg/SE 도서에 '보이스 연결'로만 사용 (본문 검수에서 매칭) */}
               {SOURCE_OPTIONS.filter((s) => s.value !== 'librivox').map((s) => (
                 <option key={s.value} value={s.value}>{s.label}</option>
