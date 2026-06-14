@@ -491,17 +491,32 @@ export async function fetchCurationJobs(
 
 /**
  * cefr_confidence 낮아도 강제로 publish.
- * - copyright_safe_in_kr=false 책은 RPC에서 거부 (안전 가드).
+ * - copyright_safe_in_kr=false 책은 서버에서 거부 (안전 가드).
+ *
+ * v06.55 — 브라우저 RPC 직접 호출 (admin_force_publish_book) 은 DEV_ADMIN_BYPASS=1
+ *   환경에서 auth.uid()=NULL → is_admin_or_curator()=false → "Forbidden" throw.
+ *   서버 API route (/api/admin/library/force-publish-book) 경유로 통일.
+ *   client 인자는 호출부 시그니처 보존용 (실제 미사용 — fetch 만 호출).
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function forcePublishBook(
-  client: AdminClient,
+  _client: AdminClient,
   bookId: string,
 ): Promise<void> {
-  const { error } = await client.rpc('admin_force_publish_book', {
-    p_book_id: bookId,
+  const res = await fetch('/api/admin/library/force-publish-book', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ book_id: bookId }),
   })
-  if (error) {
-    throw new Error(`forcePublishBook failed: ${error.message}`)
+  if (!res.ok) {
+    let msg = `HTTP ${res.status}`
+    try {
+      const j = (await res.json()) as { message?: string; error?: string }
+      msg = j.message ?? j.error ?? msg
+    } catch {
+      /* non-JSON body */
+    }
+    throw new Error(`forcePublishBook failed: ${msg}`)
   }
 }
 
