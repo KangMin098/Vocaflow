@@ -240,6 +240,61 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
     }
   }
 
+  // 4.7. v06.51 — direct-script(글) 보이스 + 단어장 (book context 없는 article 파생 텍스트).
+  //   texts.source_url = 'article:{uuid}' 마커 → library_articles.audio_url(보이스) + 글 단어장(pill).
+  //   책의 librivox chapterAudio / chapter word set 경로에 대응 (글=단일 섹션).
+  if (text && !text.library_book_id && !text.user_book_group_id) {
+    const { data: srcRow } = await client
+      .from('texts')
+      .select('source_url')
+      .eq('id', text.id)
+      .maybeSingle();
+    const marker = (srcRow as { source_url: string | null } | null)?.source_url ?? '';
+    const m = marker.match(/^article:([0-9a-fA-F-]{36})$/);
+    if (m) {
+      const articleId = m[1];
+      const [{ data: artRow }, { data: setRow }] = await Promise.all([
+        client
+          .from('library_articles')
+          .select('audio_url, title, source_url')
+          .eq('id', articleId)
+          .maybeSingle(),
+        client
+          .from('shared_word_sets')
+          .select('id, title')
+          .eq('is_published', true)
+          .eq('category', 'library_article')
+          .eq('curation_query->>article_id', articleId)
+          .maybeSingle(),
+      ]);
+      const art = artRow as {
+        audio_url: string | null;
+        title: string | null;
+        source_url: string | null;
+      } | null;
+      // 보이스: 단일 스트림 ChapterAudio (FloatingAudioPlayer '원어민 성우' 소스로 노출)
+      if (art?.audio_url && /^https?:\/\//i.test(art.audio_url)) {
+        chapterAudio = {
+          url: art.audio_url,
+          title: art.title ?? null,
+          reader: null,
+          secs: null,
+          librivoxUrl: art.source_url ?? null,
+          consistency: 'solo',
+          sectionNumber: 1,
+          sectionCount: 1,
+          parts: [{ url: art.audio_url, title: art.title ?? null, reader: null, secs: null }],
+        };
+      }
+      // 단어장: 글 단어장 1개 → workspace "단어" pill
+      const set = setRow as { id: string; title: string } | null;
+      if (set) {
+        currentChapterWordSet = { id: set.id, title: set.title };
+        allChapterWordSets = [{ id: set.id, chapterIdx: 1, title: set.title }];
+      }
+    }
+  }
+
   // 5. Phase 11.6 + 11.7 — TextContentProvider 데이터 정합
   let textContentValue: TextContentData | null = null;
 
