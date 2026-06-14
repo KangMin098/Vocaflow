@@ -10,6 +10,43 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 대량 결과 list — 7축 필터 통합 패널 (v06.73)
+
+사용자 요청: "LCP 대량의 list 에 필터 조건 필요함. 전체 조건에 대한 커버리지가 필터에 있어야 함."
+
+이전엔 `hidePublished` / `audioOnly` 토글 2개만 있었음. 결과 row 가 수십~수백 건일 때 큐레이터가 좁히기 불편 → 7축 필터 패널로 통합.
+
+### 신 state — `listFilters` 7축
+
+| 축 | 컨트롤 | 동작 |
+|---|---|---|
+| **검색** | text input | title + description 부분 일치 (대소문자 무시) |
+| **소스** | 6개 chip 다중 선택 | 비어있으면 모두 통과 |
+| **점수** | minScore slider (0~100) | `score.total × 100 >= minScore`. 0 = 전체 |
+| **CEFR** | A1~C2 chip 다중 선택 | 소스 spec.targetCefr.min 기준. 비어있으면 모두 |
+| **발행 상태** | segment (전체/미발행/발행) | 기본값 `미발행` (이전 `hidePublished=true` 와 동등) |
+| **audio 보유** | segment (전체/있음/없음) | 기존 `audioOnly` 통합 |
+| **기간** | recencyDays slider (1~365) | `now − published_at > N일` 차단. 0 = 전체 |
+
+### UI ([BulkArticlesTab.tsx](../apps/web/src/app/admin/articles/BulkArticlesTab.tsx))
+
+- 결과 헤더 안에 **`필터 [N]` 토글** (활성 필터 개수 chip — 기본 `미발행` 만 활성). ChevronDown 아이콘.
+- 펼치면 grid 2열 (sm) 필터 패널. 각 축마다 라벨 + 컨트롤 + 현재 값 표시.
+- 우하단 `필터 초기화 (기본값: 미발행만)` 버튼.
+- 결과 카운트 표시 갱신: `N건 (필터로 M 숨김 / 전체 K)`.
+
+### 적용 후 흐름
+
+```
+rows (서버 fetch)
+  ↓ listFilters 7축 통과
+visibleRows (사용자 필터링)
+  ↓ sortBy (score | date) 정렬
+displayRows (화면 표시)
+```
+
+소스별 / CEFR 별 / 점수 구간별로 사용자가 즉시 좁혀 큐 추가 후보를 명확히 식별 가능.
+
 ### LCP 대량 GET — 전체 재설계 (v06.72)
 
 사용자 명시: "전체 재설계 해달라는것임" (선택 / 가져오기 개수 / 종류 / 결과 조건 모두 사용자 컨트롤). v06.71 의 부분 fix 가 부족 → 4축 동시 재구성.

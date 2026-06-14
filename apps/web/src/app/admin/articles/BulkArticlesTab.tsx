@@ -249,11 +249,27 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
   } | null>(null)
   const [enqueuedKeys, setEnqueuedKeys] = useState<Set<string>>(new Set())
 
-  // v06.41 — 정렬 / 발행 숨김 토글
+  // v06.41 — 정렬
   const [sortBy, setSortBy] = useState<'score' | 'date'>('score')
-  const [hidePublished, setHidePublished] = useState(true)
-  // v06.45 — 듣기(audio) 보유 항목만 보기 (LCP librivox 와 동일 연계)
-  const [audioOnly, setAudioOnly] = useState(false)
+  // v06.73 — list 필터 7축 통합 (검색/소스/점수/CEFR/발행/audio/기간)
+  const [listFilters, setListFilters] = useState<{
+    search: string
+    sources: Set<SourceKey>
+    minScore: number // 0~100 (0 = 모두)
+    cefrLevels: Set<string>
+    publishStatus: 'all' | 'unpublished' | 'published'
+    audioStatus: 'all' | 'with' | 'without'
+    recencyDays: number | null
+  }>({
+    search: '',
+    sources: new Set(),
+    minScore: 0,
+    cefrLevels: new Set(),
+    publishStatus: 'unpublished',
+    audioStatus: 'all',
+    recencyDays: null,
+  })
+  const [listFiltersExpanded, setListFiltersExpanded] = useState(false)
 
   // v06.42 — 학습자 수준 (소스 자동 정렬 + 추천 강조)
   const [learnerLevel, setLearnerLevel] = useState<LearnerLevel>('intermediate')
@@ -1081,10 +1097,43 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
       {/* 결과 list */}
       {rows.length > 0 && (() => {
-        // v06.41 + v06.45 — 정렬 + 숨김 토글 + audioOnly 필터 적용
-        const visibleRows = rows
-          .filter((r) => (hidePublished ? !r.isPublished : true))
-          .filter((r) => (audioOnly ? r.has_audio === true : true))
+        // v06.73 — list 필터 7축 통합 적용
+        const lfSearch = listFilters.search.trim().toLowerCase()
+        const lfRecencyMs =
+          listFilters.recencyDays != null ? listFilters.recencyDays * 86_400_000 : null
+        const now = Date.now()
+        const visibleRows = rows.filter((r) => {
+          // 발행 상태
+          if (listFilters.publishStatus === 'unpublished' && r.isPublished) return false
+          if (listFilters.publishStatus === 'published' && !r.isPublished) return false
+          // audio 상태
+          if (listFilters.audioStatus === 'with' && r.has_audio !== true) return false
+          if (listFilters.audioStatus === 'without' && r.has_audio === true) return false
+          // 소스 (비어있으면 모두 통과)
+          if (listFilters.sources.size > 0 && !listFilters.sources.has(r.source)) return false
+          // 검색 (title + description)
+          if (lfSearch) {
+            const hay = `${r.title} ${r.description ?? ''}`.toLowerCase()
+            if (!hay.includes(lfSearch)) return false
+          }
+          // 점수 (0 = 모두)
+          if (listFilters.minScore > 0) {
+            const score = (r.score?.total ?? 0) * 100
+            if (score < listFilters.minScore) return false
+          }
+          // CEFR (소스별 spec.targetCefr.min 이 cefrLevels 안에 있어야)
+          if (listFilters.cefrLevels.size > 0) {
+            const cefrMin = SOURCE_SPECS[r.source].targetCefr.min
+            if (!listFilters.cefrLevels.has(cefrMin)) return false
+          }
+          // 기간 (recencyDays)
+          if (lfRecencyMs != null) {
+            if (!r.published_at) return false
+            const age = now - new Date(r.published_at).getTime()
+            if (age > lfRecencyMs) return false
+          }
+          return true
+        })
         const displayRows = [...visibleRows].sort((a, b) => {
           if (sortBy === 'score') return (b.score?.total ?? 0) - (a.score?.total ?? 0)
           return (b.published_at ?? '').localeCompare(a.published_at ?? '')
@@ -1113,8 +1162,11 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             </label>
             <span className="text-[var(--t3)]">
               <strong className="text-[var(--t1)]">{displayRows.length}</strong>건
-              {hidePublished && rows.length > displayRows.length && (
-                <span className="text-[var(--t3)]"> (발행 {rows.length - displayRows.length} 숨김)</span>
+              {rows.length > displayRows.length && (
+                <span className="text-[var(--t3)]">
+                  {' '}
+                  (필터로 {rows.length - displayRows.length} 숨김 / 전체 {rows.length})
+                </span>
               )}
               {' · 선택 '}
               <strong className="text-[var(--p)]">{visibleSelected.size}</strong>건
@@ -1148,29 +1200,31 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               </button>
             </div>
 
-            {/* v06.41 — 발행 숨김 토글 */}
-            <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
-              <input
-                type="checkbox"
-                checked={hidePublished}
-                onChange={(e) => setHidePublished(e.target.checked)}
-                className="h-3 w-3"
-              />
-              <span title="library_articles 에 이미 등재된 항목 숨김">발행 숨김</span>
-            </label>
-
-            {/* v06.45 — 듣기 보유만 (LCP librivox 와 동일 연계) */}
-            <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
-              <input
-                type="checkbox"
-                checked={audioOnly}
-                onChange={(e) => setAudioOnly(e.target.checked)}
-                className="h-3 w-3"
-              />
-              <span title="audio (mp3) 가 있는 항목만 — VOA Learning English 는 학습용 mp3 100% / NASA news 일부 / Lit2Go 일부">
-                🎧 듣기만
-              </span>
-            </label>
+            {/* v06.73 — 필터 통합 패널 토글 (hidePublished/audioOnly 등 모두 통합) */}
+            <button
+              type="button"
+              onClick={() => setListFiltersExpanded((v) => !v)}
+              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-0.5 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              title="검색 / 소스 / 점수 / CEFR / 발행 / audio / 기간"
+            >
+              {listFiltersExpanded ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+              필터
+              {(() => {
+                let n = 0
+                if (listFilters.search) n++
+                if (listFilters.sources.size > 0) n++
+                if (listFilters.minScore > 0) n++
+                if (listFilters.cefrLevels.size > 0) n++
+                if (listFilters.publishStatus !== 'unpublished') n++
+                if (listFilters.audioStatus !== 'all') n++
+                if (listFilters.recencyDays != null) n++
+                return n > 0 ? (
+                  <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 font-mono text-[9px] text-[var(--ti)]">
+                    {n}
+                  </span>
+                ) : null
+              })()}
+            </button>
 
             <div className="ml-auto">
               <button
@@ -1188,6 +1242,211 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               </button>
             </div>
           </div>
+
+          {/* v06.73 — 필터 패널 (펼치기) */}
+          {listFiltersExpanded && (
+            <div className="grid gap-3 border-b border-[var(--bd)] bg-[var(--bg)] p-3 sm:grid-cols-2">
+              {/* 검색 */}
+              <label className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  검색 (제목 · 설명)
+                </span>
+                <input
+                  type="search"
+                  value={listFilters.search}
+                  onChange={(e) =>
+                    setListFilters((f) => ({ ...f, search: e.target.value }))
+                  }
+                  placeholder="키워드…"
+                  className="h-7 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[11px] text-[var(--t1)]"
+                />
+              </label>
+
+              {/* 소스 다중 선택 */}
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  소스 ({listFilters.sources.size === 0 ? '전체' : `${listFilters.sources.size} 선택`})
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {SOURCES.map((s) => {
+                    const checked = listFilters.sources.has(s.key)
+                    return (
+                      <button
+                        key={s.key}
+                        type="button"
+                        onClick={() =>
+                          setListFilters((f) => {
+                            const next = new Set(f.sources)
+                            if (next.has(s.key)) next.delete(s.key)
+                            else next.add(s.key)
+                            return { ...f, sources: next }
+                          })
+                        }
+                        className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] font-[600]"
+                        style={{
+                          background: checked
+                            ? `color-mix(in srgb, ${s.color} 14%, transparent)`
+                            : 'var(--bg)',
+                          borderColor: checked ? s.color : 'var(--bd)',
+                          color: checked ? s.color : 'var(--t3)',
+                        }}
+                      >
+                        {s.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* 점수 minScore */}
+              <label className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  최소 점수 (★ 0 = 전체)
+                </span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={listFilters.minScore}
+                    onChange={(e) =>
+                      setListFilters((f) => ({
+                        ...f,
+                        minScore: parseInt(e.target.value, 10),
+                      }))
+                    }
+                    className="h-1.5 flex-1 cursor-pointer accent-[var(--p)]"
+                  />
+                  <span className="w-12 text-right font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                    {listFilters.minScore > 0 ? `★${listFilters.minScore}+` : '전체'}
+                  </span>
+                </div>
+              </label>
+
+              {/* CEFR 다중 선택 */}
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  CEFR (소스 기준 · {listFilters.cefrLevels.size === 0 ? '전체' : `${listFilters.cefrLevels.size} 선택`})
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {(['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const).map((lv) => {
+                    const checked = listFilters.cefrLevels.has(lv)
+                    return (
+                      <button
+                        key={lv}
+                        type="button"
+                        onClick={() =>
+                          setListFilters((f) => {
+                            const next = new Set(f.cefrLevels)
+                            if (next.has(lv)) next.delete(lv)
+                            else next.add(lv)
+                            return { ...f, cefrLevels: next }
+                          })
+                        }
+                        className={`inline-flex items-center rounded-[var(--r-sm)] border px-2 py-0.5 font-mono text-[10px] font-[700] ${
+                          checked
+                            ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p)]'
+                            : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t3)]'
+                        }`}
+                      >
+                        {lv}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* 발행 상태 */}
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  발행 상태
+                </span>
+                <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+                  {(['all', 'unpublished', 'published'] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => setListFilters((f) => ({ ...f, publishStatus: opt }))}
+                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all ${
+                        listFilters.publishStatus === opt
+                          ? 'bg-[var(--p)] text-[var(--ti)]'
+                          : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                      }`}
+                    >
+                      {opt === 'all' ? '전체' : opt === 'unpublished' ? '미발행' : '발행됨'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* audio 상태 */}
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  🎧 audio 보유
+                </span>
+                <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+                  {(['all', 'with', 'without'] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => setListFilters((f) => ({ ...f, audioStatus: opt }))}
+                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all ${
+                        listFilters.audioStatus === opt
+                          ? 'bg-[var(--p)] text-[var(--ti)]'
+                          : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                      }`}
+                    >
+                      {opt === 'all' ? '전체' : opt === 'with' ? '있음만' : '없음만'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 기간 recencyDays */}
+              <label className="flex flex-col gap-1 sm:col-span-2">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                  발행일 — 최근 N일 (0 = 전체)
+                </span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={0}
+                    max={365}
+                    step={1}
+                    value={listFilters.recencyDays ?? 0}
+                    onChange={(e) => {
+                      const v = parseInt(e.target.value, 10)
+                      setListFilters((f) => ({ ...f, recencyDays: v === 0 ? null : v }))
+                    }}
+                    className="h-1.5 flex-1 cursor-pointer accent-[var(--p)]"
+                  />
+                  <span className="w-16 text-right font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                    {listFilters.recencyDays != null ? `${listFilters.recencyDays}일` : '전체'}
+                  </span>
+                </div>
+              </label>
+
+              {/* 초기화 */}
+              <button
+                type="button"
+                onClick={() =>
+                  setListFilters({
+                    search: '',
+                    sources: new Set(),
+                    minScore: 0,
+                    cefrLevels: new Set(),
+                    publishStatus: 'unpublished',
+                    audioStatus: 'all',
+                    recencyDays: null,
+                  })
+                }
+                className="font-display text-[10.5px] font-[600] text-[var(--t3)] hover:text-[var(--p)] sm:col-span-2"
+              >
+                필터 초기화 (기본값: 미발행만)
+              </button>
+            </div>
+          )}
 
           <ul className="divide-y divide-[var(--bd)]">
             {displayRows.map((r) => {
