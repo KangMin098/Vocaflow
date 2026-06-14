@@ -280,11 +280,11 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
   },
   simple_wikipedia: {
     recencyDays: 9999,    // wikipedia 는 시간 무관 — recencyDays 사실상 비활성
-    minDescriptionLen: 100,
-    minTitleLen: 15,
+    minDescriptionLen: 60, // v06.67 — extract 가 짧은 페이지도 통과 (Simple Wikipedia 특성)
+    minTitleLen: 3,        // "Bird" 같은 짧은 제목 허용
     sourceWeight: 0.85,    // 학습 친화 ↑ (통제 어휘)
     levelBonus: 0.08,
-    idealDescLen: 300,
+    idealDescLen: 250,
     noiseKeywords: ['disambiguation', 'list of'],
     maxItems: 30,
   },

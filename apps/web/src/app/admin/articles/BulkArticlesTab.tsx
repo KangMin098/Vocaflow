@@ -122,9 +122,10 @@ const SOURCES: SourceConfig[] = [
   },
   // v06.66 — arXiv 재추가 (코드/spec 완비, "라이선스 비자유·C2+·텍스트 오염" 은 spec.minScore/
   // targetLevels='advanced' + targetCefr 로 가드됨. 사용자가 모든 가용 소스 선택 가능해야 함.)
+  // 주의: arXiv RSS 는 <skipDays>Sat/Sun</skipDays> — 주말 fetch 시 0건 정상.
   {
     key: 'arxiv',
-    label: 'arXiv',
+    label: 'arXiv (월~금만 publish)',
     Icon: GraduationCap,
     color: 'var(--memory-shaky)',
     feeds: [

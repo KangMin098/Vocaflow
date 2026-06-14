@@ -17,12 +17,14 @@ import {
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { ingestMediaWikiArticle } from './_mediawiki'
 
-// Wikinews "Latest news" Atom feed — Special:NewsFeed.
+// v06.66 — Special:NewsFeed deprecated (404). MediaWiki feedrecentchanges atom 사용.
+//   namespace=0 (main articles) 만 필터링 — User/Talk/Template 노이즈 제외.
+//   주의: 영문 Wikinews 가 실질적으로 거의 비활성 상태 (30일 이내 article 0건 흔함).
 export const WIKINEWS_FEEDS: Array<{ id: string; label: string; url: string }> = [
   {
     id: 'latest',
-    label: 'Wikinews — Latest news',
-    url: 'https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=atom',
+    label: 'Wikinews — Latest news (※ 현재 거의 비활성)',
+    url: 'https://en.wikinews.org/w/api.php?action=feedrecentchanges&feedformat=atom&namespace=0&hidebots=1&hideminor=1&hideanons=1&days=30&limit=30',
   },
 ]
 
@@ -51,6 +53,7 @@ export async function listWikinewsFeed(
 
 function toWikinewsItem(it: RssListItem): WikinewsListItem {
   // Wikinews atom guid 가 보통 article URL — slug 추출.
+  // feedrecentchanges 의 url 은 보통 wiki/PageName + 가끔 &oldid=... — slug = PageName.
   const slug =
     it.url.match(/\/wiki\/([^?#]+)/)?.[1] ??
     (it.guid ? it.guid.replace(/[^a-zA-Z0-9_-]+/g, '_').slice(0, 60) : null) ??

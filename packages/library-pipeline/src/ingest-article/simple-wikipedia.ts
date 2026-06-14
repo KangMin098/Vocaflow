@@ -85,16 +85,20 @@ export async function listSimpleWikipediaFeed(
   const data = (await res.json()) as MediaWikiQueryResponse
   const pages = Object.values(data.query?.pages ?? {})
 
-  const raw: SimpleWikipediaListItem[] = pages.map((p) => {
-    const slug = (p.title ?? '').replace(/\s+/g, '_').slice(0, 80)
-    return {
-      source_id: `simple_wikipedia:${slug}`,
-      title: p.title,
-      url: p.fullurl ?? `https://simple.wikipedia.org/wiki/${encodeURIComponent(slug)}`,
-      published_at: p.touched ?? null,
-      description: (p.extract ?? '').trim(),
-    }
-  })
+  // v06.67 — extract 가 빈 페이지(특수문자 제목 등 일부 비활성 페이지)는 사전 제외.
+  //   list 단계 score 가드(minDescriptionLen=60) 통과율 ↑.
+  const raw: SimpleWikipediaListItem[] = pages
+    .filter((p) => (p.extract ?? '').trim().length >= 60)
+    .map((p) => {
+      const slug = (p.title ?? '').replace(/\s+/g, '_').slice(0, 80)
+      return {
+        source_id: `simple_wikipedia:${slug}`,
+        title: p.title,
+        url: p.fullurl ?? `https://simple.wikipedia.org/wiki/${encodeURIComponent(slug)}`,
+        published_at: p.touched ?? null,
+        description: (p.extract ?? '').trim(),
+      }
+    })
 
   return applyArticleCurationSpec(raw, 'simple_wikipedia', feedId)
 }
