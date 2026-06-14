@@ -37,13 +37,22 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  // 리다이렉트 응답에도 getUser 가 갱신/회전시킨 세션 쿠키를 반드시 실어 보낸다.
+  //   (누락 시 토큰 회전이 리다이렉트와 겹치면 새 쿠키 유실 → 옛 refresh 토큰 무효 →
+  //    세션이 끊겨 "갑자기 로그아웃" 발생. Supabase SSR 미들웨어 필수 패턴.)
+  const redirectTo = (pathname: string, addNext = false): NextResponse => {
+    const url = request.nextUrl.clone()
+    url.pathname = pathname
+    if (addNext) url.searchParams.set('next', request.nextUrl.pathname)
+    const redirect = NextResponse.redirect(url)
+    for (const cookie of response.cookies.getAll()) redirect.cookies.set(cookie)
+    return redirect
+  }
+
   // /admin/* 가드
   if (request.nextUrl.pathname.startsWith('/admin')) {
     if (!user) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      url.searchParams.set('next', request.nextUrl.pathname)
-      return NextResponse.redirect(url)
+      return redirectTo('/login', true)
     }
 
     const { data: profile } = await supabase
@@ -53,9 +62,7 @@ export async function middleware(request: NextRequest) {
       .maybeSingle()
 
     if (profile?.role !== 'admin') {
-      const url = request.nextUrl.clone()
-      url.pathname = '/hub'
-      return NextResponse.redirect(url)
+      return redirectTo('/hub')
     }
   }
 
