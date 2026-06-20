@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e9fd9f6` Merge pull request #21 from KangMin098/chore/derivational-seed-freq50
+- `ce4e639` fix(ci): wlp lint/test 안전화 — PR #21 verify check 통과
 - `edab87f` fix(ci): _mediawiki.ts 추적 + ArticleAdminRow 4 필드 추가
 - `5e7a1d1` chore(sync): pre-commit hook 자동화 — memory mirror + CONTEXT 자동 갱신
 - `f14dbf0` chore(sync): Claude Project ↔ VS Code 한몸 인프라 #2~#5 완료
-- `37fced9` chore(sync): .gitignore 보강 + .claude/settings.local.json 추적 해제
-- `885a302` feat(acp): LCP 대량 list — 단계별 상태 + 삭제 기능 (v06.75)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
