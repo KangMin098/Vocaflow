@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### PROJECT_KNOWLEDGE_MANIFEST 신규 폴더 3종 분류 (v06.83)
+
+PR #25 (P6 handoff) 후속 — `docs/AI_CONTEXT/` 의 신규 폴더 3종이 manifest 에 없어 Project 가 attach list 생성 불가. 보강.
+
+| 폴더 | Tier | 정책 |
+|---|---|---|
+| `docs/AI_CONTEXT/handoffs/` | **Tier 2 항상 묶음** | 활성 handoff 항상 attach. 머지/완료 시 archive |
+| `docs/AI_CONTEXT/diagnostics/` | **Tier 3 선별** | 활성 milestone 동안만 (예: `extraction_p0_20260620.md`) |
+| `docs/AI_CONTEXT/rollback/` | **Tier 외 제외** | DDL 청크 — Project spec 검토 무가치. Claude Code 단독 `Read` |
+
 ### P1~P4 누적 효과 — 기존 published 책 재발행 (v06.82)
 
 P4 (단일 코어 통합) 직후. 기존 259 published 단어장은 옛 selection 마커 (v06.35 / v06.51) 유지 → P1~P4 효과 미반영. 재발행으로 적용.
