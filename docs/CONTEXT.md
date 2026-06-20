@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `b32cbfd` chore(acp): ACP §18 게이트 3 migration git 추적 합류 (v06.76)
 - `76a52ee` docs(sync): PROJECT_KNOWLEDGE_MANIFEST — Project ↔ Code 한몸 SSoT
 - `e9fd9f6` Merge pull request #21 from KangMin098/chore/derivational-seed-freq50
 - `ce4e639` fix(ci): wlp lint/test 안전화 — PR #21 verify check 통과
 - `edab87f` fix(ci): _mediawiki.ts 추적 + ArticleAdminRow 4 필드 추가
-- `5e7a1d1` chore(sync): pre-commit hook 자동화 — memory mirror + CONTEXT 자동 갱신
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
