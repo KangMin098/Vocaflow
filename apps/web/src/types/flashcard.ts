@@ -34,6 +34,8 @@ export interface FlashcardWord {
   textId: string // 스크립트 ID
   textTitle: string // 스크립트 제목
   textChapter: string // 챕터
+  /** 그림책 단어면 그 페이지 삽화 url — Dual Coding 시각 단서 (StoryWeaver 등) */
+  illustrationUrl?: string
   srs: SRSState // 기존 SM-2 (UI 호환 — SRSBar 등이 소비)
   /**
    * §17 v2.0 FSRS 필드 — 병행 운영 (CLAUDE.md §17.4 "기존 sm2.ts wrapper 유지" 정합)

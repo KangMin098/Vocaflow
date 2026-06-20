@@ -12,6 +12,10 @@ import {
 } from '@/components/admin/curation/ChapterWordSetsAdminSection'
 import { BookExtractionPanel } from '@/components/admin/curation/BookExtractionPanel'
 import { LibriVoxAudioPanel } from '@/components/admin/curation/LibriVoxAudioPanel'
+import {
+  BookIllustrationsPanel,
+  type BookIllustration,
+} from '@/components/admin/curation/BookIllustrationsPanel'
 import { fetchBookChapterSets } from '@/lib/library/books/queries'
 import { AdminReviewClient } from './AdminReviewClient'
 
@@ -31,7 +35,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
   const { data: book, error } = await client
     .from('library_books')
     .select(
-      'id, title, author, cefr_level, cefr_confidence, word_count, chapter_count, status, copyright_safe_in_kr, book_v_level, source, source_id, librivox_audio'
+      'id, title, author, cefr_level, cefr_confidence, word_count, chapter_count, status, copyright_safe_in_kr, book_v_level, source, source_id, librivox_audio, illustrations, cover_image_url, source_url'
     )
     .eq('id', params.bookId)
     .maybeSingle()
@@ -53,6 +57,9 @@ export default async function AdminPreviewPage({ params }: PageProps) {
     book_v_level: number | null
     source: string
     source_id: string | null
+    illustrations: BookIllustration[] | null
+    cover_image_url: string | null
+    source_url: string | null
     librivox_audio: {
       mode?: string | null
       mapped_chapters?: number | null
@@ -128,6 +135,13 @@ export default async function AdminPreviewPage({ params }: PageProps) {
         chapters={chapters}
         source={b.source}
         sourceId={b.source_id}
+      />
+
+      {/* 그림책 삽화 검수 — 표지 + 페이지별 삽화+본문 (StoryWeaver 등). 학습자 뷰와 동일 idx 정합. */}
+      <BookIllustrationsPanel
+        illustrations={b.illustrations}
+        coverImageUrl={b.cover_image_url}
+        sourceUrl={b.source_url}
       />
 
       {/* LibriVox 보이스 — 도서 챕터 ↔ 보이스 챕터 직관 매핑 (섹션 제목의 챕터 번호로 자동).

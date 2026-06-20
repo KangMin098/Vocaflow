@@ -52,6 +52,8 @@ export interface LibraryText {
   lexicalCoverage?: Record<string, number> | null
   /** 도서 단위 카드일 때 — 원천 표지 이미지 URL (상세 sheet hero) */
   coverImageUrl?: string | null
+  /** 도서 단위 카드일 때 — 그림책 여부 (i+1 임계 삽화 보정) */
+  isPictureBook?: boolean
 }
 
 export interface CategoryItem {

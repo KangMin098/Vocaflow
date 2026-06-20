@@ -81,7 +81,7 @@ export function RecommendedBooks() {
         .from('library_books')
         .select(
           'id, title, author, cefr_level, cefr_band, book_v_level, word_count, chapter_count, reading_minutes, ' +
-            'cover_from, cover_to, cover_image_url, lexical_coverage, popularity_rank, published_at',
+            'cover_from, cover_to, cover_image_url, lexical_coverage, is_picture_book, popularity_rank, published_at',
         )
         .eq('status', 'published')
         .eq('copyright_safe_in_kr', true)
@@ -115,7 +115,7 @@ export function RecommendedBooks() {
     return state.books
       .map((b) => {
         const s = scoreBook(b, { userVLevel: state.vLevel, userMastery: 'warm' })
-        const fit = judgeIPlusOne(b.lexical_coverage, state.vLevel)
+        const fit = judgeIPlusOne(b.lexical_coverage, state.vLevel, b.is_picture_book)
         return { book: b, score: s.score, reasons: s.reasons, fit }
       })
       .filter((r) => r.score > 0)

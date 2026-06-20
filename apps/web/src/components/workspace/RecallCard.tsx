@@ -12,14 +12,17 @@ import { Volume2 } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis'
 import { PosBadge } from '@/components/library/PosBadge'
+import { ZoomableImage } from '@/components/ui/ZoomableImage'
 
 interface RecallCardProps {
   word: Word | null
   anchorRect: DOMRect | null
   onClose: () => void
+  /** 그림책 단어면 그 페이지 삽화 url — Dual Coding(Paivio) 시각 단서 */
+  illustrationUrl?: string | null
 }
 
-export function RecallCard({ word, anchorRect, onClose }: RecallCardProps) {
+export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: RecallCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null)
   const { speak, isPlaying } = useSpeechSynthesis({ lang: 'en-US', rate: 0.9 })
@@ -85,6 +88,17 @@ export function RecallCard({ word, anchorRect, onClose }: RecallCardProps) {
         visibility: pos ? 'visible' : 'hidden',
       }}
     >
+      {/* 그림책 삽화 — Dual Coding 시각 단서 (단어가 등장한 페이지 장면) */}
+      {illustrationUrl && (
+        <div className="mb-2.5 overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]">
+          <ZoomableImage
+            src={illustrationUrl}
+            alt={word.text}
+            className="block h-28 w-full object-cover"
+          />
+        </div>
+      )}
+
       {/* 단어 + 듣기 한 줄 */}
       <div className="flex items-baseline justify-between gap-2">
         <p className="font-english text-[22px] font-[600] leading-tight text-[var(--t1)]">

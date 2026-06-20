@@ -100,7 +100,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
   const justRight = useMemo(() => {
     if (!diagnosed) return []
     const ideal = books.filter(
-      (b) => judgeIPlusOne(b.lexical_coverage, userVLevel)?.tier === 'ideal',
+      (b) => judgeIPlusOne(b.lexical_coverage, userVLevel, b.is_picture_book)?.tier === 'ideal',
     )
     return rankBooks(ideal, ctx)
       .slice(0, RAIL_N)
@@ -151,7 +151,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
         if (!hay.includes(q)) return false
       }
       if (filters.fit) {
-        const tier = judgeIPlusOne(b.lexical_coverage, userVLevel)?.tier
+        const tier = judgeIPlusOne(b.lexical_coverage, userVLevel, b.is_picture_book)?.tier
         if (tier !== filters.fit) return false
       }
       if (filters.vBand && vBandOf(b.book_v_level) !== filters.vBand) return false

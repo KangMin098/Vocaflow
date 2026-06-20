@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `chore/p6-handoff-measurement-spec`
+**활성 브랜치**: `chore/wip-library-ui-tweaks`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `0e2af94` Merge pull request #29 from KangMin098/chore/p6-handoff-measurement-spec
+- `d1ac2e8` docs(handoff): P6.0 측정 보고 형식 4건 보강
+- `94c99d7` Merge pull request #28 from KangMin098/chore/p6-handoff-gate-strictness
 - `64a6894` docs(handoff): P6.0 게이트 엄격 강화 + B1·B2 binary + P6.6 소급 정책
-- `632dc41` chore(sync): manifest drift 자동 검증 (v06.84)
-- `021bf8a` docs(sync): manifest 신규 폴더 3종 분류 (v06.83)
-- `7920d7b` Merge pull request #25 from KangMin098/chore/p6-handoff-prep
-- `746eda6` docs(handoff): P6 구독 user V-level 필터 (C6) — Project 위임용
+- `1f0b33f` Merge pull request #27 from KangMin098/chore/manifest-drift-check
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

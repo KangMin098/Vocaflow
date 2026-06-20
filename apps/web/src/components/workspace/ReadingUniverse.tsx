@@ -7,6 +7,8 @@ import type { SupportToken } from '@/lib/workspace/support'
 import { Pause, Play } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
+import { ZoomableImage } from '@/components/ui/ZoomableImage'
+
 interface SentencePart {
   text: string
   word?: Word
@@ -36,7 +38,8 @@ interface ReadingUniverseProps {
   /** v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등). idx = 문단 인덱스, 해당 문단 위에 렌더. */
   illustrations?: Array<{ idx: number; url: string; alt?: string }> | null
   isFocusMode: boolean
-  onWordHover: (word: Word, anchorRect: DOMRect) => void
+  /** illustrationUrl — 그림책 단어면 그 페이지 삽화 url (Dual Coding 시각 단서) */
+  onWordHover: (word: Word, anchorRect: DOMRect, illustrationUrl?: string) => void
   onSentencePlay: (sentenceId: number) => void
   playingSentenceId: number | null
   chapterMeta?: ChapterMeta
@@ -106,12 +109,16 @@ export function ReadingUniverse({
     }
   }, [playingSentenceId])
 
-  const handleWordEnter = (word: Word, e: React.MouseEvent<HTMLSpanElement>) => {
+  const handleWordEnter = (
+    word: Word,
+    e: React.MouseEvent<HTMLSpanElement>,
+    illustrationUrl?: string,
+  ) => {
     if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current)
     const rect = e.currentTarget.getBoundingClientRect()
     hoverTimerRef.current = setTimeout(() => {
       setActiveWordId(word.id)
-      onWordHover(word, rect)
+      onWordHover(word, rect, illustrationUrl)
     }, 250)
   }
 
@@ -183,11 +190,9 @@ export function ReadingUniverse({
                 isFocusMode ? 'opacity-40' : 'opacity-100'
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ZoomableImage
                 src={illus.url}
                 alt={illus.alt ?? ''}
-                loading="lazy"
                 className="mx-auto block h-auto w-full max-w-[560px] object-contain"
               />
             </figure>
@@ -286,9 +291,9 @@ export function ReadingUniverse({
                         key={partIdx}
                         data-word={word.id}
                         className={`relative cursor-help transition-colors duration-[var(--dur-fast)] hover:bg-[rgba(59,130,246,0.10)] ${statusClass} `}
-                        onMouseEnter={(e) => handleWordEnter(word, e)}
+                        onMouseEnter={(e) => handleWordEnter(word, e, illus?.url)}
                         onMouseLeave={handleWordLeave}
-                        onClick={(e) => handleWordEnter(word, e)}
+                        onClick={(e) => handleWordEnter(word, e, illus?.url)}
                       >
                         {word.text}
                       </span>

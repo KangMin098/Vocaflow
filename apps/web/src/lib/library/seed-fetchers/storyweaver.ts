@@ -35,11 +35,12 @@ async function swFetchJson(url: string): Promise<unknown> {
     /* 네트워크/TLS 오류 → curl 폴백 */
   }
   try {
-    // eslint-disable-next-line no-eval
-    const nodeRequire = (0, eval)('require') as (m: string) => unknown
-    const { execFile } = nodeRequire('child_process') as typeof import('child_process')
-    const { promisify } = nodeRequire('util') as typeof import('util')
-    const run = promisify(execFile)
+    // ESM 서버 런타임엔 require 가 없음(Next.js 라우트). webpack 이 정적 분석 못 하는
+    // 간접 동적 import 로 node 모듈 로드 — client 번들엔 미포함, 서버 ESM 에선 동작.
+    const dynImport = new Function('m', 'return import(m)') as (m: string) => Promise<unknown>
+    const cp = (await dynImport('node:child_process')) as typeof import('child_process')
+    const util = (await dynImport('node:util')) as typeof import('util')
+    const run = util.promisify(cp.execFile)
     const { stdout } = await run(
       'curl',
       ['-s', '--max-time', '30', '-H', `User-Agent: ${UA}`, '-H', 'Accept: application/json', url],

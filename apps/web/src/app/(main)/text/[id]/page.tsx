@@ -364,6 +364,8 @@ export default function WorkspacePage({ params }: PageProps) {
   const [isInsightOpen, setIsInsightOpen] = useState(false)
   const [recallWord, setRecallWord] = useState<Word | null>(null)
   const [recallAnchor, setRecallAnchor] = useState<DOMRect | null>(null)
+  // 그림책 단어 학습 카드의 시각 단서 (Dual Coding)
+  const [recallIllustration, setRecallIllustration] = useState<string | null>(null)
   const [supportToken, setSupportToken] = useState<SupportToken | null>(null)
   const [supportAnchor, setSupportAnchor] = useState<DOMRect | null>(null)
   const [lookupSurface, setLookupSurface] = useState<string | null>(null)
@@ -433,19 +435,24 @@ export default function WorkspacePage({ params }: PageProps) {
   }, [])
 
   // Word handlers
-  const handleWordHover = useCallback((word: Word, anchorRect: DOMRect) => {
-    // 팝오버 상호배타 — 학습 카드 열 때 지원 gloss·사전 lookup 닫기
-    setSupportToken(null)
-    setSupportAnchor(null)
-    setLookupSurface(null)
-    setLookupAnchor(null)
-    setRecallWord(word)
-    setRecallAnchor(anchorRect)
-  }, [])
+  const handleWordHover = useCallback(
+    (word: Word, anchorRect: DOMRect, illustrationUrl?: string) => {
+      // 팝오버 상호배타 — 학습 카드 열 때 지원 gloss·사전 lookup 닫기
+      setSupportToken(null)
+      setSupportAnchor(null)
+      setLookupSurface(null)
+      setLookupAnchor(null)
+      setRecallWord(word)
+      setRecallAnchor(anchorRect)
+      setRecallIllustration(illustrationUrl ?? null)
+    },
+    [],
+  )
 
   const handleRecallClose = useCallback(() => {
     setRecallWord(null)
     setRecallAnchor(null)
+    setRecallIllustration(null)
   }, [])
 
   // 읽기-중 이해 지원 — RecallCard 와 분리된 수동 gloss (학습 플로우 진입 없음)
@@ -727,6 +734,7 @@ export default function WorkspacePage({ params }: PageProps) {
         word={recallWord}
         anchorRect={recallAnchor}
         onClose={handleRecallClose}
+        illustrationUrl={recallIllustration}
       />
 
       <SupportGloss

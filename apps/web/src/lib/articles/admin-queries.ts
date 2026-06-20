@@ -31,7 +31,7 @@ export async function listAdminArticles(): Promise<ArticleAdminRow[]> {
   const { data, error } = await sb
     .from('library_articles')
     .select(
-      'id, source, source_id, source_url, title, author, cefr_level, cefr_confidence, word_count, reading_minutes, status, status_message, license, copyright_safe_in_kr, published_at, llm_cost_usd, created_at, updated_at',
+      'id, source, source_id, source_url, title, author, cefr_level, cefr_confidence, word_count, reading_minutes, status, status_message, license, license_class, register, lexical_noise, display_only, copyright_safe_in_kr, published_at, llm_cost_usd, created_at, updated_at',
     )
     .order('updated_at', { ascending: false })
 

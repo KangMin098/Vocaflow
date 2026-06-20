@@ -43,6 +43,7 @@ export function toBookDetailVariant(
     coverTo: book.cover_to,
     coverImageUrl: book.cover_image_url,
     lexicalCoverage: book.lexical_coverage,
+    isPictureBook: book.is_picture_book,
     userVLevel,
     // enrollment 상태별 동적 CTA (page.tsx 가 미리 계산하여 prop 으로 전달)
     ctaHref: book.cta_href ?? `/library/books/${book.id}`,
