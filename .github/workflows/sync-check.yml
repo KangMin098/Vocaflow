@@ -124,3 +124,14 @@ jobs:
             exit 1
           fi
           echo "✅ Unreleased 섹션에 본문 있음"
+
+  manifest-drift:
+    name: PROJECT_KNOWLEDGE_MANIFEST drift 점검
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: manifest 정합 검증 (docs/ 직속 + docs/AI_CONTEXT/ 하위 폴더)
+        run: node scripts/check-manifest.mjs
