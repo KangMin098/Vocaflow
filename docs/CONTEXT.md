@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `chore/derivational-seed-freq50`
+**활성 브랜치**: `chore/p6-handoff-prep`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `33b356b` Merge pull request #24 from KangMin098/chore/derivational-seed-freq50
+- `55f18cb` data(library): 기존 published 책 P1~P4 적용 재발행 (v06.82)
 - `b2f5c49` refactor(extraction): book·article 추출 단일 코어로 통합 (C5 drift 차단 · v06.81 P4)
 - `0e17773` feat(extraction): 챕터당 학습어 top-N cap (C4 · Cognitive Load · v06.80 P3)
 - `b2b8ec4` feat(extraction): composite 재설계 — salience 실효화 + rank NULL 강건 (C1·C2 · v06.79 P2)
-- `b8a2365` data(dictionary): V6~V11 frequency_rank 백필 16,492 row (v06.78 P5a)
-- `1cbe8ee` feat(extraction): 학습밴드 고정 floor로 게이트 디커플 (C3 · v06.77 P1)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
