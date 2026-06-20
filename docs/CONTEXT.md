@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `5b1ac6d` docs(extraction): P0 진단 실측 기록 (handoff 결정표)
 - `f68d370` chore(lcp): library_books.is_picture_book migration git 추적 합류 (v06.76)
 - `b32cbfd` chore(acp): ACP §18 게이트 3 migration git 추적 합류 (v06.76)
 - `76a52ee` docs(sync): PROJECT_KNOWLEDGE_MANIFEST — Project ↔ Code 한몸 SSoT
 - `e9fd9f6` Merge pull request #21 from KangMin098/chore/derivational-seed-freq50
-- `ce4e639` fix(ci): wlp lint/test 안전화 — PR #21 verify check 통과
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260620030000_extraction_fixed_learnable_floor.sql`
 - `20260614240000_acp_remove_arxiv_source.sql`
 - `20260614230000_fix_overclassified_concrete_words.sql`
 - `20260614230000_acp_article_source_add_3sources.sql`
 - `20260614220000_fix_bulk_requeue_seed_unlock.sql`
-- `20260614220000_acp_admin_revert_delete_article.sql`
 <!-- /auto:recent-migrations -->
 
 ---

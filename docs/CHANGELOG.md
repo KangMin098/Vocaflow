@@ -10,6 +10,32 @@
 
 ## Unreleased (v06.34 → next)
 
+### P1 — 추출 게이트 디커플 (v06.77)
+
+Handoff (Project 작성) "학습 단어 추출 파이프라인 사전db 목적 최적합 고도화" 의 P1 단계. P0 진단 (`docs/AI_CONTEXT/diagnostics/extraction_p0_20260620.md`) 의 결정표 권장 그대로 적용.
+
+**문제 (C3)**: `select_book_chapter_vocab` 의 게이트가 `sd.v_level >= bk.book_v_level` 라 책 난이도가 학습밴드를 결정. 결과: book_v_level≥7 책 15권에서 V6~V8 (CSAT 핵심 학습밴드) 가 100% 역배제 (~23,000 단어 인스턴스 손실).
+
+**변경** (migration [20260620030000_extraction_fixed_learnable_floor](../supabase/migrations/20260620030000_extraction_fixed_learnable_floor.sql)):
+- `select_book_chapter_vocab` 게이트: `>= bk.book_v_level` → `>= 6` (D1=V6 확정)
+- `select_article_vocab` 게이트: `>= COALESCE(art.article_v_level, 4)` → `>= 6` (book 함수와 일치, C5 drift 사전 차단)
+- composite / skill penalty / register exclude / 정렬 / cap 전부 보존 (P2/P3 별도)
+- `book_v_level` (난이도 표시) `compute_book_vrl` 보존
+
+**검증 (실측)**:
+- Les Misérables (V9) — V6=1,117 / V7=1,240 / V8=1,120 복원 (이전 0/0/0)
+- Alice (V6) — V6=169 / V7=121 / V8=70 변동 0 (이미 floor 통과 중)
+- published 5권 추출 회귀 0
+
+**롤백**: `docs/AI_CONTEXT/rollback/P1_*_원본.sql` 재적용.
+
+**다음** (P2~P5):
+- P5a (frequency_rank 백필 · D2 선행 필수) — V6~V11 충전 22.7% → 60%+
+- P2 (composite 재설계 · C1·C2) — NULL→50000 폐지, salience 챕터 max 정규화
+- P3 (cap N=40 · C4) — 챕터당 max=239 → 40
+- P4 (단일 코어 통합 · C5)
+- P5b/P5c/P6 (후행 검토)
+
 ### git tracking 정합 — 적용된 4 migration 추적 합류 (v06.76)
 
 이미 supabase 에 적용된 4 migration 파일이 git untracked 상태로 잔류. SSoT (git=DB) 정합 위해 추적 합류 — schema drift 0 (적용 timestamp 와 파일 timestamp 가 다른 것은 직접 SQL 로 apply 했기 때문).
