@@ -39,6 +39,9 @@ GitHub repo 1,230 파일 중 ~82 파일 (≈ 8% 용량) 만 Project 가 본다.
 - `docs/adr/` 전체 3 파일 (의사결정 추적, append-only)
 - `docs/AI_CONTEXT/feedback/` 전체 8 파일 (사용자 룰 — 반복 지시 차단)
 - `docs/AI_CONTEXT/README.md` (mirror 가이드)
+- **`docs/AI_CONTEXT/handoffs/` 전체** (활성 handoff — Project 검토 대기 중 spec 본문)
+  - 예: `p6_subscribe_user_filter.md` (C6 user V-level 필터 — Project 위임 중)
+  - 머지 후 완료된 handoff 는 별도 archive (대상 manifest 갱신)
 
 #### 도메인별 묶음 6종
 
@@ -98,6 +101,23 @@ GitHub repo 1,230 파일 중 ~82 파일 (≈ 8% 용량) 만 Project 가 본다.
 - `project_lexical_coverage_metric.md`
 - `project_book_cover_images.md`
 - `project_seed_catalog_curation_meta.md`
+
+#### `docs/AI_CONTEXT/diagnostics/` 선별 가이드 (신규)
+
+추출/큐레이션 등 read-only 진단 결과 (P0 단계). 활성 milestone 만 attach.
+
+- ✅ 활성 milestone 동안만 (예: 추출 파이프라인 P1~P4 작업 중 → `extraction_p0_*` attach)
+- ❌ milestone 종료 후엔 grep/archive — manifest 활성 list 갱신
+
+활성 (현재):
+- `extraction_p0_20260620.md` (handoff "추출 파이프라인" 결정표 — PR #24 적용 후 P6 진행 중까지 활성)
+
+#### `docs/AI_CONTEXT/rollback/` 정책 (Tier 외 제외)
+
+migration 적용 직전 함수 본문 baseline. **Project 가 attach 할 가치 0 — Claude Code 단독 영역**.
+- 본문은 SQL DDL 청크 — Project 의 spec 검토에 무가치
+- Claude Code 가 직접 file path 로 참조 (필요 시 `Read` 도구)
+- Project 채팅 attach 금지 (manifest §2 "제외" 묶음에 명시)
 - (이번 채팅 작업 결과로 신규 mirror 되는 것들)
 
 #### `docs/proposals/` 선별
@@ -123,6 +143,7 @@ GitHub repo 1,230 파일 중 ~82 파일 (≈ 8% 용량) 만 Project 가 본다.
 | `.turbo/` / `.next/` / `dist/` / `coverage/` | build cache | 이미 `.gitignore` | — |
 | `data/` / `exports/` / `Downloads/` | 옛 데이터 / 임시 | 이미 `.gitignore` | — |
 | `scripts/vcb/**` / `scripts/dict-fill/**` | 완료된 sprint CLI | 거의 인용 안 됨 | — |
+| `docs/AI_CONTEXT/rollback/**` | migration rollback baseline SQL | DDL 청크 — Project spec 검토에 무가치 | Claude Code 직접 `Read` |
 
 ---
 
