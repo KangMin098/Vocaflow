@@ -10,6 +10,32 @@
 
 ## Unreleased (v06.34 → next)
 
+### P3 — 챕터/글당 top-N cap (v06.80 · C4)
+
+P2 (composite 재설계) 직후. P0 측정 C4 (챕터당 word_count max=239 · p90=57 · cap 없음) 해결.
+
+**변경** (migration [20260620060000_p3_publish_cap40](../supabase/migrations/20260620060000_p3_publish_cap40.sql) + [20260620061000_p3b_drop_old_publish_overload](../supabase/migrations/20260620061000_p3b_drop_old_publish_overload.sql)):
+
+- `publish_book_word_sets(p_book_id uuid, p_cap int DEFAULT 40)` — INSERT WHERE `sort_order <= p_cap` + `curation_query.cap`
+- `publish_article_word_set(p_article_id uuid, p_cap int DEFAULT 40)` — 동일 패턴
+- **P3b overload DROP**: 옛 1-arg 시그니처 DROP (PostgreSQL exact-match 우선 정책 회피)
+  - 호출자: `trg_publish_book_word_sets` / `trg_publish_article_word_set` 트리거 2개 (lazy resolution → trigger 본문 변경 불요)
+  - 1-arg PERFORM → 새 2-arg DEFAULT 매칭 → cap=40 자동 적용
+
+**효과** (Les Misérables 실측):
+- 359 챕터 / max_raw=233 / cap=40 후 max=40 / **clipped 44 챕터 (12.3%)** / avg_publish=16.2
+- p75=32 안전권 (75% sets 영향 0)
+- Sweller Cognitive Load (작업기억 ~4, 세션 30~50) 정합
+
+**보존**:
+- 게이트 (P1), composite 식 (P2), `select_*_vocab` 본문 무변동
+- 기존 set 존재 시 `CONTINUE` 정책 (옵션 B 결정 = 재발행 보류)
+- 기존 259 published sets word_count 영향 0
+
+**다음** (handoff):
+- P4 단일 코어 통합 (C5)
+- P5b/P5c, P6 후행
+
 ### P2 — composite 재설계 (v06.79 · C1·C2)
 
 P5a (freq_rank 백필 22.7→64.1%) 직후. P0 측정 C1 (salience 가중 ~9% · 챕터 max 정규화 부재) + C2 (rank NULL→50000 동점) 해결.
