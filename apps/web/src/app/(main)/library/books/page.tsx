@@ -61,7 +61,7 @@ export default async function LibraryBooksPage() {
     .select(
       'id, title, author, cefr_level, cefr_band, book_v_level, ' +
         'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
-        'librivox_audio, published_at, curation_metadata',
+        'is_picture_book, librivox_audio, published_at, curation_metadata',
     )
     .eq('status', 'published')
     .eq('copyright_safe_in_kr', true)

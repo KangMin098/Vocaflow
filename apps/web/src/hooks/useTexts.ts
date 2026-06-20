@@ -76,6 +76,7 @@ interface LibraryBookMeta {
   cover_to: string | null
   lexical_coverage: Record<string, number> | null
   cover_image_url: string | null
+  is_picture_book: boolean | null
 }
 
 type JoinedRow = TextsRow & { library_books: LibraryBookMeta | null }
@@ -233,6 +234,7 @@ function aggregateBookChapters(
     bookVLevel: meta?.book_v_level ?? null,
     lexicalCoverage: meta?.lexical_coverage ?? null,
     coverImageUrl: meta?.cover_image_url ?? null,
+    isPictureBook: meta?.is_picture_book ?? false,
   }
 }
 
@@ -277,7 +279,7 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
   const { data, error } = await supabase
     .from('texts')
     .select(
-      '*, library_books (id, title, author, cefr_level, cefr_band, book_v_level, chapter_count, cover_from, cover_to, lexical_coverage, cover_image_url)',
+      '*, library_books (id, title, author, cefr_level, cefr_band, book_v_level, chapter_count, cover_from, cover_to, lexical_coverage, cover_image_url, is_picture_book)',
     )
     .eq('user_id', userId)
     .order('last_opened', { ascending: false, nullsFirst: false })

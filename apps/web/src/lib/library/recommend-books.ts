@@ -47,7 +47,7 @@ export function scoreBook(book: PublishedBook, ctx: RecommendContext): BookScore
 
   // 1) i+1 적합도 (최대 비중) — 진단 사용자만.
   if (diagnosed) {
-    const fit = judgeIPlusOne(book.lexical_coverage, ctx.userVLevel)
+    const fit = judgeIPlusOne(book.lexical_coverage, ctx.userVLevel, book.is_picture_book)
     if (fit) {
       if (fit.tier === 'ideal') {
         score += 50

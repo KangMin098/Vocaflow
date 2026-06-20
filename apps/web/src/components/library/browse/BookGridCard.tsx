@@ -30,7 +30,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
     coverTo: book.cover_to,
   })
   const coverImageUrl = book.cover_image_url ?? null
-  const fit = judgeIPlusOne(book.lexical_coverage, userVLevel)
+  const fit = judgeIPlusOne(book.lexical_coverage, userVLevel, book.is_picture_book)
   const state = book.enrollment_state ?? 'not_enrolled'
 
   return (

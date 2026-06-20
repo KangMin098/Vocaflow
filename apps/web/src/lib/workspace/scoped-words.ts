@@ -18,6 +18,29 @@ export interface ScopedWord {
   example: string
   /** 사전 DB inflected_forms (lemma 기준) — 예문 하이라이트/빈칸 불규칙 인식용 */
   inflectedForms: string[]
+  /** 그림책 단어면 그 단어가 등장한 페이지 삽화 url — Dual Coding 시각 단서 */
+  illustrationUrl?: string
+}
+
+/** 본문 문장 → 그 페이지 삽화 url 매처. illustration.alt(페이지 텍스트) 와 source_sentence 정합. */
+function buildIllustrationMatcher(
+  illustrations: Array<{ idx: number; url: string; alt?: string }> | null,
+): (sentence: string | null | undefined) => string | undefined {
+  const norm = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim()
+  const idx = (illustrations ?? [])
+    .filter((i) => i && typeof i.url === 'string' && typeof i.alt === 'string')
+    .map((i) => ({ url: i.url, alt: norm(i.alt as string) }))
+    .filter((i) => i.alt.length >= 8)
+  if (idx.length === 0) return () => undefined
+  return (sentence) => {
+    if (!sentence) return undefined
+    const s = norm(sentence)
+    if (s.length < 8) return undefined
+    const head = s.slice(0, 40)
+    const hit = idx.find((i) => i.alt.includes(head) || s.includes(i.alt.slice(0, 40)))
+    return hit?.url
+  }
 }
 
 /** lemma 목록 → shared_dictionary.inflected_forms 일괄 조회 (lemma → forms 맵) */
@@ -92,17 +115,39 @@ async function fetchBySet(
 
   const formsMap = await loadInflectedForms(client, rows.map((r) => r.lemma ?? r.word))
 
+  // 그림책 삽화 (StoryWeaver 등) — 단어 페이지 문장 → 삽화 매핑 (Dual Coding)
+  const bookId =
+    typeof set.curation_query?.['book_id'] === 'string'
+      ? (set.curation_query['book_id'] as string)
+      : null
+  let matchIllus: (s: string | null | undefined) => string | undefined = () => undefined
+  if (bookId) {
+    const { data: bookRow } = await client
+      .from('library_books')
+      .select('illustrations')
+      .eq('id', bookId)
+      .maybeSingle()
+    const illus = (bookRow as {
+      illustrations: Array<{ idx: number; url: string; alt?: string }> | null
+    } | null)?.illustrations
+    matchIllus = buildIllustrationMatcher(illus ?? null)
+  }
+
   const chapterIdx = Number(set.curation_query?.['chapter_idx'] ?? 0)
-  const words: ScopedWord[] = rows.map((r) => ({
-    id: r.id,
-    word: r.word,
-    meaning: r.meaning_ko ?? '',
-    pronunciation: r.pronunciation ?? '',
-    pos: r.part_of_speech ?? '',
-    // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백 (auto-V/specialty 단어장 등)
-    example: r.source_sentence ?? r.example_en ?? '',
-    inflectedForms: formsMap.get(r.lemma ?? r.word) ?? [],
-  }))
+  const words: ScopedWord[] = rows.map((r) => {
+    const illustrationUrl = matchIllus(r.source_sentence)
+    return {
+      id: r.id,
+      word: r.word,
+      meaning: r.meaning_ko ?? '',
+      pronunciation: r.pronunciation ?? '',
+      pos: r.part_of_speech ?? '',
+      // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백 (auto-V/specialty 단어장 등)
+      example: r.source_sentence ?? r.example_en ?? '',
+      inflectedForms: formsMap.get(r.lemma ?? r.word) ?? [],
+      ...(illustrationUrl ? { illustrationUrl } : {}),
+    }
+  })
 
   return {
     words,

@@ -278,7 +278,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
 
         {/* i+1 적합도 — 학습자 V레벨 기준 기지어 커버리지 */}
         {(() => {
-          const fit = judgeIPlusOne(activeBook.lexical_coverage, userVLevel)
+          const fit = judgeIPlusOne(activeBook.lexical_coverage, userVLevel, activeBook.is_picture_book)
           if (!fit) return null
           return (
             <span

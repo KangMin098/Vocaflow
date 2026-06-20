@@ -61,6 +61,8 @@ interface BookVariant {
   // i+1 적합도 — V레벨별 기지어 커버리지 + 학습자 V레벨
   lexicalCoverage?: Record<string, number> | null
   userVLevel?: number | null
+  /** 그림책 여부 — i+1 임계 삽화 보정(judgeIPlusOne illustrated) */
+  isPictureBook?: boolean
   // 내 라이브러리(/text) 개인화 — 진도·상태 (공용 /library/books 에선 미전달)
   mine?: MyProgress
   ctaHref: string
@@ -355,6 +357,7 @@ function BookBody({ v }: { v: BookVariant }) {
           mine={v.mine}
           coverage={v.lexicalCoverage}
           userVLevel={v.userVLevel ?? 0}
+          isPictureBook={v.isPictureBook}
         />
       )}
 
@@ -376,7 +379,7 @@ function BookBody({ v }: { v: BookVariant }) {
 
       {/* i+1 적합도 — 공용(/library/books)에서만. 내 라이브러리는 위 '내 학습'에 포함 */}
       {!v.mine && (
-        <IPlusOneRow coverage={v.lexicalCoverage} userVLevel={v.userVLevel ?? 0} />
+        <IPlusOneRow coverage={v.lexicalCoverage} userVLevel={v.userVLevel ?? 0} isPictureBook={v.isPictureBook} />
       )}
 
       {/* 분량 */}
@@ -548,16 +551,18 @@ function MyProgressSection({
   mine,
   coverage,
   userVLevel,
+  isPictureBook,
 }: {
   kind: 'book' | 'script' | 'vocab'
   mine: MyProgress
   coverage?: Record<string, number> | null
   userVLevel?: number | null
+  isPictureBook?: boolean
 }) {
   const sm = STATUS_META[mine.status]
   const fit =
     kind === 'book' && coverage && userVLevel && userVLevel >= 1
-      ? judgeIPlusOne(coverage, userVLevel)
+      ? judgeIPlusOne(coverage, userVLevel, isPictureBook)
       : null
   const pct = Math.max(0, Math.min(100, mine.progressPercent ?? 0))
   const hasUnits = mine.completedUnits != null && mine.totalUnits != null && mine.totalUnits > 0
@@ -642,9 +647,11 @@ function MyProgressSection({
 function IPlusOneRow({
   coverage,
   userVLevel,
+  isPictureBook,
 }: {
   coverage?: Record<string, number> | null
   userVLevel: number
+  isPictureBook?: boolean
 }) {
   if (!userVLevel || userVLevel < 1) {
     return (
@@ -662,7 +669,7 @@ function IPlusOneRow({
     )
   }
 
-  const fit = judgeIPlusOne(coverage, userVLevel)
+  const fit = judgeIPlusOne(coverage, userVLevel, isPictureBook)
   if (!fit) return null
 
   return (

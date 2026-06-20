@@ -5,6 +5,7 @@
 import type { FlashcardWord } from '@/types/flashcard'
 import { Volume2 } from 'lucide-react'
 import { matchSurface } from '@/lib/text/surface-match'
+import { ZoomableImage } from '@/components/ui/ZoomableImage'
 
 interface CardBackProps {
   word: FlashcardWord
@@ -14,6 +15,17 @@ interface CardBackProps {
 export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
   return (
     <>
+      {/* 그림책 삽화 — Dual Coding(Paivio): 정답 공개 시 단어+의미+장면 동시 부호화 */}
+      {word.illustrationUrl && (
+        <div className="-mx-8 -mt-8 mb-4 overflow-hidden border-b border-[var(--bd)]">
+          <ZoomableImage
+            src={word.illustrationUrl}
+            alt={word.text}
+            className="block h-24 w-full object-cover"
+          />
+        </div>
+      )}
+
       <div className="mb-6 flex items-center justify-between opacity-50">
         <span className="font-body text-[10px] italic text-[var(--t3)]">{word.textTitle}에서</span>
       </div>

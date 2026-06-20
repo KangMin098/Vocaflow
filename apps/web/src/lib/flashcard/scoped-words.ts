@@ -44,6 +44,7 @@ export async function fetchScopedFlashcardWords(
     textId: w.id,
     textTitle: res.title,
     textChapter: res.chapterLabel,
+    ...(w.illustrationUrl ? { illustrationUrl: w.illustrationUrl } : {}),
     srs: createInitialSRS(),
     srsV2: createNewCard(w.id),
   }))

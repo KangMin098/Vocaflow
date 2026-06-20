@@ -110,6 +110,7 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
         coverImageUrl: t.coverImageUrl ?? null,
         // 개인화 — 진도·상태·레벨 권장
         lexicalCoverage: t.lexicalCoverage ?? null,
+        isPictureBook: t.isPictureBook ?? false,
         userVLevel,
         mine: {
           status: deriveStatus(t.progressPercent),

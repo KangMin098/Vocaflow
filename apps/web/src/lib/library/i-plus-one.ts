@@ -35,22 +35,34 @@ export function coverageAtLevel(
 }
 
 /**
+ * 그림책 삽화 보정폭(pp). 삽화가 의미를 전달(Dual Coding)하므로 텍스트보다 낮은
+ * lexical coverage 에서도 이해 가능 — 임계를 이만큼 낮춰 ~1 V-Level 보완 효과.
+ */
+const ILLUSTRATION_DISCOUNT = 7;
+
+/**
  * 학습자 V레벨 × 도서 coverage → i+1 적합도.
  * 미진단(vLevel < 1) 또는 coverage 데이터 부재 시 null (판정 표시 안 함).
+ *
+ * @param illustrated 그림책(library_books.is_picture_book) 이면 임계 −7pp 완화.
+ *   예: Ammachi V4 81.5% — 텍스트 기준 "어려워요"(<85) → 삽화 보정 "도전적"(≥78),
+ *       V5 88.9% → "딱 맞아요"(≥88). 한국 초급(V4–V5) 학습자에게 적정 추천.
  */
 export function judgeIPlusOne(
   coverage: Record<string, number> | null | undefined,
   vLevel: number,
+  illustrated = false,
 ): IPlusOneFit | null {
   if (!vLevel || vLevel < 1) return null;
   const cov = coverageAtLevel(coverage, vLevel);
   if (cov == null) return null;
 
-  if (cov >= 98)
+  const d = illustrated ? ILLUSTRATION_DISCOUNT : 0;
+  if (cov >= 98 - d)
     return { coverage: cov, tier: 'easy', label: '수월해요', color: 'var(--t3)' };
-  if (cov >= 95)
+  if (cov >= 95 - d)
     return { coverage: cov, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known)' };
-  if (cov >= 85)
+  if (cov >= 85 - d)
     return { coverage: cov, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
   return { coverage: cov, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
 }

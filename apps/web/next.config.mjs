@@ -16,13 +16,19 @@ const nextConfig = {
     '@vocaflow/design-tokens',
     '@vocaflow/ui-shared',
   ],
-  // 도서 원천 표지 이미지 (next/image 서버 캐시·webp·리사이즈). 핫링크 회피 + 최적화.
+  // 도서 원천 표지/삽화 이미지 (next/image 서버 캐시·webp·리사이즈). 핫링크 회피 + 최적화.
   //   - Project Gutenberg: pg{id}.cover.medium.jpg
   //   - Standard Ebooks: og:image (CC0)
+  //   - StoryWeaver(Pratham): 표지·삽화 = GCS 버킷 static.storyweaver.org.in (CC BY 4.0)
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'www.gutenberg.org' },
       { protocol: 'https', hostname: 'standardebooks.org' },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        pathname: '/static.storyweaver.org.in/**',
+      },
     ],
   },
   // v06.32 — Windows dev server watchpack 가 시스템 파일 (pagefile/hiberfil/swapfile)

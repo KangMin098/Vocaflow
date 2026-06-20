@@ -19,8 +19,10 @@ export interface PublishedBook {
   word_set_count?: number
   cover_from?: string | null
   cover_to?: string | null
-  /** 원천 표지 이미지 URL (Gutenberg/SE) — 상세 sheet hero 에 실 표지 */
+  /** 원천 표지 이미지 URL (Gutenberg/SE/StoryWeaver) — 상세 sheet hero 에 실 표지 */
   cover_image_url?: string | null
+  /** 그림책 여부 (삽화≥4 + 짧은 텍스트) — i+1 임계 삽화 보정용 */
+  is_picture_book?: boolean
   // i+1 적합도 — V레벨별 기지어 커버리지 (compute_book_coverage)
   lexical_coverage?: Record<string, number> | null
   // 큐레이션 메타 (library_seed_catalog join)
