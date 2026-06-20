@@ -28,8 +28,8 @@
 
 - [ ] StoryWeaver listFeed 회수율 개선 (현재 60%)
 - [ ] Wikinews 대안 endpoint 조사 (영문 사이트 사실상 비활성)
-- [ ] `docs/AI_CONTEXT/` 자동 mirror 도입 (memory → docs)
-- [ ] sync-check GH Action 활성화
+- [x] `docs/AI_CONTEXT/` 자동 mirror 도입 — pre-commit hook 으로 완료
+- [x] sync-check GH Action 활성화 — `.github/workflows/sync-check.yml` 추가, 첫 PR 에서 실측 검증 대기
 
 ---
 
@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f14dbf0` chore(sync): Claude Project ↔ VS Code 한몸 인프라 #2~#5 완료
 - `37fced9` chore(sync): .gitignore 보강 + .claude/settings.local.json 추적 해제
 - `885a302` feat(acp): LCP 대량 list — 단계별 상태 + 삭제 기능 (v06.75)
 - `9a5160a` feat(workspace): 브라우저 TTS best voice 자동 선택 재설계
 - `d369388` feat(acp): LCP 대량 결과 list — 7축 필터 통합 패널 (v06.73)
-- `f9fd874` feat(acp)!: LCP 대량 GET 전체 재설계 — 4축 사용자 컨트롤 (v06.72)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
@@ -87,7 +87,25 @@
 | §1 한 줄 요약 | 사람 (영구) | 매우 드물게 |
 | §2 활성 영역 | 사람 | 영역 추가/종료 시 |
 | §3 잔여 작업 | 사람 | milestone 단위 |
-| §4 자동 블록 | `scripts/sync-export-memory.mjs` / GH Action | push 마다 |
+| §4 자동 블록 | `.githooks/pre-commit` (every commit) | 매 commit 시 |
 | §5 후보 | 사람 | 검토 시 |
 
 자동 블록은 `<!-- auto:NAME -->` ~ `<!-- /auto:NAME -->` 사이만 갱신. 사람이 직접 편집하지 말 것.
+
+## 8. Hook 설정 (clone 직후 1회)
+
+`pnpm install` 의 `prepare` lifecycle 이 `node scripts/setup-git-hooks.mjs` 를 자동 실행 → `git config core.hooksPath = .githooks` 설정.
+
+수동 실행 (예: install skip 한 경우):
+```bash
+node scripts/setup-git-hooks.mjs    # 1회
+pnpm sync:memory                    # 즉시 갱신 (옵션)
+```
+
+검증:
+```bash
+git config --get core.hooksPath      # → .githooks
+ls .githooks/                        # → pre-commit
+```
+
+Hook 이 비활성 환경 (CI/CD 등): 스크립트가 자동 감지 (memory dir 부재 시 silent skip) → 빌드 실패 안 함.

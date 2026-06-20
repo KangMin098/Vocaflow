@@ -119,13 +119,24 @@ docs/             ← Claude Project attachment 후보 (16 영역)
 
 핵심 원칙: **Project 가 봐야 할 것은 모두 git 안에 SSoT 로**. 머신/사용자별 설정 (`.env.local`, `.claude/settings.local.json`)은 추적 X.
 
-자동화 (`.github/workflows/sync-check.yml`):
-- push 마다 TypeScript 0 error 검증
-- `docs/*.md` 내 코드 경로 링크 실존 확인
-- 새 supabase migration 추가 시 `docs/DB_SCHEMA.md` 갱신 흔적 검증
-- 실패 시 PR block
+자동화 (3 레이어):
 
-`scripts/sync-export-memory.mjs` (선택 실행) — Claude Code 외부 memory 의 작업 history 를 `docs/AI_CONTEXT/` 로 mirror 하여 Project 도 작업 흐름 볼 수 있게.
+**1. 매 commit — git pre-commit hook** (`.githooks/pre-commit`)
+- Claude Code 외부 memory 를 `docs/AI_CONTEXT/` 로 자동 mirror
+- `docs/CONTEXT.md` 자동 블록 갱신
+- 변경분만 자동 stage (이번 commit 에 포함)
+- `pnpm install` 시 `prepare` script 가 1회 활성화 (`git config core.hooksPath .githooks`)
+- 수동 활성화: `node scripts/setup-git-hooks.mjs`
+- 수동 실행: `pnpm sync:memory`
+
+**2. push / PR — GitHub Actions** (`.github/workflows/sync-check.yml`)
+- TypeScript 0 error 검증 (web + library-pipeline)
+- `docs/*.md` 내 코드 경로 링크 실존 (warning)
+- 새 supabase migration 추가 시 `docs/DB_SCHEMA.md` / `CHANGELOG.md` 갱신 함께 진행 검증 (PR block)
+- CHANGELOG Unreleased 섹션 비어있지 않음 (PR block)
+
+**3. 사람 갱신** (매 milestone 또는 월 1회)
+- `docs/CONTEXT.md` §2~§3 (활성 영역 + 잔여 작업) — 자동화 불가, 큐레이션 필요
 
 ---
 
