@@ -57,11 +57,14 @@ handoff §P6 명시:
 
 ---
 
-## P6.0 — 진단 (READ-ONLY) ★ 선행 필수
+## P6.0 — 진단 (READ-ONLY) ★ 선행 필수 · 게이트
+
+> **게이트 엄격 적용**: P6.0 (read-only) + 아래 2 binary 확인 → **Project 측에 보고 → 사용자 승인 → P6.1 착수**.
+> Code 가 P6.0 단독 실행 후 자동으로 P6.1 진입 금지.
 
 ### 단계
 
-- [ ] **0-1. `_enroll_book_subscribe_word_sets` 본문 dump** + 롤백 baseline 저장
+- [ ] **0-1. `_enroll_book_subscribe_word_sets` 본문 dump** + 롤백 baseline 저장 (`docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql`)
 - [ ] **0-2. user_profiles V-level 컬럼 충전율** — 진단 미완료 사용자 비율
   ```sql
   SELECT count(*) AS total_users,
@@ -69,40 +72,142 @@ handoff §P6 명시:
          round(100.0*count(current_v_level)/nullif(count(*),0),1) AS pct
   FROM user_profiles;
   ```
-- [ ] **0-3. vocabularies stable 분포** — stable 단어 dedup 의 ROI 측정
+- [ ] **0-3. vocabularies stable 분포** — stable 단어 dedup ROI
   ```sql
-  SELECT 
+  SELECT
     count(*) AS total,
     count(*) FILTER (WHERE stability >= 21) AS stable_21d,
     count(*) FILTER (WHERE review_count = 0) AS not_started,
     count(*) FILTER (WHERE last_review_at > now() - interval '7 days') AS warm
   FROM vocabularies;
   ```
-- [ ] **0-4. 책 enroll 빈도** — 사용자가 평균 몇 권 enroll 하는지
+- [ ] **0-4. avg 책/user** (E4 cap 산정 기반)
   ```sql
-  SELECT round(avg(book_count), 1) FROM (
-    SELECT user_id, count(DISTINCT (curation_query->>'book_id')) AS book_count
+  SELECT round(avg(book_count), 1) AS avg_books_per_user,
+         min(book_count) AS min_b,
+         max(book_count) AS max_b,
+         percentile_disc(0.9) WITHIN GROUP (ORDER BY book_count) AS p90_b
+  FROM (
+    SELECT user_id, count(DISTINCT (ws.curation_query->>'book_id')) AS book_count
     FROM user_word_set_subscriptions s
     JOIN shared_word_sets ws ON ws.id = s.set_id
     WHERE ws.category='library_book' GROUP BY user_id
   ) u;
   ```
-- [ ] **0-5. V-level 불일치 영향** — published 책의 V-level vs 사용자 V-level gap 분포
-- [ ] **0-6. enroll_library_book 함수 본문** — 호출 chain 확인 (변경 영향 분석)
-- [ ] **0-7. extract_vocabulary_for_user 함수 본문** — 이미 i+1 적용된 경우 정합 확인 (별도 path)
+- [ ] **0-5. V-level 불일치 영향** — published 책 V-level vs 사용자 V-level gap 분포
+- [ ] **0-6. enroll_library_book 함수 본문** — 호출 chain (변경 영향 분석)
+- [ ] **0-7. extract_vocabulary_for_user 함수 본문** — 이미 i+1 적용 path 정합
+
+### 🔒 2 Binary 확인 (Project 보고 필수)
+
+다음 두 결과는 P6.1 의 식 구조를 결정 — Project 가 명시 받지 못하면 spec 보강 불가.
+
+- [ ] **B1. `UNIQUE(user_id, word)` 제약 존재 여부**
+  ```sql
+  SELECT conname, contype, pg_get_constraintdef(oid) AS def
+  FROM pg_constraint
+  WHERE conrelid = 'vocabularies'::regclass
+    AND (contype = 'u' OR contype = 'p');
+  -- 결과: UNIQUE constraint 있음/없음 + 컬럼 list (user_id, word) 인지 확인
+  ```
+  → **있음** = `ON CONFLICT (user_id, word) DO NOTHING` 그대로 작동, stable dedup 식 단순화 가능
+  → **없음** = dedup 식이 `WHERE NOT EXISTS (...)` 로 강제 (race condition 가능성)
+
+- [ ] **B2. subscription 분리 구조** (vocabularies vs user_word_set_subscriptions)
+  ```sql
+  -- subscriptions 가 set-level, vocabularies 가 word-level 분리됐는지
+  SELECT
+    (SELECT count(*) FROM user_word_set_subscriptions) AS sub_rows,
+    (SELECT count(*) FROM vocabularies) AS vocab_rows,
+    (SELECT count(*) FROM vocabularies WHERE shared_set_id IS NULL) AS orphan_vocab,
+    (SELECT count(*) FROM vocabularies WHERE shared_set_id IS NOT NULL
+       AND EXISTS (SELECT 1 FROM user_word_set_subscriptions s
+                   WHERE s.user_id=vocabularies.user_id AND s.set_id=vocabularies.shared_set_id)
+    ) AS vocab_with_sub;
+  -- 결과: vocab 이 sub 없이 존재 가능한가? = subscription 분리 정도
+  ```
+  → **완전 분리** (vocab 이 sub 없이 가능) = P6.1 의 i+1 필터를 vocabularies INSERT 단에만 적용해도 충분
+  → **연동** (vocab = sub 의 child) = subscriptions 단계에도 i+1 필터 필요 (이중 게이트)
 
 ### 결정표 (사용자 확정 요청)
 
-| 결정 | 항목 | Project 권장 default | 확정 |
+> 권장 default 는 **B1·B2 결과 + 0-2/0-3/0-4 측정값** 을 본 후 Project 가 최종 산정.
+> 본 표의 default 는 측정 전 예비값 — P6.0 보고 후 조정 가능.
+
+| 결정 | 항목 | 예비 default | 확정 |
 |---|---|---|---|
 | E1 | i+1 필터 범위 | `v_level BETWEEN GREATEST(N-1,1) AND LEAST(N+1,11)` (3-band Krashen) | ? |
-| E2 | 진단 미완료 사용자 fallback | `current_v_level IS NULL` 시 책의 book_v_level 사용 또는 default V5 | ? |
-| E3 | stable 단어 dedup 임계 | `stability >= 21` 일 (3주 이상 안정) | ? |
-| E4 | 세션 cap | 책별 최대 50 단어 (모든 챕터 합산) — 추가 50/책/일 | ? |
-| E5 | 다국적 fallback | `current_v_level` 0 일 때 — base V5 (가장 흔한 한국 고등학생 평균) | ? |
-| E6 | book_v_level 정보로 책 추천 vs 필터 | E1 의 i+1 안에 book_v_level 들어가는 책만 enroll 허용 (UI) vs 차단 안 함 (DB) | ? |
+| E2 | 진단 미완료 fallback | book_v_level 사용 (현재 책 난이도 따라) 또는 V5 default | ? |
+| E3 | stable dedup 임계 | stability >= 21 일 (3주) — 0-3 측정 후 보정 |  ? |
+| **E4** | **세션 cap (책당 vocab import)** | **50** — 0-4 avg 책/user 측정 후 최종 산정 | ? |
+| E5 | 다국적 fallback | V5 base | ? |
+| E6 | book_v_level UI 차단 | DB 차단 X, UI 권장만 | ? |
+| **E7 (B1)** | UNIQUE(user_id, word) 가정 | B1 결과로 확정 | ? |
+| **E8 (B2)** | subscription 분리 정도 | B2 결과로 확정 | ? |
 
-> **E1~E4 확정 전 P6.1 이후 착수 금지.**
+> **E1~E4 + E7·E8 확정 전 P6.1 이후 착수 금지.**
+
+### P6.0 보고 형식 (Project 측에 제출)
+
+```markdown
+## P6.0 진단 결과
+
+### 측정
+- 0-2 user_profiles 충전: __% (N=__)
+- 0-3 vocabularies stable: __개 (stable_21d/total = __%)
+- 0-4 avg 책/user: __ (p90 __)
+- 0-5 V-level gap 분포: [표]
+- 0-6 enroll_library_book chain: [본문 요약]
+- 0-7 extract_vocabulary_for_user i+1 식: [요약]
+
+### Binary
+- B1 UNIQUE(user_id, word): 있음/없음 (제약명 __)
+- B2 subscription 분리: 완전/연동 (vocab without sub = __ rows)
+
+### 권장 결정 (Project 산정)
+E1=…, E2=…, E3=…, **E4=…**, E5=…, E6=…, E7=…, E8=…
+
+### P6.6 소급 정책 권장
+[아래 P6.6 섹션 결과]
+```
+
+---
+
+## P6.6 — 소급 정책 (P6.1~P6.3 적용 후 기존 vocabularies 처리)
+
+> **새 단계** — P6.0 보고와 함께 결정 필요.
+
+P6.1~P6.3 (i+1 필터 + stable dedup + 세션 cap) 적용 후 **이미 import 된 기존 vocabularies 를 어떻게 처리할지** 의 정책.
+
+### 배경
+
+본 작업 (PR #24) 의 재발행으로 사용자 1명에게 4,862 vocabularies row 가 이미 import 됨 (V6~V11 전체). 이 중:
+- V5 사용자 기준 i+1 필터 적용 시 V4~V6 만 → V7~V11 = ~3,500+ row 가 "i+1 외" 가 됨
+- stable dedup 기준 적용 시 stability >= 21 단어는 다음 book enroll 시 SKIP (소급 영향 0)
+- 세션 cap = 50 적용 시 책당 50 초과분이 "cap 외" 가 됨
+
+### 옵션
+
+| ID | 동작 | 진도 영향 |
+|---|---|---|
+| **F0** | 보류 — 기존 vocabularies 유지, 새 enroll 만 P6.1~P6.3 적용 | 0 |
+| F1 | i+1 외 row 만 archived 처리 (soft hide) | 진도 보존, UI 에서 안 보임 |
+| F2 | i+1 외 row 명시 DELETE | 진도 손실 (review_count > 0 인 row 보호 가드 필요) |
+| F3 | 책별 unenroll 후 재enroll (P6.1~P6.3 자동 적용) | 진도 0 인 row 만 영향 (review_count=0 만) |
+
+### 결정표 추가
+
+| ID | 항목 | 권장 |
+|---|---|---|
+| **F** | 소급 정책 | F0 (보류) — 안전 default. 사용자 결정 필요 |
+
+> P6.0 보고 시 0-3 의 `review_count = 0` 비율이 매우 높으면 F3 도 안전 (현 dev 환경 정합).
+
+---
+
+## flag 2 (참고) — P6.6 소급 정책 도입
+
+본 P6.6 섹션이 flag 2 결정 사항. P6.1~P6.5 와 별도 결정 (사용자 진도 보호 정책).
 
 ---
 
@@ -243,17 +348,24 @@ handoff §P6 의 Layer 3 (Cold/Warm/Hot · Desirable Difficulty) 명시.
 
 ---
 
-## 착수 순서
+## 착수 순서 (엄격 게이트)
 
 ```
-P6.0 (진단 read-only) → 결정 E1~E6 → P6.1 (i+1 필터)
-                                  → P6.2 (stable dedup)
-                                  → P6.3 (세션 cap)
-                                  → P6.4 (extract 정합)
-                                  → P6.5 (Layer 통합 검증)
+P6.0 (진단 read-only) + B1·B2 binary
+  └─ Project 보고 (위 "P6.0 보고 형식")
+      └─ 사용자 결정 E1~E8 + F (P6.6 소급)
+          └─ P6.1 (i+1 필터)
+              └─ P6.2 (stable dedup)
+                  └─ P6.3 (세션 cap)
+                      └─ P6.4 (extract 정합)
+                          └─ P6.5 (Layer 통합 검증)
+                              └─ P6.6 (소급 정책 F 실행)
 ```
 
-**먼저 P6.0 만 실행 → 결정표 사용자 보고 → 승인 후 P6.1 착수.**
+**🔒 게이트 엄수**:
+- Code 가 P6.0 단독 실행 후 P6.1 자동 진입 금지
+- 결정 E4 + F 가 Project 보고에 미정인 상태에서 P6.1~P6.6 착수 금지
+- B1·B2 binary 결과가 없으면 결정 E7·E8 불가 → P6.1 식 설계 불가
 
 ---
 
