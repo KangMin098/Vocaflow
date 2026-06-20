@@ -10,6 +10,28 @@
 
 ## Unreleased (v06.34 → next)
 
+### P1~P4 누적 효과 — 기존 published 책 재발행 (v06.82)
+
+P4 (단일 코어 통합) 직후. 기존 259 published 단어장은 옛 selection 마커 (v06.35 / v06.51) 유지 → P1~P4 효과 미반영. 재발행으로 적용.
+
+**판정 (적용 전)**:
+- 사용자 학습 진도 측정 — review_count=0 / fsrs=0 (단순 import 만, 학습 시작 0) → reset 비용 0
+- Production 사용자 0 (dev 환경, 단일 사용자 본인)
+- FK CASCADE: shared_words / subscriptions → 자동 / vocabularies → SET NULL (명시 DELETE 로 orphan 방지)
+
+**적용** (migration [20260620080000_republish_library_books_with_p1_p4](../supabase/migrations/20260620080000_republish_library_books_with_p1_p4.sql)):
+- 단일 DO 트랜잭션 (BEGIN/COMMIT 보호)
+- IDEMPOTENT — `curation_query.selection NOT LIKE '%P3%'` 가드
+- vocabularies + shared_word_sets DELETE → publish_book_word_sets(book_id, 40) → _enroll_book_subscribe_word_sets
+
+**실측 효과**:
+- 259 sets 전부 word_count ≤ 40 (max 239 → 40 · p90 57 → 40 · p50 21 → 36)
+- avg 28.8 → 30.9 (V6~V8 학습밴드 복원 효과 +7%)
+- vocabularies 4,363 → 4,862 (+499 · 사용자 단어 풍부도)
+- Twenty years after (V9) 챕터1 top10: cardinal/parliament/valet/glance/troop/superintendent/chamber/mayor/exclaim/murmur (17세기 프랑스 정치소설 핵심 + 학습 균형)
+
+**Production 적용 시 주의**: 본 DO 블록의 사용자 iteration 은 dev 1명 가정. 다수 사용자는 `_enroll_book_subscribe_word_sets` 를 `FOR v_user IN ... LOOP` 으로 확장 필요.
+
 ### P4 — book·article 추출 단일 코어 통합 (v06.81 · C5)
 
 P3 (cap) 직후. handoff §P4 — composite 식 drift 영구 차단.
