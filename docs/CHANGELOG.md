@@ -10,6 +10,27 @@
 
 ## Unreleased (v06.34 → next)
 
+### P5a — frequency_rank 백필 16,492 row (v06.78 · D2)
+
+P1 (게이트 디커플) 직후. P0 측정 D2 = "V6~V11 frequency_rank 충전 22.7% (< 60%)" → P2 composite 재설계 전 선행 필수.
+
+**근거**: composite 의 `0.70 * 1/LOG(rank+10)` 항이 학습밴드 77% 단어에서 `COALESCE(rank, 50000)` 으로 상수 동점 (C2). 백필로 의미 회복.
+
+**백필** (migration [20260620040000_p5a_freq_rank_backfill_from_ext](../supabase/migrations/20260620040000_p5a_freq_rank_backfill_from_ext.sql)):
+- 대상: V6~V11 + `frequency_rank IS NULL` + `lemma_band IS NOT NULL` = **16,492 row**
+- 식: `lemma_band 'XXk'` → `XX * 1000 + 500` (밴드 중간점, deterministic, vendor-neutral)
+- 마커: `frequency_sources.p5a_backfill = '2026-06-20T00:00:00Z'`
+- 백업: `shared_dictionary_p5a_backup_20260620` (PK=word + NULL 보존, 롤백용)
+
+**실측 효과**:
+- V6~V11 충전율: 22.7% → **64.1%** (+41.4pp · D2 60% 통과)
+- V6~V8 CSAT 핵심: 40.0% → 56.6% (+16.6pp)
+- 25 distinct band 중간점 (1500~25500)
+
+**미백필 14,271 row**: frequency_band ∈ {compound, phrase, rare} 또는 frequency_sources 자체 부재. 빈도 신호 없음 — P5a 범위 외.
+
+**다음** (P2): composite 재설계. NULL→50000 폐지 (rank NULL → 0), salience 챕터 max 정규화, csat_band_fit 항 추가.
+
 ### P1 — 추출 게이트 디커플 (v06.77)
 
 Handoff (Project 작성) "학습 단어 추출 파이프라인 사전db 목적 최적합 고도화" 의 P1 단계. P0 진단 (`docs/AI_CONTEXT/diagnostics/extraction_p0_20260620.md`) 의 결정표 권장 그대로 적용.
