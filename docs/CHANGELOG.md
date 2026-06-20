@@ -10,6 +10,158 @@
 
 ## Unreleased (v06.34 → next)
 
+### P1~P4 누적 효과 — 기존 published 책 재발행 (v06.82)
+
+P4 (단일 코어 통합) 직후. 기존 259 published 단어장은 옛 selection 마커 (v06.35 / v06.51) 유지 → P1~P4 효과 미반영. 재발행으로 적용.
+
+**판정 (적용 전)**:
+- 사용자 학습 진도 측정 — review_count=0 / fsrs=0 (단순 import 만, 학습 시작 0) → reset 비용 0
+- Production 사용자 0 (dev 환경, 단일 사용자 본인)
+- FK CASCADE: shared_words / subscriptions → 자동 / vocabularies → SET NULL (명시 DELETE 로 orphan 방지)
+
+**적용** (migration [20260620080000_republish_library_books_with_p1_p4](../supabase/migrations/20260620080000_republish_library_books_with_p1_p4.sql)):
+- 단일 DO 트랜잭션 (BEGIN/COMMIT 보호)
+- IDEMPOTENT — `curation_query.selection NOT LIKE '%P3%'` 가드
+- vocabularies + shared_word_sets DELETE → publish_book_word_sets(book_id, 40) → _enroll_book_subscribe_word_sets
+
+**실측 효과**:
+- 259 sets 전부 word_count ≤ 40 (max 239 → 40 · p90 57 → 40 · p50 21 → 36)
+- avg 28.8 → 30.9 (V6~V8 학습밴드 복원 효과 +7%)
+- vocabularies 4,363 → 4,862 (+499 · 사용자 단어 풍부도)
+- Twenty years after (V9) 챕터1 top10: cardinal/parliament/valet/glance/troop/superintendent/chamber/mayor/exclaim/murmur (17세기 프랑스 정치소설 핵심 + 학습 균형)
+
+**Production 적용 시 주의**: 본 DO 블록의 사용자 iteration 은 dev 1명 가정. 다수 사용자는 `_enroll_book_subscribe_word_sets` 를 `FOR v_user IN ... LOOP` 으로 확장 필요.
+
+### P4 — book·article 추출 단일 코어 통합 (v06.81 · C5)
+
+P3 (cap) 직후. handoff §P4 — composite 식 drift 영구 차단.
+
+**변경** (migration [20260620070000_p4_unify_composite_core](../supabase/migrations/20260620070000_p4_unify_composite_core.sql)):
+- 신규 `_extract_composite_score(rank, freq_in_unit, unit_max, v_level, verified, example, skill, unit_v_level) RETURNS numeric IMMUTABLE` — composite 식 단일 SSoT
+- `select_book_chapter_vocab` scored CTE → 헬퍼 호출 (unit=chapter)
+- `select_article_vocab` scored CTE → 헬퍼 호출 (unit=article)
+- 식 변경 시 한 곳만 수정. book/article 정합 영구 보장.
+
+**회귀 0 검증** (Les Misérables · bit-identical):
+- total=7472 · distinct=1677 · null_rank=1643 · distinct_null=46 (P2 와 100% 일치)
+- 챕터1 top5: bishop V8 0.7109 / petty V9 0.6167 / occupy V6 0.5467 / portion V6 0.5444 / fate V6 0.5394
+- 호출자 (publish_*_word_set / 트리거 / 외부) 영향 0 — 함수 시그니처/반환 타입 무변동
+
+**보존**: 게이트 (P1), composite 식 (P2), cap 발행 (P3), DISTINCT/sort.
+
+**핸드오프 §P4-3 미수행** (범위 외): `/api/analyze` (OpenAI) → winkNLP lemma → shared_dictionary → 동일 코어 재랭킹 spec 검토.
+
+**남은 단계** (handoff):
+- P5b — standard+C2 register 재분류 (15% 의심 표본)
+- P5c — example_en 갭 (V6~V11 100% 이미 충전 → 사실상 불요)
+- P6 — 구독 시점 user V-level 필터 (C6 별도 handoff 필요)
+
+### P3 — 챕터/글당 top-N cap (v06.80 · C4)
+
+P2 (composite 재설계) 직후. P0 측정 C4 (챕터당 word_count max=239 · p90=57 · cap 없음) 해결.
+
+**변경** (migration [20260620060000_p3_publish_cap40](../supabase/migrations/20260620060000_p3_publish_cap40.sql) + [20260620061000_p3b_drop_old_publish_overload](../supabase/migrations/20260620061000_p3b_drop_old_publish_overload.sql)):
+
+- `publish_book_word_sets(p_book_id uuid, p_cap int DEFAULT 40)` — INSERT WHERE `sort_order <= p_cap` + `curation_query.cap`
+- `publish_article_word_set(p_article_id uuid, p_cap int DEFAULT 40)` — 동일 패턴
+- **P3b overload DROP**: 옛 1-arg 시그니처 DROP (PostgreSQL exact-match 우선 정책 회피)
+  - 호출자: `trg_publish_book_word_sets` / `trg_publish_article_word_set` 트리거 2개 (lazy resolution → trigger 본문 변경 불요)
+  - 1-arg PERFORM → 새 2-arg DEFAULT 매칭 → cap=40 자동 적용
+
+**효과** (Les Misérables 실측):
+- 359 챕터 / max_raw=233 / cap=40 후 max=40 / **clipped 44 챕터 (12.3%)** / avg_publish=16.2
+- p75=32 안전권 (75% sets 영향 0)
+- Sweller Cognitive Load (작업기억 ~4, 세션 30~50) 정합
+
+**보존**:
+- 게이트 (P1), composite 식 (P2), `select_*_vocab` 본문 무변동
+- 기존 set 존재 시 `CONTINUE` 정책 (옵션 B 결정 = 재발행 보류)
+- 기존 259 published sets word_count 영향 0
+
+**다음** (handoff):
+- P4 단일 코어 통합 (C5)
+- P5b/P5c, P6 후행
+
+### P2 — composite 재설계 (v06.79 · C1·C2)
+
+P5a (freq_rank 백필 22.7→64.1%) 직후. P0 측정 C1 (salience 가중 ~9% · 챕터 max 정규화 부재) + C2 (rank NULL→50000 동점) 해결.
+
+**새 식** (handoff §P2-2, 가중치 합 1.0 · book/article 동일):
+
+```
+score =
+    0.40 * freq_global       -- 1/log10(rank+10), rank NULL → 0 (50000 폐지)
+  + 0.35 * salience_inbook    -- freq_in_chapter / MAX(freq) OVER (PARTITION BY chapter_idx)
+  + 0.15 * csat_band_fit      -- V6~9 → 1.0, V10 → 0.6, V11 → 0.4
+  + 0.10 * quality_bonus      -- verified OR example_en 존재 → 1, else 0
+  - skill_penalty             -- 기존 (skill_level=4 AND book_v_level<6 → -0.10)
+```
+
+**변경** (migration [20260620050000_p2_composite_redesign](../supabase/migrations/20260620050000_p2_composite_redesign.sql)):
+- `cand` CTE 에 `sd.verified` 추가
+- 신규 `norm` CTE — `MAX(freq_in_chapter) OVER (PARTITION BY chapter_idx)` (article 은 전역 MAX)
+- 새 가중 4항 + skill penalty
+- 게이트 (`v_level >= 6`), register exclude, DISTINCT/sort, cap 없음 (P3 분리) 보존
+
+**실측 효과** (Les Misérables):
+- NULL-rank 1,643 단어 distinct composite: 5 → **46** (9.2배, C2 해결)
+- 전체 distinct: 643 → **1,677** (2.6배, 평균 동점 11.6 → 4.46)
+- 챕터 1 상위: **bishop V8 freq=4** (1장 핵심 = Monsieur Myriel 주교) ✓
+- published 5권 추출 회귀 0
+
+**누적 진행 (handoff)**:
+- ✅ P0 진단 → ✅ P1 게이트 디커플 → ✅ P5a freq_rank 백필 → ✅ P2 composite 재설계
+- ⏳ P3 cap N=40 (C4) — 다음
+- ⏳ P4 단일 코어 통합 (C5)
+- ⏳ P5b/P5c, P6 (후행)
+
+### P5a — frequency_rank 백필 16,492 row (v06.78 · D2)
+
+P1 (게이트 디커플) 직후. P0 측정 D2 = "V6~V11 frequency_rank 충전 22.7% (< 60%)" → P2 composite 재설계 전 선행 필수.
+
+**근거**: composite 의 `0.70 * 1/LOG(rank+10)` 항이 학습밴드 77% 단어에서 `COALESCE(rank, 50000)` 으로 상수 동점 (C2). 백필로 의미 회복.
+
+**백필** (migration [20260620040000_p5a_freq_rank_backfill_from_ext](../supabase/migrations/20260620040000_p5a_freq_rank_backfill_from_ext.sql)):
+- 대상: V6~V11 + `frequency_rank IS NULL` + `lemma_band IS NOT NULL` = **16,492 row**
+- 식: `lemma_band 'XXk'` → `XX * 1000 + 500` (밴드 중간점, deterministic, vendor-neutral)
+- 마커: `frequency_sources.p5a_backfill = '2026-06-20T00:00:00Z'`
+- 백업: `shared_dictionary_p5a_backup_20260620` (PK=word + NULL 보존, 롤백용)
+
+**실측 효과**:
+- V6~V11 충전율: 22.7% → **64.1%** (+41.4pp · D2 60% 통과)
+- V6~V8 CSAT 핵심: 40.0% → 56.6% (+16.6pp)
+- 25 distinct band 중간점 (1500~25500)
+
+**미백필 14,271 row**: frequency_band ∈ {compound, phrase, rare} 또는 frequency_sources 자체 부재. 빈도 신호 없음 — P5a 범위 외.
+
+**다음** (P2): composite 재설계. NULL→50000 폐지 (rank NULL → 0), salience 챕터 max 정규화, csat_band_fit 항 추가.
+
+### P1 — 추출 게이트 디커플 (v06.77)
+
+Handoff (Project 작성) "학습 단어 추출 파이프라인 사전db 목적 최적합 고도화" 의 P1 단계. P0 진단 (`docs/AI_CONTEXT/diagnostics/extraction_p0_20260620.md`) 의 결정표 권장 그대로 적용.
+
+**문제 (C3)**: `select_book_chapter_vocab` 의 게이트가 `sd.v_level >= bk.book_v_level` 라 책 난이도가 학습밴드를 결정. 결과: book_v_level≥7 책 15권에서 V6~V8 (CSAT 핵심 학습밴드) 가 100% 역배제 (~23,000 단어 인스턴스 손실).
+
+**변경** (migration [20260620030000_extraction_fixed_learnable_floor](../supabase/migrations/20260620030000_extraction_fixed_learnable_floor.sql)):
+- `select_book_chapter_vocab` 게이트: `>= bk.book_v_level` → `>= 6` (D1=V6 확정)
+- `select_article_vocab` 게이트: `>= COALESCE(art.article_v_level, 4)` → `>= 6` (book 함수와 일치, C5 drift 사전 차단)
+- composite / skill penalty / register exclude / 정렬 / cap 전부 보존 (P2/P3 별도)
+- `book_v_level` (난이도 표시) `compute_book_vrl` 보존
+
+**검증 (실측)**:
+- Les Misérables (V9) — V6=1,117 / V7=1,240 / V8=1,120 복원 (이전 0/0/0)
+- Alice (V6) — V6=169 / V7=121 / V8=70 변동 0 (이미 floor 통과 중)
+- published 5권 추출 회귀 0
+
+**롤백**: `docs/AI_CONTEXT/rollback/P1_*_원본.sql` 재적용.
+
+**다음** (P2~P5):
+- P5a (frequency_rank 백필 · D2 선행 필수) — V6~V11 충전 22.7% → 60%+
+- P2 (composite 재설계 · C1·C2) — NULL→50000 폐지, salience 챕터 max 정규화
+- P3 (cap N=40 · C4) — 챕터당 max=239 → 40
+- P4 (단일 코어 통합 · C5)
+- P5b/P5c/P6 (후행 검토)
+
 ### git tracking 정합 — 적용된 4 migration 추적 합류 (v06.76)
 
 이미 supabase 에 적용된 4 migration 파일이 git untracked 상태로 잔류. SSoT (git=DB) 정합 위해 추적 합류 — schema drift 0 (적용 timestamp 와 파일 timestamp 가 다른 것은 직접 SQL 로 apply 했기 때문).

@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `b32cbfd` chore(acp): ACP §18 게이트 3 migration git 추적 합류 (v06.76)
-- `76a52ee` docs(sync): PROJECT_KNOWLEDGE_MANIFEST — Project ↔ Code 한몸 SSoT
-- `e9fd9f6` Merge pull request #21 from KangMin098/chore/derivational-seed-freq50
-- `ce4e639` fix(ci): wlp lint/test 안전화 — PR #21 verify check 통과
-- `edab87f` fix(ci): _mediawiki.ts 추적 + ArticleAdminRow 4 필드 추가
+- `b2f5c49` refactor(extraction): book·article 추출 단일 코어로 통합 (C5 drift 차단 · v06.81 P4)
+- `0e17773` feat(extraction): 챕터당 학습어 top-N cap (C4 · Cognitive Load · v06.80 P3)
+- `b2b8ec4` feat(extraction): composite 재설계 — salience 실효화 + rank NULL 강건 (C1·C2 · v06.79 P2)
+- `b8a2365` data(dictionary): V6~V11 frequency_rank 백필 16,492 row (v06.78 P5a)
+- `1cbe8ee` feat(extraction): 학습밴드 고정 floor로 게이트 디커플 (C3 · v06.77 P1)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
-- `20260614240000_acp_remove_arxiv_source.sql`
-- `20260614230000_fix_overclassified_concrete_words.sql`
-- `20260614230000_acp_article_source_add_3sources.sql`
-- `20260614220000_fix_bulk_requeue_seed_unlock.sql`
-- `20260614220000_acp_admin_revert_delete_article.sql`
+- `20260620080000_republish_library_books_with_p1_p4.sql`
+- `20260620070000_p4_unify_composite_core.sql`
+- `20260620061000_p3b_drop_old_publish_overload.sql`
+- `20260620060000_p3_publish_cap40.sql`
+- `20260620050000_p2_composite_redesign.sql`
 <!-- /auto:recent-migrations -->
 
 ---
