@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `5e7a1d1` chore(sync): pre-commit hook 자동화 — memory mirror + CONTEXT 자동 갱신
 - `f14dbf0` chore(sync): Claude Project ↔ VS Code 한몸 인프라 #2~#5 완료
 - `37fced9` chore(sync): .gitignore 보강 + .claude/settings.local.json 추적 해제
 - `885a302` feat(acp): LCP 대량 list — 단계별 상태 + 삭제 기능 (v06.75)
 - `9a5160a` feat(workspace): 브라우저 TTS best voice 자동 선택 재설계
-- `d369388` feat(acp): LCP 대량 결과 list — 7축 필터 통합 패널 (v06.73)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
