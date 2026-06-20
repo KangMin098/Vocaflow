@@ -10,6 +10,30 @@
 
 ## Unreleased (v06.34 → next)
 
+### P4 — book·article 추출 단일 코어 통합 (v06.81 · C5)
+
+P3 (cap) 직후. handoff §P4 — composite 식 drift 영구 차단.
+
+**변경** (migration [20260620070000_p4_unify_composite_core](../supabase/migrations/20260620070000_p4_unify_composite_core.sql)):
+- 신규 `_extract_composite_score(rank, freq_in_unit, unit_max, v_level, verified, example, skill, unit_v_level) RETURNS numeric IMMUTABLE` — composite 식 단일 SSoT
+- `select_book_chapter_vocab` scored CTE → 헬퍼 호출 (unit=chapter)
+- `select_article_vocab` scored CTE → 헬퍼 호출 (unit=article)
+- 식 변경 시 한 곳만 수정. book/article 정합 영구 보장.
+
+**회귀 0 검증** (Les Misérables · bit-identical):
+- total=7472 · distinct=1677 · null_rank=1643 · distinct_null=46 (P2 와 100% 일치)
+- 챕터1 top5: bishop V8 0.7109 / petty V9 0.6167 / occupy V6 0.5467 / portion V6 0.5444 / fate V6 0.5394
+- 호출자 (publish_*_word_set / 트리거 / 외부) 영향 0 — 함수 시그니처/반환 타입 무변동
+
+**보존**: 게이트 (P1), composite 식 (P2), cap 발행 (P3), DISTINCT/sort.
+
+**핸드오프 §P4-3 미수행** (범위 외): `/api/analyze` (OpenAI) → winkNLP lemma → shared_dictionary → 동일 코어 재랭킹 spec 검토.
+
+**남은 단계** (handoff):
+- P5b — standard+C2 register 재분류 (15% 의심 표본)
+- P5c — example_en 갭 (V6~V11 100% 이미 충전 → 사실상 불요)
+- P6 — 구독 시점 user V-level 필터 (C6 별도 handoff 필요)
+
 ### P3 — 챕터/글당 top-N cap (v06.80 · C4)
 
 P2 (composite 재설계) 직후. P0 측정 C4 (챕터당 word_count max=239 · p90=57 · cap 없음) 해결.

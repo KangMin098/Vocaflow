@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `0e17773` feat(extraction): 챕터당 학습어 top-N cap (C4 · Cognitive Load · v06.80 P3)
 - `b2b8ec4` feat(extraction): composite 재설계 — salience 실효화 + rank NULL 강건 (C1·C2 · v06.79 P2)
 - `b8a2365` data(dictionary): V6~V11 frequency_rank 백필 16,492 row (v06.78 P5a)
 - `1cbe8ee` feat(extraction): 학습밴드 고정 floor로 게이트 디커플 (C3 · v06.77 P1)
 - `5b1ac6d` docs(extraction): P0 진단 실측 기록 (handoff 결정표)
-- `f68d370` chore(lcp): library_books.is_picture_book migration git 추적 합류 (v06.76)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260620070000_p4_unify_composite_core.sql`
 - `20260620061000_p3b_drop_old_publish_overload.sql`
 - `20260620060000_p3_publish_cap40.sql`
 - `20260620050000_p2_composite_redesign.sql`
 - `20260620040000_p5a_freq_rank_backfill_from_ext.sql`
-- `20260620030000_extraction_fixed_learnable_floor.sql`
 <!-- /auto:recent-migrations -->
 
 ---
