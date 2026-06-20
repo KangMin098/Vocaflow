@@ -10,6 +10,19 @@
 
 ## Unreleased (v06.34 → next)
 
+### manifest drift 자동 검증 (v06.84)
+
+PR #26 (manifest 보강) 후속 — drift 가 누적되지 않도록 CI 검증 추가.
+
+**신규** `scripts/check-manifest.mjs`:
+- (1) `docs/` 직속 *.md 파일이 manifest §1 Tier 1 list 에 백틱 인용됐는지
+- (2) `docs/AI_CONTEXT/` 하위 폴더가 manifest 분류 (Tier 또는 §2 제외) 에 명시됐는지
+- (3) `docs/` 의 1차 하위 폴더 (`adr/`, `references/`, `proposals/` 등) manifest 명시 확인
+
+**`.github/workflows/sync-check.yml`** `manifest-drift` job 추가 — push / PR 마다 실행, warning-only (block X).
+
+**효과**: 본 세션 초반 발견된 `docs/AI_CONTEXT/handoffs/` 누락 같은 drift 가 다음부터 자동 알림.
+
 ### PROJECT_KNOWLEDGE_MANIFEST 신규 폴더 3종 분류 (v06.83)
 
 PR #25 (P6 handoff) 후속 — `docs/AI_CONTEXT/` 의 신규 폴더 3종이 manifest 에 없어 Project 가 attach list 생성 불가. 보강.
