@@ -25,6 +25,9 @@ export interface AdvancedState {
   genreId: string
   publishedSince: string
   author: string
+  // v06.43 — Lit2Go
+  lit2goGradeBand: '' | 'all' | 'k-2' | '3-5' | '6-8' | '9-12'
+  lit2goAudioOnly: boolean
 }
 
 export const DEFAULT_ADVANCED: AdvancedState = {
@@ -40,6 +43,8 @@ export const DEFAULT_ADVANCED: AdvancedState = {
   genreId: '',
   publishedSince: '',
   author: '',
+  lit2goGradeBand: '',
+  lit2goAudioOnly: false,
 }
 
 interface Props {
@@ -246,6 +251,46 @@ export function AdvancedFetchPanel({
                 />
               </Field>
             )}
+
+            {enabled.includes('lit2goGradeBand') && (
+              <Field
+                label="Lit2Go US 학년 밴드"
+                hint="⚠ 미국 원어민 학년 (Flesch-Kincaid). EFL ≠. coverage 가 V-Level SSoT"
+              >
+                <select
+                  value={state.lit2goGradeBand}
+                  onChange={(e) =>
+                    set(
+                      'lit2goGradeBand',
+                      e.target.value as AdvancedState['lit2goGradeBand'],
+                    )
+                  }
+                  className={inputCls}
+                  disabled={disabled}
+                >
+                  <option value="">전체</option>
+                  <option value="k-2">K-2 (≈ EFL B1-B2 어휘)</option>
+                  <option value="3-5">3-5 학년 (≈ B1)</option>
+                  <option value="6-8">6-8 학년 (≈ B1-B2)</option>
+                  <option value="9-12">9-12 학년 (≈ B2)</option>
+                </select>
+              </Field>
+            )}
+
+            {enabled.includes('lit2goAudioOnly') && (
+              <Field label="Lit2Go 오디오 보유 만" hint="USF audiobooks 만">
+                <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
+                  <input
+                    type="checkbox"
+                    checked={state.lit2goAudioOnly}
+                    onChange={(e) => set('lit2goAudioOnly', e.target.checked)}
+                    className="h-3 w-3"
+                    disabled={disabled}
+                  />
+                  <span className="font-mono text-[11px]">오디오 있음만</span>
+                </label>
+              </Field>
+            )}
           </div>
 
           {hasActive && (
@@ -296,6 +341,10 @@ export function buildAdvancedBody(
   if (enabled.includes('publishedSince') && state.publishedSince)
     out.publishedSince = state.publishedSince
   if (enabled.includes('author') && state.author.trim()) out.author = state.author.trim()
+  // v06.43 — Lit2Go
+  if (enabled.includes('lit2goGradeBand') && state.lit2goGradeBand)
+    out.lit2goGradeBand = state.lit2goGradeBand
+  if (enabled.includes('lit2goAudioOnly') && state.lit2goAudioOnly) out.lit2goAudioOnly = true
   return out
 }
 
@@ -312,6 +361,8 @@ function countActive(state: AdvancedState, enabled: AdvancedFieldKey[]): number 
   if (enabled.includes('genreId') && state.genreId) n++
   if (enabled.includes('publishedSince') && state.publishedSince) n++
   if (enabled.includes('author') && state.author.trim()) n++
+  if (enabled.includes('lit2goGradeBand') && state.lit2goGradeBand) n++
+  if (enabled.includes('lit2goAudioOnly') && state.lit2goAudioOnly) n++
   return n
 }
 

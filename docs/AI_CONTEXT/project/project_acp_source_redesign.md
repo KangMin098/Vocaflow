@@ -1,0 +1,27 @@
+> AUTO-GENERATED — `scripts/sync-export-memory.mjs` 가 갱신. 손으로 편집하지 말 것.
+> source: C:/Users/kille/.claude/projects/c--Users-kille-Vocaflow/memory/project_acp_source_redesign.md
+> category: project
+
+---
+
+v06.35 (2026-06-08) — ACP(article) 소스 재설계 구현. 스펙 [docs/ACP_SOURCE_REDESIGN.md](../../../../Vocaflow/docs/ACP_SOURCE_REDESIGN.md). ACP 는 PoC(5건)라 전방 설계.
+
+**적용된 migration 3종**:
+- `20260608120000_acp_license_register_gate` — library_articles 에 register/lexical_noise/license_class/display_only 컬럼 + `acp_classify_license(text)` + BEFORE INSERT/UPDATE 트리거(license→license_class→copyright_safe/display_only 자동, 보수적 기본 restricted, NC 차단, CC-BY-ND→display_only).
+- `20260608123000_acp_nd_display_only_gate` — `trg_publish_article_word_set`·`subscribe_article_word_set` 가 display_only(ND) 글의 단어세트 발행/구독 SKIP.
+- `20260608126000_acp_lexical_noise_gate` — 발행 트리거에 `lexical_noise<=0.08` 추가. 최종 게이트: `published AND NOT display_only AND noise<=0.08` 일 때만 단어세트 발행.
+
+**신규 ingester (packages/library-pipeline/src/ingest-article/)**: `_mediawiki.ts`(공용) + `simple-wikipedia.ts`(CC-BY-SA, A2~B1 설명) + `wikinews.ts`(CC-BY, A2~B2 시사) + `the-conversation.ts`(CC-BY-ND, B2~C1 논증 — HTML 정규식, **라이브 튜닝 필요**). `computeLexicalNoise`(_helpers). enqueue route HOST_TO_SOURCE+dispatch, admin AcpClient 탭(📘📣🗞, URL-only RssFeedTab feeds=[]), register×cefr 매트릭스 섹션.
+
+**arXiv**: 루틴 UI 제거(라이선스 비자유 기본·C2+·LaTeX 오염). ingester/enqueue API 는 격리용 보존.
+
+**핵심 통찰**: article→texts verbatim 복사(start-learning.ts)는 ND 허용, 워크스페이스 단어주석은 library_book 전용이라 article 은 이미 본문+클릭툴팁만 표시 → ND 워크스페이스 수술 불요. 게이트는 "파생 단어세트 배포"만 차단.
+
+**미완/제외 (정직한 재판정)**:
+- OpenStax — 웹 SPA/PDF 라 URL-HTML 추출 불가. CNXML/archive API dump 통합 필요(별도).
+- Smithsonian OA — CC0=소장품 메타(산문 아님), Magazine=유료 → 소스 부적합, 제외.
+- NIH→MedlinePlus 분리 — 문서별 article_v_level 실측이 난이도 분리 담당, 별도 source 분리 보류.
+- 신규 4 ingester(Wikipedia/Conversation/Wikinews + 기존) 라이브 검증 미실시(외부 API/HTML — 여기서 실행 불가). 특히 the-conversation articleBody 정규식.
+
+관련: [[book_vocab_ssot_unify]] (도서 쪽 동등 작업), [[feedback_supabase_migrations]].
+

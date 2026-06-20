@@ -11,7 +11,7 @@ import { AcpClient } from './AcpClient'
 
 export const metadata = {
   title: 'ACP Pipeline — Vocaflow Admin',
-  description: 'Article Curation Pipeline v1.0 — VOA · NASA · NIH · arXiv 짧은 글 큐레이션',
+  description: 'Article Curation Pipeline v1.0 — VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation 짧은 글 큐레이션',
 }
 
 export const revalidate = 60
@@ -42,7 +42,7 @@ function PageHeader() {
         📰 Article Curation Pipeline
       </h1>
       <p className="font-body text-[13px] text-[var(--t3)]">
-        ACP v1.0 — 짧은 글 (VOA · NASA · NIH · arXiv) 큐레이션. 책(LCP) 과 별개 파이프라인.
+        ACP v1.0 — 짧은 글 (VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation) 큐레이션. 책(LCP) 과 별개 파이프라인.
       </p>
     </header>
   )

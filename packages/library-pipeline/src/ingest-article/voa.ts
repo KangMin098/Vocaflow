@@ -15,6 +15,7 @@
 
 import type { RawArticle } from '../types-article'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
+import { safeDate, safeDateISO } from './_helpers'
 
 // VOA WAF 는 비브라우저 UA (curl/bot) 를 403 차단 → 일반 브라우저 UA 로 fetch.
 const USER_AGENT =
@@ -22,31 +23,38 @@ const USER_AGENT =
 const FETCH_TIMEOUT_MS = 15_000
 const MAX_ITEMS_PER_FEED = 20
 
-/** VOA RSS feed 목록 — 카테고리별. id 는 admin UI 에서 선택. */
+/** VOA RSS feed 목록 — 카테고리별. id 는 admin UI 에서 선택.
+ *  v06.44 — VOA endpoint 변경 (2026-06-14 확인):
+ *    옛 /api/{slug} 형식 → 'Invalid url' 반환 (deprecated).
+ *    새 /rss/?count=N&zoneid={N} 패턴 표준.
+ *  zoneid 매핑 (main page navigation auto-discover):
+ *    3521 = As It Is · 987 = Words & Their Stories · 1579 = Science & Tech
+ *    952 = Lessons of the Day (Anna 시리즈 — Let's Learn English 대체)
+ */
 export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url: string }> = [
   {
     id: 'as-it-is',
     label: 'As It Is (Level 2)',
     level: 2,
-    url: 'https://learningenglish.voanews.com/api/zrgoqe$omp',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=3521',
   },
   {
     id: 'words-and-their-stories',
     label: 'Words and Their Stories (Level 3)',
     level: 3,
-    url: 'https://learningenglish.voanews.com/api/zjroyeuvy_',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=987',
   },
   {
     id: 'science-technology',
     label: 'Science & Technology (Level 2)',
     level: 2,
-    url: 'https://learningenglish.voanews.com/api/zptp_e-p_t',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=1579',
   },
   {
     id: 'lets-learn-english',
-    label: "Let's Learn English (Level 1)",
+    label: "Let's Learn English (Level 1) — Lessons of the Day",
     level: 1,
-    url: 'https://learningenglish.voanews.com/api/zmgqee$lpi',
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=952',
   },
 ]
 
@@ -62,6 +70,8 @@ export interface VoaListItem {
   description: string
   /** 학습 친화도 score (0~1) + breakdown — v06.41 큐레이션 spec */
   score?: ArticleScore
+  /** v06.45 — audio 보유 여부 (LCP 연계). VOA Learning English 는 학습 정체성으로 100% true */
+  has_audio?: boolean
 }
 
 export async function listVoaFeed(
@@ -76,7 +86,34 @@ export async function listVoaFeed(
   }
   const xml = await res.text()
   const raw = parseRssItems(xml)
-  return applyArticleCurationSpec(raw, 'voa', feedId)
+  // v06.45 — VOA Learning English 는 모두 audio 가 article HTML 에 존재 (학습 정체성).
+  //          list 단계에서 RSS 만으로는 확정 불가하지만 has_audio=true 휴리스틱.
+  const withAudio = raw.map((it) => ({ ...it, has_audio: true }))
+  return applyArticleCurationSpec(withAudio, 'voa', feedId)
+}
+
+/**
+ * class 에 주어진 단어를 가진 첫 <div> 를 div 중첩을 세어 균형 있게 추출 (inner HTML).
+ * 중첩 div(오디오 플레이어 등)로 시작하는 컨테이너를 non-greedy 정규식이 첫 `</div></div>`
+ * 에서 잘라내던 문제 해결 — 매칭 div 의 진짜 짝을 찾아 컨테이너 전체를 반환.
+ */
+function extractDivByClass(html: string, className: string): string | null {
+  const open = new RegExp(`<div[^>]*\\bclass="[^"]*\\b${className}\\b[^"]*"[^>]*>`, 'i').exec(html)
+  if (!open) return null
+  const start = open.index + open[0].length
+  const tagRe = /<\/?div\b[^>]*>/gi
+  tagRe.lastIndex = start
+  let depth = 1
+  let m: RegExpExecArray | null
+  while ((m = tagRe.exec(html)) !== null) {
+    if (m[0].startsWith('</')) {
+      depth -= 1
+      if (depth === 0) return html.slice(start, m.index)
+    } else {
+      depth += 1
+    }
+  }
+  return html.slice(start) // 짝 없으면 끝까지 (안전 폴백)
 }
 
 /**
@@ -98,20 +135,40 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     /<time[^>]*datetime="([^"]+)"/i,
   ])
 
-  // VOA 본문: <div class="wsw"> (their wysiwyg 본문 컨테이너) 또는 <article>
-  const bodyMatch =
-    html.match(/<div[^>]*class="[^"]*wsw[^"]*"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/i) ??
-    html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)
-  const bodyHtml = bodyMatch?.[1] ?? html
-  const content = htmlToPlainText(bodyHtml)
+  // VOA 본문: <div class="wsw"> 컨테이너를 div 중첩 균형으로 추출.
+  //   wsw 가 오디오 플레이어 div 로 시작해서, 기존 non-greedy `</div></div>` 정규식은
+  //   첫 블록(~100자)에서 끊겨 본문(transcript) 22개 단락을 통째로 놓쳤음 → "too short" 오발.
+  //   균형 추출 후 <p> transcript 우선(플레이어/캡션 잡음 배제), 빈약하면 컨테이너 전체.
+  // wsw 컨테이너가 있어야 transcript 기사. <article>/whole-html 폴백은 클립(transcript 없는
+  //   오디오/비디오)에서 nav·footer chrome 을 본문으로 긁으므로 쓰지 않음 — 없으면 reject.
+  const containerHtml = extractDivByClass(html, 'wsw')
+  if (!containerHtml) {
+    throw new Error('VOA article has no transcript body (no wsw container — audio/video clip?)')
+  }
+  const paraText = htmlToPlainText(
+    [...containerHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => m[1] ?? '').join('\n'),
+  )
+  const content = (paraText.trim().length >= 200 ? paraText : htmlToPlainText(containerHtml))
+    .replace(/no media source currently available\.?/gi, '') // VOA 오디오 플레이어 boilerplate
+    .replace(/[ \t ]+/g, ' ')
+    .trim()
 
-  if (content.trim().length < 200) {
-    throw new Error(`VOA article body too short: ${content.trim().length} chars`)
+  if (content.length < 200) {
+    throw new Error(`VOA article body too short: ${content.length} chars`)
   }
 
   // source_id: URL 의 마지막 슬러그
   const slugMatch = itemUrl.match(/\/([a-z0-9\-]+)\/?(?:\?|$)/i)
   const sourceId = `voa:${slugMatch?.[1] ?? hashString(itemUrl).toString(36)}`
+
+  // v06.45 — audio_url 추출 (LCP librivox_audio 와 동일 연계 패턴):
+  //   VOA Learning English = 학습 정체성으로 거의 100% audio (transcript + voice).
+  //   우선순위: <audio src="..."> → voa-audio.voanews.eu/*.mp3 → 일반 mp3.
+  const audioUrl =
+    html.match(/<audio[^>]+src="(https?:[^"]+\.mp3[^"]*)"/i)?.[1] ??
+    html.match(/(https?:\/\/voa-audio\.voanews\.eu\/[^\s<>"']+\.mp3[^\s<>"']*)/i)?.[1] ??
+    html.match(/(https?:[^\s<>"']+\.mp3[^\s<>"']*)/i)?.[1] ??
+    null
 
   return {
     source: 'voa',
@@ -121,9 +178,10 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     author: 'VOA Learning English',
     language: 'en',
     license: 'PD-Government',
-    published_at: publishedAt ? new Date(publishedAt) : null,
+    published_at: safeDate(publishedAt),
     content,
     estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
+    audio_url: audioUrl,
     fetched_at: new Date(),
   }
 }
@@ -151,11 +209,21 @@ function parseRssItems(xml: string): VoaListItem[] {
     const desc = extractTag(block, 'description')
 
     if (!link) continue
+    // v06.45.1 — source_id 는 link URL 의 article ID 우선 (guid 가 URL 일 때
+    //  옛 slugFromGuid 가 .html 의 'html' 만 매치해 모든 item 이 동일 ID 가 되는 버그 수정).
+    //  우선순위: /1234567.html article ID → 끝 slug → link hash.
+    const fromLink =
+      link.match(/\/(\d{4,})\.html?$/)?.[1] ??           // /8010609.html 형식
+      link.match(/\/([a-z0-9\-]{6,})\/?$/i)?.[1] ??      // /article-slug/
+      null
+    const slug = (fromLink && fromLink !== 'html')
+      ? fromLink
+      : (guid ? slugFromGuid(guid) : hashString(link).toString(36))
     items.push({
-      source_id: guid ? `voa:${slugFromGuid(guid)}` : `voa:${hashString(link).toString(36)}`,
+      source_id: `voa:${slug && slug !== 'html' ? slug : hashString(link).toString(36)}`,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
-      published_at: pubDate ? new Date(pubDate).toISOString() : null,
+      published_at: safeDateISO(pubDate),
       description: decodeEntities(stripTags(desc ?? '')).trim().slice(0, 400),
     })
   }

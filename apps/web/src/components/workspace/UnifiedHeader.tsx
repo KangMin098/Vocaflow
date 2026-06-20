@@ -1,11 +1,11 @@
 // apps/web/src/components/workspace/UnifiedHeader.tsx
-// Phase 11.16 — 통합 sticky header (WorkspaceBookContext + ContextBar 통합)
+// v06.42 — 컴팩트 2-행 sticky header (breadcrumb 제거로 중복 해소).
 //
-// 정보 단일화:
-//   Row 1 — breadcrumb (BookVault › 책 제목 › Chapter N)
-//   Row 2 — 책 정체성 (좌: 표지+제목+CEFR+작가+Ch X/N+✓N) + 액션 (우: 도구+chapter nav+완료)
+//   Row A — 표지 + 제목 + 인라인 메타(CEFR·작가·Ch.N/total·✓N·단어장칩) + 액션(북마크·타이포·집중 + chapter nav + 완료)
+//   Row B — ModePills (학습 도구)
 //
-// 중복 제거: 책 제목 / Chapter N / 뒤로 가기 각 1회만.
+// 중복/불필요 제거: breadcrumb 행 삭제(책제목·Chapter 중복 → 제목 1회·Ch.N/total 1회),
+//   insight 아이콘 + 더보기(...) 버튼 제거(단어장 칩이 insight 트리거), back 은 화살표 1개.
 
 'use client'
 
@@ -18,10 +18,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Focus,
-  Info,
   Layers,
   List,
-  MoreHorizontal,
   Type,
 } from 'lucide-react'
 
@@ -116,87 +114,64 @@ export function UnifiedHeader({
           : 'border-[var(--bd)] bg-[var(--reading-bg)]/90'
       }`}
     >
-      {/* ━━━ Row 1 — Breadcrumb (chapter context only · focus mode 시 hidden) ━━━ */}
-      {hasChapterContext && !isFocusMode && (
-        <nav
-          aria-label="breadcrumb"
-          className="mx-auto flex w-full max-w-[1080px] items-center gap-1.5 px-8 pt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]"
-        >
-          <Link
-            href="/my/books"
-            aria-label="책 목록으로 돌아가기"
-            className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-0.5 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            <ArrowLeft size={10} aria-hidden />
-            BookVault
-          </Link>
-          <span className="shrink-0 text-[var(--t4)]" aria-hidden>›</span>
-          <Link
-            href={`/my/books/${book.id}`}
-            className="line-clamp-1 max-w-[280px] rounded-[var(--r-sm)] text-[var(--t2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            {book.title}
-          </Link>
-          <span className="shrink-0 text-[var(--t4)]" aria-hidden>›</span>
-          <span className="shrink-0 text-[var(--t1)]">Chapter {currentChapterIdx}</span>
-        </nav>
-      )}
-
-      {/* ━━━ Row 2 — Content + Actions ━━━ */}
+      {/* ━━━ Row A — 정체성 + 액션 (단일 행) ━━━
+          breadcrumb 제거 → 책제목/챕터 중복 해소(제목 1회·Ch.N/total 1회), back 은 화살표로,
+          insight·더보기 중복 아이콘 제거(단어장 칩이 insight 트리거). */}
       <div
-        className={`mx-auto flex w-full max-w-[1080px] items-center gap-4 px-8 transition-[padding] duration-[var(--dur-slower)] ${
+        className={`mx-auto flex w-full max-w-[1080px] items-center gap-3 px-5 transition-[padding] duration-[var(--dur-slower)] sm:px-8 ${
           isFocusMode ? 'py-1' : 'py-1.5'
         }`}
       >
-        {/* Back Button — chapter context 없을 때만 노출 (chapter context 시 breadcrumb 사용) */}
-        {!hasChapterContext && (
-          <Link
-            href="/my/texts"
-            aria-label="라이브러리로 돌아가기"
-            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
-          >
-            <ArrowLeft size={16} strokeWidth={2} aria-hidden />
-          </Link>
-        )}
+        {/* Back — 책(chapter context) 또는 라이브러리로.
+            ⚠ /my/books/[bookId] 는 학습 재개 redirect 라우트 → /text 로 즉시 bounce (back 무효).
+            도서 개요(챕터 그리드·단어장)로 가려면 /library/books/[bookId]?preview=1
+            (preview=1 이 enroll 재개 redirect 우회 — page.tsx skipEnrollRedirect). */}
+        <Link
+          href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/my/texts'}
+          aria-label={hasChapterContext ? '책으로 돌아가기' : '라이브러리로 돌아가기'}
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          <ArrowLeft size={16} strokeWidth={2} aria-hidden />
+        </Link>
 
         {/* Cover Mini */}
         <div
-          className={`flex flex-shrink-0 items-center justify-center rounded-[var(--r-sm)] shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition-all duration-[var(--dur-slower)] ${
-            isFocusMode ? 'h-8 w-6' : 'h-10 w-7'
+          className={`flex shrink-0 items-center justify-center rounded-[var(--r-sm)] shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition-all duration-[var(--dur-slower)] ${
+            isFocusMode ? 'h-7 w-5' : 'h-9 w-7'
           }`}
           style={{
             background: `linear-gradient(135deg, ${text.coverGradient.from} 0%, ${text.coverGradient.to} 100%)`,
           }}
           aria-hidden
         >
-          <BookOpen size={14} strokeWidth={1.5} className="text-white/85" />
+          <BookOpen size={13} strokeWidth={1.5} className="text-white/85" />
         </div>
 
-        {/* Info — 책/챕터 정체성 */}
-        <div className="min-w-0 flex-1">
+        {/* Identity — 제목 + 인라인 메타 (단일 행) */}
+        <div className="flex min-w-0 flex-1 items-center gap-2">
           <h1
-            className={`truncate font-english font-[600] leading-tight text-[var(--t1)] transition-[font-size] duration-[var(--dur-slower)] ${
-              isFocusMode ? 'text-[14px]' : 'text-[16px]'
+            className={`max-w-[45%] shrink-0 truncate font-english font-[600] leading-tight text-[var(--t1)] ${
+              isFocusMode ? 'text-[14px]' : 'text-[15px]'
             }`}
           >
             {hasChapterContext ? book.title : text.title}
           </h1>
           {!isFocusMode && (
-            <div className="mt-0.5 flex items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="flex min-w-0 items-center gap-2 font-body text-[11px] text-[var(--t3)]">
               <CEFRBadge level={(book?.cefrLevel ?? text.cefrLevel) as CEFRLevel} />
               {(book?.author ?? text.author) && (
-                <span className="font-display font-[600] text-[var(--t2)]">
+                <span className="hidden truncate font-display font-[600] text-[var(--t2)] md:inline">
                   {book?.author ?? text.author}
                 </span>
               )}
               {hasChapterContext && (
                 <>
                   <span className="text-[var(--t4)]" aria-hidden>·</span>
-                  <span className="font-mono tabular-nums text-[var(--t2)]">
+                  <span className="shrink-0 font-mono tabular-nums text-[var(--t2)]">
                     Ch.{currentChapterIdx}/{totalChapters}
                   </span>
                   {completedCount > 0 && (
-                    <span className="font-mono font-[700] tabular-nums text-[var(--learn-known)]">
+                    <span className="shrink-0 font-mono font-[700] tabular-nums text-[var(--learn-known)]">
                       ✓{completedCount}
                     </span>
                   )}
@@ -204,8 +179,8 @@ export function UnifiedHeader({
                     <button
                       type="button"
                       onClick={onToggleInsight}
-                      aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} 구독 — 학습 인사이트 열기`}
-                      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                      aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} — 학습 인사이트 열기`}
+                      className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                     >
                       <Layers size={9} aria-hidden />
                       <span className="tabular-nums">
@@ -222,7 +197,7 @@ export function UnifiedHeader({
         {/* Page Indicator — chapter context 아닐 때만 (사용자 직접 입력) */}
         {!hasChapterContext && text.totalPages > 1 && (
           <div
-            className={`hidden flex-shrink-0 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-mono text-[11px] font-[500] text-[var(--t2)] transition-opacity duration-[var(--dur-normal)] sm:flex ${
+            className={`hidden shrink-0 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-mono text-[11px] font-[500] text-[var(--t2)] transition-opacity duration-[var(--dur-normal)] sm:flex ${
               isFocusMode ? 'opacity-60' : 'opacity-100'
             }`}
           >
@@ -236,7 +211,7 @@ export function UnifiedHeader({
 
         {/* Progress Dots — chapter context 아닐 때 (사용자 직접 입력 progress %) */}
         {!hasChapterContext && (
-          <div className="hidden flex-shrink-0 items-center gap-[3px] md:flex">
+          <div className="hidden shrink-0 items-center gap-[3px] md:flex">
             {Array.from({ length: 10 }).map((_, i) => {
               const isFilled = i < filledDots
               const isPartial = i === filledDots && partialDot
@@ -258,8 +233,8 @@ export function UnifiedHeader({
           </div>
         )}
 
-        {/* Actions toolbar */}
-        <div role="toolbar" aria-label="액션" className="flex flex-shrink-0 items-center gap-1">
+        {/* Actions toolbar — 북마크 · 타이포 · 집중 (insight·더보기 중복 제거) */}
+        <div role="toolbar" aria-label="액션" className="flex shrink-0 items-center gap-0.5">
           {/* Bookmark */}
           <button
             type="button"
@@ -294,20 +269,6 @@ export function UnifiedHeader({
             {isTypeOpen && <TypePopover onClose={() => setIsTypeOpen(false)} />}
           </div>
 
-          {/* Insight */}
-          <button
-            type="button"
-            onClick={onToggleInsight}
-            aria-label="인사이트 패널"
-            className="relative inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
-          >
-            <Info size={16} strokeWidth={1.75} aria-hidden />
-            <span
-              className="absolute right-2 top-2 h-1.5 w-1.5 animate-[pulse-soft_4s_ease-in-out_infinite] rounded-full bg-[var(--active)]"
-              aria-hidden
-            />
-          </button>
-
           {/* Focus */}
           <button
             type="button"
@@ -321,15 +282,6 @@ export function UnifiedHeader({
             }`}
           >
             <Focus size={16} strokeWidth={1.75} aria-hidden />
-          </button>
-
-          {/* More — desktop only */}
-          <button
-            type="button"
-            aria-label="더보기"
-            className="hidden h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] md:inline-flex"
-          >
-            <MoreHorizontal size={16} strokeWidth={1.75} aria-hidden />
           </button>
 
           {/* Chapter nav + 완료 — chapter context only */}

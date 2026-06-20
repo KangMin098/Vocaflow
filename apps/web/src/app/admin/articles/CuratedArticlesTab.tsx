@@ -4,7 +4,18 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Archive, CheckCircle2, ExternalLink, Loader2, Play, RefreshCw } from 'lucide-react'
+import Link from 'next/link'
+import {
+  Archive,
+  CheckCircle2,
+  ExternalLink,
+  Loader2,
+  Play,
+  RefreshCw,
+  SearchCheck,
+  Trash2,
+  Undo2,
+} from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import type { ArticleAdminRow, ArticleStatus } from '@/lib/articles/types'
@@ -53,8 +64,36 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
     })
   }
 
+  // v06.56 — admin_force_publish_article 등 SECURITY DEFINER RPC 는 DEV_ADMIN_BYPASS=1
+  //   환경에서 auth.uid()=NULL → is_admin_or_curator()=false → "Forbidden". 서버 API
+  //   route 경유로 전환 (requireAdmin + service_role 패턴). 다른 RPC (보관/되돌리기 등)
+  //   는 같은 함정 잠재하나 호출 시점에 별도 라우트 신설.
+  const RPC_ROUTE: Record<string, string> = {
+    admin_force_publish_article: '/api/admin/articles/force-publish',
+    // v06.64 — LCP 동등 단계 이동 (revert/delete)
+    admin_revert_published_article: '/api/admin/articles/revert',
+    admin_delete_article: '/api/admin/articles/delete',
+  }
   async function rpcAction(name: string, id: string, actionLabel: string) {
     await runAction(actionLabel, async () => {
+      const route = RPC_ROUTE[name]
+      if (route) {
+        const res = await fetch(route, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ article_id: id }),
+        })
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string
+          message?: string
+          ok?: boolean
+        }
+        if (!res.ok || !data.ok) {
+          throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
+        }
+        return
+      }
+      // 그 외 액션은 기존 browser RPC 유지 (향후 같은 패턴 적용 가능).
       const client = createClient() as unknown as {
         rpc: (
           n: string,
@@ -104,10 +143,15 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
                 const isProcessable = ['queued', 'ready', 'failed'].includes(a.status)
                 const isFailed = a.status === 'failed'
                 const isReady = a.status === 'ready'
+                const isPublished = a.status === 'published'
+                // v06.64 — 영구 삭제 허용 status (published 는 revert 후 가능)
+                const isDeletable = ['ready', 'archived', 'queued', 'failed'].includes(a.status)
                 const devKey = `dev:${a.id}`
                 const requeueKey = `requeue:${a.id}`
                 const publishKey = `publish:${a.id}`
                 const archiveKey = `archive:${a.id}`
+                const revertKey = `revert:${a.id}`
+                const deleteKey = `delete:${a.id}`
 
                 return (
                   <tr
@@ -116,9 +160,12 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
                   >
                     <Td>
                       <div className="flex flex-col gap-0.5">
-                        <span className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)]">
+                        <Link
+                          href={`/admin/articles/preview/${a.id}`}
+                          className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                        >
                           {a.title}
-                        </span>
+                        </Link>
                         {a.author && (
                           <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">
                             {a.author}
@@ -161,6 +208,14 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
                     </Td>
                     <Td align="right">
                       <div className="flex items-center justify-end gap-1">
+                        <Link
+                          href={`/admin/articles/preview/${a.id}`}
+                          className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                          aria-label="글 검수 페이지 열기"
+                        >
+                          <SearchCheck size={11} aria-hidden />
+                          검수
+                        </Link>
                         {a.source_url && (
                           <a
                             href={a.source_url}
@@ -201,13 +256,54 @@ export function CuratedArticlesTab({ articles, onChanged }: Props) {
                             tone="primary"
                           />
                         )}
-                        {a.status !== 'archived' && (
+                        {isPublished && (
+                          <ActionBtn
+                            label="검토대기"
+                            icon={<Undo2 size={11} />}
+                            pending={pending === revertKey}
+                            onClick={() => {
+                              if (
+                                !window.confirm(
+                                  `"${a.title}" 을(를) 검토대기로 되돌릴까요?\n\n` +
+                                    '· status: published → ready\n' +
+                                    '· 게시 시 자동 생성된 챕터 단어장 삭제\n' +
+                                    '· 본문/추출 어휘는 보존 — 재게시 시 단어장 자동 재생성',
+                                )
+                              ) return
+                              void rpcAction('admin_revert_published_article', a.id, revertKey)
+                            }}
+                            tone="neutral"
+                          />
+                        )}
+                        {a.status !== 'archived' && !isPublished && (
                           <ActionBtn
                             label="보관"
                             icon={<Archive size={11} />}
                             pending={pending === archiveKey}
                             onClick={() => rpcAction('admin_archive_article', a.id, archiveKey)}
                             tone="neutral"
+                          />
+                        )}
+                        {isDeletable && (
+                          <ActionBtn
+                            label="삭제"
+                            icon={<Trash2 size={11} />}
+                            pending={pending === deleteKey}
+                            onClick={() => {
+                              if (
+                                !window.confirm(
+                                  `"${a.title}" 을(를) 영구 삭제할까요?\n\n` +
+                                    '· library_articles 본체 삭제\n' +
+                                    '· library_article_vocabularies CASCADE 삭제\n' +
+                                    '· library_article_seed_catalog imported_to_articles 해제\n' +
+                                    '· shared_word_sets(library_article) 이전 발행분 삭제\n' +
+                                    '· texts.source_url 마커는 보존 (사용자 학습 진도 유지)\n\n' +
+                                    '되돌릴 수 없습니다.',
+                                )
+                              ) return
+                              void rpcAction('admin_delete_article', a.id, deleteKey)
+                            }}
+                            tone="danger"
                           />
                         )}
                       </div>
@@ -290,14 +386,16 @@ function ActionBtn({
   icon: React.ReactNode
   pending: boolean
   onClick: () => void
-  tone: 'primary' | 'success' | 'neutral'
+  tone: 'primary' | 'success' | 'neutral' | 'danger'
 }) {
   const cls =
     tone === 'primary'
       ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--ti)]'
       : tone === 'success'
         ? 'bg-[var(--learn-known)] hover:opacity-90 text-white'
-        : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]'
+        : tone === 'danger'
+          ? 'border border-[var(--learn-error)] bg-[var(--bg)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)]'
+          : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]'
   return (
     <button
       type="button"

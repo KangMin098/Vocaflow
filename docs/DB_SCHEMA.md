@@ -46,7 +46,7 @@
 
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
-| `shared_dictionary` | **45,292** | **183 MB** | 영단어 마스터 캐시 — meaning_ko 100% (v06.24) · 11개 통합 컬럼 (Phase 1) · senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2) |
+| `shared_dictionary` | **45,292** | **183 MB** | 영단어 마스터 캐시 — meaning_ko 100% (v06.24) · 11개 통합 컬럼 (Phase 1) · senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2) · `inflected_forms` text[] GIN (전역 권위화 굴절형 15,210 lemma · 규칙형 검증+권위 불규칙, noise 제거 · `scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) |
 | `shared_words` | 13,437 | 46 MB | 공용 단어장 — `source_queue_id` FK to vocab_enrichment_queue (cast-2000 audit) · `source_sentence`(원문 출현 문장 · 도서 단어장 예문, 렌더는 source_sentence→example_en 폴백) |
 | `shared_word_sets` | 277 | 2.8 MB | 단어장 헤더 — category(8 enum)+`category_id`/`additional_category_ids[]` (브릿지) · is_published · curation_query JSONB |
 | `user_word_set_subscriptions` | 225 | 104 kB | 다중 구독 · source_book_id ref (자동 import 추적) |
@@ -117,6 +117,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `v_user_book_progress` | 사용자별 도서 진행도 |
 | `library_seed_catalog_view` | seed catalog UI 용 가공 |
 | `user_vocab_enriched` | 사용자 단어장 + 사전 메타 enriched |
+
+**보안 옵션 (v06.47)**: 5 view 모두 `SECURITY INVOKER` (`ALTER VIEW ... SET (security_invoker = true)`) — 호출자 권한으로 기반 테이블 RLS 적용. SECURITY DEFINER (PG15 default) 의 RLS 우회 위험 차단. Supabase advisor "Security Definer View" 경고 해결 migration `20260614150000_views_security_invoker`.
 
 ---
 
@@ -283,7 +285,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 66건. 디렉토리: `supabase/migrations/`. (최신: `20260613130000_word_set_source_sentence` — `shared_words.source_sentence` + `select_book_chapter_vocab`/`publish_book_word_sets` 확장)
+전체 누적 70건. 디렉토리: `supabase/migrations/`. (최신: `20260613170000_inflected_forms_irregular_complete` — 누락 권위 불규칙형 보강 forbid→forbidden·swell→swollen 등, english_irregular_forms 병합 · lie 제외)
 
 ---
 

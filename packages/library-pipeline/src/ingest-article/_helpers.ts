@@ -1,7 +1,8 @@
 // packages/library-pipeline/src/ingest-article/_helpers.ts
 // ACP v1.0 Phase 19 — Shared RSS / HTML / fetch utilities for article ingesters.
 //
-// VOA / NASA / NIH / arXiv 모두 동일 패턴 (RSS parsing + HTML→text + timeout fetch) 사용.
+// VOA / NASA / NIH / wikinews / the_conversation / simple_wikipedia 모두 동일 패턴
+// (RSS/atom parsing + HTML→text + timeout fetch) 사용.
 // 본 파일이 단일 출처 — 각 ingester 가 import.
 
 const DEFAULT_TIMEOUT_MS = 15_000
@@ -41,22 +42,44 @@ export function parseRssFeed(xml: string): RssListItem[] {
       extractTag(block, 'link') ?? block.match(/<link[^>]+href="([^"]+)"/i)?.[1] ?? null
     const guid = extractTag(block, 'guid') ?? extractTag(block, 'id') ?? null
     const pubDate = extractTag(block, 'pubDate') ?? extractTag(block, 'published') ?? null
-    const desc =
-      extractTag(block, 'description') ??
-      extractTag(block, 'summary') ??
-      extractTag(block, 'content') ??
-      ''
+    // v06.70 — The Conversation atom 의 <summary>(짧은 요약) vs <content>(풀 본문) 우선순위 수정.
+    //   summary 우선 시 minDescriptionLen 가드 통과 못함 → content 가 있으면 우선.
+    //   여러 후보 중 가장 긴 것 선택 (description/content/summary 모두 후보).
+    const candidates = [
+      extractTag(block, 'description'),
+      extractTag(block, 'content'),
+      extractTag(block, 'summary'),
+    ].filter((s): s is string => typeof s === 'string' && s.length > 0)
+    const desc = candidates.sort((a, b) => b.length - a.length)[0] ?? ''
 
     if (!link) continue
     items.push({
       guid,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
-      published_at: pubDate ? new Date(pubDate).toISOString() : null,
-      description: decodeEntities(stripTags(desc)).trim().slice(0, 400),
+      published_at: safeDateISO(pubDate),
+      // v06.70 — entity-encoded HTML(&lt;p&gt;...&lt;/p&gt;) 처리:
+      //   decodeEntities 먼저 → stripTags. 이전 순서는 stripTags 가 entity 못 풀어 HTML 태그 잔존.
+      description: stripTags(decodeEntities(desc)).replace(/\s+/g, ' ').trim().slice(0, 400),
     })
   }
   return items
+}
+
+/**
+ * 안전한 날짜 파싱 — `new Date(s)` 가 **Invalid Date**(truthy)를 만들 수 있어,
+ * 이후 `.toISOString()` 이 "Invalid time value" 로 throw 되는 것을 차단.
+ * 파싱 불가/빈 값이면 null 반환.
+ */
+export function safeDate(s: string | null | undefined): Date | null {
+  if (!s || !s.trim()) return null
+  const d = new Date(s)
+  return Number.isNaN(d.getTime()) ? null : d
+}
+
+/** 안전한 날짜 → ISO 문자열. 파싱 불가면 null (toISOString throw 차단). */
+export function safeDateISO(s: string | null | undefined): string | null {
+  return safeDate(s)?.toISOString() ?? null
 }
 
 /** HTML <tag> 내용 추출 (CDATA + 일반 텍스트 지원). 첫 매치만. */
@@ -118,6 +141,31 @@ export function hashString(s: string): number {
   let h = 0
   for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0
   return Math.abs(h)
+}
+
+/**
+ * ACP §18 §4-C — 텍스트 어휘 노이즈 비율 (0~1, numeric(4,3)).
+ *   noise = (수식기호 + LaTeX + 인용마커 [n] + URL + sub/superscript) / 전체 토큰.
+ * LaTeX·수식·인용 오염 탐지 — 0.08 초과 시 어휘 파이프라인 탈락(읽기용만).
+ */
+export function computeLexicalNoise(text: string): number {
+  if (!text) return 0
+  const tokens = text.split(/\s+/).filter(Boolean)
+  if (tokens.length === 0) return 0
+  let noise = 0
+  for (const t of tokens) {
+    if (
+      /[∑∫√∞≤≥≈×÷±→←∂∇µλσθαβγπΔΩ]/.test(t) || // 수식 기호
+      /\\[a-zA-Z]{2,}/.test(t) || // LaTeX 명령 (\alpha \frac)
+      /\$[^$]*\$/.test(t) || // inline math $...$
+      /^\[\d+(?:[,–-]\d+)*\]$/.test(t) || // 인용 [12] [3,4]
+      /^https?:\/\//.test(t) || // URL
+      /\^\{|_\{|\\\(|\\\)/.test(t) // sub/superscript, \( \)
+    ) {
+      noise++
+    }
+  }
+  return Math.round((noise / tokens.length) * 1000) / 1000
 }
 
 /** Abort-friendly fetch with timeout + browser-like User-Agent. */

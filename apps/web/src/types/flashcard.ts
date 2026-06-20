@@ -29,6 +29,8 @@ export interface FlashcardWord {
   pos: string
   exampleSentence: string
   exampleSentenceWithBlank: string
+  /** 사전 DB inflected_forms — 예문 하이라이트/빈칸의 불규칙 굴절 인식용 (없으면 규칙 fallback) */
+  inflectedForms?: string[]
   textId: string // 스크립트 ID
   textTitle: string // 스크립트 제목
   textChapter: string // 챕터

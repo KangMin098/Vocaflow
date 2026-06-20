@@ -28,6 +28,14 @@ export interface ArticleAdminRow {
   status: ArticleStatus
   status_message: string | null
   license: string
+  /** ACP §18 — 정규화 라이선스 등급 (public_domain/cc0/cc_by/cc_by_sa/cc_by_nd/restricted) */
+  license_class: string | null
+  /** ACP §18 — 글 유형 (expository/argumentative/narrative/news/reference) */
+  register: string | null
+  /** ACP §18 §4-C — 어휘 노이즈 비율 (>0.08 = 단어세트 미발행) */
+  lexical_noise: number | null
+  /** ACP §18 — CC-BY-ND ⇒ 본문 불변(단어세트 미발행) */
+  display_only: boolean | null
   copyright_safe_in_kr: boolean
   published_at: string | null
   llm_cost_usd: string | null

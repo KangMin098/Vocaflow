@@ -18,11 +18,11 @@ export interface ScopedFlashcardResult {
   subtitle: string
 }
 
-/** 예문에서 학습 단어를 ___ 로 치환 (굴절형 인식 · 첫 1회). */
-function withBlank(example: string, word: string): string {
+/** 예문에서 학습 단어를 ___ 로 치환 (사전 굴절형 + 규칙 인식 · 첫 1회). */
+function withBlank(example: string, word: string, forms?: string[]): string {
   if (!example || !word) return example
-  // 예문이 원문 문장이라 굴절형(running 등)이 올 수 있어 inflection-aware 치환.
-  return blankSurface(example, word)
+  // 예문이 원문 문장이라 굴절형(running·was·went 등)이 올 수 있어 inflection-aware 치환.
+  return blankSurface(example, word, forms)
 }
 
 export async function fetchScopedFlashcardWords(
@@ -39,7 +39,8 @@ export async function fetchScopedFlashcardWords(
     pronunciation: w.pronunciation,
     pos: w.pos,
     exampleSentence: w.example,
-    exampleSentenceWithBlank: withBlank(w.example, w.word),
+    exampleSentenceWithBlank: withBlank(w.example, w.word, w.inflectedForms),
+    inflectedForms: w.inflectedForms,
     textId: w.id,
     textTitle: res.title,
     textChapter: res.chapterLabel,

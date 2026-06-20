@@ -17,7 +17,10 @@ const SOURCE_META: Record<string, { label: string; color: string }> = {
   voa: { label: 'VOA Learning', color: '#2563EB' },
   nasa: { label: 'NASA', color: '#7C3AED' },
   nih: { label: 'NIH', color: '#0E7490' },
-  arxiv: { label: 'arXiv', color: '#B91C1C' },
+  // v06.66 신규 + v06.69 arxiv 제거
+  simple_wikipedia: { label: 'Simple Wikipedia', color: '#0F766E' },
+  wikinews: { label: 'Wikinews', color: '#B45309' },
+  the_conversation: { label: 'The Conversation', color: '#15803D' },
   rss: { label: 'RSS', color: '#D97706' },
 }
 

@@ -136,6 +136,17 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 
 `/api/admin/articles/{arxiv|nasa|nih|voa}-feed` 4 feed → article 큐 등록 → `/api/acp/dev-process` 처리.
 
+**Curated 탭 검수 프로세스 (v06.51)** — 목록 행 제목/"검수" → `/admin/articles/preview/[id]` (LCP 책 검수 4패널 1:1 미러):
+
+| 패널 | 글 버전 | 책 대응 |
+|---|---|---|
+| 본문 리더 + 게시 게이트 | 단일 섹션 리더 + 상단바(상태/신뢰도/게시) + 푸터(지금 처리·재분석/재처리/보관) | AdminReviewClient |
+| 보이스 연결 | `audio_url` 검증/미리듣기/연결·해제 (`/api/acp/set-audio`) | LibriVoxAudioPanel |
+| 학습 단어 추출 | meta cells + LV 랭킹 테이블 + RegisterBadge | BookExtractionPanel |
+| 검수 팝업 | 단어 전수 + 뜻 + 발음 + 첫 문장 모달 | ChapterWordSetPreviewModal |
+
+액션 RPC: 게시 `admin_force_publish_article`(copyright_safe 강제) / 보관 `admin_archive_article` / 재처리 `admin_requeue_article` / 처리 `dev-process`. vocab 은 service-role 로 로드(테이블 admin RLS 없음).
+
 ---
 
 ## /admin/vocab/* — VCB

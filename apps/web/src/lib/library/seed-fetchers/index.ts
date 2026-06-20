@@ -3,9 +3,12 @@ import { standardEbooksFetcher } from './standard-ebooks'
 import { wikibooksFetcher } from './wikibooks'
 import { librivoxFetcher } from './librivox'
 import { simpleWikipediaFetcher } from './simple-wikipedia'
+import { lit2goFetcher } from './lit2go'
+import { storyweaverFetcher } from './storyweaver'
 import type { SeedSource, SourceFetcher } from './types'
 
 export * from './types'
+export { lit2goGradeToEstVLevel, lit2goInferMaturity } from './lit2go'
 
 export const FETCHERS: Record<SeedSource, SourceFetcher> = {
   gutenberg: gutendexFetcher,
@@ -13,6 +16,8 @@ export const FETCHERS: Record<SeedSource, SourceFetcher> = {
   wikibooks: wikibooksFetcher,
   librivox: librivoxFetcher,
   simple_wikipedia: simpleWikipediaFetcher,
+  lit2go: lit2goFetcher,
+  storyweaver: storyweaverFetcher,
 }
 
 export const SOURCE_LABELS: Record<SeedSource, string> = {
@@ -21,4 +26,6 @@ export const SOURCE_LABELS: Record<SeedSource, string> = {
   wikibooks: 'Wikibooks',
   librivox: 'LibriVox',
   simple_wikipedia: 'Simple English Wikipedia',
+  lit2go: 'Lit2Go (USF)',
+  storyweaver: 'StoryWeaver (Pratham Books)',
 }

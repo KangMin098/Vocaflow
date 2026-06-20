@@ -1,5 +1,6 @@
 // apps/web/src/app/admin/articles/RssFeedTab.tsx
-// ACP v1.0 Phase 19 — 범용 RSS feed 탭 (NASA / NIH / arXiv 공유)
+// ACP v1.0 — 범용 RSS feed 탭 (NASA / NIH / Simple Wikipedia / Wikinews / The Conversation 공유).
+// v06.69 arxiv 제거 (사용자 명시 플랫폼 전체 삭제).
 //
 // VoaFeedTab 의 UX 패턴을 일반화 — 소스별 라벨/아이콘/feed 목록만 prop 으로 다름.
 // URL 직접 입력 박스 + RSS 자동 목록 + 큐에 추가.
@@ -24,8 +25,8 @@ interface FeedItem {
 }
 
 interface RssFeedTabProps {
-  /** 'nasa' | 'nih' | 'arxiv' — API route 및 enqueue source 식별자 */
-  source: 'nasa' | 'nih' | 'arxiv'
+  /** enqueue source 식별자. feeds=[] 이면 URL 직접 입력 전용(예: simple_wikipedia = RSS 없음). */
+  source: 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews'
   /** 탭 헤더 라벨 (예: "🚀 NASA · Public Domain") */
   heading: string
   /** 부제 (예: "U.S. federal government · Public Domain") */

@@ -8,6 +8,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { createClient } from '@/lib/supabase/server'
 import { listNasaFeed, NASA_FEEDS } from '@vocaflow/library-pipeline'
+import { upsertArticleSeeds } from '@/lib/acp/seed-upsert'
 
 export const runtime = 'nodejs'
 export const revalidate = 600
@@ -36,6 +37,9 @@ export async function GET(req: NextRequest) {
         .select('source_id')
         .in('source_id', items.map((i) => i.source_id))
       publishedSourceIds = (data ?? []).map((r: { source_id: string }) => r.source_id)
+
+      // v06.46 — seed_catalog 영구 보존
+      await upsertArticleSeeds(supabase, 'nasa', feed.id, feed.label, items)
     }
 
     return NextResponse.json(

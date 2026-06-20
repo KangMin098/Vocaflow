@@ -18,6 +18,18 @@ exports/
 # TypeScript incremental build info
 *.tsbuildinfo
 
+# Build outputs (Turbo / Next / generic dist)
+.turbo/
+**/.turbo/
+.next/
+**/.next/
+dist/
+out/
+coverage/
+
+# Claude Code per-machine settings (사용자/머신별 권한·env 설정 — 공유 X)
+.claude/settings.local.json
+
 
 # 개인 폴더
 Downloads/

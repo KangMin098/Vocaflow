@@ -514,14 +514,15 @@ export default function WorkspacePage({ params }: PageProps) {
     (sentenceId: number) => {
       const idx = sentenceItems.findIndex((s) => s.sentenceIdx === sentenceId)
       if (idx < 0) return
-      // 문장 클릭은 문장 단위 재생 — 브라우저 TTS 로 전환 (비저장: 사용자의 LibriVox 선호는 유지)
+      // 문장 클릭 = 그 문장 1개만 듣기 — 브라우저 TTS 로 전환 (비저장: 사용자의 LibriVox 선호는 유지)
       setAudioSource('browser')
       // 같은 문장 재생 중이면 pause toggle
       if (tts.state.currentSentenceIdx === sentenceId && tts.state.state === 'playing') {
         tts.pause()
         return
       }
-      tts.playFromMode(tts.state.mode, sentenceItems, idx)
+      // 'sentence' 모드 — 클릭한 문장만 재생 후 정지 (현재 모드 무시 → "해당 문장 듣기")
+      tts.playFromMode('sentence', sentenceItems, idx)
       setAudioVisible(true)
     },
     [sentenceItems, tts]
@@ -674,6 +675,7 @@ export default function WorkspacePage({ params }: PageProps) {
 
       <ReadingUniverse
         paragraphs={paragraphs}
+        illustrations={ctx?.illustrations ?? null}
         isFocusMode={isFocusMode}
         onWordHover={handleWordHover}
         onSentencePlay={isShadow ? shadow.controls.jumpTo : handleSentencePlay}

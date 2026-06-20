@@ -20,6 +20,7 @@ import {
   hashString,
   htmlToPlainText,
   parseRssFeed,
+  safeDate,
   type RssListItem,
 } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -50,6 +51,8 @@ export interface NasaListItem {
   description: string
   /** v06.41 — 학습 친화도 score */
   score?: ArticleScore
+  /** v06.45 — audio 보유 여부 (NASA news 일부 mp3) */
+  has_audio?: boolean
 }
 
 export async function listNasaFeed(
@@ -61,7 +64,20 @@ export async function listNasaFeed(
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) throw new Error(`NASA RSS fetch failed: ${res.status}`)
   const xml = await res.text()
-  const raw = parseRssFeed(xml).map(toNasaItem)
+  // v06.45 — RSS item 별 body 에 mp3 있는지 detect (NASA news 가끔)
+  const itemBlocks = xml.match(/<item\b[^>]*>([\s\S]*?)<\/item>/g) ?? []
+  const audioByLink = new Map<string, boolean>()
+  for (const block of itemBlocks) {
+    const link = block.match(/<link>([^<]+)<\/link>/)?.[1]?.trim()
+    if (!link) continue
+    const hasEncAudio = /<enclosure[^>]+type="audio\//.test(block)
+    const hasBodyMp3 = /https?:[^\s<>"']+\.mp3/.test(block)
+    if (hasEncAudio || hasBodyMp3) audioByLink.set(link, true)
+  }
+  const raw = parseRssFeed(xml).map(toNasaItem).map((it) => ({
+    ...it,
+    has_audio: audioByLink.get(it.url) ?? false,
+  }))
   return applyArticleCurationSpec(raw, 'nasa', feedId)
 }
 
@@ -125,7 +141,7 @@ export async function ingestNasaArticle(itemUrl: string): Promise<RawArticle> {
     author: isApod ? 'NASA APOD' : 'NASA',
     language: 'en',
     license: 'PD-Government',
-    published_at: publishedAt ? new Date(publishedAt) : null,
+    published_at: safeDate(publishedAt),
     content,
     estimated_cefr: null, // NASA 는 학습자 등급 없음 — analyze 단계에서 자동 감지
     fetched_at: new Date(),

@@ -23,6 +23,17 @@ export async function startArticleLearning(articleId: string): Promise<Result> {
 
   const marker = `article:${articleId}`
 
+  // 글 단어장 구독 + vocabularies 시드 (책 _enroll_book_subscribe_word_sets 미러).
+  //   subscribe_article_word_set 는 auth.uid() 사용 SECURITY DEFINER · 멱등(ON CONFLICT).
+  //   단어장 미발행/미생성이어도 무해(0행) — 발행 트리거가 생성하면 다음 진입에 반영.
+  const subscribeWordSet = async (): Promise<void> => {
+    await (
+      supabase as unknown as {
+        rpc: (n: string, p: Record<string, unknown>) => Promise<{ error: unknown }>
+      }
+    ).rpc('subscribe_article_word_set', { p_article_id: articleId })
+  }
+
   // 1) 이미 학습 텍스트가 있으면 재사용 (멱등)
   const { data: existing } = await supabase
     .from('texts')
@@ -31,6 +42,7 @@ export async function startArticleLearning(articleId: string): Promise<Result> {
     .eq('source_url', marker)
     .maybeSingle()
   if (existing && (existing as { id: string }).id) {
+    await subscribeWordSet()
     return { ok: true, textId: (existing as { id: string }).id }
   }
 
@@ -74,5 +86,6 @@ export async function startArticleLearning(articleId: string): Promise<Result> {
   if (insErr || !inserted) {
     return { ok: false, error: '학습 시작 중 오류가 발생했어요' }
   }
+  await subscribeWordSet()
   return { ok: true, textId: (inserted as { id: string }).id }
 }

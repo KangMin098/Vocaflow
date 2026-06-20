@@ -13,6 +13,8 @@ import {
   ingestFromLibriVox,
   ingestFromOpenStax,
   ingestFromSimpleWikipedia,
+  ingestFromLit2Go,
+  ingestFromStoryWeaver,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -111,6 +113,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromOpenStax(book.source_id as string)
     } else if (book.source === 'simple_wikipedia') {
       raw = await ingestFromSimpleWikipedia(book.source_id as string)
+    } else if (book.source === 'lit2go') {
+      raw = await ingestFromLit2Go(book.source_id as string)
+    } else if (book.source === 'storyweaver') {
+      raw = await ingestFromStoryWeaver(book.source_id as string)
     } else {
       throw new Error(`Source not implemented: ${book.source}`)
     }
@@ -150,6 +156,17 @@ export async function POST(request: Request): Promise<NextResponse> {
       })
       .eq('id', book_id)
 
+    // 4-3.35 그림책 자산 persist (StoryWeaver 등) — 삽화(링크) + 표지 + 낭독 오디오.
+    if (raw.illustrations || raw.cover_image_url || raw.audio_url) {
+      const assets: Record<string, unknown> = {}
+      if (raw.illustrations && raw.illustrations.length > 0) assets.illustrations = raw.illustrations
+      if (raw.cover_image_url) assets.cover_image_url = raw.cover_image_url
+      if (raw.audio_url) assets.audio_url = raw.audio_url
+      if (Object.keys(assets).length > 0) {
+        await client.from('library_books').update(assets).eq('id', book_id)
+      }
+    }
+
     // 4-3.4 lemma backfill (best-effort) — direct-bind/추출/percentile 정상화 게이트.
     //   collect 보다 먼저: 바인딩된 단어는 lemma 채워져 collect 대상에서 제외됨.
     //   (Phase 3B 이후 추가 도서가 lemma NULL 로 누락되던 구조적 결함 차단)
@@ -171,16 +188,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // 4-3.47 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
-    try {
-      const coverUrl = await resolveCoverImageUrl({
-        source: book.source as string,
-        sourceId: book.source_id as string,
-      })
-      if (coverUrl) {
-        await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+    //   StoryWeaver 는 ingester 가 표지 직접 제공(위 자산 persist) → 우회.
+    if (book.source !== 'storyweaver') {
+      try {
+        const coverUrl = await resolveCoverImageUrl({
+          source: book.source as string,
+          sourceId: book.source_id as string,
+        })
+        if (coverUrl) {
+          await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+        }
+      } catch (e) {
+        console.warn(`[lcp/process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
       }
-    } catch (e) {
-      console.warn(`[lcp/process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
     }
 
     // 4-3.5 미바인딩 단어를 archaic_candidates 로 수집 (best-effort)

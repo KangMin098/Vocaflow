@@ -1,33 +1,37 @@
 // apps/web/src/app/api/acp/enqueue/route.ts
-// ACP v1.0 Phase 18 (VOA) + Phase 19 (NASA · NIH · arXiv) — article 1건 큐 추가
+// ACP v1.0 — article 1건 큐 추가 (v06.69 arxiv 제거 후 6종).
 //
 // POST /api/acp/enqueue
 // body: {
-//   item_url?: string;       // RSS item URL or arxiv:id
+//   item_url?: string;       // RSS item URL
 //   feed_id?: string;        // (선택) VOA level 힌트용
-//   source?: ArticleSource;  // 'voa' | 'nasa' | 'nih' | 'arxiv' (URL host 로 자동 추론도 가능)
+//   source?: ArticleSource;  // 'voa' | 'nasa' | 'nih' | 'wikinews' | 'the_conversation' | 'simple_wikipedia' (URL host 로 자동 추론도 가능)
 // }
 //
 // 동작: URL host (또는 명시 source) 로 ingester 선택 → 본문 fetch → admin_enqueue_article RPC.
 
 import { NextResponse } from 'next/server'
 import {
-  ARXIV_FEEDS,
-  ingestArxivArticle,
   ingestNasaArticle,
   ingestNihArticle,
+  ingestSimpleWikipediaArticle,
+  ingestTheConversationArticle,
   ingestVoaArticle,
+  ingestWikinewsArticle,
   VOA_FEEDS,
   type RawArticle,
 } from '@vocaflow/library-pipeline'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
+import { markSeedImported, type SeedSource } from '@/lib/acp/seed-upsert'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-type ArticleSource = 'voa' | 'nasa' | 'nih' | 'arxiv'
+// v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
+type ArticleSource =
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews'
 
 interface EnqueueBody {
   feed_id?: string
@@ -42,7 +46,9 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https:\/\/(?:www\.)?nih\.gov\//, source: 'nih' },
   { pattern: /^https:\/\/medlineplus\.gov\//, source: 'nih' },
   { pattern: /^https:\/\/directorsblog\.nih\.gov\//, source: 'nih' },
-  { pattern: /^https?:\/\/(?:www\.)?arxiv\.org\//, source: 'arxiv' },
+  { pattern: /^https?:\/\/simple\.wikipedia\.org\/wiki\//, source: 'simple_wikipedia' },
+  { pattern: /^https?:\/\/theconversation\.com\//, source: 'the_conversation' },
+  { pattern: /^https?:\/\/en\.wikinews\.org\/wiki\//, source: 'wikinews' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -51,8 +57,6 @@ function detectSource(url: string | undefined, explicit?: ArticleSource): Articl
   for (const { pattern, source } of HOST_TO_SOURCE) {
     if (pattern.test(url)) return source
   }
-  // arxiv:2401.12345 같은 ID 직접 입력
-  if (/^arxiv:[\d.]+/i.test(url) || /^\d{4}\.\d{4,5}(?:v\d+)?$/.test(url)) return 'arxiv'
   return null
 }
 
@@ -73,7 +77,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         error:
-          'Unknown source — URL host 가 VOA / NASA / NIH / arXiv 중 하나여야 하거나 source 필드 명시 필요',
+          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews 중 하나여야 하거나 source 필드 명시 필요',
       },
       { status: 400 },
     )
@@ -96,9 +100,16 @@ export async function POST(request: Request): Promise<NextResponse> {
         article = await ingestNihArticle(body.item_url)
         break
       }
-      case 'arxiv': {
-        const feed = body.feed_id ? ARXIV_FEEDS.find((f) => f.id === body.feed_id) : undefined
-        article = await ingestArxivArticle(body.item_url, feed?.url)
+      case 'simple_wikipedia': {
+        article = await ingestSimpleWikipediaArticle(body.item_url)
+        break
+      }
+      case 'the_conversation': {
+        article = await ingestTheConversationArticle(body.item_url)
+        break
+      }
+      case 'wikinews': {
+        article = await ingestWikinewsArticle(body.item_url)
         break
       }
     }
@@ -118,13 +129,29 @@ export async function POST(request: Request): Promise<NextResponse> {
       p_title: article.title,
       p_author: article.author ?? null,
       p_url: article.source_url,
-      p_published_at: article.published_at?.toISOString() ?? null,
+      // Invalid Date 방어 — getTime() NaN 이면 toISOString() 이 "Invalid time value" throw.
+      p_published_at:
+        article.published_at && !Number.isNaN(article.published_at.getTime())
+          ? article.published_at.toISOString()
+          : null,
       p_license: article.license,
       p_content: article.content,
+      // v06.45 — audio_url (LCP librivox_audio 와 동일 연계). VOA = 학습 정체성으로 거의 100% 존재.
+      p_audio_url: article.audio_url ?? null,
     })
 
     if (error) {
       throw new Error(`admin_enqueue_article failed: ${error.message}`)
+    }
+
+    // v06.46 — seed_catalog 추적: 해당 seed 에 imported_to_articles=true 마킹
+    if (typeof data === 'string' && data.length > 0) {
+      await markSeedImported(
+        supabase as unknown as Parameters<typeof markSeedImported>[0],
+        article.source as SeedSource,
+        article.source_id,
+        data,
+      )
     }
 
     return NextResponse.json({

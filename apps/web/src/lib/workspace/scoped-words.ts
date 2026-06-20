@@ -16,6 +16,26 @@ export interface ScopedWord {
   pronunciation: string
   pos: string
   example: string
+  /** 사전 DB inflected_forms (lemma 기준) — 예문 하이라이트/빈칸 불규칙 인식용 */
+  inflectedForms: string[]
+}
+
+/** lemma 목록 → shared_dictionary.inflected_forms 일괄 조회 (lemma → forms 맵) */
+async function loadInflectedForms(
+  client: SupabaseClient,
+  lemmas: string[],
+): Promise<Map<string, string[]>> {
+  const uniq = [...new Set(lemmas.filter((l): l is string => !!l))]
+  if (uniq.length === 0) return new Map()
+  const { data } = await client
+    .from('shared_dictionary')
+    .select('word, inflected_forms')
+    .in('word', uniq)
+  const map = new Map<string, string[]>()
+  for (const r of (data ?? []) as Array<{ word: string; inflected_forms: string[] | null }>) {
+    if (r.inflected_forms && r.inflected_forms.length > 0) map.set(r.word, r.inflected_forms)
+  }
+  return map
 }
 
 export interface ScopedWordsResult {
@@ -54,7 +74,7 @@ async function fetchBySet(
 
   const { data, error } = await client
     .from('shared_words')
-    .select('id, word, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech')
+    .select('id, word, lemma, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech')
     .eq('set_id', setId)
     .order('sort_order', { ascending: true })
   if (error) return null
@@ -62,12 +82,15 @@ async function fetchBySet(
   const rows = (data ?? []) as Array<{
     id: string
     word: string
+    lemma: string | null
     meaning_ko: string | null
     source_sentence: string | null
     example_en: string | null
     pronunciation: string | null
     part_of_speech: string | null
   }>
+
+  const formsMap = await loadInflectedForms(client, rows.map((r) => r.lemma ?? r.word))
 
   const chapterIdx = Number(set.curation_query?.['chapter_idx'] ?? 0)
   const words: ScopedWord[] = rows.map((r) => ({
@@ -78,6 +101,7 @@ async function fetchBySet(
     pos: r.part_of_speech ?? '',
     // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백 (auto-V/specialty 단어장 등)
     example: r.source_sentence ?? r.example_en ?? '',
+    inflectedForms: formsMap.get(r.lemma ?? r.word) ?? [],
   }))
 
   return {
@@ -102,7 +126,7 @@ async function fetchByText(
 
   const { data, error } = await client
     .from('vocabularies')
-    .select('id, word, meaning, example_sentence, pronunciation, pos')
+    .select('id, word, lemma, meaning, example_sentence, pronunciation, pos')
     .eq('user_id', userId)
     .eq('text_id', textId)
     .order('created_at', { ascending: true })
@@ -111,11 +135,14 @@ async function fetchByText(
   const rows = (data ?? []) as Array<{
     id: string
     word: string
+    lemma: string | null
     meaning: string | null
     example_sentence: string | null
     pronunciation: string | null
     pos: string | null
   }>
+
+  const formsMap = await loadInflectedForms(client, rows.map((r) => r.lemma ?? r.word))
 
   const title = text?.title ?? '내 스크립트'
   const words: ScopedWord[] = rows.map((r) => ({
@@ -125,6 +152,7 @@ async function fetchByText(
     pronunciation: r.pronunciation ?? '',
     pos: r.pos ?? '',
     example: r.example_sentence ?? '',
+    inflectedForms: formsMap.get(r.lemma ?? r.word) ?? [],
   }))
 
   return { words, title, subtitle: `${words.length}개 단어`, chapterLabel: '' }

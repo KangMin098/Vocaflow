@@ -12,6 +12,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { createClient } from '@/lib/supabase/server'
 import { listVoaFeed, VOA_FEEDS } from '@vocaflow/library-pipeline'
+import { upsertArticleSeeds } from '@/lib/acp/seed-upsert'
 
 export const runtime = 'nodejs'
 export const revalidate = 600
@@ -33,6 +34,7 @@ export async function GET(req: NextRequest) {
     const items = await listVoaFeed(feed.url, feed.id)
 
     // v06.41 — 이미 발행된 source_id 표시 (제거 X, 가시화)
+    // v06.46 — seed_catalog 영구 보존 upsert (LCP library_seed_catalog 동형)
     let publishedSourceIds: string[] = []
     if (items.length > 0) {
       const supabase = await createClient()
@@ -42,6 +44,9 @@ export async function GET(req: NextRequest) {
         .select('source_id')
         .in('source_id', sourceIds)
       publishedSourceIds = (data ?? []).map((r: { source_id: string }) => r.source_id)
+
+      // seed_catalog upsert — 영구 보존 (새로고침해도 사라지지 않음)
+      await upsertArticleSeeds(supabase, 'voa', feed.id, feed.label, items)
     }
 
     return NextResponse.json(

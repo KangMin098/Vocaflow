@@ -10,7 +10,7 @@
 | 파이프라인 | 약어 | 입력 | 출력 | 주요 테이블 |
 |---|---|---|---|---|
 | **Library Curation Pipeline** | **LCP** | 9 외부 소스 → 도서 | `library_books` + `chapters_master` + `chapter_word_sets` (자동 발행) | `library_*` |
-| **Article Curation Pipeline** | **ACP** | 4 feed (arXiv/NASA/NIH/VOA) | `library_articles` | `library_articles` |
+| **Article Curation Pipeline** | **ACP** | 4 feed (arXiv/NASA/NIH/VOA) | `library_articles` + `shared_word_sets`(library_article, 발행 시 자동) | `library_articles` |
 | **Vocabulary Curation Build** | **VCB** | seed 단어 list | `shared_words` enriched | `vocab_*` |
 | **Vocabulary Reading Level** | **VRL** | 사전 → 분류 | `shared_dictionary.v_level` 4축 (level/track/domain/skill) | `vocaflow_*` + `vrl_*` |
 
@@ -31,13 +31,14 @@ queued
   → (admin archive) → archived
 ```
 
-### 9 외부 소스 (`library_source_catalogs`)
+### 외부 소스 (`library_source_catalogs`)
 
 | Tier | Source | Quality |
 |---|---|---|
 | **S** | standard_ebooks | 정제 EPUB · 무료 PD |
 | **S** | openstax | 교과서 |
 | **S** | voa_learning | VOA Learning English |
+| **S** | storyweaver | StoryWeaver 그림책 CC BY 4.0 (삽화+낭독, v06.56) |
 | **A** | wikibooks | 위키북스 |
 | **A** | wikisource | 위키소스 |
 | **B** | gutenberg | Project Gutenberg PD |
@@ -46,6 +47,8 @@ queued
 | **C** | hathitrust | HathiTrust |
 | **M** | manual | 수동 등록 |
 | (추가) | simple_wikipedia | Simple English Wikipedia (v06.34) |
+
+**그림책 삽화/낭독 (StoryWeaver, v06.56)** — `library_books.illustrations`(`[{idx,url,alt}]` 링크, 문단 idx 정합) + `library_books.audio_url`(readalong mp3). ingester `storyweaver.ts` 가 `/api/v1/stories/{id|slug}/read` 파싱(StoryPage→문단, coverImage→삽화, FrontCover→표지, audioPath→낭독). ReadingUniverse 가 문단별 `<figure>` 렌더, workspace layout 이 audio_url→단일 스트림 chapterAudio. 자체 표지·오디오 제공 → resolveCoverImageUrl·LibriVox 매핑 우회.
 
 ### 데이터 흐름
 
@@ -228,7 +231,23 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 ### 처리
 - `/api/acp/enqueue` (article 큐 등록) → `/api/acp/dev-process` (article 처리)
-- `library_articles` 4 row 현재
+- Status 흐름: `queued → normalizing → analyzing → ready → published` (LCP 미러, 글=단일 섹션)
+
+### 검수 (v06.51) — LCP 책 검수 4패널 미러
+`/admin/articles/preview/[id]`: 본문 리더 + 게시 게이트 / 보이스 연결(`audio_url`) / 학습 단어 추출 / 검수 팝업. (ADMIN_CONSOLE.md §/admin/articles 참조)
+
+### 단어장 발행 + 학습자 체인 (v06.52) — LCP 전체 미러
+글이 라이브러리 **스크립트**로 학습자에게 제공되는 학습 모델. 책 체인과 1:1:
+
+| 단계 | 글(ACP) | 책(LCP) 대응 |
+|---|---|---|
+| 발행 시 단어장 | `trg_la_publish_word_set` → `publish_article_word_set` → `shared_word_sets`(category `library_article`) 1개 + `shared_words` | `trg_lb_publish_word_sets` → `publish_book_word_sets` (챕터 N개) |
+| 단어 선정 | `select_article_vocab(uuid)` (register 필터 + composite, book_v_level 임계 없음) | `select_book_chapter_vocab` |
+| 학습 시작 구독 | `subscribe_article_word_set(uuid)` (auth.uid) ← `startArticleLearning` | `_enroll_book_subscribe_word_sets` ← `enroll_library_book` |
+| 워크스페이스 보이스 | `texts.source_url='article:{id}'` → `audio_url`→`chapterAudio` (단일 스트림) | `librivox_audio`→`pickChapterAudio` |
+| 워크스페이스 단어 pill | 글 단어장 → `currentChapterWordSet` | 챕터 단어장 |
+
+마이그레이션: `20260614180000_acp_article_word_set_pipeline`.
 
 ---
 

@@ -70,6 +70,8 @@ export async function analyzeArticle(
   }))
 
   // 6. library_article_vocabularies INSERT (chunk 분할 — 대용량 article 대비)
+  //    재처리 멱등 — 기존 vocab 전량 삭제 후 재삽입 (재분석 시 중복 누적 방지).
+  await client.from('library_article_vocabularies').delete().eq('library_article_id', articleId)
   if (words.length > 0) {
     const CHUNK = 500
     for (let i = 0; i < words.length; i += CHUNK) {

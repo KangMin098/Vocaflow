@@ -7,6 +7,7 @@
 
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { devAdminBypass } from '@/lib/auth/dev-bypass';
 
 export type AdminRole = 'admin' | 'curator';
 
@@ -23,6 +24,10 @@ export interface AdminUser {
  * - 통과 → AdminUser 반환
  */
 export async function requireAdminApi(): Promise<AdminUser | NextResponse> {
+  // 개발 전용 우회 (DEV_ADMIN_BYPASS=1, 프로덕션 무효)
+  const bypass = devAdminBypass();
+  if (bypass) return bypass;
+
   const client = await createClient();
 
   const {

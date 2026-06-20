@@ -24,7 +24,7 @@ import {
 import { SeedDetailModal } from './SeedDetailModal'
 import { FETCHERS } from '@/lib/library/seed-fetchers'
 
-type SourceKey = 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'simple_wikipedia'
+type SourceKey = 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'simple_wikipedia' | 'lit2go' | 'storyweaver'
 
 const SOURCE_OPTIONS: Array<{ value: SourceKey; label: string; color: string }> = [
   { value: 'simple_wikipedia', label: 'Simple English Wikipedia', color: 'var(--learn-known)' },
@@ -32,11 +32,15 @@ const SOURCE_OPTIONS: Array<{ value: SourceKey; label: string; color: string }> 
   { value: 'gutenberg', label: 'Project Gutenberg', color: 'var(--p)' },
   { value: 'wikibooks', label: 'Wikibooks', color: 'var(--info)' },
   { value: 'librivox', label: 'LibriVox', color: 'var(--active)' },
+  // v06.43 — Lit2Go (USF) 추가. US grade 는 보정 참조용, V-Level 은 coverage 모델 (SSoT)
+  { value: 'lit2go', label: 'Lit2Go (USF)', color: 'var(--memory-shaky)' },
+  // v06.56 — StoryWeaver (Pratham Books) 그림책. 삽화+낭독, CC BY 4.0.
+  { value: 'storyweaver', label: 'StoryWeaver (그림책)', color: 'var(--learn-review)' },
 ]
 
 // v06.34 — fetcher.getOptions() 가 단일 진실 소스. UI 는 도출만.
 const SOURCE_OPTS = Object.fromEntries(
-  (['simple_wikipedia', 'standard_ebooks', 'gutenberg', 'wikibooks', 'librivox'] as SourceKey[]).map((k) => [
+  (['simple_wikipedia', 'standard_ebooks', 'gutenberg', 'wikibooks', 'librivox', 'lit2go', 'storyweaver'] as SourceKey[]).map((k) => [
     k,
     FETCHERS[k].getOptions(),
   ]),
@@ -45,6 +49,8 @@ const SOURCE_OPTS = Object.fromEntries(
 // 난이도 밴드 — est_v_level 기준 (사용자 정책: 난이도 = V-Level). CEFR 은 보조 표기.
 const V_BANDS: Array<{ value: string; label: string; min: number | null; max: number | null }> = [
   { value: 'all', label: '난이도 전체', min: null, max: null },
+  // v06.56 — 초급(A1–A2) 밴드. StoryWeaver 그림책 등 leveled reader 본체 (est_v_level 1–4).
+  { value: 'a', label: '초급 · A1–A2 (V1–4)', min: 1, max: 4 },
   { value: 'b1', label: '입문 · B1 (V5–6)', min: 5, max: 6 },
   { value: 'b2', label: '다독 · B2 (V7)', min: 7, max: 7 },
   { value: 'c1', label: '고급 · C1 (V8–9)', min: 8, max: 9 },
@@ -330,8 +336,18 @@ export function BulkFetchTab() {
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           <PickerField label="소스">
-            <select value={source} onChange={(e) => setSource(e.target.value as SourceKey)}
-              className={selectCls} disabled={fetching}>
+            <select
+              value={source}
+              onChange={(e) => {
+                const s = e.target.value as SourceKey
+                setSource(s)
+                // 아래 카탈로그 리스트도 동일 소스로 필터 — 방금 GET 한 도서를 바로 확인.
+                setFilterSource(s)
+                setListOffset(0)
+              }}
+              className={selectCls}
+              disabled={fetching}
+            >
               {/* LibriVox 는 독립 GET 제외 — Gutenberg/SE 도서에 '보이스 연결'로만 사용 (본문 검수에서 매칭) */}
               {SOURCE_OPTIONS.filter((s) => s.value !== 'librivox').map((s) => (
                 <option key={s.value} value={s.value}>{s.label}</option>

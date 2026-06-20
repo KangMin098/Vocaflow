@@ -82,9 +82,9 @@
     /* Animation Duration */
     --dur-breath: 4s;
 
-    /* Reading Settings (User-adjustable · v06.32 톤다운) */
-    --reader-font-size:   16px;
-    --reader-line-height: 1.7;
+    /* Reading Settings (User-adjustable · v06.62 컴팩트화 — 사용자 피드백 "너무 큼") */
+    --reader-font-size:   15px;
+    --reader-line-height: 1.55;
 
     /* Flashcard v2 — SRS 4단계 (한국 친화 그라디언트) */
     --srs-1: #EF4444;   /* 몰라요 */

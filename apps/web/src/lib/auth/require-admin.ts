@@ -20,6 +20,7 @@
 
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { devAdminBypass } from '@/lib/auth/dev-bypass'
 
 export type AdminRole = 'admin' | 'curator'
 
@@ -50,6 +51,10 @@ export interface AdminUser {
 export async function requireAdmin(
   redirectTo: string = '/admin',
 ): Promise<AdminUser> {
+  // 개발 전용 우회 (DEV_ADMIN_BYPASS=1, 프로덕션 무효)
+  const bypass = devAdminBypass()
+  if (bypass) return bypass
+
   const client = await createClient()
 
   // 1. 인증 확인
@@ -109,6 +114,10 @@ export async function requireAdmin(
  * RSC 전용. Client 컴포넌트는 별도 hook 필요.
  */
 export async function getAdminUser(): Promise<AdminUser | null> {
+  // 개발 전용 우회 (DEV_ADMIN_BYPASS=1, 프로덕션 무효)
+  const bypass = devAdminBypass()
+  if (bypass) return bypass
+
   const client = await createClient()
 
   const {

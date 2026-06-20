@@ -9,7 +9,16 @@ export type LibrarySource =
   | 'librivox'
   | 'openstax'
   | 'simple_wikipedia'
+  | 'lit2go'
+  | 'storyweaver'
   | 'manual'
+
+/** 그림책 페이지(=문단)별 삽화 (링크 방식). idx = 본문 문단 인덱스. */
+export interface BookIllustration {
+  idx: number
+  url: string
+  alt?: string
+}
 
 export type LibraryBookStatus =
   | 'queued'
@@ -38,6 +47,14 @@ export interface RawBook {
   license: string
   raw_content: string //   boilerplate 포함
   fetched_at: Date
+  /** 그림책 페이지별 삽화 (StoryWeaver 등). 본문 문단과 idx 정합. */
+  illustrations?: BookIllustration[]
+  /** 원천 표지 이미지 URL (소스가 직접 제공 시 — resolveCoverImageUrl 우회). */
+  cover_image_url?: string
+  /** 단일 스트림 낭독 오디오 URL (StoryWeaver readalong mp3 등). */
+  audio_url?: string
+  /** 짧은 줄거리/시놉시스 (소스 제공 시 — library_books.description). */
+  description?: string
 }
 
 /** Stage S3 NORMALIZE 결과 */

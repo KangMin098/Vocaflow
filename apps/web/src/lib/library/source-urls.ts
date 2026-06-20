@@ -13,6 +13,7 @@ const SOURCE_LABELS: Record<string, string> = {
   wikibooks: 'Wikibooks',
   librivox: 'LibriVox',
   'librivox-audio': 'LibriVox Audio',
+  lit2go: 'Lit2Go (USF)',
   manual: '직접 입력',
 }
 
@@ -50,6 +51,11 @@ export function bookSourceUrl(source: string, sourceId: string | null): string |
     case 'librivox':
     case 'librivox-audio':
       return sourceId.startsWith('http') ? sourceId : `https://librivox.org/${sourceId}`
+    case 'lit2go': {
+      // sourceId 형식: 'lit2go:{book-id}' 또는 '{book-id}' — prefix 제거 후 URL
+      const id = sourceId.replace(/^lit2go:/, '')
+      return `https://etc.usf.edu/lit2go/${id}/`
+    }
     case 'manual':
     default:
       return null
@@ -102,6 +108,23 @@ export function chapterSourceUrl(
       return sourceId
         ? `https://www.gutenberg.org/cache/epub/${sourceId}/pg${sourceId}-images.html`
         : bookUrl
+    case 'lit2go': {
+      // Lit2Go: passage URL = /{book-id}/{passage-slug}/
+      // chapter_title 이 있으면 slug 변환 (소문자/공백→하이픈), 없으면 book 메인.
+      if (chapterTitle) {
+        const slug = chapterTitle
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
+          .trim()
+        if (slug) {
+          const id = (sourceId ?? '').replace(/^lit2go:/, '')
+          return `https://etc.usf.edu/lit2go/${id}/${slug}/`
+        }
+      }
+      return bookUrl
+    }
     case 'simple_wikipedia':
     case 'voa':
     case 'voa_learning':

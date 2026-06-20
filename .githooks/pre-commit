@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# .githooks/pre-commit
+#
+# Vocaflow — Claude Project ↔ VS Code 동기화 자동화 hook.
+#
+# 동작:
+#   1. scripts/sync-export-memory.mjs --refresh-context 실행
+#      → docs/AI_CONTEXT/ memory mirror + docs/CONTEXT.md 자동 블록 갱신
+#   2. 변경된 docs/AI_CONTEXT/ + docs/CONTEXT.md 만 자동 stage
+#      → 이번 commit 에 함께 포함됨 (별도 commit 안 만듦)
+#   3. node 미설치 / 스크립트 오류 시 commit 진행 (block 안 함)
+#      → CI/CD 서버나 옛 머신에서도 작동
+#
+# 활성화: `node scripts/setup-git-hooks.mjs` 1회 실행 (또는 pnpm install 시 자동)
+#         이미 활성화 시 `git config core.hooksPath` 가 `.githooks` 로 설정돼 있음.
+
+set -e
+
+# node 없으면 skip (예: docker 베이스 이미지)
+if ! command -v node >/dev/null 2>&1; then
+  exit 0
+fi
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+SCRIPT="$REPO_ROOT/scripts/sync-export-memory.mjs"
+
+if [ ! -f "$SCRIPT" ]; then
+  # 스크립트 부재 — 무시
+  exit 0
+fi
+
+# Claude Code 외부 memory 가 없는 환경 (CI, 다른 사용자 머신) 에선
+# 스크립트가 [sync-memory] memory dir 미발견 — skip 으로 정상 종료.
+# 실패해도 commit block 안 함.
+if ! node "$SCRIPT" --refresh-context >/dev/null 2>&1; then
+  # 진단용 출력 (실패해도 진행)
+  echo "[pre-commit] sync-export-memory.mjs 실패 — commit 은 진행" >&2
+  exit 0
+fi
+
+# 변경된 mirror / CONTEXT 만 자동 stage (이미 staged 면 git add 가 no-op)
+if [ -d "$REPO_ROOT/docs/AI_CONTEXT" ]; then
+  git add "$REPO_ROOT/docs/AI_CONTEXT" 2>/dev/null || true
+fi
+if [ -f "$REPO_ROOT/docs/CONTEXT.md" ]; then
+  git add "$REPO_ROOT/docs/CONTEXT.md" 2>/dev/null || true
+fi
+
+exit 0

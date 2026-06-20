@@ -60,6 +60,8 @@ const IN_PROGRESS_STATUSES: BookStatus[] = [
 const SOURCE_TIER: Record<string, 'S' | 'A' | 'B' | 'C' | 'M'> = {
   standard_ebooks: 'S', openstax: 'S', voa_learning: 'S',
   wikibooks: 'A', wikisource: 'A',
+  // v06.43 — Lit2Go (USF) = K-12 큐레이션 + USF 메타 (US grade · audio · collection) 풍부 → A tier
+  lit2go: 'A',
   gutenberg: 'B', librivox: 'B',
   open_library: 'C', hathitrust: 'C',
   manual: 'M',
@@ -192,6 +194,10 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     () => selectedBooks.filter((b) => IN_PROGRESS_STATUSES.includes(b.status)).map((b) => b.id),
     [selectedBooks],
   );
+  const failedIds = useMemo(
+    () => selectedBooks.filter((b) => b.status === 'failed').map((b) => b.id),
+    [selectedBooks],
+  );
 
   // 모두 선택 (현재 visible 범위 내) — header checkbox
   const visibleIds = useMemo(() => visible.map((b) => b.id), [visible]);
@@ -308,9 +314,11 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   //    결정론적 단계(ingest·normalize·segment·analyze·extract·V-Level·cover)는 전부 로직.
   //    v06.35 — LibriVox 보이스 매핑도 로직에 흡수: count-gate 통과 시 자동 저장,
   //    정합 실패본만 dev-process 가 매핑 큐(book_curation_jobs)에 자동 등록 → Claude 수동 정합.
+  //    v06.50 — failed 도서도 dev 일괄 처리에 포함 (정규식/네트워크 일시 실패 후 fix → 재처리 수요).
+  //    dev-process route 는 status 게이트 없이 ingest 부터 재시작.
   const devBatchIds = useMemo(
-    () => [...inProgressIds, ...readyIds],
-    [inProgressIds, readyIds],
+    () => [...inProgressIds, ...readyIds, ...failedIds],
+    [inProgressIds, readyIds, failedIds],
   );
   // dev 배치 진행 상태 — drain 과 동일 shape(DrainBanner 재사용), 별도 state.
   const [devState, setDevState] = useState<{
@@ -341,9 +349,10 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     if (
       !window.confirm(
         `선택한 도서 ${devBatchIds.length}권을 dev 처리(로직)할까요?\n\n` +
-          `· 처리중 ${inProgressIds.length}권 + 검토대기 ${readyIds.length}권\n` +
+          `· 처리중 ${inProgressIds.length}권 + 검토대기 ${readyIds.length}권 + 실패 ${failedIds.length}권\n` +
           `· 소스 재수집 → 정규화 → 챕터 분절 → 분석 → 어휘추출 → V-Level 까지 로직으로 실행 후 '검토대기'.\n` +
-          `· LibriVox/챕터 매핑 등 판단이 필요한 부분은 별도 단계(Claude Code)에서 처리합니다.`,
+          `· LibriVox/챕터 매핑 등 판단이 필요한 부분은 별도 단계(Claude Code)에서 처리합니다.\n` +
+          `· 실패 도서는 ingest 부터 다시 시작합니다 (정규식/네트워크 일시 실패 fix 후 재시도용).`,
       )
     ) {
       return;
@@ -792,6 +801,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           selectedCount={selectedIds.size}
           readyCount={readyIds.length}
           inProgressCount={inProgressIds.length}
+          failedCount={failedIds.length}
           devBatchCount={devBatchIds.length}
           devRunning={devState?.running ?? false}
           pending={bulkPending}
@@ -1240,6 +1250,8 @@ const SOURCE_BADGE: Record<string, { label: string; color: string }> = {
   wikisource: { label: 'Wikisource', color: 'var(--info)' },
   librivox: { label: 'LibriVox', color: 'var(--active)' },
   openstax: { label: 'OpenStax', color: 'var(--learn-review)' },
+  // v06.43 — Lit2Go (USF) K-12 학습 큐레이션
+  lit2go: { label: 'Lit2Go', color: 'var(--memory-shaky)' },
 };
 
 function SourceBadge({
@@ -1536,6 +1548,7 @@ function BulkActionToolbar({
   selectedCount,
   readyCount,
   inProgressCount,
+  failedCount,
   devBatchCount,
   devRunning,
   pending,
@@ -1548,6 +1561,7 @@ function BulkActionToolbar({
   selectedCount: number;
   readyCount: number;
   inProgressCount: number;
+  failedCount: number;
   devBatchCount: number;
   devRunning: boolean;
   pending: boolean;
@@ -1567,7 +1581,8 @@ function BulkActionToolbar({
         <span className="font-[700] text-[var(--p-dark)]">{selectedCount}권</span>
         선택됨
         <span className="font-mono text-[10px] text-[var(--t3)]">
-          (검토대기 {readyCount} · 처리중 {inProgressCount})
+          (검토대기 {readyCount} · 처리중 {inProgressCount}
+          {failedCount > 0 ? ` · 실패 ${failedCount}` : ''})
         </span>
       </div>
 
@@ -1579,8 +1594,10 @@ function BulkActionToolbar({
           disabled={pending || devRunning || devBatchCount === 0}
           title={
             devBatchCount === 0
-              ? '선택한 도서 중 처리중/검토대기 상태가 없습니다'
-              : `처리중 ${inProgressCount} + 검토대기 ${readyCount} = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level·LibriVox 자동매핑). 정합 실패본만 매핑 큐 자동 등록.`
+              ? '선택한 도서 중 처리중/검토대기/실패 상태가 없습니다'
+              : `처리중 ${inProgressCount} + 검토대기 ${readyCount}${
+                  failedCount > 0 ? ` + 실패 ${failedCount}` : ''
+                } = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level·LibriVox 자동매핑). 실패 도서는 ingest 부터 재시작.`
           }
           className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >

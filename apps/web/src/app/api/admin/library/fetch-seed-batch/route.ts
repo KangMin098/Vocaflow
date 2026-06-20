@@ -6,7 +6,7 @@
 // fetcher 가 알아서 소스별로 매핑 (모르는 키는 무시).
 
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { FETCHERS, type SeedSource } from '@/lib/library/seed-fetchers'
 import type { FetchBatchParams } from '@/lib/library/seed-fetchers/types'
@@ -86,7 +86,20 @@ export async function POST(request: Request): Promise<NextResponse> {
     })
   }
 
-  const client = await createClient()
+  // dev-bypass 모드(또는 cookie 세션 없는 admin 호출)에서 RLS 거부 방지 위해
+  // service_role client 사용 — 다른 admin write route 와 동일 패턴.
+  // requireAdmin 으로 이미 가드 통과한 상태.
+  const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
+  const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
+  if (!supabaseUrl || !serviceKey) {
+    return NextResponse.json(
+      { error: 'ServerConfig', message: 'SUPABASE_URL / SERVICE_ROLE_KEY 누락' },
+      { status: 500 },
+    )
+  }
+  const client = createClient(supabaseUrl, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
 
   // 실제 신규 vs 기존 구분 — upsert(ignoreDuplicates:false) 는 insert+update 를 모두
   // 반환해 카운트가 항상 전량 "신규" 로 부정확. 사전 조회로 정확히 구분한다.

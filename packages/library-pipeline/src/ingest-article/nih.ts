@@ -20,6 +20,7 @@ import {
   hashString,
   htmlToPlainText,
   parseRssFeed,
+  safeDate,
   type RssListItem,
 } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -56,6 +57,8 @@ export interface NihListItem {
   description: string
   /** v06.41 — 학습 친화도 score */
   score?: ArticleScore
+  /** v06.45 — audio 보유 여부 (NIH 대부분 false) */
+  has_audio?: boolean
 }
 
 export async function listNihFeed(
@@ -126,7 +129,7 @@ export async function ingestNihArticle(itemUrl: string): Promise<RawArticle> {
     author: isMedlinePlus ? 'MedlinePlus / NLM' : 'NIH',
     language: 'en',
     license: 'PD-Government',
-    published_at: publishedAt ? new Date(publishedAt) : null,
+    published_at: safeDate(publishedAt),
     content,
     estimated_cefr: null,
     fetched_at: new Date(),

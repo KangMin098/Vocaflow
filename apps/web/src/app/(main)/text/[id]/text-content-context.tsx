@@ -52,6 +52,8 @@ export interface TextContentData {
   allChapterWordSets: Array<{ id: string; chapterIdx: number; title: string }>;
   /** v06.x — 현재 챕터의 LibriVox 원어민 보이스 (큐레이터 연결 + 챕터 정합 시만 non-null) */
   chapterAudio: ChapterAudio | null;
+  /** v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등). 본문 문단 idx 정합. */
+  illustrations: Array<{ idx: number; url: string; alt?: string }> | null;
   text: Partial<LibraryText>;
   paragraphs: TextParagraph[];
 }

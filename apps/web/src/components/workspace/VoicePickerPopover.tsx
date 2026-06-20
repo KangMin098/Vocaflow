@@ -119,10 +119,12 @@ export function VoicePickerPopover() {
               </li>
             )}
 
-            {voices.map((v) => {
+            {voices.map((v, idx) => {
               const isSelected = tts.state.selectedVoiceURI === v.voiceURI
               const isPreviewing = tts.state.previewingVoiceURI === v.voiceURI
               const quality = tts.classifyVoice(v)
+              // 목록은 품질 best-first 정렬 → 첫 항목이 최선 음성.
+              const isBest = idx === 0
               return (
                 <li key={v.voiceURI}>
                   <div
@@ -160,6 +162,11 @@ export function VoicePickerPopover() {
                           >
                             {QUALITY_LABEL[quality]}
                           </span>
+                          {isBest && (
+                            <span className="rounded-[2px] bg-[var(--learn-known)] px-1 py-px font-display text-[8px] font-[700] text-white">
+                              추천
+                            </span>
+                          )}
                         </div>
                       </div>
                       {isSelected && (
