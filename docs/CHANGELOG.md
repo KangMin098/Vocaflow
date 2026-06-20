@@ -10,6 +10,39 @@
 
 ## Unreleased (v06.34 → next)
 
+### P2 — composite 재설계 (v06.79 · C1·C2)
+
+P5a (freq_rank 백필 22.7→64.1%) 직후. P0 측정 C1 (salience 가중 ~9% · 챕터 max 정규화 부재) + C2 (rank NULL→50000 동점) 해결.
+
+**새 식** (handoff §P2-2, 가중치 합 1.0 · book/article 동일):
+
+```
+score =
+    0.40 * freq_global       -- 1/log10(rank+10), rank NULL → 0 (50000 폐지)
+  + 0.35 * salience_inbook    -- freq_in_chapter / MAX(freq) OVER (PARTITION BY chapter_idx)
+  + 0.15 * csat_band_fit      -- V6~9 → 1.0, V10 → 0.6, V11 → 0.4
+  + 0.10 * quality_bonus      -- verified OR example_en 존재 → 1, else 0
+  - skill_penalty             -- 기존 (skill_level=4 AND book_v_level<6 → -0.10)
+```
+
+**변경** (migration [20260620050000_p2_composite_redesign](../supabase/migrations/20260620050000_p2_composite_redesign.sql)):
+- `cand` CTE 에 `sd.verified` 추가
+- 신규 `norm` CTE — `MAX(freq_in_chapter) OVER (PARTITION BY chapter_idx)` (article 은 전역 MAX)
+- 새 가중 4항 + skill penalty
+- 게이트 (`v_level >= 6`), register exclude, DISTINCT/sort, cap 없음 (P3 분리) 보존
+
+**실측 효과** (Les Misérables):
+- NULL-rank 1,643 단어 distinct composite: 5 → **46** (9.2배, C2 해결)
+- 전체 distinct: 643 → **1,677** (2.6배, 평균 동점 11.6 → 4.46)
+- 챕터 1 상위: **bishop V8 freq=4** (1장 핵심 = Monsieur Myriel 주교) ✓
+- published 5권 추출 회귀 0
+
+**누적 진행 (handoff)**:
+- ✅ P0 진단 → ✅ P1 게이트 디커플 → ✅ P5a freq_rank 백필 → ✅ P2 composite 재설계
+- ⏳ P3 cap N=40 (C4) — 다음
+- ⏳ P4 단일 코어 통합 (C5)
+- ⏳ P5b/P5c, P6 (후행)
+
 ### P5a — frequency_rank 백필 16,492 row (v06.78 · D2)
 
 P1 (게이트 디커플) 직후. P0 측정 D2 = "V6~V11 frequency_rank 충전 22.7% (< 60%)" → P2 composite 재설계 전 선행 필수.
