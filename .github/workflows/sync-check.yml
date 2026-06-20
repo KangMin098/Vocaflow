@@ -1,0 +1,126 @@
+# Claude Project ↔ VS Code (Claude Code) ↔ GitHub 동기화 무결성 검증.
+#
+# 목적: Project knowledge 에 indexing 되는 docs/*.md 와 코드/DB 의 정합을
+#       매 push / PR 마다 자동 검증. 불일치 발견 시 PR block.
+#
+# 검증 항목:
+#   1. TypeScript 0 error
+#   2. docs/*.md 내 코드 경로 링크 ([text](path)) 가 실존
+#   3. supabase/migrations/ 신규 추가 시 docs/DB_SCHEMA.md 갱신 흔적
+#      또는 docs/CHANGELOG.md Unreleased 섹션 언급
+#   4. docs/CHANGELOG.md Unreleased 가 비어있지 않음 (마지막 commit 이후 변경 있으면)
+#
+# 실행: PR open / push to main / push to chore/* 시
+
+name: sync-check
+
+on:
+  push:
+    branches: ['main', 'chore/**', 'feat/**', 'fix/**']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  typecheck:
+    name: TypeScript 0 error
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: TypeScript check (web)
+        run: pnpm --filter web exec tsc --noEmit
+      - name: TypeScript check (library-pipeline)
+        run: pnpm --filter '@vocaflow/library-pipeline' exec tsc --noEmit
+
+  docs-link-check:
+    name: docs/*.md broken link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify file references in docs/*.md
+        shell: bash
+        run: |
+          set -e
+          broken=0
+          # Markdown 링크 [text](relative/path) — http(s) / # 앵커 제외, 실 파일만 검사
+          grep -rEho '\[[^]]+\]\(\./?[^)#]+\)' docs/ README.md CLAUDE.md 2>/dev/null \
+            | sed -E 's/^\[[^]]+\]\(([^)]+)\)$/\1/' \
+            | sort -u \
+            | while read -r p; do
+                # 라인 분리자 정리
+                p=$(echo "$p" | tr -d '\r')
+                # docs/ 내부 상대링크는 docs/ 기준으로 추정 — 이미 docs/ 로 시작하면 그대로
+                resolved="$p"
+                if [[ "$p" != docs/* && "$p" != ./docs/* && "$p" != /* ]]; then
+                  # docs/*.md 의 ../ 또는 ./ 상대링크 — repo root 기준
+                  resolved=$(echo "$p" | sed 's|^\./||; s|^\.\./||')
+                fi
+                # 존재 검사: repo root 와 docs/ 양쪽 시도
+                if [ -e "$resolved" ] || [ -e "docs/$resolved" ] || [ -e "$p" ]; then
+                  :
+                else
+                  echo "::warning::docs link not found: $p"
+                  broken=$((broken+1))
+                fi
+              done
+          # warning 만 (실 차단은 안 함 — 첫 도입이라 noise 확인 후 error 승급)
+          echo "broken link warning count: $broken"
+
+  migration-vs-docs:
+    name: migration ↔ docs/DB_SCHEMA / CHANGELOG 정합
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 신규 migration 시 docs 갱신 흔적 확인
+        shell: bash
+        run: |
+          set -e
+          base="${{ github.base_ref }}"
+          git fetch origin "$base" --depth=1
+          # 이 PR 의 신규 migration 파일
+          new_migs=$(git diff --name-only --diff-filter=A "origin/$base"...HEAD -- 'supabase/migrations/*.sql' || true)
+          if [ -z "$new_migs" ]; then
+            echo "✅ 신규 migration 없음 — 정합 검사 skip"
+            exit 0
+          fi
+          echo "Found new migrations:"
+          echo "$new_migs"
+          # docs/DB_SCHEMA.md 또는 docs/CHANGELOG.md 가 같은 PR 에 갱신됐는지
+          changed_docs=$(git diff --name-only "origin/$base"...HEAD -- 'docs/DB_SCHEMA.md' 'docs/CHANGELOG.md' || true)
+          if [ -z "$changed_docs" ]; then
+            echo "::error::신규 migration 이 있는데 docs/DB_SCHEMA.md / docs/CHANGELOG.md 갱신이 없습니다."
+            echo "   영향받는 migration:"
+            echo "$new_migs"
+            exit 1
+          fi
+          echo "✅ docs 갱신 함께 진행됨:"
+          echo "$changed_docs"
+
+  changelog-unreleased:
+    name: docs/CHANGELOG.md Unreleased 비어있지 않음
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unreleased 섹션 비어있지 않은지 확인
+        shell: bash
+        run: |
+          set -e
+          # ## Unreleased 다음, 다음 ## 또는 EOF 까지의 본문이 비어있지 않아야 함
+          body=$(awk '/^## Unreleased/{flag=1; next} /^## /{flag=0} flag' docs/CHANGELOG.md \
+                  | sed 's/[[:space:]]//g' | tr -d '\r\n')
+          if [ -z "$body" ]; then
+            echo "::error::docs/CHANGELOG.md 의 '## Unreleased' 섹션이 비어있습니다. 이번 PR 의 변경 요약을 한 줄 이상 추가하세요."
+            exit 1
+          fi
+          echo "✅ Unreleased 섹션에 본문 있음"

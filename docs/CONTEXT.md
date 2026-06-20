@@ -1,0 +1,93 @@
+# Vocaflow — CONTEXT (Project 첫 진입 1-page 요약)
+
+> Claude Project 가 `chat` 첫 진입 시 가장 먼저 보는 페이지.
+> 정적 상태 + 자동 갱신 영역으로 구성. 변동 적은 SSoT 만 사람이 갱신, 자동 갱신 블록은 GitHub Action 이 push 마다 regenerate.
+
+---
+
+## 1. 한 줄 요약
+
+**Vocaflow** = 영어 스크립트 기반 9 모듈 종합 학습 플랫폼 (한국 고등학생~성인 대상). Web (Next.js 14) + iOS/Android (RN Expo Phase 2). Supabase Cloud (vocaflow-dev `jajenrevcbmrpaliomxv`).
+
+---
+
+## 2. 현재 활성 영역 (변동 시 사람이 갱신)
+
+| 영역 | 상태 | 한 줄 |
+|---|---|---|
+| **ACP (article curation)** | 🔥 active | 6 소스 (VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation) 대량 GET + 7축 필터 + 단계별 상태 + 삭제. v06.69 arxiv 제거, v06.71~75 인터페이스 전체 재설계 |
+| **LCP (book curation)** | 정상 | 도서 ingest → analyze → publish → 챕터 단어장 자동 생성. 9 소스 (Gutenberg / Standard Ebooks / Lit2Go / Wikibooks / Wikisource / LibriVox / StoryWeaver / Simple Wikipedia / OpenStax) |
+| **VRL (4축 분류)** | 안정 | V-Level 12단계 + Track 6 + Domain 8 + Skill 5. shared_dictionary 38,598 row 100% 분류 완성 |
+| **VCB (단어집 빌더)** | cast-2000 published | run_id=1 end-to-end 완료 + dict-fill Phase 1/2/3/4 완료 |
+| **Workspace (`/text/[id]`)** | v06.74 TTS 재설계 | 브라우저 TTS best voice 자동 선택 + LibriVox / article audio_url 통합 |
+| **EchoMatch (v06.33)** | done | 따라읽기 4-Phase + DTW 3축 점수 |
+
+---
+
+## 3. 진행 중 / 잔여 작업 (변동 시 사람이 갱신)
+
+- [ ] StoryWeaver listFeed 회수율 개선 (현재 60%)
+- [ ] Wikinews 대안 endpoint 조사 (영문 사이트 사실상 비활성)
+- [ ] `docs/AI_CONTEXT/` 자동 mirror 도입 (memory → docs)
+- [ ] sync-check GH Action 활성화
+
+---
+
+## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
+
+<!-- auto:branch -->
+**활성 브랜치**: `chore/derivational-seed-freq50`
+**main 으로 PR 대상**: 별도 확인
+<!-- /auto:branch -->
+
+<!-- auto:recent-commits -->
+**최근 5 commit**:
+- `37fced9` chore(sync): .gitignore 보강 + .claude/settings.local.json 추적 해제
+- `885a302` feat(acp): LCP 대량 list — 단계별 상태 + 삭제 기능 (v06.75)
+- `9a5160a` feat(workspace): 브라우저 TTS best voice 자동 선택 재설계
+- `d369388` feat(acp): LCP 대량 결과 list — 7축 필터 통합 패널 (v06.73)
+- `f9fd874` feat(acp)!: LCP 대량 GET 전체 재설계 — 4축 사용자 컨트롤 (v06.72)
+<!-- /auto:recent-commits -->
+
+<!-- auto:recent-migrations -->
+**최근 5 migration**:
+- `20260614240000_acp_remove_arxiv_source.sql`
+- `20260614230000_fix_overclassified_concrete_words.sql`
+- `20260614230000_acp_article_source_add_3sources.sql`
+- `20260614220000_fix_bulk_requeue_seed_unlock.sql`
+- `20260614220000_acp_admin_revert_delete_article.sql`
+<!-- /auto:recent-migrations -->
+
+---
+
+## 5. 지금 작업하면 좋은 후보 (사람 갱신 OK)
+
+| 우선도 | 작업 | 영역 |
+|---|---|---|
+| 중 | StoryWeaver 카테고리 더 추가 (현재 2 카테고리만) | LCP |
+| 중 | `docs/AI_CONTEXT/` 자동화 (#5 from sync 권장사항) | Infra |
+| 낮 | Wikinews UI 비활성 처리 (label 표시 OK, 노출 자체 한 단계 더 약하게) | ACP |
+| 낮 | The Conversation CC-BY-ND `display_only` 경로 검증 | ACP |
+
+---
+
+## 6. 채팅 시작할 때 사람이 줄 수 있는 한 줄들 (예시)
+
+- "지금 진행 중인 게 뭐야" → 이 페이지 §2 + §3 보면 즉시 답
+- "최근 며칠 무슨 commit?" → §4 auto:recent-commits
+- "오늘 DB 무슨 변경?" → §4 auto:recent-migrations
+- "다음에 뭐 하지?" → §5
+
+---
+
+## 7. 어떻게 갱신 / 자동화
+
+| 섹션 | 갱신 주체 | 빈도 |
+|---|---|---|
+| §1 한 줄 요약 | 사람 (영구) | 매우 드물게 |
+| §2 활성 영역 | 사람 | 영역 추가/종료 시 |
+| §3 잔여 작업 | 사람 | milestone 단위 |
+| §4 자동 블록 | `scripts/sync-export-memory.mjs` / GH Action | push 마다 |
+| §5 후보 | 사람 | 검토 시 |
+
+자동 블록은 `<!-- auto:NAME -->` ~ `<!-- /auto:NAME -->` 사이만 갱신. 사람이 직접 편집하지 말 것.
