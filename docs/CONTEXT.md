@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `chore/manifest-drift-check`
+**활성 브랜치**: `chore/p6-handoff-gate-strictness`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `632dc41` chore(sync): manifest drift 자동 검증 (v06.84)
 - `021bf8a` docs(sync): manifest 신규 폴더 3종 분류 (v06.83)
 - `7920d7b` Merge pull request #25 from KangMin098/chore/p6-handoff-prep
 - `746eda6` docs(handoff): P6 구독 user V-level 필터 (C6) — Project 위임용
 - `33b356b` Merge pull request #24 from KangMin098/chore/derivational-seed-freq50
-- `55f18cb` data(library): 기존 published 책 P1~P4 적용 재발행 (v06.82)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
