@@ -65,6 +65,7 @@ handoff §P6 명시:
 ### 단계
 
 - [ ] **0-1. `_enroll_book_subscribe_word_sets` 본문 dump** + 롤백 baseline 저장 (`docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql`)
+  - 🔴 **P6.1 설계 blocker** — INSERT 절 + ON CONFLICT 본문 그대로 보고 (i+1 필터 삽입 위치 결정 근거)
 - [ ] **0-2. user_profiles V-level 컬럼 충전율** — 진단 미완료 사용자 비율
   ```sql
   SELECT count(*) AS total_users,
@@ -94,9 +95,40 @@ handoff §P6 명시:
     WHERE ws.category='library_book' GROUP BY user_id
   ) u;
   ```
-- [ ] **0-5. V-level 불일치 영향** — published 책 V-level vs 사용자 V-level gap 분포
+- [ ] **0-5. V-level gap 분포** — published 책 vs 사용자 (E2 fallback 결정 근거)
+  ```sql
+  -- gap = user.current_v_level − books.book_v_level
+  SELECT
+    GREATEST(LEAST(u.current_v_level - b.book_v_level, 3), -3) AS gap_bucket,
+    -- bucket 범위: [-3, +3], 이외는 clamp
+    count(*) AS pairs
+  FROM user_profiles u
+  CROSS JOIN library_books b
+  WHERE u.current_v_level IS NOT NULL
+    AND b.book_v_level IS NOT NULL
+    AND b.status='published'
+  GROUP BY 1 ORDER BY 1;
+  -- gap > 0 = 사용자 책보다 낮음 / gap < 0 = 사용자 책보다 높음
+  -- bucket 외 (실 |gap| >= 4) 카운트도 별도 보고
+  ```
 - [ ] **0-6. enroll_library_book 함수 본문** — 호출 chain (변경 영향 분석)
 - [ ] **0-7. extract_vocabulary_for_user 함수 본문** — 이미 i+1 적용 path 정합
+- [ ] **0-8.** (선택 — P6.6 소급 ROI) 기존 vocabularies 의 i+1 위반 / stable-dup row 수
+  ```sql
+  -- 사용자별 i+1 위반 카운트 (vocab v_level 이 user current ± 1 범위 외)
+  SELECT u.id, u.current_v_level,
+    count(*) FILTER (
+      WHERE sd.v_level NOT BETWEEN GREATEST(u.current_v_level-1, 1) AND LEAST(u.current_v_level+1, 11)
+    ) AS i_plus_1_violations,
+    count(*) FILTER (WHERE v.stability >= 21) AS already_stable
+  FROM user_profiles u
+  JOIN vocabularies v ON v.user_id = u.id
+  JOIN shared_dictionary sd ON sd.word = v.word
+  WHERE u.current_v_level IS NOT NULL
+  GROUP BY u.id, u.current_v_level
+  ORDER BY i_plus_1_violations DESC LIMIT 10;
+  -- P6.6 소급 규모 산정 — F1/F2/F3 옵션 선택 근거
+  ```
 
 ### 🔒 2 Binary 확인 (Project 보고 필수)
 
@@ -153,22 +185,34 @@ handoff §P6 명시:
 ## P6.0 진단 결과
 
 ### 측정
+- 0-1 _enroll_book_subscribe_word_sets 본문: [INSERT 절 구조 + WHERE 조건 요약]
+  · 필수: vocabularies INSERT SELECT 의 JOIN/WHERE 라인 + ON CONFLICT 절 본문 그대로
+  · P6.1 i+1 필터 삽입 위치 결정 근거 (이 측정 없이 P6.1 spec 불가)
 - 0-2 user_profiles 충전: __% (N=__)
 - 0-3 vocabularies stable: __개 (stable_21d/total = __%)
 - 0-4 avg 책/user: __ (p90 __)
-- 0-5 V-level gap 분포: [표]
+- 0-5 V-level gap 분포: gap = user_v − book_v, bucket [-3..+3], [표]
+  · 정의: gap > 0 = 사용자가 책보다 낮음 / gap < 0 = 사용자가 책보다 높음
+  · bucket 외 (gap ≤ -4 또는 ≥ +4) 카운트도 별도 row
 - 0-6 enroll_library_book chain: [본문 요약]
 - 0-7 extract_vocabulary_for_user i+1 식: [요약]
+- 0-8 (선택 — P6.6 소급 ROI) 기존 vocabularies i+1 위반 / stable-dup row 수:
+  · `count(*) FILTER (WHERE v_level NOT BETWEEN user.current_v_level-1 AND user.current_v_level+1)`
+  · `count(*) FILTER (WHERE stability >= 21 AND created_at > '<재발행 시각>')`
 
 ### Binary
 - B1 UNIQUE(user_id, word): 있음/없음 (제약명 __)
 - B2 subscription 분리: 완전/연동 (vocab without sub = __ rows)
 
-### 권장 결정 (Project 산정)
-E1=…, E2=…, E3=…, **E4=…**, E5=…, E6=…, E7=…, E8=…
+### 권장 결정
+**(Project 산정 — 측정값 + 권장 default 기반)**
+E1=…, E2=…, E3=…, **E4=…**, E5=…, E6=…
+
+**(B1·B2 결과 전사 — Project 산정 아님)**
+E7=… (B1 결과로 자동) · E8=… (B2 결과로 자동)
 
 ### P6.6 소급 정책 권장
-[아래 P6.6 섹션 결과]
+[F0/F1/F2/F3 중 0-8 측정 + 0-3 review_count=0 비율 기반]
 ```
 
 ---
