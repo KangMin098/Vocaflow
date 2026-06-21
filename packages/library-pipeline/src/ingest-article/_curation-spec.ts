@@ -39,12 +39,16 @@ export interface FeedSpec {
   noiseKeywords: ReadonlyArray<string>
   /** 최종 반환 max items (filter 후 score 정렬 → top N) */
   maxItems: number
+  /** frozen archive (정지된 PD 소스). true 면 score 에서 recency 축 제거
+   *  (source 0.45 / length 0.25 재분배) + 730일 stale cliff 면제. VOA 전용. */
+  frozen?: boolean
 }
 
 /** feed 별 spec — feed_id 가 키, 없으면 source 기본값 사용. */
 export const FEED_SPECS: Record<string, FeedSpec> = {
   // ─── VOA — 학습 친화도 최상 (CEFR 1-3 등급) ───────────────────
   'voa:lets-learn-english': {
+    frozen: true,           // P1 — frozen archive: recency 축 제거 + 730일 cliff 면제
     recencyDays: 365,       // 학습 자료는 1년 stale OK
     minDescriptionLen: 50,
     minTitleLen: 15,
@@ -55,6 +59,7 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 15,
   },
   'voa:as-it-is': {
+    frozen: true,           // P1 — frozen archive: recency 축 제거 + 730일 cliff 면제
     // v06.44 — recencyDays 180→365 (VOA 학습용 자료 stale 잘 안 됨, lets-learn/words 와 정합)
     //           minDescriptionLen 80→40 (VOA RSS 일부 항목 description 빈 패턴 흡수)
     recencyDays: 365,
@@ -67,6 +72,7 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 15,
   },
   'voa:science-technology': {
+    frozen: true,           // P1 — frozen archive: recency 축 제거 + 730일 cliff 면제
     recencyDays: 365,
     minDescriptionLen: 40,
     minTitleLen: 18,
@@ -77,6 +83,7 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 15,
   },
   'voa:words-and-their-stories': {
+    frozen: true,           // P1 — frozen archive: recency 축 제거 + 730일 cliff 면제
     recencyDays: 365,       // idiom 학습 자료 1년+ OK
     minDescriptionLen: 40,  // v06.44 — VOA RSS description 빈 항목 흡수
     minTitleLen: 15,
@@ -85,6 +92,30 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     idealDescLen: 250,
     noiseKeywords: ['archive'],
     maxItems: 12,
+  },
+
+  // ─── VOA register gap 보강 (P2) — 서사 + 설명문. 둘 다 frozen archive ──
+  'voa:american-stories': {
+    frozen: true,           // P2 — frozen archive: recency 축 제거 + 730일 cliff 면제
+    recencyDays: 365,
+    minDescriptionLen: 40,
+    minTitleLen: 15,
+    sourceWeight: 0.90,
+    levelBonus: 0.05,       // B2 — 고전 단편 서사 (어휘 풍부)
+    idealDescLen: 250,
+    noiseKeywords: ['archive', 'index'],
+    maxItems: 15,
+  },
+  'voa:health-lifestyle': {
+    frozen: true,           // P2 — frozen archive: recency 축 제거 + 730일 cliff 면제
+    recencyDays: 365,
+    minDescriptionLen: 40,
+    minTitleLen: 18,
+    sourceWeight: 0.90,
+    levelBonus: 0.10,       // B1 — consumer-facing 건강·생활 설명문
+    idealDescLen: 250,
+    noiseKeywords: ['archive', 'index'],
+    maxItems: 15,
   },
 
   // ─── NASA — 흥미 ↑ + PD ───────────────────────────────────────
@@ -157,6 +188,7 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
 /** Source 기본 spec — feed 별 spec 미정 시 fallback */
 export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
   voa: {
+    frozen: true,           // P1 — frozen archive: recency 축 제거 + 730일 cliff 면제
     recencyDays: 180,
     minDescriptionLen: 80,
     minTitleLen: 18,
@@ -281,7 +313,10 @@ export function scoreArticleFit(item: ScorableItem, spec: FeedSpec): ArticleScor
   const level = spec.levelBonus
 
   // 합성 — 가중치 합 = 1.0 + level 보너스
-  const total = recency * 0.40 + source * 0.30 + length * 0.20 + level
+  // frozen feed 는 recency 축(0.40)이 stale 로 사문화 → source/length 재분배
+  const total = spec.frozen
+    ? source * 0.45 + length * 0.25 + level
+    : recency * 0.40 + source * 0.30 + length * 0.20 + level
 
   return {
     total: Math.max(0, Math.min(1, total)),
@@ -304,8 +339,8 @@ export function passesArticleFilter(item: ScorableItem, spec: FeedSpec): boolean
   }
   // description 최소 길이
   if (item.description.length < spec.minDescriptionLen) return false
-  // recency cutoff (recencyDays != null 일 때만)
-  if (spec.recencyDays !== null && item.published_at) {
+  // recency cutoff (recencyDays != null 일 때만). frozen archive 는 cliff 면제.
+  if (!spec.frozen && spec.recencyDays !== null && item.published_at) {
     const ageDays = (Date.now() - new Date(item.published_at).getTime()) / 86400_000
     // 2배 grace 까지는 통과 (score 에서 자연 감점). 그 이상은 stale.
     if (ageDays > spec.recencyDays * 2) return false
@@ -392,18 +427,21 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
   voa: {
     targetLevels: ['beginner', 'intermediate'],
     targetCefr: { min: 'A2', max: 'B2' },
-    maxItemsPerBatch: 30,        // 4 feeds × ~12-15 → 30 cap
+    maxItemsPerBatch: 30,        // 6 feeds × ~15 → 30 cap (P2: +american-stories +health-lifestyle)
     minScore: 0.40,
     bulkPriority: 1,             // 학습 친화 최우선
     license: 'PD-Government',
     attributionRequired: false,  // VOA = U.S. federal → 인용 자유
-    topicDomain: ['news', 'idioms', 'science', 'culture', 'language-learning'],
+    topicDomain: ['news', 'idioms', 'science', 'culture', 'language-learning', 'narrative', 'health'],
     styleGuide: '학습자 친화 단순 문체 · CEFR 1-3 등급 명시 콘텐츠',
+    // P2 — 6 feed 재분배 (합 1.00). register gap 보강 feed(american/health)에 실질 비중.
     preferredFeedMix: [
-      { feedId: 'as-it-is', weight: 0.30 },
-      { feedId: 'lets-learn-english', weight: 0.30 },     // L1 - 입문 강조
-      { feedId: 'science-technology', weight: 0.25 },
-      { feedId: 'words-and-their-stories', weight: 0.15 }, // idiom 학습
+      { feedId: 'as-it-is', weight: 0.22 },
+      { feedId: 'lets-learn-english', weight: 0.22 },      // L1 - 입문 강조
+      { feedId: 'science-technology', weight: 0.16 },
+      { feedId: 'american-stories', weight: 0.16 },        // 서사 register gap
+      { feedId: 'words-and-their-stories', weight: 0.12 }, // idiom 학습
+      { feedId: 'health-lifestyle', weight: 0.12 },        // 설명문 register gap
     ],
   },
   nasa: {

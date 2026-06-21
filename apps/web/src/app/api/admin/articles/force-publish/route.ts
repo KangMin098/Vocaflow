@@ -53,7 +53,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const { data: art, error: fetchErr } = await client
     .from('library_articles')
-    .select('id, copyright_safe_in_kr, status')
+    .select('id, copyright_safe_in_kr, status, source, audio_url')
     .eq('id', body.article_id)
     .maybeSingle()
 
@@ -66,10 +66,24 @@ export async function POST(request: Request): Promise<NextResponse> {
       { status: 404 },
     )
   }
-  const a = art as { id: string; copyright_safe_in_kr: boolean; status: string }
+  const a = art as {
+    id: string
+    copyright_safe_in_kr: boolean
+    status: string
+    source: string
+    audio_url: string | null
+  }
   if (!a.copyright_safe_in_kr) {
     return NextResponse.json(
       { error: 'CopyrightGate', message: '저작권 미확인 (copyright_safe_in_kr=false) — 게시 불가' },
+      { status: 400 },
+    )
+  }
+  // P3/C5 — VOA = listening-first 학습 정체성: audio 미연결 발행 차단
+  //   (DB 트리거 trg_la_require_audio 와 동일 규칙 · route 에서 친절한 메시지 선제 반환).
+  if (a.source === 'voa' && !(a.audio_url && a.audio_url.trim())) {
+    return NextResponse.json(
+      { error: 'AudioGate', message: 'VOA 글은 오디오(audio_url) 연결 후 게시 가능 — 듣기 정체성' },
       { status: 400 },
     )
   }

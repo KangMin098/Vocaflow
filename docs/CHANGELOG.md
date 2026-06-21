@@ -18,6 +18,16 @@
 - **`scripts/worktree.mjs` + `pnpm wt`** — `list`(ahead/behind) / `new <suffix> [base]`(생성 + `pnpm install` 자동) / `remove <suffix> [--del-branch]` / `sync`(fetch --prune). 규약: 디렉터리 `../Vocaflow-<suffix>` + 브랜치 `feat/<suffix>`.
 - **`docs/WORKTREE.md`** 신규 — 운영 가이드(원칙·레이아웃·스크립트·공유 자산 충돌 직렬화 규칙). 핵심 주의: 클라우드 DB·`supabase/migrations/`·`packages/ui-shared` 등 공유 자산은 한 세션에서만 변경 후 나머지 worktree pull/rebase.
 
+### VOA 큐레이션 재설계 — frozen archive (v06.86)
+
+VOA Learning English = frozen archive(전 feed 2025-03 정지, 라이브 확인) 전제로 큐레이션 입력측·검수·학습자 제시 재설계. PR `feat/voa-curation-redesign` (P0 진단 → P1~P5, 영향격리 순).
+
+- **P1 score frozen 재정규화** — `_curation-spec.ts` `FeedSpec.frozen` 플래그. frozen feed 는 recency 축(0.40 — stale 로 사문화)을 제거하고 source 0.45 / length 0.25 재분배 + 730일 stale cliff 면제. VOA 4 feed + `SOURCE_DEFAULT_SPEC.voa` 한정(NASA/NIH/wikinews/the_conversation/simple_wikipedia score 불변, 54 조합 검증).
+- **P2 feed 확장** — register gap 보강 2종: American Stories(zoneid 1581, narrative) + Health & Lifestyle(zoneid 955, expository). `VOA_FEEDS` + `FEED_SPECS`(frozen) + `SOURCE_SPECS.voa.preferredFeedMix` 6 feed 재분배(합 1.00) + `VoaFeedTab`. 마이그레이션 0건(source='voa' 유지 · register narrative/expository 기존 CHECK 허용).
+- **P3 발행 audio 게이트** — `20260621120000_voa_publish_require_audio_gate`: 트리거 `trg_la_require_audio`(BEFORE INSERT/UPDATE OF status · source='voa' && audio_url 없음 → 발행 차단 · 타 소스 격리). force-publish route `AudioGate` 400 + 검수 UI `PublishGate` `no_audio` 상태. smoke 3/3, 기존 발행분 영향 0. C3(register=course 배제)는 register enum 에 'course' 값 부재로 **연기**.
+- **P4 학습자 카드** — `judgeArticleIPlusOne`(글은 coverage 부재 → `article_v_level` vs 사용자 V 직접 비교, 미진단 V5 fallback) + `ArticleCard` i+1 적합도 배지 + CEFR/VOA Level 병기 + register 배지(아이콘+텍스트) + 음성 인디케이터.
+- **P5 진열 + 인라인 주석** — `ArticlesExplorer` '추천순'(i+1 적합 우선 → 짧은 글) 기본 정렬 + Progressive Disclosure "맞춤 다음 글" 1개. `text/[id]` article 분기 인라인 단어 주석 풀 적용(발행 `shared_words` → `chapterWords` · preview==publish==workspace). 듣기 동급 진입점은 기배선(FloatingAudioPlayer). 시리즈 이어듣기는 글에 feed/series 데이터 미보유로 보류.
+
 ### Post-audit hardening (v06.85)
 
 PR #31 (UI 감사) 후속 — 동 PR 의 main 직접 commit 실수 (push 실패로 origin 비파괴, PR 경유 복구) 재발 방지 + Project attach 정합.
