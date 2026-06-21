@@ -43,7 +43,12 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
   const [error, setError] = useState<string | null>(null)
 
   const statusInfo = classifyArticleStatus(article.status)
-  const gate = computePublishGate(article.status, article.copyrightSafeInKr)
+  const gate = computePublishGate(
+    article.status,
+    article.copyrightSafeInKr,
+    article.source,
+    article.audioUrl,
+  )
   const isProcessable = ['queued', 'ready', 'failed'].includes(article.status)
   const isFailed = article.status === 'failed'
   const isReady = article.status === 'ready'
@@ -346,13 +351,29 @@ function ActionButton({
 }
 
 // 게시 게이트 — admin_force_publish_article 가 copyright_safe_in_kr=true 강제.
-type PublishGateKind = 'publishable' | 'published' | 'archived' | 'copyright' | 'processing'
+// P3/C5 — VOA = listening-first 학습 정체성: audio 미연결 시 발행 보류
+//   (DB 트리거 trg_la_require_audio 와 동일 규칙을 검수 UI 에 선반영 — 클릭→예외 사전 차단).
+type PublishGateKind =
+  | 'publishable'
+  | 'published'
+  | 'archived'
+  | 'copyright'
+  | 'processing'
+  | 'no_audio'
 
-function computePublishGate(status: string, copyrightSafe: boolean): PublishGateKind {
+function computePublishGate(
+  status: string,
+  copyrightSafe: boolean,
+  source: string,
+  audioUrl: string | null,
+): PublishGateKind {
   if (status === 'published') return 'published'
   if (status === 'archived') return 'archived'
   if (!copyrightSafe) return 'copyright'
-  if (status === 'ready' || status === 'failed') return 'publishable'
+  if (status === 'ready' || status === 'failed') {
+    if (source === 'voa' && !(audioUrl && audioUrl.trim())) return 'no_audio'
+    return 'publishable'
+  }
   return 'processing'
 }
 
@@ -360,6 +381,7 @@ const GATE_REASON: Record<Exclude<PublishGateKind, 'publishable' | 'published'>,
   archived: '보관됨 — 게시 불가',
   copyright: '저작권 미확인 — 게시 불가',
   processing: '처리 중 — 게시 불가',
+  no_audio: '오디오 미연결 — VOA 발행 보류',
 }
 
 function PublishControl({

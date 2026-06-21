@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `ecec464` feat(acp): VOA register gap 보강 feed 2종 추가 (P2)
 - `94e7fdb` feat(acp): VOA score frozen 재정규화 (P1)
 - `e41262c` Merge pull request #33 from KangMin098/chore/reading-room-tier1-compliance
 - `430de09` feat(ui): Reading Room 1차 정합 복구 — editorial 승격 + hex 토큰화 + 이모지 제거
 - `290f115` Merge pull request #32 from KangMin098/chore/post-audit-hardening
-- `01d9c82` chore(sync): post-audit hardening — manifest 정합 + 안티패턴 (v06.85)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260621120000_voa_publish_require_audio_gate.sql`
 - `20260620080000_republish_library_books_with_p1_p4.sql`
 - `20260620070000_p4_unify_composite_core.sql`
 - `20260620061000_p3b_drop_old_publish_overload.sql`
 - `20260620060000_p3_publish_cap40.sql`
-- `20260620050000_p2_composite_redesign.sql`
 <!-- /auto:recent-migrations -->
 
 ---
