@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `main`
+**활성 브랜치**: `chore/post-audit-hardening`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `16972e0` Merge pull request #31 from KangMin098/chore/p6-ui-audit
+- `8f90d57` docs(diagnostics): UI 화면 구조 감사 (read-only)
 - `c836961` Merge pull request #30 from KangMin098/chore/wip-library-ui-tweaks
 - `603418d` wip(library): library/workspace/wordvault/flashcard UI 누적 작업
 - `0e2af94` Merge pull request #29 from KangMin098/chore/p6-handoff-measurement-spec
-- `d1ac2e8` docs(handoff): P6.0 측정 보고 형식 4건 보강
-- `94c99d7` Merge pull request #28 from KangMin098/chore/p6-handoff-gate-strictness
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

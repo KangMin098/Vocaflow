@@ -111,6 +111,7 @@ GitHub repo 1,230 파일 중 ~82 파일 (≈ 8% 용량) 만 Project 가 본다.
 
 활성 (현재):
 - `extraction_p0_20260620.md` (handoff "추출 파이프라인" 결정표 — PR #24 적용 후 P6 진행 중까지 활성)
+- `ui_screen_audit_20260621.md` (UI 화면 구조 감사 — Tier A 6 화면 + 횡단 X1~X6 · 1차 정합 복구 + 2차 spec 설계 입력)
 
 #### `docs/AI_CONTEXT/rollback/` 정책 (Tier 외 제외)
 
