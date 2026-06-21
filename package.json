@@ -11,6 +11,7 @@
     "test": "turbo run test",
     "test:wlp": "pnpm --filter @vocaflow/wlp test",
     "format": "prettier --write .",
+    "wt": "node scripts/worktree.mjs",
     "prepare": "node scripts/setup-git-hooks.mjs",
     "sync:memory": "node scripts/sync-export-memory.mjs --refresh-context",
     "db:types": "npx supabase gen types typescript --linked > packages/types/src/database.ts",

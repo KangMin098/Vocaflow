@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 멀티 세션 git worktree 자동화 (v06.87)
+
+여러 Claude Code / VS Code 세션이 서로 다른 화면·기능을 동시에 작업하도록 worktree 레이아웃 셋업 + 관리 자동화.
+
+- **worktree 레이아웃** — `../Vocaflow-main`(main, PR/handoff) · `../Vocaflow-ui`(`feat/learner-ui`, `app/(main)/*`) · `../Vocaflow-admin`(`feat/admin-ui`, `app/admin/*`). 학습자/어드민 라우트 폴더 분리로 병렬 충돌 최소.
+- **`scripts/worktree.mjs` + `pnpm wt`** — `list`(ahead/behind) / `new <suffix> [base]`(생성 + `pnpm install` 자동) / `remove <suffix> [--del-branch]` / `sync`(fetch --prune). 규약: 디렉터리 `../Vocaflow-<suffix>` + 브랜치 `feat/<suffix>`.
+- **`docs/WORKTREE.md`** 신규 — 운영 가이드(원칙·레이아웃·스크립트·공유 자산 충돌 직렬화 규칙). 핵심 주의: 클라우드 DB·`supabase/migrations/`·`packages/ui-shared` 등 공유 자산은 한 세션에서만 변경 후 나머지 worktree pull/rebase.
+
 ### Post-audit hardening (v06.85)
 
 PR #31 (UI 감사) 후속 — 동 PR 의 main 직접 commit 실수 (push 실패로 origin 비파괴, PR 경유 복구) 재발 방지 + Project attach 정합.
