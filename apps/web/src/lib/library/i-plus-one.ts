@@ -66,3 +66,37 @@ export function judgeIPlusOne(
     return { coverage: cov, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
   return { coverage: cov, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
 }
+
+// ─────────────────────────────────────────────────────────────
+// 글(article) i+1 — 책과 달리 coverage 컬럼이 없어 article_v_level 과
+// 학습자 V레벨을 직접 비교 (C4). 미진단(0/null)은 한국 학습자 기본 V5 baseline
+// (extract_vocabulary_for_user 의 effective_user_v 와 동일 규칙).
+//   gap ≤ 0  수월해요 — 글 V레벨이 내 수준 이하 (대부분 아는 단어)
+//   gap = +1 딱 맞아요 — i+1 sweet spot (Krashen)
+//   gap = +2 도전적
+//   gap ≥ +3 어려워요
+// ─────────────────────────────────────────────────────────────
+
+export interface ArticleIPlusOneFit {
+  tier: IPlusOneTier;
+  label: string;
+  color: string;
+  /** article_v_level − effectiveUserVLevel */
+  gap: number;
+  /** 판정에 쓰인 학습자 V레벨 (미진단이면 5) */
+  effectiveUserVLevel: number;
+}
+
+export function judgeArticleIPlusOne(
+  articleVLevel: number | null | undefined,
+  userVLevel: number,
+): ArticleIPlusOneFit | null {
+  if (articleVLevel == null) return null;
+  const effectiveUserVLevel = userVLevel && userVLevel > 0 ? userVLevel : 5;
+  const gap = articleVLevel - effectiveUserVLevel;
+  const base = { gap, effectiveUserVLevel };
+  if (gap <= 0) return { ...base, tier: 'easy', label: '수월해요', color: 'var(--t3)' };
+  if (gap === 1) return { ...base, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known)' };
+  if (gap === 2) return { ...base, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
+  return { ...base, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
+}
