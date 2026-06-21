@@ -48,6 +48,7 @@ PR #24 (학습 단어 추출 파이프라인 P0~P4 + 재발행) 에서 검증된
 - Handoff 없이 큰 작업을 Code 가 즉흥 진행 — 위험 (사용자 의도 어긋남)
 - 결정표 없이 Project 권장값을 Code 가 자체 채택 — 사용자 결정권 침해
 - migration apply 후 commit 잊음 — git=DB SSoT 정합 깨짐 (PR #23 패턴)
+- **모든 위임 지시문 진행 전 `git branch --show-current` 선확인 누락** — 2026-06-21 PR #31 에서 발생. main 으로 직접 commit (다행히 push 실패로 origin 비파괴). 사용자가 향후 위임 지시문 "전역 규약" 에 선확인 명시 약속. Code 측 강제 적용 — Edit/Write 또는 `git add` 시작 전 무조건 `git branch --show-current` 확인 후 main 일 때 새 브랜치 분기. (현 세션에선 본 메모 직후부터 적용)
 
 ## 검증 사례
 - PR #24 (P0~P4 + 재발행): handoff §전역 그대로 적용, 7 commits / 7 migrations / 사용자 마찰 0, bit-identical 검증 100%

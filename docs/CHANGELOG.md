@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### Post-audit hardening (v06.85)
+
+PR #31 (UI 감사) 후속 — 동 PR 의 main 직접 commit 실수 (push 실패로 origin 비파괴, PR 경유 복구) 재발 방지 + Project attach 정합.
+
+변경:
+- manifest §1 Tier 3 활성 list 에 `ui_screen_audit_20260621.md` 추가 — Project 가 1차 정합 복구 / 2차 spec 설계 입력으로 자동 attach 권장 대상화
+- `feedback_handoff_workflow` 메모리에 "Edit/Write 전 `git branch --show-current` 선확인" 안티패턴 추가 — 다음 세션 자동 차단
+
 ### manifest drift 자동 검증 (v06.84)
 
 PR #26 (manifest 보강) 후속 — drift 가 누적되지 않도록 CI 검증 추가.
