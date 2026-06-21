@@ -480,7 +480,7 @@ export function DiagnosticClient() {
     return (
       <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
         <header className="mb-6">
-          <h1 className="font-display text-[28px] font-[700] text-[var(--t1)] md:text-[32px]">
+          <h1 className="font-editorial text-[32px] font-[500] tracking-[-0.012em] text-[var(--t1)] md:text-[40px]">
             어휘 진단
           </h1>
           <p className="mt-3 font-body text-[15px] leading-relaxed text-[var(--t2)]">
@@ -587,7 +587,7 @@ export function DiagnosticClient() {
         </div>
 
         <div className="mb-8 rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-12 text-center shadow-[var(--sh-sm)]">
-          <p className="font-english text-[48px] font-[600] leading-tight text-[var(--t1)]">
+          <p className="font-editorial text-[56px] font-[500] leading-tight tracking-[-0.015em] text-[var(--t1)]">
             {q.word}
           </p>
           <p className="mt-3 font-body text-[12px] text-[var(--t3)]">이 단어의 뜻을 알고 있나요?</p>
@@ -655,7 +655,7 @@ export function DiagnosticClient() {
     <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
       <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--ti)] shadow-[var(--sh-md)]">
         <p className="font-body text-[14px] opacity-85">진단 완료 · 내 수준은</p>
-        <p className="mt-1 font-display text-[56px] font-[700] leading-none text-[var(--active)]">
+        <p className="mt-1 font-editorial text-[72px] font-[500] leading-none tracking-[-0.018em] text-[var(--active)]">
           {levelLabel}
         </p>
         {band && !isTrack && (
