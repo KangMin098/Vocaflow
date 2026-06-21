@@ -53,9 +53,10 @@ export function ModuleHero({
     <header
       className="relative overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-3.5"
       style={{
-        // Calm UI — 18% white overlay 로 모든 caller gradient 자동 톤다운
-        // (9 hub 공통 패턴 1 곳 변경 = 전 페이지 효과)
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)), linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
+        // Reading Room v06.40 — navy ink 통일 (caller gradient prop 무시).
+        // 6 hub 페이지 (flashcard/scriptquiz/spellforge/pairflip/dictation/text) 동시 효과.
+        // gradient prop 은 API 호환을 위해 받지만 본문에선 사용 안 함 (의도된 deprecation).
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)), linear-gradient(135deg, var(--p-dark) 0%, var(--p) 100%)`,
       }}
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">

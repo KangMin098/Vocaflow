@@ -72,7 +72,7 @@ export function VaultIdentity({
   let ctaLabel = '단어 둘러보기'
   let ctaHref = '/wordvault/browse'
   let ctaCount = 0
-  let ctaTone: 'critical' | 'warning' | 'info' | 'neutral' = 'neutral'
+  let ctaTone: 'critical' | 'warning' | 'info' | 'brand' | 'neutral' = 'neutral'
   if (buckets.risk > 0) {
     ctaLabel = '지금 다시 만나기'
     ctaHref = `/wordvault/browse?filter=state:risk`
@@ -87,7 +87,8 @@ export function VaultIdentity({
     ctaLabel = '새 단어 익히기'
     ctaHref = `/wordvault/browse?filter=state:new`
     ctaCount = buckets.new
-    ctaTone = 'info'
+    // Reading Room navy 정합 — info(ios-blue) → brand(var(--p))
+    ctaTone = 'brand'
   }
 
   return (

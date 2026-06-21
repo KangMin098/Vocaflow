@@ -75,9 +75,10 @@ const PERSONA_CARDS: Record<Persona, (ctx: { vLevel: number | null; riskWordCoun
     ctaLabel: '진단 시작',
     ctaHref: '/diagnostic',
     icon: Compass,
-    accent: '#AF52DE',
-    accentTint: '#F5F3FF',
-    accentDeep: '#6D28D9',
+    // Reading Room navy 통일 — 진단카드 보라 잔재 토큰화
+    accent: 'var(--p)',
+    accentTint: 'var(--p-light)',
+    accentDeep: 'var(--p-dark)',
   }),
   cold: ({ vLevel }) => ({
     eyebrow: '첫 학습',
@@ -88,9 +89,10 @@ const PERSONA_CARDS: Record<Persona, (ctx: { vLevel: number | null; riskWordCoun
     ctaLabel: '추천 단어장 보기',
     ctaHref: '/library/vocab',
     icon: Sprout,
-    accent: '#5856D6',
-    accentTint: '#EBEAFB',
-    accentDeep: '#3C3AAB',
+    // Reading Room navy 통일 (iOS Indigo 잔재 토큰화)
+    accent: 'var(--p)',
+    accentTint: 'var(--p-light)',
+    accentDeep: 'var(--p-dark)',
   }),
   'warm-risk': ({ riskWordCount }) => ({
     eyebrow: '오늘의 복습',
@@ -113,9 +115,10 @@ const PERSONA_CARDS: Record<Persona, (ctx: { vLevel: number | null; riskWordCoun
     ctaLabel: continueTextId ? '이어 학습하기' : '추천 보기',
     ctaHref: continueTextId ? `/text/${continueTextId}?mode=read` : '/library/vocab',
     icon: Zap,
-    accent: '#5856D6',
-    accentTint: '#EBEAFB',
-    accentDeep: '#3C3AAB',
+    // Reading Room navy 통일 (iOS Indigo 잔재 토큰화)
+    accent: 'var(--p)',
+    accentTint: 'var(--p-light)',
+    accentDeep: 'var(--p-dark)',
   }),
   hot: ({ continueTextId }) => ({
     eyebrow: '정복 도전',
