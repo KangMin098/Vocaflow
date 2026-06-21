@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
 - `8e6f1cc` feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)
 - `37a1162` feat(acp): VOA 발행 audio 게이트 + 검수 UI (P3/C5)
 - `ecec464` feat(acp): VOA register gap 보강 feed 2종 추가 (P2)
 - `94e7fdb` feat(acp): VOA score frozen 재정규화 (P1)
-- `e41262c` Merge pull request #33 from KangMin098/chore/reading-room-tier1-compliance
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
