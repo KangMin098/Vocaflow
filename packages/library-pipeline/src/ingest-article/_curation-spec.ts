@@ -94,6 +94,30 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 12,
   },
 
+  // ─── VOA register gap 보강 (P2) — 서사 + 설명문. 둘 다 frozen archive ──
+  'voa:american-stories': {
+    frozen: true,           // P2 — frozen archive: recency 축 제거 + 730일 cliff 면제
+    recencyDays: 365,
+    minDescriptionLen: 40,
+    minTitleLen: 15,
+    sourceWeight: 0.90,
+    levelBonus: 0.05,       // B2 — 고전 단편 서사 (어휘 풍부)
+    idealDescLen: 250,
+    noiseKeywords: ['archive', 'index'],
+    maxItems: 15,
+  },
+  'voa:health-lifestyle': {
+    frozen: true,           // P2 — frozen archive: recency 축 제거 + 730일 cliff 면제
+    recencyDays: 365,
+    minDescriptionLen: 40,
+    minTitleLen: 18,
+    sourceWeight: 0.90,
+    levelBonus: 0.10,       // B1 — consumer-facing 건강·생활 설명문
+    idealDescLen: 250,
+    noiseKeywords: ['archive', 'index'],
+    maxItems: 15,
+  },
+
   // ─── NASA — 흥미 ↑ + PD ───────────────────────────────────────
   'nasa:news': {
     recencyDays: 30,        // 뉴스 신선도 중요
@@ -403,18 +427,21 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
   voa: {
     targetLevels: ['beginner', 'intermediate'],
     targetCefr: { min: 'A2', max: 'B2' },
-    maxItemsPerBatch: 30,        // 4 feeds × ~12-15 → 30 cap
+    maxItemsPerBatch: 30,        // 6 feeds × ~15 → 30 cap (P2: +american-stories +health-lifestyle)
     minScore: 0.40,
     bulkPriority: 1,             // 학습 친화 최우선
     license: 'PD-Government',
     attributionRequired: false,  // VOA = U.S. federal → 인용 자유
-    topicDomain: ['news', 'idioms', 'science', 'culture', 'language-learning'],
+    topicDomain: ['news', 'idioms', 'science', 'culture', 'language-learning', 'narrative', 'health'],
     styleGuide: '학습자 친화 단순 문체 · CEFR 1-3 등급 명시 콘텐츠',
+    // P2 — 6 feed 재분배 (합 1.00). register gap 보강 feed(american/health)에 실질 비중.
     preferredFeedMix: [
-      { feedId: 'as-it-is', weight: 0.30 },
-      { feedId: 'lets-learn-english', weight: 0.30 },     // L1 - 입문 강조
-      { feedId: 'science-technology', weight: 0.25 },
-      { feedId: 'words-and-their-stories', weight: 0.15 }, // idiom 학습
+      { feedId: 'as-it-is', weight: 0.22 },
+      { feedId: 'lets-learn-english', weight: 0.22 },      // L1 - 입문 강조
+      { feedId: 'science-technology', weight: 0.16 },
+      { feedId: 'american-stories', weight: 0.16 },        // 서사 register gap
+      { feedId: 'words-and-their-stories', weight: 0.12 }, // idiom 학습
+      { feedId: 'health-lifestyle', weight: 0.12 },        // 설명문 register gap
     ],
   },
   nasa: {

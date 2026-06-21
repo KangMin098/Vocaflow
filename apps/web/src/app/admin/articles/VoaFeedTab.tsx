@@ -17,6 +17,9 @@ const FEEDS: FeedOption[] = [
   { id: 'as-it-is', label: 'As It Is (Level 2)', level: 2 },
   { id: 'science-technology', label: 'Science & Technology (Level 2)', level: 2 },
   { id: 'words-and-their-stories', label: 'Words and Their Stories (Level 3)', level: 3 },
+  // P2 — register gap 보강 (서사 + 설명문)
+  { id: 'american-stories', label: 'American Stories (Level 3)', level: 3 },
+  { id: 'health-lifestyle', label: 'Health & Lifestyle (Level 2)', level: 2 },
 ]
 
 interface FeedItem {
