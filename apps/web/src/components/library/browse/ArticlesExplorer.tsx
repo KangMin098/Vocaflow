@@ -7,29 +7,44 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Search, X } from 'lucide-react'
+import { Search, Sparkles, X } from 'lucide-react'
 
 import type { PublishedArticle } from '@/lib/articles/types'
 import { useUserVLevel } from '@/hooks/useUserVLevel'
+import { judgeArticleIPlusOne } from '@/lib/library/i-plus-one'
 
 import { ArticleCard } from './ArticleCard'
 
-type Sort = 'new' | 'short' | 'long'
+type Sort = 'recommended' | 'new' | 'short' | 'long'
 
 const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
 
 const SORTS: Array<{ value: Sort; label: string }> = [
+  { value: 'recommended', label: '추천순' },
   { value: 'new', label: '최신순' },
   { value: 'short', label: '짧은순' },
   { value: 'long', label: '긴순' },
 ]
 
+// P5 — i+1 적합 우선 진열 (낮을수록 우선): i+1(gap=+1) → 동급(0) → 약한 도전(+2)
+//   → 쉬움(음수) → 어려움(≥+3) → V레벨 미상(99). 동순위는 짧은 글 우선(호출부).
+function fitRank(article: PublishedArticle, userVLevel: number): number {
+  const fit = judgeArticleIPlusOne(article.article_v_level, userVLevel)
+  if (!fit) return 99
+  const g = fit.gap
+  if (g === 1) return 0
+  if (g === 0) return 1
+  if (g === 2) return 2
+  if (g < 0) return 3 + Math.min(2, -g - 1) // −1→3, −2→4, −3↓→5
+  return 6 + (g - 3) // +3→6, +4→7 …
+}
+
 export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] }) {
   const [search, setSearch] = useState('')
   const [cefr, setCefr] = useState<string>('all')
   const [category, setCategory] = useState<string>('all')
-  const [sort, setSort] = useState<Sort>('new')
-  const userVLevel = useUserVLevel() // P4 — i+1 배지 baseline (미진단 0 → 카드에서 V5 fallback)
+  const [sort, setSort] = useState<Sort>('recommended')
+  const userVLevel = useUserVLevel() // P4/P5 — i+1 배지 + 추천 진열 baseline (미진단 0 → V5 fallback)
 
   // 실재하는 CEFR / 카테고리 facet
   const facets = useMemo(() => {
@@ -66,11 +81,33 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
       case 'long':
         arr.sort((a, b) => (b.word_count ?? -1) - (a.word_count ?? -1))
         break
-      default:
+      case 'new':
         arr.sort((a, b) => (b.published_at ?? '').localeCompare(a.published_at ?? ''))
+        break
+      default:
+        // P5 추천순 — i+1 적합 우선, 동순위는 짧은 글 우선
+        arr.sort((a, b) => {
+          const r = fitRank(a, userVLevel) - fitRank(b, userVLevel)
+          if (r !== 0) return r
+          return (a.word_count ?? Infinity) - (b.word_count ?? Infinity)
+        })
     }
     return arr
-  }, [articles, search, cefr, category, sort])
+  }, [articles, search, cefr, category, sort, userVLevel])
+
+  // P5 — Progressive Disclosure: 기본 화면에 "맞춤 다음 글" 1개 (i+1~약한 도전 범위만)
+  const isDefaultView = !search.trim() && cefr === 'all' && category === 'all'
+  const topPick = useMemo(() => {
+    if (!isDefaultView) return null
+    const best = [...articles]
+      .filter((a) => a.article_v_level != null)
+      .sort((a, b) => {
+        const r = fitRank(a, userVLevel) - fitRank(b, userVLevel)
+        if (r !== 0) return r
+        return (a.word_count ?? Infinity) - (b.word_count ?? Infinity)
+      })[0]
+    return best && fitRank(best, userVLevel) <= 2 ? best : null
+  }, [articles, isDefaultView, userVLevel])
 
   if (articles.length === 0) {
     return (
@@ -100,6 +137,18 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
 
   return (
     <div className="flex flex-col gap-4">
+      {/* P5 — 맞춤 다음 글 (Progressive Disclosure: 기본 1개) */}
+      {topPick && (
+        <section aria-label="맞춤 다음 글" className="flex flex-col gap-2">
+          <div className="flex items-center gap-1.5 px-1 font-display text-[12px] font-[700] text-[var(--p)]">
+            <Sparkles size={13} aria-hidden /> 맞춤 다음 글
+          </div>
+          <div className="sm:max-w-[320px]">
+            <ArticleCard article={topPick} userVLevel={userVLevel} />
+          </div>
+        </section>
+      )}
+
       {/* Filter bar */}
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative min-w-[180px] flex-1">
