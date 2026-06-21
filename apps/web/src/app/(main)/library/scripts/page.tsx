@@ -25,7 +25,7 @@ export default async function LibraryScriptsPage() {
   const { data } = await client
     .from('library_articles')
     .select(
-      'id, title, author, source, source_url, cefr_level, word_count, reading_minutes, category_tags, published_at, article_v_level, register, audio_url',
+      'id, title, author, source, source_url, cefr_level, word_count, reading_minutes, category_tags, published_at',
     )
     .eq('status', 'published')
     .eq('copyright_safe_in_kr', true)

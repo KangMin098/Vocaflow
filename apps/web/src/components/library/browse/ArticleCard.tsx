@@ -8,25 +8,10 @@
 
 import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import {
-  ArrowRight,
-  BookOpen,
-  Clock,
-  ExternalLink,
-  FileText,
-  GraduationCap,
-  Library,
-  Loader2,
-  Newspaper,
-  Scale,
-  Target,
-  Volume2,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { ArrowRight, Clock, ExternalLink, FileText, Loader2 } from 'lucide-react'
 
 import { startArticleLearning } from '@/lib/articles/start-learning'
 import type { PublishedArticle } from '@/lib/articles/types'
-import { judgeArticleIPlusOne } from '@/lib/library/i-plus-one'
 
 const SOURCE_META: Record<string, { label: string; color: string }> = {
   voa: { label: 'VOA Learning', color: '#2563EB' },
@@ -48,25 +33,7 @@ const CEFR_COLOR: Record<string, string> = {
   C2: '#581C87',
 }
 
-// P4 — VOA 등급(Level 1-3) ↔ CEFR 1:1 매핑 (voa.ts VOA_LEVEL_TO_CEFR 역). VOA 소스만 병기.
-const CEFR_TO_VOA_LEVEL: Record<string, number> = { A2: 1, B1: 2, B2: 3 }
-
-// P4 — 글 유형(register) 배지: 아이콘+텍스트 (색만으로 정보 전달 금지 §10).
-const REGISTER_META: Record<string, { label: string; Icon: LucideIcon }> = {
-  narrative: { label: '서사', Icon: BookOpen },
-  expository: { label: '설명', Icon: GraduationCap },
-  argumentative: { label: '논증', Icon: Scale },
-  news: { label: '뉴스', Icon: Newspaper },
-  reference: { label: '참고', Icon: Library },
-}
-
-export function ArticleCard({
-  article,
-  userVLevel,
-}: {
-  article: PublishedArticle
-  userVLevel: number
-}) {
+export function ArticleCard({ article }: { article: PublishedArticle }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
 
@@ -74,12 +41,6 @@ export function ArticleCard({
   const cefr = article.cefr_level
   const cefrColor = cefr ? (CEFR_COLOR[cefr] ?? 'var(--t3)') : null
   const tags = (article.category_tags ?? []).slice(0, 3)
-
-  // P4 — i+1 적합도(C4) · 음성 · VOA Level · 글 유형
-  const fit = judgeArticleIPlusOne(article.article_v_level, userVLevel)
-  const hasAudio = !!(article.audio_url && article.audio_url.trim())
-  const voaLevel = article.source === 'voa' && cefr ? (CEFR_TO_VOA_LEVEL[cefr] ?? null) : null
-  const registerMeta = article.register ? (REGISTER_META[article.register] ?? null) : null
 
   function handleLearn() {
     startTransition(async () => {
@@ -103,24 +64,14 @@ export function ArticleCard({
           >
             <FileText size={10} aria-hidden /> {src.label}
           </span>
-          <span className="inline-flex items-center gap-1">
-            {voaLevel != null && (
-              <span
-                className="inline-flex items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]"
-                title={`VOA Level ${voaLevel}`}
-              >
-                Lv{voaLevel}
-              </span>
-            )}
-            {cefr && (
-              <span
-                className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-white"
-                style={{ backgroundColor: cefrColor ?? 'var(--t3)' }}
-              >
-                {cefr}
-              </span>
-            )}
-          </span>
+          {cefr && (
+            <span
+              className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-white"
+              style={{ backgroundColor: cefrColor ?? 'var(--t3)' }}
+            >
+              {cefr}
+            </span>
+          )}
         </div>
 
         {/* 제목 (Lora) */}
@@ -132,29 +83,6 @@ export function ArticleCard({
           <p className="line-clamp-1 font-body text-[11.5px] text-[var(--t3)]">{article.author}</p>
         )}
 
-        {/* i+1 적합도 + 글 유형 */}
-        {(fit || registerMeta) && (
-          <div className="flex flex-wrap items-center gap-1.5">
-            {fit && (
-              <span
-                title={`글 V${article.article_v_level} · 내 V${fit.effectiveUserVLevel}${userVLevel ? '' : ' (기준)'}`}
-                className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]"
-                style={{
-                  color: fit.color,
-                  backgroundColor: `color-mix(in srgb, ${fit.color} 14%, transparent)`,
-                }}
-              >
-                <Target size={10} aria-hidden /> {fit.label}
-              </span>
-            )}
-            {registerMeta && (
-              <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">
-                <registerMeta.Icon size={10} aria-hidden /> {registerMeta.label}
-              </span>
-            )}
-          </div>
-        )}
-
         {/* 메타 */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] text-[var(--t3)]">
           {article.word_count != null && (
@@ -163,11 +91,6 @@ export function ArticleCard({
           {article.reading_minutes != null && (
             <span className="inline-flex items-center gap-1">
               <Clock size={10} aria-hidden /> {article.reading_minutes}분
-            </span>
-          )}
-          {hasAudio && (
-            <span className="inline-flex items-center gap-1" title="원어민 음성 포함">
-              <Volume2 size={10} aria-hidden /> 음성
             </span>
           )}
         </div>

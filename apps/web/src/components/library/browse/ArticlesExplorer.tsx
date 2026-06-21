@@ -10,7 +10,6 @@ import { useMemo, useState } from 'react'
 import { Search, X } from 'lucide-react'
 
 import type { PublishedArticle } from '@/lib/articles/types'
-import { useUserVLevel } from '@/hooks/useUserVLevel'
 
 import { ArticleCard } from './ArticleCard'
 
@@ -29,7 +28,6 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
   const [cefr, setCefr] = useState<string>('all')
   const [category, setCategory] = useState<string>('all')
   const [sort, setSort] = useState<Sort>('new')
-  const userVLevel = useUserVLevel() // P4 — i+1 배지 baseline (미진단 0 → 카드에서 V5 fallback)
 
   // 실재하는 CEFR / 카테고리 facet
   const facets = useMemo(() => {
@@ -196,7 +194,7 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
         >
           {visible.map((a) => (
             <div role="listitem" key={a.id}>
-              <ArticleCard article={a} userVLevel={userVLevel} />
+              <ArticleCard article={a} />
             </div>
           ))}
         </div>

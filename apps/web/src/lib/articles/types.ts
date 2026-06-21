@@ -63,12 +63,6 @@ export interface PublishedArticle {
   reading_minutes: number | null
   category_tags: string[] | null
   published_at: string | null
-  /** P4 — 학습자 카드 i+1 배지 산출원 (article_v_level vs 사용자 V) */
-  article_v_level: number | null
-  /** P4 — 글 유형 배지 (narrative/expository/argumentative/news/reference) */
-  register: string | null
-  /** P4 — 음성 배지 (VOA 등 듣기 정체성 · audio 연결 여부) */
-  audio_url: string | null
 }
 
 export const ARTICLE_IN_PROGRESS_STATUSES: ArticleStatus[] = [
