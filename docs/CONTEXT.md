@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `chore/reading-room-tier1-compliance`
+**활성 브랜치**: `feat/voa-curation-redesign`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `290f115` Merge pull request #32 from KangMin098/chore/post-audit-hardening
-- `01d9c82` chore(sync): post-audit hardening — manifest 정합 + 안티패턴 (v06.85)
-- `16972e0` Merge pull request #31 from KangMin098/chore/p6-ui-audit
-- `8f90d57` docs(diagnostics): UI 화면 구조 감사 (read-only)
-- `c836961` Merge pull request #30 from KangMin098/chore/wip-library-ui-tweaks
+- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
+- `8e6f1cc` feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)
+- `37a1162` feat(acp): VOA 발행 audio 게이트 + 검수 UI (P3/C5)
+- `ecec464` feat(acp): VOA register gap 보강 feed 2종 추가 (P2)
+- `94e7fdb` feat(acp): VOA score frozen 재정규화 (P1)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260621120000_voa_publish_require_audio_gate.sql`
 - `20260620080000_republish_library_books_with_p1_p4.sql`
 - `20260620070000_p4_unify_composite_core.sql`
 - `20260620061000_p3b_drop_old_publish_overload.sql`
 - `20260620060000_p3_publish_cap40.sql`
-- `20260620050000_p2_composite_redesign.sql`
 <!-- /auto:recent-migrations -->
 
 ---

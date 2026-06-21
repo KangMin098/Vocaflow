@@ -332,6 +332,32 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       if (set) {
         currentChapterWordSet = { id: set.id, title: set.title };
         allChapterWordSets = [{ id: set.id, chapterIdx: 1, title: set.title }];
+        // P5 — 인라인 단어 주석 풀 적용: 발행 단어장 shared_words → chapterWords.
+        //   VOA=PD 파생 자유 · preview==publish==workspace 동일 어휘로 본문 enrich.
+        const { data: swData } = await client
+          .from('shared_words')
+          .select('word, meaning_ko, part_of_speech, cefr_level, example_en, source_sentence')
+          .eq('set_id', set.id)
+          .order('sort_order', { ascending: true });
+        chapterWords = (
+          (swData ?? []) as Array<{
+            word: string;
+            meaning_ko: string | null;
+            part_of_speech: string | null;
+            cefr_level: string | null;
+            example_en: string | null;
+            source_sentence: string | null;
+          }>
+        ).map((w) => ({
+          word: w.word,
+          meaning: w.meaning_ko,
+          pos: w.part_of_speech,
+          cefrLevel: w.cefr_level,
+          vLevel: null,
+          exampleSentence: w.source_sentence ?? w.example_en,
+          baseLearningValue: 0,
+          frequencyInChapter: 0,
+        }));
       }
     }
   }

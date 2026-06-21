@@ -30,6 +30,8 @@ const MAX_ITEMS_PER_FEED = 20
  *  zoneid 매핑 (main page navigation auto-discover):
  *    3521 = As It Is · 987 = Words & Their Stories · 1579 = Science & Tech
  *    952 = Lessons of the Day (Anna 시리즈 — Let's Learn English 대체)
+ *  P2 — register gap 보강 2종 (zoneid 라이브 검증):
+ *    1581 = American Stories (서사/narrative) · 955 = Health & Lifestyle (설명문/expository)
  */
 export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url: string }> = [
   {
@@ -55,6 +57,20 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
     label: "Let's Learn English (Level 1) — Lessons of the Day",
     level: 1,
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=952',
+  },
+  // P2 — register gap 보강: 서사(American Stories) + 설명문(Health & Lifestyle).
+  //   둘 다 frozen archive (FEED_SPECS frozen:true). zoneid 라이브 검증 완료.
+  {
+    id: 'american-stories',
+    label: 'American Stories (Level 3) — 단편 서사',
+    level: 3,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=1581',
+  },
+  {
+    id: 'health-lifestyle',
+    label: 'Health & Lifestyle (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=955',
   },
 ]
 
