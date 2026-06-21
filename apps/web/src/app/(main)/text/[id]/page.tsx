@@ -57,7 +57,8 @@ const MOCK_TEXT: LibraryText = {
   progressPercent: 78,
   totalPages: 12,
   currentPage: 3,
-  coverGradient: { from: '#0F766E', to: '#064E3B' },
+  // Reading Room 정합 — navy ink → deep ink (잉크 두 단계)
+  coverGradient: { from: 'var(--p)', to: 'var(--p-dark)' },
   addedAt: new Date(),
   lastStudiedAt: new Date(),
   isBookmarked: true,

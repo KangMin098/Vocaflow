@@ -8,6 +8,7 @@
 
 'use client'
 
+import { RotateCcw } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -174,7 +175,7 @@ export default function WordVaultPage() {
       {/* ── 헤더 (v06.36 GlassBar + SegmentControl 프리미티브) ── */}
       <GlassBar
         leading={
-          <h1 className="font-display text-[15px] font-[700] tracking-[-0.012em] text-[var(--t1)]">
+          <h1 className="font-editorial text-[18px] font-[500] tracking-[-0.012em] text-[var(--t1)]">
             WordVault
           </h1>
         }
@@ -264,8 +265,10 @@ export default function WordVaultPage() {
           {/* ── REVIEW ── */}
           {view === 'review' && (
             <div className="border-learn-mastered from-learn-mastered-light mx-auto max-w-[680px] rounded-2xl border-[1.5px] bg-gradient-to-br to-bg p-s-12 text-center">
-              <div className="mb-s-3 text-[48px]">🔁</div>
-              <h2 className="mb-s-2 font-display text-[26px] font-extrabold tracking-[-0.025em] text-t1">
+              <div className="mb-s-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--bg2)] text-learn-mastered">
+                <RotateCcw size={28} aria-hidden />
+              </div>
+              <h2 className="mb-s-2 font-editorial text-[32px] font-[500] leading-tight tracking-[-0.015em] text-t1">
                 오늘 복습할 단어 <span className="text-learn-mastered">12개</span>
               </h2>
               <p className="mb-s-5 font-body text-sm font-medium text-t2">
@@ -274,7 +277,7 @@ export default function WordVaultPage() {
               <button
                 type="button"
                 onClick={() => router.push('/wordvault?view=study')}
-                className="bg-learn-mastered inline-flex items-center gap-s-2 rounded-md px-s-6 py-s-3 font-display text-sm font-bold tracking-[-0.01em] text-white shadow-md transition-all duration-fast hover:-translate-y-px hover:bg-[#7C3AED] hover:shadow-lg"
+                className="bg-learn-mastered inline-flex items-center gap-s-2 rounded-md px-s-6 py-s-3 font-display text-sm font-bold tracking-[-0.01em] text-white shadow-md transition-all duration-fast hover:-translate-y-px hover:bg-[var(--p)] hover:shadow-lg"
               >
                 지금 시작 →
               </button>

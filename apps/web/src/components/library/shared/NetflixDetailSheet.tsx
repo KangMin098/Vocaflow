@@ -220,9 +220,9 @@ export function NetflixDetailSheet({ variant, onClose }: Props) {
 
 // ─── Hero ────────────────────────────────────────────────
 function Hero({ variant }: { variant: DetailVariant }) {
-  // gradient 결정
-  let from = '#5856D6'
-  let to = '#1D4ED8'
+  // gradient 결정 — Reading Room default = navy ink (variant 가 override 안 할 때)
+  let from = 'var(--p)'
+  let to = 'var(--p-dark)'
   if (variant.type === 'book') {
     const c = bookCover({
       title: variant.title,
@@ -247,7 +247,7 @@ function Hero({ variant }: { variant: DetailVariant }) {
       className="relative h-[200px] shrink-0 overflow-hidden md:h-[240px]"
       style={
         coverImageUrl
-          ? { backgroundColor: '#0B0B0F' }
+          ? { backgroundColor: 'var(--p-dark)' }
           : {
               // Calm UI — sheen 보강 + white veil 로 풀-saturate 톤다운
               background: `
@@ -412,7 +412,7 @@ function BookBody({ v }: { v: BookVariant }) {
       </div>
 
       {v.progressPercent != null && v.progressPercent > 0 && (
-        <ProgressRow percent={v.progressPercent} accent="#7C3AED" />
+        <ProgressRow percent={v.progressPercent} accent="var(--p)" />
       )}
 
       {/* v06.34 — 큐레이션 메타: 선택 의사결정 보조 */}
@@ -798,11 +798,12 @@ function VocabBody({ v }: { v: VocabVariant }) {
 
 // ─── Footer CTA ──────────────────────────────────────────
 function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => void }) {
+  // Reading Room — 모든 variant 가 navy ink 정합 (book/script accent 토큰화)
   const accent =
     variant.type === 'book'
-      ? '#7C3AED'
+      ? 'var(--p)'
       : variant.type === 'script'
-        ? '#5856D6'
+        ? 'var(--p-hover)'
         : variant.categoryColor.accent
 
   if (variant.type === 'vocab') {
