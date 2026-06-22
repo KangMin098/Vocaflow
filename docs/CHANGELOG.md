@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### A2 WordVault 학습 실데이터 + 영속화 (v06.90)
+
+WordVault StudyMode가 `MOCK_WORDS`(레거시 `?view=study` 클라이언트 경로)만 받던 문제 해소 — browse RSC 패턴을 study에 복제해 **실 vocabularies** 제시 + A1.1 flush 경로로 평가 영속화. (마이그레이션 0. 신규 라우트 `/wordvault/study`.)
+
+- **`/wordvault/study` RSC** 신설 (browse 미러) — `fetchStudyVocabularies`(due 우선: `next_review_at` asc nullsFirst, 세션 cap 50) → `vocabRowToWord` → `WordVaultStudyClient`(빈 상태 안내 포함). 레거시 `?view=study` → 신 라우트 redirect.
+- **StudyMode 실 배선** — 데모 제거(studyIndex 0 시작·실 진행률·modulo 루프 제거). `rateWord(1~5)` → `studyRatingToFsrs`(1다시→Again·2어려움→Hard·3애매→Hard·4쉬움→Good·5완벽→Easy) → `applyReview`+큐 push(word) → 마지막 단어/종료 시 `flushPendingSession`.
+- `rating-mapper.ts` `studyRatingToFsrs` 추가. WordVault review·hub words mock 은 A2b 분리.
+
 ### A1.1 SRS 학습 결과 DB 영속화 (v06.89)
 
 학습 모듈이 FSRS를 클라이언트에서 계산해 `sessionStorage` 큐(`pushPendingResult`)에 쌓지만 **DB로 flush하는 소비자가 없어 탭을 닫으면 소실되던** 갭 해소. (마이그레이션 0 — `vocabularies` FSRS 컬럼 + `learning_records.rating`/audit 컬럼 모두 기존재 확인.)
