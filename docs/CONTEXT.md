@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/voa-curation-redesign`
+**활성 브랜치**: `feat/wordblitz-learning-records`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `dfa3a4d` Merge pull request #35 from KangMin098/feat/voa-curation-redesign
+- `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
 - `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
+- `775de29` Revert "feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)"
 - `8e6f1cc` feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)
-- `37a1162` feat(acp): VOA 발행 audio 게이트 + 검수 UI (P3/C5)
-- `ecec464` feat(acp): VOA register gap 보강 feed 2종 추가 (P2)
-- `94e7fdb` feat(acp): VOA score frozen 재정규화 (P1)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

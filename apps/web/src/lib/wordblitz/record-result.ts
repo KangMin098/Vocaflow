@@ -13,7 +13,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 import { applyReview, Rating } from '@/lib/srs';
-import { rowToCard, cardToUpdatePayload } from '@/lib/srs/supabase-adapter';
+import { rowToCard, cardToUpdatePayload, resultToRecordPayload } from '@/lib/srs/supabase-adapter';
 import type { VocabularyRow } from '@/lib/srs/supabase-adapter';
 
 export interface RecordWordBlitzInput {
@@ -77,6 +77,17 @@ export async function recordWordBlitzResult(
   if (updateError) {
     console.error('[recordWordBlitzResult] update failed:', updateError.message);
     return { ok: false, error: updateError.message };
+  }
+
+  // 학습 기록(audit) — Hub/Dashboard 통계 토대. 다른 모듈(flush 경로)과 일관되게 적재.
+  //   resultToRecordPayload: vocabulary_id = result.log.cardId = rowToCard(vocabRow).id = vocab row id.
+  const { error: recordError } = await client
+    .from('learning_records')
+    .insert(resultToRecordPayload(result, user.id));
+
+  if (recordError) {
+    console.error('[recordWordBlitzResult] record insert failed:', recordError.message);
+    return { ok: false, error: recordError.message };
   }
 
   return { ok: true, updated: true };

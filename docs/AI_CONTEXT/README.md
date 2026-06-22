@@ -7,7 +7,7 @@ Claude Project (chat) 가 GitHub sync 로 작업 history 까지 보게 함.
 
 ## 카테고리
 
-- **project/** — 67 파일 (작업 milestone / 결과)
+- **project/** — 68 파일 (작업 milestone / 결과)
 - **feedback/** — 9 파일 (사용자 피드백 룰 (반복 지시 차단))
 - **reference/** — 0 파일 (외부 시스템 참조 (Linear / Slack 등 위치))
 
