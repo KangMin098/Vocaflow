@@ -27,6 +27,7 @@ import {
 import { applyReview, createNewCard } from '@/lib/srs';
 import { accuracyToRating } from '@/lib/srs/rating-mapper';
 import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage';
+import { flushPendingSession } from '@/lib/srs/flush-session';
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter';
 
 const DICTATION_ACCENT = '#0EA5E9';
@@ -91,12 +92,16 @@ export function DictationResultsClient() {
       cacheCard(reviewResult.card);
       pushPendingResult({
         cardId: reviewResult.card.id,
+        word: cardId,
         cardUpdate: cardToUpdatePayload(reviewResult.card),
         rating: reviewResult.log.rating,
         reviewedAt: reviewResult.log.reviewedAt.toISOString(),
         module: 'dictation',
       });
     });
+
+    // 세션 종료 시 SRS 큐 → DB flush (srsAppliedRef 가드로 1회).
+    void flushPendingSession();
   }, [session]);
 
   const aggregateData = useMemo(() => {

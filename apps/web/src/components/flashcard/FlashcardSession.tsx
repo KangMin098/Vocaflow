@@ -2,9 +2,10 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { useFlashcardSession } from '@/hooks/useFlashcardSession'
+import { flushPendingSession } from '@/lib/srs/flush-session'
 import {
   getMockNextAction,
   MOCK_USER_CONTEXTS,
@@ -87,6 +88,15 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
     return () => document.body.classList.remove('studying')
   }, [])
 
+  // 세션 종료 시 SRS 큐 → DB flush (멱등 가드, 1회).
+  const flushedRef = useRef(false)
+  useEffect(() => {
+    if (isComplete && !flushedRef.current) {
+      flushedRef.current = true
+      void flushPendingSession()
+    }
+  }, [isComplete])
+
   // Recall 타이머: 3초 진행 후 flippable로 전환, 1.5초 시점부터 힌트 노출
   useEffect(() => {
     if (phase !== 'recall' || isComplete) {
@@ -155,6 +165,7 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
       // DB 연동 전 임시 큐. 연동 후엔 supabase.from('vocabularies').update(...) 직접 호출.
       pushPendingResult({
         cardId: result.card.id,
+        word: currentWord.text,
         cardUpdate: cardToUpdatePayload(result.card),
         rating: result.log.rating,
         reviewedAt: result.log.reviewedAt.toISOString(),

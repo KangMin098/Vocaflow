@@ -14,6 +14,8 @@ const CARD_CACHE_KEY = 'srs_card_cache';
 
 export interface PendingSrsResult {
   cardId: string;
+  /** 평가된 단어 텍스트 — flush 시 (user_id, word) vocabularies lookup key */
+  word: string;
   /** vocabularies UPDATE용 — cardToUpdatePayload(result.card) 결과 */
   cardUpdate: Partial<VocabularyRow>;
   /** learning_records 적재용 — FSRS 1~4 */
