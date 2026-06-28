@@ -42,10 +42,12 @@ import {
   MATERIAL_LABEL,
   PLAN_ACTIVITIES,
   WEEKDAYS,
+  wordsetCategoryLabel,
   type MaterialType,
   type PlanActivity,
   type PlanSchedule,
 } from '@/lib/learner/plan-activities'
+import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
 import {
   removePlanItem,
   savePlanItem,
@@ -100,7 +102,8 @@ export function PlanClient({
   const [pickedId, setPickedId] = useState<string | null>(null)
   const [pickedActivities, setPickedActivities] = useState<Set<PlanActivity>>(new Set())
   const [pickedChapters, setPickedChapters] = useState<Set<number>>(new Set())
-  const [articleSource, setArticleSource] = useState<string | null>(null)
+  const [bandFilter, setBandFilter] = useState<VBand | 'all'>('all')
+  const [subFilter, setSubFilter] = useState<string | null>(null) // article=source · word_set=category
   const [adding, setAdding] = useState(false)
 
   const addedKeys = useMemo(
@@ -115,15 +118,42 @@ export function PlanClient({
     script: materials.scripts,
   }
 
-  const articleSources = useMemo(() => {
-    const s = new Set<string>()
-    materials.articles.forEach((a) => a.source && s.add(a.source))
-    return Array.from(s)
-  }, [materials.articles])
+  // 서브필터 옵션 — 스크립트=소스 / 단어장=주제
+  const subFilterOptions: { value: string; label: string }[] =
+    activeTab === 'article'
+      ? (Array.from(new Set(materials.articles.map((a) => a.source).filter(Boolean))) as string[]).map(
+          (v) => ({ value: v, label: articleSourceLabel(v) }),
+        )
+      : activeTab === 'word_set'
+        ? (Array.from(new Set(materials.wordSets.map((w) => w.category).filter(Boolean))) as string[]).map(
+            (v) => ({ value: v, label: wordsetCategoryLabel(v) }),
+          )
+        : []
 
-  let candidates = tabMaterials[activeTab].filter((m) => !addedKeys.has(keyOf(activeTab, m.id)))
-  if (activeTab === 'article' && articleSource) {
-    candidates = candidates.filter((m) => m.source === articleSource)
+  // 후보 = 담은 자료 제외 + 서브필터
+  const candidates = tabMaterials[activeTab]
+    .filter((m) => !addedKeys.has(keyOf(activeTab, m.id)))
+    .filter((m) =>
+      !subFilter ? true : (activeTab === 'article' ? m.source : m.category) === subFilter,
+    )
+
+  // V밴드 그룹 (입문→고급 + 레벨무관)
+  const groupedBands: { key: VBand | 'none'; label: string; short: string; items: MaterialOption[] }[] = [
+    ...V_BANDS.map((b) => ({ key: b.key as VBand | 'none', label: b.label, short: b.short, items: [] as MaterialOption[] })),
+    { key: 'none' as const, label: '레벨 무관', short: '', items: [] as MaterialOption[] },
+  ]
+  for (const c of candidates) {
+    const band = (c.vLevel ? vBandOf(c.vLevel) : null) ?? 'none'
+    groupedBands.find((g) => g.key === band)?.items.push(c)
+  }
+  const visibleBands = groupedBands.filter(
+    (g) => g.items.length > 0 && (bandFilter === 'all' || g.key === bandFilter),
+  )
+
+  function resetPicker() {
+    setPickedId(null)
+    setPickedActivities(new Set())
+    setPickedChapters(new Set())
   }
 
   // ── 일정(리듬) ──
@@ -340,10 +370,9 @@ export function PlanClient({
                 type="button"
                 onClick={() => {
                   setActiveTab(t)
-                  setPickedId(null)
-                  setPickedActivities(new Set())
-                  setPickedChapters(new Set())
-                  setArticleSource(null)
+                  resetPicker()
+                  setBandFilter('all')
+                  setSubFilter(null)
                 }}
                 className={`inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] border px-3.5 font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   active
@@ -359,53 +388,70 @@ export function PlanClient({
           })}
         </div>
 
-        {/* 스크립트 소스 필터 */}
-        {activeTab === 'article' && articleSources.length > 1 && (
+        {/* V밴드 필터 (모든 탭 공통) */}
+        <div className="flex flex-wrap gap-1.5">
+          <FilterChip label="전체 레벨" active={bandFilter === 'all'} onClick={() => setBandFilter('all')} />
+          {V_BANDS.map((b) => (
+            <FilterChip
+              key={b.key}
+              label={`${b.label} ${b.short}`}
+              active={bandFilter === b.key}
+              onClick={() => setBandFilter(b.key)}
+            />
+          ))}
+        </div>
+
+        {/* 서브필터 — 스크립트 소스 / 단어장 주제 */}
+        {subFilterOptions.length > 1 && (
           <div className="flex flex-wrap gap-1.5">
-            <SourceFilterChip label="전체" active={articleSource === null} onClick={() => setArticleSource(null)} />
-            {articleSources.map((s) => (
-              <SourceFilterChip
-                key={s}
-                label={articleSourceLabel(s)}
-                active={articleSource === s}
-                onClick={() => setArticleSource(s)}
+            <FilterChip label="전체" small active={subFilter === null} onClick={() => setSubFilter(null)} />
+            {subFilterOptions.map((o) => (
+              <FilterChip
+                key={o.value}
+                label={o.label}
+                small
+                active={subFilter === o.value}
+                onClick={() => setSubFilter(o.value)}
               />
             ))}
           </div>
         )}
 
-        {/* 도서 = 표지 그리드 / 그 외 = 목록 */}
-        {candidates.length === 0 ? (
+        {/* V밴드 섹션 그룹 — 나열식이 아니라 레벨별 구조 */}
+        {visibleBands.length === 0 ? (
           <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
             {tabMaterials[activeTab].length === 0
               ? activeTab === 'script'
                 ? '내 스크립트가 아직 없어요. 스크립트를 등록하면 여기 나타나요.'
                 : '표시할 자료가 없어요.'
-              : '이 유형의 자료는 모두 계획에 담았어요.'}
+              : '조건에 맞는 자료가 없어요. 필터를 바꿔 보세요.'}
           </p>
-        ) : activeTab === 'book' ? (
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
-            {candidates.map((m) => (
-              <BookGridItem
-                key={m.id}
-                m={m}
-                picked={pickedId === m.id}
-                onPick={() => pickMaterial(m)}
-              />
+        ) : (
+          <div className="flex flex-col gap-4">
+            {visibleBands.map((g) => (
+              <div key={g.key} className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-display text-[12px] font-[800] text-[var(--t2)]">{g.label}</h3>
+                  {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
+                  <span className="font-mono text-[10px] text-[var(--t3)]">· {g.items.length}</span>
+                  <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
+                </div>
+                {activeTab === 'book' ? (
+                  <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+                    {g.items.map((m) => (
+                      <BookGridItem key={m.id} m={m} picked={pickedId === m.id} onPick={() => pickMaterial(m)} />
+                    ))}
+                  </div>
+                ) : (
+                  <ul className="flex flex-col gap-2">
+                    {g.items.map((m) => (
+                      <MaterialRow key={m.id} m={m} type={activeTab} picked={pickedId === m.id} onPick={() => pickMaterial(m)} />
+                    ))}
+                  </ul>
+                )}
+              </div>
             ))}
           </div>
-        ) : (
-          <ul className="flex flex-col gap-2">
-            {candidates.map((m) => (
-              <MaterialRow
-                key={m.id}
-                m={m}
-                type={activeTab}
-                picked={pickedId === m.id}
-                onPick={() => pickMaterial(m)}
-              />
-            ))}
-          </ul>
         )}
 
         {/* 선택 자료 구성 (챕터 + 활동) */}
@@ -794,13 +840,25 @@ function MaterialTypeIcon({ type }: { type: MaterialType }) {
 }
 
 // ── 칩들 ──
-function SourceFilterChip({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+function FilterChip({
+  label,
+  active,
+  onClick,
+  small,
+}: {
+  label: string
+  active: boolean
+  onClick: () => void
+  small?: boolean
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex h-8 items-center rounded-full border px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`inline-flex items-center rounded-full border font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+        small ? 'h-7 px-2.5 text-[11px]' : 'h-8 px-3 text-[12px]'
+      } ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'

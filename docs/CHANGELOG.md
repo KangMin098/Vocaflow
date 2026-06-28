@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 계획 picker — V-Level 밴드 × 카테고리 체계화 (v06.104)
+
+`/plan` 자료 추가를 나열식 → **V-Level 밴드 섹션 + 카테고리/소스 필터**의 체계적 선택 구조로 (사용자 피드백: "나열식 안 됨, 체계적 선택구조"). 마이그레이션 0.
+
+- **V밴드 그룹**: 모든 탭을 `genres.ts` V_BANDS(입문 V1-2 / 초급 V3-4 / 중급 V5-6 / 중상급 V7-8 / 고급 V9-11) 섹션으로 그룹 + "전체 레벨" 필터. (도서 book_v_level · 스크립트 article_v_level · 내 글 text_v_level · 단어장 slug(auto-vlevel)→cefr 폴백)
+- **서브필터**: 스크립트=소스(VOA·NASA…) · 공용단어장=주제(수능/공인시험/초·중·고/주제별).
+- **단어장 정리**: 챕터 종속 세트(category=library_book/library_article 262개) picker 제외 — 부모 자료로 학습.
+- `plan-activities.ts` cefrToVLevel + wordsetCategoryLabel. `plan-actions.ts` 단어장 V 도출(slug→cefr)·챕터세트 제외·texts text_v_level·MaterialOption.category. `PlanClient.tsx` 밴드 그룹 렌더 + FilterChip.
+- typecheck green · `next build` 89/89 (/plan 11.6kB) · 실렌더 확인.
+
 ### `/library/scripts` 소스 맵 — 개인화 오리엔테이션 (v06.103)
 
 ACP 6 소스를 5 학습 트랙으로 묶어 글 선택 전 "내 수준으로 재계산되는 맵" 추가 (ArticlesExplorer 위, 마이그레이션 0).
@@ -20,6 +30,7 @@ ACP 6 소스를 5 학습 트랙으로 묶어 글 선택 전 "내 수준으로 �
 - **`source-map/SourceMap.tsx` + `SourceMapShell.tsx`** 맵 트랙 탭 → 카드 scroll+강조 · CTA → `ArticlesExplorer` 그 트랙 소스로 필터(맵↔목록 연동) · 단일 articles prop 공유.
 - **`ArticlesExplorer.tsx`** `sourceFilter` 선택 prop + 활성 칩(backward compatible).
 - typecheck green · 시각 검증(맵/탭/필터/0 PAGEERR) · 현 데이터 2편(voa·simple_wikipedia)·3 트랙 "준비 중".
+>>>>>>> origin/main
 
 ### 학습 계획 리치 구성 — 일정 + 자료 4종 + 도서 챕터 + 비주얼 (v06.102)
 

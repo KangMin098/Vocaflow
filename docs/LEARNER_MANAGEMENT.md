@@ -201,7 +201,8 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 화면 /plan:
   · 상단 ScheduleStrip = 요일 원형 토글 + 하루 목표 칩 (즉시 저장)
   · 담은 자료 카드 = 표지/배지/이모지 + 챕터 배지 + 활동 실행 링크(기본) / 편집(연필=활동·챕터 토글) + 열기 + 빼기
-  · 자료 추가 = 4탭(도서=표지 그리드 / 그 외=목록) → [도서 챕터 칩] + 활동 체크 → 추가
+  · 자료 추가 = 4탭 → **V-Level 밴드 섹션**(입문~고급, genres.V_BANDS) + 서브필터(스크립트=소스·단어장=주제) → 도서=표지 그리드/그 외=목록 → [도서 챕터 칩] + 활동 체크 → 추가
+    (단어장 V는 slug auto-vlevel→cefr 폴백 · 챕터 종속 세트 library_book/article 제외 · 나열식 금지·체계적 선택)
 자료 라우트: book→/library/books/[id] · article→/library/scripts/[id] · word_set→/library/vocab#set-{slug} · script→/text/[id]
 ```
 

@@ -12,6 +12,7 @@ import { createClient } from '@/lib/supabase/server'
 import {
   activitiesForType,
   articleSourceLabel,
+  cefrToVLevel,
   materialHref,
   type MaterialType,
   type PlanActivity,
@@ -56,6 +57,8 @@ export interface MaterialOption {
   coverUrl: string | null
   coverEmoji: string | null
   source: string | null
+  /** 공용단어장 category (주제 필터/그룹) */
+  category: string | null
   chapterCount: number
 }
 
@@ -93,6 +96,7 @@ interface ScriptRow {
   id: string
   title: string | null
   author: string | null
+  text_v_level: number | null
 }
 interface SetRow {
   id: string
@@ -101,6 +105,7 @@ interface SetRow {
   category: string | null
   word_count: number | null
   cover_emoji: string | null
+  cefr_level: string | null
 }
 
 const EMPTY_EXTRAS = {
@@ -235,10 +240,21 @@ function mkOption(over: Partial<MaterialOption> & { id: string; title: string })
     coverUrl: null,
     coverEmoji: null,
     source: null,
+    category: null,
     chapterCount: 0,
     ...over,
   }
 }
+
+/** 공용단어장 V-Level 도출 — slug(auto-vlevel-vN) 우선, 없으면 cefr_level 폴백. */
+function wordSetVLevel(slug: string | null, cefr: string | null): number | null {
+  const m = slug?.match(/auto-vlevel-v(\d+)/)
+  if (m) return parseInt(m[1], 10)
+  return cefrToVLevel(cefr)
+}
+
+/** 단어장 picker 제외 — 도서/글 챕터 종속 세트(부모 자료로 학습). */
+const HIDDEN_WORDSET_CATEGORIES = new Set(['library_book', 'library_article'])
 
 /** 계획에 추가 가능한 자료 — 도서 / 스크립트(article) / 공용단어장 / 내 스크립트. */
 export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
@@ -266,13 +282,13 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       .limit(300),
     lc
       .from('shared_word_sets')
-      .select('id, title, slug, category, word_count, cover_emoji')
+      .select('id, title, slug, category, word_count, cover_emoji, cefr_level')
       .eq('is_published', true)
       .order('title')
-      .limit(300),
+      .limit(400),
     lc
       .from('texts')
-      .select('id, title, author')
+      .select('id, title, author, text_v_level')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(300),
@@ -298,20 +314,25 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
         source: a.source ?? null,
       }),
     ),
-    wordSets: ((sets ?? []) as SetRow[]).map((w) =>
-      mkOption({
-        id: w.id,
-        title: w.title ?? '(제목 없음)',
-        subtitle: w.word_count ? `${w.word_count.toLocaleString()}단어` : w.category ?? null,
-        slug: w.slug ?? null,
-        coverEmoji: w.cover_emoji ?? null,
-      }),
-    ),
+    wordSets: ((sets ?? []) as SetRow[])
+      .filter((w) => !HIDDEN_WORDSET_CATEGORIES.has(w.category ?? ''))
+      .map((w) =>
+        mkOption({
+          id: w.id,
+          title: w.title ?? '(제목 없음)',
+          subtitle: w.word_count ? `${w.word_count.toLocaleString()}단어` : null,
+          slug: w.slug ?? null,
+          coverEmoji: w.cover_emoji ?? null,
+          category: w.category ?? null,
+          vLevel: wordSetVLevel(w.slug, w.cefr_level),
+        }),
+      ),
     scripts: ((scripts ?? []) as ScriptRow[]).map((s) =>
       mkOption({
         id: s.id,
         title: s.title ?? '(제목 없음)',
         subtitle: s.author ?? null,
+        vLevel: s.text_v_level ?? null,
       }),
     ),
   }
