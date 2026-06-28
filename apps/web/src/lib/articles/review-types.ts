@@ -31,6 +31,10 @@ export interface ReviewArticle {
   cefrConfidence: number | null
   /** v06.51 — V-Level baseline (compute_article_vrl P75, V11 제외). select_article_vocab 게이트. */
   articleVLevel: number | null
+  /** 글 유형 (expository/argumentative/news/narrative/reference) — 메타·게이트. */
+  register: string | null
+  /** 어휘 노이즈 비율 (>0.08 = 단어세트 미발행) — 정책 게이트 항목. */
+  lexicalNoise: number | null
   wordCount: number | null
   readingMinutes: number | null
   status: ArticleStatus
