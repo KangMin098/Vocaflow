@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   Loader2,
   ShieldCheck,
-  RefreshCw,
 } from 'lucide-react'
 import { runQaGate } from '@/lib/vcb/server/qa'
 import type { QaSummary } from '@vocaflow/vcb-curate-core'

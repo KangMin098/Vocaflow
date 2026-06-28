@@ -58,7 +58,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
   // Hooks
   const { mode, setMode } = useTypingMode()
   const { imeStatus, checkInput } = useIMEDetection()
-  const { confirmed, result, confirm, reset: resetFeedback } = useDelayedFeedback()
+  const { result, confirm, reset: resetFeedback } = useDelayedFeedback()
   const { isHintActive, hintCount, triggerHint, resetHints } = useActiveHint(() => {
     setUserInput('')
     if (inputRef.current) inputRef.current.value = ''

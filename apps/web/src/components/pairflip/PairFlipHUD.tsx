@@ -17,7 +17,6 @@ interface HUDProps {
 
 export function PairFlipHUD({
   remainingTime,
-  totalTime: _totalTime,
   score,
   combo,
   hintsUsed,

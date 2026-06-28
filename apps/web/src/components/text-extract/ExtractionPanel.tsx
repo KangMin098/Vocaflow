@@ -449,7 +449,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                       <div className="border-t border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[11px]">
                         {(r.source_sentence ?? r.example_en) && (
                           <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">
-                            "{r.source_sentence ?? r.example_en}"
+                            &ldquo;{r.source_sentence ?? r.example_en}&rdquo;
                             {r.source_sentence && (
                               <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 align-middle font-display text-[9px] font-[700] not-italic text-[var(--p)]">
                                 본문

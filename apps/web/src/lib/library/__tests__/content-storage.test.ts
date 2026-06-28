@@ -2,7 +2,7 @@
 // 통합 테스트 — 실제 Supabase 와 통신
 // 환경변수 없으면 skip (vitest.config.ts 가 .env.local 자동 로드)
 
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 import {
   storeContentChunk,
@@ -14,8 +14,14 @@ const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
 const skipIfNoEnv = !SUPABASE_URL || !SERVICE_KEY
 
 describe.skipIf(skipIfNoEnv)('content-storage (integration)', () => {
-  const client = createClient(SUPABASE_URL!, SERVICE_KEY!, {
-    auth: { persistSession: false, autoRefreshToken: false },
+  // env 없으면 suite skip — client 생성을 beforeAll 로 지연해야 collection 중
+  // createClient(undefined!, …) 가 "supabaseUrl is required" 로 throw 하지 않음.
+  // (describe 콜백 본문은 skipIf 여도 collection 때 실행되지만, hook 은 skip 시 미실행.)
+  let client: ReturnType<typeof createClient>
+  beforeAll(() => {
+    client = createClient(SUPABASE_URL!, SERVICE_KEY!, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    })
   })
 
   it('storeContentChunk — 신규 저장', async () => {

@@ -127,7 +127,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
         ) : result?.found ? (
           <FoundBody result={result} surface={surface} />
         ) : (
-          <NotFoundBody surface={surface} />
+          <NotFoundBody />
         )}
       </div>
     </div>
@@ -180,7 +180,7 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
   )
 }
 
-function NotFoundBody({ surface }: { surface: string }) {
+function NotFoundBody() {
   return (
     <div className="flex flex-col gap-1">
       <p className="font-body text-[13px] font-[600] text-[var(--t2)]">사전에 없는 단어예요</p>
