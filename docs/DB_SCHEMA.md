@@ -285,7 +285,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 70건. 디렉토리: `supabase/migrations/`. (최신: `20260613170000_inflected_forms_irregular_complete` — 누락 권위 불규칙형 보강 forbid→forbidden·swell→swollen 등, english_irregular_forms 병합 · lie 제외)
+전체 누적 105건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628120000_p6_enroll_subscribe_i_plus_one` — 책 구독 시 `_enroll_book_subscribe_word_sets` 에 i+1 필터 + 미보유 dedup + 세션 cap 50, P6.1/C1 · 구독 set-level 불변, vocabularies import 만 필터)
 
 ---
 
