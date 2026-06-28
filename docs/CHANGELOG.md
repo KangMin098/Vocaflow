@@ -10,15 +10,22 @@
 
 ## Unreleased (v06.34 → next)
 
-### lint 부채 74건 cleanup → verify CI green (v06.93)
+### verify CI green 복구 — lint 74건 + CI 안정화 (v06.93)
 
-`next lint`(CI `verify` job)를 막던 ESLint **에러 74건**을 0으로 정리(빌드 복구 v06.92로 드러난 부채). 경고(jsx-a11y·exhaustive-deps)는 차단 안 하므로 보존.
+CI `verify` job(`turbo run lint typecheck test`)이 **3가지 독립 사유**로 상시 red였던 것을 green으로 복구(빌드 복구 v06.92 후속). 경고(jsx-a11y·exhaustive-deps)는 차단 안 하므로 보존.
+
+**① web ESLint 에러 74건 → 0:**
 
 - **`no-explicit-any` 32 (전부 `lib/admin/dict/queries.ts`)** — `countRows` 콜백의 불필요한 `(q as any)` 중복 캐스트 제거(`q`는 이미 `PgQuery`(eslint-disabled 단일 alias) 타입). 런타임 불변.
 - **`no-unused-vars` 28** — 미사용 import/var/arg 제거(24파일). 미사용 prop은 destructure에서만 제거(인터페이스/콜러 계약 보존), write-only 변수·orphaned arg는 안전 정리.
 - **`no-unescaped-entities` 12** — JSX 텍스트의 `"`/`'`를 `&ldquo;`/`&rdquo;`/`&apos;` 등으로 이스케이프(6파일).
 - **`prefer-const` 2** — `bookMetaMap`·`countsPerSet` `let`→`const`.
-- 검증: `next lint` 에러 0(경고만) · `tsc --noEmit` 통과 · `next build` green.
+
+**② `apps/mobile` (Expo 기획 scaffold — eslint·typescript 미설치):** `lint`·`typecheck` 스크립트를 no-op stub(`@vocaflow/wlp:lint` 선례 동일 — 검사할 실 코드 없음. 모바일 실구현 시 복원).
+
+**③ 무(無)테스트 패키지:** `vcb-core`·`library-pipeline` test 스크립트에 `--passWithNoTests` 추가(`vitest run`이 "No test files found"로 exit 1 하던 것 — `@vocaflow/wlp` 선례 동일).
+
+- 검증: `pnpm turbo run lint typecheck test` **13/13 green** · `next lint` 에러 0 · `tsc --noEmit` 통과 · `next build` green(83p).
 
 ### 프로덕션 빌드 복구 (v06.92)
 
