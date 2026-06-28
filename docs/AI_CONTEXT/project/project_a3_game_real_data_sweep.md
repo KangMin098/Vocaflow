@@ -21,7 +21,11 @@ A3 게임 모듈 mock 잔존 스윕 (2026-06-28) — hub/play 진입이 mock 단
 
 **A3.5 PairFlip scores+stats ✅**: PR #56 — `scores` 테이블에 **아무 게임도 안 쓰던** gap 첫 해소. PairFlipGameScreen onComplete→scores INSERT(module='pairflip', metadata{maxCombo/level/mode}) + `lib/pairflip/stats.ts fetchPairFlipStats` + /pairflip(server) fetch → PairFlipHub stats prop(MOCK_STATS 제거). PairFlip 이제 완전 완성(페어+SRS #53 + 점수/스탯 #56). 마이그레이션 0.
 
-**잔여 (전부 사용자 입력/신규 initiative)**: PR #53/#54/#56 게임 런타임 플레이 검증(사용자, auto-merge 안 함) · **다른 게임(flashcard/spellforge/wordblitz/scriptquiz/dictation) scores 적재** = 플랫폼 전반 feature(PairFlip이 템플릿) · 메인 Hub 최근활동(scores 읽음, 게임들 적재되면 채워짐) · ScriptQuiz 다른 스크립트 문제(INSERT 승인 필요) · getMockNextAction 추천엔진(별개 feature) · OpenStax a/b/c(보류 권장).
+**A3.6 scores 적재 확장 ✅**: PR #57 — `lib/scores/record-score.ts`(recordGameScore + useRecordGameScore 마운트 1회 가드) 공유 헬퍼 + flashcard(CompletionState)/spellforge(SpellForgeCompletion)/dictation(DictationResultsClient) 완료 시 scores INSERT. PairFlip(#56 inline)과 합쳐 5개 게임 중 4개 적재. 메인 Hub 최근활동(useHubData scores read) 채워질 기반 완성. 마이그레이션 0.
+
+**열린 PR (런타임 검증 대기, auto-merge 안 함)**: #56(PairFlip scores+stats), #57(flashcard/spellforge/dictation scores). 둘 다 typecheck/lint green, 게임 완료 화면 런타임 미검증.
+
+**잔여 (사용자 입력/신규 initiative)**: PR #56/#57 게임 런타임 검증 후 머지(사용자) · **WordBlitz scores** = 무한루프라 세션시작시각+정오카운트 추적 구조 추가 선행(별도) · ScriptQuiz 다른 스크립트 문제(INSERT 승인) · getMockNextAction 추천엔진(별개) · OpenStax a/b/c(보류 권장).
 
 관련: [[project-srs-persistence-a1]] · [[project-vrl-phase2-wordvault-recommended-section]]
 
