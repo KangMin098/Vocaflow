@@ -8,7 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { Capsule, Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
-import { ArticlesExplorer } from '@/components/library/browse/ArticlesExplorer'
+import { SourceMapShell } from '@/components/library/browse/SourceMapShell'
 import type { PublishedArticle } from '@/lib/articles/types'
 
 export const metadata = {
@@ -62,7 +62,7 @@ export default async function LibraryScriptsPage() {
           )}
         </header>
 
-        <ArticlesExplorer articles={articles} />
+        <SourceMapShell articles={articles} />
       </div>
     </Screen>
   )
