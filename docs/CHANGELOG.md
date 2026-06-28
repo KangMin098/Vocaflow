@@ -28,7 +28,6 @@ A3.5(PairFlip)로 시작한 `scores` 적재를 3개 게임으로 확장 — 메�
 - **`lib/pairflip/stats.ts`** 신규 — `fetchPairFlipStats`(scores module='pairflip' 집계 → bestScore/maxCombo/gamesPlayed, 최근 500 cap). `/pairflip`(server) 가 fetch → `PairFlipHub` stats prop 주입(기록 없으면 zero=cold).
 - **`PairFlipHub`** `MOCK_STATS`(0 고정) 제거 → `stats` prop. Best·콤보·게임수 hero 실데이터.
 - ⚠️ typecheck/lint green, 게임 완료 write 런타임 미검증. 다른 게임(flashcard/spellforge/…) scores 적재는 별개(동일 패턴 확장 가능).
->>>>>>> origin/main
 
 ### A3.4b ScriptQuiz 질문 한국어(question_ko) 완성 (v06.98)
 

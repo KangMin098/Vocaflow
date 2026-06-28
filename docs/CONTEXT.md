@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `20e9373` Merge remote-tracking branch 'origin/main' into feat/games-scores-record
+- `11de73d` feat(pairflip): 게임 점수 영속화(scores) + hub 실 stats (A3.5) (#56)
 - `e3ea1e4` feat(games): 게임 점수 적재 확장 — flashcard/spellforge/dictation (A3.6)
 - `14a9b0e` feat(scriptquiz): 질문 한국어(question_ko) 완성 (A3.4b) (#55)
 - `89a13fb` feat(scriptquiz): quiz_questions 실 퀴즈 capability (mock 폴백, A3.4) (#54)
-- `e4ccdb7` feat(pairflip): 실 페어 + SRS 영속화 (mock 제거, A3.3) (#53)
-- `d4ed7ca` feat(spellforge): play 진입 실 SRS-due 단어 (Gatsby mock 제거, A3.2) (#52)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
