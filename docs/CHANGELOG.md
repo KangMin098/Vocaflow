@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### C1/P6.1 구독 시점 i+1 필터 (v06.96)
+
+책 구독 시 `_enroll_book_subscribe_word_sets` 가 vocabularies 를 사용자 V-level 무관하게 일괄 import 하던 것(i+1·Desirable Difficulty 위배) → 구독 시점 i+1 필터 + dedup + 세션 cap. 마이그레이션 `20260628120000_p6_enroll_subscribe_i_plus_one`.
+
+- **구독(set-level) 불변** — 책 전체 챕터 단어장은 그대로 구독. **vocabularies import 만** 필터(E8 완전분리 — orphan vocab 343 확인).
+- **i+1 필터(E1)** — `v_level BETWEEN GREATEST(N-1,1) AND LEAST(N+1,11)`. N = `user_profiles.current_v_level`(E1) → `library_books.book_v_level`(E2) → 5(E5). `shared_dictionary` LEFT JOIN(미등재 단어 통과).
+- **dedup(E7)** — `UNIQUE(user_id,word)` 존재 확인 → `NOT EXISTS` + `ON CONFLICT DO NOTHING`(stable dedup 포괄).
+- **세션 cap 50(E4)** — DISTINCT ON 단어당 1행 + 레벨 근접·고빈도 우선 ORDER → LIMIT 50.
+- **F0(소급 보류)** — 기존 vocabularies 무변경, 신규 enroll 만 적용.
+- 검증: read-only 스모크 — v_n=5 시 selected=50(cap)·전부 band [4,6] / 실 V0 사용자는 dedup 으로 0(정상). 롤백 `docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql`.
+
 ### A2b WordVault 복습 뷰 실데이터 (v06.95)
 
 `/wordvault` 복습 뷰가 하드코딩 placeholder("오늘 복습할 단어 12개")였던 것 → 실 vocabularies 기반 복습 세션으로. (A2 study 인프라 재사용 — 마이그레이션 0.)

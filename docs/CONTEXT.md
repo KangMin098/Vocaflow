@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/wordvault-review-a2b`
+**활성 브랜치**: `feat/p6-enroll-i-plus-one`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2554f9f` feat(wordvault): 복습 뷰 실데이터 — /wordvault/review RSC (A2b) (#45)
 - `c8cc7a5` feat(wordblitz): learning_records 적재 추가 (A1.3) (#40)
 - `72a7729` feat(wordvault): study 실 vocabularies + SRS 영속화 (A2) (#39)
 - `e641816` feat(srs): 학습 결과 DB 영속화 — sessionStorage 큐 flush (A1.1) (#38)
 - `1dcc043` chore: 추적 중인 .turbo 캐시 파일 untrack (#43)
-- `26fa3ac` fix(ui): Tier B 미완성 작업 폴리시 (pending-words toast + 로딩 화면) (#37)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628120000_p6_enroll_subscribe_i_plus_one.sql`
 - `20260621120000_voa_publish_require_audio_gate.sql`
 - `20260620080000_republish_library_books_with_p1_p4.sql`
 - `20260620070000_p4_unify_composite_core.sql`
 - `20260620061000_p3b_drop_old_publish_overload.sql`
-- `20260620060000_p3_publish_cap40.sql`
 <!-- /auto:recent-migrations -->
 
 ---
