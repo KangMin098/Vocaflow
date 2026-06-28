@@ -8,6 +8,7 @@
 import { useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
+  AlertCircle,
   Archive,
   CheckCircle2,
   CheckSquare,
@@ -27,12 +28,18 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import type { ArticleAdminRow, ArticleStatus } from '@/lib/articles/types'
 import { classifyArticleStatus } from '@/lib/articles/types'
+import { resolveSourcePolicy } from '@vocaflow/library-pipeline/curation-spec'
+import { computeGateItems, gatePasses } from '@/lib/articles/publish-gate'
 
 interface Props {
   articles: ArticleAdminRow[]
   onChanged: () => void
-  /** ACP §18 P1 — stage 별 기본 필터 (검수=in_progress 큐 / 발행=published). 미지정 시 all. */
+  /** ACP §18 P1 — stage 별 기본 필터 (검수=ready 큐 / 발행=published). 미지정 시 all. */
   initialFilter?: StatusFilter
+  /** 검수 stage — 정책 게이트(pass/fail) 컬럼 노출. */
+  showGate?: boolean
+  /** 리스트 헤더 (검수/발행 stage 구분). */
+  heading?: string
 }
 
 type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived'
@@ -50,7 +57,13 @@ interface DrainState {
   error?: string
 }
 
-export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' }: Props) {
+export function CuratedArticlesTab({
+  articles,
+  onChanged,
+  initialFilter = 'all',
+  showGate = false,
+  heading = '📂 Curated Articles',
+}: Props) {
   const [filter, setFilter] = useState<StatusFilter>(initialFilter)
   const [pending, setPending] = useState<string | null>(null)
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -250,7 +263,7 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
     <section className="flex flex-col gap-4" aria-label="Curated Articles">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-baseline gap-2">
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">📂 Curated Articles</h2>
+          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">{heading}</h2>
           <span className="font-mono text-[12px] text-[var(--t3)]">
             {visible.length === articles.length ? `${articles.length}건` : `${visible.length} / ${articles.length}건`}
           </span>
@@ -305,6 +318,7 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                 <Th align="center">상태</Th>
                 <Th align="center">CEFR · V</Th>
                 <Th align="center">유형</Th>
+                {showGate && <Th align="center">게이트</Th>}
                 <Th align="right">단어</Th>
                 <Th align="right">발행</Th>
                 <Th align="right" srOnly>액션</Th>
@@ -379,6 +393,11 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                     <Td align="center">
                       <span className="font-mono text-[10px] text-[var(--t3)]">{a.register ?? '—'}</span>
                     </Td>
+                    {showGate && (
+                      <Td align="center">
+                        <GateCell article={a} />
+                      </Td>
+                    )}
                     <Td align="right">
                       <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                         {a.word_count?.toLocaleString() ?? '—'}
@@ -461,6 +480,34 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms))
+}
+
+// ── 정책 게이트 셀 (검수 stage) — pass/total + hover 상세 ──
+
+function GateCell({ article }: { article: ArticleAdminRow }) {
+  const policy = resolveSourcePolicy(article.source)
+  const items = computeGateItems(policy, {
+    audioUrl: article.audio_url,
+    lexicalNoise: article.lexical_noise,
+    articleVLevel: article.article_v_level,
+    sourceUrl: article.source_url,
+    author: article.author,
+    license: article.license,
+  })
+  const passCount = items.filter((i) => i.pass).length
+  const allPass = gatePasses(items)
+  const title = items.map((i) => `${i.pass ? '✓' : '✕'} ${i.label}`).join('\n')
+  return (
+    <span
+      title={title}
+      className="inline-flex items-center gap-1 font-mono text-[10px] font-[700] tabular-nums"
+      style={{ color: allPass ? 'var(--learn-known)' : 'var(--learn-error)' }}
+      aria-label={`게이트 ${passCount}/${items.length} 통과`}
+    >
+      {allPass ? <CheckCircle2 size={12} aria-hidden /> : <AlertCircle size={12} aria-hidden />}
+      {passCount}/{items.length}
+    </span>
+  )
 }
 
 // ── Bulk toolbar ─────────────────────────────────
