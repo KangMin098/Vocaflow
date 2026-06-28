@@ -90,6 +90,13 @@ export default function WordVaultPage() {
     }
   }, [searchParams, router])
 
+  // ── ?view=study → 실 데이터 RSC 세션으로 redirect (A2) ──
+  useEffect(() => {
+    if (searchParams.get('view') === 'study') {
+      router.replace('/wordvault/study')
+    }
+  }, [searchParams, router])
+
   // ── 선택 ──
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
 
