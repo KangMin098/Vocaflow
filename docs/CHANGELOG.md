@@ -10,6 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
+### A1.3 WordBlitz 학습 기록 적재 (v06.91)
+
+`recordWordBlitzResult`가 `vocabularies`(FSRS D/S)만 update하고 `learning_records`(audit) insert는 누락해 Hub/Dashboard 통계에서 WordBlitz 플레이가 빠지던 문제 해소. update 성공 후 `resultToRecordPayload(result, user.id)`로 insert 추가 — 4모듈(flashcard/spellforge/dictation/wordblitz) 기록 일관. 마이그레이션 0(컬럼 기존재). 독립 변경(flush 인프라 무관).
+
 ### A2 WordVault 학습 실데이터 + 영속화 (v06.90)
 
 WordVault StudyMode가 `MOCK_WORDS`(레거시 `?view=study` 클라이언트 경로)만 받던 문제 해소 — browse RSC 패턴을 study에 복제해 **실 vocabularies** 제시 + A1.1 flush 경로로 평가 영속화. (마이그레이션 0. 신규 라우트 `/wordvault/study`.)
