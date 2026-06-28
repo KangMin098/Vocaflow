@@ -68,6 +68,26 @@ export type {
   LearnerLevel,
   ArticleScore,
 } from './ingest-article/_curation-spec'
+// ACP §18 — SourcePolicy (큐레이션/학습자 화면 공유 분기 출처). client 는 /curation-spec 서브패스로.
+export {
+  getSourcePolicy,
+  resolveSourcePolicy,
+  isSourceKey,
+  licenseClassOf,
+  SOURCE_POLICIES,
+  SUPPLY_LABEL,
+  MEDIA_LABEL,
+  DERIVATION_LABEL,
+  ATTRIBUTION_LABEL,
+} from './ingest-article/_curation-spec'
+export type {
+  SourcePolicy,
+  SupplyMode,
+  MediaMode,
+  DerivationMode,
+  AttributionMode,
+  LicenseClass,
+} from './ingest-article/_curation-spec'
 export * from './types-article'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'

@@ -4,9 +4,15 @@
 
 ---
 
-# P6 handoff — Project 위임 대기 중
+# P6 handoff — P6.1~P6.3 적용 완료 (2026-06-28)
 
-**상태**: 본문 작성 완료 (PR #25 merged, 2026-06-20), Project 측 검토 대기.
+**상태**: ✅ **P6.1+P6.2+P6.3 한 마이그레이션으로 적용·머지** (PR #46 `65b0980`, migration `20260628120000_p6_enroll_subscribe_i_plus_one`). P6.0 진단 + 결정표 E1~E8+F 사용자 확정(권장 default + F0) 후 구현. read-only 스모크 검증(v_n=5→cap 50·band 정합 / V0 dedup). 적용 중 `user_profiles.id`→`user_id` 컬럼 정정.
+- 적용 내용: `_enroll_book_subscribe_word_sets` 에 i+1 필터(E1, N=current_v_level→book_v_level→5) + 미보유 dedup(E7 UNIQUE 존재 + ON CONFLICT, P6.2 stable dedup 포괄) + 세션 cap 50(E4, DISTINCT ON + 근접·고빈도 ORDER). 구독 set-level 불변, vocabularies import 만 필터(E8 완전분리). F0 = 소급 보류.
+- **잔여**: P6.4(extract_vocabulary_for_user 정합 점검) · P6.5(Cold/Warm/Hot Layer 통합) · P6.6 소급(F1/F3 — 현재 F0 보류, 기존 미학습 vocab 6,473 무영향). 롤백 `docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql`.
+
+(이하 원래 handoff 본문 — 진단/결정 절차 기록 보존)
+
+**원 상태**: 본문 작성 완료 (PR #25 merged, 2026-06-20), Project 측 검토 대기.
 
 ## 위치
 - `docs/AI_CONTEXT/handoffs/p6_subscribe_user_filter.md` (+270 line)
