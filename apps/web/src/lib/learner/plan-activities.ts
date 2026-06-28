@@ -2,9 +2,10 @@
 //
 // 학습 계획 — 활동 정의 + 자료유형별 가용 매트릭스 + 라우트 빌더.
 // 순수 모듈(client/server 공유). React/lucide 의존 없음 — 아이콘 매핑은 클라이언트가 담당.
-// P1 재설계: 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장) × 활동 (리틀팍스형).
+// P1 재설계: 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장/내 스크립트) × 활동 (리틀팍스형).
+//   book=library_books · article=library_articles(공개 스크립트) · word_set=shared_word_sets · script=texts(개인)
 
-export type MaterialType = 'book' | 'script' | 'word_set'
+export type MaterialType = 'book' | 'article' | 'word_set' | 'script'
 
 export type PlanActivity =
   | 'listen'
@@ -49,14 +50,18 @@ export const ACTIVITY_BY_ID: Record<PlanActivity, ActivityDef> = PLAN_ACTIVITIES
   {} as Record<PlanActivity, ActivityDef>,
 )
 
-/** 본문(텍스트+오디오) 자료 = 10종 전부 */
+/** 본문(텍스트+오디오) 자료 = 10종 전부 (도서/개인 스크립트) */
 const TEXT_ACTIVITIES: PlanActivity[] = PLAN_ACTIVITIES.map((a) => a.id)
+/** 공개 스크립트(article) = 따라하기(echo) 제외 9종 (전용 echo 라우트 없음) */
+const ARTICLE_ACTIVITIES: PlanActivity[] = TEXT_ACTIVITIES.filter((a) => a !== 'echo')
 /** 공용단어장 = 어휘 기반 5종 (본문 없는 듣기/읽기/따라하기/ScriptQuiz/Dictation 제외) */
 const WORDSET_ACTIVITIES: PlanActivity[] = ['vocab', 'flashcard', 'wordblitz', 'pairflip', 'spellforge']
 
 /** 자료유형별 선택 가능한 활동 */
 export function activitiesForType(type: MaterialType): PlanActivity[] {
-  return type === 'word_set' ? WORDSET_ACTIVITIES : TEXT_ACTIVITIES
+  if (type === 'word_set') return WORDSET_ACTIVITIES
+  if (type === 'article') return ARTICLE_ACTIVITIES
+  return TEXT_ACTIVITIES
 }
 
 export function isActivityAllowed(type: MaterialType, activity: PlanActivity): boolean {
@@ -65,8 +70,9 @@ export function isActivityAllowed(type: MaterialType, activity: PlanActivity): b
 
 export const MATERIAL_LABEL: Record<MaterialType, string> = {
   book: '도서',
-  script: '스크립트',
+  article: '스크립트',
   word_set: '공용단어장',
+  script: '내 스크립트',
 }
 
 export interface MaterialRef {
@@ -80,6 +86,8 @@ export function materialHref(m: MaterialRef): string {
   switch (m.type) {
     case 'book':
       return `/library/books/${m.id}`
+    case 'article':
+      return `/library/scripts/${m.id}`
     case 'script':
       return `/text/${m.id}`
     case 'word_set':
@@ -126,4 +134,40 @@ export function isActivityScoped(type: MaterialType, activity: PlanActivity): bo
   if (activity === 'flashcard') return type === 'script' || type === 'word_set'
   if (activity === 'scriptquiz') return type === 'script'
   return false // wordblitz/pairflip/spellforge/dictation — 모듈 hub
+}
+
+// ── 학습 리듬(일정) — study_plan_schedule ──
+
+/** 요일 — ISO 1=월 .. 7=일 */
+export const WEEKDAYS: { value: number; label: string }[] = [
+  { value: 1, label: '월' },
+  { value: 2, label: '화' },
+  { value: 3, label: '수' },
+  { value: 4, label: '목' },
+  { value: 5, label: '금' },
+  { value: 6, label: '토' },
+  { value: 7, label: '일' },
+]
+
+/** 하루 학습 목표(분) 선택지 */
+export const DAILY_MINUTES_OPTIONS = [10, 20, 30, 45, 60]
+
+export interface PlanSchedule {
+  weeklyDays: number[]
+  dailyMinutes: number
+}
+
+/** library_articles.source → 표시 라벨 (스크립트 소스 필터/배지) */
+export const ARTICLE_SOURCE_LABEL: Record<string, string> = {
+  voa: 'VOA',
+  nasa: 'NASA',
+  nih: 'NIH',
+  simple_wikipedia: 'Simple Wikipedia',
+  wikinews: 'Wikinews',
+  the_conversation: 'The Conversation',
+}
+
+export function articleSourceLabel(source: string | null | undefined): string {
+  if (!source) return '스크립트'
+  return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/_/g, ' ')
 }

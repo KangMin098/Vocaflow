@@ -26,7 +26,7 @@
 | 경로 | 파일 | 비고 |
 |---|---|---|
 | `/manage` | `(main)/manage/page.tsx` | **내 학습 관리** — 계획·실행·진단·리포트 통합 overview(4 카드 + 상세 CTA, fetchManageOverview). Sidebar "내 학습" |
-| `/plan` | `(main)/plan/page.tsx` + `components/plan/PlanClient.tsx` | **P1(재설계 2026-06-28)** 자료(도서/스크립트/공용단어장)별 활동 선택 → study_plan_items. 담은 자료 카드(활동 토글 즉시 저장)+자료 추가 picker. 수능 D-day 폐기 |
+| `/plan` | `(main)/plan/page.tsx` + `components/plan/PlanClient.tsx` | **P1(리치 구성 2026-06-28)** 일정(주당 리듬: 요일+하루목표) + 자료 4종(도서 표지·챕터 / 스크립트=article 소스필터 / 공용단어장 이모지 / 내 스크립트)별 활동 선택 → study_plan_items + study_plan_schedule. 비주얼 카드 + 4탭 picker + 활동 실행(launch). 수능 D-day 폐기 |
 | `/reports` | `(main)/reports/page.tsx` + `components/reports/ReportsClient.tsx` | **P2** 주간 Report Card(daily_activity 집계 + 격려 코멘트) + "이번 주 갱신" |
 | `/teacher` | `(main)/teacher/page.tsx` + `components/teacher/TeacherClient.tsx` | **P4.2 L3 B2B** 교사 허브(클래스 개설·초대코드·참여·멤버수, classes/class_members) |
 | `/hub` | `(main)/hub/page.tsx` | Home + Dashboard 통합 진입점 |

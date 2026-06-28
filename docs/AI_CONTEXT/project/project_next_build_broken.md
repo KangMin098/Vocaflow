@@ -26,5 +26,7 @@ SWC(Rust) 에러체인 포맷, **소스 경로 없음**. 실패 직전 minified 
 
 **후속(미착수):** ① CI 의 `next build` job 은 PR #41 로 추가됨(✅) ② SWC minify surgical 복원(ort 청크만 제외) ③ `next.config` `eslint.ignoreDuringBuilds` 를 다시 false 로(이제 lint 0 이라 안전) ④ `.turbo/*.log` gitignore(현재 추적됨).
 
+**swcMinify 재활성 재검증 (2026-06-28) — 불가 확정, swcMinify:false 유지가 정답:** 사용자가 `Disabling SWC Minifier will not be an option in the next major` 경고 보고 → probe(`swcMinify:true` 빌드)로 **재현**: `Failed to compile`, onnxruntime-web 백엔드 레지스트리 코드(`registerBackend`/`xr=new Map`…)에서 minifier 막힘. 결론: (a) **lazy-load 무효** — `next build`는 async 청크도 minify 하므로 piper-tts-web가 별도 청크여도 SWC가 또 만나 실패. (b) Next 14 swcMinify 경로엔 **per-module minify 제외 API 없음**. (c) 경고는 **무해**(Next 14, 14.2.35; 다음 major 사전공지). **진짜 fix = piper-tts-web/onnxruntime-web를 webpack 번들에서 빼기**(CDN/external 런타임 로드 → EchoMatch 로딩 리팩터) 또는 Next 15(+여전히 CDN 필요). 우선순위 낮음 → 그대로 둠.
+
 검증 시 worktree 갓차: `.env.local`은 gitignore라 worktree에 없음 → 루트에서 복사해야 build 가능 ([[project_doc_structure_split]] WORKTREE 가이드에 추가 후보).
 
