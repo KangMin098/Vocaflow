@@ -17,7 +17,8 @@
 - **`lib/scriptquiz/questions.ts`** 신규 — `fetchQuizSession(client, userId, textId)` → quiz_questions + texts.title → `QuizSession`. 문제 0개면 null → MOCK 폴백.
 - **`ScriptQuiz`** `session?: QuizSession` prop(기본 MOCK_SESSION) — `typeof MOCK_SESSION` → `QuizSession` 정합.
 - **play 페이지** async — `?text={texts.id}` 의 실 퀴즈 fetch, ResourceContext 동적 제목/문항수. 미지정/미생성 시 데모 MOCK.
-- ⚠️ typecheck/lint green, 게임 상호작용 런타임 미검증. **문제 콘텐츠(quiz_questions INSERT)는 영속 공유 DB write 라 사용자 명시 승인 대기** — capability 만 머지, 콘텐츠는 승인 후.
+- ⚠️ typecheck/lint green, 게임 상호작용 런타임 미검증.
+- **문제 콘텐츠 적재(사용자 명시 승인 2026-06-28)** — "Ammachi's Amazing Machines — Chapter 1"(text `26688c2b`)에 독해 5문제 INSERT(multiple 4 + truefalse 1, 정답 인덱스 0/2/0/1/3 분산, 영어 본문 + 한국어 옵션 + sourceSnippet). E2E 검증: title 해석·5문제·옵션/정답 인덱스 전부 유효 → `?text=26688c2b…` 실 퀴즈 동작. quiz_questions 0→5 rows.
 
 ### A3.3 PairFlip 실 페어 + SRS 영속화 (v06.98)
 
