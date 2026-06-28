@@ -21,8 +21,8 @@
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
 | `user_profiles` | 2 | 56 kB | role · display_name · locale · theme · tts_voice · daily_word_goal · notify_* · current_v_level · current_track_levels |
-| `user_stats` | 0 | 16 kB | mastery_level · total_words · current_streak · fsrs_target_retention (Hub 진입 1쿼리 캐시) |
-| `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · by_module JSONB · avg_accuracy |
+| `user_stats` | 0 | 16 kB | mastery_level · total_words · current_streak · fsrs_target_retention · `known_word_count`(P0 · LingQ형 Implicit, stability≥21, flush→refresh_user_known_word_count) (Hub 진입 1쿼리 캐시) |
+| `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · total_reviews · by_module JSONB · avg_accuracy · **P0 자동 집계**(learning_records→총복습/모듈별 · scores→분/단어 트리거, KST date) |
 | `achievements` | 0 | 24 kB | kind · module · value · metadata JSONB · achieved_at |
 | `reports` | 0 | 24 kB | kind · subject · message · status · admin_note (admin /reports) |
 
@@ -285,7 +285,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 107건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628140000_scriptquiz_question_ko` — quiz_questions 에 `question_ko` nullable 컬럼, ScriptQuiz 질문 한국어 토글, A3.4b · 직전: `20260628130000_p6_6_enroll_v0_undiagnosed_guard` V0 미진단 가드 P6.6)
+전체 누적 108건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628150000_p0_daily_activity_agg_known_word_count` — learning_records/scores → `daily_activity` 자동 집계 트리거 2 + `user_stats.known_word_count` 컬럼·`refresh_user_known_word_count` 함수, LEARNER_MANAGEMENT P0 · 직전: `20260628140000_scriptquiz_question_ko` A3.4b)
 
 ---
 
