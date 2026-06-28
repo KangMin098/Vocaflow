@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `dbfb9aa` docs(changelog): 큐레이션 관리자 콘솔 SourcePolicy 단일 화면 (v06.87)
 - `6067fe7` feat(acp): 큐레이션 콘솔 P2~P4 — CoverageMatrix·CandidateTable·ReviewPanel (policy 분기)
 - `df579ec` feat(acp): 큐레이션 콘솔 4-stage 셸 + useSourcePolicy 훅 (P1)
 - `a6dddf2` feat(acp): SourcePolicy 공유 분기 맵 (C2 — VOA/TC 단일화 선행)
 - `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
-- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
