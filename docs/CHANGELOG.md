@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 계획 재설계 — 자료×활동 (수능 D-day 폐기) (v06.100)
+
+학습 계획을 "수능 D-day 단어 카운트다운"(P1 초안)에서 **플랫폼 자료(도서/스크립트/공용단어장)별 활동 선택**(리틀팍스 코스형)으로 전면 재설계. 사용자 피드백 — "계획이 왜 수능으로 나오나, 플랫폼 학습 계획이어야 한다".
+
+- **마이그레이션** `20260628200000_p1_redesign_study_plan_items` — 수능 `learning_goals`(goal_type='csat', 0 rows) DROP + `study_plan_items`(material_type/material_id/modules text[]) 신설 · UNIQUE(user_id,material_type,material_id) · 본인 RLS 4정책 · updated_at 트리거.
+- **활동 10종**(listen/read/echo/vocab/flashcard/wordblitz/pairflip/spellforge/scriptquiz/dictation) + 자료유형별 가용: 도서/스크립트=10종 전부 · 공용단어장=어휘 5종.
+- **신규** `lib/learner/plan-activities.ts`(활동 정의·매트릭스·라우트 빌더) · `plan-actions.ts`(fetchStudyPlanItems/fetchAvailableMaterials/savePlanItem/removePlanItem) · `/plan`(서버) + `components/plan/PlanClient.tsx`(자료 탭 → 활동 체크 → 담은 자료 카드, 활동 토글 즉시 저장, Calm UI).
+- **수정** `manage-overview.ts`(plan = 자료N·활동N·상위자료) · `/manage` 학습 계획 카드(CTA→/plan).
+- **삭제** `goal-actions.ts`·`study-plan.ts`·`/onboarding`·`OnboardingClient.tsx`.
+- typecheck green · `next build` 89/89 · `/plan` 7.25kB. (docs: LEARNER_MANAGEMENT §2-2·§4·라우트표 · ROUTES · DB_SCHEMA 갱신)
+
 ### ACP 큐레이션 LCP My Library화 + RPC SSoT 정합 (v06.99)
 
 ACP `/admin/articles` 의 큐레이션 목록을 LCP My Library 방식으로 정렬(멀티셀렉트 + bulk actions: Dev 일괄 / → 소스 GET + DrainBanner). seed-unlock 버그 수정 — 글 삭제 시 `imported_to_articles=true` 잔존 → 재-GET 불가였던 것 → flags 완전 리셋. (PR #72: 라우트 `/api/acp/dev-drain-queue`·`/api/admin/articles/bulk-requeue` + delete 라우트 패치, 마이그레이션 0 — service_role TS 로직.)

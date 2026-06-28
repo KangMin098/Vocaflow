@@ -10,7 +10,16 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
 
-import { fetchStudyPlan, type StudyPlanResult } from './goal-actions'
+import { fetchStudyPlanItems } from './plan-actions'
+
+/** 학습 계획 요약 (P1 재설계 — 자료×활동). 항목 없으면 null. */
+export interface PlanSummary {
+  itemCount: number
+  /** 선택 활동 총합(자료별 활동 개수 합) */
+  activityCount: number
+  /** 상위 자료명 (최대 3) */
+  topMaterials: string[]
+}
 
 export interface ManageOverview {
   /** current_v_level — 0/null 이면 미진단 */
@@ -18,8 +27,8 @@ export interface ManageOverview {
   knownWordCount: number
   currentStreak: number
   todayWords: number
-  /** P1 Study Plan (목표 미설정이면 null) */
-  plan: StudyPlanResult | null
+  /** P1 학습 계획 요약 (담은 자료 없으면 null) */
+  plan: PlanSummary | null
   /** 최근 주간 리포트 요약 (없으면 null) */
   latestReport: { week_start: string; total_words: number; empathetic_note: string | null } | null
 }
@@ -36,7 +45,7 @@ export async function fetchManageOverview(): Promise<ManageOverview | null> {
   if (!user) return null
 
   const lc = client as unknown as SupabaseClient
-  const [{ data: profile }, { data: stats }, { data: today }, { data: report }, plan] =
+  const [{ data: profile }, { data: stats }, { data: today }, { data: report }, planItems] =
     await Promise.all([
       lc.from('user_profiles').select('current_v_level').eq('user_id', user.id).maybeSingle(),
       lc.from('user_stats').select('known_word_count, current_streak').eq('user_id', user.id).maybeSingle(),
@@ -48,8 +57,17 @@ export async function fetchManageOverview(): Promise<ManageOverview | null> {
         .order('week_start', { ascending: false })
         .limit(1)
         .maybeSingle(),
-      fetchStudyPlan(),
+      fetchStudyPlanItems(),
     ])
+
+  const plan: PlanSummary | null =
+    planItems.length > 0
+      ? {
+          itemCount: planItems.length,
+          activityCount: planItems.reduce((s, i) => s + i.modules.length, 0),
+          topMaterials: planItems.slice(0, 3).map((i) => i.title),
+        }
+      : null
 
   const rawV = (profile?.current_v_level as number | undefined) ?? null
   return {

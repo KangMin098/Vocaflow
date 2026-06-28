@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/acp-review-list`
+**활성 브랜치**: `feat/plan-redesign`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `5e96a59` feat(learner): 학습 계획 재설계 — 자료×활동 (수능 D-day 폐기, P1)
 - `6981f9e` Merge pull request #73 from KangMin098/feat/acp-article-migrations
 - `d3a08bc` chore(db): ACP delete/bulk-requeue RPC SSoT 정합 마이그레이션 2종
 - `82f6f10` Merge pull request #72 from KangMin098/feat/acp-lcp-process
 - `c6974a5` feat(acp): 큐레이션 목록을 LCP My Library 방식으로 + seed unlock 버그 수정
-- `637420d` Merge pull request #71 from KangMin098/feat/acp-source-tabs
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628200000_p1_redesign_study_plan_items.sql`
 - `20260628190000_p4_2_join_class_by_code.sql`
 - `20260628180000_p4_l3_class_data_model.sql`
 - `20260628170000_p2_weekly_reports.sql`
 - `20260628160000_p1_learning_goals.sql`
-- `20260628150000_p0_daily_activity_agg_known_word_count.sql`
 <!-- /auto:recent-migrations -->
 
 ---

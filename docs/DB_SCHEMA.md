@@ -25,7 +25,7 @@
 | `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · total_reviews · by_module JSONB · avg_accuracy · **P0 자동 집계**(learning_records→총복습/모듈별 · scores→분/단어 트리거, KST date) |
 | `achievements` | 0 | 24 kB | kind · module · value · metadata JSONB · achieved_at |
 | `reports` | 0 | 24 kB | kind · subject · message · status · admin_note (admin /reports) |
-| `learning_goals` | 0 | — | **P1** Study Plan 목표 — goal_type='csat'(수능 단일) · target_date(D-day) · target_v_level · target_word_count · weekly_target_days/minutes · UNIQUE(user_id,goal_type) · 본인 RLS |
+| `study_plan_items` | 0 | — | **P1(재설계 2026-06-28)** 학습 계획 — material_type(book/script/word_set) · material_id(다형) · modules text[](활동 10종) · UNIQUE(user_id,material_type,material_id) · 본인 RLS 4정책 · updated_at 트리거. (수능 `learning_goals` 폐기 DROP) |
 | `weekly_reports` | 0 | — | **P2** 주간 Report Card — week_start(월,KST) · total_minutes/words/reviews · by_module · empathetic_note(격려 코멘트) · UNIQUE(user_id,week_start) · 본인 RLS · daily_activity 주간 집계 |
 | `classes` | 0 | — | **P4.1 L3 B2B 선반영**(화면 Phase 2) — teacher_id · name · invite_code UNIQUE · RLS(교사 전권 + 멤버 읽기) |
 | `class_members` | 0 | — | **P4.1** class_id+user_id PK · role(student/assistant) · RLS(본인·교사 읽기, 본인 가입, 교사/본인 삭제) |
@@ -290,7 +290,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 112건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628190000_p4_2_join_class_by_code` — 초대코드 클래스 참여 SECURITY DEFINER 함수(비멤버 RLS 우회 lookup+가입), LEARNER_MANAGEMENT P4.2 `/teacher` · 직전: `20260628180000_p4_l3_class_data_model` P4.1)
+전체 누적 113건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628200000_p1_redesign_study_plan_items` — 수능 `learning_goals` DROP + `study_plan_items`(자료×활동) 신설, LEARNER_MANAGEMENT P1 재설계 `/plan` · 직전: `20260628190000_p4_2_join_class_by_code` P4.2)
 
 ---
 
