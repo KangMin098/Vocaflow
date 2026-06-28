@@ -9,13 +9,15 @@
 
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ResourceContext } from '@/components/layout/ResourceContext';
 import { WordBlitzLoading } from '@/components/game/wordblitz/WordBlitzUI';
+import { recordGameScore } from '@/lib/scores/record-score';
 import { createClient } from '@/lib/supabase/client';
+import { POINTS, type Word } from '@/lib/wordblitz/data';
+import { recordWordBlitzResult } from '@/lib/wordblitz/record-result';
 import { fetchScopedWords } from '@/lib/workspace/scoped-words';
-import type { Word } from '@/lib/wordblitz/data';
 
 const WordBlitzGame = dynamic(
   () =>
@@ -43,6 +45,15 @@ export default function WordBlitzPage() {
 
   // scoped: null = 로딩, ScopedPool = 완료, { words: [] } = 단어 0개
   const [pool, setPool] = useState<ScopedPool | null>(null);
+
+  // 세션 집계 — 정/오답 카운트(점수 복제 + scores 적재) + 시작 시각(소요시간).
+  const correctRef = useRef(0);
+  const wrongRef = useRef(0);
+  const startRef = useRef(0);
+  const scoredRef = useRef(false); // exit 1회만 scores 적재
+  useEffect(() => {
+    startRef.current = Date.now();
+  }, []);
 
   useEffect(() => {
     if (!scoped) return;
@@ -123,14 +134,35 @@ export default function WordBlitzPage() {
       />
       <WordBlitzGame
         wordPool={scoped && pool ? pool.words : undefined}
-        onExit={() => router.push(scoped ? '/text' : '/library')}
+        onExit={() => {
+          // 게임 세션 점수 적재 (scores) — 1회. captured 0(미플레이)면 skip.
+          const correct = correctRef.current;
+          const wrong = wrongRef.current;
+          const captured = correct + wrong;
+          if (!scoredRef.current && captured > 0) {
+            scoredRef.current = true;
+            void recordGameScore({
+              module: 'wordblitz',
+              score: correct * POINTS.CORRECT + wrong * POINTS.WRONG, // 게임 점수식 복제(고정점)
+              totalQuestions: captured,
+              correctCount: correct,
+              accuracy: Math.round((correct / captured) * 100),
+              durationSeconds: startRef.current
+                ? Math.round((Date.now() - startRef.current) / 1000)
+                : undefined,
+              ...(text ? { textId: text } : {}),
+              metadata: { captured, wrong, scoped },
+            });
+          }
+          router.push(scoped ? '/text' : '/library');
+        }}
         onCorrect={(word) => {
-          // TODO: SRS 큐 업데이트 - 정답 단어 다음 노출 미루기
-          console.log('✅ Correct:', word.en);
+          correctRef.current += 1;
+          void recordWordBlitzResult({ word: word.en, isCorrect: true }); // learning_records(FSRS)
         }}
         onWrong={(word) => {
-          // TODO: SRS 큐 업데이트 - 오답 단어 빠르게 재노출
-          console.log('❌ Wrong:', word.en);
+          wrongRef.current += 1;
+          void recordWordBlitzResult({ word: word.en, isCorrect: false });
         }}
       />
     </main>

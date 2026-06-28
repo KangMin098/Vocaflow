@@ -44,7 +44,7 @@ export function UrlInput({ onUrlSubmit }: UrlInputProps) {
       // Phase 2에서 실제 fetch + 본문 추출
       await new Promise((resolve) => setTimeout(resolve, 1500))
       await onUrlSubmit?.(url)
-    } catch (err) {
+    } catch {
       setError('페이지를 가져올 수 없습니다')
     } finally {
       setLoading(false)

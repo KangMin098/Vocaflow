@@ -11,10 +11,9 @@ import {
   getComboMultiplier,
   pairAttemptsToFSRSRating,
 } from '@/components/pairflip/constants'
-import { buildPairFlipCards, MOCK_PAIRS } from '@/components/pairflip/mock-data'
+import { buildPairFlipCards, MOCK_PAIRS, type PairFlipMockWord } from '@/components/pairflip/mock-data'
 import { PF_DIMS } from '@/components/pairflip/theme'
 import type {
-  PairFlipCard,
   PairFlipLevel,
   PairFlipMode,
   PairFlipPairResult,
@@ -26,20 +25,26 @@ import type {
 interface UsePairFlipSessionOptions {
   level: PairFlipLevel
   mode: PairFlipMode
+  /**
+   * 실 단어 페어 (사용자 SRS 큐). 미지정 또는 부족하면 MOCK_PAIRS 폴백.
+   * pairId = vocabularies.id → onComplete 영속화 lookup 에 사용.
+   */
+  pairs?: PairFlipMockWord[]
   onComplete?: (result: PairFlipResultData) => void
 }
 
-export function usePairFlipSession({ level, mode, onComplete }: UsePairFlipSessionOptions) {
+export function usePairFlipSession({ level, mode, pairs, onComplete }: UsePairFlipSessionOptions) {
   const config = useMemo(
     () => PAIRFLIP_LEVELS.find((l) => l.id === level) ?? PAIRFLIP_LEVELS[1],
     [level],
   )
 
-  // 초기 카드 — pair 수만큼 mock 에서 추출 후 셔플
+  // 초기 카드 — pair 수만큼 추출 후 셔플.
+  // 실 페어가 레벨 pairCount 이상이면 실데이터, 아니면 mock 폴백(win-condition 보존).
   const initialCards = useMemo(() => {
-    const pairs = MOCK_PAIRS.slice(0, config.pairCount)
-    return buildPairFlipCards(pairs)
-  }, [config.pairCount])
+    const source = pairs && pairs.length >= config.pairCount ? pairs : MOCK_PAIRS
+    return buildPairFlipCards(source.slice(0, config.pairCount))
+  }, [config.pairCount, pairs])
 
   const [session, setSession] = useState<PairFlipSession>(() => ({
     level,

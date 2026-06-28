@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9f07175` docs(admin): /admin/articles 4-stage 큐레이션 콘솔 구조 반영 (v06.87)
 - `dbfb9aa` docs(changelog): 큐레이션 관리자 콘솔 SourcePolicy 단일 화면 (v06.87)
 - `6067fe7` feat(acp): 큐레이션 콘솔 P2~P4 — CoverageMatrix·CandidateTable·ReviewPanel (policy 분기)
 - `df579ec` feat(acp): 큐레이션 콘솔 4-stage 셸 + useSourcePolicy 훅 (P1)
 - `a6dddf2` feat(acp): SourcePolicy 공유 분기 맵 (C2 — VOA/TC 단일화 선행)
-- `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628140000_scriptquiz_question_ko.sql`
+- `20260628130000_p6_6_enroll_v0_undiagnosed_guard.sql`
+- `20260628120000_p6_enroll_subscribe_i_plus_one.sql`
 - `20260621120000_voa_publish_require_audio_gate.sql`
 - `20260620080000_republish_library_books_with_p1_p4.sql`
-- `20260620070000_p4_unify_composite_core.sql`
-- `20260620061000_p3b_drop_old_publish_overload.sql`
-- `20260620060000_p3_publish_cap40.sql`
 <!-- /auto:recent-migrations -->
 
 ---

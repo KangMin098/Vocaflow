@@ -20,13 +20,12 @@ import { NextActionCard } from '@/components/recommend/NextActionCard';
 import { extractMistakenWords, analyzeErrorPatterns } from '@/lib/dictation/analyzer';
 import { getSession } from '@/lib/dictation/storage';
 import type { DictationSession, ErrorPattern, WordResult } from '@/lib/dictation/types';
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock';
+import { useNextAction } from '@/lib/recommend/use-next-action';
+import { useRecordGameScore } from '@/lib/scores/record-score';
 import { applyReview, createNewCard } from '@/lib/srs';
 import { accuracyToRating } from '@/lib/srs/rating-mapper';
 import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage';
+import { flushPendingSession } from '@/lib/srs/flush-session';
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter';
 
 const DICTATION_ACCENT = '#0EA5E9';
@@ -55,6 +54,25 @@ export function DictationResultsClient() {
     }
     setSession(s);
   }, [sessionId, router]);
+
+  // 게임 세션 점수 적재 (scores) — session 로드 시 1회. learning_records(단어별)와 별개.
+  useRecordGameScore(
+    session
+      ? {
+          module: 'dictation',
+          score: Math.round(session.totalAccuracy ?? 0),
+          totalQuestions: session.items.length,
+          correctCount: session.items.filter((it) => (it.result?.accuracy ?? 0) >= 90).length,
+          accuracy: Math.round(session.totalAccuracy ?? 0),
+          durationSeconds: Math.round((session.totalTimeMs ?? 0) / 1000),
+          metadata: {
+            unit: session.config?.unit,
+            scoring: session.config?.scoring,
+            totalHintsUsed: session.totalHintsUsed,
+          },
+        }
+      : null,
+  );
 
   // §17 [4] 기억 축 — Dictation 세션 종료 시 SRS 일괄 적용 (L4c 청각 생성)
   // sessionStorage 단계: 정규화된 단어 텍스트를 cardId로 사용. DB 연동 시 vocabulary lookup 필요.
@@ -91,12 +109,16 @@ export function DictationResultsClient() {
       cacheCard(reviewResult.card);
       pushPendingResult({
         cardId: reviewResult.card.id,
+        word: cardId,
         cardUpdate: cardToUpdatePayload(reviewResult.card),
         rating: reviewResult.log.rating,
         reviewedAt: reviewResult.log.reviewedAt.toISOString(),
         module: 'dictation',
       });
     });
+
+    // 세션 종료 시 SRS 큐 → DB flush (srsAppliedRef 가드로 1회).
+    void flushPendingSession();
   }, [session]);
 
   const aggregateData = useMemo(() => {
@@ -123,13 +145,8 @@ export function DictationResultsClient() {
     };
   }, [session]);
 
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // Dictation 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_dictation' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  );
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction();
 
   if (!session || !aggregateData) {
     return (

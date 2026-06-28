@@ -35,6 +35,26 @@ export function spellforgeResultToRating(input: {
 }
 
 /**
+ * WordVault StudyMode 1~5 자가평가 → FSRS Rating (L3 재인/인출)
+ * 1 다시 → Again · 2 어려움 → Hard · 3 애매 → Hard · 4 쉬움 → Good · 5 완벽 → Easy
+ * (5단계를 4그레이드로 접을 때 "애매"를 Hard 로 — 불확실한 인출은 더 자주 복습, Desirable Difficulty)
+ */
+export function studyRatingToFsrs(rate: 1 | 2 | 3 | 4 | 5): RatingValue {
+  switch (rate) {
+    case 1:
+      return Rating.Again
+    case 2:
+      return Rating.Hard
+    case 3:
+      return Rating.Hard
+    case 4:
+      return Rating.Good
+    case 5:
+      return Rating.Easy
+  }
+}
+
+/**
  * ScriptQuiz 단어별 정답 여부 → FSRS Rating (L4d 통합 검증)
  * 시간이 빨랐는지 추가 가중 (timeMs / timeLimitMs)
  */

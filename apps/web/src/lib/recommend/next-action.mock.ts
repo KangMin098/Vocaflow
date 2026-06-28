@@ -5,6 +5,7 @@
 //
 // DB 연동 시 swap 대상은 getMockNextAction 한 함수뿐 — 호출자(HubHero 등)는 변경 X.
 
+import { decideNextAction } from './decide';
 import type { MockUserContext, RecommendedAction } from './types';
 
 /**
@@ -22,48 +23,13 @@ import type { MockUserContext, RecommendedAction } from './types';
  *      §17.10 IA 원칙 — 흐름의 마지막 단계는 학습자 의지 발현 시점.
  */
 export function getMockNextAction(ctx: MockUserContext): RecommendedAction {
-  // P1 — 위급 단어 즉시 복습
-  if (ctx.urgentWordCount >= 3) {
-    return {
-      module: 'flashcard',
-      strategy: 'blocked',
-      label: `위급 단어 ${ctx.urgentWordCount}개 다시 만나기`,
-    };
-  }
-
-  // P2 — 진행 중 스크립트로 복귀
-  if (ctx.inProgressTextTitle) {
-    return {
-      module: 'workspace',
-      label: `${ctx.inProgressTextTitle} 이어 듣기`,
-      textId: ctx.inProgressTextId,
-    };
-  }
-
-  // P3 — 흐름 순 자연 진행
-  switch (ctx.masteryLevel) {
-    case 'cold':
-      return {
-        module: 'flashcard',
-        strategy: 'blocked',
-        label: '익히기 시작 — 단어 만나보기',
-      };
-    case 'warm':
-      return {
-        module: 'spellforge',
-        strategy: 'hybrid',
-        label: '단어를 정확하게 — 철자로 다지기',
-      };
-    case 'hot':
-      return {
-        module: 'scriptquiz',
-        strategy: 'interleaved',
-        label: '정복 도전 — 스크립트 안에서 확인',
-      };
-  }
-
-  // P4 — Cold start
-  return { module: 'library', label: '새 스크립트를 만나보세요' };
+  // 결정 로직은 decideNextAction 단일 출처 (실 추천 getNextActionForUser 와 동일).
+  return decideNextAction({
+    masteryLevel: ctx.masteryLevel,
+    urgentWordCount: ctx.urgentWordCount,
+    inProgressTextTitle: ctx.inProgressTextTitle,
+    inProgressTextId: ctx.inProgressTextId,
+  });
 }
 
 /** 데모용 mock 컨텍스트 — Hub 페이지에서 케이스를 골라 사용 */
@@ -121,6 +87,8 @@ export function actionToHref(action: RecommendedAction): string {
       return action.unit ? `/dictate?unit=${action.unit}` : '/dictate';
     case 'spellforge':
       return '/spellforge';
+    case 'pairflip':
+      return '/pairflip';
     case 'wordblitz':
       return '/wordblitz';
     case 'wordvault':

@@ -10,6 +10,194 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3.8 추천 엔진 실데이터화 (getMockNextAction → 실 사용자 상태) (v06.98)
+
+세션 종료/워크스페이스의 "다음 행동" 추천이 `getMockNextAction(MOCK_USER_CONTEXTS)` 고정 컨텍스트였던 것 → 실 사용자 상태(due 단어 수 + mastery) 기반. 설계 주석대로 "swap 대상은 한 함수" — 5개 호출처는 hook 1줄 교체. 마이그레이션 0.
+
+- **`lib/recommend/decide.ts`** 신규 — `decideNextAction(ctx)` 순수 P1~P4 로직(mock·실 단일 출처). `next-action.mock.ts getMockNextAction` 도 이 함수 경유로 DRY.
+- **`lib/recommend/get-next-action.ts`** 신규 — `getNextActionForUser()` server action: due 단어 수(P1) + mastery(user_stats 또는 vocab 수 근사) → decide. v1 P2(진행중 스크립트) 미연동.
+- **`lib/recommend/use-next-action.ts`** 신규 — `useNextAction()` client hook: cold 기본 후 server action 결과 1회 교체.
+- **5개 호출처** — FlashcardSession/ScriptQuiz/SpellForge/DictationResultsClient/text[id] 의 `useMemo(getMockNextAction(...))` → `useNextAction()`. (getMockNextAction/MOCK_USER_CONTEXTS 은 데모/테스트용 보존.)
+- ⚠️ typecheck/lint green, 런타임 미검증. user_stats 빈 상태면 vocab 수 근사로 mastery 산정(cold-bias) — 실 사용자 데이터 누적 시 정확.
+
+### A3.7 WordBlitz standalone 영속화 완성 (learning_records + scores) (v06.98)
+
+`/play/wordblitz` standalone 라우트의 onCorrect/onWrong 이 `console.log` TODO 였던 것(워크스페이스 모드 WorkspaceWordBlitzMode 만 A1.3 적재) → learning_records + scores 둘 다 적재. **이로써 게임 5종(flashcard/spellforge/pairflip/scriptquiz·텍스트결과/dictation/wordblitz) 점수 적재 완료.** 마이그레이션 0.
+
+- **onCorrect/onWrong** → `recordWordBlitzResult({word, isCorrect})`(FSRS learning_records, 워크스페이스 모드와 동일) + 정/오답 카운트.
+- **onExit** → `recordGameScore`(module='wordblitz', score=correct×120+wrong×30 게임식 복제[POINTS 고정], accuracy/duration/metadata). captured 0(미플레이) skip + 1회 가드.
+- ⚠️ typecheck/lint green, Three.js 게임 런타임 미검증. WordBlitz 는 무한루프라 "완료" 없음 → exit 시점 적재.
+
+### A3.6 게임 점수 적재 확장 (flashcard/spellforge/dictation) (v06.98)
+
+A3.5(PairFlip)로 시작한 `scores` 적재를 3개 게임으로 확장 — 메인 Hub "최근 활동"(useHubData 가 scores 읽음)이 실제로 채워지도록. 공유 헬퍼로 통일. 마이그레이션 0.
+
+- **`lib/scores/record-score.ts`** 신규 — `recordGameScore`(fire-and-forget INSERT) + `useRecordGameScore`(완료 컴포넌트 마운트 1회, re-render/StrictMode 중복 방지). `learning_records`(단어별 FSRS)와 별개 세션 결과.
+- **Flashcard** `CompletionState` — ratingCounts 기반 correct/accuracy 집계 → scores(module='flashcard').
+- **SpellForge** `SpellForgeCompletion` — totalWords/correctCount/duration → scores(module='spellforge').
+- **Dictation** `DictationResultsClient` — session.totalAccuracy/items/totalTimeMs → scores(module='dictation', session 로드 시 1회).
+- ⚠️ typecheck/lint green, 완료 화면 런타임 미검증. **WordBlitz 보류**(무한루프 — 세션 시작시각·정오 카운트 추적 구조 추가 필요, 별도). PairFlip(A3.5/#56)은 inline write — 후속 통일 가능.
+
+### A3.5 PairFlip 게임 점수 영속화 + hub 실 stats (v06.98)
+
+`scores` 테이블에 **어떤 게임도 쓰지 않던**(write 0, useHubData 가 읽기만) gap 의 첫 해소 — PairFlip 완료 시 게임 점수를 `scores` 적재 + hub stats 를 mock(0 고정)에서 실 집계로. 마이그레이션 0(`scores`/`module_id` 기존재).
+
+- **`PairFlipGameScreen` onComplete** — `scores` INSERT(module='pairflip', score/total/correct/accuracy/duration + metadata{maxCombo/hintsUsed/totalAttempts/level/mode}). 실/mock 페어 무관 게임 성과 기록, fire-and-forget(흐름 비차단).
+- **`lib/pairflip/stats.ts`** 신규 — `fetchPairFlipStats`(scores module='pairflip' 집계 → bestScore/maxCombo/gamesPlayed, 최근 500 cap). `/pairflip`(server) 가 fetch → `PairFlipHub` stats prop 주입(기록 없으면 zero=cold).
+- **`PairFlipHub`** `MOCK_STATS`(0 고정) 제거 → `stats` prop. Best·콤보·게임수 hero 실데이터.
+- ⚠️ typecheck/lint green, 게임 완료 write 런타임 미검증. 다른 게임(flashcard/spellforge/…) scores 적재는 별개(동일 패턴 확장 가능).
+
+### A3.4b ScriptQuiz 질문 한국어(question_ko) 완성 (v06.98)
+
+A3.4 의 한국어 토글이 옵션만 번역하고 질문은 영어로 남던 것 → `quiz_questions.question_ko` 컬럼 추가로 질문까지 한국어. 마이그레이션 `20260628140000_scriptquiz_question_ko`(nullable, 무손실).
+
+- **마이그레이션** — `ADD COLUMN question_ko text`(사용자 명시 승인). Ammachi Ch1 5문제 한국어 질문 UPDATE 적재.
+- **`fetchQuizSession`** — `question_ko` select + `questionKo` 매핑(있을 때만). 생성 타입 미반영이라 unknown 경유 캐스팅(런타임 컬럼 존재).
+- 롤백 `docs/AI_CONTEXT/rollback/scriptquiz_question_ko_원본.sql`.
+
+### A3.4 ScriptQuiz 실 퀴즈 capability (quiz_questions 연동) (v06.98)
+
+게임 mock 스윕 마지막 — ScriptQuiz 가 `MOCK_SESSION` 고정이던 것 → `quiz_questions`(per user+text) 실 퀴즈 fetch + MOCK 폴백. **코드 capability 만**(문제 콘텐츠 생성은 별도 — 앱에 런타임 LLM 인프라 없음, Claude Code 사전 생성 또는 생성 파이프라인이 채움). 마이그레이션 0.
+
+- **`lib/scriptquiz/questions.ts`** 신규 — `fetchQuizSession(client, userId, textId)` → quiz_questions + texts.title → `QuizSession`. 문제 0개면 null → MOCK 폴백.
+- **`ScriptQuiz`** `session?: QuizSession` prop(기본 MOCK_SESSION) — `typeof MOCK_SESSION` → `QuizSession` 정합.
+- **play 페이지** async — `?text={texts.id}` 의 실 퀴즈 fetch, ResourceContext 동적 제목/문항수. 미지정/미생성 시 데모 MOCK.
+- ⚠️ typecheck/lint green, 게임 상호작용 런타임 미검증.
+- **문제 콘텐츠 적재(사용자 명시 승인 2026-06-28)** — "Ammachi's Amazing Machines — Chapter 1"(text `26688c2b`)에 독해 5문제 INSERT(multiple 4 + truefalse 1, 정답 인덱스 0/2/0/1/3 분산, 영어 본문 + 한국어 옵션 + sourceSnippet). E2E 검증: title 해석·5문제·옵션/정답 인덱스 전부 유효 → `?text=26688c2b…` 실 퀴즈 동작. quiz_questions 0→5 rows.
+
+### A3.3 PairFlip 실 페어 + SRS 영속화 (v06.98)
+
+게임 mock 스윕 3번째 — PairFlip 이 `MOCK_PAIRS`(evolution/predator…) 고정 + **영속화 전무**(fsrsRating 계산만 하고 sessionStorage→results 로만)였던 것 → 사용자 SRS 큐 due 단어 실 페어 + 매칭 결과 FSRS 영속화. 마이그레이션 0 (`module_id` enum 에 `pairflip` 기존재 — TS `ModuleId` 만 정합).
+
+- **`lib/pairflip/due-pairs.ts`** 신규 — `fetchDuePairs`(브라우저 client, due 우선, meaning 빈 단어 제외, `pairId = vocabularies.id`).
+- **play 페이지** — config + due 페어 둘 다 로드 후 게임 마운트(실 페어를 mount 시점 주입). 부족하면 빈 배열 → hook mock 폴백(win-condition 보존, 무회귀).
+- **`usePairFlipSession`** `pairs?` 옵션(레벨 pairCount 이상이면 실데이터, 아니면 mock).
+- **`PairFlipGameScreen`** onComplete — 실 페어 사용 시 pairResult 별 `pushPendingResult`(word lookup) + `flushPendingSession`(서버 권위 재계산). mock 폴백이면 push 생략.
+- **`ModuleId`** += `'pairflip'`(DB enum 정합) → 연쇄로 `actionToHref` 에 `/pairflip` 케이스 추가.
+- ⚠️ typecheck/lint green, **게임 상호작용 런타임 미검증**(상태머신) — 머지 전 수동 확인 권장.
+- 잔여: ScriptQuiz(AI 문제생성 파이프라인 필요 — mock 스왑 아님).
+
+### A3.2 SpellForge play 실데이터화 (v06.98)
+
+게임 mock 스윕 후속 — SpellForge play(`/spellforge/play`)가 `'The Great Gatsby'` + `MOCK_WORDS` 하드코딩(스코프 진입조차 없음)을 쓰던 것 → **사용자 SRS 큐의 due 단어 실데이터**로. 영속화(`pushPendingResult`/`flushPendingSession`)는 이미 작동 — 데이터 source 만 교체. 마이그레이션 0.
+
+- **`lib/spellforge/hub-words.ts`** 신규 — `fetchDueSpellForgeWords` = study-queries 재사용 + `rowToCard`→`getMemoryState` SSoT 로 `status`(메모리 4색) 계산 → `SpellForgeWord[]`.
+- **play 페이지** async 전환 + 미로그인/빈 큐 `HubEmpty` 안내. 부수 효과: 기존 mock 단어는 flush 가 사용자 vocab 과 매칭 안 돼 영속화 무효였던 것이 실 단어로 정상 영속화.
+
+### A3 Flashcard hub 진입 실데이터화 (v06.98)
+
+게임 모듈 mock 잔존 스윕 — Flashcard hub 일반 진입(`/flashcard/play`, set/text 스코프 없음)이 `MOCK_FLASHCARD_WORDS` 하드코딩 단어를 쓰던 것 → **사용자 SRS 큐의 due 단어 실데이터**로. 영속화(`flushPendingSession`)는 이미 작동 중이라 hub 진입 데이터 source 만 교체. 마이그레이션 0.
+
+- **`lib/flashcard/hub-words.ts`** 신규 — `fetchDueFlashcardWords` = `study-queries.fetchStudyVocabularies`(due 우선 next_review_at 임박순 + cap 50) 재사용 + `rowToCard` 로 실 FSRS 상태 hydrate. 스코프 진입(scoped-words)과 짝.
+- **play 페이지** — hub 분기에서 mock 제거, 미로그인/빈 큐 빈 상태(`HubEmpty`) 안내(mock 폴백 금지). 스코프 진입(워크스페이스 "카드" pill)은 기존 그대로.
+- 잔여(별도): SpellForge play(Gatsby mock) · PairFlip(mock stats) · ScriptQuiz(MOCK_SESSION) 실데이터화.
+
+### P6.5 어휘 학습 계층(Cold/Warm/Hot) 통합 검증·명문화 (v06.97)
+
+P6 잔여 마지막 단계. read-only 진단 결과 **세 계층이 P6.1~P6.4 + SRS 영속화(A1/A2) + 자동 승급(Phase 2E/G) 누적으로 이미 기능적 통합·일관**됨을 확인 — 별도 재설계 불요. 암묵 계약을 `docs/VOCAB_LAYERS.md` 로 명문화(drift 차단). 마이그레이션 0.
+
+- **검증된 불변식**: (1) 전이(Cold→Warm→Hot→V-level) 전부 `vocabularies.word = shared_dictionary.word` 키 — `auto_promote_v_level_for_user`/`_track_` word-keyed 확인 (2) V-level 게이트 `current_v_level` 중심(hard band enroll vs soft Gaussian extract, drift 없음) (3) 상태 분류 `lib/srs/state.ts getMemoryState()` 단일 SSoT.
+- **보류(저가치)**: G1 `vocabularies.lemma` NULL 백필 = vestigial(핵심 경로 word-keyed, Cold 계층 `library_book_vocabularies.lemma` 와 별개) **skip** · G3 통합 read view = DX(deferred) · G4 origin taxonomy = cosmetic(deferred) · Warm→Hot DB 함수화 = **거부**(현 server action 충분).
+- 실측: vocabularies origin별 warm 6,473 / hot 4(dev 데이터).
+
+### P6.6 V0(미진단) effective V-level 가드 (v06.97)
+
+P6.1 의 effective V-level 산정이 `current_v_level = 0`(진단 미완료 기본값)을 유효 앵커로 사용해 i+1 밴드가 `GREATEST(0-1,1)..LEAST(0+1,11) = [1,1]` 로 붕괴 → 책 구독 시 V1 단어만 import(라이브러리 도서 어휘 V6~V11 전량 배제)되던 잠재 결함 해소. 마이그레이션 `20260628130000_p6_6_enroll_v0_undiagnosed_guard`.
+
+- **NULLIF 가드** — `COALESCE(NULLIF(current_v_level, 0), book_v_level, 5)` 로 V0 을 미진단 취급 → fallback. V0 사용자 effective=5 → band [4,6](검증).
+- **F3 소급 정리(사용자 결정 2026-06-28)** — review_count=0 + i+1 위반 vocab 정리는 **V0/NULL 미진단 사용자 제외**. 측정 결과 유일 후보가 V0 사용자라 **삭제 0 건**(진도·데이터 무손실). 본 가드는 향후 enroll 정합만 확보.
+- 검증: `has_v0_guard=true` + V0 simul effective=5/band [4,6]. 롤백 `docs/AI_CONTEXT/rollback/P6_6_enroll_v0_guard_원본.sql`.
+
+### ACP §19 OpenStax CNXML 소스 설계 + 프로토타입 (v06.97)
+
+§18 에서 "CNXML dump 통합 필요(별도)"로 보류했던 OpenStax 교재 소스 설계. 실측 검증 기반(GitHub API + raw CNXML + DB 분류 함수). 마이그레이션 0 (DB 등록은 라이선스 결정 대기). 스펙 `docs/ACP_OPENSTAX_DESIGN.md`.
+
+- **프로토타입 ingester** `packages/library-pipeline/src/ingest-article/openstax.ts` — collection.xml `<md:license url>` 권위 읽기 + `cnxmlToPlainText`(MathML/figure/exercise/equation/link 제거 → `<para>/<section>/<term>` 산문) + `ingestOpenStaxModule` → `RawArticle`. `ArticleSource` 에 `'openstax'` 추가.
+- **검증** — biology m45417: 18,544자 클린 산문 · lexical_noise 0 · math/figure/src 잔존 0. 라이선스 = collection 메타 그대로(가정 X).
+- **🔴 결정적 발견** — OpenStax 인기 교재 10종 전부 **CC-BY-NC-SA**(NonCommercial). `acp_classify_license('CC-BY-NC-SA-4.0')='restricted'`(차단), `'CC-BY-4.0'='cc_by'`(통과). 즉 기술 통합은 완료, **차단 요인은 라이선스 1건** — 상업 의도 서비스엔 NC 부적합(게이트 정확). 통합 진입은 코드 아닌 **결정**(CC-BY 타이틀 한정 / 비상업 commitment / 보류 중 택일). ingester 만 대기 머지, O1~O5 wiring 보류.
+
+### C1/P6.1 구독 시점 i+1 필터 (v06.96)
+
+책 구독 시 `_enroll_book_subscribe_word_sets` 가 vocabularies 를 사용자 V-level 무관하게 일괄 import 하던 것(i+1·Desirable Difficulty 위배) → 구독 시점 i+1 필터 + dedup + 세션 cap. 마이그레이션 `20260628120000_p6_enroll_subscribe_i_plus_one`.
+
+- **구독(set-level) 불변** — 책 전체 챕터 단어장은 그대로 구독. **vocabularies import 만** 필터(E8 완전분리 — orphan vocab 343 확인).
+- **i+1 필터(E1)** — `v_level BETWEEN GREATEST(N-1,1) AND LEAST(N+1,11)`. N = `user_profiles.current_v_level`(E1) → `library_books.book_v_level`(E2) → 5(E5). `shared_dictionary` LEFT JOIN(미등재 단어 통과).
+- **dedup(E7)** — `UNIQUE(user_id,word)` 존재 확인 → `NOT EXISTS` + `ON CONFLICT DO NOTHING`(stable dedup 포괄).
+- **세션 cap 50(E4)** — DISTINCT ON 단어당 1행 + 레벨 근접·고빈도 우선 ORDER → LIMIT 50.
+- **F0(소급 보류)** — 기존 vocabularies 무변경, 신규 enroll 만 적용.
+- 검증: read-only 스모크 — v_n=5 시 selected=50(cap)·전부 band [4,6] / 실 V0 사용자는 dedup 으로 0(정상). 롤백 `docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql`.
+
+### A2b WordVault 복습 뷰 실데이터 (v06.95)
+
+`/wordvault` 복습 뷰가 하드코딩 placeholder("오늘 복습할 단어 12개")였던 것 → 실 vocabularies 기반 복습 세션으로. (A2 study 인프라 재사용 — 마이그레이션 0.)
+
+- **`/wordvault/review` RSC** 신설 (study 라우트 미러) — 복습 대상 = **due+new**(`next_review_at ≤ now` 또는 NULL), `fetchStudyVocabularies`(due 우선) → `WordVaultStudyClient` (`mode="review"`). 평가는 study 와 동일 flush 경로(A1.1)로 영속화.
+- `WordVaultStudyClient`에 `mode?: 'study'|'review'` prop 추가(빈 상태 카피 분기, 기본 study).
+- 레거시 `?view=review` → `/wordvault/review` redirect (study 패턴 동일). hub words mock 실데이터화는 별도(미진입).
+
+### A1.3 WordBlitz 학습 기록 적재 (v06.91)
+
+`recordWordBlitzResult`가 `vocabularies`(FSRS D/S)만 update하고 `learning_records`(audit) insert는 누락해 Hub/Dashboard 통계에서 WordBlitz 플레이가 빠지던 문제 해소. update 성공 후 `resultToRecordPayload(result, user.id)`로 insert 추가 — 4모듈(flashcard/spellforge/dictation/wordblitz) 기록 일관. 마이그레이션 0(컬럼 기존재). 독립 변경(flush 인프라 무관).
+
+### A2 WordVault 학습 실데이터 + 영속화 (v06.90)
+
+WordVault StudyMode가 `MOCK_WORDS`(레거시 `?view=study` 클라이언트 경로)만 받던 문제 해소 — browse RSC 패턴을 study에 복제해 **실 vocabularies** 제시 + A1.1 flush 경로로 평가 영속화. (마이그레이션 0. 신규 라우트 `/wordvault/study`.)
+
+- **`/wordvault/study` RSC** 신설 (browse 미러) — `fetchStudyVocabularies`(due 우선: `next_review_at` asc nullsFirst, 세션 cap 50) → `vocabRowToWord` → `WordVaultStudyClient`(빈 상태 안내 포함). 레거시 `?view=study` → 신 라우트 redirect.
+- **StudyMode 실 배선** — 데모 제거(studyIndex 0 시작·실 진행률·modulo 루프 제거). `rateWord(1~5)` → `studyRatingToFsrs`(1다시→Again·2어려움→Hard·3애매→Hard·4쉬움→Good·5완벽→Easy) → `applyReview`+큐 push(word) → 마지막 단어/종료 시 `flushPendingSession`.
+- `rating-mapper.ts` `studyRatingToFsrs` 추가. WordVault review·hub words mock 은 A2b 분리.
+
+### A1.1 SRS 학습 결과 DB 영속화 (v06.89)
+
+학습 모듈이 FSRS를 클라이언트에서 계산해 `sessionStorage` 큐(`pushPendingResult`)에 쌓지만 **DB로 flush하는 소비자가 없어 탭을 닫으면 소실되던** 갭 해소. (마이그레이션 0 — `vocabularies` FSRS 컬럼 + `learning_records.rating`/audit 컬럼 모두 기존재 확인.)
+
+- **`flushPendingSrsResults` 서버 액션** (`lib/srs/flush-actions.ts`) — 큐를 받아 **단어 텍스트로 (user_id, word) `vocabularies` 조회**(cardId는 모듈마다 의미 상이 — shared_words.id/vocabularies.id/정규화 단어 — 신뢰 불가, WordBlitz 패턴 재사용) → **서버 권위 재계산**(실 DB row의 D/S에 `applyReview`, scoped 단어 empty-card 진행도 리셋 방지) → `vocabularies.update` + `learning_records.insert`. 사용자 어휘에 없는 단어(mock/챕터 보충)는 silent skip. 같은 단어 반복 평가는 시간순 누적.
+- **`flushPendingSession` 클라이언트 헬퍼** (`lib/srs/flush-session.ts`) — 세션 종료 시 큐 flush, 성공 시에만 비움(실패 시 보존·재시도).
+- **3개 모듈 완료 지점 배선** — Flashcard(`isComplete`)·SpellForge(`showCompletion`)·Dictation(`srsAppliedRef`) 에서 flush 호출. `PendingSrsResult`에 `word` 추가(4개 push 사이트 갱신). WordVault StudyMode(데모)·WordBlitz `learning_records` insert는 A1.2/A1.3로 분리.
+
+### Tier B UI 폴리시 (v06.88)
+
+플랫폼 미완성 작업 스캔 후속 — 자립형 quick-win 묶음. (B1 워크스페이스 article `audio_url` 재생은 P5(v06.86)에서 이미 배선 완료로 확인되어 작업 제외.)
+
+- **pending-words 피드백** — `PendingWordActions` 상태 전환 실패 시 `alert()` → `useToast().error` (Calm UI · 기존 `components/ui/Toast` 재사용).
+- **로딩 화면 폴리시** — `dictate/setup` Suspense fallback + `pairflip/play` 세션 대기 화면을 `Loader2` 스피너 + 차분한 카피("준비하고 있어요")로 정비. (두 화면 모두 정상 전환 상태였고 무한 로딩 아님 — 점검 결과 cosmetic 개선만.)
+
+### 멀티 세션 git worktree 자동화 (v06.94)
+
+여러 Claude Code / VS Code 세션이 서로 다른 화면·기능을 동시에 작업하도록 worktree 레이아웃 셋업 + 관리 자동화.
+
+- **worktree 레이아웃** — `../Vocaflow-main`(main, PR/handoff) · `../Vocaflow-ui`(`feat/learner-ui`, `app/(main)/*`) · `../Vocaflow-admin`(`feat/admin-ui`, `app/admin/*`). 학습자/어드민 라우트 폴더 분리로 병렬 충돌 최소.
+- **`scripts/worktree.mjs` + `pnpm wt`** — `list`(ahead/behind) / `new <suffix> [base]`(생성 + `pnpm install` 자동) / `remove <suffix> [--del-branch]` / `sync`(fetch --prune). 규약: 디렉터리 `../Vocaflow-<suffix>` + 브랜치 `feat/<suffix>`.
+- **`docs/WORKTREE.md`** 신규 — 운영 가이드(원칙·레이아웃·스크립트·공유 자산 충돌 직렬화 규칙). 핵심 주의: 클라우드 DB·`supabase/migrations/`·`packages/ui-shared` 등 공유 자산은 한 세션에서만 변경 후 나머지 worktree pull/rebase.
+
+### verify CI green 복구 — lint 74건 + CI 안정화 (v06.93)
+
+CI `verify` job(`turbo run lint typecheck test`)이 **3가지 독립 사유**로 상시 red였던 것을 green으로 복구(빌드 복구 v06.92 후속). 경고(jsx-a11y·exhaustive-deps)는 차단 안 하므로 보존.
+
+**① web ESLint 에러 74건 → 0:**
+
+- **`no-explicit-any` 32 (전부 `lib/admin/dict/queries.ts`)** — `countRows` 콜백의 불필요한 `(q as any)` 중복 캐스트 제거(`q`는 이미 `PgQuery`(eslint-disabled 단일 alias) 타입). 런타임 불변.
+- **`no-unused-vars` 28** — 미사용 import/var/arg 제거(24파일). 미사용 prop은 destructure에서만 제거(인터페이스/콜러 계약 보존), write-only 변수·orphaned arg는 안전 정리.
+- **`no-unescaped-entities` 12** — JSX 텍스트의 `"`/`'`를 `&ldquo;`/`&rdquo;`/`&apos;` 등으로 이스케이프(6파일).
+- **`prefer-const` 2** — `bookMetaMap`·`countsPerSet` `let`→`const`.
+
+**② `apps/mobile` (Expo 기획 scaffold — eslint·typescript 미설치):** `lint`·`typecheck` 스크립트를 no-op stub(`@vocaflow/wlp:lint` 선례 동일 — 검사할 실 코드 없음. 모바일 실구현 시 복원).
+
+**③ 무(無)테스트 패키지:** `vcb-core`·`library-pipeline` test 스크립트에 `--passWithNoTests` 추가(`vitest run`이 "No test files found"로 exit 1 하던 것 — `@vocaflow/wlp` 선례 동일).
+
+**④ 통합 테스트 env-skip 버그:** `content-storage.test.ts`(Supabase 통합)가 env 없는 CI에서 `describe` 본문 최상위의 즉시 `createClient` 호출로 `supabaseUrl is required` throw(collection 단계). `client` 생성을 `beforeAll`로 지연 → `skipIf(env 없음)` 시 미실행 → CI 정상 skip(로컬 .env.local 있으면 그대로 실행).
+
+- 검증: 로컬 `turbo run lint typecheck test` **13/13 green**(env 有) · CI(env 無)는 content-storage skip 후 green · `next lint` 0 · `tsc` 통과 · `next build` green(83p).
+
+### 프로덕션 빌드 복구 (v06.92)
+
+`next build`(프로덕션)가 main에서 **기존부터 실패**하던 것을 복구 — 배포 차단 이슈. CI가 typecheck/lint만 게이트하고 `next build`는 안 돌려 미발견. (SRS 검증 중 발견 — [[project_next_build_broken]] 진단.)
+
+- **`swcMinify: false`** — SWC minifier가 `@mintplex-labs/piper-tts-web`(onnxruntime-web 번들, EchoMatch) 청크를 parse 못해 `failed to parse input file: Syntax Error`로 죽던 것 → Terser minifier 폴백. `✓ Compiled successfully` 회복. (후속: ort 청크만 제외하는 surgical 방식으로 SWC minify 복원 가능.)
+- **`eslint: { ignoreDuringBuilds: true }`** — 전(全)프로젝트 기존 lint 부채 74건(no-explicit-any 32·no-unused-vars 28·no-unescaped-entities 12·exhaustive-deps 6)이 빌드 산출물 생성을 막던 것 → lint를 빌드에서 분리(`next lint`/별도 CI job). **typecheck는 빌드에서 계속 강제**(tsc 통과 유지, `ignoreBuildErrors` 미설정).
+- 결과: `next build` exit 0, 83 페이지 생성.
+- **CI 가드** — `ci.yml`에 `build` job 추가(`next build` 실행 · placeholder env · push/PR to main). 빌드 깨짐 재발 조기 감지. CI 시뮬레이션으로 `.env.local` 없이 green 확인(force-dynamic 페이지는 build-time 미실행). 후속: lint 74건 점진 cleanup + ort 청크만 제외하는 surgical minify 복원.
+
 ### 큐레이션 관리자 콘솔 — SourcePolicy 단일 화면 (v06.87)
 
 `/admin/articles` 를 소스별 8탭 → **SourcePolicy 분기 단일 4단계 콘솔**(커버리지·소스GET·검수·발행)로 재구성. VOA/TC 등 소스 차이는 정책 4축(supply/media/derivation/attribution)으로만 분기 — `if (source==='voa')` 하드코딩 제거. (admin_curation_screens_build handoff: C2 + P1~P4.)

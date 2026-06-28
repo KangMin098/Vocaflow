@@ -2,13 +2,11 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useFlashcardSession } from '@/hooks/useFlashcardSession'
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock'
+import { useNextAction } from '@/lib/recommend/use-next-action'
+import { flushPendingSession } from '@/lib/srs/flush-session'
 import { Rating, applyReview, type RatingValue } from '@/lib/srs'
 import { pushPendingResult } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
@@ -48,13 +46,8 @@ interface FlashcardSessionProps {
 }
 
 export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // Flashcard 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" 추천 (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_flashcard' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  )
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction()
 
   const session = useFlashcardSession({ initialWords })
   const {
@@ -86,6 +79,15 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
     document.body.classList.add('studying')
     return () => document.body.classList.remove('studying')
   }, [])
+
+  // 세션 종료 시 SRS 큐 → DB flush (멱등 가드, 1회).
+  const flushedRef = useRef(false)
+  useEffect(() => {
+    if (isComplete && !flushedRef.current) {
+      flushedRef.current = true
+      void flushPendingSession()
+    }
+  }, [isComplete])
 
   // Recall 타이머: 3초 진행 후 flippable로 전환, 1.5초 시점부터 힌트 노출
   useEffect(() => {
@@ -155,6 +157,7 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
       // DB 연동 전 임시 큐. 연동 후엔 supabase.from('vocabularies').update(...) 직접 호출.
       pushPendingResult({
         cardId: result.card.id,
+        word: currentWord.text,
         cardUpdate: cardToUpdatePayload(result.card),
         rating: result.log.rating,
         reviewedAt: result.log.reviewedAt.toISOString(),

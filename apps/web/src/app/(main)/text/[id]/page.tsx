@@ -28,11 +28,8 @@ import type { ChapterDisplayStatus } from '@/components/workspace/CompleteChapte
 import { useFocusMode } from '@/hooks/useFocusMode'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
-import {
-  actionToHref,
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock'
+import { actionToHref } from '@/lib/recommend/next-action.mock'
+import { useNextAction } from '@/lib/recommend/use-next-action'
 
 import type { LibraryText, ModeKey, ModeStatus, Word } from '@/types/library'
 import type { SpellForgeWord } from '@/types/spellforge'
@@ -307,10 +304,8 @@ export default function WorkspacePage({ params }: PageProps) {
     return count
   }, [paragraphs])
 
-  // §17.3 추천 축 (3곳 중 1곳: FloatingSparkle)
-  // 사용자가 이미 Workspace에 있으므로 warm_urgent 컨텍스트 — Flashcard 추천이 학습 흐름의 자연스러운 다음 단계
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'workspace', textId })
-  const recommendation = useMemo(() => getMockNextAction(MOCK_USER_CONTEXTS.warm_urgent), [])
+  // §17.3 추천 축 (3곳 중 1곳: FloatingSparkle) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction()
   const recommendationHref = useMemo(() => actionToHref(recommendation), [recommendation])
 
   // "단어" 모드 목적지: WordVault Browse 풀스크린 + 현재 chapter 단어장 자동 활성

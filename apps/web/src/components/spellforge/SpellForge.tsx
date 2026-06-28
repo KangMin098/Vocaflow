@@ -2,7 +2,7 @@
 
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 
@@ -23,12 +23,10 @@ import { useTypingMode } from '@/hooks/useTypingMode'
 
 import { SpellForgeCompletion } from './SpellForgeCompletion'
 
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock'
+import { useNextAction } from '@/lib/recommend/use-next-action'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
 import { applyReview, createNewCard } from '@/lib/srs'
+import { flushPendingSession } from '@/lib/srs/flush-session'
 import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
 import {
   cacheCard,
@@ -58,7 +56,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
   // Hooks
   const { mode, setMode } = useTypingMode()
   const { imeStatus, checkInput } = useIMEDetection()
-  const { confirmed, result, confirm, reset: resetFeedback } = useDelayedFeedback()
+  const { result, confirm, reset: resetFeedback } = useDelayedFeedback()
   const { isHintActive, hintCount, triggerHint, resetHints } = useActiveHint(() => {
     setUserInput('')
     if (inputRef.current) inputRef.current.value = ''
@@ -76,19 +74,23 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
   const [showCompletion, setShowCompletion] = useState(false)
   const errorTimerRef = useRef<NodeJS.Timeout | null>(null)
 
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // SpellForge 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_spellforge' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  )
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction()
 
   // body class for studying mode
   useEffect(() => {
     document.body.classList.add('studying')
     return () => document.body.classList.remove('studying')
   }, [])
+
+  // 세션 종료 시 SRS 큐 → DB flush (멱등 가드, 1회).
+  const flushedRef = useRef(false)
+  useEffect(() => {
+    if (showCompletion && !flushedRef.current) {
+      flushedRef.current = true
+      void flushPendingSession()
+    }
+  }, [showCompletion])
 
   // 모드 변경 시 reset
   useEffect(() => {
@@ -158,6 +160,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
     cacheCard(reviewResult.card)
     pushPendingResult({
       cardId: reviewResult.card.id,
+      word: currentWord.text,
       cardUpdate: cardToUpdatePayload(reviewResult.card),
       rating: reviewResult.log.rating,
       reviewedAt: reviewResult.log.reviewedAt.toISOString(),
@@ -274,6 +277,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
       cacheCard(reviewResult.card)
       pushPendingResult({
         cardId: reviewResult.card.id,
+        word: currentWord.text,
         cardUpdate: cardToUpdatePayload(reviewResult.card),
         rating: reviewResult.log.rating,
         reviewedAt: reviewResult.log.reviewedAt.toISOString(),

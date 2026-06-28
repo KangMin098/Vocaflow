@@ -78,7 +78,6 @@ export function VocabSetCarousel({
   subscribedIds,
   pendingId,
   isLoggedIn,
-  onPreview,
   onToggle,
 }: Props) {
   // 데이터 있는 카테고리만 탭으로
