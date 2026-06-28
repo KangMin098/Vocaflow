@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/acp-source-tabs`
+**활성 브랜치**: `feat/acp-lcp-process`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `637420d` Merge pull request #71 from KangMin098/feat/acp-source-tabs
+- `a59bb01` Merge remote-tracking branch 'origin/main' into feat/acp-source-tabs
+- `e47cb0e` feat(learner): 내 학습 관리 화면 /manage (계획·실행·진단·리포트 통합) (#70)
 - `e807d22` feat(acp): 소스 GET 을 소스별 탭으로 분리 — 소스 전용 화면(정보·특성·학습자 가치)
 - `b98402d` feat(nav): Sidebar 학습자 관리 라우트 연결 (/onboarding·/reports·/teacher) (#69)
-- `7a0bccd` feat(teacher): P4.2 교사 허브 /teacher — 클래스 개설·초대코드·참여 (#68)
-- `36cdeae` Merge pull request #64 from KangMin098/feat/acp-source-guide
-- `821ca20` Merge remote-tracking branch 'origin/main' into HEAD
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
