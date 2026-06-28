@@ -13,9 +13,11 @@ import type { WordItem } from '@/components/wordvault/types'
 
 interface WordVaultStudyClientProps {
   words: WordItem[]
+  /** 빈 상태 카피 프레이밍 — 'study'(학습) | 'review'(복습). 기본 study. */
+  mode?: 'study' | 'review'
 }
 
-export function WordVaultStudyClient({ words }: WordVaultStudyClientProps) {
+export function WordVaultStudyClient({ words, mode = 'study' }: WordVaultStudyClientProps) {
   const router = useRouter()
 
   if (words.length === 0) {
@@ -25,10 +27,12 @@ export function WordVaultStudyClient({ words }: WordVaultStudyClientProps) {
           <Sparkles size={22} aria-hidden />
         </div>
         <h2 className="mb-s-2 font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
-          오늘 학습할 단어가 아직 없어요
+          {mode === 'review' ? '지금 복습할 단어가 없어요' : '오늘 학습할 단어가 아직 없어요'}
         </h2>
         <p className="mb-s-6 font-body text-sm text-t2">
-          텍스트에서 단어를 모으거나 단어장을 구독하면 여기서 차분히 익힐 수 있어요.
+          {mode === 'review'
+            ? '잘 따라가고 있어요 — 복습할 단어가 쌓이면 여기에 나타나요.'
+            : '텍스트에서 단어를 모으거나 단어장을 구독하면 여기서 차분히 익힐 수 있어요.'}
         </p>
         <Link
           href="/wordvault/browse"

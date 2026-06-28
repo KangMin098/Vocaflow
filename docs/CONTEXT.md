@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/wordblitz-learning-records`
+**활성 브랜치**: `feat/wordvault-review-a2b`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `e7542da` feat(wordblitz): learning_records 적재 추가 (A1.3)
-- `dfa3a4d` Merge pull request #35 from KangMin098/feat/voa-curation-redesign
-- `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
-- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
-- `775de29` Revert "feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)"
+- `c8cc7a5` feat(wordblitz): learning_records 적재 추가 (A1.3) (#40)
+- `72a7729` feat(wordvault): study 실 vocabularies + SRS 영속화 (A2) (#39)
+- `e641816` feat(srs): 학습 결과 DB 영속화 — sessionStorage 큐 flush (A1.1) (#38)
+- `1dcc043` chore: 추적 중인 .turbo 캐시 파일 untrack (#43)
+- `26fa3ac` fix(ui): Tier B 미완성 작업 폴리시 (pending-words toast + 로딩 화면) (#37)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

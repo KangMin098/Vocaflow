@@ -97,6 +97,13 @@ export default function WordVaultPage() {
     }
   }, [searchParams, router])
 
+  // ── ?view=review → 실 데이터 RSC 복습 세션으로 redirect (A2b) ──
+  useEffect(() => {
+    if (searchParams.get('view') === 'review') {
+      router.replace('/wordvault/review')
+    }
+  }, [searchParams, router])
+
   // ── 선택 ──
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
 

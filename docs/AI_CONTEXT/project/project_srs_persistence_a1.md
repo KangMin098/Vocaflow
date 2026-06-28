@@ -26,5 +26,5 @@
 - ⚠️ A1.1/A2/A1.3 **런타임 스모크 전부 미실시**(헤드리스 한계) — 머지 전 수동 확인 필요.
 
 상위 백로그: C1 P6 구독 필터([[project_p6_handoff_pending]]), C2 ACP §18([[project_acp_source_redesign]]). 멀티세션 worktree로 작업 — [[feedback_handoff_workflow]].
-오픈 PR: #36(worktree)·#37(TierB)·#38(A1.1 flush)→#39(A2 study, #38위스택)·#40(A1.3 wordblitz, 독립). 머지순서: #38→#39, 나머지 독립.
+**전부 main MERGED (2026-06-28):** #38(A1.1 `e641816`)·#39(A2 `72a7729`)·#40(A1.3 `c8cc7a5`) — 각 rebase(main 머지·충돌해소)+CI green(verify+build)+squash. SRS 영속화 5모듈이 실 앱 검증 완료 후 main 반영됨. (잔여 A2b는 #39 의존 — 이제 진입 가능.) 이번 세션 main 머지 총 8 PR: #36/#37/#41/#42/#43 + #38/#39/#40. #44(세션 핸드오프 doc)만 open.
 
