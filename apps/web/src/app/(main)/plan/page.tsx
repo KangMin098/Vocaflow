@@ -4,27 +4,22 @@
 
 import { PlanClient } from '@/components/plan/PlanClient'
 import { Screen } from '@/components/ui/ios'
-import {
-  fetchAvailableMaterials,
-  fetchSchedule,
-  fetchStudyPlanItems,
-} from '@/lib/learner/plan-actions'
+import { fetchAvailableMaterials, fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 
 export const metadata = {
   title: '학습 계획 · Vocaflow',
-  description: '일정·도서(챕터)·스크립트·단어장·내 글을 골라 나만의 학습 계획을 만들어요',
+  description: '요일별로 도서(챕터)·스크립트·단어장·내 글을 골라 나만의 학습 계획을 만들어요',
 }
 
 export default async function PlanPage() {
-  const [items, materials, schedule] = await Promise.all([
+  const [items, materials] = await Promise.all([
     fetchStudyPlanItems(),
     fetchAvailableMaterials(),
-    fetchSchedule(),
   ])
 
   return (
     <Screen width="content" background="bg2" padX="md">
-      <PlanClient initialItems={items} materials={materials} initialSchedule={schedule} />
+      <PlanClient initialItems={items} materials={materials} />
     </Screen>
   )
 }
