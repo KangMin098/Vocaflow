@@ -7,7 +7,7 @@ import { Suspense } from 'react'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { listAdminArticles, articleStats } from '@/lib/articles/admin-queries'
-import { AcpClient } from './AcpClient'
+import { CurationConsole } from './CurationConsole'
 
 export const metadata = {
   title: 'ACP Pipeline — Vocaflow Admin',
@@ -32,7 +32,7 @@ export default async function AdminArticlesPage() {
 async function Content() {
   const articles = await listAdminArticles()
   const stats = articleStats(articles)
-  return <AcpClient articles={articles} stats={stats} />
+  return <CurationConsole articles={articles} stats={stats} />
 }
 
 function PageHeader() {

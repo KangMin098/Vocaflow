@@ -24,14 +24,16 @@ import { classifyArticleStatus } from '@/lib/articles/types'
 interface Props {
   articles: ArticleAdminRow[]
   onChanged: () => void
+  /** ACP §18 P1 — stage 별 기본 필터 (검수=in_progress 큐 / 발행=published). 미지정 시 all. */
+  initialFilter?: StatusFilter
 }
 
 type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived'
 
 const IN_PROGRESS: ArticleStatus[] = ['queued', 'ingesting', 'normalizing', 'analyzing', 'curating']
 
-export function CuratedArticlesTab({ articles, onChanged }: Props) {
-  const [filter, setFilter] = useState<StatusFilter>('all')
+export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' }: Props) {
+  const [filter, setFilter] = useState<StatusFilter>(initialFilter)
   const [pending, setPending] = useState<string | null>(null)
 
   const visible = useMemo(() => {
