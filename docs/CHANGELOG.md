@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### Sidebar 학습자 관리 라우트 연결 (/onboarding·/reports·/teacher) (v06.98)
+
+P1~P4.2 신규 라우트가 Sidebar 미등재라 URL로만 접근 가능하던 것 → `sidebar-config.ts`(단일 출처)에 연결. 마이그레이션 0.
+
+- **META_ITEMS** += `학습 계획`(/onboarding, Target) · `리포트`(/reports, CalendarRange) — Hub/Dashboard/진단과 같은 메타 학습 tier.
+- **FOOTER_ITEMS** += `클래스`(/teacher, GraduationCap) — L3 B2B 유틸(Settings 옆).
+- Sidebar.tsx 가 두 배열 map → 즉시 노출. 누적 구축한 학습자 관리 화면이 발견 가능해짐. typecheck/lint green.
+
 ### P4.2 교사 허브 — /teacher (클래스 개설·초대코드·참여) (v06.98)
 
 LEARNER_MANAGEMENT.md P4 화면 1단계 — 클래스카드형 교사 허브. P4.1 데이터 모델 소비. 마이그레이션 `20260628190000_p4_2_join_class_by_code`(초대코드 join SECURITY DEFINER 함수, 사용자 승인).

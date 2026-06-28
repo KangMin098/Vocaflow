@@ -14,7 +14,12 @@
 - **P2** (PR #65, mig `20260628170000`): `weekly_reports` 테이블 + `lib/learner/weekly-report.ts`(daily_activity 주간 집계 + 템플릿 격려 코멘트, KST 월요일, 멱등) + `/reports` Report Card(갱신 버튼, cron 자동생성은 후속).
 - **P3** (PR #66, 마이그레이션 0): `/dashboard` TodayHero 하드코딩(23/30/학습자) → 실데이터(`dashboard-data.ts fetchDashboardHero`) + known-word Implicit Progress 표시. WeeklyHeatmap/MemoryStatus/RecentActivity 는 P0 데이터로 자동 실데이터화.
 
-**잔여**: P4 = L3 B2B 화면(`/teacher/*`, classes/class_members/assignments 테이블 + 초대코드 + 과제배포 + 리포트공유) — **설계상 Phase 2**, 데이터모델 선반영만 됨(아직 테이블 미생성). · 모든 P1/P2/P3 UI 런타임 미검증(서버 fetch/폼/표시, 무회귀 설계). · daily_activity/known_word_count 는 실플레이 누적 시 채워짐(현 dev 0). · weekly_reports cron 자동생성 · 추천 P2(진행중 스크립트 reading_session 연동).
+- **P4.1** (PR #67, mig `20260628180000`): L3 B2B 데이터 모델 `classes`/`class_members`/`assignments` + recursion-safe RLS(`is_class_teacher`/`is_class_member` SECURITY DEFINER 헬퍼로 classes↔class_members 순환 회피, 정책 8). user_profiles.role 에 'teacher'.
+- **P4.2** (PR #68, mig `20260628190000`): 교사 허브 `/teacher` — `lib/teacher/class-actions.ts`(createClass 초대코드 자동생성 / joinClassByCode RPC / fetchTeacherClasses 멤버수 / fetchMyMemberships) + TeacherClient(개설/목록/초대코드 복사/참여). `join_class_by_code(text)` SECURITY DEFINER(비멤버 RLS 우회 lookup+가입).
+
+**로드맵 P0~P4.2 전부 머지 완료(#61~#68)**. 적용 마이그레이션: P0/P1/P2/P4.1/P4.2.
+
+**잔여**: P4.3 = 과제배포(assignments UI) + 주간리포트 학부모 공유 + `/teacher/[classId]` 상세 (투기적 — 실 클래스/학생 없음). · 모든 P1~P4.2 UI 런타임 미검증(서버 fetch/폼/게임 — 무회귀 설계). · daily_activity/known_word_count/scores 는 실플레이 누적 시 채워짐(현 dev 0). · weekly_reports cron 자동생성 · 추천 P2(reading_session 연동) · 사이드바에 /onboarding·/reports·/teacher 메뉴 미등재(라우트만 존재).
 
 관련: [[project-a3-game-real-data-sweep]] · [[project-srs-persistence-a1]] · `docs/LEARNER_MANAGEMENT.md`(SSoT 설계)
 
