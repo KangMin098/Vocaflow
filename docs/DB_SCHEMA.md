@@ -285,7 +285,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 105건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628120000_p6_enroll_subscribe_i_plus_one` — 책 구독 시 `_enroll_book_subscribe_word_sets` 에 i+1 필터 + 미보유 dedup + 세션 cap 50, P6.1/C1 · 구독 set-level 불변, vocabularies import 만 필터)
+전체 누적 106건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628130000_p6_6_enroll_v0_undiagnosed_guard` — `_enroll_book_subscribe_word_sets` effective V-level 산정에 `NULLIF(current_v_level,0)` 가드, V0=미진단→fallback, P6.6 · 직전: `20260628120000_p6_enroll_subscribe_i_plus_one` 책 구독 i+1 필터 P6.1/C1)
 
 ---
 
