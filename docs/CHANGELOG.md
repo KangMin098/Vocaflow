@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### fix: StoryWeaver 소스 GET 영어만 (다국어 혼입 차단) (v06.98)
+
+큐레이션 "소스에서 가져오기(GET batch)" 에서 StoryWeaver 선택 시 Hindi·Tamil 등 비영어 그림책이 섞여 들어오던 버그 수정. 원인 = books-search API 가 단수 `language=English` 파라미터를 **무시**(라이브 검증 2026-06-28: 다국어 혼입 재현) → 배열형 `languages[]=English` 만 실제 필터 적용.
+
+- **`seed-fetchers/storyweaver.ts`** — `qs.set('language', 'English')` → `qs.append('languages[]', 'English')` + 반환 데이터에 `b.language==='english'` 방어 필터(API 느슨 대비).
+- **카탈로그 정리** — 기존 오염 시드 2건(Hindi `987-tak-tak` · Tamil `378-en-nanbargal`, 둘 다 미import·미queue) DELETE.
+
 ### 학습자 관리 설계 SSoT (LEARNER_MANAGEMENT.md) (v06.98)
 
 5개 비교군(LingQ/Busuu/리틀팍스/클래스카드/듀오) 분석 + 라이브 데이터 진단 종합 — `docs/LEARNER_MANAGEMENT.md` 신규(설계 문서, 마이그레이션 0). 타겟 = **수능생 단일 집중** · L3(B2B) 로드맵 명시 + 데이터 모델 선반영.

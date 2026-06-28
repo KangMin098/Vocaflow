@@ -125,7 +125,9 @@ export const storyweaverFetcher: SourceFetcher = {
     const page = Math.floor(offset / perPage) + 1
 
     const qs = new URLSearchParams()
-    qs.set('language', 'English')
+    // ⚠ 단수 `language=English` 는 books-search 가 무시 → 다국어(Hindi 등) 섞임.
+    //   배열형 `languages[]=English` 만 실제 언어 필터를 적용한다 (라이브 검증 2026-06-28).
+    qs.append('languages[]', 'English')
     qs.set('per_page', String(perPage))
     qs.set('page', String(page))
     if (genre && /^[1-4]$/.test(genre)) qs.append('reading_levels[]', genre)
@@ -139,7 +141,8 @@ export const storyweaverFetcher: SourceFetcher = {
     const data = Array.isArray(json.data) ? json.data : []
 
     const fetched: SeedRow[] = data
-      .filter((b) => b && b.slug)
+      // slug 필수 + 영어만 (API 언어 필터가 느슨할 때를 대비한 방어 — 비영어 책 제외).
+      .filter((b) => b && b.slug && (b.language ?? '').trim().toLowerCase() === 'english')
       .map((b, i) => ({
         source: 'storyweaver',
         source_id: b.slug || String(b.id),
