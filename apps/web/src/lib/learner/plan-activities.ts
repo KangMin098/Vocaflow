@@ -149,12 +149,9 @@ export const WEEKDAYS: { value: number; label: string }[] = [
   { value: 7, label: '일' },
 ]
 
-/** 하루 학습 목표(분) 선택지 */
-export const DAILY_MINUTES_OPTIONS = [10, 20, 30, 45, 60]
-
-export interface PlanSchedule {
-  weeklyDays: number[]
-  dailyMinutes: number
+/** 요일 단축 라벨 (월·화·…) — value 1=월..7=일 */
+export function weekdayLabel(value: number): string {
+  return WEEKDAYS.find((d) => d.value === value)?.label ?? String(value)
 }
 
 /** library_articles.source → 표시 라벨 (스크립트 소스 필터/배지) */

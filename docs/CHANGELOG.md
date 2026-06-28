@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 계획 요일 결합 — 시간 제거, 자료에 요일 부착 (v06.105)
+
+학습 요일을 **자료 선택과 결합**(따로 선택 = 이질감/계획성 약함, 사용자 피드백) + **시간(하루 분) 제거**.
+
+- **마이그레이션** `20260628220000` — study_plan_items `weekdays int[]`(1=월..7=일, 빈=미정) 추가 + 전역 `study_plan_schedule` DROP.
+- **요일 결합**: 자료 추가 흐름(챕터·활동·**요일**) + 카드(요일 요약 + 편집 시 요일 칩) — 분리된 일정 스트립 폐기.
+- **주간 overview**: 담은 자료의 요일을 집계해 월~일 학습일/자료 수 표시(읽기 전용 · "계획성").
+- **시간 제거**: 하루 목표(분)·daily_minutes 폐기.
+- `plan-activities.ts` weekdayLabel(+ DAILY_MINUTES/PlanSchedule 제거) · `plan-actions.ts` PlanItem.weekdays + savePlanItem weekdays(+ fetch/saveSchedule 제거) · `PlanClient.tsx` WeeklyOverview/WeekdayChips + 카드/추가 결합.
+- typecheck green · `next build` 89/89 (/plan 11.7kB) · 실렌더(시간 제거·페이지 정상) 확인.
+
 ### 학습 계획 picker — V-Level 밴드 × 카테고리 체계화 (v06.104)
 
 `/plan` 자료 추가를 나열식 → **V-Level 밴드 섹션 + 카테고리/소스 필터**의 체계적 선택 구조로 (사용자 피드백: "나열식 안 됨, 체계적 선택구조"). 마이그레이션 0.

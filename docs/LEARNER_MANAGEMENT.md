@@ -58,7 +58,8 @@ ALTER TABLE public.user_stats
 
 > 초기 설계의 수능 D-day 역산(`learning_goals`)은 **폐기**(0 rows DROP). 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장)별로 **할 활동을 고르는** 구성(리틀팍스 코스형). "수능 단일 집중"은 타겟 페르소나로만 유지하고 계획의 substance 는 자료×활동.
 
-**리치 구성 (2026-06-28 v06.102):** 자료 4종 + 도서 챕터 + 일정(주당 리듬). material_type 에 `'article'`(library_articles=공개 스크립트) 추가, `chapters int[]`(도서 선택 챕터) 추가, 일정용 `study_plan_schedule` 신설.
+**리치 구성 (2026-06-28 v06.102):** 자료 4종(material_type += `'article'`) + 도서 `chapters int[]`.
+**요일 결합 (v06.105):** 학습 **요일을 항목별로** (`weekdays int[]`) — 자료 선택과 결합. 전역 `study_plan_schedule`/시간(분) **폐기**(따로 선택 = 이질감·계획성 약함, 사용자 피드백).
 
 ```sql
 CREATE TABLE public.study_plan_items (
@@ -68,19 +69,13 @@ CREATE TABLE public.study_plan_items (
   material_id   uuid NOT NULL,                 -- library_books|library_articles|shared_word_sets|texts (다형)
   modules       text[] NOT NULL DEFAULT '{}',  -- 선택 활동(아래)
   chapters      int[]  NOT NULL DEFAULT '{}',  -- 도서 선택 챕터 idx (빈=전체)
+  weekdays      int[]  NOT NULL DEFAULT '{}',  -- 학습 요일 1=월..7=일 (빈=미정) — 자료와 결합
   created_at    timestamptz NOT NULL DEFAULT now(),
   updated_at    timestamptz NOT NULL DEFAULT now(),
   UNIQUE (user_id, material_type, material_id)  -- 자료 1개당 1행
 );
 ALTER TABLE public.study_plan_items ENABLE ROW LEVEL SECURITY; -- 본인 4정책
-
--- 주당 학습 리듬 (일정) — 전역 1개/사용자
-CREATE TABLE public.study_plan_schedule (
-  user_id       uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  weekly_days   int[] NOT NULL DEFAULT '{}',   -- 1=월 .. 7=일
-  daily_minutes int NOT NULL DEFAULT 20,
-  updated_at    timestamptz NOT NULL DEFAULT now()
-);  -- 본인 RLS
+-- study_plan_schedule(전역 주당 리듬 + 하루 분) 폐기 — 요일은 위 weekdays 로 항목별 결합
 ```
 
 **자료 4종** = 도서(library_books·표지·챕터) / 스크립트(library_articles·소스 배지) / 공용단어장(shared_word_sets·이모지) / 내 스크립트(texts).
@@ -195,18 +190,18 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 > 초기 "수능 D-day 역산"은 폐기. **언제(일정) · 무엇을(자료) · 어떻게(활동)** 3요소를 비주얼로 고른다. 텍스트 위주 → 표지/배지/이모지 + 선택 중심(학습 의욕).
 
 ```
-일정(주당 리듬): 학습 요일(월~일) + 하루 목표(분) → study_plan_schedule (전역 1개)
+요일 결합(v06.105): 학습 요일을 자료에 부착(study_plan_items.weekdays) — 따로 선택 X. 시간(분) 폐기.
 자료(4종): 도서(표지·챕터 다중선택) / 스크립트=article(소스 필터) / 공용단어장(이모지) / 내 스크립트
-         → 활동(자료유형별 가용) 다중 선택 → study_plan_items 1행 (+chapters)
+         → 활동(자료유형별 가용) + 요일 다중 선택 → study_plan_items 1행 (+chapters +weekdays)
 화면 /plan:
-  · 상단 ScheduleStrip = 요일 원형 토글 + 하루 목표 칩 (즉시 저장)
-  · 담은 자료 카드 = 표지/배지/이모지 + 챕터 배지 + 활동 실행 링크(기본) / 편집(연필=활동·챕터 토글) + 열기 + 빼기
-  · 자료 추가 = 4탭 → **V-Level 밴드 섹션**(입문~고급, genres.V_BANDS) + 서브필터(스크립트=소스·단어장=주제) → 도서=표지 그리드/그 외=목록 → [도서 챕터 칩] + 활동 체크 → 추가
+  · 상단 WeeklyOverview = 담은 자료의 요일 집계(월~일 자료 수, 읽기 전용 "계획성")
+  · 담은 자료 카드 = 표지/배지/이모지 + 챕터·요일 요약 + 활동 실행 링크(기본) / 편집(연필=활동·챕터·요일 토글) + 열기 + 빼기
+  · 자료 추가 = 4탭 → **V-Level 밴드 섹션**(입문~고급, genres.V_BANDS) + 서브필터(스크립트=소스·단어장=주제) → 도서=표지 그리드/그 외=목록 → [도서 챕터 칩] + 활동 체크 + **요일 칩** → 추가
     (단어장 V는 slug auto-vlevel→cefr 폴백 · 챕터 종속 세트 library_book/article 제외 · 나열식 금지·체계적 선택)
 자료 라우트: book→/library/books/[id] · article→/library/scripts/[id] · word_set→/library/vocab#set-{slug} · script→/text/[id]
 ```
 
-- 계획 = "언제·무엇을·어떻게" 구성. 수능 D-day·완료일 역산 같은 카운트다운/압박 지표 없음(§철학1 Calm·§철학4 Implicit). 일정은 deadline 이 아니라 **리듬**.
+- 계획 = "언제(요일)·무엇을·어떻게" 한 흐름에 결합. 수능 D-day·완료일 역산·시간 압박 지표 없음(§철학1 Calm·§철학4 Implicit). 요일은 deadline 이 아니라 **리듬**.
 - /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
 - **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크, 편집(연필) = 활동 토글. scoped 진입(아이콘 ▶): 스크립트 `flashcard?text=`·`scriptquiz?text=` / 단어장 `flashcard?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) / listen·read·echo·vocab→본문. 미스코핑 게임(wordblitz/pairflip/spellforge/dictation·도서 게임)은 모듈 hub(↗) honest fallback. (`activityLaunchHref`/`isActivityScoped`)
 - (후속) 미스코핑 게임의 자료 스코핑(모듈별 param 확장) · 자료별 진행도.

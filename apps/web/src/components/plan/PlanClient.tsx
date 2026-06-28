@@ -10,7 +10,6 @@ import {
   BookOpen,
   CalendarDays,
   Check,
-  Clock,
   ExternalLink,
   FileText,
   Headphones,
@@ -29,29 +28,27 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useMemo, useState, useTransition } from 'react'
+import { useState, useMemo, useTransition } from 'react'
 
 import {
   ACTIVITY_BY_ID,
   activitiesForType,
   activityLaunchHref,
   articleSourceLabel,
-  DAILY_MINUTES_OPTIONS,
   isActivityScoped,
   materialHref,
   MATERIAL_LABEL,
   PLAN_ACTIVITIES,
   WEEKDAYS,
+  weekdayLabel,
   wordsetCategoryLabel,
   type MaterialType,
   type PlanActivity,
-  type PlanSchedule,
 } from '@/lib/learner/plan-activities'
 import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
 import {
   removePlanItem,
   savePlanItem,
-  saveSchedule,
   type AvailableMaterials,
   type MaterialOption,
   type PlanItem,
@@ -85,23 +82,20 @@ function keyOf(type: MaterialType, id: string): string {
 export function PlanClient({
   initialItems,
   materials,
-  initialSchedule,
 }: {
   initialItems: PlanItem[]
   materials: AvailableMaterials
-  initialSchedule: PlanSchedule
 }) {
   const [items, setItems] = useState<PlanItem[]>(initialItems)
   const [error, setError] = useState<string | null>(null)
   const [, startTransition] = useTransition()
-
-  const [schedule, setSchedule] = useState<PlanSchedule>(initialSchedule)
 
   // 추가 picker
   const [activeTab, setActiveTab] = useState<MaterialType>('book')
   const [pickedId, setPickedId] = useState<string | null>(null)
   const [pickedActivities, setPickedActivities] = useState<Set<PlanActivity>>(new Set())
   const [pickedChapters, setPickedChapters] = useState<Set<number>>(new Set())
+  const [pickedWeekdays, setPickedWeekdays] = useState<Set<number>>(new Set())
   const [bandFilter, setBandFilter] = useState<VBand | 'all'>('all')
   const [subFilter, setSubFilter] = useState<string | null>(null) // article=source · word_set=category
   const [adding, setAdding] = useState(false)
@@ -154,31 +148,26 @@ export function PlanClient({
     setPickedId(null)
     setPickedActivities(new Set())
     setPickedChapters(new Set())
+    setPickedWeekdays(new Set())
   }
 
-  // ── 일정(리듬) ──
-  function pushSchedule(next: PlanSchedule) {
-    setSchedule(next)
-    setError(null)
-    startTransition(async () => {
-      const res = await saveSchedule(next)
-      if (!res.ok) setError(res.error ?? '일정 저장에 실패했어요.')
-    })
-  }
-  function toggleDay(d: number) {
-    const has = schedule.weeklyDays.includes(d)
-    pushSchedule({
-      ...schedule,
-      weeklyDays: has ? schedule.weeklyDays.filter((x) => x !== d) : [...schedule.weeklyDays, d],
-    })
-  }
+  // 주간 overview — 요일별 자료 수 (담은 항목의 weekdays 집계, 읽기 전용)
+  const weekdayCounts = useMemo(() => {
+    const m = new Map<number, number>()
+    for (const it of items) for (const d of it.weekdays) m.set(d, (m.get(d) ?? 0) + 1)
+    return m
+  }, [items])
 
-  // ── 담은 자료: 활동/챕터 수정 (즉시 저장) ──
-  function persistItem(item: PlanItem, patch: { modules?: PlanActivity[]; chapters?: number[] }) {
+  // ── 담은 자료: 활동/챕터/요일 수정 (즉시 저장) ──
+  function persistItem(
+    item: PlanItem,
+    patch: { modules?: PlanActivity[]; chapters?: number[]; weekdays?: number[] },
+  ) {
     const modules = patch.modules ?? item.modules
     const chapters = patch.chapters ?? item.chapters
+    const weekdays = patch.weekdays ?? item.weekdays
     setItems((prev) =>
-      prev.map((it) => (it.id === item.id ? { ...it, modules, chapters } : it)),
+      prev.map((it) => (it.id === item.id ? { ...it, modules, chapters, weekdays } : it)),
     )
     setError(null)
     startTransition(async () => {
@@ -187,11 +176,14 @@ export function PlanClient({
         materialId: item.materialId,
         modules,
         chapters,
+        weekdays,
       })
       if (!res.ok) {
         setItems((prev) =>
           prev.map((it) =>
-            it.id === item.id ? { ...it, modules: item.modules, chapters: item.chapters } : it,
+            it.id === item.id
+              ? { ...it, modules: item.modules, chapters: item.chapters, weekdays: item.weekdays }
+              : it,
           ),
         )
         setError(res.error ?? '저장에 실패했어요.')
@@ -206,6 +198,12 @@ export function PlanClient({
     const has = item.chapters.includes(n)
     persistItem(item, {
       chapters: has ? item.chapters.filter((c) => c !== n) : [...item.chapters, n].sort((x, y) => x - y),
+    })
+  }
+  function toggleItemWeekday(item: PlanItem, d: number) {
+    const has = item.weekdays.includes(d)
+    persistItem(item, {
+      weekdays: has ? item.weekdays.filter((x) => x !== d) : [...item.weekdays, d].sort((x, y) => x - y),
     })
   }
   function handleRemove(item: PlanItem) {
@@ -223,9 +221,7 @@ export function PlanClient({
   // ── 자료 추가 ──
   function pickMaterial(m: MaterialOption) {
     if (pickedId === m.id) {
-      setPickedId(null)
-      setPickedActivities(new Set())
-      setPickedChapters(new Set())
+      resetPicker()
       return
     }
     setPickedId(m.id)
@@ -233,6 +229,7 @@ export function PlanClient({
       activeTab === 'word_set' ? ['vocab', 'flashcard'] : ['read', 'vocab', 'flashcard']
     setPickedActivities(new Set(defaults.filter((a) => activitiesForType(activeTab).includes(a))))
     setPickedChapters(new Set()) // 빈 = 전체
+    setPickedWeekdays(new Set()) // 빈 = 요일 미정
   }
   function togglePicked(a: PlanActivity) {
     setPickedActivities((prev) => {
@@ -250,6 +247,14 @@ export function PlanClient({
       return next
     })
   }
+  function togglePickedWeekday(d: number) {
+    setPickedWeekdays((prev) => {
+      const next = new Set(prev)
+      if (next.has(d)) next.delete(d)
+      else next.add(d)
+      return next
+    })
+  }
   function handleAdd() {
     if (!pickedId) return
     const m = tabMaterials[activeTab].find((x) => x.id === pickedId)
@@ -260,11 +265,12 @@ export function PlanClient({
       return
     }
     const chapters = activeTab === 'book' ? Array.from(pickedChapters).sort((a, b) => a - b) : []
+    const weekdays = Array.from(pickedWeekdays).sort((a, b) => a - b)
     setError(null)
     setAdding(true)
     const type = activeTab
     startTransition(async () => {
-      const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters })
+      const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays })
       setAdding(false)
       if (!res.ok) {
         setError(res.error ?? '추가에 실패했어요.')
@@ -281,15 +287,14 @@ export function PlanClient({
         slug: m.slug,
         vLevel: m.vLevel,
         chapters,
+        weekdays,
         chapterCount: m.chapterCount,
         coverUrl: m.coverUrl,
         coverEmoji: m.coverEmoji,
         source: m.source,
       }
       setItems((prev) => [...prev, newItem])
-      setPickedId(null)
-      setPickedActivities(new Set())
-      setPickedChapters(new Set())
+      resetPicker()
     })
   }
 
@@ -315,12 +320,8 @@ export function PlanClient({
         </p>
       )}
 
-      {/* 일정 (주당 리듬) */}
-      <ScheduleStrip
-        schedule={schedule}
-        onToggleDay={toggleDay}
-        onSetMinutes={(min) => pushSchedule({ ...schedule, dailyMinutes: min })}
-      />
+      {/* 주간 overview — 요일별 학습 자료 수 (담은 항목 집계, 읽기 전용) */}
+      {items.length > 0 && <WeeklyOverview counts={weekdayCounts} />}
 
       {/* 담은 자료 */}
       <section aria-label="내 학습 계획" className="flex flex-col gap-3">
@@ -341,6 +342,7 @@ export function PlanClient({
                 item={item}
                 onToggleActivity={(a) => toggleItemActivity(item, a)}
                 onToggleChapter={(n) => toggleItemChapter(item, n)}
+                onToggleWeekday={(d) => toggleItemWeekday(item, d)}
                 onRemove={() => handleRemove(item)}
               />
             ))}
@@ -499,6 +501,12 @@ export function PlanClient({
                   </div>
                 </div>
 
+                {/* 요일 선택 (자료와 결합) */}
+                <div className="flex flex-col gap-1.5">
+                  <p className="font-body text-[12px] text-[var(--t3)]">학습 요일 — 안 고르면 요일 미정</p>
+                  <WeekdayChips selected={pickedWeekdays} onToggle={togglePickedWeekday} />
+                </div>
+
                 <button
                   type="button"
                   onClick={handleAdd}
@@ -509,7 +517,7 @@ export function PlanClient({
                     ? '담는 중…'
                     : `계획에 추가 (${pickedActivities.size}활동${
                         activeTab === 'book' && pickedChapters.size > 0 ? ` · ${pickedChapters.size}챕터` : ''
-                      })`}
+                      }${pickedWeekdays.size > 0 ? ` · ${pickedWeekdays.size}일` : ''})`}
                 </button>
               </div>
             )
@@ -519,73 +527,72 @@ export function PlanClient({
   )
 }
 
-// ── 일정 스트립 ──
-function ScheduleStrip({
-  schedule,
-  onToggleDay,
-  onSetMinutes,
-}: {
-  schedule: PlanSchedule
-  onToggleDay: (d: number) => void
-  onSetMinutes: (m: number) => void
-}) {
+// ── 주간 overview (담은 자료의 요일 집계, 읽기 전용) ──
+function WeeklyOverview({ counts }: { counts: Map<number, number> }) {
   return (
     <section
-      aria-label="학습 리듬"
-      className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4"
+      aria-label="주간 계획"
+      className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4"
     >
       <h2 className="flex items-center gap-1.5 font-display text-[13px] font-[800] text-[var(--t1)]">
-        <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden /> 학습 리듬
+        <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden /> 주간 계획
       </h2>
-      <div className="flex flex-col gap-1.5">
-        <span className="font-body text-[12px] text-[var(--t3)]">학습 요일</span>
-        <div className="flex flex-wrap gap-1.5">
-          {WEEKDAYS.map((d) => {
-            const on = schedule.weeklyDays.includes(d.value)
-            return (
-              <button
-                key={d.value}
-                type="button"
-                onClick={() => onToggleDay(d.value)}
-                aria-pressed={on}
-                className={`inline-flex h-9 w-9 items-center justify-center rounded-full border font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-                  on
-                    ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-                    : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
-                }`}
+      <div className="flex justify-between gap-1">
+        {WEEKDAYS.map((d) => {
+          const n = counts.get(d.value) ?? 0
+          return (
+            <div key={d.value} className="flex flex-1 flex-col items-center gap-1">
+              <span
+                className={`font-display text-[12px] font-[700] ${n > 0 ? 'text-[var(--p)]' : 'text-[var(--t3)]'}`}
               >
                 {d.label}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-      <div className="flex flex-col gap-1.5">
-        <span className="flex items-center gap-1 font-body text-[12px] text-[var(--t3)]">
-          <Clock size={12} strokeWidth={1.75} aria-hidden /> 하루 목표
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {DAILY_MINUTES_OPTIONS.map((min) => {
-            const on = schedule.dailyMinutes === min
-            return (
-              <button
-                key={min}
-                type="button"
-                onClick={() => onSetMinutes(min)}
-                aria-pressed={on}
-                className={`inline-flex h-9 min-w-[52px] items-center justify-center rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-                  on
-                    ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-                    : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+              </span>
+              <span
+                className={`inline-flex h-6 min-w-[24px] items-center justify-center rounded-full px-1 font-mono text-[11px] font-[700] tabular-nums ${
+                  n > 0 ? 'bg-[var(--p)] text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t3)]'
                 }`}
               >
-                {min}분
-              </button>
-            )
-          })}
-        </div>
+                {n > 0 ? n : '·'}
+              </span>
+            </div>
+          )
+        })}
       </div>
     </section>
+  )
+}
+
+// ── 요일 칩 (월~일 토글) — 추가 패널 + 카드 공용 ──
+function WeekdayChips({
+  selected,
+  onToggle,
+}: {
+  selected: Set<number> | number[]
+  onToggle: (d: number) => void
+}) {
+  const has = (d: number) => (Array.isArray(selected) ? selected.includes(d) : selected.has(d))
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {WEEKDAYS.map((d) => {
+        const on = has(d.value)
+        return (
+          <button
+            key={d.value}
+            type="button"
+            onClick={() => onToggle(d.value)}
+            aria-pressed={on}
+            aria-label={`${d.label}요일`}
+            className={`inline-flex h-8 w-8 items-center justify-center rounded-full border font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              on
+                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+                : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+            }`}
+          >
+            {d.label}
+          </button>
+        )
+      })}
+    </div>
   )
 }
 
@@ -706,11 +713,13 @@ function PlanItemCard({
   item,
   onToggleActivity,
   onToggleChapter,
+  onToggleWeekday,
   onRemove,
 }: {
   item: PlanItem
   onToggleActivity: (a: PlanActivity) => void
   onToggleChapter: (n: number) => void
+  onToggleWeekday: (d: number) => void
   onRemove: () => void
 }) {
   const [editing, setEditing] = useState(false)
@@ -754,6 +763,11 @@ function PlanItemCard({
                   {item.chapters.length === 0 ? '전체 챕터' : `Ch ${item.chapters.join('·')}`}
                 </span>
               )}
+              <span className={item.weekdays.length > 0 ? 'font-[700] text-[var(--p)]' : 'text-[var(--t3)]'}>
+                {item.weekdays.length > 0
+                  ? item.weekdays.map((d) => weekdayLabel(d)).join('·')
+                  : '요일 미정'}
+              </span>
             </span>
           </div>
           <Link
@@ -803,6 +817,10 @@ function PlanItemCard({
                   <ActivityChip key={a} activity={a} selected={item.modules.includes(a)} onClick={() => onToggleActivity(a)} small />
                 ))}
               </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <p className="font-body text-[12px] text-[var(--t3)]">학습 요일</p>
+              <WeekdayChips selected={item.weekdays} onToggle={onToggleWeekday} />
             </div>
           </div>
         ) : selected.length > 0 ? (

@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/plan-picker-bands`
+**활성 브랜치**: `feat/plan-weekday-per-item`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `ca4f7e3` feat(learner): 학습 계획 picker V-Level 밴드 × 카테고리 체계화
+- `e19e843` feat(learner): 학습 계획 picker V-Level 밴드 × 카테고리 체계화 (#80)
+- `ff1dfdb` Merge pull request #79 from KangMin098/feat/library-source-map
+- `bbb11a8` Merge remote-tracking branch 'origin/main' into feat/library-source-map
+- `2e5041e` feat(acp): /library/scripts 소스 맵 — 개인화 오리엔테이션 (P1~P3)
 - `26ddbec` feat(learner): 학습 계획 리치 구성 — 일정 + 자료 4종 + 도서 챕터 + 비주얼 (#78)
-- `83a609a` Merge pull request #77 from KangMin098/feat/acp-review-detail
-- `40e337f` feat(acp): 딥 검수에 정책 게이트 패널 — 항목별 ✓/✕ + 메타 V/register
-- `43d7df8` feat(learner): 학습 계획 활동 실행(launch) 연결 (#76)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628220000_p1_plan_weekday_per_item.sql`
 - `20260628210000_p1_plan_rich_compose.sql`
 - `20260628200000_p1_redesign_study_plan_items.sql`
 - `20260628190000_p4_2_join_class_by_code.sql`
 - `20260628180000_p4_l3_class_data_model.sql`
-- `20260628170000_p2_weekly_reports.sql`
 <!-- /auto:recent-migrations -->
 
 ---

@@ -16,8 +16,14 @@ import {
   materialHref,
   type MaterialType,
   type PlanActivity,
-  type PlanSchedule,
 } from './plan-activities'
+
+/** 요일 정제 — 1=월..7=일, 중복 제거 + 정렬. */
+function sanitizeWeekdays(days: number[] | null | undefined): number[] {
+  return Array.from(new Set((days ?? []).filter((d) => Number.isInteger(d) && d >= 1 && d <= 7))).sort(
+    (a, b) => a - b,
+  )
+}
 
 /** study_plan_* 는 생성 타입 미반영 — 느슨한 client 로 접근. */
 function loose(c: unknown): SupabaseClient {
@@ -38,6 +44,8 @@ export interface PlanItem {
   vLevel: number | null
   /** 도서 선택 챕터 idx (빈 배열=전체) */
   chapters: number[]
+  /** 학습 요일 1=월..7=일 (빈=미정) */
+  weekdays: number[]
   /** 도서 전체 챕터 수 (book 외 0) */
   chapterCount: number
   /** 도서 표지 url */
@@ -75,6 +83,7 @@ interface PlanRow {
   material_id: string
   modules: string[] | null
   chapters: number[] | null
+  weekdays: number[] | null
 }
 interface BookRow {
   id: string
@@ -128,7 +137,7 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
 
   const { data: rowsRaw } = await lc
     .from('study_plan_items')
-    .select('id, material_type, material_id, modules, chapters')
+    .select('id, material_type, material_id, modules, chapters, weekdays')
     .eq('user_id', user.id)
     .order('created_at', { ascending: true })
   const rows = (rowsRaw ?? []) as PlanRow[]
@@ -224,6 +233,7 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
       slug: extras.slug,
       vLevel,
       chapters,
+      weekdays: sanitizeWeekdays(r.weekdays),
       chapterCount: extras.chapterCount,
       coverUrl: extras.coverUrl,
       coverEmoji: extras.coverEmoji,
@@ -344,6 +354,7 @@ export async function savePlanItem(input: {
   materialId: string
   modules: PlanActivity[]
   chapters?: number[]
+  weekdays?: number[]
 }): Promise<{ ok: boolean; error?: string }> {
   if (!input?.materialId) return { ok: false, error: '자료가 필요합니다.' }
   const client = await createClient()
@@ -360,6 +371,7 @@ export async function savePlanItem(input: {
           (a, b) => a - b,
         )
       : []
+  const weekdays = sanitizeWeekdays(input.weekdays)
 
   const { error } = await loose(client)
     .from('study_plan_items')
@@ -370,6 +382,7 @@ export async function savePlanItem(input: {
         material_id: input.materialId,
         modules,
         chapters,
+        weekdays,
         updated_at: new Date().toISOString(),
       },
       { onConflict: 'user_id,material_type,material_id' },
@@ -391,50 +404,6 @@ export async function removePlanItem(itemId: string): Promise<{ ok: boolean; err
     .delete()
     .eq('id', itemId)
     .eq('user_id', user.id)
-  if (error) return { ok: false, error: error.message }
-  return { ok: true }
-}
-
-/** 주당 학습 리듬 조회 (없으면 기본값). */
-export async function fetchSchedule(): Promise<PlanSchedule> {
-  const fallback: PlanSchedule = { weeklyDays: [], dailyMinutes: 20 }
-  const client = await createClient()
-  const {
-    data: { user },
-  } = await client.auth.getUser()
-  if (!user) return fallback
-  const { data } = await loose(client)
-    .from('study_plan_schedule')
-    .select('weekly_days, daily_minutes')
-    .eq('user_id', user.id)
-    .maybeSingle()
-  const row = data as { weekly_days: number[] | null; daily_minutes: number | null } | null
-  if (!row) return fallback
-  return {
-    weeklyDays: (row.weekly_days ?? []).filter((d) => d >= 1 && d <= 7),
-    dailyMinutes: row.daily_minutes ?? 20,
-  }
-}
-
-/** 주당 학습 리듬 저장(upsert). */
-export async function saveSchedule(
-  input: PlanSchedule,
-): Promise<{ ok: boolean; error?: string }> {
-  const client = await createClient()
-  const {
-    data: { user },
-  } = await client.auth.getUser()
-  if (!user) return { ok: false, error: '로그인이 필요합니다.' }
-
-  const weekly = Array.from(new Set((input.weeklyDays ?? []).filter((d) => d >= 1 && d <= 7))).sort()
-  const minutes = Math.max(5, Math.min(240, Math.round(input.dailyMinutes || 20)))
-
-  const { error } = await loose(client)
-    .from('study_plan_schedule')
-    .upsert(
-      { user_id: user.id, weekly_days: weekly, daily_minutes: minutes, updated_at: new Date().toISOString() },
-      { onConflict: 'user_id' },
-    )
   if (error) return { ok: false, error: error.message }
   return { ok: true }
 }
