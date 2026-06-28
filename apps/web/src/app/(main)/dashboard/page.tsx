@@ -16,12 +16,19 @@ import { MemoryStatus } from '@/components/dashboard/MemoryStatus'
 import { RecentActivity } from '@/components/dashboard/RecentActivity'
 import { TodayHero } from '@/components/dashboard/TodayHero'
 import { WeeklyHeatmap } from '@/components/dashboard/WeeklyHeatmap'
+import { fetchDashboardHero } from '@/lib/learner/dashboard-data'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const hero = await fetchDashboardHero()
   return (
     <Screen width="content" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        <TodayHero userName="학습자" todayWords={23} goal={30} />
+        <TodayHero
+          userName={hero.userName}
+          todayWords={hero.todayWords}
+          goal={hero.goal}
+          knownWordCount={hero.knownWordCount}
+        />
 
         <WeeklyHeatmap />
 

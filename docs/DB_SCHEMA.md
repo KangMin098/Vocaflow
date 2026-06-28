@@ -21,10 +21,15 @@
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
 | `user_profiles` | 2 | 56 kB | role · display_name · locale · theme · tts_voice · daily_word_goal · notify_* · current_v_level · current_track_levels |
-| `user_stats` | 0 | 16 kB | mastery_level · total_words · current_streak · fsrs_target_retention (Hub 진입 1쿼리 캐시) |
-| `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · by_module JSONB · avg_accuracy |
+| `user_stats` | 0 | 16 kB | mastery_level · total_words · current_streak · fsrs_target_retention · `known_word_count`(P0 · LingQ형 Implicit, stability≥21, flush→refresh_user_known_word_count) (Hub 진입 1쿼리 캐시) |
+| `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · total_reviews · by_module JSONB · avg_accuracy · **P0 자동 집계**(learning_records→총복습/모듈별 · scores→분/단어 트리거, KST date) |
 | `achievements` | 0 | 24 kB | kind · module · value · metadata JSONB · achieved_at |
 | `reports` | 0 | 24 kB | kind · subject · message · status · admin_note (admin /reports) |
+| `learning_goals` | 0 | — | **P1** Study Plan 목표 — goal_type='csat'(수능 단일) · target_date(D-day) · target_v_level · target_word_count · weekly_target_days/minutes · UNIQUE(user_id,goal_type) · 본인 RLS |
+| `weekly_reports` | 0 | — | **P2** 주간 Report Card — week_start(월,KST) · total_minutes/words/reviews · by_module · empathetic_note(격려 코멘트) · UNIQUE(user_id,week_start) · 본인 RLS · daily_activity 주간 집계 |
+| `classes` | 0 | — | **P4.1 L3 B2B 선반영**(화면 Phase 2) — teacher_id · name · invite_code UNIQUE · RLS(교사 전권 + 멤버 읽기) |
+| `class_members` | 0 | — | **P4.1** class_id+user_id PK · role(student/assistant) · RLS(본인·교사 읽기, 본인 가입, 교사/본인 삭제) |
+| `assignments` | 0 | — | **P4.1** class_id · kind(text/word_set) · ref_id · due_at · RLS(교사 전권 + 멤버 읽기). 순환 차단 헬퍼 `is_class_teacher`/`is_class_member`(SECURITY DEFINER) |
 
 ### 2️⃣ 학습 콘텐츠 (사용자 자산)
 
@@ -285,7 +290,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 107건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628140000_scriptquiz_question_ko` — quiz_questions 에 `question_ko` nullable 컬럼, ScriptQuiz 질문 한국어 토글, A3.4b · 직전: `20260628130000_p6_6_enroll_v0_undiagnosed_guard` V0 미진단 가드 P6.6)
+전체 누적 111건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628180000_p4_l3_class_data_model` — L3 B2B 선반영 `classes`/`class_members`/`assignments` + recursion-safe RLS(SECURITY DEFINER 헬퍼), LEARNER_MANAGEMENT P4.1 · 화면 Phase 2 · 직전: `20260628170000_p2_weekly_reports` P2)
 
 ---
 
