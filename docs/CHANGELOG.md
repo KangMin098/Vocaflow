@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### P0 집계층 — daily_activity 자동 집계 + known_word_count (v06.98)
+
+LEARNER_MANAGEMENT.md P0 적용 — 진단상 `daily_activity` writer 0(=진짜 P0)였던 것을, 이미 흐르는 원천 스트림(learning_records/scores)에서 자동 집계. 마이그레이션 `20260628150000_p0_daily_activity_agg_known_word_count`(추가·비파괴, 사용자 명시 승인).
+
+- **트리거 2** — `learning_records` AFTER INSERT → daily_activity(total_reviews++ · by_module, KST date) · `scores` AFTER INSERT → daily_activity(total_minutes += duration/60 · total_words += correct_count). FlowStripe 히트맵·주간 리포트 집계원 가동(새 INSERT 부터).
+- **known_word_count** — `user_stats` 컬럼 + `refresh_user_known_word_count(uuid)`(stability≥21 count → upsert). `flush-actions.ts` 가 flush 후 1회 호출(부가 집계, 실패 무영향). LingQ형 Implicit Progress(§10 derived 캐시).
+- 검증: 트리거 2·컬럼·함수 존재 확인 / known-word 로직 read(현 stable 0=정상, 학습 누적 시 성장). P1(Study Plan)·P2(리포트)·P3(dashboard 실데이터)의 전제 완성.
+
 ### 학습자 관리 설계 SSoT (LEARNER_MANAGEMENT.md) (v06.98)
 
 5개 비교군(LingQ/Busuu/리틀팍스/클래스카드/듀오) 분석 + 라이브 데이터 진단 종합 — `docs/LEARNER_MANAGEMENT.md` 신규(설계 문서, 마이그레이션 0). 타겟 = **수능생 단일 집중** · L3(B2B) 로드맵 명시 + 데이터 모델 선반영.

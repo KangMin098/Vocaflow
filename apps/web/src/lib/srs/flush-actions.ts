@@ -122,5 +122,15 @@ export async function flushPendingSrsResults(
     if (insErr) return { ok: false, error: insErr.message };
   }
 
+  // known_word_count 캐시 재계산 (LingQ형 Implicit Progress · stability>=21).
+  // 세션당 1회 · 실패해도 flush 결과에 영향 없음(부가 집계).
+  if (persisted > 0) {
+    try {
+      await client.rpc('refresh_user_known_word_count', { p_user_id: user.id });
+    } catch {
+      /* known-word 캐시 갱신 실패는 학습 영속화를 막지 않음 */
+    }
+  }
+
   return { ok: true, persisted, skipped };
 }
