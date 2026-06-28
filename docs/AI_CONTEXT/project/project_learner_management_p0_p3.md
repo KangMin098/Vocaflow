@@ -1,0 +1,20 @@
+> AUTO-GENERATED — `scripts/sync-export-memory.mjs` 가 갱신. 손으로 편집하지 말 것.
+> source: C:/Users/kille/.claude/projects/c--Users-kille-Vocaflow/memory/project_learner_management_p0_p3.md
+> category: project
+
+---
+
+학습자 관리 모델 구현 (2026-06-28). 설계 SSoT = `docs/LEARNER_MANAGEMENT.md`(PR #61). 비교군(LingQ/Busuu/리틀팍스/클래스카드) 분석 + 라이브 진단 기반. **타겟 = 수능생 단일 집중 · L3(B2B) 데이터모델 선반영(화면 Phase 2)**.
+
+**라이브 진단 핵심**: learning_records 는 이번 세션 SRS flush(#38)+게임 5종(#51~#59)으로 이미 가동(실 row 有) → synthesis 의 "P0=INSERT 파이프라인" 전제는 절반 완료. 진짜 P0 = 집계층(daily_activity writer 0).
+
+**구현 (전부 머지, 마이그레이션 적용)**:
+- **P0** (PR #62, mig `20260628150000`): `daily_activity` 자동 집계 트리거 2(learning_records→총복습/모듈별, scores→분/단어, KST date) + `user_stats.known_word_count`(stability≥21 derived 캐시) + `refresh_user_known_word_count` 함수(flush-actions 가 flush 후 호출).
+- **P1** (PR #63, mig `20260628160000`): `learning_goals` 테이블(goal_type='csat', target_date D-day, target_word_count default 4000) + `lib/learner/study-plan.ts computeStudyPlan`(순수 역산) + `goal-actions.ts`(save/fetch) + `/onboarding` 페이지(D-day 입력 → 실시간 Study Plan 미리보기).
+- **P2** (PR #65, mig `20260628170000`): `weekly_reports` 테이블 + `lib/learner/weekly-report.ts`(daily_activity 주간 집계 + 템플릿 격려 코멘트, KST 월요일, 멱등) + `/reports` Report Card(갱신 버튼, cron 자동생성은 후속).
+- **P3** (PR #66, 마이그레이션 0): `/dashboard` TodayHero 하드코딩(23/30/학습자) → 실데이터(`dashboard-data.ts fetchDashboardHero`) + known-word Implicit Progress 표시. WeeklyHeatmap/MemoryStatus/RecentActivity 는 P0 데이터로 자동 실데이터화.
+
+**잔여**: P4 = L3 B2B 화면(`/teacher/*`, classes/class_members/assignments 테이블 + 초대코드 + 과제배포 + 리포트공유) — **설계상 Phase 2**, 데이터모델 선반영만 됨(아직 테이블 미생성). · 모든 P1/P2/P3 UI 런타임 미검증(서버 fetch/폼/표시, 무회귀 설계). · daily_activity/known_word_count 는 실플레이 누적 시 채워짐(현 dev 0). · weekly_reports cron 자동생성 · 추천 P2(진행중 스크립트 reading_session 연동).
+
+관련: [[project-a3-game-real-data-sweep]] · [[project-srs-persistence-a1]] · `docs/LEARNER_MANAGEMENT.md`(SSoT 설계)
+
