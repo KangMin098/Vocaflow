@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 내 학습 관리 화면 /manage (계획·실행·진단·리포트 통합) (v06.98)
+
+리틀팍스 MY 학습 참고 — P0~P3 데이터를 한 화면에 모은 학습자 관리 overview. 마이그레이션 0(기존 테이블 read).
+
+- **`lib/learner/manage-overview.ts`** `fetchManageOverview` — V-Level(current_v_level, V0=미진단) · known-word · streak · 오늘 단어 · Study Plan(fetchStudyPlan) · 최근 주간 리포트 1건 통합 조회.
+- **`/manage`** 신규(서버 렌더) — 4 관리 카드(진단/학습 계획/학습 현황/주간 리포트) + 각 상세 CTA(/diagnostic·/onboarding·/hub·/reports). Calm UI.
+- **Sidebar 통합** — META 의 별도 `학습 계획`·`리포트`(직전 추가)를 단일 **`내 학습`(/manage)** 으로 합침(Cognitive Load 절감). /onboarding·/reports 라우트는 /manage 카드 CTA 로 접근. typecheck/lint green.
+
 ### Sidebar 학습자 관리 라우트 연결 (/onboarding·/reports·/teacher) (v06.98)
 
 P1~P4.2 신규 라우트가 Sidebar 미등재라 URL로만 접근 가능하던 것 → `sidebar-config.ts`(단일 출처)에 연결. 마이그레이션 0.

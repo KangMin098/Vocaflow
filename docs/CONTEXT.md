@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e807d22` feat(acp): 소스 GET 을 소스별 탭으로 분리 — 소스 전용 화면(정보·특성·학습자 가치)
 - `b98402d` feat(nav): Sidebar 학습자 관리 라우트 연결 (/onboarding·/reports·/teacher) (#69)
 - `7a0bccd` feat(teacher): P4.2 교사 허브 /teacher — 클래스 개설·초대코드·참여 (#68)
 - `36cdeae` Merge pull request #64 from KangMin098/feat/acp-source-guide
 - `821ca20` Merge remote-tracking branch 'origin/main' into HEAD
-- `3d9f5fc` feat(learner): P4.1 L3 B2B 데이터 모델 선반영 (classes/class_members/assignments) (#67)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
