@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### P2 주간 Report Card — weekly_reports + /reports (v06.98)
+
+LEARNER_MANAGEMENT.md P2 — 리틀팍스 월리포트 이식. `daily_activity`(P0) 주간 집계 + Empathetic 코멘트. 마이그레이션 `20260628170000_p2_weekly_reports`(신규 테이블 + 본인 RLS, 사용자 승인).
+
+- **`weekly_reports`** 테이블 — week_start(월,KST) · total_minutes/words/reviews · by_module · empathetic_note · UNIQUE(user_id, week_start).
+- **`lib/learner/weekly-report.ts`** — `generateWeeklyReport`(daily_activity 주간 집계 → upsert + 템플릿 격려 코멘트, KST 월요일, 멱등) · `fetchRecentReports`.
+- **`/reports`** 신규 — Report Card 목록(단어/복습/모듈 + Lora italic 격려 코멘트) + "이번 주 갱신" server action. Calm UI · 빈 상태 안내.
+- 격려형(§철학3): 미활동도 "잠시 숨을 골랐네요" — 압박/비난 없음. cron 자동 생성은 후속. typecheck/lint green.
+
 ### P1 Study Plan — learning_goals + /onboarding (수능 D-day 역산) (v06.98)
 
 LEARNER_MANAGEMENT.md P1 — Busuu study plan 이식. 수능 D-day + 주당 목표 → 주당/일 필요량 + 완료일 역산. 마이그레이션 `20260628160000_p1_learning_goals`(신규 테이블 + 본인 RLS, 사용자 승인).

@@ -26,6 +26,7 @@
 | `achievements` | 0 | 24 kB | kind · module · value · metadata JSONB · achieved_at |
 | `reports` | 0 | 24 kB | kind · subject · message · status · admin_note (admin /reports) |
 | `learning_goals` | 0 | — | **P1** Study Plan 목표 — goal_type='csat'(수능 단일) · target_date(D-day) · target_v_level · target_word_count · weekly_target_days/minutes · UNIQUE(user_id,goal_type) · 본인 RLS |
+| `weekly_reports` | 0 | — | **P2** 주간 Report Card — week_start(월,KST) · total_minutes/words/reviews · by_module · empathetic_note(격려 코멘트) · UNIQUE(user_id,week_start) · 본인 RLS · daily_activity 주간 집계 |
 
 ### 2️⃣ 학습 콘텐츠 (사용자 자산)
 
@@ -286,7 +287,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 109건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628160000_p1_learning_goals` — Study Plan 목표 테이블 `learning_goals`(수능 D-day 역산, goal_type='csat', target_word_count) + 본인 RLS, LEARNER_MANAGEMENT P1 · 직전: `20260628150000_p0_daily_activity_agg_known_word_count` P0 집계층)
+전체 누적 110건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628170000_p2_weekly_reports` — 주간 Report Card 테이블 `weekly_reports`(daily_activity 주간 집계 + Empathetic 코멘트) + 본인 RLS, LEARNER_MANAGEMENT P2 · 직전: `20260628160000_p1_learning_goals` P1 · `20260628150000` P0)
 
 ---
 
