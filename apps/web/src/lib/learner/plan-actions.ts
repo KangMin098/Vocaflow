@@ -28,7 +28,10 @@ export interface PlanItem {
   modules: PlanActivity[]
   title: string
   subtitle: string | null
+  /** 자료 열기 라우트 (materialHref) */
   href: string
+  /** word_set 의 slug — 활동 launch 라우트 재구성용 (book/script 은 null) */
+  slug: string | null
   vLevel: number | null
 }
 
@@ -150,6 +153,7 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
       title,
       subtitle,
       href: materialHref({ type: r.material_type, id: r.material_id, slug }),
+      slug,
       vLevel,
     }
   })

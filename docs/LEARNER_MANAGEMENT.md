@@ -193,7 +193,8 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 
 - 계획 = "무엇을·어떻게 학습할지" 구성. 수능 D-day·완료일 역산 같은 카운트다운/압박 지표 없음(§철학1 Calm·§철학4 Implicit).
 - /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
-- (후속) 활동별 launch 딥링크(모듈 hub 에 자료 컨텍스트 주입) · 자료별 진행도.
+- **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크, 편집(연필) = 활동 토글. scoped 진입(아이콘 ▶): 스크립트 `flashcard?text=`·`scriptquiz?text=` / 단어장 `flashcard?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) / listen·read·echo·vocab→본문. 미스코핑 게임(wordblitz/pairflip/spellforge/dictation·도서 게임)은 모듈 hub(↗) honest fallback. (`activityLaunchHref`/`isActivityScoped`)
+- (후속) 미스코핑 게임의 자료 스코핑(모듈별 param 확장) · 자료별 진행도.
 
 ---
 
