@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `docs/learner-management`
+**활성 브랜치**: `feat/acp-curation-guide`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `b8e2978` docs(learner): 학습자 관리 설계 SSoT (LEARNER_MANAGEMENT.md) (#61)
 - `68549fa` Merge pull request #60 from KangMin098/feat/voa-curation-redesign
 - `d235c16` Merge remote-tracking branch 'origin/main' into feat/voa-curation-redesign
 - `d22e39f` feat(recommend): 추천 엔진 실데이터화 — getMockNextAction → 실 사용자 상태 (A3.8) (#59)
 - `10109e0` feat(wordblitz): standalone 영속화 완성 — learning_records + scores (A3.7) (#58)
-- `9f07175` docs(admin): /admin/articles 4-stage 큐레이션 콘솔 구조 반영 (v06.87)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
