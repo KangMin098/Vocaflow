@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/acp-article-migrations`
+**활성 브랜치**: `feat/acp-review-list`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6981f9e` Merge pull request #73 from KangMin098/feat/acp-article-migrations
+- `d3a08bc` chore(db): ACP delete/bulk-requeue RPC SSoT 정합 마이그레이션 2종
 - `82f6f10` Merge pull request #72 from KangMin098/feat/acp-lcp-process
 - `c6974a5` feat(acp): 큐레이션 목록을 LCP My Library 방식으로 + seed unlock 버그 수정
 - `637420d` Merge pull request #71 from KangMin098/feat/acp-source-tabs
-- `a59bb01` Merge remote-tracking branch 'origin/main' into feat/acp-source-tabs
-- `e47cb0e` feat(learner): 내 학습 관리 화면 /manage (계획·실행·진단·리포트 통합) (#70)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

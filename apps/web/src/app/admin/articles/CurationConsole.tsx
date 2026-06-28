@@ -31,7 +31,6 @@ import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
 import { GetGuidePanel } from './GetGuidePanel'
 import { SourceGetView } from './SourceGetView'
-import { ReviewPanel } from './ReviewPanel'
 import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
@@ -101,7 +100,15 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
             feedHealth={feedHealth}
           />
         )}
-        {stage === 'review' && <ReviewPanel articles={articles} onChanged={refetchAll} />}
+        {stage === 'review' && (
+          <CuratedArticlesTab
+            articles={articles}
+            onChanged={refetchAll}
+            initialFilter="ready"
+            showGate
+            heading="🔍 검수 큐"
+          />
+        )}
         {stage === 'publish' && (
           <CuratedArticlesTab articles={articles} onChanged={refetchAll} initialFilter="published" />
         )}
