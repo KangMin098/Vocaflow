@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/real-next-action`
+**활성 브랜치**: `feat/voa-curation-redesign`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `c9a8b84` feat(recommend): 추천 엔진 실데이터화 — getMockNextAction → 실 사용자 상태 (A3.8)
-- `7b12e00` feat(games): 게임 점수 적재 확장 — flashcard/spellforge/dictation (A3.6) (#57)
-- `11de73d` feat(pairflip): 게임 점수 영속화(scores) + hub 실 stats (A3.5) (#56)
-- `14a9b0e` feat(scriptquiz): 질문 한국어(question_ko) 완성 (A3.4b) (#55)
-- `89a13fb` feat(scriptquiz): quiz_questions 실 퀴즈 capability (mock 폴백, A3.4) (#54)
+- `9f07175` docs(admin): /admin/articles 4-stage 큐레이션 콘솔 구조 반영 (v06.87)
+- `dbfb9aa` docs(changelog): 큐레이션 관리자 콘솔 SourcePolicy 단일 화면 (v06.87)
+- `6067fe7` feat(acp): 큐레이션 콘솔 P2~P4 — CoverageMatrix·CandidateTable·ReviewPanel (policy 분기)
+- `df579ec` feat(acp): 큐레이션 콘솔 4-stage 셸 + useSourcePolicy 훅 (P1)
+- `a6dddf2` feat(acp): SourcePolicy 공유 분기 맵 (C2 — VOA/TC 단일화 선행)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

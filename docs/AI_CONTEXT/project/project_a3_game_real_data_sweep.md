@@ -23,9 +23,12 @@ A3 게임 모듈 mock 잔존 스윕 (2026-06-28) — hub/play 진입이 mock 단
 
 **A3.6 scores 적재 확장 ✅**: PR #57 — `lib/scores/record-score.ts`(recordGameScore + useRecordGameScore 마운트 1회 가드) 공유 헬퍼 + flashcard(CompletionState)/spellforge(SpellForgeCompletion)/dictation(DictationResultsClient) 완료 시 scores INSERT. PairFlip(#56 inline)과 합쳐 5개 게임 중 4개 적재. 메인 Hub 최근활동(useHubData scores read) 채워질 기반 완성. 마이그레이션 0.
 
-**열린 PR (런타임 검증 대기, auto-merge 안 함)**: #56(PairFlip scores+stats), #57(flashcard/spellforge/dictation scores). 둘 다 typecheck/lint green, 게임 완료 화면 런타임 미검증.
+**전부 머지 완료 (2026-06-28, PR #56~#59)**:
+- #56 PairFlip scores+hub stats / #57 flashcard·spellforge·dictation scores(`lib/scores/record-score.ts` 공유 헬퍼) / #58 **WordBlitz standalone** learning_records(recordWordBlitzResult)+scores(무한루프라 onExit 시점, score=correct×120+wrong×30) → **게임 5종 전부 scores 적재 완료** (메인 Hub useHubData 최근활동 채워짐).
+- #59 **추천 엔진 실데이터화** — `lib/recommend/{decide,get-next-action,use-next-action}.ts` (decideNextAction 순수 P1~P4 단일출처 + getNextActionForUser server action[due+mastery] + useNextAction hook). 5개 호출처(FlashcardSession/ScriptQuiz/SpellForge/DictationResultsClient/text[id]) useMemo(getMockNextAction)→useNextAction. getMockNextAction 은 decide 경유 DRY+보존.
+- ⚠️ 게임 상호작용/완료 화면 write 경로 런타임 미검증(전부 mock폴백/try-catch 안전). user_stats 빈 상태면 추천 mastery=vocab수 근사(cold-bias).
 
-**잔여 (사용자 입력/신규 initiative)**: PR #56/#57 게임 런타임 검증 후 머지(사용자) · **WordBlitz scores** = 무한루프라 세션시작시각+정오카운트 추적 구조 추가 선행(별도) · ScriptQuiz 다른 스크립트 문제(INSERT 승인) · getMockNextAction 추천엔진(별개) · OpenStax a/b/c(보류 권장).
+**잔여 (사용자 입력/결정 필요 — 자율 불가)**: ScriptQuiz 다른 스크립트 문제 생성(INSERT per-action 승인 필요, classifier) · OpenStax a/b/c(비즈니스 결정, 보류 권장) · 추천 P2(진행중 스크립트 reading_session 연동) 후속.
 
 관련: [[project-srs-persistence-a1]] · [[project-vrl-phase2-wordvault-recommended-section]]
 

@@ -132,11 +132,20 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 
 ---
 
-## /admin/articles — ACP
+## /admin/articles — ACP 큐레이션 콘솔
 
-`/api/admin/articles/{arxiv|nasa|nih|voa}-feed` 4 feed → article 큐 등록 → `/api/acp/dev-process` 처리.
+**`CurationConsole` (v06.87)** — 소스별 탭 → **4단계 파이프라인 + SourcePolicy 분기 단일 화면**. VOA/The Conversation 등 소스 차이는 정책 4축(supply/media/derivation/attribution)으로만 분기 — `if(source==='voa')` 하드코딩 금지(`useSourcePolicy`/`resolveSourcePolicy` 단일 출처).
 
-**Curated 탭 검수 프로세스 (v06.51)** — 목록 행 제목/"검수" → `/admin/articles/preview/[id]` (LCP 책 검수 4패널 1:1 미러):
+| 단계 | 컴포넌트 | 내용 |
+|---|---|---|
+| ① 커버리지 | `CoverageMatrix` + `SourceFeedList` | register×CEFR 발행 gap(빗금)/filled · 소스/feed별 후보 현황(`listSourceFeedHealth`) |
+| ② 소스 GET | `CandidateTable` (+ `BulkArticlesTab` 대량) | seed-list 6컬럼 + score 막대 + audio(policy.media) + 다중선택 → `/api/acp/enqueue` · 라이브 RSS(`VoaFeedTab`/`RssFeedTab`) 보조 |
+| ③ 검수 | `ReviewPanel` (3패널) | 큐 상태 dot / 에디터·player / `computeGateItems(policy)` 동적 게이트 + 발행 |
+| ④ 발행 | `CuratedArticlesTab` | published 목록 관리(보관/되돌리기/삭제) |
+
+`PolicyBar` — 소스 선택 시 정책 4축 라이브 렌더. SourcePolicy 정의는 `@vocaflow/library-pipeline/curation-spec`(C2 공유 자산 · drift-lock vitest 18). 피드: `/api/admin/articles/{nasa|nih|voa|wikinews|the_conversation|simple_wikipedia}-feed`(arxiv 제거 v06.69) → seed_catalog/큐 → `/api/acp/dev-process`.
+
+**딥 검수 (v06.51 · 본문·단어 편집 — ReviewPanel "딥 검수" 링크로 재사용)** — `/admin/articles/preview/[id]` (LCP 책 검수 4패널 1:1 미러):
 
 | 패널 | 글 버전 | 책 대응 |
 |---|---|---|
@@ -145,7 +154,7 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 | 학습 단어 추출 | meta cells + LV 랭킹 테이블 + RegisterBadge | BookExtractionPanel |
 | 검수 팝업 | 단어 전수 + 뜻 + 발음 + 첫 문장 모달 | ChapterWordSetPreviewModal |
 
-액션 RPC: 게시 `admin_force_publish_article`(copyright_safe 강제) / 보관 `admin_archive_article` / 재처리 `admin_requeue_article` / 처리 `dev-process`. vocab 은 service-role 로 로드(테이블 admin RLS 없음).
+액션 RPC: 게시 `admin_force_publish_article`(copyright_safe 강제 + media='audio' 소스 audio 게이트) / 보관 `admin_archive_article` / 재처리 `admin_requeue_article` / 처리 `dev-process`. vocab 은 service-role 로 로드(테이블 admin RLS 없음).
 
 ---
 

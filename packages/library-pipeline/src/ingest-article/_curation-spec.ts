@@ -626,3 +626,135 @@ export function applySourceLevelCap<T extends { feed_id: string; score?: Article
 
   return picked
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// SOURCE POLICY (ACP §18 — 큐레이션 화면 + 학습자 화면 공유 분기 출처)
+// ─────────────────────────────────────────────────────────────────
+// VOA·The Conversation 등 소스별 차이를 "별도 화면 / if(source==='voa') 하드코딩"
+// 대신 4개 정책 축으로 환원한다. 화면(admin 큐레이션 · 학습자 진입)은 이 정책만
+// 읽어 분기하며, source 문자열로 직접 분기하지 않는다 (설계 위반).
+//
+// ⚠ 이 파일은 정책 "정의" 계층이다. 값은 가능한 한 위 기존 SSoT 에서 파생한다(drift 차단):
+//     · supply       ← SOURCE_DEFAULT_SPEC[source].frozen   (frozen archive = recency 미적용)
+//     · attribution  ← SOURCE_SPECS[source].attributionRequired
+//     · derivation   ← license_class (cc_by_nd → display_only; DB 트리거와 동일 규칙)
+//     · media        ← AUDIO_SOURCES (VOA 학습 정체성 = 100% audio; 유일한 신규 축)
+//
+// 소비 계층(컴포넌트)은 policy.* 만 읽는다. AUDIO_SOURCES 등 source 열거는 이 "정의"
+// 계층에만 허용 — 컴포넌트가 source 문자열로 분기하면 중단.
+//
+// ⚠ 권위 분리: 정책은 "어떤 게이트를 보일지"(form)를 정한다. 실제 "통과/차단"(value)은
+//   per-article row(display_only · audio_url · lexical_noise · attribution 4종)가 권위이며,
+//   최종 권위는 DB 트리거다 (P4 — UI 는 표시만). 정책으로 게이트 유무를, row 로 결과를.
+// ═══════════════════════════════════════════════════════════════════
+
+/** 공급 모드 — static: frozen archive(recency 미적용, score 가 source·length 로 재분배).
+ *  live: recency 반영. (값은 scoreArticleFit 의 frozen 분기가 이미 구현) */
+export type SupplyMode = 'static' | 'live'
+/** 매체 모드 — audio: 듣기 정체성(검수 audio_url 게이트 ON). text: audio 게이트 OFF. */
+export type MediaMode = 'audio' | 'text'
+/** 파생 모드 — full: 단어세트 발행. display_only: ND 파생금지(미발행 · 본문 verbatim). */
+export type DerivationMode = 'full' | 'display_only'
+/** 출처표기 모드 — required: 4종(source_url·author·license·link) 게이트. none: 면제. */
+export type AttributionMode = 'required' | 'none'
+/** 정규화 라이선스 등급 — DB library_articles.license_class 와 동일 어휘. */
+export type LicenseClass =
+  | 'public_domain'
+  | 'cc0'
+  | 'cc_by'
+  | 'cc_by_sa'
+  | 'cc_by_nd'
+  | 'restricted'
+
+export interface SourcePolicy {
+  /** 소스 키 (정보용 — 분기는 아래 4축으로만). */
+  source: string
+  supply: SupplyMode
+  media: MediaMode
+  derivation: DerivationMode
+  attribution: AttributionMode
+  /** 라이선스 원문 (SOURCE_SPECS.license 그대로). */
+  license: string
+  licenseClass: LicenseClass
+}
+
+/** 듣기 정체성 소스 — 검수 audio 게이트 ON. 현재 VOA 전용
+ *  (types-article.ts: "VOA Learning English = 학습 정체성으로 100% audio"). */
+const AUDIO_SOURCES: ReadonlySet<SourceKey> = new Set<SourceKey>(['voa'])
+
+/** 라이선스 문자열 → 정규화 등급. DB license_class 규칙과 동일 (ND > SA > BY 순서 중요). */
+export function licenseClassOf(license: string): LicenseClass {
+  const l = license.toUpperCase()
+  if (l.includes('CC0')) return 'cc0'
+  if (l.includes('PD') || l.includes('PUBLIC DOMAIN') || l.includes('GOVERNMENT')) return 'public_domain'
+  if (l.includes('ND')) return 'cc_by_nd' // No Derivatives — SA/BY 보다 먼저 판정
+  if (l.includes('SA')) return 'cc_by_sa'
+  if (l.includes('BY')) return 'cc_by'
+  return 'restricted'
+}
+
+/** source 문자열이 활성 SourceKey 인지 (SOURCE_SPECS 보유 여부). */
+export function isSourceKey(source: string): source is SourceKey {
+  return Object.prototype.hasOwnProperty.call(SOURCE_SPECS, source)
+}
+
+/** 활성 소스의 정책 — 기존 spec 에서 파생 (하드코딩 X). */
+export function getSourcePolicy(source: SourceKey): SourcePolicy {
+  const spec = SOURCE_SPECS[source]
+  const licenseClass = licenseClassOf(spec.license)
+  return {
+    source,
+    supply: SOURCE_DEFAULT_SPEC[source].frozen ? 'static' : 'live',
+    media: AUDIO_SOURCES.has(source) ? 'audio' : 'text',
+    derivation: licenseClass === 'cc_by_nd' ? 'display_only' : 'full',
+    attribution: spec.attributionRequired ? 'required' : 'none',
+    license: spec.license,
+    licenseClass,
+  }
+}
+
+/**
+ * 임의 source 문자열(legacy manual/cdc/medlineplus 포함) → 정책.
+ * 활성 소스가 아니면 보수적 안전 기본값(restricted → display_only + attribution required)으로
+ * 처리. UI 는 이 값으로 게이트를 보이되, 실제 통과/차단은 per-article row 가 권위.
+ */
+export function resolveSourcePolicy(source: string): SourcePolicy {
+  if (isSourceKey(source)) return getSourcePolicy(source)
+  return {
+    source,
+    supply: 'live',
+    media: 'text',
+    derivation: 'display_only', // 미상 라이선스 — 파생 차단(보수적)
+    attribution: 'required',
+    license: 'unknown',
+    licenseClass: 'restricted',
+  }
+}
+
+/** 전 활성 소스 정책 맵 (UI 표·일괄 표시·테스트용). */
+export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
+  voa: getSourcePolicy('voa'),
+  nasa: getSourcePolicy('nasa'),
+  nih: getSourcePolicy('nih'),
+  wikinews: getSourcePolicy('wikinews'),
+  the_conversation: getSourcePolicy('the_conversation'),
+  simple_wikipedia: getSourcePolicy('simple_wikipedia'),
+}
+
+// ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──
+export const SUPPLY_LABEL: Record<SupplyMode, string> = {
+  static: 'recency 미적용',
+  live: 'recency 반영',
+}
+export const MEDIA_LABEL: Record<MediaMode, string> = {
+  audio: '듣기',
+  text: '읽기',
+}
+export const DERIVATION_LABEL: Record<DerivationMode, string> = {
+  full: '단어세트 발행',
+  display_only: '미발행(ND)',
+}
+export const ATTRIBUTION_LABEL: Record<AttributionMode, string> = {
+  required: '출처 4종 필수',
+  none: '면제',
+}
