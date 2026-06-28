@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/scriptquiz-real-questions`
+**활성 브랜치**: `fix/scriptquiz-question-ko`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `4268010` docs(scriptquiz): A3.4 문제 콘텐츠 적재 반영 (Ammachi Ch1 5문제)
-- `fd720ae` feat(scriptquiz): quiz_questions 실 퀴즈 capability (mock 폴백, A3.4)
-- `81e0e0b` feat(pairflip): 실 페어 + SRS 영속화 (mock 제거, A3.3)
+- `89a13fb` feat(scriptquiz): quiz_questions 실 퀴즈 capability (mock 폴백, A3.4) (#54)
+- `e4ccdb7` feat(pairflip): 실 페어 + SRS 영속화 (mock 제거, A3.3) (#53)
 - `d4ed7ca` feat(spellforge): play 진입 실 SRS-due 단어 (Gatsby mock 제거, A3.2) (#52)
 - `4b9164d` feat(flashcard): hub 진입 실 SRS-due 단어 (mock 제거, A3) (#51)
+- `523b72e` docs(srs): P6.5 Cold/Warm/Hot 계층 통합 검증·명문화 (VOCAB_LAYERS.md) (#50)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628140000_scriptquiz_question_ko.sql`
 - `20260628130000_p6_6_enroll_v0_undiagnosed_guard.sql`
 - `20260628120000_p6_enroll_subscribe_i_plus_one.sql`
 - `20260621120000_voa_publish_require_audio_gate.sql`
 - `20260620080000_republish_library_books_with_p1_p4.sql`
-- `20260620070000_p4_unify_composite_core.sql`
 <!-- /auto:recent-migrations -->
 
 ---
