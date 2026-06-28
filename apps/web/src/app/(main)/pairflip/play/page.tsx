@@ -6,6 +6,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { Loader2 } from 'lucide-react'
 
 import { STORAGE_KEYS } from '@/components/pairflip/constants'
 import { PairFlipGameScreen } from '@/components/pairflip/PairFlipGameScreen'
@@ -32,8 +33,9 @@ export default function PairFlipPlayPage() {
 
   if (!config) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="font-body text-[14px] text-[var(--t3)]">세션 준비 중...</p>
+      <div className="flex min-h-[60vh] items-center justify-center gap-2 text-[var(--t3)]">
+        <Loader2 size={16} className="animate-spin" aria-hidden />
+        <p className="font-body text-[14px]">세션을 준비하고 있어요</p>
       </div>
     )
   }

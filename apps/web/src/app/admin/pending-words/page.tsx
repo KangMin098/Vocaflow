@@ -195,7 +195,7 @@ export default async function AdminPendingWordsPage() {
       )}
 
       <p className="mt-4 font-mono text-[10px] text-[var(--t3)]">
-        ※ admin 액션 — 각 row 우측에서 상태 전환 (검토 · AI 분류 · 추가 · 거절). RPC `update_pending_word_status` 가 user_profiles.role='admin' 검증 수행.
+        ※ admin 액션 — 각 row 우측에서 상태 전환 (검토 · AI 분류 · 추가 · 거절). RPC `update_pending_word_status` 가 user_profiles.role=&apos;admin&apos; 검증 수행.
       </p>
     </div>
   )

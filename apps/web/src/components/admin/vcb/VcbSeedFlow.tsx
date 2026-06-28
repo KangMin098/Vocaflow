@@ -7,7 +7,6 @@ import {
   AlertCircle,
   ArrowRight,
   CheckCircle2,
-  ChevronRight,
   Copy,
   Eye,
   FileText,

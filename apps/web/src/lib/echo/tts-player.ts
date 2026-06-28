@@ -16,8 +16,6 @@ export interface TTSPlaybackResult {
   durationMs: number
 }
 
-let activeUtter: SpeechSynthesisUtterance | null = null
-
 export function isTTSSupported(): boolean {
   return typeof window !== 'undefined' && 'speechSynthesis' in window
 }
@@ -51,15 +49,12 @@ export function speakSentence(
 
     const startedAt = performance.now()
     utter.onend = () => {
-      activeUtter = null
       resolve({ durationMs: performance.now() - startedAt })
     }
     utter.onerror = (e) => {
-      activeUtter = null
       reject(new Error(`TTS 오류: ${e.error}`))
     }
 
-    activeUtter = utter
     window.speechSynthesis.speak(utter)
   })
 }
@@ -67,6 +62,5 @@ export function speakSentence(
 export function cancelTTS(): void {
   if (isTTSSupported()) {
     window.speechSynthesis.cancel()
-    activeUtter = null
   }
 }

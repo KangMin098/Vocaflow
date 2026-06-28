@@ -5,7 +5,12 @@
 
 import { cn } from '@/lib/utils/cn'
 import { Eye, FileText, Mic, Settings as SettingsIcon, Volume2 } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { applyReview, createNewCard } from '@/lib/srs'
+import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
+import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage'
+import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
+import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSpeech } from './hooks/useSpeech'
 import type { StudyState, WordItem } from './types'
 
@@ -32,14 +37,24 @@ const RATINGS: RatingConfig[] = [
 ]
 
 export function StudyMode({ words, onExit }: StudyModeProps) {
-  const [studyIndex, setStudyIndex] = useState(2) // 데모: 3번째부터
+  const [studyIndex, setStudyIndex] = useState(0)
   const [state, setState] = useState<StudyState>('hidden')
-  const [progress, setProgress] = useState(6)
   const [isMicRecording, setIsMicRecording] = useState(false)
   const [isPlayingMain, setIsPlayingMain] = useState(false)
 
   const { speak } = useSpeech()
   const w = words[studyIndex]
+  const progress = words.length > 0 ? Math.round((studyIndex / words.length) * 100) : 0
+
+  // 세션 종료(또는 마지막 단어 완료) 시 SRS 큐 → DB flush (멱등 가드, 1회)
+  const flushedRef = useRef(false)
+  const finish = useCallback(() => {
+    if (!flushedRef.current) {
+      flushedRef.current = true
+      void flushPendingSession()
+    }
+    onExit()
+  }, [onExit])
 
   const reset = useCallback(() => {
     setState('hidden')
@@ -64,15 +79,36 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
 
   const rateWord = useCallback(
     (rate: 1 | 2 | 3 | 4 | 5) => {
-      // 데모 — 다음 단어로
-      const nextIndex = (studyIndex + 1) % words.length
-      setStudyIndex(nextIndex)
-      setProgress((p) => Math.min(100, p + 2))
+      if (w) {
+        // §17 [4] 기억 축 — FSRS applyReview (자가평가 1~5 → Rating). 세션 캐시는 단어 텍스트 키.
+        const key = w.word.toLowerCase()
+        const existingCard = getCachedCard(key) ?? createNewCard(key)
+        const reviewResult = applyReview({
+          card: existingCard,
+          rating: studyRatingToFsrs(rate),
+          reviewedAt: new Date(),
+          module: 'wordvault',
+        })
+        cacheCard(reviewResult.card)
+        pushPendingResult({
+          cardId: reviewResult.card.id,
+          word: w.word,
+          cardUpdate: cardToUpdatePayload(reviewResult.card),
+          rating: reviewResult.log.rating,
+          reviewedAt: reviewResult.log.reviewedAt.toISOString(),
+          module: 'wordvault',
+        })
+      }
+
+      const next = studyIndex + 1
+      if (next >= words.length) {
+        finish() // 마지막 단어 평가 → 큐 flush + 종료
+        return
+      }
+      setStudyIndex(next)
       setState('hidden')
-      // TODO: rate를 SRS에 반영 (Phase 2)
-      console.log('Rated:', rate)
     },
-    [studyIndex, words.length]
+    [w, studyIndex, words.length, finish]
   )
 
   const playMain = useCallback(() => {
@@ -113,12 +149,12 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       } else if (['1', '2', '3', '4', '5'].includes(e.key) && state === 'example-shown') {
         rateWord(parseInt(e.key) as 1 | 2 | 3 | 4 | 5)
       } else if (e.key === 'Escape') {
-        onExit()
+        finish()
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [state, revealMeaning, revealExample, playMain, toggleMic, rateWord, onExit])
+  }, [state, revealMeaning, revealExample, playMain, toggleMic, rateWord, finish])
 
   if (!w) return null
 
@@ -128,7 +164,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       <div className="mb-s-6 flex items-center justify-between rounded-xl border border-bd bg-bg px-s-5 py-s-3">
         <button
           type="button"
-          onClick={onExit}
+          onClick={finish}
           className="py-s-1.5 inline-flex items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
         >
           ← 종료

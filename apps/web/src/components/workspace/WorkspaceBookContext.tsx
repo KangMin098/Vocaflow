@@ -45,7 +45,6 @@ export function WorkspaceBookContext({
   bookId,
   bookTitle,
   bookAuthor,
-  cefrLevel,
   chapters,
   currentChapterIdx,
   currentTextId,

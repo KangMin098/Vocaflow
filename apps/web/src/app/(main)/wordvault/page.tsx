@@ -90,6 +90,13 @@ export default function WordVaultPage() {
     }
   }, [searchParams, router])
 
+  // ── ?view=study → 실 데이터 RSC 세션으로 redirect (A2) ──
+  useEffect(() => {
+    if (searchParams.get('view') === 'study') {
+      router.replace('/wordvault/study')
+    }
+  }, [searchParams, router])
+
   // ── 선택 ──
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
 
@@ -137,14 +144,6 @@ export default function WordVaultPage() {
     (id: number) => {
       const w = words.find((x) => x.id === id)
       if (w) speak(w.word, { rate: listenSettings.speed })
-    },
-    [words, listenSettings.speed, speak]
-  )
-
-  const handlePlayExample = useCallback(
-    (id: number) => {
-      const w = words.find((x) => x.id === id)
-      if (w) speak(w.exampleEn, { rate: listenSettings.speed * 0.95 })
     },
     [words, listenSettings.speed, speak]
   )
