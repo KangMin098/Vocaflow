@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습자 관리 설계 SSoT (LEARNER_MANAGEMENT.md) (v06.98)
+
+5개 비교군(LingQ/Busuu/리틀팍스/클래스카드/듀오) 분석 + 라이브 데이터 진단 종합 — `docs/LEARNER_MANAGEMENT.md` 신규(설계 문서, 마이그레이션 0). 타겟 = **수능생 단일 집중** · L3(B2B) 로드맵 명시 + 데이터 모델 선반영.
+
+- **라이브 진단**: `learning_records` = 연결+검증(4 row, 이번 세션 flush·게임 5종) · `scores` = 연결됨 실플레이 대기 · **`daily_activity` = writer 0 = 진짜 P0** · `known_word_count` = 컬럼 미존재.
+- **설계 수록**: DDL 제안(learning_goals/weekly_reports/classes·class_members·assignments + user_profiles.persona/user_stats.known_word_count) · known-word 집계 정의(§10 derived, stability≥21) · Study Plan 수능 D-day 역산 공식 · 5단계 여정 + 3모드 화면 와이어 · P0~P4 시퀀싱.
+- **P0 재정의**: 원천 스트림(learning_records/scores)은 이미 흐름 → P0 = 집계층(`daily_activity` AFTER INSERT 트리거 + `known_word_count` 캐시). CLAUDE.md navigation 행 추가.
+
 ### A3.8 추천 엔진 실데이터화 (getMockNextAction → 실 사용자 상태) (v06.98)
 
 세션 종료/워크스페이스의 "다음 행동" 추천이 `getMockNextAction(MOCK_USER_CONTEXTS)` 고정 컨텍스트였던 것 → 실 사용자 상태(due 단어 수 + mastery) 기반. 설계 주석대로 "swap 대상은 한 함수" — 5개 호출처는 hook 1줄 교체. 마이그레이션 0.
