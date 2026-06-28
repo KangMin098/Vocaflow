@@ -25,7 +25,8 @@
 | `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · total_reviews · by_module JSONB · avg_accuracy · **P0 자동 집계**(learning_records→총복습/모듈별 · scores→분/단어 트리거, KST date) |
 | `achievements` | 0 | 24 kB | kind · module · value · metadata JSONB · achieved_at |
 | `reports` | 0 | 24 kB | kind · subject · message · status · admin_note (admin /reports) |
-| `study_plan_items` | 0 | — | **P1(재설계 2026-06-28)** 학습 계획 — material_type(book/script/word_set) · material_id(다형) · modules text[](활동 10종) · UNIQUE(user_id,material_type,material_id) · 본인 RLS 4정책 · updated_at 트리거. (수능 `learning_goals` 폐기 DROP) |
+| `study_plan_items` | 0 | — | **P1(재설계 2026-06-28)** 학습 계획 — material_type(**book/article/word_set/script**) · material_id(다형) · modules text[](활동 10종) · **chapters int[]**(도서 선택 챕터, 빈=전체) · UNIQUE(user_id,material_type,material_id) · 본인 RLS 4정책 · updated_at 트리거. (수능 `learning_goals` 폐기 DROP) |
+| `study_plan_schedule` | 0 | — | **P1 리치** 주당 학습 리듬 — user_id PK · weekly_days int[](1=월..7=일) · daily_minutes · 전역 1개/사용자 · 본인 RLS |
 | `weekly_reports` | 0 | — | **P2** 주간 Report Card — week_start(월,KST) · total_minutes/words/reviews · by_module · empathetic_note(격려 코멘트) · UNIQUE(user_id,week_start) · 본인 RLS · daily_activity 주간 집계 |
 | `classes` | 0 | — | **P4.1 L3 B2B 선반영**(화면 Phase 2) — teacher_id · name · invite_code UNIQUE · RLS(교사 전권 + 멤버 읽기) |
 | `class_members` | 0 | — | **P4.1** class_id+user_id PK · role(student/assistant) · RLS(본인·교사 읽기, 본인 가입, 교사/본인 삭제) |
@@ -290,7 +291,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 113건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628200000_p1_redesign_study_plan_items` — 수능 `learning_goals` DROP + `study_plan_items`(자료×활동) 신설, LEARNER_MANAGEMENT P1 재설계 `/plan` · 직전: `20260628190000_p4_2_join_class_by_code` P4.2)
+전체 누적 114건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628210000_p1_plan_rich_compose` — study_plan_items material_type += 'article' + chapters int[] + 신규 study_plan_schedule(주당 리듬), LEARNER_MANAGEMENT P1 리치 구성 `/plan` · 직전: `20260628200000_p1_redesign_study_plan_items`)
 
 ---
 
