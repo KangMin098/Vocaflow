@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 큐레이션 LCP My Library화 + RPC SSoT 정합 (v06.99)
+
+ACP `/admin/articles` 의 큐레이션 목록을 LCP My Library 방식으로 정렬(멀티셀렉트 + bulk actions: Dev 일괄 / → 소스 GET + DrainBanner). seed-unlock 버그 수정 — 글 삭제 시 `imported_to_articles=true` 잔존 → 재-GET 불가였던 것 → flags 완전 리셋. (PR #72: 라우트 `/api/acp/dev-drain-queue`·`/api/admin/articles/bulk-requeue` + delete 라우트 패치, 마이그레이션 0 — service_role TS 로직.)
+
+- **마이그레이션 (RPC SSoT 정합)** — 라우트 TS 가 실제 동작이지만 직접 RPC 호출 경로 일관성용:
+  - `20260628111709_acp_delete_article_seed_unlock` — `admin_delete_article` 가 seed flags 완전 unlock (FK SET NULL 만으로는 `imported_to_articles=true` 잔존).
+  - `20260628111753_acp_bulk_requeue_articles` — `admin_bulk_requeue_articles(uuid[])` 신규 (LCP `admin_bulk_requeue_books` 미러: DELETE + draft 단어장 삭제 + seed unlock + 발행/사용자 가드).
+
 ### 내 학습 관리 화면 /manage (계획·실행·진단·리포트 통합) (v06.98)
 
 리틀팍스 MY 학습 참고 — P0~P3 데이터를 한 화면에 모은 학습자 관리 overview. 마이그레이션 0(기존 테이블 read).
