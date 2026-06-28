@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/plan-composer-board`
+**활성 브랜치**: `feat/plan-today`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `442834a` feat(learner): 학습 계획 UX 재구성 — 컴포저 + 주간 보드 (#82)
 - `e5201b8` feat(learner): 학습 계획 요일 결합 + 시간 제거 (#81)
 - `e19e843` feat(learner): 학습 계획 picker V-Level 밴드 × 카테고리 체계화 (#80)
 - `ff1dfdb` Merge pull request #79 from KangMin098/feat/library-source-map
 - `bbb11a8` Merge remote-tracking branch 'origin/main' into feat/library-source-map
-- `2e5041e` feat(acp): /library/scripts 소스 맵 — 개인화 오리엔테이션 (P1~P3)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
