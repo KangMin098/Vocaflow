@@ -2,7 +2,7 @@
 
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 
@@ -23,10 +23,7 @@ import { useTypingMode } from '@/hooks/useTypingMode'
 
 import { SpellForgeCompletion } from './SpellForgeCompletion'
 
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock'
+import { useNextAction } from '@/lib/recommend/use-next-action'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { flushPendingSession } from '@/lib/srs/flush-session'
@@ -77,13 +74,8 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
   const [showCompletion, setShowCompletion] = useState(false)
   const errorTimerRef = useRef<NodeJS.Timeout | null>(null)
 
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // SpellForge 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_spellforge' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  )
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction()
 
   // body class for studying mode
   useEffect(() => {

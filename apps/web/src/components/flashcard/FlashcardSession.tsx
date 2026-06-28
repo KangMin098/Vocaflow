@@ -2,14 +2,11 @@
 
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useFlashcardSession } from '@/hooks/useFlashcardSession'
+import { useNextAction } from '@/lib/recommend/use-next-action'
 import { flushPendingSession } from '@/lib/srs/flush-session'
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock'
 import { Rating, applyReview, type RatingValue } from '@/lib/srs'
 import { pushPendingResult } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
@@ -49,13 +46,8 @@ interface FlashcardSessionProps {
 }
 
 export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // Flashcard 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" 추천 (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_flashcard' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  )
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction()
 
   const session = useFlashcardSession({ initialWords })
   const {

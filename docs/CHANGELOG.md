@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3.8 추천 엔진 실데이터화 (getMockNextAction → 실 사용자 상태) (v06.98)
+
+세션 종료/워크스페이스의 "다음 행동" 추천이 `getMockNextAction(MOCK_USER_CONTEXTS)` 고정 컨텍스트였던 것 → 실 사용자 상태(due 단어 수 + mastery) 기반. 설계 주석대로 "swap 대상은 한 함수" — 5개 호출처는 hook 1줄 교체. 마이그레이션 0.
+
+- **`lib/recommend/decide.ts`** 신규 — `decideNextAction(ctx)` 순수 P1~P4 로직(mock·실 단일 출처). `next-action.mock.ts getMockNextAction` 도 이 함수 경유로 DRY.
+- **`lib/recommend/get-next-action.ts`** 신규 — `getNextActionForUser()` server action: due 단어 수(P1) + mastery(user_stats 또는 vocab 수 근사) → decide. v1 P2(진행중 스크립트) 미연동.
+- **`lib/recommend/use-next-action.ts`** 신규 — `useNextAction()` client hook: cold 기본 후 server action 결과 1회 교체.
+- **5개 호출처** — FlashcardSession/ScriptQuiz/SpellForge/DictationResultsClient/text[id] 의 `useMemo(getMockNextAction(...))` → `useNextAction()`. (getMockNextAction/MOCK_USER_CONTEXTS 은 데모/테스트용 보존.)
+- ⚠️ typecheck/lint green, 런타임 미검증. user_stats 빈 상태면 vocab 수 근사로 mastery 산정(cold-bias) — 실 사용자 데이터 누적 시 정확.
+
 ### A3.6 게임 점수 적재 확장 (flashcard/spellforge/dictation) (v06.98)
 
 A3.5(PairFlip)로 시작한 `scores` 적재를 3개 게임으로 확장 — 메인 Hub "최근 활동"(useHubData 가 scores 읽음)이 실제로 채워지도록. 공유 헬퍼로 통일. 마이그레이션 0.

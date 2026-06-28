@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/games-scores-record`
+**활성 브랜치**: `feat/real-next-action`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `20e9373` Merge remote-tracking branch 'origin/main' into feat/games-scores-record
+- `7b12e00` feat(games): 게임 점수 적재 확장 — flashcard/spellforge/dictation (A3.6) (#57)
 - `11de73d` feat(pairflip): 게임 점수 영속화(scores) + hub 실 stats (A3.5) (#56)
-- `e3ea1e4` feat(games): 게임 점수 적재 확장 — flashcard/spellforge/dictation (A3.6)
 - `14a9b0e` feat(scriptquiz): 질문 한국어(question_ko) 완성 (A3.4b) (#55)
 - `89a13fb` feat(scriptquiz): quiz_questions 실 퀴즈 capability (mock 폴백, A3.4) (#54)
+- `e4ccdb7` feat(pairflip): 실 페어 + SRS 영속화 (mock 제거, A3.3) (#53)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
