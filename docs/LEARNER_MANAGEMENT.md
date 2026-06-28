@@ -58,29 +58,41 @@ ALTER TABLE public.user_stats
 
 > 초기 설계의 수능 D-day 역산(`learning_goals`)은 **폐기**(0 rows DROP). 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장)별로 **할 활동을 고르는** 구성(리틀팍스 코스형). "수능 단일 집중"은 타겟 페르소나로만 유지하고 계획의 substance 는 자료×활동.
 
+**리치 구성 (2026-06-28 v06.102):** 자료 4종 + 도서 챕터 + 일정(주당 리듬). material_type 에 `'article'`(library_articles=공개 스크립트) 추가, `chapters int[]`(도서 선택 챕터) 추가, 일정용 `study_plan_schedule` 신설.
+
 ```sql
 CREATE TABLE public.study_plan_items (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  material_type text NOT NULL CHECK (material_type IN ('book','script','word_set')),
-  material_id   uuid NOT NULL,                 -- library_books|texts|shared_word_sets (다형, FK 없음)
+  material_type text NOT NULL CHECK (material_type IN ('book','article','word_set','script')),
+  material_id   uuid NOT NULL,                 -- library_books|library_articles|shared_word_sets|texts (다형)
   modules       text[] NOT NULL DEFAULT '{}',  -- 선택 활동(아래)
+  chapters      int[]  NOT NULL DEFAULT '{}',  -- 도서 선택 챕터 idx (빈=전체)
   created_at    timestamptz NOT NULL DEFAULT now(),
   updated_at    timestamptz NOT NULL DEFAULT now(),
   UNIQUE (user_id, material_type, material_id)  -- 자료 1개당 1행
 );
-ALTER TABLE public.study_plan_items ENABLE ROW LEVEL SECURITY;
--- RLS: 본인 행만 (auth.uid() = user_id) — select/insert/update/delete 4정책
+ALTER TABLE public.study_plan_items ENABLE ROW LEVEL SECURITY; -- 본인 4정책
+
+-- 주당 학습 리듬 (일정) — 전역 1개/사용자
+CREATE TABLE public.study_plan_schedule (
+  user_id       uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  weekly_days   int[] NOT NULL DEFAULT '{}',   -- 1=월 .. 7=일
+  daily_minutes int NOT NULL DEFAULT 20,
+  updated_at    timestamptz NOT NULL DEFAULT now()
+);  -- 본인 RLS
 ```
 
-**활동(modules) 10종** + 자료유형별 가용:
+**자료 4종** = 도서(library_books·표지·챕터) / 스크립트(library_articles·소스 배지) / 공용단어장(shared_word_sets·이모지) / 내 스크립트(texts).
+**활동(modules)** + 자료유형별 가용:
 
-| 활동 | listen 듣기 · read 읽기 · echo 따라하기 · vocab 단어 · flashcard · wordblitz · pairflip · spellforge · scriptquiz · dictation |
+| 자료 | 가용 활동 |
 |---|---|
-| 도서/스크립트 | 10종 전부 (본문+오디오) |
-| 공용단어장 | vocab·flashcard·wordblitz·pairflip·spellforge (어휘 5종 — 본문 없는 5종 제외) |
+| 도서 · 내 스크립트 | 10종 전부 (listen/read/echo/vocab/flashcard/wordblitz/pairflip/spellforge/scriptquiz/dictation) |
+| 스크립트(article) | echo 제외 9종 (전용 echo 라우트 없음) |
+| 공용단어장 | vocab·flashcard·wordblitz·pairflip·spellforge (어휘 5종) |
 
-코드: `lib/learner/plan-activities.ts`(활동 정의·매트릭스·라우트) + `plan-actions.ts`(fetch/save/remove) + `/plan` + `PlanClient.tsx`.
+코드: `plan-activities.ts`(활동·매트릭스·라우트·WEEKDAYS·소스라벨) + `plan-actions.ts`(4종 fetch + chapters + fetchSchedule/saveSchedule) + `/plan` + `PlanClient.tsx`(일정 스트립 + 비주얼 카드 + 4탭 picker + 챕터 선택 + launch).
 
 ### 2-3. 신규 — 주간 리포트 (리틀팍스 월리포트 이식)
 
@@ -178,20 +190,22 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 
 ---
 
-## 4. 학습 계획 구성 모델 (자료×활동 · 리틀팍스 코스형) ⚠️ 재설계 2026-06-28
+## 4. 학습 계획 구성 모델 (일정 + 자료×활동 · 리틀팍스 코스형) ⚠️ 리치 구성 2026-06-28
 
-> 초기 "수능 D-day 역산 Study Plan"은 폐기. 사용자가 **자료를 고르고 → 그 자료로 할 활동을 체크**하며 계획을 구성한다(리틀팍스의 "이 책으로 듣기+읽기+퀴즈"와 동형).
+> 초기 "수능 D-day 역산"은 폐기. **언제(일정) · 무엇을(자료) · 어떻게(활동)** 3요소를 비주얼로 고른다. 텍스트 위주 → 표지/배지/이모지 + 선택 중심(학습 의욕).
 
 ```
-구성: 자료(도서/스크립트/공용단어장) 1개 → 활동(10종, 자료유형별 가용) 다중 선택 → study_plan_items 1행
+일정(주당 리듬): 학습 요일(월~일) + 하루 목표(분) → study_plan_schedule (전역 1개)
+자료(4종): 도서(표지·챕터 다중선택) / 스크립트=article(소스 필터) / 공용단어장(이모지) / 내 스크립트
+         → 활동(자료유형별 가용) 다중 선택 → study_plan_items 1행 (+chapters)
 화면 /plan:
-  · 담은 자료 카드 = 자료 + 활동 토글(즉시 저장) + 열기(materialHref) + 빼기
-  · 자료 추가 = 유형 탭(도서/스크립트/단어장) → 후보 목록(담은 자료 제외) → 활동 체크 → 추가
-  · 활동 토글: 색 + 아이콘/체크 이중(색맹 대응), 추천 기본값(본문=읽기·단어·Flashcard / 단어장=단어·Flashcard)
-자료 라우트: book→/library/books/[id] · script→/text/[id] · word_set→/library/vocab#set-{slug}
+  · 상단 ScheduleStrip = 요일 원형 토글 + 하루 목표 칩 (즉시 저장)
+  · 담은 자료 카드 = 표지/배지/이모지 + 챕터 배지 + 활동 실행 링크(기본) / 편집(연필=활동·챕터 토글) + 열기 + 빼기
+  · 자료 추가 = 4탭(도서=표지 그리드 / 그 외=목록) → [도서 챕터 칩] + 활동 체크 → 추가
+자료 라우트: book→/library/books/[id] · article→/library/scripts/[id] · word_set→/library/vocab#set-{slug} · script→/text/[id]
 ```
 
-- 계획 = "무엇을·어떻게 학습할지" 구성. 수능 D-day·완료일 역산 같은 카운트다운/압박 지표 없음(§철학1 Calm·§철학4 Implicit).
+- 계획 = "언제·무엇을·어떻게" 구성. 수능 D-day·완료일 역산 같은 카운트다운/압박 지표 없음(§철학1 Calm·§철학4 Implicit). 일정은 deadline 이 아니라 **리듬**.
 - /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
 - **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크, 편집(연필) = 활동 토글. scoped 진입(아이콘 ▶): 스크립트 `flashcard?text=`·`scriptquiz?text=` / 단어장 `flashcard?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) / listen·read·echo·vocab→본문. 미스코핑 게임(wordblitz/pairflip/spellforge/dictation·도서 게임)은 모듈 hub(↗) honest fallback. (`activityLaunchHref`/`isActivityScoped`)
 - (후속) 미스코핑 게임의 자료 스코핑(모듈별 param 확장) · 자료별 진행도.

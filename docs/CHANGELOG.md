@@ -10,7 +10,7 @@
 
 ## Unreleased (v06.34 → next)
 
-### `/library/scripts` 소스 맵 — 개인화 오리엔테이션 (v06.102)
+### `/library/scripts` 소스 맵 — 개인화 오리엔테이션 (v06.103)
 
 ACP 6 소스를 5 학습 트랙으로 묶어 글 선택 전 "내 수준으로 재계산되는 맵" 추가 (ArticlesExplorer 위, 마이그레이션 0).
 
@@ -20,6 +20,18 @@ ACP 6 소스를 5 학습 트랙으로 묶어 글 선택 전 "내 수준으로 �
 - **`source-map/SourceMap.tsx` + `SourceMapShell.tsx`** 맵 트랙 탭 → 카드 scroll+강조 · CTA → `ArticlesExplorer` 그 트랙 소스로 필터(맵↔목록 연동) · 단일 articles prop 공유.
 - **`ArticlesExplorer.tsx`** `sourceFilter` 선택 prop + 활성 칩(backward compatible).
 - typecheck green · 시각 검증(맵/탭/필터/0 PAGEERR) · 현 데이터 2편(voa·simple_wikipedia)·3 트랙 "준비 중".
+
+### 학습 계획 리치 구성 — 일정 + 자료 4종 + 도서 챕터 + 비주얼 (v06.102)
+
+`/plan` 을 텍스트 위주 → 비주얼·선택 중심으로 재구성 (사용자 피드백: 일정/무엇을/어떻게 요소 + 학습 의욕).
+
+- **마이그레이션** `20260628210000` — study_plan_items `material_type` += `'article'` + `chapters int[]`(도서 선택 챕터) + 신규 `study_plan_schedule`(weekly_days 1=월..7=일 + daily_minutes, 전역 1개/사용자, 본인 RLS).
+- **일정(주당 리듬)**: ScheduleStrip — 학습 요일(월~일 원형 토글) + 하루 목표(분) 즉시 저장.
+- **자료 4종**: 도서(library_books·표지) / 스크립트(library_articles·소스 배지) / 공용단어장(shared_word_sets·이모지) / 내 스크립트(texts). 4탭 picker + 스크립트 소스 필터(VOA·NASA·…).
+- **도서 챕터 다중 선택**: chapter_count 기반 챕터 칩(안 고르면 전체), 카드/편집에서 토글.
+- **비주얼**: 도서 표지(img+onError 폴백) 그리드 + 카드 썸네일, 단어장 이모지, 소스 배지.
+- **`plan-activities.ts`** article 활동(echo 제외 9종)·MATERIAL_LABEL·materialHref(/library/scripts)·WEEKDAYS·ARTICLE_SOURCE_LABEL. **`plan-actions.ts`** 4종 fetch + chapters + fetchSchedule/saveSchedule. **`PlanClient.tsx`** 전면 재구성.
+- typecheck green · `next build` 89/89 (/plan 10.1kB) · 실렌더 확인.
 
 ### 학습 계획 활동 실행(launch) 연결 (v06.101)
 
