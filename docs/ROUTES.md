@@ -25,6 +25,7 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
+| `/onboarding` | `(main)/onboarding/page.tsx` + `components/onboarding/OnboardingClient.tsx` | **P1** 수능 D-day + 주당 목표 → Study Plan 역산(실시간 미리보기 + 저장, learning_goals) |
 | `/hub` | `(main)/hub/page.tsx` | Home + Dashboard 통합 진입점 |
 | `/dashboard` | `(main)/dashboard/page.tsx` + `layout.tsx` | KPI · 28일 sparkline · ModuleAccuracyRing · RecentActivity |
 | `/settings` | `(main)/settings/page.tsx` | 계정·테마·TTS·알림 |

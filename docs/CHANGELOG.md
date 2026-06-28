@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### P1 Study Plan — learning_goals + /onboarding (수능 D-day 역산) (v06.98)
+
+LEARNER_MANAGEMENT.md P1 — Busuu study plan 이식. 수능 D-day + 주당 목표 → 주당/일 필요량 + 완료일 역산. 마이그레이션 `20260628160000_p1_learning_goals`(신규 테이블 + 본인 RLS, 사용자 승인).
+
+- **`learning_goals`** 테이블 — goal_type='csat'(수능 단일) · target_date(D-day) · target_v_level(7) · target_word_count(4000, 수능 핵심 어휘 근사) · weekly_target_days/minutes. UNIQUE(user_id, goal_type).
+- **`lib/learner/study-plan.ts`** `computeStudyPlan`(순수) — gap=목표-known / 남은주 → 주당·하루 필요 + recentWeeklyRate 기반 완료일 예측(격려형, 미달 압박 X).
+- **`lib/learner/goal-actions.ts`** server actions — `saveLearningGoal`(upsert) · `fetchOnboardingContext` · `fetchStudyPlan`.
+- **`/onboarding`** 신규 페이지 — D-day·주당일·주당분 입력 → 실시간 Study Plan 미리보기(클라 computeStudyPlan 즉시 반영) + 저장. Calm UI.
+- P0 집계층(known-word/daily_activity)을 역산 입력으로 소비. typecheck/lint green.
+
 ### P0 집계층 — daily_activity 자동 집계 + known_word_count (v06.98)
 
 LEARNER_MANAGEMENT.md P0 적용 — 진단상 `daily_activity` writer 0(=진짜 P0)였던 것을, 이미 흐르는 원천 스트림(learning_records/scores)에서 자동 집계. 마이그레이션 `20260628150000_p0_daily_activity_agg_known_word_count`(추가·비파괴, 사용자 명시 승인).

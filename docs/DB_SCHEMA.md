@@ -25,6 +25,7 @@
 | `daily_activity` | 0 | 24 kB | (user_id, date) PK · total_minutes · total_words · total_reviews · by_module JSONB · avg_accuracy · **P0 자동 집계**(learning_records→총복습/모듈별 · scores→분/단어 트리거, KST date) |
 | `achievements` | 0 | 24 kB | kind · module · value · metadata JSONB · achieved_at |
 | `reports` | 0 | 24 kB | kind · subject · message · status · admin_note (admin /reports) |
+| `learning_goals` | 0 | — | **P1** Study Plan 목표 — goal_type='csat'(수능 단일) · target_date(D-day) · target_v_level · target_word_count · weekly_target_days/minutes · UNIQUE(user_id,goal_type) · 본인 RLS |
 
 ### 2️⃣ 학습 콘텐츠 (사용자 자산)
 
@@ -285,7 +286,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 108건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628150000_p0_daily_activity_agg_known_word_count` — learning_records/scores → `daily_activity` 자동 집계 트리거 2 + `user_stats.known_word_count` 컬럼·`refresh_user_known_word_count` 함수, LEARNER_MANAGEMENT P0 · 직전: `20260628140000_scriptquiz_question_ko` A3.4b)
+전체 누적 109건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628160000_p1_learning_goals` — Study Plan 목표 테이블 `learning_goals`(수능 D-day 역산, goal_type='csat', target_word_count) + 본인 RLS, LEARNER_MANAGEMENT P1 · 직전: `20260628150000_p0_daily_activity_agg_known_word_count` P0 집계층)
 
 ---
 
