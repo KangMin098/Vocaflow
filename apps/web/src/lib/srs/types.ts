@@ -57,6 +57,7 @@ export type ModuleId =
   | 'flashcard'
   | 'spellforge'
   | 'wordblitz'
+  | 'pairflip' // L4a 공간기억 — DB module_id enum 정합
   | 'scriptquiz'
   | 'dictation'
   | 'wordvault' // 노출(L3)만, retrieve 아님

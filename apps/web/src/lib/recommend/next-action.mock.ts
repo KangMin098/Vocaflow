@@ -121,6 +121,8 @@ export function actionToHref(action: RecommendedAction): string {
       return action.unit ? `/dictate?unit=${action.unit}` : '/dictate';
     case 'spellforge':
       return '/spellforge';
+    case 'pairflip':
+      return '/pairflip';
     case 'wordblitz':
       return '/wordblitz';
     case 'wordvault':
