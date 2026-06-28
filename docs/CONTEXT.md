@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/p0-activity-knownword`
+**활성 브랜치**: `feat/p1-study-plan`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `adfdafb` feat(learner): P0 집계층 — daily_activity 자동 집계 + known_word_count (#62)
 - `b8e2978` docs(learner): 학습자 관리 설계 SSoT (LEARNER_MANAGEMENT.md) (#61)
 - `68549fa` Merge pull request #60 from KangMin098/feat/voa-curation-redesign
 - `d235c16` Merge remote-tracking branch 'origin/main' into feat/voa-curation-redesign
 - `d22e39f` feat(recommend): 추천 엔진 실데이터화 — getMockNextAction → 실 사용자 상태 (A3.8) (#59)
-- `10109e0` feat(wordblitz): standalone 영속화 완성 — learning_records + scores (A3.7) (#58)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628160000_p1_learning_goals.sql`
 - `20260628150000_p0_daily_activity_agg_known_word_count.sql`
 - `20260628140000_scriptquiz_question_ko.sql`
 - `20260628130000_p6_6_enroll_v0_undiagnosed_guard.sql`
 - `20260628120000_p6_enroll_subscribe_i_plus_one.sql`
-- `20260621120000_voa_publish_require_audio_gate.sql`
 <!-- /auto:recent-migrations -->
 
 ---
