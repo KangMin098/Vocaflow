@@ -13,7 +13,7 @@
 import {
   BarChart3,
   BookOpen,
-  CalendarRange,
+  ClipboardList,
   Compass,
   GraduationCap,
   Home,
@@ -23,7 +23,6 @@ import {
   ScrollText,
   Settings,
   Shuffle,
-  Target,
   Zap,
   type LucideIcon,
 } from 'lucide-react'
@@ -48,8 +47,7 @@ export const META_ITEMS: NavItem[] = [
   { label: 'Hub', href: '/hub', icon: Home },
   { label: 'Dashboard', href: '/dashboard', icon: BarChart3 },
   { label: '진단', href: '/diagnostic', icon: Compass, ariaLabel: 'VRL Placement 진단 + V-Level 변천사' },
-  { label: '학습 계획', href: '/onboarding', icon: Target, ariaLabel: '수능 D-day Study Plan — 주당 목표·완료일 (P1)' },
-  { label: '리포트', href: '/reports', icon: CalendarRange, ariaLabel: '주간 Report Card — 학습 회고 (P2)' },
+  { label: '내 학습', href: '/manage', icon: ClipboardList, ariaLabel: '내 학습 관리 — 계획·현황·진단·리포트 통합' },
 ]
 
 export const NAV_GROUPS: NavGroup[] = [

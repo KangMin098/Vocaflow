@@ -25,6 +25,7 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
+| `/manage` | `(main)/manage/page.tsx` | **내 학습 관리** — 계획·실행·진단·리포트 통합 overview(4 카드 + 상세 CTA, fetchManageOverview). Sidebar "내 학습" |
 | `/onboarding` | `(main)/onboarding/page.tsx` + `components/onboarding/OnboardingClient.tsx` | **P1** 수능 D-day + 주당 목표 → Study Plan 역산(실시간 미리보기 + 저장, learning_goals) |
 | `/reports` | `(main)/reports/page.tsx` + `components/reports/ReportsClient.tsx` | **P2** 주간 Report Card(daily_activity 집계 + 격려 코멘트) + "이번 주 갱신" |
 | `/teacher` | `(main)/teacher/page.tsx` + `components/teacher/TeacherClient.tsx` | **P4.2 L3 B2B** 교사 허브(클래스 개설·초대코드·참여·멤버수, classes/class_members) |
