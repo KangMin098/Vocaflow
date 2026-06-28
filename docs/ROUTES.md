@@ -27,6 +27,7 @@
 |---|---|---|
 | `/onboarding` | `(main)/onboarding/page.tsx` + `components/onboarding/OnboardingClient.tsx` | **P1** 수능 D-day + 주당 목표 → Study Plan 역산(실시간 미리보기 + 저장, learning_goals) |
 | `/reports` | `(main)/reports/page.tsx` + `components/reports/ReportsClient.tsx` | **P2** 주간 Report Card(daily_activity 집계 + 격려 코멘트) + "이번 주 갱신" |
+| `/teacher` | `(main)/teacher/page.tsx` + `components/teacher/TeacherClient.tsx` | **P4.2 L3 B2B** 교사 허브(클래스 개설·초대코드·참여·멤버수, classes/class_members) |
 | `/hub` | `(main)/hub/page.tsx` | Home + Dashboard 통합 진입점 |
 | `/dashboard` | `(main)/dashboard/page.tsx` + `layout.tsx` | KPI · 28일 sparkline · ModuleAccuracyRing · RecentActivity |
 | `/settings` | `(main)/settings/page.tsx` | 계정·테마·TTS·알림 |

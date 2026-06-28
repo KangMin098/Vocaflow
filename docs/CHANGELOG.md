@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### P4.2 교사 허브 — /teacher (클래스 개설·초대코드·참여) (v06.98)
+
+LEARNER_MANAGEMENT.md P4 화면 1단계 — 클래스카드형 교사 허브. P4.1 데이터 모델 소비. 마이그레이션 `20260628190000_p4_2_join_class_by_code`(초대코드 join SECURITY DEFINER 함수, 사용자 승인).
+
+- **`lib/teacher/class-actions.ts`** server actions — `createClass`(초대코드 자동생성·UNIQUE 충돌 재시도) · `joinClassByCode`(RPC `join_class_by_code` — 비멤버 RLS 우회 lookup+가입) · `fetchTeacherClasses`(멤버수 nested count) · `fetchMyMemberships`.
+- **`/teacher`** 신규 — 클래스 개설/목록(초대코드 복사·학생수) + 초대코드 참여 + 참여 중 클래스. Calm UI.
+- **마이그레이션** `join_class_by_code(text)` SECURITY DEFINER — 비멤버는 classes SELECT 불가 → 함수가 코드 lookup + class_members 가입(중복 무시). typecheck/lint green.
+- 잔여(P4.3): 과제배포(assignments UI) · 리포트 공유. 화면 런타임 미검증.
+
 ### P4.1 L3 B2B 데이터 모델 선반영 (classes/class_members/assignments) (v06.98)
 
 LEARNER_MANAGEMENT.md P4 — 클래스카드형 교사/학원 위탁관리의 **데이터 모델 선반영**(사용자 결정 "L3 명시 — 선반영"). **화면(`/teacher/*`)은 Phase 2** — 본 변경은 테이블/RLS 만. 마이그레이션 `20260628180000_p4_l3_class_data_model`(추가·비파괴, 사용자 승인).
