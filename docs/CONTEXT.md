@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `139941d` feat(teacher): P4.2 교사 허브 /teacher — 클래스 개설·초대코드·참여
 - `3d9f5fc` feat(learner): P4.1 L3 B2B 데이터 모델 선반영 (classes/class_members/assignments) (#67)
 - `92d6500` feat(learner): P3 대시보드 실데이터화 — TodayHero + known-word (#66)
 - `73839fc` feat(learner): P2 주간 Report Card — weekly_reports + /reports (#65)
 - `50f6c4e` feat(learner): P1 Study Plan — learning_goals + /onboarding (수능 D-day 역산) (#63)
-- `adfdafb` feat(learner): P0 집계층 — daily_activity 자동 집계 + known_word_count (#62)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
