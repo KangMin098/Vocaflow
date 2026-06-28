@@ -21,7 +21,7 @@ v06.35 (2026-06-08) — ACP(article) 소스 재설계 구현. 스펙 [docs/ACP_S
 - OpenStax — 웹 SPA/PDF 라 URL-HTML 추출 불가. CNXML/archive API dump 통합 필요(별도).
 - Smithsonian OA — CC0=소장품 메타(산문 아님), Magazine=유료 → 소스 부적합, 제외.
 - NIH→MedlinePlus 분리 — 문서별 article_v_level 실측이 난이도 분리 담당, 별도 source 분리 보류.
-- 신규 4 ingester(Wikipedia/Conversation/Wikinews + 기존) 라이브 검증 미실시(외부 API/HTML — 여기서 실행 불가). 특히 the-conversation articleBody 정규식.
+- 신규 ingester **라이브 fetch 검증 ✅ 2026-06-28** (read-only, DB write 없음): Simple Wikipedia 3건·The Conversation 1건 실 fetch + curation score 정상 / Wikinews 0건(소스 비활성 — fetch 성공, 30일 신규 없음, 기존 발견 정합). list 경로(외부 소스 연결 + curation spec) 검증됨. **잔여**: full DB-write ingest(공유 prod DB write — 분류기 차단, admin dev-process 또는 명시 승인 필요) · the-conversation articleBody 정규식은 단건 ingestTheConversationArticle 시 검증(list엔 미포함). **C2 는 "마이그레이션 대기" 아님 — 이미 구현·적용·fetch검증 완료** (세션 백로그 framing 오류 정정).
 
 관련: [[book_vocab_ssot_unify]] (도서 쪽 동등 작업), [[feedback_supabase_migrations]].
 

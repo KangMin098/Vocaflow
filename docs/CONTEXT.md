@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/p6-enroll-i-plus-one`
+**활성 브랜치**: `feat/openstax-cnxml-ingest-design`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `65b0980` feat(srs): 책 구독 시 i+1 필터 — _enroll_book_subscribe_word_sets (P6.1/C1) (#46)
 - `2554f9f` feat(wordvault): 복습 뷰 실데이터 — /wordvault/review RSC (A2b) (#45)
 - `c8cc7a5` feat(wordblitz): learning_records 적재 추가 (A1.3) (#40)
 - `72a7729` feat(wordvault): study 실 vocabularies + SRS 영속화 (A2) (#39)
 - `e641816` feat(srs): 학습 결과 DB 영속화 — sessionStorage 큐 flush (A1.1) (#38)
-- `1dcc043` chore: 추적 중인 .turbo 캐시 파일 untrack (#43)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
