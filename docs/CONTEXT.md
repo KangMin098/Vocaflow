@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/p4-l3-data-model`
+**활성 브랜치**: `feat/p4-2-teacher-hub`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3d9f5fc` feat(learner): P4.1 L3 B2B 데이터 모델 선반영 (classes/class_members/assignments) (#67)
 - `92d6500` feat(learner): P3 대시보드 실데이터화 — TodayHero + known-word (#66)
 - `73839fc` feat(learner): P2 주간 Report Card — weekly_reports + /reports (#65)
 - `50f6c4e` feat(learner): P1 Study Plan — learning_goals + /onboarding (수능 D-day 역산) (#63)
 - `adfdafb` feat(learner): P0 집계층 — daily_activity 자동 집계 + known_word_count (#62)
-- `b8e2978` docs(learner): 학습자 관리 설계 SSoT (LEARNER_MANAGEMENT.md) (#61)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628190000_p4_2_join_class_by_code.sql`
 - `20260628180000_p4_l3_class_data_model.sql`
 - `20260628170000_p2_weekly_reports.sql`
 - `20260628160000_p1_learning_goals.sql`
 - `20260628150000_p0_daily_activity_agg_known_word_count.sql`
-- `20260628140000_scriptquiz_question_ko.sql`
 <!-- /auto:recent-migrations -->
 
 ---

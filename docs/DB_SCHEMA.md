@@ -290,7 +290,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 111건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628180000_p4_l3_class_data_model` — L3 B2B 선반영 `classes`/`class_members`/`assignments` + recursion-safe RLS(SECURITY DEFINER 헬퍼), LEARNER_MANAGEMENT P4.1 · 화면 Phase 2 · 직전: `20260628170000_p2_weekly_reports` P2)
+전체 누적 112건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628190000_p4_2_join_class_by_code` — 초대코드 클래스 참여 SECURITY DEFINER 함수(비멤버 RLS 우회 lookup+가입), LEARNER_MANAGEMENT P4.2 `/teacher` · 직전: `20260628180000_p4_l3_class_data_model` P4.1)
 
 ---
 
