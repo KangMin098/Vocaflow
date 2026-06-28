@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### P6.6 V0(미진단) effective V-level 가드 (v06.97)
+
+P6.1 의 effective V-level 산정이 `current_v_level = 0`(진단 미완료 기본값)을 유효 앵커로 사용해 i+1 밴드가 `GREATEST(0-1,1)..LEAST(0+1,11) = [1,1]` 로 붕괴 → 책 구독 시 V1 단어만 import(라이브러리 도서 어휘 V6~V11 전량 배제)되던 잠재 결함 해소. 마이그레이션 `20260628130000_p6_6_enroll_v0_undiagnosed_guard`.
+
+- **NULLIF 가드** — `COALESCE(NULLIF(current_v_level, 0), book_v_level, 5)` 로 V0 을 미진단 취급 → fallback. V0 사용자 effective=5 → band [4,6](검증).
+- **F3 소급 정리(사용자 결정 2026-06-28)** — review_count=0 + i+1 위반 vocab 정리는 **V0/NULL 미진단 사용자 제외**. 측정 결과 유일 후보가 V0 사용자라 **삭제 0 건**(진도·데이터 무손실). 본 가드는 향후 enroll 정합만 확보.
+- 검증: `has_v0_guard=true` + V0 simul effective=5/band [4,6]. 롤백 `docs/AI_CONTEXT/rollback/P6_6_enroll_v0_guard_원본.sql`.
+
 ### ACP §19 OpenStax CNXML 소스 설계 + 프로토타입 (v06.97)
 
 §18 에서 "CNXML dump 통합 필요(별도)"로 보류했던 OpenStax 교재 소스 설계. 실측 검증 기반(GitHub API + raw CNXML + DB 분류 함수). 마이그레이션 0 (DB 등록은 라이선스 결정 대기). 스펙 `docs/ACP_OPENSTAX_DESIGN.md`.

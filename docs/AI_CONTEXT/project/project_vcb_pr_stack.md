@@ -4,6 +4,10 @@
 
 ---
 
+**✅ RESOLVED 2026-06-28 — 스택 전부 main 반영 + 좀비 PR 닫음.** 백로그 평가 결과 PR #2~#11·#13~#16·#19 (15개) **전부 head 브랜치가 `origin/main` 에서 도달 가능**(`git merge-base --is-ancestor` 검증) = 내용이 이미 main 에 반영됨. 스택이 하위부터 순차 머지되며 GitHub 가 squash/rebase 로 커밋 identity 소실 탓에 자동 close 못 한 **좀비 PR**이었음. 15개 전부 superseded 코멘트와 함께 close (원격 브랜치 보존). 재머지 불필요 — 아래 "How to apply" 의 스택 머지 주의사항은 이제 historical(닫힌 스택). 신규 VCB 작업은 main 에서 분기.
+
+(이하 historical — 2026-05-17 시점 기록)
+
 The VCB pipeline work has been delivered as a long stacked-PR chain (`feat/wlp-setup` → `feat/vcb-seed-ui` → ... → `fix/vcb-step5-stale-detection` → `feat/shared-dictionary-extension` → `docs/dict-opt-p2-plan` → `fix/wlp-r3-irregular-forms`) — 12+ PRs as of 2026-05-17, none merged to main yet.
 
 **Why:** Each PR represents a discrete pipeline step (P5c.1 … P5c.11 + extensions) sequenced for reviewer comprehension.

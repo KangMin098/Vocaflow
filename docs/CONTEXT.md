@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `001e31e` feat(acp): OpenStax CNXML 소스 설계 + 프로토타입 ingester (§19)
 - `65b0980` feat(srs): 책 구독 시 i+1 필터 — _enroll_book_subscribe_word_sets (P6.1/C1) (#46)
 - `2554f9f` feat(wordvault): 복습 뷰 실데이터 — /wordvault/review RSC (A2b) (#45)
 - `c8cc7a5` feat(wordblitz): learning_records 적재 추가 (A1.3) (#40)
 - `72a7729` feat(wordvault): study 실 vocabularies + SRS 영속화 (A2) (#39)
-- `e641816` feat(srs): 학습 결과 DB 영속화 — sessionStorage 큐 flush (A1.1) (#38)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260628130000_p6_6_enroll_v0_undiagnosed_guard.sql`
 - `20260628120000_p6_enroll_subscribe_i_plus_one.sql`
 - `20260621120000_voa_publish_require_audio_gate.sql`
 - `20260620080000_republish_library_books_with_p1_p4.sql`
 - `20260620070000_p4_unify_composite_core.sql`
-- `20260620061000_p3b_drop_old_publish_overload.sql`
 <!-- /auto:recent-migrations -->
 
 ---

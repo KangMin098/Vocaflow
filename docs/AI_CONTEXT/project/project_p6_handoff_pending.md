@@ -9,7 +9,8 @@
 **상태**: ✅ **P6.1+P6.2+P6.3 한 마이그레이션으로 적용·머지** (PR #46 `65b0980`, migration `20260628120000_p6_enroll_subscribe_i_plus_one`). P6.0 진단 + 결정표 E1~E8+F 사용자 확정(권장 default + F0) 후 구현. read-only 스모크 검증(v_n=5→cap 50·band 정합 / V0 dedup). 적용 중 `user_profiles.id`→`user_id` 컬럼 정정.
 - 적용 내용: `_enroll_book_subscribe_word_sets` 에 i+1 필터(E1, N=current_v_level→book_v_level→5) + 미보유 dedup(E7 UNIQUE 존재 + ON CONFLICT, P6.2 stable dedup 포괄) + 세션 cap 50(E4, DISTINCT ON + 근접·고빈도 ORDER). 구독 set-level 불변, vocabularies import 만 필터(E8 완전분리). F0 = 소급 보류.
 - **P6.4 ✅ 점검 완료 (read-only, 2026-06-28, 변경 불요)**: extract_vocabulary_for_user(_v2)=soft Gaussian v_proximity composite(글 추출 맥락), _enroll=hard band [N-1,N+1](책 구독 일괄 import Cognitive Load 게이트). 둘 다 current_v_level 중심 — 의도 일치, 맥락별 메커니즘 차이일 뿐 **모순/drift 없음** → 마이그레이션 불요.
-- **잔여**: P6.5(Cold/Warm/Hot Layer 통합 — 설계 필요) · P6.6 소급(F1/F3 — 현재 F0 보류, 기존 미학습 vocab 6,473 무영향). 롤백 `docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql`.
+- **P6.6 ✅ 적용 완료 (2026-06-28, PR #47, migration `20260628130000_p6_6_enroll_v0_undiagnosed_guard`)**: 핵심 발견 — P6.1 의 effective V-level COALESCE 가 `current_v_level=0`(미진단 기본값)을 유효 앵커로 써서 i+1 밴드가 `[1,1]` 로 붕괴(책 구독 시 V1 단어만 import). 수정 = `COALESCE(NULLIF(current_v_level,0), book_v_level, 5)`. V0 사용자 effective=5→band[4,6] 검증. **F 소급 = F3 채택했으나 V0/NULL 미진단 사용자 제외(사용자 결정)** → 측정 결과 유일 후보(4,862 row not-started)가 V0 사용자라 **삭제 0 건**(진도·데이터 무손실). 즉 가드는 향후 enroll 정합만 확보.
+- **잔여**: P6.5(Cold/Warm/Hot Layer 통합 — 설계 필요). 롤백 `docs/AI_CONTEXT/rollback/P6_enroll_subscribe_원본.sql` + `P6_6_enroll_v0_guard_원본.sql`.
 
 (이하 원래 handoff 본문 — 진단/결정 절차 기록 보존)
 
