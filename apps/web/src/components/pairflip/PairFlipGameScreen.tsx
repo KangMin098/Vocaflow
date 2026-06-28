@@ -9,7 +9,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { useSessionProgress } from '@/components/layout/SessionFrame'
 import { usePairFlipSession } from '@/hooks/usePairFlipSession'
+import { flushPendingSession } from '@/lib/srs/flush-session'
+import { pushPendingResult } from '@/lib/srs/session-storage'
 
+import type { PairFlipMockWord } from './mock-data'
 import { PAIRFLIP_LEVELS, STORAGE_KEYS } from './constants'
 import { PairFlipFeedback } from './PairFlipFeedback'
 import { PairFlipGrid } from './PairFlipGrid'
@@ -23,9 +26,11 @@ import type {
 
 interface GameScreenProps {
   config: PairFlipConfig
+  /** 실 단어 페어 (SRS 큐). 부족하면 hook 이 mock 폴백 — 그 경우 영속화 skip. */
+  pairs?: PairFlipMockWord[]
 }
 
-export function PairFlipGameScreen({ config }: GameScreenProps) {
+export function PairFlipGameScreen({ config, pairs }: GameScreenProps) {
   const router = useRouter()
   const [feedback, setFeedback] = useState<{ type: 'success' | 'fail' | null; combo: number }>({
     type: null,
@@ -33,6 +38,24 @@ export function PairFlipGameScreen({ config }: GameScreenProps) {
   })
 
   const onComplete = useRef((result: PairFlipResultData) => {
+    // 실 페어(레벨 pairCount 이상) 사용 시에만 매칭 결과를 FSRS 큐에 적재 → flush(서버 권위 재계산).
+    // mock 폴백이면 word lookup 이 사용자 vocab 과 매칭되지 않아 skip 되므로 push 자체를 생략.
+    const levelPairCount = PAIRFLIP_LEVELS.find((l) => l.id === config.level)?.pairCount ?? 0
+    const usingReal = !!pairs && pairs.length >= levelPairCount
+    if (usingReal) {
+      for (const pr of result.pairResults) {
+        pushPendingResult({
+          cardId: pr.pairId, // = vocabularies.id
+          word: pr.word,
+          cardUpdate: {}, // flush 가 서버에서 재계산 — cardUpdate 미사용
+          rating: pr.fsrsRating,
+          reviewedAt: new Date(pr.matchedAt).toISOString(),
+          module: 'pairflip',
+        })
+      }
+      void flushPendingSession()
+    }
+
     try {
       sessionStorage.setItem(STORAGE_KEYS.result, JSON.stringify(result))
     } catch {
@@ -48,6 +71,7 @@ export function PairFlipGameScreen({ config }: GameScreenProps) {
     usePairFlipSession({
       level: config.level,
       mode: config.mode,
+      pairs,
       onComplete,
     })
 
