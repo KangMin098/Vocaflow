@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/plan-rich-compose`
+**활성 브랜치**: `main`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `26ddbec` feat(learner): 학습 계획 리치 구성 — 일정 + 자료 4종 + 도서 챕터 + 비주얼 (#78)
 - `83a609a` Merge pull request #77 from KangMin098/feat/acp-review-detail
 - `40e337f` feat(acp): 딥 검수에 정책 게이트 패널 — 항목별 ✓/✕ + 메타 V/register
 - `43d7df8` feat(learner): 학습 계획 활동 실행(launch) 연결 (#76)
 - `510fc5c` feat(learner): 학습 계획 재설계 — 자료×활동 (수능 D-day 폐기, P1) (#75)
-- `3b5bd5f` Merge pull request #74 from KangMin098/feat/acp-review-list
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

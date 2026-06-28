@@ -171,3 +171,26 @@ export function articleSourceLabel(source: string | null | undefined): string {
   if (!source) return '스크립트'
   return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/_/g, ' ')
 }
+
+/** CEFR → 대표 V-Level (V밴드 폴백 — 단어장 등 v_level 컬럼 부재 시). */
+export function cefrToVLevel(cefr: string | null | undefined): number | null {
+  if (!cefr) return null
+  const c = cefr.trim().toUpperCase()
+  const map: Record<string, number> = { A1: 1, A2: 3, B1: 5, B2: 7, C1: 9, C2: 10 }
+  return map[c] ?? null
+}
+
+/** 공용단어장 category → 표시 라벨 (주제 필터). */
+export const WORDSET_CATEGORY_LABEL: Record<string, string> = {
+  csat: '수능',
+  eng_test: '공인시험',
+  elementary: '초등',
+  middle: '중등',
+  high: '고등',
+  themed: '주제별',
+}
+
+export function wordsetCategoryLabel(cat: string | null | undefined): string {
+  if (!cat) return '기타'
+  return WORDSET_CATEGORY_LABEL[cat] ?? cat
+}
