@@ -193,12 +193,13 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 요일 결합(v06.105): 학습 요일을 자료에 부착(study_plan_items.weekdays) — 따로 선택 X. 시간(분) 폐기.
 자료(4종): 도서(표지·챕터 다중선택) / 스크립트=article(소스 필터) / 공용단어장(이모지) / 내 스크립트
          → 활동(자료유형별 가용) + 요일 다중 선택 → study_plan_items 1행 (+chapters +weekdays)
-화면 /plan:
-  · 상단 WeeklyOverview = 담은 자료의 요일 집계(월~일 자료 수, 읽기 전용 "계획성")
-  · 담은 자료 카드 = 표지/배지/이모지 + 챕터·요일 요약 + 활동 실행 링크(기본) / 편집(연필=활동·챕터·요일 토글) + 열기 + 빼기
-  · 자료 추가 = 4탭 → **V-Level 밴드 섹션**(입문~고급, genres.V_BANDS) + 서브필터(스크립트=소스·단어장=주제) → 도서=표지 그리드/그 외=목록 → [도서 챕터 칩] + 활동 체크 + **요일 칩** → 추가
-    (단어장 V는 slug auto-vlevel→cefr 폴백 · 챕터 종속 세트 library_book/article 제외 · 나열식 금지·체계적 선택)
+화면 /plan (v06.106 컴포저 + 주간 보드 — 나열식 폐기, 한눈에 클릭클릭):
+  · 주간 보드 = 담은 자료를 요일(월~일) 칼럼에 배치 — 날짜 한눈에. 칩 클릭 → 우측 구성 편집. 요일 미정은 하단 행.
+  · 컴포저 2-pane = 좌:자료 고르기(4탭 → V밴드 섹션 + 서브필터 → 표지 그리드/목록) · 우:선택 자료의 **챕터·활동·요일 칩 한 화면**
+    - 신규(좌 클릭) → 우 구성 → ‘계획에 담기’ / 담은 항목(보드 클릭) → 우 토글 즉시 저장 + ‘바로 시작’(launch) + 빼기
+    (단어장 V는 slug auto-vlevel→cefr 폴백 · 챕터 종속 세트 library_book/article 제외)
 자료 라우트: book→/library/books/[id] · article→/library/scripts/[id] · word_set→/library/vocab#set-{slug} · script→/text/[id]
+컴포넌트: WeekBoard · BoardChip · DraftConfig(신규) · ItemConfig(편집) · BookGridItem/MaterialRow(고르기) · WeekdayChips/ActivityChip/ChapterChip
 ```
 
 - 계획 = "언제(요일)·무엇을·어떻게" 한 흐름에 결합. 수능 D-day·완료일 역산·시간 압박 지표 없음(§철학1 Calm·§철학4 Implicit). 요일은 deadline 이 아니라 **리듬**.
