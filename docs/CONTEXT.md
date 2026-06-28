@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/p4-2-teacher-hub`
+**활성 브랜치**: `feat/sidebar-learner-links`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `139941d` feat(teacher): P4.2 교사 허브 /teacher — 클래스 개설·초대코드·참여
+- `7a0bccd` feat(teacher): P4.2 교사 허브 /teacher — 클래스 개설·초대코드·참여 (#68)
+- `36cdeae` Merge pull request #64 from KangMin098/feat/acp-source-guide
+- `821ca20` Merge remote-tracking branch 'origin/main' into HEAD
 - `3d9f5fc` feat(learner): P4.1 L3 B2B 데이터 모델 선반영 (classes/class_members/assignments) (#67)
 - `92d6500` feat(learner): P3 대시보드 실데이터화 — TodayHero + known-word (#66)
-- `73839fc` feat(learner): P2 주간 Report Card — weekly_reports + /reports (#65)
-- `50f6c4e` feat(learner): P1 Study Plan — learning_goals + /onboarding (수능 D-day 역산) (#63)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
