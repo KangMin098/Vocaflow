@@ -24,3 +24,30 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm turbo run lint typecheck test
+
+  # v06.92 — 프로덕션 next build 회귀 가드.
+  # 빌드가 minify/컴파일 단계에서 깨지지 않는지 검증(이번 복구 PR 이전엔 main 빌드가 실패했음).
+  # 실 백엔드 불요: force-dynamic 페이지는 build-time 에 미실행 → placeholder env 로 충분
+  # (CI 시뮬레이션으로 .env.local 없이 green 확인). lint 는 verify job 이 담당.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter web build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role
+          OPENAI_API_KEY: sk-placeholder

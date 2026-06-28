@@ -4,7 +4,7 @@
 // shared_dictionary 실측 분포 정합 (정찰 결과).
 
 import type { Segment, Cefr } from './types'
-import type { VocabFilters, VocabLimits, VLevel, ListTag, FreqBand, PracticalPos, TagMatchMode } from './filters'
+import type { VocabFilters, VocabLimits, TagMatchMode } from './filters'
 
 export interface PresetVariant {
   id: string

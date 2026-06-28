@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `8834b41` Merge remote-tracking branch 'origin/main' into chore/worktree-automation
 - `c65cedf` chore: 멀티 세션 git worktree 자동화 (worktree.mjs + 가이드)
-- `775de29` Revert "feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)"
-- `9e77402` feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)
-- `e41262c` Merge pull request #33 from KangMin098/chore/reading-room-tier1-compliance
-- `430de09` feat(ui): Reading Room 1차 정합 복구 — editorial 승격 + hex 토큰화 + 이모지 제거
+- `dfa3a4d` Merge pull request #35 from KangMin098/feat/voa-curation-redesign
+- `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
+- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

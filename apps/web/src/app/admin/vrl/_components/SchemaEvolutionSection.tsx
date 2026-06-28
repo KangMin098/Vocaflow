@@ -13,7 +13,7 @@
 //     · Tier 5 Content Extension
 //   - 각 카드: progress + 컬럼 리스트 (✅/❌)
 
-import { CheckCircle2, Database, Network, XCircle } from 'lucide-react'
+import { CheckCircle2, Network, XCircle } from 'lucide-react'
 import type {
   DictHealthSnapshot,
   SchemaEvolutionTier,

@@ -141,14 +141,6 @@ export default function WordVaultPage() {
     [words, listenSettings.speed, speak]
   )
 
-  const handlePlayExample = useCallback(
-    (id: number) => {
-      const w = words.find((x) => x.id === id)
-      if (w) speak(w.exampleEn, { rate: listenSettings.speed * 0.95 })
-    },
-    [words, listenSettings.speed, speak]
-  )
-
   // ── 키보드 단축키 (browse 전용) ──
   useEffect(() => {
     if (view !== 'browse') return

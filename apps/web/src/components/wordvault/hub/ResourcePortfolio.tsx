@@ -248,7 +248,7 @@ export function ResourcePortfolio() {
         }
       }
 
-      let countsPerSet = new Map<string, number>()
+      const countsPerSet = new Map<string, number>()
       if (setIds.length > 0) {
         const { data: vocabsBySet } = await supabase
           .from('vocabularies')

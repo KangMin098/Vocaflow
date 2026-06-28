@@ -228,7 +228,7 @@ export default async function VrlAutomationPage() {
       </section>
 
       <p className="text-center font-body text-[11px] text-[var(--t3)]">
-        Phase 2 자동화 — pg_cron 매일 KST 03:00 (jobid=8 vrl-auto-promote-daily) · 실패 시 pg_notify 'vrl_cron_alert' · 모든 변경 user_level_snapshots audit chain 기록
+        Phase 2 자동화 — pg_cron 매일 KST 03:00 (jobid=8 vrl-auto-promote-daily) · 실패 시 pg_notify &apos;vrl_cron_alert&apos; · 모든 변경 user_level_snapshots audit chain 기록
       </p>
     </div>
   )

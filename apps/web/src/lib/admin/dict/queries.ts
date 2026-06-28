@@ -132,35 +132,35 @@ export async function fetchDictCoverage(
   ] = await Promise.all([
     countRows(client, 'shared_dictionary'),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('meaning_ko', 'is', null).neq('meaning_ko', ''),
+      q.not('meaning_ko', 'is', null).neq('meaning_ko', ''),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('example_en', 'is', null).neq('example_en', ''),
+      q.not('example_en', 'is', null).neq('example_en', ''),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('ipa', 'is', null).neq('ipa', ''),
+      q.not('ipa', 'is', null).neq('ipa', ''),
     ),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('cefr_level', 'is', null)),
+    countRows(client, 'shared_dictionary', (q) => q.not('cefr_level', 'is', null)),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('cefr_confidence', 'is', null),
+      q.not('cefr_confidence', 'is', null),
     ),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('register', 'is', null)),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('synonyms', 'eq', '{}')),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('antonyms', 'eq', '{}')),
+    countRows(client, 'shared_dictionary', (q) => q.not('register', 'is', null)),
+    countRows(client, 'shared_dictionary', (q) => q.not('synonyms', 'eq', '{}')),
+    countRows(client, 'shared_dictionary', (q) => q.not('antonyms', 'eq', '{}')),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('collocations', 'eq', '{}'),
-    ),
-    countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('inflections', 'is', null).not('inflections', 'eq', '{}'),
+      q.not('collocations', 'eq', '{}'),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('korean_learner_note', 'is', null),
+      q.not('inflections', 'is', null).not('inflections', 'eq', '{}'),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('frequency_rank', 'is', null),
+      q.not('korean_learner_note', 'is', null),
     ),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('ngsl_sfi', 'is', null)),
-    countRows(client, 'shared_dictionary', (q) => (q as any).eq('verified', true)),
+    countRows(client, 'shared_dictionary', (q) =>
+      q.not('frequency_rank', 'is', null),
+    ),
+    countRows(client, 'shared_dictionary', (q) => q.not('ngsl_sfi', 'is', null)),
+    countRows(client, 'shared_dictionary', (q) => q.eq('verified', true)),
   ])
 
   return {
@@ -220,16 +220,16 @@ export async function fetchDictLinguistic(
     countRows(client, 'shared_dictionary'),
     client.rpc('dict_polysemy_count'),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('ipa', 'is', null).neq('ipa', ''),
+      q.not('ipa', 'is', null).neq('ipa', ''),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('ipa_uk', 'is', null).neq('ipa_uk', ''),
+      q.not('ipa_uk', 'is', null).neq('ipa_uk', ''),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('ipa_us', 'is', null).neq('ipa_us', ''),
+      q.not('ipa_us', 'is', null).neq('ipa_us', ''),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any)
+      q
         .not('ipa_uk', 'is', null)
         .neq('ipa_uk', '')
         .not('ipa_us', 'is', null)
@@ -276,17 +276,17 @@ export async function fetchDictLearning(
   const [total, ex, syn, coll, note, ipa] = await Promise.all([
     countRows(client, 'shared_dictionary'),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('example_en', 'is', null).neq('example_en', ''),
+      q.not('example_en', 'is', null).neq('example_en', ''),
     ),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('synonyms', 'eq', '{}')),
+    countRows(client, 'shared_dictionary', (q) => q.not('synonyms', 'eq', '{}')),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('collocations', 'eq', '{}'),
-    ),
-    countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('korean_learner_note', 'is', null),
+      q.not('collocations', 'eq', '{}'),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('ipa', 'is', null).neq('ipa', ''),
+      q.not('korean_learner_note', 'is', null),
+    ),
+    countRows(client, 'shared_dictionary', (q) =>
+      q.not('ipa', 'is', null).neq('ipa', ''),
     ),
   ])
 
@@ -294,7 +294,7 @@ export async function fetchDictLearning(
   const audioUrl = schema.tierColumns['audio_url']
     ? asMetric(
         await countRows(client, 'shared_dictionary', (q) =>
-          (q as any).not('audio_url', 'is', null),
+          q.not('audio_url', 'is', null),
         ),
         total,
       )
@@ -302,7 +302,7 @@ export async function fetchDictLearning(
   const imageUrl = schema.tierColumns['image_url']
     ? asMetric(
         await countRows(client, 'shared_dictionary', (q) =>
-          (q as any).not('image_url', 'is', null),
+          q.not('image_url', 'is', null),
         ),
         total,
       )
@@ -310,7 +310,7 @@ export async function fetchDictLearning(
   const mnemonicKo = schema.tierColumns['mnemonic_ko']
     ? asMetric(
         await countRows(client, 'shared_dictionary', (q) =>
-          (q as any).not('mnemonic_ko', 'is', null),
+          q.not('mnemonic_ko', 'is', null),
         ),
         total,
       )
@@ -339,7 +339,7 @@ export async function fetchVrlClassificationStats(
 ): Promise<VrlClassificationStatsData> {
   const [total, classified, levelsRes, cat, reclassRes] = await Promise.all([
     countRows(client, 'shared_dictionary'),
-    countRows(client, 'shared_dictionary', (q) => (q as any).not('v_level', 'is', null)),
+    countRows(client, 'shared_dictionary', (q) => q.not('v_level', 'is', null)),
     client
       .from('vocaflow_levels')
       .select('level, new_words_in_level, cumulative_word_count')
@@ -441,14 +441,14 @@ export async function fetchFreshness(client: SupabaseClient): Promise<FreshnessD
       .limit(1)
       .maybeSingle(),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).gte('claude_classified_at', days7),
+      q.gte('claude_classified_at', days7),
     ),
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).gte('claude_classified_at', days30),
+      q.gte('claude_classified_at', days30),
     ),
     // stale: classified 됐는데 90일 이상 갱신 없음 (claude_classified_at < 90d ago)
     countRows(client, 'shared_dictionary', (q) =>
-      (q as any).not('claude_classified_at', 'is', null).lt('claude_classified_at', days90),
+      q.not('claude_classified_at', 'is', null).lt('claude_classified_at', days90),
     ),
     client
       .from('shared_dictionary')
@@ -574,7 +574,7 @@ export async function fetchVerifiedAudit(
 }> {
   const [total, verifiedCount, cat] = await Promise.all([
     countRows(client, 'shared_dictionary'),
-    countRows(client, 'shared_dictionary', (q) => (q as any).eq('verified', true)),
+    countRows(client, 'shared_dictionary', (q) => q.eq('verified', true)),
     categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
   ])
 
@@ -627,7 +627,7 @@ export async function fetchVcbVrlIntegration(
   if (!candidate) return { integrated: true, totalSets, setsWithVLevel: null }
 
   const setsWithVLevel = await countRows(client, 'shared_word_sets', (q) =>
-    (q as any).not(candidate, 'is', null),
+    q.not(candidate, 'is', null),
   )
   return { integrated: true, totalSets, setsWithVLevel }
 }
