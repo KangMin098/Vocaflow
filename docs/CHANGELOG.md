@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3.4 ScriptQuiz 실 퀴즈 capability (quiz_questions 연동) (v06.98)
+
+게임 mock 스윕 마지막 — ScriptQuiz 가 `MOCK_SESSION` 고정이던 것 → `quiz_questions`(per user+text) 실 퀴즈 fetch + MOCK 폴백. **코드 capability 만**(문제 콘텐츠 생성은 별도 — 앱에 런타임 LLM 인프라 없음, Claude Code 사전 생성 또는 생성 파이프라인이 채움). 마이그레이션 0.
+
+- **`lib/scriptquiz/questions.ts`** 신규 — `fetchQuizSession(client, userId, textId)` → quiz_questions + texts.title → `QuizSession`. 문제 0개면 null → MOCK 폴백.
+- **`ScriptQuiz`** `session?: QuizSession` prop(기본 MOCK_SESSION) — `typeof MOCK_SESSION` → `QuizSession` 정합.
+- **play 페이지** async — `?text={texts.id}` 의 실 퀴즈 fetch, ResourceContext 동적 제목/문항수. 미지정/미생성 시 데모 MOCK.
+- ⚠️ typecheck/lint green, 게임 상호작용 런타임 미검증. **문제 콘텐츠(quiz_questions INSERT)는 영속 공유 DB write 라 사용자 명시 승인 대기** — capability 만 머지, 콘텐츠는 승인 후.
+
 ### A3.3 PairFlip 실 페어 + SRS 영속화 (v06.98)
 
 게임 mock 스윕 3번째 — PairFlip 이 `MOCK_PAIRS`(evolution/predator…) 고정 + **영속화 전무**(fsrsRating 계산만 하고 sessionStorage→results 로만)였던 것 → 사용자 SRS 큐 due 단어 실 페어 + 매칭 결과 FSRS 영속화. 마이그레이션 0 (`module_id` enum 에 `pairflip` 기존재 — TS `ModuleId` 만 정합).

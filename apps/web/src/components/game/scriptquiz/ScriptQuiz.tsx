@@ -12,7 +12,7 @@ import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 
 import { MOCK_SESSION } from './mock-data'
-import type { AnswerState, QuizAnswer, QuizScreen } from './types'
+import type { AnswerState, QuizAnswer, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import {
@@ -34,12 +34,14 @@ const QUESTION_TIME_LIMIT = 30 // sec — 한 문제당 권장 시간
 export interface ScriptQuizProps {
   /** 한국어 번역 보조 표시 여부 — hub 토글에서 결정 */
   showKorean?: boolean
-  /** 스크립트 식별자 — Phase 2: real textId. 미지정 시 session.textTitle 을 stable key 로 사용 */
+  /** 스크립트 식별자 — 미지정 시 session.textTitle 을 stable key 로 사용 */
   textId?: string
+  /** 실 퀴즈 세션 (quiz_questions). 미지정 시 MOCK_SESSION 폴백(데모/문제 미생성). */
+  session?: QuizSession
 }
 
-export function ScriptQuiz({ showKorean = false, textId }: ScriptQuizProps = {}) {
-  const session = MOCK_SESSION
+export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }: ScriptQuizProps = {}) {
+  const session = sessionProp ?? MOCK_SESSION
 
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
   // ScriptQuiz 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
@@ -250,7 +252,7 @@ function StartScreen({
   session,
   onStart,
 }: {
-  session: typeof MOCK_SESSION
+  session: QuizSession
   onStart: () => void
 }) {
   return (
