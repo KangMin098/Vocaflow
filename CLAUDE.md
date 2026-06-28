@@ -20,6 +20,7 @@
 | 새 학습 모듈 | [docs/LEARNING_MODEL.md](./docs/LEARNING_MODEL.md) · [docs/MODULES.md](./docs/MODULES.md) |
 | 라우트 설계 | [docs/ROUTES.md](./docs/ROUTES.md) · [docs/MODULES.md](./docs/MODULES.md) |
 | 코드 리뷰 | [docs/CONVENTIONS.md](./docs/CONVENTIONS.md) · [docs/CHANGELOG.md](./docs/CHANGELOG.md) |
+| 멀티 세션 / worktree | [docs/WORKTREE.md](./docs/WORKTREE.md) |
 | 첫 진입 | [docs/PROJECT.md](./docs/PROJECT.md) · [docs/STACK.md](./docs/STACK.md) |
 
 **모든 문서는 100% 검증된 사실** (DB direct query · 라우트 grep · package.json · migration 파일). 작성 시점 2026-06-08.

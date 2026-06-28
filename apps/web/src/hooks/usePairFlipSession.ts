@@ -14,7 +14,6 @@ import {
 import { buildPairFlipCards, MOCK_PAIRS } from '@/components/pairflip/mock-data'
 import { PF_DIMS } from '@/components/pairflip/theme'
 import type {
-  PairFlipCard,
   PairFlipLevel,
   PairFlipMode,
   PairFlipPairResult,

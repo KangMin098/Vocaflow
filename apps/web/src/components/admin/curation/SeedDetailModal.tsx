@@ -212,7 +212,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
           {!hasCuration && (
             <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] p-3 text-[12px] text-[var(--learn-review)]">
               <AlertCircle size={14} />
-              <span>큐레이션 정보 미생성 — "정보 없는 도서 큐에 추가" 로 신청하세요.</span>
+              <span>큐레이션 정보 미생성 — &ldquo;정보 없는 도서 큐에 추가&rdquo; 로 신청하세요.</span>
             </div>
           )}
 

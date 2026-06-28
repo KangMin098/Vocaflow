@@ -7,6 +7,7 @@ import { useTransition } from 'react'
 import { Check, Loader2, RefreshCw, X, Zap } from 'lucide-react'
 
 import { transitionPendingWord, type PendingWordStatus } from './actions'
+import { useToast } from '@/components/ui/Toast'
 
 interface PendingWordActionsProps {
   id: string
@@ -64,14 +65,13 @@ const ACTIONS: ActionDef[] = [
 
 export function PendingWordActions({ id, currentStatus }: PendingWordActionsProps) {
   const [pending, startTransition] = useTransition()
+  const toast = useToast()
 
   function onClick(to: PendingWordStatus) {
     startTransition(async () => {
       const result = await transitionPendingWord(id, to)
       if (!result.ok) {
-        // 간단한 알림 — 추후 토스트로 교체
-        // eslint-disable-next-line no-alert
-        alert(result.error ?? '실패')
+        toast.error(result.error ?? '상태 변경에 실패했어요')
       }
     })
   }
