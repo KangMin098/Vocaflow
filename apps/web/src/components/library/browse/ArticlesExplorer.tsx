@@ -39,7 +39,16 @@ function fitRank(article: PublishedArticle, userVLevel: number): number {
   return 6 + (g - 3) // +3→6, +4→7 …
 }
 
-export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] }) {
+export function ArticlesExplorer({
+  articles,
+  sourceFilter = null,
+  onClearSourceFilter,
+}: {
+  articles: PublishedArticle[]
+  /** 소스 맵 트랙 선택 → 그 트랙 소스만 노출 (목업 약점 5 — 맵↔목록 연동). */
+  sourceFilter?: { label: string; sources: string[] } | null
+  onClearSourceFilter?: () => void
+}) {
   const [search, setSearch] = useState('')
   const [cefr, setCefr] = useState<string>('all')
   const [category, setCategory] = useState<string>('all')
@@ -65,6 +74,7 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase()
     const filtered = articles.filter((a) => {
+      if (sourceFilter && !sourceFilter.sources.includes(a.source)) return false
       if (q) {
         const hay = `${a.title} ${a.author ?? ''}`.toLowerCase()
         if (!hay.includes(q)) return false
@@ -93,10 +103,10 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
         })
     }
     return arr
-  }, [articles, search, cefr, category, sort, userVLevel])
+  }, [articles, search, cefr, category, sort, userVLevel, sourceFilter])
 
   // P5 — Progressive Disclosure: 기본 화면에 "맞춤 다음 글" 1개 (i+1~약한 도전 범위만)
-  const isDefaultView = !search.trim() && cefr === 'all' && category === 'all'
+  const isDefaultView = !search.trim() && cefr === 'all' && category === 'all' && !sourceFilter
   const topPick = useMemo(() => {
     if (!isDefaultView) return null
     const best = [...articles]
@@ -133,6 +143,7 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
     setCefr('all')
     setCategory('all')
     setSort('new')
+    onClearSourceFilter?.()
   }
 
   return (
@@ -218,6 +229,24 @@ export function ArticlesExplorer({ articles }: { articles: PublishedArticle[] })
             : `${visible.length} / ${articles.length}편`}
         </span>
       </div>
+
+      {/* 소스 맵 트랙 필터 칩 (활성 시) */}
+      {sourceFilter && (
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--p)] bg-[var(--p-light)] px-2.5 py-1 font-display text-[11.5px] font-[700] text-[var(--p)]">
+            {sourceFilter.label} 트랙
+            <button
+              type="button"
+              onClick={onClearSourceFilter}
+              aria-label="트랙 필터 해제"
+              className="inline-flex h-4 w-4 items-center justify-center rounded-[var(--r-full)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            >
+              <X size={11} aria-hidden />
+            </button>
+          </span>
+          <span className="font-body text-[11px] text-[var(--t3)]">이 트랙의 글만 보고 있어요</span>
+        </div>
+      )}
 
       {visible.length === 0 ? (
         <div
