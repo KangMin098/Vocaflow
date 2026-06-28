@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3 Flashcard hub 진입 실데이터화 (v06.98)
+
+게임 모듈 mock 잔존 스윕 — Flashcard hub 일반 진입(`/flashcard/play`, set/text 스코프 없음)이 `MOCK_FLASHCARD_WORDS` 하드코딩 단어를 쓰던 것 → **사용자 SRS 큐의 due 단어 실데이터**로. 영속화(`flushPendingSession`)는 이미 작동 중이라 hub 진입 데이터 source 만 교체. 마이그레이션 0.
+
+- **`lib/flashcard/hub-words.ts`** 신규 — `fetchDueFlashcardWords` = `study-queries.fetchStudyVocabularies`(due 우선 next_review_at 임박순 + cap 50) 재사용 + `rowToCard` 로 실 FSRS 상태 hydrate. 스코프 진입(scoped-words)과 짝.
+- **play 페이지** — hub 분기에서 mock 제거, 미로그인/빈 큐 빈 상태(`HubEmpty`) 안내(mock 폴백 금지). 스코프 진입(워크스페이스 "카드" pill)은 기존 그대로.
+- 잔여(별도): SpellForge play(Gatsby mock) · PairFlip(mock stats) · ScriptQuiz(MOCK_SESSION) 실데이터화.
+
 ### P6.5 어휘 학습 계층(Cold/Warm/Hot) 통합 검증·명문화 (v06.97)
 
 P6 잔여 마지막 단계. read-only 진단 결과 **세 계층이 P6.1~P6.4 + SRS 영속화(A1/A2) + 자동 승급(Phase 2E/G) 누적으로 이미 기능적 통합·일관**됨을 확인 — 별도 재설계 불요. 암묵 계약을 `docs/VOCAB_LAYERS.md` 로 명문화(drift 차단). 마이그레이션 0.
