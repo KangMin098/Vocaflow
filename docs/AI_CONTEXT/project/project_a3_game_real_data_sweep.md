@@ -16,7 +16,10 @@ A3 게임 모듈 mock 잔존 스윕 (2026-06-28) — hub/play 진입이 mock 단
 
 **핵심 발견**: flashcard/spellforge 는 영속화가 이미 작동(데이터 source 스왑만=클린). pairflip 은 영속화 전무 + mock 페어(더 큰 작업). scriptquiz 는 AI 문제생성 필요(런타임 X → MCP 사전생성). quiz_questions 콘텐츠 INSERT 는 영속 write 라 **명시 승인 필수**(controlled write+revert 승인으로 불충분).
 
-**잔여**: PR #53/#54 런타임 플레이 검증 후 머지 · ScriptQuiz 다른 스크립트 문제 생성(현 1개 텍스트만) · question_ko 컬럼 미존재(옵션만 번역, 질문은 영어 — 풀 한국어는 마이그레이션 필요) · PairFlip hub MOCK_STATS(stats 별개 잔존) · getMockNextAction(추천 mock 별개).
+**머지 상태 (2026-06-28)**: #51·#52·#53·#54 전부 main 머지 완료(#53/#54 사용자 승인 후 머지, 런타임은 미검증 — mock 폴백 무회귀). #55(question_ko, A3.4b) auto-merge.
+**A3.4b question_ko ✅**: PR #55 — `quiz_questions.question_ko` 컬럼(migration `20260628140000`, 사용자 명시 승인) + Ammachi 5문제 한국어 질문 UPDATE + fetchQuizSession 매핑(생성타입 미반영→unknown 캐스팅). 이제 ScriptQuiz 한국어 토글이 질문까지 동작.
+
+**잔여**: PR #53/#54 게임 상호작용 런타임 플레이 검증(사용자) · ScriptQuiz 다른 스크립트 문제 생성(현 Ammachi 1개만, INSERT 명시승인 필요) · PairFlip hub MOCK_STATS(scores 영속화 선행 필요) · getMockNextAction(추천 mock, 별개 기능).
 
 관련: [[project-srs-persistence-a1]] · [[project-vrl-phase2-wordvault-recommended-section]]
 

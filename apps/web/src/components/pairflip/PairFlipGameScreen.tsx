@@ -11,6 +11,7 @@ import { useSessionProgress } from '@/components/layout/SessionFrame'
 import { usePairFlipSession } from '@/hooks/usePairFlipSession'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { pushPendingResult } from '@/lib/srs/session-storage'
+import { createClient } from '@/lib/supabase/client'
 
 import type { PairFlipMockWord } from './mock-data'
 import { PAIRFLIP_LEVELS, STORAGE_KEYS } from './constants'
@@ -55,6 +56,39 @@ export function PairFlipGameScreen({ config, pairs }: GameScreenProps) {
       }
       void flushPendingSession()
     }
+
+    // 게임 점수 기록 (scores) — 실/mock 페어 무관 게임 성과. fire-and-forget(흐름 비차단).
+    void (async () => {
+      try {
+        const client = createClient()
+        const {
+          data: { user },
+        } = await client.auth.getUser()
+        if (!user) return
+        await client.from('scores').insert({
+          user_id: user.id,
+          module: 'pairflip',
+          score: result.score,
+          total_questions: result.totalPairs,
+          correct_count: result.matchedPairs,
+          accuracy:
+            result.totalPairs > 0
+              ? Math.round((result.matchedPairs / result.totalPairs) * 100)
+              : 0,
+          duration_seconds: Math.round(result.durationMs / 1000),
+          metadata: {
+            maxCombo: result.maxCombo,
+            hintsUsed: result.hintsUsed,
+            totalAttempts: result.totalAttempts,
+            level: result.level,
+            mode: result.mode,
+            phase: result.phase,
+          },
+        })
+      } catch {
+        /* 점수 저장 실패는 게임 흐름을 막지 않음 */
+      }
+    })()
 
     try {
       sessionStorage.setItem(STORAGE_KEYS.result, JSON.stringify(result))

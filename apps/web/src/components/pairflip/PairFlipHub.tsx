@@ -25,12 +25,14 @@ import type { PairFlipConfig, PairFlipLevel, PairFlipMode } from './types'
 
 const PAIRFLIP_ACCENT = '#F59E0B' // Editorial 골드 — Sidebar 익히기 그룹 핑크와 별개로 모듈 내부 액센트
 
-// Phase 2: Supabase scores 테이블에서 fetch
-const MOCK_STATS = {
-  bestScore: 0,
-  maxCombo: 0,
-  gamesPlayed: 0,
+/** scores(module='pairflip') 서버 집계 — /pairflip 페이지가 주입. 기록 없으면 zero. */
+export interface PairFlipHubStats {
+  bestScore: number
+  maxCombo: number
+  gamesPlayed: number
 }
+
+const STATS_ZERO: PairFlipHubStats = { bestScore: 0, maxCombo: 0, gamesPlayed: 0 }
 
 const LEARNING_EFFECTS = [
   { ko: '재인', en: 'Recognition — 카드 한쪽으로 짝 식별' },
@@ -38,15 +40,15 @@ const LEARNING_EFFECTS = [
   { ko: '작업 기억', en: 'Working Memory — 동시 다중 매칭' },
 ]
 
-export function PairFlipHub() {
+export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }) {
   const router = useRouter()
   const [level, setLevel] = useState<PairFlipLevel>('normal')
   const [mode, setMode] = useState<PairFlipMode>('word_meaning')
 
-  const isCold = MOCK_STATS.gamesPlayed === 0
+  const isCold = stats.gamesPlayed === 0
   const note = isCold
     ? '첫 게임을 시작해 보세요 — 카드 짝을 빨리 찾을수록 점수가 올라가요'
-    : `Best ${MOCK_STATS.bestScore.toLocaleString()} · 최고 콤보 ×${MOCK_STATS.maxCombo} — 더 높은 점수에 도전`
+    : `Best ${stats.bestScore.toLocaleString()} · 최고 콤보 ×${stats.maxCombo} — 더 높은 점수에 도전`
 
   const handleStart = () => {
     const config: PairFlipConfig = { level, mode }
@@ -70,17 +72,17 @@ export function PairFlipHub() {
         stats={[
           {
             label: 'Best',
-            value: MOCK_STATS.bestScore.toLocaleString(),
+            value: stats.bestScore.toLocaleString(),
             unit: '점',
             emphasis: true,
           },
           {
             label: '최고 콤보',
-            value: MOCK_STATS.maxCombo > 0 ? `×${MOCK_STATS.maxCombo}` : '—',
+            value: stats.maxCombo > 0 ? `×${stats.maxCombo}` : '—',
           },
           {
             label: '게임',
-            value: MOCK_STATS.gamesPlayed,
+            value: stats.gamesPlayed,
             unit: '회',
           },
         ]}
