@@ -48,7 +48,7 @@ PR #24 (학습 단어 추출 파이프라인 P0~P4 + 재발행) 에서 검증된
 - Handoff 없이 큰 작업을 Code 가 즉흥 진행 — 위험 (사용자 의도 어긋남)
 - 결정표 없이 Project 권장값을 Code 가 자체 채택 — 사용자 결정권 침해
 - migration apply 후 commit 잊음 — git=DB SSoT 정합 깨짐 (PR #23 패턴)
-- **모든 위임 지시문 진행 전 `git branch --show-current` 선확인 누락** — 2026-06-21 PR #31 에서 발생. main 으로 직접 commit (다행히 push 실패로 origin 비파괴). 사용자가 향후 위임 지시문 "전역 규약" 에 선확인 명시 약속. Code 측 강제 적용 — Edit/Write 또는 `git add` 시작 전 무조건 `git branch --show-current` 확인 후 main 일 때 새 브랜치 분기. (현 세션에선 본 메모 직후부터 적용)
+- **브랜치 가드 누락 — 재발 & 악화** (2026-06-21 PR #31 → 다시 PR #35). 외부(IDE/다른 프로세스)가 세션 도중 작업 트리 HEAD 를 **여러 번** 전환(이번엔 3회: feat→chore→feat→main). 한 번 확인해도 **다음 tool call 사이에 또 바뀜**. PR #35 때 P4 commit 이 main 에 떨어졌고 이번엔 auto-push 가 **origin/main 까지 도달**(PR #31 보다 악화). 강제 규칙: ① Edit/Write **직전** + ② 매 `git add`/`commit`/`push` **직전** 마다 `cur=$(git branch --show-current); [ "$cur" = "<feat>" ] || ABORT` 가드(한 번이 아니라 **매번**). ③ 작업 중 사용자에게 "IDE 브랜치 전환 멈춰달라" 요청. 복구법(검증됨): 잘못 올라간 commit 은 feat 로 `cherry-pick` + main 은 `git revert`(force-push 금지) → feat→main PR. (docs/CONTEXT.md auto-hook 충돌은 `checkout --ours` 후 continue)
 
 ## 검증 사례
 - PR #24 (P0~P4 + 재발행): handoff §전역 그대로 적용, 7 commits / 7 migrations / 사용자 마찰 0, bit-identical 검증 100%
