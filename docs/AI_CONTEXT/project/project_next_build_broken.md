@@ -22,7 +22,9 @@ SWC(Rust) 에러체인 포맷, **소스 경로 없음**. 실패 직전 minified 
 
 **수정 완료 → main MERGED (PR #41 = `ee27bad`, 2026-06-28):** next.config.mjs 에 ① `swcMinify: false`(Terser 폴백 → minify Syntax Error 해소, `✓ Compiled successfully`) + ② `eslint: { ignoreDuringBuilds: true }`(드러난 전프로젝트 lint 부채 74건 분리 — typecheck 는 계속 강제) + ③ `ci.yml` 에 `build` job(placeholder env, CI 시뮬 green 확인)으로 재발 가드. 결과: `next build` exit 0, 83 페이지. CI build job PASS(2m4s). **두 원인 모두 pre-existing(minify + lint 이중 깨짐).** main 은 branch protection 없음 → verify(lint) red 여도 머지 가능.
 
-**후속(미착수):** ① CI(sync-check.yml)에 `next build` job 추가(재발 조기 감지) ② lint 74건(no-explicit-any 32·no-unused-vars 28·no-unescaped 12·deps 6) 점진 cleanup ③ ort 청크만 minify 제외하는 surgical 설정으로 SWC minify 전역 복원(빌드 속도).
+**verify CI 도 기존부터 red → PR #42 로 green (2026-06-28):** `next build` 와 별개로 `verify` job(`turbo run lint typecheck test`)도 상시 red였음. **4가지 독립 사유** 모두 해소: ① web ESLint 에러 74건→0 ② `apps/mobile` lint·typecheck stub(eslint·typescript 미설치 Expo scaffold) ③ `vcb-core`·`library-pipeline` test 에 `--passWithNoTests`(무테스트) ④ `content-storage.test.ts` 의 즉시 createClient 를 `beforeAll` 로 지연(env 없는 CI 에서 skipIf 정상 동작). 패턴: 무테스트/무도구 패키지는 `@vocaflow/wlp` 선례(stub / `--passWithNoTests`) 따름. **CI 가 build 미실행 + verify red 방치로 양쪽 다 silently 깨져있었음** — main branch protection 없어 머지돼 옴.
+
+**후속(미착수):** ① CI 의 `next build` job 은 PR #41 로 추가됨(✅) ② SWC minify surgical 복원(ort 청크만 제외) ③ `next.config` `eslint.ignoreDuringBuilds` 를 다시 false 로(이제 lint 0 이라 안전) ④ `.turbo/*.log` gitignore(현재 추적됨).
 
 검증 시 worktree 갓차: `.env.local`은 gitignore라 worktree에 없음 → 루트에서 복사해야 build 가능 ([[project_doc_structure_split]] WORKTREE 가이드에 추가 후보).
 
