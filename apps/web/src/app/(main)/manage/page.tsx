@@ -70,33 +70,32 @@ export default async function ManagePage() {
           )}
         </ManageCard>
 
-        {/* 계획 (Study Plan) */}
+        {/* 계획 (자료×활동) */}
         <ManageCard
           icon={<Target size={18} strokeWidth={1.75} />}
           title="학습 계획"
-          href="/onboarding"
+          href="/plan"
           cta={o.plan ? '계획 수정' : '계획 세우기'}
         >
           {o.plan ? (
-            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 font-body text-[13px] text-[var(--t2)]">
-              <span>
-                수능 <strong className="font-display text-[var(--t1)]">D-{o.plan.plan.daysLeft}</strong>
-              </span>
-              <span>
-                주당 <strong className="font-display text-[var(--p)]">{o.plan.plan.weeklyNeeded}</strong>개
-              </span>
-              <span>
-                하루 <strong className="font-display text-[var(--t1)]">{o.plan.plan.dailyNeeded}</strong>개
-              </span>
-              {o.plan.plan.projectedDate && (
-                <span className="text-[var(--t3)]">
-                  예상 도달 {fmtKDate(o.plan.plan.projectedDate)}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 font-body text-[13px] text-[var(--t2)]">
+                <span>
+                  자료 <strong className="font-display text-[var(--t1)]">{o.plan.itemCount}</strong>개
                 </span>
+                <span>
+                  활동 <strong className="font-display text-[var(--p)]">{o.plan.activityCount}</strong>개
+                </span>
+              </div>
+              {o.plan.topMaterials.length > 0 && (
+                <p className="truncate font-body text-[12px] text-[var(--t3)]">
+                  {o.plan.topMaterials.join(' · ')}
+                </p>
               )}
             </div>
           ) : (
             <p className="font-body text-[14px] text-[var(--t3)]">
-              수능 D-day 와 주당 목표를 정하면 매주 얼마나 나아가면 되는지 보여드려요.
+              도서·스크립트·단어장을 골라 무엇을 할지 정하면 나만의 학습 계획이 돼요.
             </p>
           )}
         </ManageCard>

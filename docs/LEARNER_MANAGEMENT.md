@@ -14,7 +14,7 @@ Vocaflow 의 직접 동족은 **LingQ/Readlang**(내 텍스트 import + known-wo
 |---|---|---|
 | 차별 정체성 | 내 텍스트 import + known-word 성장 | LingQ |
 | 진척 시각화 | **known-word count(Implicit Progress)** — 막대 게이지 X | LingQ |
-| 목표 관리 | **수능 D-day + 완료일 역산 Study Plan** | Busuu study plan |
+| 목표 관리 | **자료×활동 학습 계획 (자료별 활동 선택)** | 리틀팍스 코스 |
 | 동기 톤 | **Calm/비게임화** (진지 학습자 포지션, 트렌드 역행 아님) | LingQ·Busuu |
 | 주간 회고 | Report Card(Empathetic 코멘트) | 리틀팍스 월리포트 |
 | L3 위탁관리 | 클래스→초대코드→세트배포→리포트 | 클래스카드 |
@@ -54,24 +54,33 @@ ALTER TABLE public.user_stats
   ADD COLUMN IF NOT EXISTS known_word_count integer NOT NULL DEFAULT 0;  -- derived 캐시 (§3 정의)
 ```
 
-### 2-2. 신규 — Study Plan (Busuu study plan 이식)
+### 2-2. 신규 — 학습 계획 (자료×활동 · 리틀팍스형) ⚠️ 재설계 2026-06-28
+
+> 초기 설계의 수능 D-day 역산(`learning_goals`)은 **폐기**(0 rows DROP). 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장)별로 **할 활동을 고르는** 구성(리틀팍스 코스형). "수능 단일 집중"은 타겟 페르소나로만 유지하고 계획의 substance 는 자료×활동.
 
 ```sql
-CREATE TABLE public.learning_goals (
+CREATE TABLE public.study_plan_items (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  goal_type     text NOT NULL DEFAULT 'csat',         -- 수능 단일 집중 (향후 확장)
-  target_date   date NOT NULL,                         -- 수능 D-day
-  target_v_level smallint,                             -- 목표 V-Level (수능 default V8 = CEFR B1~B2)
-  weekly_target_days    smallint NOT NULL DEFAULT 5,   -- 주당 학습일 목표
-  weekly_target_minutes smallint NOT NULL DEFAULT 100, -- 주당 분 목표
+  material_type text NOT NULL CHECK (material_type IN ('book','script','word_set')),
+  material_id   uuid NOT NULL,                 -- library_books|texts|shared_word_sets (다형, FK 없음)
+  modules       text[] NOT NULL DEFAULT '{}',  -- 선택 활동(아래)
   created_at    timestamptz NOT NULL DEFAULT now(),
   updated_at    timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (user_id, goal_type)   -- 활성 목표 1개 (수능 단일)
+  UNIQUE (user_id, material_type, material_id)  -- 자료 1개당 1행
 );
-ALTER TABLE public.learning_goals ENABLE ROW LEVEL SECURITY;
--- RLS: 본인 행만 (auth.uid() = user_id) — L3 에서 teacher read 정책 추가(§5)
+ALTER TABLE public.study_plan_items ENABLE ROW LEVEL SECURITY;
+-- RLS: 본인 행만 (auth.uid() = user_id) — select/insert/update/delete 4정책
 ```
+
+**활동(modules) 10종** + 자료유형별 가용:
+
+| 활동 | listen 듣기 · read 읽기 · echo 따라하기 · vocab 단어 · flashcard · wordblitz · pairflip · spellforge · scriptquiz · dictation |
+|---|---|
+| 도서/스크립트 | 10종 전부 (본문+오디오) |
+| 공용단어장 | vocab·flashcard·wordblitz·pairflip·spellforge (어휘 5종 — 본문 없는 5종 제외) |
+
+코드: `lib/learner/plan-activities.ts`(활동 정의·매트릭스·라우트) + `plan-actions.ts`(fetch/save/remove) + `/plan` + `PlanClient.tsx`.
 
 ### 2-3. 신규 — 주간 리포트 (리틀팍스 월리포트 이식)
 
@@ -169,38 +178,37 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 
 ---
 
-## 4. Study Plan 역산 공식 (수능 D-day · Busuu 이식)
+## 4. 학습 계획 구성 모델 (자료×활동 · 리틀팍스 코스형) ⚠️ 재설계 2026-06-28
+
+> 초기 "수능 D-day 역산 Study Plan"은 폐기. 사용자가 **자료를 고르고 → 그 자료로 할 활동을 체크**하며 계획을 구성한다(리틀팍스의 "이 책으로 듣기+읽기+퀴즈"와 동형).
 
 ```
-입력: target_date(수능일) · current_v_level · target_v_level(default V8) · weekly_target_days/minutes
-어휘 격차: gap_words = vlevel_cumulative_words(target_v_level) - known_word_count(user)
-           (vlevel_cumulative_words = V-Level별 누적 어휘량 테이블 — vocaflow_levels.total_words 활용)
-남은 주: weeks_left = max(1, (target_date - today) / 7)
-주당 필요 신규: weekly_needed = ceil(gap_words / weeks_left)
-완료일 예측: 최근 4주 실제 주당 처리량(known_delta 평균)으로
-            projected_date = today + (gap_words / max(1, recent_weekly_rate)) 주
-            → "이 속도면 N월에 V8 도달" (동기부여 · 압박 아님)
-매일 큐: today_queue = [복습 due: vocabularies.next_review_at <= now]
-                     + [신규 i+1: current_v_level±1 밴드, cap = weekly_needed/weekly_target_days]
+구성: 자료(도서/스크립트/공용단어장) 1개 → 활동(10종, 자료유형별 가용) 다중 선택 → study_plan_items 1행
+화면 /plan:
+  · 담은 자료 카드 = 자료 + 활동 토글(즉시 저장) + 열기(materialHref) + 빼기
+  · 자료 추가 = 유형 탭(도서/스크립트/단어장) → 후보 목록(담은 자료 제외) → 활동 체크 → 추가
+  · 활동 토글: 색 + 아이콘/체크 이중(색맹 대응), 추천 기본값(본문=읽기·단어·Flashcard / 단어장=단어·Flashcard)
+자료 라우트: book→/library/books/[id] · script→/text/[id] · word_set→/library/vocab#set-{slug}
 ```
 
-- "학습 계획을 세우는 것만으로 목표 달성 확률 5배"(Busuu) — 온보딩에서 D-day 잠그면 주당 필요량이 보인다.
-- 톤: 완료일은 **격려형 예측**("이 속도면 도달")이지 미달 시 빨간 압박 금지(§철학3, §안티패턴).
+- 계획 = "무엇을·어떻게 학습할지" 구성. 수능 D-day·완료일 역산 같은 카운트다운/압박 지표 없음(§철학1 Calm·§철학4 Implicit).
+- /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
+- (후속) 활동별 launch 딥링크(모듈 hub 에 자료 컨텍스트 주입) · 자료별 진행도.
 
 ---
 
 ## 5. 학습자 여정 + 화면 (3 모드)
 
 ```
-[온보딩]→[진단]→[Study Plan]→[일일 루프]⇄[주간 리포트]
- Busuu    V-Level   Busuu역산    LingQ+9모듈   리틀팍스
+[진단]→[학습 계획]→[일일 루프]⇄[주간 리포트]
+ V-Level  자료×활동    LingQ+9모듈   리틀팍스
 ```
 
 ### L1 학습자
 
 | 화면 | 신규/보강 | 핵심 | 영감 |
 |---|---|---|---|
-| `/onboarding` | 🆕 | 수능 D-day·주당 목표일/분 → learning_goals + Study Plan | Busuu |
+| `/plan` | 🆕 | 자료(도서/스크립트/단어장)별 활동 선택 → study_plan_items (수능 D-day 폐기) | 리틀팍스 코스 |
 | `/diagnostic` | 有 | V-Level + CSAT track 측정(수능 집중) | Busuu placement |
 | `/hub` | 보강 | 오늘 할 일(due+i+1) · 이어하기 · 완료일 예측 | LingQ+Busuu |
 | `/dashboard` | 보강(실데이터) | known-word 성장 · 기억 4색 · streak(약하게) | LingQ+리틀팍스 |
@@ -232,7 +240,7 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 |---|---|---|
 | 1 | 게임화(XP/league) | **전면 기각** (LingQ·Busuu 비게임화 = 진지 학습자/수능생 정합) |
 | 2 | 진척 시각화 | **known-word 성장(Implicit)** |
-| 3 | 목표관리 | **수능 D-day + 완료일 역산(Busuu형)** |
+| 3 | 목표관리 | **자료×활동 학습 계획(리틀팍스 코스형)** |
 | 4 | streak | 약하게(warm) — 듀오 압박 회피 |
 | 5 | 타겟 | **수능생 단일 집중** (persona='csat', target_v_level default V8, CSAT track 진단) |
 | 6 | L3 B2B | **로드맵 명시 + 데이터 모델 선반영**(classes/초대코드/role), 화면 Phase 2 |
@@ -245,7 +253,7 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 | Phase | 작업 | 비고 |
 |---|---|---|
 | **P0** | `daily_activity` 트리거(§2-4) + `known_word_count` 컬럼·캐시(§2-1·§3) | learning_records 이미 흐름 → 트리거 1개로 집계 충전 |
-| P1 | `learning_goals` + `/onboarding` + Study Plan 역산(§2-2·§4) | 수능 D-day |
+| P1 | `study_plan_items` + `/plan` + 자료×활동 구성(§2-2·§4) | 리틀팍스 코스 (재설계 2026-06-28, 수능 D-day 폐기) |
 | P2 | `weekly_reports` + `/reports` + Empathetic 코멘트(§2-3) | daily_activity 집계 전제 |
 | P3 | `/dashboard` 실데이터화(known-word 성장·기억 4색) | P0 산출물 소비 |
 | P4 (B2B) | L3 화면(`/teacher/*`) — classes/assignments/리포트 공유 | 데이터 모델은 P0~ 선반영 |
