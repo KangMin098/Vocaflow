@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3.6 게임 점수 적재 확장 (flashcard/spellforge/dictation) (v06.98)
+
+A3.5(PairFlip)로 시작한 `scores` 적재를 3개 게임으로 확장 — 메인 Hub "최근 활동"(useHubData 가 scores 읽음)이 실제로 채워지도록. 공유 헬퍼로 통일. 마이그레이션 0.
+
+- **`lib/scores/record-score.ts`** 신규 — `recordGameScore`(fire-and-forget INSERT) + `useRecordGameScore`(완료 컴포넌트 마운트 1회, re-render/StrictMode 중복 방지). `learning_records`(단어별 FSRS)와 별개 세션 결과.
+- **Flashcard** `CompletionState` — ratingCounts 기반 correct/accuracy 집계 → scores(module='flashcard').
+- **SpellForge** `SpellForgeCompletion` — totalWords/correctCount/duration → scores(module='spellforge').
+- **Dictation** `DictationResultsClient` — session.totalAccuracy/items/totalTimeMs → scores(module='dictation', session 로드 시 1회).
+- ⚠️ typecheck/lint green, 완료 화면 런타임 미검증. **WordBlitz 보류**(무한루프 — 세션 시작시각·정오 카운트 추적 구조 추가 필요, 별도). PairFlip(A3.5/#56)은 inline write — 후속 통일 가능.
+
 ### A3.5 PairFlip 게임 점수 영속화 + hub 실 stats (v06.98)
 
 `scores` 테이블에 **어떤 게임도 쓰지 않던**(write 0, useHubData 가 읽기만) gap 의 첫 해소 — PairFlip 완료 시 게임 점수를 `scores` 적재 + hub stats 를 mock(0 고정)에서 실 집계로. 마이그레이션 0(`scores`/`module_id` 기존재).
