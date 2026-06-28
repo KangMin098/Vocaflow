@@ -86,3 +86,44 @@ export function materialHref(m: MaterialRef): string {
       return m.slug ? `/library/vocab#set-${m.slug}` : '/library/vocab'
   }
 }
+
+/**
+ * 활동 실행(launch) 라우트 — 가능하면 그 자료의 실제 단어로 진입.
+ *   · 스크립트(texts.id): flashcard `?text=` · scriptquiz `?text=` (scoped-words 정합)
+ *   · 공용단어장(shared_word_sets.id): flashcard `?set=` (shared_words 정합)
+ *   · 도서(library_books.id): 본문 활동은 도서 페이지, 게임은 모듈 hub (직접 스코핑 미지원)
+ * 스코핑 불가 활동(wordblitz/pairflip/spellforge/dictation)은 모듈 hub 로 honest fallback.
+ */
+export function activityLaunchHref(m: MaterialRef, activity: PlanActivity): string {
+  switch (activity) {
+    case 'listen':
+    case 'read':
+    case 'vocab':
+      return materialHref(m)
+    case 'echo':
+      return m.type === 'script' ? `/text/${m.id}/echo` : materialHref(m)
+    case 'flashcard':
+      if (m.type === 'script') return `/flashcard/play?text=${m.id}`
+      if (m.type === 'word_set') return `/flashcard/play?set=${m.id}`
+      return '/flashcard'
+    case 'scriptquiz':
+      return m.type === 'script' ? `/scriptquiz/play?text=${m.id}` : '/scriptquiz'
+    case 'wordblitz':
+      return '/wordblitz'
+    case 'pairflip':
+      return '/pairflip'
+    case 'spellforge':
+      return '/spellforge'
+    case 'dictation':
+      return '/dictate'
+  }
+}
+
+/** 활동이 그 자료의 실제 단어로 스코핑되어 열리는지 (UI 배지/구분용) */
+export function isActivityScoped(type: MaterialType, activity: PlanActivity): boolean {
+  if (activity === 'listen' || activity === 'read' || activity === 'vocab') return true
+  if (activity === 'echo') return type === 'script'
+  if (activity === 'flashcard') return type === 'script' || type === 'word_set'
+  if (activity === 'scriptquiz') return type === 'script'
+  return false // wordblitz/pairflip/spellforge/dictation — 모듈 hub
+}

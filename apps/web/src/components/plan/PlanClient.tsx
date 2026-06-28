@@ -16,6 +16,7 @@ import {
   Mic2,
   Pencil,
   PencilLine,
+  Play,
   Plus,
   ScrollText,
   Shuffle,
@@ -30,8 +31,11 @@ import { useMemo, useState, useTransition } from 'react'
 import {
   ACTIVITY_BY_ID,
   activitiesForType,
+  activityLaunchHref,
+  isActivityScoped,
   materialHref,
   MATERIAL_LABEL,
+  PLAN_ACTIVITIES,
   type MaterialType,
   type PlanActivity,
 } from '@/lib/learner/plan-activities'
@@ -187,6 +191,7 @@ export function PlanClient({
         title: m.title,
         subtitle: m.subtitle,
         href: materialHref({ type, id: m.id, slug: m.slug }),
+        slug: m.slug,
         vLevel: m.vLevel,
       }
       setItems((prev) => [...prev, newItem])
@@ -362,7 +367,7 @@ export function PlanClient({
   )
 }
 
-/** 담은 자료 카드 — 활동 토글(즉시 저장) + 열기 + 삭제. */
+/** 담은 자료 카드 — 기본: 선택 활동 실행(launch) 링크 / 편집: 활동 토글(즉시 저장). */
 function PlanItemCard({
   item,
   onToggle,
@@ -372,8 +377,13 @@ function PlanItemCard({
   onToggle: (a: PlanActivity) => void
   onRemove: () => void
 }) {
+  const [editing, setEditing] = useState(false)
   const TypeIcon = MATERIAL_ICON[item.materialType]
   const allowed = activitiesForType(item.materialType)
+  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
+  // 선택 활동을 표준(인지 깊이) 순서로 정렬
+  const selected = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+
   return (
     <article className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]">
       <header className="flex items-center gap-2.5">
@@ -404,6 +414,20 @@ function PlanItemCard({
         </Link>
         <button
           type="button"
+          onClick={() => setEditing((v) => !v)}
+          aria-pressed={editing}
+          aria-label="활동 편집"
+          title="활동 편집"
+          className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+            editing
+              ? 'bg-[var(--p)] text-[var(--ti)]'
+              : 'text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--p)]'
+          }`}
+        >
+          <Pencil size={15} strokeWidth={1.75} aria-hidden />
+        </button>
+        <button
+          type="button"
           onClick={onRemove}
           aria-label={`${item.title} 계획에서 빼기`}
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
@@ -412,18 +436,75 @@ function PlanItemCard({
         </button>
       </header>
 
-      <div className="flex flex-wrap gap-1.5">
-        {allowed.map((a) => (
-          <ActivityChip
-            key={a}
-            activity={a}
-            selected={item.modules.includes(a)}
-            onClick={() => onToggle(a)}
-            small
-          />
-        ))}
-      </div>
+      {editing ? (
+        <div className="flex flex-col gap-2 border-t border-[var(--bd)] pt-3">
+          <p className="font-body text-[12px] text-[var(--t3)]">할 활동을 켜고 끄면 바로 저장돼요</p>
+          <div className="flex flex-wrap gap-1.5">
+            {allowed.map((a) => (
+              <ActivityChip
+                key={a}
+                activity={a}
+                selected={item.modules.includes(a)}
+                onClick={() => onToggle(a)}
+                small
+              />
+            ))}
+          </div>
+        </div>
+      ) : selected.length > 0 ? (
+        <div className="flex flex-wrap gap-1.5">
+          {selected.map((a) => (
+            <LaunchChip
+              key={a.id}
+              activity={a.id}
+              href={activityLaunchHref(ref, a.id)}
+              scoped={isActivityScoped(item.materialType, a.id)}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="font-body text-[13px] text-[var(--t3)]">
+          아직 활동이 없어요.{' '}
+          <button
+            type="button"
+            onClick={() => setEditing(true)}
+            className="font-display font-[700] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            편집
+          </button>
+          에서 골라요.
+        </p>
+      )}
     </article>
+  )
+}
+
+/** 선택 활동 실행 링크 — scoped(이 자료 단어로 바로)=Play / hub(모듈에서)=↗. 아이콘으로 구분(색맹 대응). */
+function LaunchChip({
+  activity,
+  href,
+  scoped,
+}: {
+  activity: PlanActivity
+  href: string
+  scoped: boolean
+}) {
+  const def = ACTIVITY_BY_ID[activity]
+  const Icon = ACTIVITY_ICON[def.icon] ?? Layers
+  return (
+    <Link
+      href={href}
+      title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
+      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+    >
+      <Icon size={13} strokeWidth={1.75} aria-hidden />
+      {def.label}
+      {scoped ? (
+        <Play size={11} strokeWidth={2} className="text-[var(--p)] opacity-80" aria-hidden />
+      ) : (
+        <ExternalLink size={11} strokeWidth={2} className="opacity-50" aria-hidden />
+      )}
+    </Link>
   )
 }
 

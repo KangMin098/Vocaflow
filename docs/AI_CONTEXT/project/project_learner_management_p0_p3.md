@@ -10,7 +10,7 @@
 
 **구현 (전부 머지, 마이그레이션 적용)**:
 - **P0** (PR #62, mig `20260628150000`): `daily_activity` 자동 집계 트리거 2(learning_records→총복습/모듈별, scores→분/단어, KST date) + `user_stats.known_word_count`(stability≥21 derived 캐시) + `refresh_user_known_word_count` 함수(flush-actions 가 flush 후 호출).
-- **P1** (PR #63, mig `20260628160000`): `learning_goals` 테이블(goal_type='csat', target_date D-day, target_word_count default 4000) + `lib/learner/study-plan.ts computeStudyPlan`(순수 역산) + `goal-actions.ts`(save/fetch) + `/onboarding` 페이지(D-day 입력 → 실시간 Study Plan 미리보기).
+- **P1** (PR #63 → **재설계 PR #75 `510fc5c`**, mig `20260628200000`): ⚠️ 초안(수능 D-day 역산 `learning_goals`/`/onboarding`/study-plan.ts/goal-actions.ts)은 **전면 폐기**. 사용자 피드백 "계획이 왜 수능이냐 — 플랫폼 학습 계획이어야" → **자료×활동 학습 계획**(리틀팍스 코스형). `study_plan_items`(material_type book/script/word_set + material_id 다형 + modules text[]) + `lib/learner/plan-activities.ts`(활동 10종 listen/read/echo/vocab/flashcard/wordblitz/pairflip/spellforge/scriptquiz/dictation + 자료유형별 가용: 본문=10/단어장=어휘5) + `plan-actions.ts` + `/plan` + `PlanClient.tsx`(자료 탭→활동 체크→담은 카드 활동 토글 즉시저장). learning_goals(0rows) DROP. **"수능생 단일 집중"은 타겟 페르소나로만 유지, 계획 substance 아님.**
 - **P2** (PR #65, mig `20260628170000`): `weekly_reports` 테이블 + `lib/learner/weekly-report.ts`(daily_activity 주간 집계 + 템플릿 격려 코멘트, KST 월요일, 멱등) + `/reports` Report Card(갱신 버튼, cron 자동생성은 후속).
 - **P3** (PR #66, 마이그레이션 0): `/dashboard` TodayHero 하드코딩(23/30/학습자) → 실데이터(`dashboard-data.ts fetchDashboardHero`) + known-word Implicit Progress 표시. WeeklyHeatmap/MemoryStatus/RecentActivity 는 P0 데이터로 자동 실데이터화.
 

@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 계획 활동 실행(launch) 연결 (v06.101)
+
+`/plan` 담은 자료 카드를 "구성"에서 "실행"까지 확장 (사용자 "계획·실행" 요청 정합, 마이그레이션 0).
+
+- **`plan-activities.ts`** `activityLaunchHref` + `isActivityScoped` — 선택 활동을 그 자료 실제 단어로 진입: 스크립트 `flashcard/play?text=`·`scriptquiz/play?text=` / 단어장 `flashcard/play?set=` (scoped-words `fetchScopedWords` 정합) / listen·read·echo·vocab→본문. 미스코핑 게임(wordblitz/pairflip/spellforge/dictation·도서 게임)은 모듈 hub.
+- **`PlanClient.tsx`** PlanItemCard 개편 — 기본=선택 활동 실행 링크(LaunchChip, scoped ▶ / hub ↗ 아이콘 구분=색맹 대응) · 편집(연필)=활동 토글(즉시 저장) Progressive Disclosure. `PlanItem.slug` 추가.
+- typecheck green · `next build` 89/89 (/plan 7.89kB).
+
 ### 학습 계획 재설계 — 자료×활동 (수능 D-day 폐기) (v06.100)
 
 학습 계획을 "수능 D-day 단어 카운트다운"(P1 초안)에서 **플랫폼 자료(도서/스크립트/공용단어장)별 활동 선택**(리틀팍스 코스형)으로 전면 재설계. 사용자 피드백 — "계획이 왜 수능으로 나오나, 플랫폼 학습 계획이어야 한다".
