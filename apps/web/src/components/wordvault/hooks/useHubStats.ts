@@ -226,7 +226,7 @@ export function useHubStats(): HubStatsState {
 
       // 도서 메타 일괄 fetch (id, title, author, cover_image_url)
       const bookIds = Array.from(libraryBookGroups.keys())
-      let bookMetaMap = new Map<
+      const bookMetaMap = new Map<
         string,
         { title: string; author: string | null; cover_image_url: string | null; cefr_band: string | null }
       >()

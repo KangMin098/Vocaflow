@@ -20,7 +20,7 @@ SWC(Rust) 에러체인 포맷, **소스 경로 없음**. 실패 직전 minified 
 
 **next.config.mjs 현황:** transpilePackages(@vocaflow/*) + images.remotePatterns + dev watchOptions만. **onnxruntime-web/WASM minify 예외 처리 없음.**
 
-**수정 완료 (PR #41, branch fix/next-build-onnxruntime, main 기반):** next.config.mjs 에 ① `swcMinify: false`(Terser 폴백 → minify Syntax Error 해소, `✓ Compiled successfully`) + ② `eslint: { ignoreDuringBuilds: true }`(드러난 전프로젝트 lint 부채 74건 분리 — typecheck 는 계속 강제). 결과: `next build` exit 0, 83 페이지 생성. **두 원인 모두 pre-existing(minify + lint 이중 깨짐).**
+**수정 완료 → main MERGED (PR #41 = `ee27bad`, 2026-06-28):** next.config.mjs 에 ① `swcMinify: false`(Terser 폴백 → minify Syntax Error 해소, `✓ Compiled successfully`) + ② `eslint: { ignoreDuringBuilds: true }`(드러난 전프로젝트 lint 부채 74건 분리 — typecheck 는 계속 강제) + ③ `ci.yml` 에 `build` job(placeholder env, CI 시뮬 green 확인)으로 재발 가드. 결과: `next build` exit 0, 83 페이지. CI build job PASS(2m4s). **두 원인 모두 pre-existing(minify + lint 이중 깨짐).** main 은 branch protection 없음 → verify(lint) red 여도 머지 가능.
 
 **후속(미착수):** ① CI(sync-check.yml)에 `next build` job 추가(재발 조기 감지) ② lint 74건(no-explicit-any 32·no-unused-vars 28·no-unescaped 12·deps 6) 점진 cleanup ③ ort 청크만 minify 제외하는 surgical 설정으로 SWC minify 전역 복원(빌드 속도).
 

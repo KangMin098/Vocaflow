@@ -15,7 +15,6 @@ import {
   Loader2,
   PlayCircle,
   Shield,
-  Sparkles,
   Wand2,
 } from 'lucide-react'
 import {

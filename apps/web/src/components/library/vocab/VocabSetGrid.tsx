@@ -16,7 +16,7 @@ import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { CategoryMatrix } from './CategoryMatrix'
-import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
+import { type VocabCategoryId } from './categories'
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
 import { VocabSetCarousel } from './VocabSetCarousel'

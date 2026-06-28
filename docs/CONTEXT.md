@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `fix/next-build-onnxruntime`
+**활성 브랜치**: `chore/lint-cleanup`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `65ee14e` fix(build): 프로덕션 next build 복구 (swcMinify + eslint 분리)
+- `24eb829` chore(ci): verify green 복구 — mobile lint/typecheck stub + 무테스트 패키지 passWithNoTests
+- `e6cc348` chore(lint): ESLint 에러 74건 cleanup → verify CI green
+- `ee27bad` fix(build): 프로덕션 next build 복구 (swcMinify + eslint 분리) (#41)
 - `dfa3a4d` Merge pull request #35 from KangMin098/feat/voa-curation-redesign
 - `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
-- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
-- `775de29` Revert "feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)"
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
