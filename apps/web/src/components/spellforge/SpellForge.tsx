@@ -29,6 +29,7 @@ import {
 } from '@/lib/recommend/next-action.mock'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
 import { applyReview, createNewCard } from '@/lib/srs'
+import { flushPendingSession } from '@/lib/srs/flush-session'
 import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
 import {
   cacheCard,
@@ -89,6 +90,15 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
     document.body.classList.add('studying')
     return () => document.body.classList.remove('studying')
   }, [])
+
+  // 세션 종료 시 SRS 큐 → DB flush (멱등 가드, 1회).
+  const flushedRef = useRef(false)
+  useEffect(() => {
+    if (showCompletion && !flushedRef.current) {
+      flushedRef.current = true
+      void flushPendingSession()
+    }
+  }, [showCompletion])
 
   // 모드 변경 시 reset
   useEffect(() => {
@@ -158,6 +168,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
     cacheCard(reviewResult.card)
     pushPendingResult({
       cardId: reviewResult.card.id,
+      word: currentWord.text,
       cardUpdate: cardToUpdatePayload(reviewResult.card),
       rating: reviewResult.log.rating,
       reviewedAt: reviewResult.log.reviewedAt.toISOString(),
@@ -274,6 +285,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
       cacheCard(reviewResult.card)
       pushPendingResult({
         cardId: reviewResult.card.id,
+        word: currentWord.text,
         cardUpdate: cardToUpdatePayload(reviewResult.card),
         rating: reviewResult.log.rating,
         reviewedAt: reviewResult.log.reviewedAt.toISOString(),

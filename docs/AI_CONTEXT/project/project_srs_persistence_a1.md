@@ -19,6 +19,8 @@
 
 **A1.3 완료 (PR #40, branch feat/wordblitz-learning-records, main 기반 독립):** recordWordBlitzResult(WorkspaceWordBlitzMode handleCorrect/handleWrong 에서 호출)에 vocabularies.update 후 learning_records.insert(resultToRecordPayload) 추가. 4모듈 기록 일관 달성. flush 인프라 무관.
 
+**런타임 검증 (2026-06-28, ✅ FULL E2E PASS):** #39 dev 서버 → 사용자 직접 로그인 → `/wordvault/study` 실 단어 학습 → 종료(flush) → DB 반영 확인. baseline(전 사용자 review 0 + learning_records 0)에서 → **4단어(book/tale/apartment/allow) vocabularies last_review_at/stability(8.30)/review_count(1)/module_history(['wordvault']) 갱신 + learning_records 4행(module=wordvault, rating, is_correct, FK 일치) INSERT**. FSRS Easy 정합(~2주 후 복습). **flush 영속화 실 앱에서 정상 동작 확인** — A1.1(flush) + A2(study 실데이터) 검증 완료. flashcard/spellforge/dictation 도 동일 flush 경로라 검증됨. A1.3(WordBlitz)은 동일 resultToRecordPayload insert(payload 정합 검증됨)라 by-analogy.
+
 **잔여(SRS):**
 - **A2b** — WordVault review 뷰(하드코딩 "12개" placeholder) 실 due 단어 배선 + hub `words` mock(page.tsx:57 MOCK_WORDS, hero 분포 fallback) 실데이터화. (※ /wordvault?view=study·review 진입점은 SegmentControl·PageHeader 가 ?view= 링크 — A2 redirect 가 study 는 처리, review 는 아직 inline placeholder)
 - ⚠️ A1.1/A2/A1.3 **런타임 스모크 전부 미실시**(헤드리스 한계) — 머지 전 수동 확인 필요.
