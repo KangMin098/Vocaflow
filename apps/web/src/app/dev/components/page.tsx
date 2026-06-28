@@ -15,7 +15,6 @@ import {
   Mail,
   Lock,
   User,
-  Eye,
   Grid3x3,
   List,
   LayoutGrid,
@@ -30,7 +29,7 @@ import {
 
 import { Button } from "@/components/ui/Button";
 import { Checkbox, CheckboxGroup } from "@/components/ui/Checkbox";
-import { Radio, RadioGroup } from "@/components/ui/Radio";
+import { RadioGroup } from "@/components/ui/Radio";
 import { Toggle } from "@/components/ui/Toggle";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
@@ -51,7 +50,7 @@ import { Tooltip } from "@/components/ui/Tooltip";
 import { useToast } from "@/components/ui/Toast";
 import { Modal, ConfirmModal } from "@/components/ui/Modal";
 import { LoadingOverlay } from "@/components/ui/LoadingOverlay";
-import { Skeleton, SkeletonCard, SkeletonRow } from "@/components/ui/Skeleton";
+import { SkeletonCard, SkeletonRow } from "@/components/ui/Skeleton";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 export default function TokenTestPage() {
@@ -169,7 +168,7 @@ export default function TokenTestPage() {
             <p className="font-display text-3xl font-extrabold">Plus Jakarta Sans — Display / Heading</p>
             <p className="font-body text-base">DM Sans — Body 텍스트입니다. 영어 학습 플랫폼 Vocaflow.</p>
             <p className="font-serif text-lg italic">Lora — The quick brown fox jumps over the lazy dog. (영어 스크립트 전용)</p>
-            <p className="font-mono text-sm">JetBrains Mono — const greeting = "Hello, Vocaflow";</p>
+            <p className="font-mono text-sm">JetBrains Mono — const greeting = &quot;Hello, Vocaflow&quot;;</p>
           </div>
         </section>
 

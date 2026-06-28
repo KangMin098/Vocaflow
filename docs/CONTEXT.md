@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3222853` feat(srs): 학습 결과 DB 영속화 — sessionStorage 큐 flush (A1.1)
 - `dfa3a4d` Merge pull request #35 from KangMin098/feat/voa-curation-redesign
 - `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
 - `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
 - `775de29` Revert "feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)"
-- `8e6f1cc` feat(acp): 학습자 스크립트 카드 i+1 배지 + 메타 (P4)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

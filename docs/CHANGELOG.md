@@ -18,6 +18,49 @@
 - **`flushPendingSession` 클라이언트 헬퍼** (`lib/srs/flush-session.ts`) — 세션 종료 시 큐 flush, 성공 시에만 비움(실패 시 보존·재시도).
 - **3개 모듈 완료 지점 배선** — Flashcard(`isComplete`)·SpellForge(`showCompletion`)·Dictation(`srsAppliedRef`) 에서 flush 호출. `PendingSrsResult`에 `word` 추가(4개 push 사이트 갱신). WordVault StudyMode(데모)·WordBlitz `learning_records` insert는 A1.2/A1.3로 분리.
 
+### Tier B UI 폴리시 (v06.88)
+
+플랫폼 미완성 작업 스캔 후속 — 자립형 quick-win 묶음. (B1 워크스페이스 article `audio_url` 재생은 P5(v06.86)에서 이미 배선 완료로 확인되어 작업 제외.)
+
+- **pending-words 피드백** — `PendingWordActions` 상태 전환 실패 시 `alert()` → `useToast().error` (Calm UI · 기존 `components/ui/Toast` 재사용).
+- **로딩 화면 폴리시** — `dictate/setup` Suspense fallback + `pairflip/play` 세션 대기 화면을 `Loader2` 스피너 + 차분한 카피("준비하고 있어요")로 정비. (두 화면 모두 정상 전환 상태였고 무한 로딩 아님 — 점검 결과 cosmetic 개선만.)
+
+### 멀티 세션 git worktree 자동화 (v06.94)
+
+여러 Claude Code / VS Code 세션이 서로 다른 화면·기능을 동시에 작업하도록 worktree 레이아웃 셋업 + 관리 자동화.
+
+- **worktree 레이아웃** — `../Vocaflow-main`(main, PR/handoff) · `../Vocaflow-ui`(`feat/learner-ui`, `app/(main)/*`) · `../Vocaflow-admin`(`feat/admin-ui`, `app/admin/*`). 학습자/어드민 라우트 폴더 분리로 병렬 충돌 최소.
+- **`scripts/worktree.mjs` + `pnpm wt`** — `list`(ahead/behind) / `new <suffix> [base]`(생성 + `pnpm install` 자동) / `remove <suffix> [--del-branch]` / `sync`(fetch --prune). 규약: 디렉터리 `../Vocaflow-<suffix>` + 브랜치 `feat/<suffix>`.
+- **`docs/WORKTREE.md`** 신규 — 운영 가이드(원칙·레이아웃·스크립트·공유 자산 충돌 직렬화 규칙). 핵심 주의: 클라우드 DB·`supabase/migrations/`·`packages/ui-shared` 등 공유 자산은 한 세션에서만 변경 후 나머지 worktree pull/rebase.
+
+### verify CI green 복구 — lint 74건 + CI 안정화 (v06.93)
+
+CI `verify` job(`turbo run lint typecheck test`)이 **3가지 독립 사유**로 상시 red였던 것을 green으로 복구(빌드 복구 v06.92 후속). 경고(jsx-a11y·exhaustive-deps)는 차단 안 하므로 보존.
+
+**① web ESLint 에러 74건 → 0:**
+
+- **`no-explicit-any` 32 (전부 `lib/admin/dict/queries.ts`)** — `countRows` 콜백의 불필요한 `(q as any)` 중복 캐스트 제거(`q`는 이미 `PgQuery`(eslint-disabled 단일 alias) 타입). 런타임 불변.
+- **`no-unused-vars` 28** — 미사용 import/var/arg 제거(24파일). 미사용 prop은 destructure에서만 제거(인터페이스/콜러 계약 보존), write-only 변수·orphaned arg는 안전 정리.
+- **`no-unescaped-entities` 12** — JSX 텍스트의 `"`/`'`를 `&ldquo;`/`&rdquo;`/`&apos;` 등으로 이스케이프(6파일).
+- **`prefer-const` 2** — `bookMetaMap`·`countsPerSet` `let`→`const`.
+
+**② `apps/mobile` (Expo 기획 scaffold — eslint·typescript 미설치):** `lint`·`typecheck` 스크립트를 no-op stub(`@vocaflow/wlp:lint` 선례 동일 — 검사할 실 코드 없음. 모바일 실구현 시 복원).
+
+**③ 무(無)테스트 패키지:** `vcb-core`·`library-pipeline` test 스크립트에 `--passWithNoTests` 추가(`vitest run`이 "No test files found"로 exit 1 하던 것 — `@vocaflow/wlp` 선례 동일).
+
+**④ 통합 테스트 env-skip 버그:** `content-storage.test.ts`(Supabase 통합)가 env 없는 CI에서 `describe` 본문 최상위의 즉시 `createClient` 호출로 `supabaseUrl is required` throw(collection 단계). `client` 생성을 `beforeAll`로 지연 → `skipIf(env 없음)` 시 미실행 → CI 정상 skip(로컬 .env.local 있으면 그대로 실행).
+
+- 검증: 로컬 `turbo run lint typecheck test` **13/13 green**(env 有) · CI(env 無)는 content-storage skip 후 green · `next lint` 0 · `tsc` 통과 · `next build` green(83p).
+
+### 프로덕션 빌드 복구 (v06.92)
+
+`next build`(프로덕션)가 main에서 **기존부터 실패**하던 것을 복구 — 배포 차단 이슈. CI가 typecheck/lint만 게이트하고 `next build`는 안 돌려 미발견. (SRS 검증 중 발견 — [[project_next_build_broken]] 진단.)
+
+- **`swcMinify: false`** — SWC minifier가 `@mintplex-labs/piper-tts-web`(onnxruntime-web 번들, EchoMatch) 청크를 parse 못해 `failed to parse input file: Syntax Error`로 죽던 것 → Terser minifier 폴백. `✓ Compiled successfully` 회복. (후속: ort 청크만 제외하는 surgical 방식으로 SWC minify 복원 가능.)
+- **`eslint: { ignoreDuringBuilds: true }`** — 전(全)프로젝트 기존 lint 부채 74건(no-explicit-any 32·no-unused-vars 28·no-unescaped-entities 12·exhaustive-deps 6)이 빌드 산출물 생성을 막던 것 → lint를 빌드에서 분리(`next lint`/별도 CI job). **typecheck는 빌드에서 계속 강제**(tsc 통과 유지, `ignoreBuildErrors` 미설정).
+- 결과: `next build` exit 0, 83 페이지 생성.
+- **CI 가드** — `ci.yml`에 `build` job 추가(`next build` 실행 · placeholder env · push/PR to main). 빌드 깨짐 재발 조기 감지. CI 시뮬레이션으로 `.env.local` 없이 green 확인(force-dynamic 페이지는 build-time 미실행). 후속: lint 74건 점진 cleanup + ort 청크만 제외하는 surgical minify 복원.
+
 ### VOA 큐레이션 재설계 — frozen archive (v06.86)
 
 VOA Learning English = frozen archive(전 feed 2025-03 정지, 라이브 확인) 전제로 큐레이션 입력측·검수·학습자 제시 재설계. PR `feat/voa-curation-redesign` (P0 진단 → P1~P5, 영향격리 순).
