@@ -36,6 +36,10 @@ export interface ArticleAdminRow {
   lexical_noise: number | null
   /** ACP §18 — CC-BY-ND ⇒ 본문 불변(단어세트 미발행) */
   display_only: boolean | null
+  /** P4 — 검수 게이트 audio 조건 (media='audio' 소스에서 필수) */
+  audio_url: string | null
+  /** P4 — 검수 게이트 V-Level 산정 + iplus 뱃지 산출원 */
+  article_v_level: number | null
   copyright_safe_in_kr: boolean
   published_at: string | null
   llm_cost_usd: string | null
@@ -49,6 +53,21 @@ export interface ArticleStats {
   ready: number
   inProgress: number
   failed: number
+}
+
+/** ACP §18 P2 — 소스/feed 별 후보 현황 (SourceFeedList · library_article_seed_catalog 집계). */
+export interface SourceFeedHealth {
+  source: string
+  feedId: string
+  feedLabel: string
+  /** 전체 후보 수 */
+  candidates: number
+  /** 미import (큐 미진입) 후보 수 */
+  pending: number
+  /** audio 보유 후보 수 */
+  audioN: number
+  /** 평균 학습 친화도 score (0~1) */
+  avgScore: number
 }
 
 /** 학습자 노출용 — published + copyright_safe 아티클 (스크립트 탭) */

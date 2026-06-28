@@ -6,7 +6,7 @@
 import { Suspense } from 'react'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { listAdminArticles, articleStats } from '@/lib/articles/admin-queries'
+import { listAdminArticles, listSourceFeedHealth, articleStats } from '@/lib/articles/admin-queries'
 import { CurationConsole } from './CurationConsole'
 
 export const metadata = {
@@ -30,9 +30,9 @@ export default async function AdminArticlesPage() {
 }
 
 async function Content() {
-  const articles = await listAdminArticles()
+  const [articles, feedHealth] = await Promise.all([listAdminArticles(), listSourceFeedHealth()])
   const stats = articleStats(articles)
-  return <CurationConsole articles={articles} stats={stats} />
+  return <CurationConsole articles={articles} stats={stats} feedHealth={feedHealth} />
 }
 
 function PageHeader() {

@@ -29,7 +29,7 @@ import {
   VolumeX,
 } from 'lucide-react'
 
-import type { ArticleAdminRow, ArticleStats } from '@/lib/articles/types'
+import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
 import {
   useSourcePolicy,
   SUPPLY_LABEL,
@@ -38,6 +38,9 @@ import {
   ATTRIBUTION_LABEL,
 } from '@/lib/articles/use-source-policy'
 import { CoverageMatrix } from './CoverageMatrix'
+import { SourceFeedList } from './SourceFeedList'
+import { CandidateTable } from './CandidateTable'
+import { ReviewPanel } from './ReviewPanel'
 import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 import { VoaFeedTab } from './VoaFeedTab'
@@ -50,6 +53,7 @@ type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 interface Props {
   articles: ArticleAdminRow[]
   stats: ArticleStats
+  feedHealth: SourceFeedHealth[]
 }
 
 const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
@@ -59,9 +63,12 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
   { key: 'publish', label: '발행', Icon: Send },
 ]
 
-export function CurationConsole({ articles, stats }: Props) {
+const SOURCE_KEYS: SourceKey[] = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'the_conversation', 'wikinews']
+
+export function CurationConsole({ articles, stats, feedHealth }: Props) {
   const router = useRouter()
   const [stage, setStage] = useState<Stage>('coverage')
+  const [getSource, setGetSource] = useState<SourceKey>('voa')
 
   const refetchAll = (): void => {
     router.refresh()
@@ -69,6 +76,11 @@ export function CurationConsole({ articles, stats }: Props) {
   const goReview = (): void => {
     setStage('review')
     setTimeout(refetchAll, 400)
+  }
+  // 커버리지 → 소스GET 점프 (피드 헤더 클릭 시 해당 소스 선택).
+  const jumpToGet = (source: string): void => {
+    if ((SOURCE_KEYS as string[]).includes(source)) setGetSource(source as SourceKey)
+    setStage('get')
   }
 
   return (
@@ -80,12 +92,13 @@ export function CurationConsole({ articles, stats }: Props) {
           <div className="flex flex-col gap-6">
             <StatsBar stats={stats} />
             <CoverageMatrix articles={articles} onCellClick={() => setStage('get')} />
+            <SourceFeedList feedHealth={feedHealth} onPickSource={jumpToGet} />
           </div>
         )}
-        {stage === 'get' && <SourceGetStage onEnqueued={goReview} />}
-        {stage === 'review' && (
-          <CuratedArticlesTab articles={articles} onChanged={refetchAll} initialFilter="in_progress" />
+        {stage === 'get' && (
+          <SourceGetStage source={getSource} onSource={setGetSource} onEnqueued={goReview} />
         )}
+        {stage === 'review' && <ReviewPanel articles={articles} onChanged={refetchAll} />}
         {stage === 'publish' && (
           <CuratedArticlesTab articles={articles} onChanged={refetchAll} initialFilter="published" />
         )}
@@ -201,9 +214,16 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio 
   { key: 'wikinews', label: 'Wikinews', Icon: Newspaper },
 ]
 
-function SourceGetStage({ onEnqueued }: { onEnqueued: () => void }) {
+function SourceGetStage({
+  source,
+  onSource,
+  onEnqueued,
+}: {
+  source: SourceKey
+  onSource: (s: SourceKey) => void
+  onEnqueued: () => void
+}) {
   const [mode, setMode] = useState<'single' | 'bulk'>('single')
-  const [source, setSource] = useState<SourceKey>('voa')
 
   return (
     <div className="flex flex-col gap-4">
@@ -216,9 +236,17 @@ function SourceGetStage({ onEnqueued }: { onEnqueued: () => void }) {
         <BulkArticlesTab onEnqueued={onEnqueued} />
       ) : (
         <>
-          <SourceSelector source={source} onChange={setSource} />
+          <SourceSelector source={source} onChange={onSource} />
           <PolicyBar source={source} />
-          <SourceGetBody source={source} onEnqueued={onEnqueued} />
+          <CandidateTable source={source} onImported={onEnqueued} />
+          <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+            <summary className="cursor-pointer px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] marker:text-[var(--t4)]">
+              라이브 RSS 직접 수집 (후보 풀에 추가)
+            </summary>
+            <div className="border-t border-[var(--bd)] p-3">
+              <SourceGetBody source={source} onEnqueued={onEnqueued} />
+            </div>
+          </details>
         </>
       )}
     </div>

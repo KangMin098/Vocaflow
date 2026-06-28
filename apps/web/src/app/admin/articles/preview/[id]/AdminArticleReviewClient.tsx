@@ -27,6 +27,7 @@ import {
 } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
+import { resolveSourcePolicy } from '@vocaflow/library-pipeline/curation-spec'
 import { classifyArticleStatus } from '@/lib/articles/types'
 import type { ReviewArticle, ReviewVocab } from '@/lib/articles/review-types'
 import { ArticleAudioPanel } from '@/components/admin/articles/ArticleAudioPanel'
@@ -351,8 +352,9 @@ function ActionButton({
 }
 
 // 게시 게이트 — admin_force_publish_article 가 copyright_safe_in_kr=true 강제.
-// P3/C5 — VOA = listening-first 학습 정체성: audio 미연결 시 발행 보류
+// P4 — SourcePolicy 기반: media='audio'(듣기 정체성) 소스는 audio 미연결 시 발행 보류
 //   (DB 트리거 trg_la_require_audio 와 동일 규칙을 검수 UI 에 선반영 — 클릭→예외 사전 차단).
+//   source 하드코딩(if source==='voa') 제거 — 정책 한 출처로 통합.
 type PublishGateKind =
   | 'publishable'
   | 'published'
@@ -371,7 +373,10 @@ function computePublishGate(
   if (status === 'archived') return 'archived'
   if (!copyrightSafe) return 'copyright'
   if (status === 'ready' || status === 'failed') {
-    if (source === 'voa' && !(audioUrl && audioUrl.trim())) return 'no_audio'
+    // 정책 기반 — media='audio' 소스(듣기 정체성)는 audio 미연결 시 발행 보류.
+    if (resolveSourcePolicy(source).media === 'audio' && !(audioUrl && audioUrl.trim())) {
+      return 'no_audio'
+    }
     return 'publishable'
   }
   return 'processing'
@@ -381,7 +386,7 @@ const GATE_REASON: Record<Exclude<PublishGateKind, 'publishable' | 'published'>,
   archived: '보관됨 — 게시 불가',
   copyright: '저작권 미확인 — 게시 불가',
   processing: '처리 중 — 게시 불가',
-  no_audio: '오디오 미연결 — VOA 발행 보류',
+  no_audio: '오디오 미연결 — 발행 보류',
 }
 
 function PublishControl({
