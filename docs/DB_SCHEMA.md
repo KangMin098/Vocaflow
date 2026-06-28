@@ -34,7 +34,7 @@
 | `vocabularies` | 5,896 | 2.4 MB | 사용자 단어장 (FSRS 6컬럼) · UNIQUE(user_id, word) · `lemma` REFERENCES `shared_dictionary(word)` |
 | `learning_records` | 0 | 40 kB | 모든 모듈 공통 — rating SMALLINT 1-4 (FSRS) · is_correct · metadata JSONB |
 | `scores` | 0 | 32 kB | 게임 결과 (Flashcard·SpellForge·WordBlitz·PairFlip·ScriptQuiz·Dictation) · metadata JSONB |
-| `quiz_questions` | 5 | 24 kB | ScriptQuiz 문제 (per user+text · type · options JSONB · correct_index · source_snippet) — A3.4 첫 콘텐츠 5문제(Ammachi Ch1) |
+| `quiz_questions` | 5 | 24 kB | ScriptQuiz 문제 (per user+text · type · question/`question_ko`(A3.4b) · options JSONB(textKo) · correct_index · source_snippet) — A3.4 첫 콘텐츠 5문제(Ammachi Ch1) |
 | `dictation_sessions` | 0 | 24 kB | Dictation 세션 헤더 (config JSONB) |
 | `dictation_items` | 0 | 24 kB | session_id · index · expected_text · user_input · result JSONB |
 | `echo_match_sessions` | 2 | 48 kB | v06.33 — avg/best/worst 점수 · retried_sentence_ids TEXT[] |
@@ -285,7 +285,7 @@ CREATE POLICY "own data" ON {table}
 20260603143502  find_unbound_perf_prefilter
 ```
 
-전체 누적 106건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628130000_p6_6_enroll_v0_undiagnosed_guard` — `_enroll_book_subscribe_word_sets` effective V-level 산정에 `NULLIF(current_v_level,0)` 가드, V0=미진단→fallback, P6.6 · 직전: `20260628120000_p6_enroll_subscribe_i_plus_one` 책 구독 i+1 필터 P6.1/C1)
+전체 누적 107건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628140000_scriptquiz_question_ko` — quiz_questions 에 `question_ko` nullable 컬럼, ScriptQuiz 질문 한국어 토글, A3.4b · 직전: `20260628130000_p6_6_enroll_v0_undiagnosed_guard` V0 미진단 가드 P6.6)
 
 ---
 

@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3.4b ScriptQuiz 질문 한국어(question_ko) 완성 (v06.98)
+
+A3.4 의 한국어 토글이 옵션만 번역하고 질문은 영어로 남던 것 → `quiz_questions.question_ko` 컬럼 추가로 질문까지 한국어. 마이그레이션 `20260628140000_scriptquiz_question_ko`(nullable, 무손실).
+
+- **마이그레이션** — `ADD COLUMN question_ko text`(사용자 명시 승인). Ammachi Ch1 5문제 한국어 질문 UPDATE 적재.
+- **`fetchQuizSession`** — `question_ko` select + `questionKo` 매핑(있을 때만). 생성 타입 미반영이라 unknown 경유 캐스팅(런타임 컬럼 존재).
+- 롤백 `docs/AI_CONTEXT/rollback/scriptquiz_question_ko_원본.sql`.
+
 ### A3.4 ScriptQuiz 실 퀴즈 capability (quiz_questions 연동) (v06.98)
 
 게임 mock 스윕 마지막 — ScriptQuiz 가 `MOCK_SESSION` 고정이던 것 → `quiz_questions`(per user+text) 실 퀴즈 fetch + MOCK 폴백. **코드 capability 만**(문제 콘텐츠 생성은 별도 — 앱에 런타임 LLM 인프라 없음, Claude Code 사전 생성 또는 생성 파이프라인이 채움). 마이그레이션 0.

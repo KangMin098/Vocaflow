@@ -17,6 +17,7 @@ interface QuizQuestionRow {
   id: string
   type: string
   question: string
+  question_ko: string | null
   options: QuizOption[] | null
   correct_index: number
   source_snippet: string | null
@@ -30,6 +31,7 @@ function rowToQuestion(r: QuizQuestionRow): QuizQuestion {
     id: r.id,
     type,
     question: r.question,
+    ...(r.question_ko ? { questionKo: r.question_ko } : {}),
     options: Array.isArray(r.options) ? r.options : [],
     correctIndex: r.correct_index,
     sourceSnippet: r.source_snippet ?? '',
@@ -49,7 +51,7 @@ export async function fetchQuizSession(
   const [{ data: qRows, error: qErr }, { data: textRow }] = await Promise.all([
     client
       .from('quiz_questions')
-      .select('id, type, question, options, correct_index, source_snippet, source_sentence_idx')
+      .select('id, type, question, question_ko, options, correct_index, source_snippet, source_sentence_idx')
       .eq('user_id', userId)
       .eq('text_id', textId)
       .order('created_at', { ascending: true }),
@@ -57,7 +59,8 @@ export async function fetchQuizSession(
   ])
   if (qErr) throw qErr
 
-  const rows = (qRows ?? []) as QuizQuestionRow[]
+  // question_ko 는 신규 컬럼(20260628140000) — 생성 타입 미반영이라 unknown 경유 캐스팅.
+  const rows = (qRows ?? []) as unknown as QuizQuestionRow[]
   if (rows.length === 0) return null
 
   return {
