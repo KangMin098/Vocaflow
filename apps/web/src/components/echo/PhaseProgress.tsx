@@ -27,7 +27,7 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
       {/* Phase pills */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
-          {PHASES.map((p, idx) => {
+          {PHASES.map((p) => {
             const isActive = phase === p.key
             const isPassed = activeIdx > PHASE_ORDER.indexOf(p.key)
             return (

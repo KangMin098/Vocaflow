@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### lint 부채 74건 cleanup → verify CI green (v06.93)
+
+`next lint`(CI `verify` job)를 막던 ESLint **에러 74건**을 0으로 정리(빌드 복구 v06.92로 드러난 부채). 경고(jsx-a11y·exhaustive-deps)는 차단 안 하므로 보존.
+
+- **`no-explicit-any` 32 (전부 `lib/admin/dict/queries.ts`)** — `countRows` 콜백의 불필요한 `(q as any)` 중복 캐스트 제거(`q`는 이미 `PgQuery`(eslint-disabled 단일 alias) 타입). 런타임 불변.
+- **`no-unused-vars` 28** — 미사용 import/var/arg 제거(24파일). 미사용 prop은 destructure에서만 제거(인터페이스/콜러 계약 보존), write-only 변수·orphaned arg는 안전 정리.
+- **`no-unescaped-entities` 12** — JSX 텍스트의 `"`/`'`를 `&ldquo;`/`&rdquo;`/`&apos;` 등으로 이스케이프(6파일).
+- **`prefer-const` 2** — `bookMetaMap`·`countsPerSet` `let`→`const`.
+- 검증: `next lint` 에러 0(경고만) · `tsc --noEmit` 통과 · `next build` green.
+
 ### 프로덕션 빌드 복구 (v06.92)
 
 `next build`(프로덕션)가 main에서 **기존부터 실패**하던 것을 복구 — 배포 차단 이슈. CI가 typecheck/lint만 게이트하고 `next build`는 안 돌려 미발견. (SRS 검증 중 발견 — [[project_next_build_broken]] 진단.)

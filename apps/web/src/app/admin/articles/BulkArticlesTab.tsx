@@ -652,15 +652,6 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     })
   }
 
-  // 전체 선택 / 해제
-  const toggleAll = () => {
-    if (selected.size === rows.length) {
-      setSelected(new Set())
-    } else {
-      setSelected(new Set(rows.map(rowKey)))
-    }
-  }
-
   // 일괄 큐 추가
   async function handleBulkEnqueue() {
     setEnqueuing(true)
@@ -1767,7 +1758,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       {/* 빈 상태 */}
       {rows.length === 0 && !fetching && failedFeeds.length === 0 && (
         <div className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] p-8 text-center font-body text-[12px] text-[var(--t3)]">
-          소스를 선택하고 <strong className="text-[var(--t1)]">"일괄 가져오기"</strong> 를 누르세요.
+          소스를 선택하고 <strong className="text-[var(--t1)]">&ldquo;일괄 가져오기&rdquo;</strong> 를 누르세요.
           <br />
           여러 소스의 모든 카테고리를 한 번에 가져온 후 체크박스로 선택해 큐에 추가합니다.
         </div>
@@ -1779,12 +1770,6 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 // ── helpers ───────────────────────────
 function rowKey(r: { source: string; source_id: string }): string {
   return `${r.source}:${r.source_id}`
-}
-
-function countFeeds(selectedSources: Set<SourceKey>): number {
-  let n = 0
-  for (const s of SOURCES) if (selectedSources.has(s.key)) n += s.feeds.length
-  return n
 }
 
 // 선택한 학습자 수준 대비 소스 고정 CEFR 밴드의 적합도.

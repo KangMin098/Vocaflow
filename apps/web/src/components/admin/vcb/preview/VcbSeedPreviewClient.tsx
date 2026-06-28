@@ -9,7 +9,6 @@ import {
   importSeedList,
   deleteSeedListArtifacts,
   type SeedPreviewData,
-  type SeedPreviewItem,
 } from '@/lib/vcb/server/seed'
 import { VcbPreviewHero } from './VcbPreviewHero'
 import { VcbPreviewFilters, type PreviewFilters } from './VcbPreviewFilters'
@@ -129,7 +128,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
     return null
   }, [total, confAvg, data.spec.target_count])
 
-  const toggleReject = useCallback((key: string, _item: SeedPreviewItem) => {
+  const toggleReject = useCallback((key: string) => {
     setRejections((prev) => {
       const next = new Set(prev)
       if (next.has(key)) next.delete(key)
@@ -206,7 +205,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
       // r — toggle reject on selected
       if (e.key === 'r' && selectedKey) {
         const item = data.items.find((it) => `${it.lemma}|${it.pos}` === selectedKey)
-        if (item) toggleReject(selectedKey, item)
+        if (item) toggleReject(selectedKey)
         return
       }
 
@@ -416,7 +415,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           spec={data.spec}
           isRejected={selectedKey !== null && rejections.has(selectedKey)}
           onToggleReject={() => {
-            if (selectedKey && selectedItem) toggleReject(selectedKey, selectedItem)
+            if (selectedKey && selectedItem) toggleReject(selectedKey)
           }}
         />
       </div>

@@ -49,7 +49,6 @@ export function ChapterSidebar({
 }: ChapterSidebarProps) {
   const showSourceLink = mode === 'admin-review' && !!source && !!sourceId
   const segments = useMemo(() => buildSegments(chapters), [chapters])
-  const hasGroups = useMemo(() => segments.some((s) => s.label), [segments])
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set())
 
   // 그룹 있는 책: 기본 전부 접되, 활성 챕터가 든 그룹만 펼침
