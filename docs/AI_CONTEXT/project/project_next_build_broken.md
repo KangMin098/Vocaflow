@@ -20,7 +20,9 @@ SWC(Rust) 에러체인 포맷, **소스 경로 없음**. 실패 직전 minified 
 
 **next.config.mjs 현황:** transpilePackages(@vocaflow/*) + images.remotePatterns + dev watchOptions만. **onnxruntime-web/WASM minify 예외 처리 없음.**
 
-**수정 방향(미착수):** ① next.config webpack 에서 ort 청크 minify 제외 또는 asyncWebAssembly experiment + .wasm 처리 ② 또는 onnxruntime-web 를 동적 client-only 로더에서 external 처리 ③ 또는 SWC minify가 못 먹는 vendor 만 Terser fallback. 각 시도마다 build ~2-3분 — 별도 작업으로 권장.
+**수정 완료 (PR #41, branch fix/next-build-onnxruntime, main 기반):** next.config.mjs 에 ① `swcMinify: false`(Terser 폴백 → minify Syntax Error 해소, `✓ Compiled successfully`) + ② `eslint: { ignoreDuringBuilds: true }`(드러난 전프로젝트 lint 부채 74건 분리 — typecheck 는 계속 강제). 결과: `next build` exit 0, 83 페이지 생성. **두 원인 모두 pre-existing(minify + lint 이중 깨짐).**
+
+**후속(미착수):** ① CI(sync-check.yml)에 `next build` job 추가(재발 조기 감지) ② lint 74건(no-explicit-any 32·no-unused-vars 28·no-unescaped 12·deps 6) 점진 cleanup ③ ort 청크만 minify 제외하는 surgical 설정으로 SWC minify 전역 복원(빌드 속도).
 
 검증 시 worktree 갓차: `.env.local`은 gitignore라 worktree에 없음 → 루트에서 복사해야 build 가능 ([[project_doc_structure_split]] WORKTREE 가이드에 추가 후보).
 
