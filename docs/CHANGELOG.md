@@ -20,6 +20,14 @@
 - **5개 호출처** — FlashcardSession/ScriptQuiz/SpellForge/DictationResultsClient/text[id] 의 `useMemo(getMockNextAction(...))` → `useNextAction()`. (getMockNextAction/MOCK_USER_CONTEXTS 은 데모/테스트용 보존.)
 - ⚠️ typecheck/lint green, 런타임 미검증. user_stats 빈 상태면 vocab 수 근사로 mastery 산정(cold-bias) — 실 사용자 데이터 누적 시 정확.
 
+### A3.7 WordBlitz standalone 영속화 완성 (learning_records + scores) (v06.98)
+
+`/play/wordblitz` standalone 라우트의 onCorrect/onWrong 이 `console.log` TODO 였던 것(워크스페이스 모드 WorkspaceWordBlitzMode 만 A1.3 적재) → learning_records + scores 둘 다 적재. **이로써 게임 5종(flashcard/spellforge/pairflip/scriptquiz·텍스트결과/dictation/wordblitz) 점수 적재 완료.** 마이그레이션 0.
+
+- **onCorrect/onWrong** → `recordWordBlitzResult({word, isCorrect})`(FSRS learning_records, 워크스페이스 모드와 동일) + 정/오답 카운트.
+- **onExit** → `recordGameScore`(module='wordblitz', score=correct×120+wrong×30 게임식 복제[POINTS 고정], accuracy/duration/metadata). captured 0(미플레이) skip + 1회 가드.
+- ⚠️ typecheck/lint green, Three.js 게임 런타임 미검증. WordBlitz 는 무한루프라 "완료" 없음 → exit 시점 적재.
+
 ### A3.6 게임 점수 적재 확장 (flashcard/spellforge/dictation) (v06.98)
 
 A3.5(PairFlip)로 시작한 `scores` 적재를 3개 게임으로 확장 — 메인 Hub "최근 활동"(useHubData 가 scores 읽음)이 실제로 채워지도록. 공유 헬퍼로 통일. 마이그레이션 0.
