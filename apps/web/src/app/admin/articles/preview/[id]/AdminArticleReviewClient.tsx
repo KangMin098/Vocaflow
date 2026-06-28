@@ -24,11 +24,13 @@ import {
   RefreshCw,
   Trash2,
   Undo2,
+  XCircle,
 } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import { resolveSourcePolicy } from '@vocaflow/library-pipeline/curation-spec'
 import { classifyArticleStatus } from '@/lib/articles/types'
+import { computeGateItems, gatePasses, type GateItem } from '@/lib/articles/publish-gate'
 import type { ReviewArticle, ReviewVocab } from '@/lib/articles/review-types'
 import { ArticleAudioPanel } from '@/components/admin/articles/ArticleAudioPanel'
 import { ArticleExtractionPanel } from '@/components/admin/articles/ArticleExtractionPanel'
@@ -44,6 +46,15 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
   const [error, setError] = useState<string | null>(null)
 
   const statusInfo = classifyArticleStatus(article.status)
+  const policy = resolveSourcePolicy(article.source)
+  const gateItems = computeGateItems(policy, {
+    audioUrl: article.audioUrl,
+    lexicalNoise: article.lexicalNoise,
+    articleVLevel: article.articleVLevel,
+    sourceUrl: article.sourceUrl,
+    author: article.author,
+    license: article.license,
+  })
   const gate = computePublishGate(
     article.status,
     article.copyrightSafeInKr,
@@ -161,6 +172,14 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
         </div>
       </div>
 
+      {/* ── 정책 게이트 (항목별 ✓/✕) ── */}
+      <GatePanel
+        items={gateItems}
+        derivation={policy.derivation}
+        status={article.status}
+        copyrightSafe={article.copyrightSafeInKr}
+      />
+
       {/* ── 2) 본문 리더 (단일 섹션) ── */}
       <article className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <header className="flex flex-col gap-2 border-b border-[var(--bd)] bg-[var(--bg2)] px-5 py-4">
@@ -183,6 +202,8 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
             <span className="font-mono uppercase">{article.source}</span>
             {article.author && <span>· {article.author}</span>}
             <span>· CEFR {article.cefrLevel ?? '—'}</span>
+            {article.articleVLevel != null && <span>· V{article.articleVLevel}</span>}
+            {article.register && <span>· {article.register}</span>}
             <span>· {article.wordCount?.toLocaleString() ?? '—'}단어</span>
             {article.readingMinutes ? <span>· 약 {article.readingMinutes}분</span> : null}
             <span>· {article.license}</span>
@@ -318,6 +339,83 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
 }
 
 // ── Sub-components ───────────────────────────────
+
+// 정책 게이트 패널 — computeGateItems 항목별 ✓/✕ + derivation/copyright 노트 + 종합 판정.
+function GatePanel({
+  items,
+  derivation,
+  status,
+  copyrightSafe,
+}: {
+  items: GateItem[]
+  derivation: 'full' | 'display_only'
+  status: string
+  copyrightSafe: boolean
+}) {
+  const passCount = items.filter((i) => i.pass).length
+  const allPass = gatePasses(items)
+  const ready = status === 'ready'
+  const publishable = ready && allPass && copyrightSafe
+
+  const verdict = publishable
+    ? { label: '발행 가능 — 모든 게이트 통과', color: 'var(--learn-known)', Icon: CheckCircle2 }
+    : status === 'published'
+      ? { label: '게시됨', color: 'var(--learn-known)', Icon: CheckCircle2 }
+      : {
+          label: ready ? '보완 필요 — 게이트 미통과' : '분석(ready) 후 게이트 평가',
+          color: 'var(--learn-review)',
+          Icon: AlertCircle,
+        }
+  const VerdictIcon = verdict.Icon
+
+  return (
+    <section
+      aria-label="발행 게이트"
+      className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+    >
+      <header className="flex items-center justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">발행 게이트</span>
+        <span
+          className="font-mono text-[11px] font-[700] tabular-nums"
+          style={{ color: allPass ? 'var(--learn-known)' : 'var(--learn-error)' }}
+        >
+          {passCount} / {items.length}
+        </span>
+      </header>
+      <ul className="grid gap-1.5 sm:grid-cols-2">
+        {items.map((it) => (
+          <li key={it.key} className="flex items-center gap-1.5 font-body text-[12px]">
+            {it.pass ? (
+              <CheckCircle2 size={14} className="shrink-0 text-[var(--learn-known)]" aria-hidden />
+            ) : (
+              <XCircle size={14} className="shrink-0 text-[var(--learn-error)]" aria-hidden />
+            )}
+            <span style={{ color: it.pass ? 'var(--t2)' : 'var(--learn-error)' }}>{it.label}</span>
+          </li>
+        ))}
+        {derivation === 'display_only' && (
+          <li className="flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-review)]">
+            <AlertCircle size={14} className="shrink-0" aria-hidden />
+            단어세트 미발행(ND) — 본문 읽기 전용
+          </li>
+        )}
+        {!copyrightSafe && (
+          <li className="flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-error)]">
+            <XCircle size={14} className="shrink-0" aria-hidden />
+            저작권 미확인 — 게시 차단
+          </li>
+        )}
+      </ul>
+      <div
+        className="flex items-center gap-1.5 border-t border-[var(--bd)] pt-2 font-display text-[12px] font-[600]"
+        style={{ color: verdict.color }}
+      >
+        <VerdictIcon size={14} aria-hidden />
+        {verdict.label}
+      </div>
+    </section>
+  )
+}
 
 function ActionButton({
   icon,

@@ -43,6 +43,8 @@ interface ArticleRow {
   llm_cost_usd: string | null
   content: string | null
   audio_url: string | null
+  register: string | null
+  lexical_noise: number | null
   created_at: string
 }
 
@@ -61,7 +63,7 @@ export default async function AdminArticlePreviewPage({ params }: PageProps) {
   const { data: article, error } = await client
     .from('library_articles')
     .select(
-      'id, source, source_id, source_url, title, author, cefr_level, cefr_confidence, word_count, reading_minutes, status, status_message, license, copyright_safe_in_kr, published_at, llm_cost_usd, content, audio_url, created_at',
+      'id, source, source_id, source_url, title, author, cefr_level, cefr_confidence, word_count, reading_minutes, status, status_message, license, copyright_safe_in_kr, published_at, llm_cost_usd, content, audio_url, register, lexical_noise, created_at',
     )
     .eq('id', params.id)
     .maybeSingle()
@@ -151,6 +153,8 @@ export default async function AdminArticlePreviewPage({ params }: PageProps) {
           llmCostUsd: a.llm_cost_usd,
           content: a.content,
           audioUrl: a.audio_url,
+          register: a.register,
+          lexicalNoise: a.lexical_noise,
           createdAt: a.created_at,
         }}
         vocab={vocab}
