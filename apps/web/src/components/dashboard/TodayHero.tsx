@@ -10,9 +10,16 @@ export interface TodayHeroProps {
   userName?: string
   todayWords?: number
   goal?: number
+  /** known-word 누적 (LingQ형 Implicit Progress, P3) */
+  knownWordCount?: number
 }
 
-export function TodayHero({ userName = '학습자', todayWords = 23, goal = 30 }: TodayHeroProps) {
+export function TodayHero({
+  userName = '학습자',
+  todayWords = 0,
+  goal = 30,
+  knownWordCount = 0,
+}: TodayHeroProps) {
   const hour = new Date().getHours()
   const greeting =
     hour < 6
@@ -61,6 +68,15 @@ export function TodayHero({ userName = '학습자', todayWords = 23, goal = 30 }
           <p className="font-body text-[13.5px] leading-relaxed text-[var(--t2)]">
             {note}
           </p>
+          {knownWordCount > 0 && (
+            <p className="font-body text-[12px] leading-relaxed text-[var(--t3)]">
+              지금까지{' '}
+              <span className="font-display font-[700] text-[var(--t2)]">
+                {knownWordCount.toLocaleString()}개
+              </span>
+              의 단어가 마음에 자리잡았어요
+            </p>
+          )}
         </div>
       </div>
 
