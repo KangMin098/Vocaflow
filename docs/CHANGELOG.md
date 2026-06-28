@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### A3.6 게임 점수 적재 확장 (flashcard/spellforge/dictation) (v06.98)
+
+A3.5(PairFlip)로 시작한 `scores` 적재를 3개 게임으로 확장 — 메인 Hub "최근 활동"(useHubData 가 scores 읽음)이 실제로 채워지도록. 공유 헬퍼로 통일. 마이그레이션 0.
+
+- **`lib/scores/record-score.ts`** 신규 — `recordGameScore`(fire-and-forget INSERT) + `useRecordGameScore`(완료 컴포넌트 마운트 1회, re-render/StrictMode 중복 방지). `learning_records`(단어별 FSRS)와 별개 세션 결과.
+- **Flashcard** `CompletionState` — ratingCounts 기반 correct/accuracy 집계 → scores(module='flashcard').
+- **SpellForge** `SpellForgeCompletion` — totalWords/correctCount/duration → scores(module='spellforge').
+- **Dictation** `DictationResultsClient` — session.totalAccuracy/items/totalTimeMs → scores(module='dictation', session 로드 시 1회).
+- ⚠️ typecheck/lint green, 완료 화면 런타임 미검증. **WordBlitz 보류**(무한루프 — 세션 시작시각·정오 카운트 추적 구조 추가 필요, 별도). PairFlip(A3.5/#56)은 inline write — 후속 통일 가능.
+
 ### A3.4b ScriptQuiz 질문 한국어(question_ko) 완성 (v06.98)
 
 A3.4 의 한국어 토글이 옵션만 번역하고 질문은 영어로 남던 것 → `quiz_questions.question_ko` 컬럼 추가로 질문까지 한국어. 마이그레이션 `20260628140000_scriptquiz_question_ko`(nullable, 무손실).

@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import type { RecommendedAction } from '@/lib/recommend/types'
+import { useRecordGameScore } from '@/lib/scores/record-score'
 import type { SessionStats } from '@/types/flashcard'
 
 interface CompletionStateProps {
@@ -27,6 +28,27 @@ export function CompletionState({
 
   // 내일 다시 만날 카드 = again + hard 평가 받은 카드
   const tomorrowCount = stats.ratingCounts.again + stats.ratingCounts.hard
+
+  // 게임 세션 점수 적재 (scores) — 완료 화면 1회. learning_records(단어별)와 별개.
+  const totalRated =
+    stats.ratingCounts.again +
+    stats.ratingCounts.hard +
+    stats.ratingCounts.good +
+    stats.ratingCounts.easy
+  const correctCount = stats.ratingCounts.good + stats.ratingCounts.easy
+  useRecordGameScore({
+    module: 'flashcard',
+    score: correctCount,
+    totalQuestions: stats.totalCards,
+    correctCount,
+    accuracy: totalRated > 0 ? Math.round((correctCount / totalRated) * 100) : 0,
+    durationSeconds: stats.durationSeconds,
+    metadata: {
+      ratingCounts: stats.ratingCounts,
+      honestyScore: stats.honestyScore,
+      difficultCount: stats.difficultWords.length,
+    },
+  })
 
   return (
     <section className="flex flex-1 items-center justify-center p-8">

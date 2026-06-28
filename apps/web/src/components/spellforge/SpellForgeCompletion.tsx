@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import type { RecommendedAction } from '@/lib/recommend/types'
+import { useRecordGameScore } from '@/lib/scores/record-score'
 
 interface SpellForgeCompletionProps {
   totalWords: number
@@ -31,6 +32,17 @@ export function SpellForgeCompletion({
 
   const minutes = Math.max(1, Math.round(durationMs / 60000))
   const accuracy = totalWords > 0 ? Math.round((correctCount / totalWords) * 100) : 0
+
+  // 게임 세션 점수 적재 (scores) — 완료 화면 1회. textId="all"(비-uuid)는 생략.
+  useRecordGameScore({
+    module: 'spellforge',
+    score: correctCount,
+    totalQuestions: totalWords,
+    correctCount,
+    accuracy,
+    durationSeconds: Math.round(durationMs / 1000),
+    metadata: { totalWords, correctCount },
+  })
 
   return (
     <section className="flex flex-1 items-center justify-center bg-[var(--reading-bg)] p-8">

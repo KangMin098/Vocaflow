@@ -24,6 +24,7 @@ import {
   getMockNextAction,
   MOCK_USER_CONTEXTS,
 } from '@/lib/recommend/next-action.mock';
+import { useRecordGameScore } from '@/lib/scores/record-score';
 import { applyReview, createNewCard } from '@/lib/srs';
 import { accuracyToRating } from '@/lib/srs/rating-mapper';
 import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage';
@@ -56,6 +57,25 @@ export function DictationResultsClient() {
     }
     setSession(s);
   }, [sessionId, router]);
+
+  // 게임 세션 점수 적재 (scores) — session 로드 시 1회. learning_records(단어별)와 별개.
+  useRecordGameScore(
+    session
+      ? {
+          module: 'dictation',
+          score: Math.round(session.totalAccuracy ?? 0),
+          totalQuestions: session.items.length,
+          correctCount: session.items.filter((it) => (it.result?.accuracy ?? 0) >= 90).length,
+          accuracy: Math.round(session.totalAccuracy ?? 0),
+          durationSeconds: Math.round((session.totalTimeMs ?? 0) / 1000),
+          metadata: {
+            unit: session.config?.unit,
+            scoring: session.config?.scoring,
+            totalHintsUsed: session.totalHintsUsed,
+          },
+        }
+      : null,
+  );
 
   // §17 [4] 기억 축 — Dictation 세션 종료 시 SRS 일괄 적용 (L4c 청각 생성)
   // sessionStorage 단계: 정규화된 단어 텍스트를 cardId로 사용. DB 연동 시 vocabulary lookup 필요.
