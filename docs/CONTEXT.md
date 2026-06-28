@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/flashcard-hub-real-data`
+**활성 브랜치**: `feat/spellforge-hub-real-data`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `4b9164d` feat(flashcard): hub 진입 실 SRS-due 단어 (mock 제거, A3) (#51)
 - `523b72e` docs(srs): P6.5 Cold/Warm/Hot 계층 통합 검증·명문화 (VOCAB_LAYERS.md) (#50)
 - `07c7d74` docs(acp): OpenStax CC-BY 전수 스캔 결과 반영 (§19 옵션 1 viability 확정) (#49)
 - `60e634c` feat(acp): OpenStax CNXML 소스 설계 + 프로토타입 ingester (§19) (#48)
 - `d84bd45` fix(srs): V0 미진단 effective V-level 가드 — _enroll i+1 밴드 붕괴 방지 (P6.6) (#47)
-- `65b0980` feat(srs): 책 구독 시 i+1 필터 — _enroll_book_subscribe_word_sets (P6.1/C1) (#46)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
