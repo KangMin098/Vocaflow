@@ -45,9 +45,9 @@ osbooks-<book>-bundle/            (default branch = main)
 
 ## 2. 🔴 라이선스 게이트 — 통합의 결정적 제약
 
-OpenStax **현행 표준 라이선스 = CC-BY-NC-SA 4.0 (NonCommercial)**.
+OpenStax **인기 교재 표준 라이선스 = CC-BY-NC-SA 4.0 (NonCommercial)**. (전수 스캔: 55 repo 중 41 NC-SA / 13 CC-BY / 1 none — §2.1 참조)
 
-실측 확인 (10종 — 전부 `licenses/by-nc-sa/`):
+실측 확인 (NC-SA 10종 — 전부 `licenses/by-nc-sa/`):
 `biology-2e · university-physics · astronomy-2e · psychology-2e · american-government-4e · microbiology · world-history · chemistry · business-ethics …`
 
 §18 `acp_classify_license` 직접 호출 결과:
@@ -61,9 +61,11 @@ OpenStax **현행 표준 라이선스 = CC-BY-NC-SA 4.0 (NonCommercial)**.
 
 ### 결정 게이트 (통합 진입 조건 — 셋 중 하나)
 
-1. **CC-BY OpenStax 타이틀 한정** — 비-NC 책만 ingest (현재 인기 10종엔 없음, 전수 스캔 필요).
-2. **비상업적 사용 commitment** — Vocaflow 가 NC 콘텐츠를 비상업 용도로만 쓴다는 비즈니스/법적 결정. 이 경우 NC 전용 `display_only` 티어(워크스페이스 읽기 + 클릭 툴팁, 파생 단어세트 발행 X)를 §18 에 추가.
+1. **CC-BY OpenStax 타이틀 한정** — 비-NC 책만 ingest. ✅ **전수 스캔 완료(2026-06-28)**: `osbooks-*` 55 repo 중 GitHub spdx `CC-BY-4.0` 13개 / NOASSERTION(=NC-SA 비표준 LICENSE) 41개. 권위 출처(collection.xml `<md:license>`) 검증 — **영어 CC-BY 원서 = `osbooks-physics`(College Physics) · `osbooks-statistics`(Statistics) 2종 확인**(나머지 11개는 스페인어/폴란드어 번역본). ⚠️ 둘 다 STEM·수식 밀집 → MathML/equation 제거 후 개념 설명 산문만 수확(공식 밀집 섹션은 빈약) = **content fit 한정적**.
+2. **비상업적 사용 commitment** — Vocaflow 가 NC 콘텐츠를 비상업 용도로만 쓴다는 비즈니스/법적 결정. 이 경우 NC 전용 `display_only` 티어(워크스페이스 읽기 + 클릭 툴팁, 파생 단어세트 발행 X)를 §18 에 추가. 인기 교재(biology/psychology-2e 등 41 NC-SA)가 열림.
 3. **보류** — 현 게이트 유지, OpenStax 미통합 (현 상태).
+
+**권장**: 영어 CC-BY 원서가 Physics·Statistics 2종(STEM·수식 밀집)뿐이라 옵션 1 의 ROI 는 낮다(기존 ACP 소스 + 라이브러리 도서 대비 추가 가치 marginal). 학술/academic 트랙 C1 STEM 어휘가 특별히 필요할 때만 옵션 1, 아니면 옵션 3(보류) 합리적. 옵션 2 는 순수 비즈니스/법적 판단.
 
 본 설계는 1·2 결정 시 즉시 가동 가능하도록 **ingester 를 라이선스-중립으로 완성**(아래)했고, DB 소스 등록은 결정 전까지 보류한다.
 
@@ -114,7 +116,7 @@ ALTER TABLE public.library_articles ADD CONSTRAINT library_articles_source_check
 ## 5. 결론
 
 - **기술 통합은 해결됨** — CNXML 파싱·라이선스 권위 읽기·게이트 연동 ingester 완성·실측 검증.
-- **차단 요인은 라이선스 1건** — OpenStax 인기 교재 전부 CC-BY-NC-SA = §18 게이트가 (상업 안전 정책상 정확히) 차단.
-- **다음 행동은 코드가 아니라 결정** — §2 의 1·2·3 중 택일. 결정 전까지 DB 소스 등록(O1~)은 보류, ingester 만 대기 상태로 머지.
+- **인기 교재(41 NC-SA)는 게이트 차단** — §18 이 상업 안전 정책상 정확히 막음. 영어 CC-BY 원서는 Physics·Statistics 2종(STEM·수식 밀집)뿐.
+- **다음 행동은 코드가 아니라 결정** — §2 의 1·2·3 중 택일. **권장 = 옵션 3(보류)** 또는 academic 트랙 STEM 어휘 필요 시 옵션 1(Physics/Statistics 한정). 결정 전까지 DB 소스 등록(O1~)은 보류, ingester 만 대기 상태로 머지됨(main).
 
 관련: `docs/ACP_SOURCE_REDESIGN.md` · 메모리 [[project-acp-source-redesign]] · [[project-copyright-gate-us-license]]
