@@ -9,6 +9,7 @@
 import {
   BookMarked,
   BookOpen,
+  CalendarDays,
   Check,
   ExternalLink,
   FileText,
@@ -92,9 +93,11 @@ function defaultActivities(type: MaterialType): Set<PlanActivity> {
 export function PlanClient({
   initialItems,
   materials,
+  todayWeekday,
 }: {
   initialItems: PlanItem[]
   materials: AvailableMaterials
+  todayWeekday: number
 }) {
   const [items, setItems] = useState<PlanItem[]>(initialItems)
   const [error, setError] = useState<string | null>(null)
@@ -285,8 +288,11 @@ export function PlanClient({
         </p>
       )}
 
+      {/* 오늘의 학습 */}
+      {items.length > 0 && <TodayStrip items={items} today={todayWeekday} />}
+
       {/* 주간 보드 */}
-      <WeekBoard items={items} editId={editId} onSelect={editExisting} />
+      <WeekBoard items={items} editId={editId} today={todayWeekday} onSelect={editExisting} />
 
       {/* 컴포저 (2-pane) */}
       <section
@@ -458,14 +464,74 @@ export function PlanClient({
   )
 }
 
+// ── 오늘의 학습 (오늘 요일 항목 → 바로 시작) ──
+function TodayStrip({ items, today }: { items: PlanItem[]; today: number }) {
+  const todayItems = items.filter((i) => i.weekdays.includes(today))
+  const dayLabel = weekdayLabel(today)
+  return (
+    <section
+      aria-label="오늘의 학습"
+      className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
+    >
+      <h2 className="flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
+        <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
+        오늘의 학습 <span className="font-mono text-[12px] text-[var(--p)]">{dayLabel}요일</span>
+      </h2>
+      {todayItems.length === 0 ? (
+        <p className="font-body text-[13px] text-[var(--t3)]">
+          오늘({dayLabel})은 계획된 학습이 없어요 — 아래에서 자료에 {dayLabel}요일을 더해 보세요.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-2.5">
+          {todayItems.map((it) => (
+            <TodayRow key={it.id} item={it} />
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}
+
+function TodayRow({ item }: { item: PlanItem }) {
+  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  return (
+    <div className="flex flex-col gap-1.5">
+      <span className="flex items-center gap-1.5">
+        <MiniMaterialGlyph item={item} />
+        <span className="truncate font-display text-[13px] font-[800] text-[var(--t1)]">{item.title}</span>
+        {item.materialType === 'book' && item.chapterCount > 1 && (
+          <span className="font-mono text-[11px] text-[var(--t3)]">
+            {item.chapters.length === 0 ? '전체' : `Ch ${item.chapters.join('·')}`}
+          </span>
+        )}
+      </span>
+      {acts.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {acts.map((a) => (
+            <LaunchChip
+              key={a.id}
+              activity={a.id}
+              href={activityLaunchHref(ref, a.id)}
+              scoped={isActivityScoped(item.materialType, a.id)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── 주간 보드 ──
 function WeekBoard({
   items,
   editId,
+  today,
   onSelect,
 }: {
   items: PlanItem[]
   editId: string | null
+  today: number
   onSelect: (item: PlanItem) => void
 }) {
   const unscheduled = items.filter((i) => i.weekdays.length === 0)
@@ -477,9 +543,22 @@ function WeekBoard({
       <div className="grid grid-cols-7 gap-1.5">
         {WEEKDAYS.map((d) => {
           const dayItems = items.filter((i) => i.weekdays.includes(d.value))
+          const isToday = d.value === today
           return (
-            <div key={d.value} className="flex min-h-[68px] flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg)] p-1.5">
-              <span className="text-center font-display text-[11px] font-[800] text-[var(--t2)]">{d.label}</span>
+            <div
+              key={d.value}
+              className={`flex min-h-[68px] flex-col gap-1 rounded-[var(--r-md)] p-1.5 ${
+                isToday ? 'bg-[var(--bg)] ring-2 ring-[var(--p)]' : 'bg-[var(--bg)]'
+              }`}
+            >
+              <span
+                className={`text-center font-display text-[11px] font-[800] ${
+                  isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+                }`}
+              >
+                {d.label}
+                {isToday && <span className="ml-0.5 align-top text-[8px]">오늘</span>}
+              </span>
               <div className="flex flex-col items-center gap-1">
                 {dayItems.length === 0 ? (
                   <span className="font-mono text-[12px] text-[var(--t3)]" aria-hidden>

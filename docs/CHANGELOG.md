@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 계획 "오늘의 학습" — 계획 → 매일 실행 연결 (v06.107)
+
+`/plan` 에 오늘 요일 학습을 노출 — 계획이 매일 actionable. 마이그레이션 0.
+
+- **오늘의 학습 strip**: 오늘 요일(KST) 항목을 자료 + 활동 **바로 시작(launch) 칩**으로 노출. 없으면 "오늘 요일을 더해 보세요" 안내.
+- **주간 보드 오늘 강조**: 오늘 칼럼 ring + "오늘" 라벨.
+- 오늘 요일은 **서버(page.tsx) KST 산출** 주입(하이드레이션 불일치 방지, 1=월..7=일).
+- `PlanClient.tsx` TodayStrip/TodayRow + WeekBoard today prop. `/plan` page todayWeekday.
+- typecheck green · `next build` 89/89 (/plan 12kB) · 실렌더(오늘 강조) 확인.
+
 ### 학습 계획 UX 재구성 — 컴포저 + 주간 보드 (v06.106)
 
 `/plan` 을 나열식(세로 카드 리스트) → **컴포저 + 주간 보드**로 (사용자 피드백: 나열식 X, 소스+챕터/단어/활동+요일 한눈에 클릭클릭). 마이그레이션 0 — 데이터 모델 동일, UI 전면 재구성.
