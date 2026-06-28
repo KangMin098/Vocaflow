@@ -34,7 +34,7 @@
 | `vocabularies` | 5,896 | 2.4 MB | 사용자 단어장 (FSRS 6컬럼) · UNIQUE(user_id, word) · `lemma` REFERENCES `shared_dictionary(word)` |
 | `learning_records` | 0 | 40 kB | 모든 모듈 공통 — rating SMALLINT 1-4 (FSRS) · is_correct · metadata JSONB |
 | `scores` | 0 | 32 kB | 게임 결과 (Flashcard·SpellForge·WordBlitz·PairFlip·ScriptQuiz·Dictation) · metadata JSONB |
-| `quiz_questions` | 0 | 24 kB | ScriptQuiz AI 생성 문제 (type · options JSONB · correct_index · source_snippet) |
+| `quiz_questions` | 5 | 24 kB | ScriptQuiz 문제 (per user+text · type · options JSONB · correct_index · source_snippet) — A3.4 첫 콘텐츠 5문제(Ammachi Ch1) |
 | `dictation_sessions` | 0 | 24 kB | Dictation 세션 헤더 (config JSONB) |
 | `dictation_items` | 0 | 24 kB | session_id · index · expected_text · user_input · result JSONB |
 | `echo_match_sessions` | 2 | 48 kB | v06.33 — avg/best/worst 점수 · retried_sentence_ids TEXT[] |
