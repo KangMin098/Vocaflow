@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `chore/worktree-automation`
+**활성 브랜치**: `chore/tier-b-quickfixes`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `8834b41` Merge remote-tracking branch 'origin/main' into chore/worktree-automation
-- `c65cedf` chore: 멀티 세션 git worktree 자동화 (worktree.mjs + 가이드)
+- `0e0a5af` Merge remote-tracking branch 'origin/main' into chore/tier-b-quickfixes
+- `1af1fb9` chore(lint): ESLint 에러 74건 cleanup → verify CI green (#42)
+- `ee27bad` fix(build): 프로덕션 next build 복구 (swcMinify + eslint 분리) (#41)
+- `524bf5b` fix(ui): Tier B 미완성 작업 폴리시 (pending-words toast + 로딩 화면)
 - `dfa3a4d` Merge pull request #35 from KangMin098/feat/voa-curation-redesign
-- `8cb5125` docs: VOA 큐레이션 재설계 P1~P5 기록 (CHANGELOG + DB_SCHEMA)
-- `42f8806` feat(acp): VOA 글 i+1 우선 진열 + 인라인 주석 (P5)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

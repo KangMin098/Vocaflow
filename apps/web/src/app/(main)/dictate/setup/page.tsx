@@ -4,14 +4,16 @@
 'use client';
 
 import { Suspense } from 'react';
+import { Loader2 } from 'lucide-react';
 import { DictationSetupClient } from '@/components/dictation/DictationSetupClient';
 
 export default function DictationSetupPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto max-w-3xl px-4 py-8 text-center font-body text-[14px] text-[var(--t3)]">
-          준비 중...
+        <div className="mx-auto flex max-w-3xl items-center justify-center gap-2 px-4 py-16 font-body text-[14px] text-[var(--t3)]">
+          <Loader2 size={16} className="animate-spin" aria-hidden />
+          준비하고 있어요
         </div>
       }
     >

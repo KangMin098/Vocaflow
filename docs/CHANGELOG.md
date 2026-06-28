@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### Tier B UI 폴리시 (v06.88)
+
+플랫폼 미완성 작업 스캔 후속 — 자립형 quick-win 묶음. (B1 워크스페이스 article `audio_url` 재생은 P5(v06.86)에서 이미 배선 완료로 확인되어 작업 제외.)
+
+- **pending-words 피드백** — `PendingWordActions` 상태 전환 실패 시 `alert()` → `useToast().error` (Calm UI · 기존 `components/ui/Toast` 재사용).
+- **로딩 화면 폴리시** — `dictate/setup` Suspense fallback + `pairflip/play` 세션 대기 화면을 `Loader2` 스피너 + 차분한 카피("준비하고 있어요")로 정비. (두 화면 모두 정상 전환 상태였고 무한 로딩 아님 — 점검 결과 cosmetic 개선만.)
+
 ### 멀티 세션 git worktree 자동화 (v06.94)
 
 여러 Claude Code / VS Code 세션이 서로 다른 화면·기능을 동시에 작업하도록 worktree 레이아웃 셋업 + 관리 자동화.
