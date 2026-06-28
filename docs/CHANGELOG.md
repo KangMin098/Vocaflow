@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### P4.1 L3 B2B 데이터 모델 선반영 (classes/class_members/assignments) (v06.98)
+
+LEARNER_MANAGEMENT.md P4 — 클래스카드형 교사/학원 위탁관리의 **데이터 모델 선반영**(사용자 결정 "L3 명시 — 선반영"). **화면(`/teacher/*`)은 Phase 2** — 본 변경은 테이블/RLS 만. 마이그레이션 `20260628180000_p4_l3_class_data_model`(추가·비파괴, 사용자 승인).
+
+- **`classes`**(teacher_id · invite_code UNIQUE) · **`class_members`**(class_id+user_id PK · role) · **`assignments`**(class_id · kind text/word_set · ref_id · due_at).
+- **recursion-safe RLS** — classes↔class_members 상호 참조를 `is_class_teacher`/`is_class_member`(SECURITY DEFINER) 헬퍼로 분리(무한재귀 회피). 정책 8: classes(교사 전권+멤버 읽기) / class_members(본인·교사 읽기·본인 가입·교사/본인 삭제) / assignments(교사 전권+멤버 읽기).
+- `user_profiles.role`(기존)에 `teacher` 값으로 진입. 검증: 테이블 3·헬퍼 2·정책 8·RLS 3. 화면·서버액션은 P4.2(Phase 2).
+
 ### P3 대시보드 실데이터화 — TodayHero + known-word (v06.98)
 
 LEARNER_MANAGEMENT.md P3 — `/dashboard` TodayHero 가 `todayWords=23·goal=30·userName="학습자"` 하드코딩이던 것 → 실데이터. 마이그레이션 0(P0 산출물 소비).
