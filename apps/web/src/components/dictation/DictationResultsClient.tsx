@@ -20,10 +20,7 @@ import { NextActionCard } from '@/components/recommend/NextActionCard';
 import { extractMistakenWords, analyzeErrorPatterns } from '@/lib/dictation/analyzer';
 import { getSession } from '@/lib/dictation/storage';
 import type { DictationSession, ErrorPattern, WordResult } from '@/lib/dictation/types';
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock';
+import { useNextAction } from '@/lib/recommend/use-next-action';
 import { useRecordGameScore } from '@/lib/scores/record-score';
 import { applyReview, createNewCard } from '@/lib/srs';
 import { accuracyToRating } from '@/lib/srs/rating-mapper';
@@ -148,13 +145,8 @@ export function DictationResultsClient() {
     };
   }, [session]);
 
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // Dictation 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_dictation' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  );
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction();
 
   if (!session || !aggregateData) {
     return (

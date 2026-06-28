@@ -15,11 +15,8 @@ import { MOCK_SESSION } from './mock-data'
 import type { AnswerState, QuizAnswer, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
-import {
-  getMockNextAction,
-  MOCK_USER_CONTEXTS,
-} from '@/lib/recommend/next-action.mock'
 import type { RecommendedAction } from '@/lib/recommend/types'
+import { useNextAction } from '@/lib/recommend/use-next-action'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
 
 // ══════════════════════════════════════════════════════════════
@@ -43,13 +40,8 @@ export interface ScriptQuizProps {
 export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }: ScriptQuizProps = {}) {
   const session = sessionProp ?? MOCK_SESSION
 
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후)
-  // ScriptQuiz 직후 → 같은 모듈 self-loop 회피. warm_inprogress → Workspace "이어 듣기" (§17 Context-Dependent L4→L2 cycle)
-  // DB 연동 시: getMockNextAction → getNextAction(userId, { context: 'after_scriptquiz' })
-  const recommendation = useMemo(
-    () => getMockNextAction(MOCK_USER_CONTEXTS.warm_inprogress),
-    []
-  )
+  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
+  const recommendation = useNextAction()
 
   const [screen, setScreen] = useState<QuizScreen>('start')
   const [currentIdx, setCurrentIdx] = useState(0)
