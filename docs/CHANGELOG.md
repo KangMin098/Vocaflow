@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### 큐레이션 관리자 콘솔 — SourcePolicy 단일 화면 (v06.87)
+
+`/admin/articles` 를 소스별 8탭 → **SourcePolicy 분기 단일 4단계 콘솔**(커버리지·소스GET·검수·발행)로 재구성. VOA/TC 등 소스 차이는 정책 4축(supply/media/derivation/attribution)으로만 분기 — `if (source==='voa')` 하드코딩 제거. (admin_curation_screens_build handoff: C2 + P1~P4.)
+
+- **C2 SourcePolicy 공유 자산** — `_curation-spec.ts` 에 `SourcePolicy`/`getSourcePolicy`/`SOURCE_POLICIES`/`resolveSourcePolicy`/`licenseClassOf` + 4 라벨 맵. 정책은 기존 SSoT 에서 **파생**(supply←`frozen`, attribution←`attributionRequired`, derivation←`license_class` cc_by_nd, media←VOA audio 정체성). drift-lock vitest 18종(패키지 첫 테스트). client 는 `/curation-spec` 서브패스로 소비.
+- **P1 셸+훅** — `CurationConsole`(4-stage) + `useSourcePolicy` 단일 진입 훅 + `PolicyBar`(소스 선택 시 정책 라이브 렌더). `AcpClient` 대체.
+- **P2 커버리지** — `CoverageMatrix` gap(빗금+GAP)/filled(stable 바+발행건수) + 셀 클릭→GET · `SourceFeedList`(소스/feed별 후보·audio·avg score — `listSourceFeedHealth` JS 집계, 마이그레이션 0).
+- **P3 소스 GET** — `CandidateTable`(seed-list 6컬럼: 체크박스·제목·register·CEFR/V·score 막대·audio[policy.media]) + 다중선택 → `/api/acp/enqueue` import. supply 뱃지(static→"recency 미적용·정렬 source·length"). register/CEFR/V 는 ingest 전 미산출 → "—".
+- **P4 검수·발행** — `ReviewPanel`(3패널: 큐 상태 dot / 에디터·player / 정책 게이트) + `computeGateItems(policy)` 동적 게이트(media/attribution/noise/v_level) + 발행 버튼 라벨 derivation 분기. 기존 deep review `computePublishGate` 의 `if(source==='voa')` → `resolveSourcePolicy().media` 교체. `ArticleAdminRow` +`audio_url`/`article_v_level` · `publish-gate.ts` 공유 유틸.
+- 마이그레이션 0건 · 본문·단어 딥 편집은 `/preview/[id]` 재사용(중복 회피) · web `tsc --noEmit` 통과.
+
 ### VOA 큐레이션 재설계 — frozen archive (v06.86)
 
 VOA Learning English = frozen archive(전 feed 2025-03 정지, 라이브 확인) 전제로 큐레이션 입력측·검수·학습자 제시 재설계. PR `feat/voa-curation-redesign` (P0 진단 → P1~P5, 영향격리 순).
