@@ -30,6 +30,7 @@ import {
 } from 'lucide-react'
 
 import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
+import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 import {
   useSourcePolicy,
   SUPPLY_LABEL,
@@ -40,6 +41,8 @@ import {
 import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
 import { CandidateTable } from './CandidateTable'
+import { GetGuidePanel } from './GetGuidePanel'
+import { SourceProfile } from './SourceProfile'
 import { ReviewPanel } from './ReviewPanel'
 import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
@@ -96,7 +99,13 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
           </div>
         )}
         {stage === 'get' && (
-          <SourceGetStage source={getSource} onSource={setGetSource} onEnqueued={goReview} />
+          <SourceGetStage
+            source={getSource}
+            onSource={setGetSource}
+            onEnqueued={goReview}
+            articles={articles}
+            feedHealth={feedHealth}
+          />
         )}
         {stage === 'review' && <ReviewPanel articles={articles} onChanged={refetchAll} />}
         {stage === 'publish' && (
@@ -218,15 +227,34 @@ function SourceGetStage({
   source,
   onSource,
   onEnqueued,
+  articles,
+  feedHealth,
 }: {
   source: SourceKey
   onSource: (s: SourceKey) => void
   onEnqueued: () => void
+  articles: ArticleAdminRow[]
+  feedHealth: SourceFeedHealth[]
 }) {
   const [mode, setMode] = useState<'single' | 'bulk'>('single')
+  const [level, setLevel] = useState<LearnerLevel>('intermediate')
+
+  // 추천 카드의 "이 소스 GET" → 단일 모드로 해당 소스 선택.
+  const pickRecommended = (s: string): void => {
+    if ((SOURCE_KEYS as string[]).includes(s)) onSource(s as SourceKey)
+    setMode('single')
+  }
 
   return (
     <div className="flex flex-col gap-4">
+      <GetGuidePanel
+        articles={articles}
+        feedHealth={feedHealth}
+        level={level}
+        onLevel={setLevel}
+        onPickSource={pickRecommended}
+      />
+
       <div role="tablist" aria-label="GET 모드" className="flex gap-1">
         <ModeButton active={mode === 'single'} onClick={() => setMode('single')} Icon={Download} label="단일 소스" />
         <ModeButton active={mode === 'bulk'} onClick={() => setMode('bulk')} Icon={Layers} label="대량 (LCP)" />
@@ -238,6 +266,7 @@ function SourceGetStage({
         <>
           <SourceSelector source={source} onChange={onSource} />
           <PolicyBar source={source} />
+          <SourceProfile source={source} level={level} feedHealth={feedHealth} />
           <CandidateTable source={source} onImported={onEnqueued} />
           <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
             <summary className="cursor-pointer px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] marker:text-[var(--t4)]">
