@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### `/library/scripts` 소스 맵 — 개인화 오리엔테이션 (v06.103)
+
+ACP 6 소스를 5 학습 트랙으로 묶어 글 선택 전 "내 수준으로 재계산되는 맵" 추가 (ArticlesExplorer 위, 마이그레이션 0).
+
+- **`lib/articles/source-map.ts`** 데이터층 — 5 트랙(listen/easy/topic/news/argue) + 카피는 `SOURCE_SPECS`(topicDomain·styleGuide) 근거. 트랙 V밴드 = `cefrToVLevel(targetCefr)` 실 SSoT, 난이도 판정·정렬·편수 전부 입력→계산(하드코딩 0). `judgeTrackFit`(fit/easy/hard) · `effectiveUserV`(V5 fallback, judgeArticleIPlusOne 정합) · `computeTrackCounts`(prop articles 집계, 추가 쿼리 0).
+- **`source-map/DifficultyMap.tsx`** V레벨 native 난이도 맵 — 세그먼트 `vToPct(vMin~vMax)` · 내 위치선 = `vToPct(effectiveUserV)` · 색은 `color-mix` over `--learn-*`(카드 배지색 정합, 신규 토큰 0). Calm UI(도전=amber·red 미사용).
+- **`source-map/TrackCard.tsx`** 접힘(이름·한줄·난이도·효과칩)/펼침(왜·방법·편수·CTA) · 첫 fit 카드만 자동 펼침(Progressive Disclosure) · 색+텍스트 배지(색만 금지).
+- **`source-map/SourceMap.tsx` + `SourceMapShell.tsx`** 맵 트랙 탭 → 카드 scroll+강조 · CTA → `ArticlesExplorer` 그 트랙 소스로 필터(맵↔목록 연동) · 단일 articles prop 공유.
+- **`ArticlesExplorer.tsx`** `sourceFilter` 선택 prop + 활성 칩(backward compatible).
+- typecheck green · 시각 검증(맵/탭/필터/0 PAGEERR) · 현 데이터 2편(voa·simple_wikipedia)·3 트랙 "준비 중".
+
 ### 학습 계획 리치 구성 — 일정 + 자료 4종 + 도서 챕터 + 비주얼 (v06.102)
 
 `/plan` 을 텍스트 위주 → 비주얼·선택 중심으로 재구성 (사용자 피드백: 일정/무엇을/어떻게 요소 + 학습 의욕).
