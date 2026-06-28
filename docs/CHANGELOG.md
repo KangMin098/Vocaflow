@@ -25,7 +25,9 @@ CI `verify` job(`turbo run lint typecheck test`)이 **3가지 독립 사유**로
 
 **③ 무(無)테스트 패키지:** `vcb-core`·`library-pipeline` test 스크립트에 `--passWithNoTests` 추가(`vitest run`이 "No test files found"로 exit 1 하던 것 — `@vocaflow/wlp` 선례 동일).
 
-- 검증: `pnpm turbo run lint typecheck test` **13/13 green** · `next lint` 에러 0 · `tsc --noEmit` 통과 · `next build` green(83p).
+**④ 통합 테스트 env-skip 버그:** `content-storage.test.ts`(Supabase 통합)가 env 없는 CI에서 `describe` 본문 최상위의 즉시 `createClient` 호출로 `supabaseUrl is required` throw(collection 단계). `client` 생성을 `beforeAll`로 지연 → `skipIf(env 없음)` 시 미실행 → CI 정상 skip(로컬 .env.local 있으면 그대로 실행).
+
+- 검증: 로컬 `turbo run lint typecheck test` **13/13 green**(env 有) · CI(env 無)는 content-storage skip 후 green · `next lint` 0 · `tsc` 통과 · `next build` green(83p).
 
 ### 프로덕션 빌드 복구 (v06.92)
 
