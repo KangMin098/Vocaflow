@@ -1,20 +1,27 @@
 // apps/web/src/app/admin/articles/CuratedArticlesTab.tsx
-// ACP v1.0 Phase 18 — Curated Articles 목록 + dev-process / publish / archive 액션
+// ACP — Curated Articles 목록 (LCP My Library 미러).
+//   상태 필터 + 멀티셀렉트 + bulk actions(Dev 일괄 / → 소스 GET) + 큐 자동처리(DrainBanner)
+//   + per-row 액션(검수/처리/게시/재처리/검토대기/보관/삭제). V-Level·register·audio 컬럼.
 
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
   Archive,
   CheckCircle2,
+  CheckSquare,
+  Download,
   ExternalLink,
   Loader2,
   Play,
   RefreshCw,
   SearchCheck,
+  Square,
   Trash2,
   Undo2,
+  Volume2,
+  X,
 } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
@@ -31,16 +38,49 @@ interface Props {
 type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived'
 
 const IN_PROGRESS: ArticleStatus[] = ['queued', 'ingesting', 'normalizing', 'analyzing', 'curating']
+const PROCESSABLE = new Set<string>(['queued', 'ingesting', 'normalizing', 'analyzing', 'curating', 'ready', 'failed'])
+
+interface DrainState {
+  running: boolean
+  rounds: number
+  processed: number
+  succeeded: number
+  failed: number
+  remaining: number | null
+  error?: string
+}
 
 export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' }: Props) {
   const [filter, setFilter] = useState<StatusFilter>(initialFilter)
   const [pending, setPending] = useState<string | null>(null)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [bulk, setBulk] = useState<string | null>(null)
+  const [drain, setDrain] = useState<DrainState | null>(null)
+  const drainStop = useRef(false)
 
   const visible = useMemo(() => {
     if (filter === 'all') return articles
     if (filter === 'in_progress') return articles.filter((a) => IN_PROGRESS.includes(a.status))
     return articles.filter((a) => a.status === filter)
   }, [articles, filter])
+
+  const visibleIds = visible.map((a) => a.id)
+  const selectedRows = visible.filter((a) => selected.has(a.id))
+  const allSelected = visibleIds.length > 0 && visibleIds.every((id) => selected.has(id))
+  const queuedCount = articles.filter((a) => a.status === 'queued').length
+
+  const setFilterReset = (f: StatusFilter): void => {
+    setFilter(f)
+    setSelected(new Set())
+  }
+  const toggleAll = (): void => setSelected(allSelected ? new Set() : new Set(visibleIds))
+  const toggleOne = (id: string): void =>
+    setSelected((s) => {
+      const n = new Set(s)
+      if (n.has(id)) n.delete(id)
+      else n.add(id)
+      return n
+    })
 
   async function runAction(actionLabel: string, fn: () => Promise<void>) {
     setPending(actionLabel)
@@ -66,13 +106,9 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
     })
   }
 
-  // v06.56 — admin_force_publish_article 등 SECURITY DEFINER RPC 는 DEV_ADMIN_BYPASS=1
-  //   환경에서 auth.uid()=NULL → is_admin_or_curator()=false → "Forbidden". 서버 API
-  //   route 경유로 전환 (requireAdmin + service_role 패턴). 다른 RPC (보관/되돌리기 등)
-  //   는 같은 함정 잠재하나 호출 시점에 별도 라우트 신설.
+  // DEV_ADMIN_BYPASS 함정 회피 — SECURITY DEFINER RPC 는 서버 라우트(requireAdmin+service_role) 경유.
   const RPC_ROUTE: Record<string, string> = {
     admin_force_publish_article: '/api/admin/articles/force-publish',
-    // v06.64 — LCP 동등 단계 이동 (revert/delete)
     admin_revert_published_article: '/api/admin/articles/revert',
     admin_delete_article: '/api/admin/articles/delete',
   }
@@ -85,55 +121,190 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ article_id: id }),
         })
-        const data = (await res.json().catch(() => ({}))) as {
-          error?: string
-          message?: string
-          ok?: boolean
-        }
-        if (!res.ok || !data.ok) {
-          throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
-        }
+        const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string; ok?: boolean }
+        if (!res.ok || !data.ok) throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
         return
       }
-      // 그 외 액션은 기존 browser RPC 유지 (향후 같은 패턴 적용 가능).
       const client = createClient() as unknown as {
-        rpc: (
-          n: string,
-          p: Record<string, unknown>,
-        ) => Promise<{ error: { message: string } | null }>
+        rpc: (n: string, p: Record<string, unknown>) => Promise<{ error: { message: string } | null }>
       }
       const { error } = await client.rpc(name, { p_article_id: id })
       if (error) throw new Error(error.message)
     })
   }
 
+  // ── Bulk: 선택분 Dev 일괄 처리 (순차 dev-process) ──
+  async function bulkDev() {
+    const targets = selectedRows.filter((a) => PROCESSABLE.has(a.status))
+    if (targets.length === 0) {
+      alert('처리 가능한(미발행) 글을 선택하세요.')
+      return
+    }
+    setBulk('dev')
+    try {
+      for (const a of targets) {
+        try {
+          await fetch('/api/acp/dev-process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ article_id: a.id }),
+          })
+        } catch {
+          /* 개별 실패는 건너뜀 — 재로드로 실제 반영 확인 */
+        }
+        onChanged()
+        await sleep(300)
+      }
+    } finally {
+      setBulk(null)
+      setSelected(new Set())
+    }
+  }
+
+  // ── Bulk: 선택분 → 소스 GET (DELETE + seed unlock) ──
+  async function bulkRequeue() {
+    if (selected.size === 0) return
+    if (
+      !window.confirm(
+        `선택 ${selected.size}건을 "소스 GET" 으로 되돌릴까요?\n\n` +
+          '· library_articles 삭제 (어휘 CASCADE)\n' +
+          '· draft 단어장 삭제 · seed 완전 unlock → 재수집 가능\n' +
+          '· 발행 단어장/사용자 학습 글은 스킵\n\n되돌릴 수 없습니다.',
+      )
+    )
+      return
+    setBulk('requeue')
+    try {
+      const res = await fetch('/api/admin/articles/bulk-requeue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ article_ids: [...selected] }),
+      })
+      const d = (await res.json().catch(() => ({}))) as {
+        ok?: boolean
+        error?: string
+        message?: string
+        deleted_count?: number
+        skipped_count?: number
+        seed_unlocked?: number
+        blocked_by_published?: number
+        blocked_by_users?: number
+      }
+      if (!res.ok || !d.ok) throw new Error(d.message ?? d.error ?? `HTTP ${res.status}`)
+      alert(
+        `→ 소스 GET 완료\n\n삭제 ${d.deleted_count ?? 0} · seed unlock ${d.seed_unlocked ?? 0}\n` +
+          `스킵 ${d.skipped_count ?? 0} (발행 ${d.blocked_by_published ?? 0} · 사용자 ${d.blocked_by_users ?? 0})`,
+      )
+      setSelected(new Set())
+      onChanged()
+    } catch (e) {
+      alert(e instanceof Error ? e.message : String(e))
+    } finally {
+      setBulk(null)
+    }
+  }
+
+  // ── 큐 자동 처리 (status=queued 전부 drain) ──
+  async function runDrain() {
+    drainStop.current = false
+    setDrain({ running: true, rounds: 0, processed: 0, succeeded: 0, failed: 0, remaining: null })
+    const MAX_ROUNDS = 50
+    for (let round = 1; round <= MAX_ROUNDS; round++) {
+      if (drainStop.current) break
+      let d: { ok?: boolean; error?: string; processed?: number; succeeded?: number; failed?: number; remaining?: number }
+      try {
+        const res = await fetch('/api/acp/dev-drain-queue', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ max: 5 }),
+        })
+        d = await res.json()
+        if (!res.ok || !d.ok) {
+          setDrain((s) => (s ? { ...s, running: false, error: d.error ?? `HTTP ${res.status}` } : s))
+          return
+        }
+      } catch (e) {
+        setDrain((s) => (s ? { ...s, running: false, error: e instanceof Error ? e.message : 'network' } : s))
+        return
+      }
+      setDrain((s) =>
+        s
+          ? {
+              ...s,
+              rounds: round,
+              processed: s.processed + (d.processed ?? 0),
+              succeeded: s.succeeded + (d.succeeded ?? 0),
+              failed: s.failed + (d.failed ?? 0),
+              remaining: d.remaining ?? null,
+            }
+          : s,
+      )
+      onChanged()
+      if ((d.remaining ?? 0) === 0 || (d.processed ?? 0) === 0) break
+      await sleep(400)
+    }
+    setDrain((s) => (s ? { ...s, running: false } : s))
+  }
+
   return (
     <section className="flex flex-col gap-4" aria-label="Curated Articles">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-baseline gap-2">
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            📂 Curated Articles
-          </h2>
+          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">📂 Curated Articles</h2>
           <span className="font-mono text-[12px] text-[var(--t3)]">
-            {visible.length === articles.length
-              ? `${articles.length}건`
-              : `${visible.length} / ${articles.length}건`}
+            {visible.length === articles.length ? `${articles.length}건` : `${visible.length} / ${articles.length}건`}
           </span>
         </div>
-        <FilterChips filter={filter} setFilter={setFilter} articles={articles} />
+        <div className="flex flex-wrap items-center gap-2">
+          {queuedCount > 0 && (
+            <button
+              type="button"
+              onClick={runDrain}
+              disabled={drain?.running}
+              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {drain?.running ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
+              큐 처리 (dev · {queuedCount})
+            </button>
+          )}
+          <FilterChips filter={filter} setFilter={setFilterReset} articles={articles} />
+        </div>
       </div>
 
+      {drain && <DrainBanner drain={drain} onStop={() => (drainStop.current = true)} onDismiss={() => setDrain(null)} />}
+
+      {selected.size > 0 && (
+        <BulkToolbar
+          count={selected.size}
+          bulk={bulk}
+          onDev={bulkDev}
+          onRequeue={bulkRequeue}
+          onClear={() => setSelected(new Set())}
+        />
+      )}
+
       {visible.length === 0 ? (
-        <EmptyBox onReset={() => setFilter('all')} hasAny={articles.length > 0} />
+        <EmptyBox onReset={() => setFilterReset('all')} hasAny={articles.length > 0} />
       ) : (
         <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
-          <table className="w-full min-w-[860px]">
+          <table className="w-full min-w-[960px]">
             <thead className="border-b border-[var(--bd)] bg-[var(--bg2)]">
               <tr>
+                <th scope="col" className="w-9 px-2 py-2 text-center">
+                  <button
+                    type="button"
+                    onClick={toggleAll}
+                    aria-label={allSelected ? '전체 선택 해제' : '전체 선택'}
+                    className="inline-flex text-[var(--t3)] hover:text-[var(--p)]"
+                  >
+                    {allSelected ? <CheckSquare size={15} /> : <Square size={15} />}
+                  </button>
+                </th>
                 <Th>제목</Th>
                 <Th align="center">소스</Th>
                 <Th align="center">상태</Th>
-                <Th align="center">CEFR</Th>
+                <Th align="center">CEFR · V</Th>
+                <Th align="center">유형</Th>
                 <Th align="right">단어</Th>
                 <Th align="right">발행</Th>
                 <Th align="right" srOnly>액션</Th>
@@ -146,20 +317,30 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                 const isFailed = a.status === 'failed'
                 const isReady = a.status === 'ready'
                 const isPublished = a.status === 'published'
-                // v06.64 — 영구 삭제 허용 status (published 는 revert 후 가능)
                 const isDeletable = ['ready', 'archived', 'queued', 'failed'].includes(a.status)
-                const devKey = `dev:${a.id}`
-                const requeueKey = `requeue:${a.id}`
-                const publishKey = `publish:${a.id}`
-                const archiveKey = `archive:${a.id}`
-                const revertKey = `revert:${a.id}`
-                const deleteKey = `delete:${a.id}`
+                const isSel = selected.has(a.id)
 
                 return (
                   <tr
                     key={a.id}
                     className="border-t border-[var(--bd)] transition-colors hover:bg-[var(--bg2)]"
+                    style={isSel ? { backgroundColor: 'var(--learn-known-light)' } : undefined}
                   >
+                    <td className="px-2 py-2.5 text-center">
+                      <button
+                        type="button"
+                        onClick={() => toggleOne(a.id)}
+                        aria-label={isSel ? '선택 해제' : '선택'}
+                        aria-pressed={isSel}
+                        className="inline-flex text-[var(--t3)] hover:text-[var(--p)]"
+                      >
+                        {isSel ? (
+                          <CheckSquare size={15} style={{ color: 'var(--learn-known)' }} />
+                        ) : (
+                          <Square size={15} />
+                        )}
+                      </button>
+                    </td>
                     <Td>
                       <div className="flex flex-col gap-0.5">
                         <Link
@@ -169,9 +350,7 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                           {a.title}
                         </Link>
                         {a.author && (
-                          <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">
-                            {a.author}
-                          </span>
+                          <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">{a.author}</span>
                         )}
                         {a.status_message && (
                           <span className="line-clamp-1 font-mono text-[10px] text-[var(--learn-error)]">
@@ -181,8 +360,9 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                       </div>
                     </Td>
                     <Td align="center">
-                      <span className="font-mono text-[10px] uppercase text-[var(--t2)]">
+                      <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase text-[var(--t2)]">
                         {a.source}
+                        {a.audio_url && <Volume2 size={11} className="text-[var(--learn-known)]" aria-label="audio" />}
                       </span>
                     </Td>
                     <Td align="center">
@@ -191,12 +371,13 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                     <Td align="center">
                       <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                         {a.cefr_level ?? '—'}
-                        {a.cefr_confidence != null && (
-                          <span className="ml-1 text-[var(--t5)]">
-                            ({a.cefr_confidence.toFixed(2)})
-                          </span>
+                        {a.article_v_level != null && (
+                          <span className="ml-1 text-[var(--t3)]">· V{a.article_v_level}</span>
                         )}
                       </span>
+                    </Td>
+                    <Td align="center">
+                      <span className="font-mono text-[10px] text-[var(--t3)]">{a.register ?? '—'}</span>
                     </Td>
                     <Td align="right">
                       <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
@@ -230,80 +411,37 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
                           </a>
                         )}
                         {isProcessable && (
-                          <ActionBtn
-                            label="지금 처리"
-                            icon={<Play size={11} />}
-                            pending={pending === devKey}
-                            onClick={() => devProcess(a.id)}
-                            tone="primary"
-                          />
+                          <ActionBtn label="지금 처리" icon={<Play size={11} />} pending={pending === `dev:${a.id}`} onClick={() => devProcess(a.id)} tone="primary" />
                         )}
                         {isReady && (
-                          <ActionBtn
-                            label="게시"
-                            icon={<CheckCircle2 size={11} />}
-                            pending={pending === publishKey}
-                            onClick={() =>
-                              rpcAction('admin_force_publish_article', a.id, publishKey)
-                            }
-                            tone="success"
-                          />
+                          <ActionBtn label="게시" icon={<CheckCircle2 size={11} />} pending={pending === `publish:${a.id}`} onClick={() => rpcAction('admin_force_publish_article', a.id, `publish:${a.id}`)} tone="success" />
                         )}
                         {isFailed && (
-                          <ActionBtn
-                            label="재처리"
-                            icon={<RefreshCw size={11} />}
-                            pending={pending === requeueKey}
-                            onClick={() => rpcAction('admin_requeue_article', a.id, requeueKey)}
-                            tone="primary"
-                          />
+                          <ActionBtn label="재처리" icon={<RefreshCw size={11} />} pending={pending === `requeue:${a.id}`} onClick={() => rpcAction('admin_requeue_article', a.id, `requeue:${a.id}`)} tone="primary" />
                         )}
                         {isPublished && (
                           <ActionBtn
                             label="검토대기"
                             icon={<Undo2 size={11} />}
-                            pending={pending === revertKey}
+                            pending={pending === `revert:${a.id}`}
                             onClick={() => {
-                              if (
-                                !window.confirm(
-                                  `"${a.title}" 을(를) 검토대기로 되돌릴까요?\n\n` +
-                                    '· status: published → ready\n' +
-                                    '· 게시 시 자동 생성된 챕터 단어장 삭제\n' +
-                                    '· 본문/추출 어휘는 보존 — 재게시 시 단어장 자동 재생성',
-                                )
-                              ) return
-                              void rpcAction('admin_revert_published_article', a.id, revertKey)
+                              if (!window.confirm(`"${a.title}" 을(를) 검토대기로 되돌릴까요?\n\n· published → ready\n· 게시 단어장 삭제 · 본문/어휘 보존(재게시 시 재생성)`)) return
+                              void rpcAction('admin_revert_published_article', a.id, `revert:${a.id}`)
                             }}
                             tone="neutral"
                           />
                         )}
                         {a.status !== 'archived' && !isPublished && (
-                          <ActionBtn
-                            label="보관"
-                            icon={<Archive size={11} />}
-                            pending={pending === archiveKey}
-                            onClick={() => rpcAction('admin_archive_article', a.id, archiveKey)}
-                            tone="neutral"
-                          />
+                          <ActionBtn label="보관" icon={<Archive size={11} />} pending={pending === `archive:${a.id}`} onClick={() => rpcAction('admin_archive_article', a.id, `archive:${a.id}`)} tone="neutral" />
                         )}
                         {isDeletable && (
                           <ActionBtn
                             label="삭제"
                             icon={<Trash2 size={11} />}
-                            pending={pending === deleteKey}
+                            pending={pending === `delete:${a.id}`}
                             onClick={() => {
-                              if (
-                                !window.confirm(
-                                  `"${a.title}" 을(를) 영구 삭제할까요?\n\n` +
-                                    '· library_articles 본체 삭제\n' +
-                                    '· library_article_vocabularies CASCADE 삭제\n' +
-                                    '· library_article_seed_catalog imported_to_articles 해제\n' +
-                                    '· shared_word_sets(library_article) 이전 발행분 삭제\n' +
-                                    '· texts.source_url 마커는 보존 (사용자 학습 진도 유지)\n\n' +
-                                    '되돌릴 수 없습니다.',
-                                )
-                              ) return
-                              void rpcAction('admin_delete_article', a.id, deleteKey)
+                              if (!window.confirm(`"${a.title}" 을(를) 영구 삭제할까요?\n\n· 본체 + 어휘 CASCADE 삭제\n· seed 완전 unlock → 재수집 가능\n· 발행 단어장 삭제 · 사용자 진도 마커 보존\n\n되돌릴 수 없습니다.`)) return
+                              void rpcAction('admin_delete_article', a.id, `delete:${a.id}`)
                             }}
                             tone="danger"
                           />
@@ -318,6 +456,105 @@ export function CuratedArticlesTab({ articles, onChanged, initialFilter = 'all' 
         </div>
       )}
     </section>
+  )
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms))
+}
+
+// ── Bulk toolbar ─────────────────────────────────
+
+function BulkToolbar({
+  count,
+  bulk,
+  onDev,
+  onRequeue,
+  onClear,
+}: {
+  count: number
+  bulk: string | null
+  onDev: () => void
+  onRequeue: () => void
+  onClear: () => void
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-wash,var(--bg2))] px-3 py-2">
+      <span className="font-display text-[12px] font-[700] text-[var(--p)]">{count}건 선택</span>
+      <div className="ml-auto flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={onDev}
+          disabled={bulk != null}
+          className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {bulk === 'dev' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
+          Dev 일괄 처리
+        </button>
+        <button
+          type="button"
+          onClick={onRequeue}
+          disabled={bulk != null}
+          className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--learn-error)] transition-colors hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {bulk === 'requeue' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Download size={12} aria-hidden />}
+          → 소스 GET
+        </button>
+        <button
+          type="button"
+          onClick={onClear}
+          className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          <X size={12} aria-hidden />
+          해제
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ── Drain banner ─────────────────────────────────
+
+function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: () => void; onDismiss: () => void }) {
+  const tone = drain.error ? 'var(--learn-error)' : drain.running ? 'var(--learn-fresh)' : 'var(--learn-known)'
+  return (
+    <div
+      role="status"
+      className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border px-3 py-2"
+      style={{ borderColor: tone, backgroundColor: 'var(--bg2)' }}
+    >
+      {drain.running ? (
+        <Loader2 size={14} className="animate-spin" style={{ color: tone }} aria-hidden />
+      ) : (
+        <CheckCircle2 size={14} style={{ color: tone }} aria-hidden />
+      )}
+      <span className="font-display text-[12px] font-[600]" style={{ color: tone }}>
+        {drain.error ? `큐 처리 오류: ${drain.error}` : drain.running ? '큐 처리 중…' : '큐 처리 완료'}
+      </span>
+      <span className="font-mono text-[11px] text-[var(--t2)]">
+        라운드 {drain.rounds} · 처리 {drain.processed} · 성공 {drain.succeeded} · 실패 {drain.failed}
+        {drain.remaining != null && ` · 남음 ${drain.remaining}`}
+      </span>
+      <div className="ml-auto flex items-center gap-1.5">
+        {drain.running ? (
+          <button
+            type="button"
+            onClick={onStop}
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)]"
+          >
+            <X size={11} aria-hidden /> 중지
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={onDismiss}
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+          >
+            닫기
+          </button>
+        )}
+      </div>
+    </div>
   )
 }
 
@@ -341,10 +578,7 @@ function FilterChips({
     { value: 'archived', label: '보관됨' },
   ]
   return (
-    <div
-      role="radiogroup"
-      className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
-    >
+    <div role="radiogroup" className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5">
       {options.map((opt) => {
         const active = filter === opt.value
         const count =
@@ -363,9 +597,7 @@ function FilterChips({
             className={[
               'rounded-[var(--r-sm)] px-3 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
-              active
-                ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-                : 'text-[var(--t3)] hover:text-[var(--t2)]',
+              active ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]' : 'text-[var(--t3)] hover:text-[var(--t2)]',
             ].join(' ')}
           >
             {opt.label}
@@ -411,13 +643,7 @@ function ActionBtn({
   )
 }
 
-function StatusPill({
-  tone,
-  label,
-}: {
-  tone: 'success' | 'warning' | 'info' | 'danger' | 'neutral'
-  label: string
-}) {
+function StatusPill({ tone, label }: { tone: 'success' | 'warning' | 'info' | 'danger' | 'neutral'; label: string }) {
   const colorMap: Record<typeof tone, { bg: string; fg: string }> = {
     success: { bg: 'var(--learn-known-light)', fg: 'var(--learn-known)' },
     warning: { bg: 'var(--learn-review-light)', fg: 'var(--learn-review)' },
@@ -436,15 +662,7 @@ function StatusPill({
   )
 }
 
-function Th({
-  children,
-  align = 'left',
-  srOnly,
-}: {
-  children: React.ReactNode
-  align?: 'left' | 'center' | 'right'
-  srOnly?: boolean
-}) {
+function Th({ children, align = 'left', srOnly }: { children: React.ReactNode; align?: 'left' | 'center' | 'right'; srOnly?: boolean }) {
   return (
     <th
       scope="col"
@@ -459,20 +677,9 @@ function Th({
   )
 }
 
-function Td({
-  children,
-  align = 'left',
-}: {
-  children: React.ReactNode
-  align?: 'left' | 'center' | 'right'
-}) {
+function Td({ children, align = 'left' }: { children: React.ReactNode; align?: 'left' | 'center' | 'right' }) {
   return (
-    <td
-      className={[
-        'px-3 py-2.5',
-        align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
-      ].join(' ')}
-    >
+    <td className={['px-3 py-2.5', align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'].join(' ')}>
       {children}
     </td>
   )
@@ -480,10 +687,7 @@ function Td({
 
 function EmptyBox({ onReset, hasAny }: { onReset: () => void; hasAny: boolean }) {
   return (
-    <div
-      role="status"
-      className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center"
-    >
+    <div role="status" className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center">
       <div className="select-none text-2xl" aria-hidden>
         {hasAny ? '🔍' : '📭'}
       </div>
@@ -499,9 +703,7 @@ function EmptyBox({ onReset, hasAny }: { onReset: () => void; hasAny: boolean })
           필터 초기화
         </button>
       ) : (
-        <p className="font-body text-[12px] text-[var(--t3)]">
-          VOA RSS 탭에서 기사를 골라 큐에 추가하세요.
-        </p>
+        <p className="font-body text-[12px] text-[var(--t3)]">소스 GET 에서 기사를 골라 큐에 추가하세요.</p>
       )}
     </div>
   )

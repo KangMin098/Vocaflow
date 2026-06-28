@@ -5,10 +5,12 @@
 //
 // 외부 FK:
 //   • library_article_vocabularies → CASCADE (자동 삭제)
-//   • library_article_seed_catalog.imported_article_id → SET NULL (자동 unlock)
+//   • library_article_seed_catalog.imported_article_id → SET NULL (부분) — flags 는 수동 리셋
 //   • shared_word_sets (category='library_article') — FK 없음, 수동 DELETE
 //
-// published 책 은 revert 후 삭제 (LCP delete 와 동일 정책).
+// seed 완전 unlock: SET NULL 만으로는 imported_to_articles=true 잔존 → 재-GET 불가라
+//   imported_to_articles=false, curation_status='pending' 까지 명시 리셋 (LCP 미러).
+// published 글 은 revert 후 삭제 (LCP delete 와 동일 정책).
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
@@ -88,13 +90,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'DBError', message: wsErr.message }, { status: 500 })
   }
 
-  // 2) seed catalog unlock 사전 카운트
-  const { count: seedCount } = await client
+  // 2) seed catalog FULL unlock — FK SET NULL 은 imported_article_id 만 null 로 만들고
+  //    imported_to_articles/curation_status 는 그대로라 seed 가 "잠긴" 채 → 재-GET 불가.
+  //    LCP admin_bulk_requeue_books 와 동일하게 flags 리셋 (삭제 前 실행: 삭제되면 매칭 키 소실).
+  const { data: seedUnlocked, error: seedErr } = await client
     .from('library_article_seed_catalog')
-    .select('id', { count: 'exact', head: true })
+    .update({ imported_to_articles: false, imported_article_id: null, curation_status: 'pending' })
     .eq('imported_article_id', body.article_id)
+    .select('id')
+  if (seedErr) {
+    return NextResponse.json({ error: 'DBError', message: seedErr.message }, { status: 500 })
+  }
 
-  // 3) 본체 삭제 (FK CASCADE / SET NULL 자동)
+  // 3) 본체 삭제 (library_article_vocabularies CASCADE)
   const { error: delErr } = await client
     .from('library_articles')
     .delete()
@@ -110,6 +118,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     deleted: true,
     status_was: a.status,
     word_sets_deleted: (wsDeleted ?? []).length,
-    seed_unlocked: seedCount ?? 0,
+    seed_unlocked: (seedUnlocked ?? []).length,
   })
 }
