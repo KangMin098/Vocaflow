@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### Today(/hub)에 "오늘의 학습 계획" — 계획→매일 실행 loop 완성 (v06.110)
+
+`/plan` 의 요일별 계획(study_plan_items.weekdays)을 **Today 홈 진입면**에 노출 — 계획이 매일 첫 화면에서 바로 시작. 마이그레이션 0.
+
+- **`components/home/TodayPlanCard.tsx`** 신규(서버 컴포넌트) — 오늘 요일 항목 + 자료별 활동 **바로 시작(launch) 칩**(scoped ▶ / hub ↗). 오늘 항목 없으면 렌더 X(Calm).
+- **`/hub` async 화** — fetchStudyPlanItems + KST 오늘 요일. 배치: HubHero → **TodayPlanCard** → TodayFocus → Continue → Modules → Recommended.
+- /plan TodayStrip 과 동일 의미, Today(forward) 진입면 노출. (/hub ○static → ƒdynamic)
+- typecheck/lint/build green.
+
 ### 메뉴 라벨 영어 통일 — 한자어(회고·진단) 제거 (v06.109)
 
 올드한 한자어 문어체(회고=회고록·추도 / 진단=의료 뉘앙스) 제거 + 영어 학습 플랫폼 톤·Reading Room Dual Coding(serif 정체성)으로. 사용자 결정 **B(모듈도 영어 통일)** + /diagnostic 페이지 내부 copy 는 유지. 라우트 URL 불변(라벨만). 마이그레이션 0.
