@@ -1,5 +1,5 @@
 // apps/web/src/app/(main)/dashboard/page.tsx
-// 회고(Reflect, L7) — "나 어떻게 하고 있나" 단일 표면 (v06.108 메타 4→2 통합).
+// Growth (Reflect, L7) — "나 어떻게 하고 있나" 단일 표면 (v06.108 통합 · v06.109 영어 라벨).
 //
 // 구성 (backward / 메타인지):
 //   1. 헤더        — 날짜 + known-word 성장(Implicit Progress). 인사·forward CTA 없음(= 오늘/hub 책임)
@@ -33,7 +33,7 @@ export default async function DashboardPage() {
     return (
       <Screen width="content" background="bg2" padX="md">
         <div className="mx-auto max-w-md px-4 py-24 text-center font-body text-[14px] text-[var(--t3)]">
-          로그인하면 학습 회고를 볼 수 있어요.
+          로그인하면 성장 기록을 볼 수 있어요.
         </div>
       </Screen>
     )

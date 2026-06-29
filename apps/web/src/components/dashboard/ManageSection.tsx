@@ -1,7 +1,7 @@
 // apps/web/src/components/dashboard/ManageSection.tsx
-// 회고(/dashboard) 의 "학습 관리" 섹션 — 진단·학습 계획·주간 리포트 3 카드.
-// /manage 라우트 흡수(v06.108). fetchManageOverview 재사용. 미진단 시 진단 카드 1순위 강조.
-// 보기(회고)와 이동(관리)을 분리 — 시각 무게 낮춤 (Calm UI · Cognitive Load).
+// Growth(/dashboard) 의 "학습 관리" 섹션 — Level(수준 측정)·Plan(계획)·Report(리포트) 3 카드.
+// /manage 라우트 흡수(v06.108). fetchManageOverview 재사용. 미측정 시 Level 카드 1순위 강조.
+// 보기(성장)와 이동(관리)을 분리 — 시각 무게 낮춤 (Calm UI · Cognitive Load).
 
 import { ArrowRight, CalendarRange, Compass, Target } from 'lucide-react'
 import Link from 'next/link'
@@ -21,12 +21,12 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
         학습 관리
       </h2>
       <div className="grid gap-2.5 sm:grid-cols-3">
-        {/* 진단 — 미진단이면 1순위 강조(alert) */}
+        {/* Level — 수준 미측정이면 1순위 강조(alert) */}
         <ManageCard
           icon={<Compass size={16} strokeWidth={1.75} />}
-          title="진단"
+          title="Level"
           href="/diagnostic"
-          cta={overview.vLevel ? '재진단' : '진단 받기'}
+          cta={overview.vLevel ? '다시 측정' : '수준 측정'}
           alert={undiagnosed}
         >
           {overview.vLevel ? (
@@ -43,10 +43,10 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
           )}
         </ManageCard>
 
-        {/* 학습 계획 */}
+        {/* Plan */}
         <ManageCard
           icon={<Target size={16} strokeWidth={1.75} />}
-          title="학습 계획"
+          title="Plan"
           href="/plan"
           cta={overview.plan ? '계획 수정' : '계획 세우기'}
         >
@@ -62,10 +62,10 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
           )}
         </ManageCard>
 
-        {/* 주간 리포트 */}
+        {/* Report */}
         <ManageCard
           icon={<CalendarRange size={16} strokeWidth={1.75} />}
-          title="주간 리포트"
+          title="Report"
           href="/reports"
           cta="전체 보기"
         >
