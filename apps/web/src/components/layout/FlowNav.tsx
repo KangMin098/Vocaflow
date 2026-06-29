@@ -69,7 +69,7 @@ const STAGES: StageConfig[] = [
   {
     key: 'discover',
     Icon: Compass,
-    label: '라이브러리',
+    label: 'Library',
     subtitle: '발견',
     sessionHref: '/library',
     progress: 0,
@@ -80,7 +80,7 @@ const STAGES: StageConfig[] = [
   {
     key: 'source',
     Icon: BookOpen,
-    label: '스크립트',
+    label: 'Scripts',
     subtitle: '읽고 듣기',
     sessionHref: '/text/1',
     progress: 45,
@@ -91,7 +91,7 @@ const STAGES: StageConfig[] = [
   {
     key: 'words',
     Icon: BookMarked,
-    label: '단어',
+    label: 'Words',
     subtitle: '학습 모드',
     sessionHref: '/wordvault?view=study',
     progress: 35,
@@ -102,7 +102,7 @@ const STAGES: StageConfig[] = [
   {
     key: 'practice',
     Icon: Target,
-    label: '익히기',
+    label: 'Practice',
     subtitle: '카드·게임',
     sessionHref: '/flashcard/play',
     progress: 87,
@@ -113,7 +113,7 @@ const STAGES: StageConfig[] = [
   {
     key: 'conquer',
     Icon: Trophy,
-    label: '정복',
+    label: 'Conquer',
     subtitle: '독해 퀴즈',
     sessionHref: '/scriptquiz/play',
     progress: 60,
@@ -124,7 +124,7 @@ const STAGES: StageConfig[] = [
   {
     key: 'complete',
     Icon: Mic,
-    label: '완성',
+    label: 'Complete',
     subtitle: '받아쓰기',
     sessionHref: '/dictate/setup',
     progress: 25,

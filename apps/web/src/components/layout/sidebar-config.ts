@@ -2,14 +2,15 @@
 //
 // Sidebar 정보 구조 단일 출처 — CLAUDE.md §17.10 IA 원칙 정합.
 //
-// 5 그룹 (FlowNav stage 1:1 매핑):
-//   스크립트(보라) · 단어(인디고) · 익히기(핑크) · 정복(앰버) · 완성(시안)
+// 5 그룹 (FlowNav stage 1:1 매핑 · v06.109 영어 라벨):
+//   Scripts(보라) · Words(인디고) · Practice(핑크) · Conquer(앰버) · Complete(시안)
 //
-// 익히기 그룹 정렬 = 인지 깊이 순:
+// Practice 그룹 정렬 = 인지 깊이 순:
 //   Flashcard (L4a 시각적 재인) → WordBlitz (L4a 자동) → SpellForge (L4b 생성)
 //
-// 메타 표면 2개 (v06.108 통합 4→2): 오늘(/hub, forward) · 회고(/dashboard, backward).
-//   진단·계획·리포트 = 회고의 "학습 관리" 섹션으로 강등(메타 peer 아님). /manage 폐지.
+// 메타 표면 2개 (v06.108 통합 4→2 · v06.109 영어 라벨): Today(/hub, forward) · Growth(/dashboard, backward).
+//   Level(진단)·Plan(계획)·Report(리포트) = Growth 의 "학습 관리" 섹션 카드(메타 peer 아님). /manage 폐지.
+//   영어 라벨 = Reading Room Dual Coding(serif 정체성) + 모듈 브랜드명(Flashcard 등)과 정합. 라우트 URL 은 유지(/hub·/dashboard).
 
 import {
   BarChart3,
@@ -44,24 +45,24 @@ export interface NavGroup {
 }
 
 export const META_ITEMS: NavItem[] = [
-  { label: '오늘', href: '/hub', icon: Home, ariaLabel: '오늘 — 지금 할 학습 (이어하기·모듈·추천)' },
-  { label: '회고', href: '/dashboard', icon: BarChart3, ariaLabel: '회고 — 성장·기억·주간 리듬 + 학습 관리(진단·계획·리포트)' },
+  { label: 'Today', href: '/hub', icon: Home, ariaLabel: 'Today — 지금 할 학습 (이어하기·모듈·추천)' },
+  { label: 'Growth', href: '/dashboard', icon: BarChart3, ariaLabel: 'Growth — 단어가 자란 기록·기억·주간 리듬 + 학습 관리(Level·Plan·Report)' },
 ]
 
 export const NAV_GROUPS: NavGroup[] = [
   {
-    label: '스크립트',
+    label: 'Scripts',
     accent: '#8B5CF6', // 보라
     flowStage: 'script',
     items: [
       {
-        label: '라이브러리',
+        label: 'Library',
         href: '/library',
         icon: Compass,
         ariaLabel: '공용 콘텐츠 라이브러리',
       },
       {
-        label: '내 스크립트',
+        label: 'My Scripts',
         href: '/text',
         icon: BookOpen,
         ariaLabel: '내가 등록한 스크립트',
@@ -69,7 +70,7 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: '단어',
+    label: 'Words',
     accent: '#6366F1', // 인디고
     flowStage: 'word',
     items: [
@@ -82,7 +83,7 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: '익히기',
+    label: 'Practice',
     accent: '#EC4899', // 핑크
     flowStage: 'practice',
     items: [
@@ -114,7 +115,7 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: '정복',
+    label: 'Conquer',
     accent: '#F59E0B', // 앰버
     flowStage: 'conquer',
     items: [
@@ -127,7 +128,7 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: '완성',
+    label: 'Complete',
     accent: '#06B6D4', // 시안
     flowStage: 'complete',
     items: [
@@ -143,7 +144,7 @@ export const NAV_GROUPS: NavGroup[] = [
 
 export const FOOTER_ITEMS: NavItem[] = [
   {
-    label: '클래스',
+    label: 'Class',
     href: '/teacher',
     icon: GraduationCap,
     ariaLabel: '클래스 — 교사용 클래스 개설·초대코드 (L3 B2B, P4.2)',

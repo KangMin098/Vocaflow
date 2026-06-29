@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### 메뉴 라벨 영어 통일 — 한자어(회고·진단) 제거 (v06.109)
+
+올드한 한자어 문어체(회고=회고록·추도 / 진단=의료 뉘앙스) 제거 + 영어 학습 플랫폼 톤·Reading Room Dual Coding(serif 정체성)으로. 사용자 결정 **B(모듈도 영어 통일)** + /diagnostic 페이지 내부 copy 는 유지. 라우트 URL 불변(라벨만). 마이그레이션 0.
+
+- **메타**: 오늘→**Today**(/hub) · 회고→**Growth**(/dashboard).
+- **Growth 관리 카드**: 진단→**Level** · 학습 계획→**Plan** · 주간 리포트→**Report** (CTA "재진단·진단 받기"→"다시 측정·수준 측정", "학습 회고"→"성장 기록").
+- **사이드바 그룹/항목**: 스크립트→Scripts · 단어→Words · 익히기→Practice · 정복→Conquer · 완성→Complete · 라이브러리→Library · 내 스크립트→My Scripts · 클래스→Class (WordVault/Flashcard 등 기존 영어 유지).
+- **FlowNav STAGES 라벨**도 동일 영어화(subtitle·tip 은 Korean copy 유지).
+- typecheck green · `next build` green · 실렌더(전 영어 라벨, 회고/진단 메뉴 소멸) 확인.
+- (유지) /diagnostic 페이지 내부 "진단" copy = 시험·평가 맥락 자연스러움 (사용자 결정).
+
 ### 메타 표면 4→2 통합 — 오늘(/hub) · 회고(/dashboard) (v06.108)
 
 4개 메타 표면(/hub·/dashboard·/diagnostic·/manage)의 중복(RecentActivity 양쪽·L7 이중할당·/manage 라우터+오링크)을 **2개(오늘·회고)**로 통합. 마이그레이션 0(라우트/컴포넌트만).

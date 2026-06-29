@@ -19,7 +19,7 @@
 
 **로드맵 P0~P4.2 전부 머지 완료(#61~#68)**. 적용 마이그레이션: P0/P1/P2/P4.1/P4.2.
 
-**통합 관리 화면 `/manage`(#70, 리틀팍스 MY 학습 참고)**: `lib/learner/manage-overview.ts fetchManageOverview` — V-Level/known-word/streak/오늘단어/Study Plan/최근 리포트 통합 → 진단·학습계획·학습현황·주간리포트 4 카드 + 상세 CTA(/diagnostic·/onboarding·/hub·/reports). Sidebar: 학습계획·리포트 별도 항목(#69) → 단일 '내 학습'(/manage)으로 통합. 마이그레이션 0.
+**통합 관리 화면 `/manage`(#70) → 폐지·흡수(PR #84, v06.108)**: 메타 표면 4→2 통합으로 `/manage` 라우트 **삭제**, `components/dashboard/ManageSection.tsx`(진단·계획·리포트 3카드, 미진단 시 진단 ring 강조)로 **`/dashboard` 회고에 흡수**. `manage-overview.ts fetchManageOverview`(+userName)는 dashboard 가 재사용(삭제 X). **Sidebar META 4→2**: `오늘`(/hub, forward)·`회고`(/dashboard, backward, L7 단독). 진단/계획/리포트는 메타 peer 아닌 회고 섹션 카드. `/dashboard` = known-word 성장 헤더 → MemoryStatus → WeeklyHeatmap → ManageSection → RecentActivity. `/hub` 에서 RecentActivity 제거(회고 단독). 삭제: manage/page·TodayHero·dashboard-data. 마이그레이션 0. [[project-doc-structure-split]] LEARNING_MODEL L7 이중할당 해소.
 
 **잔여**: P4.3 = 과제배포(assignments UI) + 주간리포트 학부모 공유 + `/teacher/[classId]` 상세 (투기적 — 실 클래스/학생 없음). · 모든 P1~P4.2 UI 런타임 미검증(서버 fetch/폼/게임 — 무회귀 설계). · daily_activity/known_word_count/scores 는 실플레이 누적 시 채워짐(현 dev 0). · weekly_reports cron 자동생성 · 추천 P2(reading_session 연동) · 사이드바에 /onboarding·/reports·/teacher 메뉴 미등재(라우트만 존재).
 
