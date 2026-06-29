@@ -1,0 +1,147 @@
+// apps/web/src/components/home/TodayPlanCard.tsx
+// Today(/hub) "오늘의 학습 계획" — study_plan_items 의 오늘 요일 항목을 홈에서 바로 시작.
+// /plan 의 요일별 계획 → Today 진입면에 노출(계획→매일 실행 loop 완성). 오늘 항목 없으면 렌더 X(Calm).
+// 서버 컴포넌트 — Link 만 (상태 없음). 색+아이콘 이중(색맹 대응).
+
+import {
+  ArrowRight,
+  BookMarked,
+  BookOpen,
+  CalendarDays,
+  ExternalLink,
+  FileText,
+  Headphones,
+  Layers,
+  Mic2,
+  Newspaper,
+  Pencil,
+  PencilLine,
+  Play,
+  ScrollText,
+  Shuffle,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
+import Link from 'next/link'
+
+import {
+  ACTIVITY_BY_ID,
+  activityLaunchHref,
+  isActivityScoped,
+  MATERIAL_LABEL,
+  PLAN_ACTIVITIES,
+  weekdayLabel,
+  type MaterialType,
+  type PlanActivity,
+} from '@/lib/learner/plan-activities'
+import type { PlanItem } from '@/lib/learner/plan-actions'
+
+const ACTIVITY_ICON: Record<string, LucideIcon> = {
+  Headphones,
+  BookOpen,
+  Mic2,
+  Layers,
+  Zap,
+  Shuffle,
+  Pencil,
+  ScrollText,
+  PencilLine,
+}
+const MATERIAL_ICON: Record<MaterialType, LucideIcon> = {
+  book: BookMarked,
+  article: Newspaper,
+  word_set: Layers,
+  script: FileText,
+}
+
+export function TodayPlanCard({ items, today }: { items: PlanItem[]; today: number }) {
+  const todayItems = items.filter((i) => i.weekdays.includes(today))
+  if (todayItems.length === 0) return null
+
+  return (
+    <section
+      aria-label="오늘의 학습 계획"
+      className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
+    >
+      <header className="flex items-center gap-1.5">
+        <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
+        <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">오늘의 학습 계획</h2>
+        <span className="font-mono text-[12px] text-[var(--p)]">{weekdayLabel(today)}요일</span>
+        <Link
+          href="/plan"
+          className="ml-auto inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          계획 전체 <ArrowRight size={12} strokeWidth={2} aria-hidden />
+        </Link>
+      </header>
+
+      <div className="flex flex-col gap-2.5">
+        {todayItems.map((item) => (
+          <TodayPlanRow key={item.id} item={item} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function TodayPlanRow({ item }: { item: PlanItem }) {
+  const TypeIcon = MATERIAL_ICON[item.materialType]
+  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  return (
+    <div className="flex flex-col gap-1.5">
+      <span className="flex items-center gap-1.5">
+        {item.materialType === 'word_set' && item.coverEmoji ? (
+          <span className="text-[15px] leading-none" aria-hidden>
+            {item.coverEmoji}
+          </span>
+        ) : (
+          <span className="inline-flex h-5 w-5 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
+            <TypeIcon size={13} strokeWidth={1.75} />
+          </span>
+        )}
+        <span className="truncate font-display text-[13px] font-[800] text-[var(--t1)]">{item.title}</span>
+        <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">
+          {MATERIAL_LABEL[item.materialType]}
+        </span>
+        {item.materialType === 'book' && item.chapterCount > 1 && (
+          <span className="font-mono text-[11px] text-[var(--t3)]">
+            {item.chapters.length === 0 ? '전체' : `Ch ${item.chapters.join('·')}`}
+          </span>
+        )}
+      </span>
+      {acts.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {acts.map((a) => (
+            <LaunchChip
+              key={a.id}
+              activity={a.id}
+              href={activityLaunchHref(ref, a.id)}
+              scoped={isActivityScoped(item.materialType, a.id)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: string; scoped: boolean }) {
+  const def = ACTIVITY_BY_ID[activity]
+  const Icon = ACTIVITY_ICON[def.icon] ?? Layers
+  return (
+    <Link
+      href={href}
+      title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
+      className="inline-flex min-h-[34px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+    >
+      <Icon size={13} strokeWidth={1.75} aria-hidden />
+      {def.label}
+      {scoped ? (
+        <Play size={11} strokeWidth={2} className="text-[var(--p)] opacity-80" aria-hidden />
+      ) : (
+        <ExternalLink size={11} strokeWidth={2} className="opacity-50" aria-hidden />
+      )}
+    </Link>
+  )
+}

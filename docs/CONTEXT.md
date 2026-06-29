@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/menu-naming-en`
+**활성 브랜치**: `feat/hub-today-plan`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c151f4d` feat(ia): 메뉴 라벨 영어 통일 — 한자어(회고·진단) 제거 (#85)
 - `32de5c6` feat(ia): 메타 표면 4→2 통합 — 오늘(/hub) · 회고(/dashboard) (#84)
 - `79592af` feat(learner): 학습 계획 "오늘의 학습" — 계획→매일 실행 연결 (#83)
 - `442834a` feat(learner): 학습 계획 UX 재구성 — 컴포저 + 주간 보드 (#82)
 - `e5201b8` feat(learner): 학습 계획 요일 결합 + 시간 제거 (#81)
-- `e19e843` feat(learner): 학습 계획 picker V-Level 밴드 × 카테고리 체계화 (#80)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
