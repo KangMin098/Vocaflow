@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### 메타 표면 4→2 통합 — 오늘(/hub) · 회고(/dashboard) (v06.108)
+
+4개 메타 표면(/hub·/dashboard·/diagnostic·/manage)의 중복(RecentActivity 양쪽·L7 이중할당·/manage 라우터+오링크)을 **2개(오늘·회고)**로 통합. 마이그레이션 0(라우트/컴포넌트만).
+
+- **/dashboard = 회고(L7 단독)**: TodayHero(인사+forward CTA) 삭제 → known-word 성장 editorial 헤더. 순서: 헤더 → MemoryStatus → WeeklyHeatmap → **학습 관리 3카드(ManageSection)** → RecentActivity. `fetchManageOverview` 재사용(+userName).
+- **/manage 삭제** → `ManageSection`(진단·계획·리포트, 미진단 시 진단 카드 ring 강조)으로 흡수.
+- **/hub = 오늘(forward)**: RecentActivity 제거(회고로 이전).
+- **Sidebar META 4→2**: `오늘`(/hub)·`회고`(/dashboard). 진단/계획/리포트는 회고 섹션 카드로 강등(메타 peer 아님).
+- 삭제: `(main)/manage/page.tsx` · `components/dashboard/TodayHero.tsx` · `lib/learner/dashboard-data.ts`(소비처 dashboard 단독). 신규: `components/dashboard/ManageSection.tsx`.
+- docs: LEARNING_MODEL(L7=/dashboard 단독) · ROUTES(/manage 삭제·/hub·/dashboard) 갱신. typecheck green · `next build` 88/88(/manage 제거).
+
 ### 학습 계획 "오늘의 학습" — 계획 → 매일 실행 연결 (v06.107)
 
 `/plan` 에 오늘 요일 학습을 노출 — 계획이 매일 actionable. 마이그레이션 0.

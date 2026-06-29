@@ -8,12 +8,12 @@
 // 익히기 그룹 정렬 = 인지 깊이 순:
 //   Flashcard (L4a 시각적 재인) → WordBlitz (L4a 자동) → SpellForge (L4b 생성)
 //
-// 회고(L7 Reflect)는 별도 메뉴 X — META_ITEMS의 Dashboard로 흡수.
+// 메타 표면 2개 (v06.108 통합 4→2): 오늘(/hub, forward) · 회고(/dashboard, backward).
+//   진단·계획·리포트 = 회고의 "학습 관리" 섹션으로 강등(메타 peer 아님). /manage 폐지.
 
 import {
   BarChart3,
   BookOpen,
-  ClipboardList,
   Compass,
   GraduationCap,
   Home,
@@ -44,10 +44,8 @@ export interface NavGroup {
 }
 
 export const META_ITEMS: NavItem[] = [
-  { label: 'Hub', href: '/hub', icon: Home },
-  { label: 'Dashboard', href: '/dashboard', icon: BarChart3 },
-  { label: '진단', href: '/diagnostic', icon: Compass, ariaLabel: 'VRL Placement 진단 + V-Level 변천사' },
-  { label: '내 학습', href: '/manage', icon: ClipboardList, ariaLabel: '내 학습 관리 — 계획·현황·진단·리포트 통합' },
+  { label: '오늘', href: '/hub', icon: Home, ariaLabel: '오늘 — 지금 할 학습 (이어하기·모듈·추천)' },
+  { label: '회고', href: '/dashboard', icon: BarChart3, ariaLabel: '회고 — 성장·기억·주간 리듬 + 학습 관리(진단·계획·리포트)' },
 ]
 
 export const NAV_GROUPS: NavGroup[] = [

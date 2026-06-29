@@ -38,7 +38,7 @@
 | **L4c Generate-Auditory (청각 생성)** | `/text/[id]/echo` | TTS → 발화 (Shadow Reading) | Generation + Production | `echo_match_attempts` |
 | **L5 Conquer (정복 · 의미 통합)** | `/scriptquiz` | 스크립트 맥락 4지선다 — 텍스트 단위 검증 | Recognition + Transfer | `scores` + 텍스트 정복 |
 | **L6 Complete (완성 · 다중 채널 재생산)** | `/dictate` | TTS 청취 → 받아쓰기 (음운+의미+문법+철자) | Free Recall + Production | `learning_records` + 텍스트 완성 |
-| **L7 Reflect (회고)** | `/hub` · `/dashboard` | 메타인지 + 다음 제안 수신 | 메타인지 | 다음 사이클 진입점 |
+| **L7 Reflect (회고)** | `/dashboard` 단독 | 메타인지 + 다음 제안 수신 | 메타인지 | (v06.108 이중할당 해소: `/hub`=오늘/forward 오케스트레이터, `/dashboard`=회고/backward 단독) |
 
 ### L4 4 Sub-layers (인지 채널 분리)
 

@@ -1,8 +1,8 @@
 // apps/web/src/lib/learner/manage-overview.ts
 //
-// "내 학습 관리" 통합 overview (리틀팍스 MY 학습 참고) — P0~P3 데이터를 한 화면에 모음.
-// 진단(V-Level) · 계획(Study Plan) · 실행(known-word/streak/오늘) · 최근 리포트.
-// 각 카드는 상세(/diagnostic·/onboarding·/reports)로 연결만 — 관리 overview 는 read-only.
+// 학습 관리 overview — 회고(/dashboard) 의 "학습 관리" 섹션 + 헤더 데이터 source.
+// 진단(V-Level) · 계획(Study Plan) · 실행(known-word/streak/오늘) · 최근 리포트 + 이름.
+// 각 카드는 상세(/diagnostic·/plan·/reports)로 연결만 — read-only.
 
 import 'server-only'
 
@@ -22,6 +22,7 @@ export interface PlanSummary {
 }
 
 export interface ManageOverview {
+  userName: string
   /** current_v_level — 0/null 이면 미진단 */
   vLevel: number | null
   knownWordCount: number
@@ -47,7 +48,7 @@ export async function fetchManageOverview(): Promise<ManageOverview | null> {
   const lc = client as unknown as SupabaseClient
   const [{ data: profile }, { data: stats }, { data: today }, { data: report }, planItems] =
     await Promise.all([
-      lc.from('user_profiles').select('current_v_level').eq('user_id', user.id).maybeSingle(),
+      lc.from('user_profiles').select('current_v_level, display_name').eq('user_id', user.id).maybeSingle(),
       lc.from('user_stats').select('known_word_count, current_streak').eq('user_id', user.id).maybeSingle(),
       lc.from('daily_activity').select('total_words').eq('user_id', user.id).eq('date', kstToday()).maybeSingle(),
       lc
@@ -71,6 +72,7 @@ export async function fetchManageOverview(): Promise<ManageOverview | null> {
 
   const rawV = (profile?.current_v_level as number | undefined) ?? null
   return {
+    userName: (profile?.display_name as string | undefined)?.trim() || '학습자',
     vLevel: rawV && rawV > 0 ? rawV : null, // V0 = 미진단(메모리 규칙)
     knownWordCount: (stats?.known_word_count as number | undefined) ?? 0,
     currentStreak: (stats?.current_streak as number | undefined) ?? 0,
