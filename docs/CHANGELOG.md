@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 계획 launch — Dictation 자료 스코핑 (게임 6/6 완결) (v06.113)
+
+마지막 미스코핑 게임 **Dictation** 스코핑 → **6/6 완결**. 마이그레이션 0.
+
+- **`lib/dictation/scoped-resource.ts`** 신규 — `texts.content`(스크립트 본문) → 임시 `DictationResource`(id `text-{id}` · script=content · cefr=texts.cefr_level · translation).
+- **`DictationSetupClient`** — `?text=`(texts.id) 있으면 그 스크립트를 fetch→임시 리소스 saveResource→setup 진행. content 없으면 `/dictate` graceful redirect.
+- 받아쓰기=문장 전사라 **스크립트(본문)만** 스코핑 — 단어장 미해당, 도서는 inline 본문 없어 hub. (`activityLaunchHref`/`isActivityScoped` dictation=script)
+- 데이터패스: 강민 텍스트 content 有 4개 → 정상 리소스(B1 6781자 등), 무 → redirect. typecheck/build green.
+- **게임 스코핑 6/6**: flashcard·scriptquiz·spellforge·wordblitz·pairflip·dictation (각 자료유형 정합).
+
 ### 계획 launch — PairFlip 자료 스코핑 (게임 5/6) (v06.112)
 
 계획 활동 launch 의 게임 스코핑을 **PairFlip** 까지 확대 → 5/6. 마이그레이션 0.
