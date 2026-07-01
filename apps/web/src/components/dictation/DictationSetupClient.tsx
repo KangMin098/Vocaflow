@@ -19,9 +19,11 @@ import {
 } from 'lucide-react';
 
 import { getLevelByCode } from '@/lib/dictation/cefr';
-import { getResource } from '@/lib/dictation/storage';
+import { getResource, saveResource } from '@/lib/dictation/storage';
+import { fetchTextAsDictationResource } from '@/lib/dictation/scoped-resource';
 import { splitText, estimateUnit } from '@/lib/dictation/text-splitter';
 import { createSession } from '@/hooks/dictation/useDictationSession';
+import { createClient } from '@/lib/supabase/client';
 import type {
   CEFRCode,
   DictationConfig,
@@ -58,6 +60,7 @@ export function DictationSetupClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const resourceId = searchParams.get('resourceId') ?? '';
+  const textId = searchParams.get('text') ?? ''; // 계획 launch — 스크립트를 임시 리소스로
 
   const [resource, setResource] = useState<DictationResource | null>(null);
   const [unit, setUnit] = useState<DictationUnit>('sentence');
@@ -72,6 +75,41 @@ export function DictationSetupClient() {
 
   // 리소스 로드 + 자동 레벨 적용
   useEffect(() => {
+    const applyResource = (r: DictationResource) => {
+      setResource(r);
+      if (r.cefr) {
+        setCefr(r.cefr);
+        const level = getLevelByCode(r.cefr);
+        setUnit(level.recommended.unit);
+        setSpeed(level.recommended.speed);
+        setAutoRepeat(level.recommended.autoRepeat);
+        setHintsAllowed(level.recommended.hintsAllowed);
+        setCount(level.recommended.sessionCount);
+      }
+    };
+
+    // 계획 launch — ?text= 스크립트를 임시 리소스로 만들어 진행
+    if (!resourceId && textId) {
+      void (async () => {
+        try {
+          const client = createClient();
+          const {
+            data: { user },
+          } = await client.auth.getUser();
+          const r = await fetchTextAsDictationResource(client, textId, user?.id ?? null);
+          if (!r) {
+            router.replace('/dictate');
+            return;
+          }
+          saveResource(r);
+          applyResource(r);
+        } catch {
+          router.replace('/dictate');
+        }
+      })();
+      return;
+    }
+
     if (!resourceId) {
       router.replace('/dictate');
       return;
@@ -81,17 +119,8 @@ export function DictationSetupClient() {
       router.replace('/dictate');
       return;
     }
-    setResource(r);
-    if (r.cefr) {
-      setCefr(r.cefr);
-      const level = getLevelByCode(r.cefr);
-      setUnit(level.recommended.unit);
-      setSpeed(level.recommended.speed);
-      setAutoRepeat(level.recommended.autoRepeat);
-      setHintsAllowed(level.recommended.hintsAllowed);
-      setCount(level.recommended.sessionCount);
-    }
-  }, [resourceId, router]);
+    applyResource(r);
+  }, [resourceId, textId, router]);
 
   // 분리된 단위 갯수 미리보기
   const unitPreview = useMemo(() => {

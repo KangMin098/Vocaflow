@@ -129,7 +129,8 @@ export function activityLaunchHref(m: MaterialRef, activity: PlanActivity): stri
       if (m.type === 'word_set') return `/pairflip/play?set=${m.id}`
       return '/pairflip'
     case 'dictation':
-      return '/dictate'
+      // 받아쓰기=문장 전사 → 스크립트(본문)만 스코핑. 도서/단어장은 hub.
+      return m.type === 'script' ? `/dictate/setup?text=${m.id}` : '/dictate'
   }
 }
 
@@ -142,7 +143,8 @@ export function isActivityScoped(type: MaterialType, activity: PlanActivity): bo
   if (activity === 'wordblitz') return type === 'script' || type === 'word_set'
   if (activity === 'pairflip') return type === 'script' || type === 'word_set'
   if (activity === 'scriptquiz') return type === 'script'
-  return false // dictation — 모듈 hub (session 기반 진입, 자료 스코핑 미지원)
+  if (activity === 'dictation') return type === 'script' // 받아쓰기=문장 전사, 스크립트 본문만
+  return false
 }
 
 // ── 학습 리듬(일정) — study_plan_schedule ──
