@@ -204,8 +204,8 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 
 - 계획 = "언제(요일)·무엇을·어떻게" 한 흐름에 결합. 수능 D-day·완료일 역산·시간 압박 지표 없음(§철학1 Calm·§철학4 Implicit). 요일은 deadline 이 아니라 **리듬**.
 - /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
-- **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크, 편집(연필) = 활동 토글. scoped 진입(아이콘 ▶): 스크립트 `flashcard?text=`·`scriptquiz?text=` / 단어장 `flashcard?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) / listen·read·echo·vocab→본문. 미스코핑 게임(wordblitz/pairflip/spellforge/dictation·도서 게임)은 모듈 hub(↗) honest fallback. (`activityLaunchHref`/`isActivityScoped`)
-- (후속) 미스코핑 게임의 자료 스코핑(모듈별 param 확장) · 자료별 진행도.
+- **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크. scoped 진입(아이콘 ▶): **flashcard·spellforge·wordblitz** = 스크립트 `?text=`·단어장 `?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) · **scriptquiz** = 스크립트 `?text=` · listen·read·echo·vocab→본문. 미스코핑(모듈 hub ↗): **pairflip(sessionStorage config)·dictation(multi-step)·도서 게임**. (`activityLaunchHref`/`isActivityScoped` · v06.111)
+- (후속) pairflip·dictation 자료 스코핑(flow 기반 진입 개조) · 자료별 진행도.
 
 ---
 
