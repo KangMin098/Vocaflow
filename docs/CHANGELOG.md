@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### Growth(/dashboard) known-word 성장 hero (v06.114)
+
+"Growth" 표면인데 성장 지표(known-word)가 헤더 작은 글씨뿐이던 것을 **성장 hero**로 부각. 마이그레이션 0.
+
+- 헤더에 known-word **큰 숫자(40px)** + "N일 연속" 컨텍스트 + Lora italic Implicit 코멘트("어휘가 자라고 있어요"). 게이지·정답률·압박 없음(§철학1 Calm·§철학4 Implicit).
+- 기존 작은 known-word 텍스트 라인 대체. dashboard 헤더만 변경(다른 섹션 유지). typecheck/build green.
+
 ### 계획 launch — Dictation 자료 스코핑 (게임 6/6 완결) (v06.113)
 
 마지막 미스코핑 게임 **Dictation** 스코핑 → **6/6 완결**. 마이그레이션 0.
