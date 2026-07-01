@@ -114,6 +114,16 @@ export function Plush({ position, kind, mass, friction, restitution }: Props) {
         <meshStandardMaterial color={kind === 'kitty' ? '#ffb84d' : '#0a0a0a'} />
       </mesh>
 
+      {/* pink blush cheeks — kawaii */}
+      <mesh position={[-0.13, -0.02, 0.16]}>
+        <sphereGeometry args={[0.03, 10, 8]} />
+        <meshStandardMaterial color="#ff9ec8" transparent opacity={0.7} />
+      </mesh>
+      <mesh position={[0.13, -0.02, 0.16]}>
+        <sphereGeometry args={[0.03, 10, 8]} />
+        <meshStandardMaterial color="#ff9ec8" transparent opacity={0.7} />
+      </mesh>
+
       {/* Kitty bow (right ear) */}
       {kind === 'kitty' && (
         <mesh position={[0.12, 0.19, 0.05]}>

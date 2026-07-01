@@ -34,87 +34,92 @@ export function ControlPanel() {
   })
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        left: '50%',
-        bottom: 20,
-        transform: 'translateX(-50%)',
-        zIndex: 10,
-        display: 'flex',
-        gap: 16,
-        alignItems: 'center',
-        background: 'linear-gradient(180deg, #ff2d7d 0%, #d61f6a 100%)',
-        padding: '10px 22px',
-        borderRadius: 14,
-        border: '3px solid #0d0d10',
-        boxShadow: '0 0 24px rgba(255,45,125,0.7), 0 4px 12px rgba(0,0,0,0.4)',
-      }}
-    >
-      {/* SPACE PLAYER 01 label */}
-      <div style={playerLabel}>
+    <div style={panelWrap}>
+      {/* PLAYER 01 badge */}
+      <div style={playerBadgeWrap}>
         <div style={playerBadge}>01</div>
-        <div style={{ fontSize: 11, marginTop: 4, letterSpacing: 1 }}>PLAYER</div>
+        <div style={playerLabel}>PLAYER</div>
       </div>
 
       {/* D-pad */}
       <div style={dpadWrap}>
-        <button style={dpadBtn} onClick={() => nudge(0, -STEP)} disabled={disabled} aria-label="up">▲</button>
+        <button style={{ ...dpadBtn, ...dpadHoriz }} onClick={() => nudge(0, -STEP)} disabled={disabled} aria-label="up">▲</button>
         <div style={{ display: 'flex', gap: 4 }}>
           <button style={dpadBtn} onClick={() => nudge(-STEP, 0)} disabled={disabled} aria-label="left">◀</button>
           <div style={dpadCenter}>
-            <div style={{ fontSize: 8, color: '#f6c700', letterSpacing: 1 }}>X: {targetX.toFixed(1)}</div>
-            <div style={{ fontSize: 8, color: '#f6c700', letterSpacing: 1 }}>Z: {targetZ.toFixed(1)}</div>
+            <div style={coordLabel}>X {targetX.toFixed(1)}</div>
+            <div style={coordLabel}>Z {targetZ.toFixed(1)}</div>
           </div>
           <button style={dpadBtn} onClick={() => nudge(STEP, 0)} disabled={disabled} aria-label="right">▶</button>
         </div>
-        <button style={dpadBtn} onClick={() => nudge(0, STEP)} disabled={disabled} aria-label="down">▼</button>
+        <button style={{ ...dpadBtn, ...dpadHoriz }} onClick={() => nudge(0, STEP)} disabled={disabled} aria-label="down">▼</button>
       </div>
 
       {/* Big DROP button */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <button
-          style={{ ...dropBtn, ...(disabled ? { filter: 'grayscale(0.6) brightness(0.6)' } : {}) }}
+          style={{ ...dropBtn, ...(disabled ? { filter: 'grayscale(0.4) brightness(0.85)' } : {}) }}
           onClick={start}
           disabled={disabled}
           aria-label="drop"
         >
-          <div style={{ fontSize: 10, letterSpacing: 2 }}>DROP</div>
+          <div style={{ fontSize: 20 }}>🎀</div>
+          <div style={{ fontSize: 11, letterSpacing: 2, fontWeight: 900, color: '#ff5c8f', marginTop: 2 }}>DROP</div>
         </button>
-        <div style={{ fontSize: 9, color: '#f6c700', fontWeight: 800, letterSpacing: 1 }}>
-          state: {state}
-        </div>
+        <div style={stateLabel}>state: {state}</div>
       </div>
 
-      {/* SPACE PLAYER 02 label */}
-      <div style={playerLabel}>
-        <div style={playerBadge}>02</div>
-        <div style={{ fontSize: 11, marginTop: 4, letterSpacing: 1 }}>PLAYER</div>
+      {/* PLAYER 02 badge */}
+      <div style={playerBadgeWrap}>
+        <div style={{ ...playerBadge, background: 'linear-gradient(180deg, #b0e0ff 0%, #7ec0f0 100%)' }}>02</div>
+        <div style={playerLabel}>PLAYER</div>
       </div>
     </div>
   )
 }
 
-const playerLabel: React.CSSProperties = {
+const panelWrap: React.CSSProperties = {
+  position: 'fixed',
+  left: '50%',
+  bottom: 20,
+  transform: 'translateX(-50%)',
+  zIndex: 10,
+  display: 'flex',
+  gap: 20,
+  alignItems: 'center',
+  background: 'linear-gradient(180deg, #ffffff 0%, #ffe8f2 100%)',
+  padding: '14px 26px',
+  borderRadius: 28,
+  border: '4px solid #ff9dc0',
+  boxShadow: '0 8px 24px rgba(255,150,200,0.6), inset 0 -4px 0 rgba(255,180,220,0.4)',
+}
+
+const playerBadgeWrap: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  color: '#fff',
-  fontFamily: '"Impact", sans-serif',
-  fontSize: 22,
-  textShadow: '0 0 10px rgba(255,255,255,0.4)',
+  gap: 2,
 }
 
 const playerBadge: React.CSSProperties = {
-  fontSize: 34,
+  fontSize: 26,
   fontWeight: 900,
-  padding: '4px 10px',
-  background: '#0d0d10',
-  border: '2px solid #ff2d7d',
-  borderRadius: 6,
-  color: '#fff',
-  minWidth: 44,
+  padding: '4px 12px',
+  background: 'linear-gradient(180deg, #ffe4ec 0%, #ffb0d0 100%)',
+  border: '3px solid #fff',
+  borderRadius: 14,
+  color: '#a04870',
+  minWidth: 40,
   textAlign: 'center',
+  boxShadow: '0 2px 8px rgba(255,150,200,0.5)',
+  fontFamily: '"Impact", sans-serif',
+}
+
+const playerLabel: React.CSSProperties = {
+  fontSize: 10,
+  color: '#c88ba8',
+  letterSpacing: 2,
+  fontWeight: 800,
 }
 
 const dpadWrap: React.CSSProperties = {
@@ -122,49 +127,65 @@ const dpadWrap: React.CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   gap: 4,
-  padding: 12,
-  background: 'rgba(15,15,20,0.9)',
-  border: '2px solid #ff2d7d',
-  borderRadius: 12,
-  boxShadow: '0 0 20px rgba(255,45,125,0.5)',
+  padding: 10,
+  background: 'linear-gradient(180deg, #fff5fa 0%, #ffd8ea 100%)',
+  border: '3px solid #ffc8e0',
+  borderRadius: 18,
+  boxShadow: 'inset 0 -2px 0 rgba(255,180,220,0.5)',
 }
 
 const dpadBtn: React.CSSProperties = {
   width: 42,
   height: 42,
-  background: '#2a2f38',
-  color: '#f6c700',
-  border: '2px solid #4a4f58',
-  borderRadius: 6,
+  background: 'linear-gradient(180deg, #fff 0%, #ffe4ec 100%)',
+  color: '#ff5c8f',
+  border: '2px solid #ffb0d0',
+  borderRadius: 12,
   fontSize: 16,
-  fontWeight: 800,
+  fontWeight: 900,
   cursor: 'pointer',
-  boxShadow: 'inset 0 -2px 0 rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.5)',
+  boxShadow: 'inset 0 -3px 0 rgba(255,180,220,0.5), 0 2px 6px rgba(255,150,200,0.3)',
 }
+
+const dpadHoriz: React.CSSProperties = {}
 
 const dpadCenter: React.CSSProperties = {
   width: 42,
   height: 42,
-  background: '#0d0d10',
-  border: '2px solid #3a3f48',
-  borderRadius: 6,
+  background: 'linear-gradient(180deg, #fff8fb 0%, #ffe4ec 100%)',
+  border: '2px dashed #ffc8e0',
+  borderRadius: 12,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
 }
 
+const coordLabel: React.CSSProperties = {
+  fontSize: 8,
+  color: '#c88ba8',
+  fontWeight: 800,
+  letterSpacing: 0.5,
+}
+
 const dropBtn: React.CSSProperties = {
-  width: 100,
-  height: 100,
+  width: 90,
+  height: 90,
   borderRadius: '50%',
-  background: 'radial-gradient(circle at 35% 30%, #ffffff 0%, #f4f4f4 50%, #d8d8d8 100%)',
-  border: '4px solid #ff2d7d',
-  color: '#d63447',
+  background: 'radial-gradient(circle at 35% 30%, #ffffff 0%, #fff0f6 55%, #ffd8ea 100%)',
+  border: '4px solid #ff9dc0',
   fontWeight: 900,
   cursor: 'pointer',
-  boxShadow: '0 0 24px rgba(255,45,125,0.7), inset 0 -6px 0 rgba(0,0,0,0.15)',
+  boxShadow: '0 6px 18px rgba(255,150,200,0.6), inset 0 -6px 0 rgba(255,180,220,0.4)',
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+}
+
+const stateLabel: React.CSSProperties = {
+  fontSize: 9,
+  color: '#c88ba8',
+  fontWeight: 800,
+  letterSpacing: 1,
 }
