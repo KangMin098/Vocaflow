@@ -1,6 +1,8 @@
 // apps/web/src/app/(main)/spellforge/play/page.tsx
-// SpellForge 학습 세션 — hub(/spellforge) 에서 진입.
-// 사용자 SRS 큐의 due 단어를 실데이터로 제시 (lib/spellforge/hub-words).
+// SpellForge 학습 세션 — hub(/spellforge) 또는 계획 launch 에서 진입.
+//
+// ?set={단어장 id} | ?text={스크립트 texts.id} 가 있으면 그 자료의 단어를 실제로 fetch
+// (lib/spellforge/scoped-words). 없으면 사용자 SRS 큐의 due 단어(lib/spellforge/hub-words).
 // 영속화는 SpellForge 컴포넌트가 pushPendingResult → flushPendingSession 으로 처리.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -9,18 +11,52 @@ import type { Database } from '@vocaflow/types'
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { SpellForge } from '@/components/spellforge/SpellForge'
 import { fetchDueSpellForgeWords } from '@/lib/spellforge/hub-words'
+import { fetchScopedSpellForgeWords } from '@/lib/spellforge/scoped-words'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'SpellForge 학습 · Vocaflow',
 }
 
-export default async function SpellForgePlayPage() {
+interface PageProps {
+  searchParams?: { set?: string; text?: string }
+}
+
+export default async function SpellForgePlayPage({ searchParams }: PageProps) {
+  const set = searchParams?.set
+  const text = searchParams?.text
   const client = (await createClient()) as unknown as SupabaseClient<Database>
   const {
     data: { user },
   } = await client.auth.getUser()
 
+  // 스코프 진입 (계획 launch) — 그 자료의 실제 단어
+  if (set || text) {
+    const scoped = await fetchScopedSpellForgeWords(client as unknown as SupabaseClient, {
+      set,
+      text,
+      userId: user?.id ?? null,
+    })
+    if (scoped && scoped.words.length > 0) {
+      return (
+        <>
+          <ResourceContext
+            resource={{
+              type: set ? 'vocab' : 'script',
+              label: scoped.title,
+              position: `${scoped.words.length}개 단어`,
+              href: '/text',
+            }}
+            total={scoped.words.length}
+          />
+          <SpellForge textId={set ? 'vocab' : 'script'} textTitle={scoped.title} words={scoped.words} />
+        </>
+      )
+    }
+    return <HubEmpty reason="empty" />
+  }
+
+  // 일반 진입 (hub) — 사용자 SRS 큐의 due 단어
   if (!user) return <HubEmpty reason="auth" />
 
   const words = await fetchDueSpellForgeWords(client, user.id)

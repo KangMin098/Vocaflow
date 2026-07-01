@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 계획 launch — 게임 자료 스코핑 확대 (SpellForge·WordBlitz) (v06.111)
+
+계획의 활동 launch 를 그 자료 단어로 여는 게임을 **flashcard·scriptquiz → + spellforge·wordblitz** 로 확대. 마이그레이션 0.
+
+- **SpellForge**: `lib/spellforge/scoped-words.ts` 신규(fetchScopedWords 어댑터) + `/spellforge/play?set=/?text=` 분기(flashcard/play 미러). 없으면 기존 due 단어.
+- **WordBlitz**: `/play/wordblitz` 가 **이미 `?set/?text` 스코핑 지원**(fetchScopedWords) — launch 라우트만 hub→scoped 로 교정.
+- `plan-activities.ts` activityLaunchHref(spellforge·wordblitz → 스크립트 `?text=`·단어장 `?set=`) + isActivityScoped 갱신.
+- **스코핑 게임 4/6**: flashcard·scriptquiz·spellforge·wordblitz. **미지원(모듈 hub)**: pairflip(sessionStorage config)·dictation(multi-step setup) — flow 기반 진입이라 별도 작업.
+- 데이터패스 검증: fetchScopedWords → word_set 15 실단어(E2E 검증분 재사용). typecheck/build green.
+
 ### Today(/hub)에 "오늘의 학습 계획" — 계획→매일 실행 loop 완성 (v06.110)
 
 `/plan` 의 요일별 계획(study_plan_items.weekdays)을 **Today 홈 진입면**에 노출 — 계획이 매일 첫 화면에서 바로 시작. 마이그레이션 0.

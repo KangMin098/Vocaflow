@@ -116,12 +116,16 @@ export function activityLaunchHref(m: MaterialRef, activity: PlanActivity): stri
       return '/flashcard'
     case 'scriptquiz':
       return m.type === 'script' ? `/scriptquiz/play?text=${m.id}` : '/scriptquiz'
+    case 'spellforge':
+      if (m.type === 'script') return `/spellforge/play?text=${m.id}`
+      if (m.type === 'word_set') return `/spellforge/play?set=${m.id}`
+      return '/spellforge'
     case 'wordblitz':
+      if (m.type === 'script') return `/play/wordblitz?text=${m.id}`
+      if (m.type === 'word_set') return `/play/wordblitz?set=${m.id}`
       return '/wordblitz'
     case 'pairflip':
       return '/pairflip'
-    case 'spellforge':
-      return '/spellforge'
     case 'dictation':
       return '/dictate'
   }
@@ -132,8 +136,10 @@ export function isActivityScoped(type: MaterialType, activity: PlanActivity): bo
   if (activity === 'listen' || activity === 'read' || activity === 'vocab') return true
   if (activity === 'echo') return type === 'script'
   if (activity === 'flashcard') return type === 'script' || type === 'word_set'
+  if (activity === 'spellforge') return type === 'script' || type === 'word_set'
+  if (activity === 'wordblitz') return type === 'script' || type === 'word_set'
   if (activity === 'scriptquiz') return type === 'script'
-  return false // wordblitz/pairflip/spellforge/dictation — 모듈 hub
+  return false // pairflip/dictation — 모듈 hub (flow 기반 진입, 자료 스코핑 미지원)
 }
 
 // ── 학습 리듬(일정) — study_plan_schedule ──
