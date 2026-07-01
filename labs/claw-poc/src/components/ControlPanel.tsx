@@ -1,80 +1,170 @@
 // labs/claw-poc/src/components/ControlPanel.tsx
+import { useEffect } from 'react'
 import { useSequenceStore } from '../hooks/useSequence'
+
+const CAB_LIMIT = 1.6
+const STEP = 0.15
 
 export function ControlPanel() {
   const state = useSequenceStore((s) => s.state)
   const start = useSequenceStore((s) => s.start)
-  const reset = useSequenceStore((s) => s.reset)
   const targetX = useSequenceStore((s) => s.targetX)
   const targetZ = useSequenceStore((s) => s.targetZ)
   const setTarget = useSequenceStore((s) => s.setTarget)
 
   const disabled = state !== 'idle'
 
+  const nudge = (dx: number, dz: number) => {
+    if (disabled) return
+    const nx = Math.max(-CAB_LIMIT, Math.min(CAB_LIMIT, targetX + dx))
+    const nz = Math.max(-CAB_LIMIT, Math.min(CAB_LIMIT, targetZ + dz))
+    setTarget(nx, nz)
+  }
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') nudge(-STEP, 0)
+      else if (e.key === 'ArrowRight') nudge(STEP, 0)
+      else if (e.key === 'ArrowUp') nudge(0, -STEP)
+      else if (e.key === 'ArrowDown') nudge(0, STEP)
+      else if (e.key === ' ' || e.key === 'Enter') start()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
   return (
     <div
       style={{
         position: 'fixed',
-        top: 12,
-        left: 12,
+        left: '50%',
+        bottom: 20,
+        transform: 'translateX(-50%)',
         zIndex: 10,
-        background: 'rgba(20,22,28,0.9)',
-        border: '1px solid #333',
-        borderRadius: 8,
-        padding: 12,
-        color: '#eee',
-        fontSize: 13,
-        minWidth: 240,
+        display: 'flex',
+        gap: 16,
+        alignItems: 'center',
+        background: 'linear-gradient(180deg, #ff2d7d 0%, #d61f6a 100%)',
+        padding: '10px 22px',
+        borderRadius: 14,
+        border: '3px solid #0d0d10',
+        boxShadow: '0 0 24px rgba(255,45,125,0.7), 0 4px 12px rgba(0,0,0,0.4)',
       }}
     >
-      <div style={{ marginBottom: 8, fontWeight: 600 }}>Claw PoC</div>
-      <div style={{ marginBottom: 6, opacity: 0.75 }}>state: <b>{state}</b></div>
-      <div style={{ display: 'grid', gridTemplateColumns: '60px 1fr', gap: 4, marginBottom: 8 }}>
-        <label>target X</label>
-        <input
-          type="range"
-          min={-1.6}
-          max={1.6}
-          step={0.1}
-          value={targetX}
-          onChange={(e) => setTarget(Number(e.target.value), targetZ)}
-          disabled={disabled}
-        />
-        <label>target Z</label>
-        <input
-          type="range"
-          min={-1.6}
-          max={1.6}
-          step={0.1}
-          value={targetZ}
-          onChange={(e) => setTarget(targetX, Number(e.target.value))}
-          disabled={disabled}
-        />
+      {/* SPACE PLAYER 01 label */}
+      <div style={playerLabel}>
+        <div style={playerBadge}>01</div>
+        <div style={{ fontSize: 11, marginTop: 4, letterSpacing: 1 }}>PLAYER</div>
       </div>
-      <div style={{ display: 'flex', gap: 6 }}>
-        <button onClick={start} disabled={disabled} style={btn}>
-          PLAY
-        </button>
-        <button onClick={reset} style={btn}>
-          RESET
-        </button>
+
+      {/* D-pad */}
+      <div style={dpadWrap}>
+        <button style={dpadBtn} onClick={() => nudge(0, -STEP)} disabled={disabled} aria-label="up">▲</button>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <button style={dpadBtn} onClick={() => nudge(-STEP, 0)} disabled={disabled} aria-label="left">◀</button>
+          <div style={dpadCenter}>
+            <div style={{ fontSize: 8, color: '#f6c700', letterSpacing: 1 }}>X: {targetX.toFixed(1)}</div>
+            <div style={{ fontSize: 8, color: '#f6c700', letterSpacing: 1 }}>Z: {targetZ.toFixed(1)}</div>
+          </div>
+          <button style={dpadBtn} onClick={() => nudge(STEP, 0)} disabled={disabled} aria-label="right">▶</button>
+        </div>
+        <button style={dpadBtn} onClick={() => nudge(0, STEP)} disabled={disabled} aria-label="down">▼</button>
       </div>
-      <div style={{ marginTop: 10, opacity: 0.6, fontSize: 11, lineHeight: 1.4 }}>
-        1) target XZ 지정 → PLAY<br />
-        2) claw XY 이동 → 하강 → grip → 상승 → chute 이동 → release<br />
-        3) Leva 노브로 gripStiffness / plushFriction / plushMass 튜닝
+
+      {/* Big DROP button */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+        <button
+          style={{ ...dropBtn, ...(disabled ? { filter: 'grayscale(0.6) brightness(0.6)' } : {}) }}
+          onClick={start}
+          disabled={disabled}
+          aria-label="drop"
+        >
+          <div style={{ fontSize: 10, letterSpacing: 2 }}>DROP</div>
+        </button>
+        <div style={{ fontSize: 9, color: '#f6c700', fontWeight: 800, letterSpacing: 1 }}>
+          state: {state}
+        </div>
+      </div>
+
+      {/* SPACE PLAYER 02 label */}
+      <div style={playerLabel}>
+        <div style={playerBadge}>02</div>
+        <div style={{ fontSize: 11, marginTop: 4, letterSpacing: 1 }}>PLAYER</div>
       </div>
     </div>
   )
 }
 
-const btn: React.CSSProperties = {
-  flex: 1,
-  padding: '6px 10px',
-  background: '#2a2e38',
-  color: '#eee',
-  border: '1px solid #444',
-  borderRadius: 4,
+const playerLabel: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  color: '#fff',
+  fontFamily: '"Impact", sans-serif',
+  fontSize: 22,
+  textShadow: '0 0 10px rgba(255,255,255,0.4)',
+}
+
+const playerBadge: React.CSSProperties = {
+  fontSize: 34,
+  fontWeight: 900,
+  padding: '4px 10px',
+  background: '#0d0d10',
+  border: '2px solid #ff2d7d',
+  borderRadius: 6,
+  color: '#fff',
+  minWidth: 44,
+  textAlign: 'center',
+}
+
+const dpadWrap: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 4,
+  padding: 12,
+  background: 'rgba(15,15,20,0.9)',
+  border: '2px solid #ff2d7d',
+  borderRadius: 12,
+  boxShadow: '0 0 20px rgba(255,45,125,0.5)',
+}
+
+const dpadBtn: React.CSSProperties = {
+  width: 42,
+  height: 42,
+  background: '#2a2f38',
+  color: '#f6c700',
+  border: '2px solid #4a4f58',
+  borderRadius: 6,
+  fontSize: 16,
+  fontWeight: 800,
   cursor: 'pointer',
-  fontSize: 13,
+  boxShadow: 'inset 0 -2px 0 rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.5)',
+}
+
+const dpadCenter: React.CSSProperties = {
+  width: 42,
+  height: 42,
+  background: '#0d0d10',
+  border: '2px solid #3a3f48',
+  borderRadius: 6,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
+const dropBtn: React.CSSProperties = {
+  width: 100,
+  height: 100,
+  borderRadius: '50%',
+  background: 'radial-gradient(circle at 35% 30%, #ffffff 0%, #f4f4f4 50%, #d8d8d8 100%)',
+  border: '4px solid #ff2d7d',
+  color: '#d63447',
+  fontWeight: 900,
+  cursor: 'pointer',
+  boxShadow: '0 0 24px rgba(255,45,125,0.7), inset 0 -6px 0 rgba(0,0,0,0.15)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 }
