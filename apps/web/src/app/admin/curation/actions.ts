@@ -12,8 +12,11 @@ import {
   bulkRequeueBooks,
   bulkSetBooksCurating,
   deleteBook,
+  enqueueQuizJobs,
   fetchCurationJobs,
+  fetchQuizJobs,
   type CurationJobRow,
+  type QuizJobRow,
 } from '@/lib/library/admin-queries'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
@@ -146,6 +149,46 @@ export async function fetchCurationJobsAction(): Promise<ActionResult<CurationJo
     return {
       ok: false,
       error: e instanceof Error ? e.message : '큐 조회 실패',
+    }
+  }
+}
+
+/**
+ * 선택 도서를 스크립트 퀴즈 생성 큐(book_quiz_jobs)에 적재.
+ * RPC enqueue_quiz_jobs 가 자격(ready/published + 챕터 존재) 판정 + V-Level별 목표 문항 스냅샷.
+ * 드레인(챕터 본문 → library_chapter_quiz INSERT)은 Claude Code 배치(MCP)가 수행.
+ */
+export async function enqueueQuizJobsAction(
+  bookIds: string[],
+): Promise<ActionResult<{ queued: number; skipped: number }>> {
+  try {
+    await requireAdmin('/admin/curation')
+    if (bookIds.length === 0) {
+      return { ok: true, data: { queued: 0, skipped: 0 } }
+    }
+    const client = (await createClient()) as unknown as SupabaseClient
+    const result = await enqueueQuizJobs(client, bookIds)
+    revalidatePath('/admin/curation')
+    return { ok: true, data: result }
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : '퀴즈 큐 적재 실패',
+    }
+  }
+}
+
+/** 퀴즈 큐 상태 뷰용 — 최근 작업 목록 조회. */
+export async function fetchQuizJobsAction(): Promise<ActionResult<QuizJobRow[]>> {
+  try {
+    await requireAdmin('/admin/curation')
+    const client = (await createClient()) as unknown as SupabaseClient
+    const jobs = await fetchQuizJobs(client)
+    return { ok: true, data: jobs }
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : '퀴즈 큐 조회 실패',
     }
   }
 }

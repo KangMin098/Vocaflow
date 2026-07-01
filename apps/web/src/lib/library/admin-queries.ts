@@ -489,6 +489,94 @@ export async function fetchCurationJobs(
   })
 }
 
+// ─────────────────────────────────────────────
+// 스크립트 퀴즈 생성 큐 (book_quiz_jobs)
+//   enqueue: ready/published + 챕터 존재 도서. 드레인은 Claude Code 배치(MCP)가
+//   챕터 본문을 읽어 library_chapter_quiz 를 채우고 진행률(chapters_done/questions_created) 갱신.
+// ─────────────────────────────────────────────
+
+export type QuizJobStatus = 'pending' | 'running' | 'done' | 'failed'
+
+export interface QuizJobRow {
+  id: string
+  bookId: string
+  bookTitle: string
+  status: QuizJobStatus
+  bookVLevel: number | null
+  targetPerChapter: number | null
+  chaptersTotal: number
+  chaptersDone: number
+  questionsCreated: number
+  error: string | null
+  note: string | null
+  updatedAt: string
+}
+
+/** 선택 도서를 퀴즈 생성 큐에 upsert(pending). 자격 외(status/챕터 없음)는 skipped. */
+export async function enqueueQuizJobs(
+  client: AdminClient,
+  bookIds: string[],
+): Promise<{ queued: number; skipped: number }> {
+  const { data, error } = await client.rpc('enqueue_quiz_jobs', { p_book_ids: bookIds })
+  if (error) throw new Error(`enqueueQuizJobs failed: ${error.message}`)
+  const row = (Array.isArray(data) ? data[0] : data) as {
+    queued: number
+    skipped: number
+  } | null
+  return { queued: row?.queued ?? 0, skipped: row?.skipped ?? 0 }
+}
+
+/** 퀴즈 큐 상태 뷰용 — 최근 작업 N건 + book 제목 (2 쿼리 merge). */
+export async function fetchQuizJobs(client: AdminClient, limit = 100): Promise<QuizJobRow[]> {
+  const { data, error } = await client
+    .from('book_quiz_jobs')
+    .select(
+      'id, book_id, status, book_v_level, target_per_chapter, chapters_total, chapters_done, questions_created, error, note, updated_at',
+    )
+    .order('updated_at', { ascending: false })
+    .limit(limit)
+  if (error) throw new Error(`fetchQuizJobs failed: ${error.message}`)
+  const jobs = (data ?? []) as Array<{
+    id: string
+    book_id: string
+    status: QuizJobStatus
+    book_v_level: number | null
+    target_per_chapter: number | null
+    chapters_total: number
+    chapters_done: number
+    questions_created: number
+    error: string | null
+    note: string | null
+    updated_at: string
+  }>
+  if (jobs.length === 0) return []
+
+  const bookIds = Array.from(new Set(jobs.map((j) => j.book_id)))
+  const { data: books, error: bErr } = await client
+    .from('library_books')
+    .select('id, title')
+    .in('id', bookIds)
+  if (bErr) throw new Error(`fetchQuizJobs (books) failed: ${bErr.message}`)
+  const byId = new Map(
+    ((books ?? []) as Array<{ id: string; title: string }>).map((b) => [b.id, b]),
+  )
+
+  return jobs.map((j) => ({
+    id: j.id,
+    bookId: j.book_id,
+    bookTitle: byId.get(j.book_id)?.title ?? '(삭제됨)',
+    status: j.status,
+    bookVLevel: j.book_v_level,
+    targetPerChapter: j.target_per_chapter,
+    chaptersTotal: j.chapters_total,
+    chaptersDone: j.chapters_done,
+    questionsCreated: j.questions_created,
+    error: j.error,
+    note: j.note,
+    updatedAt: j.updated_at,
+  }))
+}
+
 /**
  * cefr_confidence 낮아도 강제로 publish.
  * - copyright_safe_in_kr=false 책은 서버에서 거부 (안전 가드).

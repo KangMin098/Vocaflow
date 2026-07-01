@@ -80,6 +80,7 @@
 | 버튼 | RPC / 엔드포인트 | 효과 |
 |---|---|---|
 | **Dev 일괄 처리** | `/api/lcp/dev-process` (순차) | 처리중+검토대기 선택분을 로직 파이프라인으로 dev 처리 — 수집·정규화·분절·분석·추출·V-Level·**LibriVox 자동매핑**까지. 배너에 `🔊 매핑 N · ⏳ 매핑큐 M` 집계 |
+| **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_quiz_jobs` 로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
 | 검토대기 → 처리중 | `admin_bulk_set_books_curating(uuid[])` | ready → curating · draft 단어장만 삭제 |
 | 처리중 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | library_books DELETE → BulkFetchTab 복귀 (in_progress) |
 | 검토대기 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | 동일 (ready) |

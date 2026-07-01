@@ -17,10 +17,12 @@ import {
   bulkRequeueBooksAction,
   bulkSetBooksToInProgressAction,
   deleteFailedBookAction,
+  enqueueQuizJobsAction,
   fetchCurationJobsAction,
 } from '@/app/admin/curation/actions';
 import { BookDetailModal } from './BookDetailModal';
 import { CurationJobsBanner } from './CurationJobsBanner';
+import { QuizJobsBanner } from './QuizJobsBanner';
 
 // v06.34 — 실패 상태(삭제 가능 status set)
 const DELETABLE_FAILED_STATUSES: BookStatus[] = [
@@ -78,6 +80,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   const [bulkPending, startBulkTransition] = useTransition();
   // Dev 일괄 처리 큐 상태 뷰 재조회 트리거 (enqueue 직후 +1)
   const [jobReloadKey, setJobReloadKey] = useState(0);
+  // 스크립트 퀴즈 생성 큐 재조회 트리거 (enqueue 직후 +1)
+  const [quizJobReloadKey, setQuizJobReloadKey] = useState(0);
   // book_curation_jobs 상태를 도서별로 — 리스트 행 큐 배지 + CurationJobsBanner 공용.
   const [jobsByBook, setJobsByBook] = useState<Map<string, CurationJobRow>>(new Map());
   useEffect(() => {
@@ -198,6 +202,42 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     () => selectedBooks.filter((b) => b.status === 'failed').map((b) => b.id),
     [selectedBooks],
   );
+  // 스크립트 퀴즈 생성 자격 — ready/published (챕터 존재 여부는 서버 RPC 가 재검증)
+  const quizEligibleIds = useMemo(
+    () => selectedBooks.filter((b) => b.status === 'ready' || b.status === 'published').map((b) => b.id),
+    [selectedBooks],
+  );
+
+  // ── 스크립트 퀴즈 생성 큐 적재 ──
+  //    챕터별 스토리 퀴즈(문항 수 = V-Level 곡선)를 book_quiz_jobs 로 큐잉.
+  //    실제 생성(챕터 본문 → library_chapter_quiz)은 Claude Code 배치(MCP) 드레인.
+  const runEnqueueQuiz = () => {
+    if (quizEligibleIds.length === 0) return;
+    if (
+      !window.confirm(
+        `선택한 도서 ${quizEligibleIds.length}권을 스크립트 퀴즈 생성 큐에 적재할까요?\n\n` +
+          '· 챕터별 스토리 기반 퀴즈(문항 수는 도서 V-Level 곡선 3~10)를 생성합니다.\n' +
+          '· 실제 문항 생성은 Claude Code 드레인이 챕터 본문을 읽어 처리합니다.\n' +
+          '· 재적재 시 진행률이 리셋됩니다 (기존 문항은 재드레인 시 순서 키로 덮어씀).',
+      )
+    ) {
+      return;
+    }
+    startBulkTransition(async () => {
+      const res = await enqueueQuizJobsAction(quizEligibleIds);
+      if (!res.ok) {
+        window.alert(`실패: ${res.error}`);
+        return;
+      }
+      const d = res.data;
+      window.alert(
+        `퀴즈 큐 적재: ${d?.queued ?? 0}권` +
+          ((d?.skipped ?? 0) > 0 ? ` · ${d?.skipped}권 스킵 (챕터 없음/자격 외 상태)` : ''),
+      );
+      setQuizJobReloadKey((k) => k + 1);
+      clearSelection();
+    });
+  };
 
   // 모두 선택 (현재 visible 범위 내) — header checkbox
   const visibleIds = useMemo(() => visible.map((b) => b.id), [visible]);
@@ -795,6 +835,9 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
       {/* 큐레이션 일괄 dev 처리 큐 상태 (book_curation_jobs · 작업 0건 시 자체 숨김) */}
       <CurationJobsBanner reloadKey={jobReloadKey} />
 
+      {/* 스크립트 퀴즈 생성 큐 상태 (book_quiz_jobs · 작업 0건 시 자체 숨김) */}
+      <QuizJobsBanner reloadKey={quizJobReloadKey} />
+
       {/* v06.34 — 다중 선택 일괄 액션 toolbar (≥1 선택 시 노출) */}
       {selectedIds.size > 0 && (
         <BulkActionToolbar
@@ -803,10 +846,12 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           inProgressCount={inProgressIds.length}
           failedCount={failedIds.length}
           devBatchCount={devBatchIds.length}
+          quizEligibleCount={quizEligibleIds.length}
           devRunning={devState?.running ?? false}
           pending={bulkPending}
           onClear={clearSelection}
           onDevBatch={runDevBatch}
+          onEnqueueQuiz={runEnqueueQuiz}
           onReadyToCurating={runReadyToCurating}
           onInProgressToQueued={runInProgressToQueued}
           onReadyToQueued={runReadyToQueued}
@@ -1550,10 +1595,12 @@ function BulkActionToolbar({
   inProgressCount,
   failedCount,
   devBatchCount,
+  quizEligibleCount,
   devRunning,
   pending,
   onClear,
   onDevBatch,
+  onEnqueueQuiz,
   onReadyToCurating,
   onInProgressToQueued,
   onReadyToQueued,
@@ -1563,10 +1610,12 @@ function BulkActionToolbar({
   inProgressCount: number;
   failedCount: number;
   devBatchCount: number;
+  quizEligibleCount: number;
   devRunning: boolean;
   pending: boolean;
   onClear: () => void;
   onDevBatch: () => void;
+  onEnqueueQuiz: () => void;
   onReadyToCurating: () => void;
   onInProgressToQueued: () => void;
   onReadyToQueued: () => void;
@@ -1610,6 +1659,31 @@ function BulkActionToolbar({
           {devBatchCount > 0 && (
             <span className="ml-1 rounded-[var(--r-full)] bg-white/25 px-1.5 py-0 font-mono text-[10px]">
               {devBatchCount}
+            </span>
+          )}
+        </button>
+
+        {/* 0b) 스크립트 퀴즈 큐 — ready/published 선택분을 챕터 퀴즈 생성 큐로 적재 */}
+        <button
+          type="button"
+          onClick={onEnqueueQuiz}
+          disabled={pending || quizEligibleCount === 0}
+          title={
+            quizEligibleCount === 0
+              ? '선택한 도서 중 검토대기/게시됨 상태가 없습니다 (퀴즈 생성 자격: 챕터 존재)'
+              : `검토대기/게시됨 ${quizEligibleCount}권을 스크립트 퀴즈 생성 큐에 적재. 챕터별 스토리 퀴즈(문항 수 = 도서 V-Level 곡선 3~10)를 Claude Code 드레인이 생성.`
+          }
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--active)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--active)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--warning-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {pending ? (
+            <Loader2 size={12} className="animate-spin" aria-hidden />
+          ) : (
+            <Sparkles size={12} aria-hidden />
+          )}
+          스크립트 퀴즈 큐
+          {quizEligibleCount > 0 && (
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-1.5 py-0 font-mono text-[10px]">
+              {quizEligibleCount}
             </span>
           )}
         </button>

@@ -11,7 +11,17 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
-import type { QuizOption, QuizQuestion, QuizSession } from '@/components/game/scriptquiz/types'
+import type {
+  ChapterQuizCatalogBook,
+  QuizOption,
+  QuizQuestion,
+  QuizSession,
+} from '@/components/game/scriptquiz/types'
+
+export type {
+  ChapterQuizCatalogBook,
+  ChapterQuizCatalogChapter,
+} from '@/components/game/scriptquiz/types'
 
 interface QuizQuestionRow {
   id: string
@@ -37,6 +47,100 @@ function rowToQuestion(r: QuizQuestionRow): QuizQuestion {
     sourceSnippet: r.source_snippet ?? '',
     ...(r.source_sentence_idx != null ? { sourceSentenceIdx: r.source_sentence_idx } : {}),
   }
+}
+
+/**
+ * 큐레이션 챕터 퀴즈 세션 (공유 · library_book_id + chapter_idx 키).
+ * select_book_chapter_quiz RPC(SECURITY DEFINER) 로 read — RLS 우회, 학습자 공유 콘텐츠.
+ * 제목은 list_book_chapter_quiz_catalog 에서 매칭(library_books RLS 비의존).
+ * 문제 0개면 null(→ 호출부 폴백/빈 상태).
+ */
+export async function fetchChapterQuizSession(
+  client: SupabaseClient<Database>,
+  libraryBookId: string,
+  chapterIdx: number,
+): Promise<QuizSession | null> {
+  const rpc = client.rpc as unknown as (
+    fn: string,
+    args?: Record<string, unknown>,
+  ) => Promise<{ data: unknown; error: { message: string } | null }>
+
+  const [{ data: qData, error: qErr }, { data: catData }] = await Promise.all([
+    rpc('select_book_chapter_quiz', {
+      p_book_id: libraryBookId,
+      p_chapter_idx: chapterIdx,
+    }),
+    rpc('list_book_chapter_quiz_catalog'),
+  ])
+  if (qErr) throw new Error(qErr.message)
+
+  const rows = (Array.isArray(qData) ? qData : []) as unknown as QuizQuestionRow[]
+  if (rows.length === 0) return null
+
+  const catalog = (Array.isArray(catData) ? catData : []) as Array<{
+    book_id: string
+    book_title: string
+    chapter_idx: number
+    chapter_title: string | null
+  }>
+  const entry = catalog.find(
+    (c) => c.book_id === libraryBookId && c.chapter_idx === chapterIdx,
+  )
+  const bookTitle = entry?.book_title ?? '스크립트'
+  const chapterLabel = entry?.chapter_title ?? `Chapter ${chapterIdx}`
+
+  return {
+    textTitle: bookTitle,
+    textChapter: chapterLabel,
+    questions: rows.map(rowToQuestion),
+  }
+}
+
+/**
+ * 허브 discovery — 퀴즈가 있는 도서/챕터 카탈로그.
+ * list_book_chapter_quiz_catalog RPC(SECURITY DEFINER) → 도서별로 그룹핑.
+ */
+export async function fetchChapterQuizCatalog(
+  client: SupabaseClient<Database>,
+): Promise<ChapterQuizCatalogBook[]> {
+  const rpc = client.rpc as unknown as (
+    fn: string,
+    args?: Record<string, unknown>,
+  ) => Promise<{ data: unknown; error: { message: string } | null }>
+
+  const { data, error } = await rpc('list_book_chapter_quiz_catalog')
+  if (error) throw new Error(error.message)
+
+  const rows = (Array.isArray(data) ? data : []) as Array<{
+    book_id: string
+    book_title: string
+    book_v_level: number | null
+    chapter_idx: number
+    chapter_title: string | null
+    question_count: number
+  }>
+
+  const byBook = new Map<string, ChapterQuizCatalogBook>()
+  for (const r of rows) {
+    let book = byBook.get(r.book_id)
+    if (!book) {
+      book = {
+        bookId: r.book_id,
+        bookTitle: r.book_title,
+        bookVLevel: r.book_v_level,
+        chapters: [],
+        questionTotal: 0,
+      }
+      byBook.set(r.book_id, book)
+    }
+    book.chapters.push({
+      chapterIdx: r.chapter_idx,
+      chapterTitle: r.chapter_title ?? `Chapter ${r.chapter_idx}`,
+      questionCount: r.question_count,
+    })
+    book.questionTotal += r.question_count
+  }
+  return Array.from(byBook.values())
 }
 
 /**

@@ -136,6 +136,41 @@ export type Database = {
         }
         Relationships: []
       }
+      assignments: {
+        Row: {
+          class_id: string
+          created_at: string
+          due_at: string | null
+          id: string
+          kind: string
+          ref_id: string
+        }
+        Insert: {
+          class_id: string
+          created_at?: string
+          due_at?: string | null
+          id?: string
+          kind: string
+          ref_id: string
+        }
+        Update: {
+          class_id?: string
+          created_at?: string
+          due_at?: string | null
+          id?: string
+          kind?: string
+          ref_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assignments_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       book_curation_jobs: {
         Row: {
           book_id: string
@@ -194,6 +229,118 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      book_quiz_jobs: {
+        Row: {
+          book_id: string
+          book_v_level: number | null
+          chapters_done: number
+          chapters_total: number
+          claimed_at: string | null
+          created_at: string
+          created_by: string | null
+          error: string | null
+          id: string
+          note: string | null
+          questions_created: number
+          status: string
+          target_per_chapter: number | null
+          updated_at: string
+        }
+        Insert: {
+          book_id: string
+          book_v_level?: number | null
+          chapters_done?: number
+          chapters_total?: number
+          claimed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          error?: string | null
+          id?: string
+          note?: string | null
+          questions_created?: number
+          status?: string
+          target_per_chapter?: number | null
+          updated_at?: string
+        }
+        Update: {
+          book_id?: string
+          book_v_level?: number | null
+          chapters_done?: number
+          chapters_total?: number
+          claimed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          error?: string | null
+          id?: string
+          note?: string | null
+          questions_created?: number
+          status?: string
+          target_per_chapter?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "book_quiz_jobs_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: true
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      class_members: {
+        Row: {
+          class_id: string
+          joined_at: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          class_id: string
+          joined_at?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          class_id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_members_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      classes: {
+        Row: {
+          created_at: string
+          id: string
+          invite_code: string
+          name: string
+          teacher_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          invite_code: string
+          name: string
+          teacher_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          invite_code?: string
+          name?: string
+          teacher_id?: string
+        }
+        Relationships: []
       }
       content_chunks: {
         Row: {
@@ -771,6 +918,98 @@ export type Database = {
           },
         ]
       }
+      library_article_seed_catalog: {
+        Row: {
+          author: string | null
+          created_at: string | null
+          curation_meta: Json | null
+          curation_status: string
+          description: string | null
+          feed_id: string | null
+          feed_label: string | null
+          fetched_at: string | null
+          has_audio: boolean | null
+          id: string
+          imported_article_id: string | null
+          imported_at: string | null
+          imported_to_articles: boolean | null
+          language: string | null
+          published_at: string | null
+          score_length: number | null
+          score_level: number | null
+          score_recency: number | null
+          score_source: number | null
+          score_total: number | null
+          source: string
+          source_id: string
+          source_url: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author?: string | null
+          created_at?: string | null
+          curation_meta?: Json | null
+          curation_status?: string
+          description?: string | null
+          feed_id?: string | null
+          feed_label?: string | null
+          fetched_at?: string | null
+          has_audio?: boolean | null
+          id?: string
+          imported_article_id?: string | null
+          imported_at?: string | null
+          imported_to_articles?: boolean | null
+          language?: string | null
+          published_at?: string | null
+          score_length?: number | null
+          score_level?: number | null
+          score_recency?: number | null
+          score_source?: number | null
+          score_total?: number | null
+          source: string
+          source_id: string
+          source_url?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string | null
+          created_at?: string | null
+          curation_meta?: Json | null
+          curation_status?: string
+          description?: string | null
+          feed_id?: string | null
+          feed_label?: string | null
+          fetched_at?: string | null
+          has_audio?: boolean | null
+          id?: string
+          imported_article_id?: string | null
+          imported_at?: string | null
+          imported_to_articles?: boolean | null
+          language?: string | null
+          published_at?: string | null
+          score_length?: number | null
+          score_level?: number | null
+          score_recency?: number | null
+          score_source?: number | null
+          score_total?: number | null
+          source?: string
+          source_id?: string
+          source_url?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_article_seed_catalog_imported_article_id_fkey"
+            columns: ["imported_article_id"]
+            isOneToOne: false
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       library_article_vocabularies: {
         Row: {
           base_learning_value: number
@@ -821,6 +1060,8 @@ export type Database = {
       }
       library_articles: {
         Row: {
+          article_v_level: number | null
+          audio_url: string | null
           author: string | null
           category_tags: string[] | null
           cefr_confidence: number | null
@@ -829,12 +1070,16 @@ export type Database = {
           content_hash: string | null
           copyright_safe_in_kr: boolean
           created_at: string
+          display_only: boolean
           id: string
           language: string
+          lexical_noise: number | null
           license: string
+          license_class: string | null
           llm_cost_usd: number | null
           published_at: string | null
           reading_minutes: number | null
+          register: string | null
           source: string
           source_fetched_at: string | null
           source_id: string
@@ -843,9 +1088,13 @@ export type Database = {
           status_message: string | null
           title: string
           updated_at: string
+          vrl_calculated_at: string | null
+          vrl_components: Json | null
           word_count: number | null
         }
         Insert: {
+          article_v_level?: number | null
+          audio_url?: string | null
           author?: string | null
           category_tags?: string[] | null
           cefr_confidence?: number | null
@@ -854,12 +1103,16 @@ export type Database = {
           content_hash?: string | null
           copyright_safe_in_kr?: boolean
           created_at?: string
+          display_only?: boolean
           id?: string
           language?: string
+          lexical_noise?: number | null
           license: string
+          license_class?: string | null
           llm_cost_usd?: number | null
           published_at?: string | null
           reading_minutes?: number | null
+          register?: string | null
           source: string
           source_fetched_at?: string | null
           source_id: string
@@ -868,9 +1121,13 @@ export type Database = {
           status_message?: string | null
           title: string
           updated_at?: string
+          vrl_calculated_at?: string | null
+          vrl_components?: Json | null
           word_count?: number | null
         }
         Update: {
+          article_v_level?: number | null
+          audio_url?: string | null
           author?: string | null
           category_tags?: string[] | null
           cefr_confidence?: number | null
@@ -879,12 +1136,16 @@ export type Database = {
           content_hash?: string | null
           copyright_safe_in_kr?: boolean
           created_at?: string
+          display_only?: boolean
           id?: string
           language?: string
+          lexical_noise?: number | null
           license?: string
+          license_class?: string | null
           llm_cost_usd?: number | null
           published_at?: string | null
           reading_minutes?: number | null
+          register?: string | null
           source?: string
           source_fetched_at?: string | null
           source_id?: string
@@ -893,6 +1154,8 @@ export type Database = {
           status_message?: string | null
           title?: string
           updated_at?: string
+          vrl_calculated_at?: string | null
+          vrl_components?: Json | null
           word_count?: number | null
         }
         Relationships: []
@@ -953,6 +1216,7 @@ export type Database = {
       }
       library_books: {
         Row: {
+          audio_url: string | null
           author: string | null
           author_birth_year: number | null
           author_death_year: number | null
@@ -975,6 +1239,8 @@ export type Database = {
           flesch_kincaid_grade: number | null
           flesch_reading_ease: number | null
           id: string
+          illustrations: Json | null
+          is_picture_book: boolean | null
           language: string
           lexical_coverage: Json | null
           lexile_measure: number | null
@@ -1002,6 +1268,7 @@ export type Database = {
           word_count: number | null
         }
         Insert: {
+          audio_url?: string | null
           author?: string | null
           author_birth_year?: number | null
           author_death_year?: number | null
@@ -1024,6 +1291,8 @@ export type Database = {
           flesch_kincaid_grade?: number | null
           flesch_reading_ease?: number | null
           id?: string
+          illustrations?: Json | null
+          is_picture_book?: boolean | null
           language?: string
           lexical_coverage?: Json | null
           lexile_measure?: number | null
@@ -1051,6 +1320,7 @@ export type Database = {
           word_count?: number | null
         }
         Update: {
+          audio_url?: string | null
           author?: string | null
           author_birth_year?: number | null
           author_death_year?: number | null
@@ -1073,6 +1343,8 @@ export type Database = {
           flesch_kincaid_grade?: number | null
           flesch_reading_ease?: number | null
           id?: string
+          illustrations?: Json | null
+          is_picture_book?: boolean | null
           language?: string
           lexical_coverage?: Json | null
           lexile_measure?: number | null
@@ -1100,6 +1372,65 @@ export type Database = {
           word_count?: number | null
         }
         Relationships: []
+      }
+      library_chapter_quiz: {
+        Row: {
+          book_v_level: number | null
+          chapter_idx: number
+          correct_index: number
+          created_at: string
+          id: string
+          library_book_id: string
+          options: Json
+          q_order: number
+          question: string
+          question_ko: string | null
+          source_sentence_idx: number | null
+          source_snippet: string | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          book_v_level?: number | null
+          chapter_idx: number
+          correct_index: number
+          created_at?: string
+          id?: string
+          library_book_id: string
+          options: Json
+          q_order: number
+          question: string
+          question_ko?: string | null
+          source_sentence_idx?: number | null
+          source_snippet?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          book_v_level?: number | null
+          chapter_idx?: number
+          correct_index?: number
+          created_at?: string
+          id?: string
+          library_book_id?: string
+          options?: Json
+          q_order?: number
+          question?: string
+          question_ko?: string | null
+          source_sentence_idx?: number | null
+          source_snippet?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_chapter_quiz_library_book_id_fkey"
+            columns: ["library_book_id"]
+            isOneToOne: false
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       library_chapters_master: {
         Row: {
@@ -1422,6 +1753,7 @@ export type Database = {
           id: string
           options: Json
           question: string
+          question_ko: string | null
           source_sentence_idx: number | null
           source_snippet: string | null
           text_id: string
@@ -1434,6 +1766,7 @@ export type Database = {
           id?: string
           options: Json
           question: string
+          question_ko?: string | null
           source_sentence_idx?: number | null
           source_snippet?: string | null
           text_id: string
@@ -1446,6 +1779,7 @@ export type Database = {
           id?: string
           options?: Json
           question?: string
+          question_ko?: string | null
           source_sentence_idx?: number | null
           source_snippet?: string | null
           text_id?: string
@@ -1839,6 +2173,21 @@ export type Database = {
           },
         ]
       }
+      shared_dictionary_p5a_backup_20260620: {
+        Row: {
+          frequency_rank: number | null
+          word: string | null
+        }
+        Insert: {
+          frequency_rank?: number | null
+          word?: string | null
+        }
+        Update: {
+          frequency_rank?: number | null
+          word?: string | null
+        }
+        Relationships: []
+      }
       shared_word_sets: {
         Row: {
           auto_curated: boolean
@@ -2046,6 +2395,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      study_plan_items: {
+        Row: {
+          chapters: number[]
+          created_at: string
+          id: string
+          material_id: string
+          material_type: string
+          modules: string[]
+          updated_at: string
+          user_id: string
+          weekdays: number[]
+        }
+        Insert: {
+          chapters?: number[]
+          created_at?: string
+          id?: string
+          material_id: string
+          material_type: string
+          modules?: string[]
+          updated_at?: string
+          user_id: string
+          weekdays?: number[]
+        }
+        Update: {
+          chapters?: number[]
+          created_at?: string
+          id?: string
+          material_id?: string
+          material_type?: string
+          modules?: string[]
+          updated_at?: string
+          user_id?: string
+          weekdays?: number[]
+        }
+        Relationships: []
       }
       texts: {
         Row: {
@@ -2471,6 +2856,7 @@ export type Database = {
         Row: {
           current_streak: number | null
           fsrs_target_retention: number | null
+          known_word_count: number
           last_studied_at: string | null
           longest_streak: number | null
           mastery_level: string | null
@@ -2481,6 +2867,7 @@ export type Database = {
         Insert: {
           current_streak?: number | null
           fsrs_target_retention?: number | null
+          known_word_count?: number
           last_studied_at?: string | null
           longest_streak?: number | null
           mastery_level?: string | null
@@ -2491,6 +2878,7 @@ export type Database = {
         Update: {
           current_streak?: number | null
           fsrs_target_retention?: number | null
+          known_word_count?: number
           last_studied_at?: string | null
           longest_streak?: number | null
           mastery_level?: string | null
@@ -3325,6 +3713,42 @@ export type Database = {
           },
         ]
       }
+      weekly_reports: {
+        Row: {
+          by_module: Json
+          empathetic_note: string | null
+          generated_at: string
+          id: string
+          total_minutes: number
+          total_reviews: number
+          total_words: number
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          by_module?: Json
+          empathetic_note?: string | null
+          generated_at?: string
+          id?: string
+          total_minutes?: number
+          total_reviews?: number
+          total_words?: number
+          user_id: string
+          week_start: string
+        }
+        Update: {
+          by_module?: Json
+          empathetic_note?: string | null
+          generated_at?: string
+          id?: string
+          total_minutes?: number
+          total_reviews?: number
+          total_words?: number
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
       word_frequency_stats: {
         Row: {
           appears_every_year: boolean | null
@@ -3629,11 +4053,36 @@ export type Database = {
         Args: { p_book_id: string; p_user_id: string }
         Returns: undefined
       }
+      _extract_composite_score: {
+        Args: {
+          p_example_en: string
+          p_freq_in_unit: number
+          p_frequency_rank: number
+          p_skill_level: number
+          p_unit_max_freq: number
+          p_unit_v_level: number
+          p_v_level: number
+          p_verified: boolean
+        }
+        Returns: number
+      }
+      acp_classify_license: { Args: { p_license: string }; Returns: string }
       admin_archive_article: {
         Args: { p_article_id: string }
         Returns: undefined
       }
       admin_archive_book: { Args: { p_book_id: string }; Returns: string }
+      admin_bulk_requeue_articles: {
+        Args: { p_article_ids: string[] }
+        Returns: {
+          blocked_by_published: number
+          blocked_by_users: number
+          deleted_count: number
+          seed_unlocked: number
+          skipped_count: number
+          word_sets_deleted: number
+        }[]
+      }
       admin_bulk_requeue_books: {
         Args: { p_book_ids: string[] }
         Returns: {
@@ -3655,6 +4104,15 @@ export type Database = {
           word_sets_deleted: number
         }[]
       }
+      admin_delete_article: {
+        Args: { p_article_id: string }
+        Returns: {
+          deleted_article_id: string
+          seed_unlocked: number
+          status_was: string
+          word_sets_deleted: number
+        }[]
+      }
       admin_delete_book: {
         Args: { p_book_id: string }
         Returns: {
@@ -3667,6 +4125,7 @@ export type Database = {
       }
       admin_enqueue_article: {
         Args: {
+          p_audio_url?: string
           p_author?: string
           p_content?: string
           p_license?: string
@@ -3700,6 +4159,13 @@ export type Database = {
         Returns: undefined
       }
       admin_requeue_book: { Args: { p_book_id: string }; Returns: string }
+      admin_revert_published_article: {
+        Args: { p_article_id: string }
+        Returns: {
+          deleted_word_sets: number
+          reverted_article_id: string
+        }[]
+      }
       admin_revert_published_book: {
         Args: { p_book_id: string }
         Returns: {
@@ -3839,6 +4305,14 @@ export type Database = {
         }[]
       }
       backfill_book_lemmas: { Args: { p_book_id: string }; Returns: number }
+      book_quiz_coverage: {
+        Args: { p_book_id: string }
+        Returns: {
+          chapters_total: number
+          chapters_with_quiz: number
+          questions_total: number
+        }[]
+      }
       bulk_compute_cefrj_for_all_sources: {
         Args: never
         Returns: {
@@ -3889,6 +4363,10 @@ export type Database = {
         Args: { p_book_id: string }
         Returns: number
       }
+      compute_article_vrl: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
       compute_book_cefrj: { Args: { p_book_id: string }; Returns: undefined }
       compute_book_coverage: { Args: { p_book_id: string }; Returns: undefined }
       compute_book_vrl: { Args: { p_book_id: string }; Returns: undefined }
@@ -3911,6 +4389,13 @@ export type Database = {
       en_inflection_bases: { Args: { p: string }; Returns: string[] }
       en_spelling_variants: { Args: { p: string }; Returns: string[] }
       enqueue_curation_jobs: {
+        Args: { p_book_ids: string[] }
+        Returns: {
+          queued: number
+          skipped: number
+        }[]
+      }
+      enqueue_quiz_jobs: {
         Args: { p_book_ids: string[] }
         Returns: {
           queued: number
@@ -4052,9 +4537,29 @@ export type Database = {
         Returns: undefined
       }
       is_admin_or_curator: { Args: never; Returns: boolean }
+      is_class_member: {
+        Args: { p_class_id: string; p_uid: string }
+        Returns: boolean
+      }
+      is_class_teacher: {
+        Args: { p_class_id: string; p_uid: string }
+        Returns: boolean
+      }
+      join_class_by_code: { Args: { p_code: string }; Returns: string }
       library_seed_dedup_key: {
         Args: { p_author: string; p_title: string }
         Returns: string
+      }
+      list_book_chapter_quiz_catalog: {
+        Args: never
+        Returns: {
+          book_id: string
+          book_title: string
+          book_v_level: number
+          chapter_idx: number
+          chapter_title: string
+          question_count: number
+        }[]
       }
       lookup_word_meaning: {
         Args: { p_surface: string }
@@ -4079,8 +4584,12 @@ export type Database = {
         Args: { p_batch_size?: number }
         Returns: number
       }
+      publish_article_word_set: {
+        Args: { p_article_id: string; p_cap?: number }
+        Returns: string
+      }
       publish_book_word_sets: {
-        Args: { p_book_id: string }
+        Args: { p_book_id: string; p_cap?: number }
         Returns: {
           chapter_idx: number
           set_id: string
@@ -4099,6 +4608,7 @@ export type Database = {
           total_queued: number
         }[]
       }
+      quiz_target_per_chapter: { Args: { p_v_level: number }; Returns: number }
       recommend_word_sets_for_user: {
         Args: { p_interests?: string[]; p_user_id: string }
         Returns: {
@@ -4117,9 +4627,46 @@ export type Database = {
         Args: { p_lemmas: string[]; p_text_id?: string; p_user_id: string }
         Returns: number
       }
+      refresh_user_known_word_count: {
+        Args: { p_user_id: string }
+        Returns: number
+      }
       regenerate_auto_curated_set: {
         Args: { p_set_id: string }
         Returns: number
+      }
+      select_article_vocab: {
+        Args: { p_article_id: string }
+        Returns: {
+          cefr_level: string
+          composite_score: number
+          example_en: string
+          first_sentence: string
+          frequency_in_article: number
+          frequency_rank: number
+          lemma: string
+          meaning_ko: string
+          pos: string
+          skill_level: number
+          sort_order: number
+          v_level: number
+          word: string
+          word_register: string
+        }[]
+      }
+      select_book_chapter_quiz: {
+        Args: { p_book_id: string; p_chapter_idx: number }
+        Returns: {
+          correct_index: number
+          id: string
+          options: Json
+          q_order: number
+          question: string
+          question_ko: string
+          source_sentence_idx: number
+          source_snippet: string
+          type: string
+        }[]
       }
       select_book_chapter_vocab: {
         Args: { p_book_id: string }
@@ -4153,6 +4700,10 @@ export type Database = {
         }[]
       }
       store_content_chunk: { Args: { p_content: string }; Returns: string }
+      subscribe_article_word_set: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
       unenroll_library_book: {
         Args: { p_book_id: string }
         Returns: {

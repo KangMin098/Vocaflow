@@ -36,3 +36,18 @@ export interface QuizAnswer {
   isCorrect: boolean
   timeMs: number
 }
+
+// 큐레이션 챕터 퀴즈 카탈로그 (허브 discovery) — 클라이언트/서버 공용 타입.
+export interface ChapterQuizCatalogChapter {
+  chapterIdx: number
+  chapterTitle: string
+  questionCount: number
+}
+
+export interface ChapterQuizCatalogBook {
+  bookId: string
+  bookTitle: string
+  bookVLevel: number | null
+  chapters: ChapterQuizCatalogChapter[]
+  questionTotal: number
+}
