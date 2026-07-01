@@ -10,7 +10,7 @@
 
 ## Unreleased (v06.34 → next)
 
-### ScriptQuiz 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인 (v06.114)
+### ScriptQuiz 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인 (v06.115)
 
 LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지 퀴즈**를 생성해 `/scriptquiz` 에서 학습. 마이그레이션 1 (`20260702120000_scriptquiz_curated_chapter_quiz`).
 
@@ -20,6 +20,13 @@ LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지
 - **Admin**: `/admin/curation` MyLibraryTab 일괄 액션에 **"스크립트 퀴즈 큐"** 버튼 + `QuizJobsBanner`(진행률 폴링) + `enqueueQuizJobsAction`/`fetchQuizJobsAction`.
 - **드레인 헬퍼**: `scripts/lcp/generate-chapter-quiz.mjs` (`plan`/`content`/`insert`/`refresh-job` — 챕터 나열·본문 dump·문항 검증+전량교체·진행률 갱신). 문항 저술=Claude Code(앱 런타임 LLM 0).
 - **데모**: Alice's Adventures in Wonderland Ch.1 "Down the Rabbit-Hole"(V6) 6문항 INSERT + E2E 검증(카탈로그/select/coverage RPC). 나머지 234챕터 = 큐 대기.
+
+### Growth(/dashboard) known-word 성장 hero (v06.114)
+
+"Growth" 표면인데 성장 지표(known-word)가 헤더 작은 글씨뿐이던 것을 **성장 hero**로 부각. 마이그레이션 0.
+
+- 헤더에 known-word **큰 숫자(40px)** + "N일 연속" 컨텍스트 + Lora italic Implicit 코멘트("어휘가 자라고 있어요"). 게이지·정답률·압박 없음(§철학1 Calm·§철학4 Implicit).
+- 기존 작은 known-word 텍스트 라인 대체. dashboard 헤더만 변경(다른 섹션 유지). typecheck/build green.
 
 ### 계획 launch — Dictation 자료 스코핑 (게임 6/6 완결) (v06.113)
 
@@ -133,7 +140,6 @@ ACP 6 소스를 5 학습 트랙으로 묶어 글 선택 전 "내 수준으로 �
 - **`source-map/SourceMap.tsx` + `SourceMapShell.tsx`** 맵 트랙 탭 → 카드 scroll+강조 · CTA → `ArticlesExplorer` 그 트랙 소스로 필터(맵↔목록 연동) · 단일 articles prop 공유.
 - **`ArticlesExplorer.tsx`** `sourceFilter` 선택 prop + 활성 칩(backward compatible).
 - typecheck green · 시각 검증(맵/탭/필터/0 PAGEERR) · 현 데이터 2편(voa·simple_wikipedia)·3 트랙 "준비 중".
->>>>>>> origin/main
 
 ### 학습 계획 리치 구성 — 일정 + 자료 4종 + 도서 챕터 + 비주얼 (v06.102)
 
