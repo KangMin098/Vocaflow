@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### ScriptQuiz 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인 (v06.114)
+
+LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지 퀴즈**를 생성해 `/scriptquiz` 에서 학습. 마이그레이션 1 (`20260702120000_scriptquiz_curated_chapter_quiz`).
+
+- **신규 테이블 2**: `library_chapter_quiz` (공유 큐레이션 챕터 퀴즈 · 키 `library_book_id`+`chapter_idx`+`q_order` · RLS admin-only) · `book_quiz_jobs` (퀴즈 생성 작업 큐 · 진행률 chapters_done/questions_created · RLS admin-only). 기존 `quiz_questions`(per user+text)와 분리 — 큐레이션 퀴즈는 전 학습자 공유.
+- **신규 함수 5**: `quiz_target_per_chapter(smallint)` (V-Level→챕터당 문항 수 SSoT 곡선 **3~10**: V0-1→3·V2-3→4·V4-5→5·V6→6·V7→7·V8→8·V9→9·V10-11→10) · `select_book_chapter_quiz(uuid,int)` (학습자 read RPC, SECURITY DEFINER) · `list_book_chapter_quiz_catalog()` (허브 discovery) · `book_quiz_coverage(uuid)` (커버리지 집계) · `enqueue_quiz_jobs(uuid[])` (큐 적재 · ready/published+챕터 존재만).
+- **Frontend**: `/scriptquiz` 허브 목업→실 카탈로그 서버 fetch + `ScriptQuizHub`(client 선택 UI) · `/scriptquiz/play?book=&ch=` 공유 챕터 퀴즈 read(`fetchChapterQuizSession`) · 기존 `?text=`(개인 quiz_questions)·MOCK 폴백 보존.
+- **Admin**: `/admin/curation` MyLibraryTab 일괄 액션에 **"스크립트 퀴즈 큐"** 버튼 + `QuizJobsBanner`(진행률 폴링) + `enqueueQuizJobsAction`/`fetchQuizJobsAction`.
+- **드레인 헬퍼**: `scripts/lcp/generate-chapter-quiz.mjs` (`plan`/`content`/`insert`/`refresh-job` — 챕터 나열·본문 dump·문항 검증+전량교체·진행률 갱신). 문항 저술=Claude Code(앱 런타임 LLM 0).
+- **데모**: Alice's Adventures in Wonderland Ch.1 "Down the Rabbit-Hole"(V6) 6문항 INSERT + E2E 검증(카탈로그/select/coverage RPC). 나머지 234챕터 = 큐 대기.
+
 ### 계획 launch — Dictation 자료 스코핑 (게임 6/6 완결) (v06.113)
 
 마지막 미스코핑 게임 **Dictation** 스코핑 → **6/6 완결**. 마이그레이션 0.

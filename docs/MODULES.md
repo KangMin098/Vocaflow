@@ -287,8 +287,13 @@ R < 0.70              → risk     #EF4444 (빨강)
 스크립트 맥락 4지선다. Recognition + Transfer — 텍스트 단위 의미 통합 검증.
 
 ### 라우트
-- `/scriptquiz` — Hub (Chapter grid · 한영 토글)
-- `/scriptquiz/play` — 3-screen flow
+- `/scriptquiz` — Hub (실 카탈로그 도서·챕터 grid · 한영 토글) — server `page.tsx` fetch `list_book_chapter_quiz_catalog` → client `ScriptQuizHub`
+- `/scriptquiz/play` — 3-screen flow · `?book=&ch=` 큐레이션 공유 챕터 퀴즈(`select_book_chapter_quiz`) · `?text=` 개인 퀴즈(`quiz_questions`) · 미지정 시 MOCK
+
+### 문제 출처 (v06.114)
+- **큐레이션 공유** — `library_chapter_quiz` (도서 챕터별 스토리 퀴즈, 문항 수 = 도서 V-Level 곡선 3~10). LCP 큐레이션 드레인(Claude Code, `scripts/lcp/generate-chapter-quiz.mjs`)이 챕터 본문을 읽어 생성 → 전 학습자 공유. Admin `/admin/curation` "스크립트 퀴즈 큐" → `book_quiz_jobs`.
+- **개인** — `quiz_questions` (per user+text) 는 개인 스크립트용으로 병행 유지.
+- 앱 런타임 LLM 0 — 문항은 드레인 시 사전 생성.
 
 ### 3-Screen Flow
 1. **Start Screen** — QUIZ 로고 (gradient text `#5BC8F5→#1A7AB8`) + 스크립트 제목/챕터 + Start
