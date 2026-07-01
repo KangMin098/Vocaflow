@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/dictation-scoped`
+**활성 브랜치**: `feat/growth-visual`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `ef49863` feat(learner): 계획 launch Dictation 자료 스코핑 (게임 6/6 완결) (#89)
 - `c34fda5` feat(learner): 계획 launch PairFlip 자료 스코핑 (게임 5/6) (#88)
 - `12ddead` feat(learner): 계획 launch 게임 스코핑 확대 — SpellForge·WordBlitz (#87)
 - `8352d61` feat(learner): Today(/hub)에 "오늘의 학습 계획" — 계획→매일 실행 완성 (#86)
 - `c151f4d` feat(ia): 메뉴 라벨 영어 통일 — 한자어(회고·진단) 제거 (#85)
-- `32de5c6` feat(ia): 메타 표면 4→2 통합 — 오늘(/hub) · 회고(/dashboard) (#84)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

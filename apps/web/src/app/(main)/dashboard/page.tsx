@@ -42,28 +42,39 @@ export default async function DashboardPage() {
   return (
     <Screen width="content" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        {/* 1. 헤더 — known-word 성장 (회고, Implicit Progress) */}
-        <header>
-          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
-            {kstDateLabel()}
-          </span>
-          <h1 className="mt-1 font-editorial text-[28px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[34px]">
-            <span className="text-[var(--p)]">{overview.userName}</span>
-            <span className="text-[var(--t1)]">님의 학습 여정</span>
-          </h1>
-          <p className="mt-2 font-body text-[13.5px] leading-relaxed text-[var(--t2)]">
-            {overview.knownWordCount > 0 ? (
-              <>
-                지금까지{' '}
-                <span className="font-display font-[700] text-[var(--p)]">
-                  {overview.knownWordCount.toLocaleString()}개
+        {/* 1. 헤더 + known-word 성장 hero (Implicit Progress — 게이지 대신 자라는 숫자) */}
+        <header className="flex flex-col gap-4">
+          <div>
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
+              {kstDateLabel()}
+            </span>
+            <h1 className="mt-1 font-editorial text-[28px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[34px]">
+              <span className="text-[var(--p)]">{overview.userName}</span>
+              <span className="text-[var(--t1)]">님의 학습 여정</span>
+            </h1>
+          </div>
+
+          <div className="flex flex-col gap-1.5 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-5">
+            <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
+              마음에 자리잡은 단어
+            </span>
+            <span className="flex items-baseline gap-1.5">
+              <span className="font-display text-[40px] font-[800] leading-none tabular-nums text-[var(--p)]">
+                {overview.knownWordCount.toLocaleString()}
+              </span>
+              <span className="font-display text-[14px] font-[600] text-[var(--t3)]">개</span>
+              {overview.currentStreak > 0 && (
+                <span className="ml-auto font-body text-[12px] text-[var(--t3)]">
+                  {overview.currentStreak}일 연속 함께하는 중
                 </span>
-                의 단어가 마음에 자리잡았어요.
-              </>
-            ) : (
-              '아직 자리잡은 단어가 없어요 — 한 걸음씩, 차분히 쌓아가요.'
-            )}
-          </p>
+              )}
+            </span>
+            <p className="font-english text-[13px] italic leading-relaxed text-[var(--t2)]">
+              {overview.knownWordCount > 0
+                ? '차분히, 꾸준히 — 당신의 어휘가 자라고 있어요.'
+                : '아직 시작 전이에요. 한 걸음씩 쌓아가요.'}
+            </p>
+          </div>
         </header>
 
         {/* 2. 기억 4상태 */}
