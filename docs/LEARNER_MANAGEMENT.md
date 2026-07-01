@@ -204,8 +204,8 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 
 - 계획 = "언제(요일)·무엇을·어떻게" 한 흐름에 결합. 수능 D-day·완료일 역산·시간 압박 지표 없음(§철학1 Calm·§철학4 Implicit). 요일은 deadline 이 아니라 **리듬**.
 - /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
-- **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크. scoped 진입(아이콘 ▶): **flashcard·spellforge·wordblitz** = 스크립트 `?text=`·단어장 `?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) · **scriptquiz** = 스크립트 `?text=` · listen·read·echo·vocab→본문. 미스코핑(모듈 hub ↗): **pairflip(sessionStorage config)·dictation(multi-step)·도서 게임**. (`activityLaunchHref`/`isActivityScoped` · v06.111)
-- (후속) pairflip·dictation 자료 스코핑(flow 기반 진입 개조) · 자료별 진행도.
+- **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료 단어로 바로 시작**하는 링크. scoped 진입(아이콘 ▶, 5/6 게임): **flashcard·spellforge·wordblitz·pairflip** = 스크립트 `?text=`·단어장 `?set=` (scoped-words `fetchScopedWords` 정합: set→shared_words, text→vocabularies) · **scriptquiz** = 스크립트 `?text=` · listen·read·echo·vocab→본문. 미스코핑(모듈 hub ↗): **dictation(session 기반)·도서 게임**. (`activityLaunchHref`/`isActivityScoped` · v06.112)
+- (후속) dictation 스코핑(setup/세션생성 개조) · 자료별 진행도(학습 데이터 누적 후 known-word %).
 
 ---
 

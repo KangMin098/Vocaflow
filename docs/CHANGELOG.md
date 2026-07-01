@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 계획 launch — PairFlip 자료 스코핑 (게임 5/6) (v06.112)
+
+계획 활동 launch 의 게임 스코핑을 **PairFlip** 까지 확대 → 5/6. 마이그레이션 0.
+
+- **`lib/pairflip/scoped-pairs.ts`** 신규(fetchScopedWords → PairFlipMockWord, meaning 빈 단어 제외).
+- **`/pairflip/play`** — `?set/?text`(window.location.search, Suspense 회피) 있으면 **default Normal config + scoped-pairs** 로 사전 config 없이 바로 시작. 없으면 기존 sessionStorage config + due.
+- `plan-activities.ts` activityLaunchHref/isActivityScoped(pairflip → 스크립트 `?text=`·단어장 `?set=`).
+- **스코핑 5/6**: flashcard·scriptquiz·spellforge·wordblitz·pairflip. **미지원**: dictation.
+- **dictation defer 사유**: session 기반 아키텍처(`/dictate/session?sessionId` → DictationSessionClient, setup 가 세션 생성) — 스코핑에 setup/세션생성 개조 필요(별건). typecheck/build green.
+
 ### 계획 launch — 게임 자료 스코핑 확대 (SpellForge·WordBlitz) (v06.111)
 
 계획의 활동 launch 를 그 자료 단어로 여는 게임을 **flashcard·scriptquiz → + spellforge·wordblitz** 로 확대. 마이그레이션 0.

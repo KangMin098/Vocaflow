@@ -1,6 +1,7 @@
 // apps/web/src/app/(main)/pairflip/play/page.tsx
 // 풀스크린 라우트 (*/play) — Sidebar/FlowNav 자동 숨김.
-// sessionStorage 의 config 가 없으면 /pairflip 로 redirect.
+//   · 일반: sessionStorage 의 config(레벨/모드) 필요 — 없으면 /pairflip redirect.
+//   · 계획 launch: ?set=/?text= 있으면 그 자료 단어로(default Normal config, scoped-pairs).
 
 'use client'
 
@@ -13,7 +14,11 @@ import type { PairFlipMockWord } from '@/components/pairflip/mock-data'
 import { PairFlipGameScreen } from '@/components/pairflip/PairFlipGameScreen'
 import type { PairFlipConfig } from '@/components/pairflip/types'
 import { fetchDuePairs, PAIRFLIP_MAX_PAIRS } from '@/lib/pairflip/due-pairs'
+import { fetchScopedPairs } from '@/lib/pairflip/scoped-pairs'
 import { createClient } from '@/lib/supabase/client'
+
+/** 계획 launch(scoped) 진입 default — 사전 config 없이 바로 시작. */
+const SCOPED_CONFIG: PairFlipConfig = { level: 'normal', mode: 'word_meaning' }
 
 export default function PairFlipPlayPage() {
   const router = useRouter()
@@ -22,6 +27,29 @@ export default function PairFlipPlayPage() {
   const [pairs, setPairs] = useState<PairFlipMockWord[] | undefined>(undefined)
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const set = params.get('set') ?? undefined
+    const text = params.get('text') ?? undefined
+    const scoped = !!(set || text)
+
+    // 계획 launch — 그 자료 단어로(사전 config 불요, default 사용)
+    if (scoped) {
+      setConfig(SCOPED_CONFIG)
+      void (async () => {
+        try {
+          const client = createClient()
+          const {
+            data: { user },
+          } = await client.auth.getUser()
+          setPairs(await fetchScopedPairs(client, { set, text, userId: user?.id ?? null }))
+        } catch {
+          setPairs([]) // 실패 시 mock 폴백
+        }
+      })()
+      return
+    }
+
+    // 일반 진입 — sessionStorage config 필요
     let parsed: PairFlipConfig | null = null
     try {
       const raw = sessionStorage.getItem(STORAGE_KEYS.config)
