@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `dba91c9` docs(scriptquiz): Alice 전권 12챕터 72문항 생성 완료 반영
 - `02764e1` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `0a19b28` feat(ui): Growth(/dashboard) known-word 성장 hero (#90)
 - `1b8c742` feat(scriptquiz): 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인
 - `ef49863` feat(learner): 계획 launch Dictation 자료 스코핑 (게임 6/6 완결) (#89)
-- `c34fda5` feat(learner): 계획 launch PairFlip 자료 스코핑 (게임 5/6) (#88)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
