@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `b255b19` docs(scriptquiz): 소형 2권(Ammachi·Drone) 드레인 완료 반영
 - `50c6aba` docs(scriptquiz): Oz 전권 24챕터 141문항 생성 완료 반영
 - `dba91c9` docs(scriptquiz): Alice 전권 12챕터 72문항 생성 완료 반영
 - `02764e1` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `0a19b28` feat(ui): Growth(/dashboard) known-word 성장 hero (#90)
-- `1b8c742` feat(scriptquiz): 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
