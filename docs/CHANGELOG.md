@@ -21,7 +21,8 @@ LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지
 - **드레인 헬퍼**: `scripts/lcp/generate-chapter-quiz.mjs` (`plan`/`content`/`insert`/`refresh-job` — 챕터 나열·본문 dump·문항 검증+전량교체·진행률 갱신). 문항 저술=Claude Code(앱 런타임 LLM 0).
 - **첫 도서 완성**: Alice's Adventures in Wonderland(V6) **전권 12챕터 × 6 = 72문항** 드레인 생성(`generate-chapter-quiz.mjs insert`) — 챕터별 스토리 MCQ(5 multiple + 1 truefalse), EN+KO, 본문 근거 snippet, correct_index 분산, 무결성 0, book_quiz_jobs=done(12/12).
 - **둘째 도서 완성**: The Wonderful Wizard of Oz(V6) **전권 24챕터 = 141문항** 드레인 생성(MCP 직접 INSERT) — 각 챕터 스토리 comprehension MCQ 6문항(Ch.24 "Home Again"=77단어 초단편이라 3문항), EN+KO 4지선다, 본문 근거 snippet, 무결성 0(bad option/correct_index/null/q_order-gap 각 0), book_quiz_jobs=done(24/24). `/scriptquiz` 카탈로그 2권(Alice+Oz) 노출.
-- 나머지 도서(Pride 61·Roman 71·Twenty 90 등 ~222챕터) = 큐 대기.
+- **소형 2권 완성**: Ammachi's Amazing Machines(V4·1ch·5문항 — 코코넛 바르피/6가지 단순기계) + Tell Me, What is a Drone?(V3·1ch·4문항) 드레인 — 단일 챕터 논픽션 그림책. `/scriptquiz` 카탈로그 **4권 총 222문항**(Alice 72 + Oz 141 + Ammachi 5 + Drone 4).
+- 나머지 도서(Sherlock 12·Just So 12·Pride 61·Twenty 90·Les Mis 364 등) = 큐 대기.
 
 ### Growth(/dashboard) known-word 성장 hero (v06.114)
 
