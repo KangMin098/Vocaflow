@@ -31,6 +31,7 @@ export function DictationHubClient() {
   const [showDirectInput, setShowDirectInput] = useState(false);
   const [scriptInput, setScriptInput] = useState('');
   const [titleInput, setTitleInput] = useState('');
+  const [inputError, setInputError] = useState<string | null>(null);
 
   useEffect(() => {
     ensureSeedResources();
@@ -107,9 +108,10 @@ export function DictationHubClient() {
     const text = scriptInput.trim();
     const title = titleInput.trim() || '직접 입력 스크립트';
     if (text.length < 20) {
-      alert('스크립트는 최소 20자 이상 입력해주세요.');
+      setInputError(`조금만 더 있으면 돼요 — 지금 ${text.length}자, 최소 20자가 필요해요.`);
       return;
     }
+    setInputError(null);
     const detected = detectLevel(text);
     const id = `direct-${Date.now()}`;
     saveResource({
@@ -272,23 +274,42 @@ export function DictationHubClient() {
                 />
                 <textarea
                   value={scriptInput}
-                  onChange={(e) => setScriptInput(e.target.value)}
+                  onChange={(e) => {
+                    setScriptInput(e.target.value);
+                    if (inputError) setInputError(null);
+                  }}
                   placeholder="영어 스크립트를 붙여넣으세요 (최소 20자)"
                   rows={4}
-                  className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[13px] focus:border-[var(--bdf)] focus:outline-none"
+                  aria-invalid={inputError != null}
+                  className={`rounded-[var(--r-md)] border bg-[var(--bg)] px-3 py-2 font-body text-[13px] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 ${
+                    inputError
+                      ? 'border-[var(--warning)] focus:border-[var(--warning)]'
+                      : 'border-[var(--bd)] focus:border-[var(--bdf)]'
+                  }`}
                 />
+                {inputError && (
+                  <p
+                    role="status"
+                    className="font-body text-[12px] italic text-[var(--warning)]"
+                  >
+                    {inputError}
+                  </p>
+                )}
                 <div className="flex gap-2">
                   <button
                     type="button"
-                    onClick={() => setShowDirectInput(false)}
-                    className="flex-1 rounded-[var(--r-md)] border border-[var(--bd)] py-2 font-display text-[13px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+                    onClick={() => {
+                      setShowDirectInput(false);
+                      setInputError(null);
+                    }}
+                    className="flex-1 rounded-[var(--r-md)] border border-[var(--bd)] py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                   >
                     취소
                   </button>
                   <button
                     type="button"
                     onClick={handleDirectInputSubmit}
-                    className="flex-1 rounded-[var(--r-md)] bg-[var(--p)] py-2 font-display text-[13px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)]"
+                    className="flex-1 rounded-[var(--r-md)] bg-[var(--p)] py-2 font-display text-[13px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                   >
                     분석 + 시작
                   </button>

@@ -8,16 +8,14 @@
 //   · Scaffolding - 4단계 힌트 시스템
 //   · Flow State - Focus Mode (사이드바 dim)
 //
-// 키보드 단축키:
-//   Space         - 재생/일시정지
-//   ←/→           - ±3초 (구현 단순화 — 전체 재생)
-//   1-5           - 속도
-//   L             - 자동 반복
-//   F             - Focus Mode
-//   H             - 힌트
-//   Enter         - 제출
+// 키보드 단축키 (입력창 밖에 포커스가 있을 때):
+//   Space         - 재생 / 정지 토글 (1회 재생)
+//   1-5           - 속도 (화면 버튼과 동일한 5단계: 0.5·0.75·0.85·1.0·1.25x)
+//   F             - Focus Mode 토글
+// 입력창 안에서도 동작:
+//   Enter         - 제출 (피드백 표시 중이면 다음)
+//   Esc           - 재생 정지
 //   Tab           - 건너뛰기
-//   Esc           - 일시정지
 
 'use client';
 
@@ -44,6 +42,10 @@ import { HINT_STAGES, type HintLevel } from '@/lib/dictation/hint';
 import type { ScoringResult, WordResult } from '@/lib/dictation/types';
 
 const DICTATION_ACCENT = '#0EA5E9';
+
+// 프로젝트 공통 focus-visible 링 (키보드 접근성 — 모든 인터랙티브 요소 focus 상태 필수)
+const FOCUS_RING =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2';
 
 export function DictationSessionClient() {
   const router = useRouter();
@@ -202,7 +204,8 @@ export function DictationSessionClient() {
         e.preventDefault();
         setFocusMode((v) => !v);
       } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
-        const speeds = [0.5, 0.75, 1.0, 1.25, 1.5];
+        // 화면의 속도 버튼과 동일한 5단계로 매핑
+        const speeds = [0.5, 0.75, 0.85, 1.0, 1.25];
         setSpeed(speeds[Number(e.key) - 1]);
       }
     };
@@ -251,7 +254,7 @@ export function DictationSessionClient() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+            className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
           >
             <X size={14} />
             나가기
@@ -279,7 +282,7 @@ export function DictationSessionClient() {
             type="button"
             onClick={() => setFocusMode((v) => !v)}
             aria-pressed={focusMode}
-            className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[600] transition-colors ${
+            className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[600] transition-colors ${FOCUS_RING} ${
               focusMode
                 ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
                 : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -310,7 +313,7 @@ export function DictationSessionClient() {
             <button
               type="button"
               onClick={audio.isPlaying ? stopAudio : playAudio}
-              className="inline-flex h-14 w-14 items-center justify-center rounded-full text-[var(--ti)] shadow-[var(--sh-md)] transition-transform active:scale-95"
+              className={`inline-flex h-14 w-14 items-center justify-center rounded-full text-[var(--ti)] shadow-[var(--sh-md)] transition-transform active:scale-95 ${FOCUS_RING}`}
               style={{
                 background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
               }}
@@ -323,7 +326,7 @@ export function DictationSessionClient() {
             <button
               type="button"
               onClick={playOnce}
-              className="inline-flex h-10 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+              className={`inline-flex h-10 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
               title="한 번만 재생 (Space)"
             >
               <RotateCw size={14} />
@@ -337,7 +340,9 @@ export function DictationSessionClient() {
                   key={s}
                   type="button"
                   onClick={() => setSpeed(s)}
-                  className={`rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700] transition-colors ${
+                  aria-pressed={Math.abs(speed - s) < 0.01}
+                  aria-label={`재생 속도 ${s}배`}
+                  className={`rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700] transition-colors ${FOCUS_RING} ${
                     Math.abs(speed - s) < 0.01
                       ? 'bg-[var(--p)] text-[var(--ti)]'
                       : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -412,7 +417,8 @@ export function DictationSessionClient() {
                       key={stage.level}
                       type="button"
                       onClick={() => handleHint(stage.level)}
-                      className={`rounded-[var(--r-sm)] border px-2 py-1 font-display text-[11px] font-[600] transition-colors ${
+                      aria-pressed={activeHint === stage.level}
+                      className={`rounded-[var(--r-sm)] border px-2 py-1 font-display text-[11px] font-[600] transition-colors ${FOCUS_RING} ${
                         activeHint === stage.level
                           ? 'border-[var(--active)] bg-[var(--active-light)] text-[var(--active)]'
                           : used
@@ -433,7 +439,7 @@ export function DictationSessionClient() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={userInput.trim().length === 0}
-                className="flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+                className={`flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`}
                 style={{
                   background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
                 }}
@@ -444,7 +450,7 @@ export function DictationSessionClient() {
               <button
                 type="button"
                 onClick={handleSkip}
-                className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+                className={`inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
               >
                 <SkipForward size={14} />
                 건너뛰기 (Tab)
@@ -503,11 +509,14 @@ function FeedbackSection({
       <p className="mb-3 font-body text-[13px] text-[var(--t2)]">{result.feedback}</p>
 
       {/* 단어별 시각 피드백 */}
-      <div className="mb-4 rounded-[var(--r-md)] bg-[var(--bg2)] p-3 font-english text-[16px] leading-relaxed">
+      <div className="mb-3 rounded-[var(--r-md)] bg-[var(--bg2)] p-3 font-english text-[16px] leading-relaxed">
         {result.wordResults.map((w, idx) => (
           <WordChip key={idx} word={w} />
         ))}
       </div>
+
+      {/* 색·표시 범례 — 색상만으로 정보 전달하지 않도록 */}
+      <WordStatusLegend statuses={new Set(result.wordResults.map((w) => w.status))} />
 
       {/* 정답 */}
       <div className="mb-3 rounded-[var(--r-md)] border border-[var(--success-light)] bg-[var(--success-light)]/30 px-3 py-2">
@@ -523,7 +532,7 @@ function FeedbackSection({
           <button
             type="button"
             onClick={onToggleTranslation}
-            className="inline-flex items-center gap-1 font-body text-[11px] text-[var(--p)] hover:underline"
+            className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] font-body text-[11px] text-[var(--p)] hover:underline ${FOCUS_RING}`}
           >
             {showTranslation ? <EyeOff size={12} /> : <Eye size={12} />}
             {showTranslation ? '번역 숨기기' : '한국어 번역 보기'}
@@ -560,7 +569,7 @@ function FeedbackSection({
         <button
           type="button"
           onClick={onPlayAgain}
-          className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+          className={`inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
         >
           <RotateCw size={12} />
           다시 듣기
@@ -568,7 +577,7 @@ function FeedbackSection({
         <button
           type="button"
           onClick={onNext}
-          className="flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)]"
+          className={`flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
           style={{
             background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
           }}
@@ -581,20 +590,57 @@ function FeedbackSection({
   );
 }
 
-function WordChip({ word }: { word: WordResult }) {
-  const styles: Record<WordResult['status'], string> = {
-    correct: 'text-[var(--success)] bg-[var(--success-light)]/40',
-    misspelled: 'text-[var(--warning)] bg-[var(--warning-light)]/40 underline decoration-wavy',
-    wrong: 'text-[var(--error)] bg-[var(--error-light)]/40 line-through',
-    missing: 'text-[var(--error)] border border-dashed border-[var(--error)]',
-    extra: 'text-[var(--warning)] line-through opacity-60',
-  };
+// 단어 채점 상태별 스타일 — 색 + 밑줄/취소선/테두리로 색맹 대응 (색상 단독 전달 금지)
+const WORD_STATUS_STYLES: Record<WordResult['status'], string> = {
+  correct: 'text-[var(--success)] bg-[var(--success-light)]/40',
+  misspelled: 'text-[var(--warning)] bg-[var(--warning-light)]/40 underline decoration-wavy',
+  wrong: 'text-[var(--error)] bg-[var(--error-light)]/40 line-through',
+  missing: 'text-[var(--error)] border border-dashed border-[var(--error)]',
+  extra: 'text-[var(--warning)] line-through opacity-60',
+};
 
+const WORD_STATUS_LABELS: Record<WordResult['status'], string> = {
+  correct: '정답',
+  misspelled: '철자',
+  wrong: '오답',
+  missing: '누락',
+  extra: '불필요',
+};
+
+const WORD_STATUS_ORDER: WordResult['status'][] = [
+  'correct',
+  'misspelled',
+  'wrong',
+  'missing',
+  'extra',
+];
+
+function WordStatusLegend({ statuses }: { statuses: Set<WordResult['status']> }) {
+  const items = WORD_STATUS_ORDER.filter((s) => statuses.has(s));
+  if (items.length === 0) return null;
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+      {items.map((s) => (
+        <span key={s} className="inline-flex items-center gap-1.5">
+          <span
+            aria-hidden="true"
+            className={`inline-block rounded px-1.5 py-0.5 font-english text-[11px] ${WORD_STATUS_STYLES[s]}`}
+          >
+            Aa
+          </span>
+          <span className="font-body text-[11px] text-[var(--t3)]">{WORD_STATUS_LABELS[s]}</span>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function WordChip({ word }: { word: WordResult }) {
   const display = word.status === 'missing' ? word.expected : word.actual;
 
   return (
     <span
-      className={`mr-1 inline-block rounded px-1.5 py-0.5 font-english ${styles[word.status]}`}
+      className={`mr-1 inline-block rounded px-1.5 py-0.5 font-english ${WORD_STATUS_STYLES[word.status]}`}
       title={
         word.status === 'misspelled' || word.status === 'wrong'
           ? `정답: ${word.expected}`

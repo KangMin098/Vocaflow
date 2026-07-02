@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### Dictation 화면 디자인·기능 개선 (v06.116)
+
+받아쓰기 4개 화면(Hub/Setup/Session/Results) 폴리시 정합 개선. 마이그레이션 0 · typecheck green.
+
+- **Calm UI**: Hub 직접입력 검증을 `alert()`(차단형 모달) → 인라인 empathetic 메시지("조금만 더 있으면 돼요 — 지금 N자")로 교체. 입력 시 자동 소거 + `aria-invalid`/`role=status`.
+- **트로피 지양(§학습UX)**: Results hero 상시 `Trophy` 아이콘 → 점수대별 차분한 아이콘(`Check`/`Sprout`/`Leaf`) + Lora italic 격려 한 줄("오늘 들은 만큼 분명히 남았어요"). "Session Complete"→"오늘 받아쓰기 완료".
+- **색맹 대응(§접근성)**: Session 피드백 단어칩에 **범례**(정답/철자/오답/누락/불필요) 추가 — 색상 단독 전달 방지. `WORD_STATUS_STYLES`/`LABELS` 모듈 스코프로 승격.
+- **focus 상태(§항상지킬것)**: Session·Setup·Hub 주요 인터랙티브 요소에 프로젝트 공통 `focus-visible:ring` 추가(`FOCUS_RING` 상수) + 속도/힌트 버튼 `aria-pressed`/`aria-label`.
+- **키보드 정합**: 숫자키 1-5 속도 매핑을 화면 버튼과 동일 5단계(0.5·0.75·0.85·1.0·1.25x)로 정정 · 파일 상단 단축키 주석을 실제 핸들러(L/H 미구현·Esc=정지)와 일치하도록 수정.
+- **정직한 카운트**: Results 오답 단어 20개 초과 시 "+N개 더" 표기.
+
 ### ScriptQuiz 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인 (v06.115)
 
 LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지 퀴즈**를 생성해 `/scriptquiz` 에서 학습. 마이그레이션 1 (`20260702120000_scriptquiz_curated_chapter_quiz`).

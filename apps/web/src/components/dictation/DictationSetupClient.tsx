@@ -399,7 +399,7 @@ export function DictationSetupClient() {
       <button
         type="button"
         onClick={startSession}
-        className="group flex items-center justify-center gap-2 rounded-[var(--r-lg)] py-4 font-display text-[15px] font-[700] text-[var(--ti)] shadow-[var(--sh-md)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] active:scale-[0.98]"
+        className="group flex items-center justify-center gap-2 rounded-[var(--r-lg)] py-4 font-display text-[15px] font-[700] text-[var(--ti)] shadow-[var(--sh-md)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         style={{
           background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
         }}
