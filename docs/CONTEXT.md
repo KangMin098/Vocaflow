@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `ddb80ab` feat(dictation): 받아쓰기 화면 디자인·접근성 개선 (v06.116)
 - `80e4f68` docs(scriptquiz): Sherlock Holmes 전권 12편 96문항 생성 완료 반영
 - `b255b19` docs(scriptquiz): 소형 2권(Ammachi·Drone) 드레인 완료 반영
 - `50c6aba` docs(scriptquiz): Oz 전권 24챕터 141문항 생성 완료 반영
 - `dba91c9` docs(scriptquiz): Alice 전권 12챕터 72문항 생성 완료 반영
-- `02764e1` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

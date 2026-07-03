@@ -178,7 +178,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 ## 📝 최근 변경 (v06.34 진행)
 
 ### 이번 세션 (Unreleased)
-- ScriptQuiz 큐레이션 챕터 퀴즈 (v06.114) — `library_chapter_quiz`+`book_quiz_jobs` +5 RPC · 도서 V-Level별 챕터당 문항 수(3~10) · `/scriptquiz` 실 카탈로그 · Admin "스크립트 퀴즈 큐" · Claude Code 드레인 생성 (Alice 72 + Oz 141 + Sherlock 96 + Ammachi 5 + Drone 4 = 318문항 · 카탈로그 5권)
+- ScriptQuiz 큐레이션 챕터 퀴즈 (v06.114) — `library_chapter_quiz`+`book_quiz_jobs` +5 RPC · 도서 V-Level별 챕터당 문항 수(3~10) · `/scriptquiz` 실 카탈로그 · Admin "스크립트 퀴즈 큐" · Claude Code 드레인 생성 (Alice 72 + Oz 141 + Sherlock 96 + Just So 84 + Ammachi 5 + Drone 4 = 402문항 · 카탈로그 6권)
 - 큐레이션 "→ 소스 GET" DELETE 시맨틱 재정의 — library_books DELETE + seed unlock
 - Dev 큐 드레인 — `/api/lcp/dev-drain-queue` 자동 반복 루프 UI
 - 사용자 입력 책 (챕터별) 모드 — `texts.user_book_group_id` + Workspace 분기
