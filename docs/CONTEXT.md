@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `116b5c2` docs(scriptquiz): Just So Stories 전권 12편 84문항 생성 완료 반영
 - `ddb80ab` feat(dictation): 받아쓰기 화면 디자인·접근성 개선 (v06.116)
 - `80e4f68` docs(scriptquiz): Sherlock Holmes 전권 12편 96문항 생성 완료 반영
 - `b255b19` docs(scriptquiz): 소형 2권(Ammachi·Drone) 드레인 완료 반영
 - `50c6aba` docs(scriptquiz): Oz 전권 24챕터 141문항 생성 완료 반영
-- `dba91c9` docs(scriptquiz): Alice 전권 12챕터 72문항 생성 완료 반영
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260703120010_p0_drop_p5a_backup_table.sql`
+- `20260703120000_p0_security_rls_hardening.sql`
 - `20260702120000_scriptquiz_curated_chapter_quiz.sql`
 - `20260628220000_p1_plan_weekday_per_item.sql`
 - `20260628210000_p1_plan_rich_compose.sql`
-- `20260628200000_p1_redesign_study_plan_items.sql`
-- `20260628190000_p4_2_join_class_by_code.sql`
 <!-- /auto:recent-migrations -->
 
 ---

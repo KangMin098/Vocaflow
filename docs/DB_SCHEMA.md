@@ -7,10 +7,23 @@
 
 ## 요약
 
-- **테이블**: 59 (public schema · v06.114 `library_chapter_quiz`·`book_quiz_jobs` +2)
+- **테이블**: 58 (public schema · v06.117 유출 backup `shared_dictionary_p5a_backup_20260620` DROP -1)
 - **Views**: 5
 - **Functions**: 227 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 그 외 ~185)
-- **Migrations 누적**: 58 적용됨
+- **Migrations 누적**: 60 적용됨 (v06.117 P0 보안 RLS 하드닝 +1 · backup DROP +1)
+
+### 🔒 RLS 보안 상태 (v06.117 — security advisor ERROR 0)
+
+`public` 스키마 RLS 비활성 8 테이블(전부 anon SELECT+INSERT 권한 노출)을 하드닝. 마이그레이션 `20260703120000_p0_security_rls_hardening` + `20260703120010_p0_drop_p5a_backup_table`.
+
+| 테이블 | 조치 | read 정책 |
+|---|---|---|
+| `vocaflow_levels`·`vocaflow_tracks`·`vocaflow_domains`·`vocaflow_skills` | RLS on | authenticated read (앱 DiagnosticClient·admin) |
+| `vrl_data_integrity_concerns` | RLS on | admin 전용 read (`user_profiles.role='admin'`) |
+| `noise_blacklist`·`english_irregular_forms` | RLS on, 정책 없음(락) | 클라이언트 직접 read 없음 — SECURITY DEFINER RPC·service_role bypass |
+| `shared_dictionary_p5a_backup_20260620` | **DROP** | 추출 P1~P4 백업본 목적 종료 |
+
+(`archaic_candidates` 는 기존 RLS on·정책 0 유지 — 서비스롤/DEFINER 경유 read.)
 
 ## 도메인별 테이블 분류
 
