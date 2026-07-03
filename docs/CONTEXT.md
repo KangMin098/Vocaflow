@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9721f2d` docs(audit): 프로젝트 건강도 감사 — 미완료·오류·개선점 우선순위 (2026-07-03)
 - `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `7289283` refactor(srs): 세션 hook stale TODO + 카드별 console.log 제거
 - `f053665` feat(scriptquiz): 도서 검수 페이지에 챕터 퀴즈 검수 섹션 (v06.117)
 - `448fb96` chore(build): 빌드-타임 ESLint 게이트 복원 (v06.117)
-- `8d2a0ca` feat(scriptquiz): 챕터 퀴즈 검수 admin 섹션 완결 (커밋 누락분)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

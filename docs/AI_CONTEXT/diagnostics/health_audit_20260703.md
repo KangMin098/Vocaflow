@@ -29,7 +29,7 @@
 ## 🟠 P1 — 기능 정합·미검증 (잔여)
 
 - **게임 모듈 런타임 미검증** — pairflip·scriptquiz 실데이터 배선은 랜딩됐으나 런타임 open. 학습자 관리 P0~P3 UI 도 동일. → dev 서버+브라우저(`/verify`) 필요.
-- **실패 도서 `The Marvelous Land of Oz`** — 소스 `standard_ebooks` URL 유효, 2026-06-06 일시 "fetch failed", 챕터 0. **방향=재fetch 확정**(사용자 승인). 단 실행은 `@vocaflow/library-pipeline` **패키지 빌드 선행 필요**(`dist/` 부재로 `reprocess-book.mjs` 실행 불가) → 별도 dev 세션: `pnpm --filter @vocaflow/library-pipeline build` 후 `pnpm dlx tsx scripts/lcp/reprocess-book.mjs c3a5f9b0-a680-4ff4-8b61-d5cfc7710194 --commit`.
+- ~~**실패 도서 `The Marvelous Land of Oz`**~~ → **✅ 해소(이 세션)** — `reprocess-book.mjs --commit` 로 재fetch 완주: status `failed`→**`ready`** · 24챕터 · 41,589단어 · V7/B1 · vocab 3,033. `failed` 도서 잔여 **0**. (블로커는 패키지 빌드가 아니라 `pnpm dlx tsx` 가 깨진 `tsx@0.0.0` 을 받아온 것 — `pnpm install`(로컬 `tsx 4.22.1`) 후 `pnpm exec tsx` 로 해결.)
 - **소셜 로그인** — Google 실연동, Apple/Kakao/Naver 는 "(목업) Phase 3" 토스트(정직 라벨). 죽은 버튼 아님 → 우선순위 낮음.
 
 ## 🟡 P2 — 인프라/성능 부채 (보류 확정)
