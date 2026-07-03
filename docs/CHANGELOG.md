@@ -55,7 +55,8 @@ LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지
 - **소형 2권 완성**: Ammachi's Amazing Machines(V4·1ch·5문항 — 코코넛 바르피/6가지 단순기계) + Tell Me, What is a Drone?(V3·1ch·4문항) 드레인 — 단일 챕터 논픽션 그림책.
 - **넷째 도서 완성**: The Adventures of Sherlock Holmes(V8) **전권 12편 × 8 = 96문항** 드레인(MCP 직접 INSERT) — 각 단편 스토리 comprehension MCQ 8문항(Scandal in Bohemia~Copper Beeches), EN+KO 4지선다, 본문 정밀 근거 snippet(regexp 추출), 무결성 0(bad option/correct_index/null/q_order-gap 각 0), 전 챕터 정확히 8문항, book_quiz_jobs=done(12/12).
 - **다섯째 도서 완성**: Just So Stories(V7) **전권 12편 × 7 = 84문항** 드레인(MCP 직접 INSERT) — 키플링 유래담(Whale~Butterfly) 스토리 comprehension MCQ 7문항, EN+KO 4지선다, 본문 근거 snippet, 무결성 0, 전 챕터 정확히 7문항, book_quiz_jobs=done(12/12).
-- `/scriptquiz` 카탈로그 **6권 총 402문항**(Alice 72 + Oz 141 + Sherlock 96 + Just So 84 + Ammachi 5 + Drone 4). V3~V8 난이도 커버.
+- **여섯째 도서 완성**: The Adventures of Huckleberry Finn(V7) **전권 22세그먼트 × 7 = 154문항** 드레인(MCP 직접 INSERT) — 트웨인 장편(약 5,000단어 균일 22세그먼트, 챕터명 없어 'Chapter N' 폴백)을 세그먼트별 전문 정독 후 comprehension MCQ 7문항, EN+KO 4지선다, 본문 근거 snippet(regexp 추출), 무결성 0(bad option/correct_index/null/q_order-gap 각 0), 전 세그먼트 정확히 7문항, book_quiz_jobs=done(22/22). 방언(Jim 화법)은 문항/선지에서 중립 표현("Jim, the slave"), 시대적 멸칭 회피 snippet 선정.
+- `/scriptquiz` 카탈로그 **8권 총 570문항**(Huck Finn 154 + Oz 141 + Sherlock 96 + Just So 84 + Alice 72 + Marvelous Land of Oz 14 + Ammachi 5 + Drone 4). V3~V8 난이도 커버.
 - 나머지 도서(Pride 61·Twenty 90·Les Mis 364 등 대형서) = 큐 대기.
 
 ### Growth(/dashboard) known-word 성장 hero (v06.114)
