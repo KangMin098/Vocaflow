@@ -9,11 +9,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ArrowRight,
   BarChart3,
+  Check,
   Clock,
   Home,
+  Leaf,
   Lightbulb,
   RotateCw,
-  Trophy,
+  Sprout,
 } from 'lucide-react';
 
 import { NextActionCard } from '@/components/recommend/NextActionCard';
@@ -167,6 +169,24 @@ export function DictationResultsClient() {
         ? 'var(--p)'
         : 'var(--warning)';
 
+  // Calm, 격려 위주 마무리 — 점수대별 아이콘 + 사람 말투 한 줄 (트로피·폭죽 지양)
+  const band =
+    totalAccuracy >= 90
+      ? {
+          icon: Check,
+          message: '깔끔하게 마쳤어요. 귀가 이 문장들에 익숙해지고 있어요.',
+        }
+      : totalAccuracy >= 70
+        ? {
+            icon: Sprout,
+            message: '잘 따라오고 있어요. 한 번 더 들으면 더 또렷해질 거예요.',
+          }
+        : {
+            icon: Leaf,
+            message: '천천히 가도 괜찮아요. 오늘 들은 만큼 분명히 남았어요.',
+          };
+  const BandIcon = band.icon;
+
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
       {/* ─── Hero 정확도 ─── */}
@@ -177,15 +197,18 @@ export function DictationResultsClient() {
         }}
       >
         <div className="flex flex-col items-center text-center">
-          <Trophy size={32} className="mb-2 opacity-80" />
+          <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ti)]/15">
+            <BandIcon size={22} strokeWidth={2} aria-hidden="true" />
+          </span>
           <p className="font-display text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
-            Session Complete
+            오늘 받아쓰기 완료
           </p>
           <p className="mt-2 font-display text-[64px] font-[800] leading-none tabular-nums">
             {Math.round(totalAccuracy)}
             <span className="ml-1 text-[28px] opacity-80">%</span>
           </p>
           <p className="mt-2 font-body text-[14px] opacity-90">{session.resourceTitle}</p>
+          <p className="mt-3 max-w-md font-body text-[13px] italic opacity-90">{band.message}</p>
 
           <div className="mt-6 grid grid-cols-3 gap-4 text-left md:gap-8">
             <div>
@@ -263,6 +286,11 @@ export function DictationResultsClient() {
                 )}
               </span>
             ))}
+            {mistakenWords.length > 20 && (
+              <span className="inline-flex items-center rounded-full px-3 py-1 font-body text-[12px] text-[var(--t3)]">
+                +{mistakenWords.length - 20}개 더
+              </span>
+            )}
           </div>
         </section>
       )}

@@ -52,8 +52,7 @@ export function useSpellForgeSession({ textId, words }: UseSessionParams) {
       }
     })
 
-    // TODO: Supabase 저장
-    // await saveRatingToDB(rating);
+    // 영속화는 SpellForge 컴포넌트가 pushPendingResult → flushPendingSession 으로 처리.
   }, [])
 
   /**

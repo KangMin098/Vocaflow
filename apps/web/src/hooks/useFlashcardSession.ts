@@ -2,7 +2,7 @@
 
 'use client'
 
-import { calculateNextSRS, sortByPriority } from '@/lib/srs/sm2'
+import { sortByPriority } from '@/lib/srs/sm2'
 import type {
   DifficultWord,
   FlashcardPhase,
@@ -48,10 +48,8 @@ export function useFlashcardSession({ initialWords }: UseFlashcardSessionParams)
     (rating: SRSRating) => {
       if (!currentWord) return
 
-      // SRS 갱신 (실제 저장은 서버 호출)
-      const newSRS = calculateNextSRS(currentWord.srs, rating)
-      // TODO: API 호출로 Supabase에 저장
-      console.log(`[SRS] ${currentWord.text} → ${rating}`, newSRS)
+      // SRS 전이 계산·영속화는 FlashcardSession 이 pushPendingResult →
+      // flushPendingSession 으로 처리한다(서버 권위 재계산). 여기선 뷰 상태만 갱신.
 
       // 카운트 갱신
       setRatingCounts((prev) => ({ ...prev, [rating]: prev[rating] + 1 }))

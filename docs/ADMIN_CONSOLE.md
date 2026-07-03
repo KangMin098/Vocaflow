@@ -110,7 +110,7 @@
 
 ### /admin/curation/preview/[bookId]
 
-`AdminReviewClient.tsx` — 도서 본문 검수 + 챕터 nav + LibriVox 매핑 패널 + 챕터 단어장 검수 + 추출 패널.
+`AdminReviewClient.tsx` — 도서 본문 검수 + 챕터 nav + LibriVox 매핑 패널 + 챕터 단어장 검수 + 추출 패널 + **챕터 퀴즈 검수**.
 
 #### LibriVoxAudioPanel (v06.34)
 
@@ -124,6 +124,10 @@
 #### ChapterWordSetsAdminSection (v06.32)
 
 Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSetPreviewModal` (admin 전용 — 구독 CTA 없음, 단어 전수 fetch + sort_order DESC + 발음 듣기 + 추출 메타 JSONB).
+
+#### ChapterQuizAdminSection (v06.117)
+
+챕터별 퀴즈(`library_chapter_quiz`) 검수. 서버 `fetchBookChapterQuizzes`(authed admin 직접 read — 발행 상태 무관, 미발행 검수 가능) → 챕터별 문항수 표 + 커버리지/저문항(<3) 경고 + 생성 잡 배지(`book_quiz_jobs` done/running/failed·chapters_done/total). 행 클릭 → `ChapterQuizPreviewModal` (문항 EN+KO·4지선다 **정답 초록+아이콘**·본문 근거 snippet Lora italic — 검수용 정답·근거 노출, 학습자 플레이는 숨김). 데이터는 서버 pre-fetch → props(모달 client fetch 없음, RLS 안전).
 
 #### BookExtractionPanel
 

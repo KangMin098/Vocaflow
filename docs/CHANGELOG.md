@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### 빌드-타임 lint 게이트 복원 + a11y/lint 부채 청산 (v06.117)
+
+v06.92 에서 lint 부채(74건)로 빌드에서 분리했던 ESLint 게이트를 복원. 마이그레이션 0.
+
+- **부채 청산**: `no-unused-vars` ERROR(ChapterQuizAdminSection 미사용 `bookId`) 해소 + 지원 안 되는 `aria-*` 3건(SourceCard `article`/Radio `radio`/CEFRDistribution `listitem`) 제거·승격 → `next lint` **0 error / 6 warning**(exhaustive-deps 잔여).
+- **게이트 복원**: `next.config.mjs` `eslint.ignoreDuringBuilds` `true`→`false`. 풀 `next build` EXIT 0 검증(warning 은 빌드 비차단). typecheck 계속 강제. `swcMinify:false`(piper-tts)는 별건이라 유지.
+- **트리 정합 복구**: "챕터 퀴즈 검수" admin 기능(`ChapterQuizAdminSection`·`ChapterQuizPreviewModal`·`admin-quiz-queries.ts`·`preview/[bookId]/page.tsx`)이 untracked 로 방치돼 CI 에서 import 미해결이던 것을 완결 커밋.
+
+### P0 보안 — public RLS 하드닝 + 유출 backup 제거 (v06.117)
+
+security advisor **ERROR 8건 → 0**. 마이그레이션 2 (`20260703120000_p0_security_rls_hardening` · `20260703120010_p0_drop_p5a_backup_table`).
+
+- **근본 원인**: `public` 스키마 8 테이블이 anon 에 SELECT+INSERT 권한이 있는데 RLS 가 꺼져 있어 익명 키로 직접 read/write 가능한 상태였음.
+- **참조 taxonomy 4종**(`vocaflow_levels`/`tracks`/`domains`/`skills`) — RLS on + authenticated read 정책(앱 DiagnosticClient·admin 경로 유지).
+- **내부 QA**(`vrl_data_integrity_concerns`) — RLS on + admin 전용 read(`user_profiles.role='admin'`).
+- **백엔드 전용**(`noise_blacklist`·`english_irregular_forms`) — RLS on·정책 없음(락). SECURITY DEFINER RPC·service_role bypass 로 기능 무영향.
+- **유출 backup DROP**: `shared_dictionary_p5a_backup_20260620` (16,492 row · 688 kB) — 추출 P1~P4 백업본 목적 종료. 테이블 59→58.
+- read 정책만 추가(INSERT 정책 부재) → 익명 write 구멍 차단. anon SELECT 도 정책 부재로 무력화. typecheck green.
+
+### Dictation 화면 디자인·기능 개선 (v06.116)
+
+받아쓰기 4개 화면(Hub/Setup/Session/Results) 폴리시 정합 개선. 마이그레이션 0 · typecheck green.
+
+- **Calm UI**: Hub 직접입력 검증을 `alert()`(차단형 모달) → 인라인 empathetic 메시지("조금만 더 있으면 돼요 — 지금 N자")로 교체. 입력 시 자동 소거 + `aria-invalid`/`role=status`.
+- **트로피 지양(§학습UX)**: Results hero 상시 `Trophy` 아이콘 → 점수대별 차분한 아이콘(`Check`/`Sprout`/`Leaf`) + Lora italic 격려 한 줄("오늘 들은 만큼 분명히 남았어요"). "Session Complete"→"오늘 받아쓰기 완료".
+- **색맹 대응(§접근성)**: Session 피드백 단어칩에 **범례**(정답/철자/오답/누락/불필요) 추가 — 색상 단독 전달 방지. `WORD_STATUS_STYLES`/`LABELS` 모듈 스코프로 승격.
+- **focus 상태(§항상지킬것)**: Session·Setup·Hub 주요 인터랙티브 요소에 프로젝트 공통 `focus-visible:ring` 추가(`FOCUS_RING` 상수) + 속도/힌트 버튼 `aria-pressed`/`aria-label`.
+- **키보드 정합**: 숫자키 1-5 속도 매핑을 화면 버튼과 동일 5단계(0.5·0.75·0.85·1.0·1.25x)로 정정 · 파일 상단 단축키 주석을 실제 핸들러(L/H 미구현·Esc=정지)와 일치하도록 수정.
+- **정직한 카운트**: Results 오답 단어 20개 초과 시 "+N개 더" 표기.
+
 ### ScriptQuiz 큐레이션 챕터 퀴즈 — 도서 V-Level별 스토리 퀴즈 생성 파이프라인 (v06.115)
 
 LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지 퀴즈**를 생성해 `/scriptquiz` 에서 학습. 마이그레이션 1 (`20260702120000_scriptquiz_curated_chapter_quiz`).
@@ -18,8 +48,15 @@ LCP 큐레이션 드레인 시 도서 챕터별 **스토리 기반 질의/선지
 - **신규 함수 5**: `quiz_target_per_chapter(smallint)` (V-Level→챕터당 문항 수 SSoT 곡선 **3~10**: V0-1→3·V2-3→4·V4-5→5·V6→6·V7→7·V8→8·V9→9·V10-11→10) · `select_book_chapter_quiz(uuid,int)` (학습자 read RPC, SECURITY DEFINER) · `list_book_chapter_quiz_catalog()` (허브 discovery) · `book_quiz_coverage(uuid)` (커버리지 집계) · `enqueue_quiz_jobs(uuid[])` (큐 적재 · ready/published+챕터 존재만).
 - **Frontend**: `/scriptquiz` 허브 목업→실 카탈로그 서버 fetch + `ScriptQuizHub`(client 선택 UI) · `/scriptquiz/play?book=&ch=` 공유 챕터 퀴즈 read(`fetchChapterQuizSession`) · 기존 `?text=`(개인 quiz_questions)·MOCK 폴백 보존.
 - **Admin**: `/admin/curation` MyLibraryTab 일괄 액션에 **"스크립트 퀴즈 큐"** 버튼 + `QuizJobsBanner`(진행률 폴링) + `enqueueQuizJobsAction`/`fetchQuizJobsAction`.
+- **검수 노출**: `/admin/curation/preview/[bookId]` 도서 검수 페이지에 **"챕터 퀴즈 검수" 섹션** 신규(`ChapterQuizAdminSection`) — 챕터별 문항수 표 + 커버리지/저문항(<3) 경고 + 생성 잡 배지(done/running/failed·chapters_done/total). 행 클릭 → `ChapterQuizPreviewModal`(문항 EN+KO·4지선다 **정답 초록 하이라이트**·본문 근거 snippet Lora italic — 검수용 정답 노출, 학습자 플레이는 숨김). 서버 `fetchBookChapterQuizzes`(authed admin, `library_chapter_quiz`+`book_quiz_jobs` 직접 read, 발행 상태 무관 = 미발행 검수 가능).
 - **드레인 헬퍼**: `scripts/lcp/generate-chapter-quiz.mjs` (`plan`/`content`/`insert`/`refresh-job` — 챕터 나열·본문 dump·문항 검증+전량교체·진행률 갱신). 문항 저술=Claude Code(앱 런타임 LLM 0).
-- **데모**: Alice's Adventures in Wonderland Ch.1 "Down the Rabbit-Hole"(V6) 6문항 INSERT + E2E 검증(카탈로그/select/coverage RPC). 나머지 234챕터 = 큐 대기.
+- **첫 도서 완성**: Alice's Adventures in Wonderland(V6) **전권 12챕터 × 6 = 72문항** 드레인 생성(`generate-chapter-quiz.mjs insert`) — 챕터별 스토리 MCQ(5 multiple + 1 truefalse), EN+KO, 본문 근거 snippet, correct_index 분산, 무결성 0, book_quiz_jobs=done(12/12).
+- **둘째 도서 완성**: The Wonderful Wizard of Oz(V6) **전권 24챕터 = 141문항** 드레인 생성(MCP 직접 INSERT) — 각 챕터 스토리 comprehension MCQ 6문항(Ch.24 "Home Again"=77단어 초단편이라 3문항), EN+KO 4지선다, 본문 근거 snippet, 무결성 0(bad option/correct_index/null/q_order-gap 각 0), book_quiz_jobs=done(24/24). `/scriptquiz` 카탈로그 2권(Alice+Oz) 노출.
+- **소형 2권 완성**: Ammachi's Amazing Machines(V4·1ch·5문항 — 코코넛 바르피/6가지 단순기계) + Tell Me, What is a Drone?(V3·1ch·4문항) 드레인 — 단일 챕터 논픽션 그림책.
+- **넷째 도서 완성**: The Adventures of Sherlock Holmes(V8) **전권 12편 × 8 = 96문항** 드레인(MCP 직접 INSERT) — 각 단편 스토리 comprehension MCQ 8문항(Scandal in Bohemia~Copper Beeches), EN+KO 4지선다, 본문 정밀 근거 snippet(regexp 추출), 무결성 0(bad option/correct_index/null/q_order-gap 각 0), 전 챕터 정확히 8문항, book_quiz_jobs=done(12/12).
+- **다섯째 도서 완성**: Just So Stories(V7) **전권 12편 × 7 = 84문항** 드레인(MCP 직접 INSERT) — 키플링 유래담(Whale~Butterfly) 스토리 comprehension MCQ 7문항, EN+KO 4지선다, 본문 근거 snippet, 무결성 0, 전 챕터 정확히 7문항, book_quiz_jobs=done(12/12).
+- `/scriptquiz` 카탈로그 **6권 총 402문항**(Alice 72 + Oz 141 + Sherlock 96 + Just So 84 + Ammachi 5 + Drone 4). V3~V8 난이도 커버.
+- 나머지 도서(Pride 61·Twenty 90·Les Mis 364 등 대형서) = 큐 대기.
 
 ### Growth(/dashboard) known-word 성장 hero (v06.114)
 

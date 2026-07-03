@@ -5,11 +5,11 @@ const nextConfig = {
   // "failed to parse input file: Syntax Error" 로 실패. Terser minifier 로 폴백.
   // (기존 main 부터 깨진 상태 — CI 가 typecheck/lint 만 게이트해 미발견.)
   swcMinify: false,
-  // v06.92 — 전(全)프로젝트 기존 lint 부채(74건: no-explicit-any 32·no-unused-vars 28·
-  // no-unescaped-entities 12·exhaustive-deps 6)가 `next build` 의 산출물 생성을 막음.
-  // lint 는 `next lint`(dev/CI 별도 job)로 분리하고 빌드는 아티팩트 생성에 집중.
-  // typecheck 는 build 에서 계속 강제 (tsc 통과 상태 — ignoreBuildErrors 는 두지 않음).
-  eslint: { ignoreDuringBuilds: true },
+  // v06.92 — 기존 lint 부채(74건)로 `next build` 산출물 생성이 막혀 임시로 lint 를 빌드에서 분리했었음.
+  // v06.117 — 부채 청산 완료(`next lint` = 0 error / 6 warning). 빌드-타임 lint 게이트 복원.
+  //   build 는 error 만 차단(warning 은 통과) — exhaustive-deps 잔여 6건은 warning 이라 무영향.
+  //   typecheck 는 계속 강제 (ignoreBuildErrors 두지 않음).
+  eslint: { ignoreDuringBuilds: false },
   // Workspace 패키지의 .js extension import (Node ESM 컨벤션) 를
   // Next.js webpack 이 해석하도록 transpilePackages 등록.
   // - @vocaflow/vcb-core: lemma + Supabase admin client

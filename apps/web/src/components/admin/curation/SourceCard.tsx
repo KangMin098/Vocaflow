@@ -35,7 +35,6 @@ export function SourceCard({ catalog, rank, onActivate }: SourceCardProps) {
       ]
         .filter(Boolean)
         .join(' ')}
-      aria-disabled={isDisabled}
     >
       <RankRibbon rank={rank} isPrimary={isPrimary} />
 
