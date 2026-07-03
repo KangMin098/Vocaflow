@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `051d2ea` fix(a11y): 지원되지 않는 aria 속성 제거 + 미사용 prop 정리
 - `85bfe6b` fix(security): P0 public RLS 하드닝 + 유출 backup 제거 (v06.117)
 - `116b5c2` docs(scriptquiz): Just So Stories 전권 12편 84문항 생성 완료 반영
 - `ddb80ab` feat(dictation): 받아쓰기 화면 디자인·접근성 개선 (v06.116)
 - `80e4f68` docs(scriptquiz): Sherlock Holmes 전권 12편 96문항 생성 완료 반영
-- `b255b19` docs(scriptquiz): 소형 2권(Ammachi·Drone) 드레인 완료 반영
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

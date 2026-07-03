@@ -16,7 +16,9 @@ import {
   BookIllustrationsPanel,
   type BookIllustration,
 } from '@/components/admin/curation/BookIllustrationsPanel'
+import { ChapterQuizAdminSection } from '@/components/admin/curation/ChapterQuizAdminSection'
 import { fetchBookChapterSets } from '@/lib/library/books/queries'
+import { fetchBookChapterQuizzes } from '@/lib/library/admin-quiz-queries'
 import { AdminReviewClient } from './AdminReviewClient'
 
 interface PageProps {
@@ -120,6 +122,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
     client as unknown as Parameters<typeof fetchBookChapterSets>[0],
     b.id,
   )
+  const quizReview = await fetchBookChapterQuizzes(client, b.id)
 
   return (
     <div className="flex flex-col gap-4 p-6">
@@ -164,6 +167,13 @@ export default async function AdminPreviewPage({ params }: PageProps) {
         sets={chapterSets}
         bookId={b.id}
         bookVLevel={b.book_v_level}
+      />
+
+      {/* 챕터 퀴즈 검수 — 행 클릭으로 문항·정답·본문 근거 모달 (library_chapter_quiz) */}
+      <ChapterQuizAdminSection
+        chapters={quizReview.chapters}
+        totalChapters={chapters.length}
+        job={quizReview.job}
       />
     </div>
   )
