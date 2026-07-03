@@ -94,7 +94,7 @@ export function CEFRDistribution({ buckets }: CEFRDistributionProps) {
             return (
               <li
                 key={level}
-                aria-disabled="true"
+                aria-label={a11y}
                 className="flex h-9 select-none items-center gap-3 rounded-[var(--r-md)] px-2 opacity-40"
               >
                 <LevelLabel level={level} />
