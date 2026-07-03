@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### ScriptQuiz 큐레이션 챕터 퀴즈 — The Marvelous Land of Oz 완결 (v06.117)
+
+서사 적합 도서 1권씩 드레인 정책으로 재fetch된 `The Marvelous Land of Oz`(V7·24챕터) 챕터 퀴즈를 완결. 마이그레이션 0 (데이터 INSERT).
+
+- **ch.3–24, 154문항 저작·INSERT** (기존 ch.1–2 14문항 + 신규 154 = **24챕터 168문항, 100% coverage**). `content_chunks.content`(← `library_chapters_master.content_hash` 조인)에서 실제 챕터 본문을 읽어 근거 기반 4지선다(EN/KO 이중언어 + `source_snippet` 원문 인용)로 저작.
+- **품질 게이트**: 정답 위치를 0/1/2/3에 분산(51/41/41/35 — "항상 A" 패턴 차단). 무결성 검증 통과: correct_index 범위이탈 0 · 챕터당 정확히 7문항(V7 `quiz_target_per_chapter`) · (chapter,q_order) 중복 0.
+- **잡 완료 처리**: `book_quiz_jobs` `0692db6b` status `running`→`done`(24/24, 168). `book_quiz_coverage`/`list_book_chapter_quiz_catalog` RPC 로 학습자 노출 확인.
+- 카탈로그 현황: 9권 916문항 (Oz 168 · Pride 192 · Huck 154 · Wonderful Oz 141 · Sherlock 96 · Just So 84 · Alice 72 · Ammachi 5 · Drone 4).
+
 ### 게임 모듈 데이터 레이어 검증 + PairFlip stale mock 청소 (v06.117)
 
 P1 "게임 모듈 런타임 미검증"의 **데이터 레이어 절반을 라이브 DB 로 결론**. 마이그레이션 0 · typecheck/eslint green.
