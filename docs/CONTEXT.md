@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d5012ab` docs(scriptquiz): Huckleberry Finn 전권 154문항 드레인 완주 반영
 - `4d9c030` docs(audit): 실패 도서 재fetch 완주 반영 (Marvelous Land of Oz)
 - `9721f2d` docs(audit): 프로젝트 건강도 감사 — 미완료·오류·개선점 우선순위 (2026-07-03)
 - `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `7289283` refactor(srs): 세션 hook stale TODO + 카드별 console.log 제거
-- `f053665` feat(scriptquiz): 도서 검수 페이지에 챕터 퀴즈 검수 섹션 (v06.117)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -4,9 +4,6 @@
 'use client'
 
 import { Flame, Target, Timer } from 'lucide-react'
-import { useEffect } from 'react'
-
-import { saveLearningRecords } from '@/lib/pairflip/learning-records'
 
 import { getResultCopy, PAIRFLIP_LEVELS } from './constants'
 import { PairFlipMascot } from './PairFlipMascot'
@@ -29,9 +26,8 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
   const seconds = Math.floor((result.durationMs % 60000) / 1000)
   const timeLabel = `${minutes}:${seconds.toString().padStart(2, '0')}`
 
-  useEffect(() => {
-    void saveLearningRecords(result)
-  }, [result])
+  // 영속화(SRS flush + scores)는 PairFlipGameScreen 의 onComplete 에서 이미 처리한다.
+  // 결과 화면은 표시 전용 — 별도 저장 호출 없음.
 
   return (
     <div

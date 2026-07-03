@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 게임 모듈 데이터 레이어 검증 + PairFlip stale mock 청소 (v06.117)
+
+P1 "게임 모듈 런타임 미검증"의 **데이터 레이어 절반을 라이브 DB 로 결론**. 마이그레이션 0 · typecheck/eslint green.
+
+- **읽기 경로 검증(라이브 SQL)**: ScriptQuiz 챕터 퀴즈 `list_book_chapter_quiz_catalog`/`select_book_chapter_quiz` = **8권 570문항** malformed 0(옵션 `{text,textKo}` 이중언어·correct_index 범위·question/ko 결함 0) · 개인 `quiz_questions` 5/5 유효 · PairFlip `vocabularies` 2 user 6,477행(영단어+한국어 뜻 정합).
+- **쓰기 경로 검증**: `scores` enum `module_id` 에 `pairflip`/`scriptquiz` 존재 · 컬럼·RLS(own data ALL) 정합 · SRS flush(`pushPendingResult`→`flushPendingSession`)는 PairFlipGameScreen `onComplete` 에서 실동작.
+- **stale mock 제거**: `lib/pairflip/learning-records.ts`(console.log-only no-op) + PairFlipResultScreen 의 `saveLearningRecords` 호출 삭제. 실 영속화는 GameScreen 이 이미 수행 — 모듈 docstring 의 "Phase 2 미구현" 라벨이 거짓이라 이중 쓰기 유발 위험 제거(직전 flashcard 청소와 동류).
+- 잔여: 브라우저 렌더·인터랙션·flush 실측(로그인 세션 필요)만 open.
+
 ### 빌드-타임 lint 게이트 복원 + a11y/lint 부채 청산 (v06.117)
 
 v06.92 에서 lint 부채(74건)로 빌드에서 분리했던 ESLint 게이트를 복원. 마이그레이션 0.

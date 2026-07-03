@@ -29,6 +29,7 @@
 ## 🟠 P1 — 기능 정합·미검증 (잔여)
 
 - **게임 모듈 런타임 미검증** — pairflip·scriptquiz 실데이터 배선은 랜딩됐으나 런타임 open. 학습자 관리 P0~P3 UI 도 동일. → dev 서버+브라우저(`/verify`) 필요.
+  - **부분 해소(2026-07-04)**: 데이터 레이어(읽기+쓰기 경로)를 라이브 SQL 로 결론 — ScriptQuiz 카탈로그 8권 570문항 malformed 0 · 개인 퀴즈 5/5 · PairFlip vocab 2 user 6,477행 정합 · `scores` enum(pairflip/scriptquiz)·RLS·SRS flush 실동작 확인. 겸사 **stale mock 청소**(`lib/pairflip/learning-records.ts` no-op + `saveLearningRecords` 호출 삭제 — 실 영속화는 GameScreen 이 수행). **잔여**: 브라우저 렌더·인터랙션·flush 실측(로그인 세션 필요).
 - ~~**실패 도서 `The Marvelous Land of Oz`**~~ → **✅ 해소(이 세션)** — `reprocess-book.mjs --commit` 로 재fetch 완주: status `failed`→**`ready`** · 24챕터 · 41,589단어 · V7/B1 · vocab 3,033. `failed` 도서 잔여 **0**. (블로커는 패키지 빌드가 아니라 `pnpm dlx tsx` 가 깨진 `tsx@0.0.0` 을 받아온 것 — `pnpm install`(로컬 `tsx 4.22.1`) 후 `pnpm exec tsx` 로 해결.)
 - **소셜 로그인** — Google 실연동, Apple/Kakao/Naver 는 "(목업) Phase 3" 토스트(정직 라벨). 죽은 버튼 아님 → 우선순위 낮음.
 
