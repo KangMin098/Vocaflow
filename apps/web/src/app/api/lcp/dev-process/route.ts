@@ -171,20 +171,18 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // lemma backfill (best-effort) — direct-bind/추출/percentile 정상화 게이트.
     // collect 보다 먼저 실행: 바인딩된 단어는 lemma 채워져 collect 대상에서 제외됨.
-    try {
-      await client.rpc('backfill_book_lemmas', { p_book_id: book_id })
-    } catch (e) {
-      console.warn(`[lcp/dev-process] backfill_book_lemmas skipped: ${e instanceof Error ? e.message : String(e)}`)
+    // INSERT 시점 트리거(lbv_fill_lemma_after_insert, v06.120)가 1차 보장 — 여기는 잔여 스윕.
+    // 주의: supabase-js rpc() 는 throw 하지 않고 { error } 를 반환 — 반드시 error 필드 검사.
+    {
+      const { error } = await client.rpc('backfill_book_lemmas', { p_book_id: book_id })
+      if (error) console.warn(`[lcp/dev-process] backfill_book_lemmas skipped: ${error.message}`)
     }
 
     // 도서 난이도 지수 산정 (best-effort) — book_v_level/CEFR/CEFR-J.
     //   backfill 직후(bound lemma 필요). LibraryCard + publish 게이트(book_v_level NULL 이면 강제게시 실패) 의존.
-    try {
-      await client.rpc('compute_book_vrl', { p_book_id: book_id })
-      await client.rpc('compute_book_cefrj', { p_book_id: book_id })
-      await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
-    } catch (e) {
-      console.warn(`[lcp/dev-process] compute_book_vrl/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
+    for (const fn of ['compute_book_vrl', 'compute_book_cefrj', 'compute_book_coverage'] as const) {
+      const { error } = await client.rpc(fn, { p_book_id: book_id })
+      if (error) console.warn(`[lcp/dev-process] ${fn} skipped: ${error.message}`)
     }
 
     // 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
@@ -274,23 +272,17 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // 미바인딩 단어를 archaic_candidates 로 수집 (best-effort — 실패해도 파이프라인 성공 유지)
-    //   ⚠️ 반드시 try/catch — 미가드 시 throw 가 catch 로 떨어져 이미 'ready' 인 책을 'failed' 로 뒤집음.
-    try {
-      await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
-    } catch (e) {
-      console.warn(
-        `[lcp/dev-process] collect_archaic_candidates skipped: ${e instanceof Error ? e.message : String(e)}`,
-      )
+    //   supabase-js rpc() 는 throw 하지 않고 { error } 반환 — error 필드 검사로 실패를 관측.
+    {
+      const { error } = await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+      if (error) console.warn(`[lcp/dev-process] collect_archaic_candidates skipped: ${error.message}`)
     }
 
     // pgmq:library_pipeline 큐의 동일 book_id 메시지 archive (dev 환경에서 pg_cron worker 부재 — 직접 정리).
     // best-effort — 실패해도 파이프라인 성공 유지.
-    try {
-      await client.rpc('archive_book_pipeline_messages', { p_book_id: book_id })
-    } catch (e) {
-      console.warn(
-        `[lcp/dev-process] archive_book_pipeline_messages skipped: ${e instanceof Error ? e.message : String(e)}`,
-      )
+    {
+      const { error } = await client.rpc('archive_book_pipeline_messages', { p_book_id: book_id })
+      if (error) console.warn(`[lcp/dev-process] archive_book_pipeline_messages skipped: ${error.message}`)
     }
 
     return NextResponse.json({
@@ -316,12 +308,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       .eq('id', book_id)
 
     // 실패 경로에서도 큐 메시지 archive — dev 환경에선 재시도 worker 부재라 큐에 남겨봐야 무의미.
-    try {
-      await client.rpc('archive_book_pipeline_messages', { p_book_id: book_id })
-    } catch (e) {
-      console.warn(
-        `[lcp/dev-process] archive_book_pipeline_messages (failure path) skipped: ${e instanceof Error ? e.message : String(e)}`,
-      )
+    {
+      const { error: archiveError } = await client.rpc('archive_book_pipeline_messages', { p_book_id: book_id })
+      if (archiveError)
+        console.warn(
+          `[lcp/dev-process] archive_book_pipeline_messages (failure path) skipped: ${archiveError.message}`,
+        )
     }
 
     return NextResponse.json({ ok: false, error: errMsg }, { status: 500 })

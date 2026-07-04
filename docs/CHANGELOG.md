@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 라우트 rpc 침묵 실패 11곳 관측성 복구 (v06.125)
+
+`api/lcp/process`·`dev-process` 의 rpc 호출 11곳이 **supabase-js v2 `rpc()` 무-throw 특성**으로 실패가 완전 침묵(try/catch = 죽은 코드, warn 미발화)이던 것을 `{ error }` 필드 검사로 교체. 마이그레이션 0.
+
+- 대상: backfill_book_lemmas ×2 · compute_book_vrl/cefrj/coverage ×2(루프화) · collect_archaic_candidates ×2 · pgmq_archive ×2(성공/실패 경로) · archive_book_pipeline_messages ×3.
+- best-effort 시맨틱 유지(파이프라인 비차단) — 실패 시 console.warn 으로 실제 관측 가능. Les Mis lemma 100% NULL 사고(v06.120)의 코드 측 마무리.
+- typecheck 0 · eslint 0.
+
 ### 사전 no-rank Tier A 선별 enrichment — 발행 세트 노출 어휘 ipa 100% (v06.124)
 
 no-rank 16,652행 중 **학습자에게 실제 서빙 중인 어휘(발행 단어장 등장 lemma) 1,277행**을 우선 enrichment. 마이그레이션 0 (데이터 채움).

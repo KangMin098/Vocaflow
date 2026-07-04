@@ -169,22 +169,19 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // 4-3.4 lemma backfill (best-effort) — direct-bind/추출/percentile 정상화 게이트.
     //   collect 보다 먼저: 바인딩된 단어는 lemma 채워져 collect 대상에서 제외됨.
-    //   (Phase 3B 이후 추가 도서가 lemma NULL 로 누락되던 구조적 결함 차단)
-    try {
-      await client.rpc('backfill_book_lemmas', { p_book_id: book_id })
-    } catch (e) {
-      console.warn(`[lcp/process] backfill_book_lemmas skipped: ${e instanceof Error ? e.message : String(e)}`)
+    //   INSERT 시점 트리거(lbv_fill_lemma_after_insert, v06.120)가 1차 보장 — 여기는 잔여 스윕.
+    //   주의: supabase-js rpc() 는 throw 하지 않고 { error } 를 반환 — 반드시 error 필드 검사.
+    {
+      const { error } = await client.rpc('backfill_book_lemmas', { p_book_id: book_id })
+      if (error) console.warn(`[lcp/process] backfill_book_lemmas skipped: ${error.message}`)
     }
 
     // 4-3.45 도서 난이도 지수 산정 (best-effort) — book_v_level/CEFR/CEFR-J.
     //   backfill 직후(bound lemma 필요). LibraryCard 표시 + publish 게이트(publish_book_word_sets
     //   가 v_level >= book_v_level 필터 → book_v_level NULL 이면 강제게시 실패) 의존.
-    try {
-      await client.rpc('compute_book_vrl', { p_book_id: book_id })
-      await client.rpc('compute_book_cefrj', { p_book_id: book_id })
-      await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
-    } catch (e) {
-      console.warn(`[lcp/process] compute_book_vrl/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
+    for (const fn of ['compute_book_vrl', 'compute_book_cefrj', 'compute_book_coverage'] as const) {
+      const { error } = await client.rpc(fn, { p_book_id: book_id })
+      if (error) console.warn(`[lcp/process] ${fn} skipped: ${error.message}`)
     }
 
     // 4-3.47 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
@@ -204,7 +201,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // 4-3.5 미바인딩 단어를 archaic_candidates 로 수집 (best-effort)
-    await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+    {
+      const { error } = await client.rpc('collect_archaic_candidates', { p_book_id: book_id })
+      if (error) console.warn(`[lcp/process] collect_archaic_candidates skipped: ${error.message}`)
+    }
 
     // 4-4. auto_curate
     const { data: decision, error: curateError } = await client.rpc(
@@ -217,10 +217,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // 4-5. 메시지 archive (성공)
-    await client.rpc('pgmq_archive', {
-      p_queue_name: 'library_pipeline',
-      p_msg_id: msg_id,
-    })
+    {
+      const { error } = await client.rpc('pgmq_archive', {
+        p_queue_name: 'library_pipeline',
+        p_msg_id: msg_id,
+      })
+      if (error) console.warn(`[lcp/process] pgmq_archive(success path) failed: ${error.message}`)
+    }
 
     return NextResponse.json({
       ok: true,
@@ -245,10 +248,13 @@ export async function POST(request: Request): Promise<NextResponse> {
       .eq('id', book_id)
 
     // 메시지는 archive (재시도 무한루프 방지 — admin 이 status='failed' row 수동 검토)
-    await client.rpc('pgmq_archive', {
-      p_queue_name: 'library_pipeline',
-      p_msg_id: msg_id,
-    })
+    {
+      const { error: archiveError } = await client.rpc('pgmq_archive', {
+        p_queue_name: 'library_pipeline',
+        p_msg_id: msg_id,
+      })
+      if (archiveError) console.warn(`[lcp/process] pgmq_archive(failure path) failed: ${archiveError.message}`)
+    }
 
     return NextResponse.json({ ok: false, error: errMsg }, { status: 500 })
   }
