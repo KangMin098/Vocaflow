@@ -598,35 +598,44 @@ function WeekBoard({
       aria-label="주간 보드"
       className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-3"
     >
-      <div className="grid grid-cols-7 gap-1.5">
+      {/* 아젠다형: 요일=행 — 좁은 칸 대신 가로 폭 전체로 계획 디테일(표지·제목·챕터·활동)을 보여준다 */}
+      <div className="flex flex-col gap-1">
         {WEEKDAYS.map((d) => {
           const dayItems = items.filter((i) => i.weekdays.includes(d.value))
           const isToday = d.value === today
           return (
             <div
               key={d.value}
-              className={`flex min-h-[76px] flex-col gap-1 rounded-[var(--r-md)] p-1.5 ${
+              className={`flex items-stretch gap-2 rounded-[var(--r-md)] p-1.5 ${
                 isToday ? 'bg-[var(--bg)] ring-2 ring-[var(--p)]' : 'bg-[var(--bg)]'
               }`}
             >
-              <span
-                className={`text-center font-display text-[11px] font-[800] ${
-                  isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+              <div
+                className={`flex w-[52px] shrink-0 flex-col items-center justify-center rounded-[var(--r-sm)] py-1 ${
+                  isToday ? 'bg-[var(--p-light)]' : 'bg-[var(--bg2)]'
                 }`}
               >
-                {d.label}
-                {isToday && <span className="ml-0.5 align-top text-[8px]">오늘</span>}
-              </span>
-              <span
-                className={`-mt-1 text-center font-mono text-[9px] tabular-nums ${
-                  isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
-                }`}
-              >
-                {weekDates[d.value - 1]}
-              </span>
-              <div className="flex flex-col items-center gap-1">
+                <span
+                  className={`font-display text-[14px] font-[800] leading-tight ${
+                    isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+                  }`}
+                >
+                  {d.label}
+                </span>
+                <span
+                  className={`font-mono text-[10px] tabular-nums ${
+                    isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                  }`}
+                >
+                  {weekDates[d.value - 1]}
+                </span>
+                {isToday && (
+                  <span className="font-display text-[8px] font-[800] text-[var(--p)]">오늘</span>
+                )}
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-1">
                 {dayItems.length === 0 ? (
-                  <span className="font-mono text-[12px] text-[var(--t3)]" aria-hidden>
+                  <span className="px-1 font-mono text-[12px] text-[var(--t3)]" aria-hidden>
                     ·
                   </span>
                 ) : (
@@ -644,11 +653,11 @@ function WeekBoard({
         <div className="flex flex-col gap-1 border-t border-[rgba(59,130,246,0.2)] pt-2">
           <p className="font-body text-[11px] text-[var(--t3)]">
             <span className="font-display font-[700] text-[var(--t2)]">요일 미정</span> — 아직 요일을 안 정한
-            계획이에요. 칩을 누르고 요일을 고르면 위 보드에 배치돼요.
+            계획이에요. 눌러서 요일을 고르면 위 보드에 배치돼요.
           </p>
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-col gap-1">
             {unscheduled.map((it) => (
-              <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} wide />
+              <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
             ))}
           </div>
         </div>
@@ -657,20 +666,11 @@ function WeekBoard({
   )
 }
 
-/** 보드 칩에 보여줄 활동 아이콘 최대 수 — 초과분은 +n 으로 접기 */
-const CHIP_MAX_ICONS = 4
+/** 보드 행에 보여줄 활동 아이콘 최대 수 — 초과분은 +n 으로 접기 */
+const CHIP_MAX_ICONS = 6
 
-function BoardChip({
-  item,
-  active,
-  onClick,
-  wide,
-}: {
-  item: PlanItem
-  active: boolean
-  onClick: () => void
-  wide?: boolean
-}) {
+/** 주간 보드 계획 행 — 표지·제목·챕터 배지·활동 아이콘을 한 줄 카드로 */
+function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean; onClick: () => void }) {
   const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   const shown = acts.slice(0, CHIP_MAX_ICONS)
   const overflow = acts.length - shown.length
@@ -683,55 +683,74 @@ function BoardChip({
       onClick={onClick}
       aria-pressed={active}
       title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
-      className={`flex max-w-full flex-col items-center gap-0.5 rounded-[var(--r-sm)] border px-1.5 py-1 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--p)]'
-      } ${wide ? 'max-w-[240px]' : 'w-full'}`}
+      }`}
     >
-      <span className={`flex max-w-full items-center gap-1 ${wide ? '' : 'justify-center'}`}>
-        <MiniMaterialGlyph item={item} />
-        {wide && <span className="truncate font-display text-[11px] font-[700]">{item.title}</span>}
-      </span>
-      {(shown.length > 0 || chapterLabel) && (
-        <span
-          className={`flex max-w-full flex-wrap items-center justify-center gap-x-1 gap-y-0.5 ${
-            active ? 'text-[var(--ti)]' : 'text-[var(--t3)]'
-          }`}
-        >
-          {chapterLabel && (
-            <span className="inline-flex items-center gap-0.5 font-mono text-[9px] tabular-nums" aria-hidden>
-              <ListChecks size={10} strokeWidth={2} />
-              {chapterLabel}
+      <MiniMaterialGlyph item={item} />
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="truncate font-display text-[12px] font-[700] leading-tight">{item.title}</span>
+        {(shown.length > 0 || chapterLabel) && (
+          <span
+            className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 ${
+              active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'
+            }`}
+          >
+            {chapterLabel && (
+              <span
+                className={`inline-flex items-center gap-0.5 rounded-[3px] px-1 py-px font-mono text-[10px] tabular-nums ${
+                  active ? 'bg-white/15' : 'bg-[var(--bg3)]'
+                }`}
+                aria-hidden
+              >
+                <ListChecks size={11} strokeWidth={2} />
+                {chapterLabel}
+              </span>
+            )}
+            {shown.map((a) => {
+              const Icon = ACTIVITY_ICON[a.icon] ?? Layers
+              return <Icon key={a.id} size={13} strokeWidth={2} aria-hidden />
+            })}
+            {overflow > 0 && (
+              <span className="font-mono text-[10px]" aria-hidden>
+                +{overflow}
+              </span>
+            )}
+            <span className="sr-only">
+              {chapterLabel ? `챕터 ${chapterLabel}, ` : ''}활동: {actLabels || '없음'}
             </span>
-          )}
-          {shown.map((a) => {
-            const Icon = ACTIVITY_ICON[a.icon] ?? Layers
-            return <Icon key={a.id} size={11} strokeWidth={2} aria-hidden />
-          })}
-          {overflow > 0 && (
-            <span className="font-mono text-[9px]" aria-hidden>
-              +{overflow}
-            </span>
-          )}
-          <span className="sr-only">
-            {chapterLabel ? `챕터 ${chapterLabel}, ` : ''}활동: {actLabels || '없음'}
           </span>
-        </span>
-      )}
+        )}
+      </span>
     </button>
   )
 }
 
 function MiniMaterialGlyph({ item }: { item: PlanItem }) {
   if (item.materialType === 'word_set' && item.coverEmoji) {
-    return <span className="text-[13px] leading-none" aria-hidden>{item.coverEmoji}</span>
+    return (
+      <span
+        className="inline-flex h-9 w-7 shrink-0 items-center justify-center rounded-[3px] bg-[var(--bg)] text-[16px] leading-none"
+        aria-hidden
+      >
+        {item.coverEmoji}
+      </span>
+    )
   }
   if (item.materialType === 'book' && item.coverUrl) {
-    return <Cover url={item.coverUrl} title={item.title} className="h-[22px] w-[16px] rounded-[2px]" />
+    return <Cover url={item.coverUrl} title={item.title} className="h-9 w-7 shrink-0 rounded-[3px]" />
   }
   const Icon = MATERIAL_ICON[item.materialType]
-  return <Icon size={13} strokeWidth={1.75} aria-hidden />
+  return (
+    <span
+      className="inline-flex h-9 w-7 shrink-0 items-center justify-center rounded-[3px] bg-[var(--p-light)] text-[var(--p)]"
+      aria-hidden
+    >
+      <Icon size={15} strokeWidth={1.75} />
+    </span>
+  )
 }
 
 // ── 우측 구성 — 신규 draft ──
@@ -780,7 +799,7 @@ function DraftConfig({
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (학습 수단)">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5">
           {activitiesForType(type).map((a) => (
             <ActivityChip key={a} activity={a} selected={draft.activities.has(a)} onClick={() => toggleA(a)} />
           ))}
@@ -855,7 +874,7 @@ function ItemConfig({
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (켜고 끄면 바로 저장)">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5">
           {activitiesForType(item.materialType).map((a) => (
             <ActivityChip key={a} activity={a} selected={item.modules.includes(a)} onClick={() => onToggleActivity(a)} small />
           ))}
@@ -1205,7 +1224,7 @@ function ActivityChip({
       onClick={onClick}
       aria-pressed={selected}
       title={def.layer}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`inline-flex min-h-[40px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         small ? 'text-[12px]' : 'text-[13px]'
       } ${
         selected
@@ -1213,10 +1232,17 @@ function ActivityChip({
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
-      {/* 활동 아이콘은 선택 여부와 무관하게 항상 표시 — 보드 칩·바로 시작과 동일 연상 유지 */}
-      <Icon size={13} strokeWidth={selected ? 2.25 : 1.75} aria-hidden />
-      {def.label}
-      {selected && <Check size={12} strokeWidth={3} aria-hidden />}
+      {/* 활동 아이콘은 선택 여부와 무관하게 항상 표시 — 보드 행·바로 시작과 동일 연상 유지 */}
+      <span
+        className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] ${
+          selected ? 'bg-white/15' : 'bg-[var(--bg3)]'
+        }`}
+        aria-hidden
+      >
+        <Icon size={14} strokeWidth={selected ? 2.25 : 1.75} />
+      </span>
+      <span className="min-w-0 flex-1 truncate text-left">{def.label}</span>
+      {selected && <Check size={13} strokeWidth={3} className="shrink-0" aria-hidden />}
     </button>
   )
 }
