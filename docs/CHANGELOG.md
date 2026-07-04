@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### ScriptQuiz Jane Eyre 전권 드레인 완결 (v06.129)
+
+- **Jane Eyre(V9) 전권 38챕터 × 9 = 342문항** 드레인 생성(MCP 직접 INSERT) — 각 챕터 스토리 comprehension MCQ 9문항, EN+KO 4지선다, 본문 근거 snippet, 정답 분산 **85/87/85/85(±0.6%p)**, 무결성 0(bad option/malformed/correct_index/누락 필드 각 0), `book_quiz_jobs`=done(38/38), `book_quiz_coverage` 38/38 확인.
+- 카탈로그 누계 **12권 1,748문항** (Pride 488 · Jane Eyre 342 · Marvelous Oz 168 · Huck 154 · Wonderful Oz 141 · Railway 98 · Willows 96 · Sherlock 96 · Just So 84 · Alice 72 · Ammachi 5 · Drone 4). 남은 서사 후보: Great Expectations(59ch·V9).
+
 ### LCP 라우트 rpc 침묵 실패 11곳 관측성 복구 (v06.125)
 
 `api/lcp/process`·`dev-process` 의 rpc 호출 11곳이 **supabase-js v2 `rpc()` 무-throw 특성**으로 실패가 완전 침묵(try/catch = 죽은 코드, warn 미발화)이던 것을 `{ error }` 필드 검사로 교체. 마이그레이션 0.

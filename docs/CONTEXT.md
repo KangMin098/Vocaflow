@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `0679a2d` fix(lcp): rpc 침묵 실패 11곳 관측성 복구 — {error} 필드 검사 (v06.125)
 - `86a7328` feat(dict): no-rank Tier A 선별 enrichment — 발행 세트 노출 어휘 ipa 100% (v06.124)
 - `bc7732e` docs(scriptquiz): The Railway Children 전권 98문항 완결 — 카탈로그 11권 1,406문항
 - `6ac6b12` fix(vcb): QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
 - `d0b6894` docs(scriptquiz): Wind in the Willows 전권 96문항 완결 — 카탈로그 10권 1,308문항
-- `aa6dd6a` docs(scriptquiz): Pride and Prejudice 전권 488문항 드레인 완주 반영
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
