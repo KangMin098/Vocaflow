@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `621f709` feat(curation): 퀴즈 카탈로그 노출 게이트 + book_iplus1 6th tier (v06.129)
 - `bde8fff` docs(curation): 큐레이션 4축 심층 점검 결과 기록 (v06.128)
 - `0e927b6` feat(plan): ActivityGlyph 타일 단일화 + 선택 시 구성 패널 스크롤
 - `95356cf` fix(plan,dashboard): 화면 폭 wide(1024px) 정합 — 이중 제약 제거
 - `1adeb99` feat(plan): picker master-detail 기본화 — 분류 레일(좌)+세부 리스트(우)
-- `d9f9b8a` docs(p6): F3 전면 소급 실행 기록 + P6.4/6.5 재검증 (v06.127)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260705110000_classified_by_allow_new_models.sql`
 - `20260705101000_recommend_book_iplus1_tier.sql`
 - `20260705100000_quiz_catalog_published_gate.sql`
 - `20260703120010_p0_drop_p5a_backup_table.sql`
 - `20260703120000_p0_security_rls_hardening.sql`
-- `20260702120000_scriptquiz_curated_chapter_quiz.sql`
 <!-- /auto:recent-migrations -->
 
 ---
