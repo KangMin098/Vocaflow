@@ -68,6 +68,10 @@ export interface MaterialOption {
   /** 공용단어장 category (주제 필터/그룹) */
   category: string | null
   chapterCount: number
+  /** 챕터 종속 단어장(library_book) — 소속 도서 id (책별 분류 레일용) */
+  bookId: string | null
+  /** 챕터 종속 단어장 — 챕터 번호 (챕터순 정렬/표시용) */
+  chapterIdx: number | null
 }
 
 export interface AvailableMaterials {
@@ -115,6 +119,7 @@ interface SetRow {
   word_count: number | null
   cover_emoji: string | null
   cefr_level: string | null
+  curation_query?: { book_id?: string; chapter_idx?: number } | null
 }
 
 const EMPTY_EXTRAS = {
@@ -252,6 +257,8 @@ function mkOption(over: Partial<MaterialOption> & { id: string; title: string })
     source: null,
     category: null,
     chapterCount: 0,
+    bookId: null,
+    chapterIdx: null,
     ...over,
   }
 }
@@ -292,10 +299,10 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       .limit(300),
     lc
       .from('shared_word_sets')
-      .select('id, title, slug, category, word_count, cover_emoji, cefr_level')
+      .select('id, title, slug, category, word_count, cover_emoji, cefr_level, curation_query')
       .eq('is_published', true)
       .order('title')
-      .limit(400),
+      .limit(600),
     lc
       .from('texts')
       .select('id, title, author, text_v_level')
@@ -334,6 +341,8 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
           coverEmoji: w.cover_emoji ?? null,
           category: w.category ?? null,
           vLevel: wordSetVLevel(w.slug, w.cefr_level),
+          bookId: w.curation_query?.book_id ?? null,
+          chapterIdx: w.curation_query?.chapter_idx ?? null,
         }),
       ),
     scripts: ((scripts ?? []) as ScriptRow[]).map((s) =>

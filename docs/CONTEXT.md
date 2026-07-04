@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d9f9b8a` docs(p6): F3 전면 소급 실행 기록 + P6.4/6.5 재검증 (v06.127)
 - `1e5b977` feat(plan): 주간 보드 아젠다형 재설계 — 계획 디테일 가시성
 - `0d31975` fix(plan): 신규 담기 기본 요일=오늘 — 담자마자 '요일 미정' 방지
 - `07a75fa` fix(plan): 아이콘 단일 출처화 + picker 담김 유지·그룹 재구성·요일 미정 안내
 - `fbf85d4` fix(auth): 비밀번호 재설정 실동작 연결 — 목업 제거 (v06.126)
-- `3cd6128` feat(plan): 요일 선택 재설계 + 활동 아이콘 유일화·선택 칩 상시 표시
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

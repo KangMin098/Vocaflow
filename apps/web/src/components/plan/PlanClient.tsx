@@ -43,7 +43,7 @@ import {
   type MaterialType,
   type PlanActivity,
 } from '@/lib/learner/plan-activities'
-import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
+import { V_BANDS, vBandOf } from '@/lib/library/genres'
 import {
   fetchBookChapters,
   removePlanItem,
@@ -90,10 +90,9 @@ export function PlanClient({
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
 
-  // picker
+  // picker — 분류 레일(좌) 선택 상태. 'all' = 전체(섹션 헤더로 그룹 표시)
   const [activeTab, setActiveTab] = useState<MaterialType>('book')
-  const [bandFilter, setBandFilter] = useState<VBand | 'all'>('all')
-  const [subFilter, setSubFilter] = useState<string | null>(null)
+  const [rail, setRail] = useState<string>('all')
 
   const editItem = items.find((i) => i.id === editId) ?? null
   /** 담은 자료 — picker 에서 숨기지 않고 '담김' 배지 + 클릭=편집으로 연결 */
@@ -106,28 +105,17 @@ export function PlanClient({
     script: materials.scripts,
   }
 
-  const subFilterOptions: { value: string; label: string }[] =
-    activeTab === 'article'
-      ? (Array.from(new Set(materials.articles.map((a) => a.source).filter(Boolean))) as string[]).map(
-          (v) => ({ value: v, label: articleSourceLabel(v) }),
-        )
-      : activeTab === 'word_set'
-        ? (Array.from(new Set(materials.wordSets.map((w) => w.category).filter(Boolean))) as string[]).map(
-            (v) => ({ value: v, label: wordsetCategoryLabel(v) }),
-          )
-        : []
-
   const candidates = tabMaterials[activeTab]
-    .filter((m) => (!subFilter ? true : (activeTab === 'article' ? m.source : m.category) === subFilter))
-    .filter((m) => bandFilter === 'all' || ((m.vLevel ? vBandOf(m.vLevel) : null) ?? 'none') === bandFilter)
 
-  // 탭별 그룹핑 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리별
+  // 탭별 분류 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리+도서(챕터별).
+  // 분류는 좌측 레일, 세부 리스트는 우측 — 모든 자료 유형에 동일한 master-detail 패턴.
   interface PickerGroup {
     key: string
     label: string
     short?: string
     items: MaterialOption[]
   }
+  const bookTitleById = new Map(materials.books.map((b) => [b.id, b.title]))
   let groups: PickerGroup[]
   if (activeTab === 'article') {
     const order = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
@@ -142,17 +130,35 @@ export function PlanClient({
     )
     groups = keys.map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
   } else if (activeTab === 'word_set') {
-    const order = ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_book', 'library_article']
+    const order = ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article']
     const byCat = new Map<string, MaterialOption[]>()
+    const byBook = new Map<string, MaterialOption[]>()
     for (const c of candidates) {
+      if (c.category === 'library_book' && c.bookId) {
+        if (!byBook.has(c.bookId)) byBook.set(c.bookId, [])
+        byBook.get(c.bookId)!.push(c)
+        continue
+      }
       const k = c.category ?? 'etc'
       if (!byCat.has(k)) byCat.set(k, [])
       byCat.get(k)!.push(c)
     }
-    const keys = Array.from(byCat.keys()).sort(
+    const catKeys = Array.from(byCat.keys()).sort(
       (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99),
     )
-    groups = keys.map((k) => ({ key: k, label: wordsetCategoryLabel(k), items: byCat.get(k)! }))
+    // 도서 챕터 단어장 — 책별 그룹, 각 그룹 안은 챕터 순
+    const bookGroups: PickerGroup[] = Array.from(byBook.entries())
+      .map(([bid, its]) => ({
+        key: `book:${bid}`,
+        label: bookTitleById.get(bid) ?? its[0]!.title.split(' — ')[0] ?? '도서',
+        short: '챕터',
+        items: its.slice().sort((a, b) => (a.chapterIdx ?? 0) - (b.chapterIdx ?? 0)),
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+    groups = [
+      ...catKeys.map((k) => ({ key: k, label: wordsetCategoryLabel(k), items: byCat.get(k)! })),
+      ...bookGroups,
+    ]
   } else {
     const bands: PickerGroup[] = [
       ...V_BANDS.map((b) => ({ key: b.key as string, label: b.label, short: b.short, items: [] as MaterialOption[] })),
@@ -164,7 +170,8 @@ export function PlanClient({
     }
     groups = bands
   }
-  const visibleGroups = groups.filter((g) => g.items.length > 0)
+  const nonEmptyGroups = groups.filter((g) => g.items.length > 0)
+  const visibleGroups = rail === 'all' ? nonEmptyGroups : nonEmptyGroups.filter((g) => g.key === rail)
 
   // ── 선택/구성 ──
   /** picker 클릭 — 이미 담은 자료면 그 항목 편집으로, 아니면 신규 draft */
@@ -350,8 +357,7 @@ export function PlanClient({
                   type="button"
                   onClick={() => {
                     setActiveTab(t)
-                    setBandFilter('all')
-                    setSubFilter(null)
+                    setRail('all')
                   }}
                   className={`inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
@@ -367,94 +373,93 @@ export function PlanClient({
             })}
           </div>
 
-          {/* V밴드 필터 */}
-          <div className="flex flex-wrap gap-1.5">
-            <FilterChip label="전체" small active={bandFilter === 'all'} onClick={() => setBandFilter('all')} />
-            {V_BANDS.map((b) => (
-              <FilterChip
-                key={b.key}
-                label={b.label}
-                small
-                active={bandFilter === b.key}
-                onClick={() => setBandFilter(b.key)}
+          {/* master-detail: 좌=분류 레일 · 우=세부 리스트 (모든 자료 유형 동일 패턴) */}
+          <div className="flex gap-2">
+            <nav
+              aria-label="분류"
+              className="flex max-h-[420px] w-[96px] shrink-0 flex-col gap-1 overflow-y-auto"
+            >
+              <RailButton
+                label="전체"
+                count={candidates.length}
+                active={rail === 'all'}
+                onClick={() => setRail('all')}
               />
-            ))}
-          </div>
-
-          {/* 서브필터 */}
-          {subFilterOptions.length > 1 && (
-            <div className="flex flex-wrap gap-1.5">
-              <FilterChip label="전체" small active={subFilter === null} onClick={() => setSubFilter(null)} />
-              {subFilterOptions.map((o) => (
-                <FilterChip
-                  key={o.value}
-                  label={o.label}
-                  small
-                  active={subFilter === o.value}
-                  onClick={() => setSubFilter(o.value)}
+              {nonEmptyGroups.map((g) => (
+                <RailButton
+                  key={g.key}
+                  label={g.label}
+                  short={g.short}
+                  count={g.items.length}
+                  active={rail === g.key}
+                  onClick={() => setRail(g.key)}
                 />
               ))}
-            </div>
-          )}
+            </nav>
 
-          {/* 그룹 섹션 (도서=V밴드 · 스크립트=소스 · 단어장=카테고리) */}
-          <div className="max-h-[420px] overflow-y-auto pr-1">
-            {visibleGroups.length === 0 ? (
-              <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
-                {tabMaterials[activeTab].length === 0
-                  ? activeTab === 'script'
-                    ? '내 스크립트가 아직 없어요.'
-                    : '표시할 자료가 없어요.'
-                  : '조건에 맞는 자료가 없어요. 필터를 바꿔 보세요.'}
-              </p>
-            ) : (
-              <div className="flex flex-col gap-3">
-                {visibleGroups.map((g) => (
-                  <div key={g.key} className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
-                      {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
-                      <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
-                      <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-                    </div>
-                    {activeTab === 'book' ? (
-                      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-                        {g.items.map((m) => {
-                          const added = addedByKey.get(`${activeTab}:${m.id}`)
-                          return (
-                            <BookGridItem
-                              key={m.id}
-                              m={m}
-                              picked={draft?.option.id === m.id}
-                              added={!!added}
-                              editing={!!added && editId === added.id}
-                              onPick={() => pickMaterial(m)}
-                            />
-                          )
-                        })}
+            <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
+              {visibleGroups.length === 0 ? (
+                <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
+                  {tabMaterials[activeTab].length === 0
+                    ? activeTab === 'script'
+                      ? '내 스크립트가 아직 없어요.'
+                      : '표시할 자료가 없어요.'
+                    : '이 분류에 자료가 없어요.'}
+                </p>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {visibleGroups.map((g) => (
+                    <div key={g.key} className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
+                        {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
+                        <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
+                        <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                       </div>
-                    ) : (
-                      <ul className="flex flex-col gap-1.5">
-                        {g.items.map((m) => {
-                          const added = addedByKey.get(`${activeTab}:${m.id}`)
-                          return (
-                            <MaterialRow
-                              key={m.id}
-                              m={m}
-                              type={activeTab}
-                              picked={draft?.option.id === m.id}
-                              added={!!added}
-                              editing={!!added && editId === added.id}
-                              onPick={() => pickMaterial(m)}
-                            />
-                          )
-                        })}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+                      {activeTab === 'book' ? (
+                        <div className="grid grid-cols-3 gap-2">
+                          {g.items.map((m) => {
+                            const added = addedByKey.get(`${activeTab}:${m.id}`)
+                            return (
+                              <BookGridItem
+                                key={m.id}
+                                m={m}
+                                picked={draft?.option.id === m.id}
+                                added={!!added}
+                                editing={!!added && editId === added.id}
+                                onPick={() => pickMaterial(m)}
+                              />
+                            )
+                          })}
+                        </div>
+                      ) : (
+                        <ul className="flex flex-col gap-1.5">
+                          {g.items.map((m) => {
+                            const added = addedByKey.get(`${activeTab}:${m.id}`)
+                            return (
+                              <MaterialRow
+                                key={m.id}
+                                m={m}
+                                type={activeTab}
+                                displayTitle={
+                                  g.key.startsWith('book:') && m.chapterIdx != null
+                                    ? `${m.chapterIdx}장 단어`
+                                    : undefined
+                                }
+                                picked={draft?.option.id === m.id}
+                                added={!!added}
+                                editing={!!added && editId === added.id}
+                                onPick={() => pickMaterial(m)}
+                              />
+                            )
+                          })}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -1108,6 +1113,7 @@ function BookGridItem({
 function MaterialRow({
   m,
   type,
+  displayTitle,
   picked,
   added,
   editing,
@@ -1115,6 +1121,8 @@ function MaterialRow({
 }: {
   m: MaterialOption
   type: MaterialType
+  /** 그룹 문맥상 짧은 표기 (예: 책 그룹 안 챕터 세트 → 'n장 단어'). 저장/보드엔 원제 사용 */
+  displayTitle?: string
   picked: boolean
   /** 이미 계획에 담긴 자료 — 클릭하면 그 항목 편집으로 */
   added?: boolean
@@ -1132,12 +1140,14 @@ function MaterialRow({
         type="button"
         onClick={onPick}
         aria-pressed={active}
-        title={added ? `${m.title} — 계획에 담김 (클릭해 구성 수정)` : undefined}
+        title={added ? `${m.title} — 계획에 담김 (클릭해 구성 수정)` : m.title}
         className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <MaterialBadge type={type} m={m} />
         <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate font-display text-[13px] font-[700] text-[var(--t1)]">{m.title}</span>
+          <span className="truncate font-display text-[13px] font-[700] text-[var(--t1)]">
+            {displayTitle ?? m.title}
+          </span>
           {m.subtitle && <span className="truncate font-body text-[11px] text-[var(--t3)]">{m.subtitle}</span>}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
@@ -1176,31 +1186,36 @@ function MaterialBadge({ type, m }: { type: MaterialType; m: MaterialOption }) {
 }
 
 // ── 칩들 ──
-function FilterChip({
+/** 좌측 분류 레일 버튼 — 라벨(줄임) + 개수 */
+function RailButton({
   label,
+  short,
+  count,
   active,
   onClick,
-  small,
 }: {
   label: string
+  short?: string
+  count: number
   active: boolean
   onClick: () => void
-  small?: boolean
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center rounded-full border font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        small ? 'h-7 px-2.5 text-[11px]' : 'h-8 px-3 text-[12px]'
-      } ${
+      title={short ? `${label} (${short})` : label}
+      className={`flex min-h-[40px] w-full flex-col items-start justify-center rounded-[var(--r-md)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
-      {label}
+      <span className="w-full truncate font-display text-[11px] font-[800] leading-tight">{label}</span>
+      <span className={`font-mono text-[10px] tabular-nums ${active ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+        {count}
+      </span>
     </button>
   )
 }
