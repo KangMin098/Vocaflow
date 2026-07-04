@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### lbv lemma INSERT 게이트 + 전권 backfill (v06.120)
+
+Les Misérables lemma **100% NULL(13,351행)** 로 추출 3경로(direct-bind/percentile/seed)가 무력화됐던 P0 를 데이터+구조 양면 해소. 마이그레이션 1 (`20260704090000_lbv_lemma_insert_gate`).
+
+- **근본 원인**: `api/lcp/process`·`dev-process` 의 `backfill_book_lemmas` 호출을 감싼 try/catch 가 **죽은 코드** — supabase-js v2 `rpc()` 는 throw 하지 않고 `{ error }` 를 반환하므로 대형서(13K행) RPC 실패가 warn 조차 없이 침묵 통과.
+- **데이터 정리**: 기존 RPC 로 Les Mis 0→**88.44%**(11,808 채움) + 전권 멱등 재실행 → lbv 전체 **94.05%**(96,026/102,100). 잔여 6,074 = 불어 기능어(de/la/des)·고어(thee/yonder)·사전 갭(ax/newcomer/threadbare — Les Mis 도서 사전 등록 미실시).
+- **구조 게이트**: `trg_lbv_fill_lemma()` + `lbv_fill_lemma_after_insert` **statement-level AFTER INSERT 트리거**(transition table) — 모든 ingest 경로(process/dev-process/스크립트) 공통, 벌크 INSERT 당 1회 set 기반 UPDATE. 매칭 로직은 backfill RPC 와 동일(직접→굴절형). 실검증: `skateboard`→direct, `laptops`→`laptop` 굴절 매칭 확인 후 테스트 행 삭제.
+- 잔여(코드): rpc `{ error }` 미체크 try/catch 4곳(process/dev-process × backfill/compute_vrl 블록) 실 에러 체크로 교체 — 트리거로 기능상 무해해졌으나 관측성 회복 필요.
+
 ### quality_metrics nightly 집계 Q2 (v06.119)
 
 품질평가 인프라 2단계 — 지표 M1~M6 자동 수집. 마이그레이션 1 (`20260704043934_quality_metrics`).

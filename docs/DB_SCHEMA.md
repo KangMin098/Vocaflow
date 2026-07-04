@@ -172,7 +172,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `compute_book_vrl(p_book_id uuid)` | V-Level type-based p75 centroid (v06.34: token → type) |
 | `compute_book_cefrj(p_book_id uuid)` | CEFR-J 12-band (internal heuristic) + cefr_band auto |
 | `compute_book_coverage(p_book_id uuid)` | 레벨별 기지어 커버리지 (i+1 판정) |
-| `backfill_book_lemmas(p_book_id uuid)` | direct-bind / 추출 / percentile 정상화 게이트 |
+| `backfill_book_lemmas(p_book_id uuid)` | direct-bind / 추출 / percentile 정상화 게이트 (수동 재실행용 — INSERT 시엔 아래 트리거가 자동 수행) |
+| `trg_lbv_fill_lemma()` + `lbv_fill_lemma_after_insert` | **v06.120** lbv statement-level AFTER INSERT 트리거 — 신규 행 lemma 자동 채움(직접→굴절형 매칭). LCP 라우트의 rpc 무-throw 침묵 실패(Les Mis 13,351행 NULL 사고) 재발 차단 |
 | `collect_archaic_candidates(p_book_id uuid)` | 미바인딩 단어를 archaic_candidates 로 수집 |
 | `classify_archaic_candidates()` | 재출현 게이트 — derivational / inflection / variant 분류 |
 

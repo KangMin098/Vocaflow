@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `8f7f49c` feat(quality): quality_metrics nightly 집계 Q2 (v06.119)
 - `0b6db84` test(quality): 파이프라인 골든셋 스냅샷 테스트 Q1 (v06.118)
 - `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
 - `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `7289283` refactor(srs): 세션 hook stale TODO + 카드별 console.log 제거
-- `f053665` feat(scriptquiz): 도서 검수 페이지에 챕터 퀴즈 검수 섹션 (v06.117)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260704090000_lbv_lemma_insert_gate.sql`
 - `20260704043934_quality_metrics.sql`
 - `20260703120010_p0_drop_p5a_backup_table.sql`
 - `20260703120000_p0_security_rls_hardening.sql`
 - `20260702120000_scriptquiz_curated_chapter_quiz.sql`
-- `20260628220000_p1_plan_weekday_per_item.sql`
 <!-- /auto:recent-migrations -->
 
 ---
