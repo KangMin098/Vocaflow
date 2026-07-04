@@ -14,7 +14,10 @@ import {
   Check,
   ExternalLink,
   FileText,
+  Grid2x2,
+  Hammer,
   Headphones,
+  HelpCircle,
   Layers,
   ListChecks,
   Mic2,
@@ -23,10 +26,9 @@ import {
   PencilLine,
   Play,
   Plus,
-  ScrollText,
-  Shuffle,
   Sparkles,
   Trash2,
+  WholeWord,
   X,
   Zap,
   type LucideIcon,
@@ -60,15 +62,17 @@ import {
   type PlanItem,
 } from '@/lib/learner/plan-actions'
 
+/** ActivityDef.icon(문자열) → lucide 컴포넌트 — plan-activities 의 아이콘 이름과 1:1 유지 */
 const ACTIVITY_ICON: Record<string, LucideIcon> = {
   Headphones,
   BookOpen,
   Mic2,
+  WholeWord,
   Layers,
   Zap,
-  Shuffle,
-  Pencil,
-  ScrollText,
+  Grid2x2,
+  Hammer,
+  HelpCircle,
   PencilLine,
 }
 
@@ -429,6 +433,7 @@ export function PlanClient({
               draft={draft}
               adding={adding}
               weekDates={weekDates}
+              today={todayWeekday}
               onPatch={patchDraft}
               onCommit={commitDraft}
               onClose={closeComposer}
@@ -437,6 +442,7 @@ export function PlanClient({
             <ItemConfig
               item={editItem}
               weekDates={weekDates}
+              today={todayWeekday}
               onToggleActivity={(a) =>
                 persistItem(editItem, {
                   modules: editItem.modules.includes(a)
@@ -696,6 +702,7 @@ function DraftConfig({
   draft,
   adding,
   weekDates,
+  today,
   onPatch,
   onCommit,
   onClose,
@@ -703,6 +710,7 @@ function DraftConfig({
   draft: Draft
   adding: boolean
   weekDates: string[]
+  today: number
   onPatch: (p: Partial<Pick<Draft, 'activities' | 'chapters' | 'weekdays'>>) => void
   onCommit: () => void
   onClose: () => void
@@ -742,7 +750,7 @@ function DraftConfig({
         </div>
       </ConfigBlock>
       <ConfigBlock label="학습 요일">
-        <WeekdayChips selected={draft.weekdays} weekDates={weekDates} onToggle={toggleW} />
+        <WeekdayChips selected={draft.weekdays} weekDates={weekDates} today={today} onToggle={toggleW} />
       </ConfigBlock>
       <button
         type="button"
@@ -762,6 +770,7 @@ function DraftConfig({
 function ItemConfig({
   item,
   weekDates,
+  today,
   onToggleActivity,
   onToggleChapter,
   onToggleWeekday,
@@ -770,6 +779,7 @@ function ItemConfig({
 }: {
   item: PlanItem
   weekDates: string[]
+  today: number
   onToggleActivity: (a: PlanActivity) => void
   onToggleChapter: (n: number) => void
   onToggleWeekday: (d: number) => void
@@ -813,7 +823,7 @@ function ItemConfig({
         </div>
       </ConfigBlock>
       <ConfigBlock label="학습 요일">
-        <WeekdayChips selected={item.weekdays} weekDates={weekDates} onToggle={onToggleWeekday} />
+        <WeekdayChips selected={item.weekdays} weekDates={weekDates} today={today} onToggle={onToggleWeekday} />
       </ConfigBlock>
 
       {selected.length > 0 && (
@@ -1132,8 +1142,10 @@ function ActivityChip({
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
-      {selected ? <Check size={13} strokeWidth={2.5} aria-hidden /> : <Icon size={13} strokeWidth={1.75} aria-hidden />}
+      {/* 활동 아이콘은 선택 여부와 무관하게 항상 표시 — 보드 칩·바로 시작과 동일 연상 유지 */}
+      <Icon size={13} strokeWidth={selected ? 2.25 : 1.75} aria-hidden />
       {def.label}
+      {selected && <Check size={12} strokeWidth={3} aria-hidden />}
     </button>
   )
 }
@@ -1141,17 +1153,20 @@ function ActivityChip({
 function WeekdayChips({
   selected,
   weekDates,
+  today,
   onToggle,
 }: {
   selected: Set<number> | number[]
   weekDates: string[]
+  today: number
   onToggle: (d: number) => void
 }) {
   const has = (d: number) => (Array.isArray(selected) ? selected.includes(d) : selected.has(d))
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div role="group" aria-label="학습 요일 선택" className="grid w-full grid-cols-7 gap-1">
       {WEEKDAYS.map((d) => {
         const on = has(d.value)
+        const isToday = d.value === today
         const date = weekDates[d.value - 1]
         return (
           <button
@@ -1159,16 +1174,26 @@ function WeekdayChips({
             type="button"
             onClick={() => onToggle(d.value)}
             aria-pressed={on}
-            aria-label={`${d.label}요일 (${date})`}
-            className={`inline-flex h-11 w-10 flex-col items-center justify-center rounded-[var(--r-md)] border font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+            aria-label={`${d.label}요일 ${date}${isToday ? ' (오늘)' : ''}`}
+            className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               on
-                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-                : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+                : isToday
+                  ? 'border-[var(--p)] bg-[var(--bg)] text-[var(--t1)] hover:bg-[var(--p-light)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
             }`}
           >
-            {weekdayLabel(d.value)}
-            <span className={`font-mono text-[9px] font-[400] tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+            <span className="font-display text-[14px] font-[800] leading-none">{weekdayLabel(d.value)}</span>
+            <span className={`font-mono text-[10px] leading-none tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
               {date}
+            </span>
+            {/* 세 번째 슬롯(높이 고정) — 선택=체크(형태), 오늘=라벨. 색상 단독 전달 금지 */}
+            <span className="flex h-[12px] items-center" aria-hidden>
+              {on ? (
+                <Check size={11} strokeWidth={3} />
+              ) : isToday ? (
+                <span className="font-display text-[8px] font-[800] text-[var(--p)]">오늘</span>
+              ) : null}
             </span>
           </button>
         )

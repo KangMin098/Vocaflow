@@ -28,17 +28,21 @@ export interface ActivityDef {
   icon: string
 }
 
-/** 10 활동 — 인지 깊이 순(입력 → 따라하기 → 어휘 → 인출 게임 → 정복 → 완성) */
+/**
+ * 10 활동 — 인지 깊이 순(입력 → 따라하기 → 어휘 → 인출 게임 → 정복 → 완성).
+ * 아이콘은 활동당 유일(중복 금지) — 선택 칩·보드 칩·바로 시작이 같은 아이콘을 공유해
+ * "아이콘=활동" 연상이 화면 어디서나 성립해야 한다.
+ */
 export const PLAN_ACTIVITIES: ActivityDef[] = [
   { id: 'listen', label: '듣기', layer: 'L0 입력', icon: 'Headphones' },
   { id: 'read', label: '읽기', layer: 'L1 독해', icon: 'BookOpen' },
   { id: 'echo', label: '따라하기', layer: 'L4c 청각생성', icon: 'Mic2' },
-  { id: 'vocab', label: '단어', layer: 'L3 노출', icon: 'Layers' },
+  { id: 'vocab', label: '단어', layer: 'L3 노출', icon: 'WholeWord' },
   { id: 'flashcard', label: 'Flashcard', layer: 'L4a 재인', icon: 'Layers' },
   { id: 'wordblitz', label: 'WordBlitz', layer: 'L4a 자동화', icon: 'Zap' },
-  { id: 'pairflip', label: 'PairFlip', layer: 'L4a 공간기억', icon: 'Shuffle' },
-  { id: 'spellforge', label: 'SpellForge', layer: 'L4b 시각생성', icon: 'Pencil' },
-  { id: 'scriptquiz', label: 'ScriptQuiz', layer: 'L5 정복', icon: 'ScrollText' },
+  { id: 'pairflip', label: 'PairFlip', layer: 'L4a 공간기억', icon: 'Grid2x2' },
+  { id: 'spellforge', label: 'SpellForge', layer: 'L4b 시각생성', icon: 'Hammer' },
+  { id: 'scriptquiz', label: 'ScriptQuiz', layer: 'L5 정복', icon: 'HelpCircle' },
   { id: 'dictation', label: 'Dictation', layer: 'L6 완성', icon: 'PencilLine' },
 ]
 
