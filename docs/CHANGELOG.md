@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### VCB QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
+
+cast-2000 런의 `enriched_flagged` 125건을 정리해 **2,000행 전량 QA 통과(flagged 0)**. 마이그레이션 0 (데이터 정비).
+
+- **R3 8건(불규칙 활용형) = 낡은 플래그**: fought/froze/hung/feet/lit/bound/overcame/shrank 가 이후 패치된 `IRREGULAR_FORMS`(packages/wlp/src/qa/rules.ts)에 이미 등재 → `pnpm vcb:qa --run-id 1` 재실행만으로 클리어.
+- **R5 120건(rank↔CEFR 불일치) 결정적 재정렬**: `NGSL_RANK_CEFR_EXPECTATIONS` closest-acceptable(동률 시 하향) — A1→A2 32 · B2→B1 37 · B1→A2 14 · A2→B1 23 · A1→B1 7 · C1→B2 6 · B2→A2 1. 파이프라인 규격 준수: flagged export → fixed JSONL → 05c 검증(120/120 pass) → 05d import → 06-qa 재실행 **2000/2000 passed·flagged 0**.
+- **하류 동기화**: `shared_words` 120행 cefr_level 동기화(`source_queue_id` audit chain) + `shared_dictionary` R5 위반 4건(associate/conduct/grant/beneath — rank≤1500 인데 B2) → B1 정렬. dict 상이 잔여 6건은 허용 밴드 내라 유지.
+- 절차 메모: 06-qa 는 `vocab_runs.status` 를 'qa' 로 되돌림 → 종료 후 'published' 원복 필요 · 05d-import 는 dotenv 미로드(06-qa 와 달리) → env 소싱 필요.
+
 ### ScriptQuiz 큐레이션 챕터 퀴즈 — The Wind in the Willows 완결 (v06.121)
 
 `The Wind in the Willows`(V8·12챕터) 전권 챕터 퀴즈 **96문항** 완결. 마이그레이션 0 (데이터 INSERT).
@@ -23,7 +32,7 @@
 
 대형서 첫 완주. `Pride and Prejudice`(V8·61챕터) 전권 챕터 퀴즈 488문항. 마이그레이션 0 (데이터 INSERT).
 
-- **본문 소스 복구 경로**: `texts.content` 61행 전부 NULL(디스크 회수기 정리 추정) + `library_chapters_master`에도 본문 컬럼 없음 → `library_books.source_url`(Gutenberg pg1342.txt, 772KB)을 재fetch해 Node 스크립트로 61챕터 분할(로마숫자 헤딩 + Ch.1 무헤딩/Ch.46 혼합대소문자 예외 처리, 누락·중복 0, 673~5,168단어).
+- **본문 소스**: (v06.122 정정) `texts.content` 61행 NULL 은 레거시 셸일 뿐 **실본문은 `content_chunks`(← `library_chapters_master.content_hash`)에 100% 존재** — 당시 세션이 이 경로를 못 찾고 `library_books.source_url`(Gutenberg pg1342.txt, 772KB)을 재fetch해 Node 스크립트로 61챕터 분할(동일 원본이라 내용 동일; Ch.1 무헤딩/Ch.46 혼합대소문자 예외 처리, 누락·중복 0). 후속 드레인은 재fetch 불요.
 - **저작**: 챕터당 정확히 8문항(V8 `quiz_target_per_chapter`) × 61 = **488문항**, 원본 전문 정독 기반 comprehension MCQ(EN/KO 이중언어 + `source_snippet` 원문 인용).
 - **품질 게이트**: 무결성 0(옵션≠4/correct_index 이탈/null/q_order 중복 각 0) · 정답 위치 분산 124/121/125/118.
 - **잡 완료**: `book_quiz_jobs` `fc728b48` status done(61/61, 488).
