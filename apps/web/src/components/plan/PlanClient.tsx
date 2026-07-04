@@ -299,7 +299,8 @@ export function PlanClient({
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-5 px-4 py-8 md:py-10">
+    // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
+    <div className="flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
       <header>
         <h1 className="flex items-center gap-2 font-display text-[22px] font-[800] text-[var(--t1)]">

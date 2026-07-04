@@ -34,7 +34,7 @@ export default async function PlanPage() {
   ])
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md">
       <PlanClient
         initialItems={items}
         materials={materials}

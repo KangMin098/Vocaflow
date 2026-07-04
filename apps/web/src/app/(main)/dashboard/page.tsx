@@ -31,7 +31,7 @@ export default async function DashboardPage() {
 
   if (!overview) {
     return (
-      <Screen width="content" background="bg2" padX="md">
+      <Screen width="wide" background="bg2" padX="md">
         <div className="mx-auto max-w-md px-4 py-24 text-center font-body text-[14px] text-[var(--t3)]">
           로그인하면 성장 기록을 볼 수 있어요.
         </div>
@@ -40,7 +40,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         {/* 1. 헤더 + known-word 성장 hero (Implicit Progress — 게이지 대신 자라는 숫자) */}
         <header className="flex flex-col gap-4">
