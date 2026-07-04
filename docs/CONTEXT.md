@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `a74fe39` fix(auth): 소셜 로그인 버튼 제거 — provider 전원 미설정 (v06.130)
 - `eb62f55` chore(dict): classified_by CHECK 허용값 확장 — opus_4_8 + fable_5
 - `621f709` feat(curation): 퀴즈 카탈로그 노출 게이트 + book_iplus1 6th tier (v06.129)
 - `bde8fff` docs(curation): 큐레이션 4축 심층 점검 결과 기록 (v06.128)
 - `0e927b6` feat(plan): ActivityGlyph 타일 단일화 + 선택 시 구성 패널 스크롤
-- `95356cf` fix(plan,dashboard): 화면 폭 wide(1024px) 정합 — 이중 제약 제거
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

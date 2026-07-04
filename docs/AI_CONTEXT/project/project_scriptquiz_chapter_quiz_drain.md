@@ -17,7 +17,9 @@ ScriptQuiz 챕터 퀴즈는 Claude Code(=LLM 본인)가 본문을 읽고 저작�
 
 **정책 (2026-07-04 사용자 승인):** "서사 적합 도서 1권씩". 부적합/초대형 보류 — Poetry(168편)·Fables(135 micro)·Dialogues(76만단어)·Foundational(정책문서)·Les Mis(364ch). 실제 전체 규모 ~7,400문항(감사의 "14권"은 축소치).
 
-**진행 (2026-07-04 live 재확정):** 카탈로그 **12권 전권 완결 1,748문항** — Pride(488, 병렬 세션)·**Jane Eyre(342, 완결 — V9·38ch×9·정답분산 85/87/85/85·malformed 0·잡 c9faff9b done)**·Marvelous Land of Oz(168)·Huck(154)·Wonderful Oz(141)·Railway Children(98)·Wind in the Willows(96)·Sherlock(96)·Just So(84)·Alice(72)·Ammachi(5)·Drone(4). 남은 서사 후보: Great Expectations(59ch·V9). 대형서 Twenty Years After(90ch)·Decline and Fall(71ch·비서사)은 본문 미적재 → 재fetch 필요.
+**진행 (2026-07-05 live 재확정):** quiz 보유 12권 1,658문항 — **Pinocchio(252, 2026-07-05 완결 — V7·36ch×7·정답 회전설계 62/63/64/63·무결성 0)**·Pride(488)·Marvelous Land of Oz(168)·Huck(154)·Wonderful Oz(141)·Railway Children(98)·Wind in the Willows(96)·Sherlock(96)·Just So(84)·Alice(72)·Ammachi(5)·Drone(4). ⚠️ **Jane Eyre 342문항 소실** — 소스 GET DELETE(도서 재fetch, 현 status=ready)로 CASCADE 삭제된 것으로 판정; 재드레인 필요 시 새 book_id 기준. **카탈로그 노출은 v06.129 게이트로 published만** → 현재 4권 749문항(Pride·Pinocchio·Ammachi·Drone). published 잔여 무퀴즈: Decline(71ch·비서사)·Twenty Years After(90ch) — 본문 적재 여부 재확인 필요. ready 서사 후보: Jane Eyre(재)·Great Expectations(59ch·V9).
+
+**정답 균등 설계 패턴 (2026-07-05 확립):** 사후 셔플 대신 저작 시점 회전 — 챕터 c의 q번째 정답 위치 = `(c+q)%4`. 전량 균등 보장, 셔플 UPDATE 불요.
 
 관련: [[project_a3_game_real_data_sweep]] (scriptquiz #54 quiz_questions=개인 퀴즈 경로, 별개), [[feedback_claude_code_is_llm]].
 
