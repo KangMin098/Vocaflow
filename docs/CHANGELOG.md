@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### ScriptQuiz 큐레이션 챕터 퀴즈 — Pride and Prejudice 완결 (v06.118)
+
+대형서 첫 완주. `Pride and Prejudice`(V8·61챕터) 전권 챕터 퀴즈 488문항. 마이그레이션 0 (데이터 INSERT).
+
+- **본문 소스 복구 경로**: `texts.content` 61행 전부 NULL(디스크 회수기 정리 추정) + `library_chapters_master`에도 본문 컬럼 없음 → `library_books.source_url`(Gutenberg pg1342.txt, 772KB)을 재fetch해 Node 스크립트로 61챕터 분할(로마숫자 헤딩 + Ch.1 무헤딩/Ch.46 혼합대소문자 예외 처리, 누락·중복 0, 673~5,168단어).
+- **저작**: 챕터당 정확히 8문항(V8 `quiz_target_per_chapter`) × 61 = **488문항**, 원본 전문 정독 기반 comprehension MCQ(EN/KO 이중언어 + `source_snippet` 원문 인용).
+- **품질 게이트**: 무결성 0(옵션≠4/correct_index 이탈/null/q_order 중복 각 0) · 정답 위치 분산 124/121/125/118.
+- **잡 완료**: `book_quiz_jobs` `fc728b48` status done(61/61, 488).
+- 카탈로그 현황: **10권 1,292문항** (Pride 488 · Marvelous Oz 168 · Huck 154 · Wonderful Oz 141 · Sherlock 96 · Just So 84 · **Wind in the Willows 80(별도 세션 드레인 진행 중, 12챕터 목표)** · Alice 72 · Ammachi 5 · Drone 4). V3~V8 커버. 잔여 대형서: Twenty Years After(90ch)·Decline and Fall(71ch·비서사) — 본문 동일 미적재 상태라 재fetch 필요.
+
 ### ScriptQuiz 큐레이션 챕터 퀴즈 — The Marvelous Land of Oz 완결 (v06.117)
 
 서사 적합 도서 1권씩 드레인 정책으로 재fetch된 `The Marvelous Land of Oz`(V7·24챕터) 챕터 퀴즈를 완결. 마이그레이션 0 (데이터 INSERT).
