@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### quality_metrics nightly 집계 Q2 (v06.119)
+
+품질평가 인프라 2단계 — 지표 M1~M6 자동 수집. 마이그레이션 1 (`20260704043934_quality_metrics`).
+
+- **테이블 `quality_metrics`**: stage(CHECK 5종: ingest/analyze/extract/publish/deliver) · metric · value · dims JSONB. read=admin 전용 RLS, 쓰기 정책 0(SECURITY DEFINER collector 만).
+- **RPC `collect_quality_metrics()`**: M1 published 챕터 set 보유율 · M2 set 크기 p50/p90 · M3 meaning_ko 충전율 · M4 librivox 매핑률(published/ready) · M5 V7+V8 쏠림 · M6 글 lexical_noise p90(**글 전용** — books 컬럼 없음). 검증 실행 9행, P0 실측과 전값 일치.
+- **pg_cron jobid=12** `quality-metrics-nightly` `10 18 * * *`(03:10 KST — 18:00 vrl-promote 슬롯과 분산).
+- 롤백: `docs/AI_CONTEXT/rollback/QE_quality_metrics_drop.sql`. 개선 루프 없음(평가만 자동 — handoff 명시).
+
 ### 파이프라인 골든셋 스냅샷 테스트 Q1 (v06.118)
 
 품질평가 인프라 1단계 — 순수 함수 골든셋 fixture + 스냅샷 테스트를 CI(`turbo run test`)에 편입. 마이그레이션 0.

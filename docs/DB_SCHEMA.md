@@ -7,10 +7,10 @@
 
 ## 요약
 
-- **테이블**: 58 (public schema · v06.117 유출 backup `shared_dictionary_p5a_backup_20260620` DROP -1)
+- **테이블**: 59 (public schema · v06.119 `quality_metrics` +1)
 - **Views**: 5
-- **Functions**: 227 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 그 외 ~185)
-- **Migrations 누적**: 60 적용됨 (v06.117 P0 보안 RLS 하드닝 +1 · backup DROP +1)
+- **Functions**: 228 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 10 — v06.119 `collect_quality_metrics` +1 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 그 외 ~185)
+- **Migrations 누적**: 61 적용됨 (v06.119 quality_metrics +1)
 
 ### 🔒 RLS 보안 상태 (v06.117 — security advisor ERROR 0)
 
@@ -94,6 +94,7 @@
 | `library_seed_catalog` | 1,843 | 4 MB | seed 후보 — `imported_book_id` FK ON DELETE SET NULL (소스 GET 복귀 핵심) · curation_meta JSONB |
 | `library_source_catalogs` | 11 | 80 kB | 9 소스 (gutenberg / standard_ebooks / wikibooks / wikisource / librivox / openstax / open_library / hathitrust / simple_wikipedia) + manual + voa_learning · composite_score · S/A/B/C/M tier |
 | `book_curation_jobs` | 1 | 136 kB | v06.34 — admin /curation dev 일괄 처리 큐 |
+| `quality_metrics` | 9 | — | **v06.119** 파이프라인 품질 지표 nightly 스냅샷 (stage CHECK 5종 · metric · value · dims JSONB) · `collect_quality_metrics()` SECURITY DEFINER 만 INSERT · read=admin 전용 RLS · pg_cron jobid=12 `10 18 * * *`(03:10 KST) |
 
 ### 5️⃣ VCB (Vocabulary Curation Build) Pipeline
 
@@ -283,6 +284,7 @@ CREATE POLICY "own data" ON {table}
 ## 최근 마이그레이션 (20개)
 
 ```
+20260704043934  quality_metrics                            ← v06.119 품질지표 nightly
 20260608222931  v_text_content_user_book_group_v2          ← v06.34
 20260608222229  texts_user_book_group_id
 20260608221508  book_curation_jobs
