@@ -9,32 +9,24 @@
 
 import {
   BookMarked,
-  BookOpen,
   CalendarDays,
   Check,
   ExternalLink,
   FileText,
-  Grid2x2,
-  Hammer,
-  Headphones,
-  HelpCircle,
   Layers,
   ListChecks,
-  Mic2,
   Newspaper,
   Pencil,
-  PencilLine,
   Play,
   Plus,
   Sparkles,
   Trash2,
-  WholeWord,
   X,
-  Zap,
-  type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState, useTransition } from 'react'
+
+import { ACTIVITY_ICON, MATERIAL_ICON } from '@/lib/learner/activity-icons'
 
 import {
   ACTIVITY_BY_ID,
@@ -61,27 +53,6 @@ import {
   type MaterialOption,
   type PlanItem,
 } from '@/lib/learner/plan-actions'
-
-/** ActivityDef.icon(문자열) → lucide 컴포넌트 — plan-activities 의 아이콘 이름과 1:1 유지 */
-const ACTIVITY_ICON: Record<string, LucideIcon> = {
-  Headphones,
-  BookOpen,
-  Mic2,
-  WholeWord,
-  Layers,
-  Zap,
-  Grid2x2,
-  Hammer,
-  HelpCircle,
-  PencilLine,
-}
-
-const MATERIAL_ICON: Record<MaterialType, LucideIcon> = {
-  book: BookMarked,
-  article: Newspaper,
-  word_set: Layers,
-  script: FileText,
-}
 
 const TYPE_TABS: MaterialType[] = ['book', 'article', 'word_set', 'script']
 
@@ -125,7 +96,8 @@ export function PlanClient({
   const [subFilter, setSubFilter] = useState<string | null>(null)
 
   const editItem = items.find((i) => i.id === editId) ?? null
-  const addedKeys = new Set(items.map((i) => `${i.materialType}:${i.materialId}`))
+  /** 담은 자료 — picker 에서 숨기지 않고 '담김' 배지 + 클릭=편집으로 연결 */
+  const addedByKey = new Map(items.map((i) => [`${i.materialType}:${i.materialId}`, i]))
 
   const tabMaterials: Record<MaterialType, MaterialOption[]> = {
     book: materials.books,
@@ -146,22 +118,65 @@ export function PlanClient({
         : []
 
   const candidates = tabMaterials[activeTab]
-    .filter((m) => !addedKeys.has(`${activeTab}:${m.id}`))
     .filter((m) => (!subFilter ? true : (activeTab === 'article' ? m.source : m.category) === subFilter))
+    .filter((m) => bandFilter === 'all' || ((m.vLevel ? vBandOf(m.vLevel) : null) ?? 'none') === bandFilter)
 
-  const groupedBands: { key: VBand | 'none'; label: string; short: string; items: MaterialOption[] }[] = [
-    ...V_BANDS.map((b) => ({ key: b.key as VBand | 'none', label: b.label, short: b.short, items: [] as MaterialOption[] })),
-    { key: 'none' as const, label: '레벨 무관', short: '', items: [] as MaterialOption[] },
-  ]
-  for (const c of candidates) {
-    const band = (c.vLevel ? vBandOf(c.vLevel) : null) ?? 'none'
-    groupedBands.find((g) => g.key === band)?.items.push(c)
+  // 탭별 그룹핑 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리별
+  interface PickerGroup {
+    key: string
+    label: string
+    short?: string
+    items: MaterialOption[]
   }
-  const visibleBands = groupedBands.filter(
-    (g) => g.items.length > 0 && (bandFilter === 'all' || g.key === bandFilter),
-  )
+  let groups: PickerGroup[]
+  if (activeTab === 'article') {
+    const order = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
+    const bySource = new Map<string, MaterialOption[]>()
+    for (const c of candidates) {
+      const k = c.source ?? 'etc'
+      if (!bySource.has(k)) bySource.set(k, [])
+      bySource.get(k)!.push(c)
+    }
+    const keys = Array.from(bySource.keys()).sort(
+      (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99),
+    )
+    groups = keys.map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
+  } else if (activeTab === 'word_set') {
+    const order = ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_book', 'library_article']
+    const byCat = new Map<string, MaterialOption[]>()
+    for (const c of candidates) {
+      const k = c.category ?? 'etc'
+      if (!byCat.has(k)) byCat.set(k, [])
+      byCat.get(k)!.push(c)
+    }
+    const keys = Array.from(byCat.keys()).sort(
+      (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99),
+    )
+    groups = keys.map((k) => ({ key: k, label: wordsetCategoryLabel(k), items: byCat.get(k)! }))
+  } else {
+    const bands: PickerGroup[] = [
+      ...V_BANDS.map((b) => ({ key: b.key as string, label: b.label, short: b.short, items: [] as MaterialOption[] })),
+      { key: 'none', label: '레벨 무관', items: [] as MaterialOption[] },
+    ]
+    for (const c of candidates) {
+      const band = ((c.vLevel ? vBandOf(c.vLevel) : null) ?? 'none') as string
+      bands.find((g) => g.key === band)?.items.push(c)
+    }
+    groups = bands
+  }
+  const visibleGroups = groups.filter((g) => g.items.length > 0)
 
   // ── 선택/구성 ──
+  /** picker 클릭 — 이미 담은 자료면 그 항목 편집으로, 아니면 신규 draft */
+  function pickMaterial(m: MaterialOption) {
+    const existing = addedByKey.get(`${activeTab}:${m.id}`)
+    if (existing) {
+      editExisting(existing)
+      return
+    }
+    pickNew(m)
+  }
+
   function pickNew(m: MaterialOption) {
     setEditId(null)
     setError(null)
@@ -381,9 +396,9 @@ export function PlanClient({
             </div>
           )}
 
-          {/* 밴드 섹션 */}
+          {/* 그룹 섹션 (도서=V밴드 · 스크립트=소스 · 단어장=카테고리) */}
           <div className="max-h-[420px] overflow-y-auto pr-1">
-            {visibleBands.length === 0 ? (
+            {visibleGroups.length === 0 ? (
               <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
                 {tabMaterials[activeTab].length === 0
                   ? activeTab === 'script'
@@ -393,30 +408,46 @@ export function PlanClient({
               </p>
             ) : (
               <div className="flex flex-col gap-3">
-                {visibleBands.map((g) => (
+                {visibleGroups.map((g) => (
                   <div key={g.key} className="flex flex-col gap-1.5">
                     <div className="flex items-center gap-2">
                       <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
                       {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
+                      <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
                       <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                     </div>
                     {activeTab === 'book' ? (
                       <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-                        {g.items.map((m) => (
-                          <BookGridItem key={m.id} m={m} picked={draft?.option.id === m.id} onPick={() => pickNew(m)} />
-                        ))}
+                        {g.items.map((m) => {
+                          const added = addedByKey.get(`${activeTab}:${m.id}`)
+                          return (
+                            <BookGridItem
+                              key={m.id}
+                              m={m}
+                              picked={draft?.option.id === m.id}
+                              added={!!added}
+                              editing={!!added && editId === added.id}
+                              onPick={() => pickMaterial(m)}
+                            />
+                          )
+                        })}
                       </div>
                     ) : (
                       <ul className="flex flex-col gap-1.5">
-                        {g.items.map((m) => (
-                          <MaterialRow
-                            key={m.id}
-                            m={m}
-                            type={activeTab}
-                            picked={draft?.option.id === m.id}
-                            onPick={() => pickNew(m)}
-                          />
-                        ))}
+                        {g.items.map((m) => {
+                          const added = addedByKey.get(`${activeTab}:${m.id}`)
+                          return (
+                            <MaterialRow
+                              key={m.id}
+                              m={m}
+                              type={activeTab}
+                              picked={draft?.option.id === m.id}
+                              added={!!added}
+                              editing={!!added && editId === added.id}
+                              onPick={() => pickMaterial(m)}
+                            />
+                          )
+                        })}
                       </ul>
                     )}
                   </div>
@@ -609,11 +640,16 @@ function WeekBoard({
       </div>
 
       {unscheduled.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5 border-t border-[rgba(59,130,246,0.2)] pt-2">
-          <span className="font-display text-[11px] font-[700] text-[var(--t3)]">요일 미정</span>
-          {unscheduled.map((it) => (
-            <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} wide />
-          ))}
+        <div className="flex flex-col gap-1 border-t border-[rgba(59,130,246,0.2)] pt-2">
+          <p className="font-body text-[11px] text-[var(--t3)]">
+            <span className="font-display font-[700] text-[var(--t2)]">요일 미정</span> — 아직 요일을 안 정한
+            계획이에요. 칩을 누르고 요일을 고르면 위 보드에 배치돼요.
+          </p>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {unscheduled.map((it) => (
+              <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} wide />
+            ))}
+          </div>
         </div>
       )}
     </section>
@@ -749,7 +785,7 @@ function DraftConfig({
           ))}
         </div>
       </ConfigBlock>
-      <ConfigBlock label="학습 요일">
+      <ConfigBlock label="학습 요일 — 안 고르면 보드의 '요일 미정'에 담겨요">
         <WeekdayChips selected={draft.weekdays} weekDates={weekDates} today={today} onToggle={toggleW} />
       </ConfigBlock>
       <button
@@ -1001,21 +1037,42 @@ function Cover({ url, title, className }: { url: string | null; title: string; c
   )
 }
 
-function BookGridItem({ m, picked, onPick }: { m: MaterialOption; picked: boolean; onPick: () => void }) {
+function BookGridItem({
+  m,
+  picked,
+  added,
+  editing,
+  onPick,
+}: {
+  m: MaterialOption
+  picked: boolean
+  /** 이미 계획에 담긴 자료 — 클릭하면 그 항목 편집으로 */
+  added?: boolean
+  editing?: boolean
+  onPick: () => void
+}) {
+  const active = picked || editing
   return (
     <button
       type="button"
       onClick={onPick}
-      aria-pressed={picked}
+      aria-pressed={active}
+      title={added ? `${m.title} — 계획에 담김 (클릭해 챕터·활동 수정)` : m.title}
       className={`group flex flex-col gap-1 rounded-[var(--r-md)] border p-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        picked ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-transparent hover:border-[var(--bd)]'
+        active ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-transparent hover:border-[var(--bd)]'
       }`}
     >
       <span className="relative block aspect-[2/3] w-full overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
         <Cover url={m.coverUrl} title={m.title} className="h-full w-full transition-transform duration-[var(--dur-normal)] group-hover:scale-[1.04]" />
-        {picked && (
-          <span className="absolute right-1 top-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--p)] text-[var(--ti)]" aria-hidden>
-            <Check size={12} strokeWidth={3} />
+        {(picked || added) && (
+          <span
+            className={`absolute right-1 top-1 inline-flex items-center gap-0.5 rounded-full px-1 py-0.5 text-[var(--ti)] ${
+              picked || editing ? 'bg-[var(--p)]' : 'bg-[var(--p)]/85'
+            }`}
+            aria-hidden
+          >
+            <Check size={10} strokeWidth={3} />
+            {added && !picked && <span className="font-display text-[8px] font-[800] leading-none">담김</span>}
           </span>
         )}
       </span>
@@ -1030,23 +1087,30 @@ function MaterialRow({
   m,
   type,
   picked,
+  added,
+  editing,
   onPick,
 }: {
   m: MaterialOption
   type: MaterialType
   picked: boolean
+  /** 이미 계획에 담긴 자료 — 클릭하면 그 항목 편집으로 */
+  added?: boolean
+  editing?: boolean
   onPick: () => void
 }) {
+  const active = picked || editing
   return (
     <li
       className={`rounded-[var(--r-md)] border transition-colors duration-[var(--dur-normal)] ${
-        picked ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+        active ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       <button
         type="button"
         onClick={onPick}
-        aria-pressed={picked}
+        aria-pressed={active}
+        title={added ? `${m.title} — 계획에 담김 (클릭해 구성 수정)` : undefined}
         className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <MaterialBadge type={type} m={m} />
@@ -1059,7 +1123,11 @@ function MaterialRow({
             V{m.vLevel}
           </span>
         )}
-        {picked ? (
+        {added ? (
+          <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[800] text-[var(--ti)]">
+            <Check size={10} strokeWidth={3} aria-hidden /> 담김
+          </span>
+        ) : picked ? (
           <Check size={14} strokeWidth={2.5} className="shrink-0 text-[var(--p)]" aria-hidden />
         ) : (
           <Plus size={14} strokeWidth={2} className="shrink-0 text-[var(--p)]" aria-hidden />

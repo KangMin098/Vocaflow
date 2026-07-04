@@ -192,7 +192,7 @@ export function cefrToVLevel(cefr: string | null | undefined): number | null {
   return map[c] ?? null
 }
 
-/** 공용단어장 category → 표시 라벨 (주제 필터). */
+/** 공용단어장 category → 표시 라벨 (주제 필터/그룹). */
 export const WORDSET_CATEGORY_LABEL: Record<string, string> = {
   csat: '수능',
   eng_test: '공인시험',
@@ -200,6 +200,8 @@ export const WORDSET_CATEGORY_LABEL: Record<string, string> = {
   middle: '중등',
   high: '고등',
   themed: '주제별',
+  library_book: '도서 챕터',
+  library_article: '스크립트 어휘',
 }
 
 export function wordsetCategoryLabel(cat: string | null | undefined): string {

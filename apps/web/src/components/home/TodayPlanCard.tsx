@@ -3,27 +3,10 @@
 // /plan 의 요일별 계획 → Today 진입면에 노출(계획→매일 실행 loop 완성). 오늘 항목 없으면 렌더 X(Calm).
 // 서버 컴포넌트 — Link 만 (상태 없음). 색+아이콘 이중(색맹 대응).
 
-import {
-  ArrowRight,
-  BookMarked,
-  BookOpen,
-  CalendarDays,
-  ExternalLink,
-  FileText,
-  Headphones,
-  Layers,
-  Mic2,
-  Newspaper,
-  Pencil,
-  PencilLine,
-  Play,
-  ScrollText,
-  Shuffle,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react'
+import { ArrowRight, CalendarDays, ExternalLink, Layers, Play } from 'lucide-react'
 import Link from 'next/link'
 
+import { ACTIVITY_ICON, MATERIAL_ICON } from '@/lib/learner/activity-icons'
 import {
   ACTIVITY_BY_ID,
   activityLaunchHref,
@@ -31,28 +14,9 @@ import {
   MATERIAL_LABEL,
   PLAN_ACTIVITIES,
   weekdayLabel,
-  type MaterialType,
   type PlanActivity,
 } from '@/lib/learner/plan-activities'
 import type { PlanItem } from '@/lib/learner/plan-actions'
-
-const ACTIVITY_ICON: Record<string, LucideIcon> = {
-  Headphones,
-  BookOpen,
-  Mic2,
-  Layers,
-  Zap,
-  Shuffle,
-  Pencil,
-  ScrollText,
-  PencilLine,
-}
-const MATERIAL_ICON: Record<MaterialType, LucideIcon> = {
-  book: BookMarked,
-  article: Newspaper,
-  word_set: Layers,
-  script: FileText,
-}
 
 export function TodayPlanCard({ items, today }: { items: PlanItem[]; today: number }) {
   const todayItems = items.filter((i) => i.weekdays.includes(today))

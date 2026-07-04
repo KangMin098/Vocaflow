@@ -263,8 +263,8 @@ function wordSetVLevel(slug: string | null, cefr: string | null): number | null 
   return cefrToVLevel(cefr)
 }
 
-/** 단어장 picker 제외 — 도서/글 챕터 종속 세트(부모 자료로 학습). */
-const HIDDEN_WORDSET_CATEGORIES = new Set(['library_book', 'library_article'])
+// (v06.124) 도서/글 챕터 종속 세트도 picker 에 노출 — '도서 챕터'/'스크립트 어휘' 카테고리
+// 그룹으로 표시해 챕터 단위 단어장 계획을 지원한다 (기존: 부모 자료로만 학습한다고 숨김).
 
 /** 계획에 추가 가능한 자료 — 도서 / 스크립트(article) / 공용단어장 / 내 스크립트. */
 export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
@@ -325,7 +325,6 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       }),
     ),
     wordSets: ((sets ?? []) as SetRow[])
-      .filter((w) => !HIDDEN_WORDSET_CATEGORIES.has(w.category ?? ''))
       .map((w) =>
         mkOption({
           id: w.id,
