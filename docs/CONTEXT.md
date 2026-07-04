@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `07a75fa` fix(plan): 아이콘 단일 출처화 + picker 담김 유지·그룹 재구성·요일 미정 안내
 - `fbf85d4` fix(auth): 비밀번호 재설정 실동작 연결 — 목업 제거 (v06.126)
 - `3cd6128` feat(plan): 요일 선택 재설계 + 활동 아이콘 유일화·선택 칩 상시 표시
 - `653f239` feat(plan): 챕터 리스트(제목)·주간 날짜·보드 칩 활동 아이콘 (v06.124)
 - `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
-- `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

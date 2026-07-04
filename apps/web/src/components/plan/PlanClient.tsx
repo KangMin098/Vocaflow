@@ -189,7 +189,8 @@ export function PlanClient({
       option: m,
       activities: defaultActivities(activeTab),
       chapters: new Set(),
-      weekdays: new Set(),
+      // 기본 요일 = 오늘 — 담자마자 '요일 미정'에 떨어지지 않게 (해제하면 미정으로 담김)
+      weekdays: new Set([todayWeekday]),
     })
   }
   function editExisting(item: PlanItem) {
@@ -796,7 +797,9 @@ function DraftConfig({
       >
         {adding
           ? '담는 중…'
-          : `계획에 담기 (${draft.activities.size}활동${draft.weekdays.size > 0 ? ` · ${draft.weekdays.size}일` : ''})`}
+          : `계획에 담기 (${draft.activities.size}활동${
+              draft.weekdays.size > 0 ? ` · 주 ${draft.weekdays.size}일` : ' · 요일 미정'
+            })`}
       </button>
     </div>
   )
