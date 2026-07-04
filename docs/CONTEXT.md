@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3cd6128` feat(plan): 요일 선택 재설계 + 활동 아이콘 유일화·선택 칩 상시 표시
 - `653f239` feat(plan): 챕터 리스트(제목)·주간 날짜·보드 칩 활동 아이콘 (v06.124)
 - `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
 - `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `7289283` refactor(srs): 세션 hook stale TODO + 카드별 console.log 제거
-- `f053665` feat(scriptquiz): 도서 검수 페이지에 챕터 퀴즈 검수 섹션 (v06.117)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
