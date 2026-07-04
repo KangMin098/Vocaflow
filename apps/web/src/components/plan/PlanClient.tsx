@@ -24,9 +24,10 @@ import {
   X,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
 
-import { ACTIVITY_ICON, MATERIAL_ICON } from '@/lib/learner/activity-icons'
+import { ActivityGlyph } from '@/components/plan/ActivityGlyph'
+import { MATERIAL_ICON } from '@/lib/learner/activity-icons'
 
 import {
   ACTIVITY_BY_ID,
@@ -89,6 +90,12 @@ export function PlanClient({
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  /** 구성 패널 — 보드/목록에서 선택하면 화면 밖일 때 스크롤로 데려온다 */
+  const composerRef = useRef<HTMLElement | null>(null)
+  function revealComposer() {
+    // 이미 보이면 nearest 가 이동을 생략 — 화면 밖일 때만 부드럽게 이동
+    setTimeout(() => composerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 30)
+  }
 
   // picker — 분류 레일(좌) 선택 상태. 'all' = 전체(섹션 헤더로 그룹 표시)
   const [activeTab, setActiveTab] = useState<MaterialType>('book')
@@ -199,11 +206,13 @@ export function PlanClient({
       // 기본 요일 = 오늘 — 담자마자 '요일 미정'에 떨어지지 않게 (해제하면 미정으로 담김)
       weekdays: new Set([todayWeekday]),
     })
+    revealComposer()
   }
   function editExisting(item: PlanItem) {
     setDraft(null)
     setError(null)
     setEditId((cur) => (cur === item.id ? null : item.id))
+    revealComposer()
   }
   function closeComposer() {
     setDraft(null)
@@ -337,6 +346,7 @@ export function PlanClient({
 
       {/* 컴포저 (2-pane) */}
       <section
+        ref={composerRef}
         aria-label="자료 추가·구성"
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
       >
@@ -706,7 +716,7 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
           >
             {chapterLabel && (
               <span
-                className={`inline-flex items-center gap-0.5 rounded-[3px] px-1 py-px font-mono text-[10px] tabular-nums ${
+                className={`inline-flex h-5 items-center gap-0.5 rounded-[5px] px-1 font-mono text-[10px] tabular-nums ${
                   active ? 'bg-white/15' : 'bg-[var(--bg3)]'
                 }`}
                 aria-hidden
@@ -715,10 +725,9 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
                 {chapterLabel}
               </span>
             )}
-            {shown.map((a) => {
-              const Icon = ACTIVITY_ICON[a.icon] ?? Layers
-              return <Icon key={a.id} size={13} strokeWidth={2} aria-hidden />
-            })}
+            {shown.map((a) => (
+              <ActivityGlyph key={a.id} activity={a.id} size="sm" tone={active ? 'onDark' : 'default'} />
+            ))}
             {overflow > 0 && (
               <span className="font-mono text-[10px]" aria-hidden>
                 +{overflow}
@@ -1233,7 +1242,6 @@ function ActivityChip({
   small?: boolean
 }) {
   const def = ACTIVITY_BY_ID[activity]
-  const Icon = ACTIVITY_ICON[def.icon] ?? Layers
   return (
     <button
       type="button"
@@ -1248,15 +1256,8 @@ function ActivityChip({
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
-      {/* 활동 아이콘은 선택 여부와 무관하게 항상 표시 — 보드 행·바로 시작과 동일 연상 유지 */}
-      <span
-        className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] ${
-          selected ? 'bg-white/15' : 'bg-[var(--bg3)]'
-        }`}
-        aria-hidden
-      >
-        <Icon size={14} strokeWidth={selected ? 2.25 : 1.75} />
-      </span>
+      {/* 활동 아이콘은 선택 여부와 무관하게 항상 표시 — 보드 행·바로 시작과 동일 타일 */}
+      <ActivityGlyph activity={activity} size="md" tone={selected ? 'onDark' : 'default'} />
       <span className="min-w-0 flex-1 truncate text-left">{def.label}</span>
       {selected && <Check size={13} strokeWidth={3} className="shrink-0" aria-hidden />}
     </button>
@@ -1317,14 +1318,13 @@ function WeekdayChips({
 
 function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: string; scoped: boolean }) {
   const def = ACTIVITY_BY_ID[activity]
-  const Icon = ACTIVITY_ICON[def.icon] ?? Layers
   return (
     <Link
       href={href}
       title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
-      className="inline-flex min-h-[34px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
-      <Icon size={13} strokeWidth={1.75} aria-hidden />
+      <ActivityGlyph activity={activity} size="sm" />
       {def.label}
       {scoped ? (
         <Play size={11} strokeWidth={2} className="text-[var(--p)] opacity-80" aria-hidden />
