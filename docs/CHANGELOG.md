@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 파이프라인 골든셋 스냅샷 테스트 Q1 (v06.118)
+
+품질평가 인프라 1단계 — 순수 함수 골든셋 fixture + 스냅샷 테스트를 CI(`turbo run test`)에 편입. 마이그레이션 0.
+
+- **fixture**: `packages/library-pipeline/test/fixtures/` — Alice·Sherlock(gutenberg PD raw) + VOA·NASA(PD-Gov) + Wikinews(CC BY 2.5, attribution) 각 raw+meta.json. `apps/web/src/test/fixtures/librivox/` — Wind in the Willows(단권 title) + Les Misérables(5권 volume) 정합 입력 리스트(DB 챕터 실측 + librivox.org API 동결). NIH 는 Cloudflare 차단으로 확보 불가 → 제외. The Conversation 은 CC BY-ND → fixture 금지 확인.
+- **스냅샷 테스트**: `noise.snapshot`(6건 noise 값) · `segmentation.snapshot`(챕터 수·단어/문장 수 배열) · `librivox-align.snapshot`(11/12+gap[5]=LibriVox 오타 "Dulce Dolmum" 정확도-우선 명세, Les Mis 364ch 권-인지) · `iplusone`(85/95/98 경계 + 그림책 −7pp assert).
+- **RPC 통합 스냅샷**(env-skip): `extraction-rpc.integration.test.ts` — P&P ch.1 top20 · VOA 글 top10 · lexical_coverage 저장값. `compute_book_coverage` 는 RETURNS void 쓰기형이라 호출하지 않고 저장값 고정.
+- **규약**: [CONVENTIONS.md "골든셋 스냅샷 규약"](./CONVENTIONS.md) — diff=리뷰 신호, 갱신 커밋 분리, 분기 1건 fixture 교체.
+
 ### 빌드-타임 lint 게이트 복원 + a11y/lint 부채 청산 (v06.117)
 
 v06.92 에서 lint 부채(74건)로 빌드에서 분리했던 ESLint 게이트를 복원. 마이그레이션 0.

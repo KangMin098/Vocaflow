@@ -1,0 +1,10 @@
+{
+  "source": "gutenberg",
+  "source_id": "11",
+  "source_url": "https://www.gutenberg.org/cache/epub/11/pg11.txt",
+  "title": "Alice's Adventures in Wonderland",
+  "license": "Public domain in the USA.",
+  "fetched_at": "2026-07-04",
+  "chapters_expected": 12,
+  "note": "골든셋 fixture — dev DB library_books 10529790-7b7e-49ce-ac17-3c267af088d2 와 동일 원문"
+}

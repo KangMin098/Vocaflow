@@ -3,6 +3,11 @@
 > Handoff (Project 작성) "학습 단어 추출 파이프라인 사전db 목적 최적합 고도화" — P0 read-only 진단 결과.
 > 측정 DB: vocaflow-dev `jajenrevcbmrpaliomxv` · 2026-06-20 시점.
 > P0 종료 = 결정표 확정 + 사용자 승인 → P1 착수.
+>
+> ⚠️ **STALE (2026-07-04 확인)** — 본 문서의 함수 본문은 6-20 시점 스냅샷. 추출 P1~P4(PR #24, v06.77~82)가
+> 이후 랜딩되어 live 와 다름: 게이트 `sd.v_level >= book_v_level` → **`>= 6` 고정**, composite →
+> **`_extract_composite_score(8인자)`**, publish cap=40 도입. live 기준 baseline 은
+> `apps/web/src/lib/library/__tests__/extraction-rpc.integration.test.ts` 스냅샷(v06.118 골든셋)이 SSoT.
 
 ---
 

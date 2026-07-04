@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/scriptquiz-chapter-quiz`
+**활성 브랜치**: `feat/quality-eval`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
+- `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 - `7289283` refactor(srs): 세션 hook stale TODO + 카드별 console.log 제거
 - `f053665` feat(scriptquiz): 도서 검수 페이지에 챕터 퀴즈 검수 섹션 (v06.117)
 - `448fb96` chore(build): 빌드-타임 ESLint 게이트 복원 (v06.117)
-- `8d2a0ca` feat(scriptquiz): 챕터 퀴즈 검수 admin 섹션 완결 (커밋 누락분)
-- `051d2ea` fix(a11y): 지원되지 않는 aria 속성 제거 + 미사용 prop 정리
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
