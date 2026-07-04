@@ -1,5 +1,17 @@
 # Handoff — P6 구독 시점 user V-level 필터 (C6)
 
+> ✅ **전 단계 완결** — P6.1~P6.3 = PR #46 · P6.4 점검(6/28) · P6.5 = PR #50(VOCAB_LAYERS.md) · P6.6 가드 = PR #47. **2026-07-04 추가: F3 소급을 V0 제외 없이 전면 실행** (아래 기록).
+
+## ✅ 완결 기록 — F3 전면 소급 + P6.4/6.5 재검증 (2026-07-04, Claude Code)
+
+> 배경: 6/28 P6.6 의 F 결정은 "F3 하되 V0 미진단 사용자 제외" → 유일 후보 물량이 V0 사용자라 **삭제 0건**으로 종결됐었음. 2026-07-04 사용자 신규 결정(AskUserQuestion)으로 제외 조항 해제.
+
+- **P6.4 재검증**: 본문 dump 재비교 — 6/28 판정과 동일 결론(맥락별 메커니즘 차이, drift 없음, 통합 불요) 재확정. 구독 = `BETWEEN v−1 AND v+1` 밴드(fallback user→book_v→5, cap50, |Δv|·freq 정렬) / 추출 = `>= user_v+1` threshold(text_p75 fallback, limit30, composite).
+- **P6.5 재검증**: Cold(세트 word_count max=40 live) · Warm(i+1+전면 dedup(NOT EXISTS vocabularies — stable-only 보다 강함)+cap50) · Hot(FSRS 별도) 3층 정상.
+- **P6.6 F3 전면 실행**: 측정 — vocabularies 6,477행(2 users), review_count=0 **99.94%**, stability≥21 = 0, i+1 위반 4,919(76%, 전부 V0 사용자 물량). 실행 — book-origin(shared_set×library_book) 4,862행 DELETE(review_count=0 가드, 보호 대상 0) → 5권(Decline/Pride/Twenty/Pinocchio/Ammachi) 재-enroll(V0 는 PR #47 가드로 book_v_level fallback 밴드) → 4권 × 정확히 50행 · i+1 위반 0 · Ammachi 0행(V4 어휘가 밴드 밖 = 필터 정상). 총 vocabularies 6,477→**1,815행**.
+
+---
+
 > 대상: Project (claude.ai) — spec 검토/설계/실행 지시문 작성
 > 실행: Claude Code (VS Code) 단독 (handoff §전역 한몸 한계 §5 — DB/migration 적용)
 > 선행: handoff "학습 단어 추출 파이프라인 사전db 목적 최적합 고도화" P0~P4 완료 (PR #24 merged)
