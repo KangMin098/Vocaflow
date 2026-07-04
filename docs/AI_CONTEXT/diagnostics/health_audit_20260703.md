@@ -41,7 +41,7 @@
 ## 🟢 P3 — 콘텐츠 백로그 (정상 추적)
 
 - ScriptQuiz 큐레이션 퀴즈: 6권 360문항 완료, `ready` 14권 미발행 + 대형 도서(Pride·Twenty·Les Mis 등) 큐 대기.
-  - **진행(2026-07-04)**: 서사 적합 1권씩 드레인 정책 확정(사용자 승인). `The Marvelous Land of Oz`(V7·24챕터) 완결 — ch.3–24 154문항 저작·INSERT → 24챕터 168문항 100%. 실제 규모 재산정: 감사의 "14권"은 축소치이며 미발행 서사·비서사 합산 **~7,400문항**(Les Mis 364ch·Poetry 168편·Fables 135편·Dialogues 76만단어 등은 서사 MCQ 부적합/초대형이라 보류). 남은 서사 후보: Wind in the Willows(12ch)·Railway Children(14ch)·Jane Eyre(38ch)·Great Expectations(59ch).
+  - **진행(2026-07-04)**: 서사 적합 1권씩 드레인 정책 확정(사용자 승인). `The Marvelous Land of Oz`(V7·24챕터) 완결 — ch.3–24 154문항 저작·INSERT → 24챕터 168문항 100%. 실제 규모 재산정: 감사의 "14권"은 축소치이며 미발행 서사·비서사 합산 **~7,400문항**(Les Mis 364ch·Poetry 168편·Fables 135편·Dialogues 76만단어 등은 서사 MCQ 부적합/초대형이라 보류). 남은 서사 후보: Railway Children(14ch)·Jane Eyre(38ch)·Great Expectations(59ch). **추가 진행(2026-07-04)**: `The Wind in the Willows`(V8·12ch) 96문항 완결 + 병렬 세션 `Pride and Prejudice`(V8·61ch) 488문항 완결 → 카탈로그 10권 전권 1,308문항.
 - P6.4~6 구독 i+1 잔여 [handoffs/p6_subscribe_user_filter] · ACP 4 ingester 라이브 검증 미실시 · publish 시 `curation_metadata`→`library_books` 자동복사 미구현.
 
 ## ⚪ P4 — 소규모 정리 (잔여)

@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### ScriptQuiz 큐레이션 챕터 퀴즈 — The Wind in the Willows 완결 (v06.121)
+
+`The Wind in the Willows`(V8·12챕터) 전권 챕터 퀴즈 **96문항** 완결. 마이그레이션 0 (데이터 INSERT).
+
+- 챕터당 정확히 8문항(V8 `quiz_target_per_chapter`) × 12. `content_chunks` 본문 정독 기반 4지선다(EN/KO 이중언어 + `source_snippet` 원문 인용).
+- **품질 게이트**: 정답 위치 분산 **24/24/24/24** (완전 균등) · malformed 0 (옵션≠4·correct_index 이탈·question_ko/snippet null 각 0).
+- **잡 완료**: `book_quiz_jobs` `88cbf932` status done(12/12, 96). `book_quiz_coverage` 12/12 확인.
+- 카탈로그 현황(live 재확정): **10권 전권 완결 1,308문항** — Pride 488 · Marvelous Oz 168 · Huck 154 · Wonderful Oz 141 · Sherlock 96 · **Willows 96** · Just So 84 · Alice 72 · Ammachi 5 · Drone 4. 남은 서사 후보: Railway Children(14ch) · Jane Eyre(38ch) · Great Expectations(59ch).
+
 ### ScriptQuiz 큐레이션 챕터 퀴즈 — Pride and Prejudice 완결 (v06.118)
 
 대형서 첫 완주. `Pride and Prejudice`(V8·61챕터) 전권 챕터 퀴즈 488문항. 마이그레이션 0 (데이터 INSERT).

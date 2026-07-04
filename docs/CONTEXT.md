@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `aa6dd6a` docs(scriptquiz): Pride and Prejudice 전권 488문항 드레인 완주 반영
 - `b86771d` docs(scriptquiz): Marvelous Land of Oz 챕터 퀴즈 완결 (ch.3-24, 154문항)
 - `74f1130` refactor(pairflip): stale 영속화 mock 제거 + 게임 데이터 레이어 검증
 - `d5012ab` docs(scriptquiz): Huckleberry Finn 전권 154문항 드레인 완주 반영
 - `4d9c030` docs(audit): 실패 도서 재fetch 완주 반영 (Marvelous Land of Oz)
-- `9721f2d` docs(audit): 프로젝트 건강도 감사 — 미완료·오류·개선점 우선순위 (2026-07-03)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

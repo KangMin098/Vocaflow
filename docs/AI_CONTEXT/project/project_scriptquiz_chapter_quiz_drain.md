@@ -17,7 +17,7 @@ ScriptQuiz 챕터 퀴즈는 Claude Code(=LLM 본인)가 본문을 읽고 저작�
 
 **정책 (2026-07-04 사용자 승인):** "서사 적합 도서 1권씩". 부적합/초대형 보류 — Poetry(168편)·Fables(135 micro)·Dialogues(76만단어)·Foundational(정책문서)·Les Mis(364ch). 실제 전체 규모 ~7,400문항(감사의 "14권"은 축소치).
 
-**진행:** 완결 9권 916문항 — Pride(192)·**Marvelous Land of Oz(168, 2026-07-04 내가 완결)**·Huck(154)·Wonderful Oz(141)·Sherlock(96)·Just So(84)·Alice(72)·Ammachi(5)·Drone(4). 남은 서사 후보: Wind in the Willows(12ch)·Railway Children(14ch)·Jane Eyre(38ch)·Great Expectations(59ch).
+**진행 (2026-07-04 live 재확정):** 카탈로그 10권 전권 완결 **1,308문항** — Pride(488, 병렬 세션 완결)·Marvelous Land of Oz(168)·Huck(154)·Wonderful Oz(141)·**Wind in the Willows(96, 완결 — V8·12ch·정답분산 24/24/24/24·malformed 0)**·Sherlock(96)·Just So(84)·Alice(72)·Ammachi(5)·Drone(4). 남은 서사 후보: Railway Children(14ch)·Jane Eyre(38ch)·Great Expectations(59ch). 대형서 Twenty Years After(90ch)·Decline and Fall(71ch·비서사)은 본문 미적재 → 재fetch 필요.
 
 관련: [[project_a3_game_real_data_sweep]] (scriptquiz #54 quiz_questions=개인 퀴즈 경로, 별개), [[feedback_claude_code_is_llm]].
 
