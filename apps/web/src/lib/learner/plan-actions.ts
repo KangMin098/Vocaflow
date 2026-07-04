@@ -348,6 +348,29 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
   }
 }
 
+export interface BookChapter {
+  idx: number
+  title: string | null
+}
+
+/**
+ * 도서 챕터 목록(번호+제목) — /plan 챕터 리스트용.
+ * RLS `read_via_published` 로 published+copyright_safe 도서만 읽힘 (picker 와 동일 범위).
+ */
+export async function fetchBookChapters(bookId: string): Promise<BookChapter[]> {
+  if (!bookId) return []
+  const client = await createClient()
+  const { data } = await loose(client)
+    .from('library_chapters_master')
+    .select('chapter_idx, chapter_title')
+    .eq('library_book_id', bookId)
+    .order('chapter_idx', { ascending: true })
+  return ((data ?? []) as { chapter_idx: number; chapter_title: string | null }[]).map((c) => ({
+    idx: c.chapter_idx,
+    title: c.chapter_title,
+  }))
+}
+
 /** 계획 항목 추가/수정(upsert). modules·chapters 정제. */
 export async function savePlanItem(input: {
   materialType: MaterialType

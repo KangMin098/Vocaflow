@@ -1,8 +1,9 @@
 // apps/web/src/components/plan/PlanClient.tsx
 // 학습 계획 — 컴포저 + 주간 보드 (나열식 탈피, 한눈에 클릭클릭).
-//   · 주간 보드: 담은 자료를 요일(월~일)에 배치 — 날짜가 한눈에. 칩 클릭 → 우측 구성에서 편집.
-//   · 컴포저(2-pane): 좌=자료 고르기(탭·V밴드·표지) / 우=선택 자료의 챕터·활동·요일 칩 한 화면.
-// 데이터: study_plan_items(modules/chapters/weekdays). Calm UI · 색+아이콘 이중(색맹).
+//   · 주간 보드: 담은 자료를 요일(월~일, 이번 주 날짜 병기)에 배치 — 칩에 활동 아이콘·챕터 배지.
+//   · 컴포저(2-pane): 좌=자료 고르기(탭·V밴드·표지) / 우=챕터 리스트(제목)·활동·요일 칩 한 화면.
+// 데이터: study_plan_items(modules/chapters/weekdays) + library_chapters_master(챕터 제목).
+// Calm UI · 색+아이콘 이중(색맹) · 날짜는 서버 KST 산출 주입(하이드레이션 안전).
 
 'use client'
 
@@ -15,6 +16,7 @@ import {
   FileText,
   Headphones,
   Layers,
+  ListChecks,
   Mic2,
   Newspaper,
   Pencil,
@@ -30,7 +32,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 
 import {
   ACTIVITY_BY_ID,
@@ -49,9 +51,11 @@ import {
 } from '@/lib/learner/plan-activities'
 import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
 import {
+  fetchBookChapters,
   removePlanItem,
   savePlanItem,
   type AvailableMaterials,
+  type BookChapter,
   type MaterialOption,
   type PlanItem,
 } from '@/lib/learner/plan-actions'
@@ -94,10 +98,13 @@ export function PlanClient({
   initialItems,
   materials,
   todayWeekday,
+  weekDates,
 }: {
   initialItems: PlanItem[]
   materials: AvailableMaterials
   todayWeekday: number
+  /** 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 KST 산출) */
+  weekDates: string[]
 }) {
   const [items, setItems] = useState<PlanItem[]>(initialItems)
   const [error, setError] = useState<string | null>(null)
@@ -289,10 +296,16 @@ export function PlanClient({
       )}
 
       {/* 오늘의 학습 */}
-      {items.length > 0 && <TodayStrip items={items} today={todayWeekday} />}
+      {items.length > 0 && <TodayStrip items={items} today={todayWeekday} weekDates={weekDates} />}
 
       {/* 주간 보드 */}
-      <WeekBoard items={items} editId={editId} today={todayWeekday} onSelect={editExisting} />
+      <WeekBoard
+        items={items}
+        editId={editId}
+        today={todayWeekday}
+        weekDates={weekDates}
+        onSelect={editExisting}
+      />
 
       {/* 컴포저 (2-pane) */}
       <section
@@ -415,6 +428,7 @@ export function PlanClient({
             <DraftConfig
               draft={draft}
               adding={adding}
+              weekDates={weekDates}
               onPatch={patchDraft}
               onCommit={commitDraft}
               onClose={closeComposer}
@@ -422,6 +436,7 @@ export function PlanClient({
           ) : editItem ? (
             <ItemConfig
               item={editItem}
+              weekDates={weekDates}
               onToggleActivity={(a) =>
                 persistItem(editItem, {
                   modules: editItem.modules.includes(a)
@@ -465,7 +480,7 @@ export function PlanClient({
 }
 
 // ── 오늘의 학습 (오늘 요일 항목 → 바로 시작) ──
-function TodayStrip({ items, today }: { items: PlanItem[]; today: number }) {
+function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: number; weekDates: string[] }) {
   const todayItems = items.filter((i) => i.weekdays.includes(today))
   const dayLabel = weekdayLabel(today)
   return (
@@ -475,7 +490,10 @@ function TodayStrip({ items, today }: { items: PlanItem[]; today: number }) {
     >
       <h2 className="flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
         <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
-        오늘의 학습 <span className="font-mono text-[12px] text-[var(--p)]">{dayLabel}요일</span>
+        오늘의 학습{' '}
+        <span className="font-mono text-[12px] text-[var(--p)]">
+          {weekDates[today - 1]} {dayLabel}요일
+        </span>
       </h2>
       {todayItems.length === 0 ? (
         <p className="font-body text-[13px] text-[var(--t3)]">
@@ -527,11 +545,13 @@ function WeekBoard({
   items,
   editId,
   today,
+  weekDates,
   onSelect,
 }: {
   items: PlanItem[]
   editId: string | null
   today: number
+  weekDates: string[]
   onSelect: (item: PlanItem) => void
 }) {
   const unscheduled = items.filter((i) => i.weekdays.length === 0)
@@ -547,7 +567,7 @@ function WeekBoard({
           return (
             <div
               key={d.value}
-              className={`flex min-h-[68px] flex-col gap-1 rounded-[var(--r-md)] p-1.5 ${
+              className={`flex min-h-[76px] flex-col gap-1 rounded-[var(--r-md)] p-1.5 ${
                 isToday ? 'bg-[var(--bg)] ring-2 ring-[var(--p)]' : 'bg-[var(--bg)]'
               }`}
             >
@@ -558,6 +578,13 @@ function WeekBoard({
               >
                 {d.label}
                 {isToday && <span className="ml-0.5 align-top text-[8px]">오늘</span>}
+              </span>
+              <span
+                className={`-mt-1 text-center font-mono text-[9px] tabular-nums ${
+                  isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                }`}
+              >
+                {weekDates[d.value - 1]}
               </span>
               <div className="flex flex-col items-center gap-1">
                 {dayItems.length === 0 ? (
@@ -587,6 +614,9 @@ function WeekBoard({
   )
 }
 
+/** 보드 칩에 보여줄 활동 아이콘 최대 수 — 초과분은 +n 으로 접기 */
+const CHIP_MAX_ICONS = 4
+
 function BoardChip({
   item,
   active,
@@ -598,20 +628,54 @@ function BoardChip({
   onClick: () => void
   wide?: boolean
 }) {
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  const shown = acts.slice(0, CHIP_MAX_ICONS)
+  const overflow = acts.length - shown.length
+  const hasChapters = item.materialType === 'book' && item.chapterCount > 1
+  const chapterLabel = hasChapters ? (item.chapters.length === 0 ? '전체' : `${item.chapters.length}장`) : null
+  const actLabels = acts.map((a) => a.label).join('·')
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      title={`${item.title} (${item.modules.length}활동)`}
-      className={`inline-flex max-w-full items-center gap-1 rounded-[var(--r-sm)] border px-1.5 py-1 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
+      className={`flex max-w-full flex-col items-center gap-0.5 rounded-[var(--r-sm)] border px-1.5 py-1 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--p)]'
-      } ${wide ? '' : 'w-full justify-center'}`}
+      } ${wide ? 'max-w-[240px]' : 'w-full'}`}
     >
-      <MiniMaterialGlyph item={item} />
-      {wide && <span className="truncate font-display text-[11px] font-[700]">{item.title}</span>}
+      <span className={`flex max-w-full items-center gap-1 ${wide ? '' : 'justify-center'}`}>
+        <MiniMaterialGlyph item={item} />
+        {wide && <span className="truncate font-display text-[11px] font-[700]">{item.title}</span>}
+      </span>
+      {(shown.length > 0 || chapterLabel) && (
+        <span
+          className={`flex max-w-full flex-wrap items-center justify-center gap-x-1 gap-y-0.5 ${
+            active ? 'text-[var(--ti)]' : 'text-[var(--t3)]'
+          }`}
+        >
+          {chapterLabel && (
+            <span className="inline-flex items-center gap-0.5 font-mono text-[9px] tabular-nums" aria-hidden>
+              <ListChecks size={10} strokeWidth={2} />
+              {chapterLabel}
+            </span>
+          )}
+          {shown.map((a) => {
+            const Icon = ACTIVITY_ICON[a.icon] ?? Layers
+            return <Icon key={a.id} size={11} strokeWidth={2} aria-hidden />
+          })}
+          {overflow > 0 && (
+            <span className="font-mono text-[9px]" aria-hidden>
+              +{overflow}
+            </span>
+          )}
+          <span className="sr-only">
+            {chapterLabel ? `챕터 ${chapterLabel}, ` : ''}활동: {actLabels || '없음'}
+          </span>
+        </span>
+      )}
     </button>
   )
 }
@@ -631,12 +695,14 @@ function MiniMaterialGlyph({ item }: { item: PlanItem }) {
 function DraftConfig({
   draft,
   adding,
+  weekDates,
   onPatch,
   onCommit,
   onClose,
 }: {
   draft: Draft
   adding: boolean
+  weekDates: string[]
   onPatch: (p: Partial<Pick<Draft, 'activities' | 'chapters' | 'weekdays'>>) => void
   onCommit: () => void
   onClose: () => void
@@ -665,7 +731,7 @@ function DraftConfig({
       <ConfigHeader title={m.title} subtitle={MATERIAL_LABEL[type]} onClose={onClose} />
       {type === 'book' && m.chapterCount > 1 && (
         <ConfigBlock label={`챕터 — 안 고르면 전체 (${m.chapterCount})`}>
-          <ChapterRow count={m.chapterCount} selected={draft.chapters} onToggle={toggleC} />
+          <ChapterList bookId={m.id} count={m.chapterCount} selected={draft.chapters} onToggle={toggleC} />
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (학습 수단)">
@@ -676,7 +742,7 @@ function DraftConfig({
         </div>
       </ConfigBlock>
       <ConfigBlock label="학습 요일">
-        <WeekdayChips selected={draft.weekdays} onToggle={toggleW} />
+        <WeekdayChips selected={draft.weekdays} weekDates={weekDates} onToggle={toggleW} />
       </ConfigBlock>
       <button
         type="button"
@@ -695,6 +761,7 @@ function DraftConfig({
 // ── 우측 구성 — 담은 항목 편집 (즉시 저장) ──
 function ItemConfig({
   item,
+  weekDates,
   onToggleActivity,
   onToggleChapter,
   onToggleWeekday,
@@ -702,6 +769,7 @@ function ItemConfig({
   onClose,
 }: {
   item: PlanItem
+  weekDates: string[]
   onToggleActivity: (a: PlanActivity) => void
   onToggleChapter: (n: number) => void
   onToggleWeekday: (d: number) => void
@@ -729,7 +797,12 @@ function ItemConfig({
 
       {hasChapters && (
         <ConfigBlock label="챕터 (안 고르면 전체)">
-          <ChapterRow count={item.chapterCount} selectedArr={item.chapters} onToggle={onToggleChapter} />
+          <ChapterList
+            bookId={item.materialId}
+            count={item.chapterCount}
+            selectedArr={item.chapters}
+            onToggle={onToggleChapter}
+          />
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (켜고 끄면 바로 저장)">
@@ -740,7 +813,7 @@ function ItemConfig({
         </div>
       </ConfigBlock>
       <ConfigBlock label="학습 요일">
-        <WeekdayChips selected={item.weekdays} onToggle={onToggleWeekday} />
+        <WeekdayChips selected={item.weekdays} weekDates={weekDates} onToggle={onToggleWeekday} />
       </ConfigBlock>
 
       {selected.length > 0 && (
@@ -809,24 +882,87 @@ function ConfigBlock({ label, children }: { label: string; children: React.React
   )
 }
 
-function ChapterRow({
+// ── 챕터 리스트 (번호 + 제목, 체크 선택) ──
+// 제목은 library_chapters_master 에서 지연 로드 — 번호는 즉시 렌더, 제목이 도착하면 채워진다.
+const chapterTitleCache = new Map<string, BookChapter[]>()
+
+function ChapterList({
+  bookId,
   count,
   selected,
   selectedArr,
   onToggle,
 }: {
+  bookId: string
   count: number
   selected?: Set<number>
   selectedArr?: number[]
   onToggle: (n: number) => void
 }) {
+  const [loaded, setLoaded] = useState<BookChapter[] | null>(chapterTitleCache.get(bookId) ?? null)
+  useEffect(() => {
+    const cached = chapterTitleCache.get(bookId)
+    if (cached) {
+      setLoaded(cached)
+      return
+    }
+    let alive = true
+    setLoaded(null)
+    fetchBookChapters(bookId).then((cs) => {
+      chapterTitleCache.set(bookId, cs)
+      if (alive) setLoaded(cs)
+    })
+    return () => {
+      alive = false
+    }
+  }, [bookId])
+
+  const titleByIdx = new Map((loaded ?? []).map((c) => [c.idx, c.title]))
   const has = (n: number) => (selectedArr ? selectedArr.includes(n) : (selected?.has(n) ?? false))
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {Array.from({ length: count }, (_, i) => i + 1).map((n) => (
-        <ChapterChip key={n} n={n} selected={has(n)} onClick={() => onToggle(n)} />
-      ))}
-    </div>
+    <ul className="flex max-h-[240px] flex-col gap-1 overflow-y-auto pr-1" aria-label="챕터 목록">
+      {Array.from({ length: count }, (_, i) => i + 1).map((n) => {
+        const on = has(n)
+        const title = titleByIdx.get(n)
+        return (
+          <li key={n}>
+            <button
+              type="button"
+              onClick={() => onToggle(n)}
+              aria-pressed={on}
+              className={`flex min-h-[40px] w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                on
+                  ? 'border-[var(--p)] bg-[var(--p-light)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] hover:border-[var(--p)]'
+              }`}
+            >
+              <span
+                className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[4px] border transition-colors duration-[var(--dur-normal)] ${
+                  on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]' : 'border-[var(--bd)] bg-[var(--bg)]'
+                }`}
+                aria-hidden
+              >
+                {on && <Check size={12} strokeWidth={3} />}
+              </span>
+              <span
+                className={`w-7 shrink-0 text-right font-mono text-[12px] font-[700] tabular-nums ${
+                  on ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                }`}
+              >
+                {n}
+              </span>
+              <span
+                className={`min-w-0 flex-1 truncate font-body text-[13px] ${
+                  on ? 'text-[var(--t1)]' : 'text-[var(--t2)]'
+                }`}
+              >
+                {title ?? (loaded === null ? '…' : `${n}장`)}
+              </span>
+            </button>
+          </li>
+        )
+      })}
+    </ul>
   )
 }
 
@@ -969,23 +1105,6 @@ function FilterChip({
   )
 }
 
-function ChapterChip({ n, selected, onClick }: { n: number; selected: boolean; onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={selected}
-      className={`inline-flex h-8 min-w-[36px] items-center justify-center rounded-[var(--r-sm)] border px-2 font-mono text-[12px] font-[700] tabular-nums transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        selected
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-          : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
-      }`}
-    >
-      {n}
-    </button>
-  )
-}
-
 function ActivityChip({
   activity,
   selected,
@@ -1021,9 +1140,11 @@ function ActivityChip({
 
 function WeekdayChips({
   selected,
+  weekDates,
   onToggle,
 }: {
   selected: Set<number> | number[]
+  weekDates: string[]
   onToggle: (d: number) => void
 }) {
   const has = (d: number) => (Array.isArray(selected) ? selected.includes(d) : selected.has(d))
@@ -1031,20 +1152,24 @@ function WeekdayChips({
     <div className="flex flex-wrap gap-1.5">
       {WEEKDAYS.map((d) => {
         const on = has(d.value)
+        const date = weekDates[d.value - 1]
         return (
           <button
             key={d.value}
             type="button"
             onClick={() => onToggle(d.value)}
             aria-pressed={on}
-            aria-label={`${d.label}요일`}
-            className={`inline-flex h-9 w-9 items-center justify-center rounded-full border font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+            aria-label={`${d.label}요일 (${date})`}
+            className={`inline-flex h-11 w-10 flex-col items-center justify-center rounded-[var(--r-md)] border font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               on
                 ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
             }`}
           >
             {weekdayLabel(d.value)}
+            <span className={`font-mono text-[9px] font-[400] tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+              {date}
+            </span>
           </button>
         )
       })}

@@ -17,6 +17,16 @@ function kstWeekday(): number {
   return day === 0 ? 7 : day
 }
 
+/** KST 기준 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 산출 → 하이드레이션 안전). */
+function kstWeekDates(): string[] {
+  const kstNow = Date.now() + 9 * 3_600_000
+  const weekday = kstWeekday()
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(kstNow + (i + 1 - weekday) * 86_400_000)
+    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`
+  })
+}
+
 export default async function PlanPage() {
   const [items, materials] = await Promise.all([
     fetchStudyPlanItems(),
@@ -25,7 +35,12 @@ export default async function PlanPage() {
 
   return (
     <Screen width="content" background="bg2" padX="md">
-      <PlanClient initialItems={items} materials={materials} todayWeekday={kstWeekday()} />
+      <PlanClient
+        initialItems={items}
+        materials={materials}
+        todayWeekday={kstWeekday()}
+        weekDates={kstWeekDates()}
+      />
     </Screen>
   )
 }
