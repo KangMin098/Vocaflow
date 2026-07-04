@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### ScriptQuiz 큐레이션 챕터 퀴즈 — The Railway Children 완결 (v06.123)
+
+`The Railway Children`(V7·14챕터) 전권 챕터 퀴즈 **98문항** 완결. 마이그레이션 0 (데이터 INSERT).
+
+- 챕터당 정확히 7문항(V7 `quiz_target_per_chapter`) × 14. `content_chunks` 본문 정독 기반 4지선다(EN/KO 이중언어 + `source_snippet` 원문 인용).
+- **품질 게이트**: 정답 위치 분산 **26/25/24/23** · malformed 0 (옵션 스키마 `{text,textKo}×4` 전수 검증 — 저작 중 유입된 stray 키 1건 즉시 정정 포함).
+- **잡 완료**: `book_quiz_jobs` `e870a472` status done(14/14, 98). `book_quiz_coverage` 14/14 확인.
+- 카탈로그 현황: **11권 전권 완결 1,406문항**. 남은 서사 후보: Jane Eyre(38ch) · Great Expectations(59ch).
+
 ### VCB QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
 
 cast-2000 런의 `enriched_flagged` 125건을 정리해 **2,000행 전량 QA 통과(flagged 0)**. 마이그레이션 0 (데이터 정비).

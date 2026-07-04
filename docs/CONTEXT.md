@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6ac6b12` fix(vcb): QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
 - `d0b6894` docs(scriptquiz): Wind in the Willows 전권 96문항 완결 — 카탈로그 10권 1,308문항
 - `aa6dd6a` docs(scriptquiz): Pride and Prejudice 전권 488문항 드레인 완주 반영
 - `b86771d` docs(scriptquiz): Marvelous Land of Oz 챕터 퀴즈 완결 (ch.3-24, 154문항)
 - `74f1130` refactor(pairflip): stale 영속화 mock 제거 + 게임 데이터 레이어 검증
-- `d5012ab` docs(scriptquiz): Huckleberry Finn 전권 154문항 드레인 완주 반영
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
