@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `0e927b6` feat(plan): ActivityGlyph 타일 단일화 + 선택 시 구성 패널 스크롤
 - `95356cf` fix(plan,dashboard): 화면 폭 wide(1024px) 정합 — 이중 제약 제거
 - `1adeb99` feat(plan): picker master-detail 기본화 — 분류 레일(좌)+세부 리스트(우)
 - `d9f9b8a` docs(p6): F3 전면 소급 실행 기록 + P6.4/6.5 재검증 (v06.127)
 - `1e5b977` feat(plan): 주간 보드 아젠다형 재설계 — 계획 디테일 가시성
-- `0d31975` fix(plan): 신규 담기 기본 요일=오늘 — 담자마자 '요일 미정' 방지
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
