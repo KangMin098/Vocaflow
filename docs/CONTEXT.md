@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `bde8fff` docs(curation): 큐레이션 4축 심층 점검 결과 기록 (v06.128)
 - `0e927b6` feat(plan): ActivityGlyph 타일 단일화 + 선택 시 구성 패널 스크롤
 - `95356cf` fix(plan,dashboard): 화면 폭 wide(1024px) 정합 — 이중 제약 제거
 - `1adeb99` feat(plan): picker master-detail 기본화 — 분류 레일(좌)+세부 리스트(우)
 - `d9f9b8a` docs(p6): F3 전면 소급 실행 기록 + P6.4/6.5 재검증 (v06.127)
-- `1e5b977` feat(plan): 주간 보드 아젠다형 재설계 — 계획 디테일 가시성
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260705101000_recommend_book_iplus1_tier.sql`
+- `20260705100000_quiz_catalog_published_gate.sql`
 - `20260703120010_p0_drop_p5a_backup_table.sql`
 - `20260703120000_p0_security_rls_hardening.sql`
 - `20260702120000_scriptquiz_curated_chapter_quiz.sql`
-- `20260628220000_p1_plan_weekday_per_item.sql`
-- `20260628210000_p1_plan_rich_compose.sql`
 <!-- /auto:recent-migrations -->
 
 ---

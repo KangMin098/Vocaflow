@@ -387,7 +387,7 @@ V-Level=11 의 17,452 row 전량 태그 (standard 0):
 | `analyze_and_apply_diagnostic_result(answers)` | apply: user_profiles UPDATE + snapshot INSERT |
 | `analyze_track_diagnostic_result` / `analyze_and_apply_track_diagnostic_result` | track 진단 |
 | `analyze_and_apply_comprehensive_diagnostic_result` | 4축 동시 |
-| `recommend_word_sets_for_user(uuid, text[])` | 5-tier 추천 (primary/stretch/review + track + specialty opt-in) |
+| `recommend_word_sets_for_user(uuid, text[])` | 6-tier 추천 (primary/stretch/review + track + specialty opt-in + book_iplus1: coverage 85~95% 도서 입문 챕터 세트) |
 | `auto_promote_v_level_for_user(uuid)` | i+1 zone ≥20 mastered → V+1 + snapshot |
 | `auto_promote_track_level_for_user(uuid, text)` | track promote (threshold 15) |
 | `cron_auto_promote_all_users()` | pg_cron 새벽 03 KST 일괄 |

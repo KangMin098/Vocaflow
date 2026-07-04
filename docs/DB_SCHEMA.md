@@ -182,7 +182,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `analyze_diagnostic_result` / `analyze_and_apply_diagnostic_result` | base V-Level 진단 분석 + apply (snapshot + Krashen i+1) |
 | `analyze_track_diagnostic_result` / `analyze_and_apply_track_diagnostic_result` | track 진단 (csat/biz/academic) |
 | `analyze_and_apply_comprehensive_diagnostic_result` | 4축 동시 분석 (base + 3 tracks) |
-| `recommend_word_sets_for_user(uuid, text[])` | 5-tier 추천 (primary/stretch/review + track + specialty) |
+| `recommend_word_sets_for_user(uuid, text[])` | 6-tier 추천 (primary/stretch/review + track + specialty + book_iplus1: lexical_coverage 85~95% 도서 입문 챕터 세트, v06.129) |
 | `auto_promote_v_level_for_user(uuid)` | i+1 zone ≥20 mastered → V+1 |
 | `auto_promote_track_level_for_user(uuid, text)` | track promote (threshold 15) |
 | `cron_auto_promote_all_users()` | pg_cron 새벽 03 KST 일괄 promote |
