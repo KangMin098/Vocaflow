@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전 no-rank Tier A 선별 enrichment — 발행 세트 노출 어휘 ipa 100% (v06.124)
+
+no-rank 16,652행 중 **학습자에게 실제 서빙 중인 어휘(발행 단어장 등장 lemma) 1,277행**을 우선 enrichment. 마이그레이션 0 (데이터 채움).
+
+- **선별 기준**: `frequency_rank IS NULL` ∧ `word_register IN (standard, modern_advanced)` ∧ 단일어 ∧ 발행 `shared_word_sets` 등장 — 고어(archaic_literary/period_cultural)·phrase_unit 제외(툴팁 전용 정책).
+- **파이프라인**: /dict-enrich 규격(50단어/청크 · example/syn/ant/ipa/collocations) × **29청크 서브에이전트 병렬 팬아웃**(1차 23 + 잔여 스윕 6) → `02-validate-output.mjs` 29/29 PASS(1,399라인 ok · 오류 0) → NULL-guard import.
+- **결과**: 930 단어 갱신(ipa 840 · synonyms 866 · antonyms 592 · collocations 887 채움) → **Tier A ipa 100%(1,277/1,277) · synonyms 94.9%**(잔여 65는 무유의어 어휘 — 규칙상 0~3 허용). no-rank 전체 ipa 4.0→9.0% · syn 3.3→8.5%.
+- **절차 결함 수정**: 1차 export 의 PostgREST 비정렬 range 페이지네이션이 중복/누락 유발(1,102라인 중 유니크 672) → `.order()` 명시 후 잔여 297 재스윕으로 해소. (동일 패턴 사용하는 다른 스크립트 점검 권장)
+- 잔여(후속): Tier B(도서 어휘 등장 ~5.1K) · Tier C 는 노출 시점에 동일 스프린트 재실행.
+
 ### ScriptQuiz 큐레이션 챕터 퀴즈 — The Railway Children 완결 (v06.123)
 
 `The Railway Children`(V7·14챕터) 전권 챕터 퀴즈 **98문항** 완결. 마이그레이션 0 (데이터 INSERT).
