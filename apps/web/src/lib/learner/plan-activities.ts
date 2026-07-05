@@ -5,6 +5,8 @@
 // P1 재설계: 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장/내 스크립트) × 활동 (리틀팍스형).
 //   book=library_books · article=library_articles(공개 스크립트) · word_set=shared_word_sets · script=texts(개인)
 
+import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
+
 export type MaterialType = 'book' | 'article' | 'word_set' | 'script'
 
 export type PlanActivity =
@@ -106,7 +108,7 @@ export function materialHref(m: MaterialRef): string {
  *   · 도서(library_books.id): 본문 활동은 도서 페이지, 게임은 모듈 hub (직접 스코핑 미지원)
  * 스코핑 불가 활동(wordblitz/pairflip/spellforge/dictation)은 모듈 hub 로 honest fallback.
  */
-export function activityLaunchHref(m: MaterialRef, activity: PlanActivity): string {
+function baseActivityLaunchHref(m: MaterialRef, activity: PlanActivity): string {
   switch (activity) {
     case 'listen':
     case 'read':
@@ -136,6 +138,26 @@ export function activityLaunchHref(m: MaterialRef, activity: PlanActivity): stri
       // 받아쓰기=문장 전사 → 스크립트(본문)만 스코핑. 도서/단어장은 hub.
       return m.type === 'script' ? `/dictate/setup?text=${m.id}` : '/dictate'
   }
+}
+
+/**
+ * 활동 실행 라우트 + 닫기 시 원점 복귀용 ?from 부착.
+ *   풀스크린 세션(/…/play, /play/…)에만 from 을 붙인다 — SessionFrame 이 닫기/Esc 시
+ *   그 경로로 복귀(제자리). hub·워크스페이스·setup 등 비-세션 라우트엔 붙이지 않는다.
+ *
+ * @param origin 진입 화면 경로 (예: '/plan', '/'). SessionFrame 이 검증(내부경로).
+ */
+export function activityLaunchHref(
+  m: MaterialRef,
+  activity: PlanActivity,
+  origin?: string,
+): string {
+  const href = baseActivityLaunchHref(m, activity)
+  if (!origin) return href
+  const path = href.split('?')[0] ?? href
+  if (!isFullScreenRoute(path)) return href
+  const sep = href.includes('?') ? '&' : '?'
+  return `${href}${sep}from=${encodeURIComponent(origin)}`
 }
 
 /** 활동이 그 자료의 실제 단어로 스코핑되어 열리는지 (UI 배지/구분용) */

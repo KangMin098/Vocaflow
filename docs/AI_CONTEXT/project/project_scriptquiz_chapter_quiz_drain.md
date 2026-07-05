@@ -21,5 +21,7 @@ ScriptQuiz 챕터 퀴즈는 Claude Code(=LLM 본인)가 본문을 읽고 저작�
 
 **정답 균등 설계 패턴 (2026-07-05 확립):** 사후 셔플 대신 저작 시점 회전 — 챕터 c의 q번째 정답 위치 = `(c+q)%4`. 전량 균등 보장, 셔플 UPDATE 불요.
 
+**⛔ 2026-07-05 사용자 결정: 챕터 퀴즈 생성은 잔여 업무에서 제외 — 더 이상 백로그로 관리하지 않음.** Twenty Years After는 30/90ch 부분 드레인(270문항, 분포 67/67/68/68, 무결성 0건)에서 중단(잡 c0e11675 done+note). 카탈로그는 챕터 단위라 부분 노출 무해. 재개는 사용자 명시 지시 시에만, ch31부터.
+
 관련: [[project_a3_game_real_data_sweep]] (scriptquiz #54 quiz_questions=개인 퀴즈 경로, 별개), [[feedback_claude_code_is_llm]].
 

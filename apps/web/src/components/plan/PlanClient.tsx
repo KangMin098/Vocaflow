@@ -568,7 +568,7 @@ function TodayRow({ item }: { item: PlanItem }) {
             <LaunchChip
               key={a.id}
               activity={a.id}
-              href={activityLaunchHref(ref, a.id)}
+              href={activityLaunchHref(ref, a.id, '/plan')}
               scoped={isActivityScoped(item.materialType, a.id)}
             />
           ))}
@@ -924,7 +924,7 @@ function ItemConfig({
               <LaunchChip
                 key={a.id}
                 activity={a.id}
-                href={activityLaunchHref(ref, a.id)}
+                href={activityLaunchHref(ref, a.id, '/plan')}
                 scoped={isActivityScoped(item.materialType, a.id)}
               />
             ))}

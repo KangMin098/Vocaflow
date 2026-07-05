@@ -253,7 +253,11 @@ export function DictationSessionClient() {
         <header className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => router.back()}
+            onClick={() =>
+              typeof window !== 'undefined' && window.history.length > 1
+                ? router.back()
+                : router.push('/dictate')
+            }
             className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
           >
             <X size={14} />

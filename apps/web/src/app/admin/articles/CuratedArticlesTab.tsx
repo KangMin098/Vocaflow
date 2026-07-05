@@ -40,6 +40,8 @@ interface Props {
   showGate?: boolean
   /** 리스트 헤더 (검수/발행 stage 구분). */
   heading?: string
+  /** 프리뷰 진입 시 복귀 stage 전달 — 검수 후 콘솔이 같은 stage 로 복귀(제자리). */
+  backStage?: 'review' | 'publish'
 }
 
 type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived'
@@ -63,7 +65,9 @@ export function CuratedArticlesTab({
   initialFilter = 'all',
   showGate = false,
   heading = '📂 Curated Articles',
+  backStage,
 }: Props) {
+  const previewSuffix = backStage ? `?stage=${backStage}` : ''
   const [filter, setFilter] = useState<StatusFilter>(initialFilter)
   const [pending, setPending] = useState<string | null>(null)
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -358,7 +362,7 @@ export function CuratedArticlesTab({
                     <Td>
                       <div className="flex flex-col gap-0.5">
                         <Link
-                          href={`/admin/articles/preview/${a.id}`}
+                          href={`/admin/articles/preview/${a.id}${previewSuffix}`}
                           className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                         >
                           {a.title}
@@ -411,7 +415,7 @@ export function CuratedArticlesTab({
                     <Td align="right">
                       <div className="flex items-center justify-end gap-1">
                         <Link
-                          href={`/admin/articles/preview/${a.id}`}
+                          href={`/admin/articles/preview/${a.id}${previewSuffix}`}
                           className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                           aria-label="글 검수 페이지 열기"
                         >

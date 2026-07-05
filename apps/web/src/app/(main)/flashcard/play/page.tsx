@@ -11,6 +11,7 @@ import { FlashcardSession } from '@/components/flashcard/FlashcardSession'
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { fetchDueFlashcardWords } from '@/lib/flashcard/hub-words'
 import { fetchScopedFlashcardWords } from '@/lib/flashcard/scoped-words'
+import { resolveSessionReturnHref } from '@/lib/layout/session-return'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -18,12 +19,14 @@ export const metadata = {
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string }
+  searchParams?: { set?: string; text?: string; from?: string }
 }
 
 export default async function FlashcardPlayPage({ searchParams }: PageProps) {
   const set = searchParams?.set
   const text = searchParams?.text
+  // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (스코프 단어 id 오용 방지)
+  const backHref = resolveSessionReturnHref(searchParams?.from, text, '/flashcard')
 
   // 스코프 진입 (워크스페이스 "카드" pill) — 자료의 실제 단어 fetch
   if (set || text) {
@@ -49,7 +52,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
             }}
             total={scoped.words.length}
           />
-          <FlashcardSession initialWords={scoped.words} />
+          <FlashcardSession initialWords={scoped.words} backHref={backHref} />
         </>
       )
     }
@@ -80,7 +83,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
         }}
         total={words.length}
       />
-      <FlashcardSession initialWords={words} />
+      <FlashcardSession initialWords={words} backHref={backHref} />
     </>
   )
 }

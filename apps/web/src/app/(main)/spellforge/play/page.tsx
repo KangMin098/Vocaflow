@@ -10,6 +10,7 @@ import type { Database } from '@vocaflow/types'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { SpellForge } from '@/components/spellforge/SpellForge'
+import { resolveSessionReturnHref } from '@/lib/layout/session-return'
 import { fetchDueSpellForgeWords } from '@/lib/spellforge/hub-words'
 import { fetchScopedSpellForgeWords } from '@/lib/spellforge/scoped-words'
 import { createClient } from '@/lib/supabase/server'
@@ -19,12 +20,14 @@ export const metadata = {
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string }
+  searchParams?: { set?: string; text?: string; from?: string }
 }
 
 export default async function SpellForgePlayPage({ searchParams }: PageProps) {
   const set = searchParams?.set
   const text = searchParams?.text
+  // 닫기/완료 복귀: ?from 우선 → 스코프 텍스트 → hub
+  const backHref = resolveSessionReturnHref(searchParams?.from, text, '/spellforge')
   const client = (await createClient()) as unknown as SupabaseClient<Database>
   const {
     data: { user },
@@ -49,7 +52,12 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
             }}
             total={scoped.words.length}
           />
-          <SpellForge textId={set ? 'vocab' : 'script'} textTitle={scoped.title} words={scoped.words} />
+          <SpellForge
+            textId={set ? 'vocab' : 'script'}
+            textTitle={scoped.title}
+            words={scoped.words}
+            backHref={backHref}
+          />
         </>
       )
     }
@@ -73,7 +81,7 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
         }}
         total={words.length}
       />
-      <SpellForge textId="all" textTitle="내 단어장" words={words} />
+      <SpellForge textId="all" textTitle="내 단어장" words={words} backHref={backHref} />
     </>
   )
 }

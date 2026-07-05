@@ -172,7 +172,11 @@ export function DictationSetupClient() {
       <header className="flex items-center gap-3">
         <button
           type="button"
-          onClick={() => router.back()}
+          onClick={() =>
+            typeof window !== 'undefined' && window.history.length > 1
+              ? router.back()
+              : router.push('/dictate')
+          }
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]"
           aria-label="뒤로"
         >

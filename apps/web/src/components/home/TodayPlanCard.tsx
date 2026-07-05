@@ -81,7 +81,7 @@ function TodayPlanRow({ item }: { item: PlanItem }) {
             <LaunchChip
               key={a.id}
               activity={a.id}
-              href={activityLaunchHref(ref, a.id)}
+              href={activityLaunchHref(ref, a.id, '/')}
               scoped={isActivityScoped(item.materialType, a.id)}
             />
           ))}

@@ -12,7 +12,8 @@ import type { SessionStats } from '@/types/flashcard'
 
 interface CompletionStateProps {
   stats: SessionStats
-  textId: string
+  /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산 (스코프 진입 시 단어 id 오용 방지). */
+  backHref: string
   onRestart: () => void
   /** §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 부모가 주입 */
   recommendation?: RecommendedAction
@@ -20,7 +21,7 @@ interface CompletionStateProps {
 
 export function CompletionState({
   stats,
-  textId,
+  backHref,
   onRestart,
   recommendation,
 }: CompletionStateProps) {
@@ -145,7 +146,7 @@ export function CompletionState({
             <span>다시 학습</span>
           </button>
           <Link
-            href={`/text/${textId}?mode=read`}
+            href={backHref}
             className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-white no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
             style={{
               background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',

@@ -10,7 +10,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   BookOpen,
   Download,
@@ -50,6 +50,7 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
   { key: 'review', label: '검수', Icon: SearchCheck },
   { key: 'publish', label: '발행', Icon: Send },
 ]
+const STAGE_KEYS: Stage[] = STAGES.map((s) => s.key)
 
 const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio }> = [
   { key: 'voa', label: 'VOA', Icon: Radio },
@@ -63,7 +64,18 @@ const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 
 export function CurationConsole({ articles, stats, feedHealth }: Props) {
   const router = useRouter()
-  const [stage, setStage] = useState<Stage>('coverage')
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  // stage 를 URL(?stage=)로 동기화 — 프리뷰 검수 후 복귀 시 stage 유지(제자리 복귀).
+  const stageParam = searchParams.get('stage') as Stage | null
+  const stage: Stage = stageParam && STAGE_KEYS.includes(stageParam) ? stageParam : 'coverage'
+  const setStage = (s: Stage): void => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (s === 'coverage') params.delete('stage')
+    else params.set('stage', s)
+    const qs = params.toString()
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  }
   const [getSource, setGetSource] = useState<SourceKey>('voa')
 
   const refetchAll = (): void => {
@@ -107,10 +119,16 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
             initialFilter="ready"
             showGate
             heading="🔍 검수 큐"
+            backStage="review"
           />
         )}
         {stage === 'publish' && (
-          <CuratedArticlesTab articles={articles} onChanged={refetchAll} initialFilter="published" />
+          <CuratedArticlesTab
+            articles={articles}
+            onChanged={refetchAll}
+            initialFilter="published"
+            backStage="publish"
+          />
         )}
       </div>
     </div>

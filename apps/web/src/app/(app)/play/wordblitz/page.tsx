@@ -18,6 +18,7 @@ import { createClient } from '@/lib/supabase/client';
 import { POINTS, type Word } from '@/lib/wordblitz/data';
 import { recordWordBlitzResult } from '@/lib/wordblitz/record-result';
 import { fetchScopedWords } from '@/lib/workspace/scoped-words';
+import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
 const WordBlitzGame = dynamic(
   () =>
@@ -41,6 +42,7 @@ export default function WordBlitzPage() {
   const searchParams = useSearchParams();
   const set = searchParams.get('set') ?? undefined;
   const text = searchParams.get('text') ?? undefined;
+  const from = searchParams.get('from') ?? undefined;
   const scoped = !!(set || text);
 
   // scoped: null = 로딩, ScopedPool = 완료, { words: [] } = 단어 0개
@@ -154,7 +156,8 @@ export default function WordBlitzPage() {
               metadata: { captured, wrong, scoped },
             });
           }
-          router.push(scoped ? '/text' : '/library');
+          // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (id 유실·엉뚱한 목적지 방지)
+          router.push(resolveSessionReturnHref(from, text, '/wordblitz'));
         }}
         onCorrect={(word) => {
           correctRef.current += 1;
