@@ -81,9 +81,9 @@
 |---|---|---|
 | **Dev 일괄 처리** | `/api/lcp/dev-process` (순차) | 처리중+검토대기 선택분을 로직 파이프라인으로 dev 처리 — 수집·정규화·분절·분석·추출·V-Level·**LibriVox 자동매핑**까지. 배너에 `🔊 매핑 N · ⏳ 매핑큐 M` 집계 |
 | **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_quiz_jobs` 로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
-| 검토대기 → 처리중 | `admin_bulk_set_books_curating(uuid[])` | ready → curating · draft 단어장만 삭제 |
-| 처리중 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | library_books DELETE → BulkFetchTab 복귀 (in_progress) |
-| 검토대기 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | 동일 (ready) |
+| **소스로 되돌리기 (삭제)** | `admin_bulk_requeue_books(uuid[])` | 처리중 ∪ 검토대기 선택분 → library_books DELETE → BulkFetchTab 복귀. (구 `처리중→소스GET`+`검토대기→소스GET` 2버튼이 동일 RPC 라 1버튼으로 통합) |
+
+> 통합 정리 (v06.x): 구 `검토대기 → 처리중`(draft 삭제 reclassify) 버튼은 제거 — 재처리(Dev 일괄 처리)로 대체. RPC `admin_bulk_set_books_curating` 자체는 DB 에 잔존.
 
 **LibriVox 매핑 자동화 (v06.35)**: 이전의 수동 "매핑 큐 등록(Claude)" 버튼은 제거. `dev-process` 가 분석 직후 `autoMapLibriVoxForBook` 를 호출해 **count-gate 통과 시 즉시 `librivox_audio` 저장**. 정합 실패본만 `book_curation_jobs` 큐에 자동 등록(Claude Code 수동 정합 대상) → 리스트 행에 `JobQueueBadge` 노출. 성공/녹음없음은 큐 잡 자동 삭제.
 
@@ -91,12 +91,14 @@
 - `is_published=true` 단어장 존재 (학습자 노출)
 - `texts.library_book_id` 참조 (사용자 진도)
 
-#### Dev 큐 처리 버튼 (v06.34)
+#### 도서 처리 엔진 (통합, v06.x)
 
-`▶ 큐 처리 (dev · N권)` — header 옆 노란 배지:
-- `status='queued'` 도서 ≥1 일 때만 노출
-- 자동 반복 루프 — 5권/라운드 + remaining 카운트 + 1초 elapsed 타이머
-- 종료 조건: empty / stopped / no-progress / error / MAX_ROUNDS=50
+큐 전체 처리와 선택분 처리가 **단일 엔진**(`runProcess`) + **단일 진행 배너**로 통합:
+- **큐 처리** — `status='queued'` 도서 ≥1 일 때 노출. **헤더 `▶ 큐 처리 (dev · N권)` 노란 배지** + "작업 순서" 가이드 콜아웃 두 곳(동일 동작). 큐 도서 전량을 순차 처리.
+- **선택분 처리** — 체크박스 선택 후 Toolbar 의 `Dev 일괄 처리` (처리중 ∪ 검토대기 ∪ 실패).
+- 둘 다 `/api/lcp/dev-process` 를 도서별 순차 호출 (유한 목록 → 무한 루프 불가). 진행 배너: 성공/실패/남음/경과 + `🔊 매핑 · ⏳ 매핑큐` 집계 + `중지`/`계속`. **완료 시 `검토 대기 보기 →` 액션**(목록을 처리 결과로 필터해 검수로 연결).
+- **`⟳ 새로고침`** (헤더) — 상단 통계 + 목록(RSC) + 매핑/퀴즈 큐 배너 일괄 갱신 (소스 GET·큐레이션·Claude Code 드레인 후 out-of-band 변경 반영).
+- (구: `dev-drain-queue` 5권/라운드 루프 → 단일 엔진으로 대체. 라우트는 잔존하나 UI 미사용.)
 
 #### 도서 상태 흐름 표시
 

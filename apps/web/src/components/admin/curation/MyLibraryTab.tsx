@@ -4,7 +4,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
-import { ChevronRight, CornerUpLeft, ExternalLink, Loader2, PlayCircle, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
+import { ChevronRight, ExternalLink, Loader2, PlayCircle, RefreshCw, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
 import {
   classifyStatus,
   type BookStatus,
@@ -15,7 +15,6 @@ import {
 import { bookSourceUrl, sourceLabel } from '@/lib/library/source-urls';
 import {
   bulkRequeueBooksAction,
-  bulkSetBooksToInProgressAction,
   deleteFailedBookAction,
   enqueueQuizJobsAction,
   fetchCurationJobsAction,
@@ -78,6 +77,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   // v06.34 — 다중 선택 (Curated Books 일괄 액션)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkPending, startBulkTransition] = useTransition();
+  // 수동 새로고침 진행 상태 (router.refresh RSC 재페치가 끝날 때까지 spinner)
+  const [refreshing, startRefresh] = useTransition();
   // Dev 일괄 처리 큐 상태 뷰 재조회 트리거 (enqueue 직후 +1)
   const [jobReloadKey, setJobReloadKey] = useState(0);
   // 스크립트 퀴즈 생성 큐 재조회 트리거 (enqueue 직후 +1)
@@ -256,54 +257,16 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     });
   };
 
-  // ── 1) 검토대기 → 처리중 (curating)
-  //    draft 챕터 단어장 DELETE + status reclassify. 추출 어휘/챕터 마스터 보존.
-  const runReadyToCurating = () => {
-    if (readyIds.length === 0) return;
-    if (
-      !window.confirm(
-        `검토대기 도서 ${readyIds.length}권을 '처리중(curating)' 으로 되돌릴까요?\n\n` +
-          '· draft 챕터 단어장(아직 미게시) 은 삭제됩니다.\n' +
-          '· 추출 어휘 / 챕터 마스터 / 도서 메타는 보존됩니다.\n' +
-          '· 자동 재처리는 하지 않습니다 (auto_curate 다시 돌리려면 단권 재처리 사용).\n' +
-          '· 게시된 단어장 또는 사용자 진도가 있는 도서는 자동 스킵.',
-      )
-    ) {
-      return;
-    }
-    startBulkTransition(async () => {
-      const res = await bulkSetBooksToInProgressAction(readyIds);
-      if (!res.ok) {
-        window.alert(`실패: ${res.error}`);
-        return;
-      }
-      const d = res.data;
-      const summary = d
-        ? `${d.updatedCount}권 처리됨` +
-          (d.wordSetsDeleted > 0 ? ` · draft 단어장 ${d.wordSetsDeleted}개 삭제` : '') +
-          (d.blockedByPublished > 0
-            ? `\n${d.blockedByPublished}권 스킵 (게시된 단어장 존재)`
-            : '') +
-          (d.blockedByUsers > 0
-            ? `\n${d.blockedByUsers}권 스킵 (사용자 진도 존재)`
-            : '') +
-          (d.skippedCount > d.blockedByPublished + d.blockedByUsers
-            ? `\n${d.skippedCount - d.blockedByPublished - d.blockedByUsers}권 스킵 (검토대기 외 상태)`
-            : '')
-        : '';
-      if (d && (d.skippedCount > 0 || d.wordSetsDeleted > 0)) window.alert(summary);
-      clearSelection();
-      onRefetch();
-    });
-  };
+  // ── 소스로 되돌리기 (삭제) — 처리중 ∪ 검토대기 선택분을 library_books DELETE → BulkFetchTab 복귀.
+  //    (이전 '처리중→소스GET' / '검토대기→소스GET' 두 버튼은 admin_bulk_requeue_books 로 완전히
+  //     동일 → 선택된 자격 도서 전체를 한 버튼으로 통합. RPC 가 status 별 자격을 재검증.)
+  const returnToSourceIds = useMemo(
+    () => [...inProgressIds, ...readyIds],
+    [inProgressIds, readyIds],
+  );
+  const runReturnToSource = () => runRequeueFor(returnToSourceIds, '선택');
 
-  // ── 2) 처리중 → 소스 get (queued) — 전체 리셋 + pgmq 재발행
-  const runInProgressToQueued = () => runRequeueFor(inProgressIds, '처리중');
-
-  // ── 3) 검토대기 → 소스 get (queued) — 동일 RPC, ready 도 자격 status 에 포함
-  const runReadyToQueued = () => runRequeueFor(readyIds, '검토대기');
-
-  // 공용 dispatcher (2 + 3) — admin_bulk_requeue_books 가 library_books DELETE → BulkFetchTab 복귀
+  // 공용 dispatcher — admin_bulk_requeue_books 가 library_books DELETE → BulkFetchTab 복귀
   const runRequeueFor = (ids: string[], scopeLabel: string) => {
     if (ids.length === 0) return;
     if (
@@ -350,58 +313,54 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     });
   };
 
-  // ── Dev 일괄 처리 — 선택 도서를 로직 파이프라인(/api/lcp/dev-process)으로 순차 실행 ──
-  //    결정론적 단계(ingest·normalize·segment·analyze·extract·V-Level·cover)는 전부 로직.
-  //    v06.35 — LibriVox 보이스 매핑도 로직에 흡수: count-gate 통과 시 자동 저장,
+  // ── 도서 처리 엔진 (통합) — 선택분 또는 큐 전체를 /api/lcp/dev-process 로 순차 실행 ──
+  //    결정론적 단계(수집·정규화·분절·분석·추출·V-Level·표지·LibriVox 자동매핑)는 전부 로직.
   //    정합 실패본만 dev-process 가 매핑 큐(book_curation_jobs)에 자동 등록 → Claude 수동 정합.
-  //    v06.50 — failed 도서도 dev 일괄 처리에 포함 (정규식/네트워크 일시 실패 후 fix → 재처리 수요).
-  //    dev-process route 는 status 게이트 없이 ingest 부터 재시작.
+  //    v06.x — 이전 '큐 자동 처리(drain)' + 'Dev 일괄 처리' 두 엔진을 하나로 통합.
+  //    dev-drain-queue 라우트는 결국 큐 도서마다 dev-process 를 부르는 서버측 루프라,
+  //    클라이언트가 큐 도서 id 를 직접 모아 같은 루프를 돌리면 동일 (books 는 전량 로드).
+  //    → 상태·배너·중지 로직 1벌. 처리 대상: 처리중 ∪ 검토대기 ∪ 실패 (실패는 ingest 부터 재시작).
   const devBatchIds = useMemo(
     () => [...inProgressIds, ...readyIds, ...failedIds],
     [inProgressIds, readyIds, failedIds],
   );
-  // dev 배치 진행 상태 — drain 과 동일 shape(DrainBanner 재사용), 별도 state.
-  const [devState, setDevState] = useState<{
+  const queuedIds = useMemo(
+    () => books.filter((b) => b.status === 'queued').map((b) => b.id),
+    [books],
+  );
+
+  const [procState, setProcState] = useState<{
     running: boolean;
     succeeded: number;
     failed: number;
     remaining: number;
     round: number;
     startedAt: number;
-    finishedAt?: 'empty' | 'stopped' | 'no-progress' | 'error';
+    finishedAt?: 'empty' | 'stopped' | 'error';
     lastError?: string;
     mapped?: number; // LibriVox 자동 매핑 성공 권수
     mappingQueued?: number; // 정합 실패로 매핑 큐 자동 등록된 권수
   } | null>(null);
-  const devStopRef = useRef(false);
-  const [devTick, setDevTick] = useState(0);
+  const procStopRef = useRef(false);
+  // 'queue' = status=queued 전체 / 'batch' = 체크선택분. 배너 '계속' 재시작 대상 판별용.
+  const procScopeRef = useRef<'queue' | 'batch'>('batch');
+  const [procTick, setProcTick] = useState(0);
   useEffect(() => {
-    if (!devState?.running) return;
-    const id = setInterval(() => setDevTick((t) => t + 1), 1000);
+    if (!procState?.running) return;
+    const id = setInterval(() => setProcTick((t) => t + 1), 1000);
     return () => clearInterval(id);
-  }, [devState?.running]);
-  const stopDevBatch = () => {
-    devStopRef.current = true;
+  }, [procState?.running]);
+  const stopProc = () => {
+    procStopRef.current = true;
   };
 
-  const runDevBatch = () => {
-    if (devBatchIds.length === 0 || devState?.running) return;
-    if (
-      !window.confirm(
-        `선택한 도서 ${devBatchIds.length}권을 dev 처리(로직)할까요?\n\n` +
-          `· 처리중 ${inProgressIds.length}권 + 검토대기 ${readyIds.length}권 + 실패 ${failedIds.length}권\n` +
-          `· 소스 재수집 → 정규화 → 챕터 분절 → 분석 → 어휘추출 → V-Level 까지 로직으로 실행 후 '검토대기'.\n` +
-          `· LibriVox/챕터 매핑 등 판단이 필요한 부분은 별도 단계(Claude Code)에서 처리합니다.\n` +
-          `· 실패 도서는 ingest 부터 다시 시작합니다 (정규식/네트워크 일시 실패 fix 후 재시도용).`,
-      )
-    ) {
-      return;
-    }
-
-    const ids = [...devBatchIds];
-    devStopRef.current = false;
+  // 공용 실행기 — 명시 id 목록을 dev-process 로 순차 처리 (유한 목록 → 무한 루프 불가).
+  const runProcess = (ids: string[]) => {
+    if (ids.length === 0 || procState?.running) return;
+    const list = [...ids];
+    procStopRef.current = false;
     const startedAt = Date.now();
-    setDevState({ running: true, succeeded: 0, failed: 0, remaining: ids.length, round: 0, startedAt });
+    setProcState({ running: true, succeeded: 0, failed: 0, remaining: list.length, round: 0, startedAt });
 
     void (async () => {
       let succeeded = 0;
@@ -411,13 +370,13 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
       let lastError: string | undefined;
       let finish: 'empty' | 'stopped' | 'error' = 'empty';
 
-      for (let i = 0; i < ids.length; i++) {
-        if (devStopRef.current) {
+      for (let i = 0; i < list.length; i++) {
+        if (procStopRef.current) {
           finish = 'stopped';
           break;
         }
-        const bookId = ids[i]!;
-        setDevState((p) => (p ? { ...p, round: i + 1, running: true } : p));
+        const bookId = list[i]!;
+        setProcState((p) => (p ? { ...p, round: i + 1, running: true } : p));
         try {
           const res = await fetch('/api/lcp/dev-process', {
             method: 'POST',
@@ -435,7 +394,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           if (!res.ok || data.error) {
             failed += 1;
             lastError = data.error ?? `HTTP ${res.status}`;
-            console.error(`[dev-batch] ${bookId.slice(0, 8)} 실패: ${lastError}`);
+            console.error(`[dev-process] ${bookId.slice(0, 8)} 실패: ${lastError}`);
           } else {
             succeeded += 1;
             if (data.librivox === 'mapped') mapped += 1;
@@ -444,13 +403,13 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         } catch (e) {
           failed += 1;
           lastError = e instanceof Error ? e.message : 'unknown';
-          console.error(`[dev-batch] ${bookId.slice(0, 8)} fetch error:`, e);
+          console.error(`[dev-process] ${bookId.slice(0, 8)} fetch error:`, e);
         }
-        setDevState({
+        setProcState({
           running: true,
           succeeded,
           failed,
-          remaining: ids.length - (i + 1),
+          remaining: list.length - (i + 1),
           round: i + 1,
           startedAt,
           mapped,
@@ -460,34 +419,66 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         await new Promise((r) => setTimeout(r, 300));
       }
 
-      setDevState({
+      setProcState({
         running: false,
         succeeded,
         failed,
-        remaining: Math.max(0, ids.length - succeeded - failed),
-        round: Math.min(ids.length, succeeded + failed),
+        remaining: Math.max(0, list.length - succeeded - failed),
+        round: Math.min(list.length, succeeded + failed),
         startedAt,
         finishedAt: finish,
         lastError,
         mapped,
         mappingQueued,
       });
-      devStopRef.current = false;
+      procStopRef.current = false;
       setJobReloadKey((k) => k + 1);
       onRefetch();
     })();
   };
 
-  // ── 큐 처리 (dev only) ──
-  // get_lcp_config() 미설정 시 pg_cron worker 가 pgmq 메시지를 read 하지 않음 →
-  // status='queued' 도서를 admin 이 직접 트리거. dev-drain-queue 가 dev-process 를
-  // 순차 호출 + pgmq archive.
-  const queuedBookCount = useMemo(
-    () => books.filter((b) => b.status === 'queued').length,
-    [books],
-  );
+  // 큐(status=queued) 전체 처리 — 확인 없이 즉시(원-클릭). 작업 순서 가이드에서 호출.
+  const runQueueProcess = () => {
+    procScopeRef.current = 'queue';
+    runProcess(queuedIds);
+  };
 
-  // 작업 순서 가이드용 단계별 카운트
+  // 선택분(처리중 ∪ 검토대기 ∪ 실패) 처리 — 확인 후 실행. Bulk 툴바에서 호출.
+  const runDevBatch = () => {
+    if (devBatchIds.length === 0 || procState?.running) return;
+    if (
+      !window.confirm(
+        `선택한 도서 ${devBatchIds.length}권을 dev 처리(로직)할까요?\n\n` +
+          `· 처리중 ${inProgressIds.length}권 + 검토대기 ${readyIds.length}권 + 실패 ${failedIds.length}권\n` +
+          `· 소스 재수집 → 정규화 → 챕터 분절 → 분석 → 어휘추출 → V-Level 까지 로직으로 실행 후 '검토대기'.\n` +
+          `· LibriVox/챕터 매핑 등 판단이 필요한 부분은 별도 단계(Claude Code)에서 처리합니다.\n` +
+          `· 실패 도서는 ingest 부터 다시 시작합니다 (정규식/네트워크 일시 실패 fix 후 재시도용).`,
+      )
+    ) {
+      return;
+    }
+    procScopeRef.current = 'batch';
+    runProcess(devBatchIds);
+  };
+
+  // 배너 '계속' — 마지막 실행 스코프로 재개 (큐는 재스캔, 배치는 현재 선택분).
+  const restartProc = () => {
+    if (procScopeRef.current === 'queue') runQueueProcess();
+    else runDevBatch();
+  };
+
+  // 수동 새로고침 — 소스 GET·큐레이션·Claude Code 드레인 등으로 out-of-band 로 바뀐
+  // 상태를 한 번에 갱신: (1) 상단 통계 + 목록(RSC 재페치) (2) 매핑 큐 배너 (3) 퀴즈 큐 배너.
+  const handleManualRefresh = () => {
+    setJobReloadKey((k) => k + 1);
+    setQuizJobReloadKey((k) => k + 1);
+    startRefresh(() => {
+      onRefetch(); // router.refresh() — books + stats RSC. transition 이 완료까지 refreshing 유지.
+    });
+  };
+
+  // 작업 순서 가이드용 단계별 카운트 (LibriVox 매핑 큐는 CurationJobsBanner 가 별도
+  // 표시 + 행 배지 → 선형 스텝퍼에서는 제외해 유령 단계 방지).
   const workflowCounts = useMemo(() => {
     let processing = 0;
     let ready = 0;
@@ -497,156 +488,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
       else if (b.status === 'published') published += 1;
       else if (b.status !== 'queued' && IN_PROGRESS_STATUSES.includes(b.status)) processing += 1;
     }
-    let mapping = 0;
-    for (const j of jobsByBook.values()) {
-      if (j.status === 'pending' || j.status === 'running' || j.status === 'awaiting_mapping') {
-        mapping += 1;
-      }
-    }
-    return { queued: queuedBookCount, processing, ready, mapping, published };
-  }, [books, jobsByBook, queuedBookCount]);
-
-  // 자동 반복 drain — option 3: 한 번 클릭하면 큐가 빌 때까지 5권씩 자동 호출
-  const [drainState, setDrainState] = useState<{
-    running: boolean;
-    succeeded: number;
-    failed: number;
-    remaining: number;
-    round: number;
-    startedAt: number; // epoch ms — 경과 시간 표시용
-    lastError?: string;
-    finishedAt?: 'empty' | 'stopped' | 'no-progress' | 'error';
-  } | null>(null);
-  const drainStopRef = useRef(false);
-  const [drainTick, setDrainTick] = useState(0); // 1초마다 tick — 경과 시간 갱신용
-  // 실행 중일 때만 1초 타이머
-  useEffect(() => {
-    if (!drainState?.running) return;
-    const id = setInterval(() => setDrainTick((t) => t + 1), 1000);
-    return () => clearInterval(id);
-  }, [drainState?.running]);
-
-  const stopDrain = () => {
-    drainStopRef.current = true;
-  };
-
-  const runDrainQueue = async () => {
-    if (queuedBookCount === 0) return;
-    drainStopRef.current = false;
-    console.info('[dev-drain] auto-loop start', { count: queuedBookCount });
-    const startedAt = Date.now();
-    setDrainState({
-      running: true,
-      succeeded: 0,
-      failed: 0,
-      remaining: queuedBookCount,
-      round: 0,
-      startedAt,
-    });
-
-    let totalSucceeded = 0;
-    let totalFailed = 0;
-    let lastRemaining = queuedBookCount;
-    let round = 0;
-    let finish: 'empty' | 'stopped' | 'no-progress' | 'error' = 'empty';
-    let lastError: string | undefined;
-
-    // 안전 한도: 최대 50 라운드 (50 × 5 = 250권) — 무한 루프 차단
-    const MAX_ROUNDS = 50;
-
-    while (round < MAX_ROUNDS) {
-      if (drainStopRef.current) {
-        finish = 'stopped';
-        break;
-      }
-      round += 1;
-      setDrainState((prev) => (prev ? { ...prev, round, running: true } : prev));
-
-      try {
-        const res = await fetch('/api/lcp/dev-drain-queue', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ max: 5 }),
-        });
-        const ct = res.headers.get('content-type') ?? '';
-        if (!ct.includes('application/json')) {
-          const text = await res.text();
-          console.error('[dev-drain] non-JSON response:', text.slice(0, 200));
-          lastError = `HTTP ${res.status} — 응답이 JSON 이 아님 (route 미등록? dev 서버 재시작 필요)`;
-          finish = 'error';
-          break;
-        }
-        const data = (await res.json()) as {
-          ok?: boolean;
-          succeeded?: number;
-          failed?: number;
-          remaining?: number;
-          error?: string;
-          results?: Array<{ book_id: string; ok: boolean; error?: string }>;
-        };
-        if (!res.ok || !data?.ok) {
-          lastError = data?.error ?? `HTTP ${res.status}`;
-          finish = 'error';
-          break;
-        }
-        const succ = data.succeeded ?? 0;
-        const fail = data.failed ?? 0;
-        const remain = data.remaining ?? 0;
-        totalSucceeded += succ;
-        totalFailed += fail;
-        lastRemaining = remain;
-
-        if ((data.results ?? []).some((r) => !r.ok)) {
-          const failures = (data.results ?? [])
-            .filter((r) => !r.ok)
-            .map((r) => `· ${r.book_id.slice(0, 8)}: ${r.error}`)
-            .join('\n');
-          console.error(`[dev-drain] round ${round} failures:\n${failures}`);
-        }
-
-        setDrainState({
-          running: true,
-          succeeded: totalSucceeded,
-          failed: totalFailed,
-          remaining: remain,
-          round,
-          startedAt,
-        });
-        onRefetch();
-
-        // 종료 조건
-        if (remain === 0) {
-          finish = 'empty';
-          break;
-        }
-        if (succ === 0) {
-          // 한 라운드에서 단 한 권도 성공 못 함 — 무한 루프 차단
-          finish = 'no-progress';
-          break;
-        }
-        // 다음 라운드 전 짧은 휴식 (UI 갱신 여유)
-        await new Promise((r) => setTimeout(r, 400));
-      } catch (e) {
-        console.error('[dev-drain] fetch error:', e);
-        lastError = e instanceof Error ? e.message : 'unknown';
-        finish = 'error';
-        break;
-      }
-    }
-
-    setDrainState({
-      running: false,
-      succeeded: totalSucceeded,
-      failed: totalFailed,
-      remaining: lastRemaining,
-      round,
-      startedAt,
-      finishedAt: finish,
-      lastError,
-    });
-    drainStopRef.current = false;
-    onRefetch();
-  };
+    return { queued: queuedIds.length, processing, ready, published };
+  }, [books, queuedIds]);
 
   return (
     <section className="flex flex-col gap-4" aria-label="Curated Books">
@@ -660,21 +503,29 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
               ? `${books.length}권`
               : `${visible.length} / ${books.length}권`}
           </span>
-          {/* dev 전용 — 평상시 큐 처리 시작 버튼 (실행 중일 땐 아래 banner 가 책임) */}
-          {queuedBookCount > 0 && !drainState?.running && (
+          {/* 수동 새로고침 — 상태·목록·큐 배너 일괄 갱신 (소스 GET/큐레이션/드레인 후) */}
+          <button
+            type="button"
+            onClick={handleManualRefresh}
+            disabled={refreshing}
+            title="상태·목록·큐 배너를 새로고침"
+            aria-label="새로고침"
+            className="ml-1 inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+          >
+            <RefreshCw size={12} className={refreshing ? 'animate-spin' : ''} aria-hidden />
+            새로고침
+          </button>
+          {/* dev 전용 — 헤더 빠른 진입 버튼. queued 도서가 있을 때만 노출, 실행 중엔
+              아래 진행 배너가 책임 → 숨김. 통합 엔진(runQueueProcess) 에 연결. */}
+          {queuedIds.length > 0 && !procState?.running && (
             <button
               type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('[dev-drain] BUTTON CLICKED — queuedBookCount =', queuedBookCount);
-                void runDrainQueue();
-              }}
-              title={`status='queued' 도서 ${queuedBookCount}권을 5권씩 자동 반복 처리 (dev only)`}
+              onClick={runQueueProcess}
+              title={`status='queued' 도서 ${queuedIds.length}권을 dev-process 로 순차 처리 (dev only)`}
               className="ml-1 inline-flex items-center gap-1 rounded-[var(--r-md)] border-2 border-[var(--warning)] bg-[var(--warning-light)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--warning)] shadow-[var(--sh-sm)] transition-all duration-150 hover:bg-[var(--warning)] hover:text-white hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--warning)] focus-visible:ring-offset-2 cursor-pointer"
             >
               <PlayCircle size={13} aria-hidden />
-              ▶ 큐 처리 (dev · {queuedBookCount}권)
+              ▶ 큐 처리 (dev · {queuedIds.length}권)
             </button>
           )}
         </div>
@@ -797,38 +648,30 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         </div>
       </div>
 
-      {/* v06.35 — 작업 순서 가이드 (단계별 카운트 + 현재 권장 액션) */}
+      {/* 작업 순서 가이드 (단계별 카운트 + 현재 권장 액션) */}
       {books.length > 0 && (
         <CurationWorkflowGuide
           counts={workflowCounts}
           activeFilter={filter}
-          drainRunning={drainState?.running ?? false}
+          drainRunning={procState?.running ?? false}
           onFocus={(f) => setFilter(f)}
-          onRunQueue={runDrainQueue}
+          onRunQueue={runQueueProcess}
         />
       )}
 
-      {/* v06.34 — Dev 큐 자동 처리 banner (실행 중 / 완료 결과) */}
-      {drainState && (
+      {/* 도서 처리 진행 banner (큐 전체 / 선택분 공용 — 실행 중 · 완료 결과) */}
+      {procState && (
         <DrainBanner
-          state={drainState}
-          tick={drainTick}
-          label="큐 자동 처리"
-          onStop={stopDrain}
-          onRestart={runDrainQueue}
-          onDismiss={() => setDrainState(null)}
-        />
-      )}
-
-      {/* v06.35 — Dev 일괄 처리(로직 파이프라인) 진행 banner */}
-      {devState && (
-        <DrainBanner
-          state={devState}
-          tick={devTick}
-          label="도서 dev 처리"
-          onStop={stopDevBatch}
-          onRestart={runDevBatch}
-          onDismiss={() => setDevState(null)}
+          state={procState}
+          tick={procTick}
+          label="도서 처리"
+          onStop={stopProc}
+          onRestart={restartProc}
+          onDismiss={() => setProcState(null)}
+          onViewResults={() => {
+            setFilter('ready');
+            setProcState(null);
+          }}
         />
       )}
 
@@ -838,7 +681,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
       {/* 스크립트 퀴즈 생성 큐 상태 (book_quiz_jobs · 작업 0건 시 자체 숨김) */}
       <QuizJobsBanner reloadKey={quizJobReloadKey} />
 
-      {/* v06.34 — 다중 선택 일괄 액션 toolbar (≥1 선택 시 노출) */}
+      {/* 다중 선택 일괄 액션 toolbar (≥1 선택 시 노출) */}
       {selectedIds.size > 0 && (
         <BulkActionToolbar
           selectedCount={selectedIds.size}
@@ -846,15 +689,14 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           inProgressCount={inProgressIds.length}
           failedCount={failedIds.length}
           devBatchCount={devBatchIds.length}
+          returnToSourceCount={returnToSourceIds.length}
           quizEligibleCount={quizEligibleIds.length}
-          devRunning={devState?.running ?? false}
+          devRunning={procState?.running ?? false}
           pending={bulkPending}
           onClear={clearSelection}
           onDevBatch={runDevBatch}
           onEnqueueQuiz={runEnqueueQuiz}
-          onReadyToCurating={runReadyToCurating}
-          onInProgressToQueued={runInProgressToQueued}
-          onReadyToQueued={runReadyToQueued}
+          onReturnToSource={runReturnToSource}
         />
       )}
 
@@ -1409,39 +1251,36 @@ function CurationWorkflowGuide({
   onFocus,
   onRunQueue,
 }: {
-  counts: { queued: number; processing: number; ready: number; mapping: number; published: number };
+  counts: { queued: number; processing: number; ready: number; published: number };
   activeFilter: StatusFilter;
   drainRunning: boolean;
   onFocus: (f: StatusFilter) => void;
   onRunQueue: () => void;
 }) {
-  const { queued, processing, ready, mapping, published } = counts;
+  const { queued, processing, ready, published } = counts;
 
   // 현재 권장 단계 = 작업이 필요한 가장 이른 단계
-  const current: 'queued' | 'processing' | 'ready' | 'mapping' | 'done' =
+  const current: 'queued' | 'processing' | 'ready' | 'done' =
     queued > 0
       ? 'queued'
       : processing > 0
         ? 'processing'
         : ready > 0
           ? 'ready'
-          : mapping > 0
-            ? 'mapping'
-            : 'done';
+          : 'done';
 
-  const STAGES: Array<{
-    key: 'queued' | 'processing' | 'ready' | 'mapping' | 'published';
-    n: number;
-    label: string;
-    count: number;
-    filter: StatusFilter;
-  }> = [
-    { key: 'queued', n: 1, label: '소스 처리', count: queued, filter: 'queued' },
-    { key: 'processing', n: 2, label: '로직 처리중', count: processing, filter: 'in_progress' },
-    { key: 'ready', n: 3, label: '검토 대기', count: ready, filter: 'ready' },
-    { key: 'mapping', n: 4, label: '매핑 큐', count: mapping, filter: 'ready' },
-    { key: 'published', n: 5, label: '게시됨', count: published, filter: 'published' },
-  ];
+  // 도서 status 선형 흐름만 스텝퍼로. 빈 단계는 접되(카운트 0), 현재 권장 단계와
+  // '게시됨' 골포스트는 항상 노출. 표시 순번(n)은 노출 단계 기준으로 재계산.
+  const STAGES = (
+    [
+      { key: 'queued', label: '소스 처리', count: queued, filter: 'queued' as StatusFilter },
+      { key: 'processing', label: '로직 처리중', count: processing, filter: 'in_progress' as StatusFilter },
+      { key: 'ready', label: '검토 대기', count: ready, filter: 'ready' as StatusFilter },
+      { key: 'published', label: '게시됨', count: published, filter: 'published' as StatusFilter },
+    ] as const
+  )
+    .filter((s) => s.count > 0 || s.key === current || s.key === 'published')
+    .map((s, i) => ({ ...s, n: i + 1 }));
 
   let calloutText: string;
   let action: React.ReactNode = null;
@@ -1468,17 +1307,6 @@ function CurationWorkflowGuide({
         className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
       >
         검토대기 보기
-      </button>
-    );
-  } else if (current === 'mapping') {
-    calloutText = `매핑 큐 ${mapping}권 — LibriVox 정합 실패본 (자동 등록). Claude Code 수동 매핑 대기.`;
-    action = (
-      <button
-        type="button"
-        onClick={() => onFocus('ready')}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
-      >
-        대상 보기
       </button>
     );
   } else {
@@ -1595,30 +1423,28 @@ function BulkActionToolbar({
   inProgressCount,
   failedCount,
   devBatchCount,
+  returnToSourceCount,
   quizEligibleCount,
   devRunning,
   pending,
   onClear,
   onDevBatch,
   onEnqueueQuiz,
-  onReadyToCurating,
-  onInProgressToQueued,
-  onReadyToQueued,
+  onReturnToSource,
 }: {
   selectedCount: number;
   readyCount: number;
   inProgressCount: number;
   failedCount: number;
   devBatchCount: number;
+  returnToSourceCount: number;
   quizEligibleCount: number;
   devRunning: boolean;
   pending: boolean;
   onClear: () => void;
   onDevBatch: () => void;
   onEnqueueQuiz: () => void;
-  onReadyToCurating: () => void;
-  onInProgressToQueued: () => void;
-  onReadyToQueued: () => void;
+  onReturnToSource: () => void;
 }) {
   return (
     <div
@@ -1688,48 +1514,19 @@ function BulkActionToolbar({
           )}
         </button>
 
-        {/* 1) 검토대기 → 처리중 (한 단계만 rollback, draft 단어장 삭제) */}
-        <ToolbarBtn
-          icon={<CornerUpLeft size={12} aria-hidden />}
-          label="검토대기 → 처리중"
-          count={readyCount}
-          disabled={pending || readyCount === 0}
-          pending={pending}
-          onClick={onReadyToCurating}
-          title={
-            readyCount === 0
-              ? '선택한 도서 중 검토대기 상태가 없습니다'
-              : `검토대기 ${readyCount}권 → 처리중 (draft 챕터 단어장 삭제 · 추출/챕터 보존)`
-          }
-        />
-
-        {/* 2) 처리중 → 소스 GET (library_books DELETE → BulkFetchTab 복귀) */}
+        {/* 소스로 되돌리기 (삭제) — 처리중 ∪ 검토대기 선택분을 library_books DELETE → BulkFetchTab 복귀.
+            (이전 '처리중→소스GET' + '검토대기→소스GET' 두 버튼이 동일 RPC 라 통합.) */}
         <ToolbarBtn
           icon={<RotateCcw size={12} aria-hidden />}
-          label="처리중 → 소스 GET"
-          count={inProgressCount}
-          disabled={pending || inProgressCount === 0}
+          label="소스로 되돌리기 (삭제)"
+          count={returnToSourceCount}
+          disabled={pending || returnToSourceCount === 0}
           pending={pending}
-          onClick={onInProgressToQueued}
+          onClick={onReturnToSource}
           title={
-            inProgressCount === 0
-              ? '선택한 도서 중 처리중 상태가 없습니다'
-              : `처리중 ${inProgressCount}권 → library_books DELETE → BulkFetchTab 에서 재 fetch 가능`
-          }
-        />
-
-        {/* 3) 검토대기 → 소스 GET (2와 동일 RPC, ready 도 자격) */}
-        <ToolbarBtn
-          icon={<RotateCcw size={12} aria-hidden />}
-          label="검토대기 → 소스 GET"
-          count={readyCount}
-          disabled={pending || readyCount === 0}
-          pending={pending}
-          onClick={onReadyToQueued}
-          title={
-            readyCount === 0
-              ? '선택한 도서 중 검토대기 상태가 없습니다'
-              : `검토대기 ${readyCount}권 → library_books DELETE → BulkFetchTab 에서 재 fetch 가능`
+            returnToSourceCount === 0
+              ? '선택한 도서 중 처리중/검토대기 상태가 없습니다'
+              : `처리중 ${inProgressCount} + 검토대기 ${readyCount} = ${returnToSourceCount}권 → library_books DELETE → BulkFetchTab 에서 재 fetch 가능 (게시/사용자 진도 있는 도서는 자동 스킵)`
           }
         />
 
@@ -1758,6 +1555,7 @@ function DrainBanner({
   onStop,
   onRestart,
   onDismiss,
+  onViewResults,
 }: {
   state: {
     running: boolean;
@@ -1776,6 +1574,8 @@ function DrainBanner({
   onStop: () => void;
   onRestart: () => void;
   onDismiss: () => void;
+  /** 완료(성공 ≥1권) 시 결과(검토 대기)로 점프 — 완료를 다음 행동으로 연결. */
+  onViewResults?: () => void;
 }) {
   // tick 변경마다 재계산 — 실행 중 1초마다 갱신
   void tick;
@@ -1804,7 +1604,9 @@ function DrainBanner({
     headline = state.failed > 0
       ? `✓ ${label} 완료 (일부 실패) — ${elapsedStr}`
       : `✓ ${label} 완료 — ${elapsedStr}`;
-    detail = `${state.succeeded}권 성공 · ${state.failed}권 실패 · ${state.round}회${mapSummary}`;
+    detail =
+      `${state.succeeded}권 성공${state.failed > 0 ? ` · ${state.failed}권 실패` : ''} · ${state.round}회${mapSummary}` +
+      (state.succeeded > 0 ? ' · 검토 대기로 이동됨' : '');
   } else if (state.finishedAt === 'stopped') {
     tone = 'warning';
     headline = `⏸ 사용자 중지 — ${elapsedStr}`;
@@ -1862,6 +1664,18 @@ function DrainBanner({
           </button>
         ) : (
           <>
+            {onViewResults && state.finishedAt === 'empty' && state.succeeded > 0 && (
+              <button
+                type="button"
+                onClick={onViewResults}
+                title="방금 처리된 도서(검토 대기)로 이동해 검수를 시작하세요"
+                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
+                style={{ background: c.fg }}
+              >
+                검토 대기 보기
+                <ChevronRight size={13} aria-hidden />
+              </button>
+            )}
             {state.remaining > 0 && (
               <button
                 type="button"
