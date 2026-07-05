@@ -68,15 +68,22 @@ export function VocabSetPreviewModal({
     }
   }, [set])
 
-  // Esc / focus
+  // Esc / body scroll lock / focus 관리 (열 때 트리거 저장 → 닫을 때 복원)
   useEffect(() => {
     if (!set) return
+    const prevActive = document.activeElement as HTMLElement | null
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKey)
     dialogRef.current?.focus()
-    return () => document.removeEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+      prevActive?.focus()
+    }
   }, [set, onClose])
 
   if (!set) return null

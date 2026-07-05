@@ -230,7 +230,10 @@ interface NavLinkItemProps {
 }
 
 function NavLinkItem({ item, pathname, collapsed, accent }: NavLinkItemProps) {
-  const isActive = pathname === item.href
+  // 하위 라우트(/wordvault/study·review 등)에서도 부모 항목 활성 유지.
+  const isActive =
+    pathname === item.href ||
+    (item.href !== '/' && pathname.startsWith(item.href + '/'))
   const Icon: LucideIcon = item.icon
   const accentColor = accent ?? 'var(--p)'
 

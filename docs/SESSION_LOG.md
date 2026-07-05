@@ -16,12 +16,16 @@
 
 **작업**: 플랫폼 전체 "진입 → 닫기(돌아가기) → 제자리 복귀" 네비게이션 오류 점검 & 수정
 **브랜치**: `feat/plan-ui`
-**상태**: ✅ **P0+P1 8건 수정·tsc 통과·커밋(v06.135)** · 🔜 **P2 7건 남음**
+**상태**: ✅ **감사 15건 전량 수정·tsc 통과·커밋 완료** (P0+P1=`f98c918` v06.135 / P2=별도 커밋)
 
-- 5개 영역별 감사 에이전트 완료 → 확정 버그 **15건** (아래 2026-07-05 표).
-- **P0+P1 8건 적용 완료** (#1~#8): Plan/홈 `?from` · SpellForge/Flashcard 404 반환링크 · GlobalBodyReset 스크롤락 · WordBlitz 나가기 · Dictation back 가드 · ACP stage · AdminSidebar. `apps/web` `tsc --noEmit` 통과. 신규 `lib/layout/session-return.ts`. CHANGELOG v06.135 + CONVENTIONS "세션 제자리 복귀" 규약 추가.
-- **다음 세션 이어서 → P2 7건** (표 #9~#15): 메인 Sidebar 하이라이트 · WordVaultBrowse `?from` 유실 · 구독 토스트 · focus 미복원 5모달 · VocabSet 스크롤락 · Type/Voice 팝오버 Esc · Diagnostic 닫기. 각각 저심각도(a11y/일관성/UX), 독립적이라 순서 무관.
-- working tree 기존 M 파일(MyLibraryTab.tsx, ADMIN_CONSOLE.md, LIBRARY_PIPELINE.md)은 이번 작업과 무관 — 커밋에서 제외함.
+- 5개 영역별 감사 에이전트 완료 → 확정 버그 **15건** (아래 2026-07-05 표) **전량 수정 완료**.
+- **P0+P1 8건** (#1~#8, 커밋 `f98c918` v06.135): Plan/홈 `?from` · SpellForge/Flashcard 404 반환링크 · GlobalBodyReset 스크롤락 · WordBlitz 나가기 · Dictation back 가드 · ACP stage · AdminSidebar. 신규 `lib/layout/session-return.ts`. CHANGELOG v06.135 + CONVENTIONS "세션 제자리 복귀" 규약.
+- **P2 7건** (#9~#15, 별도 커밋): 메인 Sidebar 하이라이트 · WordVaultBrowse `?from` 유지 · 구독 토스트 `?from` · focus 미복원 5모달 · VocabSet 스크롤락 · Type/Voice 팝오버 Esc · Diagnostic "그만두기". `tsc --noEmit` 통과.
+- ⚠️ **CHANGELOG P2 항목 미기재** — 커밋 시점 다른 세션이 CHANGELOG를 동시 편집(v06.136 growth-stats · v06.137 ACP) 중이라 entangle 방지 위해 보류. 브랜치 정착 후 v06.138+ 로 P2 한 줄 추가 필요(TODO).
+- ⚠️ **동시 편집 세션 감지** — growth-stats(dashboard/FlowNav/layout) + ACP(enqueue/migration/scripts/acp/database.ts) 작업이 병행 중. 내 커밋은 매번 **내 파일만 명시 스테이징**해 분리(무관 파일 unstaged 유지).
+- 기존 무관 M 파일(MyLibraryTab.tsx, ADMIN_CONSOLE.md, LIBRARY_PIPELINE.md)도 커밋 제외.
+
+**다음 세션 TODO**: (1) CHANGELOG에 P2 한 줄(v06.138+) 추가 · (2) 필요 시 `next build` 전체 검증 · (3) 감사 노트의 경미 항목(ContextBar dead-code, ScriptQuiz `/library` 하드코딩, PairFlip 결과 복귀 부재)은 선택 정리.
 
 ---
 

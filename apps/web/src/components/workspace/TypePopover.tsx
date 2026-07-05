@@ -40,8 +40,15 @@ export function TypePopover({ onClose }: TypePopoverProps) {
         onClose()
       }
     }
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
     setTimeout(() => document.addEventListener('mousedown', handleClickOutside), 0)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKey)
+    }
   }, [onClose])
 
   return (
