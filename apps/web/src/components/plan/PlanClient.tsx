@@ -432,6 +432,14 @@ export function PlanClient({
                           editId={editId}
                           onPick={pickMaterial}
                         />
+                      ) : activeTab === 'article' ? (
+                        <ArticleFeedGroups
+                          items={g.items}
+                          addedByKey={addedByKey}
+                          draftOptionId={draft?.option.id ?? null}
+                          editId={editId}
+                          onPick={pickMaterial}
+                        />
                       ) : (
                         <ul className="flex flex-col gap-1.5">
                           {g.items.map((m) => {
@@ -1148,6 +1156,72 @@ function WordSetBookGroups({
               )
             })}
           </ul>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// 스크립트(article) — 소스 하위 '프로그램(feed)' 헤더 + 컨텐츠 행 (소스 → 프로그램 → 컨텐츠).
+//   feed 없는 소스(프로그램 라벨 전무)는 헤더 없이 flat 리스트.
+function ArticleFeedGroups({
+  items,
+  addedByKey,
+  draftOptionId,
+  editId,
+  onPick,
+}: {
+  items: MaterialOption[]
+  addedByKey: Map<string, PlanItem>
+  draftOptionId: string | null
+  editId: string | null
+  onPick: (m: MaterialOption) => void
+}) {
+  const NONE = '__none__'
+  const byFeed = new Map<string, MaterialOption[]>()
+  for (const m of items) {
+    const k = m.feedLabel ?? NONE
+    if (!byFeed.has(k)) byFeed.set(k, [])
+    byFeed.get(k)!.push(m)
+  }
+  const named = Array.from(byFeed.keys())
+    .filter((k) => k !== NONE)
+    .sort((a, b) => a.localeCompare(b))
+  const ordered = [...named, ...(byFeed.has(NONE) ? [NONE] : [])]
+
+  const row = (m: MaterialOption) => {
+    const added = addedByKey.get(`article:${m.id}`)
+    return (
+      <MaterialRow
+        key={m.id}
+        m={m}
+        type="article"
+        picked={draftOptionId === m.id}
+        added={!!added}
+        editing={!!added && editId === added.id}
+        onPick={() => onPick(m)}
+      />
+    )
+  }
+
+  // 프로그램 없는 소스(named feed 0) → 헤더 없이 flat
+  if (named.length === 0) {
+    return <ul className="flex flex-col gap-1.5">{items.map(row)}</ul>
+  }
+
+  return (
+    <div className="flex flex-col gap-2.5">
+      {ordered.map((k) => (
+        <div key={k} className="flex flex-col gap-1">
+          <div className="flex items-center gap-1.5">
+            <Newspaper size={11} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
+            <h4 className="truncate font-display text-[11px] font-[800] text-[var(--t2)]">
+              {k === NONE ? '기타' : k}
+            </h4>
+            <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">{byFeed.get(k)!.length}</span>
+            <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
+          </div>
+          <ul className="flex flex-col gap-1">{byFeed.get(k)!.map(row)}</ul>
         </div>
       ))}
     </div>

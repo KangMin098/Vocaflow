@@ -72,6 +72,8 @@ export interface MaterialOption {
   bookId: string | null
   /** 챕터 종속 단어장 — 챕터 번호 (챕터순 정렬/표시용) */
   chapterIdx: number | null
+  /** 스크립트(article) 프로그램/시리즈 (예: VOA "As It Is (Level 2)") — 소스 하위 분류용 */
+  feedLabel: string | null
 }
 
 export interface AvailableMaterials {
@@ -104,6 +106,7 @@ interface ArticleRow {
   source: string | null
   article_v_level: number | null
   word_count: number | null
+  feed_label: string | null
 }
 interface ScriptRow {
   id: string
@@ -259,6 +262,7 @@ function mkOption(over: Partial<MaterialOption> & { id: string; title: string })
     chapterCount: 0,
     bookId: null,
     chapterIdx: null,
+    feedLabel: null,
     ...over,
   }
 }
@@ -292,7 +296,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       .limit(300),
     lc
       .from('library_articles')
-      .select('id, title, author, source, article_v_level, word_count')
+      .select('id, title, author, source, article_v_level, word_count, feed_label')
       .eq('status', 'published')
       .eq('copyright_safe_in_kr', true)
       .order('published_at', { ascending: false, nullsFirst: false })
@@ -329,6 +333,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
         subtitle: articleSourceLabel(a.source),
         vLevel: a.article_v_level ?? null,
         source: a.source ?? null,
+        feedLabel: a.feed_label ?? null,
       }),
     ),
     wordSets: ((sets ?? []) as SetRow[])

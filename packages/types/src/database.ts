@@ -1071,6 +1071,8 @@ export type Database = {
           copyright_safe_in_kr: boolean
           created_at: string
           display_only: boolean
+          feed_id: string | null
+          feed_label: string | null
           id: string
           language: string
           lexical_noise: number | null
@@ -1104,6 +1106,8 @@ export type Database = {
           copyright_safe_in_kr?: boolean
           created_at?: string
           display_only?: boolean
+          feed_id?: string | null
+          feed_label?: string | null
           id?: string
           language?: string
           lexical_noise?: number | null
@@ -1137,6 +1141,8 @@ export type Database = {
           copyright_safe_in_kr?: boolean
           created_at?: string
           display_only?: boolean
+          feed_id?: string | null
+          feed_label?: string | null
           id?: string
           language?: string
           lexical_noise?: number | null

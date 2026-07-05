@@ -123,6 +123,16 @@ export async function POST(request: Request): Promise<NextResponse> {
       ) => Promise<{ data: unknown; error: { message: string } | null }>
     }
 
+    // feed_label 승계 — 시드(library_article_seed_catalog)에서 프로그램/시리즈 라벨 조회.
+    //   picker '소스 → 프로그램 → 컨텐츠' 하위 분류의 근거 (v06.135).
+    const { data: seedRow } = await supabase
+      .from('library_article_seed_catalog')
+      .select('feed_label')
+      .eq('source', article.source)
+      .eq('source_url', article.source_url)
+      .maybeSingle()
+    const feedLabel = (seedRow as { feed_label: string | null } | null)?.feed_label ?? null
+
     const { data, error } = await sb.rpc('admin_enqueue_article', {
       p_source: article.source,
       p_source_id: article.source_id,
@@ -138,6 +148,9 @@ export async function POST(request: Request): Promise<NextResponse> {
       p_content: article.content,
       // v06.45 — audio_url (LCP librivox_audio 와 동일 연계). VOA = 학습 정체성으로 거의 100% 존재.
       p_audio_url: article.audio_url ?? null,
+      // v06.135 — 프로그램(feed) 라벨 승계 (picker 소스 하위 분류)
+      p_feed_id: body.feed_id ?? null,
+      p_feed_label: feedLabel,
     })
 
     if (error) {
