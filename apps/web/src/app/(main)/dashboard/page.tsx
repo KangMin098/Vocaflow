@@ -15,6 +15,7 @@ import { ManageSection } from '@/components/dashboard/ManageSection'
 import { MemoryStatus } from '@/components/dashboard/MemoryStatus'
 import { RecentActivity } from '@/components/dashboard/RecentActivity'
 import { WeeklyHeatmap } from '@/components/dashboard/WeeklyHeatmap'
+import { fetchGrowthStats } from '@/lib/learner/growth-stats'
 import { fetchManageOverview } from '@/lib/learner/manage-overview'
 
 function kstDateLabel(): string {
@@ -27,7 +28,7 @@ function kstDateLabel(): string {
 }
 
 export default async function DashboardPage() {
-  const overview = await fetchManageOverview()
+  const [overview, growth] = await Promise.all([fetchManageOverview(), fetchGrowthStats()])
 
   if (!overview) {
     return (
@@ -77,11 +78,16 @@ export default async function DashboardPage() {
           </div>
         </header>
 
-        {/* 2. 기억 4상태 */}
-        <MemoryStatus />
+        {/* 2. 기억 4상태 — vocabularies R(t) 동적 계산 (growth-stats) */}
+        <MemoryStatus
+          stable={growth?.memory.stable ?? 0}
+          shaky={growth?.memory.shaky ?? 0}
+          risk={growth?.memory.risk ?? 0}
+          fresh={growth?.memory.fresh ?? 0}
+        />
 
-        {/* 3. 28일 활동 + 연속 */}
-        <WeeklyHeatmap />
+        {/* 3. 28일 활동 + 연속 — daily_activity 실데이터 */}
+        <WeeklyHeatmap days={growth?.days28} />
 
         {/* 4. 학습 관리 (진단·계획·리포트) — /manage 흡수 */}
         <ManageSection overview={overview} />

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f98c918` fix(nav): 세션·모달·어드민 "진입→닫기→제자리" 복귀 오류 P0+P1 8건 (v06.135)
 - `28f5c59` feat(plan): 자료 고르기 picker 일관화 + 공용단어장 챕터 표시 (v06.134)
 - `1e11e0a` feat(plan): 주간 보드 빈 날 압축 + 카드형 정리 (v06.132)
 - `8938e28` docs(scriptquiz): Pinocchio 챕터 퀴즈 드레인 완결 기록 (v06.133)
 - `a74fe39` fix(auth): 소셜 로그인 버튼 제거 — provider 전원 미설정 (v06.130)
-- `eb62f55` chore(dict): classified_by CHECK 허용값 확장 — opus_4_8 + fable_5
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
