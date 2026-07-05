@@ -137,15 +137,10 @@ export function PlanClient({
     )
     groups = keys.map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
   } else if (activeTab === 'word_set') {
-    const order = ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article']
+    // 도서 챕터 세트는 'library_book' 카테고리 1개로 묶고(레일 정리) 우측에서 책별 하위그룹으로 편다.
+    const order = ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article', 'library_book']
     const byCat = new Map<string, MaterialOption[]>()
-    const byBook = new Map<string, MaterialOption[]>()
     for (const c of candidates) {
-      if (c.category === 'library_book' && c.bookId) {
-        if (!byBook.has(c.bookId)) byBook.set(c.bookId, [])
-        byBook.get(c.bookId)!.push(c)
-        continue
-      }
       const k = c.category ?? 'etc'
       if (!byCat.has(k)) byCat.set(k, [])
       byCat.get(k)!.push(c)
@@ -153,19 +148,20 @@ export function PlanClient({
     const catKeys = Array.from(byCat.keys()).sort(
       (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99),
     )
-    // 도서 챕터 단어장 — 책별 그룹, 각 그룹 안은 챕터 순
-    const bookGroups: PickerGroup[] = Array.from(byBook.entries())
-      .map(([bid, its]) => ({
-        key: `book:${bid}`,
-        label: bookTitleById.get(bid) ?? its[0]!.title.split(' — ')[0] ?? '도서',
-        short: '챕터',
-        items: its.slice().sort((a, b) => (a.chapterIdx ?? 0) - (b.chapterIdx ?? 0)),
-      }))
-      .sort((a, b) => a.label.localeCompare(b.label))
-    groups = [
-      ...catKeys.map((k) => ({ key: k, label: wordsetCategoryLabel(k), items: byCat.get(k)! })),
-      ...bookGroups,
-    ]
+    groups = catKeys.map((k) => ({
+      key: k,
+      label: wordsetCategoryLabel(k),
+      short: k === 'library_book' ? '책·챕터' : undefined,
+      // 도서 챕터: 책 제목 → 챕터 순 정렬(우측 책별 하위그룹이 연속되도록)
+      items:
+        k === 'library_book'
+          ? byCat.get(k)!.slice().sort((a, b) => {
+              const ta = bookTitleById.get(a.bookId ?? '') ?? a.title
+              const tb = bookTitleById.get(b.bookId ?? '') ?? b.title
+              return ta.localeCompare(tb) || (Number(a.chapterIdx) || 0) - (Number(b.chapterIdx) || 0)
+            })
+          : byCat.get(k)!,
+    }))
   } else {
     const bands: PickerGroup[] = [
       ...V_BANDS.map((b) => ({ key: b.key as string, label: b.label, short: b.short, items: [] as MaterialOption[] })),
@@ -427,22 +423,15 @@ export function PlanClient({
                         <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
                         <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                       </div>
-                      {activeTab === 'book' ? (
-                        <div className="grid grid-cols-3 gap-2">
-                          {g.items.map((m) => {
-                            const added = addedByKey.get(`${activeTab}:${m.id}`)
-                            return (
-                              <BookGridItem
-                                key={m.id}
-                                m={m}
-                                picked={draft?.option.id === m.id}
-                                added={!!added}
-                                editing={!!added && editId === added.id}
-                                onPick={() => pickMaterial(m)}
-                              />
-                            )
-                          })}
-                        </div>
+                      {activeTab === 'word_set' && g.key === 'library_book' ? (
+                        <WordSetBookGroups
+                          items={g.items}
+                          bookTitleById={bookTitleById}
+                          addedByKey={addedByKey}
+                          draftOptionId={draft?.option.id ?? null}
+                          editId={editId}
+                          onPick={pickMaterial}
+                        />
                       ) : (
                         <ul className="flex flex-col gap-1.5">
                           {g.items.map((m) => {
@@ -452,11 +441,6 @@ export function PlanClient({
                                 key={m.id}
                                 m={m}
                                 type={activeTab}
-                                displayTitle={
-                                  g.key.startsWith('book:') && m.chapterIdx != null
-                                    ? `${m.chapterIdx}장 단어`
-                                    : undefined
-                                }
                                 picked={draft?.option.id === m.id}
                                 added={!!added}
                                 editing={!!added && editId === added.id}
@@ -1108,49 +1092,65 @@ function Cover({ url, title, className }: { url: string | null; title: string; c
   )
 }
 
-function BookGridItem({
-  m,
-  picked,
-  added,
-  editing,
+// 공용단어장 '도서 챕터' 카테고리 — 책 하위헤더 + 챕터('N장') 행. 챕터 발견성 보장.
+//   items 는 이미 책 제목 → 챕터 순 정렬됨(연속 하위그룹).
+function WordSetBookGroups({
+  items,
+  bookTitleById,
+  addedByKey,
+  draftOptionId,
+  editId,
   onPick,
 }: {
-  m: MaterialOption
-  picked: boolean
-  /** 이미 계획에 담긴 자료 — 클릭하면 그 항목 편집으로 */
-  added?: boolean
-  editing?: boolean
-  onPick: () => void
+  items: MaterialOption[]
+  bookTitleById: Map<string, string>
+  addedByKey: Map<string, PlanItem>
+  draftOptionId: string | null
+  editId: string | null
+  onPick: (m: MaterialOption) => void
 }) {
-  const active = picked || editing
+  const byBook: { bid: string; label: string; sets: MaterialOption[] }[] = []
+  for (const m of items) {
+    const bid = m.bookId ?? m.id
+    const last = byBook[byBook.length - 1]
+    if (last && last.bid === bid) last.sets.push(m)
+    else
+      byBook.push({
+        bid,
+        label: bookTitleById.get(m.bookId ?? '') ?? m.title.split(' — ')[0] ?? '도서',
+        sets: [m],
+      })
+  }
   return (
-    <button
-      type="button"
-      onClick={onPick}
-      aria-pressed={active}
-      title={added ? `${m.title} — 계획에 담김 (클릭해 챕터·활동 수정)` : m.title}
-      className={`group flex flex-col gap-1 rounded-[var(--r-md)] border p-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        active ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-transparent hover:border-[var(--bd)]'
-      }`}
-    >
-      <span className="relative block aspect-[2/3] w-full overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
-        <Cover url={m.coverUrl} title={m.title} className="h-full w-full transition-transform duration-[var(--dur-normal)] group-hover:scale-[1.04]" />
-        {(picked || added) && (
-          <span
-            className={`absolute right-1 top-1 inline-flex items-center gap-0.5 rounded-full px-1 py-0.5 text-[var(--ti)] ${
-              picked || editing ? 'bg-[var(--p)]' : 'bg-[var(--p)]/85'
-            }`}
-            aria-hidden
-          >
-            <Check size={10} strokeWidth={3} />
-            {added && !picked && <span className="font-display text-[8px] font-[800] leading-none">담김</span>}
-          </span>
-        )}
-      </span>
-      <span className="line-clamp-2 px-0.5 font-display text-[10px] font-[700] leading-tight text-[var(--t1)]">
-        {m.title}
-      </span>
-    </button>
+    <div className="flex flex-col gap-2.5">
+      {byBook.map((bk) => (
+        <div key={bk.bid} className="flex flex-col gap-1">
+          <div className="flex items-center gap-1.5">
+            <BookMarked size={11} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
+            <h4 className="truncate font-display text-[11px] font-[800] text-[var(--t2)]">{bk.label}</h4>
+            <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">챕터 {bk.sets.length}</span>
+            <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
+          </div>
+          <ul className="flex flex-col gap-1">
+            {bk.sets.map((m) => {
+              const added = addedByKey.get(`word_set:${m.id}`)
+              return (
+                <MaterialRow
+                  key={m.id}
+                  m={m}
+                  type="word_set"
+                  displayTitle={m.chapterIdx != null ? `${m.chapterIdx}장` : undefined}
+                  picked={draftOptionId === m.id}
+                  added={!!added}
+                  editing={!!added && editId === added.id}
+                  onPick={() => onPick(m)}
+                />
+              )
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -1214,6 +1214,16 @@ function MaterialRow({
 }
 
 function MaterialBadge({ type, m }: { type: MaterialType; m: MaterialOption }) {
+  // 도서는 작은 표지 썸네일 — 리스트형 통일 시에도 표지 시각 단서 유지(2:3 비율).
+  if (type === 'book') {
+    return (
+      <Cover
+        url={m.coverUrl}
+        title={m.title}
+        className="h-10 w-7 shrink-0 rounded-[var(--r-sm)] border border-[var(--bd)]"
+      />
+    )
+  }
   if (type === 'word_set' && m.coverEmoji) {
     return (
       <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg)] text-[16px]" aria-hidden>

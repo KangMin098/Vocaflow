@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /plan 자료 고르기 picker 일관화 + 공용단어장 챕터 표시 (v06.134)
+
+`/plan` 자료 고르기([PlanClient.tsx](../apps/web/src/components/plan/PlanClient.tsx))의 4탭 분류 구조 통일 + 도서 챕터 단어장 발견성 개선.
+
+- **도서 리스트 통일** — 도서만 커버 그리드였던 것을 다른 3탭(스크립트·공용단어장·내 스크립트)과 동일한 리스트 행으로. 작은 표지 썸네일 + 저자 + **V레벨 배지**. 4탭 모두 좌=분류 레일 / 우=그룹 리스트의 동일 master-detail. (`BookGridItem` 제거)
+- **공용단어장 도서 챕터** — 흩어져 있던 책별 레일 ~15개를 **`도서 챕터` 카테고리 1개**로 통합. 우측에서 책 하위헤더(`챕터 N개`) + 각 챕터 `N장` 행으로 펼쳐(`WordSetBookGroups` 신규) 챕터 발견성 보장. (데이터: 발행 세트 260개 전부 book_id+chapter_idx 보유 확인)
+- 분류 축: 도서=V레벨 밴드 · 스크립트(article)=소스 · 공용단어장=카테고리(도서 챕터 포함) · 내 스크립트=V레벨.
+- 검증: `tsc --noEmit` 통과(0 오류).
+
 ### Pinocchio 챕터 퀴즈 드레인 완결 — 36챕터 252문항 (v06.133)
 
 퀴즈 게이트(v06.129) 후속: published 6권 중 퀴즈 0이던 3권(Pinocchio·Decline·Twenty Years After) 가운데 서사 최소 규모 **Pinocchio 전량 드레인** (Claude Code 본문 정독 생성, content_chunks→`library_chapter_quiz`).

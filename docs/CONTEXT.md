@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `1e11e0a` feat(plan): 주간 보드 빈 날 압축 + 카드형 정리 (v06.132)
 - `8938e28` docs(scriptquiz): Pinocchio 챕터 퀴즈 드레인 완결 기록 (v06.133)
 - `a74fe39` fix(auth): 소셜 로그인 버튼 제거 — provider 전원 미설정 (v06.130)
 - `eb62f55` chore(dict): classified_by CHECK 허용값 확장 — opus_4_8 + fable_5
 - `621f709` feat(curation): 퀴즈 카탈로그 노출 게이트 + book_iplus1 6th tier (v06.129)
-- `bde8fff` docs(curation): 큐레이션 4축 심층 점검 결과 기록 (v06.128)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
