@@ -609,51 +609,43 @@ function WeekBoard({
   onSelect: (item: PlanItem) => void
 }) {
   const unscheduled = items.filter((i) => i.weekdays.length === 0)
+  const plannedDays = WEEKDAYS.filter((d) => items.some((i) => i.weekdays.includes(d.value))).length
   return (
     <section
       aria-label="주간 보드"
-      className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-3"
+      className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
     >
-      {/* 아젠다형: 요일=행 — 좁은 칸 대신 가로 폭 전체로 계획 디테일(표지·제목·챕터·활동)을 보여준다 */}
+      {/* 헤더 — 오늘의 학습·컴포저와 동일한 섹션 리듬 */}
+      <div className="flex items-center gap-1.5 px-0.5">
+        <CalendarDays size={14} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
+        <h2 className="font-display text-[13px] font-[800] text-[var(--t1)]">주간 보드</h2>
+        <span className="font-mono text-[11px] text-[var(--t3)]">
+          {plannedDays > 0 ? `이번 주 ${plannedDays}일 계획` : '요일에 자료를 배치해요'}
+        </span>
+      </div>
+
+      {/* 아젠다형: 요일=행. 계획 있는 날=카드로 도드라지고, 빈 날은 얇게 눌러 세로 공간 절약 */}
       <div className="flex flex-col gap-1">
         {WEEKDAYS.map((d) => {
           const dayItems = items.filter((i) => i.weekdays.includes(d.value))
           const isToday = d.value === today
+          const empty = dayItems.length === 0
           return (
             <div
               key={d.value}
-              className={`flex items-stretch gap-2 rounded-[var(--r-md)] p-1.5 ${
-                isToday ? 'bg-[var(--bg)] ring-2 ring-[var(--p)]' : 'bg-[var(--bg)]'
-              }`}
+              className={`flex items-stretch gap-2 rounded-[var(--r-md)] px-1.5 transition-colors duration-[var(--dur-normal)] ${
+                empty ? 'py-1' : 'bg-[var(--bg)] py-1.5 shadow-[var(--sh-xs)]'
+              } ${isToday ? 'ring-1 ring-[var(--p)]' : ''}`}
             >
-              <div
-                className={`flex w-[52px] shrink-0 flex-col items-center justify-center rounded-[var(--r-sm)] py-1 ${
-                  isToday ? 'bg-[var(--p-light)]' : 'bg-[var(--bg2)]'
-                }`}
-              >
-                <span
-                  className={`font-display text-[14px] font-[800] leading-tight ${
-                    isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
-                  }`}
-                >
-                  {d.label}
-                </span>
-                <span
-                  className={`font-mono text-[10px] tabular-nums ${
-                    isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
-                  }`}
-                >
-                  {weekDates[d.value - 1]}
-                </span>
-                {isToday && (
-                  <span className="font-display text-[8px] font-[800] text-[var(--p)]">오늘</span>
-                )}
-              </div>
+              <WeekDayCell
+                label={d.label}
+                date={weekDates[d.value - 1] ?? ''}
+                isToday={isToday}
+                dim={empty}
+              />
               <div className="flex min-w-0 flex-1 flex-col justify-center gap-1">
-                {dayItems.length === 0 ? (
-                  <span className="px-1 font-mono text-[12px] text-[var(--t3)]" aria-hidden>
-                    ·
-                  </span>
+                {empty ? (
+                  <span className="font-body text-[11px] italic text-[var(--t4)]">비어 있음</span>
                 ) : (
                   dayItems.map((it) => (
                     <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
@@ -666,7 +658,7 @@ function WeekBoard({
       </div>
 
       {unscheduled.length > 0 && (
-        <div className="flex flex-col gap-1 border-t border-[rgba(59,130,246,0.2)] pt-2">
+        <div className="flex flex-col gap-1 border-t border-[var(--bd)] pt-2">
           <p className="font-body text-[11px] text-[var(--t3)]">
             <span className="font-display font-[700] text-[var(--t2)]">요일 미정</span> — 아직 요일을 안 정한
             계획이에요. 눌러서 요일을 고르면 위 보드에 배치돼요.
@@ -679,6 +671,48 @@ function WeekBoard({
         </div>
       )}
     </section>
+  )
+}
+
+// 주간 보드 요일 셀 — 요일·날짜 2줄(오늘은 라벨 추가). 빈 날(dim)은 배경 없이 눌러 표시.
+//   오늘 강조는 ring(형태)+색+"오늘" 텍스트 3중 — 색상 단독 전달 금지(색맹 대응).
+function WeekDayCell({
+  label,
+  date,
+  isToday,
+  dim,
+}: {
+  label: string
+  date: string
+  isToday: boolean
+  dim: boolean
+}) {
+  return (
+    <div
+      className={`flex w-[46px] shrink-0 flex-col items-center justify-center rounded-[var(--r-sm)] px-1 py-0.5 ${
+        isToday ? 'bg-[var(--p-light)]' : dim ? 'bg-transparent' : 'bg-[var(--bg2)]'
+      }`}
+    >
+      <span
+        className={`font-display text-[13px] font-[800] leading-tight ${
+          isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+        }`}
+      >
+        {label}
+      </span>
+      <span
+        className={`font-mono text-[9.5px] leading-tight tabular-nums ${
+          isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+        }`}
+      >
+        {date}
+      </span>
+      {isToday && (
+        <span className="mt-0.5 font-display text-[7.5px] font-[800] leading-none text-[var(--p)]">
+          오늘
+        </span>
+      )}
+    </div>
   )
 }
 
