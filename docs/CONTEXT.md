@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `4d5ce5a` refactor(curation): Curated Books 프로세스 통합·정리 + 완료 UX·새로고침
 - `56cb8de` fix(nav): "진입→닫기→제자리" 감사 P2 폴리시 7건 (v06.135 후속)
 - `2032895` feat(acp): 스크립트 소스→프로그램→컨텐츠 + VOA 30편 발행 (v06.137)
 - `eda3460` fix(learner): 전역 셸 목업 수치 실데이터화 — 런타임 검증 결함 수리 (v06.136)
 - `f98c918` fix(nav): 세션·모달·어드민 "진입→닫기→제자리" 복귀 오류 P0+P1 8건 (v06.135)
-- `28f5c59` feat(plan): 자료 고르기 picker 일관화 + 공용단어장 챕터 표시 (v06.134)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

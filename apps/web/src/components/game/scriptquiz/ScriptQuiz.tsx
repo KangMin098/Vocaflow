@@ -9,12 +9,14 @@
 
 import { ArrowLeft, ArrowRight, BookOpen, Clock, Play, RefreshCw, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import { MOCK_SESSION } from './mock-data'
 import type { AnswerState, QuizAnswer, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import type { RecommendedAction } from '@/lib/recommend/types'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
@@ -247,6 +249,8 @@ function StartScreen({
   session: QuizSession
   onStart: () => void
 }) {
+  // 닫기: ?from(계획/워크스페이스 진입) 우선, 없으면 ScriptQuiz 허브 (라이브러리 하드코딩 제거).
+  const backHref = sanitizeInternalPath(useSearchParams()?.get('from')) ?? '/scriptquiz'
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-12 text-center">
       {/* QUIZ 로고 */}
@@ -317,11 +321,11 @@ function StartScreen({
       </button>
 
       <Link
-        href="/library"
+        href={backHref}
         className="mt-4 inline-flex items-center gap-1 font-display text-[13px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
       >
         <ArrowLeft size={13} aria-hidden />
-        라이브러리로
+        돌아가기
       </Link>
     </div>
   )
