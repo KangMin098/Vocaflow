@@ -81,7 +81,7 @@
 | 버튼 | RPC / 엔드포인트 | 효과 |
 |---|---|---|
 | **Dev 일괄 처리** | `/api/lcp/dev-process` (순차) | 처리중+검토대기 선택분을 로직 파이프라인으로 dev 처리 — 수집·정규화·분절·분석·추출·V-Level·**LibriVox 자동매핑**까지. 배너에 `🔊 매핑 N · ⏳ 매핑큐 M` 집계 |
-| **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_quiz_jobs` 로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
+| **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_curation_jobs`(`task_type='quiz_gen'` — v06.x 매핑 큐와 통합, 구 `book_quiz_jobs` DROP)로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
 | **소스로 되돌리기 (삭제)** | `admin_bulk_requeue_books(uuid[])` | 처리중 ∪ 검토대기 선택분 → library_books DELETE → BulkFetchTab 복귀. (구 `처리중→소스GET`+`검토대기→소스GET` 2버튼이 동일 RPC 라 1버튼으로 통합) |
 
 > 통합 정리 (v06.x): 구 `검토대기 → 처리중`(draft 삭제 reclassify) 버튼은 제거 — 재처리(Dev 일괄 처리)로 대체. RPC `admin_bulk_set_books_curating` 자체는 DB 에 잔존.

@@ -220,6 +220,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           .from('book_curation_jobs')
           .delete()
           .eq('book_id', book_id)
+          .eq('task_type', 'voice_map')
           .in('status', ['pending', 'failed'])
       } else if (map.recording_found) {
         // 정합 실패 → 매핑 큐 자동 등록. dev-process 는 service-role(auth.uid 없음)이라
@@ -245,6 +246,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         await client.from('book_curation_jobs').upsert(
           {
             book_id,
+            task_type: 'voice_map',
             mode: jobMode,
             status: 'pending',
             source_chapters: sourceChapters,
@@ -255,7 +257,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             note: `auto: LibriVox 정합 실패 — ${map.reason ?? ''} (실챕터 ${map.real_chapter_count} / LV ${map.lv_chapter_count}, ${map.volume_count}권)`,
             claimed_at: null,
           },
-          { onConflict: 'book_id' },
+          { onConflict: 'book_id,task_type' },
         )
         librivox = 'queued'
       } else {
@@ -265,6 +267,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           .from('book_curation_jobs')
           .delete()
           .eq('book_id', book_id)
+          .eq('task_type', 'voice_map')
           .in('status', ['pending', 'failed'])
       }
     } catch (e) {

@@ -449,6 +449,7 @@ export async function fetchCurationJobs(
   const { data, error } = await client
     .from('book_curation_jobs')
     .select('id, book_id, mode, status, error, note, updated_at')
+    .eq('task_type', 'voice_map') // 퀴즈 통합(v06.x) — 매핑 잡만
     .order('updated_at', { ascending: false })
     .limit(limit)
   if (error) throw new Error(`fetchCurationJobs failed: ${error.message}`)
@@ -490,7 +491,7 @@ export async function fetchCurationJobs(
 }
 
 // ─────────────────────────────────────────────
-// 스크립트 퀴즈 생성 큐 (book_quiz_jobs)
+// 스크립트 퀴즈 생성 큐 (book_curation_jobs · task_type='quiz_gen' — v06.x 통합)
 //   enqueue: ready/published + 챕터 존재 도서. 드레인은 Claude Code 배치(MCP)가
 //   챕터 본문을 읽어 library_chapter_quiz 를 채우고 진행률(chapters_done/questions_created) 갱신.
 // ─────────────────────────────────────────────
@@ -529,10 +530,11 @@ export async function enqueueQuizJobs(
 /** 퀴즈 큐 상태 뷰용 — 최근 작업 N건 + book 제목 (2 쿼리 merge). */
 export async function fetchQuizJobs(client: AdminClient, limit = 100): Promise<QuizJobRow[]> {
   const { data, error } = await client
-    .from('book_quiz_jobs')
+    .from('book_curation_jobs')
     .select(
       'id, book_id, status, book_v_level, target_per_chapter, chapters_total, chapters_done, questions_created, error, note, updated_at',
     )
+    .eq('task_type', 'quiz_gen') // 퀴즈 통합(v06.x) — book_curation_jobs 로 흡수
     .order('updated_at', { ascending: false })
     .limit(limit)
   if (error) throw new Error(`fetchQuizJobs failed: ${error.message}`)
