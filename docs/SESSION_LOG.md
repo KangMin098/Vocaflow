@@ -26,8 +26,11 @@
 
 - **`next build` 검증** (clean `.next` 재빌드): **✓ Compiled successfully** + 내 파일 에러 0 + useSearchParams Suspense 에러 없음. 내 useSearchParams/usePathname 추가는 전부 dynamic 페이지(`/scriptquiz/play`=searchParams prop · articles 콘솔/프리뷰=`requireAdmin` 쿠키+Suspense) → 빌드 안전 확정. **빌드 실패 원인은 동시 세션의 untracked WIP `apps/web/src/app/admin/quality/page.tsx` 미사용 import(`SupabaseClient`) 1건뿐** — 그쪽 미완성 파일이라 미수정. (참고: eslint 에러가 빌드 fail 시킴 = `ignoreDuringBuilds` 미활성.)
 - **ContextBar dead-code 삭제** — `components/workspace/ContextBar.tsx` 삭제(import 0, 주석 참조만) + WorkspaceBookContext stale 주석 정정. `tsc --noEmit` 통과(무영향 확인). 감사 참고항목 종결.
+- **유닛 테스트(vitest)** — `apps/web` 전체 스위트 **99 passed / 0 failed / 3 skipped** (exit 0). 내 nav 변경이 기존 테스트 무회귀. (동시 세션 `admin/quality` 자체 테스트 3개도 통과.)
 
-**다음 세션 TODO(선택)**: (1) 감사 P0~P2 UI 실주행 확인(런타임 미검증) · (2) 동시 세션이 `admin/quality/page.tsx` 커밋하면 브랜치 빌드 재확인(내 코드는 clean).
+**검증 총괄**: tsc(×3) · next build 컴파일 · vitest 99건 = 전부 green. 남은 건 **UI 실주행**(런타임)뿐 — 정적/유닛으로 잡히지 않는 최종 확인.
+
+**다음 세션 TODO(선택)**: (1) 감사 P0~P2 UI 실주행 확인(동시 세션 idle 시 `next dev` 드라이브 or 사용자 환경) · (2) 동시 세션이 `admin/quality/page.tsx` 커밋하면 브랜치 빌드 재확인(내 코드는 clean).
 
 ---
 
