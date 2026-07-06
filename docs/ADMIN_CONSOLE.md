@@ -82,8 +82,10 @@
 |---|---|---|
 | **Dev 일괄 처리** | `/api/lcp/dev-process` (순차) | 처리중+검토대기 선택분을 로직 파이프라인으로 dev 처리 — 수집·정규화·분절·분석·추출·V-Level·**LibriVox 자동매핑**까지. 배너에 `🔊 매핑 N · ⏳ 매핑큐 M` 집계 |
 | **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_curation_jobs`(`task_type='quiz_gen'` — v06.x 매핑 큐와 통합, 구 `book_quiz_jobs` DROP)로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
+| **레벨 검토 큐** (v06.x Phase 1) | `enqueue_review_jobs(uuid[],'level_verify')` | ready/published 선택분을 `book_curation_jobs`(`task_type='level_verify'`)로 적재. Claude Code 드레인(`scripts/lcp/review-book.mjs`)이 본문을 읽어 CEFR/V-Level 재판정 → `result` verdict 기록 + 승인 시(`--correct`) `library_books` 교정. 저신뢰 CEFR(<0.85) 도서 품질 검토용 |
 | **소스로 되돌리기 (삭제)** | `admin_bulk_requeue_books(uuid[])` | 처리중 ∪ 검토대기 선택분 → library_books DELETE → BulkFetchTab 복귀. (구 `처리중→소스GET`+`검토대기→소스GET` 2버튼이 동일 RPC 라 1버튼으로 통합) |
 
+> 드레인 큐 통합 (v06.x): 생성/매핑(quiz_gen·voice_map) + 검토(level_verify·vocab_audit) 를 `book_curation_jobs` 단일 큐 + `DrainQueueBanner` 단일 배너로. `vocab_audit`(어휘 감사)는 스키마만 열림(드레인 헬퍼 후속).
 > 통합 정리 (v06.x): 구 `검토대기 → 처리중`(draft 삭제 reclassify) 버튼은 제거 — 재처리(Dev 일괄 처리)로 대체. RPC `admin_bulk_set_books_curating` 자체는 DB 에 잔존.
 
 **LibriVox 매핑 자동화 (v06.35)**: 이전의 수동 "매핑 큐 등록(Claude)" 버튼은 제거. `dev-process` 가 분석 직후 `autoMapLibriVoxForBook` 를 호출해 **count-gate 통과 시 즉시 `librivox_audio` 저장**. 정합 실패본만 `book_curation_jobs` 큐에 자동 등록(Claude Code 수동 정합 대상) → 리스트 행에 `JobQueueBadge` 노출. 성공/녹음없음은 큐 잡 자동 삭제.

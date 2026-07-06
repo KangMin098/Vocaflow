@@ -579,6 +579,84 @@ export async function fetchQuizJobs(client: AdminClient, limit = 100): Promise<Q
   }))
 }
 
+// ─────────────────────────────────────────────
+// 검토 큐 (book_curation_jobs · task_type IN level_verify/vocab_audit — v06.x Phase 1)
+//   드레인이 생성/매핑을 넘어 품질 검토(레벨·어휘)까지. result jsonb 에 verdict/corrections.
+// ─────────────────────────────────────────────
+
+export type ReviewTaskType = 'level_verify' | 'vocab_audit'
+
+export interface ReviewJobRow {
+  id: string
+  bookId: string
+  bookTitle: string
+  taskType: ReviewTaskType
+  status: CurationJobStatus
+  result: Record<string, unknown> | null
+  error: string | null
+  note: string | null
+  updatedAt: string
+}
+
+/** 선택 도서를 검토 큐에 upsert(pending). 자격 외 status 는 skipped. */
+export async function enqueueReviewJobs(
+  client: AdminClient,
+  bookIds: string[],
+  taskType: ReviewTaskType,
+): Promise<{ queued: number; skipped: number }> {
+  const { data, error } = await client.rpc('enqueue_review_jobs', {
+    p_book_ids: bookIds,
+    p_task_type: taskType,
+  })
+  if (error) throw new Error(`enqueueReviewJobs failed: ${error.message}`)
+  const row = (Array.isArray(data) ? data[0] : data) as { queued: number; skipped: number } | null
+  return { queued: row?.queued ?? 0, skipped: row?.skipped ?? 0 }
+}
+
+/** 검토 큐 상태 뷰용 — level_verify/vocab_audit 최근 N건 + book 제목 (2 쿼리 merge). */
+export async function fetchReviewJobs(client: AdminClient, limit = 100): Promise<ReviewJobRow[]> {
+  const { data, error } = await client
+    .from('book_curation_jobs')
+    .select('id, book_id, task_type, status, result, error, note, updated_at')
+    .in('task_type', ['level_verify', 'vocab_audit'])
+    .order('updated_at', { ascending: false })
+    .limit(limit)
+  if (error) throw new Error(`fetchReviewJobs failed: ${error.message}`)
+  const jobs = (data ?? []) as Array<{
+    id: string
+    book_id: string
+    task_type: ReviewTaskType
+    status: CurationJobStatus
+    result: Record<string, unknown> | null
+    error: string | null
+    note: string | null
+    updated_at: string
+  }>
+  if (jobs.length === 0) return []
+
+  const ids = Array.from(new Set(jobs.map((j) => j.book_id)))
+  const { data: books, error: bErr } = await client
+    .from('library_books')
+    .select('id, title')
+    .in('id', ids)
+  if (bErr) throw new Error(`fetchReviewJobs (books) failed: ${bErr.message}`)
+  const byId = new Map(
+    ((books ?? []) as Array<{ id: string; title: string }>).map((b) => [b.id, b]),
+  )
+
+  return jobs.map((j) => ({
+    id: j.id,
+    bookId: j.book_id,
+    bookTitle: byId.get(j.book_id)?.title ?? '(삭제됨)',
+    taskType: j.task_type,
+    status: j.status,
+    result: j.result,
+    error: j.error,
+    note: j.note,
+    updatedAt: j.updated_at,
+  }))
+}
+
 /**
  * cefr_confidence 낮아도 강제로 publish.
  * - copyright_safe_in_kr=false 책은 서버에서 거부 (안전 가드).

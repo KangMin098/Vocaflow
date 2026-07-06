@@ -4,7 +4,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
-import { ChevronRight, ExternalLink, Loader2, PlayCircle, RefreshCw, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
+import { ChevronRight, ExternalLink, FlaskConical, Loader2, PlayCircle, RefreshCw, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
 import {
   classifyStatus,
   type BookStatus,
@@ -17,6 +17,7 @@ import {
   bulkRequeueBooksAction,
   deleteFailedBookAction,
   enqueueQuizJobsAction,
+  enqueueReviewJobsAction,
   fetchCurationJobsAction,
 } from '@/app/admin/curation/actions';
 import { BookDetailModal } from './BookDetailModal';
@@ -82,6 +83,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   const [jobReloadKey, setJobReloadKey] = useState(0);
   // 스크립트 퀴즈 생성 큐 재조회 트리거 (enqueue 직후 +1)
   const [quizJobReloadKey, setQuizJobReloadKey] = useState(0);
+  // 검토 큐(레벨/어휘) 재조회 트리거 (enqueue 직후 +1)
+  const [reviewJobReloadKey, setReviewJobReloadKey] = useState(0);
   // book_curation_jobs 상태를 도서별로 — 리스트 행 큐 배지 + CurationJobsBanner 공용.
   const [jobsByBook, setJobsByBook] = useState<Map<string, CurationJobRow>>(new Map());
   useEffect(() => {
@@ -235,6 +238,41 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           ((d?.skipped ?? 0) > 0 ? ` · ${d?.skipped}권 스킵 (챕터 없음/자격 외 상태)` : ''),
       );
       setQuizJobReloadKey((k) => k + 1);
+      clearSelection();
+    });
+  };
+
+  // ── 레벨 검토 큐 적재 (level_verify) ──
+  //    저신뢰 CEFR/V-Level 도서를 드레인이 본문 읽고 재판정. result verdict 기록 후 승인 시 교정.
+  //    자격 = ready/published (분석 텍스트 존재). 서버 RPC 가 재검증.
+  const reviewEligibleIds = useMemo(
+    () => selectedBooks.filter((b) => b.status === 'ready' || b.status === 'published').map((b) => b.id),
+    [selectedBooks],
+  );
+  const runEnqueueLevelReview = () => {
+    if (reviewEligibleIds.length === 0) return;
+    if (
+      !window.confirm(
+        `선택한 도서 ${reviewEligibleIds.length}권을 레벨 검토 큐에 적재할까요?\n\n` +
+          '· Claude Code 드레인이 본문을 읽어 CEFR/V-Level 을 재판정합니다.\n' +
+          '· 결과(verdict)는 검토 후 승인 시 도서 레벨에 반영됩니다.\n' +
+          '· 재적재 시 이전 검토 결과가 리셋됩니다.',
+      )
+    ) {
+      return;
+    }
+    startBulkTransition(async () => {
+      const res = await enqueueReviewJobsAction(reviewEligibleIds, 'level_verify');
+      if (!res.ok) {
+        window.alert(`실패: ${res.error}`);
+        return;
+      }
+      const d = res.data;
+      window.alert(
+        `레벨 검토 큐 적재: ${d?.queued ?? 0}권` +
+          ((d?.skipped ?? 0) > 0 ? ` · ${d?.skipped}권 스킵 (자격 외 상태)` : ''),
+      );
+      setReviewJobReloadKey((k) => k + 1);
       clearSelection();
     });
   };
@@ -674,8 +712,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         />
       )}
 
-      {/* 큐레이션 드레인 큐 (book_curation_jobs — voice_map + quiz_gen 통합 · 0건 시 자체 숨김) */}
-      <DrainQueueBanner reloadKey={jobReloadKey + quizJobReloadKey} />
+      {/* 큐레이션 드레인 큐 (book_curation_jobs — voice_map + quiz_gen + 검토 통합 · 0건 시 자체 숨김) */}
+      <DrainQueueBanner reloadKey={jobReloadKey + quizJobReloadKey + reviewJobReloadKey} />
 
       {/* 다중 선택 일괄 액션 toolbar (≥1 선택 시 노출) */}
       {selectedIds.size > 0 && (
@@ -687,11 +725,13 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           devBatchCount={devBatchIds.length}
           returnToSourceCount={returnToSourceIds.length}
           quizEligibleCount={quizEligibleIds.length}
+          reviewEligibleCount={reviewEligibleIds.length}
           devRunning={procState?.running ?? false}
           pending={bulkPending}
           onClear={clearSelection}
           onDevBatch={runDevBatch}
           onEnqueueQuiz={runEnqueueQuiz}
+          onEnqueueLevelReview={runEnqueueLevelReview}
           onReturnToSource={runReturnToSource}
         />
       )}
@@ -1421,11 +1461,13 @@ function BulkActionToolbar({
   devBatchCount,
   returnToSourceCount,
   quizEligibleCount,
+  reviewEligibleCount,
   devRunning,
   pending,
   onClear,
   onDevBatch,
   onEnqueueQuiz,
+  onEnqueueLevelReview,
   onReturnToSource,
 }: {
   selectedCount: number;
@@ -1435,11 +1477,13 @@ function BulkActionToolbar({
   devBatchCount: number;
   returnToSourceCount: number;
   quizEligibleCount: number;
+  reviewEligibleCount: number;
   devRunning: boolean;
   pending: boolean;
   onClear: () => void;
   onDevBatch: () => void;
   onEnqueueQuiz: () => void;
+  onEnqueueLevelReview: () => void;
   onReturnToSource: () => void;
 }) {
   return (
@@ -1506,6 +1550,31 @@ function BulkActionToolbar({
           {quizEligibleCount > 0 && (
             <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-1.5 py-0 font-mono text-[10px]">
               {quizEligibleCount}
+            </span>
+          )}
+        </button>
+
+        {/* 0c) 레벨 검토 큐 — ready/published 선택분을 level_verify 로 적재 (드레인이 본문 읽고 CEFR/V 재판정) */}
+        <button
+          type="button"
+          onClick={onEnqueueLevelReview}
+          disabled={pending || reviewEligibleCount === 0}
+          title={
+            reviewEligibleCount === 0
+              ? '선택한 도서 중 검토대기/게시됨 상태가 없습니다'
+              : `검토대기/게시됨 ${reviewEligibleCount}권을 레벨 검토 큐에 적재. Claude Code 드레인이 본문을 읽어 CEFR/V-Level 을 재판정(저신뢰 도서 품질 검토).`
+          }
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {pending ? (
+            <Loader2 size={12} className="animate-spin" aria-hidden />
+          ) : (
+            <FlaskConical size={12} aria-hidden />
+          )}
+          레벨 검토 큐
+          {reviewEligibleCount > 0 && (
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
+              {reviewEligibleCount}
             </span>
           )}
         </button>

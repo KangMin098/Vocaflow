@@ -9,12 +9,36 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ChevronDown, ChevronRight, Loader2, RefreshCw, X } from 'lucide-react'
 
-import { fetchCurationJobsAction, fetchQuizJobsAction } from '@/app/admin/curation/actions'
+import {
+  fetchCurationJobsAction,
+  fetchQuizJobsAction,
+  fetchReviewJobsAction,
+} from '@/app/admin/curation/actions'
 import type {
   CurationJobRow,
   CurationJobStatus,
   QuizJobRow,
+  ReviewJobRow,
 } from '@/lib/library/admin-queries'
+
+const REVIEW_LABEL: Record<ReviewJobRow['taskType'], string> = {
+  level_verify: '레벨',
+  vocab_audit: '어휘',
+}
+
+/** 검토 result jsonb 요약 — verdict/assessed 를 짧게. 없으면 null. */
+function reviewSummary(result: Record<string, unknown> | null): string | null {
+  if (!result) return null
+  const cefr = typeof result.assessed_cefr === 'string' ? result.assessed_cefr : null
+  const v = typeof result.assessed_v_level === 'number' ? result.assessed_v_level : null
+  const verdict = typeof result.verdict === 'string' ? result.verdict : null
+  const parts: string[] = []
+  if (cefr) parts.push(cefr)
+  if (v != null) parts.push(`V${v}`)
+  const head = parts.join('/')
+  if (head && verdict) return `${head} (${verdict})`
+  return head || verdict || null
+}
 
 // voice(awaiting_mapping 포함) 가 상위 집합 — 퀴즈 status 는 부분집합이라 그대로 매핑.
 const STATUS_META: Record<CurationJobStatus, { label: string; color: string }> = {
@@ -34,17 +58,23 @@ const MODE_LABEL: Record<CurationJobRow['mode'], string> = {
 export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
   const [voice, setVoice] = useState<CurationJobRow[] | null>(null)
   const [quiz, setQuiz] = useState<QuizJobRow[] | null>(null)
+  const [review, setReview] = useState<ReviewJobRow[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const [dismissed, setDismissed] = useState(false)
 
   const load = useCallback(async () => {
     setLoading(true)
-    const [v, q] = await Promise.all([fetchCurationJobsAction(), fetchQuizJobsAction()])
+    const [v, q, r] = await Promise.all([
+      fetchCurationJobsAction(),
+      fetchQuizJobsAction(),
+      fetchReviewJobsAction(),
+    ])
     setLoading(false)
     if (v.ok) setVoice(v.data ?? [])
     if (q.ok) setQuiz(q.data ?? [])
-    if (v.ok || q.ok) setDismissed(false) // 새 작업 들어오면 다시 노출
+    if (r.ok) setReview(r.data ?? [])
+    if (v.ok || q.ok || r.ok) setDismissed(false) // 새 작업 들어오면 다시 노출
   }, [])
 
   // mount + reloadKey(enqueue/처리 직후) 변경 시 재조회
@@ -55,8 +85,9 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
   const allStatuses = [
     ...(voice ?? []).map((j) => j.status as string),
     ...(quiz ?? []).map((j) => j.status as string),
+    ...(review ?? []).map((j) => j.status as string),
   ]
-  const total = (voice?.length ?? 0) + (quiz?.length ?? 0)
+  const total = (voice?.length ?? 0) + (quiz?.length ?? 0) + (review?.length ?? 0)
   const hasActive = allStatuses.some((s) => ACTIVE_STATUSES.includes(s))
 
   // active(대기/진행/매핑대기) 있으면 8초 폴링 — 드레인 진행 반영
@@ -67,7 +98,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
   }, [hasActive, load])
 
   if (dismissed) return null
-  if (voice === null && quiz === null) return null
+  if (voice === null && quiz === null && review === null) return null
   if (total === 0) return null
 
   const counts = allStatuses.reduce<Record<string, number>>((a, s) => {
@@ -94,6 +125,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
             {total}건
             {(voice?.length ?? 0) > 0 && ` · 🔊 ${voice?.length}`}
             {(quiz?.length ?? 0) > 0 && ` · 📝 ${quiz?.length}`}
+            {(review?.length ?? 0) > 0 && ` · 🔬 ${review?.length}`}
             {activeCount > 0 && ` · 진행 ${activeCount}`}
           </span>
         </button>
@@ -188,6 +220,32 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
                     <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
                       {j.chaptersDone}/{j.chaptersTotal}ch · {j.questionsCreated}문
                     </span>
+                    <StatusTag color={sm.color} label={sm.label} />
+                    {j.error && <ErrorTag error={j.error} />}
+                  </li>
+                )
+              })}
+            </TaskGroup>
+          )}
+          {review && review.length > 0 && (
+            <TaskGroup title="🔬 품질 검토">
+              {review.map((j) => {
+                const sm = STATUS_META[j.status]
+                const summary = reviewSummary(j.result)
+                return (
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                    <Dot color={sm.color} />
+                    <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
+                      {j.bookTitle}
+                    </span>
+                    <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">
+                      {REVIEW_LABEL[j.taskType]}
+                    </span>
+                    {summary && (
+                      <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t2)]">
+                        {summary}
+                      </span>
+                    )}
                     <StatusTag color={sm.color} label={sm.label} />
                     {j.error && <ErrorTag error={j.error} />}
                   </li>
