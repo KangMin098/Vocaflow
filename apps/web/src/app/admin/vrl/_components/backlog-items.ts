@@ -24,6 +24,10 @@ export interface BacklogItem {
   isBestRoi?: boolean
   /** Schema Tier — Migration 항목인 경우 */
   schemaTier?: 1 | 2 | 3 | 4 | 5
+  /** 완료 항목 — 목록 하단 '완료' 그룹으로 이동, 집계 제외 */
+  status?: 'open' | 'done'
+  /** 완료 근거 한 줄 (실측 수치 포함) */
+  doneNote?: string
 }
 
 export const BACKLOG_ITEMS: BacklogItem[] = [
@@ -48,6 +52,8 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
     effort: '2-4 turns',
     value: 'R1 +12 · LV 수식 35% 가중치 활성화',
     defectId: 'cefr_confidence_null',
+    status: 'done',
+    doneNote: '완료 — cefr_confidence 99.6% 채움 (45,496 중 NULL 204 · 2026-07-06 실측)',
   },
   {
     id: 'D2',
@@ -62,12 +68,14 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
   {
     id: 'V1',
     priority: 'P0',
-    title: 'V-Level 분류 잔여 (R7-R10)',
-    oneLine: 'L4 / L9 / L10 / L11 reclassification — 27,796 rows 잔여',
+    title: 'V-Level 분류 (VRL v3 Round 1~10)',
+    oneLine: '전 레벨 reclassification + verification (Hybrid 4-step 포함)',
     affects: ['R1', 'R3'],
     effort: '150+ turns',
-    value: 'VRL 28% → 90%+ · Krashen i+1 활용 가능',
+    value: 'VRL 100% · Krashen i+1 활용 가능',
     defectId: 'v_level_majority_unclassified',
+    status: 'done',
+    doneNote: '완료 — 45,496 row 100% 분류 (v_level NULL 0 · 2026-07-06 실측)',
   },
 
   // ─── P1 (7) ───
@@ -89,7 +97,7 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
     oneLine: '다의어 senses 분할 (Claude pos별 분리)',
     affects: ['R4'],
     effort: '12-25 turns',
-    value: 'R4 polysemy 20.6% → 30%+',
+    value: 'R4 polysemy 17.5% → 25%+',
     defectId: 'polysemy_underdeveloped',
   },
   {
@@ -101,15 +109,17 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
     effort: '4-8 turns',
     value: 'R2 +5 · lemma 매칭 정확도',
     defectId: 'noun_inflections_gap',
+    status: 'done',
+    doneNote: '완료 — inflected_forms 전역 권위화 15,210 lemma (규칙형 검증+권위 불규칙 · 도서 회수율 98.75%)',
   },
   {
     id: 'D5',
     priority: 'P1',
-    title: 'verified 감수 (L9/L10 우선)',
-    oneLine: 'L9 41.83% / L10 17.23% — 사람 감수 우선 큐레이션',
+    title: 'verified 감수 (상위 V-Level 우선)',
+    oneLine: '고급 레벨 우선 사람 감수 큐레이션 (실측 비율은 결함 카드 참조)',
     affects: ['R3', 'R1'],
     effort: '20-40 turns',
-    value: 'R3 +8 · verified 32% → 60%+',
+    value: 'R3 +8 · verified 26.8% → 60%+',
     defectId: 'verified_low_advanced_levels',
   },
   {
@@ -148,7 +158,7 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
     id: 'D9',
     priority: 'P2',
     title: 'CEFR 분포 재균형',
-    oneLine: 'C2 56.2% 일부 → C1 reclassify (Round 후속)',
+    oneLine: 'C2 ~55% 일부 → C1 reclassify (Round 후속 · 실측은 결함 카드)',
     affects: ['R1', 'R3'],
     effort: '5-10 turns',
     value: 'CEFR 분포 정규화',
@@ -184,6 +194,8 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
     affects: ['R1'],
     effort: '3-5 turns',
     value: '사용자 V-Level 자가 진단 가능',
+    status: 'done',
+    doneNote: '완료 — 진단 5종 시드(base·track 3종·comprehensive 135+50문항) + /diagnostic 프런트 wire-up',
   },
   {
     id: 'S1',
@@ -207,13 +219,17 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
 ]
 
 export interface BacklogSummary {
+  /** 미완료(open) 항목 수 — 헤더 카운트의 기준 */
   total: number
+  /** 완료 항목 수 */
+  done: number
   byPriority: Record<DefectPriority, number>
   byResponsibility: Record<ResponsibilityId, number>
   bestRoi: BacklogItem | null
   corePain: BacklogItem | null
 }
 
+/** 완료 항목은 우선순위/책임 집계와 하이라이트에서 제외 — 남은 일만 센다. */
 export function summarizeBacklog(items: BacklogItem[]): BacklogSummary {
   const byPriority: Record<DefectPriority, number> = { P0: 0, P1: 0, P2: 0, P3: 0 }
   const byResponsibility: Record<ResponsibilityId, number> = {
@@ -224,13 +240,20 @@ export function summarizeBacklog(items: BacklogItem[]): BacklogSummary {
   }
   let bestRoi: BacklogItem | null = null
   let corePain: BacklogItem | null = null
+  let open = 0
+  let done = 0
 
   for (const it of items) {
+    if (it.status === 'done') {
+      done += 1
+      continue
+    }
+    open += 1
     byPriority[it.priority] += 1
     for (const r of it.affects) byResponsibility[r] += 1
     if (it.isBestRoi && !bestRoi) bestRoi = it
     if (it.isCorePain && !corePain) corePain = it
   }
 
-  return { total: items.length, byPriority, byResponsibility, bestRoi, corePain }
+  return { total: open, done, byPriority, byResponsibility, bestRoi, corePain }
 }

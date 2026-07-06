@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `45d16b8` feat(plan): 스크립트 picker 3단계 통일 — 도서와 동일 master-detail (v06.146)
 - `b216dd3` feat(curation): 드레인 검토에 어휘 감사(vocab_audit) 추가
 - `a5b73d1` feat(plan): 학습 계획 다중 엔트리 — 챕터=최하위 단위 일별 배치 (v06.145)
 - `1b33e07` feat(curation): 드레인 큐에 레벨 검토 task 추가 (Phase 1 level_verify)
 - `da04123` refactor(curation): 드레인 큐 배너 2개 → 1개 병합 (DrainQueueBanner)
-- `bee85f7` feat(curation): 챕터 퀴즈 큐를 book_curation_jobs 로 통합 (드레인 큐 단일화 Phase 0)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

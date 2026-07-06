@@ -54,9 +54,9 @@ const BACKLOG: Record<string, DefectImprovement> = {
     backlogId: 'S1',
   },
   V1: {
-    action: 'VRL Round 6-12 진행 — L0/L3/L11 잔여 분류 + verification',
-    cost: 'Round당 1-2 turn × ~7 rounds',
-    effect: 'R1 +15 / R3 +10 / VRL 24% → 90%+ 도달',
+    action: 'VRL 재분류 라운드 재실행 — 미분류 잔여 해소 (v3 Round 1~10 방법론 재사용)',
+    cost: 'Round당 1-2 turn',
+    effect: 'R1 +15 / R3 +10 / v_level 채움률 회복 (2026-06 100% 달성 이력 — 재발 시에만 발화)',
     backlogId: 'V1',
   },
 }
@@ -84,10 +84,10 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
       id: 'vcb_vrl_not_integrated',
       severity: 'critical',
       priority: 'P0',
-      title: 'VCB-VRL 미통합 (단어장 발행이 V-Level 모름)',
+      title: 'VCB-VRL 미통합 (세트 스키마에 V-Level 전용 컬럼 부재)',
       description:
-        'shared_word_sets 에 target_v_level_range 컬럼 부재. VCB Pipeline 이 CEFR 만 알고 V-Level 12단계 활용 불가.',
-      evidence: 'shared_word_sets.target_v_level_range 컬럼 부재',
+        'shared_word_sets 에 target_v_level_range 등 전용 컬럼 부재. 도서 챕터 세트는 curation_query JSONB(book_v_level 스냅샷)·auto-vlevel 세트는 slug 로 우회 중 — 동작은 하나 V-Level 필터/추천 질의가 JSONB 파싱·네이밍 관례에 의존 (인덱스·무결성 보장 없음).',
+      evidence: 'shared_word_sets.target_v_level_range 컬럼 부재 (우회: curation_query→book_v_level · slug auto-vlevel-v*)',
       metrics: { current: 'absent', target: 'present', unit: 'column' },
       impactsOn: ['R3'],
       pipelines: ['VCB'],
@@ -351,28 +351,28 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   // P2 Info (3)
   // ════════════════════════════════════════════════════════════
 
-  // 13. CEFR C2 과대표현 (실제 56%)
-  const cefrC2 = raw.volume.byPrimaryPos // proxy — schema 의 byCefrLevel 직접 접근 어려움
-  void cefrC2
-  // categorical RPC 결과는 별도. 여기서는 단순화 — 전체 모니터링 보류 후 raw 확장 시 활성화
-  // raw.volume 에 byCefrLevel 추가하면 정밀 탐지 가능. 현재는 raw.coverage.cefrLevel.ratio 활용
-  if (c.cefrLevel.ratio > 0.99) {
-    // 모든 단어에 cefr_level 가 채워졌으나 C2 편향은 별도 메트릭 필요.
-    // 우선 정보성 — categorical 데이터 추가 시 정밀화.
-    defects.push({
-      id: 'cefr_c2_overrepresented',
-      severity: 'info',
-      priority: 'P2',
-      title: 'CEFR C2 과대표현 (전체 ~56%)',
-      description:
-        '실측 by_cefr_level: C2 21,687 / 38,605 = 56.2%. C2 비중이 과대 — 학습자 수준 분포와 불일치.',
-      evidence: 'categorical RPC: by_cefr_level C2 56.2%',
-      metrics: { current: 56.2, target: 30, unit: '%' },
-      impactsOn: ['R1', 'R3'],
-      pipelines: ['LCP', 'VCB'],
-      remedy: 'CEFR 재분류 또는 C2 일부 → C1 reclassify (Round 후속)',
-      detectedAt: NOW_ISO(),
-    })
+  // 13. CEFR C2 과대표현 — categorical RPC 라이브 값으로 판정 (하드코드 스냅샷 금지)
+  const byCefr = raw.categorical?.by_cefr_level
+  if (byCefr) {
+    const cefrTotal = Object.values(byCefr).reduce((s, n) => s + n, 0)
+    const c2Count = byCefr['C2'] ?? 0
+    const c2Pct = cefrTotal > 0 ? (c2Count / cefrTotal) * 100 : 0
+    if (c2Pct > 40) {
+      defects.push({
+        id: 'cefr_c2_overrepresented',
+        severity: 'info',
+        priority: 'P2',
+        title: `CEFR C2 과대표현 (전체 ${c2Pct.toFixed(1)}%)`,
+        description:
+          'C2 비중이 학습자 수준 분포 대비 과대 — CEFR 세분화가 상급에 뭉쳐 레벨 신호로서의 변별력 저하.',
+        evidence: `categorical RPC by_cefr_level: C2 ${c2Count.toLocaleString()} / ${cefrTotal.toLocaleString()} (${c2Pct.toFixed(1)}%)`,
+        metrics: { current: c2Pct.toFixed(1), target: 30, unit: '%' },
+        impactsOn: ['R1', 'R3'],
+        pipelines: ['LCP', 'VCB'],
+        remedy: 'CEFR 재분류 또는 C2 일부 → C1 reclassify (Round 후속)',
+        detectedAt: NOW_ISO(),
+      })
+    }
   }
 
   // 14. noun POS dominance (66%)
