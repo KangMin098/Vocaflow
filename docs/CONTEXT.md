@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `679bd70` fix(vcb): P0-7 완화 — publish 실패 시 보상 롤백 (orphan 방지, 마이그레이션 없이)
 - `498e807` fix(curation): review-book --correct 가 cefrj_level 도 동기화 (cefr_band 반영)
 - `9bb1af2` feat(plan): 스크립트 컨텐츠 리스트를 우측 선택 영역으로 (v06.150)
 - `f2c53a1` docs(session-log): VCB Phase 1 완료 + 2-A 반영 (1-C P0-6, 2-A 카피정리)
 - `e5b479a` refactor(vcb): Phase 2-A 카피/라벨 정리 — stale/모순·원시 status·시드 방식 택1
-- `19266e2` feat(plan): 스크립트 picker 3열 드릴 — 소스 | 분류 | 컨텐츠 (v06.149)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
