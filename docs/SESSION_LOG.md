@@ -23,7 +23,8 @@
 - **Phase 1-B** (`be1338e`): P0-5 큐레이션 일괄 승인/거절 배선(`VcbCurationView` 툴바).
 - **Phase 1-C P0-6** (`7fc53f4`): publishable 정의 단일화(publish/precheck/approved_count) — 미검토 발행 차단. **DB실측 검증**: run#1 accepted 1998=발행 1998, 미검토 0, 회귀 0.
 - **Phase 2-A** (`e5b479a`): stale/모순 카피(P5c) 제거 · 원시 status→라벨(STATUS_LABELS export) · 시드 방식 A/B "택1" 재라벨 · Method B jargon 정리.
-- **P0-7 완화** (`679bd70`): publish 실패 시 **보상 롤백**(생성한 set+words+collection 삭제) — 마이그레이션 없이 orphan 방지.
+- **Phase 2-B** (`6ab04f9`·`002ac3f`): step 카드(4/5/6/8) + MethodA + SeedFlow + SourceForm 설명의 내부 테이블·아티팩트·CLI·트리거 용어 → 운영자 언어. MethodA h3 스텝번호 제거(택1 정합).
+- **P0-7 완화** (`679bd70`): publish 실패 시 **보상 롤백**(생성한 set+words+collection 삭제) — 마이그레이션 없이 orphan 방지. (아래 완전 RPC로 대체됨.)
 - **P0-7 완전 RPC** ✅ — 마이그레이션 `vcb_publish_commit_transactional` 적용(security_definer + 실행권한 service_role 한정) + `publish.ts`를 단일 rpc 호출로 치환(보상 롤백 제거, 원자 발행 → 부분상태/orphan 불가). word_count 캐시 동기화 덤. SQL 초안=`docs/proposals/vcb-p07-publish-rpc.sql`. (첫 apply 시 MCP 프록시 502로 미적용 → 복구 후 함수 부재 확인하고 재적용.)
 - **남은(각자 unblock 필요)**: **P0-7 완전 RPC**(DB 마이그레이션 승인) · **edit UI**·**Phase 2 잔여**(step카드 jargon·VcbPipelineGuide 승격·섹션 내비 — **dev 서버 재가동** 후 런타임 검증) · **Phase 3**(위저드필터 dead·CLI결합·큐레이션 UX·접근성 + **열린결정 A/B/C**).
 - ⚠️ **dev 서버 다운** — VCB 화면 런타임 검증은 재가동 후. ⚠️ **working-tree tsc red = 동시 세션 PlanClient(ACP WIP) 미정의 참조** (내 VCB 파일 아님; 그쪽 커밋 시 해소).
