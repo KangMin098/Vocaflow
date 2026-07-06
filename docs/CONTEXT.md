@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2449941` feat(admin): /admin/quality 지금-수집 버튼 + admin wrapper RPC (v06.142)
 - `f582013` feat(acp): 나머지 소스 발행 — 전 소스 프로그램 구조 완성 (v06.141)
 - `146070d` docs(session-log): vitest 스위트 통과 기록 (99 passed, nav 무회귀)
 - `45e319b` refactor(nav): dead-code ContextBar 삭제 + 감사 마무리
 - `67b9fd5` feat(admin): 품질평가 Q3 /admin/quality 지표 대시보드 (v06.140)
-- `27b0bab` docs(session-log): next build 검증 결과 기록 (내 코드 build-clean, 실패는 동시세션 WIP)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

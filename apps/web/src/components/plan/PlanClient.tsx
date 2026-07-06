@@ -586,7 +586,9 @@ function TodayRow({ item }: { item: PlanItem }) {
   )
 }
 
-// ── 주간 보드 ──
+// ── 주간 보드 (가로 7열 캘린더) ──
+//   요일=열. 데스크톱은 grid-cols-7 한 화면, 모바일은 가로 스크롤(열 min-width + snap).
+//   계획 있는 날=흰 종이 카드로 도드라지고, 빈 날은 캔버스에 잠겨 물러난다. 오늘=테두리+틴트+'오늘' 3중.
 function WeekBoard({
   items,
   editId,
@@ -602,10 +604,19 @@ function WeekBoard({
 }) {
   const unscheduled = items.filter((i) => i.weekdays.length === 0)
   const plannedDays = WEEKDAYS.filter((d) => items.some((i) => i.weekdays.includes(d.value))).length
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+  const todayColRef = useRef<HTMLDivElement | null>(null)
+  // 모바일(가로 스크롤 시) 오늘 열을 보이게 — 넘치지 않는 데스크톱에선 무해(스킵)
+  useEffect(() => {
+    const sc = scrollerRef.current
+    const col = todayColRef.current
+    if (!sc || !col || sc.scrollWidth <= sc.clientWidth) return
+    sc.scrollLeft = Math.max(0, col.offsetLeft - sc.offsetLeft - 8)
+  }, [])
   return (
     <section
       aria-label="주간 보드"
-      className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
+      className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
     >
       {/* 헤더 — 오늘의 학습·컴포저와 동일한 섹션 리듬 */}
       <div className="flex items-center gap-1.5 px-0.5">
@@ -616,37 +627,68 @@ function WeekBoard({
         </span>
       </div>
 
-      {/* 아젠다형: 요일=행. 계획 있는 날=카드로 도드라지고, 빈 날은 얇게 눌러 세로 공간 절약 */}
-      <div className="flex flex-col gap-1">
-        {WEEKDAYS.map((d) => {
-          const dayItems = items.filter((i) => i.weekdays.includes(d.value))
-          const isToday = d.value === today
-          const empty = dayItems.length === 0
-          return (
-            <div
-              key={d.value}
-              className={`flex items-stretch gap-2 rounded-[var(--r-md)] px-1.5 transition-colors duration-[var(--dur-normal)] ${
-                empty ? 'py-1' : 'bg-[var(--bg)] py-1.5 shadow-[var(--sh-xs)]'
-              } ${isToday ? 'ring-1 ring-[var(--p)]' : ''}`}
-            >
-              <WeekDayCell
-                label={d.label}
-                date={weekDates[d.value - 1] ?? ''}
-                isToday={isToday}
-                dim={empty}
-              />
-              <div className="flex min-w-0 flex-1 flex-col justify-center gap-1">
-                {empty ? (
-                  <span className="font-body text-[11px] italic text-[var(--t4)]">비어 있음</span>
-                ) : (
-                  dayItems.map((it) => (
-                    <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
-                  ))
-                )}
+      {/* 7열 — 데스크톱=한 화면 grid, 모바일=가로 스크롤(min-w + snap). items-start 로 열마다 자연 높이 */}
+      <div ref={scrollerRef} className="snap-x overflow-x-auto pb-2 pt-0.5 [scrollbar-width:thin]">
+        <div className="grid min-w-[820px] grid-cols-7 items-start gap-2">
+          {WEEKDAYS.map((d) => {
+            const dayItems = items.filter((i) => i.weekdays.includes(d.value))
+            const isToday = d.value === today
+            const empty = dayItems.length === 0
+            return (
+              <div
+                key={d.value}
+                ref={isToday ? todayColRef : undefined}
+                className={`flex snap-start flex-col overflow-hidden rounded-[var(--r-md)] border transition-colors duration-[var(--dur-normal)] ${
+                  isToday
+                    ? 'border-[var(--p)] bg-[var(--bg)] shadow-[var(--sh-xs)]'
+                    : empty
+                      ? 'border-[var(--bd)] bg-[var(--bg2)]'
+                      : 'border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xs)]'
+                }`}
+              >
+                {/* 요일 헤더 (요일·날짜·오늘) — 색+형태 이중, 오늘은 틴트+배지 */}
+                <div
+                  className={`flex flex-col items-center gap-0.5 border-b px-1 py-1.5 ${
+                    isToday ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)]'
+                  }`}
+                >
+                  <span
+                    className={`font-display text-[13px] font-[800] leading-none ${
+                      isToday ? 'text-[var(--p)]' : 'text-[var(--t1)]'
+                    }`}
+                  >
+                    {d.label}
+                  </span>
+                  <span
+                    className={`font-mono text-[9.5px] leading-none tabular-nums ${
+                      isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                    }`}
+                  >
+                    {weekDates[d.value - 1] ?? ''}
+                  </span>
+                  {isToday && (
+                    <span className="mt-0.5 rounded-full bg-[var(--p)] px-1.5 py-[1.5px] font-display text-[8px] font-[800] leading-none text-[var(--ti)]">
+                      오늘
+                    </span>
+                  )}
+                </div>
+
+                {/* 본문 — 계획 카드 스택 or 빈 상태 */}
+                <div className="flex min-h-[72px] flex-1 flex-col gap-1.5 p-1.5">
+                  {empty ? (
+                    <span className="flex flex-1 items-center justify-center py-2 font-body text-[10px] italic text-[var(--t4)]">
+                      비어 있음
+                    </span>
+                  ) : (
+                    dayItems.map((it) => (
+                      <DayCard key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
 
       {unscheduled.length > 0 && (
@@ -666,45 +708,61 @@ function WeekBoard({
   )
 }
 
-// 주간 보드 요일 셀 — 요일·날짜 2줄(오늘은 라벨 추가). 빈 날(dim)은 배경 없이 눌러 표시.
-//   오늘 강조는 ring(형태)+색+"오늘" 텍스트 3중 — 색상 단독 전달 금지(색맹 대응).
-function WeekDayCell({
-  label,
-  date,
-  isToday,
-  dim,
-}: {
-  label: string
-  date: string
-  isToday: boolean
-  dim: boolean
-}) {
+// 주간 보드 열 카드 — 좁은 요일 열(≈120px) 안에서 표지·제목(2줄)·챕터·활동을 세로로 압축.
+//   보드 행(BoardChip)의 열-지향 형제. active=편집 중(잉크 채움). 색+형태+텍스트 3중 유지.
+function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; onClick: () => void }) {
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  const shown = acts.slice(0, 4)
+  const overflow = acts.length - shown.length
+  const hasChapters = item.materialType === 'book' && item.chapterCount > 1
+  const chapterLabel = hasChapters ? (item.chapters.length === 0 ? '전체' : `${item.chapters.length}장`) : null
+  const actLabels = acts.map((a) => a.label).join('·')
   return (
-    <div
-      className={`flex w-[46px] shrink-0 flex-col items-center justify-center rounded-[var(--r-sm)] px-1 py-0.5 ${
-        isToday ? 'bg-[var(--p-light)]' : dim ? 'bg-transparent' : 'bg-[var(--bg2)]'
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
+      className={`flex w-full flex-col gap-1.5 rounded-[var(--r-sm)] border p-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+        active
+          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+          : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:-translate-y-px hover:border-[var(--p)] hover:shadow-[var(--sh-xs)]'
       }`}
     >
-      <span
-        className={`font-display text-[13px] font-[800] leading-tight ${
-          isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
-        }`}
-      >
-        {label}
+      <span className="flex items-start justify-between gap-1">
+        <MiniMaterialGlyph item={item} />
+        {chapterLabel && (
+          <span
+            className={`inline-flex h-4 shrink-0 items-center gap-0.5 rounded-[4px] px-1 font-mono text-[9px] tabular-nums ${
+              active ? 'bg-white/15 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
+            }`}
+            aria-hidden
+          >
+            <ListChecks size={9} strokeWidth={2} />
+            {chapterLabel}
+          </span>
+        )}
       </span>
-      <span
-        className={`font-mono text-[9.5px] leading-tight tabular-nums ${
-          isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
-        }`}
-      >
-        {date}
-      </span>
-      {isToday && (
-        <span className="mt-0.5 font-display text-[7.5px] font-[800] leading-none text-[var(--p)]">
-          오늘
+      <span className="line-clamp-2 font-display text-[11.5px] font-[700] leading-snug">{item.title}</span>
+      {shown.length > 0 && (
+        <span className="flex flex-wrap items-center gap-0.5">
+          {shown.map((a) => (
+            <ActivityGlyph key={a.id} activity={a.id} size="sm" tone={active ? 'onDark' : 'default'} />
+          ))}
+          {overflow > 0 && (
+            <span
+              className={`font-mono text-[9px] ${active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'}`}
+              aria-hidden
+            >
+              +{overflow}
+            </span>
+          )}
+          <span className="sr-only">
+            {chapterLabel ? `챕터 ${chapterLabel}, ` : ''}활동: {actLabels || '없음'}
+          </span>
         </span>
       )}
-    </div>
+    </button>
   )
 }
 

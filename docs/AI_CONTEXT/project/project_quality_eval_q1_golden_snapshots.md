@@ -6,7 +6,7 @@
 
 품질평가 인프라 handoff **Q1+Q2+Q3 완료** (Q1+Q2: 2026-07-04 PR #94 v06.118~119 · Q3: 2026-07-06 v06.140 `67b9fd5` feat/plan-ui).
 
-**Q3**: `/admin/quality` read-only 대시보드 — 단계별(ingest→…→deliver) 카드 + 전회 대비 + 스파크라인 + dims; `dims.status` 세그먼트 분리. AdminSidebar '운영' Gauge. **dev-bypass 로는 RLS(read=admin) 탓에 빈 상태만 보임(정상)** — 데이터 분기는 `__tests__/page.test.tsx` renderToString 픽스처로 검증(vitest `esbuild.jsx:'automatic'` 이때 추가). "지금 수집" 버튼 없음: `collect_quality_metrics` EXECUTE=postgres/service_role 전용 → admin wrapper RPC 는 미결재. 잔여: LLM 심사(L2).
+**Q3**: `/admin/quality` read-only 대시보드 — 단계별(ingest→…→deliver) 카드 + 전회 대비 + 스파크라인 + dims; `dims.status` 세그먼트 분리. AdminSidebar '운영' Gauge. **dev-bypass 로는 RLS(read=admin) 탓에 빈 상태만 보임(정상)** — 데이터 분기는 `__tests__/page.test.tsx` renderToString 픽스처로 검증(vitest `esbuild.jsx:'automatic'` 이때 추가). "지금 수집" 버튼 ✅(v06.142 `2449941`, 사용자 승인): migration `20260706000000` `admin_collect_quality_metrics()` wrapper(role 검사→위임, EXECUTE→authenticated) + `CollectNowButton.tsx`. MCP apply_migration 이 분류기에 거부돼 execute_sql 로 적용 + schema_migrations 수기 기록. 잔여: LLM 심사(L2).
 
 **Q2**: migration `20260704043934_quality_metrics` — `quality_metrics` 테이블(read=admin RLS·쓰기 정책 0) + `collect_quality_metrics()` SECURITY DEFINER(M1~M6, 검증 9행·P0 실측 일치) + **pg_cron jobid=12** `10 18 * * *`(03:10 KST). 롤백 `docs/AI_CONTEXT/rollback/QE_quality_metrics_drop.sql`. `user_profiles` PK는 **`user_id`**(id 아님 — RLS 정책 작성 시 주의). 범위 외 잔여: Q3 `/admin/quality` 대시보드 · LLM 심사(L2).
 
