@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `be1338e` feat(vcb): Phase 1-B — 큐레이션 일괄 승인/거절 배선 (P0-5)
 - `e964567` feat(vcb): Phase 1-A 정합성 — service-role 일관화 + qa→curating 전이 + 큐레이션 전량로드 + collections 라우트
 - `50f03ec` fix(admin): VRL 두 대시보드 현행화 + 관측 고도화 (v06.147)
 - `45d16b8` feat(plan): 스크립트 picker 3단계 통일 — 도서와 동일 master-detail (v06.146)
 - `b216dd3` feat(curation): 드레인 검토에 어휘 감사(vocab_audit) 추가
-- `a5b73d1` feat(plan): 학습 계획 다중 엔트리 — 챕터=최하위 단위 일별 배치 (v06.145)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

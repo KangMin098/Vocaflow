@@ -14,23 +14,18 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: 플랫폼 전체 "진입 → 닫기(돌아가기) → 제자리 복귀" 네비게이션 오류 점검 & 수정
+**작업**: `/admin/vocab/*` VCB 파이프라인 프로세스·기능·화면 면밀 재검토·재설계
 **브랜치**: `feat/plan-ui`
-**상태**: ✅ **감사 15건 + 경미 2건 전량 수정·tsc 통과·커밋 완료·CHANGELOG 반영 완료** (P0+P1=`f98c918` v06.135 / P2=`56cb8de` / 경미+CHANGELOG=v06.138)
+**상태**: 🔧 **Phase 1(정합성) 진행 중** — 1-A(`e964567`)·1-B(`be1338e`) 커밋·push. tsc 통과. 런타임 미검증(dev 서버 다운).
 
-- 5개 영역별 감사 에이전트 완료 → 확정 버그 **15건** (아래 2026-07-05 표) **전량 수정 완료**.
-- **P0+P1 8건** (#1~#8, 커밋 `f98c918` v06.135): Plan/홈 `?from` · SpellForge/Flashcard 404 반환링크 · GlobalBodyReset 스크롤락 · WordBlitz 나가기 · Dictation back 가드 · ACP stage · AdminSidebar. 신규 `lib/layout/session-return.ts`. CHANGELOG v06.135 + CONVENTIONS "세션 제자리 복귀" 규약.
-- **P2 7건** (#9~#15, 별도 커밋): 메인 Sidebar 하이라이트 · WordVaultBrowse `?from` 유지 · 구독 토스트 `?from` · focus 미복원 5모달 · VocabSet 스크롤락 · Type/Voice 팝오버 Esc · Diagnostic "그만두기". `tsc --noEmit` 통과.
-- **경미 2건** (v06.138): ScriptQuiz 시작화면 back `/library` → `?from` ?? `/scriptquiz` · PairFlipResultScreen "PairFlip 홈으로" 복귀 링크. **CHANGELOG P2+경미 항목 v06.138로 반영 완료**(브랜치 정착 후).
-- ⚠️ **동시 편집 세션 병행** — growth-stats(v06.136) · ACP(v06.137) · Curated Books refactor(`4d5ce5a`)를 다른 세션이 커밋 중. 내 커밋은 매번 **내 파일만 명시 스테이징**해 분리(무관 파일 unstaged 유지). 기존 무관 M 파일(MyLibraryTab.tsx, ADMIN_CONSOLE.md, LIBRARY_PIPELINE.md)도 제외.
+- **진단·재설계안**: [docs/proposals/vcb-admin-redesign.md](proposals/vcb-admin-redesign.md) (5영역 병렬감사 + DB실측). 실체 = run 1개(cast-2000)만 CLI로 발행한 반자동 개발자도구. P0 결함 8건.
+- **Phase 1-A** (`e964567`): P0-2 service-role 일관화(13 server files → `createAdminClient`, dev-bypass 0건 해소) · P0-1 `qa→curating` 전이(`beginCuration`, dead-end 해소 → UI로 완주 가능) · P0-3 큐레이션 500-cap 제거 · P0-4 `/admin/vocab/collections` 신설(404 수리) · 신규 `lib/supabase/admin.ts`.
+- **Phase 1-B** (`be1338e`): P0-5 큐레이션 일괄 승인/거절 배선(`VcbCurationView` 툴바 — 전체선택+bulk). edit UI는 Phase 2로 이연.
+- **남은 Phase 1**: **P0-6** publishable 정의 단일화(3곳 불일치 → 미검토 발행 차단; 런타임 검증 권장) · **P0-7** publish 트랜잭션화(**DB 마이그레이션 RPC → 사용자 승인 필수**). Phase 2/3 = 스텝번호·stale카피·jargon·위저드필터(dead)·큐레이션 UX(키보드/optimistic/edit)·CLI결합.
+- ⚠️ **dev 서버 다운** — VCB 화면 런타임 검증은 재가동 후. 동시 세션(growth/ACP/quality)과 VCB 파일 영역 안 겹침.
+- 열린결정(제안서 §7): A 위저드필터 살릴지/제거 · B CLI결합 유지/제거 · C 도구지향(셀프서비스 vs 저빈도 전문가도구).
 
-- **`next build` 검증** (clean `.next` 재빌드): **✓ Compiled successfully** + 내 파일 에러 0 + useSearchParams Suspense 에러 없음. 내 useSearchParams/usePathname 추가는 전부 dynamic 페이지(`/scriptquiz/play`=searchParams prop · articles 콘솔/프리뷰=`requireAdmin` 쿠키+Suspense) → 빌드 안전 확정. **빌드 실패 원인은 동시 세션의 untracked WIP `apps/web/src/app/admin/quality/page.tsx` 미사용 import(`SupabaseClient`) 1건뿐** — 그쪽 미완성 파일이라 미수정. (참고: eslint 에러가 빌드 fail 시킴 = `ignoreDuringBuilds` 미활성.)
-- **ContextBar dead-code 삭제** — `components/workspace/ContextBar.tsx` 삭제(import 0, 주석 참조만) + WorkspaceBookContext stale 주석 정정. `tsc --noEmit` 통과(무영향 확인). 감사 참고항목 종결.
-- **유닛 테스트(vitest)** — `apps/web` 전체 스위트 **99 passed / 0 failed / 3 skipped** (exit 0). 내 nav 변경이 기존 테스트 무회귀. (동시 세션 `admin/quality` 자체 테스트 3개도 통과.)
-
-**검증 총괄**: tsc(×3) · next build 컴파일 · vitest 99건 = 전부 green. 남은 건 **UI 실주행**(런타임)뿐 — 정적/유닛으로 잡히지 않는 최종 확인.
-
-**다음 세션 TODO(선택)**: (1) 감사 P0~P2 UI 실주행 확인(동시 세션 idle 시 `next dev` 드라이브 or 사용자 환경) · (2) 동시 세션이 `admin/quality/page.tsx` 커밋하면 브랜치 빌드 재확인(내 코드는 clean).
+**직전 완료작업 (nav 감사, ✅ 종결)**: 커밋 `f98c918`(v06.135 P0+P1)·`56cb8de`(P2)·`5190c0c`(v06.138 경미)·`45e319b`(ContextBar 삭제)·`146070d`(vitest 99 pass). 상세는 아래 2026-07-05 기록.
 
 ---
 
