@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `770e4e8` docs(vcb): P0-7 완전 트랜잭션 publish RPC SQL 초안 (검토용, 미적용)
 - `ac53369` docs(changelog): 큐레이션 드레인 큐 통합 + 검토 task 기록 (v06.153)
 - `043b669` docs(dict): 노출 단어 표적 보강 + 스텁 예문 교체 기록 (v06.152)
 - `9d62b37` feat(plan): picker 행·컬럼 디자인 폴리시 — 상태·깊이 적용 (v06.151)
 - `e810327` docs(session-log): VCB P0-7 완화(보상 롤백) 반영
-- `679bd70` fix(vcb): P0-7 완화 — publish 실패 시 보상 롤백 (orphan 방지, 마이그레이션 없이)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

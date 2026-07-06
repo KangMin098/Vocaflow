@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 교육과정 기본어휘 3,000 사전 적용 준비 ([별책14]) (v06.146)
+
+2022 개정 영어과 교육과정 기본어휘([별책14] PDF)를 검토·추출해 `shared_dictionary.list_tags` 부착 준비. **적용(live import)은 승인 대기**.
+
+- **추출·검증** — `pdftotext`로 3,045 core(공식 3,000 + 슬래시 철자변형) 추출, dropped 0. 등급 `*`819·`**`1,215·무1,011 = 문서 명시 배분과 일치. 파생형(괄호) 226 별도.
+- **커버리지** — 3,025/3,045(**99.3%**) 이미 `shared_dictionary` 존재, 누락 20(철자변형/구어/역형성 — 대부분 정본 twin 존재). 읽기전용 실측(service-role).
+- **스테이징** — [data/curriculum/](../packages/library-pipeline/data/curriculum/) `kcurr2022_1/2/0.csv`(별표 등급별) + `kcurr2022_missing.csv`(20). [import-ngsl-list.ts](../scripts/lcp/import-ngsl-list.ts) `VALID_LIST_IDS`에 3 태그 등록. dry-run 로딩 검증 OK(819/1,215/1,011).
+- 태그 구조=3단(별표별, 사용자 확정). 적용 커맨드: `pnpm tsx scripts/lcp/import-ngsl-list.ts --list-id=kcurr2022_N --csv=…` ×3.
+
 ### 큐레이션 드레인 큐 통합 + 품질 검토 task (v06.153)
 
 Curated Books 드레인 큐를 단일화하고, 드레인(Claude Code 배치)이 생성/매핑을 넘어 **품질 검토(레벨·어휘)**까지 하도록 확장.
