@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `eee9588` feat(plan): 스크립트 학습대상 다건 선택 + 우측 선택 영역 재설계 (v06.152)
 - `60bc3fb` chore(dict): 교육과정 기본어휘 3,000 사전 적용 준비 ([별책14]) (v06.146)
 - `770e4e8` docs(vcb): P0-7 완전 트랜잭션 publish RPC SQL 초안 (검토용, 미적용)
 - `ac53369` docs(changelog): 큐레이션 드레인 큐 통합 + 검토 task 기록 (v06.153)
 - `043b669` docs(dict): 노출 단어 표적 보강 + 스텁 예문 교체 기록 (v06.152)
-- `9d62b37` feat(plan): picker 행·컬럼 디자인 폴리시 — 상태·깊이 적용 (v06.151)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

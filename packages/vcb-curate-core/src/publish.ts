@@ -76,9 +76,6 @@ export async function publishRun(
   }
   const category = SEGMENT_TO_CATEGORY[segment]
 
-  // 보상 롤백(P0-7)용 — 이번 발행 시도에서 생성한 shared_word_sets id 추적
-  let createdSetId: string | null = null
-
   await client.from('vocab_runs').update({ status: 'publishing' }).eq('id', runId)
 
   try {
@@ -88,30 +85,7 @@ export async function publishRun(
     }
 
     const nextVersion = precheck.stats.existing_max_version + 1
-    const { data: setRow, error: setErr } = await client
-      .from('shared_word_sets')
-      .insert({
-        slug: run.collection_slug,
-        version: nextVersion,
-        title: run.collection_title,
-        category,
-        is_published: true,
-        source_run_id: runId,
-        source_attributions: await buildSourceAttributions(client, runId),
-      })
-      .select('id')
-      .single()
-
-    if (setErr || !setRow) {
-      throw new Error(
-        `shared_word_sets insert failed: ${setErr?.message ?? 'unknown'}`,
-      )
-    }
-    const setId = (setRow as { id: string }).id
-    createdSetId = setId
-
-    const insertRows = items.map((it, idx) => ({
-      set_id: setId,
+    const words = items.map((it, idx) => ({
       word: it.lemma,
       meaning_ko: it.payload.definitions_ko[0]?.sense ?? '',
       example_en: it.payload.examples[0]?.en ?? null,
@@ -128,53 +102,46 @@ export async function publishRun(
       collocations: it.payload.collocations,
       korean_learner_note: it.payload.korean_learner_note,
       confidence: it.payload.confidence,
-      source_run_id: runId,
       source_queue_id: it.queue_id,
     }))
 
-    const { error: wordsErr } = await client.from('shared_words').insert(insertRows)
-    if (wordsErr) {
-      throw new Error(`shared_words bulk insert failed: ${wordsErr.message}`)
+    // P0-7: 세트→단어→컬렉션→status 를 단일 트랜잭션 RPC 로 원자 발행 (부분 상태/orphan 불가).
+    //   신규 RPC 는 생성 타입에 없어 rpc 시그니처를 캐스팅(기존 코드베이스 패턴).
+    const sb = client as unknown as {
+      rpc: (
+        n: string,
+        p: Record<string, unknown>,
+      ) => Promise<{ data: unknown; error: { message: string } | null }>
     }
-
-    const { data: collRow, error: collErr } = await client
-      .from('vocab_collections')
-      .insert({
-        run_id: runId,
-        slug: run.collection_slug,
-        title: run.collection_title,
-        version: nextVersion,
-        published_word_count: items.length,
-        shared_word_set_id: setId,
-        notes: ctx.published_by ? `published_by=${ctx.published_by}` : null,
-      })
-      .select('id')
-      .single()
-
-    if (collErr || !collRow) {
-      throw new Error(
-        `vocab_collections insert failed: ${collErr?.message ?? 'unknown'}`,
-      )
+    const { data, error } = await sb.rpc('vcb_publish_commit', {
+      p_run_id: runId,
+      p_slug: run.collection_slug,
+      p_version: nextVersion,
+      p_title: run.collection_title,
+      p_category: category,
+      p_source_attributions: await buildSourceAttributions(client, runId),
+      p_words: words,
+      p_published_by: ctx.published_by ?? null,
+    })
+    if (error) {
+      throw new Error(`vcb_publish_commit failed: ${error.message}`)
     }
-
-    await client.from('vocab_runs').update({ status: 'published' }).eq('id', runId)
+    const res = data as {
+      shared_word_set_id: string
+      collection_id: number
+      published_count: number
+      version: number
+    }
 
     return {
       ok: true,
-      shared_word_set_id: setId,
-      collection_id: (collRow as { id: number }).id,
-      version: nextVersion,
-      published_count: items.length,
+      shared_word_set_id: res.shared_word_set_id,
+      collection_id: res.collection_id,
+      version: res.version,
+      published_count: res.published_count,
     }
   } catch (err) {
-    // 보상 롤백(P0-7 완화): 다단계 insert 는 원자적이지 않으므로, 이번 시도에서 생성한
-    //   발행 세트(+words +collection)를 실패 시 되돌려 orphan(고아 발행 세트)을 방지한다.
-    //   완전한 DB 트랜잭션화는 별도 RPC 마이그레이션(제안서 §6 Phase 3) — 승인 후 진행.
-    if (createdSetId) {
-      await client.from('vocab_collections').delete().eq('shared_word_set_id', createdSetId)
-      await client.from('shared_words').delete().eq('set_id', createdSetId)
-      await client.from('shared_word_sets').delete().eq('id', createdSetId)
-    }
+    // RPC 가 원자적이라 부분 상태가 없음 — status 만 curating 으로 되돌린다.
     await client.from('vocab_runs').update({ status: 'curating' }).eq('id', runId)
     const msg = err instanceof Error ? err.message : String(err)
     return { ok: false, error: msg }
