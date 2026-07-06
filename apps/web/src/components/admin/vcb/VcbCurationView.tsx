@@ -5,6 +5,7 @@ import { VcbCurationList } from './VcbCurationList'
 import { VcbCurationDetailPanel } from './VcbCurationDetailPanel'
 import { VcbCurationFilterBar } from './VcbCurationFilterBar'
 import { fetchQueueDetail } from '@/lib/vcb/server/queue'
+import { bulkApprove, bulkReject } from '@/lib/vcb/server/curation'
 import type {
   VcbQueueListItem,
   VcbQueueDetail,
@@ -31,6 +32,7 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
   const [detail, setDetail] = useState<VcbQueueDetail | null>(initialDetail)
   const [isPending, startTransition] = useTransition()
+  const [bulkPending, startBulk] = useTransition()
 
   const handleSelect = (queueId: number) => {
     setSelectedId(queueId)
@@ -69,6 +71,28 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
     return items
   }, [initialItems, filter, sort])
 
+  // ── 일괄 선택/처리 (P0-5) ──────────────────────────
+  const allSelected =
+    filteredItems.length > 0 &&
+    filteredItems.every((i) => selectedIds.has(i.queue_id))
+
+  const toggleSelectAll = () => {
+    setSelectedIds(
+      allSelected ? new Set() : new Set(filteredItems.map((i) => i.queue_id)),
+    )
+  }
+
+  const runBulk = (kind: 'approve' | 'reject') => {
+    const ids = Array.from(selectedIds)
+    if (ids.length === 0) return
+    startBulk(async () => {
+      if (kind === 'approve') await bulkApprove(ids)
+      else await bulkReject(ids)
+      // 서버액션이 revalidatePath → RSC 재렌더로 목록 글리프 갱신. 선택만 로컬 초기화.
+      setSelectedIds(new Set())
+    })
+  }
+
   return (
     <div
       className="grid gap-4"
@@ -94,6 +118,51 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
           onFilterChange={setFilter}
           onSortChange={setSort}
         />
+        {/* 일괄 처리 툴바 (P0-5) — 필터 결과 전체 선택 → 일괄 승인/거절 */}
+        <div
+          className="flex items-center gap-2 px-3 py-2 border-b"
+          style={{ borderColor: 'var(--bd)', background: 'var(--bg2)' }}
+        >
+          <button
+            type="button"
+            onClick={toggleSelectAll}
+            disabled={filteredItems.length === 0}
+            className="inline-flex items-center h-8 px-2.5 rounded-[var(--r-sm)] font-display text-xs font-medium border transition-colors disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            style={{ borderColor: 'var(--bd)', color: 'var(--t2)', background: 'var(--bg)' }}
+          >
+            {allSelected ? '전체 해제' : '전체 선택'}
+          </button>
+          {selectedIds.size > 0 ? (
+            <>
+              <span className="font-mono text-xs tabular-nums" style={{ color: 'var(--t3)' }}>
+                {selectedIds.size} 선택
+              </span>
+              <div className="flex-1" />
+              <button
+                type="button"
+                onClick={() => runBulk('approve')}
+                disabled={bulkPending}
+                className="inline-flex items-center h-8 px-3 rounded-[var(--r-sm)] font-display text-xs font-semibold transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                style={{ background: 'var(--success)', color: 'var(--ti)' }}
+              >
+                {bulkPending ? '처리중…' : `승인`}
+              </button>
+              <button
+                type="button"
+                onClick={() => runBulk('reject')}
+                disabled={bulkPending}
+                className="inline-flex items-center h-8 px-3 rounded-[var(--r-sm)] font-display text-xs font-semibold transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                style={{ background: 'var(--error)', color: 'var(--ti)' }}
+              >
+                거절
+              </button>
+            </>
+          ) : (
+            <span className="font-mono text-xs" style={{ color: 'var(--t4)' }}>
+              체크박스로 선택해 일괄 처리
+            </span>
+          )}
+        </div>
         <VcbCurationList
           items={filteredItems}
           selectedId={selectedId}
