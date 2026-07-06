@@ -38,7 +38,7 @@ Some agents rewrote a headword to its lemma form (corpus headword `lasted` → o
 - source='ai-generated' verified=false: 3,730 (= P4 2,738 + earlier VCB cycle ~992)
 - CEFR span of new P4 rows: A1=171 / A2=237 / B1=349 / B2=1,239 / C1=1,547 / C2=187 (mostly B2~C1 as expected for 1k~9k band tail)
 
-**후속 (2026-07-06, "Tier B/C ~5.1K" 백로그 종결)**: 실측 재진단 결과 rank 보유 구간(A~C 28,673)은 example 100%·ipa 96%+로 건강 — 미보강 코어는 rank NULL 16,823. 그중 **발행 세트 노출 331단어만 표적 보강**(ipa 77→1·syn 142→48·coll 278→20·example→0, 잔여는 대명사/약어/희귀어 등 본질상 무동의어). 나머지: B/C collocations 16,001·세트밖 노출 4,652 = 보류, 비노출 ~10.8K = 종결. **⚠️ 발견: 템플릿 스텁 예문 7,143건**("The X is referenced in this passage." 6,683 + "She tried to X the difficult situation." 460) — example 100% 착시의 원인. 노출분 47건은 즉시 정상 예문으로 교체(잔여 스텁 7,096 = 비노출, 백로그). 스텁 패턴 검출: `example_en LIKE '%referenced in this passage%'`.
+**후속 (2026-07-06, "Tier B/C ~5.1K" 백로그 종결)**: 실측 재진단 결과 rank 보유 구간(A~C 28,673)은 example 100%·ipa 96%+로 건강 — 미보강 코어는 rank NULL 16,823. 그중 **발행 세트 노출 331단어만 표적 보강**(ipa 77→1·syn 142→48·coll 278→20·example→0, 잔여는 대명사/약어/희귀어 등 본질상 무동의어). 나머지: B/C collocations 16,001·세트밖 노출 4,652 = 보류, 비노출 ~10.8K = 종결. **✅ 스텁 예문 7,143건 전량 종결 (2026-07-06 저녁)**: 노출 47 + 근접 노출(published/ready 도서 어휘) 201 = 248건 정상 예문 교체 · 잔여 비노출 6,894건 `example_en=NULL`(깨진 문장보다 공란이 정직 — 향후 노출 시 lazy-enrich). 전수 스캔 스텁 잔존 0. example NULL 171→7,065(착시 제거된 실상). ⚠️ 인프라 교훈: MCP 프록시 502 장기 장애 시 서비스롤 supabase-js 폴백; PostgREST LIKE 전표 스캔은 timeout → **PK 범위 페이지네이션+클라 필터**로 우회.
 
 See [[project-dict-fill-p3-done]] for the prior NGSL-rank sprint, [[project-freq-corpus-done]] for the corpus that created these stubs, and [[project-dict-fill-top5k-done]] for the original Top 5K baseline.
 

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c9158d8` docs(session-log): VCB Phase 2-B(jargon) 반영
 - `002ac3f` refactor(vcb): Phase 2-B 완결 — MethodA/SeedFlow/Source 폼 jargon 정리
 - `6ab04f9` refactor(vcb): Phase 2-B — step 카드 설명 운영자 언어화 (jargon 제거)
 - `c4937c6` fix(plan): 탭 전환 시 우측 컴포저 초기화 (v06.153)
 - `5df3707` docs(db-schema): vcb_publish_commit 발행 RPC 반영 (P0-7)
-- `57c4391` feat(vcb): P0-7 완전 트랜잭션 publish — vcb_publish_commit RPC 적용 + publish.ts 치환
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

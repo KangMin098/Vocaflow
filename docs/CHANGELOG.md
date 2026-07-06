@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 스텁 예문 백로그 전량 종결 — 근접 노출 201 교체 + 잔여 6,894 NULL (v06.154)
+
+v06.152(사전 보강)에서 발견한 비노출 스텁 예문 7,096건 처리 완료 — DB 데이터만 변경(코드 0).
+
+- **근접 노출 201단어**(published/ready 도서 어휘에 등장 — 향후 세트 발행 시 노출될 후보): 전부 정상 예문으로 교체. 개인 단어장·아티클 겹침 0 실측.
+- **잔여 비노출 6,894건: `example_en = NULL`** — 깨진 템플릿 문장("The X is referenced in this passage.")을 학습자에게 보여줄 바에는 공란이 정직. 채움률 착시 제거(example NULL 171→7,065 = 실상 노출). 추후 해당 단어가 노출 경로에 들어올 때 lazy-enrich.
+- 전수 스캔 검증: 스텁 패턴 잔존 **0** · 당일 갱신 7,413행 산술 정합(331 보강+181 예문+6,894 NULL).
+- 인프라 메모: 작업 중 Supabase MCP 프록시 502 장기 장애 → 서비스롤 supabase-js 폴백(프로젝트 관례, `scripts/dict-fill/*-import` 패턴). PostgREST LIKE 전표 스캔은 statement timeout — PK(word) 범위 페이지네이션 + 클라이언트 필터로 우회. 임시 스크립트는 삭제.
+
 ### fix: /plan 탭 전환 시 우측 컴포저 초기화 (v06.153)
 
 도서/공용단어장/내 스크립트에서 자료를 골라 `draft`가 생긴 상태로 스크립트 탭으로 전환하면, 우측 우선순위(`draft > … > ArticleSelectPane`)에서 옛 구성이 남아 스크립트 컨텐츠 선택 영역이 안 보이던 버그. 탭 버튼 onClick에 `setDraft(null)`+`setEditId(null)`+`setError(null)` 추가.
