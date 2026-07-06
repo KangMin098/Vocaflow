@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `67b9fd5` feat(admin): 품질평가 Q3 /admin/quality 지표 대시보드 (v06.140)
 - `27b0bab` docs(session-log): next build 검증 결과 기록 (내 코드 build-clean, 실패는 동시세션 WIP)
 - `7af015f` fix(scriptquiz): rpc this-바인딩 소실 + 완료 결과 미영속 수리 (v06.139)
 - `5190c0c` fix(nav): 감사 경미 복귀 2건 + P2·경미 CHANGELOG 반영 (v06.138)
 - `4d5ce5a` refactor(curation): Curated Books 프로세스 통합·정리 + 완료 UX·새로고침
-- `56cb8de` fix(nav): "진입→닫기→제자리" 감사 P2 폴리시 7건 (v06.135 후속)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

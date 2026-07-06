@@ -94,7 +94,7 @@ export function WorkspaceBookContext({
         )}
       </nav>
 
-      {/* 우측: chapter nav + 완료 버튼 (책 메타는 ContextBar에 위임 — 중복 제거) */}
+      {/* 우측: chapter nav + 완료 버튼 */}
       <div className="flex shrink-0 items-center gap-1">
         <ChapterNavButton chapter={prevChapter} direction="prev" label="이전 장" />
         <button
