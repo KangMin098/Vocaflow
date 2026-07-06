@@ -67,21 +67,28 @@ async function aggregateRunCounts(
     else if (status === 'failed') failed += 1
   }
 
-  const { data: approvedRows } = await client
+  // approved_count = 최신 결정이 승인(approve)/수정(edit)인 항목 수 — 발행 대상(publishable)과 정합(P0-6).
+  //   기존 "과거에 approve 한 적 있음" 집계는 발행 정의와 불일치 → 무결성 배너 오탐 원인이었음.
+  const { data: decisionRows } = await client
     .from('vocab_curation_decisions')
     .select(
-      'id, vocab_enrichment_queue!inner(seed_id, vocab_seed_candidates!inner(run_id))',
+      'queue_id, decision, decided_at, vocab_enrichment_queue!inner(vocab_seed_candidates!inner(run_id))',
     )
-    .eq('decision', 'approve')
     .eq('vocab_enrichment_queue.vocab_seed_candidates.run_id', runId)
+    .order('decided_at', { ascending: false })
 
-  const approvedSet = new Set<number>()
-  for (const row of approvedRows ?? []) {
-    // Supabase 조인 결과는 단일 row 인데 PostgREST 타입 추론은 array — unknown 캐스팅 우회
-    const queueRef = (
-      row as unknown as { vocab_enrichment_queue: { seed_id: number } }
-    ).vocab_enrichment_queue
-    approvedSet.add(queueRef.seed_id)
+  const latestDecision = new Map<number, string>()
+  for (const row of (decisionRows ?? []) as Array<{
+    queue_id: number
+    decision: string
+  }>) {
+    if (!latestDecision.has(row.queue_id)) {
+      latestDecision.set(row.queue_id, row.decision)
+    }
+  }
+  let approved = 0
+  for (const d of latestDecision.values()) {
+    if (d === 'approve' || d === 'edit') approved += 1
   }
 
   return {
@@ -90,7 +97,7 @@ async function aggregateRunCounts(
     enriched_count: enriched,
     flagged_count: flagged,
     failed_count: failed,
-    approved_count: approvedSet.size,
+    approved_count: approved,
   }
 }
 

@@ -234,10 +234,13 @@ async function fetchPublishableItems(
   const result: QueueItemForPublish[] = []
   for (const row of rows) {
     const dec = latestByQueue.get(row.id)
-    if (dec?.decision === 'reject') continue
+    // P0-6: 명시적으로 승인(approve) 또는 수정(edit)된 항목만 발행.
+    //   미검토(결정 없음)·거절(reject)·재생성(reenrich)은 제외 → 미검토 단어 silent 발행 차단.
+    //   (precheck 가 미검토 잔여 시 차단하므로 정상 흐름에선 여기 도달 전 걸러짐 — 이중 방어.)
+    if (!dec || (dec.decision !== 'approve' && dec.decision !== 'edit')) continue
 
     const payload =
-      dec?.decision === 'edit' && dec.edited_payload
+      dec.decision === 'edit' && dec.edited_payload
         ? dec.edited_payload
         : row.enriched_payload
 

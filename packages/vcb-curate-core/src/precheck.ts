@@ -108,28 +108,36 @@ export async function precheckPublish(
     }
   }
 
-  let approvedCount = 0
+  // P0-6: 발행 대상 = 최신 결정이 승인(approve)/수정(edit)인 항목만.
+  let acceptedCount = 0
   let rejectedCount = 0
   for (const decision of latestByQueue.values()) {
-    if (decision === 'approve') approvedCount += 1
+    if (decision === 'approve' || decision === 'edit') acceptedCount += 1
     else if (decision === 'reject') rejectedCount += 1
   }
 
+  // enriched/enriched_flagged 중 승인/수정/거절 어느 것도 없는 항목 = 미검토.
+  //   flagged 뿐 아니라 QA 통과한 plain enriched 도 미검토면 발행 차단 → silent 발행 방지.
+  const reviewableTotal = queueEnriched + queueFlagged
+  const unreviewedCount = Math.max(0, reviewableTotal - acceptedCount - rejectedCount)
+
+  // flagged 미검토는 별도 통계로 노출 (운영자 검토 우선순위 힌트)
   let flaggedWithoutDecision = 0
   for (const id of queueIds) {
-    const decision = latestByQueue.get(id)
-    if (!decision) {
+    if (!latestByQueue.has(id)) {
       const row = (queueRows ?? []).find(
         (r) => (r as { id: number }).id === id,
       ) as { status: string } | undefined
       if (row?.status === 'enriched_flagged') flaggedWithoutDecision += 1
     }
   }
-  if (flaggedWithoutDecision > 0) {
-    blockers.push(`${flaggedWithoutDecision} flagged items have no curator decision`)
+  if (unreviewedCount > 0) {
+    blockers.push(
+      `${unreviewedCount}개 항목 미검토 — 검토 후 승인/거절하세요 (목록에서 일괄 선택→승인 가능)`,
+    )
   }
 
-  const publishableCount = queueEnriched + queueFlagged - rejectedCount
+  const publishableCount = acceptedCount
   if (publishableCount < MIN_PUBLISHABLE_COUNT) {
     blockers.push(`publishable count ${publishableCount} < ${MIN_PUBLISHABLE_COUNT}`)
   }
@@ -161,9 +169,6 @@ export async function precheckPublish(
   if (queueFailed > 0) {
     warnings.push(`${queueFailed} items in failed status (will be skipped)`)
   }
-
-  // approvedCount 는 informational — 통계에 포함되지 않지만 향후 디버깅용 유지
-  void approvedCount
 
   const stats: PrecheckStats = {
     queue_total: queueTotal,
