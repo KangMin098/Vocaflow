@@ -10,6 +10,7 @@ import {
   CreditCard,
   Database,
   Flag,
+  Gauge,
   LayoutDashboard,
   Library,
   Newspaper,
@@ -68,6 +69,7 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
     color: 'var(--info)',
     items: [
       { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
+      { href: '/admin/quality', label: '품질 지표', Icon: Gauge },
       { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: reportsBadge },
       { href: '/admin/billing', label: '결제/구독', Icon: CreditCard },
     ],

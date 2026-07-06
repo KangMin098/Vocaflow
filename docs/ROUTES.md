@@ -127,6 +127,7 @@
 | `/admin` | `admin/page.tsx` + `layout.tsx` | KPI 4 + 섹션 + 활동 피드 |
 | `/admin/users` | stub | 사용자 관리 |
 | `/admin/analytics` | stub | 플랫폼 분석 |
+| `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/reports` | stub | 신고/문의 (실 데이터 뱃지 — `reports.status='open'` count) |
 | `/admin/billing` | stub | 결제 |
 | `/admin/settings` | stub | 시스템 설정 |

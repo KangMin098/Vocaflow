@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 품질평가 Q3 — /admin/quality 지표 대시보드 (v06.140)
+
+Q1(골든셋 스냅샷)+Q2(nightly `quality_metrics` 수집, PR #94) 후속 — 수집만 되고 보는 화면이 없던 지표를 admin 콘솔에 노출. 마이그레이션 0.
+
+- **`/admin/quality`** ([page.tsx](../apps/web/src/app/admin/quality/page.tsx), Server Component 단일 파일) — 파이프라인 단계(ingest→analyze→extract→publish→deliver)별 지표 카드: 최신값 + 전회 대비(▲/▼ %p) + 수집 이력 스파크라인(SVG) + `dims` 측정 모수 상세. 도서 지표는 `dims.status`(published/ready) 세그먼트 분리. 미등록 신규 metric 도 원문 라벨로 자동 노출.
+- **AdminSidebar** '운영' 그룹에 "품질 지표"(Gauge) 등재.
+- **렌더 테스트** [__tests__/page.test.tsx](../apps/web/src/app/admin/quality/__tests__/page.test.tsx) — RLS(read=admin) 탓에 dev-bypass 실주행은 빈 상태만 확인 가능 → 데이터 분기(카드·세그먼트·delta·스파크라인·dims·빈 상태·오류 폴백)는 `renderToString` 픽스처 3케이스로 검증. vitest 에 automatic JSX 런타임 추가([vitest.config.ts](../apps/web/vitest.config.ts), 첫 .tsx 테스트). 전 스위트 99 passed.
+- 검증: `tsc --noEmit`·eslint 0 오류 · admin RLS 시뮬레이션 27행 가시 확인 · dev 렌더 200.
+- 한계: "지금 수집" 버튼 없음 — `collect_quality_metrics` EXECUTE 가 postgres/service_role 전용(admin wrapper RPC 는 별도 결재 대기).
+
 ### 게임 모듈 런타임 검증 — PairFlip 완주 + ScriptQuiz 결함 2건 수리 (v06.139)
 
 Playwright 실주행으로 PairFlip·ScriptQuiz(#53/#54 잔여 "런타임 미검증") 종결.

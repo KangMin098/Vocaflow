@@ -36,6 +36,7 @@
    = 총 7 항목
 [ 운영 ]     (accent: var(--info))
    플랫폼 분석
+   품질 지표 (Gauge, v06.140)
    신고·문의 (실 데이터 뱃지)
    결제
 [ 시스템 ]   (accent: var(--active))
@@ -247,6 +248,18 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 - KPI 4
 - 200 row read-only
 - AdminSidebar 등재
+
+---
+
+## /admin/quality (v06.140 신규 — 품질평가 Q3)
+
+`quality_metrics` (nightly pg_cron jobid=12, KST 03:10 `collect_quality_metrics`) 읽기 전용 대시보드.
+
+- Server Component 단일 파일 (`admin/quality/page.tsx`), 마이그레이션 0
+- 파이프라인 단계(ingest→analyze→extract→publish→deliver)별 지표 카드 — 최신값 + 전회 대비 + 스파크라인(SVG) + dims 상세
+- 도서 지표는 `dims.status`(published/ready) 세그먼트 분리
+- RLS read=admin — dev-bypass 브라우징은 빈 상태(정상). 데이터 분기는 `__tests__/page.test.tsx` renderToString 픽스처로 검증
+- "지금 수집" 버튼 없음 — `collect_quality_metrics` EXECUTE 가 service_role 전용 (admin wrapper RPC 는 별도 결재)
 
 ---
 
