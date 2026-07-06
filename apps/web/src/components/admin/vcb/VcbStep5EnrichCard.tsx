@@ -157,7 +157,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
             Step 5 · AI Enrichment
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            pending queue → JSONL export → /vcb-enrich 자동 실행 → DB 적재. 200개씩 chunk.
+            보강 대기 단어의 뜻·예문·발음·IPA 를 AI 로 채웁니다. 200개 단위로 나눠 처리합니다.
           </p>
         </div>
       </header>

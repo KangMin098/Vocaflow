@@ -77,7 +77,7 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
             Step 6 · QA Gate
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            enriched payload 에 R1~R8 룰 적용 → qa_flags 적재 + 상태 분류 (enriched / enriched_flagged / failed)
+            보강 결과에 품질 규칙을 적용해 통과 · 검토 필요 · 실패로 분류합니다.
           </p>
         </div>
       </header>

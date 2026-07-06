@@ -72,7 +72,7 @@ export function VcbStep4LookupCard({ runId, runStatus, seedCount }: Props) {
             Step 4 · 사전 매칭
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            seed_candidates 를 shared_dictionary 에 매칭해서 vocab_dict_hits + vocab_enrichment_queue 를 생성합니다.
+            추출된 시드 단어를 내부 사전과 대조해, 이미 뜻이 있는 단어와 새로 보강할 단어를 가려냅니다.
           </p>
         </div>
       </header>
