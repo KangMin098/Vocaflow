@@ -380,8 +380,15 @@ export function PlanClient({
             })}
           </div>
 
-          {/* master-detail: 좌=분류 레일(1축) · 우=그룹 헤더+컨텐츠 — 모든 자료 유형 동일.
-              스크립트=소스 레일 → 우측 프로그램 헤더 → 컨텐츠 (도서 챕터와 동일한 3단) */}
+          {/* 스크립트=3열 드릴(1 소스 → 2 소스별 분류 → 3 컨텐츠 리스트), 그 외=표준 master-detail(레일→그룹) */}
+          {activeTab === 'article' ? (
+            <ArticleColumns
+              articles={candidates}
+              countByKey={countByKey}
+              draftOptionId={draft?.option.id ?? null}
+              onPick={pickMaterial}
+            />
+          ) : (
           <div className="flex gap-2">
               <nav
                 aria-label="분류"
@@ -432,14 +439,6 @@ export function PlanClient({
                             draftOptionId={draft?.option.id ?? null}
                             onPick={pickMaterial}
                           />
-                        ) : activeTab === 'article' ? (
-                          // 스크립트 — 우측에서 프로그램(feed) 헤더로 하위그룹 (소스 레일 → 프로그램 → 컨텐츠)
-                          <ArticleFeedGroups
-                            items={g.items}
-                            countByKey={countByKey}
-                            draftOptionId={draft?.option.id ?? null}
-                            onPick={pickMaterial}
-                          />
                         ) : (
                           <ul className="flex flex-col gap-1.5">
                             {g.items.map((m) => (
@@ -460,6 +459,7 @@ export function PlanClient({
                 )}
               </div>
             </div>
+          )}
         </div>
 
         {/* 우: 구성 */}
@@ -1233,67 +1233,123 @@ function shortProgramLabel(sourceLabel: string, label: string): string {
   return out || label
 }
 
-// 스크립트(article) — 소스 하위 '프로그램(feed)' 헤더 + 컨텐츠 행 (소스 → 프로그램 → 컨텐츠).
-//   feed 없는 소스(프로그램 라벨 전무)는 헤더 없이 flat 리스트.
-function ArticleFeedGroups({
-  items,
+// 스크립트(article) picker — 3열 드릴: ① 소스 → ② 소스별 분류(프로그램) → ③ 컨텐츠 리스트.
+//   각 단계가 독립 열. 소스 클릭 시 프로그램 첫 항목으로 리셋. feed 없는 소스는 '전체' 1개.
+function ArticleColumns({
+  articles,
   countByKey,
   draftOptionId,
   onPick,
 }: {
-  items: MaterialOption[]
+  articles: MaterialOption[]
   countByKey: Map<string, number>
   draftOptionId: string | null
   onPick: (m: MaterialOption) => void
 }) {
+  const SOURCE_ORDER = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
   const NONE = '__none__'
-  // 프로그램 헤더에서 소스명 중복 제거 — 상위 그룹 헤더가 이미 소스. items 는 동일 소스.
-  const sourceLabel = articleSourceLabel(items[0]?.source ?? null)
+
+  // ① 소스별
+  const bySource = new Map<string, MaterialOption[]>()
+  for (const m of articles) {
+    const k = m.source ?? 'etc'
+    if (!bySource.has(k)) bySource.set(k, [])
+    bySource.get(k)!.push(m)
+  }
+  const sources = Array.from(bySource.keys())
+    .sort((a, b) => (SOURCE_ORDER.indexOf(a) + 1 || 99) - (SOURCE_ORDER.indexOf(b) + 1 || 99))
+    .map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
+
+  const [srcKey, setSrcKey] = useState<string>('')
+  const activeSource = sources.find((s) => s.key === srcKey) ?? sources[0]
+
+  // ② 활성 소스의 프로그램(feed)
   const byFeed = new Map<string, MaterialOption[]>()
-  for (const m of items) {
+  for (const m of activeSource?.items ?? []) {
     const k = m.feedLabel ?? NONE
     if (!byFeed.has(k)) byFeed.set(k, [])
     byFeed.get(k)!.push(m)
   }
-  const named = Array.from(byFeed.keys())
-    .filter((k) => k !== NONE)
-    .sort((a, b) => a.localeCompare(b))
-  const ordered = [...named, ...(byFeed.has(NONE) ? [NONE] : [])]
+  const programs = Array.from(byFeed.keys())
+    .sort((a, b) => (a === NONE ? 1 : b === NONE ? -1 : a.localeCompare(b)))
+    .map((k) => ({
+      key: k,
+      label: k === NONE ? '전체' : shortProgramLabel(activeSource?.label ?? '', k),
+      full: k === NONE ? null : k,
+      items: byFeed.get(k)!,
+    }))
 
-  const row = (m: MaterialOption) => (
-    <MaterialRow
-      key={m.id}
-      m={m}
-      type="article"
-      picked={draftOptionId === m.id}
-      count={countByKey.get(`article:${m.id}`) ?? 0}
-      onPick={() => onPick(m)}
-    />
-  )
-
-  // 프로그램 없는 소스(named feed 0) → 헤더 없이 flat
-  if (named.length === 0) {
-    return <ul className="flex flex-col gap-1.5">{items.map(row)}</ul>
-  }
+  const [progKey, setProgKey] = useState<string>('')
+  const activeProgram = programs.find((p) => p.key === progKey) ?? programs[0]
 
   return (
-    <div className="flex flex-col gap-2.5">
-      {ordered.map((k) => (
-        <div key={k} className="flex flex-col gap-1">
-          <div className="flex items-center gap-1.5">
-            <Newspaper size={11} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
-            <h4
-              className="truncate font-display text-[11px] font-[800] text-[var(--t2)]"
-              title={k === NONE ? undefined : k}
+    <div className="flex gap-2">
+      {/* ① 소스 */}
+      <nav aria-label="소스" className="flex max-h-[420px] w-[92px] shrink-0 flex-col gap-1 overflow-y-auto">
+        {sources.map((s) => (
+          <RailButton
+            key={s.key}
+            label={s.label}
+            count={s.items.length}
+            active={s.key === activeSource?.key}
+            onClick={() => {
+              setSrcKey(s.key)
+              setProgKey('')
+            }}
+          />
+        ))}
+      </nav>
+
+      {/* ② 소스별 분류(프로그램) */}
+      <nav
+        aria-label="분류"
+        className="flex max-h-[420px] w-[124px] shrink-0 flex-col gap-1 overflow-y-auto border-l border-[var(--bd)] pl-2"
+      >
+        {programs.map((p) => {
+          const on = p.key === activeProgram?.key
+          return (
+            <button
+              key={p.key}
+              type="button"
+              onClick={() => setProgKey(p.key)}
+              aria-pressed={on}
+              title={p.full ?? p.label}
+              className={`flex min-h-[38px] w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                on
+                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+                  : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+              }`}
             >
-              {k === NONE ? '기타' : shortProgramLabel(sourceLabel, k)}
-            </h4>
-            <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">{byFeed.get(k)!.length}</span>
-            <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-          </div>
-          <ul className="flex flex-col gap-1">{byFeed.get(k)!.map(row)}</ul>
-        </div>
-      ))}
+              <span className="min-w-0 flex-1 line-clamp-2 font-display text-[11px] font-[700] leading-tight">
+                {p.label}
+              </span>
+              <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+                {p.items.length}
+              </span>
+            </button>
+          )
+        })}
+      </nav>
+
+      {/* ③ 컨텐츠 리스트 (가장 오른쪽) */}
+      <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
+        {activeProgram && activeProgram.items.length > 0 ? (
+          <ul className="flex flex-col gap-1.5">
+            {activeProgram.items.map((m) => (
+              <MaterialRow
+                key={m.id}
+                m={m}
+                type="article"
+                picked={draftOptionId === m.id}
+                count={countByKey.get(`article:${m.id}`) ?? 0}
+                onPick={() => onPick(m)}
+              />
+            ))}
+          </ul>
+        ) : (
+          <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">표시할 스크립트가 없어요.</p>
+        )}
+      </div>
     </div>
   )
 }
