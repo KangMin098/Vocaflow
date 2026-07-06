@@ -1309,25 +1309,31 @@ function ArticleNav({
   onProgram: (key: string) => void
 }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2.5">
       {/* ① 소스 */}
-      <nav aria-label="소스" className="flex max-h-[420px] w-[96px] shrink-0 flex-col gap-1 overflow-y-auto">
-        {nav.sources.map((s) => (
-          <RailButton
-            key={s.key}
-            label={s.label}
-            count={s.items.length}
-            active={s.key === nav.activeSourceKey}
-            onClick={() => onSource(s.key)}
-          />
-        ))}
-      </nav>
+      <div className="flex shrink-0 flex-col gap-1.5">
+        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+          소스
+        </span>
+        <nav aria-label="소스" className="flex max-h-[400px] w-[96px] flex-col gap-1 overflow-y-auto">
+          {nav.sources.map((s) => (
+            <RailButton
+              key={s.key}
+              label={s.label}
+              count={s.items.length}
+              active={s.key === nav.activeSourceKey}
+              onClick={() => onSource(s.key)}
+            />
+          ))}
+        </nav>
+      </div>
       {/* ② 소스별 분류(프로그램) */}
-      <nav
-        aria-label="분류"
-        className="flex max-h-[420px] w-[132px] shrink-0 flex-col gap-1 overflow-y-auto border-l border-[var(--bd)] pl-2"
-      >
-        {nav.programs.map((p) => {
+      <div className="flex shrink-0 flex-col gap-1.5 border-l border-[var(--bd)] pl-2.5">
+        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+          분류
+        </span>
+        <nav aria-label="분류" className="flex max-h-[400px] w-[134px] flex-col gap-1 overflow-y-auto">
+          {nav.programs.map((p) => {
           const on = p.key === nav.activeProgramKey
           return (
             <button
@@ -1350,8 +1356,9 @@ function ArticleNav({
               </span>
             </button>
           )
-        })}
-      </nav>
+          })}
+        </nav>
+      </div>
     </div>
   )
 }
@@ -1371,16 +1378,20 @@ function ArticleContentPane({
   onPick: (m: MaterialOption) => void
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1.5">
-        <Newspaper size={14} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
+    <div className="flex flex-col gap-2.5">
+      <div className="flex items-center gap-1.5 border-b border-[var(--bd)] pb-2.5">
+        <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
+          <Newspaper size={13} strokeWidth={1.75} />
+        </span>
         <h2 className="min-w-0 truncate font-display text-[14px] font-[800] text-[var(--t1)]">
           {sourceLabel}
           {program.full ? <span className="font-[700] text-[var(--t3)]"> · {program.label}</span> : null}
         </h2>
-        <span className="shrink-0 font-mono text-[11px] text-[var(--t3)]">{program.items.length}</span>
+        <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
+          {program.items.length}
+        </span>
       </div>
-      <p className="font-body text-[12px] text-[var(--t3)]">
+      <p className="font-body text-[12px] italic text-[var(--t3)]">
         담을 스크립트를 고르세요 — 클릭하면 활동·요일을 정합니다.
       </p>
       <ul className="flex max-h-[460px] flex-col gap-1.5 overflow-y-auto pr-1">
@@ -1419,8 +1430,10 @@ function MaterialRow({
   const inPlan = (count ?? 0) > 0
   return (
     <li
-      className={`rounded-[var(--r-md)] border transition-colors duration-[var(--dur-normal)] ${
-        picked ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+      className={`group rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
+        picked
+          ? 'border-[var(--p)] bg-[var(--p-light)] shadow-[var(--sh-xs)]'
+          : 'border-[var(--bd)] bg-[var(--bg2)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)]'
       }`}
     >
       <button
@@ -1428,31 +1441,40 @@ function MaterialRow({
         onClick={onPick}
         aria-pressed={picked}
         title={inPlan ? `${m.title} — 계획에 ${count}개 담김 (클릭해 배치 추가)` : m.title}
-        className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
       >
         <MaterialBadge type={type} m={m} />
-        <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate font-display text-[13px] font-[700] text-[var(--t1)]">
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">
             {displayTitle ?? m.title}
           </span>
-          {m.subtitle && <span className="truncate font-body text-[11px] text-[var(--t3)]">{m.subtitle}</span>}
+          {m.subtitle && (
+            <span className="truncate font-body text-[11px] leading-tight text-[var(--t3)]">{m.subtitle}</span>
+          )}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
-          <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
             V{m.vLevel}
           </span>
         )}
         {inPlan ? (
           <span
-            className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[800] text-[var(--ti)]"
+            className="inline-flex h-6 shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 font-display text-[9px] font-[800] text-[var(--ti)]"
             title={`계획에 ${count}개 담김`}
           >
             <Check size={10} strokeWidth={3} aria-hidden /> {count}
           </span>
         ) : picked ? (
-          <Check size={14} strokeWidth={2.5} className="shrink-0 text-[var(--p)]" aria-hidden />
+          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--ti)]" aria-hidden>
+            <Check size={13} strokeWidth={3} />
+          </span>
         ) : (
-          <Plus size={14} strokeWidth={2} className="shrink-0 text-[var(--p)]" aria-hidden />
+          <span
+            className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[var(--p)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p)] group-hover:text-[var(--ti)]"
+            aria-hidden
+          >
+            <Plus size={13} strokeWidth={2.5} />
+          </span>
         )}
       </button>
     </li>

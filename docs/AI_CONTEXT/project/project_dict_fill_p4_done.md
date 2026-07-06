@@ -38,5 +38,7 @@ Some agents rewrote a headword to its lemma form (corpus headword `lasted` → o
 - source='ai-generated' verified=false: 3,730 (= P4 2,738 + earlier VCB cycle ~992)
 - CEFR span of new P4 rows: A1=171 / A2=237 / B1=349 / B2=1,239 / C1=1,547 / C2=187 (mostly B2~C1 as expected for 1k~9k band tail)
 
+**후속 (2026-07-06, "Tier B/C ~5.1K" 백로그 종결)**: 실측 재진단 결과 rank 보유 구간(A~C 28,673)은 example 100%·ipa 96%+로 건강 — 미보강 코어는 rank NULL 16,823. 그중 **발행 세트 노출 331단어만 표적 보강**(ipa 77→1·syn 142→48·coll 278→20·example→0, 잔여는 대명사/약어/희귀어 등 본질상 무동의어). 나머지: B/C collocations 16,001·세트밖 노출 4,652 = 보류, 비노출 ~10.8K = 종결. **⚠️ 발견: 템플릿 스텁 예문 7,143건**("The X is referenced in this passage." 6,683 + "She tried to X the difficult situation." 460) — example 100% 착시의 원인. 노출분 47건은 즉시 정상 예문으로 교체(잔여 스텁 7,096 = 비노출, 백로그). 스텁 패턴 검출: `example_en LIKE '%referenced in this passage%'`.
+
 See [[project-dict-fill-p3-done]] for the prior NGSL-rank sprint, [[project-freq-corpus-done]] for the corpus that created these stubs, and [[project-dict-fill-top5k-done]] for the original Top 5K baseline.
 

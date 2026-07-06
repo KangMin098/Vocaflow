@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /plan picker 행·컬럼 디자인 폴리시 — 상태·깊이 적용 (v06.151)
+
+컨텐츠 행이 hover/active 상태·깊이 없이 평면적이던 것 정비(디자인 원칙: 인터랙티브 요소 hover+active+focus 필수).
+
+- **MaterialRow**(전 탭 공용) — hover 리프트(`-translate-y-px` + `border-[var(--p)]` + `shadow-sm`), `active:scale` 프레스, `+` 아이콘 group-hover 잉크 채움, V-Level 배지 outlined pill, 제목/부제 leading 정리.
+- **ArticleContentPane** — 헤더 하단 구분선 + 아이콘 배지 + 개수 pill + 안내문 italic.
+- **ArticleNav** — 소스·분류 열에 컬럼 라벨(mono uppercase) 추가로 3단 구조 명시.
+- 검증: `tsc --noEmit` 통과. 하드코딩 색 없음(전부 토큰).
+
 ### /plan 스크립트 컨텐츠 리스트를 우측 선택 영역으로 (v06.150)
 
 v06.149(좌측 3열) 후속 — 사용자 요청대로 **좌측=소스·분류 2열 네비**, **컨텐츠 리스트는 우측 넓은 선택 영역**으로 이동(제목이 좁게 잘리던 문제 해소). 컨텐츠 클릭 시 그 자리에서 활동·요일 구성으로 전환.
