@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9e2fa64` docs(db): DB_SCHEMA에 v06.148 admin read 정책 4건 기록
 - `d8e1888` feat(db): VRL admin read RLS 정책 4건 + is_admin() 헬퍼 (v06.148)
 - `8f9013e` docs(session-log): RESUME HERE → VCB 파이프라인 재설계 Phase 1 진행 상황
 - `be1338e` feat(vcb): Phase 1-B — 큐레이션 일괄 승인/거절 배선 (P0-5)
 - `e964567` feat(vcb): Phase 1-A 정합성 — service-role 일관화 + qa→curating 전이 + 큐레이션 전량로드 + collections 라우트
-- `50f03ec` fix(admin): VRL 두 대시보드 현행화 + 관측 고도화 (v06.147)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

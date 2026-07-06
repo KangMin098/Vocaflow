@@ -86,7 +86,7 @@
 | **어휘 감사 큐** (v06.x Phase 1) | `enqueue_review_jobs(uuid[],'vocab_audit')` | **published**(발행 단어장 존재) 선택분을 `task_type='vocab_audit'`로 적재. Claude Code 드레인(`scripts/lcp/audit-vocab.mjs`)이 발행 단어장의 뜻·품사·레벨·register 를 문맥 근거로 점검 → `result.flagged[]` 기록. 실 교정은 `dict-*` 스크립트로 별도(감사=식별) |
 | **소스로 되돌리기 (삭제)** | `admin_bulk_requeue_books(uuid[])` | 처리중 ∪ 검토대기 선택분 → library_books DELETE → BulkFetchTab 복귀. (구 `처리중→소스GET`+`검토대기→소스GET` 2버튼이 동일 RPC 라 1버튼으로 통합) |
 
-> 드레인 큐 통합 (v06.x): 생성/매핑(quiz_gen·voice_map) + 검토(level_verify·vocab_audit) 를 `book_curation_jobs` 단일 큐 + `DrainQueueBanner` 단일 배너(🔊 매핑 / 📝 퀴즈 / 🔬 검토)로.
+> 드레인 큐 통합 (v06.x): 생성/매핑(quiz_gen·voice_map) + 검토(level_verify·vocab_audit) 를 `book_curation_jobs` 단일 큐 + `DrainQueueBanner` 단일 배너(🔊 매핑 / 📝 퀴즈 / 🔬 검토)로. 드레인 오케스트레이터 `scripts/lcp/drain.mjs`: `list`(미완 잡 대시보드) · `next [book_id]`(책별 task 실행 런북 — 4 helper 로 라우팅). 4 task 모두 Claude Code(LLM) 판단 필요라 자동 실행 X, "무엇을·어떻게" 단일 진입점.
 > 통합 정리 (v06.x): 구 `검토대기 → 처리중`(draft 삭제 reclassify) 버튼은 제거 — 재처리(Dev 일괄 처리)로 대체. RPC `admin_bulk_set_books_curating` 자체는 DB 에 잔존.
 
 **LibriVox 매핑 자동화 (v06.35)**: 이전의 수동 "매핑 큐 등록(Claude)" 버튼은 제거. `dev-process` 가 분석 직후 `autoMapLibriVoxForBook` 를 호출해 **count-gate 통과 시 즉시 `librivox_audio` 저장**. 정합 실패본만 `book_curation_jobs` 큐에 자동 등록(Claude Code 수동 정합 대상) → 리스트 행에 `JobQueueBadge` 노출. 성공/녹음없음은 큐 잡 자동 삭제.
