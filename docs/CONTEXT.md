@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `043b669` docs(dict): 노출 단어 표적 보강 + 스텁 예문 교체 기록 (v06.152)
 - `9d62b37` feat(plan): picker 행·컬럼 디자인 폴리시 — 상태·깊이 적용 (v06.151)
 - `e810327` docs(session-log): VCB P0-7 완화(보상 롤백) 반영
 - `679bd70` fix(vcb): P0-7 완화 — publish 실패 시 보상 롤백 (orphan 방지, 마이그레이션 없이)
 - `498e807` fix(curation): review-book --correct 가 cefrj_level 도 동기화 (cefr_band 반영)
-- `9bb1af2` feat(plan): 스크립트 컨텐츠 리스트를 우측 선택 영역으로 (v06.150)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

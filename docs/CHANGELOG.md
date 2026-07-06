@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 큐레이션 드레인 큐 통합 + 품질 검토 task (v06.153)
+
+Curated Books 드레인 큐를 단일화하고, 드레인(Claude Code 배치)이 생성/매핑을 넘어 **품질 검토(레벨·어휘)**까지 하도록 확장.
+
+- **큐 통합** — 퀴즈 큐(`book_quiz_jobs`)를 `book_curation_jobs`(`task_type` 판별자)로 흡수 후 DROP. 배너 2개(`CurationJobsBanner`+`QuizJobsBanner`) → **`DrainQueueBanner` 1개**(🔊 매핑 / 📝 퀴즈 / 🔬 검토). `dev-process` upsert/delete 에 `task_type='voice_map'` 필터(퀴즈 잡 오삭제 방지). 마이그 `unify_quiz_into_curation_jobs`.
+- **검토 task 2종** — `level_verify`(본문 근거 CEFR/V 재판정, [`review-book.mjs`](../scripts/lcp/review-book.mjs)) + `vocab_audit`(발행 단어장 뜻·품사·레벨·register 감사, [`audit-vocab.mjs`](../scripts/lcp/audit-vocab.mjs)). `book_curation_jobs.result` jsonb + `enqueue_review_jobs(uuid[],text)` RPC + Bulk 툴바 `레벨 검토 큐`·`어휘 감사 큐` 버튼. 마이그 `drain_review_tasks_level_vocab`.
+- **오케스트레이터** — [`scripts/lcp/drain.mjs`](../scripts/lcp/drain.mjs) (`list`/`next`): 4 task 통합 큐 단일 진입점(무엇을·어떻게 드레인).
+- **실증** — Pinocchio 어휘 감사 3건(`stroke=뇌졸중→타격` 등 문맥 오류) → `shared_dictionary` 교정 + 발행 스냅샷 10건 전파. Alice Adams 레벨 `B2/V8 → C1/V9` 교정(`cefr_band` 포함 4지표 일관화). `review-book --correct` 가 `cefrj_level` 미갱신해 `cefr_band` 안 따라오던 결함 수정.
+- (Curated Books 프로세스 재설계 R1~R4 + 완료 배너 액션 + `⟳ 새로고침` 은 [v06.131](#curated-books-프로세스-재설계--통합정리-v06131))
+
 ### 사전 노출 단어 표적 보강 + 스텁 예문 교체 (v06.152)
 
 "Tier B/C enrichment ~5.1K" 백로그 재진단·종결 — DB 데이터만 변경(코드 0·마이그레이션 0).
