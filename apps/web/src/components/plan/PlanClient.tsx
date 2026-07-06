@@ -100,6 +100,9 @@ export function PlanClient({
   // picker — 분류 레일(좌) 선택 상태. 'all' = 전체(섹션 헤더로 그룹 표시)
   const [activeTab, setActiveTab] = useState<MaterialType>('book')
   const [rail, setRail] = useState<string>('all')
+  // 스크립트 3단 드릴 선택 — 좌측 2열(소스·분류) 네비 + 우측 선택 영역(컨텐츠)이 공유
+  const [artSrc, setArtSrc] = useState<string>('')
+  const [artProg, setArtProg] = useState<string>('')
 
   const editItem = items.find((i) => i.id === editId) ?? null
   /** 자료별 담긴 배치 수 — picker '계획 N' 배지 (다중 엔트리: 같은 자료 여러 배치 가능) */
@@ -117,6 +120,8 @@ export function PlanClient({
   }
 
   const candidates = tabMaterials[activeTab]
+  // 스크립트 네비(소스→프로그램) — 좌측 2열 네비와 우측 컨텐츠 리스트가 공유
+  const articleNav = buildArticleNav(materials.articles, artSrc, artProg)
 
   // 탭별 분류 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리+도서(챕터별).
   // 분류는 좌측 레일, 세부 리스트는 우측 — 모든 자료 유형에 동일한 master-detail 패턴.
@@ -380,13 +385,15 @@ export function PlanClient({
             })}
           </div>
 
-          {/* 스크립트=3열 드릴(1 소스 → 2 소스별 분류 → 3 컨텐츠 리스트), 그 외=표준 master-detail(레일→그룹) */}
+          {/* 스크립트=좌 2열 네비(소스·분류), 컨텐츠는 우측 선택 영역. 그 외=표준 master-detail(레일→그룹) */}
           {activeTab === 'article' ? (
-            <ArticleColumns
-              articles={candidates}
-              countByKey={countByKey}
-              draftOptionId={draft?.option.id ?? null}
-              onPick={pickMaterial}
+            <ArticleNav
+              nav={articleNav}
+              onSource={(k) => {
+                setArtSrc(k)
+                setArtProg('')
+              }}
+              onProgram={(k) => setArtProg(k)}
             />
           ) : (
           <div className="flex gap-2">
@@ -502,6 +509,16 @@ export function PlanClient({
               }
               onRemove={() => removeItem(editItem)}
               onClose={closeComposer}
+            />
+          ) : activeTab === 'article' && articleNav.activeProgram && articleNav.activeProgram.items.length > 0 ? (
+            <ArticleContentPane
+              program={articleNav.activeProgram}
+              sourceLabel={
+                articleNav.sources.find((s) => s.key === articleNav.activeSourceKey)?.label ?? ''
+              }
+              countByKey={countByKey}
+              draftOptionId={null}
+              onPick={pickMaterial}
             />
           ) : (
             <div className="flex min-h-[200px] flex-col items-center justify-center gap-2 text-center">
@@ -1233,23 +1250,18 @@ function shortProgramLabel(sourceLabel: string, label: string): string {
   return out || label
 }
 
-// 스크립트(article) picker — 3열 드릴: ① 소스 → ② 소스별 분류(프로그램) → ③ 컨텐츠 리스트.
-//   각 단계가 독립 열. 소스 클릭 시 프로그램 첫 항목으로 리셋. feed 없는 소스는 '전체' 1개.
-function ArticleColumns({
-  articles,
-  countByKey,
-  draftOptionId,
-  onPick,
-}: {
-  articles: MaterialOption[]
-  countByKey: Map<string, number>
-  draftOptionId: string | null
-  onPick: (m: MaterialOption) => void
-}) {
+// 스크립트(article) 네비 데이터 — 소스별 → 활성 소스의 프로그램별. buildArticleNav 순수 계산(상태는 PlanClient).
+interface ArticleNavData {
+  sources: { key: string; label: string; items: MaterialOption[] }[]
+  activeSourceKey: string
+  programs: { key: string; label: string; full: string | null; items: MaterialOption[] }[]
+  activeProgramKey: string
+  activeProgram: { key: string; label: string; full: string | null; items: MaterialOption[] } | null
+}
+
+function buildArticleNav(articles: MaterialOption[], srcKey: string, progKey: string): ArticleNavData {
   const SOURCE_ORDER = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
   const NONE = '__none__'
-
-  // ① 소스별
   const bySource = new Map<string, MaterialOption[]>()
   for (const m of articles) {
     const k = m.source ?? 'etc'
@@ -1259,11 +1271,8 @@ function ArticleColumns({
   const sources = Array.from(bySource.keys())
     .sort((a, b) => (SOURCE_ORDER.indexOf(a) + 1 || 99) - (SOURCE_ORDER.indexOf(b) + 1 || 99))
     .map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
-
-  const [srcKey, setSrcKey] = useState<string>('')
   const activeSource = sources.find((s) => s.key === srcKey) ?? sources[0]
 
-  // ② 활성 소스의 프로그램(feed)
   const byFeed = new Map<string, MaterialOption[]>()
   for (const m of activeSource?.items ?? []) {
     const k = m.feedLabel ?? NONE
@@ -1278,40 +1287,53 @@ function ArticleColumns({
       full: k === NONE ? null : k,
       items: byFeed.get(k)!,
     }))
+  const activeProgram = programs.find((p) => p.key === progKey) ?? programs[0] ?? null
 
-  const [progKey, setProgKey] = useState<string>('')
-  const activeProgram = programs.find((p) => p.key === progKey) ?? programs[0]
+  return {
+    sources,
+    activeSourceKey: activeSource?.key ?? '',
+    programs,
+    activeProgramKey: activeProgram?.key ?? '',
+    activeProgram,
+  }
+}
 
+// 좌측 2열 네비 — ① 소스 · ② 소스별 분류(프로그램). 컨텐츠는 우측 선택 영역이 담당.
+function ArticleNav({
+  nav,
+  onSource,
+  onProgram,
+}: {
+  nav: ArticleNavData
+  onSource: (key: string) => void
+  onProgram: (key: string) => void
+}) {
   return (
     <div className="flex gap-2">
       {/* ① 소스 */}
-      <nav aria-label="소스" className="flex max-h-[420px] w-[92px] shrink-0 flex-col gap-1 overflow-y-auto">
-        {sources.map((s) => (
+      <nav aria-label="소스" className="flex max-h-[420px] w-[96px] shrink-0 flex-col gap-1 overflow-y-auto">
+        {nav.sources.map((s) => (
           <RailButton
             key={s.key}
             label={s.label}
             count={s.items.length}
-            active={s.key === activeSource?.key}
-            onClick={() => {
-              setSrcKey(s.key)
-              setProgKey('')
-            }}
+            active={s.key === nav.activeSourceKey}
+            onClick={() => onSource(s.key)}
           />
         ))}
       </nav>
-
       {/* ② 소스별 분류(프로그램) */}
       <nav
         aria-label="분류"
-        className="flex max-h-[420px] w-[124px] shrink-0 flex-col gap-1 overflow-y-auto border-l border-[var(--bd)] pl-2"
+        className="flex max-h-[420px] w-[132px] shrink-0 flex-col gap-1 overflow-y-auto border-l border-[var(--bd)] pl-2"
       >
-        {programs.map((p) => {
-          const on = p.key === activeProgram?.key
+        {nav.programs.map((p) => {
+          const on = p.key === nav.activeProgramKey
           return (
             <button
               key={p.key}
               type="button"
-              onClick={() => setProgKey(p.key)}
+              onClick={() => onProgram(p.key)}
               aria-pressed={on}
               title={p.full ?? p.label}
               className={`flex min-h-[38px] w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
@@ -1330,26 +1352,49 @@ function ArticleColumns({
           )
         })}
       </nav>
+    </div>
+  )
+}
 
-      {/* ③ 컨텐츠 리스트 (가장 오른쪽) */}
-      <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
-        {activeProgram && activeProgram.items.length > 0 ? (
-          <ul className="flex flex-col gap-1.5">
-            {activeProgram.items.map((m) => (
-              <MaterialRow
-                key={m.id}
-                m={m}
-                type="article"
-                picked={draftOptionId === m.id}
-                count={countByKey.get(`article:${m.id}`) ?? 0}
-                onPick={() => onPick(m)}
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">표시할 스크립트가 없어요.</p>
-        )}
+// 우측 선택 영역 — 선택한 프로그램의 컨텐츠 리스트 (넓게 노출, 클릭=활동·요일 구성으로 전환).
+function ArticleContentPane({
+  program,
+  sourceLabel,
+  countByKey,
+  draftOptionId,
+  onPick,
+}: {
+  program: { label: string; full: string | null; items: MaterialOption[] }
+  sourceLabel: string
+  countByKey: Map<string, number>
+  draftOptionId: string | null
+  onPick: (m: MaterialOption) => void
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-1.5">
+        <Newspaper size={14} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
+        <h2 className="min-w-0 truncate font-display text-[14px] font-[800] text-[var(--t1)]">
+          {sourceLabel}
+          {program.full ? <span className="font-[700] text-[var(--t3)]"> · {program.label}</span> : null}
+        </h2>
+        <span className="shrink-0 font-mono text-[11px] text-[var(--t3)]">{program.items.length}</span>
       </div>
+      <p className="font-body text-[12px] text-[var(--t3)]">
+        담을 스크립트를 고르세요 — 클릭하면 활동·요일을 정합니다.
+      </p>
+      <ul className="flex max-h-[460px] flex-col gap-1.5 overflow-y-auto pr-1">
+        {program.items.map((m) => (
+          <MaterialRow
+            key={m.id}
+            m={m}
+            type="article"
+            picked={draftOptionId === m.id}
+            count={countByKey.get(`article:${m.id}`) ?? 0}
+            onPick={() => onPick(m)}
+          />
+        ))}
+      </ul>
     </div>
   )
 }

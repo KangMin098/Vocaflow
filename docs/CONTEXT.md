@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f2c53a1` docs(session-log): VCB Phase 1 완료 + 2-A 반영 (1-C P0-6, 2-A 카피정리)
 - `e5b479a` refactor(vcb): Phase 2-A 카피/라벨 정리 — stale/모순·원시 status·시드 방식 택1
 - `19266e2` feat(plan): 스크립트 picker 3열 드릴 — 소스 | 분류 | 컨텐츠 (v06.149)
 - `7fc53f4` fix(vcb): Phase 1-C P0-6 — publishable 정의 단일화 (미검토 발행 차단)
 - `e5c60cd` feat(curation): 드레인 오케스트레이터 drain.mjs (단일 진입점)
-- `9e2fa64` docs(db): DB_SCHEMA에 v06.148 admin read 정책 4건 기록
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
