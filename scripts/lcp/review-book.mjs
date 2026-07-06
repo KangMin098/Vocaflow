@@ -167,16 +167,20 @@ async function cmdApply(bookId, filePath, correct) {
   )
 
   if (correct && v.verdict === 'adjust') {
+    // cefrj_level 도 함께 갱신 — cefr_band(학습자 카드 표시)는 cefrj_level 에서 파생되는
+    //   생성 컬럼이라, 이걸 안 바꾸면 교정이 카드에 안 보임. 6-band 값(A1..C2)을 그대로
+    //   넣으면 생성식(B2% LIKE · C1/C2 정확일치)이 동일 밴드로 매핑.
     const { error: bErr } = await db
       .from('library_books')
       .update({
         cefr_level: v.assessed_cefr,
+        cefrj_level: v.assessed_cefr,
         book_v_level: v.assessed_v_level,
         status_message: `level_verify: ${book.cefr_level}/V${book.book_v_level} → ${v.assessed_cefr}/V${v.assessed_v_level} (${v.rationale ?? ''})`,
       })
       .eq('id', bookId)
     if (bErr) throw new Error(`library_books correction failed: ${bErr.message}`)
-    console.log(`[correct] library_books 교정 적용됨 → cefr=${v.assessed_cefr} v_level=${v.assessed_v_level}`)
+    console.log(`[correct] library_books 교정 적용됨 → cefr=${v.assessed_cefr} v_level=${v.assessed_v_level} (cefrj_level·cefr_band 동기화)`)
   } else if (correct) {
     console.log('[correct] verdict=keep 이라 교정 없음 (result 만 기록).')
   }
