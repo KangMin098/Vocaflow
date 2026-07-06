@@ -448,6 +448,10 @@ export function PlanClient({
                   onClick={() => {
                     setActiveTab(t)
                     setRail('all')
+                    // 탭 전환 시 우측 컴포저 초기화 — 다른 탭의 draft/편집이 남아 새 탭 선택 영역을 가리지 않게
+                    setDraft(null)
+                    setEditId(null)
+                    setError(null)
                   }}
                   className={`inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
