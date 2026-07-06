@@ -103,6 +103,10 @@ export function PlanClient({
   // 스크립트 3단 드릴 선택 — 좌측 2열(소스·분류) 네비 + 우측 선택 영역(컨텐츠)이 공유
   const [artSrc, setArtSrc] = useState<string>('')
   const [artProg, setArtProg] = useState<string>('')
+  // 스크립트 다건 선택 — 선택 id 집합 + 공유 활동·요일(일괄 담기). 도서/단어장은 단건 draft 유지.
+  const [artSel, setArtSel] = useState<Set<string>>(() => new Set())
+  const [artActs, setArtActs] = useState<Set<PlanActivity>>(() => defaultActivities('article'))
+  const [artDays, setArtDays] = useState<Set<number>>(() => new Set([todayWeekday]))
 
   const editItem = items.find((i) => i.id === editId) ?? null
   /** 자료별 담긴 배치 수 — picker '계획 N' 배지 (다중 엔트리: 같은 자료 여러 배치 가능) */
@@ -264,6 +268,80 @@ export function PlanClient({
       setItems((prev) => [...prev, newItem])
       setDraft(null)
       setEditId(res.id) // 담은 뒤 바로 그 배치 편집 상태
+    })
+  }
+
+  // ── 스크립트 다건 선택 — 토글 + 공유 구성 + 일괄 커밋 ──
+  const toggleArtSel = (id: string) =>
+    setArtSel((prev) => {
+      const n = new Set(prev)
+      if (n.has(id)) n.delete(id)
+      else n.add(id)
+      return n
+    })
+  const toggleArtAct = (a: PlanActivity) =>
+    setArtActs((prev) => {
+      const n = new Set(prev)
+      if (n.has(a)) n.delete(a)
+      else n.add(a)
+      return n
+    })
+  const toggleArtDay = (d: number) =>
+    setArtDays((prev) => {
+      const n = new Set(prev)
+      if (n.has(d)) n.delete(d)
+      else n.add(d)
+      return n
+    })
+
+  function commitArticleBatch() {
+    const modules = Array.from(artActs)
+    if (artSel.size === 0) return
+    if (modules.length === 0) {
+      setError('활동을 하나 이상 골라 주세요.')
+      return
+    }
+    const weekdays = Array.from(artDays).sort((a, b) => a - b)
+    const picks = materials.articles.filter((a) => artSel.has(a.id))
+    setError(null)
+    setAdding(true)
+    startTransition(async () => {
+      const added: PlanItem[] = []
+      for (const m of picks) {
+        const res = await savePlanItem({
+          materialType: 'article',
+          materialId: m.id,
+          modules,
+          chapters: [],
+          weekdays,
+        })
+        if (res.ok && res.id) {
+          added.push({
+            id: res.id,
+            materialType: 'article',
+            materialId: m.id,
+            modules,
+            title: m.title,
+            subtitle: m.subtitle,
+            href: materialHref({ type: 'article', id: m.id, slug: m.slug }),
+            slug: m.slug,
+            vLevel: m.vLevel,
+            chapters: [],
+            weekdays,
+            chapterCount: m.chapterCount,
+            coverUrl: m.coverUrl,
+            coverEmoji: m.coverEmoji,
+            source: m.source,
+          })
+        }
+      }
+      setAdding(false)
+      if (added.length === 0) {
+        setError('추가에 실패했어요.')
+        return
+      }
+      setItems((prev) => [...prev, ...added])
+      setArtSel(new Set())
     })
   }
 
@@ -511,14 +589,23 @@ export function PlanClient({
               onClose={closeComposer}
             />
           ) : activeTab === 'article' && articleNav.activeProgram && articleNav.activeProgram.items.length > 0 ? (
-            <ArticleContentPane
+            <ArticleSelectPane
               program={articleNav.activeProgram}
               sourceLabel={
                 articleNav.sources.find((s) => s.key === articleNav.activeSourceKey)?.label ?? ''
               }
               countByKey={countByKey}
-              draftOptionId={null}
-              onPick={pickMaterial}
+              selected={artSel}
+              onToggle={toggleArtSel}
+              onClear={() => setArtSel(new Set())}
+              activities={artActs}
+              onToggleActivity={toggleArtAct}
+              weekdays={artDays}
+              onToggleWeekday={toggleArtDay}
+              weekDates={weekDates}
+              today={todayWeekday}
+              adding={adding}
+              onCommit={commitArticleBatch}
             />
           ) : (
             <div className="flex min-h-[200px] flex-col items-center justify-center gap-2 text-center">
@@ -1363,22 +1450,42 @@ function ArticleNav({
   )
 }
 
-// 우측 선택 영역 — 선택한 프로그램의 컨텐츠 리스트 (넓게 노출, 클릭=활동·요일 구성으로 전환).
-function ArticleContentPane({
+// 우측 선택 영역 — 스크립트 다건 선택(체크박스) + 선택분 공유 구성(활동·요일) → 일괄 담기.
+function ArticleSelectPane({
   program,
   sourceLabel,
   countByKey,
-  draftOptionId,
-  onPick,
+  selected,
+  onToggle,
+  onClear,
+  activities,
+  onToggleActivity,
+  weekdays,
+  onToggleWeekday,
+  weekDates,
+  today,
+  adding,
+  onCommit,
 }: {
   program: { label: string; full: string | null; items: MaterialOption[] }
   sourceLabel: string
   countByKey: Map<string, number>
-  draftOptionId: string | null
-  onPick: (m: MaterialOption) => void
+  selected: Set<string>
+  onToggle: (id: string) => void
+  onClear: () => void
+  activities: Set<PlanActivity>
+  onToggleActivity: (a: PlanActivity) => void
+  weekdays: Set<number>
+  onToggleWeekday: (d: number) => void
+  weekDates: string[]
+  today: number
+  adding: boolean
+  onCommit: () => void
 }) {
+  const n = selected.size
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-col gap-3">
+      {/* 헤더 */}
       <div className="flex items-center gap-1.5 border-b border-[var(--bd)] pb-2.5">
         <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
           <Newspaper size={13} strokeWidth={1.75} />
@@ -1390,23 +1497,133 @@ function ArticleContentPane({
         <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
           {program.items.length}
         </span>
+        {n > 0 && (
+          <button
+            type="button"
+            onClick={onClear}
+            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            {n}개 선택 · 해제
+          </button>
+        )}
       </div>
+
+      {/* ① 컨텐츠 다건 선택 */}
       <p className="font-body text-[12px] italic text-[var(--t3)]">
-        담을 스크립트를 고르세요 — 클릭하면 활동·요일을 정합니다.
+        담을 스크립트를 여러 개 고르세요 — 아래에서 활동·요일을 정해 한 번에 담아요.
       </p>
-      <ul className="flex max-h-[460px] flex-col gap-1.5 overflow-y-auto pr-1">
+      <ul className="flex max-h-[300px] flex-col gap-1.5 overflow-y-auto pr-1">
         {program.items.map((m) => (
-          <MaterialRow
+          <ArticlePickRow
             key={m.id}
             m={m}
-            type="article"
-            picked={draftOptionId === m.id}
-            count={countByKey.get(`article:${m.id}`) ?? 0}
-            onPick={() => onPick(m)}
+            selected={selected.has(m.id)}
+            inPlan={(countByKey.get(`article:${m.id}`) ?? 0) > 0}
+            onToggle={() => onToggle(m.id)}
           />
         ))}
       </ul>
+
+      {/* ② 선택분 공유 구성 + ③ 일괄 담기 */}
+      {n > 0 ? (
+        <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+          <ConfigBlock label={`활동 — 선택한 ${n}개 공통`}>
+            <div className="grid grid-cols-2 gap-1.5">
+              {activitiesForType('article').map((a) => (
+                <ActivityChip
+                  key={a}
+                  activity={a}
+                  selected={activities.has(a)}
+                  onClick={() => onToggleActivity(a)}
+                  small
+                />
+              ))}
+            </div>
+          </ConfigBlock>
+          <ConfigBlock label="학습 요일 — 안 고르면 '요일 미정'에 담겨요">
+            <WeekdayChips selected={weekdays} weekDates={weekDates} today={today} onToggle={onToggleWeekday} />
+          </ConfigBlock>
+          <button
+            type="button"
+            onClick={onCommit}
+            disabled={adding || activities.size === 0}
+            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {adding
+              ? '담는 중…'
+              : `계획에 담기 (${n}개 자료 · ${activities.size}활동${
+                  weekdays.size > 0 ? ` · 주 ${weekdays.size}일` : ' · 요일 미정'
+                })`}
+          </button>
+        </div>
+      ) : (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] p-3 text-center font-body text-[12px] text-[var(--t3)]">
+          스크립트를 선택하면 활동·요일 구성이 열려요.
+        </p>
+      )}
     </div>
+  )
+}
+
+// 다건 선택 행 — 체크박스 + 배지 + 제목 + V레벨(+담김 표시).
+function ArticlePickRow({
+  m,
+  selected,
+  inPlan,
+  onToggle,
+}: {
+  m: MaterialOption
+  selected: boolean
+  inPlan: boolean
+  onToggle: () => void
+}) {
+  return (
+    <li
+      className={`group rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
+        selected
+          ? 'border-[var(--p)] bg-[var(--p-light)] shadow-[var(--sh-xs)]'
+          : 'border-[var(--bd)] bg-[var(--bg2)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)]'
+      }`}
+    >
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={selected}
+        title={m.title}
+        className="flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
+      >
+        <span
+          className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-[var(--dur-normal)] ${
+            selected
+              ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+              : 'border-[var(--bd)] bg-[var(--bg)] group-hover:border-[var(--p)]'
+          }`}
+          aria-hidden
+        >
+          {selected && <Check size={12} strokeWidth={3} />}
+        </span>
+        <MaterialBadge type="article" m={m} />
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">{m.title}</span>
+          {m.subtitle && (
+            <span className="truncate font-body text-[11px] leading-tight text-[var(--t3)]">{m.subtitle}</span>
+          )}
+        </span>
+        {m.vLevel != null && m.vLevel > 0 && (
+          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+            V{m.vLevel}
+          </span>
+        )}
+        {inPlan && (
+          <span
+            className="inline-flex h-5 shrink-0 items-center gap-0.5 rounded-full bg-[var(--bg3)] px-1.5 font-display text-[9px] font-[800] text-[var(--t2)]"
+            title="이미 계획에 담긴 자료 (또 담을 수 있어요)"
+          >
+            <Check size={9} strokeWidth={3} aria-hidden /> 담김
+          </span>
+        )}
+      </button>
+    </li>
   )
 }
 
