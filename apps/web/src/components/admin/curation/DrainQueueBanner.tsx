@@ -26,9 +26,12 @@ const REVIEW_LABEL: Record<ReviewJobRow['taskType'], string> = {
   vocab_audit: '어휘',
 }
 
-/** 검토 result jsonb 요약 — verdict/assessed 를 짧게. 없으면 null. */
+/** 검토 result jsonb 요약 — level_verify=verdict/assessed · vocab_audit=flagged N. 없으면 null. */
 function reviewSummary(result: Record<string, unknown> | null): string | null {
   if (!result) return null
+  // vocab_audit — flagged 건수
+  if (typeof result.flagged_count === 'number') return `flagged ${result.flagged_count}`
+  // level_verify — assessed 레벨 + verdict
   const cefr = typeof result.assessed_cefr === 'string' ? result.assessed_cefr : null
   const v = typeof result.assessed_v_level === 'number' ? result.assessed_v_level : null
   const verdict = typeof result.verdict === 'string' ? result.verdict : null

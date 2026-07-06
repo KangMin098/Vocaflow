@@ -277,6 +277,40 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     });
   };
 
+  // ── 어휘 감사 큐 적재 (vocab_audit) ── 발행 도서만 (단어장 존재).
+  //    드레인이 발행 단어장의 뜻/품사/레벨/register 를 문맥 근거로 점검 → flagged 기록.
+  const vocabAuditEligibleIds = useMemo(
+    () => selectedBooks.filter((b) => b.status === 'published').map((b) => b.id),
+    [selectedBooks],
+  );
+  const runEnqueueVocabAudit = () => {
+    if (vocabAuditEligibleIds.length === 0) return;
+    if (
+      !window.confirm(
+        `선택한 도서 ${vocabAuditEligibleIds.length}권을 어휘 감사 큐에 적재할까요?\n\n` +
+          '· Claude Code 드레인이 발행 단어장의 뜻·품사·레벨·register 를 문맥 근거로 점검합니다.\n' +
+          '· 결과(flagged)는 검토 후 사전 교정(dict-*)으로 별도 반영됩니다.\n' +
+          '· 발행(published) 도서만 대상입니다.',
+      )
+    ) {
+      return;
+    }
+    startBulkTransition(async () => {
+      const res = await enqueueReviewJobsAction(vocabAuditEligibleIds, 'vocab_audit');
+      if (!res.ok) {
+        window.alert(`실패: ${res.error}`);
+        return;
+      }
+      const d = res.data;
+      window.alert(
+        `어휘 감사 큐 적재: ${d?.queued ?? 0}권` +
+          ((d?.skipped ?? 0) > 0 ? ` · ${d?.skipped}권 스킵 (미발행 등)` : ''),
+      );
+      setReviewJobReloadKey((k) => k + 1);
+      clearSelection();
+    });
+  };
+
   // 모두 선택 (현재 visible 범위 내) — header checkbox
   const visibleIds = useMemo(() => visible.map((b) => b.id), [visible]);
   const allVisibleSelected =
@@ -726,12 +760,14 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           returnToSourceCount={returnToSourceIds.length}
           quizEligibleCount={quizEligibleIds.length}
           reviewEligibleCount={reviewEligibleIds.length}
+          vocabAuditEligibleCount={vocabAuditEligibleIds.length}
           devRunning={procState?.running ?? false}
           pending={bulkPending}
           onClear={clearSelection}
           onDevBatch={runDevBatch}
           onEnqueueQuiz={runEnqueueQuiz}
           onEnqueueLevelReview={runEnqueueLevelReview}
+          onEnqueueVocabAudit={runEnqueueVocabAudit}
           onReturnToSource={runReturnToSource}
         />
       )}
@@ -1462,12 +1498,14 @@ function BulkActionToolbar({
   returnToSourceCount,
   quizEligibleCount,
   reviewEligibleCount,
+  vocabAuditEligibleCount,
   devRunning,
   pending,
   onClear,
   onDevBatch,
   onEnqueueQuiz,
   onEnqueueLevelReview,
+  onEnqueueVocabAudit,
   onReturnToSource,
 }: {
   selectedCount: number;
@@ -1478,12 +1516,14 @@ function BulkActionToolbar({
   returnToSourceCount: number;
   quizEligibleCount: number;
   reviewEligibleCount: number;
+  vocabAuditEligibleCount: number;
   devRunning: boolean;
   pending: boolean;
   onClear: () => void;
   onDevBatch: () => void;
   onEnqueueQuiz: () => void;
   onEnqueueLevelReview: () => void;
+  onEnqueueVocabAudit: () => void;
   onReturnToSource: () => void;
 }) {
   return (
@@ -1575,6 +1615,31 @@ function BulkActionToolbar({
           {reviewEligibleCount > 0 && (
             <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
               {reviewEligibleCount}
+            </span>
+          )}
+        </button>
+
+        {/* 0d) 어휘 감사 큐 — published 선택분을 vocab_audit 로 적재 (드레인이 뜻/품사/레벨/register 문맥 점검) */}
+        <button
+          type="button"
+          onClick={onEnqueueVocabAudit}
+          disabled={pending || vocabAuditEligibleCount === 0}
+          title={
+            vocabAuditEligibleCount === 0
+              ? '선택한 도서 중 게시됨(발행 단어장 존재) 상태가 없습니다'
+              : `게시됨 ${vocabAuditEligibleCount}권을 어휘 감사 큐에 적재. Claude Code 드레인이 발행 단어장의 뜻·품사·레벨·register 를 문맥 근거로 점검(flagged 기록).`
+          }
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {pending ? (
+            <Loader2 size={12} className="animate-spin" aria-hidden />
+          ) : (
+            <Search size={12} aria-hidden />
+          )}
+          어휘 감사 큐
+          {vocabAuditEligibleCount > 0 && (
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
+              {vocabAuditEligibleCount}
             </span>
           )}
         </button>
