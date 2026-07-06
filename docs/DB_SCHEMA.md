@@ -113,6 +113,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `vocab_raw_texts` | 0 | 32 kB | content_hash ref content_chunks |
 | `frequency_data_sources` | 11 | 48 kB | 11 출처 메타 |
 
+**발행 RPC** `vcb_publish_commit(p_run_id, p_slug, p_version, p_title, p_category, p_source_attributions jsonb, p_words jsonb, p_published_by)` — 세트→단어→컬렉션→`vocab_runs.status='published'` 를 단일 트랜잭션으로 원자 발행(실패 시 전량 롤백, orphan 불가). `SECURITY DEFINER` · `search_path=public` · 실행권한 `service_role` 한정. (P0-7 트랜잭션화)
+
 ### 6️⃣ VRL (Vocabulary Reading Level) 분류 시스템
 
 | 테이블 | rows | size | 비고 |
