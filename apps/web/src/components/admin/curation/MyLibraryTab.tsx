@@ -20,8 +20,7 @@ import {
   fetchCurationJobsAction,
 } from '@/app/admin/curation/actions';
 import { BookDetailModal } from './BookDetailModal';
-import { CurationJobsBanner } from './CurationJobsBanner';
-import { QuizJobsBanner } from './QuizJobsBanner';
+import { DrainQueueBanner } from './DrainQueueBanner';
 
 // v06.34 — 실패 상태(삭제 가능 status set)
 const DELETABLE_FAILED_STATUSES: BookStatus[] = [
@@ -675,11 +674,8 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         />
       )}
 
-      {/* 큐레이션 일괄 dev 처리 큐 상태 (book_curation_jobs · 작업 0건 시 자체 숨김) */}
-      <CurationJobsBanner reloadKey={jobReloadKey} />
-
-      {/* 스크립트 퀴즈 생성 큐 상태 (book_quiz_jobs · 작업 0건 시 자체 숨김) */}
-      <QuizJobsBanner reloadKey={quizJobReloadKey} />
+      {/* 큐레이션 드레인 큐 (book_curation_jobs — voice_map + quiz_gen 통합 · 0건 시 자체 숨김) */}
+      <DrainQueueBanner reloadKey={jobReloadKey + quizJobReloadKey} />
 
       {/* 다중 선택 일괄 액션 toolbar (≥1 선택 시 노출) */}
       {selectedIds.size > 0 && (

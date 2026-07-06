@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `bee85f7` feat(curation): 챕터 퀴즈 큐를 book_curation_jobs 로 통합 (드레인 큐 단일화 Phase 0)
 - `572cfc7` feat(plan): 스크립트 picker 계층 레일(소스→분류→컨텐츠) (v06.144)
 - `7da30ed` feat(plan): 주간 보드 세로→가로 7열 캘린더 재설계 (v06.143)
 - `2449941` feat(admin): /admin/quality 지금-수집 버튼 + admin wrapper RPC (v06.142)
 - `f582013` feat(acp): 나머지 소스 발행 — 전 소스 프로그램 구조 완성 (v06.141)
-- `146070d` docs(session-log): vitest 스위트 통과 기록 (99 passed, nav 무회귀)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
