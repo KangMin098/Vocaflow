@@ -76,6 +76,9 @@ export async function publishRun(
   }
   const category = SEGMENT_TO_CATEGORY[segment]
 
+  // 보상 롤백(P0-7)용 — 이번 발행 시도에서 생성한 shared_word_sets id 추적
+  let createdSetId: string | null = null
+
   await client.from('vocab_runs').update({ status: 'publishing' }).eq('id', runId)
 
   try {
@@ -105,6 +108,7 @@ export async function publishRun(
       )
     }
     const setId = (setRow as { id: string }).id
+    createdSetId = setId
 
     const insertRows = items.map((it, idx) => ({
       set_id: setId,
@@ -163,6 +167,14 @@ export async function publishRun(
       published_count: items.length,
     }
   } catch (err) {
+    // 보상 롤백(P0-7 완화): 다단계 insert 는 원자적이지 않으므로, 이번 시도에서 생성한
+    //   발행 세트(+words +collection)를 실패 시 되돌려 orphan(고아 발행 세트)을 방지한다.
+    //   완전한 DB 트랜잭션화는 별도 RPC 마이그레이션(제안서 §6 Phase 3) — 승인 후 진행.
+    if (createdSetId) {
+      await client.from('vocab_collections').delete().eq('shared_word_set_id', createdSetId)
+      await client.from('shared_words').delete().eq('set_id', createdSetId)
+      await client.from('shared_word_sets').delete().eq('id', createdSetId)
+    }
     await client.from('vocab_runs').update({ status: 'curating' }).eq('id', runId)
     const msg = err instanceof Error ? err.message : String(err)
     return { ok: false, error: msg }
