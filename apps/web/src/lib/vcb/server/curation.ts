@@ -5,7 +5,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   approveQueueItem as approveCore,
@@ -14,6 +14,7 @@ import {
   reenrichQueueItem as reenrichCore,
   bulkApprove as bulkApproveCore,
   bulkReject as bulkRejectCore,
+  beginCuration as beginCurationCore,
   type CurationContext,
   type QueuePayload,
 } from '@vocaflow/vcb-curate-core'
@@ -25,11 +26,11 @@ interface ServerActionResult<T = unknown> {
 }
 
 async function buildContext(): Promise<{
-  client: Awaited<ReturnType<typeof createClient>>
+  client: ReturnType<typeof createAdminClient>
   ctx: CurationContext
 }> {
   const user = await requireAdmin('/admin/vocab')
-  const client = await createClient()
+  const client = createAdminClient()
   return {
     client,
     ctx: { decided_by: user.id },
@@ -159,6 +160,24 @@ export async function bulkReject(
         errors: result.errors,
       },
     }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { ok: false, error: msg }
+  }
+}
+
+// 큐레이션 워크스페이스 진입 시 호출 — qa→curating 전이(idempotent). Publish 게이트 정합.
+export async function beginCuration(
+  runId: number,
+): Promise<ServerActionResult<{ status: string }>> {
+  try {
+    await requireAdmin('/admin/vocab')
+    const client = createAdminClient()
+    const result = await beginCurationCore(client, runId)
+    if (!result.ok || !result.status) {
+      return { ok: false, error: result.error ?? 'beginCuration failed' }
+    }
+    return { ok: true, data: { status: result.status } }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
     return { ok: false, error: msg }

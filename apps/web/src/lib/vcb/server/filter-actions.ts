@@ -4,7 +4,7 @@
 'use server'
 
 import type { Json } from '@vocaflow/types'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import type { VocabFilters } from '../filters'
 import type { ServerActionResult } from '../types'
@@ -43,7 +43,7 @@ export async function countMatchingWords(
 ): Promise<ServerActionResult<{ count: number }>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const { data, error } = await client.rpc('vcb_count_words_matching', {
       p_filters: toJsonbPayload(filters),
     })
@@ -60,7 +60,7 @@ export async function sampleMatchingWords(
 ): Promise<ServerActionResult<{ words: SampleWord[] }>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const { data, error } = await client.rpc('vcb_sample_words_for_filters', {
       p_filters: toJsonbPayload(filters),
       p_limit: limit,
@@ -77,7 +77,7 @@ export async function distributionForFilters(
 ): Promise<ServerActionResult<DistributionResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const { data, error } = await client.rpc('vcb_distribution_for_filters', {
       p_filters: toJsonbPayload(filters),
     })

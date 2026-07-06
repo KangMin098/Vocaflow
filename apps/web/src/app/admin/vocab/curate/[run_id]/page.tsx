@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react'
 import { VcbCurationView } from '@/components/admin/vcb/VcbCurationView'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { fetchQueueItems, fetchQueueDetail } from '@/lib/vcb/server/queue'
+import { beginCuration } from '@/lib/vcb/server/curation'
 import type { QueueDetail } from '@/lib/vcb/types'
 
 export const dynamic = 'force-dynamic'
@@ -19,15 +20,20 @@ export default async function VcbCuratePage({ params }: PageProps) {
     notFound()
   }
 
-  // 병렬 fetch: run + items
-  const [run, items] = await Promise.all([
-    fetchRunDetail(runId),
-    fetchQueueItems(runId),
-  ])
+  // 큐레이션 워크스페이스 진입 = 큐레이션 시작 → qa→curating 전이(idempotent).
+  // 이 전이가 없으면 Publish 게이트(precheck)가 통과 못해 UI 만으로 발행 불가(dead-end).
+  await beginCuration(runId)
 
+  const run = await fetchRunDetail(runId)
   if (!run) {
     notFound()
   }
+
+  // 전량 로드(500-cap 제거) — 필터/정렬이 client-side 라 절단 시 나머지 단어가
+  // 큐레이션 UI 에서 도달 불가해진다(예: 2,000단어 run 중 1,500 누락).
+  const items = await fetchQueueItems(runId, {
+    limit: Math.max(run.seed_count, 500),
+  })
 
   // Q2 채택: 첫 진입 즉시 우측 패널 표시 위해 첫 item detail prefetch
   let initialDetail: QueueDetail | null = null
