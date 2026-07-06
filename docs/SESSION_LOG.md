@@ -16,13 +16,15 @@
 
 **작업**: `/admin/vocab/*` VCB 파이프라인 프로세스·기능·화면 면밀 재검토·재설계
 **브랜치**: `feat/plan-ui`
-**상태**: 🔧 **Phase 1(정합성) 진행 중** — 1-A(`e964567`)·1-B(`be1338e`) 커밋·push. tsc 통과. 런타임 미검증(dev 서버 다운).
+**상태**: 🔧 **Phase 1 정합성 완료 + Phase 2-A 시작** — 5커밋 push. VCB 파일 tsc 에러 0. 런타임 미검증(dev 서버 다운).
 
 - **진단·재설계안**: [docs/proposals/vcb-admin-redesign.md](proposals/vcb-admin-redesign.md) (5영역 병렬감사 + DB실측). 실체 = run 1개(cast-2000)만 CLI로 발행한 반자동 개발자도구. P0 결함 8건.
-- **Phase 1-A** (`e964567`): P0-2 service-role 일관화(13 server files → `createAdminClient`, dev-bypass 0건 해소) · P0-1 `qa→curating` 전이(`beginCuration`, dead-end 해소 → UI로 완주 가능) · P0-3 큐레이션 500-cap 제거 · P0-4 `/admin/vocab/collections` 신설(404 수리) · 신규 `lib/supabase/admin.ts`.
-- **Phase 1-B** (`be1338e`): P0-5 큐레이션 일괄 승인/거절 배선(`VcbCurationView` 툴바 — 전체선택+bulk). edit UI는 Phase 2로 이연.
-- **남은 Phase 1**: **P0-6** publishable 정의 단일화(3곳 불일치 → 미검토 발행 차단; 런타임 검증 권장) · **P0-7** publish 트랜잭션화(**DB 마이그레이션 RPC → 사용자 승인 필수**). Phase 2/3 = 스텝번호·stale카피·jargon·위저드필터(dead)·큐레이션 UX(키보드/optimistic/edit)·CLI결합.
-- ⚠️ **dev 서버 다운** — VCB 화면 런타임 검증은 재가동 후. 동시 세션(growth/ACP/quality)과 VCB 파일 영역 안 겹침.
+- **Phase 1-A** (`e964567`): P0-2 service-role 일관화(13 server files → `createAdminClient`, dev-bypass 0건 해소) · P0-1 `qa→curating` 전이(`beginCuration`, dead-end 해소) · P0-3 큐레이션 500-cap 제거 · P0-4 `/admin/vocab/collections` 신설(404) · 신규 `lib/supabase/admin.ts`.
+- **Phase 1-B** (`be1338e`): P0-5 큐레이션 일괄 승인/거절 배선(`VcbCurationView` 툴바).
+- **Phase 1-C P0-6** (`7fc53f4`): publishable 정의 단일화(publish/precheck/approved_count) — 미검토 발행 차단. **DB실측 검증**: run#1 accepted 1998=발행 1998, 미검토 0, 회귀 0.
+- **Phase 2-A** (`e5b479a`): stale/모순 카피(P5c) 제거 · 원시 status→라벨(STATUS_LABELS export) · 시드 방식 A/B "택1" 재라벨 · Method B jargon 정리.
+- **남은**: **P0-7** publish 트랜잭션화(**DB 마이그레이션 RPC → 승인 필수**) · **edit UI**(rich payload, 런타임 검증 유의미) · Phase 2 잔여(step카드 jargon·VcbPipelineGuide 승격·섹션 내비) · Phase 3(위저드필터 dead 정리·CLI결합·큐레이션 UX·접근성 + 열린결정 A/B/C).
+- ⚠️ **dev 서버 다운** — VCB 화면 런타임 검증은 재가동 후. ⚠️ **working-tree tsc red = 동시 세션 PlanClient(ACP WIP) 미정의 참조** (내 VCB 파일 아님; 그쪽 커밋 시 해소).
 - 열린결정(제안서 §7): A 위저드필터 살릴지/제거 · B CLI결합 유지/제거 · C 도구지향(셀프서비스 vs 저빈도 전문가도구).
 
 **직전 완료작업 (nav 감사, ✅ 종결)**: 커밋 `f98c918`(v06.135 P0+P1)·`56cb8de`(P2)·`5190c0c`(v06.138 경미)·`45e319b`(ContextBar 삭제)·`146070d`(vitest 99 pass). 상세는 아래 2026-07-05 기록.
