@@ -60,11 +60,13 @@ Frontend (10 자산):
 6. snapshots audit chain 자동 기록
 7. **Admin /admin/vrl/automation에서 모든 자동화 상태 모니터링** ★
 
-**다음 후보 (Phase 3)**:
-- Sidebar에 /admin/vrl/automation 메뉴 추가
-- admin role middleware guard
-- cron alert (실패 시 webhook)
-- track_levels 분포 도표
+**다음 후보 (Phase 3)**: (Sidebar 메뉴·RBAC guard·cron alert·track 분포 — 2K에서 완료)
+
+**v06.147~148 현행화 (2026-07-06)**:
+- automation 페이지 고도화 — "최근 레벨 변경" 테이블(user_level_snapshots 직접 read 10건) + V-Level 분포에 근거(진단/학습/수동) vs 기본값(미진단) 인원 분리.
+- **RLS 발견·수리**: user_level_snapshots/user_profiles/user_diagnostic_results 가 본인 read 전용이라 /admin/vrl/users·snapshots·diagnostic 하위 페이지가 admin 에게도 빈 화면이었음 → migration `20260706010000_vrl_admin_read_policies`: **`is_admin()` SECURITY DEFINER 헬퍼**(user_profiles 자기참조 정책은 헬퍼 없이는 infinite recursion) + admin SELECT 정책 4건(vrl_diagnostic_tests 비활성 포함). 검증: admin 전체 가시·학습자 격리 유지.
+- ⚠️ RBAC 성격의 RLS 변경은 auto mode 분류기가 "다음" 승인으로도 거부 — 사용자 "적용" 명시 후 apply_migration 통과.
+- /admin/vrl(사전 Health) 쪽: backlog D1/V1/C1/D4 완료 반영 + 결함룰 13(CEFR C2) categorical 라이브화.
 
 관련: [[vrl-phase2g-pg-cron-promotion]] [[vrl-phase2h-track-auto-promote]] [[vrl-phase2i-comprehensive-diagnostic]] [[claude-code-is-llm]]
 
