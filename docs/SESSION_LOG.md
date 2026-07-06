@@ -24,7 +24,9 @@
 - **경미 2건** (v06.138): ScriptQuiz 시작화면 back `/library` → `?from` ?? `/scriptquiz` · PairFlipResultScreen "PairFlip 홈으로" 복귀 링크. **CHANGELOG P2+경미 항목 v06.138로 반영 완료**(브랜치 정착 후).
 - ⚠️ **동시 편집 세션 병행** — growth-stats(v06.136) · ACP(v06.137) · Curated Books refactor(`4d5ce5a`)를 다른 세션이 커밋 중. 내 커밋은 매번 **내 파일만 명시 스테이징**해 분리(무관 파일 unstaged 유지). 기존 무관 M 파일(MyLibraryTab.tsx, ADMIN_CONSOLE.md, LIBRARY_PIPELINE.md)도 제외.
 
-**다음 세션 TODO(선택)**: (1) 필요 시 `next build` 전체 검증(현재 tsc만) · (2) `ContextBar.tsx` dead-code 삭제 여부 판단 · (3) 감사 P0~P2 UI 실주행 확인(런타임 미검증).
+- **`next build` 검증** (clean `.next` 재빌드): **✓ Compiled successfully** + 내 파일 에러 0 + useSearchParams Suspense 에러 없음. 내 useSearchParams/usePathname 추가는 전부 dynamic 페이지(`/scriptquiz/play`=searchParams prop · articles 콘솔/프리뷰=`requireAdmin` 쿠키+Suspense) → 빌드 안전 확정. **빌드 실패 원인은 동시 세션의 untracked WIP `apps/web/src/app/admin/quality/page.tsx` 미사용 import(`SupabaseClient`) 1건뿐** — 그쪽 미완성 파일이라 미수정. (참고: eslint 에러가 빌드 fail 시킴 = `ignoreDuringBuilds` 미활성.)
+
+**다음 세션 TODO(선택)**: (1) `ContextBar.tsx` dead-code 삭제 여부 판단 · (2) 감사 P0~P2 UI 실주행 확인(런타임 미검증) · (3) 동시 세션이 `admin/quality/page.tsx` 커밋하면 브랜치 빌드 재확인.
 
 ---
 

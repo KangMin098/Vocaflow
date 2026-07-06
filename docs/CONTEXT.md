@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `7af015f` fix(scriptquiz): rpc this-바인딩 소실 + 완료 결과 미영속 수리 (v06.139)
 - `5190c0c` fix(nav): 감사 경미 복귀 2건 + P2·경미 CHANGELOG 반영 (v06.138)
 - `4d5ce5a` refactor(curation): Curated Books 프로세스 통합·정리 + 완료 UX·새로고침
 - `56cb8de` fix(nav): "진입→닫기→제자리" 감사 P2 폴리시 7건 (v06.135 후속)
 - `2032895` feat(acp): 스크립트 소스→프로그램→컨텐츠 + VOA 30편 발행 (v06.137)
-- `eda3460` fix(learner): 전역 셸 목업 수치 실데이터화 — 런타임 검증 결함 수리 (v06.136)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
