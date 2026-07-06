@@ -102,8 +102,12 @@ export function PlanClient({
   const [rail, setRail] = useState<string>('all')
 
   const editItem = items.find((i) => i.id === editId) ?? null
-  /** 담은 자료 — picker 에서 숨기지 않고 '담김' 배지 + 클릭=편집으로 연결 */
-  const addedByKey = new Map(items.map((i) => [`${i.materialType}:${i.materialId}`, i]))
+  /** 자료별 담긴 배치 수 — picker '계획 N' 배지 (다중 엔트리: 같은 자료 여러 배치 가능) */
+  const countByKey = new Map<string, number>()
+  for (const i of items) {
+    const k = `${i.materialType}:${i.materialId}`
+    countByKey.set(k, (countByKey.get(k) ?? 0) + 1)
+  }
 
   const tabMaterials: Record<MaterialType, MaterialOption[]> = {
     book: materials.books,
@@ -178,12 +182,8 @@ export function PlanClient({
 
   // ── 선택/구성 ──
   /** picker 클릭 — 이미 담은 자료면 그 항목 편집으로, 아니면 신규 draft */
+  /** picker 클릭 — 다중 엔트리: 항상 새 배치(draft). 담은 배치 편집/삭제는 주간 보드 카드에서. */
   function pickMaterial(m: MaterialOption) {
-    const existing = addedByKey.get(`${activeTab}:${m.id}`)
-    if (existing) {
-      editExisting(existing)
-      return
-    }
     pickNew(m)
   }
 
@@ -235,13 +235,12 @@ export function PlanClient({
     startTransition(async () => {
       const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays })
       setAdding(false)
-      if (!res.ok) {
+      if (!res.ok || !res.id) {
         setError(res.error ?? '추가에 실패했어요.')
         return
       }
-      const tmpId = `tmp-${type}-${m.id}`
       const newItem: PlanItem = {
-        id: tmpId,
+        id: res.id, // 실 DB id — 낙관적 갱신이 삭제/편집에 그대로 사용
         materialType: type,
         materialId: m.id,
         modules,
@@ -259,7 +258,7 @@ export function PlanClient({
       }
       setItems((prev) => [...prev, newItem])
       setDraft(null)
-      setEditId(tmpId) // 담은 뒤 바로 편집 상태 유지
+      setEditId(res.id) // 담은 뒤 바로 그 배치 편집 상태
     })
   }
 
@@ -272,6 +271,7 @@ export function PlanClient({
     setError(null)
     startTransition(async () => {
       const res = await savePlanItem({
+        id: item.id,
         materialType: item.materialType,
         materialId: item.materialId,
         modules,
@@ -387,9 +387,8 @@ export function PlanClient({
               articles={candidates}
               rail={rail}
               setRail={setRail}
-              addedByKey={addedByKey}
+              countByKey={countByKey}
               draftOptionId={draft?.option.id ?? null}
-              editId={editId}
               onPick={pickMaterial}
             />
           ) : (
@@ -439,27 +438,22 @@ export function PlanClient({
                           <WordSetBookGroups
                             items={g.items}
                             bookTitleById={bookTitleById}
-                            addedByKey={addedByKey}
+                            countByKey={countByKey}
                             draftOptionId={draft?.option.id ?? null}
-                            editId={editId}
                             onPick={pickMaterial}
                           />
                         ) : (
                           <ul className="flex flex-col gap-1.5">
-                            {g.items.map((m) => {
-                              const added = addedByKey.get(`${activeTab}:${m.id}`)
-                              return (
-                                <MaterialRow
-                                  key={m.id}
-                                  m={m}
-                                  type={activeTab}
-                                  picked={draft?.option.id === m.id}
-                                  added={!!added}
-                                  editing={!!added && editId === added.id}
-                                  onPick={() => pickMaterial(m)}
-                                />
-                              )
-                            })}
+                            {g.items.map((m) => (
+                              <MaterialRow
+                                key={m.id}
+                                m={m}
+                                type={activeTab}
+                                picked={draft?.option.id === m.id}
+                                count={countByKey.get(`${activeTab}:${m.id}`) ?? 0}
+                                onPick={() => pickMaterial(m)}
+                              />
+                            ))}
                           </ul>
                         )}
                       </div>
@@ -713,14 +707,21 @@ function WeekBoard({
   )
 }
 
+/** 보드 칩·카드의 챕터 배지 — 소수(≤3)는 번호로(같은 도서의 여러 배치 구분), 다수는 개수. */
+function chapterBadge(item: PlanItem): string | null {
+  if (!(item.materialType === 'book' && item.chapterCount > 1)) return null
+  if (item.chapters.length === 0) return '전체'
+  if (item.chapters.length <= 3) return `${item.chapters.join('·')}장`
+  return `${item.chapters.length}장`
+}
+
 // 주간 보드 열 카드 — 좁은 요일 열(≈120px) 안에서 표지·제목(2줄)·챕터·활동을 세로로 압축.
 //   보드 행(BoardChip)의 열-지향 형제. active=편집 중(잉크 채움). 색+형태+텍스트 3중 유지.
 function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; onClick: () => void }) {
   const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   const shown = acts.slice(0, 4)
   const overflow = acts.length - shown.length
-  const hasChapters = item.materialType === 'book' && item.chapterCount > 1
-  const chapterLabel = hasChapters ? (item.chapters.length === 0 ? '전체' : `${item.chapters.length}장`) : null
+  const chapterLabel = chapterBadge(item)
   const actLabels = acts.map((a) => a.label).join('·')
   return (
     <button
@@ -779,8 +780,7 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
   const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   const shown = acts.slice(0, CHIP_MAX_ICONS)
   const overflow = acts.length - shown.length
-  const hasChapters = item.materialType === 'book' && item.chapterCount > 1
-  const chapterLabel = hasChapters ? (item.chapters.length === 0 ? '전체' : `${item.chapters.length}장`) : null
+  const chapterLabel = chapterBadge(item)
   const actLabels = acts.map((a) => a.label).join('·')
   return (
     <button
@@ -1168,16 +1168,14 @@ function Cover({ url, title, className }: { url: string | null; title: string; c
 function WordSetBookGroups({
   items,
   bookTitleById,
-  addedByKey,
+  countByKey,
   draftOptionId,
-  editId,
   onPick,
 }: {
   items: MaterialOption[]
   bookTitleById: Map<string, string>
-  addedByKey: Map<string, PlanItem>
+  countByKey: Map<string, number>
   draftOptionId: string | null
-  editId: string | null
   onPick: (m: MaterialOption) => void
 }) {
   const byBook: { bid: string; label: string; sets: MaterialOption[] }[] = []
@@ -1203,21 +1201,17 @@ function WordSetBookGroups({
             <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
           </div>
           <ul className="flex flex-col gap-1">
-            {bk.sets.map((m) => {
-              const added = addedByKey.get(`word_set:${m.id}`)
-              return (
-                <MaterialRow
-                  key={m.id}
-                  m={m}
-                  type="word_set"
-                  displayTitle={m.chapterIdx != null ? `${m.chapterIdx}장` : undefined}
-                  picked={draftOptionId === m.id}
-                  added={!!added}
-                  editing={!!added && editId === added.id}
-                  onPick={() => onPick(m)}
-                />
-              )
-            })}
+            {bk.sets.map((m) => (
+              <MaterialRow
+                key={m.id}
+                m={m}
+                type="word_set"
+                displayTitle={m.chapterIdx != null ? `${m.chapterIdx}장` : undefined}
+                picked={draftOptionId === m.id}
+                count={countByKey.get(`word_set:${m.id}`) ?? 0}
+                onPick={() => onPick(m)}
+              />
+            ))}
           </ul>
         </div>
       ))}
@@ -1249,17 +1243,15 @@ function ArticlePicker({
   articles,
   rail,
   setRail,
-  addedByKey,
+  countByKey,
   draftOptionId,
-  editId,
   onPick,
 }: {
   articles: MaterialOption[]
   rail: string
   setRail: (v: string) => void
-  addedByKey: Map<string, PlanItem>
+  countByKey: Map<string, number>
   draftOptionId: string | null
-  editId: string | null
   onPick: (m: MaterialOption) => void
 }) {
   const SOURCE_ORDER = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
@@ -1301,20 +1293,16 @@ function ArticlePicker({
   const selectedSource = sources.find((s) => s.key === rail || s.programs.some((p) => p.key === rail)) ?? null
   const selectedProgram = selectedSource?.programs.find((p) => p.key === rail) ?? null
 
-  const rowOf = (m: MaterialOption) => {
-    const added = addedByKey.get(`article:${m.id}`)
-    return (
-      <MaterialRow
-        key={m.id}
-        m={m}
-        type="article"
-        picked={draftOptionId === m.id}
-        added={!!added}
-        editing={!!added && editId === added.id}
-        onPick={() => onPick(m)}
-      />
-    )
-  }
+  const rowOf = (m: MaterialOption) => (
+    <MaterialRow
+      key={m.id}
+      m={m}
+      type="article"
+      picked={draftOptionId === m.id}
+      count={countByKey.get(`article:${m.id}`) ?? 0}
+      onPick={() => onPick(m)}
+    />
+  )
 
   return (
     <div className="flex gap-2">
@@ -1366,9 +1354,8 @@ function ArticlePicker({
             <ArticleCrumb source={selectedSource.label} count={selectedSource.items.length} />
             <ArticleFeedGroups
               items={selectedSource.items}
-              addedByKey={addedByKey}
+              countByKey={countByKey}
               draftOptionId={draftOptionId}
-              editId={editId}
               onPick={onPick}
             />
           </div>
@@ -1383,9 +1370,8 @@ function ArticlePicker({
                 </div>
                 <ArticleFeedGroups
                   items={src.items}
-                  addedByKey={addedByKey}
+                  countByKey={countByKey}
                   draftOptionId={draftOptionId}
-                  editId={editId}
                   onPick={onPick}
                 />
               </div>
@@ -1492,15 +1478,13 @@ function ArticleCrumb({ source, program, count }: { source: string; program?: st
 //   feed 없는 소스(프로그램 라벨 전무)는 헤더 없이 flat 리스트.
 function ArticleFeedGroups({
   items,
-  addedByKey,
+  countByKey,
   draftOptionId,
-  editId,
   onPick,
 }: {
   items: MaterialOption[]
-  addedByKey: Map<string, PlanItem>
+  countByKey: Map<string, number>
   draftOptionId: string | null
-  editId: string | null
   onPick: (m: MaterialOption) => void
 }) {
   const NONE = '__none__'
@@ -1515,20 +1499,16 @@ function ArticleFeedGroups({
     .sort((a, b) => a.localeCompare(b))
   const ordered = [...named, ...(byFeed.has(NONE) ? [NONE] : [])]
 
-  const row = (m: MaterialOption) => {
-    const added = addedByKey.get(`article:${m.id}`)
-    return (
-      <MaterialRow
-        key={m.id}
-        m={m}
-        type="article"
-        picked={draftOptionId === m.id}
-        added={!!added}
-        editing={!!added && editId === added.id}
-        onPick={() => onPick(m)}
-      />
-    )
-  }
+  const row = (m: MaterialOption) => (
+    <MaterialRow
+      key={m.id}
+      m={m}
+      type="article"
+      picked={draftOptionId === m.id}
+      count={countByKey.get(`article:${m.id}`) ?? 0}
+      onPick={() => onPick(m)}
+    />
+  )
 
   // 프로그램 없는 소스(named feed 0) → 헤더 없이 flat
   if (named.length === 0) {
@@ -1559,8 +1539,7 @@ function MaterialRow({
   type,
   displayTitle,
   picked,
-  added,
-  editing,
+  count,
   onPick,
 }: {
   m: MaterialOption
@@ -1568,23 +1547,22 @@ function MaterialRow({
   /** 그룹 문맥상 짧은 표기 (예: 책 그룹 안 챕터 세트 → 'n장 단어'). 저장/보드엔 원제 사용 */
   displayTitle?: string
   picked: boolean
-  /** 이미 계획에 담긴 자료 — 클릭하면 그 항목 편집으로 */
-  added?: boolean
-  editing?: boolean
+  /** 이미 계획에 담긴 배치 수 (0=미담김) — 다중 엔트리라 클릭은 항상 새 배치 추가 */
+  count?: number
   onPick: () => void
 }) {
-  const active = picked || editing
+  const inPlan = (count ?? 0) > 0
   return (
     <li
       className={`rounded-[var(--r-md)] border transition-colors duration-[var(--dur-normal)] ${
-        active ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+        picked ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       <button
         type="button"
         onClick={onPick}
-        aria-pressed={active}
-        title={added ? `${m.title} — 계획에 담김 (클릭해 구성 수정)` : m.title}
+        aria-pressed={picked}
+        title={inPlan ? `${m.title} — 계획에 ${count}개 담김 (클릭해 배치 추가)` : m.title}
         className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <MaterialBadge type={type} m={m} />
@@ -1599,9 +1577,12 @@ function MaterialRow({
             V{m.vLevel}
           </span>
         )}
-        {added ? (
-          <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[800] text-[var(--ti)]">
-            <Check size={10} strokeWidth={3} aria-hidden /> 담김
+        {inPlan ? (
+          <span
+            className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[800] text-[var(--ti)]"
+            title={`계획에 ${count}개 담김`}
+          >
+            <Check size={10} strokeWidth={3} aria-hidden /> {count}
           </span>
         ) : picked ? (
           <Check size={14} strokeWidth={2.5} className="shrink-0 text-[var(--p)]" aria-hidden />

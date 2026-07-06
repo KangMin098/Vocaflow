@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `1b33e07` feat(curation): 드레인 큐에 레벨 검토 task 추가 (Phase 1 level_verify)
 - `da04123` refactor(curation): 드레인 큐 배너 2개 → 1개 병합 (DrainQueueBanner)
 - `bee85f7` feat(curation): 챕터 퀴즈 큐를 book_curation_jobs 로 통합 (드레인 큐 단일화 Phase 0)
 - `572cfc7` feat(plan): 스크립트 picker 계층 레일(소스→분류→컨텐츠) (v06.144)
 - `7da30ed` feat(plan): 주간 보드 세로→가로 7열 캘린더 재설계 (v06.143)
-- `2449941` feat(admin): /admin/quality 지금-수집 버튼 + admin wrapper RPC (v06.142)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -173,7 +173,7 @@ export function isActivityScoped(type: MaterialType, activity: PlanActivity): bo
   return false
 }
 
-// ── 학습 리듬(일정) — study_plan_schedule ──
+// ── 학습 요일 (study_plan_items.weekdays) ──
 
 /** 요일 — ISO 1=월 .. 7=일 */
 export const WEEKDAYS: { value: number; label: string }[] = [

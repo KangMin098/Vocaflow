@@ -1,7 +1,8 @@
 // apps/web/src/lib/learner/plan-actions.ts
 //
-// 학습 계획(study_plan_items) + 주당 리듬(study_plan_schedule) server actions.
-// P1 리치 구성: 자료 4종(도서/스크립트=article/공용단어장/내 스크립트) × 활동 + 도서 챕터 + 일정.
+// 학습 계획(study_plan_items) server actions.
+// P1 리치 구성: 자료 4종(도서/스크립트=article/공용단어장/내 스크립트) × 활동 + 도서 챕터 + 요일.
+// 다중 엔트리(2026-07-06): 한 자료를 여러 배치(요일×챕터)로 — UNIQUE 제거, save 는 id 왕복.
 
 'use server'
 
@@ -384,14 +385,20 @@ export async function fetchBookChapters(bookId: string): Promise<BookChapter[]> 
   }))
 }
 
-/** 계획 항목 추가/수정(upsert). modules·chapters 정제. */
+/**
+ * 계획 항목 추가/수정. modules·chapters 정제.
+ *   · 다중 엔트리(2026-07-06): 한 자료를 여러 배치(요일×챕터)로 담을 수 있게 UNIQUE 제거.
+ *   · `id` 있으면 그 배치 UPDATE(본인) · 없으면 새 배치 INSERT 후 **id 반환**(낙관적 갱신이 실 id 추적).
+ */
 export async function savePlanItem(input: {
+  /** 편집 시 대상 배치 id — 없으면 신규 배치 INSERT */
+  id?: string
   materialType: MaterialType
   materialId: string
   modules: PlanActivity[]
   chapters?: number[]
   weekdays?: number[]
-}): Promise<{ ok: boolean; error?: string }> {
+}): Promise<{ ok: boolean; id?: string; error?: string }> {
   if (!input?.materialId) return { ok: false, error: '자료가 필요합니다.' }
   const client = await createClient()
   const {
@@ -408,23 +415,33 @@ export async function savePlanItem(input: {
         )
       : []
   const weekdays = sanitizeWeekdays(input.weekdays)
+  const lc = loose(client)
 
-  const { error } = await loose(client)
+  if (input.id) {
+    // 편집 — updated_at 은 BEFORE UPDATE 트리거(tg_study_plan_items_touch)가 갱신
+    const { error } = await lc
+      .from('study_plan_items')
+      .update({ modules, chapters, weekdays })
+      .eq('id', input.id)
+      .eq('user_id', user.id)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true, id: input.id }
+  }
+
+  const { data, error } = await lc
     .from('study_plan_items')
-    .upsert(
-      {
-        user_id: user.id,
-        material_type: input.materialType,
-        material_id: input.materialId,
-        modules,
-        chapters,
-        weekdays,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'user_id,material_type,material_id' },
-    )
+    .insert({
+      user_id: user.id,
+      material_type: input.materialType,
+      material_id: input.materialId,
+      modules,
+      chapters,
+      weekdays,
+    })
+    .select('id')
+    .single()
   if (error) return { ok: false, error: error.message }
-  return { ok: true }
+  return { ok: true, id: (data as { id: string } | null)?.id }
 }
 
 /** 계획 항목 제거. */
