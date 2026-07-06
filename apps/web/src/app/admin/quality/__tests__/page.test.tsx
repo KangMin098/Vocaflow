@@ -9,6 +9,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const fetchMock = vi.fn()
 
+// CollectNowButton(클라이언트)의 useRouter 는 Next 라우터 컨텍스트 밖 renderToString 에서 throw — 스텁
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: () => {} }),
+}))
+
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     from: () => ({

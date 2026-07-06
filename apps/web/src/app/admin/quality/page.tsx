@@ -12,6 +12,8 @@ import { Gauge } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/server'
 
+import { CollectNowButton } from './CollectNowButton'
+
 export const metadata = {
   title: '품질 지표 — Admin',
   description: '콘텐츠 파이프라인 품질 지표 (quality_metrics nightly 수집)',
@@ -156,14 +158,17 @@ export default async function AdminQualityPage() {
             콘텐츠 파이프라인 품질 스냅샷 — 매일 KST 03:10 자동 수집 (collect_quality_metrics)
           </p>
         </div>
-        <div className="shrink-0 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 text-right">
-          <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
-            최근 수집
-          </p>
-          <p className="mt-0.5 font-body text-[13px] text-[var(--t1)]">
-            {latestAt ? new Date(latestAt).toLocaleString('ko-KR') : '기록 없음'}
-          </p>
-          <p className="font-body text-[11px] text-[var(--t3)]">수집 {snapshotCount}회 보관</p>
+        <div className="flex shrink-0 items-start gap-3">
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 text-right">
+            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+              최근 수집
+            </p>
+            <p className="mt-0.5 font-body text-[13px] text-[var(--t1)]">
+              {latestAt ? new Date(latestAt).toLocaleString('ko-KR') : '기록 없음'}
+            </p>
+            <p className="font-body text-[11px] text-[var(--t3)]">수집 {snapshotCount}회 보관</p>
+          </div>
+          <CollectNowButton />
         </div>
       </header>
 
@@ -251,8 +256,8 @@ export default async function AdminQualityPage() {
       )}
 
       <p className="text-center font-body text-[11px] text-[var(--t3)]">
-        수집: pg_cron jobid=12 (매일 KST 03:10, collect_quality_metrics SECURITY DEFINER) · 골든셋
-        스냅샷 회귀는 CI verify 참조 · 본 페이지는 읽기 전용
+        수집: pg_cron jobid=12 (매일 KST 03:10) + 수동 &lsquo;지금 수집&rsquo;
+        (admin_collect_quality_metrics) · 골든셋 스냅샷 회귀는 CI verify 참조
       </p>
     </div>
   )
