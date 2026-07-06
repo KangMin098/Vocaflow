@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6ab04f9` refactor(vcb): Phase 2-B — step 카드 설명 운영자 언어화 (jargon 제거)
 - `c4937c6` fix(plan): 탭 전환 시 우측 컴포저 초기화 (v06.153)
 - `5df3707` docs(db-schema): vcb_publish_commit 발행 RPC 반영 (P0-7)
 - `57c4391` feat(vcb): P0-7 완전 트랜잭션 publish — vcb_publish_commit RPC 적용 + publish.ts 치환
 - `eee9588` feat(plan): 스크립트 학습대상 다건 선택 + 우측 선택 영역 재설계 (v06.152)
-- `60bc3fb` chore(dict): 교육과정 기본어휘 3,000 사전 적용 준비 ([별책14]) (v06.146)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

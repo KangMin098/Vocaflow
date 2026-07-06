@@ -573,7 +573,7 @@ export function VcbSeedFlow({
       <Section
         step={3}
         title="미리보기 후 DB 적재"
-        description="결과를 둘러보고 의심스러운 단어를 거부 표시한 뒤 vocab_sources + vocab_seed_candidates 로 적재합니다."
+        description="결과를 둘러보고 의심스러운 단어를 거부 표시한 뒤 시드 단어로 등록합니다."
         done={runStatus !== 'created' && runStatus !== 'ingesting'}
         disabled={!status.seed_list_exists}
       >
