@@ -380,22 +380,12 @@ export function PlanClient({
             })}
           </div>
 
-          {/* master-detail: 좌=분류 레일 · 우=세부 리스트 (모든 자료 유형 동일 패턴) */}
-          {activeTab === 'article' ? (
-            // 스크립트 — 계층 레일(소스+분류) + 컨텐츠. 분류 선택 시 오른쪽에 그 분류의 글.
-            <ArticlePicker
-              articles={candidates}
-              rail={rail}
-              setRail={setRail}
-              countByKey={countByKey}
-              draftOptionId={draft?.option.id ?? null}
-              onPick={pickMaterial}
-            />
-          ) : (
-            <div className="flex gap-2">
+          {/* master-detail: 좌=분류 레일(1축) · 우=그룹 헤더+컨텐츠 — 모든 자료 유형 동일.
+              스크립트=소스 레일 → 우측 프로그램 헤더 → 컨텐츠 (도서 챕터와 동일한 3단) */}
+          <div className="flex gap-2">
               <nav
                 aria-label="분류"
-                className="flex max-h-[420px] w-[96px] shrink-0 flex-col gap-1 overflow-y-auto"
+                className="flex max-h-[420px] w-[110px] shrink-0 flex-col gap-1 overflow-y-auto"
               >
                 <RailButton
                   label="전체"
@@ -442,6 +432,14 @@ export function PlanClient({
                             draftOptionId={draft?.option.id ?? null}
                             onPick={pickMaterial}
                           />
+                        ) : activeTab === 'article' ? (
+                          // 스크립트 — 우측에서 프로그램(feed) 헤더로 하위그룹 (소스 레일 → 프로그램 → 컨텐츠)
+                          <ArticleFeedGroups
+                            items={g.items}
+                            countByKey={countByKey}
+                            draftOptionId={draft?.option.id ?? null}
+                            onPick={pickMaterial}
+                          />
                         ) : (
                           <ul className="flex flex-col gap-1.5">
                             {g.items.map((m) => (
@@ -462,7 +460,6 @@ export function PlanClient({
                 )}
               </div>
             </div>
-          )}
         </div>
 
         {/* 우: 구성 */}
@@ -1236,244 +1233,6 @@ function shortProgramLabel(sourceLabel: string, label: string): string {
   return out || label
 }
 
-// 스크립트(article) picker — 계층 레일(소스 헤더 + 분류/프로그램) + 컨텐츠 상세.
-//   소스 → 프로그램(분류) → 컨텐츠 (ACP v06.137 구조). 분류 선택 시 우측(제일 오른쪽)에 그 분류의 글.
-//   feed 없는 소스는 소스 헤더 자체가 leaf(선택=그 소스 글 전체). rail='all'=소스별 전체 그룹 노출.
-function ArticlePicker({
-  articles,
-  rail,
-  setRail,
-  countByKey,
-  draftOptionId,
-  onPick,
-}: {
-  articles: MaterialOption[]
-  rail: string
-  setRail: (v: string) => void
-  countByKey: Map<string, number>
-  draftOptionId: string | null
-  onPick: (m: MaterialOption) => void
-}) {
-  const SOURCE_ORDER = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
-  const NONE = '__none__'
-
-  const bySource = new Map<string, MaterialOption[]>()
-  for (const a of articles) {
-    const s = a.source ?? 'etc'
-    if (!bySource.has(s)) bySource.set(s, [])
-    bySource.get(s)!.push(a)
-  }
-  const sources = Array.from(bySource.keys())
-    .sort((a, b) => (SOURCE_ORDER.indexOf(a) + 1 || 99) - (SOURCE_ORDER.indexOf(b) + 1 || 99))
-    .map((s) => {
-      const arts = bySource.get(s)!
-      const byProg = new Map<string, MaterialOption[]>()
-      for (const a of arts) {
-        const k = a.feedLabel ?? NONE
-        if (!byProg.has(k)) byProg.set(k, [])
-        byProg.get(k)!.push(a)
-      }
-      const named = Array.from(byProg.keys())
-        .filter((k) => k !== NONE)
-        .sort((a, b) => a.localeCompare(b))
-      const programs = [
-        ...named.map((k) => ({
-          key: `p:${s}:${k}`,
-          label: shortProgramLabel(articleSourceLabel(s), k) as string | null,
-          full: k,
-          items: byProg.get(k)!,
-        })),
-        ...(byProg.has(NONE)
-          ? [{ key: `p:${s}:${NONE}`, label: named.length > 0 ? '기타' : null, full: '기타', items: byProg.get(NONE)! }]
-          : []),
-      ]
-      return { source: s, key: `s:${s}`, label: articleSourceLabel(s), items: arts, programs }
-    })
-
-  const selectedSource = sources.find((s) => s.key === rail || s.programs.some((p) => p.key === rail)) ?? null
-  const selectedProgram = selectedSource?.programs.find((p) => p.key === rail) ?? null
-
-  const rowOf = (m: MaterialOption) => (
-    <MaterialRow
-      key={m.id}
-      m={m}
-      type="article"
-      picked={draftOptionId === m.id}
-      count={countByKey.get(`article:${m.id}`) ?? 0}
-      onPick={() => onPick(m)}
-    />
-  )
-
-  return (
-    <div className="flex gap-2">
-      {/* 계층 레일 — 소스 헤더(클릭=소스 전체) + 분류(프로그램) 항목 */}
-      <nav
-        aria-label="소스·분류"
-        className="flex max-h-[420px] w-[150px] shrink-0 flex-col gap-1.5 overflow-y-auto pr-0.5"
-      >
-        <RailButton label="전체" count={articles.length} active={rail === 'all'} onClick={() => setRail('all')} />
-        {sources.map((src) => (
-          <div key={src.source} className="flex flex-col gap-0.5">
-            <ArticleRailSource
-              label={src.label}
-              count={src.items.length}
-              active={rail === src.key}
-              onClick={() => setRail(src.key)}
-            />
-            {src.programs.map((p) =>
-              p.label == null ? null : (
-                <ArticleRailProgram
-                  key={p.key}
-                  label={p.label}
-                  title={p.full}
-                  count={p.items.length}
-                  active={rail === p.key}
-                  onClick={() => setRail(p.key)}
-                />
-              ),
-            )}
-          </div>
-        ))}
-      </nav>
-
-      {/* 컨텐츠 — 선택한 분류/소스의 글 (제일 오른쪽) */}
-      <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
-        {articles.length === 0 ? (
-          <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">표시할 스크립트가 없어요.</p>
-        ) : selectedProgram ? (
-          <div className="flex flex-col gap-1.5">
-            <ArticleCrumb
-              source={selectedSource!.label}
-              program={selectedProgram.label ?? '기타'}
-              count={selectedProgram.items.length}
-            />
-            <ul className="flex flex-col gap-1.5">{selectedProgram.items.map(rowOf)}</ul>
-          </div>
-        ) : selectedSource ? (
-          <div className="flex flex-col gap-1.5">
-            <ArticleCrumb source={selectedSource.label} count={selectedSource.items.length} />
-            <ArticleFeedGroups
-              items={selectedSource.items}
-              countByKey={countByKey}
-              draftOptionId={draftOptionId}
-              onPick={onPick}
-            />
-          </div>
-        ) : (
-          <div className="flex flex-col gap-3">
-            {sources.map((src) => (
-              <div key={src.source} className="flex flex-col gap-1.5">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{src.label}</h3>
-                  <span className="font-mono text-[10px] text-[var(--t3)]">{src.items.length}</span>
-                  <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-                </div>
-                <ArticleFeedGroups
-                  items={src.items}
-                  countByKey={countByKey}
-                  draftOptionId={draftOptionId}
-                  onPick={onPick}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
-// 레일 — 소스 헤더(클릭=그 소스 전체). 분류 항목보다 강조(아이콘 + 굵게).
-function ArticleRailSource({
-  label,
-  count,
-  active,
-  onClick,
-}: {
-  label: string
-  count: number
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      title={label}
-      className={`flex min-h-[36px] w-full items-center gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        active
-          ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p)]'
-          : 'border-transparent bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--bd)]'
-      }`}
-    >
-      <Newspaper
-        size={12}
-        strokeWidth={1.75}
-        className={`shrink-0 ${active ? 'text-[var(--p)]' : 'text-[var(--t3)]'}`}
-        aria-hidden
-      />
-      <span className="min-w-0 flex-1 truncate font-display text-[11.5px] font-[800] leading-tight">{label}</span>
-      <span className={`font-mono text-[10px] tabular-nums ${active ? 'text-[var(--p)]' : 'text-[var(--t3)]'}`}>
-        {count}
-      </span>
-    </button>
-  )
-}
-
-// 레일 — 분류(프로그램) 항목. 들여쓰기 + 리딩 도트로 계층. 선택=잉크 채움.
-function ArticleRailProgram({
-  label,
-  title,
-  count,
-  active,
-  onClick,
-}: {
-  label: string
-  /** 원문 라벨 (표시용 축약과 별개) — tooltip */
-  title?: string
-  count: number
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      title={title ?? label}
-      className={`flex min-h-[34px] w-full items-center gap-1.5 rounded-[var(--r-sm)] border py-1 pl-2.5 pr-2 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        active
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-          : 'border-transparent text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--p)]'
-      }`}
-    >
-      <span className={`mt-0.5 h-1 w-1 shrink-0 self-start rounded-full ${active ? 'bg-[var(--ti)]' : 'bg-[var(--t4)]'}`} aria-hidden />
-      <span className="min-w-0 flex-1 line-clamp-2 font-display text-[11px] font-[700] leading-tight">{label}</span>
-      <span
-        className={`font-mono text-[9.5px] tabular-nums ${active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'}`}
-      >
-        {count}
-      </span>
-    </button>
-  )
-}
-
-// 컨텐츠 상단 브레드크럼 — 소스 · 분류 · 개수.
-function ArticleCrumb({ source, program, count }: { source: string; program?: string; count: number }) {
-  return (
-    <div className="flex items-center gap-1.5">
-      <Newspaper size={11} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
-      <h3 className="min-w-0 truncate font-display text-[11.5px] font-[800] text-[var(--t2)]">
-        {source}
-        {program ? <span className="font-[700] text-[var(--t3)]"> · {program}</span> : null}
-      </h3>
-      <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">{count}</span>
-      <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-    </div>
-  )
-}
-
 // 스크립트(article) — 소스 하위 '프로그램(feed)' 헤더 + 컨텐츠 행 (소스 → 프로그램 → 컨텐츠).
 //   feed 없는 소스(프로그램 라벨 전무)는 헤더 없이 flat 리스트.
 function ArticleFeedGroups({
@@ -1488,6 +1247,8 @@ function ArticleFeedGroups({
   onPick: (m: MaterialOption) => void
 }) {
   const NONE = '__none__'
+  // 프로그램 헤더에서 소스명 중복 제거 — 상위 그룹 헤더가 이미 소스. items 는 동일 소스.
+  const sourceLabel = articleSourceLabel(items[0]?.source ?? null)
   const byFeed = new Map<string, MaterialOption[]>()
   for (const m of items) {
     const k = m.feedLabel ?? NONE
@@ -1521,8 +1282,11 @@ function ArticleFeedGroups({
         <div key={k} className="flex flex-col gap-1">
           <div className="flex items-center gap-1.5">
             <Newspaper size={11} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
-            <h4 className="truncate font-display text-[11px] font-[800] text-[var(--t2)]">
-              {k === NONE ? '기타' : k}
+            <h4
+              className="truncate font-display text-[11px] font-[800] text-[var(--t2)]"
+              title={k === NONE ? undefined : k}
+            >
+              {k === NONE ? '기타' : shortProgramLabel(sourceLabel, k)}
             </h4>
             <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">{byFeed.get(k)!.length}</span>
             <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
