@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `7da30ed` feat(plan): 주간 보드 세로→가로 7열 캘린더 재설계 (v06.143)
 - `2449941` feat(admin): /admin/quality 지금-수집 버튼 + admin wrapper RPC (v06.142)
 - `f582013` feat(acp): 나머지 소스 발행 — 전 소스 프로그램 구조 완성 (v06.141)
 - `146070d` docs(session-log): vitest 스위트 통과 기록 (99 passed, nav 무회귀)
 - `45e319b` refactor(nav): dead-code ContextBar 삭제 + 감사 마무리
-- `67b9fd5` feat(admin): 품질평가 Q3 /admin/quality 지표 대시보드 (v06.140)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
