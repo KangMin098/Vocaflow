@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `bc6fdf2` test(e2e): UI 스모크 상시 자산화 — 화면 검증 자동화 (v06.159)
 - `335c3f0` refactor(admin): Phase 1.5 MockBanner 제거 — 관리자 콘솔 실데이터화 반영
 - `03eee59` fix(echo): 채점 3축 재설계 — 구조적 0점 결함 수리 (v06.158)
 - `d589048` feat(vcb): Phase 3-B 완결 — seed flow에 "스킬 실행 권장" callout (결정 B)
 - `64a6435` feat(vcb): run 상세 진행 오리엔테이션 (VcbRunProgress) — 에이전트 #1 UX
-- `3a01be1` feat(plan): 내 스크립트 '도서에서'를 책별 2차 분류 (v06.157)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
