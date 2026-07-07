@@ -28,6 +28,7 @@ const REGISTER_BY_SOURCE: Record<string, string> = {
   simple_wikipedia: 'expository',
   the_conversation: 'argumentative',
   wikinews: 'news',
+  owid: 'argumentative', // T-2 — 데이터 논증문. argumentative gap 보강(the_conversation=ND display_only 대비 발행 가능)
 }
 
 export const runtime = 'nodejs'

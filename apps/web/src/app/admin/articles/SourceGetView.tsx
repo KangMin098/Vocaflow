@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BookOpen, FlaskConical, Megaphone, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, FlaskConical, Megaphone, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -211,6 +211,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/en\.wikinews\.org\/wiki\//}
           urlHostHint="en.wikinews.org/wiki/ 도메인"
           urlPlaceholder="https://en.wikinews.org/wiki/..."
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'owid':
+      return (
+        <RssFeedTab
+          source="owid"
+          heading="📊 Our World in Data"
+          subtitle="CC-BY 4.0 · B2~C1 데이터 논증문 (CSAT 유형) · 발행 허용"
+          feeds={[]}
+          emptyIcon={BarChart3}
+          urlPattern={/^https?:\/\/ourworldindata\.org\//}
+          urlHostHint="ourworldindata.org 도메인"
+          urlPlaceholder="https://ourworldindata.org/..."
           onEnqueued={onEnqueued}
         />
       )

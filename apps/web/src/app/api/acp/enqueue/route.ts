@@ -14,6 +14,7 @@ import { NextResponse } from 'next/server'
 import {
   ingestNasaArticle,
   ingestNihArticle,
+  ingestOwidArticle,
   ingestSimpleWikipediaArticle,
   ingestTheConversationArticle,
   ingestVoaArticle,
@@ -31,7 +32,7 @@ export const dynamic = 'force-dynamic'
 
 // v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid'
 
 interface EnqueueBody {
   feed_id?: string
@@ -49,6 +50,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/simple\.wikipedia\.org\/wiki\//, source: 'simple_wikipedia' },
   { pattern: /^https?:\/\/theconversation\.com\//, source: 'the_conversation' },
   { pattern: /^https?:\/\/en\.wikinews\.org\/wiki\//, source: 'wikinews' },
+  { pattern: /^https?:\/\/ourworldindata\.org\//, source: 'owid' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -77,7 +79,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         error:
-          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews 중 하나여야 하거나 source 필드 명시 필요',
+          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews / OWID 중 하나여야 하거나 source 필드 명시 필요',
       },
       { status: 400 },
     )
@@ -110,6 +112,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       }
       case 'wikinews': {
         article = await ingestWikinewsArticle(body.item_url)
+        break
+      }
+      case 'owid': {
+        article = await ingestOwidArticle(body.item_url)
         break
       }
     }

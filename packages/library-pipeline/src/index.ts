@@ -45,6 +45,13 @@ export {
   WIKINEWS_FEEDS,
 } from './ingest-article/wikinews'
 export type { WikinewsListItem } from './ingest-article/wikinews'
+// ACP §18 T-2 — Our World in Data (CC-BY 데이터 논증문 · 발행 허용).
+export {
+  ingestOwidArticle,
+  listOwidFeed,
+  OWID_FEEDS,
+} from './ingest-article/owid'
+export type { OwidListItem } from './ingest-article/owid'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
 export { computeLexicalNoise } from './ingest-article/_helpers'
 // v06.41 feed-level + v06.42 source-level curation spec

@@ -12,6 +12,7 @@
 import { useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
+  BarChart3,
   BookOpen,
   Download,
   FlaskConical,
@@ -35,7 +36,7 @@ import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
 type Stage = 'coverage' | 'get' | 'review' | 'publish'
-type SourceKey = 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews'
+type SourceKey = 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -59,6 +60,7 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio 
   { key: 'simple_wikipedia', label: 'Wikipedia', Icon: BookOpen },
   { key: 'the_conversation', label: 'Conversation', Icon: Megaphone },
   { key: 'wikinews', label: 'Wikinews', Icon: Newspaper },
+  { key: 'owid', label: 'OWID', Icon: BarChart3 },
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 

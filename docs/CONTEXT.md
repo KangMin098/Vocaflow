@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d6cfc1a` feat(plan): 공용단어장도 다건 선택 — 소스탭 패턴 통일 (v06.160)
 - `9a4fadb` refactor(vcb): dead code 제거 — VcbPipelineGuide + pipeline-steps.ts
 - `bc6fdf2` test(e2e): UI 스모크 상시 자산화 — 화면 검증 자동화 (v06.159)
 - `335c3f0` refactor(admin): Phase 1.5 MockBanner 제거 — 관리자 콘솔 실데이터화 반영
 - `03eee59` fix(echo): 채점 3축 재설계 — 구조적 0점 결함 수리 (v06.158)
-- `d589048` feat(vcb): Phase 3-B 완결 — seed flow에 "스킬 실행 권장" callout (결정 B)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

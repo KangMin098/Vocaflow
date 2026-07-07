@@ -21,6 +21,7 @@ export type SourceKey =
   | 'wikinews'
   | 'the_conversation'
   | 'simple_wikipedia'
+  | 'owid'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -251,6 +252,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 250,
     noiseKeywords: ['disambiguation', 'list of'],
     maxItems: 30,
+  },
+  // T-2 — Our World in Data: 데이터 논증문(B2-C1), CC-BY 4.0. atom feed(live).
+  owid: {
+    recencyDays: 365,      // 연구 기사 — stale 관대 (뉴스 아님)
+    minDescriptionLen: 100,
+    minTitleLen: 20,
+    sourceWeight: 0.82,    // 고품질 데이터 산문 (the_conversation 0.75 < owid < simple 0.85)
+    levelBonus: 0,         // B2-C1 (입문 아님)
+    idealDescLen: 300,
+    noiseKeywords: ['tool', 'chart', 'data page', 'grapher', 'explorer'], // 인터랙티브/데이터 전용 제외
+    maxItems: 15,
   },
 }
 
@@ -523,6 +535,22 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'good', weight: 0.40 },          // Good articles 카테고리
     ],
   },
+  // T-2 — Our World in Data: 데이터 기반 논증문, CC-BY 4.0 (파생 허용 → 단어세트 발행),
+  //   B2-C1, CSAT 지문 유사. argumentative register 를 발행 가능 콘텐츠로 보강.
+  owid: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 15,
+    minScore: 0.42,
+    bulkPriority: 6,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,        // CC-BY — OWID 저자·출처 인용
+    topicDomain: ['data', 'economics', 'global-development', 'health', 'environment', 'analysis'],
+    styleGuide: '데이터 기반 논증문 (연구·글로벌 지표) · CSAT 지문 유사 · 파생 허용(CC-BY)',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
 }
 
 /**
@@ -536,8 +564,8 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
-  advanced:     ['the_conversation', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
+  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -739,6 +767,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   wikinews: getSourcePolicy('wikinews'),
   the_conversation: getSourcePolicy('the_conversation'),
   simple_wikipedia: getSourcePolicy('simple_wikipedia'),
+  owid: getSourcePolicy('owid'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──
