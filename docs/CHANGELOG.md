@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /plan 공용단어장도 다건 선택 — 소스탭 패턴 통일 (v06.160)
+
+공용단어장(word_set)을 스크립트·내 스크립트와 **동일한 소스탭 패턴**(좌 2열 네비 + 우 다건 선택)으로 전환. 이제 도서를 제외한 3탭 모두 다건 선택.
+
+- **분류 축**: 카테고리(수능/공인시험/…/도서 챕터)를 1단, **도서 챕터는 소속 책을 2단**(feed_label=책 제목). `plan-actions`에서 `source`=category, library_book은 책 제목 조인(scripts와 통합 조회).
+- **컴포넌트 일반화**: `buildArticleNav`에 소스라벨·정렬 파라미터 추가(word_set=`wordsetCategoryLabel`), `isSourceTab`에 word_set 포함, `ArticleNav` 컬럼 라벨 prop(카테고리/책), `ArticleSelectPane` 아이콘 type별(Layers), `commitSourceBatch` pool 확장.
+- **정리**: 표준 경로의 word_set 분기·`WordSetBookGroups`·`bookTitleById`·죽은 groups 분기 제거(−250여 줄). 도서만 표준 master-detail 유지.
+- 검증: `tsc --noEmit` 내 파일 0 오류(무관한 동시 WIP `source-guide.ts` 'owid' 오류는 별개).
+
 ### UI 스모크 상시 자산화 — 화면 검증 자동화 (v06.159)
 
 지금까지 화면 검증은 매번 임시 Playwright 드라이버 작성→삭제(반자동)였음 — 상시 자산으로 전환.

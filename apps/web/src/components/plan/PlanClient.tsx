@@ -124,9 +124,22 @@ export function PlanClient({
   }
 
   const candidates = tabMaterials[activeTab]
-  // 소스 탭(스크립트=article · 내 스크립트=script) — 소스별 분류 네비 + 우측 다건 선택 공유
-  const isSourceTab = activeTab === 'article' || activeTab === 'script'
-  const articleNav = buildArticleNav(isSourceTab ? candidates : materials.articles, artSrc, artProg)
+  // 소스 탭(스크립트·내 스크립트·공용단어장) — 소스별 분류 네비 + 우측 다건 선택 공유
+  const isSourceTab = activeTab === 'article' || activeTab === 'script' || activeTab === 'word_set'
+  const navSourceLabel = activeTab === 'word_set' ? wordsetCategoryLabel : articleSourceLabel
+  const navOrder =
+    activeTab === 'word_set'
+      ? ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article', 'library_book']
+      : activeTab === 'script'
+        ? ['library', 'direct-script', 'direct-file', 'shared-set']
+        : ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
+  const articleNav = buildArticleNav(
+    isSourceTab ? candidates : materials.articles,
+    artSrc,
+    artProg,
+    navSourceLabel,
+    navOrder,
+  )
 
   // 탭별 분류 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리+도서(챕터별).
   // 분류는 좌측 레일, 세부 리스트는 우측 — 모든 자료 유형에 동일한 master-detail 패턴.
@@ -136,47 +149,10 @@ export function PlanClient({
     short?: string
     items: MaterialOption[]
   }
-  const bookTitleById = new Map(materials.books.map((b) => [b.id, b.title]))
-  let groups: PickerGroup[]
-  if (activeTab === 'article') {
-    const order = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
-    const bySource = new Map<string, MaterialOption[]>()
-    for (const c of candidates) {
-      const k = c.source ?? 'etc'
-      if (!bySource.has(k)) bySource.set(k, [])
-      bySource.get(k)!.push(c)
-    }
-    const keys = Array.from(bySource.keys()).sort(
-      (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99),
-    )
-    groups = keys.map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
-  } else if (activeTab === 'word_set') {
-    // 도서 챕터 세트는 'library_book' 카테고리 1개로 묶고(레일 정리) 우측에서 책별 하위그룹으로 편다.
-    const order = ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article', 'library_book']
-    const byCat = new Map<string, MaterialOption[]>()
-    for (const c of candidates) {
-      const k = c.category ?? 'etc'
-      if (!byCat.has(k)) byCat.set(k, [])
-      byCat.get(k)!.push(c)
-    }
-    const catKeys = Array.from(byCat.keys()).sort(
-      (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99),
-    )
-    groups = catKeys.map((k) => ({
-      key: k,
-      label: wordsetCategoryLabel(k),
-      short: k === 'library_book' ? '책·챕터' : undefined,
-      // 도서 챕터: 책 제목 → 챕터 순 정렬(우측 책별 하위그룹이 연속되도록)
-      items:
-        k === 'library_book'
-          ? byCat.get(k)!.slice().sort((a, b) => {
-              const ta = bookTitleById.get(a.bookId ?? '') ?? a.title
-              const tb = bookTitleById.get(b.bookId ?? '') ?? b.title
-              return ta.localeCompare(tb) || (Number(a.chapterIdx) || 0) - (Number(b.chapterIdx) || 0)
-            })
-          : byCat.get(k)!,
-    }))
-  } else {
+  // 소스탭(스크립트·내 스크립트·공용단어장)은 buildArticleNav 로 렌더 → groups 불필요.
+  // 그 외(도서)만 표준 master-detail 용 V밴드 그룹을 만든다.
+  let groups: PickerGroup[] = []
+  if (!isSourceTab) {
     const bands: PickerGroup[] = [
       ...V_BANDS.map((b) => ({ key: b.key as string, label: b.label, short: b.short, items: [] as MaterialOption[] })),
       { key: 'none', label: '레벨 무관', items: [] as MaterialOption[] },
@@ -295,9 +271,9 @@ export function PlanClient({
       return n
     })
 
-  // 소스 탭(스크립트·내 스크립트) 다건 일괄 커밋 — 현재 탭 type + 해당 pool 사용.
+  // 소스 탭(스크립트·내 스크립트·공용단어장) 다건 일괄 커밋 — 현재 탭 type + 해당 pool 사용.
   function commitSourceBatch() {
-    if (!(activeTab === 'article' || activeTab === 'script')) return
+    if (!isSourceTab) return
     const type = activeTab
     const modules = Array.from(artActs)
     if (artSel.size === 0) return
@@ -306,7 +282,8 @@ export function PlanClient({
       return
     }
     const weekdays = Array.from(artDays).sort((a, b) => a - b)
-    const pool = type === 'script' ? materials.scripts : materials.articles
+    const pool =
+      type === 'script' ? materials.scripts : type === 'word_set' ? materials.wordSets : materials.articles
     const picks = pool.filter((a) => artSel.has(a.id))
     setError(null)
     setAdding(true)
@@ -480,6 +457,8 @@ export function PlanClient({
           {isSourceTab ? (
             <ArticleNav
               nav={articleNav}
+              col1Label={activeTab === 'word_set' ? '카테고리' : '소스'}
+              col2Label={activeTab === 'word_set' ? '책' : '분류'}
               onSource={(k) => {
                 setArtSrc(k)
                 setArtProg('')
@@ -525,28 +504,18 @@ export function PlanClient({
                           <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
                           <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                         </div>
-                        {activeTab === 'word_set' && g.key === 'library_book' ? (
-                          <WordSetBookGroups
-                            items={g.items}
-                            bookTitleById={bookTitleById}
-                            countByKey={countByKey}
-                            draftOptionId={draft?.option.id ?? null}
-                            onPick={pickMaterial}
-                          />
-                        ) : (
-                          <ul className="flex flex-col gap-1.5">
-                            {g.items.map((m) => (
-                              <MaterialRow
-                                key={m.id}
-                                m={m}
-                                type={activeTab}
-                                picked={draft?.option.id === m.id}
-                                count={countByKey.get(`${activeTab}:${m.id}`) ?? 0}
-                                onPick={() => pickMaterial(m)}
-                              />
-                            ))}
-                          </ul>
-                        )}
+                        <ul className="flex flex-col gap-1.5">
+                          {g.items.map((m) => (
+                            <MaterialRow
+                              key={m.id}
+                              m={m}
+                              type={activeTab}
+                              picked={draft?.option.id === m.id}
+                              count={countByKey.get(`${activeTab}:${m.id}`) ?? 0}
+                              onPick={() => pickMaterial(m)}
+                            />
+                          ))}
+                        </ul>
                       </div>
                     ))}
                   </div>
@@ -1274,65 +1243,9 @@ function Cover({ url, title, className }: { url: string | null; title: string; c
   )
 }
 
-// 공용단어장 '도서 챕터' 카테고리 — 책 하위헤더 + 챕터('N장') 행. 챕터 발견성 보장.
-//   items 는 이미 책 제목 → 챕터 순 정렬됨(연속 하위그룹).
-function WordSetBookGroups({
-  items,
-  bookTitleById,
-  countByKey,
-  draftOptionId,
-  onPick,
-}: {
-  items: MaterialOption[]
-  bookTitleById: Map<string, string>
-  countByKey: Map<string, number>
-  draftOptionId: string | null
-  onPick: (m: MaterialOption) => void
-}) {
-  const byBook: { bid: string; label: string; sets: MaterialOption[] }[] = []
-  for (const m of items) {
-    const bid = m.bookId ?? m.id
-    const last = byBook[byBook.length - 1]
-    if (last && last.bid === bid) last.sets.push(m)
-    else
-      byBook.push({
-        bid,
-        label: bookTitleById.get(m.bookId ?? '') ?? m.title.split(' — ')[0] ?? '도서',
-        sets: [m],
-      })
-  }
-  return (
-    <div className="flex flex-col gap-2.5">
-      {byBook.map((bk) => (
-        <div key={bk.bid} className="flex flex-col gap-1">
-          <div className="flex items-center gap-1.5">
-            <BookMarked size={11} strokeWidth={1.75} className="shrink-0 text-[var(--p)]" aria-hidden />
-            <h4 className="truncate font-display text-[11px] font-[800] text-[var(--t2)]">{bk.label}</h4>
-            <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">챕터 {bk.sets.length}</span>
-            <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-          </div>
-          <ul className="flex flex-col gap-1">
-            {bk.sets.map((m) => (
-              <MaterialRow
-                key={m.id}
-                m={m}
-                type="word_set"
-                displayTitle={m.chapterIdx != null ? `${m.chapterIdx}장` : undefined}
-                picked={draftOptionId === m.id}
-                count={countByKey.get(`word_set:${m.id}`) ?? 0}
-                onPick={() => onPick(m)}
-              />
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-// 레일 분류 라벨 — 부모(소스) 이름 중복 제거 (계층에선 소스가 이미 헤더로 노출).
-//   예: "The Conversation — Health + Medicine" → "Health + Medicine" · "NASA News Releases" → "News Releases"
-//       · "Good Articles (Simple Wikipedia)" → "Good Articles". 원문은 tooltip(title)로 보존.
+// 분류(프로그램) 라벨 — 부모(소스) 이름 중복 제거 (계층에선 소스가 이미 헤더로 노출).
+//   예: "The Conversation — Health + Medicine" → "Health + Medicine" · "NASA News Releases" → "News Releases".
+//   원문은 tooltip(title)로 보존.
 function shortProgramLabel(sourceLabel: string, label: string): string {
   let out = label.trim()
   for (const sep of [' — ', ' - ', ': ', ' ']) {
@@ -1356,8 +1269,14 @@ interface ArticleNavData {
   activeProgram: { key: string; label: string; full: string | null; items: MaterialOption[] } | null
 }
 
-function buildArticleNav(articles: MaterialOption[], srcKey: string, progKey: string): ArticleNavData {
-  const SOURCE_ORDER = ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
+function buildArticleNav(
+  articles: MaterialOption[],
+  srcKey: string,
+  progKey: string,
+  sourceLabel: (k: string) => string,
+  order: string[],
+): ArticleNavData {
+  const SOURCE_ORDER = order
   const NONE = '__none__'
   const bySource = new Map<string, MaterialOption[]>()
   for (const m of articles) {
@@ -1367,7 +1286,7 @@ function buildArticleNav(articles: MaterialOption[], srcKey: string, progKey: st
   }
   const sources = Array.from(bySource.keys())
     .sort((a, b) => (SOURCE_ORDER.indexOf(a) + 1 || 99) - (SOURCE_ORDER.indexOf(b) + 1 || 99))
-    .map((k) => ({ key: k, label: articleSourceLabel(k), items: bySource.get(k)! }))
+    .map((k) => ({ key: k, label: sourceLabel(k), items: bySource.get(k)! }))
   const activeSource = sources.find((s) => s.key === srcKey) ?? sources[0]
 
   const byFeed = new Map<string, MaterialOption[]>()
@@ -1400,19 +1319,23 @@ function ArticleNav({
   nav,
   onSource,
   onProgram,
+  col1Label = '소스',
+  col2Label = '분류',
 }: {
   nav: ArticleNavData
   onSource: (key: string) => void
   onProgram: (key: string) => void
+  col1Label?: string
+  col2Label?: string
 }) {
   return (
     <div className="flex gap-2.5">
-      {/* ① 소스 */}
+      {/* ① 1단 분류(소스/카테고리) */}
       <div className="flex shrink-0 flex-col gap-1.5">
         <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
-          소스
+          {col1Label}
         </span>
-        <nav aria-label="소스" className="flex max-h-[400px] w-[96px] flex-col gap-1 overflow-y-auto">
+        <nav aria-label={col1Label} className="flex max-h-[400px] w-[96px] flex-col gap-1 overflow-y-auto">
           {nav.sources.map((s) => (
             <RailButton
               key={s.key}
@@ -1424,12 +1347,12 @@ function ArticleNav({
           ))}
         </nav>
       </div>
-      {/* ② 소스별 분류(프로그램) */}
+      {/* ② 2단 분류(프로그램/책) */}
       <div className="flex shrink-0 flex-col gap-1.5 border-l border-[var(--bd)] pl-2.5">
         <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
-          분류
+          {col2Label}
         </span>
-        <nav aria-label="분류" className="flex max-h-[400px] w-[134px] flex-col gap-1 overflow-y-auto">
+        <nav aria-label={col2Label} className="flex max-h-[400px] w-[134px] flex-col gap-1 overflow-y-auto">
           {nav.programs.map((p) => {
           const on = p.key === nav.activeProgramKey
           return (
@@ -1495,12 +1418,13 @@ function ArticleSelectPane({
   onCommit: () => void
 }) {
   const n = selected.size
+  const Icon = type === 'word_set' ? Layers : Newspaper
   return (
     <div className="flex flex-col gap-3">
       {/* 헤더 */}
       <div className="flex items-center gap-1.5 border-b border-[var(--bd)] pb-2.5">
         <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
-          <Newspaper size={13} strokeWidth={1.75} />
+          <Icon size={13} strokeWidth={1.75} />
         </span>
         <h2 className="min-w-0 truncate font-display text-[14px] font-[800] text-[var(--t1)]">
           {sourceLabel}
@@ -1522,7 +1446,7 @@ function ArticleSelectPane({
 
       {/* ① 컨텐츠 다건 선택 */}
       <p className="font-body text-[12px] italic text-[var(--t3)]">
-        담을 스크립트를 여러 개 고르세요 — 아래에서 활동·요일을 정해 한 번에 담아요.
+        담을 자료를 여러 개 고르세요 — 아래에서 활동·요일을 정해 한 번에 담아요.
       </p>
       <ul className="flex max-h-[300px] flex-col gap-1.5 overflow-y-auto pr-1">
         {program.items.map((m) => (
@@ -1571,7 +1495,7 @@ function ArticleSelectPane({
         </div>
       ) : (
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] p-3 text-center font-body text-[12px] text-[var(--t3)]">
-          스크립트를 선택하면 활동·요일 구성이 열려요.
+          자료를 선택하면 활동·요일 구성이 열려요.
         </p>
       )}
     </div>

@@ -319,19 +319,20 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       .limit(300),
   ])
 
-  // 내 스크립트 '도서에서' texts → 소속 도서 제목으로 2차 분류(feedLabel). 소스 → 책 → 챕터.
+  // 소속 도서 제목으로 2차 분류(feedLabel) — 내 스크립트('도서에서') + 공용단어장(도서 챕터) 공통.
   const scriptRows = (scripts ?? []) as ScriptRow[]
-  const scriptBookIds = Array.from(
-    new Set(scriptRows.map((s) => s.library_book_id).filter((v): v is string => !!v)),
-  )
-  const scriptBookTitle = new Map<string, string>()
-  if (scriptBookIds.length > 0) {
-    const { data: sbooks } = await lc
+  const setRows = (sets ?? []) as SetRow[]
+  const bookIdSet = new Set<string>()
+  for (const s of scriptRows) if (s.library_book_id) bookIdSet.add(s.library_book_id)
+  for (const w of setRows) if (w.curation_query?.book_id) bookIdSet.add(w.curation_query.book_id)
+  const bookTitle = new Map<string, string>()
+  if (bookIdSet.size > 0) {
+    const { data: bks } = await lc
       .from('library_books')
       .select('id, title')
-      .in('id', scriptBookIds)
-    for (const b of (sbooks ?? []) as { id: string; title: string | null }[]) {
-      scriptBookTitle.set(b.id, b.title ?? '도서')
+      .in('id', Array.from(bookIdSet))
+    for (const b of (bks ?? []) as { id: string; title: string | null }[]) {
+      bookTitle.set(b.id, b.title ?? '도서')
     }
   }
 
@@ -356,7 +357,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
         feedLabel: a.feed_label ?? null,
       }),
     ),
-    wordSets: ((sets ?? []) as SetRow[])
+    wordSets: setRows
       .map((w) =>
         mkOption({
           id: w.id,
@@ -365,11 +366,24 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
           slug: w.slug ?? null,
           coverEmoji: w.cover_emoji ?? null,
           category: w.category ?? null,
+          // 소스탭 통일: 카테고리를 소스축(1단), 도서 챕터는 소속 책을 분류축(feedLabel, 2단)
+          source: w.category ?? null,
+          feedLabel:
+            w.category === 'library_book' && w.curation_query?.book_id
+              ? (bookTitle.get(w.curation_query.book_id) ?? null)
+              : null,
           vLevel: wordSetVLevel(w.slug, w.cefr_level),
           bookId: w.curation_query?.book_id ?? null,
           chapterIdx: w.curation_query?.chapter_idx ?? null,
         }),
-      ),
+      )
+      .sort((a, b) => {
+        // 도서 챕터: 책 제목 → 챕터 순. 그 외 카테고리: 원래 순서 유지.
+        const fa = a.feedLabel ?? ''
+        const fb = b.feedLabel ?? ''
+        if (fa !== fb) return fa.localeCompare(fb)
+        return (Number(a.chapterIdx) || 0) - (Number(b.chapterIdx) || 0)
+      }),
     scripts: scriptRows
       .map((s) =>
         mkOption({
@@ -381,7 +395,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
           // '도서에서' texts 는 소속 도서 제목으로 2차 분류(feedLabel) → 소스 → 책 → 챕터
           feedLabel:
             s.source === 'library' && s.library_book_id
-              ? (scriptBookTitle.get(s.library_book_id) ?? null)
+              ? (bookTitle.get(s.library_book_id) ?? null)
               : null,
           bookId: s.library_book_id ?? null,
           chapterIdx: s.chapter_idx ?? null,
