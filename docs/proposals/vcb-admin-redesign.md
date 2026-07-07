@@ -105,11 +105,22 @@
 
 ---
 
-## 7. 열린 결정 (사용자 판단 필요)
-- **A. 위저드 필터 매트릭스**: 살려서 Method B spec에 실반영? vs 정직하게 제거? (현재 100% 미소비 dead weight)
-- **B. CLI 결합(claude -p spawn)**: 유지(dev 편의)? vs out-of-band 스킬로 단일화? (배포 이식성 vs 원클릭)
-- **C. 이 도구의 지향**: 진짜 셀프서비스 콘솔? vs 정직한 저빈도 전문가 도구? (투자 규모 결정)
+## 7. 결정 확정 (2026-07-06) + 구현 계획
+> 사용자 결정 완료 → Phase 3 방향 확정. **구현은 구조 변경이 많아 dev 서버 재가동 후 실측하며 진행.**
+
+- **C. 도구 지향 = 저빈도 전문가 도구** ✅ — 셀프서비스 폴리시에 과투자하지 않는다. 정합성·명확성만 유지하고 aspirational 요소를 정리.
+- **A. 위저드 필터 매트릭스 = 제거** ✅ — `config.filters/limits/preset_id` 는 어떤 파이프라인 단계도 미소비(dead weight). **구현**:
+  1. `VcbRunCreateForm` 3-step(Preset→Filter→Meta) → **Preset(선택) → Meta 2-step** 로 축소. FilterPanel 스텝 + `canAdvance(matchCount>0)` 게이트 제거.
+  2. `wizard/{FilterPanel,LiveCountBadge,DistributionChart,SampleWords}` + `server/filter-actions.ts` + 프리뷰 RPC 3종(`vcb_count_words_matching`·`vcb_distribution_for_filters`·`vcb_sample_words_for_filters`) 제거.
+  3. `run-create.ts` config 에서 filters/limits/preset_id 저장 제거 + `RunConfig` 타입 정리.
+  4. ⚠️ 다단계 폼 상태머신 변경 → **dev 서버 실측 필수**(스텝 네비게이션·제출).
+- **B. CLI 결합 = out-of-band 스킬을 정식 경로로** ✅ — 서버 `claude -p` spawn 은 배포(서버 FS·멀티인스턴스)에서 깨짐. **구현**:
+  1. seed(`VcbSeedFlow` §2)·enrich(`VcbStep5EnrichCard`) UI 에서 "**스킬로 실행**(`/vcb-seed-list`·`/vcb-batch-enrich`)"을 주 안내로, in-UI 러너는 "dev 편의(로컬 전용)" 보조로 라벨·순서 조정.
+  2. FS/marker 폴링 의존 축소 — 진행 상태는 DB(queue status)에서 우선 판정.
+  3. ⚠️ UI 재배치 → dev 서버 실측 권장.
+
+**착수 순서 (dev 서버 재가동 시)**: A(위저드 축소 — 정리효과 최대) → B(스킬 경로 라벨) → Phase 2 잔여(`VcbPipelineGuide` 승격·색 토큰) → 큐레이션 UX(키보드·optimistic·edit).
 
 ---
 
-*진단 근거: 파일·라인·RPC·테이블명은 본문 참조. 라이브 검증은 dev 서버 재가동 후 권장(현재 다운).*
+*진단 근거: 파일·라인·RPC·테이블명은 본문 참조. 결정 3종 확정(2026-07-06). 구현·라이브 검증은 dev 서버 재가동 후.*
