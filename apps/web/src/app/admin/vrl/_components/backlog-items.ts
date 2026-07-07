@@ -57,13 +57,14 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
   },
   {
     id: 'D2',
-    priority: 'P0',
-    title: 'register Claude batch',
-    oneLine: 'business/academic/formal/informal segment 자동 추론 백필',
-    affects: ['R3'],
-    effort: '8-15 turns',
-    value: 'R3 +12 · segment 자동 단어장',
-    defectId: 'register_critical_null',
+    priority: 'P3',
+    title: 'register 백필 (소비처 발생 시)',
+    oneLine:
+      '2026-07-06 진단: segment 발행은 list_tags 로 이미 동작(specialty 4종) · register 는 현재 무소비 컬럼 — 격식 표시 UI 등 소비처 확정 시 재개',
+    affects: ['R4'],
+    effort: '소비처 확정 후 산정',
+    value: '격식(formal/informal) 표시 품질 — 현재 효과 0',
+    defectId: 'segment_tags_underdeveloped',
   },
   {
     id: 'V1',

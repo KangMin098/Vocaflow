@@ -30,6 +30,9 @@ export interface DictCoverageData {
   cefrLevel: DictCoverageMetric
   cefrConfidence: DictCoverageMetric
   register: DictCoverageMetric
+  /** segment 발행 실자산 — list_tags 에 segment 태그(bsl/bel/tsl/nawl/moel) 보유 row.
+   *  ratio 는 목표치(SEGMENT_TAGS_TARGET) 대비 충족률 — 전체 사전 대비 비율이 아님. */
+  segmentTags: DictCoverageMetric
   synonyms: DictCoverageMetric
   antonyms: DictCoverageMetric
   collocations: DictCoverageMetric

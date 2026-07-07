@@ -101,7 +101,8 @@ function scoreCoverage(raw: DictSnapshotRaw): number {
     [c.ipa.ratio, 0.08],
     [c.cefrLevel.ratio, 0.1],
     [c.cefrConfidence.ratio, 0.12], // critical defect 가중
-    [c.register.ratio, 0.06],
+    // register 컬럼은 현재 소비처 없음(segment 발행은 list_tags 경유) — 실자산인 segment 태그 충족률로 대체
+    [c.segmentTags.ratio, 0.06],
     [c.synonyms.ratio, 0.06],
     [c.collocations.ratio, 0.08],
     [c.inflections.ratio, 0.08],
@@ -393,13 +394,12 @@ function r3WordSetPublish(raw: DictSnapshotRaw): ResponsibilityReadiness {
       evidence: `${(v.classifiedRatio * 100).toFixed(1)}%`,
     },
     {
-      label: 'register (business/academic 매칭)',
-      score: c.register.ratio,
+      // segment 자동 단어장은 register 가 아니라 list_tags(bsl/bel/tsl/nawl/moel)로 발행됨
+      // — specialty 4종(902 row) 이미 이 경로로 발행 완료. register 백필은 소비처 생길 때(D2 이연).
+      label: 'segment 태그 풀 (bsl/nawl/moel 등)',
+      score: c.segmentTags.ratio,
       weight: 0.15,
-      evidence:
-        c.register.ratio < 0.1
-          ? `🚨 ${(c.register.ratio * 100).toFixed(1)}% — segment 매칭 불가`
-          : `${(c.register.ratio * 100).toFixed(1)}%`,
+      evidence: `${c.segmentTags.filled.toLocaleString()} row (목표 3,000 대비 ${(c.segmentTags.ratio * 100).toFixed(0)}%)`,
     },
     {
       label: 'list_tags (NGSL/AWL/BSL)',
@@ -430,7 +430,7 @@ function r3WordSetPublish(raw: DictSnapshotRaw): ResponsibilityReadiness {
   const score = aggregateFactors(factors)
   const affectedByDefects: string[] = []
   if (!integrated) affectedByDefects.push('vcb_vrl_not_integrated')
-  if (c.register.ratio < 0.1) affectedByDefects.push('register_null')
+  if (c.segmentTags.ratio < 0.5) affectedByDefects.push('segment_tags_underdeveloped')
   if (v.classifiedRatio < 0.5) affectedByDefects.push('v_level_unclassified')
 
   return {

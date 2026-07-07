@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### D2(register 백필) 진단 — 허위 P0 해소, segment 실지표로 교체 (v06.156)
+
+register 43,988행 백필 착수 전 진단에서 전제 반전 확인 — 코드만 변경(데이터·마이그레이션 0).
+
+- **진단**: D2 의 기대효과(segment 자동 단어장)는 **list_tags 로 이미 달성**(specialty 4종 curation_query 실측: `list_tags has moel_1.0` 등). SSoT 가 소비하는 것은 `word_register`(100% 채움)이고, `register` 컬럼은 **앱 내 소비처 0** — admin 지표만 참조하던 허위 P0.
+- **결함 룰 4 교체** ([critical-defects-detector.ts](../apps/web/src/lib/admin/dict/critical-defects-detector.ts)): `register_critical_null`(항상 발화) → `segment_tags_underdeveloped`(segment 태그 풀 <50% 시만). 실측 2,661 row/목표 3,000 = 89% → 미발화.
+- **점수 정상화** ([health-score-v2.ts](../apps/web/src/lib/admin/dict/health-score-v2.ts)): R3 팩터(가중 15%)와 coverage(6%)의 register 채움률(3.3%) → segment 태그 충족률(89%)로 교체 — "segment 매칭 불가 🚨" 허위 evidence 제거. `SEGMENT_TAGS`/`SEGMENT_TAGS_TARGET` 상수 신설([queries.ts](../apps/web/src/lib/admin/dict/queries.ts), coverage fetch +1 카운트).
+- **백로그 D2**: P0 → P3 이연 — "격식(formal/informal) 표시 UI 등 실소비처 확정 시 재개"(룰 커버 ~2.6K + LLM 잔여로 재산정). 대시보드 P0 는 이제 B1(VCB-VRL 컬럼) 단독.
+
 ### /plan 내 스크립트도 소스별 분류 + 다건 선택 (v06.155)
 
 내 스크립트(개인 texts)를 스크립트(article) 탭과 **동일한 소스별 분류 네비 + 다건 선택** 디자인으로 통일.

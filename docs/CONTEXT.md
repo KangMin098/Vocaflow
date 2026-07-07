@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `4737260` feat(vcb): 섹션 내비 탭 추가 (Runs·Sources·발행 컬렉션) + 모바일 문구 한글화
 - `9b84876` feat(plan): 내 스크립트도 소스별 분류 + 다건 선택 (v06.155)
 - `4596509` docs(dict): 스텁 예문 백로그 전량 종결 기록 (v06.154)
 - `c9158d8` docs(session-log): VCB Phase 2-B(jargon) 반영
 - `002ac3f` refactor(vcb): Phase 2-B 완결 — MethodA/SeedFlow/Source 폼 jargon 정리
-- `6ab04f9` refactor(vcb): Phase 2-B — step 카드 설명 운영자 언어화 (jargon 제거)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
