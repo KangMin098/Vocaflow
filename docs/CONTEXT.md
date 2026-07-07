@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `03eee59` fix(echo): 채점 3축 재설계 — 구조적 0점 결함 수리 (v06.158)
 - `d589048` feat(vcb): Phase 3-B 완결 — seed flow에 "스킬 실행 권장" callout (결정 B)
 - `64a6435` feat(vcb): run 상세 진행 오리엔테이션 (VcbRunProgress) — 에이전트 #1 UX
 - `3a01be1` feat(plan): 내 스크립트 '도서에서'를 책별 2차 분류 (v06.157)
 - `3fa0e7d` fix(vcb): 집계 1000행 cap 버그 — 2000+단어 run 반토막 (스크린샷 발견)
-- `1625585` feat(vcb): Phase 3-B — enrich 카드에 "스킬 실행 권장" callout (결정 B)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
