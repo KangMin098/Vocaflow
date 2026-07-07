@@ -238,3 +238,39 @@ news: VOA·Wikinews / reference: CIA Factbook·Simple Wikipedia(정의문) / nar
 ## 부록 B — 차단 규칙 요약
 `restricted`·`*_nc`·arXiv-default → ingest 거부. `cc_by_nd` → 게시 가능하나 `display_only`(본문 불변).
 나머지(PD·CC0·CC-BY·CC-BY-SA) → 학습 가공 허용(단 lexical_noise ≤ 0.08).
+
+---
+
+## §20 — T-2 구현 결과 + T-3 동결 풀 (2026-07-08)
+
+> T-1~T-4 티어 framing = 위임 재설계(T-1 기구현 · T-2 신설 · T-3 동결 · T-4 기각).
+> 소스 분류·license_class = 위 §18 + T-2 P0 실측([source_t2_p0_20260708.md](AI_CONTEXT/diagnostics/source_t2_p0_20260708.md)).
+> ⚠️ **문서 등록만 — enum/코드 예약 금지(§10 placeholder 위반). 동결·기각 소스는 ingester/타입/정책 미생성.**
+
+### T-2 구현 결과
+
+| 소스 | 결과 | license_class | register | CEFR | 근거 |
+|---|---|---|---|---|---|
+| **OWID** (Our World in Data) | ✅ **구현** | cc_by | argumentative | B2–C1 | 산문 avg 1,014w · 명시 CC-BY · atom list · dry-run noise≈0 · drift-lock 19 tests. `owid.ts` |
+| **OBP** (Open Book Publishers) | ❌ **abort → T-3** | cc_by(소수)/cc_by_nc(다수) | — | B2–C1 | Read Online=client-render JS + full-text=PDF → dependency-0 ingester 부적합(P0-2b) |
+
+OWID 는 argumentative register 를 **발행 가능**(cc_by=derivation full) 콘텐츠로 보강 — 유일 argumentative 소스 The Conversation 이 cc_by_nd(`display_only`, 단어세트 미발행)라 실질 공백이던 지점.
+
+### T-3 동결 풀 (미구현 · 재개 트리거 보유 · 코드 미생성)
+
+| 소스 | license_class | stage | 동결 사유 | 승격 트리거 |
+|---|---|---|---|---|
+| **OBP** | cc_by 소수 / cc_by_nc 다수 | 동결 | 사이트 client-render + full-text PDF-only → HTML 정규식 ingester 불가 (P0-2b) | (α) HTML-clean CC-BY 도서 소스 확보 **또는** (β) PDF 추출 계층 신설 |
+| **OpenStax** | cc_by 2종 / 나머지 cc_by_nc_sa | 동결 | 웹=SPA/PDF(§18 재판정) + 인기 교재 NC-SA=restricted 차단 · CC-BY 영어 원서 physics/statistics 2종뿐(STEM 수식 밀집) | CNXML/archive dump 통합 **또는** academic STEM 어휘 특수 수요 확정 |
+| **CIA World Factbook** | public_domain | 동결 (**§18 ADD → 재분류**) | §18 §3·부록 A 는 reference/expository ADD 로 표기하나 **미구현** · reference register 수요 미확정 | reference register 공백 확정 시 (JSON 덤프 ingest) |
+
+> **CIA World Factbook 충돌 해소**: §18(target matrix·부록 A)의 Factbook = "설계 의도" ADD 표기일 뿐 실 stage 는 **동결**. §20 이 이를 확정 재분류(§18 ADD ≠ 구현).
+
+### T-4 기각 (재개 트리거 없음 · 근거 고정 · 코드 미생성)
+
+| 소스 | 기각 사유 (고정) |
+|---|---|
+| **arXiv** | 기본 라이선스 비자유(저자 저작권 · 상업 재배포 불가) → restricted · CC 논문 항목단위뿐 · C2+ · LaTeX 오염. 학습경로 제거(§1-A), CC-BY/CC0 격리 큐만 보존 |
+| **Smithsonian Open Access** | CC0 = 소장품 **메타데이터**(api.si.edu)이지 산문 아님 · Magazine 기사는 무료 아님 → 소스 부적합(§구현현황) |
+
+기각 소스는 `ArticleSource`/`SourceKey` enum · ingester · 정책 **미생성** (문서 등록만 — §10 준수).
