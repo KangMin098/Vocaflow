@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6e33c5b` docs(acp): §20 T-2 구현 결과 + T-3 동결 풀 등록 (문서만)
 - `c12e7d0` feat(acp): OWID(Our World in Data) 소스 ingester + T-2 P0 정찰 (OBP abort)
 - `d6cfc1a` feat(plan): 공용단어장도 다건 선택 — 소스탭 패턴 통일 (v06.160)
 - `9a4fadb` refactor(vcb): dead code 제거 — VcbPipelineGuide + pipeline-steps.ts
 - `bc6fdf2` test(e2e): UI 스모크 상시 자산화 — 화면 검증 자동화 (v06.159)
-- `335c3f0` refactor(admin): Phase 1.5 MockBanner 제거 — 관리자 콘솔 실데이터화 반영
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -4758,19 +4758,6 @@ export type Database = {
         Args: { p_axis_id: string; p_axis_type: string; p_level: number }
         Returns: boolean
       }
-      vcb_count_words_matching: { Args: { p_filters: Json }; Returns: number }
-      vcb_distribution_for_filters: { Args: { p_filters: Json }; Returns: Json }
-      vcb_sample_words_for_filters: {
-        Args: { p_filters: Json; p_limit?: number }
-        Returns: {
-          cefr_level: string
-          frequency_rank: number
-          meaning_ko: string
-          primary_pos: string
-          v_level: number
-          word: string
-        }[]
-      }
     }
     Enums: {
       module_id:

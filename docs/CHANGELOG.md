@@ -10,6 +10,20 @@
 
 ## Unreleased (v06.34 → next)
 
+### VCB 파이프라인 어드민 재설계 — 스킬-우선·DB-status·정합성 (v06.161)
+
+`/admin/vocab/runs` 프로세스·화면 전체 재검토/재설계. 결정 A(위저드 필터 제거)·B(out-of-band 스킬을 정식 경로)·C(저빈도 전문가 도구) 반영. 각 변경 dev :3100 + Playwright 스크린샷 검증.
+
+- **위저드 3→2스텝**: 필터 UI(FilterPanel/LiveCountBadge/DistributionChart/SampleWords) + `filter-actions.ts` + `CreateRunInput.filters/limits` 전량 제거. run 생성은 preset + meta 만.
+- **스킬-우선 callout**: enrich(§5)·seed(§2) 카드에 "Claude Code에서 `/vcb-batch-enrich`·`/vcb-seed-list` 실행 권장, in-UI 자동실행은 로컬 dev 편의" 안내.
+- **집계 1000행 cap 버그 수정**: `aggregateRunCounts`·`precheckPublish`가 PostgREST 1000행 기본 cap에 걸려 2,000+ run의 승인/발행 카운트가 반토막(→ 거짓 정합성 배너·"50% 완료"). `.range()` 페이지네이션으로 전량 집계.
+- **발행 원자성**: `publishRun`의 JS insert 시퀀스+보상 로직을 `vcb_publish_commit(...)` SECURITY DEFINER RPC 단일 트랜잭션으로 치환(service_role 전용 grant).
+- **run 진행 오리엔테이션**: `VcbRunProgress`(run.status 기반 7-phase 스텝퍼 + 다음 액션). FS 의존 `VcbPipelineGuide` + `pipeline-steps.ts`(computeStepStatuses) dead code 제거.
+- **RLS 정합**: 어드민 서버 조회를 `createAdminClient()`(service_role) + `requireAdmin` 게이트로 — DEV_ADMIN_BYPASS(auth.uid()=NULL) 하에서 RLS 조회 실패 해소.
+- **404 수정**: `/admin/vocab/collections` 페이지 신설(발행 컬렉션 목록).
+- **Phase 1.5 MockBanner 제거**: 관리자 콘솔 어디도 mock 미사용 → 전역 "MOCK · 시각 검증용" 배너 삭제(실 mutation 오인 위험).
+- **마이그레이션**: `drop_vcb_filter_preview_rpcs` — orphan RPC 3종(vcb_count_words_matching·vcb_distribution_for_filters·vcb_sample_words_for_filters) DROP.
+
 ### /plan 공용단어장도 다건 선택 — 소스탭 패턴 통일 (v06.160)
 
 공용단어장(word_set)을 스크립트·내 스크립트와 **동일한 소스탭 패턴**(좌 2열 네비 + 우 다건 선택)으로 전환. 이제 도서를 제외한 3탭 모두 다건 선택.
