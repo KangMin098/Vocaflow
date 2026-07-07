@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { runDictionaryLookup } from '@/lib/vcb/server/dict-lookup'
 import type { DictLookupSummary } from '@vocaflow/vcb-curate-core'
+import { STATUS_LABELS } from './VcbRunStatusBadge'
 
 interface Props {
   runId: number
@@ -95,7 +96,7 @@ export function VcbStep4LookupCard({ runId, runStatus, seedCount }: Props) {
 
       {!canRun && !isPending && runStatus !== 'extracted' && runStatus !== 'looked_up' && (
         <p className="text-xs mt-2" style={{ color: 'var(--t3)' }}>
-          status 가 <span className="font-mono">{runStatus}</span> 입니다. extracted 또는 looked_up 상태에서만 실행 가능합니다.
+          지금은 <span className="font-display font-semibold">{(STATUS_LABELS as Record<string, string>)[runStatus] ?? runStatus}</span> 단계예요. 사전 매칭은 추출 완료 · 사전 매칭 완료 단계에서 실행할 수 있어요.
         </p>
       )}
 

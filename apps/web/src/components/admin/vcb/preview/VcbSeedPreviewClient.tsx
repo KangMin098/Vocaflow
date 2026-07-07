@@ -301,7 +301,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
                 borderColor: 'var(--warning)',
                 background: 'var(--warning-light)',
               }}
-              title="seed-list.jsonl 삭제 후 Step 2 로 복귀"
+              title="생성된 시드 목록을 지우고 다시 생성"
             >
               <RefreshCcw className="w-4 h-4" />
               재생성

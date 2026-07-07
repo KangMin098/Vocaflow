@@ -162,7 +162,7 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
               className="mt-0.5 w-4 h-4 accent-[var(--p)]"
             />
             <span className="text-xs" style={{ color: 'var(--t2)' }}>
-              발행은 <strong>immutable</strong> 입니다. 수정은 새 version 발행으로만 가능합니다. 확인했습니다.
+              발행분은 <strong>수정할 수 없어요</strong>. 새 버전 발행으로만 갱신됩니다. 확인했습니다.
             </span>
           </label>
 

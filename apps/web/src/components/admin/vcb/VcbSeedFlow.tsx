@@ -353,7 +353,7 @@ export function VcbSeedFlow({
       <Section
         step={2}
         title="AI 시드 목록 생성 (자동 실행)"
-        description="claude -p 로 /vcb-seed-list 를 백그라운드 실행합니다. 5~15분 후 -seed-list.jsonl + validation.json 이 생성됩니다."
+        description="AI 가 시드 단어 목록을 자동 생성합니다. 보통 5~15분 정도 걸립니다."
         done={status.seed_list_exists}
         disabled={!status.spec_exists}
       >

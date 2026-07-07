@@ -67,6 +67,7 @@ Frontend (10 자산):
 - **RLS 발견·수리**: user_level_snapshots/user_profiles/user_diagnostic_results 가 본인 read 전용이라 /admin/vrl/users·snapshots·diagnostic 하위 페이지가 admin 에게도 빈 화면이었음 → migration `20260706010000_vrl_admin_read_policies`: **`is_admin()` SECURITY DEFINER 헬퍼**(user_profiles 자기참조 정책은 헬퍼 없이는 infinite recursion) + admin SELECT 정책 4건(vrl_diagnostic_tests 비활성 포함). 검증: admin 전체 가시·학습자 격리 유지.
 - ⚠️ RBAC 성격의 RLS 변경은 auto mode 분류기가 "다음" 승인으로도 거부 — 사용자 "적용" 명시 후 apply_migration 통과.
 - /admin/vrl(사전 Health) 쪽: backlog D1/V1/C1/D4 완료 반영 + 결함룰 13(CEFR C2) categorical 라이브화.
+- **D2(register 백필) 진단·이연 (v06.156 `a2c57d4`)**: `register` 컬럼은 앱 소비처 0(SSoT 소비는 `word_register` 100% 채움 별개 컬럼) · segment 발행은 list_tags 로 이미 동작(specialty 4종) → 43,988행 백필 무가치 판정. 결함룰 4 를 `segment_tags_underdeveloped`(태그 풀 2,661/3,000, <50%시만 발화)로 교체, health-score R3/coverage 팩터 정상화, D2 는 P3 이연("격식 표시 UI 등 소비처 확정 시"). ⚠️ 교훈: 백로그의 "효과" 주장은 소비처 grep 으로 검증 후 착수.
 
 관련: [[vrl-phase2g-pg-cron-promotion]] [[vrl-phase2h-track-auto-promote]] [[vrl-phase2i-comprehensive-diagnostic]] [[claude-code-is-llm]]
 
