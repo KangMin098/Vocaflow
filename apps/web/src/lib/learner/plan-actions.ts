@@ -115,6 +115,8 @@ interface ScriptRow {
   author: string | null
   text_v_level: number | null
   source: string | null
+  library_book_id: string | null
+  chapter_idx: number | null
 }
 interface SetRow {
   id: string
@@ -311,11 +313,27 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       .limit(600),
     lc
       .from('texts')
-      .select('id, title, author, text_v_level, source')
+      .select('id, title, author, text_v_level, source, library_book_id, chapter_idx')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(300),
   ])
+
+  // 내 스크립트 '도서에서' texts → 소속 도서 제목으로 2차 분류(feedLabel). 소스 → 책 → 챕터.
+  const scriptRows = (scripts ?? []) as ScriptRow[]
+  const scriptBookIds = Array.from(
+    new Set(scriptRows.map((s) => s.library_book_id).filter((v): v is string => !!v)),
+  )
+  const scriptBookTitle = new Map<string, string>()
+  if (scriptBookIds.length > 0) {
+    const { data: sbooks } = await lc
+      .from('library_books')
+      .select('id, title')
+      .in('id', scriptBookIds)
+    for (const b of (sbooks ?? []) as { id: string; title: string | null }[]) {
+      scriptBookTitle.set(b.id, b.title ?? '도서')
+    }
+  }
 
   return {
     books: ((books ?? []) as BookRow[]).map((b) =>
@@ -352,15 +370,29 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
           chapterIdx: w.curation_query?.chapter_idx ?? null,
         }),
       ),
-    scripts: ((scripts ?? []) as ScriptRow[]).map((s) =>
-      mkOption({
-        id: s.id,
-        title: s.title ?? '(제목 없음)',
-        subtitle: s.author ?? null,
-        vLevel: s.text_v_level ?? null,
-        source: s.source ?? null, // text_source — 내 스크립트 소스별 분류 축
+    scripts: scriptRows
+      .map((s) =>
+        mkOption({
+          id: s.id,
+          title: s.title ?? '(제목 없음)',
+          subtitle: s.author ?? null,
+          vLevel: s.text_v_level ?? null,
+          source: s.source ?? null, // text_source — 내 스크립트 소스별 분류(1단)
+          // '도서에서' texts 는 소속 도서 제목으로 2차 분류(feedLabel) → 소스 → 책 → 챕터
+          feedLabel:
+            s.source === 'library' && s.library_book_id
+              ? (scriptBookTitle.get(s.library_book_id) ?? null)
+              : null,
+          bookId: s.library_book_id ?? null,
+          chapterIdx: s.chapter_idx ?? null,
+        }),
+      )
+      .sort((a, b) => {
+        const fa = a.feedLabel ?? ''
+        const fb = b.feedLabel ?? ''
+        if (fa !== fb) return fa.localeCompare(fb)
+        return (a.chapterIdx ?? 0) - (b.chapterIdx ?? 0)
       }),
-    ),
   }
 }
 

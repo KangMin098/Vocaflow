@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3fa0e7d` fix(vcb): 집계 1000행 cap 버그 — 2000+단어 run 반토막 (스크린샷 발견)
 - `1625585` feat(vcb): Phase 3-B — enrich 카드에 "스킬 실행 권장" callout (결정 B)
 - `bb7612b` feat(vcb): Phase 3-A(ii) 필터 machinery 완전 제거 (결정 A 완결)
 - `cfbdf09` feat(vcb): Phase 3-A(i) 위저드 3→2스텝 축소 — 필터 매트릭스 제거 (결정 A)
 - `b379519` docs(vcb): 재설계 결정 3종 확정 + Phase 3 구현 계획 spec화
-- `c44af97` refactor(vcb): 잔여 jargon/raw-status 정리 (2차)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

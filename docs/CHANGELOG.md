@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### /plan 내 스크립트 '도서에서'를 책별 2차 분류 (v06.157)
+
+v06.155 후속 — `도서에서`(library) texts가 단일 '전체'에 평면으로 쌓이던 것을 **소속 도서로 2차 분류**(feed_label=책 제목) → **소스 → 책 → 챕터** 3단(article의 소스→프로그램→컨텐츠와 동일).
+
+- `plan-actions` scripts fetch에 `library_book_id`·`chapter_idx` 추가 + `library_books` 제목 조인. `feed_label`=책 제목(library 소스), 책→챕터 순 정렬.
+- 실측: 도서에서 235 texts → **5권**(Twenty years after 90·Decline&Fall 71·Pride&Prejudice 61·Alice 12·Ammachi 1)으로 그룹.
+- 검증: `tsc --noEmit` 통과.
+
 ### D2(register 백필) 진단 — 허위 P0 해소, segment 실지표로 교체 (v06.156)
 
 register 43,988행 백필 착수 전 진단에서 전제 반전 확인 — 코드만 변경(데이터·마이그레이션 0).
