@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `cfbdf09` feat(vcb): Phase 3-A(i) 위저드 3→2스텝 축소 — 필터 매트릭스 제거 (결정 A)
 - `b379519` docs(vcb): 재설계 결정 3종 확정 + Phase 3 구현 계획 spec화
 - `c44af97` refactor(vcb): 잔여 jargon/raw-status 정리 (2차)
 - `a2c57d4` fix(admin): register 허위 P0 해소 — segment 태그 실지표로 교체 (v06.156)
 - `4737260` feat(vcb): 섹션 내비 탭 추가 (Runs·Sources·발행 컬렉션) + 모바일 문구 한글화
-- `9b84876` feat(plan): 내 스크립트도 소스별 분류 + 다건 선택 (v06.155)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

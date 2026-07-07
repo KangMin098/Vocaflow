@@ -1,6 +1,6 @@
 // apps/web/src/components/admin/vcb/VcbRunCreateForm.tsx
-// 3-step Wizard 오케스트레이터.
-// Step 1 PresetGallery → Step 2 FilterPanel → Step 3 MetaStep → submit.
+// 2-step Wizard 오케스트레이터 (결정 A: 필터 스텝 제거 — 필터는 downstream 미소비였음).
+// Step 1 PresetGallery → Step 2 MetaStep → submit. 실제 단어는 Method B(AI 시드)가 선택.
 
 'use client'
 
@@ -10,12 +10,6 @@ import { AlertCircle, ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from 'lucid
 import { createRun } from '@/lib/vcb/server/run-create'
 import { CUSTOM_PRESET_ID } from '@/lib/vcb/presets'
 import type { VcbPreset, PresetVariant } from '@/lib/vcb/presets'
-import {
-  DEFAULT_FILTERS,
-  DEFAULT_LIMITS,
-  type VocabFilters,
-  type VocabLimits,
-} from '@/lib/vcb/filters'
 import type { Segment, Cefr } from '@/lib/vcb/types'
 import { PresetGallery } from './wizard/PresetGallery'
 import { MetaStep, type MetaState } from './wizard/MetaStep'
@@ -45,8 +39,6 @@ export function VcbRunCreateForm() {
   const [step, setStep] = useState<Step>(1)
   const [selectedPresetId, setSelectedPresetId] = useState<string | null>(null)
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null)
-  const [filters, setFilters] = useState<VocabFilters>(DEFAULT_FILTERS)
-  const [limits, setLimits] = useState<VocabLimits>(DEFAULT_LIMITS)
   const [meta, setMeta] = useState<MetaState>(DEFAULT_META)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
@@ -56,8 +48,6 @@ export function VcbRunCreateForm() {
       // Custom 선택
       setSelectedPresetId(CUSTOM_PRESET_ID)
       setSelectedVariantId(null)
-      setFilters(DEFAULT_FILTERS)
-      setLimits(DEFAULT_LIMITS)
       setMeta(DEFAULT_META)
       return
     }
@@ -66,8 +56,6 @@ export function VcbRunCreateForm() {
     setSelectedVariantId(variant?.id ?? null)
 
     if (variant) {
-      setFilters(variant.filters)
-      setLimits(variant.limits)
       setMeta((prev) => ({
         ...prev,
         collection_slug: variant.slug_suggestion,
@@ -108,11 +96,6 @@ export function VcbRunCreateForm() {
         cover_emoji: meta.cover_emoji.trim() || null,
         preset_id:
           selectedPresetId === CUSTOM_PRESET_ID ? null : selectedPresetId,
-        filters: {
-          ...filters,
-          variant_id: selectedVariantId,
-        },
-        limits: { ...limits },
       })
 
       if (!result.ok || !result.data) {
