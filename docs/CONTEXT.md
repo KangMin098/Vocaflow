@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9cd9423` test(e2e): UI 스모크 첫 green + 발견 결함 수리 (v06.159 후속)
 - `a476505` refactor(vcb): orphan 필터 프리뷰 RPC 3종 drop + 타입/문서 정합
 - `6e33c5b` docs(acp): §20 T-2 구현 결과 + T-3 동결 풀 등록 (문서만)
 - `c12e7d0` feat(acp): OWID(Our World in Data) 소스 ingester + T-2 P0 정찰 (OBP abort)
 - `d6cfc1a` feat(plan): 공용단어장도 다건 선택 — 소스탭 패턴 통일 (v06.160)
-- `9a4fadb` refactor(vcb): dead code 제거 — VcbPipelineGuide + pipeline-steps.ts
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

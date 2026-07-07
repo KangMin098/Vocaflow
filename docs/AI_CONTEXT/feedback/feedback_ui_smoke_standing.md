@@ -14,7 +14,7 @@
 - 검증 계정 runtime-test-0705@vocaflow.dev / RuntimeTest1! · EchoMatch 텍스트 89970bfa-…8317.
 - 마이크 실녹음은 fake-mic 플래그(--use-fake-ui/device-for-media-stream) 필요 — 스모크 범위 밖.
 - ⚠️ dev 서버 1개 원칙: 멀티 세션이 각자 next dev 띄우면 `.next` 공유 오염 → 라우트 무작위 404(2026-07-07 실측). 기존 서버 재사용; 오염 시 전부 종료→.next 삭제→1개 재기동.
-- 잔여: 스모크 첫 실행 검증이 dev 서버 오염으로 보류 상태 — 서버 재시작 후 1회 실행해 green 확인 필요.
+- ✅ 첫 실행 green (2026-07-07 `9cd9423`, 콜드 서버 기준 2 passed). 첫 가동에서 실결함 2건 적발: ① RecommendedBooks 가 `popularity_rank`(seed_catalog 소유)를 library_books 에서 select → 400 → 허브 도서 추천 전멸(수리) ② dev 콜드 청크 경합(ChunkLoadError→`/_next/undefined`) — 리로드 1회 복구 패턴을 스펙에 내장. 스펙은 로그인 1회 storageState 재사용(auth rate-limit 회피) + 4xx URL 캡처.
 
 관련: [[project-echo-match-module]] [[project-learner-management-p0-p3]]
 

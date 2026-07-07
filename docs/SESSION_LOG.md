@@ -14,27 +14,49 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: `/admin/vocab/*` VCB 파이프라인 프로세스·기능·화면 면밀 재검토·재설계
+**작업**: `/admin/vocab/*` VCB 파이프라인 재검토·재설계 (+ 화면 자동검증 환경)
 **브랜치**: `feat/plan-ui`
-**상태**: 🔧 **Phase 1 정합성 완료 + Phase 2-A 시작** — 5커밋 push. VCB 파일 tsc 에러 0. 런타임 미검증(dev 서버 다운).
+**상태**: ✅ **코어 재설계 완료** — 이번 세션 9커밋 push. **전 변경 dev :3100 + Playwright 스크린샷 검증**. VCB 파일 tsc 0.
 
-- **진단·재설계안**: [docs/proposals/vcb-admin-redesign.md](proposals/vcb-admin-redesign.md) (5영역 병렬감사 + DB실측). 실체 = run 1개(cast-2000)만 CLI로 발행한 반자동 개발자도구. P0 결함 8건.
-- **Phase 1-A** (`e964567`): P0-2 service-role 일관화(13 server files → `createAdminClient`, dev-bypass 0건 해소) · P0-1 `qa→curating` 전이(`beginCuration`, dead-end 해소) · P0-3 큐레이션 500-cap 제거 · P0-4 `/admin/vocab/collections` 신설(404) · 신규 `lib/supabase/admin.ts`.
-- **Phase 1-B** (`be1338e`): P0-5 큐레이션 일괄 승인/거절 배선(`VcbCurationView` 툴바).
-- **Phase 1-C P0-6** (`7fc53f4`): publishable 정의 단일화(publish/precheck/approved_count) — 미검토 발행 차단. **DB실측 검증**: run#1 accepted 1998=발행 1998, 미검토 0, 회귀 0.
-- **Phase 2-A** (`e5b479a`): stale/모순 카피(P5c) 제거 · 원시 status→라벨(STATUS_LABELS export) · 시드 방식 A/B "택1" 재라벨 · Method B jargon 정리.
-- **Phase 2-B** (`6ab04f9`·`002ac3f`): step 카드(4/5/6/8) + MethodA + SeedFlow + SourceForm 설명의 내부 테이블·아티팩트·CLI·트리거 용어 → 운영자 언어. MethodA h3 스텝번호 제거(택1 정합).
-- **P0-7 완화** (`679bd70`): publish 실패 시 **보상 롤백**(생성한 set+words+collection 삭제) — 마이그레이션 없이 orphan 방지. (아래 완전 RPC로 대체됨.)
-- **P0-7 완전 RPC** ✅ — 마이그레이션 `vcb_publish_commit_transactional` 적용(security_definer + 실행권한 service_role 한정) + `publish.ts`를 단일 rpc 호출로 치환(보상 롤백 제거, 원자 발행 → 부분상태/orphan 불가). word_count 캐시 동기화 덤. SQL 초안=`docs/proposals/vcb-p07-publish-rpc.sql`. (첫 apply 시 MCP 프록시 502로 미적용 → 복구 후 함수 부재 확인하고 재적용.)
-- **남은(각자 unblock 필요)**: **P0-7 완전 RPC**(DB 마이그레이션 승인) · **edit UI**·**Phase 2 잔여**(step카드 jargon·VcbPipelineGuide 승격·섹션 내비 — **dev 서버 재가동** 후 런타임 검증) · **Phase 3**(위저드필터 dead·CLI결합·큐레이션 UX·접근성 + **열린결정 A/B/C**).
-- ⚠️ **dev 서버 다운** — VCB 화면 런타임 검증은 재가동 후. ⚠️ **working-tree tsc red = 동시 세션 PlanClient(ACP WIP) 미정의 참조** (내 VCB 파일 아님; 그쪽 커밋 시 해소).
-- **열린결정 확정(2026-07-06)**: **A=위저드필터 제거 · B=out-of-band 스킬 정식경로 · C=저빈도 전문가도구.** 제안서 §7에 구현 계획+착수순서 spec화. 구현은 구조변경(위저드 3→2스텝·UI 재배치)이라 **dev 서버 재가동 후**. 착수순서: A(위저드 축소)→B(스킬 라벨)→VcbPipelineGuide 승격·색 토큰→큐레이션 UX.
+- **자동검증 환경**: dev :3100(`DEV_ADMIN_BYPASS=1`) + `apps/web/.vcb-shots.mjs`(임시, 미커밋)로 각 변경 스크린샷 확인. ⚠️ **dev 서버 1개 원칙**(멀티 `next dev` = `.next` 공유 오염 → 무작위 404/청크 500; 이번에 seed 페이지 500 실측 → clean 재시작으로 해소). 공식 스모크 `pnpm --filter web test:e2e:smoke`([04-ui-smoke.spec.ts](../apps/web/tests/e2e/04-ui-smoke.spec.ts), 동시 세션 v06.159 자산화) 활용 권장.
+- **결정 A** — 위저드 3→2스텝 + 필터 machinery(FilterPanel/LiveCountBadge/DistributionChart/SampleWords + `filter-actions.ts` + `CreateRunInput.filters/limits`) 전량 제거 + orphan RPC 3종 DROP(마이그 `drop_vcb_filter_preview_rpcs`).
+- **결정 B** — enrich(§5)·seed(§2) 카드에 "Claude Code `/vcb-batch-enrich`·`/vcb-seed-list` 실행 권장" callout. FS 의존 `VcbPipelineGuide`+`pipeline-steps.ts` dead code 제거, `VcbRunProgress`(run.status 7-phase 스텝퍼)로 대체.
+- **집계 1000행 cap 버그** — `aggregateRunCounts`·`precheckPublish`가 PostgREST 1000행 cap에 걸려 2,000+ run 카운트 반토막(거짓 정합성 배너·"50%"). `.range()` 페이지네이션 수정. (스크린샷이 발견.)
+- **발행 원자성** — `publishRun`을 `vcb_publish_commit` SECURITY DEFINER RPC 단일 트랜잭션으로 치환(이전 세션).
+- **MockBanner 제거** — Phase 1.5 "MOCK·시각검증용" 전역 배너 삭제(관리자 콘솔 실데이터화 → 문구 거짓·실 mutation 오인 위험).
+- **커밋**(이번 세션): `64a6435`(VcbRunProgress) `d589048`(seed callout) `335c3f0`(MockBanner) `9a4fadb`(dead code) `a476505`(RPC drop) + 이전 세션 A/B/count-cap/publish 커밋.
 
-**직전 완료작업 (nav 감사, ✅ 종결)**: 커밋 `f98c918`(v06.135 P0+P1)·`56cb8de`(P2)·`5190c0c`(v06.138 경미)·`45e319b`(ContextBar 삭제)·`146070d`(vitest 99 pass). 상세는 아래 2026-07-05 기록.
+**남은 것(폴리시·저우선)**:
+- 큐레이션 UX — 키보드 내비 + optimistic 승인/거절.
+- edit UI(rich payload 폼) — 결정 C(저빈도 전문가 도구)라 우선순위 낮음.
+- 색 토큰화 — 하드코딩 퍼플(`#6D28D9` 등) → `var(--combo)`. ⚠️ **`var(--p)`=NAVY(오답)**. MockBanner 제거로 최대 offender 해소. **디자인 결정 필요**.
+- ⚠️ 동시 세션(ACP/plan/CONTEXT.md)과 같은 working-copy·index 공유 → 커밋 인터리빙. **명시 pathspec `git commit -- <경로>` 격리 필수**(bare commit은 동시 세션 staged 파일 흡수).
+
+**제안서**: [docs/proposals/vcb-admin-redesign.md](proposals/vcb-admin-redesign.md) §7 결정 A/B/C + 구현계획.
+**직전 완료작업 (nav 감사, ✅ 종결)**: 커밋 `f98c918`·`56cb8de`·`5190c0c`·`45e319b`·`146070d`. 상세는 아래 2026-07-05 기록.
 
 ---
 
 ## 세션 기록 (최신 ▲)
+
+### 2026-07-08 — VCB 어드민 재설계 Phase 3 + 화면 자동검증 환경 (코어 완료)
+
+**요청**: (1) VCB `/admin/vocab/runs` 프로세스·기능·화면 전체 재검토·재설계, (2) "화면 검증도 자동으로 할 수 있는 환경 만들어서 진행".
+
+**자동검증 환경**: `next dev -p 3100`(`DEV_ADMIN_BYPASS=1`) 백그라운드 + `apps/web/.vcb-shots.mjs`(Playwright chromium, 6→7 VCB 라우트 fullPage 스크린샷 → 스크래치패드, `pageerror` 리스너). 편집→`tsc --noEmit`→스크린샷→육안→커밋 루프. **이 루프가 tsc로 못 잡는 실버그(집계 cap)를 스크린샷으로 발견.**
+
+**무엇을 했나** (전부 스크린샷 검증):
+- **결정 A** — 위저드 3→2스텝. 필터 UI 4종 + `filter-actions.ts` + `CreateRunInput.filters/limits` 제거. 승인 후 orphan RPC 3종(`vcb_count_words_matching`·`vcb_distribution_for_filters`·`vcb_sample_words_for_filters`) DROP(마이그 `drop_vcb_filter_preview_rpcs`, pg_proc 잔여 0) + database.ts 타입 외과 제거.
+- **결정 B** — enrich(§5)·seed(§2) 카드에 스킬-우선 callout. FS 의존 `VcbPipelineGuide`(561줄)+`pipeline-steps.ts`(646줄, `computeStepStatuses`+`anyFileMatches`) dead code 제거 → `VcbRunProgress`(run.status 기반 7-phase 스텝퍼 + `NEXT_ACTION` 힌트, FS 비의존)로 대체. run#1(published) → 전 phase ✓ + "완료 발행 완료" 렌더 확인.
+- **집계 1000행 cap 버그** — `aggregateRunCounts`·`precheckPublish`가 PostgREST 1000행 기본 cap에 걸려 2,000-seed run의 승인/발행 카운트 반토막 → 거짓 "무결성" 배너 + "50% 완료" + PUBLISHABLE 998. `.range(offset, offset+PAGE-1)` 루프로 전량 집계(최신결정 정합 위해 `decided_at desc` 페이지네이션). 수정 후 총시드 2000·승인 1998·PUBLISHABLE 1998, 배너 소멸.
+- **MockBanner 제거** — 관리자 콘솔 어디도 mock 미사용(전수 grep 0)인데 전역 "Phase 1.5 · MOCK 데이터 표시 중 — 액션 버튼은 시각 검증용" 배너가 실 mutation(발행 RPC 등) 오인 유발 → `layout.tsx` 배선 + 컴포넌트 삭제.
+- **dev 서버 clean 재시작** — seed 페이지가 `wink-eng-lite-web-model` vendor 청크 미발견으로 500(멀티 `next dev`의 `.next` 공유 오염, 동시 세션 v06.159가 "dev 서버 1개 원칙"으로 문서화). 포트 3100 프로세스 kill + `rm -rf .next` + 재기동 → 전 7라우트 200·pageerror 0.
+
+**무엇이 남았나**: 큐레이션 키보드/optimistic UX · edit rich-form(결정 C 저우선) · 색 토큰화(하드코딩 퍼플→`var(--combo)`, `--p`=NAVY 주의, **디자인 결정**).
+
+**관련 파일·커밋**: `64a6435`(VcbRunProgress) `d589048`(seed callout) `335c3f0`(MockBanner) `9a4fadb`(dead code) `a476505`(RPC drop). 신규 `VcbRunProgress.tsx` · 삭제 `VcbPipelineGuide.tsx`/`pipeline-steps.ts`/`MockBanner.tsx`. 마이그 `drop_vcb_filter_preview_rpcs`. CHANGELOG v06.161. 제안서 `docs/proposals/vcb-admin-redesign.md` + `vcb-drop-filter-rpcs.sql`.
+
+**교훈**: (1) 스크린샷 검증은 tsc 사각(런타임 집계 cap)을 잡는다. (2) **멀티 세션 `next dev` 금지** — `.next` 공유 오염으로 라우트 무작위 500/404. (3) 공유 working-copy에선 **명시 pathspec 커밋**으로 동시 세션 staged 파일 흡수 방지.
 
 ### 2026-07-05 — 플랫폼 네비게이션 "진입→닫기→제자리" 감사 (감사 완료, 수정 대기)
 
