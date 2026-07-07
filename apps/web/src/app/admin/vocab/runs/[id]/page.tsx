@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { VcbRunStatusBadge, STATUS_LABELS } from '@/components/admin/vcb/VcbRunStatusBadge'
+import { VcbRunProgress } from '@/components/admin/vcb/VcbRunProgress'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
 import { VcbStep4LookupCard } from '@/components/admin/vcb/VcbStep4LookupCard'
 import { VcbStep5EnrichCard } from '@/components/admin/vcb/VcbStep5EnrichCard'
@@ -102,6 +103,8 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
           </div>
         )}
       </div>
+
+      <VcbRunProgress status={run.status} />
 
       <section className="mb-10">
         <h3
