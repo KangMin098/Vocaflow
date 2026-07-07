@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### EchoMatch 채점 3축 재설계 — 구조적 0점 결함 수리 (v06.158)
+
+런타임 점검(v06.33 이후 첫 실주행 검증)에서 파이프라인(TTS·녹음·4-Phase·DB 적재)은 정상이나 **채점이 항상 낙제점**(실사용 7건 overall 0~53, timing 6/7건 0)임을 확인 — [dtw-comparator.ts](../apps/web/src/lib/echo/dtw-comparator.ts) 재설계.
+
+- **인토네이션**: 절대 Hz DTW(여성 참조 Amy ~200Hz vs 남성 화자 ~110Hz → 평균차만으로 threshold 80Hz 소진 = 구조적 0점) → **semitone 변환 + 화자 평균 제거** 후 곡선 '모양' DTW (threshold 5st).
+- **강세**: 절대 RMS DTW(마이크 게인에 점수 좌우) → **시퀀스 피크 정규화** 후 상대 강세 패턴 DTW (threshold 0.4).
+- **리듬**: 무음 포함 전체 녹음 길이 비율(발화 전 머뭇거림+완료 버튼 지연이 0점 유발, 실측 8.5s 녹음/3s 참조) → **voiced 구간 발화 길이의 로그 비율** (2.5배에서 0점, 대칭 감점).
+- **회귀 테스트 7종** ([__tests__/dtw-comparator.test.ts](../apps/web/src/lib/echo/__tests__/dtw-comparator.test.ts)) — 결함 3건을 시나리오로 고정(옥타브 차 동일 억양 ≥85 · 게인 5배 ≥90 · 무음 패딩 timing ≥95) + 변별력 보존(다른 곡선 < 같은 곡선, 2.5배 느림 = 0, 무음 = 전축 0). 전 스위트 106 passed.
+- 한계: threshold 3종은 합성 contour 기준 보정 — 실음성 베타 데이터로 재보정 여지. 런타임 재주행은 dev 서버 `.next` 공유 충돌(멀티 세션)로 이번엔 유닛 검증까지 — 파이프라인 자체는 수리 전 실주행에서 완주 확인됨.
+
 ### /plan 내 스크립트 '도서에서'를 책별 2차 분류 (v06.157)
 
 v06.155 후속 — `도서에서`(library) texts가 단일 '전체'에 평면으로 쌓이던 것을 **소속 도서로 2차 분류**(feed_label=책 제목) → **소스 → 책 → 챕터** 3단(article의 소스→프로그램→컨텐츠와 동일).
