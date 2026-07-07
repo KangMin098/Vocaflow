@@ -162,6 +162,18 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
         </div>
       </header>
 
+      {/* 결정 B: out-of-band 스킬이 정식 경로 (in-UI 러너는 로컬 dev 편의) */}
+      <div
+        className="mb-3 flex items-start gap-2 px-3 py-2 rounded-[var(--r-md)] border text-xs"
+        style={{ background: 'var(--info-light)', borderColor: 'var(--info)', color: 'var(--info)' }}
+      >
+        <Sparkles className="w-3.5 h-3.5 mt-0.5 shrink-0" aria-hidden />
+        <span>
+          <b>권장</b>: Claude Code 세션에서 <code className="font-mono">/vcb-batch-enrich</code> 로 실행하세요.
+          아래 <b>AI 실행</b> 버튼은 로컬 dev 편의용입니다(서버에 claude CLI 설치 시에만 동작).
+        </span>
+      </div>
+
       {/* ── Sub-step A: Export ──────────────── */}
       <section
         className="p-4 rounded-[var(--r-md)] border mb-3"
