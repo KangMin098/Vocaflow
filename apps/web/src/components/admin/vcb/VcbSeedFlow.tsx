@@ -349,10 +349,19 @@ export function VcbSeedFlow({
         </div>
       </Section>
 
+      {/* 결정 B: out-of-band 스킬이 정식 경로 (in-UI 자동 실행은 로컬 dev 편의) */}
+      <div
+        className="px-3 py-2 rounded-[var(--r-md)] border text-xs mb-4"
+        style={{ background: 'var(--info-light)', borderColor: 'var(--info)', color: 'var(--info)' }}
+      >
+        <b>권장</b>: Claude Code 세션에서 <code className="font-mono">/vcb-seed-list</code> 로 실행하세요.
+        아래 자동 실행은 로컬 dev 편의용입니다(서버에 claude CLI 설치 시에만 동작).
+      </div>
+
       {/* ── Step 2: Run seed-list (claude -p detached) ─ */}
       <Section
         step={2}
-        title="AI 시드 목록 생성 (자동 실행)"
+        title="AI 시드 목록 생성"
         description="AI 가 시드 단어 목록을 자동 생성합니다. 보통 5~15분 정도 걸립니다."
         done={status.seed_list_exists}
         disabled={!status.spec_exists}

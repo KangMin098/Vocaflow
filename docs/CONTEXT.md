@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `64a6435` feat(vcb): run 상세 진행 오리엔테이션 (VcbRunProgress) — 에이전트 #1 UX
 - `3a01be1` feat(plan): 내 스크립트 '도서에서'를 책별 2차 분류 (v06.157)
 - `3fa0e7d` fix(vcb): 집계 1000행 cap 버그 — 2000+단어 run 반토막 (스크린샷 발견)
 - `1625585` feat(vcb): Phase 3-B — enrich 카드에 "스킬 실행 권장" callout (결정 B)
 - `bb7612b` feat(vcb): Phase 3-A(ii) 필터 machinery 완전 제거 (결정 A 완결)
-- `cfbdf09` feat(vcb): Phase 3-A(i) 위저드 3→2스텝 축소 — 필터 매트릭스 제거 (결정 A)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
