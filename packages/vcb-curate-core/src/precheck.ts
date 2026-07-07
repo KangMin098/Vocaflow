@@ -56,56 +56,63 @@ export async function precheckPublish(
     blockers.push(`run status must be curating/publishing, got: ${run.status}`)
   }
 
-  const { data: queueRows, error: queueErr } = await client
-    .from('vocab_enrichment_queue')
-    .select('id, status, vocab_seed_candidates!inner(run_id)')
-    .eq('vocab_seed_candidates.run_id', runId)
-
-  if (queueErr) {
-    return precheckFailure(runId, [`queue fetch failed: ${queueErr.message}`])
-  }
-
+  // 상태 카운트 + queueIds — PostgREST 1000행 cap 회피 페이지네이션(2,000+ run 반토막 방지).
+  const PAGE = 1000
   let queueTotal = 0
   let queuePending = 0
   let queueEnriched = 0
   let queueFlagged = 0
   let queueFailed = 0
   const queueIds: number[] = []
-
-  for (const row of (queueRows ?? []) as Array<{
-    id: number
-    status: string
-  }>) {
-    queueTotal += 1
-    queueIds.push(row.id)
-    if (row.status === 'pending') queuePending += 1
-    else if (row.status === 'enriched') queueEnriched += 1
-    else if (row.status === 'enriched_flagged') queueFlagged += 1
-    else if (row.status === 'failed') queueFailed += 1
+  const queueStatusById = new Map<number, string>()
+  for (let offset = 0; ; offset += PAGE) {
+    const { data, error } = await client
+      .from('vocab_enrichment_queue')
+      .select('id, status, vocab_seed_candidates!inner(run_id)')
+      .eq('vocab_seed_candidates.run_id', runId)
+      .order('id', { ascending: true })
+      .range(offset, offset + PAGE - 1)
+    if (error) {
+      return precheckFailure(runId, [`queue fetch failed: ${error.message}`])
+    }
+    const rows = (data ?? []) as Array<{ id: number; status: string }>
+    for (const row of rows) {
+      queueTotal += 1
+      queueIds.push(row.id)
+      queueStatusById.set(row.id, row.status)
+      if (row.status === 'pending') queuePending += 1
+      else if (row.status === 'enriched') queueEnriched += 1
+      else if (row.status === 'enriched_flagged') queueFlagged += 1
+      else if (row.status === 'failed') queueFailed += 1
+    }
+    if (rows.length < PAGE) break
   }
 
   if (queuePending > 0) {
     blockers.push(`${queuePending} queue items still pending — run enrichment first`)
   }
 
-  const { data: decRows, error: decErr } = await client
-    .from('vocab_curation_decisions')
-    .select('queue_id, decision, decided_at')
-    .in('queue_id', queueIds.length > 0 ? queueIds : [-1])
-    .order('decided_at', { ascending: false })
-
-  if (decErr) {
-    return precheckFailure(runId, [`decisions fetch failed: ${decErr.message}`])
-  }
-
+  // 최신 결정 — decided_at desc 순 페이지네이션(cap 회피, "queue별 최신" 정합 유지).
   const latestByQueue = new Map<number, string>()
-  for (const row of (decRows ?? []) as Array<{
-    queue_id: number
-    decision: string
-  }>) {
-    if (!latestByQueue.has(row.queue_id)) {
-      latestByQueue.set(row.queue_id, row.decision)
+  for (let offset = 0; ; offset += PAGE) {
+    const { data, error } = await client
+      .from('vocab_curation_decisions')
+      .select(
+        'queue_id, decision, decided_at, vocab_enrichment_queue!inner(vocab_seed_candidates!inner(run_id))',
+      )
+      .eq('vocab_enrichment_queue.vocab_seed_candidates.run_id', runId)
+      .order('decided_at', { ascending: false })
+      .range(offset, offset + PAGE - 1)
+    if (error) {
+      return precheckFailure(runId, [`decisions fetch failed: ${error.message}`])
     }
+    const rows = (data ?? []) as Array<{ queue_id: number; decision: string }>
+    for (const row of rows) {
+      if (!latestByQueue.has(row.queue_id)) {
+        latestByQueue.set(row.queue_id, row.decision)
+      }
+    }
+    if (rows.length < PAGE) break
   }
 
   // P0-6: 발행 대상 = 최신 결정이 승인(approve)/수정(edit)인 항목만.
@@ -124,11 +131,8 @@ export async function precheckPublish(
   // flagged 미검토는 별도 통계로 노출 (운영자 검토 우선순위 힌트)
   let flaggedWithoutDecision = 0
   for (const id of queueIds) {
-    if (!latestByQueue.has(id)) {
-      const row = (queueRows ?? []).find(
-        (r) => (r as { id: number }).id === id,
-      ) as { status: string } | undefined
-      if (row?.status === 'enriched_flagged') flaggedWithoutDecision += 1
+    if (!latestByQueue.has(id) && queueStatusById.get(id) === 'enriched_flagged') {
+      flaggedWithoutDecision += 1
     }
   }
   if (unreviewedCount > 0) {
