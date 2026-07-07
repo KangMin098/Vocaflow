@@ -114,6 +114,7 @@ interface ScriptRow {
   title: string | null
   author: string | null
   text_v_level: number | null
+  source: string | null
 }
 interface SetRow {
   id: string
@@ -310,7 +311,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
       .limit(600),
     lc
       .from('texts')
-      .select('id, title, author, text_v_level')
+      .select('id, title, author, text_v_level, source')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(300),
@@ -357,6 +358,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
         title: s.title ?? '(제목 없음)',
         subtitle: s.author ?? null,
         vLevel: s.text_v_level ?? null,
+        source: s.source ?? null, // text_source — 내 스크립트 소스별 분류 축
       }),
     ),
   }

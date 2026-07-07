@@ -124,8 +124,9 @@ export function PlanClient({
   }
 
   const candidates = tabMaterials[activeTab]
-  // 스크립트 네비(소스→프로그램) — 좌측 2열 네비와 우측 컨텐츠 리스트가 공유
-  const articleNav = buildArticleNav(materials.articles, artSrc, artProg)
+  // 소스 탭(스크립트=article · 내 스크립트=script) — 소스별 분류 네비 + 우측 다건 선택 공유
+  const isSourceTab = activeTab === 'article' || activeTab === 'script'
+  const articleNav = buildArticleNav(isSourceTab ? candidates : materials.articles, artSrc, artProg)
 
   // 탭별 분류 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리+도서(챕터별).
   // 분류는 좌측 레일, 세부 리스트는 우측 — 모든 자료 유형에 동일한 master-detail 패턴.
@@ -294,7 +295,10 @@ export function PlanClient({
       return n
     })
 
-  function commitArticleBatch() {
+  // 소스 탭(스크립트·내 스크립트) 다건 일괄 커밋 — 현재 탭 type + 해당 pool 사용.
+  function commitSourceBatch() {
+    if (!(activeTab === 'article' || activeTab === 'script')) return
+    const type = activeTab
     const modules = Array.from(artActs)
     if (artSel.size === 0) return
     if (modules.length === 0) {
@@ -302,14 +306,15 @@ export function PlanClient({
       return
     }
     const weekdays = Array.from(artDays).sort((a, b) => a - b)
-    const picks = materials.articles.filter((a) => artSel.has(a.id))
+    const pool = type === 'script' ? materials.scripts : materials.articles
+    const picks = pool.filter((a) => artSel.has(a.id))
     setError(null)
     setAdding(true)
     startTransition(async () => {
       const added: PlanItem[] = []
       for (const m of picks) {
         const res = await savePlanItem({
-          materialType: 'article',
+          materialType: type,
           materialId: m.id,
           modules,
           chapters: [],
@@ -318,12 +323,12 @@ export function PlanClient({
         if (res.ok && res.id) {
           added.push({
             id: res.id,
-            materialType: 'article',
+            materialType: type,
             materialId: m.id,
             modules,
             title: m.title,
             subtitle: m.subtitle,
-            href: materialHref({ type: 'article', id: m.id, slug: m.slug }),
+            href: materialHref({ type, id: m.id, slug: m.slug }),
             slug: m.slug,
             vLevel: m.vLevel,
             chapters: [],
@@ -448,10 +453,14 @@ export function PlanClient({
                   onClick={() => {
                     setActiveTab(t)
                     setRail('all')
-                    // 탭 전환 시 우측 컴포저 초기화 — 다른 탭의 draft/편집이 남아 새 탭 선택 영역을 가리지 않게
+                    // 탭 전환 시 우측 컴포저 초기화 — 다른 탭의 draft/편집·다건 선택이 새 탭을 가리지 않게
                     setDraft(null)
                     setEditId(null)
                     setError(null)
+                    setArtSel(new Set())
+                    setArtActs(defaultActivities(t))
+                    setArtSrc('')
+                    setArtProg('')
                   }}
                   className={`inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
@@ -467,8 +476,8 @@ export function PlanClient({
             })}
           </div>
 
-          {/* 스크립트=좌 2열 네비(소스·분류), 컨텐츠는 우측 선택 영역. 그 외=표준 master-detail(레일→그룹) */}
-          {activeTab === 'article' ? (
+          {/* 소스 탭(스크립트·내 스크립트)=좌 2열 네비(소스·분류), 컨텐츠는 우측 선택 영역. 그 외=표준 master-detail */}
+          {isSourceTab ? (
             <ArticleNav
               nav={articleNav}
               onSource={(k) => {
@@ -504,11 +513,7 @@ export function PlanClient({
               <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
                 {visibleGroups.length === 0 ? (
                   <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
-                    {tabMaterials[activeTab].length === 0
-                      ? activeTab === 'script'
-                        ? '내 스크립트가 아직 없어요.'
-                        : '표시할 자료가 없어요.'
-                      : '이 분류에 자료가 없어요.'}
+                    {tabMaterials[activeTab].length === 0 ? '표시할 자료가 없어요.' : '이 분류에 자료가 없어요.'}
                   </p>
                 ) : (
                   <div className="flex flex-col gap-3">
@@ -592,8 +597,9 @@ export function PlanClient({
               onRemove={() => removeItem(editItem)}
               onClose={closeComposer}
             />
-          ) : activeTab === 'article' && articleNav.activeProgram && articleNav.activeProgram.items.length > 0 ? (
+          ) : isSourceTab && articleNav.activeProgram && articleNav.activeProgram.items.length > 0 ? (
             <ArticleSelectPane
+              type={activeTab}
               program={articleNav.activeProgram}
               sourceLabel={
                 articleNav.sources.find((s) => s.key === articleNav.activeSourceKey)?.label ?? ''
@@ -609,7 +615,7 @@ export function PlanClient({
               weekDates={weekDates}
               today={todayWeekday}
               adding={adding}
-              onCommit={commitArticleBatch}
+              onCommit={commitSourceBatch}
             />
           ) : (
             <div className="flex min-h-[200px] flex-col items-center justify-center gap-2 text-center">
@@ -1456,6 +1462,7 @@ function ArticleNav({
 
 // 우측 선택 영역 — 스크립트 다건 선택(체크박스) + 선택분 공유 구성(활동·요일) → 일괄 담기.
 function ArticleSelectPane({
+  type,
   program,
   sourceLabel,
   countByKey,
@@ -1471,6 +1478,7 @@ function ArticleSelectPane({
   adding,
   onCommit,
 }: {
+  type: MaterialType
   program: { label: string; full: string | null; items: MaterialOption[] }
   sourceLabel: string
   countByKey: Map<string, number>
@@ -1521,8 +1529,9 @@ function ArticleSelectPane({
           <ArticlePickRow
             key={m.id}
             m={m}
+            type={type}
             selected={selected.has(m.id)}
-            inPlan={(countByKey.get(`article:${m.id}`) ?? 0) > 0}
+            inPlan={(countByKey.get(`${type}:${m.id}`) ?? 0) > 0}
             onToggle={() => onToggle(m.id)}
           />
         ))}
@@ -1533,7 +1542,7 @@ function ArticleSelectPane({
         <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
           <ConfigBlock label={`활동 — 선택한 ${n}개 공통`}>
             <div className="grid grid-cols-2 gap-1.5">
-              {activitiesForType('article').map((a) => (
+              {activitiesForType(type).map((a) => (
                 <ActivityChip
                   key={a}
                   activity={a}
@@ -1572,11 +1581,13 @@ function ArticleSelectPane({
 // 다건 선택 행 — 체크박스 + 배지 + 제목 + V레벨(+담김 표시).
 function ArticlePickRow({
   m,
+  type,
   selected,
   inPlan,
   onToggle,
 }: {
   m: MaterialOption
+  type: MaterialType
   selected: boolean
   inPlan: boolean
   onToggle: () => void
@@ -1606,7 +1617,7 @@ function ArticlePickRow({
         >
           {selected && <Check size={12} strokeWidth={3} />}
         </span>
-        <MaterialBadge type="article" m={m} />
+        <MaterialBadge type={type} m={m} />
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">{m.title}</span>
           {m.subtitle && (

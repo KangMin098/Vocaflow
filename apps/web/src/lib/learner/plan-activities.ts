@@ -191,7 +191,8 @@ export function weekdayLabel(value: number): string {
   return WEEKDAYS.find((d) => d.value === value)?.label ?? String(value)
 }
 
-/** library_articles.source → 표시 라벨 (스크립트 소스 필터/배지) */
+/** library_articles.source + texts.source(text_source) → 표시 라벨 (소스별 분류 레일).
+ *  키가 겹치지 않아 한 맵으로 스크립트(공개)·내 스크립트(개인) 모두 커버. */
 export const ARTICLE_SOURCE_LABEL: Record<string, string> = {
   voa: 'VOA',
   nasa: 'NASA',
@@ -199,11 +200,16 @@ export const ARTICLE_SOURCE_LABEL: Record<string, string> = {
   simple_wikipedia: 'Simple Wikipedia',
   wikinews: 'Wikinews',
   the_conversation: 'The Conversation',
+  // texts.source (내 스크립트 origin)
+  library: '도서에서',
+  'direct-script': '직접 입력',
+  'direct-file': '파일 업로드',
+  'shared-set': '공유 세트',
 }
 
 export function articleSourceLabel(source: string | null | undefined): string {
-  if (!source) return '스크립트'
-  return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/_/g, ' ')
+  if (!source) return '기타'
+  return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/[_-]/g, ' ')
 }
 
 /** CEFR → 대표 V-Level (V밴드 폴백 — 단어장 등 v_level 컬럼 부재 시). */

@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /plan 내 스크립트도 소스별 분류 + 다건 선택 (v06.155)
+
+내 스크립트(개인 texts)를 스크립트(article) 탭과 **동일한 소스별 분류 네비 + 다건 선택** 디자인으로 통일.
+
+- **분류 축 = `texts.source`(text_source)** — 도서에서 / 직접 입력 / 파일 업로드 / 공유 세트. `ARTICLE_SOURCE_LABEL`에 text_source 라벨 추가(키 비충돌로 공개·개인 스크립트 공용), `articleSourceLabel` 폴백 정리.
+- **컴포넌트 공용화** — `isSourceTab`(article|script) 분기로 `ArticleNav`(좌 2열) + `ArticleSelectPane`(우 다건 선택)를 두 탭이 공유. `ArticleSelectPane`/`ArticlePickRow`에 `type` prop(활동 목록·배지·countByKey 키). `commitArticleBatch` → `commitSourceBatch`(활성 탭 type + 해당 pool).
+- 탭 전환 시 다건 선택·소스 상태(`artSel`/`artActs`/`artSrc`/`artProg`) 리셋.
+- `plan-actions` scripts fetch에 `source` 추가. 검증: `tsc --noEmit` 통과.
+
 ### 스텁 예문 백로그 전량 종결 — 근접 노출 201 교체 + 잔여 6,894 NULL (v06.154)
 
 v06.152(사전 보강)에서 발견한 비노출 스텁 예문 7,096건 처리 완료 — DB 데이터만 변경(코드 0).
