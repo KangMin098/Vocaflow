@@ -38,6 +38,21 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 
 `components/dev/StubPage` 사용. props: `{ title, description, upcoming?: string[] }`. 실제 구현으로 교체 시 단순 import 변경.
 
+## 화면 검증 (UI 스모크 — 상시 자산, 임시 드라이버 금지)
+
+화면 검증/런타임 테스트가 필요하면 **임시 Playwright 드라이버를 새로 만들지 말고** 상시 스펙을 실행:
+
+```bash
+pnpm --filter web test:e2e:smoke   # tests/e2e/04-ui-smoke.spec.ts — 학습자 8화면 + EchoMatch 게이트 + 콘솔에러 0
+pnpm --filter web test:e2e         # 전체 e2e (wordvault/flashcard/admin 회귀 포함)
+```
+
+- 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)
+- 검증 계정: `runtime-test-0705@vocaflow.dev` / `RuntimeTest1!` (vocab 10·활동 시드) — EchoMatch 텍스트 `89970bfa-…8317`
+- 새 화면/모듈 런타임 검증을 했으면 그 시나리오를 04-ui-smoke 또는 새 spec 으로 **남겨서** 다음부터 자동 회귀되게 할 것
+- 마이크 실녹음 검증은 fake-mic 플래그 필요: `--use-fake-ui-for-media-stream --use-fake-device-for-media-stream`
+- ⚠️ **dev 서버는 워크스페이스에 1개만** — 멀티 세션이 각자 `next dev` 를 띄우면 `.next` 공유 오염으로 라우트가 무작위 404 (실측 2026-07-07). 이미 떠 있는 서버를 재사용하고, 오염 시 모든 서버 종료 → `.next` 삭제 → 1개만 재기동.
+
 ## 전역 에러 바운더리 (필수)
 
 `error.tsx` / `not-found.tsx` / `loading.tsx`가 `src/app/` 직속에 반드시 존재. 누락 시 클라이언트 라우터가 "missing required error components, refreshing..." 로 무한 새로고침. 수정·삭제 금지.

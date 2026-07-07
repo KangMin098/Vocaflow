@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### UI 스모크 상시 자산화 — 화면 검증 자동화 (v06.159)
+
+지금까지 화면 검증은 매번 임시 Playwright 드라이버 작성→삭제(반자동)였음 — 상시 자산으로 전환.
+
+- **[04-ui-smoke.spec.ts](../apps/web/tests/e2e/04-ui-smoke.spec.ts)** 신설 — 학습자 8화면(/hub·/dashboard·/plan·/wordvault·/flashcard·/pairflip·/scriptquiz·/library/books) 렌더 + 404/에러 바운더리 부재 + **페이지별 콘솔 에러 0 단언** + EchoMatch 마이크 게이트 렌더. 계정: runtime-test-0705(시드 존치).
+- `pnpm --filter web test:e2e:smoke` 스크립트 추가 — 기존 dev 서버 재사용, 없으면 자동 기동(기존 playwright.config).
+- **[apps/web/CLAUDE.md](../apps/web/CLAUDE.md) "화면 검증" 섹션** — 향후 세션이 자동으로 이 경로를 쓰도록 규칙화: 임시 드라이버 금지 · 새 검증 시나리오는 spec 으로 남겨 자동 회귀화 · fake-mic 플래그 · **⚠️ dev 서버 1개 원칙**(멀티 세션 `next dev` 동시 기동 시 `.next` 공유 오염 → 라우트 무작위 404, 2026-07-07 실측).
+- 참고: 첫 실행 검증은 현재 dev 서버 `.next` 오염(/login 404)으로 보류 — 서버 재시작 후 1회 실행 필요.
+
 ### EchoMatch 채점 3축 재설계 — 구조적 0점 결함 수리 (v06.158)
 
 런타임 점검(v06.33 이후 첫 실주행 검증)에서 파이프라인(TTS·녹음·4-Phase·DB 적재)은 정상이나 **채점이 항상 낙제점**(실사용 7건 overall 0~53, timing 6/7건 0)임을 확인 — [dtw-comparator.ts](../apps/web/src/lib/echo/dtw-comparator.ts) 재설계.
