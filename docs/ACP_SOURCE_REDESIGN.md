@@ -274,3 +274,21 @@ OWID 는 argumentative register 를 **발행 가능**(cc_by=derivation full) 콘
 | **Smithsonian Open Access** | CC0 = 소장품 **메타데이터**(api.si.edu)이지 산문 아님 · Magazine 기사는 무료 아님 → 소스 부적합(§구현현황) |
 
 기각 소스는 `ArticleSource`/`SourceKey` enum · ingester · 정책 **미생성** (문서 등록만 — §10 준수).
+
+### §20.1 — OBP 동결 해제 재정찰 + OWID 스케일업 (2026-07-09)
+
+**OWID 스케일업 (T-2 실운영 검증)** — atom feed 8건 실 ingest → dev-process → dev-publish 전 구간 통과.
+argumentative CC-BY 학습 단어세트 **8개 라이브 발행** (B2×7·C1×1 · llm_cost 전량 0 · lexical_noise ≤0.001 · `word_count==words_actual` orphan 0).
+The Conversation(cc_by_nd=`display_only`)이 못 채우던 argumentative 실질 공백을 라이브 콘텐츠로 실증. dev 라우트 신설: `/api/acp/dev-enqueue` · `/api/acp/dev-publish` (service-role · NODE_ENV 가드 — DEV_ADMIN_BYPASS auth 갭 우회).
+
+**OBP 재정찰 결과 — 동결 유지 (근거 강화)** — chapters-sitemap 발견으로 챕터 URL(`/books/{doi}/chapters/{doi}.NN`) 은 확인되나, 챕터 페이지가 **Next.js 클라이언트 렌더**(`__NEXT_DATA__` 에 메타 + **PDF URL 만**, 산문 0). 즉 챕터 전문(全文)이 PDF-only 재확인 + 표본 도서 `obp.0290` = **CC BY-NC-ND**(ND=`display_only`). β(PDF 추출)는 dependency-0 원칙 위반 → **OBP-proper 는 OBP 로는 해제 불가**.
+
+**α 실행 — Pressbooks 로 retarget (구현)** — OBP 승격 트리거 (α) "HTML-clean CC-BY 도서 소스 확보" 를 **Pressbooks**(opentextbc.ca 등 OA book 표준 플랫폼)로 충족. 챕터별 **서버렌더 HTML**(클라이언트렌더 시그널 0, 334×`<p>`) + **CC BY 4.0** + 챕터 URL 규칙적 → dependency-0 정규식 추출 가능. OBP 가 겨냥한 니치(현대 OA 논픽션·학술 산문)를 발행 가능(cc_by) 콘텐츠로 대체 충당.
+
+| 소스 | 결과 | license | 근거 |
+|---|---|---|---|
+| **Pressbooks** (α retarget) | ✅ **ingester 구현** | CC BY (책별 상이) | `ingest/pressbooks.ts` (dependency-0 · SE 계약 mirror) · 실측 검증(`Introduction to Sociology 2e` — CC BY 4.0 · 프로즈 정제 확인 · CHAPTER 마커) · dev 검증 라우트 `/api/lcp/dev-ingest-preview`(DB write 0) |
+
+> **잔여 게이트 (DB 적재)**: `library_books.source` CHECK 에 `'pressbooks'` 추가 = **마이그레이션(SQL 제시 → 승인 후 apply)**. 이후 seed_catalog enqueue/drain 은 OWID 의 dev-enqueue 처럼 별도 dev 경로 필요. 현 단계는 **소스 ingest 계층만**(위임 스코프) 완료 — OWID ingester 가 발행까지 dev-enqueue 를 요했던 것과 동일 패턴.
+
+> §20 은 OBP=동결(코드 0) 유지 — Pressbooks 는 **별개 신설 소스**(§10 준수: 동결 소스 코드 예약 아님, 구현 소스 코드 생성).

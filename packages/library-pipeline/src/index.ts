@@ -15,6 +15,8 @@ export { ingestFromOpenStax } from './ingest/openstax'
 export { ingestFromSimpleWikipedia } from './ingest/simple-wikipedia'
 export { ingestFromLit2Go } from './ingest/lit2go'
 export { ingestFromStoryWeaver } from './ingest/storyweaver'
+// LCP T-2 (α) — Pressbooks OA book (OBP 동결 해제 retarget · CC-BY 서버렌더 HTML)
+export { ingestFromPressbooks } from './ingest/pressbooks'
 
 // S2 INGEST — Articles (ACP — VOA / NASA / NIH + v06.66 wikinews/the_conversation/simple_wikipedia.
 // v06.69 arXiv 제거 — 사용자 명시 플랫폼 전체 삭제)

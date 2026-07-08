@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `abd2670` feat(lcp): OBP 동결해제 α — Pressbooks OA book ingester (T-2)
 - `972eb42` docs(session-log): edit rich-form 완료 — VCB 재설계 전체 종결 표기
 - `cc92b58` feat(vcb): 큐레이션 payload edit rich-form (결정 C 저빈도 전문가 도구)
 - `4319f15` fix(admin): B1(VCB-VRL) 허위 P0 강등 — 대시보드 Critical 0 (v06.162)
 - `6747940` feat(lcp): 발행 스크립트 기능어 제외 품질 필터 추가
-- `97f4e97` test(e2e): /plan picker 회귀 스펙 — 4탭+소스분류+다건선택 (v06.160 자산화)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

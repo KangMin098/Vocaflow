@@ -11,6 +11,7 @@ export type LibrarySource =
   | 'simple_wikipedia'
   | 'lit2go'
   | 'storyweaver'
+  | 'pressbooks'
   | 'manual'
 
 /** 그림책 페이지(=문단)별 삽화 (링크 방식). idx = 본문 문단 인덱스. */
