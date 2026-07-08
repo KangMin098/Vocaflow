@@ -6,9 +6,10 @@
 // 앞선 VcbStepTriggerCard / VcbRunStatusBadge 의 인라인 Tailwind + var(--*) 패턴으로 구성.
 
 import { useEffect, useState, useTransition } from 'react'
-import { Check, X, RotateCcw, Copy } from 'lucide-react'
-import type { VcbQueueDetail } from '@/lib/vcb/types'
-import { reenrichQueueItem } from '@/lib/vcb/server/curation'
+import { Check, X, RotateCcw, Copy, Pencil } from 'lucide-react'
+import type { VcbQueueDetail, QueuePayload } from '@/lib/vcb/types'
+import { editQueueItem, reenrichQueueItem } from '@/lib/vcb/server/curation'
+import { VcbCurationEditForm } from './VcbCurationEditForm'
 
 interface Props {
   detail: VcbQueueDetail
@@ -31,16 +32,41 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
   const [reenrichCommand, setReenrichCommand] = useState<string | null>(null)
   const [commandCopied, setCommandCopied] = useState(false)
   const [isPending, startTransition] = useTransition()
+  const [editMode, setEditMode] = useState(false)
+  const [payloadOverride, setPayloadOverride] = useState<QueuePayload | null>(null)
+  const [editError, setEditError] = useState<string | null>(null)
+  const [editPending, startEdit] = useTransition()
 
-  // 항목 전환 시 노트·재보강 커맨드 초기화(이전 항목 잔상 방지).
+  // 항목 전환 시 노트·재보강 커맨드·편집 상태 초기화(이전 항목 잔상 방지).
   useEffect(() => {
     setNote('')
     setReenrichCommand(null)
+    setEditMode(false)
+    setPayloadOverride(null)
+    setEditError(null)
   }, [detail.queue_id])
+
+  // 편집 이후 표시용 payload — 저장 성공분을 재fetch 없이 즉시 반영.
+  const p = payloadOverride ?? detail.payload
 
   // 승인/거절은 부모(VcbCurationView)로 위임 — 낙관적 오버레이 + 자동 다음 이동.
   const handleApprove = () => onDecision('approve', note || null, () => setNote(''))
   const handleReject = () => onDecision('reject', note || null, () => setNote(''))
+  const handleSaveEdit = (
+    edited: Partial<QueuePayload>,
+    editNote: string | null,
+  ) => {
+    setEditError(null)
+    startEdit(async () => {
+      const result = await editQueueItem(detail.queue_id, edited, editNote)
+      if (result.ok) {
+        setPayloadOverride({ ...p, ...edited })
+        setEditMode(false)
+      } else {
+        setEditError(result.error ?? '편집 저장 실패')
+      }
+    })
+  }
   const handleReenrich = () => {
     startTransition(async () => {
       const result = await reenrichQueueItem(detail.queue_id, note || null)
@@ -71,9 +97,9 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           >
             {detail.lemma}
           </span>
-          {detail.payload.ipa && (
+          {p.ipa && (
             <span className="font-mono text-base" style={{ color: 'var(--t2)' }}>
-              {detail.payload.ipa}
+              {p.ipa}
             </span>
           )}
         </h2>
@@ -88,15 +114,15 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           >
             {detail.pos}
           </span>
-          {detail.payload.cefr && (
+          {p.cefr && (
             <span
               className="px-2 py-0.5 text-xs rounded-[var(--r-sm)] font-mono"
               style={{
-                background: `var(--cefr-${detail.payload.cefr}-bg)`,
-                color: `var(--cefr-${detail.payload.cefr}-text)`,
+                background: `var(--cefr-${p.cefr}-bg)`,
+                color: `var(--cefr-${p.cefr}-text)`,
               }}
             >
-              {detail.payload.cefr}
+              {p.cefr}
             </span>
           )}
           {detail.ngsl_rank && (
@@ -139,15 +165,25 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
               color: 'var(--t3)',
             }}
           >
-            confidence {detail.payload.confidence.toFixed(2)}
+            confidence {p.confidence.toFixed(2)}
           </span>
         </div>
       </header>
 
+      {editMode ? (
+        <VcbCurationEditForm
+          payload={p}
+          onSave={handleSaveEdit}
+          onCancel={() => setEditMode(false)}
+          isSaving={editPending}
+          error={editError}
+        />
+      ) : (
+        <>
       {/* 한국어 정의 */}
       <Section title="한국어 정의">
         <ol className="m-0 pl-5 space-y-1">
-          {detail.payload.definitions_ko.map((d, i) => (
+          {p.definitions_ko.map((d, i) => (
             <li key={i} style={{ color: 'var(--t1)' }} className="text-base">
               {d.sense}
               <span
@@ -164,7 +200,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
       {/* 영어 정의 */}
       <Section title="영어 정의">
         <ol className="m-0 pl-5 space-y-1">
-          {detail.payload.definitions_en.map((d, i) => (
+          {p.definitions_en.map((d, i) => (
             <li key={i} style={{ color: 'var(--t2)' }} className="text-sm font-english">
               {d.sense}
             </li>
@@ -175,7 +211,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
       {/* 예문 */}
       <Section title="예문">
         <ul className="m-0 list-none p-0 space-y-3">
-          {detail.payload.examples.map((ex, i) => (
+          {p.examples.map((ex, i) => (
             <li
               key={i}
               className="p-3 rounded-[var(--r-md)] border"
@@ -198,18 +234,18 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
       {/* 동의어 / 반의어 / 연어 */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <Section title="동의어" compact>
-          <ChipList items={detail.payload.synonyms} tone="success" />
+          <ChipList items={p.synonyms} tone="success" />
         </Section>
         <Section title="반의어" compact>
-          <ChipList items={detail.payload.antonyms} tone="error" />
+          <ChipList items={p.antonyms} tone="error" />
         </Section>
         <Section title="연어" compact>
-          <ChipList items={detail.payload.collocations} tone="info" />
+          <ChipList items={p.collocations} tone="info" />
         </Section>
       </div>
 
       {/* 학습자 노트 */}
-      {detail.payload.korean_learner_note && (
+      {p.korean_learner_note && (
         <Section title="학습자 노트">
           <p
             className="m-0 p-3 rounded-[var(--r-md)] text-sm"
@@ -219,7 +255,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
               borderLeft: '3px solid var(--info)',
             }}
           >
-            {detail.payload.korean_learner_note}
+            {p.korean_learner_note}
           </p>
         </Section>
       )}
@@ -291,6 +327,21 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             <RotateCcw className="w-4 h-4" />
             Re-enrich
           </button>
+          <button
+            type="button"
+            onClick={() => setEditMode(true)}
+            disabled={isPending}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
+            style={{
+              color: 'var(--t1)',
+              borderColor: 'var(--bd)',
+              background: 'var(--bg)',
+              opacity: isPending ? 0.6 : 1,
+            }}
+          >
+            <Pencil className="w-4 h-4" />
+            편집
+          </button>
         </div>
 
         {reenrichCommand && (
@@ -348,6 +399,8 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           </div>
         )}
       </section>
+        </>
+      )}
     </article>
   )
 }
