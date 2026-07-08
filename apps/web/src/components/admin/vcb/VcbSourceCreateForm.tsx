@@ -519,7 +519,7 @@ export function VcbSourceCreateForm() {
           disabled={!formValid || isPending}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
           style={{
-            background: !formValid || isPending ? 'var(--t4)' : '#6D28D9',
+            background: !formValid || isPending ? 'var(--t4)' : 'var(--admin-strong)',
             cursor: !formValid || isPending ? 'not-allowed' : 'pointer',
           }}
         >

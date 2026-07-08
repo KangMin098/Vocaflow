@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e05fa02` feat(acp): dev-publish 라우트 — dev force-publish (P1-6 발행 체인 검증)
 - `7682a07` chore(acp): library_articles.source CHECK 에 owid 추가 (로컬 마이그레이션)
 - `ae495b1` docs(changelog): 교육과정 어휘 list_tags 태깅 적용 완료 기록 (v06.146)
 - `fd705b0` docs(session-log): 큐레이션 낙관적 UI·키보드 내비 + 리스트 cap 수정 반영
 - `d4ebb88` fix(vcb): 큐레이션 리스트 1000행 cap — 2,000단어 run 절반 도달불가 수정
-- `6f287d1` feat(vcb): 큐레이션 낙관적 UI + 키보드 내비 (j/k·a/r)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -30,10 +30,10 @@ export function VcbSectionNav() {
             key={href}
             href={href}
             aria-current={active ? 'page' : undefined}
-            className="inline-flex min-h-[44px] items-center gap-2 -mb-px border-b-2 px-4 font-display text-sm font-medium transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--combo)] focus-visible:ring-offset-1"
+            className="inline-flex min-h-[44px] items-center gap-2 -mb-px border-b-2 px-4 font-display text-sm font-medium transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--admin)] focus-visible:ring-offset-1"
             style={{
-              borderColor: active ? 'var(--combo)' : 'transparent',
-              color: active ? 'var(--combo)' : 'var(--t3)',
+              borderColor: active ? 'var(--admin)' : 'transparent',
+              color: active ? 'var(--admin)' : 'var(--t3)',
             }}
           >
             <Icon className="w-4 h-4" aria-hidden />

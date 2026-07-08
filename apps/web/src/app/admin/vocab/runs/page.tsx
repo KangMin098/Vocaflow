@@ -30,7 +30,7 @@ export default async function VcbRunsPage() {
           <Link
             href="/admin/vocab/runs/new"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
-            style={{ background: '#6D28D9' }}
+            style={{ background: 'var(--admin-strong)' }}
           >
             <Plus className="w-4 h-4" />
             New Run

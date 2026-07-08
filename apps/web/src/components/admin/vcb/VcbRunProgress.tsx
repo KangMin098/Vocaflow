@@ -52,11 +52,11 @@ export function VcbRunProgress({ status }: { status: RunStatus }) {
                   background: done
                     ? 'var(--success-light)'
                     : active
-                      ? 'var(--combo)'
+                      ? 'var(--admin)'
                       : 'var(--bg)',
                   color: done ? 'var(--success)' : active ? 'var(--ti)' : 'var(--t4)',
                   border: `1px solid ${
-                    done ? 'var(--success)' : active ? 'var(--combo)' : 'var(--bd)'
+                    done ? 'var(--success)' : active ? 'var(--admin)' : 'var(--bd)'
                   }`,
                 }}
               >
