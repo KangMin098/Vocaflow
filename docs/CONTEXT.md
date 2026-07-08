@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `0c733ca` feat(acp): dev-enqueue 라우트 — dev-bypass enqueue 갭 해소 (P1-6 enabler)
 - `7fd63ec` docs(session-log): VCB 재설계 Phase 3 + 자동검증 환경 세션 기록 (2026-07-08)
 - `9cd9423` test(e2e): UI 스모크 첫 green + 발견 결함 수리 (v06.159 후속)
 - `a476505` refactor(vcb): orphan 필터 프리뷰 RPC 3종 drop + 타입/문서 정합
 - `6e33c5b` docs(acp): §20 T-2 구현 결과 + T-3 동결 풀 등록 (문서만)
-- `c12e7d0` feat(acp): OWID(Our World in Data) 소스 ingester + T-2 P0 정찰 (OBP abort)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

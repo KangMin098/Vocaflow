@@ -5,18 +5,19 @@
 // examples / syn-ant-coll / learner_note / actions / reenrich command) 은
 // 앞선 VcbStepTriggerCard / VcbRunStatusBadge 의 인라인 Tailwind + var(--*) 패턴으로 구성.
 
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { Check, X, RotateCcw, Copy } from 'lucide-react'
 import type { VcbQueueDetail } from '@/lib/vcb/types'
-import {
-  approveQueueItem,
-  rejectQueueItem,
-  reenrichQueueItem,
-} from '@/lib/vcb/server/curation'
+import { reenrichQueueItem } from '@/lib/vcb/server/curation'
 
 interface Props {
   detail: VcbQueueDetail
   runId: number
+  onDecision: (
+    kind: 'approve' | 'reject',
+    note: string | null,
+    clearNote?: () => void,
+  ) => void
 }
 
 const REGISTER_LABEL: Record<string, string> = {
@@ -25,24 +26,21 @@ const REGISTER_LABEL: Record<string, string> = {
   informal: '구어',
 }
 
-export function VcbCurationDetailPanel({ detail }: Props) {
+export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
   const [note, setNote] = useState('')
   const [reenrichCommand, setReenrichCommand] = useState<string | null>(null)
   const [commandCopied, setCommandCopied] = useState(false)
   const [isPending, startTransition] = useTransition()
 
-  const handleApprove = () => {
-    startTransition(async () => {
-      const result = await approveQueueItem(detail.queue_id, note || null)
-      if (result.ok) setNote('')
-    })
-  }
-  const handleReject = () => {
-    startTransition(async () => {
-      const result = await rejectQueueItem(detail.queue_id, note || null)
-      if (result.ok) setNote('')
-    })
-  }
+  // 항목 전환 시 노트·재보강 커맨드 초기화(이전 항목 잔상 방지).
+  useEffect(() => {
+    setNote('')
+    setReenrichCommand(null)
+  }, [detail.queue_id])
+
+  // 승인/거절은 부모(VcbCurationView)로 위임 — 낙관적 오버레이 + 자동 다음 이동.
+  const handleApprove = () => onDecision('approve', note || null, () => setNote(''))
+  const handleReject = () => onDecision('reject', note || null, () => setNote(''))
   const handleReenrich = () => {
     startTransition(async () => {
       const result = await reenrichQueueItem(detail.queue_id, note || null)
