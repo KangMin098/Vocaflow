@@ -100,14 +100,15 @@ v06.152(사전 보강)에서 발견한 비노출 스텁 예문 7,096건 처리 �
 - 행 디자인 폴리시 유지(hover 리프트·체크 채움), 이미 담긴 자료 '담김' 배지.
 - 검증: `tsc --noEmit` 통과, 잔여 참조 0.
 
-### 교육과정 기본어휘 3,000 사전 적용 준비 ([별책14]) (v06.146)
+### 교육과정 기본어휘 3,000 `list_tags` 태깅 완료 ([별책14]) (v06.146)
 
-2022 개정 영어과 교육과정 기본어휘([별책14] PDF)를 검토·추출해 `shared_dictionary.list_tags` 부착 준비. **적용(live import)은 승인 대기**.
+2022 개정 영어과 교육과정 기본어휘([별책14] PDF)를 검토·추출해 `shared_dictionary.list_tags`에 별표 등급별 3단 태그 부착 완료. 공용단어장 VCB 필터에서 즉시 사용 가능.
 
 - **추출·검증** — `pdftotext`로 3,045 core(공식 3,000 + 슬래시 철자변형) 추출, dropped 0. 등급 `*`819·`**`1,215·무1,011 = 문서 명시 배분과 일치. 파생형(괄호) 226 별도.
 - **커버리지** — 3,025/3,045(**99.3%**) 이미 `shared_dictionary` 존재, 누락 20(철자변형/구어/역형성 — 대부분 정본 twin 존재). 읽기전용 실측(service-role).
-- **스테이징** — [data/curriculum/](../packages/library-pipeline/data/curriculum/) `kcurr2022_1/2/0.csv`(별표 등급별) + `kcurr2022_missing.csv`(20). [import-ngsl-list.ts](../scripts/lcp/import-ngsl-list.ts) `VALID_LIST_IDS`에 3 태그 등록. dry-run 로딩 검증 OK(819/1,215/1,011).
-- 태그 구조=3단(별표별, 사용자 확정). 적용 커맨드: `pnpm tsx scripts/lcp/import-ngsl-list.ts --list-id=kcurr2022_N --csv=…` ×3.
+- **스테이징** — [data/curriculum/](../packages/library-pipeline/data/curriculum/) `kcurr2022_1/2/0.csv`(별표 등급별) + `kcurr2022_missing.csv`(20). [import-ngsl-list.ts](../scripts/lcp/import-ngsl-list.ts) `VALID_LIST_IDS`에 3 태그 등록.
+- **연계 감사** — `list_tags` 소비처 2갈래: VRL 분류(`calc_v_level/track/domain`)는 알려진 태그(ngsl/csat/bsl 등)에만 분기 → `kcurr2022_*` 무영향(분류 불변, 트리거 재계산 없음) · VCB 단어장 필터(`vcb_*_for_filters` = `list_tags && tags`)로 공용단어장 큐레이션 가능. FK 체인 `shared_word_sets→shared_words.lemma→shared_dictionary` 확인.
+- **적용 완료(멱등 append, 사용자 실행)** — `kcurr2022_1`=808 · `kcurr2022_2`=1,211 · `kcurr2022_0`=1,006 = **합계 3,025행**(disjoint, DB 실측 대조). 태그 구조 3단(별표별, 사용자 확정).
 
 ### 큐레이션 드레인 큐 통합 + 품질 검토 task (v06.153)
 

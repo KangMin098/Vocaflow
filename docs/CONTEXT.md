@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `fd705b0` docs(session-log): 큐레이션 낙관적 UI·키보드 내비 + 리스트 cap 수정 반영
 - `d4ebb88` fix(vcb): 큐레이션 리스트 1000행 cap — 2,000단어 run 절반 도달불가 수정
 - `6f287d1` feat(vcb): 큐레이션 낙관적 UI + 키보드 내비 (j/k·a/r)
 - `0c733ca` feat(acp): dev-enqueue 라우트 — dev-bypass enqueue 갭 해소 (P1-6 enabler)
 - `7fd63ec` docs(session-log): VCB 재설계 Phase 3 + 자동검증 환경 세션 기록 (2026-07-08)
-- `9cd9423` test(e2e): UI 스모크 첫 green + 발견 결함 수리 (v06.159 후속)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260708120000_acp_source_check_add_owid.sql`
 - `20260706130000_drain_review_tasks_level_vocab.sql`
 - `20260706120000_unify_quiz_into_curation_jobs.sql`
 - `20260706024846_p1_plan_multi_entry.sql`
 - `20260706010000_vrl_admin_read_policies.sql`
-- `20260706000000_admin_collect_quality_metrics.sql`
 <!-- /auto:recent-migrations -->
 
 ---
