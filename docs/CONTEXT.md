@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `208fd2e` feat(lcp): list_tags → 공용단어장 범용 발행 스크립트
 - `17b7ea3` docs(session-log): admin 색 토큰화 반영 + VCB 재설계 코어 종결 표기
 - `a0edcbf` refactor(vcb): admin 액센트 색 토큰화 — 하드코딩 퍼플 제거 + 게임 토큰 오용 교정
 - `e05fa02` feat(acp): dev-publish 라우트 — dev force-publish (P1-6 발행 체인 검증)
 - `7682a07` chore(acp): library_articles.source CHECK 에 owid 추가 (로컬 마이그레이션)
-- `ae495b1` docs(changelog): 교육과정 어휘 list_tags 태깅 적용 완료 기록 (v06.146)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
