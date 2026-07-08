@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `cc92b58` feat(vcb): 큐레이션 payload edit rich-form (결정 C 저빈도 전문가 도구)
 - `4319f15` fix(admin): B1(VCB-VRL) 허위 P0 강등 — 대시보드 Critical 0 (v06.162)
 - `6747940` feat(lcp): 발행 스크립트 기능어 제외 품질 필터 추가
 - `97f4e97` test(e2e): /plan picker 회귀 스펙 — 4탭+소스분류+다건선택 (v06.160 자산화)
 - `208fd2e` feat(lcp): list_tags → 공용단어장 범용 발행 스크립트
-- `17b7ea3` docs(session-log): admin 색 토큰화 반영 + VCB 재설계 코어 종결 표기
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

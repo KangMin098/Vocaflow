@@ -30,10 +30,12 @@
 - **큐레이션 낙관적 UI + 키보드 내비** (`6f287d1`) — 오버레이 즉시반영·자동 다음 이동, j/k·a/r 단축키. :3000 스크린샷 + j×3→"find" E2E 검증.
 - **큐레이션 리스트 1000행 cap 수정** (`d4ebb88`) — 스크린샷에서 "전체 1000" 발견(run#1=2000). fetchQueueItems 메인쿼리+fetchLatestDecisions+fetchNgslRanks 3곳 페이지네이션/청킹. 검증: "전체 2000" 회복.
 - **admin 액센트 색 토큰화** (`a0edcbf`) — 하드코딩 `#6D28D9`(7곳)→`var(--admin-strong)`, `var(--combo)`(게임 토큰 오용, "변경금지")→`var(--admin)`. design-tokens에 전용 `--admin`/`--admin-strong` 신설(light+dark, additive). 검증: 라이트 무변화·다크 대비 개선(New Run 버튼).
+- **큐레이션 payload edit rich-form** (`cc92b58`) — 결정 C(저빈도 전문가 도구). `VcbCurationEditForm`(IPA·CEFR·정의ko/en·예문 add/remove·syn/ant/col·노트) + "편집" 토글, 저장 성공 시 즉시 반영(재fetch 없이). 검증: 폼 payload 프리필 렌더.
 
-**남은 것(저우선)**:
-- edit UI(rich payload 폼) — 결정 C(저빈도 전문가 도구)라 우선순위 낮음. **VCB 재설계 코어는 이로써 종결** — 프로세스·기능·화면 전반 커버.
-- (선택) 다른 관리자 페이지(VRL/quality 등)도 하드코딩 퍼플 다수 → 향후 `var(--admin)` 채택 여지(이번엔 VCB 스코프만).
+**✅ VCB 재설계 전체 종결** — 프로세스·기능·화면 + 저우선 edit 폼까지 커버. 이번 세션 **11 커밋**(64a6435·d589048·335c3f0·9a4fadb·a476505·6f287d1·d4ebb88·a0edcbf·cc92b58 + 세션로그).
+
+**향후 여지(선택·비긴급)**:
+- 다른 관리자 페이지(VRL/quality 등)도 하드코딩 퍼플 다수 → `var(--admin)` 채택 여지(이번엔 VCB 스코프만).
 - ⚠️ 동시 세션(ACP/plan/CONTEXT.md)과 같은 working-copy·index 공유 → 커밋 인터리빙. **명시 pathspec `git commit -- <경로>` 격리 필수**(bare commit은 동시 세션 staged 파일 흡수).
 
 **제안서**: [docs/proposals/vcb-admin-redesign.md](proposals/vcb-admin-redesign.md) §7 결정 A/B/C + 구현계획.
