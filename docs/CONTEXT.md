@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d4ebb88` fix(vcb): 큐레이션 리스트 1000행 cap — 2,000단어 run 절반 도달불가 수정
 - `6f287d1` feat(vcb): 큐레이션 낙관적 UI + 키보드 내비 (j/k·a/r)
 - `0c733ca` feat(acp): dev-enqueue 라우트 — dev-bypass enqueue 갭 해소 (P1-6 enabler)
 - `7fd63ec` docs(session-log): VCB 재설계 Phase 3 + 자동검증 환경 세션 기록 (2026-07-08)
 - `9cd9423` test(e2e): UI 스모크 첫 green + 발견 결함 수리 (v06.159 후속)
-- `a476505` refactor(vcb): orphan 필터 프리뷰 RPC 3종 drop + 타입/문서 정합
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
