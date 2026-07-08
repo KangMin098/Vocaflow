@@ -38,10 +38,15 @@ const cap = capRaw ? parseInt(capRaw, 10) : null
 const publish = process.argv.includes('--publish')
 const replace = process.argv.includes('--replace')
 const dryRun = process.argv.includes('--dry-run')
+// 품질 필터 (기본 ON) — 학습용 단어장에서 기능어(대명사/전치사/관사/조동사…) 배제.
+//   auto-vlevel-* 관례: pos in (noun,verb,adjective,adverb) + 길이 ≥ 3.  --all 로 전량(원문 그대로).
+const includeAll = process.argv.includes('--all')
+const minLength = getArg('min-length') ? parseInt(getArg('min-length')!, 10) : 3
+const minCefr = getArg('min-cefr')?.toUpperCase() ?? null
 
 if (!listId || !slug || !title) {
   console.error(
-    'usage: pnpm tsx scripts/lcp/publish-list-word-set.ts --list-id=<tag> --slug=<slug> --title=<title> [--category=themed] [--cover-emoji=📚] [--description=..] [--cap=N] [--publish] [--replace] [--dry-run]',
+    'usage: pnpm tsx scripts/lcp/publish-list-word-set.ts --list-id=<tag> --slug=<slug> --title=<title> [--category=themed] [--cover-emoji=📚] [--description=..] [--cap=N] [--min-length=3] [--min-cefr=B1] [--all] [--publish] [--replace] [--dry-run]',
   )
   process.exit(1)
 }
@@ -77,9 +82,20 @@ async function fetchWords(client: SupabaseClient): Promise<DictRow[]> {
     const page = (data ?? []) as DictRow[]
     rows.push(...page)
     if (page.length < PAGE) break
-    if (cap && rows.length >= cap) break
   }
-  return cap ? rows.slice(0, cap) : rows
+  return rows
+}
+
+const CONTENT_POS = ['noun', 'verb', 'adjective', 'adverb']
+const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+function isContentPos(r: DictRow): boolean {
+  const p = (r.primary_pos ?? r.pos ?? '').toLowerCase()
+  return CONTENT_POS.some((c) => p === c || p.startsWith(c.slice(0, 3)))
+}
+function cefrOk(r: DictRow): boolean {
+  if (!minCefr) return true
+  const i = CEFR_ORDER.indexOf((r.cefr_level ?? '').toUpperCase())
+  return i >= 0 && i >= CEFR_ORDER.indexOf(minCefr)
 }
 
 async function main(): Promise<void> {
@@ -92,8 +108,17 @@ async function main(): Promise<void> {
   if (!url || !key) throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
   const client = createClient(url, key)
 
-  const words = await fetchWords(client)
-  console.log(`📊 [${listId}] ${words.length} words with meaning_ko (cap=${cap ?? 'none'})`)
+  const all = await fetchWords(client)
+  const filtered = includeAll
+    ? all
+    : all.filter((r) => r.word.length >= minLength && isContentPos(r) && cefrOk(r))
+  const words = cap ? filtered.slice(0, cap) : filtered
+  const filterDesc = includeAll
+    ? 'no filter (--all)'
+    : `content-pos + len≥${minLength}${minCefr ? ` + cefr≥${minCefr}` : ''}`
+  console.log(
+    `📊 [${listId}] ${all.length} tagged(meaning_ko) → ${filtered.length} after ${filterDesc} → ${words.length} selected (cap=${cap ?? 'none'})`,
+  )
   if (words.length === 0) {
     console.error('  ⚠️  0 words matched — nothing to publish.')
     process.exit(1)
