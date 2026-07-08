@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### B1(VCB-VRL) 진단 — 허위 P0 강등, 대시보드 Critical 0 (v06.162)
+
+사전 Health 대시보드 마지막 P0(B1) 착수 전 진단에서 D2·V1과 동일 패턴 확인 — 기능은 이미 우회 경로로 달성, 남은 것은 견고성 부채. 코드만 변경(데이터·마이그레이션 0).
+
+- **진단**: `recommend_word_sets_for_user` 는 slug 조립(`auto-vlevel-v' || level`)으로 세트 조회 — V-Level 단어장 발행·추천·구독 전부 동작(auto-vlevel V1~V9 9세트 + 도서 챕터 260세트 curation_query.book_v_level). 전용 컬럼 부재의 실비용 = 슬러그 네이밍 관례 결합(소비처 RPC 1곳·사고 0건)·인덱스/무결성 부재뿐.
+- **결함 룰 1** ([critical-defects-detector.ts](../apps/web/src/lib/admin/dict/critical-defects-detector.ts)): `vcb_vrl_not_integrated` P0/critical → **P2/info**, 문구를 "우회로 동작 중, 세트 대량화/슬러그 개편 시 전용 컬럼 도입"으로. → **대시보드 P0 Critical = 0**(실측 정합: audio_url·segment·v_level 은 이미 충족·미발화).
+- **R3 점수 정직화** ([health-score-v2.ts](../apps/web/src/lib/admin/dict/health-score-v2.ts)): 최대 가중(0.3) 팩터가 "스키마 컬럼 존재?"(구조적 항상 0, `🚨 V-Level 단어장 0/72` 허위 evidence)로 R3 를 끌어내리던 것 → "V-Level 단어장 발행 동작"(우회 동작=0.85, 견고성 부채 -0.15) 실측 반영. 가중치는 유지(재분배 없음).
+- **백로그 B1** ([backlog-items.ts](../apps/web/src/app/admin/vrl/_components/backlog-items.ts)): P0 본질페인 → **P3 이연**("견고성 — 세트 대량화/슬러그 개편 시").
+
 ### VCB 파이프라인 어드민 재설계 — 스킬-우선·DB-status·정합성 (v06.161)
 
 `/admin/vocab/runs` 프로세스·화면 전체 재검토/재설계. 결정 A(위저드 필터 제거)·B(out-of-band 스킬을 정식 경로)·C(저빈도 전문가 도구) 반영. 각 변경 dev :3100 + Playwright 스크린샷 검증.

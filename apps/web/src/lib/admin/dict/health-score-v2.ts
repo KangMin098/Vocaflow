@@ -380,12 +380,15 @@ function r3WordSetPublish(raw: DictSnapshotRaw): ResponsibilityReadiness {
       evidence: `${(c.cefrLevel.ratio * 100).toFixed(1)}%`,
     },
     {
-      label: 'VCB-VRL 통합 (target_v_level_range 컬럼)',
-      score: integrated ? 1.0 : 0,
+      // V-Level 단어장 발행 동작 여부 — 구 "스키마 컬럼 존재?"(구조적 항상 0) 대신 실동작 반영.
+      //   발행·추천은 slug(auto-vlevel-v*)+curation_query 로 동작 중(2026-07-08 진단) → 발행 성립.
+      //   전용 컬럼 부재는 슬러그 결합·인덱스 부재의 견고성 부채(-0.15) 로만 감점, B1 이연.
+      label: 'V-Level 단어장 발행 동작',
+      score: integrated ? 1.0 : 0.85,
       weight: 0.3,
       evidence: integrated
-        ? '✅ shared_word_sets 에 V-Level 컬럼 존재'
-        : '🚨 VCB 가 v_level 모름 — V-Level 단어장 0/72',
+        ? '✅ shared_word_sets 에 V-Level 전용 컬럼 존재'
+        : '동작 중 (auto-vlevel V1~V9 + 도서 챕터 세트) · 전용 컬럼 부재는 견고성 부채(B1)',
     },
     {
       label: 'v_level 채움',

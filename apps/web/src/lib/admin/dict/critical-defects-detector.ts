@@ -1,12 +1,14 @@
 // apps/web/src/lib/admin/dict/critical-defects-detector.ts
 //
 // Critical Defects 자동 탐지 — 15 rules
-//   P0 (5): vcb_vrl_not_integrated / cefr_confidence_null / audio_url_missing /
-//           segment_tags_underdeveloped(구 register_critical_null) / v_level_majority_unclassified
+//   P0 (3): audio_url_missing / segment_tags_underdeveloped(구 register_critical_null) /
+//           v_level_majority_unclassified   (cefr_confidence_null·vcb_vrl 는 해소/이연 — 아래 참조)
 //   P1 (7): list_tags_empty / noun_inflections_gap / adj_inflections_gap /
 //           polysemy_underdeveloped / verified_low_advanced /
 //           collocations_underdeveloped / korean_learner_note_gap
-//   P2 (3): cefr_c2_overrepresented / noun_pos_dominant / frequency_rank_majority_null
+//   P2 (4): vcb_vrl_not_integrated(2026-07-08 P0→P2, 우회로 동작) / cefr_c2_overrepresented /
+//           noun_pos_dominant / frequency_rank_majority_null
+//   ※ cefr_confidence_null 룰은 임계(<1%) 유지하나 실데이터 99.6% 채움으로 미발화(D1 done).
 //
 // 입력: DictSnapshotRaw (queries.ts fetchDictSnapshotRaw 결과)
 // 출력: CriticalDefect[] (priority 정렬)
@@ -78,20 +80,23 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   // P0 Critical (5)
   // ════════════════════════════════════════════════════════════
 
-  // 1. VCB-VRL 미통합 — 본질 페인
+  // 1. VCB-VRL 전용 컬럼 부재 — 구조 개선 여지(info), 기능 차단 아님
+  //    (2026-07-08 진단: V-Level 단어장 발행·추천·구독은 이미 동작 — auto-vlevel V1~V9 9세트 +
+  //     도서 챕터 260세트 curation_query.book_v_level. recommend_word_sets_for_user 는 slug 조립으로
+  //     세트 조회. 실비용 = 슬러그 네이밍 관례 결합(소비처 RPC 1곳, 사고 0건)뿐 — P0 아님, B1 이연.)
   if (!schema.vcbVrlIntegrated) {
     defects.push({
       id: 'vcb_vrl_not_integrated',
-      severity: 'critical',
-      priority: 'P0',
-      title: 'VCB-VRL 미통합 (세트 스키마에 V-Level 전용 컬럼 부재)',
+      severity: 'info',
+      priority: 'P2',
+      title: 'VCB-VRL 전용 컬럼 부재 (V-Level 발행은 우회 경로로 동작 중)',
       description:
-        'shared_word_sets 에 target_v_level_range 등 전용 컬럼 부재. 도서 챕터 세트는 curation_query JSONB(book_v_level 스냅샷)·auto-vlevel 세트는 slug 로 우회 중 — 동작은 하나 V-Level 필터/추천 질의가 JSONB 파싱·네이밍 관례에 의존 (인덱스·무결성 보장 없음).',
+        'shared_word_sets 에 target_v_level_range 등 전용 컬럼 부재. V-Level 단어장 발행·추천은 slug(auto-vlevel-v*)·curation_query JSONB(book_v_level) 로 이미 동작 — 기능 차단 아님. 남는 것은 슬러그 네이밍 관례 결합·인덱스/무결성 부재(견고성). 세트가 수천 규모가 되거나 슬러그 리디자인 시 전용 컬럼 도입 권장.',
       evidence: 'shared_word_sets.target_v_level_range 컬럼 부재 (우회: curation_query→book_v_level · slug auto-vlevel-v*)',
       metrics: { current: 'absent', target: 'present', unit: 'column' },
       impactsOn: ['R3'],
       pipelines: ['VCB'],
-      remedy: '옵션 B (shared_word_sets schema 확장 + run-create 통합)',
+      remedy: 'B1 — 슬러그 개편/세트 대량화 시 target_v_level 컬럼 도입 (현재 우회로 충분)',
       improvement: BACKLOG.B1,
       detectedAt: NOW_ISO(),
     })

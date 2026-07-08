@@ -34,14 +34,14 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
   // ─── P0 (4) ───
   {
     id: 'B1',
-    priority: 'P0',
-    title: 'VCB-VRL 통합',
-    oneLine: 'shared_word_sets 에 target_v_level_range 추가 + VCB run-create 통합',
+    priority: 'P3',
+    title: 'VCB-VRL 전용 컬럼 (견고성 — 이연)',
+    oneLine:
+      '2026-07-08 진단: V-Level 발행·추천은 slug(auto-vlevel-v*)+curation_query 로 이미 동작(9+260세트) — 전용 컬럼은 슬러그 결합 해소용. 세트 대량화/슬러그 개편 시 도입',
     affects: ['R3'],
-    effort: '6-9 turns',
-    value: 'R3 35 → 75+ · V-Level 단어장 자동 발행',
+    effort: '6-9 turns (마이그레이션 + run-create + RPC 전환)',
+    value: '슬러그 관례 결합 해소 · 인덱스/무결성 (기능 효과는 이미 달성)',
     defectId: 'vcb_vrl_not_integrated',
-    isCorePain: true,
   },
   {
     id: 'D1',
