@@ -29,17 +29,25 @@ const CHAPTER_GAMES: { key: string; label: string; emoji: string; path: (setId: 
   { key: 'spellforge', label: '스펠', emoji: '🔨', path: (s, c) => `/spellforge/play?set=${s}&chapter=${c}` },
   { key: 'pairflip', label: '페어', emoji: '🎴', path: (s, c) => `/pairflip/play?set=${s}&chapter=${c}` },
 ]
-const VOCAB_FROM = encodeURIComponent('/library/vocab')
-
 interface Props {
   set: PublishedVocabSet | null
   isSubscribed: boolean
   isPending: boolean
   onToggle: (set: PublishedVocabSet) => void
   onClose: () => void
+  /** 챕터 게임 launch 의 닫기 복귀 경로(?from) — 재사용처(/wordvault 등)가 지정. 기본 /library/vocab. */
+  fromPath?: string
 }
 
-export function VocabSetPreviewModal({ set, isSubscribed, isPending, onToggle, onClose }: Props) {
+export function VocabSetPreviewModal({
+  set,
+  isSubscribed,
+  isPending,
+  onToggle,
+  onClose,
+  fromPath = '/library/vocab',
+}: Props) {
+  const fromEnc = encodeURIComponent(fromPath)
   const [words, setWords] = useState<PWord[] | null>(null)
   const [chaptered, setChaptered] = useState(false)
   const [openChapters, setOpenChapters] = useState<Set<number>>(new Set([1]))
@@ -281,7 +289,7 @@ export function VocabSetPreviewModal({ set, isSubscribed, isPending, onToggle, o
                         />
                       </button>
                       <a
-                        href={`/flashcard/play?set=${set.id}&chapter=${ch.n}&from=${encodeURIComponent('/library/vocab')}`}
+                        href={`/flashcard/play?set=${set.id}&chapter=${ch.n}&from=${fromEnc}`}
                         title={`Chapter ${ch.n} 플래시카드 학습`}
                         className="inline-flex shrink-0 items-center gap-1 border-l border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[#6D28D9] no-underline transition-colors hover:bg-[#8B5CF6]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
                       >
@@ -298,7 +306,7 @@ export function VocabSetPreviewModal({ set, isSubscribed, isPending, onToggle, o
                           {CHAPTER_GAMES.map((g) => (
                             <a
                               key={g.key}
-                              href={`${g.path(set.id, ch.n)}&from=${VOCAB_FROM}`}
+                              href={`${g.path(set.id, ch.n)}&from=${fromEnc}`}
                               title={`Chapter ${ch.n} — ${g.label}`}
                               className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                             >
