@@ -16,6 +16,8 @@ export interface ChapterListItem {
   paragraph_count: number
   /** 원본 소스 해당 챕터 deep-link URL (SE TOC 매핑). null 이면 렌더가 도서 TOC 로 fallback */
   source_href: string | null
+  /** 챕터별 어휘 V-level (distinct lemma p75, V11 제외). 단일 book_v_level 의 챕터 편차 노출용. null=미산출 */
+  chapter_v_level: number | null
 }
 
 export interface ChapterContent {
@@ -100,7 +102,9 @@ export async function listChapters(
 ): Promise<ChapterListItem[]> {
   const { data, error } = await client
     .from('library_chapters_master')
-    .select('chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets')
+    .select(
+      'chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets, chapter_v_level'
+    )
     .eq('library_book_id', libraryBookId)
     .order('chapter_idx', { ascending: true })
 
@@ -113,6 +117,7 @@ export async function listChapters(
       source_href: string | null
       word_count: number
       paragraph_offsets: number[] | null
+      chapter_v_level: number | null
     }
     return {
       chapter_idx: r.chapter_idx,
@@ -121,6 +126,7 @@ export async function listChapters(
       word_count: r.word_count,
       paragraph_count: r.paragraph_offsets?.length ?? 0,
       source_href: r.source_href ?? null,
+      chapter_v_level: r.chapter_v_level ?? null,
     }
   })
 }

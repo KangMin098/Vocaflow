@@ -1443,6 +1443,7 @@ export type Database = {
           cefr_level: string | null
           chapter_idx: number
           chapter_title: string | null
+          chapter_v_level: number | null
           content_hash: string
           created_at: string
           group_label: string | null
@@ -1457,6 +1458,7 @@ export type Database = {
           cefr_level?: string | null
           chapter_idx: number
           chapter_title?: string | null
+          chapter_v_level?: number | null
           content_hash: string
           created_at?: string
           group_label?: string | null
@@ -1471,6 +1473,7 @@ export type Database = {
           cefr_level?: string | null
           chapter_idx?: number
           chapter_title?: string | null
+          chapter_v_level?: number | null
           content_hash?: string
           created_at?: string
           group_label?: string | null

@@ -413,10 +413,12 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
 export interface BookChapter {
   idx: number
   title: string | null
+  /** 챕터별 어휘 V-level (distinct lemma p75, V11 제외). 단일 book_v_level 의 챕터 편차 노출. null=미산출 */
+  vLevel: number | null
 }
 
 /**
- * 도서 챕터 목록(번호+제목) — /plan 챕터 리스트용.
+ * 도서 챕터 목록(번호+제목+V-level) — /plan 챕터 리스트용.
  * RLS `read_via_published` 로 published+copyright_safe 도서만 읽힘 (picker 와 동일 범위).
  */
 export async function fetchBookChapters(bookId: string): Promise<BookChapter[]> {
@@ -424,12 +426,15 @@ export async function fetchBookChapters(bookId: string): Promise<BookChapter[]> 
   const client = await createClient()
   const { data } = await loose(client)
     .from('library_chapters_master')
-    .select('chapter_idx, chapter_title')
+    .select('chapter_idx, chapter_title, chapter_v_level')
     .eq('library_book_id', bookId)
     .order('chapter_idx', { ascending: true })
-  return ((data ?? []) as { chapter_idx: number; chapter_title: string | null }[]).map((c) => ({
+  return (
+    (data ?? []) as { chapter_idx: number; chapter_title: string | null; chapter_v_level: number | null }[]
+  ).map((c) => ({
     idx: c.chapter_idx,
     title: c.chapter_title,
+    vLevel: c.chapter_v_level ?? null,
   }))
 }
 

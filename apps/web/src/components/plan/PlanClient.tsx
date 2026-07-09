@@ -1170,6 +1170,7 @@ function ChapterList({
   }, [bookId])
 
   const titleByIdx = new Map((loaded ?? []).map((c) => [c.idx, c.title]))
+  const vLevelByIdx = new Map((loaded ?? []).map((c) => [c.idx, c.vLevel]))
   const has = (n: number) => (selectedArr ? selectedArr.includes(n) : (selected?.has(n) ?? false))
   return (
     <ul className="flex max-h-[240px] flex-col gap-1 overflow-y-auto pr-1" aria-label="챕터 목록">
@@ -1210,6 +1211,17 @@ function ChapterList({
               >
                 {title ?? (loaded === null ? '…' : `${n}장`)}
               </span>
+              {/* 챕터별 어휘 V-level — 단일 book_v_level 이 뭉개는 편차 노출 (색상만 의존 X, 숫자 텍스트) */}
+              {vLevelByIdx.get(n) != null && (
+                <span
+                  className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[9px] font-[700] leading-none tabular-nums ${
+                    on ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t3)]'
+                  }`}
+                  title={`이 장의 어휘 난이도 V${vLevelByIdx.get(n)} — 책 전체 라벨과 다를 수 있어요`}
+                >
+                  V{vLevelByIdx.get(n)}
+                </span>
+              )}
             </button>
           </li>
         )
