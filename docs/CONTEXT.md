@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `1eda36f` feat(library): /library/scripts 재설계 — 목적별 묶음 + 레벨 칩 단일 시스템 (v06.183)
 - `97e8909` fix(vocab): '추천'을 진단 기반 개인 맞춤(i+1)으로 — 수능편향 일반랭킹 교체
 - `4b66885` feat(ctp): DCP T2 결정론 문항 생성 완료 — csat_dcp_items (③) (v06.182)
 - `fcbf26d` feat(lcp): 대량 GET에 Pressbooks 소스 배선 (v06.181)
 - `f492e0c` feat(vocab): 게임별 챕터 학습 UI — 챕터 아코디언 게임 런처
-- `d27877f` feat(vocab): 세트 상세 시트에 챕터 수 표시 (v06.179)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710180000_ctp_derive_learner_stage.sql`
 - `20260710170000_ctp_dcp_items_table.sql`
 - `20260710160000_lcp_seed_catalog_source_add_pressbooks.sql`
 - `20260710150000_acp_seed_catalog_source_add_new.sql`
 - `20260710140000_ctp_syntax_wire_rpcs.sql`
-- `20260710130000_ctp_compute_syntax_score.sql`
 <!-- /auto:recent-migrations -->
 
 ---

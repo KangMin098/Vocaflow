@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP P3 종결 — 학습자 stage 실시간 파생 (v06.184)
+- **`derive_learner_stage(uuid)`** — csat_stage_gates 전 지표 통과 최대 단계 매 호출 파생(**컬럼 저장 금지**·§9 R(t) 동형). 지표: wpm(reading_fluency_log)·item_accuracy(csat_item_attempts)·listening(echo_match)·coverage(v1 current_v_level 대리). SECURITY INVOKER(RLS 본인만).
+- **양방향 검증** — 무데이터 유저 3인 전원 S1(고 v_level도 읽기증거 없이는 승급 불가) · 강한 지표 주입 시 S1→S5 승급(롤백, 영속 X).
+- ⚠ apply_migration이 함수 본문 `$$` 오분할 → execute_sql로 적용(migration 파일은 repo 보존).
+- **CTP P3 종결**: ① syntax_score · ② stage_band(view) · ③ DCP 문항 · ④⑤⑦ 테이블 · **stage 파생**. 잔여 ⑥ Today UI(META 게이트) · ⑧ BYO 가드.
+
 ### /library/scripts 재설계 — 목적별 묶음 + 레벨 칩 단일 시스템 (v06.183)
 
 기존 이원 구조(추상 소스맵 + 평면 그리드)로 "선택을 어떻게 하는지 모름" 문제 → 분류를 목록에 직접 노출하는 단일 시스템으로 통합.
