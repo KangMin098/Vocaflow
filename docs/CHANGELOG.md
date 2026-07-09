@@ -45,7 +45,8 @@
 - **구간 divergence 지목(#3)** — `divergenceRegions`(기존 DTW semitone-shape 규칙 재사용·순수함수): 억양이 원어민과 ≥3 semitone 벌어진 시간 구간을 `PitchVisualizer`에 음영+범례+안내문으로 표시 → "어디를 다시 따라할지" 행동 가능 피드백. 회귀 4종(동일/화자독립=무표시, 다른모양=지목, 무음=무표시).
 - **문구 정직화(#4)** — `scoreFeedback` "원어민에 가까워요"(참조가 Piper TTS인데 과장) → "억양·리듬이 잘 맞았어요". 채점이 프로소디 정합임을 정직하게.
 - **#2 단어 정확도 게이트 (구현)** — 녹음과 병렬로 Web Speech `SpeechRecognition`(재사용 `createRecognizer`) 실행 → `computeShadowMatch`(기존 자산)로 문장 단어 인식률 산출. 인식률 <40%면 프로소디 점수를 celebrate 대신 "단어부터 또박또박 다시" 로 부드럽게 게이트(비난 X). **완전 additive·전면 guard** — 미지원(Firefox 등)·인식 실패·무음은 `null`(미측정)로 프로소디-only 폴백, 녹음/채점 절대 무영향. scored 화면에 "단어 N% 인식" 표시. ⚠️ **실 육성 인식 정확도는 헤드리스에서 검증 불가**(Chrome 실기 필요) — 구조·guard·gate 로직만 tsc+스모크 검증.
-- **잔여**: #1 실음성 threshold 보정(육성 샘플 필요). tsc green · vitest 11/11 · EchoMatch 게이트 스모크 green.
+- **자동 실주행 검증(fake-mic E2E)** — `06-echomatch-fakemic.spec.ts` 신규: Chrome 합성 오디오(`--use-fake-device-for-media-stream`)로 전체 4-Phase(Listen→Repeat→Compare→Score) 자동 완주. 결과 `overall=48`(인토네이션 23·강세 55·리듬 74) — 파이프라인 크래시 0·콘솔에러 0·**구조적 0점 없음**(비발화 톤에 거짓 고득점도 안 줌=변별력 유지). `overall>0` 단언으로 구 절대값 결함 회귀 가드. *합성 톤이라 사람 보정(#1)은 아님 — 파이프라인 생존/범위 검증.*
+- **잔여**: #1 실음성 threshold 보정(실제 육성 샘플 필요 — 합성 톤으론 불가). tsc green · vitest 11/11 · EchoMatch 게이트 스모크 green · fake-mic 실주행 green.
 
 ### WordBlitz 재설계 — 3D 인형뽑기 → 2D 속사 인지 (v06.189)
 
