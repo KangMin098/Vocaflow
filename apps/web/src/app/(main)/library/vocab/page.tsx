@@ -9,7 +9,11 @@ import { Capsule, Screen } from '@/components/ui/ios'
 import { VocabSetGrid } from '@/components/library/vocab/VocabSetGrid'
 import { VOCAB_CATEGORIES } from '@/components/library/vocab/categories'
 import { createClient } from '@/lib/supabase/server'
-import { fetchPublishedSets, fetchUserSubscriptions } from '@/lib/library/vocab/queries'
+import {
+  fetchPublishedSets,
+  fetchUserSubscriptions,
+  type RecommendedSet,
+} from '@/lib/library/vocab/queries'
 
 export const metadata = {
   title: '공용 단어장 · Vocaflow',
@@ -29,15 +33,26 @@ export default async function LibraryVocabPage() {
     fetchUserSubscriptions(supabase, user?.id ?? null),
   ])
 
-  // 학습자 V-level — 진단 기반 개인 맞춤 추천용 (미진단 시 0 → 추천 대신 진단 유도)
+  // 학습자 V-level + 개인 맞춤 추천 — recommend_word_sets_for_user RPC(진단 V-level/track 기반, 3~5티어).
+  //   즉흥 랭킹이 아니라 앱의 정본 추천 엔진 재사용. 미진단이면 추천 없음 → 진단 유도.
   let userVLevel = 0
+  let recommended: RecommendedSet[] = []
   if (user) {
     const { data: profile } = await supabase
       .from('user_profiles')
-      .select('current_v_level')
+      .select('current_v_level, diagnostic_completed_at')
       .eq('user_id', user.id)
       .maybeSingle()
-    userVLevel = (profile as { current_v_level: number | null } | null)?.current_v_level ?? 0
+    const p = profile as { current_v_level: number | null; diagnostic_completed_at: string | null } | null
+    userVLevel = p?.current_v_level ?? 0
+    const diagnosed = !!p?.diagnostic_completed_at && userVLevel > 0
+    if (diagnosed) {
+      const { data: recs } = await supabase.rpc('recommend_word_sets_for_user', {
+        p_user_id: user.id,
+        p_interests: undefined,
+      })
+      recommended = ((recs ?? []) as RecommendedSet[]).filter((r) => r.recommendation_type !== 'fallback')
+    }
   }
 
   const setCount = sets.length
@@ -80,6 +95,7 @@ export default async function LibraryVocabPage() {
           subscribedIds={Array.from(subscribedSet)}
           isLoggedIn={!!user}
           userVLevel={userVLevel}
+          recommended={recommended}
         />
       </div>
     </Screen>

@@ -62,6 +62,17 @@ export interface SamplePreviewWord {
 }
 
 /**
+ * 개인 맞춤 추천 (recommend_word_sets_for_user RPC 결과 — 진단 V-level/track 기반).
+ * recommendation_type: primary(메인)/stretch(도전)/review(보강)/specialty(관심)/fallback.
+ */
+export interface RecommendedSet {
+  set_id: string
+  recommendation_type: string
+  reason: string
+  priority: number
+}
+
+/**
  * 게시된 공용 단어장 전체. RLS 가 anon SELECT 를 허용하므로 로그인 여부 무관.
  * word_count 캐시가 stale 한 경우가 있어 shared_words 실측 count 와 머지.
  */
