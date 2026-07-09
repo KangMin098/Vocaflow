@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 루프 E2E — 진단→개인화 체인 + storageState 리팩터 (v06.171)
+
+핵심 루프 회귀의 마지막 고가치 대상 — **진단 완료→V-Level snapshot** 추가. 진단은 사용자 V-Level 을 설정해 추천·i+1·추출 임계 등 개인화 전체를 좌우하는 진입점인데 런타임 검증이 전무했음.
+
+- **[05-learner-loop.spec.ts](../apps/web/tests/e2e/05-learner-loop.spec.ts)** 진단 테스트 — `/diagnostic` → "진단 시작" → ~40문항 전부 "알아요" 이진 응답 → `analyze_and_apply_diagnostic_result` 가 기록하는 `user_level_snapshots(taken_reason='diagnostic')` 를 service-role 로 단언. 실측: snapshot v_level=11 기록(전 구간 동작 확인).
+- **storageState 리팩터** — 3 테스트가 각자 로그인하던 것을 `beforeAll` 1회 로그인+`storageState` 재사용으로. 3중 로그인의 auth rate-limit·하이드레이션 리셋 플레이크(로그인 폼 빈 필드로 멈춤) 해소 + `loginRuntimeUser` 에 fill 값 확정 재시도 추가. ScriptQuiz 7.7s(로그인 제거로 단축)·Flashcard 51s·진단 21s = 3 passed.
+- `countDiagnosticSnapshotsSince` 헬퍼([utils/db.ts](../apps/web/tests/e2e/utils/db.ts)). 이로써 핵심 루프 3종(게임 완주 ×2 + 개인화 진입) 전부 회귀 보장.
+
 ### 학습 루프 E2E — Flashcard 추가(반복 가능) (v06.170)
 
 v06.166(ScriptQuiz 루프) 확장 — 가장 중심 모듈 Flashcard 완주→`scores(module='flashcard')` 적재 회귀 추가. 두 핵심 study 모듈 커버.

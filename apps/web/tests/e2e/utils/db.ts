@@ -80,3 +80,23 @@ export async function countScoresSince(
   if (error) return -1;
   return count ?? 0;
 }
+
+/**
+ * 특정 시각 이후 diagnostic 사유의 user_level_snapshots 행 개수 — 진단→프로필 갱신 단언용.
+ * (analyze_and_apply_* RPC 가 snapshot INSERT + user_profiles 갱신을 함께 수행)
+ */
+export async function countDiagnosticSnapshotsSince(
+  userId: string,
+  sinceIso: string,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { count, error } = await c
+    .from('user_level_snapshots')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .eq('taken_reason', 'diagnostic')
+    .gte('taken_at', sinceIso);
+  if (error) return -1;
+  return count ?? 0;
+}

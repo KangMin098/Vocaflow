@@ -6,7 +6,12 @@
 //         완주 화면 → scores(module='scriptquiz') 신규 행을 service-role 로 확인.
 import { test, expect, type Page } from '@playwright/test';
 
-import { countScoresSince, resetDueCards, userIdByEmail } from './utils/db';
+import {
+  countDiagnosticSnapshotsSince,
+  countScoresSince,
+  resetDueCards,
+  userIdByEmail,
+} from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -18,16 +23,34 @@ const DRONE_BOOK_ID = '6e8b3442-1404-4172-865b-3dcd6c5848d9';
 const PLAY_URL = `/scriptquiz/play?book=${DRONE_BOOK_ID}&ch=1`;
 const EXPECTED_Q = 4;
 
+// 로그인은 파일당 1회(beforeAll) — 3중 로그인의 auth rate-limit·하이드레이션 플레이크 회피.
+const STATE_PATH = 'test-results/.auth-learner-loop.json';
+
 async function loginRuntimeUser(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' });
-  await page.waitForTimeout(800);
-  await page.fill('input[type="email"]', RUNTIME_USER.email);
-  await page.fill('input[type="password"]', RUNTIME_USER.password);
+  const email = page.locator('input[type="email"]');
+  await email.waitFor({ state: 'visible' });
+  await page.waitForTimeout(1000); // 하이드레이션 — controlled input 리셋 방지
+  // fill 이 하이드레이션 리렌더로 지워질 수 있어 값 확정까지 재시도
+  for (let i = 0; i < 3; i++) {
+    await email.fill(RUNTIME_USER.email);
+    await page.fill('input[type="password"]', RUNTIME_USER.password);
+    if ((await email.inputValue()) === RUNTIME_USER.email) break;
+    await page.waitForTimeout(500);
+  }
   await page.click('button[type="submit"]');
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 });
 }
 
 test.describe('핵심 학습 루프 — 완주 영속화', () => {
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage({ storageState: undefined });
+    await loginRuntimeUser(page);
+    await page.context().storageState({ path: STATE_PATH });
+    await page.close();
+  });
+  test.use({ storageState: STATE_PATH });
+
   test('ScriptQuiz 완주 시 scores 행이 적재된다', async ({ page }) => {
     test.setTimeout(90_000); // 로그인 + 4문항 진행(각 1.1s) + DB 폴링(최대 10s) 여유
     const userId = await userIdByEmail(RUNTIME_USER.email);
@@ -35,9 +58,7 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
     const dbAvailable = userId !== null;
     const sinceIso = new Date().toISOString();
 
-    await loginRuntimeUser(page);
-
-    // 직행 — 서버가 fetchChapterQuizSession 로 실 세션 로드
+    // 직행 — 서버가 fetchChapterQuizSession 로 실 세션 로드 (세션은 storageState)
     await page.goto(PLAY_URL, { waitUntil: 'domcontentloaded' });
 
     // 시작 게이트 — 하이드레이션 전 클릭은 무시되므로 문항 전이 확인 후 재시도.
@@ -96,8 +117,6 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
     expect(resetN, 'due 카드가 최소 1장 있어야 완주 가능').toBeGreaterThanOrEqual(1);
     const sinceIso = new Date().toISOString();
 
-    await loginRuntimeUser(page);
-
     // 파라미터 없는 진입 = 사용자 SRS due 큐 (fetchDueFlashcardWords)
     await page.goto('/flashcard/play', { waitUntil: 'domcontentloaded' });
 
@@ -132,5 +151,46 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
       await page.waitForTimeout(500);
     }
     expect(count, 'flashcard 완주 후 scores 행이 적재되어야 함').toBeGreaterThanOrEqual(1);
+  });
+
+  test('진단 완료 시 V-Level snapshot 이 기록된다(개인화 체인)', async ({ page }) => {
+    test.setTimeout(120_000); // ~40문항 이진 응답 + 분석 + 폴링
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    // 진단 완료의 핵심 산출물(snapshot·profile 갱신)은 DB 로만 검증 가능 — 키 없으면 스킵
+    test.skip(userId === null, 'SUPABASE_SERVICE_ROLE_KEY 미주입 — snapshot 단언 불가');
+    const sinceIso = new Date().toISOString();
+
+    await page.goto('/diagnostic', { waitUntil: 'domcontentloaded' });
+
+    // 시작 — 주 V-Level 진단
+    const startBtn = page.getByRole('button', { name: /진단 시작/ }).first();
+    await startBtn.waitFor({ state: 'visible', timeout: 30_000 });
+    const knowBtn = page.getByRole('button', { name: /알아요/ });
+    await startBtn.click();
+    try {
+      await knowBtn.waitFor({ state: 'visible', timeout: 6_000 });
+    } catch {
+      if (await startBtn.isVisible().catch(() => false)) await startBtn.click();
+      await knowBtn.waitFor({ state: 'visible', timeout: 10_000 });
+    }
+
+    // 문항 진행 — 전부 "알아요"(이진). 문항 소진 시 버튼이 사라짐(submitting→results).
+    for (let q = 0; q < 60; q++) {
+      if (!(await knowBtn.isVisible().catch(() => false))) break;
+      await knowBtn.click();
+      await page.waitForTimeout(250);
+    }
+
+    // 질문 단계 종료 확인(분석/결과로 전이)
+    await expect(knowBtn).toHaveCount(0, { timeout: 20_000 });
+
+    // 핵심 단언 — analyze_and_apply 가 diagnostic snapshot 을 기록(= profile 갱신)
+    let snaps = 0;
+    for (let i = 0; i < 30; i++) {
+      snaps = await countDiagnosticSnapshotsSince(userId!, sinceIso);
+      if (snaps >= 1) break;
+      await page.waitForTimeout(600);
+    }
+    expect(snaps, '진단 완료 후 diagnostic snapshot 이 기록되어야 함').toBeGreaterThanOrEqual(1);
   });
 });
