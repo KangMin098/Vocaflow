@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e32f225` feat(wordvault): 내 구독 단어장에서 챕터 학습 시작 — 세트 미리보기 모달 재사용
 - `7d177a6` docs(wordblitz): 익사이트 강화(v07.2) 반영 — CHANGELOG v06.191 + 세션로그
 - `3eaea76` feat(echo): EchoMatch 피드백 강화 — 구간 지목 + 정직한 문구 (v06.190)
 - `926dc71` feat(wordblitz): 익사이트 강화 — 파티클·SFX·속도등급·콤보 연출 (v07.2)
 - `2e7ffe9` docs(session-log): 소스 5종 + 대량 GET + CTP 백엔드 완성 세션 기록
-- `964d5a0` docs(wordblitz): 2D 속사 인지 재설계 반영 (MODULES/ROUTES/CHANGELOG/세션로그)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

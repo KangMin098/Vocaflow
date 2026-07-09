@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /wordvault 구독 단어장 챕터 학습 — 세트 미리보기 모달 재사용 (v06.192)
+
+/wordvault '학습 자산 › 단어장' 탭에서 챕터형 공용단어장 행 탭 시 [VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx)(챕터 아코디언 + 게임별 런처)을 열어 그 챕터 단어로 바로 학습. 구독이 죽은 끝(단어 목록 링크뿐)이던 문제 해소. 세션 through-line 완성: 브라우즈(모달)→계획(런처)→보관함(모달).
+
+- **모달 재사용(위치 무관화)** — VocabSetPreviewModal 에 `fromPath` prop(기본 `/library/vocab`) 추가 → 챕터 게임 launch 의 `?from` 복귀 경로를 재사용처가 지정. 기존 소비처(VocabSetGrid/BookDetailClient) 무변(선택 prop).
+- **챕터형만 라우팅** — [ResourcePortfolio](../apps/web/src/components/wordvault/hub/ResourcePortfolio.tsx): 단일 세트 중 내부 챕터(`shared_words.chapter`) 보유 세트만 `setId` 부여해 모달 오픈(InsetRow onClick), 챕터 없는 세트·도서 묶음은 기존 `/wordvault/browse` 링크 유지(모달은 10개 미리보기뿐이라). 판별=otherSets set_id 단일 쿼리.
+- **모달 CTA=구독 해지** — 확인 후 `unsubscribeSet` → 목록에서 제거, 학습 기록 서버 보존. tsc·lint 0.
+- 조사: /library/books 는 이미 인기/중요도 랭킹(`recommend-books.ts` popularity_rank·인기 레일) 보유 → 개선 불요. BookShelfSection/AssetGrid 는 미마운트(dead).
+
 ### WordBlitz 익사이트 강화 — 파티클·SFX·콤보 연출 (v06.191)
 
 "학습자에게 더 재미·흥미·익사이트" 후속(v06.189 재설계 위에). 리서치 "숙련될수록 더 극적인 피드백" 적용.
