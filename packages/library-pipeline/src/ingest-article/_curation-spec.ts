@@ -22,6 +22,7 @@ export type SourceKey =
   | 'the_conversation'
   | 'simple_wikipedia'
   | 'owid'
+  | 'factbook'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -263,6 +264,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 300,
     noiseKeywords: ['tool', 'chart', 'data page', 'grapher', 'explorer'], // 인터랙티브/데이터 전용 제외
     maxItems: 15,
+  },
+  // CIA World Factbook: 국가 개요(Background) reference 참고문(B1-B2), public_domain. 정적 국가 리스트.
+  factbook: {
+    recencyDays: 9999,     // 국가 개요 — 시간 무관 (timeless reference)
+    minDescriptionLen: 40, // 정적 picker 설명(짧음) 통과
+    minTitleLen: 3,        // "Iran" 등 짧은 국가명
+    sourceWeight: 0.80,
+    levelBonus: 0.05,      // B1-B2 접근성
+    idealDescLen: 200,
+    noiseKeywords: [],
+    maxItems: 30,
   },
 }
 
@@ -551,6 +563,22 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'all', weight: 1.00 },
     ],
   },
+  // CIA World Factbook: 국가 개요 reference 참고문, PD(파생 자유 → 발행 허용), B1-B2.
+  //   reference register 매트릭스 빈칸 보강.
+  factbook: {
+    targetLevels: ['intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 8,
+    license: 'Public Domain (US Government)',
+    attributionRequired: false,       // PD US Gov — 인용 자유
+    topicDomain: ['reference', 'geography', 'countries', 'history', 'politics'],
+    styleGuide: '국가 개요(배경) 참고문 · reference register · CSAT 설명/참고 지문 유형',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
 }
 
 /**
@@ -563,9 +591,9 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
+  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
+  intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -768,6 +796,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   the_conversation: getSourcePolicy('the_conversation'),
   simple_wikipedia: getSourcePolicy('simple_wikipedia'),
   owid: getSourcePolicy('owid'),
+  factbook: getSourcePolicy('factbook'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

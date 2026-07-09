@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP CIA World Factbook — reference register 신설 (v06.167)
+- **reference register 빈칸 채움** — 발행 매트릭스 유일 공백(reference publishable 0)을 CIA World Factbook(PD)로 충족. 4개 코어 register 전부 발행 가능.
+- **ingester 신설** — `ingest-article/factbook.ts`(dependency-0). factbook.json(PD 덤프) 국가 JSON `Introduction/Background` 산문만 추출(목록·표 제외). `FACTBOOK_COUNTRIES` 35국 정적 picker. 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·source-guide + enqueue/dev-enqueue/dev-process + 어드민(CurationConsole·SourceGetView·RssFeedTab 🌍). drift-lock 20 tests.
+- **마이그레이션 적용** — `acp_source_check_add_factbook`(source CHECK +`factbook`).
+- **end-to-end 실증** — South Korea(C1·40)·United States(B2·8)·France(C1·16) enqueue→process→publish: published·register=reference·public_domain·display_only=false·llm_cost 0. reference publishable **0→3**.
+- docs: [ACP_SOURCE_REDESIGN.md](./ACP_SOURCE_REDESIGN.md) §20.2.
+
 ### 핵심 학습 루프 E2E — 완주→영속화 회귀 자산 (v06.166)
 
 UI 스모크(v06.159, "렌더" 검증)의 다음 층 — "게임 완주 → DB 적재" 를 실주행+DB 단언으로 고정. 배경: ScriptQuiz 완주 결과가 sessionStorage 에만 쌓이고 소비자가 없어 scores 적재가 조용히 증발했던 결함(v06.139) 재발 방지.

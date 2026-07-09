@@ -16,6 +16,7 @@ import {
   BookOpen,
   Download,
   FlaskConical,
+  Globe,
   LayoutGrid,
   Layers,
   Megaphone,
@@ -36,7 +37,8 @@ import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
 type Stage = 'coverage' | 'get' | 'review' | 'publish'
-type SourceKey = 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid'
+type SourceKey =
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -61,6 +63,7 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio 
   { key: 'the_conversation', label: 'Conversation', Icon: Megaphone },
   { key: 'wikinews', label: 'Wikinews', Icon: Newspaper },
   { key: 'owid', label: 'OWID', Icon: BarChart3 },
+  { key: 'factbook', label: 'Factbook', Icon: Globe },
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 

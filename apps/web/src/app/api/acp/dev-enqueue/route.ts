@@ -14,6 +14,7 @@
 import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
+  ingestFactbookArticle,
   ingestNasaArticle,
   ingestNihArticle,
   ingestOwidArticle,
@@ -32,7 +33,7 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -51,6 +52,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/theconversation\.com\//, source: 'the_conversation' },
   { pattern: /^https?:\/\/en\.wikinews\.org\/wiki\//, source: 'wikinews' },
   { pattern: /^https?:\/\/ourworldindata\.org\//, source: 'owid' },
+  { pattern: /^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//, source: 'factbook' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -119,6 +121,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'owid':
         article = await ingestOwidArticle(body.item_url)
+        break
+      case 'factbook':
+        article = await ingestFactbookArticle(body.item_url)
         break
     }
 

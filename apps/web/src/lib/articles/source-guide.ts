@@ -47,6 +47,7 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   the_conversation: ['argumentative'],
   simple_wikipedia: ['expository', 'reference'],
   owid: ['argumentative'], // T-2 — 데이터 논증문 (CC-BY → 발행 가능 argumentative 보강)
+  factbook: ['reference'], // 국가 개요 참고문 (PD → 발행 가능 reference 보강)
 }
 
 const ALL_SOURCES: ReadonlyArray<SourceKey> = [
@@ -57,6 +58,7 @@ const ALL_SOURCES: ReadonlyArray<SourceKey> = [
   'the_conversation',
   'wikinews',
   'owid',
+  'factbook',
 ]
 
 export const SOURCE_LABEL: Record<string, string> = {
@@ -67,6 +69,7 @@ export const SOURCE_LABEL: Record<string, string> = {
   the_conversation: 'The Conversation',
   wikinews: 'Wikinews',
   owid: 'Our World in Data',
+  factbook: 'CIA World Factbook',
 }
 
 // ── 커버리지 빈칸 ────────────────────────────────

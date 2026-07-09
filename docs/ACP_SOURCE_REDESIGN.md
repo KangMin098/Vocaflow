@@ -262,9 +262,9 @@ OWID 는 argumentative register 를 **발행 가능**(cc_by=derivation full) 콘
 |---|---|---|---|---|
 | **OBP** | cc_by 소수 / cc_by_nc 다수 | 동결 | 사이트 client-render + full-text PDF-only → HTML 정규식 ingester 불가 (P0-2b) | (α) HTML-clean CC-BY 도서 소스 확보 **또는** (β) PDF 추출 계층 신설 |
 | **OpenStax** | cc_by 2종 / 나머지 cc_by_nc_sa | 동결 | 웹=SPA/PDF(§18 재판정) + 인기 교재 NC-SA=restricted 차단 · CC-BY 영어 원서 physics/statistics 2종뿐(STEM 수식 밀집) | CNXML/archive dump 통합 **또는** academic STEM 어휘 특수 수요 확정 |
-| **CIA World Factbook** | public_domain | 동결 (**§18 ADD → 재분류**) | §18 §3·부록 A 는 reference/expository ADD 로 표기하나 **미구현** · reference register 수요 미확정 | reference register 공백 확정 시 (JSON 덤프 ingest) |
+| ~~**CIA World Factbook**~~ | public_domain | ✅ **해제 → 구현 (§20.2)** | ~~reference register 수요 미확정~~ → 커버리지 실측 0 으로 **갭 확정** | **충족** — reference publishable 0 확인 → JSON 덤프 ingest 구현 |
 
-> **CIA World Factbook 충돌 해소**: §18(target matrix·부록 A)의 Factbook = "설계 의도" ADD 표기일 뿐 실 stage 는 **동결**. §20 이 이를 확정 재분류(§18 ADD ≠ 구현).
+> **CIA World Factbook 해제**: 승격 트리거("reference register 공백 확정")가 실 커버리지(reference publishable = 0)로 충족 → §20.2 에서 구현. 남은 동결 = OpenStax(별건).
 
 ### T-4 기각 (재개 트리거 없음 · 근거 고정 · 코드 미생성)
 
@@ -292,3 +292,19 @@ The Conversation(cc_by_nd=`display_only`)이 못 채우던 argumentative 실질 
 > **end-to-end 검증 완료 (2026-07-09)**: 마이그레이션 `library_books_source_add_pressbooks` **적용**(source CHECK +`pressbooks`). 실 발행 — `Introduction to Sociology 2e`(book_id `406dbc3e…`) enqueue→process→force-publish 전 구간: **published · CC BY 4.0 · copyright_safe_in_kr=true · CEFR C1 · book_v_level 8 · 23 챕터 · 23/23 챕터 단어세트 발행(894단어) · word_count 367,776 · llm_cost 0**. OWID(ACP article)에 이은 **LCP book 경로** 실증.
 
 > §20 은 OBP=동결(코드 0) 유지 — Pressbooks 는 **별개 신설 소스**(§10 준수: 동결 소스 코드 예약 아님, 구현 소스 코드 생성).
+
+### §20.2 — CIA World Factbook 동결 해제 → reference register 구현 (2026-07-09)
+
+**해제 근거**: T-3 승격 트리거("reference register 공백 확정")를 실 커버리지로 충족 — 발행 register 매트릭스에서 reference publishable = **0** (expository 64·news 30·argumentative 8·reference 0) 확인. §18 목표 매트릭스의 유일한 빈칸.
+
+**구현**: `ingest-article/factbook.ts` — factbook.json(커뮤니티 PD 덤프) 국가 JSON 에서 `Introduction/Background` 산문만 추출(의존성 0, HTML 스크래핑 없음). 나머지 필드(목록·표·약어)는 lexical_noise 유발 → 본문 제외. `FACTBOOK_COUNTRIES` 35국(region/code 실측 200) 정적 picker. `source_id="factbook:<code>"`.
+
+| 항목 | 값 |
+|---|---|
+| license | Public Domain (US Government) → license_class **public_domain** → 발행 허용(display_only 아님) |
+| register | **reference** (dev-process REGISTER_BY_SOURCE) |
+| 정책(4축) | live/text/full/none — drift-lock 20 tests |
+| 배선 | SourceKey·ArticleSource·SOURCE_SPECS·SOURCE_POLICIES·SOURCE_RANKINGS·source-guide + enqueue/dev-enqueue/dev-process + 어드민(CurationConsole·SourceGetView·RssFeedTab, 🌍 Globe) |
+| 마이그레이션 | `acp_source_check_add_factbook` **적용** (source CHECK +`factbook`) |
+
+**end-to-end 실증**: South Korea(C1·40단어)·United States(B2·8)·France(C1·16) enqueue→process→publish 전 구간 — 전량 **published · register=reference · public_domain · display_only=false · is_published=true · llm_cost 0**. → **reference publishable 0→3**, 4개 코어 register 전부 발행 가능 콘텐츠 확보.

@@ -54,6 +54,14 @@ export {
   OWID_FEEDS,
 } from './ingest-article/owid'
 export type { OwidListItem } from './ingest-article/owid'
+// ACP §18 — CIA World Factbook (PD 국가 개요 참고문 · reference gap 보강 · 발행 허용).
+export {
+  ingestFactbookArticle,
+  listFactbookFeed,
+  factbookUrl,
+  FACTBOOK_COUNTRIES,
+} from './ingest-article/factbook'
+export type { FactbookListItem, FactbookCountry } from './ingest-article/factbook'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
 export { computeLexicalNoise } from './ingest-article/_helpers'
 // v06.41 feed-level + v06.42 source-level curation spec

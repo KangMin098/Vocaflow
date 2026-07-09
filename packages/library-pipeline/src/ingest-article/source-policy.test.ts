@@ -37,6 +37,7 @@ describe('SOURCE_POLICIES — 4축 파생 표 고정', () => {
     ['the_conversation', 'live', 'text', 'display_only', 'required'],
     ['simple_wikipedia', 'live', 'text', 'full', 'required'],
     ['owid', 'live', 'text', 'full', 'required'], // T-2 — CC-BY → full(발행 허용), argumentative gap 보강
+    ['factbook', 'live', 'text', 'full', 'none'], // PD US Gov → full(발행 허용) · 인용 자유, reference gap 보강
   ]
 
   it.each(TABLE)('%s → %s/%s/%s/%s', (source, supply, media, derivation, attribution) => {

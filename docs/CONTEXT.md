@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c31e7a1` test(e2e): 핵심 학습 루프 완주→영속화 회귀 자산 (v06.166)
 - `198692c` docs(acp): 라이브 검증 결과 + Simple Wikipedia junk 정리 기록
 - `62be48a` fix(acp): Simple Wikipedia ingester — 주 네임스페이스(ns=0)만 수집
 - `1a973ef` feat(lcp): 발행 스크립트 챕터 구성 + 분류·정렬 파이프라인
 - `2c13740` docs(lcp): Pressbooks 데모 도서 전체 23챕터 재처리 반영 (T-2 α)
-- `20046dd` fix(security): anon 호출 가능 무가드 DEFINER 함수 9종 잠금 (v06.164)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

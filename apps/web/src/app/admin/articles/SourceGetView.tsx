@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, FlaskConical, Megaphone, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, FlaskConical, Globe, Megaphone, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -225,6 +225,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/ourworldindata\.org\//}
           urlHostHint="ourworldindata.org 도메인"
           urlPlaceholder="https://ourworldindata.org/..."
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'factbook':
+      return (
+        <RssFeedTab
+          source="factbook"
+          heading="🌍 CIA World Factbook"
+          subtitle="Public Domain · B1~B2 국가 개요 참고문 (reference) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Globe}
+          urlPattern={/^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//}
+          urlHostHint="raw.githubusercontent.com/factbook/factbook.json 국가 JSON"
+          urlPlaceholder="https://raw.githubusercontent.com/factbook/factbook.json/master/east-n-southeast-asia/ks.json"
           onEnqueued={onEnqueued}
         />
       )
