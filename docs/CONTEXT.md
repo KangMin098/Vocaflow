@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `62be48a` fix(acp): Simple Wikipedia ingester — 주 네임스페이스(ns=0)만 수집
 - `1a973ef` feat(lcp): 발행 스크립트 챕터 구성 + 분류·정렬 파이프라인
 - `2c13740` docs(lcp): Pressbooks 데모 도서 전체 23챕터 재처리 반영 (T-2 α)
 - `20046dd` fix(security): anon 호출 가능 무가드 DEFINER 함수 9종 잠금 (v06.164)
 - `e3e7822` feat(lcp): Pressbooks end-to-end 발행 — enqueue/process/publish 완주 (T-2 α)
-- `a60bf16` docs(session-log): /plan UI 재설계 + 교육과정 어휘 태깅 세션 기록 (2026-07-09)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

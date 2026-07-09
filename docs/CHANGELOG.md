@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 파이프라인 라이브 검증 + Simple Wikipedia junk 수정 (v06.165)
+
+ACP(article) §18 파이프라인 라이브 검증 — **정상 작동 확인**(127 발행기사/5소스, 라이선스 게이트 정확: the_conversation cc_by_nd 전부 display_only, register×cefr 매트릭스 UI 정상, pageerror 0). 발견 1건 수정:
+
+- **Simple Wikipedia junk 유입 수정** — `Category:Good_articles` 수집이 `gcmtype=page`로 전 네임스페이스 포함 → `Wikipedia:Good articles/by date` 같은 관리 인덱스 페이지가 발행 기사로 유입되던 버그. ingester에 `gcmnamespace=0`(주 기사) 추가([simple-wikipedia.ts](../packages/library-pipeline/src/ingest-article/simple-wikipedia.ts), `62be48a`). 라이브 검증: junk 3→0.
+- **기존 junk 2건 DB 정리**(사용자 승인) — Wikipedia: 메타페이지 2 + 사용자 단어세트 2 + 단어 3 + vocab 25(cascade) 삭제. `docs/proposals/acp-cleanup-simple-wiki-junk.sql`. 검증: 전 테이블 junk 0, UI 전체 129→127·설명 B2 14→12.
+- 진단 기록(수정 안 함): wikinews 0건(영문 소스 폐쇄중 + `feedrecentchanges` 피드 오선택, 실기사는 `Category:Published`) · A1-A2 gap(Simple Wikipedia 콘텐츠 실제 B1+)은 소스 현실로 확인(버그 아님).
+
 ### 보안 advisor — anon 호출 가능 무가드 DEFINER 함수 잠금 (v06.164)
 
 Supabase 보안 advisor 점검(352 WARN·ERROR 0) 후속 — anon 키(클라 번들 공개)로 앱 인증을 우회해 호출 가능하던 무가드 SECURITY DEFINER 함수 9종 잠금. 마이그레이션 2건(`20260708120000` + PUBLIC 상속 보정 `20260708120500`), 사용자 명시 승인.

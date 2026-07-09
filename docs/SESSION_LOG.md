@@ -45,6 +45,21 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-09 — ACP 파이프라인 라이브 검증 + Simple Wikipedia junk 수정 (VCB 세션 연속)
+
+> VCB 재설계 완결(위 RESUME) 후 사용자가 "ACP 라이브 검증·보완" 선택. 동시 세션(ACP OWID/Pressbooks·/plan)과 working-copy 공유 → 명시 pathspec 격리, wikinews/simple_wiki(비활성 소스)만 건드려 충돌 회피.
+
+**P0 진단(read-only) — ACP는 실제로 잘 작동 중**(메모리 "라이브검증 미실시"보다 양호):
+- 127 발행기사/5소스(simple_wikipedia 34·nasa 30·voa 30·the_conversation 25·owid 8). **라이선스 게이트 정확**: the_conversation(cc_by_nd) → 전부 `display_only=true` ✓. register·article_v_level·lexical_noise 전량 채움.
+- 어드민 `/admin/articles`: register×cefr 발행 매트릭스 UI 정상(GAP 빗금+클릭→소스GET), 4스텝 내비, stat 카드, pageerror 0.
+
+**발견 3건 / 조치**:
+- 🔴 **Simple Wikipedia junk**(수정) — `Category:Good_articles` 수집이 `gcmtype=page`(전 네임스페이스)라 `Wikipedia:Good articles/by date`(33w) 등 관리 인덱스 페이지가 발행 기사로 유입. `gcmnamespace=0` 추가(`62be48a`, 라이브 junk 3→0) + 기존 junk 2건 DB 정리(승인: shared_words 3+단어세트 2+seed 2+기사 2+vocab 25 cascade). 검증: junk 0, UI 129→127·설명 B2 14→12.
+- 🟠 **wikinews 0건**(미수정) — `feedrecentchanges`(편집이벤트, 0 entry) 피드 오선택. 실기사는 `Category:Published`(10건 확인)에 있으나 **영문 Wikinews 폐쇄중**("closes after 21 years") → 저ROI 보류.
+- 🟡 **A1-A2 gap**(버그 아님) — Simple Wikipedia 34건 전부 B1+(Black hole·Evolution 등 실제 B1+). §18의 "A1-B2 갭 채움" 가정이 낙관적이었음. 별도 easy 소스 필요.
+
+**관련**: `62be48a`(ingester fix) · `docs/proposals/acp-cleanup-simple-wiki-junk.sql` · CHANGELOG v06.165. 교훈: 소스 인제스터는 카테고리 수집 시 **네임스페이스 필터 필수**(위키 계열).
+
 ### 2026-07-09 — /plan UI 재설계 + 교육과정 어휘([별책14]) 사전 태깅
 
 > ⚠️ 이 세션은 동시 세션(VCB 어드민)과 브랜치·working-copy 공유 → RESUME HERE 는 VCB 핸드오프 보존 위해 미변경, 본 기록만 prepend. 커밋은 전부 명시 pathspec 격리.
