@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP P3 — syntax_score 배치 산출 (① 구문 난이도) (v06.178)
+- **`compute_syntax_score(text)` RPC** — 자체 정규식(문장 p90·절 깊이 휴리스틱). 런타임 LLM 0·winkNLP 불요. score 0-100(가중 2:6, 베타 보정 대상).
+- **전량 backfill·검증** — article 132건: register별 정합(reference 94>논증 83>설명 71>서사 61>news 56). 도서 7권: v-level 정합(Gibbon v9=100 … 동화 v3=26).
+- **배선 RPC** — `compute_article_syntax`/`compute_book_syntax`(챕터 content_chunks 집계) → ACP·LCP dev-process 에 `compute_*_vrl` 옆 호출(미래 콘텐츠 자동 산출).
+- 다음 P3 잔여: 학습자 stage 실시간 파생 함수 · DCP T2 결정론 문항 생성.
+
 ### 연어 슬롯 롤아웃 — scoped 플래시카드 + 리더 툴팁 (v06.177)
 
 v06.175(hub 플래시카드 연어 슬롯) 롤아웃 — 나머지 학습자 노출면에 동일 슬롯 확장. 마이그레이션 0(앱-사이드 fetch).
@@ -41,7 +47,9 @@ P0 진단(통사 축 신설 정당성 실측)이 드러낸 최대 결함 = 단�
 
 - **마이그레이션 적용** — `lcm_chapter_v_level`: `library_chapters_master.chapter_v_level smallint` + 백필(distinct lemma v_level `PERCENTILE_DISC(0.75)`, V11 제외 — `compute_book_vrl` 동일 규칙). `library_book_vocabularies ⋈ shared_dictionary(word=lemma)`. **1,295/1,296 채움**(chapter_idx 정합), 파괴 0. 동적 상태 아님(정적 콘텐츠 속성, 재추출 시 갱신).
 - **노출** — 리더 목차 사이드바(`ChapterSidebar`) + `/plan` 도서 챕터 리스트(`ChapterList`)에 `V{n}` 텍스트 pill(색상만 의존 X → 색맹 안전, memory-decay 4색과 무관). `reader-queries.listChapters`·`plan-actions.fetchBookChapters` 에 `chapter_v_level` 승계 + `database.ts` 타입.
-- 진단서: [syntactic_axis_p0_20260709](./AI_CONTEXT/diagnostics/syntactic_axis_p0_20260709.md). **후속(별도 승인)**: 추출 파이프라인 wire-up(신규 도서 자동 채움) + F-K NULL 4권 백필.
+- **파이프라인 wire-up** — 마이그레이션 `20260709194527_compute_book_chapter_v_levels`: 별도 peer 함수(공유 `compute_book_vrl` 미수정 → 동시 CTP 충돌 방지). LCP `dev-process`·`process` 라우트 + `reprocess-book`·`reprocess-all-se` 스크립트의 `compute_*` 시퀀스에 배선 → **신규 적재 도서 자동 채움**. idempotent 검증(Alice 재계산 값 불변).
+- **CTP 통사 축과의 관계** — 동시 세션이 `library_*.syntax_score`(구문 p90·절 깊이) 축을 별도 구축(`ctp_p0_20260709`). 본 chapter_v_level(어휘 축 챕터 분해)과 **직교/상보** — 중복 아님(P0 판정: 도서 라벨 관점 통사 반례 0 vs CTP=수능 stage 게이팅 관점).
+- 진단서: [syntactic_axis_p0_20260709](./AI_CONTEXT/diagnostics/syntactic_axis_p0_20260709.md). **후속**: F-K NULL 4권 백필(P2, 저비용).
 
 ### enrichment 백로그 진단 — 무소비 필드 3종(D3/D6/D7) 이연 (v06.173)
 

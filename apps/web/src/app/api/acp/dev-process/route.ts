@@ -117,6 +117,11 @@ export async function POST(request: Request): Promise<NextResponse> {
         // VRL 산출 실패는 치명적 X — article_v_level NULL 이면 select_article_vocab 가 V4 fallback
         console.warn('[acp/dev-process] compute_article_vrl warning:', vrlErr.message)
       }
+      // CTP ① — syntax_score(구문 난이도) 산출. 실패해도 치명적 X(뷰가 NULL 노출).
+      const { error: synErr } = await sb.rpc('compute_article_syntax', { p_article_id: body.article_id })
+      if (synErr) {
+        console.warn('[acp/dev-process] compute_article_syntax warning:', synErr.message)
+      }
     }
 
     // 4) library_articles 메타 업데이트 + status='ready' (dev 는 auto_curate 우회)

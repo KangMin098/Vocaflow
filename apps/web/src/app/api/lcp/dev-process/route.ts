@@ -186,10 +186,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     //   backfill 직후(bound lemma 필요). LibraryCard + publish 게이트(book_v_level NULL 이면 강제게시 실패) 의존.
     try {
       await client.rpc('compute_book_vrl', { p_book_id: book_id })
+      await client.rpc('compute_book_chapter_v_levels', { p_book_id: book_id }) // 챕터별 V-level(v06.174 — 단일 라벨 편차 노출)
       await client.rpc('compute_book_cefrj', { p_book_id: book_id })
       await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
+      await client.rpc('compute_book_syntax', { p_book_id: book_id }) // CTP ① 구문 난이도(챕터 집계)
     } catch (e) {
-      console.warn(`[lcp/dev-process] compute_book_vrl/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
+      console.warn(`[lcp/dev-process] compute_book_vrl/chapter/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
     }
 
     // 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.

@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `8f469ce` feat(reader,flashcard): 연어 슬롯 롤아웃 — scoped 카드 + 리더 툴팁 (v06.177)
 - `3530e00` feat(ctp): CSAT Track Pipeline 데이터모델 — P1/P2 migration 3건 (v06.176)
 - `60a369f` feat(vocab): /library/vocab 중요도 기반 재구성 — 추천순·탭·클러터
 - `ed4046d` feat(lcp): 챕터별 어휘 V-level — 단일 book_v_level 편차 노출 (v06.174)
 - `b489566` feat(flashcard): 정답면 연어(collocations) 슬롯 — 카드 리치화 시제품 (v06.175)
-- `6cb1948` docs(ctp): CTP P0 정찰 진단 — CSAT Track Pipeline 착수 (read-only)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710140000_ctp_syntax_wire_rpcs.sql`
+- `20260710130000_ctp_compute_syntax_score.sql`
 - `20260710120200_ctp_runtime_tables.sql`
 - `20260710120100_ctp_dcp_items.sql`
 - `20260710120000_ctp_catalog_syntax.sql`
-- `20260709145433_lcm_chapter_v_level.sql`
-- `20260709140000_acp_source_check_add_elife.sql`
 <!-- /auto:recent-migrations -->
 
 ---
