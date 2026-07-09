@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 루프 E2E — Flashcard 추가(반복 가능) (v06.170)
+
+v06.166(ScriptQuiz 루프) 확장 — 가장 중심 모듈 Flashcard 완주→`scores(module='flashcard')` 적재 회귀 추가. 두 핵심 study 모듈 커버.
+
+- **[05-learner-loop.spec.ts](../apps/web/tests/e2e/05-learner-loop.spec.ts)** Flashcard 테스트 — `/flashcard/play`(due 큐) → 카드별 FirstJudge "떠올렸어요"→SRSBar "기억나요" 클릭 완주 → scores 폴링 단언. 실측 적재 확인.
+- **반복 가능성 확보**: flashcard 는 SRS due 큐 의존 → 완주가 카드를 미래로 밀어 재실행 시 due 0 이 되는 문제. `resetDueCards`([utils/db.ts](../apps/web/tests/e2e/utils/db.ts)) 로 실행 전 `next_review_at` 과거 리셋. service-role 키 없으면 due 보장 불가라 `test.skip`(scriptquiz 는 정적 콘텐츠라 무관).
+- 인터랙션 교훈: flashcard 카드 = recall(3s 자동)→flippable(FirstJudge)→flipped(SRSBar) 3단계. Space 플립은 recall 타이밍과 어긋나 불안정 → **버튼 출현 대기+클릭**(FirstJudge "떠올렸어요"→"기억나요")이 결정론적. 2 passed(scriptquiz 26s + flashcard 55s).
+
 ### ACP register 피드 단위 전환 — narrative 채움 + VOA 오분류 교정 (v06.169)
 - **register 매트릭스 5종 완성** — narrative(0→13, VOA lets-learn-english)·expository(64→78) 채움. 새 콘텐츠 없이 **정확한 분류만으로**. 5개 코어 register 전부 publishable.
 - **결함 교정** — `REGISTER_BY_SOURCE`가 소스 단위라 VOA 전 피드가 'news' 오분류. `resolveArticleRegister(source, feedId)` 피드 우선 resolver 신설(`FEED_REGISTER` + `SOURCE_REGISTER_DEFAULT`, 패키지). dev-process 가 `feed_id` 읽어 적용. drift-lock +4 tests(24).

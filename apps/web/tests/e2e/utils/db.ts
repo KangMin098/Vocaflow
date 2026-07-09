@@ -43,6 +43,24 @@ export async function userIdByEmail(email: string): Promise<string | null> {
 }
 
 /**
+ * 사용자 vocab 의 next_review_at 을 과거로 리셋 — flashcard due 큐를 반복 가능하게.
+ * (게임 완주가 SRS 를 미래로 밀어 다음 실행 때 due 0 이 되는 걸 방지)
+ * 반환: due 로 만든 행 수(-1 = 키 없음/오류).
+ */
+export async function resetDueCards(userId: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const past = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+  const { data, error } = await c
+    .from('vocabularies')
+    .update({ next_review_at: past })
+    .eq('user_id', userId)
+    .select('id');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
+
+/**
  * 특정 시각 이후 module 별 scores 행 개수 — 완주 영속화 단언용.
  * recordGameScore 는 fire-and-forget 이므로 호출부에서 폴링 권장.
  */

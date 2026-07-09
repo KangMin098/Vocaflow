@@ -6,7 +6,7 @@
 //         완주 화면 → scores(module='scriptquiz') 신규 행을 service-role 로 확인.
 import { test, expect, type Page } from '@playwright/test';
 
-import { countScoresSince, userIdByEmail } from './utils/db';
+import { countScoresSince, resetDueCards, userIdByEmail } from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -84,5 +84,53 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
       await page.waitForTimeout(500);
     }
     expect(count, 'scriptquiz 완주 후 scores 행이 적재되어야 함').toBeGreaterThanOrEqual(1);
+  });
+
+  test('Flashcard 완주 시 scores 행이 적재된다', async ({ page }) => {
+    test.setTimeout(120_000); // 카드당 recall 3s × due 큐(≤10) + 폴링 여유
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    // flashcard 는 due 큐(SRS 상태)에 의존 — service-role 로 due 를 리셋해야 반복 가능.
+    // 키가 없으면 due 를 보장할 수 없어 스킵(scriptquiz 는 정적 콘텐츠라 무관).
+    test.skip(userId === null, 'SUPABASE_SERVICE_ROLE_KEY 미주입 — due 큐 리셋 불가');
+    const resetN = await resetDueCards(userId!);
+    expect(resetN, 'due 카드가 최소 1장 있어야 완주 가능').toBeGreaterThanOrEqual(1);
+    const sinceIso = new Date().toISOString();
+
+    await loginRuntimeUser(page);
+
+    // 파라미터 없는 진입 = 사용자 SRS due 큐 (fetchDueFlashcardWords)
+    await page.goto('/flashcard/play', { waitUntil: 'domcontentloaded' });
+
+    const completion = page.getByText('오늘의 학습이 완료됐어요');
+    const firstJudgeYes = page.getByRole('button', { name: /떠올렸어요/ }); // FirstJudge → flipped
+    const goodBtn = page.getByRole('button', { name: /기억나요/ }); // SRSBar good 평가
+
+    // 카드별 결정론적 흐름: recall(3s 자동) → FirstJudge "떠올렸어요" 클릭(→flipped) →
+    // SRSBar "기억나요" 클릭(→다음 카드). Space 타이밍 대신 버튼 출현 대기로 안정화.
+    // due 큐 ≤10 + 여유 루프. 완주 시 즉시 종료.
+    for (let card = 0; card < 16; card++) {
+      if (await completion.isVisible().catch(() => false)) break;
+      // recall 종료 후 FirstJudge 출현 대기 (미출현 = 완주 전이 or 지연)
+      try {
+        await firstJudgeYes.waitFor({ state: 'visible', timeout: 6_000 });
+      } catch {
+        if (await completion.isVisible().catch(() => false)) break;
+        continue;
+      }
+      await firstJudgeYes.click();
+      await goodBtn.waitFor({ state: 'visible', timeout: 5_000 });
+      await goodBtn.click();
+      await page.waitForTimeout(700); // 마이크로 폴즈 → 다음 카드 recall 시작
+    }
+
+    await expect(completion).toBeVisible({ timeout: 15_000 });
+
+    let count = 0;
+    for (let i = 0; i < 20; i++) {
+      count = await countScoresSince(userId!, 'flashcard', sinceIso);
+      if (count >= 1) break;
+      await page.waitForTimeout(500);
+    }
+    expect(count, 'flashcard 완주 후 scores 행이 적재되어야 함').toBeGreaterThanOrEqual(1);
   });
 });
