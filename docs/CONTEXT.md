@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `bcb3d45` docs(session-log): /plan picker 전면 재설계 세션 기록 (완결·스모크 green)
 - `37f2080` feat(vocab): 공용단어장 내부 챕터 구성 — 세트 1개 안에 챕터 (v06.168)
 - `29eb8bc` feat(acp): CIA World Factbook 소스 — reference register 신설 (v06.167)
 - `c31e7a1` test(e2e): 핵심 학습 루프 완주→영속화 회귀 자산 (v06.166)
 - `198692c` docs(acp): 라이브 검증 결과 + Simple Wikipedia junk 정리 기록
-- `62be48a` fix(acp): Simple Wikipedia ingester — 주 네임스페이스(ns=0)만 수집
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

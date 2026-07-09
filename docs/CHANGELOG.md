@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP register 피드 단위 전환 — narrative 채움 + VOA 오분류 교정 (v06.169)
+- **register 매트릭스 5종 완성** — narrative(0→13, VOA lets-learn-english)·expository(64→78) 채움. 새 콘텐츠 없이 **정확한 분류만으로**. 5개 코어 register 전부 publishable.
+- **결함 교정** — `REGISTER_BY_SOURCE`가 소스 단위라 VOA 전 피드가 'news' 오분류. `resolveArticleRegister(source, feedId)` 피드 우선 resolver 신설(`FEED_REGISTER` + `SOURCE_REGISTER_DEFAULT`, 패키지). dev-process 가 `feed_id` 읽어 적용. drift-lock +4 tests(24).
+- **백필** — 기존 VOA 30건 register 재분류(narrative 13·expository 14·news 3). 메타만(단어세트 불변). news 30→3(as-it-is만 실 시사).
+- docs: [ACP_SOURCE_REDESIGN.md](./ACP_SOURCE_REDESIGN.md) §20.3.
+
 ### 공용단어장 내부 챕터 구성 — 세트 1개 안에 챕터 (v06.168)
 
 교육과정 어휘 등 대용량 단어장을 **하나의 세트 안에서 여러 챕터로 내부 구성**(챕터별 세트 발행 아님). 발행 파이프라인 개선.

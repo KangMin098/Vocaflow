@@ -77,6 +77,9 @@ export {
   getFeedSpec,
   getSourceSpec,
   getSourceOrderForLevel,
+  resolveArticleRegister,
+  FEED_REGISTER,
+  SOURCE_REGISTER_DEFAULT,
 } from './ingest-article/_curation-spec'
 export type {
   SourceKey,

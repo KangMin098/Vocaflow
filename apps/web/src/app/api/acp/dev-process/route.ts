@@ -14,23 +14,14 @@ import {
   computeLexicalNoise,
   normalizePunctuation,
   reflowSoftHyphens,
+  resolveArticleRegister,
 } from '@vocaflow/library-pipeline'
 import type { RawArticle, NormalizedArticle } from '@vocaflow/library-pipeline'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 
-// ACP §18 §4-B — 소스별 register 기본값 (문서별 재분류 가능)
-const REGISTER_BY_SOURCE: Record<string, string> = {
-  voa: 'news',
-  nasa: 'expository',
-  nih: 'expository',
-  medlineplus: 'expository',
-  simple_wikipedia: 'expository',
-  the_conversation: 'argumentative',
-  wikinews: 'news',
-  owid: 'argumentative', // T-2 — 데이터 논증문. argumentative gap 보강(the_conversation=ND display_only 대비 발행 가능)
-  factbook: 'reference', // 국가 개요(Background). reference gap 보강(PD → 발행 가능)
-}
+// ACP §18 §4-B — register 는 (source, feed_id) 단위로 산정 (resolveArticleRegister).
+//   VOA 처럼 피드마다 글 유형이 다른 소스의 오분류 교정 (american-stories=narrative 등).
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -78,7 +69,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const { data: article, error: fetchErr } = await client
       .from('library_articles')
       .select(
-        'id, source, source_id, source_url, title, author, language, license, content, published_at, status',
+        'id, source, source_id, source_url, title, author, language, license, content, published_at, status, feed_id',
       )
       .eq('id', body.article_id)
       .single()
@@ -140,7 +131,10 @@ export async function POST(request: Request): Promise<NextResponse> {
         word_count: result.word_count,
         reading_minutes: result.reading_minutes,
         llm_cost_usd: result.llm_cost_usd,
-        register: REGISTER_BY_SOURCE[article.source as string] ?? null,
+        register: resolveArticleRegister(
+          article.source as string,
+          (article.feed_id as string | null) ?? null,
+        ),
         lexical_noise: lexicalNoise,
         status: 'ready',
         status_message:

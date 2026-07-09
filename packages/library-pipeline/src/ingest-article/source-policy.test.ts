@@ -11,6 +11,7 @@ import {
   resolveSourcePolicy,
   isSourceKey,
   licenseClassOf,
+  resolveArticleRegister,
   type SourceKey,
 } from './_curation-spec'
 
@@ -75,6 +76,26 @@ describe('핵심 분기 불변식', () => {
       (s) => SOURCE_POLICIES[s].supply === 'static',
     )
     expect(stat).toEqual(['voa'])
+  })
+})
+
+describe('resolveArticleRegister — feed-level 우선 (VOA 오분류 교정)', () => {
+  it('VOA american-stories/lets-learn-english → narrative (서사 register 보강)', () => {
+    expect(resolveArticleRegister('voa', 'american-stories')).toBe('narrative')
+    expect(resolveArticleRegister('voa', 'lets-learn-english')).toBe('narrative')
+  })
+  it('VOA science-technology/health-lifestyle → expository (source 기본 news 교정)', () => {
+    expect(resolveArticleRegister('voa', 'science-technology')).toBe('expository')
+    expect(resolveArticleRegister('voa', 'health-lifestyle')).toBe('expository')
+  })
+  it('VOA as-it-is / feed 없음 → source 기본값 news', () => {
+    expect(resolveArticleRegister('voa', 'as-it-is')).toBe('news')
+    expect(resolveArticleRegister('voa', null)).toBe('news')
+  })
+  it('feed override 없는 소스는 source 기본값', () => {
+    expect(resolveArticleRegister('owid', null)).toBe('argumentative')
+    expect(resolveArticleRegister('factbook', undefined)).toBe('reference')
+    expect(resolveArticleRegister('nasa', 'news')).toBe('expository')
   })
 })
 

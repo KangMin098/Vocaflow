@@ -308,3 +308,17 @@ The Conversation(cc_by_nd=`display_only`)이 못 채우던 argumentative 실질 
 | 마이그레이션 | `acp_source_check_add_factbook` **적용** (source CHECK +`factbook`) |
 
 **end-to-end 실증**: South Korea(C1·40단어)·United States(B2·8)·France(C1·16) enqueue→process→publish 전 구간 — 전량 **published · register=reference · public_domain · display_only=false · is_published=true · llm_cost 0**. → **reference publishable 0→3**, 4개 코어 register 전부 발행 가능 콘텐츠 확보.
+
+### §20.3 — register 피드 단위 전환: narrative 채움 + VOA 오분류 교정 (2026-07-09)
+
+**결함**: `dev-process` 의 `REGISTER_BY_SOURCE` 가 **소스 단위**라 VOA 전 피드가 `news` 로 태깅됨 — VOA 는 피드마다 글 유형이 다름(lets-learn-english=서사·science-technology=설명문·as-it-is=시사). 결과: narrative register 가 실 콘텐츠(VOA 서사)를 갖고도 **0** 이었고 news 가 과대(30) 계상.
+
+**교정**: `resolveArticleRegister(source, feedId)` — feed override(`FEED_REGISTER`) 우선, 없으면 `SOURCE_REGISTER_DEFAULT`, 그래도 없으면 expository. 패키지 SSoT + dev-process 가 `feed_id` 읽어 적용. drift-lock +4 tests(총 24).
+
+| feed | 전(前) | 후(後) |
+|---|---|---|
+| voa:lets-learn-english (13) | news | **narrative** |
+| voa:science-technology (5)·words-and-their-stories (9) | news | **expository** |
+| voa:as-it-is (3) | news | news (유지) |
+
+**백필**: 기존 VOA 30건 register 재분류(메타만 — 단어세트 불변). 결과 매트릭스: expository 78·**narrative 13**·argumentative 8·news 3·reference 3 → **5개 코어 register 전부 publishable** (새 콘텐츠 0, 분류 교정만). narrative(설계상 LCP 도서 register)도 짧은-읽기 서사 기사로 보강됨.

@@ -603,6 +603,47 @@ export function getSourceSpec(source: SourceKey): SourceSpec {
   return SOURCE_SPECS[source]
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// ARTICLE REGISTER (글 유형) — feed-level 우선, source 기본값 폴백.
+// ─────────────────────────────────────────────────────────────────
+// dev-process 의 register 태깅 단일 출처. 소스 단위 오분류 교정:
+//   VOA 는 피드마다 글 유형이 달라(news/narrative/expository) 소스 단위 'news' 는 틀림.
+//   american-stories·lets-learn-english = narrative(서사 register 공백 보강),
+//   science-technology·health-lifestyle·words-and-their-stories = expository.
+// ═══════════════════════════════════════════════════════════════════
+
+/** feed(`source:feedId`) → register override. 없는 feed 는 SOURCE_REGISTER_DEFAULT 폴백. */
+export const FEED_REGISTER: Record<string, string> = {
+  'voa:lets-learn-english': 'narrative', // Anna 연속 드라마 (Level 1 · 서사)
+  'voa:american-stories': 'narrative', // 고전 단편 각색 (서사)
+  'voa:words-and-their-stories': 'expository', // 관용구 어원 설명
+  'voa:science-technology': 'expository', // 과학·기술 설명
+  'voa:health-lifestyle': 'expository', // 건강·생활 설명
+  // voa:as-it-is = 시사 → source 기본값('news')
+}
+
+/** source → register 기본값 (feed override 없을 때). */
+export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
+  voa: 'news',
+  nasa: 'expository',
+  nih: 'expository',
+  medlineplus: 'expository',
+  simple_wikipedia: 'expository',
+  the_conversation: 'argumentative',
+  wikinews: 'news',
+  owid: 'argumentative',
+  factbook: 'reference',
+}
+
+/** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
+export function resolveArticleRegister(source: string, feedId?: string | null): string {
+  if (feedId) {
+    const r = FEED_REGISTER[`${source}:${feedId}`]
+    if (r) return r
+  }
+  return SOURCE_REGISTER_DEFAULT[source] ?? 'expository'
+}
+
 /**
  * 학습자 수준에 맞는 소스 순서 반환 (BulkArticlesTab 자동 정렬용).
  *
