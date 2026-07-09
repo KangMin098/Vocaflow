@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c636680` feat(ctp): P3 종결 — derive_learner_stage 실시간 파생 (v06.184)
 - `1eda36f` feat(library): /library/scripts 재설계 — 목적별 묶음 + 레벨 칩 단일 시스템 (v06.183)
 - `97e8909` fix(vocab): '추천'을 진단 기반 개인 맞춤(i+1)으로 — 수능편향 일반랭킹 교체
 - `4b66885` feat(ctp): DCP T2 결정론 문항 생성 완료 — csat_dcp_items (③) (v06.182)
 - `fcbf26d` feat(lcp): 대량 GET에 Pressbooks 소스 배선 (v06.181)
-- `f492e0c` feat(vocab): 게임별 챕터 학습 UI — 챕터 아코디언 게임 런처
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
