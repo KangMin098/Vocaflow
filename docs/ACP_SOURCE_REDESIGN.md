@@ -322,3 +322,13 @@ The Conversation(cc_by_nd=`display_only`)이 못 채우던 argumentative 실질 
 | voa:as-it-is (3) | news | news (유지) |
 
 **백필**: 기존 VOA 30건 register 재분류(메타만 — 단어세트 불변). 결과 매트릭스: expository 78·**narrative 13**·argumentative 8·news 3·reference 3 → **5개 코어 register 전부 publishable** (새 콘텐츠 0, 분류 교정만). narrative(설계상 LCP 도서 register)도 짧은-읽기 서사 기사로 보강됨.
+
+### §20.4 — 동결 풀 feasibility 재분석 + S3 헤지 갭 (2026-07-09)
+
+전수 소스 매트릭스를 **feasibility 축**(HTML-native vs PDF/SPA/NC)으로 재정리 → [CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) 신설. 핵심 발견:
+
+- **청정 viable(HTML+CC-BY, 실측)**: PLOS(서버렌더 111×`<p>`·CC-BY)·eLife digest(API·CC-BY)·Wikipedia 정규(`_mediawiki` 재사용)·PMC(JATS XML). 단 **트리거 전부 미충족**(5 register 이미 커버) → 대기열 유지.
+- **PDF-블록(OBP 동형)**: OECD(403+PDF+NC-ND)·World Bank OKR(DSpace)·UNDP HDR·CRS/CBO/GAO(전량 PDF). dependency-0 불가.
+- **NC 오염(읽기 전용)**: LibreTexts(CC BY-NC-SA)·Saylor·Lumen.
+- **⚠ 구조적 결함(신규)**: "OWID 밀도 부정 → OECD·UNDP 자동 승격" S3 헤지가 **작동 불가** — 두 대체재 모두 PDF-블록. S3 논증-파생의 실질 HTML-native 백업이 **부재**. S3 볼륨이 병목화되면 새 HTML 논증 소스 발굴 필요(현재 후보 없음).
+- **트리거 종합**: 현 시점 동결 풀 **어느 소스도 승격 트리거 미충족** → 다음 과제는 신설이 아니라 **깊이(얇은 칸 드레인)**.

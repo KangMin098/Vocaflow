@@ -15,6 +15,7 @@
 - 마이크 실녹음은 fake-mic 플래그(--use-fake-ui/device-for-media-stream) 필요 — 스모크 범위 밖.
 - ⚠️ dev 서버 1개 원칙: 멀티 세션이 각자 next dev 띄우면 `.next` 공유 오염 → 라우트 무작위 404(2026-07-07 실측). 기존 서버 재사용; 오염 시 전부 종료→.next 삭제→1개 재기동.
 - ✅ 첫 실행 green (2026-07-07 `9cd9423`, 콜드 서버 기준 2 passed). 첫 가동에서 실결함 2건 적발: ① RecommendedBooks 가 `popularity_rank`(seed_catalog 소유)를 library_books 에서 select → 400 → 허브 도서 추천 전멸(수리) ② dev 콜드 청크 경합(ChunkLoadError→`/_next/undefined`) — 리로드 1회 복구 패턴을 스펙에 내장. 스펙은 로그인 1회 storageState 재사용(auth rate-limit 회피) + 4xx URL 캡처.
+- **핵심 루프 3종 완성 (v06.166~171)**: `05-learner-loop.spec.ts` — 게임 완주×2(ScriptQuiz·Flashcard) + 진단→개인화 진입. 진단(v06.171): `/diagnostic`→"진단 시작"→~40문항 "알아요" 이진→`countDiagnosticSnapshotsSince`(user_level_snapshots taken_reason='diagnostic'). storageState beforeAll 1회 로그인 재사용(3중 로그인 rate-limit·하이드레이션 빈필드 플레이크 해소, loginRuntimeUser fill 값 확정 재시도 필수). 게임/진단 계정 상태 변화(due 소모·V-Level 갱신)는 각 테스트가 리셋/재기록으로 반복가능화.
 - **학습 루프 회귀 (v06.166 `c31e7a1`)**: `05-learner-loop.spec.ts` — 게임 완주→DB 영속화를 service-role 단언(`tests/e2e/utils/db.ts`, apps/web/.env.local 직접 로드). ScriptQuiz 직행(`/scriptquiz/play?book=…&ch=1` Drone Ch1 4문항)→키보드 '1'×4→`countScoresSince(module='scriptquiz')`. 교훈: 4지선다=plain button(role≠radio)·OX만 radio → 완주는 키보드 '1'(window 리스너·포커스 비의존)이 안정 · 시작 게이트는 하이드레이션 전 클릭 무시(문항 배지 전이 확인 후 재클릭) · 스모크 8화면은 dev first-compile 누적으로 setTimeout 120s 필요. 새 게임 영속화 검증 시 이 패턴 재사용.
 
 관련: [[project-echo-match-module]] [[project-learner-management-p0-p3]]

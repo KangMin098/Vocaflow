@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 소스 매트릭스 feasibility 재분석 — CSAT_SOURCE_MATRIX 신설 (docs)
+- **[CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) 신설** — 전수 소스를 feasibility 3축(포맷 HTML/PDF·라이선스 CC/NC·트리거)으로 재분류. 설계 문서 ↔ 실측 갭 해소(OWID·Factbook·Pressbooks = T-1 승격, OBP = PDF-only 반증).
+- **동결 풀 판정**: 청정 viable(PLOS·eLife·Wikipedia 정규·PMC) 이나 트리거 전부 미충족 · PDF-블록(OECD·WB·UNDP·CRS/CBO/GAO) · NC 오염(LibreTexts·Saylor).
+- **⚠ S3 헤지 갭(신규)** — "OWID 실패 시 OECD/UNDP 자동 승격"이 두 대체재 PDF-블록으로 작동 불가. ACP_SOURCE_REDESIGN §20.4 명기.
+
 ### 학습 루프 E2E — 진단→개인화 체인 + storageState 리팩터 (v06.171)
 
 핵심 루프 회귀의 마지막 고가치 대상 — **진단 완료→V-Level snapshot** 추가. 진단은 사용자 V-Level 을 설정해 추천·i+1·추출 임계 등 개인화 전체를 좌우하는 진입점인데 런타임 검증이 전무했음.

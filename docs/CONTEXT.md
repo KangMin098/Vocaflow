@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `7a6f8f0` test(e2e): 진단→개인화 체인 검증 + storageState 리팩터 (v06.171)
 - `345fc2f` feat(vocab): 단어장 뷰어 챕터 아코디언 렌더 (v06.168)
 - `26f8138` test(e2e): 학습 루프에 Flashcard 완주→영속화 추가 (v06.170)
 - `77f1754` feat(acp): register 피드 단위 전환 — narrative 채움 + VOA 오분류 교정 (v06.169)
 - `bcb3d45` docs(session-log): /plan picker 전면 재설계 세션 기록 (완결·스모크 green)
-- `37f2080` feat(vocab): 공용단어장 내부 챕터 구성 — 세트 1개 안에 챕터 (v06.168)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
