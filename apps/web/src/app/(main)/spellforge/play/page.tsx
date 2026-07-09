@@ -20,12 +20,14 @@ export const metadata = {
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string; from?: string }
+  searchParams?: { set?: string; text?: string; chapter?: string; from?: string }
 }
 
 export default async function SpellForgePlayPage({ searchParams }: PageProps) {
   const set = searchParams?.set
   const text = searchParams?.text
+  const chapterNum = searchParams?.chapter ? parseInt(searchParams.chapter, 10) : NaN
+  const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
   // 닫기/완료 복귀: ?from 우선 → 스코프 텍스트 → hub
   const backHref = resolveSessionReturnHref(searchParams?.from, text, '/spellforge')
   const client = (await createClient()) as unknown as SupabaseClient<Database>
@@ -38,6 +40,7 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
     const scoped = await fetchScopedSpellForgeWords(client as unknown as SupabaseClient, {
       set,
       text,
+      chapter,
       userId: user?.id ?? null,
     })
     if (scoped && scoped.words.length > 0) {

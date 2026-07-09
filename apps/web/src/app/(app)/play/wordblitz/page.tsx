@@ -43,6 +43,9 @@ export default function WordBlitzPage() {
   const set = searchParams.get('set') ?? undefined;
   const text = searchParams.get('text') ?? undefined;
   const from = searchParams.get('from') ?? undefined;
+  // 세트 내 특정 챕터만 학습 (?set=…&chapter=N)
+  const chapterNum = Number(searchParams.get('chapter'));
+  const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null;
   const scoped = !!(set || text);
 
   // scoped: null = 로딩, ScopedPool = 완료, { words: [] } = 단어 0개
@@ -68,6 +71,7 @@ export default function WordBlitzPage() {
       const res = await fetchScopedWords(client, {
         set,
         text,
+        chapter,
         userId: user?.id ?? null,
       });
       if (!mounted) return;
@@ -84,7 +88,7 @@ export default function WordBlitzPage() {
     return () => {
       mounted = false;
     };
-  }, [scoped, set, text]);
+  }, [scoped, set, text, chapter]);
 
   // 스코프 진입인데 아직 로딩 중
   if (scoped && pool === null) {
