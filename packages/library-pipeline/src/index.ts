@@ -65,6 +65,9 @@ export type { FactbookListItem, FactbookCountry } from './ingest-article/factboo
 // ACP §18 — eLife digest (편집자 저작 과학 요약 · CC-BY · 발행 허용).
 export { ingestElifeArticle, listElifeFeed } from './ingest-article/elife'
 export type { ElifeListItem } from './ingest-article/elife'
+// CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
+export { generateDcpItems } from './dcp/generate-items'
+export type { DcpItem, DcpItemType } from './dcp/generate-items'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
 export { computeLexicalNoise } from './ingest-article/_helpers'
 // v06.41 feed-level + v06.42 source-level curation spec

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `da41741` feat(lcp): chapter_v_level 파이프라인 wire-up — 신규 도서 자동 채움 (v06.174)
 - `b5cd51d` feat(vocab): 사용빈도(구독수) 랭킹 — subscriber_count denormalized (v06.179)
 - `9662868` feat(ctp): P3 syntax_score 배치 산출 (① 구문 난이도) (v06.178)
 - `8f469ce` feat(reader,flashcard): 연어 슬롯 롤아웃 — scoped 카드 + 리더 툴팁 (v06.177)
 - `3530e00` feat(ctp): CSAT Track Pipeline 데이터모델 — P1/P2 migration 3건 (v06.176)
-- `60a369f` feat(vocab): /library/vocab 중요도 기반 재구성 — 추천순·탭·클러터
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
