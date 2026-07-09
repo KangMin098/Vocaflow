@@ -10,7 +10,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useMemo, useState, useTransition } from 'react'
-import { Search } from 'lucide-react'
+import { Search, Sparkles } from 'lucide-react'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
@@ -250,16 +250,29 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
           }
         />
       ) : isGrouped ? (
-        // v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel
-        <VocabSetCarousel
+        <div className="flex flex-col gap-6">
+          {/* 상단 추천 — 중요도·인기 상위 핵심 세트 (프라임 노출) */}
+          {filtered.length >= 3 && (
+            <FeaturedRow
+              sets={filtered.slice(0, 8)}
+              subscribed={subscribed}
+              pendingId={pendingId}
+              errors={errors}
+              onToggle={handleToggle}
+              onPreview={setPreviewing}
+            />
+          )}
+          {/* v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel */}
+          <VocabSetCarousel
           sets={filtered}
           subscribedIds={subscribed}
           pendingId={pendingId}
           isLoggedIn={isLoggedIn}
-          onPreview={setPreviewing}
-          onToggle={handleToggle}
-          onSelectCategory={(id) => setCategory(id)}
-        />
+            onPreview={setPreviewing}
+            onToggle={handleToggle}
+            onSelectCategory={(id) => setCategory(id)}
+          />
+        </div>
       ) : (
         // Dense matrix grid — Are.na / Linear board 영감
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
@@ -287,6 +300,52 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
 
       <SubscribeSuccessToast data={toast} onClose={() => setToast(null)} />
     </div>
+  )
+}
+
+// 상단 추천 — 중요도·사용빈도 상위 세트를 가로 스크롤로 프라임 노출.
+function FeaturedRow({
+  sets,
+  subscribed,
+  pendingId,
+  errors,
+  onToggle,
+  onPreview,
+}: {
+  sets: PublishedVocabSet[]
+  subscribed: Set<string>
+  pendingId: string | null
+  errors: Record<string, string | null>
+  onToggle: (set: PublishedVocabSet) => void
+  onPreview: (set: PublishedVocabSet) => void
+}) {
+  return (
+    <section aria-label="추천 단어장" className="flex flex-col gap-3">
+      <div className="flex items-center gap-2 px-1">
+        <span
+          aria-hidden
+          className="inline-flex h-6 w-6 items-center justify-center rounded-ios-sm bg-ios-purple/12 text-ios-purple"
+        >
+          <Sparkles size={14} />
+        </span>
+        <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">추천</h2>
+        <span className="font-body text-[12px] text-[var(--t3)]">중요도·인기 상위 핵심 세트</span>
+      </div>
+      <div className="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
+        {sets.map((set) => (
+          <div key={set.id} className="w-[128px] shrink-0 snap-start sm:w-[144px]">
+            <VocabSetCard
+              set={set}
+              isSubscribed={subscribed.has(set.id)}
+              isPending={pendingId === set.id}
+              errorMessage={errors[set.id] ?? null}
+              onToggle={onToggle}
+              onPreview={onPreview}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }
 

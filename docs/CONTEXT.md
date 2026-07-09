@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `0273ac2` docs(lcp): P2 F-K 백필 완료 — 가독성 축 완결 (v06.174)
 - `7f689de` feat(ctp): DCP T2 결정론 문항 생성기 (order/insert · LLM 0)
 - `da41741` feat(lcp): chapter_v_level 파이프라인 wire-up — 신규 도서 자동 채움 (v06.174)
 - `b5cd51d` feat(vocab): 사용빈도(구독수) 랭킹 — subscriber_count denormalized (v06.179)
 - `9662868` feat(ctp): P3 syntax_score 배치 산출 (① 구문 난이도) (v06.178)
-- `8f469ce` feat(reader,flashcard): 연어 슬롯 롤아웃 — scoped 카드 + 리더 툴팁 (v06.177)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
