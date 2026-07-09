@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP 대량 GET — Pressbooks 소스 배선 (v06.181)
+- **BulkFetchTab에 Pressbooks 추가** — seed-fetcher `pressbooks.ts`(정적 큐레이션 리스트 — 통합 카탈로그 API 부재라 Factbook 국가리스트와 동형). opentextbc.ca 검증 슬러그 4권(Sociology·Psychology·Writing·Chemistry). 실 메타는 ingest 시 `citation_*` 재취득.
+- seed-fetchers `SeedSource`+pressbooks · `FETCHERS`/`SOURCE_LABELS` 등록 · BulkFetchTab SourceKey/SOURCE_OPTIONS.
+- 마이그레이션 `lcp_seed_catalog_source_add_pressbooks`(seed_catalog CHECK +pressbooks). opentextbc.ca 봇차단 회피=ingester UA.
+- → **ACP·LCP 대량 GET 모두 신규 소스 배선 완료**(per-source GET과 동등 커버리지).
+
 ### ACP 대량 GET — 신규 소스(OWID·Factbook·eLife) 배선 (v06.180)
 - **BulkArticlesTab에 신규 3소스 추가** — 기존 per-source GET(SourceGetView)에만 있던 owid(📊)·factbook(🌍)·elife(🔬)를 대량 GET에도 배선. 9소스 프리셋.
 - feed 라우트 3종 신설(`owid-feed`·`elife-feed`·`factbook-feed`) — 대량 흐름의 score-cap 위해 `listFactbookFeed`·`listElifeFeed`에 `applyArticleCurationSpec` 스코어링 추가.

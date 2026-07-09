@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f492e0c` feat(vocab): 게임별 챕터 학습 UI — 챕터 아코디언 게임 런처
 - `d27877f` feat(vocab): 세트 상세 시트에 챕터 수 표시 (v06.179)
 - `0850f4e` feat(acp): 대량 GET에 신규 소스 배선 — OWID·Factbook·eLife (v06.180)
 - `799092a` feat(vocab): 카드 'NEW' 신규 배지 (최근 14일 등록) (v06.179)
 - `b8d328b` feat(vocab): /library/vocab 상단 '추천' 피처드 행 (v06.179)
-- `0273ac2` docs(lcp): P2 F-K 백필 완료 — 가독성 축 완결 (v06.174)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
