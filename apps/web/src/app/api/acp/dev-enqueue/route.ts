@@ -21,6 +21,7 @@ import {
   ingestOwidArticle,
   ingestSimpleWikipediaArticle,
   ingestTheConversationArticle,
+  ingestPlosArticle,
   ingestVoaArticle,
   ingestWikinewsArticle,
   ingestWikipediaArticle,
@@ -35,7 +36,7 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -57,6 +58,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//, source: 'factbook' },
   { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
   { pattern: /^https?:\/\/en\.wikipedia\.org\/wiki\//, source: 'wikipedia' },
+  { pattern: /^https?:\/\/journals\.plos\.org\//, source: 'plos' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -134,6 +136,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'wikipedia':
         article = await ingestWikipediaArticle(body.item_url)
+        break
+      case 'plos':
+        article = await ingestPlosArticle(body.item_url)
         break
     }
 

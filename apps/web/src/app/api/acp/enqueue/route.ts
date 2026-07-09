@@ -19,6 +19,7 @@ import {
   ingestOwidArticle,
   ingestSimpleWikipediaArticle,
   ingestTheConversationArticle,
+  ingestPlosArticle,
   ingestVoaArticle,
   ingestWikinewsArticle,
   ingestWikipediaArticle,
@@ -35,7 +36,7 @@ export const dynamic = 'force-dynamic'
 
 // v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos'
 
 interface EnqueueBody {
   feed_id?: string
@@ -57,6 +58,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//, source: 'factbook' },
   { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
   { pattern: /^https?:\/\/en\.wikipedia\.org\/wiki\//, source: 'wikipedia' },
+  { pattern: /^https?:\/\/journals\.plos\.org\//, source: 'plos' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -134,6 +136,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       }
       case 'wikipedia': {
         article = await ingestWikipediaArticle(body.item_url)
+        break
+      }
+      case 'plos': {
+        article = await ingestPlosArticle(body.item_url)
         break
       }
     }

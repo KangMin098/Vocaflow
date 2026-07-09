@@ -20,6 +20,7 @@ export type SeedSource =
   | 'factbook'
   | 'elife'
   | 'wikipedia'
+  | 'plos'
 
 interface ArticleScore {
   total: number

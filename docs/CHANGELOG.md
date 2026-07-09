@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP PLOS 오픈 학술 소스 신설 (v06.194)
+- **PLOS ingester** — `ingest-article/plos.ts`. CC-BY 오픈액세스 과학 저널(HTML 서버렌더). abstract+본문 산문 추출 — figures/tables/References·인용 상첨자 스트립 + References 이하 절단(methods/stats 노이즈 배제). solr API `listPlosFeed`. C1-C2 심화(S4 킬러급) register=expository.
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🧬 Dna) + 대량 GET(11소스 + plos-feed 라우트). drift-lock 27 tests.
+- 마이그레이션 `acp_source_add_plos`(articles + seed_catalog CHECK).
+- **end-to-end + 추출 품질** — pbio(1271w)·pone(5948w) published·cc_by·C1·**lexical_noise 0.001~0.002**(스트립 성공, 깔끔 산문 확인)·llm_cost 0.
+
 ### ACP English Wikipedia 정규 소스 신설 (v06.193)
 - **Wikipedia ingester** — `ingest-article/wikipedia.ts`. Simple Wikipedia와 동일 `_mediawiki` 재사용(host만 en.wikipedia.org). FA(Featured)/GA(Good) 카테고리 categorymembers. CC-BY-SA → 발행 허용. B2-C1 고급 백과(Simple의 A2-B1 대비 심화). register=expository.
 - 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(📚 Library) + **대량 GET**(BulkArticlesTab 10소스 + wikipedia-feed 라우트 FA/GA). drift-lock 26 tests.

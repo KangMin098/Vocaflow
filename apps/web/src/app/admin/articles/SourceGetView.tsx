@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, FlaskConical, Globe, Library, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, Dna, FlaskConical, Globe, Library, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -267,6 +267,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/en\.wikipedia\.org\/wiki\//}
           urlHostHint="en.wikipedia.org/wiki/ 도메인"
           urlPlaceholder="https://en.wikipedia.org/wiki/Photosynthesis"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'plos':
+      return (
+        <RssFeedTab
+          source="plos"
+          heading="🧬 PLOS"
+          subtitle="CC-BY · C1~C2 오픈 학술 논문 (S4 킬러급) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Dna}
+          urlPattern={/^https?:\/\/journals\.plos\.org\//}
+          urlHostHint="journals.plos.org 도메인 (article?id=10.1371/...)"
+          urlPlaceholder="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3002946"
           onEnqueued={onEnqueued}
         />
       )

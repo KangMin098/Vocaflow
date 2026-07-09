@@ -50,6 +50,7 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   factbook: ['reference'], // 국가 개요 참고문 (PD → 발행 가능 reference 보강)
   elife: ['expository'], // 편집자 저작 과학 요약 (CC-BY → 발행 가능)
   wikipedia: ['expository', 'reference'], // 정규 백과 FA/GA (CC-BY-SA → 발행 가능)
+  plos: ['expository'], // 오픈 학술 논문 (CC-BY → 발행 가능)
 }
 
 const ALL_SOURCES: ReadonlyArray<SourceKey> = [
@@ -63,6 +64,7 @@ const ALL_SOURCES: ReadonlyArray<SourceKey> = [
   'factbook',
   'elife',
   'wikipedia',
+  'plos',
 ]
 
 export const SOURCE_LABEL: Record<string, string> = {
@@ -76,6 +78,7 @@ export const SOURCE_LABEL: Record<string, string> = {
   factbook: 'CIA World Factbook',
   elife: 'eLife',
   wikipedia: 'Wikipedia',
+  plos: 'PLOS',
 }
 
 // ── 커버리지 빈칸 ────────────────────────────────

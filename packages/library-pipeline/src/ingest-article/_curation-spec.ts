@@ -25,6 +25,7 @@ export type SourceKey =
   | 'factbook'
   | 'elife'
   | 'wikipedia'
+  | 'plos'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -299,6 +300,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 250,
     noiseKeywords: ['disambiguation', 'list of'],
     maxItems: 30,
+  },
+  // PLOS: CC-BY 오픈 학술 논문(C1-C2), S4 킬러급. solr API list.
+  plos: {
+    recencyDays: 3650,     // 연구 — stale 관대
+    minDescriptionLen: 100,
+    minTitleLen: 20,
+    sourceWeight: 0.75,    // C2 학술 (좁음)
+    levelBonus: -0.10,     // C2 (매우 어려움)
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum'],
+    maxItems: 15,
   },
 }
 
@@ -634,6 +646,21 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'good', weight: 0.45 },
     ],
   },
+  // PLOS: CC-BY 오픈 학술 논문, C1-C2 심화(S4 킬러급). abstract+본문 산문(methods/refs 스트립).
+  plos: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 15,
+    minScore: 0.40,
+    bulkPriority: 9,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'biology', 'medicine', 'research', 'genetics'],
+    styleGuide: 'CC-BY 오픈 학술 논문 산문 (C1-C2) · S4 킬러급 심화 다독 (methods/refs 제외)',
+    preferredFeedMix: [
+      { feedId: 'recent', weight: 1.00 },
+    ],
+  },
 }
 
 /**
@@ -648,7 +675,7 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
   intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'elife', 'wikipedia', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -690,6 +717,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   factbook: 'reference',
   elife: 'expository', // 편집자 저작 과학 요약 (설명문)
   wikipedia: 'expository', // 정규 백과 (설명문)
+  plos: 'expository', // 학술 논문 산문 (설명문)
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -897,6 +925,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   factbook: getSourcePolicy('factbook'),
   elife: getSourcePolicy('elife'),
   wikipedia: getSourcePolicy('wikipedia'),
+  plos: getSourcePolicy('plos'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

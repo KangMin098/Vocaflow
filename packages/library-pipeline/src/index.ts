@@ -68,6 +68,9 @@ export type { ElifeListItem } from './ingest-article/elife'
 // ACP §18 — English Wikipedia 정규 (FA/GA 고급 백과 · CC-BY-SA · 발행 허용).
 export { ingestWikipediaArticle, listWikipediaFeed, WIKIPEDIA_FEEDS } from './ingest-article/wikipedia'
 export type { WikipediaListItem } from './ingest-article/wikipedia'
+// ACP §18 — PLOS (CC-BY 오픈 학술 논문 · C1-C2 심화 · 발행 허용).
+export { ingestPlosArticle, listPlosFeed } from './ingest-article/plos'
+export type { PlosListItem } from './ingest-article/plos'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'

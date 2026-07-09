@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `df12c65` test(e2e): 이번 세션 UI 챕터 런처 3기능 런타임 회귀 spec
 - `673a953` feat(echo): #2 단어 정확도 게이트 — 병렬 음성인식 (v06.190)
 - `05aaa60` feat(acp): English Wikipedia 정규 소스 신설 (v06.193)
 - `6ba44d9` docs(changelog): /wordvault 구독 단어장 챕터 학습 모달 재사용 (v06.192)
 - `e32f225` feat(wordvault): 내 구독 단어장에서 챕터 학습 시작 — 세트 미리보기 모달 재사용
-- `7d177a6` docs(wordblitz): 익사이트 강화(v07.2) 반영 — CHANGELOG v06.191 + 세션로그
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710220000_acp_source_add_plos.sql`
 - `20260710210000_acp_source_add_wikipedia.sql`
 - `20260710200000_ctp_grade_dcp_item.sql`
 - `20260710190000_ctp_prescribe_today.sql`
 - `20260710180000_ctp_derive_learner_stage.sql`
-- `20260710170000_ctp_dcp_items_table.sql`
 <!-- /auto:recent-migrations -->
 
 ---
