@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6cb1948` docs(ctp): CTP P0 정찰 진단 — CSAT Track Pipeline 착수 (read-only)
 - `712d37e` fix(admin): enrichment 무소비 필드 3종 이연 — 대시보드 정직화 (v06.173)
 - `9fda4f1` feat(vocab): 챕터별 학습 전 게임 확장 (wordblitz/pairflip/spellforge)
 - `a69da0d` feat(acp): eLife digest 소스 — 고품질 과학 설명 (v06.172)
 - `521fad8` docs(diagnostics): 통사 축 신설 정당성 P0 실측 (DEFER 판정)
-- `48a4d9a` feat(vocab): 챕터별 학습 — 세트 내 chapter 스코프 (v06.168)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710120200_ctp_runtime_tables.sql`
+- `20260710120100_ctp_dcp_items.sql`
+- `20260710120000_ctp_catalog_syntax.sql`
+- `20260709145433_lcm_chapter_v_level.sql`
 - `20260709140000_acp_source_check_add_elife.sql`
-- `20260709135526_shared_words_chapter_column.sql`
-- `20260709130000_acp_source_check_add_factbook.sql`
-- `20260709120000_library_books_source_add_pressbooks.sql`
-- `20260708120500_advisor_revoke_public_definer.sql`
 <!-- /auto:recent-migrations -->
 
 ---

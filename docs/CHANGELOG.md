@@ -10,6 +10,23 @@
 
 ## Unreleased (v06.34 → next)
 
+### 플래시카드 연어(collocations) 슬롯 — 카드 리치화 시제품 (v06.175)
+
+v06.173 진단(collocations 등 무소비 필드) 후속 — enrichment 를 가치있게 만드는 선행 조건인 **소비 UI** 를 플래시카드 정답면에 시제품으로 구축. 닭-달걀(UI 없어 안 채움/안 채워 UI 없음) 해소의 첫 조각.
+
+- **CardBack 연어 슬롯** ([CardBack.tsx](../apps/web/src/components/flashcard/CardBack.tsx)) — 정답면 예문 아래 "함께 쓰는 표현" 회색 칩 최대 3개. **데이터 있을 때만 렌더**(Progressive Disclosure) · 예문 보조 톤(Calm UI, 학습 자극 최소화).
+- **데이터 스레딩** — `FlashcardWord.collocations?`([types/flashcard.ts](../apps/web/src/types/flashcard.ts)) + hub-words 가 shared_dictionary 에서 배치 1쿼리 보강([hub-words.ts](../apps/web/src/lib/flashcard/hub-words.ts), collocations 는 vocabularies 미보유). fetch 실패해도 카드 렌더 무영향.
+- 시연: runtime-test 계정 10단어 연어 실채움 + Playwright 정답면 스크린샷으로 렌더 육안 확인(예: verdict → guilty verdict · unanimous verdict · reach a verdict). tsc·eslint 클린.
+- 잔여(설계 승인 후 롤아웃): scoped-words 경로 · 리더 툴팁(WordLookupPopover) · 노출 단어 2,240 collocations 채움. 이 UI 가 서면 D7 enrichment 가 비로소 학습자 가치 생김.
+
+### 챕터별 어휘 V-level — 단일 book_v_level 챕터 편차 노출 (v06.174)
+
+P0 진단(통사 축 신설 정당성 실측)이 드러낸 최대 결함 = 단일 `book_v_level` 이 챕터 난이도 **3~5레벨 편차**를 뭉갬(Alice V6 라벨인데 도입 V4·10장 V8; Les Misérables V9인데 챕터 V2~V10). 통사 축은 F-K가 이미 포착 → DEFER, 챕터 편차가 실측 최대 결함이라 우선 착수.
+
+- **마이그레이션 적용** — `lcm_chapter_v_level`: `library_chapters_master.chapter_v_level smallint` + 백필(distinct lemma v_level `PERCENTILE_DISC(0.75)`, V11 제외 — `compute_book_vrl` 동일 규칙). `library_book_vocabularies ⋈ shared_dictionary(word=lemma)`. **1,295/1,296 채움**(chapter_idx 정합), 파괴 0. 동적 상태 아님(정적 콘텐츠 속성, 재추출 시 갱신).
+- **노출** — 리더 목차 사이드바(`ChapterSidebar`) + `/plan` 도서 챕터 리스트(`ChapterList`)에 `V{n}` 텍스트 pill(색상만 의존 X → 색맹 안전, memory-decay 4색과 무관). `reader-queries.listChapters`·`plan-actions.fetchBookChapters` 에 `chapter_v_level` 승계 + `database.ts` 타입.
+- 진단서: [syntactic_axis_p0_20260709](./AI_CONTEXT/diagnostics/syntactic_axis_p0_20260709.md). **후속(별도 승인)**: 추출 파이프라인 wire-up(신규 도서 자동 채움) + F-K NULL 4권 백필.
+
 ### enrichment 백로그 진단 — 무소비 필드 3종(D3/D6/D7) 이연 (v06.173)
 
 노출 단어 표적 enrichment 착수 전 진단 — 대상 필드가 학습자 UI 미렌더 판명(register D2·B1과 동일 패턴 3번째). 코드만 변경(데이터·마이그레이션 0).

@@ -76,6 +76,24 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           — {word.textTitle}, {word.textChapter}
         </span>
       </div>
+
+      {/* 자주 함께 쓰는 표현 — 데이터 있을 때만 절제 노출(Progressive Disclosure).
+          정답면 하단, 예문 보조 톤. 학습 중 자극 최소화(Calm UI) — 최대 3개. */}
+      {word.collocations && word.collocations.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+            함께 쓰는 표현
+          </span>
+          {word.collocations.slice(0, 3).map((c) => (
+            <span
+              key={c}
+              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[12px] text-[var(--t2)]"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+      )}
     </>
   )
 }
