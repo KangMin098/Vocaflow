@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d27877f` feat(vocab): 세트 상세 시트에 챕터 수 표시 (v06.179)
 - `0850f4e` feat(acp): 대량 GET에 신규 소스 배선 — OWID·Factbook·eLife (v06.180)
 - `799092a` feat(vocab): 카드 'NEW' 신규 배지 (최근 14일 등록) (v06.179)
 - `b8d328b` feat(vocab): /library/vocab 상단 '추천' 피처드 행 (v06.179)
 - `0273ac2` docs(lcp): P2 F-K 백필 완료 — 가독성 축 완결 (v06.174)
-- `7f689de` feat(ctp): DCP T2 결정론 문항 생성기 (order/insert · LLM 0)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710160000_lcp_seed_catalog_source_add_pressbooks.sql`
 - `20260710150000_acp_seed_catalog_source_add_new.sql`
 - `20260710140000_ctp_syntax_wire_rpcs.sql`
 - `20260710130000_ctp_compute_syntax_score.sql`
 - `20260710120200_ctp_runtime_tables.sql`
-- `20260710120100_ctp_dcp_items.sql`
 <!-- /auto:recent-migrations -->
 
 ---

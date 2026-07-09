@@ -22,6 +22,15 @@ interface PWord {
   chapter: number | null
 }
 
+// 챕터 학습 — 게임별 launch (로더가 ?set=X&chapter=N 지원). from 으로 닫기 시 복귀.
+const CHAPTER_GAMES: { key: string; label: string; emoji: string; path: (setId: string, ch: number) => string }[] = [
+  { key: 'flashcard', label: '플래시카드', emoji: '🃏', path: (s, c) => `/flashcard/play?set=${s}&chapter=${c}` },
+  { key: 'wordblitz', label: '블리츠', emoji: '⚡', path: (s, c) => `/play/wordblitz?set=${s}&chapter=${c}` },
+  { key: 'spellforge', label: '스펠', emoji: '🔨', path: (s, c) => `/spellforge/play?set=${s}&chapter=${c}` },
+  { key: 'pairflip', label: '페어', emoji: '🎴', path: (s, c) => `/pairflip/play?set=${s}&chapter=${c}` },
+]
+const VOCAB_FROM = encodeURIComponent('/library/vocab')
+
 interface Props {
   set: PublishedVocabSet | null
   isSubscribed: boolean
@@ -280,7 +289,26 @@ export function VocabSetPreviewModal({ set, isSubscribed, isPending, onToggle, o
                       </a>
                     </div>
                     {open && (
-                      <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">{ch.words.map((w, i) => wordRow(w, i))}</ul>
+                      <div className="flex flex-col">
+                        {/* 게임별 챕터 학습 런처 */}
+                        <div className="flex flex-wrap items-center gap-1.5 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5">
+                          <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t3)]">
+                            이 챕터 학습
+                          </span>
+                          {CHAPTER_GAMES.map((g) => (
+                            <a
+                              key={g.key}
+                              href={`${g.path(set.id, ch.n)}&from=${VOCAB_FROM}`}
+                              title={`Chapter ${ch.n} — ${g.label}`}
+                              className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                            >
+                              <span aria-hidden>{g.emoji}</span>
+                              {g.label}
+                            </a>
+                          ))}
+                        </div>
+                        <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">{ch.words.map((w, i) => wordRow(w, i))}</ul>
+                      </div>
                     )}
                   </div>
                 )
