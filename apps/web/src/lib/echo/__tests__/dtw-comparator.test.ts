@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { compareContours } from '../dtw-comparator'
+import { compareContours, divergenceRegions } from '../dtw-comparator'
 import type { PitchContour } from '../pitch-extractor'
 
 const HOP_MS = 32
@@ -96,5 +96,37 @@ describe('compareContours — 재설계 채점', () => {
     const ref = makeContour(FEMALE_SHAPE)
     const silence = makeContour([0, 0, 0, 0, 0, 0])
     expect(compareContours(ref, silence)).toEqual({ pitch: 0, energy: 0, timing: 0, overall: 0 })
+  })
+})
+
+describe('divergenceRegions — 구간 지목 피드백(#3)', () => {
+  it('동일 곡선 → 벌어진 구간 없음', () => {
+    const c = makeContour(FEMALE_SHAPE)
+    expect(divergenceRegions(c, c)).toEqual([])
+  })
+
+  it('화자만 다르고 같은 억양 모양 → 벌어진 구간 없음 (화자 독립)', () => {
+    const ref = makeContour(FEMALE_SHAPE)
+    const user = makeContour(MALE_SAME_SHAPE)
+    expect(divergenceRegions(ref, user)).toEqual([])
+  })
+
+  it('다른 억양 모양 → 벌어진 구간 ≥1 (지목 발생)', () => {
+    const ref = makeContour(FEMALE_SHAPE)
+    const user = makeContour(FEMALE_DIFFERENT_SHAPE)
+    const regions = divergenceRegions(ref, user)
+    expect(regions.length).toBeGreaterThanOrEqual(1)
+    // 구간은 0..1 시간축 안, start<end
+    for (const r of regions) {
+      expect(r.startPct).toBeGreaterThanOrEqual(0)
+      expect(r.endPct).toBeLessThanOrEqual(1)
+      expect(r.startPct).toBeLessThan(r.endPct)
+    }
+  })
+
+  it('무음 사용자 → 지목 없음 (전축 0점이 담당, 과표시 방지)', () => {
+    const ref = makeContour(FEMALE_SHAPE)
+    const silence = makeContour([0, 0, 0, 0, 0, 0])
+    expect(divergenceRegions(ref, silence)).toEqual([])
   })
 })

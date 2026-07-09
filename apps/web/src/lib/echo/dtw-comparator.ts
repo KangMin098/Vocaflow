@@ -104,10 +104,89 @@ export function compareContours(
   }
 }
 
-/** 점수에 따른 격려 메시지 (CLAUDE.md Empathetic Feedback 정합) */
+/** 점수에 따른 격려 메시지 (CLAUDE.md Empathetic Feedback 정합)
+ *  주의: 채점은 '억양·강세·리듬(프로소디) 모양'의 정합이지 발음/단어 정확도가 아님 →
+ *  문구를 '원어민' 단정 대신 '또박또박 따라했다'(TTS 기준 정직) 로 완화. */
 export function scoreFeedback(overall: number): { label: string; tone: 'great' | 'good' | 'fair' | 'try' } {
-  if (overall >= 90) return { label: '훌륭해요! 원어민에 가까워요', tone: 'great' }
-  if (overall >= 70) return { label: '좋아요! 자연스러운 발화예요', tone: 'good' }
-  if (overall >= 50) return { label: 'Good start! 다시 시도해볼까요?', tone: 'fair' }
+  if (overall >= 90) return { label: '훌륭해요! 억양·리듬이 아주 잘 맞았어요', tone: 'great' }
+  if (overall >= 70) return { label: '좋아요! 자연스러운 억양이에요', tone: 'good' }
+  if (overall >= 50) return { label: 'Good start! 다시 한 번 따라해볼까요?', tone: 'fair' }
   return { label: '천천히, 다시 들어보고 따라해봐요', tone: 'try' }
+}
+
+// ── 구간 divergence (시각화 피드백 — '어디서 억양이 달라졌나') ──────────────
+export interface DivergenceRegion {
+  /** 0..1 — 시각화 시간축 시작 */
+  startPct: number
+  /** 0..1 — 시각화 시간축 끝 */
+  endPct: number
+}
+
+const DIVERGENCE_BINS = 24
+// 한 구간(bin)에서 mean-centered semitone 평균이 이만큼 이상 벌어지면 '달라진 곳' 표시.
+//   compareContours 의 PITCH_THRESHOLD_ST(5=0점) 보다 낮게 — 시각 지목은 더 민감하게.
+const DIVERGENCE_ST = 3
+
+/** frequencies → {정규화시간, mean-centered semitone} (voiced 만). compareContours 와 동일 규칙. */
+function shapeByTime(contour: PitchContour, maxDurMs: number): Array<{ t: number; v: number }> {
+  const pts: Array<{ t: number; v: number }> = []
+  for (let i = 0; i < contour.frequencies.length; i++) {
+    const f = contour.frequencies[i]!
+    if (f > 50 && f < 800) pts.push({ t: contour.timestamps[i]! / maxDurMs, v: 12 * Math.log2(f / 100) })
+  }
+  if (pts.length === 0) return pts
+  const mean = pts.reduce((s, p) => s + p.v, 0) / pts.length
+  for (const p of pts) p.v -= mean
+  return pts
+}
+
+/**
+ * 참조↔사용자 억양이 크게 벌어진 시간 구간(0..1) 목록.
+ * PitchVisualizer 음영용 — "어디서 달라졌는지" 지목(행동 가능 피드백).
+ * 양쪽 다 발화가 있는 구간에서 mean-centered semitone 평균차 ≥ DIVERGENCE_ST 만 표시
+ * (길이 차이는 timing 점수가 담당하므로 한쪽만 발화한 구간은 표시 안 함 — 과표시 방지).
+ */
+export function divergenceRegions(
+  reference: PitchContour,
+  user: PitchContour,
+  bins = DIVERGENCE_BINS,
+): DivergenceRegion[] {
+  const maxDur = Math.max(reference.durationMs, user.durationMs, 1)
+  const refS = shapeByTime(reference, maxDur)
+  const userS = shapeByTime(user, maxDur)
+  if (refS.length < 2 || userS.length < 2) return []
+
+  const binMean = (arr: Array<{ t: number; v: number }>, b: number): number | null => {
+    const lo = b / bins
+    const hi = (b + 1) / bins
+    let sum = 0
+    let n = 0
+    for (const p of arr) {
+      if (p.t >= lo && p.t < hi) {
+        sum += p.v
+        n += 1
+      }
+    }
+    return n > 0 ? sum / n : null
+  }
+
+  const diverged: boolean[] = []
+  for (let b = 0; b < bins; b++) {
+    const r = binMean(refS, b)
+    const u = binMean(userS, b)
+    diverged.push(r != null && u != null && Math.abs(r - u) >= DIVERGENCE_ST)
+  }
+
+  // 연속 구간 병합
+  const regions: DivergenceRegion[] = []
+  let start = -1
+  for (let b = 0; b <= bins; b++) {
+    if (b < bins && diverged[b]) {
+      if (start < 0) start = b
+    } else if (start >= 0) {
+      regions.push({ startPct: start / bins, endPct: b / bins })
+      start = -1
+    }
+  }
+  return regions
 }

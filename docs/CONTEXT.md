@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `926dc71` feat(wordblitz): 익사이트 강화 — 파티클·SFX·속도등급·콤보 연출 (v07.2)
 - `2e7ffe9` docs(session-log): 소스 5종 + 대량 GET + CTP 백엔드 완성 세션 기록
 - `964d5a0` docs(wordblitz): 2D 속사 인지 재설계 반영 (MODULES/ROUTES/CHANGELOG/세션로그)
 - `ee4108b` docs(changelog): /plan 런처 챕터 선택 + /library/vocab 추천 RPC 재설계 (v06.188)
 - `d595a95` feat(ctp): DCP 채점 grade_dcp_item — 실행 루프 완결 (v06.187)
-- `428f909` feat(plan): 런처 챕터 선택 — 공용단어장 게임을 특정 챕터 단어로 시작
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
