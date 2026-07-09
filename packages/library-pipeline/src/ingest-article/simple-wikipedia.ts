@@ -69,6 +69,9 @@ export async function listSimpleWikipediaFeed(
   url.searchParams.set('gcmtitle', category)
   url.searchParams.set('gcmlimit', String(Math.min(limit, 50)))
   url.searchParams.set('gcmtype', 'page')
+  // ns=0(주 기사)만 — 카테고리에 섞인 Wikipedia:/Category: 등 관리 페이지 배제.
+  //   (gcmtype=page 는 전 네임스페이스 포함 → 'Wikipedia:Good articles/by date' 등 junk 유입 방지)
+  url.searchParams.set('gcmnamespace', '0')
   url.searchParams.set('prop', 'extracts|info')
   url.searchParams.set('exintro', '1')
   url.searchParams.set('explaintext', '1')
