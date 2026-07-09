@@ -58,7 +58,8 @@ P0 진단(통사 축 신설 정당성 실측)이 드러낸 최대 결함 = 단�
 - **노출** — 리더 목차 사이드바(`ChapterSidebar`) + `/plan` 도서 챕터 리스트(`ChapterList`)에 `V{n}` 텍스트 pill(색상만 의존 X → 색맹 안전, memory-decay 4색과 무관). `reader-queries.listChapters`·`plan-actions.fetchBookChapters` 에 `chapter_v_level` 승계 + `database.ts` 타입.
 - **파이프라인 wire-up** — 마이그레이션 `20260709194527_compute_book_chapter_v_levels`: 별도 peer 함수(공유 `compute_book_vrl` 미수정 → 동시 CTP 충돌 방지). LCP `dev-process`·`process` 라우트 + `reprocess-book`·`reprocess-all-se` 스크립트의 `compute_*` 시퀀스에 배선 → **신규 적재 도서 자동 채움**. idempotent 검증(Alice 재계산 값 불변).
 - **CTP 통사 축과의 관계** — 동시 세션이 `library_*.syntax_score`(구문 p90·절 깊이) 축을 별도 구축(`ctp_p0_20260709`). 본 chapter_v_level(어휘 축 챕터 분해)과 **직교/상보** — 중복 아님(P0 판정: 도서 라벨 관점 통사 반례 0 vs CTP=수능 stage 게이팅 관점).
-- 진단서: [syntactic_axis_p0_20260709](./AI_CONTEXT/diagnostics/syntactic_axis_p0_20260709.md). **후속**: F-K NULL 4권 백필(P2, 저비용).
+- **P2 완료 — 가독성 축 완결**: F-K NULL 4권(`book-readability.mjs` per-book) 백필 → Intro Sociology 12.35·Book of Tea 10.25·Alice Adams 8.65·Short Fiction 6.8. book_v_level 보유 도서 F-K **NULL 0**.
+- 진단서: [syntactic_axis_p0_20260709](./AI_CONTEXT/diagnostics/syntactic_axis_p0_20260709.md). P0가 지목한 결함(챕터 편차 P1 + 가독성 공백 P2) **모두 해소**. 통사 축은 DEFER 유지(CTP syntax_score와 상보).
 
 ### enrichment 백로그 진단 — 무소비 필드 3종(D3/D6/D7) 이연 (v06.173)
 
