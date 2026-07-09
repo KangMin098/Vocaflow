@@ -108,7 +108,11 @@ export function materialHref(m: MaterialRef): string {
  *   · 도서(library_books.id): 본문 활동은 도서 페이지, 게임은 모듈 hub (직접 스코핑 미지원)
  * 스코핑 불가 활동(wordblitz/pairflip/spellforge/dictation)은 모듈 hub 로 honest fallback.
  */
-function baseActivityLaunchHref(m: MaterialRef, activity: PlanActivity): string {
+function baseActivityLaunchHref(m: MaterialRef, activity: PlanActivity, chapter?: number | null): string {
+  // 세트 내부 챕터(shared_words.chapter) 스코프 — 공용단어장 게임에만 유효(게임 page 가 ?chapter= 파싱).
+  //   본문/세트 페이지(read/vocab)·스크립트(?text=)엔 무의미 → 세트 게임 라우트에만 부착.
+  const ch = chapter && chapter > 0 ? chapter : null
+  const setGame = (base: string) => `${base}?set=${m.id}${ch ? `&chapter=${ch}` : ''}`
   switch (activity) {
     case 'listen':
     case 'read':
@@ -118,21 +122,21 @@ function baseActivityLaunchHref(m: MaterialRef, activity: PlanActivity): string 
       return m.type === 'script' ? `/text/${m.id}/echo` : materialHref(m)
     case 'flashcard':
       if (m.type === 'script') return `/flashcard/play?text=${m.id}`
-      if (m.type === 'word_set') return `/flashcard/play?set=${m.id}`
+      if (m.type === 'word_set') return setGame('/flashcard/play')
       return '/flashcard'
     case 'scriptquiz':
       return m.type === 'script' ? `/scriptquiz/play?text=${m.id}` : '/scriptquiz'
     case 'spellforge':
       if (m.type === 'script') return `/spellforge/play?text=${m.id}`
-      if (m.type === 'word_set') return `/spellforge/play?set=${m.id}`
+      if (m.type === 'word_set') return setGame('/spellforge/play')
       return '/spellforge'
     case 'wordblitz':
       if (m.type === 'script') return `/play/wordblitz?text=${m.id}`
-      if (m.type === 'word_set') return `/play/wordblitz?set=${m.id}`
+      if (m.type === 'word_set') return setGame('/play/wordblitz')
       return '/wordblitz'
     case 'pairflip':
       if (m.type === 'script') return `/pairflip/play?text=${m.id}`
-      if (m.type === 'word_set') return `/pairflip/play?set=${m.id}`
+      if (m.type === 'word_set') return setGame('/pairflip/play')
       return '/pairflip'
     case 'dictation':
       // 받아쓰기=문장 전사 → 스크립트(본문)만 스코핑. 도서/단어장은 hub.
@@ -151,8 +155,10 @@ export function activityLaunchHref(
   m: MaterialRef,
   activity: PlanActivity,
   origin?: string,
+  /** 세트 내부 챕터 스코프(런처 챕터 선택) — 공용단어장 게임 라우트에만 부착된다. */
+  chapter?: number | null,
 ): string {
-  const href = baseActivityLaunchHref(m, activity)
+  const href = baseActivityLaunchHref(m, activity, chapter)
   if (!origin) return href
   const path = href.split('?')[0] ?? href
   if (!isFullScreenRoute(path)) return href

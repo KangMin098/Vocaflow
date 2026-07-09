@@ -636,8 +636,6 @@ function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: num
 }
 
 function TodayRow({ item }: { item: PlanItem }) {
-  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
-  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   return (
     <div className="flex flex-col gap-1.5">
       <span className="flex items-center gap-1.5">
@@ -649,18 +647,8 @@ function TodayRow({ item }: { item: PlanItem }) {
           </span>
         )}
       </span>
-      {acts.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {acts.map((a) => (
-            <LaunchChip
-              key={a.id}
-              activity={a.id}
-              href={activityLaunchHref(ref, a.id, '/plan')}
-              scoped={isActivityScoped(item.materialType, a.id)}
-            />
-          ))}
-        </div>
-      )}
+      {/* 바로 시작 — 공용단어장이면 챕터 스코프 선택 포함(LaunchRow) */}
+      <LaunchRow item={item} />
     </div>
   )
 }
@@ -1028,7 +1016,6 @@ function ItemConfig({
   onRemove: () => void
   onClose: () => void
 }) {
-  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
   const selected = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   const hasChapters = item.materialType === 'book' && item.chapterCount > 1
   return (
@@ -1070,16 +1057,8 @@ function ItemConfig({
 
       {selected.length > 0 && (
         <ConfigBlock label="바로 시작">
-          <div className="flex flex-wrap gap-1.5">
-            {selected.map((a) => (
-              <LaunchChip
-                key={a.id}
-                activity={a.id}
-                href={activityLaunchHref(ref, a.id, '/plan')}
-                scoped={isActivityScoped(item.materialType, a.id)}
-              />
-            ))}
-          </div>
+          {/* 공용단어장이면 챕터 스코프 선택 포함 — 게임을 특정 챕터 단어로 시작 */}
+          <LaunchRow item={item} />
         </ConfigBlock>
       )}
 
@@ -1793,6 +1772,68 @@ function WeekdayChips({
         )
       })}
     </div>
+  )
+}
+
+// ── 바로 시작 (런처) — 활동 칩 + 공용단어장 챕터 스코프 선택 ──
+//   공용단어장이 내부 챕터(shared_words.chapter)로 나뉘면 "챕터: 전체/1/2…" 선택을 노출하고,
+//   게임(카드/블리츠/스펠포지/페어플립) launch 에 ?chapter=N 를 부착한다. 본문·세트 페이지엔 무영향.
+//   오늘의 학습·구성 패널 '바로 시작'이 공유 — 한 자료의 챕터 단위 학습(최하위 단위)을 런처에서 고른다.
+function LaunchRow({ item }: { item: PlanItem }) {
+  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  const hasSetChapters = item.materialType === 'word_set' && item.chapterCount > 1
+  const [chapter, setChapter] = useState<number | null>(null)
+  if (acts.length === 0) return null
+  return (
+    <div className="flex flex-col gap-1.5">
+      {hasSetChapters && (
+        <ChapterScopePicker count={item.chapterCount} value={chapter} onChange={setChapter} />
+      )}
+      <div className="flex flex-wrap gap-1.5">
+        {acts.map((a) => (
+          <LaunchChip
+            key={a.id}
+            activity={a.id}
+            // chapter 는 word_set 게임 라우트에만 부착됨(builder 가 set= 여부로 판단) — vocab/본문엔 무영향
+            href={activityLaunchHref(ref, a.id, '/plan', chapter)}
+            scoped={isActivityScoped(item.materialType, a.id)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// 공용단어장 내부 챕터 스코프 선택 — 전체 or 특정 챕터. 챕터 수(최대 30)를 컴팩트한 select 로 수용(Calm UI).
+//   게임 launch 에 ?chapter=N 부착. 선택 값은 아이콘+텍스트로 노출 → 색상 단독 전달 금지.
+function ChapterScopePicker({
+  count,
+  value,
+  onChange,
+}: {
+  count: number
+  value: number | null
+  onChange: (n: number | null) => void
+}) {
+  return (
+    <label className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-2 pr-1 text-[var(--t2)]">
+      <ListChecks size={13} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
+      <span className="font-display text-[11px] font-[700]">챕터</span>
+      <select
+        aria-label="게임을 시작할 챕터 범위"
+        value={value ?? 'all'}
+        onChange={(e) => onChange(e.target.value === 'all' ? null : Number(e.target.value))}
+        className="h-7 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 font-mono text-[11px] font-[700] text-[var(--t1)] tabular-nums transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      >
+        <option value="all">전체 ({count})</option>
+        {Array.from({ length: count }, (_, i) => i + 1).map((n) => (
+          <option key={n} value={n}>
+            {n}장
+          </option>
+        ))}
+      </select>
+    </label>
   )
 }
 

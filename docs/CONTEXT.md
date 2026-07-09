@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `a4105c4` refactor(wordblitz): 로딩 폴백 테마화 + data 정리 (3D dead code 후속)
 - `585af1e` fix(hub): NextStepList — 미등록 추천 tier 방어 (undefined.tone 크래시 복구)
 - `e6e67dd` docs(dictation): v06.185 라이브 검증 완료 표기 (이연→완료)
 - `7d55cce` feat(wordblitz): 3D 인형뽑기 → 2D 속사 인지 게임 재설계
 - `bcede39` feat(ctp): ⑥ prescribe_today 처방 백엔드 — CTP 백엔드 완성 (v06.186)
-- `c6356fc` refactor(vocab): '추천'을 정본 추천 엔진(RPC)으로 교체 — 티어·사유 노출
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710200000_ctp_grade_dcp_item.sql`
 - `20260710190000_ctp_prescribe_today.sql`
 - `20260710180000_ctp_derive_learner_stage.sql`
 - `20260710170000_ctp_dcp_items_table.sql`
 - `20260710160000_lcp_seed_catalog_source_add_pressbooks.sql`
-- `20260710150000_acp_seed_catalog_source_add_new.sql`
 <!-- /auto:recent-migrations -->
 
 ---

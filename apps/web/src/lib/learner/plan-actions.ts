@@ -191,6 +191,22 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
   const scriptMap = new Map(((scriptsRes.data ?? []) as ScriptRow[]).map((s) => [s.id, s]))
   const setMap = new Map(((setsRes.data ?? []) as SetRow[]).map((w) => [w.id, w]))
 
+  // 공용단어장 내부 챕터 수(shared_words.chapter MAX) — 런처 챕터 선택 노출 여부.
+  //   챕터 미부여 세트(chapter NULL)는 0 → 단일 세트로 취급(챕터 선택 숨김).
+  const setChapterMax = new Map<string, number>()
+  if (setIds.length) {
+    const { data: chRows } = await lc
+      .from('shared_words')
+      .select('set_id, chapter')
+      .in('set_id', setIds)
+      .not('chapter', 'is', null)
+    for (const r of (chRows ?? []) as { set_id: string; chapter: number | null }[]) {
+      if (r.chapter != null) {
+        setChapterMax.set(r.set_id, Math.max(setChapterMax.get(r.set_id) ?? 0, r.chapter))
+      }
+    }
+  }
+
   return rows.map((r) => {
     let title = '(삭제된 자료)'
     let subtitle: string | null = null
@@ -227,6 +243,8 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
         subtitle = w.word_count ? `${w.word_count.toLocaleString()}단어` : w.category ?? null
         extras.slug = w.slug ?? null
         extras.coverEmoji = w.cover_emoji ?? null
+        // 내부 챕터 수 — 런처에서 챕터 스코프 선택 노출용 (book 아닌 word_set 도 chapterCount 사용).
+        extras.chapterCount = setChapterMax.get(r.material_id) ?? 0
       }
     }
 
