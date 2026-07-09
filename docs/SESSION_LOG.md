@@ -14,9 +14,17 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: `/admin/vocab/*` VCB 파이프라인 재검토·재설계 (+ 화면 자동검증 환경)
+**작업**: CTP(CSAT Track Pipeline · 5번째 파이프라인) — 남은 건 **Today UI**(META 게이트)
 **브랜치**: `feat/plan-ui`
-**상태**: ✅ **코어 재설계 완료** — 이번 세션 9커밋 push. **전 변경 dev :3100 + Playwright 스크린샷 검증**. VCB 파일 tsc 0.
+**상태**: ✅ **CTP 백엔드 런타임 완결** + 소스 5종 신설 + 대량 GET 배선. (이전 VCB 재설계 트랙은 ✅ 종결 — 상세는 아래 2026-07-08 기록.)
+
+- **CTP 런타임 루프(닫힘·실데이터 검증)**: 생성 `dev-generate-items` → 처방 `prescribe_today`(5블록·answer_key 제외) → 채점 `grade_dcp_item`(서버 answer_key) → 기록 `csat_item_attempts` → 파생 `derive_learner_stage`(기록 되먹임). 데이터모델 6객체(csat_stage_catalog 뷰·csat_stage_gates·csat_dcp_items·reading_fluency_log·csat_item_attempts·syntax_score). P0 정찰 정정 4건.
+- **소스 5종**: OWID(argumentative)·Factbook(reference)·eLife(과학 expository) 신설 + Pressbooks(S4 도서·OBP=PDF-only 대체) + VOA register 피드전환(narrative 0→13). 5 register 전부 publishable. dependency-0 + end-to-end 발행 실증.
+- **대량 GET**: ACP(owid/factbook/elife feed 라우트 + BulkArticlesTab 9소스) · LCP(pressbooks seed-fetcher + BulkFetchTab).
+
+**▶ 다음 (RESUME)**: **⑥ Today UI** — 학습자 홈에서 `prescribe_today` 5블록 렌더 + DCP 인터랙션(order 드래그·insert 위치선택)→`grade_dcp_item`→오답 시 error_cause 1-tap 기록. error_cause 라우팅은 정적 매핑(vocab→FSRS·parsing→정독·structure→재구성·inference→근거·timing→S5). **META(학습자 홈 재설계) 확정 선행** — 이 트랙 밖. 진단 [ctp_p0_20260709.md](AI_CONTEXT/diagnostics/ctp_p0_20260709.md) · 매트릭스 [CSAT_SOURCE_MATRIX.md](CSAT_SOURCE_MATRIX.md) · CHANGELOG v06.163~187.
+
+<details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
 - **자동검증 환경**: dev :3100(`DEV_ADMIN_BYPASS=1`) + `apps/web/.vcb-shots.mjs`(임시, 미커밋)로 각 변경 스크린샷 확인. ⚠️ **dev 서버 1개 원칙**(멀티 `next dev` = `.next` 공유 오염 → 무작위 404/청크 500; 이번에 seed 페이지 500 실측 → clean 재시작으로 해소). 공식 스모크 `pnpm --filter web test:e2e:smoke`([04-ui-smoke.spec.ts](../apps/web/tests/e2e/04-ui-smoke.spec.ts), 동시 세션 v06.159 자산화) 활용 권장.
 - **결정 A** — 위저드 3→2스텝 + 필터 machinery(FilterPanel/LiveCountBadge/DistributionChart/SampleWords + `filter-actions.ts` + `CreateRunInput.filters/limits`) 전량 제거 + orphan RPC 3종 DROP(마이그 `drop_vcb_filter_preview_rpcs`).
@@ -40,6 +48,21 @@
 
 **제안서**: [docs/proposals/vcb-admin-redesign.md](proposals/vcb-admin-redesign.md) §7 결정 A/B/C + 구현계획.
 **직전 완료작업 (nav 감사, ✅ 종결)**: 커밋 `f98c918`·`56cb8de`·`5190c0c`·`45e319b`·`146070d`. 상세는 아래 2026-07-05 기록.
+
+</details>
+
+---
+
+## 2026-07-10 — 소스 5종 + 대량 GET + CTP(5번째 파이프라인) 백엔드 완성
+
+**무엇을 했나**:
+- **소스 5종 신설/전환** — OWID(argumentative·CC-BY)·CIA Factbook(reference·PD)·eLife(과학 expository·CC-BY digest) 신설 ingester + Pressbooks(S4 도서·OBP는 PDF-only 반증→대체) + VOA register 피드전환(소스단위 'news' 오분류 교정 → narrative 0→13). 5 코어 register 전부 publishable. 각 dependency-0(정규식/JSON) + end-to-end 발행 실증. 매트릭스 feasibility 재분석 → [CSAT_SOURCE_MATRIX.md](CSAT_SOURCE_MATRIX.md)(HTML-native vs PDF/SPA vs NC 3분).
+- **대량 GET 배선** — per-source GET에만 있던 신규 소스를 대량 GET에도: ACP owid/elife/factbook feed 라우트 + list 스코어링 + BulkArticlesTab(9소스). LCP pressbooks seed-fetcher(정적 큐레이션 4권) + BulkFetchTab. seed_catalog CHECK migration 2건.
+- **CTP 5번째 파이프라인 착수→백엔드 완결** — P0 정찰(read-only, GO+정정 4건: reading_sessions 이름충돌→reading_fluency_log · scores 세션단위→csat_item_attempts · quiz_questions 부적합(user_id/MC)→csat_dcp_items · DCP 라이선스 게이트 누락→ND 차단). 데이터모델 migration(csat_stage_catalog 뷰·csat_stage_gates·csat_dcp_items·reading_fluency_log·csat_item_attempts·quiz type/item_role·syntax_score). 런타임 루프 전부 실데이터 검증(생성→처방→채점→기록→파생).
+
+**무엇이 남았나**: **⑥ Today UI**(META=학습자 홈 재설계 선행, 이 트랙 밖). 백엔드는 처방/채점/파생 RPC까지 완결.
+
+**관련 커밋·파일**: migration `ctp_*`(6)·`acp_*`(source/seed)·`lcp_*`(source/seed) 10+건(일부 execute_sql — apply_migration $$ 오분할 회피). CHANGELOG v06.163~187. 이 세션 커밋 다수 `feat/plan-ui` push.
 
 ---
 
