@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `585af1e` fix(hub): NextStepList — 미등록 추천 tier 방어 (undefined.tone 크래시 복구)
 - `e6e67dd` docs(dictation): v06.185 라이브 검증 완료 표기 (이연→완료)
 - `7d55cce` feat(wordblitz): 3D 인형뽑기 → 2D 속사 인지 게임 재설계
 - `bcede39` feat(ctp): ⑥ prescribe_today 처방 백엔드 — CTP 백엔드 완성 (v06.186)
 - `c6356fc` refactor(vocab): '추천'을 정본 추천 엔진(RPC)으로 교체 — 티어·사유 노출
-- `09639ce` fix(dictation): 세션 미발견 무한로딩 + TTS voices 함정 수리 (v06.185)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

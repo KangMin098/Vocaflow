@@ -50,6 +50,9 @@
 - DROP TABLE / TRUNCATE 같은 destructive DB 변경
 - 파일 ≥30 변경 (정상 milestone 아님)
 
+### ⚠️ 공유 워크스페이스 커밋 — 경로 스코프 필수 (2026-07-10 사고)
+다른 세션과 git 인덱스를 공유하므로 `git add <내파일> && git commit` 은 **인덱스에 이미 스테이징된 타 세션 변경까지 전부 커밋**한다(실제로 v06.185 CHANGELOG 커밋에 타 세션의 wordblitz 삭제 8건이 딸려 들어감 — 빌드는 무사했으나 커밋 오염). **반드시 `git commit <path1> <path2> ...`(경로 인자 직접) 사용** — 인덱스가 아니라 그 경로만 커밋. `git status` 로 타 세션 미스테이징 변경(M/D/??)을 먼저 확인하고, 내 파일만 경로 인자로 커밋할 것. dev 서버 1개 원칙([[feedback-ui-smoke-standing]])과 함께 공유 워크스페이스 2대 위험.
+
 ## Scope
 - **이 프로젝트 (Vocaflow) 한정**. 다른 프로젝트는 기본 instruction 따름.
 - 사용자가 다시 변경 요청 시 본 메모리 갱신.
