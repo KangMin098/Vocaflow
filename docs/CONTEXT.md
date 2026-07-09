@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `673a953` feat(echo): #2 단어 정확도 게이트 — 병렬 음성인식 (v06.190)
 - `05aaa60` feat(acp): English Wikipedia 정규 소스 신설 (v06.193)
 - `6ba44d9` docs(changelog): /wordvault 구독 단어장 챕터 학습 모달 재사용 (v06.192)
 - `e32f225` feat(wordvault): 내 구독 단어장에서 챕터 학습 시작 — 세트 미리보기 모달 재사용
 - `7d177a6` docs(wordblitz): 익사이트 강화(v07.2) 반영 — CHANGELOG v06.191 + 세션로그
-- `3eaea76` feat(echo): EchoMatch 피드백 강화 — 구간 지목 + 정직한 문구 (v06.190)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

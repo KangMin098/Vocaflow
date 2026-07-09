@@ -47,6 +47,7 @@ const SCREENS: Array<{ path: string; marker: RegExp }> = [
   { path: '/dashboard', marker: /Growth|성장|리포트|학습/ },
   { path: '/plan', marker: /계획|Plan|이번 주/ },
   { path: '/wordvault', marker: /WordVault|단어/ },
+  { path: '/library/vocab', marker: /공용 단어장|단어장|카테고리/ },
   { path: '/flashcard', marker: /Flashcard|플래시|복습/ },
   { path: '/pairflip', marker: /PairFlip|페어|짝/ },
   { path: '/scriptquiz', marker: /ScriptQuiz|퀴즈/ },
