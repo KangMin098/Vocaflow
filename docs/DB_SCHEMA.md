@@ -7,10 +7,25 @@
 
 ## 요약
 
-- **테이블**: 58 (public schema · v06.117 유출 backup `shared_dictionary_p5a_backup_20260620` DROP -1)
-- **Views**: 5
+- **테이블**: 61 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts`)
+- **Views**: 6 (+`csat_stage_catalog`)
 - **Functions**: 227 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 그 외 ~185)
-- **Migrations 누적**: 60 적용됨 (v06.117 P0 보안 RLS 하드닝 +1 · backup DROP +1)
+- **Migrations 누적**: 60+ 적용됨 (CTP 데이터모델 3건 + 소스 4건 포함)
+
+### 🧭 CTP — CSAT Track Pipeline 데이터모델 (2026-07-10, migration 3건)
+
+기존 4 파이프라인(LCP·ACP·VCB·VRL) 산출물의 **소비자** 계층. 근거: [ctp_p0_20260709.md](./AI_CONTEXT/diagnostics/ctp_p0_20260709.md).
+
+| 객체 | 종류 | 역할 |
+|---|---|---|
+| `library_articles/books.syntax_score` | jsonb 컬럼 | ① 구문 난이도(문장 p90·절 깊이) — 자체 정규식 산출 |
+| `csat_stage_catalog` | VIEW | ② stage_band(S1–S4) 파생 — article=register 우선, 도서 v7-9=S4. 139항목 |
+| `quiz_questions.type` +`order`/`insert` · `+item_role` | CHECK·컬럼 | ③ DCP 결정론 문항(order/insert) + 역할(practice/verify) |
+| `reading_fluency_log` | 테이블(RLS) | ④ 유효 WPM(comprehension_ok). ⚠ 기존 `reading_sessions`(읽기플랜)와 별개 |
+| `csat_stage_gates` | 테이블 | ⑤ 게이트 임계(stage×metric · is_locked=false 권장값 9행) |
+| `csat_item_attempts` | 테이블(RLS) | ⑦ per-item 응답 + error_cause(vocab/parsing/structure/inference/timing) |
+
+> **학습자 stage 는 컬럼 저장 금지** — `csat_stage_gates` 전 지표 통과 최대 단계를 매 요청 실시간 파생(§9 R(t) 동형). stage_band(콘텐츠 메타)만 저장 OK.
 
 ### 🔒 RLS 보안 상태 (v06.117 — security advisor ERROR 0)
 

@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP 착수 — CSAT Track Pipeline 데이터모델 (P0 정찰 + P1/P2 migration) (v06.176)
+- **P0 정찰** — 소유 8계층 read-only 실측([ctp_p0_20260709.md](./AI_CONTEXT/diagnostics/ctp_p0_20260709.md)). 판정 GO + 정정 2건: ④ `reading_sessions` 이름충돌(기존=읽기플랜 262rows) · ⑦ per-question attempt 부재(scores=세션단위).
+- **P1/P2 migration 3건 적용**(승인): `ctp_catalog_syntax`(syntax_score jsonb + `csat_stage_catalog` VIEW 139항목) · `ctp_dcp_items`(quiz type +order/insert + item_role) · `ctp_runtime_tables`(`reading_fluency_log`·`csat_stage_gates` 9행seed·`csat_item_attempts` + RLS).
+- **회귀 통과** — quiz 기존 3종 값 보존 · reading_sessions 262 불변 · stage_band 분포 S1(55)·S2(46)·S3(33)·S4(5).
+- 스코프: 데이터모델+배치 계층. Today UI(⑥)는 META 확정 게이트. 다음 P3 = syntax_score 배치 산출 + stage_band/gate 소비.
+- docs: [DB_SCHEMA.md](./DB_SCHEMA.md) CTP 섹션.
+
 ### 플래시카드 연어(collocations) 슬롯 — 카드 리치화 시제품 (v06.175)
 
 v06.173 진단(collocations 등 무소비 필드) 후속 — enrichment 를 가치있게 만드는 선행 조건인 **소비 UI** 를 플래시카드 정답면에 시제품으로 구축. 닭-달걀(UI 없어 안 채움/안 채워 UI 없음) 해소의 첫 조각.
