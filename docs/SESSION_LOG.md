@@ -68,6 +68,21 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-10 — 공용단어장 챕터 학습 라인 완성 (vocab 추천 RPC · plan 런처 · wordvault 모달) + 런타임 검증
+
+> 요청: /library/vocab '추천' "최적 방안 도출하여 설계 적용" → "다음" 연쇄로 punch-list(/wordvault·/library/books·/dashboard 유사 개선 · 플랜 런처 챕터 선택) → "이번 세션 UI 런타임 검증". 동시 세션(CTP/WordBlitz/ACP)과 working-copy 공유 → **명시 pathspec `git commit -- <경로>` 격리** 준수(내 파일만).
+
+**무엇을 했나** — 세션 through-line = "공용단어장 챕터(shared_words.chapter) = 최하위 학습 단위"를 학습자 전 진입점(브라우즈→계획→보관함)에 배선:
+- **/library/vocab '추천' 정본 RPC 재설계** (`c6356fc`, v06.188) — 즉흥 client 근접정렬(V-Level·CEFR·category 추정) 제거 → `recommend_word_sets_for_user`(진단 V-level/track 기반) 재사용. FeaturedRow 티어 배지(메인/도전/보강/관심)+사유(reason). 미진단=DiagnosePrompt. (estimateSetLevel/categoryVLevel 제거.)
+- **/plan 런처 챕터 선택** (`428f909`, v06.188) — `activityLaunchHref(…, chapter)`: word_set 게임 라우트(`set=`)에만 `&chapter=N` 부착(본문/vocab/스크립트 무영향). `fetchStudyPlanItems`가 word_set `chapterCount`(MAX chapter) 채움 → 게이트. `LaunchRow`+`ChapterScopePicker`(컴팩트 select, 30챕터 수용) — TodayRow·ItemConfig '바로 시작' 공유. 게임 4종은 이미 `?set=&chapter=` 파싱(검증).
+- **/wordvault 구독 단어장 챕터 학습** (`e32f225`, v06.192) — `ResourcePortfolio` '단어장' 탭 챕터형 세트 행 탭 → `VocabSetPreviewModal`(챕터 아코디언+게임별 런처) 재사용. `fromPath` prop 신설(기본 /library/vocab → wordvault는 `/wordvault` 복귀). 챕터형만 setId 라우팅(비챕터=기존 브라우저 링크). CTA=구독 해지(확인·기록 보존).
+- **/library/books·/dashboard 조사** — 둘 다 이미 성숙(books=`recommend-books.ts` popularity_rank·인기 레일·인기순 / dashboard=정본 `--memory-*` 토큰·색+텍스트 이중부호·Implicit Progress). BookShelfSection·AssetGrid는 미마운트(dead). **개선 시 오히려 철학 위반 → 무변**(억지 변경 회피, 정직 보고).
+- **런타임 검증** (`df12c65`) — `04-ui-smoke`에 /library/vocab 추가(9화면 콘솔에러 0, 2 passed). 신규 `06-chapter-launch` spec 3기능 라이브 검증(추천 행·plan 챕터 select·wordvault 챕터 모달) **3 passed**. runtime-test 계정 시드(교육과정 기본어휘 고등 25챕터 구독+계획, 오늘 요일). RPC 데이터 경로 DB 확인(V11→primary/review).
+
+**무엇이 남았나**: 이 UI 챕터 트랙 ✅ **종결**. 잔여 여지(선택·비긴급): ① `06` spec 자립화(현재 seed 의존 — UI로 구독/계획 seeding하면 계정 리셋에도 안전) ② `AssetGrid`(dead·미마운트) memory-decay 하드코딩 색(#22C55E 등)→토큰 정리 or 컴포넌트 삭제.
+
+**관련 커밋·파일**: `c6356fc`·`428f909`·`ee4108b`·`e32f225`·`6ba44d9`·`df12c65`(전부 `feat/plan-ui` push). CHANGELOG v06.188·192. 기반(이전 세션): 교육과정 기본어휘 초/중/고 발행(shared_words.chapter) + VocabSetPreviewModal 챕터 아코디언(`f492e0c`) + /library/vocab 중요도·사용빈도(v06.179). 교훈: 성숙한 화면은 손대면 나빠짐 — 조사 후 "무변"이 정직한 결론일 수 있다. 시드 의존 spec은 헤더에 의존성 명시.
+
 ### 2026-07-10 — WordBlitz 게임 재설계 (3D 인형뽑기 → 2D 속사 인지)
 
 > 요청: "`/play/wordblitz` 다른 게임으로 재설계" → "전문 디자인·게임 사이트 리서치하여 흥미·재미·적합성·디자인 설계·적용". VCB 재설계 + ACP 검증 세션의 연속. 동시 세션(/plan·dictation·hub)과 working-copy 공유 → 명시 pathspec 격리.
