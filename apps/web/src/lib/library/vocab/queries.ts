@@ -49,6 +49,8 @@ export interface PublishedVocabSet {
   sortOrder: number
   /** shared_words 실측 단어 수 (캐시 word_count 가 stale 한 경우 보정). */
   wordCount: number
+  /** 구독자 수 (denormalized · 사용빈도/인기 랭킹용). */
+  subscriberCount: number
   createdAt: string
 }
 
@@ -78,6 +80,7 @@ interface SharedSetRow {
   cover_emoji: string | null
   sort_order: number | null
   word_count: number | null
+  subscriber_count?: number | null
   created_at: string | null
   category_id?: string | null
   additional_category_ids?: string[] | null
@@ -86,10 +89,12 @@ interface SharedSetRow {
 export async function fetchPublishedSets(
   supabase: SupabaseClient<DB>,
 ): Promise<PublishedVocabSet[]> {
-  const { data, error } = await supabase
+  // subscriber_count 는 방금 추가된 컬럼 — database.ts 재생성 전이라 loose client 로 select
+  const sb = supabase as unknown as SupabaseClient
+  const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, category_id, additional_category_ids',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -103,9 +108,9 @@ export async function fetchPublishedSets(
   if (error) {
     // 마이그레이션 미적용 환경에선 category_id/additional_category_ids 컬럼이 없어
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
-    const fallback = await supabase
+    const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -171,6 +176,7 @@ async function enrichSets(
     coverEmoji: s.cover_emoji,
     sortOrder: s.sort_order ?? 0,
     wordCount: counts.get(s.id) ?? s.word_count ?? 0,
+    subscriberCount: s.subscriber_count ?? 0,
     createdAt: s.created_at ?? new Date(0).toISOString(),
   }))
 }

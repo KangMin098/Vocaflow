@@ -135,10 +135,11 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
         sorted.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
         break
       default:
-        // 추천순 — 중요도(카테고리: 수능·내신→교육과정→공인→테마) → 큐레이션 순서 → 단어수.
+        // 추천순 — 중요도(카테고리: 수능·내신→교육과정→공인→테마) → 사용빈도(구독수) → 큐레이션 순서 → 단어수.
         sorted.sort(
           (a, b) =>
             categoryImportance(b.category) - categoryImportance(a.category) ||
+            b.subscriberCount - a.subscriberCount ||
             a.sortOrder - b.sortOrder ||
             b.wordCount - a.wordCount,
         )

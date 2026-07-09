@@ -8,7 +8,7 @@
 
 'use client'
 
-import { Check, Loader2, Minus, Plus } from 'lucide-react'
+import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
@@ -95,11 +95,20 @@ export function VocabSetCard({
           </span>
         )}
 
-        {/* 좌하단: 카테고리(중요도) 단서 — 어떤 단계/시험용인지 한눈에 */}
+        {/* 좌하단: 카테고리(중요도) 단서 + 사용빈도(구독수) — 어떤 단계/시험용인지 + 얼마나 쓰는지 */}
         {cat && (
           <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/40 px-2 py-0.5 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
             <span aria-hidden>{cat.emoji}</span>
             {cat.label}
+            {set.subscriberCount > 0 && (
+              <span
+                className="ml-1 inline-flex items-center gap-0.5 border-l border-white/30 pl-1 tabular-nums"
+                title={`${set.subscriberCount}명 학습 중`}
+              >
+                <Users size={9} strokeWidth={2.5} aria-hidden />
+                {set.subscriberCount}
+              </span>
+            )}
           </span>
         )}
       </button>

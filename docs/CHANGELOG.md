@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /library/vocab 중요도·사용빈도 기반 재구성 (v06.179)
+
+공용 단어장 화면을 **중요도(카테고리)·사용빈도(구독수)** 신호로 재구성 — no-op이던 "추천순"을 실제 랭킹으로.
+
+- **중요도 랭킹** — [categories.ts](../apps/web/src/components/library/vocab/categories.ts) `CATEGORY_IMPORTANCE`(수능·내신100→교육과정 고90/중80/초70→공인60→공무원/비즈니스45→테마30→유아20). 추천순 = 중요도→사용빈도(구독수)→큐레이션 순서→단어수. 캐러셀 카테고리 탭도 중요도순(수능 먼저·기본 활성).
+- **사용빈도 랭킹** — 마이그 `20260709194335_shared_word_sets_subscriber_count`: `shared_word_sets.subscriber_count`(denormalized) + 트리거 `trg_maintain_set_subscriber_count`(user_word_set_subscriptions INSERT/DELETE, SECURITY DEFINER) + 백필(262세트). RLS 본인전용이라 클라 집계 불가 → 비정규화. [queries.ts](../apps/web/src/lib/library/vocab/queries.ts) `subscriberCount` 노출(loose client). 카드에 "👥N" 표기.
+- **클러터 제거** — `library_article` 107세트(저큐레이션·소스종속) 공용 라이브러리에서 제외(도서 세트와 동일 원칙, 각 소스 컨텍스트 전용).
+- **카드 정보 단서** — [VocabSetCard](../apps/web/src/components/library/vocab/VocabSetCard.tsx) 좌하단 카테고리(중요도) 칩 + 구독수. tsc·lint 0.
+
 ### CTP P3 — syntax_score 배치 산출 (① 구문 난이도) (v06.178)
 - **`compute_syntax_score(text)` RPC** — 자체 정규식(문장 p90·절 깊이 휴리스틱). 런타임 LLM 0·winkNLP 불요. score 0-100(가중 2:6, 베타 보정 대상).
 - **전량 backfill·검증** — article 132건: register별 정합(reference 94>논증 83>설명 71>서사 61>news 56). 도서 7권: v-level 정합(Gibbon v9=100 … 동화 v3=26).
