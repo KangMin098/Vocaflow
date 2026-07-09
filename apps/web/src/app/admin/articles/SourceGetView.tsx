@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, FlaskConical, Globe, Megaphone, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, FlaskConical, Globe, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -239,6 +239,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//}
           urlHostHint="raw.githubusercontent.com/factbook/factbook.json 국가 JSON"
           urlPlaceholder="https://raw.githubusercontent.com/factbook/factbook.json/master/east-n-southeast-asia/ks.json"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'elife':
+      return (
+        <RssFeedTab
+          source="elife"
+          heading="🔬 eLife"
+          subtitle="CC-BY 4.0 · B2~C1 과학 digest (편집자 저작 요약) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Microscope}
+          urlPattern={/^https?:\/\/(?:www\.)?elifesciences\.org\/articles\/\d+/}
+          urlHostHint="elifesciences.org/articles/<번호> (digest 보유 기사)"
+          urlPlaceholder="https://elifesciences.org/articles/91060"
           onEnqueued={onEnqueued}
         />
       )

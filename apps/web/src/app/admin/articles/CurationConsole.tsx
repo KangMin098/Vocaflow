@@ -20,6 +20,7 @@ import {
   LayoutGrid,
   Layers,
   Megaphone,
+  Microscope,
   Newspaper,
   Radio,
   Rocket,
@@ -38,7 +39,7 @@ import { BulkArticlesTab } from './BulkArticlesTab'
 
 type Stage = 'coverage' | 'get' | 'review' | 'publish'
 type SourceKey =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -64,6 +65,7 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio 
   { key: 'wikinews', label: 'Wikinews', Icon: Newspaper },
   { key: 'owid', label: 'OWID', Icon: BarChart3 },
   { key: 'factbook', label: 'Factbook', Icon: Globe },
+  { key: 'elife', label: 'eLife', Icon: Microscope },
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 

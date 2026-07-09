@@ -14,6 +14,7 @@
 import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
+  ingestElifeArticle,
   ingestFactbookArticle,
   ingestNasaArticle,
   ingestNihArticle,
@@ -33,7 +34,7 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -53,6 +54,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/en\.wikinews\.org\/wiki\//, source: 'wikinews' },
   { pattern: /^https?:\/\/ourworldindata\.org\//, source: 'owid' },
   { pattern: /^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//, source: 'factbook' },
+  { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -124,6 +126,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'factbook':
         article = await ingestFactbookArticle(body.item_url)
+        break
+      case 'elife':
+        article = await ingestElifeArticle(body.item_url)
         break
     }
 

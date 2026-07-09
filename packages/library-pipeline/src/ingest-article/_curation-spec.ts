@@ -23,6 +23,7 @@ export type SourceKey =
   | 'simple_wikipedia'
   | 'owid'
   | 'factbook'
+  | 'elife'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -275,6 +276,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 200,
     noiseKeywords: [],
     maxItems: 30,
+  },
+  // eLife digest: 편집자 저작 plain-language 과학 요약(B2-C1), CC-BY. API list(live).
+  elife: {
+    recencyDays: 3650,     // 연구 요약 — stale 관대 (뉴스 아님)
+    minDescriptionLen: 20, // impactStatement 짧음 (한 문장)
+    minTitleLen: 15,
+    sourceWeight: 0.80,    // 인간저작 균질 산문 (품질 ↑)
+    levelBonus: 0,         // B2-C1 (과학 어휘)
+    idealDescLen: 150,
+    noiseKeywords: ['correction', 'retraction', 'editorial'],
+    maxItems: 20,
   },
 }
 
@@ -579,6 +591,21 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'all', weight: 1.00 },
     ],
   },
+  // eLife digest: 편집자 저작 plain-language 과학 요약, CC-BY(파생 허용), B2-C1. expository 과학.
+  elife: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 20,
+    minScore: 0.42,
+    bulkPriority: 4,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,        // CC-BY — eLife 저자·출처 인용
+    topicDomain: ['science', 'biology', 'medicine', 'neuroscience', 'genetics', 'ecology'],
+    styleGuide: '편집자 저작 plain-language 연구 요약 (인간저작 균질 산문) · 최신 생명과학',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
 }
 
 /**
@@ -592,8 +619,8 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
+  intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -633,6 +660,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   wikinews: 'news',
   owid: 'argumentative',
   factbook: 'reference',
+  elife: 'expository', // 편집자 저작 과학 요약 (설명문)
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -838,6 +866,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   simple_wikipedia: getSourcePolicy('simple_wikipedia'),
   owid: getSourcePolicy('owid'),
   factbook: getSourcePolicy('factbook'),
+  elife: getSourcePolicy('elife'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

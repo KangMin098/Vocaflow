@@ -62,6 +62,9 @@ export {
   FACTBOOK_COUNTRIES,
 } from './ingest-article/factbook'
 export type { FactbookListItem, FactbookCountry } from './ingest-article/factbook'
+// ACP §18 — eLife digest (편집자 저작 과학 요약 · CC-BY · 발행 허용).
+export { ingestElifeArticle, listElifeFeed } from './ingest-article/elife'
+export type { ElifeListItem } from './ingest-article/elife'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
 export { computeLexicalNoise } from './ingest-article/_helpers'
 // v06.41 feed-level + v06.42 source-level curation spec

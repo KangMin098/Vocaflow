@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `521fad8` docs(diagnostics): 통사 축 신설 정당성 P0 실측 (DEFER 판정)
 - `48a4d9a` feat(vocab): 챕터별 학습 — 세트 내 chapter 스코프 (v06.168)
 - `17dcf61` docs(acp): 소스 매트릭스 feasibility 재분석 — CSAT_SOURCE_MATRIX 신설
 - `7a6f8f0` test(e2e): 진단→개인화 체인 검증 + storageState 리팩터 (v06.171)
 - `345fc2f` feat(vocab): 단어장 뷰어 챕터 아코디언 렌더 (v06.168)
-- `26f8138` test(e2e): 학습 루프에 Flashcard 완주→영속화 추가 (v06.170)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260709140000_acp_source_check_add_elife.sql`
 - `20260709135526_shared_words_chapter_column.sql`
 - `20260709130000_acp_source_check_add_factbook.sql`
 - `20260709120000_library_books_source_add_pressbooks.sql`
 - `20260708120500_advisor_revoke_public_definer.sql`
-- `20260708120000_advisor_revoke_anon_definer.sql`
 <!-- /auto:recent-migrations -->
 
 ---

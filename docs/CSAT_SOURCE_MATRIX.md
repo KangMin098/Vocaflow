@@ -24,7 +24,7 @@
 
 | register | 발행 | A2 | B1 | B2 | C1 | 소스 |
 |---|---|---|---|---|---|---|
-| expository | 78 | 1 | 35 | 17 | 25 | NASA·Simple Wiki·VOA |
+| expository | 80 | 1 | 35 | 17 | 27 | NASA·Simple Wiki·VOA·**eLife** |
 | narrative | 13 | 1 | 7 | 5 | 0 | VOA(lets-learn-english) |
 | argumentative | 8 | 0 | 0 | 7 | 1 | **OWID** |
 | news | 3 | 0 | 2 | 1 | 0 | VOA(as-it-is) |
@@ -45,6 +45,7 @@
 | The Conversation | cc_by_nd → **display_only** | ACP | argumentative | HTML(읽기 전용) |
 | **OWID** (v06.163) | cc_by | ACP | argumentative | HTML ✅ |
 | **CIA Factbook** (v06.167) | public_domain | ACP | **reference** | JSON 덤프 ✅ |
+| **eLife** (신규) | cc_by | ACP | expository(과학) | API JSON ✅ (digest만) |
 | Standard Ebooks · Gutenberg | public_domain | LCP | narrative | HTML ✅ |
 | StoryWeaver | cc_by | LCP | narrative | API ✅ |
 | **Pressbooks** (v06.163) | cc_by | LCP | 논픽션/교재 | HTML ✅ |
@@ -72,7 +73,7 @@
 | 소스 | 실측 | stage | 비고 |
 |---|---|---|---|
 | **PLOS** | 서버렌더 111×`<p>` · CC-BY 확인 | S4 과학(C2) | 트리거(OBP 후) → Pressbooks 로 이미 충족 |
-| **eLife digest** | API 정상 · HTML · CC-BY | S2 과학 설명 | digest 평이 → 밴드 정합. RSS 경량 |
+| ~~**eLife digest**~~ | ✅ **구현완료(T-1 이동)** — API digest·CC-BY·C1 | S2 과학 설명 | 편집자 저작 요약. digest-guard(digest 없는 기사 거부). 2건 발행 |
 | **Wikipedia 정규** | MediaWiki(`_mediawiki` 재사용) | S2–S3 expository(C1+) | **최저비용**. 단 narrative 아님 |
 | **PMC OA subset · BMC** | JATS XML(NCBI API — dependency-0 가능) | S4 생의학(C2) | 부분 viable. 도메인 수요 시 |
 

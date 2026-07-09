@@ -13,6 +13,7 @@ export type ArticleSource =
   | 'wikinews' // ACP §18 — A2~B2 시사 (CC-BY 2.5)
   | 'owid' // ACP §18 T-2 — B2~C1 데이터 논증문 (CC-BY 4.0 → 발행 허용, argumentative gap 보강)
   | 'factbook' // ACP §18 — B1~B2 국가 개요 참고문 (PD US Gov → 발행 허용, reference gap 보강)
+  | 'elife' // ACP §18 — B2~C1 과학 digest (편집자 저작 요약 · CC-BY 4.0 → 발행 허용)
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
   | 'manual'
 

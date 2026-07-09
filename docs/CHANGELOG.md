@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP eLife digest 소스 신설 — 고품질 과학 설명 (v06.172)
+- **eLife ingester 신설** — `ingest-article/elife.ts`. eLife API(JSON)에서 편집자 저작 **plain-language digest**만 추출(연구 본문 C2 배제·dependency-0). CC-BY 4.0 → 발행 허용. register=expository(과학). digest 없는 기사 자동 거부(guard).
+- 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🔬 Microscope). drift-lock +1(25 tests).
+- **마이그레이션 적용** — `acp_source_check_add_elife`.
+- **end-to-end 실증** — elife:91060·89129 published·C1·cc_by·display_only=false·llm_cost 0(50253=digest 없음 정상 거부). expository에 최신 생명과학 topical 다양성 보강.
+- docs: [CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) T-1 이동.
+
 ### 소스 매트릭스 feasibility 재분석 — CSAT_SOURCE_MATRIX 신설 (docs)
 - **[CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) 신설** — 전수 소스를 feasibility 3축(포맷 HTML/PDF·라이선스 CC/NC·트리거)으로 재분류. 설계 문서 ↔ 실측 갭 해소(OWID·Factbook·Pressbooks = T-1 승격, OBP = PDF-only 반증).
 - **동결 풀 판정**: 청정 viable(PLOS·eLife·Wikipedia 정규·PMC) 이나 트리거 전부 미충족 · PDF-블록(OECD·WB·UNDP·CRS/CBO/GAO) · NC 오염(LibreTexts·Saylor).
