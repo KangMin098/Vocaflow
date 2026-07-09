@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### WordBlitz 재설계 — 3D 인형뽑기 → 2D 속사 인지 (v06.189)
+
+L4a 자동화 모듈 전면 재설계(리서치 기반: 어휘게임 메커닉·게임필·모던 UI·플로우).
+- **게임**: ko 뜻 → 4 en 타일 중 정답 빠르게(탭/키 1-4). 콤보(연속정답→배수·레벨업)·문항 타이머(레벨↑ 단축)·점수(시간보너스×배수). Action→Feedback→Reward 루프.
+- **이전 Three.js 3D 인형뽑기 대체** — ~5초/단어 → ~1-2초/단어. "Blitz"·L4a 자동화 목표 정합 + 모바일 우선. (`WordBlitzGame.tsx` 재작성 `7d55cce`.)
+- **Calm UI 주스**: 정답 초록+체크·오답 앰버 shake·콤보 범프. 폭죽 없음, 차분한 종료("오늘 잘 마쳤어요").
+- **모던 UI + 테마 토큰**(라이트/다크 자동) + 접근성(키보드·aria-live·reduced-motion·44px+). 게임 예외 `--combo`/`--streak`.
+- **계약 무변경**: wordPool/onExit/onCorrect/onWrong(FSRS) — page + WorkspaceWordBlitzMode 자동 적용.
+- **dead code 제거**(`e6e67dd`+`a4105c4`): ClawMachine/ClawModel/ClawScene/Plushie/PlushieModel·useWordBlitzGame·WordBlitzUI.css·lib/wordblitz/types.ts 삭제. data.ts 정리. 정글 이모지 🌴→⏱. (three/fiber는 pirate-quest 사용 → 유지.)
+- 검증: :3000 스크린샷 playing/reveal·라이트/다크, ko→en 정합, tsc 0, pageerror 0.
+
 ### /plan 런처 챕터 선택 — 공용단어장 챕터 단위 시작 (v06.188)
 
 '게임별 챕터 학습 UI'([VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx))의 플랜 버전 — /plan '바로 시작'에서 공용단어장을 특정 챕터 단어로 시작.

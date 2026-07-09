@@ -45,6 +45,25 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-10 — WordBlitz 게임 재설계 (3D 인형뽑기 → 2D 속사 인지)
+
+> 요청: "`/play/wordblitz` 다른 게임으로 재설계" → "전문 디자인·게임 사이트 리서치하여 흥미·재미·적합성·디자인 설계·적용". VCB 재설계 + ACP 검증 세션의 연속. 동시 세션(/plan·dictation·hub)과 working-copy 공유 → 명시 pathspec 격리.
+
+**진단**: 현 WordBlitz = Three.js 3D 인형뽑기(정글). ~5초/단어(DROP+CLOSE+RETURN+RESULT 애니), 무겁고(WebGL) 모바일 부적합 → **"Blitz"·L4a 자동화(빠른 인지) 목표와 배치**. 인형(바나나·판다)도 단어 무관. (LEARNING_MODEL은 이미 "4지선다·클릭/탭 속도·자동화"로 기술 → 재설계가 현실을 학습모델에 맞춤.)
+
+**리서치**(WebSearch/WebFetch): 어휘게임 메커닉(리트리벌·즉시피드백·점진난이도·SRS) · 동기부여(포인트·스트릭·콤보·Action→Feedback→Reward 루프) · 게임 주스(squash·플래시·콤보 에스컬레이션 — 단 "주스 남용 경계") · 모던 미니멀 UI 2026(큰 타이포·여백·마이크로인터랙션·접근성) → **Calm UI와 맞물려 절제된 만족 피드백**으로 종합.
+
+**구현**(`7d55cce` 재작성 · `e6e67dd`+`a4105c4` dead 제거):
+- **WordBlitzGame.tsx 전면 재작성** — ko 뜻 → 4 en 타일(2×2) 탭/키(1-4). 콤보(연속정답→배수·5마다 레벨업·속도↑)·문항 타이머 바(레벨↑ 단축)·점수(시간보너스×콤보배수). ref 락 기반 상태(중첩 setState 제거)·언마운트 타이머 정리.
+- **Calm 주스**: 정답 초록+체크·오답 앰버 shake·콤보 범프·+점수 팝. 폭죽 없음, 차분한 종료("오늘 잘 마쳤어요").
+- **테마 토큰**(라이트/다크 자동) + 접근성(키보드·aria-live·prefers-reduced-motion·44px+). 게임 예외 `--combo`/`--streak` 사용.
+- **계약 무변경**(wordPool/onExit/onCorrect/onWrong FSRS) → page + WorkspaceWordBlitzMode 자동 적용.
+- **dead code**: ClawMachine/ClawModel/ClawScene/Plushie/PlushieModel·useWordBlitzGame·WordBlitzUI.css·types.ts 삭제(8). WordBlitzUI→로딩만(테마화). data.ts 정리. 정글 잔재(page 빈상태·ResourceContext·SessionFrame 🌴→⏱·about desc). three/fiber는 pirate-quest 사용 → 유지.
+
+**검증**: :3000 스크린샷 — playing(라이트/다크)·reveal(정답 초록✓), ko→en 정합(경향이있는→inclined·틀림없는→unmistakable), tsc 0, pageerror 0. **첫 컴파일 지연 주의**(변경 라우트 첫 히트 시 dynamic import 청크 컴파일 ~수초 → waitForSelector 필요).
+
+**관련**: `7d55cce`(재작성) `a4105c4`(UI/data 정리) · 삭제 8종은 `e6e67dd`(동시 세션 흡수). CHANGELOG v06.189 · MODULES/ROUTES 갱신. 교훈: 게임 리서치→설계→구현 시 학습모델 정합 우선, Calm UI가 게임 주스를 절제.
+
 ### 2026-07-09 — /plan 자료 고르기 picker 전면 재설계 + 다건 선택 (완결 · 스모크 green)
 
 **요청 흐름**: `/plan` "자료 고르기" 를 (1) 소스별 3단 분류(소스→분류→컨텐츠), (2) 컨텐츠를 우측 넓은 선택 영역으로, (3) 학습대상 **다건 선택**, (4) 디자인 폴리시 — 순차 지시.
