@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP P3 — DCP T2 결정론 문항 생성 완료 (③) (v06.182)
+- **`csat_dcp_items` 테이블** — 공유 배치 order/insert 문항(quiz_questions는 per-user·MC라 부적합 — P0식 정정). RLS admin write.
+- **생성 라우트** `/api/ctp/dev-generate-items` — 결정론 생성기 실행+INSERT. **DCP 입력 게이트**(NOT display_only·license_class∈pd/cc0/cc_by/cc_by_sa·noise≤0.08) — ND(The Conversation) 파생 차단.
+- **보일러플레이트 필터** — 생성기 적격필터에 인용·URL·라이선스·캡션 배제 추가(OWID "cited as…" 오인식 수리). drift-lock +1(6 tests).
+- **실증** — OWID S3 논증 8건(게이트 통과) → **64 실 문항**(실 산문 확인). ND 파생 항목 사후 삭제.
+- 다음 P3 잔여: 학습자 stage 실시간 파생 함수.
+
 ### LCP 대량 GET — Pressbooks 소스 배선 (v06.181)
 - **BulkFetchTab에 Pressbooks 추가** — seed-fetcher `pressbooks.ts`(정적 큐레이션 리스트 — 통합 카탈로그 API 부재라 Factbook 국가리스트와 동형). opentextbc.ca 검증 슬러그 4권(Sociology·Psychology·Writing·Chemistry). 실 메타는 ingest 시 `citation_*` 재취득.
 - seed-fetchers `SeedSource`+pressbooks · `FETCHERS`/`SOURCE_LABELS` 등록 · BulkFetchTab SourceKey/SOURCE_OPTIONS.

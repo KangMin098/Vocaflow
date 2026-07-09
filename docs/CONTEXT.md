@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `fcbf26d` feat(lcp): 대량 GET에 Pressbooks 소스 배선 (v06.181)
 - `f492e0c` feat(vocab): 게임별 챕터 학습 UI — 챕터 아코디언 게임 런처
 - `d27877f` feat(vocab): 세트 상세 시트에 챕터 수 표시 (v06.179)
 - `0850f4e` feat(acp): 대량 GET에 신규 소스 배선 — OWID·Factbook·eLife (v06.180)
 - `799092a` feat(vocab): 카드 'NEW' 신규 배지 (최근 14일 등록) (v06.179)
-- `b8d328b` feat(vocab): /library/vocab 상단 '추천' 피처드 행 (v06.179)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710170000_ctp_dcp_items_table.sql`
 - `20260710160000_lcp_seed_catalog_source_add_pressbooks.sql`
 - `20260710150000_acp_seed_catalog_source_add_new.sql`
 - `20260710140000_ctp_syntax_wire_rpcs.sql`
 - `20260710130000_ctp_compute_syntax_score.sql`
-- `20260710120200_ctp_runtime_tables.sql`
 <!-- /auto:recent-migrations -->
 
 ---

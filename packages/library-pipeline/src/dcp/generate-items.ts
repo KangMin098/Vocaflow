@@ -42,11 +42,16 @@ function wordCount(s: string): number {
 const ANCHOR_BAD =
   /^(it|this|that|these|those|they|he|she|his|her|its|their|but|and|so|however|therefore|thus|hence|also|then|moreover|furthermore)\b/i
 
-/** 문단 적격 — 4~6문장 · 각 문장 6단어+ · 첫 문장 앵커 양호. */
+// 인용·라이선스·URL·캡션 보일러플레이트 — 산문 아님 → 배제.
+const BOILERPLATE =
+  /\b(cited as|retrieved from|published online|licensed under|creative ?commons|ourworldindata|https?:\/\/|www\.|doi:|all rights reserved|figure \d|table \d|source:|data source|see chart|image credit)\b/i
+
+/** 문단 적격 — 4~6문장 · 각 문장 6단어+ · 첫 문장 앵커 양호 · 보일러플레이트 아님. */
 function isEligible(sentences: string[]): boolean {
   if (sentences.length < 4 || sentences.length > 6) return false
   if (sentences.some((s) => wordCount(s) < 6)) return false
   if (ANCHOR_BAD.test(sentences[0]!)) return false
+  if (BOILERPLATE.test(sentences.join(' '))) return false
   return true
 }
 

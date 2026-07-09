@@ -54,4 +54,14 @@ describe('generateDcpItems', () => {
     const b = (other.find((i) => i.type === 'order')!.answer_key.source_order as number[]).join('')
     expect(a).not.toEqual(b)
   })
+
+  it('인용·URL 보일러플레이트 문단 배제', () => {
+    const boiler =
+      'This article can be cited as: Jane Doe (2026) published online at OurWorldinData.org. ' +
+      'Retrieved from https://ourworldindata.org/example for the analysis here. ' +
+      'The data source is licensed under Creative Commons attribution rules today. ' +
+      'All rights reserved to the respective original data providers globally.'
+    const only = generateDcpItems(boiler, 'boiler-ref')
+    expect(only).toHaveLength(0)
+  })
 })
