@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2e7ffe9` docs(session-log): 소스 5종 + 대량 GET + CTP 백엔드 완성 세션 기록
 - `964d5a0` docs(wordblitz): 2D 속사 인지 재설계 반영 (MODULES/ROUTES/CHANGELOG/세션로그)
 - `ee4108b` docs(changelog): /plan 런처 챕터 선택 + /library/vocab 추천 RPC 재설계 (v06.188)
 - `d595a95` feat(ctp): DCP 채점 grade_dcp_item — 실행 루프 완결 (v06.187)
 - `428f909` feat(plan): 런처 챕터 선택 — 공용단어장 게임을 특정 챕터 단어로 시작
-- `a4105c4` refactor(wordblitz): 로딩 폴백 테마화 + data 정리 (3D dead code 후속)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710210000_acp_source_add_wikipedia.sql`
 - `20260710200000_ctp_grade_dcp_item.sql`
 - `20260710190000_ctp_prescribe_today.sql`
 - `20260710180000_ctp_derive_learner_stage.sql`
 - `20260710170000_ctp_dcp_items_table.sql`
-- `20260710160000_lcp_seed_catalog_source_add_pressbooks.sql`
 <!-- /auto:recent-migrations -->
 
 ---
