@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9d1c4e8` docs(session-log): 공용단어장 챕터 학습 라인 완성 + 런타임 검증 기록
 - `d3574d8` feat(acp): PLOS 오픈 학술 소스 신설 (v06.194)
 - `df12c65` test(e2e): 이번 세션 UI 챕터 런처 3기능 런타임 회귀 spec
 - `673a953` feat(echo): #2 단어 정확도 게이트 — 병렬 음성인식 (v06.190)
 - `05aaa60` feat(acp): English Wikipedia 정규 소스 신설 (v06.193)
-- `6ba44d9` docs(changelog): /wordvault 구독 단어장 챕터 학습 모달 재사용 (v06.192)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

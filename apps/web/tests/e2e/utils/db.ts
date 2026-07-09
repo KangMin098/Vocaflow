@@ -43,6 +43,53 @@ export async function userIdByEmail(email: string): Promise<string | null> {
 }
 
 /**
+ * 공용단어장 구독 보장(멱등) — 06-chapter-launch 등 챕터 학습 검증의 데이터 전제.
+ * 이미 있으면 no-op. service-role 키 없으면 false(호출부는 기존 영속 데이터에 의존).
+ */
+export async function ensureWordSetSubscription(userId: string, setId: string): Promise<boolean> {
+  const c = serviceClient();
+  if (!c) return false;
+  const { data } = await c
+    .from('user_word_set_subscriptions')
+    .select('user_id')
+    .eq('user_id', userId)
+    .eq('set_id', setId)
+    .limit(1);
+  if (data && data.length > 0) return true;
+  const { error } = await c.from('user_word_set_subscriptions').insert({ user_id: userId, set_id: setId });
+  return !error;
+}
+
+/**
+ * 공용단어장 계획 항목 보장(멱등) — '오늘의 학습'에 뜨도록 오늘 요일(KST ISODOW) 배치.
+ * 같은 (user, word_set, set) 항목이 이미 있으면 no-op(multi-entry 라 unique 없음 → check-then-insert).
+ */
+export async function ensureWordSetPlanItem(userId: string, setId: string): Promise<boolean> {
+  const c = serviceClient();
+  if (!c) return false;
+  const { data: existing } = await c
+    .from('study_plan_items')
+    .select('id')
+    .eq('user_id', userId)
+    .eq('material_type', 'word_set')
+    .eq('material_id', setId)
+    .limit(1);
+  if (existing && existing.length > 0) return true;
+  // KST(UTC+9) 요일 → ISO 1=월..7=일 (일=0→7)
+  const kstDow = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay();
+  const isoDow = kstDow === 0 ? 7 : kstDow;
+  const { error } = await c.from('study_plan_items').insert({
+    user_id: userId,
+    material_type: 'word_set',
+    material_id: setId,
+    modules: ['vocab', 'flashcard', 'wordblitz'],
+    chapters: [],
+    weekdays: [isoDow],
+  });
+  return !error;
+}
+
+/**
  * 사용자 vocab 의 next_review_at 을 과거로 리셋 — flashcard due 큐를 반복 가능하게.
  * (게임 완주가 SRS 를 미래로 밀어 다음 실행 때 due 0 이 되는 걸 방지)
  * 반환: due 로 만든 행 수(-1 = 키 없음/오류).

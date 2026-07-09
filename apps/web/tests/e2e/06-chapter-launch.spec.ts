@@ -3,14 +3,20 @@
 //   1) /library/vocab 진단 기반 추천 행(FeaturedRow — recommend_word_sets_for_user)
 //   2) /plan 공용단어장 런처 챕터 선택(ChapterScopePicker select)
 //   3) /wordvault 구독 단어장 → 챕터 학습 모달(VocabSetPreviewModal 아코디언)
-// 시드: runtime-test 계정에 '교육과정 기본어휘 (고등)'(25 내부챕터) 구독 + 계획(오늘 요일) 존치.
+// 시드: '교육과정 기본어휘 (고등)'(25 내부챕터) 구독 + 계획(오늘 요일)을 beforeAll 에서 **멱등 자립 시드**.
+//   service-role 키(apps/web/.env.local) 있으면 매 실행 보장(계정 리셋에도 안전), 없으면 기존 영속 데이터에 의존.
 //   (계정은 진단 완료 V11 — 추천 RPC 가 primary/review 반환)
 import { test, expect, type Page } from '@playwright/test';
+
+import { ensureWordSetPlanItem, ensureWordSetSubscription, userIdByEmail } from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
+
+/** 교육과정 기본어휘 (고등) — 25 내부챕터(shared_words.chapter) 보유 세트 */
+const CHAPTERED_SET_ID = 'bcb61429-6261-4f7e-a7b4-5bd5f5e6a72f';
 
 /** 로그인은 파일당 1회만 (auth rate-limit 회피) — storageState 로 각 테스트에 주입 */
 const STATE_PATH = 'test-results/.auth-runtime-user.json';
@@ -30,6 +36,12 @@ test.describe('챕터 스코프 학습 런처', () => {
     await loginRuntimeUser(page);
     await page.context().storageState({ path: STATE_PATH });
     await page.close();
+    // 멱등 자립 시드 — service-role 키 있을 때만(없으면 기존 영속 데이터 의존, 스킵).
+    const uid = await userIdByEmail(RUNTIME_USER.email);
+    if (uid) {
+      await ensureWordSetSubscription(uid, CHAPTERED_SET_ID);
+      await ensureWordSetPlanItem(uid, CHAPTERED_SET_ID);
+    }
   });
   test.use({ storageState: STATE_PATH });
 

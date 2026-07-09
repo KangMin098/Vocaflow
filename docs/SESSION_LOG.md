@@ -79,7 +79,7 @@
 - **/library/books·/dashboard 조사** — 둘 다 이미 성숙(books=`recommend-books.ts` popularity_rank·인기 레일·인기순 / dashboard=정본 `--memory-*` 토큰·색+텍스트 이중부호·Implicit Progress). BookShelfSection·AssetGrid는 미마운트(dead). **개선 시 오히려 철학 위반 → 무변**(억지 변경 회피, 정직 보고).
 - **런타임 검증** (`df12c65`) — `04-ui-smoke`에 /library/vocab 추가(9화면 콘솔에러 0, 2 passed). 신규 `06-chapter-launch` spec 3기능 라이브 검증(추천 행·plan 챕터 select·wordvault 챕터 모달) **3 passed**. runtime-test 계정 시드(교육과정 기본어휘 고등 25챕터 구독+계획, 오늘 요일). RPC 데이터 경로 DB 확인(V11→primary/review).
 
-**무엇이 남았나**: 이 UI 챕터 트랙 ✅ **종결**. 잔여 여지(선택·비긴급): ① `06` spec 자립화(현재 seed 의존 — UI로 구독/계획 seeding하면 계정 리셋에도 안전) ② `AssetGrid`(dead·미마운트) memory-decay 하드코딩 색(#22C55E 등)→토큰 정리 or 컴포넌트 삭제.
+**무엇이 남았나**: 이 UI 챕터 트랙 ✅ **종결**. ① `06` spec 자립화 ✅ 완료(`db.ts` ensureWordSetSubscription/PlanItem 멱등 시드 + beforeAll 자립 — seed 삭제 후 재실행 3 passed로 INSERT 경로 검증). 잔여 여지(선택·비긴급): `AssetGrid`(dead·미마운트) memory-decay 하드코딩 색(#22C55E 등) — 단, `VaultBook` 타입이 live `useHubStats`에 얽혀 있어 삭제는 useHubStats 프루닝 동반(저가치·위험 → 보류).
 
 **관련 커밋·파일**: `c6356fc`·`428f909`·`ee4108b`·`e32f225`·`6ba44d9`·`df12c65`(전부 `feat/plan-ui` push). CHANGELOG v06.188·192. 기반(이전 세션): 교육과정 기본어휘 초/중/고 발행(shared_words.chapter) + VocabSetPreviewModal 챕터 아코디언(`f492e0c`) + /library/vocab 중요도·사용빈도(v06.179). 교훈: 성숙한 화면은 손대면 나빠짐 — 조사 후 "무변"이 정직한 결론일 수 있다. 시드 의존 spec은 헤더에 의존성 명시.
 
