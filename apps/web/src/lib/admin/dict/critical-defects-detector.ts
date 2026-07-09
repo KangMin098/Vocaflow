@@ -271,11 +271,11 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   if (l.polysemy.polysemicRatio < 0.22) {
     defects.push({
       id: 'polysemy_underdeveloped',
-      severity: 'warning',
-      priority: 'P1',
-      title: 'polysemy 20%+ (다의어 senses 분할 부족)',
+      severity: 'info',
+      priority: 'P2',
+      title: 'polysemy 20%+ (다의어 senses 분할 부족 · UI 미렌더)',
       description:
-        '실제 영어 다의어 비율 ~25-30% 대비 senses 배열 ≥ 2 row 가 부족. 사용자 학습 시 의미 모호.',
+        '실제 영어 다의어 비율 ~25-30% 대비 senses ≥ 2 row 부족. ⚠️ 2026-07-09 진단: senses 는 학습자 UI(카드·툴팁) 미렌더 — 카드가 meaning_ko 단일만 표시. 다의어 카드 UI 선행 필요(D3 이연).',
       evidence: `polysemic_2plus: ${l.polysemy.polysemic.toLocaleString()} / total (${(l.polysemy.polysemicRatio * 100).toFixed(1)}%)`,
       metrics: {
         current: (l.polysemy.polysemicRatio * 100).toFixed(1),
@@ -315,10 +315,11 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   if (c.collocations.ratio < 0.5) {
     defects.push({
       id: 'collocations_underdeveloped',
-      severity: 'warning',
-      priority: 'P1',
-      title: 'collocations 32%+ 부재 (자연 결합 부족)',
-      description: 'set phrase / collocation 부족. 사용자 학습 시 자연스러운 사용 패턴 부재.',
+      severity: 'info',
+      priority: 'P2',
+      title: 'collocations 32%+ 부재 (자연 결합 · UI 미렌더)',
+      description:
+        'set phrase / collocation 부족. ⚠️ 2026-07-09 진단: collocations 는 학습자 UI 미렌더(admin 패널만) — 카드에 연어 표시 UI 선행 필요(D7 이연).',
       evidence: `collocations 채움: ${c.collocations.filled} / ${c.total} (${(c.collocations.ratio * 100).toFixed(1)}%)`,
       metrics: {
         current: (c.collocations.ratio * 100).toFixed(1),
@@ -336,11 +337,11 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   if (c.koreanLearnerNote.ratio < 0.5) {
     defects.push({
       id: 'korean_learner_note_gap',
-      severity: 'warning',
-      priority: 'P1',
-      title: 'korean_learner_note 32%+ 부재 (한국인 학습자 메모 부족)',
+      severity: 'info',
+      priority: 'P2',
+      title: 'korean_learner_note 32%+ 부재 (학습 메모 · UI 미렌더)',
       description:
-        '한국어 학습자 특이 학습 메모 부족 — Konglish 경고, 발음 유사 단어 혼동 등.',
+        '한국어 학습자 특이 메모(Konglish 경고 등) 부족. ⚠️ 2026-07-09 진단: 학습자 UI 미렌더(admin 패널만) — 카드 메모 슬롯 UI 선행 필요(D6 이연).',
       evidence: `korean_learner_note 채움: ${c.koreanLearnerNote.filled} / ${c.total} (${(c.koreanLearnerNote.ratio * 100).toFixed(1)}%)`,
       metrics: {
         current: (c.koreanLearnerNote.ratio * 100).toFixed(1),

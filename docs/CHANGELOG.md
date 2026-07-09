@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### enrichment 백로그 진단 — 무소비 필드 3종(D3/D6/D7) 이연 (v06.173)
+
+노출 단어 표적 enrichment 착수 전 진단 — 대상 필드가 학습자 UI 미렌더 판명(register D2·B1과 동일 패턴 3번째). 코드만 변경(데이터·마이그레이션 0).
+
+- **진단**: 발행 세트 노출 단어 9,227개의 갭 = collocations 2,240·korean_learner_note 7,104·다의어 senses 6,784. 그러나 **학습자 UI 전수 확인 결과 이 필드들은 어디에도 렌더 안 됨** — 플래시카드 CardBack(pos·meaning·example)·리더 툴팁 WordLookupPopover(register·pos·cefr·v_level·meaning·example)·단어장 미리보기(word·meaning_ko·pos·cefr) 모두 미포함. 렌더되는 필드는 노출 단어에서 이미 ~100%(example 결핍 2).
+- **결론**: D3(polysemy)·D6(korean_learner_note)·D7(collocations) 채우기 = 현재 학습자 효과 0(admin 패널 전용). 카드 리치화 UI 선행 필요.
+- **대시보드 정직화**: backlog D3/D6/D7 P1→P3 + "UI 미렌더 이연" 근거 · 결함 룰 3종 P1/warning→P2/info + description 에 미렌더 명시. → 사전 Health P1 warning 3건 감소.
+
 ### ACP eLife digest 소스 신설 — 고품질 과학 설명 (v06.172)
 - **eLife ingester 신설** — `ingest-article/elife.ts`. eLife API(JSON)에서 편집자 저작 **plain-language digest**만 추출(연구 본문 C2 배제·dependency-0). CC-BY 4.0 → 발행 허용. register=expository(과학). digest 없는 기사 자동 거부(guard).
 - 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🔬 Microscope). drift-lock +1(25 tests).

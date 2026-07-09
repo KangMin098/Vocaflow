@@ -93,12 +93,13 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
   },
   {
     id: 'D3',
-    priority: 'P1',
-    title: 'polysemy enrichment',
-    oneLine: '다의어 senses 분할 (Claude pos별 분리)',
+    priority: 'P3',
+    title: 'polysemy enrichment (UI 미렌더 — 이연)',
+    oneLine:
+      '2026-07-09 진단: senses(추가 의미)는 학습자 UI(카드·툴팁·미리보기) 어디에도 미렌더 — 카드가 meaning_ko 단일만 표시. 다의어 카드 리치화 UI 선행 필요',
     affects: ['R4'],
-    effort: '12-25 turns',
-    value: 'R4 polysemy 17.5% → 25%+',
+    effort: '12-25 turns (+ 렌더 UI)',
+    value: '다의어 카드 UI 도입 시 R4 — 현재 학습자 효과 0',
     defectId: 'polysemy_underdeveloped',
   },
   {
@@ -125,22 +126,24 @@ export const BACKLOG_ITEMS: BacklogItem[] = [
   },
   {
     id: 'D6',
-    priority: 'P1',
-    title: 'korean_learner_note 백필',
-    oneLine: 'Konglish 경고, 한국인 학습자 특이 학습 메모',
+    priority: 'P3',
+    title: 'korean_learner_note 백필 (UI 미렌더 — 이연)',
+    oneLine:
+      '2026-07-09 진단: korean_learner_note 는 학습자 UI 미렌더(admin 패널만) — 카드에 학습 메모 슬롯 UI 선행 필요',
     affects: ['R4'],
-    effort: '10-15 turns',
-    value: 'R4 +5 · 한국인 학습자 특화',
+    effort: '10-15 turns (+ 렌더 UI)',
+    value: '메모 UI 도입 시 R4 — 현재 학습자 효과 0',
     defectId: 'korean_learner_note_gap',
   },
   {
     id: 'D7',
-    priority: 'P1',
-    title: 'collocations enrichment',
-    oneLine: 'set phrase + collocation (Claude 빈도 상위 우선)',
+    priority: 'P3',
+    title: 'collocations enrichment (UI 미렌더 — 이연)',
+    oneLine:
+      '2026-07-09 진단: collocations 는 학습자 UI 미렌더(admin 패널만, 노출 단어 2,240 결핍) — 카드에 연어 표시 UI 선행 필요',
     affects: ['R4'],
-    effort: '15-30 turns',
-    value: 'R4 +5 · 자연 결합 학습',
+    effort: '15-30 turns (+ 렌더 UI)',
+    value: '연어 UI 도입 시 R4 — 현재 학습자 효과 0',
     defectId: 'collocations_underdeveloped',
   },
   {

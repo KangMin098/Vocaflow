@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9fda4f1` feat(vocab): 챕터별 학습 전 게임 확장 (wordblitz/pairflip/spellforge)
 - `a69da0d` feat(acp): eLife digest 소스 — 고품질 과학 설명 (v06.172)
 - `521fad8` docs(diagnostics): 통사 축 신설 정당성 P0 실측 (DEFER 판정)
 - `48a4d9a` feat(vocab): 챕터별 학습 — 세트 내 chapter 스코프 (v06.168)
 - `17dcf61` docs(acp): 소스 매트릭스 feasibility 재분석 — CSAT_SOURCE_MATRIX 신설
-- `7a6f8f0` test(e2e): 진단→개인화 체인 검증 + storageState 리팩터 (v06.171)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
