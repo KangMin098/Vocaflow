@@ -51,9 +51,13 @@ export async function listWikipediaFeed(
   url.searchParams.set('action', 'query')
   url.searchParams.set('generator', 'categorymembers')
   url.searchParams.set('gcmtitle', category)
-  url.searchParams.set('gcmlimit', String(Math.min(limit, 50)))
+  url.searchParams.set('gcmlimit', String(Math.min(limit * 2, 100))) // 필터 손실 보전 위해 2배 fetch
   url.searchParams.set('gcmtype', 'page')
   url.searchParams.set('gcmnamespace', '0') // 주 기사(ns=0)만 — 관리 페이지 배제
+  // sortkey 순은 앞부분이 문장부호-시작 니치(화석종 '?Oryzomys'·'.hack'·'*SCAPE')로 도배됨 →
+  //   timestamp desc(최근 승격 GA) 로 다양한 주제 확보 (학습 부적합 니치 편중 완화).
+  url.searchParams.set('gcmsort', 'timestamp')
+  url.searchParams.set('gcmdir', 'desc')
   url.searchParams.set('prop', 'extracts|info')
   url.searchParams.set('exintro', '1')
   url.searchParams.set('explaintext', '1')
@@ -67,7 +71,9 @@ export async function listWikipediaFeed(
   const pages = Object.values(data.query?.pages ?? {})
 
   const raw: WikipediaListItem[] = pages
-    .filter((p) => (p.extract ?? '').trim().length >= 60)
+    // extract 충분 + 제목이 영문자로 시작(문장부호-시작 니치 '?Oryzomys'·'.hack'·'*SCAPE' 배제).
+    .filter((p) => (p.extract ?? '').trim().length >= 60 && /^[A-Za-z]/.test((p.title ?? '').trim()))
+    .slice(0, limit)
     .map((p) => {
       const slug = (p.title ?? '').replace(/\s+/g, '_').slice(0, 80)
       return {

@@ -30,6 +30,8 @@ BEGIN
       JOIN csat_stage_catalog c ON c.id=i.ref_id AND c.kind=i.kind
       WHERE c.stage_band = v_band ORDER BY i.created_at DESC LIMIT 5) p;
   END IF;
+  -- practice 실활성 = stage≥S3 AND 실 문항 존재 (S4=도서·DCP 문항 없음 → active-empty 오해 방지, QA v06.195)
+  v_active := v_active AND v_practice IS NOT NULL AND jsonb_array_length(v_practice) > 0;
 
   RETURN jsonb_build_object(
     'stage', v_stage,
