@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### /library/scripts 재설계 — 목적별 묶음 + 레벨 칩 단일 시스템 (v06.183)
+
+기존 이원 구조(추상 소스맵 + 평면 그리드)로 "선택을 어떻게 하는지 모름" 문제 → 분류를 목록에 직접 노출하는 단일 시스템으로 통합.
+
+- **`ScriptsBrowser` 신설** — ① 레벨 칩(내 레벨/CEFR, 드롭다운 아닌 가시 facet) ② 내 레벨 추천 strip(i+1 상위 3) ③ 목적별 트랙 섹션(적합순·묶음당 미리보기 6편 + "전체 N편 보기") ↔ 필터·묶음 진입 시 평면 그리드. `ArticleCard`·`source-map.ts`·i+1 로직 재사용, 추가 fetch 0.
+- **신규 소스 트랙 편입** — owid+factbook→📊 '데이터·사실로 읽기'(신규 트랙), elife→🔬 topic. 기존 맵에서 누락되던 3소스 커버. `ArticleCard` SOURCE_META에 라벨·색 추가.
+- **제거** — `SourceMapShell`·`ArticlesExplorer`·`source-map/{SourceMap·DifficultyMap·TrackCard}` (page 단일 진입 dead code).
+- 04-ui-smoke에 `/library/scripts` 화면 추가(영구 회귀 자산). tsc green. ⚠ 런타임 스모크는 동시 멀티세션 `.next` 캐시 오염(`_document.js` 결측 — 전 라우트 500)으로 차단 → 클린 서버 재기동 후 검증 필요.
+
 ### CTP P3 — DCP T2 결정론 문항 생성 완료 (③) (v06.182)
 - **`csat_dcp_items` 테이블** — 공유 배치 order/insert 문항(quiz_questions는 per-user·MC라 부적합 — P0식 정정). RLS admin write.
 - **생성 라우트** `/api/ctp/dev-generate-items` — 결정론 생성기 실행+INSERT. **DCP 입력 게이트**(NOT display_only·license_class∈pd/cc0/cc_by/cc_by_sa·noise≤0.08) — ND(The Conversation) 파생 차단.

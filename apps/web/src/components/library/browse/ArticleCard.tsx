@@ -36,6 +36,10 @@ const SOURCE_META: Record<string, { label: string; color: string }> = {
   simple_wikipedia: { label: 'Simple Wikipedia', color: '#0F766E' },
   wikinews: { label: 'Wikinews', color: '#B45309' },
   the_conversation: { label: 'The Conversation', color: '#15803D' },
+  // v06.180 신규 소스 — 미등록 시 회색 폴백이라 라벨·색 지정
+  owid: { label: 'Our World in Data', color: '#0891B2' },
+  factbook: { label: 'World Factbook', color: '#57534E' },
+  elife: { label: 'eLife', color: '#BE185D' },
   rss: { label: 'RSS', color: '#D97706' },
 }
 

@@ -1,7 +1,7 @@
 // apps/web/src/lib/articles/source-map.ts
 //
 // /library/scripts 소스 맵 — 글 선택 전 "오리엔테이션 층" (개인화 재계산).
-// 6 ACP 소스를 5 학습 트랙으로 묶고, 각 트랙의 난이도 위치·적합도를 사용자 V레벨로 재계산.
+// 9 ACP 소스를 6 학습 트랙으로 묶고, 각 트랙의 난이도 위치·적합도를 사용자 V레벨로 재계산.
 //
 // 본질(핸드오프 §0 · 하드코딩 금지): 위치·판정·순서·편수는 입력→계산/집계.
 //   · 트랙 V밴드  = 소스 targetCefr(SOURCE_SPECS) → cefrToVLevel  (실 SSoT, 자작 매핑 금지)
@@ -18,7 +18,7 @@ import type { SourceKey } from '@vocaflow/library-pipeline/curation-spec'
 import { cefrToVLevel } from '@/lib/library/book-cover'
 import type { PublishedArticle } from './types'
 
-export type TrackKey = 'listen' | 'easy' | 'topic' | 'news' | 'argue'
+export type TrackKey = 'listen' | 'easy' | 'topic' | 'news' | 'argue' | 'data'
 
 /** 학습 트랙(= 소스 묶음) 오리엔테이션. mode 는 소스 정책(media·derivation) 파생. */
 export interface SourceTrack {
@@ -100,10 +100,10 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
   },
   {
     key: 'topic',
-    sources: ['nasa', 'nih'],
+    sources: ['nasa', 'nih', 'elife'],
     icon: '🔬',
     title: '관심 주제로 읽기',
-    oneLine: '우주·과학(NASA)과 건강·의학(NIH) — 흥미로운 주제로 몰입 독해.',
+    oneLine: '우주·과학(NASA)·건강(NIH)·생명과학(eLife) — 흥미로운 주제로 몰입 독해.',
     skills: ['주제 독해', '전문 어휘', '정보 파악'],
     why: '관심 있는 주제는 감정 부호화로 더 오래 기억돼요 (Emotional Encoding).',
     method: ['주제 고르기', '핵심 정보 찾기', '새 어휘 수집'],
@@ -134,6 +134,18 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     mode: 'read_nd',
     accent: '#15803D',
     note: '원문 그대로 · 단어는 클릭으로 조회 (저작권 보호)',
+  },
+  {
+    key: 'data',
+    sources: ['owid', 'factbook'],
+    icon: '📊',
+    title: '데이터·사실로 읽기',
+    oneLine: '통계·지표(Our World in Data)와 국가 사실(Factbook) — 근거와 함께 읽기.',
+    skills: ['정보 독해', '데이터 해석', '사실 확인'],
+    why: '숫자·근거와 함께 읽으면 주장과 사실을 구분하는 힘이 길러져요 (Desirable Difficulty).',
+    method: ['핵심 지표 찾기', '추세 읽기', '출처 확인'],
+    mode: 'read',
+    accent: '#0891B2',
   },
 ]
 
@@ -178,7 +190,7 @@ const SOURCE_TO_TRACK: Map<string, TrackKey> = new Map(
 
 /** published 아티클 → 트랙별 글 수 (별도 쿼리 없이 prop articles 집계). */
 export function computeTrackCounts(articles: PublishedArticle[]): Record<TrackKey, number> {
-  const counts: Record<TrackKey, number> = { listen: 0, easy: 0, topic: 0, news: 0, argue: 0 }
+  const counts: Record<TrackKey, number> = { listen: 0, easy: 0, topic: 0, news: 0, argue: 0, data: 0 }
   for (const a of articles) {
     const k = SOURCE_TO_TRACK.get(a.source)
     if (k) counts[k] += 1

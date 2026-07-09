@@ -51,6 +51,7 @@ const SCREENS: Array<{ path: string; marker: RegExp }> = [
   { path: '/pairflip', marker: /PairFlip|페어|짝/ },
   { path: '/scriptquiz', marker: /ScriptQuiz|퀴즈/ },
   { path: '/library/books', marker: /Library|도서|발견/ },
+  { path: '/library/scripts', marker: /스크립트|묶음|내 레벨/ },
 ];
 
 /** 환경 노이즈 필터 — Supabase auth 토큰 요청의 간헐 실패(rate-limit/refresh 경합)는
