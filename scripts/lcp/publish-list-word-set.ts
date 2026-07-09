@@ -1,16 +1,16 @@
 // scripts/lcp/publish-list-word-set.ts
 //
-// list_tags 필터 → 공용단어장 발행기 (범용 · 챕터 구성 지원).
+// list_tags 필터 → 공용단어장 발행기 (범용 · 세트 1개 안에 내부 챕터 구성).
 //
 // shared_dictionary.list_tags 에 특정 태그(예: kcurr2022_1)가 붙은 단어들을 뽑아
-// shared_word_sets(헤더) + shared_words(단어) 로 발행한다. specialty-*/auto-vlevel-*/library_book
-// 세트와 동일한 shape(word·meaning_ko·pos·cefr·example_en·ipa·sort_order).
+// shared_word_sets 1개(헤더) + shared_words(단어, 각 단어에 chapter 번호) 로 발행한다.
+// ★ 하나의 공용단어장은 여러 챕터로 "내부 구성" — 챕터별로 세트를 나눠 발행하지 않는다.
 //
 // 구성(파이프라인):
 //   1) 필터 — meaning_ko 보유 + (기본)content POS + 길이≥3.  --all 로 원문 전량.
 //   2) 분류·정렬 — --order=freq(빈도, 기본) | cefr(A1→C2 후 빈도, 급별 진행) | alpha.
-//   3) 챕터 — --chapter-size=N 이면 N개씩 끊어 챕터 세트 다수 생성(library_book 관례:
-//      각 챕터=별도 shared_word_sets, 공통 group key + chapter_idx + sort_order). 미지정 시 단일 세트.
+//   3) 챕터 — --chapter-size=N 이면 정렬된 순서를 N개씩 끊어 shared_words.chapter(1..N) 배정
+//      (세트는 1개 유지). 미지정 시 chapter=NULL(단일).
 //
 // 기본 is_published=false(초안) — 검수 후 게시하거나 --publish 로 즉시 게시.
 //
@@ -20,7 +20,7 @@
 //     --category=elementary --cover-emoji=🏫 --order=cefr --chapter-size=40 [--cap=N] [--all] \
 //     [--min-cefr=B1] [--publish] [--replace] [--dry-run]
 //
-// category 유효값(예): csat / eng_test / elementary / middle / high / themed (DB CHECK 준수).
+// category 유효값(예): csat / eng_test / elementary / middle / high / civil / business / themed.
 
 import { config as dotenvConfig } from 'dotenv'
 import { resolve } from 'node:path'
@@ -45,7 +45,6 @@ const order = (getArg('order') ?? 'freq').toLowerCase() // freq | cefr | alpha
 const publish = process.argv.includes('--publish')
 const replace = process.argv.includes('--replace')
 const dryRun = process.argv.includes('--dry-run')
-// 품질 필터 (기본 ON) — 학습용 단어장에서 기능어(대명사/전치사/관사/조동사…) 배제.
 const includeAll = process.argv.includes('--all')
 const minLength = getArg('min-length') ? parseInt(getArg('min-length')!, 10) : 3
 const minCefr = getArg('min-cefr')?.toUpperCase() ?? null
@@ -96,8 +95,13 @@ function orderWords(words: DictRow[]): DictRow[] {
   const w = [...words]
   if (order === 'cefr') w.sort((a, b) => cefrRank(a) - cefrRank(b) || freqRank(a) - freqRank(b) || a.word.localeCompare(b.word))
   else if (order === 'alpha') w.sort((a, b) => a.word.localeCompare(b.word))
-  else w.sort((a, b) => freqRank(a) - freqRank(b) || a.word.localeCompare(b.word)) // freq
+  else w.sort((a, b) => freqRank(a) - freqRank(b) || a.word.localeCompare(b.word))
   return w
+}
+
+/** 정렬된 위치(0-based)의 챕터 번호. chapterSize 미지정 시 null. */
+function chapterOf(index: number): number | null {
+  return chapterSize ? Math.floor(index / chapterSize) + 1 : null
 }
 
 async function fetchWords(client: SupabaseClient): Promise<DictRow[]> {
@@ -120,83 +124,18 @@ async function fetchWords(client: SupabaseClient): Promise<DictRow[]> {
   return rows
 }
 
-function wordRow(setId: string, w: DictRow, sortOrder: number) {
-  return {
-    set_id: setId,
-    word: w.word,
-    lemma: w.word,
-    meaning_ko: w.meaning_ko,
-    part_of_speech: w.primary_pos ?? w.pos ?? null,
-    cefr_level: w.cefr_level,
-    example_en: w.example_en,
-    ipa: w.ipa ?? w.ipa_us ?? w.ipa_uk ?? null,
-    sort_order: sortOrder,
-  }
-}
-
-/** 한 세트(헤더+단어) 발행. chapter 지정 시 챕터 메타(group/chapter_idx/of) 포함. */
-async function publishOneSet(
-  client: SupabaseClient,
-  s: { slug: string; title: string; sortOrder: number; chapter?: { idx: number; of: number } },
-  chapterWords: DictRow[],
-): Promise<{ id: string; count: number }> {
-  const curationQuery: Record<string, unknown> = {
-    source: 'shared_dictionary',
-    filters: { list_tags: [listId], meaning_ko: 'present', content_pos_only: !includeAll },
-    order,
-    cap: cap ?? null,
-    generated_by: 'scripts/lcp/publish-list-word-set.ts',
-  }
-  if (s.chapter) {
-    curationQuery.group = slug
-    curationQuery.chapter_idx = s.chapter.idx
-    curationQuery.of = s.chapter.of
-  }
-
-  const { data: setRow, error: setErr } = await client
-    .from('shared_word_sets')
-    .insert({
-      slug: s.slug,
-      title: s.title,
-      category,
-      description,
-      cover_emoji: coverEmoji,
-      is_published: publish,
-      auto_curated: false,
-      sort_order: s.sortOrder,
-      word_count: chapterWords.length,
-      curation_query: curationQuery,
-      source_attributions: [{ kind: 'list_tag', tag: listId }],
-    })
-    .select('id')
-    .single()
-  if (setErr) throw setErr
-  const setId = (setRow as { id: string }).id
-
-  let inserted = 0
-  for (let i = 0; i < chapterWords.length; i += BATCH) {
-    const chunk = chapterWords.slice(i, i + BATCH).map((w, j) => wordRow(setId, w, i + j + 1))
-    const { error: wErr } = await client.from('shared_words').insert(chunk)
-    if (wErr) throw wErr
-    inserted += chunk.length
-  }
-  await client.from('shared_word_sets').update({ word_count: inserted }).eq('id', setId)
-  return { id: setId, count: inserted }
-}
-
-/** 기존 세트 정리(--replace) — 단일 slug + 챕터 그룹(slug-ch-*) 모두. */
-async function deleteExisting(client: SupabaseClient): Promise<string[]> {
-  const ids: string[] = []
+/** 기존 세트 정리(--replace) — 단일 slug + 과거 챕터별 세트(slug-ch-*) 모두 삭제. */
+async function deleteExisting(client: SupabaseClient): Promise<number> {
   const { data } = await client
     .from('shared_word_sets')
     .select('id')
     .or(`slug.eq.${slug},slug.like.${slug}-ch-%`)
-  for (const r of (data ?? []) as { id: string }[]) ids.push(r.id)
+  const ids = ((data ?? []) as { id: string }[]).map((r) => r.id)
   for (const id of ids) {
     await client.from('shared_words').delete().eq('set_id', id)
     await client.from('shared_word_sets').delete().eq('id', id)
   }
-  return ids
+  return ids.length
 }
 
 async function main(): Promise<void> {
@@ -215,67 +154,110 @@ async function main(): Promise<void> {
   const capped = cap ? filtered.slice(0, cap) : filtered
   const words = orderWords(capped)
   const filterDesc = includeAll ? 'no filter (--all)' : `content-pos + len≥${minLength}${minCefr ? ` + cefr≥${minCefr}` : ''}`
+  const chapterCount = chapterSize ? Math.ceil(words.length / chapterSize) : 0
   console.log(
     `📊 [${listId}] ${all.length} tagged(meaning_ko) → ${filtered.length} after ${filterDesc} → ${words.length} selected (cap=${cap ?? 'none'})`,
+  )
+  console.log(
+    `📖 1 set · ${chapterSize ? `${chapterCount} chapter(s) × ~${chapterSize}` : 'no chapters (flat)'} · order=${order}`,
   )
   if (words.length === 0) {
     console.error('  ⚠️  0 words matched — nothing to publish.')
     process.exit(1)
   }
 
-  // 챕터 분할
-  const chapters: DictRow[][] = chapterSize
-    ? Array.from({ length: Math.ceil(words.length / chapterSize) }, (_, i) => words.slice(i * chapterSize, (i + 1) * chapterSize))
-    : [words]
-  console.log(
-    `📖 ${chapters.length} ${chapterSize ? `chapter(s) × ~${chapterSize}` : 'single set'} · order=${order}`,
-  )
-
   if (dryRun) {
-    chapters.slice(0, 20).forEach((ch, i) => {
-      const head = ch[0]
-      const tail = ch[ch.length - 1]
-      console.log(
-        `   Ch.${String(i + 1).padStart(2)} (${ch.length}) — ${head.word}(${head.cefr_level ?? '?'}) … ${tail.word}(${tail.cefr_level ?? '?'})`,
+    if (chapterSize) {
+      for (let c = 1; c <= Math.min(chapterCount, 20); c++) {
+        const seg = words.slice((c - 1) * chapterSize, c * chapterSize)
+        const head = seg[0]
+        const tail = seg[seg.length - 1]
+        console.log(
+          `   Ch.${String(c).padStart(2)} (${seg.length}) — ${head.word}(${head.cefr_level ?? '?'}) … ${tail.word}(${tail.cefr_level ?? '?'})`,
+        )
+      }
+      if (chapterCount > 20) console.log(`   … +${chapterCount - 20} more chapters`)
+    } else {
+      words.slice(0, 15).forEach((w, i) =>
+        console.log(`   ${String(i + 1).padStart(3)}. ${w.word} — ${w.meaning_ko} (${w.cefr_level ?? '?'})`),
       )
-    })
-    if (chapters.length > 20) console.log(`   … +${chapters.length - 20} more chapters`)
+    }
     return
   }
 
-  // slug 충돌 처리
-  const existing = replace ? await deleteExisting(client) : []
-  if (existing.length) console.log(`  ♻️  replaced ${existing.length} existing set(s)`)
-  else {
+  // 기존 세트 정리 / 중복 체크
+  if (replace) {
+    const n = await deleteExisting(client)
+    if (n) console.log(`  ♻️  replaced ${n} existing set(s) (single + legacy chapter sets)`)
+  } else {
     const { data: dup } = await client
       .from('shared_word_sets')
       .select('id')
       .or(`slug.eq.${slug},slug.like.${slug}-ch-%`)
       .limit(1)
     if (dup && dup.length) {
-      console.error(`  ❌ slug "${slug}" (or its chapters) already exists. Use --replace to rebuild.`)
+      console.error(`  ❌ slug "${slug}" (or legacy chapters) already exists. Use --replace to rebuild.`)
       process.exit(1)
     }
   }
 
-  let totalWords = 0
-  const setIds: string[] = []
-  for (let i = 0; i < chapters.length; i++) {
-    const isChap = chapterSize != null
-    const s = {
-      slug: isChap ? `${slug}-ch-${i + 1}` : slug!,
-      title: isChap ? `${title} — Ch.${i + 1}` : title!,
-      sortOrder: i,
-      chapter: isChap ? { idx: i + 1, of: chapters.length } : undefined,
-    }
-    const res = await publishOneSet(client, s, chapters[i])
-    setIds.push(res.id)
-    totalWords += res.count
-    console.log(`  ✅ ${s.slug} — ${res.count} words (${res.id})`)
+  // 세트 1개 생성
+  const curationQuery = {
+    source: 'shared_dictionary',
+    filters: { list_tags: [listId], meaning_ko: 'present', content_pos_only: !includeAll },
+    order,
+    cap: cap ?? null,
+    chapter_size: chapterSize,
+    chapter_count: chapterSize ? chapterCount : null,
+    generated_by: 'scripts/lcp/publish-list-word-set.ts',
   }
+  const { data: setRow, error: setErr } = await client
+    .from('shared_word_sets')
+    .insert({
+      slug,
+      title,
+      category,
+      description,
+      cover_emoji: coverEmoji,
+      is_published: publish,
+      auto_curated: false,
+      word_count: words.length,
+      curation_query: curationQuery,
+      source_attributions: [{ kind: 'list_tag', tag: listId }],
+    })
+    .select('id')
+    .single()
+  if (setErr) throw setErr
+  const setId = (setRow as { id: string }).id
+  console.log(`  ✅ set created: ${setId}`)
+
+  // 단어 삽입 — 각 단어에 chapter(1..N) + 전역 sort_order
+  let inserted = 0
+  for (let i = 0; i < words.length; i += BATCH) {
+    const chunk = words.slice(i, i + BATCH).map((w, j) => {
+      const idx = i + j
+      return {
+        set_id: setId,
+        word: w.word,
+        lemma: w.word,
+        meaning_ko: w.meaning_ko,
+        part_of_speech: w.primary_pos ?? w.pos ?? null,
+        cefr_level: w.cefr_level,
+        example_en: w.example_en,
+        ipa: w.ipa ?? w.ipa_us ?? w.ipa_uk ?? null,
+        sort_order: idx + 1,
+        chapter: chapterOf(idx),
+      }
+    })
+    const { error: wErr } = await client.from('shared_words').insert(chunk)
+    if (wErr) throw wErr
+    inserted += chunk.length
+    console.log(`  ${inserted}/${words.length} words inserted`)
+  }
+  await client.from('shared_word_sets').update({ word_count: inserted }).eq('id', setId)
 
   console.log(
-    `\n✅ Done — "${slug}" · ${chapters.length} set(s) · ${totalWords} words · is_published=${publish}${publish ? '' : ' (draft — 검수 후 게시)'}`,
+    `\n✅ Done — "${slug}" (${setId}) · 1 set · ${inserted} words · ${chapterSize ? `${chapterCount} chapters` : 'flat'} · is_published=${publish}${publish ? '' : ' (draft — 검수 후 게시)'}`,
   )
 }
 
