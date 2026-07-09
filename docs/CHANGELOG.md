@@ -10,6 +10,22 @@
 
 ## Unreleased (v06.34 → next)
 
+### /plan 런처 챕터 선택 — 공용단어장 챕터 단위 시작 (v06.188)
+
+'게임별 챕터 학습 UI'([VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx))의 플랜 버전 — /plan '바로 시작'에서 공용단어장을 특정 챕터 단어로 시작.
+
+- **LaunchRow + ChapterScopePicker** — [PlanClient](../apps/web/src/components/plan/PlanClient.tsx): 공용단어장이 내부 챕터(`shared_words.chapter`)로 나뉘면 챕터 select(전체/N장) 노출. TodayRow(오늘의 학습)·ItemConfig(구성 패널) '바로 시작' 공유. 30챕터도 수용하는 컴팩트 select(Calm UI).
+- **챕터 스코프 launch** — [plan-activities.ts](../apps/web/src/lib/learner/plan-activities.ts) `activityLaunchHref(m, activity, origin, chapter)`: word_set 게임 라우트(`set=`)에만 `&chapter=N` 부착 → 카드/블리츠/스펠포지/페어플립이 그 챕터 단어만 학습(게임 page 가 이미 `?chapter=` 파싱). 본문/vocab/스크립트엔 무영향.
+- **chapterCount 게이트** — [plan-actions.ts](../apps/web/src/lib/learner/plan-actions.ts) `fetchStudyPlanItems` 가 word_set 내부 챕터 수(MAX chapter)를 `chapterCount` 에 채움(book 전용 → word_set 도 사용). 챕터 미부여 세트는 0 → 선택 숨김.
+- **실데이터**: 교육과정 기본어휘 초등19/중등30/고등25장 라이브 확인. tsc·lint 0.
+
+### /library/vocab '추천' — 정본 추천 엔진(RPC)으로 교체 (v06.188)
+
+즉흥 client 근접정렬(V-Level·CEFR·category 추정)을 앱 정본 추천 엔진으로 교체 (최적 방안).
+
+- **`recommend_word_sets_for_user` RPC** — [page.tsx](../apps/web/src/app/(main)/library/vocab/page.tsx): 진단 완료(`current_v_level`·`diagnostic_completed_at`) 시 RPC 호출, fallback 티어 제외한 recommended 전달. 미진단은 진단 유도(DiagnosePrompt).
+- **티어·사유 노출** — [VocabSetGrid](../apps/web/src/components/library/vocab/VocabSetGrid.tsx) FeaturedRow: 티어 배지(메인/도전/보강/관심) + 왜 추천 사유(reason). estimateSetLevel/categoryVLevel 근접정렬 제거. [queries.ts](../apps/web/src/lib/library/vocab/queries.ts) `RecommendedSet` 타입 export. tsc·lint 0.
+
 ### CTP DCP 채점 — 실행 루프 완결 (v06.187)
 - **`grade_dcp_item(item_id, answer)`** — order/insert 답변 서버 채점 + `csat_item_attempts` 기록(item_role=practice). answer_key는 서버에만(오답 시에만 반환). SECURITY DEFINER+auth.uid 가드.
 - **검증** — order 정답=true/오답=false · insert 정답=true/오답=false · 기록 확인(롤백).
