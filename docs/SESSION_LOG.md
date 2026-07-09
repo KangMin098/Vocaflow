@@ -45,6 +45,24 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-09 — /plan 자료 고르기 picker 전면 재설계 + 다건 선택 (완결 · 스모크 green)
+
+**요청 흐름**: `/plan` "자료 고르기" 를 (1) 소스별 3단 분류(소스→분류→컨텐츠), (2) 컨텐츠를 우측 넓은 선택 영역으로, (3) 학습대상 **다건 선택**, (4) 디자인 폴리시 — 순차 지시.
+
+**무엇을 했나** (전부 `tsc` + `05-plan-picker.spec` + 전체 스모크 8/8 green):
+- **4탭 소스별 분류 통일** — 스크립트(소스→프로그램) · 내 스크립트(소스→책, library texts를 소속 도서로 2차 분류) · 공용단어장(카테고리→책) 모두 **좌 2열 네비 + 우 다건 선택**. 도서만 표준 master-detail(V레벨 레일 + 단건, 챕터 per-book).
+- **다건 선택** — `ArticleSelectPane`/`ArticlePickRow`(체크박스) + 선택분 공유 활동·요일 + `commitSourceBatch` 일괄 저장. 상태 `artSel`/`artActs`/`artDays` PlanClient 리프트.
+- **일반화·정리** — `buildArticleNav`(소스라벨·정렬 파라미터) + `ArticleNav`(컬럼 라벨 prop). dead `WordSetBookGroups`·`ArticleColumns`·`bookTitleById`·죽은 groups 분기 제거. plan-actions scripts/word_set fetch에 source·library_book_id·chapter + library_books 제목 통합 조인(feed_label=책).
+- **디자인 폴리시** — 행 hover 리프트·active·`+` 아이콘 잉크 채움, V레벨 outlined pill, 헤더 구분선.
+- **버그 수정** — 탭 전환 시 우측 컴포저(draft/editId/error) 리셋(옛 구성이 새 탭 선택 영역 가리던 버그).
+- **회귀 자산** — `tests/e2e/05-plan-picker.spec.ts` 신규. /library/books 앞선 스모크 실패는 **동시 편집 churn(콜드컴파일 타임아웃)** 로 확정 — warm 서버서 8/8 green.
+
+**부수 작업**(별도 지시): StoryWeaver 소스 GET 영어필터 수정 + 큐레이션 메타 21권 · VOA/NASA/SimpleWiki/The Conversation **121편 발행**(소스→프로그램 구조) · V-Level **알고리즘 vs Claude 판정 비교/평가**(아티클·도서·시드; P75 어휘지표 설명문 저평가·도서 서사 정합 96%·시드 est 저평가 편향).
+
+**무엇이 남았나**: /plan 도메인 완결. PR 정리는 동시 WIP(VCB · ACP owid/factbook) 안정화 후 권장.
+
+**관련 커밋**: `v06.146~160` + `97f4e97`(회귀스펙). CHANGELOG 동일 버전대. 전부 격리 pathspec(동시 세션 흡수 방지).
+
 ### 2026-07-09 — ACP 파이프라인 라이브 검증 + Simple Wikipedia junk 수정 (VCB 세션 연속)
 
 > VCB 재설계 완결(위 RESUME) 후 사용자가 "ACP 라이브 검증·보완" 선택. 동시 세션(ACP OWID/Pressbooks·/plan)과 working-copy 공유 → 명시 pathspec 격리, wikinews/simple_wiki(비활성 소스)만 건드려 충돌 회피.
