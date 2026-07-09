@@ -9,6 +9,7 @@
 
 'use client'
 
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
 
@@ -107,6 +108,16 @@ export function VocabSetCarousel({
       cefrLevel: (r as { cefr_level: string | null }).cefr_level,
     }))
 
+    // 세트 내부 챕터 수 — chaptered 세트면 상세에 "챕터" 노출 (chapter 컬럼: loose client)
+    const { data: chRow } = await (supabase as unknown as SupabaseClient)
+      .from('shared_words')
+      .select('chapter')
+      .eq('set_id', set.id)
+      .not('chapter', 'is', null)
+      .order('chapter', { ascending: false })
+      .limit(1)
+    const chapterCount = (chRow?.[0] as { chapter: number | null } | undefined)?.chapter ?? null
+
     setDetail({
       type: 'vocab',
       id: set.id,
@@ -117,6 +128,7 @@ export function VocabSetCarousel({
       categoryColor: color,
       cefrLevel: set.cefrLevel,
       wordCount: set.wordCount,
+      chapterCount,
       coverEmoji: set.coverEmoji,
       samples,
       ctaLabel: subscribedIds.has(set.id) ? '추가됨 — 해지' : '내 단어장에 추가',

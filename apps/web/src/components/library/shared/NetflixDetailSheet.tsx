@@ -109,6 +109,8 @@ interface VocabVariant {
   categoryColor: { from: string; to: string; accent: string }
   cefrLevel?: string | null
   wordCount: number
+  /** 세트 내 챕터 수 (내부 챕터 구성 시). 0/null=미분할(평면). */
+  chapterCount?: number | null
   coverEmoji?: string | null
   samples?: SampleWord[]
   mine?: MyProgress
@@ -762,6 +764,9 @@ function VocabBody({ v }: { v: VocabVariant }) {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Stat label="단어 수" value={v.wordCount.toLocaleString()} />
+        {v.chapterCount != null && v.chapterCount > 0 && (
+          <Stat label="챕터" value={`${v.chapterCount}`} />
+        )}
         <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
         <Stat label="카테고리" value={v.categoryLabel} />
       </div>
