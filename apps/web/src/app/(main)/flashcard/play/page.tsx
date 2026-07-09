@@ -19,12 +19,15 @@ export const metadata = {
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string; from?: string }
+  searchParams?: { set?: string; text?: string; chapter?: string; from?: string }
 }
 
 export default async function FlashcardPlayPage({ searchParams }: PageProps) {
   const set = searchParams?.set
   const text = searchParams?.text
+  // 세트 내 특정 챕터만 학습 (?set=…&chapter=N) — 유효 양수만
+  const chapterNum = searchParams?.chapter ? parseInt(searchParams.chapter, 10) : NaN
+  const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
   // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (스코프 단어 id 오용 방지)
   const backHref = resolveSessionReturnHref(searchParams?.from, text, '/flashcard')
 
@@ -37,6 +40,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
     const scoped = await fetchScopedFlashcardWords(client, {
       set,
       text,
+      chapter,
       userId: user?.id ?? null,
     })
 

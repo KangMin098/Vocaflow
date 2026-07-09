@@ -27,7 +27,7 @@ function withBlank(example: string, word: string, forms?: string[]): string {
 
 export async function fetchScopedFlashcardWords(
   client: SupabaseClient,
-  scope: { set?: string; text?: string; userId: string | null },
+  scope: { set?: string; text?: string; chapter?: number | null; userId: string | null },
 ): Promise<ScopedFlashcardResult | null> {
   const res = await fetchScopedWords(client, scope)
   if (!res) return null

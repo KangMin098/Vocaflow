@@ -9,7 +9,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, Loader2, Plus, Volume2, X } from 'lucide-react'
+import { Check, ChevronDown, Layers, Loader2, Plus, Volume2, X } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
@@ -252,24 +252,33 @@ export function VocabSetPreviewModal({ set, isSubscribed, isPending, onToggle, o
                 const open = openChapters.has(ch.n)
                 return (
                   <div key={ch.n} className="overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)]">
-                    <button
-                      type="button"
-                      onClick={() => toggleChapter(ch.n)}
-                      aria-expanded={open}
-                      className="flex w-full items-center justify-between gap-2 bg-[var(--bg2)] px-4 py-2.5 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
-                    >
-                      <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
-                        Chapter {ch.n}
-                        <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
-                          {ch.words.length}단어 · {ch.words[0]?.cefrLevel ?? '?'}~{ch.words[ch.words.length - 1]?.cefrLevel ?? '?'}
+                    <div className="flex items-stretch bg-[var(--bg2)]">
+                      <button
+                        type="button"
+                        onClick={() => toggleChapter(ch.n)}
+                        aria-expanded={open}
+                        className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-2.5 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                      >
+                        <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)]">
+                          Chapter {ch.n}
+                          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
+                            {ch.words.length}단어 · {ch.words[0]?.cefrLevel ?? '?'}~{ch.words[ch.words.length - 1]?.cefrLevel ?? '?'}
+                          </span>
                         </span>
-                      </span>
-                      <ChevronDown
-                        size={16}
-                        className={`shrink-0 text-[var(--t3)] transition-transform ${open ? 'rotate-180' : ''}`}
-                        aria-hidden
-                      />
-                    </button>
+                        <ChevronDown
+                          size={16}
+                          className={`shrink-0 text-[var(--t3)] transition-transform ${open ? 'rotate-180' : ''}`}
+                          aria-hidden
+                        />
+                      </button>
+                      <a
+                        href={`/flashcard/play?set=${set.id}&chapter=${ch.n}&from=${encodeURIComponent('/library/vocab')}`}
+                        title={`Chapter ${ch.n} 플래시카드 학습`}
+                        className="inline-flex shrink-0 items-center gap-1 border-l border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[#6D28D9] no-underline transition-colors hover:bg-[#8B5CF6]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                      >
+                        <Layers size={14} aria-hidden /> 학습
+                      </a>
+                    </div>
                     {open && (
                       <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">{ch.words.map((w, i) => wordRow(w, i))}</ul>
                     )}

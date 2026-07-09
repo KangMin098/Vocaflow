@@ -72,9 +72,9 @@ export interface ScopedWordsResult {
 
 export async function fetchScopedWords(
   client: SupabaseClient,
-  scope: { set?: string; text?: string; userId: string | null },
+  scope: { set?: string; text?: string; chapter?: number | null; userId: string | null },
 ): Promise<ScopedWordsResult | null> {
-  if (scope.set) return fetchBySet(client, scope.set)
+  if (scope.set) return fetchBySet(client, scope.set, scope.chapter ?? null)
   if (scope.text && scope.userId) return fetchByText(client, scope.text, scope.userId)
   return null
 }
@@ -82,6 +82,8 @@ export async function fetchScopedWords(
 async function fetchBySet(
   client: SupabaseClient,
   setId: string,
+  /** 세트 내 특정 챕터만 학습 (shared_words.chapter). null=세트 전체. */
+  chapter: number | null = null,
 ): Promise<ScopedWordsResult | null> {
   const { data: setRow } = await client
     .from('shared_word_sets')
@@ -95,11 +97,12 @@ async function fetchBySet(
   } | null
   if (!set) return null
 
-  const { data, error } = await client
+  let q = client
     .from('shared_words')
     .select('id, word, lemma, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech')
     .eq('set_id', setId)
-    .order('sort_order', { ascending: true })
+  if (chapter != null) q = q.eq('chapter', chapter)
+  const { data, error } = await q.order('sort_order', { ascending: true })
   if (error) return null
 
   const rows = (data ?? []) as Array<{
@@ -149,11 +152,13 @@ async function fetchBySet(
     }
   })
 
+  // 세트 내 챕터 지정(신규 내부챕터) 우선 → 도서 챕터 세트(curation_query.chapter_idx) 폴백
+  const label = chapter != null ? `Chapter ${chapter}` : chapterIdx > 0 ? `Chapter ${chapterIdx}` : ''
   return {
     words,
     title: set.title,
-    subtitle: `${words.length}개 단어`,
-    chapterLabel: chapterIdx > 0 ? `Chapter ${chapterIdx}` : '',
+    subtitle: chapter != null ? `Chapter ${chapter} · ${words.length}개 단어` : `${words.length}개 단어`,
+    chapterLabel: label,
   }
 }
 
