@@ -19,6 +19,7 @@ export type SeedSource =
   | 'owid'
   | 'factbook'
   | 'elife'
+  | 'wikipedia'
 
 interface ArticleScore {
   total: number

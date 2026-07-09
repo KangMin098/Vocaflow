@@ -27,6 +27,7 @@ import {
   ExternalLink,
   FlaskConical,
   Globe,
+  Library,
   Loader2,
   MessageSquareText,
   Microscope,
@@ -207,6 +208,16 @@ const SOURCES: SourceConfig[] = [
     color: 'var(--learn-fresh)',
     feeds: [{ id: 'all', label: 'Recent digests (과학)' }],
   },
+  {
+    key: 'wikipedia',
+    label: 'Wikipedia',
+    Icon: Library,
+    color: 'var(--learn-known)',
+    feeds: [
+      { id: 'featured', label: 'Featured Articles' },
+      { id: 'good', label: 'Good Articles' },
+    ],
+  },
 ]
 
 interface Props {
@@ -229,12 +240,12 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife'],
-  advanced: ['the_conversation', 'owid', 'elife', 'simple_wikipedia'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia'],
+  advanced: ['the_conversation', 'owid', 'elife', 'wikipedia', 'simple_wikipedia'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',
-  all: '전체 (9 소스)',
+  all: '전체 (10 소스)',
   advanced: '고급 (논증 · 과학 · 백과)',
 }
 

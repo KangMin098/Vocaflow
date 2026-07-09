@@ -24,6 +24,7 @@ export type SourceKey =
   | 'owid'
   | 'factbook'
   | 'elife'
+  | 'wikipedia'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -287,6 +288,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 150,
     noiseKeywords: ['correction', 'retraction', 'editorial'],
     maxItems: 20,
+  },
+  // English Wikipedia 정규: FA/GA 고급 백과(B2-C1), CC-BY-SA. MediaWiki categorymembers.
+  wikipedia: {
+    recencyDays: 9999,     // 백과 — 시간 무관
+    minDescriptionLen: 60,
+    minTitleLen: 3,
+    sourceWeight: 0.82,    // 고급 백과 (품질 검수분)
+    levelBonus: -0.05,     // C1 (고급 — 입문 아님)
+    idealDescLen: 250,
+    noiseKeywords: ['disambiguation', 'list of'],
+    maxItems: 30,
   },
 }
 
@@ -606,6 +618,22 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'all', weight: 1.00 },
     ],
   },
+  // English Wikipedia 정규: FA/GA 고급 백과, CC-BY-SA(파생 허용), B2-C1. 광범위 주제.
+  wikipedia: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 7,
+    license: 'CC-BY-SA-4.0',
+    attributionRequired: true,
+    topicDomain: ['reference', 'science', 'history', 'culture', 'biography', 'geography'],
+    styleGuide: '정규 백과 (FA/GA 검수분) · 광범위 주제 · B2-C1 고급 다독 (Simple 대비 심화)',
+    preferredFeedMix: [
+      { feedId: 'featured', weight: 0.55 },
+      { feedId: 'good', weight: 0.45 },
+    ],
+  },
 }
 
 /**
@@ -619,8 +647,8 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'elife', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
+  intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'wikipedia', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -661,6 +689,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   owid: 'argumentative',
   factbook: 'reference',
   elife: 'expository', // 편집자 저작 과학 요약 (설명문)
+  wikipedia: 'expository', // 정규 백과 (설명문)
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -867,6 +896,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   owid: getSourcePolicy('owid'),
   factbook: getSourcePolicy('factbook'),
   elife: getSourcePolicy('elife'),
+  wikipedia: getSourcePolicy('wikipedia'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

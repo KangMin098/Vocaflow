@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, FlaskConical, Globe, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, FlaskConical, Globe, Library, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -253,6 +253,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/(?:www\.)?elifesciences\.org\/articles\/\d+/}
           urlHostHint="elifesciences.org/articles/<번호> (digest 보유 기사)"
           urlPlaceholder="https://elifesciences.org/articles/91060"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'wikipedia':
+      return (
+        <RssFeedTab
+          source="wikipedia"
+          heading="📚 English Wikipedia (정규)"
+          subtitle="CC-BY-SA · B2~C1 정규 백과 (FA/GA 검수분) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Library}
+          urlPattern={/^https?:\/\/en\.wikipedia\.org\/wiki\//}
+          urlHostHint="en.wikipedia.org/wiki/ 도메인"
+          urlPlaceholder="https://en.wikipedia.org/wiki/Photosynthesis"
           onEnqueued={onEnqueued}
         />
       )

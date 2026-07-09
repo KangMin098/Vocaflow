@@ -65,6 +65,9 @@ export type { FactbookListItem, FactbookCountry } from './ingest-article/factboo
 // ACP §18 — eLife digest (편집자 저작 과학 요약 · CC-BY · 발행 허용).
 export { ingestElifeArticle, listElifeFeed } from './ingest-article/elife'
 export type { ElifeListItem } from './ingest-article/elife'
+// ACP §18 — English Wikipedia 정규 (FA/GA 고급 백과 · CC-BY-SA · 발행 허용).
+export { ingestWikipediaArticle, listWikipediaFeed, WIKIPEDIA_FEEDS } from './ingest-article/wikipedia'
+export type { WikipediaListItem } from './ingest-article/wikipedia'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'

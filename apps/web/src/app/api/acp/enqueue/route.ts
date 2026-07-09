@@ -21,6 +21,7 @@ import {
   ingestTheConversationArticle,
   ingestVoaArticle,
   ingestWikinewsArticle,
+  ingestWikipediaArticle,
   VOA_FEEDS,
   type RawArticle,
 } from '@vocaflow/library-pipeline'
@@ -34,7 +35,7 @@ export const dynamic = 'force-dynamic'
 
 // v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia'
 
 interface EnqueueBody {
   feed_id?: string
@@ -55,6 +56,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/ourworldindata\.org\//, source: 'owid' },
   { pattern: /^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//, source: 'factbook' },
   { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
+  { pattern: /^https?:\/\/en\.wikipedia\.org\/wiki\//, source: 'wikipedia' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -83,7 +85,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         error:
-          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews / OWID / Factbook / eLife 중 하나여야 하거나 source 필드 명시 필요',
+          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews / OWID / Factbook / eLife / Wikipedia 중 하나여야 하거나 source 필드 명시 필요',
       },
       { status: 400 },
     )
@@ -128,6 +130,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       }
       case 'elife': {
         article = await ingestElifeArticle(body.item_url)
+        break
+      }
+      case 'wikipedia': {
+        article = await ingestWikipediaArticle(body.item_url)
         break
       }
     }

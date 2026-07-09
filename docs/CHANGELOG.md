@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP English Wikipedia 정규 소스 신설 (v06.193)
+- **Wikipedia ingester** — `ingest-article/wikipedia.ts`. Simple Wikipedia와 동일 `_mediawiki` 재사용(host만 en.wikipedia.org). FA(Featured)/GA(Good) 카테고리 categorymembers. CC-BY-SA → 발행 허용. B2-C1 고급 백과(Simple의 A2-B1 대비 심화). register=expository.
+- 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(📚 Library) + **대량 GET**(BulkArticlesTab 10소스 + wikipedia-feed 라우트 FA/GA). drift-lock 26 tests.
+- 마이그레이션 `acp_source_add_wikipedia`(library_articles + seed_catalog CHECK +wikipedia).
+- **end-to-end** — Photosynthesis(7297w·C1)·Black hole(11277w·C1) published·cc_by_sa·display_only=false·llm_cost 0. per-source + 대량 GET 동시.
+
 ### /wordvault 구독 단어장 챕터 학습 — 세트 미리보기 모달 재사용 (v06.192)
 
 /wordvault '학습 자산 › 단어장' 탭에서 챕터형 공용단어장 행 탭 시 [VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx)(챕터 아코디언 + 게임별 런처)을 열어 그 챕터 단어로 바로 학습. 구독이 죽은 끝(단어 목록 링크뿐)이던 문제 해소. 세션 through-line 완성: 브라우즈(모달)→계획(런처)→보관함(모달).
