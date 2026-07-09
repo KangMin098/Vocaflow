@@ -22,7 +22,7 @@
 - **🔴 세션 미발견 무한 로딩** — 세션은 localStorage(기기 로컬)라 다른 브라우저/기기·공유된 URL·오래된 세션이면 `getSession` 이 미발견인데, 훅이 session=null 을 로딩과 구분 못해 "세션을 불러오는 중..."에서 **영구 정지**(사용자 제보 URL 시나리오). → `useDictationSession` 에 `status('loading'|'ready'|'not-found')` 추가, 세션 화면이 not-found 시 "세션을 찾을 수 없어요" + 다시 시작 CTA 렌더.
 - **🔴 TTS voices 비동기 로드 함정 + 무음 방치** — `AudioController.speak()` 가 `getVoices()` 를 동기 호출 → 첫 발화 시 빈 배열이라 영어 음성 미선택(잘못된 언어/무음). 또 OS 영어 음성 미설치 시 **아무 안내 없이 무음**. → `ensureVoices()`(voiceschanged 대기+1.5s 폴백·캐시) + `pickEnglishVoice`(en-US 우선), speak 가 await. `hasEnglishVoice()` 로 판정해 영어 음성 없으면 세션 화면에 안내 배너.
 - **폴리시**: 입력 라벨 영문("Type what you hear") → 한글 · storage.ts 주석 정정(sessionStorage→localStorage, 기기 로컬·URL 공유 경고).
-- 검증: tsc(dictation 오류 0)·eslint 클린. ⚠️ 라이브 런타임 검증은 공유 dev 서버 `.next` 손상(동시 진행 중이던 타 세션 라이브러리 리팩터로 청크 404)으로 이연 — 수리는 순수 React 상태/TTS 로직이라 코드·타입 검증으로 확인.
+- 검증: tsc(dictation 오류 0)·eslint 클린 + **라이브 실주행 완료**(dev 서버 clean 재기동 후 Playwright): ① 없는 sessionId → "세션을 찾을 수 없어요" 안내(무한로딩 제거, 스크린샷) ② setup→session→입력→제출→채점(결과·정답·오류패턴) 정상 ③ voices 3개 감지→ensureVoices resolve→배너 정상 미표시(음성 있을 때). 콘솔 에러 0.
 
 ### CTP P3 종결 — 학습자 stage 실시간 파생 (v06.184)
 - **`derive_learner_stage(uuid)`** — csat_stage_gates 전 지표 통과 최대 단계 매 호출 파생(**컬럼 저장 금지**·§9 R(t) 동형). 지표: wpm(reading_fluency_log)·item_accuracy(csat_item_attempts)·listening(echo_match)·coverage(v1 current_v_level 대리). SECURITY INVOKER(RLS 본인만).

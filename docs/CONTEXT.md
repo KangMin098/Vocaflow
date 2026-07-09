@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `7d55cce` feat(wordblitz): 3D 인형뽑기 → 2D 속사 인지 게임 재설계
 - `bcede39` feat(ctp): ⑥ prescribe_today 처방 백엔드 — CTP 백엔드 완성 (v06.186)
 - `c6356fc` refactor(vocab): '추천'을 정본 추천 엔진(RPC)으로 교체 — 티어·사유 노출
 - `09639ce` fix(dictation): 세션 미발견 무한로딩 + TTS voices 함정 수리 (v06.185)
 - `302ada0` docs(ctp): ⑧ BYO scope 가드 검증-종결 (구조상 강제)
-- `c636680` feat(ctp): P3 종결 — derive_learner_stage 실시간 파생 (v06.184)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
