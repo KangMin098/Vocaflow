@@ -92,9 +92,11 @@ export async function fetchPublishedSets(
       'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, category_id, additional_category_ids',
     )
     .eq('is_published', true)
-    // 도서 챕터 단어장(category='library_book')은 공용 단어장 영역에 노출 X.
-    // 도서 컨텍스트(/library/scripts/{book_id} · /admin/curation/{book_id})에서만 노출.
+    // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
+    //   · library_book  : 도서 챕터 어휘 → /library/books · /admin/curation
+    //   · library_article: 스크립트(글) 어휘 → 스크립트 컨텍스트 (저큐레이션·다수라 클러터)
     .neq('category', 'library_book')
+    .neq('category', 'library_article')
     .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
 
@@ -106,6 +108,7 @@ export async function fetchPublishedSets(
       .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at')
       .eq('is_published', true)
       .neq('category', 'library_book')
+      .neq('category', 'library_article')
       .order('sort_order', { ascending: true })
       .order('created_at', { ascending: false })
     if (fallback.error) throw fallback.error

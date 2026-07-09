@@ -14,6 +14,8 @@ import { GradientBookCover } from '@/components/library/shared/GradientBookCover
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
+import { vocabCategoryMeta } from './categories'
+
 interface VocabSetCardProps {
   set: PublishedVocabSet
   isSubscribed: boolean
@@ -37,6 +39,7 @@ export function VocabSetCard({
     coverFrom: null,
     coverTo: null,
   })
+  const cat = vocabCategoryMeta(set.category)
 
   function handleSubscribeClick(e: React.MouseEvent) {
     e.stopPropagation()
@@ -89,6 +92,14 @@ export function VocabSetCard({
         {set.cefrLevel && (
           <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {set.cefrLevel}
+          </span>
+        )}
+
+        {/* 좌하단: 카테고리(중요도) 단서 — 어떤 단계/시험용인지 한눈에 */}
+        {cat && (
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/40 px-2 py-0.5 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
+            <span aria-hidden>{cat.emoji}</span>
+            {cat.label}
           </span>
         )}
       </button>

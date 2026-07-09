@@ -17,3 +17,29 @@ export const VOCAB_CATEGORIES = [
 ] as const
 
 export type VocabCategoryId = (typeof VOCAB_CATEGORIES)[number]['id']
+
+/**
+ * 카테고리 중요도 — 타겟(수능생·한국 학습자) 우선순위. 높을수록 중요.
+ * 추천 정렬(추천순)·캐러셀 탭 순서에 사용. 입시(수능·내신) → 교육과정(고·중·초) → 공인영어 → 실무/테마 → 유아.
+ */
+export const CATEGORY_IMPORTANCE: Record<string, number> = {
+  csat: 100,
+  high: 90,
+  middle: 80,
+  elementary: 70,
+  eng_test: 60,
+  civil: 45,
+  business: 45,
+  themed: 30,
+  preschool: 20,
+}
+
+/** 카테고리 중요도 조회 (미지정=10, 최하위). */
+export function categoryImportance(cat: string | null | undefined): number {
+  return cat ? (CATEGORY_IMPORTANCE[cat] ?? 10) : 10
+}
+
+/** VOCAB_CATEGORIES 조회 (라벨·이모지·힌트). */
+export function vocabCategoryMeta(cat: string) {
+  return VOCAB_CATEGORIES.find((c) => c.id === cat) ?? null
+}

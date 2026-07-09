@@ -22,7 +22,7 @@ import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
-import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
+import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
 
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const DURATION = 600
@@ -80,10 +80,10 @@ export function VocabSetCarousel({
   isLoggedIn,
   onToggle,
 }: Props) {
-  // 데이터 있는 카테고리만 탭으로
+  // 데이터 있는 카테고리만 탭으로 — 중요도순(수능·내신→교육과정→공인→테마)
   const categories = VOCAB_CATEGORIES.filter(
     (c) => c.id !== 'all' && sets.some((s) => s.category === c.id),
-  )
+  ).sort((a, b) => categoryImportance(b.id) - categoryImportance(a.id))
   const [activeCat, setActiveCat] = useState<string>(categories[0]?.id ?? 'csat')
   const [active, setActive] = useState(0)
   const [detail, setDetail] = useState<DetailVariant | null>(null)

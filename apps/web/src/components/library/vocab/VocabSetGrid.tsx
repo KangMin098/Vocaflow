@@ -16,7 +16,7 @@ import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { CategoryMatrix } from './CategoryMatrix'
-import { type VocabCategoryId } from './categories'
+import { categoryImportance, type VocabCategoryId } from './categories'
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
 import { VocabSetCarousel } from './VocabSetCarousel'
@@ -135,6 +135,13 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
         sorted.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
         break
       default:
+        // 추천순 — 중요도(카테고리: 수능·내신→교육과정→공인→테마) → 큐레이션 순서 → 단어수.
+        sorted.sort(
+          (a, b) =>
+            categoryImportance(b.category) - categoryImportance(a.category) ||
+            a.sortOrder - b.sortOrder ||
+            b.wordCount - a.wordCount,
+        )
         break
     }
     return sorted
