@@ -62,7 +62,14 @@ export type ModuleId =
   | 'dictation'
   | 'wordvault' // 노출(L3)만, retrieve 아님
   | 'workspace' // L2 hover 인터랙션
-  | 'textviewer'; // L1
+  | 'textviewer' // L1
+  // ── 신규 게임 6종 (v07.3 arcade suite) — DB enum 확장 마이그레이션 후 persistence 활성 ──
+  | 'cascade' // L4a 재인·공간 (매치)
+  | 'connections' // L5 의미 그룹핑
+  | 'word-economy' // L4a 전략 인출
+  | 'daily-blitz' // 리텐션 데일리
+  | 'letter-forge' // L4b 철자 생성
+  | 'ghost-race'; // L4a 비동기 경쟁
 
 /**
  * 사용자 단계 — §17.2 [2] 상태 축 — 사용자 상태
