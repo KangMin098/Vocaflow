@@ -75,10 +75,17 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
   test.use({ storageState: STATE_PATH });
 
   test('로그인 세션에서 주요 화면이 콘솔 에러 없이 렌더된다', async ({ page }) => {
+    // 8화면 순차 방문 — dev first-compile 이 화면마다 수초 걸릴 수 있어 기본 30s 초과 가능
+    test.setTimeout(120_000);
     const errors = collectConsoleErrors(page);
 
     for (const s of SCREENS) {
-      await page.goto(s.path, { waitUntil: 'domcontentloaded' });
+      // dev 콜드 컴파일 중 간헐 ERR_ABORTED(frame detached) — 1회 재시도
+      try {
+        await page.goto(s.path, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      } catch {
+        await page.goto(s.path, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      }
       await expect(
         page.locator('body').filter({ hasText: s.marker }),
       ).toBeVisible({ timeout: 15_000 });

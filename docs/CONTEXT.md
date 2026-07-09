@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `198692c` docs(acp): 라이브 검증 결과 + Simple Wikipedia junk 정리 기록
 - `62be48a` fix(acp): Simple Wikipedia ingester — 주 네임스페이스(ns=0)만 수집
 - `1a973ef` feat(lcp): 발행 스크립트 챕터 구성 + 분류·정렬 파이프라인
 - `2c13740` docs(lcp): Pressbooks 데모 도서 전체 23챕터 재처리 반영 (T-2 α)
 - `20046dd` fix(security): anon 호출 가능 무가드 DEFINER 함수 9종 잠금 (v06.164)
-- `e3e7822` feat(lcp): Pressbooks end-to-end 발행 — enqueue/process/publish 완주 (T-2 α)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260709130000_acp_source_check_add_factbook.sql`
 - `20260709120000_library_books_source_add_pressbooks.sql`
 - `20260708120500_advisor_revoke_public_definer.sql`
 - `20260708120000_advisor_revoke_anon_definer.sql`
 - `20260708120000_acp_source_check_add_owid.sql`
-- `20260706130000_drain_review_tasks_level_vocab.sql`
 <!-- /auto:recent-migrations -->
 
 ---

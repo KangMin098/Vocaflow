@@ -43,9 +43,11 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 화면 검증/런타임 테스트가 필요하면 **임시 Playwright 드라이버를 새로 만들지 말고** 상시 스펙을 실행:
 
 ```bash
-pnpm --filter web test:e2e:smoke   # tests/e2e/04-ui-smoke.spec.ts — 학습자 8화면 + EchoMatch 게이트 + 콘솔에러 0
-pnpm --filter web test:e2e         # 전체 e2e (wordvault/flashcard/admin 회귀 포함)
+pnpm --filter web test:e2e:smoke   # 04-ui-smoke — 학습자 8화면 + EchoMatch 게이트 + 콘솔에러 0
+pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvault/flashcard/admin 회귀)
 ```
+
+**핵심 학습 루프 회귀** — `05-learner-loop.spec.ts`: ScriptQuiz 완주(Drone Ch1 직행) → `scores` 적재를 service-role DB 단언으로 확인(완주 결과가 조용히 증발했던 v06.139 결함 재발 방지). DB 단언 헬퍼 `tests/e2e/utils/db.ts`(apps/web/.env.local 의 SERVICE_ROLE_KEY 직접 로드 · 키 없으면 UI 완주만 검증). 새 게임/영속화 경로 검증 시 이 패턴(직행 URL + 완주 마커 + `countScoresSince`) 재사용.
 
 - 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)
 - 검증 계정: `runtime-test-0705@vocaflow.dev` / `RuntimeTest1!` (vocab 10·활동 시드) — EchoMatch 텍스트 `89970bfa-…8317`

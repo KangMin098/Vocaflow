@@ -23,5 +23,11 @@ v06.35 (2026-06-08) — ACP(article) 소스 재설계 구현. 스펙 [docs/ACP_S
 - NIH→MedlinePlus 분리 — 문서별 article_v_level 실측이 난이도 분리 담당, 별도 source 분리 보류.
 - 신규 ingester **라이브 fetch 검증 ✅ 2026-06-28** (read-only, DB write 없음): Simple Wikipedia 3건·The Conversation 1건 실 fetch + curation score 정상 / Wikinews 0건(소스 비활성 — fetch 성공, 30일 신규 없음, 기존 발견 정합). list 경로(외부 소스 연결 + curation spec) 검증됨. **잔여**: full DB-write ingest(공유 prod DB write — 분류기 차단, admin dev-process 또는 명시 승인 필요) · the-conversation articleBody 정규식은 단건 ingestTheConversationArticle 시 검증(list엔 미포함). **C2 는 "마이그레이션 대기" 아님 — 이미 구현·적용·fetch검증 완료** (세션 백로그 framing 오류 정정).
 
+**2026-07-09 실운영 검증(:3000 스크린샷 + DB 실측) — 파이프라인 정상 작동 확인**:
+- **127 발행기사/5소스** DB-write ingest 완료됨(simple_wikipedia 34·nasa 30·voa 30·the_conversation 25·owid 8). 라이선스 게이트 정확: the_conversation(cc_by_nd) 전부 `display_only=true`. register·article_v_level·lexical_noise 전량. 어드민 register×cefr 매트릭스 UI 정상.
+- 🔴 **Simple Wikipedia junk 버그 수정**(`62be48a`): `simple-wikipedia.ts` 의 `listSimpleWikipediaFeed` 가 `gcmtype=page` 만 써서 `Category:Good_articles` 의 **전 네임스페이스** 수집 → `Wikipedia:Good articles/by date`(33w) 등 관리 인덱스가 발행 기사로 유입. **`gcmnamespace=0` 추가**로 차단(라이브 junk 3→0). 기존 junk 2건 DB 정리(승인): shared_words 3+단어세트 2+기사 2+vocab 25 cascade. **교훈: 위키 계열 카테고리 수집은 ns=0 필터 필수.**
+- 🟠 wikinews 정밀 진단: 0건 원인 = `feedrecentchanges`(편집이벤트) 피드 오선택 + 영문 Wikinews **폐쇄 진행**("closes after 21 years"). 실기사는 `Category:Published`(10건). 저ROI 미수정.
+- 🟡 A1-A2 gap = 소스 현실(Simple Wikipedia 실제 B1+), 버그 아님. §18 "A1-B2 갭 채움" 가정 낙관적.
+
 관련: [[book_vocab_ssot_unify]] (도서 쪽 동등 작업), [[feedback_supabase_migrations]].
 

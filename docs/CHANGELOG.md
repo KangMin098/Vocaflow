@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 핵심 학습 루프 E2E — 완주→영속화 회귀 자산 (v06.166)
+
+UI 스모크(v06.159, "렌더" 검증)의 다음 층 — "게임 완주 → DB 적재" 를 실주행+DB 단언으로 고정. 배경: ScriptQuiz 완주 결과가 sessionStorage 에만 쌓이고 소비자가 없어 scores 적재가 조용히 증발했던 결함(v06.139) 재발 방지.
+
+- **[05-learner-loop.spec.ts](../apps/web/tests/e2e/05-learner-loop.spec.ts)** — 로그인 → `/scriptquiz/play?book=…&ch=1` 직행(Drone Ch1·4문항) → 시작 → 키보드 '1'×4 완주 → `scores(module='scriptquiz')` 신규 행을 service-role 로 폴링 단언. 실측: 완주 시 total_questions=4 행 적재 확인.
+- **[utils/db.ts](../apps/web/tests/e2e/utils/db.ts)** — e2e service-role DB 헬퍼(apps/web/.env.local 직접 로드 · `userIdByEmail`·`countScoresSince`). 키 없는 환경은 UI 완주만 검증(graceful degrade).
+- **스모크 견고화**: 8화면 순차 방문이 dev first-compile 누적으로 기본 30s 초과 → `test.setTimeout(120s)` + goto 1회 재시도(간헐 ERR_ABORTED frame-detached). 3/3 green.
+- 인터랙션 교훈: 4지선다 옵션은 plain button(role≠radio), OX만 radio → 완주는 **키보드 '1'**(양 타입 공통 handleAnswer, window 리스너라 포커스 비의존)이 안정. 시작 게이트는 하이드레이션 전 클릭 무시되므로 문항 배지 전이 확인 후 재클릭.
+
 ### ACP 파이프라인 라이브 검증 + Simple Wikipedia junk 수정 (v06.165)
 
 ACP(article) §18 파이프라인 라이브 검증 — **정상 작동 확인**(127 발행기사/5소스, 라이선스 게이트 정확: the_conversation cc_by_nd 전부 display_only, register×cefr 매트릭스 UI 정상, pageerror 0). 발견 1건 수정:
