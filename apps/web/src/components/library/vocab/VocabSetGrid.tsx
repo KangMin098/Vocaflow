@@ -13,10 +13,16 @@ import { useMemo, useState, useTransition } from 'react'
 import { Search, Sparkles } from 'lucide-react'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
+import { cefrToVLevel } from '@/lib/library/book-cover'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { CategoryMatrix } from './CategoryMatrix'
-import { categoryImportance, type VocabCategoryId } from './categories'
+import { categoryImportance, categoryVLevel, type VocabCategoryId } from './categories'
+
+/** 세트의 대략 V-level (개인 맞춤 i+1 판정) — CEFR 우선, 없으면 카테고리 폴백. */
+function estimateSetLevel(s: PublishedVocabSet): number {
+  return cefrToVLevel(s.cefrLevel) ?? categoryVLevel(s.category)
+}
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
 import { VocabSetCarousel } from './VocabSetCarousel'
@@ -28,9 +34,11 @@ interface Props {
   sets: PublishedVocabSet[]
   subscribedIds: string[]
   isLoggedIn: boolean
+  /** 학습자 현재 V-level (진단값). 0=미진단 → 추천 대신 진단 유도. */
+  userVLevel: number
 }
 
-export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
+export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel }: Props) {
   const router = useRouter()
 
   // Optimistic subscribed set — 서버 액션 성공 시 즉시 반영
@@ -166,6 +174,21 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
   const isGrouped =
     category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
 
+  // 진단 기반 개인 맞춤 추천 — 학습자 V-level(i+1)에 가까운 세트 상위 8. 미진단(0)이면 빈 배열 → 진단 유도.
+  const diagnosed = userVLevel >= 1
+  const featured = useMemo(() => {
+    if (!diagnosed) return []
+    const target = userVLevel + 1
+    return [...sets]
+      .sort(
+        (a, b) =>
+          Math.abs(estimateSetLevel(a) - target) - Math.abs(estimateSetLevel(b) - target) ||
+          b.subscriberCount - a.subscriberCount ||
+          categoryImportance(b.category) - categoryImportance(a.category),
+      )
+      .slice(0, 8)
+  }, [sets, diagnosed, userVLevel])
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -251,17 +274,21 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
         />
       ) : isGrouped ? (
         <div className="flex flex-col gap-6">
-          {/* 상단 추천 — 중요도·인기 상위 핵심 세트 (프라임 노출) */}
-          {filtered.length >= 3 && (
+          {/* 진단 기반 개인 맞춤 추천 — 진단했으면 내 수준(i+1) 세트, 미진단이면 진단 유도 */}
+          {diagnosed && featured.length >= 3 ? (
             <FeaturedRow
-              sets={filtered.slice(0, 8)}
+              title={`내 수준 추천 · V${userVLevel} 맞춤`}
+              subtitle="지금 학습하기 딱 좋은 단어장 (i+1)"
+              sets={featured}
               subscribed={subscribed}
               pendingId={pendingId}
               errors={errors}
               onToggle={handleToggle}
               onPreview={setPreviewing}
             />
-          )}
+          ) : !diagnosed ? (
+            <DiagnosePrompt />
+          ) : null}
           {/* v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel */}
           <VocabSetCarousel
           sets={filtered}
@@ -303,8 +330,40 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
   )
 }
 
-// 상단 추천 — 중요도·사용빈도 상위 세트를 가로 스크롤로 프라임 노출.
+// 미진단 학습자 — 개인 맞춤 추천 대신 진단 유도 배너.
+function DiagnosePrompt() {
+  return (
+    <a
+      href="/diagnostic"
+      className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-ios-purple/40 bg-ios-purple/[0.06] px-4 py-3 no-underline transition-colors hover:bg-ios-purple/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ios-purple/40"
+    >
+      <span className="flex items-center gap-2.5">
+        <span
+          aria-hidden
+          className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-purple text-white"
+        >
+          <Sparkles size={15} />
+        </span>
+        <span className="flex flex-col">
+          <span className="font-display text-[13.5px] font-[800] text-[var(--t1)]">
+            내 수준 맞춤 추천 받기
+          </span>
+          <span className="font-body text-[12px] text-[var(--t3)]">
+            1분 진단하면 지금 딱 맞는 단어장을 추천해드려요
+          </span>
+        </span>
+      </span>
+      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-1.5 font-display text-[12px] font-[700] text-white">
+        진단하기
+      </span>
+    </a>
+  )
+}
+
+// 상단 추천 — 진단 기반 개인 맞춤(i+1) 세트를 가로 스크롤로 노출.
 function FeaturedRow({
+  title,
+  subtitle,
   sets,
   subscribed,
   pendingId,
@@ -312,6 +371,8 @@ function FeaturedRow({
   onToggle,
   onPreview,
 }: {
+  title: string
+  subtitle: string
   sets: PublishedVocabSet[]
   subscribed: Set<string>
   pendingId: string | null
@@ -320,7 +381,7 @@ function FeaturedRow({
   onPreview: (set: PublishedVocabSet) => void
 }) {
   return (
-    <section aria-label="추천 단어장" className="flex flex-col gap-3">
+    <section aria-label="맞춤 추천 단어장" className="flex flex-col gap-3">
       <div className="flex items-center gap-2 px-1">
         <span
           aria-hidden
@@ -328,8 +389,8 @@ function FeaturedRow({
         >
           <Sparkles size={14} />
         </span>
-        <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">추천</h2>
-        <span className="font-body text-[12px] text-[var(--t3)]">중요도·인기 상위 핵심 세트</span>
+        <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">{title}</h2>
+        <span className="font-body text-[12px] text-[var(--t3)]">{subtitle}</span>
       </div>
       <div className="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
         {sets.map((set) => (

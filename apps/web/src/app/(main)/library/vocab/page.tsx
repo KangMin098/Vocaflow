@@ -29,6 +29,17 @@ export default async function LibraryVocabPage() {
     fetchUserSubscriptions(supabase, user?.id ?? null),
   ])
 
+  // 학습자 V-level — 진단 기반 개인 맞춤 추천용 (미진단 시 0 → 추천 대신 진단 유도)
+  let userVLevel = 0
+  if (user) {
+    const { data: profile } = await supabase
+      .from('user_profiles')
+      .select('current_v_level')
+      .eq('user_id', user.id)
+      .maybeSingle()
+    userVLevel = (profile as { current_v_level: number | null } | null)?.current_v_level ?? 0
+  }
+
   const setCount = sets.length
   const totalWords = sets.reduce((sum, s) => sum + s.wordCount, 0)
   const subscribedCount = subscribedSet.size
@@ -68,6 +79,7 @@ export default async function LibraryVocabPage() {
           sets={sets}
           subscribedIds={Array.from(subscribedSet)}
           isLoggedIn={!!user}
+          userVLevel={userVLevel}
         />
       </div>
     </Screen>

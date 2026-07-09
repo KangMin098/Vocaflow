@@ -43,3 +43,23 @@ export function categoryImportance(cat: string | null | undefined): number {
 export function vocabCategoryMeta(cat: string) {
   return VOCAB_CATEGORIES.find((c) => c.id === cat) ?? null
 }
+
+/**
+ * 카테고리 → 대략 V-level (세트 CEFR 없을 때 i+1 적합 판정 폴백).
+ * 개인 맞춤 추천에서 학습자 V-level 과 비교해 근접 세트를 고르는 데 사용.
+ */
+export const CATEGORY_VLEVEL: Record<string, number> = {
+  preschool: 1,
+  elementary: 2,
+  middle: 4,
+  high: 6,
+  csat: 7,
+  business: 8,
+  eng_test: 9,
+  civil: 9,
+  themed: 6,
+}
+
+export function categoryVLevel(cat: string | null | undefined): number {
+  return cat ? (CATEGORY_VLEVEL[cat] ?? 6) : 6
+}

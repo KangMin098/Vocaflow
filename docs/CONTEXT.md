@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `4b66885` feat(ctp): DCP T2 결정론 문항 생성 완료 — csat_dcp_items (③) (v06.182)
 - `fcbf26d` feat(lcp): 대량 GET에 Pressbooks 소스 배선 (v06.181)
 - `f492e0c` feat(vocab): 게임별 챕터 학습 UI — 챕터 아코디언 게임 런처
 - `d27877f` feat(vocab): 세트 상세 시트에 챕터 수 표시 (v06.179)
 - `0850f4e` feat(acp): 대량 GET에 신규 소스 배선 — OWID·Factbook·eLife (v06.180)
-- `799092a` feat(vocab): 카드 'NEW' 신규 배지 (최근 14일 등록) (v06.179)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
