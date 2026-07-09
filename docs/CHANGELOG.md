@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 대량 GET — 신규 소스(OWID·Factbook·eLife) 배선 (v06.180)
+- **BulkArticlesTab에 신규 3소스 추가** — 기존 per-source GET(SourceGetView)에만 있던 owid(📊)·factbook(🌍)·elife(🔬)를 대량 GET에도 배선. 9소스 프리셋.
+- feed 라우트 3종 신설(`owid-feed`·`elife-feed`·`factbook-feed`) — 대량 흐름의 score-cap 위해 `listFactbookFeed`·`listElifeFeed`에 `applyArticleCurationSpec` 스코어링 추가.
+- 마이그레이션 `acp_seed_catalog_source_add_new`(seed_catalog CHECK +3) + `SeedSource` 타입 +3 → seed 영속화(새로고침 보존).
+- 실검증: owid 4·factbook 30국·elife 6 스코어 항목 + published 감지. (LCP pressbooks 대량은 후속)
+
 ### /library/vocab 중요도·사용빈도 기반 재구성 (v06.179)
 
 공용 단어장 화면을 **중요도(카테고리)·사용빈도(구독수)** 신호로 재구성 — no-op이던 "추천순"을 실제 랭킹으로.

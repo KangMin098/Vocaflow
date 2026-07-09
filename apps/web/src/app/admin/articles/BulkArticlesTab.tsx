@@ -16,6 +16,7 @@
 
 import {
   AlertCircle,
+  BarChart3,
   BookText,
   Calendar,
   CheckCircle2,
@@ -25,8 +26,10 @@ import {
   Download,
   ExternalLink,
   FlaskConical,
+  Globe,
   Loader2,
   MessageSquareText,
+  Microscope,
   Newspaper,
   Plus,
   Radio,
@@ -182,6 +185,28 @@ const SOURCES: SourceConfig[] = [
       { id: 'politics', label: 'Politics + Society' },
     ],
   },
+  // v06.163~ 신규 소스 — 대량 GET 배선
+  {
+    key: 'owid',
+    label: 'OWID',
+    Icon: BarChart3,
+    color: 'var(--info)',
+    feeds: [{ id: 'all', label: 'All articles (논증·데이터)' }],
+  },
+  {
+    key: 'factbook',
+    label: 'Factbook',
+    Icon: Globe,
+    color: 'var(--memory-stable)',
+    feeds: [{ id: 'all', label: 'Countries (35 · reference)' }],
+  },
+  {
+    key: 'elife',
+    label: 'eLife',
+    Icon: Microscope,
+    color: 'var(--learn-fresh)',
+    feeds: [{ id: 'all', label: 'Recent digests (과학)' }],
+  },
 ]
 
 interface Props {
@@ -204,13 +229,13 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation'],
-  advanced: ['the_conversation', 'simple_wikipedia'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife'],
+  advanced: ['the_conversation', 'owid', 'elife', 'simple_wikipedia'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',
-  all: '전체 (6 소스)',
-  advanced: '고급 (학자 논증 · 백과)',
+  all: '전체 (9 소스)',
+  advanced: '고급 (논증 · 과학 · 백과)',
 }
 
 // v06.74 — article 단계 → badge 표시 메타

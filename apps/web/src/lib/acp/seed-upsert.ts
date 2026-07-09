@@ -16,6 +16,9 @@ export type SeedSource =
   | 'wikinews'
   | 'the_conversation'
   | 'simple_wikipedia'
+  | 'owid'
+  | 'factbook'
+  | 'elife'
 
 interface ArticleScore {
   total: number

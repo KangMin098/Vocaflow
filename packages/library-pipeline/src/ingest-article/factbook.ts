@@ -16,6 +16,7 @@
 import type { RawArticle } from '../types-article'
 
 import { decodeEntities, fetchWithTimeout, htmlToPlainText } from './_helpers'
+import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 const FACTBOOK_BASE = 'https://raw.githubusercontent.com/factbook/factbook.json/master'
 
@@ -70,21 +71,23 @@ export interface FactbookListItem {
   url: string
   published_at: string | null
   description: string
+  score?: ArticleScore
 }
 
 export function factbookUrl(region: string, code: string): string {
   return `${FACTBOOK_BASE}/${region}/${code}.json`
 }
 
-/** 후보 국가 목록 (정적 — 큐레이션 picker). RSS 아님 → 네트워크 fetch 없음. */
-export function listFactbookFeed(): FactbookListItem[] {
-  return FACTBOOK_COUNTRIES.map((c) => ({
+/** 후보 국가 목록 (정적 — 큐레이션 picker). RSS 아님 → 네트워크 fetch 없음. 대량 GET 위해 스코어 부여. */
+export function listFactbookFeed(): Array<FactbookListItem & { score: ArticleScore }> {
+  const raw: FactbookListItem[] = FACTBOOK_COUNTRIES.map((c) => ({
     source_id: `factbook:${c.code}`,
     title: c.name,
     url: factbookUrl(c.region, c.code),
     published_at: null,
-    description: `${c.name} — CIA World Factbook 국가 개요(Background · reference)`,
+    description: `${c.name} — CIA World Factbook 국가 개요 (Background · reference · B1–B2)`,
   }))
+  return applyArticleCurationSpec(raw, 'factbook', 'all')
 }
 
 // factbook.json 구조 (필요 필드만) — {text: string} 중첩.

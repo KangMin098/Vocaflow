@@ -13,6 +13,7 @@
 import type { RawArticle } from '../types-article'
 
 import { decodeEntities, fetchWithTimeout, htmlToPlainText, safeDate } from './_helpers'
+import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 const ELIFE_API = 'https://api.elifesciences.org/articles'
 const VOR_ACCEPT = 'application/vnd.elife.article-vor+json; version=8'
@@ -24,6 +25,7 @@ export interface ElifeListItem {
   url: string
   published_at: string | null
   description: string
+  score?: ArticleScore
 }
 
 interface ElifeBlock {
@@ -46,14 +48,14 @@ function stripTags(s: string): string {
   return decodeEntities(s.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim()
 }
 
-/** 최근 eLife 기사 목록 (큐레이션 picker — digest 보유 여부는 단건 ingest 시 확정). */
-export async function listElifeFeed(perPage = 20): Promise<ElifeListItem[]> {
+/** 최근 eLife 기사 목록 (큐레이션 picker — digest 보유 여부는 단건 ingest 시 확정). 대량 GET 위해 스코어 부여. */
+export async function listElifeFeed(perPage = 20): Promise<Array<ElifeListItem & { score: ArticleScore }>> {
   const res = await fetchWithTimeout(`${ELIFE_API}?per-page=${perPage}&order=desc`, {
     accept: LIST_ACCEPT,
   })
   if (!res.ok) throw new Error(`eLife list failed: ${res.status}`)
   const data = JSON.parse(await res.text()) as ElifeListJson
-  return (data.items ?? [])
+  const raw: ElifeListItem[] = (data.items ?? [])
     .filter((it) => it.id && /^\d+$/.test(it.id))
     .map((it) => ({
       source_id: `elife:${it.id}`,
@@ -62,6 +64,7 @@ export async function listElifeFeed(perPage = 20): Promise<ElifeListItem[]> {
       published_at: it.published ?? null,
       description: stripTags(it.impactStatement ?? ''),
     }))
+  return applyArticleCurationSpec(raw, 'elife', 'all')
 }
 
 /** 단일 eLife 기사 → digest 산문 추출 (연구 본문 아님 — 접근형 요약만). */

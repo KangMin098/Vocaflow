@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `799092a` feat(vocab): 카드 'NEW' 신규 배지 (최근 14일 등록) (v06.179)
 - `b8d328b` feat(vocab): /library/vocab 상단 '추천' 피처드 행 (v06.179)
 - `0273ac2` docs(lcp): P2 F-K 백필 완료 — 가독성 축 완결 (v06.174)
 - `7f689de` feat(ctp): DCP T2 결정론 문항 생성기 (order/insert · LLM 0)
 - `da41741` feat(lcp): chapter_v_level 파이프라인 wire-up — 신규 도서 자동 채움 (v06.174)
-- `b5cd51d` feat(vocab): 사용빈도(구독수) 랭킹 — subscriber_count denormalized (v06.179)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710150000_acp_seed_catalog_source_add_new.sql`
 - `20260710140000_ctp_syntax_wire_rpcs.sql`
 - `20260710130000_ctp_compute_syntax_score.sql`
 - `20260710120200_ctp_runtime_tables.sql`
 - `20260710120100_ctp_dcp_items.sql`
-- `20260710120000_ctp_catalog_syntax.sql`
 <!-- /auto:recent-migrations -->
 
 ---
