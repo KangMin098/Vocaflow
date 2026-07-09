@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c6356fc` refactor(vocab): '추천'을 정본 추천 엔진(RPC)으로 교체 — 티어·사유 노출
 - `09639ce` fix(dictation): 세션 미발견 무한로딩 + TTS voices 함정 수리 (v06.185)
 - `302ada0` docs(ctp): ⑧ BYO scope 가드 검증-종결 (구조상 강제)
 - `c636680` feat(ctp): P3 종결 — derive_learner_stage 실시간 파생 (v06.184)
 - `1eda36f` feat(library): /library/scripts 재설계 — 목적별 묶음 + 레벨 칩 단일 시스템 (v06.183)
-- `97e8909` fix(vocab): '추천'을 진단 기반 개인 맞춤(i+1)으로 — 수능편향 일반랭킹 교체
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710190000_ctp_prescribe_today.sql`
 - `20260710180000_ctp_derive_learner_stage.sql`
 - `20260710170000_ctp_dcp_items_table.sql`
 - `20260710160000_lcp_seed_catalog_source_add_pressbooks.sql`
 - `20260710150000_acp_seed_catalog_source_add_new.sql`
-- `20260710140000_ctp_syntax_wire_rpcs.sql`
 <!-- /auto:recent-migrations -->
 
 ---

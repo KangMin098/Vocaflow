@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP ⑥ Today 처방 백엔드 — CTP 백엔드 완성 (v06.186)
+- **`prescribe_today(uuid)`** — 결정론 일일 루프 처방(5블록: FSRS due·듣기·input·practice·verify). derive_learner_stage→stage→조립. input=csat_stage_catalog(stage_band)·practice=csat_dcp_items(S3+·answer_key 제외). 시간삭감(practice=S3+에서만). SECURITY DEFINER+auth.uid 가드.
+- **양방향 검증** — S1 학습자(practice 비활성·60분·input 5기사) / S3 학습자(wpm 주입 모사→practice 5문항 OWID order·75분). 롤백(영속 X).
+- **CTP 백엔드 완성**(8계층): ①syntax ②stage_band ③DCP문항 ④유창성 ⑤gate ⑦error_cause ⑧BYO가드(구조) + **⑥ 처방·stage 파생**. 잔여=⑥ Today **UI**(META 게이트).
+
 ### Dictation 세션 결함 수리 + 사용성 (v06.185)
 
 /dictate/session 점검 — 기능 결함 2건 + 폴리시 2건. 스코프: dictation 파일 한정.
