@@ -31,7 +31,7 @@ v06.166(ScriptQuiz 루프) 확장 — 가장 중심 모듈 Flashcard 완주→`s
 - **마이그레이션** `20260709135526_shared_words_chapter_column` — `shared_words`에 `chapter smallint`(1..N, NULL=미분할) + idx `(set_id, chapter, sort_order)`. 하나의 `shared_word_sets`를 여러 챕터로 내부 분할.
 - **[publish-list-word-set.ts](../scripts/lcp/publish-list-word-set.ts) 재작업** — `--chapter-size=N` 시 **세트 N개 → 세트 1개 + 단어에 chapter 배정**(정렬 순서를 N개씩 끊어 chapter 1..N, 전역 sort_order 유지). `--order=cefr`로 급별(A1→C2) 진행. `--replace`는 단일 slug + 과거 챕터별 세트(`slug-ch-*`) 모두 정리. dry-run 검증(초등 729→1세트·19챕터).
 - ⚠️ 직전 per-chapter 발행분(74세트: elem19/mid30/high25)은 `--replace` 재실행 시 자동 정리됨.
-- 후속: 단어장 뷰어를 `chapter`별 섹션 렌더로 개선(현재 평면).
+- **뷰어 챕터 렌더** — [VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx): 챕터형 세트(shared_words.chapter 존재)는 **Chapter 아코디언**(접기/펼치기·첫 챕터 열림·챕터별 CEFR 범위)으로, 평면 세트는 기존 10개 미리보기. chapter 컬럼은 database.ts 재생성 전이라 loose client 접근. tsc·lint 0.
 
 ### ACP CIA World Factbook — reference register 신설 (v06.167)
 - **reference register 빈칸 채움** — 발행 매트릭스 유일 공백(reference publishable 0)을 CIA World Factbook(PD)로 충족. 4개 코어 register 전부 발행 가능.
