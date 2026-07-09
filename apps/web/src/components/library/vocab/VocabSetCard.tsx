@@ -8,6 +8,7 @@
 
 'use client'
 
+import { useEffect, useState } from 'react'
 import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
@@ -40,6 +41,11 @@ export function VocabSetCard({
     coverTo: null,
   })
   const cat = vocabCategoryMeta(set.category)
+
+  // 신규(최근 14일) 배지 — 최신성 discovery 신호. SSR 하이드레이션 회피 위해 mount 후 판정.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const isNew = mounted && Date.now() - new Date(set.createdAt).getTime() < 14 * 86_400_000
 
   function handleSubscribeClick(e: React.MouseEvent) {
     e.stopPropagation()
@@ -77,8 +83,8 @@ export function VocabSetCard({
         <div aria-hidden className="book-spine3d" />
         <div aria-hidden className="book-foreedge" />
 
-        {/* 좌상단: 구독 배지 */}
-        {isSubscribed && (
+        {/* 좌상단: 구독 배지 (구독 시) / 신규 배지 (미구독 + 최근 14일 등록) */}
+        {isSubscribed ? (
           <span
             aria-label="내 학습에 추가됨"
             title="내 학습에 추가됨"
@@ -86,7 +92,14 @@ export function VocabSetCard({
           >
             <Check size={10} strokeWidth={3} aria-hidden /> 내 학습
           </span>
-        )}
+        ) : isNew ? (
+          <span
+            aria-label="신규 단어장"
+            className="absolute left-3 top-3 inline-flex items-center rounded-[var(--r-full)] bg-ios-purple px-2 py-0.5 font-display text-[10px] font-[800] tracking-wide text-white shadow-[0_2px_6px_rgba(0,0,0,0.22)]"
+          >
+            NEW
+          </span>
+        ) : null}
 
         {/* 우상단: CEFR 배지 */}
         {set.cefrLevel && (
