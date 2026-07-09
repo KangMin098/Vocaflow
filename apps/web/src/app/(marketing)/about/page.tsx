@@ -124,7 +124,7 @@ const MODULES: Module[] = [
   { href: '/wordvault', label: 'WordVault', desc: '맥락 결합 단어장', icon: '📝', color: 'var(--p-dark)' },
   { href: '/flashcard', label: 'Flashcard', desc: 'SM-2 간격 반복', icon: '🃏', color: 'var(--p)' },
   { href: '/spellforge', label: 'SpellForge', desc: '능동적 타이핑 회상', icon: '⚡', color: '#4A9FCF' },
-  { href: '/play/wordblitz', label: 'WordBlitz', desc: '인형뽑기 정서 강화', icon: '🌴', color: '#22C55E' },
+  { href: '/play/wordblitz', label: 'WordBlitz', desc: '속사 단어 인지', icon: '⏱', color: '#8B5CF6' },
   { href: '/scriptquiz', label: 'ScriptQuiz', desc: '맥락 독해 퀴즈', icon: '✏️', color: 'var(--active)' },
   { href: '/dashboard', label: 'Dashboard', desc: '암묵적 진행 시각화', icon: '📊', color: 'var(--info)' },
 ]

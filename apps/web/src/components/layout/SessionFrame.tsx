@@ -41,7 +41,7 @@ const SESSION_META: Record<string, SessionMeta> = {
   '/spellforge/play': { title: 'SpellForge', emoji: '⚡', closeHref: '/spellforge' },
   '/scriptquiz/play': { title: 'ScriptQuiz', emoji: '🏆', closeHref: '/scriptquiz' },
   '/dictate/session': { title: 'Dictation', emoji: '🎙', closeHref: '/dictate' },
-  '/play/wordblitz': { title: 'WordBlitz', emoji: '🌴', closeHref: '/wordblitz' },
+  '/play/wordblitz': { title: 'WordBlitz', emoji: '⏱', closeHref: '/wordblitz' },
   '/play/pirate-quest': { title: "Pirate's Bounty", emoji: '🏴‍☠️', closeHref: '/hub' },
   '/pairflip/play': { title: 'PairFlip', emoji: '🎴', closeHref: '/pairflip' },
   '/wordvault/browse': { title: 'WordVault', emoji: '📖', closeHref: '/wordvault' },
