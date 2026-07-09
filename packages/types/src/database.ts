@@ -4377,6 +4377,7 @@ export type Database = {
         Returns: undefined
       }
       compute_book_cefrj: { Args: { p_book_id: string }; Returns: undefined }
+      compute_book_chapter_v_levels: { Args: { p_book_id: string }; Returns: undefined }
       compute_book_coverage: { Args: { p_book_id: string }; Returns: undefined }
       compute_book_vrl: { Args: { p_book_id: string }; Returns: undefined }
       compute_frequency_tier: { Args: { p_raw_count: number }; Returns: number }
