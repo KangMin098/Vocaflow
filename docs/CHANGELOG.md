@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 연어 슬롯 롤아웃 — scoped 플래시카드 + 리더 툴팁 (v06.177)
+
+v06.175(hub 플래시카드 연어 슬롯) 롤아웃 — 나머지 학습자 노출면에 동일 슬롯 확장. 마이그레이션 0(앱-사이드 fetch).
+
+- **scoped 플래시카드** ([scoped-words.ts](../apps/web/src/lib/flashcard/scoped-words.ts)) — 세트/텍스트 스코프 진입도 collocations 배치 보강(hub-words 와 동일 패턴). CardBack 슬롯 공유.
+- **리더 툴팁** ([WordLookupPopover.tsx](../apps/web/src/components/library/reader/WordLookupPopover.tsx)) — 본문 단어 클릭 시 예문 아래 연어 칩 최대 3개. `lookup_word_meaning` RPC 가 collocations 미반환이라 [reader-queries.ts](../apps/web/src/lib/library/reader-queries.ts) `lookupWord` 가 해소된 word 로 shared_dictionary 1행 보조 조회(툴팁은 on-demand 라 round-trip 허용, 실패 graceful).
+- 검증: tsc·eslint 클린 · 데이터 경로 실증(`lookup_word_meaning('verdict')`→resolved_word→collocations `[guilty verdict·unanimous verdict·reach a verdict]`). 렌더는 스크린샷 검증한 v06.175 CardBack 과 동일 칩 패턴.
+- 이로써 학습자 노출면 3곳(hub·scoped 플래시카드·리더 툴팁) 연어 소비 UI 완비 → D7(collocations 노출 단어 2,240 채움)이 비로소 학습자 가치를 가짐(다음 단계).
+
 ### CTP 착수 — CSAT Track Pipeline 데이터모델 (P0 정찰 + P1/P2 migration) (v06.176)
 - **P0 정찰** — 소유 8계층 read-only 실측([ctp_p0_20260709.md](./AI_CONTEXT/diagnostics/ctp_p0_20260709.md)). 판정 GO + 정정 2건: ④ `reading_sessions` 이름충돌(기존=읽기플랜 262rows) · ⑦ per-question attempt 부재(scores=세션단위).
 - **P1/P2 migration 3건 적용**(승인): `ctp_catalog_syntax`(syntax_score jsonb + `csat_stage_catalog` VIEW 139항목) · `ctp_dcp_items`(quiz type +order/insert + item_role) · `ctp_runtime_tables`(`reading_fluency_log`·`csat_stage_gates` 9행seed·`csat_item_attempts` + RLS).

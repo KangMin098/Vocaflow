@@ -50,6 +50,8 @@ export interface WordLookup {
   matchVia: string
   /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
   wordRegister: string | null
+  /** 자주 함께 쓰는 표현 — 툴팁 절제 노출(Progressive Disclosure). 없으면 null */
+  collocations: string[] | null
 }
 
 /**
@@ -78,6 +80,24 @@ export async function lookupWord(
       }
     | undefined
   if (!row) return null
+
+  // 연어 보강 — lookup_word_meaning RPC 미반환이라 해소된 word 로 shared_dictionary 1행 조회.
+  // 툴팁은 단어 1개 on-demand 라 추가 round-trip 허용. 실패해도 조회 결과는 그대로.
+  let collocations: string[] | null = null
+  if (row.found && row.resolved_word) {
+    const { data: cd, error: cErr } = await client
+      .from('shared_dictionary')
+      .select('collocations')
+      .eq('word', row.resolved_word)
+      .maybeSingle()
+    if (cErr) {
+      console.warn('[reader/lookupWord] collocations fetch failed:', cErr.message)
+    } else {
+      const c = (cd as { collocations: string[] | null } | null)?.collocations
+      collocations = c && c.length > 0 ? c : null
+    }
+  }
+
   return {
     found: row.found,
     surface: row.surface,
@@ -89,6 +109,7 @@ export async function lookupWord(
     exampleEn: row.example_en,
     matchVia: row.match_via,
     wordRegister: row.word_register,
+    collocations,
   }
 }
 

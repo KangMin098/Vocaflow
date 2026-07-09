@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3530e00` feat(ctp): CSAT Track Pipeline 데이터모델 — P1/P2 migration 3건 (v06.176)
 - `60a369f` feat(vocab): /library/vocab 중요도 기반 재구성 — 추천순·탭·클러터
 - `ed4046d` feat(lcp): 챕터별 어휘 V-level — 단일 book_v_level 편차 노출 (v06.174)
 - `b489566` feat(flashcard): 정답면 연어(collocations) 슬롯 — 카드 리치화 시제품 (v06.175)
 - `6cb1948` docs(ctp): CTP P0 정찰 진단 — CSAT Track Pipeline 착수 (read-only)
-- `712d37e` fix(admin): enrichment 무소비 필드 3종 이연 — 대시보드 정직화 (v06.173)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
