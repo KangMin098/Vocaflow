@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 보안 advisor — anon 호출 가능 무가드 DEFINER 함수 잠금 (v06.164)
+
+Supabase 보안 advisor 점검(352 WARN·ERROR 0) 후속 — anon 키(클라 번들 공개)로 앱 인증을 우회해 호출 가능하던 무가드 SECURITY DEFINER 함수 9종 잠금. 마이그레이션 2건(`20260708120000` + PUBLIC 상속 보정 `20260708120500`), 사용자 명시 승인.
+
+- **쓰기/액션 3종 → service_role 전용** (anon·authenticated 회수): `enrich_shared_dictionary`(마스터 사전 임의 INSERT 오염) · `regenerate_auto_curated_set`(발행 단어장 shared_words 파괴) · `process_library_pipeline_batch`(내부 토큰 외부 HTTP POST 트리거). 정당한 호출자는 전부 LCP 파이프라인 = service_role(검증) → 무영향.
+- **admin 대시보드 읽기 6종 → anon 회수, authenticated 유지**: `admin_vrl_cron_jobs`·`cron_runs`·`diagnostic_use`·`snapshot_counts`·`track_distribution`·`v_level_distribution`. /admin/vrl/automation 서버컴포넌트(authenticated admin)는 유지.
+- **교훈**: Postgres 함수 EXECUTE 기본이 PUBLIC grant(ACL `=X/postgres`)라 `REVOKE FROM anon` 만으로는 PUBLIC 상속으로 뚫림 — `REVOKE FROM PUBLIC` 필수(명시 grant된 service_role/authenticated 는 유지). 검증: 9종 전부 anon=false, 쓰기 3종 auth=false·srv=true, 읽기 6종 auth=true·srv=true.
+- 잔여(별건·저위험): `function_search_path_mutable` 41 · `pg_graphql_*_table_exposed` 146(PostgREST 사용·RLS 게이트) · `auth_leaked_password_protection`(대시보드 토글) · `rls_policy_always_true` 2(sw_comments/players 게임).
+
 ### T-2 OWID 스케일업 + OBP 동결해제 α(Pressbooks) (v06.163)
 - **OWID 8건 라이브 발행** — atom feed 8 기사 실 ingest→process→publish 전 구간(dev 라우트). argumentative CC-BY 학습 단어세트 8개(B2×7·C1×1 · llm_cost 0 · orphan 0). The Conversation(ND=display_only) 공백을 라이브 실증. dev 라우트 신설 `/api/acp/dev-enqueue`·`/api/acp/dev-publish`(service-role·NODE_ENV 가드).
 - **OBP 재정찰 → 동결 유지** — 챕터 페이지 client-render + `__NEXT_DATA__` 에 PDF URL 만(산문 0) + 표본 CC BY-NC-ND. β(PDF)=dependency-0 위반 → OBP-proper 해제 불가.
