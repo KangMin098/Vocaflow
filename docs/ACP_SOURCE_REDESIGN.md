@@ -289,6 +289,6 @@ The Conversation(cc_by_nd=`display_only`)이 못 채우던 argumentative 실질 
 |---|---|---|---|
 | **Pressbooks** (α retarget) | ✅ **ingester + end-to-end 발행** | CC BY (책별 상이) | `ingest/pressbooks.ts` (dependency-0 · SE 계약 mirror) · dev 라우트 `/api/lcp/dev-ingest-preview`·`/api/lcp/dev-enqueue-book`(+dev-process `pressbooks` 케이스) |
 
-> **end-to-end 검증 완료 (2026-07-09)**: 마이그레이션 `library_books_source_add_pressbooks` **적용**(source CHECK +`pressbooks`). 실 발행 — `Introduction to Sociology 2e`(book_id `406dbc3e…`) enqueue→process→force-publish 전 구간: **published · CC BY 4.0 · copyright_safe_in_kr=true · CEFR C1 · book_v_level 7 · 6 챕터 · 6/6 챕터 단어세트 발행(240단어) · llm_cost 0**. (footprint 위해 max_chapters=6 데모 — ingester 자체는 전 챕터 추출.) OWID(ACP article)에 이은 **LCP book 경로** 실증.
+> **end-to-end 검증 완료 (2026-07-09)**: 마이그레이션 `library_books_source_add_pressbooks` **적용**(source CHECK +`pressbooks`). 실 발행 — `Introduction to Sociology 2e`(book_id `406dbc3e…`) enqueue→process→force-publish 전 구간: **published · CC BY 4.0 · copyright_safe_in_kr=true · CEFR C1 · book_v_level 8 · 23 챕터 · 23/23 챕터 단어세트 발행(894단어) · word_count 367,776 · llm_cost 0**. OWID(ACP article)에 이은 **LCP book 경로** 실증.
 
 > §20 은 OBP=동결(코드 0) 유지 — Pressbooks 는 **별개 신설 소스**(§10 준수: 동결 소스 코드 예약 아님, 구현 소스 코드 생성).
