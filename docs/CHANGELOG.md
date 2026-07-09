@@ -13,8 +13,9 @@
 ### T-2 OWID 스케일업 + OBP 동결해제 α(Pressbooks) (v06.163)
 - **OWID 8건 라이브 발행** — atom feed 8 기사 실 ingest→process→publish 전 구간(dev 라우트). argumentative CC-BY 학습 단어세트 8개(B2×7·C1×1 · llm_cost 0 · orphan 0). The Conversation(ND=display_only) 공백을 라이브 실증. dev 라우트 신설 `/api/acp/dev-enqueue`·`/api/acp/dev-publish`(service-role·NODE_ENV 가드).
 - **OBP 재정찰 → 동결 유지** — 챕터 페이지 client-render + `__NEXT_DATA__` 에 PDF URL 만(산문 0) + 표본 CC BY-NC-ND. β(PDF)=dependency-0 위반 → OBP-proper 해제 불가.
-- **α 실행 = Pressbooks ingester 신설** — `ingest/pressbooks.ts`(dependency-0·SE 계약 mirror·CC-BY 서버렌더 HTML). `LibrarySource`+`pressbooks`, 배럴 export, dev 검증 라우트 `/api/lcp/dev-ingest-preview`(DB write 0). 실측: `Introduction to Sociology 2e` CC BY 4.0·프로즈 정제·CHAPTER 마커 확인.
-- **마이그레이션(승인 대기)** — `library_books_source_add_pressbooks`(source CHECK +`pressbooks`). DB 적재는 후속 게이트.
+- **α 실행 = Pressbooks ingester 신설** — `ingest/pressbooks.ts`(dependency-0·SE 계약 mirror·CC-BY 서버렌더 HTML). `LibrarySource`+`pressbooks`, 배럴 export. dev 라우트 3종: `/api/lcp/dev-ingest-preview`·`/api/lcp/dev-enqueue-book` + dev-process `pressbooks` 케이스(`max_chapters`).
+- **마이그레이션 적용** — `library_books_source_add_pressbooks`(source CHECK +`pressbooks`).
+- **end-to-end 실증** — `Introduction to Sociology 2e`(book_id 406dbc3e) enqueue→process→force-publish: published·CC BY 4.0·CEFR C1·book_v_level 7·6 챕터·6/6 챕터 단어세트(240단어)·llm_cost 0. LCP book 경로 실증(OWID=ACP article 경로에 이어).
 - docs: [ACP_SOURCE_REDESIGN.md](./ACP_SOURCE_REDESIGN.md) §20.1 · [LIBRARY_PIPELINE.md](./LIBRARY_PIPELINE.md) 소스표.
 
 ### B1(VCB-VRL) 진단 — 허위 P0 강등, 대시보드 Critical 0 (v06.162)

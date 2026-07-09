@@ -20,6 +20,7 @@ import {
   ingestFromSimpleWikipedia,
   ingestFromLit2Go,
   ingestFromStoryWeaver,
+  ingestFromPressbooks,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -35,6 +36,8 @@ export const dynamic = 'force-dynamic'
 
 interface DevProcessBody {
   book_id: string
+  /** Pressbooks 전용 — 챕터 상한(데모 footprint 제한). 0/미지정=전체. */
+  max_chapters?: number
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -116,6 +119,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromLit2Go(book.source_id as string)
     } else if (book.source === 'storyweaver') {
       raw = await ingestFromStoryWeaver(book.source_id as string)
+    } else if (book.source === 'pressbooks') {
+      raw = await ingestFromPressbooks(book.source_id as string, body.max_chapters ?? 0)
     } else {
       throw new Error(`Source not implemented in dev-process: ${book.source}`)
     }

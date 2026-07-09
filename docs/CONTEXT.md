@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `a60bf16` docs(session-log): /plan UI 재설계 + 교육과정 어휘 태깅 세션 기록 (2026-07-09)
 - `9d018f8` feat(lcp): Pressbooks ingester 실 구현 파일 (T-2 α — abd2670 본체)
 - `abd2670` feat(lcp): OBP 동결해제 α — Pressbooks OA book ingester (T-2)
 - `972eb42` docs(session-log): edit rich-form 완료 — VCB 재설계 전체 종결 표기
 - `cc92b58` feat(vcb): 큐레이션 payload edit rich-form (결정 C 저빈도 전문가 도구)
-- `4319f15` fix(admin): B1(VCB-VRL) 허위 P0 강등 — 대시보드 Critical 0 (v06.162)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
 - `20260709120000_library_books_source_add_pressbooks.sql`
+- `20260708120000_advisor_revoke_anon_definer.sql`
 - `20260708120000_acp_source_check_add_owid.sql`
 - `20260706130000_drain_review_tasks_level_vocab.sql`
 - `20260706120000_unify_quiz_into_curation_jobs.sql`
-- `20260706024846_p1_plan_multi_entry.sql`
 <!-- /auto:recent-migrations -->
 
 ---
