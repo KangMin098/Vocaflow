@@ -17,8 +17,10 @@ easeW = clamp((reading_ease − 50)/40, 0, 1)
 Lex   = weighted_avg + (1−easeW)·(p75 − weighted_avg)      # 어휘: 읽기 쉬우면 중심값, 어려우면 p75 (문맥 희귀어 탈부풀림)
 LexC  = clamp(Lex + lexOffset)                              # CEFR-J 앵커 (실측 lexOffset=0.04 ≈ 편향 없음)
 V_fk  = clamp((F-K − 2)·0.62)                               # 통사+가독 (외부 검증)
-V_syn = syntax_score.score·0.10  (있으면)                   # 종속절 깊이·문장길이
-Syn   = V_syn≠null ? 0.5·V_fk+0.5·V_syn : V_fk
+clauseBump = clamp((syntax_score.clause_depth_p90 − 3)·0.9, 0, 11)   # 심층 종속절만 보너스
+Syn   = max(V_fk, clauseBump)                              # ★ F-K(학술 nominalization 포착) + 종속절 보너스(Gibbon)
+  # ⚠ syntax_score.score(=sent_p90×2+clause_depth×6)는 100 포화(Alice 112·Gibbon 212·GE 112 전부 캡)라
+  #    변별력 0 → 폐기. raw clause_depth_p90 컴포넌트 + 검증된 F-K 사용. score 공식은 별도 재보정 필요.
 
 Overall = 0.75·max(LexC,Syn) + 0.25·mean(LexC,Syn)          # ★ 병목(더 어려운 축) 지배 — 어느 한 축만 어려워도 어려움
 new_v   = round(Overall)
@@ -29,11 +31,17 @@ conf = 0.5·(1−|LexC−Syn|/6) + 0.5·(cjv≠null ? clamp(1−|new_v−cjv|/3)
 ```
 **핵심 개선(이전 adjust-from-base 대비)**: (1) 병목-max 융합(어휘/통사 중 어려운 쪽이 이해를 결정 — Great Expectations는 통사 쉬워도 어휘 V8), (2) CEFR-J 교차확증 확신도(융합이 CEFR-J와 맞으면 적용, 통사가 CEFR-J 못 보는 큰 변화 주면 검토), (3) 고확신만 자동 적용.
 
-### 적용 결과 (발행 23권)
-- **✓ 13권 자동 갱신**: Alice V6→5·Wizard of Oz V6→5·Fables V7→6·Just So V7→5·Huck V7→5·Jane Eyre V9→8·Great Expectations V9→8·Wind in Willows V8→7·Book of Tea V7→6·Marvelous Oz V7→6·Twenty years V9→8·Drone V3→2·Ammachi V4→3.
-- **⚑ 7권 검토 회부**: Gibbon V9→10(통사구동·conf 0.55)·Foundational V6→8(conf 0.35, 학술통사↑ vs 어휘↓ 충돌)·Sherlock V8→6·Alice Adams V9→6(CEFR-J 9 vs 읽기쉬움 충돌 conf 0.28)·Poetry·Railway·Short Fiction.
-- **저장**: 전권 `vrl_components.difficulty_v2` = {v, confidence, lexical, syntactic, cefrj_v, method} + `book_v_level_v1`(구값). 되돌리기 가능.
-- **잔여**: (a) syntax_score 도서 백필(현재 일부만 — 없으면 F-K가 통사 대리), (b) 검토 7권 어드민 flip, (c) 소비처(recommend·i+1·source-map) 확정 후 전환, (d) Tier 2 IRT.
+### 적용 결과 (발행 23권, v2.2 — 전권 syntax_score 백필 완료)
+- **✓ 13권 자동 갱신**(고확신): **Alice V6→5**(conf 0.99, 부풀림 교정)·Wizard V6→5·Fables V7→6·Just So V7→5·Huck V7→5·Jane Eyre V9→8·Great Expectations V9→8(conf 0.79)·Wind in Willows V8→7·Pinocchio V7→6·Marvelous Oz V7→6·Book of Tea V7→6·Twenty years V9→8·Drone V3→2.
+- **⚑ 8권 검토 회부**(저확신): **Gibbon V9→11**(통사구동·conf 0.34·CEFR-J 8 미확증)·**Foundational V6→8**(conf 0.35·학술 F-K↑ vs 어휘↓ 충돌)·Sherlock V8→6·Alice Adams V9→6(conf 0.28·CEFR-J 9 vs 읽기쉬움 충돌)·Poetry·Railway·Short Fiction·Ammachi.
+- **CEFR-J 평균절대오차 0.78 V** · **사용자 지적 Alice 과대 → V5 확정 교정**.
+- **저장**: 전권 `vrl_components.difficulty_v2` = {v, confidence, lexical, syntactic, cefrj_v, method='v2.2'} + `book_v_level_v1`(구값). 되돌리기 가능.
+
+### 부수 발견 — `compute_syntax_score.score` 포화 버그
+`score = LEAST(100, sent_p90×2 + clause_depth_p90×6)` — 가중치 과대로 **거의 모든 중급+ 텍스트가 100 포화**(Alice 112·Gibbon 212·Foundational 110·GE 112). 변별력 상실 → 난이도 앙상블에서 폐기하고 raw 컴포넌트(clause_depth_p90)+F-K로 대체. **CTP 구문난이도 자체를 위해 score 공식 재보정 별도 필요**(예: (sent−15)×0.9 + (clause−2)×6 후 범위 정규화).
+
+### 잔여
+(a) **syntax_score 도서 백필 완료**(16권 `compute_book_syntax`, 전권 확보) · (b) 검토 8권 어드민 flip · (c) 소비처(recommend·i+1·source-map) 확정 후 전환 · (d) `compute_syntax_score.score` 재보정 · (e) Tier 2 IRT.
 
 ---
 
