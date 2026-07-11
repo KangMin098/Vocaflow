@@ -29,6 +29,7 @@ export type ScoreModule =
   | 'ghost-race'
   | 'glyph-tongue'
   | 'word-customs'
+  | 'lexicon-hands'
 
 export interface GameScoreInput {
   module: ScoreModule

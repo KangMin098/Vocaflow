@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 신개념 게임 ③「Lexicon Hands」 — 어휘 속성 시너지 엔진 (Balatro 계열) (v06.216)
+- **메커니즘(독창)**: 포커가 아니라 **조커 시너지로 배수를 폭발**시키는 덱빌딩. 단어 카드가 공유하는 속성(어원·품사·도메인·접사·반의어)으로 **족보**를 만들어 칩×배수 → 언어 조커(학자=학술+20칩·접사수집가=접사런 배수×2·고전어=어원+8칩)로 증폭 → 라운드 목표 격파. 24장 속성-태그 덱, 손패 8, 3라운드 누적 목표(260/620/1300).
+- **학습**: 족보를 만들려면 **어원·품사·의미장·접사**를 알아야 함 → 뜻 암기 너머 **깊은 어휘 지식(depth)** 훈련. 라이브 chips×mult 프리뷰.
+- **배선**: `LexiconHandsGame` + `/play/lexicon-hands`(minWords=0) + 무디 테이블 무드 + 카드 마크/워터마크 + 허브 9번째 포탈 + SESSION_META. TS 3유니온 +lexicon-hands.
+- **검증**: 실플레이 7항목 — 손패8·조커3·라이브 프리뷰·최적 봇 전 라운드 격파("엔진 폭발" 2,692점)·**난도 밸런스**(대충하면 R3 막힘, 숙련시 클리어)·모바일 0오버플로·tsc 0·pageerror 0. **아케이드 6→9종(①글리프 ②세관 ③핸드 신설).**
+- ⏳ DB `module_id` enum +glyph-tongue/word-customs/lexicon-hands 마이그 대기.
+
 ### 도서 난이도 v2.4 파이프라인 자동 편입 — 신규 도서 자동 산정 (v06.215)
 - **`compute_book_difficulty(book_id)`** SQL 함수 신설(migration `20260712140000`, MCP execute_sql 적용) — v2.4 앙상블(ease-게이트 어휘+통사 병목+커버리지 범프)을 DB 이식. 파이프라인-계산 신호(vrl_components·syntax_score·lemma_coverage_pct·cefrj) 사용, **F-K 없으면 sent_p90+clause_depth 대체**(graceful). **claude_v 있으면 미덮음**(v3 가드) + `book_v_level_v1` 원본 보존.
 - **배선**: `lcp/dev-process` `compute_book_syntax` 직후 `compute_book_difficulty` 호출 → 신규 도서가 옛 p75 단축 대신 **자동 v2.4** 산정.
