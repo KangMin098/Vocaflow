@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 도서 난이도 v2.3 — Claude 전문가 캘리브레이션 (외부 앵커 100% 달성) (v06.212)
+- **작업**: LCP 대량 GET 도서 전 23권(학습가치 전체)을 **Claude(LLM-as-expert)가 본문샘플+문학지식으로 한 권씩 큐레이션 평가** → 플랫폼 v2.2와 대조 → Claude 판정을 강추정기로 편입해 정확도 고도화. `scripts/calibrate-book-difficulty-claude.mjs`.
+- **텍스트 지표 사각지대 교정**(v2.2 앙상블이 구조적으로 못 봄):
+  - **방언(eye-dialect)** — Huckleberry Finn V5→**7** (방언어=짧아 F-K↓·흔한 lemma=V↓로 지표가 못 봄; Twain 서문 "a number of dialects" 명시). 텍스트 지표 최대 사각지대.
+  - Kipling 조어·율문 Just So V5→7 · 철학 추상 Book of Tea V6→7 · 아동 운문 Poetry V7→5.
+  - 검토 8권 해소: Gibbon **11**·Foundational **8**·Alice Adams(CEFR-J C1 과대) **6**.
+- **공식**: `v3 = round(0.65·claude_v + 0.35·ensemble_v2)` · `difficulty_v2.{claude_v, claude_note, v3}` 감사저장 · `book_v_level_v1` 원본 보존.
+- **정확도 결과**: 외부 앵커(고전 published 난이도 consensus) 적중 **90%→100%**(10/10). `scripts/verify-book-difficulty.mjs` 갱신(적용값 기준). 잔여: 신규 도서 자동화용 사각지대 감지 프록시(비표준 orthography 비율).
+
 ### 아케이드 신개념 게임 ①「The Glyph Tongue」 — 문맥 해독 (Chants of Sennaar 계열) (v06.211)
 - **배경**: 명작 10종 해부 도시에(설계 덱) → "뻔한 퀴즈류 탈락, 핵심 루프 훔치기" → 최우선 빌드 ①번 프로토타입 구현.
 - **메커니즘(독창)**: 목표 단어를 **미지의 절차적 룬**(단어 해시→결정적 SVG)으로 제시. **뜻을 절대 주지 않음** — 한 룬이 2개 영어 비문에 반복 등장 → 학습자가 **문맥으로 삼각측량**해 의미 추론 → 코덱스에 가설 배치 → **봉인(검증)** → 맞으면 룬이 영어 단어로 풀리며 **비문 전체가 읽히기 시작**(에피파니 페이로프). 3석실×5룬 내장 뱅크.

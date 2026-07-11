@@ -42,13 +42,17 @@ const B = data ?? []
 
 // 각 책의 추정기 값
 const rows = B.map((b) => {
-  const v2 = b.vrl_components?.difficulty_v2?.v ?? null
-  const conf = b.vrl_components?.difficulty_v2?.confidence ?? null
+  const d = b.vrl_components?.difficulty_v2 ?? {}
+  // v2 = 현재 적용된 book_v_level (v2.3 Claude 캘리브레이션 반영값 = 학습자가 보는 값).
+  const v2 = b.book_v_level
+  const ens = d.v ?? null // 텍스트 앙상블(캘리브 전) — 비교용
+  const claude = d.claude_v ?? null
+  const conf = d.confidence ?? null
   const old = b.vrl_components?.book_v_level_v1 ?? b.book_v_level // v1 = 변경 전 원본
   const cur = b.book_v_level
   const cj = CJ[b.cefrj_level] ?? null
   const fk = b.flesch_kincaid_grade != null ? Math.round(fkV(b.flesch_kincaid_grade)) : null
-  return { title: b.title ?? '', v2, conf, old, cur, cj, fk }
+  return { title: b.title ?? '', v2, ens, claude, conf, old, cur, cj, fk }
 })
 
 // ── 1) 수렴 검증 ──
