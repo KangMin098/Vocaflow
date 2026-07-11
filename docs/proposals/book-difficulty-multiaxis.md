@@ -40,8 +40,18 @@ conf = 0.5·(1−|LexC−Syn|/6) + 0.5·(cjv≠null ? clamp(1−|new_v−cjv|/3)
 ### 부수 발견 — `compute_syntax_score.score` 포화 버그
 `score = LEAST(100, sent_p90×2 + clause_depth_p90×6)` — 가중치 과대로 **거의 모든 중급+ 텍스트가 100 포화**(Alice 112·Gibbon 212·Foundational 110·GE 112). 변별력 상실 → 난이도 앙상블에서 폐기하고 raw 컴포넌트(clause_depth_p90)+F-K로 대체. **CTP 구문난이도 자체를 위해 score 공식 재보정 별도 필요**(예: (sent−15)×0.9 + (clause−2)×6 후 범위 정규화).
 
+### 정확도 검증 (100% 확인 작업) — `scripts/verify-book-difficulty.mjs`
+"100%"는 ground truth(학습자 성과) 없이 단일 확정 불가 → **3중 수렴 검증**으로 정확도 실증(재사용 하니스):
+1. **수렴** — v2.2 ↔ CEFR-J MAE **0.78V**(old 0.96V, 개선). 독립 추정기 수렴.
+2. **외부 앵커**(고전 published 난이도 consensus V-range) — **v2.2 적중 9/10(90%)** vs old 6/10(60%). Railway V7→5·Sherlock V8→6·Wind V8→7·Gibbon V9→11 전부 인간 확립 레벨 범위로 교정. 유일 미스 Huck(방언으로 어휘 평이).
+3. **확신 예측력** — 고확신 15권 CEFR-J MAE **0.27V** vs 저확신 8권 **1.75V**. **confidence가 accuracy를 강하게 예측** → 저확신 플래그 메커니즘 유효(검토 회부가 실제 부정확 지점을 정확히 포착).
+- **판정**: v2.2는 외부 인간 기준 90% 적중(old 60%)·고확신 거의 완벽(MAE 0.27). **100% 확정 경로 = 저확신 8권 인간 검토 + Tier2 IRT**(학습자 성과 축적).
+
+### 부수 산출물 — `compute_syntax_score.score` 재보정 마이그
+포화 버그 수정 SQL: [migrations/20260712120000_ctp_syntax_score_recalibrate.sql](../../supabase/migrations/20260712120000_ctp_syntax_score_recalibrate.sql). `score = clamp((sent−10)×0.75 + (clause−1)×5, 0,100)` — 관측범위 선형 분산(쉬움 11·Alice 46·Gibbon 94). **⚠ CTP(dev-process·stage·DCP)가 score 소비 → 임계값 재검증 후 apply**(난이도 앙상블은 raw clause_depth 사용이라 무영향, 미적용도 안전).
+
 ### 잔여
-(a) **syntax_score 도서 백필 완료**(16권 `compute_book_syntax`, 전권 확보) · (b) 검토 8권 어드민 flip · (c) 소비처(recommend·i+1·source-map) 확정 후 전환 · (d) `compute_syntax_score.score` 재보정 · (e) Tier 2 IRT.
+(a) syntax_score 도서 백필 완료(전권) · (b) 검토 8권 어드민 flip · (c) 소비처(recommend·i+1·source-map) 전환 · (d) score 재보정 마이그 CTP 조율 후 apply · (e) Tier 2 IRT.
 
 ---
 

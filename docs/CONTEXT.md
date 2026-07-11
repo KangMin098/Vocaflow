@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `8e90c98` feat(lcp): 도서 난이도 v2.2 — syntax_score 백필 + 포화버그 회피 (v06.208)
 - `e538ae6` fix(acp): 신규 소스 파이프라인 점검 5개선 (v06.209)
 - `41df6ac` feat(lcp): 도서 난이도 다축 평가 v2 적용 — 어휘 단축 왜곡 교정 (v06.208)
 - `838b177` docs(lcp): 도서 난이도 다축 평가 기준 재설계 제안 (book difficulty v2)
 - `6043f3e` feat(ctp): DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
-- `6e2fbca` feat(game): 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260712120000_ctp_syntax_score_recalibrate.sql`
 - `20260712100000_ctp_dcp_items_kind_allow_book.sql`
 - `20260712090000_ctp_dcp_grade_return_attempt.sql`
 - `20260711130000_acp_source_add_noaa.sql`
 - `20260711125000_add_arcade_game_module_ids.sql`
-- `20260711120000_acp_source_add_usgs.sql`
 <!-- /auto:recent-migrations -->
 
 ---

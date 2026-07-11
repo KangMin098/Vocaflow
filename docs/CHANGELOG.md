@@ -25,8 +25,9 @@
 - **문제**(사용자 지적): `book_v_level = 어휘 p75` 단축 → (1) 희귀 content-word 꼬리가 p75 부풀림(Alice ease 70인데 V6), (2) 통사 완전 무시(Foundational 학술 F-K 14.55인데 V6·Gibbon 최난이도인데 V9 캡). 23권 실증.
 - **설계**(재고): "100% 정확"의 단일 텍스트 공식은 불가(ground truth=학습자 성과) → **앙상블+확신도+외부앵커**로 실효 정확도 수렴. 공식: **ease-게이트 어휘축**(읽기 쉬우면 중심값·어려우면 p75 → 문맥 희귀어 탈부풀림) + **통사축**(F-K·syntax_score) + **병목 융합**(0.75·max+0.25·mean — 어느 한 축만 어려워도 어려움) + **CEFR-J 앵커**(lexOffset 0.04≈편향0) + **CEFR-J 교차확증 확신도**. 설계문서 [book-difficulty-multiaxis.md](proposals/book-difficulty-multiaxis.md).
 - **적용**(서비스롤·非DDL, v2.2): syntax_score 16권 백필(`compute_book_syntax`, 전권 확보) 후 재산출 → **고확신 13권 `book_v_level` 갱신**(Alice V6→5 conf 0.99·Jane Eyre V9→8·Great Expectations V9→8·Wizard V6→5 등) + **저확신 8권 검토 회부**(Gibbon V9→11·Foundational V6→8·Alice Adams V9→6 등). CEFR-J MAE **0.78 V**. 전권 `vrl_components.difficulty_v2` + `book_v_level_v1` 구값 보존(되돌리기 가능).
-- **부수 발견**: `compute_syntax_score.score = LEAST(100, sent×2+clause×6)`가 **100 포화**(Alice 112·Gibbon 212 전부 캡)라 변별력 0 → 앙상블은 raw clause_depth+F-K로 대체. **score 공식 재보정 별도 필요**.
-- **잔여**: 검토 8권 어드민 flip · 소비처(recommend·i+1·source-map) 전환 · syntax_score 재보정 · Tier2 IRT.
+- **부수 발견**: `compute_syntax_score.score = LEAST(100, sent×2+clause×6)`가 **100 포화**(Alice 112·Gibbon 212 전부 캡)라 변별력 0 → 앙상블은 raw clause_depth+F-K로 대체. 재보정 마이그 `20260712120000_ctp_syntax_score_recalibrate` 작성(선형 분산) — **CTP score 소비처 임계값 재검증 후 apply**(앙상블 무영향).
+- **정확도 검증 하니스** `scripts/verify-book-difficulty.mjs` — 3중 수렴검증: v2.2 외부 앵커(고전 published 난이도) 적중 **9/10(90%)** vs old 60% · 고확신 CEFR-J MAE **0.27V** vs 저확신 1.75V(confidence가 accuracy 예측 입증). 100% 경로=저확신 8권 인간검토+IRT.
+- **잔여**: 검토 8권 어드민 flip · 소비처(recommend·i+1·source-map) 전환 · score 재보정 CTP 조율 apply · Tier2 IRT.
 
 ### CTP DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
 - **갭 발견**: DCP 문항 64개가 전부 **S3(논증 article 7건)** 뿐 → S4(도서 v≥7·killer band) 학습자는 처방 ④ 연습이 영영 비활성. 게다가 `csat_dcp_items.kind` CHECK=`('article','chapter')`인데 catalog·`prescribe_today` 조인은 도서를 `kind='book'`으로 씀 → **book DCP 구조적 삽입/조인 불가**(CTP 백엔드 잠재 불일치).
