@@ -58,6 +58,9 @@
 - **검증**: 실플레이 하니스 — 3석실 정답 배치→봉인→"비문을 읽어냈다" 전부 통과, done 15룬·100%·3석실, 스크린샷(룬 비문·해독 후 가독), tsc 0·pageerror 0·console 0.
 - ⏳ DB `module_id` enum +glyph-tongue 마이그레이션 **대기**(미적용 시 audit/scores fire-and-forget 흡수, 게임 동작 무관 — 기존 6종과 동일 패턴).
 
+### LCP G1 book 추천 링크 수정 (v06.218)
+- book_iplus1 추천(`recommend_word_sets_for_user`)이 `/library/vocab#set-{slug}`로 링크되나 그 페이지가 library_book 제외+slug NULL이라 죽은 앵커였음 → `library_book` 카테고리는 **도서 브라우즈(`/library/books`, i+1 레일)로 라우팅**. (deep-link는 RPC에 book_id 노출 필요 — 후속.)
+
 ### LCP 도서 파이프라인 종합 점검 + 6개선 (v06.215)
 - **점검**(3-agent 정찰 + DB 실측): 발행 도서 23권(SE 14·gutenberg 4·storyweaver 2·lit2go/pressbooks/wikibooks 각 1). 4축 난이도·챕터·단어장 전권 완비. 콘솔 9탭 + book_curation_jobs 큐(Claude 드레인) + 학습자 8접점(브라우즈·enroll·읽기·챕터단어장·plan·처방·모듈·CTP) 추적.
 - **개선 6건**:

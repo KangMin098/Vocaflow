@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `fedc873` feat(ctp): DCP S4 드레인 동적화 — 발행 S4 전권 자동 (v06.217)
 - `781a8e1` feat(game): 아케이드 신개념 ④「Lexicon Detective」— 장면 수확·서사 재구성 (Golden Idol 계열)
 - `3ed2720` fix(lcp): 도서 파이프라인 종합 점검 6개선 (v06.215)
 - `48f962d` feat(game): 아케이드 신개념 ③「Lexicon Hands」— 속성 시너지 엔진 (Balatro 계열)
 - `c37761e` feat(lcp): 도서 난이도 v2.4 파이프라인 자동 편입 (v06.215)
-- `3c3b987` docs(a11y): ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
