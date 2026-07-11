@@ -28,7 +28,8 @@ export type ArcadeGameId =
   | 'glyph-tongue'
   | 'word-customs'
   | 'lexicon-hands'
-  | 'lexicon-detective';
+  | 'lexicon-detective'
+  | 'morpheme-rules';
 
 // ─── 유틸 ───
 export function shuffle<T>(arr: T[]): T[] {
@@ -186,6 +187,7 @@ const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
   'word-customs': (<><path d="M10 5h9l4 4v18H10z" /><path d="M19 5v4h4" opacity=".7" /><path d="M13 14h7M13 18h7M13 22h4" opacity=".85" /></>),
   'lexicon-hands': (<><rect x="7" y="11" width="11" height="15" rx="1.6" transform="rotate(-10 12.5 18.5)" /><rect x="14" y="9" width="11" height="15" rx="1.6" transform="rotate(10 19.5 16.5)" /></>),
   'lexicon-detective': (<><circle cx="14" cy="13" r="6.5" /><path d="M18.8 17.8L25 24" /><path d="M11 13h6" opacity=".5" /></>),
+  'morpheme-rules': (<><rect x="5" y="12" width="9" height="8" rx="1.4" /><rect x="18" y="12" width="9" height="8" rx="1.4" /><path d="M14 16h4" /></>),
 };
 export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
   return (
