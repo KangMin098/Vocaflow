@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `cf7f395` feat(acp): Wikivoyage 여행 가이드 소스 — reference 밴드 보강 (v06.196)
 - `828aa06` test(echo): fake-mic E2E 에 실 육성 wav 주입 경로 (#1 보정 다리)
 - `c463ade` feat(game): 공용 게임킷 + Game 1 Letter Forge (철자 조립 L4b) — 아케이드 스위트 1/6
 - `f9fd089` fix(acp,ctp): QA 자체점검 — Wikipedia feed 품질 + prescribe_today 정합 (v06.195)
 - `4b01ff1` test(echo): EchoMatch fake-mic 자동 실주행 E2E (v06.190)
-- `a1dc3fc` test(e2e): 06-chapter-launch 자립 시드 — 계정 리셋에도 안전(멱등)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
