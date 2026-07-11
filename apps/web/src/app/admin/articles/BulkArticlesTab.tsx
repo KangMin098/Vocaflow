@@ -33,6 +33,7 @@ import {
   MapPin,
   MessageSquareText,
   Microscope,
+  Mountain,
   Newspaper,
   Plus,
   Radio,
@@ -237,6 +238,16 @@ const SOURCES: SourceConfig[] = [
       { id: 'guide', label: 'Guide Articles (여행)' },
     ],
   },
+  {
+    key: 'usgs',
+    label: 'USGS',
+    Icon: Mountain,
+    color: 'var(--learn-known)',
+    feeds: [
+      { id: 'featured', label: 'Featured Stories (지구과학)' },
+      { id: 'snippets', label: 'Science Snippets (지구과학)' },
+    ],
+  },
 ]
 
 interface Props {
@@ -259,8 +270,8 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage'],
-  advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage', 'usgs'],
+  advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia', 'usgs'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',

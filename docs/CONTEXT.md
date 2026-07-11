@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2b1713e` docs(game): enum 마이그 적용 반영 (add_arcade_game_module_ids)
 - `4f26f7b` docs(game): 아케이드 스위트 6종 문서화 + enum 마이그 제안
 - `fd55e19` feat(game): 아케이드 허브(/arcade) + 플레이 크롬 배선 — 6종 진입점
 - `4e1cd02` feat(game): Game 6 Ghost Race (비동기 레이스+리그) — 아케이드 스위트 6/6 완성
 - `3e7751f` feat(game): Game 5 Daily Blitz (데일리+스트릭 리텐션) — 아케이드 스위트 5/6
-- `63141a8` feat(game): Game 4 Word Economy (경제·전략 L4a) — 아케이드 스위트 4/6
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

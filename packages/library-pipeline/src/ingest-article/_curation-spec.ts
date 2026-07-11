@@ -27,6 +27,7 @@ export type SourceKey =
   | 'wikipedia'
   | 'plos'
   | 'wikivoyage'
+  | 'usgs'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -323,6 +324,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 250,
     noiseKeywords: ['disambiguation', 'itinerary list'],
     maxItems: 30,
+  },
+  // USGS: 지구과학·자연재해 과학 저널리즘(B2), PD(US Gov → 발행 허용). expository. Drupal HTML.
+  usgs: {
+    recencyDays: 730,      // 과학 스토리 — stale 관대 (뉴스보다 timeless)
+    minDescriptionLen: 60, // 카드 teaser ~145자
+    minTitleLen: 12,
+    sourceWeight: 0.84,    // PD + 흥미(재해·화산·광물) + 접근형 과학 문체
+    levelBonus: 0,         // B2 (NASA 유사 난이도)
+    idealDescLen: 200,
+    noiseKeywords: ['media alert', 'advisory'],
+    maxItems: 24,
   },
 }
 
@@ -689,6 +701,23 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'guide', weight: 0.5 },
     ],
   },
+  // USGS: 지구과학·자연재해 과학 저널리즘, PD(US Gov → 발행 허용 · 인용 자유), B2.
+  //   신규 도메인(지진·화산·허리케인·광물) — NASA(우주)·NIH(건강)과 구별. expository 보강.
+  usgs: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 24,
+    minScore: 0.42,
+    bulkPriority: 5,
+    license: 'Public Domain (US Government)',
+    attributionRequired: false,       // PD US Gov — 인용 자유
+    topicDomain: ['earth-science', 'natural-hazards', 'geology', 'environment', 'science'],
+    styleGuide: '지구과학·자연재해 과학 저널리즘 (접근형 설명문) · 지진·화산·허리케인·광물 · PD',
+    preferredFeedMix: [
+      { feedId: 'featured', weight: 0.65 },   // 장문 featured stories
+      { feedId: 'snippets', weight: 0.35 },   // 단문 science snippets
+    ],
+  },
 }
 
 /**
@@ -702,8 +731,8 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'wikivoyage', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
+  intermediate: ['voa', 'simple_wikipedia', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'usgs', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -747,6 +776,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   wikipedia: 'expository', // 정규 백과 (설명문)
   plos: 'expository', // 학술 논문 산문 (설명문)
   wikivoyage: 'reference', // 여행 목적지 가이드 (참고 — Factbook 동류)
+  usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -956,6 +986,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   wikipedia: getSourcePolicy('wikipedia'),
   plos: getSourcePolicy('plos'),
   wikivoyage: getSourcePolicy('wikivoyage'),
+  usgs: getSourcePolicy('usgs'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

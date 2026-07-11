@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -295,6 +295,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/en\.wikivoyage\.org\/wiki\//}
           urlHostHint="en.wikivoyage.org/wiki/ 도메인"
           urlPlaceholder="https://en.wikivoyage.org/wiki/Kyoto"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'usgs':
+      return (
+        <RssFeedTab
+          source="usgs"
+          heading="⛰ USGS"
+          subtitle="PD (US Gov) · B2 지구과학·자연재해 과학 저널리즘 (신규 도메인) · 발행 허용 · 인용 자유"
+          feeds={[]}
+          emptyIcon={Mountain}
+          urlPattern={/^https?:\/\/(?:www\.)?usgs\.gov\/news\//}
+          urlHostHint="www.usgs.gov/news/ 도메인"
+          urlPlaceholder="https://www.usgs.gov/news/featured-story/hurricane-season-arrives"
           onEnqueued={onEnqueued}
         />
       )

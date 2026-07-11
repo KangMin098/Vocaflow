@@ -52,6 +52,7 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   wikipedia: ['expository', 'reference'], // 정규 백과 FA/GA (CC-BY-SA → 발행 가능)
   plos: ['expository'], // 오픈 학술 논문 (CC-BY → 발행 가능)
   wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
+  usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
 }
 
 const ALL_SOURCES: ReadonlyArray<SourceKey> = [
@@ -67,6 +68,7 @@ const ALL_SOURCES: ReadonlyArray<SourceKey> = [
   'wikipedia',
   'plos',
   'wikivoyage',
+  'usgs',
 ]
 
 export const SOURCE_LABEL: Record<string, string> = {
@@ -82,6 +84,7 @@ export const SOURCE_LABEL: Record<string, string> = {
   wikipedia: 'Wikipedia',
   plos: 'PLOS',
   wikivoyage: 'Wikivoyage',
+  usgs: 'USGS',
 }
 
 // ── 커버리지 빈칸 ────────────────────────────────

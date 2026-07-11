@@ -74,6 +74,9 @@ export type { PlosListItem } from './ingest-article/plos'
 // ACP §18 — Wikivoyage (여행 가이드 · B1-B2 · CC-BY-SA · reference 밴드 보강).
 export { ingestWikivoyageArticle, listWikivoyageFeed, WIKIVOYAGE_FEEDS } from './ingest-article/wikivoyage'
 export type { WikivoyageListItem } from './ingest-article/wikivoyage'
+// ACP §18 — USGS (지구과학·자연재해 과학 저널리즘 · B2 · PD US Gov · 신규 도메인 · 발행 허용).
+export { ingestUsgsArticle, listUsgsFeed, USGS_FEEDS } from './ingest-article/usgs'
+export type { UsgsListItem } from './ingest-article/usgs'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'

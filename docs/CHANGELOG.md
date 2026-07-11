@@ -15,8 +15,9 @@
   - 본문: `node-main-body` 컨테이너 → `d-media-copyright` 이미지 크레딧 반복 제거 + plain-text catch-all(`Sources/Usage:`) + related-*-tab/contacts/attributions/authors 트레일러 절단 + 맨 끝 "Learn More" 리소스 링크 컷.
   - 리스트: `c-usgs-teaser` 카드 블록 파싱(제목 h*.title + teaser). RSS 없음 → HTML 파싱.
 - 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue(host=`www.usgs.gov/news/`) + 어드민 UI(⛰ Mountain) + 대량 GET(13소스 + usgs-feed featured/snippets). **drift-lock 29 tests**. tsc clean(패키지+web).
-- 마이그레이션 `acp_source_add_usgs` (source CHECK +usgs) — **승인 대기**.
-- **라이브 검증**(tsx 실 ingester) — featured 12건(★60-61) · Solar Superstorm(814w)·Hurricane Helene(1394w) both **junk 0**(크레딧/링크리스트 clean) · snippets 12건. end-to-end(발행)는 마이그레이션 승인 후.
+- 마이그레이션 `acp_source_add_usgs` (source CHECK +usgs) — **적용 완료**.
+- **라이브 검증**(tsx 실 ingester) — featured 12건(★60-61) · Solar Superstorm(814w)·Hurricane Helene(1394w) both **junk 0**(크레딧/링크리스트 clean) · snippets 12건.
+- **end-to-end 발행 증명** — Hurricane Helene INSERT → **license_class=public_domain·display_only=false·copyright_safe=true** → register=expository·B2·noise 0 → `analyzeArticle` 377 어휘 추출 → 발행 트리거 → 단어세트 **40 words published**(landslide 산사태·debris 잔해·hazard·trigger 촉발·personnel·collaboration — 지구과학/재해 도메인, 한국어 뜻 완비).
 
 ### 아케이드 스위트 — 세계적 게임 메커닉 기반 단어 게임 6종 (v06.197)
 
