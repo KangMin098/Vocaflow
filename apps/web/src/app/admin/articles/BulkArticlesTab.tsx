@@ -286,7 +286,7 @@ const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',
-  all: '전체 (12 소스)',
+  all: '전체 (14 소스)',
   advanced: '고급 (논증 · 과학 · 백과)',
 }
 

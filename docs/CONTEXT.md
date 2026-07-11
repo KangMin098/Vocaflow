@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `41df6ac` feat(lcp): 도서 난이도 다축 평가 v2 적용 — 어휘 단축 왜곡 교정 (v06.208)
 - `838b177` docs(lcp): 도서 난이도 다축 평가 기준 재설계 제안 (book difficulty v2)
 - `6043f3e` feat(ctp): DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
 - `6e2fbca` feat(game): 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로
 - `468beef` docs(lcp): ready 도서 드레인 발행 7→23권 + 대형책 timeout 한계 기록 (v06.205)
-- `e6f2ba4` feat(ctp): Today UI Phase 2 — DCP 구문 연습 인터랙션 (v06.204)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

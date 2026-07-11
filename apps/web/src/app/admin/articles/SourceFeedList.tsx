@@ -26,6 +26,14 @@ const SOURCE_LABELS: Record<string, string> = {
   simple_wikipedia: 'Simple Wikipedia',
   the_conversation: 'The Conversation',
   wikinews: 'Wikinews',
+  owid: 'Our World in Data',
+  factbook: 'CIA Factbook',
+  elife: 'eLife',
+  wikipedia: 'Wikipedia',
+  plos: 'PLOS',
+  wikivoyage: 'Wikivoyage',
+  usgs: 'USGS',
+  noaa: 'NOAA Climate.gov',
 }
 
 interface Props {

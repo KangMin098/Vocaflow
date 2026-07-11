@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 신규 소스 전 파이프라인 자동 점검 + 5개선 (v06.209)
+- **점검**(3-agent 정찰 + DB 실측): 신규 소스 noaa/usgs/owid/factbook/elife **전 5종 발행 성공**(4/5/8/7/2건) · 10개 배선지점·게이트·drift-lock 전부 등록 확인 · 학습자 6접점(브라우즈/읽기/단어장/plan/처방/CTP·모듈) 도달 경로 추적. 백엔드 파이프라인 건전.
+- **개선 5건**:
+  1. **seed-list 후보 필터 버그** — `seed-list/route.ts` `VALID_SOURCES` 6종만 → `?source=noaa` 등이 탈락해 전 소스 혼합 후보 반환. 14종 정합.
+  2. **plan/hub article 열기 404** — `materialHref('article')=/library/scripts/{id}`가 무조건 도서로 redirect→`notFound()`. `/library/scripts/[id]` 리졸버가 발행 article 을 `startArticleLearning`→리더로 연결(브라우즈·처방과 대칭).
+  3. **제목 HTML hex 엔티티 잔존** — `decodeEntities`(_helpers + voa 로컬)가 `&#x27;` 등 hex 미처리 → owid 1 + voa 7 제목에 `&#x27;` 노출. hex 디코드 보강 + 기존 8제목 백필 + 회귀 테스트 4.
+  4. **SourceFeedList 라벨** — 신규 소스 raw key(`noaa`…) 노출 → 8종 라벨 추가.
+  5. **BulkArticlesTab 프리셋 라벨** — "전체 (12 소스)" → 실제 14 정합.
+- **데이터 백필**: `syntax_score` NULL 22기사(noaa/usgs/factbook/wikivoyage/plos) `compute_syntax_score` 재계산.
+- **관찰(설계상·미수정)**: article 단어장은 추천엔진·WordVault 브라우즈에서 격리(의도) · plan article 게임은 texts 변환 전 unscoped · 신규 expository 소스는 register→stage_band 미승격(owid=argumentative만 S3, 나머지 v_level 종속). ⚠️ 라이브 브라우저 테스트는 디스크 100%+동시 dev서버로 회피 → 백엔드/정적/타입/테스트 검증 채택.
+
 ### 도서 난이도 다축 평가 v2 — 어휘 단축 왜곡 교정 (v06.208)
 - **문제**(사용자 지적): `book_v_level = 어휘 p75` 단축 → (1) 희귀 content-word 꼬리가 p75 부풀림(Alice ease 70인데 V6), (2) 통사 완전 무시(Foundational 학술 F-K 14.55인데 V6·Gibbon 최난이도인데 V9 캡). 23권 실증.
 - **설계**(재고): "100% 정확"의 단일 텍스트 공식은 불가(ground truth=학습자 성과) → **앙상블+확신도+외부앵커**로 실효 정확도 수렴. 공식: **ease-게이트 어휘축**(읽기 쉬우면 중심값·어려우면 p75 → 문맥 희귀어 탈부풀림) + **통사축**(F-K·syntax_score) + **병목 융합**(0.75·max+0.25·mean — 어느 한 축만 어려워도 어려움) + **CEFR-J 앵커**(lexOffset 0.04≈편향0) + **CEFR-J 교차확증 확신도**. 설계문서 [book-difficulty-multiaxis.md](proposals/book-difficulty-multiaxis.md).

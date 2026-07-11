@@ -14,6 +14,8 @@ import { listArticleSeeds, type SeedSource } from '@/lib/acp/seed-upsert'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
+// SeedSource(seed-upsert) 14종 전량과 정합 — 신규 소스 누락 시 `?source=noaa` 등이
+// 필터에서 탈락해 sources=[] → 전 소스 혼합 후보가 반환되던 버그(v06.208 수정).
 const VALID_SOURCES: SeedSource[] = [
   'voa',
   'nasa',
@@ -21,6 +23,14 @@ const VALID_SOURCES: SeedSource[] = [
   'wikinews',
   'the_conversation',
   'simple_wikipedia',
+  'owid',
+  'factbook',
+  'elife',
+  'wikipedia',
+  'plos',
+  'wikivoyage',
+  'usgs',
+  'noaa',
 ]
 
 export async function GET(req: NextRequest) {
