@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### hub "오늘" META 재설계 Phase 1 — prescribe_today 정본화 (CTP ⑥ Today UI) (v06.203)
+- **META 확정(Opt A)**: hub "오늘"의 삼중 출처(수동계획 `study_plan_items` · `TodayFocus` 클라이언트 휴리스틱 · CTP `prescribe_today`)를 단일 정본으로. 우선순위 — **오늘 수동계획 있음 → `TodayPlanCard`**(사용자 의지 우선) · **진단완료 + 수동계획 없음 → `TodayPrescriptionCard`**(★ `prescribe_today` 5블록 스마트 기본값) · **미진단 → `TodayFocus`**(진단 유도). `TodayFocus` 페르소나 휴리스틱은 진단완료자에게 처방으로 승격 대체. 결정 문서 [hub-today-meta.md](proposals/hub-today-meta.md).
+- **신규**: `lib/learner/prescription-actions.ts`(`fetchTodayPrescription` 서버 액션 — `prescribe_today` 호출·파싱·isDiagnosed·듣기text) · `components/home/TodayPrescriptionCard.tsx`(서버, 5블록: 복습/듣기/읽기/연습/점검 + 번호 스텝·색+아이콘 이중부호·44px+·다크 토큰) · `components/home/PrescriptionArticleLaunch.tsx`(client — article 은 URL 직결 불가 → `startArticleLearning` texts 변환). `hub/page.tsx` 분기 배선.
+- **런처 매핑**: 복습→`/flashcard/play`(전역 due) · 듣기→최근 `/text/[id]/echo` or `/library/books` · 읽기→book `/library/books/[id]`·article texts 변환 · 점검→`/scriptquiz`. ④ DCP 연습은 **Phase 2**(order/insert 인터랙션·`grade_dcp_item`·error_cause) — Phase 1 은 상태칩만.
+- **검증**: tsc clean(신규 3파일+배선, 전체 잔여는 기존 `recommend/next-action.mock.ts` 1건 무관) · `prescribe_today` 5블록 payload DB 실측(파서 계약 일치) · 렌더 테스트 `TodayPrescriptionCard.test.tsx` **7/7**(renderToString, 전 분기). ⚠️ dev 서버 1개 원칙+디스크 99%로 Playwright 스모크 대신 renderToString 채택.
+
 ### 아케이드 아트 디렉션 — 게임별 무드 그레이딩 6종 완성 (v06.202)
 - **동기**: 학습자 관점 디자인/색감 점검 — 기존 아케이드는 "깔끔한 학습 UI"였으나 레퍼런스(Blue Prince·Outer Wilds·Witness·지중해 듀오톤) 수준의 감성엔 미달(플랫·무드 없음). Calm UI와 충돌 없이(Calm≠밋밋) 격상.
 - **허브 재설계**: 플랫 화이트 카드 → **황혼 갤러리 + 6 무드 포탈**(스테인드글라스). 듀오톤 배경·앰비언트 드리프트 글로우·그레인·비네트 + **이모지→일관 SVG 라인 마크** + 깊이/글로우/타이포.
