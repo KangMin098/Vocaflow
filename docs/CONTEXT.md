@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e0816ba` feat(game): Game 2 Cascade (매치·낙하 보드 L4a) — 아케이드 스위트 2/6
 - `cf7f395` feat(acp): Wikivoyage 여행 가이드 소스 — reference 밴드 보강 (v06.196)
 - `828aa06` test(echo): fake-mic E2E 에 실 육성 wav 주입 경로 (#1 보정 다리)
 - `c463ade` feat(game): 공용 게임킷 + Game 1 Letter Forge (철자 조립 L4b) — 아케이드 스위트 1/6
 - `f9fd089` fix(acp,ctp): QA 자체점검 — Wikipedia feed 품질 + prescribe_today 정합 (v06.195)
-- `4b01ff1` test(echo): EchoMatch fake-mic 자동 실주행 E2E (v06.190)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
