@@ -77,6 +77,13 @@ token-커버리지(`lexical_coverage` 기존 컬럼)는 이론적으로 매력�
 - **Claude 가드**: `difficulty_v2.claude_v` 있으면 v3 권위 → 자동값으로 덮지 않음. 즉 apply-*.mjs=신규 baseline, calibrate-*-claude.mjs=검토 우위.
 - **한계(정직)**: 완전 Claude-대체 불가 — 극단 방언(Huck 8)은 문학판단 필요, 커버리지는 부분(→6)만. 자동경로는 **부분 보정 + 잔여 플래그**로 수렴.
 
+### 파이프라인 자동 편입 (완료 2026-07-12)
+신규 도서가 ingest→분석 시 자동으로 v2.4 난이도를 받도록 SQL 함수 + 배선:
+- **`compute_book_difficulty(book_id)`** SQL 함수(migration `20260712140000`) — 위 v2.4 공식을 DB로 이식. 파이프라인-계산 신호(vrl_components·syntax_score·lemma_coverage_pct·cefrj_level) 사용. **F-K 없으면 sent_p90+clause_depth 로 통사축 대체**(graceful — F-K는 파이프라인 밖 배치). **claude_v 있으면 미덮음**(v3 권위 가드). `book_v_level_v1` 원본 보존.
+- **배선**: `apps/web/src/app/api/lcp/dev-process/route.ts` — `compute_book_syntax` 직후 `compute_book_difficulty` 호출(모든 신호 계산 완료 후).
+- **검증**: Huck Finn claude_v 임시제거 후 함수 실행 → auto_v=**6**(스크립트 v2.4 일치·covbump 1.4·미매칭 26%), method=v2.4_sql. 복원 확인.
+- **효과**: 신규 도서는 옛 p75 단축 대신 v2.4 자동. F-K 배치 후 재실행 시 통사축 정밀화(멱등). Claude 검토는 별도 수동 우위.
+
 ### 부수 산출물 — `compute_syntax_score.score` 재보정 마이그
 포화 버그 수정 SQL: [migrations/20260712120000_ctp_syntax_score_recalibrate.sql](../../supabase/migrations/20260712120000_ctp_syntax_score_recalibrate.sql). `score = clamp((sent−10)×0.75 + (clause−1)×5, 0,100)` — 관측범위 선형 분산(쉬움 11·Alice 46·Gibbon 94). **⚠ CTP(dev-process·stage·DCP)가 score 소비 → 임계값 재검증 후 apply**(난이도 앙상블은 raw clause_depth 사용이라 무영향, 미적용도 안전).
 

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3c3b987` docs(a11y): ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
 - `ad862d0` feat(game): 아케이드 신개념 ②「Word Customs」— 위조 적발 (Papers Please 계열)
 - `f54c82f` fix(a11y): ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
 - `8268754` test(lcp): 도서 난이도 Claude 캘리 전체 대상 확장 — 25권 100% (v06.212)
 - `c32d549` feat(lcp): p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
-- `8bf7b1d` fix(a11y): 학습자 기사 브라우즈 접근성 패스 (v06.211)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

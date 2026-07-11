@@ -190,6 +190,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       await client.rpc('compute_book_cefrj', { p_book_id: book_id })
       await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
       await client.rpc('compute_book_syntax', { p_book_id: book_id }) // CTP ① 구문 난이도(챕터 집계)
+      // 도서 난이도 v2.4 앙상블(ease-게이트 어휘 + 통사 병목 + hidden-difficulty 커버리지 범프)로
+      //   book_v_level 재산정 — p75 단축 왜곡 교정. 위 신호(vrl/cefrj/coverage/syntax) 계산 완료 후.
+      //   Claude 검토(difficulty_v2.claude_v) 도서는 v3 권위라 미덮음(함수 내 가드).
+      await client.rpc('compute_book_difficulty', { p_book_id: book_id })
     } catch (e) {
       console.warn(`[lcp/dev-process] compute_book_vrl/chapter/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
     }
