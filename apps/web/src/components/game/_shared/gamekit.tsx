@@ -170,6 +170,28 @@ export function ParticleBurst({ intensity = 1 }: { intensity?: number }) {
   );
 }
 
+// ─── 분위기 배경 (게임별 무드 그레이딩) ───
+// 중앙은 밝게(가독) · 가장자리는 무드로 깊게(드라마) + 앰비언트 글로우 + 그레인 + 비네트.
+// 밝은 타일/어두운 텍스트가 그대로 읽히면서도 공간감·감성을 부여. Calm 유지(모션 없음).
+export function AmbientBackground({
+  center, mid, edge, glow, glowAt = '50% 14%', grain = true,
+}: {
+  center: string; mid: string; edge: string; glow: string; glowAt?: string; grain?: boolean;
+}) {
+  return (
+    <div
+      className="gk-atmos"
+      aria-hidden="true"
+      style={{ ['--at-c' as string]: center, ['--at-m' as string]: mid, ['--at-e' as string]: edge, ['--at-glow' as string]: glow, ['--at-glow-at' as string]: glowAt } as CSSProperties}
+    >
+      <div className="gk-atmos-grad" />
+      <div className="gk-atmos-glow" />
+      {grain && <div className="gk-atmos-grain" />}
+      <div className="gk-atmos-vig" />
+    </div>
+  );
+}
+
 // ─── HUD ───
 export function Hud({
   score,
@@ -316,11 +338,20 @@ export function GameKitStyles() {
   return <style dangerouslySetInnerHTML={{ __html: GK_CSS }} />;
 }
 
+const GK_GRAIN = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
+
 const GK_CSS = `
   .gk-root { position: relative; width: 100vw; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background: var(--bg2); color: var(--t1); font-family: var(--font-display, system-ui, sans-serif); user-select: none; }
   .gk-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .gk-root > :not(.gk-energy) { position: relative; z-index: 1; }
+  .gk-root > :not(.gk-energy):not(.gk-atmos) { position: relative; z-index: 1; }
   .gk-energy { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--streak) 50%, transparent), transparent 60%); transition: opacity .5s ease, transform .6s ease; }
+
+  /* 분위기 배경 레이어 (AmbientBackground) */
+  .gk-atmos { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .gk-atmos-grad { position: absolute; inset: 0; background: radial-gradient(128% 112% at 50% 15%, var(--at-c) 0%, var(--at-m) 37%, var(--at-e) 92%); }
+  .gk-atmos-glow { position: absolute; inset: 0; background: radial-gradient(52% 38% at var(--at-glow-at, 50% 14%), var(--at-glow), transparent 70%); }
+  .gk-atmos-grain { position: absolute; inset: 0; opacity: .05; mix-blend-mode: overlay; background-image: url("${GK_GRAIN}"); }
+  .gk-atmos-vig { position: absolute; inset: 0; box-shadow: inset 0 0 210px 40px rgba(28,14,38,.44), inset 0 -70px 100px rgba(18,8,28,.34); }
 
   .gk-hud { display: grid; grid-template-columns: auto 1fr auto auto auto auto; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--bd); }
   .gk-stat { display: flex; flex-direction: column; line-height: 1.05; }

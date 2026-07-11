@@ -6,7 +6,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, Hud, GameDone, ParticleBurst, useSfx, shuffle, pickDistinct, clamp, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, shuffle, pickDistinct, clamp, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -147,6 +147,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   return (
     <div className="gk-root gr-root">
       <GameKitStyles />
+      <AmbientBackground center="#F4EBF6" mid="#DEC8E7" edge="#4E3277" glow="rgba(255,120,205,.36)" glowAt="50% 15%" />
       <style dangerouslySetInnerHTML={{ __html: GR_CSS }} />
       <Hud
         combo={combo}
@@ -206,9 +207,9 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 const GR_CSS = `
   .gr-league { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.05; }
   .gr-tier { font-family: var(--font-display, system-ui); font-size: 14px; font-weight: 800; }
-  .gr-track { padding: 12px 20px 8px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid var(--bd); }
-  .gr-lane { position: relative; height: 30px; border-radius: 999px; background: var(--bg3); }
-  .gr-lane--ghost { height: 24px; opacity: .8; }
+  .gr-track { padding: 12px 20px 10px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid rgba(255,255,255,.35); }
+  .gr-lane { position: relative; height: 30px; border-radius: 999px; background: rgba(255,255,255,.55); box-shadow: inset 0 2px 6px rgba(60,26,86,.22), 0 1px 0 rgba(255,255,255,.5); backdrop-filter: blur(2px); }
+  .gr-lane--ghost { height: 24px; opacity: .85; }
   .gr-line { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; transition: width .35s var(--ease, cubic-bezier(.3,.7,.3,1)); }
   .gr-runner { position: absolute; top: 50%; transform: translateY(-50%); font-size: 20px; transition: left .35s var(--ease, cubic-bezier(.3,.7,.3,1)); z-index: 2; }
   .gr-you[data-stumble="true"] { animation: gk-shake .4s ease-in-out; }
