@@ -319,9 +319,9 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
                   type="button"
                   onClick={() => setTrackFilter(null)}
                   aria-label="묶음 필터 해제"
-                  className="inline-flex h-4 w-4 items-center justify-center rounded-[var(--r-full)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--r-full)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
                 >
-                  <X size={11} aria-hidden />
+                  <X size={13} aria-hidden />
                 </button>
               </span>
             )}
@@ -351,7 +351,7 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
               <button
                 type="button"
                 onClick={reset}
-                className="mt-1 inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                className="mt-1 inline-flex min-h-[40px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
               >
                 <X size={12} aria-hidden /> 필터 초기화
               </button>

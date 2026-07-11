@@ -49,8 +49,9 @@ const SOURCE_META: Record<string, { label: string; color: string }> = {
   rss: { label: 'RSS', color: '#D97706' },
 }
 
-// 배지는 흰 글씨(text-white) → 모든 배경이 대비 ≥4.5:1 필요.
-// A1 이 파스텔 #86EFAC(≈1.4:1)라 저시력/색맹 판독 불가였음 → 대비 통과 녹색으로 교정(v06.210).
+// CEFR 배지는 틴트 패턴(색=텍스트 · 배경=color-mix 15%)으로 렌더 — 소스/적합도 배지와 동일.
+// 이전 text-white(고정 흰 글씨)는 파스텔 A1(대비 1.4:1) 및 다크모드 밝은 토큰(--p 등) 위에서 판독 불가였음(v06.211).
+// 여기 값은 "텍스트 색" — 라이트/다크 양쪽에서 옅은 틴트 위에 읽히는 채도면 충분.
 const CEFR_COLOR: Record<string, string> = {
   A1: '#15803D',
   A2: 'var(--ios-green)',
@@ -126,8 +127,11 @@ export function ArticleCard({
             )}
             {cefr && (
               <span
-                className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-white"
-                style={{ backgroundColor: cefrColor ?? 'var(--t3)' }}
+                className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700]"
+                style={{
+                  color: cefrColor ?? 'var(--t3)',
+                  backgroundColor: `color-mix(in srgb, ${cefrColor ?? 'var(--t3)'} 15%, transparent)`,
+                }}
               >
                 {cefr}
               </span>
@@ -204,7 +208,7 @@ export function ArticleCard({
             type="button"
             onClick={handleLearn}
             disabled={pending}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12.5px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
+            className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12.5px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:opacity-90 disabled:opacity-60"
           >
             {pending ? (
               <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -223,7 +227,7 @@ export function ArticleCard({
               onClick={(e) => e.stopPropagation()}
               title="원문 보기"
               aria-label="원문 보기"
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
             >
               <ExternalLink size={13} aria-hidden />
             </a>
