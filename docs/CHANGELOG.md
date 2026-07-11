@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
+- **갭 발견**: DCP 문항 64개가 전부 **S3(논증 article 7건)** 뿐 → S4(도서 v≥7·killer band) 학습자는 처방 ④ 연습이 영영 비활성. 게다가 `csat_dcp_items.kind` CHECK=`('article','chapter')`인데 catalog·`prescribe_today` 조인은 도서를 `kind='book'`으로 씀 → **book DCP 구조적 삽입/조인 불가**(CTP 백엔드 잠재 불일치).
+- **마이그 `ctp_dcp_items_kind_allow_book`**: kind CHECK 에 `'book'` 추가(catalog 정합, additive).
+- **드레인 `scripts/generate-book-dcp.mts`**: 발행 도서 챕터 본문(`content_chunks`)→`generateDcpItems`(결정론·LLM 0)→`csat_dcp_items` upsert(멱등). 챕터별 `paragraph_idx` 전역 오프셋(chapter×1000+para)으로 도서 내 충돌 회피. Claude Code 수동 드레인 관행.
+- **populate**: Decline and Fall(설명문 v9)·Pride and Prejudice(서사 v8) → **S4 book 96문항**(order 48 + insert 48). 검증: prescribe_today practice 조인 S4 반환 · book order 채점 계약 실측(`source_order [0,4,2,1,3]`→`[0,3,2,4,1]` 정답) · 재실행 멱등(96 유지). **DCP practice S3·S4 양쪽 활성화.**
+
 ### 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로 (v06.206)
 - **동기**: 아트 디렉션 후속 폴리시(사용자 "전부 다듬어줘"). 남은 이모지 잔재 제거 + 게임별 아이덴티티 강화.
 - **게임킷**: `GameMark`(6종 공용 SVG 마크)·`IconSound`(SVG 사운드 토글) 추가. `AmbientBackground`에 `watermark` 옵션(각 게임 마크를 우하단 대형·soft-light 은은한 워터마크). `GameDone`에 `mark` 히어로(글래스 배지+파티클).

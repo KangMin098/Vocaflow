@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6e2fbca` feat(game): 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로
 - `468beef` docs(lcp): ready 도서 드레인 발행 7→23권 + 대형책 timeout 한계 기록 (v06.205)
 - `e6f2ba4` feat(ctp): Today UI Phase 2 — DCP 구문 연습 인터랙션 (v06.204)
 - `c33e60b` docs(acp): v06.201 런타임 스모크 통과 + 커버리지 배치 결과 반영
 - `ae71035` feat(hub): "오늘" META 재설계 Phase 1 — prescribe_today 정본화 (v06.203)
-- `522e13c` feat(game): 아케이드 무드 그레이딩 5종 완성 — 게임별 분위기 아트 디렉션
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260712100000_ctp_dcp_items_kind_allow_book.sql`
 - `20260712090000_ctp_dcp_grade_return_attempt.sql`
 - `20260711130000_acp_source_add_noaa.sql`
 - `20260711125000_add_arcade_game_module_ids.sql`
 - `20260711120000_acp_source_add_usgs.sql`
-- `20260710230000_acp_source_add_wikivoyage.sql`
 <!-- /auto:recent-migrations -->
 
 ---
