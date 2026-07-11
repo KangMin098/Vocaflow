@@ -26,7 +26,7 @@ interface FeedItem {
 
 interface RssFeedTabProps {
   /** enqueue source 식별자. feeds=[] 이면 URL 직접 입력 전용(예: simple_wikipedia = RSS 없음). */
-  source: 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs'
+  source: 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
   /** 탭 헤더 라벨 (예: "🚀 NASA · Public Domain") */
   heading: string
   /** 부제 (예: "U.S. federal government · Public Domain") */

@@ -23,6 +23,7 @@ import {
   CheckSquare,
   ChevronDown,
   ChevronRight,
+  CloudSun,
   Dna,
   Download,
   ExternalLink,
@@ -248,6 +249,16 @@ const SOURCES: SourceConfig[] = [
       { id: 'snippets', label: 'Science Snippets (지구과학)' },
     ],
   },
+  {
+    key: 'noaa',
+    label: 'NOAA',
+    Icon: CloudSun,
+    color: 'var(--info)',
+    feeds: [
+      { id: 'understanding-climate', label: 'Understanding Climate (기후)' },
+      { id: 'features', label: 'Features (기후)' },
+    ],
+  },
 ]
 
 interface Props {
@@ -270,8 +281,8 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage', 'usgs'],
-  advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia', 'usgs'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage', 'usgs', 'noaa'],
+  advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia', 'usgs', 'noaa'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',

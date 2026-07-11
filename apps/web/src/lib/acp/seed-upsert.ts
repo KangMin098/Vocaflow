@@ -23,6 +23,7 @@ export type SeedSource =
   | 'plos'
   | 'wikivoyage'
   | 'usgs'
+  | 'noaa'
 
 interface ArticleScore {
   total: number

@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, CloudSun, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -309,6 +309,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/(?:www\.)?usgs\.gov\/news\//}
           urlHostHint="www.usgs.gov/news/ 도메인"
           urlPlaceholder="https://www.usgs.gov/news/featured-story/hurricane-season-arrives"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'noaa':
+      return (
+        <RssFeedTab
+          source="noaa"
+          heading="🌡 NOAA Climate.gov"
+          subtitle="PD (US Gov) · B2-C1 기후과학 explainer (climate 신규 도메인 · CSAT 최빈출) · 발행 허용 · 인용 자유"
+          feeds={[]}
+          emptyIcon={CloudSun}
+          urlPattern={/^https?:\/\/(?:www\.)?climate\.gov\/news-features\//}
+          urlHostHint="www.climate.gov/news-features/ 도메인"
+          urlPlaceholder="https://www.climate.gov/news-features/understanding-climate/climate-change-ocean-heat-content"
           onEnqueued={onEnqueued}
         />
       )

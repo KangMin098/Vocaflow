@@ -14,6 +14,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   BarChart3,
   BookOpen,
+  CloudSun,
   Dna,
   Download,
   FlaskConical,
@@ -43,7 +44,7 @@ import { BulkArticlesTab } from './BulkArticlesTab'
 
 type Stage = 'coverage' | 'get' | 'review' | 'publish'
 type SourceKey =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -74,6 +75,7 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio 
   { key: 'plos', label: 'PLOS', Icon: Dna },
   { key: 'wikivoyage', label: 'Wikivoyage', Icon: MapPin },
   { key: 'usgs', label: 'USGS', Icon: Mountain },
+  { key: 'noaa', label: 'NOAA', Icon: CloudSun },
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 

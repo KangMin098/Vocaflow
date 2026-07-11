@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP NOAA Climate.gov 기후과학 소스 신설 — 신규 도메인(climate·CSAT 최빈출) (v06.199)
+- **NOAA ingester** — `ingest-article/noaa.ts`. NOAA Climate.gov Understanding Climate / Features(Drupal 서버렌더 HTML, 의존성 0). **PD(US Gov) → 발행 허용 · 인용 자유**. **register=expository**, **신규 도메인 climate-science**(대기 CO₂·해양 열용량·지구온난화·빙하) — **CSAT 최빈출 주제**. USGS(지질·재해)·NASA(우주)와 구별. B2-C1 접근형 과학 저널리즘.
+  - 본문: `field--name-body`(가장 큰 조각 = 본문 필드만 · 관련링크 region 제외) → `field-media-caption` 차트 캡션 제거 + References/인용목록 절단 + 후행 관련-기사 링크(문장부호 없는 짧은 라인) 최대 6줄 제거.
+  - 리스트: anchor 텍스트=제목(USGS 와 달리 직접 페어).
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue(host=`www.climate.gov/news-features/`) + 어드민 UI(🌡 CloudSun) + 대량 GET(14소스 + noaa-feed understanding-climate/features). **drift-lock 30 tests**. tsc clean(패키지+web).
+- **라이브 검증**(tsx 실 ingester) — Ocean Heat(984w)·CO₂(1060w)·global temp(1122w)·glaciers(1058w)·Incoming Sunlight(2299w) 5기사 clean · listNoaaFeed understanding-climate 7건(★51-54)·features 12건.
+- 마이그레이션 `acp_source_add_noaa` (source CHECK +noaa) — **파일 작성 완료 · 적용 대기**(Supabase MCP 세션 중 연결 끊김 → 재연결 시 apply + DB end-to-end 발행 검증 예정. USGS 동형 확실).
+
 ### ACP USGS 지구과학·자연재해 소스 신설 — 신규 도메인(earth-science) (v06.198)
 - **USGS ingester** — `ingest-article/usgs.ts`. 미국 지질조사국 Featured Stories / Science Snippets(Drupal 서버렌더 HTML, 의존성 0). **PD(US Gov) → 발행 허용 · 인용 자유**. **register=expository**, **신규 도메인 earth-science**(지진·화산·허리케인·광물·산사태) — NASA(우주)·NIH(건강)와 구별되는 빈칸. B2 접근형 과학 저널리즘.
   - 본문: `node-main-body` 컨테이너 → `d-media-copyright` 이미지 크레딧 반복 제거 + plain-text catch-all(`Sources/Usage:`) + related-*-tab/contacts/attributions/authors 트레일러 절단 + 맨 끝 "Learn More" 리소스 링크 컷.

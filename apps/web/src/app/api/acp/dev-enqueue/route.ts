@@ -18,6 +18,7 @@ import {
   ingestFactbookArticle,
   ingestNasaArticle,
   ingestNihArticle,
+  ingestNoaaArticle,
   ingestOwidArticle,
   ingestSimpleWikipediaArticle,
   ingestTheConversationArticle,
@@ -38,7 +39,7 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -63,6 +64,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/journals\.plos\.org\//, source: 'plos' },
   { pattern: /^https?:\/\/en\.wikivoyage\.org\/wiki\//, source: 'wikivoyage' },
   { pattern: /^https?:\/\/(?:www\.)?usgs\.gov\/news\//, source: 'usgs' },
+  { pattern: /^https?:\/\/(?:www\.)?climate\.gov\/news-features\//, source: 'noaa' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -149,6 +151,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'usgs':
         article = await ingestUsgsArticle(body.item_url)
+        break
+      case 'noaa':
+        article = await ingestNoaaArticle(body.item_url)
         break
     }
 
