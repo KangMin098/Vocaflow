@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `aa0c799` feat(acp): NOAA Climate.gov 기후과학 소스 — climate 신규 도메인·CSAT 최빈출 (v06.199)
 - `ed46403` feat(acp): USGS 지구과학·자연재해 소스 — 신규 도메인(earth-science) (v06.198)
 - `2b1713e` docs(game): enum 마이그 적용 반영 (add_arcade_game_module_ids)
 - `4f26f7b` docs(game): 아케이드 스위트 6종 문서화 + enum 마이그 제안
 - `fd55e19` feat(game): 아케이드 허브(/arcade) + 플레이 크롬 배선 — 6종 진입점
-- `4e1cd02` feat(game): Game 6 Ghost Race (비동기 레이스+리그) — 아케이드 스위트 6/6 완성
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
