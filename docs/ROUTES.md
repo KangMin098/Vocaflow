@@ -87,6 +87,7 @@
 | **PairFlip** (L4a 공간기억) | `/pairflip` | `/pairflip/play` | `/pairflip/results` | 5단계 (8~20장 · 2줄 고정) |
 | **ScriptQuiz** (L5 정복) | `/scriptquiz` | `/scriptquiz/play` | — | 3-screen 영어 immersion |
 | **Dictation** (L6 완성) | `/dictate` | `/dictate/setup` → `/dictate/session` | `/dictate/results` | CEFR 자동감지 · 단어별 채점 |
+| **아케이드 스위트** (v07.3) | `/arcade` (허브) | `(app)/play/{letter-forge,cascade,connections,word-economy,daily-blitz,ghost-race}` | — | 공용 게임킷·스캐폴드 위 6종. `?set=`/`?text=` 스코프. Connections/Daily는 내장 뱅크 |
 
 ### 베타
 

@@ -68,6 +68,20 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-11 — 아케이드 스위트: 세계적 게임 메커닉 기반 단어 게임 6종 구현
+
+> WordBlitz 재설계 → 익사이트 강화 → "세계적 게임/디자인 사이트 리서치해 컨셉 설계"(Artifact 게시) → **"6개 끊김 없이 전문가·상업·흥미 최고 수준으로 구현"** 요청. 동시 세션(CTP/ACP/plan)과 working-copy 공유 → 명시 pathspec 격리.
+
+**무엇을 했나** (각 dev :3100 스크린샷 검증):
+- **공용 게임킷**(`_shared/gamekit`) — SFX(Web Audio·무자산)·ParticleBurst·useCountUp·Hud·GameDone·GameLoading·NotEnoughWords·토큰 스타일(라이트/다크·reduced-motion·접근성·44px+). WordBlitz v07.2 주스 일반화. + 스캐폴드(`lib/game/play-scaffold`: 스코프 단어·기록·복귀·ResourceContext) + 일반 레코더(`lib/game/record-result`: module 파라미터화).
+- **6종 게임** — Letter Forge(철자조립 L4b·탭/키보드·힌트) · Cascade(매치·낙하보드 L4a·중력·큐리필·90s) · Connections(의미그룹핑 L5·큐레이션뱅크3·기회4·이모지) · Word Economy(경제·전략 Gimkit·상점4·75s·최종잔고) · Daily Blitz(데일리+스트릭 Wordle·날짜시드·이모지공유·localStorage) · Ghost Race(비동기레이스+리그·트랙2레인·티어).
+- **허브·크롬** — `/arcade`(6카드·색코딩·레퍼런스) + SessionFrame 6종 등록(closeHref→/arcade).
+- **module_id enum** — TS ModuleId/ScoreModule 6종 추가. DB enum 확장 `docs/proposals/game-suite-module-enum.sql` **승인 대기**(미적용 시 게임 fire-and-forget void 로 흡수, 카드 SRS 갱신은 유효).
+
+**무엇이 남았나**: enum 마이그레이션 승인(persistence 완전 활성) · 문서 MODULES/ROUTES 상세(현재 CHANGELOG v06.197). (선택) 게임별 튜닝·리그 서버화.
+
+**관련 커밋**: `c463ade`·`e0816ba`·`79bf6a8`·`63141a8`·`3e7751f`·`4e1cd02`·`fd55e19`. **교훈**: (1) 공용 게임킷/스캐폴드 선(先)구축 → 6게임 일관·고속. (2) **⚠️ C: 디스크 100% full** 실측 → dev 500(ENOSPC) → `.next` 클리어로 unblock(사용자 공간 확보 필요). (3) Git Bash `/play/...` env 값 path-mangling → `MSYS_NO_PATHCONV=1`.
+
 ### 2026-07-10 — 공용단어장 챕터 학습 라인 완성 (vocab 추천 RPC · plan 런처 · wordvault 모달) + 런타임 검증
 
 > 요청: /library/vocab '추천' "최적 방안 도출하여 설계 적용" → "다음" 연쇄로 punch-list(/wordvault·/library/books·/dashboard 유사 개선 · 플랜 런처 챕터 선택) → "이번 세션 UI 런타임 검증". 동시 세션(CTP/WordBlitz/ACP)과 working-copy 공유 → **명시 pathspec `git commit -- <경로>` 격리** 준수(내 파일만).

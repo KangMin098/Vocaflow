@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 스위트 — 세계적 게임 메커닉 기반 단어 게임 6종 (v06.197)
+
+세계적 게임/교육게임(Kahoot·Blooket·Gimkit·Duolingo·Wordle·NYT Connections·Match-3) 리서치 → 단어 학습 게임 6종 신설. 각 dev :3100 스크린샷 검증.
+- **공용 게임킷** [`components/game/_shared/gamekit.tsx`] — `useSfx`(Web Audio·무자산)·`ParticleBurst`·`useCountUp`·`Hud`·`GameDone`·`GameLoading`·`NotEnoughWords`·토큰 스타일(라이트/다크·reduced-motion·접근성). WordBlitz v07.2 주스 일반화. + 공용 스캐폴드([`lib/game/play-scaffold`] 스코프 단어·기록·복귀) + 일반 레코더([`lib/game/record-result`] module 파라미터화).
+- **6종**: **Letter Forge**(철자 조립 L4b) · **Cascade**(매치·낙하 보드 L4a) · **Connections**(의미 그룹핑 L5·큐레이션 뱅크) · **Word Economy**(경제·전략 Gimkit) · **Daily Blitz**(데일리+스트릭 Wordle·localStorage) · **Ghost Race**(비동기 레이스+리그). 각 `/play/<slug>` + `GhostRace`/`Cascade`/`WordEconomy`는 wordPool·onCorrect/onWrong(FSRS) 계약 재사용.
+- **허브·크롬**: `/arcade` 진입점(6카드) + SessionFrame SESSION_META 6종 등록(closeHref→/arcade).
+- **module_id enum**: TS `ModuleId`/`ScoreModule` 6종 추가. DB enum 확장은 [`docs/proposals/game-suite-module-enum.sql`] **승인 대기**(미적용 시 audit/scores insert 흡수·게임 동작 무관).
+- 커밋 `c463ade`(kit+LetterForge)·`e0816ba`(Cascade)·`79bf6a8`(Connections)·`63141a8`(WordEconomy)·`3e7751f`(DailyBlitz)·`4e1cd02`(GhostRace)·`fd55e19`(허브).
+- ⚠️ 환경: C: 디스크 100% full 실측 → `.next` 클리어로 dev 서버 unblock(사용자 공간 확보 권장).
+
 ### ACP Wikivoyage 여행 가이드 소스 신설 — reference 밴드 보강 (v06.196)
 - **Wikivoyage ingester** — `ingest-article/wikivoyage.ts`. Wikimedia 프로젝트라 `_mediawiki` 재사용(host=en.wikivoyage.org). Star/Guide 카테고리. CC-BY-SA → 발행 허용. **register=reference**(목적지 가이드=Factbook 동류) → **얇은 reference 밴드 보강(3→5, 패딩 아닌 갭 채움)**. B1-B2 접근형·여행 흥미↑.
 - 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🗺 MapPin) + 대량 GET(12소스 + wikivoyage-feed Star/Guide). drift-lock 28 tests. gcmsort=timestamp+영문자-필터(v06.195 QA 패턴 반영).
