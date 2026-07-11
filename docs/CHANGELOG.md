@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 신규 소스 학습자 표면 배선 — source→learner loop 닫음 (v06.201)
+- **갭 발견**: 이번 세션 신규 소스 중 **wikipedia·plos·wikivoyage·usgs·noaa 5종이 `source-map.ts`(학습자 /library/scripts 트랙 맵)에 미등록** → 발행돼도 `SOURCE_TO_TRACK.get()`=undefined로 **트랙 그룹에서 완전 누락**(실측 8편 stranded). ArticleCard `SOURCE_META`도 미등록 → raw 회색 라벨.
+- **수정**: `topic`(과학) 트랙에 plos/usgs/noaa 추가(oneLine 지구·기후 반영) + **신규 `reference` 트랙**('백과·여행으로 넓히기' — wikipedia/wikivoyage, Schema Theory 근거) + `computeTrackCounts` Record + ArticleCard 5소스 메타(라벨·액센트). TrackKey 6→7·SOURCE_TRACKS 6→7.
+- **검증**(서비스롤 tsx): 발행 14소스 전부 트랙 매핑(⚠트랙없음 0) — stranded 8편(wikipedia/plos/wikivoyage/usgs/noaa) 학습자 노출 복구. web tsc clean. (런타임 스모크는 dev 서버 경합 회피 위해 보류 — ScriptsBrowser는 SOURCE_TRACKS 제네릭 렌더라 데이터 추가만.)
+
 ### 아케이드 6종 자동 QA 스윕 + Daily Blitz 공유 버그 수정 (v06.200)
 - **인터랙티브 QA 하니스**(Playwright) — 6게임을 정답 매핑으로 **실제 플레이**(정타·스코어·콤보·승리/결과·상점 구매·50:50·매치 클리어·레이스 완주) 자동 검증. 6종 전부 통과: Letter Forge 10/10(3,213점)·Cascade 22매치(4,281점)·Connections 4/4 완승·Word Economy 26정답·5강화·코인·Ghost Race 12/12 승(5.2s).
 - **버그 수정** — `DailyBlitzGame` 결과 공유의 `navigator.clipboard.writeText`를 `void`+동기 `try/catch`로 감싸 **프로미스 rejection 미처리(unhandledrejection)** → insecure/권한거부 컨텍스트에서 pageerror. **프로미스 `.then/.catch` + `execCommand` 폴백 + 성공 시에만 "복사됨" 표시**로 재설계. 재검증 pageerror 1→0.

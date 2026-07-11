@@ -40,6 +40,12 @@ const SOURCE_META: Record<string, { label: string; color: string }> = {
   owid: { label: 'Our World in Data', color: '#0891B2' },
   factbook: { label: 'World Factbook', color: '#57534E' },
   elife: { label: 'eLife', color: '#BE185D' },
+  // v06.198~199 신규 소스 (topic·reference 트랙)
+  wikipedia: { label: 'Wikipedia', color: '#3730A3' },
+  plos: { label: 'PLOS', color: '#0369A1' },
+  wikivoyage: { label: 'Wikivoyage', color: '#0D9488' },
+  usgs: { label: 'USGS', color: '#92400E' },
+  noaa: { label: 'NOAA Climate', color: '#155E75' },
   rss: { label: 'RSS', color: '#D97706' },
 }
 
