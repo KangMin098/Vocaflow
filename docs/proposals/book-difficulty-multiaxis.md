@@ -56,7 +56,26 @@ conf = 0.5·(1−|LexC−Syn|/6) + 0.5·(cjv≠null ? clamp(1−|new_v−cjv|/3)
   - **화려체/조어** — Kipling Just So V5→7 · **철학 추상** — Book of Tea V6→7 · **아동 운문 과대** — Poetry(Child's Garden) V7→5.
   - **검토 해소** — Gibbon V9→**11**·Foundational V6→**8**·Alice Adams(CEFR-J C1 과대) V9→**6**.
 - **결과**: **외부 앵커 적중 90%→100%**(10/10). Huck 방언 미스까지 해소. (CEFR-J MAE 0.78→0.83은 Claude가 CEFR-J의 syntax-blind 지점을 의도적으로 초월 — 앵커가 더 나은 ground truth.)
-- **잔여**: 신규 도서는 Claude 재평가 필요(자동 아님) → **사각지대 감지 프록시**(비표준 orthography 비율=방언·조어율 등)로 자동화 가능.
+- **잔여**: 신규 도서는 Claude 재평가 필요(자동 아님) → 아래 v2.4 자동화로 부분 해소.
+
+### p75 재평가 + v2.4 자동화 (2026-07-12)
+**p75 재평가** — 어휘축을 대안과 비교(Claude 판정 대비 MAE):
+
+| 측정 | MAE | 비고 |
+|---|---|---|
+| **type-p75** | **1.17** | ✅ 최선 (현행 유지) |
+| weighted_avg | 1.62 | 중심값만 — 꼬리 무시 |
+| token-cov90 | 1.40 | 이론(i+1) 정합이나 노이지 |
+| token-cov95 | 2.00 | 희귀 꼬리 과민 |
+
+token-커버리지(`lexical_coverage` 기존 컬럼)는 이론적으로 매력적이나 **경험적으로 더 노이지**(짧은 책 왜곡 Drone cov85=8.1·희귀 꼬리 민감). → **p75 유지가 정답**(대안 기각, 재평가로 확증).
+
+**v2.4 자동화 — hidden-difficulty 커버리지 신호** (`scripts/apply-book-difficulty.mjs`):
+- **발견**: `lemma_coverage_pct`(사전 매칭률)가 방언/외래 탐지 신호 — **Huck Finn 74.1%** vs 타 90-95%. 방언어("ain't"·"warn't")가 미매칭 → **p75가 matched만 세므로 방언을 못 봄**(Huck p75=7 과소).
+- **covBump** = `clamp((미매칭%−15)/8, 0, 2.5) × (p75≤7 ? 1 : 0.3)`. Overall에 `+0.6·covBump`. Huck ens 5→auto 6(방언 부분 자동보정). auto-vs-Claude MAE 0.48→**0.43**.
+- **저커버리지 플래그**: 미매칭≥20% → 확신 감쇠 → 신규 도서 **Claude 검토 유도**(Huck 26%·Pride 21% 자동 플래그).
+- **Claude 가드**: `difficulty_v2.claude_v` 있으면 v3 권위 → 자동값으로 덮지 않음. 즉 apply-*.mjs=신규 baseline, calibrate-*-claude.mjs=검토 우위.
+- **한계(정직)**: 완전 Claude-대체 불가 — 극단 방언(Huck 8)은 문학판단 필요, 커버리지는 부분(→6)만. 자동경로는 **부분 보정 + 잔여 플래그**로 수렴.
 
 ### 부수 산출물 — `compute_syntax_score.score` 재보정 마이그
 포화 버그 수정 SQL: [migrations/20260712120000_ctp_syntax_score_recalibrate.sql](../../supabase/migrations/20260712120000_ctp_syntax_score_recalibrate.sql). `score = clamp((sent−10)×0.75 + (clause−1)×5, 0,100)` — 관측범위 선형 분산(쉬움 11·Alice 46·Gibbon 94). **⚠ CTP(dev-process·stage·DCP)가 score 소비 → 임계값 재검증 후 apply**(난이도 앙상블은 raw clause_depth 사용이라 무영향, 미적용도 안전).

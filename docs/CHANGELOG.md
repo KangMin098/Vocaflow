@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 도서 난이도 — p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
+- **p75 재평가**: 어휘축 대안 비교(Claude 대비 MAE) — type-p75 **1.17**(최선) vs weighted_avg 1.62·token-cov90 1.40·cov95 2.00. token-커버리지(`lexical_coverage`)는 이론(i+1) 정합이나 짧은책·희귀꼬리로 노이지 → **p75 유지 확증**(대안 기각).
+- **v2.4 자동화**: `lemma_coverage_pct`(사전 매칭률)=방언/외래 탐지 신호 발견 — **Huck Finn 74.1%** vs 타 90-95%(방언어 미매칭 → p75가 못 봄). `covBump=f(미매칭율)` 추가(Huck auto 5→6 부분보정, auto-MAE 0.48→0.43) + 저커버리지(≥20%)=확신감쇠·플래그(신규 도서 Claude 검토 유도). **Claude 검토 도서(claude_v)는 v3 가드로 자동값 미덮음**. `scripts/apply-book-difficulty.mjs` v2.4.
+- 한계(정직): 완전 Claude-대체 불가(극단 방언은 문학판단) — 자동경로=부분보정+잔여 플래그.
+
 ### 도서 난이도 v2.3 — Claude 전문가 캘리브레이션 (외부 앵커 100% 달성) (v06.212)
 - **작업**: LCP 대량 GET 도서 전 23권(학습가치 전체)을 **Claude(LLM-as-expert)가 본문샘플+문학지식으로 한 권씩 큐레이션 평가** → 플랫폼 v2.2와 대조 → Claude 판정을 강추정기로 편입해 정확도 고도화. `scripts/calibrate-book-difficulty-claude.mjs`.
 - **텍스트 지표 사각지대 교정**(v2.2 앙상블이 구조적으로 못 봄):
