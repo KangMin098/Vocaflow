@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3ac97a2` docs(acp): NOAA 마이그레이션 적용 완료 반영 (v06.199)
 - `aa0c799` feat(acp): NOAA Climate.gov 기후과학 소스 — climate 신규 도메인·CSAT 최빈출 (v06.199)
 - `ed46403` feat(acp): USGS 지구과학·자연재해 소스 — 신규 도메인(earth-science) (v06.198)
 - `2b1713e` docs(game): enum 마이그 적용 반영 (add_arcade_game_module_ids)
 - `4f26f7b` docs(game): 아케이드 스위트 6종 문서화 + enum 마이그 제안
-- `fd55e19` feat(game): 아케이드 허브(/arcade) + 플레이 크롬 배선 — 6종 진입점
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
 - `20260711130000_acp_source_add_noaa.sql`
+- `20260711125000_add_arcade_game_module_ids.sql`
 - `20260711120000_acp_source_add_usgs.sql`
 - `20260710230000_acp_source_add_wikivoyage.sql`
 - `20260710220000_acp_source_add_plos.sql`
-- `20260710210000_acp_source_add_wikipedia.sql`
 <!-- /auto:recent-migrations -->
 
 ---
