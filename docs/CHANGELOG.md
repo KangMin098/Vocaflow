@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP ready 도서 드레인 — 발행 카탈로그 7→23권 (v06.205)
+- **갭**: LCP 품질 스윕(서비스롤 tsx)에서 **18권이 `ready`+copyright_safe인데 미발행**(학습자 카탈로그 7권뿐) 발견 — ACP 스트랜딩의 도서판. 파이프라인 자체는 건전(NULL v_level 0·lbv NULL lemma 6.10% proper-noun/hapax 잔여·단어세트 word_count=0 **0**).
+- **드레인**: `ready`→`published` 상태 플립 → 트리거 `trg_publish_book_word_sets_t`가 챕터 단어세트 자동 생성(멱등). **16권 발행**(Great Expectations V9·Jane Eyre V9·Sherlock V8·Wind in the Willows V8·Wizard of Oz V6·Alice V6·Huck Finn V7 등) → **발행 7→23권**, V-Level V6:3 V7:8 V8:4 V9:6 풍부화, library_book 챕터 단어세트 **283→909**(+626).
+- **실 발견 (LCP 한계)**: `publish_book_word_sets`가 초대형 책(**Les Misérables 364ch·Dialogues**)에서 **statement timeout** — 모놀리식 전-챕터 생성이 API 타임아웃 초과, 트랜잭션 롤백(두 책 `ready` 유지·무손상). **향후 fix**: 챕터 청크 분할 발행(per-chapter 드레인) 또는 statement_timeout 상향. 현재 25권 중 2권만 잔여.
+- DEV 데이터 드레인(코드 변경 0) — 트리거·RPC는 기존.
+
 ### CTP ⑥ Today UI Phase 2 — DCP 구문 연습 인터랙션 (order/insert·채점·error_cause) (v06.204)
 - **신규 라우트 `/practice/dcp`** — hub 처방 ④ 연습 블록 진입점. 오늘 처방(`prescribe_today`) practice 문항을 세션으로 진행. S3 미만/문항 없으면 Calm 빈 상태.
 - **인터랙션**: `DcpItems.tsx`(**order**=문장 순서 배열: 이동 버튼 44px·드래그 대신 a11y 우선 / **insert**=삽입 위치 슬롯 탭) + `DcpPlayer.tsx`(세션 오케스트레이터 — 채점 피드백·정답 공개·진행바·완료 요약). 제출 포맷은 `grade_dcp_item` 계약(order `{order:[presented idx]}`·insert `{position}`).

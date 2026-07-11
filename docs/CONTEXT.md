@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e6f2ba4` feat(ctp): Today UI Phase 2 — DCP 구문 연습 인터랙션 (v06.204)
 - `c33e60b` docs(acp): v06.201 런타임 스모크 통과 + 커버리지 배치 결과 반영
 - `ae71035` feat(hub): "오늘" META 재설계 Phase 1 — prescribe_today 정본화 (v06.203)
 - `522e13c` feat(game): 아케이드 무드 그레이딩 5종 완성 — 게임별 분위기 아트 디렉션
 - `3f7aee8` feat(game): 아케이드 아트 디렉션 v1 — 분위기 허브 갤러리 + 게임별 무드 시스템
-- `9b3b63e` feat(acp): 신규 소스 학습자 표면 배선 — source→learner loop 닫음 (v06.201)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
