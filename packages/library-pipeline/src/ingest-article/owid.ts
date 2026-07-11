@@ -96,7 +96,13 @@ export async function ingestOwidArticle(itemUrl: string): Promise<RawArticle> {
   body = body.replace(/<div[^>]*class="[^"]*grapher[^"]*"[\s\S]*?<\/div>/gi, '\n')
   body = body.replace(/<div[^>]*data-grapher[^>]*>[\s\S]*?<\/div>/gi, '\n')
   body = body.replace(/<table[\s\S]*?<\/table>/gi, '\n')
-  const content = htmlToPlainText(body)
+  let content = htmlToPlainText(body)
+  // OWID 페이지 말미 트레일러 절단(v06.210) — 각주(Endnotes)·BibTeX 인용(Cite this work)·
+  //   라이선스 안내(Reuse this work freely)가 본문·어휘 추출을 오염시켜 제거. 본문 뒤 최초 마커에서 컷.
+  const trailer = content.match(/\n[ \t]*(?:Endnotes|Cite this work|Reuse this work freely)\b/)
+  if (trailer?.index != null && trailer.index > 300) {
+    content = content.slice(0, trailer.index).trim()
+  }
 
   if (content.trim().length < 300) {
     throw new Error(`OWID body too short: ${content.trim().length} chars`)

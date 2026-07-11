@@ -49,8 +49,10 @@ const SOURCE_META: Record<string, { label: string; color: string }> = {
   rss: { label: 'RSS', color: '#D97706' },
 }
 
+// 배지는 흰 글씨(text-white) → 모든 배경이 대비 ≥4.5:1 필요.
+// A1 이 파스텔 #86EFAC(≈1.4:1)라 저시력/색맹 판독 불가였음 → 대비 통과 녹색으로 교정(v06.210).
 const CEFR_COLOR: Record<string, string> = {
-  A1: '#86EFAC',
+  A1: '#15803D',
   A2: 'var(--ios-green)',
   B1: 'var(--p)',
   B2: '#1D4ED8',

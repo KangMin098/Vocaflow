@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 신규 소스 2차 심층 재점검 — owid 본문 정제 + A1 대비 교정 (v06.210)
+- **6개선 재검증**: 1차(v06.209) 개선 전부 유지 확인 — 제목 엔티티 0 · syntax NULL 0 · 라벨/필터 코드 반영.
+- **owid 본문 품질 (신규 발견)**: owid 8기사 전량이 본문에 hex 엔티티 + 각주(Endnotes)·BibTeX 인용(Cite this work)·라이선스 안내(Reuse this work freely) 트레일러 누출(본문의 16~41%). 읽기·어휘 추출 오염.
+  - **파서 근본 수정** `owid.ts`: htmlToPlainText 후 최초 트레일러 마커에서 본문 절단.
+  - **기존 8기사 백필**: 엔티티 디코드 + 트레일러 절단(예 22,888→19,187자) + word_count·syntax_score·article_v_level 재계산. 검증: URL·엔티티·보일러플레이트 0.
+- **접근성 defect 교정** `ArticleCard`: CEFR 배지가 흰 글씨인데 A1=`#86EFAC`(파스텔·대비 ≈1.4:1)라 판독 불가 → 대비 통과 녹색(`#15803D`)으로 교정.
+- **디자인 감사(12 컴포넌트)**: 광범위 pre-existing 부채 확인 — 44px 미만 터치타겟(전반)·focus-visible 누락(BulkArticlesTab ~15곳)·하드코딩 소스/CEFR hex 팔레트(ArticleCard, 다크 무대응)·`--admin` 토큰 미사용(전 admin이 `--p`)·ScoreBar 중복/임계값 불일치. **신규소스 범위 밖·광범위라 미수정, 리포트에 우선순위 권고로 기록**(모범: CoverageMatrix 색+빗금+텍스트 3중부호·CandidateTable 아이콘 구분).
+
 ### ACP 신규 소스 전 파이프라인 자동 점검 + 5개선 (v06.209)
 - **점검**(3-agent 정찰 + DB 실측): 신규 소스 noaa/usgs/owid/factbook/elife **전 5종 발행 성공**(4/5/8/7/2건) · 10개 배선지점·게이트·drift-lock 전부 등록 확인 · 학습자 6접점(브라우즈/읽기/단어장/plan/처방/CTP·모듈) 도달 경로 추적. 백엔드 파이프라인 건전.
 - **개선 5건**:
