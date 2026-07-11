@@ -754,7 +754,16 @@ export async function archiveBook(
 
 export interface SeedCatalogRow {
   id: string
-  source: 'gutenberg' | 'standard_ebooks' | 'wikibooks' | 'librivox' | 'openstax' | 'simple_wikipedia'
+  // library_seed_catalog 실 소스와 정합(CATALOG_SOURCES). openstax/wikisource 는 bulk fetcher 없어 catalog 부재(v06.215).
+  source:
+    | 'gutenberg'
+    | 'standard_ebooks'
+    | 'wikibooks'
+    | 'librivox'
+    | 'simple_wikipedia'
+    | 'lit2go'
+    | 'storyweaver'
+    | 'pressbooks'
   source_id: string
   title: string
   author: string | null
@@ -907,8 +916,9 @@ export async function queueSeedCatalogForCuration(
   return row ?? { queued: 0, total_pending: 0, total_queued: 0 }
 }
 
-/** library_seed_catalog 소스 (실제 seed fetcher 5종 — bySource 카운트 대상).
- *  openstax/wikisource 는 bulk fetcher 가 없어 catalog 에 안 들어옴. simple_wikipedia 가 기본 소스. */
+/** library_seed_catalog 소스 (실제 seed fetcher 8종 — bySource 카운트 대상).
+ *  openstax/wikisource 는 bulk fetcher 가 없어 catalog 에 안 들어옴. simple_wikipedia 가 기본 소스.
+ *  storyweaver/pressbooks 누락 시 해당 시드가 실재해도 통계 칩이 항상 0 이던 버그 수정(v06.215). */
 const CATALOG_SOURCES = [
   'gutenberg',
   'standard_ebooks',
@@ -916,6 +926,8 @@ const CATALOG_SOURCES = [
   'librivox',
   'simple_wikipedia',
   'lit2go',
+  'storyweaver',
+  'pressbooks',
 ] as const
 
 export async function getCatalogStats(

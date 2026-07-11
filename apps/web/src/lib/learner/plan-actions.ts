@@ -311,9 +311,13 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
 
   const [{ data: books }, { data: articles }, { data: sets }, { data: scripts }] = await Promise.all([
     lc
+      // 브라우즈(/library/books)와 동일 발행 게이트 — 미정합 시 plan 엔 뜨나 enroll_library_book
+      //   의 copyright_safe 가드가 예외를 던져 enroll 실패하던 버그(v06.215).
       .from('library_books')
       .select('id, title, author, book_v_level, cover_image_url, chapter_count')
       .eq('status', 'published')
+      .eq('copyright_safe_in_kr', true)
+      .not('published_at', 'is', null)
       .order('title')
       .limit(300),
     lc

@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `48f962d` feat(game): 아케이드 신개념 ③「Lexicon Hands」— 속성 시너지 엔진 (Balatro 계열)
 - `c37761e` feat(lcp): 도서 난이도 v2.4 파이프라인 자동 편입 (v06.215)
 - `3c3b987` docs(a11y): ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
 - `ad862d0` feat(game): 아케이드 신개념 ②「Word Customs」— 위조 적발 (Papers Please 계열)
 - `f54c82f` fix(a11y): ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
-- `8268754` test(lcp): 도서 난이도 Claude 캘리 전체 대상 확장 — 25권 100% (v06.212)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260712150000_lcp_book_difficulty_functions_record.sql`
 - `20260712140000_compute_book_difficulty_v24.sql`
 - `20260712120000_ctp_syntax_score_recalibrate.sql`
 - `20260712100000_ctp_dcp_items_kind_allow_book.sql`
 - `20260712090000_ctp_dcp_grade_return_attempt.sql`
-- `20260711130000_acp_source_add_noaa.sql`
 <!-- /auto:recent-migrations -->
 
 ---

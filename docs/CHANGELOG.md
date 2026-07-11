@@ -51,6 +51,17 @@
 - **검증**: 실플레이 하니스 — 3석실 정답 배치→봉인→"비문을 읽어냈다" 전부 통과, done 15룬·100%·3석실, 스크린샷(룬 비문·해독 후 가독), tsc 0·pageerror 0·console 0.
 - ⏳ DB `module_id` enum +glyph-tongue 마이그레이션 **대기**(미적용 시 audit/scores fire-and-forget 흡수, 게임 동작 무관 — 기존 6종과 동일 패턴).
 
+### LCP 도서 파이프라인 종합 점검 + 6개선 (v06.215)
+- **점검**(3-agent 정찰 + DB 실측): 발행 도서 23권(SE 14·gutenberg 4·storyweaver 2·lit2go/pressbooks/wikibooks 각 1). 4축 난이도·챕터·단어장 전권 완비. 콘솔 9탭 + book_curation_jobs 큐(Claude 드레인) + 학습자 8접점(브라우즈·enroll·읽기·챕터단어장·plan·처방·모듈·CTP) 추적.
+- **개선 6건**:
+  1. **표지 6권 백필** — Alice·Sherlock(gutenberg cover.medium.jpg) + Oz·Fables·Just So·Railway Children(SE og:image). 각 URL curl HEAD 200 image 실검증. (lit2go/pressbooks/wikibooks 3권은 표지 소스 없음 = NULL 정당.)
+  2. **CATALOG_SOURCES 통계 누락** — storyweaver/pressbooks 미포함 → 통계 칩 항상 0(ACP VALID_SOURCES 동류). 8종 정합.
+  3. **SeedCatalogRow.source 타입 stale** — lit2go/storyweaver/pressbooks 추가·openstax 제거.
+  4. **ScriptQuiz 챕터 "본문으로" 잘못된 id** — `/text/{bookId}`(library_books.id→조회 실패→mock 폴백)→`/library/books/{bookId}`.
+  5. **plan 도서 발행게이트 불일치** — plan picker가 `status='published'`만 검사 → 브라우즈엔 없는 KR-unsafe 도서가 plan에 뜨고 enroll 실패. `copyright_safe_in_kr`+`published_at` 정합.
+  6. **스키마 드리프트 기록** — `compute_book_vrl`/`compute_book_cefrj`/`compute_book_coverage` 함수 본체가 마이그레이션 부재(out-of-band) → DB 덤프로 기록 마이그(재현·감사 복구, 동작 변경 0).
+- **관찰(리포트 권고·미수정)**: G1 book_iplus1 추천 죽은링크(`/library/vocab`가 library_book 제외+slug NULL) · G4 Dictation 도서챕터 미스코핑 · auto_curate 게이트지표≠발행지표 · prod 워커 pressbooks/compute_book_difficulty 미배선(dev 비대칭) · chapter_count≤100 상한 · set 라벨 드리프트("V{bvl}+" vs 실 V6 floor).
+
 ### ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
 - **백로그** [acp-ui-a11y-backlog.md](proposals/acp-ui-a11y-backlog.md): 12 컴포넌트 감사 산출을 P1(대비)~P4(정체성) 우선순위·파일위치·수정법으로 정리. 색/레이아웃/정체성 변경 항목은 **시각검증(dev 서버) 트랙**으로 분리(블라인드 편집 회귀 방지).
 - **안전 2수정**: GetGuidePanel `open:shadow-[var(--shadow-sm,none)]` 오타(그림자 영구 미적용)→`--sh-sm` · BulkArticlesTab 소스 우선순위 뱃지 `'white'` 하드코딩→`var(--ti)` 토큰화(시각 동일).
