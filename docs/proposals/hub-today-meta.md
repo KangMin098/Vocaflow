@@ -46,8 +46,8 @@ Calm UI · Progressive Disclosure 상 "오늘 할 일"은 **하나의 정본(SSo
 
 ## 4. 구현 (Phase)
 
-- **Phase 1 (✅ 이번 · v06.199)** — 처방 정본 배선. 신규: `lib/learner/prescription-actions.ts`(서버 액션) · `components/home/TodayPrescriptionCard.tsx`(서버) · `components/home/PrescriptionArticleLaunch.tsx`(client). `hub/page.tsx` 분기 배선 + `TodayFocus` 진단완료 경로 대체. ④ DCP 는 상태 표시만.
-- **Phase 2 (예정)** — DCP 인터랙션: order(문장 배열 드래그)·insert(위치 선택) 플레이어 → `grade_dcp_item`(서버 answer_key) → `csat_item_attempts` 기록 → 오답 시 error_cause 1-tap + 정적 라우팅(vocab→FSRS·parsing→정독·structure→재구성·inference→근거·timing→S5).
+- **Phase 1 (✅ v06.203)** — 처방 정본 배선. 신규: `lib/learner/prescription-actions.ts`(서버 액션) · `components/home/TodayPrescriptionCard.tsx`(서버) · `components/home/PrescriptionArticleLaunch.tsx`(client). `hub/page.tsx` 분기 배선 + `TodayFocus` 진단완료 경로 대체. ④ DCP 는 상태 표시만.
+- **Phase 2 (✅ v06.204)** — DCP 인터랙션 라우트 `/practice/dcp`: order(문장 배열·이동 버튼)·insert(위치 슬롯) 플레이어(`DcpItems`/`DcpPlayer`) → `grade_dcp_item`(서버 answer_key, `attempt_id` 반환) → `csat_item_attempts` 기록 → 오답 시 error_cause 1-tap(5원인 · 정적 라우팅=존재 라우트만, vocab→`/flashcard/play`). hub practice 블록 상태칩→실런처. **CTP ⑥ 완결.**
 
 ## 5. 검증
 

@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### CTP ⑥ Today UI Phase 2 — DCP 구문 연습 인터랙션 (order/insert·채점·error_cause) (v06.204)
+- **신규 라우트 `/practice/dcp`** — hub 처방 ④ 연습 블록 진입점. 오늘 처방(`prescribe_today`) practice 문항을 세션으로 진행. S3 미만/문항 없으면 Calm 빈 상태.
+- **인터랙션**: `DcpItems.tsx`(**order**=문장 순서 배열: 이동 버튼 44px·드래그 대신 a11y 우선 / **insert**=삽입 위치 슬롯 탭) + `DcpPlayer.tsx`(세션 오케스트레이터 — 채점 피드백·정답 공개·진행바·완료 요약). 제출 포맷은 `grade_dcp_item` 계약(order `{order:[presented idx]}`·insert `{position}`).
+- **채점·기록**: `dcp-actions.ts`(`fetchDcpPracticeItems`·`gradeDcpItem`·`recordDcpErrorCause`). 마이그 `ctp_dcp_grade_return_attempt` — `grade_dcp_item` 이 `attempt_id`+`question_id` 반환(오답 원인 부착용). 채점=서버 `answer_key`(클라 노출 0).
+- **error_cause 1-tap**: 오답 시 5원인 자기보고(vocab/parsing/structure/inference/timing) → `csat_item_attempts.error_cause`(RLS owner + CHECK 이중방어). 정적 라우팅=존재 라우트만 링크(vocab→`/flashcard/play`, 나머지 격려 tip · **허위 링크 금지**). hub practice 블록 상태칩→실런처(`/practice/dcp`).
+- **검증**: tsc clean · `grade_dcp_item` order 채점 로직 DB 실측(`{order:[4,0,3,1,2]}`=정답) · 단위+렌더 테스트 **9/9**(`dcp.test.ts` 5 `correctOrderFromKey`·ERROR_CAUSES 무결성 + `DcpPlayer.test.tsx` 4 renderToString). **CTP ⑥ Today UI 완결**(Phase 1 처방정본 + Phase 2 DCP).
+
 ### hub "오늘" META 재설계 Phase 1 — prescribe_today 정본화 (CTP ⑥ Today UI) (v06.203)
 - **META 확정(Opt A)**: hub "오늘"의 삼중 출처(수동계획 `study_plan_items` · `TodayFocus` 클라이언트 휴리스틱 · CTP `prescribe_today`)를 단일 정본으로. 우선순위 — **오늘 수동계획 있음 → `TodayPlanCard`**(사용자 의지 우선) · **진단완료 + 수동계획 없음 → `TodayPrescriptionCard`**(★ `prescribe_today` 5블록 스마트 기본값) · **미진단 → `TodayFocus`**(진단 유도). `TodayFocus` 페르소나 휴리스틱은 진단완료자에게 처방으로 승격 대체. 결정 문서 [hub-today-meta.md](proposals/hub-today-meta.md).
 - **신규**: `lib/learner/prescription-actions.ts`(`fetchTodayPrescription` 서버 액션 — `prescribe_today` 호출·파싱·isDiagnosed·듣기text) · `components/home/TodayPrescriptionCard.tsx`(서버, 5블록: 복습/듣기/읽기/연습/점검 + 번호 스텝·색+아이콘 이중부호·44px+·다크 토큰) · `components/home/PrescriptionArticleLaunch.tsx`(client — article 은 URL 직결 불가 → `startArticleLearning` texts 변환). `hub/page.tsx` 분기 배선.

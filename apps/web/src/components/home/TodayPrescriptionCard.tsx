@@ -4,9 +4,9 @@
 // META 확정(2026-07-11 · Opt A): 진단 완료 + 오늘 수동계획 없음 → 이 카드가 hub "오늘"의 정본.
 //   수동계획(study_plan_items 오늘)이 있으면 그게 우선(TodayPlanCard) — 사용자 의지 존중(Empathetic).
 //
-// 5블록: ① 복습(FSRS due) ② 듣기(EchoMatch) ③ 읽기(stage 후보) ④ 연습(DCP·Phase 2) ⑤ 점검(ScriptQuiz).
+// 5블록: ① 복습(FSRS due) ② 듣기(EchoMatch) ③ 읽기(stage 후보) ④ 연습(DCP→/practice/dcp) ⑤ 점검(ScriptQuiz).
 // Calm UI · Implicit Progress(번호 스텝) · 색+아이콘 이중부호 · 44px+ · 다크 토큰 대응.
-// Phase 1 = 처방 렌더 + 런처. ④ DCP 인터랙션(order/insert·채점·error_cause)은 Phase 2.
+// Phase 2: ④ 연습 블록이 active 면 /practice/dcp(order/insert·채점·error_cause) 로 진입.
 
 import {
   BookOpenText,
@@ -94,7 +94,7 @@ export function TodayPrescriptionCard({ data }: { data: TodayPrescription }) {
           </li>
         )}
 
-        {/* ④ 연습(DCP) — Phase 1 은 상태 표시만, 인터랙션은 Phase 2 */}
+        {/* ④ 연습(DCP) — 문장 배열·삽입 인터랙션(Phase 2) */}
         <BlockRow
           step={4}
           icon={ListOrdered}
@@ -106,7 +106,7 @@ export function TodayPrescriptionCard({ data }: { data: TodayPrescription }) {
           }
         >
           {data.practiceActive ? (
-            <StatusPill label="곧 제공" tone="soon" />
+            <LaunchLink href="/practice/dcp" label="시작" />
           ) : (
             <StatusPill label="—" tone="muted" />
           )}
