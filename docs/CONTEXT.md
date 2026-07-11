@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `ad862d0` feat(game): 아케이드 신개념 ②「Word Customs」— 위조 적발 (Papers Please 계열)
 - `f54c82f` fix(a11y): ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
 - `8268754` test(lcp): 도서 난이도 Claude 캘리 전체 대상 확장 — 25권 100% (v06.212)
 - `c32d549` feat(lcp): p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
 - `8bf7b1d` fix(a11y): 학습자 기사 브라우즈 접근성 패스 (v06.211)
-- `752bbc8` fix(game): Glyph Tongue 뜻 뱅크 셔플 — 문맥 우회(위치 매칭) 차단
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260712140000_compute_book_difficulty_v24.sql`
 - `20260712120000_ctp_syntax_score_recalibrate.sql`
 - `20260712100000_ctp_dcp_items_kind_allow_book.sql`
 - `20260712090000_ctp_dcp_grade_return_attempt.sql`
 - `20260711130000_acp_source_add_noaa.sql`
-- `20260711125000_add_arcade_game_module_ids.sql`
 <!-- /auto:recent-migrations -->
 
 ---

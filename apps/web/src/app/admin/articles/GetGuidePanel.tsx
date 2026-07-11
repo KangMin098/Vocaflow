@@ -56,7 +56,7 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
   return (
     <details
       open
-      className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] open:shadow-[var(--shadow-sm,none)]"
+      className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] open:shadow-[var(--sh-sm)]"
     >
       <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 font-display text-[13px] font-[700] text-[var(--t1)] marker:hidden">
         <Compass size={15} className="text-[var(--p)]" aria-hidden />

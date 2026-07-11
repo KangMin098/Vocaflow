@@ -39,6 +39,10 @@
 - **검증**: 실플레이 하니스 — 3석실 정답 배치→봉인→"비문을 읽어냈다" 전부 통과, done 15룬·100%·3석실, 스크린샷(룬 비문·해독 후 가독), tsc 0·pageerror 0·console 0.
 - ⏳ DB `module_id` enum +glyph-tongue 마이그레이션 **대기**(미적용 시 audit/scores fire-and-forget 흡수, 게임 동작 무관 — 기존 6종과 동일 패턴).
 
+### ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
+- **백로그** [acp-ui-a11y-backlog.md](proposals/acp-ui-a11y-backlog.md): 12 컴포넌트 감사 산출을 P1(대비)~P4(정체성) 우선순위·파일위치·수정법으로 정리. 색/레이아웃/정체성 변경 항목은 **시각검증(dev 서버) 트랙**으로 분리(블라인드 편집 회귀 방지).
+- **안전 2수정**: GetGuidePanel `open:shadow-[var(--shadow-sm,none)]` 오타(그림자 영구 미적용)→`--sh-sm` · BulkArticlesTab 소스 우선순위 뱃지 `'white'` 하드코딩→`var(--ti)` 토큰화(시각 동일).
+
 ### ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
 - **BulkArticlesTab (9)**: 대량 가져오기·삭제·큐추가 액션 버튼 + 학습자레벨·정렬·발행·audio 세그먼트 토글 + 조건 접기. **CuratedArticlesTab (5)**: 전체/행 선택 아이콘 버튼·드레인 배너 버튼·발행 버튼.
 - 순수 additive(focus-visible ring만) — 색·레이아웃 회귀 0(WCAG 2.4.7). tsc clean.

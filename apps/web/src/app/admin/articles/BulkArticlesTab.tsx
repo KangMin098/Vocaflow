@@ -980,7 +980,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-mono text-[9px] font-[700]"
                     style={{
                       background: active ? s.color : 'var(--bg2)',
-                      color: active ? 'white' : 'var(--t3)',
+                      color: active ? 'var(--ti)' : 'var(--t3)',
                     }}
                   >
                     {s.priority}
