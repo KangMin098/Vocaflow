@@ -32,11 +32,8 @@ if (!url || !key) {
 }
 const db = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
 
-// ── 대상 S4 도서 (register 다양성: 설명문 + 서사) ──
-const BOOK_IDS = [
-  '236e78ab-cb2c-477b-9efd-3b81faced48e', // The Decline and Fall of the Roman Empire (expository, v9)
-  'ac506006-6147-4d23-8dba-72698eb7e9ae', // Pride and Prejudice (narrative, v8)
-]
+// ── 대상 = 발행 S4 도서(book_v_level ≥ 7·killer band) 전권 (동적 조회 · v06.217) ──
+//   하드코딩 2권 → 전 S4 자동 처리. upsert 멱등이라 기존 DCP 보유 도서 재실행도 안전(중복 0).
 const MAX_PARAGRAPHS_PER_BOOK = 24 // 적격 문단 상한(문항 = ×2 = order+insert)
 
 interface DcpRow {
@@ -124,7 +121,19 @@ async function processBook(bookId: string): Promise<void> {
 }
 
 console.log('CTP DCP S4 드레인 시작…')
-for (const id of BOOK_IDS) {
-  await processBook(id)
+const { data: s4books, error: qErr } = await db
+  .from('library_books')
+  .select('id, title, book_v_level')
+  .eq('status', 'published')
+  .gte('book_v_level', 7)
+  .order('book_v_level', { ascending: false })
+if (qErr) {
+  console.error('S4 도서 조회 실패:', qErr.message)
+  process.exit(1)
+}
+const books = (s4books ?? []) as Array<{ id: string; title: string; book_v_level: number }>
+console.log(`대상 S4 도서 ${books.length}권 (v≥7 발행)`)
+for (const b of books) {
+  await processBook(b.id)
 }
 console.log('완료.')
