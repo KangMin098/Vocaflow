@@ -30,6 +30,7 @@ export type ScoreModule =
   | 'glyph-tongue'
   | 'word-customs'
   | 'lexicon-hands'
+  | 'lexicon-detective'
 
 export interface GameScoreInput {
   module: ScoreModule

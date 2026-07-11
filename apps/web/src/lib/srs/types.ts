@@ -72,7 +72,8 @@ export type ModuleId =
   | 'ghost-race' // L4a 비동기 경쟁
   | 'glyph-tongue' // L2 문맥 추론 해독 (Chants of Sennaar 계열)
   | 'word-customs' // L3+ 정밀 검증·위조 적발 (Papers Please 계열)
-  | 'lexicon-hands'; // L4+ 어휘 속성 시너지 엔진 (Balatro 계열)
+  | 'lexicon-hands' // L4+ 어휘 속성 시너지 엔진 (Balatro 계열)
+  | 'lexicon-detective'; // L5 장면 수확·서사 재구성 (Golden Idol 계열)
 
 /**
  * 사용자 단계 — §17.2 [2] 상태 축 — 사용자 상태

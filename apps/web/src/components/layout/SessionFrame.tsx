@@ -55,6 +55,7 @@ const SESSION_META: Record<string, SessionMeta> = {
   '/play/glyph-tongue': { title: 'The Glyph Tongue', emoji: '📜', closeHref: '/arcade' },
   '/play/word-customs': { title: 'Word Customs', emoji: '🛂', closeHref: '/arcade' },
   '/play/lexicon-hands': { title: 'Lexicon Hands', emoji: '🃏', closeHref: '/arcade' },
+  '/play/lexicon-detective': { title: 'Lexicon Detective', emoji: '🔍', closeHref: '/arcade' },
 }
 
 const DEFAULT_META: SessionMeta = {

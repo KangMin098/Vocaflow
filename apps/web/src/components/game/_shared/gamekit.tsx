@@ -27,7 +27,8 @@ export type ArcadeGameId =
   | 'ghost-race'
   | 'glyph-tongue'
   | 'word-customs'
-  | 'lexicon-hands';
+  | 'lexicon-hands'
+  | 'lexicon-detective';
 
 // ─── 유틸 ───
 export function shuffle<T>(arr: T[]): T[] {
@@ -184,6 +185,7 @@ const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
   'glyph-tongue': (<><path d="M16 6v20" /><path d="M9 11h14M8 16h16M10 21h12" opacity=".85" /><circle cx="16" cy="6" r="1.5" /></>),
   'word-customs': (<><path d="M10 5h9l4 4v18H10z" /><path d="M19 5v4h4" opacity=".7" /><path d="M13 14h7M13 18h7M13 22h4" opacity=".85" /></>),
   'lexicon-hands': (<><rect x="7" y="11" width="11" height="15" rx="1.6" transform="rotate(-10 12.5 18.5)" /><rect x="14" y="9" width="11" height="15" rx="1.6" transform="rotate(10 19.5 16.5)" /></>),
+  'lexicon-detective': (<><circle cx="14" cy="13" r="6.5" /><path d="M18.8 17.8L25 24" /><path d="M11 13h6" opacity=".5" /></>),
 };
 export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
   return (

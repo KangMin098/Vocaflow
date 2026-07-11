@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3ed2720` fix(lcp): 도서 파이프라인 종합 점검 6개선 (v06.215)
 - `48f962d` feat(game): 아케이드 신개념 ③「Lexicon Hands」— 속성 시너지 엔진 (Balatro 계열)
 - `c37761e` feat(lcp): 도서 난이도 v2.4 파이프라인 자동 편입 (v06.215)
 - `3c3b987` docs(a11y): ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
 - `ad862d0` feat(game): 아케이드 신개념 ②「Word Customs」— 위조 적발 (Papers Please 계열)
-- `f54c82f` fix(a11y): ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
