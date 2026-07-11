@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `13a1247` feat(lcp): 도서 난이도 v2.3 Claude 전문가 캘리브레이션 — 외부앵커 100% (v06.212)
 - `0eaec97` feat(game): 아케이드 신개념 ①「The Glyph Tongue」 — 문맥 해독 (Chants 계열)
 - `5a7a312` fix(acp): owid 본문 트레일러 절단 + A1 CEFR 대비 교정 (v06.210)
 - `9287b5c` feat(lcp): 도서 난이도 v2.2 적용 스크립트 영속화 (멱등·재사용)
 - `6336380` feat(lcp): 도서 난이도 정확도 검증 하니스 + syntax_score 재보정 마이그 (v06.208)
-- `8e90c98` feat(lcp): 도서 난이도 v2.2 — syntax_score 백필 + 포화버그 회피 (v06.208)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

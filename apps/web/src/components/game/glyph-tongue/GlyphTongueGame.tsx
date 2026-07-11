@@ -96,11 +96,13 @@ export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chamberIdx]);
 
+  // 뜻 뱅크는 카드(룬) 순서와 무관하게 셔플 — 위치 정렬로 문맥 없이 순서 매칭하는 우회 차단.
+  const meaningOrder = useMemo(() => shuffle(words.map((w) => w.ko)), [chamberIdx, words]);
   const bank = useMemo(() => {
     const used = new Set(Object.entries(assign).filter(([en]) => !solved.has(en)).map(([, ko]) => ko));
     const lockedKo = new Set(words.filter((w) => solved.has(w.en)).map((w) => w.ko));
-    return words.map((w) => w.ko).filter((ko) => !used.has(ko) && !lockedKo.has(ko));
-  }, [assign, solved, words]);
+    return meaningOrder.filter((ko) => !used.has(ko) && !lockedKo.has(ko));
+  }, [assign, solved, words, meaningOrder]);
 
   const allAssigned = words.every((w) => solved.has(w.en) || assign[w.en]);
   const cleared = words.every((w) => solved.has(w.en));
