@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 신개념 게임 ②「Word Customs」 — 위조 적발 (Papers Please 계열) (v06.214)
+- **메커니즘(독창)**: 영어 **입국심사관**. 단어의 여권(철자·품사·뜻·예문)을 **일자별 누적 규칙서**와 대조해 **위조 적발** → 승인/거부 스탬프 + 거부 시 **위조 항목 지목**(철자/품사/뜻/예문). 정답 맞히기가 아니라 **오류 탐지**(무엇이 왜 틀렸나로 각인).
+- **위조 18종**: false friend(sensible=분별있는≠민감한, library=도서관≠서점, familiar=익숙한≠친척의…) · 철자 트랩(recieve/seperate/definately) · 품사 오용(success 명사≠형용사, economic 형용사≠명사). 3근무일 규칙 누적(뜻→+철자→+품사).
+- **배선**: `WordCustomsGame` + `/play/word-customs`(minWords=0) + 세피아 심사대 무드 + 여권 마크/워터마크 + 허브 8번째 포탈 + SESSION_META. TS 3유니온 +word-customs.
+- **검증**: 실플레이 7항목 — 정타 18여행자 100%·위조 10적발·오심 케이스("오류")·done 3,880점·모바일 0오버플로·tsc 0·pageerror 0. 아케이드 6→8종(①글리프 ②세관 신설).
+- ⏳ DB `module_id` enum +glyph-tongue,+word-customs 마이그 **대기**(미적용 시 fire-and-forget 흡수, 동작 무관).
+
 ### 도서 난이도 — p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
 - **p75 재평가**: 어휘축 대안 비교(Claude 대비 MAE) — type-p75 **1.17**(최선) vs weighted_avg 1.62·token-cov90 1.40·cov95 2.00. token-커버리지(`lexical_coverage`)는 이론(i+1) 정합이나 짧은책·희귀꼬리로 노이지 → **p75 유지 확증**(대안 기각).
 - **v2.4 자동화**: `lemma_coverage_pct`(사전 매칭률)=방언/외래 탐지 신호 발견 — **Huck Finn 74.1%** vs 타 90-95%(방언어 미매칭 → p75가 못 봄). `covBump=f(미매칭율)` 추가(Huck auto 5→6 부분보정, auto-MAE 0.48→0.43) + 저커버리지(≥20%)=확신감쇠·플래그(신규 도서 Claude 검토 유도). **Claude 검토 도서(claude_v)는 v3 가드로 자동값 미덮음**. `scripts/apply-book-difficulty.mjs` v2.4.

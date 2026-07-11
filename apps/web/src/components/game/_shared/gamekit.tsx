@@ -25,7 +25,8 @@ export type ArcadeGameId =
   | 'daily-blitz'
   | 'letter-forge'
   | 'ghost-race'
-  | 'glyph-tongue';
+  | 'glyph-tongue'
+  | 'word-customs';
 
 // ─── 유틸 ───
 export function shuffle<T>(arr: T[]): T[] {
@@ -180,6 +181,7 @@ const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
   'word-economy': (<><ellipse cx="16" cy="10" rx="8" ry="3.4" /><path d="M8 10v6c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4v-6" /><path d="M8 16c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4" opacity=".6" /><path d="M8 22c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4" opacity=".4" /></>),
   'ghost-race': (<><path d="M9 6v20" /><path d="M9 7h13l-3 4 3 4H9" /><path d="M4 14h3M3 19h4" opacity=".6" /></>),
   'glyph-tongue': (<><path d="M16 6v20" /><path d="M9 11h14M8 16h16M10 21h12" opacity=".85" /><circle cx="16" cy="6" r="1.5" /></>),
+  'word-customs': (<><path d="M10 5h9l4 4v18H10z" /><path d="M19 5v4h4" opacity=".7" /><path d="M13 14h7M13 18h7M13 22h4" opacity=".85" /></>),
 };
 export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
   return (

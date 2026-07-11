@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f54c82f` fix(a11y): ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
 - `8268754` test(lcp): 도서 난이도 Claude 캘리 전체 대상 확장 — 25권 100% (v06.212)
 - `c32d549` feat(lcp): p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
 - `8bf7b1d` fix(a11y): 학습자 기사 브라우즈 접근성 패스 (v06.211)
 - `752bbc8` fix(game): Glyph Tongue 뜻 뱅크 셔플 — 문맥 우회(위치 매칭) 차단
-- `13a1247` feat(lcp): 도서 난이도 v2.3 Claude 전문가 캘리브레이션 — 외부앵커 100% (v06.212)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

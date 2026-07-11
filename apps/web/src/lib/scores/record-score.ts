@@ -28,6 +28,7 @@ export type ScoreModule =
   | 'letter-forge'
   | 'ghost-race'
   | 'glyph-tongue'
+  | 'word-customs'
 
 export interface GameScoreInput {
   module: ScoreModule
