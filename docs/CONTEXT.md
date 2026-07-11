@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c32d549` feat(lcp): p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
 - `8bf7b1d` fix(a11y): 학습자 기사 브라우즈 접근성 패스 (v06.211)
 - `752bbc8` fix(game): Glyph Tongue 뜻 뱅크 셔플 — 문맥 우회(위치 매칭) 차단
 - `13a1247` feat(lcp): 도서 난이도 v2.3 Claude 전문가 캘리브레이션 — 외부앵커 100% (v06.212)
 - `0eaec97` feat(game): 아케이드 신개념 ①「The Glyph Tongue」 — 문맥 해독 (Chants 계열)
-- `5a7a312` fix(acp): owid 본문 트레일러 절단 + A1 CEFR 대비 교정 (v06.210)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

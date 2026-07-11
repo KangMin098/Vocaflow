@@ -16,7 +16,7 @@
 - 한계(정직): 완전 Claude-대체 불가(극단 방언은 문학판단) — 자동경로=부분보정+잔여 플래그.
 
 ### 도서 난이도 v2.3 — Claude 전문가 캘리브레이션 (외부 앵커 100% 달성) (v06.212)
-- **작업**: LCP 대량 GET 도서 전 23권(학습가치 전체)을 **Claude(LLM-as-expert)가 본문샘플+문학지식으로 한 권씩 큐레이션 평가** → 플랫폼 v2.2와 대조 → Claude 판정을 강추정기로 편입해 정확도 고도화. `scripts/calibrate-book-difficulty-claude.mjs`.
+- **작업**: LCP 대량 GET 도서 **전체 대상 25권(published 23 + ready 2)**을 **Claude(LLM-as-expert)가 본문샘플+문학지식으로 한 권씩 큐레이션 평가** → 플랫폼 v2.2와 대조 → Claude 판정을 강추정기로 편입해 정확도 고도화. **Claude 캘리 커버 100%**(25/25). ready 대작 Dialogues(Plato) V9·Les Misérables V8 편입(발행 timeout이나 학습가치). `scripts/calibrate-book-difficulty-claude.mjs`(published+ready).
 - **텍스트 지표 사각지대 교정**(v2.2 앙상블이 구조적으로 못 봄):
   - **방언(eye-dialect)** — Huckleberry Finn V5→**7** (방언어=짧아 F-K↓·흔한 lemma=V↓로 지표가 못 봄; Twain 서문 "a number of dialects" 명시). 텍스트 지표 최대 사각지대.
   - Kipling 조어·율문 Just So V5→7 · 철학 추상 Book of Tea V6→7 · 아동 운문 Poetry V7→5.

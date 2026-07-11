@@ -23,6 +23,8 @@ const clamp = (x, lo = 0, hi = 11) => Math.max(lo, Math.min(hi, x))
 // ── Claude 전문가 판정 (title 부분매칭 → {v, note=핵심 난이도 동인}) ──
 const J = [
   [/decline and fall/i, 11, '18C 기념비 만연체·라틴계 — 영어산문 최난이도'],
+  [/dialogues/i, 9, 'Plato 철학 대화·추상 논증 밀도 (번역)'],
+  [/les mis[eé]rables/i, 8, 'Hugo 번역 대작·사회사·argot 삽화 (극장편)'],
   [/pride and prejudice/i, 8, 'Austen 아이러니 복문'],
   [/great expectations/i, 8, 'Victorian 표준 고전'],
   [/jane eyre/i, 8, 'Victorian 내성적'],
@@ -53,7 +55,8 @@ function judge(title) {
   return [null, null]
 }
 
-const { data } = await sb.from('library_books').select('id,title,book_v_level,vrl_components').eq('status', 'published')
+// 전체 대상: 발행 + ready(발행 timeout 대작 포함). archived dupe·queued(미처리)는 제외.
+const { data } = await sb.from('library_books').select('id,title,book_v_level,vrl_components').in('status', ['published', 'ready'])
 const B = data ?? []
 let applied = 0, noJudge = 0
 const rep = []
