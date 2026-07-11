@@ -52,6 +52,7 @@ const SESSION_META: Record<string, SessionMeta> = {
   '/play/word-economy': { title: 'Word Economy', emoji: '🪙', closeHref: '/arcade' },
   '/play/daily-blitz': { title: 'Daily Blitz', emoji: '📅', closeHref: '/arcade' },
   '/play/ghost-race': { title: 'Ghost Race', emoji: '🏁', closeHref: '/arcade' },
+  '/play/glyph-tongue': { title: 'The Glyph Tongue', emoji: '📜', closeHref: '/arcade' },
 }
 
 const DEFAULT_META: SessionMeta = {

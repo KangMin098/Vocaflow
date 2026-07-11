@@ -27,6 +27,7 @@ export type ScoreModule =
   | 'daily-blitz'
   | 'letter-forge'
   | 'ghost-race'
+  | 'glyph-tongue'
 
 export interface GameScoreInput {
   module: ScoreModule

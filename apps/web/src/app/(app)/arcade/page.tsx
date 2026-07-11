@@ -15,6 +15,9 @@ const M = (d: ReactNode) => (
   <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{d}</svg>
 );
 const GAMES: GameCard[] = [
+  { slug: 'glyph-tongue', name: 'The Glyph Tongue', tagline: '뜻을 주지 않는다 — 문맥으로 룬을 해독', layer: 'L2 해독', ref: 'Chants of Sennaar',
+    a: '#6E86A6', b: '#333E56', glow: 'rgba(184,210,230,.5)', accent: '#DCE8F2',
+    mark: M(<><path d="M16 6v20" /><path d="M9 11h14M8 16h16M10 21h12" opacity=".85" /><circle cx="16" cy="6" r="1.5" /></>) },
   { slug: 'daily-blitz', name: 'Daily Blitz', tagline: '매일 새로운 10단어 · 스트릭', layer: '리텐션', ref: 'Wordle',
     a: '#E8846A', b: '#7C3B5E', glow: 'rgba(255,196,150,.55)', accent: '#FFE0C4',
     mark: M(<><path d="M6 22h20" /><path d="M16 22a6 6 0 0 0-6-6" opacity=".55" /><path d="M16 22a6 6 0 0 1 6-6" /><path d="M16 6v3M25 9l-2 2M7 9l2 2" /></>) },
