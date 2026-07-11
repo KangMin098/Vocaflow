@@ -36,6 +36,7 @@ conf = 0.5·(1−|LexC−Syn|/6) + 0.5·(cjv≠null ? clamp(1−|new_v−cjv|/3)
 - **⚑ 8권 검토 회부**(저확신): **Gibbon V9→11**(통사구동·conf 0.34·CEFR-J 8 미확증)·**Foundational V6→8**(conf 0.35·학술 F-K↑ vs 어휘↓ 충돌)·Sherlock V8→6·Alice Adams V9→6(conf 0.28·CEFR-J 9 vs 읽기쉬움 충돌)·Poetry·Railway·Short Fiction·Ammachi.
 - **CEFR-J 평균절대오차 0.78 V** · **사용자 지적 Alice 과대 → V5 확정 교정**.
 - **저장**: 전권 `vrl_components.difficulty_v2` = {v, confidence, lexical, syntactic, cefrj_v, method='v2.2'} + `book_v_level_v1`(구값). 되돌리기 가능.
+- **재사용 자산**: 적용 `scripts/apply-book-difficulty.mjs`(멱등·`--dry-run`) + 검증 `scripts/verify-book-difficulty.mjs`. 일회성 아님 — 재실행·미래 도서 재적용 가능(v1 앵커라 드리프트 0).
 
 ### 부수 발견 — `compute_syntax_score.score` 포화 버그
 `score = LEAST(100, sent_p90×2 + clause_depth_p90×6)` — 가중치 과대로 **거의 모든 중급+ 텍스트가 100 포화**(Alice 112·Gibbon 212·Foundational 110·GE 112). 변별력 상실 → 난이도 앙상블에서 폐기하고 raw 컴포넌트(clause_depth_p90)+F-K로 대체. **CTP 구문난이도 자체를 위해 score 공식 재보정 별도 필요**(예: (sent−15)×0.9 + (clause−2)×6 후 범위 정규화).
