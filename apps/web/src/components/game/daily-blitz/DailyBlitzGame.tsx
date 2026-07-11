@@ -146,7 +146,24 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
 
   const share = useCallback(() => {
     const text = `Vocaflow Daily Blitz #${dayNo}\n${grid}  ${correct}/${DAILY_N}\n🔥 ${streak}일 연속`;
-    try { void navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => mounted.current && setCopied(false), 1800); } catch { /* noop */ }
+    const flash = () => { if (mounted.current) { setCopied(true); setTimeout(() => mounted.current && setCopied(false), 1800); } };
+    // execCommand 폴백 — insecure/권한거부 컨텍스트(비 HTTPS 등)에서 clipboard 프로미스 rejection 대비
+    const legacyCopy = () => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) flash();
+      } catch { /* noop — 조용히 실패 */ }
+    };
+    // 프로미스 rejection 을 반드시 처리(미처리 시 unhandledrejection). navigator.clipboard 부재/거부 → 폴백
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(flash).catch(legacyCopy);
+    } else {
+      legacyCopy();
+    }
   }, [dayNo, grid, correct, streak]);
 
   const target = dailySet[qi];
