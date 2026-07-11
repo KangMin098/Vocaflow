@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `338c5f0` fix(game): Daily Blitz 공유 clipboard 프로미스 rejection 처리 + 6종 QA 스윕
 - `f0703a0` chore(game): 아케이드 enum 마이그 로컬 기록 파일 + proposal 적용상태 정정
 - `3ac97a2` docs(acp): NOAA 마이그레이션 적용 완료 반영 (v06.199)
 - `aa0c799` feat(acp): NOAA Climate.gov 기후과학 소스 — climate 신규 도메인·CSAT 최빈출 (v06.199)
 - `ed46403` feat(acp): USGS 지구과학·자연재해 소스 — 신규 도메인(earth-science) (v06.198)
-- `2b1713e` docs(game): enum 마이그 적용 반영 (add_arcade_game_module_ids)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

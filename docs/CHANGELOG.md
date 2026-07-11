@@ -21,7 +21,8 @@
   - 리스트: anchor 텍스트=제목(USGS 와 달리 직접 페어).
 - 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue(host=`www.climate.gov/news-features/`) + 어드민 UI(🌡 CloudSun) + 대량 GET(14소스 + noaa-feed understanding-climate/features). **drift-lock 30 tests**. tsc clean(패키지+web).
 - **라이브 검증**(tsx 실 ingester) — Ocean Heat(984w)·CO₂(1060w)·global temp(1122w)·glaciers(1058w)·Incoming Sunlight(2299w) 5기사 clean · listNoaaFeed understanding-climate 7건(★51-54)·features 12건.
-- 마이그레이션 `acp_source_add_noaa` (source CHECK +noaa) — **적용 완료**(2026-07-11). library_articles·library_article_seed_catalog 두 CHECK 모두 `'noaa'` 포함 확인. **DB end-to-end 발행 검증** — `source='noaa'` INSERT가 CHECK 통과(rollback 트랜잭션 smoke, 실데이터 무오염).
+- 마이그레이션 `acp_source_add_noaa` (source CHECK +noaa) — **적용 완료**(2026-07-11, 대시보드 SQL Editor — MCP 세션 단절 우회). library_articles·library_article_seed_catalog 두 CHECK 모두 `'noaa'` 포함.
+- **DB end-to-end 발행 증명**(서비스롤 tsx · MCP 우회) — Ocean Heat Content INSERT → **license_class=public_domain·display_only=false·copyright_safe=true** → `analyzeArticle` 245 어휘 → register=expository·B2·noise 0.005 → 발행 트리거 → 단어세트 **40 words published**(greenhouse 온실·marine 해양의·emission 배출·atmospheric 대기의·ecosystem 생태계·absorb 흡수 — 기후/CSAT 도메인, 한국어 뜻 완비). USGS와 동형 확인.
 
 ### ACP USGS 지구과학·자연재해 소스 신설 — 신규 도메인(earth-science) (v06.198)
 - **USGS ingester** — `ingest-article/usgs.ts`. 미국 지질조사국 Featured Stories / Science Snippets(Drupal 서버렌더 HTML, 의존성 0). **PD(US Gov) → 발행 허용 · 인용 자유**. **register=expository**, **신규 도메인 earth-science**(지진·화산·허리케인·광물·산사태) — NASA(우주)·NIH(건강)와 구별되는 빈칸. B2 접근형 과학 저널리즘.
