@@ -9,6 +9,12 @@
 //
 // 실행: pnpm --filter web exec playwright test 06-echomatch-fakemic
 //   (smoke 와 분리 — fake-mic 플래그 + Piper 모델 ~17MB 다운로드로 무겁고 네트워크 의존)
+//
+// #1 보정 다리: ECHO_FAKE_WAV=<abs .wav> 설정 시 그 wav 를 마이크로 주입한다.
+//   → **실제 사람 육성 녹음**(문장 낭독)을 넣으면 자동으로 채점 경로를 태워 실측 점수를 얻는다.
+//   예) ECHO_FAKE_WAV="C:/…/read.wav" pnpm --filter web exec playwright test 06-echomatch-fakemic
+//   주의: 합성 톤(기본) 점수는 캡처 타이밍에 따라 변동(48~76 관측) — 보정 아닌 '파이프라인 생존/변별' 검증용.
+//   파일 주입은 wav 가 루프되므로 녹음 창을 파일보다 길게(6s) 잡아 발화 전체를 포함시킨다.
 import { test, expect, type Page } from '@playwright/test'
 
 const RUNTIME_USER = {
@@ -19,12 +25,20 @@ const RUNTIME_USER = {
 const ECHO_TEXT_ID = '89970bfa-f49d-44c2-92ce-75895a608317'
 const STATE_PATH = 'test-results/.auth-echo-fakemic.json'
 
-// fake-mic: getUserMedia 자동 허용 + 합성 오디오 장치 + 오디오 재생 제스처 요건 제거
+// 오디오 소스: 기본은 Chrome 합성 톤(CI-safe). ECHO_FAKE_WAV 설정 시 그 wav 파일을 마이크로 주입 —
+//   실제 영어 발화(SAPI TTS) 또는 **사람 육성 녹음**을 그대로 채점 경로에 넣을 수 있다(#1 보정 다리).
+const FAKE_WAV = process.env.ECHO_FAKE_WAV
+const AUDIO_MODE = FAKE_WAV ? `file:${FAKE_WAV}` : 'synthetic-tone'
+const audioArg = FAKE_WAV
+  ? `--use-file-for-fake-audio-capture=${FAKE_WAV}`
+  : '--use-fake-device-for-media-stream'
+
+// fake-mic: getUserMedia 자동 허용 + 오디오 소스 + 재생 제스처 요건 제거
 test.use({
   launchOptions: {
     args: [
       '--use-fake-ui-for-media-stream',
-      '--use-fake-device-for-media-stream',
+      audioArg,
       '--autoplay-policy=no-user-gesture-required',
     ],
   },
@@ -83,7 +97,9 @@ test.describe('EchoMatch fake-mic 실주행', () => {
     // 3) Listen 자동재생 → Repeat(녹음) 진입 → 합성오디오 ~2.5s 녹음 후 '완료'
     const done = page.getByRole('button', { name: /완료/ })
     await done.waitFor({ state: 'visible', timeout: 60_000 })
-    await page.waitForTimeout(2500)
+    // 파일 주입 모드는 wav 가 루프되므로, 녹음 창이 발화 전체를 확실히 포함하도록 길게(파일 길이↑).
+    //   합성 톤 모드는 상시 voiced 라 무관.
+    await page.waitForTimeout(FAKE_WAV ? 6000 : 2500)
     await done.click()
 
     // 4) Compare → Score 완주 — ④ Score 패널 + ScoreCard overall 노출
@@ -95,7 +111,7 @@ test.describe('EchoMatch fake-mic 실주행', () => {
     const cardText = (await card.innerText()).replace(/\s+/g, ' ').trim()
     const m = cardText.match(/(\d+)\s*\/\s*100/)
     const overall = m ? Number(m[1]) : NaN
-    console.log(`[echo-fakemic] overall=${overall} · card="${cardText.slice(0, 140)}"`)
+    console.log(`[echo-fakemic] audio=${AUDIO_MODE} · overall=${overall} · card="${cardText.slice(0, 140)}"`)
     expect(Number.isFinite(overall), `overall 파싱 실패: "${cardText.slice(0, 80)}"`).toBe(true)
     // >0 강화: 합성 톤은 voiced 프레임을 가지므로 정상 파이프라인이면 non-zero.
     //   0 이면 구 절대값 비교의 '구조적 0점' 결함 회귀(v06.158 수리 대상) — 반드시 잡는다.
