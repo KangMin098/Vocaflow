@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6043f3e` feat(ctp): DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
 - `6e2fbca` feat(game): 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로
 - `468beef` docs(lcp): ready 도서 드레인 발행 7→23권 + 대형책 timeout 한계 기록 (v06.205)
 - `e6f2ba4` feat(ctp): Today UI Phase 2 — DCP 구문 연습 인터랙션 (v06.204)
 - `c33e60b` docs(acp): v06.201 런타임 스모크 통과 + 커버리지 배치 결과 반영
-- `ae71035` feat(hub): "오늘" META 재설계 Phase 1 — prescribe_today 정본화 (v06.203)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
