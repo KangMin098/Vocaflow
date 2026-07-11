@@ -16,6 +16,7 @@ export type ArticleSource =
   | 'elife' // ACP §18 — B2~C1 과학 digest (편집자 저작 요약 · CC-BY 4.0 → 발행 허용)
   | 'wikipedia' // ACP §18 — B2~C1 정규 백과 FA/GA (CC-BY-SA → 발행 허용, Simple 대비 심화)
   | 'plos' // ACP §18 — C1~C2 오픈 학술 논문 (CC-BY → 발행 허용, S4 킬러급 심화)
+  | 'wikivoyage' // ACP §18 — B1~B2 여행 가이드 (CC-BY-SA → 발행 허용, reference 밴드 보강)
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
   | 'manual'
 

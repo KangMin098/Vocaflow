@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `828aa06` test(echo): fake-mic E2E 에 실 육성 wav 주입 경로 (#1 보정 다리)
 - `c463ade` feat(game): 공용 게임킷 + Game 1 Letter Forge (철자 조립 L4b) — 아케이드 스위트 1/6
 - `f9fd089` fix(acp,ctp): QA 자체점검 — Wikipedia feed 품질 + prescribe_today 정합 (v06.195)
 - `4b01ff1` test(echo): EchoMatch fake-mic 자동 실주행 E2E (v06.190)
 - `a1dc3fc` test(e2e): 06-chapter-launch 자립 시드 — 계정 리셋에도 안전(멱등)
-- `9d1c4e8` docs(session-log): 공용단어장 챕터 학습 라인 완성 + 런타임 검증 기록
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260710230000_acp_source_add_wikivoyage.sql`
 - `20260710220000_acp_source_add_plos.sql`
 - `20260710210000_acp_source_add_wikipedia.sql`
 - `20260710200000_ctp_grade_dcp_item.sql`
 - `20260710190000_ctp_prescribe_today.sql`
-- `20260710180000_ctp_derive_learner_stage.sql`
 <!-- /auto:recent-migrations -->
 
 ---

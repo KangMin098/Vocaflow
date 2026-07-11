@@ -42,6 +42,7 @@ describe('SOURCE_POLICIES — 4축 파생 표 고정', () => {
     ['elife', 'live', 'text', 'full', 'required'], // CC-BY → full(발행 허용) · 인용 필수, 과학 expository
     ['wikipedia', 'live', 'text', 'full', 'required'], // CC-BY-SA → full · 인용 필수, 정규 백과 expository
     ['plos', 'live', 'text', 'full', 'required'], // CC-BY → full · 인용 필수, 오픈 학술 논문 C1-C2
+    ['wikivoyage', 'live', 'text', 'full', 'required'], // CC-BY-SA → full · 인용 필수, 여행 가이드 reference
   ]
 
   it.each(TABLE)('%s → %s/%s/%s/%s', (source, supply, media, derivation, attribution) => {

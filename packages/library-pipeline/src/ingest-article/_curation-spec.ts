@@ -26,6 +26,7 @@ export type SourceKey =
   | 'elife'
   | 'wikipedia'
   | 'plos'
+  | 'wikivoyage'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -311,6 +312,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 300,
     noiseKeywords: ['correction', 'retraction', 'erratum'],
     maxItems: 15,
+  },
+  // Wikivoyage: 여행 가이드(B1-B2 접근형), CC-BY-SA. reference 밴드 보강. MediaWiki.
+  wikivoyage: {
+    recencyDays: 9999,     // 여행 가이드 — 시간 무관
+    minDescriptionLen: 60,
+    minTitleLen: 3,
+    sourceWeight: 0.82,    // 실용·흥미 (학습자 친화)
+    levelBonus: 0.05,      // B1-B2 접근성
+    idealDescLen: 250,
+    noiseKeywords: ['disambiguation', 'itinerary list'],
+    maxItems: 30,
   },
 }
 
@@ -661,6 +673,22 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'recent', weight: 1.00 },
     ],
   },
+  // Wikivoyage: 여행 목적지 가이드, CC-BY-SA(파생 허용), B1-B2. reference 밴드 보강(흥미↑).
+  wikivoyage: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 8,
+    license: 'CC-BY-SA-4.0',
+    attributionRequired: true,
+    topicDomain: ['travel', 'geography', 'culture', 'reference', 'cities'],
+    styleGuide: '여행 목적지 가이드 (Star/Guide 검수분) · B1-B2 실용 산문 · reference (흥미·실용)',
+    preferredFeedMix: [
+      { feedId: 'star', weight: 0.5 },
+      { feedId: 'guide', weight: 0.5 },
+    ],
+  },
 }
 
 /**
@@ -673,8 +701,8 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  beginner:     ['voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
+  intermediate: ['voa', 'simple_wikipedia', 'wikivoyage', 'factbook', 'nasa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
   advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
@@ -718,6 +746,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   elife: 'expository', // 편집자 저작 과학 요약 (설명문)
   wikipedia: 'expository', // 정규 백과 (설명문)
   plos: 'expository', // 학술 논문 산문 (설명문)
+  wikivoyage: 'reference', // 여행 목적지 가이드 (참고 — Factbook 동류)
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -926,6 +955,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   elife: getSourcePolicy('elife'),
   wikipedia: getSourcePolicy('wikipedia'),
   plos: getSourcePolicy('plos'),
+  wikivoyage: getSourcePolicy('wikivoyage'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

@@ -25,6 +25,7 @@ import {
   ingestVoaArticle,
   ingestWikinewsArticle,
   ingestWikipediaArticle,
+  ingestWikivoyageArticle,
   VOA_FEEDS,
   type RawArticle,
 } from '@vocaflow/library-pipeline'
@@ -36,7 +37,7 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -59,6 +60,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
   { pattern: /^https?:\/\/en\.wikipedia\.org\/wiki\//, source: 'wikipedia' },
   { pattern: /^https?:\/\/journals\.plos\.org\//, source: 'plos' },
+  { pattern: /^https?:\/\/en\.wikivoyage\.org\/wiki\//, source: 'wikivoyage' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -139,6 +141,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'plos':
         article = await ingestPlosArticle(body.item_url)
+        break
+      case 'wikivoyage':
+        article = await ingestWikivoyageArticle(body.item_url)
         break
     }
 

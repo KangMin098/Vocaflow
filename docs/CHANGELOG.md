@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP Wikivoyage 여행 가이드 소스 신설 — reference 밴드 보강 (v06.196)
+- **Wikivoyage ingester** — `ingest-article/wikivoyage.ts`. Wikimedia 프로젝트라 `_mediawiki` 재사용(host=en.wikivoyage.org). Star/Guide 카테고리. CC-BY-SA → 발행 허용. **register=reference**(목적지 가이드=Factbook 동류) → **얇은 reference 밴드 보강(3→5, 패딩 아닌 갭 채움)**. B1-B2 접근형·여행 흥미↑.
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🗺 MapPin) + 대량 GET(12소스 + wikivoyage-feed Star/Guide). drift-lock 28 tests. gcmsort=timestamp+영문자-필터(v06.195 QA 패턴 반영).
+- 마이그레이션 `acp_source_add_wikivoyage`.
+- **end-to-end** — Kyoto(8847w·B2)·Prague(14420w·B2) published·cc_by_sa·register=reference·noise 0·llm_cost 0. reference 밴드 3→5(factbook+wikivoyage).
+
 ### QA 자체점검 — Wikipedia feed 품질 + prescribe_today 정합 (v06.195)
 - **Wikipedia feed 니치-junk 수리** — categorymembers가 sortkey 순이라 앞부분이 문장부호-시작 니치(화석종 `?Oryzomys`·`.hack`·`*SCAPE`·`0-8-4`)로 도배 → `gcmsort=timestamp desc`(최근 승격 GA) + 영문자-시작 제목 필터. 검증: junk 0, 다양한 실주제(San Jose Sharks·Semiotics·University of Yangon 등).
 - **prescribe_today practice 정합** — S4/S5 학습자(v_band=S4·도서, DCP 문항 없음)가 practice active=true·items=[] 오해 → "문항 존재 시만 active". 검증: S5 active=false·0분·total 60.

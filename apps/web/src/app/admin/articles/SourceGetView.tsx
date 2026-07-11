@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, Dna, FlaskConical, Globe, Library, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -281,6 +281,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/journals\.plos\.org\//}
           urlHostHint="journals.plos.org 도메인 (article?id=10.1371/...)"
           urlPlaceholder="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3002946"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'wikivoyage':
+      return (
+        <RssFeedTab
+          source="wikivoyage"
+          heading="🗺 Wikivoyage"
+          subtitle="CC-BY-SA · B1~B2 여행 가이드 (reference · 흥미) · 발행 허용"
+          feeds={[]}
+          emptyIcon={MapPin}
+          urlPattern={/^https?:\/\/en\.wikivoyage\.org\/wiki\//}
+          urlHostHint="en.wikivoyage.org/wiki/ 도메인"
+          urlPlaceholder="https://en.wikivoyage.org/wiki/Kyoto"
           onEnqueued={onEnqueued}
         />
       )

@@ -23,6 +23,7 @@ import {
   ingestVoaArticle,
   ingestWikinewsArticle,
   ingestWikipediaArticle,
+  ingestWikivoyageArticle,
   VOA_FEEDS,
   type RawArticle,
 } from '@vocaflow/library-pipeline'
@@ -36,7 +37,7 @@ export const dynamic = 'force-dynamic'
 
 // v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage'
 
 interface EnqueueBody {
   feed_id?: string
@@ -59,6 +60,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
   { pattern: /^https?:\/\/en\.wikipedia\.org\/wiki\//, source: 'wikipedia' },
   { pattern: /^https?:\/\/journals\.plos\.org\//, source: 'plos' },
+  { pattern: /^https?:\/\/en\.wikivoyage\.org\/wiki\//, source: 'wikivoyage' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -140,6 +142,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       }
       case 'plos': {
         article = await ingestPlosArticle(body.item_url)
+        break
+      }
+      case 'wikivoyage': {
+        article = await ingestWikivoyageArticle(body.item_url)
         break
       }
     }

@@ -30,6 +30,7 @@ import {
   Globe,
   Library,
   Loader2,
+  MapPin,
   MessageSquareText,
   Microscope,
   Newspaper,
@@ -226,6 +227,16 @@ const SOURCES: SourceConfig[] = [
     color: 'var(--info)',
     feeds: [{ id: 'recent', label: 'Recent (오픈 학술 · C2)' }],
   },
+  {
+    key: 'wikivoyage',
+    label: 'Wikivoyage',
+    Icon: MapPin,
+    color: 'var(--memory-stable)',
+    feeds: [
+      { id: 'star', label: 'Star Articles (여행)' },
+      { id: 'guide', label: 'Guide Articles (여행)' },
+    ],
+  },
 ]
 
 interface Props {
@@ -248,12 +259,12 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage'],
   advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',
-  all: '전체 (11 소스)',
+  all: '전체 (12 소스)',
   advanced: '고급 (논증 · 과학 · 백과)',
 }
 
