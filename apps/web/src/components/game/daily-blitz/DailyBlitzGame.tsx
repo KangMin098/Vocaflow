@@ -6,7 +6,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, ParticleBurst, useSfx, shuffle, pickDistinct, type Word,
+  GameKitStyles, AmbientBackground, GameMark, IconSound, ParticleBurst, useSfx, shuffle, pickDistinct, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -171,7 +171,7 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
   return (
     <div className="gk-root db-root">
       <GameKitStyles />
-      <AmbientBackground center="#FBEFE8" mid="#F2D2C3" edge="#7A3B54" glow="rgba(255,158,120,.34)" glowAt="50% 34%" />
+      <AmbientBackground center="#FBEFE8" mid="#F2D2C3" edge="#7A3B54" glow="rgba(255,158,120,.34)" glowAt="50% 34%" watermark="daily-blitz" />
       <style dangerouslySetInnerHTML={{ __html: DB_CSS }} />
 
       {/* 상단 미니 바 */}
@@ -179,14 +179,14 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
         <div className="db-streak"><span aria-hidden>🔥</span> <b>{streak}</b>일 연속</div>
         <div className="db-title">오늘의 챌린지 <span className="db-num">#{dayNo}</span></div>
         <div className="db-bar-right">
-          <button type="button" className="gk-icon-btn" aria-label={sfx.muted ? '소리 켜기' : '소리 끄기'} aria-pressed={sfx.muted} onClick={() => sfx.setMuted((m) => !m)}>{sfx.muted ? '🔇' : '🔊'}</button>
+          <button type="button" className="gk-icon-btn" aria-label={sfx.muted ? '소리 켜기' : '소리 끄기'} aria-pressed={sfx.muted} onClick={() => sfx.setMuted((m) => !m)}><IconSound muted={sfx.muted} /></button>
           {onExit && <button type="button" className="gk-exit" onClick={onExit}>나가기</button>}
         </div>
       </header>
 
       {phase === 'intro' && (
         <main className="gk-stage db-intro">
-          <div className="db-cal" aria-hidden="true">📅</div>
+          <div className="db-cal" aria-hidden="true"><GameMark id="daily-blitz" /></div>
           <h1 className="db-h1">Daily Blitz</h1>
           <p className="db-lead">매일 새로운 <b>{DAILY_N}단어</b> 챌린지. 오늘 풀고 스트릭을 이어가세요.</p>
           {store && (
@@ -232,6 +232,7 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
       {phase === 'result' && (
         <main className="gk-stage db-result">
           <div className="db-burst" aria-hidden="true"><ParticleBurst intensity={3} /></div>
+          <div className="gk-done-mark" aria-hidden="true"><GameMark id="daily-blitz" /></div>
           <p className="db-res-lead">{practice ? '연습 완료' : correct >= 8 ? '멋져요!' : '오늘도 한 걸음'}</p>
           <div className="db-grid" aria-hidden="true">{grid}</div>
           <div className="db-res-stats">
@@ -259,7 +260,8 @@ const DB_CSS = `
   .db-num { color: var(--t3); font-weight: 700; }
   .db-bar-right { display: flex; gap: 8px; justify-content: flex-end; align-items: center; }
   .db-intro { gap: 14px; text-align: center; }
-  .db-cal { font-size: 46px; }
+  .db-cal { width: 78px; height: 78px; display: grid; place-items: center; border-radius: 22px; color: var(--streak); background: color-mix(in srgb, var(--bg) 55%, transparent); border: 1px solid color-mix(in srgb, var(--t1) 12%, transparent); box-shadow: 0 14px 38px -12px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.55); backdrop-filter: blur(6px); }
+  .db-cal svg { width: 44px; height: 44px; }
   .db-h1 { margin: 0; font-family: var(--font-display, system-ui); font-size: clamp(30px, 6vw, 46px); font-weight: 800; }
   .db-lead { margin: 0; color: var(--t2); font-size: 15px; max-width: 34ch; }
   .db-lead b { color: var(--t1); }

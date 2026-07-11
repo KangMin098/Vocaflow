@@ -124,7 +124,7 @@ export function ConnectionsGame({ onExit, onCorrect }: Props) {
   return (
     <div className="gk-root cn-root">
       <GameKitStyles />
-      <AmbientBackground center="#F2ECFA" mid="#DACAEF" edge="#2C2156" glow="rgba(192,162,255,.30)" glowAt="50% 22%" />
+      <AmbientBackground center="#F2ECFA" mid="#DACAEF" edge="#2C2156" glow="rgba(192,162,255,.30)" glowAt="50% 22%" watermark="connections" />
       <style dangerouslySetInnerHTML={{ __html: CN_CSS }} />
       <Hud
         muted={sfx.muted}
@@ -143,6 +143,7 @@ export function ConnectionsGame({ onExit, onCorrect }: Props) {
 
       {phase !== 'playing' ? (
         <GameDone
+          mark="connections"
           lead={phase === 'won' ? '완벽해요!' : '오늘도 한 걸음'}
           stats={[
             { num: `${solved.length}/4`, label: '찾은 그룹', accent: true },

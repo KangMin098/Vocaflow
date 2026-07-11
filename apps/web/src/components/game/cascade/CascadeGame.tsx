@@ -179,7 +179,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   return (
     <div className="gk-root cs-root">
       <GameKitStyles />
-      <AmbientBackground center="#ECF7F7" mid="#C2E5E9" edge="#153E54" glow="rgba(120,224,235,.32)" glowAt="50% 34%" />
+      <AmbientBackground center="#ECF7F7" mid="#C2E5E9" edge="#153E54" glow="rgba(120,224,235,.32)" glowAt="50% 34%" watermark="cascade" />
       <style dangerouslySetInnerHTML={{ __html: CS_CSS }} />
       <Hud
         score={shownScore}
@@ -192,6 +192,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
       {phase === 'done' ? (
         <GameDone
+          mark="cascade"
           stats={[
             { num: score.toLocaleString(), label: '점수', accent: true },
             { num: cleared, label: '지운 짝' },

@@ -147,7 +147,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   return (
     <div className="gk-root gr-root">
       <GameKitStyles />
-      <AmbientBackground center="#F4EBF6" mid="#DEC8E7" edge="#4E3277" glow="rgba(255,120,205,.36)" glowAt="50% 15%" />
+      <AmbientBackground center="#F4EBF6" mid="#DEC8E7" edge="#4E3277" glow="rgba(255,120,205,.36)" glowAt="50% 15%" watermark="ghost-race" />
       <style dangerouslySetInnerHTML={{ __html: GR_CSS }} />
       <Hud
         combo={combo}
@@ -172,7 +172,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
       {phase === 'result' ? (
         <GameDone
-          lead={won ? '🏆 유령을 이겼어요!' : '아쉽게 졌어요'}
+          mark="ghost-race"
+          lead={won ? '유령을 이겼어요!' : '아쉽게 졌어요'}
           stats={[
             { num: `${youPos}/${N}`, label: '내 진행', accent: true },
             { num: `${(raceMs / 1000).toFixed(1)}s`, label: won ? '기록(신기록 반영)' : '기록' },

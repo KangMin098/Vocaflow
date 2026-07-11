@@ -152,7 +152,7 @@ export function WordEconomyGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   return (
     <div className="gk-root we-root">
       <GameKitStyles />
-      <AmbientBackground center="#FBF2DE" mid="#EAD39F" edge="#6C481D" glow="rgba(255,206,112,.34)" glowAt="50% 24%" />
+      <AmbientBackground center="#FBF2DE" mid="#EAD39F" edge="#6C481D" glow="rgba(255,206,112,.34)" glowAt="50% 24%" watermark="word-economy" />
       <style dangerouslySetInnerHTML={{ __html: WE_CSS }} />
       <Hud
         combo={combo}
@@ -170,6 +170,7 @@ export function WordEconomyGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
       {phase === 'done' ? (
         <GameDone
+          mark="word-economy"
           lead="장사 잘했어요"
           stats={[
             { num: `🪙 ${coins.toLocaleString()}`, label: '최종 잔고', accent: true },

@@ -170,13 +170,44 @@ export function ParticleBurst({ intensity = 1 }: { intensity?: number }) {
   );
 }
 
+// ─── 게임별 아이덴티티 마크 (SVG · 이모지 대체) ───
+const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
+  'daily-blitz': (<><path d="M6 22h20" /><path d="M16 22a6 6 0 0 0-6-6" opacity=".55" /><path d="M16 22a6 6 0 0 1 6-6" /><path d="M16 6v3M25 9l-2 2M7 9l2 2" /></>),
+  'letter-forge': (<><path d="M7 20h13l4 4H11l-4-4Z" /><path d="M20 20l3-6" /><path d="M9 14l4-6 4 6" /><path d="M10.5 11.5h5" /></>),
+  'cascade': (<><path d="M5 12c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0" /><path d="M5 18c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0" opacity=".7" /><path d="M5 24c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0" opacity=".45" /></>),
+  'connections': (<><circle cx="10" cy="10" r="2.4" /><circle cx="22" cy="10" r="2.4" /><circle cx="10" cy="22" r="2.4" /><circle cx="22" cy="22" r="2.4" /><path d="M12.4 10h7.2M10 12.4v7.2M12 12l8 8" opacity=".7" /></>),
+  'word-economy': (<><ellipse cx="16" cy="10" rx="8" ry="3.4" /><path d="M8 10v6c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4v-6" /><path d="M8 16c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4" opacity=".6" /><path d="M8 22c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4" opacity=".4" /></>),
+  'ghost-race': (<><path d="M9 6v20" /><path d="M9 7h13l-3 4 3 4H9" /><path d="M4 14h3M3 19h4" opacity=".6" /></>),
+};
+export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={className}>
+      {MARK_PATHS[id]}
+    </svg>
+  );
+}
+
+// ─── 사운드 토글 아이콘 (SVG · 이모지 대체) ───
+export function IconSound({ muted }: { muted: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 9v6h3.5L12 19V5L7.5 9H4Z" />
+      {muted ? (
+        <path d="M16 9.5l5 5M21 9.5l-5 5" />
+      ) : (
+        <><path d="M15.5 9a4 4 0 0 1 0 6" /><path d="M18 6.6a7.5 7.5 0 0 1 0 10.8" opacity=".5" /></>
+      )}
+    </svg>
+  );
+}
+
 // ─── 분위기 배경 (게임별 무드 그레이딩) ───
 // 중앙은 밝게(가독) · 가장자리는 무드로 깊게(드라마) + 앰비언트 글로우 + 그레인 + 비네트.
 // 밝은 타일/어두운 텍스트가 그대로 읽히면서도 공간감·감성을 부여. Calm 유지(모션 없음).
 export function AmbientBackground({
-  center, mid, edge, glow, glowAt = '50% 14%', grain = true,
+  center, mid, edge, glow, glowAt = '50% 14%', grain = true, watermark,
 }: {
-  center: string; mid: string; edge: string; glow: string; glowAt?: string; grain?: boolean;
+  center: string; mid: string; edge: string; glow: string; glowAt?: string; grain?: boolean; watermark?: ArcadeGameId;
 }) {
   return (
     <div
@@ -187,6 +218,7 @@ export function AmbientBackground({
       <div className="gk-atmos-grad" />
       <div className="gk-atmos-glow" />
       {grain && <div className="gk-atmos-grain" />}
+      {watermark && <div className="gk-atmos-mark"><GameMark id={watermark} /></div>}
       <div className="gk-atmos-vig" />
     </div>
   );
@@ -246,7 +278,7 @@ export function Hud({
         aria-label={muted ? '소리 켜기' : '소리 끄기'}
         aria-pressed={muted}
       >
-        {muted ? '🔇' : '🔊'}
+        <IconSound muted={muted} />
       </button>
       {onExit && (
         <button type="button" onClick={onExit} className="gk-exit" aria-label="게임 종료">
@@ -265,6 +297,7 @@ export function GameDone({
   onExit,
   restartLabel = '다시 하기',
   celebrate = true,
+  mark,
 }: {
   lead?: string;
   stats: { num: ReactNode; label: string; accent?: boolean }[];
@@ -272,6 +305,7 @@ export function GameDone({
   onExit: () => void;
   restartLabel?: string;
   celebrate?: boolean;
+  mark?: ArcadeGameId;
 }) {
   return (
     <main className="gk-done" role="status">
@@ -280,6 +314,7 @@ export function GameDone({
           <ParticleBurst intensity={3} />
         </div>
       )}
+      {mark && <div className="gk-done-mark" aria-hidden="true"><GameMark id={mark} /></div>}
       <p className="gk-done-lead">{lead}</p>
       <div className="gk-done-stats">
         {stats.map((s, i) => (
@@ -351,6 +386,8 @@ const GK_CSS = `
   .gk-atmos-grad { position: absolute; inset: 0; background: radial-gradient(128% 112% at 50% 15%, var(--at-c) 0%, var(--at-m) 37%, var(--at-e) 92%); }
   .gk-atmos-glow { position: absolute; inset: 0; background: radial-gradient(52% 38% at var(--at-glow-at, 50% 14%), var(--at-glow), transparent 70%); }
   .gk-atmos-grain { position: absolute; inset: 0; opacity: .05; mix-blend-mode: overlay; background-image: url("${GK_GRAIN}"); }
+  .gk-atmos-mark { position: absolute; right: -3%; bottom: -8%; width: min(52vh, 460px); color: #fff; opacity: .9; mix-blend-mode: soft-light; }
+  .gk-atmos-mark svg { width: 100%; height: auto; display: block; }
   .gk-atmos-vig { position: absolute; inset: 0; box-shadow: inset 0 0 210px 40px rgba(28,14,38,.44), inset 0 -70px 100px rgba(18,8,28,.34); }
 
   .gk-hud { display: grid; grid-template-columns: auto 1fr auto auto auto auto; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--bd); }
@@ -367,8 +404,8 @@ const GK_CSS = `
   .gk-progress { height: 6px; border-radius: 999px; background: var(--bg3); overflow: hidden; }
   .gk-progress-spacer { min-width: 20px; }
   .gk-progress-fill { height: 100%; border-radius: 999px; background: var(--combo); transition: width .4s var(--ease, cubic-bezier(.4,0,.2,1)); }
-  .gk-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); font-size: 15px; cursor: pointer; transition: border-color .15s; }
-  .gk-icon-btn:hover { border-color: var(--t3); }
+  .gk-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 15px; cursor: pointer; transition: border-color .15s, color .15s; }
+  .gk-icon-btn:hover { border-color: var(--t3); color: var(--t1); }
   .gk-exit { padding: 8px 12px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 12px; font-weight: 700; cursor: pointer; min-height: 36px; transition: background .15s, color .15s, border-color .15s; }
   .gk-exit:hover { color: var(--t1); border-color: var(--t3); }
 
@@ -391,6 +428,8 @@ const GK_CSS = `
 
   .gk-done { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; padding: 24px; }
   .gk-done-burst { position: absolute; top: 34%; left: 50%; width: 0; height: 0; }
+  .gk-done-mark { width: 66px; height: 66px; display: grid; place-items: center; border-radius: 20px; color: var(--t1); background: color-mix(in srgb, var(--bg) 60%, transparent); border: 1px solid color-mix(in srgb, var(--t1) 12%, transparent); box-shadow: 0 14px 36px -12px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.5); backdrop-filter: blur(6px); animation: gk-pop .5s var(--ease, ease-out); }
+  .gk-done-mark svg { width: 36px; height: 36px; opacity: .82; }
   .gk-done-lead { margin: 0; font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: clamp(22px, 5vw, 32px); font-weight: 500; color: var(--t1); animation: gk-pop .5s var(--ease, ease-out); text-align: center; }
   .gk-done-stats { display: flex; gap: clamp(18px, 6vw, 52px); flex-wrap: wrap; justify-content: center; }
   .gk-done-stat { display: flex; flex-direction: column; align-items: center; gap: 6px; }

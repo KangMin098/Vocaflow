@@ -258,7 +258,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   return (
     <div className="gk-root lf-root">
       <GameKitStyles />
-      <AmbientBackground center="#FBF1E3" mid="#EED2AC" edge="#583120" glow="rgba(255,178,92,.34)" glowAt="50% 26%" />
+      <AmbientBackground center="#FBF1E3" mid="#EED2AC" edge="#583120" glow="rgba(255,178,92,.34)" glowAt="50% 26%" watermark="letter-forge" />
       <style dangerouslySetInnerHTML={{ __html: LF_CSS }} />
       <div className="gk-energy" aria-hidden="true" style={{ opacity: Math.min(0.5, combo * 0.03), transform: `scale(${1 + comboTier * 0.15})` }} />
 
@@ -274,6 +274,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
       {phase === 'done' ? (
         <GameDone
+          mark="letter-forge"
           stats={[
             { num: score.toLocaleString(), label: '점수', accent: true },
             { num: `${correctCount}/${roundLen}`, label: `정답 · ${Math.round((correctCount / roundLen) * 100)}%` },

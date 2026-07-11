@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로 (v06.206)
+- **동기**: 아트 디렉션 후속 폴리시(사용자 "전부 다듬어줘"). 남은 이모지 잔재 제거 + 게임별 아이덴티티 강화.
+- **게임킷**: `GameMark`(6종 공용 SVG 마크)·`IconSound`(SVG 사운드 토글) 추가. `AmbientBackground`에 `watermark` 옵션(각 게임 마크를 우하단 대형·soft-light 은은한 워터마크). `GameDone`에 `mark` 히어로(글래스 배지+파티클).
+- **이모지 교체**: Daily Blitz 📅→일출 마크 배지 · HUD 🔊🔇→SVG 사운드 아이콘(게임킷+Daily) · Ghost Race 결과 🏆 제거(마크 히어로 대체). 🔥(스트릭/콤보)는 관용적이라 유지.
+- **6종 배선**: 각 게임 watermark(자기 마크) + GameDone/결과 mark 히어로. 밝은/무드 배경 양쪽에서 글래스 배지 가독.
+- **검증**: 6종 인터랙티브 QA 재통과(정타·스코어·승리/결과) · 스크린샷(Daily 인트로·Ghost/Letter 결과 히어로·워터마크) · tsc 0 · pageerror 0 · console 0. (⚠️ 작업 중 C: 디스크 재만충→`.next` 클리어로 dev 복구.)
+
 ### LCP ready 도서 드레인 — 발행 카탈로그 7→23권 (v06.205)
 - **갭**: LCP 품질 스윕(서비스롤 tsx)에서 **18권이 `ready`+copyright_safe인데 미발행**(학습자 카탈로그 7권뿐) 발견 — ACP 스트랜딩의 도서판. 파이프라인 자체는 건전(NULL v_level 0·lbv NULL lemma 6.10% proper-noun/hapax 잔여·단어세트 word_count=0 **0**).
 - **드레인**: `ready`→`published` 상태 플립 → 트리거 `trg_publish_book_word_sets_t`가 챕터 단어세트 자동 생성(멱등). **16권 발행**(Great Expectations V9·Jane Eyre V9·Sherlock V8·Wind in the Willows V8·Wizard of Oz V6·Alice V6·Huck Finn V7 등) → **발행 7→23권**, V-Level V6:3 V7:8 V8:4 V9:6 풍부화, library_book 챕터 단어세트 **283→909**(+626).
