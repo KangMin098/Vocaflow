@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 도서 난이도 다축 평가 v2 — 어휘 단축 왜곡 교정 (v06.208)
+- **문제**(사용자 지적): `book_v_level = 어휘 p75` 단축 → (1) 희귀 content-word 꼬리가 p75 부풀림(Alice ease 70인데 V6), (2) 통사 완전 무시(Foundational 학술 F-K 14.55인데 V6·Gibbon 최난이도인데 V9 캡). 23권 실증.
+- **설계**(재고): "100% 정확"의 단일 텍스트 공식은 불가(ground truth=학습자 성과) → **앙상블+확신도+외부앵커**로 실효 정확도 수렴. 공식: **ease-게이트 어휘축**(읽기 쉬우면 중심값·어려우면 p75 → 문맥 희귀어 탈부풀림) + **통사축**(F-K·syntax_score) + **병목 융합**(0.75·max+0.25·mean — 어느 한 축만 어려워도 어려움) + **CEFR-J 앵커**(lexOffset 0.04≈편향0) + **CEFR-J 교차확증 확신도**. 설계문서 [book-difficulty-multiaxis.md](proposals/book-difficulty-multiaxis.md).
+- **적용**(서비스롤·非DDL): 발행 23권 산출 → **고확신 13권 `book_v_level` 갱신**(Alice V6→5·Jane Eyre V9→8·Great Expectations V9→8·Wizard V6→5 등) + **저확신 7권 검토 회부**(Gibbon V9→10·Foundational V6→8·Alice Adams V9→6 등 — 값 유지·제안 저장). 전권 `vrl_components.difficulty_v2`{v·confidence·lexical·syntactic·cefrj_v·method} + `book_v_level_v1` 구값 보존(되돌리기 가능).
+- **잔여**: syntax_score 도서 백필 · 검토 7권 어드민 flip · 소비처 전환 · Tier2 IRT(학습자 성과 경험적 보정).
+
 ### CTP DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
 - **갭 발견**: DCP 문항 64개가 전부 **S3(논증 article 7건)** 뿐 → S4(도서 v≥7·killer band) 학습자는 처방 ④ 연습이 영영 비활성. 게다가 `csat_dcp_items.kind` CHECK=`('article','chapter')`인데 catalog·`prescribe_today` 조인은 도서를 `kind='book'`으로 씀 → **book DCP 구조적 삽입/조인 불가**(CTP 백엔드 잠재 불일치).
 - **마이그 `ctp_dcp_items_kind_allow_book`**: kind CHECK 에 `'book'` 추가(catalog 정합, additive).

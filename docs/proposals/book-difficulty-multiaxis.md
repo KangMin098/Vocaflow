@@ -1,7 +1,39 @@
 # 도서 난이도 다축 평가 기준 재설계 (Book Difficulty v2)
 
-> 상태: **설계 제안** (2026-07-12) · 미구현
+> 상태: **v1 적용 완료** (2026-07-12) — 발행 23권에 앙상블 산출·고확신 13권 `book_v_level` 갱신·저확신 7권 검토 회부. `book_v_level_v1` 구값 보존.
 > 배경: 현행 `library_books.book_v_level`이 **어휘 단일 축**이라 통사·담화 난이도를 무시해 왜곡. 실증 검증 포함.
+
+---
+
+## 0. 목표 재정의 + 최종 적용 공식 (2026-07-12)
+
+### 목표 (재고)
+"100% 정확도"의 단일 텍스트 공식은 **불가능** — 도서 난이도의 ground truth는 텍스트 속성이 아니라 **학습자가 실제로 얼마나 어려워하는가**(reader-dependent). 그래서 목표를 재정의:
+> **학습자 i+1 매칭 난이도가 (a) 독립 외부기준(CEFR-J)으로 편향 보정되고, (b) 추정기 불일치 책은 저확신 플래그로 사람이 검토 → 학습자 실효 정확도를 100%에 수렴.** 궁극의 100%는 학습자 성과(IRT) 축적 시 경험적 보정(Tier 2, 미래).
+
+### 최종 공식 — 앙상블 + 병목 융합 + CEFR-J 확증 (§3의 adjust-from-base를 대체)
+```
+easeW = clamp((reading_ease − 50)/40, 0, 1)
+Lex   = weighted_avg + (1−easeW)·(p75 − weighted_avg)      # 어휘: 읽기 쉬우면 중심값, 어려우면 p75 (문맥 희귀어 탈부풀림)
+LexC  = clamp(Lex + lexOffset)                              # CEFR-J 앵커 (실측 lexOffset=0.04 ≈ 편향 없음)
+V_fk  = clamp((F-K − 2)·0.62)                               # 통사+가독 (외부 검증)
+V_syn = syntax_score.score·0.10  (있으면)                   # 종속절 깊이·문장길이
+Syn   = V_syn≠null ? 0.5·V_fk+0.5·V_syn : V_fk
+
+Overall = 0.75·max(LexC,Syn) + 0.25·mean(LexC,Syn)          # ★ 병목(더 어려운 축) 지배 — 어느 한 축만 어려워도 어려움
+new_v   = round(Overall)
+
+# 확신도 = 내부 축일치 + CEFR-J 외부 교차확증
+conf = 0.5·(1−|LexC−Syn|/6) + 0.5·(cjv≠null ? clamp(1−|new_v−cjv|/3) : 0.7)
+적용: conf ≥ 0.7 → book_v_level 갱신 · 미만 → 검토 회부(값 유지, 제안만 저장)
+```
+**핵심 개선(이전 adjust-from-base 대비)**: (1) 병목-max 융합(어휘/통사 중 어려운 쪽이 이해를 결정 — Great Expectations는 통사 쉬워도 어휘 V8), (2) CEFR-J 교차확증 확신도(융합이 CEFR-J와 맞으면 적용, 통사가 CEFR-J 못 보는 큰 변화 주면 검토), (3) 고확신만 자동 적용.
+
+### 적용 결과 (발행 23권)
+- **✓ 13권 자동 갱신**: Alice V6→5·Wizard of Oz V6→5·Fables V7→6·Just So V7→5·Huck V7→5·Jane Eyre V9→8·Great Expectations V9→8·Wind in Willows V8→7·Book of Tea V7→6·Marvelous Oz V7→6·Twenty years V9→8·Drone V3→2·Ammachi V4→3.
+- **⚑ 7권 검토 회부**: Gibbon V9→10(통사구동·conf 0.55)·Foundational V6→8(conf 0.35, 학술통사↑ vs 어휘↓ 충돌)·Sherlock V8→6·Alice Adams V9→6(CEFR-J 9 vs 읽기쉬움 충돌 conf 0.28)·Poetry·Railway·Short Fiction.
+- **저장**: 전권 `vrl_components.difficulty_v2` = {v, confidence, lexical, syntactic, cefrj_v, method} + `book_v_level_v1`(구값). 되돌리기 가능.
+- **잔여**: (a) syntax_score 도서 백필(현재 일부만 — 없으면 F-K가 통사 대리), (b) 검토 7권 어드민 flip, (c) 소비처(recommend·i+1·source-map) 확정 후 전환, (d) Tier 2 IRT.
 
 ---
 
