@@ -32,6 +32,11 @@
 - **검증**: 실플레이 하니스 — 3석실 정답 배치→봉인→"비문을 읽어냈다" 전부 통과, done 15룬·100%·3석실, 스크린샷(룬 비문·해독 후 가독), tsc 0·pageerror 0·console 0.
 - ⏳ DB `module_id` enum +glyph-tongue 마이그레이션 **대기**(미적용 시 audit/scores fire-and-forget 흡수, 게임 동작 무관 — 기존 6종과 동일 패턴).
 
+### ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
+- **BulkArticlesTab (9)**: 대량 가져오기·삭제·큐추가 액션 버튼 + 학습자레벨·정렬·발행·audio 세그먼트 토글 + 조건 접기. **CuratedArticlesTab (5)**: 전체/행 선택 아이콘 버튼·드레인 배너 버튼·발행 버튼.
+- 순수 additive(focus-visible ring만) — 색·레이아웃 회귀 0(WCAG 2.4.7). tsc clean.
+- 잔여(다음 트랙·시각검증 권장): 44px 터치타겟 확대 · `--admin` 토큰 채택 · ScoreBar 중복 통합 · 저빈도 필터칩 focus.
+
 ### 학습자 기사 브라우즈 a11y 패스 — CEFR 배지 대비 + 44px/포커스 (v06.211)
 - **ArticleCard**: CEFR 배지를 `text-white`(고정 흰 글씨) → **틴트 패턴**(색=텍스트·배경 color-mix 15%)으로 통일 — 소스/적합도 배지와 동형. A1 파스텔뿐 아니라 **다크모드에서 밝은 토큰(`--p` 등) 위 판독 실패**까지 근본 해소(양 테마·전 레벨 대비 보장). "학습하기" 버튼 `min-h-[44px]`+active, 원문 링크 36→44px + focus-visible + active.
 - **ScriptsBrowser**: 묶음 필터 해제 X 버튼 16→24px, 빈상태 초기화 버튼 focus-visible + active 보강.

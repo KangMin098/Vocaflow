@@ -312,7 +312,7 @@ export function CuratedArticlesTab({
                     type="button"
                     onClick={toggleAll}
                     aria-label={allSelected ? '전체 선택 해제' : '전체 선택'}
-                    className="inline-flex text-[var(--t3)] hover:text-[var(--p)]"
+                    className="inline-flex rounded-[var(--r-sm)] text-[var(--t3)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                   >
                     {allSelected ? <CheckSquare size={15} /> : <Square size={15} />}
                   </button>
@@ -350,7 +350,7 @@ export function CuratedArticlesTab({
                         onClick={() => toggleOne(a.id)}
                         aria-label={isSel ? '선택 해제' : '선택'}
                         aria-pressed={isSel}
-                        className="inline-flex text-[var(--t3)] hover:text-[var(--p)]"
+                        className="inline-flex rounded-[var(--r-sm)] text-[var(--t3)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       >
                         {isSel ? (
                           <CheckSquare size={15} style={{ color: 'var(--learn-known)' }} />
@@ -591,7 +591,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
           <button
             type="button"
             onClick={onStop}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)]"
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={11} aria-hidden /> 중지
           </button>
@@ -599,7 +599,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
           <button
             type="button"
             onClick={onDismiss}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             닫기
           </button>
@@ -749,7 +749,7 @@ function EmptyBox({ onReset, hasAny }: { onReset: () => void; hasAny: boolean })
         <button
           type="button"
           onClick={onReset}
-          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)]"
+          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           필터 초기화
         </button>
