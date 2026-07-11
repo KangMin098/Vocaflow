@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `4e1cd02` feat(game): Game 6 Ghost Race (비동기 레이스+리그) — 아케이드 스위트 6/6 완성
 - `3e7751f` feat(game): Game 5 Daily Blitz (데일리+스트릭 리텐션) — 아케이드 스위트 5/6
 - `63141a8` feat(game): Game 4 Word Economy (경제·전략 L4a) — 아케이드 스위트 4/6
 - `79bf6a8` feat(game): Game 3 Connections (의미 그룹핑 L5) — 아케이드 스위트 3/6
 - `e0816ba` feat(game): Game 2 Cascade (매치·낙하 보드 L4a) — 아케이드 스위트 2/6
-- `cf7f395` feat(acp): Wikivoyage 여행 가이드 소스 — reference 밴드 보강 (v06.196)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

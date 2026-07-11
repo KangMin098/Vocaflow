@@ -45,6 +45,13 @@ const SESSION_META: Record<string, SessionMeta> = {
   '/play/pirate-quest': { title: "Pirate's Bounty", emoji: '🏴‍☠️', closeHref: '/hub' },
   '/pairflip/play': { title: 'PairFlip', emoji: '🎴', closeHref: '/pairflip' },
   '/wordvault/browse': { title: 'WordVault', emoji: '📖', closeHref: '/wordvault' },
+  // ── 아케이드 스위트 6종 (v07.3) ──
+  '/play/letter-forge': { title: 'Letter Forge', emoji: '🔤', closeHref: '/arcade' },
+  '/play/cascade': { title: 'Cascade', emoji: '🌊', closeHref: '/arcade' },
+  '/play/connections': { title: 'Connections', emoji: '🧩', closeHref: '/arcade' },
+  '/play/word-economy': { title: 'Word Economy', emoji: '🪙', closeHref: '/arcade' },
+  '/play/daily-blitz': { title: 'Daily Blitz', emoji: '📅', closeHref: '/arcade' },
+  '/play/ghost-race': { title: 'Ghost Race', emoji: '🏁', closeHref: '/arcade' },
 }
 
 const DEFAULT_META: SessionMeta = {
