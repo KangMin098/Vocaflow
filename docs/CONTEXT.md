@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `3f7aee8` feat(game): 아케이드 아트 디렉션 v1 — 분위기 허브 갤러리 + 게임별 무드 시스템
 - `9b3b63e` feat(acp): 신규 소스 학습자 표면 배선 — source→learner loop 닫음 (v06.201)
 - `b76cb5b` docs(acp): NOAA 마이그 적용 완료 + DB end-to-end 발행 증명 반영 (v06.199)
 - `338c5f0` fix(game): Daily Blitz 공유 clipboard 프로미스 rejection 처리 + 6종 QA 스윕
 - `f0703a0` chore(game): 아케이드 enum 마이그 로컬 기록 파일 + proposal 적용상태 정정
-- `3ac97a2` docs(acp): NOAA 마이그레이션 적용 완료 반영 (v06.199)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

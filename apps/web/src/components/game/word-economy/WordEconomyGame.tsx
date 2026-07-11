@@ -6,7 +6,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, pickDistinct, clamp, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, pickDistinct, clamp, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -152,6 +152,7 @@ export function WordEconomyGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   return (
     <div className="gk-root we-root">
       <GameKitStyles />
+      <AmbientBackground center="#FBF2DE" mid="#EAD39F" edge="#6C481D" glow="rgba(255,206,112,.34)" glowAt="50% 24%" />
       <style dangerouslySetInnerHTML={{ __html: WE_CSS }} />
       <Hud
         combo={combo}

@@ -6,7 +6,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, clamp, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, clamp, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -179,6 +179,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   return (
     <div className="gk-root cs-root">
       <GameKitStyles />
+      <AmbientBackground center="#ECF7F7" mid="#C2E5E9" edge="#153E54" glow="rgba(120,224,235,.32)" glowAt="50% 34%" />
       <style dangerouslySetInnerHTML={{ __html: CS_CSS }} />
       <Hud
         score={shownScore}

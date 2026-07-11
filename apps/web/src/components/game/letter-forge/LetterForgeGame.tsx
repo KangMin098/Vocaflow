@@ -7,6 +7,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles,
+  AmbientBackground,
   Hud,
   GameDone,
   ParticleBurst,
@@ -257,6 +258,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   return (
     <div className="gk-root lf-root">
       <GameKitStyles />
+      <AmbientBackground center="#FBF1E3" mid="#EED2AC" edge="#583120" glow="rgba(255,178,92,.34)" glowAt="50% 26%" />
       <style dangerouslySetInnerHTML={{ __html: LF_CSS }} />
       <div className="gk-energy" aria-hidden="true" style={{ opacity: Math.min(0.5, combo * 0.03), transform: `scale(${1 + comboTier * 0.15})` }} />
 

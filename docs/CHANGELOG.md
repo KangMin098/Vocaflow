@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 아트 디렉션 — 게임별 무드 그레이딩 6종 완성 (v06.202)
+- **동기**: 학습자 관점 디자인/색감 점검 — 기존 아케이드는 "깔끔한 학습 UI"였으나 레퍼런스(Blue Prince·Outer Wilds·Witness·지중해 듀오톤) 수준의 감성엔 미달(플랫·무드 없음). Calm UI와 충돌 없이(Calm≠밋밋) 격상.
+- **허브 재설계**: 플랫 화이트 카드 → **황혼 갤러리 + 6 무드 포탈**(스테인드글라스). 듀오톤 배경·앰비언트 드리프트 글로우·그레인·비네트 + **이모지→일관 SVG 라인 마크** + 깊이/글로우/타이포.
+- **게임킷 `AmbientBackground`** 공용 컴포넌트 — 중앙 밝게(가독)·가장자리 무드로 깊게(드라마) + 글로우·그레인·비네트. reduced-motion 대응.
+- **6종 무드**: Daily Blitz=새벽(peach/rose) · Letter Forge=엠버(gold/brown) · Cascade=수중(cyan/teal) · Connections=다스크(violet/indigo) · Word Economy=골드(amber/bronze) · Ghost Race=트와일라잇(magenta/purple). 밝은 타일/어두운 텍스트 가독 유지.
+- **검증**: 6종 dev :3100 스크린샷(무드·가독) + 인터랙티브 QA 재실행(정타·스코어·승리/결과 전부 통과) · tsc 0 · pageerror 0 · console 0. 커밋 `3f7aee8`(허브+시스템+Ghost) + 본 커밋(5종).
+
 ### ACP 신규 소스 학습자 표면 배선 — source→learner loop 닫음 (v06.201)
 - **갭 발견**: 이번 세션 신규 소스 중 **wikipedia·plos·wikivoyage·usgs·noaa 5종이 `source-map.ts`(학습자 /library/scripts 트랙 맵)에 미등록** → 발행돼도 `SOURCE_TO_TRACK.get()`=undefined로 **트랙 그룹에서 완전 누락**(실측 8편 stranded). ArticleCard `SOURCE_META`도 미등록 → raw 회색 라벨.
 - **수정**: `topic`(과학) 트랙에 plos/usgs/noaa 추가(oneLine 지구·기후 반영) + **신규 `reference` 트랙**('백과·여행으로 넓히기' — wikipedia/wikivoyage, Schema Theory 근거) + `computeTrackCounts` Record + ArticleCard 5소스 메타(라벨·액센트). TrackKey 6→7·SOURCE_TRACKS 6→7.

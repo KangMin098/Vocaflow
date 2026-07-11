@@ -7,7 +7,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, Hud, GameDone, ParticleBurst, useSfx, shuffle, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, shuffle, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { onExit?: () => void; onCorrect?: (w: Word) => void; }
@@ -124,6 +124,7 @@ export function ConnectionsGame({ onExit, onCorrect }: Props) {
   return (
     <div className="gk-root cn-root">
       <GameKitStyles />
+      <AmbientBackground center="#F2ECFA" mid="#DACAEF" edge="#2C2156" glow="rgba(192,162,255,.30)" glowAt="50% 22%" />
       <style dangerouslySetInnerHTML={{ __html: CN_CSS }} />
       <Hud
         muted={sfx.muted}
