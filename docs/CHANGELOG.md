@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### UI 스모크 로그인 견고화 + 런타임 검증 (v06.222)
+- **런타임 검증**(디스크 확보 후 단일 dev 서버): ScriptsBrowser "학습 지도" 재설계 + ArticleCard/CEFR/a11y 변경이 실브라우저 렌더·동작 확인 — 04-ui-smoke **4/4 통과**(주요 화면 콘솔에러 0·스크립트 드릴다운/복귀·도서관 필터·EchoMatch 게이트).
+- **스모크 견고화**: `loginRuntimeUser`가 배치 실행 시 반복 로그인 스로틀/dev 컴파일 경합으로 waitForURL 타임아웃(false-fail) 잦았음 → **1회 재시도 + 타임아웃 25s** 보강. test1 단일 로그인이 견고해져 storageState 재사용 하위 테스트도 안정. (근본: STATE_PATH storageState 이미 재사용 구조 — test1 로그인만 flaky였음.)
+- **환경 교훈**(재확인): 멀티 dev 서버(:3000/:3001/:3100)가 `apps/web/.next` 공유 → 라우트 무작위 404/500 오염 → 로그인 flow 붕괴. 검증은 **전 서버 종료 → .next 삭제 → 단일 서버** 필수(apps/web/CLAUDE.md 규약).
+
 ### 아케이드 실 어휘 배선 ③ — Lexicon Hands가 학습자 단어 속성 덱으로 (v06.226)
 - **배선**: `buildDeckFromPool` — 스코프 단어 → 속성 태그 덱. **품사**(스캐폴드 실데이터 우선 + 형태론 휴리스틱 폴백: -ly→부사·-tion→명사 등) + **어원**(라틴/그리스 어근 41종 substring 감지: spect/port/dict/struct…) + **접두사**(27종 감지) 자동 태깅. 세션당 최대 40장, 12장 미만이면 내장 덱 폴백.
 - **버그 수정 2건**: (1) lexicon-hands page가 `wordPool` 미전달(항상 폴백) → render에 추가. (2) `posFromData`에서 'ad**verb**'가 `/verb/`에 매칭돼 부사→동사 오분류 → 부사 검사 우선순위로 수정.
@@ -33,8 +38,9 @@
 - **문제**: `/library/books` 전체 탐색이 한 카드에 나에게/레벨/장르/길이 칩을 작은 10px 라벨로 **뭉쳐 노출("묶음")** + 주제·연령은 "상세 필터" 숨김 disclosure 뒤. 학습자가 조건을 또렷이 판별하기 어려움.
 - **재설계(`BookFilterBar`)**: 뭉친 카드 → **항상 펼친 라벨 구획**(`divide-y`) 상세 패널. 각 조건(내 학습·나에게·레벨·장르·주제·연령·길이·음성)이 좌측 고정폭 라벨 + 칩의 독립 compartment. 주제·연령을 숨김→상시 노출 승격, 오디오를 길이 그룹에서 분리해 '음성' 구획, 상세필터 disclosure 제거.
 - **신규 필터 '내 학습 상태'**: 내 서재/학습 중/완료 — `enrollment_state` 기반, facet-adaptive(등록 도서 보유 시에만 노출). `BookFilters` +`enroll`·`FacetData` +`hasEnrollments`, `BooksExplorer` 필터 로직 + facet 집계 추가.
+- **hydration mismatch 수정**: 주제 상시 노출로 표면화된 결함 — facet 주제 정렬 tie-break `localeCompare`(Node↔브라우저 collation 상이로 순서 엇갈림)를 code-unit 비교로 교체(`BooksExplorer`). 이전엔 주제가 disclosure에 숨겨져 초기 렌더에 없어 잠복.
 - **범위 밖(사용자 선택)**: CEFR 병기·형식자료 신설·칩별 카운트는 제외. 레벨=V밴드 유지(CEFR=카드 배지 보조).
-- **검증**: tsc 0 · eslint 0(변경 `BookFilterBar`·`BooksExplorer`). 04-ui-smoke에 "전체 탐색 필터 구획 렌더 + 레벨칩 축소 + 초기화 원복" 회귀 테스트 추가. ⚠️ 라이브 e2e/SSR은 워크스페이스에 **`next dev` 2개 동시 기동 → `.next` 공유 오염(라우트 무작위 404)**으로 미실행 — 단일 서버 정리 후 재검증 필요(환경성·본 변경 무관).
+- **검증**: tsc 0 · eslint 0(변경 `BookFilterBar`·`BooksExplorer`). 04-ui-smoke에 "전체 탐색 필터 구획 렌더 + 레벨칩 7→2 축소 + 초기화 원복 + 콘솔에러 0" 회귀 테스트 추가 → **통과**(격리 실행 40.8s). 전 화면 콘솔에러 테스트도 `/library/books` 포함 10화면 통과(53.8s). 검증 전 워크스페이스 `next dev` 2개 동시 기동→`.next` 공유 오염(라우트 무작위 404) 발견·단일 서버 정리로 복구.
 
 ### `/library/scripts` 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션 (v06.222)
 - **문제**: 스크립트 탭이 트랙 섹션 + 얇은 한 줄 소개 + fit 배지뿐 — `source-map.ts` 의 풍부한 오리엔테이션 데이터(능력·학습과학 why·학습법 단계·난이도 V밴드)가 **전부 미사용**. 다양한 레벨의 학습자가 "어떤 소스/시리즈를 왜/어떻게 고를지" 판단 근거 부재.

@@ -18,12 +18,23 @@ const ECHO_TEXT_ID = '89970bfa-f49d-44c2-92ce-75895a608317';
 const STATE_PATH = 'test-results/.auth-runtime-user.json';
 
 async function loginRuntimeUser(page: Page) {
-  await page.goto('/login', { waitUntil: 'networkidle' });
-  await page.waitForTimeout(800); // hydration — submit 이 라우터 액션에 연결된 뒤 클릭
-  await page.fill('input[type="email"]', RUNTIME_USER.email);
-  await page.fill('input[type="password"]', RUNTIME_USER.password);
-  await page.click('button[type="submit"]');
-  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 });
+  // 배치 실행 시 테스트마다 새 로그인 → auth 스로틀/dev 컴파일 경합으로 리다이렉트 지연 →
+  //   waitForURL 타임아웃(false-fail)이 잦았음. 1회 재시도로 견고화(v06.222).
+  //   (근본 개선: STATE_PATH storageState 재사용 — 후속.)
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    await page.goto('/login', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(800); // hydration — submit 이 라우터 액션에 연결된 뒤 클릭
+    await page.fill('input[type="email"]', RUNTIME_USER.email);
+    await page.fill('input[type="password"]', RUNTIME_USER.password);
+    await page.click('button[type="submit"]');
+    try {
+      await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 25_000 });
+      return;
+    } catch (e) {
+      if (attempt === 2) throw e;
+      await page.waitForTimeout(2_000); // 스로틀/경합 완화 후 재시도
+    }
+  }
 }
 
 function collectConsoleErrors(page: Page): string[] {
@@ -120,8 +131,11 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     const before = await items.count();
     expect(before).toBeGreaterThan(1);
 
-    // 레벨 칩('Vx–y …') 클릭 → 결과 축소
-    await explorer.getByRole('button', { name: /^V\d/ }).first().click();
+    // 레벨 칩('Vx–y …') 클릭 → 결과 축소.
+    // hydration 완료 전 클릭은 핸들러 미부착으로 유실되므로 안정화 대기(로그인 헬퍼와 동일 패턴).
+    await page.waitForTimeout(800);
+    const levelChip = explorer.getByRole('button', { name: /^V\d/ }).first();
+    await levelChip.click();
     await expect.poll(async () => items.count()).toBeLessThan(before);
 
     // 초기화 → 원복
