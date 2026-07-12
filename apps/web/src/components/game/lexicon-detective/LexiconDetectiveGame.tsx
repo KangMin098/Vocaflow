@@ -48,6 +48,21 @@ const CASES: Case[] = [
     ],
     narrative: ['유산을 노린 ', B('인물', 'lawyer'), '는 ', B('감정', 'greedy'), ' 마음에 노인의 서명을 ', B('위조', 'forge'), ' 했다. 진짜 유언장은 벽난로에 ', B('태우다', 'burn'), ', 증거를 ', B('숨기다', 'conceal'), ' 했다. 뒤늦게 진실을 안 가족은 깊이 ', B('슬픔', 'grieve'), '했다.'],
   },
+  {
+    title: '불타는 극장',
+    scene: '공연 도중 극장에 불이 났다. 무대 뒤에 남은 흔적으로 원인을 밝혀라.',
+    clues: [
+      { icon: '🎭', object: '주연 의상', en: 'actor', ko: '배우' },
+      { icon: '😠', object: '라이벌 사진에 X표', en: 'jealous', ko: '질투하는' },
+      { icon: '🔧', object: '끊어진 전선', en: 'sabotage', ko: '방해 공작하다' },
+      { icon: '🔥', object: '그을린 조명', en: 'ignite', ko: '불붙이다' },
+      { icon: '🚪', object: '부서진 비상구', en: 'flee', ko: '달아나다' },
+      { icon: '🦺', object: '무대 담당 조끼', en: 'rescue', ko: '구조하다' },
+      { icon: '👏', object: '공연 프로그램', en: 'applause', ko: '박수' },
+      { icon: '🎪', object: '무대 커튼', en: 'curtain', ko: '커튼' },
+    ],
+    narrative: ['질투에 사로잡힌 한 ', B('인물', 'actor'), '는 라이벌을 향한 ', B('감정', 'jealous'), ' 마음에 조명 전선을 ', B('방해', 'sabotage'), ' 했다. 합선이 무대를 ', B('불붙이다', 'ignite'), ', 관객들은 비상구로 ', B('달아나다', 'flee'), '. 무대 담당은 쓰러진 배우를 ', B('구하다', 'rescue'), '했다.'],
+  },
 ];
 
 export function LexiconDetectiveGame({ onExit, onCorrect, onWrong }: Props) {
