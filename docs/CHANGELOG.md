@@ -25,8 +25,9 @@
 - **근본**: 큐레이션 단어추출에서 `creep="변태"` 등 문맥과 다른 뜻 노출 → 원인=`shared_dictionary` 단일-행 + v_level=최난이도 sense. 다의어의 기본 sense(저-V) 용법을 텍스트가 써도 행 v_level(고-V sense)이 V≥6 필터 통과 → 고급 gloss로 오추출(B류).
 - **Phase 2 문맥 POS 저장**: `library_book/article_vocabularies` `context_pos` 컬럼(마이그 `20260712160000`) + winkNLP 백필(`backfill-context-pos.mts`, book 1,507·article 212) + 파이프라인 forward-wiring(`extract-lemmas` 지배 POS → ChapterWord → `insert_book_analysis` RPC `20260712170000` + article 직삽입) → 신규 도서 자동.
 - **Phase 3 문맥-sense 매칭**: `select_book_chapter_vocab`+`select_article_vocab` LATERAL JOIN(`20260712165000`) — `context_pos`로 `meanings_ko` 문맥 POS 일치 sense 선택 → 그 sense v_level로 V≥6 필터 + gloss·pos 표시, NULL은 row 폴백.
-- **검증**: creep(문맥 verb)→"기어가다" · sole(문맥 adj·sense v5)→Gibbon/Les Mis 추출 0건(기본용법 오추출 근절). tsc 0. 잔여: 488 study-word 후보 배치 재검수(자동화).
-- 사전 데이터 수리 누적 17단어(sense별 v_level 모델: swallow·swift·crush·spoil·sole·stern 등) — 상세 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
+- **검증**: creep(문맥 verb)→"기어가다" · sole(문맥 adj·sense v5)→Gibbon/Les Mis 추출 0건(기본용법 오추출 근절). tsc 0.
+- **잔여 sweep 배치 1(40단어)**: 코퍼스 확대 POS 불일치 504건 → 고가치 179 선별 → 40단어 sense 보강(누락 POS 추가·전 sense v_level·flat 정렬). 검증 40/40. 발행 shared_words 424 appearance gloss 동기화. context_pos 재백필(book 1,507→2,169·article 212→388). 실증: idle(형용사 문맥)→추출 제외(v5) · noble(형용사)→"고귀한"(v6) 정확 · grave·yield·disguise 등. 잔여 139+ 후속 배치.
+- 사전 데이터 수리 누적 57단어(sense별 v_level 모델: swallow·swift·crush·spoil·sole·stern·yield·noble·minor·idle 등) — 상세 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
 
 ### 아케이드 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로 (v06.224)
 - **배선**: 스캐폴드가 이미 fetch하던 `example`(도서 챕터는 `source_sentence`=실제 책 문맥)·`pos`·`inflectedForms`를 그동안 버렸던 것 → `Word` 타입 +3필드로 게임에 전달. `GlyphTongueGame.buildChambersFromPool`: 스코프 단어의 예문에서 단어/굴절형을 찾아 룬으로 블랭크 → 석실 생성(세션당 최대 20단어=4석실). 예문 없는 단어 제외, 4개 미만이면 내장 뱅크 폴백.

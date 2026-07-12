@@ -74,6 +74,14 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
   - `sole`(문맥 adjective, sense v5) → Gibbon/Les Mis 추출에서 **0건**(V≥6 탈락) — 기본 용법 오추출(B류) 근절 실증.
 - **효과**: A류(primary 오선정) = 사전 재-enrichment로 근절 · B류(기본 sense 저-V 다의어) = 문맥 sense v_level 필터로 근절. 사전 단일-행 한계를 sense별 v_level + 문맥 매칭으로 우회.
 
+## 잔여 sweep 배치 1 — 40단어 sense 보강 (2026-07-12 · 완료)
+- **후보 재측정**: 코퍼스 확대(146,831 sentence)로 POS 불일치 **504건**(🔴누락 441·🟡선택 63). content↔content POS + rank≤8000 + 비-ing 필터 → **고가치 179건** 선별.
+- **배치 1 적용(40단어)**: 각 단어에 누락 POS sense 추가 + **모든 sense에 v_level 부여** + 지배 sense로 flat primary 정렬. 검증 40/40(전 sense v_level·multi-POS). 발행 `shared_words` 424 appearance gloss 동기화.
+  - 예: `yield`→동사"산출/양보"(v6) · `noble`→형용사"고귀한"(v6) · `grasp`→동사"이해하다"(v6) · `disguise`·`drain`·`halt`·`reign`·`sack`·`wax`·`hedge`·`tuck` 등.
+  - **B류 근본 실증**: `minor`(형용사"사소한" **v5** + 명사"미성년자" v6) · `idle`(형용사"한가한" v5) · `damp`(형용사 v5) — 기본 sense v5로 Phase 3가 문맥 형용사 용법을 **V≥6 탈락**(오추출 근절), 특수 명사 sense만 study.
+- **context_pos 재백필**: 40단어가 신규 multi-POS화 → `backfill-context-pos.mts` 재실행으로 lbv/lav 문맥 POS 채움(Phase 3 sense-matching 활성).
+
 ## 잔여(자동화)
-- 488 study-word 후보 배치 Claude 재검수(sense별 v_level 부여·누락 sense 보강) — `audit-dict-pos-mismatch.mts` 후보 자동생성, `dict-enrich` 스킬 배치.
-- 백필은 발행 도서/아티클 대상 1회 실행 완료 · 신규는 파이프라인 자동. 재분석 시 `insert_book_analysis` 가 context_pos 갱신.
+- 179 고가치 중 **139단어** + 🟡선택 63 + 저빈도·기능어 후보 — 후속 배치(동일 방식: sense 추가·v_level·flat 정렬). `dump-pos-candidates` 로직으로 목록 재생성.
+- row `v_level`은 VRL 4축 산출물이라 불변 유지 — Phase 3는 sense별 v_level로 우회(문맥 매칭), NULL은 row 폴백.
+- 백필은 발행 도서/아티클 1회 실행 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).
