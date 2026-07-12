@@ -10,6 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 ⑥ The Silent Rule 콘텐츠 확장 — 철자 규칙 3→6 (v06.230)
+- authored 게임 콘텐츠 확장(배선 불가 게임은 콘텐츠가 리플레이 자산). ⑥에 고가치 철자 규칙 3종 추가: **자음+y→-ies**(babies/cities) · **s·x·ch·sh 뒤 -es**(boxes/watches) · **-ful은 l 하나**(careful/usefull✗). 각 2패널(정답3+오답2)·교정 노출.
+- **검증**: 6규칙 완주(i-before-e·e탈락·자음중복·y→ies·치찰음es·-ful) · done 12패널·6규칙·100% · pageerror 0. dev 메모리 캐시로 안정 서빙 확인.
+
 ### Windows dev 안정화 + 아케이드 실 어휘 배선 ①③② end-to-end 검증 완료 (v06.229)
 - **dev 픽스**: `next.config.mjs` webpack — **Windows 한정 메모리 캐시**(`config.cache={type:'memory'}`). 원인: FS 캐시 `.next/cache/**/*.pack.gz` rename이 백신 파일락으로 간헐 ENOENT → vendor-chunks 손상 → 라우트 404/500·dev 서버 반복 사망(이번 세션 내내). 메모리 캐시로 pack.gz 쓰기 제거 → 근절. mac/linux는 FS 캐시 유지.
 - **검증 완결**: 안정화 후 ③②를 실 단어장(교육과정 고등)으로 **end-to-end 확인** — ③ Lexicon Hands 손패=실단어(fiction·celebrate·vocabulary…)+어원태그(fic), done 도달·0에러 · ② Word Customs 여권=실단어(device: 명사·장치·실 예문 "keeps her electronic device charged")+생성 위조, 18여행자 진행·0에러. 내장뱅크 미감지(✅).

@@ -40,6 +40,27 @@ const CLUSTERS: Cluster[] = [
       [T('swimming'), T('shopping'), T('winning'), X('begining', 'beginning'), X('runing', 'running')],
     ],
   },
+  {
+    rule: '자음 + y → y를 i로 바꾸고 -es', hint: '자음 뒤 y로 끝나면 -ies',
+    panels: [
+      [T('babies'), T('stories'), T('tries'), X('citys', 'cities'), X('partys', 'parties')],
+      [T('families'), T('copies'), T('studies'), X('countrys', 'countries'), X('armys', 'armies')],
+    ],
+  },
+  {
+    rule: 's · x · ch · sh 로 끝나면 -es', hint: '치찰음 뒤에는 -es 를 붙인다',
+    panels: [
+      [T('boxes'), T('dishes'), T('glasses'), X('watchs', 'watches'), X('buss', 'buses')],
+      [T('wishes'), T('churches'), T('brushes'), X('foxs', 'foxes'), X('taxs', 'taxes')],
+    ],
+  },
+  {
+    rule: '접미사 -ful 은 l 이 하나', hint: 'full 이 아니라 -ful',
+    panels: [
+      [T('careful'), T('helpful'), T('grateful'), X('usefull', 'useful'), X('beautifull', 'beautiful')],
+      [T('wonderful'), T('powerful'), T('peaceful'), X('successfull', 'successful'), X('thankfull', 'thankful')],
+    ],
+  },
 ];
 
 export function SilentRuleGame({ onExit, onCorrect }: Props) {
