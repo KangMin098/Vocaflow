@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 ④ Lexicon Detective 사건 2→3 확장 — 「불타는 극장」 · authored 3종 확장 완결 (v06.232)
+- ④에 사건 3 추가: 극장 화재 재구성 — 8단서(actor·jealous·sabotage·ignite·flee·rescue + 함정 applause/curtain) → 6빈칸 서사(질투한 배우가 조명을 방해공작→합선 발화→관객 대피→구조). 게임 코드 무변경(동적 CASES).
+- **검증**: 3사건 완주(사건1·2·3)·done 3사건·100%·18단서·pageerror 0.
+- **authored 3종(④⑤⑥) 콘텐츠 확장 완결** — ④ 2→3사건 · ⑤ 2→3회랑 · ⑥ 3→6규칙. 각 end-to-end 검증.
+
 ### 아케이드 ⑤ Morpheme Rules 회랑 2→3 확장 — 「시간의 방」 (v06.231)
 - ⑤에 회랑 3 추가: 시제 형태소(pre 미리·re 다시·fore 앞서 × view·cast·tell) → preview/forecast/review 조립으로 장애물 발동(안개 낀 앞날·다가올 폭풍·흐릿한 기록). VALID +6단어(foretell/retell/recast 등은 실재하나 오적용 시 "통하지 않는다"). 게임 코드 무변경(동적 LEVELS).
 - **검증**: 3회랑 완주(3/3×3)·done 9단어·100%·3회랑·pageerror 0.
@@ -22,6 +27,11 @@
 - **dev 픽스**: `next.config.mjs` webpack — **Windows 한정 메모리 캐시**(`config.cache={type:'memory'}`). 원인: FS 캐시 `.next/cache/**/*.pack.gz` rename이 백신 파일락으로 간헐 ENOENT → vendor-chunks 손상 → 라우트 404/500·dev 서버 반복 사망(이번 세션 내내). 메모리 캐시로 pack.gz 쓰기 제거 → 근절. mac/linux는 FS 캐시 유지.
 - **검증 완결**: 안정화 후 ③②를 실 단어장(교육과정 고등)으로 **end-to-end 확인** — ③ Lexicon Hands 손패=실단어(fiction·celebrate·vocabulary…)+어원태그(fic), done 도달·0에러 · ② Word Customs 여권=실단어(device: 명사·장치·실 예문 "keeps her electronic device charged")+생성 위조, 18여행자 진행·0에러. 내장뱅크 미감지(✅).
 - **결론**: 아케이드 실 어휘 배선 **3종(① Glyph Tongue · ③ Lexicon Hands · ② Word Customs) 전부 end-to-end 검증 완료.** `?set=`/`?text=`로 학습자 실단어+실예문으로 플레이. authored ④⑤⑥은 콘텐츠 확장 영역.
+
+### CTP DCP 처방 도달성 수리 — 확대 콘텐츠 실제 활성화 (v06.229)
+- **버그**: prescribe_today practice 블록이 `c.stage_band = v_band`(정확 밴드 매칭)로 DCP 선정 → 카탈로그 매핑(v≤4→S1·v5-6→S2·argumentative→S3·v≥7→S4)과 맞물려 **S3 밴드가 argumentative 7편에 굶주리고, CSAT 핵심 v5-6·v6도서가 비활성 S2에 갇혀** v06.228 확대(+782)의 ~95%가 학습자 도달 불가였음. (소비 경로 = `/practice/dcp`·hub 처방 ④ 모두 prescribe_today 단일 출처 — 검증.)
+- **수리**: practice 블록만 `substring(stage_band)::int <= LEAST(v_num,4)`(누적 밴드) + `ORDER BY md5(id||current_date)`(일자-안정 로테이션 — 매일 다른 5·하루 내 고정)로 교체. VIEW 매핑·input 블록·활성 게이트 불변. 마이그레이션 `20260712190000_ctp_prescribe_today_dcp_band_cumulative`.
+- **효과(실측)**: 도달 가능 DCP — **S3 학습자 64→810 items(7→69 refs, 12.7×)**, S4 564→1374(12→81 refs). S3 시뮬레이션 = v6도서(Oz·Fables)+expository v5+argumentative 혼합. 난이도 정확 캘리브레이션은 완화되나 순서/삽입(글 논리 훈련)엔 무해.
 
 ### CTP DCP 확대 — 순서/삽입 연습 592→1374 items (아티클+도서 v6, v06.228)
 - **아티클 드라이버 신설** `scripts/generate-article-dcp.mts` — `dev-generate-items` 라우트(기본 register=argumentative·limit 20 → v5 7편에 정체)를 스탠드얼론 스크립트로 일반화. 동일 입력 게이트(설계 §T2: published·NOT display_only·license PD/CC·lexical_noise≤0.08)를 **전 register·무제한**으로 적용. dev 서버 비의존(service-role) → 재사용 자산. dry-run 기본 + `--apply`.

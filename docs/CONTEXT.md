@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `48f5ff4` feat(game): ⑤ Morpheme Rules 회랑 2→3 확장 — 「시간의 방」
 - `4addc23` feat(library): 도서 길이 필터 5버킷 세분화 + facet-adaptive
 - `9f908d0` feat(game): ⑥ The Silent Rule 철자 규칙 3→6 확장
 - `f68eb7b` fix(dev): Windows webpack 메모리 캐시 — .next pack.gz 손상·서버 사망 근절 + ③② 실단어 검증 완결
 - `f430fae` docs(changelog): 장르 분류 Part B DB 백필 적용 기록 (v06.223)
-- `2841d30` feat(ctp): DCP 도서 v6 확대 + floor 파라미터화 — 총 592→1374 items (v06.228)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260712190000_ctp_prescribe_today_dcp_band_cumulative.sql`
 - `20260712180000_lcp_book_word_set_label_v6_floor.sql`
 - `20260712180000_add_arcade_newconcept_module_ids.sql`
 - `20260712170000_vrl_phase2_runtime_functions_record.sql`
 - `20260712170000_insert_book_analysis_context_pos.sql`
-- `20260712165000_vrl_phase2_tables_columns_record.sql`
 <!-- /auto:recent-migrations -->
 
 ---
