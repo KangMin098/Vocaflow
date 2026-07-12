@@ -163,3 +163,14 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **누적 추출-평가 수리 ~18단어**: 책7(bid·tender·pardon·pin·rear·rage·whip)+아티클2(variation·span)+배치1~3 9 = 현대/협소 뜻만·대표 뜻 누락 패턴.
 - **yield 경향**: 배치별 4→4→1. **다양·성인 산문(철학·미국 vernacular)=고yield · 동화·시극=저yield**. 사전이 이미 잘 커버돼 diminishing returns. 인기순 seed 소진할수록 하락 예상.
 - **잔여**: SE seed ~1,423 → ~285 배치. 장르 다양성 위해 popularity_rank보다 genre 분산 pick 권장. 다중 세션 반복형 · 근본 사전 전체 이슈는 미발견(개별 다의어 per-word).
+
+## Phase 8b — 채굴 자동화 + 50권 run 후보 검토 (2026-07-13)
+> 사용자 지시 "자동화 스크립트화". 5권 배치 루프를 `scripts/lcp/dict-mine-batch.mjs`로 코드화 후 자동 50권 run 실행.
+- **자동화 스크립트**: `node scripts/lcp/dict-mine-batch.mjs --batches N --count 5`. 각 배치가 seed pick→INSERT→`reprocess-all-se --ids` spawnSync→`select_book_chapter_vocab` 집계→후보 누적(`data/mine-candidates.json`, word별 dedup·등장 도서수 합산)→도서 삭제·seed 마킹까지 무인 수행. **후보 수리(누락 sense 판정)만 LLM 수동** — 스크립트는 후보 수집 전용(자동 UPDATE 위험 회피).
+- **50권 자동 run 완료 → 2,903 후보 누적**. 등장 도서수 = 임팩트(여러 책에 공통 출현할수록 학습 가치 큼)로 정렬 후 **상위 220 육안 검토**.
+- **실 gap 16 수리**:
+  - 동사 누락(명사만 저장): drift(→표류하다/빠져들다)·quarrel(→다투다)·sin(→죄를 짓다)·bundle(→밀어 넣다)·retreat(→물러나다)·surge(→밀려들다)·shield(→보호하다)·spy(→염탐하다/발견하다)·thrust(→밀다/찌르다).
+  - 형용사/동사 등 대표 sense 누락: flush(→붉어지다 동사)·despair(→절망하다 동사)·thrill(→열광시키다 동사)·vain(→자만하는 형용사, 헛된만 저장)·blaze(→화염 명사)·divine(→**신성한 형용사**, 점치다 동사만 저장).
+  - **오분류 교정**: `ah` = abbreviation "암페어시(Ah)" → 실제 **interjection "아, 아아"**.
+- **핵심 관찰**: 220위 이하(등장<9권)는 대부분 **정확한 단의어**(arise·flee·roar·tremble·weep·cease…)라 gap 수율 급락 → **yield 포화**. 고빈도-교차출현 단어를 우선 소진하는 전략이 효율적임을 실증.
+- **재개**: baseline `data/mine-baseline-words.json`(현재 2,903 단어)와 다음 run 후보를 diff → **신규 단어만** 검토(재출현 common word는 이미 수리). 누적 mined ~65권·수리 ~34단어. 근본 사전 전체 이슈 여전히 미발견(전부 per-word).

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `78de8a4` feat(library): /library/scripts 출처 정보 제공 + 글 목록 fit 분류
 - `8ccf992` refactor(library): /library/scripts 진입면 간소화 — Progressive Disclosure
 - `74cc67e` feat(lcp): 도서 배치 채굴 자동화 — dict-mine-batch.mjs
 - `8eee24f` docs(vcb): 도서 배치 채굴 2·3 — 다의어 5건 + yield 경향 (v06.225)
 - `c267ffc` docs(vcb): 도서 5권씩 배치 채굴 루프 Phase 8 + 다의어 6건 (v06.225)
-- `6ba9359` feat(db): ⑧ Word Orrery module_id enum 마이그 적용 — 아케이드 14종 persistence 완성
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
