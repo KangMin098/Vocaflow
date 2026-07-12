@@ -59,6 +59,7 @@ const SESSION_META: Record<string, SessionMeta> = {
   '/play/morpheme-rules': { title: 'Morpheme Rules', emoji: '🧩', closeHref: '/arcade' },
   '/play/silent-rule': { title: 'The Silent Rule', emoji: '🔆', closeHref: '/arcade' },
   '/play/lexicon-estate': { title: 'Lexicon Estate', emoji: '🏛', closeHref: '/arcade' },
+  '/play/word-orrery': { title: 'The Word Orrery', emoji: '🪐', closeHref: '/arcade' },
 }
 
 const DEFAULT_META: SessionMeta = {

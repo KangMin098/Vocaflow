@@ -34,6 +34,7 @@ export type ScoreModule =
   | 'morpheme-rules'
   | 'silent-rule'
   | 'lexicon-estate'
+  | 'word-orrery'
 
 export interface GameScoreInput {
   module: ScoreModule

@@ -43,7 +43,7 @@ export function ArcadeEntryCard() {
           아케이드
         </span>
         <span className="mt-0.5 block truncate text-[12.5px]" style={{ color: 'rgba(246,232,224,.72)' }}>
-          12개 세계에서 단어를 놀이로 — 해독 · 추리 · 시너지
+          14개 세계에서 단어를 놀이로 — 해독 · 추리 · 탐사
         </span>
       </span>
       {/* CTA */}

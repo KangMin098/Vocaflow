@@ -76,7 +76,8 @@ export type ModuleId =
   | 'lexicon-detective' // L5 장면 수확·서사 재구성 (Golden Idol 계열)
   | 'morpheme-rules' // L4b 형태소 조립·규칙 재작성 (Baba Is You 계열)
   | 'silent-rule' // L4b 철자 규칙 귀납 (The Witness 계열)
-  | 'lexicon-estate'; // L5 의미장 인접 배치·드래프트 (Blue Prince 계열)
+  | 'lexicon-estate' // L5 의미장 인접 배치·드래프트 (Blue Prince 계열)
+  | 'word-orrery'; // L5 지식 게이트 탐사 (Outer Wilds 계열)
 
 /**
  * 사용자 단계 — §17.2 [2] 상태 축 — 사용자 상태

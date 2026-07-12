@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `693d62d` docs(vcb): 추출 개선 항목2·3·4 정밀 조사 + 다의어 5개 완성 (v06.225)
 - `0cc7334` test(ctp): DCP 도달성 헬스 체크 신설 (v06.232)
 - `d6d0894` fix(vcb,lcp): 추출 노이즈 제거 항목1 — word_register brand/abbreviation 제외 (v06.225)
 - `cf3662a` docs(ctp): DCP end-to-end 실증 + runtime-test S3 데모-레디 기록 (v06.232)
 - `35fb054` feat(db): ⑦ Lexicon Estate module_id enum 마이그 적용 — 아케이드 13종 persistence 완성
-- `e4652f4` docs(vcb): 사전 레벨별 필드 완비 감사 + 예문 전수 채움 Phase 5 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
