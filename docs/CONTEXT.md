@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `101935d` feat(hub): 아케이드 진입 카드 — /hub 배너 동선
 - `7ef6d77` feat(game): 무드게임 내장 콘텐츠 확장 — Connections 3→5퍼즐 · Daily Blitz 30→48뱅크
 - `9978396` docs(home): TodayPrescriptionCard 주석 정정 — 런처는 sm 36px(과장 "44px+" 제거)
 - `6c9a9a0` test(e2e): 학습 지도 레벨 밴드별 배너·추천 적응 E2E (실 로그인)
 - `18a6510` feat(game): ④ Lexicon Detective 사건 2→3 확장 — 「불타는 극장」
-- `e16ca72` fix(ctp): DCP 처방 도달성 수리 — 누적 밴드 + 일자 로테이션 (v06.229)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713090000_ctp_stage_catalog_band_recalibrate.sql`
 - `20260712190000_ctp_prescribe_today_dcp_band_cumulative.sql`
 - `20260712180000_lcp_book_word_set_label_v6_floor.sql`
 - `20260712180000_add_arcade_newconcept_module_ids.sql`
 - `20260712170000_vrl_phase2_runtime_functions_record.sql`
-- `20260712170000_insert_book_analysis_context_pos.sql`
 <!-- /auto:recent-migrations -->
 
 ---

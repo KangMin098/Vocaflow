@@ -12,9 +12,11 @@ CTP DCP(수능형 순서/삽입 연습). 테이블 `csat_dcp_items`(kind=book|ar
 
 **현황(2026-07-12, v06.228)**: TOTAL 1374 items / 81 refs / v3~v9. article 566(64편, v3-7), book 808(17편, v4-9). 확대 전 592.
 
-**소비 경로 = prescribe_today RPC 단일 출처**(`/practice/dcp`·hub 처방 ④ 모두 `fetchDcpPracticeItems`→prescribe_today). practice 블록은 **v_num≥3(S3+)에서만 active**. DCP 선정은 `csat_dcp_items JOIN csat_stage_catalog c ON c.id=ref_id AND c.kind`. **카탈로그(VIEW) 밴드 매핑**: 아티클 argumentative→S3·v≥7→S4·v≤4→S1·else(v5-6)→S2; 도서 v≥7→S4·v≤4→S1·else→S2. ⚠️ **도서/비-argumentative는 S3로 못 감** — S3는 argumentative 아티클 전용.
+**소비 경로 = prescribe_today RPC 단일 출처**(`/practice/dcp`·hub 처방 ④ 모두 `fetchDcpPracticeItems`→prescribe_today). practice 블록은 **v_num≥3(S3+)에서만 active**. DCP 선정은 `csat_dcp_items JOIN csat_stage_catalog c ON c.id=ref_id AND c.kind`. **학습자 stage** = `derive_learner_stage`(게이트 기반, coverage reqv=stage×2 → S_n≈v_level[(n-1)×2, n×2)). prescribe_today 는 `v_band='S'||LEAST(v_num,4)`.
 
-**v06.229 도달성 수리**: prescribe_today practice 선정을 정확매칭(`stage_band=v_band`)→**누적(`substring(stage_band)::int <= LEAST(v_num,4)`) + 일자 로테이션(`md5(id||current_date)`)**으로 교체. 정확매칭이 S3(argumentative 7편)를 굶기고 v5-6·v6도서를 비활성 S2에 사장하던 것 해소. 도달 DCP: S3 학습자 64→810 items(12.7×), S4 564→1374. VIEW 매핑·input 블록 불변(잔여: v5-6이 S2 매핑이라 여전히 "at-band"는 아님 — 근본 매핑 재보정은 미실행 옵션).
+**카탈로그(VIEW `csat_stage_catalog`) 밴드 매핑 — v06.232 재보정**: articles·books 일관 4버킷 monotonic — **v≤2→S1 · v3-4→S2 · v5-6→S3(CSAT 핵심·활성) · v7+→S4(killer band)**, NULL→S2. (구 매핑의 `argumentative→S3` 특례·S3 부재 문제 해소.) 라이브 분포: input 후보 S1:7·S2:50·S3:114·S4:12; at-band DCP S2:48·S3:762·S4:564.
+
+**v06.229 처방 도달성 수리**: prescribe_today **practice** 선정을 정확매칭→**누적(`substring(stage_band)::int <= LEAST(v_num,4)`) + 일자 로테이션(`md5(id||current_date)`)**으로 교체. 도달 DCP: S3 학습자 810·S4 1374. **input** 블록은 여전히 정확매칭(`stage_band=v_band`)+`v_level ASC`(at-band 읽기·i+1) — v06.232 재보정으로 각 밴드 populated이라 문제 없음. 현 사용자 3명 전원 S1(pre-launch) → practice 미노출, DCP는 provisioning 상태.
 
 **잔여 옵션**(미실행): v5/v2 도서(6권), narrative 아티클(문단 필터가 0 산출 — 대화체·단문), reference/travel 장르 순수화(expository/argumentative 한정 = 시험급 무모호성). DCP는 결정론·멱등·가역(DELETE by kind/ref)이라 재생성 안전.
 
