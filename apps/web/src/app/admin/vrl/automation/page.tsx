@@ -7,6 +7,7 @@
 // - 5 diagnostics 활용도
 
 import { createClient } from '@/lib/supabase/server'
+import { requireAdmin } from '@/lib/auth/require-admin'
 import { Activity, Calendar, CheckCircle2, XCircle } from 'lucide-react'
 
 export const metadata = {
@@ -73,6 +74,8 @@ interface ProfileLevelRow {
 }
 
 export default async function VrlAutomationPage() {
+  // 형제 VRL admin 페이지와 동일하게 RSC 가드 재검(3층 가드 규약) — 기존 누락(v06.219).
+  await requireAdmin('/admin/vrl/automation')
   const supabase = await createClient()
 
   const [cronJobs, cronRuns, snapshotsByReason, vlevelDist, diagnosticUse, trackDist, recentSnapshots, profileLevels] = await Promise.all([

@@ -371,7 +371,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                     </div>
                   </div>
                   <Link
-                    href={`/library/vocab#set-${set.slug}`}
+                    href={`/library/vocab#set-${set.set_id}`}
                     target="_blank"
                     className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
                     style={{

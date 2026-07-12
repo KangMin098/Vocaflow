@@ -89,7 +89,7 @@ export default async function VcbCollectionsPage() {
                   </div>
                 </div>
                 <Link
-                  href={`/library/vocab#set-${c.slug}`}
+                  href={`/library/vocab#set-${c.set_id}`}
                   target="_blank"
                   className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0"
                   style={{ borderColor: 'var(--bd)', color: 'var(--p)', background: 'var(--bg)' }}

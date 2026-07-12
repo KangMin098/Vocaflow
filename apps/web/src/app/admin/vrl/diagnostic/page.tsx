@@ -174,7 +174,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
         <ul className="space-y-1.5 font-body text-[12px] text-[var(--t2)]">
           <li>
             <strong>V-Level 진단</strong>: 12 Level × 3-5 시그니처 단어 (target_v_level
-            지정). 현 데이터 갭 — L0/L1/L2/L10/L11 미분류 (Round 4-5 분류 후 시드 권장).
+            지정). 분류는 V1~V11 100% 완료(V0=빈 밴드) — 진단 문항은 V1부터 시드.
           </li>
           <li>
             <strong>Track 진단</strong>: 6 tracks × 10 단어 (target_track_id +
@@ -184,7 +184,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
             <strong>Domain 진단</strong>: 8 domains × 5 단어 (target_domain_id).
           </li>
           <li>
-            결과 적용: <code className="font-mono text-[11px]">apply_diagnostic_result(p_diagnostic_id)</code>{' '}
+            결과 적용: <code className="font-mono text-[11px]">analyze_and_apply_diagnostic_result(p_result_id)</code>{' '}
             호출 시 user current_v_level 자동 갱신 + snapshot 자동 INSERT.
           </li>
         </ul>

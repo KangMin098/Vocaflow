@@ -722,7 +722,7 @@ export function DiagnosticClient() {
             {recommendations.map((rec) => (
               <button
                 key={rec.set_id}
-                onClick={() => router.push(`/library/vocab#set-${rec.slug}`)}
+                onClick={() => router.push(`/library/vocab#set-${rec.set_id}`)}
                 className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               >
                 <span className="text-[28px]" aria-hidden>

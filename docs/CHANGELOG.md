@@ -65,6 +65,15 @@
 - **검증**: 실플레이 하니스 — 3석실 정답 배치→봉인→"비문을 읽어냈다" 전부 통과, done 15룬·100%·3석실, 스크린샷(룬 비문·해독 후 가독), tsc 0·pageerror 0·console 0.
 - ⏳ DB `module_id` enum +glyph-tongue 마이그레이션 **대기**(미적용 시 audit/scores fire-and-forget 흡수, 게임 동작 무관 — 기존 6종과 동일 패턴).
 
+### VRL/VCB 파이프라인 종합 점검 + 5개선 (v06.219)
+- **점검**(2-agent 정찰 + DB 실측): VRL 4축 분류(shared_dictionary 45,496어) — v_level·meaning·cefr 100%. VCB seed→enrich→큐레이션→발행→학습자 전 구간 배선 확인(cast-2000 audit chain 온전).
+- **개선 5건**:
+  1. **추천/컬렉션 딥링크 죽은 앵커 (교차 버그)** — 추천 카드·진단결과·VCB 컬렉션/런이 `#set-{slug}`로 링크하나 학습자 카드는 `id="set-{UUID}"` → slug(≠uuid·NULL 다수)라 `:target` 하이라이트 전부 불발. **4곳 `#set-{set_id}`(UUID) 정합**(RecommendedSetsSection·DiagnosticClient·collections·runs).
+  2. **/admin/vrl/automation requireAdmin 누락** — 형제 VRL 페이지와 달리 RSC 가드 결손(3층 규약 위반) → `requireAdmin` 추가.
+  3. **vcb_publish_commit 스키마 드리프트** — 발행 전량 의존 RPC가 마이그 부재(proposal "미적용" 표기, DB엔 실존) → DB 덤프로 기록 마이그(재현·감사).
+  4. **admin 진단 페이지 stale 안내** — "L0/L1/L2 미분류"(실제 100% 완료) + `apply_diagnostic_result`(실제 `analyze_and_apply_diagnostic_result`) 정정.
+- **관찰(리포트 권고·미수정)**: shared_dictionary track/domain/skill 축 ~7,100어 NULL(후속 추가어 미분류) · **VRL/VCB Phase2 런타임 다수 함수·테이블이 마이그 이력 밖(DB-only)** — 재현 불가(대규모 기록 필요) · track auto-promote 미배선 · VCB 큐레이션 일괄에 비-enriched 혼입.
+
 ### LCP G1 book 추천 링크 수정 (v06.218)
 - book_iplus1 추천(`recommend_word_sets_for_user`)이 `/library/vocab#set-{slug}`로 링크되나 그 페이지가 library_book 제외+slug NULL이라 죽은 앵커였음 → `library_book` 카테고리는 **도서 브라우즈(`/library/books`, i+1 레일)로 라우팅**. (deep-link는 RPC에 book_id 노출 필요 — 후속.)
 

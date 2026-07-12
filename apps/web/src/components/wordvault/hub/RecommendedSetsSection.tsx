@@ -142,10 +142,11 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {recommendations.map((rec) => {
           const badge = TYPE_BADGE[rec.recommendation_type] ?? TYPE_BADGE.fallback
-          // library_book 세트는 /library/vocab 에서 제외(clutter)라 #set-{slug} 앵커가 죽어 있음(slug 도 NULL).
-          //   → 도서 브라우즈(i+1 레일)로 라우팅해 실제 도달 가능하게(v06.218). 그 외는 공용단어장 앵커.
+          // library_book 세트는 /library/vocab 에서 제외(clutter)라 앵커가 죽어 있음 → 도서 브라우즈로(v06.218).
+          //   그 외 공용단어장 앵커는 카드가 id="set-{UUID}" 로 렌더하므로 slug(≠uuid·NULL 다수) 대신
+          //   set_id(UUID)로 링크해야 :target 하이라이트가 매칭됨(v06.219 — 전 추천 딥링크 죽어있던 버그).
           const isBook = rec.category === 'library_book'
-          const href = isBook ? '/library/books' : `/library/vocab#set-${rec.slug}`
+          const href = isBook ? '/library/books' : `/library/vocab#set-${rec.set_id}`
           return (
             <Link
               key={rec.set_id}
