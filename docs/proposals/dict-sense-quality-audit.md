@@ -88,8 +88,14 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **검증 109/109**(전 sense v_level) · 발행 `shared_words` 동기화(불일치 0) · context_pos 재백필.
 - `pine`(소나무 v5)·`orderly`/`homeless`/`peripheral`(기본 형용사 저-V) 등도 B류 자동 제외 대상 확대.
 
-## 잔여(자동화)
-- 🟡선택 63(sense-선택 가능, 인벤토리엔 있음) + 저빈도(rank>8000)·기능어 후보 — 임팩트 낮음, 필요 시 후속 배치. `dump-pos-candidates` 로직으로 목록 재생성.
-- row `v_level`은 VRL 4축 산출물이라 불변 유지 — Phase 3는 sense별 v_level로 우회(문맥 매칭), NULL은 row 폴백.
-- 백필은 발행 도서/아티클 1회 실행 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).
-- **누적 사전 수리 149단어**(배치1 40 + 배치2 109 + 초기 17 일부 중복).
+## 배치 3 — 잔여 tail 5단어 + sweep 종결 판정 (2026-07-12 · 완료)
+- **재탐지(154 수리 후)**: 438후보(🔴누락 293·🟡선택 145). 🔴 441→293(수리분 탈락), 🟡 63→145 **증가**(sense 추가했으나 flat primary 미flip분이 🟡로 전환).
+- **핵심 판정 — 🟡 145는 대부분 이미 인벤토리 완성**: grave·damp·bound·faithful·comb·glare·hum·usher·overflow·haunt·plow 등은 배치1/2에서 양쪽 sense를 이미 보강. Phase 3가 `context_pos`로 sense-매칭하므로 **추출은 이미 정확**. flat primary는 대체로 합당한 학습자 기본값(grave→무덤·stem→줄기·damp→축축한)이라 noisy한 first_sentence 코퍼스로 flip하면 오히려 악화 위험 → **flat flip 미실시**.
+- **🔴 293 잔여 성격**: 명사화(the unconscious/eldest/infinite)·형용사-primary-정답(prior·temporal·jagged·brittle·oval)·participle 노이즈(trample/horrified)·기능어(lo)가 압도. 실 누락은 소수.
+- **배치3=실 누락 5단어**: brood(+명사"한배 새끼")·tug(+동사)·inevitable(명사→형용사 flip"불가피한")·dummy(+형용사)·unconscious(+명사"무의식"). shared_words 동기화.
+
+## 종결 요약
+- **고가치 후보(179) 전량 종결** + tail 5 = **누적 사전 수리 154단어**(초기 17 + 배치1 40 + 배치2 109 + 배치3 5, 일부 중복). 전 sense v_level 부여.
+- **남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리 (b) flat-primary가 정답 (c) 명사화/participle 노이즈** — 추가 배치 실익 낮음. 필요 시 `dump-pos-candidates` 로직으로 재생성.
+- row `v_level`은 VRL 4축 산출물이라 불변 — Phase 3는 sense별 v_level로 우회(문맥 매칭), NULL은 row 폴백.
+- 백필은 발행 도서/아티클 실행 완료 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).

@@ -12,11 +12,11 @@
 - **Phase 2**: `library_book/article_vocabularies.context_pos` 컬럼(마이그 `20260712160000`). 백필 `scripts/backfill-context-pos.mts`(winkNLP로 first_sentence 태깅, multi-POS 단어만; book 1,507·article 212). 파이프라인 forward-wiring: `extract-lemmas.ts`가 chapter 지배 POS 계산 → `ChapterWord.context_pos` → `insert_book_analysis` RPC(`20260712170000`) + article 직삽입 → **신규 도서 자동**.
 - **Phase 3**: `select_book_chapter_vocab`+`select_article_vocab`에 LATERAL JOIN(`20260712165000`) — `context_pos`로 `meanings_ko`에서 문맥 POS 일치 sense 선택 → **그 sense의 v_level로 V≥6 필터** + 그 sense gloss·pos 표시. NULL은 row 값 폴백(하위호환).
 
-**sense별 v_level 모델**: `meanings_ko` 각 sense에 `v_level` 필드 추가. 예 `sole=[{adj,유일한,v5},{noun,발바닥,v6},{noun,서대,v9}]`. 수리 누적 **57단어**(초기 17 + 배치1 40).
+**sense별 v_level 모델**: `meanings_ko` 각 sense에 `v_level` 필드 추가. 예 `sole=[{adj,유일한,v5},{noun,발바닥,v6},{noun,서대,v9}]`. 수리 누적 **154단어**(초기 17 + 배치1 40 + 배치2 109 + 배치3 tail 5).
 
 **검증**: creep(문맥 verb)→"기어가다" · sole(문맥 adj·v5)→Gibbon/Les Mis 추출 0건 · **idle(형용사 문맥)→추출 제외**(v5) · noble(형용사)→"고귀한"(v6) 정확(기본용법 오추출 근절 실증).
 
-**잔여 sweep 진행**: 탐지기(`audit-dict-pos-mismatch.mts` / scratchpad `dump-pos-candidates` 로직)로 POS 불일치 후보 자동생성. 코퍼스 확대 504건 → 고가치 179(content↔content·rank≤8000·비-ing). **배치1=40단어 완료**(누락 POS 추가·전 sense v_level·flat 정렬·shared_words 동기화·context_pos 재백필). **잔여 139+ 후속 배치**(동일 방식). row v_level은 VRL 산출물이라 불변(Phase 3가 sense v_level로 우회). 상세 `docs/proposals/dict-sense-quality-audit.md`.
+**잔여 sweep 종결(고가치 179 전량)**: 탐지기(`audit-dict-pos-mismatch.mts` / `dump-pos-candidates` 로직)로 후보 자동생성. 코퍼스 504건 → 고가치 179 → **배치1 40 + 배치2 109 + 배치3 tail 5 = 154단어**(누락 POS 추가·전 sense v_level·flat flip·형식 정규화·shared_words 동기화·context_pos 재백필). flat flip 예: breeze→"산들바람"·pine→"소나무"(v5)·vacuum→"진공"·crumble→"부서지다"·refrain→"삼가다"·inevitable→"불가피한". A류 오데이터: wan("WAN약어"→"창백한"). **종결 판정**: 남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리(grave·damp·bound 등) (b) flat-primary 정답 (c) 명사화/participle 노이즈(the unconscious·trample·lo·prior·temporal) — 추가 실익 낮음. row v_level은 VRL 산출물이라 불변(Phase 3가 sense v_level로 우회). 상세 `docs/proposals/dict-sense-quality-audit.md`.
 
 관련: [[book_vocab_ssot_unify]] [[project_extraction_pipeline_p1_p4]] [[project_book_dict_registration_process]]
 
