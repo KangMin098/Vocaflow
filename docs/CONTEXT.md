@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d1077a2` chore(vrl): Phase2 런타임 함수 스키마 드리프트 기록 12종 (v06.220)
 - `b5774a8` fix(game): 아케이드 허브 부제 스케일-무관화 (12종 반영)
 - `fd93973` feat(game): 아케이드 신개념 ⑥「The Silent Rule」— 철자 규칙 귀납 (Witness) · 도시에 6 신개념 완결
 - `c3638a9` fix(vrl,vcb): 파이프라인 점검 5개선 — 딥링크 앵커·가드·드리프트 (v06.219)
 - `274ea13` feat(game): 아케이드 신개념 ⑤「Morpheme Rules」— 형태소가 곧 의미 (Baba Is You 계열)
-- `c086a65` fix(lcp): G1 book i+1 추천 죽은링크 → 도서 브라우즈 라우팅 (v06.218)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
 - `20260712170000_vrl_phase2_runtime_functions_record.sql`
+- `20260712165000_vrl_phase2_tables_columns_record.sql`
 - `20260712160000_vcb_publish_commit_record.sql`
 - `20260712150000_lcp_book_difficulty_functions_record.sql`
 - `20260712140000_compute_book_difficulty_v24.sql`
-- `20260712120000_ctp_syntax_score_recalibrate.sql`
 <!-- /auto:recent-migrations -->
 
 ---

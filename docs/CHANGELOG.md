@@ -76,7 +76,7 @@
 ### VRL Phase2 런타임 함수 스키마 드리프트 기록 12종 (v06.220)
 - **최우선 재현성 복구**: 진단·프로필·자동상향 런타임 함수 **12종**이 committed 마이그레이션 부재(out-of-band)로 DB 재구축 시 DiagnosticClient/VLevelPromotionCheck/pg_cron RPC 전부 붕괴 위험이었음.
 - **정확 대조**: admin_vrl_*(6)·is_admin 은 마이그 존재(드리프트 아님) 확인. 실제 부재는 의존 closure **12함수** — `effective_confidence`·`calculate_next_review_due`·`update_user_v_level`·`analyze_diagnostic_result`·`analyze_track_diagnostic_result`·`apply_diagnostic_result`·`analyze_and_apply_{diagnostic,track,comprehensive}_result`·`auto_promote_{v_level,track_level}_for_user`·`cron_auto_promote_all_users`.
-- **기록**: 현 DB 정의를 pg_get_functiondef 로 덤프해 의존 순서 기록 마이그(동작 변경 0). ⚠️ 잔여(후속): 참조 테이블 `user_level_snapshots`·`vrl_data_integrity_concerns` CREATE + user_profiles `_meta`/`target_*`/`segment` 컬럼 ALTER + 진단 문항 시드도 마이그 부재.
+- **기록**: 현 DB 정의를 pg_get_functiondef 로 덤프해 의존 순서 기록 마이그(동작 변경 0). **참조 테이블·컬럼도 기록 완결** — `user_level_snapshots`(25컬럼·5FK·4CHECK·4인덱스)·`vrl_data_integrity_concerns` CREATE TABLE + user_profiles Phase2 컬럼(`current_v_level_meta`·`target_v_level_meta`·`learning_activity_score`·`next_level_review_due_at`·`segment`·`total_words_*`) ALTER, 전부 `IF NOT EXISTS`(멱등). ⚠️ 잔여: 진단 문항 시드 데이터 + user_level_snapshots own-data RLS 정책.
 
 ### VRL/VCB 파이프라인 종합 점검 + 5개선 (v06.219)
 - **점검**(2-agent 정찰 + DB 실측): VRL 4축 분류(shared_dictionary 45,496어) — v_level·meaning·cefr 100%. VCB seed→enrich→큐레이션→발행→학습자 전 구간 배선 확인(cast-2000 audit chain 온전).
