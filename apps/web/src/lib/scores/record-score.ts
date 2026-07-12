@@ -32,6 +32,7 @@ export type ScoreModule =
   | 'lexicon-hands'
   | 'lexicon-detective'
   | 'morpheme-rules'
+  | 'silent-rule'
 
 export interface GameScoreInput {
   module: ScoreModule

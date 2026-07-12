@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c3638a9` fix(vrl,vcb): 파이프라인 점검 5개선 — 딥링크 앵커·가드·드리프트 (v06.219)
 - `274ea13` feat(game): 아케이드 신개념 ⑤「Morpheme Rules」— 형태소가 곧 의미 (Baba Is You 계열)
 - `c086a65` fix(lcp): G1 book i+1 추천 죽은링크 → 도서 브라우즈 라우팅 (v06.218)
 - `fedc873` feat(ctp): DCP S4 드레인 동적화 — 발행 S4 전권 자동 (v06.217)
 - `781a8e1` feat(game): 아케이드 신개념 ④「Lexicon Detective」— 장면 수확·서사 재구성 (Golden Idol 계열)
-- `3ed2720` fix(lcp): 도서 파이프라인 종합 점검 6개선 (v06.215)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
