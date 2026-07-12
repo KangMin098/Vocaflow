@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `7121966` fix(vcb,lcp): 사전 sense/POS 오정렬 근본 수리 Phase 2·3 — 문맥-sense 매칭 추출 (v06.225)
 - `7b492c1` test(e2e): /library/scripts 학습 지도 재설계 회귀 스모크 추가
 - `d3ddf0d` feat(game): 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로
 - `2c7b415` feat(library): /library/scripts 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션
 - `2629954` feat(dict): Phase 1 sense별 v_level 모델 + 탐지기 V≥6 한정 (근본해결 착수)
-- `e17d1d4` feat(dict): POS 불일치 자동 탐지기 + 심화 근본원인 규명
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

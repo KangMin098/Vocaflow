@@ -19,7 +19,7 @@ export default function LexiconHandsPlayPage() {
         module="lexicon-hands"
         label="Lexicon Hands"
         minWords={0}
-        render={({ onCorrect, onWrong, onExit }) => <Game onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
+        render={({ wordPool, onCorrect, onWrong, onExit }) => <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
       />
     </Suspense>
   );

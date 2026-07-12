@@ -13,9 +13,9 @@ import {
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
 
-type Pos = 'v' | 'n' | 'adj';
+type Pos = 'v' | 'n' | 'adj' | 'adv';
 interface Card { id: number; en: string; ko: string; pos: Pos; domain?: string; root?: string; prefix?: string; }
-const POS_KO: Record<Pos, string> = { v: '동사', n: '명사', adj: '형용사' };
+const POS_KO: Record<Pos, string> = { v: '동사', n: '명사', adj: '형용사', adv: '부사' };
 
 // ── 속성 태그 덱 (어원·품사·도메인·접사) ──
 const DECK_SRC: Omit<Card, 'id'>[] = [
@@ -79,8 +79,55 @@ function analyze(sel: Card[]): HandResult {
   return { valid: true, label, chips, mult: Math.round(mult * 10) / 10, score, key };
 }
 
-export function LexiconHandsGame({ onExit, onCorrect, onWrong }: Props) {
+// ── 실 어휘 배선: 스코프 단어 → 속성 태그 덱. 품사(실데이터+형태론 휴리스틱)·어원·접두사 감지. ──
+const ROOTS = ['struct', 'spect', 'spec', 'port', 'dict', 'ject', 'tract', 'scrib', 'script', 'duct', 'duc', 'vis', 'vid', 'aud', 'graph', 'phon', 'form', 'miss', 'mit', 'vent', 'ven', 'fer', 'cred', 'mort', 'path', 'sens', 'sent', 'cess', 'ceed', 'cede', 'pos', 'pel', 'puls', 'rupt', 'flect', 'flex', 'tain', 'ten', 'fact', 'fect', 'fic'];
+const PREFIXES = ['inter', 'trans', 'super', 'under', 'over', 'anti', 'fore', 'counter', 'un', 're', 'dis', 'pre', 'in', 'im', 'ir', 'il', 'ex', 'com', 'con', 'col', 'cor', 'pro', 'de', 'sub', 'mis', 'ab', 'ad'];
+const posFromData = (raw?: string): Pos | undefined => {
+  const s = (raw || '').toLowerCase();
+  if (/adverb|부사/.test(s) || /\badv\b/.test(s)) return 'adv'; // 'adverb'는 'verb'를 포함 → 반드시 먼저
+  if (/adjective|형용사|\badj\b/.test(s)) return 'adj';
+  if (/verb|동사/.test(s)) return 'v';
+  if (/noun|명사/.test(s)) return 'n';
+  return undefined;
+};
+const posHeuristic = (w: string): Pos => {
+  if (/ly$/.test(w)) return 'adv';
+  if (/(ous|ful|ive|able|ible|al|ic|ish|less|ant|ent)$/.test(w)) return 'adj';
+  if (/(tion|sion|ment|ness|ity|ance|ence|ship|hood|ism)$/.test(w)) return 'n';
+  if (/(ize|ise|ate|ify|fy|en)$/.test(w)) return 'v';
+  return 'n';
+};
+const detectRoot = (w: string): string | undefined => {
+  let best: string | undefined;
+  for (const r of ROOTS) if (w.includes(r) && (!best || r.length > best.length)) best = r;
+  return best;
+};
+const detectPrefix = (w: string): string | undefined => {
+  let best: string | undefined;
+  for (const p of PREFIXES) if (w.startsWith(p) && w.length - p.length >= 3 && (!best || p.length > best.length)) best = p;
+  return best;
+};
+function buildDeckFromPool(pool?: Word[]): Omit<Card, 'id'>[] | null {
+  if (!pool || pool.length < 12) return null;
+  const seen = new Set<string>();
+  const deck: Omit<Card, 'id'>[] = [];
+  for (const w of pool) {
+    if (!w.en || !w.ko || seen.has(w.en)) continue;
+    const en = w.en.trim();
+    if (!/^[a-z][a-z-]{2,}$/i.test(en)) continue; // 단일 영단어만
+    const lw = en.toLowerCase();
+    seen.add(w.en);
+    const root = detectRoot(lw);
+    const prefix = detectPrefix(lw);
+    deck.push({ en, ko: w.ko, pos: posFromData(w.pos) ?? posHeuristic(lw), ...(root ? { root } : {}), ...(prefix ? { prefix } : {}) });
+    if (deck.length >= 40) break;
+  }
+  return deck.length >= 12 ? deck : null;
+}
+
+export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const sfx = useSfx();
+  const deckSrc = useMemo(() => buildDeckFromPool(wordPool) ?? DECK_SRC, [wordPool]);
   const idRef = useRef(0);
   const drawPile = useRef<Card[]>([]);
   const [hand, setHand] = useState<Card[]>([]);
@@ -99,8 +146,8 @@ export function LexiconHandsGame({ onExit, onCorrect, onWrong }: Props) {
   const mounted = useRef(true);
 
   const refill = useCallback(() => {
-    if (drawPile.current.length < HAND_SIZE) drawPile.current = shuffle(DECK_SRC.map((c) => ({ ...c, id: ++idRef.current })));
-  }, []);
+    if (drawPile.current.length < HAND_SIZE) drawPile.current = shuffle(deckSrc.map((c) => ({ ...c, id: ++idRef.current })));
+  }, [deckSrc]);
   const draw = useCallback((n: number): Card[] => {
     const out: Card[] = [];
     for (let i = 0; i < n; i++) { refill(); const c = drawPile.current.pop(); if (c) out.push(c); }
@@ -108,10 +155,10 @@ export function LexiconHandsGame({ onExit, onCorrect, onWrong }: Props) {
   }, [refill]);
 
   const startRound = useCallback((ri: number) => {
-    drawPile.current = shuffle(DECK_SRC.map((c) => ({ ...c, id: ++idRef.current })));
+    drawPile.current = shuffle(deckSrc.map((c) => ({ ...c, id: ++idRef.current })));
     setHand(draw(HAND_SIZE)); setSel([]);
     setRoundScore(0); setPlays(ROUNDS[ri].plays); setDiscards(ROUNDS[ri].discards);
-  }, [draw]);
+  }, [draw, deckSrc]);
 
   useEffect(() => { mounted.current = true; startRound(0); return () => { mounted.current = false; }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

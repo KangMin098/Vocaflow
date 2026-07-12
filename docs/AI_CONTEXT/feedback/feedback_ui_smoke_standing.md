@@ -18,5 +18,9 @@
 - **핵심 루프 3종 완성 (v06.166~171)**: `05-learner-loop.spec.ts` — 게임 완주×2(ScriptQuiz·Flashcard) + 진단→개인화 진입. 진단(v06.171): `/diagnostic`→"진단 시작"→~40문항 "알아요" 이진→`countDiagnosticSnapshotsSince`(user_level_snapshots taken_reason='diagnostic'). storageState beforeAll 1회 로그인 재사용(3중 로그인 rate-limit·하이드레이션 빈필드 플레이크 해소, loginRuntimeUser fill 값 확정 재시도 필수). 게임/진단 계정 상태 변화(due 소모·V-Level 갱신)는 각 테스트가 리셋/재기록으로 반복가능화.
 - **학습 루프 회귀 (v06.166 `c31e7a1`)**: `05-learner-loop.spec.ts` — 게임 완주→DB 영속화를 service-role 단언(`tests/e2e/utils/db.ts`, apps/web/.env.local 직접 로드). ScriptQuiz 직행(`/scriptquiz/play?book=…&ch=1` Drone Ch1 4문항)→키보드 '1'×4→`countScoresSince(module='scriptquiz')`. 교훈: 4지선다=plain button(role≠radio)·OX만 radio → 완주는 키보드 '1'(window 리스너·포커스 비의존)이 안정 · 시작 게이트는 하이드레이션 전 클릭 무시(문항 배지 전이 확인 후 재클릭) · 스모크 8화면은 dev first-compile 누적으로 setTimeout 120s 필요. 새 게임 영속화 검증 시 이 패턴 재사용.
 
-관련: [[project-echo-match-module]] [[project-learner-management-p0-p3]]
+- **아케이드 게임 전수 스모크 (2026-07-12)**: `07-arcade-games.spec.ts` — 14개 `/play/*`(12 아케이드+wordblitz+pirate-quest) 마운트+첫입력반응+콘솔0, 허브 12카드. 게임별 결정론적 준비마커·상호작용 하드코딩(gt-chip·mr-block→슬롯·db-tile→gk-tile--correct·wordblitz key '1'·cascade gridcell·word-customs 승인→다음여행자 등), pirate-quest는 3D 캔버스라 렌더만. 단일 클린 서버서 **15/15 pass**. `scores.module_id` enum에 신규 12종 전부 존재(영속화 유효).
+- ⚠️ **멀티 dev 서버 오염의 함정(2026-07-12 실측)**: `next dev` 2개 공유 `.next` 오염은 **특정 lazy 청크만** 로딩 폴백에서 정지시켜 "그 게임만 마운트 실패"처럼 보임(glyph-tongue 오진 사례) — 렌더 크래시(에러 바운더리)와 구분됨. 진짜 코드버그와 감별: tsc 통과 + 페이지 셸은 뜨는데 dynamic import 폴백에서 멈춤 = 오염. 복구=전 dev 종료→`.next` 삭제→1개 재기동.
+- ⚠️ **playwright는 반드시 `CI=1` 로 단독 실행**: 아니면 config의 managed webServer가 (readiness probe가 `/` 404를 보고) 별도 `pnpm dev` 를 **재spawn → 두번째 경쟁 서버가 `.next` 재오염**. `CI=1` 이면 webServer undefined(config)라 기존 :3000 만 사용 + 재시도 2회. 콜드 `.next` 첫 브라우저 히트는 클라이언트 청크 404(하이드레이션 실패)라 로그인·ready 에 reload-retry 필수(07 스펙에 내장).
+
+관련: [[project-echo-match-module]] [[project-learner-management-p0-p3]] [[project-a3-game-real-data-sweep]]
 

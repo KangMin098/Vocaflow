@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 실 어휘 배선 ③ — Lexicon Hands가 학습자 단어 속성 덱으로 (v06.226)
+- **배선**: `buildDeckFromPool` — 스코프 단어 → 속성 태그 덱. **품사**(스캐폴드 실데이터 우선 + 형태론 휴리스틱 폴백: -ly→부사·-tion→명사 등) + **어원**(라틴/그리스 어근 41종 substring 감지: spect/port/dict/struct…) + **접두사**(27종 감지) 자동 태깅. 세션당 최대 40장, 12장 미만이면 내장 덱 폴백.
+- **버그 수정 2건**: (1) lexicon-hands page가 `wordPool` 미전달(항상 폴백) → render에 추가. (2) `posFromData`에서 'ad**verb**'가 `/verb/`에 매칭돼 부사→동사 오분류 → 부사 검사 우선순위로 수정.
+- **검증**: **독립 로직 테스트 PASS**(실단어 15장 덱 생성·전 카드 품사·어원 시너지 그룹 존재 spect[inspect/respect/suspect]·port[transport/export]·휴리스틱 품사 정확) + posFromData 7케이스 매핑 검증 + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ **런타임 end-to-end 렌더는 dev 서버 불안정(디스크 98% → .next 반복 손상·프로세스 사망)으로 보류** — 로컬 디스크 확보 후 `?set=<테마 세트>` 플레이로 확인 권장.
+- 도메인 태그는 데이터 sparse/과광범위로 미사용(품사+어원+접두사 3축). authored 게임(④⑤⑥)은 배선보다 콘텐츠 확장이 적합.
+
 ### 사전 sense/POS 오정렬 근본 수리 Phase 2·3 — 문맥-sense 매칭 추출 (v06.225)
 - **근본**: 큐레이션 단어추출에서 `creep="변태"` 등 문맥과 다른 뜻 노출 → 원인=`shared_dictionary` 단일-행 + v_level=최난이도 sense. 다의어의 기본 sense(저-V) 용법을 텍스트가 써도 행 v_level(고-V sense)이 V≥6 필터 통과 → 고급 gloss로 오추출(B류).
 - **Phase 2 문맥 POS 저장**: `library_book/article_vocabularies` `context_pos` 컬럼(마이그 `20260712160000`) + winkNLP 백필(`backfill-context-pos.mts`, book 1,507·article 212) + 파이프라인 forward-wiring(`extract-lemmas` 지배 POS → ChapterWord → `insert_book_analysis` RPC `20260712170000` + article 직삽입) → 신규 도서 자동.
