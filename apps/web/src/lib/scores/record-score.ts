@@ -33,6 +33,7 @@ export type ScoreModule =
   | 'lexicon-detective'
   | 'morpheme-rules'
   | 'silent-rule'
+  | 'lexicon-estate'
 
 export interface GameScoreInput {
   module: ScoreModule

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e71780d` fix(ctp): 스테이지 카탈로그 밴드 매핑 근본 재보정 (v06.232)
 - `101935d` feat(hub): 아케이드 진입 카드 — /hub 배너 동선
 - `7ef6d77` feat(game): 무드게임 내장 콘텐츠 확장 — Connections 3→5퍼즐 · Daily Blitz 30→48뱅크
 - `9978396` docs(home): TodayPrescriptionCard 주석 정정 — 런처는 sm 36px(과장 "44px+" 제거)
 - `6c9a9a0` test(e2e): 학습 지도 레벨 밴드별 배너·추천 적응 E2E (실 로그인)
-- `18a6510` feat(game): ④ Lexicon Detective 사건 2→3 확장 — 「불타는 극장」
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
