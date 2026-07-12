@@ -55,3 +55,10 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 4. **A류 재-enrichment**: 위와 별도로 primary 오선정(creep류)은 배치 Claude 재검수(`dict-enrich`).
 
 이로써 **기본 용법 오추출·오gloss(B) + 다의어 primary 오류(A)** 모두 근절 → 사전 최고 품질. 단 (1)(2)(3)은 스키마+추출+파이프라인 변경이라 단계적 구현 필요.
+
+## Phase 1 진행 — sense별 v_level 모델 (2026-07-12)
+- **탐지기 V≥6 한정 재측정**: 실 study word POS 불일치 **488건**(비-study 기본어 제외 804→488).
+- **모델 확립**: `meanings_ko` 각 sense에 `v_level` 필드. 예: `swallow=[{verb,"삼키다",v_level:4},{noun,"제비",v_level:6}]` · `sole=[{adj,"유일한",v_level:5},{noun,"발바닥",v_level:6},{noun,"서대",v_level:9}]`.
+- **적용(누적 17단어)**: creep·nettle·founder·spiritual·bay·steam(A류 primary) + shed·sacrifice·grip·echo·faint(누락보강) + **swallow·swift·crush·spoil·sole·stern(sense v_level 모델)**. 발행 세트 ~220 appearance 교정.
+- **잔여 sweep**: 488 study-word 후보 배치 Claude 재검수(`dict-enrich`) — 각 다의어 (a) 흔한 sense primary화 (b) sense별 v_level 부여 (c) 누락 sense 보강. 탐지기 `audit-dict-pos-mismatch.mts`가 후보 자동 생성.
+- **후속 Phase**: (2) 문맥 POS 저장 (3) 문맥-sense 매칭 추출(sense v_level로 V≥6 필터) — B류 근절.

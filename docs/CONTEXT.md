@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e17d1d4` feat(dict): POS 불일치 자동 탐지기 + 심화 근본원인 규명
 - `2f10854` fix(lcp): 도서 단어장 라벨 드리프트 (V{bvl}+)→(V6+) (v06.221)
 - `dfa9a7c` docs(dict): sense/POS 품질 감사 — 다의어 primary 오선정 11건 수리 (v06.216)
 - `63d3de8` chore(vrl): snapshots own-data RLS 정책 기록 — Phase2 드리프트 closure 완결
 - `16b1e3e` feat(db): 아케이드 신개념 6종 module_id enum 마이그 적용 — persistence 활성
-- `6548b67` chore(vrl): Phase2 테이블·컬럼 스키마 드리프트 기록 (v06.220 완결)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -88,7 +88,7 @@ const words = [...posByWord.keys()]
 const dictMap = new Map<string, any>()
 for (let i = 0; i < words.length; i += 500) {
   const { data: dict } = await sb.from('shared_dictionary')
-    .select('word, pos, meaning_ko, meanings_ko, frequency_rank')
+    .select('word, pos, meaning_ko, meanings_ko, frequency_rank, v_level')
     .in('word', words.slice(i, i + 500))
   for (const d of dict ?? []) dictMap.set((d as any).word, d)
 }
@@ -103,8 +103,8 @@ for (const [word, posCounts] of posByWord) {
   const sorted = [...posCounts.entries()].sort((a, b) => b[1] - a[1])
   const [domPos, domN] = sorted[0]
   const conf = domN / total
-  // 지배 POS ≠ 저장 primary POS + 확신 높음 → 후보
-  if (domPos !== d.pos && conf >= 0.7) {
+  // 지배 POS ≠ 저장 primary POS + 확신 높음 + V≥6(실 study word) → 후보
+  if (domPos !== d.pos && conf >= 0.7 && (d.v_level ?? 0) >= 6) {
     // 지배 POS 가 meanings_ko 인벤토리에 있나 (있으면 sense-선택 문제, 없으면 sense-누락)
     const invPos = new Set((d.meanings_ko ?? []).map((s: any) => s.pos))
     flagged.push({ word, stored: d.pos, corpus: domPos, conf: +conf.toFixed(2), n: total, gloss: d.meaning_ko, missing: !invPos.has(domPos), rank: d.frequency_rank })
