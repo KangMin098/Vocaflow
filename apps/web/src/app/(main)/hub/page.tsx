@@ -18,6 +18,7 @@
 //   - Flow State 진입 보조 · SDT 자율성 · Calm UI
 
 import { Screen } from '@/components/ui/ios'
+import { ArcadeEntryCard } from '@/components/home/ArcadeEntryCard'
 import { ContinueCard } from '@/components/home/ContinueCard'
 import { HubHero } from '@/components/home/HubHero'
 import { ModuleGrid } from '@/components/home/ModuleGrid'
@@ -74,6 +75,12 @@ export default async function HubPage() {
         <section aria-label="학습 모듈">
           <h2 className="sr-only">학습 모듈</h2>
           <ModuleGrid />
+        </section>
+
+        {/* ④-b 아케이드 진입 — 단어 게임 12종 */}
+        <section aria-label="아케이드">
+          <h2 className="sr-only">아케이드</h2>
+          <ArcadeEntryCard />
         </section>
 
         {/* ⑤ Recommended Sets — V-Level + Track + Interest 기반 추천 */}
