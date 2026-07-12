@@ -21,6 +21,8 @@ const VALID: Record<string, string> = {
   unlock: '열다', rebuild: '재건하다', enlarge: '확대하다',
   disappear: '사라지다', uncover: '드러내다', overload: '과부하시키다',
   unload: '짐을 내리다', discover: '발견하다',
+  preview: '미리 보다', review: '재검토하다', forecast: '예보하다',
+  foretell: '예언하다', retell: '다시 말하다', recast: '다시 정하다',
 };
 
 const LEVELS: Level[] = [
@@ -42,6 +44,16 @@ const LEVELS: Level[] = [
       { id: 'p1', icon: '🧱', need: '단단한 벽 — 없애 버려라', word: 'disappear', done: '💨', effect: '벽이 사라졌다' },
       { id: 'p2', icon: '⚙️', need: '과열된 장치가 길을 막음 — 과부하로 멈춰라', word: 'overload', done: '🛑', effect: '장치가 정지했다' },
       { id: 'p3', icon: '📦', need: '무거운 짐 — 내려놓아라', word: 'unload', done: '🫙', effect: '짐을 내렸다' },
+    ],
+  },
+  {
+    title: '시간의 방', sub: '앞과 뒤 — 시제의 형태소로 시간을 다뤄라.',
+    prefixes: [{ text: 'pre', ko: '미리' }, { text: 're', ko: '다시' }, { text: 'fore', ko: '앞서' }],
+    roots: [{ text: 'view', ko: '보다' }, { text: 'cast', ko: '던지다·예측' }, { text: 'tell', ko: '말하다' }],
+    obstacles: [
+      { id: 'q1', icon: '⏳', need: '안개에 가린 앞날 — 미리 보라', word: 'preview', done: '🔮', effect: '앞날이 보인다' },
+      { id: 'q2', icon: '🌩', need: '다가올 폭풍 — 예보하라', word: 'forecast', done: '☀️', effect: '폭풍을 예보했다' },
+      { id: 'q3', icon: '📜', need: '흐릿한 기록 — 다시 검토하라', word: 'review', done: '📖', effect: '기록을 재검토했다' },
     ],
   },
 ];
