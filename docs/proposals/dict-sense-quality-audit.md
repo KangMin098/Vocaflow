@@ -174,3 +174,11 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
   - **오분류 교정**: `ah` = abbreviation "암페어시(Ah)" → 실제 **interjection "아, 아아"**.
 - **핵심 관찰**: 220위 이하(등장<9권)는 대부분 **정확한 단의어**(arise·flee·roar·tremble·weep·cease…)라 gap 수율 급락 → **yield 포화**. 고빈도-교차출현 단어를 우선 소진하는 전략이 효율적임을 실증.
 - **재개**: baseline `data/mine-baseline-words.json`(현재 2,903 단어)와 다음 run 후보를 diff → **신규 단어만** 검토(재출현 common word는 이미 수리). 누적 mined ~65권·수리 ~34단어. 근본 사전 전체 이슈 여전히 미발견(전부 per-word).
+
+## Phase 8c — 100권 채굴 완료 · yield 포화 확정 (2026-07-13)
+> run2(+50권=누적 100권) 실행 후 baseline diff로 신규 단어만 검토.
+- **run2 결과**: +430 신규 단어, **전부 등장 ≤4권**(희귀·파생·전문어). 실 gap **2건만**(articulate→형용사 "분명한/조리 있는" 누락·lapse→동사 "빠지다/경과하다" 누락, 등장 2-3권 저임팩트) 수리.
+- **yield 곡선 = 포화 확정**: run1 16 gap/50권(0.32/book) → run2 2 gap/50권(**0.04/book**), **8배 급락**. run2 신규가 전부 저빈도(≤4권)인 것은 **고빈도 다의어를 run1에서 전량 포착**했다는 직접 증거. 여러 책에 공통 출현하는 학습-핵심 단어의 gap은 소진됨.
+- **결론**: **도서 채굴로 발견 가능한 고가치 다의어 gap 사실상 소진**. 남은 ~1,320 SE seed는 이미 정확한 롱테일 희귀어 위주(권당 fetch+winkNLP ~30초 비용 대비 실익 미미). 근본 사전 전체 이슈는 100권 전 구간에서 미발견(전부 per-word 다의어). 자동화 스크립트는 상시 재사용 가능(향후 신규 소스 유입 시 재실행).
+- **스크립트 버그 수정**: 최종 write가 정렬 배열이라 다음 run 재로드 시 array를 object로 오인 → `candidates[word]` 실패로 중복 엔트리 생성(ought×2 등). load/final-write 양쪽을 word-키 dedup·books 합산으로 정규화. 손상된 기존 JSON도 dedup 복구.
+- **누적 성과(전 Phase 통합)**: sense/POS 정규화 ~9,800단어 + sense-매칭 추출(Phase 2/3) + 예문 전 레벨 100% + word_register 노이즈 제외 + 다의어 gap 수리 ~36단어(115권 채굴 기반). 사전은 학습-핵심 어휘에서 구조·sense·필드 모두 고품질 상태.

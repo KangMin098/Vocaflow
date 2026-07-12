@@ -47,10 +47,19 @@ if (!url || !key) {
 }
 const db = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
 
-// 누적 후보 로드
+// 누적 후보 로드 — 최종 write가 정렬 배열이라 array/object 양쪽 정규화(word 키 dedup·books 합산)
 let candidates = {}
 if (fs.existsSync(OUT)) {
-  try { candidates = JSON.parse(fs.readFileSync(OUT, 'utf8')) } catch { candidates = {} }
+  try {
+    const raw = JSON.parse(fs.readFileSync(OUT, 'utf8'))
+    const list = Array.isArray(raw) ? raw : Object.values(raw)
+    for (const c of list) {
+      if (!c || !c.word) continue
+      const e = candidates[c.word]
+      if (e) e.books += c.books ?? 0
+      else candidates[c.word] = { word: c.word, pos: c.pos, gloss: c.gloss, rank: c.rank, books: c.books ?? 0 }
+    }
+  } catch { candidates = {} }
 }
 
 async function pickAndInsert(n) {
@@ -147,8 +156,8 @@ for (let bi = 0; bi < BATCHES; bi++) {
   fs.writeFileSync(OUT, JSON.stringify(candidates, null, 2))
   console.log(`  candidates so far: ${Object.keys(candidates).length} (cleaned up ${books.length} books)`)
 }
-// 최종: 등장 도서수 순 정렬 출력
+// 최종: 정규 객체(word 키) 저장 — 다음 run 재로드 안전. 정렬은 콘솔 표시용만.
+fs.writeFileSync(OUT, JSON.stringify(candidates, null, 2))
 const sorted = Object.values(candidates).sort((a, b) => b.books - a.books)
-fs.writeFileSync(OUT, JSON.stringify(sorted, null, 2))
 console.log(`\n[dict-mine] done. ${sorted.length} candidate words → ${OUT}`)
 console.log('Top 20:', sorted.slice(0, 20).map((c) => `${c.word}(${c.books})`).join(', '))
