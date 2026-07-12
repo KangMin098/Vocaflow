@@ -65,7 +65,7 @@ export default function ArcadePage() {
         <header className="arc-head">
           <p className="arc-eyebrow">Arcade · 단어 게임</p>
           <h1 className="arc-title">아케이드</h1>
-          <p className="arc-sub">여섯 개의 세계. 각자의 방식으로 인출·자동화·의미 연결을 연습하세요.</p>
+          <p className="arc-sub">저마다 다른 세계. 각자의 방식으로 인출·추론·의미 연결을 연습하세요.</p>
         </header>
 
         <div className="arc-grid">
