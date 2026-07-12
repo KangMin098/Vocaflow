@@ -136,3 +136,11 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **추출 제외**: `select_book_chapter_vocab`+`select_article_vocab` WHERE `word_register NOT IN (…, 'brand','abbreviation','proper_noun')`(마이그 `20260713100500`).
 - **검증**: 3개 도서 추출 정상(2393/585/5 rows) · brand/abbreviation 노이즈 **0**. RegisterBadge는 새 값 graceful 미표시(Calm UI 유지).
 - **잔여**: 발행 세트의 노이즈 23개는 재발행 시 자동 제거([[발행 세트 재발행 보류]]). 고유명사 분류는 후속.
+
+## 항목2·3·4 정밀 조사 — raw 숫자 대비 실 범위 축소 (2026-07-13)
+> "다음"으로 항목2 착수 전 검증 → 대부분 과장으로 판명. 정직한 재평가.
+- **항목2(freq_rank NULL) = 대체로 false alarm**: NULL-rank study 단어 5,823 중 **80%(4,684)가 C1-C2**(진짜 희귀 → 0.40=0점 정당). `ngsl_sfi`·`frequency_sources` 백필 소스 **0**(어떤 코퍼스에도 없음 = 진짜 희귀 확증). 실 부당분(basic A1-B1)은 **194개뿐**. → **구현 불필요**.
+- **v_level↔cefr 정합 건전**: A1-A2 중 V≥6 = **0**(기초어 과대분류 없음). B2 대부분 V6-9, C1/C2 대부분 V6+. 추출 난이도 게이트 sound.
+- **항목3(커버리지 갭 19.5%) = 대부분 노이즈**: 미등록 4,669는 OCR/방언 오류(willin·tonque)·고유명사·희귀가 압도(정당한 미매칭). 실 가치는 **상류 OCR/토큰화 정리**(파이프라인, 사전 아님).
+- **항목4(다의어 완성도) 실 범위 ~200(≠3,027)**: rank≤2500 표본 90개 중 실 누락 다의어 **~7%**(binding=제본·conservative=보수주의자·resolve=결의·revolution=회전/공전·contemporary=동시대인). 나머지는 정당한 단의어(revenue·aircraft·philosophy). **5개 완성**(2 sense화). 잔여 sweep은 낮은 hit율이라 저우선.
+- **가장 큰 잔여 노이즈 레버 = proper_noun 분류**: 지명·행성·종교·언어·인명(africa·neptune·christianity·melbourne)이 `standard`/`modern_advanced`로 추출 가능. register 값(`proper_noun`)은 준비됨, LLM 분류 패스 필요.
