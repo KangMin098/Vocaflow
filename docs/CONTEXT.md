@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e4652f4` docs(vcb): 사전 레벨별 필드 완비 감사 + 예문 전수 채움 Phase 5 (v06.225)
 - `a76d68a` feat(game): 도시에 2차 웨이브 ⑦「Lexicon Estate」— 의미장 인접 배치 (Blue Prince 계열)
 - `e71780d` fix(ctp): 스테이지 카탈로그 밴드 매핑 근본 재보정 (v06.232)
 - `101935d` feat(hub): 아케이드 진입 카드 — /hub 배너 동선
 - `7ef6d77` feat(game): 무드게임 내장 콘텐츠 확장 — Connections 3→5퍼즐 · Daily Blitz 30→48뱅크
-- `9978396` docs(home): TodayPrescriptionCard 주석 정정 — 런처는 sm 36px(과장 "44px+" 제거)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713100000_add_lexicon_estate_module_id.sql`
 - `20260713090000_ctp_stage_catalog_band_recalibrate.sql`
 - `20260712190000_ctp_prescribe_today_dcp_band_cumulative.sql`
 - `20260712180000_lcp_book_word_set_label_v6_floor.sql`
 - `20260712180000_add_arcade_newconcept_module_ids.sql`
-- `20260712170000_vrl_phase2_runtime_functions_record.sql`
 <!-- /auto:recent-migrations -->
 
 ---

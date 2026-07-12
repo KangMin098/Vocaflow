@@ -10,6 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
+### ⑦ Lexicon Estate module_id enum 마이그 적용 — 아케이드 13종 persistence 완성 (v06.236)
+- DB 마이그 `add_lexicon_estate_module_id` **적용 완료**(2026-07-13) — `module_id` enum +`lexicon-estate`. 순수 additive(IF NOT EXISTS). DB 검증: enum 존재 확인. 로컬 미러 `supabase/migrations/20260713100000_*.sql`.
+- 효과: 아케이드 **13종 전부** FSRS learning_records·scores persistence 활성(무드 6 + 신개념 7).
+
 ### 아케이드 도시에 2차 웨이브 ⑦「Lexicon Estate」 — 의미장 인접 배치 (Blue Prince 계열) (v06.235)
 - **메커니즘(독창)**: 청사진 저택 3×3에 단어-방을 **드래프트(3장 중 택1)**해 배치. **인접(상하좌우) 방이 같은 의미장이면 '복도'로 연결**(점수·글로우). 같은 의미장끼리 뭉치도록 배치 최적화 = 어휘의 **연상 웹(의미 네트워크)** 감각. 4 의미장(감정/자연/신체/금융)×6단어.
 - **학습**: 단어의 의미장(semantic field)을 인식하고 공간적으로 군집화 — 어휘 depth의 핵심인 연상 관계 훈련. Blue Prince의 드래프트+도면+인접 시너지를 차용.
