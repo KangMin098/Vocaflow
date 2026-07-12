@@ -15,7 +15,15 @@ import {
   type ReactNode,
 } from 'react';
 
-export type Word = { en: string; ko: string; pron?: string };
+export type Word = {
+  en: string;
+  ko: string;
+  pron?: string;
+  /** 실 어휘 배선용 — 예문(문맥)·품사·굴절형. 스코프 단어에서 스캐폴드가 전달. */
+  example?: string;
+  pos?: string;
+  inflected?: string[];
+};
 
 // 신규 아케이드 게임 6종 id — ModuleId ∩ ScoreModule (양쪽에 대입 가능).
 export type ArcadeGameId =

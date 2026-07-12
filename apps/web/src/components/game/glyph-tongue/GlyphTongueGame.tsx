@@ -14,7 +14,7 @@ import {
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
 
 // ── 석실 뱅크: 각 룬(단어)은 뜻 미제공, 2개의 영어 비문 문맥으로만 추론. {}=룬 자리 ──
-interface GWord { en: string; ko: string; ins: [string, string]; }
+interface GWord { en: string; ko: string; ins: string[] }
 const CHAMBERS: GWord[][] = [
   [
     { en: 'reluctant', ko: '마지못한·꺼리는', ins: ['The boy was {} to leave his warm bed.', 'She gave a {} nod, still unsure of the plan.'] },
@@ -74,10 +74,39 @@ const Rune = memo(function Rune({ word, className }: { word: string; className?:
   );
 });
 
-export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
+// ── 실 어휘 배선: 학습자 스코프 단어(예문 포함) → 석실. 예문에서 단어/굴절형을 찾아 룬으로 블랭크.
+const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function buildChambersFromPool(pool?: Word[]): GWord[][] | null {
+  if (!pool || pool.length < 4) return null;
+  const usable: GWord[] = [];
+  const seen = new Set<string>();
+  for (const w of pool) {
+    if (!w.en || !w.ko || !w.example || seen.has(w.en)) continue;
+    const forms = [w.en, ...(w.inflected ?? [])].filter((f) => f && f.length >= 2);
+    let ins: string | null = null;
+    for (const f of forms) {
+      const re = new RegExp(`\\b${escapeReg(f)}\\b`, 'i');
+      if (re.test(w.example)) { ins = w.example.replace(re, '{}'); break; }
+    }
+    if (!ins) continue; // 예문에 단어가 없으면(블랭크 불가) 제외
+    seen.add(w.en);
+    usable.push({ en: w.en, ko: w.ko, ins: [ins] });
+  }
+  if (usable.length < 4) return null;
+  const shuffled = shuffle(usable).slice(0, 20); // 세션당 상한(최대 4석실) — 큰 세트도 한 세션 분량만
+  const chambers: GWord[][] = [];
+  for (let i = 0; i < shuffled.length; i += 5) {
+    const chunk = shuffled.slice(i, i + 5);
+    if (chunk.length >= 3) chambers.push(chunk); // 마지막 석실은 최소 3
+  }
+  return chambers.length ? chambers : null;
+}
+
+export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const sfx = useSfx();
+  const chambers = useMemo(() => buildChambersFromPool(wordPool) ?? CHAMBERS, [wordPool]);
   const [chamberIdx, setChamberIdx] = useState(0);
-  const words = CHAMBERS[chamberIdx];
+  const words = chambers[chamberIdx];
 
   const [assign, setAssign] = useState<Record<string, string>>({}); // en -> ko(가설)
   const [held, setHeld] = useState<string | null>(null);            // 손에 든 뜻(ko)
@@ -135,7 +164,7 @@ export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
 
   const seal = useCallback(() => {
     if (cleared) { // 다음 석실 / 완성
-      if (chamberIdx + 1 < CHAMBERS.length) {
+      if (chamberIdx + 1 < chambers.length) {
         setChamberIdx((i) => i + 1);
         setAssign({}); setHeld(null); setSolved(new Set()); setFocusEn(null); setSealMsg('');
         sfx.click();
@@ -179,7 +208,7 @@ export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
   }, [solved, focusEn]);
 
   if (phase === 'done') {
-    const total = CHAMBERS.reduce((n, c) => n + c.length, 0);
+    const total = chambers.reduce((n, c) => n + c.length, 0);
     return (
       <div className="gk-root gt-root">
         <GameKitStyles />
@@ -192,7 +221,7 @@ export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
           stats={[
             { num: insight, label: '해독한 룬', accent: true },
             { num: `${total ? Math.round((insight / (insight + misread || 1)) * 100) : 0}%`, label: '첫 봉인 정확도' },
-            { num: CHAMBERS.length, label: '석실' },
+            { num: chambers.length, label: '석실' },
           ]}
           restartLabel="다시 해독"
           onRestart={() => { setChamberIdx(0); setAssign({}); setHeld(null); setSolved(new Set()); setFocusEn(null); setSealMsg(''); setInsight(0); setMisread(0); setPhase('decode'); }}
@@ -208,11 +237,11 @@ export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
       <AmbientBackground center="#F3EEE1" mid="#D8CFBE" edge="#3E4A63" glow="rgba(150,190,215,.30)" glowAt="50% 22%" watermark="glyph-tongue" />
       <style dangerouslySetInnerHTML={{ __html: GT_CSS }} />
       <Hud
-        progress={(chamberIdx + (cleared ? 1 : 0)) / CHAMBERS.length}
+        progress={(chamberIdx + (cleared ? 1 : 0)) / chambers.length}
         muted={sfx.muted}
         onToggleMute={() => sfx.setMuted((m) => !m)}
         onExit={handleExit}
-        extra={<div className="gt-chapter"><span className="gk-stat-label">석실</span><span className="gt-chapter-v">{chamberIdx + 1}/{CHAMBERS.length} · 해독 {solved.size}/{words.length}</span></div>}
+        extra={<div className="gt-chapter"><span className="gk-stat-label">석실</span><span className="gt-chapter-v">{chamberIdx + 1}/{chambers.length} · 해독 {solved.size}/{words.length}</span></div>}
       />
 
       <main className="gk-stage gt-stage">
@@ -262,7 +291,7 @@ export function GlyphTongueGame({ onExit, onCorrect, onWrong }: Props) {
         <div className="gt-actions">
           {sealMsg && <span className={`gt-sealmsg ${cleared ? 'gt-sealmsg--ok' : ''}`}>{sealMsg}</span>}
           <button type="button" className="gk-btn gk-btn--primary gt-seal" onClick={seal} disabled={!cleared && !allAssigned}>
-            {cleared ? (chamberIdx + 1 < CHAMBERS.length ? '다음 석실 →' : '언어를 되살리다') : '코덱스 봉인'}
+            {cleared ? (chamberIdx + 1 < chambers.length ? '다음 석실 →' : '언어를 되살리다') : '코덱스 봉인'}
           </button>
         </div>
       </main>

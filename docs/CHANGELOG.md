@@ -10,6 +10,19 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로 (v06.224)
+- **배선**: 스캐폴드가 이미 fetch하던 `example`(도서 챕터는 `source_sentence`=실제 책 문맥)·`pos`·`inflectedForms`를 그동안 버렸던 것 → `Word` 타입 +3필드로 게임에 전달. `GlyphTongueGame.buildChambersFromPool`: 스코프 단어의 예문에서 단어/굴절형을 찾아 룬으로 블랭크 → 석실 생성(세션당 최대 20단어=4석실). 예문 없는 단어 제외, 4개 미만이면 내장 뱅크 폴백.
+- **버그 수정**: glyph-tongue page가 `wordPool`을 게임에 미전달 → 항상 내장 폴백. render에 `wordPool` 추가.
+- **검증**: `?set=<교육과정 고등>` 진입 → 실단어(fundamental·veterinarian·joint·tackle·status) + 실 예문("Trust is a 〈룬〉 part of...")로 렌더, 내장뱅크 미감지(✅), 무차별 솔버 5/5 해독, pageerror 0. 비스코프 진입 시 내장 회귀 유지. tsc 0.
+- 나머지 게임: ②세관·③핸드는 pos/domain·forgery 데이터 성격, ④⑤⑥은 authored 콘텐츠라 배선 방식 상이(후속).
+
+### 도서 탭 「전체 탐색」 필터 재설계 — 묶음 카드 → 라벨 구획 상세 패널 + 내 학습 상태 (v06.223)
+- **문제**: `/library/books` 전체 탐색이 한 카드에 나에게/레벨/장르/길이 칩을 작은 10px 라벨로 **뭉쳐 노출("묶음")** + 주제·연령은 "상세 필터" 숨김 disclosure 뒤. 학습자가 조건을 또렷이 판별하기 어려움.
+- **재설계(`BookFilterBar`)**: 뭉친 카드 → **항상 펼친 라벨 구획**(`divide-y`) 상세 패널. 각 조건(내 학습·나에게·레벨·장르·주제·연령·길이·음성)이 좌측 고정폭 라벨 + 칩의 독립 compartment. 주제·연령을 숨김→상시 노출 승격, 오디오를 길이 그룹에서 분리해 '음성' 구획, 상세필터 disclosure 제거.
+- **신규 필터 '내 학습 상태'**: 내 서재/학습 중/완료 — `enrollment_state` 기반, facet-adaptive(등록 도서 보유 시에만 노출). `BookFilters` +`enroll`·`FacetData` +`hasEnrollments`, `BooksExplorer` 필터 로직 + facet 집계 추가.
+- **범위 밖(사용자 선택)**: CEFR 병기·형식자료 신설·칩별 카운트는 제외. 레벨=V밴드 유지(CEFR=카드 배지 보조).
+- **검증**: tsc 0 · eslint 0(변경 `BookFilterBar`·`BooksExplorer`). 04-ui-smoke에 "전체 탐색 필터 구획 렌더 + 레벨칩 축소 + 초기화 원복" 회귀 테스트 추가. ⚠️ 라이브 e2e/SSR은 워크스페이스에 **`next dev` 2개 동시 기동 → `.next` 공유 오염(라우트 무작위 404)**으로 미실행 — 단일 서버 정리 후 재검증 필요(환경성·본 변경 무관).
+
 ### `/library/scripts` 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션 (v06.222)
 - **문제**: 스크립트 탭이 트랙 섹션 + 얇은 한 줄 소개 + fit 배지뿐 — `source-map.ts` 의 풍부한 오리엔테이션 데이터(능력·학습과학 why·학습법 단계·난이도 V밴드)가 **전부 미사용**. 다양한 레벨의 학습자가 "어떤 소스/시리즈를 왜/어떻게 고를지" 판단 근거 부재.
 - **재설계(기본 뷰)**: 개인화 배너 → **난이도 지도**(쉬움→어려움 축 + "여기 있어요" 마커 + 시리즈 칩·추천 강조) → 바로 시작할 글 strip → **시리즈 오리엔테이션 카드**(능력 칩 + why(Lora italic) + 학습법 ①②③ + 레벨범위·편수·음성 + 대표글 + 골라보기 CTA).

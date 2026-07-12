@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2c7b415` feat(library): /library/scripts 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션
 - `2629954` feat(dict): Phase 1 sense별 v_level 모델 + 탐지기 V≥6 한정 (근본해결 착수)
 - `e17d1d4` feat(dict): POS 불일치 자동 탐지기 + 심화 근본원인 규명
 - `2f10854` fix(lcp): 도서 단어장 라벨 드리프트 (V{bvl}+)→(V6+) (v06.221)
 - `dfa9a7c` docs(dict): sense/POS 품질 감사 — 다의어 primary 오선정 11건 수리 (v06.216)
-- `63d3de8` chore(vrl): snapshots own-data RLS 정책 기록 — Phase2 드리프트 closure 완결
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
@@ -55,7 +55,7 @@
 - `20260712180000_add_arcade_newconcept_module_ids.sql`
 - `20260712170000_vrl_phase2_runtime_functions_record.sql`
 - `20260712165000_vrl_phase2_tables_columns_record.sql`
-- `20260712160000_vcb_publish_commit_record.sql`
+- `20260712160000_vocab_context_pos.sql`
 <!-- /auto:recent-migrations -->
 
 ---
