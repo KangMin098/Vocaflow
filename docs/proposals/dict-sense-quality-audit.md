@@ -119,3 +119,20 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **감사(45,496 전체)**: meaning_ko·meanings_ko·pos·cefr·v_level = **100%**(Phase 4). example 84.5%·ipa 64.2%·synonyms 58.5%·inflections 55.3%·collocations 30.8%·antonyms 30.7%·learner_note 27.3%. audio/image/mnemonic 0%(별도 에셋, 스코프 외). 결측은 레벨이 아니라 과거 빈도-기반 dict-fill 잔재로 전 레벨 산재.
 - **예문 전수 채움(사용자 "전체 계속" 선택)**: 실 단일어(idiom·phrasal·다어절·고어 제외) **2,548개** 결측 → Claude(=LLM) 문맥·sense 예문 생성 15배치. **전 레벨 V1~V11 example 100%**. 전체 사전 example 84.5%→**90.1%**. 잔여 결측 4,517 = **전량 관용구/구동사/다어절/고어**(독립 예문이 부적절한 단위).
 - **다음 결측(후속)**: ipa(실 단일어 ~10,594)·synonyms·collocations(V11 거의 전무) — 후속 배치 대상.
+
+## Phase 6 — 추출 품질 개선 항목 도출 (2026-07-13)
+> 사용자 지시 "발음 제외, 단어추출 품질 높이는 사전DB 개선 항목 도출". 추출 함수가 실제 쓰는 게이트·스코어·조인 필드 데이터 품질을 근거로 계량.
+- **게이트 건전성**: classified_by/v_level/word_register NULL = **0**(추출 조용한 제외 없음).
+- **🔴 항목1 — word_register 노이즈 카테고리(구현 완료 아래)**: 고유명사·브랜드·약어 전용 register 부재 → 추출 노이즈. ™브랜드 68 + 약어 133 V≥6 추출가능, 23개 발행 세트 노출.
+- **🔴 항목2 — frequency_rank NULL 14,442(V≥6)**: `_extract_composite_score`는 NULL rank→0.40 가중 **완전 0점**. study-tier plain 5,890이 최대 0.40 불이익→cap-40 하락. (V11 6,616은 진짜 희귀 OK.)
+- **🔴 항목3 — 사전 커버리지 갭 19.5%**: 발행 도서 단어 4,669가 사전 미등록→추출 불가. 성격=OCR/방언 오류(willin·tonque) + 고유명사 + 희귀 실단어. 상류 tokenization/OCR-clean 갭도 노출.
+- **🟡 항목4 — 다의어 sense 완성도**: rank≤5000 단일-sense 3,027(light 빛·match 성냥/경기 등 동일-POS 다의어 사각).
+- **🟡 항목5 — spelling_variants 미활용(114만)**: 영/미 변형 dedup 부재.
+- **⚪ 항목6 — verified false 73%**: composite 0.10이나 예문 90% 커버로 상쇄, 저우선.
+
+## 항목1 구현 — word_register 노이즈 제외 (2026-07-13 · 완료)
+- **스키마**: `sd_word_register_check` CHECK에 `brand`·`abbreviation`·`proper_noun` 추가(마이그 `20260713100000`, additive).
+- **분류**: 브랜드(™) **96** → `brand` · 약어(2~5자 무모음, y제외) **129** → `abbreviation`. (proper_noun은 값만 준비, 분류는 후속 LLM 패스 — 고유명사는 소문자화돼 패턴 탐지 어려움.)
+- **추출 제외**: `select_book_chapter_vocab`+`select_article_vocab` WHERE `word_register NOT IN (…, 'brand','abbreviation','proper_noun')`(마이그 `20260713100500`).
+- **검증**: 3개 도서 추출 정상(2393/585/5 rows) · brand/abbreviation 노이즈 **0**. RegisterBadge는 새 값 graceful 미표시(Calm UI 유지).
+- **잔여**: 발행 세트의 노이즈 23개는 재발행 시 자동 제거([[발행 세트 재발행 보류]]). 고유명사 분류는 후속.
