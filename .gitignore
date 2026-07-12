@@ -71,3 +71,4 @@ apps/web/public/onnx/
 
 # Round/session payload 임시 파일 (regenerable)
 tmp_*.json
+scripts/lcp/data/mine-candidates.json
