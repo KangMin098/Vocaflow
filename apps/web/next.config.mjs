@@ -57,6 +57,11 @@ const nextConfig = {
           'C:/DumpStack.log.tmp',
         ],
       }
+      // Windows dev 안정화 — webpack FS 캐시(.next/cache/**/*.pack.gz)의 rename 이
+      // 백신 파일락/디스크 압박으로 간헐 실패(ENOENT) → vendor-chunks 손상 → 라우트 404/500·서버 사망.
+      // Windows 한정으로 메모리 캐시 전환해 pack.gz 쓰기 자체를 제거(cold-start 소폭 느려지나 손상 근절).
+      // (mac/linux 는 FS 캐시 유지 — 문제없고 재시작 캐시가 더 빠름.)
+      if (process.platform === 'win32') config.cache = { type: 'memory' }
     }
     return config
   },
