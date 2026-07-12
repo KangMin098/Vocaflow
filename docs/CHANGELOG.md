@@ -10,11 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
-### CTP DCP 아티클 확대 — 순서/삽입 연습 592→1094 items (v06.228)
-- **드라이버 신설** `scripts/generate-article-dcp.mts` — `dev-generate-items` 라우트(기본 register=argumentative·limit 20 → v5 7편에 정체)를 스탠드얼론 스크립트로 일반화. 동일 입력 게이트(설계 §T2: published·NOT display_only·license PD/CC·lexical_noise≤0.08)를 **전 register·무제한**으로 적용. dev 서버 비의존(service-role) → 재사용 자산. dry-run 기본 + `--apply`.
-- **결과**: 적격 135편 중 64편에서 **560 items** upsert(멱등). article DCP **64→566 items**(7→64편), v_level **v5-only → v3~v7**. 핵심 성과 = **CSAT 스위트스팟 expository v4~v7**(v6 204·v5 128·v4 36·v7 36) + reference v5/v6 86. narrative 13편은 문단 필터가 0 산출로 자기선별(대화체·단문 부적격 = 품질 게이트 정상).
-- **전체 DCP 592→1094 items**(거의 2배), 결합 커버리지 v3~v8. 런타임 LLM 0(generateDcpItems 결정론·멱등, 라이브 592 검증 엔진 재사용). 스팟체크: expository v6 order presented↔source_order 왕복 정합.
-- **후속 정제 여지**: 일부 reference/travel 콘텐츠는 CSAT 학술 장르와 이질(순서 모호성 여지) — 필터가 구조 유효성은 담보하나 시험급 무모호성은 아님. 장르 순수화(expository/argumentative 한정)는 옵션.
+### CTP DCP 확대 — 순서/삽입 연습 592→1374 items (아티클+도서 v6, v06.228)
+- **아티클 드라이버 신설** `scripts/generate-article-dcp.mts` — `dev-generate-items` 라우트(기본 register=argumentative·limit 20 → v5 7편에 정체)를 스탠드얼론 스크립트로 일반화. 동일 입력 게이트(설계 §T2: published·NOT display_only·license PD/CC·lexical_noise≤0.08)를 **전 register·무제한**으로 적용. dev 서버 비의존(service-role) → 재사용 자산. dry-run 기본 + `--apply`.
+  - 결과: 적격 135편 중 64편에서 560 items upsert(멱등). article DCP **64→566 items**(7→64편), v_level **v5-only → v3~v7**. 핵심 = **CSAT 스위트스팟 expository v4~v7**(v6 204·v5 128·v4 36·v7 36) + reference v5/v6 86. narrative 13편은 문단 필터가 0 산출로 자기선별(대화체·단문 부적격 = 품질 게이트 정상).
+- **도서 드라이버 floor 파라미터화** `scripts/generate-book-dcp.mts --floor=N`(기본 7 보존) — CSAT S3(v6) 확대. book DCP **528→808 items**(11→17권, v6 6권 신규·Poetry 0 산출 자기선별). v_level v5-8→v4-9(챕터 단위).
+- **전체 DCP 592→1374 items**(+782), 결합 커버리지 **v3~v9 전 CSAT 사다리**, 81 refs. 런타임 LLM 0(generateDcpItems 결정론·멱등, 라이브 592 검증 엔진 재사용). 스팟체크: expository v6 order presented↔source_order 왕복 정합.
+- **후속 정제 여지**: 일부 reference/travel 콘텐츠는 CSAT 학술 장르와 이질(순서 모호성 여지) — 필터가 구조 유효성은 담보하나 시험급 무모호성은 아님. 장르 순수화(expository/argumentative 한정) + v5/v2 도서(6권)는 옵션.
 
 ### 아케이드 실 어휘 배선 ② — Word Customs가 학습자 단어 여권으로 (v06.227)
 - **배선**: `buildDaysFromPool` — 스코프 단어 → 여권. 진본(word·pos·뜻·예문 실데이터) + **결정적 위조 생성**: 뜻 위조(다른 단어의 뜻으로 swap = false friend 유사) · 품사 위조(실제와 다른 품사 표기). 예문은 단어/굴절형을 찾아 `{}` 블랭크. 3근무일(각 6), 규칙 누적(뜻→+품사, day1엔 품사위조 없음). 9단어 미만이면 내장 뱅크 폴백.

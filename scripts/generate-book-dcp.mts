@@ -120,19 +120,24 @@ async function processBook(bookId: string): Promise<void> {
   console.log(`  ${title}: ${rows.length} items (${eligible} paragraphs) — ${error ? `ERROR ${error.message}` : 'ok'}`)
 }
 
-console.log('CTP DCP S4 드레인 시작…')
+// floor 파라미터화(v06.228) — 기본 7(S4 killer band, 기존 동작 보존). --floor=N 으로 CSAT S3(v6) 확대.
+//   upsert 멱등이라 낮은 floor 재실행도 기존 도서 중복 0.
+const floorArg = process.argv.find((a) => a.startsWith('--floor='))
+const V_FLOOR = floorArg ? Math.max(1, Math.min(11, Number(floorArg.split('=')[1]) || 7)) : 7
+
+console.log(`CTP DCP 도서 드레인 시작 (v≥${V_FLOOR})…`)
 const { data: s4books, error: qErr } = await db
   .from('library_books')
   .select('id, title, book_v_level')
   .eq('status', 'published')
-  .gte('book_v_level', 7)
+  .gte('book_v_level', V_FLOOR)
   .order('book_v_level', { ascending: false })
 if (qErr) {
-  console.error('S4 도서 조회 실패:', qErr.message)
+  console.error('도서 조회 실패:', qErr.message)
   process.exit(1)
 }
 const books = (s4books ?? []) as Array<{ id: string; title: string; book_v_level: number }>
-console.log(`대상 S4 도서 ${books.length}권 (v≥7 발행)`)
+console.log(`대상 도서 ${books.length}권 (v≥${V_FLOOR} 발행)`)
 for (const b of books) {
   await processBook(b.id)
 }
