@@ -50,7 +50,7 @@ export default async function LibraryScriptsPage() {
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
-            큐레이션된 짧은 영어 글 — 난이도 지도에서 내 레벨에 맞는 시리즈를 고르고, 무엇을·왜·어떻게 공부할지 함께 확인해요.
+            큐레이션된 짧은 영어 글 — 당신 수준에 맞는 추천부터 편하게 시작해요.
           </p>
           {articles.length > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">

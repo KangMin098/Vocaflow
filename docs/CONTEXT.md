@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `74cc67e` feat(lcp): 도서 배치 채굴 자동화 — dict-mine-batch.mjs
 - `8eee24f` docs(vcb): 도서 배치 채굴 2·3 — 다의어 5건 + yield 경향 (v06.225)
 - `c267ffc` docs(vcb): 도서 5권씩 배치 채굴 루프 Phase 8 + 다의어 6건 (v06.225)
 - `6ba9359` feat(db): ⑧ Word Orrery module_id enum 마이그 적용 — 아케이드 14종 persistence 완성
 - `c25fee7` docs(vcb): 추출 결과 평가 기반 사전 보완 Phase 7 — 다의어 7건 (v06.225)
-- `9d1dceb` feat(game): 아케이드 마지막 북극성 ⑧「The Word Orrery」— 지식 게이트 탐사 (Outer Wilds 계열)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

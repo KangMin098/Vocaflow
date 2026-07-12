@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### `/library/scripts` 진입면 간소화 — Progressive Disclosure 재설계 (v06.238)
+- **문제**: v06.222 재설계가 진입면에 난이도 지도(칩 레일) + 개인화 배너 + '바로 시작' strip + **시리즈 카드 6개(각각 능력·학습과학 why·학습법 ①②③ 전부)** 를 한꺼번에 노출 → 첫인상이 "학습 초대"가 아니라 "학습 요람". 프로젝트 원칙(Progressive Disclosure·Cognitive Load ~4항목·Calm UI) 위반, 학습자 선택 과부하(Hick).
+- **재설계**: **"조용한 초대 먼저, 깊이는 고른 뒤"** 2계층. 진입면 = ① 밴드별 한 줄 안내 → ② **추천 시리즈 히어로 1개**(확신 있는 출발점·자기효능감) → ③ 나머지 시리즈 **간단 row**(스캔 가능·저부하·자율). 시리즈 선택 시에만 `SeriesDetail`에서 능력·why(Lora italic)·학습법·글 목록 노출.
+- **변경**: `SeriesDetail.tsx` 신설. `ScriptsBrowser.tsx` 진입면 재작성(inline 히어로/row). **제거**: `DifficultyMap`·`ScriptsGuideBanner`·`TrackOrientationCard`(내용은 detail로 이동). `buildScriptsMap`/`bandGuidance`(밴드 적응 로직)는 유지 — 추천·안내는 그대로 레벨 적응.
+- **검증**: tsc 0·eslint 0·SSR 200(구 '난이도 지도'/'골라보기' 제거 확인). 04-ui-smoke 2종 갱신 **PASS**(진입면→상세→복귀 2.9s · 밴드 V2 초급/V5 중급/V9 고급 6.7s) + `source-map.test.ts` 18 유지. 클린 단일 서버·CI=1.
+
 ### 아케이드 도시에 마지막 북극성 ⑧「The Word Orrery」 — 지식 게이트 탐사 (Outer Wilds 계열) (v06.237)
 - **메커니즘(독창)**: 미니 항성계의 **여섯 행성을 자유 탐사(비선형)**. 각 행성의 '현상'이 곧 단어 뜻을 체현(예: 잿더미·생명 無 → `desolate`). 관측 시 이름을 읽어 **성좌 노트(코덱스)**에 기록. 여섯 성좌를 모두 관측하면 **중심 핵의 봉인이 깨어남**. 봉인의 수수께끼는 현상을 **에둘러** 가리켜, 스탯·운이 아닌 **오직 앎으로만** 열림(Outer Wilds의 '지식이 곧 진행'). 오답 페널티 無(시간 루프식 자유 탐사).
 - **학습 과학**: 현상 문맥에서 뜻 획득(Dual Coding·Context-Dependent) → 봉인에서 에두른 단서로 인출(Active Recall·새 맥락 전이). 6단어 오센틱 형용사(desolate/profound/erratic/volatile/dormant/radiant).

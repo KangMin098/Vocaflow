@@ -65,7 +65,7 @@ const SCREENS: Array<{ path: string; marker: RegExp }> = [
   { path: '/pairflip', marker: /PairFlip|페어|짝/ },
   { path: '/scriptquiz', marker: /ScriptQuiz|퀴즈/ },
   { path: '/library/books', marker: /Library|도서|발견/ },
-  { path: '/library/scripts', marker: /난이도 지도|시리즈 둘러보기|스크립트/ },
+  { path: '/library/scripts', marker: /먼저 이걸로|다른 주제로 읽기|스크립트/ },
 ];
 
 /** 환경 노이즈 필터 — Supabase auth 토큰 요청의 간헐 실패(rate-limit/refresh 경합)는
@@ -162,44 +162,40 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
   });
 
-  test('스크립트 학습 지도 — 오리엔테이션 스캐폴드 + 시리즈 드릴다운/복귀', async ({ page }) => {
-    // v06.222 재설계 회귀 — 배너(밴드별)·난이도 지도·시리즈 카드가 렌더되고,
-    // 시리즈 선택 → 평면 목록 → '학습 지도로 돌아가기' 왕복이 동작하는지.
-    // 밴드 무관 단언(계정 V-Level 의존 X) — buildScriptsMap 이 실집계로 스캐폴드를 항상 구성.
+  test('스크립트 진입면 — 조용한 초대 + 시리즈 상세/복귀', async ({ page }) => {
+    // v06.238 재설계 회귀 — Progressive Disclosure:
+    //   진입면(밴드 한줄 안내 + 추천 히어로 + 나머지 rows) → 시리즈 선택 → 상세(깊이+글 목록) → 복귀.
+    // 밴드 무관 단언(계정 V-Level 의존 X) — buildScriptsMap 이 실집계로 진입면을 항상 구성.
     test.setTimeout(60_000);
     const errors = collectConsoleErrors(page);
 
     await page.goto('/library/scripts', { waitUntil: 'domcontentloaded', timeout: 30_000 });
 
-    // 1) 개인화 배너 — 레벨 밴드 카피가 렌더 (4밴드 중 1)
-    const banner = page.getByRole('region', { name: '학습 안내' });
-    await expect(banner).toBeVisible({ timeout: 15_000 });
-    await expect(banner).toContainText(/레벨 진단|초급 추천|중급 추천|고급 안내/);
+    // 1) 밴드별 한 줄 안내
+    const guide = page.getByRole('region', { name: '학습 안내' });
+    await expect(guide).toBeVisible({ timeout: 15_000 });
+    await expect(guide).toContainText(/레벨 진단|초급 추천|중급 추천|고급 안내/);
 
-    // 2) 난이도 지도 노출
-    await expect(page.getByRole('region', { name: '난이도 지도' })).toBeVisible();
+    // 2) 추천 히어로 1개 + 나머지 시리즈 rows
+    const hero = page.getByRole('region', { name: '추천 시리즈' });
+    await expect(hero).toBeVisible();
+    await expect(page.getByRole('region', { name: '다른 시리즈' }).getByRole('listitem').first()).toBeVisible();
 
-    // 3) 시리즈 둘러보기 — 오리엔테이션 카드 ≥2, '골라보기' CTA 노출
-    const series = page.getByRole('region', { name: '시리즈 둘러보기' });
-    await expect(series).toBeVisible();
-    const openBtns = series.getByRole('button', { name: /골라보기/ });
-    expect(await openBtns.count()).toBeGreaterThan(1);
-
-    // 4) 시리즈 선택 → 평면 드릴다운(글 목록 + '학습 지도로 돌아가기')
-    //   이 페이지는 JS 무거워 hydration 지연 → 클릭이 onClick(setTrackFilter) 미부착으로 유실될 수 있음.
-    //   setTrackFilter 는 멱등이므로 '전환될 때까지 재클릭'(toPass) 으로 견고화.
-    const back = page.getByRole('button', { name: /학습 지도로 돌아가기/ });
+    // 3) 히어로 선택 → 상세(글 목록 + '시리즈 목록' 뒤로).
+    //   JS 무거워 hydration 지연 → 클릭이 onClick 미부착으로 유실될 수 있음. setSelected 는 멱등이라
+    //   '전환될 때까지 재클릭'(toPass) 으로 견고화.
+    const back = page.getByRole('button', { name: /시리즈 목록/ });
     await expect(async () => {
       if (!(await back.isVisible())) {
-        await series.getByRole('button', { name: /골라보기/ }).first().click();
+        await hero.getByRole('button').first().click();
       }
       await expect(back).toBeVisible({ timeout: 1_500 });
     }).toPass({ timeout: 20_000 });
-    await expect(page.getByRole('listitem').first()).toBeVisible();
+    await expect(page.getByRole('region', { name: '글 목록' }).getByRole('listitem').first()).toBeVisible();
 
-    // 5) 복귀 → 지도 재노출
+    // 4) 복귀 → 진입면 재노출
     await back.click();
-    await expect(page.getByRole('region', { name: '난이도 지도' })).toBeVisible();
+    await expect(page.getByRole('region', { name: '추천 시리즈' })).toBeVisible();
 
     const fatal = fatalErrors(errors);
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
@@ -220,21 +216,20 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
   });
 
-  test('스크립트 학습 지도 — 레벨 밴드별 배너·추천 적응', async ({ page }) => {
-    // v06.222 재설계 핵심(레벨 적응성) 실 로그인 E2E — current_v_level 을 초급/중급/고급으로
-    // 바꿔가며 배너 카피와 지도의 '내 레벨' 표기가 밴드에 맞게 달라지는지.
+  test('스크립트 진입면 — 레벨 밴드별 안내·추천 적응', async ({ page }) => {
+    // v06.238 재설계 핵심(레벨 적응성) 실 로그인 E2E — current_v_level 을 초급/중급/고급으로
+    // 바꿔가며 진입면 '학습 안내' 한 줄(eyebrow+title)이 밴드에 맞게 달라지는지.
     //   · 클린 서버에선 브라우저 supabase.auth.getUser() 200 → useUserVLevel 실 V-Level 반영 확인됨.
     //   · SSR 은 미진단 기본 렌더 → 하이드레이션 후 SWR fetch 로 flip → toContainText auto-retry 로 대기.
     //   · service-role 로 DB 직접 변경 후 finally 원복. 마지막 테스트 배치(원복 실패해도 앞 단언 무영향).
     test.setTimeout(90_000);
     const userId = await userIdByEmail(RUNTIME_USER.email);
-    test.skip(!userId, 'SERVICE_ROLE_KEY 없음 — 밴드 적응성 검증 건너뜀 (스캐폴드/로직은 별도 테스트가 커버)');
+    test.skip(!userId, 'SERVICE_ROLE_KEY 없음 — 밴드 적응성 검증 건너뜀 (진입면/로직은 별도 테스트가 커버)');
 
     const original = await getUserVLevel(userId!);
-    const banner = page.getByRole('region', { name: '학습 안내' });
-    const map = page.getByRole('region', { name: '난이도 지도' });
+    const guide = page.getByRole('region', { name: '학습 안내' });
 
-    // [V레벨, 기대 배너 eyebrow, 기대 배너 title] — 초급/중급/고급 3밴드
+    // [V레벨, 기대 eyebrow, 기대 title] — 초급/중급/고급 3밴드
     const bands: Array<{ v: number; eyebrow: RegExp; title: RegExp }> = [
       { v: 2, eyebrow: /초급 추천/, title: /듣기와 쉬운 글부터/ },
       { v: 5, eyebrow: /중급 추천/, title: /수준에 맞는 글이 가장 많아요/ },
@@ -245,9 +240,8 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
       for (const b of bands) {
         expect(await setUserVLevel(userId!, b.v), `set current_v_level=V${b.v}`).toBe(true);
         await page.goto('/library/scripts', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-        await expect(banner, `V${b.v} 배너 eyebrow`).toContainText(b.eyebrow, { timeout: 20_000 });
-        await expect(banner, `V${b.v} 배너 title`).toContainText(b.title);
-        await expect(map, `V${b.v} 지도 '내 레벨' 표기`).toContainText(new RegExp(`V${b.v}\\b`));
+        await expect(guide, `V${b.v} 안내 eyebrow`).toContainText(b.eyebrow, { timeout: 20_000 });
+        await expect(guide, `V${b.v} 안내 title`).toContainText(b.title);
         console.log(`[smoke] band V${b.v} → ${b.eyebrow.source} OK`);
       }
     } finally {
