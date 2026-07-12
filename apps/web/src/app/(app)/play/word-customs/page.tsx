@@ -19,7 +19,7 @@ export default function WordCustomsPlayPage() {
         module="word-customs"
         label="Word Customs"
         minWords={0}
-        render={({ onCorrect, onWrong, onExit }) => <Game onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
+        render={({ wordPool, onCorrect, onWrong, onExit }) => <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
       />
     </Suspense>
   );

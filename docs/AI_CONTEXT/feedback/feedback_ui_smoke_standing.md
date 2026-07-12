@@ -20,7 +20,8 @@
 
 - **아케이드 게임 전수 스모크 (2026-07-12)**: `07-arcade-games.spec.ts` — 14개 `/play/*`(12 아케이드+wordblitz+pirate-quest) 마운트+첫입력반응+콘솔0, 허브 12카드. 게임별 결정론적 준비마커·상호작용 하드코딩(gt-chip·mr-block→슬롯·db-tile→gk-tile--correct·wordblitz key '1'·cascade gridcell·word-customs 승인→다음여행자 등), pirate-quest는 3D 캔버스라 렌더만. 단일 클린 서버서 **15/15 pass**. `scores.module_id` enum에 신규 12종 전부 존재(영속화 유효).
 - ⚠️ **멀티 dev 서버 오염의 함정(2026-07-12 실측)**: `next dev` 2개 공유 `.next` 오염은 **특정 lazy 청크만** 로딩 폴백에서 정지시켜 "그 게임만 마운트 실패"처럼 보임(glyph-tongue 오진 사례) — 렌더 크래시(에러 바운더리)와 구분됨. 진짜 코드버그와 감별: tsc 통과 + 페이지 셸은 뜨는데 dynamic import 폴백에서 멈춤 = 오염. 복구=전 dev 종료→`.next` 삭제→1개 재기동.
-- ⚠️ **playwright는 반드시 `CI=1` 로 단독 실행**: 아니면 config의 managed webServer가 (readiness probe가 `/` 404를 보고) 별도 `pnpm dev` 를 **재spawn → 두번째 경쟁 서버가 `.next` 재오염**. `CI=1` 이면 webServer undefined(config)라 기존 :3000 만 사용 + 재시도 2회. 콜드 `.next` 첫 브라우저 히트는 클라이언트 청크 404(하이드레이션 실패)라 로그인·ready 에 reload-retry 필수(07 스펙에 내장).
+- ⚠️ **playwright는 반드시 `CI=1` 로 단독 실행**: 아니면 config의 managed webServer가 (readiness probe가 `/` 404를 보고) 별도 `pnpm dev` 를 **재spawn → 두번째 경쟁 서버가 `.next` 재오염**. `CI=1` 이면 webServer undefined(config)라 기존 :3000 만 사용 + 재시도 2회. 콜드 `.next` 첫 브라우저 히트는 클라이언트 청크 404(하이드레이션 실패)라 로그인·ready 에 reload-retry 필수(07 스펙에 내장). (2026-07-12 재확인: `CI=1` 없이 `test:e2e:smoke` 실행 → 서버가 런 중간 死 → connection-refused 연쇄. 클린 단일 서버(전 종료→.next 삭제→1개)에선 즉시 green.)
+- ⚠️ **클라이언트-인증 의존 렌더는 e2e로 단언 불가(2026-07-12, v06.222)**: `storageState` 세션에서 브라우저 `supabase.auth.getUser()`(@supabase/ssr 쿠키)가 안 풀려 **client-side SWR 훅(`useUserVLevel` 등)이 미인증→기본값(0)으로 폴백**. 실브라우저에선 정상. 따라서 client V-Level/개인화로 갈리는 화면(스크립트 밴드 배너 등)은 e2e로 밴드별 단언이 안 됨 → **순수 로직 vitest 단위 테스트로 검증**(`source-map.test.ts`가 buildScriptsMap/bandGuidance를 밴드별로 결정적 검증). e2e는 밴드-무관 스캐폴드 렌더+상호작용만. 참고: JS 무거운 페이지의 상호작용 클릭은 hydration 전 유실 → `expect(...).toPass()` 재클릭(멱등 setter일 때) 패턴으로 견고화.
 
 관련: [[project-echo-match-module]] [[project-learner-management-p0-p3]] [[project-a3-game-real-data-sweep]]
 

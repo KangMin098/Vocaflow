@@ -7,7 +7,7 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, useSfx, useCountUp, clamp, type Word,
+  GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, useSfx, useCountUp, clamp, shuffle, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -66,7 +66,63 @@ const FIELD_CHIPS: { field: Field; label: string }[] = [
   { field: 'spelling', label: '철자' }, { field: 'pos', label: '품사' }, { field: 'definition', label: '뜻' }, { field: 'example', label: '예문' },
 ];
 
-export function WordCustomsGame({ onExit, onCorrect, onWrong }: Props) {
+// ── 실 어휘 배선: 스코프 단어 → 여권. 진본 + 결정적 위조(뜻 swap·품사 오표기) 생성. ──
+const escapeRegWC = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const posKoFromData = (raw?: string): PosKo | undefined => {
+  const s = (raw || '').toLowerCase();
+  if (/adverb|부사/.test(s)) return '부사'; // 'adverb'⊃'verb' → 먼저
+  if (/adjective|형용사/.test(s)) return '형용사';
+  if (/verb|동사/.test(s)) return '동사';
+  if (/noun|명사/.test(s)) return '명사';
+  return undefined;
+};
+const POS_ALL: PosKo[] = ['명사', '동사', '형용사', '부사'];
+function buildDaysFromPool(pool?: Word[]): Day[] | null {
+  if (!pool || pool.length < 9) return null;
+  const seen = new Set<string>();
+  const usable: { en: string; ko: string; posTrue: PosKo; example: string }[] = [];
+  for (const w of pool) {
+    if (!w.en || !w.ko || !w.example || seen.has(w.en)) continue;
+    if (!/^[a-z][a-z-]{2,}$/i.test(w.en.trim())) continue;
+    const posTrue = posKoFromData(w.pos);
+    if (!posTrue) continue;
+    const forms = [w.en, ...(w.inflected ?? [])].filter((f) => f && f.length >= 2);
+    let ex: string | null = null;
+    for (const f of forms) { const re = new RegExp(`\\b${escapeRegWC(f)}\\b`, 'i'); if (re.test(w.example)) { ex = w.example.replace(re, '{}'); break; } }
+    if (!ex) continue; // 예문에 단어 없으면 여권 예문 불가 → 제외
+    seen.add(w.en);
+    usable.push({ en: w.en.trim(), ko: w.ko, posTrue, example: ex });
+    if (usable.length >= 18) break;
+  }
+  if (usable.length < 9) return null;
+  const u = shuffle(usable);
+  const PER = 6;
+  const dayRules = [
+    ['① 위조된 뜻(false friend)을 거부하라'],
+    ['① 위조된 뜻을 거부하라', '② 품사 표기 오류를 거부하라'],
+    ['① 위조된 뜻을 거부하라', '② 품사 표기 오류를 거부하라'],
+  ];
+  const days: Day[] = [];
+  for (let d = 0; d * PER < u.length && d < 3; d++) {
+    const slice = u.slice(d * PER, d * PER + PER);
+    if (slice.length < 3) break;
+    const allowPos = d >= 1;
+    const travelers: Traveler[] = slice.map((item, i) => {
+      const forge: Field | null = i === 1 ? 'definition' : i === 4 ? (allowPos ? 'pos' : 'definition') : null;
+      if (!forge) return L(item.en, item.ko, item.posTrue, item.example);
+      if (forge === 'definition') {
+        const other = slice.find((x, j) => j !== i && x.ko !== item.ko) ?? u.find((x) => x.ko !== item.ko)!;
+        return F(item.en, item.ko, item.posTrue, 'definition', { def: other.ko }, `실제 뜻: ${item.ko}`, item.example);
+      }
+      const wrongPos = POS_ALL.find((pp) => pp !== item.posTrue)!;
+      return F(item.en, item.ko, item.posTrue, 'pos', { pos: wrongPos }, `실제 품사: ${item.posTrue} (표기는 ${wrongPos})`, item.example);
+    });
+    days.push({ rules: dayRules[d], travelers });
+  }
+  return days.length ? days : null;
+}
+
+export function WordCustomsGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const sfx = useSfx();
   const [dayIdx, setDayIdx] = useState(0);
   const [tIdx, setTIdx] = useState(0);
@@ -82,9 +138,10 @@ export function WordCustomsGame({ onExit, onCorrect, onWrong }: Props) {
   const comboRef = useRef(0);
   const lock = useRef(false);
 
-  const day = DAYS[dayIdx];
+  const days = useMemo(() => buildDaysFromPool(wordPool) ?? DAYS, [wordPool]);
+  const day = days[dayIdx];
   const t = day.travelers[tIdx];
-  const totalTravelers = useMemo(() => DAYS.reduce((n, d) => n + d.travelers.length, 0), []);
+  const totalTravelers = useMemo(() => days.reduce((n, d) => n + d.travelers.length, 0), [days]);
 
   const resolve = useCallback((ok: boolean, text: string, isForgeryCaught: boolean, isMiss: boolean) => {
     setTotal((n) => n + 1);
@@ -125,9 +182,10 @@ export function WordCustomsGame({ onExit, onCorrect, onWrong }: Props) {
   const advance = useCallback(() => {
     lock.current = false; setVerdict(null);
     if (tIdx + 1 < day.travelers.length) { setTIdx((i) => i + 1); setPhase('inspect'); }
-    else if (dayIdx + 1 < DAYS.length) { setDayIdx((d) => d + 1); setTIdx(0); setPhase('inspect'); }
+    else if (dayIdx + 1 < days.length) { setDayIdx((d) => d + 1); setTIdx(0); setPhase('inspect'); }
+    // days/day 는 wordPool 고정 후 불변
     else { sfx.fanfare(); setPhase('done'); }
-  }, [tIdx, day, dayIdx, sfx]);
+  }, [tIdx, day, days, dayIdx, sfx]);
 
   const handleExit = useCallback(() => onExit?.(), [onExit]);
   const comboTier = clamp(Math.floor(combo / 4), 0, 3);

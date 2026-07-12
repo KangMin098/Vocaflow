@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 실 어휘 배선 ② — Word Customs가 학습자 단어 여권으로 (v06.227)
+- **배선**: `buildDaysFromPool` — 스코프 단어 → 여권. 진본(word·pos·뜻·예문 실데이터) + **결정적 위조 생성**: 뜻 위조(다른 단어의 뜻으로 swap = false friend 유사) · 품사 위조(실제와 다른 품사 표기). 예문은 단어/굴절형을 찾아 `{}` 블랭크. 3근무일(각 6), 규칙 누적(뜻→+품사, day1엔 품사위조 없음). 9단어 미만이면 내장 뱅크 폴백.
+- **버그 예방**: word-customs page wordPool 전달 추가 + posKoFromData 부사 우선(‘adverb’⊃‘verb’).
+- **검증**: **독립 로직 테스트 PASS**(3일·진본10·뜻위조4·품사위조1·전 여권 예문 {}·규칙 정합·품사 매핑 정확) + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ 런타임 렌더는 dev 서버 환경 이슈(webpack 캐시 rename 실패→청크 404, AV 파일락 추정)로 보류 — ①③②는 코드·로직 검증 완료, 환경 안정 시 확인.
+- 실 어휘 배선 3종 완료(① Glyph Tongue end-to-end ✅ / ③ Lexicon Hands·② Word Customs 로직 ✅). authored 게임 ④⑤⑥은 콘텐츠 확장이 적합.
+
 ### UI 스모크 로그인 견고화 + 런타임 검증 (v06.222)
 - **런타임 검증**(디스크 확보 후 단일 dev 서버): ScriptsBrowser "학습 지도" 재설계 + ArticleCard/CEFR/a11y 변경이 실브라우저 렌더·동작 확인 — 04-ui-smoke **4/4 통과**(주요 화면 콘솔에러 0·스크립트 드릴다운/복귀·도서관 필터·EchoMatch 게이트).
 - **스모크 견고화**: `loginRuntimeUser`가 배치 실행 시 반복 로그인 스로틀/dev 컴파일 경합으로 waitForURL 타임아웃(false-fail) 잦았음 → **1회 재시도 + 타임아웃 25s** 보강. test1 단일 로그인이 견고해져 storageState 재사용 하위 테스트도 안정. (근본: STATE_PATH storageState 이미 재사용 구조 — test1 로그인만 flaky였음.)
