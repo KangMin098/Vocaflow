@@ -6,6 +6,8 @@
 //   - 콘솔 에러 0 을 페이지별로 단언 (silent 붕괴 감지)
 import { test, expect, type Page } from '@playwright/test';
 
+import { getUserVLevel, setUserVLevel, userIdByEmail } from './utils/db';
+
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
@@ -216,5 +218,40 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     }
     const fatal = fatalErrors(errors);
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
+  });
+
+  test('스크립트 학습 지도 — 레벨 밴드별 배너·추천 적응', async ({ page }) => {
+    // v06.222 재설계 핵심(레벨 적응성) 실 로그인 E2E — current_v_level 을 초급/중급/고급으로
+    // 바꿔가며 배너 카피와 지도의 '내 레벨' 표기가 밴드에 맞게 달라지는지.
+    //   · 클린 서버에선 브라우저 supabase.auth.getUser() 200 → useUserVLevel 실 V-Level 반영 확인됨.
+    //   · SSR 은 미진단 기본 렌더 → 하이드레이션 후 SWR fetch 로 flip → toContainText auto-retry 로 대기.
+    //   · service-role 로 DB 직접 변경 후 finally 원복. 마지막 테스트 배치(원복 실패해도 앞 단언 무영향).
+    test.setTimeout(90_000);
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    test.skip(!userId, 'SERVICE_ROLE_KEY 없음 — 밴드 적응성 검증 건너뜀 (스캐폴드/로직은 별도 테스트가 커버)');
+
+    const original = await getUserVLevel(userId!);
+    const banner = page.getByRole('region', { name: '학습 안내' });
+    const map = page.getByRole('region', { name: '난이도 지도' });
+
+    // [V레벨, 기대 배너 eyebrow, 기대 배너 title] — 초급/중급/고급 3밴드
+    const bands: Array<{ v: number; eyebrow: RegExp; title: RegExp }> = [
+      { v: 2, eyebrow: /초급 추천/, title: /듣기와 쉬운 글부터/ },
+      { v: 5, eyebrow: /중급 추천/, title: /수준에 맞는 글이 가장 많아요/ },
+      { v: 9, eyebrow: /고급 안내/, title: /대부분 수월하게 읽혀요/ },
+    ];
+
+    try {
+      for (const b of bands) {
+        expect(await setUserVLevel(userId!, b.v), `set current_v_level=V${b.v}`).toBe(true);
+        await page.goto('/library/scripts', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+        await expect(banner, `V${b.v} 배너 eyebrow`).toContainText(b.eyebrow, { timeout: 20_000 });
+        await expect(banner, `V${b.v} 배너 title`).toContainText(b.title);
+        await expect(map, `V${b.v} 지도 '내 레벨' 표기`).toContainText(new RegExp(`V${b.v}\\b`));
+        console.log(`[smoke] band V${b.v} → ${b.eyebrow.source} OK`);
+      }
+    } finally {
+      if (original != null) await setUserVLevel(userId!, original);
+    }
   });
 });

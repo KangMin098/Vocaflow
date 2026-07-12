@@ -50,7 +50,7 @@
 - **런타임 검증**(디스크 확보 후 단일 dev 서버): ScriptsBrowser "학습 지도" 재설계 + ArticleCard/CEFR/a11y 변경이 실브라우저 렌더·동작 확인 — 04-ui-smoke **4/4 통과**(주요 화면 콘솔에러 0·스크립트 드릴다운/복귀·도서관 필터·EchoMatch 게이트).
 - **스모크 견고화**: `loginRuntimeUser`가 배치 실행 시 반복 로그인 스로틀/dev 컴파일 경합으로 waitForURL 타임아웃(false-fail) 잦았음 → **1회 재시도 + 타임아웃 25s** 보강. test1 단일 로그인이 견고해져 storageState 재사용 하위 테스트도 안정. (근본: STATE_PATH storageState 이미 재사용 구조 — test1 로그인만 flaky였음.)
 - **환경 교훈**(재확인): 멀티 dev 서버(:3000/:3001/:3100)가 `apps/web/.next` 공유 → 라우트 무작위 404/500 오염 → 로그인 flow 붕괴. 검증은 **전 서버 종료 → .next 삭제 → 단일 서버** 필수(apps/web/CLAUDE.md 규약).
-- **밴드 적응성 단위 검증**: `source-map.test.ts` 신설(18 테스트) — `getLearnerBand`/`buildScriptsMap`/`bandGuidance`가 초급(V2→listen 추천)·중급·고급(V9→최고심도 topic, 깊이 유도)·미진단(진단 유도)별로 배너 카피·추천 트랙을 실집계로 올바르게 계산함을 결정적으로 검증. (실 로그인 세션의 클라이언트 V레벨 fetch 는 storageState 한계로 e2e 대신 로직 단위로 검증.) 스크립트 오리엔테이션 e2e 도 hydration-견고 재클릭(toPass) 패턴으로 보강.
+- **밴드 적응성 검증(단위+E2E)**: (1) `source-map.test.ts` 신설(18 테스트) — `getLearnerBand`/`buildScriptsMap`/`bandGuidance`가 초급(V2→listen 추천)·중급·고급(V9→최고심도 topic, 깊이 유도)·미진단(진단 유도)별 배너 카피·추천 트랙을 실집계로 결정적 검증. (2) 04-ui-smoke E2E — 실 로그인 세션에서 `current_v_level`을 V2/V5/V9로 바꿔 배너·지도가 밴드별로 flip 함을 단언(finally 원복). **정정**: 초기 "storageState 로 클라이언트 인증 불가" 는 오진 — 클린 단일 서버에선 브라우저 `getUser()` 200 정상(V11→"고급 안내" 확인), 앞선 실패는 멀티 dev 서버 `.next` 오염(청크 404→하이드레이션 미완)이 실체. 스크립트 오리엔테이션 e2e 도 hydration-견고 재클릭(toPass) 패턴으로 보강.
 
 ### 아케이드 실 어휘 배선 ③ — Lexicon Hands가 학습자 단어 속성 덱으로 (v06.226)
 - **배선**: `buildDeckFromPool` — 스코프 단어 → 속성 태그 덱. **품사**(스캐폴드 실데이터 우선 + 형태론 휴리스틱 폴백: -ly→부사·-tion→명사 등) + **어원**(라틴/그리스 어근 41종 substring 감지: spect/port/dict/struct…) + **접두사**(27종 감지) 자동 태깅. 세션당 최대 40장, 12장 미만이면 내장 덱 폴백.

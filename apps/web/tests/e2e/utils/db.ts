@@ -107,6 +107,30 @@ export async function resetDueCards(userId: string): Promise<number> {
   return data?.length ?? 0;
 }
 
+/** user_profiles.current_v_level 조회 (밴드 적응성 검증용 · 원복 기준값). 키/행 없으면 null. */
+export async function getUserVLevel(userId: string): Promise<number | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('user_profiles')
+    .select('current_v_level')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return (data as { current_v_level: number | null }).current_v_level ?? null;
+}
+
+/** user_profiles.current_v_level 설정 (밴드별 화면 검증용 · 테스트 후 반드시 원복). */
+export async function setUserVLevel(userId: string, v: number): Promise<boolean> {
+  const c = serviceClient();
+  if (!c) return false;
+  const { error } = await c
+    .from('user_profiles')
+    .update({ current_v_level: v })
+    .eq('user_id', userId);
+  return !error;
+}
+
 /**
  * 특정 시각 이후 module 별 scores 행 개수 — 완주 영속화 단언용.
  * recordGameScore 는 fire-and-forget 이므로 호출부에서 폴링 권장.
