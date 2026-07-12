@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `35fb054` feat(db): ⑦ Lexicon Estate module_id enum 마이그 적용 — 아케이드 13종 persistence 완성
 - `e4652f4` docs(vcb): 사전 레벨별 필드 완비 감사 + 예문 전수 채움 Phase 5 (v06.225)
 - `a76d68a` feat(game): 도시에 2차 웨이브 ⑦「Lexicon Estate」— 의미장 인접 배치 (Blue Prince 계열)
 - `e71780d` fix(ctp): 스테이지 카탈로그 밴드 매핑 근본 재보정 (v06.232)
 - `101935d` feat(hub): 아케이드 진입 카드 — /hub 배너 동선
-- `7ef6d77` feat(game): 무드게임 내장 콘텐츠 확장 — Connections 3→5퍼즐 · Daily Blitz 30→48뱅크
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

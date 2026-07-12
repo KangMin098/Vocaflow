@@ -20,5 +20,9 @@ CTP DCP(수능형 순서/삽입 연습). 테이블 `csat_dcp_items`(kind=book|ar
 
 **잔여 옵션**(미실행): v5/v2 도서(6권), narrative 아티클(문단 필터가 0 산출 — 대화체·단문), reference/travel 장르 순수화(expository/argumentative 한정 = 시험급 무모호성). DCP는 결정론·멱등·가역(DELETE by kind/ref)이라 재생성 안전.
 
-DCP 소비: hub 처방 ④ 연습 + `/practice/dcp`([[project_p6_handoff_pending]] 관련 없음, prescribe_today가 v-level 게이트). 관련: [[project_scriptquiz_chapter_quiz_drain]](유사 콘텐츠 드레인 관행).
+DCP 소비: hub 처방 ④ 연습 + `/practice/dcp`(prescribe_today가 stage 게이트). 관련: [[project_scriptquiz_chapter_quiz_drain]](유사 콘텐츠 드레인 관행).
+
+**학습자 stage 게이트(derive_learner_stage) 실측**: 다차원 — coverage(v_level≥stage×2) + wpm(reading_fluency_log: S1≥100·S2≥130) + item_accuracy(csat_item_attempts: S3≥0.70·S4≥0.65) + listening(echo_match_attempts: S5≥0.80). **v_level만 높아도(예 v11) 활동 데이터 없으면 S1 고착** — csat_stage_gates 임계. practice(DCP)는 S3+.
+
+**E2E 실증(2026-07-13, v06.232 후)**: 전원 S1이라 DCP 미구동이던 것을, runtime-test에 `reading_fluency_log` 3건(wpm~160·comprehension_ok·kind='article'·ref_id FK없음) 시드 → **S3 안착**(wpm 게이트 통과, item_accuracy NULL로 S3 미졸업). prescribe_today 결과: practice_active=true·5 items(order+insert)·75분. order 채점 로직(source_order 역순열=정답) SQL 재현 correct=true 확인. **runtime-test 현재 S3 데모-레디**(로그인 시 DCP 노출) — fluency 3건 DELETE로 S1 복귀 가능. `grade_dcp_item`은 auth.uid() 필수(서비스롤 호출 불가).
 

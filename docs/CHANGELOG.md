@@ -51,6 +51,7 @@
 - **근본 원인**: `csat_stage_catalog` VIEW 가 ① 아티클에 `register='argumentative'→S3` 특례(문체가 난이도 밴드를 덮음·비정합), ② 도서/비-argumentative 를 3버킷(v≤4→S1·v5-6→S2·v≥7→S4)으로만 나눠 **S3 밴드 사실상 부재**(argumentative 전용→굶주림), CSAT 핵심 v5-6 이 비활성 S2 로 밀림. v06.229(처방 누적 완화)가 표면화한 근본.
 - **재보정**: articles·books 일관 4버킷 monotonic — **v≤2→S1 · v3-4→S2 · v5-6→S3(CSAT 핵심·활성) · v7+→S4(killer band)**. argumentative 특례 제거, NULL→S2 방어. derive_learner_stage coverage 게이트(S_n≈v[(n-1)×2,n×2))에 i+1 정합. 컬럼 시그니처 불변(grants/의존 안전). 마이그레이션 `20260713090000_ctp_stage_catalog_band_recalibrate`.
 - **효과(라이브 실측)**: input 후보 S1:7·S2:50·S3:114·S4:12(전 밴드 populated); at-band DCP S2:48·**S3:762**·S4:564(S3 굶주림 해소). 현 S1 사용자 처방 input 5후보 유지(무영향), practice 비활성 정상. 유일 소비처 prescribe_today(input 정확매칭·practice 누적) 재검증.
+- **DCP end-to-end 실증**: 실 사용자 전원 S1(다차원 게이트 — vocab+wpm+정확도+듣기)이라 DCP 미구동이던 것을, runtime-test에 `reading_fluency_log` 3건(wpm~160) 시드→**S3 안착**. prescribe_today: practice_active=true·5 items(order+insert)·75분. order 채점(source_order 역순열=정답) 로직 재현 correct=true. runtime-test **S3 데모-레디**(로그인 시 DCP 노출·fluency 3건 DELETE로 복귀). apps/web/CLAUDE.md 계정 라인 갱신.
 
 ### CTP DCP 처방 도달성 수리 — 확대 콘텐츠 실제 활성화 (v06.229)
 - **버그**: prescribe_today practice 블록이 `c.stage_band = v_band`(정확 밴드 매칭)로 DCP 선정 → 카탈로그 매핑(v≤4→S1·v5-6→S2·argumentative→S3·v≥7→S4)과 맞물려 **S3 밴드가 argumentative 7편에 굶주리고, CSAT 핵심 v5-6·v6도서가 비활성 S2에 갇혀** v06.228 확대(+782)의 ~95%가 학습자 도달 불가였음. (소비 경로 = `/practice/dcp`·hub 처방 ④ 모두 prescribe_today 단일 출처 — 검증.)
