@@ -29,6 +29,7 @@
 - **검증**: creep(문맥 verb)→"기어가다" · sole(문맥 adj·sense v5)→Gibbon/Les Mis 추출 0건(기본용법 오추출 근절). tsc 0.
 - **잔여 sweep 배치 1~3 — 고가치 후보(179) 전량 종결**: 코퍼스 POS 불일치 504건 → 고가치 179 → 배치1 40 + 배치2 109 + 배치3 tail 5 = **누적 154단어** sense 보강(누락 POS 추가·전 sense v_level·flat 정렬·형식 정규화). 발행 shared_words 동기화. context_pos 재백필. 실증: idle(형용사 문맥)→추출 제외(v5) · noble/breeze(문맥)→정확 gloss. flat flip: breeze→"산들바람"·pine→"소나무"(v5)·vacuum→"진공"·crumble→"부서지다"·refrain→"삼가다"·inevitable→"불가피한" 등. A류 오데이터: wan("WAN약어"→"창백한"). **종결 판정**: 남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리 (b) flat-primary 정답(grave→무덤) (c) 명사화/participle 노이즈 — 추가 실익 낮음.
 - 사전 데이터 수리 누적 154단어(sense별 v_level 모델) — 상세 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
+- **Phase 4 사전 전역 구조/POS 정규화**: 45,496단어 전수 스캔 → Phase 3를 구조적으로 무력화하던 결함 전량 근절. no_meanings 6,964→0(단일 sense 백필) · legacy string-array 773→0 · enrichment `sense_ko`키 2,045→`meaning` additive · **sense POS 약어(`n.`·`adj.`·`v.` ~5,000)→풀폼**(context_pos와 절대 매칭 안 되던 핵심 결함) · flat pos 흔들림 16→0. ~9,800단어(21%) 정합 → 사전 전역 균일 `{pos,meaning,v_level}` + 전 POS 풀폼, 수천 단어 sense-매칭 즉시 활성화(무손실·additive, 추출 회귀 정상).
 
 ### 아케이드 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로 (v06.224)
 - **배선**: 스캐폴드가 이미 fetch하던 `example`(도서 챕터는 `source_sentence`=실제 책 문맥)·`pos`·`inflectedForms`를 그동안 버렸던 것 → `Word` 타입 +3필드로 게임에 전달. `GlyphTongueGame.buildChambersFromPool`: 스코프 단어의 예문에서 단어/굴절형을 찾아 룬으로 블랭크 → 석실 생성(세션당 최대 20단어=4석실). 예문 없는 단어 제외, 4개 미만이면 내장 뱅크 폴백.

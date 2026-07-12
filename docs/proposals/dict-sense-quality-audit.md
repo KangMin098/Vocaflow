@@ -94,8 +94,22 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **🔴 293 잔여 성격**: 명사화(the unconscious/eldest/infinite)·형용사-primary-정답(prior·temporal·jagged·brittle·oval)·participle 노이즈(trample/horrified)·기능어(lo)가 압도. 실 누락은 소수.
 - **배치3=실 누락 5단어**: brood(+명사"한배 새끼")·tug(+동사)·inevitable(명사→형용사 flip"불가피한")·dummy(+형용사)·unconscious(+명사"무의식"). shared_words 동기화.
 
-## 종결 요약
+## 종결 요약 (문맥-매칭 sweep)
 - **고가치 후보(179) 전량 종결** + tail 5 = **누적 사전 수리 154단어**(초기 17 + 배치1 40 + 배치2 109 + 배치3 5, 일부 중복). 전 sense v_level 부여.
-- **남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리 (b) flat-primary가 정답 (c) 명사화/participle 노이즈** — 추가 배치 실익 낮음. 필요 시 `dump-pos-candidates` 로직으로 재생성.
+- **남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리 (b) flat-primary가 정답 (c) 명사화/participle 노이즈** — 추가 배치 실익 낮음.
 - row `v_level`은 VRL 4축 산출물이라 불변 — Phase 3는 sense별 v_level로 우회(문맥 매칭), NULL은 row 폴백.
+
+## Phase 4 — 사전 전역 구조/POS 정규화 (2026-07-12 · 완료)
+> 문맥-매칭 sweep(책 등장 단어)과 별개로 **사전 45,496단어 전수**의 구조·POS 표기 결함을 스캔·근절. 다수가 Phase 3 sense-매칭을 **구조적으로 무력화**하고 있었음.
+
+| 결함 | 이전 | 현재 | 성격 |
+|---|---|---|---|
+| no_meanings (sense 인벤토리 없음) | 6,964 | **0** | flat만 존재 → 단일 sense `{pos,meaning,v_level}` 백필(무손실) |
+| legacy string-array `["뜻"]` (pos 없음) | 773 | **0** | 단일 POS 동의어 뉘앙스 → flat pos+뉘앙스 join 단일 sense |
+| enrichment schema (`sense_ko` 키, `meaning` 없음) | 2,045 | **0** | 고품질이나 Phase 3가 `meaning` 못 읽음 → `meaning`=`sense_ko` additive |
+| **sense POS 약어** (`n.`·`adj.`·`v.` 등) | ~5,000 | **0** | **context_pos(`noun` 풀폼)와 절대 매칭 안 됨** → 풀폼 정규화(핵심) |
+| flat pos 표기 흔들림 (`phrasal verb`·`numeral`) | 16 | **0** | `phrasal_verb`·`number` |
+
+- **효과**: ~9,800단어(21%)가 구조/POS 결함으로 Phase 3 sense-매칭 불가였던 것을 **전량 정합** → 사전 전역이 균일 `{pos, meaning, v_level?}` + 전 POS 풀폼. 특히 sense POS 약어 근절이 이미 백필된 context_pos와 결합해 **수천 단어 sense-매칭 즉시 활성화**(재백필 불요 — 약어는 이미 multi-POS로 집계돼 backfill됐고 값만 못 맞췄음).
+- **안전**: 전부 additive/무손실 변환(기존 sense_en·register 보존) · 추출 함수 회귀 정상(715 rows) · multi-POS 단어 2,764.
 - 백필은 발행 도서/아티클 실행 완료 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).
