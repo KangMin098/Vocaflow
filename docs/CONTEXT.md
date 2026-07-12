@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6ba9359` feat(db): ⑧ Word Orrery module_id enum 마이그 적용 — 아케이드 14종 persistence 완성
 - `c25fee7` docs(vcb): 추출 결과 평가 기반 사전 보완 Phase 7 — 다의어 7건 (v06.225)
 - `9d1dceb` feat(game): 아케이드 마지막 북극성 ⑧「The Word Orrery」— 지식 게이트 탐사 (Outer Wilds 계열)
 - `693d62d` docs(vcb): 추출 개선 항목2·3·4 정밀 조사 + 다의어 5개 완성 (v06.225)
 - `0cc7334` test(ctp): DCP 도달성 헬스 체크 신설 (v06.232)
-- `d6d0894` fix(vcb,lcp): 추출 노이즈 제거 항목1 — word_register brand/abbreviation 제외 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
