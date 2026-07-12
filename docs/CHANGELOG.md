@@ -10,6 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 신개념 6종 module_id enum 마이그 **적용** — persistence 활성 (v06.220)
+- DB 마이그 `add_arcade_newconcept_module_ids` **적용 완료**(2026-07-12) — `module_id` enum +6값(glyph-tongue/word-customs/lexicon-hands/lexicon-detective/morpheme-rules/silent-rule). 순수 additive(IF NOT EXISTS). DB 검증: pg_enum 6값 존재 확인. 로컬 미러 `supabase/migrations/20260712180000_*.sql`.
+- 효과: 아케이드 **12종 전부** FSRS `learning_records.module` / `scores.module` persistence 활성(기존 6종 20260711 + 신개념 6종). 게임 onCorrect/onWrong→기록 저장 완성.
+
 ### 아케이드 신개념 게임 ⑥「The Silent Rule」 — 철자 규칙 귀납 (The Witness 계열) · **도시에 6 신개념 완결** (v06.219)
 - **메커니즘(독창)**: **설명이 없다.** 각 패널에서 '규칙을 지키는 칸'만 활성화. 오답들이 모두 같은 규칙을 어기게 설계 → 여러 패널을 풀며 규칙을 **스스로 귀납**(오답 시 "N칸 어긋남"만, 어디인지 비공개=귀납 보존). 클러스터 완료 시 규칙+교정 공개. 미로가 아니라 철자·형태 규칙의 **발견 학습**(desirable difficulty = 가장 깊은 정착).
 - **3규칙**: ① i before e, except after c · ② 어미 -e 탈락 후 -ing · ③ 단모음+단자음 자음 중복. 각 2패널(정답3+오답2). 교정 노출(recieve→receive…)로 정답 각인.
