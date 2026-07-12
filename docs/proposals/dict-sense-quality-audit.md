@@ -113,3 +113,9 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **효과**: ~9,800단어(21%)가 구조/POS 결함으로 Phase 3 sense-매칭 불가였던 것을 **전량 정합** → 사전 전역이 균일 `{pos, meaning, v_level?}` + 전 POS 풀폼. 특히 sense POS 약어 근절이 이미 백필된 context_pos와 결합해 **수천 단어 sense-매칭 즉시 활성화**(재백필 불요 — 약어는 이미 multi-POS로 집계돼 backfill됐고 값만 못 맞췄음).
 - **안전**: 전부 additive/무손실 변환(기존 sense_en·register 보존) · 추출 함수 회귀 정상(715 rows) · multi-POS 단어 2,764.
 - 백필은 발행 도서/아티클 실행 완료 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).
+
+## Phase 5 — 레벨별 필드 완비 감사 + 예문 전수 채움 (2026-07-13 · 완료)
+> 사용자 지시 "빈도수 상관없이 레벨별 있어야 할 단어 정보 항목 모두 점검". sense/POS와 별개로 학습자-대면 **필드 완비**를 v_level별 전수 점검.
+- **감사(45,496 전체)**: meaning_ko·meanings_ko·pos·cefr·v_level = **100%**(Phase 4). example 84.5%·ipa 64.2%·synonyms 58.5%·inflections 55.3%·collocations 30.8%·antonyms 30.7%·learner_note 27.3%. audio/image/mnemonic 0%(별도 에셋, 스코프 외). 결측은 레벨이 아니라 과거 빈도-기반 dict-fill 잔재로 전 레벨 산재.
+- **예문 전수 채움(사용자 "전체 계속" 선택)**: 실 단일어(idiom·phrasal·다어절·고어 제외) **2,548개** 결측 → Claude(=LLM) 문맥·sense 예문 생성 15배치. **전 레벨 V1~V11 example 100%**. 전체 사전 example 84.5%→**90.1%**. 잔여 결측 4,517 = **전량 관용구/구동사/다어절/고어**(독립 예문이 부적절한 단위).
+- **다음 결측(후속)**: ipa(실 단일어 ~10,594)·synonyms·collocations(V11 거의 전무) — 후속 배치 대상.
