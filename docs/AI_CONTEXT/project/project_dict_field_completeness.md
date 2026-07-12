@@ -14,3 +14,11 @@
 
 **남은 필드 결측(후속 배치 대상)**: ipa 실 단일어 ~10,594 · synonyms ~15K · collocations V11 거의 전무. 감사 쿼리 재사용 가능(v_level별 `count(*) FILTER (WHERE <field> ...)`).
 
+**추출 품질 개선 항목 6개(2026-07-13 도출, 발음 제외)** — 추출 함수가 쓰는 게이트/스코어/조인 필드 진단:
+1. **word_register 노이즈 카테고리 — ✅ 구현 완료**: brand(™ 96)·abbreviation(무모음 2~5자 129)·proper_noun 신설(CHECK 마이그 `20260713100000`), 추출 함수 제외 확장(`20260713100500`). **proper_noun 분류는 후속**(고유명사 소문자화돼 패턴 어려움 → LLM 패스 필요).
+2. **frequency_rank NULL 백필(잔여)**: `_extract_composite_score`가 NULL rank→0.40 가중 **완전 0점**. study-tier plain V6-10 **5,890**개 불이익. 빈도 코퍼스 백필 또는 함수가 NULL을 중립처리하도록 보정.
+3. **사전 커버리지 갭(잔여)**: 발행 도서 단어 **19.5%(4,669)** 미등록→추출 불가. 성격=OCR/방언 오류+고유명사+희귀. 상류 tokenization/OCR-clean 갭. stage_book_dict_candidates 드레인 + 노이즈 게이트.
+4. **다의어 sense 완성도(잔여)**: rank≤5000 단일-sense 3,027(동일-POS 다의어 사각, light 빛·match 성냥). 배치 재검수.
+5. **spelling_variants 미활용(잔여)**: 114만 채움, 영/미 변형 dedup 부재.
+6. **verified false 73%(저우선)**: composite 0.10이나 예문 90%로 상쇄.
+
