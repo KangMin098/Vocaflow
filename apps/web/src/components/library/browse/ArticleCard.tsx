@@ -24,30 +24,10 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
+import { sourceMeta } from '@/lib/articles/source-meta'
 import { startArticleLearning } from '@/lib/articles/start-learning'
 import type { PublishedArticle } from '@/lib/articles/types'
 import { judgeArticleIPlusOne } from '@/lib/library/i-plus-one'
-
-const SOURCE_META: Record<string, { label: string; color: string }> = {
-  voa: { label: 'VOA Learning', color: '#2563EB' },
-  nasa: { label: 'NASA', color: '#7C3AED' },
-  nih: { label: 'NIH', color: '#0E7490' },
-  // v06.66 신규 + v06.69 arxiv 제거
-  simple_wikipedia: { label: 'Simple Wikipedia', color: '#0F766E' },
-  wikinews: { label: 'Wikinews', color: '#B45309' },
-  the_conversation: { label: 'The Conversation', color: '#15803D' },
-  // v06.180 신규 소스 — 미등록 시 회색 폴백이라 라벨·색 지정
-  owid: { label: 'Our World in Data', color: '#0891B2' },
-  factbook: { label: 'World Factbook', color: '#57534E' },
-  elife: { label: 'eLife', color: '#BE185D' },
-  // v06.198~199 신규 소스 (topic·reference 트랙)
-  wikipedia: { label: 'Wikipedia', color: '#3730A3' },
-  plos: { label: 'PLOS', color: '#0369A1' },
-  wikivoyage: { label: 'Wikivoyage', color: '#0D9488' },
-  usgs: { label: 'USGS', color: '#92400E' },
-  noaa: { label: 'NOAA Climate', color: '#155E75' },
-  rss: { label: 'RSS', color: '#D97706' },
-}
 
 // CEFR 배지는 틴트 패턴(색=텍스트 · 배경=color-mix 15%)으로 렌더 — 소스/적합도 배지와 동일.
 // 이전 text-white(고정 흰 글씨)는 파스텔 A1(대비 1.4:1) 및 다크모드 밝은 토큰(--p 등) 위에서 판독 불가였음(v06.211).
@@ -83,7 +63,7 @@ export function ArticleCard({
   const router = useRouter()
   const [pending, startTransition] = useTransition()
 
-  const src = SOURCE_META[article.source] ?? { label: article.source, color: 'var(--t3)' }
+  const src = sourceMeta(article.source)
   const cefr = article.cefr_level
   const cefrColor = cefr ? (CEFR_COLOR[cefr] ?? 'var(--t3)') : null
   const tags = (article.category_tags ?? []).slice(0, 3)

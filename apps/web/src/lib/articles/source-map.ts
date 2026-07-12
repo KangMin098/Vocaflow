@@ -17,6 +17,7 @@ import type { SourceKey } from '@vocaflow/library-pipeline/curation-spec'
 
 import { cefrToVLevel } from '@/lib/library/book-cover'
 import { judgeArticleIPlusOne } from '@/lib/library/i-plus-one'
+import { sourceMeta } from './source-meta'
 import type { PublishedArticle } from './types'
 
 export type TrackKey = 'listen' | 'easy' | 'topic' | 'news' | 'argue' | 'data' | 'reference'
@@ -310,6 +311,20 @@ export interface TrackStat {
   idealCount: number
   /** 실데이터 기반 적합 (딱 맞아요/수월/도전) */
   fit: TrackFit
+  /** 이 시리즈에 실제로 실린 출처 (라벨·색·편수, 편수 내림차순) — 학습자 신뢰·정보 제공 */
+  sources: Array<{ key: string; label: string; short: string; color: string; count: number }>
+}
+
+/** 트랙 글 목록 → 실제 출처별 편수 집계 (편수 내림차순). */
+function trackSources(items: PublishedArticle[]): TrackStat['sources'] {
+  const counts = new Map<string, number>()
+  for (const a of items) counts.set(a.source, (counts.get(a.source) ?? 0) + 1)
+  return [...counts.entries()]
+    .map(([key, count]) => {
+      const m = sourceMeta(key)
+      return { key, label: m.label, short: m.short, color: m.color, count }
+    })
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
 }
 
 /** /library/scripts 학습 지도 — 배너·지도·카드가 공유하는 단일 계산 결과. */
@@ -368,6 +383,7 @@ export function buildScriptsMap(articles: PublishedArticle[], userV: number): Sc
       hasAudio: items.some((a) => !!(a.audio_url && a.audio_url.trim())),
       idealCount: items.filter((a) => articleFitRank(a, userV) <= 1).length,
       fit: trackFitFromRange(vMin, vMax, eff),
+      sources: trackSources(items),
     })
   }
 

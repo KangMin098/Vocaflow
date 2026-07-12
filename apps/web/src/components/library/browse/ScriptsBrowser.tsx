@@ -25,6 +25,13 @@ import type { PublishedArticle } from '@/lib/articles/types'
 
 import { SeriesDetail } from './SeriesDetail'
 
+// 시리즈 출처 힌트 — 상위 3개 짧은 라벨 + 나머지 개수 (학습자 정보 제공, 좁은 공간용)
+function sourceHint(stat: TrackStat): string {
+  const top = stat.sources.slice(0, 3).map((s) => s.short)
+  const more = stat.sources.length - top.length
+  return top.join(' · ') + (more > 0 ? ` +${more}` : '')
+}
+
 export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
   const userV = useUserVLevel()
   const [selected, setSelected] = useState<TrackKey | null>(null)
@@ -140,6 +147,11 @@ function SeriesHero({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">{track.title}</h3>
           <p className="font-body text-[13px] leading-[1.45] text-[var(--t2)]">{track.oneLine}</p>
+          {stat.sources.length > 0 && (
+            <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t3)]">
+              출처 · {sourceHint(stat)}
+            </p>
+          )}
         </div>
       </div>
 
@@ -171,7 +183,7 @@ function SeriesRow({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
       <button
         type="button"
         onClick={onOpen}
-        className="flex min-h-[56px] w-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3.5 py-2.5 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex min-h-[60px] w-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3.5 py-2.5 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span
           aria-hidden
@@ -180,8 +192,11 @@ function SeriesRow({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
         >
           {track.icon}
         </span>
-        <span className="min-w-0 flex-1 truncate font-display text-[14px] font-[700] text-[var(--t1)]">
-          {track.title}
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">{track.title}</span>
+          {stat.sources.length > 0 && (
+            <span className="truncate font-mono text-[10px] font-[500] text-[var(--t3)]">{sourceHint(stat)}</span>
+          )}
         </span>
         <span className="shrink-0 font-mono text-[11px] font-[600] text-[var(--t3)]">
           {cefrLabel} · {count}편
