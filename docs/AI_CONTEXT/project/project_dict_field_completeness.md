@@ -22,3 +22,5 @@
 5. **spelling_variants 미활용(잔여)**: 114만 채움, 영/미 변형 dedup 부재.
 6. **verified false 73%(저우선)**: composite 0.10이나 예문 90%로 상쇄.
 
+**추출-평가 방법론(2026-07-13, 재사용)**: 신규 100권 적재는 외부fetch+winkNLP 수시간이라 별도. 대신 **분석된 도서 전권에 `select_book_chapter_vocab` 집계 → cap-40 진입 단어(sort_order≤40) 최다등장 순 육안 평가**가 고효율. `SELECT v.word,count(*) FROM library_books lb CROSS JOIN LATERAL select_book_chapter_vocab(lb.id) v WHERE status='published' AND sort_order<=40 GROUP BY word ORDER BY count DESC`. **rank 샘플이 놓친 실 도서 다의어 gap을 정확 포착**(현대/기술/법률 뜻만 저장·문학 대표 뜻 누락 패턴). 25권 평가로 7건 수리: bid·tender·pardon·pin(완전 오gloss)·rear·rage·whip. 추출 품질은 앞선 작업으로 이미 높음(초기 플래그 대부분 false alarm — 짧은 gloss=정확·V11=고전 실 고급어).
+

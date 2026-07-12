@@ -16,7 +16,7 @@
 - **아트**: 심우주 인디고→따뜻한 태양 오렌지. 회전 궤도링·펄스 태양·행성 비컨·현상 Lora italic 세리프. 오리리 원형 배치(6행성) + 코덱스 + 봉인 패널.
 - 배선: `word-orrery` 3타입(ArcadeGameId/ModuleId/ScoreModule) + MARK_PATHS + `/play/word-orrery` + SessionFrame + 아케이드 허브(14번째 포탈) + /hub 배너("14개 세계").
 - **검증**: Playwright 18항목 전 PASS — 잠금 게이트·6관측·코덱스·해금·오답 shake·4봉인 개방·완료·**pageerror 0**.
-- ⚠️ persistence enum 마이그(`add_word_orrery_module_id`)는 **승인 대기** — 미적용 시 게임 정상 동작하되 scores/learning_records 적재만 조용히 no-op(record-score try/catch).
+- **persistence 마이그 `add_word_orrery_module_id` 적용 완료**(2026-07-13) — `module_id` enum +`word-orrery`. 순수 additive(IF NOT EXISTS). DB 검증: enum 존재 확인. 로컬 미러 `supabase/migrations/20260713110000_*.sql`. → **아케이드 14종 전부 persistence 완성**(무드 6 + 신개념 7 + 북극성 1).
 
 ### ⑦ Lexicon Estate module_id enum 마이그 적용 — 아케이드 13종 persistence 완성 (v06.236)
 - DB 마이그 `add_lexicon_estate_module_id` **적용 완료**(2026-07-13) — `module_id` enum +`lexicon-estate`. 순수 additive(IF NOT EXISTS). DB 검증: enum 존재 확인. 로컬 미러 `supabase/migrations/20260713100000_*.sql`.

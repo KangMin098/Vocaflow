@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c25fee7` docs(vcb): 추출 결과 평가 기반 사전 보완 Phase 7 — 다의어 7건 (v06.225)
 - `9d1dceb` feat(game): 아케이드 마지막 북극성 ⑧「The Word Orrery」— 지식 게이트 탐사 (Outer Wilds 계열)
 - `693d62d` docs(vcb): 추출 개선 항목2·3·4 정밀 조사 + 다의어 5개 완성 (v06.225)
 - `0cc7334` test(ctp): DCP 도달성 헬스 체크 신설 (v06.232)
 - `d6d0894` fix(vcb,lcp): 추출 노이즈 제거 항목1 — word_register brand/abbreviation 제외 (v06.225)
-- `cf3662a` docs(ctp): DCP end-to-end 실증 + runtime-test S3 데모-레디 기록 (v06.232)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713110000_add_word_orrery_module_id.sql`
 - `20260713100500_vocab_exclude_noise_registers.sql`
 - `20260713100000_sd_word_register_noise_categories.sql`
 - `20260713100000_add_lexicon_estate_module_id.sql`
 - `20260713090000_ctp_stage_catalog_band_recalibrate.sql`
-- `20260712190000_ctp_prescribe_today_dcp_band_cumulative.sql`
 <!-- /auto:recent-migrations -->
 
 ---
