@@ -50,8 +50,11 @@ CREATE INDEX IF NOT EXISTS idx_snapshots_user_type ON public.user_level_snapshot
 CREATE INDEX IF NOT EXISTS idx_snapshots_chain ON public.user_level_snapshots USING btree (previous_snapshot_id) WHERE (previous_snapshot_id IS NOT NULL);
 CREATE INDEX IF NOT EXISTS idx_snapshots_diagnostic ON public.user_level_snapshots USING btree (diagnostic_result_id) WHERE (diagnostic_result_id IS NOT NULL);
 ALTER TABLE public.user_level_snapshots ENABLE ROW LEVEL SECURITY;
--- RLS 정책: admin read 는 20260706010000_vrl_admin_read_policies 에 존재.
---   소유자 own-data 정책은 원 마이그(out-of-band)에 있었으나 본 기록 범위 밖 — 별도 확인·기록 대상.
+-- RLS: 소유자 own-data read (마이그 부재였음 → 기록). admin read 는 20260706010000_vrl_admin_read_policies.
+--   쓰기 정책 없음 = 의도적(스냅샷은 SECURITY DEFINER 함수만 INSERT, RLS 우회).
+DROP POLICY IF EXISTS snapshots_select_own ON public.user_level_snapshots;
+CREATE POLICY snapshots_select_own ON public.user_level_snapshots
+  FOR SELECT USING (auth.uid() = user_id);
 
 -- ═══ vrl_data_integrity_concerns — 분류 정합의심 단어 로그 ═══
 CREATE SEQUENCE IF NOT EXISTS public.vrl_data_integrity_concerns_id_seq;
