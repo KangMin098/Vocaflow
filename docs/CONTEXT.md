@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d3ddf0d` feat(game): 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로
 - `2c7b415` feat(library): /library/scripts 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션
 - `2629954` feat(dict): Phase 1 sense별 v_level 모델 + 탐지기 V≥6 한정 (근본해결 착수)
 - `e17d1d4` feat(dict): POS 불일치 자동 탐지기 + 심화 근본원인 규명
 - `2f10854` fix(lcp): 도서 단어장 라벨 드리프트 (V{bvl}+)→(V6+) (v06.221)
-- `dfa9a7c` docs(dict): sense/POS 품질 감사 — 다의어 primary 오선정 11건 수리 (v06.216)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

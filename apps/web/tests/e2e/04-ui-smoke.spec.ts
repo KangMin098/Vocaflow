@@ -132,6 +132,43 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
   });
 
+  test('스크립트 학습 지도 — 오리엔테이션 스캐폴드 + 시리즈 드릴다운/복귀', async ({ page }) => {
+    // v06.222 재설계 회귀 — 배너(밴드별)·난이도 지도·시리즈 카드가 렌더되고,
+    // 시리즈 선택 → 평면 목록 → '학습 지도로 돌아가기' 왕복이 동작하는지.
+    // 밴드 무관 단언(계정 V-Level 의존 X) — buildScriptsMap 이 실집계로 스캐폴드를 항상 구성.
+    test.setTimeout(60_000);
+    const errors = collectConsoleErrors(page);
+
+    await page.goto('/library/scripts', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    // 1) 개인화 배너 — 레벨 밴드 카피가 렌더 (4밴드 중 1)
+    const banner = page.getByRole('region', { name: '학습 안내' });
+    await expect(banner).toBeVisible({ timeout: 15_000 });
+    await expect(banner).toContainText(/레벨 진단|초급 추천|중급 추천|고급 안내/);
+
+    // 2) 난이도 지도 노출
+    await expect(page.getByRole('region', { name: '난이도 지도' })).toBeVisible();
+
+    // 3) 시리즈 둘러보기 — 오리엔테이션 카드 ≥2, '골라보기' CTA 노출
+    const series = page.getByRole('region', { name: '시리즈 둘러보기' });
+    await expect(series).toBeVisible();
+    const openBtns = series.getByRole('button', { name: /골라보기/ });
+    expect(await openBtns.count()).toBeGreaterThan(1);
+
+    // 4) 시리즈 선택 → 평면 드릴다운(글 목록 + '학습 지도로 돌아가기')
+    await openBtns.first().click();
+    const back = page.getByRole('button', { name: /학습 지도로 돌아가기/ });
+    await expect(back).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('listitem').first()).toBeVisible();
+
+    // 5) 복귀 → 지도 재노출
+    await back.click();
+    await expect(page.getByRole('region', { name: '난이도 지도' })).toBeVisible();
+
+    const fatal = fatalErrors(errors);
+    expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
+  });
+
   test('EchoMatch — 마이크 권한 게이트까지 렌더된다', async ({ page }) => {
     const errors = collectConsoleErrors(page);
     await page.goto(`/text/${ECHO_TEXT_ID}/echo`, { waitUntil: 'domcontentloaded' });
