@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6c9a9a0` test(e2e): 학습 지도 레벨 밴드별 배너·추천 적응 E2E (실 로그인)
 - `18a6510` feat(game): ④ Lexicon Detective 사건 2→3 확장 — 「불타는 극장」
 - `e16ca72` fix(ctp): DCP 처방 도달성 수리 — 누적 밴드 + 일자 로테이션 (v06.229)
 - `48f5ff4` feat(game): ⑤ Morpheme Rules 회랑 2→3 확장 — 「시간의 방」
 - `4addc23` feat(library): 도서 길이 필터 5버킷 세분화 + facet-adaptive
-- `9f908d0` feat(game): ⑥ The Silent Rule 철자 규칙 3→6 확장
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

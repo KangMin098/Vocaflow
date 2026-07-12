@@ -5,7 +5,7 @@
 //   수동계획(study_plan_items 오늘)이 있으면 그게 우선(TodayPlanCard) — 사용자 의지 존중(Empathetic).
 //
 // 5블록: ① 복습(FSRS due) ② 듣기(EchoMatch) ③ 읽기(stage 후보) ④ 연습(DCP→/practice/dcp) ⑤ 점검(ScriptQuiz).
-// Calm UI · Implicit Progress(번호 스텝) · 색+아이콘 이중부호 · 44px+ · 다크 토큰 대응.
+// Calm UI · Implicit Progress(번호 스텝) · 색+아이콘 이중부호 · 컴팩트 sm 런처(36px, 형제 홈카드 일관) · 다크 토큰 대응.
 // Phase 2: ④ 연습 블록이 active 면 /practice/dcp(order/insert·채점·error_cause) 로 진입.
 
 import {
