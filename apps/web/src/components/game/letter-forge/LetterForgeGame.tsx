@@ -381,7 +381,7 @@ const LF_CSS = `
   .lf-key--used { opacity: .25; pointer-events: none; }
 
   .lf-controls { display: flex; gap: 10px; }
-  .lf-ctrl { min-height: 42px; padding: 0 16px; font-size: 13px; }
+  .lf-ctrl { min-height: 44px; padding: 0 16px; font-size: 13px; }
   .lf-hint { font-size: 12px; color: var(--t3); margin: 0; text-align: center; }
 
   @media (prefers-reduced-motion: reduce) {

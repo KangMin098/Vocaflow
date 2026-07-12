@@ -424,9 +424,9 @@ const GK_CSS = `
   .gk-progress { height: 6px; border-radius: 999px; background: var(--bg3); overflow: hidden; }
   .gk-progress-spacer { min-width: 20px; }
   .gk-progress-fill { height: 100%; border-radius: 999px; background: var(--combo); transition: width .4s var(--ease, cubic-bezier(.4,0,.2,1)); }
-  .gk-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 15px; cursor: pointer; transition: border-color .15s, color .15s; }
+  .gk-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 15px; cursor: pointer; transition: border-color .15s, color .15s; }
   .gk-icon-btn:hover { border-color: var(--t3); color: var(--t1); }
-  .gk-exit { padding: 8px 12px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 12px; font-weight: 700; cursor: pointer; min-height: 36px; transition: background .15s, color .15s, border-color .15s; }
+  .gk-exit { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 12px; font-weight: 700; cursor: pointer; min-height: 44px; transition: background .15s, color .15s, border-color .15s; }
   .gk-exit:hover { color: var(--t1); border-color: var(--t3); }
 
   .gk-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(20px, 4.4vh, 44px); padding: 20px 16px; min-height: 0; }

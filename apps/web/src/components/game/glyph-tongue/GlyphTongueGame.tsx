@@ -256,7 +256,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
         {/* 코덱스 */}
         <div className="gt-codex" role="group" aria-label="코덱스">
-          {words.map((w) => {
+          {words.map((w, i) => {
             const isSolved = solved.has(w.en);
             const guess = assign[w.en];
             return (
@@ -265,7 +265,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
                 type="button"
                 className={`gt-card ${isSolved ? 'gt-card--solved' : ''} ${focusEn === w.en ? 'gt-card--focus' : ''} ${held && !isSolved ? 'gt-card--target' : ''}`}
                 onClick={() => tapRune(w.en)}
-                aria-label={isSolved ? `해독됨 ${w.en}` : '룬'}
+                aria-label={isSolved ? `해독됨 ${w.en}` : guess ? `룬 ${i + 1} · 가설 ${guess}` : `룬 ${i + 1}`}
               >
                 <span className="gt-card-glyph">
                   {isSolved ? <b className="gt-card-word">{w.en}</b> : <Rune word={w.en} className="gt-rune-card" />}
@@ -333,7 +333,7 @@ const GT_CSS = `
   .gt-slot--locked { color: var(--success); border-color: color-mix(in srgb, var(--success) 40%, var(--bd)); background: color-mix(in srgb, var(--success) 10%, transparent); }
 
   .gt-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: min(680px, 94vw); min-height: 40px; }
-  .gt-chip { padding: 9px 14px; border-radius: 999px; border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .1s, border-color .15s, background .15s, box-shadow .15s; }
+  .gt-chip { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .1s, border-color .15s, background .15s, box-shadow .15s; }
   .gt-chip:hover { border-color: var(--combo); transform: translateY(-2px); }
   .gt-chip:focus-visible { outline: none; border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 28%, transparent); }
   .gt-chip--held { background: var(--combo); border-color: var(--combo); color: var(--ti); box-shadow: 0 4px 14px color-mix(in srgb, var(--combo) 30%, transparent); transform: translateY(-2px); }

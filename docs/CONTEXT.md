@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `249cb50` test(smoke): 로그인 재시도 견고화 + 런타임 UI 검증 4/4 (v06.222)
 - `430d34f` feat(game): 실 어휘 배선 ③ — Lexicon Hands가 학습자 단어 속성 덱으로
 - `7121966` fix(vcb,lcp): 사전 sense/POS 오정렬 근본 수리 Phase 2·3 — 문맥-sense 매칭 추출 (v06.225)
 - `7b492c1` test(e2e): /library/scripts 학습 지도 재설계 회귀 스모크 추가
 - `d3ddf0d` feat(game): 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로
-- `2c7b415` feat(library): /library/scripts 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

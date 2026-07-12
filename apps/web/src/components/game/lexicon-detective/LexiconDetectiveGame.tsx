@@ -251,7 +251,7 @@ const LD_CSS = `
   .ld-file { width: min(620px, 94vw); padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--bg) 78%, #fff); border: 1px solid var(--bd); box-shadow: 0 16px 40px -22px rgba(30,26,14,.6); }
   .ld-file-h { font-family: var(--font-english, monospace); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--t3); font-weight: 700; }
   .ld-narr { margin: 8px 0 0; font-family: var(--font-body, Georgia, serif); font-size: clamp(15px, 2.3vw, 18px); line-height: 2; color: var(--t1); }
-  .ld-slot { display: inline-flex; align-items: center; min-width: 74px; padding: 2px 10px; margin: 0 2px; border-radius: 7px; border: 1.5px dashed var(--active); background: color-mix(in srgb, var(--active) 6%, transparent); color: var(--t1); font-family: inherit; font-size: .92em; cursor: pointer; vertical-align: baseline; transition: border-color .15s, background .15s; }
+  .ld-slot { display: inline-flex; align-items: center; min-width: 74px; padding: 6px 10px; margin: 0 2px; border-radius: 7px; border: 1.5px dashed var(--active); background: color-mix(in srgb, var(--active) 6%, transparent); color: var(--t1); font-family: inherit; font-size: .92em; cursor: pointer; vertical-align: baseline; transition: border-color .15s, background .15s; }
   .ld-slot:hover:not(:disabled) { background: color-mix(in srgb, var(--active) 14%, transparent); }
   .ld-slot:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--active) 30%, transparent); }
   .ld-slot-hint { color: var(--active); font-size: .82em; font-style: italic; }
@@ -261,7 +261,7 @@ const LD_CSS = `
   .ld-slot--solved b { font-family: var(--font-english, system-ui); color: var(--success); font-weight: 800; }
 
   .ld-bank { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; width: min(660px, 96vw); min-height: 40px; }
-  .ld-chip { display: flex; flex-direction: column; align-items: center; line-height: 1.05; padding: 7px 13px; border-radius: 10px; border: 1.5px solid var(--bd); background: var(--bg); cursor: pointer; transition: transform .1s, border-color .15s, box-shadow .15s; }
+  .ld-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 44px; line-height: 1.05; padding: 7px 13px; border-radius: 10px; border: 1.5px solid var(--bd); background: var(--bg); cursor: pointer; transition: transform .1s, border-color .15s, box-shadow .15s; }
   .ld-chip b { font-family: var(--font-english, system-ui); font-size: 14px; font-weight: 800; color: var(--t1); }
   .ld-chip span { font-size: 9.5px; color: var(--t3); }
   .ld-chip:hover { border-color: var(--combo); transform: translateY(-2px); }
