@@ -28,7 +28,7 @@ export const GENRE_BUCKETS: GenreBucketMeta[] = [
   { key: 'adventure_history', label: '모험·역사', emoji: '🗺️' },
   { key: 'romance', label: '로맨스', emoji: '💗' },
   { key: 'poetry_drama', label: '시·희곡', emoji: '🎭' },
-  { key: 'essay_philosophy', label: '에세이·철학·전기', emoji: '🧠' },
+  { key: 'essay_philosophy', label: '에세이·인문·논픽션', emoji: '🧠' },
   { key: 'children_ya', label: '동화·청소년', emoji: '🧸' },
 ]
 
@@ -40,22 +40,31 @@ export function genreBucketLabel(key: GenreBucket): string {
   return GENRE_LABEL[key]
 }
 
-// 키워드 규칙 — 구체 버킷 먼저(순서 중요).
+// 키워드 규칙 — 구체 버킷 먼저(순서 중요). '우화'·'그림책' 이 essay/정보 키워드보다 먼저 매칭돼
+// STEM 그림책·동물 우화가 동화·청소년으로 정상 분류됨(순서 의존).
 const RULES: Array<{ key: GenreBucket; kws: string[] }> = [
-  { key: 'children_ya', kws: ['동화', '아동', '청소년', '그림책'] },
+  { key: 'children_ya', kws: ['동화', '아동', '청소년', '그림책', '우화'] },
   { key: 'mystery', kws: ['추리', '범죄', '스릴러', '미스터리', '탐정', '괴기', '공포'] },
   { key: 'scifi_fantasy', kws: ['SF', '에스에프', '공상과학', '환상', '판타지', '고딕'] },
   { key: 'romance', kws: ['로맨스', '연애'] },
   { key: 'poetry_drama', kws: ['시', '운문', '희곡', '비극', '사극', '희극', '서사시', '드라마'] },
   {
+    // 인문·논픽션 — 철학/전기 + 학술·정책·보고서 등 비문학 정보서 (NULL→literary 오분류 방지)
     key: 'essay_philosophy',
-    kws: ['철학', '정치', '에세이', '논설', '자서전', '전기', '회고', '사상', '종교', '역사서'],
+    kws: [
+      '철학', '정치', '에세이', '논설', '자서전', '전기', '회고', '사상', '종교', '역사서',
+      '학술', '정책', '보고서', '논픽션', '사회학', '교과서',
+    ],
   },
   { key: 'adventure_history', kws: ['모험', '역사', '서부', '전쟁', '항해'] },
   // literary 는 fallback (아래 bucketOf 가 처리)
 ]
 
-/** genre_norm → broad 버킷. 매칭 실패 시 'literary'(문학·소설). null/빈값도 'literary'. */
+/**
+ * genre_norm → broad 버킷. 매칭 실패 시 'literary'(문학·소설). null/빈값도 'literary'.
+ * ⚠️ NULL/미매칭 폴백이 'literary' 라, genre_norm 이 비면 소설이 아닌 책도 문학으로 분류됨.
+ *    발행 도서의 genre_norm NULL 은 큐레이션 백필로 해소해야 근본 정확(프론트 한계).
+ */
 export function bucketOf(genreNorm: string | null | undefined): GenreBucket {
   if (!genreNorm) return 'literary'
   const g = genreNorm.trim()

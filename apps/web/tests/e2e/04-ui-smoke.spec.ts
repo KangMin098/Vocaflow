@@ -132,15 +132,29 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(before).toBeGreaterThan(1);
 
     // 레벨 칩('Vx–y …') 클릭 → 결과 축소.
-    // hydration 완료 전 클릭은 핸들러 미부착으로 유실되므로 안정화 대기(로그인 헬퍼와 동일 패턴).
-    await page.waitForTimeout(800);
+    // hydration 완료 전 클릭은 핸들러 미부착으로 유실되므로 반영될 때까지 재시도
+    // (aria-pressed 확인 후 미선택 시에만 클릭 → 토글-오프 방지, 콜드 컴파일에도 견고).
+    // dev 콜드 컴파일/HMR 경합 시 클라 번들 미로딩으로 hydration 이 지연 → 클릭이 유실될 수 있음.
+    // aria-pressed 로 반영 확인, 미반영 지속 시 1회 리로드로 fresh 번들 유도(EchoMatch 패턴).
     const levelChip = explorer.getByRole('button', { name: /^V\d/ }).first();
-    await levelChip.click();
-    await expect.poll(async () => items.count()).toBeLessThan(before);
+    let reloaded = false;
+    await expect(async () => {
+      if ((await levelChip.getAttribute('aria-pressed')) !== 'true') await levelChip.click();
+      const c = await items.count();
+      if (c >= before && !reloaded) {
+        reloaded = true;
+        await page.reload({ waitUntil: 'domcontentloaded' });
+        await expect(levelChip).toBeVisible({ timeout: 15_000 });
+      }
+      expect(await items.count()).toBeLessThan(before);
+    }).toPass({ timeout: 30_000 });
 
-    // 초기화 → 원복
-    await explorer.getByRole('button', { name: /초기화/ }).click();
-    await expect.poll(async () => items.count()).toBe(before);
+    // 초기화 → 원복 (초기화 시 버튼이 사라지므로 보일 때만 클릭 → idempotent)
+    const resetBtn = explorer.getByRole('button', { name: /초기화/ });
+    await expect(async () => {
+      if (await resetBtn.isVisible()) await resetBtn.click();
+      expect(await items.count()).toBe(before);
+    }).toPass({ timeout: 10_000 });
 
     const fatal = fatalErrors(errors);
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
@@ -170,9 +184,15 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(await openBtns.count()).toBeGreaterThan(1);
 
     // 4) 시리즈 선택 → 평면 드릴다운(글 목록 + '학습 지도로 돌아가기')
-    await openBtns.first().click();
+    //   이 페이지는 JS 무거워 hydration 지연 → 클릭이 onClick(setTrackFilter) 미부착으로 유실될 수 있음.
+    //   setTrackFilter 는 멱등이므로 '전환될 때까지 재클릭'(toPass) 으로 견고화.
     const back = page.getByRole('button', { name: /학습 지도로 돌아가기/ });
-    await expect(back).toBeVisible({ timeout: 10_000 });
+    await expect(async () => {
+      if (!(await back.isVisible())) {
+        await series.getByRole('button', { name: /골라보기/ }).first().click();
+      }
+      await expect(back).toBeVisible({ timeout: 1_500 });
+    }).toPass({ timeout: 20_000 });
     await expect(page.getByRole('listitem').first()).toBeVisible();
 
     // 5) 복귀 → 지도 재노출

@@ -18,5 +18,7 @@
 
 **잔여 sweep 종결(고가치 179 전량)**: 탐지기(`audit-dict-pos-mismatch.mts` / `dump-pos-candidates` 로직)로 후보 자동생성. 코퍼스 504건 → 고가치 179 → **배치1 40 + 배치2 109 + 배치3 tail 5 = 154단어**(누락 POS 추가·전 sense v_level·flat flip·형식 정규화·shared_words 동기화·context_pos 재백필). flat flip 예: breeze→"산들바람"·pine→"소나무"(v5)·vacuum→"진공"·crumble→"부서지다"·refrain→"삼가다"·inevitable→"불가피한". A류 오데이터: wan("WAN약어"→"창백한"). **종결 판정**: 남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리(grave·damp·bound 등) (b) flat-primary 정답 (c) 명사화/participle 노이즈(the unconscious·trample·lo·prior·temporal) — 추가 실익 낮음. row v_level은 VRL 산출물이라 불변(Phase 3가 sense v_level로 우회). 상세 `docs/proposals/dict-sense-quality-audit.md`.
 
+**발행 세트 재발행 = 보류(사용자 결정 2026-07-12)**: 수정 사전의 gloss는 `shared_words` 동기화로 이미 반영됨. 남은 건 membership 드리프트뿐 — v5 부여 기본어(damp·sole·pine·idle·minor)의 발행 노출 **총 59개**(실제 제거 대상은 그 부분집합). `publish_book_word_sets`는 기존 세트 SKIP이라 재발행=삭제+재생성(set_id 변경, destructive) + 동시 세션이 book word set 작업 중 → **불균형·위험**이라 보류. 소수 드리프트는 다음 정상 재발행 때 자동 교정.
+
 관련: [[book_vocab_ssot_unify]] [[project_extraction_pipeline_p1_p4]] [[project_book_dict_registration_process]]
 
