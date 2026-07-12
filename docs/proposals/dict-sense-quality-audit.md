@@ -81,7 +81,15 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
   - **B류 근본 실증**: `minor`(형용사"사소한" **v5** + 명사"미성년자" v6) · `idle`(형용사"한가한" v5) · `damp`(형용사 v5) — 기본 sense v5로 Phase 3가 문맥 형용사 용법을 **V≥6 탈락**(오추출 근절), 특수 명사 sense만 study.
 - **context_pos 재백필**: 40단어가 신규 multi-POS화 → `backfill-context-pos.mts` 재실행으로 lbv/lav 문맥 POS 채움(Phase 3 sense-matching 활성).
 
+## 잔여 sweep 배치 2 — 109단어 sense 보강 (2026-07-12 · 완료)
+- **고가치 179 중 잔여 139 처리**: 실 누락 sense **109단어** 교정 + 형식 오류 정규화(string-array/enrichment-schema → `{pos,meaning,v_level}`). 나머지 ~30은 스킵(형용사 primary가 이미 정답: prior·secular·temporal·nasal·aquatic 등 속성적 명사 오태깅 / lo·ironed 노이즈).
+- **flat primary 대량 교정(지배 sense로 flip)**: `breeze`→명사"산들바람" · `pine`→명사"소나무"(v5) · `coral`→명사"산호" · `vacuum`→명사"진공,공백" · `crumble`→동사"부서지다" · `refrain`→동사"삼가다" · `orderly`→형용사"질서정연한" · `trumpet`→명사"트럼펫" · `courtesy`→명사"예의" · `homeless`/`peripheral`/`collective`/`compact`/`invalid`/`thermal`/`unemployed`→형용사 · `dictate`/`tread`/`underscore`/`rinse`→동사 등.
+- **A류 오데이터 근절**: `wan` 저장값 "광역 통신망 WAN"(약어 오분류) → **"창백한, 핏기 없는"(형용사)** 교정.
+- **검증 109/109**(전 sense v_level) · 발행 `shared_words` 동기화(불일치 0) · context_pos 재백필.
+- `pine`(소나무 v5)·`orderly`/`homeless`/`peripheral`(기본 형용사 저-V) 등도 B류 자동 제외 대상 확대.
+
 ## 잔여(자동화)
-- 179 고가치 중 **139단어** + 🟡선택 63 + 저빈도·기능어 후보 — 후속 배치(동일 방식: sense 추가·v_level·flat 정렬). `dump-pos-candidates` 로직으로 목록 재생성.
+- 🟡선택 63(sense-선택 가능, 인벤토리엔 있음) + 저빈도(rank>8000)·기능어 후보 — 임팩트 낮음, 필요 시 후속 배치. `dump-pos-candidates` 로직으로 목록 재생성.
 - row `v_level`은 VRL 4축 산출물이라 불변 유지 — Phase 3는 sense별 v_level로 우회(문맥 매칭), NULL은 row 폴백.
 - 백필은 발행 도서/아티클 1회 실행 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).
+- **누적 사전 수리 149단어**(배치1 40 + 배치2 109 + 초기 17 일부 중복).

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `44a7ced` feat(library): 도서 「전체 탐색」 필터 재설계 — 라벨 구획 상세 패널 + 내 학습 상태
 - `a8fdabc` docs(vcb): 사전 sense 품질 잔여 sweep 배치 1 — 40단어 sense 보강 (v06.225)
 - `08dc14a` fix(game): 아케이드 게임 44px 터치타겟·룬 a11y + 14종 e2e 전수 스모크
 - `249cb50` test(smoke): 로그인 재시도 견고화 + 런타임 UI 검증 4/4 (v06.222)
 - `430d34f` feat(game): 실 어휘 배선 ③ — Lexicon Hands가 학습자 단어 속성 덱으로
-- `7121966` fix(vcb,lcp): 사전 sense/POS 오정렬 근본 수리 Phase 2·3 — 문맥-sense 매칭 추출 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
