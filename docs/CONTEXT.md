@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `63d3de8` chore(vrl): snapshots own-data RLS 정책 기록 — Phase2 드리프트 closure 완결
 - `16b1e3e` feat(db): 아케이드 신개념 6종 module_id enum 마이그 적용 — persistence 활성
 - `6548b67` chore(vrl): Phase2 테이블·컬럼 스키마 드리프트 기록 (v06.220 완결)
 - `d1077a2` chore(vrl): Phase2 런타임 함수 스키마 드리프트 기록 12종 (v06.220)
 - `b5774a8` fix(game): 아케이드 허브 부제 스케일-무관화 (12종 반영)
-- `fd93973` feat(game): 아케이드 신개념 ⑥「The Silent Rule」— 철자 규칙 귀납 (Witness) · 도시에 6 신개념 완결
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

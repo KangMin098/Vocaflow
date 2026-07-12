@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전 sense/POS 품질 감사 — 다의어 primary 오선정 수리 (v06.216)
+- **발견**: 큐레이션 단어추출 검증에서 `creep="변태"`·`founder="침몰하다"`·`spiritual="흑인 영가"`·`bay="적갈색의"` 등 **흔한 sense를 누락하고 특수·희귀 sense를 primary로 선정**한 사전 오류(근본=추출 아닌 shared_dictionary 품질). 발행 mid-rank 다의어 오류율 ~8%.
+- **수리**: 11단어 사전 교정(creep→기어가다·nettle→쐐기풀·founder→창립자·spiritual→영적인·bay→만·steam→증기 + shed·sacrifice·grip·echo·faint 누락 sense 보강) + **발행 `shared_words` ~130 appearance 전파**(creep 19세트·faint 23·echo 18 등, `meaning_ko`+`part_of_speech`).
+- **잔여**: 전수 근절은 다의어 배치 Claude 재검수(`dict-enrich`) 필요 — 탐지 기계화 어려움(특수 sense primary 판단=Claude). 예방책=문맥 POS 저장+`meanings_ko` sense 선택(RC2/RC3). 설계 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
+
 ### 아케이드 신개념 6종 module_id enum 마이그 **적용** — persistence 활성 (v06.220)
 - DB 마이그 `add_arcade_newconcept_module_ids` **적용 완료**(2026-07-12) — `module_id` enum +6값(glyph-tongue/word-customs/lexicon-hands/lexicon-detective/morpheme-rules/silent-rule). 순수 additive(IF NOT EXISTS). DB 검증: pg_enum 6값 존재 확인. 로컬 미러 `supabase/migrations/20260712180000_*.sql`.
 - 효과: 아케이드 **12종 전부** FSRS `learning_records.module` / `scores.module` persistence 활성(기존 6종 20260711 + 신개념 6종). 게임 onCorrect/onWrong→기록 저장 완성.
