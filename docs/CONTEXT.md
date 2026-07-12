@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `cf7a5de` feat(game): 실 어휘 배선 ② — Word Customs가 학습자 단어 여권으로
 - `059840a` docs(vcb): 사전 전역 구조/POS 정규화 Phase 4 — 45K단어 전수 정합 (v06.225)
 - `224eb4c` test(articles): 학습 지도 밴드 적응성 단위 검증 (source-map.test.ts)
 - `fe1c111` fix(library): 장르 분류 품질 보정 Part A — bucketOf 키워드 보강 + 비문학 정직화
 - `7c567d8` docs(vcb): 사전 sense 품질 sweep 종결 — 배치3 tail 5 + 판정 (누적 154단어)
-- `0e4e8fe` docs(vcb): 사전 sense 품질 잔여 sweep 배치 2 — 109단어 sense 보강 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
