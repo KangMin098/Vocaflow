@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2841d30` feat(ctp): DCP 도서 v6 확대 + floor 파라미터화 — 총 592→1374 items (v06.228)
 - `52480fd` feat(ctp): DCP 아티클 확대 드레인 — 순서/삽입 592→1094 items (v06.228)
 - `cf7a5de` feat(game): 실 어휘 배선 ② — Word Customs가 학습자 단어 여권으로
 - `059840a` docs(vcb): 사전 전역 구조/POS 정규화 Phase 4 — 45K단어 전수 정합 (v06.225)
 - `224eb4c` test(articles): 학습 지도 밴드 적응성 단위 검증 (source-map.test.ts)
-- `fe1c111` fix(library): 장르 분류 품질 보정 Part A — bucketOf 키워드 보강 + 비문학 정직화
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
