@@ -24,6 +24,7 @@ import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import {
   AGE_BANDS,
+  LENGTH_BUCKETS,
   V_BANDS,
   ageBandOf,
   bucketOf,
@@ -31,6 +32,7 @@ import {
   vBandOf,
   type AgeBand,
   type GenreBucket,
+  type LengthBucket,
   type VBand,
 } from '@/lib/library/genres'
 import {
@@ -119,6 +121,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
     const vbSet = new Set<VBand>()
     const genreSet = new Set<GenreBucket>()
     const ageSet = new Set<AgeBand>()
+    const lengthSet = new Set<LengthBucket>()
     const themeFreq = new Map<string, number>()
     let hasAudio = false
     let hasEnrollments = false
@@ -128,6 +131,8 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       genreSet.add(bucketOf(b.genre_norm))
       const ab = ageBandOf(b.age_band)
       if (ab) ageSet.add(ab)
+      const lb = lengthBucket(b.reading_minutes)
+      if (lb) lengthSet.add(lb)
       for (const th of b.themes ?? []) themeFreq.set(th, (themeFreq.get(th) ?? 0) + 1)
       if (b.has_audio) hasAudio = true
       if (b.enrollment_state && b.enrollment_state !== 'not_enrolled') hasEnrollments = true
@@ -142,6 +147,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       genres: Array.from(genreSet),
       themes,
       ages: AGE_BANDS.filter((a) => ageSet.has(a.key)).map((a) => a.key),
+      lengths: LENGTH_BUCKETS.filter((l) => lengthSet.has(l.key)).map((l) => l.key),
       hasAudio,
       hasEnrollments,
     }

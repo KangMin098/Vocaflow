@@ -66,6 +66,7 @@
 - **hydration mismatch 수정**: 주제 상시 노출로 표면화된 결함 — facet 주제 정렬 tie-break `localeCompare`(Node↔브라우저 collation 상이로 순서 엇갈림)를 code-unit 비교로 교체(`BooksExplorer`). 이전엔 주제가 disclosure에 숨겨져 초기 렌더에 없어 잠복.
 - **장르 분류 품질 보정(Part A)**: `bucketOf`(genres.ts) 키워드 보강 — `우화`→동화·청소년, `학술·정책·보고서·논픽션·사회학·교과서`→인문·논픽션. `essay_philosophy` 라벨 `에세이·철학·전기`→`에세이·인문·논픽션`(비문학 정직 반영). NULL 폴백→'문학·소설' 한계 주석화. 레벨칩 테스트를 hydration 재시도(toPass+리로드)로 견고화.
 - **장르 분류 품질 보정(Part B)** — DB 백필(사용자 명시 승인 "실행"): 발행 genre_norm NULL 2권 `library_books.curation_metadata` additive 병합 — `Introduction to Sociology`→`사회학 교과서`(→인문·논픽션), `Pride and Prejudice`→`로맨스 소설`(→로맨스). 결과: 발행 7권 중 literary(문학·소설) 버킷 **0** = NULL→문학 오분류 완전 해소. 스키마 변경 無(데이터 UPDATE). 잔여: 미발행 NULL 10권은 추후 큐레이션 백필.
+- **길이 버킷 세분화**: `reading_minutes` 3버킷(짧게/보통/길게 — 카탈로그 73%가 '길게'>4h에 쏠림)→**5버킷**(~1h/1–4h/4–10h/10–20h/20h+, 임계 60/240/600/1200분). 20h+ 대작(로마제국 120h)을 장편과 분리 → 읽기 부담 판단 명확. 길이 구획도 **facet-adaptive**로 전환(빈 버킷 숨김). `genres.ts`(LENGTH_BUCKETS/lengthBucket)+`BooksExplorer`(lengths facet)+`BookFilterBar`. 검증: SSR로 발행 7권 짧게/4–10h/10–20h/20h+ 노출·빈 1–4h 숨김 확인.
 - **범위 밖(사용자 선택)**: CEFR 병기·형식자료 신설·칩별 카운트는 제외. 레벨=V밴드 유지(CEFR=카드 배지 보조).
 - **검증**: tsc 0 · eslint 0(변경 `BookFilterBar`·`BooksExplorer`). 04-ui-smoke에 "전체 탐색 필터 구획 렌더 + 레벨칩 7→2 축소 + 초기화 원복 + 콘솔에러 0" 회귀 테스트 추가 → **통과**(격리 실행 40.8s). 전 화면 콘솔에러 테스트도 `/library/books` 포함 10화면 통과(53.8s). 검증 전 워크스페이스 `next dev` 2개 동시 기동→`.next` 공유 오염(라우트 무작위 404) 발견·단일 서버 정리로 복구.
 

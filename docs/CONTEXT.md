@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9f908d0` feat(game): ⑥ The Silent Rule 철자 규칙 3→6 확장
 - `f68eb7b` fix(dev): Windows webpack 메모리 캐시 — .next pack.gz 손상·서버 사망 근절 + ③② 실단어 검증 완결
 - `f430fae` docs(changelog): 장르 분류 Part B DB 백필 적용 기록 (v06.223)
 - `2841d30` feat(ctp): DCP 도서 v6 확대 + floor 파라미터화 — 총 592→1374 items (v06.228)
 - `52480fd` feat(ctp): DCP 아티클 확대 드레인 — 순서/삽입 592→1094 items (v06.228)
-- `cf7a5de` feat(game): 실 어휘 배선 ② — Word Customs가 학습자 단어 여권으로
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

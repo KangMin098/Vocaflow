@@ -83,6 +83,7 @@ export interface FacetData {
   genres: GenreBucket[]
   themes: string[]
   ages: AgeBand[]
+  lengths: LengthBucket[]
   hasAudio: boolean
   /** 로그인 사용자가 등록(내 서재)한 도서가 하나라도 있는지 */
   hasEnrollments: boolean
@@ -333,18 +334,20 @@ export function BookFilterBar({
         </Section>
       )}
 
-      {/* 길이 */}
-      <Section label="길이">
-        {LENGTH_BUCKETS.map((l) => (
-          <Chip
-            key={l.key}
-            active={filters.length === l.key}
-            onClick={() => onChange({ length: filters.length === l.key ? null : l.key })}
-          >
-            {l.label}
-          </Chip>
-        ))}
-      </Section>
+      {/* 길이 — facet-adaptive (실재 버킷만) */}
+      {facets.lengths.length > 0 && (
+        <Section label="길이">
+          {LENGTH_BUCKETS.filter((l) => facets.lengths.includes(l.key)).map((l) => (
+            <Chip
+              key={l.key}
+              active={filters.length === l.key}
+              onClick={() => onChange({ length: filters.length === l.key ? null : l.key })}
+            >
+              {l.label}
+            </Chip>
+          ))}
+        </Section>
+      )}
 
       {/* 음성 — 원어민 음성 보유 도서 (facet-adaptive) */}
       {facets.hasAudio && (

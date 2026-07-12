@@ -75,8 +75,10 @@ export function bucketOf(genreNorm: string | null | undefined): GenreBucket {
 }
 
 // ── 길이 버킷 ─────────────────────────────────────────────
-// reading_minutes 기준. 짧게 < 60분 / 보통 / 길게 > 240분.
-export type LengthBucket = 'short' | 'medium' | 'long'
+// reading_minutes 기준 5밴드. 카탈로그 분포(2분~120시간)가 이전 3버킷의 '길게'(>4h)에
+// 73% 몰렸던 것을 4~10h · 10~20h · 20h+(대작)로 분리 — 읽기 부담 판단이 명확.
+// 임계: 60 / 240 / 600 / 1200 분 (= 1 / 4 / 10 / 20 시간).
+export type LengthBucket = 'short' | 'medium' | 'long' | 'xlong' | 'epic'
 
 export interface LengthBucketMeta {
   key: LengthBucket
@@ -85,15 +87,19 @@ export interface LengthBucketMeta {
 
 export const LENGTH_BUCKETS: LengthBucketMeta[] = [
   { key: 'short', label: '짧게 (~1시간)' },
-  { key: 'medium', label: '보통 (1~4시간)' },
-  { key: 'long', label: '길게 (4시간+)' },
+  { key: 'medium', label: '1~4시간' },
+  { key: 'long', label: '4~10시간' },
+  { key: 'xlong', label: '10~20시간' },
+  { key: 'epic', label: '20시간+' },
 ]
 
 export function lengthBucket(minutes: number | null | undefined): LengthBucket | null {
   if (minutes == null || minutes <= 0) return null
   if (minutes < 60) return 'short'
-  if (minutes <= 240) return 'medium'
-  return 'long'
+  if (minutes < 240) return 'medium'
+  if (minutes < 600) return 'long'
+  if (minutes < 1200) return 'xlong'
+  return 'epic'
 }
 
 // ── V-레벨 밴드 ───────────────────────────────────────────
