@@ -61,4 +61,19 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 - **모델 확립**: `meanings_ko` 각 sense에 `v_level` 필드. 예: `swallow=[{verb,"삼키다",v_level:4},{noun,"제비",v_level:6}]` · `sole=[{adj,"유일한",v_level:5},{noun,"발바닥",v_level:6},{noun,"서대",v_level:9}]`.
 - **적용(누적 17단어)**: creep·nettle·founder·spiritual·bay·steam(A류 primary) + shed·sacrifice·grip·echo·faint(누락보강) + **swallow·swift·crush·spoil·sole·stern(sense v_level 모델)**. 발행 세트 ~220 appearance 교정.
 - **잔여 sweep**: 488 study-word 후보 배치 Claude 재검수(`dict-enrich`) — 각 다의어 (a) 흔한 sense primary화 (b) sense별 v_level 부여 (c) 누락 sense 보강. 탐지기 `audit-dict-pos-mismatch.mts`가 후보 자동 생성.
-- **후속 Phase**: (2) 문맥 POS 저장 (3) 문맥-sense 매칭 추출(sense v_level로 V≥6 필터) — B류 근절.
+
+## Phase 2 — 문맥 POS 저장 (2026-07-12 · 완료)
+- **스키마**: `library_book_vocabularies` + `library_article_vocabularies` 에 `context_pos text` 추가(additive·nullable). 마이그 `20260712160000_vocab_context_pos.sql`.
+- **백필**: `scripts/backfill-context-pos.mts` — multi-POS(≥2 POS·V≥6) 단어 1,020개 대상, 각 추출 행의 `first_sentence` 를 winkNLP(파이프라인 동일) 태깅 → 단어 POS 저장. **book 1,507 + article 212 행** 백필.
+- **파이프라인 forward-wiring**: `extract-lemmas.ts` 가 chapter 지배 POS(최다 등장) 계산 → `ChapterWord.context_pos` → `insert_book_analysis` RPC(`20260712170000`) + article 직삽입이 저장. **신규 도서/아티클은 백필 없이 파이프라인에서 바로 채움**.
+
+## Phase 3 — 문맥-sense 매칭 추출 (2026-07-12 · 완료)
+- **추출 함수 재설계**: `select_book_chapter_vocab` + `select_article_vocab` 에 LATERAL JOIN 추가(`20260712165000`) — `context_pos` 로 `meanings_ko` 에서 문맥 POS 일치 sense 선택 → **그 sense 의 v_level 로 V≥6 필터** + 그 sense 의 gloss·pos 표시. 미백필(NULL)은 row 값 폴백(하위호환).
+- **검증(실동작)**:
+  - `creep`(문맥 verb) → gloss "기어가다"(verb sense) 표시 — 오gloss "변태" 근절.
+  - `sole`(문맥 adjective, sense v5) → Gibbon/Les Mis 추출에서 **0건**(V≥6 탈락) — 기본 용법 오추출(B류) 근절 실증.
+- **효과**: A류(primary 오선정) = 사전 재-enrichment로 근절 · B류(기본 sense 저-V 다의어) = 문맥 sense v_level 필터로 근절. 사전 단일-행 한계를 sense별 v_level + 문맥 매칭으로 우회.
+
+## 잔여(자동화)
+- 488 study-word 후보 배치 Claude 재검수(sense별 v_level 부여·누락 sense 보강) — `audit-dict-pos-mismatch.mts` 후보 자동생성, `dict-enrich` 스킬 배치.
+- 백필은 발행 도서/아티클 대상 1회 실행 완료 · 신규는 파이프라인 자동. 재분석 시 `insert_book_analysis` 가 context_pos 갱신.

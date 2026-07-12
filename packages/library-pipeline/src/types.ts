@@ -87,6 +87,8 @@ export interface ChapterWord {
   frequency_in_book: number
   first_sentence: string
   base_learning_value: number
+  /** Phase 3 — 첫 등장 chapter 문맥의 지배 POS (winkNLP). sense 매칭용. */
+  context_pos: string | null
 }
 
 /** Stage S5 ANALYZE 전체 결과 */

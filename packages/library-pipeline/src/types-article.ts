@@ -53,6 +53,8 @@ export interface ArticleWord {
   frequency_in_article: number
   first_sentence: string
   base_learning_value: number
+  /** Phase 3 — 문맥 지배 POS (winkNLP). sense 매칭용. */
+  context_pos: string | null
 }
 
 export interface AnalyzedArticle {
