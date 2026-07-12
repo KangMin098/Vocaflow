@@ -23,6 +23,12 @@ const BANK: Word[] = [
   { en: 'genuine', ko: '진짜의' }, { en: 'hostile', ko: '적대적인' }, { en: 'obvious', ko: '분명한' },
   { en: 'reveal', ko: '드러내다' }, { en: 'seek', ko: '찾다' }, { en: 'vivid', ko: '생생한' },
   { en: 'wander', ko: '거닐다' }, { en: 'yield', ko: '양보하다' }, { en: 'grasp', ko: '움켜쥐다' },
+  { en: 'deliberate', ko: '신중한' }, { en: 'reluctant', ko: '마지못한' }, { en: 'thorough', ko: '철저한' },
+  { en: 'arrogant', ko: '오만한' }, { en: 'humble', ko: '겸손한' }, { en: 'cautious', ko: '조심스러운' },
+  { en: 'accomplish', ko: '성취하다' }, { en: 'endure', ko: '견디다' }, { en: 'persuade', ko: '설득하다' },
+  { en: 'hesitate', ko: '망설이다' }, { en: 'overcome', ko: '극복하다' }, { en: 'dedicate', ko: '헌신하다' },
+  { en: 'scarce', ko: '부족한' }, { en: 'abundant', ko: '풍부한' }, { en: 'temporary', ko: '일시적인' },
+  { en: 'permanent', ko: '영구적인' }, { en: 'adequate', ko: '충분한' }, { en: 'immense', ko: '엄청난' },
 ];
 
 const DAILY_N = 10;

@@ -37,6 +37,18 @@ const BANK: Puzzle[] = [
     { label: '신체', color: C.amber, words: [{ en: 'elbow', ko: '팔꿈치' }, { en: 'ankle', ko: '발목' }, { en: 'spine', ko: '척추' }, { en: 'jaw', ko: '턱' }] },
     { label: '재해', color: C.forest, words: [{ en: 'flood', ko: '홍수' }, { en: 'earthquake', ko: '지진' }, { en: 'wildfire', ko: '산불' }, { en: 'avalanche', ko: '눈사태' }] },
   ] },
+  { groups: [
+    { label: '악기', color: C.pink, words: [{ en: 'flute', ko: '플루트' }, { en: 'drum', ko: '드럼' }, { en: 'violin', ko: '바이올린' }, { en: 'trumpet', ko: '트럼펫' }] },
+    { label: '보석', color: C.purple, words: [{ en: 'diamond', ko: '다이아몬드' }, { en: 'pearl', ko: '진주' }, { en: 'emerald', ko: '에메랄드' }, { en: 'ruby', ko: '루비' }] },
+    { label: '응시하다', color: C.amber, words: [{ en: 'observe', ko: '관찰하다' }, { en: 'glance', ko: '힐끗 보다' }, { en: 'gaze', ko: '응시하다' }, { en: 'peek', ko: '엿보다' }] },
+    { label: '거래', color: C.forest, words: [{ en: 'trade', ko: '거래하다' }, { en: 'bargain', ko: '흥정하다' }, { en: 'purchase', ko: '구매하다' }, { en: 'refund', ko: '환불하다' }] },
+  ] },
+  { groups: [
+    { label: '곤충', color: C.pink, words: [{ en: 'ant', ko: '개미' }, { en: 'beetle', ko: '딱정벌레' }, { en: 'moth', ko: '나방' }, { en: 'wasp', ko: '말벌' }] },
+    { label: '지형', color: C.purple, words: [{ en: 'valley', ko: '계곡' }, { en: 'cliff', ko: '절벽' }, { en: 'plateau', ko: '고원' }, { en: 'canyon', ko: '협곡' }] },
+    { label: '성격 결점', color: C.amber, words: [{ en: 'arrogant', ko: '오만한' }, { en: 'greedy', ko: '탐욕스러운' }, { en: 'reckless', ko: '무모한' }, { en: 'lazy', ko: '게으른' }] },
+    { label: '말하기', color: C.forest, words: [{ en: 'mumble', ko: '웅얼거리다' }, { en: 'declare', ko: '선언하다' }, { en: 'whisper', ko: '속삭이다' }, { en: 'shout', ko: '외치다' }] },
+  ] },
 ];
 
 const MAX_MISTAKES = 4;
