@@ -50,7 +50,7 @@ export default async function LibraryScriptsPage() {
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
-            큐레이션된 짧은 영어 글 — 듣기·쉬운글·주제·시사·논증·데이터 6개 묶음으로 목적·수준에 맞게 골라요.
+            큐레이션된 짧은 영어 글 — 난이도 지도에서 내 레벨에 맞는 시리즈를 고르고, 무엇을·왜·어떻게 공부할지 함께 확인해요.
           </p>
           {articles.length > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">

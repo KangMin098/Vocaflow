@@ -52,7 +52,7 @@ const SCREENS: Array<{ path: string; marker: RegExp }> = [
   { path: '/pairflip', marker: /PairFlip|페어|짝/ },
   { path: '/scriptquiz', marker: /ScriptQuiz|퀴즈/ },
   { path: '/library/books', marker: /Library|도서|발견/ },
-  { path: '/library/scripts', marker: /스크립트|묶음|내 레벨/ },
+  { path: '/library/scripts', marker: /난이도 지도|시리즈 둘러보기|스크립트/ },
 ];
 
 /** 환경 노이즈 필터 — Supabase auth 토큰 요청의 간헐 실패(rate-limit/refresh 경합)는
@@ -95,6 +95,38 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
       await expect(page.getByText(/페이지를 찾을 수 없어요|problem occurred/)).toHaveCount(0);
       console.log(`[smoke] ${s.path} OK`);
     }
+
+    const fatal = fatalErrors(errors);
+    expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
+  });
+
+  test('도서관 전체 탐색 — 필터 구획 렌더 + 칩 필터가 결과를 좁힌다', async ({ page }) => {
+    test.setTimeout(60_000);
+    const errors = collectConsoleErrors(page);
+
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    const explorer = page.getByRole('region', { name: '전체 도서 탐색' });
+    await expect(explorer).toBeVisible({ timeout: 15_000 });
+
+    // 재설계 핵심 — 뭉친 한 카드 → 라벨 구획으로 분리된 상세 패널이 상시 노출
+    await expect(explorer.getByRole('heading', { name: '전체 탐색' })).toBeVisible();
+    for (const label of ['레벨', '장르', '길이']) {
+      await expect(explorer.getByText(label, { exact: true })).toBeVisible();
+    }
+    // '내 학습' 구획은 등록 도서 보유 계정에서만 노출(facet-adaptive) — 계정 의존이라 무단언
+
+    const items = explorer.getByRole('listitem');
+    const before = await items.count();
+    expect(before).toBeGreaterThan(1);
+
+    // 레벨 칩('Vx–y …') 클릭 → 결과 축소
+    await explorer.getByRole('button', { name: /^V\d/ }).first().click();
+    await expect.poll(async () => items.count()).toBeLessThan(before);
+
+    // 초기화 → 원복
+    await explorer.getByRole('button', { name: /초기화/ }).click();
+    await expect.poll(async () => items.count()).toBe(before);
 
     const fatal = fatalErrors(errors);
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);

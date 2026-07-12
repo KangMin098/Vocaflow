@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### `/library/scripts` 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션 (v06.222)
+- **문제**: 스크립트 탭이 트랙 섹션 + 얇은 한 줄 소개 + fit 배지뿐 — `source-map.ts` 의 풍부한 오리엔테이션 데이터(능력·학습과학 why·학습법 단계·난이도 V밴드)가 **전부 미사용**. 다양한 레벨의 학습자가 "어떤 소스/시리즈를 왜/어떻게 고를지" 판단 근거 부재.
+- **재설계(기본 뷰)**: 개인화 배너 → **난이도 지도**(쉬움→어려움 축 + "여기 있어요" 마커 + 시리즈 칩·추천 강조) → 바로 시작할 글 strip → **시리즈 오리엔테이션 카드**(능력 칩 + why(Lora italic) + 학습법 ①②③ + 레벨범위·편수·음성 + 대표글 + 골라보기 CTA).
+- **레벨 밴드 적응**: `getLearnerBand` (미진단/초급/중급/고급) + `bandGuidance` — 미진단은 진단 유도(/diagnostic), 고급은 "대부분 수월" 솔직 안내 + 논증·데이터·원문 깊이 유도. `buildScriptsMap` 이 실집계(V범위·편수·음성·fit·idealCount·추천 트랙) 계산 — **하드코딩 0**.
+- **신규 컴포넌트 3**: `DifficultyMap` · `TrackOrientationCard` · `ScriptsGuideBanner`. `source-map.ts` +`LearnerBand`/`buildScriptsMap`/`bandGuidance`/`articleFitRank`/`byRecommendedArticle`/`vToCefrLabel`/트랙 `short`. `ScriptsBrowser` 재작성(추가 fetch 0). 04-ui-smoke 마커를 "난이도 지도" 로 강화.
+- **검증**: tsc 0(변경 6파일) · eslint 0 · SSR 렌더 200(배너·지도·마커·추천 리본·6 시리즈 카드 마커 전부 확인). e2e 로그인 beforeAll 은 Supabase auth 경합으로 환경성 실패(스크립트 화면 미도달·본 변경 무관).
+
 ### LCP 도서 단어장 라벨 드리프트 수정 — (V{bvl}+)→(V6+) (v06.221)
 - **드리프트**: 도서 챕터 단어장 description 이 `(V{book_v_level}+)` 표기(예 V7 도서 "V7+")였으나 단어는 `select_book_chapter_vocab` 의 **P1 고정 floor=V6** 선정 → 라벨/내용 불일치.
 - **수정**: `publish_book_word_sets` description 한 줄 `(V6+)` 정합(CREATE OR REPLACE, 제목·slug·메타·선정 전부 불변) + 로컬 마이그 기록.
