@@ -157,6 +157,9 @@ winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,8
 > 사용자 계획: **5권씩 적재→추출·평가→사전 보완→도서 데이터 삭제(용량 절약)→전체 학습대상 반복**. 근본적 사전 전체 작업 필요 시 별도 도출. 목적=사전 품질만 향상(도서는 transient 테스트 코퍼스).
 - **루프 메커니즘**: (1) SE seed 5개 `library_books` INSERT(status=queued, admin_enqueue_book는 role 가드→직접 INSERT) (2) `reprocess-all-se.mjs --ids <uuids> --commit`로 fetch+segment+winkNLP 적재 (3) `select_book_chapter_vocab` 집계→단일-sense 고빈도 단어 평가 (4) gap 수리+shared_words 동기화 (5) lbv/chapters/book 삭제 + seed에 `curation_meta.dict_mined=true` 표시(재처리 방지).
 - **아티클 평가(참고)**: 과학·시사 아티클도 평가→variation(→변이)·span(→기간/폭) 수리. (이후 도서만 집중 지시.)
-- **배치 1(Wollstonecraft·Antigone·Huck Finn·Lupin·Gadfly)**: 4건 — merit(→장점/가치 명사)·fling(→내던지다 동사)·strand(→가닥 명사)·furnish(→제공하다). 도서 삭제·seed 표시 완료.
-- **누적 추출-평가 수리**: 책7(bid·tender·pardon·pin·rear·rage·whip) + 아티클2 + 배치1 4 = **13단어**. 공통 패턴=현대/기술/법률/협소 뜻만 저장·대표 뜻 누락.
-- **잔여**: SE seed ~1,428 → ~285 배치(다중 세션). 반복 실행형.
+- **배치 1(Wollstonecraft·Antigone·Huck Finn·Lupin·Gadfly)**: 4건 — merit·fling·strand·furnish.
+- **배치 2(Le Morte·Leviathan·Shakespeare 3편)**: 4건 — worship(→숭배하다 동사)·dread(→두려워하다 동사)·vow(→맹세 명사)·mock(→모의의 형용사). (Leviathan 거대챕터 skip)
+- **배치 3(Pericles·Pooh Corner·Windfairies·Understood Betsy·Le Morte)**: **1건**(distress→괴롭히다 동사). **동화·시극 장르=yield 급락**(단순/고어 어휘 대부분 정확).
+- **누적 추출-평가 수리 ~18단어**: 책7(bid·tender·pardon·pin·rear·rage·whip)+아티클2(variation·span)+배치1~3 9 = 현대/협소 뜻만·대표 뜻 누락 패턴.
+- **yield 경향**: 배치별 4→4→1. **다양·성인 산문(철학·미국 vernacular)=고yield · 동화·시극=저yield**. 사전이 이미 잘 커버돼 diminishing returns. 인기순 seed 소진할수록 하락 예상.
+- **잔여**: SE seed ~1,423 → ~285 배치. 장르 다양성 위해 popularity_rank보다 genre 분산 pick 권장. 다중 세션 반복형 · 근본 사전 전체 이슈는 미발견(개별 다의어 per-word).
