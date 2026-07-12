@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `dfa9a7c` docs(dict): sense/POS 품질 감사 — 다의어 primary 오선정 11건 수리 (v06.216)
 - `63d3de8` chore(vrl): snapshots own-data RLS 정책 기록 — Phase2 드리프트 closure 완결
 - `16b1e3e` feat(db): 아케이드 신개념 6종 module_id enum 마이그 적용 — persistence 활성
 - `6548b67` chore(vrl): Phase2 테이블·컬럼 스키마 드리프트 기록 (v06.220 완결)
 - `d1077a2` chore(vrl): Phase2 런타임 함수 스키마 드리프트 기록 12종 (v06.220)
-- `b5774a8` fix(game): 아케이드 허브 부제 스케일-무관화 (12종 반영)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260712180000_lcp_book_word_set_label_v6_floor.sql`
 - `20260712180000_add_arcade_newconcept_module_ids.sql`
 - `20260712170000_vrl_phase2_runtime_functions_record.sql`
 - `20260712165000_vrl_phase2_tables_columns_record.sql`
 - `20260712160000_vcb_publish_commit_record.sql`
-- `20260712150000_lcp_book_difficulty_functions_record.sql`
 <!-- /auto:recent-migrations -->
 
 ---
