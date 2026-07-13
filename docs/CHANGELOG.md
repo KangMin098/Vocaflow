@@ -122,6 +122,12 @@
 - **검증**: **독립 로직 테스트 PASS**(실단어 15장 덱 생성·전 카드 품사·어원 시너지 그룹 존재 spect[inspect/respect/suspect]·port[transport/export]·휴리스틱 품사 정확) + posFromData 7케이스 매핑 검증 + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ **런타임 end-to-end 렌더는 dev 서버 불안정(디스크 98% → .next 반복 손상·프로세스 사망)으로 보류** — 로컬 디스크 확보 후 `?set=<테마 세트>` 플레이로 확인 권장.
 - 도메인 태그는 데이터 sparse/과광범위로 미사용(품사+어원+접두사 3축). authored 게임(④⑤⑥)은 배선보다 콘텐츠 확장이 적합.
 
+### 다의어 sense 전면 완성 — 일반 사전급 다중 POS (v06.225, 진행형)
+- **목표**: 사전 전체 단어가 실제 쓰이는 모든 POS sense를 갖도록(일반 사전급) → "ransomed→몸값을 치르고 풀어주다"처럼 형태에 맞는 뜻 추출.
+- **병렬 파이프라인**: `sense-chunk.mjs`(단일-sense content 단어 빈도순 청크 분할) → **서브에이전트 병렬 authoring**(청크당 1 에이전트, 표준 영어 실재 POS만 보수적 추가, 애매하면 skip) → `sense-apply.mjs`(검증·일괄 적용: meanings_ko + flat pos/meaning_ko 동기화 + shared_words, 단일-sense 가드).
+- **Wave 1 완료(rank 1700-6000)**: 수작업 고빈도 ~100(watch→보다·face→직면하다·bear→견디다/낳다·fine→좋은/미세한·count→세다·surround→둘러싸다·fast→빠른) + **서브에이전트 388**(steal→도루·milk→착취하다·desert→탈영하다·boot→부팅·march→행진하다·wolf→늑대 복원·manifest→나타내다·crisp→바삭한 등). rare-primary 오류(명사만/희귀뜻 primary) 다수 교정. 해당 범위 다중-sense 45%.
+- **형태 POS 추론(마이그 `161500`)과 결합** → 추출 시 굴절/파생형이 형태에 맞는 sense로 나옴. Wave 2(rank 6000-9000) 등 후속 진행.
+
 ### 굴절형·파생형 해소 — 조회·도서 단어추출 양쪽 (v06.225)
 - **문제**: 흔한 파생형은 표제어라 뜻이 나오나, rare 미등록 파생형(dreamlike·kinglike·boyishly)은 `not_found`; 도서 단어추출(`select_book_chapter_vocab`)은 winkNLP lemma 직접 매칭만 해 미매칭 굴절/파생형 탈락 → 학습자가 따로 찾아야 함.
 - **lookup tier 5**(마이그 `20260713150000`): `lookup_word_meaning`에 **파생 해소** 추가 — 기존 4-tier(direct→규칙 역굴절→철자변형→inflected_forms cluster) 실패 시 투명 접미사(-ly/ily/ically/ness/iness/less/iless/ful/fully/ish/like/wise)를 벗겨 **base 표제어 뜻 폴백**. 검증: 굴절·파생 20종 전수 해소, `not_found` 0.
