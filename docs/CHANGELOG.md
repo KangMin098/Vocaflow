@@ -108,6 +108,7 @@
 - **lookup tier 5**(마이그 `20260713150000`): `lookup_word_meaning`에 **파생 해소** 추가 — 기존 4-tier(direct→규칙 역굴절→철자변형→inflected_forms cluster) 실패 시 투명 접미사(-ly/ily/ically/ness/iness/less/iless/ful/fully/ish/like/wise)를 벗겨 **base 표제어 뜻 폴백**. 검증: 굴절·파생 20종 전수 해소, `not_found` 0.
 - **도서 추출 해소**(마이그 `20260713160000`+`160500`): `resolve_dict_headword(surface)` 헬퍼(direct→cluster→규칙 역굴절→파생 strip) 신설 → `select_book_chapter_vocab` JOIN을 이 헬퍼로 교체. **미매칭 굴절/파생형이 사전 뜻과 함께 회수**(darkish→dark·motherless→mother·uncomfortableness→uncomfortable). 시그니처 동일(호출부 무변).
 - **쓰레기 방지**: 해소는 **base 표제어가 실재할 때만** → 규칙 날조 불가. 파생 strip은 base 길이≥4 + junk 제외로 과도 strip 방지(reely→ree·actuly→junk 차단). junk 표제어 `foreign_word_proxy`(actu) 1건 삭제. Huck Finn 방언 코퍼스로 검증 — study 목록 무오염.
+- **추출 단어 = 실제 도서 표면형**(마이그 `20260713161000`): 도서에 "children"이 나오면 추출도 `word="children"`(+뜻), `lemma="child"`. 이전엔 표제어 child로 환원 표시 → 일반 사전처럼 실제 형태+뜻. 실증: ransomed(몸값)·booming(호황)·trod→tread(밟다)·uneasier→uneasy(불안한)·grumbling(투덜거리다). dedup은 표제어 단위(중복 방지), 대표 표면형=챕터 최빈. ※ 방언 과다 코퍼스(Huck Finn)는 일부 오해소(chillen→chill·biler→bile) — 표준 텍스트엔 무해.
 - ⚠️ **forward 규칙 대량 생성은 부적합 확정**: 형용사→-ly 생성이 `unprotectedly`·`whitishly` 등 비표준 날조. runtime 역-strip 해소가 정답(base 실재 검증).
 
 ### 굴절형·파생형 추출 — 기존 인프라 확인 + 파생 검증소스 완결 (v06.225)
