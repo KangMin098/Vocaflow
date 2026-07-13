@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9b19733` feat(scripts): 학습정보 팝업 가독성·가시성 재설계 (v06.241)
 - `941624f` feat(dict): 추출 형태별 POS 추론 — ransomed→동사 뜻 (v06.225)
 - `4b78586` feat(scripts): 시리즈 학습정보 팝업 — 왼쪽 클릭 결정 surface (v06.240)
 - `9434b66` feat(dict): 도서 추출 단어를 실제 표면형으로 표시 — children→"children"+뜻 (v06.225)
 - `4249e47` feat(dict): 도서 단어추출 굴절/파생 해소 — resolve_dict_headword 배선 (v06.225)
-- `de1c371` feat(dict): lookup_word_meaning 파생 해소 tier — 학습자 따로 안 찾아도 뜻 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

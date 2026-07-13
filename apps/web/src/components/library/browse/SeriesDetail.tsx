@@ -1,9 +1,11 @@
 // apps/web/src/components/library/browse/SeriesDetail.tsx
 //
-// 시리즈 상세 (v06.239) — /library/scripts 진입면에서 시리즈를 고른 뒤 나타나는 "구체화" 계층.
-// Progressive Disclosure: 능력·학습과학(why)·학습법 같은 깊이는 여기서만 노출(진입면은 조용하게).
-// v06.239: ① 출처(소스) 정보 제공 — 학습자 신뢰·기대 형성 · ② 글 목록을 i+1 적합 티어로 분류
-//   (딱 맞아요 → 수월 → 도전 → 어려움) — 무엇부터 읽을지 스스로 판단. iOS 그룹 리스트식 모던·심플.
+// 시리즈 상세 = "선택 후 화면" (v06.240 에디토리얼 재설계). 나열식 그리드 → 큐레이션된 읽기 리스트.
+//   ① 정체성 헤더 ② 먼저 읽어볼 글(featured lead) ③ 적응형 분류 리스트
+//      — 다중 출처면 출처(소주제)별 · 단일 출처면 읽기 시간(빠르게/찬찬히/깊이)별.
+//        V-Level 무관하게 항상 의미 있는 분류(고급 학습자도 나열식 X).
+//   ④ 이 시리즈에 대해(footer) — 출처(신뢰) + 능력·why·학습법.
+// 콘텐츠 우선(먼저 보이는 건 글) · Progressive Disclosure(오리엔테이션은 아래) · iOS 그룹 리스트식 모던·가독.
 
 'use client'
 
@@ -11,21 +13,43 @@ import { ArrowLeft, ArrowRight, Volume2 } from 'lucide-react'
 
 import { TRACK_FIT_META, type TrackStat } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
-import { judgeArticleIPlusOne, type IPlusOneTier } from '@/lib/library/i-plus-one'
 
 import { ArticleCard } from './ArticleCard'
 
-// 글 분류 — i+1 적합 티어 (읽기 좋은 순: 딱 맞아요 → 수월 → 도전 → 어려움)
-const TIER_ORDER: IPlusOneTier[] = ['ideal', 'easy', 'challenge', 'hard']
-const TIER_META: Record<IPlusOneTier, { label: string; hint: string; color: string }> = {
-  ideal: { label: '딱 맞아요', hint: '지금 읽기 좋은 글', color: 'var(--learn-known)' },
-  easy: { label: '수월하게', hint: '아는 단어가 많아요', color: 'var(--t3)' },
-  challenge: { label: '도전', hint: '조금 어렵지만 성장', color: 'var(--learn-review)' },
-  hard: { label: '어려운 편', hint: '충분히 준비되면', color: 'var(--learn-error)' },
+/** 대략 읽기 시간(분) — reading_minutes 우선, 없으면 word_count/200. */
+function readMinutes(a: PublishedArticle): number | null {
+  if (a.reading_minutes != null) return a.reading_minutes
+  if (a.word_count != null) return Math.max(1, Math.round(a.word_count / 200))
+  return null
 }
 
-function tierOf(a: PublishedArticle, userV: number): IPlusOneTier {
-  return judgeArticleIPlusOne(a.article_v_level, userV)?.tier ?? 'ideal'
+interface Group {
+  key: string
+  label: string
+  hint?: string
+  color?: string
+  items: PublishedArticle[]
+}
+
+const TIME_BUCKETS: Array<{ key: string; label: string; hint: string; test: (m: number | null) => boolean }> = [
+  { key: 'quick', label: '빠르게 읽기', hint: '4분 이내', test: (m) => m != null && m <= 4 },
+  { key: 'medium', label: '찬찬히 읽기', hint: '5~9분', test: (m) => m == null || (m >= 5 && m <= 9) },
+  { key: 'deep', label: '깊이 읽기', hint: '10분 이상', test: (m) => m != null && m >= 10 },
+]
+
+/** 나머지 글을 의미 있는 축으로 분류 — 다중 출처면 출처별, 아니면 읽기 시간별. */
+function classify(rest: PublishedArticle[], sources: TrackStat['sources']): Group[] {
+  if (sources.length >= 2) {
+    return sources
+      .map((s) => ({ key: s.key, label: s.label, color: s.color, items: rest.filter((a) => a.source === s.key) }))
+      .filter((g) => g.items.length > 0)
+  }
+  return TIME_BUCKETS.map((b) => ({
+    key: b.key,
+    label: b.label,
+    hint: b.hint,
+    items: rest.filter((a) => b.test(readMinutes(a))),
+  })).filter((g) => g.items.length > 0)
 }
 
 export function SeriesDetail({
@@ -40,18 +64,13 @@ export function SeriesDetail({
   const { track, count, cefrLabel, hasAudio, fit, sources } = stat
   const fitMeta = TRACK_FIT_META[fit]
 
-  // 적합 티어로 분류 (편수>0 그룹만, 그룹 내 짧은 글 먼저)
-  const groups = TIER_ORDER.map((tier) => ({
-    tier,
-    items: stat.items
-      .filter((a) => tierOf(a, userV) === tier)
-      .sort((a, b) => (a.word_count ?? Infinity) - (b.word_count ?? Infinity)),
-  })).filter((g) => g.items.length > 0)
+  const [lead, ...rest] = stat.items // items = 추천순 정렬됨
+  const groups = classify(rest, sources)
   const grouped = groups.length > 1
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* 뒤로 — 진입면(시리즈 목록)으로 */}
+    <div className="flex flex-col gap-7">
+      {/* 뒤로 */}
       <button
         type="button"
         onClick={onBack}
@@ -99,34 +118,88 @@ export function SeriesDetail({
         </div>
       </header>
 
-      {/* 출처 — 학습자 신뢰·기대 (v06.239) */}
-      {sources.length > 0 && (
-        <section aria-label="출처" className="flex flex-col gap-2">
-          <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
-            출처
-          </span>
-          <div className="flex flex-wrap gap-1.5">
-            {sources.map((s) => (
-              <span
-                key={s.key}
-                className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600]"
-                style={{ borderColor: `color-mix(in srgb, ${s.color} 35%, transparent)`, color: 'var(--t1)' }}
-                title={`${s.label} · ${s.count}편`}
-              >
-                <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: s.color }} />
-                {s.label}
-                <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{s.count}</span>
-              </span>
-            ))}
+      {/* 글 목록 — featured lead + 적응형 분류 (콘텐츠 우선) */}
+      <section aria-label="글 목록" className="flex flex-col gap-6">
+        {/* featured lead */}
+        {lead && (
+          <div role="list">
+            <div role="listitem">
+              <ArticleCard article={lead} userVLevel={userV} featured />
+            </div>
           </div>
-          <p className="font-body text-[11px] leading-[1.4] text-[var(--t3)]">
-            신뢰할 수 있는 원문에서 큐레이션했어요 · 원문은 각 글에서 열 수 있어요.
-          </p>
-        </section>
-      )}
+        )}
 
-      {/* 깊이 — 능력 · 학습과학 · 학습법 (선택 후에만) */}
-      <section className="flex flex-col gap-5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5">
+        {/* 나머지 — 분류 or 평면 */}
+        {rest.length > 0 && (
+          <div className="flex flex-col gap-6">
+            <div className="flex items-baseline gap-2 px-0.5">
+              <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">
+                {grouped ? '주제별로 둘러보기' : '이어서 읽기'}
+              </h2>
+              <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">{rest.length}편</span>
+            </div>
+
+            {grouped ? (
+              groups.map((g) => (
+                <div key={g.key} className="flex flex-col gap-3">
+                  <div className="flex items-center gap-2 px-0.5">
+                    {g.color && <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: g.color }} />}
+                    <h3 className="font-display text-[13px] font-[800] text-[var(--t1)]">{g.label}</h3>
+                    <span className="font-mono text-[10.5px] font-[600] text-[var(--t3)]">{g.items.length}편</span>
+                    {g.hint && <span className="font-body text-[11px] text-[var(--t3)]">· {g.hint}</span>}
+                  </div>
+                  <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {g.items.map((a) => (
+                      <div role="listitem" key={a.id}>
+                        <ArticleCard article={a} userVLevel={userV} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {rest.map((a) => (
+                  <div role="listitem" key={a.id}>
+                    <ArticleCard article={a} userVLevel={userV} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </section>
+
+      {/* 이 시리즈에 대해 (footer) — 출처(신뢰) + 능력·why·학습법 */}
+      <section
+        aria-label="시리즈 정보"
+        className="flex flex-col gap-5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5"
+      >
+        <span className="font-display text-[13px] font-[800] text-[var(--t1)]">이 시리즈에 대해</span>
+
+        {sources.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">출처</span>
+            <div className="flex flex-wrap gap-1.5">
+              {sources.map((s) => (
+                <span
+                  key={s.key}
+                  className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] text-[var(--t1)]"
+                  style={{ borderColor: `color-mix(in srgb, ${s.color} 35%, transparent)` }}
+                  title={`${s.label} · ${s.count}편`}
+                >
+                  <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: s.color }} />
+                  {s.label}
+                  <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{s.count}</span>
+                </span>
+              ))}
+            </div>
+            <p className="font-body text-[11px] leading-[1.4] text-[var(--t3)]">
+              신뢰할 수 있는 원문에서 큐레이션했어요 · 원문은 각 글에서 열 수 있어요.
+            </p>
+          </div>
+        )}
+
         <div className="flex flex-col gap-2">
           <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
             이 시리즈로 기르는 것
@@ -143,7 +216,6 @@ export function SeriesDetail({
           </div>
         </div>
 
-        {/* 왜 효과적인가 — Lora italic "사람의 말투" (Empathetic Feedback) */}
         <p className="border-l-2 pl-3 font-english text-[13.5px] italic leading-[1.55] text-[var(--t2)]" style={{ borderColor: `color-mix(in srgb, ${track.accent} 45%, transparent)` }}>
           {track.why}
         </p>
@@ -164,56 +236,13 @@ export function SeriesDetail({
                   </span>
                   {step}
                 </span>
-                {i < track.method.length - 1 && (
-                  <ArrowRight size={12} aria-hidden className="text-[var(--t4)]" />
-                )}
+                {i < track.method.length - 1 && <ArrowRight size={12} aria-hidden className="text-[var(--t4)]" />}
               </li>
             ))}
           </ol>
         </div>
 
-        {track.note && (
-          <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>
-        )}
-      </section>
-
-      {/* 글 목록 — 적합 티어로 분류 (모던 그룹 리스트) */}
-      <section aria-label="글 목록" className="flex flex-col gap-5">
-        <div className="flex items-baseline gap-2 px-0.5">
-          <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">글 고르기</h2>
-          <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">{count}편</span>
-        </div>
-
-        {grouped ? (
-          groups.map((g) => {
-            const meta = TIER_META[g.tier]
-            return (
-              <div key={g.tier} className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 px-0.5">
-                  <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
-                  <h3 className="font-display text-[13px] font-[800] text-[var(--t1)]">{meta.label}</h3>
-                  <span className="font-mono text-[10.5px] font-[600] text-[var(--t3)]">{g.items.length}편</span>
-                  <span className="font-body text-[11px] text-[var(--t3)]">· {meta.hint}</span>
-                </div>
-                <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {g.items.map((a) => (
-                    <div role="listitem" key={a.id}>
-                      <ArticleCard article={a} userVLevel={userV} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )
-          })
-        ) : (
-          <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {stat.items.map((a) => (
-              <div role="listitem" key={a.id}>
-                <ArticleCard article={a} userVLevel={userV} />
-              </div>
-            ))}
-          </div>
-        )}
+        {track.note && <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
       </section>
     </div>
   )

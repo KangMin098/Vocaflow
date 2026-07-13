@@ -1,37 +1,22 @@
 // apps/web/src/components/library/browse/ArticleCard.tsx
 //
-// 스크립트(아티클) 카드 — /library/books 스크립트 탭.
-// 아티클은 표지가 없는 짧은 단일 텍스트라, 도서 코버 대신 소스 액센트 + 메타 중심 카드.
-// "학습하기" → startArticleLearning(서버 액션) → /text/[id] 워크스페이스.
+// 아티클 타일 (v06.240 에디토리얼 재설계) — SeriesDetail 글 목록/리드 전용.
+// 본문 미리보기가 없으므로 "제목(Lora)"이 콘텐츠의 얼굴 → 크고 읽기 좋게 승격,
+// 나머지(출처·시간·레벨·적합·음성·태그)는 절제된 한 줄 메타로. 카드 전체가 읽기 진입.
+//   · featured: 시리즈에서 먼저 읽어볼 1편을 큰 리드로(잡지 lead 스타일).
+//   · normal:   그룹 리스트용 표준 타일.
 
 'use client'
 
 import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import {
-  ArrowRight,
-  BookOpen,
-  Clock,
-  ExternalLink,
-  FileText,
-  GraduationCap,
-  Library,
-  Loader2,
-  Newspaper,
-  Scale,
-  Target,
-  Volume2,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
 
 import { sourceMeta } from '@/lib/articles/source-meta'
 import { startArticleLearning } from '@/lib/articles/start-learning'
 import type { PublishedArticle } from '@/lib/articles/types'
 import { judgeArticleIPlusOne } from '@/lib/library/i-plus-one'
 
-// CEFR 배지는 틴트 패턴(색=텍스트 · 배경=color-mix 15%)으로 렌더 — 소스/적합도 배지와 동일.
-// 이전 text-white(고정 흰 글씨)는 파스텔 A1(대비 1.4:1) 및 다크모드 밝은 토큰(--p 등) 위에서 판독 불가였음(v06.211).
-// 여기 값은 "텍스트 색" — 라이트/다크 양쪽에서 옅은 틴트 위에 읽히는 채도면 충분.
 const CEFR_COLOR: Record<string, string> = {
   A1: '#15803D',
   A2: 'var(--ios-green)',
@@ -41,38 +26,32 @@ const CEFR_COLOR: Record<string, string> = {
   C2: '#581C87',
 }
 
-// P4 — VOA 등급(Level 1-3) ↔ CEFR 1:1 매핑 (voa.ts VOA_LEVEL_TO_CEFR 역). VOA 소스만 병기.
-const CEFR_TO_VOA_LEVEL: Record<string, number> = { A2: 1, B1: 2, B2: 3 }
-
-// P4 — 글 유형(register) 배지: 아이콘+텍스트 (색만으로 정보 전달 금지 §10).
-const REGISTER_META: Record<string, { label: string; Icon: LucideIcon }> = {
-  narrative: { label: '서사', Icon: BookOpen },
-  expository: { label: '설명', Icon: GraduationCap },
-  argumentative: { label: '논증', Icon: Scale },
-  news: { label: '뉴스', Icon: Newspaper },
-  reference: { label: '참고', Icon: Library },
+/** 대략적 읽기 시간(분) — reading_minutes 우선, 없으면 word_count/200 추정. */
+function readMinutes(a: PublishedArticle): number | null {
+  if (a.reading_minutes != null) return a.reading_minutes
+  if (a.word_count != null) return Math.max(1, Math.round(a.word_count / 200))
+  return null
 }
 
 export function ArticleCard({
   article,
   userVLevel,
+  featured = false,
 }: {
   article: PublishedArticle
   userVLevel: number
+  featured?: boolean
 }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
 
   const src = sourceMeta(article.source)
   const cefr = article.cefr_level
-  const cefrColor = cefr ? (CEFR_COLOR[cefr] ?? 'var(--t3)') : null
-  const tags = (article.category_tags ?? []).slice(0, 3)
-
-  // P4 — i+1 적합도(C4) · 음성 · VOA Level · 글 유형
+  const cefrColor = cefr ? CEFR_COLOR[cefr] ?? 'var(--t3)' : null
   const fit = judgeArticleIPlusOne(article.article_v_level, userVLevel)
   const hasAudio = !!(article.audio_url && article.audio_url.trim())
-  const voaLevel = article.source === 'voa' && cefr ? (CEFR_TO_VOA_LEVEL[cefr] ?? null) : null
-  const registerMeta = article.register ? (REGISTER_META[article.register] ?? null) : null
+  const mins = readMinutes(article)
+  const tags = (article.category_tags ?? []).slice(0, featured ? 3 : 2)
 
   function handleLearn() {
     startTransition(async () => {
@@ -82,138 +61,128 @@ export function ArticleCard({
     })
   }
 
+  const SourceBadge = (
+    <span className="inline-flex items-center gap-1.5 font-mono text-[10.5px] font-[700]" style={{ color: src.color }}>
+      <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: src.color }} />
+      {src.label}
+    </span>
+  )
+
+  const Meta = (
+    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] font-[600] text-[var(--t3)]">
+      {mins != null && (
+        <span className="inline-flex items-center gap-1 tabular-nums">
+          <Clock size={11} aria-hidden /> {mins}분
+        </span>
+      )}
+      {cefr && (
+        <span className="tabular-nums" style={{ color: cefrColor ?? 'var(--t3)' }}>
+          {cefr}
+        </span>
+      )}
+      {fit && (
+        <span className="inline-flex items-center gap-1" style={{ color: fit.color }}>
+          <Target size={11} aria-hidden /> {fit.label}
+        </span>
+      )}
+      {hasAudio && (
+        <span className="inline-flex items-center gap-1" title="원어민 음성 포함">
+          <Volume2 size={11} aria-hidden /> 음성
+        </span>
+      )}
+    </div>
+  )
+
+  const Tags = tags.length > 0 && (
+    <div className="flex flex-wrap gap-1">
+      {tags.map((t) => (
+        <span
+          key={t}
+          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t2)]"
+        >
+          {t}
+        </span>
+      ))}
+    </div>
+  )
+
+  // ── Featured lead (잡지 lead) ──
+  if (featured) {
+    return (
+      <article className="relative">
+        <button
+          type="button"
+          onClick={handleLearn}
+          disabled={pending}
+          className="group flex w-full flex-col gap-3 rounded-[var(--r-lg)] border p-5 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
+          style={{ borderColor: `color-mix(in srgb, ${src.color} 28%, var(--bd))`, backgroundColor: `color-mix(in srgb, ${src.color} 4%, var(--bg))` }}
+        >
+          <div className="flex items-center justify-between gap-2">
+            {SourceBadge}
+            <span className="inline-flex items-center gap-1 font-display text-[10px] font-[800] uppercase tracking-[0.08em] text-[var(--p)]">
+              먼저 읽어볼 글
+            </span>
+          </div>
+          <h3 className="font-english text-[21px] font-[600] leading-[1.25] text-[var(--t1)] md:text-[23px]">
+            {article.title}
+          </h3>
+          {article.author && (
+            <p className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">{article.author}</p>
+          )}
+          {Meta}
+          {Tags}
+          <span className="mt-1 inline-flex items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--p)]">
+            {pending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : null}
+            읽기 시작
+            <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </button>
+        {article.source_url && <OriginalLink href={article.source_url} />}
+      </article>
+    )
+  }
+
+  // ── Normal tile ──
   return (
-    <article className="group flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]">
-      {/* 소스 액센트 바 */}
-      <div aria-hidden className="h-1" style={{ backgroundColor: src.color }} />
-
-      <div className="flex flex-1 flex-col gap-2.5 p-4">
-        {/* 소스 + CEFR */}
-        <div className="flex items-center justify-between gap-2">
-          <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
-            style={{ color: src.color, backgroundColor: `color-mix(in srgb, ${src.color} 12%, transparent)` }}
-          >
-            <FileText size={10} aria-hidden /> {src.label}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            {voaLevel != null && (
-              <span
-                className="inline-flex items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]"
-                title={`VOA Level ${voaLevel}`}
-              >
-                Lv{voaLevel}
-              </span>
-            )}
-            {cefr && (
-              <span
-                className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700]"
-                style={{
-                  color: cefrColor ?? 'var(--t3)',
-                  backgroundColor: `color-mix(in srgb, ${cefrColor ?? 'var(--t3)'} 15%, transparent)`,
-                }}
-              >
-                {cefr}
-              </span>
-            )}
-          </span>
-        </div>
-
-        {/* 제목 (Lora) */}
-        <h3 className="line-clamp-2 font-english text-[16px] font-[600] leading-[1.32] text-[var(--t1)]">
+    <article className="relative h-full">
+      <button
+        type="button"
+        onClick={handleLearn}
+        disabled={pending}
+        className="group flex h-full w-full flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
+      >
+        {SourceBadge}
+        <h3 className="line-clamp-3 font-english text-[15.5px] font-[600] leading-[1.32] text-[var(--t1)]">
           {article.title}
         </h3>
-
-        {article.author && (
-          <p className="line-clamp-1 font-body text-[11.5px] text-[var(--t3)]">{article.author}</p>
-        )}
-
-        {/* i+1 적합도 + 글 유형 */}
-        {(fit || registerMeta) && (
-          <div className="flex flex-wrap items-center gap-1.5">
-            {fit && (
-              <span
-                title={`글 V${article.article_v_level} · 내 V${fit.effectiveUserVLevel}${userVLevel ? '' : ' (기준)'}`}
-                className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]"
-                style={{
-                  color: fit.color,
-                  backgroundColor: `color-mix(in srgb, ${fit.color} 14%, transparent)`,
-                }}
-              >
-                <Target size={10} aria-hidden /> {fit.label}
-              </span>
-            )}
-            {registerMeta && (
-              <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">
-                <registerMeta.Icon size={10} aria-hidden /> {registerMeta.label}
-              </span>
-            )}
-          </div>
-        )}
-
-        {/* 메타 */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] text-[var(--t3)]">
-          {article.word_count != null && (
-            <span className="tabular-nums">{article.word_count.toLocaleString()} 단어</span>
-          )}
-          {article.reading_minutes != null && (
-            <span className="inline-flex items-center gap-1">
-              <Clock size={10} aria-hidden /> {article.reading_minutes}분
-            </span>
-          )}
-          {hasAudio && (
-            <span className="inline-flex items-center gap-1" title="원어민 음성 포함">
-              <Volume2 size={10} aria-hidden /> 음성
-            </span>
-          )}
+        <div className="mt-auto flex flex-col gap-2 pt-0.5">
+          {Meta}
+          {Tags}
         </div>
-
-        {/* 카테고리 태그 */}
-        {tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {tags.map((t) => (
-              <span
-                key={t}
-                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t2)]"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+        {pending && (
+          <span aria-hidden className="absolute inset-0 flex items-center justify-center rounded-[var(--r-lg)] bg-[var(--bg)]/60">
+            <Loader2 size={16} className="animate-spin text-[var(--p)]" />
+          </span>
         )}
-
-        {/* 액션 */}
-        <div className="mt-auto flex items-center gap-2 pt-1.5">
-          <button
-            type="button"
-            onClick={handleLearn}
-            disabled={pending}
-            className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12.5px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:opacity-90 disabled:opacity-60"
-          >
-            {pending ? (
-              <Loader2 size={13} className="animate-spin" aria-hidden />
-            ) : (
-              <>
-                학습하기
-                <ArrowRight size={13} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
-              </>
-            )}
-          </button>
-          {article.source_url && (
-            <a
-              href={article.source_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              title="원문 보기"
-              aria-label="원문 보기"
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
-            >
-              <ExternalLink size={13} aria-hidden />
-            </a>
-          )}
-        </div>
-      </div>
+      </button>
+      {article.source_url && <OriginalLink href={article.source_url} />}
     </article>
+  )
+}
+
+// 원문 링크 — 카드 버튼과 겹치지 않게 우상단 별도 (button 안에 a 중첩 불가).
+function OriginalLink({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      title="원문 보기"
+      aria-label="원문 보기"
+      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] text-[var(--t4)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+    >
+      <ExternalLink size={13} aria-hidden />
+    </a>
   )
 }
