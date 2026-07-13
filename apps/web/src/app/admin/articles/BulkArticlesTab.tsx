@@ -193,14 +193,14 @@ const SOURCES: SourceConfig[] = [
   // v06.163~ 신규 소스 — 대량 GET 배선
   {
     key: 'owid',
-    label: 'OWID',
+    label: 'Our World in Data',
     Icon: BarChart3,
     color: 'var(--info)',
     feeds: [{ id: 'all', label: 'All articles (논증·데이터)' }],
   },
   {
     key: 'factbook',
-    label: 'Factbook',
+    label: 'CIA World Factbook',
     Icon: Globe,
     color: 'var(--memory-stable)',
     feeds: [{ id: 'all', label: 'Countries (35 · reference)' }],
@@ -251,7 +251,7 @@ const SOURCES: SourceConfig[] = [
   },
   {
     key: 'noaa',
-    label: 'NOAA',
+    label: 'NOAA Climate.gov',
     Icon: CloudSun,
     color: 'var(--info)',
     feeds: [

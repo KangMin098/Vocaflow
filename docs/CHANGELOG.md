@@ -18,6 +18,7 @@
 ### `/admin/articles` 소스 라벨 SSoT 통일 — 커버리지↔소스GET 불일치 수정 (v06.244)
 - **버그**: 소스 라벨이 3곳(정본 `source-guide.SOURCE_LABEL` · `SourceFeedList.SOURCE_LABELS` · `CurationConsole.SOURCE_OPTIONS`)에 중복 정의 → 드리프트. `SOURCE_OPTIONS`가 `simple_wikipedia`를 **"Wikipedia"로 오표기**(정본 "Simple Wikipedia") → 커버리지(SourceFeedList)엔 "Simple Wikipedia", 소스GET 탭엔 "Wikipedia"(×2, wikipedia와 충돌)로 **같은 소스가 다른 이름**.
 - **수정**: 커버리지·소스GET·소스헤더 셋 다 **정본 `SOURCE_LABEL` 단일출처**만 사용. `SOURCE_OPTIONS`는 key+Icon만 정의(라벨 하드코딩 제거), `SourceTabs`가 `SOURCE_LABEL[key]` 렌더. `SourceFeedList`의 중복 `SOURCE_LABELS` 삭제 → `SOURCE_LABEL[source]`. DB 소스 집합(seed_catalog·articles)은 14 정본 내 확인(stale 없음). 미래 드리프트 차단.
+- **소스GET(대량) 라벨 정렬**(BulkArticlesTab, 4번째 소스 맵): owid=**"OWID"→"Our World in Data"** · factbook=**"Factbook"→"CIA World Factbook"** · noaa=**"NOAA"→"NOAA Climate.gov"** 정본과 일치. 14 소스 전부 존재(preset "전체(14 소스)") 확인. (커버리지의 「소스 피드 현황」은 후보 수집된 소스만 동적 표시 — 미수집 소스는 미노출이 현 설계.)
 
 ### `/library/scripts` 선택 후 글 목록(SeriesDetail) 에디토리얼 재설계 (v06.242)
 - **문제**: 시리즈 선택 후 화면이 분류 없이 카드 나열식 — 특히 고급(V11) 학습자는 모든 글이 같은 fit('수월')이라 그룹이 붕괴돼 평면 그리드였음.

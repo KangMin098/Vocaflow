@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f05fd41` feat(scripts): 시리즈 학습정보 팝업 시각적 정보전달 강화 (SeriesInfoModal)
 - `db7a192` fix(admin): 소스 라벨 SSoT 통일 — 커버리지↔소스GET 불일치 (v06.244)
 - `549f673` feat(library): 스크립트 선택 후 글 목록 에디토리얼 재설계 (SeriesDetail)
 - `9b19733` feat(scripts): 학습정보 팝업 가독성·가시성 재설계 (v06.241)
 - `941624f` feat(dict): 추출 형태별 POS 추론 — ransomed→동사 뜻 (v06.225)
-- `4b78586` feat(scripts): 시리즈 학습정보 팝업 — 왼쪽 클릭 결정 surface (v06.240)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
