@@ -35,6 +35,7 @@ import {
 
 import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
+import { SOURCE_LABEL } from '@/lib/articles/source-guide'
 import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
 import { GetGuidePanel } from './GetGuidePanel'
@@ -61,21 +62,23 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
 ]
 const STAGE_KEYS: Stage[] = STAGES.map((s) => s.key)
 
-const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio }> = [
-  { key: 'voa', label: 'VOA', Icon: Radio },
-  { key: 'nasa', label: 'NASA', Icon: Rocket },
-  { key: 'nih', label: 'NIH', Icon: FlaskConical },
-  { key: 'simple_wikipedia', label: 'Wikipedia', Icon: BookOpen },
-  { key: 'the_conversation', label: 'Conversation', Icon: Megaphone },
-  { key: 'wikinews', label: 'Wikinews', Icon: Newspaper },
-  { key: 'owid', label: 'OWID', Icon: BarChart3 },
-  { key: 'factbook', label: 'Factbook', Icon: Globe },
-  { key: 'elife', label: 'eLife', Icon: Microscope },
-  { key: 'wikipedia', label: 'Wikipedia', Icon: Library },
-  { key: 'plos', label: 'PLOS', Icon: Dna },
-  { key: 'wikivoyage', label: 'Wikivoyage', Icon: MapPin },
-  { key: 'usgs', label: 'USGS', Icon: Mountain },
-  { key: 'noaa', label: 'NOAA', Icon: CloudSun },
+// 소스별 탭 — 라벨은 정본 SOURCE_LABEL(source-guide) 단일출처에서만(중복 정의·드리프트 금지).
+//   여기선 key + Icon 만 정의 → 커버리지(SourceFeedList)와 동일 라벨 보장.
+const SOURCE_OPTIONS: Array<{ key: SourceKey; Icon: typeof Radio }> = [
+  { key: 'voa', Icon: Radio },
+  { key: 'nasa', Icon: Rocket },
+  { key: 'nih', Icon: FlaskConical },
+  { key: 'simple_wikipedia', Icon: BookOpen },
+  { key: 'the_conversation', Icon: Megaphone },
+  { key: 'wikinews', Icon: Newspaper },
+  { key: 'owid', Icon: BarChart3 },
+  { key: 'factbook', Icon: Globe },
+  { key: 'elife', Icon: Microscope },
+  { key: 'wikipedia', Icon: Library },
+  { key: 'plos', Icon: Dna },
+  { key: 'wikivoyage', Icon: MapPin },
+  { key: 'usgs', Icon: Mountain },
+  { key: 'noaa', Icon: CloudSun },
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 
@@ -342,8 +345,9 @@ function SourceTabs({
 
   return (
     <div role="tablist" aria-label="소스별" className="flex flex-wrap gap-1 border-b border-[var(--bd)]">
-      {SOURCE_OPTIONS.map(({ key, label, Icon }) => {
+      {SOURCE_OPTIONS.map(({ key, Icon }) => {
         const active = source === key
+        const label = SOURCE_LABEL[key] ?? key
         const pending = pendingBySource.get(key) ?? 0
         return (
           <button

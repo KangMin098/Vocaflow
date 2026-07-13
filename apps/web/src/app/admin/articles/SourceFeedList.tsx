@@ -17,24 +17,8 @@ import {
   DERIVATION_LABEL,
   ATTRIBUTION_LABEL,
 } from '@/lib/articles/use-source-policy'
+import { SOURCE_LABEL } from '@/lib/articles/source-guide'
 import { getSourceSpec, isSourceKey } from '@vocaflow/library-pipeline/curation-spec'
-
-const SOURCE_LABELS: Record<string, string> = {
-  voa: 'VOA',
-  nasa: 'NASA',
-  nih: 'NIH',
-  simple_wikipedia: 'Simple Wikipedia',
-  the_conversation: 'The Conversation',
-  wikinews: 'Wikinews',
-  owid: 'Our World in Data',
-  factbook: 'CIA Factbook',
-  elife: 'eLife',
-  wikipedia: 'Wikipedia',
-  plos: 'PLOS',
-  wikivoyage: 'Wikivoyage',
-  usgs: 'USGS',
-  noaa: 'NOAA Climate.gov',
-}
 
 interface Props {
   feedHealth: SourceFeedHealth[]
@@ -94,7 +78,7 @@ function SourceBlock({
 }) {
   const policy = useSourcePolicy(source)
   const cefr = isSourceKey(source) ? getSourceSpec(source).targetCefr : null
-  const label = SOURCE_LABELS[source] ?? source
+  const label = SOURCE_LABEL[source] ?? source
   const totalPending = feeds.reduce((n, f) => n + f.pending, 0)
 
   return (
