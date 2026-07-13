@@ -25,5 +25,7 @@
 
 **⚠️ forward 규칙 대량 생성 2회 실패 확정**: (1) 형용사+복수/비교급 → `abashederness` (2) 형용사→-ly → `unprotectedly`·`whitishly` 비표준 날조. 둘 다 롤백. **정답=runtime 역-strip 해소**(base 실재 검증으로 쓰레기 원천 차단), forward 생성 금지.
 
-**결론**: 굴절형·파생형 뜻-그대로는 **조회(lookup 5-tier)·도서추출(resolve_dict_headword JOIN) 양쪽에서 전체 사전 동작**. 흔한 파생형=자체 headword(검증소스 100%), 미등록=역-strip base 폴백. 규칙 forward 대량생성 금지.
+**추출 표시=실제 표면형 + 형태별 POS 뜻(2026-07-13, 마이그 `161000`+`161500`)**: 사용자 "ransomed 추출되면 ransomed 뜻(동사)이 나와야; children이면 children이 그대로". → `select_book_chapter_vocab`: `word`=실제 도서 표면형(lower(bv.word)), `lemma`=해소 표제어. **sense 선택에 POS 추론 추가**: `COALESCE(bv.context_pos, 형태추론)` — context_pos NULL(구 적재 도서)일 때 표면형↔표제어 형태차로 추론(+ed/d/ied·+ing→verb·+ly→adverb·-tion/ness/ity/ance/ence→noun·-ous/ive/ful/less/ish/able→adjective). 실증: ransomed→동사"몸값을 치르고 풀어주다"·scented·tilted·grumbling 동사 뜻. **맞는 sense 없으면 대표 뜻 폴백=polysemy gap 노출**(boom·ransom 동사 sense 없어 보강함). **완전 정확은 (1) 전 단어 sense 완비 (2) context_pos 백필 필요** — 지속 사전 보강. dedup=표제어 단위.
+
+**결론**: 굴절형·파생형 뜻-그대로는 **조회(lookup 5-tier)·도서추출(resolve_dict_headword JOIN + 형태 POS 추론) 양쪽에서 전체 사전 동작**. 흔한 파생형=자체 headword(검증소스 100%), 미등록=역-strip base 폴백. 규칙 forward 대량생성 금지. 잔여=polysemy sense 완비(형태 POS 추론이 gap 노출).
 

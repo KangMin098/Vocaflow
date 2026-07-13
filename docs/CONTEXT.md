@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `4b78586` feat(scripts): 시리즈 학습정보 팝업 — 왼쪽 클릭 결정 surface (v06.240)
 - `9434b66` feat(dict): 도서 추출 단어를 실제 표면형으로 표시 — children→"children"+뜻 (v06.225)
 - `4249e47` feat(dict): 도서 단어추출 굴절/파생 해소 — resolve_dict_headword 배선 (v06.225)
 - `de1c371` feat(dict): lookup_word_meaning 파생 해소 tier — 학습자 따로 안 찾아도 뜻 (v06.225)
 - `47cf21d` docs(dict): 굴절·파생 추출 — 기존 인프라 확인 + 파생 검증소스 완결 (v06.225)
-- `0882607` docs(dict): 추출 커버리지 설계 — 굴절형·파생형 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713161500_book_extract_infer_form_pos.sql`
 - `20260713161000_book_extract_surface_form_display.sql`
 - `20260713160500_book_extract_resolve_forms.sql`
 - `20260713160000_resolve_dict_headword.sql`
 - `20260713150000_lookup_derivation_tier.sql`
-- `20260713110000_add_word_orrery_module_id.sql`
 <!-- /auto:recent-migrations -->
 
 ---
