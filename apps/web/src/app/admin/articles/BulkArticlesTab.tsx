@@ -151,6 +151,10 @@ const SOURCES: SourceConfig[] = [
       { id: 'medlineplus', label: 'MedlinePlus' },
       { id: 'directors-blog', label: "Director's Blog" },
     ],
+    // v06.246 — 전수 테스트 실측(2026-07-13): News RSS 403 차단 · Director's Blog 연결불가 ·
+    //   MedlinePlus whatsnew 원본 1건뿐 → 3 feed 모두 후보 0. URL 직접 입력 권장.
+    health: 'unstable',
+    healthNote: 'News RSS 403 차단 · Director\'s Blog 연결 불가 · MedlinePlus 항목 희소 — URL 직접 입력 권장',
   },
   // v06.69 — arXiv 제거 (사용자 명시: "플랫폼 전체에서 삭제").
   // v06.66 — Simple English Wikipedia (A2-B1 통제 어휘, MediaWiki API categorymembers)

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `b4584e7` docs(dict): 다의어 sense 전면 완성 wave 1 — 서브에이전트 병렬 (v06.225)
 - `1afab2a` feat(dict): 다의어 sense 완성 병렬 파이프라인 스크립트 (v06.225)
 - `e8adca4` fix(admin): 소스GET(대량) 라벨 정본 정렬 — owid/factbook/noaa (v06.244)
 - `f05fd41` feat(scripts): 시리즈 학습정보 팝업 시각적 정보전달 강화 (SeriesInfoModal)
 - `db7a192` fix(admin): 소스 라벨 SSoT 통일 — 커버리지↔소스GET 불일치 (v06.244)
-- `549f673` feat(library): 스크립트 선택 후 글 목록 에디토리얼 재설계 (SeriesDetail)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

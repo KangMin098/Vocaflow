@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 소스 feed 전수 자동 테스트 + nih 불안정 표기 (v06.246)
+- **전수 테스트**(29 feed · 14 소스 · 실 외부 호출, DEV_ADMIN_BYPASS): **12/14 소스가 233+ 후보 정상 산출** — voa(36)·nasa(21)·simple_wikipedia(40)·the_conversation(23)·owid(4)·factbook(30)·elife(20)·wikipedia(38)·plos(15)·wikivoyage(40)·usgs(24)·noaa(19). **코드 파싱 버그 0** — 실패/빈 feed는 전부 외부 요인 확인.
+- **외부 이슈(코드 아님)**: nih/news RSS **403 차단** · nih/directors-blog **연결불가(000)** · nih/medlineplus **원본 1건뿐** · nasa/apod **원본 RSS가 제목 공란·설명=이미지태그**(기사용 아님) → curation 정확히 0 · wikinews **비활성**(기존 flag) · the_conversation/politics **저볼륨**(all/science/health는 정상).
+- **사용성 보완**: nih 3 feed 모두 실패인데 basic 프리셋에 포함돼 매번 실패 유발 → `BulkArticlesTab` nih 에 **`health='unstable'`** + note(“News 403·Blog 불가·MedlinePlus 희소 — URL 직접 입력 권장”) 표기(wikinews 패턴). 소스 카드에 ⚠️ 경고 노출.
+
 ### 시리즈 학습정보 팝업 — 텍스트 위주 → 시각적 정보전달 (v06.245)
 - **문제**: 팝업(SeriesInfoModal)이 텍스트 위주 — "나에게 맞나?"(난이도)가 텍스트 배지뿐, 능력은 텍스트 나열, 정보전달 매커니즘 부족.
 - **시각 부호화 강화**: ① **난이도 게이지** 신설 — 축(쉬움→어려움) 위에 시리즈 밴드(vMin~vMax)와 **내 위치 마커**를 그려 "나에게 맞나"를 <1s 시각 즉답(전주의적, `vToPct`/`effectiveUserV` 재사용). ② **스탯 타일**에 아이콘(분량·읽기시간·음성) — 읽기시간은 실 글에서 집계(`3~8분`). ③ **능력 = 아이콘 칩 그리드** — 키워드→아이콘(듣기 Headphones·논증 Scale·독해 BookOpen·데이터 BarChart…) Dual Coding. ④ why는 Lightbulb 앵커로 보조 강등.
