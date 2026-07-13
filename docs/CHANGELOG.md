@@ -103,6 +103,11 @@
 - **검증**: **독립 로직 테스트 PASS**(실단어 15장 덱 생성·전 카드 품사·어원 시너지 그룹 존재 spect[inspect/respect/suspect]·port[transport/export]·휴리스틱 품사 정확) + posFromData 7케이스 매핑 검증 + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ **런타임 end-to-end 렌더는 dev 서버 불안정(디스크 98% → .next 반복 손상·프로세스 사망)으로 보류** — 로컬 디스크 확보 후 `?set=<테마 세트>` 플레이로 확인 권장.
 - 도메인 태그는 데이터 sparse/과광범위로 미사용(품사+어원+접두사 3축). authored 게임(④⑤⑥)은 배선보다 콘텐츠 확장이 적합.
 
+### 사전 추출 커버리지 설계 — 굴절형·파생형 (v06.225)
+- **설계 문서** [dict-extraction-coverage-design.md](proposals/dict-extraction-coverage-design.md): 전체 사전을 굴절형·파생형까지 추출 반영되도록 하는 작업 설계. 추측 배제 — 추출 함수 본문(`JOIN sd ON sd.word=COALESCE(bv.lemma,bv.word)`, INNER, **inflections 미참조**) + 28권 실측에서 역산.
+- **핵심 실측**: distinct lemma 27,334 중 미매칭 23.4%(6,404). **굴절 miss ≈ 0**(winkNLP가 복수/과거/현재분사 base 환원 완료) → **굴절형 작업 불필요**. 미매칭 alpha≥4(5,540) 분포: 불투명 고가치 파생 514(전 저빈도) · 투명 저가치(-ly/-ness) 509 · 무접미사(희귀 실단어·고유명사·OCR) 4,350.
+- **설계 결론(value-aware)**: 파생형은 불투명(뜻이 base와 상이)할 때만 study 대상 → 투명 파생·노이즈·고유명사 미매칭은 gap 아닌 정상. 4-bucket 분류기(B1 굴절 miss·B2 투명 파생 스킵·B3 불투명 실파생/실단어 표제어 생성·B4 노이즈 register 배제) + 채굴 루프 확장(미매칭 등장 도서수 순 LLM 표제어 생성) + 커버리지 메트릭. 일괄 규칙 생성 지양(bloat). Phase P0(설계 ✅)~P4.
+
 ### 사전 sense/POS 오정렬 근본 수리 Phase 2·3 — 문맥-sense 매칭 추출 (v06.225)
 - **근본**: 큐레이션 단어추출에서 `creep="변태"` 등 문맥과 다른 뜻 노출 → 원인=`shared_dictionary` 단일-행 + v_level=최난이도 sense. 다의어의 기본 sense(저-V) 용법을 텍스트가 써도 행 v_level(고-V sense)이 V≥6 필터 통과 → 고급 gloss로 오추출(B류).
 - **Phase 2 문맥 POS 저장**: `library_book/article_vocabularies` `context_pos` 컬럼(마이그 `20260712160000`) + winkNLP 백필(`backfill-context-pos.mts`, book 1,507·article 212) + 파이프라인 forward-wiring(`extract-lemmas` 지배 POS → ChapterWord → `insert_book_analysis` RPC `20260712170000` + article 직삽입) → 신규 도서 자동.

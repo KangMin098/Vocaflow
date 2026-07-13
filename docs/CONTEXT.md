@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `80db34e` fix(dict-mine): dedup 버그 수정 + 100권 채굴 yield 포화 확정 (v06.225)
 - `71e4248` docs(dict): Phase 8b 채굴 자동화 50권 run — 후보 검토 16단어 수리 (v06.225)
 - `78de8a4` feat(library): /library/scripts 출처 정보 제공 + 글 목록 fit 분류
 - `8ccf992` refactor(library): /library/scripts 진입면 간소화 — Progressive Disclosure
 - `74cc67e` feat(lcp): 도서 배치 채굴 자동화 — dict-mine-batch.mjs
-- `8eee24f` docs(vcb): 도서 배치 채굴 2·3 — 다의어 5건 + yield 경향 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
