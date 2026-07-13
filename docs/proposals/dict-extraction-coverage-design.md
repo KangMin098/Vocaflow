@@ -1,5 +1,7 @@
 # 사전 추출 커버리지 설계 — 굴절형·파생형 (2026-07-13)
 
+> ⚠️ **교정(2026-07-13, 본 문서 이후 발견)**: 본 설계는 `select_book_chapter_vocab`(라이브러리 큐레이션)만 보고 "굴절형은 winkNLP가 처리해 작업 불필요"라 결론냈으나, **리더/‌text 경로엔 이미 굴절 해소 인프라가 완비**돼 있었다(2026-06-13 v06.41: `en_inflection_bases()` 규칙 역굴절 + `inflected_forms text[]` + `english_irregular_forms`, `lookup_word_meaning` 4-tier·`extract_vocabulary_for_user_v2` L2). 굴절형은 **이 인프라가 뜻 그대로 해소**(galloped→gallop·children→child 검증). 파생형은 **headword**로 처리(`derivational-candidates.json` 빈도 검증 소스 100% 커버). 아래 4-bucket "value-aware 미매칭 채움" 설계는 **채택 안 함**(규칙 표제어 대량 생성은 `abashederness` 쓰레기 날조로 롤백됨). 실제 결론·인프라는 [[project_extraction_coverage_design]] 참조. 아래 §1~2의 **매칭 메커니즘·실측 진단은 유효**하나 §3~9 처방은 무효.
+
 > 목적: `shared_dictionary` 전체를 대상으로 **굴절형·파생형이 단어 추출에 온전히 반영**되도록 하는 작업 설계.
 > 원칙: 추측 금지 — 추출 파이프라인의 실제 매칭 메커니즘 + 실측 gap(28권 ground truth)에서 역산.
 

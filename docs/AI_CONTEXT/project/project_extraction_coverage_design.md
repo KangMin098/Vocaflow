@@ -1,0 +1,23 @@
+> AUTO-GENERATED — `scripts/sync-export-memory.mjs` 가 갱신. 손으로 편집하지 말 것.
+> source: C:/Users/kille/.claude/projects/c--Users-kille-Vocaflow/memory/project_extraction_coverage_design.md
+> category: project
+
+---
+
+**사용자 요구**: "사전db 전체를 굴절형·파생형 뜻 그대로 단어추출 되도록" (도서 표본 아님, 전체 사전). 여러 번 재확인 = 각 형태가 **자체(올바른) 뜻으로 추출/조회**되어야 함.
+
+**⚠️ 절대 하지 말 것 — 규칙으로 굴절/파생 표제어 대량 생성 금지**: SQL 규칙은 어떤 형태가 실단어인지 판별 못 해 **쓰레기 날조**(`abashederness`·`ablesness` 등). 2026-07-13 시도했다 68,246 row 오염→전량 롤백. 형용사에 복수 -s·비교급 -er/est 무분별 적용 + 굴절형(pos 상속)에 -ness 복합. 기존 `scripts/dict/clean-inflected-forms.mjs` 주석도 명시: **"신규 규칙형 생성 안 함(information→informations 오생성 차단)"**.
+
+**기존 굴절형 인프라 (이미 완비, 재작업 불요)** — 2026-06-13 v06.41 마이그 4종(`20260613140000~170000`):
+- `shared_dictionary.inflected_forms text[]` (GIN): lemma별 불규칙/클러스터 굴절형.
+- `en_inflection_bases(surface)`: **규칙 역굴절** 함수(surface→후보 base들).
+- `english_irregular_forms` 테이블(불규칙 동사 133 base) + clean-inflected-forms.mjs(정제, 결정적).
+- **`lookup_word_meaning(surface)` 4-tier**(리더 툴팁): direct → `en_inflection_bases`(inflection) → `spelling_variants`(variant) → `inflected_forms @> ARRAY[s]`(cluster).
+- **`extract_vocabulary_for_user_v2` 2-layer**(/text 추출): L1 direct → L2 `inflected_forms @> ARRAY[surface]`.
+- 검증(2026-07-13): galloped→gallop(inflection)·studied→study·happier→happy·children→child(cluster) 전부 뜻 그대로 해소 ✓. **굴절형은 winkNLP 적재 lemma화 + 이 해소로 이미 추출됨**(별도 표제어 불요).
+- ※ **`inflections` jsonb 컬럼(≠inflected_forms)은 해소에서 미사용**(freq/provenance 보존용). `select_book_chapter_vocab`/`select_article_vocab`(라이브러리 큐레이션)은 해소층 미탑재 → winkNLP `bv.lemma`에만 의존(불규칙 winkNLP miss는 저-V 동형명사라 v≥6 필터로 무해).
+
+**파생형 = headword로 처리(자체 뜻)**: 역굴절이 파생 커버 안 함(뜻이 base와 다름) → 자체 표제어 필요. `classified_by='claude_code_derivational'`. 소스=`data/seed/derivational-candidates.json`(**빈도 코퍼스 검증 실단어 2,494**, form+base+base_meaning+freq=전체 사전 기반). 2026-07-13: 기존 6,180 + 검증 소스 미등록 93(recognise·regulatory·auditory·forestry 등) + 도서 rare 114(ebullition·volubility 등 C2) 채움 → **검증 소스 100% 커버**, derivational 6,387. 사전 45,496→45,703. `word,pos`만 NOT NULL; `classified_by` CHECK=rule_v1/claude_code_opus_4_7/sonnet_4_6/derivational/opus_4_8/fable_5만.
+
+**결론**: 굴절형·파생형 뜻-그대로 추출은 **기존 인프라 + 파생 headword 완비로 이미 동작**. 남은 잔여=도서 롱테일 rare 파생(빈도 낮음, [[project_dict_field_completeness]] 채굴로 점증). 규칙 대량 생성은 금지.
+
