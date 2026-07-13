@@ -21,5 +21,9 @@
 
 **파생 해소 tier 추가(2026-07-13, 마이그 `20260713150000`)**: rare 미등록 파생형(dreamlike·kinglike·boyishly)이 `not_found`이던 문제 → `lookup_word_meaning`에 **tier 5** 추가: 4-tier(direct→en_inflection_bases→variant→inflected_forms cluster) 실패 시 투명 접미사(-ly/ily/ically/ness/iness/less/iless/ful/fully/ish/like/wise) 벗겨 **base 표제어 뜻 폴백**. **base 존재 시에만 해소=쓰레기 불가**(runtime, 데이터 생성 아님). 검증 20/20 해소·not_found 0. 전체 사전 base 대상. ⚠️ **표제어 대량 생성 대신 runtime 역-strip 해소가 정답**(forward 생성은 abashederness 날조). 잔여: 명사화(-tion/-ment)는 base 뜻 POS-불일치라 tier5 미포함(대부분 이미 표제어). 추출 함수(extract_vocabulary_for_user_v2 L2·select_book_chapter_vocab)는 굴절만 해소, 파생 tier 미배선(후속 옵션).
 
-**결론**: 굴절형·파생형 뜻-그대로 추출/조회는 **기존 인프라 + 파생 headword(검증소스 100%) + tier5 폴백으로 전체 사전 동작**. 규칙 대량 생성(forward)은 금지, runtime 역-strip이 정답.
+**도서 단어추출 해소(2026-07-13, 마이그 `20260713160000`+`160500`)**: 사용자 "도서 단어추출 시에도 굴절/파생형이 추출되고 뜻이 사전에서 나와야". `select_book_chapter_vocab`은 winkNLP `bv.lemma` 직접 JOIN만 해 미매칭 형태 탈락 → **`resolve_dict_headword(surface)` 헬퍼**(direct→inflected_forms cluster→en_inflection_bases→투명 파생 strip; base 실재 시에만=쓰레기 0; 파생 strip base 길이≥4+junk 제외) 신설 → JOIN을 `sd.word=resolve_dict_headword(COALESCE(bv.lemma,bv.word))`로 교체(시그니처 동일=호출부 무변). 회수 실증: darkish→dark·motherless→mother·uncomfortableness→uncomfortable. 방언 오해소(reely→ree·actuly→junk) 차단(길이≥4+junk 삭제 `foreign_word_proxy` 1건). Huck Finn 검증: study 목록 무오염. select_article_vocab는 동일 배선 미적용(도서만 지시).
+
+**⚠️ forward 규칙 대량 생성 2회 실패 확정**: (1) 형용사+복수/비교급 → `abashederness` (2) 형용사→-ly → `unprotectedly`·`whitishly` 비표준 날조. 둘 다 롤백. **정답=runtime 역-strip 해소**(base 실재 검증으로 쓰레기 원천 차단), forward 생성 금지.
+
+**결론**: 굴절형·파생형 뜻-그대로는 **조회(lookup 5-tier)·도서추출(resolve_dict_headword JOIN) 양쪽에서 전체 사전 동작**. 흔한 파생형=자체 headword(검증소스 100%), 미등록=역-strip base 폴백. 규칙 forward 대량생성 금지.
 

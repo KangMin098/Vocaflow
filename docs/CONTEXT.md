@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `de1c371` feat(dict): lookup_word_meaning 파생 해소 tier — 학습자 따로 안 찾아도 뜻 (v06.225)
 - `47cf21d` docs(dict): 굴절·파생 추출 — 기존 인프라 확인 + 파생 검증소스 완결 (v06.225)
 - `0882607` docs(dict): 추출 커버리지 설계 — 굴절형·파생형 (v06.225)
 - `80db34e` fix(dict-mine): dedup 버그 수정 + 100권 채굴 yield 포화 확정 (v06.225)
 - `71e4248` docs(dict): Phase 8b 채굴 자동화 50권 run — 후보 검토 16단어 수리 (v06.225)
-- `78de8a4` feat(library): /library/scripts 출처 정보 제공 + 글 목록 fit 분류
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713160500_book_extract_resolve_forms.sql`
+- `20260713160000_resolve_dict_headword.sql`
 - `20260713150000_lookup_derivation_tier.sql`
 - `20260713110000_add_word_orrery_module_id.sql`
 - `20260713100500_vocab_exclude_noise_registers.sql`
-- `20260713100000_sd_word_register_noise_categories.sql`
-- `20260713100000_add_lexicon_estate_module_id.sql`
 <!-- /auto:recent-migrations -->
 
 ---
