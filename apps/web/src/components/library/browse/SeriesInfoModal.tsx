@@ -105,6 +105,8 @@ export function SeriesInfoModal({
     return lo === hi ? `${lo}분` : `${lo}~${hi}분`
   }, [stat.items])
 
+  const maxSourceCount = Math.max(1, ...sources.map((s) => s.count))
+
   const [shown, setShown] = useState(false)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -227,32 +229,30 @@ export function SeriesInfoModal({
             </ol>
           </Zone>
 
-          {/* ── 왜 효과적 (아이콘 앵커) + 출처 ── */}
-          <div className="flex flex-col gap-3 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
-            <div className="flex items-start gap-2.5">
-              <span aria-hidden className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}>
-                <Lightbulb size={14} aria-hidden />
-              </span>
-              <div className="flex flex-col gap-0.5">
-                <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
-                <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
+          {/* ── 출처별 상세 (소스별 · 소스주제별 — 무엇을·어디서, 한눈에) ── */}
+          {sources.length > 0 && (
+            <Zone label={`출처 · ${sources.length}곳`} accent={accent}>
+              <div className="flex flex-col gap-2">
+                {sources.map((s) => (
+                  <SourceDetail key={s.key} source={s} maxCount={maxSourceCount} />
+                ))}
               </div>
+              <p className="mt-0.5 font-body text-[11px] leading-[1.4] text-[var(--t3)]">
+                모두 신뢰할 수 있는 원문에서 큐레이션 · 원문은 각 글에서 열 수 있어요.
+              </p>
+            </Zone>
+          )}
+
+          {/* ── 왜 효과적 (아이콘 앵커) ── */}
+          <div className="flex items-start gap-2.5 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
+            <span aria-hidden className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}>
+              <Lightbulb size={14} aria-hidden />
+            </span>
+            <div className="flex flex-col gap-0.5">
+              <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
+              <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
+              {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
             </div>
-            {sources.length > 0 && (
-              <div className="flex flex-col gap-1.5 border-t border-[var(--bd)] pt-3">
-                <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">출처 · 신뢰할 수 있는 원문</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {sources.map((s) => (
-                    <span key={s.key} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--bg)] px-2.5 py-1 font-display text-[11.5px] font-[600] text-[var(--t1)] shadow-[var(--sh-xs)]" title={`${s.label} · ${s.count}편`}>
-                      <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: s.color }} />
-                      {s.label}
-                      <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{s.count}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {track.note && <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
           </div>
         </div>
 
@@ -324,6 +324,32 @@ function DifficultyGauge({
         <span>← 쉬움</span>
         <span className="font-[700] text-[var(--t2)]">내 레벨 · {userV > 0 ? `V${userV}` : '기준'} · {myCefr}</span>
         <span>어려움 →</span>
+      </div>
+    </div>
+  )
+}
+
+/** 출처 상세 — 이름 + 분야 + 편수 + 비율바 + 설명 (소스별·소스주제별, 한눈에). */
+function SourceDetail({ source, maxCount }: { source: TrackStat['sources'][number]; maxCount: number }) {
+  const pct = Math.round((source.count / maxCount) * 100)
+  return (
+    <div className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
+      <span aria-hidden className="mt-1 h-3 w-3 shrink-0 rounded-[var(--r-full)]" style={{ backgroundColor: source.color }} />
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="flex items-center gap-2">
+          <span className="truncate font-display text-[13.5px] font-[800] text-[var(--t1)]">{source.label}</span>
+          <span
+            className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[10px] font-[700]"
+            style={{ color: source.color, backgroundColor: `color-mix(in srgb, ${source.color} 12%, transparent)` }}
+          >
+            {source.domain}
+          </span>
+          <span className="ml-auto shrink-0 font-mono text-[11px] font-[700] text-[var(--t2)]">{source.count}편</span>
+        </div>
+        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t3)]">{source.blurb}</p>}
+        <div className="mt-0.5 h-[3px] w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
+          <div className="h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: `color-mix(in srgb, ${source.color} 60%, transparent)` }} />
+        </div>
       </div>
     </div>
   )

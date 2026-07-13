@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 스크립트 출처 설명 — 소스별·소스주제별 한눈에 (v06.247)
+- **문제**: 소스는 라벨(NASA·OWID·eLife…)만 있고 "그게 뭔지·무슨 주제인지" 설명이 없어 학습자가 파악 어려움.
+- **소스 메타 확장**: `source-meta.ts` 각 소스에 **domain(분야: 우주·천문/건강·의학/데이터·통계/여행…)** + **blurb(한 줄 설명: "미국 항공우주국 — 우주 탐사·천문·지구 관측 소식")** 추가(14소스 전수). `TrackStat.sources`가 집계 시 domain/blurb 주입.
+- **한눈 디자인**: ① 팝업(SeriesInfoModal) **'출처별' 존** — 색점 + 이름 + **분야 배지** + 편수 + **비율 바**(시리즈 내 비중 시각화) + 설명. 소스별(무엇) + 소스주제별(무슨 분야·얼마나) 동시 전달. ② SeriesDetail 소스 그룹 헤더에 **분야 배지 + 설명** → 글 목록에서 소스주제별 맥락.
+- **검증**: tsc 0·eslint 0 · unit 18 유지 · 런타임 diag(모달 출처 분야·설명 렌더·pageerror 0).
+
 ### ACP 소스 feed 전수 자동 테스트 + nih 불안정 표기 (v06.246)
 - **전수 테스트**(29 feed · 14 소스 · 실 외부 호출, DEV_ADMIN_BYPASS): **12/14 소스가 233+ 후보 정상 산출** — voa(36)·nasa(21)·simple_wikipedia(40)·the_conversation(23)·owid(4)·factbook(30)·elife(20)·wikipedia(38)·plos(15)·wikivoyage(40)·usgs(24)·noaa(19). **코드 파싱 버그 0** — 실패/빈 feed는 전부 외부 요인 확인.
 - **외부 이슈(코드 아님)**: nih/news RSS **403 차단** · nih/directors-blog **연결불가(000)** · nih/medlineplus **원본 1건뿐** · nasa/apod **원본 RSS가 제목 공란·설명=이미지태그**(기사용 아님) → curation 정확히 0 · wikinews **비활성**(기존 flag) · the_conversation/politics **저볼륨**(all/science/health는 정상).

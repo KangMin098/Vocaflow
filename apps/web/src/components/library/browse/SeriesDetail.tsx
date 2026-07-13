@@ -28,6 +28,8 @@ interface Group {
   label: string
   hint?: string
   color?: string
+  domain?: string
+  blurb?: string
   items: PublishedArticle[]
 }
 
@@ -41,7 +43,14 @@ const TIME_BUCKETS: Array<{ key: string; label: string; hint: string; test: (m: 
 function classify(rest: PublishedArticle[], sources: TrackStat['sources']): Group[] {
   if (sources.length >= 2) {
     return sources
-      .map((s) => ({ key: s.key, label: s.label, color: s.color, items: rest.filter((a) => a.source === s.key) }))
+      .map((s) => ({
+        key: s.key,
+        label: s.label,
+        color: s.color,
+        domain: s.domain,
+        blurb: s.blurb,
+        items: rest.filter((a) => a.source === s.key),
+      }))
       .filter((g) => g.items.length > 0)
   }
   return TIME_BUCKETS.map((b) => ({
@@ -142,11 +151,22 @@ export function SeriesDetail({
             {grouped ? (
               groups.map((g) => (
                 <div key={g.key} className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2 px-0.5">
-                    {g.color && <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: g.color }} />}
-                    <h3 className="font-display text-[13px] font-[800] text-[var(--t1)]">{g.label}</h3>
-                    <span className="font-mono text-[10.5px] font-[600] text-[var(--t3)]">{g.items.length}편</span>
-                    {g.hint && <span className="font-body text-[11px] text-[var(--t3)]">· {g.hint}</span>}
+                  <div className="flex flex-col gap-0.5 px-0.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      {g.color && <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: g.color }} />}
+                      <h3 className="font-display text-[13.5px] font-[800] text-[var(--t1)]">{g.label}</h3>
+                      {g.domain && (
+                        <span
+                          className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[10px] font-[700]"
+                          style={{ color: g.color, backgroundColor: `color-mix(in srgb, ${g.color} 12%, transparent)` }}
+                        >
+                          {g.domain}
+                        </span>
+                      )}
+                      <span className="font-mono text-[10.5px] font-[600] text-[var(--t3)]">{g.items.length}편</span>
+                      {g.hint && <span className="font-body text-[11px] text-[var(--t3)]">· {g.hint}</span>}
+                    </div>
+                    {g.blurb && <p className="font-body text-[11.5px] leading-[1.4] text-[var(--t3)]">{g.blurb}</p>}
                   </div>
                   <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {g.items.map((a) => (

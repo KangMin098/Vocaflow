@@ -311,8 +311,16 @@ export interface TrackStat {
   idealCount: number
   /** 실데이터 기반 적합 (딱 맞아요/수월/도전) */
   fit: TrackFit
-  /** 이 시리즈에 실제로 실린 출처 (라벨·색·편수, 편수 내림차순) — 학습자 신뢰·정보 제공 */
-  sources: Array<{ key: string; label: string; short: string; color: string; count: number }>
+  /** 이 시리즈에 실제로 실린 출처 (라벨·색·분야·설명·편수, 편수 내림차순) — 소스별/소스주제별 정보 제공 */
+  sources: Array<{
+    key: string
+    label: string
+    short: string
+    color: string
+    domain: string
+    blurb: string
+    count: number
+  }>
 }
 
 /** 트랙 글 목록 → 실제 출처별 편수 집계 (편수 내림차순). */
@@ -322,7 +330,7 @@ function trackSources(items: PublishedArticle[]): TrackStat['sources'] {
   return [...counts.entries()]
     .map(([key, count]) => {
       const m = sourceMeta(key)
-      return { key, label: m.label, short: m.short, color: m.color, count }
+      return { key, label: m.label, short: m.short, color: m.color, domain: m.domain, blurb: m.blurb, count }
     })
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
 }
