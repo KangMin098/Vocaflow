@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9434b66` feat(dict): 도서 추출 단어를 실제 표면형으로 표시 — children→"children"+뜻 (v06.225)
 - `4249e47` feat(dict): 도서 단어추출 굴절/파생 해소 — resolve_dict_headword 배선 (v06.225)
 - `de1c371` feat(dict): lookup_word_meaning 파생 해소 tier — 학습자 따로 안 찾아도 뜻 (v06.225)
 - `47cf21d` docs(dict): 굴절·파생 추출 — 기존 인프라 확인 + 파생 검증소스 완결 (v06.225)
 - `0882607` docs(dict): 추출 커버리지 설계 — 굴절형·파생형 (v06.225)
-- `80db34e` fix(dict-mine): dedup 버그 수정 + 100권 채굴 yield 포화 확정 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -11,7 +11,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, ChevronRight, Sparkles, Volume2 } from 'lucide-react'
+import { ArrowRight, ChevronRight, Info, Sparkles, Volume2 } from 'lucide-react'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
 import {
@@ -24,6 +24,7 @@ import {
 import type { PublishedArticle } from '@/lib/articles/types'
 
 import { SeriesDetail } from './SeriesDetail'
+import { SeriesInfoModal } from './SeriesInfoModal'
 
 // 시리즈 출처 힌트 — 상위 3개 짧은 라벨 + 나머지 개수 (학습자 정보 제공, 좁은 공간용)
 function sourceHint(stat: TrackStat): string {
@@ -35,6 +36,8 @@ function sourceHint(stat: TrackStat): string {
 export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
   const userV = useUserVLevel()
   const [selected, setSelected] = useState<TrackKey | null>(null)
+  // 왼쪽(본문) 클릭 시 뜨는 학습정보 팝업 — 글 목록 진입 전 결정 surface
+  const [infoKey, setInfoKey] = useState<TrackKey | null>(null)
 
   const map = useMemo(() => buildScriptsMap(articles, userV), [articles, userV])
 
@@ -69,6 +72,7 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
     : map.tracks[0]
   const rest = map.tracks.filter((t) => t.track.key !== hero?.track.key)
   const g = bandGuidance(map)
+  const infoStat = infoKey ? map.tracks.find((t) => t.track.key === infoKey) ?? null : null
 
   return (
     <div className="flex flex-col gap-7">
@@ -91,7 +95,11 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
       {/* ② 추천 시리즈 — 히어로 1개 */}
       {hero && (
         <section aria-label="추천 시리즈">
-          <SeriesHero stat={hero} onOpen={() => setSelected(hero.track.key)} />
+          <SeriesHero
+            stat={hero}
+            onInfo={() => setInfoKey(hero.track.key)}
+            onEnter={() => setSelected(hero.track.key)}
+          />
         </section>
       )}
 
@@ -101,61 +109,92 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
           <h2 className="px-0.5 font-display text-[13px] font-[800] text-[var(--t2)]">다른 주제로 읽기</h2>
           <ul className="flex flex-col gap-1.5">
             {rest.map((stat) => (
-              <SeriesRow key={stat.track.key} stat={stat} onOpen={() => setSelected(stat.track.key)} />
+              <SeriesRow
+                key={stat.track.key}
+                stat={stat}
+                onInfo={() => setInfoKey(stat.track.key)}
+                onEnter={() => setSelected(stat.track.key)}
+              />
             ))}
           </ul>
         </section>
+      )}
+
+      {/* 학습정보 팝업 — 왼쪽(본문) 클릭 시 (결정 surface) */}
+      {infoStat && (
+        <SeriesInfoModal
+          stat={infoStat}
+          userV={userV}
+          onClose={() => setInfoKey(null)}
+          onEnter={() => {
+            setSelected(infoStat.track.key)
+            setInfoKey(null)
+          }}
+        />
       )}
     </div>
   )
 }
 
-// ── 추천 히어로 — 확신 있는 출발점 (하나만, 초대하듯) ──
-function SeriesHero({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
+// ── 추천 히어로 — 확신 있는 출발점 (본문=학습안내 팝업 · 하단=바로 둘러보기) ──
+function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => void; onEnter: () => void }) {
   const { track, fit, cefrLabel, count, hasAudio } = stat
   const fitMeta = TRACK_FIT_META[fit]
   return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="group flex w-full flex-col gap-3.5 rounded-[var(--r-lg)] border p-5 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+    <div
+      className="group overflow-hidden rounded-[var(--r-lg)] border shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
       style={{
         borderColor: `color-mix(in srgb, ${track.accent} 30%, var(--bd))`,
         backgroundColor: `color-mix(in srgb, ${track.accent} 5%, var(--bg))`,
       }}
     >
-      <div className="flex items-center justify-between gap-2">
-        <span className="inline-flex items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.08em]" style={{ color: track.accent }}>
-          <Sparkles size={12} aria-hidden /> 먼저 이걸로
-        </span>
-        <span
-          className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10.5px] font-[800]"
-          style={{ color: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 14%, transparent)` }}
-        >
-          {fitMeta.label}
-        </span>
-      </div>
-
-      <div className="flex items-start gap-3">
-        <span
-          aria-hidden
-          className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] text-[24px]"
-          style={{ backgroundColor: `color-mix(in srgb, ${track.accent} 16%, transparent)` }}
-        >
-          {track.icon}
-        </span>
-        <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">{track.title}</h3>
-          <p className="font-body text-[13px] leading-[1.45] text-[var(--t2)]">{track.oneLine}</p>
-          {stat.sources.length > 0 && (
-            <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t3)]">
-              출처 · {sourceHint(stat)}
-            </p>
-          )}
+      {/* 본문 = 학습 안내 팝업 열기 */}
+      <button
+        type="button"
+        onClick={onInfo}
+        aria-label={`${track.title} — 학습 안내 보기`}
+        className="flex w-full flex-col gap-3.5 p-5 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_3%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.08em]" style={{ color: track.accent }}>
+            <Sparkles size={12} aria-hidden /> 먼저 이걸로
+          </span>
+          <span
+            className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10.5px] font-[800]"
+            style={{ color: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 14%, transparent)` }}
+          >
+            {fitMeta.label}
+          </span>
         </div>
-      </div>
 
-      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-start gap-3">
+          <span
+            aria-hidden
+            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] text-[24px]"
+            style={{ backgroundColor: `color-mix(in srgb, ${track.accent} 16%, transparent)` }}
+          >
+            {track.icon}
+          </span>
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
+            <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">{track.title}</h3>
+            <p className="font-body text-[13px] leading-[1.45] text-[var(--t2)]">{track.oneLine}</p>
+            {stat.sources.length > 0 && (
+              <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t3)]">출처 · {sourceHint(stat)}</p>
+            )}
+          </div>
+        </div>
+
+        {/* 왼쪽=팝업 어포던스 */}
+        <span className="inline-flex items-center gap-1 font-display text-[12px] font-[700]" style={{ color: track.accent }}>
+          <Info size={13} aria-hidden /> 이 시리즈 알아보기
+        </span>
+      </button>
+
+      {/* 하단 = 바로 글 둘러보기 (직행) */}
+      <div
+        className="flex items-center justify-between gap-2 border-t px-5 py-3"
+        style={{ borderColor: `color-mix(in srgb, ${track.accent} 18%, var(--bd))` }}
+      >
         <span className="flex items-center gap-2.5 font-mono text-[11.5px] font-[600] text-[var(--t3)]">
           <span>{cefrLabel}</span>
           <span>·</span>
@@ -166,24 +205,32 @@ function SeriesHero({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
             </span>
           )}
         </span>
-        <span className="inline-flex items-center gap-1 font-display text-[13px] font-[700]" style={{ color: track.accent }}>
-          둘러보기
+        <button
+          type="button"
+          onClick={onEnter}
+          aria-label={`${track.title} 글 둘러보기`}
+          className="inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] px-2 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_5%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          style={{ color: track.accent }}
+        >
+          글 둘러보기
           <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
-        </span>
+        </button>
       </div>
-    </button>
+    </div>
   )
 }
 
-// ── 나머지 시리즈 — 조용한 row (스캔 가능, 저부하) ──
-function SeriesRow({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
+// ── 나머지 시리즈 — 조용한 row (왼쪽=학습안내 팝업 · 오른쪽=바로 둘러보기) ──
+function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => void; onEnter: () => void }) {
   const { track, cefrLabel, count } = stat
   return (
-    <li>
+    <li className="flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)]">
+      {/* 왼쪽 = 학습 안내 팝업 */}
       <button
         type="button"
-        onClick={onOpen}
-        className="flex min-h-[60px] w-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3.5 py-2.5 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        onClick={onInfo}
+        aria-label={`${track.title} — 학습 안내 보기`}
+        className="flex flex-1 items-center gap-3 px-3.5 py-2.5 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span
           aria-hidden
@@ -198,10 +245,17 @@ function SeriesRow({ stat, onOpen }: { stat: TrackStat; onOpen: () => void }) {
             <span className="truncate font-mono text-[10px] font-[500] text-[var(--t3)]">{sourceHint(stat)}</span>
           )}
         </span>
-        <span className="shrink-0 font-mono text-[11px] font-[600] text-[var(--t3)]">
-          {cefrLabel} · {count}편
-        </span>
-        <ChevronRight size={16} aria-hidden className="shrink-0 text-[var(--t3)]" />
+        <Info size={15} aria-hidden className="shrink-0 opacity-70" style={{ color: track.accent }} />
+      </button>
+      {/* 오른쪽 = 바로 글 둘러보기 (직행) */}
+      <button
+        type="button"
+        onClick={onEnter}
+        aria-label={`${track.title} 글 둘러보기`}
+        className="flex shrink-0 items-center gap-1.5 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+      >
+        <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">{cefrLabel} · {count}편</span>
+        <ChevronRight size={16} aria-hidden className="text-[var(--t3)]" />
       </button>
     </li>
   )

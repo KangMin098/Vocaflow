@@ -10,7 +10,9 @@
 
 ## Unreleased (v06.34 → next)
 
-### `/library/scripts` 출처 정보 + 글 목록 분류 (v06.239)
+### `/library/scripts` 시리즈 학습정보 팝업 (v06.240)
+- **결정 surface 신설** `SeriesInfoModal.tsx` — 진입면에서 주제(시리즈) **왼쪽(본문) 클릭 → 매력적인 학습정보 팝업**. 글 목록에 들어가기 전, 이 시리즈를 고를지 확신을 갖고 결정하게 함(Progressive Disclosure · 자기효능감). 콘텐츠 전부 실데이터/근거: 히어로(아이콘·타이틀·한줄)·**개인화 어필**(fit+idealCount 기반 "당신 레벨에 딱 맞아요·읽기 좋은 글 N편")·무엇을 읽나(출처)·이렇게 성장해요(능력)·왜 효과적일까(학습과학 Lora italic)·**학습 로드맵**(method 세로 스테퍼)·CTA("딱 맞는 글 N편부터 시작하기"). Calm 등장(mounted-state 트랜지션, 플러그인 무의존)·Esc/백드롭 닫기·스크롤잠금·role=dialog·44px·다크 토큰.
+- **카드 2-타깃 재구성** ScriptsBrowser: 히어로/row가 **왼쪽(본문)=학습안내 팝업 / 오른쪽(둘러보기)=글 목록 직행**. 히어로엔 "ⓘ 이 시리즈 알아보기" 어포던스, row엔 Info 아이콘 + 우측 "cefr·편수 ›" 분절. 데이터/추천 로직(buildScriptsMap) 불변, 추가 fetch 0.
 - **출처 제공**: `source-meta.ts` 신설 — 소스 라벨·색·짧은라벨을 ArticleCard에서 추출해 공유(진입면·상세 재사용). `buildScriptsMap` 이 시리즈별 **실제 출처+편수**(`TrackStat.sources`) 집계 → 진입면 히어로/row에 "출처 · NASA · NIH · PLOS +N" 한 줄, 상세엔 색 점 + 편수 칩. 학습자 신뢰·기대 형성(정식 원문 큐레이션).
 - **글 목록 분류(모던·심플)**: `SeriesDetail` 글 목록을 **i+1 적합 티어로 그룹**(딱 맞아요→수월→도전→어려움, 그룹당 짧은 글 먼저) — iOS 그룹 리스트식 조용한 색-점 헤더. 무엇부터 읽을지 스스로 판단(학습자 제공 최적화). 그룹 1개면 평면.
 - **검증**: tsc 0·eslint 0·SSR 200(진입면 출처 힌트 렌더 확인) · 04-ui-smoke 2종 PASS(진입면→상세(출처칩·분류)→복귀 · 밴드 V2/V5/V9) · unit 18 유지.
