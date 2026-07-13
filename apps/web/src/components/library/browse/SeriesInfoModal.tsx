@@ -1,21 +1,45 @@
 // apps/web/src/components/library/browse/SeriesInfoModal.tsx
 //
-// 시리즈 학습정보 팝업 (v06.241 재설계 — 가독성·가시성·"한눈에 확") —
-//   /library/scripts 진입면에서 주제(시리즈) 왼쪽을 누르면 뜨는 "결정 surface".
-// 뇌과학·심리 근거:
-//   · 전주의적 처리(pre-attentive): 색·크기로 결정정보(난이도·레벨·분량)를 <1s 파악 → 상단 스탯 스트립.
-//   · 인지부하(Sweller ~4항목): 6나열 → 3존(① 한눈 요약 ② 성장·로드맵 ③ 근거)으로 청킹.
-//   · 시각적 위계 + Von Restorff: 개인화 훅·CTA를 크게·고대비로 격리.
-//   · 그림 우월 효과 + Gestalt(근접성·공통영역): 아이콘 앵커 + 그룹 간격/구획.
-//   · 가독성: 폰트 크기↑·대비↑(중요정보 t1/t2), 짧은 행, 44px 타깃.
-// 콘텐츠는 전부 실데이터/근거 — TrackStat(sources·count·fit·idealCount) + SourceTrack 카피.
+// 시리즈 학습정보 팝업 (v06.245 — 시각적 정보전달 강화) —
+//   /library/scripts 진입면에서 주제(시리즈)를 누르면 뜨는 "결정 surface".
+// 텍스트 위주 → 시각 부호화(정보전달 매커니즘) 우선:
+//   · 난이도 게이지: "나 vs 시리즈"를 축 위에 그려 "나에게 맞나?"를 <1s 시각 즉답(전주의적).
+//   · 스탯 타일: 분량·읽기시간·음성을 아이콘+수치로(그림 우월).
+//   · 능력 아이콘 칩: 각 능력에 키워드→아이콘(Dual Coding) — 텍스트 나열 탈피.
+//   · 로드맵: 큰 번호+연결선(경로 시각화). why/출처는 아이콘 앵커로 보조.
+//   · 인지부하 청킹(Sweller), Von Restorff(개인화·CTA 격리), Calm 등장, 44/48px 타깃, 다크 토큰.
+// 콘텐츠는 전부 실데이터/근거 — TrackStat + SourceTrack 카피.
 
 'use client'
 
-import { useEffect, useId, useState, type ReactNode } from 'react'
-import { ArrowRight, Check, Sparkles, Volume2, X } from 'lucide-react'
+import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
+import {
+  ArrowRight,
+  BarChart3,
+  BookOpen,
+  Clock,
+  FileText,
+  Globe,
+  Headphones,
+  Lightbulb,
+  Scale,
+  Sparkles,
+  Target,
+  Type,
+  Volume2,
+  X,
+  type LucideIcon,
+} from 'lucide-react'
 
-import { TRACK_FIT_META, getLearnerBand, type TrackStat } from '@/lib/articles/source-map'
+import {
+  TRACK_FIT_META,
+  effectiveUserV,
+  getLearnerBand,
+  vToCefrLabel,
+  vToPct,
+  type TrackStat,
+} from '@/lib/articles/source-map'
+import type { PublishedArticle } from '@/lib/articles/types'
 
 /** 개인화 훅 — fit + idealCount + 진단여부 (감정 부호화·자기효능감). */
 function appealLine(stat: TrackStat, userV: number): { lead: string; body: string } {
@@ -26,16 +50,33 @@ function appealLine(stat: TrackStat, userV: number): { lead: string; body: strin
   if (stat.fit === 'fit') {
     return {
       lead: '당신 레벨에 딱 맞아요',
-      body:
-        stat.idealCount > 0
-          ? `지금 읽기 좋은 글이 ${stat.idealCount}편 있어요.`
-          : '편하게 몰입할 수 있는 시리즈예요.',
+      body: stat.idealCount > 0 ? `지금 읽기 좋은 글이 ${stat.idealCount}편 있어요.` : '편하게 몰입할 수 있는 시리즈예요.',
     }
   }
   if (stat.fit === 'hard') {
     return { lead: '조금 도전적이에요', body: '살짝 어려운 글이 더 깊은 이해와 기억을 만들어요.' }
   }
   return { lead: '수월하게 읽혀요', body: '아는 단어가 많아 속도·유창성 훈련에 좋아요.' }
+}
+
+/** 능력 라벨 → 아이콘 (Dual Coding — 키워드 매칭, 폴백 Target). */
+function skillIcon(skill: string): LucideIcon {
+  if (/듣기|청해|청취|쉐도|따라/.test(skill)) return Headphones
+  if (/발음|억양|말하기|스피/.test(skill)) return Volume2
+  if (/논증|논리|추론|비판|구조/.test(skill)) return Scale
+  if (/데이터|통계|수치|사실|정보/.test(skill)) return BarChart3
+  if (/배경|폭넓|스키마|지식|넓/.test(skill)) return Globe
+  if (/어휘|단어|철자/.test(skill)) return Type
+  if (/독해|읽기|이해|파악/.test(skill)) return BookOpen
+  if (/자신감|친숙|시작/.test(skill)) return Sparkles
+  return Target
+}
+
+/** 대략 읽기 시간(분). */
+function readMinutes(a: PublishedArticle): number | null {
+  if (a.reading_minutes != null) return a.reading_minutes
+  if (a.word_count != null) return Math.max(1, Math.round(a.word_count / 200))
+  return null
 }
 
 export function SeriesInfoModal({
@@ -49,11 +90,20 @@ export function SeriesInfoModal({
   onClose: () => void
   onEnter: () => void
 }) {
-  const { track, count, cefrLabel, hasAudio, fit, sources, idealCount } = stat
+  const { track, count, cefrLabel, hasAudio, fit, sources, idealCount, vMin, vMax } = stat
   const fitMeta = TRACK_FIT_META[fit]
   const appeal = appealLine(stat, userV)
   const titleId = useId()
   const accent = track.accent
+
+  // 읽기 시간 레이블 — 실 글에서 집계 (분량 타일용).
+  const readLabel = useMemo(() => {
+    const mins = stat.items.map(readMinutes).filter((m): m is number => m != null)
+    if (mins.length === 0) return '—'
+    const lo = Math.min(...mins)
+    const hi = Math.max(...mins)
+    return lo === hi ? `${lo}분` : `${lo}~${hi}분`
+  }, [stat.items])
 
   const [shown, setShown] = useState(false)
   useEffect(() => {
@@ -84,7 +134,7 @@ export function SeriesInfoModal({
         onClick={(e) => e.stopPropagation()}
         className={`flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-[var(--r-xl)] bg-[var(--bg)] shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] sm:rounded-[var(--r-xl)] ${shown ? 'translate-y-0 opacity-100 sm:scale-100' : 'translate-y-6 opacity-0 sm:translate-y-0 sm:scale-95'}`}
       >
-        {/* ═══ 히어로 — 정체성 (그림 우월·큰 아이콘/타이틀) ═══ */}
+        {/* ═══ 히어로 — 정체성 ═══ */}
         <header
           className="relative flex items-start gap-4 px-6 pb-5 pt-6"
           style={{ background: `linear-gradient(155deg, color-mix(in srgb, ${accent} 20%, var(--bg)) 0%, var(--bg) 82%)` }}
@@ -105,16 +155,10 @@ export function SeriesInfoModal({
             {track.icon}
           </span>
           <div className="flex min-w-0 flex-1 flex-col gap-1 pr-8">
-            <span
-              className="inline-flex w-fit items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.1em]"
-              style={{ color: accent }}
-            >
+            <span className="inline-flex w-fit items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.1em]" style={{ color: accent }}>
               학습 시리즈
             </span>
-            <h2
-              id={titleId}
-              className="font-editorial text-[25px] font-[600] leading-[1.1] tracking-[-0.01em] text-[var(--t1)]"
-            >
+            <h2 id={titleId} className="font-editorial text-[25px] font-[600] leading-[1.1] tracking-[-0.01em] text-[var(--t1)]">
               {track.title}
             </h2>
             <p className="font-body text-[14px] leading-[1.5] text-[var(--t2)]">{track.oneLine}</p>
@@ -122,111 +166,84 @@ export function SeriesInfoModal({
         </header>
 
         {/* ═══ 본문 (스크롤) ═══ */}
-        <div className="flex flex-col gap-5 overflow-y-auto px-6 pb-5 pt-1">
-          {/* ── ① 한눈 요약: 스탯 스트립 (전주의적 — 색·크기로 <1s 파악) ── */}
+        <div className="flex flex-col gap-5 overflow-y-auto px-6 pb-5 pt-2">
+          {/* ── 난이도 게이지 — "나에게 맞나?" 시각 즉답 ── */}
+          <DifficultyGauge vMin={vMin} vMax={vMax} userV={userV} fitMeta={fitMeta} cefrLabel={cefrLabel} accent={accent} />
+
+          {/* ── 스탯 타일 — 분량·읽기시간·음성 (그림 우월) ── */}
           <div className="grid grid-cols-3 gap-2">
-            <StatTile label="난이도" value={fitMeta.label} valueColor={fitMeta.color} tint={fitMeta.color} />
-            <StatTile label="레벨" value={cefrLabel} valueColor={accent} tint={accent} />
-            <StatTile
-              label="분량"
-              value={`${count}편`}
-              valueColor="var(--t1)"
-              badge={hasAudio ? '음성' : undefined}
-            />
+            <StatTile icon={FileText} label="분량" value={`${count}편`} tint={accent} />
+            <StatTile icon={Clock} label="읽기" value={readLabel} tint={accent} />
+            <StatTile icon={Volume2} label="음성" value={hasAudio ? '있음' : '없음'} tint={hasAudio ? accent : undefined} muted={!hasAudio} />
           </div>
 
-          {/* ── 개인화 훅 (Von Restorff — 크게·격리·감정) ── */}
+          {/* ── 개인화 훅 (Von Restorff) ── */}
           <div
             className="flex items-start gap-3 rounded-[var(--r-lg)] border-l-[3px] px-4 py-3.5"
-            style={{
-              borderColor: fitMeta.color,
-              backgroundColor: `color-mix(in srgb, ${fitMeta.color} 9%, var(--bg))`,
-            }}
+            style={{ borderColor: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 9%, var(--bg))` }}
           >
-            <span
-              aria-hidden
-              className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-full)]"
-              style={{ backgroundColor: fitMeta.color, color: 'var(--ti)' }}
-            >
+            <span aria-hidden className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: fitMeta.color, color: 'var(--ti)' }}>
               <Sparkles size={13} aria-hidden />
             </span>
             <div className="flex flex-col gap-0.5">
-              <span className="font-display text-[16px] font-[800] leading-[1.3] text-[var(--t1)]">
-                {appeal.lead}
-              </span>
+              <span className="font-display text-[16px] font-[800] leading-[1.3] text-[var(--t1)]">{appeal.lead}</span>
               <span className="font-body text-[13.5px] leading-[1.45] text-[var(--t2)]">{appeal.body}</span>
             </div>
           </div>
 
-          {/* ── ② 이렇게 성장해요 (능력 — 그림 우월·체크 앵커) ── */}
+          {/* ── 기르는 능력 — 아이콘 칩 그리드 (Dual Coding) ── */}
           <Zone label="이렇게 성장해요" accent={accent}>
-            <ul className="flex flex-col gap-2">
-              {track.skills.map((sk) => (
-                <li key={sk} className="flex items-center gap-2.5">
-                  <span
-                    aria-hidden
-                    className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[var(--r-full)]"
-                    style={{ backgroundColor: `color-mix(in srgb, ${accent} 18%, transparent)`, color: accent }}
-                  >
-                    <Check size={12} strokeWidth={3} aria-hidden />
-                  </span>
-                  <span className="font-body text-[14px] font-[600] text-[var(--t1)]">{sk}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {track.skills.map((sk) => {
+                const Icon = skillIcon(sk)
+                return (
+                  <div key={sk} className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5">
+                    <span aria-hidden className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 14%, transparent)`, color: accent }}>
+                      <Icon size={16} aria-hidden />
+                    </span>
+                    <span className="font-body text-[13.5px] font-[600] leading-[1.25] text-[var(--t1)]">{sk}</span>
+                  </div>
+                )
+              })}
+            </div>
           </Zone>
 
-          {/* ── 학습 로드맵 (경로 시각화 — 큰 번호·연결선) ── */}
+          {/* ── 학습 로드맵 — 큰 번호 + 연결선 ── */}
           <Zone label="학습 로드맵" accent={accent}>
             <ol className="flex flex-col">
               {track.method.map((step, i) => (
                 <li key={step} className="flex gap-3">
                   <div className="flex flex-col items-center">
-                    <span
-                      aria-hidden
-                      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)] font-mono text-[12px] font-[800] text-[var(--ti)] shadow-[var(--sh-xs)]"
-                      style={{ backgroundColor: accent }}
-                    >
+                    <span aria-hidden className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)] font-mono text-[12px] font-[800] text-[var(--ti)] shadow-[var(--sh-xs)]" style={{ backgroundColor: accent }}>
                       {i + 1}
                     </span>
                     {i < track.method.length - 1 && (
-                      <span
-                        aria-hidden
-                        className="my-1 w-[2.5px] flex-1 rounded-full"
-                        style={{ backgroundColor: `color-mix(in srgb, ${accent} 30%, var(--bd))` }}
-                      />
+                      <span aria-hidden className="my-1 w-[2.5px] flex-1 rounded-full" style={{ backgroundColor: `color-mix(in srgb, ${accent} 30%, var(--bd))` }} />
                     )}
                   </div>
-                  <span
-                    className={`pt-1 font-body text-[14px] font-[600] leading-[1.35] text-[var(--t1)] ${i < track.method.length - 1 ? 'pb-3' : ''}`}
-                  >
-                    {step}
-                  </span>
+                  <span className={`pt-1 font-body text-[14px] font-[600] leading-[1.35] text-[var(--t1)] ${i < track.method.length - 1 ? 'pb-3' : ''}`}>{step}</span>
                 </li>
               ))}
             </ol>
           </Zone>
 
-          {/* ── ③ 근거 존: 왜 효과적 + 출처 (보조 — 신뢰) ── */}
+          {/* ── 왜 효과적 (아이콘 앵커) + 출처 ── */}
           <div className="flex flex-col gap-3 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
-            <div className="flex flex-col gap-1.5">
-              <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">
-                왜 효과적일까요
+            <div className="flex items-start gap-2.5">
+              <span aria-hidden className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}>
+                <Lightbulb size={14} aria-hidden />
               </span>
-              <p className="font-body text-[13.5px] leading-[1.55] text-[var(--t1)]">{track.why}</p>
+              <div className="flex flex-col gap-0.5">
+                <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
+                <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
+              </div>
             </div>
             {sources.length > 0 && (
               <div className="flex flex-col gap-1.5 border-t border-[var(--bd)] pt-3">
-                <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">
-                  출처 · 신뢰할 수 있는 원문
-                </span>
+                <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">출처 · 신뢰할 수 있는 원문</span>
                 <div className="flex flex-wrap gap-1.5">
                   {sources.map((s) => (
-                    <span
-                      key={s.key}
-                      className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--bg)] px-2.5 py-1 font-display text-[11.5px] font-[600] text-[var(--t1)] shadow-[var(--sh-xs)]"
-                      title={`${s.label} · ${s.count}편`}
-                    >
+                    <span key={s.key} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--bg)] px-2.5 py-1 font-display text-[11.5px] font-[600] text-[var(--t1)] shadow-[var(--sh-xs)]" title={`${s.label} · ${s.count}편`}>
                       <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: s.color }} />
                       {s.label}
                       <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{s.count}</span>
@@ -235,13 +252,11 @@ export function SeriesInfoModal({
                 </div>
               </div>
             )}
-            {track.note && (
-              <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>
-            )}
+            {track.note && <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
           </div>
         </div>
 
-        {/* ═══ 스티키 CTA (Von Restorff — 가장 큰 고대비 행동) ═══ */}
+        {/* ═══ 스티키 CTA ═══ */}
         <footer className="flex items-center gap-2.5 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
           <button
             type="button"
@@ -265,19 +280,68 @@ export function SeriesInfoModal({
   )
 }
 
-/** 한눈 요약 타일 — 라벨(작게) + 값(크게·색) · 전주의적 파악. */
+/** 난이도 게이지 — 축(쉬움→어려움) 위에 시리즈 밴드 + 내 위치를 그려 "나에게 맞나"를 시각 즉답. */
+function DifficultyGauge({
+  vMin,
+  vMax,
+  userV,
+  fitMeta,
+  cefrLabel,
+  accent,
+}: {
+  vMin: number
+  vMax: number
+  userV: number
+  fitMeta: { label: string; color: string }
+  cefrLabel: string
+  accent: string
+}) {
+  const bandLo = vToPct(vMin)
+  const bandHi = vToPct(vMax)
+  const me = vToPct(effectiveUserV(userV))
+  const myCefr = vToCefrLabel(effectiveUserV(userV))
+  return (
+    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3.5">
+      <div className="flex items-center justify-between">
+        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
+          <Target size={14} aria-hidden /> {fitMeta.label}
+        </span>
+        <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">시리즈 {cefrLabel}</span>
+      </div>
+      <div className="relative mt-1 h-2.5 w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
+        {/* 시리즈 밴드 */}
+        <span
+          aria-hidden
+          className="absolute top-0 h-full rounded-[var(--r-full)]"
+          style={{ left: `${bandLo}%`, width: `${Math.max(6, bandHi - bandLo)}%`, backgroundColor: `color-mix(in srgb, ${accent} 55%, transparent)` }}
+        />
+        {/* 내 위치 마커 */}
+        <span aria-hidden className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2" style={{ left: `${me}%` }}>
+          <span className="block h-4 w-4 rounded-[var(--r-full)] border-[2.5px] border-[var(--bg)] bg-[var(--t1)] shadow-[var(--sh-sm)]" />
+        </span>
+      </div>
+      <div className="flex items-center justify-between font-mono text-[10.5px] font-[600] text-[var(--t3)]">
+        <span>← 쉬움</span>
+        <span className="font-[700] text-[var(--t2)]">내 레벨 · {userV > 0 ? `V${userV}` : '기준'} · {myCefr}</span>
+        <span>어려움 →</span>
+      </div>
+    </div>
+  )
+}
+
+/** 스탯 타일 — 아이콘 + 라벨 + 값 (전주의적 파악). */
 function StatTile({
+  icon: Icon,
   label,
   value,
-  valueColor,
   tint,
-  badge,
+  muted = false,
 }: {
+  icon: LucideIcon
   label: string
   value: string
-  valueColor: string
   tint?: string
-  badge?: string
+  muted?: boolean
 }) {
   return (
     <div
@@ -287,22 +351,18 @@ function StatTile({
         backgroundColor: tint ? `color-mix(in srgb, ${tint} 7%, var(--bg))` : 'var(--bg2)',
       }}
     >
-      <span className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
-        {label}
+      <span aria-hidden style={{ color: muted ? 'var(--t3)' : tint ?? 'var(--t2)' }}>
+        <Icon size={16} aria-hidden />
       </span>
-      <span className="inline-flex items-center gap-1 font-display text-[15px] font-[800] leading-none" style={{ color: valueColor }}>
+      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.05em] text-[var(--t3)]">{label}</span>
+      <span className="font-display text-[14px] font-[800] leading-none" style={{ color: muted ? 'var(--t3)' : 'var(--t1)' }}>
         {value}
-        {badge && (
-          <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
-            <Volume2 size={11} aria-hidden /> {badge}
-          </span>
-        )}
       </span>
     </div>
   )
 }
 
-/** 정보 존 — 라벨(가시성 t2) + 내용 (Gestalt 근접성 그룹). */
+/** 정보 존 — 라벨 + 내용 (Gestalt 근접성). */
 function Zone({ label, accent, children }: { label: string; accent: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-2.5">

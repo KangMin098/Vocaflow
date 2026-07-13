@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 시리즈 학습정보 팝업 — 텍스트 위주 → 시각적 정보전달 (v06.245)
+- **문제**: 팝업(SeriesInfoModal)이 텍스트 위주 — "나에게 맞나?"(난이도)가 텍스트 배지뿐, 능력은 텍스트 나열, 정보전달 매커니즘 부족.
+- **시각 부호화 강화**: ① **난이도 게이지** 신설 — 축(쉬움→어려움) 위에 시리즈 밴드(vMin~vMax)와 **내 위치 마커**를 그려 "나에게 맞나"를 <1s 시각 즉답(전주의적, `vToPct`/`effectiveUserV` 재사용). ② **스탯 타일**에 아이콘(분량·읽기시간·음성) — 읽기시간은 실 글에서 집계(`3~8분`). ③ **능력 = 아이콘 칩 그리드** — 키워드→아이콘(듣기 Headphones·논증 Scale·독해 BookOpen·데이터 BarChart…) Dual Coding. ④ why는 Lightbulb 앵커로 보조 강등.
+- **검증**: tsc 0·eslint 0 · 런타임 diag(팝업 열림·게이지·스탯·능력·로드맵·why 렌더 · pageerror 0). buildScriptsMap/진입 flow 불변.
+
 ### `/admin/articles` 소스 라벨 SSoT 통일 — 커버리지↔소스GET 불일치 수정 (v06.244)
 - **버그**: 소스 라벨이 3곳(정본 `source-guide.SOURCE_LABEL` · `SourceFeedList.SOURCE_LABELS` · `CurationConsole.SOURCE_OPTIONS`)에 중복 정의 → 드리프트. `SOURCE_OPTIONS`가 `simple_wikipedia`를 **"Wikipedia"로 오표기**(정본 "Simple Wikipedia") → 커버리지(SourceFeedList)엔 "Simple Wikipedia", 소스GET 탭엔 "Wikipedia"(×2, wikipedia와 충돌)로 **같은 소스가 다른 이름**.
 - **수정**: 커버리지·소스GET·소스헤더 셋 다 **정본 `SOURCE_LABEL` 단일출처**만 사용. `SOURCE_OPTIONS`는 key+Icon만 정의(라벨 하드코딩 제거), `SourceTabs`가 `SOURCE_LABEL[key]` 렌더. `SourceFeedList`의 중복 `SOURCE_LABELS` 삭제 → `SOURCE_LABEL[source]`. DB 소스 집합(seed_catalog·articles)은 14 정본 내 확인(stale 없음). 미래 드리프트 차단.
