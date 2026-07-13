@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9e184b8` feat(scripts): 출처 소스별·소스주제별 설명 + 한눈 디자인
 - `84cf16f` test(acp): 소스 feed 전수 테스트 + nih 불안정 표기 (v06.246)
 - `b4584e7` docs(dict): 다의어 sense 전면 완성 wave 1 — 서브에이전트 병렬 (v06.225)
 - `1afab2a` feat(dict): 다의어 sense 완성 병렬 파이프라인 스크립트 (v06.225)
 - `e8adca4` fix(admin): 소스GET(대량) 라벨 정본 정렬 — owid/factbook/noaa (v06.244)
-- `f05fd41` feat(scripts): 시리즈 학습정보 팝업 시각적 정보전달 강화 (SeriesInfoModal)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
