@@ -19,5 +19,7 @@
 
 **파생형 = headword로 처리(자체 뜻)**: 역굴절이 파생 커버 안 함(뜻이 base와 다름) → 자체 표제어 필요. `classified_by='claude_code_derivational'`. 소스=`data/seed/derivational-candidates.json`(**빈도 코퍼스 검증 실단어 2,494**, form+base+base_meaning+freq=전체 사전 기반). 2026-07-13: 기존 6,180 + 검증 소스 미등록 93(recognise·regulatory·auditory·forestry 등) + 도서 rare 114(ebullition·volubility 등 C2) 채움 → **검증 소스 100% 커버**, derivational 6,387. 사전 45,496→45,703. `word,pos`만 NOT NULL; `classified_by` CHECK=rule_v1/claude_code_opus_4_7/sonnet_4_6/derivational/opus_4_8/fable_5만.
 
-**결론**: 굴절형·파생형 뜻-그대로 추출은 **기존 인프라 + 파생 headword 완비로 이미 동작**. 남은 잔여=도서 롱테일 rare 파생(빈도 낮음, [[project_dict_field_completeness]] 채굴로 점증). 규칙 대량 생성은 금지.
+**파생 해소 tier 추가(2026-07-13, 마이그 `20260713150000`)**: rare 미등록 파생형(dreamlike·kinglike·boyishly)이 `not_found`이던 문제 → `lookup_word_meaning`에 **tier 5** 추가: 4-tier(direct→en_inflection_bases→variant→inflected_forms cluster) 실패 시 투명 접미사(-ly/ily/ically/ness/iness/less/iless/ful/fully/ish/like/wise) 벗겨 **base 표제어 뜻 폴백**. **base 존재 시에만 해소=쓰레기 불가**(runtime, 데이터 생성 아님). 검증 20/20 해소·not_found 0. 전체 사전 base 대상. ⚠️ **표제어 대량 생성 대신 runtime 역-strip 해소가 정답**(forward 생성은 abashederness 날조). 잔여: 명사화(-tion/-ment)는 base 뜻 POS-불일치라 tier5 미포함(대부분 이미 표제어). 추출 함수(extract_vocabulary_for_user_v2 L2·select_book_chapter_vocab)는 굴절만 해소, 파생 tier 미배선(후속 옵션).
+
+**결론**: 굴절형·파생형 뜻-그대로 추출/조회는 **기존 인프라 + 파생 headword(검증소스 100%) + tier5 폴백으로 전체 사전 동작**. 규칙 대량 생성(forward)은 금지, runtime 역-strip이 정답.
 
