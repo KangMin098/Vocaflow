@@ -7,10 +7,21 @@
 
 ## 요약
 
-- **테이블**: 61 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts`)
-- **Views**: 6 (+`csat_stage_catalog`)
-- **Functions**: 227 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 그 외 ~185)
-- **Migrations 누적**: 60+ 적용됨 (CTP 데이터모델 3건 + 소스 4건 포함)
+- **테이블**: 74 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity`)
+- **Views**: 7 (+`csat_stage_catalog` · +`word_mislevel_signal`)
+- **Functions**: 262 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 추출해소 `resolve_dict_headword`·`infer_form_pos`·`set_word_familiarity` / 그 외 ~215)
+- **Migrations 누적**: 70+ 적용됨 (CTP 데이터모델 3건 + 추출경로 통합/신뢰 8건 + 소스 4건 포함)
+
+### 🎯 추출 신뢰 — 학습자 교정 계층 (2026-07-16, 2단계)
+
+3 추출 경로(책 `select_book_chapter_vocab`·글 `select_article_vocab`·BYO `extract_vocabulary_for_user_v2`)를 공유 해소기 `resolve_dict_headword`(direct→cluster→규칙역굴절→파생strip) + `infer_form_pos`(형태→POS sense 선택)로 **통합**. 그 위에 학습자 교정:
+
+| 객체 | 종류 | 역할 |
+|---|---|---|
+| `word_familiarity` | 테이블(RLS·PK user+lemma) | 학습자 알아요/몰라요 판정 — **lemma 단위**(형태 무관). verdict·판정당시 v_level |
+| `set_word_familiarity` | RPC(DEFINER) | `auth.uid()` upsert. authenticated만 |
+| `word_mislevel_signal` | VIEW | known_ct/unknown_ct ↔ dict_v_level → 과대/과소난이도 후보 집계 |
+| `extract_vocabulary_for_user_v2` | 함수(수정) | `verdict='known'` 단어 추출 제외(BYO) |
 
 ### 🧭 CTP — CSAT Track Pipeline 데이터모델 (2026-07-10, migration 3건)
 

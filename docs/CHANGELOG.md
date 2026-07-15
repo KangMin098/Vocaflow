@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 신뢰 2단계 — 학습자 "알아요/몰라요" 교정 + 오난이도 신호 (v06.248)
+- **전략 순서**(새는 곳 막기→틀려도 고칠 수 있게→채우기)의 **2단계**: 완벽 대신 학습자가 추출을 직접 교정. 마이그 `20260713180000`(테이블+RPC+뷰) · `20260713180500`(추출 제외).
+- **`word_familiarity`** 테이블(user·**lemma(표제어) 단위**·verdict known/unknown·판정당시 v_level·source) + RLS(본인) + `idx_wf_lemma_verdict`. lemma 단위 저장 → 굴절/파생 형태 무관 일관.
+- **`set_word_familiarity(lemma,verdict,v_level)`** RPC(DEFINER·`auth.uid()` upsert·PUBLIC revoke·authenticated grant). **`word_mislevel_signal`** 뷰(known_ct/unknown_ct + dict_v_level 대비 → 과대/과소난이도 후보 집계).
+- **추출 제외**: `extract_vocabulary_for_user_v2` filtered CTE에 `verdict='known'` 배제(이미 아는 단어 재추출 안 함). 나머지 통합 로직(resolve_dict_headword·infer_form_pos·i+1 threshold) 불변.
+- **`ExtractionPanel`**: 행마다 알아요/몰라요 버튼(낙관적 UI·known→페이드+선택해제). 저장은 **lemma 단위 + `extracted_surface` 보존**(SRS 형태별 쪼갬 방지). L2 배지 형태→표제어 시맨틱 교정. `@vocaflow/types` database.ts 재생성(신규 RPC 타입). tsc 0(ExtractionPanel).
+
 ### 스크립트 출처 설명 — 소스별·소스주제별 한눈에 (v06.247)
 - **문제**: 소스는 라벨(NASA·OWID·eLife…)만 있고 "그게 뭔지·무슨 주제인지" 설명이 없어 학습자가 파악 어려움.
 - **소스 메타 확장**: `source-meta.ts` 각 소스에 **domain(분야: 우주·천문/건강·의학/데이터·통계/여행…)** + **blurb(한 줄 설명: "미국 항공우주국 — 우주 탐사·천문·지구 관측 소식")** 추가(14소스 전수). `TrackStat.sources`가 집계 시 domain/blurb 주입.
