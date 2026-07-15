@@ -133,6 +133,13 @@
 - **검증**: **독립 로직 테스트 PASS**(실단어 15장 덱 생성·전 카드 품사·어원 시너지 그룹 존재 spect[inspect/respect/suspect]·port[transport/export]·휴리스틱 품사 정확) + posFromData 7케이스 매핑 검증 + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ **런타임 end-to-end 렌더는 dev 서버 불안정(디스크 98% → .next 반복 손상·프로세스 사망)으로 보류** — 로컬 디스크 확보 후 `?set=<테마 세트>` 플레이로 확인 권장.
 - 도메인 태그는 데이터 sparse/과광범위로 미사용(품사+어원+접두사 3축). authored 게임(④⑤⑥)은 배선보다 콘텐츠 확장이 적합.
 
+### 추출 3경로 통합 (1단계 "새는 곳 막기") — 책·글·BYO 동일 규칙 (v06.225)
+- **문제**: 단어추출이 책(`select_book_chapter_vocab`)·글(`select_article_vocab`)·학습자 직접입력(`extract_vocabulary_for_user_v2`, /text) 3경로가 서로 다르게 구현 → 같은 문장도 다른 결과("라이브러리선 뽑혔는데 내 지문선 왜?") = 신뢰 저하.
+- **0단계 세보기**: 실 학습 corpus 표제어 **22,086**(검사 범위, 사전 절반) · 다의어 **10,492/45,667=23%**(실사용 중 31%). 3경로 구조적 상이 실증.
+- **통합(drift 방지)**: 형태→품사 추론을 **공유 헬퍼 `infer_form_pos(surface,base)`** 로 추출 → 3함수가 인라인 복붙 대신 헬퍼 호출(이후 규칙 변경 한 곳만). book·article 리팩터(동작 동일, **회귀 0** 검증). **/text(BYO) 통합**: `resolve_dict_headword`(굴절/파생 해소)+`infer_form_pos` sense+노이즈 register 제외+표면형 표시 추가 → 책/글과 일치(galloped→gallop·ransomed→동사 뜻·uncomfortableness→uncomfortable 회수).
+- **유지(정당한 차이)**: BYO 개인화(레벨 i+1·track 점수·아는단어 제외)·ephemeral·시그니처. 마이그 `20260713170000/171000/172000/172500`.
+- **잔여**: BYO는 winkNLP를 안 거쳐 context_pos 없음(형태추론 폴백) → **winkNLP 배선(근본 파리티)은 후속**. 앱-측: /text 저장 시 표면형 대신 `matched_via_surface`(표제어) 저장 권장(SRS 쪼갬 방지).
+
 ### 다의어 sense 전면 완성 — 일반 사전급 다중 POS (v06.225, 진행형)
 - **목표**: 사전 전체 단어가 실제 쓰이는 모든 POS sense를 갖도록(일반 사전급) → "ransomed→몸값을 치르고 풀어주다"처럼 형태에 맞는 뜻 추출.
 - **병렬 파이프라인**: `sense-chunk.mjs`(단일-sense content 단어 빈도순 청크 분할) → **서브에이전트 병렬 authoring**(청크당 1 에이전트, 표준 영어 실재 POS만 보수적 추가, 애매하면 skip) → `sense-apply.mjs`(검증·일괄 적용: meanings_ko + flat pos/meaning_ko 동기화 + shared_words, 단일-sense 가드).
