@@ -174,7 +174,10 @@ export type Database = {
       book_curation_jobs: {
         Row: {
           book_id: string
+          book_v_level: number | null
           chapter_definition: Json | null
+          chapters_done: number | null
+          chapters_total: number | null
           claimed_at: string | null
           created_at: string
           created_by: string | null
@@ -182,15 +185,22 @@ export type Database = {
           id: string
           librivox_chapters: Json | null
           librivox_mapping: Json | null
-          mode: string
+          mode: string | null
           note: string | null
+          questions_created: number | null
+          result: Json | null
           source_chapters: Json | null
           status: string
+          target_per_chapter: number | null
+          task_type: string
           updated_at: string
         }
         Insert: {
           book_id: string
+          book_v_level?: number | null
           chapter_definition?: Json | null
+          chapters_done?: number | null
+          chapters_total?: number | null
           claimed_at?: string | null
           created_at?: string
           created_by?: string | null
@@ -198,15 +208,22 @@ export type Database = {
           id?: string
           librivox_chapters?: Json | null
           librivox_mapping?: Json | null
-          mode: string
+          mode?: string | null
           note?: string | null
+          questions_created?: number | null
+          result?: Json | null
           source_chapters?: Json | null
           status?: string
+          target_per_chapter?: number | null
+          task_type?: string
           updated_at?: string
         }
         Update: {
           book_id?: string
+          book_v_level?: number | null
           chapter_definition?: Json | null
+          chapters_done?: number | null
+          chapters_total?: number | null
           claimed_at?: string | null
           created_at?: string
           created_by?: string | null
@@ -214,76 +231,21 @@ export type Database = {
           id?: string
           librivox_chapters?: Json | null
           librivox_mapping?: Json | null
-          mode?: string
+          mode?: string | null
           note?: string | null
+          questions_created?: number | null
+          result?: Json | null
           source_chapters?: Json | null
           status?: string
+          target_per_chapter?: number | null
+          task_type?: string
           updated_at?: string
         }
         Relationships: [
           {
             foreignKeyName: "book_curation_jobs_book_id_fkey"
             columns: ["book_id"]
-            isOneToOne: true
-            referencedRelation: "library_books"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      book_quiz_jobs: {
-        Row: {
-          book_id: string
-          book_v_level: number | null
-          chapters_done: number
-          chapters_total: number
-          claimed_at: string | null
-          created_at: string
-          created_by: string | null
-          error: string | null
-          id: string
-          note: string | null
-          questions_created: number
-          status: string
-          target_per_chapter: number | null
-          updated_at: string
-        }
-        Insert: {
-          book_id: string
-          book_v_level?: number | null
-          chapters_done?: number
-          chapters_total?: number
-          claimed_at?: string | null
-          created_at?: string
-          created_by?: string | null
-          error?: string | null
-          id?: string
-          note?: string | null
-          questions_created?: number
-          status?: string
-          target_per_chapter?: number | null
-          updated_at?: string
-        }
-        Update: {
-          book_id?: string
-          book_v_level?: number | null
-          chapters_done?: number
-          chapters_total?: number
-          claimed_at?: string | null
-          created_at?: string
-          created_by?: string | null
-          error?: string | null
-          id?: string
-          note?: string | null
-          questions_created?: number
-          status?: string
-          target_per_chapter?: number | null
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "book_quiz_jobs_book_id_fkey"
-            columns: ["book_id"]
-            isOneToOne: true
+            isOneToOne: false
             referencedRelation: "library_books"
             referencedColumns: ["id"]
           },
@@ -363,6 +325,110 @@ export type Database = {
           created_at?: string
           hash?: string
           ref_count?: number
+        }
+        Relationships: []
+      }
+      csat_dcp_items: {
+        Row: {
+          answer_key: Json
+          created_at: string
+          id: string
+          item_role: string
+          kind: string
+          paragraph_idx: number
+          payload: Json
+          ref_id: string
+          type: string
+          v_level: number | null
+        }
+        Insert: {
+          answer_key: Json
+          created_at?: string
+          id?: string
+          item_role?: string
+          kind: string
+          paragraph_idx: number
+          payload: Json
+          ref_id: string
+          type: string
+          v_level?: number | null
+        }
+        Update: {
+          answer_key?: Json
+          created_at?: string
+          id?: string
+          item_role?: string
+          kind?: string
+          paragraph_idx?: number
+          payload?: Json
+          ref_id?: string
+          type?: string
+          v_level?: number | null
+        }
+        Relationships: []
+      }
+      csat_item_attempts: {
+        Row: {
+          error_cause: string | null
+          id: string
+          is_correct: boolean
+          item_role: string | null
+          question_id: string | null
+          responded_at: string
+          text_id: string | null
+          user_id: string
+        }
+        Insert: {
+          error_cause?: string | null
+          id?: string
+          is_correct: boolean
+          item_role?: string | null
+          question_id?: string | null
+          responded_at?: string
+          text_id?: string | null
+          user_id: string
+        }
+        Update: {
+          error_cause?: string | null
+          id?: string
+          is_correct?: boolean
+          item_role?: string | null
+          question_id?: string | null
+          responded_at?: string
+          text_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_item_attempts_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_stage_gates: {
+        Row: {
+          is_locked: boolean
+          metric: string
+          note: string | null
+          stage: string
+          threshold: number
+        }
+        Insert: {
+          is_locked?: boolean
+          metric: string
+          note?: string | null
+          stage: string
+          threshold: number
+        }
+        Update: {
+          is_locked?: boolean
+          metric?: string
+          note?: string | null
+          stage?: string
+          threshold?: number
         }
         Relationships: []
       }
@@ -1013,6 +1079,7 @@ export type Database = {
       library_article_vocabularies: {
         Row: {
           base_learning_value: number
+          context_pos: string | null
           created_at: string
           first_sentence: string | null
           frequency_in_article: number
@@ -1023,6 +1090,7 @@ export type Database = {
         }
         Insert: {
           base_learning_value?: number
+          context_pos?: string | null
           created_at?: string
           first_sentence?: string | null
           frequency_in_article?: number
@@ -1033,6 +1101,7 @@ export type Database = {
         }
         Update: {
           base_learning_value?: number
+          context_pos?: string | null
           created_at?: string
           first_sentence?: string | null
           frequency_in_article?: number
@@ -1088,6 +1157,7 @@ export type Database = {
           source_url: string | null
           status: string
           status_message: string | null
+          syntax_score: Json | null
           title: string
           updated_at: string
           vrl_calculated_at: string | null
@@ -1123,6 +1193,7 @@ export type Database = {
           source_url?: string | null
           status?: string
           status_message?: string | null
+          syntax_score?: Json | null
           title: string
           updated_at?: string
           vrl_calculated_at?: string | null
@@ -1158,6 +1229,7 @@ export type Database = {
           source_url?: string | null
           status?: string
           status_message?: string | null
+          syntax_score?: Json | null
           title?: string
           updated_at?: string
           vrl_calculated_at?: string | null
@@ -1170,6 +1242,7 @@ export type Database = {
         Row: {
           base_learning_value: number
           chapter_idx: number
+          context_pos: string | null
           created_at: string
           first_sentence: string | null
           frequency_in_book: number
@@ -1182,6 +1255,7 @@ export type Database = {
         Insert: {
           base_learning_value?: number
           chapter_idx: number
+          context_pos?: string | null
           created_at?: string
           first_sentence?: string | null
           frequency_in_book?: number
@@ -1194,6 +1268,7 @@ export type Database = {
         Update: {
           base_learning_value?: number
           chapter_idx?: number
+          context_pos?: string | null
           created_at?: string
           first_sentence?: string | null
           frequency_in_book?: number
@@ -1266,6 +1341,7 @@ export type Database = {
           source_url: string | null
           status: string
           status_message: string | null
+          syntax_score: Json | null
           title: string
           updated_at: string
           v_level_centroid_precise: number | null
@@ -1318,6 +1394,7 @@ export type Database = {
           source_url?: string | null
           status?: string
           status_message?: string | null
+          syntax_score?: Json | null
           title: string
           updated_at?: string
           v_level_centroid_precise?: number | null
@@ -1370,6 +1447,7 @@ export type Database = {
           source_url?: string | null
           status?: string
           status_message?: string | null
+          syntax_score?: Json | null
           title?: string
           updated_at?: string
           v_level_centroid_precise?: number | null
@@ -1755,11 +1833,39 @@ export type Database = {
           },
         ]
       }
+      quality_metrics: {
+        Row: {
+          dims: Json
+          id: number
+          measured_at: string
+          metric: string
+          stage: string
+          value: number
+        }
+        Insert: {
+          dims?: Json
+          id?: never
+          measured_at?: string
+          metric: string
+          stage: string
+          value: number
+        }
+        Update: {
+          dims?: Json
+          id?: never
+          measured_at?: string
+          metric?: string
+          stage?: string
+          value?: number
+        }
+        Relationships: []
+      }
       quiz_questions: {
         Row: {
           correct_index: number
           created_at: string | null
           id: string
+          item_role: string | null
           options: Json
           question: string
           question_ko: string | null
@@ -1773,6 +1879,7 @@ export type Database = {
           correct_index: number
           created_at?: string | null
           id?: string
+          item_role?: string | null
           options: Json
           question: string
           question_ko?: string | null
@@ -1786,6 +1893,7 @@ export type Database = {
           correct_index?: number
           created_at?: string | null
           id?: string
+          item_role?: string | null
           options?: Json
           question?: string
           question_ko?: string | null
@@ -1811,6 +1919,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      reading_fluency_log: {
+        Row: {
+          comprehension_ok: boolean | null
+          created_at: string
+          ended_at: string | null
+          id: string
+          is_rereading: boolean
+          kind: string
+          ref_id: string
+          started_at: string
+          user_id: string
+          word_count: number | null
+        }
+        Insert: {
+          comprehension_ok?: boolean | null
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          is_rereading?: boolean
+          kind: string
+          ref_id: string
+          started_at?: string
+          user_id: string
+          word_count?: number | null
+        }
+        Update: {
+          comprehension_ok?: boolean | null
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          is_rereading?: boolean
+          kind?: string
+          ref_id?: string
+          started_at?: string
+          user_id?: string
+          word_count?: number | null
+        }
+        Relationships: []
       }
       reading_sessions: {
         Row: {
@@ -2182,21 +2329,6 @@ export type Database = {
           },
         ]
       }
-      shared_dictionary_p5a_backup_20260620: {
-        Row: {
-          frequency_rank: number | null
-          word: string | null
-        }
-        Insert: {
-          frequency_rank?: number | null
-          word?: string | null
-        }
-        Update: {
-          frequency_rank?: number | null
-          word?: string | null
-        }
-        Relationships: []
-      }
       shared_word_sets: {
         Row: {
           auto_curated: boolean
@@ -2215,6 +2347,7 @@ export type Database = {
           source_attributions: Json | null
           source_run_id: number | null
           subcategory: string | null
+          subscriber_count: number
           title: string
           version: number
           word_count: number | null
@@ -2236,6 +2369,7 @@ export type Database = {
           source_attributions?: Json | null
           source_run_id?: number | null
           subcategory?: string | null
+          subscriber_count?: number
           title: string
           version?: number
           word_count?: number | null
@@ -2257,6 +2391,7 @@ export type Database = {
           source_attributions?: Json | null
           source_run_id?: number | null
           subcategory?: string | null
+          subscriber_count?: number
           title?: string
           version?: number
           word_count?: number | null
@@ -2282,6 +2417,7 @@ export type Database = {
         Row: {
           antonyms: string[] | null
           cefr_level: string | null
+          chapter: number | null
           collocations: string[] | null
           confidence: number | null
           created_at: string | null
@@ -2309,6 +2445,7 @@ export type Database = {
         Insert: {
           antonyms?: string[] | null
           cefr_level?: string | null
+          chapter?: number | null
           collocations?: string[] | null
           confidence?: number | null
           created_at?: string | null
@@ -2336,6 +2473,7 @@ export type Database = {
         Update: {
           antonyms?: string[] | null
           cefr_level?: string | null
+          chapter?: number | null
           collocations?: string[] | null
           confidence?: number | null
           created_at?: string | null
@@ -2405,6 +2543,30 @@ export type Database = {
           },
         ]
       }
+      st17_timetables: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          sel: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          sel?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          sel?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       study_plan_items: {
         Row: {
           chapters: number[]
@@ -2438,6 +2600,48 @@ export type Database = {
           updated_at?: string
           user_id?: string
           weekdays?: number[]
+        }
+        Relationships: []
+      }
+      sw_comments: {
+        Row: {
+          created_at: string | null
+          id: number
+          nick: string
+          txt: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: never
+          nick?: string
+          txt: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: never
+          nick?: string
+          txt?: string
+        }
+        Relationships: []
+      }
+      sw_players: {
+        Row: {
+          nick: string
+          pass_hash: string
+          save: Json
+          updated_at: string | null
+        }
+        Insert: {
+          nick: string
+          pass_hash: string
+          save?: Json
+          updated_at?: string | null
+        }
+        Update: {
+          nick?: string
+          pass_hash?: string
+          save?: Json
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -3758,6 +3962,33 @@ export type Database = {
         }
         Relationships: []
       }
+      word_familiarity: {
+        Row: {
+          lemma: string
+          source: string
+          updated_at: string
+          user_id: string
+          v_level: number | null
+          verdict: string
+        }
+        Insert: {
+          lemma: string
+          source?: string
+          updated_at?: string
+          user_id: string
+          v_level?: number | null
+          verdict: string
+        }
+        Update: {
+          lemma?: string
+          source?: string
+          updated_at?: string
+          user_id?: string
+          v_level?: number | null
+          verdict?: string
+        }
+        Relationships: []
+      }
       word_frequency_stats: {
         Row: {
           appears_every_year: boolean | null
@@ -3862,6 +4093,22 @@ export type Database = {
       }
     }
     Views: {
+      csat_stage_catalog: {
+        Row: {
+          cefr_level: string | null
+          display_only: boolean | null
+          id: string | null
+          kind: string | null
+          lexical_noise: number | null
+          license_class: string | null
+          register: string | null
+          stage_band: string | null
+          syntax_score: Json | null
+          title: string | null
+          v_level: number | null
+        }
+        Relationships: []
+      }
       library_seed_catalog_view: {
         Row: {
           author: string | null
@@ -4056,6 +4303,17 @@ export type Database = {
           },
         ]
       }
+      word_mislevel_signal: {
+        Row: {
+          dict_v_level: number | null
+          known_avg_v: number | null
+          known_ct: number | null
+          lemma: string | null
+          unknown_avg_v: number | null
+          unknown_ct: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       _enroll_book_subscribe_word_sets: {
@@ -4113,6 +4371,7 @@ export type Database = {
           word_sets_deleted: number
         }[]
       }
+      admin_collect_quality_metrics: { Args: never; Returns: undefined }
       admin_delete_article: {
         Args: { p_article_id: string }
         Returns: {
@@ -4137,6 +4396,8 @@ export type Database = {
           p_audio_url?: string
           p_author?: string
           p_content?: string
+          p_feed_id?: string
+          p_feed_label?: string
           p_license?: string
           p_published_at?: string
           p_source: string
@@ -4372,15 +4633,29 @@ export type Database = {
         Args: { p_book_id: string }
         Returns: number
       }
+      collect_quality_metrics: { Args: never; Returns: number }
+      compute_article_syntax: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
       compute_article_vrl: {
         Args: { p_article_id: string }
         Returns: undefined
       }
       compute_book_cefrj: { Args: { p_book_id: string }; Returns: undefined }
-      compute_book_chapter_v_levels: { Args: { p_book_id: string }; Returns: undefined }
+      compute_book_chapter_v_levels: {
+        Args: { p_book_id: string }
+        Returns: undefined
+      }
       compute_book_coverage: { Args: { p_book_id: string }; Returns: undefined }
+      compute_book_difficulty: {
+        Args: { p_book_id: string }
+        Returns: undefined
+      }
+      compute_book_syntax: { Args: { p_book_id: string }; Returns: undefined }
       compute_book_vrl: { Args: { p_book_id: string }; Returns: undefined }
       compute_frequency_tier: { Args: { p_raw_count: number }; Returns: number }
+      compute_syntax_score: { Args: { p_content: string }; Returns: Json }
       cron_auto_promote_all_users: {
         Args: never
         Returns: {
@@ -4391,6 +4666,7 @@ export type Database = {
         }[]
       }
       decr_chunk_refs: { Args: { p_hashes: string[] }; Returns: undefined }
+      derive_learner_stage: { Args: { p_user_id: string }; Returns: string }
       dict_categorical_distributions: { Args: never; Returns: Json }
       dict_inflections_by_pos: { Args: never; Returns: Json }
       dict_polysemy_count: { Args: never; Returns: Json }
@@ -4407,6 +4683,13 @@ export type Database = {
       }
       enqueue_quiz_jobs: {
         Args: { p_book_ids: string[] }
+        Returns: {
+          queued: number
+          skipped: number
+        }[]
+      }
+      enqueue_review_jobs: {
+        Args: { p_book_ids: string[]; p_task_type: string }
         Returns: {
           queued: number
           skipped: number
@@ -4541,11 +4824,20 @@ export type Database = {
           vercel_base_url: string
         }[]
       }
+      grade_dcp_item: {
+        Args: { p_answer: Json; p_item_id: string }
+        Returns: Json
+      }
       incr_chunk_refs: { Args: { p_hashes: string[] }; Returns: undefined }
+      infer_form_pos: {
+        Args: { p_base: string; p_surface: string }
+        Returns: string
+      }
       insert_book_analysis: {
         Args: { p_book_id: string; p_chapters: Json; p_words: Json }
         Returns: undefined
       }
+      is_admin: { Args: never; Returns: boolean }
       is_admin_or_curator: { Args: never; Returns: boolean }
       is_class_member: {
         Args: { p_class_id: string; p_uid: string }
@@ -4590,6 +4882,7 @@ export type Database = {
         Args: { p_msg_id: number; p_queue_name: string }
         Returns: boolean
       }
+      prescribe_today: { Args: { p_user_id: string }; Returns: Json }
       process_library_pipeline_batch: {
         Args: { p_batch_size?: number }
         Returns: number
@@ -4645,6 +4938,7 @@ export type Database = {
         Args: { p_set_id: string }
         Returns: number
       }
+      resolve_dict_headword: { Args: { p_surface: string }; Returns: string }
       select_article_vocab: {
         Args: { p_article_id: string }
         Returns: {
@@ -4698,6 +4992,10 @@ export type Database = {
           word: string
           word_register: string
         }[]
+      }
+      set_word_familiarity: {
+        Args: { p_lemma: string; p_v_level?: number; p_verdict: string }
+        Returns: undefined
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
@@ -4762,6 +5060,19 @@ export type Database = {
         Args: { p_axis_id: string; p_axis_type: string; p_level: number }
         Returns: boolean
       }
+      vcb_publish_commit: {
+        Args: {
+          p_category: string
+          p_published_by?: string
+          p_run_id: number
+          p_slug: string
+          p_source_attributions: Json
+          p_title: string
+          p_version: number
+          p_words: Json
+        }
+        Returns: Json
+      }
     }
     Enums: {
       module_id:
@@ -4775,6 +5086,20 @@ export type Database = {
         | "workspace"
         | "textviewer"
         | "pirate_quest"
+        | "cascade"
+        | "connections"
+        | "word-economy"
+        | "daily-blitz"
+        | "letter-forge"
+        | "ghost-race"
+        | "glyph-tongue"
+        | "word-customs"
+        | "lexicon-hands"
+        | "lexicon-detective"
+        | "morpheme-rules"
+        | "silent-rule"
+        | "lexicon-estate"
+        | "word-orrery"
       text_source: "library" | "direct-script" | "direct-file" | "shared-set"
       vcb_license_tier: "T1" | "T2" | "T3"
       vcb_queue_status:
@@ -4934,6 +5259,20 @@ export const Constants = {
         "workspace",
         "textviewer",
         "pirate_quest",
+        "cascade",
+        "connections",
+        "word-economy",
+        "daily-blitz",
+        "letter-forge",
+        "ghost-race",
+        "glyph-tongue",
+        "word-customs",
+        "lexicon-hands",
+        "lexicon-detective",
+        "morpheme-rules",
+        "silent-rule",
+        "lexicon-estate",
+        "word-orrery",
       ],
       text_source: ["library", "direct-script", "direct-file", "shared-set"],
       vcb_license_tier: ["T1", "T2", "T3"],

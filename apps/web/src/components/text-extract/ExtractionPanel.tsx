@@ -88,6 +88,8 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<ExtractedWord[] | null>(null)
+  // 알아요/몰라요 판정 (표면형 키). known → 학습셋 제외 + 향후 추출 제외.
+  const [familiar, setFamiliar] = useState<Record<string, 'known' | 'unknown'>>({})
   const [meta, setMeta] = useState<ExtractedWord | null>(null)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [expandedWord, setExpandedWord] = useState<string | null>(null)
@@ -163,6 +165,30 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     setSelected(next)
   }
 
+  // "알아요/몰라요" — 학습자가 추출을 직접 교정. lemma(표제어) 단위 저장.
+  //   known: 학습셋에서 빼고(선택 해제) 다음 추출부터 제외. unknown: 학습 유지.
+  async function markFamiliarity(r: ExtractedWord, verdict: 'known' | 'unknown') {
+    const lemma = r.matched_via_surface ?? r.word // 통합 추출: matched_via_surface = 해소 표제어
+    setFamiliar((f) => ({ ...f, [r.word]: verdict }))
+    if (verdict === 'known') {
+      setSelected((s) => {
+        const n = new Set(s)
+        n.delete(r.word)
+        return n
+      })
+    }
+    try {
+      const supabase = createClient()
+      await supabase.rpc('set_word_familiarity', {
+        p_lemma: lemma,
+        p_verdict: verdict,
+        p_v_level: r.v_level,
+      })
+    } catch {
+      /* 낙관적 UI — 실패해도 화면 상태 유지, 다음 세션에 재시도 */
+    }
+  }
+
   function toggleAll() {
     if (!displayedResults) return
     if (selected.size === displayedResults.length) setSelected(new Set())
@@ -189,21 +215,29 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
     const rows = (displayedResults ?? results)
       .filter((r) => selected.has(r.word))
-      .map((r) => ({
-        user_id: userData.user!.id,
-        word: r.word,
-        meaning: r.meaning_ko ?? '',
-        // 원문(스크립트) 문장 우선 → dict 일반 예문 폴백
-        example_sentence: r.source_sentence ?? r.example_en ?? null,
-        pos: r.pos ?? null,
-        cefr_level: r.cefr_level ?? null,
-        pronunciation: null as string | null,
-        difficulty: 6.0,
-        stability: 0,
-        review_count: 0,
-        origin: 'manual' as const,
-        ...(textId ? { text_id: textId } : {}),
-      }))
+      .map((r) => {
+        // SRS 키 = 표제어(matched_via_surface) → galloped/gallops 형태별로 안 쪼개짐.
+        //   학습자가 본 실제 형태·품사는 extracted_* 로 보존.
+        const lemma = r.matched_via_surface ?? r.word
+        return {
+          user_id: userData.user!.id,
+          word: lemma,
+          lemma,
+          extracted_surface: r.word,
+          extracted_pos: r.pos ?? null,
+          meaning: r.meaning_ko ?? '',
+          // 원문(스크립트) 문장 우선 → dict 일반 예문 폴백
+          example_sentence: r.source_sentence ?? r.example_en ?? null,
+          pos: r.pos ?? null,
+          cefr_level: r.cefr_level ?? null,
+          pronunciation: null as string | null,
+          difficulty: 6.0,
+          stability: 0,
+          review_count: 0,
+          origin: 'manual' as const,
+          ...(textId ? { text_id: textId } : {}),
+        }
+      })
 
     const { error: insertErr, count } = await supabase
       .from('vocabularies')
@@ -397,10 +431,11 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               const isSelected = selected.has(r.word)
               const isExpanded = expandedWord === r.word
               const bd = r.score_breakdown
+              const fam = familiar[r.word]
               return (
                 <li key={r.word}>
                   <article className={`rounded-[var(--r-md)] border bg-[var(--bg)] transition-all ${
-                    isSelected ? 'border-[var(--p)] shadow-[var(--sh-sm)]' : 'border-[var(--bd)]'
+                    fam === 'known' ? 'border-[var(--bd)] opacity-45' : isSelected ? 'border-[var(--p)] shadow-[var(--sh-sm)]' : 'border-[var(--bd)]'
                   }`}>
                     <div className="flex items-center gap-3 p-3">
                       <input
@@ -419,12 +454,12 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           {r.cefr_level && (
                             <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{r.cefr_level}</span>
                           )}
-                          {r.match_layer === 2 && (
+                          {r.match_layer === 2 && r.matched_via_surface && r.matched_via_surface !== r.word && (
                             <span
-                              title={`L2 inflection match — surface "${r.matched_via_surface}" → lemma "${r.word}"`}
+                              title={`형태 "${r.word}" → 표제어 "${r.matched_via_surface}"`}
                               className="rounded-[var(--r-full)] bg-[#fdf4ff] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#a21caf] dark:bg-[#3b0764]/40 dark:text-[#f0abfc]"
                             >
-                              L2 ←{r.matched_via_surface}
+                              → {r.matched_via_surface}
                             </span>
                           )}
                         </div>
@@ -435,6 +470,26 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           <TrendingUp size={11} /> {r.composite_score.toFixed(3)}
                         </span>
                         <span className="font-body text-[10px] text-[var(--t3)]">{bd.reasoning}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => markFamiliarity(r, 'unknown')}
+                          aria-label={`${r.word} 몰라요 — 학습 유지`}
+                          className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
+                            fam === 'unknown' ? 'bg-[var(--p)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--p-light)] hover:text-[var(--p)]'
+                          }`}
+                        >
+                          몰라요
+                        </button>
+                        <button
+                          onClick={() => markFamiliarity(r, 'known')}
+                          aria-label={`${r.word} 알아요 — 추출에서 제외`}
+                          className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
+                            fam === 'known' ? 'bg-[var(--t3)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
+                          }`}
+                        >
+                          {fam === 'known' ? '알아요 ✓' : '알아요'}
+                        </button>
                       </div>
                       <button
                         onClick={() => setExpandedWord(isExpanded ? null : r.word)}

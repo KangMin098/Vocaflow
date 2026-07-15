@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c5180a9` docs(extract): 추출 3경로 통합 1단계 CHANGELOG (v06.225)
 - `42f310b` feat(extract): 추출 3경로 통합 완료 — 공유 헬퍼 + BYO 통합 (v06.225)
 - `489bee2` feat(extract): 추출 경로 통합 1단계 — article을 책 규칙으로 (v06.225)
 - `504f232` fix(dict): V10 단일-POS 오라벨 5건 noun 교정
 - `682d9fb` chore(dict): sense 완성 진행률 모니터링 스냅샷 스크립트 (v06.225)
-- `a4848d4` feat(dict): sense 완성 V-Level 모드 + 멀티세션 병렬 런북 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713180500_extract_exclude_known.sql`
+- `20260713180000_word_familiarity.sql`
 - `20260713172500_book_article_use_helper.sql`
 - `20260713172000_infer_form_pos_helper.sql`
 - `20260713171000_unify_user_extract.sql`
-- `20260713170000_unify_article_extract.sql`
-- `20260713161500_book_extract_infer_form_pos.sql`
 <!-- /auto:recent-migrations -->
 
 ---
