@@ -75,3 +75,4 @@ scripts/lcp/data/mine-candidates.json
 scripts/lcp/data/mine-baseline-words.json
 scripts/dict/sense-chunks/
 scripts/dict/sc-*/
+scripts/dict/data/
