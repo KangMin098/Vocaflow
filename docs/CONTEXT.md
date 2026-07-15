@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `682d9fb` chore(dict): sense 완성 진행률 모니터링 스냅샷 스크립트 (v06.225)
 - `a4848d4` feat(dict): sense 완성 V-Level 모드 + 멀티세션 병렬 런북 (v06.225)
 - `9e184b8` feat(scripts): 출처 소스별·소스주제별 설명 + 한눈 디자인
 - `84cf16f` test(acp): 소스 feed 전수 테스트 + nih 불안정 표기 (v06.246)
 - `b4584e7` docs(dict): 다의어 sense 전면 완성 wave 1 — 서브에이전트 병렬 (v06.225)
-- `1afab2a` feat(dict): 다의어 sense 완성 병렬 파이프라인 스크립트 (v06.225)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
