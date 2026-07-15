@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `489bee2` feat(extract): 추출 경로 통합 1단계 — article을 책 규칙으로 (v06.225)
 - `504f232` fix(dict): V10 단일-POS 오라벨 5건 noun 교정
 - `682d9fb` chore(dict): sense 완성 진행률 모니터링 스냅샷 스크립트 (v06.225)
 - `a4848d4` feat(dict): sense 완성 V-Level 모드 + 멀티세션 병렬 런북 (v06.225)
 - `9e184b8` feat(scripts): 출처 소스별·소스주제별 설명 + 한눈 디자인
-- `84cf16f` test(acp): 소스 feed 전수 테스트 + nih 불안정 표기 (v06.246)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260713172500_book_article_use_helper.sql`
+- `20260713172000_infer_form_pos_helper.sql`
+- `20260713171000_unify_user_extract.sql`
 - `20260713170000_unify_article_extract.sql`
 - `20260713161500_book_extract_infer_form_pos.sql`
-- `20260713161000_book_extract_surface_form_display.sql`
-- `20260713160500_book_extract_resolve_forms.sql`
-- `20260713160000_resolve_dict_headword.sql`
 <!-- /auto:recent-migrations -->
 
 ---
