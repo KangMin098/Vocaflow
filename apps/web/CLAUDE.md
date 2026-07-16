@@ -49,6 +49,8 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 
 **핵심 학습 루프 회귀** — `05-learner-loop.spec.ts`: ScriptQuiz 완주(Drone Ch1 직행) → `scores` 적재를 service-role DB 단언으로 확인(완주 결과가 조용히 증발했던 v06.139 결함 재발 방지). DB 단언 헬퍼 `tests/e2e/utils/db.ts`(apps/web/.env.local 의 SERVICE_ROLE_KEY 직접 로드 · 키 없으면 UI 완주만 검증). 새 게임/영속화 경로 검증 시 이 패턴(직행 URL + 완주 마커 + `countScoresSince`) 재사용.
 
+**추출 신뢰 회귀** — `08-text-extract-trust.spec.ts`: `/text/new` 본문 입력 → 'text'(P75) 전략 추출 → ① 4단계 expand "왜 추천했어요?" 근거 카드 렌더 ② 2단계 알아요(✓+체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 `countWordFamiliaritySince` 로 DB 단언. **known 판정은 다음 추출을 영구 축소하므로 finally 에서 `deleteWordFamiliaritySince` 로 반드시 원복**(테스트가 만든 행만 updated_at 기준 삭제).
+
 - 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)
 - 검증 계정: `runtime-test-0705@vocaflow.dev` / `RuntimeTest1!` (vocab 10·활동 시드·진단 v11) — EchoMatch 텍스트 `89970bfa-…8317`
   - **stage S3**(2026-07-13 `reading_fluency_log` wpm~160 시드) → hub 처방 ④ **DCP 구문 연습 활성**(order/insert·`/practice/dcp`). CTP DCP 계열 런타임 검증 가능. 시드 되돌리려면 해당 계정 fluency 로그 3건 DELETE → S1 복귀.

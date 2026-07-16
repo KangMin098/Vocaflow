@@ -107,6 +107,42 @@ export async function resetDueCards(userId: string): Promise<number> {
   return data?.length ?? 0;
 }
 
+/**
+ * 특정 시각 이후 word_familiarity 행 개수 — "알아요/몰라요" 판정 영속화 단언용.
+ * set_word_familiarity RPC 는 브라우저에서 fire-and-forget 이므로 호출부에서 폴링 권장.
+ */
+export async function countWordFamiliaritySince(
+  userId: string,
+  sinceIso: string,
+  verdict?: 'known' | 'unknown',
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  let q = c
+    .from('word_familiarity')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('updated_at', sinceIso);
+  if (verdict) q = q.eq('verdict', verdict);
+  const { count, error } = await q;
+  if (error) return -1;
+  return count ?? 0;
+}
+
+/** 테스트가 만든 word_familiarity 정리(멱등) — known 판정이 다음 추출을 영구 축소하지 않도록 반드시 원복. */
+export async function deleteWordFamiliaritySince(userId: string, sinceIso: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('word_familiarity')
+    .delete()
+    .eq('user_id', userId)
+    .gte('updated_at', sinceIso)
+    .select('lemma');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
+
 /** user_profiles.current_v_level 조회 (밴드 적응성 검증용 · 원복 기준값). 키/행 없으면 null. */
 export async function getUserVLevel(userId: string): Promise<number | null> {
   const c = serviceClient();

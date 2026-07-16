@@ -10,6 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 신뢰 런타임 회귀 스펙 — 알아요/몰라요 + 근거 카드 E2E (v06.251)
+- **상시 회귀 자산**(임시 드라이버 금지 정책): `08-text-extract-trust.spec.ts` — 실 로그인으로 `/text/new` 추출 → 4단계 근거 카드 렌더 + 2단계 알아요(✓·체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 **service-role DB 단언**. finally 에서 테스트가 만든 행만 원복(known이 다음 추출을 영구 축소하지 않도록).
+- **db 헬퍼 2종**: `countWordFamiliaritySince`(verdict 필터) · `deleteWordFamiliaritySince`(멱등 정리). **ExtractionPanel 토글 버튼에 `aria-pressed`**(a11y + 상태 검증). 최초 실행 통과(18.9s · known+unknown 영속화 확인 · cleanup 2행).
+
 ### 추출 신뢰 로드맵 기반 완성 — 3단계 검증 + 정밀도 백로그 (v06.250)
 - **5단계 로드맵**(새는 곳 막기→틀려도 고칠 수 있게→채우기→자랑하기)의 **0·1·2·4단계 완료** = 신뢰의 누수(3경로 분열·형태-POS 오정렬·교정 불가·근거 불투명) 전부 봉인.
 - **3단계 검증(읽기 전용)**: 추출 대상 **40,355** 표제어 — `meaning_ko`·`pos`·`cefr_level`·`meanings_ko sense별 pos` **모두 100%**(= 맞는 단어·그 형태의 맞는 뜻·맞는 POS 보장), example_en 95.5%. **뜻·POS가 틀리지 않음이 데이터로 확인**.

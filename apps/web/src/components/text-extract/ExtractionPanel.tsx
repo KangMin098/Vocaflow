@@ -538,6 +538,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         <button
                           onClick={() => markFamiliarity(r, 'unknown')}
                           aria-label={`${r.word} 몰라요 — 학습 유지`}
+                          aria-pressed={fam === 'unknown'}
                           className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
                             fam === 'unknown' ? 'bg-[var(--p)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--p-light)] hover:text-[var(--p)]'
                           }`}
@@ -547,6 +548,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         <button
                           onClick={() => markFamiliarity(r, 'known')}
                           aria-label={`${r.word} 알아요 — 추출에서 제외`}
+                          aria-pressed={fam === 'known'}
                           className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
                             fam === 'known' ? 'bg-[var(--t3)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
                           }`}
