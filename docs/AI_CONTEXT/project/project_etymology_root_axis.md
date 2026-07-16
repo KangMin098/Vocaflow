@@ -14,6 +14,10 @@
 - **매핑** 2,767 링크: `roots-map.mjs` chunk→6 서브에이전트가 **root→파생어족 생성**(어원학적 진짜 파생어만, coincidental substring 회피)→사전 실재 단어만 링크(후보 2,591 중 실재 2,472=95%). affix_type=root.notes 기본, confidence=4.
 - **세트 발행** `etymology-core`: `roots-publish-set.mjs` → shared_word_sets(category `themed`/subcategory `etymology`) + shared_words 1,500단어·159 어근 챕터. **chapter=smallint(그룹번호)**·어근 라벨은 `korean_learner_note`("어근 spec — 보다"). 품질 검증 spec/dict/port/duc 전수 정확.
 
+**렌더 검증(2026-07-17)**: e2e `09-etymology-set.spec.ts` 통과. **뷰어 수정 필요했음** — `VocabSetPreviewModal`이 챕터를 `Chapter N`(숫자만) 표시라 어근이 안 보였음 → 챕터 내 `korean_learner_note` 균일 시 어근 라벨을 챕터 헤딩으로 승격(책 챕터 무영향). **발견: 어원 세트가 themed 저중요도(categoryImportance=6)라 기본 추천 캐러셀 비노출** — /library/vocab 검색 "어원" 또는 테마별 필터로만 접근. 프로미넌스는 후속.
+
+**이중배당 — 추출 어원 힌트(2026-07-17)**: `ExtractionPanel`이 추출 단어 표제어의 `word_root_links` 조회(loose client — 신규 테이블 database.ts 미반영) → 🏛 어근 칩(인라인 `🏛 spec`+expand "어원 spec(보다)"). e2e 08에 단언(통과). **`mnemonic_ko`는 admin(VocabularyDetailPanel) 전용 UI뿐 + shared_words에 mnemonic 필드 없음(korean_learner_note는 어근 라벨用) → 대량 니모닉 채움 대신 기존 근거 카드 surface 재사용**(UI 없는 데이터 채움 회피).
+
 **주의/잔여**:
 - `shared_word_sets.category` CHECK 제약(elementary/middle/high/csat/eng_test/civil/business/themed/library_book/library_article) — 'etymology'는 불가라 themed+subcategory 사용.
 - `shared_words.chapter`=smallint(텍스트 라벨 불가) → 라벨은 korean_learner_note.

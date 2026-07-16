@@ -14,6 +14,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
@@ -144,6 +145,8 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
   const [results, setResults] = useState<ExtractedWord[] | null>(null)
   // 알아요/몰라요 판정 (표면형 키). known → 학습셋 제외 + 향후 추출 제외.
   const [familiar, setFamiliar] = useState<Record<string, 'known' | 'unknown'>>({})
+  // 어원(root) 힌트 — 표제어(lemma) → 어근들. word_root_links 조회(이중배당: 어원 축을 추출 근거에 노출).
+  const [roots, setRoots] = useState<Record<string, { root: string; gloss: string }[]>>({})
   const [meta, setMeta] = useState<ExtractedWord | null>(null)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [expandedWord, setExpandedWord] = useState<string | null>(null)
@@ -168,6 +171,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     setLoading(true)
     setError(null)
     setResults(null)
+    setRoots({})
     setSelected(new Set())
     setSavedCount(null)
 
@@ -202,6 +206,24 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     setMeta(rows[0] ?? null)
     setSelected(new Set(rows.map((r) => r.word)))
     setLoading(false)
+
+    // 어원(root) 힌트 — 추출 단어의 표제어 어근을 조회해 근거에 노출(best-effort). 신규 테이블이라 loose client.
+    const lemmas = [...new Set(rows.map((r) => (r.matched_via_surface ?? r.word).toLowerCase()))]
+    if (lemmas.length > 0) {
+      void (supabase as unknown as SupabaseClient)
+        .from('word_root_links')
+        .select('word, word_roots(root, gloss_ko)')
+        .in('word', lemmas)
+        .then((res) => {
+          const rows2 = (res.data ?? []) as unknown as { word: string; word_roots: { root: string; gloss_ko: string } | null }[]
+          const map: Record<string, { root: string; gloss: string }[]> = {}
+          for (const l of rows2) {
+            if (!l.word_roots) continue
+            ;(map[l.word] ??= []).push({ root: l.word_roots.root, gloss: l.word_roots.gloss_ko })
+          }
+          setRoots(map)
+        })
+    }
 
     // Option C — 미매칭 lemma 누적 (silent, best-effort)
     void supabase.rpc('record_pending_words', {
@@ -489,6 +511,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               // 추출 근거 — 인라인엔 눈에 띄는 것만(generic 난이도 제외, Calm UI), 전체는 expand.
               const reasons = buildReasons(r)
               const inlineReason = reasons.find((x) => x.key !== 'level')
+              const rootHints = roots[(r.matched_via_surface ?? r.word).toLowerCase()] ?? []
               return (
                 <li key={r.word}>
                   <article className={`rounded-[var(--r-md)] border bg-[var(--bg)] transition-all ${
@@ -517,6 +540,14 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                               className="rounded-[var(--r-full)] bg-[#fdf4ff] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#a21caf] dark:bg-[#3b0764]/40 dark:text-[#f0abfc]"
                             >
                               → {r.matched_via_surface}
+                            </span>
+                          )}
+                          {rootHints.length > 0 && (
+                            <span
+                              title={`어원: ${rootHints.map((h) => `${h.root}(${h.gloss})`).join(' · ')}`}
+                              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[#fdf6ec] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#9a6a1f] dark:bg-[#3b2a0a]/50 dark:text-[#e8c887]"
+                            >
+                              🏛 {rootHints[0]!.root}
                             </span>
                           )}
                         </div>
@@ -567,6 +598,16 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
                     {isExpanded && (
                       <div className="border-t border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[11px]">
+                        {/* 어원(root) 힌트 — 어근으로 계열 학습 (이중배당) */}
+                        {rootHints.length > 0 && (
+                          <p className="mb-3 inline-flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] border border-[#9a6a1f]/20 bg-[#fdf6ec]/60 px-3 py-2 text-[#9a6a1f] dark:bg-[#3b2a0a]/30 dark:text-[#e8c887]">
+                            <span aria-hidden>🏛</span>
+                            <span className="font-display font-[700]">어원</span>
+                            <span className="font-body">
+                              {rootHints.map((h) => `${h.root} (${h.gloss})`).join(' · ')}
+                            </span>
+                          </p>
+                        )}
                         {/* 4단계 근거 카드 — 왜 이 단어를 추천했는지 사람 말투로 (기술 breakdown 위에) */}
                         {reasons.length > 0 && (
                           <div className="mb-3 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--p-light)]/40 p-3">

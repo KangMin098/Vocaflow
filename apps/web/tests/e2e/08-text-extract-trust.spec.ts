@@ -25,7 +25,9 @@ const PASSAGE =
   'The scientists observed an extraordinary phenomenon that challenged their assumptions. ' +
   'Nevertheless, they persisted, gathering evidence and refining their hypotheses. ' +
   'Their groundbreaking discovery transformed the field, inspiring countless researchers ' +
-  'to reconsider fundamental principles that had long been accepted without question.';
+  'to reconsider fundamental principles that had long been accepted without question. ' +
+  // 어근 링크가 확실한 단어(word_root_links) — 🏛 어원 힌트 검증용.
+  'The inspector predicted the transport, respecting the spectacular structure.';
 
 async function loginRuntimeUser(page: Page) {
   for (let attempt = 1; attempt <= 2; attempt++) {
@@ -100,6 +102,11 @@ test.describe('추출 신뢰 — /text/new 알아요·몰라요 + 근거 카드'
       const rows = page.getByRole('listitem').filter({ has: page.getByRole('button', { name: /알아요/ }) });
       const rowCount = await rows.count();
       expect(rowCount, '추출 결과 행 수').toBeGreaterThanOrEqual(2);
+
+      // ── 어원 이중배당: 어근 링크가 있는 단어에 🏛 어근 힌트 칩(best-effort, async) ──
+      //   전체(100%) 표시로 전환해 어근 링크 단어가 확실히 렌더되게 한 뒤 단언.
+      await page.getByRole('radio', { name: /전체/ }).click();
+      await expect(page.locator('span[title^="어원:"]').first()).toBeVisible({ timeout: 10_000 });
 
       // ── 4단계: 첫 행 expand → "왜 추천했어요?" 근거 카드 + 기술 breakdown ──
       const firstRow = rows.first();

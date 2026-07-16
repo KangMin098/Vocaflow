@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `406fff7` fix(vocab): 어원 세트 챕터 헤딩에 어근 라벨 노출 + e2e 검증 (v06.253)
 - `ceb3a42` chore(dict): 어원 root 시드 데이터 버전관리 (181 어근)
 - `be272b3` feat(dict): 어원(root) 축 신설 + 어원 단어장 발행 (v06.253)
 - `bd73cef` docs(dict): 시중 대응 카탈로그 실측 교정 — 학년/수능/시험/주제 이미 발행
 - `124babd` docs(dict): 시중 단어장 대응 — 사전DB 보완/추가 설계 분석
-- `129064b` docs(dict): W0 정찰 결정 반영 — 중단(옵션3), kaikki 확보를 재개 조건으로
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
