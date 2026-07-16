@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 대상 단일단어 example 100% 완비 (v06.252)
+- 추출 대상(classified·v_level·노이즈 register 제외) **단일 단어 172개**의 `example_en` 결측을 사전급 예문으로 채움 → 단일단어 example **95.5%→100%**. 대부분 학술 고급어(auscultation·sedimentary·inhibitory·regulatory 등) + 영국식 철자변형.
+- 도구 `scripts/dict/example-fill.mjs`(dump=대상 청크화 · apply=검증 후 결측행만 UPDATE 멱등). 4 서브에이전트 병렬 authoring(품사·의미 sense 매칭·영국식 철자 보존) → 172 valid·0 reject·0 fail.
+- 잔여 결측 1,635는 **multiword 항목**(단일 토큰 추출 경로로 애초에 추출 안 됨 → 추출 품질 무관, 의도적 잔존).
+
 ### 추출 신뢰 런타임 회귀 스펙 — 알아요/몰라요 + 근거 카드 E2E (v06.251)
 - **상시 회귀 자산**(임시 드라이버 금지 정책): `08-text-extract-trust.spec.ts` — 실 로그인으로 `/text/new` 추출 → 4단계 근거 카드 렌더 + 2단계 알아요(✓·체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 **service-role DB 단언**. finally 에서 테스트가 만든 행만 원복(known이 다음 추출을 영구 축소하지 않도록).
 - **db 헬퍼 2종**: `countWordFamiliaritySince`(verdict 필터) · `deleteWordFamiliaritySince`(멱등 정리). **ExtractionPanel 토글 버튼에 `aria-pressed`**(a11y + 상태 검증). 최초 실행 통과(18.9s · known+unknown 영속화 확인 · cleanup 2행).
