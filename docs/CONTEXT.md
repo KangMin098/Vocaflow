@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `124babd` docs(dict): 시중 단어장 대응 — 사전DB 보완/추가 설계 분석
 - `129064b` docs(dict): W0 정찰 결정 반영 — 중단(옵션3), kaikki 확보를 재개 조건으로
 - `41fbfa5` docs(dict): W0 통합 정찰 — Wave 성립 판정표 (kaikki 부재 피벗)
 - `6f5887c` feat(dict): 추출 대상 단일단어 example 100% 완비 (v06.252)
 - `8cd7226` test(extract): 추출 신뢰 런타임 회귀 스펙 — 알아요/몰라요 + 근거 카드 E2E (v06.251)
-- `408fc9f` docs: 추출 신뢰 로드맵 기반 완성 — 3단계 검증 결과 + per-sense v_level 백로그 (v06.250)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

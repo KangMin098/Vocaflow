@@ -51,6 +51,20 @@
 
 **핵심**: `curation_query`(JSON)가 이미 `select_*_vocab` / `kice_csat`(`question_nos`·`raw_count_min`·`min_years`) 필터를 실행 → **수능 문항유형별 세트**(`q18_24_purpose`·`q31_34_blank`·`q41_43_long`)·**기출 tier 세트**(`frequent_8plus`·`frequent_tier4`)를 이미 생성 중.
 
+### 🟢 실측 발견 — 시중 대응 카탈로그 **이미 발행됨** (2026-07-17 정정) — **단정**
+`shared_word_sets` 실조회 결과, 아래가 **이미 published**. `publish-list-word-set.ts`(list_tag→세트)·auto-vlevel·kice curation이 가동 중:
+
+| 축 | 발행 세트(word_count) |
+|---|---|
+| **초등** | `curriculum-2022-elem`(729·kcurr) · `auto-vlevel-v1/v2/v3`(유아초1·초2-3·초4-6) |
+| **중등** | `curriculum-2022-mid`(1,184·kcurr) · `auto-vlevel-v4/v5`(중1·중2-3) |
+| **고등** | `curriculum-2022-high`(1,000·kcurr) · `cast-2000`(필수2000) · `auto-vlevel-v6/v7`(고1·고2수능핵심) |
+| **수능** | `kice-q18-24-purpose`·`q31-34-blank`·`q41-43-long`(문항유형) · `frequent-tier4`·`8plus`(기출빈도) |
+| **시험진입** | `auto-vlevel-v8`(대학·TOEIC) · `v9`(TOEFL·IELTS) |
+| **주제** | `specialty-medical`·`business`(TOEIC·BSL)·`literary`·`academic` |
+
+→ **G3(학년)·수능·시험진입·주제specialty는 갭이 아니라 이미 발행됨.** 앞선 §3/§5의 G3 "갭" 판정은 이 실측으로 **철회**. kcurr2022 = **2022 개정 교육과정 기본어휘 3,000([별책14]) 별표 3단**(`_1`* 초등819·`_2`** 중등1,215·`_0` 무표시 고등1,011)으로 확정(스크립트 정의).
+
 ---
 
 ## 3. 대응 매핑 — 시중 유형 → 현재 역량
@@ -126,8 +140,11 @@ domain 8개는 거침. 시중 주제별(음식/여행/의학/법률/IT/환경/�
 | 5 | G2 시험 코퍼스 확장 | 높음 | 낮음 | **외부 코퍼스·라이선스** |
 | 6 | G5 니모닉 | 중 | 중 | 품질(G1 선행) |
 
-**즉시 착수 가능(소스 불요)**: G3·G4·G6 = 학년/주제/메타. 이것만으로 시중 **레벨·학년·주제·목적(수능)** 대응이 체계화됨.
-**소스 확보 후**: G1(어원 root 리스트)·G2(시험 코퍼스) — W0 kaikki 계열 병목과 동일.
+**정정(2026-07-17 실측 반영)**: **G3(학년)은 이미 발행됨** → 우선순위에서 제외. 시중 **레벨·학년·수능·시험진입·주제specialty는 이미 대응 완료.**
+**진짜 남은 actionable**:
+- **G1 어원 root** — **최우선**. 시중 어원 단어장(Word Smart류)이 유일하게 전무한 대응. **핵심: kaikki 불요** — 라틴/그리스 **핵심 학술 root ~150개는 안정적 표준지식**(spec=보다·port=나르다·dict=말하다…)이라 LLM이 고신뢰로 시드 가능(희귀어 어원 환각과 다름). 고빈도 학술어 word→root 매핑도 확신 범위. → **소스-독립 buildable**.
+- G4 주제 subtopic(음식/여행/법률/IT 등 세분) · G6 메타 정규화 — 있으면 좋으나 저우선(주제 specialty 4종 이미 존재).
+- G2 시험 코퍼스(토익/공무원 기출)·G5 니모닉 — 소스/품질 병목 유지.
 
 ---
 
@@ -165,9 +182,11 @@ domain 8개는 거침. 시중 주제별(음식/여행/의학/법률/IT/환경/�
 
 플랫폼은 시중 단어장의 **레벨·빈도·수능기출·문맥예문**을 **이미 생성 가능**(curation_query 파이프라인 + 4축 VRL + KICE 코퍼스, 1,066 auto sets). 시중 대비 **우위**는 수능 문항유형별·기출연도별 세트(시중 이상 정밀).
 
-진짜 보완은 5개: **어원 root(G1)·시험코퍼스 확장(G2)·학년 정밀(G3)·주제 subtopic(G4)·니모닉(G5)** + 메타 정규화(G6). 이 중 **G3·G4·G6은 소스 없이 즉시** 착수 가능하고, **G1·G2·G5는 외부 소스 확보가 선결**(W0 kaikki 병목과 동일 계열).
+**정정 결론(2026-07-17 실측)**: 시중 대응 카탈로그는 **이미 ~90% 발행**(초/중/고 학년·수능 문항유형·시험진입·주제specialty). 앞선 "G3 갭"은 오판이었고 철회.
 
-**권장 착수 순서**: G3(학년)→G4(주제)→G6(메타) 먼저 = 소스-독립으로 시중 학년/주제/목적 대응 체계화. 이후 소스 확보 시 G1(어원)·G2(시험) — 가장 가치 크나 병목.
+진짜 남은 actionable 갭은 **어원 root(G1) 하나**가 핵심 — 그리고 이건 **kaikki 없이 buildable**(핵심 학술 root ~150개 = 안정 표준지식). 시중 어원 단어장이 유일한 미대응 카테고리.
+
+**권장 착수**: **G1 어원 root** — `word_roots`+`word_root_links` 신설(migration·승인 필요) → 핵심 root 시드 + 고빈도 학술어 매핑(LLM) → `curation_query` root 축으로 어원 세트 생성. 이중배당(추출 파생어 인식·니모닉 품질). 나머지(G2 시험코퍼스·G4 주제세분·G5 니모닉)는 저우선/소스병목.
 
 ---
 *분석 종료. 실측 근거 = shared_dictionary/shared_word_sets/word_lexicon/lexicon_frequencies/list_tags/track·domain_levels (2026-07-17). 코드 변경 없음(설계 분석).*
