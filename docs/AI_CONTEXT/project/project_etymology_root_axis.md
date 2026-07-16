@@ -18,8 +18,10 @@
 
 **이중배당 — 추출 어원 힌트(2026-07-17)**: `ExtractionPanel`이 추출 단어 표제어의 `word_root_links` 조회(loose client — 신규 테이블 database.ts 미반영) → 🏛 어근 칩(인라인 `🏛 spec`+expand "어원 spec(보다)"). e2e 08에 단언(통과). **`mnemonic_ko`는 admin(VocabularyDetailPanel) 전용 UI뿐 + shared_words에 mnemonic 필드 없음(korean_learner_note는 어근 라벨用) → 대량 니모닉 채움 대신 기존 근거 카드 surface 재사용**(UI 없는 데이터 채움 회피).
 
+**어원 first-class 카테고리 승격(2026-07-17, migration `20260717150000`)**: `shared_word_sets.category` CHECK에 `'etymology'` 추가 + etymology-core 이동(themed→etymology). `categories.ts` 📜 어원(중요도 50) + `VocabSetCarousel` 앰버색 → /library/vocab 기본 캐러셀에 **자체 어원 탭** 노출. e2e 09 탭 프로미넌스 단언(통과). ⚠️ 카루셀에서 카테고리 탭 선택은 coverflow(NetflixDetailSheet 샘플)만 — **어근 챕터 풀뷰(VocabSetPreviewModal)는 검색→평탄그리드 경로**(카루셀 onSelectCategory 미배선은 기존 UX).
+
 **주의/잔여**:
-- `shared_word_sets.category` CHECK 제약(elementary/middle/high/csat/eng_test/civil/business/themed/library_book/library_article) — 'etymology'는 불가라 themed+subcategory 사용.
+- `shared_word_sets.category` CHECK — 이제 'etymology' 포함(11종). `shared_words.chapter`=smallint(라벨은 korean_learner_note).
 - `shared_words.chapter`=smallint(텍스트 라벨 불가) → 라벨은 korean_learner_note.
 - 잔여: 매핑 확장(학습밴드 2,304 중 1,500 발행) · `regenerate_auto_curated_set` 등 RPC에 root 축(`curation_query {org:'root'}`) 실행 배선 미구현 · 추출 파생어 인식·니모닉(G5) 연계 · confidence 검수.
 

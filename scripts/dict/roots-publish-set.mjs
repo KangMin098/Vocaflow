@@ -93,7 +93,7 @@ const cefrCounts = {}
 for (const m of capped) cefrCounts[m.d.cefr_level] = (cefrCounts[m.d.cefr_level] || 0) + 1
 const medianCefr = Object.entries(cefrCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'B2'
 const setRow = {
-  slug: SLUG, title: '어원으로 익히는 핵심 영단어', category: 'themed', subcategory: 'etymology',
+  slug: SLUG, title: '어원으로 익히는 핵심 영단어', category: 'etymology', subcategory: 'etymology',
   description: '라틴·그리스 어근으로 단어를 계열째 익힌다. 어근당 한 챕터. 접두사·어근·접미사 포함.',
   cefr_level: medianCefr, word_count: capped.length, is_published: true, cover_emoji: '🏛️',
   auto_curated: true, version: 1,

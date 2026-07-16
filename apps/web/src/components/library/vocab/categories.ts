@@ -13,6 +13,7 @@ export const VOCAB_CATEGORIES = [
   { id: 'eng_test', label: '공인영어', emoji: '🌍', hint: 'TOEIC·TOEFL·IELTS' },
   { id: 'civil', label: '공무원', emoji: '🏛️', hint: '7·9급' },
   { id: 'business', label: '비즈니스', emoji: '💼', hint: '실무 영어' },
+  { id: 'etymology', label: '어원', emoji: '📜', hint: '어근으로 계열 학습' },
   { id: 'themed', label: '테마별', emoji: '🎨', hint: '관심사 큐레이션' },
 ] as const
 
@@ -28,6 +29,7 @@ export const CATEGORY_IMPORTANCE: Record<string, number> = {
   middle: 80,
   elementary: 70,
   eng_test: 60,
+  etymology: 50,
   civil: 45,
   business: 45,
   themed: 30,
@@ -57,6 +59,7 @@ export const CATEGORY_VLEVEL: Record<string, number> = {
   business: 8,
   eng_test: 9,
   civil: 9,
+  etymology: 7,
   themed: 6,
 }
 

@@ -54,8 +54,14 @@ test.describe('어원 단어장 — etymology-core 어근 챕터 렌더', () => 
 
     await page.goto('/library/vocab', { waitUntil: 'domcontentloaded', timeout: 30_000 });
 
-    // 검색어 입력 → 평탄 그리드(isGrouped=false)로 전환돼 매칭 세트가 전부 렌더됨.
-    //   (기본 추천순 캐러셀은 themed 저중요도라 어원 카드가 뷰포트 밖일 수 있음 — 검색이 결정론적.)
+    // ★ 프로미넌스: 기본 뷰(캐러셀)에 first-class '어원' 카테고리 탭이 노출된다.
+    const etymTab = page.getByRole('tab', { name: /어원/ });
+    await expect(etymTab).toBeVisible({ timeout: 20_000 });
+    await etymTab.click();
+    // 어원 탭 선택 시 캐러셀이 어원 세트를 보여준다(중앙 메타 제목).
+    await expect(page.getByRole('heading', { name: SET_TITLE }).first()).toBeVisible({ timeout: 10_000 });
+
+    // 검색어 입력 → 평탄 그리드(isGrouped=false)로 전환 → 세트 카드 → 미리보기 모달(어근 챕터).
     const search = page.getByRole('searchbox', { name: '공용 단어장 검색' });
     await expect(search).toBeVisible({ timeout: 20_000 });
     await search.fill('어원');

@@ -36,6 +36,7 @@ const CATEGORY_COLOR: Record<string, { from: string; to: string; accent: string 
   eng_test: { from: '#A78BFA', to: '#7C3AED', accent: '#7C3AED' },
   civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
   business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },
+  etymology: { from: '#FBBF24', to: '#B45309', accent: '#B45309' },
   themed: { from: '#818CF8', to: '#4F46E5', accent: '#4F46E5' },
 }
 
