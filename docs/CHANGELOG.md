@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 어원(root) 축 신설 — 시중 어원 단어장 대응 (v06.253)
+- **배경**: 시중 대응 카탈로그 실측 결과 학년/수능/시험/주제는 이미 발행됐고, 유일한 미대응 = **어원 단어장**(Word Smart류). kaikki 불요(핵심 학술 root=표준지식).
+- **스키마**(migration `20260717140000`): `word_roots`(어근 인벤토리·origin·meaning_en·gloss_ko·variants) + `word_root_links`(단어↔어근, (word,root_id) PK 멱등·affix_type·confidence). RLS 공개읽기.
+- **시드**: 라틴/그리스 핵심 어근·접두·접미 **181개**(`scripts/dict/roots-seed.mjs` + `data/word-roots-seed.json`, 멱등).
+- **매핑**: 6 서브에이전트가 root→파생어족 생성(어원학적 진짜 파생어만) → 사전 실재 단어만 링크. **2,767 링크**(후보 2,591 중 사전 실재 2,472=95%). `scripts/dict/roots-map.mjs`.
+- **어원 단어장 발행**: `etymology-core` "어원으로 익히는 핵심 영단어" — **1,500단어·159 어근 챕터**(chapter=그룹번호, `korean_learner_note`=어근 라벨). category `themed`/subcategory `etymology`. `scripts/dict/roots-publish-set.mjs`. 품질 검증(spec/dict/port/duc 챕터 전수 정확).
+- **이중배당**: 어원 단어장 + (후속) 추출 파생어 인식·니모닉 소스. curation_query `{org:'root'}` 문서화(RPC 실행축 확장은 후속).
+
 ### 추출 대상 단일단어 example 100% 완비 (v06.252)
 - 추출 대상(classified·v_level·노이즈 register 제외) **단일 단어 172개**의 `example_en` 결측을 사전급 예문으로 채움 → 단일단어 example **95.5%→100%**. 대부분 학술 고급어(auscultation·sedimentary·inhibitory·regulatory 등) + 영국식 철자변형.
 - 도구 `scripts/dict/example-fill.mjs`(dump=대상 청크화 · apply=검증 후 결측행만 UPDATE 멱등). 4 서브에이전트 병렬 authoring(품사·의미 sense 매칭·영국식 철자 보존) → 172 valid·0 reject·0 fail.

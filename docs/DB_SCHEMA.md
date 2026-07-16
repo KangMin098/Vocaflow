@@ -7,7 +7,7 @@
 
 ## 요약
 
-- **테이블**: 74 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity`)
+- **테이블**: 76 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity` · +어원 `word_roots`·`word_root_links`)
 - **Views**: 7 (+`csat_stage_catalog` · +`word_mislevel_signal`)
 - **Functions**: 262 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 추출해소 `resolve_dict_headword`·`infer_form_pos`·`set_word_familiarity` / 그 외 ~215)
 - **Migrations 누적**: 70+ 적용됨 (CTP 데이터모델 3건 + 추출경로 통합/신뢰 8건 + 소스 4건 포함)
@@ -22,6 +22,18 @@
 | `set_word_familiarity` | RPC(DEFINER) | `auth.uid()` upsert. authenticated만 |
 | `word_mislevel_signal` | VIEW | known_ct/unknown_ct ↔ dict_v_level → 과대/과소난이도 후보 집계 |
 | `extract_vocabulary_for_user_v2` | 함수(수정) | `verdict='known'` 단어 추출 제외(BYO) |
+
+### 🏛️ 어원(root) 축 (2026-07-17, migration `20260717140000`)
+
+시중 어원 단어장 대응 + 파생어 인식. 공개 표준 어근(무저작권).
+
+| 객체 | 종류 | 역할 |
+|---|---|---|
+| `word_roots` | 테이블(RLS 공개읽기) | 라틴/그리스 어근 인벤토리. origin·meaning_en·gloss_ko·variants. **181행 시드** |
+| `word_root_links` | 테이블(RLS·PK word+root_id) | 단어↔어근 매핑(멱등·다중 root). affix_type·confidence. **2,767 링크** |
+| `shared_word_sets` `etymology-core` | 발행 세트 | "어원으로 익히는 핵심 영단어" 1,500단어·159 어근 챕터(themed/etymology) |
+
+> 생성 도구: `scripts/dict/roots-seed.mjs`(어근 시드) · `roots-map.mjs`(파생어 매핑) · `roots-publish-set.mjs`(세트 발행). curation_query `{org:'root'}` 문서화(RPC 실행축 확장은 후속).
 
 ### 🧭 CTP — CSAT Track Pipeline 데이터모델 (2026-07-10, migration 3건)
 

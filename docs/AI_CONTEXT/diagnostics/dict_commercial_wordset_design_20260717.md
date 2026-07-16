@@ -189,4 +189,9 @@ domain 8개는 거침. 시중 주제별(음식/여행/의학/법률/IT/환경/�
 **권장 착수**: **G1 어원 root** — `word_roots`+`word_root_links` 신설(migration·승인 필요) → 핵심 root 시드 + 고빈도 학술어 매핑(LLM) → `curation_query` root 축으로 어원 세트 생성. 이중배당(추출 파생어 인식·니모닉 품질). 나머지(G2 시험코퍼스·G4 주제세분·G5 니모닉)는 저우선/소스병목.
 
 ---
+
+## ✅ G1 어원 root — 구축 완료 (2026-07-17, v06.253)
+승인 후 실행: migration `20260717140000`(`word_roots`+`word_root_links`) → 어근 **181개 시드** → 6 서브에이전트 root→파생어 매핑 **2,767 링크**(사전 실재 95%) → 어원 세트 **`etymology-core`(1,500단어·159 어근 챕터)** 발행. 품질 spec/dict/port/duc 전수 정확. 도구 `scripts/dict/roots-{seed,map,publish-set}.mjs`. **시중 어원 단어장 대응 완료.** 잔여: 매핑 확장(현 학습밴드 2,304 중 1,500 발행)·curation RPC root 축 실행 배선·니모닉(G5) 연계.
+
+---
 *분석 종료. 실측 근거 = shared_dictionary/shared_word_sets/word_lexicon/lexicon_frequencies/list_tags/track·domain_levels (2026-07-17). 코드 변경 없음(설계 분석).*
