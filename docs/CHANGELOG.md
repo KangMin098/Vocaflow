@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 신뢰 로드맵 기반 완성 — 3단계 검증 + 정밀도 백로그 (v06.250)
+- **5단계 로드맵**(새는 곳 막기→틀려도 고칠 수 있게→채우기→자랑하기)의 **0·1·2·4단계 완료** = 신뢰의 누수(3경로 분열·형태-POS 오정렬·교정 불가·근거 불투명) 전부 봉인.
+- **3단계 검증(읽기 전용)**: 추출 대상 **40,355** 표제어 — `meaning_ko`·`pos`·`cefr_level`·`meanings_ko sense별 pos` **모두 100%**(= 맞는 단어·그 형태의 맞는 뜻·맞는 POS 보장), example_en 95.5%. **뜻·POS가 틀리지 않음이 데이터로 확인**.
+- **정밀도 백로그(Phase B, 비차단)**: 다의어 10,144 중 **7,420**이 일부 sense에 자체 v_level 결측 → flat 폴백(뜻 아닌 **난이도 숫자 근사**만 영향). 우선순위=실사용∩multi-POS 5,170. 신규 툴 명세를 `scripts/dict/SENSE_COMPLETION_MULTISESSION.md` §Phase B에 기록. 여유 시 멀티세션 배치.
+
 ### 추출 신뢰 4단계 — 추출 근거 카드("왜 이 단어인가") (v06.249)
 - **전략 4단계 "자랑하기"**: 백엔드가 이미 반환하던 `score_breakdown`(V-Level·threshold·track/freq boost·reasoning·형태해소)을 **학습자 공감 언어의 근거**로 번역. 완벽함을 주장하는 대신 "왜 뽑았는지" 투명하게 보여 신뢰 형성.
 - **`buildReasons(r)`** 순수 헬퍼 — 신뢰 가치순 근거 생성: ① 목표 트랙 빈출(수능/비즈/학술, `track_boost>0` + 최고 트랙) ② i+1 난이도 위치(`v_level==threshold`→"딱 지금 배우기 좋은" / 초과→"조금 도전적") ③ 빈도(rank≤3000 "두루 쓸모" / rare "이 글에서 특히 중요") ④ **형태 해소**(match_layer 2 → `이 글엔 "surface" 형태 — 표제어 "lemma"(POS 뜻)`, 이 플랫폼만의 강점). 각 근거에 lucide 아이콘(Dual Coding).

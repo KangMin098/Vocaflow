@@ -97,3 +97,33 @@ WHERE v_level = V AND pos IN ('noun','verb','adjective') AND classified_by IS NO
 
 ---
 **요약**: 자기 V-Level·자기 DIR → `sense-chunk(--v-level)` → `rm *.out.json` → ≤14 에이전트 dispatch(위 프롬프트) → 완료 대기 → `sense-apply(--dir --commit)` → `targets:0`까지 반복. 보수적·정확 authoring이 생명.
+
+---
+
+## 📌 후속 백로그 — per-sense v_level 정밀도 채우기 (Phase B · 비차단)
+
+> **위치**: 추출 신뢰 로드맵 **3단계의 정밀도 잔여**. 신뢰 기반(경로통합·알아요몰라요·근거카드 = 1/2/4단계)은 이미 완성. **뜻·POS는 100%**라 이건 "틀림"이 아니라 "난이도 숫자 근사"를 정밀화하는 refinement — 여유 시 착수.
+
+**문제**: 다의어(≥2 sense) 중 일부 sense에 자체 `v_level`이 없어 추출 시 flat(대표) v_level로 폴백. 그 sense가 대표와 난이도가 다르면 threshold 필터·V 배지가 근사값이 됨.
+
+**측정(2026-07-16)**: 추출 대상 40,355 중 multi-sense 10,144 · 그중 **≥1 sense v_level 결측 7,420** · multi-POS(형태별 sense 실제 분기) **5,170**. → **우선순위 = 실사용 ∩ multi-POS**.
+
+**대상 쿼리**:
+```sql
+SELECT word, v_level AS flat_v, meanings_ko FROM shared_dictionary
+WHERE classified_by IS NOT NULL AND v_level IS NOT NULL
+  AND COALESCE(word_register,'standard') NOT IN ('archaic_literary','period_cultural','phrase_unit','brand','abbreviation','proper_noun')
+  AND jsonb_typeof(meanings_ko)='array' AND jsonb_array_length(meanings_ko)>=2
+  AND EXISTS (SELECT 1 FROM jsonb_array_elements(meanings_ko) s WHERE (s->>'v_level') IS NULL)
+  AND (SELECT count(DISTINCT s->>'pos') FROM jsonb_array_elements(meanings_ko) s) >= 2  -- multi-POS 우선
+ORDER BY frequency_rank NULLS LAST;
+```
+
+**신규 툴 필요**(기존 sense-chunk/apply는 단일-sense POS 추가용이라 재사용 불가):
+- `sense-vlevel-chunk.mjs` — 위 대상을 청크로. 각 항목에 `word` + 현 `meanings_ko`(sense별 pos/meaning) 제시, 결측 v_level만 채우도록.
+- 에이전트 프롬프트: **각 sense에 그 sense의 실제 난이도 v_level(1-11) 부여**. 대표 sense는 flat_v ±0~1, 드문/전문 sense는 더 높게. 뜻/pos는 **불변**(오탈자만).
+- `sense-vlevel-apply.mjs` — `meanings_ko` 각 원소의 `v_level`만 UPDATE(pos/meaning 보존), 1-11 검증, idempotent.
+
+**멀티세션 배정**: §1과 동일하게 V-Level·out-dir 분리. flat_v 기준으로 세션 배정하면 충돌 없음.
+
+**완료 판정**: `ms_any_sense_no_vlevel`(위 카운트) → 0 또는 잔여=근사 허용 sense만.
