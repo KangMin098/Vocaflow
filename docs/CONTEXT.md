@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `41fbfa5` docs(dict): W0 통합 정찰 — Wave 성립 판정표 (kaikki 부재 피벗)
 - `6f5887c` feat(dict): 추출 대상 단일단어 example 100% 완비 (v06.252)
 - `8cd7226` test(extract): 추출 신뢰 런타임 회귀 스펙 — 알아요/몰라요 + 근거 카드 E2E (v06.251)
 - `408fc9f` docs: 추출 신뢰 로드맵 기반 완성 — 3단계 검증 결과 + per-sense v_level 백로그 (v06.250)
 - `66df002` feat(extract): 4단계 추출 근거 카드 — "왜 이 단어인가" 학습자 공감 근거 (v06.249)
-- `07f3124` docs: 추출 신뢰 2단계 반영 — CHANGELOG v06.248 + DB_SCHEMA(word_familiarity·word_mislevel_signal)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
