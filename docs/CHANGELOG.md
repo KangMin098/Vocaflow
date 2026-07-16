@@ -17,6 +17,7 @@
 - **매핑**: 6 서브에이전트가 root→파생어족 생성(어원학적 진짜 파생어만) → 사전 실재 단어만 링크. **2,767 링크**(후보 2,591 중 사전 실재 2,472=95%). `scripts/dict/roots-map.mjs`.
 - **어원 단어장 발행**: `etymology-core` "어원으로 익히는 핵심 영단어" — **1,500단어·159 어근 챕터**(chapter=그룹번호, `korean_learner_note`=어근 라벨). category `themed`/subcategory `etymology`. `scripts/dict/roots-publish-set.mjs`. 품질 검증(spec/dict/port/duc 챕터 전수 정확).
 - **이중배당**: 어원 단어장 + (후속) 추출 파생어 인식·니모닉 소스. curation_query `{org:'root'}` 문서화(RPC 실행축 확장은 후속).
+- **렌더 검증(수정 포함)**: `VocabSetPreviewModal`이 챕터를 `Chapter N`(숫자만)으로만 표시 → 어원 세트의 어근이 안 보이던 문제 수정 — 챕터 내 `korean_learner_note`가 균일하면 **어근 라벨("어근 spec — 보다")을 챕터 헤딩으로 승격**(책 챕터엔 무영향). e2e `09-etymology-set.spec.ts`(검색→모달→어근 챕터 렌더 단언) 통과. ⚠️ 발견: 어원 세트가 themed 저중요도라 기본 추천 캐러셀엔 비노출(검색/테마별로 접근) — 프로미넌스는 후속.
 
 ### 추출 대상 단일단어 example 100% 완비 (v06.252)
 - 추출 대상(classified·v_level·노이즈 register 제외) **단일 단어 172개**의 `example_en` 결측을 사전급 예문으로 채움 → 단일단어 example **95.5%→100%**. 대부분 학술 고급어(auscultation·sedimentary·inhibitory·regulatory 등) + 영국식 철자변형.

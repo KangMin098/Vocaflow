@@ -20,6 +20,8 @@ interface PWord {
   partOfSpeech: string | null
   cefrLevel: string | null
   chapter: number | null
+  /** 그룹 라벨 소스 — 어원 세트는 "어근 spec — 보다". 챕터 내 균일 시 챕터 헤딩으로 승격. */
+  note: string | null
 }
 
 // 챕터 학습 — 게임별 launch (로더가 ?set=X&chapter=N 지원). from 으로 닫기 시 복귀.
@@ -84,13 +86,14 @@ export function VocabSetPreviewModal({
       }
       const hasChapters = (chRow?.[0]?.chapter ?? null) != null
 
-      const map = (rows: { word: string; meaning_ko: string; part_of_speech: string | null; cefr_level: string | null; chapter?: number | null }[]): PWord[] =>
+      const map = (rows: { word: string; meaning_ko: string; part_of_speech: string | null; cefr_level: string | null; chapter?: number | null; korean_learner_note?: string | null }[]): PWord[] =>
         rows.map((r) => ({
           word: r.word,
           meaningKo: r.meaning_ko,
           partOfSpeech: r.part_of_speech,
           cefrLevel: r.cefr_level,
           chapter: r.chapter ?? null,
+          note: r.korean_learner_note ?? null,
         }))
 
       if (hasChapters) {
@@ -100,7 +103,7 @@ export function VocabSetPreviewModal({
         for (let from = 0; ; from += PAGE) {
           const { data, error: e } = await supabase
             .from('shared_words')
-            .select('word, meaning_ko, part_of_speech, cefr_level, chapter')
+            .select('word, meaning_ko, part_of_speech, cefr_level, chapter, korean_learner_note')
             .eq('set_id', set.id)
             .order('sort_order', { ascending: true })
             .range(from, from + PAGE - 1)
@@ -120,7 +123,7 @@ export function VocabSetPreviewModal({
         // 2b) 10개 미리보기
         const { data, error: e } = await supabase
           .from('shared_words')
-          .select('word, meaning_ko, part_of_speech, cefr_level')
+          .select('word, meaning_ko, part_of_speech, cefr_level, korean_learner_note')
           .eq('set_id', set.id)
           .order('sort_order', { ascending: true })
           .limit(10)
@@ -155,7 +158,7 @@ export function VocabSetPreviewModal({
     }
   }, [set, onClose])
 
-  // 챕터별 그룹 (챕터형일 때)
+  // 챕터별 그룹 (챕터형일 때). label = 챕터 내 note 가 균일하면 그 note(어원 세트 어근 라벨), 아니면 null.
   const chapters = useMemo(() => {
     if (!chaptered || !words) return []
     const byCh = new Map<number, PWord[]>()
@@ -164,7 +167,11 @@ export function VocabSetPreviewModal({
       if (!byCh.has(c)) byCh.set(c, [])
       byCh.get(c)!.push(w)
     }
-    return [...byCh.entries()].sort((a, b) => a[0] - b[0]).map(([n, ws]) => ({ n, words: ws }))
+    return [...byCh.entries()].sort((a, b) => a[0] - b[0]).map(([n, ws]) => {
+      const notes = ws.map((w) => w.note).filter((x): x is string => !!x)
+      const uniform = notes.length === ws.length && new Set(notes).size === 1 ? notes[0] : null
+      return { n, words: ws, label: uniform }
+    })
   }, [chaptered, words])
 
   if (!set) return null
@@ -277,7 +284,7 @@ export function VocabSetPreviewModal({
                         className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-2.5 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
                       >
                         <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)]">
-                          Chapter {ch.n}
+                          {ch.label ?? `Chapter ${ch.n}`}
                           <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
                             {ch.words.length}단어 · {ch.words[0]?.cefrLevel ?? '?'}~{ch.words[ch.words.length - 1]?.cefrLevel ?? '?'}
                           </span>
