@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `07f3124` docs: 추출 신뢰 2단계 반영 — CHANGELOG v06.248 + DB_SCHEMA(word_familiarity·word_mislevel_signal)
 - `b9ddb78` feat(extract): 2단계 "알아요/몰라요" — 학습자 추출 교정 + 오난이도 신호 (v06.225)
 - `c5180a9` docs(extract): 추출 3경로 통합 1단계 CHANGELOG (v06.225)
 - `42f310b` feat(extract): 추출 3경로 통합 완료 — 공유 헬퍼 + BYO 통합 (v06.225)
 - `489bee2` feat(extract): 추출 경로 통합 1단계 — article을 책 규칙으로 (v06.225)
-- `504f232` fix(dict): V10 단일-POS 오라벨 5건 noun 교정
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

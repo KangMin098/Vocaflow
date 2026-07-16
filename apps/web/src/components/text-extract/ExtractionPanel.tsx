@@ -12,7 +12,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText } from 'lucide-react'
+import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
@@ -80,6 +81,59 @@ const SOURCE_LABEL: Record<string, string> = {
   text_p75: '글 P75',
   auto_user_diagnostic: '자동 — 본인 진단',
   auto_text_p75_fallback: '자동 — 글 P75 (미진단)',
+}
+
+const POS_KO: Record<string, string> = {
+  verb: '동사', noun: '명사', adjective: '형용사', adverb: '부사',
+  pronoun: '대명사', preposition: '전치사', conjunction: '접속사',
+  determiner: '한정사', numeral: '수사', interjection: '감탄사',
+}
+
+// 4단계 "자랑하기" — 추출 근거를 학습자 공감 언어로. 왜 이 단어가 뽑혔나.
+//   기술 스코어(score_breakdown)를 사람 말투 이유로 번역. 순서 = 신뢰 가치순.
+type Reason = { key: string; Icon: LucideIcon; label: string }
+function buildReasons(r: ExtractedWord): Reason[] {
+  const reasons: Reason[] = []
+  const bd = r.score_breakdown
+  const tl = r.track_levels
+
+  // 1) 목표 트랙 빈출 (수능/비즈/학술) — 가장 동기부여되는 근거
+  if (bd.track_boost > 0 && tl) {
+    const tracks: { v: number; Icon: LucideIcon; label: string }[] = [
+      { v: tl.csat_korean ?? 0, Icon: Target, label: '수능 지문에 자주 나와요' },
+      { v: tl.business_english ?? 0, Icon: Briefcase, label: '비즈니스 영어에서 자주 써요' },
+      { v: tl.academic_english ?? 0, Icon: GraduationCap, label: '학술 글에서 자주 만나요' },
+    ]
+    const top = tracks.filter((t) => t.v >= 4).sort((a, b) => b.v - a.v)[0]
+    if (top) reasons.push({ key: 'track', Icon: top.Icon, label: top.label })
+  }
+
+  // 2) i+1 난이도 위치 (Desirable Difficulty)
+  const gap = r.v_level - bd.v_threshold
+  reasons.push(
+    gap === 0
+      ? { key: 'level', Icon: Sparkles, label: '딱 지금 배우기 좋은 난이도예요' }
+      : { key: 'level', Icon: TrendingUp, label: '조금 도전적이지만 이 글에 필요해요' },
+  )
+
+  // 3) 빈도 — 두루 쓸모 / 이 글에서 특별
+  if (r.frequency_rank != null && r.frequency_rank <= 3000) {
+    reasons.push({ key: 'freq', Icon: Repeat, label: '자주 쓰여서 익혀두면 두루 쓸모 있어요' })
+  } else if (r.frequency_rank == null || r.frequency_rank > 12000) {
+    reasons.push({ key: 'freq', Icon: Star, label: '이 글에서 특히 중요한 단어예요' })
+  }
+
+  // 4) 형태 해소 — 이 플랫폼만의 강점(굴절/파생형 → 표제어 + 그 형태의 뜻)
+  if (r.match_layer === 2 && r.matched_via_surface && r.matched_via_surface !== r.word) {
+    const posKo = r.pos ? POS_KO[r.pos] ?? r.pos : ''
+    reasons.push({
+      key: 'form',
+      Icon: Shuffle,
+      label: `이 글엔 "${r.word}" 형태로 나와요 — 표제어 "${r.matched_via_surface}"${posKo ? ` (${posKo} 뜻)` : ''}`,
+    })
+  }
+
+  return reasons
 }
 
 export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSaved }: ExtractionPanelProps) {
@@ -432,6 +486,9 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               const isExpanded = expandedWord === r.word
               const bd = r.score_breakdown
               const fam = familiar[r.word]
+              // 추출 근거 — 인라인엔 눈에 띄는 것만(generic 난이도 제외, Calm UI), 전체는 expand.
+              const reasons = buildReasons(r)
+              const inlineReason = reasons.find((x) => x.key !== 'level')
               return (
                 <li key={r.word}>
                   <article className={`rounded-[var(--r-md)] border bg-[var(--bg)] transition-all ${
@@ -464,12 +521,18 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           )}
                         </div>
                         <p className="mt-0.5 truncate font-body text-[13px] text-[var(--t2)]">{r.meaning_ko ?? '—'}</p>
+                        {inlineReason && (
+                          <p className="mt-1 inline-flex max-w-full items-center gap-1 font-body text-[11px] italic text-[var(--t3)]">
+                            <inlineReason.Icon size={11} className="shrink-0 text-[var(--p)]/70" />
+                            <span className="truncate">{inlineReason.label}</span>
+                          </p>
+                        )}
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="inline-flex items-center gap-0.5 font-display text-[13px] font-[700] tabular-nums text-[var(--p)]">
                           <TrendingUp size={11} /> {r.composite_score.toFixed(3)}
                         </span>
-                        <span className="font-body text-[10px] text-[var(--t3)]">{bd.reasoning}</span>
+                        <span className="font-body text-[10px] text-[var(--t3)]">추천 점수</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <button
@@ -502,6 +565,22 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
                     {isExpanded && (
                       <div className="border-t border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[11px]">
+                        {/* 4단계 근거 카드 — 왜 이 단어를 추천했는지 사람 말투로 (기술 breakdown 위에) */}
+                        {reasons.length > 0 && (
+                          <div className="mb-3 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--p-light)]/40 p-3">
+                            <h4 className="mb-1.5 inline-flex items-center gap-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--p)]">
+                              <Sparkles size={11} /> 왜 추천했어요?
+                            </h4>
+                            <ul className="flex flex-col gap-1">
+                              {reasons.map((rs) => (
+                                <li key={rs.key} className="inline-flex items-start gap-1.5 font-body text-[11px] text-[var(--t2)]">
+                                  <rs.Icon size={12} className="mt-0.5 shrink-0 text-[var(--p)]" />
+                                  <span>{rs.label}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         {(r.source_sentence ?? r.example_en) && (
                           <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">
                             &ldquo;{r.source_sentence ?? r.example_en}&rdquo;
@@ -512,9 +591,12 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                             )}
                           </p>
                         )}
-                        <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
+                        <h4 className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
                           스코어 breakdown (composite = {r.composite_score.toFixed(4)})
                         </h4>
+                        <p className="mb-2 font-mono text-[9px] text-[var(--t3)]">
+                          {bd.reasoning}{bd.method ? ` · ${bd.method}` : ''}
+                        </p>
                         <table className="w-full font-mono text-[10px]">
                           <tbody>
                             <ScoreRow label="Frequency boost (70%)" weight={bd.weights.frequency_boost} value={bd.frequency_boost} contribution={bd.weights.frequency_boost * bd.frequency_boost} />

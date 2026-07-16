@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 신뢰 4단계 — 추출 근거 카드("왜 이 단어인가") (v06.249)
+- **전략 4단계 "자랑하기"**: 백엔드가 이미 반환하던 `score_breakdown`(V-Level·threshold·track/freq boost·reasoning·형태해소)을 **학습자 공감 언어의 근거**로 번역. 완벽함을 주장하는 대신 "왜 뽑았는지" 투명하게 보여 신뢰 형성.
+- **`buildReasons(r)`** 순수 헬퍼 — 신뢰 가치순 근거 생성: ① 목표 트랙 빈출(수능/비즈/학술, `track_boost>0` + 최고 트랙) ② i+1 난이도 위치(`v_level==threshold`→"딱 지금 배우기 좋은" / 초과→"조금 도전적") ③ 빈도(rank≤3000 "두루 쓸모" / rare "이 글에서 특히 중요") ④ **형태 해소**(match_layer 2 → `이 글엔 "surface" 형태 — 표제어 "lemma"(POS 뜻)`, 이 플랫폼만의 강점). 각 근거에 lucide 아이콘(Dual Coding).
+- **UI(ExtractionPanel)**: 인라인엔 **눈에 띄는 근거만**(generic 난이도 제외 → Calm UI) 뜻 아래 italic 한 줄. expand 상단에 **"왜 추천했어요?" 카드**(전체 근거 + 아이콘) → 기존 기술 breakdown 테이블은 그 아래로(Progressive Disclosure). 스코어 코너의 dev 문자열("V6 ≥ threshold")은 "추천 점수"로 정리, 기술 reasoning/method는 breakdown 안으로 이동. tsc 0·eslint 0.
+
 ### 추출 신뢰 2단계 — 학습자 "알아요/몰라요" 교정 + 오난이도 신호 (v06.248)
 - **전략 순서**(새는 곳 막기→틀려도 고칠 수 있게→채우기)의 **2단계**: 완벽 대신 학습자가 추출을 직접 교정. 마이그 `20260713180000`(테이블+RPC+뷰) · `20260713180500`(추출 제외).
 - **`word_familiarity`** 테이블(user·**lemma(표제어) 단위**·verdict known/unknown·판정당시 v_level·source) + RLS(본인) + `idx_wf_lemma_verdict`. lemma 단위 저장 → 굴절/파생 형태 무관 일관.
