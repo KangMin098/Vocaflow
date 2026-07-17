@@ -92,4 +92,21 @@
 **즉시 actionable = §5-1(라이브 문맥-POS 배선)** — 소스 병목 없이 라이브 추출의 "문맥 뜻" 정확도를 올림. 나머지(sense 깊이·parity)는 kaikki 확보가 선결이라 [[project_dict_wave_plan_w0]] 재개 조건과 동일.
 
 ---
-*read-only 분석. 근거 = shared_dictionary 실측 40,355 추출대상 + 추출 파이프라인 구조. 코드/데이터 변경 없음.*
+
+## 7. kaikki 확보 + 진행 (2026-07-17) — W0 블로커 해소
+
+**확보**: kaikki(Wiktionary 파생, **CC BY-SA 3.0**) `kaikki.org-dictionary-English-words.jsonl` **3.19GB** 다운로드(`scripts/dict/data/`, gitignore). 상용 벤더 아님·무료 라이선스 → 사용 가능.
+**파이프라인**(`scripts/dict/kaikki-enrich.mjs`): `extract`(3.19GB·148만 줄 스트림 → 45k 표제어 필터) → `apply-ipa/syn/ant`(결측만·멱등·**외부검증 사실=무환각**).
+**커버리지**: 45,667 표제어 중 **43,692(95.7%)가 kaikki 존재**. 추출: IPA 29,199·audio(mp3) 30,902·**avg 4.5 sense**(≥5 sense 12,131).
+
+**적용(PoC)**: **IPA 5,879 결측 채움** → ipa **64%→76.9%**(29,230→35,109). 자가생성 아닌 외부 사전 사실. 0 실패.
+
+**kaikki가 열어준 후속(§4 근본해소 자원)**:
+- **sense 깊이(최대 갭 해소)**: kaikki avg 4.5 sense·≥5 sense 12,131 → 다의어에 kaikki 영어 gloss를 **근거로** 한국어 sense 추가(per-sense pos/v_level) authoring. 추출 정확도(드문 sense 오해소) 근본 개선. **대량 batch — 별도 착수.**
+- **audio**: mp3 URL 30,902 → 원어민 발음(스키마 컬럼 `audio_url` 신설=마이그 필요).
+- syn/ant: kaikki 구조화 필드 희소(4,636/3,510)라 기존 dict-fill이 우세 — 저우선.
+
+**갱신 결론**: §6의 "kaikki 확보 선결" 병목이 **해소됨**. 이제 sense 깊이·IPA·audio의 외부검증 보완이 buildable. [[project_dict_wave_plan_w0]] 재개 조건 충족.
+
+---
+*분석 + kaikki 확보/IPA PoC 적용. 근거 = shared_dictionary 실측 + kaikki EN words 3.19GB. IPA 5,879행 보완.*

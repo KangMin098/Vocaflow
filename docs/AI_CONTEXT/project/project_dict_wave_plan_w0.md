@@ -15,5 +15,7 @@
 
 **결정(2026-07-16)**: 사용자 = **여기서 중단**. 추출 신뢰 기반 이미 완결([[project_extract_trust_roadmap]], 뜻·POS 100%, v06.248~252). 병렬 N세션·W1~W5 **미착수**. W2 파일럿도 미실행(소스·스크립트 부재 = 검증불가 자가생성 방지 — 예문만 LLM 적합이라 그 슬라이스만 v06.252로 완료).
 
-**재개 조건**: kaikki.org 영어 Wiktionary 추출(수 GB JSONL) 확보 → 그때 W2(syn/ant/ipa 대조)·W3(etymology root)·W4(검증) 성립. 없이 가려면 축소범위(curation RPC 확장 + Phase B per-sense v_level + LLM-적합 필드)만. **소스 없는 병렬 충전 금지**(오염 N배).
+**재개 조건**: kaikki.org 영어 Wiktionary 추출(수 GB JSONL) 확보 → 그때 W2(syn/ant/ipa 대조)·W3(etymology root)·W4(검증) 성립.
+
+**✅ kaikki 확보 (2026-07-17, v06.265)**: `kaikki.org-dictionary-English-words.jsonl` **3.19GB**(CC BY-SA 3.0) 다운로드 → `scripts/dict/data/`(gitignore). 파이프라인 `scripts/dict/kaikki-enrich.mjs`(extract=45k 표제어 필터·95.7% 커버 / apply-ipa·syn·ant=결측만·무환각). **IPA PoC 5,879 채움**(64%→76.9%). 후속 buildable: **sense 깊이**(kaikki avg 4.5·≥5 sense 12,131 → 한국어 sense authoring, 근본 갭 해소) · audio mp3 30,902(스키마 필요) · syn/ant는 kaikki 구조화 희소(4,636/3,510)라 저우선(기존 dict-fill 우세). 어원 root(W3)는 별도로 표준 어근 시드로 이미 구축([[project_etymology_root_axis]]). 분석 = `docs/AI_CONTEXT/diagnostics/extraction_dict_vs_general_20260717.md` §7.
 

@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### kaikki(Wiktionary) 확보 — 사전 외부검증 보완 파이프라인 + IPA PoC (v06.265)
+- **배경**: 사전 sense 깊이(avg 1.28 vs 일반사전 3~5+)·syn/ant/ipa parity 갭의 근본 병목 = 권위 외부 소스(kaikki) 부재([[project_dict_wave_plan_w0]] W0 중단 사유). 일반사전 비교 분석(`extraction_dict_vs_general_20260717.md`)이 이를 최우선 병목으로 확정.
+- **확보**: kaikki `kaikki.org-dictionary-English-words.jsonl` **3.19GB**(CC BY-SA 3.0·무료·귀속) 다운로드 → `scripts/dict/data/`(gitignore). 벤더 중립(상용 아님).
+- **파이프라인**(`scripts/dict/kaikki-enrich.mjs`): `extract`(3.19GB·148만 줄 스트림 → 45k 표제어 필터) + `apply-ipa/syn/ant`(결측만·멱등·**외부 사전 사실=무환각**, 자가생성 아님). 커버리지 45,667 중 **43,692(95.7%)** kaikki 존재.
+- **IPA PoC 적용**: 결측 **5,879 채움** → ipa **64%→76.9%**(29,230→35,109). 0 실패. 자가생성 병목 해소 실증.
+- **후속 자원(kaikki가 열어줌)**: sense 깊이(avg 4.5·≥5 sense 12,131 → 한국어 sense 추가 authoring, 별도 batch) · audio mp3 30,902(스키마 컬럼 필요) · syn/ant는 kaikki 구조화 희소라 저우선.
+
 ### 니모닉 확대 — v8+ 라틴계 학습어 265 (M2 확대, v06.264)
 - **배경**: M2(v06.260)는 word_root_links 보유 2,472단어만 대상. 학습 세트 노출 v8+ 라틴계 단어 중 **어근 미링크 712개**가 니모닉 없음 → 최고난도(어원이 가장 유용한) 구간 보강.
 - **도구**(`mnemonic-expand-chunk.mjs`): 링크 없는 라틴계 학습어 + **어근 인벤토리(181개) 근거 파일** 청크. 서브에이전트가 인벤토리 근거로 분해+니모닉(무환각), 근거 밖·비라틴·오귀속 위험이면 skip. 기존 `mnemonic-apply.mjs` 재사용(니모닉이 분해를 담아 링크 미삽입).
