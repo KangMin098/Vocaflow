@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `a636cc8` chore(vocab): 니모닉 확대 — v8+ 라틴계 학습어 265 (M2 확대, v06.264)
 - `1308897` test(e2e): 스크립트 히어로 selector 수리 — 스모크 green 복구 (v06.263)
 - `30df8f9` feat(reader): 리더 단어 팝업 리치화 — 다의어+어원+니모닉 (v06.263)
 - `0a41c58` feat(vocab): 진도-aware 완성 추정 — 학습 플랜 개인화 (F2, v06.262)
 - `084e0e0` feat(vocab): 적응형 학습 플랜 스트립 — 세트 완성 프레이밍 (F2, v06.261)
-- `f28260b` feat(vocab): 어근 기반 니모닉 생성 + 학습 카드 노출 (M2, v06.260)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

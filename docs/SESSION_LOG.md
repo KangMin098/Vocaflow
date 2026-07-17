@@ -14,14 +14,19 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: `feat/plan-ui`(15일·321커밋·8+트랙) → **main 통합** ✅ **머지 완료**(`96cfee0` Merge #95, 2026-07-17) — main 2026-07-02 정지 해소.
-**브랜치**: `feat/plan-ui` (머지 후에도 working 브랜치로 계속 사용)
-**상태**: ✅ **3 PR 전부 main 머지 완료** — #95(plan-ui 321커밋)·#94(quality salvage)·#93(scriptquiz salvage). main = `30a7587`, **열린 PR 0개**. 15일 정지 완전 해소.
+**브랜치**: `feat/plan-ui` (working). main 통합은 2026-07-17 #95 머지(`96cfee0`)로 한 번 완료됐고, **이후 이 세션 커밋 다수(v06.255~264)가 feat/plan-ui에 누적** → main 재통합 PR은 사용자 판단(비차단).
 
-- **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
-- **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
+**직전 세션(2026-07-17) = 사전/단어장 품질 + 시중 대비 우위 트랙 — ✅ 완료·검증**:
+- **per-sense v_level Phase B ✅ 100%**(v06.255·256) — 다의어 10,144 전량 완비. 신규 툴 `sense-vlevel-{chunk,apply}.mjs`.
+- **유형별 단어장 전수 테스트 + 오류 3건 조치 ✅**(v06.257) — E1 auto-vlevel 재발행·E2 `third` 사전교정·I4 csat dedup. 리포트 `diagnostics/wordset_pipeline_typewise_test_20260717.md`.
+- **시중 대비 우위 로드맵 ✅**(리포트 `diagnostics/commercial_benchmark_vcb_20260717.md`): **P1** 생성기 품질게이트(v06.258 굴절/파생 제외, auto-vlevel V1 오염 35%→0) · **M1/F1** 학습카드 다의어+어원(v06.259) · **M2** 어근 니모닉(v06.260·264, **mnemonic_ko 2,623**, 발음 말장난 절대 금지=[[feedback_mnemonic_etymology_only]]) · **F2** 적응형 학습 플랜+진도(v06.261·262) · **RecallCard 리치화**(v06.263) · **스모크 green 복구 5/5**(v06.263).
+- **런타임 검증**: `04-ui-smoke` 5/5 green(내 화면 콘솔에러 0). 니모닉·다의어 카드/팝업, 플랜 스트립 배선 완료. 삽화(D1)·니모닉 포화로 제외/종료.
 
-**▶ 다음 (RESUME)**: 잔여 백로그 소진 — (1) **게임 module_id enum = 이미 적용 확인**(마이그 `20260711011813`, 이전 "승인 대기"는 stale). (2) **per-sense v_level Phase B ✅ 100% 종결** — 신규 툴 `sense-vlevel-chunk/apply.mjs`로 1차 multi-POS 2,526 + 2차 단일-POS 4,894 = **다의어 10,144개 per-sense v_level 100% 완비**(`any_sense_missing: 0`, updated 누계 7,100·fail 0). (3) **유형별 공용단어장 파이프라인 전수 테스트 ✅** — 9유형 무결성 통과 + 오류 3건 조치(E1 auto-vlevel 재발행·E2 third 사전교정·I4 csat dedup). 리포트=`diagnostics/wordset_pipeline_typewise_test_20260717.md`. (4) **시중 단어장 벤치마크 + 우위 로드맵 ✅** — `diagnostics/commercial_benchmark_vcb_20260717.md`. **P1 생성기 품질게이트 ✅**(v06.258 굴절/파생 제외, V1 오염 35%→0) · **M1/F1 학습카드 리치화 ✅**(v06.259 다의어 품사별뜻+어원 힌트) · **M2 어근 니모닉 ✅**(v06.260 어원 root 근거 2,358 니모닉·95.4% yield·카드 💡, 853 triple-rich) · **F2 적응형 학습 플랜 ✅**(v06.261 스트립 + v06.262 진도-aware) · **RecallCard 리치화 ✅**(v06.263 리더 단어 팝업에 다의어+어원+니모닉, 공유 dict-extras) · **스모크 green 복구 ✅**(v06.263 스크립트 히어로 selector 수리, 5/5) · **니모닉 확대 ✅**(v06.264 v8+ 라틴계 265 추가, mnemonic_ko 2,358→2,623, 투명분해 집합 포화). **니모닉 정책**: 발음 말장난(경선식류) 절대 금지·어원 근거만([[feedback_mnemonic_etymology_only]]). **삽화(D1) 제외**. **다음 우선순위**: F2 진도-aware 완성추정 · M1 후속 bare gloss 재작성 · RecallCard 니모닉/다의어 배선. **남은 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · nav 감사 P1/P2 잔여 · 어원 세트 prominence(추천 캐러셀 노출) · [wordset 후속] I3 구상어 VRL 보정·I6 학년세트 추천노출·auto-vlevel 재발행 cron. ‖ 아래는 이전(브랜치/PR) 트랙 기록 ‖ 브랜치/PR 정리 트랙 ✅ **완전 종결** — 3 PR 전부 main 반영. **#94 salvage**(`9c7725c`): lbv lemma INSERT 게이트(`86ec3d4` 추출 무결성)·골든 스냅샷 테스트(`0b6db84`)·quality_metrics 마이그(`8f7f49c` — main collect 마이그의 CREATE 공백 메움) 소급. **#93 salvage**(`30a7587`): LCP RPC 침묵실패 관측성(`0679a2d`, main 확장 RPC + `{error}` 검사 결합)만 소급 — pairflip은 main의 실 persistence 회귀 방지 위해 main 채택, 나머지는 데이터/docs라 반영/superseded. 머지는 rebase(force-push 금지) 대신 **main→PR 브랜치 merge**(무 force-push)로 처리. **잔여 = 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · per-sense v_level Phase B · nav 감사 P1/P2 잔여 · 어원 세트 prominence 등 — 상세는 CHANGELOG Unreleased "후속/잔여". (plan-ui는 main 최신화 완료 후 계속 working 브랜치로 사용.)
+**▶ 다음 세션 후보(전부 비차단·저우선)**:
+- **F2 완성**: prescribe_today(오늘의 처방)에 세트 진도 연동 — "오늘 이 세트 N단어+복습"을 일일 흐름에.
+- **우위 end-to-end 증명 spec**: 세트→플랜→구독→플래시카드 리치→리더 팝업 통합 e2e(스모크는 렌더만 확인).
+- **기존 백로그**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · nav 감사 P1/P2 · 어원 세트 추천 캐러셀 prominence · I3 구상어 VRL 보정 · I6 학년세트 추천노출 · auto-vlevel 재발행 cron · M1 bare gloss 심화(대량 authoring).
+- **정리**: 미추적 스크래치 `scripts/dict/_sc_*.mjs`(5)·`packages/library-pipeline/_pub.mts` = **타 세션 잔재**(내 것 아님, 미삭제). 필요 시 사용자가 정리/gitignore.
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
