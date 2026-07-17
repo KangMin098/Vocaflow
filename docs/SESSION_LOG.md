@@ -21,7 +21,7 @@
 - **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
 - **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
 
-**▶ 다음 (RESUME)**: 잔여 기능 백로그 소진 진행 중 — (1) **게임 module_id enum = 이미 적용 확인**(마이그 `20260711011813`, DB pg_enum 재조회 · 이전 "승인 대기"는 stale). (2) **per-sense v_level Phase B 우선순위 슬라이스 완료** — 신규 툴 `sense-vlevel-chunk/apply.mjs` + 16 서브에이전트로 multi-POS 결측 **2,526단어 전량**(updated 2,206·멱등 skip 320·fail 0) → `multipos_missing_remaining: 0`, 전 sense 완비 2,724→5,250. **잔여 = 단일-POS 다의어 4,894(2차 tier, `--all-pos`)** + 기존 백로그(LCP 18권·collocations 소비 UI·nav P1/P2·어원 prominence). ‖ 아래는 이전(브랜치/PR) 트랙 기록 ‖ 브랜치/PR 정리 트랙 ✅ **완전 종결** — 3 PR 전부 main 반영. **#94 salvage**(`9c7725c`): lbv lemma INSERT 게이트(`86ec3d4` 추출 무결성)·골든 스냅샷 테스트(`0b6db84`)·quality_metrics 마이그(`8f7f49c` — main collect 마이그의 CREATE 공백 메움) 소급. **#93 salvage**(`30a7587`): LCP RPC 침묵실패 관측성(`0679a2d`, main 확장 RPC + `{error}` 검사 결합)만 소급 — pairflip은 main의 실 persistence 회귀 방지 위해 main 채택, 나머지는 데이터/docs라 반영/superseded. 머지는 rebase(force-push 금지) 대신 **main→PR 브랜치 merge**(무 force-push)로 처리. **잔여 = 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · per-sense v_level Phase B · nav 감사 P1/P2 잔여 · 어원 세트 prominence 등 — 상세는 CHANGELOG Unreleased "후속/잔여". (plan-ui는 main 최신화 완료 후 계속 working 브랜치로 사용.)
+**▶ 다음 (RESUME)**: 잔여 백로그 소진 — (1) **게임 module_id enum = 이미 적용 확인**(마이그 `20260711011813`, 이전 "승인 대기"는 stale). (2) **per-sense v_level Phase B ✅ 100% 종결** — 신규 툴 `sense-vlevel-chunk/apply.mjs`로 1차 multi-POS 2,526 + 2차 단일-POS 4,894 = **다의어 10,144개 per-sense v_level 100% 완비**(`any_sense_missing: 0`, updated 누계 7,100·fail 0). **남은 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · nav 감사 P1/P2 잔여 · 어원 세트 prominence(추천 캐러셀 노출). ‖ 아래는 이전(브랜치/PR) 트랙 기록 ‖ 브랜치/PR 정리 트랙 ✅ **완전 종결** — 3 PR 전부 main 반영. **#94 salvage**(`9c7725c`): lbv lemma INSERT 게이트(`86ec3d4` 추출 무결성)·골든 스냅샷 테스트(`0b6db84`)·quality_metrics 마이그(`8f7f49c` — main collect 마이그의 CREATE 공백 메움) 소급. **#93 salvage**(`30a7587`): LCP RPC 침묵실패 관측성(`0679a2d`, main 확장 RPC + `{error}` 검사 결합)만 소급 — pairflip은 main의 실 persistence 회귀 방지 위해 main 채택, 나머지는 데이터/docs라 반영/superseded. 머지는 rebase(force-push 금지) 대신 **main→PR 브랜치 merge**(무 force-push)로 처리. **잔여 = 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · per-sense v_level Phase B · nav 감사 P1/P2 잔여 · 어원 세트 prominence 등 — 상세는 CHANGELOG Unreleased "후속/잔여". (plan-ui는 main 최신화 완료 후 계속 working 브랜치로 사용.)
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
@@ -67,17 +67,17 @@
 
 ## 세션 기록 (최신 ▲)
 
-### 2026-07-17 — 잔여 백로그 소진: 게임 enum 확인 + per-sense v_level Phase B 우선순위 완료
+### 2026-07-17 — 잔여 백로그 소진: 게임 enum 확인 + per-sense v_level Phase B 100% 종결
 
 > 요청: "잔여 작업 알려줘" → "권장·최적 안으로 진행" (권장 순서 #1 게임 enum → #8 per-sense v_level).
 
 **무엇을 했나**:
 - **#1 게임 module_id enum = 이미 적용 판정**: 제안 파일 헤더 + DB `pg_enum` 조회로 6 아케이드 값이 원격 마이그 `20260711011813`에 존재 확인(이후 glyph-tongue 등도 추가). 게임 persistence 활성 상태 — RESUME/2026-07-11 기록의 "승인 대기"는 stale이라 교정. 새 마이그 불요.
-- **#8 per-sense v_level Phase B — 우선순위 슬라이스 완료**: 다의어 일부 sense의 v_level 결측(flat 폴백 근사화) 정밀화. **신규 툴 2종**(`sense-vlevel-chunk.mjs`·`sense-vlevel-apply.mjs` — 결측 v_level만 주입·pos/meaning 불변·멱등·1-11 검증) 작성 → 2청크 검증 웨이브(320, DB −320 확인)로 파이프라인 실증 → 나머지 14청크 병렬(≤14/wave). **multi-POS 결측 2,526단어 전량 적용**(updated 2,206 + 멱등 skip 320 + fail 0), DB `multipos_missing_remaining: 0`. 전 sense 완비 2,724→**5,250**. 품질 sense별 분화 53.6%(firm n5/a4/v7 등), 전수 검증 결측·길이불일치·범위초과 0.
+- **#8 per-sense v_level Phase B — ✅ 100% 종결**: 다의어 일부 sense의 v_level 결측(flat 폴백 근사화) 정밀화. **신규 툴 2종**(`sense-vlevel-chunk.mjs`·`sense-vlevel-apply.mjs` — 결측 v_level만 주입·pos/meaning 불변·멱등·1-11 검증) 작성 → 2청크 검증 웨이브(320, DB −320 확인)로 파이프라인 실증. **1차 multi-POS 결측 2,526단어**(updated 2,206 + 멱등 skip 320) → `multipos_missing_remaining: 0`. **2차 단일-POS 다의어 4,894단어**(`--all-pos` 25청크·2웨이브, updated 4,894·fail 0). **최종: 다의어 10,144개 per-sense v_level 100% 완비**(`any_sense_missing: 0`). 품질 sense별 분화 1차 53.6%/2차 59.6%(firm n5/a4/v7 · will 의지1/유언장5 등), 전수 검증 결측·길이불일치·범위초과 0.
 
-**무엇이 남았나**: 단일-POS 다의어 **4,894**(2차 tier — 같은 POS라 flat 근접, `--all-pos` 동일 파이프라인, 비차단). 기존 기능 백로그(LCP 18권·collocations 소비 UI·nav P1/P2·어원 prominence) 유지.
+**무엇이 남았나**: Phase B 백로그 종결. 남은 기능 백로그(LCP 18권·collocations 소비 UI·nav P1/P2·어원 prominence) 전부 비차단 유지.
 
-**관련 파일**: `scripts/dict/sense-vlevel-{chunk,apply}.mjs`(신규) · `SENSE_COMPLETION_MULTISESSION.md`(Phase B 진행 기록) · `.gitignore`(svl-* 추가). DB=shared_dictionary.meanings_ko per-sense v_level 2,206행. CHANGELOG v06.255. **교훈**: 신규 배치 툴은 2청크 검증 웨이브로 end-to-end(chunk→agent→apply→DB) 먼저 실증 후 확대. 대기 루프(`until ...out.json ≥16`) 백그라운드로 개별 알림 14개를 1개로 수렴.
+**관련 파일**: `scripts/dict/sense-vlevel-{chunk,apply}.mjs`(신규) · `SENSE_COMPLETION_MULTISESSION.md`(Phase B 종결 기록) · `.gitignore`(svl-* 추가). DB=shared_dictionary.meanings_ko per-sense v_level 7,100행. CHANGELOG v06.255·256. **교훈**: 신규 배치 툴은 2청크 검증 웨이브로 end-to-end(chunk→agent→apply→DB) 먼저 실증 후 확대. 대기 루프(`until ...out.json ≥N`) 백그라운드로 개별 에이전트 알림 다수를 1개 신호로 수렴.
 
 ### 2026-07-17 — feat/plan-ui → main 통합 준비: 15일 red CI green 복구
 

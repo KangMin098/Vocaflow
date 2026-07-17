@@ -128,6 +128,7 @@ ORDER BY frequency_rank NULLS LAST;
 
 **완료 판정**: `multipos_missing`(위 카운트) → 0 또는 잔여=근사 허용 sense만.
 
-### ✅ 진행 (2026-07-17)
-- **우선순위 슬라이스 = 완료**: multi-POS(형태별 sense 분기) ∩ per-sense v_level 결측 **2,526단어 전량 적용**(16 서브에이전트 병렬). `multipos_missing_remaining: 0`. 전 sense 완비 단어 2,724 → **5,250**. 품질: sense별 분화 53.6%(예 `firm` n5/a4/v7 · `prime` a5/n6/v8), 잔여=전 sense 난이도 동일이 정확한 legit 케이스.
-- **잔여 4,894 = 2차 tier(단일-POS 다의어)**: 같은 POS 내 sense 차이라 flat 폴백이 더 근접(cross-POS 난이도 점프 없음). `--all-pos`로 동일 파이프라인 실행 가능. 비차단·여유 시.
+### ✅ 완료 (2026-07-17) — Phase B 100%
+- **1차: 우선순위 슬라이스**: multi-POS(형태별 sense 분기) ∩ per-sense v_level 결측 **2,526단어 전량 적용**(16 서브에이전트). `multipos_missing_remaining: 0`. 품질 sense별 분화 53.6%(예 `firm` n5/a4/v7 · `prime` a5/n6/v8).
+- **2차: 단일-POS 다의어**: `--all-pos` **4,894단어 전량 적용**(25청크·2웨이브·서브에이전트 병렬). 품질 분화 59.6%(예 `will` 의지1/유언장5 · `practice` 연습2/관행4 · `centre` 1/2). 전수 검증 결측·길이불일치·범위초과 0.
+- **최종**: 다의어 **10,144개 = per-sense v_level 100% 완비**(`any_sense_missing: 0`). 이 백로그 종결. (신규 다의어 발생 시 동일 파이프라인 재실행.)

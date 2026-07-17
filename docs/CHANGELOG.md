@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### per-sense v_level 정밀도 — Phase B 100% 종결 (v06.256)
+- **2차 tier(단일-POS 다의어) 완료**: 우선순위(multi-POS) 소진 후 남은 **단일-POS 다의어 4,894단어**를 `sense-vlevel-chunk.mjs --all-pos`(25청크·200개씩·2웨이브)로 authoring → `updated 4,894 · failed 0`. 같은 POS 내 sense 차이(예 `will` noun 의지1/유언장5 · `practice` noun 연습2/관행4 · `centre` 중심1/센터2)를 반영.
+- **최종 상태**: 추출 대상 다의어(register 제외) **10,144개 = per-sense v_level 100% 완비**(`any_sense_missing: 0`, 이전 2,724→10,144). 추출 시 sense별 정확한 난이도로 threshold 필터·V 배지 산출 — flat 폴백 근사 제거 완료. **Phase B 백로그 종결**(추출 신뢰 로드맵 3단계 정밀도 잔여 해소).
+- **품질**: 2차 tier sense별 분화 59.6%(나머지=전 sense 동일 난이도가 정확한 legit). 전수 검증 결측·배열 길이불일치·범위초과 전부 0. `svl-p2` 작업 디렉터리 gitignore.
+
 ### per-sense v_level 정밀도 — Phase B 우선순위 슬라이스 완료 (v06.255)
 - **배경**: 추출 신뢰 로드맵 3단계의 정밀도 잔여(비차단). 다의어 중 일부 sense에 자체 `v_level`이 없어 추출 시 flat(대표) v_level로 폴백 → 그 sense가 대표와 난이도가 다르면 threshold 필터·V 배지가 근사값. **뜻·POS는 이미 100%**라 "틀림"이 아닌 난이도 숫자 정밀화. 명세=`scripts/dict/SENSE_COMPLETION_MULTISESSION.md` §Phase B.
 - **신규 툴 2종**: `scripts/dict/sense-vlevel-chunk.mjs`(대상→sense별 `{i,pos,meaning,v_level}` 청크, multi-POS 우선·`--all-pos`/`--max-rank`/`--limit`) + `sense-vlevel-apply.mjs`(`v_levels[i]`를 `meanings_ko[i].v_level` **결측분에만** 주입 — pos/meaning/기존값/flat 컬럼 불변, 길이 불일치·무변화 스킵, 1-11 검증, 멱등). 기존 sense-chunk/apply(단일-sense POS 추가용)와 분리.
