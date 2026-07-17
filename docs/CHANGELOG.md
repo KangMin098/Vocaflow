@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### per-sense v_level 정밀도 — Phase B 우선순위 슬라이스 완료 (v06.255)
+- **배경**: 추출 신뢰 로드맵 3단계의 정밀도 잔여(비차단). 다의어 중 일부 sense에 자체 `v_level`이 없어 추출 시 flat(대표) v_level로 폴백 → 그 sense가 대표와 난이도가 다르면 threshold 필터·V 배지가 근사값. **뜻·POS는 이미 100%**라 "틀림"이 아닌 난이도 숫자 정밀화. 명세=`scripts/dict/SENSE_COMPLETION_MULTISESSION.md` §Phase B.
+- **신규 툴 2종**: `scripts/dict/sense-vlevel-chunk.mjs`(대상→sense별 `{i,pos,meaning,v_level}` 청크, multi-POS 우선·`--all-pos`/`--max-rank`/`--limit`) + `sense-vlevel-apply.mjs`(`v_levels[i]`를 `meanings_ko[i].v_level` **결측분에만** 주입 — pos/meaning/기존값/flat 컬럼 불변, 길이 불일치·무변화 스킵, 1-11 검증, 멱등). 기존 sense-chunk/apply(단일-sense POS 추가용)와 분리.
+- **우선순위 슬라이스 = 100% 완료**: multi-POS(형태별 sense 분기) ∩ per-sense v_level 결측 **2,526단어** — 16 서브에이전트 병렬 authoring(각 sense의 실제 난이도 부여, 대표≈flat_v·드문/전문/비유 sense↑) → `updated 2,206` + 멱등 `skipped 320` + `failed 0`. DB 검증 `multipos_missing_remaining: 0`. 전 sense 완비 단어 2,724 → **5,250**.
+- **품질**: sense별 난이도 분화 53.6%(예 `firm` noun 회사5/adj 단단한4/verb 굳히다7 · `prime` adj5/noun6/verb8 · `shadow` noun4/adj8/verb7). 나머지 46.4%는 전 sense 난이도 동일이 정확한 legit 케이스(예 `pizzicato` 전 sense 전문 음악용어 11). 전수 검증: 결측 0·배열 길이불일치 0·범위초과 0.
+- **잔여(2차 tier, 비차단)**: 단일-POS 다의어 4,894 — 같은 POS 내 sense 차이라 flat 폴백이 더 근접(cross-POS 난이도 점프 없음). `--all-pos`로 동일 파이프라인 실행 가능. `svl-*` 작업 디렉터리 gitignore(결과=DB 데이터).
+
+### 아케이드 게임 module_id enum — 이미 적용 확인 (문서 교정)
+- **검증**: `docs/proposals/game-suite-module-enum.sql`의 6 값(cascade/connections/word-economy/daily-blitz/letter-forge/ghost-race)이 원격 마이그 `20260711011813`으로 **이미 적용됨**을 DB `pg_enum` 조회로 재확인(+ 이후 게임 glyph-tongue·lexicon-detective 등도 추가됨). 게임 persistence(learning_records/scores insert) 활성 상태. SESSION_LOG 2026-07-11 기록의 "enum 승인 대기"는 stale이었음 — 교정.
+
 ### 추천 RPC에 재설계 세트(어원·주제) 소급 (v06.254)
 - **배경**: 단어장 파이프라인 재설계 자동 검증(사전 DB·정확성·사용성) 결과 — 마스터 사전 45,667행 meaning/pos/cefr/v_level **100%**, 세트 무결성(orphan 0·empty 0·null_meaning 0), 어원 5/5 챕터 정확, 학년 v_level 단조(초1.9<중3.7<고5.9), e2e 09 통과. **발견 #1**: `recommend_word_sets_for_user`가 legacy `auto-vlevel-*`/`library_book`만 surface하고 재설계 세트(어원·주제)는 **브라우즈 전용**이던 커버리지 갭.
 - **수리**(migration `20260717160000_recommend_word_sets_redesign_tiers`): 기존 티어(primary/stretch/review/specialty/track/book/fallback) **전부 무변경** + additive 2티어 — **Tier 7 어원**(`etymology-core`, 진단 V5+) · **Tier 8 관심 주제**(`topic-{interest}` opt-in, specialty 동일 패턴). 순수 UNION ALL(시그니처·컬럼 불변, 매칭 없으면 0행).

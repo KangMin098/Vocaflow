@@ -119,11 +119,15 @@ WHERE classified_by IS NOT NULL AND v_level IS NOT NULL
 ORDER BY frequency_rank NULLS LAST;
 ```
 
-**신규 툴 필요**(기존 sense-chunk/apply는 단일-sense POS 추가용이라 재사용 불가):
-- `sense-vlevel-chunk.mjs` — 위 대상을 청크로. 각 항목에 `word` + 현 `meanings_ko`(sense별 pos/meaning) 제시, 결측 v_level만 채우도록.
-- 에이전트 프롬프트: **각 sense에 그 sense의 실제 난이도 v_level(1-11) 부여**. 대표 sense는 flat_v ±0~1, 드문/전문 sense는 더 높게. 뜻/pos는 **불변**(오탈자만).
-- `sense-vlevel-apply.mjs` — `meanings_ko` 각 원소의 `v_level`만 UPDATE(pos/meaning 보존), 1-11 검증, idempotent.
+**신규 툴**(작성 완료 2026-07-17 · 기존 sense-chunk/apply는 단일-sense POS 추가용이라 재사용 불가):
+- `sense-vlevel-chunk.mjs` — 위 대상을 청크로. 각 항목에 `word`+`flat_v`+`senses[{i,pos,meaning,v_level}]` 제시. 기본=**multi-POS 우선**(n_pos≥2), `--all-pos`로 단일-POS 다의어까지 확장. `--max-rank`·`--limit` 슬라이스.
+- 에이전트 프롬프트: **각 sense에 그 sense의 실제 난이도 v_level(1-11) 부여**. 대표 sense는 flat_v ±0~1, 드문/전문/비유 sense는 더 높게. 뜻/pos는 **불변**. 반환 = `{word, v_levels:[정수, 인덱스 정렬]}`.
+- `sense-vlevel-apply.mjs` — 반환 `v_levels[i]`를 현 `meanings_ko[i].v_level` **결측분에만** 주입(pos/meaning/기존 v_level 보존, flat 컬럼 무변경). 안전 가드: 배열 길이 불일치 스킵, 변화 없으면 스킵, 1-11 검증, idempotent. `--overwrite`로 기존값도 갱신.
 
 **멀티세션 배정**: §1과 동일하게 V-Level·out-dir 분리. flat_v 기준으로 세션 배정하면 충돌 없음.
 
-**완료 판정**: `ms_any_sense_no_vlevel`(위 카운트) → 0 또는 잔여=근사 허용 sense만.
+**완료 판정**: `multipos_missing`(위 카운트) → 0 또는 잔여=근사 허용 sense만.
+
+### ✅ 진행 (2026-07-17)
+- **우선순위 슬라이스 = 완료**: multi-POS(형태별 sense 분기) ∩ per-sense v_level 결측 **2,526단어 전량 적용**(16 서브에이전트 병렬). `multipos_missing_remaining: 0`. 전 sense 완비 단어 2,724 → **5,250**. 품질: sense별 분화 53.6%(예 `firm` n5/a4/v7 · `prime` a5/n6/v8), 잔여=전 sense 난이도 동일이 정확한 legit 케이스.
+- **잔여 4,894 = 2차 tier(단일-POS 다의어)**: 같은 POS 내 sense 차이라 flat 폴백이 더 근접(cross-POS 난이도 점프 없음). `--all-pos`로 동일 파이프라인 실행 가능. 비차단·여유 시.
