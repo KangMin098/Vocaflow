@@ -17,7 +17,8 @@
 - **프론트**: `RecommendedSetsSection.TYPE_BADGE` + `VocabSetGrid.TIER_BADGE`에 어원(어원)·주제(주제) 배지 추가(미지 타입 '추천' fallback 대체). tsc 0.
 - **#2 빈 카테고리 탭 조사 → 이미 처리됨**: 라이브 뷰는 `VocabSetCarousel`이 세트 없는 카테고리 **숨김** + `CategoryMatrix`가 빈 탭 `disabled`+dimmed(info-scent)로 dead-end 없음. 유일 잔재 = **dead `CategoryFilter.tsx`**(참조 0·stale 퍼플 주석) **삭제**. preschool/civil/business는 matrix에서 "0" 비활성 노출(coming-soon = 의도적, 제거는 제품 판단이라 보류).
 - **#3 legacy null_lemma backfill ✅**(DB 데이터만·승인): auto-vlevel-*/specialty-* 세트의 lemma NULL **2,502행** 전량 채움(`lemma = word` — 진단 결과 100% exact 사전 매칭). 검증: null_lemma 0·orphan 0. eng_test는 이제 avg_v 산출(8.5, 이전 NULL). 학년 단조 선명화(초2.0<중3.9<고4.8<eng_test8.5). 재설계 세트는 이미 lemma 보유라 미영향.
-- **잔여(검증 발견, 후속)**: #4 library_book null_pos 99%(23,483행 — 책 세트 POS를 dict lemma로 backfill 가능) · #5 주제 챕터 coarse(~125단어/챕터).
+- **#4 library_book POS backfill ✅**(DB 데이터·승인, Option B=정확도 안전): 책 세트 POS 결측 중 **사전 단일-POS(pos_set 길이 1) 단어만** dict primary_pos로 채움 — 20,765행. **다의어 1,637 + pos_set 미상 1,081 = 2,718행은 NULL 유지**(문맥-POS 후속, primary-POS 오주입 회피 = 프로젝트 원칙 정합). 결과: 책 세트 POS 채움 0.8%→**88.5%**. 포맷 정합 사전 확인(noun/verb… 영문 소문자 동일 체계).
+- **잔여(검증 발견, 후속)**: #5 주제 챕터 coarse(~125단어/챕터 — L2 롤업, 선택적 L3 세분화).
 
 ### LCP RPC 침묵실패 관측성 소급 (PR #93 salvage) — dev-process/process 라우트 (v06.254)
 - **배경**: `feat/scriptquiz-chapter-quiz`(PR #93)를 새 main에 merge. 대형 기능(챕터 퀴즈)은 plan-ui 재구현으로 main에 있고, scriptquiz 드레인·VCB QA·dict enrichment는 데이터/docs라 반영/superseded → **유일한 고유 코드 = LCP RPC 관측성 수리**만 소급.
