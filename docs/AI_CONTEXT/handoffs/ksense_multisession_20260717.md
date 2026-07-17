@@ -39,39 +39,198 @@
 
 ---
 
-## 3. 세션별 지시문 (그대로 붙여넣기)
+## 3. 세션별 지시문 — 복사해서 붙여넣기
 
-> 아래 블록에서 **`{{S}}` 를 자기 세션 번호(1~6)로 치환**해 새 Claude Code 세션에 붙여넣는다.
+> **사용법**: 아래 S1~S6 블록 중 **하나를 통째로 복사** → **새 Claude Code 세션 첫 메시지로 붙여넣기**.
+> 치환할 것 없음. 6개 세션을 동시에 띄우고 각각 다른 블록을 넣으면 된다.
+> 각 블록은 ``` 코드펜스 **안쪽 전체**가 복사 대상(펜스 자체는 제외).
+
+### ▸ S1 (rank 6,005–8,463 · 12청크 · 1,440단어)
 
 ```
-Vocaflow sense 깊이 확대 작업 — 세션 S{{S}} 담당.
+Vocaflow sense 깊이 확대 작업 — 세션 S1 담당.
 
-지시문 전문: docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 먼저 읽어라.
+먼저 docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 읽어라. 이게 작업 지시문 전문이다.
 
-내 담당 = scripts/dict/ksense-s{{S}}/ 디렉터리 하나뿐이다. 다른 ksense-* dir 은 절대 건드리지 마라(다른 세션 소유).
-
-내 dir 은 12청크(chunk-00 ~ chunk-11, 각 120단어)다. 6청크씩 2웨이브로 처리한다.
+내 담당 = scripts/dict/ksense-s1/ 디렉터리 하나뿐. 다른 ksense-* dir 은 다른 세션 소유이니 절대 건드리지 마라.
+내 dir = 12청크(chunk-00 ~ chunk-11, 각 120단어). 6청크씩 2웨이브로 처리한다.
 
 작업 루프:
-1. ls scripts/dict/ksense-s{{S}}/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
-2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 **한 메시지에서 동시** 디스패치(run_in_background: true).
-   프롬프트는 지시문 §4 를 그대로 복사해 청크 번호만 치환(내용 변경 금지 — 품질 게이트가 그 안에 있다).
-3. 웨이브 완료를 background bash until-loop 로 대기(개별 알림 폭주 방지):
-   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s{{S}}/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
-   ※ Bash 도구 run_in_background: true 로 실행할 것.
-4. 완료 시: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s{{S}} --commit
-   (가드가 적용완료분을 자동 skip → dir 전체 재실행해도 안전. "skipped N" 은 정상이다)
-5. 웨이브2 = chunk-06~11 로 2~4 반복 (대기 패턴: chunk-0[6-9] + chunk-1[01]).
+1. ls scripts/dict/ksense-s1/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
+2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 한 메시지에서 동시 디스패치(run_in_background: true).
+   각 에이전트 프롬프트 = 지시문 §4 를 그대로 복사 + 청크 번호만 치환. 내용 변경 금지 — 품질 게이트가 그 안에 있다.
+3. 웨이브 완료를 Bash(run_in_background: true) until-loop 로 대기(개별 알림 폭주 방지):
+   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s1/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
+4. 완료 시 apply: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s1 --commit
+   ("skipped N" 은 정상 — 가드가 적용완료분을 자동 skip. dir 전체 재실행해도 안전)
+5. 웨이브2 = chunk-06~11 로 2~4 반복. 대기 패턴: ls scripts/dict/ksense-s1/chunk-0[6-9].out.json scripts/dict/ksense-s1/chunk-1[01].out.json
 6. 12청크 소진 시 종료 보고.
 
 절대 금지:
 - git commit / push (충돌원 = CHANGELOG. 워커 세션은 DB 쓰기만 한다)
-- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신
-- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성됨)
+- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신한다
+- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성 완료)
 - 다른 ksense-* dir 의 파일 읽기/쓰기/apply
 - 마이그레이션 — 이 작업은 스키마 변경 0
 
-완료 시 보고: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
+완료 보고 형식: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
+```
+
+### ▸ S2 (rank 8,463–10,500 · 12청크 · 1,440단어)
+
+```
+Vocaflow sense 깊이 확대 작업 — 세션 S2 담당.
+
+먼저 docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 읽어라. 이게 작업 지시문 전문이다.
+
+내 담당 = scripts/dict/ksense-s2/ 디렉터리 하나뿐. 다른 ksense-* dir 은 다른 세션 소유이니 절대 건드리지 마라.
+내 dir = 12청크(chunk-00 ~ chunk-11, 각 120단어). 6청크씩 2웨이브로 처리한다.
+
+작업 루프:
+1. ls scripts/dict/ksense-s2/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
+2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 한 메시지에서 동시 디스패치(run_in_background: true).
+   각 에이전트 프롬프트 = 지시문 §4 를 그대로 복사 + 청크 번호만 치환. 내용 변경 금지 — 품질 게이트가 그 안에 있다.
+3. 웨이브 완료를 Bash(run_in_background: true) until-loop 로 대기(개별 알림 폭주 방지):
+   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s2/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
+4. 완료 시 apply: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s2 --commit
+   ("skipped N" 은 정상 — 가드가 적용완료분을 자동 skip. dir 전체 재실행해도 안전)
+5. 웨이브2 = chunk-06~11 로 2~4 반복. 대기 패턴: ls scripts/dict/ksense-s2/chunk-0[6-9].out.json scripts/dict/ksense-s2/chunk-1[01].out.json
+6. 12청크 소진 시 종료 보고.
+
+절대 금지:
+- git commit / push (충돌원 = CHANGELOG. 워커 세션은 DB 쓰기만 한다)
+- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신한다
+- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성 완료)
+- 다른 ksense-* dir 의 파일 읽기/쓰기/apply
+- 마이그레이션 — 이 작업은 스키마 변경 0
+
+완료 보고 형식: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
+```
+
+### ▸ S3 (rank 10,500–13,500 · 12청크 · 1,440단어)
+
+```
+Vocaflow sense 깊이 확대 작업 — 세션 S3 담당.
+
+먼저 docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 읽어라. 이게 작업 지시문 전문이다.
+
+내 담당 = scripts/dict/ksense-s3/ 디렉터리 하나뿐. 다른 ksense-* dir 은 다른 세션 소유이니 절대 건드리지 마라.
+내 dir = 12청크(chunk-00 ~ chunk-11, 각 120단어). 6청크씩 2웨이브로 처리한다.
+
+작업 루프:
+1. ls scripts/dict/ksense-s3/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
+2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 한 메시지에서 동시 디스패치(run_in_background: true).
+   각 에이전트 프롬프트 = 지시문 §4 를 그대로 복사 + 청크 번호만 치환. 내용 변경 금지 — 품질 게이트가 그 안에 있다.
+3. 웨이브 완료를 Bash(run_in_background: true) until-loop 로 대기(개별 알림 폭주 방지):
+   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s3/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
+4. 완료 시 apply: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s3 --commit
+   ("skipped N" 은 정상 — 가드가 적용완료분을 자동 skip. dir 전체 재실행해도 안전)
+5. 웨이브2 = chunk-06~11 로 2~4 반복. 대기 패턴: ls scripts/dict/ksense-s3/chunk-0[6-9].out.json scripts/dict/ksense-s3/chunk-1[01].out.json
+6. 12청크 소진 시 종료 보고.
+
+절대 금지:
+- git commit / push (충돌원 = CHANGELOG. 워커 세션은 DB 쓰기만 한다)
+- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신한다
+- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성 완료)
+- 다른 ksense-* dir 의 파일 읽기/쓰기/apply
+- 마이그레이션 — 이 작업은 스키마 변경 0
+
+완료 보고 형식: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
+```
+
+### ▸ S4 (rank 13,500–16,676 · 12청크 · 1,440단어)
+
+```
+Vocaflow sense 깊이 확대 작업 — 세션 S4 담당.
+
+먼저 docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 읽어라. 이게 작업 지시문 전문이다.
+
+내 담당 = scripts/dict/ksense-s4/ 디렉터리 하나뿐. 다른 ksense-* dir 은 다른 세션 소유이니 절대 건드리지 마라.
+내 dir = 12청크(chunk-00 ~ chunk-11, 각 120단어). 6청크씩 2웨이브로 처리한다.
+
+작업 루프:
+1. ls scripts/dict/ksense-s4/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
+2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 한 메시지에서 동시 디스패치(run_in_background: true).
+   각 에이전트 프롬프트 = 지시문 §4 를 그대로 복사 + 청크 번호만 치환. 내용 변경 금지 — 품질 게이트가 그 안에 있다.
+3. 웨이브 완료를 Bash(run_in_background: true) until-loop 로 대기(개별 알림 폭주 방지):
+   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s4/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
+4. 완료 시 apply: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s4 --commit
+   ("skipped N" 은 정상 — 가드가 적용완료분을 자동 skip. dir 전체 재실행해도 안전)
+5. 웨이브2 = chunk-06~11 로 2~4 반복. 대기 패턴: ls scripts/dict/ksense-s4/chunk-0[6-9].out.json scripts/dict/ksense-s4/chunk-1[01].out.json
+6. 12청크 소진 시 종료 보고.
+
+절대 금지:
+- git commit / push (충돌원 = CHANGELOG. 워커 세션은 DB 쓰기만 한다)
+- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신한다
+- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성 완료)
+- 다른 ksense-* dir 의 파일 읽기/쓰기/apply
+- 마이그레이션 — 이 작업은 스키마 변경 0
+
+완료 보고 형식: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
+```
+
+### ▸ S5 (rank 16,676–21,500 · 12청크 · 1,440단어) — 노출도 낮음
+
+```
+Vocaflow sense 깊이 확대 작업 — 세션 S5 담당.
+
+먼저 docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 읽어라. 이게 작업 지시문 전문이다.
+
+내 담당 = scripts/dict/ksense-s5/ 디렉터리 하나뿐. 다른 ksense-* dir 은 다른 세션 소유이니 절대 건드리지 마라.
+내 dir = 12청크(chunk-00 ~ chunk-11, 각 120단어). 6청크씩 2웨이브로 처리한다.
+
+작업 루프:
+1. ls scripts/dict/ksense-s5/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
+2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 한 메시지에서 동시 디스패치(run_in_background: true).
+   각 에이전트 프롬프트 = 지시문 §4 를 그대로 복사 + 청크 번호만 치환. 내용 변경 금지 — 품질 게이트가 그 안에 있다.
+3. 웨이브 완료를 Bash(run_in_background: true) until-loop 로 대기(개별 알림 폭주 방지):
+   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s5/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
+4. 완료 시 apply: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s5 --commit
+   ("skipped N" 은 정상 — 가드가 적용완료분을 자동 skip. dir 전체 재실행해도 안전)
+5. 웨이브2 = chunk-06~11 로 2~4 반복. 대기 패턴: ls scripts/dict/ksense-s5/chunk-0[6-9].out.json scripts/dict/ksense-s5/chunk-1[01].out.json
+6. 12청크 소진 시 종료 보고.
+
+절대 금지:
+- git commit / push (충돌원 = CHANGELOG. 워커 세션은 DB 쓰기만 한다)
+- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신한다
+- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성 완료)
+- 다른 ksense-* dir 의 파일 읽기/쓰기/apply
+- 마이그레이션 — 이 작업은 스키마 변경 0
+
+완료 보고 형식: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
+```
+
+### ▸ S6 (rank 21,500–31,100 · **10청크** · 1,120단어) — 롱테일·최저 노출
+
+> ⚠️ S6만 10청크(chunk-00 ~ chunk-09) → 웨이브2가 4청크다.
+
+```
+Vocaflow sense 깊이 확대 작업 — 세션 S6 담당.
+
+먼저 docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md 를 읽어라. 이게 작업 지시문 전문이다.
+
+내 담당 = scripts/dict/ksense-s6/ 디렉터리 하나뿐. 다른 ksense-* dir 은 다른 세션 소유이니 절대 건드리지 마라.
+내 dir = 10청크(chunk-00 ~ chunk-09, 각 ~120단어). 웨이브1 = chunk-00~05(6개), 웨이브2 = chunk-06~09(4개).
+
+작업 루프:
+1. ls scripts/dict/ksense-s6/ 로 확인 (*.out.json 이 이미 있는 청크 = 완료분 → 건너뜀).
+2. 웨이브1 = chunk-00~05 를 general-purpose 서브에이전트 6개에 한 메시지에서 동시 디스패치(run_in_background: true).
+   각 에이전트 프롬프트 = 지시문 §4 를 그대로 복사 + 청크 번호만 치환. 내용 변경 금지 — 품질 게이트가 그 안에 있다.
+3. 웨이브 완료를 Bash(run_in_background: true) until-loop 로 대기(개별 알림 폭주 방지):
+   for i in $(seq 1 120); do n=$(ls scripts/dict/ksense-s6/chunk-0[0-5].out.json 2>/dev/null | wc -l); if [ "$n" -ge 6 ]; then echo ALL6; break; fi; sleep 15; done
+4. 완료 시 apply: node scripts/dict/kaikki-sense-apply.mjs --dir scripts/dict/ksense-s6 --commit
+   ("skipped N" 은 정상 — 가드가 적용완료분을 자동 skip. dir 전체 재실행해도 안전)
+5. 웨이브2 = chunk-06~09(4개) 로 2~4 반복. 대기 조건은 -ge 4, 패턴: ls scripts/dict/ksense-s6/chunk-0[6-9].out.json
+6. 10청크 소진 시 종료 보고.
+
+절대 금지:
+- git commit / push (충돌원 = CHANGELOG. 워커 세션은 DB 쓰기만 한다)
+- 문서(.md) 수정 — CLAUDE.md 자동갱신 정책의 예외. 문서는 종합 세션이 한 번만 갱신한다
+- kaikki-sense-chunk.mjs 재실행(3.19GB 재스트림 = 디스크 경합. 청크는 이미 생성 완료)
+- 다른 ksense-* dir 의 파일 읽기/쓰기/apply
+- 마이그레이션 — 이 작업은 스키마 변경 0
+
+완료 보고 형식: 세션번호 · 처리 청크수 · 입력 단어수 · enriched 단어수 · yield% · 실패수 · 대표 교정 예 5개.
 ```
 
 ---

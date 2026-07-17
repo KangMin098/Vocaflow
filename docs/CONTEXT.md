@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `230ba09` docs(dict): sense 깊이 멀티 세션 지시문 + 6세션 청크 분할
 - `626b4ac` chore(dict): sense 깊이 slice2 종료 — freq 3k-6k 전 18청크 (773단어)
 - `afe55b3` chore(dict): sense 깊이 slice2 웨이브2 (freq 3k-6k·323단어)
 - `1e677a3` chore(dict): sense 깊이 2차 슬라이스 freq 3k-6k 웨이브1 (kaikki 근거·175단어)
 - `9ec4d5c` feat(vocab): sense 깊이 확대 — kaikki 근거 다의어 완성 1차 슬라이스 (v06.266)
-- `163aaaa` feat(vocab): kaikki(Wiktionary) 확보 + 외부검증 enrich 파이프라인 + IPA PoC (v06.265)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
