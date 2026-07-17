@@ -21,7 +21,7 @@
 - **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
 - **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
 
-**▶ 다음 (RESUME)**: 잔여 백로그 소진 — (1) **게임 module_id enum = 이미 적용 확인**(마이그 `20260711011813`, 이전 "승인 대기"는 stale). (2) **per-sense v_level Phase B ✅ 100% 종결** — 신규 툴 `sense-vlevel-chunk/apply.mjs`로 1차 multi-POS 2,526 + 2차 단일-POS 4,894 = **다의어 10,144개 per-sense v_level 100% 완비**(`any_sense_missing: 0`, updated 누계 7,100·fail 0). **남은 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · nav 감사 P1/P2 잔여 · 어원 세트 prominence(추천 캐러셀 노출). ‖ 아래는 이전(브랜치/PR) 트랙 기록 ‖ 브랜치/PR 정리 트랙 ✅ **완전 종결** — 3 PR 전부 main 반영. **#94 salvage**(`9c7725c`): lbv lemma INSERT 게이트(`86ec3d4` 추출 무결성)·골든 스냅샷 테스트(`0b6db84`)·quality_metrics 마이그(`8f7f49c` — main collect 마이그의 CREATE 공백 메움) 소급. **#93 salvage**(`30a7587`): LCP RPC 침묵실패 관측성(`0679a2d`, main 확장 RPC + `{error}` 검사 결합)만 소급 — pairflip은 main의 실 persistence 회귀 방지 위해 main 채택, 나머지는 데이터/docs라 반영/superseded. 머지는 rebase(force-push 금지) 대신 **main→PR 브랜치 merge**(무 force-push)로 처리. **잔여 = 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · per-sense v_level Phase B · nav 감사 P1/P2 잔여 · 어원 세트 prominence 등 — 상세는 CHANGELOG Unreleased "후속/잔여". (plan-ui는 main 최신화 완료 후 계속 working 브랜치로 사용.)
+**▶ 다음 (RESUME)**: 잔여 백로그 소진 — (1) **게임 module_id enum = 이미 적용 확인**(마이그 `20260711011813`, 이전 "승인 대기"는 stale). (2) **per-sense v_level Phase B ✅ 100% 종결** — 신규 툴 `sense-vlevel-chunk/apply.mjs`로 1차 multi-POS 2,526 + 2차 단일-POS 4,894 = **다의어 10,144개 per-sense v_level 100% 완비**(`any_sense_missing: 0`, updated 누계 7,100·fail 0). (3) **유형별 공용단어장 파이프라인 전수 테스트 ✅** — 9유형 무결성 통과 + 오류 3건 조치(E1 auto-vlevel 재발행·E2 third 사전교정·I4 csat dedup). 리포트=`diagnostics/wordset_pipeline_typewise_test_20260717.md`. **남은 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · nav 감사 P1/P2 잔여 · 어원 세트 prominence(추천 캐러셀 노출) · [wordset 후속] I3 구상어 VRL 보정·I6 학년세트 추천노출·auto-vlevel 재발행 cron. ‖ 아래는 이전(브랜치/PR) 트랙 기록 ‖ 브랜치/PR 정리 트랙 ✅ **완전 종결** — 3 PR 전부 main 반영. **#94 salvage**(`9c7725c`): lbv lemma INSERT 게이트(`86ec3d4` 추출 무결성)·골든 스냅샷 테스트(`0b6db84`)·quality_metrics 마이그(`8f7f49c` — main collect 마이그의 CREATE 공백 메움) 소급. **#93 salvage**(`30a7587`): LCP RPC 침묵실패 관측성(`0679a2d`, main 확장 RPC + `{error}` 검사 결합)만 소급 — pairflip은 main의 실 persistence 회귀 방지 위해 main 채택, 나머지는 데이터/docs라 반영/superseded. 머지는 rebase(force-push 금지) 대신 **main→PR 브랜치 merge**(무 force-push)로 처리. **잔여 = 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · per-sense v_level Phase B · nav 감사 P1/P2 잔여 · 어원 세트 prominence 등 — 상세는 CHANGELOG Unreleased "후속/잔여". (plan-ui는 main 최신화 완료 후 계속 working 브랜치로 사용.)
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
@@ -66,6 +66,19 @@
 ---
 
 ## 세션 기록 (최신 ▲)
+
+### 2026-07-17 — 유형별 공용단어장 파이프라인 전수 테스트 + 오류 3건 조치
+
+> 요청: "유형별 공용단어장 생성 파이프라인을 자동으로 전 유형 테스트·평가·오류/개선 도출" → "진행"(권장 E1→E2→I4 적용).
+
+**무엇을 했나**:
+- **전 유형 자동 테스트(read-only)**: 9유형(학년/auto-vlevel/specialty/topic/etymology/csat/book/article/cast)·1,085세트·44,958단어. 각 유형 생성기 매핑(curation_query provenance) + 4차원 감사. 무결성(count/null/dup/chapter/orphan)=전 유형 통과. 리포트 `docs/AI_CONTEXT/diagnostics/wordset_pipeline_typewise_test_20260717.md`.
+- **오류 도출**: E1 auto-vlevel 드리프트(V5 75% on-level, 추천 노출) · E2 사전 `third` V11 오분류 · I3 초/중 구상어 과대 v_level(~27) · I4 csat multi-POS 이중행(85) · I5 book/article floor 누수 · I6 surfacing 갭.
+- **조치 3건 적용·검증**: **E1** 신규 `republish-auto-vlevel.mjs`(재구성·V1 재현 100% 검증게이트)로 9세트 재발행(+176/−176 → 100% on-level). **E2** third→V1/A1+per-sense. **I4** csat 85행 survivor 병합 dedup(1,487→1,402). 최종 무결성 회귀 0.
+
+**무엇이 남았나**: I3(VRL 분류기 구상어 보정)·I5·I6 = 리뷰/제품 판단(비차단). **재발 방지**: auto-vlevel은 정적 스냅샷 → VRL 재분류마다 재드리프트, `republish-auto-vlevel.mjs` 재실행(멱등) 또는 recommend live-v_level 필터 검토.
+
+**관련 파일**: `scripts/dict/republish-auto-vlevel.mjs`(신규) · diagnostics 리포트(신규) · CHANGELOG v06.257. DB=auto-vlevel 9세트 재발행·third 1행·csat 85행 dedup. **교훈**: 파이프라인 테스트가 상류 사전 데이터 결함(third V11)까지 노출. 재발행 전 검증게이트(V1 재현 100%)로 재구성 충실성 확인.
 
 ### 2026-07-17 — 잔여 백로그 소진: 게임 enum 확인 + per-sense v_level Phase B 100% 종결
 

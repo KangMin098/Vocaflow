@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 유형별 공용단어장 파이프라인 전수 테스트 + 오류 3건 조치 (v06.257)
+- **전 유형 자동 테스트**(read-only, 9유형·1,085세트·44,958단어): 무결성(count/null/dup/chapter/orphan) **전 유형 통과** + 레벨정합·드리프트·surfacing 4차원 감사. 리포트 = `docs/AI_CONTEXT/diagnostics/wordset_pipeline_typewise_test_20260717.md`.
+- **E1 조치 — auto-vlevel 드리프트 해소**: V5-V7 세트가 2026-05 생성 후 VRL 재분류 미반영(V5 75% on-level)이던 것을 신규 `scripts/dict/republish-auto-vlevel.mjs`(원 curation_query 충실 재구성·검증게이트 V1 재현 100%)로 9세트 재발행 → **+176 −176, 전 세트 100% on-level**. 추천 RPC(primary/stretch/review)에 직접 노출되던 stale 제거.
+- **E2 조치 — 사전 오분류 `third`**: 최기초 서수가 v_level 11·C2·freq NULL(형제 서수는 전부 V1) → **V1/A1** + per-sense [1,2,2] 교정. (shared_dictionary v_level UPDATE 차단 트리거 부재 확인.)
+- **I4 조치 — csat multi-POS 이중 행**: kice 세트의 같은 표제어 품사별 2행(85행, 중복 플래시카드/SRS 충돌 소지)을 survivor 병합(뜻·품사 `n·v` 결합)으로 dedup → csat 1,487→1,402단어, 중복 0.
+- **미조치(의도)**: I3 구상어 과대 v_level(~27, VRL 분류기 차원) · I5 book/article floor 누수(소수) · I6 surfacing 갭(교육과정/article 추천 미노출, 제품 판단). 상세는 리포트 §5.
+
 ### per-sense v_level 정밀도 — Phase B 100% 종결 (v06.256)
 - **2차 tier(단일-POS 다의어) 완료**: 우선순위(multi-POS) 소진 후 남은 **단일-POS 다의어 4,894단어**를 `sense-vlevel-chunk.mjs --all-pos`(25청크·200개씩·2웨이브)로 authoring → `updated 4,894 · failed 0`. 같은 POS 내 sense 차이(예 `will` noun 의지1/유언장5 · `practice` noun 연습2/관행4 · `centre` 중심1/센터2)를 반영.
 - **최종 상태**: 추출 대상 다의어(register 제외) **10,144개 = per-sense v_level 100% 완비**(`any_sense_missing: 0`, 이전 2,724→10,144). 추출 시 sense별 정확한 난이도로 threshold 필터·V 배지 산출 — flat 폴백 근사 제거 완료. **Phase B 백로그 종결**(추출 신뢰 로드맵 3단계 정밀도 잔여 해소).
