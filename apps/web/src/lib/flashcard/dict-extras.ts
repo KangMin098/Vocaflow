@@ -20,6 +20,7 @@ export interface DictExtras {
   collocations?: string[]
   senses?: WordSense[]
   roots?: RootPart[]
+  mnemonic?: string // 어근 기반 니모닉(mnemonic_ko)
 }
 
 const AFFIX_ORDER: Record<string, number> = { prefix: 0, root: 1, suffix: 2 }
@@ -33,10 +34,10 @@ export async function fetchDictExtras(
   const words = [...new Set(rawWords.map((w) => (w ?? '').toLowerCase()).filter(Boolean))]
   if (words.length === 0) return map
 
-  // ① collocations + 다의어 senses (shared_dictionary)
+  // ① collocations + 다의어 senses + 니모닉 (shared_dictionary)
   const { data: dict, error: dictErr } = await client
     .from('shared_dictionary')
-    .select('word, collocations, meanings_ko')
+    .select('word, collocations, meanings_ko, mnemonic_ko')
     .in('word', words)
   if (dictErr) {
     console.warn('[flashcard/dict-extras] dict fetch failed:', dictErr.message)
@@ -45,9 +46,11 @@ export async function fetchDictExtras(
       word: string
       collocations: string[] | null
       meanings_ko: unknown
+      mnemonic_ko: string | null
     }>) {
       const e: DictExtras = map.get(d.word) ?? {}
       if (d.collocations && d.collocations.length > 0) e.collocations = d.collocations
+      if (d.mnemonic_ko && d.mnemonic_ko.trim()) e.mnemonic = d.mnemonic_ko.trim()
       if (Array.isArray(d.meanings_ko) && d.meanings_ko.length >= 2) {
         const senses = (d.meanings_ko as Array<{ pos?: string; meaning?: string }>)
           .filter((s) => s && typeof s.meaning === 'string' && s.meaning.trim())

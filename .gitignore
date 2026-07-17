@@ -76,4 +76,5 @@ scripts/lcp/data/mine-baseline-words.json
 scripts/dict/sense-chunks/
 scripts/dict/sc-*/
 scripts/dict/svl-*/
+scripts/dict/mnem-*/
 scripts/dict/data/

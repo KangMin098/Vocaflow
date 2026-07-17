@@ -133,6 +133,17 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           ))}
         </div>
       )}
+
+      {/* 어근 기반 니모닉 — "어떻게 기억할까"의 다리. 데이터 있을 때만(Progressive Disclosure).
+          Empathetic Feedback: 압박 없는 기억 힌트. Lora italic 사람 말투 톤. */}
+      {word.mnemonic && (
+        <p className="mt-2.5 flex items-start gap-1.5 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
+          <span className="not-italic" aria-hidden="true">
+            💡
+          </span>
+          <span>{word.mnemonic}</span>
+        </p>
+      )}
     </>
   )
 }

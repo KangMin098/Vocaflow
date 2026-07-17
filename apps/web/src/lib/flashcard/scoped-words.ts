@@ -53,6 +53,7 @@ export async function fetchScopedFlashcardWords(
       collocations: ex?.collocations,
       senses: ex?.senses,
       roots: ex?.roots,
+      mnemonic: ex?.mnemonic,
       textId: w.id,
       textTitle: res.title,
       textChapter: res.chapterLabel,

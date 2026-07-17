@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 어근 기반 니모닉 생성 + 학습 카드 노출 (M2, v06.260)
+- **배경**: 시중 벤치마크 danger zone — `mnemonic_ko` 0%. 시중 어원편·경선식(발음 말장난)이 차별화하나 플랫폼 전무. 어원 root 축(v06.253) 배선으로 **어근 근거 니모닉**을 환각 없이 생성 가능(희귀어 어원 환각과 다름).
+- **생성**: 어원 root 링크 보유 2,472단어 → 서브에이전트 16 병렬 authoring(어근 gloss 근거로 "어근 literal → 단어 뜻" 다리). **품질 게이트**: 어근이 뜻을 투명 설명 못하거나(불투명·의미변화) 어근 오데이터(gloss 불일치)면 skip → **2,358 생성(95.4% yield)**, 0 reject. 도구 `scripts/dict/mnemonic-{chunk,apply}.mjs`.
+- **품질**: `inspect` in(안을)+spec(보다)→안을 들여다보다→점검 · `contradict` contra(반대)+dict(말하다)→반박 · `adjective` ad+ject(던지다)→명사 옆에 던져 붙인 말→형용사. 서브에이전트가 어근 오귀속(`absent`의 sent=느끼다 오데이터 등)까지 검출·skip.
+- **카드 노출**(CardBack): 정답면에 `💡 {니모닉}`(Lora italic, Progressive Disclosure). dict-extras/FlashcardWord에 `mnemonic` 배선. **853단어는 니모닉+어원+다의어 동시 노출**(triple-rich) — 시중 단일-행·경선식이 못 주는 학습 카드. tsc 0.
+- **잔여**: 어근 없는 단어 니모닉(소스 없어 보류) · RecallCard 배선.
+
 ### 학습 카드 리치화 — 다의어 품사별 뜻 + 어원 힌트 (M1·F1, v06.259)
 - **배경**: 시중 벤치마크 danger zone — 플래시카드 정답면(CardBack)이 **flat meaning 1개만** 표시, 플랫폼이 이미 보유한 **다의어 per-sense meanings_ko(다의어 100%)·어원 root(2,767 링크)·콜로케이션**을 미노출. 시중 프리미엄 단어장(다의·뉘앙스·어원)보다 카드가 얕음.
 - **공유 헬퍼**(`lib/flashcard/dict-extras.ts`): 단어 배치 → `{collocations, senses(다의어 ≥2), roots(어원 분해)}` map. shared_dictionary(collocations·meanings_ko) + word_root_links⋈word_roots(prefix→root→suffix) 배치 조회. scoped-words·hub-words 공용(단일 출처). 실패해도 카드 렌더 무영향.

@@ -51,6 +51,7 @@ export async function fetchDueFlashcardWords(
       collocations: ex?.collocations,
       senses: ex?.senses,
       roots: ex?.roots,
+      mnemonic: ex?.mnemonic,
       textId: r.text_id ?? r.id,
       textTitle: '내 단어장',
       textChapter: '',
