@@ -14,15 +14,14 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: CTP(CSAT Track Pipeline · 5번째 파이프라인) — 남은 건 **Today UI**(META 게이트)
-**브랜치**: `feat/plan-ui`
-**상태**: ✅ **CTP 백엔드 런타임 완결** + 소스 5종 신설 + 대량 GET 배선. (이전 VCB 재설계 트랙은 ✅ 종결 — 상세는 아래 2026-07-08 기록.)
+**작업**: `feat/plan-ui`(15일·319커밋·8+트랙) → **main 통합** — main 2026-07-02 정지 해소.
+**브랜치**: `feat/plan-ui` (origin/main +319 · **0 behind** = strict superset → 무충돌 머지 가능)
+**상태**: ✅ **CI green 복구 완료**(fix `6beb148`) — 15일간 red였던 CI 3잡(TypeScript·build·verify) 봉인. 통합 PR = **#95**(base=main).
 
-- **CTP 런타임 루프(닫힘·실데이터 검증)**: 생성 `dev-generate-items` → 처방 `prescribe_today`(5블록·answer_key 제외) → 채점 `grade_dcp_item`(서버 answer_key) → 기록 `csat_item_attempts` → 파생 `derive_learner_stage`(기록 되먹임). 데이터모델 6객체(csat_stage_catalog 뷰·csat_stage_gates·csat_dcp_items·reading_fluency_log·csat_item_attempts·syntax_score). P0 정찰 정정 4건.
-- **소스 5종**: OWID(argumentative)·Factbook(reference)·eLife(과학 expository) 신설 + Pressbooks(S4 도서·OBP=PDF-only 대체) + VOA register 피드전환(narrative 0→13). 5 register 전부 publishable. dependency-0 + end-to-end 발행 실증.
-- **대량 GET**: ACP(owid/factbook/elife feed 라우트 + BulkArticlesTab 9소스) · LCP(pressbooks seed-fetcher + BulkFetchTab).
+- **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
+- **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
 
-**▶ 다음 (RESUME)**: **⑥ Today UI** — 학습자 홈에서 `prescribe_today` 5블록 렌더 + DCP 인터랙션(order 드래그·insert 위치선택)→`grade_dcp_item`→오답 시 error_cause 1-tap 기록. error_cause 라우팅은 정적 매핑(vocab→FSRS·parsing→정독·structure→재구성·inference→근거·timing→S5). **META(학습자 홈 재설계) 확정 선행** — 이 트랙 밖. 진단 [ctp_p0_20260709.md](AI_CONTEXT/diagnostics/ctp_p0_20260709.md) · 매트릭스 [CSAT_SOURCE_MATRIX.md](CSAT_SOURCE_MATRIX.md) · CHANGELOG v06.163~187.
+**▶ 다음 (RESUME)**: ① **PR #95 CI green 확인 → main 머지** (⚠️ 사용자 확정 게이트 — main 직접 push/자동 머지 금지). ② 머지 후 **#93(scriptquiz-chapter-quiz)·#94(quality-eval) 닫기** — 두 PR의 작업이 plan-ui에 **독립 재구현되어 superseded**(/admin/quality·ChapterQuiz 파일 실재 확인, 단 커밋은 미포함=독립분기). ③ 잔여 기능 백로그(전부 비차단)는 CHANGELOG Unreleased "후속/잔여" 및 P1~P3 참조(LCP 18권 미발행·collocations 소비 UI·per-sense v_level Phase B 등).
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
@@ -67,6 +66,20 @@
 ---
 
 ## 세션 기록 (최신 ▲)
+
+### 2026-07-17 — feat/plan-ui → main 통합 준비: 15일 red CI green 복구
+
+> 요청: "전체 세션·잔여 작업 우선순위 분석" → 권장안(브랜치/PR 정리 → CTP Today UI) 순차 진행(#3 LCP 발행 제외).
+
+**무엇을 했나**:
+- **전체 상태 진단(read-only)**: main이 2026-07-02(`aa981f0`) 정지, 이후 **319커밋/15일/8+트랙**(game·plan·lcp·acp·vocab·ctp·vcb·dict)이 전부 `feat/plan-ui`에 미머지. 열린 PR 3개(#95 plan-ui·#94 quality·#93 scriptquiz) 전부 stale. → **#1 리스크 = 브랜치 통합**으로 확정.
+- **#2(CTP Today UI) = 이미 완결 판정**: `hub-today-meta.md` + 실코드(`TodayPrescriptionCard`·`/practice/dcp`·hub 3분기) 검증 → v06.203/204에 완료됨. RESUME HERE만 stale이었음(교정). 2026-07-05 nav 감사 P0 4건도 후속 세션에 이미 수정 확인.
+- **PR #95 CI red 진단·수리(`6beb148`)**: mergeable이나 UNSTABLE(TS·build·verify red, 최신 커밋 기준). ① build=next lint 미사용 심볼 13건(GameMark×7 등) ② TS=`next-action.mock.ts` TS2366(actionToHref 비exhaustive) ③ verify=`TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·web/library-pipeline tsc 0·테스트 144 passed.
+- **#93/#94 처분 판정**: 둘 다 독립 분기(plan-ui 커밋 미포함)지만 기능은 plan-ui에 재구현 존재(/admin/quality·ChapterQuiz 파일 실재) → **superseded**, 머지 후 닫기 권장.
+
+**무엇이 남았나**: PR #95 CI green 재확인 → **main 머지(사용자 확정 게이트)** → #93/#94 닫기. 기능 백로그(LCP 18권·collocations 소비 UI·per-sense v_level Phase B 등)는 전부 비차단.
+
+**관련 커밋**: `6beb148`(CI green). CHANGELOG v06.254.
 
 ### 2026-07-11 — 아케이드 스위트: 세계적 게임 메커닉 기반 단어 게임 6종 구현
 
