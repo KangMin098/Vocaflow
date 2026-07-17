@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `48be4aa` docs(session-log): #93/#94 처분 정정(닫지 말 것) + 머지 완료 반영
-- `1878c42` docs(session-log): feat/plan-ui→main 통합 준비 기록 + RESUME HERE 교정
-- `6beb148` fix(ci): main 머지 게이트 red CI 3잡 green 복구 (v06.254)
-- `db332ba` feat(vocab): 주제별 단어장 전 18주제 완성 — 7,219단어 (v06.254)
-- `f188f20` feat(vocab): 주제별 단어장 PoC — dictionary_categories 6주제 발행 (v06.254)
+- `64664ab` Merge remote-tracking branch 'origin/main' into feat/plan-ui
+- `30a7587` Merge pull request #93 from KangMin098/feat/scriptquiz-chapter-quiz
+- `fa7ea64` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
+- `9c7725c` Merge pull request #94 from KangMin098/feat/quality-eval
+- `7882858` Merge remote-tracking branch 'origin/main' into feat/quality-eval
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260717160000_recommend_word_sets_redesign_tiers.sql`
 - `20260717150000_wordset_category_etymology.sql`
 - `20260717140000_word_roots.sql`
 - `20260713180500_extract_exclude_known.sql`
 - `20260713180000_word_familiarity.sql`
-- `20260713172500_book_article_use_helper.sql`
 <!-- /auto:recent-migrations -->
 
 ---

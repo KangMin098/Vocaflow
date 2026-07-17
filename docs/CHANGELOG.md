@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추천 RPC에 재설계 세트(어원·주제) 소급 (v06.254)
+- **배경**: 단어장 파이프라인 재설계 자동 검증(사전 DB·정확성·사용성) 결과 — 마스터 사전 45,667행 meaning/pos/cefr/v_level **100%**, 세트 무결성(orphan 0·empty 0·null_meaning 0), 어원 5/5 챕터 정확, 학년 v_level 단조(초1.9<중3.7<고5.9), e2e 09 통과. **발견 #1**: `recommend_word_sets_for_user`가 legacy `auto-vlevel-*`/`library_book`만 surface하고 재설계 세트(어원·주제)는 **브라우즈 전용**이던 커버리지 갭.
+- **수리**(migration `20260717160000_recommend_word_sets_redesign_tiers`): 기존 티어(primary/stretch/review/specialty/track/book/fallback) **전부 무변경** + additive 2티어 — **Tier 7 어원**(`etymology-core`, 진단 V5+) · **Tier 8 관심 주제**(`topic-{interest}` opt-in, specialty 동일 패턴). 순수 UNION ALL(시그니처·컬럼 불변, 매칭 없으면 0행).
+- **검증**: V11 유저 재호출 → 어원 티어(priority 7) 노출 ✅. 관심사 `[travel,health,business]` → topic-travel·topic-health + specialty-business 동시 노출 ✅.
+- **프론트**: `RecommendedSetsSection.TYPE_BADGE` + `VocabSetGrid.TIER_BADGE`에 어원(어원)·주제(주제) 배지 추가(미지 타입 '추천' fallback 대체). tsc 0.
+- **잔여(검증 발견, 후속)**: #2 빈 UI 탭(preschool/civil/business 세트 0) · #3 legacy null_lemma ~2,502(auto-vlevel/specialty) · #4 library_book null_pos 99% · #5 주제 챕터 coarse(~125단어/챕터).
+
 ### LCP RPC 침묵실패 관측성 소급 (PR #93 salvage) — dev-process/process 라우트 (v06.254)
 - **배경**: `feat/scriptquiz-chapter-quiz`(PR #93)를 새 main에 merge. 대형 기능(챕터 퀴즈)은 plan-ui 재구현으로 main에 있고, scriptquiz 드레인·VCB QA·dict enrichment는 데이터/docs라 반영/superseded → **유일한 고유 코드 = LCP RPC 관측성 수리**만 소급.
 - **관측성 수리**(`0679a2d`): `/api/lcp/{dev-process,process}`의 `compute_book_*` RPC 호출이 `try/catch`였으나 supabase-js rpc는 **무-throw({error} 반환)** → catch가 죽은 코드(침묵실패). **per-call `{error}` 검사 for-loop로 교정** — main의 확장 RPC(chapter_v_levels·syntax·difficulty)는 유지하고 관측성만 결합. (같은 무-throw 버그의 DB측 짝 = #94 lbv lemma 게이트.)
