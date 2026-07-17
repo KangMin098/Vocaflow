@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습 카드 리치화 — 다의어 품사별 뜻 + 어원 힌트 (M1·F1, v06.259)
+- **배경**: 시중 벤치마크 danger zone — 플래시카드 정답면(CardBack)이 **flat meaning 1개만** 표시, 플랫폼이 이미 보유한 **다의어 per-sense meanings_ko(다의어 100%)·어원 root(2,767 링크)·콜로케이션**을 미노출. 시중 프리미엄 단어장(다의·뉘앙스·어원)보다 카드가 얕음.
+- **공유 헬퍼**(`lib/flashcard/dict-extras.ts`): 단어 배치 → `{collocations, senses(다의어 ≥2), roots(어원 분해)}` map. shared_dictionary(collocations·meanings_ko) + word_root_links⋈word_roots(prefix→root→suffix) 배치 조회. scoped-words·hub-words 공용(단일 출처). 실패해도 카드 렌더 무영향.
+- **카드 렌더**(`CardBack.tsx`): (M1) **품사별 뜻** 블록 — 다의어(≥2 sense)일 때 각 sense를 `명/동/형/부` 라벨+뜻으로. (F1) **어원 힌트** — root 분해 chip(`in-(안으로) + port(나르다)`). 둘 다 Progressive Disclosure(데이터 있을 때만·Calm UI 절제).
+- **커버리지**: 학습 세트 단어 9,538개 중 **다의어 39%(3,734)·어원 20%(1,867), 51%가 최소 1개 보강 노출** → 시중 단일-행 항목이 못 주는 정보를 학습 시점에 제공. tsc 0.
+- **잔여**: 니모닉(M2, mnemonic_ko 0%) · RecallCard(워크스페이스) 동일 배선 · bare gloss 재작성(M1 후속).
+
 ### P1 생성기 품질 게이트 — auto-vlevel 저레벨 오염 근절 (v06.258)
 - **배경**: 시중 단어장 벤치마크(`docs/AI_CONTEXT/diagnostics/commercial_benchmark_vcb_20260717.md`)에서 **초등 세그먼트 열위** 판정 — auto-vlevel V1이 굴절형 35%(are/been/was/were/had), V2-3이 파생 -ing/-ed 30%(saying/backing/takings)로 **학습자 제공 부적합**. 우위 확보 로드맵 최우선(P1).
 - **품질 게이트**(`republish-auto-vlevel.mjs` v06.258): 생성기에 (R1) **굴절형 제외** — 단어가 다른 표제어의 `inflected_forms`에 등장하면 배제 · (R2) **파생 -ing/-ed 제외** — base 표제어가 사전에 실재하면 배제(표준 역굴절 stem + `-ings` 복수 포함). 표제어(lemma) 우선. `--no-quality`로 원 동작 재현.
