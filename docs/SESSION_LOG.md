@@ -16,12 +16,12 @@
 
 **작업**: `feat/plan-ui`(15일·321커밋·8+트랙) → **main 통합** ✅ **머지 완료**(`96cfee0` Merge #95, 2026-07-17) — main 2026-07-02 정지 해소.
 **브랜치**: `feat/plan-ui` (머지 후에도 working 브랜치로 계속 사용)
-**상태**: ✅ CI green 복구(`6beb148`) → **PR #95 머지 완료**. 15일간 red였던 CI 3잡(TypeScript·build·verify) 봉인 후 머지.
+**상태**: ✅ **3 PR 전부 main 머지 완료** — #95(plan-ui 321커밋)·#94(quality salvage)·#93(scriptquiz salvage). main = `30a7587`, **열린 PR 0개**. 15일 정지 완전 해소.
 
 - **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
 - **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
 
-**▶ 다음 (RESUME)**: ① **#93·#94 = 닫지 말 것**(앞서 "superseded" 판정은 오류). 대형 기능(quality 대시보드·scriptquiz 챕터퀴즈)은 plan-ui 재구현으로 main에 있으나, **각 PR에 main에 없는 고유 미머지분** 존재 — **#94**: 골든 스냅샷 테스트(Q1 `0b6db84`)·quality_metrics nightly 마이그(`8f7f49c`)·**lbv lemma INSERT 게이트 트리거**(`86ec3d4`, 추출 무결성 수리). **#93**: LCP RPC 침묵실패 관측성(`0679a2d`)·pairflip stale mock 제거(`74f1130`)·VCB QA 해소(`6ac6b12`)·dict no-rank enrichment(`86a7328`) + scriptquiz 드레인 docs. → **새 main에 rebase → 충돌 해소 → 고유 커밋만 재검증 후 merge**(후속). ② 잔여 기능 백로그(전부 비차단)는 CHANGELOG Unreleased "후속/잔여" 및 P1~P3 참조(LCP 18권 미발행·collocations 소비 UI·per-sense v_level Phase B 등).
+**▶ 다음 (RESUME)**: 브랜치/PR 정리 트랙 ✅ **완전 종결** — 3 PR 전부 main 반영. **#94 salvage**(`9c7725c`): lbv lemma INSERT 게이트(`86ec3d4` 추출 무결성)·골든 스냅샷 테스트(`0b6db84`)·quality_metrics 마이그(`8f7f49c` — main collect 마이그의 CREATE 공백 메움) 소급. **#93 salvage**(`30a7587`): LCP RPC 침묵실패 관측성(`0679a2d`, main 확장 RPC + `{error}` 검사 결합)만 소급 — pairflip은 main의 실 persistence 회귀 방지 위해 main 채택, 나머지는 데이터/docs라 반영/superseded. 머지는 rebase(force-push 금지) 대신 **main→PR 브랜치 merge**(무 force-push)로 처리. **잔여 = 기능 백로그(전부 비차단)**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · per-sense v_level Phase B · nav 감사 P1/P2 잔여 · 어원 세트 prominence 등 — 상세는 CHANGELOG Unreleased "후속/잔여". (plan-ui는 main 최신화 완료 후 계속 working 브랜치로 사용.)
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 

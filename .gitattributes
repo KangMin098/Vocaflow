@@ -1,0 +1,4 @@
+# 골든셋 fixture 는 원문 바이트 그대로 보존 (줄끝 정규화 금지)
+# — Gutenberg 원문은 CRLF 로 서빙되며, 분절 스냅샷은 그 바이트에 고정된다.
+packages/library-pipeline/test/fixtures/** -text
+apps/web/src/test/fixtures/** -text

@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`computeLexicalNoise — 골든셋 스냅샷 (소수 3자리) > fixture 6건 noise 값 1`] = `
+{
+  "articles/nasa-cindy-evans-artemis": 0.001,
+  "articles/voa-amplifiers-downtoners": 0,
+  "articles/wikinews-armstrong": 0,
+  "books/alice-wonderland-gutenberg": 0,
+  "books/sherlock-holmes-gutenberg": 0,
+  "synthetic/latex-heavy": 0.32,
+}
+`;

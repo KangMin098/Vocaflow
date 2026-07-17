@@ -1,0 +1,3870 @@
+{
+  "_meta": {
+    "book": "Les Misérables (standard_ebooks victor-hugo/les-miserables)",
+    "license": "U.S. Public Domain / LibriVox recordings PD",
+    "source": "library_chapters_master + librivox.org API ids=2614,894,3608,3158,3762",
+    "fetched_at": "2026-07-04T01:55:15.647Z",
+    "align": "volume"
+  },
+  "text_chapters": [
+    {
+      "chapter_idx": 1,
+      "group_label": "Fantine › A Just Man",
+      "title": "M. Myriel"
+    },
+    {
+      "chapter_idx": 2,
+      "group_label": "Fantine › A Just Man",
+      "title": "M. Myriel Becomes M. Welcome"
+    },
+    {
+      "chapter_idx": 3,
+      "group_label": "Fantine › A Just Man",
+      "title": "A Hard Bishopric for a Good Bishop"
+    },
+    {
+      "chapter_idx": 4,
+      "group_label": "Fantine › A Just Man",
+      "title": "Works Corresponding to Words"
+    },
+    {
+      "chapter_idx": 5,
+      "group_label": "Fantine › A Just Man",
+      "title": "Monseigneur Bienvenu Made His Cassocks Last Too Long"
+    },
+    {
+      "chapter_idx": 6,
+      "group_label": "Fantine › A Just Man",
+      "title": "Who Guarded His House for Him"
+    },
+    {
+      "chapter_idx": 7,
+      "group_label": "Fantine › A Just Man",
+      "title": "Cravatte"
+    },
+    {
+      "chapter_idx": 8,
+      "group_label": "Fantine › A Just Man",
+      "title": "Philosophy After Drinking"
+    },
+    {
+      "chapter_idx": 9,
+      "group_label": "Fantine › A Just Man",
+      "title": "The Brother as Depicted by the Sister"
+    },
+    {
+      "chapter_idx": 10,
+      "group_label": "Fantine › A Just Man",
+      "title": "The Bishop in the Presence of an Unknown Light"
+    },
+    {
+      "chapter_idx": 11,
+      "group_label": "Fantine › A Just Man",
+      "title": "A Restriction"
+    },
+    {
+      "chapter_idx": 12,
+      "group_label": "Fantine › A Just Man",
+      "title": "The Solitude of Monseigneur Welcome"
+    },
+    {
+      "chapter_idx": 13,
+      "group_label": "Fantine › A Just Man",
+      "title": "What He Believed"
+    },
+    {
+      "chapter_idx": 14,
+      "group_label": "Fantine › A Just Man",
+      "title": "What He Thought"
+    },
+    {
+      "chapter_idx": 15,
+      "group_label": "Fantine › The Fall",
+      "title": "The Evening of a Day of Walking"
+    },
+    {
+      "chapter_idx": 16,
+      "group_label": "Fantine › The Fall",
+      "title": "Prudence Counselled to Wisdom"
+    },
+    {
+      "chapter_idx": 17,
+      "group_label": "Fantine › The Fall",
+      "title": "The Heroism of Passive Obedience"
+    },
+    {
+      "chapter_idx": 18,
+      "group_label": "Fantine › The Fall",
+      "title": "Details Concerning the Cheese-Dairies of Pontarlier"
+    },
+    {
+      "chapter_idx": 19,
+      "group_label": "Fantine › The Fall",
+      "title": "Tranquillity"
+    },
+    {
+      "chapter_idx": 20,
+      "group_label": "Fantine › The Fall",
+      "title": "Jean Valjean"
+    },
+    {
+      "chapter_idx": 21,
+      "group_label": "Fantine › The Fall",
+      "title": "The Interior of Despair"
+    },
+    {
+      "chapter_idx": 22,
+      "group_label": "Fantine › The Fall",
+      "title": "Billows and Shadows"
+    },
+    {
+      "chapter_idx": 23,
+      "group_label": "Fantine › The Fall",
+      "title": "New Troubles"
+    },
+    {
+      "chapter_idx": 24,
+      "group_label": "Fantine › The Fall",
+      "title": "The Man Aroused"
+    },
+    {
+      "chapter_idx": 25,
+      "group_label": "Fantine › The Fall",
+      "title": "What He Does"
+    },
+    {
+      "chapter_idx": 26,
+      "group_label": "Fantine › The Fall",
+      "title": "The Bishop Works"
+    },
+    {
+      "chapter_idx": 27,
+      "group_label": "Fantine › The Fall",
+      "title": "Little Gervais"
+    },
+    {
+      "chapter_idx": 28,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "The Year 1817"
+    },
+    {
+      "chapter_idx": 29,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "A Double Quartet"
+    },
+    {
+      "chapter_idx": 30,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "Four and Four"
+    },
+    {
+      "chapter_idx": 31,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "Tholomyès Is So Merry That He Sings a Spanish Ditty"
+    },
+    {
+      "chapter_idx": 32,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "At Bombarda's"
+    },
+    {
+      "chapter_idx": 33,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "A Chapter in Which They Adore Each Other"
+    },
+    {
+      "chapter_idx": 34,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "The Wisdom of Tholomyès"
+    },
+    {
+      "chapter_idx": 35,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "The Death of a Horse"
+    },
+    {
+      "chapter_idx": 36,
+      "group_label": "Fantine › In the Year 1817",
+      "title": "A Merry End to Mirth"
+    },
+    {
+      "chapter_idx": 37,
+      "group_label": "Fantine › To Confide Is Sometimes to Deliver Into a Person's Power",
+      "title": "One Mother Meets Another Mother"
+    },
+    {
+      "chapter_idx": 38,
+      "group_label": "Fantine › To Confide Is Sometimes to Deliver Into a Person's Power",
+      "title": "First Sketch of Two Unprepossessing Figures"
+    },
+    {
+      "chapter_idx": 39,
+      "group_label": "Fantine › To Confide Is Sometimes to Deliver Into a Person's Power",
+      "title": "The Lark"
+    },
+    {
+      "chapter_idx": 40,
+      "group_label": "Fantine › The Descent",
+      "title": "The History of a Progress in Black Glass Trinkets"
+    },
+    {
+      "chapter_idx": 41,
+      "group_label": "Fantine › The Descent",
+      "title": "Madeleine"
+    },
+    {
+      "chapter_idx": 42,
+      "group_label": "Fantine › The Descent",
+      "title": "Sums Deposited with Laffitte"
+    },
+    {
+      "chapter_idx": 43,
+      "group_label": "Fantine › The Descent",
+      "title": "M. Madeleine in Mourning"
+    },
+    {
+      "chapter_idx": 44,
+      "group_label": "Fantine › The Descent",
+      "title": "Vague Flashes on the Horizon"
+    },
+    {
+      "chapter_idx": 45,
+      "group_label": "Fantine › The Descent",
+      "title": "Father Fauchelevent"
+    },
+    {
+      "chapter_idx": 46,
+      "group_label": "Fantine › The Descent",
+      "title": "Fauchelevent Becomes a Gardener in Paris"
+    },
+    {
+      "chapter_idx": 47,
+      "group_label": "Fantine › The Descent",
+      "title": "Madame Victurnien Expends Thirty Francs on Morality"
+    },
+    {
+      "chapter_idx": 48,
+      "group_label": "Fantine › The Descent",
+      "title": "Madame Victurnien's Success"
+    },
+    {
+      "chapter_idx": 49,
+      "group_label": "Fantine › The Descent",
+      "title": "Result of the Success"
+    },
+    {
+      "chapter_idx": 50,
+      "group_label": "Fantine › The Descent",
+      "title": "Christus Nos Liberavit"
+    },
+    {
+      "chapter_idx": 51,
+      "group_label": "Fantine › The Descent",
+      "title": "M. Bamatabois's Inactivity"
+    },
+    {
+      "chapter_idx": 52,
+      "group_label": "Fantine › The Descent",
+      "title": "The Solution of Some Questions Connected with the Municipal Police"
+    },
+    {
+      "chapter_idx": 53,
+      "group_label": "Fantine › Javert",
+      "title": "The Beginning of Repose"
+    },
+    {
+      "chapter_idx": 54,
+      "group_label": "Fantine › Javert",
+      "title": "How Jean May Become Champ"
+    },
+    {
+      "chapter_idx": 55,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "Sister Simplice"
+    },
+    {
+      "chapter_idx": 56,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "The Perspicacity of Master Scaufflaire"
+    },
+    {
+      "chapter_idx": 57,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "A Tempest in a Skull"
+    },
+    {
+      "chapter_idx": 58,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "Forms Assumed by Suffering During Sleep"
+    },
+    {
+      "chapter_idx": 59,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "Hindrances"
+    },
+    {
+      "chapter_idx": 60,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "Sister Simplice Put to the Proof"
+    },
+    {
+      "chapter_idx": 61,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "The Traveller on His Arrival Takes Precautions for Departure"
+    },
+    {
+      "chapter_idx": 62,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "An Entrance by Favor"
+    },
+    {
+      "chapter_idx": 63,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "A Place Where Convictions Are in Process of Formation"
+    },
+    {
+      "chapter_idx": 64,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "The System of Denials"
+    },
+    {
+      "chapter_idx": 65,
+      "group_label": "Fantine › The Champmathieu Affair",
+      "title": "Champmathieu More and More Astonished"
+    },
+    {
+      "chapter_idx": 66,
+      "group_label": "Fantine › A Counterblow",
+      "title": "In What Mirror M. Madeleine Contemplates His Hair"
+    },
+    {
+      "chapter_idx": 67,
+      "group_label": "Fantine › A Counterblow",
+      "title": "Fantine Happy"
+    },
+    {
+      "chapter_idx": 68,
+      "group_label": "Fantine › A Counterblow",
+      "title": "Javert Satisfied"
+    },
+    {
+      "chapter_idx": 69,
+      "group_label": "Fantine › A Counterblow",
+      "title": "Authority Reasserts Its Rights"
+    },
+    {
+      "chapter_idx": 70,
+      "group_label": "Fantine › A Counterblow",
+      "title": "A Suitable Tomb"
+    },
+    {
+      "chapter_idx": 71,
+      "group_label": "Cosette › Waterloo",
+      "title": "What Is Met with on the Way from Nivelles"
+    },
+    {
+      "chapter_idx": 72,
+      "group_label": "Cosette › Waterloo",
+      "title": "Hougomont"
+    },
+    {
+      "chapter_idx": 73,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Eighteenth of June, 1815"
+    },
+    {
+      "chapter_idx": 74,
+      "group_label": "Cosette › Waterloo",
+      "title": "A"
+    },
+    {
+      "chapter_idx": 75,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Quid Obscurum of Battles"
+    },
+    {
+      "chapter_idx": 76,
+      "group_label": "Cosette › Waterloo",
+      "title": "Four O'Clock in the Afternoon"
+    },
+    {
+      "chapter_idx": 77,
+      "group_label": "Cosette › Waterloo",
+      "title": "Napoleon in a Good Humor"
+    },
+    {
+      "chapter_idx": 78,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Emperor Puts a Question to the Guide Lacoste"
+    },
+    {
+      "chapter_idx": 79,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Unexpected"
+    },
+    {
+      "chapter_idx": 80,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Plateau of Mont-Saint-Jean"
+    },
+    {
+      "chapter_idx": 81,
+      "group_label": "Cosette › Waterloo",
+      "title": "A Bad Guide to Napoleon; A Good Guide to Bülow"
+    },
+    {
+      "chapter_idx": 82,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Guard"
+    },
+    {
+      "chapter_idx": 83,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Catastrophe"
+    },
+    {
+      "chapter_idx": 84,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Last Square"
+    },
+    {
+      "chapter_idx": 85,
+      "group_label": "Cosette › Waterloo",
+      "title": "Cambronne"
+    },
+    {
+      "chapter_idx": 86,
+      "group_label": "Cosette › Waterloo",
+      "title": "Quot Libras in Duce?"
+    },
+    {
+      "chapter_idx": 87,
+      "group_label": "Cosette › Waterloo",
+      "title": "Is Waterloo to Be Considered Good?"
+    },
+    {
+      "chapter_idx": 88,
+      "group_label": "Cosette › Waterloo",
+      "title": "A Recrudescence of Divine Right"
+    },
+    {
+      "chapter_idx": 89,
+      "group_label": "Cosette › Waterloo",
+      "title": "The Battlefield at Night"
+    },
+    {
+      "chapter_idx": 90,
+      "group_label": "Cosette › The Ship Orion",
+      "title": "Number 24,601 Becomes Number 9,430"
+    },
+    {
+      "chapter_idx": 91,
+      "group_label": "Cosette › The Ship Orion",
+      "title": "In Which the Reader Will Peruse Two Verses, Which Are of the Devil's Composition, Possibly"
+    },
+    {
+      "chapter_idx": 92,
+      "group_label": "Cosette › The Ship Orion",
+      "title": "The Ankle-Chain Must Have Undergone a Certain Preparatory Manipulation to Be Thus Broken with a Blow from a Hammer"
+    },
+    {
+      "chapter_idx": 93,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "The Water Question at Montfermeil"
+    },
+    {
+      "chapter_idx": 94,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Two Complete Portraits"
+    },
+    {
+      "chapter_idx": 95,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Men Must Have Wine, and Horses Must Have Water"
+    },
+    {
+      "chapter_idx": 96,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Entrance on the Scene of a Doll"
+    },
+    {
+      "chapter_idx": 97,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "The Little One All Alone"
+    },
+    {
+      "chapter_idx": 98,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Which Possibly Proves Boulatruelle's Intelligence"
+    },
+    {
+      "chapter_idx": 99,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Cosette Side by Side with the Stranger in the Dark"
+    },
+    {
+      "chapter_idx": 100,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "The Unpleasantness of Receiving Into One's House a Poor Man Who May Be a Rich Man"
+    },
+    {
+      "chapter_idx": 101,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Thénardier and His Manouvres"
+    },
+    {
+      "chapter_idx": 102,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "He Who Seeks to Better Himself May Render His Situation Worse"
+    },
+    {
+      "chapter_idx": 103,
+      "group_label": "Cosette › Accomplishment of the Promise Made to the Dead Woman",
+      "title": "Number 9,430 Reappears, and Cosette Wins It in the Lottery"
+    },
+    {
+      "chapter_idx": 104,
+      "group_label": "Cosette › The Gorbeau Hovel",
+      "title": "Master Gorbeau"
+    },
+    {
+      "chapter_idx": 105,
+      "group_label": "Cosette › The Gorbeau Hovel",
+      "title": "A Nest for Owl and a Warbler"
+    },
+    {
+      "chapter_idx": 106,
+      "group_label": "Cosette › The Gorbeau Hovel",
+      "title": "Two Misfortunes Make One Piece of Good Fortune"
+    },
+    {
+      "chapter_idx": 107,
+      "group_label": "Cosette › The Gorbeau Hovel",
+      "title": "The Remarks of the Principal Tenant"
+    },
+    {
+      "chapter_idx": 108,
+      "group_label": "Cosette › The Gorbeau Hovel",
+      "title": "A Five-Franc Piece Falls on the Ground and Produces a Tumult"
+    },
+    {
+      "chapter_idx": 109,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "The Zigzags of Strategy"
+    },
+    {
+      "chapter_idx": 110,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "It Is Lucky That the Pont d'Austerlitz Bears Carriages"
+    },
+    {
+      "chapter_idx": 111,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "To Wit, the Plan of Paris in 1727"
+    },
+    {
+      "chapter_idx": 112,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "The Gropings of Flight"
+    },
+    {
+      "chapter_idx": 113,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "Which Would Be Impossible with Gas Lanterns"
+    },
+    {
+      "chapter_idx": 114,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "The Beginning of an Enigma"
+    },
+    {
+      "chapter_idx": 115,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "Continuation of the Enigma"
+    },
+    {
+      "chapter_idx": 116,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "The Enigma Becomes Doubly Mysterious"
+    },
+    {
+      "chapter_idx": 117,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "The Man with the Bell"
+    },
+    {
+      "chapter_idx": 118,
+      "group_label": "Cosette › For a Black Hunt, a Mute Pack",
+      "title": "Which Explains How Javert Got on the Scent"
+    },
+    {
+      "chapter_idx": 119,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Number 62 Rue Petit-Picpus"
+    },
+    {
+      "chapter_idx": 120,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "The Obedience of Martin Verga"
+    },
+    {
+      "chapter_idx": 121,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Austerities"
+    },
+    {
+      "chapter_idx": 122,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Gayeties"
+    },
+    {
+      "chapter_idx": 123,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Distractions"
+    },
+    {
+      "chapter_idx": 124,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "The Little Convent"
+    },
+    {
+      "chapter_idx": 125,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Some Silhouettes of This Darkness"
+    },
+    {
+      "chapter_idx": 126,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Post Corda Lapides"
+    },
+    {
+      "chapter_idx": 127,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "A Century Under a Guimpe"
+    },
+    {
+      "chapter_idx": 128,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "Origin of the Perpetual Adoration"
+    },
+    {
+      "chapter_idx": 129,
+      "group_label": "Cosette › Le Petit-Picpus",
+      "title": "End of the Petit-Picpus"
+    },
+    {
+      "chapter_idx": 130,
+      "group_label": "Cosette › Parenthesis",
+      "title": "The Convent as an Abstract Idea"
+    },
+    {
+      "chapter_idx": 131,
+      "group_label": "Cosette › Parenthesis",
+      "title": "On What Conditions One Can Respect the Past"
+    },
+    {
+      "chapter_idx": 132,
+      "group_label": "Cosette › Parenthesis",
+      "title": "The Convent from the Point of View of Principles"
+    },
+    {
+      "chapter_idx": 133,
+      "group_label": "Cosette › Parenthesis",
+      "title": "Prayer"
+    },
+    {
+      "chapter_idx": 134,
+      "group_label": "Cosette › Parenthesis",
+      "title": "The Absolute Goodness of Prayer"
+    },
+    {
+      "chapter_idx": 135,
+      "group_label": "Cosette › Parenthesis",
+      "title": "Precautions to Be Observed in Blame"
+    },
+    {
+      "chapter_idx": 136,
+      "group_label": "Cosette › Parenthesis",
+      "title": "Faith, Law"
+    },
+    {
+      "chapter_idx": 137,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "Which Treats of the Manner of Entering a Convent"
+    },
+    {
+      "chapter_idx": 138,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "Fauchelevent in the Presence of a Difficulty"
+    },
+    {
+      "chapter_idx": 139,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "Mother Innocente"
+    },
+    {
+      "chapter_idx": 140,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "In Which Jean Valjean Has Quite the Air of Having Read Austin Castillejo"
+    },
+    {
+      "chapter_idx": 141,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "It Is Not Necessary to Be Drunk in Order to Be Immortal"
+    },
+    {
+      "chapter_idx": 142,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "Between Four Planks"
+    },
+    {
+      "chapter_idx": 143,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "In Which Will Be Found the Origin of the Saying: Don't Lose the Card"
+    },
+    {
+      "chapter_idx": 144,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "A Successful Interrogatory"
+    },
+    {
+      "chapter_idx": 145,
+      "group_label": "Cosette › Cemeteries Take That Which Is Committed Them",
+      "title": "Cloistered"
+    },
+    {
+      "chapter_idx": 146,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "Parvulus"
+    },
+    {
+      "chapter_idx": 147,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "Some of His Particular Characteristics"
+    },
+    {
+      "chapter_idx": 148,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "He Is Agreeable"
+    },
+    {
+      "chapter_idx": 149,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "He May Be of Use"
+    },
+    {
+      "chapter_idx": 150,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "His Frontiers"
+    },
+    {
+      "chapter_idx": 151,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "A Bit of History"
+    },
+    {
+      "chapter_idx": 152,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "The Gamin Should Have His Place in the Classifications of India"
+    },
+    {
+      "chapter_idx": 153,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "In Which the Reader Will Find a Charming Saying of the Last King"
+    },
+    {
+      "chapter_idx": 154,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "The Old Soul of Gaul"
+    },
+    {
+      "chapter_idx": 155,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "Ecce Paris, Ecce Homo"
+    },
+    {
+      "chapter_idx": 156,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "To Scoff, to Reign"
+    },
+    {
+      "chapter_idx": 157,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "The Future Latent in the People"
+    },
+    {
+      "chapter_idx": 158,
+      "group_label": "Marius › Paris Studied in Its Atom",
+      "title": "Little Gavroche"
+    },
+    {
+      "chapter_idx": 159,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "Ninety Years and Thirty-Two Teeth"
+    },
+    {
+      "chapter_idx": 160,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "Like Master, Like House"
+    },
+    {
+      "chapter_idx": 161,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "Luc-Esprit"
+    },
+    {
+      "chapter_idx": 162,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "A Centenarian Aspirant"
+    },
+    {
+      "chapter_idx": 163,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "Basque and Nicolette"
+    },
+    {
+      "chapter_idx": 164,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "In Which Magnon and Her Two Children Are Seen"
+    },
+    {
+      "chapter_idx": 165,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "Rule: Receive No One Except in the Evening"
+    },
+    {
+      "chapter_idx": 166,
+      "group_label": "Marius › The Great Bourgeois",
+      "title": "Two Do Not Make a Pair"
+    },
+    {
+      "chapter_idx": 167,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "An Ancient Salon"
+    },
+    {
+      "chapter_idx": 168,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "One of the Red Spectres of That Epoch"
+    },
+    {
+      "chapter_idx": 169,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "Requiescant"
+    },
+    {
+      "chapter_idx": 170,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "End of the Brigand"
+    },
+    {
+      "chapter_idx": 171,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "The Utility of Going to Mass, in Order to Become a Revolutionist"
+    },
+    {
+      "chapter_idx": 172,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "The Consequences of Having Met a Warden"
+    },
+    {
+      "chapter_idx": 173,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "Some Petticoat"
+    },
+    {
+      "chapter_idx": 174,
+      "group_label": "Marius › The Grandfather and the Grandson",
+      "title": "Marble Against Granite"
+    },
+    {
+      "chapter_idx": 175,
+      "group_label": "Marius › The Friends of the A.B.C.",
+      "title": "A Group Which Barely Missed Becoming Historic"
+    },
+    {
+      "chapter_idx": 176,
+      "group_label": "Marius › The Friends of the A.B.C.",
+      "title": "Blondeau's Funeral Oration by Bossuet"
+    },
+    {
+      "chapter_idx": 177,
+      "group_label": "Marius › The Friends of the A.B.C.",
+      "title": "Marius' Astonishments"
+    },
+    {
+      "chapter_idx": 178,
+      "group_label": "Marius › The Friends of the A.B.C.",
+      "title": "The Back Room of the Café Musain"
+    },
+    {
+      "chapter_idx": 179,
+      "group_label": "Marius › The Friends of the A.B.C.",
+      "title": "Enlargement of Horizon"
+    },
+    {
+      "chapter_idx": 180,
+      "group_label": "Marius › The Friends of the A.B.C.",
+      "title": "Res Angusta"
+    },
+    {
+      "chapter_idx": 181,
+      "group_label": "Marius › The Excellence of Misfortune",
+      "title": "Marius Indigent"
+    },
+    {
+      "chapter_idx": 182,
+      "group_label": "Marius › The Excellence of Misfortune",
+      "title": "Marius Poor"
+    },
+    {
+      "chapter_idx": 183,
+      "group_label": "Marius › The Excellence of Misfortune",
+      "title": "Marius Grown Up"
+    },
+    {
+      "chapter_idx": 184,
+      "group_label": "Marius › The Excellence of Misfortune",
+      "title": "M. Mabeuf"
+    },
+    {
+      "chapter_idx": 185,
+      "group_label": "Marius › The Excellence of Misfortune",
+      "title": "Poverty a Good Neighbor for Misery"
+    },
+    {
+      "chapter_idx": 186,
+      "group_label": "Marius › The Excellence of Misfortune",
+      "title": "The Substitute"
+    },
+    {
+      "chapter_idx": 187,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "The Sobriquet: Mode of Formation of Family Names"
+    },
+    {
+      "chapter_idx": 188,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Lux Facta Est"
+    },
+    {
+      "chapter_idx": 189,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Effect of the Spring"
+    },
+    {
+      "chapter_idx": 190,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Beginning of a Great Malady"
+    },
+    {
+      "chapter_idx": 191,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Divers Claps of Thunder Fall on Ma'am Bougon"
+    },
+    {
+      "chapter_idx": 192,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Taken Prisoner"
+    },
+    {
+      "chapter_idx": 193,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Adventures of the Letter U Delivered Over to Conjectures"
+    },
+    {
+      "chapter_idx": 194,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "The Veterans Themselves Can Be Happy"
+    },
+    {
+      "chapter_idx": 195,
+      "group_label": "Marius › The Conjunction of Two Stars",
+      "title": "Eclipse"
+    },
+    {
+      "chapter_idx": 196,
+      "group_label": "Marius › Patron Minette",
+      "title": "Mines and Miners"
+    },
+    {
+      "chapter_idx": 197,
+      "group_label": "Marius › Patron Minette",
+      "title": "The Lowest Depths"
+    },
+    {
+      "chapter_idx": 198,
+      "group_label": "Marius › Patron Minette",
+      "title": "Babet, Gueulemer, Claquesous, and Montparnasse"
+    },
+    {
+      "chapter_idx": 199,
+      "group_label": "Marius › Patron Minette",
+      "title": "Composition of the Troupe"
+    },
+    {
+      "chapter_idx": 200,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Marius, While Seeking a Girl in a Bonnet, Encounters a Man in a Cap"
+    },
+    {
+      "chapter_idx": 201,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Treasure Trove"
+    },
+    {
+      "chapter_idx": 202,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Quadrifrons"
+    },
+    {
+      "chapter_idx": 203,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "A Rose in Misery"
+    },
+    {
+      "chapter_idx": 204,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "A Providential Peephole"
+    },
+    {
+      "chapter_idx": 205,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "The Wild Man in His Lair"
+    },
+    {
+      "chapter_idx": 206,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Strategy and Tactics"
+    },
+    {
+      "chapter_idx": 207,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "The Ray of Light in the Hovel"
+    },
+    {
+      "chapter_idx": 208,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Jondrette Comes Near Weeping"
+    },
+    {
+      "chapter_idx": 209,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Tariff of Licensed Cabs: Two Francs an Hour"
+    },
+    {
+      "chapter_idx": 210,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Offers of Service from Misery to Wretchedness"
+    },
+    {
+      "chapter_idx": 211,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "The Use Made of M. Leblanc's Five-Franc Piece"
+    },
+    {
+      "chapter_idx": 212,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Solus Cum Solo, in Loco Remoto, Non Cogitabuntur Orare Pater Noster"
+    },
+    {
+      "chapter_idx": 213,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "In Which a Police Agent Bestows Two Fistfuls on a Lawyer"
+    },
+    {
+      "chapter_idx": 214,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Jondrette Makes His Purchases"
+    },
+    {
+      "chapter_idx": 215,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "In Which Will Be Found the Words to an English Air Which Was in Fashion in 1832"
+    },
+    {
+      "chapter_idx": 216,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "The Use Made of Marius' Five-Franc Piece"
+    },
+    {
+      "chapter_idx": 217,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Marius' Two Chairs Form a Vis-a-Vis"
+    },
+    {
+      "chapter_idx": 218,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "Occupying One's Self with Obscure Depths"
+    },
+    {
+      "chapter_idx": 219,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "The Trap"
+    },
+    {
+      "chapter_idx": 220,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "One Should Always Begin by Arresting the Victims"
+    },
+    {
+      "chapter_idx": 221,
+      "group_label": "Marius › The Wicked Poor Man",
+      "title": "The Little One Who Was Crying in Volume Two"
+    },
+    {
+      "chapter_idx": 222,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › A Few Pages of History",
+      "title": "Well Cut"
+    },
+    {
+      "chapter_idx": 223,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › A Few Pages of History",
+      "title": "Badly Sewed"
+    },
+    {
+      "chapter_idx": 224,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › A Few Pages of History",
+      "title": "Louis Philippe"
+    },
+    {
+      "chapter_idx": 225,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › A Few Pages of History",
+      "title": "Cracks Beneath the Foundation"
+    },
+    {
+      "chapter_idx": 226,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › A Few Pages of History",
+      "title": "Facts Whence History Springs and Which History Ignores"
+    },
+    {
+      "chapter_idx": 227,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › A Few Pages of History",
+      "title": "Enjolras and His Lieutenants"
+    },
+    {
+      "chapter_idx": 228,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Éponine",
+      "title": "The Lark's Meadow"
+    },
+    {
+      "chapter_idx": 229,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Éponine",
+      "title": "Embryonic Formation of Crimes in the Incubation of Prisons"
+    },
+    {
+      "chapter_idx": 230,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Éponine",
+      "title": "Apparition to Father Mabeuf"
+    },
+    {
+      "chapter_idx": 231,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Éponine",
+      "title": "An Apparition to Marius"
+    },
+    {
+      "chapter_idx": 232,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "The House with a Secret"
+    },
+    {
+      "chapter_idx": 233,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "Jean Valjean as a National Guard"
+    },
+    {
+      "chapter_idx": 234,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "Foliis Ac Frondibus"
+    },
+    {
+      "chapter_idx": 235,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "Change of Gate"
+    },
+    {
+      "chapter_idx": 236,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "The Rose Perceives That It Is an Engine of War"
+    },
+    {
+      "chapter_idx": 237,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "The Battle Begun"
+    },
+    {
+      "chapter_idx": 238,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "To One Sadness Oppose a Sadness and a Half"
+    },
+    {
+      "chapter_idx": 239,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The House in the Rue Plumet",
+      "title": "The Chain-Gang"
+    },
+    {
+      "chapter_idx": 240,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Succor from Below May Turn Out to Be Succor from on High",
+      "title": "A Wound Without, Healing Within"
+    },
+    {
+      "chapter_idx": 241,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Succor from Below May Turn Out to Be Succor from on High",
+      "title": "Mother Plutarque Finds No Difficulty in Explaining a Phenomenon"
+    },
+    {
+      "chapter_idx": 242,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The End of Which Does Not Resemble the Beginning",
+      "title": "Solitude and the Barracks Combined"
+    },
+    {
+      "chapter_idx": 243,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The End of Which Does Not Resemble the Beginning",
+      "title": "Cosette's Apprehensions"
+    },
+    {
+      "chapter_idx": 244,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The End of Which Does Not Resemble the Beginning",
+      "title": "Enriched with Commentaries by Toussaint"
+    },
+    {
+      "chapter_idx": 245,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The End of Which Does Not Resemble the Beginning",
+      "title": "A Heart Beneath a Stone"
+    },
+    {
+      "chapter_idx": 246,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The End of Which Does Not Resemble the Beginning",
+      "title": "Cosette After the Letter"
+    },
+    {
+      "chapter_idx": 247,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The End of Which Does Not Resemble the Beginning",
+      "title": "Old People Are Made to Go Out Opportunely"
+    },
+    {
+      "chapter_idx": 248,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Little Gavroche",
+      "title": "The Malicious Playfulness of the Wind"
+    },
+    {
+      "chapter_idx": 249,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Little Gavroche",
+      "title": "In Which Little Gavroche Extracts Profit from Napoleon the Great"
+    },
+    {
+      "chapter_idx": 250,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Little Gavroche",
+      "title": "The Vicissitudes of Flight"
+    },
+    {
+      "chapter_idx": 251,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Slang",
+      "title": "Origin"
+    },
+    {
+      "chapter_idx": 252,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Slang",
+      "title": "Roots"
+    },
+    {
+      "chapter_idx": 253,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Slang",
+      "title": "Slang Which Weeps and Slang Which Laughs"
+    },
+    {
+      "chapter_idx": 254,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Slang",
+      "title": "The Two Duties: To Watch and to Hope"
+    },
+    {
+      "chapter_idx": 255,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "Full Light"
+    },
+    {
+      "chapter_idx": 256,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "The Bewilderment of Perfect Happiness"
+    },
+    {
+      "chapter_idx": 257,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "The Beginning of Shadow"
+    },
+    {
+      "chapter_idx": 258,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "A Cab Runs in English and Barks in Slang"
+    },
+    {
+      "chapter_idx": 259,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "Things of the Night"
+    },
+    {
+      "chapter_idx": 260,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "Marius Becomes Practical Once More to the Extent of Giving Cosette His Address"
+    },
+    {
+      "chapter_idx": 261,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Enchantments and Desolations",
+      "title": "The Old Heart and the Young Heart in the Presence of Each Other"
+    },
+    {
+      "chapter_idx": 262,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Whither Are They Going?",
+      "title": "Jean Valjean"
+    },
+    {
+      "chapter_idx": 263,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Whither Are They Going?",
+      "title": "Marius"
+    },
+    {
+      "chapter_idx": 264,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Whither Are They Going?",
+      "title": "M. Mabeuf"
+    },
+    {
+      "chapter_idx": 265,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The 5th of June, 1832",
+      "title": "The Surface of the Question"
+    },
+    {
+      "chapter_idx": 266,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The 5th of June, 1832",
+      "title": "The Root of the Matter"
+    },
+    {
+      "chapter_idx": 267,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The 5th of June, 1832",
+      "title": "A Burial; An Occasion to Be Born Again"
+    },
+    {
+      "chapter_idx": 268,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The 5th of June, 1832",
+      "title": "The Ebullitions of Former Days"
+    },
+    {
+      "chapter_idx": 269,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The 5th of June, 1832",
+      "title": "Originality of Paris"
+    },
+    {
+      "chapter_idx": 270,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Atom Fraternizes with the Hurricane",
+      "title": "Some Explanations with Regard to the Origin of Gavroche's Poetry"
+    },
+    {
+      "chapter_idx": 271,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Atom Fraternizes with the Hurricane",
+      "title": "Gavroche on the March"
+    },
+    {
+      "chapter_idx": 272,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Atom Fraternizes with the Hurricane",
+      "title": "Just Indignation of a Hairdresser"
+    },
+    {
+      "chapter_idx": 273,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Atom Fraternizes with the Hurricane",
+      "title": "The Child Is Amazed at the Old Man"
+    },
+    {
+      "chapter_idx": 274,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Atom Fraternizes with the Hurricane",
+      "title": "The Old Man"
+    },
+    {
+      "chapter_idx": 275,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Atom Fraternizes with the Hurricane",
+      "title": "Recruits"
+    },
+    {
+      "chapter_idx": 276,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "History of Corinthe from Its Foundation"
+    },
+    {
+      "chapter_idx": 277,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "Preliminary Gayeties"
+    },
+    {
+      "chapter_idx": 278,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "Night Begins to Descend Upon Grantaire"
+    },
+    {
+      "chapter_idx": 279,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "An Attempt to Console the Widow Hucheloup"
+    },
+    {
+      "chapter_idx": 280,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "Preparations"
+    },
+    {
+      "chapter_idx": 281,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "Waiting"
+    },
+    {
+      "chapter_idx": 282,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "The Man Recruited in the Rue des Billettes"
+    },
+    {
+      "chapter_idx": 283,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Corinthe",
+      "title": "Many Interrogation Points with Regard to a Certain le Cabuc"
+    },
+    {
+      "chapter_idx": 284,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Marius Enters the Shadow",
+      "title": "From the Rue Plumet to the Quartier Saint-Denis"
+    },
+    {
+      "chapter_idx": 285,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Marius Enters the Shadow",
+      "title": "An Owl's View of Paris"
+    },
+    {
+      "chapter_idx": 286,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › Marius Enters the Shadow",
+      "title": "The Extreme Edge"
+    },
+    {
+      "chapter_idx": 287,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "The Flag: Act First"
+    },
+    {
+      "chapter_idx": 288,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "The Flag: Act Second"
+    },
+    {
+      "chapter_idx": 289,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "Gavroche Would Have Done Better to Accept Enjolras' Carbine"
+    },
+    {
+      "chapter_idx": 290,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "The Barrel of Powder"
+    },
+    {
+      "chapter_idx": 291,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "End of the Verses of Jean Prouvaire"
+    },
+    {
+      "chapter_idx": 292,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "The Agony of Death After the Agony of Life"
+    },
+    {
+      "chapter_idx": 293,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Grandeurs of Despair",
+      "title": "Gavroche as a Profound Calculator of Distances"
+    },
+    {
+      "chapter_idx": 294,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Rue de l'Homme Armé",
+      "title": "A Drinker Is a Babbler"
+    },
+    {
+      "chapter_idx": 295,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Rue de l'Homme Armé",
+      "title": "The Street Urchin an Enemy of Light"
+    },
+    {
+      "chapter_idx": 296,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Rue de l'Homme Armé",
+      "title": "While Cosette and Toussaint Are Asleep"
+    },
+    {
+      "chapter_idx": 297,
+      "group_label": "The Idyl in the Rue Plumet and the Epic in the Rue Saint-Denis › The Rue de l'Homme Armé",
+      "title": "Gavroche's Excess of Zeal"
+    },
+    {
+      "chapter_idx": 298,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Charybdis of the Faubourg Saint Antoine and the Scylla"
+    },
+    {
+      "chapter_idx": 299,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "What Is to Be Done in the Abyss if One Does Not Converse"
+    },
+    {
+      "chapter_idx": 300,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Light and Shadow"
+    },
+    {
+      "chapter_idx": 301,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Minus Five, Plus One"
+    },
+    {
+      "chapter_idx": 302,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Horizon Which One Beholds from the Summit of a Barricade"
+    },
+    {
+      "chapter_idx": 303,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Marius Haggard, Javert Laconic"
+    },
+    {
+      "chapter_idx": 304,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Situation Becomes Aggravated"
+    },
+    {
+      "chapter_idx": 305,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Artillerymen Compel People to Take Them Seriously"
+    },
+    {
+      "chapter_idx": 306,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Employment of the Old Talents of a Poacher and That Infallible Marksmanship Which Influenced the Condemnation of 1796"
+    },
+    {
+      "chapter_idx": 307,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Dawn"
+    },
+    {
+      "chapter_idx": 308,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Shot Which Misses Nothing and Kills No One"
+    },
+    {
+      "chapter_idx": 309,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Disorder a Partisan of Order"
+    },
+    {
+      "chapter_idx": 310,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Passing Gleams"
+    },
+    {
+      "chapter_idx": 311,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Wherein Will Appear the Name of Enjolras' Mistress"
+    },
+    {
+      "chapter_idx": 312,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Gavroche Outside"
+    },
+    {
+      "chapter_idx": 313,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "How from a Brother One Becomes a Father"
+    },
+    {
+      "chapter_idx": 314,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Mortuus Pater Filium Moriturum Expectat"
+    },
+    {
+      "chapter_idx": 315,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Vulture Become Prey"
+    },
+    {
+      "chapter_idx": 316,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Jean Valjean Takes His Revenge"
+    },
+    {
+      "chapter_idx": 317,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Dead Are in the Right and the Living Are Not in the Wrong"
+    },
+    {
+      "chapter_idx": 318,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "The Heroes"
+    },
+    {
+      "chapter_idx": 319,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Foot to Foot"
+    },
+    {
+      "chapter_idx": 320,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Orestes Fasting and Pylades Drunk"
+    },
+    {
+      "chapter_idx": 321,
+      "group_label": "Jean Valjean › The War Between Four Walls",
+      "title": "Prisoner"
+    },
+    {
+      "chapter_idx": 322,
+      "group_label": "Jean Valjean › The Intestine of the Leviathan",
+      "title": "The Land Impoverished by the Sea"
+    },
+    {
+      "chapter_idx": 323,
+      "group_label": "Jean Valjean › The Intestine of the Leviathan",
+      "title": "Ancient History of the Sewer"
+    },
+    {
+      "chapter_idx": 324,
+      "group_label": "Jean Valjean › The Intestine of the Leviathan",
+      "title": "Bruneseau"
+    },
+    {
+      "chapter_idx": 325,
+      "group_label": "Jean Valjean › The Intestine of the Leviathan",
+      "title": null
+    },
+    {
+      "chapter_idx": 326,
+      "group_label": "Jean Valjean › The Intestine of the Leviathan",
+      "title": "Present Progress"
+    },
+    {
+      "chapter_idx": 327,
+      "group_label": "Jean Valjean › The Intestine of the Leviathan",
+      "title": "Future Progress"
+    },
+    {
+      "chapter_idx": 328,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "The Sewer and Its Surprises"
+    },
+    {
+      "chapter_idx": 329,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "Explanation"
+    },
+    {
+      "chapter_idx": 330,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "The \"Spun\" Man"
+    },
+    {
+      "chapter_idx": 331,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "He Also Bears His Cross"
+    },
+    {
+      "chapter_idx": 332,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "In the Case of Sand as in That of Woman, There Is a Fineness Which Is Treacherous"
+    },
+    {
+      "chapter_idx": 333,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "The Fontis"
+    },
+    {
+      "chapter_idx": 334,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "One Sometimes Runs Aground When One Fancies That One Is Disembarking"
+    },
+    {
+      "chapter_idx": 335,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "The Torn Coattail"
+    },
+    {
+      "chapter_idx": 336,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "Marius Produces on Some One Who Is a Judge of the Matter, the Effect of Being Dead"
+    },
+    {
+      "chapter_idx": 337,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "Return of the Son Who Was Prodigal of His Life"
+    },
+    {
+      "chapter_idx": 338,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "Concussion in the Absolute"
+    },
+    {
+      "chapter_idx": 339,
+      "group_label": "Jean Valjean › Mud but the Soul",
+      "title": "The Grandfather"
+    },
+    {
+      "chapter_idx": 340,
+      "group_label": "Jean Valjean › Javert Derailed",
+      "title": null
+    },
+    {
+      "chapter_idx": 341,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "In Which the Tree with the Zinc Plaster Appears Again"
+    },
+    {
+      "chapter_idx": 342,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "Marius, Emerging from Civil War, Makes Ready for Domestic War"
+    },
+    {
+      "chapter_idx": 343,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "Marius Attacked"
+    },
+    {
+      "chapter_idx": 344,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "Mademoiselle Gillenormand Ends by No Longer Thinking It a Bad Thing That M. Fauchelevent Should Have Entered with Something Under His Arm"
+    },
+    {
+      "chapter_idx": 345,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "Deposit Your Money in a Forest Rather Than with a Notary"
+    },
+    {
+      "chapter_idx": 346,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "The Two Old Men Do Everything, Each One After His Own Fashion, to Render Cosette Happy"
+    },
+    {
+      "chapter_idx": 347,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "The Effects of Dreams Mingled with Happiness"
+    },
+    {
+      "chapter_idx": 348,
+      "group_label": "Jean Valjean › Grandson and Grandfather",
+      "title": "Two Men Impossible to Find"
+    },
+    {
+      "chapter_idx": 349,
+      "group_label": "Jean Valjean › The Sleepless Night",
+      "title": "The 16th of February, 1833"
+    },
+    {
+      "chapter_idx": 350,
+      "group_label": "Jean Valjean › The Sleepless Night",
+      "title": "Jean Valjean Still Wears His Arm in a Sling"
+    },
+    {
+      "chapter_idx": 351,
+      "group_label": "Jean Valjean › The Sleepless Night",
+      "title": "The Inseparable"
+    },
+    {
+      "chapter_idx": 352,
+      "group_label": "Jean Valjean › The Sleepless Night",
+      "title": "The Immortal Liver 112"
+    },
+    {
+      "chapter_idx": 353,
+      "group_label": "Jean Valjean › The Last Draught from the Cup",
+      "title": "The Seventh Circle and the Eighth Heaven"
+    },
+    {
+      "chapter_idx": 354,
+      "group_label": "Jean Valjean › The Last Draught from the Cup",
+      "title": "The Obscurities Which a Revelation Can Contain"
+    },
+    {
+      "chapter_idx": 355,
+      "group_label": "Jean Valjean › Fading Away of the Twilight",
+      "title": "The Lower Chamber"
+    },
+    {
+      "chapter_idx": 356,
+      "group_label": "Jean Valjean › Fading Away of the Twilight",
+      "title": "Another Step Backwards"
+    },
+    {
+      "chapter_idx": 357,
+      "group_label": "Jean Valjean › Fading Away of the Twilight",
+      "title": "They Recall the Garden of the Rue Plumet"
+    },
+    {
+      "chapter_idx": 358,
+      "group_label": "Jean Valjean › Fading Away of the Twilight",
+      "title": "Attraction and Extinction"
+    },
+    {
+      "chapter_idx": 359,
+      "group_label": "Jean Valjean › Supreme Shadow, Supreme Dawn",
+      "title": "Pity for the Unhappy, but Indulgence for the Happy"
+    },
+    {
+      "chapter_idx": 360,
+      "group_label": "Jean Valjean › Supreme Shadow, Supreme Dawn",
+      "title": "Last Flickerings of a Lamp Without Oil"
+    },
+    {
+      "chapter_idx": 361,
+      "group_label": "Jean Valjean › Supreme Shadow, Supreme Dawn",
+      "title": "A Pen Is Heavy to the Man Who Lifted the Fauchelevent's Cart"
+    },
+    {
+      "chapter_idx": 362,
+      "group_label": "Jean Valjean › Supreme Shadow, Supreme Dawn",
+      "title": "A Bottle of Ink Which Only Succeeded in Whitening"
+    },
+    {
+      "chapter_idx": 363,
+      "group_label": "Jean Valjean › Supreme Shadow, Supreme Dawn",
+      "title": "A Night Behind Which There Is Day"
+    },
+    {
+      "chapter_idx": 364,
+      "group_label": "Jean Valjean › Supreme Shadow, Supreme Dawn",
+      "title": "The Grass Covers and the Rain Effaces"
+    }
+  ],
+  "volumes": [
+    {
+      "volume_number": 1,
+      "librivox_id": "894",
+      "librivox_title": "Misérables, Volume 1",
+      "sections": [
+        {
+          "n": 1,
+          "title": "Preface",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_00_hugo_64kb.mp3",
+          "secs": 63,
+          "reader": "Ryan T."
+        },
+        {
+          "n": 1,
+          "title": "Bk 01, ch. 01: M. Myriel",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_01_hugo_64kb.mp3",
+          "secs": 423,
+          "reader": "Sarah Jennings"
+        },
+        {
+          "n": 2,
+          "title": "Bk 01, ch. 02: M. Myriel becomes M. Welcome",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_02_hugo_64kb.mp3",
+          "secs": 698,
+          "reader": "Kalynda"
+        },
+        {
+          "n": 3,
+          "title": "Bk 01, ch. 03: A Hard Bishopric for a Good Bishop",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_03_hugo_64kb.mp3",
+          "secs": 294,
+          "reader": "Heather Barnett"
+        },
+        {
+          "n": 4,
+          "title": "Bk 01, ch. 04: Works corresponding to Words",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_04_hugo_64kb.mp3",
+          "secs": 1066,
+          "reader": "Melissa"
+        },
+        {
+          "n": 5,
+          "title": "Bk 01, ch. 05: Monseigneur Bienvenu made his Cassocks last too long",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_05_hugo_64kb.mp3",
+          "secs": 407,
+          "reader": "Melissa"
+        },
+        {
+          "n": 6,
+          "title": "Bk 01, ch. 06: Who guarded his House for him",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_06_hugo_64kb.mp3",
+          "secs": 784,
+          "reader": "Melissa"
+        },
+        {
+          "n": 7,
+          "title": "Bk 01, ch. 07: Cravatte",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_07_hugo_64kb.mp3",
+          "secs": 492,
+          "reader": "Kalynda"
+        },
+        {
+          "n": 8,
+          "title": "Bk 01, ch. 08: Philosophy after Drinking",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_08_hugo_64kb.mp3",
+          "secs": 536,
+          "reader": "Kalynda"
+        },
+        {
+          "n": 9,
+          "title": "Bk 01, ch. 09: The Brother as depicted by the Sister",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_09_hugo_64kb.mp3",
+          "secs": 529,
+          "reader": "Kalynda"
+        },
+        {
+          "n": 10,
+          "title": "Bk 01, ch. 10: The Bishop in the Presence of an Unknown Light",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_10_hugo_64kb.mp3",
+          "secs": 2119,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 11,
+          "title": "Bk 01, ch. 11: A Restriction",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_11_hugo_64kb.mp3",
+          "secs": 651,
+          "reader": "Melissa"
+        },
+        {
+          "n": 12,
+          "title": "Bk 01, ch. 12: The Solitude of Monseigneur Welcome",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_12_hugo_64kb.mp3",
+          "secs": 457,
+          "reader": "Melissa"
+        },
+        {
+          "n": 13,
+          "title": "Bk 01, ch. 13: What he believed",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_13_hugo_64kb.mp3",
+          "secs": 640,
+          "reader": "Melissa"
+        },
+        {
+          "n": 14,
+          "title": "Bk 01, ch. 14: What he thought",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_14_hugo_64kb.mp3",
+          "secs": 429,
+          "reader": "Zachary Brewster-Geisz"
+        },
+        {
+          "n": 15,
+          "title": "Bk 02, ch. 01: The Evening of a Day of Walking",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_15_hugo_64kb.mp3",
+          "secs": 1681,
+          "reader": "Ancilla"
+        },
+        {
+          "n": 16,
+          "title": "Bk 02, ch. 02: Prudence counselled to Wisdom",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_16_hugo_64kb.mp3",
+          "secs": 652,
+          "reader": "Melissa"
+        },
+        {
+          "n": 17,
+          "title": "Bk 02, ch. 03: The Heroism of Passive Obedience",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_17_hugo_64kb.mp3",
+          "secs": 866,
+          "reader": "Melissa"
+        },
+        {
+          "n": 18,
+          "title": "Bk 02, ch. 04: Details concerning the Cheese-Dairies of Pontarlier",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_18_hugo_64kb.mp3",
+          "secs": 537,
+          "reader": "Melissa"
+        },
+        {
+          "n": 19,
+          "title": "Bk 02, ch. 05: Tranquillity",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_19_hugo_64kb.mp3",
+          "secs": 226,
+          "reader": "Charlene V. Smith"
+        },
+        {
+          "n": 20,
+          "title": "Bk 02, ch. 06: Jean Valjean",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_20_hugo_64kb.mp3",
+          "secs": 864,
+          "reader": "Charlene V. Smith"
+        },
+        {
+          "n": 21,
+          "title": "Bk 02, ch. 07: The Interior of Despair",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_21_hugo_64kb.mp3",
+          "secs": 1103,
+          "reader": "David Jaquay"
+        },
+        {
+          "n": 22,
+          "title": "Bk 02, ch. 08: Billows and Shadows",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_22_hugo_64kb.mp3",
+          "secs": 459,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 23,
+          "title": "Bk 02, ch. 09: New Troubles",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_23_hugo_64kb.mp3",
+          "secs": 225,
+          "reader": "Garrett Fitzgerald"
+        },
+        {
+          "n": 24,
+          "title": "Bk 02, ch. 10: The Man aroused",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_24_hugo_64kb.mp3",
+          "secs": 521,
+          "reader": "Garrett Fitzgerald"
+        },
+        {
+          "n": 25,
+          "title": "Bk 02, ch. 11: What he does",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_25_hugo_64kb.mp3",
+          "secs": 683,
+          "reader": "B. Grebe"
+        },
+        {
+          "n": 26,
+          "title": "Bk 02, ch. 12: The Bishop works",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_26_hugo_64kb.mp3",
+          "secs": 543,
+          "reader": "B. Grebe"
+        },
+        {
+          "n": 27,
+          "title": "Bk 02, ch. 13: Little Gervais",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_27_hugo_64kb.mp3",
+          "secs": 1532,
+          "reader": "johnb"
+        },
+        {
+          "n": 28,
+          "title": "Bk 03, ch. 01: The Year 1817",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_28_hugo_64kb.mp3",
+          "secs": 1188,
+          "reader": "B. Grebe"
+        },
+        {
+          "n": 29,
+          "title": "Bk 03, ch. 02: A Double Quartette",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_29_hugo_64kb.mp3",
+          "secs": 680,
+          "reader": "Lisa Chau"
+        },
+        {
+          "n": 30,
+          "title": "Bk 03, ch. 03: Four and Four",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_30_hugo_64kb.mp3",
+          "secs": 531,
+          "reader": "Sean O'Hara"
+        },
+        {
+          "n": 31,
+          "title": "Bk 03, ch. 04: Tholomyes is so Merry that he sings a Spanish Ditty",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_31_hugo_64kb.mp3",
+          "secs": 378,
+          "reader": "Sibella Denton"
+        },
+        {
+          "n": 32,
+          "title": "Bk 03, ch. 05: At Bombardas",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_32_hugo_64kb.mp3",
+          "secs": 430,
+          "reader": "ink tree"
+        },
+        {
+          "n": 33,
+          "title": "Bk 03, ch. 06: A Chapter in which they adore Each Other",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_33_hugo_64kb.mp3",
+          "secs": 222,
+          "reader": "Annise"
+        },
+        {
+          "n": 34,
+          "title": "Bk 03, ch. 07: The Wisdom of Tholomyes",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_34_hugo_64kb.mp3",
+          "secs": 898,
+          "reader": "Annise"
+        },
+        {
+          "n": 35,
+          "title": "Bk 03, ch. 08: The Death of a Horse",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_35_hugo_64kb.mp3",
+          "secs": 349,
+          "reader": "Varra Unreal"
+        },
+        {
+          "n": 36,
+          "title": "Bk 03, ch. 09: A Merry End to Mirth",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_36_hugo_64kb.mp3",
+          "secs": 410,
+          "reader": "Jordan"
+        },
+        {
+          "n": 37,
+          "title": "Bk 04, ch. 01: One Mother meets Another Mother",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_37_hugo_64kb.mp3",
+          "secs": 1137,
+          "reader": "Melissa"
+        },
+        {
+          "n": 38,
+          "title": "Bk 04, ch. 02: First Sketch of Two Unprepossessing Figures",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_38_hugo_64kb.mp3",
+          "secs": 311,
+          "reader": "Melissa"
+        },
+        {
+          "n": 39,
+          "title": "Bk 04, ch. 03: The Lark",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_39_hugo_64kb.mp3",
+          "secs": 373,
+          "reader": "Melissa"
+        },
+        {
+          "n": 40,
+          "title": "Bk 05, ch. 01: The History of a Progress in Black Glass Trinkets",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_40_hugo_64kb.mp3",
+          "secs": 242,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 41,
+          "title": "Bk 05, ch. 02: Madeleine",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_41_hugo_64kb.mp3",
+          "secs": 531,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 42,
+          "title": "Bk 05, ch. 03: Sums deposited with Laffitte",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_42_hugo_64kb.mp3",
+          "secs": 438,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 43,
+          "title": "Bk 05, ch. 04: M. Madeleine in Mourning",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_43_hugo_64kb.mp3",
+          "secs": 354,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 44,
+          "title": "Bk 05, ch. 05: Vague Flashes on the Horizon",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_44_hugo_64kb.mp3",
+          "secs": 845,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 45,
+          "title": "Bk 05, ch. 06: Father Fauchelevent",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_45_hugo_64kb.mp3",
+          "secs": 411,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 46,
+          "title": "Bk 05, ch. 07: Fauchelevent becomes a Gardener in Paris",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_46_hugo_64kb.mp3",
+          "secs": 255,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 47,
+          "title": "Bk 05, ch. 08: Madame Victurnien expends Thirty Francs on Morality",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_47_hugo_64kb.mp3",
+          "secs": 449,
+          "reader": "Zachary Brewster-Geisz"
+        },
+        {
+          "n": 48,
+          "title": "Bk 05, ch. 09: Madame Victurnien's Success",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_48_hugo_64kb.mp3",
+          "secs": 388,
+          "reader": "Zachary Brewster-Geisz"
+        },
+        {
+          "n": 49,
+          "title": "Bk 05, ch. 10: Result of the Success",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_49_hugo_64kb.mp3",
+          "secs": 756,
+          "reader": "Zachary Brewster-Geisz"
+        },
+        {
+          "n": 50,
+          "title": "Bk 05, ch. 11: Christus nos Liberavit",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_50_hugo_64kb.mp3",
+          "secs": 184,
+          "reader": "Zachary Brewster-Geisz"
+        },
+        {
+          "n": 51,
+          "title": "Bk 05, ch. 12: M. Bamatabois's Inactivity",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_51_hugo_64kb.mp3",
+          "secs": 387,
+          "reader": "Zachary Brewster-Geisz"
+        },
+        {
+          "n": 52,
+          "title": "Bk 05, ch. 13: The Solution of Some Questions connected with the Municipal Police",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_52_hugo_64kb.mp3",
+          "secs": 1571,
+          "reader": "Catharine Eastman"
+        },
+        {
+          "n": 53,
+          "title": "Bk 06, ch. 01: The Beginning of Repose",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_53_hugo_64kb.mp3",
+          "secs": 628,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 54,
+          "title": "Bk 06, ch. 02: How Jean may become Champ",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_54_hugo_64kb.mp3",
+          "secs": 1410,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 55,
+          "title": "Bk 07, ch. 01: Sister Simplice",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_55_hugo_64kb.mp3",
+          "secs": 581,
+          "reader": "Jc Guan"
+        },
+        {
+          "n": 56,
+          "title": "Bk 07, ch. 02: The Perspicacity of Master Scaufflaire",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_56_hugo_64kb.mp3",
+          "secs": 743,
+          "reader": "B. Grebe"
+        },
+        {
+          "n": 57,
+          "title": "Bk 07, ch. 03: A Tempest in a Skull",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_57_hugo_64kb.mp3",
+          "secs": 2929,
+          "reader": "Robin Cotter"
+        },
+        {
+          "n": 58,
+          "title": "Bk 07, ch. 04: Forms assumed by Suffering during Sleep",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_58_hugo_64kb.mp3",
+          "secs": 512,
+          "reader": "A.P. Goldstein"
+        },
+        {
+          "n": 59,
+          "title": "Bk 07, ch. 05: Hindrances",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_59_hugo_64kb.mp3",
+          "secs": 1359,
+          "reader": "Tamara Hamilton"
+        },
+        {
+          "n": 60,
+          "title": "Bk 07, ch. 06: Sister Simplice put to the Proof",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_60_hugo_64kb.mp3",
+          "secs": 878,
+          "reader": "Tamara Hamilton"
+        },
+        {
+          "n": 61,
+          "title": "Bk 07, ch. 07: The Traveller on his Arrival takes Precautions for Departure",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_61_hugo_64kb.mp3",
+          "secs": 586,
+          "reader": "Tamara Hamilton"
+        },
+        {
+          "n": 62,
+          "title": "Bk 07, ch. 08: An Entrance by Favor",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_62_hugo_64kb.mp3",
+          "secs": 428,
+          "reader": "jpride"
+        },
+        {
+          "n": 63,
+          "title": "Bk 07, ch. 09: A Place where Convictions are in Process of Formation",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_63_hugo_64kb.mp3",
+          "secs": 1255,
+          "reader": "Mat Messerschmidt"
+        },
+        {
+          "n": 64,
+          "title": "Bk 07, ch. 10: The System of Denials",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_64_hugo_64kb.mp3",
+          "secs": 1291,
+          "reader": "Mat Messerschmidt"
+        },
+        {
+          "n": 65,
+          "title": "Bk 07, ch. 11: Champmathieu more and more Astonished",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_65_hugo_64kb.mp3",
+          "secs": 644,
+          "reader": "Joel Poortenga"
+        },
+        {
+          "n": 66,
+          "title": "Bk 08, ch. 01: In what Mirror M. Madeleine contemplates his Hair",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_66_hugo_64kb.mp3",
+          "secs": 393,
+          "reader": "Robin Cotter"
+        },
+        {
+          "n": 67,
+          "title": "Bk 08, ch. 02: Fantine Happy",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_67_hugo_64kb.mp3",
+          "secs": 673,
+          "reader": "Clarke Bell"
+        },
+        {
+          "n": 68,
+          "title": "Bk 08, ch. 03: Javert Satisfied",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_68_hugo_64kb.mp3",
+          "secs": 630,
+          "reader": "Graeme Jolliffe"
+        },
+        {
+          "n": 69,
+          "title": "Bk 08, ch. 04: Authority reasserts its Rights",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_69_hugo_64kb.mp3",
+          "secs": 595,
+          "reader": "Graeme Jolliffe"
+        },
+        {
+          "n": 70,
+          "title": "Bk 08, ch. 05: A Suitable Tomb",
+          "url": "https://www.archive.org/download/les_mis_vol01_0810_librivox/lesmiserables_vol1_70_hugo_64kb.mp3",
+          "secs": 825,
+          "reader": "Joel Poortenga"
+        }
+      ]
+    },
+    {
+      "volume_number": 2,
+      "librivox_id": "2614",
+      "librivox_title": "Misérables, Volume 2",
+      "sections": [
+        {
+          "n": 1,
+          "title": "<b>Bk 01</b> Ch 01: What Is Met with on the Way to Nivelles",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_01_hugo_64kb.mp3",
+          "secs": 266,
+          "reader": "J. M. Smallheer"
+        },
+        {
+          "n": 2,
+          "title": "Bk 01 Ch 02: Hougomont",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_02_hugo_64kb.mp3",
+          "secs": 1113,
+          "reader": "Catricana"
+        },
+        {
+          "n": 3,
+          "title": "Bk 01 Ch 03: The 18th of June, 1815",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_03_hugo_64kb.mp3",
+          "secs": 464,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 4,
+          "title": "Bk 01 Ch 04: A",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_04_hugo_64kb.mp3",
+          "secs": 370,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 5,
+          "title": "Bk 01 Ch 05: The Quid Obscurum of Battles",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_05_hugo_64kb.mp3",
+          "secs": 475,
+          "reader": "Laughing Lawyer"
+        },
+        {
+          "n": 6,
+          "title": "Bk 01 Ch 06: Four o'Clock in the Afternoon",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_06_hugo_64kb.mp3",
+          "secs": 385,
+          "reader": "Gerrit Theule"
+        },
+        {
+          "n": 7,
+          "title": "Bk 01 Ch 07: Napoleon in a Good Humour",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_07_hugo_64kb.mp3",
+          "secs": 960,
+          "reader": "Marin Todorov"
+        },
+        {
+          "n": 8,
+          "title": "Bk 01 Ch 08: The Emperor Puts a Question to the Guide Lacoste",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_08_hugo_64kb.mp3",
+          "secs": 497,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 9,
+          "title": "Bk 01 Ch 09: The Unexpected",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_09_hugo_64kb.mp3",
+          "secs": 678,
+          "reader": "Fr. Richard Zeile of Detroit"
+        },
+        {
+          "n": 10,
+          "title": "Bk 01 Ch 10: The Plateau of Mont-Saint-Jean",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_10_hugo_64kb.mp3",
+          "secs": 740,
+          "reader": "Kai Lu"
+        },
+        {
+          "n": 11,
+          "title": "Bk 01 Ch 11: A Bad Guide to Napoleon: A Good Guide to Bulow",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_11_hugo_64kb.mp3",
+          "secs": 289,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 12,
+          "title": "Bk 01 Ch 12: The Guard",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_12_hugo_64kb.mp3",
+          "secs": 322,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 13,
+          "title": "Bk 01 Ch 13: The Catastrophe",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_13_hugo_64kb.mp3",
+          "secs": 414,
+          "reader": "Kai Lu"
+        },
+        {
+          "n": 14,
+          "title": "Bk 01 Ch 14: The Last Square",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_14_hugo_64kb.mp3",
+          "secs": 272,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 15,
+          "title": "Bk 01 Ch 15: Cambronne",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_15_hugo_64kb.mp3",
+          "secs": 500,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 16,
+          "title": "Bk 01 Ch 16: Quot Libras in Duce",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_16_hugo_64kb.mp3",
+          "secs": 893,
+          "reader": "Nadine Eckert-Boulet"
+        },
+        {
+          "n": 17,
+          "title": "Bk 01 Ch 17: Is Waterloo to Be Considered Good",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_17_hugo_64kb.mp3",
+          "secs": 372,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 18,
+          "title": "Bk 01 Ch 18: A Recrudescence of Divine Right",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_18_hugo_64kb.mp3",
+          "secs": 364,
+          "reader": "Lucy Perry"
+        },
+        {
+          "n": 19,
+          "title": "Bk 01 Ch 19: The Battle-Field at Night",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_19_hugo_64kb.mp3",
+          "secs": 940,
+          "reader": "Kai Lu"
+        },
+        {
+          "n": 20,
+          "title": "<b>Bk 02</b> Ch 01: Number 24,601 Becomes Number 9,430",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_20_hugo_64kb.mp3",
+          "secs": 534,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 21,
+          "title": "Bk 02 Ch 02: In Which the Reader Will Peruse Two Verses...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_21_hugo_64kb.mp3",
+          "secs": 644,
+          "reader": "von"
+        },
+        {
+          "n": 22,
+          "title": "Bk 02 Ch 03: The Ankle-Chain...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_22_hugo_64kb.mp3",
+          "secs": 1061,
+          "reader": "von"
+        },
+        {
+          "n": 23,
+          "title": "<b>Bk 03</b> Ch 01: The Water Question at Montfermeil",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_23_hugo_64kb.mp3",
+          "secs": 522,
+          "reader": "Labyrinth Composer"
+        },
+        {
+          "n": 24,
+          "title": "Bk 03 Ch 02: Two Complete Portraits",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_24_hugo_64kb.mp3",
+          "secs": 855,
+          "reader": "Daniel Shorten"
+        },
+        {
+          "n": 25,
+          "title": "Bk 03 Ch 03: Men Must Have Wine...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_25_hugo_64kb.mp3",
+          "secs": 344,
+          "reader": "Labyrinth Composer"
+        },
+        {
+          "n": 26,
+          "title": "Bk 03 Ch 04: Entrance on the Scene of a Doll",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_26_hugo_64kb.mp3",
+          "secs": 296,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 27,
+          "title": "Bk 03 Ch 05: The Little One All Alone",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_27_hugo_64kb.mp3",
+          "secs": 921,
+          "reader": "Al Dano"
+        },
+        {
+          "n": 28,
+          "title": "Bk 03 Ch 06: Which Probably Proves Boulatruelle's Intelligence",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_28_hugo_64kb.mp3",
+          "secs": 654,
+          "reader": "Jackie Provau"
+        },
+        {
+          "n": 29,
+          "title": "Bk 03 Ch 07: Cosette Side By Side with the Stranger in the Dark",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_29_hugo_64kb.mp3",
+          "secs": 432,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 30,
+          "title": "Bk 03 Ch 08: The Unpleasantness of Receiving Into One's House....",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_30_hugo_64kb.mp3",
+          "secs": 2784,
+          "reader": "Catharine Eastman"
+        },
+        {
+          "n": 31,
+          "title": "Bk 03 Ch 09: Thenardier and His Manoeuvres",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_31_hugo_64kb.mp3",
+          "secs": 1278,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 32,
+          "title": "Bk 03 Ch 10: He Who Seeks to Better Himself...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_32_hugo_64kb.mp3",
+          "secs": 816,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 33,
+          "title": "Bk 03 Ch 11: Number 9,340 Reappears...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_33_hugo_64kb.mp3",
+          "secs": 293,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 34,
+          "title": "<b>Bk 04</b> Ch 01: Master Gorbeau",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_34_hugo_64kb.mp3",
+          "secs": 1219,
+          "reader": "Ezwa"
+        },
+        {
+          "n": 35,
+          "title": "Bk 04 Ch 02: A Nest for Owl and a Warbler",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_35_hugo_64kb.mp3",
+          "secs": 290,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 36,
+          "title": "Bk 04 Ch 03: Two Misfortunes Make One Piece of Good Fortune",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_36_hugo_64kb.mp3",
+          "secs": 751,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 37,
+          "title": "Bk 04 Ch 04: The Remarks of the Principal Tenant",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_37_hugo_64kb.mp3",
+          "secs": 331,
+          "reader": "Jonathan Ross"
+        },
+        {
+          "n": 38,
+          "title": "Bk 04 Ch 05: A Five-Franc Piece Falls on the Ground...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_38_hugo_64kb.mp3",
+          "secs": 516,
+          "reader": "Jonathan Ross"
+        },
+        {
+          "n": 39,
+          "title": "<b>Bk 05</b> Ch 01: The Zigzags of Strategy",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_39_hugo_64kb.mp3",
+          "secs": 613,
+          "reader": "Al Dano"
+        },
+        {
+          "n": 40,
+          "title": "Bk 05 Ch 02: It Is Lucky that the Pont D'Austerlitz Bears Carriages",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_40_hugo_64kb.mp3",
+          "secs": 301,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 41,
+          "title": "Bk 05 Ch 03: To Wit, the Plan of Paris 1727",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_41_hugo_64kb.mp3",
+          "secs": 535,
+          "reader": "James Crook"
+        },
+        {
+          "n": 42,
+          "title": "Bk 05 Ch 04: The Gropings of Flight",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_42_hugo_64kb.mp3",
+          "secs": 446,
+          "reader": "Al Dano"
+        },
+        {
+          "n": 43,
+          "title": "Bk 05 Ch 05: Which Would Be Impossible with Gas Lanterns",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_43_hugo_64kb.mp3",
+          "secs": 572,
+          "reader": "James Crook"
+        },
+        {
+          "n": 44,
+          "title": "Bk 05 Ch 06: The Beginning of an Enigma",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_44_hugo_64kb.mp3",
+          "secs": 370,
+          "reader": "Jonathan Ross"
+        },
+        {
+          "n": 45,
+          "title": "Bk 05 Ch 07: Continuation of the Enigma",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_45_hugo_64kb.mp3",
+          "secs": 379,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 46,
+          "title": "Bk 05 Ch 08: The Enigma Becomes Doubly Mysterious",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_46_hugo_64kb.mp3",
+          "secs": 345,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 47,
+          "title": "Bk 05 Ch 09: The Man with the Bell",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_47_hugo_64kb.mp3",
+          "secs": 559,
+          "reader": "Jonathan Ross"
+        },
+        {
+          "n": 48,
+          "title": "Bk 05 Ch 10: Which Explains How Javert Got on the Scent",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_48_hugo_64kb.mp3",
+          "secs": 1220,
+          "reader": "Kai Lu"
+        },
+        {
+          "n": 49,
+          "title": "<b>Bk 06</b> Ch 01: Number 62 Rue Petit-Picpus",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_49_hugo_64kb.mp3",
+          "secs": 571,
+          "reader": "Kai Lu"
+        },
+        {
+          "n": 50,
+          "title": "Bk 06 Ch 02: The Obedience of Martin Verga",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_50_hugo_64kb.mp3",
+          "secs": 1143,
+          "reader": "amycs"
+        },
+        {
+          "n": 51,
+          "title": "Bk 06 Ch 03: Austerities",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_51_hugo_64kb.mp3",
+          "secs": 296,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 52,
+          "title": "Bk 06 Ch 04: Gayeties",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_52_hugo_64kb.mp3",
+          "secs": 622,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 53,
+          "title": "Bk 06 Ch 05: Distractions",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_53_hugo_64kb.mp3",
+          "secs": 1011,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 54,
+          "title": "Bk 06 Ch 06: The Little Convent",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_54_hugo_64kb.mp3",
+          "secs": 466,
+          "reader": "Andy"
+        },
+        {
+          "n": 55,
+          "title": "Bk 06 Ch 07: Some Silhouettes of this Darkness",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_55_hugo_64kb.mp3",
+          "secs": 455,
+          "reader": "Andy"
+        },
+        {
+          "n": 56,
+          "title": "Bk 06 Ch 08: Post Corda Lapides",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_56_hugo_64kb.mp3",
+          "secs": 319,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 57,
+          "title": "Bk 06 Ch 09: A Century Under a Guimpe",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_57_hugo_64kb.mp3",
+          "secs": 302,
+          "reader": "minimoose83"
+        },
+        {
+          "n": 58,
+          "title": "Bk 06 Ch 10: Origin of the Perpetual Adoration",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_58_hugo_64kb.mp3",
+          "secs": 320,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 59,
+          "title": "Bk 06 Ch 11: End of the Petit-Picpus",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_59_hugo_64kb.mp3",
+          "secs": 355,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 60,
+          "title": "<b>Bk 07</b> Ch 01: The Convent as an Abstract Idea",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_60_hugo_64kb.mp3",
+          "secs": 131,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 61,
+          "title": "Bk 07 Ch 02: The Convent As an Historical Fact",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_61_hugo_64kb.mp3",
+          "secs": 481,
+          "reader": "Ian Lynch"
+        },
+        {
+          "n": 62,
+          "title": "Bk 07 Ch 03: On What Conditions One Can Respect the Past",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_62_hugo_64kb.mp3",
+          "secs": 458,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 63,
+          "title": "Bk 07 Ch 04: The Convent from the Point of View of Principles",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_63_hugo_64kb.mp3",
+          "secs": 300,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 64,
+          "title": "Bk 07 Ch 05: Prayer",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_64_hugo_64kb.mp3",
+          "secs": 287,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 65,
+          "title": "Bk 07 Ch 06: The Absolute Goodness of Prayer",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_65_hugo_64kb.mp3",
+          "secs": 352,
+          "reader": "Kai Lu"
+        },
+        {
+          "n": 66,
+          "title": "Bk 07 Ch 07: Precautions to Be Observed in Blame",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_66_hugo_64kb.mp3",
+          "secs": 177,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 67,
+          "title": "Bk 07 Ch 08: Faith, Law",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_67_hugo_64kb.mp3",
+          "secs": 363,
+          "reader": "Labyrinth Composer"
+        },
+        {
+          "n": 68,
+          "title": "<b>Bk 08</b> Ch 01: Which Treats of the Manner of Entering a Convent",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_68_hugo_64kb.mp3",
+          "secs": 1082,
+          "reader": "Kalynda"
+        },
+        {
+          "n": 69,
+          "title": "Bk 08 Ch 02: Fauchelevent in the Presence of a Difficulty",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_69_hugo_64kb.mp3",
+          "secs": 347,
+          "reader": "Linda McDaniel"
+        },
+        {
+          "n": 70,
+          "title": "Bk 08 Ch 03: Mother Innocente",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_70_hugo_64kb.mp3",
+          "secs": 1274,
+          "reader": "minimoose83"
+        },
+        {
+          "n": 71,
+          "title": "Bk 08 Ch 04: In Which Jean Valjean Has Quite the Air...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_71_hugo_64kb.mp3",
+          "secs": 818,
+          "reader": "Gabrielle Lambrick"
+        },
+        {
+          "n": 72,
+          "title": "Bk 08 Ch 05: It Is Not Necessary to Be Drunk...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_72_hugo_64kb.mp3",
+          "secs": 950,
+          "reader": "Gabrielle Lambrick"
+        },
+        {
+          "n": 73,
+          "title": "Bk 08 Ch 06: Between Four Planks",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_73_hugo_64kb.mp3",
+          "secs": 329,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 74,
+          "title": "Bk 08 Ch 07: In Which Will Be Found the Origin of the Saying...",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_74_hugo_64kb.mp3",
+          "secs": 1213,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 75,
+          "title": "Bk 08 Ch 08: A Successful Interrogatory",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_75_hugo_64kb.mp3",
+          "secs": 477,
+          "reader": "Linda McDaniel"
+        },
+        {
+          "n": 76,
+          "title": "Bk 08 Ch 09: Cloistered",
+          "url": "https://www.archive.org/download/les_mis_vol02_0906_librivox/lesmiserables_vol2_76_hugo_64kb.mp3",
+          "secs": 1390,
+          "reader": "Ruth Golding"
+        }
+      ]
+    },
+    {
+      "volume_number": 3,
+      "librivox_id": "3158",
+      "librivox_title": "Misérables, Volume 3",
+      "sections": [
+        {
+          "n": 1,
+          "title": "<b>Bk 01</b> Ch 01-04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_01_hugo_64kb.mp3",
+          "secs": 653,
+          "reader": "Alina"
+        },
+        {
+          "n": 2,
+          "title": "Bk 01 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_02_hugo_64kb.mp3",
+          "secs": 686,
+          "reader": "Alina"
+        },
+        {
+          "n": 3,
+          "title": "Bk 01 Ch 07-09",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_03_hugo_64kb.mp3",
+          "secs": 668,
+          "reader": "Liz Loomans"
+        },
+        {
+          "n": 4,
+          "title": "Bk 01 Ch 10-11",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_04_hugo_64kb.mp3",
+          "secs": 984,
+          "reader": "Aringguth"
+        },
+        {
+          "n": 5,
+          "title": "Bk 01 Ch 12-13",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_05_hugo_64kb.mp3",
+          "secs": 579,
+          "reader": "Aringguth"
+        },
+        {
+          "n": 6,
+          "title": "<b>Bk 02</b> Ch 01-04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_06_hugo_64kb.mp3",
+          "secs": 809,
+          "reader": "SilverG"
+        },
+        {
+          "n": 7,
+          "title": "Bk 02 Ch 05-08",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_07_hugo_64kb.mp3",
+          "secs": 1056,
+          "reader": "SilverG"
+        },
+        {
+          "n": 8,
+          "title": "<b>Bk 03</b> Ch 01",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_08_hugo_64kb.mp3",
+          "secs": 554,
+          "reader": "Cagliostro"
+        },
+        {
+          "n": 9,
+          "title": "Bk 03 Ch 02",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_09_hugo_64kb.mp3",
+          "secs": 968,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 10,
+          "title": "Bk 03 Ch 03",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_10_hugo_64kb.mp3",
+          "secs": 1174,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 11,
+          "title": "Bk 03 Ch 04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_11_hugo_64kb.mp3",
+          "secs": 500,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 12,
+          "title": "Bk 03 Ch 05",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_12_hugo_64kb.mp3",
+          "secs": 299,
+          "reader": "SilverG"
+        },
+        {
+          "n": 13,
+          "title": "Bk 03 Ch 06",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_13_hugo_64kb.mp3",
+          "secs": 1112,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 14,
+          "title": "Bk 03 Ch 07",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_14_hugo_64kb.mp3",
+          "secs": 827,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 15,
+          "title": "Bk 03 Ch 08",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_15_hugo_64kb.mp3",
+          "secs": 761,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 16,
+          "title": "<b>Bk 04</b> Ch 01",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_16_hugo_64kb.mp3",
+          "secs": 2498,
+          "reader": "Aringguth"
+        },
+        {
+          "n": 17,
+          "title": "Bk 04 Ch 02",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_17_hugo_64kb.mp3",
+          "secs": 518,
+          "reader": "May Low"
+        },
+        {
+          "n": 18,
+          "title": "Bk 04 Ch 03",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_18_hugo_64kb.mp3",
+          "secs": 383,
+          "reader": "Sophia Choi"
+        },
+        {
+          "n": 19,
+          "title": "Bk 04 Ch 04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_19_hugo_64kb.mp3",
+          "secs": 1113,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 20,
+          "title": "Bk 04 Ch 05",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_20_hugo_64kb.mp3",
+          "secs": 599,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 21,
+          "title": "Bk 04 Ch 06",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_21_hugo_64kb.mp3",
+          "secs": 385,
+          "reader": "Jessamy Gloor"
+        },
+        {
+          "n": 22,
+          "title": "<b>Bk 05</b> Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_22_hugo_64kb.mp3",
+          "secs": 897,
+          "reader": "Linda Woods"
+        },
+        {
+          "n": 23,
+          "title": "Bk 05 Ch 03",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_23_hugo_64kb.mp3",
+          "secs": 798,
+          "reader": "May Low"
+        },
+        {
+          "n": 24,
+          "title": "Bk 05 Ch 04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_24_hugo_64kb.mp3",
+          "secs": 728,
+          "reader": "May Low"
+        },
+        {
+          "n": 25,
+          "title": "Bk 05 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_25_hugo_64kb.mp3",
+          "secs": 1160,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 26,
+          "title": "<b>Bk 06</b> Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_26_hugo_64kb.mp3",
+          "secs": 830,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 27,
+          "title": "Bk 06 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_27_hugo_64kb.mp3",
+          "secs": 627,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 28,
+          "title": "Bk 06 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_28_hugo_64kb.mp3",
+          "secs": 617,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 29,
+          "title": "Bk 06 Ch 07-09",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_29_hugo_64kb.mp3",
+          "secs": 885,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 30,
+          "title": "<b>Bk 07</b> Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_30_hugo_64kb.mp3",
+          "secs": 896,
+          "reader": "Cagliostro"
+        },
+        {
+          "n": 31,
+          "title": "Bk 07 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_31_hugo_64kb.mp3",
+          "secs": 987,
+          "reader": "Ruth Golding"
+        },
+        {
+          "n": 32,
+          "title": "<b>Bk 08</b> Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_32_hugo_64kb.mp3",
+          "secs": 593,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 33,
+          "title": "Bk 08 Ch 03",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_33_hugo_64kb.mp3",
+          "secs": 607,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 34,
+          "title": "Bk 08 Ch 04",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_34_hugo_64kb.mp3",
+          "secs": 955,
+          "reader": "May Low"
+        },
+        {
+          "n": 35,
+          "title": "Bk 08 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_35_hugo_64kb.mp3",
+          "secs": 1027,
+          "reader": "May Low"
+        },
+        {
+          "n": 36,
+          "title": "Bk 08 Ch 07-08",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_36_hugo_64kb.mp3",
+          "secs": 771,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 37,
+          "title": "Bk 08 Ch 09",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_37_hugo_64kb.mp3",
+          "secs": 543,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 38,
+          "title": "Bk 08 Ch 10-11",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_38_hugo_64kb.mp3",
+          "secs": 968,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 39,
+          "title": "Bk 08 Ch 12",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_39_hugo_64kb.mp3",
+          "secs": 681,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 40,
+          "title": "Bk 08 Ch 13",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_40_hugo_64kb.mp3",
+          "secs": 422,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 41,
+          "title": "Bk 08 Ch 14",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_41_hugo_64kb.mp3",
+          "secs": 490,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 42,
+          "title": "Bk 08 Ch 15-16",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_42_hugo_64kb.mp3",
+          "secs": 809,
+          "reader": "Brendan Tannam"
+        },
+        {
+          "n": 43,
+          "title": "Bk 08 Ch 17-18",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_43_hugo_64kb.mp3",
+          "secs": 858,
+          "reader": "mrs.elliott88"
+        },
+        {
+          "n": 44,
+          "title": "Bk 08 Ch 19",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_44_hugo_64kb.mp3",
+          "secs": 655,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 45,
+          "title": "Bk 08 Ch 20 part 1",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_45_hugo_64kb.mp3",
+          "secs": 1302,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 46,
+          "title": "Bk 08 Ch 20 part 2",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_46_hugo_64kb.mp3",
+          "secs": 1321,
+          "reader": "Liz Loomans"
+        },
+        {
+          "n": 47,
+          "title": "Bk 08 Ch 20 part 3",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_47_hugo_64kb.mp3",
+          "secs": 1159,
+          "reader": "Catharine Eastman"
+        },
+        {
+          "n": 48,
+          "title": "Bk 08 Ch 21-22",
+          "url": "https://www.archive.org/download/lesmis3_0911_0911/lesmiserables_vol3_48_hugo_64kb.mp3",
+          "secs": 847,
+          "reader": "May Low"
+        }
+      ]
+    },
+    {
+      "volume_number": 4,
+      "librivox_id": "3608",
+      "librivox_title": "Misérables, Volume 4",
+      "sections": [
+        {
+          "n": 1,
+          "title": "Bk 01 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_01_hugo_64kb.mp3",
+          "secs": 782,
+          "reader": "Emma Joyce"
+        },
+        {
+          "n": 2,
+          "title": "Bk 01 Ch 02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_02_hugo_64kb.mp3",
+          "secs": 452,
+          "reader": "Emma Joyce"
+        },
+        {
+          "n": 3,
+          "title": "Bk 01 Ch 03",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_03_hugo_64kb.mp3",
+          "secs": 1238,
+          "reader": "Rachel Weaver"
+        },
+        {
+          "n": 4,
+          "title": "Bk 01 Ch 04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_04_hugo_64kb.mp3",
+          "secs": 1174,
+          "reader": "Rachel Weaver"
+        },
+        {
+          "n": 5,
+          "title": "Bk 01 Ch 05",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_05_hugo_64kb.mp3",
+          "secs": 1883,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 6,
+          "title": "Bk 01 Ch 06",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_06_hugo_64kb.mp3",
+          "secs": 686,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 7,
+          "title": "Bk 02 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_07_hugo_64kb.mp3",
+          "secs": 959,
+          "reader": "May Low"
+        },
+        {
+          "n": 8,
+          "title": "Bk 02 Ch 02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_08_hugo_64kb.mp3",
+          "secs": 765,
+          "reader": "May Low"
+        },
+        {
+          "n": 9,
+          "title": "Bk 02 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_09_hugo_64kb.mp3",
+          "secs": 1286,
+          "reader": "May Low"
+        },
+        {
+          "n": 10,
+          "title": "Bk 03 Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_10_hugo_64kb.mp3",
+          "secs": 1127,
+          "reader": "Algy Pug"
+        },
+        {
+          "n": 11,
+          "title": "Bk 03 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_11_hugo_64kb.mp3",
+          "secs": 1355,
+          "reader": "Algy Pug"
+        },
+        {
+          "n": 12,
+          "title": "Bk 03 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_12_hugo_64kb.mp3",
+          "secs": 1201,
+          "reader": "David Dwight"
+        },
+        {
+          "n": 13,
+          "title": "Bk 03 Ch 07",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_13_hugo_64kb.mp3",
+          "secs": 943,
+          "reader": "David Dwight"
+        },
+        {
+          "n": 14,
+          "title": "Bk 03 Ch 08",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_14_hugo_64kb.mp3",
+          "secs": 1586,
+          "reader": "David Dwight"
+        },
+        {
+          "n": 15,
+          "title": "Bk 04 Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_15_hugo_64kb.mp3",
+          "secs": 1571,
+          "reader": "Algy Pug"
+        },
+        {
+          "n": 16,
+          "title": "Bk 05 Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_16_hugo_64kb.mp3",
+          "secs": 743,
+          "reader": "SummerWind"
+        },
+        {
+          "n": 17,
+          "title": "Bk 05 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_17_hugo_64kb.mp3",
+          "secs": 1075,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 18,
+          "title": "Bk 05 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_18_hugo_64kb.mp3",
+          "secs": 853,
+          "reader": "Closet Weevil"
+        },
+        {
+          "n": 19,
+          "title": "Bk 06 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_19_hugo_64kb.mp3",
+          "secs": 585,
+          "reader": "May Low"
+        },
+        {
+          "n": 20,
+          "title": "Bk 06 Ch 02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_20_hugo_64kb.mp3",
+          "secs": 3274,
+          "reader": "May Low"
+        },
+        {
+          "n": 21,
+          "title": "Bk 06 Ch 03",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_21_hugo_64kb.mp3",
+          "secs": 1952,
+          "reader": "Rachel Weaver"
+        },
+        {
+          "n": 22,
+          "title": "Bk 07 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_22_hugo_64kb.mp3",
+          "secs": 1523,
+          "reader": "Rachel Nelson-Smith"
+        },
+        {
+          "n": 23,
+          "title": "Bk 07 Ch 02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_23_hugo_64kb.mp3",
+          "secs": 1460,
+          "reader": "Algy Pug"
+        },
+        {
+          "n": 24,
+          "title": "Bk 07 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_24_hugo_64kb.mp3",
+          "secs": 1368,
+          "reader": "Algy Pug"
+        },
+        {
+          "n": 25,
+          "title": "Bk 08 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_25_hugo_64kb.mp3",
+          "secs": 809,
+          "reader": "Gabi"
+        },
+        {
+          "n": 26,
+          "title": "Bk 08 Ch 02-03",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_26_hugo_64kb.mp3",
+          "secs": 908,
+          "reader": "joelhermansen"
+        },
+        {
+          "n": 27,
+          "title": "Bk 08 Ch 04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_27_hugo_64kb.mp3",
+          "secs": 1005,
+          "reader": "pachayes"
+        },
+        {
+          "n": 28,
+          "title": "Bk 08 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_28_hugo_64kb.mp3",
+          "secs": 1020,
+          "reader": "pachayes"
+        },
+        {
+          "n": 29,
+          "title": "Bk 08 Ch 07",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_29_hugo_64kb.mp3",
+          "secs": 2056,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 30,
+          "title": "Bk 09 Ch 01-03",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_30_hugo_64kb.mp3",
+          "secs": 1285,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 31,
+          "title": "Bk 10 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_31_hugo_64kb.mp3",
+          "secs": 493,
+          "reader": "Cate Mackenzie"
+        },
+        {
+          "n": 32,
+          "title": "Bk 10 Ch 02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_32_hugo_64kb.mp3",
+          "secs": 1019,
+          "reader": "Caitlyn Tetmeyer"
+        },
+        {
+          "n": 33,
+          "title": "Bk 10 Ch 03",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_33_hugo_64kb.mp3",
+          "secs": 960,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 34,
+          "title": "Bk 10 Ch 04-05",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_34_hugo_64kb.mp3",
+          "secs": 1287,
+          "reader": "Robert Keiper"
+        },
+        {
+          "n": 35,
+          "title": "Bk 11 Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_35_hugo_64kb.mp3",
+          "secs": 878,
+          "reader": "May Low"
+        },
+        {
+          "n": 36,
+          "title": "Bk 11 Ch 03-06",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_36_hugo_64kb.mp3",
+          "secs": 994,
+          "reader": "May Low"
+        },
+        {
+          "n": 37,
+          "title": "Bk 12 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_37_hugo_64kb.mp3",
+          "secs": 918,
+          "reader": "Michael Reuss"
+        },
+        {
+          "n": 38,
+          "title": "Bk 12 Ch 02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_38_hugo_64kb.mp3",
+          "secs": 1526,
+          "reader": "Michael Reuss"
+        },
+        {
+          "n": 39,
+          "title": "Bk 12 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_39_hugo_64kb.mp3",
+          "secs": 1107,
+          "reader": "Martina Hutchins"
+        },
+        {
+          "n": 40,
+          "title": "Bk 12 Ch 05-06",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_40_hugo_64kb.mp3",
+          "secs": 1036,
+          "reader": "Martina Hutchins"
+        },
+        {
+          "n": 41,
+          "title": "Bk 12 Ch 07-08",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_41_hugo_64kb.mp3",
+          "secs": 1275,
+          "reader": "Martina Hutchins"
+        },
+        {
+          "n": 42,
+          "title": "Bk 13 Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_42_hugo_64kb.mp3",
+          "secs": 949,
+          "reader": "pachayes"
+        },
+        {
+          "n": 43,
+          "title": "Bk 13 Ch 03-04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_43_hugo_64kb.mp3",
+          "secs": 1005,
+          "reader": "pachayes"
+        },
+        {
+          "n": 44,
+          "title": "Bk 14 Ch 01-02",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_44_hugo_64kb.mp3",
+          "secs": 706,
+          "reader": "Jersey City Frankie"
+        },
+        {
+          "n": 45,
+          "title": "Bk 14 Ch 03-05",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_45_hugo_64kb.mp3",
+          "secs": 739,
+          "reader": "Jersey City Frankie"
+        },
+        {
+          "n": 46,
+          "title": "Bk 14 Ch 06-07",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_46_hugo_64kb.mp3",
+          "secs": 1239,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 47,
+          "title": "Bk 15 Ch 01",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_47_hugo_64kb.mp3",
+          "secs": 1467,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 48,
+          "title": "Bk 15 Ch 02-03",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_48_hugo_64kb.mp3",
+          "secs": 886,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 49,
+          "title": "Bk 15 Ch 04",
+          "url": "https://www.archive.org/download/lesmis4_1004_librivox/lesmiserables_vol4_49_hugo_64kb.mp3",
+          "secs": 750,
+          "reader": "Algy Pug"
+        }
+      ]
+    },
+    {
+      "volume_number": 5,
+      "librivox_id": "3762",
+      "librivox_title": "Misérables, Volume 5",
+      "sections": [
+        {
+          "n": 1,
+          "title": "Bk 1 Ch 1",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_01_hugo_64kb.mp3",
+          "secs": 1339,
+          "reader": "Karen Mason"
+        },
+        {
+          "n": 2,
+          "title": "Bk 1 Ch 2-3",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_02_hugo_64kb.mp3",
+          "secs": 991,
+          "reader": "Karen Mason"
+        },
+        {
+          "n": 3,
+          "title": "Bk 1 Ch 4",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_03_hugo_64kb.mp3",
+          "secs": 1092,
+          "reader": "Karen Mason"
+        },
+        {
+          "n": 4,
+          "title": "Bk 1 Ch 5-6",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_04_hugo_64kb.mp3",
+          "secs": 1045,
+          "reader": "Karen Mason"
+        },
+        {
+          "n": 5,
+          "title": "Bk 1 Ch 7-8",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_05_hugo_64kb.mp3",
+          "secs": 1185,
+          "reader": "Karen Mason"
+        },
+        {
+          "n": 6,
+          "title": "Bk 1 Ch 9-11",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_06_hugo_64kb.mp3",
+          "secs": 1186,
+          "reader": "Karen Mason"
+        },
+        {
+          "n": 7,
+          "title": "Bk 1 Ch 12-13",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_07_hugo_64kb.mp3",
+          "secs": 729,
+          "reader": "Ella Jane Quentin"
+        },
+        {
+          "n": 8,
+          "title": "Bk 1 Ch 14-15",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_08_hugo_64kb.mp3",
+          "secs": 700,
+          "reader": "Ella Jane Quentin"
+        },
+        {
+          "n": 9,
+          "title": "Bk 1 Ch 16",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_09_hugo_64kb.mp3",
+          "secs": 1337,
+          "reader": "Karen"
+        },
+        {
+          "n": 10,
+          "title": "Bk 1 Ch 17-19",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_10_hugo_64kb.mp3",
+          "secs": 1131,
+          "reader": "Alisson Veldhuis"
+        },
+        {
+          "n": 11,
+          "title": "Bk 1 Ch 20",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_11_hugo_64kb.mp3",
+          "secs": 1446,
+          "reader": "Alisson Veldhuis"
+        },
+        {
+          "n": 12,
+          "title": "Bk 1 Ch 21",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_12_hugo_64kb.mp3",
+          "secs": 734,
+          "reader": "Vsilverlining"
+        },
+        {
+          "n": 13,
+          "title": "Bk 1 Ch 22",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_13_hugo_64kb.mp3",
+          "secs": 528,
+          "reader": "Vsilverlining"
+        },
+        {
+          "n": 14,
+          "title": "Bk 1 Ch 23-24",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_14_hugo_64kb.mp3",
+          "secs": 953,
+          "reader": "Elizabeth Barr"
+        },
+        {
+          "n": 15,
+          "title": "Bk 2 Ch 1-2",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_15_hugo_64kb.mp3",
+          "secs": 1348,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 16,
+          "title": "Bk 2 Ch 3-4",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_16_hugo_64kb.mp3",
+          "secs": 992,
+          "reader": "Peter Kelley"
+        },
+        {
+          "n": 17,
+          "title": "Bk 2 Ch 5-6",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_17_hugo_64kb.mp3",
+          "secs": 1072,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 18,
+          "title": "Bk 3 Ch 1",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_18_hugo_64kb.mp3",
+          "secs": 1088,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 19,
+          "title": "Bk 3 Ch 2-3",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_19_hugo_64kb.mp3",
+          "secs": 1077,
+          "reader": "Bruce Pirie"
+        },
+        {
+          "n": 20,
+          "title": "Bk 3 Ch 4",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_20_hugo_64kb.mp3",
+          "secs": 587,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 21,
+          "title": "Bk 3 Ch 5-6",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_21_hugo_64kb.mp3",
+          "secs": 1141,
+          "reader": "Kathryn Lois"
+        },
+        {
+          "n": 22,
+          "title": "Bk 3 Ch 7-8",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_22_hugo_64kb.mp3",
+          "secs": 1089,
+          "reader": "Kathryn Lois"
+        },
+        {
+          "n": 23,
+          "title": "Bk 3 Ch 9-11",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_23_hugo_64kb.mp3",
+          "secs": 1352,
+          "reader": "Bryan Reid"
+        },
+        {
+          "n": 24,
+          "title": "Bk 3 Ch 12",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_24_hugo_64kb.mp3",
+          "secs": 1037,
+          "reader": "Bryan Reid"
+        },
+        {
+          "n": 25,
+          "title": "Bk 4 Ch 1",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_25_hugo_64kb.mp3",
+          "secs": 2201,
+          "reader": "Clarke Bell"
+        },
+        {
+          "n": 26,
+          "title": "Bk 5 Ch 1",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_26_hugo_64kb.mp3",
+          "secs": 521,
+          "reader": "Vsilverlining"
+        },
+        {
+          "n": 27,
+          "title": "Bk 5 Ch 2",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_27_hugo_64kb.mp3",
+          "secs": 738,
+          "reader": "Anka"
+        },
+        {
+          "n": 28,
+          "title": "Bk 5 Ch 3",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_28_hugo_64kb.mp3",
+          "secs": 447,
+          "reader": "Vsilverlining"
+        },
+        {
+          "n": 29,
+          "title": "Bk 5 Ch 4-5",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_29_hugo_64kb.mp3",
+          "secs": 905,
+          "reader": "Roseanne Schmidt"
+        },
+        {
+          "n": 30,
+          "title": "Bk 5 Ch 6",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_30_hugo_64kb.mp3",
+          "secs": 1390,
+          "reader": "amicrazy2u"
+        },
+        {
+          "n": 31,
+          "title": "Bk 5 Ch 7",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_31_hugo_64kb.mp3",
+          "secs": 387,
+          "reader": "Vsilverlining"
+        },
+        {
+          "n": 32,
+          "title": "Bk 5 Ch 8",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_32_hugo_64kb.mp3",
+          "secs": 649,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 33,
+          "title": "Bk 6 Ch 1",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_33_hugo_64kb.mp3",
+          "secs": 1224,
+          "reader": "Amy Hengst"
+        },
+        {
+          "n": 34,
+          "title": "Bk 6 Ch 2",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_34_hugo_64kb.mp3",
+          "secs": 1413,
+          "reader": "Amy Hengst"
+        },
+        {
+          "n": 35,
+          "title": "Bk 6 Ch 3-4",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_35_hugo_64kb.mp3",
+          "secs": 1053,
+          "reader": "Anka"
+        },
+        {
+          "n": 36,
+          "title": "Bk 7 Ch 1",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_36_hugo_64kb.mp3",
+          "secs": 2888,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 37,
+          "title": "Bk 7 Ch 2",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_37_hugo_64kb.mp3",
+          "secs": 1288,
+          "reader": "Karen"
+        },
+        {
+          "n": 38,
+          "title": "Bk 8 Ch 1-2",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_38_hugo_64kb.mp3",
+          "secs": 1082,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 39,
+          "title": "Bk 8 Ch 3-4",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_39_hugo_64kb.mp3",
+          "secs": 940,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 40,
+          "title": "Bk 9 Ch 1-3",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_40_hugo_64kb.mp3",
+          "secs": 1050,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 41,
+          "title": "Bk 9 Ch 4",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_41_hugo_64kb.mp3",
+          "secs": 2686,
+          "reader": "Joyce Martin"
+        },
+        {
+          "n": 42,
+          "title": "Bk 9 Ch 5-6",
+          "url": "https://www.archive.org/download/lesmis5_1010_librivox/lesmiserables_vol5_42_hugo_64kb.mp3",
+          "secs": 1678,
+          "reader": "Joyce Martin"
+        }
+      ]
+    }
+  ]
+}

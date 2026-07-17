@@ -1,0 +1,164 @@
+{
+  "_meta": {
+    "book": "The Wind in the Willows (standard_ebooks kenneth-grahame/the-wind-in-the-willows)",
+    "license": "U.S. Public Domain / LibriVox recordings PD",
+    "source": "library_chapters_master + librivox.org API id=94",
+    "fetched_at": "2026-07-04T01:59:47.370Z",
+    "align": "title"
+  },
+  "text_chapters": [
+    {
+      "chapter_idx": 1,
+      "group_label": null,
+      "title": "The River Bank"
+    },
+    {
+      "chapter_idx": 2,
+      "group_label": null,
+      "title": "The Open Road"
+    },
+    {
+      "chapter_idx": 3,
+      "group_label": null,
+      "title": "The Wild Wood"
+    },
+    {
+      "chapter_idx": 4,
+      "group_label": null,
+      "title": "Mr. Badger"
+    },
+    {
+      "chapter_idx": 5,
+      "group_label": null,
+      "title": "Dulce Domum"
+    },
+    {
+      "chapter_idx": 6,
+      "group_label": null,
+      "title": "Mr. Toad"
+    },
+    {
+      "chapter_idx": 7,
+      "group_label": null,
+      "title": "The Piper at the Gates of Dawn"
+    },
+    {
+      "chapter_idx": 8,
+      "group_label": null,
+      "title": "Toad's Adventures"
+    },
+    {
+      "chapter_idx": 9,
+      "group_label": null,
+      "title": "Wayfarers All"
+    },
+    {
+      "chapter_idx": 10,
+      "group_label": null,
+      "title": "The Further Adventures of Toad"
+    },
+    {
+      "chapter_idx": 11,
+      "group_label": null,
+      "title": "\"Like Summer Tempests Came His Tears\""
+    },
+    {
+      "chapter_idx": 12,
+      "group_label": null,
+      "title": "The Return of Ulysses"
+    }
+  ],
+  "volumes": [
+    {
+      "volume_number": null,
+      "librivox_id": "94",
+      "librivox_title": "Wind in the Willows",
+      "sections": [
+        {
+          "n": 1,
+          "title": "The River Bank",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_01_grahame_64kb.mp3",
+          "secs": 1632,
+          "reader": "Peter Yearsley"
+        },
+        {
+          "n": 2,
+          "title": "The Open Road",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_02_grahame_64kb.mp3",
+          "secs": 1744,
+          "reader": "Meredith Hughes"
+        },
+        {
+          "n": 3,
+          "title": "The Wild Wood",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_03_grahame_64kb.mp3",
+          "secs": 1920,
+          "reader": "Kara Shallenberg (1969-2023)"
+        },
+        {
+          "n": 4,
+          "title": "Mr. Badger",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_04_grahame_64kb.mp3",
+          "secs": 1812,
+          "reader": "Betsie Bush"
+        },
+        {
+          "n": 5,
+          "title": "Dulce Dolmum",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_05_grahame_64kb.mp3",
+          "secs": 2154,
+          "reader": "Peter Yearsley"
+        },
+        {
+          "n": 6,
+          "title": "Mr. Toad",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_06_grahame_64kb.mp3",
+          "secs": 1672,
+          "reader": "Vinny Bove"
+        },
+        {
+          "n": 7,
+          "title": "The Piper at the Gates of Dawn",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_07_grahame_64kb.mp3",
+          "secs": 1670,
+          "reader": "Chip"
+        },
+        {
+          "n": 8,
+          "title": "Toad's Adventures",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_08_grahame_64kb.mp3",
+          "secs": 2463,
+          "reader": "Denny Sayers (d. 2015)"
+        },
+        {
+          "n": 9,
+          "title": "Wayfarers All",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_09_grahame_64kb.mp3",
+          "secs": 2463,
+          "reader": "Peter Eastman"
+        },
+        {
+          "n": 10,
+          "title": "The Further Adventures of Toad",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_10_grahame_64kb.mp3",
+          "secs": 2021,
+          "reader": "Kymm Zuckert"
+        },
+        {
+          "n": 11,
+          "title": "'Like Summer Tempests Came His Tears'",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_11_grahame_64kb.mp3",
+          "secs": 1739,
+          "reader": "Kirsten Ferreri"
+        },
+        {
+          "n": 12,
+          "title": "The Return of Ulysses",
+          "url": "https://www.archive.org/download/wind_in_the_willows_collab_librivox/wind_in_the_willows_12_grahame_64kb.mp3",
+          "secs": 2093,
+          "reader": "Catharine Eastman"
+        }
+      ]
+    }
+  ]
+}
