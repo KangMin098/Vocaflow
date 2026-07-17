@@ -102,7 +102,7 @@
 **적용(PoC)**: **IPA 5,879 결측 채움** → ipa **64%→76.9%**(29,230→35,109). 자가생성 아닌 외부 사전 사실. 0 실패.
 
 **kaikki가 열어준 후속(§4 근본해소 자원)**:
-- **sense 깊이(최대 갭 해소)**: kaikki avg 4.5 sense·≥5 sense 12,131 → 다의어에 kaikki 영어 gloss를 **근거로** 한국어 sense 추가(per-sense pos/v_level) authoring. 추출 정확도(드문 sense 오해소) 근본 개선. **대량 batch — 별도 착수.**
+- **sense 깊이(최대 갭 해소) 🔶 1차 착수(v06.266)**: `kaikki-sense-{chunk,apply}.mjs` — kaikki 영어 gloss 근거로 한국어 sense 추가(무환각). **1차 슬라이스 freq≤3000 800단어 → 315 enriched**(퇴화 교정: add→더하다·will→모달·policy→보험증권). 잔여 확대 = freq 3k~8k(≈5,180)·전체 19,549, 동일 파이프라인 재실행.
 - **audio**: mp3 URL 30,902 → 원어민 발음(스키마 컬럼 `audio_url` 신설=마이그 필요).
 - syn/ant: kaikki 구조화 필드 희소(4,636/3,510)라 기존 dict-fill이 우세 — 저우선.
 

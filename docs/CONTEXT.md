@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `163aaaa` feat(vocab): kaikki(Wiktionary) 확보 + 외부검증 enrich 파이프라인 + IPA PoC (v06.265)
 - `68cd98f` docs(diagnostics): 단어추출 사전DB ↔ 일반 사전 비교 분석 (v06.264)
 - `e21def0` docs(session-log): RESUME HERE 정리 — 우위 트랙 완료·검증, 다음 세션 후보 (v06.264)
 - `a636cc8` chore(vocab): 니모닉 확대 — v8+ 라틴계 학습어 265 (M2 확대, v06.264)
 - `1308897` test(e2e): 스크립트 히어로 selector 수리 — 스모크 green 복구 (v06.263)
-- `30df8f9` feat(reader): 리더 단어 팝업 리치화 — 다의어+어원+니모닉 (v06.263)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
