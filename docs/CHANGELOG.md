@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 니모닉 확대 — v8+ 라틴계 학습어 265 (M2 확대, v06.264)
+- **배경**: M2(v06.260)는 word_root_links 보유 2,472단어만 대상. 학습 세트 노출 v8+ 라틴계 단어 중 **어근 미링크 712개**가 니모닉 없음 → 최고난도(어원이 가장 유용한) 구간 보강.
+- **도구**(`mnemonic-expand-chunk.mjs`): 링크 없는 라틴계 학습어 + **어근 인벤토리(181개) 근거 파일** 청크. 서브에이전트가 인벤토리 근거로 분해+니모닉(무환각), 근거 밖·비라틴·오귀속 위험이면 skip. 기존 `mnemonic-apply.mjs` 재사용(니모닉이 분해를 담아 링크 미삽입).
+- **결과**: 5청크(712 후보) → **265 니모닉**(37% yield, mnemonic_ko 2,358→**2,623**). 서브에이전트 품질 게이트가 정교하게 오귀속 차단(`heliport` heli=헬리콥터≠helios · `interference` fer=치다≠나르다 · `taxable` tax=재정≠배열 · `compliance` complēre≠plic 등). 발음 말장난 0. 예 `deduction` de+duc+tion→추론 · `serpent` serp(기어가다)→뱀.
+- **saturation**: 후보 노이즈(게르만어·외래어·고유명) 높아 yield 14~51%. v6-7로 더 확대 가능하나 per-word 가치↓ — 투명 분해 가능 집합은 사실상 포화. 발음 말장난 절대 금지 원칙([[feedback_mnemonic_etymology_only]]) 유지.
+
 ### UI 스모크 green 복구 — 스크립트 히어로 selector 수리 (v06.263)
 - **런타임 검증**: 우위 로드맵 UI(리치 카드·플랜 스트립·RecallCard) 스모크 검증 — `04-ui-smoke` test 1(주요 화면 콘솔에러 0)이 `/wordvault`·`/library/vocab`·`/flashcard` 포함 통과 → 이번 세션 변경 런타임 안전 확인.
 - **스모크 실패 수리**(테스트 결함, 앱 무버그): "스크립트 진입면 — 시리즈 상세" 테스트가 추천 히어로의 `getByRole('button').first()`(=v06.238 재설계 후 **본문 '학습 안내 보기' 팝업 버튼**)를 눌러 시트 오버레이가 클릭을 가로챔. 시리즈 진입은 하단 **'글 둘러보기'**(onEnter) 버튼 → selector를 `{name:/글 둘러보기/}`로 교정. **5/5 green** 복구. (고급 밴드 V9+ 계정에서만 재현 — 히어로가 안내 CTA라서.)
