@@ -119,7 +119,7 @@ export function VcbStepTriggerCard({
           <Link
             href={primaryAction.href}
             className="inline-flex items-center px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
-            style={{ background: '#6D28D9' }}
+            style={{ background: 'var(--admin-strong)' }}
           >
             {primaryAction.label}
           </Link>

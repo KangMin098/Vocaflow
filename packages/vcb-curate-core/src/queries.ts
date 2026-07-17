@@ -49,39 +49,53 @@ async function aggregateRunCounts(
     .select('*', { count: 'exact', head: true })
     .eq('run_id', runId)
 
-  const { data: queueRows } = await client
-    .from('vocab_enrichment_queue')
-    .select('status, seed_id, vocab_seed_candidates!inner(run_id)')
-    .eq('vocab_seed_candidates.run_id', runId)
-
+  // 상태 카운트 — PostgREST 기본 1000행 cap 회피 위해 페이지네이션.
+  //   (2,000+단어 run 이 1,000 으로 반토막 나 무결성 배너 오탐·진행률 50% 오표시하던 버그)
+  const PAGE = 1000
   let pending = 0
   let enriched = 0
   let flagged = 0
   let failed = 0
-
-  for (const row of queueRows ?? []) {
-    const status = (row as { status: QueueStatus }).status
-    if (status === 'pending') pending += 1
-    else if (status === 'enriched') enriched += 1
-    else if (status === 'enriched_flagged') flagged += 1
-    else if (status === 'failed') failed += 1
+  for (let offset = 0; ; offset += PAGE) {
+    const { data } = await client
+      .from('vocab_enrichment_queue')
+      .select('status, vocab_seed_candidates!inner(run_id)')
+      .eq('vocab_seed_candidates.run_id', runId)
+      .order('id', { ascending: true })
+      .range(offset, offset + PAGE - 1)
+    const rows = (data ?? []) as Array<{ status: QueueStatus }>
+    for (const row of rows) {
+      if (row.status === 'pending') pending += 1
+      else if (row.status === 'enriched') enriched += 1
+      else if (row.status === 'enriched_flagged') flagged += 1
+      else if (row.status === 'failed') failed += 1
+    }
+    if (rows.length < PAGE) break
   }
 
-  const { data: approvedRows } = await client
-    .from('vocab_curation_decisions')
-    .select(
-      'id, vocab_enrichment_queue!inner(seed_id, vocab_seed_candidates!inner(run_id))',
-    )
-    .eq('decision', 'approve')
-    .eq('vocab_enrichment_queue.vocab_seed_candidates.run_id', runId)
-
-  const approvedSet = new Set<number>()
-  for (const row of approvedRows ?? []) {
-    // Supabase 조인 결과는 단일 row 인데 PostgREST 타입 추론은 array — unknown 캐스팅 우회
-    const queueRef = (
-      row as unknown as { vocab_enrichment_queue: { seed_id: number } }
-    ).vocab_enrichment_queue
-    approvedSet.add(queueRef.seed_id)
+  // approved_count = 최신 결정이 승인(approve)/수정(edit)인 항목 수 — 발행 대상(publishable)과 정합(P0-6).
+  //   decided_at desc 순으로 페이지 처리 → 페이지네이션해도 "queue별 최신 결정" 정합 유지 + 1000 cap 회피.
+  const latestDecision = new Map<number, string>()
+  for (let offset = 0; ; offset += PAGE) {
+    const { data } = await client
+      .from('vocab_curation_decisions')
+      .select(
+        'queue_id, decision, decided_at, vocab_enrichment_queue!inner(vocab_seed_candidates!inner(run_id))',
+      )
+      .eq('vocab_enrichment_queue.vocab_seed_candidates.run_id', runId)
+      .order('decided_at', { ascending: false })
+      .range(offset, offset + PAGE - 1)
+    const rows = (data ?? []) as Array<{ queue_id: number; decision: string }>
+    for (const row of rows) {
+      if (!latestDecision.has(row.queue_id)) {
+        latestDecision.set(row.queue_id, row.decision)
+      }
+    }
+    if (rows.length < PAGE) break
+  }
+  let approved = 0
+  for (const d of latestDecision.values()) {
+    if (d === 'approve' || d === 'edit') approved += 1
   }
 
   return {
@@ -90,7 +104,7 @@ async function aggregateRunCounts(
     enriched_count: enriched,
     flagged_count: flagged,
     failed_count: failed,
-    approved_count: approvedSet.size,
+    approved_count: approved,
   }
 }
 
@@ -188,6 +202,12 @@ interface QueueRowRaw {
   }
 }
 
+function chunk<T>(arr: T[], size: number): T[][] {
+  const out: T[][] = []
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
+  return out
+}
+
 async function fetchLatestDecisions(
   client: SupabaseClient,
   queueIds: number[],
@@ -195,22 +215,31 @@ async function fetchLatestDecisions(
   const map = new Map<number, CurationDecisionKind>()
   if (queueIds.length === 0) return map
 
-  const { data, error } = await client
-    .from('vocab_curation_decisions')
-    .select('queue_id, decision, decided_at')
-    .in('queue_id', queueIds)
-    .order('decided_at', { ascending: false })
-
-  if (error) {
-    throw new Error(`fetchLatestDecisions failed: ${error.message}`)
-  }
-
-  for (const row of (data ?? []) as Array<{
-    queue_id: number
-    decision: CurationDecisionKind
-  }>) {
-    if (!map.has(row.queue_id)) {
-      map.set(row.queue_id, row.decision)
+  // queueId 청킹(URL 길이 방지) + 결정 결과 페이지네이션(PostgREST 1000행 cap 회피).
+  //   각 청크는 queueIds 를 분할하므로 "queue 별 최신"은 청크 내부에서 완결(decided_at desc, 첫 등장=최신).
+  const CHUNK = 500
+  const PAGE = 1000
+  for (const ids of chunk(queueIds, CHUNK)) {
+    for (let offset = 0; ; offset += PAGE) {
+      const { data, error } = await client
+        .from('vocab_curation_decisions')
+        .select('queue_id, decision, decided_at')
+        .in('queue_id', ids)
+        .order('decided_at', { ascending: false })
+        .range(offset, offset + PAGE - 1)
+      if (error) {
+        throw new Error(`fetchLatestDecisions failed: ${error.message}`)
+      }
+      const rows = (data ?? []) as Array<{
+        queue_id: number
+        decision: CurationDecisionKind
+      }>
+      for (const row of rows) {
+        if (!map.has(row.queue_id)) {
+          map.set(row.queue_id, row.decision)
+        }
+      }
+      if (rows.length < PAGE) break
     }
   }
   return map
@@ -223,21 +252,26 @@ async function fetchNgslRanks(
   const map = new Map<string, number>()
   if (lemmas.length === 0) return map
 
-  const { data, error } = await client
-    .from('shared_dictionary')
-    .select('word, frequency_rank')
-    .in('word', lemmas)
-    .not('frequency_rank', 'is', null)
+  // lemma 청킹 — word 당 1행이라 청크(≤500)마다 결과 <1000, 페이지네이션 불요.
+  //   (2,000단어 run 에서 lemma 1,000 초과분의 ngsl_rank 누락 → 정렬/표시 오류 방지)
+  const CHUNK = 500
+  for (const words of chunk(lemmas, CHUNK)) {
+    const { data, error } = await client
+      .from('shared_dictionary')
+      .select('word, frequency_rank')
+      .in('word', words)
+      .not('frequency_rank', 'is', null)
 
-  if (error) {
-    throw new Error(`fetchNgslRanks failed: ${error.message}`)
-  }
+    if (error) {
+      throw new Error(`fetchNgslRanks failed: ${error.message}`)
+    }
 
-  for (const row of (data ?? []) as Array<{
-    word: string
-    frequency_rank: number
-  }>) {
-    map.set(row.word, row.frequency_rank)
+    for (const row of (data ?? []) as Array<{
+      word: string
+      frequency_rank: number
+    }>) {
+      map.set(row.word, row.frequency_rank)
+    }
   }
   return map
 }
@@ -251,26 +285,33 @@ export async function fetchQueueItems(
   const limit = query.limit ?? 500
   const offset = query.offset ?? 0
 
-  let q = client
-    .from('vocab_enrichment_queue')
-    .select(
-      `id, status, qa_flags, enriched_payload,
-       vocab_seed_candidates!inner(id, lemma, pos, rank_in_run, seed_origin, run_id)`,
-    )
-    .eq('vocab_seed_candidates.run_id', query.run_id)
+  // PostgREST 1000행 hard-cap 회피 — 요청 limit 까지 페이지 단위로 누적.
+  //   (2,000단어 run 이 1,000 으로 절단돼 나머지 단어가 큐레이션 UI 에서 도달 불가하던 버그)
+  const PAGE = 1000
+  const rows: QueueRowRaw[] = []
+  for (let start = offset; start < offset + limit; start += PAGE) {
+    const end = Math.min(offset + limit, start + PAGE) - 1
+    let q = client
+      .from('vocab_enrichment_queue')
+      .select(
+        `id, status, qa_flags, enriched_payload,
+         vocab_seed_candidates!inner(id, lemma, pos, rank_in_run, seed_origin, run_id)`,
+      )
+      .eq('vocab_seed_candidates.run_id', query.run_id)
+      .order('id', { ascending: true })
 
-  if (filter === 'flagged') {
-    q = q.eq('status', 'enriched_flagged')
+    if (filter === 'flagged') {
+      q = q.eq('status', 'enriched_flagged')
+    }
+
+    const { data, error } = await q.range(start, end)
+    if (error) {
+      throw new Error(`fetchQueueItems failed: ${error.message}`)
+    }
+    const page = (data ?? []) as unknown as QueueRowRaw[]
+    rows.push(...page)
+    if (page.length < end - start + 1) break
   }
-
-  q = q.range(offset, offset + limit - 1)
-
-  const { data, error } = await q
-  if (error) {
-    throw new Error(`fetchQueueItems failed: ${error.message}`)
-  }
-
-  const rows = (data ?? []) as unknown as QueueRowRaw[]
   const queueIds = rows.map((r) => r.id)
   const lemmas = rows.map((r) => r.vocab_seed_candidates.lemma)
 

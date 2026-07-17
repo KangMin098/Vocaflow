@@ -3,8 +3,9 @@
 
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
+import { divergenceRegions } from '@/lib/echo/dtw-comparator'
 import type { PitchContour } from '@/lib/echo/pitch-extractor'
 
 interface Props {
@@ -15,9 +16,14 @@ interface Props {
 
 const REF_COLOR = '#3B82F6' // var(--p)
 const USER_COLOR = '#22C55E' // var(--success)
+// 억양이 벌어진 구간 음영 — 경고색 아님(차분한 amber), 색만으로 정보 전달 X (범례 텍스트 병기)
+const DIVERGE_FILL = 'rgba(217, 119, 6, 0.13)'
 
 export function PitchVisualizer({ reference, user, height = 160 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  // 억양이 벌어진 시간 구간(0..1) — "어디서 달라졌는지" 지목 (#3 행동 가능 피드백)
+  const regions = useMemo(() => divergenceRegions(reference, user), [reference, user])
 
   useEffect(() => {
     const c = canvasRef.current
@@ -34,6 +40,14 @@ export function PitchVisualizer({ reference, user, height = 160 }: Props) {
     ctx.scale(dpr, dpr)
 
     ctx.clearRect(0, 0, w, h)
+
+    // 억양이 벌어진 구간 음영 (그리드·곡선 뒤 배경)
+    ctx.fillStyle = DIVERGE_FILL
+    for (const r of regions) {
+      const x = r.startPct * w
+      const bw = Math.max(2, (r.endPct - r.startPct) * w)
+      ctx.fillRect(x, 0, bw, h)
+    }
 
     // 배경 그리드
     ctx.strokeStyle = 'rgba(148, 163, 184, 0.18)'
@@ -78,7 +92,7 @@ export function PitchVisualizer({ reference, user, height = 160 }: Props) {
 
     drawContour(reference, REF_COLOR)
     drawContour(user, USER_COLOR)
-  }, [reference, user, height])
+  }, [reference, user, height, regions])
 
   return (
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
@@ -93,9 +107,19 @@ export function PitchVisualizer({ reference, user, height = 160 }: Props) {
           <span className="inline-flex items-center gap-1">
             <span aria-hidden className="h-0.5 w-3" style={{ backgroundColor: USER_COLOR }} /> 내 음성
           </span>
+          {regions.length > 0 && (
+            <span className="inline-flex items-center gap-1">
+              <span aria-hidden className="h-2.5 w-3 rounded-[2px]" style={{ backgroundColor: DIVERGE_FILL }} /> 달라진 구간
+            </span>
+          )}
         </div>
       </header>
       <canvas ref={canvasRef} style={{ width: '100%', height: `${height}px` }} />
+      {regions.length > 0 && (
+        <p className="mt-2 font-body text-[11px] text-[var(--t3)]">
+          음영 구간에서 억양이 원어민과 달라졌어요 — 그 부분을 다시 들어보고 따라해봐요.
+        </p>
+      )}
     </section>
   )
 }

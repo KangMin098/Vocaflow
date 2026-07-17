@@ -13,7 +13,56 @@ export const VOCAB_CATEGORIES = [
   { id: 'eng_test', label: '공인영어', emoji: '🌍', hint: 'TOEIC·TOEFL·IELTS' },
   { id: 'civil', label: '공무원', emoji: '🏛️', hint: '7·9급' },
   { id: 'business', label: '비즈니스', emoji: '💼', hint: '실무 영어' },
+  { id: 'etymology', label: '어원', emoji: '📜', hint: '어근으로 계열 학습' },
   { id: 'themed', label: '테마별', emoji: '🎨', hint: '관심사 큐레이션' },
 ] as const
 
 export type VocabCategoryId = (typeof VOCAB_CATEGORIES)[number]['id']
+
+/**
+ * 카테고리 중요도 — 타겟(수능생·한국 학습자) 우선순위. 높을수록 중요.
+ * 추천 정렬(추천순)·캐러셀 탭 순서에 사용. 입시(수능·내신) → 교육과정(고·중·초) → 공인영어 → 실무/테마 → 유아.
+ */
+export const CATEGORY_IMPORTANCE: Record<string, number> = {
+  csat: 100,
+  high: 90,
+  middle: 80,
+  elementary: 70,
+  eng_test: 60,
+  etymology: 50,
+  civil: 45,
+  business: 45,
+  themed: 30,
+  preschool: 20,
+}
+
+/** 카테고리 중요도 조회 (미지정=10, 최하위). */
+export function categoryImportance(cat: string | null | undefined): number {
+  return cat ? (CATEGORY_IMPORTANCE[cat] ?? 10) : 10
+}
+
+/** VOCAB_CATEGORIES 조회 (라벨·이모지·힌트). */
+export function vocabCategoryMeta(cat: string) {
+  return VOCAB_CATEGORIES.find((c) => c.id === cat) ?? null
+}
+
+/**
+ * 카테고리 → 대략 V-level (세트 CEFR 없을 때 i+1 적합 판정 폴백).
+ * 개인 맞춤 추천에서 학습자 V-level 과 비교해 근접 세트를 고르는 데 사용.
+ */
+export const CATEGORY_VLEVEL: Record<string, number> = {
+  preschool: 1,
+  elementary: 2,
+  middle: 4,
+  high: 6,
+  csat: 7,
+  business: 8,
+  eng_test: 9,
+  civil: 9,
+  etymology: 7,
+  themed: 6,
+}
+
+export function categoryVLevel(cat: string | null | undefined): number {
+  return cat ? (CATEGORY_VLEVEL[cat] ?? 6) : 6
+}

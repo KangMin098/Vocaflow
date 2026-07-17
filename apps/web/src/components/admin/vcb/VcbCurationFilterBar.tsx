@@ -64,9 +64,9 @@ export function VcbCurationFilterBar({
               onClick={() => onFilterChange(opt.value)}
               className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-semibold transition-colors"
               style={{
-                borderColor: active ? '#6D28D9' : 'var(--bd)',
+                borderColor: active ? 'var(--admin-strong)' : 'var(--bd)',
                 background: active ? 'rgba(139, 92, 246, 0.10)' : 'var(--bg)',
-                color: active ? '#6D28D9' : 'var(--t2)',
+                color: active ? 'var(--admin-strong)' : 'var(--t2)',
               }}
             >
               {opt.label}

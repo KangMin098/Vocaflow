@@ -1,0 +1,184 @@
+# shared_dictionary sense/POS 품질 감사 — 다의어 primary 오선정
+
+> 상태: **감사 + 부분 수리 완료** (2026-07-12) · 전수 sweep 잔여
+> 배경: 큐레이션 단어추출 검증에서 `creep="변태"` 등 문맥과 다른 뜻 발견 → 근본이 추출 로직이 아니라 **shared_dictionary sense 선정 품질**로 규명.
+
+## 근본 원인 (RC1)
+`shared_dictionary`의 다의어에서 enrichment(Claude classification)가 **흔한 sense를 누락하고 특수·희귀 sense를 primary로 선정**한 경우가 존재. 단어세트는 `meaning_ko`(평면 primary)를 그대로 표시 → 학습자가 문맥과 다른 뜻을 학습.
+
+### 패턴 — primary가 특수 sense, 흔한 sense 누락
+| 단어 | 오류 primary | 누락된 흔한 뜻 |
+|---|---|---|
+| creep | 변태(noun) | **기어가다(verb)** |
+| nettle | 짜증나게하다(verb) | **쐐기풀(noun·식물)** |
+| founder | 침몰하다(verb) | **창립자(noun)** |
+| spiritual | 흑인 영가(noun) | **영적인(adjective)** |
+| bay | 적갈색의(말털·adj) | **만(灣)(noun)** |
+| steam | 찌다(verb) | **증기(noun)** |
+
+특징: **primary POS가 그 단어의 지배적 POS가 아님** + 특수 도메인(말털·항해·종교민요) sense가 앞섬.
+
+## 규모
+- V≥6 분류어 **34,076** · 다의어(≥2 sense) **7,157(21%)** · multi-POS 인벤토리 **2,171(6.4%)**.
+- 감사 표본(발행 노출 mid-rank 다의어 ~135개) 오류율 **~8%**(egregious+부분누락). 상위 흔한어(rank<2800)는 대부분 정상 — mid-rank(2800-16000) 군집.
+
+## 수리 완료 (11 단어 · 사전 교정 + 발행 세트 전파)
+creep·nettle·founder·spiritual·bay·steam (primary 교정) + shed·sacrifice·grip·echo·faint (누락 sense 보강). 발행 `shared_words` ~130 appearance 전파(creep 19·faint 23·echo 18·shed 17·steam 14 등). `meaning_ko`+`part_of_speech` 갱신.
+
+## 전수 근절 계획 (잔여)
+탐지가 **기계적으로 어려움**(특수 sense를 primary로 고른 건 Claude 판단 필요). 방법:
+1. **후보 축소**: 발행 노출 다의어(mid-rank) 우선 → 학습자 임팩트 큰 순.
+2. **배치 Claude 재검수**: `dict-enrich`/`vcb-reenrich` 스킬로 각 다의어의 (a) 흔한 sense가 primary인가 (b) 흔한 sense 누락 없나 검수 → 교정.
+3. **탐지 프록시(보조)**: winkNLP 코퍼스 POS 분포 vs 저장 primary POS 불일치 = 후보 플래그(예: bay 실사용은 noun 지배인데 저장 adj).
+4. **발행 전파**: 교정 후 `shared_words` 갱신(위 패턴).
+
+## 자동 탐지기 (2026-07-12) — `scripts/audit-dict-pos-mismatch.mts`
+winkNLP(파이프라인 동일)로 추출 단어의 실제 문맥 sentence(146,831개) POS 태깅 → 단어별 지배 POS 집계 → 저장 primary POS 대조. **804건 불일치**(지배 POS ≠ 저장, 확신≥0.7, 표본≥3). 재사용 QA 자산.
+
+## ⚠ 더 깊은 근본 원인 (탐지기가 규명) — 단어당 1행 + 최난이도 sense V-Level
+탐지 결과 top(high·small·mean·like·help)이 드러낸 진짜 근본:
+- shared_dictionary는 **단어당 1행 + v_level = 가장 어려운 sense 기준**.
+- 다의어가 **기본 sense(저-V) + 고급 sense(V≥6)**를 가지면(high: 높은 V2 + 황홀감 V7), 행의 v_level은 V7 → **V≥6 필터 통과**, primary는 고급 sense(황홀감).
+- 추출이 텍스트의 **기본 용법(높은)**을 잡아도 → 사전 행은 고급 gloss(황홀감) → **기본 용법이 고급 뜻으로 오추출**.
+
+### 두 부류
+| 부류 | 예 | 성격 | 수리 |
+|---|---|---|---|
+| **A** | creep·founder·bay·nettle·spiritual | 두 sense 다 비기본, primary 오선정 | 사전 재-enrichment (11건 완료) |
+| **B** | high·small·mean·like·help·show (685건) | 기본 sense 저-V → V≥6 항목이 고급 sense뿐 → 기본 용법 오추출·오gloss | **아키텍처** (아래) |
+
+## 근본 해결책 — sense별 V-Level 아키텍처 (최고 품질 목표)
+1. **sense별 v_level**: `meanings_ko` 각 sense에 `v_level` 부여(기본 sense=저-V, 고급 sense=고-V). 이미 {pos, meaning} 구조 존재 → v_level 필드 추가.
+2. **문맥 POS 저장(RC3)**: 추출 시 winkNLP 문맥 POS를 `library_book_vocabularies`에 저장(현재 폐기).
+3. **문맥-sense 매칭 추출**: 추출 JOIN이 문맥 POS로 `meanings_ko`에서 sense 선택 → **그 sense의 v_level로 V≥6 필터** + 그 sense의 gloss 표시.
+   - 효과: high(높은=V2 sense)는 V≥6 탈락(오추출 근절) · high(황홀감=V7 sense)만 통과(정확 gloss) · venture(문맥 verb)는 동사 sense 선택.
+4. **A류 재-enrichment**: 위와 별도로 primary 오선정(creep류)은 배치 Claude 재검수(`dict-enrich`).
+
+이로써 **기본 용법 오추출·오gloss(B) + 다의어 primary 오류(A)** 모두 근절 → 사전 최고 품질. 단 (1)(2)(3)은 스키마+추출+파이프라인 변경이라 단계적 구현 필요.
+
+## Phase 1 진행 — sense별 v_level 모델 (2026-07-12)
+- **탐지기 V≥6 한정 재측정**: 실 study word POS 불일치 **488건**(비-study 기본어 제외 804→488).
+- **모델 확립**: `meanings_ko` 각 sense에 `v_level` 필드. 예: `swallow=[{verb,"삼키다",v_level:4},{noun,"제비",v_level:6}]` · `sole=[{adj,"유일한",v_level:5},{noun,"발바닥",v_level:6},{noun,"서대",v_level:9}]`.
+- **적용(누적 17단어)**: creep·nettle·founder·spiritual·bay·steam(A류 primary) + shed·sacrifice·grip·echo·faint(누락보강) + **swallow·swift·crush·spoil·sole·stern(sense v_level 모델)**. 발행 세트 ~220 appearance 교정.
+- **잔여 sweep**: 488 study-word 후보 배치 Claude 재검수(`dict-enrich`) — 각 다의어 (a) 흔한 sense primary화 (b) sense별 v_level 부여 (c) 누락 sense 보강. 탐지기 `audit-dict-pos-mismatch.mts`가 후보 자동 생성.
+
+## Phase 2 — 문맥 POS 저장 (2026-07-12 · 완료)
+- **스키마**: `library_book_vocabularies` + `library_article_vocabularies` 에 `context_pos text` 추가(additive·nullable). 마이그 `20260712160000_vocab_context_pos.sql`.
+- **백필**: `scripts/backfill-context-pos.mts` — multi-POS(≥2 POS·V≥6) 단어 1,020개 대상, 각 추출 행의 `first_sentence` 를 winkNLP(파이프라인 동일) 태깅 → 단어 POS 저장. **book 1,507 + article 212 행** 백필.
+- **파이프라인 forward-wiring**: `extract-lemmas.ts` 가 chapter 지배 POS(최다 등장) 계산 → `ChapterWord.context_pos` → `insert_book_analysis` RPC(`20260712170000`) + article 직삽입이 저장. **신규 도서/아티클은 백필 없이 파이프라인에서 바로 채움**.
+
+## Phase 3 — 문맥-sense 매칭 추출 (2026-07-12 · 완료)
+- **추출 함수 재설계**: `select_book_chapter_vocab` + `select_article_vocab` 에 LATERAL JOIN 추가(`20260712165000`) — `context_pos` 로 `meanings_ko` 에서 문맥 POS 일치 sense 선택 → **그 sense 의 v_level 로 V≥6 필터** + 그 sense 의 gloss·pos 표시. 미백필(NULL)은 row 값 폴백(하위호환).
+- **검증(실동작)**:
+  - `creep`(문맥 verb) → gloss "기어가다"(verb sense) 표시 — 오gloss "변태" 근절.
+  - `sole`(문맥 adjective, sense v5) → Gibbon/Les Mis 추출에서 **0건**(V≥6 탈락) — 기본 용법 오추출(B류) 근절 실증.
+- **효과**: A류(primary 오선정) = 사전 재-enrichment로 근절 · B류(기본 sense 저-V 다의어) = 문맥 sense v_level 필터로 근절. 사전 단일-행 한계를 sense별 v_level + 문맥 매칭으로 우회.
+
+## 잔여 sweep 배치 1 — 40단어 sense 보강 (2026-07-12 · 완료)
+- **후보 재측정**: 코퍼스 확대(146,831 sentence)로 POS 불일치 **504건**(🔴누락 441·🟡선택 63). content↔content POS + rank≤8000 + 비-ing 필터 → **고가치 179건** 선별.
+- **배치 1 적용(40단어)**: 각 단어에 누락 POS sense 추가 + **모든 sense에 v_level 부여** + 지배 sense로 flat primary 정렬. 검증 40/40(전 sense v_level·multi-POS). 발행 `shared_words` 424 appearance gloss 동기화.
+  - 예: `yield`→동사"산출/양보"(v6) · `noble`→형용사"고귀한"(v6) · `grasp`→동사"이해하다"(v6) · `disguise`·`drain`·`halt`·`reign`·`sack`·`wax`·`hedge`·`tuck` 등.
+  - **B류 근본 실증**: `minor`(형용사"사소한" **v5** + 명사"미성년자" v6) · `idle`(형용사"한가한" v5) · `damp`(형용사 v5) — 기본 sense v5로 Phase 3가 문맥 형용사 용법을 **V≥6 탈락**(오추출 근절), 특수 명사 sense만 study.
+- **context_pos 재백필**: 40단어가 신규 multi-POS화 → `backfill-context-pos.mts` 재실행으로 lbv/lav 문맥 POS 채움(Phase 3 sense-matching 활성).
+
+## 잔여 sweep 배치 2 — 109단어 sense 보강 (2026-07-12 · 완료)
+- **고가치 179 중 잔여 139 처리**: 실 누락 sense **109단어** 교정 + 형식 오류 정규화(string-array/enrichment-schema → `{pos,meaning,v_level}`). 나머지 ~30은 스킵(형용사 primary가 이미 정답: prior·secular·temporal·nasal·aquatic 등 속성적 명사 오태깅 / lo·ironed 노이즈).
+- **flat primary 대량 교정(지배 sense로 flip)**: `breeze`→명사"산들바람" · `pine`→명사"소나무"(v5) · `coral`→명사"산호" · `vacuum`→명사"진공,공백" · `crumble`→동사"부서지다" · `refrain`→동사"삼가다" · `orderly`→형용사"질서정연한" · `trumpet`→명사"트럼펫" · `courtesy`→명사"예의" · `homeless`/`peripheral`/`collective`/`compact`/`invalid`/`thermal`/`unemployed`→형용사 · `dictate`/`tread`/`underscore`/`rinse`→동사 등.
+- **A류 오데이터 근절**: `wan` 저장값 "광역 통신망 WAN"(약어 오분류) → **"창백한, 핏기 없는"(형용사)** 교정.
+- **검증 109/109**(전 sense v_level) · 발행 `shared_words` 동기화(불일치 0) · context_pos 재백필.
+- `pine`(소나무 v5)·`orderly`/`homeless`/`peripheral`(기본 형용사 저-V) 등도 B류 자동 제외 대상 확대.
+
+## 배치 3 — 잔여 tail 5단어 + sweep 종결 판정 (2026-07-12 · 완료)
+- **재탐지(154 수리 후)**: 438후보(🔴누락 293·🟡선택 145). 🔴 441→293(수리분 탈락), 🟡 63→145 **증가**(sense 추가했으나 flat primary 미flip분이 🟡로 전환).
+- **핵심 판정 — 🟡 145는 대부분 이미 인벤토리 완성**: grave·damp·bound·faithful·comb·glare·hum·usher·overflow·haunt·plow 등은 배치1/2에서 양쪽 sense를 이미 보강. Phase 3가 `context_pos`로 sense-매칭하므로 **추출은 이미 정확**. flat primary는 대체로 합당한 학습자 기본값(grave→무덤·stem→줄기·damp→축축한)이라 noisy한 first_sentence 코퍼스로 flip하면 오히려 악화 위험 → **flat flip 미실시**.
+- **🔴 293 잔여 성격**: 명사화(the unconscious/eldest/infinite)·형용사-primary-정답(prior·temporal·jagged·brittle·oval)·participle 노이즈(trample/horrified)·기능어(lo)가 압도. 실 누락은 소수.
+- **배치3=실 누락 5단어**: brood(+명사"한배 새끼")·tug(+동사)·inevitable(명사→형용사 flip"불가피한")·dummy(+형용사)·unconscious(+명사"무의식"). shared_words 동기화.
+
+## 종결 요약 (문맥-매칭 sweep)
+- **고가치 후보(179) 전량 종결** + tail 5 = **누적 사전 수리 154단어**(초기 17 + 배치1 40 + 배치2 109 + 배치3 5, 일부 중복). 전 sense v_level 부여.
+- **남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리 (b) flat-primary가 정답 (c) 명사화/participle 노이즈** — 추가 배치 실익 낮음.
+- row `v_level`은 VRL 4축 산출물이라 불변 — Phase 3는 sense별 v_level로 우회(문맥 매칭), NULL은 row 폴백.
+
+## Phase 4 — 사전 전역 구조/POS 정규화 (2026-07-12 · 완료)
+> 문맥-매칭 sweep(책 등장 단어)과 별개로 **사전 45,496단어 전수**의 구조·POS 표기 결함을 스캔·근절. 다수가 Phase 3 sense-매칭을 **구조적으로 무력화**하고 있었음.
+
+| 결함 | 이전 | 현재 | 성격 |
+|---|---|---|---|
+| no_meanings (sense 인벤토리 없음) | 6,964 | **0** | flat만 존재 → 단일 sense `{pos,meaning,v_level}` 백필(무손실) |
+| legacy string-array `["뜻"]` (pos 없음) | 773 | **0** | 단일 POS 동의어 뉘앙스 → flat pos+뉘앙스 join 단일 sense |
+| enrichment schema (`sense_ko` 키, `meaning` 없음) | 2,045 | **0** | 고품질이나 Phase 3가 `meaning` 못 읽음 → `meaning`=`sense_ko` additive |
+| **sense POS 약어** (`n.`·`adj.`·`v.` 등) | ~5,000 | **0** | **context_pos(`noun` 풀폼)와 절대 매칭 안 됨** → 풀폼 정규화(핵심) |
+| flat pos 표기 흔들림 (`phrasal verb`·`numeral`) | 16 | **0** | `phrasal_verb`·`number` |
+
+- **효과**: ~9,800단어(21%)가 구조/POS 결함으로 Phase 3 sense-매칭 불가였던 것을 **전량 정합** → 사전 전역이 균일 `{pos, meaning, v_level?}` + 전 POS 풀폼. 특히 sense POS 약어 근절이 이미 백필된 context_pos와 결합해 **수천 단어 sense-매칭 즉시 활성화**(재백필 불요 — 약어는 이미 multi-POS로 집계돼 backfill됐고 값만 못 맞췄음).
+- **안전**: 전부 additive/무손실 변환(기존 sense_en·register 보존) · 추출 함수 회귀 정상(715 rows) · multi-POS 단어 2,764.
+- 백필은 발행 도서/아티클 실행 완료 · 신규는 파이프라인 자동(`insert_book_analysis` context_pos 갱신).
+
+## Phase 5 — 레벨별 필드 완비 감사 + 예문 전수 채움 (2026-07-13 · 완료)
+> 사용자 지시 "빈도수 상관없이 레벨별 있어야 할 단어 정보 항목 모두 점검". sense/POS와 별개로 학습자-대면 **필드 완비**를 v_level별 전수 점검.
+- **감사(45,496 전체)**: meaning_ko·meanings_ko·pos·cefr·v_level = **100%**(Phase 4). example 84.5%·ipa 64.2%·synonyms 58.5%·inflections 55.3%·collocations 30.8%·antonyms 30.7%·learner_note 27.3%. audio/image/mnemonic 0%(별도 에셋, 스코프 외). 결측은 레벨이 아니라 과거 빈도-기반 dict-fill 잔재로 전 레벨 산재.
+- **예문 전수 채움(사용자 "전체 계속" 선택)**: 실 단일어(idiom·phrasal·다어절·고어 제외) **2,548개** 결측 → Claude(=LLM) 문맥·sense 예문 생성 15배치. **전 레벨 V1~V11 example 100%**. 전체 사전 example 84.5%→**90.1%**. 잔여 결측 4,517 = **전량 관용구/구동사/다어절/고어**(독립 예문이 부적절한 단위).
+- **다음 결측(후속)**: ipa(실 단일어 ~10,594)·synonyms·collocations(V11 거의 전무) — 후속 배치 대상.
+
+## Phase 6 — 추출 품질 개선 항목 도출 (2026-07-13)
+> 사용자 지시 "발음 제외, 단어추출 품질 높이는 사전DB 개선 항목 도출". 추출 함수가 실제 쓰는 게이트·스코어·조인 필드 데이터 품질을 근거로 계량.
+- **게이트 건전성**: classified_by/v_level/word_register NULL = **0**(추출 조용한 제외 없음).
+- **🔴 항목1 — word_register 노이즈 카테고리(구현 완료 아래)**: 고유명사·브랜드·약어 전용 register 부재 → 추출 노이즈. ™브랜드 68 + 약어 133 V≥6 추출가능, 23개 발행 세트 노출.
+- **🔴 항목2 — frequency_rank NULL 14,442(V≥6)**: `_extract_composite_score`는 NULL rank→0.40 가중 **완전 0점**. study-tier plain 5,890이 최대 0.40 불이익→cap-40 하락. (V11 6,616은 진짜 희귀 OK.)
+- **🔴 항목3 — 사전 커버리지 갭 19.5%**: 발행 도서 단어 4,669가 사전 미등록→추출 불가. 성격=OCR/방언 오류(willin·tonque) + 고유명사 + 희귀 실단어. 상류 tokenization/OCR-clean 갭도 노출.
+- **🟡 항목4 — 다의어 sense 완성도**: rank≤5000 단일-sense 3,027(light 빛·match 성냥/경기 등 동일-POS 다의어 사각).
+- **🟡 항목5 — spelling_variants 미활용(114만)**: 영/미 변형 dedup 부재.
+- **⚪ 항목6 — verified false 73%**: composite 0.10이나 예문 90% 커버로 상쇄, 저우선.
+
+## 항목1 구현 — word_register 노이즈 제외 (2026-07-13 · 완료)
+- **스키마**: `sd_word_register_check` CHECK에 `brand`·`abbreviation`·`proper_noun` 추가(마이그 `20260713100000`, additive).
+- **분류**: 브랜드(™) **96** → `brand` · 약어(2~5자 무모음, y제외) **129** → `abbreviation`. (proper_noun은 값만 준비, 분류는 후속 LLM 패스 — 고유명사는 소문자화돼 패턴 탐지 어려움.)
+- **추출 제외**: `select_book_chapter_vocab`+`select_article_vocab` WHERE `word_register NOT IN (…, 'brand','abbreviation','proper_noun')`(마이그 `20260713100500`).
+- **검증**: 3개 도서 추출 정상(2393/585/5 rows) · brand/abbreviation 노이즈 **0**. RegisterBadge는 새 값 graceful 미표시(Calm UI 유지).
+- **잔여**: 발행 세트의 노이즈 23개는 재발행 시 자동 제거([[발행 세트 재발행 보류]]). 고유명사 분류는 후속.
+
+## 항목2·3·4 정밀 조사 — raw 숫자 대비 실 범위 축소 (2026-07-13)
+> "다음"으로 항목2 착수 전 검증 → 대부분 과장으로 판명. 정직한 재평가.
+- **항목2(freq_rank NULL) = 대체로 false alarm**: NULL-rank study 단어 5,823 중 **80%(4,684)가 C1-C2**(진짜 희귀 → 0.40=0점 정당). `ngsl_sfi`·`frequency_sources` 백필 소스 **0**(어떤 코퍼스에도 없음 = 진짜 희귀 확증). 실 부당분(basic A1-B1)은 **194개뿐**. → **구현 불필요**.
+- **v_level↔cefr 정합 건전**: A1-A2 중 V≥6 = **0**(기초어 과대분류 없음). B2 대부분 V6-9, C1/C2 대부분 V6+. 추출 난이도 게이트 sound.
+- **항목3(커버리지 갭 19.5%) = 대부분 노이즈**: 미등록 4,669는 OCR/방언 오류(willin·tonque)·고유명사·희귀가 압도(정당한 미매칭). 실 가치는 **상류 OCR/토큰화 정리**(파이프라인, 사전 아님).
+- **항목4(다의어 완성도) 실 범위 ~200(≠3,027)**: rank≤2500 표본 90개 중 실 누락 다의어 **~7%**(binding=제본·conservative=보수주의자·resolve=결의·revolution=회전/공전·contemporary=동시대인). 나머지는 정당한 단의어(revenue·aircraft·philosophy). **5개 완성**(2 sense화). 잔여 sweep은 낮은 hit율이라 저우선.
+- **가장 큰 잔여 노이즈 레버 = proper_noun 분류**: 지명·행성·종교·언어·인명(africa·neptune·christianity·melbourne)이 `standard`/`modern_advanced`로 추출 가능. register 값(`proper_noun`)은 준비됨, LLM 분류 패스 필요.
+
+## Phase 7 — 추출 결과 평가 기반 사전 보완 (2026-07-13)
+> 사용자 지시 "학습대상 도서 대해 추출하고 결과 평가해 사전 개선". 실 적재 도서 28권(100권 신규 적재는 외부 fetch+winkNLP 수 시간 규모라 별도) → **분석된 25권 전권 추출 집계 후 학습 세트 진입 단어를 직접 평가**.
+- **추출 규모**: 25권 → 50,997 노출 · distinct **14,704단어**. cap-40 진입 단어 최다등장 순 상위 ~130 육안 평가.
+- **품질 판정**: 앞선 작업(항목1·Phase4·sense/POS sweep·예문)으로 **추출 품질 이미 높음**. 초기 플래그(초단 gloss 2,654·고유명사후보 702·V11 4,194)는 **대부분 false alarm**(짧은 gloss=정확 concise / 고유명사후보=regex 형용사어미 오탐 / V11=고전문학 실 고급어).
+- **실 결함 7건 수리(고빈도=학습 임팩트 큼)** — 공통 패턴: **현대/기술/법률 뜻만 저장, 대표·문학 뜻 누락**:
+  - `bid`(입찰만→**명하다/작별 고하다**) · `tender`(입찰서/보조선만→**다정한/부드러운**) · `pardon`(법률 사면만→**용서/실례합니다**) · `pin`(PIN 비밀번호만→**핀/시침바늘**) · `rear`(기르다만→뒤쪽 명사) · `rage`(격노만→맹위를 떨치다 동사) · `whip`(채찍질만→채찍 명사). 발행 shared_words 동기화·추출 회귀 정상.
+- **가치**: rank 기반 샘플이 놓친 **실 도서 등장 다의어 gap**을 추출 평가가 정확히 포착(pin은 완전 오gloss였음). 이 패턴(literary-context 다의어)은 후속 tier에서 hit율 하락 → 고임팩트분 대체로 소진.
+
+## Phase 8 — 도서 5권씩 배치 채굴 루프 (2026-07-13, 진행형)
+> 사용자 계획: **5권씩 적재→추출·평가→사전 보완→도서 데이터 삭제(용량 절약)→전체 학습대상 반복**. 근본적 사전 전체 작업 필요 시 별도 도출. 목적=사전 품질만 향상(도서는 transient 테스트 코퍼스).
+- **루프 메커니즘**: (1) SE seed 5개 `library_books` INSERT(status=queued, admin_enqueue_book는 role 가드→직접 INSERT) (2) `reprocess-all-se.mjs --ids <uuids> --commit`로 fetch+segment+winkNLP 적재 (3) `select_book_chapter_vocab` 집계→단일-sense 고빈도 단어 평가 (4) gap 수리+shared_words 동기화 (5) lbv/chapters/book 삭제 + seed에 `curation_meta.dict_mined=true` 표시(재처리 방지).
+- **아티클 평가(참고)**: 과학·시사 아티클도 평가→variation(→변이)·span(→기간/폭) 수리. (이후 도서만 집중 지시.)
+- **배치 1(Wollstonecraft·Antigone·Huck Finn·Lupin·Gadfly)**: 4건 — merit·fling·strand·furnish.
+- **배치 2(Le Morte·Leviathan·Shakespeare 3편)**: 4건 — worship(→숭배하다 동사)·dread(→두려워하다 동사)·vow(→맹세 명사)·mock(→모의의 형용사). (Leviathan 거대챕터 skip)
+- **배치 3(Pericles·Pooh Corner·Windfairies·Understood Betsy·Le Morte)**: **1건**(distress→괴롭히다 동사). **동화·시극 장르=yield 급락**(단순/고어 어휘 대부분 정확).
+- **누적 추출-평가 수리 ~18단어**: 책7(bid·tender·pardon·pin·rear·rage·whip)+아티클2(variation·span)+배치1~3 9 = 현대/협소 뜻만·대표 뜻 누락 패턴.
+- **yield 경향**: 배치별 4→4→1. **다양·성인 산문(철학·미국 vernacular)=고yield · 동화·시극=저yield**. 사전이 이미 잘 커버돼 diminishing returns. 인기순 seed 소진할수록 하락 예상.
+- **잔여**: SE seed ~1,423 → ~285 배치. 장르 다양성 위해 popularity_rank보다 genre 분산 pick 권장. 다중 세션 반복형 · 근본 사전 전체 이슈는 미발견(개별 다의어 per-word).
+
+## Phase 8b — 채굴 자동화 + 50권 run 후보 검토 (2026-07-13)
+> 사용자 지시 "자동화 스크립트화". 5권 배치 루프를 `scripts/lcp/dict-mine-batch.mjs`로 코드화 후 자동 50권 run 실행.
+- **자동화 스크립트**: `node scripts/lcp/dict-mine-batch.mjs --batches N --count 5`. 각 배치가 seed pick→INSERT→`reprocess-all-se --ids` spawnSync→`select_book_chapter_vocab` 집계→후보 누적(`data/mine-candidates.json`, word별 dedup·등장 도서수 합산)→도서 삭제·seed 마킹까지 무인 수행. **후보 수리(누락 sense 판정)만 LLM 수동** — 스크립트는 후보 수집 전용(자동 UPDATE 위험 회피).
+- **50권 자동 run 완료 → 2,903 후보 누적**. 등장 도서수 = 임팩트(여러 책에 공통 출현할수록 학습 가치 큼)로 정렬 후 **상위 220 육안 검토**.
+- **실 gap 16 수리**:
+  - 동사 누락(명사만 저장): drift(→표류하다/빠져들다)·quarrel(→다투다)·sin(→죄를 짓다)·bundle(→밀어 넣다)·retreat(→물러나다)·surge(→밀려들다)·shield(→보호하다)·spy(→염탐하다/발견하다)·thrust(→밀다/찌르다).
+  - 형용사/동사 등 대표 sense 누락: flush(→붉어지다 동사)·despair(→절망하다 동사)·thrill(→열광시키다 동사)·vain(→자만하는 형용사, 헛된만 저장)·blaze(→화염 명사)·divine(→**신성한 형용사**, 점치다 동사만 저장).
+  - **오분류 교정**: `ah` = abbreviation "암페어시(Ah)" → 실제 **interjection "아, 아아"**.
+- **핵심 관찰**: 220위 이하(등장<9권)는 대부분 **정확한 단의어**(arise·flee·roar·tremble·weep·cease…)라 gap 수율 급락 → **yield 포화**. 고빈도-교차출현 단어를 우선 소진하는 전략이 효율적임을 실증.
+- **재개**: baseline `data/mine-baseline-words.json`(현재 2,903 단어)와 다음 run 후보를 diff → **신규 단어만** 검토(재출현 common word는 이미 수리). 누적 mined ~65권·수리 ~34단어. 근본 사전 전체 이슈 여전히 미발견(전부 per-word).
+
+## Phase 8c — 100권 채굴 완료 · yield 포화 확정 (2026-07-13)
+> run2(+50권=누적 100권) 실행 후 baseline diff로 신규 단어만 검토.
+- **run2 결과**: +430 신규 단어, **전부 등장 ≤4권**(희귀·파생·전문어). 실 gap **2건만**(articulate→형용사 "분명한/조리 있는" 누락·lapse→동사 "빠지다/경과하다" 누락, 등장 2-3권 저임팩트) 수리.
+- **yield 곡선 = 포화 확정**: run1 16 gap/50권(0.32/book) → run2 2 gap/50권(**0.04/book**), **8배 급락**. run2 신규가 전부 저빈도(≤4권)인 것은 **고빈도 다의어를 run1에서 전량 포착**했다는 직접 증거. 여러 책에 공통 출현하는 학습-핵심 단어의 gap은 소진됨.
+- **결론**: **도서 채굴로 발견 가능한 고가치 다의어 gap 사실상 소진**. 남은 ~1,320 SE seed는 이미 정확한 롱테일 희귀어 위주(권당 fetch+winkNLP ~30초 비용 대비 실익 미미). 근본 사전 전체 이슈는 100권 전 구간에서 미발견(전부 per-word 다의어). 자동화 스크립트는 상시 재사용 가능(향후 신규 소스 유입 시 재실행).
+- **스크립트 버그 수정**: 최종 write가 정렬 배열이라 다음 run 재로드 시 array를 object로 오인 → `candidates[word]` 실패로 중복 엔트리 생성(ought×2 등). load/final-write 양쪽을 word-키 dedup·books 합산으로 정규화. 손상된 기존 JSON도 dedup 복구.
+- **누적 성과(전 Phase 통합)**: sense/POS 정규화 ~9,800단어 + sense-매칭 추출(Phase 2/3) + 예문 전 레벨 100% + word_register 노이즈 제외 + 다의어 gap 수리 ~36단어(115권 채굴 기반). 사전은 학습-핵심 어휘에서 구조·sense·필드 모두 고품질 상태.

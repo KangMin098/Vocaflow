@@ -43,9 +43,14 @@ const PAUSE_MESSAGES: PauseMessage[] = [
 
 interface FlashcardSessionProps {
   initialWords: FlashcardWord[]
+  /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산해 주입 (기본 hub). */
+  backHref?: string
 }
 
-export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
+export function FlashcardSession({
+  initialWords,
+  backHref = '/flashcard',
+}: FlashcardSessionProps) {
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
   const recommendation = useNextAction()
 
@@ -207,7 +212,7 @@ export function FlashcardSession({ initialWords }: FlashcardSessionProps) {
     return (
       <CompletionState
         stats={stats}
-        textId={initialWords[0]?.textId ?? '1'}
+        backHref={backHref}
         onRestart={handleRestart}
         recommendation={recommendation}
       />

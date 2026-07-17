@@ -1,24 +1,44 @@
 // apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx
 //
-// 공용 단어장 세트 미리보기 모달.
-// - on open: 브라우저 supabase 클라이언트로 샘플 단어 10개 fetch (RLS read published)
-// - Esc / 오버레이 클릭 / X 버튼 닫기
-// - 본 세트 구독 CTA 동봉 (카드와 동일 Server Action)
+// 공용 단어장 세트 미리보기 모달 (챕터 인식).
+// - on open: 챕터 유무 감지 → 챕터형이면 전체 단어를 챕터별 아코디언으로, 아니면 10개 미리보기.
+//   (하나의 세트가 여러 챕터로 "내부 구성" — shared_words.chapter. 챕터별 세트 아님.)
+// - Esc / 오버레이 클릭 / X 버튼 닫기 · 본 세트 구독 CTA 동봉.
 
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { Check, Loader2, Plus, Volume2, X } from 'lucide-react'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Check, ChevronDown, Layers, Loader2, Plus, Volume2, X } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
-import type { PublishedVocabSet, SamplePreviewWord } from '@/lib/library/vocab/queries'
+import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
+interface PWord {
+  word: string
+  meaningKo: string
+  partOfSpeech: string | null
+  cefrLevel: string | null
+  chapter: number | null
+  /** 그룹 라벨 소스 — 어원 세트는 "어근 spec — 보다". 챕터 내 균일 시 챕터 헤딩으로 승격. */
+  note: string | null
+}
+
+// 챕터 학습 — 게임별 launch (로더가 ?set=X&chapter=N 지원). from 으로 닫기 시 복귀.
+const CHAPTER_GAMES: { key: string; label: string; emoji: string; path: (setId: string, ch: number) => string }[] = [
+  { key: 'flashcard', label: '플래시카드', emoji: '🃏', path: (s, c) => `/flashcard/play?set=${s}&chapter=${c}` },
+  { key: 'wordblitz', label: '블리츠', emoji: '⚡', path: (s, c) => `/play/wordblitz?set=${s}&chapter=${c}` },
+  { key: 'spellforge', label: '스펠', emoji: '🔨', path: (s, c) => `/spellforge/play?set=${s}&chapter=${c}` },
+  { key: 'pairflip', label: '페어', emoji: '🎴', path: (s, c) => `/pairflip/play?set=${s}&chapter=${c}` },
+]
 interface Props {
   set: PublishedVocabSet | null
   isSubscribed: boolean
   isPending: boolean
   onToggle: (set: PublishedVocabSet) => void
   onClose: () => void
+  /** 챕터 게임 launch 의 닫기 복귀 경로(?from) — 재사용처(/wordvault 등)가 지정. 기본 /library/vocab. */
+  fromPath?: string
 }
 
 export function VocabSetPreviewModal({
@@ -27,57 +47,132 @@ export function VocabSetPreviewModal({
   isPending,
   onToggle,
   onClose,
+  fromPath = '/library/vocab',
 }: Props) {
-  const [words, setWords] = useState<SamplePreviewWord[] | null>(null)
+  const fromEnc = encodeURIComponent(fromPath)
+  const [words, setWords] = useState<PWord[] | null>(null)
+  const [chaptered, setChaptered] = useState(false)
+  const [openChapters, setOpenChapters] = useState<Set<number>>(new Set([1]))
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  // 모달 열릴 때 샘플 단어 fetch
+  // 모달 열릴 때 단어 fetch — 챕터형이면 전체(아코디언), 아니면 10개 미리보기
   useEffect(() => {
     if (!set) return
     let cancelled = false
     setLoading(true)
     setError(null)
     setWords(null)
-    const supabase = createClient()
-    supabase
-      .from('shared_words')
-      .select('word, meaning_ko, part_of_speech, cefr_level')
-      .eq('set_id', set.id)
-      .order('sort_order', { ascending: true })
-      .limit(10)
-      .then(({ data, error: e }) => {
-        if (cancelled) return
-        if (e) {
-          setError('단어를 불러오지 못했어요')
-        } else {
-          setWords(
-            (data ?? []).map((r) => ({
-              word: r.word,
-              meaningKo: r.meaning_ko,
-              partOfSpeech: r.part_of_speech,
-              cefrLevel: r.cefr_level,
-            })),
-          )
-        }
+    setChaptered(false)
+    setOpenChapters(new Set([1]))
+    // shared_words.chapter 는 방금 추가된 컬럼 — database.ts 재생성 전이라 loose client 로 접근
+    const supabase = createClient() as unknown as SupabaseClient
+
+    const run = async () => {
+      // 1) 챕터 유무 감지 — 최대 chapter 1행
+      const { data: chRow, error: chErr } = await supabase
+        .from('shared_words')
+        .select('chapter')
+        .eq('set_id', set.id)
+        .not('chapter', 'is', null)
+        .order('chapter', { ascending: false })
+        .limit(1)
+      if (cancelled) return
+      if (chErr) {
+        setError('단어를 불러오지 못했어요')
         setLoading(false)
-      })
+        return
+      }
+      const hasChapters = (chRow?.[0]?.chapter ?? null) != null
+
+      const map = (rows: { word: string; meaning_ko: string; part_of_speech: string | null; cefr_level: string | null; chapter?: number | null; korean_learner_note?: string | null }[]): PWord[] =>
+        rows.map((r) => ({
+          word: r.word,
+          meaningKo: r.meaning_ko,
+          partOfSpeech: r.part_of_speech,
+          cefrLevel: r.cefr_level,
+          chapter: r.chapter ?? null,
+          note: r.korean_learner_note ?? null,
+        }))
+
+      if (hasChapters) {
+        // 2a) 전체 단어 (페이지네이션, chapter 포함)
+        const all: PWord[] = []
+        const PAGE = 1000
+        for (let from = 0; ; from += PAGE) {
+          const { data, error: e } = await supabase
+            .from('shared_words')
+            .select('word, meaning_ko, part_of_speech, cefr_level, chapter, korean_learner_note')
+            .eq('set_id', set.id)
+            .order('sort_order', { ascending: true })
+            .range(from, from + PAGE - 1)
+          if (cancelled) return
+          if (e) {
+            setError('단어를 불러오지 못했어요')
+            setLoading(false)
+            return
+          }
+          const page = data ?? []
+          all.push(...map(page))
+          if (page.length < PAGE) break
+        }
+        setWords(all)
+        setChaptered(true)
+      } else {
+        // 2b) 10개 미리보기
+        const { data, error: e } = await supabase
+          .from('shared_words')
+          .select('word, meaning_ko, part_of_speech, cefr_level, korean_learner_note')
+          .eq('set_id', set.id)
+          .order('sort_order', { ascending: true })
+          .limit(10)
+        if (cancelled) return
+        if (e) setError('단어를 불러오지 못했어요')
+        else setWords(map(data ?? []))
+        setChaptered(false)
+      }
+      setLoading(false)
+    }
+    void run()
     return () => {
       cancelled = true
     }
   }, [set])
 
-  // Esc / focus
+  // Esc / body scroll lock / focus 관리
   useEffect(() => {
     if (!set) return
+    const prevActive = document.activeElement as HTMLElement | null
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKey)
     dialogRef.current?.focus()
-    return () => document.removeEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+      prevActive?.focus()
+    }
   }, [set, onClose])
+
+  // 챕터별 그룹 (챕터형일 때). label = 챕터 내 note 가 균일하면 그 note(어원 세트 어근 라벨), 아니면 null.
+  const chapters = useMemo(() => {
+    if (!chaptered || !words) return []
+    const byCh = new Map<number, PWord[]>()
+    for (const w of words) {
+      const c = w.chapter ?? 0
+      if (!byCh.has(c)) byCh.set(c, [])
+      byCh.get(c)!.push(w)
+    }
+    return [...byCh.entries()].sort((a, b) => a[0] - b[0]).map(([n, ws]) => {
+      const notes = ws.map((w) => w.note).filter((x): x is string => !!x)
+      const uniform = notes.length === ws.length && new Set(notes).size === 1 ? notes[0] : null
+      return { n, words: ws, label: uniform }
+    })
+  }, [chaptered, words])
 
   if (!set) return null
 
@@ -89,11 +184,43 @@ export function VocabSetPreviewModal({
     window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utter)
   }
-
-  function handleToggle() {
-    if (!set) return
-    onToggle(set)
+  function toggleChapter(n: number) {
+    setOpenChapters((prev) => {
+      const next = new Set(prev)
+      if (next.has(n)) next.delete(n)
+      else next.add(n)
+      return next
+    })
   }
+
+  const subtitle = chaptered
+    ? `총 ${set.wordCount.toLocaleString()}개 단어 · ${chapters.length}챕터`
+    : `총 ${set.wordCount.toLocaleString()}개 단어 · 미리보기 10개`
+
+  const wordRow = (w: PWord, i: number) => (
+    <li key={`${w.word}-${i}`} className="flex items-center gap-3 py-3">
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline gap-2">
+          <span className="font-english text-[16px] font-[600] text-[var(--t1)]">{w.word}</span>
+          {w.partOfSpeech && <span className="font-body text-[11px] italic text-[var(--t3)]">{w.partOfSpeech}</span>}
+          {w.cefrLevel && (
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[600] text-[var(--t3)]">
+              {w.cefrLevel}
+            </span>
+          )}
+        </div>
+        <p className="mt-0.5 font-body text-[13px] text-[var(--t2)]">{w.meaningKo}</p>
+      </div>
+      <button
+        type="button"
+        onClick={() => speak(w.word)}
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[#8B5CF6]/10 text-[#6D28D9] transition-colors hover:bg-[#8B5CF6]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+        aria-label={`${w.word} 발음 듣기`}
+      >
+        <Volume2 size={16} aria-hidden />
+      </button>
+    </li>
+  )
 
   return (
     <div
@@ -113,15 +240,10 @@ export function VocabSetPreviewModal({
         {/* 헤더 */}
         <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] px-6 py-4">
           <div className="min-w-0 flex-1">
-            <h2
-              id="vocab-preview-title"
-              className="line-clamp-2 font-display text-[18px] font-[700] text-[var(--t1)]"
-            >
+            <h2 id="vocab-preview-title" className="line-clamp-2 font-display text-[18px] font-[700] text-[var(--t1)]">
               {set.coverEmoji} {set.title}
             </h2>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
-              총 {set.wordCount.toLocaleString()}개 단어 · 미리보기 10개
-            </p>
+            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">{subtitle}</p>
           </div>
           <button
             type="button"
@@ -146,44 +268,76 @@ export function VocabSetPreviewModal({
               {error}
             </p>
           )}
-          {words && words.length > 0 && (
-            <ul className="flex flex-col divide-y divide-[var(--bd)]">
-              {words.map((w, i) => (
-                <li key={`${w.word}-${i}`} className="flex items-center gap-3 py-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-english text-[16px] font-[600] text-[var(--t1)]">
-                        {w.word}
-                      </span>
-                      {w.partOfSpeech && (
-                        <span className="font-body text-[11px] italic text-[var(--t3)]">
-                          {w.partOfSpeech}
+
+          {/* 챕터형 — 아코디언 */}
+          {!loading && !error && chaptered && chapters.length > 0 && (
+            <div className="flex flex-col gap-2">
+              {chapters.map((ch) => {
+                const open = openChapters.has(ch.n)
+                return (
+                  <div key={ch.n} className="overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)]">
+                    <div className="flex items-stretch bg-[var(--bg2)]">
+                      <button
+                        type="button"
+                        onClick={() => toggleChapter(ch.n)}
+                        aria-expanded={open}
+                        className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-2.5 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                      >
+                        <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)]">
+                          {ch.label ?? `Chapter ${ch.n}`}
+                          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
+                            {ch.words.length}단어 · {ch.words[0]?.cefrLevel ?? '?'}~{ch.words[ch.words.length - 1]?.cefrLevel ?? '?'}
+                          </span>
                         </span>
-                      )}
-                      {w.cefrLevel && (
-                        <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[600] text-[var(--t3)]">
-                          {w.cefrLevel}
-                        </span>
-                      )}
+                        <ChevronDown
+                          size={16}
+                          className={`shrink-0 text-[var(--t3)] transition-transform ${open ? 'rotate-180' : ''}`}
+                          aria-hidden
+                        />
+                      </button>
+                      <a
+                        href={`/flashcard/play?set=${set.id}&chapter=${ch.n}&from=${fromEnc}`}
+                        title={`Chapter ${ch.n} 플래시카드 학습`}
+                        className="inline-flex shrink-0 items-center gap-1 border-l border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[#6D28D9] no-underline transition-colors hover:bg-[#8B5CF6]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                      >
+                        <Layers size={14} aria-hidden /> 학습
+                      </a>
                     </div>
-                    <p className="mt-0.5 font-body text-[13px] text-[var(--t2)]">{w.meaningKo}</p>
+                    {open && (
+                      <div className="flex flex-col">
+                        {/* 게임별 챕터 학습 런처 */}
+                        <div className="flex flex-wrap items-center gap-1.5 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5">
+                          <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t3)]">
+                            이 챕터 학습
+                          </span>
+                          {CHAPTER_GAMES.map((g) => (
+                            <a
+                              key={g.key}
+                              href={`${g.path(set.id, ch.n)}&from=${fromEnc}`}
+                              title={`Chapter ${ch.n} — ${g.label}`}
+                              className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                            >
+                              <span aria-hidden>{g.emoji}</span>
+                              {g.label}
+                            </a>
+                          ))}
+                        </div>
+                        <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">{ch.words.map((w, i) => wordRow(w, i))}</ul>
+                      </div>
+                    )}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => speak(w.word)}
-                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[#8B5CF6]/10 text-[#6D28D9] transition-colors hover:bg-[#8B5CF6]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
-                    aria-label={`${w.word} 발음 듣기`}
-                  >
-                    <Volume2 size={16} aria-hidden />
-                  </button>
-                </li>
-              ))}
-            </ul>
+                )
+              })}
+            </div>
           )}
-          {words && words.length === 0 && !loading && (
-            <p className="py-6 text-center font-body text-[13px] text-[var(--t3)]">
-              아직 등록된 단어가 없어요
-            </p>
+
+          {/* 평면 — 10개 미리보기 */}
+          {!loading && !error && !chaptered && words && words.length > 0 && (
+            <ul className="flex flex-col divide-y divide-[var(--bd)]">{words.map((w, i) => wordRow(w, i))}</ul>
+          )}
+
+          {!loading && !error && words && words.length === 0 && (
+            <p className="py-6 text-center font-body text-[13px] text-[var(--t3)]">아직 등록된 단어가 없어요</p>
           )}
         </div>
 
@@ -199,7 +353,7 @@ export function VocabSetPreviewModal({
           {isSubscribed ? (
             <button
               type="button"
-              onClick={handleToggle}
+              onClick={() => onToggle(set)}
               disabled={isPending}
               className="inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:opacity-60"
             >
@@ -209,7 +363,7 @@ export function VocabSetPreviewModal({
           ) : (
             <button
               type="button"
-              onClick={handleToggle}
+              onClick={() => onToggle(set)}
               disabled={isPending}
               className="inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[#7C3AED] disabled:opacity-60"
             >

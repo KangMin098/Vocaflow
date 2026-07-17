@@ -142,11 +142,16 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {recommendations.map((rec) => {
           const badge = TYPE_BADGE[rec.recommendation_type] ?? TYPE_BADGE.fallback
+          // library_book 세트는 /library/vocab 에서 제외(clutter)라 앵커가 죽어 있음 → 도서 브라우즈로(v06.218).
+          //   그 외 공용단어장 앵커는 카드가 id="set-{UUID}" 로 렌더하므로 slug(≠uuid·NULL 다수) 대신
+          //   set_id(UUID)로 링크해야 :target 하이라이트가 매칭됨(v06.219 — 전 추천 딥링크 죽어있던 버그).
+          const isBook = rec.category === 'library_book'
+          const href = isBook ? '/library/books' : `/library/vocab#set-${rec.set_id}`
           return (
             <Link
               key={rec.set_id}
-              href={`/library/vocab#set-${rec.slug}`}
-              aria-label={`${rec.title} — 라이브러리에서 구독`}
+              href={href}
+              aria-label={isBook ? `${rec.title} — 도서 라이브러리에서 열기` : `${rec.title} — 라이브러리에서 구독`}
               className="group flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
             >
               <span className="text-[28px] leading-none" aria-hidden>

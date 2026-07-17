@@ -8,11 +8,14 @@
 
 'use client'
 
-import { Check, Loader2, Minus, Plus } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+
+import { vocabCategoryMeta } from './categories'
 
 interface VocabSetCardProps {
   set: PublishedVocabSet
@@ -37,6 +40,12 @@ export function VocabSetCard({
     coverFrom: null,
     coverTo: null,
   })
+  const cat = vocabCategoryMeta(set.category)
+
+  // 신규(최근 14일) 배지 — 최신성 discovery 신호. SSR 하이드레이션 회피 위해 mount 후 판정.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const isNew = mounted && Date.now() - new Date(set.createdAt).getTime() < 14 * 86_400_000
 
   function handleSubscribeClick(e: React.MouseEvent) {
     e.stopPropagation()
@@ -74,8 +83,8 @@ export function VocabSetCard({
         <div aria-hidden className="book-spine3d" />
         <div aria-hidden className="book-foreedge" />
 
-        {/* 좌상단: 구독 배지 */}
-        {isSubscribed && (
+        {/* 좌상단: 구독 배지 (구독 시) / 신규 배지 (미구독 + 최근 14일 등록) */}
+        {isSubscribed ? (
           <span
             aria-label="내 학습에 추가됨"
             title="내 학습에 추가됨"
@@ -83,12 +92,36 @@ export function VocabSetCard({
           >
             <Check size={10} strokeWidth={3} aria-hidden /> 내 학습
           </span>
-        )}
+        ) : isNew ? (
+          <span
+            aria-label="신규 단어장"
+            className="absolute left-3 top-3 inline-flex items-center rounded-[var(--r-full)] bg-ios-purple px-2 py-0.5 font-display text-[10px] font-[800] tracking-wide text-white shadow-[0_2px_6px_rgba(0,0,0,0.22)]"
+          >
+            NEW
+          </span>
+        ) : null}
 
         {/* 우상단: CEFR 배지 */}
         {set.cefrLevel && (
           <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {set.cefrLevel}
+          </span>
+        )}
+
+        {/* 좌하단: 카테고리(중요도) 단서 + 사용빈도(구독수) — 어떤 단계/시험용인지 + 얼마나 쓰는지 */}
+        {cat && (
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/40 px-2 py-0.5 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
+            <span aria-hidden>{cat.emoji}</span>
+            {cat.label}
+            {set.subscriberCount > 0 && (
+              <span
+                className="ml-1 inline-flex items-center gap-0.5 border-l border-white/30 pl-1 tabular-nums"
+                title={`${set.subscriberCount}명 학습 중`}
+              >
+                <Users size={9} strokeWidth={2.5} aria-hidden />
+                {set.subscriberCount}
+              </span>
+            )}
           </span>
         )}
       </button>

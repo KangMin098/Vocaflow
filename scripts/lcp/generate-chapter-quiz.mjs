@@ -3,14 +3,14 @@
 // ScriptQuiz 큐레이션 챕터 퀴즈 — LCP 큐레이션 드레인(Claude Code 배치)용 헬퍼.
 //
 // 흐름(큐 드레인):
-//   1) Admin /admin/curation 에서 "스크립트 퀴즈 큐" → book_quiz_jobs(pending).
+//   1) Admin /admin/curation 에서 "스크립트 퀴즈 큐" → book_curation_jobs(task_type='quiz_gen', pending).
 //   2) Claude Code 가 책별로:
 //        node scripts/lcp/generate-chapter-quiz.mjs plan <book_id>
 //          → 챕터 목록 + 챕터당 목표 문항 수(V-Level 곡선) + 기존 퀴즈 커버리지(JSON).
 //        node scripts/lcp/generate-chapter-quiz.mjs content <book_id> <chapter_idx>
 //          → 그 챕터 본문 + 목표 N (Claude 가 스토리 기반 MCQ 를 저술).
 //        node scripts/lcp/generate-chapter-quiz.mjs insert <book_id> <chapter_idx> --file q.json
-//          → 문항 검증 + library_chapter_quiz 전량 교체(idempotent) + book_quiz_jobs 진행률 갱신.
+//          → 문항 검증 + library_chapter_quiz 전량 교체(idempotent) + book_curation_jobs(quiz_gen) 진행률 갱신.
 //   * 문항 저술은 LLM(=Claude Code) 이 챕터 본문을 읽고 수행 — 앱 런타임 LLM 0.
 //   * 문항 INSERT 는 사용자 명시 승인 후에만 (메모리 규칙).
 //
@@ -223,7 +223,7 @@ async function cmdInsert(bookId, chapterIdx, filePath, commit) {
   await refreshJobProgress(bookId)
 }
 
-// book_quiz_jobs 진행률 갱신 (실측 커버리지 기반). job 없으면 skip.
+// book_curation_jobs(task_type='quiz_gen') 진행률 갱신 (실측 커버리지 기반). job 없으면 skip.
 async function refreshJobProgress(bookId) {
   const chapters = await getChapters(bookId)
   const counts = await existingCounts(bookId)
@@ -232,16 +232,17 @@ async function refreshJobProgress(bookId) {
   const status = chaptersDone >= chapters.length && chapters.length > 0 ? 'done' : 'running'
 
   const { data: job } = await db
-    .from('book_quiz_jobs')
+    .from('book_curation_jobs')
     .select('id')
     .eq('book_id', bookId)
+    .eq('task_type', 'quiz_gen')
     .maybeSingle()
   if (!job) {
-    console.log('[job] book_quiz_jobs row 없음 — 진행률 갱신 skip')
+    console.log('[job] quiz_gen 잡 없음 — 진행률 갱신 skip')
     return
   }
   const { error } = await db
-    .from('book_quiz_jobs')
+    .from('book_curation_jobs')
     .update({
       chapters_total: chapters.length,
       chapters_done: chaptersDone,
@@ -250,6 +251,7 @@ async function refreshJobProgress(bookId) {
       claimed_at: new Date().toISOString(),
     })
     .eq('book_id', bookId)
+    .eq('task_type', 'quiz_gen')
   if (error) throw new Error(`job update failed: ${error.message}`)
   console.log(`[job] ${chaptersDone}/${chapters.length}ch · ${questionsCreated}문 · status=${status}`)
 }

@@ -13,10 +13,14 @@ import {
   bulkSetBooksCurating,
   deleteBook,
   enqueueQuizJobs,
+  enqueueReviewJobs,
   fetchCurationJobs,
   fetchQuizJobs,
+  fetchReviewJobs,
   type CurationJobRow,
   type QuizJobRow,
+  type ReviewJobRow,
+  type ReviewTaskType,
 } from '@/lib/library/admin-queries'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
@@ -189,6 +193,47 @@ export async function fetchQuizJobsAction(): Promise<ActionResult<QuizJobRow[]>>
     return {
       ok: false,
       error: e instanceof Error ? e.message : '퀴즈 큐 조회 실패',
+    }
+  }
+}
+
+/**
+ * 선택 도서를 검토 큐(book_curation_jobs · task_type=level_verify|vocab_audit)에 적재.
+ * RPC enqueue_review_jobs 가 자격(level_verify=ready/published · vocab_audit=published) 판정.
+ * 드레인(본문 읽고 result verdict 기록 + 승인 시 교정)은 Claude Code 배치가 수행.
+ */
+export async function enqueueReviewJobsAction(
+  bookIds: string[],
+  taskType: ReviewTaskType,
+): Promise<ActionResult<{ queued: number; skipped: number }>> {
+  try {
+    await requireAdmin('/admin/curation')
+    if (bookIds.length === 0) {
+      return { ok: true, data: { queued: 0, skipped: 0 } }
+    }
+    const client = (await createClient()) as unknown as SupabaseClient
+    const result = await enqueueReviewJobs(client, bookIds, taskType)
+    revalidatePath('/admin/curation')
+    return { ok: true, data: result }
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : '검토 큐 적재 실패',
+    }
+  }
+}
+
+/** 검토 큐 상태 뷰용 — 최근 작업 목록 조회. */
+export async function fetchReviewJobsAction(): Promise<ActionResult<ReviewJobRow[]>> {
+  try {
+    await requireAdmin('/admin/curation')
+    const client = (await createClient()) as unknown as SupabaseClient
+    const jobs = await fetchReviewJobs(client)
+    return { ok: true, data: jobs }
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : '검토 큐 조회 실패',
     }
   }
 }

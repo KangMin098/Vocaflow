@@ -9,14 +9,17 @@
 
 import { ArrowLeft, ArrowRight, BookOpen, Clock, Play, RefreshCw, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import { MOCK_SESSION } from './mock-data'
 import type { AnswerState, QuizAnswer, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import type { RecommendedAction } from '@/lib/recommend/types'
 import { useNextAction } from '@/lib/recommend/use-next-action'
+import { recordGameScore } from '@/lib/scores/record-score'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
 
 // ══════════════════════════════════════════════════════════════
@@ -134,13 +137,26 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
           // textId 미지정 시 session.textTitle 을 stable key 로 사용 (Phase 2: real textId 교체)
           const correctCount = finalAnswers.filter((a) => a.isCorrect).length
           const totalCount = finalAnswers.length
+          const accuracy = totalCount > 0 ? (correctCount / totalCount) * 100 : 0
           pushPendingTextResult({
             textId: textId ?? session.textTitle,
-            accuracy: totalCount > 0 ? (correctCount / totalCount) * 100 : 0,
+            accuracy,
             correctCount,
             totalCount,
             completedAt: new Date().toISOString(),
             module: 'scriptquiz',
+          })
+          // scores 영속화 (fire-and-forget) — sessionStorage pending 은 소비자가 없어
+          // 여기서 직접 적재해야 daily_activity/최근활동/주간리포트에 반영된다.
+          void recordGameScore({
+            module: 'scriptquiz',
+            score: correctCount * 20,
+            totalQuestions: totalCount,
+            correctCount,
+            accuracy: Math.round(accuracy),
+            durationSeconds: Math.round(finalAnswers.reduce((s, a) => s + a.timeMs, 0) / 1000),
+            textId, // 큐레이션 챕터 경로는 undefined — texts FK 아닌 값은 넣지 않음
+            metadata: { textTitle: session.textTitle, textChapter: session.textChapter },
           })
           setScreen('result')
         } else {
@@ -247,6 +263,8 @@ function StartScreen({
   session: QuizSession
   onStart: () => void
 }) {
+  // 닫기: ?from(계획/워크스페이스 진입) 우선, 없으면 ScriptQuiz 허브 (라이브러리 하드코딩 제거).
+  const backHref = sanitizeInternalPath(useSearchParams()?.get('from')) ?? '/scriptquiz'
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-12 text-center">
       {/* QUIZ 로고 */}
@@ -317,11 +335,11 @@ function StartScreen({
       </button>
 
       <Link
-        href="/library"
+        href={backHref}
         className="mt-4 inline-flex items-center gap-1 font-display text-[13px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
       >
         <ArrowLeft size={13} aria-hidden />
-        라이브러리로
+        돌아가기
       </Link>
     </div>
   )

@@ -60,6 +60,7 @@ ALTER TABLE public.user_stats
 
 **리치 구성 (2026-06-28 v06.102):** 자료 4종(material_type += `'article'`) + 도서 `chapters int[]`.
 **요일 결합 (v06.105):** 학습 **요일을 항목별로** (`weekdays int[]`) — 자료 선택과 결합. 전역 `study_plan_schedule`/시간(분) **폐기**(따로 선택 = 이질감·계획성 약함, 사용자 피드백).
+**다중 엔트리 (2026-07-06 v06.145):** `UNIQUE(user,type,material)` **제거** → 한 자료가 **여러 배치(행)** 로 존재 가능. 각 행 = 자료+요일들+챕터들+활동. '월=Alice Ch1 / 수=Alice Ch2'처럼 **챕터(최하위 단위)를 일별로 배치**. picker 클릭=항상 새 배치, 편집/삭제는 주간 보드 카드. save 는 id 왕복(신규 INSERT→id 반환 / 편집 UPDATE by id).
 
 ```sql
 CREATE TABLE public.study_plan_items (
@@ -71,8 +72,8 @@ CREATE TABLE public.study_plan_items (
   chapters      int[]  NOT NULL DEFAULT '{}',  -- 도서 선택 챕터 idx (빈=전체)
   weekdays      int[]  NOT NULL DEFAULT '{}',  -- 학습 요일 1=월..7=일 (빈=미정) — 자료와 결합
   created_at    timestamptz NOT NULL DEFAULT now(),
-  updated_at    timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (user_id, material_type, material_id)  -- 자료 1개당 1행
+  updated_at    timestamptz NOT NULL DEFAULT now()
+  -- UNIQUE 제거(2026-07-06 다중 엔트리) — 한 자료가 여러 배치(요일×챕터)로 가능
 );
 ALTER TABLE public.study_plan_items ENABLE ROW LEVEL SECURITY; -- 본인 4정책
 -- study_plan_schedule(전역 주당 리듬 + 하루 분) 폐기 — 요일은 위 weekdays 로 항목별 결합

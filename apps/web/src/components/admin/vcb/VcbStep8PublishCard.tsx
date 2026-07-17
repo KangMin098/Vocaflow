@@ -34,7 +34,7 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
     setResult(null)
     if (
       !window.confirm(
-        `${precheck.stats.publishable_count}건을 shared_word_sets 에 발행합니다.\n발행 후 immutable — 수정 불가, version 증가만 가능.\n진행할까요?`,
+        `${precheck.stats.publishable_count}건을 공용 단어장으로 발행합니다.\n발행분은 수정할 수 없고, 새 버전으로만 갱신됩니다.\n진행할까요?`,
       )
     ) {
       return
@@ -73,7 +73,7 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
             Step 8 · Publish
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            approved/enriched queue items → shared_word_sets 발행 + vocab_collections row. immutable.
+            승인된 단어를 공용 단어장으로 발행합니다. 발행분은 수정 불가(새 버전으로만 갱신).
           </p>
         </div>
       </header>
@@ -162,7 +162,7 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
               className="mt-0.5 w-4 h-4 accent-[var(--p)]"
             />
             <span className="text-xs" style={{ color: 'var(--t2)' }}>
-              발행은 <strong>immutable</strong> 입니다. 수정은 새 version 발행으로만 가능합니다. 확인했습니다.
+              발행분은 <strong>수정할 수 없어요</strong>. 새 버전 발행으로만 갱신됩니다. 확인했습니다.
             </span>
           </label>
 

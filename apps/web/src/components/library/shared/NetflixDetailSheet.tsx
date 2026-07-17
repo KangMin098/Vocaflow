@@ -109,6 +109,8 @@ interface VocabVariant {
   categoryColor: { from: string; to: string; accent: string }
   cefrLevel?: string | null
   wordCount: number
+  /** 세트 내 챕터 수 (내부 챕터 구성 시). 0/null=미분할(평면). */
+  chapterCount?: number | null
   coverEmoji?: string | null
   samples?: SampleWord[]
   mine?: MyProgress
@@ -130,9 +132,10 @@ interface Props {
 export function NetflixDetailSheet({ variant, onClose }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  // Esc 닫기 + body scroll lock
+  // Esc 닫기 + body scroll lock + focus 복원(열 때 트리거 저장)
   useEffect(() => {
     if (!variant) return
+    const prevActive = document.activeElement as HTMLElement | null
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
@@ -143,6 +146,7 @@ export function NetflixDetailSheet({ variant, onClose }: Props) {
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
+      prevActive?.focus()
     }
   }, [variant, onClose])
 
@@ -760,6 +764,9 @@ function VocabBody({ v }: { v: VocabVariant }) {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Stat label="단어 수" value={v.wordCount.toLocaleString()} />
+        {v.chapterCount != null && v.chapterCount > 0 && (
+          <Stat label="챕터" value={`${v.chapterCount}`} />
+        )}
         <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
         <Stat label="카테고리" value={v.categoryLabel} />
       </div>

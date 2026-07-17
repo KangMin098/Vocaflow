@@ -25,6 +25,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
 
   useEffect(() => {
     if (!chapter) return
+    const prevActive = document.activeElement as HTMLElement | null
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
@@ -35,6 +36,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
+      prevActive?.focus()
     }
   }, [chapter, onClose])
 

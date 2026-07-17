@@ -18,6 +18,7 @@ import { createClient } from '@/lib/supabase/client';
 import { POINTS, type Word } from '@/lib/wordblitz/data';
 import { recordWordBlitzResult } from '@/lib/wordblitz/record-result';
 import { fetchScopedWords } from '@/lib/workspace/scoped-words';
+import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
 const WordBlitzGame = dynamic(
   () =>
@@ -41,6 +42,10 @@ export default function WordBlitzPage() {
   const searchParams = useSearchParams();
   const set = searchParams.get('set') ?? undefined;
   const text = searchParams.get('text') ?? undefined;
+  const from = searchParams.get('from') ?? undefined;
+  // 세트 내 특정 챕터만 학습 (?set=…&chapter=N)
+  const chapterNum = Number(searchParams.get('chapter'));
+  const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null;
   const scoped = !!(set || text);
 
   // scoped: null = 로딩, ScopedPool = 완료, { words: [] } = 단어 0개
@@ -66,6 +71,7 @@ export default function WordBlitzPage() {
       const res = await fetchScopedWords(client, {
         set,
         text,
+        chapter,
         userId: user?.id ?? null,
       });
       if (!mounted) return;
@@ -82,7 +88,7 @@ export default function WordBlitzPage() {
     return () => {
       mounted = false;
     };
-  }, [scoped, set, text]);
+  }, [scoped, set, text, chapter]);
 
   // 스코프 진입인데 아직 로딩 중
   if (scoped && pool === null) {
@@ -92,20 +98,24 @@ export default function WordBlitzPage() {
   // 스코프 진입인데 단어 0개
   if (scoped && pool && pool.words.length === 0) {
     return (
-      <main className="flex h-screen w-screen flex-col items-center justify-center gap-4 bg-[#1a4a08] px-6 text-center">
+      <main
+        className="flex h-screen w-screen flex-col items-center justify-center gap-4 px-6 text-center"
+        style={{ background: 'var(--bg2)', color: 'var(--t1)' }}
+      >
         <div className="select-none text-4xl" aria-hidden>
-          🌴
+          📚
         </div>
-        <h1 className="font-display text-[16px] font-[700] text-[#FFE234]">
+        <h1 className="font-display text-[16px] font-[700]" style={{ color: 'var(--t1)' }}>
           이 자료에 학습할 단어가 아직 없어요
         </h1>
-        <p className="font-body text-[13px] text-white/80">
+        <p className="font-body text-[13px]" style={{ color: 'var(--t2)' }}>
           본문에서 단어를 추가하거나 단어장을 먼저 살펴보세요.
         </p>
         <button
           type="button"
           onClick={() => router.push('/wordvault')}
-          className="rounded-[var(--r-md)] bg-[#FFE234] px-5 py-2.5 font-display text-[13px] font-[800] text-[#1a4a08]"
+          className="rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[800]"
+          style={{ background: 'var(--combo)', color: 'var(--ti)' }}
         >
           내 단어장으로
         </button>
@@ -126,8 +136,8 @@ export default function WordBlitzPage() {
               }
             : {
                 type: 'library',
-                label: '정글 어드벤처',
-                position: 'Stage 1 · 인형뽑기',
+                label: '속사 인지',
+                position: '빠른 단어 게임',
                 href: '/wordblitz',
               }
         }
@@ -154,7 +164,8 @@ export default function WordBlitzPage() {
               metadata: { captured, wrong, scoped },
             });
           }
-          router.push(scoped ? '/text' : '/library');
+          // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (id 유실·엉뚱한 목적지 방지)
+          router.push(resolveSessionReturnHref(from, text, '/wordblitz'));
         }}
         onCorrect={(word) => {
           correctRef.current += 1;

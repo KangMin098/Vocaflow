@@ -101,7 +101,8 @@ function scoreCoverage(raw: DictSnapshotRaw): number {
     [c.ipa.ratio, 0.08],
     [c.cefrLevel.ratio, 0.1],
     [c.cefrConfidence.ratio, 0.12], // critical defect 가중
-    [c.register.ratio, 0.06],
+    // register 컬럼은 현재 소비처 없음(segment 발행은 list_tags 경유) — 실자산인 segment 태그 충족률로 대체
+    [c.segmentTags.ratio, 0.06],
     [c.synonyms.ratio, 0.06],
     [c.collocations.ratio, 0.08],
     [c.inflections.ratio, 0.08],
@@ -379,12 +380,15 @@ function r3WordSetPublish(raw: DictSnapshotRaw): ResponsibilityReadiness {
       evidence: `${(c.cefrLevel.ratio * 100).toFixed(1)}%`,
     },
     {
-      label: 'VCB-VRL 통합 (target_v_level_range 컬럼)',
-      score: integrated ? 1.0 : 0,
+      // V-Level 단어장 발행 동작 여부 — 구 "스키마 컬럼 존재?"(구조적 항상 0) 대신 실동작 반영.
+      //   발행·추천은 slug(auto-vlevel-v*)+curation_query 로 동작 중(2026-07-08 진단) → 발행 성립.
+      //   전용 컬럼 부재는 슬러그 결합·인덱스 부재의 견고성 부채(-0.15) 로만 감점, B1 이연.
+      label: 'V-Level 단어장 발행 동작',
+      score: integrated ? 1.0 : 0.85,
       weight: 0.3,
       evidence: integrated
-        ? '✅ shared_word_sets 에 V-Level 컬럼 존재'
-        : '🚨 VCB 가 v_level 모름 — V-Level 단어장 0/72',
+        ? '✅ shared_word_sets 에 V-Level 전용 컬럼 존재'
+        : '동작 중 (auto-vlevel V1~V9 + 도서 챕터 세트) · 전용 컬럼 부재는 견고성 부채(B1)',
     },
     {
       label: 'v_level 채움',
@@ -393,13 +397,12 @@ function r3WordSetPublish(raw: DictSnapshotRaw): ResponsibilityReadiness {
       evidence: `${(v.classifiedRatio * 100).toFixed(1)}%`,
     },
     {
-      label: 'register (business/academic 매칭)',
-      score: c.register.ratio,
+      // segment 자동 단어장은 register 가 아니라 list_tags(bsl/bel/tsl/nawl/moel)로 발행됨
+      // — specialty 4종(902 row) 이미 이 경로로 발행 완료. register 백필은 소비처 생길 때(D2 이연).
+      label: 'segment 태그 풀 (bsl/nawl/moel 등)',
+      score: c.segmentTags.ratio,
       weight: 0.15,
-      evidence:
-        c.register.ratio < 0.1
-          ? `🚨 ${(c.register.ratio * 100).toFixed(1)}% — segment 매칭 불가`
-          : `${(c.register.ratio * 100).toFixed(1)}%`,
+      evidence: `${c.segmentTags.filled.toLocaleString()} row (목표 3,000 대비 ${(c.segmentTags.ratio * 100).toFixed(0)}%)`,
     },
     {
       label: 'list_tags (NGSL/AWL/BSL)',
@@ -430,7 +433,7 @@ function r3WordSetPublish(raw: DictSnapshotRaw): ResponsibilityReadiness {
   const score = aggregateFactors(factors)
   const affectedByDefects: string[] = []
   if (!integrated) affectedByDefects.push('vcb_vrl_not_integrated')
-  if (c.register.ratio < 0.1) affectedByDefects.push('register_null')
+  if (c.segmentTags.ratio < 0.5) affectedByDefects.push('segment_tags_underdeveloped')
   if (v.classifiedRatio < 0.5) affectedByDefects.push('v_level_unclassified')
 
   return {

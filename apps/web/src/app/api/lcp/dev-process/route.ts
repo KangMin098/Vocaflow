@@ -20,6 +20,7 @@ import {
   ingestFromSimpleWikipedia,
   ingestFromLit2Go,
   ingestFromStoryWeaver,
+  ingestFromPressbooks,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -35,6 +36,8 @@ export const dynamic = 'force-dynamic'
 
 interface DevProcessBody {
   book_id: string
+  /** Pressbooks 전용 — 챕터 상한(데모 footprint 제한). 0/미지정=전체. */
+  max_chapters?: number
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -116,6 +119,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromLit2Go(book.source_id as string)
     } else if (book.source === 'storyweaver') {
       raw = await ingestFromStoryWeaver(book.source_id as string)
+    } else if (book.source === 'pressbooks') {
+      raw = await ingestFromPressbooks(book.source_id as string, body.max_chapters ?? 0)
     } else {
       throw new Error(`Source not implemented in dev-process: ${book.source}`)
     }
@@ -181,10 +186,16 @@ export async function POST(request: Request): Promise<NextResponse> {
     //   backfill 직후(bound lemma 필요). LibraryCard + publish 게이트(book_v_level NULL 이면 강제게시 실패) 의존.
     try {
       await client.rpc('compute_book_vrl', { p_book_id: book_id })
+      await client.rpc('compute_book_chapter_v_levels', { p_book_id: book_id }) // 챕터별 V-level(v06.174 — 단일 라벨 편차 노출)
       await client.rpc('compute_book_cefrj', { p_book_id: book_id })
       await client.rpc('compute_book_coverage', { p_book_id: book_id }) // 레벨별 기지어 커버리지(i+1)
+      await client.rpc('compute_book_syntax', { p_book_id: book_id }) // CTP ① 구문 난이도(챕터 집계)
+      // 도서 난이도 v2.4 앙상블(ease-게이트 어휘 + 통사 병목 + hidden-difficulty 커버리지 범프)로
+      //   book_v_level 재산정 — p75 단축 왜곡 교정. 위 신호(vrl/cefrj/coverage/syntax) 계산 완료 후.
+      //   Claude 검토(difficulty_v2.claude_v) 도서는 v3 권위라 미덮음(함수 내 가드).
+      await client.rpc('compute_book_difficulty', { p_book_id: book_id })
     } catch (e) {
-      console.warn(`[lcp/dev-process] compute_book_vrl/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
+      console.warn(`[lcp/dev-process] compute_book_vrl/chapter/cefrj/coverage skipped: ${e instanceof Error ? e.message : String(e)}`)
     }
 
     // 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
@@ -220,6 +231,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           .from('book_curation_jobs')
           .delete()
           .eq('book_id', book_id)
+          .eq('task_type', 'voice_map')
           .in('status', ['pending', 'failed'])
       } else if (map.recording_found) {
         // 정합 실패 → 매핑 큐 자동 등록. dev-process 는 service-role(auth.uid 없음)이라
@@ -245,6 +257,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         await client.from('book_curation_jobs').upsert(
           {
             book_id,
+            task_type: 'voice_map',
             mode: jobMode,
             status: 'pending',
             source_chapters: sourceChapters,
@@ -255,7 +268,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             note: `auto: LibriVox 정합 실패 — ${map.reason ?? ''} (실챕터 ${map.real_chapter_count} / LV ${map.lv_chapter_count}, ${map.volume_count}권)`,
             claimed_at: null,
           },
-          { onConflict: 'book_id' },
+          { onConflict: 'book_id,task_type' },
         )
         librivox = 'queued'
       } else {
@@ -265,6 +278,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           .from('book_curation_jobs')
           .delete()
           .eq('book_id', book_id)
+          .eq('task_type', 'voice_map')
           .in('status', ['pending', 'failed'])
       }
     } catch (e) {

@@ -11,6 +11,7 @@ import {
   resolveSourcePolicy,
   isSourceKey,
   licenseClassOf,
+  resolveArticleRegister,
   type SourceKey,
 } from './_curation-spec'
 
@@ -36,6 +37,14 @@ describe('SOURCE_POLICIES — 4축 파생 표 고정', () => {
     ['wikinews', 'live', 'text', 'full', 'required'],
     ['the_conversation', 'live', 'text', 'display_only', 'required'],
     ['simple_wikipedia', 'live', 'text', 'full', 'required'],
+    ['owid', 'live', 'text', 'full', 'required'], // T-2 — CC-BY → full(발행 허용), argumentative gap 보강
+    ['factbook', 'live', 'text', 'full', 'none'], // PD US Gov → full(발행 허용) · 인용 자유, reference gap 보강
+    ['elife', 'live', 'text', 'full', 'required'], // CC-BY → full(발행 허용) · 인용 필수, 과학 expository
+    ['wikipedia', 'live', 'text', 'full', 'required'], // CC-BY-SA → full · 인용 필수, 정규 백과 expository
+    ['plos', 'live', 'text', 'full', 'required'], // CC-BY → full · 인용 필수, 오픈 학술 논문 C1-C2
+    ['wikivoyage', 'live', 'text', 'full', 'required'], // CC-BY-SA → full · 인용 필수, 여행 가이드 reference
+    ['usgs', 'live', 'text', 'full', 'none'], // PD US Gov → full(발행 허용) · 인용 자유, 지구과학 expository
+    ['noaa', 'live', 'text', 'full', 'none'], // PD US Gov → full(발행 허용) · 인용 자유, 기후과학 expository
   ]
 
   it.each(TABLE)('%s → %s/%s/%s/%s', (source, supply, media, derivation, attribution) => {
@@ -73,6 +82,26 @@ describe('핵심 분기 불변식', () => {
       (s) => SOURCE_POLICIES[s].supply === 'static',
     )
     expect(stat).toEqual(['voa'])
+  })
+})
+
+describe('resolveArticleRegister — feed-level 우선 (VOA 오분류 교정)', () => {
+  it('VOA american-stories/lets-learn-english → narrative (서사 register 보강)', () => {
+    expect(resolveArticleRegister('voa', 'american-stories')).toBe('narrative')
+    expect(resolveArticleRegister('voa', 'lets-learn-english')).toBe('narrative')
+  })
+  it('VOA science-technology/health-lifestyle → expository (source 기본 news 교정)', () => {
+    expect(resolveArticleRegister('voa', 'science-technology')).toBe('expository')
+    expect(resolveArticleRegister('voa', 'health-lifestyle')).toBe('expository')
+  })
+  it('VOA as-it-is / feed 없음 → source 기본값 news', () => {
+    expect(resolveArticleRegister('voa', 'as-it-is')).toBe('news')
+    expect(resolveArticleRegister('voa', null)).toBe('news')
+  })
+  it('feed override 없는 소스는 source 기본값', () => {
+    expect(resolveArticleRegister('owid', null)).toBe('argumentative')
+    expect(resolveArticleRegister('factbook', undefined)).toBe('reference')
+    expect(resolveArticleRegister('nasa', 'news')).toBe('expository')
   })
 })
 

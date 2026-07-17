@@ -10,14 +10,22 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
+  BarChart3,
   BookOpen,
+  CloudSun,
+  Dna,
   Download,
   FlaskConical,
+  Globe,
   LayoutGrid,
   Layers,
+  Library,
+  MapPin,
   Megaphone,
+  Microscope,
+  Mountain,
   Newspaper,
   Radio,
   Rocket,
@@ -27,6 +35,7 @@ import {
 
 import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
+import { SOURCE_LABEL } from '@/lib/articles/source-guide'
 import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
 import { GetGuidePanel } from './GetGuidePanel'
@@ -35,7 +44,8 @@ import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
 type Stage = 'coverage' | 'get' | 'review' | 'publish'
-type SourceKey = 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews'
+type SourceKey =
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -50,20 +60,42 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
   { key: 'review', label: '검수', Icon: SearchCheck },
   { key: 'publish', label: '발행', Icon: Send },
 ]
+const STAGE_KEYS: Stage[] = STAGES.map((s) => s.key)
 
-const SOURCE_OPTIONS: Array<{ key: SourceKey; label: string; Icon: typeof Radio }> = [
-  { key: 'voa', label: 'VOA', Icon: Radio },
-  { key: 'nasa', label: 'NASA', Icon: Rocket },
-  { key: 'nih', label: 'NIH', Icon: FlaskConical },
-  { key: 'simple_wikipedia', label: 'Wikipedia', Icon: BookOpen },
-  { key: 'the_conversation', label: 'Conversation', Icon: Megaphone },
-  { key: 'wikinews', label: 'Wikinews', Icon: Newspaper },
+// 소스별 탭 — 라벨은 정본 SOURCE_LABEL(source-guide) 단일출처에서만(중복 정의·드리프트 금지).
+//   여기선 key + Icon 만 정의 → 커버리지(SourceFeedList)와 동일 라벨 보장.
+const SOURCE_OPTIONS: Array<{ key: SourceKey; Icon: typeof Radio }> = [
+  { key: 'voa', Icon: Radio },
+  { key: 'nasa', Icon: Rocket },
+  { key: 'nih', Icon: FlaskConical },
+  { key: 'simple_wikipedia', Icon: BookOpen },
+  { key: 'the_conversation', Icon: Megaphone },
+  { key: 'wikinews', Icon: Newspaper },
+  { key: 'owid', Icon: BarChart3 },
+  { key: 'factbook', Icon: Globe },
+  { key: 'elife', Icon: Microscope },
+  { key: 'wikipedia', Icon: Library },
+  { key: 'plos', Icon: Dna },
+  { key: 'wikivoyage', Icon: MapPin },
+  { key: 'usgs', Icon: Mountain },
+  { key: 'noaa', Icon: CloudSun },
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 
 export function CurationConsole({ articles, stats, feedHealth }: Props) {
   const router = useRouter()
-  const [stage, setStage] = useState<Stage>('coverage')
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  // stage 를 URL(?stage=)로 동기화 — 프리뷰 검수 후 복귀 시 stage 유지(제자리 복귀).
+  const stageParam = searchParams.get('stage') as Stage | null
+  const stage: Stage = stageParam && STAGE_KEYS.includes(stageParam) ? stageParam : 'coverage'
+  const setStage = (s: Stage): void => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (s === 'coverage') params.delete('stage')
+    else params.set('stage', s)
+    const qs = params.toString()
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  }
   const [getSource, setGetSource] = useState<SourceKey>('voa')
 
   const refetchAll = (): void => {
@@ -107,10 +139,16 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
             initialFilter="ready"
             showGate
             heading="🔍 검수 큐"
+            backStage="review"
           />
         )}
         {stage === 'publish' && (
-          <CuratedArticlesTab articles={articles} onChanged={refetchAll} initialFilter="published" />
+          <CuratedArticlesTab
+            articles={articles}
+            onChanged={refetchAll}
+            initialFilter="published"
+            backStage="publish"
+          />
         )}
       </div>
     </div>
@@ -307,8 +345,9 @@ function SourceTabs({
 
   return (
     <div role="tablist" aria-label="소스별" className="flex flex-wrap gap-1 border-b border-[var(--bd)]">
-      {SOURCE_OPTIONS.map(({ key, label, Icon }) => {
+      {SOURCE_OPTIONS.map(({ key, Icon }) => {
         const active = source === key
+        const label = SOURCE_LABEL[key] ?? key
         const pending = pendingBySource.get(key) ?? 0
         return (
           <button

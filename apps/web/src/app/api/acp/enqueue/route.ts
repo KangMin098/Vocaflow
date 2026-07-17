@@ -12,12 +12,20 @@
 
 import { NextResponse } from 'next/server'
 import {
+  ingestElifeArticle,
+  ingestFactbookArticle,
   ingestNasaArticle,
   ingestNihArticle,
+  ingestNoaaArticle,
+  ingestOwidArticle,
   ingestSimpleWikipediaArticle,
   ingestTheConversationArticle,
+  ingestPlosArticle,
+  ingestUsgsArticle,
   ingestVoaArticle,
   ingestWikinewsArticle,
+  ingestWikipediaArticle,
+  ingestWikivoyageArticle,
   VOA_FEEDS,
   type RawArticle,
 } from '@vocaflow/library-pipeline'
@@ -31,7 +39,7 @@ export const dynamic = 'force-dynamic'
 
 // v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
 
 interface EnqueueBody {
   feed_id?: string
@@ -49,6 +57,14 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/simple\.wikipedia\.org\/wiki\//, source: 'simple_wikipedia' },
   { pattern: /^https?:\/\/theconversation\.com\//, source: 'the_conversation' },
   { pattern: /^https?:\/\/en\.wikinews\.org\/wiki\//, source: 'wikinews' },
+  { pattern: /^https?:\/\/ourworldindata\.org\//, source: 'owid' },
+  { pattern: /^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//, source: 'factbook' },
+  { pattern: /^https?:\/\/(?:www\.)?elifesciences\.org\/articles\//, source: 'elife' },
+  { pattern: /^https?:\/\/en\.wikipedia\.org\/wiki\//, source: 'wikipedia' },
+  { pattern: /^https?:\/\/journals\.plos\.org\//, source: 'plos' },
+  { pattern: /^https?:\/\/en\.wikivoyage\.org\/wiki\//, source: 'wikivoyage' },
+  { pattern: /^https?:\/\/(?:www\.)?usgs\.gov\/news\//, source: 'usgs' },
+  { pattern: /^https?:\/\/(?:www\.)?climate\.gov\/news-features\//, source: 'noaa' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -77,7 +93,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         error:
-          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews 중 하나여야 하거나 source 필드 명시 필요',
+          'Unknown source — URL host 가 VOA / NASA / NIH / Simple Wikipedia / The Conversation / Wikinews / OWID / Factbook / eLife / Wikipedia 중 하나여야 하거나 source 필드 명시 필요',
       },
       { status: 400 },
     )
@@ -112,6 +128,38 @@ export async function POST(request: Request): Promise<NextResponse> {
         article = await ingestWikinewsArticle(body.item_url)
         break
       }
+      case 'owid': {
+        article = await ingestOwidArticle(body.item_url)
+        break
+      }
+      case 'factbook': {
+        article = await ingestFactbookArticle(body.item_url)
+        break
+      }
+      case 'elife': {
+        article = await ingestElifeArticle(body.item_url)
+        break
+      }
+      case 'wikipedia': {
+        article = await ingestWikipediaArticle(body.item_url)
+        break
+      }
+      case 'plos': {
+        article = await ingestPlosArticle(body.item_url)
+        break
+      }
+      case 'wikivoyage': {
+        article = await ingestWikivoyageArticle(body.item_url)
+        break
+      }
+      case 'usgs': {
+        article = await ingestUsgsArticle(body.item_url)
+        break
+      }
+      case 'noaa': {
+        article = await ingestNoaaArticle(body.item_url)
+        break
+      }
     }
 
     // 2. admin_enqueue_article RPC 호출 (RLS 통과)
@@ -122,6 +170,16 @@ export async function POST(request: Request): Promise<NextResponse> {
         params: Record<string, unknown>,
       ) => Promise<{ data: unknown; error: { message: string } | null }>
     }
+
+    // feed_label 승계 — 시드(library_article_seed_catalog)에서 프로그램/시리즈 라벨 조회.
+    //   picker '소스 → 프로그램 → 컨텐츠' 하위 분류의 근거 (v06.135).
+    const { data: seedRow } = await supabase
+      .from('library_article_seed_catalog')
+      .select('feed_label')
+      .eq('source', article.source)
+      .eq('source_url', article.source_url)
+      .maybeSingle()
+    const feedLabel = (seedRow as { feed_label: string | null } | null)?.feed_label ?? null
 
     const { data, error } = await sb.rpc('admin_enqueue_article', {
       p_source: article.source,
@@ -138,6 +196,9 @@ export async function POST(request: Request): Promise<NextResponse> {
       p_content: article.content,
       // v06.45 — audio_url (LCP librivox_audio 와 동일 연계). VOA = 학습 정체성으로 거의 100% 존재.
       p_audio_url: article.audio_url ?? null,
+      // v06.135 — 프로그램(feed) 라벨 승계 (picker 소스 하위 분류)
+      p_feed_id: body.feed_id ?? null,
+      p_feed_label: feedLabel,
     })
 
     if (error) {

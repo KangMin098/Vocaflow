@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `ff8dba3` fix(quality): 골든셋 fixture 줄끝 정규화 금지 (.gitattributes -text)
 - `86ec3d4` fix(lcp): lbv lemma INSERT 게이트 트리거 + 전권 backfill (v06.120)
 - `8f7f49c` feat(quality): quality_metrics nightly 집계 Q2 (v06.119)
 - `0b6db84` test(quality): 파이프라인 골든셋 스냅샷 테스트 Q1 (v06.118)
 - `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
-- `6a32325` Merge remote-tracking branch 'origin/main' into feat/scriptquiz-chapter-quiz
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
-- `20260704090000_lbv_lemma_insert_gate.sql`
-- `20260704043934_quality_metrics.sql`
-- `20260703120010_p0_drop_p5a_backup_table.sql`
-- `20260703120000_p0_security_rls_hardening.sql`
-- `20260702120000_scriptquiz_curated_chapter_quiz.sql`
+- `20260717150000_wordset_category_etymology.sql`
+- `20260717140000_word_roots.sql`
+- `20260713180500_extract_exclude_known.sql`
+- `20260713180000_word_familiarity.sql`
+- `20260713172500_book_article_use_helper.sql`
 <!-- /auto:recent-migrations -->
 
 ---

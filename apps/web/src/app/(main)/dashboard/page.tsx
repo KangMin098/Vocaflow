@@ -15,6 +15,7 @@ import { ManageSection } from '@/components/dashboard/ManageSection'
 import { MemoryStatus } from '@/components/dashboard/MemoryStatus'
 import { RecentActivity } from '@/components/dashboard/RecentActivity'
 import { WeeklyHeatmap } from '@/components/dashboard/WeeklyHeatmap'
+import { fetchGrowthStats } from '@/lib/learner/growth-stats'
 import { fetchManageOverview } from '@/lib/learner/manage-overview'
 
 function kstDateLabel(): string {
@@ -27,11 +28,11 @@ function kstDateLabel(): string {
 }
 
 export default async function DashboardPage() {
-  const overview = await fetchManageOverview()
+  const [overview, growth] = await Promise.all([fetchManageOverview(), fetchGrowthStats()])
 
   if (!overview) {
     return (
-      <Screen width="content" background="bg2" padX="md">
+      <Screen width="wide" background="bg2" padX="md">
         <div className="mx-auto max-w-md px-4 py-24 text-center font-body text-[14px] text-[var(--t3)]">
           로그인하면 성장 기록을 볼 수 있어요.
         </div>
@@ -40,7 +41,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         {/* 1. 헤더 + known-word 성장 hero (Implicit Progress — 게이지 대신 자라는 숫자) */}
         <header className="flex flex-col gap-4">
@@ -77,11 +78,16 @@ export default async function DashboardPage() {
           </div>
         </header>
 
-        {/* 2. 기억 4상태 */}
-        <MemoryStatus />
+        {/* 2. 기억 4상태 — vocabularies R(t) 동적 계산 (growth-stats) */}
+        <MemoryStatus
+          stable={growth?.memory.stable ?? 0}
+          shaky={growth?.memory.shaky ?? 0}
+          risk={growth?.memory.risk ?? 0}
+          fresh={growth?.memory.fresh ?? 0}
+        />
 
-        {/* 3. 28일 활동 + 연속 */}
-        <WeeklyHeatmap />
+        {/* 3. 28일 활동 + 연속 — daily_activity 실데이터 */}
+        <WeeklyHeatmap days={growth?.days28} />
 
         {/* 4. 학습 관리 (진단·계획·리포트) — /manage 흡수 */}
         <ManageSection overview={overview} />

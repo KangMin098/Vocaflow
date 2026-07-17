@@ -4,7 +4,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { performDictLookup, type DictLookupSummary } from '@vocaflow/vcb-curate-core'
 
@@ -19,7 +19,7 @@ export async function runDictionaryLookup(
 ): Promise<ServerActionResult<DictLookupSummary>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const result = await performDictLookup(client, run_id)
     if (!result.ok || !result.summary) {

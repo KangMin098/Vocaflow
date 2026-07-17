@@ -11,5 +11,5 @@
 - **Admin**: `BookDetailModal` 4축 난이도 섹션에 `CoverageCurve`(V4–V10 색코딩).
 - **User**: `/library/books` page 가 `user_profiles.current_v_level` + `lexical_coverage` fetch → `LibraryGrid` 캐러셀 히어로 배지 + `NetflixDetailSheet` `IPlusOneRow`(진행막대+격려문구, 미진단 시 /diagnostic 유도).
 
-**중요 결정**: coverage 는 **도서 레벨** 지표라 `recommend_word_sets_for_user`(단어장=V레벨 필터 리스트, 토큰 분포 없음)엔 **부적합** → 단어장 추천엔 미적용, 도서 브라우징에만. 임계값(85/95)은 미검증 — 큐레이션 누적 후 `compute_book_coverage` 임계만 조정하면 admin·user 동시 반영. 관련: [[project_4axis_difficulty_done]].
+**중요 결정**: coverage 는 **도서 레벨** 지표라 단어장 자체 필터엔 부적합 — 단, 2026-07-05 (v06.129) `recommend_word_sets_for_user` 에 **6th tier `book_iplus1`** 로 도서-단위 적용됨: 사용자 레벨 coverage 85~95% (judgeIPlusOne 밴드) published 도서 상위 2권의 입문(최저 챕터) 세트를 priority 6 추천 (마이그레이션 `recommend_book_iplus1_tier`). 임계값(85/95)은 미검증 — 큐레이션 누적 후 `compute_book_coverage` 임계만 조정하면 admin·user 동시 반영. 관련: [[project_4axis_difficulty_done]].
 

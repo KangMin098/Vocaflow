@@ -87,6 +87,10 @@
   --combo: #8B5CF6;
   --streak: #EC4899;
 
+  /* ─────── Admin Console accent (관리자 콘솔 전용 보라 액센트) ─────── */
+  --admin: #8B5CF6;         /* accent — 활성 탭/단계·텍스트·focus ring */
+  --admin-strong: #6D28D9;  /* solid CTA 배경(흰 텍스트) / 활성 보더 */
+
   /* ─────── Shadow (legacy) ─────── */
   --sh-xs: 0 1px 2px rgba(0, 0, 0, .05);
   --sh-sm: 0 1px 3px rgba(0, 0, 0, .10), 0 1px 2px rgba(0, 0, 0, .06);
@@ -274,6 +278,10 @@
   --warning-light: rgba(206, 162, 84, 0.18);
   --info: #8AA8C0;
   --info-light: rgba(138, 168, 192, 0.18);
+
+  /* Admin Console accent — 다크 contrast 위해 밝은 변형 */
+  --admin: #A78BFA;
+  --admin-strong: #8B5CF6;
 
   /* v06.40 — 살짝 더 cool dark (덜 brown, 더 contemporary editorial dark) */
   --bg: #231D17;         /* card (warm dark paper, 살짝 lighter) */

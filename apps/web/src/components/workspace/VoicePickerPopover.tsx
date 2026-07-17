@@ -42,17 +42,25 @@ export function VoicePickerPopover() {
     return undefined
   }, []) // ← 빈 deps (mount 1회) — tts 변경에 의한 무한 루프 차단
 
-  // 외부 클릭 닫기
+  // 외부 클릭 / Esc 닫기
   useEffect(() => {
     if (!open) return
+    const close = () => {
+      setOpen(false)
+      ttsRef.current.cancelPreview()
+    }
     const onDoc = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
-        ttsRef.current.cancelPreview()
-      }
+      if (ref.current && !ref.current.contains(e.target as Node)) close()
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close()
     }
     document.addEventListener('mousedown', onDoc)
-    return () => document.removeEventListener('mousedown', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [open]) // ← tts 제거 (ref 사용)
 
   const selectedVoice = voices.find((v) => v.voiceURI === tts.state.selectedVoiceURI)

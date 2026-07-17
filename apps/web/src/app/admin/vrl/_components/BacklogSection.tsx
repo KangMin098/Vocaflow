@@ -8,7 +8,7 @@
 //   P2 (3) blue — 모니터링
 //   P3 (3) gray — 미래 작업
 
-import { AlertTriangle, Clock3, Info, ListTodo, Target } from 'lucide-react'
+import { AlertTriangle, CheckCircle2, Clock3, Info, ListTodo, Target } from 'lucide-react'
 import type { DefectPriority } from '@/lib/admin/dict/types'
 import { BACKLOG_ITEMS, summarizeBacklog } from './backlog-items'
 import { BacklogItemCard } from './BacklogItemCard'
@@ -72,8 +72,8 @@ export function BacklogSection() {
               Improvement Backlog
             </h2>
             <p className="font-body text-[12px] text-[var(--t3)]">
-              {summary.total} items · P0 {summary.byPriority.P0} · P1 {summary.byPriority.P1} ·
-              P2 {summary.byPriority.P2} · P3 {summary.byPriority.P3}
+              남은 {summary.total} · P0 {summary.byPriority.P0} · P1 {summary.byPriority.P1} ·
+              P2 {summary.byPriority.P2} · P3 {summary.byPriority.P3} · 완료 {summary.done}
             </p>
           </div>
         </div>
@@ -145,9 +145,11 @@ export function BacklogSection() {
         </div>
       )}
 
-      {/* ── P0/P1/P2/P3 그룹 ── */}
+      {/* ── P0/P1/P2/P3 그룹 (미완료만) ── */}
       {GROUPS.map((g) => {
-        const items = BACKLOG_ITEMS.filter((it) => it.priority === g.priority)
+        const items = BACKLOG_ITEMS.filter(
+          (it) => it.priority === g.priority && it.status !== 'done',
+        )
         if (items.length === 0) return null
         const GIcon = g.icon
         return (
@@ -182,6 +184,31 @@ export function BacklogSection() {
           </section>
         )
       })}
+
+      {/* ── 완료 그룹 ── */}
+      {summary.done > 0 && (
+        <section aria-label="완료 items" className="flex flex-col gap-2.5">
+          <header className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--success-light)] px-3 py-1.5">
+            <CheckCircle2
+              size={13}
+              strokeWidth={2}
+              className="text-[var(--success)]"
+              aria-hidden
+            />
+            <h3 className="font-display text-[12px] font-[700] text-[var(--success)]">
+              완료 — 실측으로 종결 확인
+            </h3>
+            <span className="ml-auto rounded-full bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--success)]">
+              {summary.done}
+            </span>
+          </header>
+          <div className="grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-3">
+            {BACKLOG_ITEMS.filter((it) => it.status === 'done').map((it) => (
+              <BacklogItemCard key={it.id} item={it} />
+            ))}
+          </div>
+        </section>
+      )}
     </section>
   )
 }

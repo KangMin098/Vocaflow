@@ -20,8 +20,9 @@ export default async function ScriptQuizHubPage() {
   let catalog: ChapterQuizCatalogBook[] = []
   try {
     catalog = await fetchChapterQuizCatalog(client)
-  } catch {
-    // 카탈로그 조회 실패(미로그인/RPC 미배포) — 빈 상태로 폴백
+  } catch (e) {
+    // 카탈로그 조회 실패 — 빈 상태 폴백하되 원인은 로그로 남김 (침묵 삼킴 금지)
+    console.warn('[scriptquiz] catalog fetch failed:', e instanceof Error ? e.message : e)
     catalog = []
   }
 

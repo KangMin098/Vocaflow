@@ -4,7 +4,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   createRun as createRunCore,
@@ -22,7 +22,7 @@ export async function createRun(
 ): Promise<ServerActionResult<{ run_id: number }>> {
   try {
     const user = await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const result = await createRunCore(client, input, { created_by: user.id })
 

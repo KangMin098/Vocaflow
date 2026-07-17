@@ -73,9 +73,12 @@ export function WordVaultBrowseClient({
         book: bookContext.bookId,
         chapter: String(chapter.chapterIdx),
       })
+      // 세션 복귀(?from) 유지 — 챕터 이동 후 reload/bookmark 시에도 닫기 대상 보존.
+      const from = searchParams?.get('from')
+      if (from) qs.set('from', from)
       router.push(`/wordvault/browse?${qs.toString()}`)
     },
-    [bookContext, router],
+    [bookContext, router, searchParams],
   )
 
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
