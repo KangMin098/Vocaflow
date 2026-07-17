@@ -8,11 +8,24 @@
 'use client'
 
 import type { Word } from '@/types/library'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { Volume2 } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis'
 import { PosBadge } from '@/components/library/PosBadge'
 import { ZoomableImage } from '@/components/ui/ZoomableImage'
+import { createClient } from '@/lib/supabase/client'
+import { fetchDictExtras, type DictExtras } from '@/lib/flashcard/dict-extras'
+
+/** 품사 → 한국 학습자 약어(명·동·형·부). */
+function posLabel(pos: string): string {
+  const p = pos.toLowerCase()
+  if (p.startsWith('noun') || p === 'n') return '명'
+  if (p.startsWith('verb') || p === 'v') return '동'
+  if (p.startsWith('adject') || p === 'adj') return '형'
+  if (p.startsWith('adverb') || p === 'adv') return '부'
+  return pos
+}
 
 interface RecallCardProps {
   word: Word | null
@@ -25,7 +38,25 @@ interface RecallCardProps {
 export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: RecallCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null)
+  /** 사전 부가정보(다의어·어원·니모닉) — 카드 열릴 때 단어 1개 조회. 플래시카드 CardBack 과 동일 리치화. */
+  const [extras, setExtras] = useState<DictExtras | null>(null)
   const { speak, isPlaying } = useSpeechSynthesis({ lang: 'en-US', rate: 0.9 })
+
+  // 단어 부가정보 조회 (다의어 senses·어원 roots·니모닉). 실패/미매칭이면 null(뜻만 표시).
+  useEffect(() => {
+    setExtras(null)
+    if (!word) return
+    let cancelled = false
+    const supabase = createClient() as unknown as SupabaseClient
+    fetchDictExtras(supabase, [word.text])
+      .then((m) => {
+        if (!cancelled) setExtras(m.get(word.text.toLowerCase()) ?? null)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [word?.id, word?.text])
 
   // 위치 계산 — fixed(뷰포트). 위 공간 충분하면 위, 아니면 아래.
   useLayoutEffect(() => {
@@ -44,7 +75,7 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
         ? anchorRect.top - cardH - gap
         : anchorRect.bottom + gap
     setPos({ top, left })
-  }, [word?.id, anchorRect])
+  }, [word?.id, anchorRect, extras])
 
   // 단어 변경 시 자동 1회 발음 (Dual Coding — 시각+청각)
   useEffect(() => {
@@ -132,6 +163,48 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
 
       {/* 뜻 — DM Sans 즉시 표시 */}
       <p className="mt-2 font-body text-[14px] leading-snug text-[var(--t1)]">{word.meaning}</p>
+
+      {/* 다의어 품사별 뜻 — ≥2 sense 일 때만(플래시카드와 동일). 리더 중 한눈에 다의 파악. */}
+      {extras?.senses && extras.senses.length >= 2 && (
+        <div className="mt-2 flex flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] px-2.5 py-1.5">
+          {extras.senses.map((s, i) => (
+            <div key={`${s.pos}-${i}`} className="flex items-baseline gap-1.5">
+              {s.pos && (
+                <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 font-mono text-[9px] font-[700] text-[var(--t3)]">
+                  {posLabel(s.pos)}
+                </span>
+              )}
+              <span className="font-body text-[12px] leading-snug text-[var(--t1)]">{s.meaning}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 어원 root 분해 chip */}
+      {extras?.roots && extras.roots.length > 0 && (
+        <div className="mt-2 flex flex-wrap items-center gap-1">
+          <span className="font-body text-[9px] uppercase tracking-[0.06em] text-[var(--t3)]">어원</span>
+          {extras.roots.map((r, i) => (
+            <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1">
+              {i > 0 && <span className="text-[10px] text-[var(--t4)]">+</span>}
+              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-1.5 py-0.5 text-[11px]">
+                <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
+                <span className="font-body text-[var(--t2)]"> {r.gloss}</span>
+              </span>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* 어근 니모닉 💡 — 어원 근거 기억 힌트(발음 말장난 아님) */}
+      {extras?.mnemonic && (
+        <p className="mt-1.5 flex items-start gap-1 font-body text-[11.5px] italic leading-relaxed text-[var(--t2)]">
+          <span className="not-italic" aria-hidden="true">
+            💡
+          </span>
+          <span>{extras.mnemonic}</span>
+        </p>
+      )}
     </div>
   )
 }
