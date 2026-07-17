@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/quality-eval`
+**활성 브랜치**: `feat/scriptquiz-chapter-quiz`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `ff8dba3` fix(quality): 골든셋 fixture 줄끝 정규화 금지 (.gitattributes -text)
-- `86ec3d4` fix(lcp): lbv lemma INSERT 게이트 트리거 + 전권 backfill (v06.120)
-- `8f7f49c` feat(quality): quality_metrics nightly 집계 Q2 (v06.119)
-- `0b6db84` test(quality): 파이프라인 골든셋 스냅샷 테스트 Q1 (v06.118)
-- `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
+- `8dd2c81` docs(scriptquiz): Jane Eyre 전권 챕터 퀴즈 완결 (38ch, 342문항)
+- `0679a2d` fix(lcp): rpc 침묵 실패 11곳 관측성 복구 — {error} 필드 검사 (v06.125)
+- `86a7328` feat(dict): no-rank Tier A 선별 enrichment — 발행 세트 노출 어휘 ipa 100% (v06.124)
+- `bc7732e` docs(scriptquiz): The Railway Children 전권 98문항 완결 — 카탈로그 11권 1,406문항
+- `6ac6b12` fix(vcb): QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

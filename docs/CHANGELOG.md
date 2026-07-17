@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### LCP RPC 침묵실패 관측성 소급 (PR #93 salvage) — dev-process/process 라우트 (v06.254)
+- **배경**: `feat/scriptquiz-chapter-quiz`(PR #93)를 새 main에 merge. 대형 기능(챕터 퀴즈)은 plan-ui 재구현으로 main에 있고, scriptquiz 드레인·VCB QA·dict enrichment는 데이터/docs라 반영/superseded → **유일한 고유 코드 = LCP RPC 관측성 수리**만 소급.
+- **관측성 수리**(`0679a2d`): `/api/lcp/{dev-process,process}`의 `compute_book_*` RPC 호출이 `try/catch`였으나 supabase-js rpc는 **무-throw({error} 반환)** → catch가 죽은 코드(침묵실패). **per-call `{error}` 검사 for-loop로 교정** — main의 확장 RPC(chapter_v_levels·syntax·difficulty)는 유지하고 관측성만 결합. (같은 무-throw 버그의 DB측 짝 = #94 lbv lemma 게이트.)
+- **머지 처리**: docs 충돌은 main 채택. **pairflip은 main 통째 채택**(#93의 "stale mock 제거"는 구버전 기준 판단 — main의 `saveLearningRecords` 실 persistence 회귀 방지). CLAUDE.md scriptquiz 카운트만 #93값(1,292문항·10권) 반영.
+
 ### 품질 파이프라인 회귀 인프라 소급 (PR #94 salvage) — 골든 스냅샷 + quality_metrics + lbv lemma 게이트 (v06.254)
 - **배경**: `feat/quality-eval`(PR #94)이 old main 분기 후 미머지였고, plan-ui 통합으로 `/admin/quality` UI는 main에 들어왔으나 그 **하부 인프라 3종**(마이그·회귀 테스트)이 마이그 이력 밖이었음 → **main에 소급**(main을 브랜치로 merge, docs 충돌만 main 채택).
 - **골든셋 스냅샷 테스트**(Q1 `0b6db84`): `packages/library-pipeline/test/{noise,segmentation}.snapshot.test.ts` — `computeLexicalNoise`·`normalizeBook` 결정론 회귀 가드. `.gitattributes -text`로 골든 fixture 줄끝 정규화 차단(`ff8dba3`).
