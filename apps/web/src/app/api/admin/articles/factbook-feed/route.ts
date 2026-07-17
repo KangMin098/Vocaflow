@@ -3,7 +3,7 @@
 //
 // GET /api/admin/articles/factbook-feed?feed=all  (RSS 아님 — 정적 국가 리스트)
 
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { createClient } from '@/lib/supabase/server'

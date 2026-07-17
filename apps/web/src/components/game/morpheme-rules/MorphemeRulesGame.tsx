@@ -5,9 +5,9 @@
 
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, ParticleBurst, useSfx, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -74,7 +74,6 @@ export function MorphemeRulesGame({ onExit, onCorrect }: Props) {
 
   const assembled = (pre?.text ?? '') + (root?.text ?? '');
   const validWord = pre && root ? VALID[assembled] : undefined;
-  const total = useMemo(() => LEVELS.reduce((n, l) => n + l.obstacles.length, 0), []);
   const cleared = lv.obstacles.every((o) => done.has(o.id));
 
   const clearBench = () => { setPre(null); setRoot(null); };

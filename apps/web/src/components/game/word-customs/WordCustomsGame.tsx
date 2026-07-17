@@ -7,7 +7,7 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, useSfx, useCountUp, clamp, shuffle, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, useSfx, useCountUp, clamp, shuffle, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }

@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### CI green 복구 — main 머지 게이트 정리 (v06.254)
+- **배경**: `feat/plan-ui`(origin/main +319, 0 behind)의 CI 3잡(TypeScript·build·verify)이 최신 커밋 기준 red → 깨끗한 main 머지의 유일 블로커.
+- **build(next lint) 13 에러**: 아케이드/신규 게임 스위트가 남긴 미사용 import/var — `GameMark`(7 게임)·`IconSound`·`useRef`(glyph-tongue)·`NextRequest`(factbook-feed route)·죽은 로컬 `mounted`(언마운트 가드 미배선)·`placedCount`·`total`(lexicon-detective/morpheme-rules) 제거. 전부 동작 무변경 죽은코드.
+- **TypeScript 0 error(tsc) 1 에러**: `lib/recommend/next-action.mock.ts` `actionToHref` switch가 `ModuleId`(아케이드 모듈 추가로 확장) 비exhaustive → TS2366. `default` → `/library`(P4 폴백) 추가.
+- **verify(vitest) 1 실패**: `TodayPrescriptionCard.test.tsx`가 Phase 1의 "곧 제공" 상태칩을 기대했으나 Phase 2(v06.204)에서 ④구문연습이 실런처(`/practice/dcp`)로 교체됨 → 테스트를 shipped 동작(런처 노출)으로 교정.
+- **부수**: 게임 지시문(glyph-tongue·silent-rule) `aria-hidden` 제거로 스크린리더가 룰 낭독(a11y). 검증: lint 0 · web/library-pipeline tsc 0 · 테스트 144 passed.
+
 ### 주제별 단어장 PoC — dictionary_categories 활용 (v06.254)
 - **P0 정찰**(read-only, `wordset_pipeline_v2_p0_20260717.md`): 단어장 파이프라인 v2 전제 판정 — ① 학년 노드는 `dictionary_categories`엔 없음(thematic 18) BUT `kcurr2022` 교육과정 별표=word-level 학년 소스 **이미 존재·발행**(오류1 완화) ② `category_id` 부재 확인(오류5 철회) ③ `curation_query` 스키마 불일치→GENERATED 정규화 선결 ④ **`dictionary_categories` 566노드+28,079 매핑=주제축 데이터 이미 존재**(플랜 밖 기회).
 - **주제 세트 발행**(정찰 발견 즉시 실현, migration 불요): `topics-publish-set.mjs` — L1 테마=세트·L2 소주제=챕터(L3 롤업). **전 18주제 7,219단어** 발행(음식·여행·건강·비즈니스·과학·자연·사람·정치사회·문화·외모·언어기능·동물·집·스포츠·개념·의사소통·시간공간·여가). category `themed`/subcategory `topic`. chapter=L2 그룹번호·라벨=`korean_learner_note`(예: 여행→항공 교통·휴가 / 건강→의료·장애).

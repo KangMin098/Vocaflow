@@ -7,7 +7,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, ParticleBurst,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst,
   useSfx, useCountUp, shuffle, clamp, type Word,
 } from '@/components/game/_shared/gamekit';
 

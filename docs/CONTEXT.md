@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `db332ba` feat(vocab): 주제별 단어장 전 18주제 완성 — 7,219단어 (v06.254)
 - `f188f20` feat(vocab): 주제별 단어장 PoC — dictionary_categories 6주제 발행 (v06.254)
 - `45235af` docs(vocab): 단어장 파이프라인 v2 P0 정찰 — 학년/주제 데이터 판정
 - `9ac553f` feat(vocab): 어원 first-class 카테고리 승격 — 📜 어원 탭 (v06.253)
 - `cc6a589` feat(extract): 어원 이중배당 — 추출 근거 카드에 어근 힌트 (v06.253)
-- `406fff7` fix(vocab): 어원 세트 챕터 헤딩에 어근 라벨 노출 + e2e 검증 (v06.253)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

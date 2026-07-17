@@ -5,9 +5,9 @@
 
 'use client';
 
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, GameMark, IconSound, Hud, GameDone,
+  GameKitStyles, AmbientBackground, Hud, GameDone,
   useSfx, shuffle, clamp, type Word,
 } from '@/components/game/_shared/gamekit';
 
@@ -245,7 +245,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       />
 
       <main className="gk-stage gt-stage">
-        <p className="gt-help" aria-hidden="true">뜻은 주어지지 않는다. 비문에 <b>반복되는 룬</b>을 문맥으로 추론해 뜻을 잇고, <b>코덱스를 봉인</b>하라.</p>
+        <p className="gt-help">뜻은 주어지지 않는다. 비문에 <b>반복되는 룬</b>을 문맥으로 추론해 뜻을 잇고, <b>코덱스를 봉인</b>하라.</p>
 
         {/* 비문 벽 */}
         <div className="gt-tablets">

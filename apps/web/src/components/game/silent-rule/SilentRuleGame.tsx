@@ -169,7 +169,7 @@ export function SilentRuleGame({ onExit, onCorrect }: Props) {
         </main>
       ) : (
         <main className="gk-stage sr-stage">
-          <p className="sr-instr" aria-hidden="true">규칙을 <b>지키는 칸만</b> 밝혀라. <span className="sr-instr-dim">규칙은 말해주지 않는다.</span></p>
+          <p className="sr-instr">규칙을 <b>지키는 칸만</b> 밝혀라. <span className="sr-instr-dim">규칙은 말해주지 않는다.</span></p>
           <div className={`sr-grid ${shake ? 'sr-grid--shake' : ''} ${glow ? 'sr-grid--glow' : ''}`}>
             {panel.map((t) => {
               const on = sel.has(t.text);

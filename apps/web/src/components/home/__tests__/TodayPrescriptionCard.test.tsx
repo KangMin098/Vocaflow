@@ -94,14 +94,15 @@ describe('TodayPrescriptionCard', () => {
     expect(html).toContain('설명문')
   })
 
-  it('practice active=false → "—", active=true → "곧 제공"', () => {
+  it('practice active=false → 안내, active=true → /practice/dcp 런처 (회귀: Phase 2 실런처)', () => {
     const inactive = renderToString(<TodayPrescriptionCard data={BASE} />)
     expect(inactive).toContain('이 단계에서는 아직')
+    expect(inactive).not.toContain('/practice/dcp')
 
     const active = renderToString(
       <TodayPrescriptionCard data={{ ...BASE, practiceActive: true, practiceCount: 3 }} />,
     )
-    expect(active).toContain('곧 제공')
+    expect(active).toContain('/practice/dcp')
     expect(active).toContain('3개')
   })
 

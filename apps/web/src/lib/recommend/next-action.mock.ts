@@ -95,7 +95,8 @@ export function actionToHref(action: RecommendedAction): string {
       return '/wordvault';
     case 'textviewer':
       return '/text';
-    case 'library':
+    // 'library' + 추천 엔진이 내지 않는 그 외 모듈(아케이드 게임 등) → 라이브러리(L0 Discover) 폴백
+    default:
       return '/library';
   }
 }

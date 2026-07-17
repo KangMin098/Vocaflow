@@ -5,9 +5,9 @@
 
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, useSfx, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, useSfx, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -79,12 +79,9 @@ export function LexiconDetectiveGame({ onExit, onCorrect, onWrong }: Props) {
   const [caseSolved, setCaseSolved] = useState(false);
   const [correct, setCorrect] = useState(0);
   const [wrong, setWrong] = useState(0);
-  const mounted = useRef(true);
-
   // 빈칸 목록(id = 순서)
   const blanks = useMemo(() => c.narrative.filter((p): p is { hint: string; answer: string } => typeof p !== 'string'), [c]);
   const total = useMemo(() => CASES.reduce((n, x) => n + x.narrative.filter((p) => typeof p !== 'string').length, 0), []);
-  const placedCount = Object.keys(placed).length;
   const allFilled = blanks.every((_, i) => solved.has(i) || placed[i]);
 
   const bank = useMemo(() => {
