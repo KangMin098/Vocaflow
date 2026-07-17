@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f28260b` feat(vocab): 어근 기반 니모닉 생성 + 학습 카드 노출 (M2, v06.260)
 - `9f64e22` feat(flashcard): 학습 카드 리치화 — 다의어 품사별 뜻 + 어원 힌트 (M1·F1, v06.259)
 - `981eb4a` feat(vocab): P1 생성기 품질 게이트 — auto-vlevel 저레벨 오염 근절 (v06.258)
 - `48ee18b` chore(vocab): 유형별 단어장 파이프라인 전수 테스트 + 오류 3건 조치 (v06.257)
 - `49031db` chore(vocab): per-sense v_level Phase B 100% 종결 — 단일-POS 다의어 4,894 (v06.256)
-- `da3d175` chore(vocab): per-sense v_level Phase B 우선순위 슬라이스 완료 (v06.255)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -9,7 +9,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, Layers, Loader2, Plus, Volume2, X } from 'lucide-react'
+import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2, X } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
@@ -39,6 +39,21 @@ interface Props {
   onClose: () => void
   /** 챕터 게임 launch 의 닫기 복귀 경로(?from) — 재사용처(/wordvault 등)가 지정. 기본 /library/vocab. */
   fromPath?: string
+}
+
+/**
+ * 적응형 완성 플랜(F2) — 시중 "30일 완성" 고정 스케줄 대비 개인화.
+ *   신규 도입은 인지부하(하루 ~20~25단어) 기준으로 페이싱, 복습은 FSRS가 기억상태에 맞춰 자동 배치.
+ *   챕터형이면 챕터를 하루 단위로. 순수 계산(사용자 상태 무관) — 세트 규모만.
+ */
+const DAILY_NEW = 22 // 인지부하 기반 하루 신규 권장(Cognitive Load — Sweller)
+function computeStudyPlan(wordCount: number, chapterCount: number) {
+  if (wordCount <= 0) return null
+  return {
+    dailyNew: DAILY_NEW,
+    introDays: Math.ceil(wordCount / DAILY_NEW),
+    chapters: chapterCount > 1 ? chapterCount : 0,
+  }
 }
 
 export function VocabSetPreviewModal({
@@ -174,6 +189,12 @@ export function VocabSetPreviewModal({
     })
   }, [chaptered, words])
 
+  // 적응형 완성 플랜(F2) — 세트 규모 기반. 챕터형이면 챕터 수 반영.
+  const plan = useMemo(
+    () => (set ? computeStudyPlan(set.wordCount, chaptered ? chapters.length : 0) : null),
+    [set, chaptered, chapters],
+  )
+
   if (!set) return null
 
   function speak(word: string) {
@@ -267,6 +288,25 @@ export function VocabSetPreviewModal({
             <p role="alert" className="py-6 text-center font-body text-[13px] text-[var(--error)]">
               {error}
             </p>
+          )}
+
+          {/* 적응형 완성 플랜(F2) — 시중 고정 30일 대비 개인화 프레이밍 */}
+          {!loading && !error && plan && (
+            <div className="mb-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+              <div className="flex items-center gap-2">
+                <CalendarClock size={15} className="shrink-0 text-[#6D28D9]" aria-hidden />
+                <span className="font-display text-[12px] font-[700] text-[var(--t1)]">학습 플랜</span>
+              </div>
+              <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+                하루 <b className="font-[700] text-[var(--t1)]">{plan.dailyNew}단어</b>씩 · 약{' '}
+                <b className="font-[700] text-[var(--t1)]">{plan.introDays}일</b>에 새 단어를 익혀요
+                {plan.chapters > 0 && <span className="text-[var(--t3)]"> · {plan.chapters}챕터 구성</span>}.
+              </p>
+              <p className="mt-1 flex items-start gap-1.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+                <RefreshCw size={12} className="mt-[3px] shrink-0" aria-hidden />
+                <span>복습은 <b className="font-[600] text-[var(--t2)]">기억이 흐려질 때</b> 자동으로 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절돼요.</span>
+              </p>
+            </div>
           )}
 
           {/* 챕터형 — 아코디언 */}
