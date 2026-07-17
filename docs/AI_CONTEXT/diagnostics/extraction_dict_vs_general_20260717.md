@@ -102,7 +102,7 @@
 **적용(PoC)**: **IPA 5,879 결측 채움** → ipa **64%→76.9%**(29,230→35,109). 자가생성 아닌 외부 사전 사실. 0 실패.
 
 **kaikki가 열어준 후속(§4 근본해소 자원)**:
-- **sense 깊이(최대 갭 해소) 🔶 1차 착수(v06.266)**: `kaikki-sense-{chunk,apply}.mjs` — kaikki 영어 gloss 근거로 한국어 sense 추가(무환각). **1차 슬라이스 freq≤3000 800단어 → 315 enriched**(퇴화 교정: add→더하다·will→모달·policy→보험증권). 잔여 확대 = freq 3k~8k(≈5,180)·전체 19,549, 동일 파이프라인 재실행.
+- **sense 깊이(최대 갭 해소) ✅ 노출 다의어 소진(v06.266~267)**: `kaikki-sense-{chunk,apply}.mjs` — kaikki 영어 gloss 근거로 한국어 sense 추가(무환각). slice1 freq≤3000 315 + slice2 freq 3k-6k 773 + **3차 freq 6k-31k 6세션 병렬 5,406 = 누계 6,494 enriched**(퇴화 교정: add→더하다·will→모달·crow→까마귀·niche→생태적지위 + 복합 뭉침 759건 sense 분리). **avg 1.28→1.475·3+ sense 1,466→5,742행**. 잔여=unranked tail 3,979. 지시문/멀티세션 패턴=`ksense_multisession_20260717.md`.
 - **audio**: mp3 URL 30,902 → 원어민 발음(스키마 컬럼 `audio_url` 신설=마이그 필요).
 - syn/ant: kaikki 구조화 필드 희소(4,636/3,510)라 기존 dict-fill이 우세 — 저우선.
 
