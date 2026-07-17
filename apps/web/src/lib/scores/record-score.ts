@@ -20,6 +20,21 @@ export type ScoreModule =
   | 'pairflip'
   | 'scriptquiz'
   | 'dictation'
+  // 신규 아케이드 게임 6종 (v07.3) — DB module_id enum 확장 후 활성
+  | 'cascade'
+  | 'connections'
+  | 'word-economy'
+  | 'daily-blitz'
+  | 'letter-forge'
+  | 'ghost-race'
+  | 'glyph-tongue'
+  | 'word-customs'
+  | 'lexicon-hands'
+  | 'lexicon-detective'
+  | 'morpheme-rules'
+  | 'silent-rule'
+  | 'lexicon-estate'
+  | 'word-orrery'
 
 export interface GameScoreInput {
   module: ScoreModule

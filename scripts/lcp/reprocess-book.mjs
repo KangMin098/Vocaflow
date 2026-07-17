@@ -137,7 +137,7 @@ const { error: upErr } = await db
 if (upErr) { console.error('meta update failed:', upErr.message); process.exit(1) }
 
 // 난이도/커버리지 재산정 + lemma backfill (best-effort)
-for (const fn of ['backfill_book_lemmas', 'compute_book_vrl', 'compute_book_cefrj', 'compute_book_coverage']) {
+for (const fn of ['backfill_book_lemmas', 'compute_book_vrl', 'compute_book_chapter_v_levels', 'compute_book_cefrj', 'compute_book_coverage']) {
   const { error } = await db.rpc(fn, { p_book_id: bookId })
   console.log(`[rpc] ${fn}: ${error ? 'ERR ' + error.message : 'ok'}`)
 }

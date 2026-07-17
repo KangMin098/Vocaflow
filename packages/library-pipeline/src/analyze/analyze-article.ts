@@ -67,6 +67,7 @@ export async function analyzeArticle(
     frequency_in_article: w.frequency_in_book, // article 전체 빈도
     first_sentence: w.first_sentence,
     base_learning_value: w.base_learning_value,
+    context_pos: w.context_pos,
   }))
 
   // 6. library_article_vocabularies INSERT (chunk 분할 — 대용량 article 대비)
@@ -83,6 +84,7 @@ export async function analyzeArticle(
           frequency_in_article: w.frequency_in_article,
           first_sentence: w.first_sentence,
           base_learning_value: w.base_learning_value,
+          context_pos: w.context_pos,
         })),
       )
       if (error) {

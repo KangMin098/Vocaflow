@@ -7,6 +7,7 @@
 // - 5 diagnostics 활용도
 
 import { createClient } from '@/lib/supabase/server'
+import { requireAdmin } from '@/lib/auth/require-admin'
 import { Activity, Calendar, CheckCircle2, XCircle } from 'lucide-react'
 
 export const metadata = {
@@ -56,17 +57,59 @@ interface TrackDist {
   user_count: number
 }
 
+interface RecentSnapshot {
+  id: string
+  user_id: string
+  v_level: number | null
+  previous_v_level: number | null
+  v_level_delta: number | null
+  taken_reason: string
+  snapshot_type: string | null
+  taken_at: string
+}
+
+interface ProfileLevelRow {
+  current_v_level: number | null
+  current_v_level_meta: { source?: string } | null
+}
+
 export default async function VrlAutomationPage() {
+  // 형제 VRL admin 페이지와 동일하게 RSC 가드 재검(3층 가드 규약) — 기존 누락(v06.219).
+  await requireAdmin('/admin/vrl/automation')
   const supabase = await createClient()
 
-  const [cronJobs, cronRuns, snapshotsByReason, vlevelDist, diagnosticUse, trackDist] = await Promise.all([
+  const [cronJobs, cronRuns, snapshotsByReason, vlevelDist, diagnosticUse, trackDist, recentSnapshots, profileLevels] = await Promise.all([
     supabase.rpc('admin_vrl_cron_jobs').then((r) => (r.error ? [] : r.data ?? []) as unknown as CronJob[]),
     supabase.rpc('admin_vrl_cron_runs').then((r) => (r.error ? [] : r.data ?? []) as unknown as CronRun[]),
     supabase.rpc('admin_vrl_snapshot_counts').then((r) => (r.error ? [] : r.data ?? []) as unknown as SnapshotCount[]),
     supabase.rpc('admin_vrl_v_level_distribution').then((r) => (r.error ? [] : r.data ?? []) as unknown as VLevelDist[]),
     supabase.rpc('admin_vrl_diagnostic_use').then((r) => (r.error ? [] : r.data ?? []) as unknown as DiagnosticUse[]),
     supabase.rpc('admin_vrl_track_distribution').then((r) => (r.error ? [] : r.data ?? []) as unknown as TrackDist[]),
+    // 직접 read — user_level_snapshots admin read RLS 필요 (미적용 시 빈 배열 → 안내문)
+    supabase
+      .from('user_level_snapshots')
+      .select('id, user_id, v_level, previous_v_level, v_level_delta, taken_reason, snapshot_type, taken_at')
+      .order('taken_at', { ascending: false })
+      .limit(10)
+      .then((r) => (r.error ? [] : r.data ?? []) as unknown as RecentSnapshot[]),
+    // 직접 read — 분포의 source 분리(진단/학습 vs 기본값). user_profiles admin read RLS 필요.
+    supabase
+      .from('user_profiles')
+      .select('current_v_level, current_v_level_meta')
+      .then((r) => (r.error ? [] : r.data ?? []) as unknown as ProfileLevelRow[]),
   ])
+
+  // v_level source 분리 집계 — 기본값(미진단)과 근거 있는 레벨(진단/학습/수동)을 구분
+  const EVIDENCE_SOURCES = ['diagnostic', 'learning_data', 'manual_override', 'self_declared']
+  const sourceSplit = profileLevels.reduce(
+    (acc, p) => {
+      const src = p.current_v_level_meta?.source
+      if (src && EVIDENCE_SOURCES.includes(src)) acc.evidenced += 1
+      else acc.defaulted += 1
+      return acc
+    },
+    { evidenced: 0, defaulted: 0 },
+  )
 
   // group track distribution by track_id
   const trackGroups = trackDist.reduce<Record<string, TrackDist[]>>((acc, t) => {
@@ -151,9 +194,51 @@ export default async function VrlAutomationPage() {
         )}
       </section>
 
+      {/* 최근 레벨 변경 (audit chain) — cron "1 row" 메시지 대신 실제 승급/변경 내역 */}
+      <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
+        <h2 className="mb-4 font-display text-[16px] font-[700] text-[var(--t1)]">최근 레벨 변경 (user_level_snapshots 10건)</h2>
+        {recentSnapshots.length === 0 ? (
+          <p className="font-body text-[13px] text-[var(--t3)]">
+            표시할 스냅샷 없음 — 변경 이력이 없거나 admin read 정책(user_level_snapshots) 미적용
+          </p>
+        ) : (
+          <table className="w-full font-body text-[12px]">
+            <thead>
+              <tr className="text-left text-[var(--t3)]">
+                <th className="py-2">시각</th><th>사용자</th><th>변경</th><th>사유</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentSnapshots.map((s) => (
+                <tr key={s.id} className="border-t border-[var(--bd)]">
+                  <td className="py-2 text-[var(--t2)]">{new Date(s.taken_at).toLocaleString('ko-KR')}</td>
+                  <td className="font-mono text-[11px] text-[var(--t3)]">{s.user_id.slice(0, 8)}…</td>
+                  <td className="font-display font-[600] text-[var(--t1)]">
+                    {s.previous_v_level !== null ? `V${s.previous_v_level} → ` : ''}V{s.v_level ?? '-'}
+                    {typeof s.v_level_delta === 'number' && s.v_level_delta !== 0 && (
+                      <span className={s.v_level_delta > 0 ? 'ml-1 text-[var(--success)]' : 'ml-1 text-[var(--error)]'}>
+                        ({s.v_level_delta > 0 ? '+' : ''}{s.v_level_delta})
+                      </span>
+                    )}
+                  </td>
+                  <td className="font-mono text-[11px] text-[var(--t3)]">{s.taken_reason}{s.snapshot_type ? ` · ${s.snapshot_type}` : ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
       {/* V-Level distribution */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
         <h2 className="mb-4 font-display text-[16px] font-[700] text-[var(--t1)]">user_profiles current_v_level 분포</h2>
+        {profileLevels.length > 0 && (
+          <p className="mb-3 font-body text-[12px] text-[var(--t2)]">
+            근거 있는 레벨(진단·학습·수동) <strong className="text-[var(--t1)]">{sourceSplit.evidenced}</strong>명
+            · 기본값(미진단) <strong className="text-[var(--t1)]">{sourceSplit.defaulted}</strong>명
+            — 아래 분포에는 기본값 사용자가 포함되어 하위 레벨이 부풀 수 있음
+          </p>
+        )}
         {vlevelDist.length === 0 ? (
           <p className="font-body text-[13px] text-[var(--t3)]">데이터 없음</p>
         ) : (

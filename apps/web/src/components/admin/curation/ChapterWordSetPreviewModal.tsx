@@ -75,9 +75,10 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
     }
   }, [set])
 
-  // Esc 닫기 + body scroll lock
+  // Esc 닫기 + body scroll lock + focus 복원(열 때 트리거 저장)
   useEffect(() => {
     if (!set) return
+    const prevActive = document.activeElement as HTMLElement | null
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
@@ -88,6 +89,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
+      prevActive?.focus()
     }
   }, [set, onClose])
 

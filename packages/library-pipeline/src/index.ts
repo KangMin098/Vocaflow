@@ -15,6 +15,8 @@ export { ingestFromOpenStax } from './ingest/openstax'
 export { ingestFromSimpleWikipedia } from './ingest/simple-wikipedia'
 export { ingestFromLit2Go } from './ingest/lit2go'
 export { ingestFromStoryWeaver } from './ingest/storyweaver'
+// LCP T-2 (α) — Pressbooks OA book (OBP 동결 해제 retarget · CC-BY 서버렌더 HTML)
+export { ingestFromPressbooks } from './ingest/pressbooks'
 
 // S2 INGEST — Articles (ACP — VOA / NASA / NIH + v06.66 wikinews/the_conversation/simple_wikipedia.
 // v06.69 arXiv 제거 — 사용자 명시 플랫폼 전체 삭제)
@@ -45,6 +47,42 @@ export {
   WIKINEWS_FEEDS,
 } from './ingest-article/wikinews'
 export type { WikinewsListItem } from './ingest-article/wikinews'
+// ACP §18 T-2 — Our World in Data (CC-BY 데이터 논증문 · 발행 허용).
+export {
+  ingestOwidArticle,
+  listOwidFeed,
+  OWID_FEEDS,
+} from './ingest-article/owid'
+export type { OwidListItem } from './ingest-article/owid'
+// ACP §18 — CIA World Factbook (PD 국가 개요 참고문 · reference gap 보강 · 발행 허용).
+export {
+  ingestFactbookArticle,
+  listFactbookFeed,
+  factbookUrl,
+  FACTBOOK_COUNTRIES,
+} from './ingest-article/factbook'
+export type { FactbookListItem, FactbookCountry } from './ingest-article/factbook'
+// ACP §18 — eLife digest (편집자 저작 과학 요약 · CC-BY · 발행 허용).
+export { ingestElifeArticle, listElifeFeed } from './ingest-article/elife'
+export type { ElifeListItem } from './ingest-article/elife'
+// ACP §18 — English Wikipedia 정규 (FA/GA 고급 백과 · CC-BY-SA · 발행 허용).
+export { ingestWikipediaArticle, listWikipediaFeed, WIKIPEDIA_FEEDS } from './ingest-article/wikipedia'
+export type { WikipediaListItem } from './ingest-article/wikipedia'
+// ACP §18 — PLOS (CC-BY 오픈 학술 논문 · C1-C2 심화 · 발행 허용).
+export { ingestPlosArticle, listPlosFeed } from './ingest-article/plos'
+export type { PlosListItem } from './ingest-article/plos'
+// ACP §18 — Wikivoyage (여행 가이드 · B1-B2 · CC-BY-SA · reference 밴드 보강).
+export { ingestWikivoyageArticle, listWikivoyageFeed, WIKIVOYAGE_FEEDS } from './ingest-article/wikivoyage'
+export type { WikivoyageListItem } from './ingest-article/wikivoyage'
+// ACP §18 — USGS (지구과학·자연재해 과학 저널리즘 · B2 · PD US Gov · 신규 도메인 · 발행 허용).
+export { ingestUsgsArticle, listUsgsFeed, USGS_FEEDS } from './ingest-article/usgs'
+export type { UsgsListItem } from './ingest-article/usgs'
+// ACP §18 — NOAA Climate.gov (기후과학 explainer · B2-C1 · PD US Gov · climate 신규 도메인 · CSAT 최빈출).
+export { ingestNoaaArticle, listNoaaFeed, NOAA_FEEDS } from './ingest-article/noaa'
+export type { NoaaListItem } from './ingest-article/noaa'
+// CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
+export { generateDcpItems } from './dcp/generate-items'
+export type { DcpItem, DcpItemType } from './dcp/generate-items'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
 export { computeLexicalNoise } from './ingest-article/_helpers'
 // v06.41 feed-level + v06.42 source-level curation spec
@@ -60,6 +98,9 @@ export {
   getFeedSpec,
   getSourceSpec,
   getSourceOrderForLevel,
+  resolveArticleRegister,
+  FEED_REGISTER,
+  SOURCE_REGISTER_DEFAULT,
 } from './ingest-article/_curation-spec'
 export type {
   SourceKey,

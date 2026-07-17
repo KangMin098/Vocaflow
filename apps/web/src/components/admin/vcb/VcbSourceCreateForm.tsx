@@ -271,7 +271,7 @@ export function VcbSourceCreateForm() {
           >
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <p className="text-sm m-0">
-              ai_generated kind 는 T1 (CC0) 강제. DB 트리거 guard_ai_generated_license 가 위반 시 차단.
+              AI 생성 소스는 라이선스 T1(CC0)로 고정됩니다 — 위반 시 자동 차단.
             </p>
           </div>
         )}
@@ -419,8 +419,8 @@ export function VcbSourceCreateForm() {
             파일 업로드 (Method A — 선택)
           </h3>
           <p className="text-xs mb-3" style={{ color: 'var(--t3)' }}>
-            CSV / TXT / TSV 파일을 업로드하면 vocab-sources-raw 버킷에 저장되어 Run ingest 시 사용됩니다.
-            파일 없이 메타데이터만 등록도 가능합니다 (Step 2 ingest 단계에서 storage key 직접 지정).
+            CSV / TXT / TSV 파일을 업로드하면 저장되어 Run 처리 시 사용됩니다.
+            파일 없이 메타데이터만 등록할 수도 있습니다.
           </p>
 
           {file ? (
@@ -519,7 +519,7 @@ export function VcbSourceCreateForm() {
           disabled={!formValid || isPending}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
           style={{
-            background: !formValid || isPending ? 'var(--t4)' : '#6D28D9',
+            background: !formValid || isPending ? 'var(--t4)' : 'var(--admin-strong)',
             cursor: !formValid || isPending ? 'not-allowed' : 'pointer',
           }}
         >

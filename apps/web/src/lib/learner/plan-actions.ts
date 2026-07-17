@@ -1,7 +1,8 @@
 // apps/web/src/lib/learner/plan-actions.ts
 //
-// 학습 계획(study_plan_items) + 주당 리듬(study_plan_schedule) server actions.
-// P1 리치 구성: 자료 4종(도서/스크립트=article/공용단어장/내 스크립트) × 활동 + 도서 챕터 + 일정.
+// 학습 계획(study_plan_items) server actions.
+// P1 리치 구성: 자료 4종(도서/스크립트=article/공용단어장/내 스크립트) × 활동 + 도서 챕터 + 요일.
+// 다중 엔트리(2026-07-06): 한 자료를 여러 배치(요일×챕터)로 — UNIQUE 제거, save 는 id 왕복.
 
 'use server'
 
@@ -68,6 +69,12 @@ export interface MaterialOption {
   /** 공용단어장 category (주제 필터/그룹) */
   category: string | null
   chapterCount: number
+  /** 챕터 종속 단어장(library_book) — 소속 도서 id (책별 분류 레일용) */
+  bookId: string | null
+  /** 챕터 종속 단어장 — 챕터 번호 (챕터순 정렬/표시용) */
+  chapterIdx: number | null
+  /** 스크립트(article) 프로그램/시리즈 (예: VOA "As It Is (Level 2)") — 소스 하위 분류용 */
+  feedLabel: string | null
 }
 
 export interface AvailableMaterials {
@@ -100,12 +107,16 @@ interface ArticleRow {
   source: string | null
   article_v_level: number | null
   word_count: number | null
+  feed_label: string | null
 }
 interface ScriptRow {
   id: string
   title: string | null
   author: string | null
   text_v_level: number | null
+  source: string | null
+  library_book_id: string | null
+  chapter_idx: number | null
 }
 interface SetRow {
   id: string
@@ -115,6 +126,7 @@ interface SetRow {
   word_count: number | null
   cover_emoji: string | null
   cefr_level: string | null
+  curation_query?: { book_id?: string; chapter_idx?: number } | null
 }
 
 const EMPTY_EXTRAS = {
@@ -179,6 +191,22 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
   const scriptMap = new Map(((scriptsRes.data ?? []) as ScriptRow[]).map((s) => [s.id, s]))
   const setMap = new Map(((setsRes.data ?? []) as SetRow[]).map((w) => [w.id, w]))
 
+  // 공용단어장 내부 챕터 수(shared_words.chapter MAX) — 런처 챕터 선택 노출 여부.
+  //   챕터 미부여 세트(chapter NULL)는 0 → 단일 세트로 취급(챕터 선택 숨김).
+  const setChapterMax = new Map<string, number>()
+  if (setIds.length) {
+    const { data: chRows } = await lc
+      .from('shared_words')
+      .select('set_id, chapter')
+      .in('set_id', setIds)
+      .not('chapter', 'is', null)
+    for (const r of (chRows ?? []) as { set_id: string; chapter: number | null }[]) {
+      if (r.chapter != null) {
+        setChapterMax.set(r.set_id, Math.max(setChapterMax.get(r.set_id) ?? 0, r.chapter))
+      }
+    }
+  }
+
   return rows.map((r) => {
     let title = '(삭제된 자료)'
     let subtitle: string | null = null
@@ -215,6 +243,8 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
         subtitle = w.word_count ? `${w.word_count.toLocaleString()}단어` : w.category ?? null
         extras.slug = w.slug ?? null
         extras.coverEmoji = w.cover_emoji ?? null
+        // 내부 챕터 수 — 런처에서 챕터 스코프 선택 노출용 (book 아닌 word_set 도 chapterCount 사용).
+        extras.chapterCount = setChapterMax.get(r.material_id) ?? 0
       }
     }
 
@@ -252,6 +282,9 @@ function mkOption(over: Partial<MaterialOption> & { id: string; title: string })
     source: null,
     category: null,
     chapterCount: 0,
+    bookId: null,
+    chapterIdx: null,
+    feedLabel: null,
     ...over,
   }
 }
@@ -263,8 +296,8 @@ function wordSetVLevel(slug: string | null, cefr: string | null): number | null 
   return cefrToVLevel(cefr)
 }
 
-/** 단어장 picker 제외 — 도서/글 챕터 종속 세트(부모 자료로 학습). */
-const HIDDEN_WORDSET_CATEGORIES = new Set(['library_book', 'library_article'])
+// (v06.124) 도서/글 챕터 종속 세트도 picker 에 노출 — '도서 챕터'/'스크립트 어휘' 카테고리
+// 그룹으로 표시해 챕터 단위 단어장 계획을 지원한다 (기존: 부모 자료로만 학습한다고 숨김).
 
 /** 계획에 추가 가능한 자료 — 도서 / 스크립트(article) / 공용단어장 / 내 스크립트. */
 export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
@@ -278,31 +311,52 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
 
   const [{ data: books }, { data: articles }, { data: sets }, { data: scripts }] = await Promise.all([
     lc
+      // 브라우즈(/library/books)와 동일 발행 게이트 — 미정합 시 plan 엔 뜨나 enroll_library_book
+      //   의 copyright_safe 가드가 예외를 던져 enroll 실패하던 버그(v06.215).
       .from('library_books')
       .select('id, title, author, book_v_level, cover_image_url, chapter_count')
       .eq('status', 'published')
+      .eq('copyright_safe_in_kr', true)
+      .not('published_at', 'is', null)
       .order('title')
       .limit(300),
     lc
       .from('library_articles')
-      .select('id, title, author, source, article_v_level, word_count')
+      .select('id, title, author, source, article_v_level, word_count, feed_label')
       .eq('status', 'published')
       .eq('copyright_safe_in_kr', true)
       .order('published_at', { ascending: false, nullsFirst: false })
       .limit(300),
     lc
       .from('shared_word_sets')
-      .select('id, title, slug, category, word_count, cover_emoji, cefr_level')
+      .select('id, title, slug, category, word_count, cover_emoji, cefr_level, curation_query')
       .eq('is_published', true)
       .order('title')
-      .limit(400),
+      .limit(600),
     lc
       .from('texts')
-      .select('id, title, author, text_v_level')
+      .select('id, title, author, text_v_level, source, library_book_id, chapter_idx')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(300),
   ])
+
+  // 소속 도서 제목으로 2차 분류(feedLabel) — 내 스크립트('도서에서') + 공용단어장(도서 챕터) 공통.
+  const scriptRows = (scripts ?? []) as ScriptRow[]
+  const setRows = (sets ?? []) as SetRow[]
+  const bookIdSet = new Set<string>()
+  for (const s of scriptRows) if (s.library_book_id) bookIdSet.add(s.library_book_id)
+  for (const w of setRows) if (w.curation_query?.book_id) bookIdSet.add(w.curation_query.book_id)
+  const bookTitle = new Map<string, string>()
+  if (bookIdSet.size > 0) {
+    const { data: bks } = await lc
+      .from('library_books')
+      .select('id, title')
+      .in('id', Array.from(bookIdSet))
+    for (const b of (bks ?? []) as { id: string; title: string | null }[]) {
+      bookTitle.set(b.id, b.title ?? '도서')
+    }
+  }
 
   return {
     books: ((books ?? []) as BookRow[]).map((b) =>
@@ -322,10 +376,10 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
         subtitle: articleSourceLabel(a.source),
         vLevel: a.article_v_level ?? null,
         source: a.source ?? null,
+        feedLabel: a.feed_label ?? null,
       }),
     ),
-    wordSets: ((sets ?? []) as SetRow[])
-      .filter((w) => !HIDDEN_WORDSET_CATEGORIES.has(w.category ?? ''))
+    wordSets: setRows
       .map((w) =>
         mkOption({
           id: w.id,
@@ -334,28 +388,92 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
           slug: w.slug ?? null,
           coverEmoji: w.cover_emoji ?? null,
           category: w.category ?? null,
+          // 소스탭 통일: 카테고리를 소스축(1단), 도서 챕터는 소속 책을 분류축(feedLabel, 2단)
+          source: w.category ?? null,
+          feedLabel:
+            w.category === 'library_book' && w.curation_query?.book_id
+              ? (bookTitle.get(w.curation_query.book_id) ?? null)
+              : null,
           vLevel: wordSetVLevel(w.slug, w.cefr_level),
+          bookId: w.curation_query?.book_id ?? null,
+          chapterIdx: w.curation_query?.chapter_idx ?? null,
         }),
-      ),
-    scripts: ((scripts ?? []) as ScriptRow[]).map((s) =>
-      mkOption({
-        id: s.id,
-        title: s.title ?? '(제목 없음)',
-        subtitle: s.author ?? null,
-        vLevel: s.text_v_level ?? null,
+      )
+      .sort((a, b) => {
+        // 도서 챕터: 책 제목 → 챕터 순. 그 외 카테고리: 원래 순서 유지.
+        const fa = a.feedLabel ?? ''
+        const fb = b.feedLabel ?? ''
+        if (fa !== fb) return fa.localeCompare(fb)
+        return (Number(a.chapterIdx) || 0) - (Number(b.chapterIdx) || 0)
       }),
-    ),
+    scripts: scriptRows
+      .map((s) =>
+        mkOption({
+          id: s.id,
+          title: s.title ?? '(제목 없음)',
+          subtitle: s.author ?? null,
+          vLevel: s.text_v_level ?? null,
+          source: s.source ?? null, // text_source — 내 스크립트 소스별 분류(1단)
+          // '도서에서' texts 는 소속 도서 제목으로 2차 분류(feedLabel) → 소스 → 책 → 챕터
+          feedLabel:
+            s.source === 'library' && s.library_book_id
+              ? (bookTitle.get(s.library_book_id) ?? null)
+              : null,
+          bookId: s.library_book_id ?? null,
+          chapterIdx: s.chapter_idx ?? null,
+        }),
+      )
+      .sort((a, b) => {
+        const fa = a.feedLabel ?? ''
+        const fb = b.feedLabel ?? ''
+        if (fa !== fb) return fa.localeCompare(fb)
+        return (a.chapterIdx ?? 0) - (b.chapterIdx ?? 0)
+      }),
   }
 }
 
-/** 계획 항목 추가/수정(upsert). modules·chapters 정제. */
+export interface BookChapter {
+  idx: number
+  title: string | null
+  /** 챕터별 어휘 V-level (distinct lemma p75, V11 제외). 단일 book_v_level 의 챕터 편차 노출. null=미산출 */
+  vLevel: number | null
+}
+
+/**
+ * 도서 챕터 목록(번호+제목+V-level) — /plan 챕터 리스트용.
+ * RLS `read_via_published` 로 published+copyright_safe 도서만 읽힘 (picker 와 동일 범위).
+ */
+export async function fetchBookChapters(bookId: string): Promise<BookChapter[]> {
+  if (!bookId) return []
+  const client = await createClient()
+  const { data } = await loose(client)
+    .from('library_chapters_master')
+    .select('chapter_idx, chapter_title, chapter_v_level')
+    .eq('library_book_id', bookId)
+    .order('chapter_idx', { ascending: true })
+  return (
+    (data ?? []) as { chapter_idx: number; chapter_title: string | null; chapter_v_level: number | null }[]
+  ).map((c) => ({
+    idx: c.chapter_idx,
+    title: c.chapter_title,
+    vLevel: c.chapter_v_level ?? null,
+  }))
+}
+
+/**
+ * 계획 항목 추가/수정. modules·chapters 정제.
+ *   · 다중 엔트리(2026-07-06): 한 자료를 여러 배치(요일×챕터)로 담을 수 있게 UNIQUE 제거.
+ *   · `id` 있으면 그 배치 UPDATE(본인) · 없으면 새 배치 INSERT 후 **id 반환**(낙관적 갱신이 실 id 추적).
+ */
 export async function savePlanItem(input: {
+  /** 편집 시 대상 배치 id — 없으면 신규 배치 INSERT */
+  id?: string
   materialType: MaterialType
   materialId: string
   modules: PlanActivity[]
   chapters?: number[]
   weekdays?: number[]
-}): Promise<{ ok: boolean; error?: string }> {
+}): Promise<{ ok: boolean; id?: string; error?: string }> {
   if (!input?.materialId) return { ok: false, error: '자료가 필요합니다.' }
   const client = await createClient()
   const {
@@ -372,23 +490,33 @@ export async function savePlanItem(input: {
         )
       : []
   const weekdays = sanitizeWeekdays(input.weekdays)
+  const lc = loose(client)
 
-  const { error } = await loose(client)
+  if (input.id) {
+    // 편집 — updated_at 은 BEFORE UPDATE 트리거(tg_study_plan_items_touch)가 갱신
+    const { error } = await lc
+      .from('study_plan_items')
+      .update({ modules, chapters, weekdays })
+      .eq('id', input.id)
+      .eq('user_id', user.id)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true, id: input.id }
+  }
+
+  const { data, error } = await lc
     .from('study_plan_items')
-    .upsert(
-      {
-        user_id: user.id,
-        material_type: input.materialType,
-        material_id: input.materialId,
-        modules,
-        chapters,
-        weekdays,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'user_id,material_type,material_id' },
-    )
+    .insert({
+      user_id: user.id,
+      material_type: input.materialType,
+      material_id: input.materialId,
+      modules,
+      chapters,
+      weekdays,
+    })
+    .select('id')
+    .single()
   if (error) return { ok: false, error: error.message }
-  return { ok: true }
+  return { ok: true, id: (data as { id: string } | null)?.id }
 }
 
 /** 계획 항목 제거. */

@@ -30,6 +30,13 @@ import {
   isPiperSupported,
   DEFAULT_PIPER_VOICE,
 } from '@/lib/echo/piper-tts'
+// #2 단어 정확도 — 병렬 음성인식(재사용) + 느슨한 단어 일치. 완전 additive: 실패/미지원 시 프로소디만.
+import {
+  createRecognizer,
+  isSpeechRecognitionSupported,
+  type Recognizer,
+} from '@/lib/workspace/speech-recognition'
+import { computeShadowMatch } from '@/lib/workspace/shadow-match'
 
 import { PhaseProgress } from './PhaseProgress'
 import { SentenceCarousel } from './SentenceCarousel'
@@ -67,6 +74,10 @@ export function EchoMatchPlayer({
   const [refContour, setRefContour] = useState<PitchContour | null>(null)
   const [userContour, setUserContour] = useState<PitchContour | null>(null)
   const [error, setError] = useState<string | null>(null)
+  // #2 — 이번 발화의 단어 정확도(0..1). null = 미측정(미지원/인식 실패/무음) → 게이트 안 함.
+  const [wordRatio, setWordRatio] = useState<number | null>(null)
+  const recognizerRef = useRef<Recognizer | null>(null)
+  const transcriptRef = useRef('')
   const stopRecRef = useRef<(() => Promise<{ audioBuffer: AudioBuffer; durationMs: number }>) | null>(
     null,
   )
@@ -83,7 +94,15 @@ export function EchoMatchPlayer({
 
   const current = sentences[currentIdx]
   const last = sentences.length - 1
-  const fb = score ? scoreFeedback(score.overall) : null
+  // 단어 정확도가 확연히 낮으면(측정됨 && <0.4) 프로소디 점수는 오해 소지 → 재읽기로 부드럽게 유도(게이트).
+  //   비난 아님(Calm) + 인식 불완전을 감안한 겸손한 문구("잘 안 들렸어요"). 미측정(null)은 게이트 안 함.
+  const WORD_GATE = 0.4
+  const lowWords = wordRatio != null && wordRatio < WORD_GATE
+  const fb = !score
+    ? null
+    : lowWords
+      ? { label: '단어가 잘 안 들렸어요 — 문장을 보며 또박또박 다시 읽어볼까요?', tone: 'try' as const }
+      : scoreFeedback(score.overall)
 
   // 마이크 권한
   async function handleGrantMic() {
@@ -139,6 +158,7 @@ export function EchoMatchPlayer({
     setPhase('listening')
     setError(null)
     setScore(null)
+    setWordRatio(null)
     setRefContour(null)
     setUserContour(null)
     try {
@@ -157,6 +177,20 @@ export function EchoMatchPlayer({
       setPhase('recording')
       const { stop } = await recordUntilStop()
       stopRecRef.current = stop
+      // 병렬 단어 인식 시작 (완전 additive — 실패/미지원이어도 녹음·채점 무영향)
+      try {
+        if (isSpeechRecognitionSupported()) {
+          if (!recognizerRef.current) recognizerRef.current = createRecognizer('en-US')
+          transcriptRef.current = ''
+          recognizerRef.current.start({
+            onInterim: (t) => {
+              transcriptRef.current = t
+            },
+          })
+        }
+      } catch {
+        /* 인식 시작 실패 — 프로소디만 채점 */
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : '재생 오류')
       setPhase('idle')
@@ -167,6 +201,16 @@ export function EchoMatchPlayer({
   async function stopRecording() {
     if (!stopRecRef.current) return
     setPhase('comparing')
+    // 병렬 인식 종료 + transcript 회수 (guard — 실패해도 프로소디 채점 진행)
+    let wr: number | null = null
+    try {
+      recognizerRef.current?.stop()
+      const transcript = transcriptRef.current.trim()
+      if (transcript && current) wr = computeShadowMatch(current.text, transcript).ratio
+    } catch {
+      /* 인식 실패 — 단어 정확도 미측정(null) */
+    }
+    setWordRatio(wr)
     try {
       const { audioBuffer } = await stopRecRef.current()
       stopRecRef.current = null
@@ -205,8 +249,14 @@ export function EchoMatchPlayer({
   }
 
   function handleRetry() {
+    try {
+      recognizerRef.current?.abort()
+    } catch {
+      /* noop */
+    }
     setPhase('idle')
     setScore(null)
+    setWordRatio(null)
     setRefContour(null)
     setUserContour(null)
   }
@@ -230,6 +280,11 @@ export function EchoMatchPlayer({
     return () => {
       if (stopRecRef.current) {
         void stopRecRef.current().catch(() => {})
+      }
+      try {
+        recognizerRef.current?.abort()
+      } catch {
+        /* noop */
       }
       void finalizeEchoSession(textId)
     }
@@ -346,6 +401,16 @@ export function EchoMatchPlayer({
         <PitchVisualizer reference={refContour} user={userContour} />
       )}
       {score && fb && <ScoreCard score={score} feedback={fb.label} tone={fb.tone} />}
+
+      {/* #2 단어 정확도 — 측정된 경우만(미지원/실패는 숨김). 낮으면 억양 점수 참고 안내. */}
+      {phase === 'scored' && wordRatio != null && (
+        <p
+          className={`px-1 font-body text-[12px] ${lowWords ? 'text-[var(--learn-review)]' : 'text-[var(--t3)]'}`}
+        >
+          이번 발화에서 문장 단어의 <span className="font-mono font-[700] tabular-nums">{Math.round(wordRatio * 100)}%</span>가 인식됐어요
+          {lowWords ? ' — 억양 점수는 참고만 하고, 단어부터 또박또박 읽어봐요.' : '.'}
+        </p>
+      )}
 
       {/* 에러는 상단 Piper 영역에서 통합 표시 */}
 

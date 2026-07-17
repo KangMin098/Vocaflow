@@ -8,7 +8,7 @@ interface Props {
   size?: 'sm' | 'md'
 }
 
-const STATUS_LABELS: Record<RunStatus, string> = {
+export const STATUS_LABELS: Record<RunStatus, string> = {
   created: '생성됨',
   ingesting: '수집 중',
   normalized: '정규화 완료',

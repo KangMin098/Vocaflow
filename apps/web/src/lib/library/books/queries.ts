@@ -69,6 +69,7 @@ export async function fetchBookChapterSets(
       coverEmoji: r.cover_emoji,
       sortOrder: r.sort_order ?? 0,
       wordCount: counts.get(r.id) ?? r.word_count ?? 0,
+      subscriberCount: 0, // 도서 챕터 세트 — 컨텍스트상 인기도 미표시
       createdAt: r.created_at ?? new Date(0).toISOString(),
       chapterIdx: Number(r.curation_query?.chapter_idx ?? 0),
       curationQuery: r.curation_query ?? {},

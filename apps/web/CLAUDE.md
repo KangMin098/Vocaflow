@@ -38,6 +38,26 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 
 `components/dev/StubPage` 사용. props: `{ title, description, upcoming?: string[] }`. 실제 구현으로 교체 시 단순 import 변경.
 
+## 화면 검증 (UI 스모크 — 상시 자산, 임시 드라이버 금지)
+
+화면 검증/런타임 테스트가 필요하면 **임시 Playwright 드라이버를 새로 만들지 말고** 상시 스펙을 실행:
+
+```bash
+pnpm --filter web test:e2e:smoke   # 04-ui-smoke — 학습자 8화면 + EchoMatch 게이트 + 콘솔에러 0
+pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvault/flashcard/admin 회귀)
+```
+
+**핵심 학습 루프 회귀** — `05-learner-loop.spec.ts`: ScriptQuiz 완주(Drone Ch1 직행) → `scores` 적재를 service-role DB 단언으로 확인(완주 결과가 조용히 증발했던 v06.139 결함 재발 방지). DB 단언 헬퍼 `tests/e2e/utils/db.ts`(apps/web/.env.local 의 SERVICE_ROLE_KEY 직접 로드 · 키 없으면 UI 완주만 검증). 새 게임/영속화 경로 검증 시 이 패턴(직행 URL + 완주 마커 + `countScoresSince`) 재사용.
+
+**추출 신뢰 회귀** — `08-text-extract-trust.spec.ts`: `/text/new` 본문 입력 → 'text'(P75) 전략 추출 → ① 4단계 expand "왜 추천했어요?" 근거 카드 렌더 ② 2단계 알아요(✓+체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 `countWordFamiliaritySince` 로 DB 단언. **known 판정은 다음 추출을 영구 축소하므로 finally 에서 `deleteWordFamiliaritySince` 로 반드시 원복**(테스트가 만든 행만 updated_at 기준 삭제).
+
+- 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)
+- 검증 계정: `runtime-test-0705@vocaflow.dev` / `RuntimeTest1!` (vocab 10·활동 시드·진단 v11) — EchoMatch 텍스트 `89970bfa-…8317`
+  - **stage S3**(2026-07-13 `reading_fluency_log` wpm~160 시드) → hub 처방 ④ **DCP 구문 연습 활성**(order/insert·`/practice/dcp`). CTP DCP 계열 런타임 검증 가능. 시드 되돌리려면 해당 계정 fluency 로그 3건 DELETE → S1 복귀.
+- 새 화면/모듈 런타임 검증을 했으면 그 시나리오를 04-ui-smoke 또는 새 spec 으로 **남겨서** 다음부터 자동 회귀되게 할 것
+- 마이크 실녹음 검증은 fake-mic 플래그 필요: `--use-fake-ui-for-media-stream --use-fake-device-for-media-stream`
+- ⚠️ **dev 서버는 워크스페이스에 1개만** — 멀티 세션이 각자 `next dev` 를 띄우면 `.next` 공유 오염으로 라우트가 무작위 404 (실측 2026-07-07). 이미 떠 있는 서버를 재사용하고, 오염 시 모든 서버 종료 → `.next` 삭제 → 1개만 재기동.
+
 ## 전역 에러 바운더리 (필수)
 
 `error.tsx` / `not-found.tsx` / `loading.tsx`가 `src/app/` 직속에 반드시 존재. 누락 시 클라이언트 라우터가 "missing required error components, refreshing..." 로 무한 새로고침. 수정·삭제 금지.

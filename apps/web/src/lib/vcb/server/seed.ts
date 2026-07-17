@@ -8,7 +8,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   getVcbJobsDir,
@@ -53,7 +53,7 @@ export async function generateSeedSpec(
 ): Promise<ServerActionResult<{ spec_file: string; slash_command: string }>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const runResult = await fetchRunForSeed(client, input.run_id)
     if (!runResult.ok || !runResult.row) {
@@ -142,7 +142,7 @@ export async function checkSeedJobStatus(
 ): Promise<ServerActionResult<SeedJobStatus>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const runResult = await fetchRunForSeed(client, run_id)
     if (!runResult.ok || !runResult.row) {
@@ -305,7 +305,7 @@ export async function runSeedListCommand(
 ): Promise<ServerActionResult<RunSeedListResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const runResult = await fetchRunForSeed(client, run_id)
     if (!runResult.ok || !runResult.row) {
@@ -529,7 +529,7 @@ export async function loadSeedPreview(
 ): Promise<ServerActionResult<SeedPreviewData>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const runResult = await fetchRunForSeed(client, run_id)
     if (!runResult.ok || !runResult.row) {
@@ -668,7 +668,7 @@ export async function deleteSeedListArtifacts(
 ): Promise<ServerActionResult<DeleteSeedArtifactsResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const runResult = await fetchRunForSeed(client, run_id)
     if (!runResult.ok || !runResult.row) {
@@ -774,7 +774,7 @@ export async function importSeedList(
 ): Promise<ServerActionResult<ImportSeedListResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const runResult = await fetchRunForSeed(client, run_id)
     if (!runResult.ok || !runResult.row) {

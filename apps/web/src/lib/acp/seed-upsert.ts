@@ -16,6 +16,14 @@ export type SeedSource =
   | 'wikinews'
   | 'the_conversation'
   | 'simple_wikipedia'
+  | 'owid'
+  | 'factbook'
+  | 'elife'
+  | 'wikipedia'
+  | 'plos'
+  | 'wikivoyage'
+  | 'usgs'
+  | 'noaa'
 
 interface ArticleScore {
   total: number

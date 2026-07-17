@@ -80,6 +80,11 @@ function asMetric(filled: number, total: number): DictCoverageMetric {
   return { filled, ratio: total > 0 ? filled / total : 0 }
 }
 
+/** segment 자동 단어장 발행이 실제로 쓰는 list_tags — specialty 세트 curation_query 실측 기준 */
+export const SEGMENT_TAGS = ['bsl_1.20', 'bel_1.0', 'tsl_1.2', 'nawl_1.2', 'moel_1.0']
+/** segment 태그 보유 row 목표치 — 현 specialty 4종(902 row 발행) 유지에 충분한 풀 */
+export const SEGMENT_TAGS_TARGET = 3000
+
 // ─────────────────────────────────────────────────────────────
 // 1. fetchDictVolume — total + by primary_pos + by source
 // ─────────────────────────────────────────────────────────────
@@ -121,6 +126,7 @@ export async function fetchDictCoverage(
     cefr,
     cefrConf,
     register,
+    segTags,
     syn,
     ant,
     coll,
@@ -145,6 +151,7 @@ export async function fetchDictCoverage(
       q.not('cefr_confidence', 'is', null),
     ),
     countRows(client, 'shared_dictionary', (q) => q.not('register', 'is', null)),
+    countRows(client, 'shared_dictionary', (q) => q.overlaps('list_tags', SEGMENT_TAGS)),
     countRows(client, 'shared_dictionary', (q) => q.not('synonyms', 'eq', '{}')),
     countRows(client, 'shared_dictionary', (q) => q.not('antonyms', 'eq', '{}')),
     countRows(client, 'shared_dictionary', (q) =>
@@ -171,6 +178,8 @@ export async function fetchDictCoverage(
     cefrLevel: asMetric(cefr, total),
     cefrConfidence: asMetric(cefrConf, total),
     register: asMetric(register, total),
+    // ratio = 목표 풀 대비 충족률 (1.0 초과 clamp) — 전체 사전 대비가 아님
+    segmentTags: { filled: segTags, ratio: Math.min(1, segTags / SEGMENT_TAGS_TARGET) },
     synonyms: asMetric(syn, total),
     antonyms: asMetric(ant, total),
     collocations: asMetric(coll, total),
@@ -668,6 +677,7 @@ function emptyCoverage(): DictCoverageData {
     cefrLevel: m,
     cefrConfidence: m,
     register: m,
+    segmentTags: m,
     synonyms: m,
     antonyms: m,
     collocations: m,

@@ -1,6 +1,6 @@
 // apps/web/src/components/admin/vcb/VcbRunCreateForm.tsx
-// 3-step Wizard 오케스트레이터.
-// Step 1 PresetGallery → Step 2 FilterPanel → Step 3 MetaStep → submit.
+// 2-step Wizard 오케스트레이터 (결정 A: 필터 스텝 제거 — 필터는 downstream 미소비였음).
+// Step 1 PresetGallery → Step 2 MetaStep → submit. 실제 단어는 Method B(AI 시드)가 선택.
 
 'use client'
 
@@ -10,25 +10,17 @@ import { AlertCircle, ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from 'lucid
 import { createRun } from '@/lib/vcb/server/run-create'
 import { CUSTOM_PRESET_ID } from '@/lib/vcb/presets'
 import type { VcbPreset, PresetVariant } from '@/lib/vcb/presets'
-import {
-  DEFAULT_FILTERS,
-  DEFAULT_LIMITS,
-  type VocabFilters,
-  type VocabLimits,
-} from '@/lib/vcb/filters'
 import type { Segment, Cefr } from '@/lib/vcb/types'
 import { PresetGallery } from './wizard/PresetGallery'
-import { FilterPanel } from './wizard/FilterPanel'
 import { MetaStep, type MetaState } from './wizard/MetaStep'
 
-type Step = 1 | 2 | 3
+type Step = 1 | 2
 
 const SLUG_PATTERN = /^[a-z0-9][a-z0-9-]{1,78}[a-z0-9]$/
 
 const STEPS: Array<{ step: Step; title: string; subtitle: string }> = [
-  { step: 1, title: '유형 선택', subtitle: '프리셋 또는 사용자 정의' },
-  { step: 2, title: '필터 조정', subtitle: 'V-Level · 태그 · 빈도 · 품사' },
-  { step: 3, title: '메타 + 미리보기', subtitle: 'slug · 제목 · 분포 · 샘플' },
+  { step: 1, title: '유형 선택', subtitle: '프리셋 또는 직접 설정' },
+  { step: 2, title: '단어장 정보', subtitle: '슬러그 · 제목 · 대상 · CEFR' },
 ]
 
 const DEFAULT_META: MetaState = {
@@ -47,10 +39,7 @@ export function VcbRunCreateForm() {
   const [step, setStep] = useState<Step>(1)
   const [selectedPresetId, setSelectedPresetId] = useState<string | null>(null)
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null)
-  const [filters, setFilters] = useState<VocabFilters>(DEFAULT_FILTERS)
-  const [limits, setLimits] = useState<VocabLimits>(DEFAULT_LIMITS)
   const [meta, setMeta] = useState<MetaState>(DEFAULT_META)
-  const [matchCount, setMatchCount] = useState<number | null>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
   // ── Step 1 → 2 진행 시 preset 의 변경사항 적용 ─────
@@ -59,8 +48,6 @@ export function VcbRunCreateForm() {
       // Custom 선택
       setSelectedPresetId(CUSTOM_PRESET_ID)
       setSelectedVariantId(null)
-      setFilters(DEFAULT_FILTERS)
-      setLimits(DEFAULT_LIMITS)
       setMeta(DEFAULT_META)
       return
     }
@@ -69,8 +56,6 @@ export function VcbRunCreateForm() {
     setSelectedVariantId(variant?.id ?? null)
 
     if (variant) {
-      setFilters(variant.filters)
-      setLimits(variant.limits)
       setMeta((prev) => ({
         ...prev,
         collection_slug: variant.slug_suggestion,
@@ -91,18 +76,13 @@ export function VcbRunCreateForm() {
 
   const canAdvance = useMemo(() => {
     if (step === 1) return selectedPresetId !== null
-    if (step === 2) return matchCount !== null && matchCount > 0
     return false
-  }, [step, selectedPresetId, matchCount])
+  }, [step, selectedPresetId])
 
   const handleSubmit = () => {
     setSubmitError(null)
     if (!metaValid) {
-      setSubmitError('필수 메타데이터가 미입력 또는 유효하지 않습니다.')
-      return
-    }
-    if (matchCount === null || matchCount === 0) {
-      setSubmitError('매치 단어가 0건 입니다. 필터를 완화하세요.')
+      setSubmitError('필수 정보가 미입력 또는 유효하지 않습니다.')
       return
     }
 
@@ -116,11 +96,6 @@ export function VcbRunCreateForm() {
         cover_emoji: meta.cover_emoji.trim() || null,
         preset_id:
           selectedPresetId === CUSTOM_PRESET_ID ? null : selectedPresetId,
-        filters: {
-          ...filters,
-          variant_id: selectedVariantId,
-        },
-        limits: { ...limits },
       })
 
       if (!result.ok || !result.data) {
@@ -147,19 +122,7 @@ export function VcbRunCreateForm() {
           />
         )}
 
-        {step === 2 && (
-          <FilterPanel
-            filters={filters}
-            limits={limits}
-            onFiltersChange={setFilters}
-            onLimitsChange={setLimits}
-            onCount={setMatchCount}
-          />
-        )}
-
-        {step === 3 && (
-          <MetaStep filters={filters} meta={meta} onMetaChange={setMeta} />
-        )}
+        {step === 2 && <MetaStep meta={meta} onMetaChange={setMeta} />}
       </div>
 
       {/* ── Navigation ─────────────────────────── */}
@@ -196,10 +159,10 @@ export function VcbRunCreateForm() {
         </button>
 
         <div className="text-xs font-body" style={{ color: 'var(--t3)' }}>
-          Step {step} / 3
+          Step {step} / 2
         </div>
 
-        {step < 3 ? (
+        {step < 2 ? (
           <button
             type="button"
             onClick={() => setStep((step + 1) as Step)}

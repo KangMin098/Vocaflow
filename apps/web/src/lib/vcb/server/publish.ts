@@ -4,7 +4,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { publishRun, type PublishResult } from '@vocaflow/vcb-curate-core'
 
@@ -19,7 +19,7 @@ export async function runPublish(
 ): Promise<ServerActionResult<PublishResult>> {
   try {
     const user = await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const result = await publishRun(client, run_id, { published_by: user.id })
     if (!result.ok) {

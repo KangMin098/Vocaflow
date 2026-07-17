@@ -10,7 +10,8 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { VcbRunStatusBadge } from '@/components/admin/vcb/VcbRunStatusBadge'
+import { VcbRunStatusBadge, STATUS_LABELS } from '@/components/admin/vcb/VcbRunStatusBadge'
+import { VcbRunProgress } from '@/components/admin/vcb/VcbRunProgress'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
 import { VcbStep4LookupCard } from '@/components/admin/vcb/VcbStep4LookupCard'
 import { VcbStep5EnrichCard } from '@/components/admin/vcb/VcbStep5EnrichCard'
@@ -67,7 +68,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
       <AdminPageHeader
         icon={Sparkles}
         title={`${run.config.cover_emoji ?? ''} ${run.collection_title}`.trim()}
-        description={`${run.collection_slug} · ${run.status}`}
+        description={`${run.collection_slug} · ${STATUS_LABELS[run.status]}`}
         actions={
           <Link
             href="/admin/vocab/runs"
@@ -102,6 +103,8 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
           </div>
         )}
       </div>
+
+      <VcbRunProgress status={run.status} />
 
       <section className="mb-10">
         <h3
@@ -155,7 +158,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
-            Method A · 시드 추출 (Step 2 + 3)
+            시드 확보 · 방식 A — 소스 파일에서 추출 (택1)
           </h3>
           <VcbMethodACard runId={runId} runStatus={run.status} />
         </section>
@@ -167,7 +170,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
-            시드 등록 (Step 1)
+            시드 확보 · 방식 B — AI 생성 (택1)
           </h3>
           <Link
             href={`/admin/vocab/runs/${runId}/seed`}
@@ -191,7 +194,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                 Method B — AI 시드 생성
               </div>
               <div className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-                seed-spec.json 생성 → /vcb-seed-list 실행 → DB import (3 단계)
+                스펙 작성 → AI 시드 생성 → 검토 후 등록 (3단계)
               </div>
             </div>
             <ChevronRight
@@ -368,7 +371,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                     </div>
                   </div>
                   <Link
-                    href={`/library/vocab#set-${set.slug}`}
+                    href={`/library/vocab#set-${set.set_id}`}
                     target="_blank"
                     className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
                     style={{

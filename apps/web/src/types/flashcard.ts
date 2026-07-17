@@ -31,6 +31,8 @@ export interface FlashcardWord {
   exampleSentenceWithBlank: string
   /** 사전 DB inflected_forms — 예문 하이라이트/빈칸의 불규칙 굴절 인식용 (없으면 규칙 fallback) */
   inflectedForms?: string[]
+  /** 자주 함께 쓰는 표현(collocations) — 정답면에만 절제 노출(Progressive Disclosure). 없으면 미표시 */
+  collocations?: string[]
   textId: string // 스크립트 ID
   textTitle: string // 스크립트 제목
   textChapter: string // 챕터

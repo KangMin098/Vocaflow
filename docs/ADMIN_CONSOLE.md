@@ -36,6 +36,7 @@
    = 총 7 항목
 [ 운영 ]     (accent: var(--info))
    플랫폼 분석
+   품질 지표 (Gauge, v06.140)
    신고·문의 (실 데이터 뱃지)
    결제
 [ 시스템 ]   (accent: var(--active))
@@ -80,10 +81,13 @@
 | 버튼 | RPC / 엔드포인트 | 효과 |
 |---|---|---|
 | **Dev 일괄 처리** | `/api/lcp/dev-process` (순차) | 처리중+검토대기 선택분을 로직 파이프라인으로 dev 처리 — 수집·정규화·분절·분석·추출·V-Level·**LibriVox 자동매핑**까지. 배너에 `🔊 매핑 N · ⏳ 매핑큐 M` 집계 |
-| **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_quiz_jobs` 로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
-| 검토대기 → 처리중 | `admin_bulk_set_books_curating(uuid[])` | ready → curating · draft 단어장만 삭제 |
-| 처리중 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | library_books DELETE → BulkFetchTab 복귀 (in_progress) |
-| 검토대기 → 소스 GET | `admin_bulk_requeue_books(uuid[])` | 동일 (ready) |
+| **스크립트 퀴즈 큐** (v06.114) | `enqueue_quiz_jobs(uuid[])` | ready/published+챕터 존재 선택분을 `book_curation_jobs`(`task_type='quiz_gen'` — v06.x 매핑 큐와 통합, 구 `book_quiz_jobs` DROP)로 적재. 챕터별 스토리 퀴즈(문항 수 = `quiz_target_per_chapter(book_v_level)` 곡선 3~10) 생성 큐. 실 생성=Claude Code 드레인(`scripts/lcp/generate-chapter-quiz.mjs`) → `QuizJobsBanner` 진행률(chapters_done/total·문항수) |
+| **레벨 검토 큐** (v06.x Phase 1) | `enqueue_review_jobs(uuid[],'level_verify')` | ready/published 선택분을 `book_curation_jobs`(`task_type='level_verify'`)로 적재. Claude Code 드레인(`scripts/lcp/review-book.mjs`)이 본문을 읽어 CEFR/V-Level 재판정 → `result` verdict 기록 + 승인 시(`--correct`) `library_books` 교정. 저신뢰 CEFR(<0.85) 도서 품질 검토용 |
+| **어휘 감사 큐** (v06.x Phase 1) | `enqueue_review_jobs(uuid[],'vocab_audit')` | **published**(발행 단어장 존재) 선택분을 `task_type='vocab_audit'`로 적재. Claude Code 드레인(`scripts/lcp/audit-vocab.mjs`)이 발행 단어장의 뜻·품사·레벨·register 를 문맥 근거로 점검 → `result.flagged[]` 기록. 실 교정은 `dict-*` 스크립트로 별도(감사=식별) |
+| **소스로 되돌리기 (삭제)** | `admin_bulk_requeue_books(uuid[])` | 처리중 ∪ 검토대기 선택분 → library_books DELETE → BulkFetchTab 복귀. (구 `처리중→소스GET`+`검토대기→소스GET` 2버튼이 동일 RPC 라 1버튼으로 통합) |
+
+> 드레인 큐 통합 (v06.x): 생성/매핑(quiz_gen·voice_map) + 검토(level_verify·vocab_audit) 를 `book_curation_jobs` 단일 큐 + `DrainQueueBanner` 단일 배너(🔊 매핑 / 📝 퀴즈 / 🔬 검토)로. 드레인 오케스트레이터 `scripts/lcp/drain.mjs`: `list`(미완 잡 대시보드) · `next [book_id]`(책별 task 실행 런북 — 4 helper 로 라우팅). 4 task 모두 Claude Code(LLM) 판단 필요라 자동 실행 X, "무엇을·어떻게" 단일 진입점.
+> 통합 정리 (v06.x): 구 `검토대기 → 처리중`(draft 삭제 reclassify) 버튼은 제거 — 재처리(Dev 일괄 처리)로 대체. RPC `admin_bulk_set_books_curating` 자체는 DB 에 잔존.
 
 **LibriVox 매핑 자동화 (v06.35)**: 이전의 수동 "매핑 큐 등록(Claude)" 버튼은 제거. `dev-process` 가 분석 직후 `autoMapLibriVoxForBook` 를 호출해 **count-gate 통과 시 즉시 `librivox_audio` 저장**. 정합 실패본만 `book_curation_jobs` 큐에 자동 등록(Claude Code 수동 정합 대상) → 리스트 행에 `JobQueueBadge` 노출. 성공/녹음없음은 큐 잡 자동 삭제.
 
@@ -91,12 +95,14 @@
 - `is_published=true` 단어장 존재 (학습자 노출)
 - `texts.library_book_id` 참조 (사용자 진도)
 
-#### Dev 큐 처리 버튼 (v06.34)
+#### 도서 처리 엔진 (통합, v06.x)
 
-`▶ 큐 처리 (dev · N권)` — header 옆 노란 배지:
-- `status='queued'` 도서 ≥1 일 때만 노출
-- 자동 반복 루프 — 5권/라운드 + remaining 카운트 + 1초 elapsed 타이머
-- 종료 조건: empty / stopped / no-progress / error / MAX_ROUNDS=50
+큐 전체 처리와 선택분 처리가 **단일 엔진**(`runProcess`) + **단일 진행 배너**로 통합:
+- **큐 처리** — `status='queued'` 도서 ≥1 일 때 노출. **헤더 `▶ 큐 처리 (dev · N권)` 노란 배지** + "작업 순서" 가이드 콜아웃 두 곳(동일 동작). 큐 도서 전량을 순차 처리.
+- **선택분 처리** — 체크박스 선택 후 Toolbar 의 `Dev 일괄 처리` (처리중 ∪ 검토대기 ∪ 실패).
+- 둘 다 `/api/lcp/dev-process` 를 도서별 순차 호출 (유한 목록 → 무한 루프 불가). 진행 배너: 성공/실패/남음/경과 + `🔊 매핑 · ⏳ 매핑큐` 집계 + `중지`/`계속`. **완료 시 `검토 대기 보기 →` 액션**(목록을 처리 결과로 필터해 검수로 연결).
+- **`⟳ 새로고침`** (헤더) — 상단 통계 + 목록(RSC) + 매핑/퀴즈 큐 배너 일괄 갱신 (소스 GET·큐레이션·Claude Code 드레인 후 out-of-band 변경 반영).
+- (구: `dev-drain-queue` 5권/라운드 루프 → 단일 엔진으로 대체. 라우트는 잔존하나 UI 미사용.)
 
 #### 도서 상태 흐름 표시
 
@@ -245,6 +251,18 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 - KPI 4
 - 200 row read-only
 - AdminSidebar 등재
+
+---
+
+## /admin/quality (v06.140 신규 — 품질평가 Q3)
+
+`quality_metrics` (nightly pg_cron jobid=12, KST 03:10 `collect_quality_metrics`) 읽기 전용 대시보드.
+
+- Server Component 단일 파일 (`admin/quality/page.tsx`), 마이그레이션 0
+- 파이프라인 단계(ingest→analyze→extract→publish→deliver)별 지표 카드 — 최신값 + 전회 대비 + 스파크라인(SVG) + dims 상세
+- 도서 지표는 `dims.status`(published/ready) 세그먼트 분리
+- RLS read=admin — dev-bypass 브라우징은 빈 상태(정상). 데이터 분기는 `__tests__/page.test.tsx` renderToString 픽스처로 검증
+- "지금 수집" 버튼 (`CollectNowButton.tsx`, v06.142) — `admin_collect_quality_metrics()` wrapper RPC(role='admin' 검사 후 `collect_quality_metrics()` 위임) 호출 → `router.refresh()`. dev-bypass(anon)에선 'admin only' 거부 → 오류 상태 노출(정상)
 
 ---
 

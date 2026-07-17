@@ -123,7 +123,7 @@ export function VcbSourceCard({ source }: Props) {
         <div
           className="flex items-center gap-1.5 text-[11px] font-mono"
           style={{ color: 'var(--success)' }}
-          title="vocab-sources-raw 버킷에 업로드된 파일"
+          title="업로드된 소스 파일"
         >
           <FileText className="w-3 h-3" />
           {storageKey}

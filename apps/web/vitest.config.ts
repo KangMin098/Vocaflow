@@ -20,6 +20,8 @@ export default defineConfig({
       'server-only': resolve(__dirname, './src/test/server-only-stub.ts'),
     },
   },
+  // .tsx 테스트(RSC renderToString)용 — Next 와 동일한 automatic JSX 런타임
+  esbuild: { jsx: 'automatic' },
   test: {
     environment: 'node',
     globals: false,

@@ -12,7 +12,9 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText } from 'lucide-react'
+import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
@@ -82,12 +84,69 @@ const SOURCE_LABEL: Record<string, string> = {
   auto_text_p75_fallback: '자동 — 글 P75 (미진단)',
 }
 
+const POS_KO: Record<string, string> = {
+  verb: '동사', noun: '명사', adjective: '형용사', adverb: '부사',
+  pronoun: '대명사', preposition: '전치사', conjunction: '접속사',
+  determiner: '한정사', numeral: '수사', interjection: '감탄사',
+}
+
+// 4단계 "자랑하기" — 추출 근거를 학습자 공감 언어로. 왜 이 단어가 뽑혔나.
+//   기술 스코어(score_breakdown)를 사람 말투 이유로 번역. 순서 = 신뢰 가치순.
+type Reason = { key: string; Icon: LucideIcon; label: string }
+function buildReasons(r: ExtractedWord): Reason[] {
+  const reasons: Reason[] = []
+  const bd = r.score_breakdown
+  const tl = r.track_levels
+
+  // 1) 목표 트랙 빈출 (수능/비즈/학술) — 가장 동기부여되는 근거
+  if (bd.track_boost > 0 && tl) {
+    const tracks: { v: number; Icon: LucideIcon; label: string }[] = [
+      { v: tl.csat_korean ?? 0, Icon: Target, label: '수능 지문에 자주 나와요' },
+      { v: tl.business_english ?? 0, Icon: Briefcase, label: '비즈니스 영어에서 자주 써요' },
+      { v: tl.academic_english ?? 0, Icon: GraduationCap, label: '학술 글에서 자주 만나요' },
+    ]
+    const top = tracks.filter((t) => t.v >= 4).sort((a, b) => b.v - a.v)[0]
+    if (top) reasons.push({ key: 'track', Icon: top.Icon, label: top.label })
+  }
+
+  // 2) i+1 난이도 위치 (Desirable Difficulty)
+  const gap = r.v_level - bd.v_threshold
+  reasons.push(
+    gap === 0
+      ? { key: 'level', Icon: Sparkles, label: '딱 지금 배우기 좋은 난이도예요' }
+      : { key: 'level', Icon: TrendingUp, label: '조금 도전적이지만 이 글에 필요해요' },
+  )
+
+  // 3) 빈도 — 두루 쓸모 / 이 글에서 특별
+  if (r.frequency_rank != null && r.frequency_rank <= 3000) {
+    reasons.push({ key: 'freq', Icon: Repeat, label: '자주 쓰여서 익혀두면 두루 쓸모 있어요' })
+  } else if (r.frequency_rank == null || r.frequency_rank > 12000) {
+    reasons.push({ key: 'freq', Icon: Star, label: '이 글에서 특히 중요한 단어예요' })
+  }
+
+  // 4) 형태 해소 — 이 플랫폼만의 강점(굴절/파생형 → 표제어 + 그 형태의 뜻)
+  if (r.match_layer === 2 && r.matched_via_surface && r.matched_via_surface !== r.word) {
+    const posKo = r.pos ? POS_KO[r.pos] ?? r.pos : ''
+    reasons.push({
+      key: 'form',
+      Icon: Shuffle,
+      label: `이 글엔 "${r.word}" 형태로 나와요 — 표제어 "${r.matched_via_surface}"${posKo ? ` (${posKo} 뜻)` : ''}`,
+    })
+  }
+
+  return reasons
+}
+
 export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSaved }: ExtractionPanelProps) {
   const [strategy, setStrategy] = useState<LevelStrategy>(defaultStrategy)
   const [displayPct, setDisplayPct] = useState<DisplayPct>(25)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<ExtractedWord[] | null>(null)
+  // 알아요/몰라요 판정 (표면형 키). known → 학습셋 제외 + 향후 추출 제외.
+  const [familiar, setFamiliar] = useState<Record<string, 'known' | 'unknown'>>({})
+  // 어원(root) 힌트 — 표제어(lemma) → 어근들. word_root_links 조회(이중배당: 어원 축을 추출 근거에 노출).
+  const [roots, setRoots] = useState<Record<string, { root: string; gloss: string }[]>>({})
   const [meta, setMeta] = useState<ExtractedWord | null>(null)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [expandedWord, setExpandedWord] = useState<string | null>(null)
@@ -112,6 +171,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     setLoading(true)
     setError(null)
     setResults(null)
+    setRoots({})
     setSelected(new Set())
     setSavedCount(null)
 
@@ -147,6 +207,24 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     setSelected(new Set(rows.map((r) => r.word)))
     setLoading(false)
 
+    // 어원(root) 힌트 — 추출 단어의 표제어 어근을 조회해 근거에 노출(best-effort). 신규 테이블이라 loose client.
+    const lemmas = [...new Set(rows.map((r) => (r.matched_via_surface ?? r.word).toLowerCase()))]
+    if (lemmas.length > 0) {
+      void (supabase as unknown as SupabaseClient)
+        .from('word_root_links')
+        .select('word, word_roots(root, gloss_ko)')
+        .in('word', lemmas)
+        .then((res) => {
+          const rows2 = (res.data ?? []) as unknown as { word: string; word_roots: { root: string; gloss_ko: string } | null }[]
+          const map: Record<string, { root: string; gloss: string }[]> = {}
+          for (const l of rows2) {
+            if (!l.word_roots) continue
+            ;(map[l.word] ??= []).push({ root: l.word_roots.root, gloss: l.word_roots.gloss_ko })
+          }
+          setRoots(map)
+        })
+    }
+
     // Option C — 미매칭 lemma 누적 (silent, best-effort)
     void supabase.rpc('record_pending_words', {
       p_user_id: userData.user.id,
@@ -161,6 +239,30 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     if (next.has(word)) next.delete(word)
     else next.add(word)
     setSelected(next)
+  }
+
+  // "알아요/몰라요" — 학습자가 추출을 직접 교정. lemma(표제어) 단위 저장.
+  //   known: 학습셋에서 빼고(선택 해제) 다음 추출부터 제외. unknown: 학습 유지.
+  async function markFamiliarity(r: ExtractedWord, verdict: 'known' | 'unknown') {
+    const lemma = r.matched_via_surface ?? r.word // 통합 추출: matched_via_surface = 해소 표제어
+    setFamiliar((f) => ({ ...f, [r.word]: verdict }))
+    if (verdict === 'known') {
+      setSelected((s) => {
+        const n = new Set(s)
+        n.delete(r.word)
+        return n
+      })
+    }
+    try {
+      const supabase = createClient()
+      await supabase.rpc('set_word_familiarity', {
+        p_lemma: lemma,
+        p_verdict: verdict,
+        p_v_level: r.v_level,
+      })
+    } catch {
+      /* 낙관적 UI — 실패해도 화면 상태 유지, 다음 세션에 재시도 */
+    }
   }
 
   function toggleAll() {
@@ -189,21 +291,29 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
     const rows = (displayedResults ?? results)
       .filter((r) => selected.has(r.word))
-      .map((r) => ({
-        user_id: userData.user!.id,
-        word: r.word,
-        meaning: r.meaning_ko ?? '',
-        // 원문(스크립트) 문장 우선 → dict 일반 예문 폴백
-        example_sentence: r.source_sentence ?? r.example_en ?? null,
-        pos: r.pos ?? null,
-        cefr_level: r.cefr_level ?? null,
-        pronunciation: null as string | null,
-        difficulty: 6.0,
-        stability: 0,
-        review_count: 0,
-        origin: 'manual' as const,
-        ...(textId ? { text_id: textId } : {}),
-      }))
+      .map((r) => {
+        // SRS 키 = 표제어(matched_via_surface) → galloped/gallops 형태별로 안 쪼개짐.
+        //   학습자가 본 실제 형태·품사는 extracted_* 로 보존.
+        const lemma = r.matched_via_surface ?? r.word
+        return {
+          user_id: userData.user!.id,
+          word: lemma,
+          lemma,
+          extracted_surface: r.word,
+          extracted_pos: r.pos ?? null,
+          meaning: r.meaning_ko ?? '',
+          // 원문(스크립트) 문장 우선 → dict 일반 예문 폴백
+          example_sentence: r.source_sentence ?? r.example_en ?? null,
+          pos: r.pos ?? null,
+          cefr_level: r.cefr_level ?? null,
+          pronunciation: null as string | null,
+          difficulty: 6.0,
+          stability: 0,
+          review_count: 0,
+          origin: 'manual' as const,
+          ...(textId ? { text_id: textId } : {}),
+        }
+      })
 
     const { error: insertErr, count } = await supabase
       .from('vocabularies')
@@ -397,10 +507,15 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               const isSelected = selected.has(r.word)
               const isExpanded = expandedWord === r.word
               const bd = r.score_breakdown
+              const fam = familiar[r.word]
+              // 추출 근거 — 인라인엔 눈에 띄는 것만(generic 난이도 제외, Calm UI), 전체는 expand.
+              const reasons = buildReasons(r)
+              const inlineReason = reasons.find((x) => x.key !== 'level')
+              const rootHints = roots[(r.matched_via_surface ?? r.word).toLowerCase()] ?? []
               return (
                 <li key={r.word}>
                   <article className={`rounded-[var(--r-md)] border bg-[var(--bg)] transition-all ${
-                    isSelected ? 'border-[var(--p)] shadow-[var(--sh-sm)]' : 'border-[var(--bd)]'
+                    fam === 'known' ? 'border-[var(--bd)] opacity-45' : isSelected ? 'border-[var(--p)] shadow-[var(--sh-sm)]' : 'border-[var(--bd)]'
                   }`}>
                     <div className="flex items-center gap-3 p-3">
                       <input
@@ -419,22 +534,58 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           {r.cefr_level && (
                             <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{r.cefr_level}</span>
                           )}
-                          {r.match_layer === 2 && (
+                          {r.match_layer === 2 && r.matched_via_surface && r.matched_via_surface !== r.word && (
                             <span
-                              title={`L2 inflection match — surface "${r.matched_via_surface}" → lemma "${r.word}"`}
+                              title={`형태 "${r.word}" → 표제어 "${r.matched_via_surface}"`}
                               className="rounded-[var(--r-full)] bg-[#fdf4ff] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#a21caf] dark:bg-[#3b0764]/40 dark:text-[#f0abfc]"
                             >
-                              L2 ←{r.matched_via_surface}
+                              → {r.matched_via_surface}
+                            </span>
+                          )}
+                          {rootHints.length > 0 && (
+                            <span
+                              title={`어원: ${rootHints.map((h) => `${h.root}(${h.gloss})`).join(' · ')}`}
+                              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[#fdf6ec] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#9a6a1f] dark:bg-[#3b2a0a]/50 dark:text-[#e8c887]"
+                            >
+                              🏛 {rootHints[0]!.root}
                             </span>
                           )}
                         </div>
                         <p className="mt-0.5 truncate font-body text-[13px] text-[var(--t2)]">{r.meaning_ko ?? '—'}</p>
+                        {inlineReason && (
+                          <p className="mt-1 inline-flex max-w-full items-center gap-1 font-body text-[11px] italic text-[var(--t3)]">
+                            <inlineReason.Icon size={11} className="shrink-0 text-[var(--p)]/70" />
+                            <span className="truncate">{inlineReason.label}</span>
+                          </p>
+                        )}
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="inline-flex items-center gap-0.5 font-display text-[13px] font-[700] tabular-nums text-[var(--p)]">
                           <TrendingUp size={11} /> {r.composite_score.toFixed(3)}
                         </span>
-                        <span className="font-body text-[10px] text-[var(--t3)]">{bd.reasoning}</span>
+                        <span className="font-body text-[10px] text-[var(--t3)]">추천 점수</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => markFamiliarity(r, 'unknown')}
+                          aria-label={`${r.word} 몰라요 — 학습 유지`}
+                          aria-pressed={fam === 'unknown'}
+                          className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
+                            fam === 'unknown' ? 'bg-[var(--p)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--p-light)] hover:text-[var(--p)]'
+                          }`}
+                        >
+                          몰라요
+                        </button>
+                        <button
+                          onClick={() => markFamiliarity(r, 'known')}
+                          aria-label={`${r.word} 알아요 — 추출에서 제외`}
+                          aria-pressed={fam === 'known'}
+                          className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
+                            fam === 'known' ? 'bg-[var(--t3)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
+                          }`}
+                        >
+                          {fam === 'known' ? '알아요 ✓' : '알아요'}
+                        </button>
                       </div>
                       <button
                         onClick={() => setExpandedWord(isExpanded ? null : r.word)}
@@ -447,6 +598,32 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
                     {isExpanded && (
                       <div className="border-t border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[11px]">
+                        {/* 어원(root) 힌트 — 어근으로 계열 학습 (이중배당) */}
+                        {rootHints.length > 0 && (
+                          <p className="mb-3 inline-flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] border border-[#9a6a1f]/20 bg-[#fdf6ec]/60 px-3 py-2 text-[#9a6a1f] dark:bg-[#3b2a0a]/30 dark:text-[#e8c887]">
+                            <span aria-hidden>🏛</span>
+                            <span className="font-display font-[700]">어원</span>
+                            <span className="font-body">
+                              {rootHints.map((h) => `${h.root} (${h.gloss})`).join(' · ')}
+                            </span>
+                          </p>
+                        )}
+                        {/* 4단계 근거 카드 — 왜 이 단어를 추천했는지 사람 말투로 (기술 breakdown 위에) */}
+                        {reasons.length > 0 && (
+                          <div className="mb-3 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--p-light)]/40 p-3">
+                            <h4 className="mb-1.5 inline-flex items-center gap-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--p)]">
+                              <Sparkles size={11} /> 왜 추천했어요?
+                            </h4>
+                            <ul className="flex flex-col gap-1">
+                              {reasons.map((rs) => (
+                                <li key={rs.key} className="inline-flex items-start gap-1.5 font-body text-[11px] text-[var(--t2)]">
+                                  <rs.Icon size={12} className="mt-0.5 shrink-0 text-[var(--p)]" />
+                                  <span>{rs.label}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         {(r.source_sentence ?? r.example_en) && (
                           <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">
                             &ldquo;{r.source_sentence ?? r.example_en}&rdquo;
@@ -457,9 +634,12 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                             )}
                           </p>
                         )}
-                        <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
+                        <h4 className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
                           스코어 breakdown (composite = {r.composite_score.toFixed(4)})
                         </h4>
+                        <p className="mb-2 font-mono text-[9px] text-[var(--t3)]">
+                          {bd.reasoning}{bd.method ? ` · ${bd.method}` : ''}
+                        </p>
                         <table className="w-full font-mono text-[10px]">
                           <tbody>
                             <ScoreRow label="Frequency boost (70%)" weight={bd.weights.frequency_boost} value={bd.frequency_boost} contribution={bd.weights.frequency_boost * bd.frequency_boost} />

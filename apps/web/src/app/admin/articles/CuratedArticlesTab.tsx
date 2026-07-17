@@ -40,6 +40,8 @@ interface Props {
   showGate?: boolean
   /** 리스트 헤더 (검수/발행 stage 구분). */
   heading?: string
+  /** 프리뷰 진입 시 복귀 stage 전달 — 검수 후 콘솔이 같은 stage 로 복귀(제자리). */
+  backStage?: 'review' | 'publish'
 }
 
 type StatusFilter = 'all' | 'in_progress' | 'ready' | 'published' | 'failed' | 'archived'
@@ -63,7 +65,9 @@ export function CuratedArticlesTab({
   initialFilter = 'all',
   showGate = false,
   heading = '📂 Curated Articles',
+  backStage,
 }: Props) {
+  const previewSuffix = backStage ? `?stage=${backStage}` : ''
   const [filter, setFilter] = useState<StatusFilter>(initialFilter)
   const [pending, setPending] = useState<string | null>(null)
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -308,7 +312,7 @@ export function CuratedArticlesTab({
                     type="button"
                     onClick={toggleAll}
                     aria-label={allSelected ? '전체 선택 해제' : '전체 선택'}
-                    className="inline-flex text-[var(--t3)] hover:text-[var(--p)]"
+                    className="inline-flex rounded-[var(--r-sm)] text-[var(--t3)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                   >
                     {allSelected ? <CheckSquare size={15} /> : <Square size={15} />}
                   </button>
@@ -346,7 +350,7 @@ export function CuratedArticlesTab({
                         onClick={() => toggleOne(a.id)}
                         aria-label={isSel ? '선택 해제' : '선택'}
                         aria-pressed={isSel}
-                        className="inline-flex text-[var(--t3)] hover:text-[var(--p)]"
+                        className="inline-flex rounded-[var(--r-sm)] text-[var(--t3)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       >
                         {isSel ? (
                           <CheckSquare size={15} style={{ color: 'var(--learn-known)' }} />
@@ -358,7 +362,7 @@ export function CuratedArticlesTab({
                     <Td>
                       <div className="flex flex-col gap-0.5">
                         <Link
-                          href={`/admin/articles/preview/${a.id}`}
+                          href={`/admin/articles/preview/${a.id}${previewSuffix}`}
                           className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                         >
                           {a.title}
@@ -411,7 +415,7 @@ export function CuratedArticlesTab({
                     <Td align="right">
                       <div className="flex items-center justify-end gap-1">
                         <Link
-                          href={`/admin/articles/preview/${a.id}`}
+                          href={`/admin/articles/preview/${a.id}${previewSuffix}`}
                           className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                           aria-label="글 검수 페이지 열기"
                         >
@@ -587,7 +591,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
           <button
             type="button"
             onClick={onStop}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)]"
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={11} aria-hidden /> 중지
           </button>
@@ -595,7 +599,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
           <button
             type="button"
             onClick={onDismiss}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             닫기
           </button>
@@ -745,7 +749,7 @@ function EmptyBox({ onReset, hasAny }: { onReset: () => void; hasAny: boolean })
         <button
           type="button"
           onClick={onReset}
-          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)]"
+          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           필터 초기화
         </button>

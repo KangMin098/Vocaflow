@@ -1,0 +1,226 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`extraction RPC (integration · 골든셋 스냅샷) > lexical_coverage 저장값 — P&P (compute_book_coverage 산출물) 1`] = `
+{
+  "1": 41,
+  "10": 98.7,
+  "2": 58.2,
+  "3": 62.6,
+  "4": 70.8,
+  "5": 79.3,
+  "6": 86,
+  "7": 91.2,
+  "8": 93.4,
+  "9": 97.1,
+}
+`;
+
+exports[`extraction RPC (integration · 골든셋 스냅샷) > select_article_vocab — VOA 글 상위 20 (전량 10행) 1`] = `
+[
+  {
+    "composite_score": 0.7006,
+    "sort_order": 1,
+    "v_level": 8,
+    "word": "amplifier",
+  },
+  {
+    "composite_score": 0.5828,
+    "sort_order": 2,
+    "v_level": 9,
+    "word": "adverb",
+  },
+  {
+    "composite_score": 0.429,
+    "sort_order": 3,
+    "v_level": 6,
+    "word": "certainty",
+  },
+  {
+    "composite_score": 0.4095,
+    "sort_order": 4,
+    "v_level": 6,
+    "word": "modify",
+  },
+  {
+    "composite_score": 0.3783,
+    "sort_order": 5,
+    "v_level": 8,
+    "word": "amplify",
+  },
+  {
+    "composite_score": 0.3716,
+    "sort_order": 6,
+    "v_level": 9,
+    "word": "qualifier",
+  },
+  {
+    "composite_score": 0.3433,
+    "sort_order": 7,
+    "v_level": 7,
+    "word": "precision",
+  },
+  {
+    "composite_score": 0.2745,
+    "sort_order": 8,
+    "v_level": 8,
+    "word": "forceful",
+  },
+  {
+    "composite_score": 0.2733,
+    "sort_order": 9,
+    "v_level": 6,
+    "word": "approximately",
+  },
+  {
+    "composite_score": 0.2733,
+    "sort_order": 10,
+    "v_level": 7,
+    "word": "exactness",
+  },
+]
+`;
+
+exports[`extraction RPC (integration · 골든셋 스냅샷) > select_book_chapter_vocab — P&P ch.1 상위 20 1`] = `
+[
+  {
+    "composite_score": 0.7176,
+    "sort_order": 1,
+    "v_level": 6,
+    "word": "fortune",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.7096,
+    "sort_order": 2,
+    "v_level": 8,
+    "word": "copyright",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.6039,
+    "sort_order": 3,
+    "v_level": 6,
+    "word": "assure",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.6007,
+    "sort_order": 4,
+    "v_level": 6,
+    "word": "possession",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4925,
+    "sort_order": 5,
+    "v_level": 6,
+    "word": "ought",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4905,
+    "sort_order": 6,
+    "v_level": 6,
+    "word": "reserve",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.485,
+    "sort_order": 7,
+    "v_level": 6,
+    "word": "preference",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4843,
+    "sort_order": 8,
+    "v_level": 6,
+    "word": "delight",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4831,
+    "sort_order": 9,
+    "v_level": 6,
+    "word": "universe",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4823,
+    "sort_order": 10,
+    "v_level": 6,
+    "word": "consent",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4795,
+    "sort_order": 11,
+    "v_level": 6,
+    "word": "extraordinary",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4795,
+    "sort_order": 12,
+    "v_level": 7,
+    "word": "acknowledge",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4781,
+    "sort_order": 13,
+    "v_level": 6,
+    "word": "temper",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4761,
+    "sort_order": 14,
+    "v_level": 6,
+    "word": "nonsense",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4736,
+    "sort_order": 15,
+    "v_level": 7,
+    "word": "compassion",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4729,
+    "sort_order": 16,
+    "v_level": 9,
+    "word": "flatter",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4716,
+    "sort_order": 17,
+    "v_level": 7,
+    "word": "ignorant",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4699,
+    "sort_order": 18,
+    "v_level": 7,
+    "word": "sarcastic",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4675,
+    "sort_order": 19,
+    "v_level": 9,
+    "word": "hearty",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.4672,
+    "sort_order": 20,
+    "v_level": 7,
+    "word": "tiresome",
+    "word_register": "standard",
+  },
+]
+`;

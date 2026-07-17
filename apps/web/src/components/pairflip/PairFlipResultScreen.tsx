@@ -4,6 +4,10 @@
 'use client'
 
 import { Flame, Target, Timer } from 'lucide-react'
+import Link from 'next/link'
+import { useEffect } from 'react'
+
+import { saveLearningRecords } from '@/lib/pairflip/learning-records'
 
 import { getResultCopy, PAIRFLIP_LEVELS } from './constants'
 import { PairFlipMascot } from './PairFlipMascot'
@@ -26,8 +30,9 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
   const seconds = Math.floor((result.durationMs % 60000) / 1000)
   const timeLabel = `${minutes}:${seconds.toString().padStart(2, '0')}`
 
-  // 영속화(SRS flush + scores)는 PairFlipGameScreen 의 onComplete 에서 이미 처리한다.
-  // 결과 화면은 표시 전용 — 별도 저장 호출 없음.
+  useEffect(() => {
+    void saveLearningRecords(result)
+  }, [result])
 
   return (
     <div
@@ -84,6 +89,14 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
             {result.hintsUsed > 0 && ` · 힌트 ${result.hintsUsed}회`}
           </p>
         )}
+
+        {/* 원점 복귀 — 결과는 sessionStorage 기반이라 스코프/from 유실 → PairFlip 허브로 */}
+        <Link
+          href="/pairflip"
+          className="mt-1 inline-flex items-center justify-center gap-1 self-center rounded-[var(--r-md)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          PairFlip 홈으로
+        </Link>
       </div>
     </div>
   )

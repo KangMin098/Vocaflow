@@ -1,0 +1,10 @@
+{
+  "source": "gutenberg",
+  "source_id": "1661",
+  "source_url": "https://www.gutenberg.org/cache/epub/1661/pg1661.txt",
+  "title": "The Adventures of Sherlock Holmes",
+  "license": "Public domain in the USA.",
+  "fetched_at": "2026-07-04",
+  "chapters_expected": 12,
+  "note": "골든셋 fixture — 단편 12편 (gutenberg 챕터 마커 이형 케이스)"
+}

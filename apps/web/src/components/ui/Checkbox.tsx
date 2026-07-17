@@ -9,7 +9,7 @@
 
 "use client";
 
-import { forwardRef, useEffect, useRef, type InputHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useEffect, useId, useRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { Check, Minus } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
@@ -47,8 +47,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
   ) => {
     const innerRef = useRef<HTMLInputElement>(null);
-    const generatedId = useRef(`cb-${Math.random().toString(36).slice(2, 9)}`);
-    const inputId = id ?? generatedId.current;
+    // useId — SSR/CSR 동일 id 보장 (Math.random 은 hydration mismatch 경고 유발)
+    const generatedId = useId();
+    const inputId = id ?? `cb-${generatedId}`;
 
     // ref 병합 (forwardRef + 내부 ref)
     useEffect(() => {

@@ -15,7 +15,8 @@ interface SpellForgeCompletionProps {
   correctCount: number
   /** 세션 시작 시각 — 컴포넌트 마운트 시 1회 lazy 계산 */
   startedAt: Date
-  textId: string
+  /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산. */
+  backHref: string
   /** §17.3 추천 축 — 부모가 주입 */
   recommendation?: RecommendedAction
 }
@@ -24,7 +25,7 @@ export function SpellForgeCompletion({
   totalWords,
   correctCount,
   startedAt,
-  textId,
+  backHref,
   recommendation,
 }: SpellForgeCompletionProps) {
   // 마운트 시점에 durationMs 1회 캡처 — 이후 리렌더에 영향 없음
@@ -33,7 +34,7 @@ export function SpellForgeCompletion({
   const minutes = Math.max(1, Math.round(durationMs / 60000))
   const accuracy = totalWords > 0 ? Math.round((correctCount / totalWords) * 100) : 0
 
-  // 게임 세션 점수 적재 (scores) — 완료 화면 1회. textId="all"(비-uuid)는 생략.
+  // 게임 세션 점수 적재 (scores) — 완료 화면 1회.
   useRecordGameScore({
     module: 'spellforge',
     score: correctCount,
@@ -78,7 +79,7 @@ export function SpellForgeCompletion({
         )}
 
         <Link
-          href={`/text/${textId}`}
+          href={backHref}
           className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
         >
           스크립트로 돌아가기

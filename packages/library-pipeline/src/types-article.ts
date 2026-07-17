@@ -11,6 +11,14 @@ export type ArticleSource =
   | 'simple_wikipedia' // ACP §18 — A2~B1 설명문 갭 (CC-BY-SA)
   | 'the_conversation' // ACP §18 — B2~C1 논증문 (CC-BY-ND → display_only)
   | 'wikinews' // ACP §18 — A2~B2 시사 (CC-BY 2.5)
+  | 'owid' // ACP §18 T-2 — B2~C1 데이터 논증문 (CC-BY 4.0 → 발행 허용, argumentative gap 보강)
+  | 'factbook' // ACP §18 — B1~B2 국가 개요 참고문 (PD US Gov → 발행 허용, reference gap 보강)
+  | 'elife' // ACP §18 — B2~C1 과학 digest (편집자 저작 요약 · CC-BY 4.0 → 발행 허용)
+  | 'wikipedia' // ACP §18 — B2~C1 정규 백과 FA/GA (CC-BY-SA → 발행 허용, Simple 대비 심화)
+  | 'plos' // ACP §18 — C1~C2 오픈 학술 논문 (CC-BY → 발행 허용, S4 킬러급 심화)
+  | 'wikivoyage' // ACP §18 — B1~B2 여행 가이드 (CC-BY-SA → 발행 허용, reference 밴드 보강)
+  | 'usgs' // ACP §18 — B2 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 허용, 신규 도메인)
+  | 'noaa' // ACP §18 — B2-C1 기후과학 explainer (PD US Gov → 발행 허용, climate 신규 도메인·CSAT 최빈출)
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
   | 'manual'
 
@@ -45,6 +53,8 @@ export interface ArticleWord {
   frequency_in_article: number
   first_sentence: string
   base_learning_value: number
+  /** Phase 3 — 문맥 지배 POS (winkNLP). sense 매칭용. */
+  context_pos: string | null
 }
 
 export interface AnalyzedArticle {

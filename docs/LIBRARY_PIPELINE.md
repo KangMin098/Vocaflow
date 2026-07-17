@@ -47,6 +47,9 @@ queued
 | **C** | hathitrust | HathiTrust |
 | **M** | manual | 수동 등록 |
 | (추가) | simple_wikipedia | Simple English Wikipedia (v06.34) |
+| (추가) | pressbooks | Pressbooks OA book (CC-BY 서버렌더 HTML · OBP 동결 해제 α retarget, v06.163) |
+
+**Pressbooks ingester (v06.163, OBP 동결 해제 α)** — `ingest/pressbooks.ts`. OBP 는 챕터 전문 PDF-only(client-render + `__NEXT_DATA__` 메타만)라 dependency-0 불가 → 동결. 대신 Pressbooks(opentextbc.ca 등)는 챕터별 서버렌더 HTML(CC-BY 다수) → SE 계약 그대로 EPUB/PDF 파싱 없이 `RawBook` 산출. `source_id="<host>/<book-slug>"`(host allowlist), book landing→`citation_*` 메타·CC 링크·TOC 챕터 URL, 챕터 페이지→`hentry` `<section>` 슬라이스(entry-title 중복 제거) 후 산문화, `CHAPTER N.` 마커+`CHAPTER_HREF_SEP` deep-link. dev 라우트: `/api/lcp/dev-ingest-preview`(fetch 미리보기) · `/api/lcp/dev-enqueue-book`(service-role enqueue) · dev-process `pressbooks` 케이스(`max_chapters` 옵션). **마이그레이션 적용 완료**(`library_books_source_add_pressbooks`, source CHECK +`pressbooks`). **end-to-end 실증(2026-07-09)**: `Introduction to Sociology 2e` published · CEFR C1 · V-Level 8 · 23 챕터 · 23/23 챕터 단어세트(894단어) · llm_cost 0.
 
 **그림책 삽화/낭독 (StoryWeaver, v06.56)** — `library_books.illustrations`(`[{idx,url,alt}]` 링크, 문단 idx 정합) + `library_books.audio_url`(readalong mp3). ingester `storyweaver.ts` 가 `/api/v1/stories/{id|slug}/read` 파싱(StoryPage→문단, coverImage→삽화, FrontCover→표지, audioPath→낭독). ReadingUniverse 가 문단별 `<figure>` 렌더, workspace layout 이 audio_url→단일 스트림 chapterAudio. 자체 표지·오디오 제공 → resolveCoverImageUrl·LibriVox 매핑 우회.
 
@@ -105,7 +108,7 @@ ELSE status = 'failed' + status_message
 | 환경 | 메커니즘 |
 |---|---|
 | **Production** | `process_library_pipeline_batch(5)` pg_cron 매 30초 → POST `/api/lcp/process` (X-LCP-Token + msg_id) |
-| **Dev** | `get_lcp_config()` NULL → cron early return 0 → `/api/lcp/dev-drain-queue` 가 직접 driving (v06.34 신규) |
+| **Dev** | `get_lcp_config()` NULL → cron early return 0 → Admin "Curated Books" 가 `/api/lcp/dev-process` 를 도서별 순차 호출(단일 엔진 `runProcess`). (구 `dev-drain-queue` 5권/라운드 루프는 라우트만 잔존·UI 미사용) |
 
 ### LCP v06.34 — 소스 GET 복귀 (DELETE 시맨틱)
 
@@ -118,10 +121,9 @@ ELSE status = 'failed' + status_message
 - 안전 가드: published 단어장 / 사용자 진도 있으면 row 스킵
 - 반환: `(deleted_count, skipped_count, sets_deleted, seed_unlocked, blocked_by_users, blocked_by_published)`
 
-UI 3 버튼:
-- `검토대기 → 처리중` — draft 단어장만 삭제 (curating reclassify)
-- `처리중 → 소스 GET` — library_books DELETE → BulkFetch 복귀
-- `검토대기 → 소스 GET` — 동일
+UI 버튼 (v06.x 통합):
+- `소스로 되돌리기 (삭제)` — 처리중 ∪ 검토대기 선택분을 library_books DELETE → BulkFetch 복귀. (구 `처리중→소스GET`+`검토대기→소스GET` 2버튼이 동일 RPC 라 1버튼 통합)
+- (구 `검토대기 → 처리중`(draft 삭제 reclassify) 버튼은 제거 — 재처리로 대체. RPC `admin_bulk_set_books_curating` 는 잔존)
 
 ### 4축 도서 난이도 지수 (v06.29 신설)
 
@@ -387,7 +389,7 @@ V-Level=11 의 17,452 row 전량 태그 (standard 0):
 | `analyze_and_apply_diagnostic_result(answers)` | apply: user_profiles UPDATE + snapshot INSERT |
 | `analyze_track_diagnostic_result` / `analyze_and_apply_track_diagnostic_result` | track 진단 |
 | `analyze_and_apply_comprehensive_diagnostic_result` | 4축 동시 |
-| `recommend_word_sets_for_user(uuid, text[])` | 5-tier 추천 (primary/stretch/review + track + specialty opt-in) |
+| `recommend_word_sets_for_user(uuid, text[])` | 6-tier 추천 (primary/stretch/review + track + specialty opt-in + book_iplus1: coverage 85~95% 도서 입문 챕터 세트) |
 | `auto_promote_v_level_for_user(uuid)` | i+1 zone ≥20 mastered → V+1 + snapshot |
 | `auto_promote_track_level_for_user(uuid, text)` | track promote (threshold 15) |
 | `cron_auto_promote_all_users()` | pg_cron 새벽 03 KST 일괄 |

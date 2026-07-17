@@ -1,0 +1,10 @@
+{
+  "source": "wikinews",
+  "source_url": "https://en.wikinews.org/wiki/US_astronaut_Neil_Armstrong_dies",
+  "title": "US astronaut Neil Armstrong dies",
+  "license": "CC-BY-2.5",
+  "attribution": "Wikinews contributors, \"US astronaut Neil Armstrong dies\", Wikinews (2012-08-26), https://en.wikinews.org/wiki/US_astronaut_Neil_Armstrong_dies — Creative Commons Attribution 2.5 라이선스에 따라 사용",
+  "fetched_at": "2026-07-04",
+  "format": "MediaWiki action API extracts 응답 (ingestWikinewsArticle 과 동일 경로) — 본문은 query.pages.*.extract",
+  "note": "골든셋 fixture — DB에 wikinews 행 없음(라이브 fetch로 확보)"
+}

@@ -1,5 +1,6 @@
 // apps/web/src/lib/dictation/storage.ts
-// sessionStorage 기반 임시 저장 (Phase 2 - Supabase 교체 예정)
+// localStorage 기반 임시 저장 (기기 로컬 · Phase 2 Supabase 교체 예정).
+// ⚠️ 세션은 이 기기에만 존재 — 다른 브라우저/기기·URL 공유 시 미발견(세션 화면이 안내 처리).
 //
 // 키:
 //   vocaflow:dictation:resources         - DictationResource[]

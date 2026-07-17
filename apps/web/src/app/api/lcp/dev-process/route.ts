@@ -20,6 +20,7 @@ import {
   ingestFromSimpleWikipedia,
   ingestFromLit2Go,
   ingestFromStoryWeaver,
+  ingestFromPressbooks,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -35,6 +36,8 @@ export const dynamic = 'force-dynamic'
 
 interface DevProcessBody {
   book_id: string
+  /** Pressbooks 전용 — 챕터 상한(데모 footprint 제한). 0/미지정=전체. */
+  max_chapters?: number
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -116,6 +119,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       raw = await ingestFromLit2Go(book.source_id as string)
     } else if (book.source === 'storyweaver') {
       raw = await ingestFromStoryWeaver(book.source_id as string)
+    } else if (book.source === 'pressbooks') {
+      raw = await ingestFromPressbooks(book.source_id as string, body.max_chapters ?? 0)
     } else {
       throw new Error(`Source not implemented in dev-process: ${book.source}`)
     }
@@ -180,7 +185,16 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // 도서 난이도 지수 산정 (best-effort) — book_v_level/CEFR/CEFR-J.
     //   backfill 직후(bound lemma 필요). LibraryCard + publish 게이트(book_v_level NULL 이면 강제게시 실패) 의존.
-    for (const fn of ['compute_book_vrl', 'compute_book_cefrj', 'compute_book_coverage'] as const) {
+    //   rpc 는 무-throw({error} 반환) → per-call {error} 검사로 침묵실패 관측(#93 0679a2d + main 확장 RPC 결합).
+    //   compute_book_difficulty(v2.4 앙상블)는 위 신호 완료 후 재산정 — Claude 검토 도서는 v3 권위(함수 내 가드).
+    for (const fn of [
+      'compute_book_vrl',
+      'compute_book_chapter_v_levels', // 챕터별 V-level(v06.174 — 단일 라벨 편차 노출)
+      'compute_book_cefrj',
+      'compute_book_coverage', // 레벨별 기지어 커버리지(i+1)
+      'compute_book_syntax', // CTP ① 구문 난이도(챕터 집계)
+      'compute_book_difficulty', // 도서 난이도 v2.4 앙상블(마지막)
+    ] as const) {
       const { error } = await client.rpc(fn, { p_book_id: book_id })
       if (error) console.warn(`[lcp/dev-process] ${fn} skipped: ${error.message}`)
     }
@@ -218,6 +232,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           .from('book_curation_jobs')
           .delete()
           .eq('book_id', book_id)
+          .eq('task_type', 'voice_map')
           .in('status', ['pending', 'failed'])
       } else if (map.recording_found) {
         // 정합 실패 → 매핑 큐 자동 등록. dev-process 는 service-role(auth.uid 없음)이라
@@ -243,6 +258,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         await client.from('book_curation_jobs').upsert(
           {
             book_id,
+            task_type: 'voice_map',
             mode: jobMode,
             status: 'pending',
             source_chapters: sourceChapters,
@@ -253,7 +269,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             note: `auto: LibriVox 정합 실패 — ${map.reason ?? ''} (실챕터 ${map.real_chapter_count} / LV ${map.lv_chapter_count}, ${map.volume_count}권)`,
             claimed_at: null,
           },
-          { onConflict: 'book_id' },
+          { onConflict: 'book_id,task_type' },
         )
         librivox = 'queued'
       } else {
@@ -263,6 +279,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           .from('book_curation_jobs')
           .delete()
           .eq('book_id', book_id)
+          .eq('task_type', 'voice_map')
           .in('status', ['pending', 'failed'])
       }
     } catch (e) {

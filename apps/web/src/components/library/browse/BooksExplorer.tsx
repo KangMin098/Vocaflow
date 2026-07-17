@@ -24,6 +24,7 @@ import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import {
   AGE_BANDS,
+  LENGTH_BUCKETS,
   V_BANDS,
   ageBandOf,
   bucketOf,
@@ -31,6 +32,7 @@ import {
   vBandOf,
   type AgeBand,
   type GenreBucket,
+  type LengthBucket,
   type VBand,
 } from '@/lib/library/genres'
 import {
@@ -119,26 +121,35 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
     const vbSet = new Set<VBand>()
     const genreSet = new Set<GenreBucket>()
     const ageSet = new Set<AgeBand>()
+    const lengthSet = new Set<LengthBucket>()
     const themeFreq = new Map<string, number>()
     let hasAudio = false
+    let hasEnrollments = false
     for (const b of books) {
       const vb = vBandOf(b.book_v_level)
       if (vb) vbSet.add(vb)
       genreSet.add(bucketOf(b.genre_norm))
       const ab = ageBandOf(b.age_band)
       if (ab) ageSet.add(ab)
+      const lb = lengthBucket(b.reading_minutes)
+      if (lb) lengthSet.add(lb)
       for (const th of b.themes ?? []) themeFreq.set(th, (themeFreq.get(th) ?? 0) + 1)
       if (b.has_audio) hasAudio = true
+      if (b.enrollment_state && b.enrollment_state !== 'not_enrolled') hasEnrollments = true
     }
+    // tie-break 은 code-unit 비교 (localeCompare 는 Node↔브라우저 collation 차이로
+    // 주제 순서가 엇갈려 hydration mismatch 유발 — 주제 상시 노출 후 표면화).
     const themes = Array.from(themeFreq.entries())
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
       .map(([t]) => t)
     return {
       vBands: V_BANDS.filter((b) => vbSet.has(b.key)).map((b) => b.key),
       genres: Array.from(genreSet),
       themes,
       ages: AGE_BANDS.filter((a) => ageSet.has(a.key)).map((a) => a.key),
+      lengths: LENGTH_BUCKETS.filter((l) => lengthSet.has(l.key)).map((l) => l.key),
       hasAudio,
+      hasEnrollments,
     }
   }, [books])
 
@@ -149,6 +160,12 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       if (q) {
         const hay = `${b.title} ${b.author ?? ''}`.toLowerCase()
         if (!hay.includes(q)) return false
+      }
+      if (filters.enroll) {
+        const st = b.enrollment_state ?? 'not_enrolled'
+        if (filters.enroll === 'mine' && st === 'not_enrolled') return false
+        if (filters.enroll === 'in_progress' && st !== 'in_progress') return false
+        if (filters.enroll === 'completed' && st !== 'completed') return false
       }
       if (filters.fit) {
         const tier = judgeIPlusOne(b.lexical_coverage, userVLevel, b.is_picture_book)?.tier

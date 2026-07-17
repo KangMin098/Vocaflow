@@ -16,6 +16,8 @@ export interface ChapterListItem {
   paragraph_count: number
   /** 원본 소스 해당 챕터 deep-link URL (SE TOC 매핑). null 이면 렌더가 도서 TOC 로 fallback */
   source_href: string | null
+  /** 챕터별 어휘 V-level (distinct lemma p75, V11 제외). 단일 book_v_level 의 챕터 편차 노출용. null=미산출 */
+  chapter_v_level: number | null
 }
 
 export interface ChapterContent {
@@ -48,6 +50,8 @@ export interface WordLookup {
   matchVia: string
   /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
   wordRegister: string | null
+  /** 자주 함께 쓰는 표현 — 툴팁 절제 노출(Progressive Disclosure). 없으면 null */
+  collocations: string[] | null
 }
 
 /**
@@ -76,6 +80,24 @@ export async function lookupWord(
       }
     | undefined
   if (!row) return null
+
+  // 연어 보강 — lookup_word_meaning RPC 미반환이라 해소된 word 로 shared_dictionary 1행 조회.
+  // 툴팁은 단어 1개 on-demand 라 추가 round-trip 허용. 실패해도 조회 결과는 그대로.
+  let collocations: string[] | null = null
+  if (row.found && row.resolved_word) {
+    const { data: cd, error: cErr } = await client
+      .from('shared_dictionary')
+      .select('collocations')
+      .eq('word', row.resolved_word)
+      .maybeSingle()
+    if (cErr) {
+      console.warn('[reader/lookupWord] collocations fetch failed:', cErr.message)
+    } else {
+      const c = (cd as { collocations: string[] | null } | null)?.collocations
+      collocations = c && c.length > 0 ? c : null
+    }
+  }
+
   return {
     found: row.found,
     surface: row.surface,
@@ -87,6 +109,7 @@ export async function lookupWord(
     exampleEn: row.example_en,
     matchVia: row.match_via,
     wordRegister: row.word_register,
+    collocations,
   }
 }
 
@@ -100,7 +123,9 @@ export async function listChapters(
 ): Promise<ChapterListItem[]> {
   const { data, error } = await client
     .from('library_chapters_master')
-    .select('chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets')
+    .select(
+      'chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets, chapter_v_level'
+    )
     .eq('library_book_id', libraryBookId)
     .order('chapter_idx', { ascending: true })
 
@@ -113,6 +138,7 @@ export async function listChapters(
       source_href: string | null
       word_count: number
       paragraph_offsets: number[] | null
+      chapter_v_level: number | null
     }
     return {
       chapter_idx: r.chapter_idx,
@@ -121,6 +147,7 @@ export async function listChapters(
       word_count: r.word_count,
       paragraph_count: r.paragraph_offsets?.length ?? 0,
       source_href: r.source_href ?? null,
+      chapter_v_level: r.chapter_v_level ?? null,
     }
   })
 }

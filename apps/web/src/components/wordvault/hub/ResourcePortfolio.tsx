@@ -17,6 +17,8 @@ import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import { unsubscribeSet } from '@/app/(main)/library/vocab/actions'
+import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
 import {
   Frame,
   InsetGroup,
@@ -24,6 +26,7 @@ import {
   SegmentControl,
 } from '@/components/ui/ios'
 import type { SegmentItem } from '@/components/ui/ios'
+import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { createClient } from '@/lib/supabase/client'
 
 interface BookEntry {
@@ -54,6 +57,11 @@ interface SetEntry {
   wordCount: number
   chapters?: number
   href: string
+  /** 단일 공용단어장이면 그 set_id — 있으면 행 탭 시 챕터 학습 모달(VocabSetPreviewModal) 오픈. */
+  setId?: string
+  coverEmoji?: string | null
+  category?: string | null
+  cefrLevel?: string | null
 }
 
 type State =
@@ -75,6 +83,50 @@ const TAB_META: Record<Tab, { label: string; icon: LucideIcon; color: string }> 
 export function ResourcePortfolio() {
   const [state, setState] = useState<State>({ kind: 'loading' })
   const [tab, setTab] = useState<Tab>('books')
+  // 단일 공용단어장 행 탭 → 챕터 학습 모달(게임 런처). 학습자는 이미 구독 → 모달 CTA=구독 해지.
+  const [preview, setPreview] = useState<PublishedVocabSet | null>(null)
+  const [pendingUnsub, setPendingUnsub] = useState(false)
+
+  // SetEntry(경량 메타) → 모달이 요구하는 PublishedVocabSet 최소 형태로 승격(모달은 id/title/wordCount/coverEmoji만 사용).
+  function openSet(s: SetEntry) {
+    if (!s.setId) return
+    setPreview({
+      id: s.setId,
+      title: s.title,
+      description: null,
+      category: (s.category ?? 'themed') as PublishedVocabSet['category'],
+      categoryNode: null,
+      additionalCategoryIds: [],
+      cefrLevel: s.cefrLevel ?? null,
+      coverEmoji: s.coverEmoji ?? null,
+      sortOrder: 0,
+      wordCount: s.wordCount,
+      subscriberCount: 0,
+      createdAt: new Date(0).toISOString(),
+    })
+  }
+
+  // 모달 CTA(구독 해지) — 확인 후 해지, 성공 시 목록에서 제거 + 모달 닫기. 학습 기록은 서버에서 보존.
+  async function handleUnsub(set: PublishedVocabSet) {
+    const ok = window.confirm(
+      `"${set.title}" 구독을 해지할까요?\n· 단어장이 내 목록에서 빠집니다.\n· 이미 학습한 단어·기록은 보존돼요.`,
+    )
+    if (!ok) return
+    setPendingUnsub(true)
+    try {
+      const res = await unsubscribeSet(set.id)
+      if (res.ok) {
+        setState((prev) =>
+          prev.kind === 'ready'
+            ? { ...prev, sets: prev.sets.filter((x) => x.setId !== set.id) }
+            : prev,
+        )
+        setPreview(null)
+      }
+    } finally {
+      setPendingUnsub(false)
+    }
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -212,11 +264,12 @@ export function ResourcePortfolio() {
         category: string | null
         curation_query: Record<string, unknown> | null
         cefr_level: string | null
+        cover_emoji: string | null
       }> = []
       if (setIds.length > 0) {
         const { data } = await supabase
           .from('shared_word_sets')
-          .select('id, title, category, curation_query, cefr_level')
+          .select('id, title, category, curation_query, cefr_level, cover_emoji')
           .in('id', setIds)
         setsRows = (data ?? []) as typeof setsRows
       }
@@ -280,12 +333,34 @@ export function ResourcePortfolio() {
             : '/wordvault/browse',
         })
       }
+      // 내부 챕터(shared_words.chapter) 보유 세트만 학습 모달(챕터 런처)로 라우팅 — 챕터 없는 세트는
+      //   모달이 10개 미리보기뿐이라 기존 '단어 브라우저' 링크가 더 유용. 표준 subscribed 세트는 소수라
+      //   set_id만 선택하는 단일 쿼리로 충분(챕터형 세트=교육과정류 ≤1184단어).
+      const chapteredSetIds = new Set<string>()
+      const otherSetIds = otherSets.map((s) => s.id)
+      if (otherSetIds.length > 0) {
+        const { data: chRows } = await supabase
+          .from('shared_words')
+          .select('set_id')
+          .in('set_id', otherSetIds)
+          .not('chapter', 'is', null)
+          .limit(10000)
+        for (const r of (chRows ?? []) as Array<{ set_id: string }>) {
+          chapteredSetIds.add(r.set_id)
+        }
+      }
+
       for (const s of otherSets) {
         const wc = countsPerSet.get(s.id) ?? 0
+        const chaptered = chapteredSetIds.has(s.id)
         sets.push({
           title: s.title,
           wordCount: wc,
           href: `/wordvault/browse?filter=set:${s.id}`,
+          // 챕터형 세트만 setId 부여 → 행 탭 시 챕터 학습 모달. 그 외는 href(단어 브라우저) 유지.
+          ...(chaptered
+            ? { setId: s.id, coverEmoji: s.cover_emoji, category: s.category, cefrLevel: s.cefr_level }
+            : {}),
         })
       }
       sets.sort((a, b) => b.wordCount - a.wordCount)
@@ -328,6 +403,7 @@ export function ResourcePortfolio() {
   }))
 
   return (
+    <>
     <Frame title="학습 자산">
       <SegmentControl
         ariaLabel="자산 종류"
@@ -391,12 +467,19 @@ export function ResourcePortfolio() {
           ) : (
             sets.slice(0, 5).map((s, i) => (
               <InsetRow
-                key={s.bookId ?? `set-${i}`}
-                href={s.href}
+                key={s.setId ?? s.bookId ?? `set-${i}`}
+                // 단일 세트 → 챕터 학습 모달 오픈 · 도서 묶음 세트 → 단어 브라우저로 이동(기존)
+                {...(s.setId ? { onClick: () => openSet(s) } : { href: s.href })}
                 icon={<Library size={14} aria-hidden />}
                 iconBg={TAB_META.sets.color}
                 title={s.title}
-                subtitle={s.chapters != null ? `${s.chapters}장${s.author ? ` · ${s.author}` : ''}` : '공용 단어장'}
+                subtitle={
+                  s.chapters != null
+                    ? `${s.chapters}장${s.author ? ` · ${s.author}` : ''}`
+                    : s.setId
+                      ? '공용 단어장 · 탭하면 챕터 학습'
+                      : '공용 단어장'
+                }
                 metaRight={`${NF.format(s.wordCount)}개`}
               />
             ))
@@ -404,6 +487,17 @@ export function ResourcePortfolio() {
         </InsetGroup>
       )}
     </Frame>
+
+      {/* 챕터 학습 모달 — /library/vocab 과 동일 컴포넌트 재사용(챕터 아코디언 + 게임별 런처). from=/wordvault 복귀. */}
+      <VocabSetPreviewModal
+        set={preview}
+        isSubscribed
+        isPending={pendingUnsub}
+        onToggle={handleUnsub}
+        onClose={() => setPreview(null)}
+        fromPath="/wordvault"
+      />
+    </>
   )
 }
 

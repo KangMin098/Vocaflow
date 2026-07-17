@@ -21,6 +21,14 @@ export type SourceKey =
   | 'wikinews'
   | 'the_conversation'
   | 'simple_wikipedia'
+  | 'owid'
+  | 'factbook'
+  | 'elife'
+  | 'wikipedia'
+  | 'plos'
+  | 'wikivoyage'
+  | 'usgs'
+  | 'noaa'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -251,6 +259,95 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 250,
     noiseKeywords: ['disambiguation', 'list of'],
     maxItems: 30,
+  },
+  // T-2 — Our World in Data: 데이터 논증문(B2-C1), CC-BY 4.0. atom feed(live).
+  owid: {
+    recencyDays: 365,      // 연구 기사 — stale 관대 (뉴스 아님)
+    minDescriptionLen: 100,
+    minTitleLen: 20,
+    sourceWeight: 0.82,    // 고품질 데이터 산문 (the_conversation 0.75 < owid < simple 0.85)
+    levelBonus: 0,         // B2-C1 (입문 아님)
+    idealDescLen: 300,
+    noiseKeywords: ['tool', 'chart', 'data page', 'grapher', 'explorer'], // 인터랙티브/데이터 전용 제외
+    maxItems: 15,
+  },
+  // CIA World Factbook: 국가 개요(Background) reference 참고문(B1-B2), public_domain. 정적 국가 리스트.
+  factbook: {
+    recencyDays: 9999,     // 국가 개요 — 시간 무관 (timeless reference)
+    minDescriptionLen: 40, // 정적 picker 설명(짧음) 통과
+    minTitleLen: 3,        // "Iran" 등 짧은 국가명
+    sourceWeight: 0.80,
+    levelBonus: 0.05,      // B1-B2 접근성
+    idealDescLen: 200,
+    noiseKeywords: [],
+    maxItems: 30,
+  },
+  // eLife digest: 편집자 저작 plain-language 과학 요약(B2-C1), CC-BY. API list(live).
+  elife: {
+    recencyDays: 3650,     // 연구 요약 — stale 관대 (뉴스 아님)
+    minDescriptionLen: 20, // impactStatement 짧음 (한 문장)
+    minTitleLen: 15,
+    sourceWeight: 0.80,    // 인간저작 균질 산문 (품질 ↑)
+    levelBonus: 0,         // B2-C1 (과학 어휘)
+    idealDescLen: 150,
+    noiseKeywords: ['correction', 'retraction', 'editorial'],
+    maxItems: 20,
+  },
+  // English Wikipedia 정규: FA/GA 고급 백과(B2-C1), CC-BY-SA. MediaWiki categorymembers.
+  wikipedia: {
+    recencyDays: 9999,     // 백과 — 시간 무관
+    minDescriptionLen: 60,
+    minTitleLen: 3,
+    sourceWeight: 0.82,    // 고급 백과 (품질 검수분)
+    levelBonus: -0.05,     // C1 (고급 — 입문 아님)
+    idealDescLen: 250,
+    noiseKeywords: ['disambiguation', 'list of'],
+    maxItems: 30,
+  },
+  // PLOS: CC-BY 오픈 학술 논문(C1-C2), S4 킬러급. solr API list.
+  plos: {
+    recencyDays: 3650,     // 연구 — stale 관대
+    minDescriptionLen: 100,
+    minTitleLen: 20,
+    sourceWeight: 0.75,    // C2 학술 (좁음)
+    levelBonus: -0.10,     // C2 (매우 어려움)
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum'],
+    maxItems: 15,
+  },
+  // Wikivoyage: 여행 가이드(B1-B2 접근형), CC-BY-SA. reference 밴드 보강. MediaWiki.
+  wikivoyage: {
+    recencyDays: 9999,     // 여행 가이드 — 시간 무관
+    minDescriptionLen: 60,
+    minTitleLen: 3,
+    sourceWeight: 0.82,    // 실용·흥미 (학습자 친화)
+    levelBonus: 0.05,      // B1-B2 접근성
+    idealDescLen: 250,
+    noiseKeywords: ['disambiguation', 'itinerary list'],
+    maxItems: 30,
+  },
+  // USGS: 지구과학·자연재해 과학 저널리즘(B2), PD(US Gov → 발행 허용). expository. Drupal HTML.
+  usgs: {
+    recencyDays: 730,      // 과학 스토리 — stale 관대 (뉴스보다 timeless)
+    minDescriptionLen: 60, // 카드 teaser ~145자
+    minTitleLen: 12,
+    sourceWeight: 0.84,    // PD + 흥미(재해·화산·광물) + 접근형 과학 문체
+    levelBonus: 0,         // B2 (NASA 유사 난이도)
+    idealDescLen: 200,
+    noiseKeywords: ['media alert', 'advisory'],
+    maxItems: 24,
+  },
+  // NOAA Climate.gov: 기후과학 explainer(B2-C1), PD(US Gov → 발행 허용). expository. Drupal HTML.
+  //   리스트 teaser 부재 → description=title(짧음) → minDescriptionLen 낮춤.
+  noaa: {
+    recencyDays: 3650,     // 기후 explainer — timeless (뉴스 아님)
+    minDescriptionLen: 12, // desc=title 대체 (teaser 없음)
+    minTitleLen: 12,
+    sourceWeight: 0.83,    // PD + CSAT 최빈출 주제(기후) + 접근형 과학 문체
+    levelBonus: -0.05,     // B2-C1 (과학 어휘)
+    idealDescLen: 60,      // title 길이 기준
+    noiseKeywords: ['outlook', 'event tracker', 'interactive map'],
+    maxItems: 24,
   },
 }
 
@@ -523,6 +620,135 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'good', weight: 0.40 },          // Good articles 카테고리
     ],
   },
+  // T-2 — Our World in Data: 데이터 기반 논증문, CC-BY 4.0 (파생 허용 → 단어세트 발행),
+  //   B2-C1, CSAT 지문 유사. argumentative register 를 발행 가능 콘텐츠로 보강.
+  owid: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 15,
+    minScore: 0.42,
+    bulkPriority: 6,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,        // CC-BY — OWID 저자·출처 인용
+    topicDomain: ['data', 'economics', 'global-development', 'health', 'environment', 'analysis'],
+    styleGuide: '데이터 기반 논증문 (연구·글로벌 지표) · CSAT 지문 유사 · 파생 허용(CC-BY)',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
+  // CIA World Factbook: 국가 개요 reference 참고문, PD(파생 자유 → 발행 허용), B1-B2.
+  //   reference register 매트릭스 빈칸 보강.
+  factbook: {
+    targetLevels: ['intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 8,
+    license: 'Public Domain (US Government)',
+    attributionRequired: false,       // PD US Gov — 인용 자유
+    topicDomain: ['reference', 'geography', 'countries', 'history', 'politics'],
+    styleGuide: '국가 개요(배경) 참고문 · reference register · CSAT 설명/참고 지문 유형',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
+  // eLife digest: 편집자 저작 plain-language 과학 요약, CC-BY(파생 허용), B2-C1. expository 과학.
+  elife: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 20,
+    minScore: 0.42,
+    bulkPriority: 4,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,        // CC-BY — eLife 저자·출처 인용
+    topicDomain: ['science', 'biology', 'medicine', 'neuroscience', 'genetics', 'ecology'],
+    styleGuide: '편집자 저작 plain-language 연구 요약 (인간저작 균질 산문) · 최신 생명과학',
+    preferredFeedMix: [
+      { feedId: 'all', weight: 1.00 },
+    ],
+  },
+  // English Wikipedia 정규: FA/GA 고급 백과, CC-BY-SA(파생 허용), B2-C1. 광범위 주제.
+  wikipedia: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 7,
+    license: 'CC-BY-SA-4.0',
+    attributionRequired: true,
+    topicDomain: ['reference', 'science', 'history', 'culture', 'biography', 'geography'],
+    styleGuide: '정규 백과 (FA/GA 검수분) · 광범위 주제 · B2-C1 고급 다독 (Simple 대비 심화)',
+    preferredFeedMix: [
+      { feedId: 'featured', weight: 0.55 },
+      { feedId: 'good', weight: 0.45 },
+    ],
+  },
+  // PLOS: CC-BY 오픈 학술 논문, C1-C2 심화(S4 킬러급). abstract+본문 산문(methods/refs 스트립).
+  plos: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 15,
+    minScore: 0.40,
+    bulkPriority: 9,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'biology', 'medicine', 'research', 'genetics'],
+    styleGuide: 'CC-BY 오픈 학술 논문 산문 (C1-C2) · S4 킬러급 심화 다독 (methods/refs 제외)',
+    preferredFeedMix: [
+      { feedId: 'recent', weight: 1.00 },
+    ],
+  },
+  // Wikivoyage: 여행 목적지 가이드, CC-BY-SA(파생 허용), B1-B2. reference 밴드 보강(흥미↑).
+  wikivoyage: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 30,
+    minScore: 0.40,
+    bulkPriority: 8,
+    license: 'CC-BY-SA-4.0',
+    attributionRequired: true,
+    topicDomain: ['travel', 'geography', 'culture', 'reference', 'cities'],
+    styleGuide: '여행 목적지 가이드 (Star/Guide 검수분) · B1-B2 실용 산문 · reference (흥미·실용)',
+    preferredFeedMix: [
+      { feedId: 'star', weight: 0.5 },
+      { feedId: 'guide', weight: 0.5 },
+    ],
+  },
+  // USGS: 지구과학·자연재해 과학 저널리즘, PD(US Gov → 발행 허용 · 인용 자유), B2.
+  //   신규 도메인(지진·화산·허리케인·광물) — NASA(우주)·NIH(건강)과 구별. expository 보강.
+  usgs: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 24,
+    minScore: 0.42,
+    bulkPriority: 5,
+    license: 'Public Domain (US Government)',
+    attributionRequired: false,       // PD US Gov — 인용 자유
+    topicDomain: ['earth-science', 'natural-hazards', 'geology', 'environment', 'science'],
+    styleGuide: '지구과학·자연재해 과학 저널리즘 (접근형 설명문) · 지진·화산·허리케인·광물 · PD',
+    preferredFeedMix: [
+      { feedId: 'featured', weight: 0.65 },   // 장문 featured stories
+      { feedId: 'snippets', weight: 0.35 },   // 단문 science snippets
+    ],
+  },
+  // NOAA Climate.gov: 기후과학 explainer, PD(US Gov → 발행 허용 · 인용 자유), B2-C1.
+  //   신규 도메인 climate-science(대기 CO₂·해양 열용량·온난화·빙하) — CSAT 최빈출 주제.
+  //   USGS(지질·재해)·NASA(우주)와 구별. expository 보강.
+  noaa: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 24,
+    minScore: 0.40,
+    bulkPriority: 5,
+    license: 'Public Domain (US Government)',
+    attributionRequired: false,       // PD US Gov — 인용 자유
+    topicDomain: ['climate-science', 'environment', 'atmosphere', 'ocean', 'science'],
+    styleGuide: '기후과학 explainer (접근형 설명문) · 대기 CO₂·해양·온난화·빙하 · CSAT 최빈출 · PD',
+    preferredFeedMix: [
+      { feedId: 'understanding-climate', weight: 0.7 },  // 기후 explainer
+      { feedId: 'features', weight: 0.3 },               // 기후 피처 기사
+    ],
+  },
 }
 
 /**
@@ -535,9 +761,9 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'nasa', 'wikinews', 'nih', 'the_conversation'],
-  advanced:     ['the_conversation', 'nih', 'nasa', 'wikinews', 'voa', 'simple_wikipedia'],
+  beginner:     ['voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
+  intermediate: ['voa', 'simple_wikipedia', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -545,6 +771,53 @@ export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<Source
  */
 export function getSourceSpec(source: SourceKey): SourceSpec {
   return SOURCE_SPECS[source]
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ARTICLE REGISTER (글 유형) — feed-level 우선, source 기본값 폴백.
+// ─────────────────────────────────────────────────────────────────
+// dev-process 의 register 태깅 단일 출처. 소스 단위 오분류 교정:
+//   VOA 는 피드마다 글 유형이 달라(news/narrative/expository) 소스 단위 'news' 는 틀림.
+//   american-stories·lets-learn-english = narrative(서사 register 공백 보강),
+//   science-technology·health-lifestyle·words-and-their-stories = expository.
+// ═══════════════════════════════════════════════════════════════════
+
+/** feed(`source:feedId`) → register override. 없는 feed 는 SOURCE_REGISTER_DEFAULT 폴백. */
+export const FEED_REGISTER: Record<string, string> = {
+  'voa:lets-learn-english': 'narrative', // Anna 연속 드라마 (Level 1 · 서사)
+  'voa:american-stories': 'narrative', // 고전 단편 각색 (서사)
+  'voa:words-and-their-stories': 'expository', // 관용구 어원 설명
+  'voa:science-technology': 'expository', // 과학·기술 설명
+  'voa:health-lifestyle': 'expository', // 건강·생활 설명
+  // voa:as-it-is = 시사 → source 기본값('news')
+}
+
+/** source → register 기본값 (feed override 없을 때). */
+export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
+  voa: 'news',
+  nasa: 'expository',
+  nih: 'expository',
+  medlineplus: 'expository',
+  simple_wikipedia: 'expository',
+  the_conversation: 'argumentative',
+  wikinews: 'news',
+  owid: 'argumentative',
+  factbook: 'reference',
+  elife: 'expository', // 편집자 저작 과학 요약 (설명문)
+  wikipedia: 'expository', // 정규 백과 (설명문)
+  plos: 'expository', // 학술 논문 산문 (설명문)
+  wikivoyage: 'reference', // 여행 목적지 가이드 (참고 — Factbook 동류)
+  usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
+  noaa: 'expository', // 기후과학 explainer (설명문)
+}
+
+/** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
+export function resolveArticleRegister(source: string, feedId?: string | null): string {
+  if (feedId) {
+    const r = FEED_REGISTER[`${source}:${feedId}`]
+    if (r) return r
+  }
+  return SOURCE_REGISTER_DEFAULT[source] ?? 'expository'
 }
 
 /**
@@ -739,6 +1012,14 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   wikinews: getSourcePolicy('wikinews'),
   the_conversation: getSourcePolicy('the_conversation'),
   simple_wikipedia: getSourcePolicy('simple_wikipedia'),
+  owid: getSourcePolicy('owid'),
+  factbook: getSourcePolicy('factbook'),
+  elife: getSourcePolicy('elife'),
+  wikipedia: getSourcePolicy('wikipedia'),
+  plos: getSourcePolicy('plos'),
+  wikivoyage: getSourcePolicy('wikivoyage'),
+  usgs: getSourcePolicy('usgs'),
+  noaa: getSourcePolicy('noaa'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

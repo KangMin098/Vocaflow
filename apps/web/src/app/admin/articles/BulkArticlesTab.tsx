@@ -16,17 +16,25 @@
 
 import {
   AlertCircle,
+  BarChart3,
   BookText,
   Calendar,
   CheckCircle2,
   CheckSquare,
   ChevronDown,
   ChevronRight,
+  CloudSun,
+  Dna,
   Download,
   ExternalLink,
   FlaskConical,
+  Globe,
+  Library,
   Loader2,
+  MapPin,
   MessageSquareText,
+  Microscope,
+  Mountain,
   Newspaper,
   Plus,
   Radio,
@@ -143,6 +151,10 @@ const SOURCES: SourceConfig[] = [
       { id: 'medlineplus', label: 'MedlinePlus' },
       { id: 'directors-blog', label: "Director's Blog" },
     ],
+    // v06.246 — 전수 테스트 실측(2026-07-13): News RSS 403 차단 · Director's Blog 연결불가 ·
+    //   MedlinePlus whatsnew 원본 1건뿐 → 3 feed 모두 후보 0. URL 직접 입력 권장.
+    health: 'unstable',
+    healthNote: 'News RSS 403 차단 · Director\'s Blog 연결 불가 · MedlinePlus 항목 희소 — URL 직접 입력 권장',
   },
   // v06.69 — arXiv 제거 (사용자 명시: "플랫폼 전체에서 삭제").
   // v06.66 — Simple English Wikipedia (A2-B1 통제 어휘, MediaWiki API categorymembers)
@@ -182,6 +194,75 @@ const SOURCES: SourceConfig[] = [
       { id: 'politics', label: 'Politics + Society' },
     ],
   },
+  // v06.163~ 신규 소스 — 대량 GET 배선
+  {
+    key: 'owid',
+    label: 'Our World in Data',
+    Icon: BarChart3,
+    color: 'var(--info)',
+    feeds: [{ id: 'all', label: 'All articles (논증·데이터)' }],
+  },
+  {
+    key: 'factbook',
+    label: 'CIA World Factbook',
+    Icon: Globe,
+    color: 'var(--memory-stable)',
+    feeds: [{ id: 'all', label: 'Countries (35 · reference)' }],
+  },
+  {
+    key: 'elife',
+    label: 'eLife',
+    Icon: Microscope,
+    color: 'var(--learn-fresh)',
+    feeds: [{ id: 'all', label: 'Recent digests (과학)' }],
+  },
+  {
+    key: 'wikipedia',
+    label: 'Wikipedia',
+    Icon: Library,
+    color: 'var(--learn-known)',
+    feeds: [
+      { id: 'featured', label: 'Featured Articles' },
+      { id: 'good', label: 'Good Articles' },
+    ],
+  },
+  {
+    key: 'plos',
+    label: 'PLOS',
+    Icon: Dna,
+    color: 'var(--info)',
+    feeds: [{ id: 'recent', label: 'Recent (오픈 학술 · C2)' }],
+  },
+  {
+    key: 'wikivoyage',
+    label: 'Wikivoyage',
+    Icon: MapPin,
+    color: 'var(--memory-stable)',
+    feeds: [
+      { id: 'star', label: 'Star Articles (여행)' },
+      { id: 'guide', label: 'Guide Articles (여행)' },
+    ],
+  },
+  {
+    key: 'usgs',
+    label: 'USGS',
+    Icon: Mountain,
+    color: 'var(--learn-known)',
+    feeds: [
+      { id: 'featured', label: 'Featured Stories (지구과학)' },
+      { id: 'snippets', label: 'Science Snippets (지구과학)' },
+    ],
+  },
+  {
+    key: 'noaa',
+    label: 'NOAA Climate.gov',
+    Icon: CloudSun,
+    color: 'var(--info)',
+    feeds: [
+      { id: 'understanding-climate', label: 'Understanding Climate (기후)' },
+      { id: 'features', label: 'Features (기후)' },
+    ],
+  },
 ]
 
 interface Props {
@@ -204,13 +285,13 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation'],
-  advanced: ['the_conversation', 'simple_wikipedia'],
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage', 'usgs', 'noaa'],
+  advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia', 'usgs', 'noaa'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',
-  all: '전체 (6 소스)',
-  advanced: '고급 (학자 논증 · 백과)',
+  all: '전체 (14 소스)',
+  advanced: '고급 (논증 · 과학 · 백과)',
 }
 
 // v06.74 — article 단계 → badge 표시 메타
@@ -736,7 +817,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 key={lv}
                 type="button"
                 onClick={() => setLearnerLevel(lv)}
-                className={`rounded-[var(--r-sm)] px-2.5 py-0.5 font-display text-[11px] font-[600] transition-all ${
+                className={`rounded-[var(--r-sm)] px-2.5 py-0.5 font-display text-[11px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   learnerLevel === lv
                     ? 'bg-[var(--p)] text-[var(--ti)]'
                     : 'text-[var(--t3)] hover:text-[var(--t1)]'
@@ -753,7 +834,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           <button
             type="button"
             onClick={() => setFiltersExpanded((v) => !v)}
-            className="flex w-full items-center justify-between gap-2 rounded-[var(--r-sm)] px-3 py-2 text-left font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+            className="flex w-full items-center justify-between gap-2 rounded-[var(--r-sm)] px-3 py-2 text-left font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <span>🎚 결과 조건 (글로벌 필터 override)</span>
             <span className="font-mono text-[10px] text-[var(--t3)]">
@@ -903,7 +984,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-mono text-[9px] font-[700]"
                     style={{
                       background: active ? s.color : 'var(--bg2)',
-                      color: active ? 'white' : 'var(--t3)',
+                      color: active ? 'var(--ti)' : 'var(--t3)',
                     }}
                   >
                     {s.priority}
@@ -1060,7 +1141,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             type="button"
             onClick={handleBulkFetch}
             disabled={fetching || selectedSources.size === 0}
-            className="inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+            className="inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
           >
             {fetching ? (
               <Loader2 size={12} className="animate-spin" />
@@ -1281,7 +1362,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               <button
                 type="button"
                 onClick={() => setSortBy('score')}
-                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all ${
+                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   sortBy === 'score'
                     ? 'bg-[var(--p)] text-[var(--ti)]'
                     : 'text-[var(--t3)] hover:text-[var(--t1)]'
@@ -1293,7 +1374,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               <button
                 type="button"
                 onClick={() => setSortBy('date')}
-                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all ${
+                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   sortBy === 'date'
                     ? 'bg-[var(--p)] text-[var(--ti)]'
                     : 'text-[var(--t3)] hover:text-[var(--t1)]'
@@ -1337,7 +1418,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 type="button"
                 onClick={() => handleDeleteRows()}
                 disabled={deleting || selected.size === 0}
-                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"
+                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)] disabled:opacity-50"
                 title="선택 항목을 seed_catalog 에서 숨기거나 (미발행) library_articles 영구 삭제 (큐 진행 중)"
               >
                 {deleting ? (
@@ -1351,7 +1432,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 type="button"
                 onClick={handleBulkEnqueue}
                 disabled={enqueuing || selected.size === 0}
-                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[700] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[700] text-[var(--ti)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
               >
                 {enqueuing ? (
                   <Loader2 size={11} className="animate-spin" />
@@ -1488,7 +1569,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       key={opt}
                       type="button"
                       onClick={() => setListFilters((f) => ({ ...f, publishStatus: opt }))}
-                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all ${
+                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         listFilters.publishStatus === opt
                           ? 'bg-[var(--p)] text-[var(--ti)]'
                           : 'text-[var(--t3)] hover:text-[var(--t1)]'
@@ -1511,7 +1592,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       key={opt}
                       type="button"
                       onClick={() => setListFilters((f) => ({ ...f, audioStatus: opt }))}
-                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all ${
+                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         listFilters.audioStatus === opt
                           ? 'bg-[var(--p)] text-[var(--ti)]'
                           : 'text-[var(--t3)] hover:text-[var(--t1)]'

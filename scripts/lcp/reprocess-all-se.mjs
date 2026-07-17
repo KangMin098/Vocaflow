@@ -101,7 +101,7 @@ for (const bk of targets) {
           status_message: null,
         })
         .eq('id', bk.id)
-      for (const fn of ['backfill_book_lemmas', 'compute_book_vrl', 'compute_book_cefrj', 'compute_book_coverage']) {
+      for (const fn of ['backfill_book_lemmas', 'compute_book_vrl', 'compute_book_chapter_v_levels', 'compute_book_cefrj', 'compute_book_coverage']) {
         try { await db.rpc(fn, { p_book_id: bk.id }) } catch { /* best-effort */ }
       }
       console.log(

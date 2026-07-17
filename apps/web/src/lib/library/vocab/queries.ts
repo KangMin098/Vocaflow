@@ -49,6 +49,8 @@ export interface PublishedVocabSet {
   sortOrder: number
   /** shared_words 실측 단어 수 (캐시 word_count 가 stale 한 경우 보정). */
   wordCount: number
+  /** 구독자 수 (denormalized · 사용빈도/인기 랭킹용). */
+  subscriberCount: number
   createdAt: string
 }
 
@@ -57,6 +59,17 @@ export interface SamplePreviewWord {
   meaningKo: string
   partOfSpeech: string | null
   cefrLevel: string | null
+}
+
+/**
+ * 개인 맞춤 추천 (recommend_word_sets_for_user RPC 결과 — 진단 V-level/track 기반).
+ * recommendation_type: primary(메인)/stretch(도전)/review(보강)/specialty(관심)/fallback.
+ */
+export interface RecommendedSet {
+  set_id: string
+  recommendation_type: string
+  reason: string
+  priority: number
 }
 
 /**
@@ -78,6 +91,7 @@ interface SharedSetRow {
   cover_emoji: string | null
   sort_order: number | null
   word_count: number | null
+  subscriber_count?: number | null
   created_at: string | null
   category_id?: string | null
   additional_category_ids?: string[] | null
@@ -86,26 +100,31 @@ interface SharedSetRow {
 export async function fetchPublishedSets(
   supabase: SupabaseClient<DB>,
 ): Promise<PublishedVocabSet[]> {
-  const { data, error } = await supabase
+  // subscriber_count 는 방금 추가된 컬럼 — database.ts 재생성 전이라 loose client 로 select
+  const sb = supabase as unknown as SupabaseClient
+  const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, category_id, additional_category_ids',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids',
     )
     .eq('is_published', true)
-    // 도서 챕터 단어장(category='library_book')은 공용 단어장 영역에 노출 X.
-    // 도서 컨텍스트(/library/scripts/{book_id} · /admin/curation/{book_id})에서만 노출.
+    // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
+    //   · library_book  : 도서 챕터 어휘 → /library/books · /admin/curation
+    //   · library_article: 스크립트(글) 어휘 → 스크립트 컨텍스트 (저큐레이션·다수라 클러터)
     .neq('category', 'library_book')
+    .neq('category', 'library_article')
     .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
 
   if (error) {
     // 마이그레이션 미적용 환경에선 category_id/additional_category_ids 컬럼이 없어
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
-    const fallback = await supabase
+    const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at')
       .eq('is_published', true)
       .neq('category', 'library_book')
+      .neq('category', 'library_article')
       .order('sort_order', { ascending: true })
       .order('created_at', { ascending: false })
     if (fallback.error) throw fallback.error
@@ -168,6 +187,7 @@ async function enrichSets(
     coverEmoji: s.cover_emoji,
     sortOrder: s.sort_order ?? 0,
     wordCount: counts.get(s.id) ?? s.word_count ?? 0,
+    subscriberCount: s.subscriber_count ?? 0,
     createdAt: s.created_at ?? new Date(0).toISOString(),
   }))
 }

@@ -1,14 +1,15 @@
 // apps/web/src/components/library/browse/BookFilterBar.tsx
 //
-// 도서 탐색 필터/정렬 바.
-//   기본: 검색 · 정렬 · 나에게(i+1, 진단 시) · 레벨(V) · 장르 · 길이 · 오디오
-//   상세 필터 disclosure: 주제(테마) · 연령
+// 도서 탐색 필터/정렬 바 — "항상 펼친 상세 패널" 재설계 (v06.35).
+//   상단: 검색 · 정렬 · 결과수 · 초기화
+//   구획(항상 노출, facet-adaptive): 내 학습 상태 · 나에게(i+1) · 레벨 · 장르 · 주제 · 연령 · 길이 · 음성
+// 이전 "묶음 한 카드 + 상세 disclosure" 를 라벨 구획으로 분리해 각 조건을 또렷하게.
 // 레벨 단위 = V-Level (CEFR 는 카드 배지 보조). 상태는 BooksExplorer 소유, facets 로 실재 값만 노출.
 
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown, Search, SlidersHorizontal, X } from 'lucide-react'
+import { Search, SlidersHorizontal, X } from 'lucide-react'
 
 import {
   AGE_BANDS,
@@ -23,8 +24,13 @@ import {
 } from '@/lib/library/genres'
 import type { IPlusOneTier } from '@/lib/library/i-plus-one'
 
+/** 내 학습 상태 필터 — 로그인 + enrollment 존재 시에만 노출 */
+export type EnrollFilter = 'mine' | 'in_progress' | 'completed'
+
 export interface BookFilters {
   search: string
+  /** 내 학습 상태 (로그인 + 등록 도서 존재 시 유효) */
+  enroll: EnrollFilter | null
   /** i+1 적합도 (진단 사용자만 유효) */
   fit: IPlusOneTier | null
   vBand: VBand | null
@@ -39,6 +45,7 @@ export type BookSort = 'recommended' | 'easy' | 'hard' | 'short' | 'popular' | '
 
 export const EMPTY_FILTERS: BookFilters = {
   search: '',
+  enroll: null,
   fit: null,
   vBand: null,
   genre: null,
@@ -47,6 +54,12 @@ export const EMPTY_FILTERS: BookFilters = {
   length: null,
   audioOnly: false,
 }
+
+const ENROLL_OPTIONS: { key: EnrollFilter; label: string }[] = [
+  { key: 'mine', label: '내 서재' },
+  { key: 'in_progress', label: '학습 중' },
+  { key: 'completed', label: '완료' },
+]
 
 const FIT_OPTIONS: { key: IPlusOneTier; label: string }[] = [
   { key: 'ideal', label: '딱 맞아요' },
@@ -63,14 +76,17 @@ const SORT_OPTIONS: { key: BookSort; label: string }[] = [
   { key: 'new', label: '신규순' },
 ]
 
-const THEME_PREVIEW = 8
+const THEME_PREVIEW = 10
 
 export interface FacetData {
   vBands: VBand[]
   genres: GenreBucket[]
   themes: string[]
   ages: AgeBand[]
+  lengths: LengthBucket[]
   hasAudio: boolean
+  /** 로그인 사용자가 등록(내 서재)한 도서가 하나라도 있는지 */
+  hasEnrollments: boolean
 }
 
 interface Props {
@@ -112,13 +128,14 @@ function Chip({
   )
 }
 
-function Group({ label, children }: { label: string; children: React.ReactNode }) {
+/** 라벨 구획 — 좌측 고정폭 라벨 + 칩 묶음. 각 조건을 또렷한 compartment 로 분리. */
+function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <span className="mr-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+    <div className="flex flex-col gap-1.5 px-3.5 py-2.5 sm:flex-row sm:items-start sm:gap-3">
+      <span className="shrink-0 pt-1 font-display text-[11px] font-[700] text-[var(--t2)] sm:w-[56px]">
         {label}
       </span>
-      {children}
+      <div className="flex flex-1 flex-wrap items-center gap-1.5">{children}</div>
     </div>
   )
 }
@@ -135,11 +152,11 @@ export function BookFilterBar({
   userVLevel,
   onReset,
 }: Props) {
-  const [detailOpen, setDetailOpen] = useState(false)
   const [allThemes, setAllThemes] = useState(false)
 
   const hasActive =
     filters.search.trim() !== '' ||
+    filters.enroll !== null ||
     filters.fit !== null ||
     filters.vBand !== null ||
     filters.genre !== null ||
@@ -157,12 +174,11 @@ export function BookFilterBar({
     if (filters.theme && !head.includes(filters.theme)) return [filters.theme, ...head]
     return head
   })()
-  const hasDetail = facets.themes.length > 0 || facets.ages.length > 0
 
   return (
-    <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60 p-3.5">
-      {/* Row 1 — 검색 + 정렬 + 결과수 */}
-      <div className="flex flex-wrap items-center gap-2.5">
+    <div className="flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60">
+      {/* 상단 — 검색 + 정렬 + 초기화 + 결과수 */}
+      <div className="flex flex-wrap items-center gap-2.5 p-3.5">
         <div className="relative min-w-[180px] flex-1">
           <Search
             size={14}
@@ -198,63 +214,130 @@ export function BookFilterBar({
           </select>
         </div>
 
-        <span className="ml-auto whitespace-nowrap font-mono text-[11.5px] text-[var(--t3)]">
+        {hasActive && (
+          <button
+            type="button"
+            onClick={onReset}
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5 font-display text-[11px] font-[600] text-[var(--t3)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+          >
+            <X size={11} aria-hidden /> 초기화
+          </button>
+        )}
+
+        <span className="whitespace-nowrap font-mono text-[11.5px] text-[var(--t3)]">
           <strong className="font-display font-[700] text-[var(--t1)]">{resultCount}</strong>
           {resultCount !== totalCount && ` / ${totalCount}`} 권
         </span>
       </div>
 
-      {/* Row 2 — 기본 필터 그룹 */}
-      <div className="flex flex-col gap-2.5">
-        {diagnosed && (
-          <Group label="나에게">
-            {FIT_OPTIONS.map((o) => (
-              <Chip
-                key={o.key}
-                active={filters.fit === o.key}
-                onClick={() => onChange({ fit: filters.fit === o.key ? null : o.key })}
-              >
-                {o.label}
-              </Chip>
-            ))}
-          </Group>
-        )}
+      {/* 내 학습 상태 — 로그인 + 등록 도서 존재 시 (최상단 구획) */}
+      {facets.hasEnrollments && (
+        <Section label="내 학습">
+          {ENROLL_OPTIONS.map((o) => (
+            <Chip
+              key={o.key}
+              active={filters.enroll === o.key}
+              onClick={() => onChange({ enroll: filters.enroll === o.key ? null : o.key })}
+            >
+              {o.label}
+            </Chip>
+          ))}
+        </Section>
+      )}
 
-        {facets.vBands.length > 0 && (
-          <Group label="레벨">
-            {V_BANDS.filter((b) => facets.vBands.includes(b.key)).map((b) => (
-              <Chip
-                key={b.key}
-                active={filters.vBand === b.key}
-                onClick={() => onChange({ vBand: filters.vBand === b.key ? null : b.key })}
-              >
-                <span className="font-mono">{b.short}</span> {b.label}
-                {myBand === b.key && (
-                  <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1 py-px font-mono text-[8.5px] font-[700] text-white">
-                    내 레벨
-                  </span>
-                )}
-              </Chip>
-            ))}
-          </Group>
-        )}
+      {/* 나에게 — i+1 적합도 (진단 사용자) */}
+      {diagnosed && (
+        <Section label="나에게">
+          {FIT_OPTIONS.map((o) => (
+            <Chip
+              key={o.key}
+              active={filters.fit === o.key}
+              onClick={() => onChange({ fit: filters.fit === o.key ? null : o.key })}
+            >
+              {o.label}
+            </Chip>
+          ))}
+        </Section>
+      )}
 
-        {facets.genres.length > 0 && (
-          <Group label="장르">
-            {GENRE_BUCKETS.filter((g) => facets.genres.includes(g.key)).map((g) => (
-              <Chip
-                key={g.key}
-                active={filters.genre === g.key}
-                onClick={() => onChange({ genre: filters.genre === g.key ? null : g.key })}
-              >
-                <span aria-hidden>{g.emoji}</span> {g.label}
-              </Chip>
-            ))}
-          </Group>
-        )}
+      {/* 레벨 — V 밴드 */}
+      {facets.vBands.length > 0 && (
+        <Section label="레벨">
+          {V_BANDS.filter((b) => facets.vBands.includes(b.key)).map((b) => (
+            <Chip
+              key={b.key}
+              active={filters.vBand === b.key}
+              onClick={() => onChange({ vBand: filters.vBand === b.key ? null : b.key })}
+            >
+              <span className="font-mono">{b.short}</span> {b.label}
+              {myBand === b.key && (
+                <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1 py-px font-mono text-[8.5px] font-[700] text-white">
+                  내 레벨
+                </span>
+              )}
+            </Chip>
+          ))}
+        </Section>
+      )}
 
-        <Group label="길이">
-          {LENGTH_BUCKETS.map((l) => (
+      {/* 장르 */}
+      {facets.genres.length > 0 && (
+        <Section label="장르">
+          {GENRE_BUCKETS.filter((g) => facets.genres.includes(g.key)).map((g) => (
+            <Chip
+              key={g.key}
+              active={filters.genre === g.key}
+              onClick={() => onChange({ genre: filters.genre === g.key ? null : g.key })}
+            >
+              <span aria-hidden>{g.emoji}</span> {g.label}
+            </Chip>
+          ))}
+        </Section>
+      )}
+
+      {/* 주제 — 이전 숨김 disclosure 에서 상시 노출로 승격 */}
+      {facets.themes.length > 0 && (
+        <Section label="주제">
+          {shownThemes.map((t) => (
+            <Chip
+              key={t}
+              active={filters.theme === t}
+              onClick={() => onChange({ theme: filters.theme === t ? null : t })}
+            >
+              {t}
+            </Chip>
+          ))}
+          {facets.themes.length > THEME_PREVIEW && (
+            <button
+              type="button"
+              onClick={() => setAllThemes((v) => !v)}
+              className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
+            >
+              {allThemes ? '접기' : `+${facets.themes.length - THEME_PREVIEW}개 더보기`}
+            </button>
+          )}
+        </Section>
+      )}
+
+      {/* 연령 */}
+      {facets.ages.length > 0 && (
+        <Section label="연령">
+          {AGE_BANDS.filter((a) => facets.ages.includes(a.key)).map((a) => (
+            <Chip
+              key={a.key}
+              active={filters.age === a.key}
+              onClick={() => onChange({ age: filters.age === a.key ? null : a.key })}
+            >
+              {a.label}
+            </Chip>
+          ))}
+        </Section>
+      )}
+
+      {/* 길이 — facet-adaptive (실재 버킷만) */}
+      {facets.lengths.length > 0 && (
+        <Section label="길이">
+          {LENGTH_BUCKETS.filter((l) => facets.lengths.includes(l.key)).map((l) => (
             <Chip
               key={l.key}
               active={filters.length === l.key}
@@ -263,82 +346,20 @@ export function BookFilterBar({
               {l.label}
             </Chip>
           ))}
-          {facets.hasAudio && (
-            <Chip
-              active={filters.audioOnly}
-              onClick={() => onChange({ audioOnly: !filters.audioOnly })}
-            >
-              🔊 원어민 음성
-            </Chip>
-          )}
-          {hasDetail && (
-            <button
-              type="button"
-              aria-expanded={detailOpen}
-              onClick={() => setDetailOpen((v) => !v)}
-              className="ml-1 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
-            >
-              상세 필터
-              <ChevronDown
-                size={12}
-                aria-hidden
-                className={`transition-transform ${detailOpen ? 'rotate-180' : ''}`}
-              />
-            </button>
-          )}
-          {hasActive && (
-            <button
-              type="button"
-              onClick={onReset}
-              className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t3)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
-            >
-              <X size={11} aria-hidden /> 초기화
-            </button>
-          )}
-        </Group>
+        </Section>
+      )}
 
-        {/* 상세 필터 — 주제 + 연령 */}
-        {detailOpen && hasDetail && (
-          <div className="flex flex-col gap-2.5 border-t border-[var(--bd)] pt-2.5">
-            {facets.themes.length > 0 && (
-              <Group label="주제">
-                {shownThemes.map((t) => (
-                  <Chip
-                    key={t}
-                    active={filters.theme === t}
-                    onClick={() => onChange({ theme: filters.theme === t ? null : t })}
-                  >
-                    {t}
-                  </Chip>
-                ))}
-                {facets.themes.length > THEME_PREVIEW && (
-                  <button
-                    type="button"
-                    onClick={() => setAllThemes((v) => !v)}
-                    className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
-                  >
-                    {allThemes ? '접기' : `+${facets.themes.length - THEME_PREVIEW}개 더보기`}
-                  </button>
-                )}
-              </Group>
-            )}
-
-            {facets.ages.length > 0 && (
-              <Group label="연령">
-                {AGE_BANDS.filter((a) => facets.ages.includes(a.key)).map((a) => (
-                  <Chip
-                    key={a.key}
-                    active={filters.age === a.key}
-                    onClick={() => onChange({ age: filters.age === a.key ? null : a.key })}
-                  >
-                    {a.label}
-                  </Chip>
-                ))}
-              </Group>
-            )}
-          </div>
-        )}
-      </div>
+      {/* 음성 — 원어민 음성 보유 도서 (facet-adaptive) */}
+      {facets.hasAudio && (
+        <Section label="음성">
+          <Chip
+            active={filters.audioOnly}
+            onClick={() => onChange({ audioOnly: !filters.audioOnly })}
+          >
+            🔊 원어민 음성
+          </Chip>
+        </Section>
+      )}
     </div>
   )
 }

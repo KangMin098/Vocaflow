@@ -60,7 +60,8 @@ export async function fetchChapterQuizSession(
   libraryBookId: string,
   chapterIdx: number,
 ): Promise<QuizSession | null> {
-  const rpc = client.rpc as unknown as (
+  // client.rpc 를 변수로 떼어내면 this 바인딩이 풀려 호출 시 throw — bind 필수
+  const rpc = client.rpc.bind(client) as unknown as (
     fn: string,
     args?: Record<string, unknown>,
   ) => Promise<{ data: unknown; error: { message: string } | null }>
@@ -103,7 +104,8 @@ export async function fetchChapterQuizSession(
 export async function fetchChapterQuizCatalog(
   client: SupabaseClient<Database>,
 ): Promise<ChapterQuizCatalogBook[]> {
-  const rpc = client.rpc as unknown as (
+  // client.rpc 를 변수로 떼어내면 this 바인딩이 풀려 호출 시 throw — bind 필수
+  const rpc = client.rpc.bind(client) as unknown as (
     fn: string,
     args?: Record<string, unknown>,
   ) => Promise<{ data: unknown; error: { message: string } | null }>

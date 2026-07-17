@@ -157,10 +157,22 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
             Step 5 · AI Enrichment
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            pending queue → JSONL export → /vcb-enrich 자동 실행 → DB 적재. 200개씩 chunk.
+            보강 대기 단어의 뜻·예문·발음·IPA 를 AI 로 채웁니다. 200개 단위로 나눠 처리합니다.
           </p>
         </div>
       </header>
+
+      {/* 결정 B: out-of-band 스킬이 정식 경로 (in-UI 러너는 로컬 dev 편의) */}
+      <div
+        className="mb-3 flex items-start gap-2 px-3 py-2 rounded-[var(--r-md)] border text-xs"
+        style={{ background: 'var(--info-light)', borderColor: 'var(--info)', color: 'var(--info)' }}
+      >
+        <Sparkles className="w-3.5 h-3.5 mt-0.5 shrink-0" aria-hidden />
+        <span>
+          <b>권장</b>: Claude Code 세션에서 <code className="font-mono">/vcb-batch-enrich</code> 로 실행하세요.
+          아래 <b>AI 실행</b> 버튼은 로컬 dev 편의용입니다(서버에 claude CLI 설치 시에만 동작).
+        </span>
+      </div>
 
       {/* ── Sub-step A: Export ──────────────── */}
       <section

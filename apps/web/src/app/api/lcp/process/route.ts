@@ -179,7 +179,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     // 4-3.45 도서 난이도 지수 산정 (best-effort) — book_v_level/CEFR/CEFR-J.
     //   backfill 직후(bound lemma 필요). LibraryCard 표시 + publish 게이트(publish_book_word_sets
     //   가 v_level >= book_v_level 필터 → book_v_level NULL 이면 강제게시 실패) 의존.
-    for (const fn of ['compute_book_vrl', 'compute_book_cefrj', 'compute_book_coverage'] as const) {
+    //   rpc 는 무-throw({error} 반환) → per-call {error} 검사로 침묵실패 관측(#93 0679a2d + main 확장 RPC 결합).
+    for (const fn of [
+      'compute_book_vrl',
+      'compute_book_chapter_v_levels', // 챕터별 V-level(v06.174 — 단일 라벨 편차 노출)
+      'compute_book_cefrj',
+      'compute_book_coverage', // 레벨별 기지어 커버리지(i+1)
+    ] as const) {
       const { error } = await client.rpc(fn, { p_book_id: book_id })
       if (error) console.warn(`[lcp/process] ${fn} skipped: ${error.message}`)
     }

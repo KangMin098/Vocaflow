@@ -5,6 +5,7 @@ import { librivoxFetcher } from './librivox'
 import { simpleWikipediaFetcher } from './simple-wikipedia'
 import { lit2goFetcher } from './lit2go'
 import { storyweaverFetcher } from './storyweaver'
+import { pressbooksFetcher } from './pressbooks'
 import type { SeedSource, SourceFetcher } from './types'
 
 export * from './types'
@@ -18,6 +19,7 @@ export const FETCHERS: Record<SeedSource, SourceFetcher> = {
   simple_wikipedia: simpleWikipediaFetcher,
   lit2go: lit2goFetcher,
   storyweaver: storyweaverFetcher,
+  pressbooks: pressbooksFetcher,
 }
 
 export const SOURCE_LABELS: Record<SeedSource, string> = {
@@ -28,4 +30,5 @@ export const SOURCE_LABELS: Record<SeedSource, string> = {
   simple_wikipedia: 'Simple English Wikipedia',
   lit2go: 'Lit2Go (USF)',
   storyweaver: 'StoryWeaver (Pratham Books)',
+  pressbooks: 'Pressbooks (OA 교재)',
 }

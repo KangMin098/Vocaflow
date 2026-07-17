@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `8dd2c81` docs(scriptquiz): Jane Eyre 전권 챕터 퀴즈 완결 (38ch, 342문항)
 - `0679a2d` fix(lcp): rpc 침묵 실패 11곳 관측성 복구 — {error} 필드 검사 (v06.125)
 - `86a7328` feat(dict): no-rank Tier A 선별 enrichment — 발행 세트 노출 어휘 ipa 100% (v06.124)
 - `bc7732e` docs(scriptquiz): The Railway Children 전권 98문항 완결 — 카탈로그 11권 1,406문항
 - `6ac6b12` fix(vcb): QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
-- `d0b6894` docs(scriptquiz): Wind in the Willows 전권 96문항 완결 — 카탈로그 10권 1,308문항
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
-- `20260703120010_p0_drop_p5a_backup_table.sql`
-- `20260703120000_p0_security_rls_hardening.sql`
-- `20260702120000_scriptquiz_curated_chapter_quiz.sql`
-- `20260628220000_p1_plan_weekday_per_item.sql`
-- `20260628210000_p1_plan_rich_compose.sql`
+- `20260717150000_wordset_category_etymology.sql`
+- `20260717140000_word_roots.sql`
+- `20260713180500_extract_exclude_known.sql`
+- `20260713180000_word_familiarity.sql`
+- `20260713172500_book_article_use_helper.sql`
 <!-- /auto:recent-migrations -->
 
 ---

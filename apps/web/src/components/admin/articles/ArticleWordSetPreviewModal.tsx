@@ -24,9 +24,10 @@ interface Props {
 export function ArticleWordSetPreviewModal({ open, onClose, title, cefrLevel, words }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  // Esc 닫기 + body scroll lock
+  // Esc 닫기 + body scroll lock + focus 복원(열 때 트리거 저장)
   useEffect(() => {
     if (!open) return
+    const prevActive = document.activeElement as HTMLElement | null
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
@@ -37,6 +38,7 @@ export function ArticleWordSetPreviewModal({ open, onClose, title, cefrLevel, wo
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
+      prevActive?.focus()
     }
   }, [open, onClose])
 

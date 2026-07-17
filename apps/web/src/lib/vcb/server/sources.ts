@@ -5,7 +5,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   fetchSources as fetchSourcesCore,
@@ -25,7 +25,7 @@ const MAX_FILE_SIZE = 52_428_800 // 50 MB
 
 export async function fetchSources(): Promise<SourceSummary[]> {
   await requireAdmin('/admin/vocab')
-  const client = await createClient()
+  const client = createAdminClient()
   return fetchSourcesCore(client)
 }
 
@@ -34,7 +34,7 @@ export async function createSource(
 ): Promise<ServerActionResult<{ source_id: number }>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const result = await createSourceCore(client, input)
 
@@ -69,7 +69,7 @@ export async function createSourceWithFile(
 > {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const slug = String(formData.get('slug') ?? '').trim()
     const title = String(formData.get('title') ?? '').trim()

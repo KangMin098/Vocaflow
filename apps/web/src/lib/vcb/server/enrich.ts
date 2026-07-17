@@ -8,7 +8,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   getVcbJobsDir,
@@ -43,7 +43,7 @@ export async function exportEnrichmentPending(
 ): Promise<ServerActionResult<ExportJobServerResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const result = await exportEnrichmentJob(client, run_id, opts ?? {})
     if (!result.ok || !result.files) {
       return { ok: false, error: result.error ?? 'export failed' }
@@ -99,7 +99,7 @@ export async function checkEnrichmentStatus(
 ): Promise<ServerActionResult<{ jobs: EnrichmentJobFile[] }>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const exportedPaths = await listExportedPendingFiles(client, run_id)
     const jobsDir = getVcbJobsDir()
@@ -378,7 +378,7 @@ export async function resetStaleEnrichmentChunks(
 ): Promise<ServerActionResult<ResetStaleResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const exportedPaths = await listExportedPendingFiles(client, run_id)
     const jobsDir = getVcbJobsDir()
@@ -429,7 +429,7 @@ export async function importEnrichmentFile(
 ): Promise<ServerActionResult<ImportEnrichmentResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const jobsDir = getVcbJobsDir()
     const filePath = path.join(jobsDir, enriched_file_basename)
 

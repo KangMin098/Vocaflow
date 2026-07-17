@@ -86,9 +86,10 @@ export async function fetchBookChapterQuizzes(
       .select('chapter_idx, chapter_title')
       .eq('library_book_id', bookId),
     client
-      .from('book_quiz_jobs')
+      .from('book_curation_jobs')
       .select('status, chapters_done, chapters_total, questions_created, note, updated_at')
       .eq('book_id', bookId)
+      .eq('task_type', 'quiz_gen') // 퀴즈 통합(v06.x) — book_curation_jobs 로 흡수
       .maybeSingle(),
   ])
 

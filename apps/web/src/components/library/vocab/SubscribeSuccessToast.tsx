@@ -8,6 +8,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { ArrowRight, CheckCircle2, X } from 'lucide-react'
 
@@ -24,6 +25,10 @@ interface Props {
 }
 
 export function SubscribeSuccessToast({ data, onClose }: Props) {
+  const pathname = usePathname()
+  // /wordvault/browse 는 풀스크린 세션 — ?from 으로 닫기 시 이 페이지(공용 단어장)로 복귀.
+  const browseHref = `/wordvault/browse?from=${encodeURIComponent(pathname || '/library/vocab')}`
+
   useEffect(() => {
     if (!data) return
     const t = setTimeout(onClose, 5000)
@@ -55,7 +60,7 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
         <p className="mt-0.5 font-body text-[12px] text-[#065f46]/90">{body}</p>
         {data.importedCount > 0 && (
           <Link
-            href="/wordvault/browse"
+            href={browseHref}
             className="mt-2 inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[#065f46] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--success)] focus-visible:ring-offset-1"
           >
             내 단어장에서 보기

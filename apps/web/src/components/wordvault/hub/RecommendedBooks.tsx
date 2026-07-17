@@ -80,8 +80,10 @@ export function RecommendedBooks() {
       const { data, error } = await supabase
         .from('library_books')
         .select(
+          // popularity_rank 는 library_seed_catalog 소유 — library_books 에 없어 select 시 400
+          // (인기 가중은 서버 병합 경로(/library/books)만 적용, 허브 추천은 나머지 신호로 스코어)
           'id, title, author, cefr_level, cefr_band, book_v_level, word_count, chapter_count, reading_minutes, ' +
-            'cover_from, cover_to, cover_image_url, lexical_coverage, is_picture_book, popularity_rank, published_at',
+            'cover_from, cover_to, cover_image_url, lexical_coverage, is_picture_book, published_at',
         )
         .eq('status', 'published')
         .eq('copyright_safe_in_kr', true)

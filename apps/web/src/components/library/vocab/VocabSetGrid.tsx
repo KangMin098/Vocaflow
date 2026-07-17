@@ -10,17 +10,26 @@
 
 import { useRouter } from 'next/navigation'
 import { useMemo, useState, useTransition } from 'react'
-import { Search } from 'lucide-react'
+import { Search, Sparkles } from 'lucide-react'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
-import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import type { PublishedVocabSet, RecommendedSet } from '@/lib/library/vocab/queries'
 
 import { CategoryMatrix } from './CategoryMatrix'
-import { type VocabCategoryId } from './categories'
+import { categoryImportance, type VocabCategoryId } from './categories'
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
 import { VocabSetCarousel } from './VocabSetCarousel'
 import { VocabSetPreviewModal } from './VocabSetPreviewModal'
+
+// 추천 티어 배지 (recommend_word_sets_for_user recommendation_type) — RecommendedSetsSection 정합.
+const TIER_BADGE: Record<string, { label: string; bg: string; text: string }> = {
+  primary: { label: '메인', bg: 'var(--p)', text: 'var(--ti)' },
+  stretch: { label: '도전', bg: 'var(--active)', text: 'var(--ti)' },
+  review: { label: '보강', bg: 'var(--bg3)', text: 'var(--t2)' },
+  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info)' },
+  fallback: { label: '추천', bg: 'var(--bg3)', text: 'var(--t2)' },
+}
 
 type SortKey = 'recommended' | 'most_words' | 'fewest_words' | 'newest'
 
@@ -28,9 +37,13 @@ interface Props {
   sets: PublishedVocabSet[]
   subscribedIds: string[]
   isLoggedIn: boolean
+  /** 학습자 현재 V-level (진단값). 0=미진단 → 추천 대신 진단 유도. */
+  userVLevel: number
+  /** recommend_word_sets_for_user RPC 결과 (진단 엔진 · 티어·사유). 미진단 시 빈 배열. */
+  recommended: RecommendedSet[]
 }
 
-export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
+export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, recommended }: Props) {
   const router = useRouter()
 
   // Optimistic subscribed set — 서버 액션 성공 시 즉시 반영
@@ -135,6 +148,14 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
         sorted.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
         break
       default:
+        // 추천순 — 중요도(카테고리: 수능·내신→교육과정→공인→테마) → 사용빈도(구독수) → 큐레이션 순서 → 단어수.
+        sorted.sort(
+          (a, b) =>
+            categoryImportance(b.category) - categoryImportance(a.category) ||
+            b.subscriberCount - a.subscriberCount ||
+            a.sortOrder - b.sortOrder ||
+            b.wordCount - a.wordCount,
+        )
         break
     }
     return sorted
@@ -157,6 +178,20 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
   // 검색/구독필터/특정 카테고리 선택 시에는 평탄 그리드 (사용자 의도 명확).
   const isGrouped =
     category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
+
+  // 개인 맞춤 추천 — recommend_word_sets_for_user RPC 결과를 라이브러리 세트에 매핑(티어·사유 유지).
+  const diagnosed = userVLevel >= 1
+  const recFeatured = useMemo(() => {
+    if (recommended.length === 0) return []
+    const byId = new Map(sets.map((s) => [s.id, s]))
+    return recommended
+      .map((r) => {
+        const set = byId.get(r.set_id)
+        return set ? { set, type: r.recommendation_type, reason: r.reason } : null
+      })
+      .filter((x): x is { set: PublishedVocabSet; type: string; reason: string } => x != null)
+      .slice(0, 8)
+  }, [sets, recommended])
 
   return (
     <div className="flex flex-col gap-5">
@@ -242,16 +277,33 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
           }
         />
       ) : isGrouped ? (
-        // v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel
-        <VocabSetCarousel
+        <div className="flex flex-col gap-6">
+          {/* 개인 맞춤 추천 — 진단 엔진(recommend_word_sets_for_user) 결과·티어·사유. 미진단/추천없음이면 진단 유도 */}
+          {recFeatured.length >= 1 ? (
+            <FeaturedRow
+              title={`내 수준 추천 · V${userVLevel} 맞춤`}
+              subtitle="진단 기반 — 왜 추천인지 함께 표시"
+              items={recFeatured}
+              subscribed={subscribed}
+              pendingId={pendingId}
+              errors={errors}
+              onToggle={handleToggle}
+              onPreview={setPreviewing}
+            />
+          ) : !diagnosed ? (
+            <DiagnosePrompt />
+          ) : null}
+          {/* v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel */}
+          <VocabSetCarousel
           sets={filtered}
           subscribedIds={subscribed}
           pendingId={pendingId}
           isLoggedIn={isLoggedIn}
-          onPreview={setPreviewing}
-          onToggle={handleToggle}
-          onSelectCategory={(id) => setCategory(id)}
-        />
+            onPreview={setPreviewing}
+            onToggle={handleToggle}
+            onSelectCategory={(id) => setCategory(id)}
+          />
+        </div>
       ) : (
         // Dense matrix grid — Are.na / Linear board 영감
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
@@ -279,6 +331,101 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn }: Props) {
 
       <SubscribeSuccessToast data={toast} onClose={() => setToast(null)} />
     </div>
+  )
+}
+
+// 미진단 학습자 — 개인 맞춤 추천 대신 진단 유도 배너.
+function DiagnosePrompt() {
+  return (
+    <a
+      href="/diagnostic"
+      className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-ios-purple/40 bg-ios-purple/[0.06] px-4 py-3 no-underline transition-colors hover:bg-ios-purple/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ios-purple/40"
+    >
+      <span className="flex items-center gap-2.5">
+        <span
+          aria-hidden
+          className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-purple text-white"
+        >
+          <Sparkles size={15} />
+        </span>
+        <span className="flex flex-col">
+          <span className="font-display text-[13.5px] font-[800] text-[var(--t1)]">
+            내 수준 맞춤 추천 받기
+          </span>
+          <span className="font-body text-[12px] text-[var(--t3)]">
+            1분 진단하면 지금 딱 맞는 단어장을 추천해드려요
+          </span>
+        </span>
+      </span>
+      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-1.5 font-display text-[12px] font-[700] text-white">
+        진단하기
+      </span>
+    </a>
+  )
+}
+
+// 상단 추천 — 진단 엔진 결과(티어·사유)를 라이브러리 네이티브 카드로 가로 스크롤 노출.
+function FeaturedRow({
+  title,
+  subtitle,
+  items,
+  subscribed,
+  pendingId,
+  errors,
+  onToggle,
+  onPreview,
+}: {
+  title: string
+  subtitle: string
+  items: { set: PublishedVocabSet; type: string; reason: string }[]
+  subscribed: Set<string>
+  pendingId: string | null
+  errors: Record<string, string | null>
+  onToggle: (set: PublishedVocabSet) => void
+  onPreview: (set: PublishedVocabSet) => void
+}) {
+  return (
+    <section aria-label="맞춤 추천 단어장" className="flex flex-col gap-3">
+      <div className="flex items-center gap-2 px-1">
+        <span
+          aria-hidden
+          className="inline-flex h-6 w-6 items-center justify-center rounded-ios-sm bg-ios-purple/12 text-ios-purple"
+        >
+          <Sparkles size={14} />
+        </span>
+        <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">{title}</h2>
+        <span className="font-body text-[12px] text-[var(--t3)]">{subtitle}</span>
+      </div>
+      <div className="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
+        {items.map(({ set, type, reason }) => {
+          const badge = TIER_BADGE[type] ?? TIER_BADGE.fallback!
+          return (
+            <div key={set.id} className="flex w-[128px] shrink-0 snap-start flex-col gap-1.5 sm:w-[144px]">
+              <VocabSetCard
+                set={set}
+                isSubscribed={subscribed.has(set.id)}
+                isPending={pendingId === set.id}
+                errorMessage={errors[set.id] ?? null}
+                onToggle={onToggle}
+                onPreview={onPreview}
+              />
+              {/* 왜 추천? — 티어 배지 + 사유 (recommend_word_sets_for_user reason) */}
+              <div className="flex flex-col gap-0.5 px-0.5">
+                <span
+                  className="inline-flex w-fit items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[800] uppercase tracking-wider"
+                  style={{ backgroundColor: badge.bg, color: badge.text }}
+                >
+                  {badge.label}
+                </span>
+                <span className="line-clamp-2 font-body text-[10.5px] leading-snug text-[var(--t3)]">
+                  {reason}
+                </span>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </section>
   )
 }
 

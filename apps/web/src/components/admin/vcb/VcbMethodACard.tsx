@@ -101,11 +101,10 @@ export function VcbMethodACard({ runId, runStatus }: Props) {
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="font-display font-semibold text-base m-0" style={{ color: 'var(--t1)' }}>
-            Method A · Ingest + Extract (Step 2 + 3)
+            방식 A · 파일에서 시드 추출
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            Storage 의 업로드 파일 → SHA-256 dedup → WLP 토큰화 → seed_candidates 적재.
-            normalize 는 WLP 가 NFC 정규화로 흡수.
+            업로드한 파일에서 중복을 제거하고 단어를 추출·정규화해 시드 단어로 적재합니다.
           </p>
         </div>
         <button
