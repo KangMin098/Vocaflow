@@ -14,6 +14,7 @@ if (fs.existsSync(envPath)) for (const line of fs.readFileSync(envPath, 'utf8').
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i >= 0 ? process.argv[i + 1] : d }
 const OUT = arg('--out', 'scripts/dict/ksense-p1')
 const MAXRANK = parseInt(arg('--max-rank', '3000'), 10)
+const MINRANK = parseInt(arg('--min-rank', '0'), 10)
 const MAXCUR = parseInt(arg('--max-cur', '2'), 10)
 const MINK = parseInt(arg('--min-k', '3'), 10)
 const LIMIT = process.argv.indexOf('--limit') >= 0 ? parseInt(arg('--limit', '0'), 10) : null
@@ -60,7 +61,7 @@ const cur = new Map() // word → {meanings, rank}
       if (w.length < 3 || inflForms.has(w)) continue // 약어/단자어·굴절형 제외
       const nCur = Array.isArray(r.meanings_ko) ? r.meanings_ko.length : 0
       const nK = kmap[w]?.senses ?? 0
-      if (nCur <= MAXCUR && nK >= MINK && r.frequency_rank != null && r.frequency_rank <= MAXRANK) {
+      if (nCur <= MAXCUR && nK >= MINK && r.frequency_rank != null && r.frequency_rank > MINRANK && r.frequency_rank <= MAXRANK) {
         cur.set(w, { meanings: r.meanings_ko || [], rank: r.frequency_rank })
       }
     }

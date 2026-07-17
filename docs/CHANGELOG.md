@@ -15,7 +15,8 @@
 - **파이프라인**(신규 `kaikki-sense-chunk.mjs`·`kaikki-sense-apply.mjs`): kaikki JSONL 재스트림 → 대상 단어 표준 sense(gloss+pos, obsolete/rare/**형태포인터**(Abbreviation/plural of…) 제외·leaf gloss·**굴절형/길이<3 제외**) → 청크. 서브에이전트가 현 한국어 sense + kaikki 영어 gloss를 **근거로** 완전한 meanings_ko(한국어·per-sense pos/v_level, most-common-first, 과분할 통합, cap 5) authoring. apply=meanings_ko 교체+flat 동기화, **sense 추가만(손실 방지 가드)**.
 - **1차 슬라이스(freq≤3000, 800단어)**: 5청크 → **315단어 enriched**(39%, 0 reject). **퇴화 엔트리 근본 교정**: `add`(ADHD 약어만→더하다/추가하다) · `will`(→모달 ~할 것이다) · `act`(ACT약어→행동/연기/막/법령) · `stop`·`single`·`policy`(→보험증권)·`light`(빛/조명/가벼운/옅은/신호등) 등. 자가생성 아닌 **외부 사전 근거=무환각**.
 - **인프라**: 대형 청크(kaikki gloss 포함 ~126KB) 동시 3에이전트 stall(600s watchdog) 1회 발생 → 재-dispatch로 전량 복구. 데이터는 gitignore.
-- **잔여**: freq 3000~8000(≈5,180) 및 전체(19,549) = 확대 여지, 동일 파이프라인 재실행. kaikki senses buildable로 전환됨.
+- **2차 슬라이스(freq 3000~6000) 웨이브1**: `--min-rank` 추가·청크120·6에이전트/웨이브(stall 회피) → 720단어 중 **175 enriched**(24% — 저노출이라 yield↓). `partial`(부분적인 결측)·`neat`(정돈된 결측)·`coordinate`(→좌표)·`transmission`(→질병 전염)·`soap`(→연속극) 등. **누계 sense 깊이 = 490단어.**
+- **잔여**: freq 3k-6k 나머지 12청크(≈1,360) · freq 6k-8k · 전체 19,549 = 확대 여지(yield·가치 체감). 동일 파이프라인 재실행.
 
 ### kaikki(Wiktionary) 확보 — 사전 외부검증 보완 파이프라인 + IPA PoC (v06.265)
 - **배경**: 사전 sense 깊이(avg 1.28 vs 일반사전 3~5+)·syn/ant/ipa parity 갭의 근본 병목 = 권위 외부 소스(kaikki) 부재([[project_dict_wave_plan_w0]] W0 중단 사유). 일반사전 비교 분석(`extraction_dict_vs_general_20260717.md`)이 이를 최우선 병목으로 확정.
