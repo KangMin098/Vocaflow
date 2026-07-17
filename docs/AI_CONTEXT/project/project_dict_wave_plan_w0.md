@@ -17,5 +17,7 @@
 
 **재개 조건**: kaikki.org 영어 Wiktionary 추출(수 GB JSONL) 확보 → 그때 W2(syn/ant/ipa 대조)·W3(etymology root)·W4(검증) 성립.
 
-**✅ kaikki 확보 (2026-07-17, v06.265)**: `kaikki.org-dictionary-English-words.jsonl` **3.19GB**(CC BY-SA 3.0) 다운로드 → `scripts/dict/data/`(gitignore). 파이프라인 `scripts/dict/kaikki-enrich.mjs`(extract=45k 표제어 필터·95.7% 커버 / apply-ipa·syn·ant=결측만·무환각). **IPA PoC 5,879 채움**(64%→76.9%). 후속 buildable: **sense 깊이**(kaikki avg 4.5·≥5 sense 12,131 → 한국어 sense authoring, 근본 갭 해소) · audio mp3 30,902(스키마 필요) · syn/ant는 kaikki 구조화 희소(4,636/3,510)라 저우선(기존 dict-fill 우세). 어원 root(W3)는 별도로 표준 어근 시드로 이미 구축([[project_etymology_root_axis]]). 분석 = `docs/AI_CONTEXT/diagnostics/extraction_dict_vs_general_20260717.md` §7.
+**✅ kaikki 확보 (2026-07-17, v06.265)**: `kaikki.org-dictionary-English-words.jsonl` **3.19GB**(CC BY-SA 3.0) 다운로드 → `scripts/dict/data/`(gitignore). 파이프라인 `scripts/dict/kaikki-enrich.mjs`(extract=45k 표제어 필터·95.7% 커버 / apply-ipa·syn·ant=결측만·무환각). **IPA PoC 5,879 채움**(64%→76.9%). 후속 buildable: **sense 깊이**(kaikki avg 4.5·≥5 sense 12,131 → 한국어 sense authoring, 근본 갭 해소) · audio mp3 30,902(스키마 필요) · syn/ant는 kaikki 구조화 희소(4,636/3,510)라 저우선(기존 dict-fill 우세).
+
+**✅ sense 깊이 확대 진행(v06.266~)**: `kaikki-sense-{chunk,apply}.mjs` — kaikki 영어 gloss 근거로 얕은(≤2) 노출 다의어에 한국어 sense 추가(무환각·멱등·가드=추가만). **slice1 freq≤3000 315단어 + slice2 freq 3k-6k 773단어(3웨이브·청크120·6에이전트/웨이브 stall회피) = 누계 1,088단어**. 퇴화 교정 예: add→더하다·will→모달·bark→짖다·lens→수정체·vein→정맥/잎맥/광맥·cookie→컴퓨터쿠키·decay→붕괴·toxic→해로운관계·crow→까마귀·niche→생태적지위. **3+ sense 1,466→1,850행·avg 1.273→1.290**. 잔여 = freq 6k-8k·전체 19,549(동일 파이프라인). ksense-p1/p2 dir gitignore. 어원 root(W3)는 별도로 표준 어근 시드로 이미 구축([[project_etymology_root_axis]]). 분석 = `docs/AI_CONTEXT/diagnostics/extraction_dict_vs_general_20260717.md` §7.
 

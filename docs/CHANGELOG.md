@@ -15,8 +15,8 @@
 - **파이프라인**(신규 `kaikki-sense-chunk.mjs`·`kaikki-sense-apply.mjs`): kaikki JSONL 재스트림 → 대상 단어 표준 sense(gloss+pos, obsolete/rare/**형태포인터**(Abbreviation/plural of…) 제외·leaf gloss·**굴절형/길이<3 제외**) → 청크. 서브에이전트가 현 한국어 sense + kaikki 영어 gloss를 **근거로** 완전한 meanings_ko(한국어·per-sense pos/v_level, most-common-first, 과분할 통합, cap 5) authoring. apply=meanings_ko 교체+flat 동기화, **sense 추가만(손실 방지 가드)**.
 - **1차 슬라이스(freq≤3000, 800단어)**: 5청크 → **315단어 enriched**(39%, 0 reject). **퇴화 엔트리 근본 교정**: `add`(ADHD 약어만→더하다/추가하다) · `will`(→모달 ~할 것이다) · `act`(ACT약어→행동/연기/막/법령) · `stop`·`single`·`policy`(→보험증권)·`light`(빛/조명/가벼운/옅은/신호등) 등. 자가생성 아닌 **외부 사전 근거=무환각**.
 - **인프라**: 대형 청크(kaikki gloss 포함 ~126KB) 동시 3에이전트 stall(600s watchdog) 1회 발생 → 재-dispatch로 전량 복구. 데이터는 gitignore.
-- **2차 슬라이스(freq 3000~6000)**: `--min-rank` 추가·청크120·6에이전트/웨이브(stall 회피). 웨이브1 720→**175**(24%) + 웨이브2 720→**323**(45%). `partial`·`coordinate`(→좌표)·`transmission`(→질병 전염)·`bark`(→짖다)·`lens`(→수정체)·`vein`(→정맥/잎맥/광맥)·`cookie`(→컴퓨터 쿠키)·`decay`(→붕괴)·`toxic`(→해로운 관계) 등. **누계 sense 깊이 = 813단어** · 3+ sense 1,466→1,659행 · avg 1.282.
-- **잔여**: freq 3k-6k 나머지 6청크(chunk 12-17) · freq 6k-8k · 전체 19,549 = 확대 여지. 동일 파이프라인 재실행.
+- **2차 슬라이스(freq 3000~6000) 전 18청크 완료**: `--min-rank` 추가·청크120·6에이전트/웨이브(stall 회피). 웨이브1 175(24%) + 웨이브2 323(45%) + 웨이브3 275(38%) = **773 enriched**. `bark`(→짖다)·`lens`(→수정체)·`vein`(→정맥/잎맥/광맥)·`cookie`(→컴퓨터 쿠키)·`decay`(→붕괴)·`toxic`(→해로운 관계)·`crow`(→까마귀)·`crane`(→기중기/두루미)·`niche`(→생태적 지위)·`dismissal`(→해고/기각)·`socket`(→눈구멍)·`carrot`(→유인책) 등. **누계 sense 깊이 = 1,088단어**(slice1 315 + slice2 773) · 3+ sense 1,466→**1,850행** · avg 1.273→**1.290**.
+- **잔여**: freq 6k-8k · 전체 19,549 = 확대 여지. 동일 파이프라인 재실행.
 
 ### kaikki(Wiktionary) 확보 — 사전 외부검증 보완 파이프라인 + IPA PoC (v06.265)
 - **배경**: 사전 sense 깊이(avg 1.28 vs 일반사전 3~5+)·syn/ant/ipa parity 갭의 근본 병목 = 권위 외부 소스(kaikki) 부재([[project_dict_wave_plan_w0]] W0 중단 사유). 일반사전 비교 분석(`extraction_dict_vs_general_20260717.md`)이 이를 최우선 병목으로 확정.
