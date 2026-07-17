@@ -36,17 +36,17 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/plan-ui`
+**활성 브랜치**: `feat/quality-eval`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `6beb148` fix(ci): main 머지 게이트 red CI 3잡 green 복구 (v06.254)
-- `db332ba` feat(vocab): 주제별 단어장 전 18주제 완성 — 7,219단어 (v06.254)
-- `f188f20` feat(vocab): 주제별 단어장 PoC — dictionary_categories 6주제 발행 (v06.254)
-- `45235af` docs(vocab): 단어장 파이프라인 v2 P0 정찰 — 학년/주제 데이터 판정
-- `9ac553f` feat(vocab): 어원 first-class 카테고리 승격 — 📜 어원 탭 (v06.253)
+- `ff8dba3` fix(quality): 골든셋 fixture 줄끝 정규화 금지 (.gitattributes -text)
+- `86ec3d4` fix(lcp): lbv lemma INSERT 게이트 트리거 + 전권 backfill (v06.120)
+- `8f7f49c` feat(quality): quality_metrics nightly 집계 Q2 (v06.119)
+- `0b6db84` test(quality): 파이프라인 골든셋 스냅샷 테스트 Q1 (v06.118)
+- `949f17b` Merge pull request #92 from KangMin098/feat/scriptquiz-chapter-quiz
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

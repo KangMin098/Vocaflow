@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 품질 파이프라인 회귀 인프라 소급 (PR #94 salvage) — 골든 스냅샷 + quality_metrics + lbv lemma 게이트 (v06.254)
+- **배경**: `feat/quality-eval`(PR #94)이 old main 분기 후 미머지였고, plan-ui 통합으로 `/admin/quality` UI는 main에 들어왔으나 그 **하부 인프라 3종**(마이그·회귀 테스트)이 마이그 이력 밖이었음 → **main에 소급**(main을 브랜치로 merge, docs 충돌만 main 채택).
+- **골든셋 스냅샷 테스트**(Q1 `0b6db84`): `packages/library-pipeline/test/{noise,segmentation}.snapshot.test.ts` — `computeLexicalNoise`·`normalizeBook` 결정론 회귀 가드. `.gitattributes -text`로 골든 fixture 줄끝 정규화 차단(`ff8dba3`).
+- **quality_metrics nightly 집계**(Q2 `8f7f49c`): 마이그 `20260704043934_quality_metrics.sql` — main 후속 `20260706000000_admin_collect_quality_metrics.sql`(집계 버튼)이 참조하던 테이블의 **CREATE 마이그 공백을 메움**(마이그 순서 정합 복구, 04→06).
+- **lbv lemma INSERT 게이트**(`86ec3d4`): 마이그 `20260704090000_lbv_lemma_insert_gate.sql` — `library_book_vocabularies` lemma NULL 삽입 시 statement-level 트리거로 자동 채움. rpc 무-throw 침묵실패로 Les Misérables 13,351행 lemma 전량 NULL→추출 3경로 무력화됐던 결함의 근본 게이트.
+
 ### CI green 복구 — main 머지 게이트 정리 (v06.254)
 - **배경**: `feat/plan-ui`(origin/main +319, 0 behind)의 CI 3잡(TypeScript·build·verify)이 최신 커밋 기준 red → 깨끗한 main 머지의 유일 블로커.
 - **build(next lint) 13 에러**: 아케이드/신규 게임 스위트가 남긴 미사용 import/var — `GameMark`(7 게임)·`IconSound`·`useRef`(glyph-tongue)·`NextRequest`(factbook-feed route)·죽은 로컬 `mounted`(언마운트 가드 미배선)·`placedCount`·`total`(lexicon-detective/morpheme-rules) 제거. 전부 동작 무변경 죽은코드.

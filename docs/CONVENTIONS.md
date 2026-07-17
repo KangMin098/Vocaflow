@@ -340,6 +340,19 @@ const n = text.chapterCount ?? 0
 
 ---
 
+## 골든셋 스냅샷 규약 (v06.118 · 파이프라인 품질평가 Q1)
+
+파이프라인 순수 함수(`computeLexicalNoise` · `segmentBook`/`normalizeBook` · `alignChaptersBy*` · `judgeIPlusOne`)는
+골든셋 fixture 기반 스냅샷 테스트가 CI(`turbo run test`)에서 회귀를 감시한다.
+
+- fixture: `packages/library-pipeline/test/fixtures/` (책·글 raw + meta.json) · `apps/web/src/test/fixtures/librivox/` (정합 리스트)
+- **라이선스-안전만** (PD / CC BY / CC BY-SA + attribution). CC BY-ND(The Conversation)는 fixture 저장 금지.
+- **스냅샷 diff = 차단 아님, 리뷰 필수 신호.** 의도적 파이프라인 개선 시: ① diff 검토 ② 스냅샷 갱신을 별도 커밋으로 분리 ③ CHANGELOG 에 "골든셋 스냅샷 갱신 — 사유" 1줄.
+- fixture 는 분기당 1건 교체 (화석화 방지).
+- RPC 통합 스냅샷(`extraction-rpc.integration.test.ts`)은 env-skip — CI 에서 skip 이 정상, 로컬/수동 실행 전용.
+
+---
+
 ## 변경 이력 기록
 
 각 PR 머지 후 [CHANGELOG.md](./CHANGELOG.md) "Unreleased" 또는 새 버전 섹션에 추가:
