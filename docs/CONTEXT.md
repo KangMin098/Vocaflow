@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `30df8f9` feat(reader): 리더 단어 팝업 리치화 — 다의어+어원+니모닉 (v06.263)
 - `0a41c58` feat(vocab): 진도-aware 완성 추정 — 학습 플랜 개인화 (F2, v06.262)
 - `084e0e0` feat(vocab): 적응형 학습 플랜 스트립 — 세트 완성 프레이밍 (F2, v06.261)
 - `f28260b` feat(vocab): 어근 기반 니모닉 생성 + 학습 카드 노출 (M2, v06.260)
 - `9f64e22` feat(flashcard): 학습 카드 리치화 — 다의어 품사별 뜻 + 어원 힌트 (M1·F1, v06.259)
-- `981eb4a` feat(vocab): P1 생성기 품질 게이트 — auto-vlevel 저레벨 오염 근절 (v06.258)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
