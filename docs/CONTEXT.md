@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e0a3f58` chore(dict): sense 깊이 3차 — freq 6k-31k 6세션 병렬 (5,406단어·v06.267)
 - `2595bfa` docs(dict): 멀티 세션 지시문 §3 — 치환 없는 세션별 복붙 블록 6개
 - `230ba09` docs(dict): sense 깊이 멀티 세션 지시문 + 6세션 청크 분할
 - `626b4ac` chore(dict): sense 깊이 slice2 종료 — freq 3k-6k 전 18청크 (773단어)
 - `afe55b3` chore(dict): sense 깊이 slice2 웨이브2 (freq 3k-6k·323단어)
-- `1e677a3` chore(dict): sense 깊이 2차 슬라이스 freq 3k-6k 웨이브1 (kaikki 근거·175단어)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
