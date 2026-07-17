@@ -54,4 +54,9 @@
 **미결(확인필요)**: 오류7 카운트 캐시 저장 위치(집계 뷰 vs 카드 추정치) — R(t) 원칙과 무충돌(파생 캐시)이나 위치는 구현 판단.
 
 ---
-*P0 정찰 종료(read-only). 코드/스키마 변경 없음. 다음 = migration(GENERATED 3축 전 curation_query 정규화 포함) SQL 승인 게이트.*
+
+## ✅ 후속 실현 — 주제별 단어장 PoC (2026-07-17, v06.254)
+정찰 1-c(주제축 데이터 이미 존재) 즉시 실현: `topics-publish-set.mjs`로 L1 테마=세트·L2=챕터 발행. **6주제 2,484단어**(음식/여행/건강/비즈니스/과학/자연) category `themed`/subcategory `topic`. e2e 09 소주제 챕터 렌더 통과. **migration 불요**(주제는 기존 themed 카테고리). 잔여 12주제는 `topics-publish-set.mjs all`로 확장. → 시중 주제별 단어장 대응(빈출+학년+어원+주제 완비).
+
+---
+*P0 정찰 종료(read-only). 주제 PoC는 정찰 발견의 소스-독립 즉시 실현. migration(GENERATED 3축 전 curation_query 정규화 포함)은 별도 승인 게이트.*

@@ -10,7 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
-### 어원(root) 축 신설 — 시중 어원 단어장 대응 (v06.253)
+### 주제별 단어장 PoC — dictionary_categories 활용 (v06.254)
+- **P0 정찰**(read-only, `wordset_pipeline_v2_p0_20260717.md`): 단어장 파이프라인 v2 전제 판정 — ① 학년 노드는 `dictionary_categories`엔 없음(thematic 18) BUT `kcurr2022` 교육과정 별표=word-level 학년 소스 **이미 존재·발행**(오류1 완화) ② `category_id` 부재 확인(오류5 철회) ③ `curation_query` 스키마 불일치→GENERATED 정규화 선결 ④ **`dictionary_categories` 566노드+28,079 매핑=주제축 데이터 이미 존재**(플랜 밖 기회).
+- **주제 세트 발행**(정찰 발견 즉시 실현, migration 불요): `topics-publish-set.mjs` — L1 테마=세트·L2 소주제=챕터(L3 롤업). **6주제 2,484단어** 발행(음식과 음료·여행·건강·일과 비즈니스·과학과 기술·자연 세계). category `themed`/subcategory `topic`. chapter=L2 그룹번호·라벨=`korean_learner_note`(예: 여행→항공 교통·휴가 / 건강→의료·장애).
+- **검증**: e2e 09에 주제 세트 렌더 단언 추가(소주제 챕터 라벨) → 통과(14.6s). 잔여: 12주제 추가 발행 가능(스크립트 `all`).
 - **배경**: 시중 대응 카탈로그 실측 결과 학년/수능/시험/주제는 이미 발행됐고, 유일한 미대응 = **어원 단어장**(Word Smart류). kaikki 불요(핵심 학술 root=표준지식).
 - **스키마**(migration `20260717140000`): `word_roots`(어근 인벤토리·origin·meaning_en·gloss_ko·variants) + `word_root_links`(단어↔어근, (word,root_id) PK 멱등·affix_type·confidence). RLS 공개읽기.
 - **시드**: 라틴/그리스 핵심 어근·접두·접미 **181개**(`scripts/dict/roots-seed.mjs` + `data/word-roots-seed.json`, 멱등).

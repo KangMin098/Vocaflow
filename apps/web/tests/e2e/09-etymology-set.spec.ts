@@ -89,4 +89,28 @@ test.describe('어원 단어장 — etymology-core 어근 챕터 렌더', () => 
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
     console.log('[etymology] 어근 라벨 챕터 렌더 확인');
   });
+
+  test('주제별 세트 — L2 소주제 챕터 라벨로 열린다', async ({ page }) => {
+    test.setTimeout(90_000);
+    const errors = collectConsoleErrors(page);
+    await page.goto('/library/vocab', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    // 검색 → 평탄 그리드 → 여행 주제 세트 카드 → 모달
+    const search = page.getByRole('searchbox', { name: '공용 단어장 검색' });
+    await expect(search).toBeVisible({ timeout: 20_000 });
+    await search.fill('여행 주제');
+    const card = page.getByRole('button', { name: '여행 주제 어휘 미리보기 열기' });
+    await expect(card).toBeVisible({ timeout: 15_000 });
+    await card.click();
+
+    const dialog = page.getByRole('dialog', { name: '여행 주제 어휘' });
+    await expect(dialog).toBeVisible({ timeout: 10_000 });
+    // ★ 챕터 헤딩 = L2 소주제 라벨(숫자 아님) — 교통/휴가 등
+    await expect(dialog.getByText(/교통|휴가/).first()).toBeVisible({ timeout: 10_000 });
+    await expect(dialog.getByRole('button', { name: /발음 듣기/ }).first()).toBeVisible();
+
+    const fatal = fatalErrors(errors);
+    expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
+    console.log('[topic] 소주제 챕터 라벨 렌더 확인');
+  });
 });
