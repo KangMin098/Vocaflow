@@ -15,7 +15,9 @@
 - **수리**(migration `20260717160000_recommend_word_sets_redesign_tiers`): 기존 티어(primary/stretch/review/specialty/track/book/fallback) **전부 무변경** + additive 2티어 — **Tier 7 어원**(`etymology-core`, 진단 V5+) · **Tier 8 관심 주제**(`topic-{interest}` opt-in, specialty 동일 패턴). 순수 UNION ALL(시그니처·컬럼 불변, 매칭 없으면 0행).
 - **검증**: V11 유저 재호출 → 어원 티어(priority 7) 노출 ✅. 관심사 `[travel,health,business]` → topic-travel·topic-health + specialty-business 동시 노출 ✅.
 - **프론트**: `RecommendedSetsSection.TYPE_BADGE` + `VocabSetGrid.TIER_BADGE`에 어원(어원)·주제(주제) 배지 추가(미지 타입 '추천' fallback 대체). tsc 0.
-- **잔여(검증 발견, 후속)**: #2 빈 UI 탭(preschool/civil/business 세트 0) · #3 legacy null_lemma ~2,502(auto-vlevel/specialty) · #4 library_book null_pos 99% · #5 주제 챕터 coarse(~125단어/챕터).
+- **#2 빈 카테고리 탭 조사 → 이미 처리됨**: 라이브 뷰는 `VocabSetCarousel`이 세트 없는 카테고리 **숨김** + `CategoryMatrix`가 빈 탭 `disabled`+dimmed(info-scent)로 dead-end 없음. 유일 잔재 = **dead `CategoryFilter.tsx`**(참조 0·stale 퍼플 주석) **삭제**. preschool/civil/business는 matrix에서 "0" 비활성 노출(coming-soon = 의도적, 제거는 제품 판단이라 보류).
+- **#3 legacy null_lemma backfill ✅**(DB 데이터만·승인): auto-vlevel-*/specialty-* 세트의 lemma NULL **2,502행** 전량 채움(`lemma = word` — 진단 결과 100% exact 사전 매칭). 검증: null_lemma 0·orphan 0. eng_test는 이제 avg_v 산출(8.5, 이전 NULL). 학년 단조 선명화(초2.0<중3.9<고4.8<eng_test8.5). 재설계 세트는 이미 lemma 보유라 미영향.
+- **잔여(검증 발견, 후속)**: #4 library_book null_pos 99%(23,483행 — 책 세트 POS를 dict lemma로 backfill 가능) · #5 주제 챕터 coarse(~125단어/챕터).
 
 ### LCP RPC 침묵실패 관측성 소급 (PR #93 salvage) — dev-process/process 라우트 (v06.254)
 - **배경**: `feat/scriptquiz-chapter-quiz`(PR #93)를 새 main에 merge. 대형 기능(챕터 퀴즈)은 plan-ui 재구현으로 main에 있고, scriptquiz 드레인·VCB QA·dict enrichment는 데이터/docs라 반영/superseded → **유일한 고유 코드 = LCP RPC 관측성 수리**만 소급.
