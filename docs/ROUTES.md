@@ -83,10 +83,12 @@
 |---|---|---|---|---|
 | **Flashcard** (L4a 재인) | `/flashcard` | `/flashcard/play` | — | SM-2/FSRS · 3D flip |
 | **SpellForge** (L4b 시각생성) | `/spellforge` | `/spellforge/play` | — | 타이핑 · IME 분리 |
-| **WordBlitz** (L4a 자동화) | `/wordblitz` | `(app)/play/wordblitz` | — | 풀스크린 3D 정글 |
+| **WordBlitz** (L4a 자동화) | `/wordblitz` | `(app)/play/wordblitz` | — | 풀스크린 2D 속사 인지 |
 | **PairFlip** (L4a 공간기억) | `/pairflip` | `/pairflip/play` | `/pairflip/results` | 5단계 (8~20장 · 2줄 고정) |
 | **ScriptQuiz** (L5 정복) | `/scriptquiz` | `/scriptquiz/play` | — | 3-screen 영어 immersion |
 | **Dictation** (L6 완성) | `/dictate` | `/dictate/setup` → `/dictate/session` | `/dictate/results` | CEFR 자동감지 · 단어별 채점 |
+| **아케이드 스위트** (v07.3) | `/arcade` (허브) | `(app)/play/{letter-forge,cascade,connections,word-economy,daily-blitz,ghost-race}` | — | 공용 게임킷·스캐폴드 위 6종. `?set=`/`?text=` 스코프. Connections/Daily는 내장 뱅크 |
+| **DCP 구문 연습** (CTP ⑥) | — | `(main)/practice/dcp` | — | hub 처방 ④ 연습 진입. order(순서 배열)/insert(위치 삽입) · `grade_dcp_item` 서버 채점 · 오답 error_cause 1-tap |
 
 ### 베타
 
@@ -127,6 +129,7 @@
 | `/admin` | `admin/page.tsx` + `layout.tsx` | KPI 4 + 섹션 + 활동 피드 |
 | `/admin/users` | stub | 사용자 관리 |
 | `/admin/analytics` | stub | 플랫폼 분석 |
+| `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/reports` | stub | 신고/문의 (실 데이터 뱃지 — `reports.status='open'` count) |
 | `/admin/billing` | stub | 결제 |
 | `/admin/settings` | stub | 시스템 설정 |

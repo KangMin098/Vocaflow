@@ -4,7 +4,11 @@
 
 ---
 
-# P6 handoff — P6.1~P6.3 적용 완료 (2026-06-28)
+# P6 handoff — 전체 종결 + F3 전면 소급 (2026-07-04)
+
+**2026-07-04 추가**: 사용자 신규 결정으로 6/28 F 결정의 "V0 미진단 제외" 조항 해제 → **F3 전면 소급 실행**. book-origin 4,862행 DELETE(review_count=0 가드, 보호 0) → 5권 재-enroll → 4권×50행·i+1 위반 0·Ammachi 0행(밴드 밖 정상). vocabularies 6,477→1,815. P6.4/6.5 재검증 = 6/28 결론 일치. ⚠️ 교훈: MEMORY.md 인덱스 한줄("잔여 P6.4/5/6")이 본문(전체 종결)과 어긋나 있었음 — 인덱스보다 본문이 SSoT.
+
+# (이전 기록) P6.1~P6.3 적용 완료 (2026-06-28)
 
 **상태**: ✅ **P6.1+P6.2+P6.3 한 마이그레이션으로 적용·머지** (PR #46 `65b0980`, migration `20260628120000_p6_enroll_subscribe_i_plus_one`). P6.0 진단 + 결정표 E1~E8+F 사용자 확정(권장 default + F0) 후 구현. read-only 스모크 검증(v_n=5→cap 50·band 정합 / V0 dedup). 적용 중 `user_profiles.id`→`user_id` 컬럼 정정.
 - 적용 내용: `_enroll_book_subscribe_word_sets` 에 i+1 필터(E1, N=current_v_level→book_v_level→5) + 미보유 dedup(E7 UNIQUE 존재 + ON CONFLICT, P6.2 stable dedup 포괄) + 세션 cap 50(E4, DISTINCT ON + 근접·고빈도 ORDER). 구독 set-level 불변, vocabularies import 만 필터(E8 완전분리). F0 = 소급 보류.

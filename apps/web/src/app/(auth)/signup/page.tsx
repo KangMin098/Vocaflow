@@ -1,5 +1,7 @@
 // apps/web/src/app/(auth)/signup/page.tsx
-// 회원가입 v2 — 실제 Supabase 연결 (소셜은 mock 유지)
+// 회원가입 v3 — 실제 Supabase 연결 (이메일 단일. 소셜 버튼은 provider 전원
+// 미설정 — "provider is not enabled" 실패 + 목업 토스트 — 이라 제거,
+// provider 설정 시 git 이력 복원)
 //
 // 가입 흐름:
 //   1) 폼 검증 (email/password/displayName/약관)
@@ -110,100 +112,6 @@ function isValidEmail(email: string) {
 }
 
 // ══════════════════════════════════════════════════════════════
-// 소셜 아이콘
-// ══════════════════════════════════════════════════════════════
-const GoogleIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-    <g fill="none">
-      <path
-        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
-        fill="#4285F4"
-      />
-      <path
-        d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"
-        fill="#34A853"
-      />
-      <path
-        d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
-        fill="#FBBC05"
-      />
-      <path
-        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"
-        fill="#EA4335"
-      />
-    </g>
-  </svg>
-)
-
-const AppleIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="currentColor">
-    <path d="M14.94 9.56c-.02-2.28 1.86-3.38 1.95-3.43-1.06-1.55-2.71-1.76-3.3-1.79-1.41-.14-2.74.83-3.46.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.6 2.78-.41 6.91 1.16 9.18.77 1.11 1.69 2.36 2.9 2.32 1.16-.05 1.6-.75 3.01-.75 1.4 0 1.8.75 3.03.72 1.25-.02 2.04-1.13 2.81-2.25.88-1.29 1.25-2.55 1.27-2.62-.03-.01-2.43-.93-2.45-3.7zM12.95 3.05c.64-.78 1.07-1.86.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z" />
-  </svg>
-)
-
-const KakaoIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-    <path d="M12 3C6.48 3 2 6.58 2 11c0 2.86 1.85 5.36 4.62 6.78-.2.71-.71 2.62-.83 3.04-.14.51.19.5.39.36.16-.11 2.5-1.7 3.51-2.39.76.11 1.53.18 2.31.18 5.52 0 10-3.58 10-8s-4.48-8-10-8z" />
-  </svg>
-)
-
-const NaverIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
-    <path d="M11.5 8.5L4.5 0H0v16h4.5V7.5L11.5 16H16V0h-4.5v8.5z" />
-  </svg>
-)
-
-// ══════════════════════════════════════════════════════════════
-// 소셜 버튼 (Parts Kit social variant 톤 + 브랜드 색상)
-// ══════════════════════════════════════════════════════════════
-type SocialProvider = 'google' | 'apple' | 'kakao' | 'naver'
-
-interface SocialButtonProps {
-  provider: SocialProvider
-  onClick: () => void
-  disabled?: boolean
-}
-
-function SocialButton({ provider, onClick, disabled }: SocialButtonProps) {
-  const config = {
-    google: {
-      icon: <GoogleIcon />,
-      label: 'Google로 계속하기',
-      className: 'bg-bg border border-bd hover:border-t2 hover:bg-bg2 text-t1',
-    },
-    apple: {
-      icon: <AppleIcon />,
-      label: 'Apple로 계속하기',
-      className: 'bg-t1 border border-t1 hover:opacity-90 text-bg',
-    },
-    kakao: {
-      icon: <KakaoIcon />,
-      label: '카카오로 계속하기',
-      className: 'bg-[#FEE500] border border-[#FEE500] hover:bg-[#FADA0A] text-[#191919]',
-    },
-    naver: {
-      icon: <NaverIcon />,
-      label: '네이버로 계속하기',
-      className: 'bg-[#03C75A] border border-[#03C75A] hover:bg-[#02B350] text-white',
-    },
-  }[provider]
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      className={`flex h-11 w-full items-center justify-center gap-s-3 rounded-md px-s-4 font-display text-sm font-medium transition-all duration-normal active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 ${config.className} `}
-    >
-      <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center">
-        {config.icon}
-      </span>
-      <span>{config.label}</span>
-    </button>
-  )
-}
-
-// ══════════════════════════════════════════════════════════════
 // Page
 // ══════════════════════════════════════════════════════════════
 export default function SignupPage() {
@@ -248,53 +156,6 @@ export default function SignupPage() {
 
   const termsError =
     submitted && (!agreeTerms || !agreePrivacy) ? '필수 약관에 동의해주세요' : undefined
-
-  const handleSocial = async (provider: SocialProvider) => {
-    setAuthError(null)
-
-    // ── Google: 실제 Supabase OAuth (회원가입·로그인 통합 — 첫 진입 시 자동 가입) ──
-    // Google OAuth 사용자는 약관 동의 절차가 다름:
-    //   - email signup 폼: 약관 체크박스 + raw_user_meta_data 저장
-    //   - Google OAuth: 사전 약관 동의 미수집 (TODO Phase 3 onboarding 단계에서 수집)
-    if (provider === 'google') {
-      setLoading(true)
-      try {
-        const supabase = createClient()
-        const origin = window.location.origin
-
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: `${origin}/api/auth/callback?next=${encodeURIComponent('/hub')}`,
-          },
-        })
-
-        if (error) {
-          setAuthError('Google 가입을 시작할 수 없어요. 잠시 후 다시 시도해주세요')
-          setLoading(false)
-          return
-        }
-        // signInWithOAuth 가 자체 redirect 수행
-      } catch {
-        setAuthError('Google 가입 중 오류가 발생했습니다')
-        setLoading(false)
-      }
-      return
-    }
-
-    // ── Apple/Kakao/Naver: mock 유지 ──
-    const labels: Record<SocialProvider, string> = {
-      google: 'Google',
-      apple: 'Apple',
-      kakao: 'Kakao',
-      naver: 'Naver',
-    }
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      toast.success(`${labels[provider]} 가입 (목업) — Phase 3 에서 연결됩니다`)
-    }, 800)
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -449,23 +310,6 @@ export default function SignupPage() {
             로그인
           </Link>
         </p>
-      </div>
-
-      {/* ── 소셜 로그인 4개 ── */}
-      <div className="space-y-s-2">
-        <SocialButton provider="google" onClick={() => handleSocial('google')} disabled={loading} />
-        <SocialButton provider="apple" onClick={() => handleSocial('apple')} disabled={loading} />
-        <SocialButton provider="kakao" onClick={() => handleSocial('kakao')} disabled={loading} />
-        <SocialButton provider="naver" onClick={() => handleSocial('naver')} disabled={loading} />
-      </div>
-
-      {/* ── 구분선 ── */}
-      <div className="my-s-6 flex items-center gap-s-3">
-        <div className="h-px flex-1 bg-bd" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
-          또는 이메일로
-        </span>
-        <div className="h-px flex-1 bg-bd" />
       </div>
 
       {/* ── 인증 에러 배너 (인라인) ── */}

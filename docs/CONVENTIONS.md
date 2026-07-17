@@ -165,6 +165,20 @@ const FULL_SCREEN_ROUTES = [
 
 세션 셸 `components/layout/SessionFrame.tsx` 자동 주입.
 
+### 세션 "제자리 복귀" (?from / backHref) — 항상 지킬 것
+
+풀스크린 세션은 진입 출처로 닫혀야 한다("진입→닫기→제자리"). 두 축을 반드시 지킨다:
+
+1. **진입 링크**: 풀스크린 play 라우트로 보내는 링크는 **`?from=<현재경로>`** 를 부착한다.
+   SessionFrame(X·Esc)이 이를 읽어 복귀 — 미부착 시 모듈 hub로 튕긴다.
+   - 워크스페이스: `ModePills.withReturn()` · 계획/홈: `activityLaunchHref(m, activity, origin)` (풀스크린 라우트에만 자동 부착).
+   - 해시(`#set-…`)·비세션(`/dictate/setup`·echo·hub)엔 붙이지 않는다.
+2. **세션 내부 닫기/완료 버튼**: `/text/${id}` 를 직접 하드코딩하지 말 것. 반드시 서버/클라이언트
+   페이지가 계산한 **`backHref`** 를 prop 으로 받아 쓴다 — [`resolveSessionReturnHref(from, text, hubHref)`](../apps/web/src/lib/layout/session-return.ts)
+   (`?from` → 스코프 텍스트 → hub). 스코프 진입 시 `textId` 는 단어 id 라 링크로 쓰면 404.
+3. **`router.back()` 금지 조건**: 직접 진입(북마크/새로고침) 가능한 비세션 화면(`/dictate/setup` 등)에서
+   무가드 `router.back()` 은 앱 이탈 → `window.history.length > 1` 가드 후 hub `push` fallback.
+
 ---
 
 ## 폼 검증

@@ -9,6 +9,15 @@ export interface LemmaOccurrence {
   chapter_idx: number
   frequency_in_chapter: number
   first_sentence_in_chapter: string
+  /** Phase 3 — 이 chapter 문맥의 지배 POS (winkNLP → dict 어휘). sense 매칭용. */
+  context_pos: string | null
+}
+
+// winkNLP universal POS → shared_dictionary pos 어휘 (Phase 3 문맥 sense 매칭용).
+const POS_MAP: Record<string, string> = {
+  NOUN: 'noun', VERB: 'verb', ADJ: 'adjective', ADV: 'adverb', ADP: 'preposition',
+  PRON: 'pronoun', CCONJ: 'conjunction', SCONJ: 'conjunction', AUX: 'verb',
+  DET: 'determiner', INTJ: 'interjection', PART: 'particle', NUM: 'number',
 }
 
 export interface BookLemmaIndex {
@@ -73,7 +82,7 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
     // chapter 내 lemma별 빈도 + 첫 등장 sentence index 집계
     const chapterCounts = new Map<
       string,
-      { count: number; firstSentenceIdx: number }
+      { count: number; firstSentenceIdx: number; posCounts: Map<string, number> }
     >()
 
     for (const sentence of result.sentences) {
@@ -87,13 +96,18 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         // Phase 14.7.1 노이즈 필터 (숫자/약어/외래기호/호칭/contraction)
         if (!isValidLearningWord(token.lemma)) continue
 
+        const mapped = POS_MAP[token.pos] ?? null
         const existing = chapterCounts.get(token.lemma)
         if (existing) {
           existing.count += 1
+          if (mapped) existing.posCounts.set(mapped, (existing.posCounts.get(mapped) ?? 0) + 1)
         } else {
+          const posCounts = new Map<string, number>()
+          if (mapped) posCounts.set(mapped, 1)
           chapterCounts.set(token.lemma, {
             count: 1,
             firstSentenceIdx: token.sentenceIndex,
+            posCounts,
           })
         }
       }
@@ -108,11 +122,17 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
       const firstSentence =
         result.sentences[info.firstSentenceIdx]?.text.trim().slice(0, 300) ?? ''
 
+      // Phase 3 — chapter 지배 POS (최다 등장 POS)
+      let context_pos: string | null = null
+      let maxPos = 0
+      for (const [p, n] of info.posCounts) if (n > maxPos) { maxPos = n; context_pos = p }
+
       const list = occurrences.get(lemma) ?? []
       list.push({
         chapter_idx: ch.chapter_idx,
         frequency_in_chapter: info.count,
         first_sentence_in_chapter: firstSentence,
+        context_pos,
       })
       occurrences.set(lemma, list)
     }

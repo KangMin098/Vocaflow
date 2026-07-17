@@ -62,7 +62,22 @@ export type ModuleId =
   | 'dictation'
   | 'wordvault' // 노출(L3)만, retrieve 아님
   | 'workspace' // L2 hover 인터랙션
-  | 'textviewer'; // L1
+  | 'textviewer' // L1
+  // ── 신규 게임 6종 (v07.3 arcade suite) — DB enum 확장 마이그레이션 후 persistence 활성 ──
+  | 'cascade' // L4a 재인·공간 (매치)
+  | 'connections' // L5 의미 그룹핑
+  | 'word-economy' // L4a 전략 인출
+  | 'daily-blitz' // 리텐션 데일리
+  | 'letter-forge' // L4b 철자 생성
+  | 'ghost-race' // L4a 비동기 경쟁
+  | 'glyph-tongue' // L2 문맥 추론 해독 (Chants of Sennaar 계열)
+  | 'word-customs' // L3+ 정밀 검증·위조 적발 (Papers Please 계열)
+  | 'lexicon-hands' // L4+ 어휘 속성 시너지 엔진 (Balatro 계열)
+  | 'lexicon-detective' // L5 장면 수확·서사 재구성 (Golden Idol 계열)
+  | 'morpheme-rules' // L4b 형태소 조립·규칙 재작성 (Baba Is You 계열)
+  | 'silent-rule' // L4b 철자 규칙 귀납 (The Witness 계열)
+  | 'lexicon-estate' // L5 의미장 인접 배치·드래프트 (Blue Prince 계열)
+  | 'word-orrery'; // L5 지식 게이트 탐사 (Outer Wilds 계열)
 
 /**
  * 사용자 단계 — §17.2 [2] 상태 축 — 사용자 상태

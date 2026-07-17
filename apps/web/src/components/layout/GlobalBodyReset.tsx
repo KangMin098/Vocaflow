@@ -43,7 +43,7 @@ export function GlobalBodyReset() {
       const overflowSet = document.body.style.overflow === 'hidden'
       if (!overflowSet) return
       const visibleOverlay = document.querySelector(
-        '.fixed.inset-0.pointer-events-auto, [role="dialog"][aria-hidden="false"]',
+        '.fixed.inset-0.pointer-events-auto, [role="dialog"]:not([aria-hidden="true"])',
       )
       if (!visibleOverlay) {
         safeReset()

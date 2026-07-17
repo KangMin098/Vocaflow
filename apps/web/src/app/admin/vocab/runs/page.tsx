@@ -30,7 +30,7 @@ export default async function VcbRunsPage() {
           <Link
             href="/admin/vocab/runs/new"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
-            style={{ background: '#6D28D9' }}
+            style={{ background: 'var(--admin-strong)' }}
           >
             <Plus className="w-4 h-4" />
             New Run
@@ -100,7 +100,11 @@ export default async function VcbRunsPage() {
             아직 생성된 run 이 없습니다
           </p>
           <p className="font-body text-sm m-0" style={{ color: 'var(--t3)' }}>
-            <code className="font-mono text-xs">{`New Run`}</code> 라우트는 P5c 에서 구현됩니다. 그 전까지는 SQL 또는 admin script 로 직접 <code className="font-mono text-xs">vocab_runs</code> row 를 생성해야 합니다.
+            우측 상단{' '}
+            <span className="font-display font-semibold" style={{ color: 'var(--p)' }}>
+              New Run
+            </span>{' '}
+            으로 새 공용 단어장 빌드를 시작하세요.
           </p>
         </div>
       )}

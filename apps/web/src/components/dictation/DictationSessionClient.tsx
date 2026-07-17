@@ -52,7 +52,7 @@ export function DictationSessionClient() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('sessionId');
 
-  const { session, currentItem, progress, isComplete, submitAnswer, consumeHint, next, skip } =
+  const { session, status, currentItem, progress, isComplete, submitAnswer, consumeHint, next, skip } =
     useDictationSession(sessionId);
 
   const audio = useAudioControl();
@@ -213,6 +213,35 @@ export function DictationSessionClient() {
     return () => window.removeEventListener('keydown', handler);
   }, [audio.isPlaying, feedback, handleNext, handleSubmit, handleSkip, playOnce, stopAudio]);
 
+  // 세션 미발견 — 무한 로딩 대신 명확한 안내 (localStorage 소실·다른 브라우저·공유된 URL 등)
+  if (status === 'not-found') {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
+        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t3)]">
+          <X size={22} />
+        </span>
+        <div>
+          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+            세션을 찾을 수 없어요
+          </h2>
+          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t3)]">
+            받아쓰기 세션은 이 기기에만 저장돼요. 링크를 공유받았거나 오래된 세션이면
+            다시 시작해 주세요.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => router.push('/dictate')}
+          className={`inline-flex h-10 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+          style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+        >
+          받아쓰기 시작하기
+          <ArrowRight size={14} />
+        </button>
+      </div>
+    );
+  }
+
   if (!session || !currentItem) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t3)]">
@@ -253,7 +282,11 @@ export function DictationSessionClient() {
         <header className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => router.back()}
+            onClick={() =>
+              typeof window !== 'undefined' && window.history.length > 1
+                ? router.back()
+                : router.push('/dictate')
+            }
             className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
           >
             <X size={14} />
@@ -307,6 +340,19 @@ export function DictationSessionClient() {
               {audio.isPlaying ? `재생 중 ${audio.iteration}/${autoRepeat}` : '대기'}
             </span>
           </div>
+
+          {/* 영어 TTS 음성 없음 안내 — 무음으로 방치되던 문제(브라우저/OS 영어 음성 미설치) 가시화 */}
+          {audio.englishVoiceAvailable === false && (
+            <div
+              className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2"
+              role="status"
+            >
+              <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+                ⚠️ 이 브라우저/기기에 영어 음성이 없어 소리가 재생되지 않아요. 기기의 음성(TTS)
+                설정에서 영어 음성을 추가하거나, 크롬 등 다른 브라우저로 열어보세요.
+              </p>
+            </div>
+          )}
 
           <div className="flex items-center gap-3">
             {/* 메인 재생 버튼 */}
@@ -373,7 +419,7 @@ export function DictationSessionClient() {
         {!feedback ? (
           <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
             <h3 className="mb-3 font-display text-[14px] font-[700] text-[var(--t1)]">
-              ✍️ Type what you hear:
+              ✍️ 들은 내용을 받아써 보세요
             </h3>
 
             {/* 힌트 표시 영역 */}

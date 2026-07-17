@@ -3,7 +3,7 @@
 
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   fetchQueueItems as fetchQueueItemsCore,
@@ -24,7 +24,7 @@ export async function fetchQueueItems(
   },
 ): Promise<QueueListItem[]> {
   await requireAdmin('/admin/vocab')
-  const client = await createClient()
+  const client = createAdminClient()
   return fetchQueueItemsCore(client, {
     run_id: runId,
     filter: options?.filter,
@@ -38,6 +38,6 @@ export async function fetchQueueDetail(
   queueId: number,
 ): Promise<QueueDetail | null> {
   await requireAdmin('/admin/vocab')
-  const client = await createClient()
+  const client = createAdminClient()
   return fetchQueueDetailCore(client, queueId)
 }

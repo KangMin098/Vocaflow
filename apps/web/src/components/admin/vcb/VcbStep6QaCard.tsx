@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { runQaGate } from '@/lib/vcb/server/qa'
 import type { QaSummary } from '@vocaflow/vcb-curate-core'
+import { STATUS_LABELS } from './VcbRunStatusBadge'
 
 interface Props {
   runId: number
@@ -77,7 +78,7 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
             Step 6 · QA Gate
           </h3>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
-            enriched payload 에 R1~R8 룰 적용 → qa_flags 적재 + 상태 분류 (enriched / enriched_flagged / failed)
+            보강 결과에 품질 규칙을 적용해 통과 · 검토 필요 · 실패로 분류합니다.
           </p>
         </div>
       </header>
@@ -114,7 +115,7 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
 
       {!canRun && !isPending && runStatus !== 'enriching' && runStatus !== 'qa' && (
         <p className="text-xs mt-2" style={{ color: 'var(--t3)' }}>
-          status 가 <span className="font-mono">{runStatus}</span> 입니다. enriching 또는 qa 상태에서만 실행 가능합니다.
+          지금은 <span className="font-display font-semibold">{(STATUS_LABELS as Record<string, string>)[runStatus] ?? runStatus}</span> 단계예요. QA 게이트는 보강 중 · QA 검증 중 단계에서 실행할 수 있어요.
         </p>
       )}
 

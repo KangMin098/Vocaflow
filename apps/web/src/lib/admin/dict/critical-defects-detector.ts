@@ -1,12 +1,14 @@
 // apps/web/src/lib/admin/dict/critical-defects-detector.ts
 //
 // Critical Defects 자동 탐지 — 15 rules
-//   P0 (5): vcb_vrl_not_integrated / cefr_confidence_null / audio_url_missing /
-//           register_critical_null / v_level_majority_unclassified
+//   P0 (3): audio_url_missing / segment_tags_underdeveloped(구 register_critical_null) /
+//           v_level_majority_unclassified   (cefr_confidence_null·vcb_vrl 는 해소/이연 — 아래 참조)
 //   P1 (7): list_tags_empty / noun_inflections_gap / adj_inflections_gap /
 //           polysemy_underdeveloped / verified_low_advanced /
 //           collocations_underdeveloped / korean_learner_note_gap
-//   P2 (3): cefr_c2_overrepresented / noun_pos_dominant / frequency_rank_majority_null
+//   P2 (4): vcb_vrl_not_integrated(2026-07-08 P0→P2, 우회로 동작) / cefr_c2_overrepresented /
+//           noun_pos_dominant / frequency_rank_majority_null
+//   ※ cefr_confidence_null 룰은 임계(<1%) 유지하나 실데이터 99.6% 채움으로 미발화(D1 done).
 //
 // 입력: DictSnapshotRaw (queries.ts fetchDictSnapshotRaw 결과)
 // 출력: CriticalDefect[] (priority 정렬)
@@ -42,9 +44,9 @@ const BACKLOG: Record<string, DefectImprovement> = {
     backlogId: 'D1',
   },
   D2: {
-    action: 'register backfill — list_tags + frequency_band 기반 추론 (business/academic/formal/informal)',
-    cost: '~1,400 turn (Claude 또는 룰 기반)',
-    effect: 'R3 +12 / business/academic segment 자동 단어장 발행 가능',
+    action: 'register backfill 은 이연 — segment 발행은 list_tags 로 동작 중. 격식(formal/informal) 표시 UI 등 실소비처 확정 시 재개',
+    cost: '소비처 확정 후 산정 (룰 커버 ~2.6K + LLM 잔여)',
+    effect: 'register 소비처 활성화 시 R4 표시 품질 (현재 효과 0 — 2026-07-06 진단)',
     backlogId: 'D2',
   },
   S1: {
@@ -54,9 +56,9 @@ const BACKLOG: Record<string, DefectImprovement> = {
     backlogId: 'S1',
   },
   V1: {
-    action: 'VRL Round 6-12 진행 — L0/L3/L11 잔여 분류 + verification',
-    cost: 'Round당 1-2 turn × ~7 rounds',
-    effect: 'R1 +15 / R3 +10 / VRL 24% → 90%+ 도달',
+    action: 'VRL 재분류 라운드 재실행 — 미분류 잔여 해소 (v3 Round 1~10 방법론 재사용)',
+    cost: 'Round당 1-2 turn',
+    effect: 'R1 +15 / R3 +10 / v_level 채움률 회복 (2026-06 100% 달성 이력 — 재발 시에만 발화)',
     backlogId: 'V1',
   },
 }
@@ -78,20 +80,23 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   // P0 Critical (5)
   // ════════════════════════════════════════════════════════════
 
-  // 1. VCB-VRL 미통합 — 본질 페인
+  // 1. VCB-VRL 전용 컬럼 부재 — 구조 개선 여지(info), 기능 차단 아님
+  //    (2026-07-08 진단: V-Level 단어장 발행·추천·구독은 이미 동작 — auto-vlevel V1~V9 9세트 +
+  //     도서 챕터 260세트 curation_query.book_v_level. recommend_word_sets_for_user 는 slug 조립으로
+  //     세트 조회. 실비용 = 슬러그 네이밍 관례 결합(소비처 RPC 1곳, 사고 0건)뿐 — P0 아님, B1 이연.)
   if (!schema.vcbVrlIntegrated) {
     defects.push({
       id: 'vcb_vrl_not_integrated',
-      severity: 'critical',
-      priority: 'P0',
-      title: 'VCB-VRL 미통합 (단어장 발행이 V-Level 모름)',
+      severity: 'info',
+      priority: 'P2',
+      title: 'VCB-VRL 전용 컬럼 부재 (V-Level 발행은 우회 경로로 동작 중)',
       description:
-        'shared_word_sets 에 target_v_level_range 컬럼 부재. VCB Pipeline 이 CEFR 만 알고 V-Level 12단계 활용 불가.',
-      evidence: 'shared_word_sets.target_v_level_range 컬럼 부재',
+        'shared_word_sets 에 target_v_level_range 등 전용 컬럼 부재. V-Level 단어장 발행·추천은 slug(auto-vlevel-v*)·curation_query JSONB(book_v_level) 로 이미 동작 — 기능 차단 아님. 남는 것은 슬러그 네이밍 관례 결합·인덱스/무결성 부재(견고성). 세트가 수천 규모가 되거나 슬러그 리디자인 시 전용 컬럼 도입 권장.',
+      evidence: 'shared_word_sets.target_v_level_range 컬럼 부재 (우회: curation_query→book_v_level · slug auto-vlevel-v*)',
       metrics: { current: 'absent', target: 'present', unit: 'column' },
       impactsOn: ['R3'],
       pipelines: ['VCB'],
-      remedy: '옵션 B (shared_word_sets schema 확장 + run-create 통합)',
+      remedy: 'B1 — 슬러그 개편/세트 대량화 시 target_v_level 컬럼 도입 (현재 우회로 충분)',
       improvement: BACKLOG.B1,
       detectedAt: NOW_ISO(),
     })
@@ -140,24 +145,26 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
     })
   }
 
-  // 4. register 96% NULL
-  if (c.register.ratio < 0.2) {
+  // 4. segment 태그 풀 부족 — segment 자동 단어장의 실제 발행 경로는 list_tags
+  //    (구 rule: register NULL. register 컬럼은 소비처가 없어 P0 허위 경고였음 —
+  //     specialty 4종은 list_tags 로 이미 발행. register 백필 D2 는 소비처 발생 시 이연.)
+  if (c.segmentTags.ratio < 0.5) {
     defects.push({
-      id: 'register_critical_null',
+      id: 'segment_tags_underdeveloped',
       severity: 'critical',
       priority: 'P0',
-      title: 'register 96%+ NULL (segment 매칭 불가)',
+      title: 'segment 태그 풀 부족 (specialty 단어장 발행 위험)',
       description:
-        'business / academic / formal / informal segment 자동 단어장 발행 불가. R3 핵심 결함.',
-      evidence: `register 채움: ${c.register.filled} / ${c.total} (${(c.register.ratio * 100).toFixed(1)}%)`,
+        'list_tags 의 segment 태그(bsl/bel/tsl/nawl/moel) 보유 row 가 목표 풀의 절반 미만 — specialty 단어장 발행·갱신 기반 약화.',
+      evidence: `segment 태그 보유: ${c.segmentTags.filled.toLocaleString()} row (목표 3,000)`,
       metrics: {
-        current: (c.register.ratio * 100).toFixed(1),
-        target: 70,
-        unit: '%',
+        current: c.segmentTags.filled,
+        target: 3000,
+        unit: 'row',
       },
       impactsOn: ['R3'],
       pipelines: ['VCB'],
-      remedy: 'D2 — list_tags + frequency_band 기반 register 백필',
+      remedy: 'segment 리스트 재import (D8) 또는 태그 소스 보강',
       improvement: BACKLOG.D2,
       detectedAt: NOW_ISO(),
     })
@@ -264,11 +271,11 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   if (l.polysemy.polysemicRatio < 0.22) {
     defects.push({
       id: 'polysemy_underdeveloped',
-      severity: 'warning',
-      priority: 'P1',
-      title: 'polysemy 20%+ (다의어 senses 분할 부족)',
+      severity: 'info',
+      priority: 'P2',
+      title: 'polysemy 20%+ (다의어 senses 분할 부족 · UI 미렌더)',
       description:
-        '실제 영어 다의어 비율 ~25-30% 대비 senses 배열 ≥ 2 row 가 부족. 사용자 학습 시 의미 모호.',
+        '실제 영어 다의어 비율 ~25-30% 대비 senses ≥ 2 row 부족. ⚠️ 2026-07-09 진단: senses 는 학습자 UI(카드·툴팁) 미렌더 — 카드가 meaning_ko 단일만 표시. 다의어 카드 UI 선행 필요(D3 이연).',
       evidence: `polysemic_2plus: ${l.polysemy.polysemic.toLocaleString()} / total (${(l.polysemy.polysemicRatio * 100).toFixed(1)}%)`,
       metrics: {
         current: (l.polysemy.polysemicRatio * 100).toFixed(1),
@@ -308,10 +315,11 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   if (c.collocations.ratio < 0.5) {
     defects.push({
       id: 'collocations_underdeveloped',
-      severity: 'warning',
-      priority: 'P1',
-      title: 'collocations 32%+ 부재 (자연 결합 부족)',
-      description: 'set phrase / collocation 부족. 사용자 학습 시 자연스러운 사용 패턴 부재.',
+      severity: 'info',
+      priority: 'P2',
+      title: 'collocations 32%+ 부재 (자연 결합 · UI 미렌더)',
+      description:
+        'set phrase / collocation 부족. ⚠️ 2026-07-09 진단: collocations 는 학습자 UI 미렌더(admin 패널만) — 카드에 연어 표시 UI 선행 필요(D7 이연).',
       evidence: `collocations 채움: ${c.collocations.filled} / ${c.total} (${(c.collocations.ratio * 100).toFixed(1)}%)`,
       metrics: {
         current: (c.collocations.ratio * 100).toFixed(1),
@@ -329,11 +337,11 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   if (c.koreanLearnerNote.ratio < 0.5) {
     defects.push({
       id: 'korean_learner_note_gap',
-      severity: 'warning',
-      priority: 'P1',
-      title: 'korean_learner_note 32%+ 부재 (한국인 학습자 메모 부족)',
+      severity: 'info',
+      priority: 'P2',
+      title: 'korean_learner_note 32%+ 부재 (학습 메모 · UI 미렌더)',
       description:
-        '한국어 학습자 특이 학습 메모 부족 — Konglish 경고, 발음 유사 단어 혼동 등.',
+        '한국어 학습자 특이 메모(Konglish 경고 등) 부족. ⚠️ 2026-07-09 진단: 학습자 UI 미렌더(admin 패널만) — 카드 메모 슬롯 UI 선행 필요(D6 이연).',
       evidence: `korean_learner_note 채움: ${c.koreanLearnerNote.filled} / ${c.total} (${(c.koreanLearnerNote.ratio * 100).toFixed(1)}%)`,
       metrics: {
         current: (c.koreanLearnerNote.ratio * 100).toFixed(1),
@@ -351,28 +359,28 @@ export function detectCriticalDefects(raw: DictSnapshotRaw): CriticalDefect[] {
   // P2 Info (3)
   // ════════════════════════════════════════════════════════════
 
-  // 13. CEFR C2 과대표현 (실제 56%)
-  const cefrC2 = raw.volume.byPrimaryPos // proxy — schema 의 byCefrLevel 직접 접근 어려움
-  void cefrC2
-  // categorical RPC 결과는 별도. 여기서는 단순화 — 전체 모니터링 보류 후 raw 확장 시 활성화
-  // raw.volume 에 byCefrLevel 추가하면 정밀 탐지 가능. 현재는 raw.coverage.cefrLevel.ratio 활용
-  if (c.cefrLevel.ratio > 0.99) {
-    // 모든 단어에 cefr_level 가 채워졌으나 C2 편향은 별도 메트릭 필요.
-    // 우선 정보성 — categorical 데이터 추가 시 정밀화.
-    defects.push({
-      id: 'cefr_c2_overrepresented',
-      severity: 'info',
-      priority: 'P2',
-      title: 'CEFR C2 과대표현 (전체 ~56%)',
-      description:
-        '실측 by_cefr_level: C2 21,687 / 38,605 = 56.2%. C2 비중이 과대 — 학습자 수준 분포와 불일치.',
-      evidence: 'categorical RPC: by_cefr_level C2 56.2%',
-      metrics: { current: 56.2, target: 30, unit: '%' },
-      impactsOn: ['R1', 'R3'],
-      pipelines: ['LCP', 'VCB'],
-      remedy: 'CEFR 재분류 또는 C2 일부 → C1 reclassify (Round 후속)',
-      detectedAt: NOW_ISO(),
-    })
+  // 13. CEFR C2 과대표현 — categorical RPC 라이브 값으로 판정 (하드코드 스냅샷 금지)
+  const byCefr = raw.categorical?.by_cefr_level
+  if (byCefr) {
+    const cefrTotal = Object.values(byCefr).reduce((s, n) => s + n, 0)
+    const c2Count = byCefr['C2'] ?? 0
+    const c2Pct = cefrTotal > 0 ? (c2Count / cefrTotal) * 100 : 0
+    if (c2Pct > 40) {
+      defects.push({
+        id: 'cefr_c2_overrepresented',
+        severity: 'info',
+        priority: 'P2',
+        title: `CEFR C2 과대표현 (전체 ${c2Pct.toFixed(1)}%)`,
+        description:
+          'C2 비중이 학습자 수준 분포 대비 과대 — CEFR 세분화가 상급에 뭉쳐 레벨 신호로서의 변별력 저하.',
+        evidence: `categorical RPC by_cefr_level: C2 ${c2Count.toLocaleString()} / ${cefrTotal.toLocaleString()} (${c2Pct.toFixed(1)}%)`,
+        metrics: { current: c2Pct.toFixed(1), target: 30, unit: '%' },
+        impactsOn: ['R1', 'R3'],
+        pipelines: ['LCP', 'VCB'],
+        remedy: 'CEFR 재분류 또는 C2 일부 → C1 reclassify (Round 후속)',
+        detectedAt: NOW_ISO(),
+      })
+    }
   }
 
   // 14. noun POS dominance (66%)

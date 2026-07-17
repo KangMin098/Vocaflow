@@ -10,6 +10,7 @@ import {
   CreditCard,
   Database,
   Flag,
+  Gauge,
   LayoutDashboard,
   Library,
   Newspaper,
@@ -68,6 +69,7 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
     color: 'var(--info)',
     items: [
       { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
+      { href: '/admin/quality', label: '품질 지표', Icon: Gauge },
       { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: reportsBadge },
       { href: '/admin/billing', label: '결제/구독', Icon: CreditCard },
     ],
@@ -81,8 +83,17 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
 }
 
 export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? ''
   const NAV_GROUPS = buildNavGroups(reportsBadge)
+
+  // 활성 항목 = 현재 경로에 매칭되는 href 중 "가장 구체적(최장)" 1개.
+  //   startsWith 경계(+'/')로 /admin/vocab ↔ /admin/vocabulary 오매칭 차단,
+  //   최장일치로 /admin/vrl ↔ /admin/vrl/automation 동시 하이라이트 차단.
+  const activeHref =
+    NAV_GROUPS.flatMap((g) => g.items)
+      .map((i) => i.href)
+      .filter((h) => pathname === h || (h !== '/admin' && pathname.startsWith(h + '/')))
+      .sort((a, b) => b.length - a.length)[0] ?? null
 
   return (
     <aside
@@ -150,9 +161,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
             )}
             <ul className="flex flex-col gap-0.5">
               {group.items.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  (item.href !== '/admin' && pathname.startsWith(item.href))
+                const isActive = item.href === activeHref
                 return (
                   <li key={item.href}>
                     <Link

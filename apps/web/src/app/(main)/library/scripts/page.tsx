@@ -8,7 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { Capsule, Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
-import { SourceMapShell } from '@/components/library/browse/SourceMapShell'
+import { ScriptsBrowser } from '@/components/library/browse/ScriptsBrowser'
 import type { PublishedArticle } from '@/lib/articles/types'
 
 export const metadata = {
@@ -50,7 +50,7 @@ export default async function LibraryScriptsPage() {
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
-            큐레이션된 짧은 영어 글 — VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation 출처.
+            큐레이션된 짧은 영어 글 — 당신 수준에 맞는 추천부터 편하게 시작해요.
           </p>
           {articles.length > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">
@@ -62,7 +62,7 @@ export default async function LibraryScriptsPage() {
           )}
         </header>
 
-        <SourceMapShell articles={articles} />
+        <ScriptsBrowser articles={articles} />
       </div>
     </Screen>
   )

@@ -10,6 +10,1123 @@
 
 ## Unreleased (v06.34 → next)
 
+### CI green 복구 — main 머지 게이트 정리 (v06.254)
+- **배경**: `feat/plan-ui`(origin/main +319, 0 behind)의 CI 3잡(TypeScript·build·verify)이 최신 커밋 기준 red → 깨끗한 main 머지의 유일 블로커.
+- **build(next lint) 13 에러**: 아케이드/신규 게임 스위트가 남긴 미사용 import/var — `GameMark`(7 게임)·`IconSound`·`useRef`(glyph-tongue)·`NextRequest`(factbook-feed route)·죽은 로컬 `mounted`(언마운트 가드 미배선)·`placedCount`·`total`(lexicon-detective/morpheme-rules) 제거. 전부 동작 무변경 죽은코드.
+- **TypeScript 0 error(tsc) 1 에러**: `lib/recommend/next-action.mock.ts` `actionToHref` switch가 `ModuleId`(아케이드 모듈 추가로 확장) 비exhaustive → TS2366. `default` → `/library`(P4 폴백) 추가.
+- **verify(vitest) 1 실패**: `TodayPrescriptionCard.test.tsx`가 Phase 1의 "곧 제공" 상태칩을 기대했으나 Phase 2(v06.204)에서 ④구문연습이 실런처(`/practice/dcp`)로 교체됨 → 테스트를 shipped 동작(런처 노출)으로 교정.
+- **부수**: 게임 지시문(glyph-tongue·silent-rule) `aria-hidden` 제거로 스크린리더가 룰 낭독(a11y). 검증: lint 0 · web/library-pipeline tsc 0 · 테스트 144 passed.
+
+### 주제별 단어장 PoC — dictionary_categories 활용 (v06.254)
+- **P0 정찰**(read-only, `wordset_pipeline_v2_p0_20260717.md`): 단어장 파이프라인 v2 전제 판정 — ① 학년 노드는 `dictionary_categories`엔 없음(thematic 18) BUT `kcurr2022` 교육과정 별표=word-level 학년 소스 **이미 존재·발행**(오류1 완화) ② `category_id` 부재 확인(오류5 철회) ③ `curation_query` 스키마 불일치→GENERATED 정규화 선결 ④ **`dictionary_categories` 566노드+28,079 매핑=주제축 데이터 이미 존재**(플랜 밖 기회).
+- **주제 세트 발행**(정찰 발견 즉시 실현, migration 불요): `topics-publish-set.mjs` — L1 테마=세트·L2 소주제=챕터(L3 롤업). **전 18주제 7,219단어** 발행(음식·여행·건강·비즈니스·과학·자연·사람·정치사회·문화·외모·언어기능·동물·집·스포츠·개념·의사소통·시간공간·여가). category `themed`/subcategory `topic`. chapter=L2 그룹번호·라벨=`korean_learner_note`(예: 여행→항공 교통·휴가 / 건강→의료·장애).
+- **검증**: e2e 09에 주제 세트 렌더 단언 추가(소주제 챕터 라벨) → 통과(14.6s). 시중 주제별 단어장 대응 완비.
+- **배경**: 시중 대응 카탈로그 실측 결과 학년/수능/시험/주제는 이미 발행됐고, 유일한 미대응 = **어원 단어장**(Word Smart류). kaikki 불요(핵심 학술 root=표준지식).
+- **스키마**(migration `20260717140000`): `word_roots`(어근 인벤토리·origin·meaning_en·gloss_ko·variants) + `word_root_links`(단어↔어근, (word,root_id) PK 멱등·affix_type·confidence). RLS 공개읽기.
+- **시드**: 라틴/그리스 핵심 어근·접두·접미 **181개**(`scripts/dict/roots-seed.mjs` + `data/word-roots-seed.json`, 멱등).
+- **매핑**: 6 서브에이전트가 root→파생어족 생성(어원학적 진짜 파생어만) → 사전 실재 단어만 링크. **2,767 링크**(후보 2,591 중 사전 실재 2,472=95%). `scripts/dict/roots-map.mjs`.
+- **어원 단어장 발행**: `etymology-core` "어원으로 익히는 핵심 영단어" — **1,500단어·159 어근 챕터**(chapter=그룹번호, `korean_learner_note`=어근 라벨). category `themed`/subcategory `etymology`. `scripts/dict/roots-publish-set.mjs`. 품질 검증(spec/dict/port/duc 챕터 전수 정확).
+- **이중배당**: 어원 단어장 + (후속) 추출 파생어 인식·니모닉 소스. curation_query `{org:'root'}` 문서화(RPC 실행축 확장은 후속).
+- **렌더 검증(수정 포함)**: `VocabSetPreviewModal`이 챕터를 `Chapter N`(숫자만)으로만 표시 → 어원 세트의 어근이 안 보이던 문제 수정 — 챕터 내 `korean_learner_note`가 균일하면 **어근 라벨("어근 spec — 보다")을 챕터 헤딩으로 승격**(책 챕터엔 무영향). e2e `09-etymology-set.spec.ts`(검색→모달→어근 챕터 렌더 단언) 통과. ⚠️ 발견: 어원 세트가 themed 저중요도라 기본 추천 캐러셀엔 비노출(검색/테마별로 접근) — 프로미넌스는 후속.
+- **추출 이중배당**: `ExtractionPanel`이 추출 단어의 표제어 어근을 `word_root_links` 조회 → **🏛 어원 힌트 칩**(인라인 `🏛 spec` + expand "어원 spec (보다)") 노출. 학습자가 단어 추출 시 어근을 바로 봄. e2e 08에 어근 칩 단언 추가(통과 29.3s). `mnemonic_ko`는 admin 전용 UI뿐이라 대량 채움 대신 기존 근거 카드 surface 재사용(스키마 마찰 0).
+- **어원 first-class 카테고리 승격**(migration `20260717150000`): `shared_word_sets.category` CHECK에 `'etymology'` 추가 + etymology-core 세트 이동(themed→etymology). `categories.ts`에 **📜 어원 카테고리**(중요도 50·공인 다음) + `VocabSetCarousel` 앰버 색 → /library/vocab 기본 뷰에 **자체 어원 탭** 노출(시중 어원 카테고리 대응). e2e 09에 탭 프로미넌스 단언 추가(통과 31.3s).
+
+### 추출 대상 단일단어 example 100% 완비 (v06.252)
+- 추출 대상(classified·v_level·노이즈 register 제외) **단일 단어 172개**의 `example_en` 결측을 사전급 예문으로 채움 → 단일단어 example **95.5%→100%**. 대부분 학술 고급어(auscultation·sedimentary·inhibitory·regulatory 등) + 영국식 철자변형.
+- 도구 `scripts/dict/example-fill.mjs`(dump=대상 청크화 · apply=검증 후 결측행만 UPDATE 멱등). 4 서브에이전트 병렬 authoring(품사·의미 sense 매칭·영국식 철자 보존) → 172 valid·0 reject·0 fail.
+- 잔여 결측 1,635는 **multiword 항목**(단일 토큰 추출 경로로 애초에 추출 안 됨 → 추출 품질 무관, 의도적 잔존).
+
+### 추출 신뢰 런타임 회귀 스펙 — 알아요/몰라요 + 근거 카드 E2E (v06.251)
+- **상시 회귀 자산**(임시 드라이버 금지 정책): `08-text-extract-trust.spec.ts` — 실 로그인으로 `/text/new` 추출 → 4단계 근거 카드 렌더 + 2단계 알아요(✓·체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 **service-role DB 단언**. finally 에서 테스트가 만든 행만 원복(known이 다음 추출을 영구 축소하지 않도록).
+- **db 헬퍼 2종**: `countWordFamiliaritySince`(verdict 필터) · `deleteWordFamiliaritySince`(멱등 정리). **ExtractionPanel 토글 버튼에 `aria-pressed`**(a11y + 상태 검증). 최초 실행 통과(18.9s · known+unknown 영속화 확인 · cleanup 2행).
+
+### 추출 신뢰 로드맵 기반 완성 — 3단계 검증 + 정밀도 백로그 (v06.250)
+- **5단계 로드맵**(새는 곳 막기→틀려도 고칠 수 있게→채우기→자랑하기)의 **0·1·2·4단계 완료** = 신뢰의 누수(3경로 분열·형태-POS 오정렬·교정 불가·근거 불투명) 전부 봉인.
+- **3단계 검증(읽기 전용)**: 추출 대상 **40,355** 표제어 — `meaning_ko`·`pos`·`cefr_level`·`meanings_ko sense별 pos` **모두 100%**(= 맞는 단어·그 형태의 맞는 뜻·맞는 POS 보장), example_en 95.5%. **뜻·POS가 틀리지 않음이 데이터로 확인**.
+- **정밀도 백로그(Phase B, 비차단)**: 다의어 10,144 중 **7,420**이 일부 sense에 자체 v_level 결측 → flat 폴백(뜻 아닌 **난이도 숫자 근사**만 영향). 우선순위=실사용∩multi-POS 5,170. 신규 툴 명세를 `scripts/dict/SENSE_COMPLETION_MULTISESSION.md` §Phase B에 기록. 여유 시 멀티세션 배치.
+
+### 추출 신뢰 4단계 — 추출 근거 카드("왜 이 단어인가") (v06.249)
+- **전략 4단계 "자랑하기"**: 백엔드가 이미 반환하던 `score_breakdown`(V-Level·threshold·track/freq boost·reasoning·형태해소)을 **학습자 공감 언어의 근거**로 번역. 완벽함을 주장하는 대신 "왜 뽑았는지" 투명하게 보여 신뢰 형성.
+- **`buildReasons(r)`** 순수 헬퍼 — 신뢰 가치순 근거 생성: ① 목표 트랙 빈출(수능/비즈/학술, `track_boost>0` + 최고 트랙) ② i+1 난이도 위치(`v_level==threshold`→"딱 지금 배우기 좋은" / 초과→"조금 도전적") ③ 빈도(rank≤3000 "두루 쓸모" / rare "이 글에서 특히 중요") ④ **형태 해소**(match_layer 2 → `이 글엔 "surface" 형태 — 표제어 "lemma"(POS 뜻)`, 이 플랫폼만의 강점). 각 근거에 lucide 아이콘(Dual Coding).
+- **UI(ExtractionPanel)**: 인라인엔 **눈에 띄는 근거만**(generic 난이도 제외 → Calm UI) 뜻 아래 italic 한 줄. expand 상단에 **"왜 추천했어요?" 카드**(전체 근거 + 아이콘) → 기존 기술 breakdown 테이블은 그 아래로(Progressive Disclosure). 스코어 코너의 dev 문자열("V6 ≥ threshold")은 "추천 점수"로 정리, 기술 reasoning/method는 breakdown 안으로 이동. tsc 0·eslint 0.
+
+### 추출 신뢰 2단계 — 학습자 "알아요/몰라요" 교정 + 오난이도 신호 (v06.248)
+- **전략 순서**(새는 곳 막기→틀려도 고칠 수 있게→채우기)의 **2단계**: 완벽 대신 학습자가 추출을 직접 교정. 마이그 `20260713180000`(테이블+RPC+뷰) · `20260713180500`(추출 제외).
+- **`word_familiarity`** 테이블(user·**lemma(표제어) 단위**·verdict known/unknown·판정당시 v_level·source) + RLS(본인) + `idx_wf_lemma_verdict`. lemma 단위 저장 → 굴절/파생 형태 무관 일관.
+- **`set_word_familiarity(lemma,verdict,v_level)`** RPC(DEFINER·`auth.uid()` upsert·PUBLIC revoke·authenticated grant). **`word_mislevel_signal`** 뷰(known_ct/unknown_ct + dict_v_level 대비 → 과대/과소난이도 후보 집계).
+- **추출 제외**: `extract_vocabulary_for_user_v2` filtered CTE에 `verdict='known'` 배제(이미 아는 단어 재추출 안 함). 나머지 통합 로직(resolve_dict_headword·infer_form_pos·i+1 threshold) 불변.
+- **`ExtractionPanel`**: 행마다 알아요/몰라요 버튼(낙관적 UI·known→페이드+선택해제). 저장은 **lemma 단위 + `extracted_surface` 보존**(SRS 형태별 쪼갬 방지). L2 배지 형태→표제어 시맨틱 교정. `@vocaflow/types` database.ts 재생성(신규 RPC 타입). tsc 0(ExtractionPanel).
+
+### 스크립트 출처 설명 — 소스별·소스주제별 한눈에 (v06.247)
+- **문제**: 소스는 라벨(NASA·OWID·eLife…)만 있고 "그게 뭔지·무슨 주제인지" 설명이 없어 학습자가 파악 어려움.
+- **소스 메타 확장**: `source-meta.ts` 각 소스에 **domain(분야: 우주·천문/건강·의학/데이터·통계/여행…)** + **blurb(한 줄 설명: "미국 항공우주국 — 우주 탐사·천문·지구 관측 소식")** 추가(14소스 전수). `TrackStat.sources`가 집계 시 domain/blurb 주입.
+- **한눈 디자인**: ① 팝업(SeriesInfoModal) **'출처별' 존** — 색점 + 이름 + **분야 배지** + 편수 + **비율 바**(시리즈 내 비중 시각화) + 설명. 소스별(무엇) + 소스주제별(무슨 분야·얼마나) 동시 전달. ② SeriesDetail 소스 그룹 헤더에 **분야 배지 + 설명** → 글 목록에서 소스주제별 맥락.
+- **검증**: tsc 0·eslint 0 · unit 18 유지 · 런타임 diag(모달 출처 분야·설명 렌더·pageerror 0).
+
+### ACP 소스 feed 전수 자동 테스트 + nih 불안정 표기 (v06.246)
+- **전수 테스트**(29 feed · 14 소스 · 실 외부 호출, DEV_ADMIN_BYPASS): **12/14 소스가 233+ 후보 정상 산출** — voa(36)·nasa(21)·simple_wikipedia(40)·the_conversation(23)·owid(4)·factbook(30)·elife(20)·wikipedia(38)·plos(15)·wikivoyage(40)·usgs(24)·noaa(19). **코드 파싱 버그 0** — 실패/빈 feed는 전부 외부 요인 확인.
+- **외부 이슈(코드 아님)**: nih/news RSS **403 차단** · nih/directors-blog **연결불가(000)** · nih/medlineplus **원본 1건뿐** · nasa/apod **원본 RSS가 제목 공란·설명=이미지태그**(기사용 아님) → curation 정확히 0 · wikinews **비활성**(기존 flag) · the_conversation/politics **저볼륨**(all/science/health는 정상).
+- **사용성 보완**: nih 3 feed 모두 실패인데 basic 프리셋에 포함돼 매번 실패 유발 → `BulkArticlesTab` nih 에 **`health='unstable'`** + note(“News 403·Blog 불가·MedlinePlus 희소 — URL 직접 입력 권장”) 표기(wikinews 패턴). 소스 카드에 ⚠️ 경고 노출.
+
+### 시리즈 학습정보 팝업 — 텍스트 위주 → 시각적 정보전달 (v06.245)
+- **문제**: 팝업(SeriesInfoModal)이 텍스트 위주 — "나에게 맞나?"(난이도)가 텍스트 배지뿐, 능력은 텍스트 나열, 정보전달 매커니즘 부족.
+- **시각 부호화 강화**: ① **난이도 게이지** 신설 — 축(쉬움→어려움) 위에 시리즈 밴드(vMin~vMax)와 **내 위치 마커**를 그려 "나에게 맞나"를 <1s 시각 즉답(전주의적, `vToPct`/`effectiveUserV` 재사용). ② **스탯 타일**에 아이콘(분량·읽기시간·음성) — 읽기시간은 실 글에서 집계(`3~8분`). ③ **능력 = 아이콘 칩 그리드** — 키워드→아이콘(듣기 Headphones·논증 Scale·독해 BookOpen·데이터 BarChart…) Dual Coding. ④ why는 Lightbulb 앵커로 보조 강등.
+- **검증**: tsc 0·eslint 0 · 런타임 diag(팝업 열림·게이지·스탯·능력·로드맵·why 렌더 · pageerror 0). buildScriptsMap/진입 flow 불변.
+
+### `/admin/articles` 소스 라벨 SSoT 통일 — 커버리지↔소스GET 불일치 수정 (v06.244)
+- **버그**: 소스 라벨이 3곳(정본 `source-guide.SOURCE_LABEL` · `SourceFeedList.SOURCE_LABELS` · `CurationConsole.SOURCE_OPTIONS`)에 중복 정의 → 드리프트. `SOURCE_OPTIONS`가 `simple_wikipedia`를 **"Wikipedia"로 오표기**(정본 "Simple Wikipedia") → 커버리지(SourceFeedList)엔 "Simple Wikipedia", 소스GET 탭엔 "Wikipedia"(×2, wikipedia와 충돌)로 **같은 소스가 다른 이름**.
+- **수정**: 커버리지·소스GET·소스헤더 셋 다 **정본 `SOURCE_LABEL` 단일출처**만 사용. `SOURCE_OPTIONS`는 key+Icon만 정의(라벨 하드코딩 제거), `SourceTabs`가 `SOURCE_LABEL[key]` 렌더. `SourceFeedList`의 중복 `SOURCE_LABELS` 삭제 → `SOURCE_LABEL[source]`. DB 소스 집합(seed_catalog·articles)은 14 정본 내 확인(stale 없음). 미래 드리프트 차단.
+- **소스GET(대량) 라벨 정렬**(BulkArticlesTab, 4번째 소스 맵): owid=**"OWID"→"Our World in Data"** · factbook=**"Factbook"→"CIA World Factbook"** · noaa=**"NOAA"→"NOAA Climate.gov"** 정본과 일치. 14 소스 전부 존재(preset "전체(14 소스)") 확인. (커버리지의 「소스 피드 현황」은 후보 수집된 소스만 동적 표시 — 미수집 소스는 미노출이 현 설계.)
+
+### `/library/scripts` 선택 후 글 목록(SeriesDetail) 에디토리얼 재설계 (v06.242)
+- **문제**: 시리즈 선택 후 화면이 분류 없이 카드 나열식 — 특히 고급(V11) 학습자는 모든 글이 같은 fit('수월')이라 그룹이 붕괴돼 평면 그리드였음.
+- **재설계(콘텐츠 우선)**: ① **먼저 읽어볼 글**(featured lead — 추천순 1편을 큰 잡지 lead 카드로, 최고의 글 어필) ② **적응형 분류** — 다중 출처 시리즈(관심 주제·데이터·백과)는 **출처(소주제)별**(NASA/NIH/PLOS…), 단일 출처(듣기·쉬운글·논증)는 **읽기 시간별**(빠르게 4분↓/찬찬히 5~9분/깊이 10분↑). V-Level 무관하게 항상 의미 있는 분류(고급도 나열식 X). ③ 오리엔테이션(능력·why·학습법)은 하단 "이 시리즈에 대해" footer로(콘텐츠가 먼저 보이게).
+- **ArticleCard 에디토리얼 타일**: 본문 미리보기가 없어 **제목(Lora)을 크게 승격**(콘텐츠의 얼굴), 나머지(출처 색점·읽기시간·레벨·적합·음성·태그)는 절제된 한 줄 메타. 카드 전체 클릭=읽기 진입, 우상단 원문 링크. `featured` 변형(큰 리드). SOURCE_META는 source-meta.ts 공유분 재사용.
+- **검증**: tsc 0·eslint 0. (진입면→상세 클릭 경로 e2e 는 동시 진행된 SeriesInfoModal 2-타깃 개편과 겹쳐 별도 조정 필요 — 상세 화면 자체는 onEnter '둘러보기' 도착지로 유지.)
+
+### `/library/scripts` 시리즈 학습정보 팝업 (v06.240 → 가독성 재설계 v06.241)
+- **결정 surface 신설** `SeriesInfoModal.tsx` — 진입면에서 주제(시리즈) **왼쪽(본문) 클릭 → 학습정보 팝업**. 글 목록에 들어가기 전, 고를지 확신을 갖고 결정하게 함(Progressive Disclosure · 자기효능감). 콘텐츠 전부 실데이터/근거(TrackStat sources·count·fit·idealCount + SourceTrack 카피). 추가 fetch 0.
+- **v06.241 가독성·가시성 재설계 (뇌과학·심리 근거)**: ① **한눈 요약 스탯 스트립**(난이도·레벨·분량 3타일, 색·크기 전주의적 <1s 파악) ② **격리된 개인화 훅**(16px 볼드·fit색·Von Restorff) ③ **체크 앵커 능력 리스트**(t1 14px, 그림 우월) ④ **큰 번호 로드맵**(28px 원·연결선) ⑤ **근거 존 그룹화**(왜+출처 한 카드, Gestalt 공통영역) ⑥ **48px 고대비 CTA**. 인지부하 청킹(6나열→3존 ~4항목), 중요정보 대비 t3→t1/t2. Calm 등장(mounted-state)·Esc/백드롭·스크롤잠금·role=dialog·다크 토큰.
+- **카드 2-타깃 재구성** ScriptsBrowser: 히어로/row **왼쪽(본문)=학습안내 팝업 / 오른쪽(둘러보기)=글 목록 직행**. 히어로 "ⓘ 이 시리즈 알아보기" 어포던스, row Info 아이콘 + 우측 "cefr·편수 ›" 분절. buildScriptsMap 불변.
+- **출처 제공**: `source-meta.ts` 신설 — 소스 라벨·색·짧은라벨을 ArticleCard에서 추출해 공유(진입면·상세 재사용). `buildScriptsMap` 이 시리즈별 **실제 출처+편수**(`TrackStat.sources`) 집계 → 진입면 히어로/row에 "출처 · NASA · NIH · PLOS +N" 한 줄, 상세엔 색 점 + 편수 칩. 학습자 신뢰·기대 형성(정식 원문 큐레이션).
+- **글 목록 분류(모던·심플)**: `SeriesDetail` 글 목록을 **i+1 적합 티어로 그룹**(딱 맞아요→수월→도전→어려움, 그룹당 짧은 글 먼저) — iOS 그룹 리스트식 조용한 색-점 헤더. 무엇부터 읽을지 스스로 판단(학습자 제공 최적화). 그룹 1개면 평면.
+- **검증**: tsc 0·eslint 0·SSR 200(진입면 출처 힌트 렌더 확인) · 04-ui-smoke 2종 PASS(진입면→상세(출처칩·분류)→복귀 · 밴드 V2/V5/V9) · unit 18 유지.
+
+### `/library/scripts` 진입면 간소화 — Progressive Disclosure 재설계 (v06.238)
+- **문제**: v06.222 재설계가 진입면에 난이도 지도(칩 레일) + 개인화 배너 + '바로 시작' strip + **시리즈 카드 6개(각각 능력·학습과학 why·학습법 ①②③ 전부)** 를 한꺼번에 노출 → 첫인상이 "학습 초대"가 아니라 "학습 요람". 프로젝트 원칙(Progressive Disclosure·Cognitive Load ~4항목·Calm UI) 위반, 학습자 선택 과부하(Hick).
+- **재설계**: **"조용한 초대 먼저, 깊이는 고른 뒤"** 2계층. 진입면 = ① 밴드별 한 줄 안내 → ② **추천 시리즈 히어로 1개**(확신 있는 출발점·자기효능감) → ③ 나머지 시리즈 **간단 row**(스캔 가능·저부하·자율). 시리즈 선택 시에만 `SeriesDetail`에서 능력·why(Lora italic)·학습법·글 목록 노출.
+- **변경**: `SeriesDetail.tsx` 신설. `ScriptsBrowser.tsx` 진입면 재작성(inline 히어로/row). **제거**: `DifficultyMap`·`ScriptsGuideBanner`·`TrackOrientationCard`(내용은 detail로 이동). `buildScriptsMap`/`bandGuidance`(밴드 적응 로직)는 유지 — 추천·안내는 그대로 레벨 적응.
+- **검증**: tsc 0·eslint 0·SSR 200(구 '난이도 지도'/'골라보기' 제거 확인). 04-ui-smoke 2종 갱신 **PASS**(진입면→상세→복귀 2.9s · 밴드 V2 초급/V5 중급/V9 고급 6.7s) + `source-map.test.ts` 18 유지. 클린 단일 서버·CI=1.
+
+### 아케이드 도시에 마지막 북극성 ⑧「The Word Orrery」 — 지식 게이트 탐사 (Outer Wilds 계열) (v06.237)
+- **메커니즘(독창)**: 미니 항성계의 **여섯 행성을 자유 탐사(비선형)**. 각 행성의 '현상'이 곧 단어 뜻을 체현(예: 잿더미·생명 無 → `desolate`). 관측 시 이름을 읽어 **성좌 노트(코덱스)**에 기록. 여섯 성좌를 모두 관측하면 **중심 핵의 봉인이 깨어남**. 봉인의 수수께끼는 현상을 **에둘러** 가리켜, 스탯·운이 아닌 **오직 앎으로만** 열림(Outer Wilds의 '지식이 곧 진행'). 오답 페널티 無(시간 루프식 자유 탐사).
+- **학습 과학**: 현상 문맥에서 뜻 획득(Dual Coding·Context-Dependent) → 봉인에서 에두른 단서로 인출(Active Recall·새 맥락 전이). 6단어 오센틱 형용사(desolate/profound/erratic/volatile/dormant/radiant).
+- **아트**: 심우주 인디고→따뜻한 태양 오렌지. 회전 궤도링·펄스 태양·행성 비컨·현상 Lora italic 세리프. 오리리 원형 배치(6행성) + 코덱스 + 봉인 패널.
+- 배선: `word-orrery` 3타입(ArcadeGameId/ModuleId/ScoreModule) + MARK_PATHS + `/play/word-orrery` + SessionFrame + 아케이드 허브(14번째 포탈) + /hub 배너("14개 세계").
+- **검증**: Playwright 18항목 전 PASS — 잠금 게이트·6관측·코덱스·해금·오답 shake·4봉인 개방·완료·**pageerror 0**.
+- **persistence 마이그 `add_word_orrery_module_id` 적용 완료**(2026-07-13) — `module_id` enum +`word-orrery`. 순수 additive(IF NOT EXISTS). DB 검증: enum 존재 확인. 로컬 미러 `supabase/migrations/20260713110000_*.sql`. → **아케이드 14종 전부 persistence 완성**(무드 6 + 신개념 7 + 북극성 1).
+
+### ⑦ Lexicon Estate module_id enum 마이그 적용 — 아케이드 13종 persistence 완성 (v06.236)
+- DB 마이그 `add_lexicon_estate_module_id` **적용 완료**(2026-07-13) — `module_id` enum +`lexicon-estate`. 순수 additive(IF NOT EXISTS). DB 검증: enum 존재 확인. 로컬 미러 `supabase/migrations/20260713100000_*.sql`.
+- 효과: 아케이드 **13종 전부** FSRS learning_records·scores persistence 활성(무드 6 + 신개념 7).
+
+### 아케이드 도시에 2차 웨이브 ⑦「Lexicon Estate」 — 의미장 인접 배치 (Blue Prince 계열) (v06.235)
+- **메커니즘(독창)**: 청사진 저택 3×3에 단어-방을 **드래프트(3장 중 택1)**해 배치. **인접(상하좌우) 방이 같은 의미장이면 '복도'로 연결**(점수·글로우). 같은 의미장끼리 뭉치도록 배치 최적화 = 어휘의 **연상 웹(의미 네트워크)** 감각. 4 의미장(감정/자연/신체/금융)×6단어.
+- **학습**: 단어의 의미장(semantic field)을 인식하고 공간적으로 군집화 — 어휘 depth의 핵심인 연상 관계 훈련. Blue Prince의 드래프트+도면+인접 시너지를 차용.
+- **배선**: `LexiconEstateGame` + `/play/lexicon-estate`(minWords=0) + 청사진 블루 무드 + 도면 마크/워터마크 + 허브 13번째 포탈 + SESSION_META. TS 3유니온 +lexicon-estate.
+- **검증**: 그리디 봇 3회 — 저택 완성·응집도 42~50%("훌륭한 저택")·9방·pageerror 0. **밸런스**(그리디 5~6, 최적 8+). **아케이드 12→13종(도시에 북극성 Blue Prince계 실구현).**
+- ⏳ DB `module_id` enum +lexicon-estate 마이그 대기.
+
+### 허브 아케이드 진입 동선 — /hub 배너 카드 (v06.234)
+- `ArcadeEntryCard` — /hub 모듈 그리드 아래 아케이드 진입 배너(황혼 갤러리 무드 그라디언트 + 컨트롤러 마크 + "12개 세계에서 단어를 놀이로 — 해독·추리·시너지" + 플레이 CTA). 아케이드 아이덴티티와 무드 일치, Calm UI(강조 1). 이전엔 /arcade 직접·사이드바로만 도달 → 메인 오늘 화면에서 발견 가능.
+- **검증**: /hub 렌더 200·링크 감지·pageerror 0·스크린샷 확인.
+
+### 아케이드 무드게임 내장 콘텐츠 확장 — Connections 5퍼즐 · Daily Blitz 48뱅크 (v06.233)
+- **Connections** 퍼즐 3→5(+67% 리플레이): 악기/보석/응시/거래 · 곤충/지형/성격결점/말하기. 스코프 미지원 게임이라 내장 뱅크가 곧 콘텐츠. **검증**: 새 퍼즐 식별·완승·0미식별·0에러.
+- **Daily Blitz** 데일리 뱅크 30→48단어(신중한·마지못한·성취하다·극복하다·풍부한 등): 날짜 시드가 10개 추출 → 뱅크 클수록 데일리 변화 폭↑. 데이터 추가(로직 무변경·tsc 0·0에러).
+
+### 아케이드 ④ Lexicon Detective 사건 2→3 확장 — 「불타는 극장」 · authored 3종 확장 완결 (v06.232)
+- ④에 사건 3 추가: 극장 화재 재구성 — 8단서(actor·jealous·sabotage·ignite·flee·rescue + 함정 applause/curtain) → 6빈칸 서사(질투한 배우가 조명을 방해공작→합선 발화→관객 대피→구조). 게임 코드 무변경(동적 CASES).
+- **검증**: 3사건 완주(사건1·2·3)·done 3사건·100%·18단서·pageerror 0.
+- **authored 3종(④⑤⑥) 콘텐츠 확장 완결** — ④ 2→3사건 · ⑤ 2→3회랑 · ⑥ 3→6규칙. 각 end-to-end 검증.
+
+### 아케이드 ⑤ Morpheme Rules 회랑 2→3 확장 — 「시간의 방」 (v06.231)
+- ⑤에 회랑 3 추가: 시제 형태소(pre 미리·re 다시·fore 앞서 × view·cast·tell) → preview/forecast/review 조립으로 장애물 발동(안개 낀 앞날·다가올 폭풍·흐릿한 기록). VALID +6단어(foretell/retell/recast 등은 실재하나 오적용 시 "통하지 않는다"). 게임 코드 무변경(동적 LEVELS).
+- **검증**: 3회랑 완주(3/3×3)·done 9단어·100%·3회랑·pageerror 0.
+
+### 아케이드 ⑥ The Silent Rule 콘텐츠 확장 — 철자 규칙 3→6 (v06.230)
+- authored 게임 콘텐츠 확장(배선 불가 게임은 콘텐츠가 리플레이 자산). ⑥에 고가치 철자 규칙 3종 추가: **자음+y→-ies**(babies/cities) · **s·x·ch·sh 뒤 -es**(boxes/watches) · **-ful은 l 하나**(careful/usefull✗). 각 2패널(정답3+오답2)·교정 노출.
+- **검증**: 6규칙 완주(i-before-e·e탈락·자음중복·y→ies·치찰음es·-ful) · done 12패널·6규칙·100% · pageerror 0. dev 메모리 캐시로 안정 서빙 확인.
+
+### Windows dev 안정화 + 아케이드 실 어휘 배선 ①③② end-to-end 검증 완료 (v06.229)
+- **dev 픽스**: `next.config.mjs` webpack — **Windows 한정 메모리 캐시**(`config.cache={type:'memory'}`). 원인: FS 캐시 `.next/cache/**/*.pack.gz` rename이 백신 파일락으로 간헐 ENOENT → vendor-chunks 손상 → 라우트 404/500·dev 서버 반복 사망(이번 세션 내내). 메모리 캐시로 pack.gz 쓰기 제거 → 근절. mac/linux는 FS 캐시 유지.
+- **검증 완결**: 안정화 후 ③②를 실 단어장(교육과정 고등)으로 **end-to-end 확인** — ③ Lexicon Hands 손패=실단어(fiction·celebrate·vocabulary…)+어원태그(fic), done 도달·0에러 · ② Word Customs 여권=실단어(device: 명사·장치·실 예문 "keeps her electronic device charged")+생성 위조, 18여행자 진행·0에러. 내장뱅크 미감지(✅).
+- **결론**: 아케이드 실 어휘 배선 **3종(① Glyph Tongue · ③ Lexicon Hands · ② Word Customs) 전부 end-to-end 검증 완료.** `?set=`/`?text=`로 학습자 실단어+실예문으로 플레이. authored ④⑤⑥은 콘텐츠 확장 영역.
+
+### CTP 스테이지 카탈로그 밴드 매핑 근본 재보정 (v06.232)
+- **근본 원인**: `csat_stage_catalog` VIEW 가 ① 아티클에 `register='argumentative'→S3` 특례(문체가 난이도 밴드를 덮음·비정합), ② 도서/비-argumentative 를 3버킷(v≤4→S1·v5-6→S2·v≥7→S4)으로만 나눠 **S3 밴드 사실상 부재**(argumentative 전용→굶주림), CSAT 핵심 v5-6 이 비활성 S2 로 밀림. v06.229(처방 누적 완화)가 표면화한 근본.
+- **재보정**: articles·books 일관 4버킷 monotonic — **v≤2→S1 · v3-4→S2 · v5-6→S3(CSAT 핵심·활성) · v7+→S4(killer band)**. argumentative 특례 제거, NULL→S2 방어. derive_learner_stage coverage 게이트(S_n≈v[(n-1)×2,n×2))에 i+1 정합. 컬럼 시그니처 불변(grants/의존 안전). 마이그레이션 `20260713090000_ctp_stage_catalog_band_recalibrate`.
+- **효과(라이브 실측)**: input 후보 S1:7·S2:50·S3:114·S4:12(전 밴드 populated); at-band DCP S2:48·**S3:762**·S4:564(S3 굶주림 해소). 현 S1 사용자 처방 input 5후보 유지(무영향), practice 비활성 정상. 유일 소비처 prescribe_today(input 정확매칭·practice 누적) 재검증.
+- **DCP end-to-end 실증**: 실 사용자 전원 S1(다차원 게이트 — vocab+wpm+정확도+듣기)이라 DCP 미구동이던 것을, runtime-test에 `reading_fluency_log` 3건(wpm~160) 시드→**S3 안착**. prescribe_today: practice_active=true·5 items(order+insert)·75분. order 채점(source_order 역순열=정답) 로직 재현 correct=true. runtime-test **S3 데모-레디**(로그인 시 DCP 노출·fluency 3건 DELETE로 복귀). apps/web/CLAUDE.md 계정 라인 갱신.
+- **헬스 체크 신설** `scripts/verify-dcp-health.mts` — 도달성 불변식(①밴드 populated ②도달 DCP S3≥100·S4≥300 ③고아 0)을 실행 가능 검증으로 codify(dev 서버 비의존·CI 배선 가능·회귀 시 exit 1). PASS 실측 S3=810·S4=1374. PostgREST 1000행 한계는 range 페이지네이션으로 처리(전량 1374 집계).
+
+### CTP DCP 처방 도달성 수리 — 확대 콘텐츠 실제 활성화 (v06.229)
+- **버그**: prescribe_today practice 블록이 `c.stage_band = v_band`(정확 밴드 매칭)로 DCP 선정 → 카탈로그 매핑(v≤4→S1·v5-6→S2·argumentative→S3·v≥7→S4)과 맞물려 **S3 밴드가 argumentative 7편에 굶주리고, CSAT 핵심 v5-6·v6도서가 비활성 S2에 갇혀** v06.228 확대(+782)의 ~95%가 학습자 도달 불가였음. (소비 경로 = `/practice/dcp`·hub 처방 ④ 모두 prescribe_today 단일 출처 — 검증.)
+- **수리**: practice 블록만 `substring(stage_band)::int <= LEAST(v_num,4)`(누적 밴드) + `ORDER BY md5(id||current_date)`(일자-안정 로테이션 — 매일 다른 5·하루 내 고정)로 교체. VIEW 매핑·input 블록·활성 게이트 불변. 마이그레이션 `20260712190000_ctp_prescribe_today_dcp_band_cumulative`.
+- **효과(실측)**: 도달 가능 DCP — **S3 학습자 64→810 items(7→69 refs, 12.7×)**, S4 564→1374(12→81 refs). S3 시뮬레이션 = v6도서(Oz·Fables)+expository v5+argumentative 혼합. 난이도 정확 캘리브레이션은 완화되나 순서/삽입(글 논리 훈련)엔 무해.
+
+### CTP DCP 확대 — 순서/삽입 연습 592→1374 items (아티클+도서 v6, v06.228)
+- **아티클 드라이버 신설** `scripts/generate-article-dcp.mts` — `dev-generate-items` 라우트(기본 register=argumentative·limit 20 → v5 7편에 정체)를 스탠드얼론 스크립트로 일반화. 동일 입력 게이트(설계 §T2: published·NOT display_only·license PD/CC·lexical_noise≤0.08)를 **전 register·무제한**으로 적용. dev 서버 비의존(service-role) → 재사용 자산. dry-run 기본 + `--apply`.
+  - 결과: 적격 135편 중 64편에서 560 items upsert(멱등). article DCP **64→566 items**(7→64편), v_level **v5-only → v3~v7**. 핵심 = **CSAT 스위트스팟 expository v4~v7**(v6 204·v5 128·v4 36·v7 36) + reference v5/v6 86. narrative 13편은 문단 필터가 0 산출로 자기선별(대화체·단문 부적격 = 품질 게이트 정상).
+- **도서 드라이버 floor 파라미터화** `scripts/generate-book-dcp.mts --floor=N`(기본 7 보존) — CSAT S3(v6) 확대. book DCP **528→808 items**(11→17권, v6 6권 신규·Poetry 0 산출 자기선별). v_level v5-8→v4-9(챕터 단위).
+- **전체 DCP 592→1374 items**(+782), 결합 커버리지 **v3~v9 전 CSAT 사다리**, 81 refs. 런타임 LLM 0(generateDcpItems 결정론·멱등, 라이브 592 검증 엔진 재사용). 스팟체크: expository v6 order presented↔source_order 왕복 정합.
+- **후속 정제 여지**: 일부 reference/travel 콘텐츠는 CSAT 학술 장르와 이질(순서 모호성 여지) — 필터가 구조 유효성은 담보하나 시험급 무모호성은 아님. 장르 순수화(expository/argumentative 한정) + v5/v2 도서(6권)는 옵션.
+
+### 아케이드 실 어휘 배선 ② — Word Customs가 학습자 단어 여권으로 (v06.227)
+- **배선**: `buildDaysFromPool` — 스코프 단어 → 여권. 진본(word·pos·뜻·예문 실데이터) + **결정적 위조 생성**: 뜻 위조(다른 단어의 뜻으로 swap = false friend 유사) · 품사 위조(실제와 다른 품사 표기). 예문은 단어/굴절형을 찾아 `{}` 블랭크. 3근무일(각 6), 규칙 누적(뜻→+품사, day1엔 품사위조 없음). 9단어 미만이면 내장 뱅크 폴백.
+- **버그 예방**: word-customs page wordPool 전달 추가 + posKoFromData 부사 우선(‘adverb’⊃‘verb’).
+- **검증**: **독립 로직 테스트 PASS**(3일·진본10·뜻위조4·품사위조1·전 여권 예문 {}·규칙 정합·품사 매핑 정확) + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ 런타임 렌더는 dev 서버 환경 이슈(webpack 캐시 rename 실패→청크 404, AV 파일락 추정)로 보류 — ①③②는 코드·로직 검증 완료, 환경 안정 시 확인.
+- 실 어휘 배선 3종 완료(① Glyph Tongue end-to-end ✅ / ③ Lexicon Hands·② Word Customs 로직 ✅). authored 게임 ④⑤⑥은 콘텐츠 확장이 적합.
+
+### UI 스모크 로그인 견고화 + 런타임 검증 (v06.222)
+- **런타임 검증**(디스크 확보 후 단일 dev 서버): ScriptsBrowser "학습 지도" 재설계 + ArticleCard/CEFR/a11y 변경이 실브라우저 렌더·동작 확인 — 04-ui-smoke **4/4 통과**(주요 화면 콘솔에러 0·스크립트 드릴다운/복귀·도서관 필터·EchoMatch 게이트).
+- **스모크 견고화**: `loginRuntimeUser`가 배치 실행 시 반복 로그인 스로틀/dev 컴파일 경합으로 waitForURL 타임아웃(false-fail) 잦았음 → **1회 재시도 + 타임아웃 25s** 보강. test1 단일 로그인이 견고해져 storageState 재사용 하위 테스트도 안정. (근본: STATE_PATH storageState 이미 재사용 구조 — test1 로그인만 flaky였음.)
+- **환경 교훈**(재확인): 멀티 dev 서버(:3000/:3001/:3100)가 `apps/web/.next` 공유 → 라우트 무작위 404/500 오염 → 로그인 flow 붕괴. 검증은 **전 서버 종료 → .next 삭제 → 단일 서버** 필수(apps/web/CLAUDE.md 규약).
+- **밴드 적응성 검증(단위+E2E)**: (1) `source-map.test.ts` 신설(18 테스트) — `getLearnerBand`/`buildScriptsMap`/`bandGuidance`가 초급(V2→listen 추천)·중급·고급(V9→최고심도 topic, 깊이 유도)·미진단(진단 유도)별 배너 카피·추천 트랙을 실집계로 결정적 검증. (2) 04-ui-smoke E2E — 실 로그인 세션에서 `current_v_level`을 V2/V5/V9로 바꿔 배너·지도가 밴드별로 flip 함을 단언(finally 원복). **정정**: 초기 "storageState 로 클라이언트 인증 불가" 는 오진 — 클린 단일 서버에선 브라우저 `getUser()` 200 정상(V11→"고급 안내" 확인), 앞선 실패는 멀티 dev 서버 `.next` 오염(청크 404→하이드레이션 미완)이 실체. 스크립트 오리엔테이션 e2e 도 hydration-견고 재클릭(toPass) 패턴으로 보강.
+
+### 아케이드 실 어휘 배선 ③ — Lexicon Hands가 학습자 단어 속성 덱으로 (v06.226)
+- **배선**: `buildDeckFromPool` — 스코프 단어 → 속성 태그 덱. **품사**(스캐폴드 실데이터 우선 + 형태론 휴리스틱 폴백: -ly→부사·-tion→명사 등) + **어원**(라틴/그리스 어근 41종 substring 감지: spect/port/dict/struct…) + **접두사**(27종 감지) 자동 태깅. 세션당 최대 40장, 12장 미만이면 내장 덱 폴백.
+- **버그 수정 2건**: (1) lexicon-hands page가 `wordPool` 미전달(항상 폴백) → render에 추가. (2) `posFromData`에서 'ad**verb**'가 `/verb/`에 매칭돼 부사→동사 오분류 → 부사 검사 우선순위로 수정.
+- **검증**: **독립 로직 테스트 PASS**(실단어 15장 덱 생성·전 카드 품사·어원 시너지 그룹 존재 spect[inspect/respect/suspect]·port[transport/export]·휴리스틱 품사 정확) + posFromData 7케이스 매핑 검증 + tsc 0. ①과 동일한(이미 실단어 end-to-end 검증된) 스캐폴드→wordPool 흐름. ⚠️ **런타임 end-to-end 렌더는 dev 서버 불안정(디스크 98% → .next 반복 손상·프로세스 사망)으로 보류** — 로컬 디스크 확보 후 `?set=<테마 세트>` 플레이로 확인 권장.
+- 도메인 태그는 데이터 sparse/과광범위로 미사용(품사+어원+접두사 3축). authored 게임(④⑤⑥)은 배선보다 콘텐츠 확장이 적합.
+
+### 추출 3경로 통합 (1단계 "새는 곳 막기") — 책·글·BYO 동일 규칙 (v06.225)
+- **문제**: 단어추출이 책(`select_book_chapter_vocab`)·글(`select_article_vocab`)·학습자 직접입력(`extract_vocabulary_for_user_v2`, /text) 3경로가 서로 다르게 구현 → 같은 문장도 다른 결과("라이브러리선 뽑혔는데 내 지문선 왜?") = 신뢰 저하.
+- **0단계 세보기**: 실 학습 corpus 표제어 **22,086**(검사 범위, 사전 절반) · 다의어 **10,492/45,667=23%**(실사용 중 31%). 3경로 구조적 상이 실증.
+- **통합(drift 방지)**: 형태→품사 추론을 **공유 헬퍼 `infer_form_pos(surface,base)`** 로 추출 → 3함수가 인라인 복붙 대신 헬퍼 호출(이후 규칙 변경 한 곳만). book·article 리팩터(동작 동일, **회귀 0** 검증). **/text(BYO) 통합**: `resolve_dict_headword`(굴절/파생 해소)+`infer_form_pos` sense+노이즈 register 제외+표면형 표시 추가 → 책/글과 일치(galloped→gallop·ransomed→동사 뜻·uncomfortableness→uncomfortable 회수).
+- **유지(정당한 차이)**: BYO 개인화(레벨 i+1·track 점수·아는단어 제외)·ephemeral·시그니처. 마이그 `20260713170000/171000/172000/172500`.
+- **잔여**: BYO는 winkNLP를 안 거쳐 context_pos 없음(형태추론 폴백) → **winkNLP 배선(근본 파리티)은 후속**. 앱-측: /text 저장 시 표면형 대신 `matched_via_surface`(표제어) 저장 권장(SRS 쪼갬 방지).
+
+### 다의어 sense 전면 완성 — 일반 사전급 다중 POS (v06.225, 진행형)
+- **목표**: 사전 전체 단어가 실제 쓰이는 모든 POS sense를 갖도록(일반 사전급) → "ransomed→몸값을 치르고 풀어주다"처럼 형태에 맞는 뜻 추출.
+- **병렬 파이프라인**: `sense-chunk.mjs`(단일-sense content 단어 빈도순 청크 분할) → **서브에이전트 병렬 authoring**(청크당 1 에이전트, 표준 영어 실재 POS만 보수적 추가, 애매하면 skip) → `sense-apply.mjs`(검증·일괄 적용: meanings_ko + flat pos/meaning_ko 동기화 + shared_words, 단일-sense 가드).
+- **Wave 1 완료(rank 1700-6000)**: 수작업 고빈도 ~100(watch→보다·face→직면하다·bear→견디다/낳다·fine→좋은/미세한·count→세다·surround→둘러싸다·fast→빠른) + **서브에이전트 388**(steal→도루·milk→착취하다·desert→탈영하다·boot→부팅·march→행진하다·wolf→늑대 복원·manifest→나타내다·crisp→바삭한 등). rare-primary 오류(명사만/희귀뜻 primary) 다수 교정. 해당 범위 다중-sense 45%.
+- **형태 POS 추론(마이그 `161500`)과 결합** → 추출 시 굴절/파생형이 형태에 맞는 sense로 나옴. Wave 2(rank 6000-9000) 등 후속 진행.
+
+### 굴절형·파생형 해소 — 조회·도서 단어추출 양쪽 (v06.225)
+- **문제**: 흔한 파생형은 표제어라 뜻이 나오나, rare 미등록 파생형(dreamlike·kinglike·boyishly)은 `not_found`; 도서 단어추출(`select_book_chapter_vocab`)은 winkNLP lemma 직접 매칭만 해 미매칭 굴절/파생형 탈락 → 학습자가 따로 찾아야 함.
+- **lookup tier 5**(마이그 `20260713150000`): `lookup_word_meaning`에 **파생 해소** 추가 — 기존 4-tier(direct→규칙 역굴절→철자변형→inflected_forms cluster) 실패 시 투명 접미사(-ly/ily/ically/ness/iness/less/iless/ful/fully/ish/like/wise)를 벗겨 **base 표제어 뜻 폴백**. 검증: 굴절·파생 20종 전수 해소, `not_found` 0.
+- **도서 추출 해소**(마이그 `20260713160000`+`160500`): `resolve_dict_headword(surface)` 헬퍼(direct→cluster→규칙 역굴절→파생 strip) 신설 → `select_book_chapter_vocab` JOIN을 이 헬퍼로 교체. **미매칭 굴절/파생형이 사전 뜻과 함께 회수**(darkish→dark·motherless→mother·uncomfortableness→uncomfortable). 시그니처 동일(호출부 무변).
+- **쓰레기 방지**: 해소는 **base 표제어가 실재할 때만** → 규칙 날조 불가. 파생 strip은 base 길이≥4 + junk 제외로 과도 strip 방지(reely→ree·actuly→junk 차단). junk 표제어 `foreign_word_proxy`(actu) 1건 삭제. Huck Finn 방언 코퍼스로 검증 — study 목록 무오염.
+- **추출 단어 = 실제 도서 표면형**(마이그 `20260713161000`): 도서에 "children"이 나오면 추출도 `word="children"`(+뜻), `lemma="child"`. 이전엔 표제어 child로 환원 표시 → 일반 사전처럼 실제 형태+뜻. dedup은 표제어 단위(중복 방지), 대표 표면형=챕터 최빈. ※ 방언 과다 코퍼스(Huck Finn)는 일부 오해소(chillen→chill·biler→bile) — 표준 텍스트엔 무해.
+- **형태별 POS 추론으로 형태에 맞는 뜻**(마이그 `20260713161500`): "ransomed"(=ransom+ed)가 추출되면 **동사 뜻("몸값을 치르고 풀어주다")** — 표제어 대표 뜻(명사 "몸값") 아님. context_pos(winkNLP) 있으면 그것을, NULL이면 표면형↔표제어 형태차로 POS 추론(+ed/d/ied·+ing→verb·+ly→adverb·-tion/ness/ity→noun·-ous/ive/ful/less→adjective) → 맞는 sense 선택. 실증: ransomed·scented·tilted·scattering·grumbling 전부 동사 뜻. 맞는 sense 없으면 대표 뜻 폴백=polysemy gap 노출(예: boom 동사 sense 없어 booming→호황 → boom·ransom 동사 sense 보강). **완전 정확은 전 단어 sense 완비(polysemy) 필요** — 지속 사전 보강 대상.
+- ⚠️ **forward 규칙 대량 생성은 부적합 확정**: 형용사→-ly 생성이 `unprotectedly`·`whitishly` 등 비표준 날조. runtime 역-strip 해소가 정답(base 실재 검증).
+
+### 굴절형·파생형 추출 — 기존 인프라 확인 + 파생 검증소스 완결 (v06.225)
+- **목표**: 굴절형·파생형이 "뜻 그대로" 단어추출/조회 되도록 (전체 사전).
+- **핵심 발견 — 굴절형은 기존 인프라가 이미 처리**: 2026-06-13 v06.41 마이그가 구축한 `en_inflection_bases()`(규칙 역굴절)+`inflected_forms text[]`(불규칙/클러스터, GIN)+`english_irregular_forms`로 `lookup_word_meaning`(4-tier)·`extract_vocabulary_for_user_v2`(L2)가 굴절형 해소. 검증: galloped→gallop·studied→study·happier→happy(inflection)·children→child(cluster) 전부 뜻 그대로 ✓. **별도 굴절 표제어 생성 불요**.
+- **⚠️ 규칙 표제어 대량 생성 시도→롤백**: SQL 규칙이 실단어 판별 못 해 쓰레기 날조(`abashederness`·`ablesness`, 형용사+복수/비교급 오적용+복합). 68,246 row 오염 즉시 전량 롤백. `clean-inflected-forms.mjs` 원칙("신규 규칙형 생성 안 함") 재확인.
+- **파생형 = headword(자체 뜻) 완결**: `data/seed/derivational-candidates.json`(빈도 코퍼스 검증 실단어 2,494) 대비 미등록 93(recognise·regulatory·auditory·forestry·-ise/-ory/-ry 등) 채움 + 도서 rare 파생 114(ebullition·volubility·omniscience 등 C2) → **검증 소스 100% 커버**. `classified_by='claude_code_derivational'` 6,180→6,387. 사전 45,496→45,703.
+
+### 사전 sense/POS 오정렬 근본 수리 Phase 2·3 — 문맥-sense 매칭 추출 (v06.225)
+- **근본**: 큐레이션 단어추출에서 `creep="변태"` 등 문맥과 다른 뜻 노출 → 원인=`shared_dictionary` 단일-행 + v_level=최난이도 sense. 다의어의 기본 sense(저-V) 용법을 텍스트가 써도 행 v_level(고-V sense)이 V≥6 필터 통과 → 고급 gloss로 오추출(B류).
+- **Phase 2 문맥 POS 저장**: `library_book/article_vocabularies` `context_pos` 컬럼(마이그 `20260712160000`) + winkNLP 백필(`backfill-context-pos.mts`, book 1,507·article 212) + 파이프라인 forward-wiring(`extract-lemmas` 지배 POS → ChapterWord → `insert_book_analysis` RPC `20260712170000` + article 직삽입) → 신규 도서 자동.
+- **Phase 3 문맥-sense 매칭**: `select_book_chapter_vocab`+`select_article_vocab` LATERAL JOIN(`20260712165000`) — `context_pos`로 `meanings_ko` 문맥 POS 일치 sense 선택 → 그 sense v_level로 V≥6 필터 + gloss·pos 표시, NULL은 row 폴백.
+- **검증**: creep(문맥 verb)→"기어가다" · sole(문맥 adj·sense v5)→Gibbon/Les Mis 추출 0건(기본용법 오추출 근절). tsc 0.
+- **잔여 sweep 배치 1~3 — 고가치 후보(179) 전량 종결**: 코퍼스 POS 불일치 504건 → 고가치 179 → 배치1 40 + 배치2 109 + 배치3 tail 5 = **누적 154단어** sense 보강(누락 POS 추가·전 sense v_level·flat 정렬·형식 정규화). 발행 shared_words 동기화. context_pos 재백필. 실증: idle(형용사 문맥)→추출 제외(v5) · noble/breeze(문맥)→정확 gloss. flat flip: breeze→"산들바람"·pine→"소나무"(v5)·vacuum→"진공"·crumble→"부서지다"·refrain→"삼가다"·inevitable→"불가피한" 등. A류 오데이터: wan("WAN약어"→"창백한"). **종결 판정**: 남은 🟡·🔴는 (a) 인벤토리 완성돼 Phase 3가 이미 처리 (b) flat-primary 정답(grave→무덤) (c) 명사화/participle 노이즈 — 추가 실익 낮음.
+- 사전 데이터 수리 누적 154단어(sense별 v_level 모델) — 상세 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
+- **Phase 4 사전 전역 구조/POS 정규화**: 45,496단어 전수 스캔 → Phase 3를 구조적으로 무력화하던 결함 전량 근절. no_meanings 6,964→0(단일 sense 백필) · legacy string-array 773→0 · enrichment `sense_ko`키 2,045→`meaning` additive · **sense POS 약어(`n.`·`adj.`·`v.` ~5,000)→풀폼**(context_pos와 절대 매칭 안 되던 핵심 결함) · flat pos 흔들림 16→0. ~9,800단어(21%) 정합 → 사전 전역 균일 `{pos,meaning,v_level}` + 전 POS 풀폼, 수천 단어 sense-매칭 즉시 활성화(무손실·additive, 추출 회귀 정상).
+- **Phase 5 레벨별 필드 완비 감사 + 예문 전수 채움**: 학습자-대면 필드를 v_level별 전수 점검(meaning/meanings/pos/cefr/v_level 100% · example 84.5%·ipa 64%·syn 59%·coll 31%…). 실 단일어 결측 **2,548개 예문을 Claude 생성으로 전수 채움**(15배치) → **전 레벨 V1~V11 example 100%**, 전체 사전 84.5%→**90.1%**. 잔여 결측 4,517=전량 관용구/구동사/다어절/고어(독립 예문 부적절). 후속: ipa(~10,594)·synonyms·collocations.
+- **Phase 6 추출 품질 개선 항목 도출 + 항목1 구현**: 추출 게이트/스코어/조인 필드 전수 진단 → 6개 개선 항목 도출(word_register 노이즈·frequency_rank NULL 0.40손실·커버리지 갭 19.5%·다의어 완성도·spelling_variants·verified). **항목1 구현**: word_register에 `brand`·`abbreviation`·`proper_noun` 카테고리 신설(CHECK 확장 마이그 `20260713100000`) → 브랜드(™) 96·약어 129 분류 → 추출 함수 제외 확장(`20260713100500`). 검증: 3도서 추출 정상·노이즈 0. 상세 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
+- **Phase 7 추출 결과 평가 기반 사전 보완**: 분석된 25권 전권 추출 집계(50,997 노출·distinct 14,704) → cap-40 진입 단어 직접 평가. 추출 품질 이미 높음(초기 플래그 대부분 false alarm) 확인 + **실 결함 7건 수리**(현대/기술 뜻만 있고 문학 대표 뜻 누락 패턴): bid(→명하다/작별)·tender(→다정한)·pardon(→용서/실례)·pin(→핀/시침바늘)·rear·rage·whip. shared_words 동기화. rank 샘플이 놓친 실 도서 다의어 gap을 추출 평가가 정확 포착.
+- **Phase 8 도서 배치 채굴 루프(자동화 `scripts/lcp/dict-mine-batch.mjs`) — 100권 완료·yield 포화**: 5권 적재→추출·집계→사전 보완→도서 삭제(transient, 용량 절약) 무인 루프. seed 직접 INSERT + `reprocess-all-se --ids`(fetch+winkNLP) + `select_book_chapter_vocab` 집계(단일-sense·sort_order≤40·rank≤8000 후보를 등장 도서수 합산) + 삭제 + `curation_meta.dict_mined` 표시. **run1(50권)→2,903 후보→실 gap 16 수리**(drift·flush·quarrel·sin·despair·bundle·thrill·vain·blaze·spy·shield·thrust·divine·retreat·surge 동사/형용사 sense 누락 + **ah** abbreviation "암페어시" 오분류→interjection 교정). **run2(+50권=100권)→+430 신규(전부 등장≤4권)→실 gap 2**(articulate·lapse). 수동 15권 별도 ~18단어. **누적 mined ~115권·수리 ~36단어**. **yield 0.32→0.04 gap/book(8배 급락)=포화 확정** — 고빈도 다의어는 run1에서 전량 포착, 남은 SE seed는 이미 정확한 롱테일 희귀어. 근본 사전 전체 이슈 미발견(전부 per-word). 등장 도서수=임팩트 정렬이 핵심 효율 레버. 스크립트 dedup 버그(최종 write 정렬배열→재로드 중복) 수정.
+
+### 아케이드 실 어휘 배선 ① — The Glyph Tongue이 학습자 단어+예문으로 (v06.224)
+- **배선**: 스캐폴드가 이미 fetch하던 `example`(도서 챕터는 `source_sentence`=실제 책 문맥)·`pos`·`inflectedForms`를 그동안 버렸던 것 → `Word` 타입 +3필드로 게임에 전달. `GlyphTongueGame.buildChambersFromPool`: 스코프 단어의 예문에서 단어/굴절형을 찾아 룬으로 블랭크 → 석실 생성(세션당 최대 20단어=4석실). 예문 없는 단어 제외, 4개 미만이면 내장 뱅크 폴백.
+- **버그 수정**: glyph-tongue page가 `wordPool`을 게임에 미전달 → 항상 내장 폴백. render에 `wordPool` 추가.
+- **검증**: `?set=<교육과정 고등>` 진입 → 실단어(fundamental·veterinarian·joint·tackle·status) + 실 예문("Trust is a 〈룬〉 part of...")로 렌더, 내장뱅크 미감지(✅), 무차별 솔버 5/5 해독, pageerror 0. 비스코프 진입 시 내장 회귀 유지. tsc 0.
+- 나머지 게임: ②세관·③핸드는 pos/domain·forgery 데이터 성격, ④⑤⑥은 authored 콘텐츠라 배선 방식 상이(후속).
+
+### 도서 탭 「전체 탐색」 필터 재설계 — 묶음 카드 → 라벨 구획 상세 패널 + 내 학습 상태 (v06.223)
+- **문제**: `/library/books` 전체 탐색이 한 카드에 나에게/레벨/장르/길이 칩을 작은 10px 라벨로 **뭉쳐 노출("묶음")** + 주제·연령은 "상세 필터" 숨김 disclosure 뒤. 학습자가 조건을 또렷이 판별하기 어려움.
+- **재설계(`BookFilterBar`)**: 뭉친 카드 → **항상 펼친 라벨 구획**(`divide-y`) 상세 패널. 각 조건(내 학습·나에게·레벨·장르·주제·연령·길이·음성)이 좌측 고정폭 라벨 + 칩의 독립 compartment. 주제·연령을 숨김→상시 노출 승격, 오디오를 길이 그룹에서 분리해 '음성' 구획, 상세필터 disclosure 제거.
+- **신규 필터 '내 학습 상태'**: 내 서재/학습 중/완료 — `enrollment_state` 기반, facet-adaptive(등록 도서 보유 시에만 노출). `BookFilters` +`enroll`·`FacetData` +`hasEnrollments`, `BooksExplorer` 필터 로직 + facet 집계 추가.
+- **hydration mismatch 수정**: 주제 상시 노출로 표면화된 결함 — facet 주제 정렬 tie-break `localeCompare`(Node↔브라우저 collation 상이로 순서 엇갈림)를 code-unit 비교로 교체(`BooksExplorer`). 이전엔 주제가 disclosure에 숨겨져 초기 렌더에 없어 잠복.
+- **장르 분류 품질 보정(Part A)**: `bucketOf`(genres.ts) 키워드 보강 — `우화`→동화·청소년, `학술·정책·보고서·논픽션·사회학·교과서`→인문·논픽션. `essay_philosophy` 라벨 `에세이·철학·전기`→`에세이·인문·논픽션`(비문학 정직 반영). NULL 폴백→'문학·소설' 한계 주석화. 레벨칩 테스트를 hydration 재시도(toPass+리로드)로 견고화.
+- **장르 분류 품질 보정(Part B)** — DB 백필(사용자 명시 승인 "실행"): 발행 genre_norm NULL 2권 `library_books.curation_metadata` additive 병합 — `Introduction to Sociology`→`사회학 교과서`(→인문·논픽션), `Pride and Prejudice`→`로맨스 소설`(→로맨스). 결과: 발행 7권 중 literary(문학·소설) 버킷 **0** = NULL→문학 오분류 완전 해소. 스키마 변경 無(데이터 UPDATE). 잔여: 미발행 NULL 10권은 추후 큐레이션 백필.
+- **길이 버킷 세분화**: `reading_minutes` 3버킷(짧게/보통/길게 — 카탈로그 73%가 '길게'>4h에 쏠림)→**5버킷**(~1h/1–4h/4–10h/10–20h/20h+, 임계 60/240/600/1200분). 20h+ 대작(로마제국 120h)을 장편과 분리 → 읽기 부담 판단 명확. 길이 구획도 **facet-adaptive**로 전환(빈 버킷 숨김). `genres.ts`(LENGTH_BUCKETS/lengthBucket)+`BooksExplorer`(lengths facet)+`BookFilterBar`. 검증: SSR로 발행 7권 짧게/4–10h/10–20h/20h+ 노출·빈 1–4h 숨김 확인.
+- **범위 밖(사용자 선택)**: CEFR 병기·형식자료 신설·칩별 카운트는 제외. 레벨=V밴드 유지(CEFR=카드 배지 보조).
+- **검증**: tsc 0 · eslint 0(변경 `BookFilterBar`·`BooksExplorer`). 04-ui-smoke에 "전체 탐색 필터 구획 렌더 + 레벨칩 7→2 축소 + 초기화 원복 + 콘솔에러 0" 회귀 테스트 추가 → **통과**(격리 실행 40.8s). 전 화면 콘솔에러 테스트도 `/library/books` 포함 10화면 통과(53.8s). 검증 전 워크스페이스 `next dev` 2개 동시 기동→`.next` 공유 오염(라우트 무작위 404) 발견·단일 서버 정리로 복구.
+
+### `/library/scripts` 학습 지도 재설계 — 소스/시리즈 선택 오리엔테이션 (v06.222)
+- **문제**: 스크립트 탭이 트랙 섹션 + 얇은 한 줄 소개 + fit 배지뿐 — `source-map.ts` 의 풍부한 오리엔테이션 데이터(능력·학습과학 why·학습법 단계·난이도 V밴드)가 **전부 미사용**. 다양한 레벨의 학습자가 "어떤 소스/시리즈를 왜/어떻게 고를지" 판단 근거 부재.
+- **재설계(기본 뷰)**: 개인화 배너 → **난이도 지도**(쉬움→어려움 축 + "여기 있어요" 마커 + 시리즈 칩·추천 강조) → 바로 시작할 글 strip → **시리즈 오리엔테이션 카드**(능력 칩 + why(Lora italic) + 학습법 ①②③ + 레벨범위·편수·음성 + 대표글 + 골라보기 CTA).
+- **레벨 밴드 적응**: `getLearnerBand` (미진단/초급/중급/고급) + `bandGuidance` — 미진단은 진단 유도(/diagnostic), 고급은 "대부분 수월" 솔직 안내 + 논증·데이터·원문 깊이 유도. `buildScriptsMap` 이 실집계(V범위·편수·음성·fit·idealCount·추천 트랙) 계산 — **하드코딩 0**.
+- **신규 컴포넌트 3**: `DifficultyMap` · `TrackOrientationCard` · `ScriptsGuideBanner`. `source-map.ts` +`LearnerBand`/`buildScriptsMap`/`bandGuidance`/`articleFitRank`/`byRecommendedArticle`/`vToCefrLabel`/트랙 `short`. `ScriptsBrowser` 재작성(추가 fetch 0). 04-ui-smoke 마커를 "난이도 지도" 로 강화.
+- **검증**: tsc 0(변경 6파일) · eslint 0 · SSR 렌더 200(배너·지도·마커·추천 리본·6 시리즈 카드 마커 전부 확인). e2e 로그인 beforeAll 은 Supabase auth 경합으로 환경성 실패(스크립트 화면 미도달·본 변경 무관).
+
+### LCP 도서 단어장 라벨 드리프트 수정 — (V{bvl}+)→(V6+) (v06.221)
+- **드리프트**: 도서 챕터 단어장 description 이 `(V{book_v_level}+)` 표기(예 V7 도서 "V7+")였으나 단어는 `select_book_chapter_vocab` 의 **P1 고정 floor=V6** 선정 → 라벨/내용 불일치.
+- **수정**: `publish_book_word_sets` description 한 줄 `(V6+)` 정합(CREATE OR REPLACE, 제목·slug·메타·선정 전부 불변) + 로컬 마이그 기록.
+- **백필**: 기존 발행 세트 **829건** description `(V{n}+)`→`(V6+)` (regexp_replace). 검증: non-V6 잔여 0 · V6 라벨 909.
+
+### 사전 sense/POS 품질 감사 — 다의어 primary 오선정 수리 (v06.216)
+- **발견**: 큐레이션 단어추출 검증에서 `creep="변태"`·`founder="침몰하다"`·`spiritual="흑인 영가"`·`bay="적갈색의"` 등 **흔한 sense를 누락하고 특수·희귀 sense를 primary로 선정**한 사전 오류(근본=추출 아닌 shared_dictionary 품질). 발행 mid-rank 다의어 오류율 ~8%.
+- **수리**: 11단어 사전 교정(creep→기어가다·nettle→쐐기풀·founder→창립자·spiritual→영적인·bay→만·steam→증기 + shed·sacrifice·grip·echo·faint 누락 sense 보강) + **발행 `shared_words` ~130 appearance 전파**(creep 19세트·faint 23·echo 18 등, `meaning_ko`+`part_of_speech`).
+- **잔여**: 전수 근절은 다의어 배치 Claude 재검수(`dict-enrich`) 필요 — 탐지 기계화 어려움(특수 sense primary 판단=Claude). 예방책=문맥 POS 저장+`meanings_ko` sense 선택(RC2/RC3). 설계 [dict-sense-quality-audit.md](proposals/dict-sense-quality-audit.md).
+
+### 아케이드 신개념 6종 module_id enum 마이그 **적용** — persistence 활성 (v06.220)
+- DB 마이그 `add_arcade_newconcept_module_ids` **적용 완료**(2026-07-12) — `module_id` enum +6값(glyph-tongue/word-customs/lexicon-hands/lexicon-detective/morpheme-rules/silent-rule). 순수 additive(IF NOT EXISTS). DB 검증: pg_enum 6값 존재 확인. 로컬 미러 `supabase/migrations/20260712180000_*.sql`.
+- 효과: 아케이드 **12종 전부** FSRS `learning_records.module` / `scores.module` persistence 활성(기존 6종 20260711 + 신개념 6종). 게임 onCorrect/onWrong→기록 저장 완성.
+
+### 아케이드 신개념 게임 ⑥「The Silent Rule」 — 철자 규칙 귀납 (The Witness 계열) · **도시에 6 신개념 완결** (v06.219)
+- **메커니즘(독창)**: **설명이 없다.** 각 패널에서 '규칙을 지키는 칸'만 활성화. 오답들이 모두 같은 규칙을 어기게 설계 → 여러 패널을 풀며 규칙을 **스스로 귀납**(오답 시 "N칸 어긋남"만, 어디인지 비공개=귀납 보존). 클러스터 완료 시 규칙+교정 공개. 미로가 아니라 철자·형태 규칙의 **발견 학습**(desirable difficulty = 가장 깊은 정착).
+- **3규칙**: ① i before e, except after c · ② 어미 -e 탈락 후 -ing · ③ 단모음+단자음 자음 중복. 각 2패널(정답3+오답2). 교정 노출(recieve→receive…)로 정답 각인.
+- **배선**: `SilentRuleGame` + `/play/silent-rule`(minWords=0) + 세렌 섬 무드(Witness) + 패널-라인 마크/워터마크 + 허브 12번째 포탈 + SESSION_META. TS 3유니온 +silent-rule.
+- **검증**: 실플레이 7항목 — 오답 "N칸 어긋남"(비공개)·규칙3 귀납·교정4·done 효율86%·모바일 0오버플로·tsc 0·pageerror 0.
+- 🎉 **아케이드 6→12종. 명작 해부 도시에의 6 신개념(①글리프 ②세관 ③핸드 ④디텍티브 ⑤형태소 ⑥무언규칙) 전부 실구현·검증 완결.** 뻔한 퀴즈 0. 누적 자동검증 58항목 PASS.
+- ⏳ DB `module_id` enum +6종(glyph/customs/hands/detective/morpheme/silent) 마이그 대기.
+
+### 아케이드 신개념 게임 ⑤「Morpheme Rules」 — 형태소가 곧 의미 (Baba Is You 계열) (v06.218)
+- **메커니즘(독창)**: 형태소 블록(접두사+어근)을 조립하면 **그 단어의 뜻이 세계에 발동** — UN+LOCK→🔒열림, RE+BUILD→다리 재건, EN+LARGE→발판 확대. 애너그램(=Letter Forge)이 아니라 **형태론 조립 = 세계 변형**. 이중 연역: ①실재 단어인가(형태론) ②그 뜻이 이 장애물에 통하는가(의미). 함정: `discover`처럼 실재하지만 오적용 → "통하지 않는다".
+- **학습**: 접사 의미(un=제거·re=다시·en=만들다·dis=반대·over=과도)와 의미의 **합성성**을 체득 = 생성적(L4b) 지식. 라이브 실재검증(✓/✗) 피드백.
+- **배선**: `MorphemeRulesGame` + `/play/morpheme-rules`(minWords=0) + 미니멀 슬레이트 무드 + 블록 마크/워터마크 + 허브 11번째 포탈 + SESSION_META. TS 3유니온 +morpheme-rules.
+- **검증**: 실플레이 10항목 — 라이브 ✓/✗·없는단어·발동효과·2회랑 정타·오적용 "통하지 않는다"·done 효율86%·모바일 0오버플로·tsc 0·pageerror 0. **아케이드 6→11종(①글리프 ②세관 ③핸드 ④디텍티브 ⑤형태소 신설, 도시에 6 신개념 중 5 완료).**
+- ⏳ DB `module_id` enum +5종 마이그 대기.
+
+### 아케이드 신개념 게임 ④「Lexicon Detective」 — 장면 수확·서사 재구성 (Golden Idol 계열) (v06.217)
+- **메커니즘(독창)**: 현장 단서(증거 카드)를 조사해 **단어를 수확** → 그 단어들을 서사의 빈칸(의미역 제약)에 배치해 **사건을 재구성**. **함정 단어(distractor)** 포함 → 뜻·역할을 알아야 풀리는 연역(클로즈가 아니라 장면 교차 추리). 해결 시 빈칸이 채워지며 **범행 서사가 하나의 이야기로 완성**되는 페이로프.
+- **학습**: 풍부한 시각 문맥(이중부호화)에서 단어를 만나고, 품사·의미·의미역을 알아야 배치 성공. 2사건(서재·유언장) 각 8단서·6빈칸(정답 6 + 함정 2).
+- **배선**: `LexiconDetectiveGame` + `/play/lexicon-detective`(minWords=0) + 세피아 수사 무드 + 돋보기 마크/워터마크 + 허브 10번째 포탈 + SESSION_META. TS 3유니온 +lexicon-detective.
+- **검증**: 실플레이 8항목 — 조사→수확 8·2사건 정타 100%·**함정 배치 시 "어긋남"**·done 정확도100%·단서12·모바일 0오버플로·tsc 0·pageerror 0. **아케이드 6→10종(①글리프 ②세관 ③핸드 ④디텍티브 신설).**
+- ⏳ DB `module_id` enum +4종(glyph/customs/hands/detective) 마이그 대기.
+
+### 아케이드 신개념 게임 ③「Lexicon Hands」 — 어휘 속성 시너지 엔진 (Balatro 계열) (v06.216)
+- **메커니즘(독창)**: 포커가 아니라 **조커 시너지로 배수를 폭발**시키는 덱빌딩. 단어 카드가 공유하는 속성(어원·품사·도메인·접사·반의어)으로 **족보**를 만들어 칩×배수 → 언어 조커(학자=학술+20칩·접사수집가=접사런 배수×2·고전어=어원+8칩)로 증폭 → 라운드 목표 격파. 24장 속성-태그 덱, 손패 8, 3라운드 누적 목표(260/620/1300).
+- **학습**: 족보를 만들려면 **어원·품사·의미장·접사**를 알아야 함 → 뜻 암기 너머 **깊은 어휘 지식(depth)** 훈련. 라이브 chips×mult 프리뷰.
+- **배선**: `LexiconHandsGame` + `/play/lexicon-hands`(minWords=0) + 무디 테이블 무드 + 카드 마크/워터마크 + 허브 9번째 포탈 + SESSION_META. TS 3유니온 +lexicon-hands.
+- **검증**: 실플레이 7항목 — 손패8·조커3·라이브 프리뷰·최적 봇 전 라운드 격파("엔진 폭발" 2,692점)·**난도 밸런스**(대충하면 R3 막힘, 숙련시 클리어)·모바일 0오버플로·tsc 0·pageerror 0. **아케이드 6→9종(①글리프 ②세관 ③핸드 신설).**
+- ⏳ DB `module_id` enum +glyph-tongue/word-customs/lexicon-hands 마이그 대기.
+
+### 도서 난이도 v2.4 파이프라인 자동 편입 — 신규 도서 자동 산정 (v06.215)
+- **`compute_book_difficulty(book_id)`** SQL 함수 신설(migration `20260712140000`, MCP execute_sql 적용) — v2.4 앙상블(ease-게이트 어휘+통사 병목+커버리지 범프)을 DB 이식. 파이프라인-계산 신호(vrl_components·syntax_score·lemma_coverage_pct·cefrj) 사용, **F-K 없으면 sent_p90+clause_depth 대체**(graceful). **claude_v 있으면 미덮음**(v3 가드) + `book_v_level_v1` 원본 보존.
+- **배선**: `lcp/dev-process` `compute_book_syntax` 직후 `compute_book_difficulty` 호출 → 신규 도서가 옛 p75 단축 대신 **자동 v2.4** 산정.
+- **검증**: Huck claude_v 임시제거→함수 실행 auto_v=**6**(스크립트 v2.4 일치·covbump 1.4·미매칭 26%·v2.4_sql)→복원. tsc clean.
+
+### 아케이드 신개념 게임 ②「Word Customs」 — 위조 적발 (Papers Please 계열) (v06.214)
+- **메커니즘(독창)**: 영어 **입국심사관**. 단어의 여권(철자·품사·뜻·예문)을 **일자별 누적 규칙서**와 대조해 **위조 적발** → 승인/거부 스탬프 + 거부 시 **위조 항목 지목**(철자/품사/뜻/예문). 정답 맞히기가 아니라 **오류 탐지**(무엇이 왜 틀렸나로 각인).
+- **위조 18종**: false friend(sensible=분별있는≠민감한, library=도서관≠서점, familiar=익숙한≠친척의…) · 철자 트랩(recieve/seperate/definately) · 품사 오용(success 명사≠형용사, economic 형용사≠명사). 3근무일 규칙 누적(뜻→+철자→+품사).
+- **배선**: `WordCustomsGame` + `/play/word-customs`(minWords=0) + 세피아 심사대 무드 + 여권 마크/워터마크 + 허브 8번째 포탈 + SESSION_META. TS 3유니온 +word-customs.
+- **검증**: 실플레이 7항목 — 정타 18여행자 100%·위조 10적발·오심 케이스("오류")·done 3,880점·모바일 0오버플로·tsc 0·pageerror 0. 아케이드 6→8종(①글리프 ②세관 신설).
+- ⏳ DB `module_id` enum +glyph-tongue,+word-customs 마이그 **대기**(미적용 시 fire-and-forget 흡수, 동작 무관).
+
+### 도서 난이도 — p75 재평가 + v2.4 hidden-difficulty 자동화 (v06.213)
+- **p75 재평가**: 어휘축 대안 비교(Claude 대비 MAE) — type-p75 **1.17**(최선) vs weighted_avg 1.62·token-cov90 1.40·cov95 2.00. token-커버리지(`lexical_coverage`)는 이론(i+1) 정합이나 짧은책·희귀꼬리로 노이지 → **p75 유지 확증**(대안 기각).
+- **v2.4 자동화**: `lemma_coverage_pct`(사전 매칭률)=방언/외래 탐지 신호 발견 — **Huck Finn 74.1%** vs 타 90-95%(방언어 미매칭 → p75가 못 봄). `covBump=f(미매칭율)` 추가(Huck auto 5→6 부분보정, auto-MAE 0.48→0.43) + 저커버리지(≥20%)=확신감쇠·플래그(신규 도서 Claude 검토 유도). **Claude 검토 도서(claude_v)는 v3 가드로 자동값 미덮음**. `scripts/apply-book-difficulty.mjs` v2.4.
+- 한계(정직): 완전 Claude-대체 불가(극단 방언은 문학판단) — 자동경로=부분보정+잔여 플래그.
+
+### 도서 난이도 v2.3 — Claude 전문가 캘리브레이션 (외부 앵커 100% 달성) (v06.212)
+- **작업**: LCP 대량 GET 도서 **전체 대상 25권(published 23 + ready 2)**을 **Claude(LLM-as-expert)가 본문샘플+문학지식으로 한 권씩 큐레이션 평가** → 플랫폼 v2.2와 대조 → Claude 판정을 강추정기로 편입해 정확도 고도화. **Claude 캘리 커버 100%**(25/25). ready 대작 Dialogues(Plato) V9·Les Misérables V8 편입(발행 timeout이나 학습가치). `scripts/calibrate-book-difficulty-claude.mjs`(published+ready).
+- **텍스트 지표 사각지대 교정**(v2.2 앙상블이 구조적으로 못 봄):
+  - **방언(eye-dialect)** — Huckleberry Finn V5→**7** (방언어=짧아 F-K↓·흔한 lemma=V↓로 지표가 못 봄; Twain 서문 "a number of dialects" 명시). 텍스트 지표 최대 사각지대.
+  - Kipling 조어·율문 Just So V5→7 · 철학 추상 Book of Tea V6→7 · 아동 운문 Poetry V7→5.
+  - 검토 8권 해소: Gibbon **11**·Foundational **8**·Alice Adams(CEFR-J C1 과대) **6**.
+- **공식**: `v3 = round(0.65·claude_v + 0.35·ensemble_v2)` · `difficulty_v2.{claude_v, claude_note, v3}` 감사저장 · `book_v_level_v1` 원본 보존.
+- **정확도 결과**: 외부 앵커(고전 published 난이도 consensus) 적중 **90%→100%**(10/10). `scripts/verify-book-difficulty.mjs` 갱신(적용값 기준). 잔여: 신규 도서 자동화용 사각지대 감지 프록시(비표준 orthography 비율).
+
+### 아케이드 신개념 게임 ①「The Glyph Tongue」 — 문맥 해독 (Chants of Sennaar 계열) (v06.211)
+- **배경**: 명작 10종 해부 도시에(설계 덱) → "뻔한 퀴즈류 탈락, 핵심 루프 훔치기" → 최우선 빌드 ①번 프로토타입 구현.
+- **메커니즘(독창)**: 목표 단어를 **미지의 절차적 룬**(단어 해시→결정적 SVG)으로 제시. **뜻을 절대 주지 않음** — 한 룬이 2개 영어 비문에 반복 등장 → 학습자가 **문맥으로 삼각측량**해 의미 추론 → 코덱스에 가설 배치 → **봉인(검증)** → 맞으면 룬이 영어 단어로 풀리며 **비문 전체가 읽히기 시작**(에피파니 페이로프). 3석실×5룬 내장 뱅크.
+- **학습**: 문맥 추론(원칙 #5 맥락) + 능동 인출·검증(#1) + 룬→단어 이중부호화(#4). 얕은 고르기가 아니라 추론.
+- **배선**: `GlyphTongueGame` + `/play/glyph-tongue`(scaffold minWords=0) + AmbientBackground 파스텔 필사본 무드 + glyph 마크/워터마크 + 허브 7번째 플래그십 포탈 + SESSION_META. TS 3유니온(ArcadeGameId/ModuleId/ScoreModule) +glyph-tongue.
+- **검증**: 실플레이 하니스 — 3석실 정답 배치→봉인→"비문을 읽어냈다" 전부 통과, done 15룬·100%·3석실, 스크린샷(룬 비문·해독 후 가독), tsc 0·pageerror 0·console 0.
+- ⏳ DB `module_id` enum +glyph-tongue 마이그레이션 **대기**(미적용 시 audit/scores fire-and-forget 흡수, 게임 동작 무관 — 기존 6종과 동일 패턴).
+
+### VRL Phase2 런타임 함수 스키마 드리프트 기록 12종 (v06.220)
+- **최우선 재현성 복구**: 진단·프로필·자동상향 런타임 함수 **12종**이 committed 마이그레이션 부재(out-of-band)로 DB 재구축 시 DiagnosticClient/VLevelPromotionCheck/pg_cron RPC 전부 붕괴 위험이었음.
+- **정확 대조**: admin_vrl_*(6)·is_admin 은 마이그 존재(드리프트 아님) 확인. 실제 부재는 의존 closure **12함수** — `effective_confidence`·`calculate_next_review_due`·`update_user_v_level`·`analyze_diagnostic_result`·`analyze_track_diagnostic_result`·`apply_diagnostic_result`·`analyze_and_apply_{diagnostic,track,comprehensive}_result`·`auto_promote_{v_level,track_level}_for_user`·`cron_auto_promote_all_users`.
+- **기록**: 현 DB 정의를 pg_get_functiondef 로 덤프해 의존 순서 기록 마이그(동작 변경 0). **참조 테이블·컬럼도 기록 완결** — `user_level_snapshots`(25컬럼·5FK·4CHECK·4인덱스)·`vrl_data_integrity_concerns` CREATE TABLE + user_profiles Phase2 컬럼(`current_v_level_meta`·`target_v_level_meta`·`learning_activity_score`·`next_level_review_due_at`·`segment`·`total_words_*`) ALTER, 전부 `IF NOT EXISTS`(멱등). ⚠️ 잔여: 진단 문항 시드 데이터 + user_level_snapshots own-data RLS 정책.
+
+### VRL/VCB 파이프라인 종합 점검 + 5개선 (v06.219)
+- **점검**(2-agent 정찰 + DB 실측): VRL 4축 분류(shared_dictionary 45,496어) — v_level·meaning·cefr 100%. VCB seed→enrich→큐레이션→발행→학습자 전 구간 배선 확인(cast-2000 audit chain 온전).
+- **개선 5건**:
+  1. **추천/컬렉션 딥링크 죽은 앵커 (교차 버그)** — 추천 카드·진단결과·VCB 컬렉션/런이 `#set-{slug}`로 링크하나 학습자 카드는 `id="set-{UUID}"` → slug(≠uuid·NULL 다수)라 `:target` 하이라이트 전부 불발. **4곳 `#set-{set_id}`(UUID) 정합**(RecommendedSetsSection·DiagnosticClient·collections·runs).
+  2. **/admin/vrl/automation requireAdmin 누락** — 형제 VRL 페이지와 달리 RSC 가드 결손(3층 규약 위반) → `requireAdmin` 추가.
+  3. **vcb_publish_commit 스키마 드리프트** — 발행 전량 의존 RPC가 마이그 부재(proposal "미적용" 표기, DB엔 실존) → DB 덤프로 기록 마이그(재현·감사).
+  4. **admin 진단 페이지 stale 안내** — "L0/L1/L2 미분류"(실제 100% 완료) + `apply_diagnostic_result`(실제 `analyze_and_apply_diagnostic_result`) 정정.
+- **관찰(리포트 권고·미수정)**: shared_dictionary track/domain/skill 축 ~7,100어 NULL(후속 추가어 미분류) · **VRL/VCB Phase2 런타임 다수 함수·테이블이 마이그 이력 밖(DB-only)** — 재현 불가(대규모 기록 필요) · track auto-promote 미배선 · VCB 큐레이션 일괄에 비-enriched 혼입.
+
+### LCP G1 book 추천 링크 수정 (v06.218)
+- book_iplus1 추천(`recommend_word_sets_for_user`)이 `/library/vocab#set-{slug}`로 링크되나 그 페이지가 library_book 제외+slug NULL이라 죽은 앵커였음 → `library_book` 카테고리는 **도서 브라우즈(`/library/books`, i+1 레일)로 라우팅**. (deep-link는 RPC에 book_id 노출 필요 — 후속.)
+
+### LCP 도서 파이프라인 종합 점검 + 6개선 (v06.215)
+- **점검**(3-agent 정찰 + DB 실측): 발행 도서 23권(SE 14·gutenberg 4·storyweaver 2·lit2go/pressbooks/wikibooks 각 1). 4축 난이도·챕터·단어장 전권 완비. 콘솔 9탭 + book_curation_jobs 큐(Claude 드레인) + 학습자 8접점(브라우즈·enroll·읽기·챕터단어장·plan·처방·모듈·CTP) 추적.
+- **개선 6건**:
+  1. **표지 6권 백필** — Alice·Sherlock(gutenberg cover.medium.jpg) + Oz·Fables·Just So·Railway Children(SE og:image). 각 URL curl HEAD 200 image 실검증. (lit2go/pressbooks/wikibooks 3권은 표지 소스 없음 = NULL 정당.)
+  2. **CATALOG_SOURCES 통계 누락** — storyweaver/pressbooks 미포함 → 통계 칩 항상 0(ACP VALID_SOURCES 동류). 8종 정합.
+  3. **SeedCatalogRow.source 타입 stale** — lit2go/storyweaver/pressbooks 추가·openstax 제거.
+  4. **ScriptQuiz 챕터 "본문으로" 잘못된 id** — `/text/{bookId}`(library_books.id→조회 실패→mock 폴백)→`/library/books/{bookId}`.
+  5. **plan 도서 발행게이트 불일치** — plan picker가 `status='published'`만 검사 → 브라우즈엔 없는 KR-unsafe 도서가 plan에 뜨고 enroll 실패. `copyright_safe_in_kr`+`published_at` 정합.
+  6. **스키마 드리프트 기록** — `compute_book_vrl`/`compute_book_cefrj`/`compute_book_coverage` 함수 본체가 마이그레이션 부재(out-of-band) → DB 덤프로 기록 마이그(재현·감사 복구, 동작 변경 0).
+- **관찰(리포트 권고·미수정)**: G1 book_iplus1 추천 죽은링크(`/library/vocab`가 library_book 제외+slug NULL) · G4 Dictation 도서챕터 미스코핑 · auto_curate 게이트지표≠발행지표 · prod 워커 pressbooks/compute_book_difficulty 미배선(dev 비대칭) · chapter_count≤100 상한 · set 라벨 드리프트("V{bvl}+" vs 실 V6 floor).
+
+### ACP UI 디자인 부채 백로그 + 안전 2수정 (v06.214)
+- **백로그** [acp-ui-a11y-backlog.md](proposals/acp-ui-a11y-backlog.md): 12 컴포넌트 감사 산출을 P1(대비)~P4(정체성) 우선순위·파일위치·수정법으로 정리. 색/레이아웃/정체성 변경 항목은 **시각검증(dev 서버) 트랙**으로 분리(블라인드 편집 회귀 방지).
+- **안전 2수정**: GetGuidePanel `open:shadow-[var(--shadow-sm,none)]` 오타(그림자 영구 미적용)→`--sh-sm` · BulkArticlesTab 소스 우선순위 뱃지 `'white'` 하드코딩→`var(--ti)` 토큰화(시각 동일).
+
+### ACP 콘솔 키보드 포커스 보강 — focus-visible 14 컨트롤 (v06.213)
+- **BulkArticlesTab (9)**: 대량 가져오기·삭제·큐추가 액션 버튼 + 학습자레벨·정렬·발행·audio 세그먼트 토글 + 조건 접기. **CuratedArticlesTab (5)**: 전체/행 선택 아이콘 버튼·드레인 배너 버튼·발행 버튼.
+- 순수 additive(focus-visible ring만) — 색·레이아웃 회귀 0(WCAG 2.4.7). tsc clean.
+- 잔여(다음 트랙·시각검증 권장): 44px 터치타겟 확대 · `--admin` 토큰 채택 · ScoreBar 중복 통합 · 저빈도 필터칩 focus.
+
+### 학습자 기사 브라우즈 a11y 패스 — CEFR 배지 대비 + 44px/포커스 (v06.211)
+- **ArticleCard**: CEFR 배지를 `text-white`(고정 흰 글씨) → **틴트 패턴**(색=텍스트·배경 color-mix 15%)으로 통일 — 소스/적합도 배지와 동형. A1 파스텔뿐 아니라 **다크모드에서 밝은 토큰(`--p` 등) 위 판독 실패**까지 근본 해소(양 테마·전 레벨 대비 보장). "학습하기" 버튼 `min-h-[44px]`+active, 원문 링크 36→44px + focus-visible + active.
+- **ScriptsBrowser**: 묶음 필터 해제 X 버튼 16→24px, 빈상태 초기화 버튼 focus-visible + active 보강.
+- 범위: 학습자 노출 최다 2컴포넌트 우선. 콘솔측 systemic 부채(BulkArticlesTab focus-visible·44px, `--admin` 토큰, ScoreBar 중복)는 다음 트랙 — 브라우저 시각검증 가능 시점 권장.
+
+### ACP 신규 소스 2차 심층 재점검 — owid 본문 정제 + A1 대비 교정 (v06.210)
+- **6개선 재검증**: 1차(v06.209) 개선 전부 유지 확인 — 제목 엔티티 0 · syntax NULL 0 · 라벨/필터 코드 반영.
+- **owid 본문 품질 (신규 발견)**: owid 8기사 전량이 본문에 hex 엔티티 + 각주(Endnotes)·BibTeX 인용(Cite this work)·라이선스 안내(Reuse this work freely) 트레일러 누출(본문의 16~41%). 읽기·어휘 추출 오염.
+  - **파서 근본 수정** `owid.ts`: htmlToPlainText 후 최초 트레일러 마커에서 본문 절단.
+  - **기존 8기사 백필**: 엔티티 디코드 + 트레일러 절단(예 22,888→19,187자) + word_count·syntax_score·article_v_level 재계산. 검증: URL·엔티티·보일러플레이트 0.
+- **접근성 defect 교정** `ArticleCard`: CEFR 배지가 흰 글씨인데 A1=`#86EFAC`(파스텔·대비 ≈1.4:1)라 판독 불가 → 대비 통과 녹색(`#15803D`)으로 교정.
+- **디자인 감사(12 컴포넌트)**: 광범위 pre-existing 부채 확인 — 44px 미만 터치타겟(전반)·focus-visible 누락(BulkArticlesTab ~15곳)·하드코딩 소스/CEFR hex 팔레트(ArticleCard, 다크 무대응)·`--admin` 토큰 미사용(전 admin이 `--p`)·ScoreBar 중복/임계값 불일치. **신규소스 범위 밖·광범위라 미수정, 리포트에 우선순위 권고로 기록**(모범: CoverageMatrix 색+빗금+텍스트 3중부호·CandidateTable 아이콘 구분).
+
+### ACP 신규 소스 전 파이프라인 자동 점검 + 5개선 (v06.209)
+- **점검**(3-agent 정찰 + DB 실측): 신규 소스 noaa/usgs/owid/factbook/elife **전 5종 발행 성공**(4/5/8/7/2건) · 10개 배선지점·게이트·drift-lock 전부 등록 확인 · 학습자 6접점(브라우즈/읽기/단어장/plan/처방/CTP·모듈) 도달 경로 추적. 백엔드 파이프라인 건전.
+- **개선 5건**:
+  1. **seed-list 후보 필터 버그** — `seed-list/route.ts` `VALID_SOURCES` 6종만 → `?source=noaa` 등이 탈락해 전 소스 혼합 후보 반환. 14종 정합.
+  2. **plan/hub article 열기 404** — `materialHref('article')=/library/scripts/{id}`가 무조건 도서로 redirect→`notFound()`. `/library/scripts/[id]` 리졸버가 발행 article 을 `startArticleLearning`→리더로 연결(브라우즈·처방과 대칭).
+  3. **제목 HTML hex 엔티티 잔존** — `decodeEntities`(_helpers + voa 로컬)가 `&#x27;` 등 hex 미처리 → owid 1 + voa 7 제목에 `&#x27;` 노출. hex 디코드 보강 + 기존 8제목 백필 + 회귀 테스트 4.
+  4. **SourceFeedList 라벨** — 신규 소스 raw key(`noaa`…) 노출 → 8종 라벨 추가.
+  5. **BulkArticlesTab 프리셋 라벨** — "전체 (12 소스)" → 실제 14 정합.
+- **데이터 백필**: `syntax_score` NULL 22기사(noaa/usgs/factbook/wikivoyage/plos) `compute_syntax_score` 재계산.
+- **관찰(설계상·미수정)**: article 단어장은 추천엔진·WordVault 브라우즈에서 격리(의도) · plan article 게임은 texts 변환 전 unscoped · 신규 expository 소스는 register→stage_band 미승격(owid=argumentative만 S3, 나머지 v_level 종속). ⚠️ 라이브 브라우저 테스트는 디스크 100%+동시 dev서버로 회피 → 백엔드/정적/타입/테스트 검증 채택.
+
+### 도서 난이도 다축 평가 v2 — 어휘 단축 왜곡 교정 (v06.208)
+- **문제**(사용자 지적): `book_v_level = 어휘 p75` 단축 → (1) 희귀 content-word 꼬리가 p75 부풀림(Alice ease 70인데 V6), (2) 통사 완전 무시(Foundational 학술 F-K 14.55인데 V6·Gibbon 최난이도인데 V9 캡). 23권 실증.
+- **설계**(재고): "100% 정확"의 단일 텍스트 공식은 불가(ground truth=학습자 성과) → **앙상블+확신도+외부앵커**로 실효 정확도 수렴. 공식: **ease-게이트 어휘축**(읽기 쉬우면 중심값·어려우면 p75 → 문맥 희귀어 탈부풀림) + **통사축**(F-K·syntax_score) + **병목 융합**(0.75·max+0.25·mean — 어느 한 축만 어려워도 어려움) + **CEFR-J 앵커**(lexOffset 0.04≈편향0) + **CEFR-J 교차확증 확신도**. 설계문서 [book-difficulty-multiaxis.md](proposals/book-difficulty-multiaxis.md).
+- **적용**(서비스롤·非DDL, v2.2): syntax_score 16권 백필(`compute_book_syntax`, 전권 확보) 후 재산출 → **고확신 13권 `book_v_level` 갱신**(Alice V6→5 conf 0.99·Jane Eyre V9→8·Great Expectations V9→8·Wizard V6→5 등) + **저확신 8권 검토 회부**(Gibbon V9→11·Foundational V6→8·Alice Adams V9→6 등). CEFR-J MAE **0.78 V**. 전권 `vrl_components.difficulty_v2` + `book_v_level_v1` 구값 보존(되돌리기 가능).
+- **부수 발견**: `compute_syntax_score.score = LEAST(100, sent×2+clause×6)`가 **100 포화**(Alice 112·Gibbon 212 전부 캡)라 변별력 0 → 앙상블은 raw clause_depth+F-K로 대체. 재보정 마이그 `20260712120000_ctp_syntax_score_recalibrate` 작성(선형 분산) — **CTP score 소비처 임계값 재검증 후 apply**(앙상블 무영향).
+- **정확도 검증 하니스** `scripts/verify-book-difficulty.mjs` — 3중 수렴검증: v2.2 외부 앵커(고전 published 난이도) 적중 **9/10(90%)** vs old 60% · 고확신 CEFR-J MAE **0.27V** vs 저확신 1.75V(confidence가 accuracy 예측 입증). 100% 경로=저확신 8권 인간검토+IRT.
+- **잔여**: 검토 8권 어드민 flip · 소비처(recommend·i+1·source-map) 전환 · score 재보정 CTP 조율 apply · Tier2 IRT.
+
+### CTP DCP S4 도서 콘텐츠 populate + kind 정합 (killer band 활성화) (v06.207)
+- **갭 발견**: DCP 문항 64개가 전부 **S3(논증 article 7건)** 뿐 → S4(도서 v≥7·killer band) 학습자는 처방 ④ 연습이 영영 비활성. 게다가 `csat_dcp_items.kind` CHECK=`('article','chapter')`인데 catalog·`prescribe_today` 조인은 도서를 `kind='book'`으로 씀 → **book DCP 구조적 삽입/조인 불가**(CTP 백엔드 잠재 불일치).
+- **마이그 `ctp_dcp_items_kind_allow_book`**: kind CHECK 에 `'book'` 추가(catalog 정합, additive).
+- **드레인 `scripts/generate-book-dcp.mts`**: 발행 도서 챕터 본문(`content_chunks`)→`generateDcpItems`(결정론·LLM 0)→`csat_dcp_items` upsert(멱등). 챕터별 `paragraph_idx` 전역 오프셋(chapter×1000+para)으로 도서 내 충돌 회피. Claude Code 수동 드레인 관행.
+- **populate**: Decline and Fall(설명문 v9)·Pride and Prejudice(서사 v8) → **S4 book 96문항**(order 48 + insert 48). 검증: prescribe_today practice 조인 S4 반환 · book order 채점 계약 실측(`source_order [0,4,2,1,3]`→`[0,3,2,4,1]` 정답) · 재실행 멱등(96 유지). **DCP practice S3·S4 양쪽 활성화.**
+
+### 아케이드 아이덴티티 폴리시 — SVG 마크·워터마크·결과 히어로 (v06.206)
+- **동기**: 아트 디렉션 후속 폴리시(사용자 "전부 다듬어줘"). 남은 이모지 잔재 제거 + 게임별 아이덴티티 강화.
+- **게임킷**: `GameMark`(6종 공용 SVG 마크)·`IconSound`(SVG 사운드 토글) 추가. `AmbientBackground`에 `watermark` 옵션(각 게임 마크를 우하단 대형·soft-light 은은한 워터마크). `GameDone`에 `mark` 히어로(글래스 배지+파티클).
+- **이모지 교체**: Daily Blitz 📅→일출 마크 배지 · HUD 🔊🔇→SVG 사운드 아이콘(게임킷+Daily) · Ghost Race 결과 🏆 제거(마크 히어로 대체). 🔥(스트릭/콤보)는 관용적이라 유지.
+- **6종 배선**: 각 게임 watermark(자기 마크) + GameDone/결과 mark 히어로. 밝은/무드 배경 양쪽에서 글래스 배지 가독.
+- **검증**: 6종 인터랙티브 QA 재통과(정타·스코어·승리/결과) · 스크린샷(Daily 인트로·Ghost/Letter 결과 히어로·워터마크) · tsc 0 · pageerror 0 · console 0. (⚠️ 작업 중 C: 디스크 재만충→`.next` 클리어로 dev 복구.)
+
+### LCP ready 도서 드레인 — 발행 카탈로그 7→23권 (v06.205)
+- **갭**: LCP 품질 스윕(서비스롤 tsx)에서 **18권이 `ready`+copyright_safe인데 미발행**(학습자 카탈로그 7권뿐) 발견 — ACP 스트랜딩의 도서판. 파이프라인 자체는 건전(NULL v_level 0·lbv NULL lemma 6.10% proper-noun/hapax 잔여·단어세트 word_count=0 **0**).
+- **드레인**: `ready`→`published` 상태 플립 → 트리거 `trg_publish_book_word_sets_t`가 챕터 단어세트 자동 생성(멱등). **16권 발행**(Great Expectations V9·Jane Eyre V9·Sherlock V8·Wind in the Willows V8·Wizard of Oz V6·Alice V6·Huck Finn V7 등) → **발행 7→23권**, V-Level V6:3 V7:8 V8:4 V9:6 풍부화, library_book 챕터 단어세트 **283→909**(+626).
+- **실 발견 (LCP 한계)**: `publish_book_word_sets`가 초대형 책(**Les Misérables 364ch·Dialogues**)에서 **statement timeout** — 모놀리식 전-챕터 생성이 API 타임아웃 초과, 트랜잭션 롤백(두 책 `ready` 유지·무손상). **향후 fix**: 챕터 청크 분할 발행(per-chapter 드레인) 또는 statement_timeout 상향. 현재 25권 중 2권만 잔여.
+- DEV 데이터 드레인(코드 변경 0) — 트리거·RPC는 기존.
+
+### CTP ⑥ Today UI Phase 2 — DCP 구문 연습 인터랙션 (order/insert·채점·error_cause) (v06.204)
+- **신규 라우트 `/practice/dcp`** — hub 처방 ④ 연습 블록 진입점. 오늘 처방(`prescribe_today`) practice 문항을 세션으로 진행. S3 미만/문항 없으면 Calm 빈 상태.
+- **인터랙션**: `DcpItems.tsx`(**order**=문장 순서 배열: 이동 버튼 44px·드래그 대신 a11y 우선 / **insert**=삽입 위치 슬롯 탭) + `DcpPlayer.tsx`(세션 오케스트레이터 — 채점 피드백·정답 공개·진행바·완료 요약). 제출 포맷은 `grade_dcp_item` 계약(order `{order:[presented idx]}`·insert `{position}`).
+- **채점·기록**: `dcp-actions.ts`(`fetchDcpPracticeItems`·`gradeDcpItem`·`recordDcpErrorCause`). 마이그 `ctp_dcp_grade_return_attempt` — `grade_dcp_item` 이 `attempt_id`+`question_id` 반환(오답 원인 부착용). 채점=서버 `answer_key`(클라 노출 0).
+- **error_cause 1-tap**: 오답 시 5원인 자기보고(vocab/parsing/structure/inference/timing) → `csat_item_attempts.error_cause`(RLS owner + CHECK 이중방어). 정적 라우팅=존재 라우트만 링크(vocab→`/flashcard/play`, 나머지 격려 tip · **허위 링크 금지**). hub practice 블록 상태칩→실런처(`/practice/dcp`).
+- **검증**: tsc clean · `grade_dcp_item` order 채점 로직 DB 실측(`{order:[4,0,3,1,2]}`=정답) · 단위+렌더 테스트 **9/9**(`dcp.test.ts` 5 `correctOrderFromKey`·ERROR_CAUSES 무결성 + `DcpPlayer.test.tsx` 4 renderToString). **CTP ⑥ Today UI 완결**(Phase 1 처방정본 + Phase 2 DCP).
+
+### hub "오늘" META 재설계 Phase 1 — prescribe_today 정본화 (CTP ⑥ Today UI) (v06.203)
+- **META 확정(Opt A)**: hub "오늘"의 삼중 출처(수동계획 `study_plan_items` · `TodayFocus` 클라이언트 휴리스틱 · CTP `prescribe_today`)를 단일 정본으로. 우선순위 — **오늘 수동계획 있음 → `TodayPlanCard`**(사용자 의지 우선) · **진단완료 + 수동계획 없음 → `TodayPrescriptionCard`**(★ `prescribe_today` 5블록 스마트 기본값) · **미진단 → `TodayFocus`**(진단 유도). `TodayFocus` 페르소나 휴리스틱은 진단완료자에게 처방으로 승격 대체. 결정 문서 [hub-today-meta.md](proposals/hub-today-meta.md).
+- **신규**: `lib/learner/prescription-actions.ts`(`fetchTodayPrescription` 서버 액션 — `prescribe_today` 호출·파싱·isDiagnosed·듣기text) · `components/home/TodayPrescriptionCard.tsx`(서버, 5블록: 복습/듣기/읽기/연습/점검 + 번호 스텝·색+아이콘 이중부호·44px+·다크 토큰) · `components/home/PrescriptionArticleLaunch.tsx`(client — article 은 URL 직결 불가 → `startArticleLearning` texts 변환). `hub/page.tsx` 분기 배선.
+- **런처 매핑**: 복습→`/flashcard/play`(전역 due) · 듣기→최근 `/text/[id]/echo` or `/library/books` · 읽기→book `/library/books/[id]`·article texts 변환 · 점검→`/scriptquiz`. ④ DCP 연습은 **Phase 2**(order/insert 인터랙션·`grade_dcp_item`·error_cause) — Phase 1 은 상태칩만.
+- **검증**: tsc clean(신규 3파일+배선, 전체 잔여는 기존 `recommend/next-action.mock.ts` 1건 무관) · `prescribe_today` 5블록 payload DB 실측(파서 계약 일치) · 렌더 테스트 `TodayPrescriptionCard.test.tsx` **7/7**(renderToString, 전 분기). ⚠️ dev 서버 1개 원칙+디스크 99%로 Playwright 스모크 대신 renderToString 채택.
+
+### 아케이드 아트 디렉션 — 게임별 무드 그레이딩 6종 완성 (v06.202)
+- **동기**: 학습자 관점 디자인/색감 점검 — 기존 아케이드는 "깔끔한 학습 UI"였으나 레퍼런스(Blue Prince·Outer Wilds·Witness·지중해 듀오톤) 수준의 감성엔 미달(플랫·무드 없음). Calm UI와 충돌 없이(Calm≠밋밋) 격상.
+- **허브 재설계**: 플랫 화이트 카드 → **황혼 갤러리 + 6 무드 포탈**(스테인드글라스). 듀오톤 배경·앰비언트 드리프트 글로우·그레인·비네트 + **이모지→일관 SVG 라인 마크** + 깊이/글로우/타이포.
+- **게임킷 `AmbientBackground`** 공용 컴포넌트 — 중앙 밝게(가독)·가장자리 무드로 깊게(드라마) + 글로우·그레인·비네트. reduced-motion 대응.
+- **6종 무드**: Daily Blitz=새벽(peach/rose) · Letter Forge=엠버(gold/brown) · Cascade=수중(cyan/teal) · Connections=다스크(violet/indigo) · Word Economy=골드(amber/bronze) · Ghost Race=트와일라잇(magenta/purple). 밝은 타일/어두운 텍스트 가독 유지.
+- **검증**: 6종 dev :3100 스크린샷(무드·가독) + 인터랙티브 QA 재실행(정타·스코어·승리/결과 전부 통과) · tsc 0 · pageerror 0 · console 0. 커밋 `3f7aee8`(허브+시스템+Ghost) + 본 커밋(5종).
+
+### ACP 신규 소스 학습자 표면 배선 — source→learner loop 닫음 (v06.201)
+- **갭 발견**: 이번 세션 신규 소스 중 **wikipedia·plos·wikivoyage·usgs·noaa 5종이 `source-map.ts`(학습자 /library/scripts 트랙 맵)에 미등록** → 발행돼도 `SOURCE_TO_TRACK.get()`=undefined로 **트랙 그룹에서 완전 누락**(실측 8편 stranded). ArticleCard `SOURCE_META`도 미등록 → raw 회색 라벨.
+- **수정**: `topic`(과학) 트랙에 plos/usgs/noaa 추가(oneLine 지구·기후 반영) + **신규 `reference` 트랙**('백과·여행으로 넓히기' — wikipedia/wikivoyage, Schema Theory 근거) + `computeTrackCounts` Record + ArticleCard 5소스 메타(라벨·액센트). TrackKey 6→7·SOURCE_TRACKS 6→7.
+- **검증**(서비스롤 tsx): 발행 14소스 전부 트랙 매핑(⚠트랙없음 0) — stranded 8편(wikipedia/plos/wikivoyage/usgs/noaa) 학습자 노출 복구. web tsc clean. **런타임 스모크 통과**(기존 :3000 재사용, `test:e2e:smoke` 2 passed — /library/scripts 포함 10 학습자 화면 콘솔에러 0).
+- **커버리지 배치**(v06.201 후속): 신규 소스 20편 ingest→publish 스케일 스트레스테스트 **0 실패**(wikivoyage 12,046w·plos 6,599w 포함) → reference 밴드 5→14, usgs/noaa/wikivoyage/factbook/plos 실 카탈로그 presence. DEV 데이터(코드 변경 0). 남은 빈칸 17/30=구조적(A1 전무·C2 미검출).
+
+### 아케이드 6종 자동 QA 스윕 + Daily Blitz 공유 버그 수정 (v06.200)
+- **인터랙티브 QA 하니스**(Playwright) — 6게임을 정답 매핑으로 **실제 플레이**(정타·스코어·콤보·승리/결과·상점 구매·50:50·매치 클리어·레이스 완주) 자동 검증. 6종 전부 통과: Letter Forge 10/10(3,213점)·Cascade 22매치(4,281점)·Connections 4/4 완승·Word Economy 26정답·5강화·코인·Ghost Race 12/12 승(5.2s).
+- **버그 수정** — `DailyBlitzGame` 결과 공유의 `navigator.clipboard.writeText`를 `void`+동기 `try/catch`로 감싸 **프로미스 rejection 미처리(unhandledrejection)** → insecure/권한거부 컨텍스트에서 pageerror. **프로미스 `.then/.catch` + `execCommand` 폴백 + 성공 시에만 "복사됨" 표시**로 재설계. 재검증 pageerror 1→0.
+- **모바일 퍼스트 검증** — 6게임 390×844 가로 오버플로 **전부 0px**(Cascade 4×4 보드·Connections 영+한 타일·Word Economy 상점 반응형 2열 확인). 데스크톱/모바일 pageerror·console error 0.
+
+### ACP NOAA Climate.gov 기후과학 소스 신설 — 신규 도메인(climate·CSAT 최빈출) (v06.199)
+- **NOAA ingester** — `ingest-article/noaa.ts`. NOAA Climate.gov Understanding Climate / Features(Drupal 서버렌더 HTML, 의존성 0). **PD(US Gov) → 발행 허용 · 인용 자유**. **register=expository**, **신규 도메인 climate-science**(대기 CO₂·해양 열용량·지구온난화·빙하) — **CSAT 최빈출 주제**. USGS(지질·재해)·NASA(우주)와 구별. B2-C1 접근형 과학 저널리즘.
+  - 본문: `field--name-body`(가장 큰 조각 = 본문 필드만 · 관련링크 region 제외) → `field-media-caption` 차트 캡션 제거 + References/인용목록 절단 + 후행 관련-기사 링크(문장부호 없는 짧은 라인) 최대 6줄 제거.
+  - 리스트: anchor 텍스트=제목(USGS 와 달리 직접 페어).
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue(host=`www.climate.gov/news-features/`) + 어드민 UI(🌡 CloudSun) + 대량 GET(14소스 + noaa-feed understanding-climate/features). **drift-lock 30 tests**. tsc clean(패키지+web).
+- **라이브 검증**(tsx 실 ingester) — Ocean Heat(984w)·CO₂(1060w)·global temp(1122w)·glaciers(1058w)·Incoming Sunlight(2299w) 5기사 clean · listNoaaFeed understanding-climate 7건(★51-54)·features 12건.
+- 마이그레이션 `acp_source_add_noaa` (source CHECK +noaa) — **적용 완료**(2026-07-11, 대시보드 SQL Editor — MCP 세션 단절 우회). library_articles·library_article_seed_catalog 두 CHECK 모두 `'noaa'` 포함.
+- **DB end-to-end 발행 증명**(서비스롤 tsx · MCP 우회) — Ocean Heat Content INSERT → **license_class=public_domain·display_only=false·copyright_safe=true** → `analyzeArticle` 245 어휘 → register=expository·B2·noise 0.005 → 발행 트리거 → 단어세트 **40 words published**(greenhouse 온실·marine 해양의·emission 배출·atmospheric 대기의·ecosystem 생태계·absorb 흡수 — 기후/CSAT 도메인, 한국어 뜻 완비). USGS와 동형 확인.
+
+### ACP USGS 지구과학·자연재해 소스 신설 — 신규 도메인(earth-science) (v06.198)
+- **USGS ingester** — `ingest-article/usgs.ts`. 미국 지질조사국 Featured Stories / Science Snippets(Drupal 서버렌더 HTML, 의존성 0). **PD(US Gov) → 발행 허용 · 인용 자유**. **register=expository**, **신규 도메인 earth-science**(지진·화산·허리케인·광물·산사태) — NASA(우주)·NIH(건강)와 구별되는 빈칸. B2 접근형 과학 저널리즘.
+  - 본문: `node-main-body` 컨테이너 → `d-media-copyright` 이미지 크레딧 반복 제거 + plain-text catch-all(`Sources/Usage:`) + related-*-tab/contacts/attributions/authors 트레일러 절단 + 맨 끝 "Learn More" 리소스 링크 컷.
+  - 리스트: `c-usgs-teaser` 카드 블록 파싱(제목 h*.title + teaser). RSS 없음 → HTML 파싱.
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue(host=`www.usgs.gov/news/`) + 어드민 UI(⛰ Mountain) + 대량 GET(13소스 + usgs-feed featured/snippets). **drift-lock 29 tests**. tsc clean(패키지+web).
+- 마이그레이션 `acp_source_add_usgs` (source CHECK +usgs) — **적용 완료**.
+- **라이브 검증**(tsx 실 ingester) — featured 12건(★60-61) · Solar Superstorm(814w)·Hurricane Helene(1394w) both **junk 0**(크레딧/링크리스트 clean) · snippets 12건.
+- **end-to-end 발행 증명** — Hurricane Helene INSERT → **license_class=public_domain·display_only=false·copyright_safe=true** → register=expository·B2·noise 0 → `analyzeArticle` 377 어휘 추출 → 발행 트리거 → 단어세트 **40 words published**(landslide 산사태·debris 잔해·hazard·trigger 촉발·personnel·collaboration — 지구과학/재해 도메인, 한국어 뜻 완비).
+
+### 아케이드 스위트 — 세계적 게임 메커닉 기반 단어 게임 6종 (v06.197)
+
+세계적 게임/교육게임(Kahoot·Blooket·Gimkit·Duolingo·Wordle·NYT Connections·Match-3) 리서치 → 단어 학습 게임 6종 신설. 각 dev :3100 스크린샷 검증.
+- **공용 게임킷** [`components/game/_shared/gamekit.tsx`] — `useSfx`(Web Audio·무자산)·`ParticleBurst`·`useCountUp`·`Hud`·`GameDone`·`GameLoading`·`NotEnoughWords`·토큰 스타일(라이트/다크·reduced-motion·접근성). WordBlitz v07.2 주스 일반화. + 공용 스캐폴드([`lib/game/play-scaffold`] 스코프 단어·기록·복귀) + 일반 레코더([`lib/game/record-result`] module 파라미터화).
+- **6종**: **Letter Forge**(철자 조립 L4b) · **Cascade**(매치·낙하 보드 L4a) · **Connections**(의미 그룹핑 L5·큐레이션 뱅크) · **Word Economy**(경제·전략 Gimkit) · **Daily Blitz**(데일리+스트릭 Wordle·localStorage) · **Ghost Race**(비동기 레이스+리그). 각 `/play/<slug>` + `GhostRace`/`Cascade`/`WordEconomy`는 wordPool·onCorrect/onWrong(FSRS) 계약 재사용.
+- **허브·크롬**: `/arcade` 진입점(6카드) + SessionFrame SESSION_META 6종 등록(closeHref→/arcade).
+- **module_id enum**: TS `ModuleId`/`ScoreModule` 6종 추가 + DB 마이그 `add_arcade_game_module_ids` **적용**(6값 ADD VALUE IF NOT EXISTS, 순수 additive) → FSRS audit/scores persistence 활성. 검증: pg_enum 16값 확인.
+- 커밋 `c463ade`(kit+LetterForge)·`e0816ba`(Cascade)·`79bf6a8`(Connections)·`63141a8`(WordEconomy)·`3e7751f`(DailyBlitz)·`4e1cd02`(GhostRace)·`fd55e19`(허브).
+- ⚠️ 환경: C: 디스크 100% full 실측 → `.next` 클리어로 dev 서버 unblock(사용자 공간 확보 권장).
+
+### ACP Wikivoyage 여행 가이드 소스 신설 — reference 밴드 보강 (v06.196)
+- **Wikivoyage ingester** — `ingest-article/wikivoyage.ts`. Wikimedia 프로젝트라 `_mediawiki` 재사용(host=en.wikivoyage.org). Star/Guide 카테고리. CC-BY-SA → 발행 허용. **register=reference**(목적지 가이드=Factbook 동류) → **얇은 reference 밴드 보강(3→5, 패딩 아닌 갭 채움)**. B1-B2 접근형·여행 흥미↑.
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🗺 MapPin) + 대량 GET(12소스 + wikivoyage-feed Star/Guide). drift-lock 28 tests. gcmsort=timestamp+영문자-필터(v06.195 QA 패턴 반영).
+- 마이그레이션 `acp_source_add_wikivoyage`.
+- **end-to-end** — Kyoto(8847w·B2)·Prague(14420w·B2) published·cc_by_sa·register=reference·noise 0·llm_cost 0. reference 밴드 3→5(factbook+wikivoyage).
+
+### QA 자체점검 — Wikipedia feed 품질 + prescribe_today 정합 (v06.195)
+- **Wikipedia feed 니치-junk 수리** — categorymembers가 sortkey 순이라 앞부분이 문장부호-시작 니치(화석종 `?Oryzomys`·`.hack`·`*SCAPE`·`0-8-4`)로 도배 → `gcmsort=timestamp desc`(최근 승격 GA) + 영문자-시작 제목 필터. 검증: junk 0, 다양한 실주제(San Jose Sharks·Semiotics·University of Yangon 등).
+- **prescribe_today practice 정합** — S4/S5 학습자(v_band=S4·도서, DCP 문항 없음)가 practice active=true·items=[] 오해 → "문항 존재 시만 active". 검증: S5 active=false·0분·total 60.
+- 자체점검 확인: 신규 5소스 발행 데이터 전부 clean(title/register/license/noise 이상치 0) · register×CEFR 매트릭스 건전.
+
+### ACP PLOS 오픈 학술 소스 신설 (v06.194)
+- **PLOS ingester** — `ingest-article/plos.ts`. CC-BY 오픈액세스 과학 저널(HTML 서버렌더). abstract+본문 산문 추출 — figures/tables/References·인용 상첨자 스트립 + References 이하 절단(methods/stats 노이즈 배제). solr API `listPlosFeed`. C1-C2 심화(S4 킬러급) register=expository.
+- 배선: SourceKey·ArticleSource·SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🧬 Dna) + 대량 GET(11소스 + plos-feed 라우트). drift-lock 27 tests.
+- 마이그레이션 `acp_source_add_plos`(articles + seed_catalog CHECK).
+- **end-to-end + 추출 품질** — pbio(1271w)·pone(5948w) published·cc_by·C1·**lexical_noise 0.001~0.002**(스트립 성공, 깔끔 산문 확인)·llm_cost 0.
+
+### ACP English Wikipedia 정규 소스 신설 (v06.193)
+- **Wikipedia ingester** — `ingest-article/wikipedia.ts`. Simple Wikipedia와 동일 `_mediawiki` 재사용(host만 en.wikipedia.org). FA(Featured)/GA(Good) 카테고리 categorymembers. CC-BY-SA → 발행 허용. B2-C1 고급 백과(Simple의 A2-B1 대비 심화). register=expository.
+- 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(📚 Library) + **대량 GET**(BulkArticlesTab 10소스 + wikipedia-feed 라우트 FA/GA). drift-lock 26 tests.
+- 마이그레이션 `acp_source_add_wikipedia`(library_articles + seed_catalog CHECK +wikipedia).
+- **end-to-end** — Photosynthesis(7297w·C1)·Black hole(11277w·C1) published·cc_by_sa·display_only=false·llm_cost 0. per-source + 대량 GET 동시.
+
+### /wordvault 구독 단어장 챕터 학습 — 세트 미리보기 모달 재사용 (v06.192)
+
+/wordvault '학습 자산 › 단어장' 탭에서 챕터형 공용단어장 행 탭 시 [VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx)(챕터 아코디언 + 게임별 런처)을 열어 그 챕터 단어로 바로 학습. 구독이 죽은 끝(단어 목록 링크뿐)이던 문제 해소. 세션 through-line 완성: 브라우즈(모달)→계획(런처)→보관함(모달).
+
+- **모달 재사용(위치 무관화)** — VocabSetPreviewModal 에 `fromPath` prop(기본 `/library/vocab`) 추가 → 챕터 게임 launch 의 `?from` 복귀 경로를 재사용처가 지정. 기존 소비처(VocabSetGrid/BookDetailClient) 무변(선택 prop).
+- **챕터형만 라우팅** — [ResourcePortfolio](../apps/web/src/components/wordvault/hub/ResourcePortfolio.tsx): 단일 세트 중 내부 챕터(`shared_words.chapter`) 보유 세트만 `setId` 부여해 모달 오픈(InsetRow onClick), 챕터 없는 세트·도서 묶음은 기존 `/wordvault/browse` 링크 유지(모달은 10개 미리보기뿐이라). 판별=otherSets set_id 단일 쿼리.
+- **모달 CTA=구독 해지** — 확인 후 `unsubscribeSet` → 목록에서 제거, 학습 기록 서버 보존. tsc·lint 0.
+- 조사: /library/books 는 이미 인기/중요도 랭킹(`recommend-books.ts` popularity_rank·인기 레일) 보유 → 개선 불요. BookShelfSection/AssetGrid 는 미마운트(dead).
+
+### WordBlitz 익사이트 강화 — 파티클·SFX·콤보 연출 (v06.191)
+
+"학습자에게 더 재미·흥미·익사이트" 후속(v06.189 재설계 위에). 리서치 "숙련될수록 더 극적인 피드백" 적용.
+- 파티클 버스트(콤보 티어로 강도↑) · Web Audio SFX(정답 상승음·마일스톤 아르페지오·오답 버즈·완료 팡파르, 뮤트 토글) · 속도등급 PERFECT/GREAT/GOOD(+보너스) · 콤보 불꽃 성장(크기·색·글로우) · 마일스톤 배너("COMBO N!") · 점수 카운트업 · 에너지 백드롭(콤보로 발광) · 문항 등장 애니 · 타이머 긴박 색변화.
+- 전부 테마 토큰(color-mix) · prefers-reduced-motion 폴백(파티클/애니 off) · 계약 무변경. (`926dc71`.)
+- 검증: :3000 콤보5 마일스톤 스크린샷 라이트/다크 — 배너·파티클·PERFECT·+293·불꽃·에너지 확인, tsc 0, pageerror 0.
+
+### EchoMatch 피드백 강화 — 구간 지목 + 정직한 문구 (v06.190)
+
+기능·효과 평가 후속. 프로소디 3축 채점(v06.158 재설계)은 작동하나 ① 발음/단어 정확도 미측정 ② 어디서 틀렸는지 지목 부재 ③ 미보정 임계값 — 한계 확인. 이 중 **안전·검증 가능한 2건** 반영.
+
+- **구간 divergence 지목(#3)** — `divergenceRegions`(기존 DTW semitone-shape 규칙 재사용·순수함수): 억양이 원어민과 ≥3 semitone 벌어진 시간 구간을 `PitchVisualizer`에 음영+범례+안내문으로 표시 → "어디를 다시 따라할지" 행동 가능 피드백. 회귀 4종(동일/화자독립=무표시, 다른모양=지목, 무음=무표시).
+- **문구 정직화(#4)** — `scoreFeedback` "원어민에 가까워요"(참조가 Piper TTS인데 과장) → "억양·리듬이 잘 맞았어요". 채점이 프로소디 정합임을 정직하게.
+- **#2 단어 정확도 게이트 (구현)** — 녹음과 병렬로 Web Speech `SpeechRecognition`(재사용 `createRecognizer`) 실행 → `computeShadowMatch`(기존 자산)로 문장 단어 인식률 산출. 인식률 <40%면 프로소디 점수를 celebrate 대신 "단어부터 또박또박 다시" 로 부드럽게 게이트(비난 X). **완전 additive·전면 guard** — 미지원(Firefox 등)·인식 실패·무음은 `null`(미측정)로 프로소디-only 폴백, 녹음/채점 절대 무영향. scored 화면에 "단어 N% 인식" 표시. ⚠️ **실 육성 인식 정확도는 헤드리스에서 검증 불가**(Chrome 실기 필요) — 구조·guard·gate 로직만 tsc+스모크 검증.
+- **자동 실주행 검증(fake-mic E2E)** — `06-echomatch-fakemic.spec.ts` 신규: Chrome 합성 오디오(`--use-fake-device-for-media-stream`)로 전체 4-Phase(Listen→Repeat→Compare→Score) 자동 완주. 결과 `overall=48`(인토네이션 23·강세 55·리듬 74) — 파이프라인 크래시 0·콘솔에러 0·**구조적 0점 없음**(비발화 톤에 거짓 고득점도 안 줌=변별력 유지). `overall>0` 단언으로 구 절대값 결함 회귀 가드. *합성 톤이라 사람 보정(#1)은 아님 — 파이프라인 생존/범위 검증.*
+- **잔여**: #1 실음성 threshold 보정(실제 육성 샘플 필요 — 합성 톤으론 불가). tsc green · vitest 11/11 · EchoMatch 게이트 스모크 green · fake-mic 실주행 green.
+
+### WordBlitz 재설계 — 3D 인형뽑기 → 2D 속사 인지 (v06.189)
+
+L4a 자동화 모듈 전면 재설계(리서치 기반: 어휘게임 메커닉·게임필·모던 UI·플로우).
+- **게임**: ko 뜻 → 4 en 타일 중 정답 빠르게(탭/키 1-4). 콤보(연속정답→배수·레벨업)·문항 타이머(레벨↑ 단축)·점수(시간보너스×배수). Action→Feedback→Reward 루프.
+- **이전 Three.js 3D 인형뽑기 대체** — ~5초/단어 → ~1-2초/단어. "Blitz"·L4a 자동화 목표 정합 + 모바일 우선. (`WordBlitzGame.tsx` 재작성 `7d55cce`.)
+- **Calm UI 주스**: 정답 초록+체크·오답 앰버 shake·콤보 범프. 폭죽 없음, 차분한 종료("오늘 잘 마쳤어요").
+- **모던 UI + 테마 토큰**(라이트/다크 자동) + 접근성(키보드·aria-live·reduced-motion·44px+). 게임 예외 `--combo`/`--streak`.
+- **계약 무변경**: wordPool/onExit/onCorrect/onWrong(FSRS) — page + WorkspaceWordBlitzMode 자동 적용.
+- **dead code 제거**(`e6e67dd`+`a4105c4`): ClawMachine/ClawModel/ClawScene/Plushie/PlushieModel·useWordBlitzGame·WordBlitzUI.css·lib/wordblitz/types.ts 삭제. data.ts 정리. 정글 이모지 🌴→⏱. (three/fiber는 pirate-quest 사용 → 유지.)
+- 검증: :3000 스크린샷 playing/reveal·라이트/다크, ko→en 정합, tsc 0, pageerror 0.
+
+### /plan 런처 챕터 선택 — 공용단어장 챕터 단위 시작 (v06.188)
+
+'게임별 챕터 학습 UI'([VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx))의 플랜 버전 — /plan '바로 시작'에서 공용단어장을 특정 챕터 단어로 시작.
+
+- **LaunchRow + ChapterScopePicker** — [PlanClient](../apps/web/src/components/plan/PlanClient.tsx): 공용단어장이 내부 챕터(`shared_words.chapter`)로 나뉘면 챕터 select(전체/N장) 노출. TodayRow(오늘의 학습)·ItemConfig(구성 패널) '바로 시작' 공유. 30챕터도 수용하는 컴팩트 select(Calm UI).
+- **챕터 스코프 launch** — [plan-activities.ts](../apps/web/src/lib/learner/plan-activities.ts) `activityLaunchHref(m, activity, origin, chapter)`: word_set 게임 라우트(`set=`)에만 `&chapter=N` 부착 → 카드/블리츠/스펠포지/페어플립이 그 챕터 단어만 학습(게임 page 가 이미 `?chapter=` 파싱). 본문/vocab/스크립트엔 무영향.
+- **chapterCount 게이트** — [plan-actions.ts](../apps/web/src/lib/learner/plan-actions.ts) `fetchStudyPlanItems` 가 word_set 내부 챕터 수(MAX chapter)를 `chapterCount` 에 채움(book 전용 → word_set 도 사용). 챕터 미부여 세트는 0 → 선택 숨김.
+- **실데이터**: 교육과정 기본어휘 초등19/중등30/고등25장 라이브 확인. tsc·lint 0.
+
+### /library/vocab '추천' — 정본 추천 엔진(RPC)으로 교체 (v06.188)
+
+즉흥 client 근접정렬(V-Level·CEFR·category 추정)을 앱 정본 추천 엔진으로 교체 (최적 방안).
+
+- **`recommend_word_sets_for_user` RPC** — [page.tsx](../apps/web/src/app/(main)/library/vocab/page.tsx): 진단 완료(`current_v_level`·`diagnostic_completed_at`) 시 RPC 호출, fallback 티어 제외한 recommended 전달. 미진단은 진단 유도(DiagnosePrompt).
+- **티어·사유 노출** — [VocabSetGrid](../apps/web/src/components/library/vocab/VocabSetGrid.tsx) FeaturedRow: 티어 배지(메인/도전/보강/관심) + 왜 추천 사유(reason). estimateSetLevel/categoryVLevel 근접정렬 제거. [queries.ts](../apps/web/src/lib/library/vocab/queries.ts) `RecommendedSet` 타입 export. tsc·lint 0.
+
+### CTP DCP 채점 — 실행 루프 완결 (v06.187)
+- **`grade_dcp_item(item_id, answer)`** — order/insert 답변 서버 채점 + `csat_item_attempts` 기록(item_role=practice). answer_key는 서버에만(오답 시에만 반환). SECURITY DEFINER+auth.uid 가드.
+- **검증** — order 정답=true/오답=false · insert 정답=true/오답=false · 기록 확인(롤백).
+- **DCP 실행 루프 완결**: 생성(dev-generate-items)→처방(prescribe_today·answer_key 제외)→채점(grade_dcp_item)→기록(csat_item_attempts).
+
+### CTP ⑥ Today 처방 백엔드 — CTP 백엔드 완성 (v06.186)
+- **`prescribe_today(uuid)`** — 결정론 일일 루프 처방(5블록: FSRS due·듣기·input·practice·verify). derive_learner_stage→stage→조립. input=csat_stage_catalog(stage_band)·practice=csat_dcp_items(S3+·answer_key 제외). 시간삭감(practice=S3+에서만). SECURITY DEFINER+auth.uid 가드.
+- **양방향 검증** — S1 학습자(practice 비활성·60분·input 5기사) / S3 학습자(wpm 주입 모사→practice 5문항 OWID order·75분). 롤백(영속 X).
+- **CTP 백엔드 완성**(8계층): ①syntax ②stage_band ③DCP문항 ④유창성 ⑤gate ⑦error_cause ⑧BYO가드(구조) + **⑥ 처방·stage 파생**. 잔여=⑥ Today **UI**(META 게이트).
+
+### Dictation 세션 결함 수리 + 사용성 (v06.185)
+
+/dictate/session 점검 — 기능 결함 2건 + 폴리시 2건. 스코프: dictation 파일 한정.
+
+- **🔴 세션 미발견 무한 로딩** — 세션은 localStorage(기기 로컬)라 다른 브라우저/기기·공유된 URL·오래된 세션이면 `getSession` 이 미발견인데, 훅이 session=null 을 로딩과 구분 못해 "세션을 불러오는 중..."에서 **영구 정지**(사용자 제보 URL 시나리오). → `useDictationSession` 에 `status('loading'|'ready'|'not-found')` 추가, 세션 화면이 not-found 시 "세션을 찾을 수 없어요" + 다시 시작 CTA 렌더.
+- **🔴 TTS voices 비동기 로드 함정 + 무음 방치** — `AudioController.speak()` 가 `getVoices()` 를 동기 호출 → 첫 발화 시 빈 배열이라 영어 음성 미선택(잘못된 언어/무음). 또 OS 영어 음성 미설치 시 **아무 안내 없이 무음**. → `ensureVoices()`(voiceschanged 대기+1.5s 폴백·캐시) + `pickEnglishVoice`(en-US 우선), speak 가 await. `hasEnglishVoice()` 로 판정해 영어 음성 없으면 세션 화면에 안내 배너.
+- **폴리시**: 입력 라벨 영문("Type what you hear") → 한글 · storage.ts 주석 정정(sessionStorage→localStorage, 기기 로컬·URL 공유 경고).
+- 검증: tsc(dictation 오류 0)·eslint 클린 + **라이브 실주행 완료**(dev 서버 clean 재기동 후 Playwright): ① 없는 sessionId → "세션을 찾을 수 없어요" 안내(무한로딩 제거, 스크린샷) ② setup→session→입력→제출→채점(결과·정답·오류패턴) 정상 ③ voices 3개 감지→ensureVoices resolve→배너 정상 미표시(음성 있을 때). 콘솔 에러 0.
+
+### CTP P3 종결 — 학습자 stage 실시간 파생 (v06.184)
+- **`derive_learner_stage(uuid)`** — csat_stage_gates 전 지표 통과 최대 단계 매 호출 파생(**컬럼 저장 금지**·§9 R(t) 동형). 지표: wpm(reading_fluency_log)·item_accuracy(csat_item_attempts)·listening(echo_match)·coverage(v1 current_v_level 대리). SECURITY INVOKER(RLS 본인만).
+- **양방향 검증** — 무데이터 유저 3인 전원 S1(고 v_level도 읽기증거 없이는 승급 불가) · 강한 지표 주입 시 S1→S5 승급(롤백, 영속 X).
+- ⚠ apply_migration이 함수 본문 `$$` 오분할 → execute_sql로 적용(migration 파일은 repo 보존).
+- **CTP P3 종결**: ① syntax_score · ② stage_band(view) · ③ DCP 문항 · ④⑤⑦ 테이블 · **stage 파생**. 잔여 ⑥ Today UI(META 게이트) · ⑧ BYO 가드.
+
+### /library/scripts 재설계 — 목적별 묶음 + 레벨 칩 단일 시스템 (v06.183)
+
+기존 이원 구조(추상 소스맵 + 평면 그리드)로 "선택을 어떻게 하는지 모름" 문제 → 분류를 목록에 직접 노출하는 단일 시스템으로 통합.
+
+- **`ScriptsBrowser` 신설** — ① 레벨 칩(내 레벨/CEFR, 드롭다운 아닌 가시 facet) ② 내 레벨 추천 strip(i+1 상위 3) ③ 목적별 트랙 섹션(적합순·묶음당 미리보기 6편 + "전체 N편 보기") ↔ 필터·묶음 진입 시 평면 그리드. `ArticleCard`·`source-map.ts`·i+1 로직 재사용, 추가 fetch 0.
+- **신규 소스 트랙 편입** — owid+factbook→📊 '데이터·사실로 읽기'(신규 트랙), elife→🔬 topic. 기존 맵에서 누락되던 3소스 커버. `ArticleCard` SOURCE_META에 라벨·색 추가.
+- **제거** — `SourceMapShell`·`ArticlesExplorer`·`source-map/{SourceMap·DifficultyMap·TrackCard}` (page 단일 진입 dead code).
+- 04-ui-smoke에 `/library/scripts` 화면 추가(영구 회귀 자산). tsc green. ⚠ 런타임 스모크는 동시 멀티세션 `.next` 캐시 오염(`_document.js` 결측 — 전 라우트 500)으로 차단 → 클린 서버 재기동 후 검증 필요.
+
+### CTP P3 — DCP T2 결정론 문항 생성 완료 (③) (v06.182)
+- **`csat_dcp_items` 테이블** — 공유 배치 order/insert 문항(quiz_questions는 per-user·MC라 부적합 — P0식 정정). RLS admin write.
+- **생성 라우트** `/api/ctp/dev-generate-items` — 결정론 생성기 실행+INSERT. **DCP 입력 게이트**(NOT display_only·license_class∈pd/cc0/cc_by/cc_by_sa·noise≤0.08) — ND(The Conversation) 파생 차단.
+- **보일러플레이트 필터** — 생성기 적격필터에 인용·URL·라이선스·캡션 배제 추가(OWID "cited as…" 오인식 수리). drift-lock +1(6 tests).
+- **실증** — OWID S3 논증 8건(게이트 통과) → **64 실 문항**(실 산문 확인). ND 파생 항목 사후 삭제.
+- 다음 P3 잔여: 학습자 stage 실시간 파생 함수.
+
+### LCP 대량 GET — Pressbooks 소스 배선 (v06.181)
+- **BulkFetchTab에 Pressbooks 추가** — seed-fetcher `pressbooks.ts`(정적 큐레이션 리스트 — 통합 카탈로그 API 부재라 Factbook 국가리스트와 동형). opentextbc.ca 검증 슬러그 4권(Sociology·Psychology·Writing·Chemistry). 실 메타는 ingest 시 `citation_*` 재취득.
+- seed-fetchers `SeedSource`+pressbooks · `FETCHERS`/`SOURCE_LABELS` 등록 · BulkFetchTab SourceKey/SOURCE_OPTIONS.
+- 마이그레이션 `lcp_seed_catalog_source_add_pressbooks`(seed_catalog CHECK +pressbooks). opentextbc.ca 봇차단 회피=ingester UA.
+- → **ACP·LCP 대량 GET 모두 신규 소스 배선 완료**(per-source GET과 동등 커버리지).
+
+### ACP 대량 GET — 신규 소스(OWID·Factbook·eLife) 배선 (v06.180)
+- **BulkArticlesTab에 신규 3소스 추가** — 기존 per-source GET(SourceGetView)에만 있던 owid(📊)·factbook(🌍)·elife(🔬)를 대량 GET에도 배선. 9소스 프리셋.
+- feed 라우트 3종 신설(`owid-feed`·`elife-feed`·`factbook-feed`) — 대량 흐름의 score-cap 위해 `listFactbookFeed`·`listElifeFeed`에 `applyArticleCurationSpec` 스코어링 추가.
+- 마이그레이션 `acp_seed_catalog_source_add_new`(seed_catalog CHECK +3) + `SeedSource` 타입 +3 → seed 영속화(새로고침 보존).
+- 실검증: owid 4·factbook 30국·elife 6 스코어 항목 + published 감지. (LCP pressbooks 대량은 후속)
+
+### /library/vocab 중요도·사용빈도 기반 재구성 (v06.179)
+
+공용 단어장 화면을 **중요도(카테고리)·사용빈도(구독수)** 신호로 재구성 — no-op이던 "추천순"을 실제 랭킹으로.
+
+- **중요도 랭킹** — [categories.ts](../apps/web/src/components/library/vocab/categories.ts) `CATEGORY_IMPORTANCE`(수능·내신100→교육과정 고90/중80/초70→공인60→공무원/비즈니스45→테마30→유아20). 추천순 = 중요도→사용빈도(구독수)→큐레이션 순서→단어수. 캐러셀 카테고리 탭도 중요도순(수능 먼저·기본 활성).
+- **사용빈도 랭킹** — 마이그 `20260709194335_shared_word_sets_subscriber_count`: `shared_word_sets.subscriber_count`(denormalized) + 트리거 `trg_maintain_set_subscriber_count`(user_word_set_subscriptions INSERT/DELETE, SECURITY DEFINER) + 백필(262세트). RLS 본인전용이라 클라 집계 불가 → 비정규화. [queries.ts](../apps/web/src/lib/library/vocab/queries.ts) `subscriberCount` 노출(loose client). 카드에 "👥N" 표기.
+- **클러터 제거** — `library_article` 107세트(저큐레이션·소스종속) 공용 라이브러리에서 제외(도서 세트와 동일 원칙, 각 소스 컨텍스트 전용).
+- **카드 정보 단서** — [VocabSetCard](../apps/web/src/components/library/vocab/VocabSetCard.tsx) 좌하단 카테고리(중요도) 칩 + 구독수. tsc·lint 0.
+
+### CTP P3 — syntax_score 배치 산출 (① 구문 난이도) (v06.178)
+- **`compute_syntax_score(text)` RPC** — 자체 정규식(문장 p90·절 깊이 휴리스틱). 런타임 LLM 0·winkNLP 불요. score 0-100(가중 2:6, 베타 보정 대상).
+- **전량 backfill·검증** — article 132건: register별 정합(reference 94>논증 83>설명 71>서사 61>news 56). 도서 7권: v-level 정합(Gibbon v9=100 … 동화 v3=26).
+- **배선 RPC** — `compute_article_syntax`/`compute_book_syntax`(챕터 content_chunks 집계) → ACP·LCP dev-process 에 `compute_*_vrl` 옆 호출(미래 콘텐츠 자동 산출).
+- 다음 P3 잔여: 학습자 stage 실시간 파생 함수 · DCP T2 결정론 문항 생성.
+
+### 연어 슬롯 롤아웃 — scoped 플래시카드 + 리더 툴팁 (v06.177)
+
+v06.175(hub 플래시카드 연어 슬롯) 롤아웃 — 나머지 학습자 노출면에 동일 슬롯 확장. 마이그레이션 0(앱-사이드 fetch).
+
+- **scoped 플래시카드** ([scoped-words.ts](../apps/web/src/lib/flashcard/scoped-words.ts)) — 세트/텍스트 스코프 진입도 collocations 배치 보강(hub-words 와 동일 패턴). CardBack 슬롯 공유.
+- **리더 툴팁** ([WordLookupPopover.tsx](../apps/web/src/components/library/reader/WordLookupPopover.tsx)) — 본문 단어 클릭 시 예문 아래 연어 칩 최대 3개. `lookup_word_meaning` RPC 가 collocations 미반환이라 [reader-queries.ts](../apps/web/src/lib/library/reader-queries.ts) `lookupWord` 가 해소된 word 로 shared_dictionary 1행 보조 조회(툴팁은 on-demand 라 round-trip 허용, 실패 graceful).
+- 검증: tsc·eslint 클린 · 데이터 경로 실증(`lookup_word_meaning('verdict')`→resolved_word→collocations `[guilty verdict·unanimous verdict·reach a verdict]`). 렌더는 스크린샷 검증한 v06.175 CardBack 과 동일 칩 패턴.
+- 이로써 학습자 노출면 3곳(hub·scoped 플래시카드·리더 툴팁) 연어 소비 UI 완비 → D7(collocations 노출 단어 2,240 채움)이 비로소 학습자 가치를 가짐(다음 단계).
+
+### CTP 착수 — CSAT Track Pipeline 데이터모델 (P0 정찰 + P1/P2 migration) (v06.176)
+- **P0 정찰** — 소유 8계층 read-only 실측([ctp_p0_20260709.md](./AI_CONTEXT/diagnostics/ctp_p0_20260709.md)). 판정 GO + 정정 2건: ④ `reading_sessions` 이름충돌(기존=읽기플랜 262rows) · ⑦ per-question attempt 부재(scores=세션단위).
+- **P1/P2 migration 3건 적용**(승인): `ctp_catalog_syntax`(syntax_score jsonb + `csat_stage_catalog` VIEW 139항목) · `ctp_dcp_items`(quiz type +order/insert + item_role) · `ctp_runtime_tables`(`reading_fluency_log`·`csat_stage_gates` 9행seed·`csat_item_attempts` + RLS).
+- **회귀 통과** — quiz 기존 3종 값 보존 · reading_sessions 262 불변 · stage_band 분포 S1(55)·S2(46)·S3(33)·S4(5).
+- 스코프: 데이터모델+배치 계층. Today UI(⑥)는 META 확정 게이트. 다음 P3 = syntax_score 배치 산출 + stage_band/gate 소비.
+- docs: [DB_SCHEMA.md](./DB_SCHEMA.md) CTP 섹션.
+
+### 플래시카드 연어(collocations) 슬롯 — 카드 리치화 시제품 (v06.175)
+
+v06.173 진단(collocations 등 무소비 필드) 후속 — enrichment 를 가치있게 만드는 선행 조건인 **소비 UI** 를 플래시카드 정답면에 시제품으로 구축. 닭-달걀(UI 없어 안 채움/안 채워 UI 없음) 해소의 첫 조각.
+
+- **CardBack 연어 슬롯** ([CardBack.tsx](../apps/web/src/components/flashcard/CardBack.tsx)) — 정답면 예문 아래 "함께 쓰는 표현" 회색 칩 최대 3개. **데이터 있을 때만 렌더**(Progressive Disclosure) · 예문 보조 톤(Calm UI, 학습 자극 최소화).
+- **데이터 스레딩** — `FlashcardWord.collocations?`([types/flashcard.ts](../apps/web/src/types/flashcard.ts)) + hub-words 가 shared_dictionary 에서 배치 1쿼리 보강([hub-words.ts](../apps/web/src/lib/flashcard/hub-words.ts), collocations 는 vocabularies 미보유). fetch 실패해도 카드 렌더 무영향.
+- 시연: runtime-test 계정 10단어 연어 실채움 + Playwright 정답면 스크린샷으로 렌더 육안 확인(예: verdict → guilty verdict · unanimous verdict · reach a verdict). tsc·eslint 클린.
+- 잔여(설계 승인 후 롤아웃): scoped-words 경로 · 리더 툴팁(WordLookupPopover) · 노출 단어 2,240 collocations 채움. 이 UI 가 서면 D7 enrichment 가 비로소 학습자 가치 생김.
+
+### 챕터별 어휘 V-level — 단일 book_v_level 챕터 편차 노출 (v06.174)
+
+P0 진단(통사 축 신설 정당성 실측)이 드러낸 최대 결함 = 단일 `book_v_level` 이 챕터 난이도 **3~5레벨 편차**를 뭉갬(Alice V6 라벨인데 도입 V4·10장 V8; Les Misérables V9인데 챕터 V2~V10). 통사 축은 F-K가 이미 포착 → DEFER, 챕터 편차가 실측 최대 결함이라 우선 착수.
+
+- **마이그레이션 적용** — `lcm_chapter_v_level`: `library_chapters_master.chapter_v_level smallint` + 백필(distinct lemma v_level `PERCENTILE_DISC(0.75)`, V11 제외 — `compute_book_vrl` 동일 규칙). `library_book_vocabularies ⋈ shared_dictionary(word=lemma)`. **1,295/1,296 채움**(chapter_idx 정합), 파괴 0. 동적 상태 아님(정적 콘텐츠 속성, 재추출 시 갱신).
+- **노출** — 리더 목차 사이드바(`ChapterSidebar`) + `/plan` 도서 챕터 리스트(`ChapterList`)에 `V{n}` 텍스트 pill(색상만 의존 X → 색맹 안전, memory-decay 4색과 무관). `reader-queries.listChapters`·`plan-actions.fetchBookChapters` 에 `chapter_v_level` 승계 + `database.ts` 타입.
+- **파이프라인 wire-up** — 마이그레이션 `20260709194527_compute_book_chapter_v_levels`: 별도 peer 함수(공유 `compute_book_vrl` 미수정 → 동시 CTP 충돌 방지). LCP `dev-process`·`process` 라우트 + `reprocess-book`·`reprocess-all-se` 스크립트의 `compute_*` 시퀀스에 배선 → **신규 적재 도서 자동 채움**. idempotent 검증(Alice 재계산 값 불변).
+- **CTP 통사 축과의 관계** — 동시 세션이 `library_*.syntax_score`(구문 p90·절 깊이) 축을 별도 구축(`ctp_p0_20260709`). 본 chapter_v_level(어휘 축 챕터 분해)과 **직교/상보** — 중복 아님(P0 판정: 도서 라벨 관점 통사 반례 0 vs CTP=수능 stage 게이팅 관점).
+- **P2 완료 — 가독성 축 완결**: F-K NULL 4권(`book-readability.mjs` per-book) 백필 → Intro Sociology 12.35·Book of Tea 10.25·Alice Adams 8.65·Short Fiction 6.8. book_v_level 보유 도서 F-K **NULL 0**.
+- 진단서: [syntactic_axis_p0_20260709](./AI_CONTEXT/diagnostics/syntactic_axis_p0_20260709.md). P0가 지목한 결함(챕터 편차 P1 + 가독성 공백 P2) **모두 해소**. 통사 축은 DEFER 유지(CTP syntax_score와 상보).
+
+### enrichment 백로그 진단 — 무소비 필드 3종(D3/D6/D7) 이연 (v06.173)
+
+노출 단어 표적 enrichment 착수 전 진단 — 대상 필드가 학습자 UI 미렌더 판명(register D2·B1과 동일 패턴 3번째). 코드만 변경(데이터·마이그레이션 0).
+
+- **진단**: 발행 세트 노출 단어 9,227개의 갭 = collocations 2,240·korean_learner_note 7,104·다의어 senses 6,784. 그러나 **학습자 UI 전수 확인 결과 이 필드들은 어디에도 렌더 안 됨** — 플래시카드 CardBack(pos·meaning·example)·리더 툴팁 WordLookupPopover(register·pos·cefr·v_level·meaning·example)·단어장 미리보기(word·meaning_ko·pos·cefr) 모두 미포함. 렌더되는 필드는 노출 단어에서 이미 ~100%(example 결핍 2).
+- **결론**: D3(polysemy)·D6(korean_learner_note)·D7(collocations) 채우기 = 현재 학습자 효과 0(admin 패널 전용). 카드 리치화 UI 선행 필요.
+- **대시보드 정직화**: backlog D3/D6/D7 P1→P3 + "UI 미렌더 이연" 근거 · 결함 룰 3종 P1/warning→P2/info + description 에 미렌더 명시. → 사전 Health P1 warning 3건 감소.
+
+### ACP eLife digest 소스 신설 — 고품질 과학 설명 (v06.172)
+- **eLife ingester 신설** — `ingest-article/elife.ts`. eLife API(JSON)에서 편집자 저작 **plain-language digest**만 추출(연구 본문 C2 배제·dependency-0). CC-BY 4.0 → 발행 허용. register=expository(과학). digest 없는 기사 자동 거부(guard).
+- 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·REGISTER·source-guide + enqueue/dev-enqueue + 어드민 UI(🔬 Microscope). drift-lock +1(25 tests).
+- **마이그레이션 적용** — `acp_source_check_add_elife`.
+- **end-to-end 실증** — elife:91060·89129 published·C1·cc_by·display_only=false·llm_cost 0(50253=digest 없음 정상 거부). expository에 최신 생명과학 topical 다양성 보강.
+- docs: [CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) T-1 이동.
+
+### 소스 매트릭스 feasibility 재분석 — CSAT_SOURCE_MATRIX 신설 (docs)
+- **[CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) 신설** — 전수 소스를 feasibility 3축(포맷 HTML/PDF·라이선스 CC/NC·트리거)으로 재분류. 설계 문서 ↔ 실측 갭 해소(OWID·Factbook·Pressbooks = T-1 승격, OBP = PDF-only 반증).
+- **동결 풀 판정**: 청정 viable(PLOS·eLife·Wikipedia 정규·PMC) 이나 트리거 전부 미충족 · PDF-블록(OECD·WB·UNDP·CRS/CBO/GAO) · NC 오염(LibreTexts·Saylor).
+- **⚠ S3 헤지 갭(신규)** — "OWID 실패 시 OECD/UNDP 자동 승격"이 두 대체재 PDF-블록으로 작동 불가. ACP_SOURCE_REDESIGN §20.4 명기.
+
+### 학습 루프 E2E — 진단→개인화 체인 + storageState 리팩터 (v06.171)
+
+핵심 루프 회귀의 마지막 고가치 대상 — **진단 완료→V-Level snapshot** 추가. 진단은 사용자 V-Level 을 설정해 추천·i+1·추출 임계 등 개인화 전체를 좌우하는 진입점인데 런타임 검증이 전무했음.
+
+- **[05-learner-loop.spec.ts](../apps/web/tests/e2e/05-learner-loop.spec.ts)** 진단 테스트 — `/diagnostic` → "진단 시작" → ~40문항 전부 "알아요" 이진 응답 → `analyze_and_apply_diagnostic_result` 가 기록하는 `user_level_snapshots(taken_reason='diagnostic')` 를 service-role 로 단언. 실측: snapshot v_level=11 기록(전 구간 동작 확인).
+- **storageState 리팩터** — 3 테스트가 각자 로그인하던 것을 `beforeAll` 1회 로그인+`storageState` 재사용으로. 3중 로그인의 auth rate-limit·하이드레이션 리셋 플레이크(로그인 폼 빈 필드로 멈춤) 해소 + `loginRuntimeUser` 에 fill 값 확정 재시도 추가. ScriptQuiz 7.7s(로그인 제거로 단축)·Flashcard 51s·진단 21s = 3 passed.
+- `countDiagnosticSnapshotsSince` 헬퍼([utils/db.ts](../apps/web/tests/e2e/utils/db.ts)). 이로써 핵심 루프 3종(게임 완주 ×2 + 개인화 진입) 전부 회귀 보장.
+
+### 학습 루프 E2E — Flashcard 추가(반복 가능) (v06.170)
+
+v06.166(ScriptQuiz 루프) 확장 — 가장 중심 모듈 Flashcard 완주→`scores(module='flashcard')` 적재 회귀 추가. 두 핵심 study 모듈 커버.
+
+- **[05-learner-loop.spec.ts](../apps/web/tests/e2e/05-learner-loop.spec.ts)** Flashcard 테스트 — `/flashcard/play`(due 큐) → 카드별 FirstJudge "떠올렸어요"→SRSBar "기억나요" 클릭 완주 → scores 폴링 단언. 실측 적재 확인.
+- **반복 가능성 확보**: flashcard 는 SRS due 큐 의존 → 완주가 카드를 미래로 밀어 재실행 시 due 0 이 되는 문제. `resetDueCards`([utils/db.ts](../apps/web/tests/e2e/utils/db.ts)) 로 실행 전 `next_review_at` 과거 리셋. service-role 키 없으면 due 보장 불가라 `test.skip`(scriptquiz 는 정적 콘텐츠라 무관).
+- 인터랙션 교훈: flashcard 카드 = recall(3s 자동)→flippable(FirstJudge)→flipped(SRSBar) 3단계. Space 플립은 recall 타이밍과 어긋나 불안정 → **버튼 출현 대기+클릭**(FirstJudge "떠올렸어요"→"기억나요")이 결정론적. 2 passed(scriptquiz 26s + flashcard 55s).
+
+### ACP register 피드 단위 전환 — narrative 채움 + VOA 오분류 교정 (v06.169)
+- **register 매트릭스 5종 완성** — narrative(0→13, VOA lets-learn-english)·expository(64→78) 채움. 새 콘텐츠 없이 **정확한 분류만으로**. 5개 코어 register 전부 publishable.
+- **결함 교정** — `REGISTER_BY_SOURCE`가 소스 단위라 VOA 전 피드가 'news' 오분류. `resolveArticleRegister(source, feedId)` 피드 우선 resolver 신설(`FEED_REGISTER` + `SOURCE_REGISTER_DEFAULT`, 패키지). dev-process 가 `feed_id` 읽어 적용. drift-lock +4 tests(24).
+- **백필** — 기존 VOA 30건 register 재분류(narrative 13·expository 14·news 3). 메타만(단어세트 불변). news 30→3(as-it-is만 실 시사).
+- docs: [ACP_SOURCE_REDESIGN.md](./ACP_SOURCE_REDESIGN.md) §20.3.
+
+### 공용단어장 내부 챕터 구성 — 세트 1개 안에 챕터 (v06.168)
+
+교육과정 어휘 등 대용량 단어장을 **하나의 세트 안에서 여러 챕터로 내부 구성**(챕터별 세트 발행 아님). 발행 파이프라인 개선.
+
+- **마이그레이션** `20260709135526_shared_words_chapter_column` — `shared_words`에 `chapter smallint`(1..N, NULL=미분할) + idx `(set_id, chapter, sort_order)`. 하나의 `shared_word_sets`를 여러 챕터로 내부 분할.
+- **[publish-list-word-set.ts](../scripts/lcp/publish-list-word-set.ts) 재작업** — `--chapter-size=N` 시 **세트 N개 → 세트 1개 + 단어에 chapter 배정**(정렬 순서를 N개씩 끊어 chapter 1..N, 전역 sort_order 유지). `--order=cefr`로 급별(A1→C2) 진행. `--replace`는 단일 slug + 과거 챕터별 세트(`slug-ch-*`) 모두 정리. dry-run 검증(초등 729→1세트·19챕터).
+- ⚠️ 직전 per-chapter 발행분(74세트: elem19/mid30/high25)은 `--replace` 재실행 시 자동 정리됨.
+- **뷰어 챕터 렌더** — [VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx): 챕터형 세트(shared_words.chapter 존재)는 **Chapter 아코디언**(접기/펼치기·첫 챕터 열림·챕터별 CEFR 범위)으로, 평면 세트는 기존 10개 미리보기. chapter 컬럼은 database.ts 재생성 전이라 loose client 접근. tsc·lint 0.
+- **챕터별 학습** — 학습 로더 [fetchScopedWords](../apps/web/src/lib/workspace/scoped-words.ts) `chapter` 필터 추가(단일 출처 → 게임 공통) + [flashcard/play](../apps/web/src/app/(main)/flashcard/play/page.tsx) `?set=X&chapter=N` 지원 + 모달 아코디언 챕터별 "학습" 링크. 챕터 1개만 스코프 학습 가능. (다른 게임 wordblitz/pairflip/spellforge는 동일 로더라 chapter 전달만 추가하면 확장)
+
+### ACP CIA World Factbook — reference register 신설 (v06.167)
+- **reference register 빈칸 채움** — 발행 매트릭스 유일 공백(reference publishable 0)을 CIA World Factbook(PD)로 충족. 4개 코어 register 전부 발행 가능.
+- **ingester 신설** — `ingest-article/factbook.ts`(dependency-0). factbook.json(PD 덤프) 국가 JSON `Introduction/Background` 산문만 추출(목록·표 제외). `FACTBOOK_COUNTRIES` 35국 정적 picker. 배선: SourceKey·ArticleSource·SOURCE_SPECS·POLICIES·RANKINGS·source-guide + enqueue/dev-enqueue/dev-process + 어드민(CurationConsole·SourceGetView·RssFeedTab 🌍). drift-lock 20 tests.
+- **마이그레이션 적용** — `acp_source_check_add_factbook`(source CHECK +`factbook`).
+- **end-to-end 실증** — South Korea(C1·40)·United States(B2·8)·France(C1·16) enqueue→process→publish: published·register=reference·public_domain·display_only=false·llm_cost 0. reference publishable **0→3**.
+- docs: [ACP_SOURCE_REDESIGN.md](./ACP_SOURCE_REDESIGN.md) §20.2.
+
+### 핵심 학습 루프 E2E — 완주→영속화 회귀 자산 (v06.166)
+
+UI 스모크(v06.159, "렌더" 검증)의 다음 층 — "게임 완주 → DB 적재" 를 실주행+DB 단언으로 고정. 배경: ScriptQuiz 완주 결과가 sessionStorage 에만 쌓이고 소비자가 없어 scores 적재가 조용히 증발했던 결함(v06.139) 재발 방지.
+
+- **[05-learner-loop.spec.ts](../apps/web/tests/e2e/05-learner-loop.spec.ts)** — 로그인 → `/scriptquiz/play?book=…&ch=1` 직행(Drone Ch1·4문항) → 시작 → 키보드 '1'×4 완주 → `scores(module='scriptquiz')` 신규 행을 service-role 로 폴링 단언. 실측: 완주 시 total_questions=4 행 적재 확인.
+- **[utils/db.ts](../apps/web/tests/e2e/utils/db.ts)** — e2e service-role DB 헬퍼(apps/web/.env.local 직접 로드 · `userIdByEmail`·`countScoresSince`). 키 없는 환경은 UI 완주만 검증(graceful degrade).
+- **스모크 견고화**: 8화면 순차 방문이 dev first-compile 누적으로 기본 30s 초과 → `test.setTimeout(120s)` + goto 1회 재시도(간헐 ERR_ABORTED frame-detached). 3/3 green.
+- 인터랙션 교훈: 4지선다 옵션은 plain button(role≠radio), OX만 radio → 완주는 **키보드 '1'**(양 타입 공통 handleAnswer, window 리스너라 포커스 비의존)이 안정. 시작 게이트는 하이드레이션 전 클릭 무시되므로 문항 배지 전이 확인 후 재클릭.
+
+### ACP 파이프라인 라이브 검증 + Simple Wikipedia junk 수정 (v06.165)
+
+ACP(article) §18 파이프라인 라이브 검증 — **정상 작동 확인**(127 발행기사/5소스, 라이선스 게이트 정확: the_conversation cc_by_nd 전부 display_only, register×cefr 매트릭스 UI 정상, pageerror 0). 발견 1건 수정:
+
+- **Simple Wikipedia junk 유입 수정** — `Category:Good_articles` 수집이 `gcmtype=page`로 전 네임스페이스 포함 → `Wikipedia:Good articles/by date` 같은 관리 인덱스 페이지가 발행 기사로 유입되던 버그. ingester에 `gcmnamespace=0`(주 기사) 추가([simple-wikipedia.ts](../packages/library-pipeline/src/ingest-article/simple-wikipedia.ts), `62be48a`). 라이브 검증: junk 3→0.
+- **기존 junk 2건 DB 정리**(사용자 승인) — Wikipedia: 메타페이지 2 + 사용자 단어세트 2 + 단어 3 + vocab 25(cascade) 삭제. `docs/proposals/acp-cleanup-simple-wiki-junk.sql`. 검증: 전 테이블 junk 0, UI 전체 129→127·설명 B2 14→12.
+- 진단 기록(수정 안 함): wikinews 0건(영문 소스 폐쇄중 + `feedrecentchanges` 피드 오선택, 실기사는 `Category:Published`) · A1-A2 gap(Simple Wikipedia 콘텐츠 실제 B1+)은 소스 현실로 확인(버그 아님).
+
+### 보안 advisor — anon 호출 가능 무가드 DEFINER 함수 잠금 (v06.164)
+
+Supabase 보안 advisor 점검(352 WARN·ERROR 0) 후속 — anon 키(클라 번들 공개)로 앱 인증을 우회해 호출 가능하던 무가드 SECURITY DEFINER 함수 9종 잠금. 마이그레이션 2건(`20260708120000` + PUBLIC 상속 보정 `20260708120500`), 사용자 명시 승인.
+
+- **쓰기/액션 3종 → service_role 전용** (anon·authenticated 회수): `enrich_shared_dictionary`(마스터 사전 임의 INSERT 오염) · `regenerate_auto_curated_set`(발행 단어장 shared_words 파괴) · `process_library_pipeline_batch`(내부 토큰 외부 HTTP POST 트리거). 정당한 호출자는 전부 LCP 파이프라인 = service_role(검증) → 무영향.
+- **admin 대시보드 읽기 6종 → anon 회수, authenticated 유지**: `admin_vrl_cron_jobs`·`cron_runs`·`diagnostic_use`·`snapshot_counts`·`track_distribution`·`v_level_distribution`. /admin/vrl/automation 서버컴포넌트(authenticated admin)는 유지.
+- **교훈**: Postgres 함수 EXECUTE 기본이 PUBLIC grant(ACL `=X/postgres`)라 `REVOKE FROM anon` 만으로는 PUBLIC 상속으로 뚫림 — `REVOKE FROM PUBLIC` 필수(명시 grant된 service_role/authenticated 는 유지). 검증: 9종 전부 anon=false, 쓰기 3종 auth=false·srv=true, 읽기 6종 auth=true·srv=true.
+- 잔여(별건·저위험): `function_search_path_mutable` 41 · `pg_graphql_*_table_exposed` 146(PostgREST 사용·RLS 게이트) · `auth_leaked_password_protection`(대시보드 토글) · `rls_policy_always_true` 2(sw_comments/players 게임).
+
+### T-2 OWID 스케일업 + OBP 동결해제 α(Pressbooks) (v06.163)
+- **OWID 8건 라이브 발행** — atom feed 8 기사 실 ingest→process→publish 전 구간(dev 라우트). argumentative CC-BY 학습 단어세트 8개(B2×7·C1×1 · llm_cost 0 · orphan 0). The Conversation(ND=display_only) 공백을 라이브 실증. dev 라우트 신설 `/api/acp/dev-enqueue`·`/api/acp/dev-publish`(service-role·NODE_ENV 가드).
+- **OBP 재정찰 → 동결 유지** — 챕터 페이지 client-render + `__NEXT_DATA__` 에 PDF URL 만(산문 0) + 표본 CC BY-NC-ND. β(PDF)=dependency-0 위반 → OBP-proper 해제 불가.
+- **α 실행 = Pressbooks ingester 신설** — `ingest/pressbooks.ts`(dependency-0·SE 계약 mirror·CC-BY 서버렌더 HTML). `LibrarySource`+`pressbooks`, 배럴 export. dev 라우트 3종: `/api/lcp/dev-ingest-preview`·`/api/lcp/dev-enqueue-book` + dev-process `pressbooks` 케이스(`max_chapters`).
+- **마이그레이션 적용** — `library_books_source_add_pressbooks`(source CHECK +`pressbooks`).
+- **end-to-end 실증** — `Introduction to Sociology 2e`(book_id 406dbc3e) enqueue→process→force-publish: published·CC BY 4.0·CEFR C1·book_v_level 8·23 챕터·23/23 챕터 단어세트(894단어)·word_count 367,776·llm_cost 0. LCP book 경로 실증(OWID=ACP article 경로에 이어).
+- docs: [ACP_SOURCE_REDESIGN.md](./ACP_SOURCE_REDESIGN.md) §20.1 · [LIBRARY_PIPELINE.md](./LIBRARY_PIPELINE.md) 소스표.
+
+### B1(VCB-VRL) 진단 — 허위 P0 강등, 대시보드 Critical 0 (v06.162)
+
+사전 Health 대시보드 마지막 P0(B1) 착수 전 진단에서 D2·V1과 동일 패턴 확인 — 기능은 이미 우회 경로로 달성, 남은 것은 견고성 부채. 코드만 변경(데이터·마이그레이션 0).
+
+- **진단**: `recommend_word_sets_for_user` 는 slug 조립(`auto-vlevel-v' || level`)으로 세트 조회 — V-Level 단어장 발행·추천·구독 전부 동작(auto-vlevel V1~V9 9세트 + 도서 챕터 260세트 curation_query.book_v_level). 전용 컬럼 부재의 실비용 = 슬러그 네이밍 관례 결합(소비처 RPC 1곳·사고 0건)·인덱스/무결성 부재뿐.
+- **결함 룰 1** ([critical-defects-detector.ts](../apps/web/src/lib/admin/dict/critical-defects-detector.ts)): `vcb_vrl_not_integrated` P0/critical → **P2/info**, 문구를 "우회로 동작 중, 세트 대량화/슬러그 개편 시 전용 컬럼 도입"으로. → **대시보드 P0 Critical = 0**(실측 정합: audio_url·segment·v_level 은 이미 충족·미발화).
+- **R3 점수 정직화** ([health-score-v2.ts](../apps/web/src/lib/admin/dict/health-score-v2.ts)): 최대 가중(0.3) 팩터가 "스키마 컬럼 존재?"(구조적 항상 0, `🚨 V-Level 단어장 0/72` 허위 evidence)로 R3 를 끌어내리던 것 → "V-Level 단어장 발행 동작"(우회 동작=0.85, 견고성 부채 -0.15) 실측 반영. 가중치는 유지(재분배 없음).
+- **백로그 B1** ([backlog-items.ts](../apps/web/src/app/admin/vrl/_components/backlog-items.ts)): P0 본질페인 → **P3 이연**("견고성 — 세트 대량화/슬러그 개편 시").
+
+### VCB 파이프라인 어드민 재설계 — 스킬-우선·DB-status·정합성 (v06.161)
+
+`/admin/vocab/runs` 프로세스·화면 전체 재검토/재설계. 결정 A(위저드 필터 제거)·B(out-of-band 스킬을 정식 경로)·C(저빈도 전문가 도구) 반영. 각 변경 dev :3100 + Playwright 스크린샷 검증.
+
+- **위저드 3→2스텝**: 필터 UI(FilterPanel/LiveCountBadge/DistributionChart/SampleWords) + `filter-actions.ts` + `CreateRunInput.filters/limits` 전량 제거. run 생성은 preset + meta 만.
+- **스킬-우선 callout**: enrich(§5)·seed(§2) 카드에 "Claude Code에서 `/vcb-batch-enrich`·`/vcb-seed-list` 실행 권장, in-UI 자동실행은 로컬 dev 편의" 안내.
+- **집계 1000행 cap 버그 수정**: `aggregateRunCounts`·`precheckPublish`가 PostgREST 1000행 기본 cap에 걸려 2,000+ run의 승인/발행 카운트가 반토막(→ 거짓 정합성 배너·"50% 완료"). `.range()` 페이지네이션으로 전량 집계.
+- **발행 원자성**: `publishRun`의 JS insert 시퀀스+보상 로직을 `vcb_publish_commit(...)` SECURITY DEFINER RPC 단일 트랜잭션으로 치환(service_role 전용 grant).
+- **run 진행 오리엔테이션**: `VcbRunProgress`(run.status 기반 7-phase 스텝퍼 + 다음 액션). FS 의존 `VcbPipelineGuide` + `pipeline-steps.ts`(computeStepStatuses) dead code 제거.
+- **RLS 정합**: 어드민 서버 조회를 `createAdminClient()`(service_role) + `requireAdmin` 게이트로 — DEV_ADMIN_BYPASS(auth.uid()=NULL) 하에서 RLS 조회 실패 해소.
+- **404 수정**: `/admin/vocab/collections` 페이지 신설(발행 컬렉션 목록).
+- **Phase 1.5 MockBanner 제거**: 관리자 콘솔 어디도 mock 미사용 → 전역 "MOCK · 시각 검증용" 배너 삭제(실 mutation 오인 위험).
+- **마이그레이션**: `drop_vcb_filter_preview_rpcs` — orphan RPC 3종(vcb_count_words_matching·vcb_distribution_for_filters·vcb_sample_words_for_filters) DROP.
+
+### /plan 공용단어장도 다건 선택 — 소스탭 패턴 통일 (v06.160)
+
+공용단어장(word_set)을 스크립트·내 스크립트와 **동일한 소스탭 패턴**(좌 2열 네비 + 우 다건 선택)으로 전환. 이제 도서를 제외한 3탭 모두 다건 선택.
+
+- **분류 축**: 카테고리(수능/공인시험/…/도서 챕터)를 1단, **도서 챕터는 소속 책을 2단**(feed_label=책 제목). `plan-actions`에서 `source`=category, library_book은 책 제목 조인(scripts와 통합 조회).
+- **컴포넌트 일반화**: `buildArticleNav`에 소스라벨·정렬 파라미터 추가(word_set=`wordsetCategoryLabel`), `isSourceTab`에 word_set 포함, `ArticleNav` 컬럼 라벨 prop(카테고리/책), `ArticleSelectPane` 아이콘 type별(Layers), `commitSourceBatch` pool 확장.
+- **정리**: 표준 경로의 word_set 분기·`WordSetBookGroups`·`bookTitleById`·죽은 groups 분기 제거(−250여 줄). 도서만 표준 master-detail 유지.
+- 검증: `tsc --noEmit` 내 파일 0 오류(무관한 동시 WIP `source-guide.ts` 'owid' 오류는 별개).
+
+### UI 스모크 상시 자산화 — 화면 검증 자동화 (v06.159)
+
+지금까지 화면 검증은 매번 임시 Playwright 드라이버 작성→삭제(반자동)였음 — 상시 자산으로 전환.
+
+- **[04-ui-smoke.spec.ts](../apps/web/tests/e2e/04-ui-smoke.spec.ts)** 신설 — 학습자 8화면(/hub·/dashboard·/plan·/wordvault·/flashcard·/pairflip·/scriptquiz·/library/books) 렌더 + 404/에러 바운더리 부재 + **페이지별 콘솔 에러 0 단언** + EchoMatch 마이크 게이트 렌더. 계정: runtime-test-0705(시드 존치).
+- `pnpm --filter web test:e2e:smoke` 스크립트 추가 — 기존 dev 서버 재사용, 없으면 자동 기동(기존 playwright.config).
+- **[apps/web/CLAUDE.md](../apps/web/CLAUDE.md) "화면 검증" 섹션** — 향후 세션이 자동으로 이 경로를 쓰도록 규칙화: 임시 드라이버 금지 · 새 검증 시나리오는 spec 으로 남겨 자동 회귀화 · fake-mic 플래그 · **⚠️ dev 서버 1개 원칙**(멀티 세션 `next dev` 동시 기동 시 `.next` 공유 오염 → 라우트 무작위 404, 2026-07-07 실측).
+- 참고: 첫 실행 검증은 현재 dev 서버 `.next` 오염(/login 404)으로 보류 — 서버 재시작 후 1회 실행 필요.
+
+### EchoMatch 채점 3축 재설계 — 구조적 0점 결함 수리 (v06.158)
+
+런타임 점검(v06.33 이후 첫 실주행 검증)에서 파이프라인(TTS·녹음·4-Phase·DB 적재)은 정상이나 **채점이 항상 낙제점**(실사용 7건 overall 0~53, timing 6/7건 0)임을 확인 — [dtw-comparator.ts](../apps/web/src/lib/echo/dtw-comparator.ts) 재설계.
+
+- **인토네이션**: 절대 Hz DTW(여성 참조 Amy ~200Hz vs 남성 화자 ~110Hz → 평균차만으로 threshold 80Hz 소진 = 구조적 0점) → **semitone 변환 + 화자 평균 제거** 후 곡선 '모양' DTW (threshold 5st).
+- **강세**: 절대 RMS DTW(마이크 게인에 점수 좌우) → **시퀀스 피크 정규화** 후 상대 강세 패턴 DTW (threshold 0.4).
+- **리듬**: 무음 포함 전체 녹음 길이 비율(발화 전 머뭇거림+완료 버튼 지연이 0점 유발, 실측 8.5s 녹음/3s 참조) → **voiced 구간 발화 길이의 로그 비율** (2.5배에서 0점, 대칭 감점).
+- **회귀 테스트 7종** ([__tests__/dtw-comparator.test.ts](../apps/web/src/lib/echo/__tests__/dtw-comparator.test.ts)) — 결함 3건을 시나리오로 고정(옥타브 차 동일 억양 ≥85 · 게인 5배 ≥90 · 무음 패딩 timing ≥95) + 변별력 보존(다른 곡선 < 같은 곡선, 2.5배 느림 = 0, 무음 = 전축 0). 전 스위트 106 passed.
+- 한계: threshold 3종은 합성 contour 기준 보정 — 실음성 베타 데이터로 재보정 여지. 런타임 재주행은 dev 서버 `.next` 공유 충돌(멀티 세션)로 이번엔 유닛 검증까지 — 파이프라인 자체는 수리 전 실주행에서 완주 확인됨.
+
+### /plan 내 스크립트 '도서에서'를 책별 2차 분류 (v06.157)
+
+v06.155 후속 — `도서에서`(library) texts가 단일 '전체'에 평면으로 쌓이던 것을 **소속 도서로 2차 분류**(feed_label=책 제목) → **소스 → 책 → 챕터** 3단(article의 소스→프로그램→컨텐츠와 동일).
+
+- `plan-actions` scripts fetch에 `library_book_id`·`chapter_idx` 추가 + `library_books` 제목 조인. `feed_label`=책 제목(library 소스), 책→챕터 순 정렬.
+- 실측: 도서에서 235 texts → **5권**(Twenty years after 90·Decline&Fall 71·Pride&Prejudice 61·Alice 12·Ammachi 1)으로 그룹.
+- 검증: `tsc --noEmit` 통과.
+
+### D2(register 백필) 진단 — 허위 P0 해소, segment 실지표로 교체 (v06.156)
+
+register 43,988행 백필 착수 전 진단에서 전제 반전 확인 — 코드만 변경(데이터·마이그레이션 0).
+
+- **진단**: D2 의 기대효과(segment 자동 단어장)는 **list_tags 로 이미 달성**(specialty 4종 curation_query 실측: `list_tags has moel_1.0` 등). SSoT 가 소비하는 것은 `word_register`(100% 채움)이고, `register` 컬럼은 **앱 내 소비처 0** — admin 지표만 참조하던 허위 P0.
+- **결함 룰 4 교체** ([critical-defects-detector.ts](../apps/web/src/lib/admin/dict/critical-defects-detector.ts)): `register_critical_null`(항상 발화) → `segment_tags_underdeveloped`(segment 태그 풀 <50% 시만). 실측 2,661 row/목표 3,000 = 89% → 미발화.
+- **점수 정상화** ([health-score-v2.ts](../apps/web/src/lib/admin/dict/health-score-v2.ts)): R3 팩터(가중 15%)와 coverage(6%)의 register 채움률(3.3%) → segment 태그 충족률(89%)로 교체 — "segment 매칭 불가 🚨" 허위 evidence 제거. `SEGMENT_TAGS`/`SEGMENT_TAGS_TARGET` 상수 신설([queries.ts](../apps/web/src/lib/admin/dict/queries.ts), coverage fetch +1 카운트).
+- **백로그 D2**: P0 → P3 이연 — "격식(formal/informal) 표시 UI 등 실소비처 확정 시 재개"(룰 커버 ~2.6K + LLM 잔여로 재산정). 대시보드 P0 는 이제 B1(VCB-VRL 컬럼) 단독.
+
+### /plan 내 스크립트도 소스별 분류 + 다건 선택 (v06.155)
+
+내 스크립트(개인 texts)를 스크립트(article) 탭과 **동일한 소스별 분류 네비 + 다건 선택** 디자인으로 통일.
+
+- **분류 축 = `texts.source`(text_source)** — 도서에서 / 직접 입력 / 파일 업로드 / 공유 세트. `ARTICLE_SOURCE_LABEL`에 text_source 라벨 추가(키 비충돌로 공개·개인 스크립트 공용), `articleSourceLabel` 폴백 정리.
+- **컴포넌트 공용화** — `isSourceTab`(article|script) 분기로 `ArticleNav`(좌 2열) + `ArticleSelectPane`(우 다건 선택)를 두 탭이 공유. `ArticleSelectPane`/`ArticlePickRow`에 `type` prop(활동 목록·배지·countByKey 키). `commitArticleBatch` → `commitSourceBatch`(활성 탭 type + 해당 pool).
+- 탭 전환 시 다건 선택·소스 상태(`artSel`/`artActs`/`artSrc`/`artProg`) 리셋.
+- `plan-actions` scripts fetch에 `source` 추가. 검증: `tsc --noEmit` 통과.
+
+### 스텁 예문 백로그 전량 종결 — 근접 노출 201 교체 + 잔여 6,894 NULL (v06.154)
+
+v06.152(사전 보강)에서 발견한 비노출 스텁 예문 7,096건 처리 완료 — DB 데이터만 변경(코드 0).
+
+- **근접 노출 201단어**(published/ready 도서 어휘에 등장 — 향후 세트 발행 시 노출될 후보): 전부 정상 예문으로 교체. 개인 단어장·아티클 겹침 0 실측.
+- **잔여 비노출 6,894건: `example_en = NULL`** — 깨진 템플릿 문장("The X is referenced in this passage.")을 학습자에게 보여줄 바에는 공란이 정직. 채움률 착시 제거(example NULL 171→7,065 = 실상 노출). 추후 해당 단어가 노출 경로에 들어올 때 lazy-enrich.
+- 전수 스캔 검증: 스텁 패턴 잔존 **0** · 당일 갱신 7,413행 산술 정합(331 보강+181 예문+6,894 NULL).
+- 인프라 메모: 작업 중 Supabase MCP 프록시 502 장기 장애 → 서비스롤 supabase-js 폴백(프로젝트 관례, `scripts/dict-fill/*-import` 패턴). PostgREST LIKE 전표 스캔은 statement timeout — PK(word) 범위 페이지네이션 + 클라이언트 필터로 우회. 임시 스크립트는 삭제.
+
+### fix: /plan 탭 전환 시 우측 컴포저 초기화 (v06.153)
+
+도서/공용단어장/내 스크립트에서 자료를 골라 `draft`가 생긴 상태로 스크립트 탭으로 전환하면, 우측 우선순위(`draft > … > ArticleSelectPane`)에서 옛 구성이 남아 스크립트 컨텐츠 선택 영역이 안 보이던 버그. 탭 버튼 onClick에 `setDraft(null)`+`setEditId(null)`+`setError(null)` 추가.
+
+### /plan 스크립트 학습대상 다건 선택 + 우측 선택 영역 재설계 (v06.152)
+
+컨텐츠를 하나 누르면 곧바로 단건 구성으로 가버려 **여러 개를 못 고르던 구조** 개선 — 우측 선택 영역을 다건 선택 체크리스트 + 공유 구성 + 일괄 담기로 재설계.
+
+- **`ArticleSelectPane`/`ArticlePickRow`(신규)** — 컨텐츠 행에 체크박스, 여러 개 토글 선택. 선택 ≥1이면 아래에 **선택분 공통 활동·요일** 구성이 열리고, **`계획에 담기 (N개 자료)`**로 일괄 저장.
+- 상태 리프트 `artSel`(선택 id 집합)·`artActs`·`artDays` + `commitArticleBatch`(선택분 순차 savePlanItem, 낙관적 일괄 추가). 도서/공용단어장/내 스크립트는 기존 단건 draft 유지(도서는 챕터 per-book).
+- 행 디자인 폴리시 유지(hover 리프트·체크 채움), 이미 담긴 자료 '담김' 배지.
+- 검증: `tsc --noEmit` 통과, 잔여 참조 0.
+
+### 교육과정 기본어휘 3,000 `list_tags` 태깅 완료 ([별책14]) (v06.146)
+
+2022 개정 영어과 교육과정 기본어휘([별책14] PDF)를 검토·추출해 `shared_dictionary.list_tags`에 별표 등급별 3단 태그 부착 완료. 공용단어장 VCB 필터에서 즉시 사용 가능.
+
+- **추출·검증** — `pdftotext`로 3,045 core(공식 3,000 + 슬래시 철자변형) 추출, dropped 0. 등급 `*`819·`**`1,215·무1,011 = 문서 명시 배분과 일치. 파생형(괄호) 226 별도.
+- **커버리지** — 3,025/3,045(**99.3%**) 이미 `shared_dictionary` 존재, 누락 20(철자변형/구어/역형성 — 대부분 정본 twin 존재). 읽기전용 실측(service-role).
+- **스테이징** — [data/curriculum/](../packages/library-pipeline/data/curriculum/) `kcurr2022_1/2/0.csv`(별표 등급별) + `kcurr2022_missing.csv`(20). [import-ngsl-list.ts](../scripts/lcp/import-ngsl-list.ts) `VALID_LIST_IDS`에 3 태그 등록.
+- **연계 감사** — `list_tags` 소비처 2갈래: VRL 분류(`calc_v_level/track/domain`)는 알려진 태그(ngsl/csat/bsl 등)에만 분기 → `kcurr2022_*` 무영향(분류 불변, 트리거 재계산 없음) · VCB 단어장 필터(`vcb_*_for_filters` = `list_tags && tags`)로 공용단어장 큐레이션 가능. FK 체인 `shared_word_sets→shared_words.lemma→shared_dictionary` 확인.
+- **적용 완료(멱등 append, 사용자 실행)** — `kcurr2022_1`=808 · `kcurr2022_2`=1,211 · `kcurr2022_0`=1,006 = **합계 3,025행**(disjoint, DB 실측 대조). 태그 구조 3단(별표별, 사용자 확정).
+
+### 큐레이션 드레인 큐 통합 + 품질 검토 task (v06.153)
+
+Curated Books 드레인 큐를 단일화하고, 드레인(Claude Code 배치)이 생성/매핑을 넘어 **품질 검토(레벨·어휘)**까지 하도록 확장.
+
+- **큐 통합** — 퀴즈 큐(`book_quiz_jobs`)를 `book_curation_jobs`(`task_type` 판별자)로 흡수 후 DROP. 배너 2개(`CurationJobsBanner`+`QuizJobsBanner`) → **`DrainQueueBanner` 1개**(🔊 매핑 / 📝 퀴즈 / 🔬 검토). `dev-process` upsert/delete 에 `task_type='voice_map'` 필터(퀴즈 잡 오삭제 방지). 마이그 `unify_quiz_into_curation_jobs`.
+- **검토 task 2종** — `level_verify`(본문 근거 CEFR/V 재판정, [`review-book.mjs`](../scripts/lcp/review-book.mjs)) + `vocab_audit`(발행 단어장 뜻·품사·레벨·register 감사, [`audit-vocab.mjs`](../scripts/lcp/audit-vocab.mjs)). `book_curation_jobs.result` jsonb + `enqueue_review_jobs(uuid[],text)` RPC + Bulk 툴바 `레벨 검토 큐`·`어휘 감사 큐` 버튼. 마이그 `drain_review_tasks_level_vocab`.
+- **오케스트레이터** — [`scripts/lcp/drain.mjs`](../scripts/lcp/drain.mjs) (`list`/`next`): 4 task 통합 큐 단일 진입점(무엇을·어떻게 드레인).
+- **실증** — Pinocchio 어휘 감사 3건(`stroke=뇌졸중→타격` 등 문맥 오류) → `shared_dictionary` 교정 + 발행 스냅샷 10건 전파. Alice Adams 레벨 `B2/V8 → C1/V9` 교정(`cefr_band` 포함 4지표 일관화). `review-book --correct` 가 `cefrj_level` 미갱신해 `cefr_band` 안 따라오던 결함 수정.
+- (Curated Books 프로세스 재설계 R1~R4 + 완료 배너 액션 + `⟳ 새로고침` 은 [v06.131](#curated-books-프로세스-재설계--통합정리-v06131))
+
+### 사전 노출 단어 표적 보강 + 스텁 예문 교체 (v06.152)
+
+"Tier B/C enrichment ~5.1K" 백로그 재진단·종결 — DB 데이터만 변경(코드 0·마이그레이션 0).
+
+- **재진단**: rank 보유 구간(28,673)은 example 100%·ipa 96%+로 건강. 미보강 코어 = rank NULL 16,823 중 **발행 세트 노출 331단어**만 표적 보강(고유명사 0·구동사 19 포함) — ipa 77→1 · synonyms 142→48 · collocations 278→20 · example→0. 잔여는 대명사·약어·희귀어 등 본질상 동의어/연어 없음(강제 생성 대신 정직한 공란).
+- **🔴 발견·수리**: 템플릿 스텁 예문 7,143건("The X is referenced in this passage." 등)이 example 채움률 100% 착시를 만들고 있었음 — **발행 세트 노출 47건 전량을 정상 예문으로 교체**(노출 스텁 0 확인). 비노출 잔여 7,096건은 백로그 기록.
+- 보류/종결: B/C collocations 16,001(보류) · 세트 밖 노출 4,652(저ROI 보류) · 비노출 ~10.8K(종결).
+- 빈 필드만 채우는 가드(`CASE WHEN … IS NULL OR =''/'{}'`)로 기존 값 무손실 · 스텁 교체는 패턴 매치 가드.
+
+### /plan picker 행·컬럼 디자인 폴리시 — 상태·깊이 적용 (v06.151)
+
+컨텐츠 행이 hover/active 상태·깊이 없이 평면적이던 것 정비(디자인 원칙: 인터랙티브 요소 hover+active+focus 필수).
+
+- **MaterialRow**(전 탭 공용) — hover 리프트(`-translate-y-px` + `border-[var(--p)]` + `shadow-sm`), `active:scale` 프레스, `+` 아이콘 group-hover 잉크 채움, V-Level 배지 outlined pill, 제목/부제 leading 정리.
+- **ArticleContentPane** — 헤더 하단 구분선 + 아이콘 배지 + 개수 pill + 안내문 italic.
+- **ArticleNav** — 소스·분류 열에 컬럼 라벨(mono uppercase) 추가로 3단 구조 명시.
+- 검증: `tsc --noEmit` 통과. 하드코딩 색 없음(전부 토큰).
+
+### /plan 스크립트 컨텐츠 리스트를 우측 선택 영역으로 (v06.150)
+
+v06.149(좌측 3열) 후속 — 사용자 요청대로 **좌측=소스·분류 2열 네비**, **컨텐츠 리스트는 우측 넓은 선택 영역**으로 이동(제목이 좁게 잘리던 문제 해소). 컨텐츠 클릭 시 그 자리에서 활동·요일 구성으로 전환.
+
+- 소스·프로그램 선택 상태를 PlanClient로 리프트(`artSrc`/`artProg`) → 좌 네비와 우 컨텐츠가 공유. `buildArticleNav` 순수 헬퍼.
+- `ArticleColumns`(3열) → `ArticleNav`(좌 2열) + `ArticleContentPane`(우 컨텐츠 리스트)로 분리. 소스 클릭 시 프로그램 리셋.
+- 우측 구성 패널 우선순위: draft > editItem > (article) 컨텐츠 리스트 > 빈 안내.
+- 검증: `tsc --noEmit` 통과, `ArticleColumns` 잔여 참조 0.
+
+### /plan 스크립트 picker 3열 드릴 — 소스 | 분류 | 컨텐츠 (v06.149)
+
+v06.146(프로그램=우측 헤더) 후속 — 사용자 요청대로 **진짜 3열**로: ① 소스 열 → ② 소스별 분류(프로그램) 열 → ③ 가장 오른쪽 컨텐츠 리스트. 각 단계가 독립 열이라 클릭으로 드릴다운.
+
+- `ArticleColumns`(신규) — 3열 레이아웃 + 소스/프로그램 2개 선택 상태(useState). 소스 클릭 시 프로그램 첫 항목으로 리셋, 컨텐츠는 선택 프로그램만. `ArticleFeedGroups`(우측 헤더 방식) 대체.
+- 프로그램 라벨 소스명 중복 제거(`shortProgramLabel`, 원문 tooltip). feed 없는 소스는 '전체' 1개.
+- 도서·공용단어장·내 스크립트는 기존 표준 master-detail 유지.
+- 검증: `tsc --noEmit` 통과, 잔여 참조 0.
+
+### VRL admin read RLS 정책 + is_admin() 헬퍼 (v06.148)
+
+v06.147 발견분 수리 — 마이그레이션 `20260706010000_vrl_admin_read_policies` (사용자 명시 승인 "적용").
+
+- **`is_admin()`** SECURITY DEFINER STABLE 헬퍼 신설 — `user_profiles` 자기참조 정책의 infinite recursion 방지 표준 패턴 (EXECUTE→authenticated).
+- **admin read 정책 4건**: `user_level_snapshots`·`user_profiles`·`user_diagnostic_results`·`vrl_diagnostic_tests`(비활성 포함) — 기존 본인(own) 정책은 유지, admin 에게 SELECT 만 추가.
+- 효과: `/admin/vrl/users`·`snapshots`·`diagnostic` 하위 페이지 + automation "최근 레벨 변경"·분포 source 분리 섹션이 실데이터 표시.
+- 검증: admin 세션 시뮬레이션 profiles 3·snapshots 5·diag_results 6·tests 5(비활성 포함) 가시 + 재귀 오류 0 · 학습자 세션 본인 1행만(타인 0) 격리 유지.
+
+### /admin/vrl 두 대시보드 현행화 + 고도화 (v06.147)
+
+사전DB Health·VRL Automation 화면을 2026-07-06 DB 실측과 대조 — 불일치 정정 + 관측 강화. 마이그레이션 0 (RLS admin read 정책은 별도 결재 대기).
+
+- **Backlog 현행화** ([backlog-items.ts](../apps/web/src/app/admin/vrl/_components/backlog-items.ts)) — 완료 확인 4건(D1 cefr_confidence 99.6% · V1 V-Level 100% 분류 · C1 진단 5종+FE · D4 inflected_forms 권위화)을 `status:'done'`+실측 근거로 분리 그룹 표시, 헤더는 "남은 N · 완료 M". stale 수치 정정(D3 17.5%, D5 26.8%, D9 ~55%).
+- **결함룰 13 라이브화** ([critical-defects-detector.ts](../apps/web/src/lib/admin/dict/critical-defects-detector.ts)) — CEFR C2 과대표현이 하드코드 스냅샷(56.2%/38,605)으로 발화하던 것을 `raw.categorical.by_cefr_level` 라이브 계산(>40% 발화)으로 교체. 룰 1(VCB-VRL) 설명을 현행 우회 구조(curation_query book_v_level·slug) 반영해 정확화. BACKLOG.V1 stale copy 정정.
+- **Automation 관측 강화** ([automation/page.tsx](../apps/web/src/app/admin/vrl/automation/page.tsx)) — ① "최근 레벨 변경" 테이블 신설(user_level_snapshots 10건: 시각·사용자·V변화·사유 — cron `"1 row"` 메시지로는 승급 내용이 안 보이던 문제 해소) ② V-Level 분포에 근거 있는 레벨(진단·학습·수동) vs 기본값(미진단) 인원 분리 표기(기본값 부풀림 착시 방지).
+- **발견(별도 결재)**: `user_level_snapshots`·`user_profiles`·`user_diagnostic_results` RLS가 본인 read 전용이라 **/admin/vrl/users·snapshots·diagnostic 하위 페이지와 위 신설 섹션이 admin 세션에서도 사실상 빈 화면** — admin read 정책 마이그레이션 필요.
+
+### /plan 스크립트 picker 3단계 통일 — 도서와 동일 master-detail (v06.146)
+
+스크립트(article) 탭이 **레일에 소스+프로그램을 2단 트리로 욱여넣던** 전용 `ArticlePicker`를, 도서·공용단어장과 **동일한 표준 master-detail**로 되돌림 — 레일=**소스(1축)** → 우측=**프로그램(feed) 헤더** → **컨텐츠 행** (공용단어장 도서챕터와 동일한 3단).
+
+- 전용 `ArticlePicker`/`ArticleRailSource`/`ArticleRailProgram`/`ArticleCrumb`(레일 2단 트리) 제거(−238줄), 표준 렌더 경로로 통합. 우측 그룹 렌더에 `article → ArticleFeedGroups` 분기 추가.
+- 프로그램 헤더는 `shortProgramLabel`로 소스명 중복 제거("The Conversation — Health + Medicine" → "Health + Medicine", 원문 tooltip). 레일 폭 96→110px(소스명 수용).
+- 검증: `tsc --noEmit` 통과, 제거 컴포넌트 잔여 참조 0.
+
+### /plan 학습 계획 다중 엔트리 — 챕터=최하위 단위 일별 배치 (v06.145)
+
+"일별 · 다수 소스 · 다수 챕터" 요구 충족 — 한 자료를 여러 배치로 담아 챕터를 날짜별로 쪼갤 수 있게. 계획 관리 기본 기능 전면 점검 후 모델 결함 + 삭제 버그 동시 수리.
+
+- **마이그레이션** `20260706024846_p1_plan_multi_entry` — `study_plan_items` `UNIQUE(user_id,material_type,material_id)` **제거**(백킹 인덱스 동반 제거, 조회는 `idx_study_plan_items_user`). 한 자료가 **여러 행(요일×챕터 배치)** 으로 존재 → '월=Alice Ch1 / 수=Alice Ch2' 가능. 무손실(기존 3행 유효). 롤백 SQL: `docs/AI_CONTEXT/rollback/`. 검증: 같은 (user,book) 2배치 삽입 충돌 없음(트랜잭션 확인 후 정리).
+- **[plan-actions.ts](../apps/web/src/lib/learner/plan-actions.ts) `savePlanItem`** — `onConflict` upsert 제거 → `id` 있으면 UPDATE by id, 없으면 INSERT 후 **`id` 반환**. **버그 수리**: 기존 낙관적 갱신이 `id:'tmp-…'` 부여 → 방금 담은 항목 삭제 시 uuid 파싱 오류로 실패하던 문제 해결(실 id 사용).
+- **[PlanClient.tsx](../apps/web/src/components/plan/PlanClient.tsx)** — picker 클릭=**항상 새 배치**(기존 '담김→편집 점프' 제거), '담김' 배지→**개수(계획 N)**, 편집/삭제는 주간 보드 카드. 보드 카드 챕터 배지 소수(≤3)는 번호 표기(`chapterBadge`)로 같은 도서 배치 구분. `MaterialRow`/`WordSetBookGroups`/`ArticlePicker`/`ArticleFeedGroups` 시그니처 `added/editing`→`count` 정리.
+- 죽은 `study_plan_schedule` 주석 참조 정리(plan-actions·plan-activities). `tsc`·`lint` 0.
+
+### /plan 스크립트 picker 계층 레일(소스→분류→컨텐츠) (v06.144)
+
+스크립트(article) 자료 고르기를 **소스→프로그램(분류)→컨텐츠** 캐스케이드로 재구성 — 분류를 고르면 오른쪽에 그 분류의 글 목록이 나오도록.
+
+- **[PlanClient.tsx](../apps/web/src/components/plan/PlanClient.tsx) `ArticlePicker`**(신규) — article 탭 전용 2-pane: 좌측 계층 레일(소스 헤더 + 그 아래 분류 항목) + 우측 컨텐츠. `rail` = `all`/`s:<source>`/`p:<source>:<feed>`. 분류 선택=평면 글 목록 + 브레드크럼(소스·분류), 소스 선택=프로그램 하위그룹, 전체=소스별 그룹. `ArticleRailSource`/`ArticleRailProgram`/`ArticleCrumb` 보조.
+- **`shortProgramLabel`** — 좁은 레일에서 부모(소스) 이름 중복 제거: "The Conversation — Health + Medicine"→"Health + Medicine" · "NASA News Releases"→"News Releases" · "Good Articles (Simple Wikipedia)"→"Good Articles"(원문은 tooltip 보존) + 2줄 `line-clamp`. 실데이터 4소스·11프로그램·121편 기준.
+- 도서/단어장/내스크립트 탭은 기존 제네릭 rail 유지. 순수 UI(DB/RPC 0) · `tsc`·`lint` 0.
+
+### /plan 주간 보드 세로→가로 7열 캘린더 재설계 (v06.143)
+
+기존 "요일=행(아젠다 나열)" 을 "요일=열(가로 7열 캘린더)" 로 전환 — Google Calendar/Notion board/Things 3 정합 + Reading Room 아이덴티티 유지.
+
+- **[PlanClient.tsx](../apps/web/src/components/plan/PlanClient.tsx) `WeekBoard`** — `grid-cols-7 items-start` 7열. 데스크톱=한 화면(min-w-820px 이하로 넘침 없음), 모바일=가로 스크롤(`snap-x` + 열 `snap-start`) 로 "가로" 컨셉을 소형 화면까지 관철. 오늘 열은 마운트 시 스크롤로 가시화(넘칠 때만, 데스크톱 무해).
+- **요일 헤더 밴드** — 요일·날짜·'오늘' 배지. 오늘=테두리(`--p`)+틴트 헤더(`--p-light`)+배지 3중 인코딩(색맹 대응). 계획 있는 날=흰 종이 카드(`--bg`+shadow)로 도드라지고, 빈 날은 캔버스(`--bg2`)에 잠겨 물러남(기존 emphasis 로직 계승).
+- **`DayCard`(신규, `WeekDayCell` 대체)** — 좁은 열(≈120px)용 압축 카드: 표지 글리프 + 챕터 배지 + 제목 2줄 `line-clamp-2` + 활동 글리프(최대 4 + `+n`). active=편집 중 잉크 채움. `요일 미정` 섹션은 `BoardChip`(행형) 유지.
+- 검증: `tsc --noEmit` 0 오류 · `next lint` 0 경고. DB/RPC/라우트 변경 없음(순수 UI).
+
+### /admin/quality "지금 수집" 버튼 + admin wrapper RPC (v06.142)
+
+v06.140 후속 결재분 — nightly 를 기다리지 않는 즉석 스냅샷 수집.
+
+- **마이그레이션** `20260706000000_admin_collect_quality_metrics` — `admin_collect_quality_metrics()` (SECURITY DEFINER, `user_profiles.role='admin'` 검사 후 `collect_quality_metrics()` 위임, EXECUTE→authenticated). 검증: 비admin 세션 'admin only' 차단 + admin 세션 9행 수집(트랜잭션 내 확인 후 ROLLBACK — 실데이터 오염 0).
+- **[CollectNowButton.tsx](../apps/web/src/app/admin/quality/CollectNowButton.tsx)** — RPC 호출 → `router.refresh()`. 4상태(idle/loading/done/error) + Calm 피드백("새 스냅샷을 수집했어요"). dev-bypass(anon)에선 RPC 거부 → 오류 상태(정상).
+- 참고: MCP `apply_migration` 이 권한 분류기에 거부되어 동일 SQL 을 `execute_sql` 로 적용 + `schema_migrations` 이력 수기 기록(버전 `20260706000000`) — 리포 마이그레이션 파일과 정합.
+
+### ACP 나머지 소스 발행 — 전 소스 프로그램 구조 완성 (v06.141)
+
+v06.137(소스→프로그램→컨텐츠 + VOA 30편) 후속 — 남은 3개 소스의 시드도 전량 발행해 `/plan` picker 모든 소스에 프로그램 하위그룹을 채움.
+
+- **`scripts/acp/publish-article-seeds.mjs`**(신규, 범용) — 소스별 ingester 분기 + `--source`/`--delay` + rate-limit throttle(MediaWiki 429 대응, wiki 기본 1500ms). VOA 전용 스크립트의 일반화판.
+- **발행**: Simple Wikipedia 36(Good/Very Good, 429 재시도 3회로 완료) · NASA 30(News Releases 18/Image of the Day 12) · The Conversation 25(CC-BY-ND → **display_only** 읽기전용). 전량 published + article_v_level 산출.
+- 전 소스 합계 **121편 · 11개 프로그램** — VOA(4)·NASA(2)·Simple Wiki(2)·The Conversation(3).
+
+### 품질평가 Q3 — /admin/quality 지표 대시보드 (v06.140)
+
+Q1(골든셋 스냅샷)+Q2(nightly `quality_metrics` 수집, PR #94) 후속 — 수집만 되고 보는 화면이 없던 지표를 admin 콘솔에 노출. 마이그레이션 0.
+
+- **`/admin/quality`** ([page.tsx](../apps/web/src/app/admin/quality/page.tsx), Server Component 단일 파일) — 파이프라인 단계(ingest→analyze→extract→publish→deliver)별 지표 카드: 최신값 + 전회 대비(▲/▼ %p) + 수집 이력 스파크라인(SVG) + `dims` 측정 모수 상세. 도서 지표는 `dims.status`(published/ready) 세그먼트 분리. 미등록 신규 metric 도 원문 라벨로 자동 노출.
+- **AdminSidebar** '운영' 그룹에 "품질 지표"(Gauge) 등재.
+- **렌더 테스트** [__tests__/page.test.tsx](../apps/web/src/app/admin/quality/__tests__/page.test.tsx) — RLS(read=admin) 탓에 dev-bypass 실주행은 빈 상태만 확인 가능 → 데이터 분기(카드·세그먼트·delta·스파크라인·dims·빈 상태·오류 폴백)는 `renderToString` 픽스처 3케이스로 검증. vitest 에 automatic JSX 런타임 추가([vitest.config.ts](../apps/web/vitest.config.ts), 첫 .tsx 테스트). 전 스위트 99 passed.
+- 검증: `tsc --noEmit`·eslint 0 오류 · admin RLS 시뮬레이션 27행 가시 확인 · dev 렌더 200.
+- 한계: "지금 수집" 버튼 없음 — `collect_quality_metrics` EXECUTE 가 postgres/service_role 전용(admin wrapper RPC 는 별도 결재 대기).
+
+### 게임 모듈 런타임 검증 — PairFlip 완주 + ScriptQuiz 결함 2건 수리 (v06.139)
+
+Playwright 실주행으로 PairFlip·ScriptQuiz(#53/#54 잔여 "런타임 미검증") 종결.
+
+- **PairFlip ✅ 전 경로 정상**: 허브 실 스탯(Best/게임 수) → Easy 4쌍 완주(시드한 실 SRS 단어로 카드 렌더) → `scores` 1행(730점·won·콤보4) + `learning_records` 4행 + `daily_activity` 트리거 집계(+4 리뷰)까지 확인. 수리 0건.
+- **🔴 ScriptQuiz 카탈로그 전멸 수리**: 허브가 "도서 0·문항 0" — 원인은 `const rpc = client.rpc as ...` 로 메서드를 떼어내며 **this 바인딩 소실** → 호출 즉시 throw → page 의 무언 catch 가 빈 배열 폴백. `client.rpc.bind(client)` 로 수정(2곳) + catch 에 `console.warn` 관측성. 수리 후 카탈로그 5권·129챕터·1,019문항 정상.
+- **🔴 ScriptQuiz 완료 결과 영속화 0 수리**: 완료 시 `pushPendingTextResult`(sessionStorage) 만 쌓고 **소비자가 전무** — DB 기록이 증발(#57 scores 적재에서 유일하게 빠졌던 게임). 완료 분기에 `recordGameScore` 직접 배선(score=정답×20, 정확도·소요초·챕터 메타). 재플레이 검증: `scores` 1행(Pinocchio Ch1 · 7문항 · 2정답 · 29%) 적재 확인.
+- 부수 확인: 회전 정답 설계 실측 정합(전부 1번 선택 시 ch1 정답 정확히 2개) · 결과 화면 Calm UI("오늘 잘 마쳤어요") · console error 0.
+
+### 네비게이션 감사 P2 + 경미 복귀 마무리 (v06.138)
+
+v06.135(P0+P1) 후속 — 감사 P2 7건(커밋 `56cb8de`, 당시 CHANGELOG 동시편집으로 보류분) + 경미 2건 기록. 감사 전 항목 종결.
+
+- **P2 폴리시 7건** — 메인 [Sidebar](../apps/web/src/components/layout/Sidebar.tsx) 하위 라우트 하이라이트(`/wordvault/study`·`/review`) · [WordVaultBrowse](../apps/web/src/components/wordvault/WordVaultBrowseClient.tsx) 챕터 이동 `?from` 유지 · [구독 토스트](../apps/web/src/components/library/vocab/SubscribeSuccessToast.tsx) `?from` 부착 · 모달 focus 복원 5곳(Netflix·VocabSet·ChapterQuiz·ChapterWordSet·ArticleWordSet) · [VocabSetPreviewModal](../apps/web/src/components/library/vocab/VocabSetPreviewModal.tsx) body scroll lock · Type/Voice 팝오버 Esc 닫기 · [DiagnosticClient](../apps/web/src/components/diagnostic/DiagnosticClient.tsx) 질문 중 "그만두기".
+- **경미 복귀 2건** — [ScriptQuiz](../apps/web/src/components/game/scriptquiz/ScriptQuiz.tsx) 시작화면 back `/library` 하드코딩 → `?from` ?? `/scriptquiz` · [PairFlipResultScreen](../apps/web/src/components/pairflip/PairFlipResultScreen.tsx) 결과화면에 "PairFlip 홈으로" 복귀 링크 추가(결과=sessionStorage라 스코프 유실 → 허브).
+- dead-code 정리: `ContextBar.tsx`(미사용, 부활 시 back 하드코딩 버그) **삭제** + WorkspaceBookContext stale 주석 정정.
+- 검증: `tsc --noEmit` 통과(0 오류) · `next build` clean `.next` 재빌드 Compiled successfully(내 파일 에러 0).
+
+### ACP 스크립트 소스→프로그램→컨텐츠 + VOA 30편 발행 (v06.137)
+
+`/plan` 자료 고르기 스크립트(article) 탭을 **소스 → 프로그램(feed) → 컨텐츠** 3단 구조로. VOA 프로그램(Let's Learn English/Words and Their Stories/Science & Technology/As It Is)이 시드에만 있고 발행 아티클엔 없던 데이터 갭 해소.
+
+- **마이그레이션** `20260705120000_acp_library_articles_feed_label` — `library_articles`에 `feed_id`·`feed_label` 컬럼 + `admin_enqueue_article` RPC 9→11-arg(feed 승계, 기존 호출 호환). database.ts 정밀 추가.
+- **VOA 시드 30편 발행** — `scripts/acp/publish-voa-seeds.mjs`(신규): live ingest → INSERT(queued) → analyze(skipLlm) → compute_article_vrl → force-publish 게이트(저작권+오디오). feed 분포 정합: Let's Learn 13 · Words 9 · Sci&Tech 5 · As It Is 3. 전량 published + 단어세트 자동 생성.
+- **enqueue 라우트** — 시드 feed_label 조회 후 RPC 승계(향후 UI import도 프로그램 유지).
+- **picker UI** — `ArticleFeedGroups`(신규): 소스 레일 → 우측 프로그램 하위헤더 + 컨텐츠 행. feed 없는 소스는 flat. `MaterialOption.feedLabel` 추가. (공용단어장 도서 챕터와 동일 하위그룹 패턴)
+- 검증: `tsc --noEmit` 통과 · VOA live fetch 정상 확인.
+
+### 학습자 플로우 런타임 검증 + 전역 셸 목업 수치 실데이터화 (v06.136)
+
+Playwright 실주행 검증(가입→자동확인→로그인→/hub→/dashboard→/reports 갱신→/plan)에서 발견한 결함 수리.
+
+- **🔴 전역 목업 수치 4곳 제거 → 실데이터**: 신규 계정에 STREAK 23일·리본 12일·기억상태 847개·활동 25/28일이 표시되던 문제. 신설 `lib/learner/growth-stats.ts` (React `cache()` — layout·page 요청당 1회) 가 `user_stats.current_streak` + `vocabularies` R(t) 4상태(SSoT `getMemoryState`) + `daily_activity` 28일을 공급.
+  - `(main)/layout.tsx` — `streak=23` TODO 하드코딩 제거, Sidebar·FlowNav 실데이터 주입
+  - `FlowNav` — `MOMENTUM` 상수 → `momentum` prop (streak·mastery 4색·주간일수). 근거 없던 "정확도 84%" 표기는 삭제, streak 0 이면 "오늘부터 시작해요"
+  - `MemoryStatus` — 기본값 612/142/58/35 → 0 + **빈 상태**(읽을거리 CTA)
+  - `WeeklyHeatmap` — `generateMockData()`(sin 가짜 활동) 삭제, `days` prop(직렬화 DTO) + 빈 28일 폴백
+- **Checkbox 하이드레이션 경고 수정**: `Math.random()` id → `useId()` (SSR/CSR 불일치 해소).
+- 검증: 신규 계정 = 정직한 0 상태(빈 스파크라인·CTA), 시드 계정(3일 활동) = STREAK 3·3/28일·45분·67개 전 경로 반영, console error 0. `/reports` "이번 주 갱신" E2E(생성→렌더) 정상. `/onboarding` 은 결함 아님 — #75 재설계로 폐기, `/plan` 이 대체(메모리 정정).
+
+### 네비게이션 "진입→닫기→제자리" 감사 P0+P1 수정 (v06.135)
+
+플랫폼 전체 학습 세션·모달·어드민 탭의 닫기/뒤로 복귀 오류 8건 수정 (5개 영역 병렬 감사 기반). 감사 전체 결과 15건은 [SESSION_LOG.md](../docs/SESSION_LOG.md) 기록, P2 7건은 후속.
+
+- **세션 복귀 통합** — [`lib/layout/session-return.ts`](../apps/web/src/lib/layout/session-return.ts) 신규(`resolveSessionReturnHref`: `?from` → 스코프 텍스트 → hub). Plan/홈 "바로 시작"이 세션 진입 시 `?from` 미부착 → 닫기가 `/plan`·`/`이 아닌 hub로 튕기던 문제 수정([`activityLaunchHref`](../apps/web/src/lib/learner/plan-activities.ts) origin 인자 — 풀스크린 play 라우트에만 `from` 부착).
+- **깨진 반환 링크(404) 수정** — SpellForge play가 `textId` 리터럴(`vocab`/`script`/`all`)을 넘겨 종료 링크가 `/text/vocab` 등 404 나던 것 + Flashcard 완료 "Workspace 돌아가기"가 스코프 진입 시 `/text/<단어id>` 404 나던 것 → `backHref` prop(페이지가 `?from`/스코프로 계산)으로 교체. 워크스페이스 인라인 SpellForge 포함.
+- **모달 스크롤락 무력화 수정** — [`GlobalBodyReset`](../apps/web/src/components/layout/GlobalBodyReset.tsx) pointerdown 안전망 셀렉터가 실제 모달(`aria-modal`)과 미매칭 → 모달 안 첫 클릭에 배경 스크롤락이 풀리던 문제. `[role="dialog"]:not([aria-hidden="true"])`로 확장(2곳).
+- **WordBlitz 나가기** — 인게임 종료가 `/text`·`/library`로(id 유실) 가던 것 → `resolveSessionReturnHref` 사용. **Dictation** `router.back()` 직접 진입 시 앱 이탈 → `history.length` 가드 후 `/dictate` fallback(setup·session 2곳).
+- **ACP 기사 콘솔 stage 유지** — [CurationConsole](../apps/web/src/app/admin/articles/CurationConsole.tsx) stage를 `?stage=` URL 동기화 + 프리뷰가 stage 전달 → 검수 후 복귀 시 '커버리지' 리셋 없이 제자리. **AdminSidebar** 이중 하이라이트(vocab↔vocabulary, vrl↔vrl-automation) → 경계+최장일치 1개만 활성.
+- 검증: `tsc --noEmit` 통과(0 오류).
+
+### /plan 자료 고르기 picker 일관화 + 공용단어장 챕터 표시 (v06.134)
+
+`/plan` 자료 고르기([PlanClient.tsx](../apps/web/src/components/plan/PlanClient.tsx))의 4탭 분류 구조 통일 + 도서 챕터 단어장 발견성 개선.
+
+- **도서 리스트 통일** — 도서만 커버 그리드였던 것을 다른 3탭(스크립트·공용단어장·내 스크립트)과 동일한 리스트 행으로. 작은 표지 썸네일 + 저자 + **V레벨 배지**. 4탭 모두 좌=분류 레일 / 우=그룹 리스트의 동일 master-detail. (`BookGridItem` 제거)
+- **공용단어장 도서 챕터** — 흩어져 있던 책별 레일 ~15개를 **`도서 챕터` 카테고리 1개**로 통합. 우측에서 책 하위헤더(`챕터 N개`) + 각 챕터 `N장` 행으로 펼쳐(`WordSetBookGroups` 신규) 챕터 발견성 보장. (데이터: 발행 세트 260개 전부 book_id+chapter_idx 보유 확인)
+- 분류 축: 도서=V레벨 밴드 · 스크립트(article)=소스 · 공용단어장=카테고리(도서 챕터 포함) · 내 스크립트=V레벨.
+- 검증: `tsc --noEmit` 통과(0 오류).
+
+### Pinocchio 챕터 퀴즈 드레인 완결 — 36챕터 252문항 (v06.133)
+
+퀴즈 게이트(v06.129) 후속: published 6권 중 퀴즈 0이던 3권(Pinocchio·Decline·Twenty Years After) 가운데 서사 최소 규모 **Pinocchio 전량 드레인** (Claude Code 본문 정독 생성, content_chunks→`library_chapter_quiz`).
+
+- **36챕터 × 7문항 = 252문항** (`quiz_target_per_chapter(V7)=7` 정합) · type=multiple · en/ko 병기 · `source_snippet` 원문 인용.
+- **정답 위치 처음부터 균등 설계**: 챕터별 회전 패턴(`(chapter+q_order)%4`) → 분포 **62/63/64/63** (v06.128 편중 교훈 반영, 사후 셔플 불요).
+- 무결성 검증: options=4 전량 · correct_index 범위 · ko/snippet 결손 0 · (chapter,q_order) 중복 0 · 스팟체크 5문항 정답 정합.
+- `/scriptquiz` 카탈로그 published 4권(Pride 488 · Pinocchio 252 · Ammachi 5 · Drone 4 = 749문항). 잔여: Decline(71ch)·Twenty Years After(90ch) — 대형 2권 별도 세션.
+
+### /plan 주간 보드 디자인 개선 — 빈 날 압축 (v06.132)
+
+`/plan` 요일별 계획 보드([PlanClient.tsx](../apps/web/src/components/plan/PlanClient.tsx) `WeekBoard`)의 세로 빈 공간 정리 — 컴포저가 아래로 밀리던 문제 완화.
+
+- **빈 날 행 압축** — 계획 없는 요일은 배경 없이 얇게 눌러 표시(`비어 있음`), 계획 있는 날만 카드(그림자)로 도드라지게. 요일 셀 52→46px 컴팩트화(`WeekDayCell` 신규 추출).
+- **섹션 헤더 추가** — `주간 보드 · 이번 주 N일 계획`(오늘의 학습·컴포저와 리듬 통일).
+- 오늘 강조는 ring(형태)+색+`오늘` 텍스트 3중 유지(색맹 대응). 하드코딩 `rgba(59,130,246,0.2)` → `var(--bd)` 토큰화.
+- 검증: `tsc --noEmit` 통과(0 오류).
+
+### Curated Books 프로세스 재설계 — 통합·정리 (v06.131)
+
+`/admin/curation` "Curated Books"([MyLibraryTab.tsx](../apps/web/src/components/admin/curation/MyLibraryTab.tsx)) 의 중복·불필요·복잡 UI 를 동작 보존·DB 무변경으로 정리. 순 ~150줄 감소.
+
+- **R1 처리 엔진 통합** — 구 `큐 자동 처리(drain)` + `Dev 일괄 처리` 두 상태머신·두 배너를 **단일 엔진(`runProcess`) + 단일 배너**로 통합. 둘 다 결국 도서별 `/api/lcp/dev-process` 순차 호출이라 동일 → 큐 전체(`queuedIds`)든 선택분(`devBatchIds`)이든 유한 id 목록을 같은 루프로 처리(무한 루프 불가). `dev-drain-queue` 라우트는 잔존하나 UI 미사용.
+- **R2 소스 복귀 버튼 통합** — `처리중 → 소스 GET` + `검토대기 → 소스 GET`(동일 `admin_bulk_requeue_books`) → **`소스로 되돌리기 (삭제)` 1버튼**(선택된 처리중 ∪ 검토대기 전체).
+- **R3 vestigial 제거** — `검토대기 → 처리중` 버튼 제거(재처리로 대체). RPC `admin_bulk_set_books_curating` 는 DB 잔존.
+- **R4 스텝퍼 단순화** — `▶ 큐 처리` header 중복 버튼 제거(가이드 콜아웃 1곳만 유지). 작업 순서 스테퍼는 도서 status 선형(소스처리→처리중→검토대기→게시됨)만, 빈 단계 자동 접기 + 유령 `매핑 큐` 단계 제거(매핑은 `CurationJobsBanner`+행 배지가 담당).
+- 검증: `tsc --noEmit` + `next lint` 통과.
+
+### 인증 화면 소셜 버튼 제거 — provider 미설정 정리 (v06.130)
+
+Supabase Auth 설정 실측(`/auth/v1/settings`): **OAuth provider 전원 비활성**(google 포함, email 만 true) — Google 버튼은 "provider is not enabled" 실패, Apple/Kakao/Naver 는 목업 토스트였음.
+
+- `/login` · `/signup` 소셜 버튼 4종 + 구분선 + `handleSocial`/아이콘/`SocialButton` 제거 → 이메일 인증 단일화 (provider 설정 시 git 이력 복원).
+- 고아 파일 `signup/signup.tsx` 삭제 (import 0, 전체 목업 구버전 잔재).
+- `/api/auth/callback` 의 OAuth 처리·`oauth_failed` 에러 매핑은 유지 (재도입 대비, 무해).
+
+### 큐레이션 미결 2건 결재·적용 — 퀴즈 게이트 + book i+1 추천 (v06.129)
+
+v06.128 미결 ①② 사용자 승인 후 마이그레이션 2건 적용 (`quiz_catalog_published_gate` + `recommend_book_iplus1_tier`).
+
+- **① `list_book_chapter_quiz_catalog()` 노출 게이트**: 도서 탐색과 동일 3중 게이트(`published + copyright_safe_in_kr + published_at`) 추가 — 카탈로그 11권 → **3권**(Pride 488 · Ammachi 5 · Drone 4 = 497문항). ready 8권 909문항은 데이터 보존, 도서 publish 시 자동 재노출.
+- **② `recommend_word_sets_for_user` 6th tier `book_iplus1`**: `lexical_coverage` 가 사용자 V-Level 에서 **85~95%** (judgeIPlusOne 밴드)인 published 도서 상위 2권의 입문(최저 챕터) 세트를 priority 6 으로 추천. 시그니처·기존 5-tier 불변. 검증: V6 시뮬레이션 → Ammachi Ch.1(94%) + Pinocchio Ch.1(88%). 미진단(fallback) 분기엔 미노출(레벨 앵커 없음).
+- **③ `classified_by` CHECK 확장** (`classified_by_allow_new_models`): 허용값에 `claude_code_opus_4_8` + `claude_code_fable_5` 추가 (기존 4값 유지, 이전 등재분 4_7 표기는 소급 변경 없이 기록 보존).
+
+### 큐레이션 4축 심층 점검 — 품질 결함 수정 (v06.128)
+
+도서·스크립트(퀴즈)·사용자 자동·단어 큐레이션 전수 점검(라이브 DB) + 확정 결함 즉시 수정. 마이그레이션 0 (데이터 정비).
+
+- **🔴 퀴즈 정답 편중 수정**: 초기 드레인 5권(Huck·Sherlock·Just So·Ammachi·Drone)이 **정답 100% A**, Wonderful Oz 77% → 전체 0번 49.9%(701/1,406). "모르면 A" 전략이 통하던 상태. md5(id) 결정적 스왑으로 균등화 → **359/355/348/330 (±1%p)**. 스왑 무결성 스팟체크 통과. (options≠4 로 보인 14건은 truefalse 타입의 정상 2지선다 — 오탐.)
+- **🔴 단어장 CEFR 라벨 drift 808건 동기화**: 사전 99-relabel·R5 정렬 이후 세트 스냅샷이 구 라벨 유지 → `shared_words.cefr_level` ← 사전 SSoT 전수 동기화(drift 0).
+- **도서 4축 완충**: F-K 결손 10권 → `book-readability.mjs` 재실행으로 **21권 전량 충전**(Decline grade 20 = 학술서 실측 정합) · lexical_coverage 결손 1권 `compute_book_coverage` 충전(활성 도서 100%).
+- **Les Mis 사전 등재 드레인 완결**: addable_modern 247 → 노이즈 blacklist 19(불어/OCR) + **사전 등재 226**(신규 171 + stub 채움, -ed 표면형은 base 동사/형용사로 정규화, 고어=archaic_literary·시대어=period_cultural 레지스터) → processed 마킹 + backfill → lemma **89.54%**. 잔여 NULL 상위 = 불어 기능어(de/la/des)·고유명(louis/faubourg)·고어(thee/yonder=archaic 사전 영역) — 학습 사전 비대상.
+- **건강 확인**: 사용자 자동 큐레이션(auto-vlevel 9세트·KICE 5·specialty 4 발행, v3 세트 순도 100%, promote cron active·succeeded) · 단어장 무결성(word_count drift 0·빈 세트 0·뜻 누락 0·사전 링크 끊김 0) · 퀴즈 스냅샷 drift 0·중복 문항 0.
+- **🟡 미결(결정 필요)**: ① 노출 게이트 불일치 — 도서 탐색 6권(published+ts) vs 퀴즈 카탈로그 11권(RPC 게이트 0, ready 포함) ② recommend 에 lexical_coverage 6th tier(book_iplus1) 추가 마이그레이션 ③ `classified_by` CHECK 에 opus_4_8 미등재(4_7로 기입).
+
+### P6 소급 F3 전면 실행 + P6.4/6.5 재검증 (v06.127)
+
+P6은 6/28에 1차 종결(P6.1~3 PR #46 · P6.4 점검 · P6.5 PR #50 · P6.6 PR #47 — 당시 F 결정은 "F3 하되 **V0 미진단 사용자 제외** → 삭제 0건"). 오늘 세션은 재검증 + **사용자 신규 결정으로 V0 제외 조항을 해제한 F3 전면 소급**. 마이그레이션 0.
+
+- **P6.4 재검증 (결론 일치)**: 두 함수 dump 재비교 — 구독 = `BETWEEN v−1 AND v+1` 양방향 밴드(부담 관리, fallback user→book_v→5, cap50) vs 추출 = `>= user_v+1` 상향 threshold(미지어 발굴, text_p75 fallback). 6/28 판정("맥락별 메커니즘 차이, drift 없음")과 동일 결론 — 통합 불요 재확정.
+- **P6.5 재검증 (정상)**: Cold(발행 세트 cap=40 live max 확인) / Warm(i+1+전면 dedup+cap50 dump 확인) / Hot(FSRS 별도) — `docs/VOCAB_LAYERS.md` 명문화와 정합.
+- **P6.6 F3 전면 소급 (사용자 결정 2026-07-04)**: 측정 — vocabularies 6,477행(2 users) 중 **미학습 99.94%**·stable 0·i+1 위반 4,919(76%). 6/28 결정에서 제외됐던 V0 사용자 물량이 위반의 전부 → 오늘 결정으로 해제. 실행: book-origin 4,862행 DELETE(review_count=0 가드 — 보호 대상 0) → 5권 재-enroll(V0 는 P6.6 가드로 book_v_level fallback 밴드 적용) → **4권 × 정확히 50행·i+1 위반 0** + Ammachi 0행(V4 어휘가 밴드 밖 = 필터 정상). 총 vocabularies **6,477→1,815행** (비도서 구독분·학습 진도 보존).
+- 상세: `docs/AI_CONTEXT/handoffs/p6_subscribe_user_filter.md` 완결 기록.
+
+### 비밀번호 재설정 실동작 연결 — 목업 제거 (v06.126)
+
+`/reset-password` 가 **Supabase 호출 없는 목업**(setTimeout 1.2s 후 성공 화면, 토스트에 "(목업)" 표기)이어서 재설정 메일이 영구 미발송이던 결함을 실구현으로 교체. 마이그레이션 0.
+
+- **진단 경로**: auth 로그에 `/recover` 요청 부재 확인 → 페이지 소스에서 목업 확정. (부수 발견: `/authorize` 400 `provider is not enabled` — 소셜 로그인 버튼이 미설정 프로바이더 호출.)
+- **request 모드**: `resetPasswordForEmail(email, { redirectTo: origin + '/api/auth/callback' })` — 429 rate-limit 안내 + enumeration 방지 문구(미가입 이메일은 미발송) 추가.
+- **update 모드**: recovery 링크 → 콜백(`verifyOtp` type=recovery → `/reset-password`) 세션 감지 시 새 비밀번호 폼(8자+확인) → `auth.updateUser({ password })` → `/hub`. 세션 확인 중 스피너로 모드 플리커 차단.
+- typecheck 0 · eslint 0. 기존 디자인(Parts Kit 토큰) 그대로 유지.
+- 운영 주의: Supabase 기본 SMTP 는 시간당 발송 제한(~2통)·발신 평판 낮음 — 국내 웹메일(empal 등) 스팸 분류 가능. 운영 전 custom SMTP 설정 권장.
+
+### /plan 학습 계획 — 챕터 리스트·주간 날짜·계획 아이콘 (v06.124)
+
+`/plan` 구성 UX 3종 개선. 마이그레이션 0.
+
+- **챕터 리스트화**: 번호 칩 → 체크 리스트(번호+**챕터 제목**, 스크롤). 제목은 신규 서버 액션 `fetchBookChapters`(plan-actions)가 `library_chapters_master`에서 지연 로드(모듈 캐시) — RLS `read_via_published` 범위(=picker와 동일)라 추가 정책 불요.
+- **요일에 날짜**: 서버(KST)에서 이번 주 월~일 'M/D' 7개를 산출해 주입(하이드레이션 안전) — 주간 보드 헤더·요일 선택 칩(원형→날짜 병기 필)·오늘의 학습 헤더에 표시.
+- **보드 칩에 계획 내용 아이콘**: 자료 글리프 아래 활동 아이콘(듣기/읽기 등, 최대 4개+`+n`)과 챕터 배지(`ListChecks`+`n장`/`전체`) — title·sr-only 텍스트 병기(색맹·스크린리더).
+- **활동 아이콘 재정비(유일성)**: vocab/flashcard 중복 'Layers' 해소 — vocab→`WholeWord` · pairflip `Shuffle`→`Grid2x2` · spellforge `Pencil`→`Hammer` · scriptquiz `ScrollText`→`HelpCircle`. **활동 선택 칩도 선택 여부와 무관하게 같은 아이콘 상시 표시**(기존: 선택 시 체크로 교체돼 연상 단절) + 선택 체크 병기.
+- **요일 선택 재설계(인식률)**: 원형/소형 필 → 전폭 7열 그리드 셀(min-h 56px, 요일 14px + 날짜 10px + 상태 슬롯) — 선택=채움+체크(형태 이중), 오늘=테두리+'오늘' 라벨.
+- **아이콘 단일 출처화**: `lib/learner/activity-icons.ts` 신설 — PlanClient·**TodayPlanCard(hub)** 가 공유. hub 쪽 복제 맵이 구버전 아이콘 이름을 들고 있어 신규 아이콘이 Layers 폴백으로 뭉개지던 실버그 해소.
+- **담은 자료 picker 유지**: 담아도 목록에서 사라지지 않고 '담김' 배지 표시, 클릭 시 그 항목 편집으로 진입(자료당 계획 1개 + 챕터/활동 수정 모델을 UI 로 드러냄).
+- **picker master-detail 기본 패턴**: 모든 자료 유형에서 좌측 **분류 레일**(전체+분류·개수) / 우측 세부 리스트 — 도서·내 스크립트=V밴드, 스크립트=소스별(VOA/NASA/…), 공용단어장=카테고리+**책별 레일**(책 선택 시 챕터 순 단어장 목록, 'n장 단어' 표기·저장은 원제). 챕터 종속 단어장 262종 숨김 해제. 기존 V밴드/서브필터 칩 2줄은 레일로 대체.
+- **요일 미정 안내**: 보드 하단 설명 문구 + 요일 블록 라벨("안 고르면 '요일 미정'에 담겨요"). **신규 담기 기본 요일=오늘**(해제 가능) — 담자마자 미정으로 떨어지던 흐름 해소, 담기 버튼에 '주 n일/요일 미정' 상태 명시.
+- **주간 보드 아젠다형 재설계(디테일 가시성)**: 7열 세로 그리드(칸 ~90px, 아이콘 11px) → **요일=행** 리스트로 전환 — 각 계획이 전폭 카드(표지 36×28 · 제목 · 챕터 배지 · 활동 아이콘 13px 최대 6개)로 표시. 활동 선택도 2열 정렬 그리드 + 아이콘 타일(24px 박스)로 확대.
+- **아이콘 타일 단일 컴포넌트화**: `ActivityGlyph`(sm/md·onDark 톤) — 주간 보드 행·활동 선택 칩·바로 시작·hub 오늘의 학습 계획이 전부 같은 타일 표현 공유(맨 아이콘 혼재 해소). 선택 시 구성 패널이 화면 밖이면 `scrollIntoView(nearest)` 로 데려오는 사용성 보강.
+- **/plan·/dashboard 폭 정합**: 두 화면만 `content`(820px)였고 /plan 은 내부 `max-w-3xl`(768px)+px-4 이중 제약까지 겹침 → `wide`(1024px) 통일 + 내부 제약 제거 (Screen 주석의 'wide=Dashboard' 명세와 코드 불일치 해소).
+- 검증: typecheck 0 · lint 신규 0 · vitest 96 pass · dev 렌더 /plan·/hub 에러 0, 오늘(토 7/4) 마커·주간 날짜 정합 확인.
+
 ### 빌드-타임 lint 게이트 복원 + a11y/lint 부채 청산 (v06.117)
 
 v06.92 에서 lint 부채(74건)로 빌드에서 분리했던 ESLint 게이트를 복원. 마이그레이션 0.

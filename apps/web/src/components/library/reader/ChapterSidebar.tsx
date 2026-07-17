@@ -195,18 +195,35 @@ function ChapterRow({
           </span>
         </div>
 
-        {locked ? (
-          <Lock size={11} className="shrink-0 text-[var(--t5)]" aria-label="잠김" />
-        ) : (
-          <span
-            className={[
-              'shrink-0 font-mono text-[10px] tabular-nums',
-              active ? 'text-[var(--ti)] opacity-80' : 'text-[var(--t5)]',
-            ].join(' ')}
-          >
-            {Math.round(ch.word_count / 100) / 10}k
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {/* 챕터별 어휘 V-level — 단일 book_v_level 이 뭉개는 챕터 편차 노출 (색상만 의존 X, 숫자 텍스트) */}
+          {ch.chapter_v_level != null && (
+            <span
+              className={[
+                'inline-flex items-center rounded-[var(--r-full)] border px-1.5 py-0.5',
+                'font-mono text-[9px] font-[700] leading-none tabular-nums',
+                active
+                  ? 'border-[var(--ti)] text-[var(--ti)] opacity-80'
+                  : 'border-[var(--bd)] text-[var(--t3)]',
+              ].join(' ')}
+              title={`이 장의 어휘 난이도 V${ch.chapter_v_level} — 책 전체 라벨과 다를 수 있어요`}
+            >
+              V{ch.chapter_v_level}
+            </span>
+          )}
+          {locked ? (
+            <Lock size={11} className="text-[var(--t5)]" aria-label="잠김" />
+          ) : (
+            <span
+              className={[
+                'font-mono text-[10px] tabular-nums',
+                active ? 'text-[var(--ti)] opacity-80' : 'text-[var(--t5)]',
+              ].join(' ')}
+            >
+              {Math.round(ch.word_count / 100) / 10}k
+            </span>
+          )}
+        </div>
       </button>
 
       {sourceUrl && (

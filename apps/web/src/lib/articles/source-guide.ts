@@ -46,6 +46,14 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   wikinews: ['news'],
   the_conversation: ['argumentative'],
   simple_wikipedia: ['expository', 'reference'],
+  owid: ['argumentative'], // T-2 — 데이터 논증문 (CC-BY → 발행 가능 argumentative 보강)
+  factbook: ['reference'], // 국가 개요 참고문 (PD → 발행 가능 reference 보강)
+  elife: ['expository'], // 편집자 저작 과학 요약 (CC-BY → 발행 가능)
+  wikipedia: ['expository', 'reference'], // 정규 백과 FA/GA (CC-BY-SA → 발행 가능)
+  plos: ['expository'], // 오픈 학술 논문 (CC-BY → 발행 가능)
+  wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
+  usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
+  noaa: ['expository'], // 기후과학 explainer (PD US Gov → 발행 가능)
 }
 
 const ALL_SOURCES: ReadonlyArray<SourceKey> = [
@@ -55,6 +63,14 @@ const ALL_SOURCES: ReadonlyArray<SourceKey> = [
   'simple_wikipedia',
   'the_conversation',
   'wikinews',
+  'owid',
+  'factbook',
+  'elife',
+  'wikipedia',
+  'plos',
+  'wikivoyage',
+  'usgs',
+  'noaa',
 ]
 
 export const SOURCE_LABEL: Record<string, string> = {
@@ -64,6 +80,14 @@ export const SOURCE_LABEL: Record<string, string> = {
   simple_wikipedia: 'Simple Wikipedia',
   the_conversation: 'The Conversation',
   wikinews: 'Wikinews',
+  owid: 'Our World in Data',
+  factbook: 'CIA World Factbook',
+  elife: 'eLife',
+  wikipedia: 'Wikipedia',
+  plos: 'PLOS',
+  wikivoyage: 'Wikivoyage',
+  usgs: 'USGS',
+  noaa: 'NOAA Climate.gov',
 }
 
 // ── 커버리지 빈칸 ────────────────────────────────

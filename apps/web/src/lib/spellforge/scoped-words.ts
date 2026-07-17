@@ -18,7 +18,7 @@ export interface ScopedSpellForgeResult {
 
 export async function fetchScopedSpellForgeWords(
   client: SupabaseClient,
-  scope: { set?: string; text?: string; userId: string | null },
+  scope: { set?: string; text?: string; chapter?: number | null; userId: string | null },
 ): Promise<ScopedSpellForgeResult | null> {
   const res = await fetchScopedWords(client, scope)
   if (!res) return null

@@ -30,6 +30,8 @@ export default function PairFlipPlayPage() {
     const params = new URLSearchParams(window.location.search)
     const set = params.get('set') ?? undefined
     const text = params.get('text') ?? undefined
+    const chapterNum = Number(params.get('chapter'))
+    const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
     const scoped = !!(set || text)
 
     // 계획 launch — 그 자료 단어로(사전 config 불요, default 사용)
@@ -41,7 +43,7 @@ export default function PairFlipPlayPage() {
           const {
             data: { user },
           } = await client.auth.getUser()
-          setPairs(await fetchScopedPairs(client, { set, text, userId: user?.id ?? null }))
+          setPairs(await fetchScopedPairs(client, { set, text, chapter, userId: user?.id ?? null }))
         } catch {
           setPairs([]) // 실패 시 mock 폴백
         }

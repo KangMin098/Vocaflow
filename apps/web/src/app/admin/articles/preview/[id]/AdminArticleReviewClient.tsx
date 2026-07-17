@@ -11,7 +11,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   AlertCircle,
   Archive,
@@ -42,6 +42,13 @@ interface Props {
 
 export function AdminArticleReviewClient({ article, vocab }: Props) {
   const router = useRouter()
+  // 목록 복귀 — 진입한 파이프라인 stage(검수/발행) 유지 (없으면 콘솔 기본 커버리지).
+  const searchParams = useSearchParams()
+  const stageParam = searchParams.get('stage')
+  const listHref =
+    stageParam === 'review' || stageParam === 'publish'
+      ? `/admin/articles?stage=${stageParam}`
+      : '/admin/articles'
   const [pending, setPending] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -79,7 +86,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
     try {
       await fn()
       if (after === 'back') {
-        router.push('/admin/articles')
+        router.push(listHref)
       }
       router.refresh()
     } catch (e) {
@@ -150,7 +157,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
       {/* ── 1) 상단바 ── */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
-          href="/admin/articles"
+          href={listHref}
           className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />

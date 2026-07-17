@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BookOpen, FlaskConical, Megaphone, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, CloudSun, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -211,6 +211,118 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/en\.wikinews\.org\/wiki\//}
           urlHostHint="en.wikinews.org/wiki/ 도메인"
           urlPlaceholder="https://en.wikinews.org/wiki/..."
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'owid':
+      return (
+        <RssFeedTab
+          source="owid"
+          heading="📊 Our World in Data"
+          subtitle="CC-BY 4.0 · B2~C1 데이터 논증문 (CSAT 유형) · 발행 허용"
+          feeds={[]}
+          emptyIcon={BarChart3}
+          urlPattern={/^https?:\/\/ourworldindata\.org\//}
+          urlHostHint="ourworldindata.org 도메인"
+          urlPlaceholder="https://ourworldindata.org/..."
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'factbook':
+      return (
+        <RssFeedTab
+          source="factbook"
+          heading="🌍 CIA World Factbook"
+          subtitle="Public Domain · B1~B2 국가 개요 참고문 (reference) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Globe}
+          urlPattern={/^https:\/\/raw\.githubusercontent\.com\/factbook\/factbook\.json\//}
+          urlHostHint="raw.githubusercontent.com/factbook/factbook.json 국가 JSON"
+          urlPlaceholder="https://raw.githubusercontent.com/factbook/factbook.json/master/east-n-southeast-asia/ks.json"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'elife':
+      return (
+        <RssFeedTab
+          source="elife"
+          heading="🔬 eLife"
+          subtitle="CC-BY 4.0 · B2~C1 과학 digest (편집자 저작 요약) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Microscope}
+          urlPattern={/^https?:\/\/(?:www\.)?elifesciences\.org\/articles\/\d+/}
+          urlHostHint="elifesciences.org/articles/<번호> (digest 보유 기사)"
+          urlPlaceholder="https://elifesciences.org/articles/91060"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'wikipedia':
+      return (
+        <RssFeedTab
+          source="wikipedia"
+          heading="📚 English Wikipedia (정규)"
+          subtitle="CC-BY-SA · B2~C1 정규 백과 (FA/GA 검수분) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Library}
+          urlPattern={/^https?:\/\/en\.wikipedia\.org\/wiki\//}
+          urlHostHint="en.wikipedia.org/wiki/ 도메인"
+          urlPlaceholder="https://en.wikipedia.org/wiki/Photosynthesis"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'plos':
+      return (
+        <RssFeedTab
+          source="plos"
+          heading="🧬 PLOS"
+          subtitle="CC-BY · C1~C2 오픈 학술 논문 (S4 킬러급) · 발행 허용"
+          feeds={[]}
+          emptyIcon={Dna}
+          urlPattern={/^https?:\/\/journals\.plos\.org\//}
+          urlHostHint="journals.plos.org 도메인 (article?id=10.1371/...)"
+          urlPlaceholder="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3002946"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'wikivoyage':
+      return (
+        <RssFeedTab
+          source="wikivoyage"
+          heading="🗺 Wikivoyage"
+          subtitle="CC-BY-SA · B1~B2 여행 가이드 (reference · 흥미) · 발행 허용"
+          feeds={[]}
+          emptyIcon={MapPin}
+          urlPattern={/^https?:\/\/en\.wikivoyage\.org\/wiki\//}
+          urlHostHint="en.wikivoyage.org/wiki/ 도메인"
+          urlPlaceholder="https://en.wikivoyage.org/wiki/Kyoto"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'usgs':
+      return (
+        <RssFeedTab
+          source="usgs"
+          heading="⛰ USGS"
+          subtitle="PD (US Gov) · B2 지구과학·자연재해 과학 저널리즘 (신규 도메인) · 발행 허용 · 인용 자유"
+          feeds={[]}
+          emptyIcon={Mountain}
+          urlPattern={/^https?:\/\/(?:www\.)?usgs\.gov\/news\//}
+          urlHostHint="www.usgs.gov/news/ 도메인"
+          urlPlaceholder="https://www.usgs.gov/news/featured-story/hurricane-season-arrives"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'noaa':
+      return (
+        <RssFeedTab
+          source="noaa"
+          heading="🌡 NOAA Climate.gov"
+          subtitle="PD (US Gov) · B2-C1 기후과학 explainer (climate 신규 도메인 · CSAT 최빈출) · 발행 허용 · 인용 자유"
+          feeds={[]}
+          emptyIcon={CloudSun}
+          urlPattern={/^https?:\/\/(?:www\.)?climate\.gov\/news-features\//}
+          urlHostHint="www.climate.gov/news-features/ 도메인"
+          urlPlaceholder="https://www.climate.gov/news-features/understanding-climate/climate-change-ocean-heat-content"
           onEnqueued={onEnqueued}
         />
       )

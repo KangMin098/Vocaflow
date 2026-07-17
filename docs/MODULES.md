@@ -14,7 +14,7 @@
 | 2 | **WordVault** | L3 | 능동 부호화 | `/wordvault`, `/wordvault/browse` | ✅ v06.22 (Browse 풀스크린 분리) |
 | 3 | **Flashcard** | L4a 재인 | Recognition + 메타인지 | `/flashcard`, `/flashcard/play` | ✅ React + FSRS |
 | 4 | **SpellForge** | L4b 시각생성 | Generation Effect | `/spellforge`, `/spellforge/play` | ✅ React + IME 분리 |
-| 5 | **WordBlitz** | L4a 자동화 | Recognition + 속도 | `/wordblitz`, `/play/wordblitz` | 진행 중 (3D 정글) |
+| 5 | **WordBlitz** | L4a 자동화 | Recognition + 속도 | `/wordblitz`, `/play/wordblitz` | 완료 (2D 속사 인지) |
 | 6 | **PairFlip** | L4a 공간기억 | Recognition + Spatial | `/pairflip`, `/pairflip/play`, `/pairflip/results` | ✅ MVP (v06.21) |
 | 7 | **ScriptQuiz** | L5 정복 | Recognition + Transfer | `/scriptquiz`, `/scriptquiz/play` | ✅ React + AI 생성 |
 | 8 | **Dictation** | L6 완성 | Free Recall + Production | `/dictate`, `/dictate/setup`, `/dictate/session`, `/dictate/results` | ✅ MVP (v06.7) |
@@ -219,26 +219,24 @@ R < 0.70              → risk     #EF4444 (빨강)
 ## 5. WordBlitz (L4a 자동화)
 
 ### 목적
-4지선다 빠른 인식. 시간 압박으로 자동화 형성.
+4지선다 빠른 인지(ko 뜻 → en 단어). 시간 압박·콤보로 자동화 형성.
 
 ### 라우트
 - `/wordblitz` — Hub
 - `/play/wordblitz` — 풀스크린 (사이드바 X · SessionFrame 자동 주입)
 
-### 환경 — 정글 어드벤처
-- 배경: `linear-gradient(180deg, #2d6a2d → #5ab540)`
-- 나무 기둥 (좌/우): `#3d2010 → #7a4520`
-- SVG 크리처 4종 (creatureBob 2.5s ease-in-out infinite)
-- 타이틀: Fredoka One · `#FFE234` 황금 + text-shadow
+### 게임 — 속사 인지 (v07 재설계, 2026-07)
+- ko 뜻 프롬프트 → 4개 en 타일(2×2) 중 정답을 탭/키(`1`–`4`)로 선택.
+- 문항별 타이머 바(레벨 상승 시 단축) · 콤보(연속 정답 → 배수·레벨업) · 점수(시간보너스×콤보배수).
+- 절제된 게임 주스: 정답 초록+체크, 오답 앰버 shake, 콤보 범프. 차분한 종료("오늘 잘 마쳤어요" — 폭죽 없음).
+- **이전 Three.js 3D 인형뽑기 대체** — ~5초/단어 → ~1-2초/단어, 모바일 우선(3D 자산·useWordBlitzGame·WordBlitzUI.css 삭제).
 
-### HUD
-- bg: `rgba(30,60,10,.92)` / border: `2px solid #5a9a2a`
-- SCORE/COMBO: `#FFE234`
-- 타이머 바: h-12px 색상 변화 JS
-- 콤보 점 4개
+### 디자인
+- 순수 2D DOM · **테마 토큰(라이트/다크 자동)** · 게임 예외 토큰 `--combo`/`--streak`.
+- 접근성: 키보드 `1`–`4` · aria-live · `prefers-reduced-motion` · 44px+ 타일.
 
 ### 컴포넌트
-`lib/wordblitz/theme.ts` — WB_COLORS · WB_DIMS (박스 6.5×5.2×3.0 · 콘솔 기울임)
+`components/game/wordblitz/WordBlitzGame.tsx`(게임 본체 · 계약 wordPool/onExit/onCorrect/onWrong FSRS) · `WordBlitzUI.tsx`(로딩 폴백) · `lib/wordblitz/data.ts`(Word/SAMPLE_WORDS/POINTS).
 
 ---
 

@@ -24,24 +24,24 @@ export interface ActivityDay {
   words: number
 }
 
+/** 서버(daily_activity)에서 직렬화되어 넘어오는 형태 — date 는 'YYYY-MM-DD' */
+export interface ActivityDayDto {
+  date: string
+  minutes: number
+  words: number
+}
+
 const DAYS = 28
 
-function generateMockData(): ActivityDay[] {
+/** 데이터 미주입 시 폴백 — 진짜 빈 28일 (목업 아님) */
+function emptyDays(): ActivityDay[] {
   const days: ActivityDay[] = []
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-
   for (let i = DAYS - 1; i >= 0; i--) {
     const date = new Date(today)
     date.setDate(date.getDate() - i)
-    const seed = date.getDate() + date.getMonth() * 31
-    const random = Math.sin(seed) * 10000
-    const intensity = Math.abs(random - Math.floor(random))
-    const isWeekend = date.getDay() === 0 || date.getDay() === 6
-    const baseMinutes = isWeekend ? 5 : 18
-    const minutes = intensity < 0.18 ? 0 : Math.floor(baseMinutes + intensity * 55)
-    const words = Math.floor(minutes * 1.5)
-    days.push({ date, minutes, words })
+    days.push({ date, minutes: 0, words: 0 })
   }
   return days
 }
@@ -81,8 +81,14 @@ function formatHM(totalMinutes: number): string {
 }
 
 // ── 메인 ─────────────────────────────────────────────────────────
-export function WeeklyHeatmap() {
-  const days = useMemo(() => generateMockData(), [])
+export function WeeklyHeatmap({ days: daysDto }: { days?: ActivityDayDto[] }) {
+  const days = useMemo<ActivityDay[]>(
+    () =>
+      daysDto && daysDto.length > 0
+        ? daysDto.map((d) => ({ date: new Date(`${d.date}T00:00:00`), minutes: d.minutes, words: d.words }))
+        : emptyDays(),
+    [daysDto],
+  )
   const streak = useMemo(() => calcStreak(days), [days])
 
   const totalMinutes = days.reduce((s, d) => s + d.minutes, 0)

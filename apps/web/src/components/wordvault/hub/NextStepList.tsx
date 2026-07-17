@@ -172,7 +172,8 @@ export function NextStepList() {
       <div className="overflow-hidden rounded-[14px] bg-[var(--bg2)]">
         <div className="divide-y divide-[var(--bd)]/60 bg-[var(--bg)]">
           {state.sets.map((set) => {
-            const typeMeta = TYPE_META[set.type]
+            // 방어 — recommend RPC 가 TYPE_META 미등록 tier 를 반환하면 undefined.tone 크래시 (v06.183 /hub 복구)
+            const typeMeta = TYPE_META[set.type] ?? TYPE_META.fallback
             return (
               <Link
                 key={set.id}

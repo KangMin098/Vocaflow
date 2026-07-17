@@ -404,7 +404,7 @@ export default function WorkspacePage({ params }: PageProps) {
         focusMode: document.body.classList.contains('focus-mode'),
         pointerEvents: document.body.style.pointerEvents,
         overlays: document.querySelectorAll(
-          '.fixed.inset-0.pointer-events-auto, [role="dialog"][aria-hidden="false"]',
+          '.fixed.inset-0.pointer-events-auto, [role="dialog"]:not([aria-hidden="true"])',
         ).length,
       }
       if (
@@ -610,7 +610,14 @@ export default function WorkspacePage({ params }: PageProps) {
 
   // SpellForge 모드 — 워크스페이스 레이아웃 우회, 전용 화면 단독 렌더
   if (currentMode === 'spellforge') {
-    return <SpellForge textId={text.id} textTitle={text.title} words={spellforgeWords} />
+    return (
+      <SpellForge
+        textId={text.id}
+        textTitle={text.title}
+        words={spellforgeWords}
+        backHref={`/text/${text.id}?mode=read`}
+      />
+    )
   }
 
   // 단어 모드 (직접 스크립트) — 워크스페이스 내 추출 뷰. 추출 → 내 단어장(WordVault) 저장.

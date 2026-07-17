@@ -21,7 +21,9 @@
 
 **통합 관리 화면 `/manage`(#70) → 폐지·흡수(PR #84, v06.108)**: 메타 표면 4→2 통합으로 `/manage` 라우트 **삭제**, `components/dashboard/ManageSection.tsx`(진단·계획·리포트 3카드, 미진단 시 진단 ring 강조)로 **`/dashboard` 회고에 흡수**. `manage-overview.ts fetchManageOverview`(+userName)는 dashboard 가 재사용(삭제 X). **Sidebar META 4→2**: `오늘`(/hub, forward)·`회고`(/dashboard, backward, L7 단독). 진단/계획/리포트는 메타 peer 아닌 회고 섹션 카드. `/dashboard` = known-word 성장 헤더 → MemoryStatus → WeeklyHeatmap → ManageSection → RecentActivity. `/hub` 에서 RecentActivity 제거(회고 단독). 삭제: manage/page·TodayHero·dashboard-data. 마이그레이션 0. [[project-doc-structure-split]] LEARNING_MODEL L7 이중할당 해소.
 
-**잔여**: P4.3 = 과제배포(assignments UI) + 주간리포트 학부모 공유 + `/teacher/[classId]` 상세 (투기적 — 실 클래스/학생 없음). · 모든 P1~P4.2 UI 런타임 미검증(서버 fetch/폼/게임 — 무회귀 설계). · daily_activity/known_word_count/scores 는 실플레이 누적 시 채워짐(현 dev 0). · weekly_reports cron 자동생성 · 추천 P2(reading_session 연동) · 사이드바에 /onboarding·/reports·/teacher 메뉴 미등재(라우트만 존재).
+**✅ 런타임 검증 (2026-07-05, v06.136)**: Playwright 실주행 — 가입(autoconfirm)→로그인→/hub→/dashboard→/reports 갱신 E2E→/plan 전부 정상. `/onboarding` 은 **존재하지 않음이 정상**(#75 폐기, /plan 대체 — 위 P1 참조; 이전 "잔여"의 /onboarding 언급은 구정보). 발견·수리: 전역 셸 목업 4곳(layout streak=23 · FlowNav MOMENTUM=12일/가짜 mastery/정확도84% · MemoryStatus 612/142/58/35 · WeeklyHeatmap sin() 가짜 활동) → 신설 `lib/learner/growth-stats.ts`(React cache, user_stats+vocabularies R(t) SSoT+daily_activity 28일) 실데이터화 + Checkbox Math.random id→useId. 테스트 계정 `runtime-test-0705@vocaflow.dev`(dev, daily_activity 3일 시드) 존치 — 재검증용.
+
+**잔여**: P4.3 = 과제배포(assignments UI) + 주간리포트 학부모 공유 + `/teacher/[classId]` 상세 (투기적 — 실 클래스/학생 없음). · weekly_reports cron 자동생성 · 추천 P2(reading_session 연동) · 사이드바에 /reports·/teacher 메뉴 미등재(라우트만 존재) · FlowNav STAGES 별 progress/stat("평균 79%·2 세션" 등)는 여전히 하드코딩 — 단계별 실지표 설계 필요(별건).
 
 관련: [[project-a3-game-real-data-sweep]] · [[project-srs-persistence-a1]] · `docs/LEARNER_MANAGEMENT.md`(SSoT 설계)
 

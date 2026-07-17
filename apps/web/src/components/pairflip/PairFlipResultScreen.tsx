@@ -4,6 +4,7 @@
 'use client'
 
 import { Flame, Target, Timer } from 'lucide-react'
+import Link from 'next/link'
 import { useEffect } from 'react'
 
 import { saveLearningRecords } from '@/lib/pairflip/learning-records'
@@ -88,6 +89,14 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
             {result.hintsUsed > 0 && ` · 힌트 ${result.hintsUsed}회`}
           </p>
         )}
+
+        {/* 원점 복귀 — 결과는 sessionStorage 기반이라 스코프/from 유실 → PairFlip 허브로 */}
+        <Link
+          href="/pairflip"
+          className="mt-1 inline-flex items-center justify-center gap-1 self-center rounded-[var(--r-md)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          PairFlip 홈으로
+        </Link>
       </div>
     </div>
   )

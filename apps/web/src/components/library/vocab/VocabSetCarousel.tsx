@@ -9,6 +9,7 @@
 
 'use client'
 
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
 
@@ -22,7 +23,7 @@ import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
-import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
+import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
 
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const DURATION = 600
@@ -35,6 +36,7 @@ const CATEGORY_COLOR: Record<string, { from: string; to: string; accent: string 
   eng_test: { from: '#A78BFA', to: '#7C3AED', accent: '#7C3AED' },
   civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
   business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },
+  etymology: { from: '#FBBF24', to: '#B45309', accent: '#B45309' },
   themed: { from: '#818CF8', to: '#4F46E5', accent: '#4F46E5' },
 }
 
@@ -80,10 +82,10 @@ export function VocabSetCarousel({
   isLoggedIn,
   onToggle,
 }: Props) {
-  // 데이터 있는 카테고리만 탭으로
+  // 데이터 있는 카테고리만 탭으로 — 중요도순(수능·내신→교육과정→공인→테마)
   const categories = VOCAB_CATEGORIES.filter(
     (c) => c.id !== 'all' && sets.some((s) => s.category === c.id),
-  )
+  ).sort((a, b) => categoryImportance(b.id) - categoryImportance(a.id))
   const [activeCat, setActiveCat] = useState<string>(categories[0]?.id ?? 'csat')
   const [active, setActive] = useState(0)
   const [detail, setDetail] = useState<DetailVariant | null>(null)
@@ -107,6 +109,16 @@ export function VocabSetCarousel({
       cefrLevel: (r as { cefr_level: string | null }).cefr_level,
     }))
 
+    // 세트 내부 챕터 수 — chaptered 세트면 상세에 "챕터" 노출 (chapter 컬럼: loose client)
+    const { data: chRow } = await (supabase as unknown as SupabaseClient)
+      .from('shared_words')
+      .select('chapter')
+      .eq('set_id', set.id)
+      .not('chapter', 'is', null)
+      .order('chapter', { ascending: false })
+      .limit(1)
+    const chapterCount = (chRow?.[0] as { chapter: number | null } | undefined)?.chapter ?? null
+
     setDetail({
       type: 'vocab',
       id: set.id,
@@ -117,6 +129,7 @@ export function VocabSetCarousel({
       categoryColor: color,
       cefrLevel: set.cefrLevel,
       wordCount: set.wordCount,
+      chapterCount,
       coverEmoji: set.coverEmoji,
       samples,
       ctaLabel: subscribedIds.has(set.id) ? '추가됨 — 해지' : '내 단어장에 추가',

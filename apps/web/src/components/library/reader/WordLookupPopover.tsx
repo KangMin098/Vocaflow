@@ -170,6 +170,20 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
         </p>
       )}
 
+      {/* 자주 함께 쓰는 표현 — 데이터 있을 때만 절제 노출(Progressive Disclosure) · 최대 3개 */}
+      {result.collocations && result.collocations.length > 0 && (
+        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+          {result.collocations.slice(0, 3).map((c) => (
+            <span
+              key={c}
+              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[11px] text-[var(--t2)]"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+      )}
+
       {/* 학습 차등 안내 (archaic → 읽기 참고용, 암기 대상 아님) */}
       {result.wordRegister === 'archaic_literary' && (
         <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">

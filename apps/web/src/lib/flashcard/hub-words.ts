@@ -28,6 +28,24 @@ export async function fetchDueFlashcardWords(
 ): Promise<FlashcardWord[]> {
   const rows = await fetchStudyVocabularies(client, userId)
 
+  // 연어(collocations)는 vocabularies 가 아닌 shared_dictionary 소유 → 단어 배치 1쿼리로 보강.
+  // 정답면 절제 노출용(Progressive Disclosure). 실패해도 카드 렌더는 그대로(빈 map).
+  const words = [...new Set(rows.map((r) => r.word))]
+  const collMap = new Map<string, string[]>()
+  if (words.length > 0) {
+    const { data: dict, error } = await client
+      .from('shared_dictionary')
+      .select('word, collocations')
+      .in('word', words)
+    if (error) {
+      console.warn('[flashcard/hub-words] collocations fetch failed:', error.message)
+    } else {
+      for (const d of (dict ?? []) as Array<{ word: string; collocations: string[] | null }>) {
+        if (d.collocations && d.collocations.length > 0) collMap.set(d.word, d.collocations)
+      }
+    }
+  }
+
   return rows.map((r) => {
     const example = r.example_sentence ?? ''
     return {
@@ -39,6 +57,7 @@ export async function fetchDueFlashcardWords(
       exampleSentence: example,
       // hub 단어는 사전 inflected_forms 미보유 → 규칙 기반 빈칸 fallback
       exampleSentenceWithBlank: example ? blankSurface(example, r.word) : '',
+      collocations: collMap.get(r.word),
       textId: r.text_id ?? r.id,
       textTitle: '내 단어장',
       textChapter: '',

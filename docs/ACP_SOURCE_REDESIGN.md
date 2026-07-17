@@ -238,3 +238,97 @@ news: VOA·Wikinews / reference: CIA Factbook·Simple Wikipedia(정의문) / nar
 ## 부록 B — 차단 규칙 요약
 `restricted`·`*_nc`·arXiv-default → ingest 거부. `cc_by_nd` → 게시 가능하나 `display_only`(본문 불변).
 나머지(PD·CC0·CC-BY·CC-BY-SA) → 학습 가공 허용(단 lexical_noise ≤ 0.08).
+
+---
+
+## §20 — T-2 구현 결과 + T-3 동결 풀 (2026-07-08)
+
+> T-1~T-4 티어 framing = 위임 재설계(T-1 기구현 · T-2 신설 · T-3 동결 · T-4 기각).
+> 소스 분류·license_class = 위 §18 + T-2 P0 실측([source_t2_p0_20260708.md](AI_CONTEXT/diagnostics/source_t2_p0_20260708.md)).
+> ⚠️ **문서 등록만 — enum/코드 예약 금지(§10 placeholder 위반). 동결·기각 소스는 ingester/타입/정책 미생성.**
+
+### T-2 구현 결과
+
+| 소스 | 결과 | license_class | register | CEFR | 근거 |
+|---|---|---|---|---|---|
+| **OWID** (Our World in Data) | ✅ **구현** | cc_by | argumentative | B2–C1 | 산문 avg 1,014w · 명시 CC-BY · atom list · dry-run noise≈0 · drift-lock 19 tests. `owid.ts` |
+| **OBP** (Open Book Publishers) | ❌ **abort → T-3** | cc_by(소수)/cc_by_nc(다수) | — | B2–C1 | Read Online=client-render JS + full-text=PDF → dependency-0 ingester 부적합(P0-2b) |
+
+OWID 는 argumentative register 를 **발행 가능**(cc_by=derivation full) 콘텐츠로 보강 — 유일 argumentative 소스 The Conversation 이 cc_by_nd(`display_only`, 단어세트 미발행)라 실질 공백이던 지점.
+
+### T-3 동결 풀 (미구현 · 재개 트리거 보유 · 코드 미생성)
+
+| 소스 | license_class | stage | 동결 사유 | 승격 트리거 |
+|---|---|---|---|---|
+| **OBP** | cc_by 소수 / cc_by_nc 다수 | 동결 | 사이트 client-render + full-text PDF-only → HTML 정규식 ingester 불가 (P0-2b) | (α) HTML-clean CC-BY 도서 소스 확보 **또는** (β) PDF 추출 계층 신설 |
+| **OpenStax** | cc_by 2종 / 나머지 cc_by_nc_sa | 동결 | 웹=SPA/PDF(§18 재판정) + 인기 교재 NC-SA=restricted 차단 · CC-BY 영어 원서 physics/statistics 2종뿐(STEM 수식 밀집) | CNXML/archive dump 통합 **또는** academic STEM 어휘 특수 수요 확정 |
+| ~~**CIA World Factbook**~~ | public_domain | ✅ **해제 → 구현 (§20.2)** | ~~reference register 수요 미확정~~ → 커버리지 실측 0 으로 **갭 확정** | **충족** — reference publishable 0 확인 → JSON 덤프 ingest 구현 |
+
+> **CIA World Factbook 해제**: 승격 트리거("reference register 공백 확정")가 실 커버리지(reference publishable = 0)로 충족 → §20.2 에서 구현. 남은 동결 = OpenStax(별건).
+
+### T-4 기각 (재개 트리거 없음 · 근거 고정 · 코드 미생성)
+
+| 소스 | 기각 사유 (고정) |
+|---|---|
+| **arXiv** | 기본 라이선스 비자유(저자 저작권 · 상업 재배포 불가) → restricted · CC 논문 항목단위뿐 · C2+ · LaTeX 오염. 학습경로 제거(§1-A), CC-BY/CC0 격리 큐만 보존 |
+| **Smithsonian Open Access** | CC0 = 소장품 **메타데이터**(api.si.edu)이지 산문 아님 · Magazine 기사는 무료 아님 → 소스 부적합(§구현현황) |
+
+기각 소스는 `ArticleSource`/`SourceKey` enum · ingester · 정책 **미생성** (문서 등록만 — §10 준수).
+
+### §20.1 — OBP 동결 해제 재정찰 + OWID 스케일업 (2026-07-09)
+
+**OWID 스케일업 (T-2 실운영 검증)** — atom feed 8건 실 ingest → dev-process → dev-publish 전 구간 통과.
+argumentative CC-BY 학습 단어세트 **8개 라이브 발행** (B2×7·C1×1 · llm_cost 전량 0 · lexical_noise ≤0.001 · `word_count==words_actual` orphan 0).
+The Conversation(cc_by_nd=`display_only`)이 못 채우던 argumentative 실질 공백을 라이브 콘텐츠로 실증. dev 라우트 신설: `/api/acp/dev-enqueue` · `/api/acp/dev-publish` (service-role · NODE_ENV 가드 — DEV_ADMIN_BYPASS auth 갭 우회).
+
+**OBP 재정찰 결과 — 동결 유지 (근거 강화)** — chapters-sitemap 발견으로 챕터 URL(`/books/{doi}/chapters/{doi}.NN`) 은 확인되나, 챕터 페이지가 **Next.js 클라이언트 렌더**(`__NEXT_DATA__` 에 메타 + **PDF URL 만**, 산문 0). 즉 챕터 전문(全文)이 PDF-only 재확인 + 표본 도서 `obp.0290` = **CC BY-NC-ND**(ND=`display_only`). β(PDF 추출)는 dependency-0 원칙 위반 → **OBP-proper 는 OBP 로는 해제 불가**.
+
+**α 실행 — Pressbooks 로 retarget (구현)** — OBP 승격 트리거 (α) "HTML-clean CC-BY 도서 소스 확보" 를 **Pressbooks**(opentextbc.ca 등 OA book 표준 플랫폼)로 충족. 챕터별 **서버렌더 HTML**(클라이언트렌더 시그널 0, 334×`<p>`) + **CC BY 4.0** + 챕터 URL 규칙적 → dependency-0 정규식 추출 가능. OBP 가 겨냥한 니치(현대 OA 논픽션·학술 산문)를 발행 가능(cc_by) 콘텐츠로 대체 충당.
+
+| 소스 | 결과 | license | 근거 |
+|---|---|---|---|
+| **Pressbooks** (α retarget) | ✅ **ingester + end-to-end 발행** | CC BY (책별 상이) | `ingest/pressbooks.ts` (dependency-0 · SE 계약 mirror) · dev 라우트 `/api/lcp/dev-ingest-preview`·`/api/lcp/dev-enqueue-book`(+dev-process `pressbooks` 케이스) |
+
+> **end-to-end 검증 완료 (2026-07-09)**: 마이그레이션 `library_books_source_add_pressbooks` **적용**(source CHECK +`pressbooks`). 실 발행 — `Introduction to Sociology 2e`(book_id `406dbc3e…`) enqueue→process→force-publish 전 구간: **published · CC BY 4.0 · copyright_safe_in_kr=true · CEFR C1 · book_v_level 8 · 23 챕터 · 23/23 챕터 단어세트 발행(894단어) · word_count 367,776 · llm_cost 0**. OWID(ACP article)에 이은 **LCP book 경로** 실증.
+
+> §20 은 OBP=동결(코드 0) 유지 — Pressbooks 는 **별개 신설 소스**(§10 준수: 동결 소스 코드 예약 아님, 구현 소스 코드 생성).
+
+### §20.2 — CIA World Factbook 동결 해제 → reference register 구현 (2026-07-09)
+
+**해제 근거**: T-3 승격 트리거("reference register 공백 확정")를 실 커버리지로 충족 — 발행 register 매트릭스에서 reference publishable = **0** (expository 64·news 30·argumentative 8·reference 0) 확인. §18 목표 매트릭스의 유일한 빈칸.
+
+**구현**: `ingest-article/factbook.ts` — factbook.json(커뮤니티 PD 덤프) 국가 JSON 에서 `Introduction/Background` 산문만 추출(의존성 0, HTML 스크래핑 없음). 나머지 필드(목록·표·약어)는 lexical_noise 유발 → 본문 제외. `FACTBOOK_COUNTRIES` 35국(region/code 실측 200) 정적 picker. `source_id="factbook:<code>"`.
+
+| 항목 | 값 |
+|---|---|
+| license | Public Domain (US Government) → license_class **public_domain** → 발행 허용(display_only 아님) |
+| register | **reference** (dev-process REGISTER_BY_SOURCE) |
+| 정책(4축) | live/text/full/none — drift-lock 20 tests |
+| 배선 | SourceKey·ArticleSource·SOURCE_SPECS·SOURCE_POLICIES·SOURCE_RANKINGS·source-guide + enqueue/dev-enqueue/dev-process + 어드민(CurationConsole·SourceGetView·RssFeedTab, 🌍 Globe) |
+| 마이그레이션 | `acp_source_check_add_factbook` **적용** (source CHECK +`factbook`) |
+
+**end-to-end 실증**: South Korea(C1·40단어)·United States(B2·8)·France(C1·16) enqueue→process→publish 전 구간 — 전량 **published · register=reference · public_domain · display_only=false · is_published=true · llm_cost 0**. → **reference publishable 0→3**, 4개 코어 register 전부 발행 가능 콘텐츠 확보.
+
+### §20.3 — register 피드 단위 전환: narrative 채움 + VOA 오분류 교정 (2026-07-09)
+
+**결함**: `dev-process` 의 `REGISTER_BY_SOURCE` 가 **소스 단위**라 VOA 전 피드가 `news` 로 태깅됨 — VOA 는 피드마다 글 유형이 다름(lets-learn-english=서사·science-technology=설명문·as-it-is=시사). 결과: narrative register 가 실 콘텐츠(VOA 서사)를 갖고도 **0** 이었고 news 가 과대(30) 계상.
+
+**교정**: `resolveArticleRegister(source, feedId)` — feed override(`FEED_REGISTER`) 우선, 없으면 `SOURCE_REGISTER_DEFAULT`, 그래도 없으면 expository. 패키지 SSoT + dev-process 가 `feed_id` 읽어 적용. drift-lock +4 tests(총 24).
+
+| feed | 전(前) | 후(後) |
+|---|---|---|
+| voa:lets-learn-english (13) | news | **narrative** |
+| voa:science-technology (5)·words-and-their-stories (9) | news | **expository** |
+| voa:as-it-is (3) | news | news (유지) |
+
+**백필**: 기존 VOA 30건 register 재분류(메타만 — 단어세트 불변). 결과 매트릭스: expository 78·**narrative 13**·argumentative 8·news 3·reference 3 → **5개 코어 register 전부 publishable** (새 콘텐츠 0, 분류 교정만). narrative(설계상 LCP 도서 register)도 짧은-읽기 서사 기사로 보강됨.
+
+### §20.4 — 동결 풀 feasibility 재분석 + S3 헤지 갭 (2026-07-09)
+
+전수 소스 매트릭스를 **feasibility 축**(HTML-native vs PDF/SPA/NC)으로 재정리 → [CSAT_SOURCE_MATRIX.md](./CSAT_SOURCE_MATRIX.md) 신설. 핵심 발견:
+
+- **청정 viable(HTML+CC-BY, 실측)**: PLOS(서버렌더 111×`<p>`·CC-BY)·eLife digest(API·CC-BY)·Wikipedia 정규(`_mediawiki` 재사용)·PMC(JATS XML). 단 **트리거 전부 미충족**(5 register 이미 커버) → 대기열 유지.
+- **PDF-블록(OBP 동형)**: OECD(403+PDF+NC-ND)·World Bank OKR(DSpace)·UNDP HDR·CRS/CBO/GAO(전량 PDF). dependency-0 불가.
+- **NC 오염(읽기 전용)**: LibreTexts(CC BY-NC-SA)·Saylor·Lumen.
+- **⚠ 구조적 결함(신규)**: "OWID 밀도 부정 → OECD·UNDP 자동 승격" S3 헤지가 **작동 불가** — 두 대체재 모두 PDF-블록. S3 논증-파생의 실질 HTML-native 백업이 **부재**. S3 볼륨이 병목화되면 새 HTML 논증 소스 발굴 필요(현재 후보 없음).
+- **트리거 종합**: 현 시점 동결 풀 **어느 소스도 승격 트리거 미충족** → 다음 과제는 신설이 아니라 **깊이(얇은 칸 드레인)**.

@@ -4,9 +4,6 @@
 'use client'
 
 import type { Segment, Cefr } from '@/lib/vcb/types'
-import type { VocabFilters } from '@/lib/vcb/filters'
-import { DistributionChart } from './DistributionChart'
-import { SampleWords } from './SampleWords'
 
 const SEGMENTS: Array<{ value: Segment; label: string }> = [
   { value: 'middle_school', label: '중학' },
@@ -32,12 +29,11 @@ interface MetaState {
 }
 
 interface Props {
-  filters: VocabFilters
   meta: MetaState
   onMetaChange: (next: MetaState) => void
 }
 
-export function MetaStep({ filters, meta, onMetaChange }: Props) {
+export function MetaStep({ meta, onMetaChange }: Props) {
   const slugValid = SLUG_PATTERN.test(meta.collection_slug)
   const titleValid =
     meta.collection_title.trim().length > 0 && meta.collection_title.length <= 200
@@ -58,28 +54,12 @@ export function MetaStep({ filters, meta, onMetaChange }: Props) {
     <div className="flex flex-col gap-8">
       <div>
         <h3 className="font-display font-semibold text-base mb-1" style={{ color: 'var(--t1)' }}>
-          단어장 정보 + 최종 미리보기
+          단어장 정보
         </h3>
         <p className="text-sm font-body" style={{ color: 'var(--t3)' }}>
-          collection_slug / 제목 등 메타데이터를 입력하고, 분포·샘플을 확인 후 생성.
+          슬러그·제목 등 기본 정보를 입력하고 생성하세요. 실제 단어는 다음 단계(시드 생성)에서 채웁니다.
         </p>
       </div>
-
-      {/* ── Distribution ─────────────────────── */}
-      <section
-        className="rounded-[var(--r-lg)] border p-5"
-        style={{ borderColor: 'var(--bd)', background: 'var(--bg)' }}
-      >
-        <DistributionChart filters={filters} />
-      </section>
-
-      {/* ── Sample ───────────────────────────── */}
-      <section
-        className="rounded-[var(--r-lg)] border p-5"
-        style={{ borderColor: 'var(--bd)', background: 'var(--bg)' }}
-      >
-        <SampleWords filters={filters} />
-      </section>
 
       {/* ── Meta form ────────────────────────── */}
       <section
@@ -92,7 +72,7 @@ export function MetaStep({ filters, meta, onMetaChange }: Props) {
 
         <label className="flex flex-col gap-1">
           <span className="text-xs font-display" style={{ color: 'var(--t3)' }}>
-            collection_slug <span style={{ color: 'var(--error)' }}>*</span>
+            슬러그(URL 식별자) <span style={{ color: 'var(--error)' }}>*</span>
           </span>
           <input
             type="text"

@@ -1,0 +1,32 @@
+> AUTO-GENERATED — `scripts/sync-export-memory.mjs` 가 갱신. 손으로 편집하지 말 것.
+> source: C:/Users/kille/.claude/projects/c--Users-kille-Vocaflow/memory/project_dict_field_completeness.md
+> category: project
+
+---
+
+**v06.225 Phase 5** — 사용자 지시 "빈도수 상관없이 레벨별 있어야 할 단어 정보 항목 모두 점검". sense/POS([[project_dict_context_sense_matching]])와 별개로 학습자-대면 **필드 완비**를 v_level별 전수 감사.
+
+**감사 결과(shared_dictionary 45,496)**: meaning_ko·meanings_ko·pos·cefr·v_level = **100%**. example 84.5% · ipa 64% · synonyms 59% · inflections 55% · collocations 31% · antonyms 31% · korean_learner_note 27%. **audio_url·image_url·mnemonic_ko = 0%**(별도 에셋/런타임 파이프라인 미구축, 데이터 결측 아님 — 스코프 외). 결측은 v_level이 아니라 과거 **빈도-기반 dict-fill**([[project_dict_fill_top5k_done]] 등) 잔재로 전 레벨 산재.
+
+**예문 전수 채움 완료(2026-07-13)**: 사용자 "전체 계속(끝까지)" 선택. 실 단일어(pos∉idiom/phrasal · word에 공백 없음 · word_register∉archaic_literary/period_cultural) 결측 **2,548개** → Claude(=LLM) 문맥·sense 예문 생성, 15배치. **전 레벨 V1~V11 example 100%** 달성. 전체 사전 example 84.5%→**90.1%**. 잔여 결측 4,517 = **전량 관용구/구동사/다어절/고어**(독립 예문이 부적절한 단위 → 정당한 스킵). 저-레벨 결측은 대부분 고유명사·브랜드(™)·약어·영국식 철자·합성어였고, V10-11은 초희귀 파생어·음식·동물·명명대상이 압도.
+
+**적용 방식**: `UPDATE shared_dictionary SET example_en=v.ex FROM (VALUES ...) v(word,ex) WHERE word=v.word AND (example_en IS NULL OR example_en='')`. 배치당 100~200. 특수문자 키(™·é·ñ·curly ’·straight ' 이중따옴표 이스케이프) 정확 매칭. 예문엔 apostrophe 회피(escaping 단순화).
+
+**남은 필드 결측(후속 배치 대상)**: ipa 실 단일어 ~10,594 · synonyms ~15K · collocations V11 거의 전무. 감사 쿼리 재사용 가능(v_level별 `count(*) FILTER (WHERE <field> ...)`).
+
+**추출 품질 개선 항목 6개(2026-07-13 도출, 발음 제외)** — 추출 함수가 쓰는 게이트/스코어/조인 필드 진단:
+1. **word_register 노이즈 카테고리 — ✅ 구현 완료**: brand(™ 96)·abbreviation(무모음 2~5자 129)·proper_noun 신설(CHECK 마이그 `20260713100000`), 추출 함수 제외 확장(`20260713100500`). **proper_noun 분류는 후속**(고유명사 소문자화돼 패턴 어려움 → LLM 패스 필요).
+2. **frequency_rank NULL 백필(잔여)**: `_extract_composite_score`가 NULL rank→0.40 가중 **완전 0점**. study-tier plain V6-10 **5,890**개 불이익. 빈도 코퍼스 백필 또는 함수가 NULL을 중립처리하도록 보정.
+3. **사전 커버리지 갭(잔여)**: 발행 도서 단어 **19.5%(4,669)** 미등록→추출 불가. 성격=OCR/방언 오류+고유명사+희귀. 상류 tokenization/OCR-clean 갭. stage_book_dict_candidates 드레인 + 노이즈 게이트.
+4. **다의어 sense 완성도(잔여)**: rank≤5000 단일-sense 3,027(동일-POS 다의어 사각, light 빛·match 성냥). 배치 재검수.
+5. **spelling_variants 미활용(잔여)**: 114만 채움, 영/미 변형 dedup 부재.
+6. **verified false 73%(저우선)**: composite 0.10이나 예문 90%로 상쇄.
+
+**추출-평가 방법론(2026-07-13, 재사용)**: **분석된 도서에 `select_book_chapter_vocab` 집계 → cap-40 진입 단어(sort_order≤40) 최다등장 순 육안 평가**가 고효율. **rank 샘플이 놓친 실 도서 다의어 gap을 정확 포착**(현대/기술/법률/협소 뜻만 저장·대표 뜻 누락 패턴). 추출 품질은 앞선 작업으로 이미 높음(초기 플래그 대부분 false alarm).
+
+**도서 5권씩 배치 채굴 루프(자동화 완료 `scripts/lcp/dict-mine-batch.mjs`)**: 목적=사전만 개선(도서 transient·용량 절약). 실행 `node scripts/lcp/dict-mine-batch.mjs --batches N --count 5`. 단계: (1) `library_seed_catalog`에서 미채굴 SE seed pick(필터: `imported_to_books IS NOT true` AND `NOT curation_meta.dict_mined` AND NOT EXISTS in library_books; 600 pool 클라이언트 Fisher-Yates) → `library_books` 직접 INSERT(status='queued', admin_enqueue_book는 is_admin_or_curator 가드라 MCP 불가) — id AND source_id 함께 캡처. (2) `reprocess-all-se.mjs --commit --ids <uuid,...>` spawnSync(fetch+segment+winkNLP, 권당 수십초, 거대챕터 skip 있음). (3) `select_book_chapter_vocab` 집계 → 단일-sense(meanings_ko.length===1)·sort_order≤40·rank≤8000 후보를 `data/mine-candidates.json`에 등장 도서수 합산 누적. (4) lbv/chapters/book_curation_jobs/library_books DELETE + seed `curation_meta.dict_mined=true` 마킹. **후보 수리(어느 sense 누락)는 Claude(=LLM) 수동 검토** — 스크립트는 후보만.
+
+**단일단어 example top-up (2026-07-16, v06.252)**: 추출 대상(classified·v_level·노이즈 register 제외) 단일 단어 잔여 결측 **172개**(대부분 학술 고급어 auscultation/sedimentary/inhibitory·영국식 철자변형) 채움 → **단일단어 example 100%**. 도구 `scripts/dict/example-fill.mjs`(dump 청크→4 서브에이전트 병렬→apply 검증·멱등). 잔여 결측 1,635=multiword(단일토큰 추출 무관, 정당 스킵). 앞선 "전 레벨 100%" 주장은 이후 추가/재분류분으로 소폭 재발생했던 것 → 재봉인.
+
+**진행(2026-07-13) — 100권 채굴 완료·yield 포화 확정**: **run1(50권)→2,903 후보→실 gap 16 수리**: drift·flush·quarrel·sin·despair(동사 누락 5)·bundle·thrill·vain·blaze·spy·shield(동사/형용사 누락 6)·thrust·divine·retreat·surge(4)·**ah**(abbreviation "암페어시" 오분류→interjection 교정 1). **run2(+50권=100권 누적)→+430 신규 단어(전부 등장 ≤4권)→실 gap 2**(articulate 형용사·lapse 동사, 등장 2-3권). 수동 15권 별도 ~18단어(bid·tender·pardon·pin·rear·rage·whip·variation·span·merit·fling·strand·furnish·worship·dread·vow·mock·distress). **누적 mined ~115권·수리 ~36단어**. **yield 곡선: 0.32→0.04 gap/book(8배 급락)=포화**. run2 신규 430개가 전부 등장 ≤4권 희귀어=고빈도 다의어는 run1에서 전량 포착. **결론: 도서 채굴로 발견 가능한 고가치 gap 소진**(남은 ~1,320 SE seed는 이미 정확한 롱테일 희귀어; 권당 fetch+winkNLP ~30초 비용 대비 실익 미미). **근본 사전 전체 이슈 미발견**(전부 per-word 다의어). **핵심 관찰: 등장 도서수=임팩트 정렬**이 핵심 효율 레버. 재개 시 baseline `data/mine-baseline-words.json`와 diff해 신규만 검토. **스크립트 dedup 버그 수정**(최종 write가 정렬 배열→다음 run 재로드 시 array/object 혼동 중복; load/final-write 양쪽 word-키 dedup 정규화). curation_status 이미 전부 'done'→curation_meta 플래그 추적.
+

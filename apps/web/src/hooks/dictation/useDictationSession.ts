@@ -57,13 +57,25 @@ export function createSession(config: DictationConfig): DictationSession | null 
   return session;
 }
 
+export type DictationSessionStatus = 'loading' | 'ready' | 'not-found';
+
 export function useDictationSession(sessionId: string | null) {
   const [session, setSession] = useState<DictationSession | null>(null);
+  // localStorage 조회 결과 구분 — 미발견 시 무한 로딩 대신 명확한 안내를 위해 status 노출
+  const [status, setStatus] = useState<DictationSessionStatus>('loading');
 
   useEffect(() => {
-    if (!sessionId) return;
+    if (!sessionId) {
+      setStatus('not-found');
+      return;
+    }
     const s = getSession(sessionId);
-    if (s) setSession(s);
+    if (s) {
+      setSession(s);
+      setStatus('ready');
+    } else {
+      setStatus('not-found');
+    }
   }, [sessionId]);
 
   const persist = useCallback((next: DictationSession) => {
@@ -157,6 +169,7 @@ export function useDictationSession(sessionId: string | null) {
 
   return {
     session,
+    status,
     currentItem,
     progress,
     isComplete,

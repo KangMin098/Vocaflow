@@ -1,36 +1,33 @@
 // apps/web/src/components/plan/PlanClient.tsx
 // 학습 계획 — 컴포저 + 주간 보드 (나열식 탈피, 한눈에 클릭클릭).
-//   · 주간 보드: 담은 자료를 요일(월~일)에 배치 — 날짜가 한눈에. 칩 클릭 → 우측 구성에서 편집.
-//   · 컴포저(2-pane): 좌=자료 고르기(탭·V밴드·표지) / 우=선택 자료의 챕터·활동·요일 칩 한 화면.
-// 데이터: study_plan_items(modules/chapters/weekdays). Calm UI · 색+아이콘 이중(색맹).
+//   · 주간 보드: 담은 자료를 요일(월~일, 이번 주 날짜 병기)에 배치 — 칩에 활동 아이콘·챕터 배지.
+//   · 컴포저(2-pane): 좌=자료 고르기(탭·V밴드·표지) / 우=챕터 리스트(제목)·활동·요일 칩 한 화면.
+// 데이터: study_plan_items(modules/chapters/weekdays) + library_chapters_master(챕터 제목).
+// Calm UI · 색+아이콘 이중(색맹) · 날짜는 서버 KST 산출 주입(하이드레이션 안전).
 
 'use client'
 
 import {
   BookMarked,
-  BookOpen,
   CalendarDays,
   Check,
   ExternalLink,
   FileText,
-  Headphones,
   Layers,
-  Mic2,
+  ListChecks,
   Newspaper,
   Pencil,
-  PencilLine,
   Play,
   Plus,
-  ScrollText,
-  Shuffle,
   Sparkles,
   Trash2,
   X,
-  Zap,
-  type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useState, useTransition } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
+
+import { ActivityGlyph } from '@/components/plan/ActivityGlyph'
+import { MATERIAL_ICON } from '@/lib/learner/activity-icons'
 
 import {
   ACTIVITY_BY_ID,
@@ -47,33 +44,16 @@ import {
   type MaterialType,
   type PlanActivity,
 } from '@/lib/learner/plan-activities'
-import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
+import { V_BANDS, vBandOf } from '@/lib/library/genres'
 import {
+  fetchBookChapters,
   removePlanItem,
   savePlanItem,
   type AvailableMaterials,
+  type BookChapter,
   type MaterialOption,
   type PlanItem,
 } from '@/lib/learner/plan-actions'
-
-const ACTIVITY_ICON: Record<string, LucideIcon> = {
-  Headphones,
-  BookOpen,
-  Mic2,
-  Layers,
-  Zap,
-  Shuffle,
-  Pencil,
-  ScrollText,
-  PencilLine,
-}
-
-const MATERIAL_ICON: Record<MaterialType, LucideIcon> = {
-  book: BookMarked,
-  article: Newspaper,
-  word_set: Layers,
-  script: FileText,
-}
 
 const TYPE_TABS: MaterialType[] = ['book', 'article', 'word_set', 'script']
 
@@ -94,10 +74,13 @@ export function PlanClient({
   initialItems,
   materials,
   todayWeekday,
+  weekDates,
 }: {
   initialItems: PlanItem[]
   materials: AvailableMaterials
   todayWeekday: number
+  /** 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 KST 산출) */
+  weekDates: string[]
 }) {
   const [items, setItems] = useState<PlanItem[]>(initialItems)
   const [error, setError] = useState<string | null>(null)
@@ -107,14 +90,31 @@ export function PlanClient({
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  /** 구성 패널 — 보드/목록에서 선택하면 화면 밖일 때 스크롤로 데려온다 */
+  const composerRef = useRef<HTMLElement | null>(null)
+  function revealComposer() {
+    // 이미 보이면 nearest 가 이동을 생략 — 화면 밖일 때만 부드럽게 이동
+    setTimeout(() => composerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 30)
+  }
 
-  // picker
+  // picker — 분류 레일(좌) 선택 상태. 'all' = 전체(섹션 헤더로 그룹 표시)
   const [activeTab, setActiveTab] = useState<MaterialType>('book')
-  const [bandFilter, setBandFilter] = useState<VBand | 'all'>('all')
-  const [subFilter, setSubFilter] = useState<string | null>(null)
+  const [rail, setRail] = useState<string>('all')
+  // 스크립트 3단 드릴 선택 — 좌측 2열(소스·분류) 네비 + 우측 선택 영역(컨텐츠)이 공유
+  const [artSrc, setArtSrc] = useState<string>('')
+  const [artProg, setArtProg] = useState<string>('')
+  // 스크립트 다건 선택 — 선택 id 집합 + 공유 활동·요일(일괄 담기). 도서/단어장은 단건 draft 유지.
+  const [artSel, setArtSel] = useState<Set<string>>(() => new Set())
+  const [artActs, setArtActs] = useState<Set<PlanActivity>>(() => defaultActivities('article'))
+  const [artDays, setArtDays] = useState<Set<number>>(() => new Set([todayWeekday]))
 
   const editItem = items.find((i) => i.id === editId) ?? null
-  const addedKeys = new Set(items.map((i) => `${i.materialType}:${i.materialId}`))
+  /** 자료별 담긴 배치 수 — picker '계획 N' 배지 (다중 엔트리: 같은 자료 여러 배치 가능) */
+  const countByKey = new Map<string, number>()
+  for (const i of items) {
+    const k = `${i.materialType}:${i.materialId}`
+    countByKey.set(k, (countByKey.get(k) ?? 0) + 1)
+  }
 
   const tabMaterials: Record<MaterialType, MaterialOption[]> = {
     book: materials.books,
@@ -123,34 +123,56 @@ export function PlanClient({
     script: materials.scripts,
   }
 
-  const subFilterOptions: { value: string; label: string }[] =
-    activeTab === 'article'
-      ? (Array.from(new Set(materials.articles.map((a) => a.source).filter(Boolean))) as string[]).map(
-          (v) => ({ value: v, label: articleSourceLabel(v) }),
-        )
-      : activeTab === 'word_set'
-        ? (Array.from(new Set(materials.wordSets.map((w) => w.category).filter(Boolean))) as string[]).map(
-            (v) => ({ value: v, label: wordsetCategoryLabel(v) }),
-          )
-        : []
-
   const candidates = tabMaterials[activeTab]
-    .filter((m) => !addedKeys.has(`${activeTab}:${m.id}`))
-    .filter((m) => (!subFilter ? true : (activeTab === 'article' ? m.source : m.category) === subFilter))
-
-  const groupedBands: { key: VBand | 'none'; label: string; short: string; items: MaterialOption[] }[] = [
-    ...V_BANDS.map((b) => ({ key: b.key as VBand | 'none', label: b.label, short: b.short, items: [] as MaterialOption[] })),
-    { key: 'none' as const, label: '레벨 무관', short: '', items: [] as MaterialOption[] },
-  ]
-  for (const c of candidates) {
-    const band = (c.vLevel ? vBandOf(c.vLevel) : null) ?? 'none'
-    groupedBands.find((g) => g.key === band)?.items.push(c)
-  }
-  const visibleBands = groupedBands.filter(
-    (g) => g.items.length > 0 && (bandFilter === 'all' || g.key === bandFilter),
+  // 소스 탭(스크립트·내 스크립트·공용단어장) — 소스별 분류 네비 + 우측 다건 선택 공유
+  const isSourceTab = activeTab === 'article' || activeTab === 'script' || activeTab === 'word_set'
+  const navSourceLabel = activeTab === 'word_set' ? wordsetCategoryLabel : articleSourceLabel
+  const navOrder =
+    activeTab === 'word_set'
+      ? ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article', 'library_book']
+      : activeTab === 'script'
+        ? ['library', 'direct-script', 'direct-file', 'shared-set']
+        : ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
+  const articleNav = buildArticleNav(
+    isSourceTab ? candidates : materials.articles,
+    artSrc,
+    artProg,
+    navSourceLabel,
+    navOrder,
   )
 
+  // 탭별 분류 — 도서/내 스크립트=V밴드, 스크립트=소스별, 공용단어장=카테고리+도서(챕터별).
+  // 분류는 좌측 레일, 세부 리스트는 우측 — 모든 자료 유형에 동일한 master-detail 패턴.
+  interface PickerGroup {
+    key: string
+    label: string
+    short?: string
+    items: MaterialOption[]
+  }
+  // 소스탭(스크립트·내 스크립트·공용단어장)은 buildArticleNav 로 렌더 → groups 불필요.
+  // 그 외(도서)만 표준 master-detail 용 V밴드 그룹을 만든다.
+  let groups: PickerGroup[] = []
+  if (!isSourceTab) {
+    const bands: PickerGroup[] = [
+      ...V_BANDS.map((b) => ({ key: b.key as string, label: b.label, short: b.short, items: [] as MaterialOption[] })),
+      { key: 'none', label: '레벨 무관', items: [] as MaterialOption[] },
+    ]
+    for (const c of candidates) {
+      const band = ((c.vLevel ? vBandOf(c.vLevel) : null) ?? 'none') as string
+      bands.find((g) => g.key === band)?.items.push(c)
+    }
+    groups = bands
+  }
+  const nonEmptyGroups = groups.filter((g) => g.items.length > 0)
+  const visibleGroups = rail === 'all' ? nonEmptyGroups : nonEmptyGroups.filter((g) => g.key === rail)
+
   // ── 선택/구성 ──
+  /** picker 클릭 — 이미 담은 자료면 그 항목 편집으로, 아니면 신규 draft */
+  /** picker 클릭 — 다중 엔트리: 항상 새 배치(draft). 담은 배치 편집/삭제는 주간 보드 카드에서. */
+  function pickMaterial(m: MaterialOption) {
+    pickNew(m)
+  }
+
   function pickNew(m: MaterialOption) {
     setEditId(null)
     setError(null)
@@ -163,13 +185,16 @@ export function PlanClient({
       option: m,
       activities: defaultActivities(activeTab),
       chapters: new Set(),
-      weekdays: new Set(),
+      // 기본 요일 = 오늘 — 담자마자 '요일 미정'에 떨어지지 않게 (해제하면 미정으로 담김)
+      weekdays: new Set([todayWeekday]),
     })
+    revealComposer()
   }
   function editExisting(item: PlanItem) {
     setDraft(null)
     setError(null)
     setEditId((cur) => (cur === item.id ? null : item.id))
+    revealComposer()
   }
   function closeComposer() {
     setDraft(null)
@@ -196,13 +221,12 @@ export function PlanClient({
     startTransition(async () => {
       const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays })
       setAdding(false)
-      if (!res.ok) {
+      if (!res.ok || !res.id) {
         setError(res.error ?? '추가에 실패했어요.')
         return
       }
-      const tmpId = `tmp-${type}-${m.id}`
       const newItem: PlanItem = {
-        id: tmpId,
+        id: res.id, // 실 DB id — 낙관적 갱신이 삭제/편집에 그대로 사용
         materialType: type,
         materialId: m.id,
         modules,
@@ -220,7 +244,86 @@ export function PlanClient({
       }
       setItems((prev) => [...prev, newItem])
       setDraft(null)
-      setEditId(tmpId) // 담은 뒤 바로 편집 상태 유지
+      setEditId(res.id) // 담은 뒤 바로 그 배치 편집 상태
+    })
+  }
+
+  // ── 스크립트 다건 선택 — 토글 + 공유 구성 + 일괄 커밋 ──
+  const toggleArtSel = (id: string) =>
+    setArtSel((prev) => {
+      const n = new Set(prev)
+      if (n.has(id)) n.delete(id)
+      else n.add(id)
+      return n
+    })
+  const toggleArtAct = (a: PlanActivity) =>
+    setArtActs((prev) => {
+      const n = new Set(prev)
+      if (n.has(a)) n.delete(a)
+      else n.add(a)
+      return n
+    })
+  const toggleArtDay = (d: number) =>
+    setArtDays((prev) => {
+      const n = new Set(prev)
+      if (n.has(d)) n.delete(d)
+      else n.add(d)
+      return n
+    })
+
+  // 소스 탭(스크립트·내 스크립트·공용단어장) 다건 일괄 커밋 — 현재 탭 type + 해당 pool 사용.
+  function commitSourceBatch() {
+    if (!isSourceTab) return
+    const type = activeTab
+    const modules = Array.from(artActs)
+    if (artSel.size === 0) return
+    if (modules.length === 0) {
+      setError('활동을 하나 이상 골라 주세요.')
+      return
+    }
+    const weekdays = Array.from(artDays).sort((a, b) => a - b)
+    const pool =
+      type === 'script' ? materials.scripts : type === 'word_set' ? materials.wordSets : materials.articles
+    const picks = pool.filter((a) => artSel.has(a.id))
+    setError(null)
+    setAdding(true)
+    startTransition(async () => {
+      const added: PlanItem[] = []
+      for (const m of picks) {
+        const res = await savePlanItem({
+          materialType: type,
+          materialId: m.id,
+          modules,
+          chapters: [],
+          weekdays,
+        })
+        if (res.ok && res.id) {
+          added.push({
+            id: res.id,
+            materialType: type,
+            materialId: m.id,
+            modules,
+            title: m.title,
+            subtitle: m.subtitle,
+            href: materialHref({ type, id: m.id, slug: m.slug }),
+            slug: m.slug,
+            vLevel: m.vLevel,
+            chapters: [],
+            weekdays,
+            chapterCount: m.chapterCount,
+            coverUrl: m.coverUrl,
+            coverEmoji: m.coverEmoji,
+            source: m.source,
+          })
+        }
+      }
+      setAdding(false)
+      if (added.length === 0) {
+        setError('추가에 실패했어요.')
+        return
+      }
+      setItems((prev) => [...prev, ...added])
+      setArtSel(new Set())
     })
   }
 
@@ -233,6 +336,7 @@ export function PlanClient({
     setError(null)
     startTransition(async () => {
       const res = await savePlanItem({
+        id: item.id,
         materialType: item.materialType,
         materialId: item.materialId,
         modules,
@@ -265,7 +369,8 @@ export function PlanClient({
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-5 px-4 py-8 md:py-10">
+    // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
+    <div className="flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
       <header>
         <h1 className="flex items-center gap-2 font-display text-[22px] font-[800] text-[var(--t1)]">
@@ -289,13 +394,20 @@ export function PlanClient({
       )}
 
       {/* 오늘의 학습 */}
-      {items.length > 0 && <TodayStrip items={items} today={todayWeekday} />}
+      {items.length > 0 && <TodayStrip items={items} today={todayWeekday} weekDates={weekDates} />}
 
       {/* 주간 보드 */}
-      <WeekBoard items={items} editId={editId} today={todayWeekday} onSelect={editExisting} />
+      <WeekBoard
+        items={items}
+        editId={editId}
+        today={todayWeekday}
+        weekDates={weekDates}
+        onSelect={editExisting}
+      />
 
       {/* 컴포저 (2-pane) */}
       <section
+        ref={composerRef}
         aria-label="자료 추가·구성"
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
       >
@@ -317,8 +429,15 @@ export function PlanClient({
                   type="button"
                   onClick={() => {
                     setActiveTab(t)
-                    setBandFilter('all')
-                    setSubFilter(null)
+                    setRail('all')
+                    // 탭 전환 시 우측 컴포저 초기화 — 다른 탭의 draft/편집·다건 선택이 새 탭을 가리지 않게
+                    setDraft(null)
+                    setEditId(null)
+                    setError(null)
+                    setArtSel(new Set())
+                    setArtActs(defaultActivities(t))
+                    setArtSrc('')
+                    setArtProg('')
                   }}
                   className={`inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
@@ -334,79 +453,76 @@ export function PlanClient({
             })}
           </div>
 
-          {/* V밴드 필터 */}
-          <div className="flex flex-wrap gap-1.5">
-            <FilterChip label="전체" small active={bandFilter === 'all'} onClick={() => setBandFilter('all')} />
-            {V_BANDS.map((b) => (
-              <FilterChip
-                key={b.key}
-                label={b.label}
-                small
-                active={bandFilter === b.key}
-                onClick={() => setBandFilter(b.key)}
-              />
-            ))}
-          </div>
-
-          {/* 서브필터 */}
-          {subFilterOptions.length > 1 && (
-            <div className="flex flex-wrap gap-1.5">
-              <FilterChip label="전체" small active={subFilter === null} onClick={() => setSubFilter(null)} />
-              {subFilterOptions.map((o) => (
-                <FilterChip
-                  key={o.value}
-                  label={o.label}
-                  small
-                  active={subFilter === o.value}
-                  onClick={() => setSubFilter(o.value)}
+          {/* 소스 탭(스크립트·내 스크립트)=좌 2열 네비(소스·분류), 컨텐츠는 우측 선택 영역. 그 외=표준 master-detail */}
+          {isSourceTab ? (
+            <ArticleNav
+              nav={articleNav}
+              col1Label={activeTab === 'word_set' ? '카테고리' : '소스'}
+              col2Label={activeTab === 'word_set' ? '책' : '분류'}
+              onSource={(k) => {
+                setArtSrc(k)
+                setArtProg('')
+              }}
+              onProgram={(k) => setArtProg(k)}
+            />
+          ) : (
+          <div className="flex gap-2">
+              <nav
+                aria-label="분류"
+                className="flex max-h-[420px] w-[110px] shrink-0 flex-col gap-1 overflow-y-auto"
+              >
+                <RailButton
+                  label="전체"
+                  count={candidates.length}
+                  active={rail === 'all'}
+                  onClick={() => setRail('all')}
                 />
-              ))}
+                {nonEmptyGroups.map((g) => (
+                  <RailButton
+                    key={g.key}
+                    label={g.label}
+                    short={g.short}
+                    count={g.items.length}
+                    active={rail === g.key}
+                    onClick={() => setRail(g.key)}
+                  />
+                ))}
+              </nav>
+
+              <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
+                {visibleGroups.length === 0 ? (
+                  <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
+                    {tabMaterials[activeTab].length === 0 ? '표시할 자료가 없어요.' : '이 분류에 자료가 없어요.'}
+                  </p>
+                ) : (
+                  <div className="flex flex-col gap-3">
+                    {visibleGroups.map((g) => (
+                      <div key={g.key} className="flex flex-col gap-1.5">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
+                          {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
+                          <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
+                          <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
+                        </div>
+                        <ul className="flex flex-col gap-1.5">
+                          {g.items.map((m) => (
+                            <MaterialRow
+                              key={m.id}
+                              m={m}
+                              type={activeTab}
+                              picked={draft?.option.id === m.id}
+                              count={countByKey.get(`${activeTab}:${m.id}`) ?? 0}
+                              onPick={() => pickMaterial(m)}
+                            />
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
-
-          {/* 밴드 섹션 */}
-          <div className="max-h-[420px] overflow-y-auto pr-1">
-            {visibleBands.length === 0 ? (
-              <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
-                {tabMaterials[activeTab].length === 0
-                  ? activeTab === 'script'
-                    ? '내 스크립트가 아직 없어요.'
-                    : '표시할 자료가 없어요.'
-                  : '조건에 맞는 자료가 없어요. 필터를 바꿔 보세요.'}
-              </p>
-            ) : (
-              <div className="flex flex-col gap-3">
-                {visibleBands.map((g) => (
-                  <div key={g.key} className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
-                      {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
-                      <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-                    </div>
-                    {activeTab === 'book' ? (
-                      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-                        {g.items.map((m) => (
-                          <BookGridItem key={m.id} m={m} picked={draft?.option.id === m.id} onPick={() => pickNew(m)} />
-                        ))}
-                      </div>
-                    ) : (
-                      <ul className="flex flex-col gap-1.5">
-                        {g.items.map((m) => (
-                          <MaterialRow
-                            key={m.id}
-                            m={m}
-                            type={activeTab}
-                            picked={draft?.option.id === m.id}
-                            onPick={() => pickNew(m)}
-                          />
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
 
         {/* 우: 구성 */}
@@ -415,6 +531,8 @@ export function PlanClient({
             <DraftConfig
               draft={draft}
               adding={adding}
+              weekDates={weekDates}
+              today={todayWeekday}
               onPatch={patchDraft}
               onCommit={commitDraft}
               onClose={closeComposer}
@@ -422,6 +540,8 @@ export function PlanClient({
           ) : editItem ? (
             <ItemConfig
               item={editItem}
+              weekDates={weekDates}
+              today={todayWeekday}
               onToggleActivity={(a) =>
                 persistItem(editItem, {
                   modules: editItem.modules.includes(a)
@@ -446,6 +566,26 @@ export function PlanClient({
               onRemove={() => removeItem(editItem)}
               onClose={closeComposer}
             />
+          ) : isSourceTab && articleNav.activeProgram && articleNav.activeProgram.items.length > 0 ? (
+            <ArticleSelectPane
+              type={activeTab}
+              program={articleNav.activeProgram}
+              sourceLabel={
+                articleNav.sources.find((s) => s.key === articleNav.activeSourceKey)?.label ?? ''
+              }
+              countByKey={countByKey}
+              selected={artSel}
+              onToggle={toggleArtSel}
+              onClear={() => setArtSel(new Set())}
+              activities={artActs}
+              onToggleActivity={toggleArtAct}
+              weekdays={artDays}
+              onToggleWeekday={toggleArtDay}
+              weekDates={weekDates}
+              today={todayWeekday}
+              adding={adding}
+              onCommit={commitSourceBatch}
+            />
           ) : (
             <div className="flex min-h-[200px] flex-col items-center justify-center gap-2 text-center">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t3)]" aria-hidden>
@@ -465,7 +605,7 @@ export function PlanClient({
 }
 
 // ── 오늘의 학습 (오늘 요일 항목 → 바로 시작) ──
-function TodayStrip({ items, today }: { items: PlanItem[]; today: number }) {
+function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: number; weekDates: string[] }) {
   const todayItems = items.filter((i) => i.weekdays.includes(today))
   const dayLabel = weekdayLabel(today)
   return (
@@ -475,7 +615,10 @@ function TodayStrip({ items, today }: { items: PlanItem[]; today: number }) {
     >
       <h2 className="flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
         <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
-        오늘의 학습 <span className="font-mono text-[12px] text-[var(--p)]">{dayLabel}요일</span>
+        오늘의 학습{' '}
+        <span className="font-mono text-[12px] text-[var(--p)]">
+          {weekDates[today - 1]} {dayLabel}요일
+        </span>
       </h2>
       {todayItems.length === 0 ? (
         <p className="font-body text-[13px] text-[var(--t3)]">
@@ -493,8 +636,6 @@ function TodayStrip({ items, today }: { items: PlanItem[]; today: number }) {
 }
 
 function TodayRow({ item }: { item: PlanItem }) {
-  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
-  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   return (
     <div className="flex flex-col gap-1.5">
       <span className="flex items-center gap-1.5">
@@ -506,137 +647,298 @@ function TodayRow({ item }: { item: PlanItem }) {
           </span>
         )}
       </span>
-      {acts.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {acts.map((a) => (
-            <LaunchChip
-              key={a.id}
-              activity={a.id}
-              href={activityLaunchHref(ref, a.id)}
-              scoped={isActivityScoped(item.materialType, a.id)}
-            />
-          ))}
-        </div>
-      )}
+      {/* 바로 시작 — 공용단어장이면 챕터 스코프 선택 포함(LaunchRow) */}
+      <LaunchRow item={item} />
     </div>
   )
 }
 
-// ── 주간 보드 ──
+// ── 주간 보드 (가로 7열 캘린더) ──
+//   요일=열. 데스크톱은 grid-cols-7 한 화면, 모바일은 가로 스크롤(열 min-width + snap).
+//   계획 있는 날=흰 종이 카드로 도드라지고, 빈 날은 캔버스에 잠겨 물러난다. 오늘=테두리+틴트+'오늘' 3중.
 function WeekBoard({
   items,
   editId,
   today,
+  weekDates,
   onSelect,
 }: {
   items: PlanItem[]
   editId: string | null
   today: number
+  weekDates: string[]
   onSelect: (item: PlanItem) => void
 }) {
   const unscheduled = items.filter((i) => i.weekdays.length === 0)
+  const plannedDays = WEEKDAYS.filter((d) => items.some((i) => i.weekdays.includes(d.value))).length
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+  const todayColRef = useRef<HTMLDivElement | null>(null)
+  // 모바일(가로 스크롤 시) 오늘 열을 보이게 — 넘치지 않는 데스크톱에선 무해(스킵)
+  useEffect(() => {
+    const sc = scrollerRef.current
+    const col = todayColRef.current
+    if (!sc || !col || sc.scrollWidth <= sc.clientWidth) return
+    sc.scrollLeft = Math.max(0, col.offsetLeft - sc.offsetLeft - 8)
+  }, [])
   return (
     <section
       aria-label="주간 보드"
-      className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-3"
+      className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
     >
-      <div className="grid grid-cols-7 gap-1.5">
-        {WEEKDAYS.map((d) => {
-          const dayItems = items.filter((i) => i.weekdays.includes(d.value))
-          const isToday = d.value === today
-          return (
-            <div
-              key={d.value}
-              className={`flex min-h-[68px] flex-col gap-1 rounded-[var(--r-md)] p-1.5 ${
-                isToday ? 'bg-[var(--bg)] ring-2 ring-[var(--p)]' : 'bg-[var(--bg)]'
-              }`}
-            >
-              <span
-                className={`text-center font-display text-[11px] font-[800] ${
-                  isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+      {/* 헤더 — 오늘의 학습·컴포저와 동일한 섹션 리듬 */}
+      <div className="flex items-center gap-1.5 px-0.5">
+        <CalendarDays size={14} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
+        <h2 className="font-display text-[13px] font-[800] text-[var(--t1)]">주간 보드</h2>
+        <span className="font-mono text-[11px] text-[var(--t3)]">
+          {plannedDays > 0 ? `이번 주 ${plannedDays}일 계획` : '요일에 자료를 배치해요'}
+        </span>
+      </div>
+
+      {/* 7열 — 데스크톱=한 화면 grid, 모바일=가로 스크롤(min-w + snap). items-start 로 열마다 자연 높이 */}
+      <div ref={scrollerRef} className="snap-x overflow-x-auto pb-2 pt-0.5 [scrollbar-width:thin]">
+        <div className="grid min-w-[820px] grid-cols-7 items-start gap-2">
+          {WEEKDAYS.map((d) => {
+            const dayItems = items.filter((i) => i.weekdays.includes(d.value))
+            const isToday = d.value === today
+            const empty = dayItems.length === 0
+            return (
+              <div
+                key={d.value}
+                ref={isToday ? todayColRef : undefined}
+                className={`flex snap-start flex-col overflow-hidden rounded-[var(--r-md)] border transition-colors duration-[var(--dur-normal)] ${
+                  isToday
+                    ? 'border-[var(--p)] bg-[var(--bg)] shadow-[var(--sh-xs)]'
+                    : empty
+                      ? 'border-[var(--bd)] bg-[var(--bg2)]'
+                      : 'border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xs)]'
                 }`}
               >
-                {d.label}
-                {isToday && <span className="ml-0.5 align-top text-[8px]">오늘</span>}
-              </span>
-              <div className="flex flex-col items-center gap-1">
-                {dayItems.length === 0 ? (
-                  <span className="font-mono text-[12px] text-[var(--t3)]" aria-hidden>
-                    ·
+                {/* 요일 헤더 (요일·날짜·오늘) — 색+형태 이중, 오늘은 틴트+배지 */}
+                <div
+                  className={`flex flex-col items-center gap-0.5 border-b px-1 py-1.5 ${
+                    isToday ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)]'
+                  }`}
+                >
+                  <span
+                    className={`font-display text-[13px] font-[800] leading-none ${
+                      isToday ? 'text-[var(--p)]' : 'text-[var(--t1)]'
+                    }`}
+                  >
+                    {d.label}
                   </span>
-                ) : (
-                  dayItems.map((it) => (
-                    <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
-                  ))
-                )}
+                  <span
+                    className={`font-mono text-[9.5px] leading-none tabular-nums ${
+                      isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                    }`}
+                  >
+                    {weekDates[d.value - 1] ?? ''}
+                  </span>
+                  {isToday && (
+                    <span className="mt-0.5 rounded-full bg-[var(--p)] px-1.5 py-[1.5px] font-display text-[8px] font-[800] leading-none text-[var(--ti)]">
+                      오늘
+                    </span>
+                  )}
+                </div>
+
+                {/* 본문 — 계획 카드 스택 or 빈 상태 */}
+                <div className="flex min-h-[72px] flex-1 flex-col gap-1.5 p-1.5">
+                  {empty ? (
+                    <span className="flex flex-1 items-center justify-center py-2 font-body text-[10px] italic text-[var(--t4)]">
+                      비어 있음
+                    </span>
+                  ) : (
+                    dayItems.map((it) => (
+                      <DayCard key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
 
       {unscheduled.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5 border-t border-[rgba(59,130,246,0.2)] pt-2">
-          <span className="font-display text-[11px] font-[700] text-[var(--t3)]">요일 미정</span>
-          {unscheduled.map((it) => (
-            <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} wide />
-          ))}
+        <div className="flex flex-col gap-1 border-t border-[var(--bd)] pt-2">
+          <p className="font-body text-[11px] text-[var(--t3)]">
+            <span className="font-display font-[700] text-[var(--t2)]">요일 미정</span> — 아직 요일을 안 정한
+            계획이에요. 눌러서 요일을 고르면 위 보드에 배치돼요.
+          </p>
+          <div className="flex flex-col gap-1">
+            {unscheduled.map((it) => (
+              <BoardChip key={it.id} item={it} active={editId === it.id} onClick={() => onSelect(it)} />
+            ))}
+          </div>
         </div>
       )}
     </section>
   )
 }
 
-function BoardChip({
-  item,
-  active,
-  onClick,
-  wide,
-}: {
-  item: PlanItem
-  active: boolean
-  onClick: () => void
-  wide?: boolean
-}) {
+/** 보드 칩·카드의 챕터 배지 — 소수(≤3)는 번호로(같은 도서의 여러 배치 구분), 다수는 개수. */
+function chapterBadge(item: PlanItem): string | null {
+  if (!(item.materialType === 'book' && item.chapterCount > 1)) return null
+  if (item.chapters.length === 0) return '전체'
+  if (item.chapters.length <= 3) return `${item.chapters.join('·')}장`
+  return `${item.chapters.length}장`
+}
+
+// 주간 보드 열 카드 — 좁은 요일 열(≈120px) 안에서 표지·제목(2줄)·챕터·활동을 세로로 압축.
+//   보드 행(BoardChip)의 열-지향 형제. active=편집 중(잉크 채움). 색+형태+텍스트 3중 유지.
+function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; onClick: () => void }) {
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  const shown = acts.slice(0, 4)
+  const overflow = acts.length - shown.length
+  const chapterLabel = chapterBadge(item)
+  const actLabels = acts.map((a) => a.label).join('·')
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      title={`${item.title} (${item.modules.length}활동)`}
-      className={`inline-flex max-w-full items-center gap-1 rounded-[var(--r-sm)] border px-1.5 py-1 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
+      className={`flex w-full flex-col gap-1.5 rounded-[var(--r-sm)] border p-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+        active
+          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+          : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:-translate-y-px hover:border-[var(--p)] hover:shadow-[var(--sh-xs)]'
+      }`}
+    >
+      <span className="flex items-start justify-between gap-1">
+        <MiniMaterialGlyph item={item} />
+        {chapterLabel && (
+          <span
+            className={`inline-flex h-4 shrink-0 items-center gap-0.5 rounded-[4px] px-1 font-mono text-[9px] tabular-nums ${
+              active ? 'bg-white/15 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
+            }`}
+            aria-hidden
+          >
+            <ListChecks size={9} strokeWidth={2} />
+            {chapterLabel}
+          </span>
+        )}
+      </span>
+      <span className="line-clamp-2 font-display text-[11.5px] font-[700] leading-snug">{item.title}</span>
+      {shown.length > 0 && (
+        <span className="flex flex-wrap items-center gap-0.5">
+          {shown.map((a) => (
+            <ActivityGlyph key={a.id} activity={a.id} size="sm" tone={active ? 'onDark' : 'default'} />
+          ))}
+          {overflow > 0 && (
+            <span
+              className={`font-mono text-[9px] ${active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'}`}
+              aria-hidden
+            >
+              +{overflow}
+            </span>
+          )}
+          <span className="sr-only">
+            {chapterLabel ? `챕터 ${chapterLabel}, ` : ''}활동: {actLabels || '없음'}
+          </span>
+        </span>
+      )}
+    </button>
+  )
+}
+
+/** 보드 행에 보여줄 활동 아이콘 최대 수 — 초과분은 +n 으로 접기 */
+const CHIP_MAX_ICONS = 6
+
+/** 주간 보드 계획 행 — 표지·제목·챕터 배지·활동 아이콘을 한 줄 카드로 */
+function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean; onClick: () => void }) {
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  const shown = acts.slice(0, CHIP_MAX_ICONS)
+  const overflow = acts.length - shown.length
+  const chapterLabel = chapterBadge(item)
+  const actLabels = acts.map((a) => a.label).join('·')
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
+      className={`flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--p)]'
-      } ${wide ? '' : 'w-full justify-center'}`}
+      }`}
     >
       <MiniMaterialGlyph item={item} />
-      {wide && <span className="truncate font-display text-[11px] font-[700]">{item.title}</span>}
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="truncate font-display text-[12px] font-[700] leading-tight">{item.title}</span>
+        {(shown.length > 0 || chapterLabel) && (
+          <span
+            className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 ${
+              active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'
+            }`}
+          >
+            {chapterLabel && (
+              <span
+                className={`inline-flex h-5 items-center gap-0.5 rounded-[5px] px-1 font-mono text-[10px] tabular-nums ${
+                  active ? 'bg-white/15' : 'bg-[var(--bg3)]'
+                }`}
+                aria-hidden
+              >
+                <ListChecks size={11} strokeWidth={2} />
+                {chapterLabel}
+              </span>
+            )}
+            {shown.map((a) => (
+              <ActivityGlyph key={a.id} activity={a.id} size="sm" tone={active ? 'onDark' : 'default'} />
+            ))}
+            {overflow > 0 && (
+              <span className="font-mono text-[10px]" aria-hidden>
+                +{overflow}
+              </span>
+            )}
+            <span className="sr-only">
+              {chapterLabel ? `챕터 ${chapterLabel}, ` : ''}활동: {actLabels || '없음'}
+            </span>
+          </span>
+        )}
+      </span>
     </button>
   )
 }
 
 function MiniMaterialGlyph({ item }: { item: PlanItem }) {
   if (item.materialType === 'word_set' && item.coverEmoji) {
-    return <span className="text-[13px] leading-none" aria-hidden>{item.coverEmoji}</span>
+    return (
+      <span
+        className="inline-flex h-9 w-7 shrink-0 items-center justify-center rounded-[3px] bg-[var(--bg)] text-[16px] leading-none"
+        aria-hidden
+      >
+        {item.coverEmoji}
+      </span>
+    )
   }
   if (item.materialType === 'book' && item.coverUrl) {
-    return <Cover url={item.coverUrl} title={item.title} className="h-[22px] w-[16px] rounded-[2px]" />
+    return <Cover url={item.coverUrl} title={item.title} className="h-9 w-7 shrink-0 rounded-[3px]" />
   }
   const Icon = MATERIAL_ICON[item.materialType]
-  return <Icon size={13} strokeWidth={1.75} aria-hidden />
+  return (
+    <span
+      className="inline-flex h-9 w-7 shrink-0 items-center justify-center rounded-[3px] bg-[var(--p-light)] text-[var(--p)]"
+      aria-hidden
+    >
+      <Icon size={15} strokeWidth={1.75} />
+    </span>
+  )
 }
 
 // ── 우측 구성 — 신규 draft ──
 function DraftConfig({
   draft,
   adding,
+  weekDates,
+  today,
   onPatch,
   onCommit,
   onClose,
 }: {
   draft: Draft
   adding: boolean
+  weekDates: string[]
+  today: number
   onPatch: (p: Partial<Pick<Draft, 'activities' | 'chapters' | 'weekdays'>>) => void
   onCommit: () => void
   onClose: () => void
@@ -665,18 +967,18 @@ function DraftConfig({
       <ConfigHeader title={m.title} subtitle={MATERIAL_LABEL[type]} onClose={onClose} />
       {type === 'book' && m.chapterCount > 1 && (
         <ConfigBlock label={`챕터 — 안 고르면 전체 (${m.chapterCount})`}>
-          <ChapterRow count={m.chapterCount} selected={draft.chapters} onToggle={toggleC} />
+          <ChapterList bookId={m.id} count={m.chapterCount} selected={draft.chapters} onToggle={toggleC} />
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (학습 수단)">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5">
           {activitiesForType(type).map((a) => (
             <ActivityChip key={a} activity={a} selected={draft.activities.has(a)} onClick={() => toggleA(a)} />
           ))}
         </div>
       </ConfigBlock>
-      <ConfigBlock label="학습 요일">
-        <WeekdayChips selected={draft.weekdays} onToggle={toggleW} />
+      <ConfigBlock label="학습 요일 — 안 고르면 보드의 '요일 미정'에 담겨요">
+        <WeekdayChips selected={draft.weekdays} weekDates={weekDates} today={today} onToggle={toggleW} />
       </ConfigBlock>
       <button
         type="button"
@@ -686,7 +988,9 @@ function DraftConfig({
       >
         {adding
           ? '담는 중…'
-          : `계획에 담기 (${draft.activities.size}활동${draft.weekdays.size > 0 ? ` · ${draft.weekdays.size}일` : ''})`}
+          : `계획에 담기 (${draft.activities.size}활동${
+              draft.weekdays.size > 0 ? ` · 주 ${draft.weekdays.size}일` : ' · 요일 미정'
+            })`}
       </button>
     </div>
   )
@@ -695,6 +999,8 @@ function DraftConfig({
 // ── 우측 구성 — 담은 항목 편집 (즉시 저장) ──
 function ItemConfig({
   item,
+  weekDates,
+  today,
   onToggleActivity,
   onToggleChapter,
   onToggleWeekday,
@@ -702,13 +1008,14 @@ function ItemConfig({
   onClose,
 }: {
   item: PlanItem
+  weekDates: string[]
+  today: number
   onToggleActivity: (a: PlanActivity) => void
   onToggleChapter: (n: number) => void
   onToggleWeekday: (d: number) => void
   onRemove: () => void
   onClose: () => void
 }) {
-  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
   const selected = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
   const hasChapters = item.materialType === 'book' && item.chapterCount > 1
   return (
@@ -729,32 +1036,29 @@ function ItemConfig({
 
       {hasChapters && (
         <ConfigBlock label="챕터 (안 고르면 전체)">
-          <ChapterRow count={item.chapterCount} selectedArr={item.chapters} onToggle={onToggleChapter} />
+          <ChapterList
+            bookId={item.materialId}
+            count={item.chapterCount}
+            selectedArr={item.chapters}
+            onToggle={onToggleChapter}
+          />
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (켜고 끄면 바로 저장)">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5">
           {activitiesForType(item.materialType).map((a) => (
             <ActivityChip key={a} activity={a} selected={item.modules.includes(a)} onClick={() => onToggleActivity(a)} small />
           ))}
         </div>
       </ConfigBlock>
       <ConfigBlock label="학습 요일">
-        <WeekdayChips selected={item.weekdays} onToggle={onToggleWeekday} />
+        <WeekdayChips selected={item.weekdays} weekDates={weekDates} today={today} onToggle={onToggleWeekday} />
       </ConfigBlock>
 
       {selected.length > 0 && (
         <ConfigBlock label="바로 시작">
-          <div className="flex flex-wrap gap-1.5">
-            {selected.map((a) => (
-              <LaunchChip
-                key={a.id}
-                activity={a.id}
-                href={activityLaunchHref(ref, a.id)}
-                scoped={isActivityScoped(item.materialType, a.id)}
-              />
-            ))}
-          </div>
+          {/* 공용단어장이면 챕터 스코프 선택 포함 — 게임을 특정 챕터 단어로 시작 */}
+          <LaunchRow item={item} />
         </ConfigBlock>
       )}
 
@@ -809,24 +1113,99 @@ function ConfigBlock({ label, children }: { label: string; children: React.React
   )
 }
 
-function ChapterRow({
+// ── 챕터 리스트 (번호 + 제목, 체크 선택) ──
+// 제목은 library_chapters_master 에서 지연 로드 — 번호는 즉시 렌더, 제목이 도착하면 채워진다.
+const chapterTitleCache = new Map<string, BookChapter[]>()
+
+function ChapterList({
+  bookId,
   count,
   selected,
   selectedArr,
   onToggle,
 }: {
+  bookId: string
   count: number
   selected?: Set<number>
   selectedArr?: number[]
   onToggle: (n: number) => void
 }) {
+  const [loaded, setLoaded] = useState<BookChapter[] | null>(chapterTitleCache.get(bookId) ?? null)
+  useEffect(() => {
+    const cached = chapterTitleCache.get(bookId)
+    if (cached) {
+      setLoaded(cached)
+      return
+    }
+    let alive = true
+    setLoaded(null)
+    fetchBookChapters(bookId).then((cs) => {
+      chapterTitleCache.set(bookId, cs)
+      if (alive) setLoaded(cs)
+    })
+    return () => {
+      alive = false
+    }
+  }, [bookId])
+
+  const titleByIdx = new Map((loaded ?? []).map((c) => [c.idx, c.title]))
+  const vLevelByIdx = new Map((loaded ?? []).map((c) => [c.idx, c.vLevel]))
   const has = (n: number) => (selectedArr ? selectedArr.includes(n) : (selected?.has(n) ?? false))
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {Array.from({ length: count }, (_, i) => i + 1).map((n) => (
-        <ChapterChip key={n} n={n} selected={has(n)} onClick={() => onToggle(n)} />
-      ))}
-    </div>
+    <ul className="flex max-h-[240px] flex-col gap-1 overflow-y-auto pr-1" aria-label="챕터 목록">
+      {Array.from({ length: count }, (_, i) => i + 1).map((n) => {
+        const on = has(n)
+        const title = titleByIdx.get(n)
+        return (
+          <li key={n}>
+            <button
+              type="button"
+              onClick={() => onToggle(n)}
+              aria-pressed={on}
+              className={`flex min-h-[40px] w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                on
+                  ? 'border-[var(--p)] bg-[var(--p-light)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] hover:border-[var(--p)]'
+              }`}
+            >
+              <span
+                className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[4px] border transition-colors duration-[var(--dur-normal)] ${
+                  on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]' : 'border-[var(--bd)] bg-[var(--bg)]'
+                }`}
+                aria-hidden
+              >
+                {on && <Check size={12} strokeWidth={3} />}
+              </span>
+              <span
+                className={`w-7 shrink-0 text-right font-mono text-[12px] font-[700] tabular-nums ${
+                  on ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                }`}
+              >
+                {n}
+              </span>
+              <span
+                className={`min-w-0 flex-1 truncate font-body text-[13px] ${
+                  on ? 'text-[var(--t1)]' : 'text-[var(--t2)]'
+                }`}
+              >
+                {title ?? (loaded === null ? '…' : `${n}장`)}
+              </span>
+              {/* 챕터별 어휘 V-level — 단일 book_v_level 이 뭉개는 편차 노출 (색상만 의존 X, 숫자 텍스트) */}
+              {vLevelByIdx.get(n) != null && (
+                <span
+                  className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[9px] font-[700] leading-none tabular-nums ${
+                    on ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t3)]'
+                  }`}
+                  title={`이 장의 어휘 난이도 V${vLevelByIdx.get(n)} — 책 전체 라벨과 다를 수 있어요`}
+                >
+                  V{vLevelByIdx.get(n)}
+                </span>
+              )}
+            </button>
+          </li>
+        )
+      })}
+    </ul>
   )
 }
 
@@ -855,68 +1234,394 @@ function Cover({ url, title, className }: { url: string | null; title: string; c
   )
 }
 
-function BookGridItem({ m, picked, onPick }: { m: MaterialOption; picked: boolean; onPick: () => void }) {
+// 분류(프로그램) 라벨 — 부모(소스) 이름 중복 제거 (계층에선 소스가 이미 헤더로 노출).
+//   예: "The Conversation — Health + Medicine" → "Health + Medicine" · "NASA News Releases" → "News Releases".
+//   원문은 tooltip(title)로 보존.
+function shortProgramLabel(sourceLabel: string, label: string): string {
+  let out = label.trim()
+  for (const sep of [' — ', ' - ', ': ', ' ']) {
+    const p = sourceLabel + sep
+    if (out.startsWith(p) && out.length > p.length) {
+      out = out.slice(p.length).trim()
+      break
+    }
+  }
+  const suffix = `(${sourceLabel})`
+  if (out.endsWith(suffix)) out = out.slice(0, -suffix.length).trim()
+  return out || label
+}
+
+// 스크립트(article) 네비 데이터 — 소스별 → 활성 소스의 프로그램별. buildArticleNav 순수 계산(상태는 PlanClient).
+interface ArticleNavData {
+  sources: { key: string; label: string; items: MaterialOption[] }[]
+  activeSourceKey: string
+  programs: { key: string; label: string; full: string | null; items: MaterialOption[] }[]
+  activeProgramKey: string
+  activeProgram: { key: string; label: string; full: string | null; items: MaterialOption[] } | null
+}
+
+function buildArticleNav(
+  articles: MaterialOption[],
+  srcKey: string,
+  progKey: string,
+  sourceLabel: (k: string) => string,
+  order: string[],
+): ArticleNavData {
+  const SOURCE_ORDER = order
+  const NONE = '__none__'
+  const bySource = new Map<string, MaterialOption[]>()
+  for (const m of articles) {
+    const k = m.source ?? 'etc'
+    if (!bySource.has(k)) bySource.set(k, [])
+    bySource.get(k)!.push(m)
+  }
+  const sources = Array.from(bySource.keys())
+    .sort((a, b) => (SOURCE_ORDER.indexOf(a) + 1 || 99) - (SOURCE_ORDER.indexOf(b) + 1 || 99))
+    .map((k) => ({ key: k, label: sourceLabel(k), items: bySource.get(k)! }))
+  const activeSource = sources.find((s) => s.key === srcKey) ?? sources[0]
+
+  const byFeed = new Map<string, MaterialOption[]>()
+  for (const m of activeSource?.items ?? []) {
+    const k = m.feedLabel ?? NONE
+    if (!byFeed.has(k)) byFeed.set(k, [])
+    byFeed.get(k)!.push(m)
+  }
+  const programs = Array.from(byFeed.keys())
+    .sort((a, b) => (a === NONE ? 1 : b === NONE ? -1 : a.localeCompare(b)))
+    .map((k) => ({
+      key: k,
+      label: k === NONE ? '전체' : shortProgramLabel(activeSource?.label ?? '', k),
+      full: k === NONE ? null : k,
+      items: byFeed.get(k)!,
+    }))
+  const activeProgram = programs.find((p) => p.key === progKey) ?? programs[0] ?? null
+
+  return {
+    sources,
+    activeSourceKey: activeSource?.key ?? '',
+    programs,
+    activeProgramKey: activeProgram?.key ?? '',
+    activeProgram,
+  }
+}
+
+// 좌측 2열 네비 — ① 소스 · ② 소스별 분류(프로그램). 컨텐츠는 우측 선택 영역이 담당.
+function ArticleNav({
+  nav,
+  onSource,
+  onProgram,
+  col1Label = '소스',
+  col2Label = '분류',
+}: {
+  nav: ArticleNavData
+  onSource: (key: string) => void
+  onProgram: (key: string) => void
+  col1Label?: string
+  col2Label?: string
+}) {
   return (
-    <button
-      type="button"
-      onClick={onPick}
-      aria-pressed={picked}
-      className={`group flex flex-col gap-1 rounded-[var(--r-md)] border p-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        picked ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-transparent hover:border-[var(--bd)]'
+    <div className="flex gap-2.5">
+      {/* ① 1단 분류(소스/카테고리) */}
+      <div className="flex shrink-0 flex-col gap-1.5">
+        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+          {col1Label}
+        </span>
+        <nav aria-label={col1Label} className="flex max-h-[400px] w-[96px] flex-col gap-1 overflow-y-auto">
+          {nav.sources.map((s) => (
+            <RailButton
+              key={s.key}
+              label={s.label}
+              count={s.items.length}
+              active={s.key === nav.activeSourceKey}
+              onClick={() => onSource(s.key)}
+            />
+          ))}
+        </nav>
+      </div>
+      {/* ② 2단 분류(프로그램/책) */}
+      <div className="flex shrink-0 flex-col gap-1.5 border-l border-[var(--bd)] pl-2.5">
+        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+          {col2Label}
+        </span>
+        <nav aria-label={col2Label} className="flex max-h-[400px] w-[134px] flex-col gap-1 overflow-y-auto">
+          {nav.programs.map((p) => {
+          const on = p.key === nav.activeProgramKey
+          return (
+            <button
+              key={p.key}
+              type="button"
+              onClick={() => onProgram(p.key)}
+              aria-pressed={on}
+              title={p.full ?? p.label}
+              className={`flex min-h-[38px] w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                on
+                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+                  : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+              }`}
+            >
+              <span className="min-w-0 flex-1 line-clamp-2 font-display text-[11px] font-[700] leading-tight">
+                {p.label}
+              </span>
+              <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+                {p.items.length}
+              </span>
+            </button>
+          )
+          })}
+        </nav>
+      </div>
+    </div>
+  )
+}
+
+// 우측 선택 영역 — 스크립트 다건 선택(체크박스) + 선택분 공유 구성(활동·요일) → 일괄 담기.
+function ArticleSelectPane({
+  type,
+  program,
+  sourceLabel,
+  countByKey,
+  selected,
+  onToggle,
+  onClear,
+  activities,
+  onToggleActivity,
+  weekdays,
+  onToggleWeekday,
+  weekDates,
+  today,
+  adding,
+  onCommit,
+}: {
+  type: MaterialType
+  program: { label: string; full: string | null; items: MaterialOption[] }
+  sourceLabel: string
+  countByKey: Map<string, number>
+  selected: Set<string>
+  onToggle: (id: string) => void
+  onClear: () => void
+  activities: Set<PlanActivity>
+  onToggleActivity: (a: PlanActivity) => void
+  weekdays: Set<number>
+  onToggleWeekday: (d: number) => void
+  weekDates: string[]
+  today: number
+  adding: boolean
+  onCommit: () => void
+}) {
+  const n = selected.size
+  const Icon = type === 'word_set' ? Layers : Newspaper
+  return (
+    <div className="flex flex-col gap-3">
+      {/* 헤더 */}
+      <div className="flex items-center gap-1.5 border-b border-[var(--bd)] pb-2.5">
+        <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
+          <Icon size={13} strokeWidth={1.75} />
+        </span>
+        <h2 className="min-w-0 truncate font-display text-[14px] font-[800] text-[var(--t1)]">
+          {sourceLabel}
+          {program.full ? <span className="font-[700] text-[var(--t3)]"> · {program.label}</span> : null}
+        </h2>
+        <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
+          {program.items.length}
+        </span>
+        {n > 0 && (
+          <button
+            type="button"
+            onClick={onClear}
+            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            {n}개 선택 · 해제
+          </button>
+        )}
+      </div>
+
+      {/* ① 컨텐츠 다건 선택 */}
+      <p className="font-body text-[12px] italic text-[var(--t3)]">
+        담을 자료를 여러 개 고르세요 — 아래에서 활동·요일을 정해 한 번에 담아요.
+      </p>
+      <ul className="flex max-h-[300px] flex-col gap-1.5 overflow-y-auto pr-1">
+        {program.items.map((m) => (
+          <ArticlePickRow
+            key={m.id}
+            m={m}
+            type={type}
+            selected={selected.has(m.id)}
+            inPlan={(countByKey.get(`${type}:${m.id}`) ?? 0) > 0}
+            onToggle={() => onToggle(m.id)}
+          />
+        ))}
+      </ul>
+
+      {/* ② 선택분 공유 구성 + ③ 일괄 담기 */}
+      {n > 0 ? (
+        <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+          <ConfigBlock label={`활동 — 선택한 ${n}개 공통`}>
+            <div className="grid grid-cols-2 gap-1.5">
+              {activitiesForType(type).map((a) => (
+                <ActivityChip
+                  key={a}
+                  activity={a}
+                  selected={activities.has(a)}
+                  onClick={() => onToggleActivity(a)}
+                  small
+                />
+              ))}
+            </div>
+          </ConfigBlock>
+          <ConfigBlock label="학습 요일 — 안 고르면 '요일 미정'에 담겨요">
+            <WeekdayChips selected={weekdays} weekDates={weekDates} today={today} onToggle={onToggleWeekday} />
+          </ConfigBlock>
+          <button
+            type="button"
+            onClick={onCommit}
+            disabled={adding || activities.size === 0}
+            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {adding
+              ? '담는 중…'
+              : `계획에 담기 (${n}개 자료 · ${activities.size}활동${
+                  weekdays.size > 0 ? ` · 주 ${weekdays.size}일` : ' · 요일 미정'
+                })`}
+          </button>
+        </div>
+      ) : (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] p-3 text-center font-body text-[12px] text-[var(--t3)]">
+          자료를 선택하면 활동·요일 구성이 열려요.
+        </p>
+      )}
+    </div>
+  )
+}
+
+// 다건 선택 행 — 체크박스 + 배지 + 제목 + V레벨(+담김 표시).
+function ArticlePickRow({
+  m,
+  type,
+  selected,
+  inPlan,
+  onToggle,
+}: {
+  m: MaterialOption
+  type: MaterialType
+  selected: boolean
+  inPlan: boolean
+  onToggle: () => void
+}) {
+  return (
+    <li
+      className={`group rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
+        selected
+          ? 'border-[var(--p)] bg-[var(--p-light)] shadow-[var(--sh-xs)]'
+          : 'border-[var(--bd)] bg-[var(--bg2)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)]'
       }`}
     >
-      <span className="relative block aspect-[2/3] w-full overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
-        <Cover url={m.coverUrl} title={m.title} className="h-full w-full transition-transform duration-[var(--dur-normal)] group-hover:scale-[1.04]" />
-        {picked && (
-          <span className="absolute right-1 top-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--p)] text-[var(--ti)]" aria-hidden>
-            <Check size={12} strokeWidth={3} />
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={selected}
+        title={m.title}
+        className="flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
+      >
+        <span
+          className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-[var(--dur-normal)] ${
+            selected
+              ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+              : 'border-[var(--bd)] bg-[var(--bg)] group-hover:border-[var(--p)]'
+          }`}
+          aria-hidden
+        >
+          {selected && <Check size={12} strokeWidth={3} />}
+        </span>
+        <MaterialBadge type={type} m={m} />
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">{m.title}</span>
+          {m.subtitle && (
+            <span className="truncate font-body text-[11px] leading-tight text-[var(--t3)]">{m.subtitle}</span>
+          )}
+        </span>
+        {m.vLevel != null && m.vLevel > 0 && (
+          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+            V{m.vLevel}
           </span>
         )}
-      </span>
-      <span className="line-clamp-2 px-0.5 font-display text-[10px] font-[700] leading-tight text-[var(--t1)]">
-        {m.title}
-      </span>
-    </button>
+        {inPlan && (
+          <span
+            className="inline-flex h-5 shrink-0 items-center gap-0.5 rounded-full bg-[var(--bg3)] px-1.5 font-display text-[9px] font-[800] text-[var(--t2)]"
+            title="이미 계획에 담긴 자료 (또 담을 수 있어요)"
+          >
+            <Check size={9} strokeWidth={3} aria-hidden /> 담김
+          </span>
+        )}
+      </button>
+    </li>
   )
 }
 
 function MaterialRow({
   m,
   type,
+  displayTitle,
   picked,
+  count,
   onPick,
 }: {
   m: MaterialOption
   type: MaterialType
+  /** 그룹 문맥상 짧은 표기 (예: 책 그룹 안 챕터 세트 → 'n장 단어'). 저장/보드엔 원제 사용 */
+  displayTitle?: string
   picked: boolean
+  /** 이미 계획에 담긴 배치 수 (0=미담김) — 다중 엔트리라 클릭은 항상 새 배치 추가 */
+  count?: number
   onPick: () => void
 }) {
+  const inPlan = (count ?? 0) > 0
   return (
     <li
-      className={`rounded-[var(--r-md)] border transition-colors duration-[var(--dur-normal)] ${
-        picked ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+      className={`group rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
+        picked
+          ? 'border-[var(--p)] bg-[var(--p-light)] shadow-[var(--sh-xs)]'
+          : 'border-[var(--bd)] bg-[var(--bg2)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)]'
       }`}
     >
       <button
         type="button"
         onClick={onPick}
         aria-pressed={picked}
-        className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        title={inPlan ? `${m.title} — 계획에 ${count}개 담김 (클릭해 배치 추가)` : m.title}
+        className="flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
       >
         <MaterialBadge type={type} m={m} />
-        <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate font-display text-[13px] font-[700] text-[var(--t1)]">{m.title}</span>
-          {m.subtitle && <span className="truncate font-body text-[11px] text-[var(--t3)]">{m.subtitle}</span>}
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">
+            {displayTitle ?? m.title}
+          </span>
+          {m.subtitle && (
+            <span className="truncate font-body text-[11px] leading-tight text-[var(--t3)]">{m.subtitle}</span>
+          )}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
-          <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
             V{m.vLevel}
           </span>
         )}
-        {picked ? (
-          <Check size={14} strokeWidth={2.5} className="shrink-0 text-[var(--p)]" aria-hidden />
+        {inPlan ? (
+          <span
+            className="inline-flex h-6 shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 font-display text-[9px] font-[800] text-[var(--ti)]"
+            title={`계획에 ${count}개 담김`}
+          >
+            <Check size={10} strokeWidth={3} aria-hidden /> {count}
+          </span>
+        ) : picked ? (
+          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--ti)]" aria-hidden>
+            <Check size={13} strokeWidth={3} />
+          </span>
         ) : (
-          <Plus size={14} strokeWidth={2} className="shrink-0 text-[var(--p)]" aria-hidden />
+          <span
+            className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[var(--p)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p)] group-hover:text-[var(--ti)]"
+            aria-hidden
+          >
+            <Plus size={13} strokeWidth={2.5} />
+          </span>
         )}
       </button>
     </li>
@@ -924,6 +1629,16 @@ function MaterialRow({
 }
 
 function MaterialBadge({ type, m }: { type: MaterialType; m: MaterialOption }) {
+  // 도서는 작은 표지 썸네일 — 리스트형 통일 시에도 표지 시각 단서 유지(2:3 비율).
+  if (type === 'book') {
+    return (
+      <Cover
+        url={m.coverUrl}
+        title={m.title}
+        className="h-10 w-7 shrink-0 rounded-[var(--r-sm)] border border-[var(--bd)]"
+      />
+    )
+  }
   if (type === 'word_set' && m.coverEmoji) {
     return (
       <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg)] text-[16px]" aria-hidden>
@@ -940,48 +1655,36 @@ function MaterialBadge({ type, m }: { type: MaterialType; m: MaterialOption }) {
 }
 
 // ── 칩들 ──
-function FilterChip({
+/** 좌측 분류 레일 버튼 — 라벨(줄임) + 개수 */
+function RailButton({
   label,
+  short,
+  count,
   active,
   onClick,
-  small,
 }: {
   label: string
+  short?: string
+  count: number
   active: boolean
   onClick: () => void
-  small?: boolean
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center rounded-full border font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        small ? 'h-7 px-2.5 text-[11px]' : 'h-8 px-3 text-[12px]'
-      } ${
+      title={short ? `${label} (${short})` : label}
+      className={`flex min-h-[40px] w-full flex-col items-start justify-center rounded-[var(--r-md)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
-      {label}
-    </button>
-  )
-}
-
-function ChapterChip({ n, selected, onClick }: { n: number; selected: boolean; onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={selected}
-      className={`inline-flex h-8 min-w-[36px] items-center justify-center rounded-[var(--r-sm)] border px-2 font-mono text-[12px] font-[700] tabular-nums transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-        selected
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-          : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
-      }`}
-    >
-      {n}
+      <span className="w-full truncate font-display text-[11px] font-[800] leading-tight">{label}</span>
+      <span className={`font-mono text-[10px] tabular-nums ${active ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+        {count}
+      </span>
     </button>
   )
 }
@@ -998,14 +1701,13 @@ function ActivityChip({
   small?: boolean
 }) {
   const def = ACTIVITY_BY_ID[activity]
-  const Icon = ACTIVITY_ICON[def.icon] ?? Layers
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={selected}
       title={def.layer}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`inline-flex min-h-[40px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         small ? 'text-[12px]' : 'text-[13px]'
       } ${
         selected
@@ -1013,38 +1715,59 @@ function ActivityChip({
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
-      {selected ? <Check size={13} strokeWidth={2.5} aria-hidden /> : <Icon size={13} strokeWidth={1.75} aria-hidden />}
-      {def.label}
+      {/* 활동 아이콘은 선택 여부와 무관하게 항상 표시 — 보드 행·바로 시작과 동일 타일 */}
+      <ActivityGlyph activity={activity} size="md" tone={selected ? 'onDark' : 'default'} />
+      <span className="min-w-0 flex-1 truncate text-left">{def.label}</span>
+      {selected && <Check size={13} strokeWidth={3} className="shrink-0" aria-hidden />}
     </button>
   )
 }
 
 function WeekdayChips({
   selected,
+  weekDates,
+  today,
   onToggle,
 }: {
   selected: Set<number> | number[]
+  weekDates: string[]
+  today: number
   onToggle: (d: number) => void
 }) {
   const has = (d: number) => (Array.isArray(selected) ? selected.includes(d) : selected.has(d))
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div role="group" aria-label="학습 요일 선택" className="grid w-full grid-cols-7 gap-1">
       {WEEKDAYS.map((d) => {
         const on = has(d.value)
+        const isToday = d.value === today
+        const date = weekDates[d.value - 1]
         return (
           <button
             key={d.value}
             type="button"
             onClick={() => onToggle(d.value)}
             aria-pressed={on}
-            aria-label={`${d.label}요일`}
-            className={`inline-flex h-9 w-9 items-center justify-center rounded-full border font-display text-[13px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+            aria-label={`${d.label}요일 ${date}${isToday ? ' (오늘)' : ''}`}
+            className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               on
-                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
-                : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+                : isToday
+                  ? 'border-[var(--p)] bg-[var(--bg)] text-[var(--t1)] hover:bg-[var(--p-light)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
             }`}
           >
-            {weekdayLabel(d.value)}
+            <span className="font-display text-[14px] font-[800] leading-none">{weekdayLabel(d.value)}</span>
+            <span className={`font-mono text-[10px] leading-none tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+              {date}
+            </span>
+            {/* 세 번째 슬롯(높이 고정) — 선택=체크(형태), 오늘=라벨. 색상 단독 전달 금지 */}
+            <span className="flex h-[12px] items-center" aria-hidden>
+              {on ? (
+                <Check size={11} strokeWidth={3} />
+              ) : isToday ? (
+                <span className="font-display text-[8px] font-[800] text-[var(--p)]">오늘</span>
+              ) : null}
+            </span>
           </button>
         )
       })}
@@ -1052,16 +1775,77 @@ function WeekdayChips({
   )
 }
 
+// ── 바로 시작 (런처) — 활동 칩 + 공용단어장 챕터 스코프 선택 ──
+//   공용단어장이 내부 챕터(shared_words.chapter)로 나뉘면 "챕터: 전체/1/2…" 선택을 노출하고,
+//   게임(카드/블리츠/스펠포지/페어플립) launch 에 ?chapter=N 를 부착한다. 본문·세트 페이지엔 무영향.
+//   오늘의 학습·구성 패널 '바로 시작'이 공유 — 한 자료의 챕터 단위 학습(최하위 단위)을 런처에서 고른다.
+function LaunchRow({ item }: { item: PlanItem }) {
+  const ref = { type: item.materialType, id: item.materialId, slug: item.slug }
+  const acts = PLAN_ACTIVITIES.filter((a) => item.modules.includes(a.id))
+  const hasSetChapters = item.materialType === 'word_set' && item.chapterCount > 1
+  const [chapter, setChapter] = useState<number | null>(null)
+  if (acts.length === 0) return null
+  return (
+    <div className="flex flex-col gap-1.5">
+      {hasSetChapters && (
+        <ChapterScopePicker count={item.chapterCount} value={chapter} onChange={setChapter} />
+      )}
+      <div className="flex flex-wrap gap-1.5">
+        {acts.map((a) => (
+          <LaunchChip
+            key={a.id}
+            activity={a.id}
+            // chapter 는 word_set 게임 라우트에만 부착됨(builder 가 set= 여부로 판단) — vocab/본문엔 무영향
+            href={activityLaunchHref(ref, a.id, '/plan', chapter)}
+            scoped={isActivityScoped(item.materialType, a.id)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// 공용단어장 내부 챕터 스코프 선택 — 전체 or 특정 챕터. 챕터 수(최대 30)를 컴팩트한 select 로 수용(Calm UI).
+//   게임 launch 에 ?chapter=N 부착. 선택 값은 아이콘+텍스트로 노출 → 색상 단독 전달 금지.
+function ChapterScopePicker({
+  count,
+  value,
+  onChange,
+}: {
+  count: number
+  value: number | null
+  onChange: (n: number | null) => void
+}) {
+  return (
+    <label className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-2 pr-1 text-[var(--t2)]">
+      <ListChecks size={13} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
+      <span className="font-display text-[11px] font-[700]">챕터</span>
+      <select
+        aria-label="게임을 시작할 챕터 범위"
+        value={value ?? 'all'}
+        onChange={(e) => onChange(e.target.value === 'all' ? null : Number(e.target.value))}
+        className="h-7 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 font-mono text-[11px] font-[700] text-[var(--t1)] tabular-nums transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      >
+        <option value="all">전체 ({count})</option>
+        {Array.from({ length: count }, (_, i) => i + 1).map((n) => (
+          <option key={n} value={n}>
+            {n}장
+          </option>
+        ))}
+      </select>
+    </label>
+  )
+}
+
 function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: string; scoped: boolean }) {
   const def = ACTIVITY_BY_ID[activity]
-  const Icon = ACTIVITY_ICON[def.icon] ?? Layers
   return (
     <Link
       href={href}
       title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
-      className="inline-flex min-h-[34px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
-      <Icon size={13} strokeWidth={1.75} aria-hidden />
+      <ActivityGlyph activity={activity} size="sm" />
       {def.label}
       {scoped ? (
         <Play size={11} strokeWidth={2} className="text-[var(--p)] opacity-80" aria-hidden />

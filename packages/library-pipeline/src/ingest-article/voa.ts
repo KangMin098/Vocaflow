@@ -286,6 +286,8 @@ function decodeEntities(s: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&#39;/g, "'")
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
+    // hex 수치 엔티티(&#x27; 등) — _helpers.ts decodeEntities 와 동일(로컬 중복, v06.208 hex 보강)
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
 }
 
 function htmlToPlainText(html: string): string {

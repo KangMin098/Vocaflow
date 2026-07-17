@@ -207,6 +207,7 @@ export function computeLearningValue(
       frequency_in_book: bookFreq,
       first_sentence: first.first_sentence_in_chapter,
       base_learning_value: Number(Math.max(0, Math.min(1, lv)).toFixed(4)),
+      context_pos: first.context_pos,
     })
   }
 

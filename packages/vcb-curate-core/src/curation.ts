@@ -246,6 +246,36 @@ export async function bulkReject(
   return { ok: failed === 0, affected, failed, errors }
 }
 
+// ── 단계 전이: 큐레이션 시작 (qa → curating) ──────────
+// QA 통과 후 큐레이션 워크스페이스 진입 시 1회 전이.
+// Publish 게이트(precheck)가 status='curating' 을 요구하므로, 이 전이가 없으면
+// UI 만으로는 qa 에서 영구 정지 → 발행 불가(dead-end). idempotent — qa 일 때만 전이.
+export async function beginCuration(
+  client: SupabaseClient,
+  runId: number,
+): Promise<{ ok: boolean; status?: string; error?: string }> {
+  const { data, error } = await client
+    .from('vocab_runs')
+    .select('status')
+    .eq('id', runId)
+    .maybeSingle()
+  if (error) return { ok: false, error: `run fetch failed: ${error.message}` }
+  if (!data) return { ok: false, error: `run ${runId} not found` }
+
+  const status = (data as { status: string }).status
+  if (status !== 'qa') return { ok: true, status } // 이미 전이됨/다른 단계 — no-op
+
+  const { error: updErr } = await client
+    .from('vocab_runs')
+    .update({ status: 'curating' })
+    .eq('id', runId)
+    .eq('status', 'qa') // race guard — 동시 전이 방지
+  if (updErr) {
+    return { ok: false, error: `status transition failed: ${updErr.message}` }
+  }
+  return { ok: true, status: 'curating' }
+}
+
 // ── 통계 (CLI stats subcommand 용) ─────────────────
 
 export interface CurationStats {

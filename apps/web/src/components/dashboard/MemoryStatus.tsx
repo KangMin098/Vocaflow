@@ -23,12 +23,7 @@ export interface MemoryStatusProps {
   fresh?: number
 }
 
-export function MemoryStatus({
-  stable = 612,
-  shaky = 142,
-  risk = 58,
-  fresh = 35,
-}: MemoryStatusProps) {
+export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: MemoryStatusProps) {
   const states: MemoryState[] = [
     { key: 'stable', label: '안정', desc: '잘 기억해요', token: '--memory-stable', count: stable },
     { key: 'shaky', label: '흔들림', desc: '가끔 헷갈려요', token: '--memory-shaky', count: shaky },
@@ -37,6 +32,30 @@ export function MemoryStatus({
   ]
   const total = states.reduce((s, x) => s + x.count, 0)
   const attention = shaky + risk
+
+  // 빈 상태 — 아직 등록한 단어가 없을 때 (Calm empty state, 압박 없는 시작 유도)
+  if (total === 0) {
+    return (
+      <section
+        aria-label="기억 상태"
+        className="rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2"
+      >
+        <h2 className="font-display text-[14px] font-[700] tracking-tight text-[var(--t1)]">
+          기억 상태
+        </h2>
+        <p className="mt-2 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+          아직 만난 단어가 없어요. 글을 읽고 단어를 담으면 여기서 기억의 흐름을 볼 수 있어요.
+        </p>
+        <Link
+          href="/library"
+          className="group mt-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)]"
+        >
+          읽을거리 찾아보기
+          <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
+        </Link>
+      </section>
+    )
+  }
 
   return (
     <section

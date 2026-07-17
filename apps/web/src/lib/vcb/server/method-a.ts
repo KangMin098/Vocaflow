@@ -4,7 +4,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import {
   listMethodASources as listMethodASourcesCore,
@@ -24,7 +24,7 @@ export async function listMethodASources(
 ): Promise<ServerActionResult<{ sources: MethodASourceListItem[] }>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const sources = await listMethodASourcesCore(client, run_id)
     return { ok: true, data: { sources } }
   } catch (err) {
@@ -39,7 +39,7 @@ export async function runMethodAExtract(
 ): Promise<ServerActionResult<MethodAExtractResult>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
     const result = await runMethodAExtractCore(client, run_id, source_id)
     if (!result.ok) {
       return { ok: false, error: result.error ?? 'extract failed' }

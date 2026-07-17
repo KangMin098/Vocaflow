@@ -3,12 +3,12 @@
 
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { precheckPublish, type PrecheckResult } from '@vocaflow/vcb-curate-core'
 
 export async function precheckRun(runId: number): Promise<PrecheckResult> {
   await requireAdmin('/admin/vocab')
-  const client = await createClient()
+  const client = createAdminClient()
   return precheckPublish(client, runId)
 }

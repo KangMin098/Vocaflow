@@ -142,14 +142,22 @@ const MASTERY_COLORS = {
   new: '#94A3B8',
 } as const
 
-const MOMENTUM = {
-  streak: 12,
-  mastery: { stable: 97, shaky: 28, risk: 14, new: 17 },
-  weekAccuracy: 84,
-  weekDays: 5,
+// Momentum — 서버 layout 이 실데이터 주입 (user_stats.streak + vocabularies R(t) 4상태 + daily_activity 주간)
+export interface FlowNavMomentum {
+  streak: number
+  mastery: { stable: number; shaky: number; risk: number; fresh: number }
+  weekDays: number
 }
-const MASTERY_TOTAL =
-  MOMENTUM.mastery.stable + MOMENTUM.mastery.shaky + MOMENTUM.mastery.risk + MOMENTUM.mastery.new
+
+const EMPTY_MOMENTUM: FlowNavMomentum = {
+  streak: 0,
+  mastery: { stable: 0, shaky: 0, risk: 0, fresh: 0 },
+  weekDays: 0,
+}
+
+function masteryTotal(m: FlowNavMomentum['mastery']): number {
+  return m.stable + m.shaky + m.risk + m.fresh
+}
 
 // 여정 완성도 — discover 제외 5단계 평균 (Implicit Progress 메리디안)
 const JOURNEY_PERCENT = Math.round(
@@ -278,12 +286,12 @@ function Tip({
 }
 
 // ── Momentum 배지 (전체 실적) ────────────────────────────────────────
-function MomentumBadge() {
+function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
   return (
     <div className="group relative flex shrink-0 items-center">
       <Link
         href="/dashboard"
-        aria-label={`전체 실적 — 연속 ${MOMENTUM.streak}일 · 여정 ${JOURNEY_PERCENT}% · 대시보드 열기`}
+        aria-label={`전체 실적 — 연속 ${momentum.streak}일 · 여정 ${JOURNEY_PERCENT}% · 대시보드 열기`}
         className="flex h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-gradient-to-br from-[#FFF7ED] to-[var(--bg)] px-2.5 transition-all hover:border-[#F59E0B]/40 hover:shadow-[var(--sh-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]/40 dark:from-[#3B2000]/40"
       >
         <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#FBBF24] to-[#F97316] text-white shadow-[0_2px_6px_rgba(249,115,22,0.4)]">
@@ -291,7 +299,7 @@ function MomentumBadge() {
         </span>
         <span className="flex flex-col items-start leading-none">
           <span className="font-display text-[14px] font-[800] tabular-nums text-[var(--t1)]">
-            {MOMENTUM.streak}
+            {momentum.streak}
             <span className="ml-0.5 text-[10px] font-[700] text-[var(--t3)]">일</span>
           </span>
           <span className="mt-0.5 font-mono text-[9px] font-[600] uppercase tracking-wider text-[#D97706]">
@@ -309,9 +317,11 @@ function MomentumBadge() {
             </span>
             <div className="flex flex-col">
               <span className="font-display text-[13px] font-[800] text-[var(--t1)]">
-                {MOMENTUM.streak}일 연속 학습 중
+                {momentum.streak > 0 ? `${momentum.streak}일 연속 학습 중` : '오늘부터 시작해요'}
               </span>
-              <span className="font-body text-[11px] text-[var(--t3)]">오늘도 좋은 흐름이에요</span>
+              <span className="font-body text-[11px] text-[var(--t3)]">
+                {momentum.streak > 0 ? '오늘도 좋은 흐름이에요' : '한 걸음이면 충분해요'}
+              </span>
             </div>
           </div>
 
@@ -322,16 +332,16 @@ function MomentumBadge() {
                 내 어휘 자산
               </span>
               <span className="font-display text-[12px] font-[800] tabular-nums text-[var(--t1)]">
-                {MASTERY_TOTAL}
+                {masteryTotal(momentum.mastery)}
                 <span className="ml-0.5 text-[9px] font-[600] text-[var(--t3)]">개</span>
               </span>
             </div>
-            <MasteryBar />
+            <MasteryBar mastery={momentum.mastery} />
             <div className="flex flex-wrap gap-x-2.5 gap-y-0.5">
-              <MasteryLegend color={MASTERY_COLORS.stable} label="안정" n={MOMENTUM.mastery.stable} />
-              <MasteryLegend color={MASTERY_COLORS.shaky} label="흔들림" n={MOMENTUM.mastery.shaky} />
-              <MasteryLegend color={MASTERY_COLORS.risk} label="위급" n={MOMENTUM.mastery.risk} />
-              <MasteryLegend color={MASTERY_COLORS.new} label="신규" n={MOMENTUM.mastery.new} />
+              <MasteryLegend color={MASTERY_COLORS.stable} label="안정" n={momentum.mastery.stable} />
+              <MasteryLegend color={MASTERY_COLORS.shaky} label="흔들림" n={momentum.mastery.shaky} />
+              <MasteryLegend color={MASTERY_COLORS.risk} label="위급" n={momentum.mastery.risk} />
+              <MasteryLegend color={MASTERY_COLORS.new} label="신규" n={momentum.mastery.fresh} />
             </div>
           </div>
 
@@ -339,11 +349,8 @@ function MomentumBadge() {
           <div className="flex items-center justify-between border-t border-[var(--bd)] pt-2">
             <span className="font-body text-[11px] text-[var(--t2)]">
               이번 주{' '}
-              <strong className="font-display font-[700] text-[var(--t1)]">{MOMENTUM.weekDays}일</strong>
-              {' · 정확도 '}
-              <strong className="font-display font-[700] text-[var(--learn-known)]">
-                {MOMENTUM.weekAccuracy}%
-              </strong>
+              <strong className="font-display font-[700] text-[var(--t1)]">{momentum.weekDays}일</strong>
+              {' 학습'}
             </span>
             <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-display text-[10px] font-[800] text-[var(--p)]">
               여정 {JOURNEY_PERCENT}%
@@ -355,21 +362,20 @@ function MomentumBadge() {
   )
 }
 
-function MasteryBar() {
+function MasteryBar({ mastery }: { mastery: FlowNavMomentum['mastery'] }) {
+  const total = masteryTotal(mastery)
   const segs = [
-    { c: MASTERY_COLORS.stable, n: MOMENTUM.mastery.stable },
-    { c: MASTERY_COLORS.shaky, n: MOMENTUM.mastery.shaky },
-    { c: MASTERY_COLORS.risk, n: MOMENTUM.mastery.risk },
-    { c: MASTERY_COLORS.new, n: MOMENTUM.mastery.new },
+    { c: MASTERY_COLORS.stable, n: mastery.stable },
+    { c: MASTERY_COLORS.shaky, n: mastery.shaky },
+    { c: MASTERY_COLORS.risk, n: mastery.risk },
+    { c: MASTERY_COLORS.new, n: mastery.fresh },
   ]
   return (
     <div className="flex h-2 w-full overflow-hidden rounded-full bg-[var(--bg3)]" aria-hidden>
-      {segs.map((s, i) => (
-        <span
-          key={i}
-          style={{ width: `${(s.n / MASTERY_TOTAL) * 100}%`, backgroundColor: s.c }}
-        />
-      ))}
+      {total > 0 &&
+        segs.map((s, i) => (
+          <span key={i} style={{ width: `${(s.n / total) * 100}%`, backgroundColor: s.c }} />
+        ))}
     </div>
   )
 }
@@ -621,8 +627,9 @@ function StageMobile({
 }
 
 // ── FlowNav main ─────────────────────────────────────────────────
-export function FlowNav() {
+export function FlowNav({ momentum: momentumProp }: { momentum?: FlowNavMomentum | null }) {
   const pathname = usePathname() ?? '/'
+  const momentum = momentumProp ?? EMPTY_MOMENTUM
   if (!shouldShowFlowNav(pathname)) return null
 
   const currentStage = getStageFromPathname(pathname)
@@ -636,7 +643,7 @@ export function FlowNav() {
     >
       {/* Desktop */}
       <div className="relative mx-auto hidden max-w-6xl items-stretch gap-1 px-4 py-2.5 md:flex">
-        <MomentumBadge />
+        <MomentumBadge momentum={momentum} />
         <Connector />
         {STAGES.map((stage, idx) => (
           <span key={stage.key} className="contents">
@@ -667,7 +674,7 @@ export function FlowNav() {
       <div className="relative mx-auto flex max-w-5xl items-center gap-0.5 px-2 py-1.5 md:hidden">
         <span className="mr-0.5 inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] bg-gradient-to-br from-[#FBBF24] to-[#F97316] px-2 py-1 text-white shadow-[0_1px_4px_rgba(249,115,22,0.35)]">
           <Flame size={11} strokeWidth={2.5} aria-hidden />
-          <span className="font-display text-[11px] font-[800] tabular-nums">{MOMENTUM.streak}</span>
+          <span className="font-display text-[11px] font-[800] tabular-nums">{momentum.streak}</span>
         </span>
         {STAGES.map((stage) => (
           <StageMobile

@@ -28,7 +28,9 @@ A3 게임 모듈 mock 잔존 스윕 (2026-06-28) — hub/play 진입이 mock 단
 - #59 **추천 엔진 실데이터화** — `lib/recommend/{decide,get-next-action,use-next-action}.ts` (decideNextAction 순수 P1~P4 단일출처 + getNextActionForUser server action[due+mastery] + useNextAction hook). 5개 호출처(FlashcardSession/ScriptQuiz/SpellForge/DictationResultsClient/text[id]) useMemo(getMockNextAction)→useNextAction. getMockNextAction 은 decide 경유 DRY+보존.
 - ⚠️ 게임 상호작용/완료 화면 write 경로 런타임 미검증(전부 mock폴백/try-catch 안전). user_stats 빈 상태면 추천 mastery=vocab수 근사(cold-bias).
 
-**잔여 (사용자 입력/결정 필요 — 자율 불가)**: ScriptQuiz 다른 스크립트 문제 생성(INSERT per-action 승인 필요, classifier) · OpenStax a/b/c(비즈니스 결정, 보류 권장) · 추천 P2(진행중 스크립트 reading_session 연동) 후속.
+**✅ 런타임 검증 완료 (2026-07-05, v06.139)**: Playwright 실주행으로 #53/#54 "런타임 미검증" 종결. **PairFlip 전 경로 정상**(실 SRS 페어 렌더→Easy 완주→scores+learning_records 4행+daily_activity 트리거 집계, 수리 0). **ScriptQuiz 결함 2건 발견·수리**: ① `const rpc = client.rpc as ...` this-바인딩 소실로 카탈로그/세션 fetch 전멸(무언 catch가 은폐) → `bind(client)`+관측성 ② 완료 결과가 sessionStorage `pushPendingTextResult`만 쌓고 **소비자 전무**(=#57에서 유일하게 빠진 게임) → 완료 분기에 `recordGameScore` 직접 배선. 검증 계정 `runtime-test-0705@vocaflow.dev`(vocab 10·활동 시드). ⚠️ 교훈: supabase-js 메서드를 변수로 떼면 this 소실 — `.bind(client)` 필수.
+
+**잔여 (사용자 입력/결정 필요 — 자율 불가)**: OpenStax a/b/c(비즈니스 결정, 보류 권장) · 추천 P2(진행중 스크립트 reading_session 연동) 후속. (구 "ScriptQuiz 문제 생성"은 library_chapter_quiz 카탈로그 체제로 대체 — quiz_questions per-text 경로는 레거시 캐퍼빌리티로 잔존.)
 
 관련: [[project-srs-persistence-a1]] · [[project-vrl-phase2-wordvault-recommended-section]]
 

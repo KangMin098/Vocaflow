@@ -572,6 +572,16 @@ export function DiagnosticClient() {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="mb-8">
+          <div className="mb-3 flex justify-start">
+            <button
+              type="button"
+              onClick={() => setPhase('start')}
+              aria-label="진단 그만두기 — 시작 화면으로"
+              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[12px] font-[600] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            >
+              ← 그만두기
+            </button>
+          </div>
           <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
             <span>
               {currentIdx + 1} / {questions.length}
@@ -712,7 +722,7 @@ export function DiagnosticClient() {
             {recommendations.map((rec) => (
               <button
                 key={rec.set_id}
-                onClick={() => router.push(`/library/vocab#set-${rec.slug}`)}
+                onClick={() => router.push(`/library/vocab#set-${rec.set_id}`)}
                 className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               >
                 <span className="text-[28px]" aria-hidden>

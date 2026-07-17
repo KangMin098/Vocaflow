@@ -4,7 +4,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { performQaGate, type QaSummary } from '@vocaflow/vcb-curate-core'
 
@@ -20,7 +20,7 @@ export async function runQaGate(
 ): Promise<ServerActionResult<QaSummary>> {
   try {
     await requireAdmin('/admin/vocab')
-    const client = await createClient()
+    const client = createAdminClient()
 
     const result = await performQaGate(client, run_id, {
       requeueFlagged: opts?.requeueFlagged ?? false,

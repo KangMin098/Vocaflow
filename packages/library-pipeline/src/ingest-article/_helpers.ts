@@ -115,6 +115,8 @@ export function decodeEntities(s: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&#39;/g, "'")
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
+    // hex 수치 엔티티(&#x27; 등) — 이게 없어 owid/voa 제목에 &#x27; 잔존했음(v06.208 수정)
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
 }
 
 /** Article body HTML → plain text (script/style/figure/aside 제거 + 줄바꿈 보존). */

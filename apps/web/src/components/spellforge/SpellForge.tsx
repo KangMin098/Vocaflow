@@ -40,6 +40,8 @@ interface SpellForgeProps {
   textId: string
   textTitle: string
   words: SpellForgeWord[]
+  /** 닫기/완료 시 복귀 경로 — 페이지가 ?from/스코프로 계산 (textId 는 세션 키라 링크에 부적합). */
+  backHref: string
 }
 
 const SUCCESS_MESSAGES = [
@@ -50,7 +52,7 @@ const SUCCESS_MESSAGES = [
   { icon: '🏆', message: '스펠링 마스터.' },
 ]
 
-export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
+export function SpellForge({ textId, textTitle, words, backHref }: SpellForgeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Hooks
@@ -356,7 +358,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
         totalWords={session.words.length}
         correctCount={session.totalCorrect}
         startedAt={session.startedAt}
-        textId={textId}
+        backHref={backHref}
         recommendation={recommendation}
       />
     )
@@ -377,7 +379,7 @@ export function SpellForge({ textId, textTitle, words }: SpellForgeProps) {
 
       {/* 닫기 — 학습하던 스크립트로 복귀 (우상단 fixed) */}
       <Link
-        href={`/text/${textId}`}
+        href={backHref}
         aria-label="스펠 닫기 — 스크립트로 돌아가기"
         title="스크립트로 돌아가기"
         className="fixed right-4 top-4 z-[55] inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"

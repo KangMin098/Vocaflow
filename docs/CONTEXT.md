@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/scriptquiz-chapter-quiz`
+**활성 브랜치**: `feat/plan-ui`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `7289283` refactor(srs): 세션 hook stale TODO + 카드별 console.log 제거
-- `f053665` feat(scriptquiz): 도서 검수 페이지에 챕터 퀴즈 검수 섹션 (v06.117)
-- `448fb96` chore(build): 빌드-타임 ESLint 게이트 복원 (v06.117)
-- `8d2a0ca` feat(scriptquiz): 챕터 퀴즈 검수 admin 섹션 완결 (커밋 누락분)
-- `051d2ea` fix(a11y): 지원되지 않는 aria 속성 제거 + 미사용 prop 정리
+- `6beb148` fix(ci): main 머지 게이트 red CI 3잡 green 복구 (v06.254)
+- `db332ba` feat(vocab): 주제별 단어장 전 18주제 완성 — 7,219단어 (v06.254)
+- `f188f20` feat(vocab): 주제별 단어장 PoC — dictionary_categories 6주제 발행 (v06.254)
+- `45235af` docs(vocab): 단어장 파이프라인 v2 P0 정찰 — 학년/주제 데이터 판정
+- `9ac553f` feat(vocab): 어원 first-class 카테고리 승격 — 📜 어원 탭 (v06.253)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
-- `20260703120010_p0_drop_p5a_backup_table.sql`
-- `20260703120000_p0_security_rls_hardening.sql`
-- `20260702120000_scriptquiz_curated_chapter_quiz.sql`
-- `20260628220000_p1_plan_weekday_per_item.sql`
-- `20260628210000_p1_plan_rich_compose.sql`
+- `20260717150000_wordset_category_etymology.sql`
+- `20260717140000_word_roots.sql`
+- `20260713180500_extract_exclude_known.sql`
+- `20260713180000_word_familiarity.sql`
+- `20260713172500_book_article_use_helper.sql`
 <!-- /auto:recent-migrations -->
 
 ---
