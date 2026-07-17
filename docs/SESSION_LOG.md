@@ -14,14 +14,14 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: `feat/plan-ui`(15일·319커밋·8+트랙) → **main 통합** — main 2026-07-02 정지 해소.
-**브랜치**: `feat/plan-ui` (origin/main +319 · **0 behind** = strict superset → 무충돌 머지 가능)
-**상태**: ✅ **CI green 복구 완료**(fix `6beb148`) — 15일간 red였던 CI 3잡(TypeScript·build·verify) 봉인. 통합 PR = **#95**(base=main).
+**작업**: `feat/plan-ui`(15일·321커밋·8+트랙) → **main 통합** ✅ **머지 완료**(`96cfee0` Merge #95, 2026-07-17) — main 2026-07-02 정지 해소.
+**브랜치**: `feat/plan-ui` (머지 후에도 working 브랜치로 계속 사용)
+**상태**: ✅ CI green 복구(`6beb148`) → **PR #95 머지 완료**. 15일간 red였던 CI 3잡(TypeScript·build·verify) 봉인 후 머지.
 
 - **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
 - **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
 
-**▶ 다음 (RESUME)**: ① **PR #95 CI green 확인 → main 머지** (⚠️ 사용자 확정 게이트 — main 직접 push/자동 머지 금지). ② 머지 후 **#93(scriptquiz-chapter-quiz)·#94(quality-eval) 닫기** — 두 PR의 작업이 plan-ui에 **독립 재구현되어 superseded**(/admin/quality·ChapterQuiz 파일 실재 확인, 단 커밋은 미포함=독립분기). ③ 잔여 기능 백로그(전부 비차단)는 CHANGELOG Unreleased "후속/잔여" 및 P1~P3 참조(LCP 18권 미발행·collocations 소비 UI·per-sense v_level Phase B 등).
+**▶ 다음 (RESUME)**: ① **#93·#94 = 닫지 말 것**(앞서 "superseded" 판정은 오류). 대형 기능(quality 대시보드·scriptquiz 챕터퀴즈)은 plan-ui 재구현으로 main에 있으나, **각 PR에 main에 없는 고유 미머지분** 존재 — **#94**: 골든 스냅샷 테스트(Q1 `0b6db84`)·quality_metrics nightly 마이그(`8f7f49c`)·**lbv lemma INSERT 게이트 트리거**(`86ec3d4`, 추출 무결성 수리). **#93**: LCP RPC 침묵실패 관측성(`0679a2d`)·pairflip stale mock 제거(`74f1130`)·VCB QA 해소(`6ac6b12`)·dict no-rank enrichment(`86a7328`) + scriptquiz 드레인 docs. → **새 main에 rebase → 충돌 해소 → 고유 커밋만 재검증 후 merge**(후속). ② 잔여 기능 백로그(전부 비차단)는 CHANGELOG Unreleased "후속/잔여" 및 P1~P3 참조(LCP 18권 미발행·collocations 소비 UI·per-sense v_level Phase B 등).
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
@@ -75,9 +75,10 @@
 - **전체 상태 진단(read-only)**: main이 2026-07-02(`aa981f0`) 정지, 이후 **319커밋/15일/8+트랙**(game·plan·lcp·acp·vocab·ctp·vcb·dict)이 전부 `feat/plan-ui`에 미머지. 열린 PR 3개(#95 plan-ui·#94 quality·#93 scriptquiz) 전부 stale. → **#1 리스크 = 브랜치 통합**으로 확정.
 - **#2(CTP Today UI) = 이미 완결 판정**: `hub-today-meta.md` + 실코드(`TodayPrescriptionCard`·`/practice/dcp`·hub 3분기) 검증 → v06.203/204에 완료됨. RESUME HERE만 stale이었음(교정). 2026-07-05 nav 감사 P0 4건도 후속 세션에 이미 수정 확인.
 - **PR #95 CI red 진단·수리(`6beb148`)**: mergeable이나 UNSTABLE(TS·build·verify red, 최신 커밋 기준). ① build=next lint 미사용 심볼 13건(GameMark×7 등) ② TS=`next-action.mock.ts` TS2366(actionToHref 비exhaustive) ③ verify=`TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·web/library-pipeline tsc 0·테스트 144 passed.
-- **#93/#94 처분 판정**: 둘 다 독립 분기(plan-ui 커밋 미포함)지만 기능은 plan-ui에 재구현 존재(/admin/quality·ChapterQuiz 파일 실재) → **superseded**, 머지 후 닫기 권장.
+- **PR #95 머지 완료**(`96cfee0`) — 사용자 확정("머지 커밋으로 지금") → main 정지 해소.
+- **#93/#94 처분 판정(정정)**: 대형 기능은 plan-ui 재구현으로 main에 존재하나, **diff 실측 결과 각 PR에 main에 없는 고유 미머지분 확인** → **닫으면 안 됨**. #94=골든 스냅샷 테스트·quality_metrics 마이그·**lbv lemma INSERT 게이트**(추출 무결성). #93=LCP RPC 관측성·pairflip mock 제거·VCB QA·dict enrichment. (⚠️ 초기 "superseded 닫기" 판정은 기능 파일 존재만 보고 마이그/테스트를 안 본 오류 — diff로 정정.)
 
-**무엇이 남았나**: PR #95 CI green 재확인 → **main 머지(사용자 확정 게이트)** → #93/#94 닫기. 기능 백로그(LCP 18권·collocations 소비 UI·per-sense v_level Phase B 등)는 전부 비차단.
+**무엇이 남았나**: **#93·#94를 새 main에 rebase → 충돌 해소 → 고유 커밋 재검증 후 merge**(후속 트랙). 기능 백로그(LCP 18권·collocations 소비 UI·per-sense v_level Phase B 등)는 전부 비차단.
 
 **관련 커밋**: `6beb148`(CI green). CHANGELOG v06.254.
 

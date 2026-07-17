@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `1878c42` docs(session-log): feat/plan-ui→main 통합 준비 기록 + RESUME HERE 교정
 - `6beb148` fix(ci): main 머지 게이트 red CI 3잡 green 복구 (v06.254)
 - `db332ba` feat(vocab): 주제별 단어장 전 18주제 완성 — 7,219단어 (v06.254)
 - `f188f20` feat(vocab): 주제별 단어장 PoC — dictionary_categories 6주제 발행 (v06.254)
 - `45235af` docs(vocab): 단어장 파이프라인 v2 P0 정찰 — 학년/주제 데이터 판정
-- `9ac553f` feat(vocab): 어원 first-class 카테고리 승격 — 📜 어원 탭 (v06.253)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
