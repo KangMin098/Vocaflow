@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `48ee18b` chore(vocab): 유형별 단어장 파이프라인 전수 테스트 + 오류 3건 조치 (v06.257)
 - `49031db` chore(vocab): per-sense v_level Phase B 100% 종결 — 단일-POS 다의어 4,894 (v06.256)
 - `da3d175` chore(vocab): per-sense v_level Phase B 우선순위 슬라이스 완료 (v06.255)
 - `f1ab7f9` chore(vocab): library_book 단일-POS backfill (검증 #4, Option B·승인)
 - `9ba2816` chore(vocab): legacy null_lemma 2,502행 backfill (검증 #3, DB 데이터·승인)
-- `b5e8b13` chore(vocab): dead CategoryFilter 제거 — 빈 카테고리 탭 조사 결과 반영 (v06.254)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

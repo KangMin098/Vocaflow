@@ -67,6 +67,20 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-17 — 시중 단어장 벤치마크 + P1 생성기 품질 게이트(저레벨 오염 근절)
+
+> 요청: 사전 보완 이력 분석 → WordVault 레이아웃 시연 → 시중 단어장 대비 VCB 품질 벤치마크(반드시 우월해야) → "우선순위 최적화하며 진행".
+
+**무엇을 했나**:
+- **사전 보완 이력·일반사전 비교 분석**: shared_dictionary 45,667행 필드완성도(핵심축 100%·예문 90.1%·랭크어 완비/미랭크 희소) + 3단계 보완 이력(외부 코퍼스·dict-fill·per-sense) + 일반사전 비교(NGSL·CEFR-J·시험코퍼스 이중검증, kaikki 부재로 syn/ant/ipa 의도적 보류) 종합.
+- **WordVault 레이아웃 아티팩트**: 6 대표 세트를 실 `WordRow` 구조(메모리엣지·serif·POS·예문·마스터 5-dot·V-Level칩)로 렌더(Reading Room 토큰·라이트/다크).
+- **시중 벤치마크 리포트**(`commercial_benchmark_vcb_20260717.md`): 10 품질차원 × 6 세그먼트 판정 — 수능🟢우위 / 중등·어원·주제🟡동급 / **초등·시험🔴열위**. 구조적 우위(FSRS·다모듈수렴·발음채점·진단·처방·문맥·삽화 = 실기능 검증)는 실재하나 콘텐츠 danger zone(저레벨 오염·bare gloss 33.5%·니모닉 0%)이 가림. 개선 로드맵 5차원 + 3-tier 우위전략.
+- **P1 생성기 품질 게이트 적용**(최우선): `republish-auto-vlevel.mjs`에 R1 굴절 제외+R2 파생 제외 내장 → 9세트 재발행. **V1 굴절 35%→0·V2-3 파생 30%→~0**, on-level 100%. V1 head `are/been/was`→`have/say/know/think/make`. 초등 danger zone 해소.
+
+**무엇이 남았나**: 벤치마크 로드맵 후속 — M1 뜻 심화(bare gloss 33.5%) · M2/F1 니모닉(어원 연계·0%) · M3 예문 KO번역 · D1 삽화 확대 · F2 적응형 플랜 · 시험 기출코퍼스(소스 병목). 우선순위 = P1✅→M1→F1→D1.
+
+**관련 파일**: `scripts/dict/republish-auto-vlevel.mjs`(P1 게이트) · `docs/AI_CONTEXT/diagnostics/commercial_benchmark_vcb_20260717.md`(신규) · WordVault 아티팩트. CHANGELOG v06.258. **교훈**: auto-vlevel 오염은 (1)굴절형이 별도 표제어로 존재 (2)생성기가 lemma 통합·굴절제외 안 함이 근본 — inflected_forms 역참조로 정밀 제거. 벤치마크는 "시스템 우위는 실재하나 콘텐츠 품질이 가린다"가 핵심.
+
 ### 2026-07-17 — 유형별 공용단어장 파이프라인 전수 테스트 + 오류 3건 조치
 
 > 요청: "유형별 공용단어장 생성 파이프라인을 자동으로 전 유형 테스트·평가·오류/개선 도출" → "진행"(권장 E1→E2→I4 적용).

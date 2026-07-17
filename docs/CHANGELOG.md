@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### P1 생성기 품질 게이트 — auto-vlevel 저레벨 오염 근절 (v06.258)
+- **배경**: 시중 단어장 벤치마크(`docs/AI_CONTEXT/diagnostics/commercial_benchmark_vcb_20260717.md`)에서 **초등 세그먼트 열위** 판정 — auto-vlevel V1이 굴절형 35%(are/been/was/were/had), V2-3이 파생 -ing/-ed 30%(saying/backing/takings)로 **학습자 제공 부적합**. 우위 확보 로드맵 최우선(P1).
+- **품질 게이트**(`republish-auto-vlevel.mjs` v06.258): 생성기에 (R1) **굴절형 제외** — 단어가 다른 표제어의 `inflected_forms`에 등장하면 배제 · (R2) **파생 -ing/-ed 제외** — base 표제어가 사전에 실재하면 배제(표준 역굴절 stem + `-ings` 복수 포함). 표제어(lemma) 우선. `--no-quality`로 원 동작 재현.
+- **재발행 결과**: auto-vlevel 9세트 +250/−250 교체 → **굴절형 0(V1 35%→0)·파생 -ing ~0(V2 34→0)**, on-level 100% 유지, word_count 불변. V1 head `are/been/being/was/were/had`→**`have, say, know, think, make, see, like`**(실 기초 동사). 필터 후에도 pool ≥ qty(전 레벨 여유) 확인.
+- **효과**: 게이트가 생성기 내장 → 향후 재발행(드리프트 수정 포함)도 자동 정제. 벤치마크 danger zone #1(저레벨 오염) 해소, 초등 세그먼트 제공가능화.
+
 ### 유형별 공용단어장 파이프라인 전수 테스트 + 오류 3건 조치 (v06.257)
 - **전 유형 자동 테스트**(read-only, 9유형·1,085세트·44,958단어): 무결성(count/null/dup/chapter/orphan) **전 유형 통과** + 레벨정합·드리프트·surfacing 4차원 감사. 리포트 = `docs/AI_CONTEXT/diagnostics/wordset_pipeline_typewise_test_20260717.md`.
 - **E1 조치 — auto-vlevel 드리프트 해소**: V5-V7 세트가 2026-05 생성 후 VRL 재분류 미반영(V5 75% on-level)이던 것을 신규 `scripts/dict/republish-auto-vlevel.mjs`(원 curation_query 충실 재구성·검증게이트 V1 재현 100%)로 9세트 재발행 → **+176 −176, 전 세트 100% on-level**. 추천 RPC(primary/stretch/review)에 직접 노출되던 stale 제거.
