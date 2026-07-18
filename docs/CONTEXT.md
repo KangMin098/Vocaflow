@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f8c5a77` feat(admin): 품질 게이트 화면 /admin/quality/gates (G3, v06.271)
 - `459f0e5` feat(quality): 콘텐츠 품질 게이트 F+G1 — 파이프라인 정확성 자동 검증 (v06.271)
 - `2511e0f` docs(dict): per-sense 예문 매칭 완료 (v06.270 · 5,111단어·9,645 예문)
 - `9ec4990` test: 추출 골든 스냅샷 D1/D4a 반영 + arcade 스테일 카운트 수정
 - `172d7d0` test(e2e): 추출 판정 하네스 회귀 spec (D3, v06.270)
-- `bbd6345` feat(vocab): KICE-core freq_rank proxy 백필 (D4a, v06.270)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260718100060_content_gate_nightly_cron.sql`
 - `20260718100050_content_quality_gates_fn.sql`
 - `20260718100040_content_quality_gate_fixes_F.sql`
 - `20260718100030_backfill_kice_freq_rank_proxy.sql`
 - `20260718100020_judgment_harness_rpcs.sql`
-- `20260718100010_create_extraction_judgments_table.sql`
 <!-- /auto:recent-migrations -->
 
 ---

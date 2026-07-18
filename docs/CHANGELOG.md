@@ -16,7 +16,9 @@
 - **F 즉시 수정** `content_quality_gate_fixes_F`(사용자 승인): **I7** 발행 세트 노이즈-register junk **9건 제거**(xl/mph/bc/cl/ft — 학습자 노출 중이던 약어) + word_count 재동기 + **F.2** 발행도서 resolvable NULL lemma 백필(→0, 학습자 출력 무변).
 - **G1 게이트 함수** `run_content_quality_gates(scope, id)`: scope=global|book|article|dict 별 불변식 pass/fail. 사전DB(I1 필드완비·I2 per-sense v_level) · 단어추출(I5 바인딩드리프트·I7 노이즈) · LCP(I6 resolvable lemma·I8 book_v_level·**I10 발행세트 SSoT 드리프트**) · ACP(I9 register). critical FAIL=게시 차단 후보.
 - **발견**: 전역 게이트 critical 전부 PASS(F 후). **도서 게이트가 P&P 발행세트 SSoT 드리프트 770 검출** — D1/D4a 개선이 select 출력을 바꿔 발행 콘텐츠가 stale(재발행 필요). 추출 로직 개선→발행 stale 이 처음으로 가시화.
-- **잔여(다음)**: G3 `/admin/quality/gates` 화면 · G2 게시 전 게이트 wire · G4 nightly cron · 드리프트 도서 재발행.
+- **G3 화면** `/admin/quality/gates`: 전역 게이트 red/green + 요약 배너(allGreen=게시 신뢰) + 콘텐츠별 게시전 체크(도서/아티클 선택→book|article scope). AdminSidebar '품질 게이트'(ShieldCheck).
+- **G4 nightly cron** `content-gate-nightly`(KST 03:25): `collect_content_gate_metrics` → `quality_metrics(stage='gate')` 적재로 추이 추적. `admin_collect_content_gate_metrics` 수동 트리거. **→ 파이프라인 정확성 상시 자동 감시**.
+- **잔여(다음)**: G2 게시 전 게이트 wire(publish RPC/버튼이 critical FAIL 차단 — 동작 변경, 결정 필요) · 드리프트 도서 재발행(P&P 등 D1/D4a 반영).
 
 
 ### 추출 품질 심층 평가 P0 + 표제어 바인딩 결함 수리 (v06.270)
