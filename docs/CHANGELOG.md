@@ -16,7 +16,8 @@
 - **마이그레이션** `fix_extraction_surface_headword_binding`(사용자 승인): `select_book_chapter_vocab`·`select_article_vocab` JOIN 한 줄 — 표면형이 자체 quality 표제어이면 그것으로 바인딩(아니면 현행 resolver 폴백). dry-run 검증 = 782 재바인딩·**+143 회수 개선**·extraction-readiness 실패 0·gate-out 17 전량 비-KICE 정당. **발행 세트 영향 0**(현행 학습자 데이터 clean → 재발행 불요). `bv.lemma` 원본 데이터는 무수정(SSoT가 오버라이드 — 대량 재생성 금지 원칙 준수).
 - **마이그레이션** `create_extraction_judgments_table`(사용자 승인): 판정 하네스(Q3/Q5) 골든 라벨 저장소. composite/sort_order 스냅샷 보존 → 가중 변경 회귀 대조. RLS enabled(정책은 D3 하네스 착수 시 admin grant).
 - **D3 판정 하네스** `/admin/quality/judge` — 추출 "탁월함"(cap 40 최적성)을 인간 blind 판정으로 축적하는 골든 라벨 UI. 마이그레이션 `judgment_harness_rpcs`: `get_judgment_sample`(in-cap 8 + 경계 8 셔플·출처 은닉) + `save_extraction_judgment`(저장 시점 SSoT 재조회로 스냅샷 서버-권위 기록 → blind 보존·회귀 대조) + `extraction_judgments` RLS `ej_admin_all`. 절대 판정 + 쌍대 비교 모드, 제출 후 precision/recall reveal. AdminSidebar '추출 판정'(Scale). typecheck 0·lint clean·RPC 로직 실데이터 검증(표본 16=8+8). 런타임 UI 스모크는 admin 세션 필요 → 후속(전용 e2e spec 권장).
-- **다음(승인 대기)**: D4 freq_rank 백필(KICE/kcurr 571 우선) · D5 V6 게이트 register-인식화(논의).
+- **D4a KICE freq_rank proxy 백필** — migration `backfill_kice_freq_rank_proxy`: KICE-core(수능 tier≥3) NULL freq_rank **273행**을 proxy rank(밴드 실측 중앙값 135 + KICE 중앙값 1986 = 138)으로 채움. `frequency_sources.proxy` provenance 마킹. efficiency·innovation·precision·prioritize 등 CSAT 빈출어가 composite 0.40 freq축 0점→~0.12 → 추출 순위 정상화. **핵심 재발견**: 추출가능(v≥6) working set의 freq_rank NULL 28.7%(4,648) 중 backfillable은 46뿐 — 나머지 4,602는 **무신호 rare tail(NULL이 정당, 결함 아님)**. 설계의 "freq_rank가 사전 최대 갭" 은 완비율로는 맞으나 추출 영향분은 대부분 **축소 불가**(D4b 외부corpus 없이는).
+- **다음(승인 대기)**: D5 V6 게이트 register-인식화(논의) · D4b 외부 corpus(rare tail — 저우선).
 
 ### kaikki 보완 #4·#5 — 관계 컬럼 + 예문/동의어 (v06.269)
 - **마이그레이션** `add_kaikki_extra_columns`: `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼 신설(사용자 승인).
