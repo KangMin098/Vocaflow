@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 콘텐츠 품질 게이트 — 파이프라인 정확성 자동 검증 (v06.271)
+- **목적 재정의**: "기능이 되나"(UI 테스트) 아니라 **"학습자에게 나갈 산출물이 맞는 단어·맞는 뜻·맞는 레벨로 정확히 뽑혔나"**를 결정론 불변식으로 검증 → 관리자 게시 신뢰. 실패=사전DB/파이프라인 수정 신호.
+- **갭 실측**: `quality_metrics`(nightly) 7지표는 전부 **부피·완비율**이고 정확성 검사 0. P0 결함(반의어 바인딩·gated KICE)은 전부 수동 발견 — 자동으로 아무것도 안 잡힘.
+- **F 즉시 수정** `content_quality_gate_fixes_F`(사용자 승인): **I7** 발행 세트 노이즈-register junk **9건 제거**(xl/mph/bc/cl/ft — 학습자 노출 중이던 약어) + word_count 재동기 + **F.2** 발행도서 resolvable NULL lemma 백필(→0, 학습자 출력 무변).
+- **G1 게이트 함수** `run_content_quality_gates(scope, id)`: scope=global|book|article|dict 별 불변식 pass/fail. 사전DB(I1 필드완비·I2 per-sense v_level) · 단어추출(I5 바인딩드리프트·I7 노이즈) · LCP(I6 resolvable lemma·I8 book_v_level·**I10 발행세트 SSoT 드리프트**) · ACP(I9 register). critical FAIL=게시 차단 후보.
+- **발견**: 전역 게이트 critical 전부 PASS(F 후). **도서 게이트가 P&P 발행세트 SSoT 드리프트 770 검출** — D1/D4a 개선이 select 출력을 바꿔 발행 콘텐츠가 stale(재발행 필요). 추출 로직 개선→발행 stale 이 처음으로 가시화.
+- **잔여(다음)**: G3 `/admin/quality/gates` 화면 · G2 게시 전 게이트 wire · G4 nightly cron · 드리프트 도서 재발행.
+
+
 ### 추출 품질 심층 평가 P0 + 표제어 바인딩 결함 수리 (v06.270)
 - **P0 정찰**(read-only, `docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`): 추출 품질 5속성(Q1~Q5) 분해 + 3 프로브(P&P ch18·Black hole 아티클·register 집계) 실측. Q2/Q5 3분해(in-cap/out-of-cap/gated) 결정론 산출 확인 · working set = **20,678 lemma** · freq_rank 30%(6,204) 결측 = 사전 유일 실질 갭(그중 KICE 238) · Phase B per-sense v_level 백로그 사실상 종결(전역 343·ws 68).
 - **🔴 신규 결함 발견·수리 — 표제어 바인딩**: `select_*_vocab` 가 pre-stem 된 `bv.lemma`(파생/부정접두 과잉 축약)를 그대로 바인딩 → 학습자에게 **반대 뜻** 노출(`imprudent→prudent` 신중한 · `insincere→진심의` · `forbearance→조상,선조`). 발행 콘텐츠 **782 오바인딩·654 POS 불일치·36 반의어 플립** 실측. 기존 "Q1 100% 검증(40,355 표제어)" 미커버 축(표제어 아닌 표면→표제어 바인딩).

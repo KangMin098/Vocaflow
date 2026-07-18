@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `2511e0f` docs(dict): per-sense 예문 매칭 완료 (v06.270 · 5,111단어·9,645 예문)
 - `9ec4990` test: 추출 골든 스냅샷 D1/D4a 반영 + arcade 스테일 카운트 수정
 - `172d7d0` test(e2e): 추출 판정 하네스 회귀 spec (D3, v06.270)
 - `bbd6345` feat(vocab): KICE-core freq_rank proxy 백필 (D4a, v06.270)
 - `a3f1576` feat(admin): 추출 품질 판정 하네스 /admin/quality/judge (D3, v06.270)
-- `f5152af` feat(vocab): 추출 표제어 바인딩 결함 수리 + 판정 하네스 테이블 (v06.270)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260718100050_content_quality_gates_fn.sql`
+- `20260718100040_content_quality_gate_fixes_F.sql`
 - `20260718100030_backfill_kice_freq_rank_proxy.sql`
 - `20260718100020_judgment_harness_rpcs.sql`
 - `20260718100010_create_extraction_judgments_table.sql`
-- `20260718100000_fix_extraction_surface_headword_binding.sql`
-- `20260717160000_recommend_word_sets_redesign_tiers.sql`
 <!-- /auto:recent-migrations -->
 
 ---
