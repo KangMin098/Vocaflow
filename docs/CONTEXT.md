@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `c7d1e3a` feat(dict): per-sense 예문 매칭 파이프라인 + 6세션 지시문 (C 진짜 per-sense)
 - `a88cd3c` feat(dict): kaikki 보완 #4·#5 — 관계 4컬럼 + 예문/동의어 (v06.269)
 - `e72546b` docs(dict): kaikki 기회 재검토 — E완료 반영 + 심층검증 수치 교정
 - `7840e3a` fix(dict): 어원 니모닉 게이트 오거부 수리 + M3 종합 (니모닉 5,062·경선식 0)
 - `f02d4d4` feat(dict): 어원 니모닉 확대 파이프라인 + 경선식 차단 게이트 + 6세션 지시문
-- `0edd7db` docs(dict): kaikki 사전DB 업그레이드 기회 면밀 분석 (9기회 산정)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

@@ -7,10 +7,19 @@
 
 ## 요약
 
-- **테이블**: 76 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity` · +어원 `word_roots`·`word_root_links`)
+- **테이블**: 77 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity` · +어원 `word_roots`·`word_root_links` · +추출품질 `extraction_judgments`)
 - **Views**: 7 (+`csat_stage_catalog` · +`word_mislevel_signal`)
 - **Functions**: 262 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 추출해소 `resolve_dict_headword`·`infer_form_pos`·`set_word_familiarity` / 그 외 ~215)
-- **Migrations 누적**: 70+ 적용됨 (CTP 데이터모델 3건 + 추출경로 통합/신뢰 8건 + 소스 4건 포함)
+- **Migrations 누적**: 72+ 적용됨 (CTP 데이터모델 3건 + 추출경로 통합/신뢰 8건 + 소스 4건 + 추출품질 2건 포함)
+
+### 🎯 추출 품질 — 바인딩 수리 + 판정 하네스 (2026-07-18)
+
+P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 발견·수리. **표제어 바인딩 결함**: `select_*_vocab` 가 pre-stem 된 `bv.lemma`(파생/부정접두 과잉 축약)를 바인딩 → 학습자에게 반대 뜻 노출(발행 782 오바인딩·36 반의어 플립).
+
+| 객체 | 종류 | 역할 |
+|---|---|---|
+| `select_book_chapter_vocab`·`select_article_vocab` | 함수(수정) | JOIN 시 **표면형이 자체 quality 표제어이면 그것으로 바인딩**(아니면 `resolve_dict_headword` 폴백). 782/782 재바인딩·+143 회수. migration `fix_extraction_surface_headword_binding` |
+| `extraction_judgments` | 테이블(RLS enabled) | Q3/Q5 판정 하네스 골든 라벨. blind in-cap/out-of-cap 판정 + composite/sort_order 스냅샷(가중 변경 회귀 대조). migration `create_extraction_judgments_table` · RLS 정책은 하네스 UI(D3) 착수 시 admin grant |
 
 ### 🎯 추출 신뢰 — 학습자 교정 계층 (2026-07-16, 2단계)
 

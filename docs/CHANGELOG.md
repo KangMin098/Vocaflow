@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 품질 심층 평가 P0 + 표제어 바인딩 결함 수리 (v06.270)
+- **P0 정찰**(read-only, `docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`): 추출 품질 5속성(Q1~Q5) 분해 + 3 프로브(P&P ch18·Black hole 아티클·register 집계) 실측. Q2/Q5 3분해(in-cap/out-of-cap/gated) 결정론 산출 확인 · working set = **20,678 lemma** · freq_rank 30%(6,204) 결측 = 사전 유일 실질 갭(그중 KICE 238) · Phase B per-sense v_level 백로그 사실상 종결(전역 343·ws 68).
+- **🔴 신규 결함 발견·수리 — 표제어 바인딩**: `select_*_vocab` 가 pre-stem 된 `bv.lemma`(파생/부정접두 과잉 축약)를 그대로 바인딩 → 학습자에게 **반대 뜻** 노출(`imprudent→prudent` 신중한 · `insincere→진심의` · `forbearance→조상,선조`). 발행 콘텐츠 **782 오바인딩·654 POS 불일치·36 반의어 플립** 실측. 기존 "Q1 100% 검증(40,355 표제어)" 미커버 축(표제어 아닌 표면→표제어 바인딩).
+- **마이그레이션** `fix_extraction_surface_headword_binding`(사용자 승인): `select_book_chapter_vocab`·`select_article_vocab` JOIN 한 줄 — 표면형이 자체 quality 표제어이면 그것으로 바인딩(아니면 현행 resolver 폴백). dry-run 검증 = 782 재바인딩·**+143 회수 개선**·extraction-readiness 실패 0·gate-out 17 전량 비-KICE 정당. **발행 세트 영향 0**(현행 학습자 데이터 clean → 재발행 불요). `bv.lemma` 원본 데이터는 무수정(SSoT가 오버라이드 — 대량 재생성 금지 원칙 준수).
+- **마이그레이션** `create_extraction_judgments_table`(사용자 승인): 판정 하네스(Q3/Q5) 골든 라벨 저장소. composite/sort_order 스냅샷 보존 → 가중 변경 회귀 대조. RLS enabled(정책은 D3 하네스 착수 시 admin grant).
+- **다음(승인 대기)**: D3 판정 하네스 `/admin/quality/judge`(blind + pairwise) · D4 freq_rank 백필(KICE/kcurr 571 우선) · D5 V6 게이트 register-인식화(논의).
+
 ### kaikki 보완 #4·#5 — 관계 컬럼 + 예문/동의어 (v06.269)
 - **마이그레이션** `add_kaikki_extra_columns`: `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼 신설(사용자 승인).
 - **1회 스트림 추출**(`kaikki-extra-{extract,apply}.mjs`, 멀티세션보다 빠름 — 추출은 I/O 병목이라 병렬 무의미): homophones 2,687·rhyme_key 16,042·derived_forms 19,548·related_terms 11,223 채움. + example_en 결측 752 채움(96.8%) + synonyms 보강(64.5→**76.4%**). 전부 kaikki 외부사실=무환각·결측만.
