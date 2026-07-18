@@ -10,7 +10,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ShieldCheck } from 'lucide-react'
 
-import { createClient } from '@/lib/supabase/server'
+import { requireAdmin } from '@/lib/auth/require-admin'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 import { GateCheckClient, type BookOpt, type ArticleOpt } from './GateCheckClient'
 
@@ -37,7 +38,10 @@ const VERDICT_STYLE: Record<string, { bg: string; fg: string; label: string }> =
 }
 
 export default async function AdminGatesPage() {
-  const supabase = (await createClient()) as unknown as SupabaseClient
+  // admin 게이트(dev-bypass 처리) 후 service-role 클라이언트로 미발행(ready/queued) 콘텐츠까지 조회
+  // — RLS(anyone_read_published_safe)가 dev-bypass anon 세션에서 미발행을 차단하므로.
+  await requireAdmin('/admin/quality/gates')
+  const supabase = createAdminClient() as unknown as SupabaseClient
 
   const [{ data: gateData, error }, { data: bookRows }, { data: articleRows }] = await Promise.all([
     supabase.rpc('run_content_quality_gates', { p_scope: 'global' }),
