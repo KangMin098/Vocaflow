@@ -10,6 +10,11 @@
 
 ## Unreleased (v06.34 → next)
 
+### DB 용량 정리 — 미출시 도서 16권 삭제 (v06.272)
+- **원인 규명**: 어드민 "게시됨"(`status='published'`) ≠ hub 노출. hub(`/library/books`)는 `status='published' AND copyright_safe_in_kr AND published_at IS NOT NULL` 3조건을 모두 요구 — `published_at`은 정식 publish RPC만 찍고, `status='published'`는 챕터 단어장 발행 트리거(`ready→published`) 메커니즘으로도 쓰여 `published_at` 없이 올라간 도서가 섞임. 결과: 게시됨 23권 중 **hub 노출 7권 · 숨김 16권**.
+- **삭제**(사용자 승인): `published_at` NULL 16권 삭제. 정본 `admin_delete_book` 시맨틱 재현(RPC는 published 거부 → 동일 데이터 연산 트랜잭션). 단 texts는 `chk_content_or_library`로 unlink 불가(library 타입) → **DELETE**로 처리. CASCADE: `library_book_vocabularies` 63,863 · `library_chapter_quiz` 1,251 · `library_chapters_master` 627 · `shared_word_sets` 626(+하위 `shared_words`) · `book_curation_jobs` 11. seed 14개 `imported_to_books=false` unlock 복귀.
+- **결과**: 도서 28→12권, hub 7권 정상 유지. 콘텐츠 5테이블 `VACUUM FULL` 152→47 MB(−105 MB OS 반환). DB 총량 500→~470 MB. 전체 DB VACUUM FULL은 안전 분류기 차단(수동 실행 필요).
+
 ### 콘텐츠 품질 게이트 — 파이프라인 정확성 자동 검증 (v06.271)
 - **목적 재정의**: "기능이 되나"(UI 테스트) 아니라 **"학습자에게 나갈 산출물이 맞는 단어·맞는 뜻·맞는 레벨로 정확히 뽑혔나"**를 결정론 불변식으로 검증 → 관리자 게시 신뢰. 실패=사전DB/파이프라인 수정 신호.
 - **갭 실측**: `quality_metrics`(nightly) 7지표는 전부 **부피·완비율**이고 정확성 검사 0. P0 결함(반의어 바인딩·gated KICE)은 전부 수동 발견 — 자동으로 아무것도 안 잡힘.
@@ -21,6 +26,12 @@
 - **G2 게시 게이트 wire**: `content_gate_publishable(scope,id)`(critical FAIL 있으면 false, I10 드리프트 제외) → `publish_book_word_sets`·`publish_article_word_set`·`republish_*` 에 가드. broken 콘텐츠 게시 차단.
 - **드리프트 재발행 완료**: `republish_book_word_sets`·`republish_article_word_set`(set_id 보존, shared_words만 교체 — 구독/진행 안전) → 전 발행 도서 20권 + 아티클 135세트 SSoT 재동기. **I10 드리프트 전량 해소**(P&P 770→0 등). D1/D4a 개선이 학습자 단어장에 반영됨. I10 미발행 false-fail 수정.
 - **최종 상태**: 전역 게이트 critical(I1·I5·I7·I8·I9) 전부 PASS · 도서 I10 PASS · I2만 WARN 343. 파이프라인 정확성 상시 자동 감시 + 게시 전 차단 + 게시 후 재발행 루프 완성.
+
+### 콘텐츠 품질 게이트 — ACP+VCB 커버 + LCP end-to-end 실증 (v06.271)
+- **LCP end-to-end 실증**: 소스 GET(queued) "Ozma of Oz" → `reprocess-book.mjs --commit`(ingest 21ch/38k → 추출 2,785 → v7/B1) → ready → 게이트 전부 PASS → G2 publishable=true. 게이트가 실제 큐레이션 흐름의 관문으로 작동 확인.
+- **ACP 커버** (`gate_acp_vcb_coverage`): article scope + 전역에 **I11 항목단위 라이선스**(copyright_safe_in_kr) 추가. NASA ready 아티클 게시전 체크 PASS.
+- **VCB 커버**: 전역 I5/I7 을 **전 발행 세트**로 broaden(library 외 큐레이션 세트 41개 포함) + **`word_set` scope** 신설(I5·I7·뜻결측·비어있음). 확장 즉시 VCB '중등 기본어휘'의 "technic"(archaic) 검출 → `vcb_noise_cleanup` 로 전 발행 세트 노이즈 일반 정리.
+- **게이트 게시전 체크에 미발행 노출**: `/admin/quality/gates` 드롭다운 published+ready+queued(소스 GET → 추출 후 게시 전 검증).
 
 
 ### 추출 품질 심층 평가 P0 + 표제어 바인딩 결함 수리 (v06.270)
