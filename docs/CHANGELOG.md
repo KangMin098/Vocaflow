@@ -19,6 +19,12 @@
 - **D4a KICE freq_rank proxy 백필** — migration `backfill_kice_freq_rank_proxy`: KICE-core(수능 tier≥3) NULL freq_rank **273행**을 proxy rank(밴드 실측 중앙값 135 + KICE 중앙값 1986 = 138)으로 채움. `frequency_sources.proxy` provenance 마킹. efficiency·innovation·precision·prioritize 등 CSAT 빈출어가 composite 0.40 freq축 0점→~0.12 → 추출 순위 정상화. **핵심 재발견**: 추출가능(v≥6) working set의 freq_rank NULL 28.7%(4,648) 중 backfillable은 46뿐 — 나머지 4,602는 **무신호 rare tail(NULL이 정당, 결함 아님)**. 설계의 "freq_rank가 사전 최대 갭" 은 완비율로는 맞으나 추출 영향분은 대부분 **축소 불가**(D4b 외부corpus 없이는).
 - **다음(승인 대기)**: D5 V6 게이트 register-인식화(논의) · D4b 외부 corpus(rare tail — 저우선).
 
+### kaikki C — per-sense 예문 매칭 (v06.270)
+- **진짜 per-sense**: 다의어 각 한국어 sense에 kaikki 실용 예문을 매칭(판단=LLM). 도구 `example-match-{chunk,apply}.mjs`. grounding 게이트: 예문은 제공 풀에서 **verbatim만**(편집·창작 거부=ungrounded-ex)·meaning 매칭·pos/v_level 보존.
+- **결과**: **5,111단어 · 9,645 sense-예문** 부착(meanings_ko sense별 `example`). `groan`=[신음]let out a groan·[툴툴]We groaned at his awful jokes·[삐걱]The table groaned under the weight 식 sense별 정확 매칭. 억지 금지(풀에 뜻 없으면 생략).
+- **청크 크기 교훈**: 240단어 청크가 최고빈도 구간(am·be 등 10+sense)에서 **출력 64k 토큰 초과**로 실패 → 그 구간만 60단어 재분할(exmatch-hi)로 해소. 저빈도는 240 무방. 세션 한도 걸린 1청크는 메인 세션이 직접 매칭.
+- **정직**: 멀티세션 지시문 만들었으나 실행은 소규모라 단일 세션 넓은 웨이브가 효율적(세션 수는 작업량÷머신 동시성으로, 습관적 6 지양).
+
 ### kaikki 보완 #4·#5 — 관계 컬럼 + 예문/동의어 (v06.269)
 - **마이그레이션** `add_kaikki_extra_columns`: `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼 신설(사용자 승인).
 - **1회 스트림 추출**(`kaikki-extra-{extract,apply}.mjs`, 멀티세션보다 빠름 — 추출은 I/O 병목이라 병렬 무의미): homophones 2,687·rhyme_key 16,042·derived_forms 19,548·related_terms 11,223 채움. + example_en 결측 752 채움(96.8%) + synonyms 보강(64.5→**76.4%**). 전부 kaikki 외부사실=무환각·결측만.

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `9ec4990` test: 추출 골든 스냅샷 D1/D4a 반영 + arcade 스테일 카운트 수정
 - `172d7d0` test(e2e): 추출 판정 하네스 회귀 spec (D3, v06.270)
 - `bbd6345` feat(vocab): KICE-core freq_rank proxy 백필 (D4a, v06.270)
 - `a3f1576` feat(admin): 추출 품질 판정 하네스 /admin/quality/judge (D3, v06.270)
 - `f5152af` feat(vocab): 추출 표제어 바인딩 결함 수리 + 판정 하네스 테이블 (v06.270)
-- `c7d1e3a` feat(dict): per-sense 예문 매칭 파이프라인 + 6세션 지시문 (C 진짜 per-sense)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
