@@ -17,7 +17,13 @@
 - **G2** `content_gate_publishable(scope,id)`(critical FAIL 있으면 false·I10 제외) → `publish_book_word_sets`·`publish_article_word_set`·`republish_*` 가드. broken 콘텐츠 게시 차단.
 - **재발행 완료** `republish_book_word_sets`·`republish_article_word_set`(**set_id 보존**·shared_words만 교체=구독/진행 안전) → 전 발행 도서 20권+아티클 135세트 SSoT 재동기. **I10 전량 해소(P&P 770→0)**. D1/D4a 학습자 반영. ⚠배치는 도서당 select 다중호출로 무거움 → 큰 책 개별 실행(한 statement 타임아웃=전체 롤백).
 
-**최종 상태**: 전역 critical(I1·I5·I7·I8·I9) 전부 PASS · 도서 I10 PASS · I2만 WARN 343. **루프 완성: 정확성 자동검증(G4 cron)→게시전 차단(G2)→게시후 재발행(republish)**.
+**최종 상태**: 전역 critical(I1·I5·I7·I8·I9·I11) 전부 PASS · 도서 I10 PASS · I2만 WARN 343. **루프 완성: 정확성 자동검증(G4 cron)→게시전 차단(G2)→게시후 재발행(republish)**.
+
+**4 파이프라인 전체 커버(`gate_acp_vcb_coverage`)**: scope=global|book|article|**word_set**|dict.
+- **LCP** book scope + end-to-end 실증: 소스GET(Ozma of Oz queued)→`reprocess-book.mjs --commit`(ingest→추출2785→v7/B1→ready)→게이트 PASS→G2 publishable. 큐레이션 CLI=reprocess-book.mjs(LCP)·ACP는 `/api/acp/dev-process`(dev서버).
+- **ACP** article scope + 전역 **I11 라이선스**(copyright_safe_in_kr). ingesters=packages/library-pipeline/src/ingest-article/*(nasa/voa/wikipedia…)+analyzeArticle.
+- **VCB** 전역 I5/I7 을 **전 발행 세트**로 broaden(큐레이션 세트 41: themed/csat/high/…) + **word_set scope**. 즉시 '중등 기본어휘' technic(archaic) 검출→`vcb_noise_cleanup` 전세트 노이즈 정리.
+- G3 게시전 체크 드롭다운=published+ready+queued(미발행 소스GET 노출). ⚠ G3 GateCheckClient 는 book/article 만 — word_set(VCB) UI 토글 미추가(함수는 지원).
 
 **일반 원칙(중요)**: 추출 로직(select_*_vocab)을 개선하면 **전 발행 콘텐츠가 재발행 전까지 stale** — I10 게이트가 이를 가시화. 로직 변경 후엔 republish 배치 필요.
 

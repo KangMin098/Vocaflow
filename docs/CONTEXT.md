@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `09392ed` feat(quality): 콘텐츠 품질 게이트 ACP+VCB 커버 + LCP end-to-end 실증 (v06.271)
 - `de9ad8a` feat(admin): 품질 게이트 게시전 체크에 미발행(ready/queued) 콘텐츠 노출 (v06.271)
 - `75f31b4` feat(dict): coverage_lexicon 커버리지 사전 — 비학습 롱테일 독해 대응 (v06.271)
 - `6d8c3db` feat(quality): G2 게시 게이트 + 드리프트 재발행 완료 (v06.271)
 - `35357df` feat(quality): 콘텐츠 품질 게이트 nightly cron G4 (v06.271)
-- `f8c5a77` feat(admin): 품질 게이트 화면 /admin/quality/gates (G3, v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
