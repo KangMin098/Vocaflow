@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `f5152af` feat(vocab): 추출 표제어 바인딩 결함 수리 + 판정 하네스 테이블 (v06.270)
 - `c7d1e3a` feat(dict): per-sense 예문 매칭 파이프라인 + 6세션 지시문 (C 진짜 per-sense)
 - `a88cd3c` feat(dict): kaikki 보완 #4·#5 — 관계 4컬럼 + 예문/동의어 (v06.269)
 - `e72546b` docs(dict): kaikki 기회 재검토 — E완료 반영 + 심층검증 수치 교정
 - `7840e3a` fix(dict): 어원 니모닉 게이트 오거부 수리 + M3 종합 (니모닉 5,062·경선식 0)
-- `f02d4d4` feat(dict): 어원 니모닉 확대 파이프라인 + 경선식 차단 게이트 + 6세션 지시문
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260718100020_judgment_harness_rpcs.sql`
 - `20260718100010_create_extraction_judgments_table.sql`
 - `20260718100000_fix_extraction_surface_headword_binding.sql`
 - `20260717160000_recommend_word_sets_redesign_tiers.sql`
 - `20260717150000_wordset_category_etymology.sql`
-- `20260717140000_word_roots.sql`
 <!-- /auto:recent-migrations -->
 
 ---

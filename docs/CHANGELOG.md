@@ -15,7 +15,8 @@
 - **🔴 신규 결함 발견·수리 — 표제어 바인딩**: `select_*_vocab` 가 pre-stem 된 `bv.lemma`(파생/부정접두 과잉 축약)를 그대로 바인딩 → 학습자에게 **반대 뜻** 노출(`imprudent→prudent` 신중한 · `insincere→진심의` · `forbearance→조상,선조`). 발행 콘텐츠 **782 오바인딩·654 POS 불일치·36 반의어 플립** 실측. 기존 "Q1 100% 검증(40,355 표제어)" 미커버 축(표제어 아닌 표면→표제어 바인딩).
 - **마이그레이션** `fix_extraction_surface_headword_binding`(사용자 승인): `select_book_chapter_vocab`·`select_article_vocab` JOIN 한 줄 — 표면형이 자체 quality 표제어이면 그것으로 바인딩(아니면 현행 resolver 폴백). dry-run 검증 = 782 재바인딩·**+143 회수 개선**·extraction-readiness 실패 0·gate-out 17 전량 비-KICE 정당. **발행 세트 영향 0**(현행 학습자 데이터 clean → 재발행 불요). `bv.lemma` 원본 데이터는 무수정(SSoT가 오버라이드 — 대량 재생성 금지 원칙 준수).
 - **마이그레이션** `create_extraction_judgments_table`(사용자 승인): 판정 하네스(Q3/Q5) 골든 라벨 저장소. composite/sort_order 스냅샷 보존 → 가중 변경 회귀 대조. RLS enabled(정책은 D3 하네스 착수 시 admin grant).
-- **다음(승인 대기)**: D3 판정 하네스 `/admin/quality/judge`(blind + pairwise) · D4 freq_rank 백필(KICE/kcurr 571 우선) · D5 V6 게이트 register-인식화(논의).
+- **D3 판정 하네스** `/admin/quality/judge` — 추출 "탁월함"(cap 40 최적성)을 인간 blind 판정으로 축적하는 골든 라벨 UI. 마이그레이션 `judgment_harness_rpcs`: `get_judgment_sample`(in-cap 8 + 경계 8 셔플·출처 은닉) + `save_extraction_judgment`(저장 시점 SSoT 재조회로 스냅샷 서버-권위 기록 → blind 보존·회귀 대조) + `extraction_judgments` RLS `ej_admin_all`. 절대 판정 + 쌍대 비교 모드, 제출 후 precision/recall reveal. AdminSidebar '추출 판정'(Scale). typecheck 0·lint clean·RPC 로직 실데이터 검증(표본 16=8+8). 런타임 UI 스모크는 admin 세션 필요 → 후속(전용 e2e spec 권장).
+- **다음(승인 대기)**: D4 freq_rank 백필(KICE/kcurr 571 우선) · D5 V6 게이트 register-인식화(논의).
 
 ### kaikki 보완 #4·#5 — 관계 컬럼 + 예문/동의어 (v06.269)
 - **마이그레이션** `add_kaikki_extra_columns`: `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼 신설(사용자 승인).
