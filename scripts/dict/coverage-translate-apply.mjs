@@ -56,3 +56,20 @@ for (let i = 0; i < entries.length; i += CONC) {
   if ((i + CONC) % 2400 < CONC) console.log(`  ${Math.min(i + CONC, entries.length)}/${entries.length} (updated ${updated}, skipped ${skipped}, failed ${failed})`)
 }
 console.log(`done. updated ${updated}, skipped ${skipped}, failed ${failed}`)
+
+// --prune: 청크 input에 있으나 out에 없는(=서브에이전트가 스킵) 단어 → source='skip'(재부상 차단)
+if (process.argv.includes('--prune')) {
+  let pruned = 0
+  for (const f of fs.readdirSync(DIR)) {
+    const mo = f.match(/^(chunk-\d+)\.out\.json$/); if (!mo) continue
+    let inp, out
+    try { inp = JSON.parse(fs.readFileSync(path.join(DIR, mo[1] + '.json'), 'utf8')); out = JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')) } catch { continue }
+    const outSet = new Set(out.map((e) => (e.word || '').toLowerCase()))
+    const skippedWords = inp.map((e) => (e.word || '').toLowerCase()).filter((w) => w && !outSet.has(w))
+    for (let i = 0; i < skippedWords.length; i += 200) {
+      const { error } = await db.from('coverage_lexicon').update({ source: 'skip' }).in('word', skippedWords.slice(i, i + 200)).is('meaning_ko', null)
+      if (!error) pruned += Math.min(200, skippedWords.length - i)
+    }
+  }
+  console.log(`pruned(skip 표시): ${pruned}`)
+}

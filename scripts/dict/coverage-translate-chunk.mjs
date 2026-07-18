@@ -31,7 +31,7 @@ const rows = []
 { let cur = ''
   for (;;) {
     const { data, error } = await db.from('coverage_lexicon').select('word, pos, gloss_en')
-      .is('meaning_ko', null).gt('word', cur).order('word').limit(1000)
+      .is('meaning_ko', null).eq('source', 'kaikki').gt('word', cur).order('word').limit(1000)
     if (error) { console.error(error.message); process.exit(1) }
     if (!data.length) break
     for (const r of data) if (r.gloss_en) rows.push({ word: r.word, pos: r.pos, gloss_en: r.gloss_en.slice(0, 220), fr: rank[r.word] ?? null })

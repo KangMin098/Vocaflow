@@ -33,29 +33,33 @@ Vocaflow coverage_lexicon 한국어 번역 실행. docs/AI_CONTEXT/handoffs/cove
 
 담당 = scripts/dict/covtr/chunk-000.json ~ chunk-111.json (112청크). 빈도 낮은 번호부터(000=최빈).
 
-루프(청크 000부터 순서대로):
-1. 미처리 청크(=out.json 없음)를 10~12개씩 웨이브로 묶어 general-purpose 서브에이전트에 동시 디스패치(run_in_background: true). 각 프롬프트 = 지시문 §3 그대로 + 청크번호 치환.
-2. 웨이브 완료를 Bash(run_in_background: true) until-loop로 대기(개별 알림 폭주 방지):
-   for i in $(seq 1 120); do n=$(ls scripts/dict/covtr/chunk-{범위}.out.json 2>/dev/null | wc -l); if [ "$n" -ge {웨이브수} ]; then echo DONE; break; fi; sleep 20; done
-3. apply: node scripts/dict/coverage-translate-apply.mjs --dir scripts/dict/covtr --commit
-   (rejected에 no-hangul 뜨면 영어 echo가 걸러진 것·정상. 멱등이라 웨이브마다 재실행 안전)
-4. 남은 청크 있으면 1로. 112청크 소진까지.
-5. 종료 보고: 처리 청크수·적용 단어수·거부수.
+현 상태: ~13,645 번역 완료 · 남은 빈도순 미번역 ~64k. covtr는 매 사이클 재생성(청크 번호 바뀜, chunk-000=남은 것 중 최빈). **한 창에서만** 돌릴 것(여러 창이 같은 covtr 재생성 시 충돌).
 
-절대 금지: 마이그레이션 · coverage_lexicon 스키마 변경 · git push(작업 브랜치 커밋은 OK) · covtr 외 파일 수정.
-서브에이전트 스폰 실패(API 에러) 시: 청크 크기 문제 아니라 세션 한도 → 잠시 후 재시도 or 창 나눔.
+사이클(남은 대상 0 될 때까지 반복):
+1. 청크 확인: ls scripts/dict/covtr/chunk-*.json | grep -v out | wc -l. 0이면 재생성:
+   node --max-old-space-size=4096 scripts/dict/coverage-translate-chunk.mjs --out scripts/dict/covtr --chunk 800
+   ("청크 대상: 0" 나오면 완료 → 종료 보고).
+2. chunk-000 ~ chunk-011(최대 12, 있는 만큼) general-purpose 서브에이전트에 한 메시지 동시 디스패치(run_in_background: true). 프롬프트 = §3 그대로 + 청크번호 치환. (에이전트 ~16~40분, 정상.)
+3. 대기 = Bash(run_in_background: true) until-loop:
+   for i in $(seq 1 90); do n=$(ls scripts/dict/covtr/chunk-0[01][0-9].out.json 2>/dev/null | wc -l); if [ "$n" -ge {디스패치수} ]; then echo DONE; break; fi; sleep 30; done
+4. apply(--prune 필수): node scripts/dict/coverage-translate-apply.mjs --dir scripts/dict/covtr --commit --prune
+   (--prune = 스킵 잡음[고유명사·브랜드·약어] source='skip' 표시→재부상 차단. no-hangul 거부 정상. 멱등)
+5. rm scripts/dict/covtr/chunk-*.out.json  → 1로(재생성이 완료분·skip 제외하고 남은 빈도순만 다시 청크).
+
+절대 금지: 마이그레이션 · coverage_lexicon 스키마 변경 · main push · covtr/en_full.txt 외 파일 수정.
+서브에이전트 스폰 실패(API/세션한도) 시: 잠시 후 재시도 or 다른 창.
 ```
 
-## 5. (선택) 창 분할 — 빠른 완료
-112청크를 범위로 나눠 창마다 하나씩. 각 창은 §4 루프를 자기 범위로:
-- 창A: chunk-000~037 · 창B: chunk-038~074 · 창C: chunk-075~111
-- out.json은 같은 covtr/에 모임(파일명 안 겹침). apply는 아무 창에서나(멱등).
+## 5. 병렬(고급·선택)
+§4 재생성-루프는 covtr를 통째로 재생성하므로 **한 창 전용**. 병렬을 원하면 창마다 **별도 out dir + rank 파티션**:
+- 창A: `--out scripts/dict/covtr-a --max-rank 30000` · 창B: `--out covtr-b --max-rank 60000`(30000 초과분은 수동 필터) 등. 각자 자기 dir로 §4 루프.
+- apply는 `--dir covtr-a` 등 자기 dir. 복잡하므로 단일 창 권장(급하지 않으면).
 
-## 6. 종합 (전 청크 완료 후)
-- 검증: `select count(*) filter(where meaning_ko is not null) from coverage_lexicon;` (89,393 목표).
+## 6. 종합 (전 대상 완료 후)
+- 검증: `select count(*) filter(where meaning_ko is not null) as translated, count(*) filter(where source='skip') as skip from coverage_lexicon;`
 - CHANGELOG v06.271 갱신(누계 번역수).
-- covtr/·en_full.txt·kowiki-en.jsonl 은 gitignore(데이터).
-- **잔여**: 미랭크 극희귀 334,935는 `coverage-translate-chunk.mjs --include-unranked`로 후속(원하면).
+- covtr*/·en_full.txt·kowiki-en.jsonl 은 gitignore(데이터).
+- **잔여**: 미랭크 극희귀 ~334k는 `coverage-translate-chunk.mjs --include-unranked`로 후속(원하면). 사실상 안 나오는 단어라 선택.
 
 ---
 *근거: coverage_lexicon 424,328 · 빈도소스 hermitdave OpenSubtitles 165만 · 실존 랭크 89,393. 원 세션 서브에이전트 스폰 실패로 핸드오프.*

@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `1ad475a` feat(quality): 게이트 원인분석 드릴다운 — 문제 단어+이유+고침힌트 (v06.271)
 - `ecf9bb9` fix(admin): 품질 게이트 후보 목록을 service-role 로 조회 (미발행 노출) (v06.271)
 - `b9d6822` docs: 콘텐츠 품질 게이트 사용 가이드(런북) 추가 (v06.271)
 - `ba29355` test(quality): 콘텐츠 품질 게이트 자체 테스트 스위트 + 성능 수리 (v06.271)
 - `675d3d6` docs(dict): coverage 한국어 번역 실행 핸드오프 (fresh 세션용)
-- `41aaba9` feat(dict): coverage 한국어 번역 파이프라인 — 빈도순 배치 (v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
