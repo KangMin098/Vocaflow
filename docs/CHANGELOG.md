@@ -18,7 +18,9 @@
 - **발견**: 전역 게이트 critical 전부 PASS(F 후). **도서 게이트가 P&P 발행세트 SSoT 드리프트 770 검출** — D1/D4a 개선이 select 출력을 바꿔 발행 콘텐츠가 stale(재발행 필요). 추출 로직 개선→발행 stale 이 처음으로 가시화.
 - **G3 화면** `/admin/quality/gates`: 전역 게이트 red/green + 요약 배너(allGreen=게시 신뢰) + 콘텐츠별 게시전 체크(도서/아티클 선택→book|article scope). AdminSidebar '품질 게이트'(ShieldCheck).
 - **G4 nightly cron** `content-gate-nightly`(KST 03:25): `collect_content_gate_metrics` → `quality_metrics(stage='gate')` 적재로 추이 추적. `admin_collect_content_gate_metrics` 수동 트리거. **→ 파이프라인 정확성 상시 자동 감시**.
-- **잔여(다음)**: G2 게시 전 게이트 wire(publish RPC/버튼이 critical FAIL 차단 — 동작 변경, 결정 필요) · 드리프트 도서 재발행(P&P 등 D1/D4a 반영).
+- **G2 게시 게이트 wire**: `content_gate_publishable(scope,id)`(critical FAIL 있으면 false, I10 드리프트 제외) → `publish_book_word_sets`·`publish_article_word_set`·`republish_*` 에 가드. broken 콘텐츠 게시 차단.
+- **드리프트 재발행 완료**: `republish_book_word_sets`·`republish_article_word_set`(set_id 보존, shared_words만 교체 — 구독/진행 안전) → 전 발행 도서 20권 + 아티클 135세트 SSoT 재동기. **I10 드리프트 전량 해소**(P&P 770→0 등). D1/D4a 개선이 학습자 단어장에 반영됨. I10 미발행 false-fail 수정.
+- **최종 상태**: 전역 게이트 critical(I1·I5·I7·I8·I9) 전부 PASS · 도서 I10 PASS · I2만 WARN 343. 파이프라인 정확성 상시 자동 감시 + 게시 전 차단 + 게시 후 재발행 루프 완성.
 
 
 ### 추출 품질 심층 평가 P0 + 표제어 바인딩 결함 수리 (v06.270)
