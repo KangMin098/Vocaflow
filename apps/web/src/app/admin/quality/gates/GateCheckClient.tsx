@@ -15,11 +15,18 @@ export interface BookOpt {
   id: string
   title: string
   book_v_level: number | null
+  status: string
 }
 export interface ArticleOpt {
   id: string
   title: string
   register: string | null
+  status: string
+}
+
+/** 미발행 상태 뱃지 — 게시 전 검증 대상임을 표시 */
+function statusTag(s: string): string {
+  return s === 'published' ? '' : `[${s}] `
 }
 
 interface GateRow {
@@ -100,6 +107,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
           >
             {books.map((b) => (
               <option key={b.id} value={b.id}>
+                {statusTag(b.status)}
                 {b.title} (V{b.book_v_level ?? '?'})
               </option>
             ))}
@@ -115,6 +123,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
           >
             {articles.map((a) => (
               <option key={a.id} value={a.id}>
+                {statusTag(a.status)}
                 {a.title.slice(0, 70)}
               </option>
             ))}

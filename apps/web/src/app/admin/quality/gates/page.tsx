@@ -41,16 +41,19 @@ export default async function AdminGatesPage() {
 
   const [{ data: gateData, error }, { data: bookRows }, { data: articleRows }] = await Promise.all([
     supabase.rpc('run_content_quality_gates', { p_scope: 'global' }),
+    // 게시 전 체크는 미발행(ready/queued) 콘텐츠도 대상 — 소스 GET → 추출 후 게시 전 검증
     supabase
       .from('library_books')
-      .select('id, title, book_v_level')
-      .eq('status', 'published')
+      .select('id, title, book_v_level, status')
+      .in('status', ['published', 'ready', 'queued'])
+      .order('status', { ascending: true })
       .order('title', { ascending: true })
       .returns<BookOpt[]>(),
     supabase
       .from('library_articles')
-      .select('id, title, register')
-      .eq('status', 'published')
+      .select('id, title, register, status')
+      .in('status', ['published', 'ready', 'queued'])
+      .order('status', { ascending: true })
       .order('title', { ascending: true })
       .returns<ArticleOpt[]>(),
   ])
