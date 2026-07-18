@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `675d3d6` docs(dict): coverage 한국어 번역 실행 핸드오프 (fresh 세션용)
 - `41aaba9` feat(dict): coverage 한국어 번역 파이프라인 — 빈도순 배치 (v06.271)
 - `09392ed` feat(quality): 콘텐츠 품질 게이트 ACP+VCB 커버 + LCP end-to-end 실증 (v06.271)
 - `de9ad8a` feat(admin): 품질 게이트 게시전 체크에 미발행(ready/queued) 콘텐츠 노출 (v06.271)
 - `75f31b4` feat(dict): coverage_lexicon 커버리지 사전 — 비학습 롱테일 독해 대응 (v06.271)
-- `6d8c3db` feat(quality): G2 게시 게이트 + 드리프트 재발행 완료 (v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260718100130_select_vocab_statement_timeout.sql`
+- `20260718100120_gate_statement_timeout.sql`
 - `20260718100110_gate_perf_optimize.sql`
 - `20260718100100_vcb_noise_cleanup.sql`
 - `20260718100090_gate_acp_vcb_coverage.sql`
-- `20260718100080_g2_publish_gate_wire.sql`
-- `20260718100070_republish_and_gate_wire.sql`
 <!-- /auto:recent-migrations -->
 
 ---
