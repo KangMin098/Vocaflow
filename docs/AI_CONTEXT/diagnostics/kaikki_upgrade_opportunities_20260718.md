@@ -43,10 +43,11 @@
 | **B** | US/UK IPA 분리 | ipa US 15,407 / UK ~15,695 | ipa_us/ipa_uk 존재·0% | ❌ 없음 | 없음 | 🟢 지역 발음 |
 | **C** | per-sense 예문 | **clean 13,489 (30.9%)** ←32k는 인용문 포함 과대 | meanings_ko jsonb | ❌ jsonb | 중(인용/연어 필터 필수) | 🟢 문맥의존·sense깊이 시너지 |
 | ~~E~~ | ~~어원 니모닉~~ | ✅ **완료 v06.268** (+2,433→5,062·경선식0) | mnemonic_ko | — | — | (done) |
-| F | 동음이의 페어(homophone) | 2,713 (6.2%) | 신규 컬럼 | ✅ 필요 | 없음 | 🟡 dictation/spelling |
-| G | 라이밍(rhymes) | 16,208 (37.1%) | 신규 컬럼 | ✅ 필요 | 없음 | 🟡 EchoMatch/phonics |
-| H | 파생 가족(derived/related) | 18,382 / 10,047 | 신규 컬럼 or jsonb | 🟡 | 없음 | 🟡 형태·어휘망 |
-| I | per-sense synonyms | 16,735 (38.3%) | synonyms 보강 | ❌ | 낮음 | 🟡 parity↑ |
+| ~~F~~ | ~~동음이의(homophones)~~ | ✅ **완료 v06.269** (2,687) | homophones | — | — | (done) |
+| ~~G~~ | ~~라이밍(rhyme_key)~~ | ✅ **완료 v06.269** (16,042) | rhyme_key | — | — | (done) |
+| ~~H~~ | ~~파생 가족(derived/related)~~ | ✅ **완료 v06.269** (19,548/11,223) | derived_forms/related_terms | — | — | (done) |
+| ~~I~~ | ~~synonyms 보강~~ | ✅ **완료 v06.269** (64.5→76.4%) | synonyms | — | — | (done) |
+| **C** | **per-sense 예문**(잔여) | word-level 752 채움 완료 · 진짜 per-sense 매칭=LLM 패스 필요 | meanings_ko jsonb | ❌ | 중 | 🟢 (부분) |
 
 ---
 

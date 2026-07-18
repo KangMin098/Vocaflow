@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### kaikki 보완 #4·#5 — 관계 컬럼 + 예문/동의어 (v06.269)
+- **마이그레이션** `add_kaikki_extra_columns`: `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼 신설(사용자 승인).
+- **1회 스트림 추출**(`kaikki-extra-{extract,apply}.mjs`, 멀티세션보다 빠름 — 추출은 I/O 병목이라 병렬 무의미): homophones 2,687·rhyme_key 16,042·derived_forms 19,548·related_terms 11,223 채움. + example_en 결측 752 채움(96.8%) + synonyms 보강(64.5→**76.4%**). 전부 kaikki 외부사실=무환각·결측만.
+- **교훈**: (1) `Object.create(null)` 필수 — "constructor"·"toString" 실제 영단어가 프로토타입 오염 유발. (2) 45k 맵 `JSON.stringify` 512MB 한계 → JSONL 스트림 기록.
+- **per-sense 예문(C) 잔여**: 영어 예문↔한국어 sense 매칭은 판단 필요(단일 스트림 불가) → 별도 LLM 패스 옵션. 현 pass는 word-level 예문/동의어까지.
+
 ### 어원 니모닉 확대 M3 — kaikki etymology_text 근거 6세션 병렬 (v06.268)
 - **배경**: 니모닉 6.5%(2,618) 정체 — M2는 어근 인벤토리(181개) 근거라 그 밖 어근은 skip. kaikki `etymology_text`(83.3%)는 단어별 권위 근거라 인벤토리 한계 해소.
 - **경선식(발음 소리흉내) 차단 = 근거 대조 게이트**: 지시만으론 약함 → `mnemonic-etym-apply.mjs`가 (1)화살표 필수 (2)로마자 어근 필수(순수 한글=경선식 거부) (3)어근이 etymology_text에 실제 등장(diacritic strip + 어간 4글자 매칭으로 굴절변이 흡수). 자체테스트: `advocate→ad(voc)` 통과 / `애들 보고 캣` 거부.

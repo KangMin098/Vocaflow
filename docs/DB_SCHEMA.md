@@ -108,7 +108,7 @@
 
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
-| `shared_dictionary` | **45,292** | **183 MB** | 영단어 마스터 캐시 — meaning_ko 100% (v06.24) · 11개 통합 컬럼 (Phase 1) · senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2) · `inflected_forms` text[] GIN (전역 권위화 굴절형 15,210 lemma · 규칙형 검증+권위 불규칙, noise 제거 · `scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) |
+| `shared_dictionary` | **45,292** | **183 MB** | 영단어 마스터 캐시 — meaning_ko 100% (v06.24) · 11개 통합 컬럼 (Phase 1) · senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2) · `inflected_forms` text[] GIN (전역 권위화 굴절형 15,210 lemma · 규칙형 검증+권위 불규칙, noise 제거 · `scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) · **kaikki 보완(v06.269): `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼(마이그 `add_kaikki_extra_columns`) + mnemonic_ko 5,062(어원·경선식0)** |
 | `shared_words` | 13,437 | 46 MB | 공용 단어장 — `source_queue_id` FK to vocab_enrichment_queue (cast-2000 audit) · `source_sentence`(원문 출현 문장 · 도서 단어장 예문, 렌더는 source_sentence→example_en 폴백) · **`chapter` smallint**(세트 내 챕터 1..N, NULL=미분할 — 하나의 세트를 여러 챕터로 내부 구성, 챕터별 발행 아님. idx `set_id,chapter,sort_order`, 2026-07-09) |
 | `shared_word_sets` | 277 | 2.8 MB | 단어장 헤더 — category(8 enum)+`category_id`/`additional_category_ids[]` (브릿지) · is_published · curation_query JSONB · **`subscriber_count`**(구독수 denormalized · `user_word_set_subscriptions` INSERT/DELETE 트리거 `trg_maintain_set_subscriber_count` 유지 · 사용빈도/인기 랭킹, RLS 본인전용 집계 회피, 2026-07-09) |
 | `user_word_set_subscriptions` | 225 | 104 kB | 다중 구독 · source_book_id ref (자동 import 추적) |
