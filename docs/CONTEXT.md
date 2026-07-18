@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `6d8c3db` feat(quality): G2 게시 게이트 + 드리프트 재발행 완료 (v06.271)
 - `35357df` feat(quality): 콘텐츠 품질 게이트 nightly cron G4 (v06.271)
 - `f8c5a77` feat(admin): 품질 게이트 화면 /admin/quality/gates (G3, v06.271)
 - `459f0e5` feat(quality): 콘텐츠 품질 게이트 F+G1 — 파이프라인 정확성 자동 검증 (v06.271)
 - `2511e0f` docs(dict): per-sense 예문 매칭 완료 (v06.270 · 5,111단어·9,645 예문)
-- `9ec4990` test: 추출 골든 스냅샷 D1/D4a 반영 + arcade 스테일 카운트 수정
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->

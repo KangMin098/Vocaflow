@@ -32,6 +32,14 @@
 - **D4a KICE freq_rank proxy 백필** — migration `backfill_kice_freq_rank_proxy`: KICE-core(수능 tier≥3) NULL freq_rank **273행**을 proxy rank(밴드 실측 중앙값 135 + KICE 중앙값 1986 = 138)으로 채움. `frequency_sources.proxy` provenance 마킹. efficiency·innovation·precision·prioritize 등 CSAT 빈출어가 composite 0.40 freq축 0점→~0.12 → 추출 순위 정상화. **핵심 재발견**: 추출가능(v≥6) working set의 freq_rank NULL 28.7%(4,648) 중 backfillable은 46뿐 — 나머지 4,602는 **무신호 rare tail(NULL이 정당, 결함 아님)**. 설계의 "freq_rank가 사전 최대 갭" 은 완비율로는 맞으나 추출 영향분은 대부분 **축소 불가**(D4b 외부corpus 없이는).
 - **다음(승인 대기)**: D5 V6 게이트 register-인식화(논의) · D4b 외부 corpus(rare tail — 저우선).
 
+### 커버리지 사전 — 비학습 롱테일 독해 대응 (v06.271, 진행)
+- **문제**: 도서·스크립트에 코어 45k 밖 롱테일(고어·희귀·전문)이 등장 → 학습자 독해 시 "정의 없음". 학습 큐레이션과 독해 커버리지는 다른 요구.
+- **설계**: `coverage_lexicon` **별도 테이블**(shared_dictionary 무변경·학습 무오염). 마이그 `create_coverage_lexicon`. `word·pos·gloss_en·ipa·meaning_ko·frequency_rank·source·seen_count`. 2-tier: 학습=core만 / 독해=core→coverage→미상 폴백.
+- **벌크 적재**: kaikki 단일어·content POS·실 gloss·**form_of(굴절) 제외**·코어 밖 → **424,328행**(gloss_en+ipa, meaning_ko는 demand 채움). `coverage-bulk-load.mjs`.
+- **검증**: 도서 잔여어 커버 — 미커버는 90%+ 굴절형(추출이 코어 lemma로 해소)+OCR잡음. 진짜 희귀어는 커버. 굴절 해소 후 실질 커버리지 높음.
+- **소스 분석**: kaikki 한국어 번역 25,736(흔한 단어 편중·tail 무용) · PanLex 4.31GB(불확실 payoff·보류). → 한국어는 **콘텐츠 등장 잔여만 LLM 배치**(bounded), gloss_en 즉시 폴백. 설계 근거=`docs/AI_CONTEXT/diagnostics/kaikki_upgrade_opportunities_20260718.md` 계열.
+- **잔여**: RPC 폴백(lookup_word_meaning)+is_learning_target(select_*_vocab) · UI 2섹션 · 한국어 demand 배치.
+
 ### kaikki C — per-sense 예문 매칭 (v06.270)
 - **진짜 per-sense**: 다의어 각 한국어 sense에 kaikki 실용 예문을 매칭(판단=LLM). 도구 `example-match-{chunk,apply}.mjs`. grounding 게이트: 예문은 제공 풀에서 **verbatim만**(편집·창작 거부=ungrounded-ex)·meaning 매칭·pos/v_level 보존.
 - **결과**: **5,111단어 · 9,645 sense-예문** 부착(meanings_ko sense별 `example`). `groan`=[신음]let out a groan·[툴툴]We groaned at his awful jokes·[삐걱]The table groaned under the weight 식 sense별 정확 매칭. 억지 금지(풀에 뜻 없으면 생략).

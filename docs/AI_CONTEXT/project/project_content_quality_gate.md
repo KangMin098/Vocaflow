@@ -14,11 +14,12 @@
 - **G3** `/admin/quality/gates` — 전역 red/green + 콘텐츠별 게시전 체크(GateCheckClient). AdminSidebar '품질 게이트'(ShieldCheck).
 - **G4** cron `content-gate-nightly`(KST 03:25) → `collect_content_gate_metrics` → `quality_metrics(stage='gate')`. `admin_collect_content_gate_metrics` 수동. quality_metrics.stage CHECK 에 'gate' 추가.
 
-**현 상태**: 전역 게이트 critical 전부 PASS(F 후), I2만 WARN 343.
+- **G2** `content_gate_publishable(scope,id)`(critical FAIL 있으면 false·I10 제외) → `publish_book_word_sets`·`publish_article_word_set`·`republish_*` 가드. broken 콘텐츠 게시 차단.
+- **재발행 완료** `republish_book_word_sets`·`republish_article_word_set`(**set_id 보존**·shared_words만 교체=구독/진행 안전) → 전 발행 도서 20권+아티클 135세트 SSoT 재동기. **I10 전량 해소(P&P 770→0)**. D1/D4a 학습자 반영. ⚠배치는 도서당 select 다중호출로 무거움 → 큰 책 개별 실행(한 statement 타임아웃=전체 롤백).
 
-**⚠ 미완/결정 필요**:
-- **G2 게시 전 게이트 wire**: publish RPC/Admin 버튼이 critical FAIL 시 차단 — **동작 변경이라 결정 필요**.
-- **드리프트 도서 재발행**: 도서 게이트가 **P&P I10 SSoT 드리프트 770 검출** — D1/D4a 개선이 select 출력을 바꿔 발행 세트가 stale. 재발행 필요(publish_book_word_sets는 skip-existing → delete+republish 필요). 대량 배치라 결정 필요. **일반 원칙: 추출 로직 개선 시 전 발행 콘텐츠가 재발행 전까지 stale**.
+**최종 상태**: 전역 critical(I1·I5·I7·I8·I9) 전부 PASS · 도서 I10 PASS · I2만 WARN 343. **루프 완성: 정확성 자동검증(G4 cron)→게시전 차단(G2)→게시후 재발행(republish)**.
+
+**일반 원칙(중요)**: 추출 로직(select_*_vocab)을 개선하면 **전 발행 콘텐츠가 재발행 전까지 stale** — I10 게이트가 이를 가시화. 로직 변경 후엔 republish 배치 필요.
 
 관련 [[project_ext_quality_p0_harness]](D1 바인딩·D4a freq·D2/D3 하네스) · [[feedback_supabase_migrations]] · [[book_vocab_ssot_unify]].
 
