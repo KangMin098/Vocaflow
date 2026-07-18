@@ -3,6 +3,8 @@
 > 목적: 확보한 kaikki(Wiktionary, CC BY-SA 3.0, 3.19GB) 자료로 `shared_dictionary`를 더 최적화할 여지(업그레이드·기능·자료·구조)를 **실측 대조**로 판정·우선순위화.
 > 근거: shared_dictionary 컬럼/채움률 실측 + kaikki 원본 필드 인벤토리(200k 샘플) + 45k 표제어 교차 정밀 산정(1회 스트림). 저작권: 벤더 중립.
 
+> **진행 상태(2026-07-18 갱신)**: **E 어원 니모닉 ✅ 완료**(v06.268, +2,433 → 5,062·경선식 0). sense 깊이 ✅ 완료(v06.267, +6,494). 아래는 **잔여 기회 재검토 + 심층검증 수치 교정**(per-sense 예문·오디오 UK는 초기 추정이 과대였음).
+
 ---
 
 ## 1. 현 사전DB 채움 상태 (추출 대상 40,355)
@@ -36,11 +38,11 @@
 
 | # | 기회 | 규모 | 대상 컬럼 | 마이그 | 환각위험 | 가치 |
 |---|---|---|---|---|---|---|
-| **A** | **원어민 audio(mp3)** | **30,902 (70.7%)** | audio_url(_us/_uk) 존재·0% | ❌ 없음 | 없음(외부사실) | 🟢🟢 dual-coding·EchoMatch |
-| **B** | **US/UK IPA 분리** | 15,698 / 15,695 (35.9%) | ipa_us/ipa_uk 존재·0% | ❌ 없음 | 없음 | 🟢 지역 발음 |
-| **C** | **per-sense 예문** | **32,236 (73.8%)** | meanings_ko jsonb(sense별) | ❌ jsonb | 낮음(인용문 필터) | 🟢🟢 문맥의존·sense깊이 시너지 |
-| **D** | **문법 정보(타동/가산 등)** | 16,571 (37.9%) | meanings_ko sense별 or 신규 | ❌ jsonb | 없음(태그 사실) | 🟢 **명시 갭 해소**·POS해소↑ |
-| **E** | **어원 근거 니모닉 확대** | etymology_text 36,386 (83.3%) | mnemonic_ko(현 6.5%) | ❌ 없음 | 중(authoring) | 🟢🟢 플랫폼 핵심축 |
+| **A** | **원어민 audio(mp3)** | **30,703 (70.3%)** · US 15,407 · UK **1,628(3.7%)** | audio_url(_us/_uk) 존재·0% | ❌ 없음 | 없음(외부사실) | 🟢🟢 dual-coding·EchoMatch |
+| **D** | **문법 정보(가산/불가산·타동)** | **uncnt 30,253+cnt 25,904+타동 8,292** | meanings_ko sense별(jsonb) | ❌ jsonb | 없음(태그 사실) | 🟢🟢 **명시 갭·한국인 최대 약점** |
+| **B** | US/UK IPA 분리 | ipa US 15,407 / UK ~15,695 | ipa_us/ipa_uk 존재·0% | ❌ 없음 | 없음 | 🟢 지역 발음 |
+| **C** | per-sense 예문 | **clean 13,489 (30.9%)** ←32k는 인용문 포함 과대 | meanings_ko jsonb | ❌ jsonb | 중(인용/연어 필터 필수) | 🟢 문맥의존·sense깊이 시너지 |
+| ~~E~~ | ~~어원 니모닉~~ | ✅ **완료 v06.268** (+2,433→5,062·경선식0) | mnemonic_ko | — | — | (done) |
 | F | 동음이의 페어(homophone) | 2,713 (6.2%) | 신규 컬럼 | ✅ 필요 | 없음 | 🟡 dictation/spelling |
 | G | 라이밍(rhymes) | 16,208 (37.1%) | 신규 컬럼 | ✅ 필요 | 없음 | 🟡 EchoMatch/phonics |
 | H | 파생 가족(derived/related) | 18,382 / 10,047 | 신규 컬럼 or jsonb | 🟡 | 없음 | 🟡 형태·어휘망 |
@@ -58,8 +60,8 @@
 - **C. per-sense 예문 32,236** — 현 `example_en`은 단어당 1개. kaikki sense.examples를 **meanings_ko 각 sense에 예문 첨부**(방금 확대한 6,494 다의어와 직접 시너지 — "그 sense의 예문"). **게이트**: `type=example`(짧은 실용문)만, `type=quotation`(출전 인용·고문)·`tags=collocation` 별도 취급, offset로 표제어 강조 가능. 학습 원칙 5(문맥의존) 정면 충족.
 - **D. 문법 정보 16,571** — sense.tags의 `transitive/intransitive/countable/uncountable/auxiliary…`를 meanings_ko sense별 문법 라벨로. **vs-general 분석 §4-4가 명시한 "문법 정보 부재" 갭을 정면 해소**. 부수효과: 타동성이 문맥-POS sense 해소 정확도를 올림.
 
-### 🟢 Tier 2.5 — 플랫폼 핵심축, authoring 필요
-- **E. 어원 근거 니모닉 확대** — mnemonic_ko **6.5%**(2,623개)에 불과. kaikki `etymology_text` 36,386개(83.3%)가 **어근·차용 경로를 담은 무환각 근거원**. [[feedback_mnemonic_etymology_only]] 제약("어원 근거만·발음 말장난 절대 금지")과 **완벽 정합** — etymology_text는 순수 어원 사실. 멀티 세션 authoring 패턴([[project_dict_wave_plan_w0]]) 재사용으로 니모닉 커버리지 대폭 확대. **발음 연상 유입 원천 차단**: etymology_text 근거만 쓰므로 소리 말장난 원천 불가.
+### ✅ Tier 2.5 — 어원 근거 니모닉 (완료 v06.268)
+- **E. 어원 근거 니모닉 확대 — 완료**: etymology_text 근거 6세션 병렬 +2,433 → **니모닉 5,062**(커버 11.08%). 경선식 차단 게이트(로마자 어근 필수+etymology_text 대조) → **pure_hangul(경선식) 0 검증**. 도구 `mnemonic-etym-{chunk,apply}.mjs`, 지시문 `mnemonic_etym_multisession_20260718.md`. [[feedback_mnemonic_etymology_only]].
 
 ### 🟡 Tier 3 — 신규 기능 (마이그 필요, 중가치)
 - **F. 동음이의 페어**(2,713) — their/there류. Dictation·SpellForge의 confusable 페어, 오답 유도용. 신규 테이블/컬럼.
@@ -72,16 +74,17 @@ translations 3.3%(한국어 뜻은 자체 meanings_ko가 우월) · hypernyms/hy
 
 ---
 
-## 5. 권장 실행 순서
+## 5. 권장 실행 순서 (E 완료 후 재순위)
 
-1. **A 오디오** (즉시·최고 ROI·컬럼 준비·순수 사실) — `kaikki-enrich.json` → audio_url 채움 스크립트 + remotePattern. 30,902 단어 원어민 발음.
-2. **B US/UK IPA** (A와 같은 스트림) — ipa_us/ipa_uk.
-3. **C per-sense 예문** (sense 깊이 작업 직접 연장·문맥의존) — 품질 게이트 후 meanings_ko sense별 example.
-4. **D 문법 정보** (명시 갭 해소·해소 정확도↑) — sense.tags → 문법 라벨.
-5. **E 어원 니모닉 확대** (플랫폼 핵심축·6.5%→) — etymology_text 근거 멀티 세션.
-6. F/G/H/I — 신규 기능, 마이그 동반, 별도 판단.
+1. **A 오디오** (즉시·최고 ROI·컬럼 준비·순수 사실) — `kaikki-enrich.json` → audio_url 채움 스크립트 + remotePattern. **30,703** 원어민 발음(US 15,407·UK 1,628). 마이그 0.
+2. **D 문법 정보** (재순위↑·명시 갭·한국인 최대 약점) — 가산/불가산(5.6만)·타동성(1.2만) sense.tags → meanings_ko sense별 라벨. **순수 사실·환각 0·jsonb**. 부수효과: 타동성이 문맥-POS 해소 정확도↑. 가산/불가산은 시중 사전 대비 학습 차별화 최강 포인트.
+3. **B US/UK IPA** (A와 같은 스트림) — ipa_us/ipa_uk.
+4. **C per-sense 예문** (sense 깊이 직접 연장·문맥의존) — **clean 13,489**만(인용문 67.7% 제외). meanings_ko sense별 example. 게이트: type=example·3~22단어·연어/ISBN 제외.
+5. F/G/H/I — 신규 기능, 마이그 동반, 별도 판단.
 
-**즉시 착수 최적 = A(오디오)**: 마이그 0, 컬럼 준비완료, 자료 이미 추출됨, 무환각, 학습가치 최상. 30분 내 30,902 단어 원어민 발음 탑재 가능.
+~~E 어원 니모닉~~ ✅ 완료(v06.268).
+
+**즉시 착수 최적 = A(오디오)** → 다음 **D(문법)**. 둘 다 마이그 0·무환각·순수 사실. A는 자료 추출 완료라 30분 내 탑재, D는 한국인 학습자 최대 약점(가산/불가산)을 시중 사전보다 정밀하게 채우는 차별화 카드.
 
 ---
 

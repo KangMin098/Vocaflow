@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `7840e3a` fix(dict): 어원 니모닉 게이트 오거부 수리 + M3 종합 (니모닉 5,062·경선식 0)
 - `f02d4d4` feat(dict): 어원 니모닉 확대 파이프라인 + 경선식 차단 게이트 + 6세션 지시문
 - `0edd7db` docs(dict): kaikki 사전DB 업그레이드 기회 면밀 분석 (9기회 산정)
 - `e0a3f58` chore(dict): sense 깊이 3차 — freq 6k-31k 6세션 병렬 (5,406단어·v06.267)
 - `2595bfa` docs(dict): 멀티 세션 지시문 §3 — 치환 없는 세션별 복붙 블록 6개
-- `230ba09` docs(dict): sense 깊이 멀티 세션 지시문 + 6세션 청크 분할
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
