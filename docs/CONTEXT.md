@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `ecf9bb9` fix(admin): 품질 게이트 후보 목록을 service-role 로 조회 (미발행 노출) (v06.271)
 - `b9d6822` docs: 콘텐츠 품질 게이트 사용 가이드(런북) 추가 (v06.271)
 - `ba29355` test(quality): 콘텐츠 품질 게이트 자체 테스트 스위트 + 성능 수리 (v06.271)
 - `675d3d6` docs(dict): coverage 한국어 번역 실행 핸드오프 (fresh 세션용)
 - `41aaba9` feat(dict): coverage 한국어 번역 파이프라인 — 빈도순 배치 (v06.271)
-- `09392ed` feat(quality): 콘텐츠 품질 게이트 ACP+VCB 커버 + LCP end-to-end 실증 (v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260718100140_gate_details_drilldown.sql`
 - `20260718100130_select_vocab_statement_timeout.sql`
 - `20260718100120_gate_statement_timeout.sql`
 - `20260718100110_gate_perf_optimize.sql`
 - `20260718100100_vcb_noise_cleanup.sql`
-- `20260718100090_gate_acp_vcb_coverage.sql`
 <!-- /auto:recent-migrations -->
 
 ---

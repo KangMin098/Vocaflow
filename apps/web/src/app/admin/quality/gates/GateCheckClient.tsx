@@ -37,6 +37,14 @@ interface GateRow {
   verdict: 'PASS' | 'FAIL' | 'WARN'
 }
 
+interface GateDetail {
+  invariant: string
+  word: string
+  meaning_shown: string | null
+  issue: string
+  fix_hint: string | null
+}
+
 const V: Record<string, { bg: string; fg: string }> = {
   PASS: { bg: 'bg-[#2E7D5A]/10', fg: 'text-[#2E7D5A]' },
   FAIL: { bg: 'bg-[#9C3A30]/12', fg: 'text-[#9C3A30]' },
@@ -50,10 +58,13 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [rows, setRows] = useState<GateRow[] | null>(null)
+  const [details, setDetails] = useState<GateDetail[] | null>(null)
+  const [detailsLoading, setDetailsLoading] = useState(false)
 
   async function run() {
     setLoading(true)
     setError(null)
+    setDetails(null)
     try {
       const client = createClient() as unknown as SupabaseClient
       const { data, error: e } = await client.rpc('run_content_quality_gates', {
@@ -67,6 +78,24 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
       setRows(null)
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function loadDetails() {
+    setDetailsLoading(true)
+    setError(null)
+    try {
+      const client = createClient() as unknown as SupabaseClient
+      const { data, error: e } = await client.rpc('run_content_quality_gate_details', {
+        p_scope: kind,
+        p_id: kind === 'book' ? bookId : articleId,
+      })
+      if (e) throw e
+      setDetails((data ?? []) as GateDetail[])
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '상세 조회 실패')
+    } finally {
+      setDetailsLoading(false)
     }
   }
 
@@ -178,6 +207,48 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                 </li>
               ))}
           </ul>
+
+          {/* 원인 분석 드릴다운 — critical FAIL 시 문제 단어 + 이유 + 고칠 힌트 */}
+          {criticalFails.length > 0 && (
+            <div className="mt-2 space-y-1.5 border-t border-[var(--bd)] pt-3">
+              {details === null ? (
+                <button
+                  type="button"
+                  onClick={loadDetails}
+                  disabled={detailsLoading}
+                  className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/8 px-3 py-1.5 font-display text-[12px] font-[600] text-[#9C3A30] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#9C3A30]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9C3A30] disabled:opacity-50"
+                >
+                  {detailsLoading ? <Loader2 size={13} className="animate-spin" /> : null}
+                  상세 원인 보기 (문제 단어)
+                </button>
+              ) : details.length === 0 ? (
+                <p className="font-body text-[12px] text-[var(--t3)]">
+                  단어 레벨 상세 없음 — 파이프라인 레벨 FAIL(레벨·register·드리프트)은 상단 요약과
+                  §5 대응표(런북) 참조.
+                </p>
+              ) : (
+                <ul className="space-y-1.5">
+                  {details.map((d, i) => (
+                    <li key={`${d.invariant}-${d.word}-${i}`} className="rounded-[var(--r-sm)] bg-[#9C3A30]/6 px-3 py-2">
+                      <div className="flex items-baseline gap-2">
+                        <span className="rounded-[var(--r-sm)] bg-[#9C3A30]/12 px-1.5 py-0.5 font-mono text-[10px] text-[#9C3A30]">
+                          {d.invariant}
+                        </span>
+                        <span className="font-display text-[14px] font-[700] text-[var(--t1)]">{d.word}</span>
+                        {d.meaning_shown && (
+                          <span className="font-body text-[12px] text-[var(--t2)]">{d.meaning_shown}</span>
+                        )}
+                      </div>
+                      <p className="mt-0.5 font-body text-[12px] text-[#9C3A30]">{d.issue}</p>
+                      {d.fix_hint && (
+                        <p className="font-mono text-[10px] text-[var(--t3)]">→ 고침: {d.fix_hint}</p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
       )}
     </section>
