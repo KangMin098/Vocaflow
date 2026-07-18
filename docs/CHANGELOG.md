@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 굴절형·파생형 학습 구조 — ADR 0001 Phase 6 개정 착수 (v06.273)
+- **배경/결정**: "학습자에게 불규칙 굴절형(went·children·better)·파생형을 그 형태의 뜻 그대로 학습시킨다". ADR 0001 D1(굴절=별도 row 안 함)을 **부분 개정** — 전면 반전(모든 굴절형 row화, +15,714 규칙형 중복)이 아니라 **불규칙+어휘화만**(attested·bounded) 등록, 규칙형(walked·cats)은 통합 유지(D2 attested 게이트 준수). 근거 [ADR 0001](adr/0001-dictionary-derivational-enrichment.md).
+- **A — `base_word` 전수 채움**: 굴절 헤드워드 역인덱스 + 파생 candidates 병합으로 base 관계 채움(`scripts/dict/base-word-backfill.mjs`, 멱등·NULL만). 굴절 162 + 검증 candidates 121 반영. "went ← go" 관계 정보 확보.
+- **B PoC — 불규칙 굴절형 15개 헤드워드화**(said·knew·took·gave·seen·brought·built·understood·children·men·feet·teeth…): 뜻 authoring(과거형/과거분사/복수형 명시) + base_word/pos/v_level 상속. **검증**: `resolve_dict_headword('children')→children`·`said→said`(그 자체 추출) vs `walked→walk`(규칙형 통합 유지). B 전체 대상 = 불규칙 **487**(정제: 자음중복/영국식 규칙형 제외).
+- **스키마**(migration `20260718000000`): `shared_dictionary.source` CHECK 에 `'inflection-seed'` 추가(파생 `derivational-seed` 와 대칭 provenance, 추적/롤백용). classified_by=기존 `claude_code_opus_4_8`.
+- **잔여**: B 스케일업(472 authoring·homograph led/meant 교정) · A2 파생 base_word 광역(happiness/national류 형태소 detection) · C 전용 학습 세트(불규칙 동사표) + 추출카드 base 배지.
+
 ### DB 용량 정리 — 미출시 도서 16권 삭제 (v06.272)
 - **원인 규명**: 어드민 "게시됨"(`status='published'`) ≠ hub 노출. hub(`/library/books`)는 `status='published' AND copyright_safe_in_kr AND published_at IS NOT NULL` 3조건을 모두 요구 — `published_at`은 정식 publish RPC만 찍고, `status='published'`는 챕터 단어장 발행 트리거(`ready→published`) 메커니즘으로도 쓰여 `published_at` 없이 올라간 도서가 섞임. 결과: 게시됨 23권 중 **hub 노출 7권 · 숨김 16권**.
 - **삭제**(사용자 승인): `published_at` NULL 16권 삭제. 정본 `admin_delete_book` 시맨틱 재현(RPC는 published 거부 → 동일 데이터 연산 트랜잭션). 단 texts는 `chk_content_or_library`로 unlink 불가(library 타입) → **DELETE**로 처리. CASCADE: `library_book_vocabularies` 63,863 · `library_chapter_quiz` 1,251 · `library_chapters_master` 627 · `shared_word_sets` 626(+하위 `shared_words`) · `book_curation_jobs` 11. seed 14개 `imported_to_books=false` unlock 복귀.

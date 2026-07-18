@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `560e648` docs(dict): coverage 번역 멀티세션 지시문 (6세션·83청크 사전분할)
 - `5532e35` feat(dict): coverage 번역 wave1-2 (13,645) + prune/skip 재부상 차단 + 핸드오프 갱신
 - `1ad475a` feat(quality): 게이트 원인분석 드릴다운 — 문제 단어+이유+고침힌트 (v06.271)
 - `ecf9bb9` fix(admin): 품질 게이트 후보 목록을 service-role 로 조회 (미발행 노출) (v06.271)
 - `b9d6822` docs: 콘텐츠 품질 게이트 사용 가이드(런북) 추가 (v06.271)
-- `ba29355` test(quality): 콘텐츠 품질 게이트 자체 테스트 스위트 + 성능 수리 (v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
