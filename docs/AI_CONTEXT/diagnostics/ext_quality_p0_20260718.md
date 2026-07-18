@@ -180,10 +180,10 @@ CREATE INDEX idx_ej_word   ON extraction_judgments(lower(word));
 
 ## 6. 결정표 — 다음 결재 사항
 
-| # | 항목 | 실측 근거 | 권장 | 승인 필요 |
+| # | 항목 | 실측 근거 | 권장 | 상태 |
 |---|---|---|---|---|
-| **D1** | **바인딩 결함 수리를 1순위로 승격** | 36 반의어 플립 + 654 POS 불일치 (학습자 사실오류) | `resolve_dict_headword` exact-surface 우선 게이트 → 782 재바인딩 · 재검증 CP 인바리언트 | ✅ |
-| **D2** | `extraction_judgments` 스키마 승인 | §5 스키마 초안 | 위 SQL 로 테이블 생성(하네스 1순위 자산) | ✅ (첫 결재) |
+| **D1** | **바인딩 결함 수리** | 36 반의어 플립 + 654 POS 불일치 (학습자 사실오류) | 호출부 surface-first 바인딩(resolver 는 이미 exact-first) → 782 재바인딩 | ✅ **적용됨** `fix_extraction_surface_headword_binding` (2026-07-18) — 782/782 재바인딩·+143 회수·발행세트 refresh 불요 |
+| **D2** | `extraction_judgments` 테이블 | §5 스키마 | 하네스 골든 라벨 저장소 | ✅ **적용됨** `create_extraction_judgments_table` (RLS enabled·정책 D3 시) |
 | **D3** | 판정 하네스 P1 착수 | P0.3 쿼리 타당 · 경계 다툼 실측 | `/admin/quality/judge` + pairwise 모드 구축 | ✅ |
 | **D4** | freq_rank 백로그 = 사전 1순위 (KICE/kcurr 571 먼저) | working set 6,204 결측(30%), 그중 KICE 238 | 외부 corpus 재조인 백필 | ✅ |
 | **D5** | V6 게이트 register-인식화 | book 30·article 275 KICE 게이트 손실 | 수능-지향 콘텐츠엔 게이트 완화(단, 리터러리는 유지) — 설계 결정 필요 | 🟡 논의 |

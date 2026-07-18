@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `a88cd3c` feat(dict): kaikki 보완 #4·#5 — 관계 4컬럼 + 예문/동의어 (v06.269)
 - `e72546b` docs(dict): kaikki 기회 재검토 — E완료 반영 + 심층검증 수치 교정
 - `7840e3a` fix(dict): 어원 니모닉 게이트 오거부 수리 + M3 종합 (니모닉 5,062·경선식 0)
 - `f02d4d4` feat(dict): 어원 니모닉 확대 파이프라인 + 경선식 차단 게이트 + 6세션 지시문
 - `0edd7db` docs(dict): kaikki 사전DB 업그레이드 기회 면밀 분석 (9기회 산정)
-- `e0a3f58` chore(dict): sense 깊이 3차 — freq 6k-31k 6세션 병렬 (5,406단어·v06.267)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260718100010_create_extraction_judgments_table.sql`
+- `20260718100000_fix_extraction_surface_headword_binding.sql`
 - `20260717160000_recommend_word_sets_redesign_tiers.sql`
 - `20260717150000_wordset_category_etymology.sql`
 - `20260717140000_word_roots.sql`
-- `20260713180500_extract_exclude_known.sql`
-- `20260713180000_word_familiarity.sql`
 <!-- /auto:recent-migrations -->
 
 ---
