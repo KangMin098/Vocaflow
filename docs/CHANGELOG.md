@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 어원 니모닉 확대 M3 — kaikki etymology_text 근거 6세션 병렬 (v06.268)
+- **배경**: 니모닉 6.5%(2,618) 정체 — M2는 어근 인벤토리(181개) 근거라 그 밖 어근은 skip. kaikki `etymology_text`(83.3%)는 단어별 권위 근거라 인벤토리 한계 해소.
+- **경선식(발음 소리흉내) 차단 = 근거 대조 게이트**: 지시만으론 약함 → `mnemonic-etym-apply.mjs`가 (1)화살표 필수 (2)로마자 어근 필수(순수 한글=경선식 거부) (3)어근이 etymology_text에 실제 등장(diacritic strip + 어간 4글자 매칭으로 굴절변이 흡수). 자체테스트: `advocate→ad(voc)` 통과 / `애들 보고 캣` 거부.
+- **파이프라인**(`mnemonic-etym-{chunk,apply}.mjs`): 미니모닉 v≥7·rank≤12k 5,935 → 고전어 3,486 → 30청크 → 6세션×5청크 격리 병렬. authoring 프롬프트에 경선식 정의(애들·보고·캣) + skip 규칙.
+- **결과**: **2,433 적용**(pass 2,433·거부 41=1.7% 진짜 엣지). 니모닉 **2,618→5,062**(커버 11.08%). **경선식 유입 0**(pure_hangul_pun_suspect: 0·화살표 100% 검증).
+- **게이트 튜닝 교훈**: 초기 게이트가 매크론 어근(vās·prō)·영어 접미사(-ist)·한국어 괄호설명(일(공화국))을 오거부(452) → 유니코드 추출+어간매칭+"근거 어근 ≥1이면 통과"로 41까지 축소, 336+ 복구. 지시문 SSoT=`docs/AI_CONTEXT/handoffs/mnemonic_etym_multisession_20260718.md`.
+
 ### sense 깊이 확대 — kaikki 근거 다의어 완성 1차 슬라이스 (v06.266)
 - **배경**: 추출 사전DB 최대 갭 = sense 깊이(avg 1.28 vs 일반사전 3~5+). 얕음(≤2)+kaikki풍부(≥3) 단어 **19,549**(노출 freq≤8k **5,995**). 추출 시 드문/지배 sense 결측으로 오해소.
 - **파이프라인**(신규 `kaikki-sense-chunk.mjs`·`kaikki-sense-apply.mjs`): kaikki JSONL 재스트림 → 대상 단어 표준 sense(gloss+pos, obsolete/rare/**형태포인터**(Abbreviation/plural of…) 제외·leaf gloss·**굴절형/길이<3 제외**) → 청크. 서브에이전트가 현 한국어 sense + kaikki 영어 gloss를 **근거로** 완전한 meanings_ko(한국어·per-sense pos/v_level, most-common-first, 과분할 통합, cap 5) authoring. apply=meanings_ko 교체+flat 동기화, **sense 추가만(손실 방지 가드)**.

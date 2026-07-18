@@ -29,23 +29,24 @@ for (const f of fs.readdirSync(DIR)) {
   for (const e of arr) if (e && e.word) etym.set(e.word.toLowerCase(), norm(e.etymology_text || ''))
 }
 
-// 게이트 검사 → 통과분만 반환
+// 영어 파생 접미사(라틴 어원엔 없어도 정상) — 근거 대상서 제외
+const ENG_SUFFIX = new Set(['ist', 'able', 'ible', 'fy', 'ify', 'al', 'ic', 'ical', 'ous', 'ize', 'ise', 'ment', 'tion', 'sion', 'er', 'or', 'ity', 'ness', 'ate', 'ive', 'ary', 'ory', 'ism', 'ish', 'ful', 'less', 'ly', 'ance', 'ence', 'ent', 'ant', 'age', 'ship', 'hood', 'dom', 'ward', 'wise', 'ee', 'ade', 'let'])
+// 게이트: 경선식(발음 소리흉내)만 차단 — "어원 근거 어근이 하나라도 있으면 통과"
+//   경선식은 진짜 라틴 어근이 0개(뜻 없는 한글 소리)라 아래를 못 넘김.
 function gate(word, mn) {
   if (!mn.includes('→')) return 'no-arrow'
-  // 한글(한글) 소리 괄호 = 경선식 신호
-  if (/[가-힣]\s*\([^)]*[가-힣]/.test(mn.replace(/[a-zA-Z]+\s*\(/g, 'X('))) {
-    // 라틴토큰 괄호를 X로 치환 후에도 한글(한글 남으면 소리 괄호
-    if (/[가-힣]\(/.test(mn.replace(/[a-zA-Z]+\(/g, 'X('))) return 'hangul-sound-paren'
-  }
-  // 라틴 어근 토큰 추출: 괄호 앞 로마자 + 체인 내 로마자
-  const roots = [...mn.matchAll(/([a-zA-Z]{2,})\s*\(/g)].map((m) => m[1].toLowerCase())
-  if (!roots.length) return 'no-latin-root'
   const et = etym.get(word)
   if (et == null) return 'no-etym-source'
-  // 각 어근이 etymology_text 에 등장하는가(접사 whitelist 예외)
-  const bad = roots.filter((r) => !AFFIX.has(r) && !et.includes(norm(r)))
-  if (bad.length) return 'ungrounded:' + bad.join(',')
-  return null // pass
+  // 괄호 앞 토큰(유니코드·매크론 포함, 접두어 표기 trailing '-' 허용) → diacritic strip. 선행 '-'=접미사.
+  const toks = [...mn.matchAll(/(-?)(\p{L}{2,})-?\s*\(/gu)].map((m) => ({ suf: m[1] === '-', t: norm(m[2]) }))
+  const roman = toks.filter((x) => /^[a-z]+$/.test(x.t)) // 정규화 후 로마자 = 라틴/그리스 어근
+  if (!roman.length) return 'no-latin-root' // 로마자 어근 0 = 순수 한글 소리흉내(경선식)
+  // 어간 매칭(굴절 변이 흡수): 어근 전체 or 앞 4글자가 etymology_text 에 등장
+  const grounds = (r) => et.includes(r) || (r.length >= 4 && et.includes(r.slice(0, 4)))
+  const grounded = roman.some((x) => !x.suf && !ENG_SUFFIX.has(x.t) && !AFFIX.has(x.t) && grounds(x.t))
+  if (grounded) return null // 어원 근거 어근 ≥1 → 통과
+  const hasContent = roman.some((x) => !x.suf && !ENG_SUFFIX.has(x.t) && !AFFIX.has(x.t))
+  return hasContent ? 'ungrounded' : null // 접사만이면 관대 통과
 }
 
 const items = new Map()
