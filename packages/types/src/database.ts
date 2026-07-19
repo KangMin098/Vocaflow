@@ -5019,6 +5019,17 @@ export type Database = {
           word_register: string
         }[]
       }
+      select_coverage_for_words: {
+        Args: { p_words: string[] }
+        Returns: {
+          frequency_rank: number
+          gloss_en: string
+          matched_surface: string
+          meaning_ko: string
+          pos: string
+          word: string
+        }[]
+      }
       set_word_familiarity: {
         Args: { p_lemma: string; p_v_level?: number; p_verdict: string }
         Returns: undefined

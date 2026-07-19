@@ -20,8 +20,9 @@ coverage_lexicon(비학습 롱테일)을 학습자에게 연결. **학습 파이
 |---|---|---|
 | `lookup_word_meaning` | 함수(수정) | tier 6·7 추가 — core 5단계 실패 시 `coverage`(한국어)→`coverage_en`(영어 gloss). 반환에 `gloss_en` 컬럼. 굴절 surface도 coverage lemma 해소. migration `lookup_coverage_fallback` |
 | `select_book_chapter_coverage`·`select_article_coverage` | 함수(신규) | 텍스트 토큰 ⋈ coverage_lexicon → 챕터/기사별 비학습 롱테일 목록. **고유명사=`first_sentence` 소문자 필터 제외**(P&P 45→19). SECURITY INVOKER(published RLS). migration `coverage_reference_lists` |
+| `select_coverage_for_words` | 함수(신규) | 임의 토큰 배열(사용자 스크립트) ⋈ coverage_lexicon(굴절 en_inflection_bases 해소). 고유명사 필터는 클라(원문 소문자 출현). migration `coverage_for_words` |
 
-FE: reader `📖 참고 단어` 토글 + `ChapterCoverageWords` 패널(i+1 학습과 분리) · `WordLookupPopover` 영어 gloss 폴백 + "독해 참고용" 안내.
+FE: reader `📖 참고 단어` 토글 + `ChapterCoverageWords` 패널(i+1 학습과 분리) · `/text/new` `ExtractionPanel` `📖 독해 참고 단어` 접힘 섹션 · `WordLookupPopover` 영어 gloss 폴백 + "독해 참고용" 안내.
 
 ### 🎯 추출 품질 — 바인딩 수리 + 판정 하네스 (2026-07-18)
 

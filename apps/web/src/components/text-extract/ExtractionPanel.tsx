@@ -18,6 +18,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
+import { getCoverageForWords, lowercaseWordSet, type CoverageRefWord } from '@/lib/text-extract/coverage'
+import { BookOpen } from 'lucide-react'
 
 interface ExtractedWord {
   text_v_level: number
@@ -152,6 +154,9 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
   const [expandedWord, setExpandedWord] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [savedCount, setSavedCount] = useState<number | null>(null)
+  // 비학습 롱테일 "독해 참고 단어" — core 미매칭 토큰 중 coverage_lexicon 에 있는 것(암기 대상 아님).
+  const [coverageWords, setCoverageWords] = useState<CoverageRefWord[] | null>(null)
+  const [showCoverage, setShowCoverage] = useState(false)
 
   const tokenization = useMemo(() => tokenizeText(text), [text])
 
@@ -174,6 +179,8 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     setRoots({})
     setSelected(new Set())
     setSavedCount(null)
+    setCoverageWords(null)
+    setShowCoverage(false)
 
     const supabase = createClient()
     const { data: userData } = await supabase.auth.getUser()
@@ -225,13 +232,28 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         })
     }
 
+    // core 학습 후보에 매칭되지 않은 토큰 (= pending + 비학습 롱테일 후보)
+    const unmatched = tokenization.words.filter(
+      (w) => !rows.some((r) => r.word === w || r.matched_via_surface === w),
+    )
+
     // Option C — 미매칭 lemma 누적 (silent, best-effort)
     void supabase.rpc('record_pending_words', {
       p_user_id: userData.user.id,
-      p_lemmas: tokenization.words.filter(
-        (w) => !rows.some((r) => r.word === w || r.matched_via_surface === w),
-      ),
+      p_lemmas: unmatched,
     })
+
+    // 비학습 롱테일 "독해 참고 단어" — 미매칭 토큰 중 **원문에 소문자로 출현**(고유명사 제외)한 것만
+    //   coverage_lexicon 조회. 학습 후보와 분리 — 저장 대상 아님, 읽기 이해 보조(Calm UI).
+    const commonSet = lowercaseWordSet(text)
+    const coverageCandidates = unmatched.filter((w) => commonSet.has(w))
+    if (coverageCandidates.length > 0) {
+      void getCoverageForWords(supabase, coverageCandidates).then((cw) => {
+        setCoverageWords(cw)
+      })
+    } else {
+      setCoverageWords([])
+    }
   }
 
   function toggleSelect(word: string) {
@@ -668,6 +690,59 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
             })}
           </ul>
         </>
+      )}
+
+      {/* 독해 참고 단어 — 비학습 롱테일(coverage). 학습 후보와 분리, 저장 대상 아님(Calm UI). */}
+      {coverageWords && coverageWords.length > 0 && (
+        <div className="mt-6 overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]">
+          <button
+            type="button"
+            onClick={() => setShowCoverage((v) => !v)}
+            aria-expanded={showCoverage}
+            className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
+          >
+            <span className="inline-flex min-w-0 items-center gap-2">
+              <BookOpen size={14} className="shrink-0 text-[var(--t3)]" aria-hidden />
+              <span className="font-display text-[13px] font-[700] text-[var(--t1)]">독해 참고 단어</span>
+              <span className="font-body text-[11px] text-[var(--t3)]">
+                {coverageWords.length}개 · 암기 대상 아님
+              </span>
+            </span>
+            {showCoverage ? (
+              <ChevronUp size={16} className="shrink-0 text-[var(--t3)]" aria-hidden />
+            ) : (
+              <ChevronDown size={16} className="shrink-0 text-[var(--t3)]" aria-hidden />
+            )}
+          </button>
+          {showCoverage && (
+            <div className="border-t border-[var(--bd)] px-4 py-3">
+              <p className="mb-2 font-body text-[11px] leading-relaxed text-[var(--t3)]">
+                핵심 학습 어휘는 아니지만 이 글에 나오는 드문 단어예요 — 암기보다 의미만 알아두면 충분해요.
+              </p>
+              <ul role="list" className="flex flex-col divide-y divide-[var(--bd)]">
+                {coverageWords.map((w) => (
+                  <li key={w.word} className="flex items-baseline gap-2.5 py-2">
+                    <span className="w-28 shrink-0 font-english text-[14px] font-[700] text-[var(--t1)]">
+                      {w.matchedSurface}
+                    </span>
+                    {w.pos && (
+                      <span className="shrink-0 font-body text-[10px] italic text-[var(--t3)]">{w.pos}</span>
+                    )}
+                    <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t2)]">
+                      {w.meaningKo ? (
+                        w.meaningKo
+                      ) : w.glossEn ? (
+                        <span className="italic text-[var(--t3)]">{w.glossEn}</span>
+                      ) : (
+                        '—'
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       )}
     </section>
   )

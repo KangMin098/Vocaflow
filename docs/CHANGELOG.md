@@ -59,7 +59,8 @@
 - **한국어 빈도순 tier 완주**: hermitdave OpenSubtitles(165만) 랭크순으로 Opus 배치 번역 → **meaning_ko 77,501행**(빈도순 잔여 1·미랭크 극희귀 327k만 대기). `coverage-translate-{chunk,apply}.mjs`. 게이트=한글 필수(영어 echo 거부)·멱등·`--prune`(스킵 잡음 source='skip'). **english_echo 0**. ⚠️ 모델 교훈: 이 gloss→한국어 작업은 품질 민감 → **Opus 필수·Haiku 부적합**([[project_coverage_lexicon]] 실증: 약 모델 워커 다수가 영어 gloss 복사).
 - **reader 폴백 wire-up**: `lookup_word_meaning`에 tier 6·7 추가(마이그 `lookup_coverage_fallback`) — shared_dictionary 5단계 실패 시 `coverage`(한국어)→`coverage_en`(영어 gloss) 폴백. 반환에 `gloss_en` 컬럼 추가. 굴절 surface도 `en_inflection_bases`로 coverage lemma 해소(footrests→footrest). FE `WordLookupPopover`: 한국어 없으면 영어 gloss 노출 + "📖 독해 참고용" 안내(비학습 격리). `reader-queries.ts`+`database.ts` 갱신. 체인 `core→coverage(ko)→gloss_en→미상` 완성.
 - **독해 참고 단어 목록(경량 분리)**: 마이그 `coverage_reference_lists` — `select_book_chapter_coverage(book)`·`select_article_coverage(article)`. 텍스트 토큰(`library_*_vocabularies`) ⋈ coverage_lexicon(core와 물리 분리→매칭=비학습 보장). **고유명사 오염 차단**: `first_sentence` 소문자 출현 필터(Darcy·Collins 등 등장인물 제외, P&P 45→19 정선). SECURITY INVOKER(published RLS 스코프). FE: 리더에 `📖 참고 단어` 토글 + `ChapterCoverageWords` 패널(i+1 학습 패널과 분리·암기 대상 아님). 핵심 학습 파이프라인 무변경(위험 0).
-- **잔여**: 사용자 입력 스크립트 참고 목록(live 토큰) · 미랭크 tail(327k, 설계상 대기).
+- **사용자 입력 스크립트 참고 목록**: 마이그 `coverage_for_words` — `select_coverage_for_words(text[])`(굴절 en_inflection_bases 해소). `/text/new` `ExtractionPanel`: core 미매칭 토큰 중 **원문에 소문자 출현**(고유명사 제외·`lowercaseWordSet`)한 것만 조회 → `📖 독해 참고 단어` 접힘 섹션(저장 대상 아님). 3표면(도서·기사·사용자 스크립트) 참고 목록 완성.
+- **잔여**: 미랭크 tail(327k, 설계상 대기).
 
 ### kaikki C — per-sense 예문 매칭 (v06.270)
 - **진짜 per-sense**: 다의어 각 한국어 sense에 kaikki 실용 예문을 매칭(판단=LLM). 도구 `example-match-{chunk,apply}.mjs`. grounding 게이트: 예문은 제공 풀에서 **verbatim만**(편집·창작 거부=ungrounded-ex)·meaning 매칭·pos/v_level 보존.
