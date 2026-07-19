@@ -30,6 +30,7 @@
 - 청크당 에이전트 ~16~40분(정상). 스폰 실패 시 잠시 후 재시도.
 
 ## 4. 서브에이전트 authoring 프롬프트 (변경 없이 · `NNN`만 치환)
+> **모델**: 번역은 경량 작업 → 디스패치 시 **`model: "haiku"`** 지정(Opus 대비 비용 ~1/10, 근거 있는 번역이라 정확도 유지). 애매한 gloss 많으면 `model: "sonnet"`. (Agent 도구 model 파라미터)
 ```
 영어 단어의 한국어 뜻 생성(사전 표제어식). 파일 하나 처리.
 입력: `C:\Users\kille\Vocaflow\scripts\dict\covtr\chunk-NNN.json` = [{word, pos, gloss_en}]. gloss_en=영어 정의.
