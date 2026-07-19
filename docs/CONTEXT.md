@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `5b414e9` feat(dict): 사용자 입력 스크립트 '독해 참고 단어' 목록 (v06.271)
 - `fb01d0b` docs(claude): 어휘 관리 원칙 지침 추가 — 사전 보완 목적 + 추출어 이원 관리 (2026-07-19)
 - `90ac0f2` feat(dict): 도서/기사 비학습 롱테일 '독해 참고 단어' 목록 (v06.271)
 - `f632b48` feat(dict): reader 툴팁에 coverage_lexicon 폴백 wire-up (v06.271)
 - `db7cc12` chore(dict): coverage_lexicon 빈도순 tier 한국어 번역 완주 (v06.271)
-- `e46c832` chore: CONTEXT.md 동기화
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260720100000_extraction_residual_harvest.sql`
 - `20260719140000_coverage_for_words.sql`
 - `20260719130000_coverage_reference_lists.sql`
 - `20260719120000_lookup_coverage_fallback.sql`
 - `20260718100140_gate_details_drilldown.sql`
-- `20260718100130_select_vocab_statement_timeout.sql`
 <!-- /auto:recent-migrations -->
 
 ---

@@ -23,5 +23,7 @@
 
 **✅ wire-up 완료(2026-07-19, 4파트)**: ① **reader 폴백** — `lookup_word_meaning` tier 6·7(`coverage`/`coverage_en`)+`gloss_en` 컬럼(마이그 `lookup_coverage_fallback`); FE `WordLookupPopover` 영어 gloss 폴백+"독해 참고용" 안내. ② **도서/기사 참고 목록** — `select_book_chapter_coverage`·`select_article_coverage`(마이그 `coverage_reference_lists`), 토큰⋈coverage(core와 분리=비학습 보장). ③ **사용자 스크립트 참고 목록** — `select_coverage_for_words(text[])`(마이그 `coverage_for_words`); `/text/new` ExtractionPanel 미매칭 토큰→`📖 독해 참고 단어` 접힘 섹션. ④ **UI** — 리더 `📖 참고 단어` 토글+`ChapterCoverageWords`(i+1과 분리). 3표면(도서·기사·사용자 스크립트) 완성. [[feedback_dict_learning_target_policy]] 이원관리 부합. **핵심 교훈: 텍스트 토큰은 소문자 저장이라 고유명사 신호 소실 → 도서/기사=`first_sentence`, 사용자 스크립트=원문(`lowercaseWordSet`)의 소문자 출현으로 Darcy·Collins 등 제외**(P&P 45→19). 학습 파이프라인 무변경(위험 0).
 
-**잔여(미구현)**: 미랭크 tail 327k(설계상 대기·콘텐츠 미등장). [[project_dict_wave_plan_w0]] 계열.
+**✅ 추출 누락 실단어 폐쇄(2026-07-20)**: 목적=단어추출 실단어 누락 0. 실측(도서 23,693 토큰): core 80.6%·coverage 10.8%·not_found 8.4%(1,980). not_found 분해=고유명사+외국어+OCR/방언(정상 제외) + **진짜 실단어 미등재**. harvest RPC `select_extraction_residual()`(마이그 `extraction_residual_harvest`, first_sentence 소문자=실단어·문맥) → 도서·기사 **2,186 후보 → 문맥 기반 Opus 배치 → 903 실영어 적재**(`source='content_residual'`, `coverage-residual-{harvest,apply}.mjs`), 1,283은 외국어·OCR·방언·고유명사로 LLM 정확 제외. 도서 not_found 2,332→1,932. `dwelt`(불규칙 굴절)·esports·secularization·folkways 회수. **교훈: appears_lowercase는 실영어 신호로 불완전(외국어·방언도 소문자)→최종 판정은 LLM. 규칙 표제어 대량생성 금지 원칙([[project_extraction_coverage_design]]) 유지=문맥 근거 + skip 관대.** [[feedback_dict_learning_target_policy]] 이원관리 이행.
+
+**잔여(미구현)**: 미랭크 tail 327k(설계상 대기·콘텐츠 미등장) · 불규칙 굴절 해소기 보강(dwelt류는 coverage로 우회 해소됨). [[project_dict_wave_plan_w0]] 계열.
 

@@ -5030,6 +5030,15 @@ export type Database = {
           word: string
         }[]
       }
+      select_extraction_residual: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          context: string
+          freq: number
+          sources: string
+          word: string
+        }[]
+      }
       set_word_familiarity: {
         Args: { p_lemma: string; p_v_level?: number; p_verdict: string }
         Returns: undefined
