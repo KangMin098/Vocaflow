@@ -182,12 +182,13 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     await expect(page.getByRole('region', { name: '다른 시리즈' }).getByRole('listitem').first()).toBeVisible();
 
     // 3) 히어로 선택 → 상세(글 목록 + '시리즈 목록' 뒤로).
-    //   JS 무거워 hydration 지연 → 클릭이 onClick 미부착으로 유실될 수 있음. setSelected 는 멱등이라
-    //   '전환될 때까지 재클릭'(toPass) 으로 견고화.
+    //   v06.238 히어로는 버튼 2개 — 본문='학습 안내 보기'(팝업), 하단='글 둘러보기'(시리즈 진입).
+    //   시리즈 상세로 가려면 '글 둘러보기'(onEnter)를 눌러야 함. .first()(=안내 팝업)를 누르면
+    //   시트 오버레이가 열려 이후 클릭이 가로막힘. hydration 지연 대비 toPass 재클릭.
     const back = page.getByRole('button', { name: /시리즈 목록/ });
     await expect(async () => {
       if (!(await back.isVisible())) {
-        await hero.getByRole('button').first().click();
+        await hero.getByRole('button', { name: /글 둘러보기/ }).click();
       }
       await expect(back).toBeVisible({ timeout: 1_500 });
     }).toPass({ timeout: 20_000 });

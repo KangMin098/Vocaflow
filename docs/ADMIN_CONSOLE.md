@@ -37,6 +37,8 @@
 [ 운영 ]     (accent: var(--info))
    플랫폼 분석
    품질 지표 (Gauge, v06.140)
+   품질 게이트 (ShieldCheck, v06.271 — 파이프라인 정확성 불변식)
+   추출 판정 (Scale, v06.270 — blind 판정 하네스)
    신고·문의 (실 데이터 뱃지)
    결제
 [ 시스템 ]   (accent: var(--active))
@@ -263,6 +265,16 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 - 도서 지표는 `dims.status`(published/ready) 세그먼트 분리
 - RLS read=admin — dev-bypass 브라우징은 빈 상태(정상). 데이터 분기는 `__tests__/page.test.tsx` renderToString 픽스처로 검증
 - "지금 수집" 버튼 (`CollectNowButton.tsx`, v06.142) — `admin_collect_quality_metrics()` wrapper RPC(role='admin' 검사 후 `collect_quality_metrics()` 위임) 호출 → `router.refresh()`. dev-bypass(anon)에선 'admin only' 거부 → 오류 상태 노출(정상)
+
+## /admin/quality/judge (v06.270 — 추출 품질 판정 하네스 Q3/Q5)
+
+추출 결과의 "탁월함"(cap 40 안에 최고 가치가 들어갔는가)을 인간 blind 판정으로 축적하는 골든 라벨 하네스. 근거: `docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`.
+
+- 표본 = in-cap 상위 8 + out-of-cap 경계 8(sort_order 41–48), **서버에서 셔플·출처 은닉** (`get_judgment_sample` DEFINER, in_cap/sort_order/composite 미반환)
+- **blind 보존**: 판정 중 시스템 선택을 알 수 없음. `save_extraction_judgment`(DEFINER)이 저장 시점 `select_*_vocab` 재조회로 스냅샷(in_cap·sort_order·composite·v_level) 서버-권위 기록 → 확증편향 차단, 이후 가중 변경 회귀 대조
+- 모드 2종: **절대 판정**(가치 있음/애매/제외) + **쌍대 비교**(A vs B). 제출 후 reveal — precision(내 선택 ∩ in-cap)·recall + 단어별 나 vs 시스템 대조
+- `extraction_judgments` 테이블(RLS `ej_admin_all` = is_admin_or_curator) · RPC 2종 anon REVOKE + authenticated GRANT
+- Calm UI: 붉은 압박 없이 초록(가치)/앰버(애매) + 아이콘. 회차당 1챕터 ~16단어 5분
 
 ---
 

@@ -28,6 +28,8 @@ const TIER_BADGE: Record<string, { label: string; bg: string; text: string }> = 
   stretch: { label: '도전', bg: 'var(--active)', text: 'var(--ti)' },
   review: { label: '보강', bg: 'var(--bg3)', text: 'var(--t2)' },
   specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info)' },
+  etymology: { label: '어원', bg: 'var(--warn-light, var(--info-light))', text: 'var(--warn, var(--info))' },
+  topic: { label: '주제', bg: 'var(--bg3)', text: 'var(--t2)' },
   fallback: { label: '추천', bg: 'var(--bg3)', text: 'var(--t2)' },
 }
 

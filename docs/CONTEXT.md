@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/scriptquiz-chapter-quiz`
+**활성 브랜치**: `feat/plan-ui`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `8dd2c81` docs(scriptquiz): Jane Eyre 전권 챕터 퀴즈 완결 (38ch, 342문항)
-- `0679a2d` fix(lcp): rpc 침묵 실패 11곳 관측성 복구 — {error} 필드 검사 (v06.125)
-- `86a7328` feat(dict): no-rank Tier A 선별 enrichment — 발행 세트 노출 어휘 ipa 100% (v06.124)
-- `bc7732e` docs(scriptquiz): The Railway Children 전권 98문항 완결 — 카탈로그 11권 1,406문항
-- `6ac6b12` fix(vcb): QA 플래그 잔여 125건 전량 해소 — run 1 QA green (v06.122)
+- `e46c832` chore: CONTEXT.md 동기화
+- `26bd4ca` chore: 잔여 tracked 변경 동기화 (librivox 스냅샷 + coverage 핸드오프)
+- `916cf10` feat(dict): 굴절형·파생형 학습 구조 A+B PoC — ADR 0001 Phase 6 착수 (v06.273)
+- `560e648` docs(dict): coverage 번역 멀티세션 지시문 (6세션·83청크 사전분할)
+- `5532e35` feat(dict): coverage 번역 wave1-2 (13,645) + prune/skip 재부상 차단 + 핸드오프 갱신
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
-- `20260717150000_wordset_category_etymology.sql`
-- `20260717140000_word_roots.sql`
-- `20260713180500_extract_exclude_known.sql`
-- `20260713180000_word_familiarity.sql`
-- `20260713172500_book_article_use_helper.sql`
+- `20260718100140_gate_details_drilldown.sql`
+- `20260718100130_select_vocab_statement_timeout.sql`
+- `20260718100120_gate_statement_timeout.sql`
+- `20260718100110_gate_perf_optimize.sql`
+- `20260718100100_vcb_noise_cleanup.sql`
 <!-- /auto:recent-migrations -->
 
 ---

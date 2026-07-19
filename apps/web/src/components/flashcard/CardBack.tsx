@@ -50,6 +50,26 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
         {word.meaning}
       </p>
 
+      {/* 품사별 여러 뜻 — 다의어일 때만(≥2 sense). 시중 단어장 대비 다의어 한눈에.
+          per-sense meanings_ko(Phase B 100%) 노출. 단일 sense면 flat meaning 으로 충분(미표시). */}
+      {word.senses && word.senses.length >= 2 && (
+        <div className="mb-5 flex flex-col gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+          <span className="mb-0.5 font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+            품사별 뜻
+          </span>
+          {word.senses.map((s, i) => (
+            <div key={`${s.pos}-${i}`} className="flex items-baseline gap-2">
+              {s.pos && (
+                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-px font-mono text-[10px] font-[700] text-[var(--t3)]">
+                  {posLabel(s.pos)}
+                </span>
+              )}
+              <span className="font-body text-[14px] leading-snug text-[var(--t1)]">{s.meaning}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Example with audio indicator */}
       <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
         <span
@@ -94,8 +114,48 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           ))}
         </div>
       )}
+
+      {/* 어원 힌트 — 어근 분해(word_root_links). 시중 어원단어장 대비 학습 중 노출.
+          prefix→root→suffix 순 chip. 데이터 있을 때만(Progressive Disclosure). */}
+      {word.roots && word.roots.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+            어원
+          </span>
+          {word.roots.map((r, i) => (
+            <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1.5">
+              {i > 0 && <span className="text-[11px] text-[var(--t4)]">+</span>}
+              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-0.5 text-[12px]">
+                <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
+                <span className="font-body text-[var(--t2)]"> {r.gloss}</span>
+              </span>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* 어근 기반 니모닉 — "어떻게 기억할까"의 다리. 데이터 있을 때만(Progressive Disclosure).
+          Empathetic Feedback: 압박 없는 기억 힌트. Lora italic 사람 말투 톤. */}
+      {word.mnemonic && (
+        <p className="mt-2.5 flex items-start gap-1.5 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
+          <span className="not-italic" aria-hidden="true">
+            💡
+          </span>
+          <span>{word.mnemonic}</span>
+        </p>
+      )}
     </>
   )
+}
+
+/** 품사 → 한국 학습자 약어(명·동·형·부). 미지 품사는 원문 유지. */
+function posLabel(pos: string): string {
+  const p = pos.toLowerCase()
+  if (p.startsWith('noun') || p === 'n') return '명'
+  if (p.startsWith('verb') || p === 'v') return '동'
+  if (p.startsWith('adject') || p === 'adj') return '형'
+  if (p.startsWith('adverb') || p === 'adv') return '부'
+  return pos
 }
 
 function escapeRegExp(s: string): string {

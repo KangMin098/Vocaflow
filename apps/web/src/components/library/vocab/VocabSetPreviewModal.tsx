@@ -9,7 +9,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, Layers, Loader2, Plus, Volume2, X } from 'lucide-react'
+import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2, X } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
@@ -41,6 +41,21 @@ interface Props {
   fromPath?: string
 }
 
+/**
+ * 적응형 완성 플랜(F2) — 시중 "30일 완성" 고정 스케줄 대비 개인화.
+ *   신규 도입은 인지부하(하루 ~20~25단어) 기준으로 페이싱, 복습은 FSRS가 기억상태에 맞춰 자동 배치.
+ *   챕터형이면 챕터를 하루 단위로. 순수 계산(사용자 상태 무관) — 세트 규모만.
+ */
+const DAILY_NEW = 22 // 인지부하 기반 하루 신규 권장(Cognitive Load — Sweller)
+function computeStudyPlan(wordCount: number, chapterCount: number) {
+  if (wordCount <= 0) return null
+  return {
+    dailyNew: DAILY_NEW,
+    introDays: Math.ceil(wordCount / DAILY_NEW),
+    chapters: chapterCount > 1 ? chapterCount : 0,
+  }
+}
+
 export function VocabSetPreviewModal({
   set,
   isSubscribed,
@@ -55,6 +70,8 @@ export function VocabSetPreviewModal({
   const [openChapters, setOpenChapters] = useState<Set<number>>(new Set([1]))
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  /** 진도-aware 완성 추정(F2) — 구독+로그인+챕터형(전체 단어 로드) 시 사용자 vocab∩세트 교집합 */
+  const [learned, setLearned] = useState<number | null>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
 
   // 모달 열릴 때 단어 fetch — 챕터형이면 전체(아코디언), 아니면 10개 미리보기
@@ -140,6 +157,44 @@ export function VocabSetPreviewModal({
     }
   }, [set])
 
+  // 진도-aware 완성 추정(F2) — 구독+챕터형(전체 단어 로드)일 때만. 사용자 vocab 단어집합 ∩ 세트.
+  useEffect(() => {
+    setLearned(null)
+    if (!set || !isSubscribed || !words || !chaptered || words.length === 0) return
+    let cancelled = false
+    const supabase = createClient() as unknown as SupabaseClient
+    const run = async () => {
+      const { data: auth } = await supabase.auth.getUser()
+      const uid = auth?.user?.id
+      if (!uid || cancelled) return
+      // 사용자 vocab 단어(word만, keyset pagination) — RLS 본인만
+      const vocab = new Set<string>()
+      const PAGE = 1000
+      let cursor = ''
+      for (;;) {
+        const { data, error: e } = await supabase
+          .from('vocabularies')
+          .select('word')
+          .eq('user_id', uid)
+          .gt('word', cursor)
+          .order('word', { ascending: true })
+          .limit(PAGE)
+        if (e || cancelled) return
+        const rows = (data ?? []) as { word: string }[]
+        for (const r of rows) vocab.add(r.word.toLowerCase())
+        if (rows.length < PAGE) break
+        cursor = rows[rows.length - 1].word
+      }
+      if (cancelled) return
+      const count = words.filter((w) => vocab.has(w.word.toLowerCase())).length
+      setLearned(count)
+    }
+    void run()
+    return () => {
+      cancelled = true
+    }
+  }, [set, isSubscribed, words, chaptered])
+
   // Esc / body scroll lock / focus 관리
   useEffect(() => {
     if (!set) return
@@ -173,6 +228,12 @@ export function VocabSetPreviewModal({
       return { n, words: ws, label: uniform }
     })
   }, [chaptered, words])
+
+  // 적응형 완성 플랜(F2) — 세트 규모 기반. 챕터형이면 챕터 수 반영.
+  const plan = useMemo(
+    () => (set ? computeStudyPlan(set.wordCount, chaptered ? chapters.length : 0) : null),
+    [set, chaptered, chapters],
+  )
 
   if (!set) return null
 
@@ -267,6 +328,57 @@ export function VocabSetPreviewModal({
             <p role="alert" className="py-6 text-center font-body text-[13px] text-[var(--error)]">
               {error}
             </p>
+          )}
+
+          {/* 적응형 완성 플랜(F2) — 시중 고정 30일 대비 개인화 프레이밍 */}
+          {!loading && !error && plan && (
+            <div className="mb-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+              <div className="flex items-center gap-2">
+                <CalendarClock size={15} className="shrink-0 text-[#6D28D9]" aria-hidden />
+                <span className="font-display text-[12px] font-[700] text-[var(--t1)]">학습 플랜</span>
+              </div>
+              <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+                하루 <b className="font-[700] text-[var(--t1)]">{plan.dailyNew}단어</b>씩 · 약{' '}
+                <b className="font-[700] text-[var(--t1)]">{plan.introDays}일</b>에 새 단어를 익혀요
+                {plan.chapters > 0 && <span className="text-[var(--t3)]"> · {plan.chapters}챕터 구성</span>}.
+              </p>
+
+              {/* 진도-aware — 구독 후 실제 학습 진도 반영(개인화) */}
+              {learned != null && (() => {
+                const remaining = Math.max(0, set.wordCount - learned)
+                const pct = set.wordCount > 0 ? Math.round((learned / set.wordCount) * 100) : 0
+                const daysLeft = Math.ceil(remaining / plan.dailyNew)
+                return (
+                  <div className="mt-2.5">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="font-body text-[12px] text-[var(--t2)]">
+                        학습 <b className="font-[700] text-[var(--t1)]">{learned}</b>
+                        <span className="text-[var(--t3)]"> / {set.wordCount.toLocaleString()}</span>
+                      </span>
+                      <span className="font-body text-[12px] text-[var(--t3)]">
+                        {remaining === 0 ? '한 바퀴 완주했어요 🎉' : `남은 ${remaining.toLocaleString()}단어 · 약 ${daysLeft}일 더`}
+                      </span>
+                    </div>
+                    <div className="mt-1.5 h-[6px] w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
+                      <div
+                        className="h-full rounded-[var(--r-full)] bg-[#8B5CF6] transition-[width] duration-[var(--dur-slow)]"
+                        style={{ width: `${pct}%` }}
+                        role="progressbar"
+                        aria-valuenow={pct}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`학습 진도 ${pct}%`}
+                      />
+                    </div>
+                  </div>
+                )
+              })()}
+
+              <p className="mt-2 flex items-start gap-1.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+                <RefreshCw size={12} className="mt-[3px] shrink-0" aria-hidden />
+                <span>복습은 <b className="font-[600] text-[var(--t2)]">기억이 흐려질 때</b> 자동으로 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절돼요.</span>
+              </p>
+            </div>
           )}
 
           {/* 챕터형 — 아코디언 */}

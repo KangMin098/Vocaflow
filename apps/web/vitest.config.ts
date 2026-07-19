@@ -26,5 +26,11 @@ export default defineConfig({
     environment: 'node',
     globals: false,
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    // `.integration.test.ts` 들이 공유 dev DB(select_book_chapter_vocab 등 무거운 RPC)를
+    // 동시 호출하면 statement_timeout 경합 → 간헐 실패. 파일 직렬 실행으로 경합 제거.
+    // (CI 는 SERVICE_KEY 부재로 integration skip → 순수 단위 테스트만 직렬, 비용 미미.)
+    fileParallelism: false,
+    testTimeout: 40_000, // 통합 테스트가 대형 도서 select_book_chapter_vocab(~15s+부하) 호출 → 여유
+    hookTimeout: 40_000,
   },
 })

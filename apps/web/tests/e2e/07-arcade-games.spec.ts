@@ -230,7 +230,9 @@ test.describe('아케이드 게임 전수 스모크', () => {
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { name: '아케이드' })).toBeVisible({ timeout: 30_000 });
     const cards = page.locator('a.arc-card');
-    await expect(cards).toHaveCount(12);
+    // 게임 로스터는 성장한다(현재 14) — 정확 카운트는 brittle → 하한 + 딥링크 무결성으로 검증
+    await expect(cards.first()).toBeVisible({ timeout: 10_000 });
+    expect(await cards.count()).toBeGreaterThanOrEqual(12);
     // 각 카드가 /play/<slug> 로 연결되는지(딥링크 무결성)
     for (const href of await cards.evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute('href')))) {
       expect(href).toMatch(/^\/play\/[a-z-]+\?from=\/arcade$/);

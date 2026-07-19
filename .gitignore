@@ -52,6 +52,7 @@ logs/kice-csat-*.log
 # Frequency corpus data (large + external)
 data/freq-corpus/*.xlsx
 data/freq-corpus/*.jsonl
+data/freq-corpus/*.txt
 data/freq-corpus/match_report.txt
 
 # Dict-fill sprint working data (regeneratable via scripts/dict-fill/)
@@ -75,4 +76,12 @@ scripts/lcp/data/mine-candidates.json
 scripts/lcp/data/mine-baseline-words.json
 scripts/dict/sense-chunks/
 scripts/dict/sc-*/
+scripts/dict/svl-*/
+scripts/dict/mnem-*/
 scripts/dict/data/
+scripts/dict/mnem-exp/
+scripts/dict/ksense-*/
+scripts/dict/mnem-etym*/
+scripts/dict/exmatch*/
+scripts/dict/exmatch-hi*/
+scripts/dict/covtr*/

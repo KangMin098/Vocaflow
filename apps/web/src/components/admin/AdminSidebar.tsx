@@ -14,6 +14,7 @@ import {
   LayoutDashboard,
   Library,
   Newspaper,
+  Scale,
   ShieldCheck,
   Sliders,
   Sparkles,
@@ -70,6 +71,8 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
     items: [
       { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
       { href: '/admin/quality', label: '품질 지표', Icon: Gauge },
+      { href: '/admin/quality/gates', label: '품질 게이트', Icon: ShieldCheck },
+      { href: '/admin/quality/judge', label: '추출 판정', Icon: Scale },
       { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: reportsBadge },
       { href: '/admin/billing', label: '결제/구독', Icon: CreditCard },
     ],

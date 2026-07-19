@@ -10,6 +10,169 @@
 
 ## Unreleased (v06.34 → next)
 
+### 굴절형·파생형 학습 구조 — ADR 0001 Phase 6 개정 착수 (v06.273)
+- **배경/결정**: "학습자에게 불규칙 굴절형(went·children·better)·파생형을 그 형태의 뜻 그대로 학습시킨다". ADR 0001 D1(굴절=별도 row 안 함)을 **부분 개정** — 전면 반전(모든 굴절형 row화, +15,714 규칙형 중복)이 아니라 **불규칙+어휘화만**(attested·bounded) 등록, 규칙형(walked·cats)은 통합 유지(D2 attested 게이트 준수). 근거 [ADR 0001](adr/0001-dictionary-derivational-enrichment.md).
+- **A — `base_word` 전수 채움**: 굴절 헤드워드 역인덱스 + 파생 candidates 병합으로 base 관계 채움(`scripts/dict/base-word-backfill.mjs`, 멱등·NULL만). 굴절 162 + 검증 candidates 121 반영. "went ← go" 관계 정보 확보.
+- **B PoC — 불규칙 굴절형 15개 헤드워드화**(said·knew·took·gave·seen·brought·built·understood·children·men·feet·teeth…): 뜻 authoring(과거형/과거분사/복수형 명시) + base_word/pos/v_level 상속. **검증**: `resolve_dict_headword('children')→children`·`said→said`(그 자체 추출) vs `walked→walk`(규칙형 통합 유지). B 전체 대상 = 불규칙 **487**(정제: 자음중복/영국식 규칙형 제외).
+- **스키마**(migration `20260718000000`): `shared_dictionary.source` CHECK 에 `'inflection-seed'` 추가(파생 `derivational-seed` 와 대칭 provenance, 추적/롤백용). classified_by=기존 `claude_code_opus_4_8`.
+- **잔여**: B 스케일업(472 authoring·homograph led/meant 교정) · A2 파생 base_word 광역(happiness/national류 형태소 detection) · C 전용 학습 세트(불규칙 동사표) + 추출카드 base 배지.
+
+### DB 용량 정리 — 미출시 도서 16권 삭제 (v06.272)
+- **원인 규명**: 어드민 "게시됨"(`status='published'`) ≠ hub 노출. hub(`/library/books`)는 `status='published' AND copyright_safe_in_kr AND published_at IS NOT NULL` 3조건을 모두 요구 — `published_at`은 정식 publish RPC만 찍고, `status='published'`는 챕터 단어장 발행 트리거(`ready→published`) 메커니즘으로도 쓰여 `published_at` 없이 올라간 도서가 섞임. 결과: 게시됨 23권 중 **hub 노출 7권 · 숨김 16권**.
+- **삭제**(사용자 승인): `published_at` NULL 16권 삭제. 정본 `admin_delete_book` 시맨틱 재현(RPC는 published 거부 → 동일 데이터 연산 트랜잭션). 단 texts는 `chk_content_or_library`로 unlink 불가(library 타입) → **DELETE**로 처리. CASCADE: `library_book_vocabularies` 63,863 · `library_chapter_quiz` 1,251 · `library_chapters_master` 627 · `shared_word_sets` 626(+하위 `shared_words`) · `book_curation_jobs` 11. seed 14개 `imported_to_books=false` unlock 복귀.
+- **결과**: 도서 28→12권, hub 7권 정상 유지. 콘텐츠 5테이블 `VACUUM FULL` 152→47 MB(−105 MB OS 반환). DB 총량 500→~470 MB. 전체 DB VACUUM FULL은 안전 분류기 차단(수동 실행 필요).
+
+### 콘텐츠 품질 게이트 — 파이프라인 정확성 자동 검증 (v06.271)
+- **목적 재정의**: "기능이 되나"(UI 테스트) 아니라 **"학습자에게 나갈 산출물이 맞는 단어·맞는 뜻·맞는 레벨로 정확히 뽑혔나"**를 결정론 불변식으로 검증 → 관리자 게시 신뢰. 실패=사전DB/파이프라인 수정 신호.
+- **갭 실측**: `quality_metrics`(nightly) 7지표는 전부 **부피·완비율**이고 정확성 검사 0. P0 결함(반의어 바인딩·gated KICE)은 전부 수동 발견 — 자동으로 아무것도 안 잡힘.
+- **F 즉시 수정** `content_quality_gate_fixes_F`(사용자 승인): **I7** 발행 세트 노이즈-register junk **9건 제거**(xl/mph/bc/cl/ft — 학습자 노출 중이던 약어) + word_count 재동기 + **F.2** 발행도서 resolvable NULL lemma 백필(→0, 학습자 출력 무변).
+- **G1 게이트 함수** `run_content_quality_gates(scope, id)`: scope=global|book|article|dict 별 불변식 pass/fail. 사전DB(I1 필드완비·I2 per-sense v_level) · 단어추출(I5 바인딩드리프트·I7 노이즈) · LCP(I6 resolvable lemma·I8 book_v_level·**I10 발행세트 SSoT 드리프트**) · ACP(I9 register). critical FAIL=게시 차단 후보.
+- **발견**: 전역 게이트 critical 전부 PASS(F 후). **도서 게이트가 P&P 발행세트 SSoT 드리프트 770 검출** — D1/D4a 개선이 select 출력을 바꿔 발행 콘텐츠가 stale(재발행 필요). 추출 로직 개선→발행 stale 이 처음으로 가시화.
+- **G3 화면** `/admin/quality/gates`: 전역 게이트 red/green + 요약 배너(allGreen=게시 신뢰) + 콘텐츠별 게시전 체크(도서/아티클 선택→book|article scope). AdminSidebar '품질 게이트'(ShieldCheck).
+- **G4 nightly cron** `content-gate-nightly`(KST 03:25): `collect_content_gate_metrics` → `quality_metrics(stage='gate')` 적재로 추이 추적. `admin_collect_content_gate_metrics` 수동 트리거. **→ 파이프라인 정확성 상시 자동 감시**.
+- **G2 게시 게이트 wire**: `content_gate_publishable(scope,id)`(critical FAIL 있으면 false, I10 드리프트 제외) → `publish_book_word_sets`·`publish_article_word_set`·`republish_*` 에 가드. broken 콘텐츠 게시 차단.
+- **드리프트 재발행 완료**: `republish_book_word_sets`·`republish_article_word_set`(set_id 보존, shared_words만 교체 — 구독/진행 안전) → 전 발행 도서 20권 + 아티클 135세트 SSoT 재동기. **I10 드리프트 전량 해소**(P&P 770→0 등). D1/D4a 개선이 학습자 단어장에 반영됨. I10 미발행 false-fail 수정.
+- **최종 상태**: 전역 게이트 critical(I1·I5·I7·I8·I9) 전부 PASS · 도서 I10 PASS · I2만 WARN 343. 파이프라인 정확성 상시 자동 감시 + 게시 전 차단 + 게시 후 재발행 루프 완성.
+
+### 콘텐츠 품질 게이트 — ACP+VCB 커버 + LCP end-to-end 실증 (v06.271)
+- **LCP end-to-end 실증**: 소스 GET(queued) "Ozma of Oz" → `reprocess-book.mjs --commit`(ingest 21ch/38k → 추출 2,785 → v7/B1) → ready → 게이트 전부 PASS → G2 publishable=true. 게이트가 실제 큐레이션 흐름의 관문으로 작동 확인.
+- **ACP 커버** (`gate_acp_vcb_coverage`): article scope + 전역에 **I11 항목단위 라이선스**(copyright_safe_in_kr) 추가. NASA ready 아티클 게시전 체크 PASS.
+- **VCB 커버**: 전역 I5/I7 을 **전 발행 세트**로 broaden(library 외 큐레이션 세트 41개 포함) + **`word_set` scope** 신설(I5·I7·뜻결측·비어있음). 확장 즉시 VCB '중등 기본어휘'의 "technic"(archaic) 검출 → `vcb_noise_cleanup` 로 전 발행 세트 노이즈 일반 정리.
+- **게이트 게시전 체크에 미발행 노출**: `/admin/quality/gates` 드롭다운 published+ready+queued(소스 GET → 추출 후 게시 전 검증).
+
+
+### 추출 품질 심층 평가 P0 + 표제어 바인딩 결함 수리 (v06.270)
+- **P0 정찰**(read-only, `docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`): 추출 품질 5속성(Q1~Q5) 분해 + 3 프로브(P&P ch18·Black hole 아티클·register 집계) 실측. Q2/Q5 3분해(in-cap/out-of-cap/gated) 결정론 산출 확인 · working set = **20,678 lemma** · freq_rank 30%(6,204) 결측 = 사전 유일 실질 갭(그중 KICE 238) · Phase B per-sense v_level 백로그 사실상 종결(전역 343·ws 68).
+- **🔴 신규 결함 발견·수리 — 표제어 바인딩**: `select_*_vocab` 가 pre-stem 된 `bv.lemma`(파생/부정접두 과잉 축약)를 그대로 바인딩 → 학습자에게 **반대 뜻** 노출(`imprudent→prudent` 신중한 · `insincere→진심의` · `forbearance→조상,선조`). 발행 콘텐츠 **782 오바인딩·654 POS 불일치·36 반의어 플립** 실측. 기존 "Q1 100% 검증(40,355 표제어)" 미커버 축(표제어 아닌 표면→표제어 바인딩).
+- **마이그레이션** `fix_extraction_surface_headword_binding`(사용자 승인): `select_book_chapter_vocab`·`select_article_vocab` JOIN 한 줄 — 표면형이 자체 quality 표제어이면 그것으로 바인딩(아니면 현행 resolver 폴백). dry-run 검증 = 782 재바인딩·**+143 회수 개선**·extraction-readiness 실패 0·gate-out 17 전량 비-KICE 정당. **발행 세트 영향 0**(현행 학습자 데이터 clean → 재발행 불요). `bv.lemma` 원본 데이터는 무수정(SSoT가 오버라이드 — 대량 재생성 금지 원칙 준수).
+- **마이그레이션** `create_extraction_judgments_table`(사용자 승인): 판정 하네스(Q3/Q5) 골든 라벨 저장소. composite/sort_order 스냅샷 보존 → 가중 변경 회귀 대조. RLS enabled(정책은 D3 하네스 착수 시 admin grant).
+- **D3 판정 하네스** `/admin/quality/judge` — 추출 "탁월함"(cap 40 최적성)을 인간 blind 판정으로 축적하는 골든 라벨 UI. 마이그레이션 `judgment_harness_rpcs`: `get_judgment_sample`(in-cap 8 + 경계 8 셔플·출처 은닉) + `save_extraction_judgment`(저장 시점 SSoT 재조회로 스냅샷 서버-권위 기록 → blind 보존·회귀 대조) + `extraction_judgments` RLS `ej_admin_all`. 절대 판정 + 쌍대 비교 모드, 제출 후 precision/recall reveal. AdminSidebar '추출 판정'(Scale). typecheck 0·lint clean·RPC 로직 실데이터 검증(표본 16=8+8). 런타임 UI 스모크는 admin 세션 필요 → 후속(전용 e2e spec 권장).
+- **D4a KICE freq_rank proxy 백필** — migration `backfill_kice_freq_rank_proxy`: KICE-core(수능 tier≥3) NULL freq_rank **273행**을 proxy rank(밴드 실측 중앙값 135 + KICE 중앙값 1986 = 138)으로 채움. `frequency_sources.proxy` provenance 마킹. efficiency·innovation·precision·prioritize 등 CSAT 빈출어가 composite 0.40 freq축 0점→~0.12 → 추출 순위 정상화. **핵심 재발견**: 추출가능(v≥6) working set의 freq_rank NULL 28.7%(4,648) 중 backfillable은 46뿐 — 나머지 4,602는 **무신호 rare tail(NULL이 정당, 결함 아님)**. 설계의 "freq_rank가 사전 최대 갭" 은 완비율로는 맞으나 추출 영향분은 대부분 **축소 불가**(D4b 외부corpus 없이는).
+- **다음(승인 대기)**: D5 V6 게이트 register-인식화(논의) · D4b 외부 corpus(rare tail — 저우선).
+
+### 커버리지 사전 — 비학습 롱테일 독해 대응 (v06.271)
+- **문제**: 도서·스크립트에 코어 45k 밖 롱테일(고어·희귀·전문)이 등장 → 학습자 독해 시 "정의 없음". 학습 큐레이션과 독해 커버리지는 다른 요구.
+- **설계**: `coverage_lexicon` **별도 테이블**(shared_dictionary 무변경·학습 무오염). 마이그 `create_coverage_lexicon`. `word·pos·gloss_en·ipa·meaning_ko·frequency_rank·source·seen_count`. 2-tier: 학습=core만 / 독해=core→coverage→미상 폴백.
+- **벌크 적재**: kaikki 단일어·content POS·실 gloss·**form_of(굴절) 제외**·코어 밖 → **424,328행**(gloss_en+ipa, meaning_ko는 demand 채움). `coverage-bulk-load.mjs`.
+- **검증**: 도서 잔여어 커버 — 미커버는 90%+ 굴절형(추출이 코어 lemma로 해소)+OCR잡음. 진짜 희귀어는 커버. 굴절 해소 후 실질 커버리지 높음.
+- **소스 분석**: kaikki 한국어 번역 25,736(흔한 단어 편중·tail 무용) · PanLex 4.31GB(불확실 payoff·보류). → 한국어는 **콘텐츠 등장 잔여만 LLM 배치**(bounded), gloss_en 즉시 폴백. 설계 근거=`docs/AI_CONTEXT/diagnostics/kaikki_upgrade_opportunities_20260718.md` 계열.
+- **한국어 빈도순 tier 완주**: hermitdave OpenSubtitles(165만) 랭크순으로 Opus 배치 번역 → **meaning_ko 77,501행**(빈도순 잔여 1·미랭크 극희귀 327k만 대기). `coverage-translate-{chunk,apply}.mjs`. 게이트=한글 필수(영어 echo 거부)·멱등·`--prune`(스킵 잡음 source='skip'). **english_echo 0**. ⚠️ 모델 교훈: 이 gloss→한국어 작업은 품질 민감 → **Opus 필수·Haiku 부적합**([[project_coverage_lexicon]] 실증: 약 모델 워커 다수가 영어 gloss 복사).
+- **잔여**: RPC 폴백(lookup_word_meaning)+is_learning_target(select_*_vocab) · UI 2섹션 · 미랭크 tail(327k, 설계상 대기).
+
+### kaikki C — per-sense 예문 매칭 (v06.270)
+- **진짜 per-sense**: 다의어 각 한국어 sense에 kaikki 실용 예문을 매칭(판단=LLM). 도구 `example-match-{chunk,apply}.mjs`. grounding 게이트: 예문은 제공 풀에서 **verbatim만**(편집·창작 거부=ungrounded-ex)·meaning 매칭·pos/v_level 보존.
+- **결과**: **5,111단어 · 9,645 sense-예문** 부착(meanings_ko sense별 `example`). `groan`=[신음]let out a groan·[툴툴]We groaned at his awful jokes·[삐걱]The table groaned under the weight 식 sense별 정확 매칭. 억지 금지(풀에 뜻 없으면 생략).
+- **청크 크기 교훈**: 240단어 청크가 최고빈도 구간(am·be 등 10+sense)에서 **출력 64k 토큰 초과**로 실패 → 그 구간만 60단어 재분할(exmatch-hi)로 해소. 저빈도는 240 무방. 세션 한도 걸린 1청크는 메인 세션이 직접 매칭.
+- **정직**: 멀티세션 지시문 만들었으나 실행은 소규모라 단일 세션 넓은 웨이브가 효율적(세션 수는 작업량÷머신 동시성으로, 습관적 6 지양).
+
+### kaikki 보완 #4·#5 — 관계 컬럼 + 예문/동의어 (v06.269)
+- **마이그레이션** `add_kaikki_extra_columns`: `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼 신설(사용자 승인).
+- **1회 스트림 추출**(`kaikki-extra-{extract,apply}.mjs`, 멀티세션보다 빠름 — 추출은 I/O 병목이라 병렬 무의미): homophones 2,687·rhyme_key 16,042·derived_forms 19,548·related_terms 11,223 채움. + example_en 결측 752 채움(96.8%) + synonyms 보강(64.5→**76.4%**). 전부 kaikki 외부사실=무환각·결측만.
+- **교훈**: (1) `Object.create(null)` 필수 — "constructor"·"toString" 실제 영단어가 프로토타입 오염 유발. (2) 45k 맵 `JSON.stringify` 512MB 한계 → JSONL 스트림 기록.
+- **per-sense 예문(C) 잔여**: 영어 예문↔한국어 sense 매칭은 판단 필요(단일 스트림 불가) → 별도 LLM 패스 옵션. 현 pass는 word-level 예문/동의어까지.
+
+### 어원 니모닉 확대 M3 — kaikki etymology_text 근거 6세션 병렬 (v06.268)
+- **배경**: 니모닉 6.5%(2,618) 정체 — M2는 어근 인벤토리(181개) 근거라 그 밖 어근은 skip. kaikki `etymology_text`(83.3%)는 단어별 권위 근거라 인벤토리 한계 해소.
+- **경선식(발음 소리흉내) 차단 = 근거 대조 게이트**: 지시만으론 약함 → `mnemonic-etym-apply.mjs`가 (1)화살표 필수 (2)로마자 어근 필수(순수 한글=경선식 거부) (3)어근이 etymology_text에 실제 등장(diacritic strip + 어간 4글자 매칭으로 굴절변이 흡수). 자체테스트: `advocate→ad(voc)` 통과 / `애들 보고 캣` 거부.
+- **파이프라인**(`mnemonic-etym-{chunk,apply}.mjs`): 미니모닉 v≥7·rank≤12k 5,935 → 고전어 3,486 → 30청크 → 6세션×5청크 격리 병렬. authoring 프롬프트에 경선식 정의(애들·보고·캣) + skip 규칙.
+- **결과**: **2,433 적용**(pass 2,433·거부 41=1.7% 진짜 엣지). 니모닉 **2,618→5,062**(커버 11.08%). **경선식 유입 0**(pure_hangul_pun_suspect: 0·화살표 100% 검증).
+- **게이트 튜닝 교훈**: 초기 게이트가 매크론 어근(vās·prō)·영어 접미사(-ist)·한국어 괄호설명(일(공화국))을 오거부(452) → 유니코드 추출+어간매칭+"근거 어근 ≥1이면 통과"로 41까지 축소, 336+ 복구. 지시문 SSoT=`docs/AI_CONTEXT/handoffs/mnemonic_etym_multisession_20260718.md`.
+
+### sense 깊이 확대 — kaikki 근거 다의어 완성 1차 슬라이스 (v06.266)
+- **배경**: 추출 사전DB 최대 갭 = sense 깊이(avg 1.28 vs 일반사전 3~5+). 얕음(≤2)+kaikki풍부(≥3) 단어 **19,549**(노출 freq≤8k **5,995**). 추출 시 드문/지배 sense 결측으로 오해소.
+- **파이프라인**(신규 `kaikki-sense-chunk.mjs`·`kaikki-sense-apply.mjs`): kaikki JSONL 재스트림 → 대상 단어 표준 sense(gloss+pos, obsolete/rare/**형태포인터**(Abbreviation/plural of…) 제외·leaf gloss·**굴절형/길이<3 제외**) → 청크. 서브에이전트가 현 한국어 sense + kaikki 영어 gloss를 **근거로** 완전한 meanings_ko(한국어·per-sense pos/v_level, most-common-first, 과분할 통합, cap 5) authoring. apply=meanings_ko 교체+flat 동기화, **sense 추가만(손실 방지 가드)**.
+- **1차 슬라이스(freq≤3000, 800단어)**: 5청크 → **315단어 enriched**(39%, 0 reject). **퇴화 엔트리 근본 교정**: `add`(ADHD 약어만→더하다/추가하다) · `will`(→모달 ~할 것이다) · `act`(ACT약어→행동/연기/막/법령) · `stop`·`single`·`policy`(→보험증권)·`light`(빛/조명/가벼운/옅은/신호등) 등. 자가생성 아닌 **외부 사전 근거=무환각**.
+- **인프라**: 대형 청크(kaikki gloss 포함 ~126KB) 동시 3에이전트 stall(600s watchdog) 1회 발생 → 재-dispatch로 전량 복구. 데이터는 gitignore.
+- **2차 슬라이스(freq 3000~6000) 전 18청크 완료**: `--min-rank` 추가·청크120·6에이전트/웨이브(stall 회피). 웨이브1 175(24%) + 웨이브2 323(45%) + 웨이브3 275(38%) = **773 enriched**. `bark`(→짖다)·`lens`(→수정체)·`vein`(→정맥/잎맥/광맥)·`cookie`(→컴퓨터 쿠키)·`decay`(→붕괴)·`toxic`(→해로운 관계)·`crow`(→까마귀)·`crane`(→기중기/두루미)·`niche`(→생태적 지위)·`dismissal`(→해고/기각)·`socket`(→눈구멍)·`carrot`(→유인책) 등. **누계 sense 깊이 = 1,088단어**(slice1 315 + slice2 773) · 3+ sense 1,466→**1,850행** · avg 1.273→**1.290**.
+- **3차 확대 — freq 6k-31k 멀티 세션(6 병렬, v06.267)**: 잔여 8,320단어를 1회 스트림 후 rank 정렬 70청크로 분할 → 6개 Claude Code 세션(ksense-s1~s6, rank 대역별 격리)이 각 12청크(S6=10) 병렬 authoring. 지시문 = `docs/AI_CONTEXT/handoffs/ksense_multisession_20260717.md`(치환 없는 복붙 블록 6개). **5,406 enriched**(yield 65% — 이 대역은 복합 뭉침 엔트리多라 수리 대상 많음). 검증(읽기전용 `_ksense_{check,redundancy,preserve}.mjs`): **세션 간 단어 중복 0·무효 0·기존 sense 드롭 표본상 0·inflation 0.8~2.7%**. 부수 성과=`elevation`(고도;승진;입면도 1문자열)·`cache` 같은 **복합 뭉침 759건을 sense별 분리**(per-sense v_level+문맥-POS 매칭 원리상 필수). **누계 sense 깊이 = 6,494단어**(1,088+5,406) · 3+ sense 1,850→**5,742행**(+3,892) · avg 1.290→**1.475**.
+- **잔여**: unranked(freq_rank NULL) 3,979 = 최저 노출 tail(현 툴은 rank 필수라 제외, `--include-unranked` 선결). 노출 다의어는 사실상 소진.
+
+### kaikki(Wiktionary) 확보 — 사전 외부검증 보완 파이프라인 + IPA PoC (v06.265)
+- **배경**: 사전 sense 깊이(avg 1.28 vs 일반사전 3~5+)·syn/ant/ipa parity 갭의 근본 병목 = 권위 외부 소스(kaikki) 부재([[project_dict_wave_plan_w0]] W0 중단 사유). 일반사전 비교 분석(`extraction_dict_vs_general_20260717.md`)이 이를 최우선 병목으로 확정.
+- **확보**: kaikki `kaikki.org-dictionary-English-words.jsonl` **3.19GB**(CC BY-SA 3.0·무료·귀속) 다운로드 → `scripts/dict/data/`(gitignore). 벤더 중립(상용 아님).
+- **파이프라인**(`scripts/dict/kaikki-enrich.mjs`): `extract`(3.19GB·148만 줄 스트림 → 45k 표제어 필터) + `apply-ipa/syn/ant`(결측만·멱등·**외부 사전 사실=무환각**, 자가생성 아님). 커버리지 45,667 중 **43,692(95.7%)** kaikki 존재.
+- **IPA PoC 적용**: 결측 **5,879 채움** → ipa **64%→76.9%**(29,230→35,109). 0 실패. 자가생성 병목 해소 실증.
+- **후속 자원(kaikki가 열어줌)**: sense 깊이(avg 4.5·≥5 sense 12,131 → 한국어 sense 추가 authoring, 별도 batch) · audio mp3 30,902(스키마 컬럼 필요) · syn/ant는 kaikki 구조화 희소라 저우선.
+
+### 니모닉 확대 — v8+ 라틴계 학습어 265 (M2 확대, v06.264)
+- **배경**: M2(v06.260)는 word_root_links 보유 2,472단어만 대상. 학습 세트 노출 v8+ 라틴계 단어 중 **어근 미링크 712개**가 니모닉 없음 → 최고난도(어원이 가장 유용한) 구간 보강.
+- **도구**(`mnemonic-expand-chunk.mjs`): 링크 없는 라틴계 학습어 + **어근 인벤토리(181개) 근거 파일** 청크. 서브에이전트가 인벤토리 근거로 분해+니모닉(무환각), 근거 밖·비라틴·오귀속 위험이면 skip. 기존 `mnemonic-apply.mjs` 재사용(니모닉이 분해를 담아 링크 미삽입).
+- **결과**: 5청크(712 후보) → **265 니모닉**(37% yield, mnemonic_ko 2,358→**2,623**). 서브에이전트 품질 게이트가 정교하게 오귀속 차단(`heliport` heli=헬리콥터≠helios · `interference` fer=치다≠나르다 · `taxable` tax=재정≠배열 · `compliance` complēre≠plic 등). 발음 말장난 0. 예 `deduction` de+duc+tion→추론 · `serpent` serp(기어가다)→뱀.
+- **saturation**: 후보 노이즈(게르만어·외래어·고유명) 높아 yield 14~51%. v6-7로 더 확대 가능하나 per-word 가치↓ — 투명 분해 가능 집합은 사실상 포화. 발음 말장난 절대 금지 원칙([[feedback_mnemonic_etymology_only]]) 유지.
+
+### UI 스모크 green 복구 — 스크립트 히어로 selector 수리 (v06.263)
+- **런타임 검증**: 우위 로드맵 UI(리치 카드·플랜 스트립·RecallCard) 스모크 검증 — `04-ui-smoke` test 1(주요 화면 콘솔에러 0)이 `/wordvault`·`/library/vocab`·`/flashcard` 포함 통과 → 이번 세션 변경 런타임 안전 확인.
+- **스모크 실패 수리**(테스트 결함, 앱 무버그): "스크립트 진입면 — 시리즈 상세" 테스트가 추천 히어로의 `getByRole('button').first()`(=v06.238 재설계 후 **본문 '학습 안내 보기' 팝업 버튼**)를 눌러 시트 오버레이가 클릭을 가로챔. 시리즈 진입은 하단 **'글 둘러보기'**(onEnter) 버튼 → selector를 `{name:/글 둘러보기/}`로 교정. **5/5 green** 복구. (고급 밴드 V9+ 계정에서만 재현 — 히어로가 안내 CTA라서.)
+
+### 리더 단어 팝업 리치화 — 다의어+어원+니모닉 (v06.263)
+- **배경**: 플래시카드 CardBack(v06.259·260)은 다의어·어원·니모닉을 노출하나, **리더 단어 팝업(RecallCard)은 삽화·뜻만** 표시 → 문맥 학습(읽기 중 단어 클릭) 흐름엔 리치 정보 부재.
+- **배선**(`RecallCard`): 카드 열릴 때 공유 헬퍼 `fetchDictExtras([word])` 조회(클라이언트 재사용) → **다의어 품사별 뜻(≥2)·어원 root 분해 chip·💡니모닉** 컴팩트 노출. 미매칭/실패 시 뜻만(안전 폴백). 카드 높이 변화에 위치 재계산(extras 의존성).
+- **효과**: 읽다가 단어를 눌러도 플래시카드와 동일한 리치 정보 — Context-Dependent 학습 + 어원/니모닉 결합. `posLabel`(명/동/형/부) 재사용. tsc 0.
+
+### 진도-aware 완성 추정 — 학습 플랜 개인화 (F2, v06.262)
+- **배경**: v06.261 플랜 스트립은 세트 규모 기반 정적 추정. 시중 능가의 핵심 = **개인 진도 반영**(시중 종이책은 불가능).
+- **진도 계산**(`VocabSetPreviewModal`): 구독+로그인+챕터형(전체 단어 로드) 시 사용자 `vocabularies` 단어집합(RLS 본인, keyset pagination) ∩ 세트 단어 → **학습 X/N**. 마이그레이션 없이 클라이언트 조인(미충족 시 정적 플랜으로 안전 폴백).
+- **UI**: 플랜 스트립에 **진행 바(%)** + "학습 X/N · 남은 Y단어 · 약 Z일 더"(완주 시 "한 바퀴 완주했어요 🎉"). remaining÷하루22단어로 남은 일수 산출 — 학습할수록 줄어드는 적응형 추정.
+- **차별화**: 시중 고정 30일(누구나 동일) vs 플랫폼 실진도 기반 개인 추정 + FSRS 자동복습. tsc 0.
+
+### 적응형 학습 플랜 스트립 — 세트 완성 프레이밍 (F2, v06.261)
+- **배경**: 시중 벤치마크 — 시중 단어장은 "30일 완성" 고정 스케줄(누구나 하루 40단어·정형 누적테스트). 플랫폼은 세트를 정적 목록으로만 노출.
+- **플랜 스트립**(`VocabSetPreviewModal`): 세트 미리보기에 **학습 플랜** 섹션 — 하루 신규 **22단어**(인지부하 Sweller 기준) × **약 N일** 도입 + N챕터 구성 안내. 핵심 프레이밍: **"복습은 기억이 흐려질 때 자동 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절"**(FSRS). 순수 계산(세트 규모), 로그인 무관 노출.
+- **차별화**: 시중 고정 30일 vs 플랫폼 적응형(신규 페이싱 + FSRS 자동 복습). 정적 목록 → 달성 가능한 개인화 플랜으로 재프레이밍. tsc 0.
+- **잔여**: 진도-aware 완성 추정(사용자 vocabularies∩세트 FSRS 조인 → "학습 120/500·예상 D-15") · prescribe_today 세트 연동.
+
+### 어근 기반 니모닉 생성 + 학습 카드 노출 (M2, v06.260)
+- **배경**: 시중 벤치마크 danger zone — `mnemonic_ko` 0%. 시중 어원편·경선식(발음 말장난)이 차별화하나 플랫폼 전무. 어원 root 축(v06.253) 배선으로 **어근 근거 니모닉**을 환각 없이 생성 가능(희귀어 어원 환각과 다름).
+- **생성**: 어원 root 링크 보유 2,472단어 → 서브에이전트 16 병렬 authoring(어근 gloss 근거로 "어근 literal → 단어 뜻" 다리). **품질 게이트**: 어근이 뜻을 투명 설명 못하거나(불투명·의미변화) 어근 오데이터(gloss 불일치)면 skip → **2,358 생성(95.4% yield)**, 0 reject. 도구 `scripts/dict/mnemonic-{chunk,apply}.mjs`.
+- **품질**: `inspect` in(안을)+spec(보다)→안을 들여다보다→점검 · `contradict` contra(반대)+dict(말하다)→반박 · `adjective` ad+ject(던지다)→명사 옆에 던져 붙인 말→형용사. 서브에이전트가 어근 오귀속(`absent`의 sent=느끼다 오데이터 등)까지 검출·skip.
+- **카드 노출**(CardBack): 정답면에 `💡 {니모닉}`(Lora italic, Progressive Disclosure). dict-extras/FlashcardWord에 `mnemonic` 배선. **853단어는 니모닉+어원+다의어 동시 노출**(triple-rich) — 시중 단일-행·경선식이 못 주는 학습 카드. tsc 0.
+- **잔여**: 어근 없는 단어 니모닉(소스 없어 보류) · RecallCard 배선.
+
+### 학습 카드 리치화 — 다의어 품사별 뜻 + 어원 힌트 (M1·F1, v06.259)
+- **배경**: 시중 벤치마크 danger zone — 플래시카드 정답면(CardBack)이 **flat meaning 1개만** 표시, 플랫폼이 이미 보유한 **다의어 per-sense meanings_ko(다의어 100%)·어원 root(2,767 링크)·콜로케이션**을 미노출. 시중 프리미엄 단어장(다의·뉘앙스·어원)보다 카드가 얕음.
+- **공유 헬퍼**(`lib/flashcard/dict-extras.ts`): 단어 배치 → `{collocations, senses(다의어 ≥2), roots(어원 분해)}` map. shared_dictionary(collocations·meanings_ko) + word_root_links⋈word_roots(prefix→root→suffix) 배치 조회. scoped-words·hub-words 공용(단일 출처). 실패해도 카드 렌더 무영향.
+- **카드 렌더**(`CardBack.tsx`): (M1) **품사별 뜻** 블록 — 다의어(≥2 sense)일 때 각 sense를 `명/동/형/부` 라벨+뜻으로. (F1) **어원 힌트** — root 분해 chip(`in-(안으로) + port(나르다)`). 둘 다 Progressive Disclosure(데이터 있을 때만·Calm UI 절제).
+- **커버리지**: 학습 세트 단어 9,538개 중 **다의어 39%(3,734)·어원 20%(1,867), 51%가 최소 1개 보강 노출** → 시중 단일-행 항목이 못 주는 정보를 학습 시점에 제공. tsc 0.
+- **잔여**: 니모닉(M2, mnemonic_ko 0%) · RecallCard(워크스페이스) 동일 배선 · bare gloss 재작성(M1 후속).
+
+### P1 생성기 품질 게이트 — auto-vlevel 저레벨 오염 근절 (v06.258)
+- **배경**: 시중 단어장 벤치마크(`docs/AI_CONTEXT/diagnostics/commercial_benchmark_vcb_20260717.md`)에서 **초등 세그먼트 열위** 판정 — auto-vlevel V1이 굴절형 35%(are/been/was/were/had), V2-3이 파생 -ing/-ed 30%(saying/backing/takings)로 **학습자 제공 부적합**. 우위 확보 로드맵 최우선(P1).
+- **품질 게이트**(`republish-auto-vlevel.mjs` v06.258): 생성기에 (R1) **굴절형 제외** — 단어가 다른 표제어의 `inflected_forms`에 등장하면 배제 · (R2) **파생 -ing/-ed 제외** — base 표제어가 사전에 실재하면 배제(표준 역굴절 stem + `-ings` 복수 포함). 표제어(lemma) 우선. `--no-quality`로 원 동작 재현.
+- **재발행 결과**: auto-vlevel 9세트 +250/−250 교체 → **굴절형 0(V1 35%→0)·파생 -ing ~0(V2 34→0)**, on-level 100% 유지, word_count 불변. V1 head `are/been/being/was/were/had`→**`have, say, know, think, make, see, like`**(실 기초 동사). 필터 후에도 pool ≥ qty(전 레벨 여유) 확인.
+- **효과**: 게이트가 생성기 내장 → 향후 재발행(드리프트 수정 포함)도 자동 정제. 벤치마크 danger zone #1(저레벨 오염) 해소, 초등 세그먼트 제공가능화.
+
+### 유형별 공용단어장 파이프라인 전수 테스트 + 오류 3건 조치 (v06.257)
+- **전 유형 자동 테스트**(read-only, 9유형·1,085세트·44,958단어): 무결성(count/null/dup/chapter/orphan) **전 유형 통과** + 레벨정합·드리프트·surfacing 4차원 감사. 리포트 = `docs/AI_CONTEXT/diagnostics/wordset_pipeline_typewise_test_20260717.md`.
+- **E1 조치 — auto-vlevel 드리프트 해소**: V5-V7 세트가 2026-05 생성 후 VRL 재분류 미반영(V5 75% on-level)이던 것을 신규 `scripts/dict/republish-auto-vlevel.mjs`(원 curation_query 충실 재구성·검증게이트 V1 재현 100%)로 9세트 재발행 → **+176 −176, 전 세트 100% on-level**. 추천 RPC(primary/stretch/review)에 직접 노출되던 stale 제거.
+- **E2 조치 — 사전 오분류 `third`**: 최기초 서수가 v_level 11·C2·freq NULL(형제 서수는 전부 V1) → **V1/A1** + per-sense [1,2,2] 교정. (shared_dictionary v_level UPDATE 차단 트리거 부재 확인.)
+- **I4 조치 — csat multi-POS 이중 행**: kice 세트의 같은 표제어 품사별 2행(85행, 중복 플래시카드/SRS 충돌 소지)을 survivor 병합(뜻·품사 `n·v` 결합)으로 dedup → csat 1,487→1,402단어, 중복 0.
+- **미조치(의도)**: I3 구상어 과대 v_level(~27, VRL 분류기 차원) · I5 book/article floor 누수(소수) · I6 surfacing 갭(교육과정/article 추천 미노출, 제품 판단). 상세는 리포트 §5.
+
+### per-sense v_level 정밀도 — Phase B 100% 종결 (v06.256)
+- **2차 tier(단일-POS 다의어) 완료**: 우선순위(multi-POS) 소진 후 남은 **단일-POS 다의어 4,894단어**를 `sense-vlevel-chunk.mjs --all-pos`(25청크·200개씩·2웨이브)로 authoring → `updated 4,894 · failed 0`. 같은 POS 내 sense 차이(예 `will` noun 의지1/유언장5 · `practice` noun 연습2/관행4 · `centre` 중심1/센터2)를 반영.
+- **최종 상태**: 추출 대상 다의어(register 제외) **10,144개 = per-sense v_level 100% 완비**(`any_sense_missing: 0`, 이전 2,724→10,144). 추출 시 sense별 정확한 난이도로 threshold 필터·V 배지 산출 — flat 폴백 근사 제거 완료. **Phase B 백로그 종결**(추출 신뢰 로드맵 3단계 정밀도 잔여 해소).
+- **품질**: 2차 tier sense별 분화 59.6%(나머지=전 sense 동일 난이도가 정확한 legit). 전수 검증 결측·배열 길이불일치·범위초과 전부 0. `svl-p2` 작업 디렉터리 gitignore.
+
+### per-sense v_level 정밀도 — Phase B 우선순위 슬라이스 완료 (v06.255)
+- **배경**: 추출 신뢰 로드맵 3단계의 정밀도 잔여(비차단). 다의어 중 일부 sense에 자체 `v_level`이 없어 추출 시 flat(대표) v_level로 폴백 → 그 sense가 대표와 난이도가 다르면 threshold 필터·V 배지가 근사값. **뜻·POS는 이미 100%**라 "틀림"이 아닌 난이도 숫자 정밀화. 명세=`scripts/dict/SENSE_COMPLETION_MULTISESSION.md` §Phase B.
+- **신규 툴 2종**: `scripts/dict/sense-vlevel-chunk.mjs`(대상→sense별 `{i,pos,meaning,v_level}` 청크, multi-POS 우선·`--all-pos`/`--max-rank`/`--limit`) + `sense-vlevel-apply.mjs`(`v_levels[i]`를 `meanings_ko[i].v_level` **결측분에만** 주입 — pos/meaning/기존값/flat 컬럼 불변, 길이 불일치·무변화 스킵, 1-11 검증, 멱등). 기존 sense-chunk/apply(단일-sense POS 추가용)와 분리.
+- **우선순위 슬라이스 = 100% 완료**: multi-POS(형태별 sense 분기) ∩ per-sense v_level 결측 **2,526단어** — 16 서브에이전트 병렬 authoring(각 sense의 실제 난이도 부여, 대표≈flat_v·드문/전문/비유 sense↑) → `updated 2,206` + 멱등 `skipped 320` + `failed 0`. DB 검증 `multipos_missing_remaining: 0`. 전 sense 완비 단어 2,724 → **5,250**.
+- **품질**: sense별 난이도 분화 53.6%(예 `firm` noun 회사5/adj 단단한4/verb 굳히다7 · `prime` adj5/noun6/verb8 · `shadow` noun4/adj8/verb7). 나머지 46.4%는 전 sense 난이도 동일이 정확한 legit 케이스(예 `pizzicato` 전 sense 전문 음악용어 11). 전수 검증: 결측 0·배열 길이불일치 0·범위초과 0.
+- **잔여(2차 tier, 비차단)**: 단일-POS 다의어 4,894 — 같은 POS 내 sense 차이라 flat 폴백이 더 근접(cross-POS 난이도 점프 없음). `--all-pos`로 동일 파이프라인 실행 가능. `svl-*` 작업 디렉터리 gitignore(결과=DB 데이터).
+
+### 아케이드 게임 module_id enum — 이미 적용 확인 (문서 교정)
+- **검증**: `docs/proposals/game-suite-module-enum.sql`의 6 값(cascade/connections/word-economy/daily-blitz/letter-forge/ghost-race)이 원격 마이그 `20260711011813`으로 **이미 적용됨**을 DB `pg_enum` 조회로 재확인(+ 이후 게임 glyph-tongue·lexicon-detective 등도 추가됨). 게임 persistence(learning_records/scores insert) 활성 상태. SESSION_LOG 2026-07-11 기록의 "enum 승인 대기"는 stale이었음 — 교정.
+
+### 추천 RPC에 재설계 세트(어원·주제) 소급 (v06.254)
+- **배경**: 단어장 파이프라인 재설계 자동 검증(사전 DB·정확성·사용성) 결과 — 마스터 사전 45,667행 meaning/pos/cefr/v_level **100%**, 세트 무결성(orphan 0·empty 0·null_meaning 0), 어원 5/5 챕터 정확, 학년 v_level 단조(초1.9<중3.7<고5.9), e2e 09 통과. **발견 #1**: `recommend_word_sets_for_user`가 legacy `auto-vlevel-*`/`library_book`만 surface하고 재설계 세트(어원·주제)는 **브라우즈 전용**이던 커버리지 갭.
+- **수리**(migration `20260717160000_recommend_word_sets_redesign_tiers`): 기존 티어(primary/stretch/review/specialty/track/book/fallback) **전부 무변경** + additive 2티어 — **Tier 7 어원**(`etymology-core`, 진단 V5+) · **Tier 8 관심 주제**(`topic-{interest}` opt-in, specialty 동일 패턴). 순수 UNION ALL(시그니처·컬럼 불변, 매칭 없으면 0행).
+- **검증**: V11 유저 재호출 → 어원 티어(priority 7) 노출 ✅. 관심사 `[travel,health,business]` → topic-travel·topic-health + specialty-business 동시 노출 ✅.
+- **프론트**: `RecommendedSetsSection.TYPE_BADGE` + `VocabSetGrid.TIER_BADGE`에 어원(어원)·주제(주제) 배지 추가(미지 타입 '추천' fallback 대체). tsc 0.
+- **#2 빈 카테고리 탭 조사 → 이미 처리됨**: 라이브 뷰는 `VocabSetCarousel`이 세트 없는 카테고리 **숨김** + `CategoryMatrix`가 빈 탭 `disabled`+dimmed(info-scent)로 dead-end 없음. 유일 잔재 = **dead `CategoryFilter.tsx`**(참조 0·stale 퍼플 주석) **삭제**. preschool/civil/business는 matrix에서 "0" 비활성 노출(coming-soon = 의도적, 제거는 제품 판단이라 보류).
+- **#3 legacy null_lemma backfill ✅**(DB 데이터만·승인): auto-vlevel-*/specialty-* 세트의 lemma NULL **2,502행** 전량 채움(`lemma = word` — 진단 결과 100% exact 사전 매칭). 검증: null_lemma 0·orphan 0. eng_test는 이제 avg_v 산출(8.5, 이전 NULL). 학년 단조 선명화(초2.0<중3.9<고4.8<eng_test8.5). 재설계 세트는 이미 lemma 보유라 미영향.
+- **#4 library_book POS backfill ✅**(DB 데이터·승인, Option B=정확도 안전): 책 세트 POS 결측 중 **사전 단일-POS(pos_set 길이 1) 단어만** dict primary_pos로 채움 — 20,765행. **다의어 1,637 + pos_set 미상 1,081 = 2,718행은 NULL 유지**(문맥-POS 후속, primary-POS 오주입 회피 = 프로젝트 원칙 정합). 결과: 책 세트 POS 채움 0.8%→**88.5%**. 포맷 정합 사전 확인(noun/verb… 영문 소문자 동일 체계).
+- **잔여(검증 발견, 후속)**: #5 주제 챕터 coarse(~125단어/챕터 — L2 롤업, 선택적 L3 세분화).
+
 ### LCP RPC 침묵실패 관측성 소급 (PR #93 salvage) — dev-process/process 라우트 (v06.254)
 - **배경**: `feat/scriptquiz-chapter-quiz`(PR #93)를 새 main에 merge. 대형 기능(챕터 퀴즈)은 plan-ui 재구현으로 main에 있고, scriptquiz 드레인·VCB QA·dict enrichment는 데이터/docs라 반영/superseded → **유일한 고유 코드 = LCP RPC 관측성 수리**만 소급.
 - **관측성 수리**(`0679a2d`): `/api/lcp/{dev-process,process}`의 `compute_book_*` RPC 호출이 `try/catch`였으나 supabase-js rpc는 **무-throw({error} 반환)** → catch가 죽은 코드(침묵실패). **per-call `{error}` 검사 for-loop로 교정** — main의 확장 RPC(chapter_v_levels·syntax·difficulty)는 유지하고 관측성만 결합. (같은 무-throw 버그의 DB측 짝 = #94 lbv lemma 게이트.)

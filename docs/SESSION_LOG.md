@@ -14,14 +14,19 @@
 
 ## ▶ 지금 이어서 할 일 (RESUME HERE)
 
-**작업**: `feat/plan-ui`(15일·319커밋·8+트랙) → **main 통합** — main 2026-07-02 정지 해소.
-**브랜치**: `feat/plan-ui` (origin/main +319 · **0 behind** = strict superset → 무충돌 머지 가능)
-**상태**: ✅ **CI green 복구 완료**(fix `6beb148`) — 15일간 red였던 CI 3잡(TypeScript·build·verify) 봉인. 통합 PR = **#95**(base=main).
+**브랜치**: `feat/plan-ui` (working). main 통합은 2026-07-17 #95 머지(`96cfee0`)로 한 번 완료됐고, **이후 이 세션 커밋 다수(v06.255~264)가 feat/plan-ui에 누적** → main 재통합 PR은 사용자 판단(비차단).
 
-- **CTP ⑥ Today UI = ✅ 완결**(v06.203 Phase 1 + v06.204 Phase 2) — META 홈 재설계(Opt A: 처방=스마트 기본값) + `/practice/dcp` DCP 인터랙션(order/insert·`grade_dcp_item`·error_cause 1-tap). `hub/page.tsx` 3분기(TodayPlanCard/TodayPrescriptionCard/TodayFocus). 근거 [hub-today-meta.md](proposals/hub-today-meta.md). ⚠️ 이전 RESUME의 "다음=Today UI"는 **stale**이었음(완료 후 미갱신).
-- **CI green 수리(`6beb148`)**: 아케이드/신규 게임 미사용 import/var 13건 + `next-action.mock.ts` TS2366(actionToHref switch 비exhaustive→`default`) + `TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·tsc 0·테스트 144 passed.
+**직전 세션(2026-07-17) = 사전/단어장 품질 + 시중 대비 우위 트랙 — ✅ 완료·검증**:
+- **per-sense v_level Phase B ✅ 100%**(v06.255·256) — 다의어 10,144 전량 완비. 신규 툴 `sense-vlevel-{chunk,apply}.mjs`.
+- **유형별 단어장 전수 테스트 + 오류 3건 조치 ✅**(v06.257) — E1 auto-vlevel 재발행·E2 `third` 사전교정·I4 csat dedup. 리포트 `diagnostics/wordset_pipeline_typewise_test_20260717.md`.
+- **시중 대비 우위 로드맵 ✅**(리포트 `diagnostics/commercial_benchmark_vcb_20260717.md`): **P1** 생성기 품질게이트(v06.258 굴절/파생 제외, auto-vlevel V1 오염 35%→0) · **M1/F1** 학습카드 다의어+어원(v06.259) · **M2** 어근 니모닉(v06.260·264, **mnemonic_ko 2,623**, 발음 말장난 절대 금지=[[feedback_mnemonic_etymology_only]]) · **F2** 적응형 학습 플랜+진도(v06.261·262) · **RecallCard 리치화**(v06.263) · **스모크 green 복구 5/5**(v06.263).
+- **런타임 검증**: `04-ui-smoke` 5/5 green(내 화면 콘솔에러 0). 니모닉·다의어 카드/팝업, 플랜 스트립 배선 완료. 삽화(D1)·니모닉 포화로 제외/종료.
 
-**▶ 다음 (RESUME)**: ① **PR #95 CI green 확인 → main 머지** (⚠️ 사용자 확정 게이트 — main 직접 push/자동 머지 금지). ② 머지 후 **#93(scriptquiz-chapter-quiz)·#94(quality-eval) 닫기** — 두 PR의 작업이 plan-ui에 **독립 재구현되어 superseded**(/admin/quality·ChapterQuiz 파일 실재 확인, 단 커밋은 미포함=독립분기). ③ 잔여 기능 백로그(전부 비차단)는 CHANGELOG Unreleased "후속/잔여" 및 P1~P3 참조(LCP 18권 미발행·collocations 소비 UI·per-sense v_level Phase B 등).
+**▶ 다음 세션 후보(전부 비차단·저우선)**:
+- **F2 완성**: prescribe_today(오늘의 처방)에 세트 진도 연동 — "오늘 이 세트 N단어+복습"을 일일 흐름에.
+- **우위 end-to-end 증명 spec**: 세트→플랜→구독→플래시카드 리치→리더 팝업 통합 e2e(스모크는 렌더만 확인).
+- **기존 백로그**: LCP 18권 미발행+Les Misérables 청크 발행 fix · collocations 소비 UI 롤아웃 · nav 감사 P1/P2 · 어원 세트 추천 캐러셀 prominence · I3 구상어 VRL 보정 · I6 학년세트 추천노출 · auto-vlevel 재발행 cron · M1 bare gloss 심화(대량 authoring).
+- **정리**: 미추적 스크래치 `scripts/dict/_sc_*.mjs`(5)·`packages/library-pipeline/_pub.mts` = **타 세션 잔재**(내 것 아님, 미삭제). 필요 시 사용자가 정리/gitignore.
 
 <details><summary>이전 트랙 (VCB 재설계 — ✅ 종결)</summary>
 
@@ -67,6 +72,45 @@
 
 ## 세션 기록 (최신 ▲)
 
+### 2026-07-17 — 시중 단어장 벤치마크 + P1 생성기 품질 게이트(저레벨 오염 근절)
+
+> 요청: 사전 보완 이력 분석 → WordVault 레이아웃 시연 → 시중 단어장 대비 VCB 품질 벤치마크(반드시 우월해야) → "우선순위 최적화하며 진행".
+
+**무엇을 했나**:
+- **사전 보완 이력·일반사전 비교 분석**: shared_dictionary 45,667행 필드완성도(핵심축 100%·예문 90.1%·랭크어 완비/미랭크 희소) + 3단계 보완 이력(외부 코퍼스·dict-fill·per-sense) + 일반사전 비교(NGSL·CEFR-J·시험코퍼스 이중검증, kaikki 부재로 syn/ant/ipa 의도적 보류) 종합.
+- **WordVault 레이아웃 아티팩트**: 6 대표 세트를 실 `WordRow` 구조(메모리엣지·serif·POS·예문·마스터 5-dot·V-Level칩)로 렌더(Reading Room 토큰·라이트/다크).
+- **시중 벤치마크 리포트**(`commercial_benchmark_vcb_20260717.md`): 10 품질차원 × 6 세그먼트 판정 — 수능🟢우위 / 중등·어원·주제🟡동급 / **초등·시험🔴열위**. 구조적 우위(FSRS·다모듈수렴·발음채점·진단·처방·문맥·삽화 = 실기능 검증)는 실재하나 콘텐츠 danger zone(저레벨 오염·bare gloss 33.5%·니모닉 0%)이 가림. 개선 로드맵 5차원 + 3-tier 우위전략.
+- **P1 생성기 품질 게이트 적용**(최우선): `republish-auto-vlevel.mjs`에 R1 굴절 제외+R2 파생 제외 내장 → 9세트 재발행. **V1 굴절 35%→0·V2-3 파생 30%→~0**, on-level 100%. V1 head `are/been/was`→`have/say/know/think/make`. 초등 danger zone 해소.
+
+**무엇이 남았나**: 벤치마크 로드맵 후속 — M1 뜻 심화(bare gloss 33.5%) · M2/F1 니모닉(어원 연계·0%) · M3 예문 KO번역 · D1 삽화 확대 · F2 적응형 플랜 · 시험 기출코퍼스(소스 병목). 우선순위 = P1✅→M1→F1→D1.
+
+**관련 파일**: `scripts/dict/republish-auto-vlevel.mjs`(P1 게이트) · `docs/AI_CONTEXT/diagnostics/commercial_benchmark_vcb_20260717.md`(신규) · WordVault 아티팩트. CHANGELOG v06.258. **교훈**: auto-vlevel 오염은 (1)굴절형이 별도 표제어로 존재 (2)생성기가 lemma 통합·굴절제외 안 함이 근본 — inflected_forms 역참조로 정밀 제거. 벤치마크는 "시스템 우위는 실재하나 콘텐츠 품질이 가린다"가 핵심.
+
+### 2026-07-17 — 유형별 공용단어장 파이프라인 전수 테스트 + 오류 3건 조치
+
+> 요청: "유형별 공용단어장 생성 파이프라인을 자동으로 전 유형 테스트·평가·오류/개선 도출" → "진행"(권장 E1→E2→I4 적용).
+
+**무엇을 했나**:
+- **전 유형 자동 테스트(read-only)**: 9유형(학년/auto-vlevel/specialty/topic/etymology/csat/book/article/cast)·1,085세트·44,958단어. 각 유형 생성기 매핑(curation_query provenance) + 4차원 감사. 무결성(count/null/dup/chapter/orphan)=전 유형 통과. 리포트 `docs/AI_CONTEXT/diagnostics/wordset_pipeline_typewise_test_20260717.md`.
+- **오류 도출**: E1 auto-vlevel 드리프트(V5 75% on-level, 추천 노출) · E2 사전 `third` V11 오분류 · I3 초/중 구상어 과대 v_level(~27) · I4 csat multi-POS 이중행(85) · I5 book/article floor 누수 · I6 surfacing 갭.
+- **조치 3건 적용·검증**: **E1** 신규 `republish-auto-vlevel.mjs`(재구성·V1 재현 100% 검증게이트)로 9세트 재발행(+176/−176 → 100% on-level). **E2** third→V1/A1+per-sense. **I4** csat 85행 survivor 병합 dedup(1,487→1,402). 최종 무결성 회귀 0.
+
+**무엇이 남았나**: I3(VRL 분류기 구상어 보정)·I5·I6 = 리뷰/제품 판단(비차단). **재발 방지**: auto-vlevel은 정적 스냅샷 → VRL 재분류마다 재드리프트, `republish-auto-vlevel.mjs` 재실행(멱등) 또는 recommend live-v_level 필터 검토.
+
+**관련 파일**: `scripts/dict/republish-auto-vlevel.mjs`(신규) · diagnostics 리포트(신규) · CHANGELOG v06.257. DB=auto-vlevel 9세트 재발행·third 1행·csat 85행 dedup. **교훈**: 파이프라인 테스트가 상류 사전 데이터 결함(third V11)까지 노출. 재발행 전 검증게이트(V1 재현 100%)로 재구성 충실성 확인.
+
+### 2026-07-17 — 잔여 백로그 소진: 게임 enum 확인 + per-sense v_level Phase B 100% 종결
+
+> 요청: "잔여 작업 알려줘" → "권장·최적 안으로 진행" (권장 순서 #1 게임 enum → #8 per-sense v_level).
+
+**무엇을 했나**:
+- **#1 게임 module_id enum = 이미 적용 판정**: 제안 파일 헤더 + DB `pg_enum` 조회로 6 아케이드 값이 원격 마이그 `20260711011813`에 존재 확인(이후 glyph-tongue 등도 추가). 게임 persistence 활성 상태 — RESUME/2026-07-11 기록의 "승인 대기"는 stale이라 교정. 새 마이그 불요.
+- **#8 per-sense v_level Phase B — ✅ 100% 종결**: 다의어 일부 sense의 v_level 결측(flat 폴백 근사화) 정밀화. **신규 툴 2종**(`sense-vlevel-chunk.mjs`·`sense-vlevel-apply.mjs` — 결측 v_level만 주입·pos/meaning 불변·멱등·1-11 검증) 작성 → 2청크 검증 웨이브(320, DB −320 확인)로 파이프라인 실증. **1차 multi-POS 결측 2,526단어**(updated 2,206 + 멱등 skip 320) → `multipos_missing_remaining: 0`. **2차 단일-POS 다의어 4,894단어**(`--all-pos` 25청크·2웨이브, updated 4,894·fail 0). **최종: 다의어 10,144개 per-sense v_level 100% 완비**(`any_sense_missing: 0`). 품질 sense별 분화 1차 53.6%/2차 59.6%(firm n5/a4/v7 · will 의지1/유언장5 등), 전수 검증 결측·길이불일치·범위초과 0.
+
+**무엇이 남았나**: Phase B 백로그 종결. 남은 기능 백로그(LCP 18권·collocations 소비 UI·nav P1/P2·어원 prominence) 전부 비차단 유지.
+
+**관련 파일**: `scripts/dict/sense-vlevel-{chunk,apply}.mjs`(신규) · `SENSE_COMPLETION_MULTISESSION.md`(Phase B 종결 기록) · `.gitignore`(svl-* 추가). DB=shared_dictionary.meanings_ko per-sense v_level 7,100행. CHANGELOG v06.255·256. **교훈**: 신규 배치 툴은 2청크 검증 웨이브로 end-to-end(chunk→agent→apply→DB) 먼저 실증 후 확대. 대기 루프(`until ...out.json ≥N`) 백그라운드로 개별 에이전트 알림 다수를 1개 신호로 수렴.
+
 ### 2026-07-17 — feat/plan-ui → main 통합 준비: 15일 red CI green 복구
 
 > 요청: "전체 세션·잔여 작업 우선순위 분석" → 권장안(브랜치/PR 정리 → CTP Today UI) 순차 진행(#3 LCP 발행 제외).
@@ -75,9 +119,10 @@
 - **전체 상태 진단(read-only)**: main이 2026-07-02(`aa981f0`) 정지, 이후 **319커밋/15일/8+트랙**(game·plan·lcp·acp·vocab·ctp·vcb·dict)이 전부 `feat/plan-ui`에 미머지. 열린 PR 3개(#95 plan-ui·#94 quality·#93 scriptquiz) 전부 stale. → **#1 리스크 = 브랜치 통합**으로 확정.
 - **#2(CTP Today UI) = 이미 완결 판정**: `hub-today-meta.md` + 실코드(`TodayPrescriptionCard`·`/practice/dcp`·hub 3분기) 검증 → v06.203/204에 완료됨. RESUME HERE만 stale이었음(교정). 2026-07-05 nav 감사 P0 4건도 후속 세션에 이미 수정 확인.
 - **PR #95 CI red 진단·수리(`6beb148`)**: mergeable이나 UNSTABLE(TS·build·verify red, 최신 커밋 기준). ① build=next lint 미사용 심볼 13건(GameMark×7 등) ② TS=`next-action.mock.ts` TS2366(actionToHref 비exhaustive) ③ verify=`TodayPrescriptionCard` 테스트 stale(Phase 1 "곧 제공"→Phase 2 런처). 전부 동작 무변경. 검증 lint 0·web/library-pipeline tsc 0·테스트 144 passed.
-- **#93/#94 처분 판정**: 둘 다 독립 분기(plan-ui 커밋 미포함)지만 기능은 plan-ui에 재구현 존재(/admin/quality·ChapterQuiz 파일 실재) → **superseded**, 머지 후 닫기 권장.
+- **PR #95 머지 완료**(`96cfee0`) — 사용자 확정("머지 커밋으로 지금") → main 정지 해소.
+- **#93/#94 처분 판정(정정)**: 대형 기능은 plan-ui 재구현으로 main에 존재하나, **diff 실측 결과 각 PR에 main에 없는 고유 미머지분 확인** → **닫으면 안 됨**. #94=골든 스냅샷 테스트·quality_metrics 마이그·**lbv lemma INSERT 게이트**(추출 무결성). #93=LCP RPC 관측성·pairflip mock 제거·VCB QA·dict enrichment. (⚠️ 초기 "superseded 닫기" 판정은 기능 파일 존재만 보고 마이그/테스트를 안 본 오류 — diff로 정정.)
 
-**무엇이 남았나**: PR #95 CI green 재확인 → **main 머지(사용자 확정 게이트)** → #93/#94 닫기. 기능 백로그(LCP 18권·collocations 소비 UI·per-sense v_level Phase B 등)는 전부 비차단.
+**무엇이 남았나**: **#93·#94를 새 main에 rebase → 충돌 해소 → 고유 커밋 재검증 후 merge**(후속 트랙). 기능 백로그(LCP 18권·collocations 소비 UI·per-sense v_level Phase B 등)는 전부 비차단.
 
 **관련 커밋**: `6beb148`(CI green). CHANGELOG v06.254.
 

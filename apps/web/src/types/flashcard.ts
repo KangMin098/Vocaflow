@@ -33,6 +33,12 @@ export interface FlashcardWord {
   inflectedForms?: string[]
   /** 자주 함께 쓰는 표현(collocations) — 정답면에만 절제 노출(Progressive Disclosure). 없으면 미표시 */
   collocations?: string[]
+  /** 다의어 품사별 뜻 (meanings_ko ≥2 sense) — 정답면 "여러 뜻" 노출. 단일 sense면 미표시(flat meaning 충분) */
+  senses?: { pos: string; meaning: string }[]
+  /** 어원 root 분해 (word_root_links) — 정답면 어원 힌트. prefix→root→suffix 순. 없으면 미표시 */
+  roots?: { root: string; gloss: string; affix: string }[]
+  /** 어근 기반 니모닉(mnemonic_ko) — 정답면 기억 힌트. 없으면 미표시 */
+  mnemonic?: string
   textId: string // 스크립트 ID
   textTitle: string // 스크립트 제목
   textChapter: string // 챕터
