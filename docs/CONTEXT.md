@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `26bd4ca` chore: 잔여 tracked 변경 동기화 (librivox 스냅샷 + coverage 핸드오프)
 - `916cf10` feat(dict): 굴절형·파생형 학습 구조 A+B PoC — ADR 0001 Phase 6 착수 (v06.273)
 - `560e648` docs(dict): coverage 번역 멀티세션 지시문 (6세션·83청크 사전분할)
 - `5532e35` feat(dict): coverage 번역 wave1-2 (13,645) + prune/skip 재부상 차단 + 핸드오프 갱신
 - `1ad475a` feat(quality): 게이트 원인분석 드릴다운 — 문제 단어+이유+고침힌트 (v06.271)
-- `ecf9bb9` fix(admin): 품질 게이트 후보 목록을 service-role 로 조회 (미발행 노출) (v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
