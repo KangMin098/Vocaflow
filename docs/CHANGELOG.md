@@ -57,7 +57,8 @@
 - **검증**: 도서 잔여어 커버 — 미커버는 90%+ 굴절형(추출이 코어 lemma로 해소)+OCR잡음. 진짜 희귀어는 커버. 굴절 해소 후 실질 커버리지 높음.
 - **소스 분석**: kaikki 한국어 번역 25,736(흔한 단어 편중·tail 무용) · PanLex 4.31GB(불확실 payoff·보류). → 한국어는 **콘텐츠 등장 잔여만 LLM 배치**(bounded), gloss_en 즉시 폴백. 설계 근거=`docs/AI_CONTEXT/diagnostics/kaikki_upgrade_opportunities_20260718.md` 계열.
 - **한국어 빈도순 tier 완주**: hermitdave OpenSubtitles(165만) 랭크순으로 Opus 배치 번역 → **meaning_ko 77,501행**(빈도순 잔여 1·미랭크 극희귀 327k만 대기). `coverage-translate-{chunk,apply}.mjs`. 게이트=한글 필수(영어 echo 거부)·멱등·`--prune`(스킵 잡음 source='skip'). **english_echo 0**. ⚠️ 모델 교훈: 이 gloss→한국어 작업은 품질 민감 → **Opus 필수·Haiku 부적합**([[project_coverage_lexicon]] 실증: 약 모델 워커 다수가 영어 gloss 복사).
-- **잔여**: RPC 폴백(lookup_word_meaning)+is_learning_target(select_*_vocab) · UI 2섹션 · 미랭크 tail(327k, 설계상 대기).
+- **reader 폴백 wire-up**: `lookup_word_meaning`에 tier 6·7 추가(마이그 `lookup_coverage_fallback`) — shared_dictionary 5단계 실패 시 `coverage`(한국어)→`coverage_en`(영어 gloss) 폴백. 반환에 `gloss_en` 컬럼 추가. 굴절 surface도 `en_inflection_bases`로 coverage lemma 해소(footrests→footrest). FE `WordLookupPopover`: 한국어 없으면 영어 gloss 노출 + "📖 독해 참고용" 안내(비학습 격리). `reader-queries.ts`+`database.ts` 갱신. 체인 `core→coverage(ko)→gloss_en→미상` 완성.
+- **잔여**: `is_learning_target`(select_*_vocab 추출 분리) · UI 2섹션(단어장 학습/커버리지 분리) · 미랭크 tail(327k, 설계상 대기).
 
 ### kaikki C — per-sense 예문 매칭 (v06.270)
 - **진짜 per-sense**: 다의어 각 한국어 sense에 kaikki 실용 예문을 매칭(판단=LLM). 도구 `example-match-{chunk,apply}.mjs`. grounding 게이트: 예문은 제공 풀에서 **verbatim만**(편집·창작 거부=ungrounded-ex)·meaning 매칭·pos/v_level 보존.

@@ -160,8 +160,17 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
         )}
       </div>
 
-      {/* 한국어 뜻 */}
-      <p className="font-body text-[14px] leading-relaxed text-[var(--t1)]">{result.meaningKo}</p>
+      {/* 한국어 뜻 — 없으면 영어 gloss 폴백(커버리지 미번역 롱테일) */}
+      {result.meaningKo ? (
+        <p className="font-body text-[14px] leading-relaxed text-[var(--t1)]">{result.meaningKo}</p>
+      ) : result.glossEn ? (
+        <div className="flex flex-col gap-1">
+          <span className="font-body text-[10px] font-[600] uppercase tracking-wide text-[var(--t3)]">
+            영어 뜻
+          </span>
+          <p className="font-english text-[13px] leading-relaxed text-[var(--t2)]">{result.glossEn}</p>
+        </div>
+      ) : null}
 
       {/* 예문 */}
       {result.exampleEn && (
@@ -188,6 +197,13 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
       {result.wordRegister === 'archaic_literary' && (
         <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
           📜 고어·문어체 — 읽기 참고용이에요 (암기보다 의미만 알아두면 충분해요)
+        </p>
+      )}
+
+      {/* 커버리지 tier 안내 (비학습 롱테일 → 독해 참고용, 핵심 학습 어휘 아님) */}
+      {(result.matchVia === 'coverage' || result.matchVia === 'coverage_en') && (
+        <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+          📖 독해 참고용 단어예요 — 핵심 학습 어휘는 아니니 의미만 알아두면 충분해요
         </p>
       )}
     </div>

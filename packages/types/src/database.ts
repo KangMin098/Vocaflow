@@ -4869,6 +4869,7 @@ export type Database = {
           cefr_level: string
           example_en: string
           found: boolean
+          gloss_en: string
           match_via: string
           meaning_ko: string
           pos: string

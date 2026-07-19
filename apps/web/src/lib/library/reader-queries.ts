@@ -46,10 +46,12 @@ export interface WordLookup {
   cefrLevel: string | null
   vLevel: number | null
   exampleEn: string | null
-  /** 'direct' | 'inflection' | 'variant' | 'cluster' | 'not_found' | 'invalid' */
+  /** 'direct' | 'inflection' | 'variant' | 'cluster' | 'derivation' | 'coverage' | 'coverage_en' | 'not_found' | 'invalid' */
   matchVia: string
   /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
   wordRegister: string | null
+  /** 영어 gloss — 커버리지 사전(비학습 롱테일) 폴백. 한국어 뜻 없을 때 표시용. 없으면 null */
+  glossEn: string | null
   /** 자주 함께 쓰는 표현 — 툴팁 절제 노출(Progressive Disclosure). 없으면 null */
   collocations: string[] | null
 }
@@ -77,14 +79,16 @@ export async function lookupWord(
         example_en: string | null
         match_via: string
         word_register: string | null
+        gloss_en: string | null
       }
     | undefined
   if (!row) return null
 
   // 연어 보강 — lookup_word_meaning RPC 미반환이라 해소된 word 로 shared_dictionary 1행 조회.
   // 툴팁은 단어 1개 on-demand 라 추가 round-trip 허용. 실패해도 조회 결과는 그대로.
+  // 커버리지 폴백(coverage/coverage_en)은 shared_dictionary 밖이라 연어 조회 생략(불필요 round-trip 회피).
   let collocations: string[] | null = null
-  if (row.found && row.resolved_word) {
+  if (row.found && row.resolved_word && !row.match_via.startsWith('coverage')) {
     const { data: cd, error: cErr } = await client
       .from('shared_dictionary')
       .select('collocations')
@@ -109,6 +113,7 @@ export async function lookupWord(
     exampleEn: row.example_en,
     matchVia: row.match_via,
     wordRegister: row.word_register,
+    glossEn: row.gloss_en,
     collocations,
   }
 }
