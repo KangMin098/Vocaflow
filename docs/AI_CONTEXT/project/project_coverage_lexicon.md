@@ -17,7 +17,9 @@
 
 **사용자 스크립트 실시간 한계**: 사전번역 안 된 극희귀어는 읽기 시점 한국어 불가 → 영어 gloss 폴백 or 런타임 LLM(사용자 선호는 사전 머티리얼라이제이션). 빈도상위 사전번역으로 발생 최소화.
 
-**⚠️ 모델 교훈(실증 2026-07-19)**: coverage 번역을 약한 모델로 돌린 워커 7청크가 **한국어 대신 영어 gloss 복사**(footrest→"support to rest the feet", no-hangul 90%+). apply 게이트(한글 필수)가 차단했으나 **재번역 비용 발생** → 실제로 더 비쌈. **Opus 재번역은 완벽**(footrest→발받침·bradykinesia→서동증, no-hangul 0). 결론: 이 "gloss→한국어+스킵판단" 작업은 모델 품질에 민감 → **Opus 또는 검증된 Sonnet 필수, Haiku 부적합**. [[feedback_best_model]] 강화. 진행: 다중 세션 사전분할(covtr 83청크·워커=번역/코디=apply --prune). 누계 번역 59,261·DB 영어echo 0.
+**⚠️ 모델 교훈(실증 2026-07-19)**: coverage 번역을 약한 모델로 돌린 워커 7청크가 **한국어 대신 영어 gloss 복사**(footrest→"support to rest the feet", no-hangul 90%+). apply 게이트(한글 필수)가 차단했으나 **재번역 비용 발생** → 실제로 더 비쌈. **Opus 재번역은 완벽**(footrest→발받침·bradykinesia→서동증, no-hangul 0). 결론: 이 "gloss→한국어+스킵판단" 작업은 모델 품질에 민감 → **Opus 또는 검증된 Sonnet 필수, Haiku 부적합**. [[feedback_best_model]] 강화.
 
-**잔여(미구현)**: RPC 폴백(`lookup_word_meaning`+coverage)·`is_learning_target`(select_*_vocab) · UI 2섹션 · 한국어 배치 완주. [[project_dict_wave_plan_w0]] 계열.
+**✅ 빈도순 tier 완주(2026-07-19)**: covtr 83청크 + 잔여 5청크 전량 Opus 적재 → **translated 77,501·skip 5,095·english_echo 0**. 빈도순(hermitdave 165만 랭크) 잔여 **1**(no-hangul 거부 1건, 사실상 소진). 남은 pending 327,285 = **미랭크 극희귀 tier(설계상 대기·콘텐츠 미등장)**. 세션한도(15:30 KST 리셋) 중 워커 15/19 실패했으나 대부분 파일 쓴 뒤 검증단계에서 죽어 out.json은 온전→코디 apply로 회수, 누락 6+잔여 5는 리셋 후 재디스패치로 완결. **교훈: 서브에이전트 대량 동시 스폰은 세션경계서 무더기 실패, 완료분 apply는 멱등이라 손실0.**
+
+**잔여(미구현)**: RPC 폴백(`lookup_word_meaning`+coverage)·`is_learning_target`(select_*_vocab) · UI 2섹션 · 미랭크 tail 327k(설계상 대기). [[project_dict_wave_plan_w0]] 계열.
 
