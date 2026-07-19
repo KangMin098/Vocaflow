@@ -130,6 +130,58 @@ export async function getChapterWordsForUser(
   };
 }
 
+// ─────────────────────────────────────────────
+// 비학습 롱테일 "독해 참고 단어" — 라이브러리 도서 chapter
+// select_book_chapter_coverage → coverage_lexicon(학습 core 밖) 매칭.
+// 고유명사(Darcy·Collins)는 first_sentence 소문자 출현 필터로 RPC에서 제외됨.
+// ─────────────────────────────────────────────
+
+export interface CoverageWord {
+  word: string;
+  /** 한국어 뜻 (빈도순 번역 완주분). 미번역 극희귀는 null → glossEn 표시 */
+  meaningKo: string | null;
+  /** 영어 gloss 폴백 (한국어 미확보 시) */
+  glossEn: string | null;
+  pos: string | null;
+  frequencyInChapter: number;
+}
+
+/**
+ * 라이브러리 도서 chapter 의 비학습 롱테일(coverage) 단어를 반환 — "독해 참고용".
+ * select_book_chapter_coverage(book) 를 호출해 해당 chapter 만 필터. 결과가 작아(도서당 수십)
+ * 전체 호출+클라 필터로 충분. 학습 단어장(i+1)과 분리 — 암기 대상 아님, 읽기 이해 보조.
+ */
+export async function getChapterCoverageWords(
+  client: SupabaseClient,
+  libraryBookId: string,
+  chapterIdx: number,
+): Promise<CoverageWord[]> {
+  const { data, error } = await client.rpc('select_book_chapter_coverage', {
+    p_book_id: libraryBookId,
+  });
+  if (error) {
+    console.error('[getChapterCoverageWords] RPC failed:', error.message);
+    return [];
+  }
+  const rows = (data ?? []) as Array<{
+    chapter_idx: number;
+    word: string;
+    meaning_ko: string | null;
+    gloss_en: string | null;
+    pos: string | null;
+    frequency_in_chapter: number;
+  }>;
+  return rows
+    .filter((r) => r.chapter_idx === chapterIdx)
+    .map((r) => ({
+      word: r.word,
+      meaningKo: r.meaning_ko,
+      glossEn: r.gloss_en,
+      pos: r.pos,
+      frequencyInChapter: r.frequency_in_chapter,
+    }));
+}
+
 export interface ChapterWord {
   word: string;
   meaning: string | null;

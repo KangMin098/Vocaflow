@@ -21,5 +21,7 @@
 
 **✅ 빈도순 tier 완주(2026-07-19)**: covtr 83청크 + 잔여 5청크 전량 Opus 적재 → **translated 77,501·skip 5,095·english_echo 0**. 빈도순(hermitdave 165만 랭크) 잔여 **1**(no-hangul 거부 1건, 사실상 소진). 남은 pending 327,285 = **미랭크 극희귀 tier(설계상 대기·콘텐츠 미등장)**. 세션한도(15:30 KST 리셋) 중 워커 15/19 실패했으나 대부분 파일 쓴 뒤 검증단계에서 죽어 out.json은 온전→코디 apply로 회수, 누락 6+잔여 5는 리셋 후 재디스패치로 완결. **교훈: 서브에이전트 대량 동시 스폰은 세션경계서 무더기 실패, 완료분 apply는 멱등이라 손실0.**
 
-**잔여(미구현)**: RPC 폴백(`lookup_word_meaning`+coverage)·`is_learning_target`(select_*_vocab) · UI 2섹션 · 미랭크 tail 327k(설계상 대기). [[project_dict_wave_plan_w0]] 계열.
+**✅ wire-up 완료(2026-07-19, 3단계)**: ① **reader 폴백** — `lookup_word_meaning` tier 6·7(`coverage`/`coverage_en`)+`gloss_en` 컬럼(마이그 `lookup_coverage_fallback`); FE `WordLookupPopover` 영어 gloss 폴백+"독해 참고용" 안내. ② **참고 목록** — `select_book_chapter_coverage`·`select_article_coverage`(마이그 `coverage_reference_lists`), 토큰⋈coverage(core와 분리=비학습 보장). ③ **UI** — 리더 `📖 참고 단어` 토글+`ChapterCoverageWords`(i+1과 분리). **핵심 교훈: `library_book_vocabularies.word`는 소문자 저장이라 고유명사 신호 소실 → `first_sentence`(원본 대소문자 보존)의 소문자 출현으로 Darcy·Collins 등 등장인물 제외**(P&P 45→19). 학습 파이프라인 무변경(위험 0).
+
+**잔여(미구현)**: 사용자 입력 스크립트 live 참고 목록(p_words 토큰) · 미랭크 tail 327k(설계상 대기). [[project_dict_wave_plan_w0]] 계열.
 

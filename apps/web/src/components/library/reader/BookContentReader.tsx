@@ -20,6 +20,7 @@ import { ChapterContentView } from './ChapterContent'
 import { ChapterSidebar } from './ChapterSidebar'
 import { WordLookupPopover } from './WordLookupPopover'
 import { ChapterLevelWords } from './ChapterLevelWords'
+import { ChapterCoverageWords } from './ChapterCoverageWords'
 
 export type ReaderMode = 'admin-review' | 'user-preview'
 
@@ -69,6 +70,8 @@ export function BookContentReader({
   const [showSampleWords, setShowSampleWords] = useState(false)
   // 내 레벨 맞춤 단어(Krashen i+1) 패널 토글 — 양 모드 공통
   const [showLevelWords, setShowLevelWords] = useState(false)
+  // 독해 참고 단어(비학습 롱테일 coverage) 패널 토글 — i+1 학습과 분리
+  const [showCoverageWords, setShowCoverageWords] = useState(false)
 
   const isLockedChapter = mode === 'user-preview' && activeIdx > 1
 
@@ -172,6 +175,12 @@ export function BookContentReader({
             label="🎯 내 레벨"
             ariaLabel="내 레벨 맞춤 단어(Krashen i+1) 추출 토글"
           />
+          <ToggleButton
+            active={showCoverageWords}
+            onToggle={() => setShowCoverageWords((v) => !v)}
+            label="📖 참고 단어"
+            ariaLabel="독해 참고 단어(비학습 롱테일) 패널 토글"
+          />
           {mode === 'admin-review' && (
             <>
               <ToggleButton
@@ -250,6 +259,9 @@ export function BookContentReader({
                 />
                 {showLevelWords && (
                   <ChapterLevelWords libraryBookId={libraryBookId} chapterIdx={activeIdx} />
+                )}
+                {showCoverageWords && (
+                  <ChapterCoverageWords libraryBookId={libraryBookId} chapterIdx={activeIdx} />
                 )}
               </>
             ) : (

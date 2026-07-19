@@ -9,8 +9,19 @@
 
 - **테이블**: 77 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity` · +어원 `word_roots`·`word_root_links` · +추출품질 `extraction_judgments`)
 - **Views**: 7 (+`csat_stage_catalog` · +`word_mislevel_signal`)
-- **Functions**: 262 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 추출해소 `resolve_dict_headword`·`infer_form_pos`·`set_word_familiarity` / 그 외 ~215)
+- **Functions**: 273 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 커버리지 `lookup_word_meaning`(폴백)·`select_book_chapter_coverage`·`select_article_coverage` (v06.271) / 추출해소 `resolve_dict_headword`·`infer_form_pos`·`set_word_familiarity` / 그 외 ~220)
 - **Migrations 누적**: 72+ 적용됨 (CTP 데이터모델 3건 + 추출경로 통합/신뢰 8건 + 소스 4건 + 추출품질 2건 포함)
+
+### 📖 커버리지 사전 wire-up — reader 폴백 + 참고 목록 (2026-07-19)
+
+coverage_lexicon(비학습 롱테일)을 학습자에게 연결. **학습 파이프라인 무변경** — 전부 read-only 폴백/목록.
+
+| 객체 | 종류 | 역할 |
+|---|---|---|
+| `lookup_word_meaning` | 함수(수정) | tier 6·7 추가 — core 5단계 실패 시 `coverage`(한국어)→`coverage_en`(영어 gloss). 반환에 `gloss_en` 컬럼. 굴절 surface도 coverage lemma 해소. migration `lookup_coverage_fallback` |
+| `select_book_chapter_coverage`·`select_article_coverage` | 함수(신규) | 텍스트 토큰 ⋈ coverage_lexicon → 챕터/기사별 비학습 롱테일 목록. **고유명사=`first_sentence` 소문자 필터 제외**(P&P 45→19). SECURITY INVOKER(published RLS). migration `coverage_reference_lists` |
+
+FE: reader `📖 참고 단어` 토글 + `ChapterCoverageWords` 패널(i+1 학습과 분리) · `WordLookupPopover` 영어 gloss 폴백 + "독해 참고용" 안내.
 
 ### 🎯 추출 품질 — 바인딩 수리 + 판정 하네스 (2026-07-18)
 

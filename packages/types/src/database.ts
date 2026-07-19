@@ -4940,6 +4940,18 @@ export type Database = {
         Returns: number
       }
       resolve_dict_headword: { Args: { p_surface: string }; Returns: string }
+      select_article_coverage: {
+        Args: { p_article_id: string }
+        Returns: {
+          first_sentence: string
+          frequency_in_article: number
+          frequency_rank: number
+          gloss_en: string
+          meaning_ko: string
+          pos: string
+          word: string
+        }[]
+      }
       select_article_vocab: {
         Args: { p_article_id: string }
         Returns: {
@@ -4957,6 +4969,19 @@ export type Database = {
           v_level: number
           word: string
           word_register: string
+        }[]
+      }
+      select_book_chapter_coverage: {
+        Args: { p_book_id: string }
+        Returns: {
+          chapter_idx: number
+          first_sentence: string
+          frequency_in_chapter: number
+          frequency_rank: number
+          gloss_en: string
+          meaning_ko: string
+          pos: string
+          word: string
         }[]
       }
       select_book_chapter_quiz: {
