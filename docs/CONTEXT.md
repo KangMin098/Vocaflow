@@ -42,20 +42,20 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `e4820ad` feat(dict): 참고 목록 굴절 해소 + core-제외 — 7만 롱테일 추출 적용 (v06.271)
 - `df56138` chore(dict): dictionary utility scripts collection
 - `d19bfe8` fix(dict): select_coverage_for_words 입력 토큰당 1행 (중복 제거)
 - `c7afe82` feat(dict): 추출 누락 실단어 폐쇄 — residual harvest 903 적재 (v06.271)
 - `5b414e9` feat(dict): 사용자 입력 스크립트 '독해 참고 단어' 목록 (v06.271)
-- `fb01d0b` docs(claude): 어휘 관리 원칙 지침 추가 — 사전 보완 목적 + 추출어 이원 관리 (2026-07-19)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
+- `20260720130000_coverage_for_words_core_exclusion.sql`
 - `20260720120000_coverage_lists_inflection_final.sql`
 - `20260720110000_coverage_for_words_dedupe.sql`
 - `20260720100000_extraction_residual_harvest.sql`
 - `20260719140000_coverage_for_words.sql`
-- `20260719130000_coverage_reference_lists.sql`
 <!-- /auto:recent-migrations -->
 
 ---
