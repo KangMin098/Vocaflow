@@ -42,11 +42,11 @@
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
+- `d19bfe8` fix(dict): select_coverage_for_words 입력 토큰당 1행 (중복 제거)
 - `c7afe82` feat(dict): 추출 누락 실단어 폐쇄 — residual harvest 903 적재 (v06.271)
 - `5b414e9` feat(dict): 사용자 입력 스크립트 '독해 참고 단어' 목록 (v06.271)
 - `fb01d0b` docs(claude): 어휘 관리 원칙 지침 추가 — 사전 보완 목적 + 추출어 이원 관리 (2026-07-19)
 - `90ac0f2` feat(dict): 도서/기사 비학습 롱테일 '독해 참고 단어' 목록 (v06.271)
-- `f632b48` feat(dict): reader 툴팁에 coverage_lexicon 폴백 wire-up (v06.271)
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
