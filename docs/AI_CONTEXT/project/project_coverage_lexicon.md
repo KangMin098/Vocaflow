@@ -25,5 +25,7 @@
 
 **✅ 추출 누락 실단어 폐쇄(2026-07-20)**: 목적=단어추출 실단어 누락 0. 실측(도서 23,693 토큰): core 80.6%·coverage 10.8%·not_found 8.4%(1,980). not_found 분해=고유명사+외국어+OCR/방언(정상 제외) + **진짜 실단어 미등재**. harvest RPC `select_extraction_residual()`(마이그 `extraction_residual_harvest`, first_sentence 소문자=실단어·문맥) → 도서·기사 **2,186 후보 → 문맥 기반 Opus 배치 → 903 실영어 적재**(`source='content_residual'`, `coverage-residual-{harvest,apply}.mjs`), 1,283은 외국어·OCR·방언·고유명사로 LLM 정확 제외. 도서 not_found 2,332→1,932. `dwelt`(불규칙 굴절)·esports·secularization·folkways 회수. **교훈: appears_lowercase는 실영어 신호로 불완전(외국어·방언도 소문자)→최종 판정은 LLM. 규칙 표제어 대량생성 금지 원칙([[project_extraction_coverage_design]]) 유지=문맥 근거 + skip 관대.** [[feedback_dict_learning_target_policy]] 이원관리 이행.
 
+**✅ 참고 목록 완성도(2026-07-20)**: "7만 롱테일이 추출에 다 나와야" 지적 → 도서·기사 참고 함수가 **직접 lemma만** 봐서 굴절형 롱테일 대량 누락(P&P 18개만). 수리 3단계: ① **`en_inflection_bases` 굴절 해소**(footrests→footrest). ② **부작용 발견**: en_inflection_bases가 `character→[charact]`·`father→[fathe]` 과잉stem 생성 → core엔 무해하나 **kaikki 408k coverage엔 obscure 고어(charact·fathe)가 있어 오매칭**. → **core-제외 가드**(토큰 bases가 core로 해소되면 학습소관→coverage목록 배제) + cov.word 길이≥4로 정제(P&P 54 클린: chaise·ductility·superciliousness). ③ **성능**: `select_book_chapter_coverage(book, p_chapter_idx)` 챕터별 처리(큰도서 11s→1.2s) + direct-core 선필터로 en_inflection_bases를 core아닌 토큰에만. FE `getChapterCoverageWords` 챕터 전달. **교훈: en_inflection_bases는 과잉stem 후보를 뱉음 — 작은 curated set엔 안전하나 대형 kaikki set에 쓰면 노이즈 → core-제외 필수.**
+
 **잔여(미구현)**: 미랭크 tail 327k(설계상 대기·콘텐츠 미등장) · 불규칙 굴절 해소기 보강(dwelt류는 coverage로 우회 해소됨). [[project_dict_wave_plan_w0]] 계열.
 

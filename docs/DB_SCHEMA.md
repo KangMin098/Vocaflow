@@ -19,7 +19,7 @@ coverage_lexicon(비학습 롱테일)을 학습자에게 연결. **학습 파이
 | 객체 | 종류 | 역할 |
 |---|---|---|
 | `lookup_word_meaning` | 함수(수정) | tier 6·7 추가 — core 5단계 실패 시 `coverage`(한국어)→`coverage_en`(영어 gloss). 반환에 `gloss_en` 컬럼. 굴절 surface도 coverage lemma 해소. migration `lookup_coverage_fallback` |
-| `select_book_chapter_coverage`·`select_article_coverage` | 함수(신규) | 텍스트 토큰 ⋈ coverage_lexicon → 챕터/기사별 비학습 롱테일 목록. **고유명사=`first_sentence` 소문자 필터 제외**(P&P 45→19). SECURITY INVOKER(published RLS). migration `coverage_reference_lists` |
+| `select_book_chapter_coverage(book, chapter?)`·`select_article_coverage` | 함수(신규·정련) | 텍스트 토큰 ⋈ coverage_lexicon → 비학습 롱테일 목록. **굴절 해소**(`en_inflection_bases`, 굴절형 롱테일 회수) + **core-제외 가드**(토큰이 core면 배제, character→charact 노이즈 차단) + `first_sentence` 소문자 고유명사 필터 + cov.word 길이≥4. `p_chapter_idx`로 챕터별 처리(성능). migration `coverage_reference_lists`→`coverage_lists_inflection`→`_core_exclusion`→`coverage_book_chapter_param` |
 | `select_coverage_for_words` | 함수(신규) | 임의 토큰 배열(사용자 스크립트) ⋈ coverage_lexicon(굴절 en_inflection_bases 해소). 고유명사 필터는 클라(원문 소문자 출현). migration `coverage_for_words` |
 | `select_extraction_residual` | 함수(신규) | 추출 누락 실단어 수확 — 도서·기사 토큰 중 core·coverage 없고 first_sentence 소문자 출현(실단어)한 것 + 문맥. 재측정에도 재사용. migration `extraction_residual_harvest`. **결과: 903 실단어 `content_residual` 적재**(2,186 중, 나머지 비영어) |
 

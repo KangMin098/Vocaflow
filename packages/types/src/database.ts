@@ -4972,7 +4972,7 @@ export type Database = {
         }[]
       }
       select_book_chapter_coverage: {
-        Args: { p_book_id: string }
+        Args: { p_book_id: string; p_chapter_idx?: number }
         Returns: {
           chapter_idx: number
           first_sentence: string

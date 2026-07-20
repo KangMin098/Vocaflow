@@ -158,6 +158,7 @@ export async function getChapterCoverageWords(
 ): Promise<CoverageWord[]> {
   const { data, error } = await client.rpc('select_book_chapter_coverage', {
     p_book_id: libraryBookId,
+    p_chapter_idx: chapterIdx, // 서버가 해당 챕터만 처리(성능) — 전권 스캔 회피
   });
   if (error) {
     console.error('[getChapterCoverageWords] RPC failed:', error.message);
@@ -171,15 +172,13 @@ export async function getChapterCoverageWords(
     pos: string | null;
     frequency_in_chapter: number;
   }>;
-  return rows
-    .filter((r) => r.chapter_idx === chapterIdx)
-    .map((r) => ({
-      word: r.word,
-      meaningKo: r.meaning_ko,
-      glossEn: r.gloss_en,
-      pos: r.pos,
-      frequencyInChapter: r.frequency_in_chapter,
-    }));
+  return rows.map((r) => ({
+    word: r.word,
+    meaningKo: r.meaning_ko,
+    glossEn: r.gloss_en,
+    pos: r.pos,
+    frequencyInChapter: r.frequency_in_chapter,
+  }));
 }
 
 export interface ChapterWord {
