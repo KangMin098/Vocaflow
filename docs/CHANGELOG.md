@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### shared_dictionary kaikki → WordNet 선별적 교체 (라이선스·노이즈 청정)
+
+- **동기**: kaikki(Wiktionary, **CC BY-SA** share-alike) 유래 컬럼이 상업화 시 copyleft 리스크 + 노이즈(`bisexy`·`BUG`·`lesbigaytrans`·`"I'm bisexual"`). WordNet 3.1(Princeton License — 퍼미시브·share-alike 없음)로 교체.
+- **마이그레이션** `20260720120000_shared_dictionary_field_provenance`: `field_provenance JSONB` + gin 인덱스 — 필드별 출처 추적(근본원인=행단위 source라 필드 출처 부재).
+- **파이프라인** `scripts/dict/wordnet-enrich.mjs`(WNDB flat file 파싱·무의존성·재시도+동시성8): extract(117,791 synset→145,967 lemma) + apply-all 필드별 정책.
+- **필드별 정책(설계 `docs/proposals/wordnet-replacement-design.md`)**: related_terms·derived_forms=**교체+잔여purge**(kaikki 전용) · synonyms=**교체+잔여flag**(혼합) · example_en=**빈칸만**(시드 예문 보존) · antonyms=**병합+denoise**(WordNet 희소).
+- **실적용**(40,304행 stamp·실패0): related_terms 11,529→**28,582**(WordNet·+17k) · derived_forms **14,313**(잔여 7,691 purge) · synonyms WordNet 25,723+flag 11,255 · antonyms denoise 3,415(볼륨 23,667 유지) · example_en 시드 보존+183 보강.
+- **잔여**: ipa/homophones/rhyme_key는 WordNet 불가 → Phase 2 CMUdict(PD). synonyms `kaikki-unverified` 잔여는 상용 직전 선택 정리.
+
 ### 굴절형·파생형 학습 구조 — ADR 0001 Phase 6 개정 착수 (v06.273)
 - **배경/결정**: "학습자에게 불규칙 굴절형(went·children·better)·파생형을 그 형태의 뜻 그대로 학습시킨다". ADR 0001 D1(굴절=별도 row 안 함)을 **부분 개정** — 전면 반전(모든 굴절형 row화, +15,714 규칙형 중복)이 아니라 **불규칙+어휘화만**(attested·bounded) 등록, 규칙형(walked·cats)은 통합 유지(D2 attested 게이트 준수). 근거 [ADR 0001](adr/0001-dictionary-derivational-enrichment.md).
 - **A — `base_word` 전수 채움**: 굴절 헤드워드 역인덱스 + 파생 candidates 병합으로 base 관계 채움(`scripts/dict/base-word-backfill.mjs`, 멱등·NULL만). 굴절 162 + 검증 candidates 121 반영. "went ← go" 관계 정보 확보.
