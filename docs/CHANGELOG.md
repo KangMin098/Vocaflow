@@ -18,7 +18,7 @@
 - **필드별 정책(설계 `docs/proposals/wordnet-replacement-design.md`)**: related_terms·derived_forms=**교체+잔여purge**(kaikki 전용) · synonyms=**교체+잔여flag**(혼합) · example_en=**빈칸만**(시드 예문 보존) · antonyms=**병합+denoise**(WordNet 희소).
 - **실적용**(40,304행 stamp·실패0): related_terms 11,529→**28,582**(WordNet·+17k) · derived_forms **14,313**(잔여 7,691 purge) · synonyms WordNet 25,723+flag 11,255 · antonyms denoise 3,415(볼륨 23,667 유지) · example_en 시드 보존+183 보강.
 - **Phase 2 (CMUdict)**: ipa/homophones/rhyme_key = CMU Pronouncing Dict(PD/BSD·무제한)로 교체. `scripts/dict/cmudict-enrich.mjs`(ARPAbet→IPA 변환·rhyme·동음이의). 적용(실패0): ipa CMU 25,522+kaikki flag 11,067 · rhyme_key 20,451(잔여 3,264 purge) · homophones 3,732(잔여 1,203 purge). rhyme_key 값이 kaikki와 다수 일치(검증).
-- **잔여**: synonyms·ipa `kaikki-unverified` 잔여는 상용 직전 선택 정리(field_provenance 로 식별).
+- **잔여 정리**: synonyms `kaikki-unverified` 잔여 11,255 **purge 완료**(남은 synonyms 27,013 전부 WordNet·CC BY-SA 0). ipa 잔여 11,067은 발음 핵심 기능이라 유지(추후 G2P 무손실 교체 예정, field_provenance 로 식별).
 
 ### 굴절형·파생형 학습 구조 — ADR 0001 Phase 6 개정 착수 (v06.273)
 - **배경/결정**: "학습자에게 불규칙 굴절형(went·children·better)·파생형을 그 형태의 뜻 그대로 학습시킨다". ADR 0001 D1(굴절=별도 row 안 함)을 **부분 개정** — 전면 반전(모든 굴절형 row화, +15,714 규칙형 중복)이 아니라 **불규칙+어휘화만**(attested·bounded) 등록, 규칙형(walked·cats)은 통합 유지(D2 attested 게이트 준수). 근거 [ADR 0001](adr/0001-dictionary-derivational-enrichment.md).
