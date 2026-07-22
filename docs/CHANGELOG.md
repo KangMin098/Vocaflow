@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### 청정 lexicon_clean 구축 — kaikki(CC BY-SA) 대체 착수
+
+- **동기**: coverage_lexicon 은 gloss_en 전량 kaikki(CC BY-SA), meaning_ko 도 그 번역(파생물). 배포 대비 청정화. 설계 `docs/proposals/lexicon-coverage-clean-architecture.md`.
+- **원칙**: 런타임 100% DB(LLM 오프라인) · kaikki 전량 배제 · L0(단어목록)+L2(WordNet/Webster 정의)+LLM 뜻 계층.
+- **실측 근거**: 퍼미시브 정의 커버 = 우선순위 78k 중 **37%**(WordNet∪Webster). Tier1(kaikki뜻=clean뜻 일치) 한국어 재사용 가능분 ~12k.
+- **마이그레이션** `20260722120000_create_lexicon_clean`: word PK · gloss_en · meaning_ko · ipa · gloss_source · ko_source · is_valid_word.
+- **구축**(`scripts/dict/lexicon-build.mjs`): WordNet 정의 추출 + Webster 1913 정제(노이즈/고어/단일sense) → 통합 청정 gloss **206,498**(WordNet 147,981 + Webster 58,517) 적재 + CMUdict ipa 38,243 + **Tier1 한국어 9,568 검증 재귀속**(ko_source=verified). kaikki 0.
+- **잔여(다음 단계)**: meaning_ko LLM 사전작업(빈도상위 대상) · 추출/읽기 RPC 를 lexicon_clean 로 전환 · 검증 후 coverage_lexicon(kaikki) 폐기. shared_dictionary VACUUM(218MB bloat).
+
 ### shared_dictionary kaikki → WordNet 선별적 교체 (라이선스·노이즈 청정)
 
 - **동기**: kaikki(Wiktionary, **CC BY-SA** share-alike) 유래 컬럼이 상업화 시 copyleft 리스크 + 노이즈(`bisexy`·`BUG`·`lesbigaytrans`·`"I'm bisexual"`). WordNet 3.1(Princeton License — 퍼미시브·share-alike 없음)로 교체.
