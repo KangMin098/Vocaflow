@@ -26,7 +26,8 @@
 - **coverage_lexicon(kaikki) 완전 폐기** `20260722160000`·`170000`: 참조 함수 4종(select_article_coverage·select_book_chapter_coverage·select_coverage_for_words·select_extraction_residual) → lexicon_clean repoint(테이블명 교체+source필터 제거) → 앱/함수 참조 0 확인 → **coverage_lexicon DROP**(CC BY-SA 원문 제거 + ~78MB 회수). 검증: 폐기 후 읽기 체인 정상(a-flutter/a-level/gleba=coverage-clean, 404 확인).
 - **✅ kaikki(CC BY-SA) 제거 완료**: shared_dictionary(관계 WordNet 교체) + coverage_lexicon(폐기, 가치분 lexicon_clean 통합) + 읽기 체인(lexicon_clean 256k 청정).
 - **kaikki 흔적/관련성 제거 (원칙: 가치·저작권무관 값은 유지, kaikki 관련성만 제거)**: 발음 사실 데이터(ipa 36,793·rhyme_key 28,989·homophones 5,224)는 저작권 없는 사실이라 **값 유지**(purge했던 것 백업 복원). `field_provenance` 의 kaikki 관련 태그(`kaikki-unverified` 등) **전량 제거 → 0**. 저작권 원문(gloss_en·예문)은 coverage_lexicon 폐기로 제거 완료.
-- **잔여(선택)**: shared_dictionary VACUUM FULL(성능).
+- **L0 노이즈 필터(고유명사) 착수**: WordNet lexname(location 15·person 18) 기반 정밀 고유명사 식별 5,143(지명·인명 단일어, 오검출 0) → lexicon_clean `is_valid_word=false` 플래그. 읽기 조회는 미영향(lookup_word_meaning은 is_valid_word 미체크 → 고유명사도 resolve), 추출/커버리지 curation에서 선택 제외용.
+- **잔여(선택)**: L0 소비(coverage 함수 is_valid_word 필터·선택) · frequency_rank 채움 · shared_dictionary VACUUM FULL(성능).
 
 ### shared_dictionary kaikki → WordNet 선별적 교체 (라이선스·노이즈 청정)
 
