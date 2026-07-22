@@ -17,7 +17,9 @@
 - **실측 근거**: 퍼미시브 정의 커버 = 우선순위 78k 중 **37%**(WordNet∪Webster). Tier1(kaikki뜻=clean뜻 일치) 한국어 재사용 가능분 ~12k.
 - **마이그레이션** `20260722120000_create_lexicon_clean`: word PK · gloss_en · meaning_ko · ipa · gloss_source · ko_source · is_valid_word.
 - **구축**(`scripts/dict/lexicon-build.mjs`): WordNet 정의 추출 + Webster 1913 정제(노이즈/고어/단일sense) → 통합 청정 gloss **206,498**(WordNet 147,981 + Webster 58,517) 적재 + CMUdict ipa 38,243 + **Tier1 한국어 9,568 검증 재귀속**(ko_source=verified). kaikki 0.
-- **잔여(다음 단계)**: meaning_ko LLM 사전작업(빈도상위 대상) · 추출/읽기 RPC 를 lexicon_clean 로 전환 · 검증 후 coverage_lexicon(kaikki) 폐기. shared_dictionary VACUUM(218MB bloat).
+- **런타임 RPC** `20260722130000_lookup_lexicon_clean_rpc`: `lookup_lexicon_clean(text)` — direct+굴절(en_inflection_bases) 해소, 청정 gloss/meaning/ipa 반환. L1(shared_dictionary) 미스 시 L2 폴백. authenticated/anon grant.
+- **성능 벤치**(실측): 2000단어 배치 ~0.8ms/단어. L2(lexicon_clean) 전부 캐시히트로 빠름 → **런타임 DB-only 설계 검증**. L1 bloat(shared_dictionary 힙 50% free·480 캐시미스/2000)는 VACUUM FULL로 개선 필요(성능 정당화).
+- **잔여(다음 단계)**: meaning_ko LLM 사전작업(빈도상위 대상) · 추출/읽기 파이프라인을 L1→lexicon_clean 체인으로 연결 · shared_dictionary VACUUM FULL · 검증 후 coverage_lexicon(kaikki) 폐기.
 
 ### shared_dictionary kaikki → WordNet 선별적 교체 (라이선스·노이즈 청정)
 
