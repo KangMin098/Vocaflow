@@ -22,7 +22,8 @@
 - **런타임 체인 연결** `20260722140000`: `lookup_word_meaning` 에 lexicon_clean(청정) 우선 tier 6·8 삽입, coverage_lexicon(kaikki) tier 7·9 는 **브리지로 유지**(무regression). 순서 L1(1-5)→청정 한국어(6)→kaikki 한국어(7)→청정 영어(8)→kaikki 영어(9). 검증: happy=direct·take-up=coverage-clean·ural=coverage(브리지)·aardwolf=coverage-clean_en. LLM 한국어 채워질수록 coverage→coverage-clean 자동 이동. (기존 발견: coverage tier 는 이미 구현돼 있었고 return 에 gloss_en 컬럼 존재.)
 - **Step 5 한국어 채움(A-min)**: 실사용 대상 19,217(coverage 등장 ∩ lexicon_clean) → **Google 무료 번역 엔드포인트** 자동 번역(동시성4·재시도) → **19,214 성공(실패3·비용0)**. `ko_source='googletrans'`. lexicon_clean meaning_ko **9,568→28,782**. 검증: pesthole/trailhead/parkland → 읽기 체인이 coverage-clean(청정)으로 서빙(kaikki 브리지보다 우선).
 - **tail 전량 한국어 완주**: lexicon_clean 나머지 ~177k 도 Google 무료 번역(줄바꿈 **배치 20/요청** 로 ~20배 가속) → **한국어 206,391 / 206,498 = 99.9%**(잔여 107=분류학 학명 무시). ko_source googletrans 196,823. 비용 0.
-- **잔여(다음 단계)**: shared_dictionary VACUUM FULL(성능) · coverage_lexicon 중 lexicon_clean 미포함분(Tier3 kaikki 유일) 원본생성 or 브리지 유지 · 검증 후 coverage_lexicon(kaikki) tier 7·9 제거 + 테이블 폐기(Step 7).
+- **가치분 통합 + 읽기 kaikki 제거** `20260722150000`: coverage 등장 단어 중 저작권 없는 요소(**word+pos+LLM 한국어**만, gloss_en·예문 제외)를 lexicon_clean 통합(49,619, ko_source=coverage-llm) → lexicon_clean **256,117**(한국어 256,010). `lookup_word_meaning` 에서 coverage_lexicon(kaikki) tier 제거 → **학습자 읽기 경로 kaikki-free**. 검증: happy=direct·a-flutter/a-level/gleba=coverage-clean·xyzzyq=not_found.
+- **잔여(다음 단계)**: coverage_lexicon 참조 함수 4종(select_article_coverage·select_book_chapter_coverage·select_coverage_for_words·select_extraction_residual) lexicon_clean 로 repoint → coverage_lexicon 테이블 폐기 · shared_dictionary VACUUM FULL.
 
 ### shared_dictionary kaikki → WordNet 선별적 교체 (라이선스·노이즈 청정)
 
