@@ -21,7 +21,8 @@
 - **성능 벤치**(실측): 2000단어 배치 ~0.8ms/단어. L2(lexicon_clean) 전부 캐시히트로 빠름 → **런타임 DB-only 설계 검증**. L1 bloat(shared_dictionary 힙 50% free·480 캐시미스/2000)는 VACUUM FULL로 개선 필요(성능 정당화).
 - **런타임 체인 연결** `20260722140000`: `lookup_word_meaning` 에 lexicon_clean(청정) 우선 tier 6·8 삽입, coverage_lexicon(kaikki) tier 7·9 는 **브리지로 유지**(무regression). 순서 L1(1-5)→청정 한국어(6)→kaikki 한국어(7)→청정 영어(8)→kaikki 영어(9). 검증: happy=direct·take-up=coverage-clean·ural=coverage(브리지)·aardwolf=coverage-clean_en. LLM 한국어 채워질수록 coverage→coverage-clean 자동 이동. (기존 발견: coverage tier 는 이미 구현돼 있었고 return 에 gloss_en 컬럼 존재.)
 - **Step 5 한국어 채움(A-min)**: 실사용 대상 19,217(coverage 등장 ∩ lexicon_clean) → **Google 무료 번역 엔드포인트** 자동 번역(동시성4·재시도) → **19,214 성공(실패3·비용0)**. `ko_source='googletrans'`. lexicon_clean meaning_ko **9,568→28,782**. 검증: pesthole/trailhead/parkland → 읽기 체인이 coverage-clean(청정)으로 서빙(kaikki 브리지보다 우선).
-- **잔여(다음 단계)**: 나머지 tail 한국어(선택) · shared_dictionary VACUUM FULL(성능) · Tier3(kaikki 유일 49k) 원본생성 or 브리지 유지 · 검증 후 coverage_lexicon(kaikki) tier 7·9 제거 + 테이블 폐기(Step 7).
+- **tail 전량 한국어 완주**: lexicon_clean 나머지 ~177k 도 Google 무료 번역(줄바꿈 **배치 20/요청** 로 ~20배 가속) → **한국어 206,391 / 206,498 = 99.9%**(잔여 107=분류학 학명 무시). ko_source googletrans 196,823. 비용 0.
+- **잔여(다음 단계)**: shared_dictionary VACUUM FULL(성능) · coverage_lexicon 중 lexicon_clean 미포함분(Tier3 kaikki 유일) 원본생성 or 브리지 유지 · 검증 후 coverage_lexicon(kaikki) tier 7·9 제거 + 테이블 폐기(Step 7).
 
 ### shared_dictionary kaikki → WordNet 선별적 교체 (라이선스·노이즈 청정)
 
