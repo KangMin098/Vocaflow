@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 잔여 유형별 대응 — 부정축약·비운음·재귀 -ingly (+1,338 등장)
+
+- **잔여 정밀 분해**(200권): opaque 3,738/phon 2,477/fragment 632/gen 279 lemma. 최대 미발견 패턴 = **부정축약**(아포스트로피 탈락) 17형 1,134 등장(dident 335·wouldent 254·wasent 241).
+- **① 부정축약 맵** `20260723161000`: dialect_map에 dident→did·wouldent→would·couldna→could 등 38형. 표준형=조동사 base(부정 소실 note). 실단어 wont은 direct 우선(무회귀).
+- **② 비운음 -ah→-er** + **③ 재귀 -ingly→base** `20260723160000`: surface_variants. nevah→never·bettah→better·comprehendingly→comprehend·shiningly→shine. hurrah/lovingly 무회귀.
+- **효과**: +67 lemma/1,338 등장, 토큰 99.734→**99.757%**, 잔여 등장 −8.5%. 분석 `coverage-root-architecture.md`.
+- 잔여 대응 우선순위: 나머지(phon_lev2 45%정밀·gen_prefix 뜻역전·외국어·nonce)는 자동해소 보류 → 음성 제안모드/라벨 세분화가 정직한 처리.
+
 ### MorphAdorner 철자정규화 tier — 퍼미시브 방언 사전 (301k)
 
 - **외부 소스**: MorphAdorner(Northwestern, **NCSA 퍼미시브·상업배포 OK**) 철자맵 → `spelling_norm`(variant→standard) **301,501** 적재(EME 297k+19c소설 NCF 4k). 출처 github.com/travisbrown/morphadorner. 조사 근거: VARD/kaikki/음성 배제(coverage-root-architecture.md §10).
