@@ -10,6 +10,16 @@
 
 ## Unreleased (v06.34 → next)
 
+### 선제형 외국어 독해 지원 — French 사전 DB 선(先)적재 (Google식)
+
+- **패러다임**: 도서에서 외국어를 뽑는 반응형 ❌ → **외국어 빈도 사전을 미리 `lexicon_clean`에 적재**하는 선제형 ✅. 이후 어떤 입력(도서·스크립트)이 와도 이미 준비된 외국어를 단어추출 시 해소. 설계 `docs/proposals/foreign-language-reading-support.md`(rev2).
+- **스키마**: `lexicon_clean.lang`(default 'en') + partial index(`lang<>'en'`). 영어 256k 무변경, 외국어만 격리 조회.
+- **소스·청정성**: hermitdave FrequencyWords(OpenSubtitles) 프랑스어 **표면형** 빈도목록(=사실 데이터) + **Google 무료 번역**(sl=fr, LLM·비용 0). 외부 사전의 gloss는 **미사용** → 배포 청정. `ko_source='google-mt-fr'`.
+- **적재**(`scripts/dict/foreign-dict-build.mjs`): fr 50k 목록 → Google 배치번역(15/요청, 재개캐시) → **ignore-duplicates 적재**(영어 표제어 절대 미변경 = 동형이의어 영어 우선). **French 37,955 적재**(영어 충돌 ~11k skip). 검증: son/pain/chat/de → 영어 유지, faute/toujours/vous → 프랑스어.
+- **런타임 해소**: 감지 로직 0 — `lookup_word_meaning` tier 6(coverage-clean)이 meaning_ko 매칭으로 외국어 자동 해소. 검증: `faute→결점`·`toujours→항상`·`pain→통증`(영어 우선).
+- **효과 실측**: 레미제라블 잔여 665 → **308 프랑스어 해소(46.3%)**. 잔여 54%는 위고 19세기 파리 은어(argot: bastringue·bousingot)·OCR잡음·라틴조각·고유명사 → **정당한 잔여**(현대 빈도목록·노이즈필터 밖).
+- **라틴/그리스 데이터 기반 폐기**: 라틴 실측 — Roman+Dialogues 잔여 ~290 중 실제 라틴 32%, Whitaker(stem) 매칭 23%(굴절형 미매칭) → 실효 해소 **7.5%**. 그리스 — 추출 `^[a-z]` 필터로 그리스문자 토큰 애초에 배제(잔여≈0). → **French 단독 확정**. 라틴 정식 지원은 CLTK lemmatizer 통합 별도 프로젝트.
+
 ### 청정 lexicon_clean 구축 — kaikki(CC BY-SA) 대체 착수
 
 - **동기**: coverage_lexicon 은 gloss_en 전량 kaikki(CC BY-SA), meaning_ko 도 그 번역(파생물). 배포 대비 청정화. 설계 `docs/proposals/lexicon-coverage-clean-architecture.md`.
