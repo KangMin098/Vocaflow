@@ -218,6 +218,13 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
           {foreign.flag} {foreign.label} 낱말 — 독해 이해용이에요 (영어 암기 대상은 아니에요)
         </p>
       )}
+
+      {/* 방언·고어 안내 — 표준어로 이해 */}
+      {result.matchVia === 'dialect' && result.resolvedWord && (
+        <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+          🗣 방언·고어 표현 — 표준어 “{result.resolvedWord}” 로 이해하면 돼요
+        </p>
+      )}
     </div>
   )
 }

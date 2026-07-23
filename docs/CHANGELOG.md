@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 방언·고어 해소 tier — 단어추출 잔여 -27% (200권 평가 기반)
+
+- **`-in→-ing` 정규화** `20260723130000`: surface_variants 확대(g 탈락 방언). nothin→nothing·lookin→looking → normalized tier 소비. 회귀 0(basin/coin은 direct 우선). 218 lemma·2,796 등장.
+- **eye-dialect 맵** `20260723131000`+`132000`: `dialect_map`(74 entry, 방언/고어→표준 lemma) + `lookup_word_meaning` dialect tier(coverage 뒤·normalized 앞). gwine→가다·brung→가져오다·drownded→익사하다·dunno→알다·twould·methought. 표준형 68/74 해소.
+- **방언 UI** WordLookupPopover: match_via='dialect' → "🗣 방언·고어 — 표준어 '{원형}'로 이해" 안내. tsc 통과.
+- **효과**(199권 재측정): 토큰 해소 99.57%→**99.689%**, 잔여 등장 25,438→**18,510(-27%)**, 잔여 lemma 8,720→7,823. 근거 `extraction-evaluation-2026-07-23.md` §9.
+
 ### 단어추출 대규모 평가 — Standard Ebooks 199권 (토큰 99.57% 해소)
 
 - **인프라**: `scripts/dict/build-test-corpus.mts`(Standard Ebooks 손교정 클린 고전 single-page → HTML strip → 프로덕션 winkNLP 추출 재사용) + `extraction_test_books/vocab`(프로덕션 분리) + `measure-test-corpus.sql`(해소율 측정).

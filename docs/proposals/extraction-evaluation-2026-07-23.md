@@ -190,3 +190,21 @@
 - **토큰 99.57% 해소** — 클린 코퍼스에서 목표 초과 달성. 잔여는 사전 결함 아닌 **방언·고어·일회성 희귀어**.
 - **최고 ROI 단일 개선 = `-in→-ing` 정규화 tier**(218 lemma·2,796 등장, 정밀·무료). surface_variants 확대로 즉시 구현 가능.
 - 다음 = eye-dialect 큐레이션 맵. hapax는 장기꼬리(보류).
+
+### 9. 개선 구현 완료 (2026-07-23)
+
+방언 2종을 즉시 구현·적용:
+
+| # | 개선 | 마이그레이션 | 효과 |
+|---|---|---|---|
+| ① | **`-in→-ing` 정규화** | `20260723130000` surface_variants 확대 | nothin→아무것도없다·mornin→아침 (normalized tier 소비). 회귀 0(basin/coin은 direct) |
+| ② | **eye-dialect 맵**(74 entry) | `20260723131000` dialect_map + `132000` lookup dialect tier | gwine→가다·brung→가져오다·drownded→익사하다·dunno→알다·twould→~할것이다 |
+| ③ | **방언 UI 안내** | WordLookupPopover | match_via='dialect' → "🗣 방언·고어 — 표준어 '{원형}'로 이해" |
+
+**재측정 효과** (동일 199권 코퍼스):
+- 토큰 해소 **99.57% → 99.689%**
+- 잔여 등장 **25,438 → 18,510** (**-27%**)
+- 잔여 lemma 8,720 → 7,823
+- 기여: dialect 1,553 occ · norm(-in→-ing 포함) 7,232 occ
+
+남은 잔여 7,823 lemma는 hapax(85%) 위주 장기꼬리 — 수확체감이라 보류. 필요 시 dialect_map 증분 확대(무료·저위험).
