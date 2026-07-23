@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 단어추출 대규모 평가 — Standard Ebooks 199권 (토큰 99.57% 해소)
+
+- **인프라**: `scripts/dict/build-test-corpus.mts`(Standard Ebooks 손교정 클린 고전 single-page → HTML strip → 프로덕션 winkNLP 추출 재사용) + `extraction_test_books/vocab`(프로덕션 분리) + `measure-test-corpus.sql`(해소율 측정).
+- **규모**: 199권 · 5,948,640 토큰 · 고유 lemma 53,617. 난이도 고전(Kipling·Shaw·Heyer·SF·정치/역사).
+- **해소율**: **토큰 가중 99.57%**(독해 체감) · 도서×lemma 98.73% · 고유 lemma 83.7%. 15권(98.8%)과 일치, 대규모·OCR無 클린에서 목표 초과.
+- **진짜 잔여 8,720 정체**(OCR 손상 0 → 순수 신호): ≥10권 체계적갭 48(~85% 방언) · hapax 7,803(85%). 최고 ROI 단일개선 = **`-in→-ing` 정규화**(218 lemma·2,796 등장·67권). 다음 = eye-dialect 큐레이션 맵(tis·gwine·twould). hapax는 장기꼬리 보류.
+- 평가서 `docs/proposals/extraction-evaluation-2026-07-23.md` §8.
+
 ### 선제형 외국어 독해 지원 — French 사전 DB 선(先)적재 (Google식)
 
 - **패러다임**: 도서에서 외국어를 뽑는 반응형 ❌ → **외국어 빈도 사전을 미리 `lexicon_clean`에 적재**하는 선제형 ✅. 이후 어떤 입력(도서·스크립트)이 와도 이미 준비된 외국어를 단어추출 시 해소. 설계 `docs/proposals/foreign-language-reading-support.md`(rev2).
