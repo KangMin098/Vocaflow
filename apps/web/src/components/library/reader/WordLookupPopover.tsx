@@ -24,6 +24,18 @@ interface WordLookupPopoverProps {
 
 const POPOVER_W = 288
 
+// 선제형 외국어 사전 언어 라벨 + 발음 로케일. 'en' 은 배지 미표기(기본).
+const LANG_META: Record<string, { label: string; flag: string; locale: string }> = {
+  fr: { label: '프랑스어', flag: '🇫🇷', locale: 'fr-FR' },
+  de: { label: '독일어', flag: '🇩🇪', locale: 'de-DE' },
+  it: { label: '이탈리아어', flag: '🇮🇹', locale: 'it-IT' },
+  es: { label: '스페인어', flag: '🇪🇸', locale: 'es-ES' },
+  nl: { label: '네덜란드어', flag: '🇳🇱', locale: 'nl-NL' },
+  la: { label: '라틴어', flag: '🏛️', locale: 'la' },
+  ca: { label: '카탈루냐어', flag: '🇦🇩', locale: 'ca-ES' },
+  ro: { label: '루마니아어', flag: '🇷🇴', locale: 'ro-RO' },
+}
+
 export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPopoverProps) {
   const [result, setResult] = useState<WordLookup | null>(null)
   const [loading, setLoading] = useState(true)
@@ -80,7 +92,9 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
     if (typeof window === 'undefined' || !window.speechSynthesis) return
     window.speechSynthesis.cancel()
     const u = new SpeechSynthesisUtterance(text)
-    u.lang = 'en-US'
+    // 외국어 해소분은 해당 언어 로케일로 발음 (없으면 en-US)
+    const meta = result?.lang ? LANG_META[result.lang] : undefined
+    u.lang = meta?.locale ?? 'en-US'
     window.speechSynthesis.speak(u)
   }
 
@@ -137,10 +151,17 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
 function FoundBody({ result, surface }: { result: WordLookup; surface: string }) {
   const showResolved =
     result.resolvedWord && result.resolvedWord.toLowerCase() !== surface.toLowerCase()
+  const foreign = result.lang && result.lang !== 'en' ? LANG_META[result.lang] : undefined
   return (
     <div className="flex flex-col gap-2">
       {/* meta badges */}
       <div className="flex flex-wrap items-center gap-1.5">
+        {foreign && (
+          <span className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)]">
+            <span aria-hidden>{foreign.flag}</span>
+            {foreign.label}
+          </span>
+        )}
         <RegisterBadge register={result.wordRegister} />
         <PosBadge pos={result.pos} />
         {result.cefrLevel && (
@@ -188,6 +209,13 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
       {result.wordRegister === 'archaic_literary' && (
         <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
           📜 고어·문어체 — 읽기 참고용이에요 (암기보다 의미만 알아두면 충분해요)
+        </p>
+      )}
+
+      {/* 외국어 안내 — 영어 학습 대상 아님, 독해 이해용 */}
+      {foreign && (
+        <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+          {foreign.flag} {foreign.label} 낱말 — 독해 이해용이에요 (영어 암기 대상은 아니에요)
         </p>
       )}
     </div>

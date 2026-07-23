@@ -52,6 +52,8 @@ export interface WordLookup {
   wordRegister: string | null
   /** 자주 함께 쓰는 표현 — 툴팁 절제 노출(Progressive Disclosure). 없으면 null */
   collocations: string[] | null
+  /** 해소 언어 — 'en'(영어) | 'fr' 등(선제형 외국어 사전). 외국어면 배지 표기 */
+  lang: string | null
 }
 
 /**
@@ -77,6 +79,7 @@ export async function lookupWord(
         example_en: string | null
         match_via: string
         word_register: string | null
+        lang: string | null
       }
     | undefined
   if (!row) return null
@@ -110,6 +113,7 @@ export async function lookupWord(
     matchVia: row.match_via,
     wordRegister: row.word_register,
     collocations,
+    lang: row.lang,
   }
 }
 
