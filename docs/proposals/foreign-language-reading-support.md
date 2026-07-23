@@ -124,7 +124,21 @@
 
 ## 9. 결정 (확정 · 데이터 기반)
 
-**① 대상 = French 50k 단독** (2026-07-23 확정)
+**① 대상 = French 50k + Italian 50k** (Italian 2026-07-24 추가)
+
+### Italian 추가 (2026-07-24)
+- 200권 Standard Ebooks 평가에서 이탈리아어 잔여 289 lemma/617 등장 확인 → **French 파이프라인 그대로 복제**.
+- hermitdave it_50k(표면형) + Google sl=it → `lexicon_clean` lang='it' **36,015 적재**(영어 충돌 자동 skip). 코드/마이그레이션 변경 0(기존 foreign tier·lang 배지 재사용).
+- 검증: contadina→농부·fanciulla→소녀·malinconia→우울·cantare→노래하다. pain 영어 유지(동형이의어 안전).
+- **핵심**: Google가 이탈리아어는 물론 **라틴어 굴절 표면형도 정확 번역**(aeternitatis→영원의) → 번역 장벽 없음. 남은 건 표면형 wordlist 소스뿐. 모던 언어(it/de/es/pt/nl)는 hermitdave로 즉시 확장 가능.
+
+### Latin 보류 (표면 소스 미확보)
+- 번역은 됨(Google 굴절 처리). 그러나 hermitdave에 라틴 없음·위키빈도 404 → **표면형 wordlist 소스 부재**. Whitaker(PD)는 stem이라 굴절 표면(virtutis) 미스(23%).
+- 소규모(258 등장) 대비 L2(코퍼스 표면빈도 가공) 비용 큼 → **보류**. 필요 시 Latin Library/Leipzig 코퍼스 처리.
+
+---
+
+**(이전 결정)** French 단독 확정 배경:
 
 착수 시 fr+la+el(최소안)을 후보로 검토했으나, **실측으로 라틴/그리스 폐기**:
 

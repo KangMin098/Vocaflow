@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 외국어 확장 — 이탈리아어 사전 (French 파이프라인 복제)
+
+- **동기**: 200권 평가 이탈리아어 잔여 289 lemma/617 등장 → French 선제형 방식 그대로 복제.
+- **적재**: hermitdave it_50k(표면형) + Google sl=it → `lexicon_clean` lang='it' **36,015**(영어 충돌 자동 skip). `scripts/dict/foreign-dict-build.mjs` 재사용(LANG_CODE=it). 코드/마이그레이션 변경 0 — 기존 foreign tier·lang 배지(🇮🇹) 재사용.
+- **검증**: contadina→농부·fanciulla→소녀·malinconia→우울·cantare→노래하다. pain 영어 유지(동형이의어 안전).
+- **효과**: 잔여 +289 lemma/617 등장, 토큰 ~99.767%. 핵심: Google가 라틴 굴절 표면형도 정확 번역 → 모던어(it/de/es) 즉시 확장 가능. **라틴 보류**(표면 wordlist 소스 미확보). 설계 `foreign-language-reading-support.md` §9.
+
 ### 잔여 유형별 대응 — 부정축약·비운음·재귀 -ingly (+1,338 등장)
 
 - **잔여 정밀 분해**(200권): opaque 3,738/phon 2,477/fragment 632/gen 279 lemma. 최대 미발견 패턴 = **부정축약**(아포스트로피 탈락) 17형 1,134 등장(dident 335·wouldent 254·wasent 241).
