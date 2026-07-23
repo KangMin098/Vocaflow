@@ -10,6 +10,15 @@
 
 ## Unreleased (v06.34 → next)
 
+### MorphAdorner 철자정규화 tier — 퍼미시브 방언 사전 (301k)
+
+- **외부 소스**: MorphAdorner(Northwestern, **NCSA 퍼미시브·상업배포 OK**) 철자맵 → `spelling_norm`(variant→standard) **301,501** 적재(EME 297k+19c소설 NCF 4k). 출처 github.com/travisbrown/morphadorner. 조사 근거: VARD/kaikki/음성 배제(coverage-root-architecture.md §10).
+- **마이그레이션** `20260723150000`(spelling_norm 테이블)+`151000`(lookup_word_meaning spelling tier). 적재 `scripts/dict/spelling-norm-load.mjs`.
+- **tier 7.6**: variant→standard 후 **표준형이 분류사전에 해소될 때만** 반환(정밀 100% 게이트, 음성 45%와 대비). match_via='spelling'. 검증: accordynge→according·afther→after·abaht→about·furriners→foreigner. 회귀 0.
+- **효과**(200권): +643 lemma/2,602 등장, 토큰 99.690→**99.734%**, 잔여 등장 −14%. 핵심가치=301k가 **미관찰 방언 텍스트 일반화**(dialect_map 밴드에이드 승격).
+- **약어 추출필터**: extract-lemmas TOKEN_BLOCKLIST에 acct·dept·yrs·wks·cts 등 추가(학습단어 아님).
+- **UI**: WordLookupPopover match_via='spelling' → "🗣 방언·옛 철자 — 표준어 'X'". tsc 통과(web·library-pipeline).
+
 ### 방언·고어 해소 tier — 단어추출 잔여 -27% (200권 평가 기반)
 
 - **`-in→-ing` 정규화** `20260723130000`: surface_variants 확대(g 탈락 방언). nothin→nothing·lookin→looking → normalized tier 소비. 회귀 0(basin/coin은 direct 우선). 218 lemma·2,796 등장.

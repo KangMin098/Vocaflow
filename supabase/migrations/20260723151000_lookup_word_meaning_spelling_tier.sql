@@ -1,0 +1,7 @@
+-- lookup_word_meaning 에 spelling tier 추가 — spelling_norm(MorphAdorner 301k)로 방언/역사철자 정규화.
+-- 순서: dialect(7.5, 큐레이션) → spelling(7.6, MorphAdorner) → normalized(8-9). 표준형 사전해소 게이트로 정밀 보장.
+-- 효과(200권): +643 lemma/2,602 등장, 토큰 99.690→99.734%. 퍼미시브·정밀·미관찰 일반화.
+-- 전체 정의는 DB 적용본 기준. 핵심 추가 tier(7.6):
+--   FROM spelling_norm sn JOIN shared_dictionary d ON d.word = ANY(ARRAY[sn.standard]||en_inflection_bases(sn.standard))
+--   WHERE sn.variant = s AND d.classified_by IS NOT NULL AND d.meaning_ko IS NOT NULL AND length(d.meaning_ko)>0
+--   ORDER BY (d.word=sn.standard) DESC, d.frequency_rank NULLS LAST LIMIT 1;  match_via='spelling'

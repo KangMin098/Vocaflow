@@ -36,6 +36,8 @@ const TOKEN_BLOCKLIST = new Set<string>([
   "'s", "'t", "'ll", "'re", "'ve", "'d", "'m",
   // contraction 잔여 (winkNLP가 lemma만 떼어내는 경우)
   'll', 're', 've',
+  // 약어 (학습 단어 아님 — 200권 평가 잔여, mr/mrs 와 동류)
+  'acct', 'dept', 'depts', 'yrs', 'wks', 'wk', 'cts', 'rms', 'mgr', 'mdse', 'recd', 'shipt',
 ])
 
 /**

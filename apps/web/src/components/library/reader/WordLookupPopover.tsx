@@ -219,10 +219,10 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
         </p>
       )}
 
-      {/* 방언·고어 안내 — 표준어로 이해 */}
-      {result.matchVia === 'dialect' && result.resolvedWord && (
+      {/* 방언·고어·역사철자 안내 — 표준어로 이해 */}
+      {(result.matchVia === 'dialect' || result.matchVia === 'spelling') && result.resolvedWord && (
         <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
-          🗣 방언·고어 표현 — 표준어 “{result.resolvedWord}” 로 이해하면 돼요
+          🗣 방언·옛 철자 — 표준어 “{result.resolvedWord}” 로 이해하면 돼요
         </p>
       )}
     </div>
