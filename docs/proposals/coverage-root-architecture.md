@@ -193,6 +193,49 @@ betwixt·quoth·wroth·methinks·ere·thither·phthisis 등은 방언도 파생�
 
 → **near-ceiling 도달**(토큰 99.69%). 남은 0.31%는 자동해소로 더 밀면 **오탐 유입**. 정밀도가 소진의 벽.
 
+## 10. ★ 최적안 설계 — 외부 소스 조사 후 (2026-07-23)
+
+### 소스 조사 결과 (배포 가능성 기준)
+
+| 소스 | 라이선스 | 규모 | 잔여 순커버(실측) | 정밀 | 채택 |
+|---|---|---|---|---|---|
+| **MorphAdorner** (Northwestern) | **NCSA(퍼미시브·상업OK)** | 303k (EME 350k+19c소설 5k) | **467 lemma/2,122 등장** | 큐레이션·높음 | ✅ **채택** |
+| VARD2 (Lancaster) | 학술("research/teaching") | 45,805 | (미측) | 높음 | ✗ 상업배포 불명 |
+| Wiktionary(kaikki) | CC BY-SA | 포괄 | (더 큼 추정) | 높음 | ✗ 이전 제거 |
+| Norma(comphist) | LGPL·**툴**(데이터 아님) | — | — | — | ✗ 데이터 아님 |
+| 음성(dmetaphone) | — | — | 50% | **45%** | ✗ 오탐 |
+
+→ **상업 배포 가능한 고정밀 방언 데이터 = MorphAdorner(NCSA)가 유일.** 핵심 가치는 303k가 **미관찰 입력 일반화**(200권 2,122는 하한, 방언 텍스트일수록 커짐).
+
+### 최적 아키텍처 (5층, 퍼미시브·정밀 우선)
+
+```
+토큰
+ A. 철자정규화 tier   MorphAdorner(303k) variant→standard, standard 사전해소 게이트  ← 신규(밴드에이드 dialect_map 대체)
+ B. 생성 규칙        -in→-ing·a-·-eth/-est (완료)
+ C. [추출단계] 약어 필터  acct·wks·yrs·dept·rm → TOKEN_BLOCKLIST (학습단어 아님, 정당 제거)
+ D. 음성 "제안"      lev≤1 → "혹시 X?" 플래그(단정 X, 옵트인)  ← 선택
+ E. not_found 라벨   방언/외국어/미상 세분화 (독해참고)
+```
+
+**설계 원칙**:
+1. **퍼미시브 외부 인벤토리로 폐쇄집합 완비**(A) — 우리 관찰 수집(밴드에이드) 아닌 학계 30만 매핑 = 근본. `dialect_map`(74) → MorphAdorner로 승격, 고유분만 supplement 유지.
+2. **표준형 사전해소 게이트** — variant→standard 후 standard가 우리 분류사전에 있을 때만 해소 → **정밀 100% 보장**(음성 45%와 대비).
+3. **약어는 사전 아닌 추출 문제**(C) — blocklist로 정당 제거(해소 시도 X).
+4. **불확실은 단정 대신 제안/플래그**(D·E) — 오탐으로 사전 신뢰 훼손 금지.
+5. **미관찰 일반화** — A는 303k라 신규 도서·방언에도 작동(도서 무관).
+
+### 적재·통합 방식
+- `spelling_norm(variant text PK, standard text, source text)` 테이블 — MorphAdorner EME+NCF 적재(~300k, 청정 PD/NCSA 표기).
+- `lookup_word_meaning` A-tier: `spelling_norm` JOIN → standard를 direct/inflection 재귀해소. match_via='spelling'.
+- UI: "표준어 '{standard}'" 안내(방언 배지 유지).
+- 증분: MorphAdorner 갱신 시 재적재만. 도서 무관.
+
+### 기대 효과 (정직)
+- 200권 실측 +2,122 등장(토큰 99.69→~99.72%). **작지만 퍼미시브·정밀·일반화**.
+- 진짜 가치 = **미래 방언/역사 텍스트**에서 303k가 발휘(현 코퍼스는 하한).
+- 잔여 상한은 여전히 방언 semi-open + 외국어 + nonce → D·E로 정직 처리.
+
 ## 9. 결론 (교정본)
 
 - **"방언·희귀어 대응되나?" → 조건부 YES**: 규칙적 대다수(–in·a-·-eth/-est·복합·정칙고어)는 **생성적으로 대응**. 불규칙 음성방언은 부분. **nonce·외국어·OCR는 환원불가**(=억지 뜻 부여 금지, "독해참고/건너뛰기" 플래그가 정답).
