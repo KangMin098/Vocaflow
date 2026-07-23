@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 음성 제안모드 + 독일·스페인어 — 잔여 추가 대응
+
+- **음성 제안모드** `20260724120000`+`121000`: `lookup_word_meaning` suggestion tier(10) + `dmetaphone` 함수인덱스. not_found 직전 dmetaphone∧lev≤1(86% 정밀) → **단정 아닌 "혹시 X?"**(match_via='suggestion'). realy→really·suport→support·salery→salary. UI `SuggestionBody`("🔍 혹시 이 단어? 추정 — 문맥 확인"). **커버리지 미포함**(독해 툴팁 전용, 추출/큐레이션 무영향) → 사전 신뢰 유지. 잔여 phon_lev1 ~2,533 등장 독해 보조.
+- **독일어·스페인어** (foreign-dict-build LANG_CODE=de/es): hermitdave + Google → lexicon_clean lang='de'(35,469)·'es'(34,633). behandlung→치료·betteln→구걸하다. 동형이의어(gift·war·hat) 영어 우선 안전. 잔여 +178 lemma/430 등장. 외국어 사전 총 ~144k(fr/it/de/es).
+- **200권 재측정**: 토큰 해소 → **99.782%**. 잔여 ~12,970 등장(0.22%) = 무거운 방언(Lardner·McKay 반열린)+라틴(표면소스 필요)+nonce(환원불가). 자동해소는 정밀 벽 → 제안모드/라벨이 정직한 처리.
+
 ### 외국어 확장 — 이탈리아어 사전 (French 파이프라인 복제)
 
 - **동기**: 200권 평가 이탈리아어 잔여 289 lemma/617 등장 → French 선제형 방식 그대로 복제.
