@@ -46,7 +46,7 @@ export interface WordLookup {
   cefrLevel: string | null
   vLevel: number | null
   exampleEn: string | null
-  /** 'direct' | 'inflection' | 'variant' | 'cluster' | 'not_found' | 'invalid' */
+  /** 'direct'|'inflection'|'variant'|'cluster'|'derivation'|'coverage-clean'|'dialect'|'spelling'|'normalized'|'suggestion'|'not_found'|'invalid' */
   matchVia: string
   /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
   wordRegister: string | null

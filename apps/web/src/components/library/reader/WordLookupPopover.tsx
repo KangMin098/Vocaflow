@@ -98,7 +98,9 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
     window.speechSynthesis.speak(u)
   }
 
-  const headWord = result?.found ? (result.resolvedWord ?? surface) : surface
+  // 제안(suggestion)은 원단어(surface)를 헤더에 — 추정 단어를 단정하지 않음
+  const isSuggestion = result?.matchVia === 'suggestion'
+  const headWord = result?.found && !isSuggestion ? (result.resolvedWord ?? surface) : surface
 
   return (
     <div
@@ -138,6 +140,8 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
             <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-[var(--bg3)]" />
             <span className="font-body text-[12px] text-[var(--t3)]">찾는 중…</span>
           </div>
+        ) : result?.found && isSuggestion ? (
+          <SuggestionBody result={result} />
         ) : result?.found ? (
           <FoundBody result={result} surface={surface} />
         ) : (
@@ -225,6 +229,29 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
           🗣 방언·옛 철자 — 표준어 “{result.resolvedWord}” 로 이해하면 돼요
         </p>
       )}
+    </div>
+  )
+}
+
+// 음성 제안 — 정확히 못 찾았을 때 "혹시 이 단어?"(추정, 단정 아님)
+function SuggestionBody({ result }: { result: WordLookup }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="font-body text-[12px] font-[600] text-[var(--t2)]">
+        🔍 사전에 정확히 없어요 — 혹시 이 단어일까요?
+      </p>
+      <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-2">
+        <div className="flex items-baseline gap-1.5">
+          <span className="font-english text-[15px] font-[600] text-[var(--t1)]">
+            {result.resolvedWord}
+          </span>
+          <span className="font-body text-[10px] text-[var(--t3)]">(추정)</span>
+        </div>
+        <p className="mt-1 font-body text-[13px] leading-relaxed text-[var(--t2)]">{result.meaningKo}</p>
+      </div>
+      <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+        방언·옛 철자·오탈자일 수 있어요. 문맥으로 확인하세요.
+      </p>
     </div>
   )
 }
