@@ -17,6 +17,8 @@
 - **W-1 실영어 gap-fill**: Wiktionary 멤버십(사실)로 실영어 확정 → Claude 8병렬로 문맥 기반 ko 생성(정의문 미사용, 자체 생성) → `lexicon_clean` **1,429** 적재(ko_source=wikt-claude·gloss_source=wiktionary-membership). `scripts/dict/wikt-classify.mjs`·`wikt-route-export.mjs`·`wikt-en-load.mjs`.
 - **효과**: 잔여 15,730→**12,581 등장**, 토큰 99.869→**99.895%**. 정밀 검증: narghileh→물담배·dickty→거들먹거리는 상류층 행세(흑인 속어)·stengah→위스키 소다(말레이)·praties→감자(아일랜드) 전부 coverage-clean 정확.
 - **W-2 부재 정규화**: Wiktionary 부재 5,581을 Claude 12병렬 문맥 정규화 — 오철자/방언만 표준어 매핑(cockodrill→crocodile·stumicks→stomach·perliceman→policeman·roomatism→rheumatism·saxohpone→saxophone·wictim→victim), 조어·고유명사·외국어 거부. 확정 1,461 → `spelling_norm(curated-dialect)`(누적 3,128). 잔여 12,581→**10,690 등장**, 토큰 99.895→**99.911%**.
+- **W-3 외국어 라벨링+번역**: foreign 1,410을 Claude 6병렬 **문맥 검증** — 진짜 외국어 인용만 번역+언어태그, 우연일치(magter=Danish?·menzil=Turkish?·balu=Basque? = 실은 SF/정글북 조어) 거부. 확정 **513** → `lexicon_clean`(lang별: la 281·fr 80·it 63·sco 38·de 16·es 15·… · ko_source=foreign-claude). salutamus→경의를 표하다(la)·putana→창녀(it, wlang Albanian 오류 교정). 잔여 10,690→**9,992 등장**, 토큰 99.911→**99.917%**.
+- `WordLookupPopover` LANG_META 8→28 언어 확장(pt·el·ru·da·sv·no·fi·ga·cy·gd·gl·eu·af·cs·pl·hu·is·enm·ang·sco + xx 일반) — 팝오버 국기+언어명 표시.
 - 약어 `rm` blocklist 추가(프로덕션+eval). Wiktionary 사용은 CC BY-SA 사실(멤버십·언어태그)만 — [DATA_ATTRIBUTION.md](DATA_ATTRIBUTION.md).
 
 ### 잔여 유형별 정밀 분해 + 3레버 해소 (Webster PD·방언확정·약어필터)
