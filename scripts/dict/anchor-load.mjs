@@ -9,9 +9,10 @@ const H = { apikey: SVC, Authorization: 'Bearer ' + SVC, 'Content-Type': 'applic
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 async function ins(b, n = 6) { for (let i = 0; i < n; i++) { try { const r = await fetch(URL + '/rest/v1/spelling_norm', { method: 'POST', headers: H, body: JSON.stringify(b) }); if (r.ok || r.status === 409) return true } catch {} await sleep(500 * (i + 1)) } return false }
 
+const OUTDIR = process.env.OUTDIR || 'scratchpad-foreign/anchor'
 const byVar = new Map()   // variant → Set(standard)
 for (let i = 0; i < 8; i++) {
-  const p = `scratchpad-foreign/anchor/out-${i}.jsonl`
+  const p = `${OUTDIR}/out-${i}.jsonl`
   if (!fs.existsSync(p)) { console.error('MISSING', p); continue }
   for (const l of fs.readFileSync(p, 'utf8').split('\n')) {
     if (!l.trim()) continue; let o; try { o = JSON.parse(l) } catch { continue }

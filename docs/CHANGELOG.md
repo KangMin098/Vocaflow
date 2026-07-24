@@ -15,8 +15,11 @@
 - **유형별 분해**: 새 200권 잔여 20,145 등장을 배타적 버킷 분류 — F(3+책)1,853·G(2책)2,390·C(약어)883·hapax(1책)14,973. dmetaphone 앵커 태그: lev1 4,468·lev2 4,012·앵커없음 11,665(가공 고유명사·nonce·외국어=환원불가). **잔여는 표준 고어가 아니라 방언 표음철자+가공 고유명사가 지배**임을 실증.
 - **Method A(약어 필터)**: 프로덕션 `extract-lemmas.ts` TOKEN_BLOCKLIST에 안전 약어 8종(yd·yds·yr·hr·hrs·mos·pts·doz) 추가 + eval 코퍼스 blocklist 프로덕션 동기화. acct·dept·wks 등은 이미 프로덕션 필터됨 → eval 잔여의 약어 393 등장은 측정 아티팩트로 확정.
 - **Method C(Webster 1913 PD)**: 잔여∩Webster 65 lemma/127 등장 — **정의문을 Google 번역**(희귀 표면형 오역 회피). `lexicon_clean` 적재(ko_source=webster-mt·gloss_source=webster). 퍼블릭 도메인 = 완전 청정. `scripts/dict/webster-build.mjs`·`webster-load.mjs`.
-- **Method B(방언/오철자 확정 — 주 레버)**: lev1 앵커 2,097 후보 → **Claude 서브에이전트 8병렬** 확정/교정(naive dmetaphone 앵커 ~55% 오답을 독립 판단: prau→pray✗ 배·collige→college✓·strate→straight✓). 정밀 우선(모호·고유명사·외국어·함수어 reject). 확정 **815 lemma/1,730 등장** → `spelling_norm(curated-dialect)`. `scripts/dict/anchor-export.mjs`·`anchor-load.mjs`.
-- **효과**: 잔여 20,145→**17,927 등장**, 토큰 99.832→**99.851%**. 남은 앵커없음 11,665(58%)는 가공세계 고유명사·nonce로 환원불가 확정.
+- **Method B(방언/오철자 확정 — 주 레버)**: dmetaphone 앵커 후보를 **Claude 서브에이전트 8병렬**로 확정/교정(naive 앵커 ~55% 오답을 독립 판단: prau→pray✗ 배·collige→college✓·strate→straight✓·tundher→thunder·cawfy→coffee·dreffle→dreadful). 정밀 우선(모호·고유명사·외국어·함수어 reject).
+  - lev1(4,468 등장) → 확정 815 lemma/1,730 등장
+  - lev2(4,012 등장) → 확정 654 lemma/1,208 등장 (8병렬 2차)
+  - 합계 **1,469 lemma/2,938 등장** → `spelling_norm(curated-dialect)`. `scripts/dict/anchor-export.mjs`(TABLE/OUTDIR env)·`anchor-load.mjs`.
+- **효과**: 잔여 20,145→**16,721 등장**, 토큰 99.832→**99.861%**. 남은 앵커없음 잔여(가공세계 고유명사·nonce·외국어)는 환원불가 확정 — 제안모드+not_found가 정답.
 
 ### 음성 제안모드 검토 + 고빈도 잔여 확정 해소 승격
 
