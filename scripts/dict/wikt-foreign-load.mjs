@@ -9,7 +9,7 @@ const H = { apikey: SVC, Authorization: 'Bearer ' + SVC, 'Content-Type': 'applic
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 async function ins(b, n = 6) { for (let i = 0; i < n; i++) { try { const r = await fetch(URL + '/rest/v1/lexicon_clean', { method: 'POST', headers: H, body: JSON.stringify(b) }); if (r.ok || r.status === 409) return true } catch {} await sleep(500 * (i + 1)) } return false }
 
-const OUTDIR = 'scratchpad-foreign/wikt/foreign'
+const OUTDIR = process.env.OUTDIR || 'scratchpad-foreign/wikt/foreign'
 const OK_LANG = new Set(['la', 'it', 'fr', 'es', 'de', 'nl', 'pt', 'ca', 'el', 'ru', 'da', 'sv', 'no', 'fi', 'ga', 'cy', 'gd', 'ro', 'gl', 'eu', 'af', 'cs', 'pl', 'hu', 'is', 'enm', 'ang', 'sco'])
 const files = fs.readdirSync(OUTDIR).filter(f => /^out-\d+\.jsonl$/.test(f)).sort()
 const seen = new Set(), recs = []

@@ -19,6 +19,7 @@
 - **W-2 부재 정규화**: Wiktionary 부재 5,581을 Claude 12병렬 문맥 정규화 — 오철자/방언만 표준어 매핑(cockodrill→crocodile·stumicks→stomach·perliceman→policeman·roomatism→rheumatism·saxohpone→saxophone·wictim→victim), 조어·고유명사·외국어 거부. 확정 1,461 → `spelling_norm(curated-dialect)`(누적 3,128). 잔여 12,581→**10,690 등장**, 토큰 99.895→**99.911%**.
 - **W-3 외국어 라벨링+번역**: foreign 1,410을 Claude 6병렬 **문맥 검증** — 진짜 외국어 인용만 번역+언어태그, 우연일치(magter=Danish?·menzil=Turkish?·balu=Basque? = 실은 SF/정글북 조어) 거부. 확정 **513** → `lexicon_clean`(lang별: la 281·fr 80·it 63·sco 38·de 16·es 15·… · ko_source=foreign-claude). salutamus→경의를 표하다(la)·putana→창녀(it, wlang Albanian 오류 교정). 잔여 10,690→**9,992 등장**, 토큰 99.911→**99.917%**.
 - `WordLookupPopover` LANG_META 8→28 언어 확장(pt·el·ru·da·sv·no·fi·ga·cy·gd·gl·eu·af·cs·pl·hu·is·enm·ang·sco + xx 일반) — 팝오버 국기+언어명 표시.
+- **W-4 미분류 사각지대 재처리**: Wiktionary API 에러로 미분류였던 1,786(freq≤2) 재분류 → en 271·foreign 203·absent 1,032. Claude 8병렬(2 gap-fill+4 정규화+2 외국어검증): 실영어 267 gloss·방언 316·외국어 84 확정. neffew→nephew·conwulsions→convulsion·halbatrosses→albatross·unneth→간신히. 잔여 9,992→**9,308 등장**, 토큰 99.917→**99.922%**. `scripts/dict/wikt-reclass.mjs`.
 - 약어 `rm` blocklist 추가(프로덕션+eval). Wiktionary 사용은 CC BY-SA 사실(멤버십·언어태그)만 — [DATA_ATTRIBUTION.md](DATA_ATTRIBUTION.md).
 
 ### 잔여 유형별 정밀 분해 + 3레버 해소 (Webster PD·방언확정·약어필터)
