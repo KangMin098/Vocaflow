@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 심층 정밀도 분석 — 하이픈 복합어 오해소 수정 (품질축)
+
+- **동기**: 커버리지(99.8%)에 이어 **해소 정밀도(false positive)** 미검증축 분석. 비핵심 tier 표본 검수.
+- **발견**: spelling(MorphAdorner+Wiktionary) ~95%·derivation ~90% 정밀 양호. **norm(surface_variants 하이픈) 27% 오해소** — re-embodied→"re"·over-hot→"over"·un-policeman-like→"like"·counter-will→"will"(조동사) 등 **접두사/기능어 세그먼트를 취해 틀린 뜻**. 규모 323 lemma/393 등장.
+- **수정** `20260724140000`: surface_variants 하이픈 세그먼트에 **blocklist(접두사·기능어 44종) 필터** → head 세그먼트 또는 정직한 not_found. "틀린 뜻 > not_found" 원칙.
+- **결과**: 오해소 **323→7(98% 수정)**. 1,154 정답 전환(re-embodied→embody·over-hot→hot), 14 not_found(counter-will·un-policeman-like). 커버리지 손실 미미, 품질 대폭 개선.
+- **교훈**: 커버리지 극대화가 정밀도를 잠식할 수 있음 → 공격적 tier는 정밀 검수 필수.
+
 ### Wiktionary 방언 매핑 — heavy dialect 해소 (CC BY-SA, 사실 쌍만)
 
 - **동기**: 200권 잔여의 최대 미해소 = 작가 방언(nuthin·chillun·wuz·nevah). MorphAdorner(5k)가 못 잡은 tail을 Wiktionary 포괄 방언으로 보완.
