@@ -38,7 +38,7 @@ const TOKEN_BLOCKLIST = new Set<string>([
   'll', 're', 've',
   // 약어 (학습 단어 아님 — 200권 평가 잔여, mr/mrs 와 동류)
   'acct', 'dept', 'depts', 'yrs', 'wks', 'wk', 'cts', 'rms', 'mgr', 'mdse', 'recd', 'shipt',
-  'yd', 'yds', 'yr', 'hr', 'hrs', 'mos', 'pts', 'doz',
+  'yd', 'yds', 'yr', 'hr', 'hrs', 'mos', 'pts', 'doz', 'rm',
 ])
 
 /**

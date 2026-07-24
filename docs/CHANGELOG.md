@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### Wiktionary 멤버십 판별기 + 실영어 gap-fill (잔여 −3,149 등장)
+
+- **"Google보다 큰 어휘" 시스템 = Wiktionary(kaikki)**: 영어 ~1.3M 표제어 + 1000+ 언어. 잔여 9,659 전량을 en.wiktionary API(50-title 배치)로 분류 — **English 1,542 / 외국어 1,410(Latin 290·Italian·French…) / 부재 5,581**.
+- **판별기 통찰**: 잔여 다수는 "희귀 실단어"가 아니라 조어(Ulysses/SF)·오철자·고유명사 → Wiktionary조차 부재. 하지만 **1,542개는 실영어**(Google·Webster가 놓친 narghileh·byrny·dickty·netherstocks·praties·stengah…)로 판명.
+- **W-1 실영어 gap-fill**: Wiktionary 멤버십(사실)로 실영어 확정 → Claude 8병렬로 문맥 기반 ko 생성(정의문 미사용, 자체 생성) → `lexicon_clean` **1,429** 적재(ko_source=wikt-claude·gloss_source=wiktionary-membership). `scripts/dict/wikt-classify.mjs`·`wikt-route-export.mjs`·`wikt-en-load.mjs`.
+- **효과**: 잔여 15,730→**12,581 등장**, 토큰 99.869→**99.895%**. 정밀 검증: narghileh→물담배·dickty→거들먹거리는 상류층 행세(흑인 속어)·stengah→위스키 소다(말레이)·praties→감자(아일랜드) 전부 coverage-clean 정확.
+- 약어 `rm` blocklist 추가(프로덕션+eval). Wiktionary 사용은 CC BY-SA 사실(멤버십·언어태그)만 — [DATA_ATTRIBUTION.md](DATA_ATTRIBUTION.md).
+
 ### 잔여 유형별 정밀 분해 + 3레버 해소 (Webster PD·방언확정·약어필터)
 
 - **유형별 분해**: 새 200권 잔여 20,145 등장을 배타적 버킷 분류 — F(3+책)1,853·G(2책)2,390·C(약어)883·hapax(1책)14,973. dmetaphone 앵커 태그: lev1 4,468·lev2 4,012·앵커없음 11,665(가공 고유명사·nonce·외국어=환원불가). **잔여는 표준 고어가 아니라 방언 표음철자+가공 고유명사가 지배**임을 실증.

@@ -20,10 +20,11 @@ Vocaflow 사전 DB는 다음 외부 데이터에서 파생·구축되었습니�
 | 소스 | 라이선스 | 사용 | 비고 |
 |---|---|---|---|
 | **MorphAdorner** (Northwestern Univ.) | NCSA (퍼미시브) | 역사철자·19c 방언 매핑 301k | 자유 배포 가능 |
-| **Wiktionary** (Wiktextract/kaikki) | **CC BY-SA 4.0** | **방언 variant→standard '사실 쌍'만** (pronunciation-spelling·eye-dialect·dialectal) | 아래 명시 |
+| **Wiktionary** (Wiktextract/kaikki) | **CC BY-SA 4.0** | **방언 variant→standard '사실 쌍'만** + **표제어 멤버십·언어태그(사실)** — 잔여 실영어/외국어/부재 판별 | 아래 명시 |
 
 ### Wiktionary 사용 방식 (CC BY-SA 준수)
 - **사용**: 방언 표면형 → 표준어 **매핑(사실)만** 추출. 예: `nuthin → nothing`, `gwine → going`.
+- **멤버십·언어태그(사실)**: 잔여 단어가 영어 표제어인지 / 어느 언어인지 / 부재인지 **분류에만** 사용. 실영어로 판별된 단어의 한국어 뜻은 **Claude 자체 생성**(Wiktionary 정의문 미추출·미배포).
 - **미사용**: Wiktionary의 **정의문·예문·어원 등 창작적 표현은 추출/배포하지 않음**. 뜻은 전적으로 자체 사전(WordNet+자체 한글생성)에서 해소.
 - **출처표기 (BY)**: 방언 매핑 데이터는 **Wiktionary (© Wiktionary contributors, CC BY-SA 4.0, https://en.wiktionary.org)** 에서 파생되었습니다.
 - 데이터 추출: [Wiktextract / kaikki.org](https://kaikki.org) (Tatu Ylönen).
