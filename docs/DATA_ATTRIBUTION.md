@@ -11,7 +11,7 @@ Vocaflow 사전 DB는 다음 외부 데이터에서 파생·구축되었습니�
 | 소스 | 라이선스 | 사용 | 배포물 포함 |
 |---|---|---|---|
 | **WordNet 3.1** (Princeton) | WordNet License (퍼미시브·share-alike 없음) | 영어 정의·관계어 | 예 |
-| **Webster's 1913** | Public Domain | 영어 정의 폴백 | 예 |
+| **Webster's 1913** | Public Domain | 영어 정의 폴백 · 잔여 희귀어 gap-fill(정의문→Google MT→ko, ko_source=webster-mt) | 예 |
 | **CMU Pronouncing Dict** | BSD-style / PD | IPA·발음·rhyme | 예 |
 | **한국어 뜻 (meaning_ko)** | **자체 생성** (Google MT / 자체 검수) | 학습 뜻 | 예 (우리 것) |
 

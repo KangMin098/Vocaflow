@@ -18,7 +18,9 @@ const TARGET = parseInt(process.env.TARGET || '200')
 const MAX_CHARS = 900_000
 
 // ── 프로덕션 추출 필터 복제 (packages/library-pipeline/src/analyze/extract-lemmas.ts) ──
-const TOKEN_BLOCKLIST = new Set(['mr', 'mrs', 'ms', 'dr', 'sir', 'madam', 'lord', 'lady', "'s", "'t", "'ll", "'re", "'ve", "'d", "'m", 'll', 're', 've'])
+const TOKEN_BLOCKLIST = new Set(['mr', 'mrs', 'ms', 'dr', 'sir', 'madam', 'lord', 'lady', "'s", "'t", "'ll", "'re", "'ve", "'d", "'m", 'll', 're', 've',
+  // 약어 — 프로덕션 extract-lemmas.ts 와 동기화 (학습 단어 아님)
+  'acct', 'dept', 'depts', 'yrs', 'wks', 'wk', 'cts', 'rms', 'mgr', 'mdse', 'recd', 'shipt', 'yd', 'yds', 'yr', 'hr', 'hrs', 'mos', 'pts', 'doz'])
 function isValidLearningWord(raw: string): boolean {
   const lemma = raw.toLowerCase().trim()
   if (!lemma || lemma.length < 2 || lemma.length > 30) return false
