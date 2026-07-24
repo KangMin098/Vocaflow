@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### Wiktionary 방언 매핑 — heavy dialect 해소 (CC BY-SA, 사실 쌍만)
+
+- **동기**: 200권 잔여의 최대 미해소 = 작가 방언(nuthin·chillun·wuz·nevah). MorphAdorner(5k)가 못 잡은 tail을 Wiktionary 포괄 방언으로 보완.
+- **라이선스 준수**: Wiktionary(CC BY-SA)에서 **variant→standard '사실 쌍'만** 추출(gloss/정의문 미추출). 뜻은 전적으로 자체 사전에서 해소 → 배포물에 CC BY-SA 창작물 0. **BY 출처표기** `docs/DATA_ATTRIBUTION.md` 신설. (사용자 승인: 완화구성+BY 유지.)
+- **추출/적재**: `wiktionary-dialect-extract.mjs`(kaikki 2.6GB gz 스트림 필터, 82,669 매핑 중 방언태그) → `wiktionary-dialect-load.mjs`(pronunciation-spelling·eye-dialect·dialectal·nonstandard·colloquial·contraction·informal, alternative/archaic 66k 노이즈 제외) → `spelling_norm` source='wiktionary' **3,506**.
+- **정밀 3중 보호**: ①tier 순서(실단어 direct 우선 — of·year·free 무회귀) ②표준형 사전해소 게이트 ③노이즈 태그 제외. 검증: nuthin→아무것도·chillun→아이들·wuz→was·nevah→never·befo→before·stummick→위.
+- **효과**(200권): 토큰 해소 → **~99.80%**(spelling tier 4,515→5,455 등장). 잔여 heavy dialect 대폭 해소.
+
 ### 음성 제안모드 + 독일·스페인어 — 잔여 추가 대응
 
 - **음성 제안모드** `20260724120000`+`121000`: `lookup_word_meaning` suggestion tier(10) + `dmetaphone` 함수인덱스. not_found 직전 dmetaphone∧lev≤1(86% 정밀) → **단정 아닌 "혹시 X?"**(match_via='suggestion'). realy→really·suport→support·salery→salary. UI `SuggestionBody`("🔍 혹시 이 단어? 추정 — 문맥 확인"). **커버리지 미포함**(독해 툴팁 전용, 추출/큐레이션 무영향) → 사전 신뢰 유지. 잔여 phon_lev1 ~2,533 등장 독해 보조.
