@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 실단어 사전갭 채움 — Google baseline + Claude Code 배치 교정
+
+- **2단계 최적 방법**: 잔여 실단어(복합·고어·파생, 2+권) 437개 → ① Google en→ko baseline(무료) → ② **Claude Code 배치 교정**(전수 검수).
+- **교정 내역**: Google 오역 164건 수정(unostentatiously→겸손하게[가식적으로 반대뜻]·bestrewn→흩뿌려진·scatheless→무사한·tirewoman→시녀·stockstill→꼼짝없이) + 방언/외국어/nonce 54건 제외(ahint·asthore·bagnet·dickty) + Google 정답 216 검증.
+- **적재**: lexicon_clean lang=en **380**(ko_source=claude-corrected/verified). 잔여 −1,412 등장. 토큰 ~99.798%. `scripts/dict/gap-fill2*.mjs`.
+- **정밀**: 전수 Claude 검수라 ~98%+(이전 Google-only gap-fill 60% 롤백과 대비 — 교정으로 정밀 확보).
+
 ### 잔여 "비단어" 재규명 + 복합어 분해 시도·롤백 (정밀 우선)
 
 - **"비단어" 오라벨 교정**: 클린 Standard Ebooks인데 "비단어 48%"는 모순. 조사 결과 **대부분 실단어** — dwyl(370k) 미수록 복합어(diningroom·postoffice)·고어(meseemeth·yclept)·파생(unostentatiously)·방언·고유명사. OCR nonce 아님.
