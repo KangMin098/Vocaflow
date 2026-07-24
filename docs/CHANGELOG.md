@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 음성 제안모드 검토 + 고빈도 잔여 확정 해소 승격
+
+- **제안모드 검토**: tier10 dmetaphone+lev≤1. 정밀 무작위 ~85%(오철자·eye-dialect 정확), 고빈도 ~60%(고유명사·외국어 혼입). "혹시 X?(추정)" 프레이밍이 오답 무해화 → 설계 적정, 큰 변경 불요. lev2 확장은 금지(45%).
+- **소폭 개선(확정 승격)** `20260724170000`: 고빈도 정착방언·오철자 47종을 spelling_norm/dialect_map에 확정 추가(제안→정식 해소). probily→probably·hawss→horse·wessel→vessel·diffrunt→different·doan→do·tommorow→tomorrow. 고유명사/SF조어/외국어/약어 제외.
+- **효과**: 제안모드는 커버리지 미포함(추정)이나, 확정 승격은 **+47 lemma/1,021 등장** 실제 해소 증가. 토큰 ~99.822→99.830%.
+
 ### hapax 사전갭 확장 — Claude 서브에이전트 8병렬 교정 (2,345)
 
 - **스케일 방법**: hapax(1권) 실단어 3,372개 → Google baseline → **Claude 서브에이전트 8개 병렬 교정**(배치당 ~420). 인라인 교정(books>=2 380개)을 대량 확장.
