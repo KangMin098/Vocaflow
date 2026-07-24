@@ -33,6 +33,7 @@ Vocaflow 사전 DB는 다음 외부 데이터에서 파생·구축되었습니�
 | 소스 | 라이선스 | 사용 |
 |---|---|---|
 | **hermitdave FrequencyWords** (OpenSubtitles) | 빈도 목록(사실 데이터) | fr/it/de/es 표면형 단어 목록 |
+| **Universal Dependencies Latin** (PROIEL/ITTB/Perseus/LLCT) | 표면형(사실 데이터) | 라틴어 표면형 단어 목록 (뜻 미사용, 자체 MT) |
 | **Google Translate** (무료) | 기계번역 = 자체 생성 | 외국어 한국어 뜻 (ko_source=google-mt) |
 
 ---

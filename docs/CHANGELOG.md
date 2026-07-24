@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 라틴어 사전 — UD treebank 표면형 (마지막 clean 잔여 방안)
+
+- **동기**: 잔여 최정밀 분석에서 유일한 미착수 clean 후보 = 라틴(198+ 등장). "lemmatizer 필요" 장벽을 ① Google 굴절 표면형 직접번역(aeternitatis→영원의) ② UD treebank 실제 표면형 소스 — 두 가지로 우회.
+- **소스**: Universal Dependencies Latin(PROIEL/ITTB/Perseus/LLCT) **47,391 표면형**(실제 라틴 텍스트 굴절형, 공개데이터·표면형=사실). `scripts/dict/latin-build.mjs`.
+- **적재**: Google sl=la → `lexicon_clean` lang='la' **42,342**(영어 충돌 skip). 기존 foreign tier·🏛️ 배지 재사용, 코드/마이그레이션 0.
+- **검증**: aeternitatis→영원의·rerum→사물의·gentium→국가·virtutis→미덕의·genuit→낳았다·fratres→형제. 영어 우선(동형이의어 안전).
+- **효과**: 잔여 +295 lemma/388 등장(UD 표면형이 Whitaker stem 23%보다 우수). 토큰 해소 → **~99.81%**. 외국어 사전 총 ~186k(fr/it/de/es/la). 출처표기 DATA_ATTRIBUTION.md.
+
 ### 심층 정밀도 분석 — 하이픈 복합어 오해소 수정 (품질축)
 
 - **동기**: 커버리지(99.8%)에 이어 **해소 정밀도(false positive)** 미검증축 분석. 비핵심 tier 표본 검수.
