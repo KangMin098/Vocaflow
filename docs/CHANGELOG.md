@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 일반화 테스트 (새 200권) + Cockney h-탈락 규칙
+
+- **일반화 테스트**: 기존 200권 삭제 → **미관찰 새 200권**(Forster·Herbert·Kropotkin·Saltus 등, 1,200만 토큰) 재추출. `build-test-corpus.mts` SKIP/CLEAR 추가.
+- **결과**: 토큰 해소 **99.785%**(원래 99.80% 대비 −0.015pp) → **과적합 아님, 강한 일반화**. 세션 tier들 동일 비율 기여(외국어는 오히려 13,028등장으로 더 해소 — 다국어 사전이 미관찰 외국어 커버 실증). 근본 아키텍처(생성엔진+포괄 외부소스)가 관찰 아닌 원리 기반임을 확증.
+- **새 잔여 분석**: 구성 원래와 동일(비단어 48%·음성 lev1 19%·영어 16%·lev2 15%). 미착수 외국어(nl/pt/ru/pl) 확인 → 오탐뿐(추출 ^[a-z] 필터로 키릴/그리스 이미 제외).
+- **★ 새 방안 발견 — Cockney h-탈락** `20260724160000`: 새 코퍼스에서 ead→head·elp→help·orrible→horrible·usband→husband 체계적 패턴 발견. surface_variants에 'h'||s 규칙. 정밀(실단어 direct 우선, and·old·ear 무회귀). +60 lemma/186 등장, 생성적(미관찰 Cockney 일반화).
+
 ### 라틴어 사전 — UD treebank 표면형 (마지막 clean 잔여 방안)
 
 - **동기**: 잔여 최정밀 분석에서 유일한 미착수 clean 후보 = 라틴(198+ 등장). "lemmatizer 필요" 장벽을 ① Google 굴절 표면형 직접번역(aeternitatis→영원의) ② UD treebank 실제 표면형 소스 — 두 가지로 우회.

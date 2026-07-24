@@ -46,10 +46,12 @@ function htmlToText(html: string): string {
 
 interface Book { slug: string; title: string }
 
+const SKIP = parseInt(process.env.SKIP || '0')
 async function seList(): Promise<Book[]> {
   const seen = new Set<string>()
   const out: Book[] = []
-  for (let page = 1; page <= 40 && out.length < TARGET; page++) {
+  const want = SKIP + TARGET
+  for (let page = 1; page <= 80 && out.length < want; page++) {
     try {
       const r = await fetch(`https://standardebooks.org/ebooks/?page=${page}`, { headers: UA })
       if (!r.ok) break
@@ -59,13 +61,18 @@ async function seList(): Promise<Book[]> {
       for (const slug of links) {
         if (seen.has(slug)) continue
         seen.add(slug); out.push({ slug, title: slug.split('/').slice(-2).join(' / ') }); added++
-        if (out.length >= TARGET) break
+        if (out.length >= want) break
       }
       if (added === 0) break
     } catch { /* skip */ }
     await sleep(250)
   }
-  return out
+  return out.slice(SKIP)  // 앞 SKIP권 건너뛰기 → 새 도서
+}
+async function clearCorpus() {
+  for (const t of ['extraction_test_vocab', 'extraction_test_books']) {
+    try { await fetch(URL + '/rest/v1/' + t + '?book_gid=gt.-2147483648', { method: 'DELETE', headers: { ...Hget, Prefer: 'return=minimal' } }) } catch {}
+  }
 }
 
 async function upsertVocab(rows: any[], n = 6) { for (let i = 0; i < n; i++) { try { const r = await fetch(URL + '/rest/v1/extraction_test_vocab', { method: 'POST', headers: Hup, body: JSON.stringify(rows) }); if (r.ok) return true } catch {} await sleep(500 * (i + 1)) } return false }
@@ -75,6 +82,7 @@ async function upsertBook(row: any) { try { await fetch(URL + '/rest/v1/extracti
 function slugGid(slug: string): number { let h = 0; for (let i = 0; i < slug.length; i++) { h = (h * 31 + slug.charCodeAt(i)) | 0 } return Math.abs(h) }
 
 // ── main ──
+if (process.env.CLEAR === '1') { await clearCorpus(); console.error('기존 코퍼스 삭제됨') }
 const doneSlugs = new Set<string>()
 try { const r = await fetch(URL + '/rest/v1/extraction_test_books?select=author,title', { headers: Hget }); const d: any = await r.json(); if (Array.isArray(d)) for (const x of d) doneSlugs.add(x.author + '|' + x.title) } catch {}
 
