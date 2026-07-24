@@ -11,9 +11,9 @@ async function ins(b, n = 6) { for (let i = 0; i < n; i++) { try { const r = awa
 
 const OUTDIR = process.env.OUTDIR || 'scratchpad-foreign/anchor'
 const byVar = new Map()   // variant → Set(standard)
-for (let i = 0; i < 8; i++) {
-  const p = `${OUTDIR}/out-${i}.jsonl`
-  if (!fs.existsSync(p)) { console.error('MISSING', p); continue }
+const files = fs.readdirSync(OUTDIR).filter(f => /^out-\d+\.jsonl$/.test(f)).sort()
+for (const f of files) {
+  const p = `${OUTDIR}/${f}`
   for (const l of fs.readFileSync(p, 'utf8').split('\n')) {
     if (!l.trim()) continue; let o; try { o = JSON.parse(l) } catch { continue }
     const v = (o.variant || '').toLowerCase().trim(), s = (o.standard || '').toLowerCase().trim()
