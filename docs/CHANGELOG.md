@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### hapax 사전갭 확장 — Claude 서브에이전트 8병렬 교정 (2,345)
+
+- **스케일 방법**: hapax(1권) 실단어 3,372개 → Google baseline → **Claude 서브에이전트 8개 병렬 교정**(배치당 ~420). 인라인 교정(books>=2 380개)을 대량 확장.
+- **교정 품질**: 각 서브에이전트가 전수 검수 — 부정접두 뒤집기(unwintry→겨울답지 않은·unabased→기죽지 않은), 동음이의(windingsheet→수의·floodtide→밀물·cloudbank→구름 둑), 음역 복원(reddleman→붉은염료 행상인·tulwar→인도 곡도), 복합어(woodswallow→숲제비·witchhazel→풍년화). 방언/외국어/nonce ~1,027 제외.
+- **적재**: lexicon_clean lang=en **2,345**(ko_source=claude-batch). 누적 실단어갭 2,725(+이전 380). `scripts/dict/gap-fill3.mjs`·`gap3-load.mjs`.
+- **효과**: 잔여 −4,465 등장, 토큰 99.786→**~99.822%**. 정밀 ~97%(전수 Claude 교정).
+
 ### 실단어 사전갭 채움 — Google baseline + Claude Code 배치 교정
 
 - **2단계 최적 방법**: 잔여 실단어(복합·고어·파생, 2+권) 437개 → ① Google en→ko baseline(무료) → ② **Claude Code 배치 교정**(전수 검수).
