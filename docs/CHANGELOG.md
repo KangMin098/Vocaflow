@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 잔여 "비단어" 재규명 + 복합어 분해 시도·롤백 (정밀 우선)
+
+- **"비단어" 오라벨 교정**: 클린 Standard Ebooks인데 "비단어 48%"는 모순. 조사 결과 **대부분 실단어** — dwyl(370k) 미수록 복합어(diningroom·postoffice)·고어(meseemeth·yclept)·파생(unostentatiously)·방언·고유명사. OCR nonce 아님.
+- **복합어 분해 시도**: 비하이픈 복합어 head 해소(diningroom→room). 정밀 2중 게이트(기능어/접미사 head 제외 + 단일단어 음성근접=오철자 제외 → contrack→contract는 suggestion으로). 정밀 40%→~75%.
+- **롤백**: 여전히 부분뜻 단정 + 25% 오분해(cartonnage→tonnage·pigling→ling·bargun→gun). **정밀 바 미달**(gap-fill 60%·하이픈 정밀수정과 동일 기준) → 복합어 tier 롤백. "틀린 뜻 단정 > not_found" 원칙.
+- **성과 유지**: ① 비단어=실단어 규명(향후 방향) ② 오철자→suggestion 리다이렉트 확인 ③ Cockney h-탈락 규칙(아래, clean).
+
 ### 일반화 테스트 (새 200권) + Cockney h-탈락 규칙
 
 - **일반화 테스트**: 기존 200권 삭제 → **미관찰 새 200권**(Forster·Herbert·Kropotkin·Saltus 등, 1,200만 토큰) 재추출. `build-test-corpus.mts` SKIP/CLEAR 추가.
