@@ -18,8 +18,9 @@
 - **Method B(방언/오철자 확정 — 주 레버)**: dmetaphone 앵커 후보를 **Claude 서브에이전트 8병렬**로 확정/교정(naive 앵커 ~55% 오답을 독립 판단: prau→pray✗ 배·collige→college✓·strate→straight✓·tundher→thunder·cawfy→coffee·dreffle→dreadful). 정밀 우선(모호·고유명사·외국어·함수어 reject).
   - lev1(4,468 등장) → 확정 815 lemma/1,730 등장
   - lev2(4,012 등장) → 확정 654 lemma/1,208 등장 (8병렬 2차)
-  - 합계 **1,469 lemma/2,938 등장** → `spelling_norm(curated-dialect)`. `scripts/dict/anchor-export.mjs`(TABLE/OUTDIR env)·`anchor-load.mjs`.
-- **효과**: 잔여 20,145→**16,721 등장**, 토큰 99.832→**99.861%**. 남은 앵커없음 잔여(가공세계 고유명사·nonce·외국어)는 환원불가 확정 — 제안모드+not_found가 정답.
+  - **앵커없음 다중책+고빈도 hapax(3,411 등장) → 오픈형 문맥 패스**: dmetaphone이 못 잡은 방언(chilluns→child·laigs→leg·diffrunts→different·tomorrer→tomorrow·figgered→figure) + 복합어(indiarubber→rubber) — first_sentence 문맥 제공, Claude 6병렬. 확정 198 lemma/991 등장. `scripts/dict/ctx-export.mjs`
+  - 합계 **1,679 lemma/3,929 등장** → `spelling_norm(curated-dialect)`. `scripts/dict/anchor-export.mjs`(TABLE/OUTDIR env)·`anchor-load.mjs`.
+- **효과**: 잔여 20,145→**15,730 등장**, 토큰 99.832→**99.869%**. 남은 앵커없음 hapax(가공세계 고유명사·nonce·외국어 인라인)는 환원불가 확정 — 제안모드+not_found가 정답.
 
 ### 음성 제안모드 검토 + 고빈도 잔여 확정 해소 승격
 
