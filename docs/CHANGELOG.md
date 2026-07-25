@@ -17,6 +17,7 @@
 - **적재**: en gloss 4,376(lexicon_clean wikt-claude, Google/Webster draft 교정) + foreign 700(la 중심 문맥검증) + 방언 1,782(spelling_norm). 총 6,858 신규 해소.
 - **효과**: 새 코퍼스 잔여 27,211→**15,238 등장**, 토큰 99.846→**99.914%** — 튜닝 코퍼스(99.922%)에 근접 → **캐스케이드 방법이 임의 미관찰 도서를 ~99.91%로 수렴시킴을 실증**. thews→근육·anodynic→통증완화·pleeceman→policeman·gilikopter→helicopter 정확 해소, magter·klangan(SF조어) not_found 유지.
 - 파이프라인 스크립트: `fresh-residual-build.mjs`(REST RPC 전수 판정)·`fresh-dump-resid.mjs`·`fresh-classify.mjs`·`fresh-google.mjs`·`fresh-route.mjs`.
+- **Stage ⑤ recovery pass**: "환원불가"로 거부된 8,953을 재검토 — (a) 외국어 오분류된 영어 방언 정규화(orses→horse·worl→world), (b) 정규화 불가하나 **직접 글로싱 가능한 실단어**(진짜 방언·고어·확실한 외국어 차용어) 판정. Claude 14병렬 → norm 1,165 + gloss 864 = **2,029 회수**(~19%). muckle→많은/큰(스코틀랜드)·horosho→좋아(러시아어)·bandarillas→반데리야(스페인어)·eftesoones→곧이어(고어)·wazeer→vizier. 새 코퍼스 잔여 15,238→**11,526 등장**, 토큰 99.914→**99.935%**(튜닝 코퍼스 초과). `fresh-recover-load.mjs`. 남은 11,526은 SF조어·가공 고유명사·Joyce 조어·순수 nonce = 진짜 바닥.
 
 ### Wiktionary 멤버십 판별기 + 실영어 gap-fill (잔여 −3,149 등장)
 
