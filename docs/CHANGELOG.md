@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 새 200권 일반화 테스트 + 4단계 캐스케이드 (방법 일반화 실증)
+
+- **일반화 테스트**: 튜닝 코퍼스(books 201–400)와 **0 겹침**인 새 200권(books 401–600, 17.7M 토큰) 추출. 플랫폼(사전DB+로직)만으로 **99.846%** — 오버핏 아닌 강건한 일반화 확인. 격차(vs 99.922%)의 정체 = rare word 데이터 전이 한계(thews·anodynic류 저 코퍼스에 없던 단어).
+- **4단계 캐스케이드**(사용자 지정 프로세스): ① 플랫폼(실 RPC 전수) → ② 외부소스(Wiktionary 멤버십 분류: en 4,420·foreign 2,318·absent 8,997) → ③ Google(무료: en=Webster PD 정의문 번역 2,965 draft·foreign=올바른 소스언어 직역) → ④ Claude 28병렬(정밀 교정·검증·정규화).
+- **적재**: en gloss 4,376(lexicon_clean wikt-claude, Google/Webster draft 교정) + foreign 700(la 중심 문맥검증) + 방언 1,782(spelling_norm). 총 6,858 신규 해소.
+- **효과**: 새 코퍼스 잔여 27,211→**15,238 등장**, 토큰 99.846→**99.914%** — 튜닝 코퍼스(99.922%)에 근접 → **캐스케이드 방법이 임의 미관찰 도서를 ~99.91%로 수렴시킴을 실증**. thews→근육·anodynic→통증완화·pleeceman→policeman·gilikopter→helicopter 정확 해소, magter·klangan(SF조어) not_found 유지.
+- 파이프라인 스크립트: `fresh-residual-build.mjs`(REST RPC 전수 판정)·`fresh-dump-resid.mjs`·`fresh-classify.mjs`·`fresh-google.mjs`·`fresh-route.mjs`.
+
 ### Wiktionary 멤버십 판별기 + 실영어 gap-fill (잔여 −3,149 등장)
 
 - **"Google보다 큰 어휘" 시스템 = Wiktionary(kaikki)**: 영어 ~1.3M 표제어 + 1000+ 언어. 잔여 9,659 전량을 en.wiktionary API(50-title 배치)로 분류 — **English 1,542 / 외국어 1,410(Latin 290·Italian·French…) / 부재 5,581**.
