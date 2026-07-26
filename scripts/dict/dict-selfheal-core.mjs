@@ -41,6 +41,7 @@ function cleanGloss(def) {
   s = s.replace(/\{\{[^}]*\}\}/g, '')
   s = s.replace(/\[\[[^\]|]*\|([^\]]*)\]\]/g, '$1').replace(/\[\[([^\]]*)\]\]/g, '$1')
   s = s.replace(/'''?/g, '').replace(/<[^>]+>/g, '')
+  s = s.split('#')[0]                                   // 추가 sense(# 리스트) 잔여 컷 — 첫 뜻만
   s = s.replace(/\s+/g, ' ').replace(/\(\s*\)/g, '').trim()
   return s || null
 }
@@ -70,7 +71,7 @@ export async function resolveGloss(title, depth = 0) {
   return { status: 'ok', en: g, dialect: DIALECT_TAG.test(g) }
 }
 // KO 글로스 품질: 한글 포함 + 괄호밖 본문에 미번역 라틴어(≥5) 없음 (meseemeth→meseens 류 차단)
-export const koQualityOk = ko => { const body = (ko || '').replace(/\([^)]*\)/g, ''); return /[가-힣]/.test(ko) && !/[a-zA-Z]{5,}/.test(body) }
+export const koQualityOk = ko => { const body = (ko || '').replace(/\([^)]*\)/g, ''); return /[가-힣]/.test(ko) && !/[a-zA-Z]{5,}/.test(body) && !/[#{}|]|명사,|동사,/.test(ko) }
 export async function translateKo(en) {
   const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ko&dt=t&q=' + encodeURIComponent(en)
   for (let a = 0; a < 3; a++) {
