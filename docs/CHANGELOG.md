@@ -15,7 +15,8 @@
 - **잔여 정밀 재분류**(162권, 3,092 lemma): OCR 아님(SE 손교정) 재확인 — ① 작가 의도 비표준(방언·조어·후렴) + ② 추출 파편(하이픈/아포스트로피 분해) + ③ 진짜 희귀·전문어. Wiktionary 전수조회로 en 712/foreign 422/부재 1,958 실측.
 - **카테고리 2-Ⓑ 아포스트로피 생략 필터 (근본, 채택)**: winkNLP가 방언 생략 아포스트로피(`foun'`·`hadn'`·`doin'`·`wukkin'`)를 별도 punctuation 으로 떼어내 어간만 남기던 것을, **word 토큰 뒤 홑 아포스트로피 glued + 비-s어미** 판정으로 제외. `extract-lemmas.ts` + 3 빌더 동기화. 소유격(`cat's`=PART·`dogs'`=s어미)·`o'clock`·복합어(`self-control`→control) **전부 안전**(실단어 손실 0). 잔여 −262 occ.
 - **카테고리 2-Ⓐ 하이픈 분해 (기각·pivot)**: 실측상 `self-control`→control·`flat-footedly`→footedly 등 실단어가 하이픈에 glued 되어 인접성만으로 안전 제거 불가 + PROPN 태그 불신(`Ten-teh`=NUM). 사전 없이는 근본 수정 불가 → not_found 무해 잔존으로 유지(사전 오염 0).
-- **카테고리 3 근본안 검토**: 3M(형태소 근접실패 neighings·seaboots) → 다중홉+파생접사+가드 복합어 분해(SQL, 승인 대기). 3R(진짜 희귀어) → 벌크/수동반복 기각, **온디맨드 자기치유**(ingest 시 Wiktionary 게이트 캐시)로 pivot.
+- **카테고리 3M 형태소 (기각)**: 복합어 자동분해 정밀도 부정 실측 — `cameleopard→came+leopard`(실제 기린), `flaysome→flay+some`, `granfarther→gran+farther` 등 **희귀어에 틀린 뜻** 부여. 수율도 미미(2홉 124·접두사 209·복합어 313 occ). → 위험 형태소 폐기, 진짜 희귀어는 3R로 흡수.
+- **카테고리 3R-Ⓒ 자기치유 게이트 (빌드+시연)**: `dict-selfheal-gate.mjs` — 잔여 not_found(occ≥3 OR 다중책) → Wiktionary 영어섹션+register 게이트(eye-dialect/misspelling 거부, plural/alt-form 리다이렉트 추적) → Google 번역 KO. **379 후보 → 57 정확 해소/319 occ, 오역 0** (coinage/외국어 312 영어섹션 부재로 정확 거부). 순수 전문·희귀어 48(pedicellariae·kinematograph·seignorage·sestertii·foretopmast 등) + 방언 7 + 빈글로스 2(정제 필요). **DB 미적재**(검수용 후보 JSONL). LLM 뜻 생성 0(Wiktionary 정의→Google). 남은 정제: 빈글로스(cameleopard "See" prose 추적)·방언 정책.
 
 ### 큐레이션 "소스 GET" 목록 일반화 테스트 (시드 카탈로그 미테스트 162권)
 
