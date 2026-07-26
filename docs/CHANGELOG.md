@@ -16,7 +16,12 @@
 - **카테고리 2-Ⓑ 아포스트로피 생략 필터 (근본, 채택)**: winkNLP가 방언 생략 아포스트로피(`foun'`·`hadn'`·`doin'`·`wukkin'`)를 별도 punctuation 으로 떼어내 어간만 남기던 것을, **word 토큰 뒤 홑 아포스트로피 glued + 비-s어미** 판정으로 제외. `extract-lemmas.ts` + 3 빌더 동기화. 소유격(`cat's`=PART·`dogs'`=s어미)·`o'clock`·복합어(`self-control`→control) **전부 안전**(실단어 손실 0). 잔여 −262 occ.
 - **카테고리 2-Ⓐ 하이픈 분해 (기각·pivot)**: 실측상 `self-control`→control·`flat-footedly`→footedly 등 실단어가 하이픈에 glued 되어 인접성만으로 안전 제거 불가 + PROPN 태그 불신(`Ten-teh`=NUM). 사전 없이는 근본 수정 불가 → not_found 무해 잔존으로 유지(사전 오염 0).
 - **카테고리 3M 형태소 (기각)**: 복합어 자동분해 정밀도 부정 실측 — `cameleopard→came+leopard`(실제 기린), `flaysome→flay+some`, `granfarther→gran+farther` 등 **희귀어에 틀린 뜻** 부여. 수율도 미미(2홉 124·접두사 209·복합어 313 occ). → 위험 형태소 폐기, 진짜 희귀어는 3R로 흡수.
-- **카테고리 3R-Ⓒ 자기치유 게이트 (빌드+시연)**: `dict-selfheal-gate.mjs` — 잔여 not_found(occ≥3 OR 다중책) → Wiktionary 영어섹션+register 게이트(eye-dialect/misspelling 거부, plural/alt-form 리다이렉트 추적) → Google 번역 KO. **379 후보 → 57 정확 해소/319 occ, 오역 0** (coinage/외국어 312 영어섹션 부재로 정확 거부). 순수 전문·희귀어 48(pedicellariae·kinematograph·seignorage·sestertii·foretopmast 등) + 방언 7 + 빈글로스 2(정제 필요). **DB 미적재**(검수용 후보 JSONL). LLM 뜻 생성 0(Wiktionary 정의→Google). 남은 정제: 빈글로스(cameleopard "See" prose 추적)·방언 정책.
+- **카테고리 3R-Ⓒ 자기치유 (게이트+적재+자동배선 완료)**: LLM 뜻 생성 0 — Wiktionary 정의→Google 번역만.
+  - **코어** `dict-selfheal-core.mjs`: Wiktionary 영어섹션+register 게이트(eye-dialect/misspelling 거부, plural/alt-form/"See X" 리다이렉트 2단 추적, `nocat` 등 템플릿 잔여 정리) + Google 번역 + `koQualityOk`(본문 미번역 라틴어 차단). gate/drain 공유.
+  - **② 게이트 정제** `dict-selfheal-gate.mjs`: 잔여 379 후보 → **55 통과(순수 50/243 occ + 방언 5), 오역 0** (coinage/외국어 312 영어섹션 부재로 정확 거부). 빈글로스 "See" prose 추적으로 tuckshop/sansculottism 회수.
+  - **① 적재** `dict-selfheal-load.mjs`: 순수 50 → `lexicon_clean`(ko_source=`wikt-selfheal`) 적재. RPC 검증: pedicellariae·foretopmast·kinematograph·seignorage·avicularium·tuckshop 전부 `coverage-clean` 티어 해소 확인(루프 폐합).
+  - **③ 자동 배선** `dict-selfheal-drain.mjs`: LCP ingest 가 미해소어를 쌓는 `archaic_candidates`(collect_archaic_candidates)를 소스로 게이트→`lexicon_clean` 자동 적재(멱등, 배치 캡, 기존적재 제외). **핫패스 밖 드레인**이라 외부 조회가 ingest 를 안 막음. 스모크: 984 임계통과→876 기존제외→4 신규 적재. 크론/Claude Code 드레인으로 주기 실행 → 사전 자가성장(반복 수작업 제거).
+  - 형태소 자동분해(3M)는 `cameleopard→came+leopard`(기린) 등 정밀도 부정으로 기각 — 진짜 희귀어의 정확한 뜻은 외부 소스(3R)에 있음.
 
 ### 큐레이션 "소스 GET" 목록 일반화 테스트 (시드 카탈로그 미테스트 162권)
 

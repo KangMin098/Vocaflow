@@ -84,6 +84,8 @@ queued
 
 **lemma self-heal 게이트 (v06.35)** — best-effort backfill 이 누락/실패하는 경로(수동 재분절 `reprocess-book.mjs` 등)를 대비해, **추출 시점에도 자동 backfill**. `extract_book_vocabulary_admin(p_book_id, p_percentile)` 시작부에 `PERFORM backfill_book_lemmas(p_book_id)` (멱등 · `lemma IS NULL` 행만) — migration `20260613022941_extract_admin_self_heal_lemmas`. 어떤 ingest 경로로 lemma 가 비었든 추출하는 순간 복구되고, 신규 등재 사전 단어도 다음 추출에서 즉시 바인딩. (계기: Les Misérables 364장이 수동 재분절로 0 bound → 추출 굴절형 누락·coverage NULL·진단 부풀림. backfill 로 0→11,808(88.4%) 복구.) 주의: 추출 SSoT `select_book_chapter_vocab` 는 `COALESCE(bv.lemma, bv.word)` 이므로 base 형은 lemma NULL 이어도 추출됨 — NULL 의 실손실은 **굴절형** + 진단·coverage.
 
+**dictionary self-heal 드레인 (v06.35, 외부 소스·LLM 0)** — ingest 가 `collect_archaic_candidates` 로 쌓는 미해소어(`archaic_candidates`) 중 진짜 희귀·전문 실단어를 **Wiktionary 게이트**로 정확 해소해 `lexicon_clean`(ko_source=`wikt-selfheal`) 자동 적재 → 다음 `lookup_word_meaning` 부터 coverage-clean 티어 해소(사전 자가성장). 스크립트: `dict-selfheal-core.mjs`(게이트: 영어섹션+register 판정·plural/alt-form/"See X" 리다이렉트 추적·`koQualityOk`) + `dict-selfheal-drain.mjs`(archaic_candidates→적재, 멱등·배치 캡·기존제외). 뜻 = Wiktionary 정의문 → Google 번역(LLM 생성 0). **핫패스(ingest 요청) 밖 드레인**이라 외부 조회 지연이 ingest 를 안 막음 — 크론/Claude Code 드레인 주기 실행. 게이트 정밀도: coinage/외국어/눈방언은 영어섹션 부재/register 태그로 자동 거부(시연 379후보→55통과, 오역 0). cf. 반례로 형태소 자동분해는 `cameleopard→came+leopard`(기린) 오뜻 부여로 기각.
+
 #### 7. Auto Curate
 - `auto_curate_book(p_book_id)` RETURNS text — 3분기 게이트:
 
