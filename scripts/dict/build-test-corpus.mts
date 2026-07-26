@@ -20,7 +20,9 @@ const MAX_CHARS = 900_000
 // ── 프로덕션 추출 필터 복제 (packages/library-pipeline/src/analyze/extract-lemmas.ts) ──
 const TOKEN_BLOCKLIST = new Set(['mr', 'mrs', 'ms', 'dr', 'sir', 'madam', 'lord', 'lady', "'s", "'t", "'ll", "'re", "'ve", "'d", "'m", 'll', 're', 've',
   // 약어 — 프로덕션 extract-lemmas.ts 와 동기화 (학습 단어 아님)
-  'acct', 'dept', 'depts', 'yrs', 'wks', 'wk', 'cts', 'rms', 'mgr', 'mdse', 'recd', 'shipt', 'yd', 'yds', 'yr', 'hr', 'hrs', 'mos', 'pts', 'doz', 'rm'])
+  'acct', 'dept', 'depts', 'yrs', 'wks', 'wk', 'cts', 'rms', 'mgr', 'mdse', 'recd', 'shipt', 'yd', 'yds', 'yr', 'hr', 'hrs', 'mos', 'pts', 'doz', 'rm',
+  // 하이픈 중첩복합어 파편 (bric-a-brac→brac 등)
+  'brac', 'shilly', 'shally', 'scarum', 'harum', 'toity', 'hoity', 'tighty', 'jongg', 'jeebies', 'heebie', 'hotsy', 'totsy', 'turvydom', 'willy', 'nilly', 'namby', 'pamby', 'wishy', 'washy', 'higgledy', 'piggledy', 'razzle', 'fuddy', 'duddy', 'teeny', 'weeny', 'itsy', 'bitsy', 'hocus', 'pocus', 'mumbo', 'lutely', 'cisely', 'derful', 'ishness', 'iddity'])
 function isValidLearningWord(raw: string): boolean {
   const lemma = raw.toLowerCase().trim()
   if (!lemma || lemma.length < 2 || lemma.length > 30) return false

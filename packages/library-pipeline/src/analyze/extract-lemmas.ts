@@ -39,6 +39,13 @@ const TOKEN_BLOCKLIST = new Set<string>([
   // 약어 (학습 단어 아님 — 200권 평가 잔여, mr/mrs 와 동류)
   'acct', 'dept', 'depts', 'yrs', 'wks', 'wk', 'cts', 'rms', 'mgr', 'mdse', 'recd', 'shipt',
   'yd', 'yds', 'yr', 'hr', 'hrs', 'mos', 'pts', 'doz', 'rm',
+  // 하이픈 중첩복합어 파편 — winkNLP 가 하이픈 분해 시 비단어 조각 발생 (bric-a-brac→brac 등, 다중책 재발)
+  'brac', 'shilly', 'shally', 'scarum', 'harum', 'toity', 'hoity', 'tighty', 'jongg',
+  'jeebies', 'heebie', 'hotsy', 'totsy', 'turvydom', 'willy', 'nilly', 'namby', 'pamby',
+  'wishy', 'washy', 'higgledy', 'piggledy', 'razzle', 'fuddy', 'duddy', 'teeny', 'weeny',
+  'itsy', 'bitsy', 'hocus', 'pocus', 'mumbo',
+  // infixation/말더듬/줄바꿈 하이픈 단어 꼬리 파편 (abso-blooming-lutely→lutely 등)
+  'lutely', 'cisely', 'derful', 'ishness', 'iddity',
 ])
 
 /**
