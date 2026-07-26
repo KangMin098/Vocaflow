@@ -3,6 +3,7 @@
 // WLP processText를 chapter 단위 호출 + 결과 통합
 
 import { processText } from '@vocaflow/wlp'
+import type { WlpToken } from '@vocaflow/wlp'
 import type { ChapterSegment } from '../types'
 
 export interface LemmaOccurrence {
@@ -76,6 +77,22 @@ function isValidLearningWord(raw: string): boolean {
   return true
 }
 
+// Phase 14.8 — 아포스트로피 생략 방언 파편 필터 (근본 규칙, 열거 blocklist 대체)
+//   작가가 방언 생략을 아포스트로피로 표기 (foun'=found · hadn'=hadn't · doin'=doing ·
+//   wukkin'=working) → winkNLP 가 아포스트로피를 별도 punctuation 으로 떼어내 어간만 남김.
+//   판정: word 토큰 바로 뒤(공백 없이)에 홑 아포스트로피 punctuation 이 붙고,
+//         표면형이 's' 로 끝나지 않을 때 = 방언 생략 (학습 단어 아님).
+//   안전: 소유격은 winkNLP 가 's/'t 를 PART 로 결합해 홑 아포스트로피가 아님 (cat's).
+//         복수 소유격(dogs')·(ladies')은 's' 로 끝나 제외. → 실단어 손실 0.
+const APOSTROPHES = new Set(["'", '’', 'ʼ'])
+function isApostropheElision(token: WlpToken, next: WlpToken | undefined): boolean {
+  if (!next || !next.isPunctuation) return false
+  if (!APOSTROPHES.has(next.surface)) return false
+  if (token.charEnd !== next.charStart) return false // 공백 없이 붙음 (glued)
+  if (/s$/i.test(token.surface)) return false // 복수 소유격 가드 (dogs' · ladies')
+  return true
+}
+
 /**
  * 책 전체 chapter의 lemma 추출 + 통합.
  *
@@ -96,7 +113,9 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
     >()
 
     for (const sentence of result.sentences) {
-      for (const token of sentence.tokens) {
+      const toks = sentence.tokens
+      for (let ti = 0; ti < toks.length; ti++) {
+        const token = toks[ti]
         // stopword/punct는 통계에서 제외 (WLP 기본 옵션과 동일 정책)
         if (token.isStopWord || token.isPunctuation) continue
         // R3 (CLAUDE.md v06.29) — 고유명사 (PROPN) 차단
@@ -105,6 +124,8 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         if (token.pos === 'PROPN') continue
         // Phase 14.7.1 노이즈 필터 (숫자/약어/외래기호/호칭/contraction)
         if (!isValidLearningWord(token.lemma)) continue
+        // Phase 14.8 — 아포스트로피 생략 방언 파편 (foun'·hadn'·doin'·wukkin')
+        if (isApostropheElision(token, toks[ti + 1])) continue
 
         const mapped = POS_MAP[token.pos] ?? null
         const existing = chapterCounts.get(token.lemma)

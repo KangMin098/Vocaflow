@@ -33,6 +33,15 @@ function isValidLearningWord(raw: string): boolean {
   if (TOKEN_BLOCKLIST.has(lemma)) return false
   return true
 }
+// Phase 14.8 — 아포스트로피 생략 방언 파편 · extract-lemmas.ts 와 동기화
+const APOSTROPHES = new Set(["'", '’', 'ʼ'])
+function isApostropheElision(tk: any, next: any): boolean {
+  if (!next || !next.isPunctuation) return false
+  if (!APOSTROPHES.has(next.surface)) return false
+  if (tk.charEnd !== next.charStart) return false
+  if (/s$/i.test(tk.surface)) return false
+  return true
+}
 
 function htmlToText(html: string): string {
   let s = html.replace(/<head[\s\S]*?<\/head>/i, '')
@@ -113,10 +122,13 @@ for (const b of books) {
     for (const ch of chunks) {
       const r = processText(ch)
       for (const sent of r.sentences) {
-        for (const tk of sent.tokens) {
+        const toks = sent.tokens
+        for (let ti = 0; ti < toks.length; ti++) {
+          const tk = toks[ti]
           if (tk.isStopWord || tk.isPunctuation) continue
           if (tk.pos === 'PROPN') continue
           if (!isValidLearningWord(tk.lemma)) continue
+          if (isApostropheElision(tk, toks[ti + 1])) continue
           const e = agg.get(tk.lemma)
           if (e) e.freq++
           else agg.set(tk.lemma, { freq: 1, fs: (r.sentences[tk.sentenceIndex]?.text || '').trim().slice(0, 300) })

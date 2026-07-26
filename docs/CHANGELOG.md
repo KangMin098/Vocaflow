@@ -10,6 +10,13 @@
 
 ## Unreleased (v06.34 → next)
 
+### 잔여 근본분해 + 아포스트로피 생략 추출 필터 (카테고리 2·3)
+
+- **잔여 정밀 재분류**(162권, 3,092 lemma): OCR 아님(SE 손교정) 재확인 — ① 작가 의도 비표준(방언·조어·후렴) + ② 추출 파편(하이픈/아포스트로피 분해) + ③ 진짜 희귀·전문어. Wiktionary 전수조회로 en 712/foreign 422/부재 1,958 실측.
+- **카테고리 2-Ⓑ 아포스트로피 생략 필터 (근본, 채택)**: winkNLP가 방언 생략 아포스트로피(`foun'`·`hadn'`·`doin'`·`wukkin'`)를 별도 punctuation 으로 떼어내 어간만 남기던 것을, **word 토큰 뒤 홑 아포스트로피 glued + 비-s어미** 판정으로 제외. `extract-lemmas.ts` + 3 빌더 동기화. 소유격(`cat's`=PART·`dogs'`=s어미)·`o'clock`·복합어(`self-control`→control) **전부 안전**(실단어 손실 0). 잔여 −262 occ.
+- **카테고리 2-Ⓐ 하이픈 분해 (기각·pivot)**: 실측상 `self-control`→control·`flat-footedly`→footedly 등 실단어가 하이픈에 glued 되어 인접성만으로 안전 제거 불가 + PROPN 태그 불신(`Ten-teh`=NUM). 사전 없이는 근본 수정 불가 → not_found 무해 잔존으로 유지(사전 오염 0).
+- **카테고리 3 근본안 검토**: 3M(형태소 근접실패 neighings·seaboots) → 다중홉+파생접사+가드 복합어 분해(SQL, 승인 대기). 3R(진짜 희귀어) → 벌크/수동반복 기각, **온디맨드 자기치유**(ingest 시 Wiktionary 게이트 캐시)로 pivot.
+
 ### 큐레이션 "소스 GET" 목록 일반화 테스트 (시드 카탈로그 미테스트 162권)
 
 - **소스 전환**: Standard Ebooks 실 카탈로그 최신 774권 4라운드 전량 소진(SKIP=800→0권) 확인. 이후 큐레이션 "소스 GET(대량)" 목록 `library_seed_catalog`(ingest 전 소스 후보)로 테스트 지속 — SE 항목 **1,450권**(내 최신-리스팅 크롤 774와 **겹침 0** = 더 오래된 스냅샷). crawl774 ∪ prev110 제외 → **미테스트 SE 748권 풀** 확보.
