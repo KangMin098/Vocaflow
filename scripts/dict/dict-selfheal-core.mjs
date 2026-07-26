@@ -71,7 +71,7 @@ export async function resolveGloss(title, depth = 0) {
   return { status: 'ok', en: g, dialect: DIALECT_TAG.test(g) }
 }
 // KO 글로스 품질: 한글 포함 + 괄호밖 본문에 미번역 라틴어(≥5) 없음 (meseemeth→meseens 류 차단)
-export const koQualityOk = ko => { const body = (ko || '').replace(/\([^)]*\)/g, ''); return /[가-힣]/.test(ko) && !/[a-zA-Z]{5,}/.test(body) && !/[#{}|]|명사,|동사,/.test(ko) }
+export const koQualityOk = ko => { const body = (ko || '').replace(/\([^)]*\)/g, ''); const coreLen = body.replace(/[.\s:;,·]/g, '').length; return /[가-힣]/.test(ko) && coreLen >= 2 && !/[a-zA-Z]{5,}/.test(body) && !/[#{}|]|명사,|동사,/.test(ko) }
 export async function translateKo(en) {
   const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ko&dt=t&q=' + encodeURIComponent(en)
   for (let a = 0; a < 3; a++) {
