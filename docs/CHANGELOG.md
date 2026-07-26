@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 큐레이션 "소스 GET" 목록 일반화 테스트 (시드 카탈로그 미테스트 162권)
+
+- **소스 전환**: Standard Ebooks 실 카탈로그 최신 774권 4라운드 전량 소진(SKIP=800→0권) 확인. 이후 큐레이션 "소스 GET(대량)" 목록 `library_seed_catalog`(ingest 전 소스 후보)로 테스트 지속 — SE 항목 **1,450권**(내 최신-리스팅 크롤 774와 **겹침 0** = 더 오래된 스냅샷). crawl774 ∪ prev110 제외 → **미테스트 SE 748권 풀** 확보.
+- **신규 코퍼스**: 시드 카탈로그 미테스트 SE **162권** 빌드(230 후보 중 SE single-page 부재 68 실패) — 48,019 distinct lemma · **4,954,841 등장**. 프로덕션 동일 winkNLP 추출(`build-test-corpus-seedlist.mts`).
+- **플랫폼 베이스라인(캐스케이드 前) = 99.863%** 등장가중 해소 — 401–600(99.846%)·601–800(99.916%) 범위 재현 → **완전 미학습·다른 스냅샷 도서에서도 방법 일반화 확인**. 경로: direct 96.63% + inflection 1.58% + coverage-clean 1.27% + derivation/spelling/normalized/dialect/suggestion 등.
+- **잔여 3,092 lemma / 6,789 등장(0.137%)** — 79.7%(5,410 occ) 단일책 idiosyncratic. 유형: SF/판타지 조어(Burroughs Barsoom/Pellucidar: jeddak·therns·banths·kaldane·zitidar·padwar) + 네덜란드어 인라인(jongejuffrouw·mejuffrouw·molens) + eye-dialect(cunjuh←conjure·sezee←says he·wukkin·ernudder — Douglass/Remus) + OCR 파편(teh·hadn·foun) + 소수 실단어(pedicellariae 해부학·finneskoe 순록가죽신). = 사전 환원불가(조어·외래·방언) 성격 전 라운드와 동일.
+- **부수 정리**: eval `extraction_test_vocab` 에 이전 라운드 823권 vocab 누적(빌더 REST-DELETE 대용량 부분실패)이 발견돼 고아 제거 → 162권/800,239행 정합. 임시테이블·스크래치 전량 정리.
+
 ### 근본 방안 심층 검토 + 추출 파편 수정 (books 601–800)
 
 - **일반화 재확인**: books 601–800(0 겹침) 플랫폼 베이스라인 **99.916%** — 401–600(99.846%)보다 높음. 누적 사전(실영어 6,700+·방언 3,128+·recovery)이 **미관찰 코퍼스에 강하게 일반화**(방법은 일반화, 데이터는 per-corpus) 실증.
