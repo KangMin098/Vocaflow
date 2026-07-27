@@ -72,11 +72,36 @@ export async function resolveGloss(title, depth = 0) {
 }
 // KO 글로스 품질: 한글 포함 + 괄호밖 본문에 미번역 라틴어(≥5) 없음 (meseemeth→meseens 류 차단)
 export const koQualityOk = ko => { const body = (ko || '').replace(/\([^)]*\)/g, ''); const coreLen = body.replace(/[.\s:;,·]/g, '').length; return /[가-힣]/.test(ko) && coreLen >= 2 && !/[a-zA-Z]{5,}/.test(body) && !/[#{}|]|명사,|동사,/.test(ko) }
-export async function translateKo(en) {
+// 번역기 스위치 — TRANSLATOR=google(기본) | mymemory. 정의문 번역은 두 엔진 호각(실측),
+// MyMemory 는 무키 대체(단일 벤더 의존 제거). MM_EMAIL 로 한도 상향(익명 1k→이메일 50k words/day).
+const TRANSLATOR = process.env.TRANSLATOR || 'google'
+const MM_EMAIL = process.env.MM_EMAIL || ''
+async function translateGoogle(en) {
   const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ko&dt=t&q=' + encodeURIComponent(en)
   for (let a = 0; a < 3; a++) {
     try { const r = await fetch(url, { headers: UA }); if (r.ok) { const j = await r.json(); return (j[0] || []).map(x => x[0]).join('').trim() } } catch {}
     await sleep(400 * (a + 1))
   }
   return null
+}
+async function translateMyMemory(en) {
+  const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(en) + '&langpair=en|ko' + (MM_EMAIL ? '&de=' + encodeURIComponent(MM_EMAIL) : '')
+  for (let a = 0; a < 3; a++) {
+    try {
+      const r = await fetch(url, { headers: UA })
+      if (r.ok) { const j = await r.json(); const t = (j?.responseData?.translatedText || '').trim(); if (t && !/MYMEMORY WARNING|QUOTA/i.test(t)) return t; if (/QUOTA/i.test(t)) { console.error('MyMemory 한도소진'); return null } }
+    } catch {}
+    await sleep(500 * (a + 1))
+  }
+  return null
+}
+// primary(TRANSLATOR) 우선, 결과가 품질미달이면 타엔진 폴백 → 단일 벤더 의존/일시장애 완화.
+export async function translateKo(en) {
+  const primary = TRANSLATOR === 'mymemory' ? translateMyMemory : translateGoogle
+  const fallback = TRANSLATOR === 'mymemory' ? translateGoogle : translateMyMemory
+  const a = await primary(en)
+  if (a && koQualityOk(a)) return a
+  const b = await fallback(en)
+  if (b && koQualityOk(b)) return b
+  return a || b // 둘 다 미달이면 primary(있으면) 반환 — 상위 koQualityOk 가 최종 판정
 }
