@@ -62,6 +62,26 @@ Return STRICT JSON only:
 async function main() {
   const scriptPath = arg("script"), imagesDir = arg("images");
   if (!scriptPath || !imagesDir) { console.error("--script and --images required"); process.exit(2); }
+  // --- learning: record a proven fix into the playbook so it's applied forever ---
+  // --learn-global "constraint"   → injected into every future prompt (prevention)
+  // --learn tag="constraint"      → applied whenever that issue tag is repaired
+  const learnGlobal = arg("learn-global");
+  const learnTag = arg("learn");
+  if (learnGlobal || learnTag) {
+    const pbPath = path.join(import.meta.dirname, "playbook.json");
+    const pb = JSON.parse(fs.readFileSync(pbPath, "utf8"));
+    if (typeof learnGlobal === "string") {
+      pb.global = pb.global || [];
+      if (!pb.global.includes(learnGlobal)) { pb.global.push(learnGlobal); console.error(`✎ learned global: ${learnGlobal}`); }
+    }
+    if (typeof learnTag === "string" && learnTag.includes("=")) {
+      const i = learnTag.indexOf("="); const tag = learnTag.slice(0, i); const c = learnTag.slice(i + 1);
+      pb.by_tag = pb.by_tag || {}; pb.by_tag[tag] = c; console.error(`✎ learned ${tag}: ${c}`);
+    }
+    fs.writeFileSync(pbPath, JSON.stringify(pb, null, 2));
+    if (!arg("script")) process.exit(0); // allow standalone learning
+  }
+
   const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
   const cast = script.cast;
   const baseSeed = (script.adaptation && script.adaptation.seed) || cast[0]?.seed_role || 909;

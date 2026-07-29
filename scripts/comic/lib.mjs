@@ -120,6 +120,17 @@ export function gate1(script, sourceText) {
 // the fixed house style — appended to every panel so style stays locked
 export const STYLE = "clean thin black ink line cartoon, minimal light shading, simple wobbly hand-drawn illustrated-science-comic style, big-nose caricatures with expressive googly eyes, lots of white space, black and white";
 
+// learned QC lessons (playbook.json). global constraints are injected into EVERY
+// prompt (prevention); by_tag constraints target specific defects during repair.
+let _playbook = null;
+export function getPlaybook() {
+  if (_playbook) return _playbook;
+  const p = path.join(import.meta.dirname, "playbook.json");
+  try { _playbook = JSON.parse(fs.readFileSync(p, "utf8")); }
+  catch { _playbook = { global: [], by_tag: {} }; }
+  return _playbook;
+}
+
 export function buildImagePrompt(panel, cast, style) {
   const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
   const present = (panel.characters || [])
@@ -144,13 +155,15 @@ export function buildImagePrompt(panel, cast, style) {
   parts.push(`IMPORTANT: keep ${zoneText} as plain open empty background (sky, wall, mist, shadow or floor) with no important detail, reserved for a caption box; frame the main subject clearly in the remaining space.`);
   if ((panel.characters || []).length >= 3)
     parts.push("Keep characters small and spaced apart to preserve their identities (no face close-ups).");
+  // proactively apply learned global lessons to prevent known defects
+  for (const g of getPlaybook().global || []) parts.push(g);
   return parts.join(" ");
 }
 
 /* ---------- GATE-2.5: repair-prompt refinement ---------- */
 // Given a panel that failed QC (with issue tags), build a stricter prompt that
 // targets the specific defects while keeping the character anchors/style locked.
-export const ISSUE_TAGS = ["extra_figures", "scene_mismatch", "identity_drift", "capzone_blocked", "style_drift"];
+export const ISSUE_TAGS = ["extra_figures", "scene_mismatch", "identity_drift", "capzone_blocked", "style_drift", "cropped_figure"];
 
 export function refinePrompt(panel, cast, style, tags = [], hint = "", attempt = 1) {
   const base = buildImagePrompt(panel, cast, style);
@@ -158,6 +171,11 @@ export function refinePrompt(panel, cast, style, tags = [], hint = "", attempt =
   const n = Number.isInteger(panel.figure_count) ? panel.figure_count : (panel.characters || []).length;
   const crowd = /crowd|peasants|villagers|dancing|montage|mob/i.test(panel.scene || "");
   const extra = [];
+  // apply learned per-tag fixes from the playbook first
+  const pb = getPlaybook().by_tag || {};
+  for (const t of tags) if (pb[t]) extra.push(pb[t]);
+  if (tags.includes("cropped_figure"))
+    extra.push("Draw the FULL body of each character head-to-toe standing in the scene; never a floating or cropped head.");
   if (!crowd && (tags.includes("extra_figures") || tags.includes("scene_mismatch")))
     extra.push(`Show EXACTLY ${n} figure${n === 1 ? "" : "s"} and absolutely NO other people, creatures, or floating heads anywhere in the frame.`);
   if (tags.includes("scene_mismatch"))

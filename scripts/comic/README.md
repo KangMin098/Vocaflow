@@ -52,6 +52,22 @@ keeping the anchor tokens (so identity holds). If nothing passes, the best is ke
 - `--verdicts <file>` : a JSON authored by Claude in-session (no key needed) —
   `{ "panels": [ { "n": 4, "verdict": "fail", "tags": ["extra_figures"], "hint": "no mummy" } ] }`.
 
+**Head-only / cropped figures** are a first-class defect: the `cropped_figure` tag
+adds a "full body head-to-toe, no floating head" constraint on repair.
+
+### Learning loop — proven fixes become permanent (quality is maintained, not re-found)
+`playbook.json` stores learned lessons: `global` constraints are injected into
+**every** panel prompt (prevention), `by_tag` constraints are applied when repairing
+that defect. When a rework proves a fix, record it so it never regresses:
+```bash
+node scripts/comic/02b-verify.mjs --learn-global "Draw every character full-body, never a floating head."
+node scripts/comic/02b-verify.mjs --learn "extra_figures=Only the listed characters, no duplicates."
+```
+After a lesson is learned, `buildImagePrompt` proactively applies it to all future
+generations (new chapters, re-gens) — so a defect fixed once stops recurring.
+Example: the "floating head" defect (Ch.5 panel 3) was fixed and its lesson added to
+`global`; every subsequent panel now carries the full-body constraint automatically.
+
 **Optimal conditions:** use the **Seed token** (avoid throttling during repeated regen);
 generate/repair the whole book in **one session** (limits style drift); keep repair
 **localized** to failing panels; cap total regen. Identity defects that survive repair are a
