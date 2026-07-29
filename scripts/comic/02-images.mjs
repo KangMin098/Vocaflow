@@ -35,6 +35,13 @@ async function main() {
   const cast = script.cast;
   const baseSeed = (script.adaptation && script.adaptation.seed) || cast[0]?.seed_role || 909;
 
+  // Pollinations token (Seed+ tier): env var first, then a gitignored local file.
+  // NEVER commit the token; scripts/comic/.pollinations-token is gitignored.
+  const tokenFile = path.join(import.meta.dirname, ".pollinations-token");
+  const token = (process.env.POLLINATIONS_TOKEN
+    || (fs.existsSync(tokenFile) ? fs.readFileSync(tokenFile, "utf8") : "")).trim();
+  console.error(token ? "→ authenticated (Seed+ tier)" : "→ anonymous tier (no token found)");
+
   let ok = 0, skip = 0, fail = 0;
   for (const p of [...script.panels].sort((a, b) => a.n - b.n)) {
     if (only && p.n !== only) continue;
@@ -45,7 +52,7 @@ async function main() {
     // fixed per-book seed keeps the cast/style stable across panels
     const seed = baseSeed;
     const { width, height } = dims(p.wide);
-    const r = await genImage(prompt, { seed, width, height, outPath });
+    const r = await genImage(prompt, { seed, width, height, outPath, token });
     const g = r.ok ? gate2(outPath) : { ok: false };
     if (g.ok) { console.error(`✓ panel ${p.n}  ${g.bytes}B`); ok++; }
     else { console.error(`✗ panel ${p.n}  FAILED (GATE-2)`); fail++; }

@@ -86,3 +86,7 @@ scripts/dict/exmatch*/
 scripts/dict/exmatch-hi*/
 scripts/dict/covtr*/
 scratchpad-foreign/
+
+# Pollinations API token (Seed+ tier) — never commit secrets
+.pollinations-token
+scripts/comic/.pollinations-token

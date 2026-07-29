@@ -136,11 +136,17 @@ export function buildImagePrompt(panel, cast, style) {
 
 /* ---------- Phase C + GATE-2: image generation ---------- */
 
-export async function genImage(prompt, { seed, width = 640, height = 460, outPath, tries = 4, minBytes = 4000 }) {
-  const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${seed}&model=flux&nologo=true`;
+export async function genImage(prompt, { seed, width = 640, height = 460, outPath, tries = 4, minBytes = 4000, token = "" }) {
+  let url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${seed}&model=flux&nologo=true`;
+  // authenticated (Seed+) requests: faster cadence + no watermark
+  const headers = {};
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+    url += `&token=${encodeURIComponent(token)}`;
+  }
   for (let a = 0; a < tries; a++) {
     try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(75000) });
+      const r = await fetch(url, { headers, signal: AbortSignal.timeout(75000) });
       if (r.ok) {
         const b = Buffer.from(await r.arrayBuffer());
         if (b.length >= minBytes) {

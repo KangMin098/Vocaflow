@@ -78,9 +78,16 @@ per-tier `text` map (`narration` / `bubbles` / `quote` / `labels`) for lettering
 
 ## Notes
 
-- Free image backend: **Pollinations (Flux)** — no key, prompt-only. It can't do
+- Free image backend: **Pollinations (Flux)** — prompt-only. It can't do
   reference-conditioning, so consistency relies on anchor+seed+distance (tier T0).
   Higher consistency (IP-Adapter / LoRA) needs a self-hosted or paid backend.
+- **Auth (Seed+ tier)** — anonymous is 1 req/15s. Registering (auth.pollinations.ai)
+  gives Seed tier: 1 req/5s (3× faster) + no watermark. Provide the token WITHOUT
+  committing it, via either:
+  - env var: `POLLINATIONS_TOKEN=xxx`, or
+  - a gitignored file: `scripts/comic/.pollinations-token` (contents = the token only).
+  `02-images.mjs` picks it up automatically and prints `authenticated (Seed+ tier)`.
+  The token is a secret — it is `.gitignore`d and must never be pasted into shared chat.
 - Coverage for a **concept** adaptation (e.g. Darwin) = thematic beat completeness,
   not whole-book contiguity; for a **narrative** book it's literal offset coverage.
 - Migrations for the DB tables (`comic_adaptations` etc.) are **not** auto-applied —
