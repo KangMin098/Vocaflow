@@ -182,6 +182,37 @@ per-tier `text` map (`narration` / `bubbles` / `quote` / `labels`) for lettering
 | `03-assemble.mjs` | Phase D/E (CLI) |
 | `examples/darwin-drought.json` | worked example (12 panels, verified quotes) |
 
+## FLUX prompt-craft (why prompts are shaped this way)
+
+Our backend is FLUX.1 (a guidance-distilled diffusion model), which behaves
+differently from classic Stable Diffusion. Rules baked into `buildImagePrompt`:
+
+1. **No negative prompts.** FLUX runs at true CFG=1, so `"no X"` is *ignored*
+   (this is why our early "no hat / no extra figure" repairs needed many tries).
+   Always state the **positive opposite** ("a complete full body", "only these two
+   figures"). All prompts, repairs, and the playbook are positive-only.
+2. **No weight syntax.** `(word:1.3)` / brackets do nothing on FLUX's T5 encoder;
+   emphasis comes from **word order** (subject first = highest weight).
+3. **Subject-first, natural language, style clause pinned at the END** (verbatim,
+   for cross-image style consistency).
+4. **Spatial anchors** for 2 characters ("X on the left, Y on the right") to reduce
+   multi-character attribute bleed.
+5. **Resolution:** FLUX is trained at ~1 MP (1024²) and *loses coherence* at very
+   small sizes. We currently generate small (312×416) to meet the 50%-lighter file
+   rule — a quality trade-off. The clean fix is **generate at ~1 MP then downscale**
+   (needs a JS image lib, e.g. jimp) to get FLUX's coherence *and* small files.
+
+**Consistency ceiling on a prompt-only endpoint:** reference-based methods
+(IP-Adapter, PuLID, InstantID, character LoRA, FLUX Kontext) all require leaving the
+free endpoint — self-host (ComfyUI) or a paid API / `enter.pollinations.ai`. On the
+free endpoint the best we can do is the seed-lock + verbatim character-card +
+iconic-signature scheme here, plus the QC loop. That is the current design.
+
+**Upgrade roadmap (T1) when reference-locked consistency is required:**
+InstantID/PuLID (one reference, no training, keeps cartoon style) or a per-character
+LoRA (train once, most durable); regional prompting (RPFlux/EliGen) for true
+multi-character separation.
+
 ## Notes
 
 - Free image backend: **Pollinations (Flux)** — prompt-only. It can't do

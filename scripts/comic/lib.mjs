@@ -132,17 +132,21 @@ export function getPlaybook() {
 }
 
 export function buildImagePrompt(panel, cast, style) {
+  // FLUX prompt-craft: subject-first (position = weight), natural language, the
+  // fixed style clause pinned at the END, and POSITIVE phrasing only (FLUX is
+  // guidance-distilled at CFG=1, so negative prompts like "no X" are ignored —
+  // always state the positive opposite instead).
   const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
-  const present = (panel.characters || [])
-    .map((id) => byId[id])
-    .filter(Boolean)
-    .map((c) => `${c.name.toUpperCase()} (${c.canonical}, ${c.anchor})`);
-  const parts = [style];
+  const chars = (panel.characters || []).map((id) => byId[id]).filter(Boolean);
+  const present = chars.map((c) => `${c.name.toUpperCase()} (${c.canonical}, ${c.anchor})`);
+  const parts = [];
   if (present.length) {
     parts.push(`Characters: ${present.join("; ")}.`);
     // character-lightweighting: simple iconic designs reproduce far more
     // consistently on prompt-only models (and use fewer lines → smaller files)
-    parts.push("Draw every character SIMPLE and ICONIC: flat shapes, few clean lines, the exact same unmistakable signature features in every panel, easy to redraw identically.");
+    parts.push("Draw every character simple and iconic: flat shapes, few clean lines, the exact same signature features in every panel, easy to redraw identically.");
+    // spatial binding reduces multi-character attribute bleed
+    if (chars.length === 2) parts.push(`Place ${chars[0].name} on the left and ${chars[1].name} on the right, clearly apart.`);
   }
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
@@ -152,11 +156,13 @@ export function buildImagePrompt(panel, cast, style) {
     top: "the TOP third", tl: "the UPPER-LEFT area", tr: "the UPPER-RIGHT area",
     bl: "the LOWER-LEFT area", br: "the LOWER-RIGHT area",
   }[panel.cap_zone || "top"] || "the TOP third";
-  parts.push(`IMPORTANT: keep ${zoneText} as plain open empty background (sky, wall, mist, shadow or floor) with no important detail, reserved for a caption box; frame the main subject clearly in the remaining space.`);
+  parts.push(`Leave ${zoneText} as a plain empty area of open background (sky, wall, mist, shadow or floor) for a caption box, and place the main subject clearly in the rest of the frame.`);
   if ((panel.characters || []).length >= 3)
-    parts.push("Keep characters small and spaced apart to preserve their identities (no face close-ups).");
+    parts.push("Show the characters small and spread far apart in a wide shot so each stays a distinct full figure.");
   // proactively apply learned global lessons to prevent known defects
   for (const g of getPlaybook().global || []) parts.push(g);
+  // fixed house style clause, pinned at the END for cross-image style consistency
+  parts.push(`Style: ${style}.`);
   return parts.join(" ");
 }
 
@@ -174,21 +180,22 @@ export function refinePrompt(panel, cast, style, tags = [], hint = "", attempt =
   // apply learned per-tag fixes from the playbook first
   const pb = getPlaybook().by_tag || {};
   for (const t of tags) if (pb[t]) extra.push(pb[t]);
+  // POSITIVE phrasing only — FLUX ignores negatives ("no X"); state the opposite.
   if (tags.includes("cropped_figure"))
-    extra.push("Draw the FULL body of each character head-to-toe standing in the scene; never a floating or cropped head.");
+    extra.push("Draw each character as a complete full body, from head to feet, standing whole on the ground.");
   if (!crowd && (tags.includes("extra_figures") || tags.includes("scene_mismatch")))
-    extra.push(`Show EXACTLY ${n} figure${n === 1 ? "" : "s"} and absolutely NO other people, creatures, or floating heads anywhere in the frame.`);
+    extra.push(`Show exactly ${n} character${n === 1 ? "" : "s"}; the frame contains only ${n === 1 ? "this one complete figure" : "these " + n + " complete figures"} and empty background around them.`);
   if (tags.includes("scene_mismatch"))
-    extra.push(`The panel MUST clearly depict this exact action: ${panel.scene}.`);
+    extra.push(`The panel clearly shows this exact action: ${panel.scene}.`);
   if (tags.includes("identity_drift"))
     for (const id of panel.characters || []) {
       const c = byId[id];
-      if (c) extra.push(`${c.name} must look identical to their established design: ${c.canonical}, with ${c.anchor}.`);
+      if (c) extra.push(`${c.name} looks identical to their established design: ${c.canonical}, with ${c.anchor}.`);
     }
   if (tags.includes("capzone_blocked"))
-    extra.push(`Keep the ${(panel.cap_zone || "top")} area a completely empty blank background.`);
+    extra.push(`Keep the ${(panel.cap_zone || "top")} area a plain empty background.`);
   if (tags.includes("style_drift"))
-    extra.push("Strictly keep a clean thin black-and-white cartoon line style, not dark or scratchy.");
+    extra.push("Keep a clean thin black-and-white cartoon line style, light and tidy.");
   if (hint) extra.push(hint);
   if (attempt >= 2) extra.push("Use a simpler, clearer composition than the previous attempt.");
   return `${base} REPAIR CONSTRAINTS: ${extra.join(" ")}`;

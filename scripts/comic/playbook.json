@@ -1,15 +1,15 @@
 {
-  "_doc": "Learned QC lessons. 'global' constraints are injected into EVERY panel prompt (prevention). 'by_tag' constraints are applied when repairing a panel with that issue tag. When a rework proves a fix, record it here so quality is maintained, not re-discovered. Update via: node 02b-verify.mjs --learn-global \"...\" or --learn tag=\"...\".",
+  "_doc": "Learned QC lessons, phrased POSITIVELY (FLUX is guidance-distilled at CFG=1, so negative prompts like 'no X' are ignored — always state the positive opposite). 'global' constraints are injected into EVERY panel prompt (prevention). 'by_tag' constraints are applied when repairing a panel with that issue tag. When a rework proves a fix, record it here so quality is maintained, not re-discovered. Update via: node 02b-verify.mjs --learn-global \"...\" or --learn tag=\"...\".",
   "global": [
-    "Draw every character as a COMPLETE full-body figure from head to feet, standing in the scene; never a cropped, disembodied, or floating head.",
-    "Each accessory belongs to ONE character only: never give one character's hat or glasses to another; only Clerval wears the top hat, only Victor wears glasses."
+    "Draw every character as a complete full-body figure, from head to feet, standing whole in the scene.",
+    "Each accessory belongs to exactly one character: the top hat appears only on Clerval; the round glasses appear only on Victor; every other character keeps their own separate look."
   ],
   "by_tag": {
-    "cropped_figure": "Show each character's FULL body head-to-toe; absolutely no floating or disembodied heads.",
-    "extra_figures": "Include ONLY the exact characters listed and no others; no duplicate or extra figures.",
-    "identity_drift": "Keep each character's fixed signature (glasses / top hat / bald-hollow-eyed ghoul) identical to every other panel.",
-    "scene_mismatch": "Depict the stated action clearly and literally.",
-    "capzone_blocked": "Keep the caption zone as empty plain background.",
-    "style_drift": "Keep a clean thin black-and-white cartoon line style."
+    "cropped_figure": "Show each character's complete body from head to toe, standing whole.",
+    "extra_figures": "Include only the exact characters listed, each a complete separate full body, with empty background around them.",
+    "identity_drift": "Keep each character's fixed signature identical to every other panel (glasses = Victor, top hat = Clerval, bald hollow-eyed ghoul = the Creature).",
+    "scene_mismatch": "Show the stated action clearly and literally.",
+    "capzone_blocked": "Keep the caption zone as a plain empty area of background.",
+    "style_drift": "Keep a clean thin black-and-white cartoon line style, light and tidy."
   }
 }
