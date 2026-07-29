@@ -203,8 +203,23 @@ export function refinePrompt(panel, cast, style, tags = [], hint = "", attempt =
 
 /* ---------- Phase C + GATE-2: image generation ---------- */
 
-export async function genImage(prompt, { seed, width = 640, height = 460, outPath, tries = 4, minBytes = 4000, token = "" }) {
-  let url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${seed}&model=flux&nologo=true`;
+// downscale a big JPEG buffer to the small display size + compress (light file)
+async function downscaleJpeg(buf, width, height, quality) {
+  const { Jimp } = await import("jimp");
+  const img = await Jimp.read(buf);
+  img.resize({ w: width, h: height });
+  return img.getBuffer("image/jpeg", { quality });
+}
+
+export async function genImage(prompt, { seed, width = 640, height = 460, outPath, tries = 4, minBytes = 4000, token = "", genMP = 1, quality = 62 }) {
+  // FLUX loses coherence at tiny sizes, so GENERATE near ~1 megapixel (same aspect
+  // ratio) for correct anatomy/composition, then DOWNSCALE to the small display
+  // size — best of both: FLUX quality + a light file.
+  const ar = width / height;
+  let gw = Math.round(Math.sqrt(genMP * 1e6 * ar)); gw -= gw % 16;
+  let gh = Math.round(Math.sqrt(genMP * 1e6 / ar)); gh -= gh % 16;
+  gw = Math.max(gw, 512); gh = Math.max(gh, 512);
+  let url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${gw}&height=${gh}&seed=${seed}&model=flux&nologo=true`;
   // authenticated (Seed+) requests: faster cadence + no watermark
   const headers = {};
   if (token) {
@@ -213,13 +228,16 @@ export async function genImage(prompt, { seed, width = 640, height = 460, outPat
   }
   for (let a = 0; a < tries; a++) {
     try {
-      const r = await fetch(url, { headers, signal: AbortSignal.timeout(75000) });
+      const r = await fetch(url, { headers, signal: AbortSignal.timeout(90000) });
       if (r.ok) {
         const b = Buffer.from(await r.arrayBuffer());
         if (b.length >= minBytes) {
           fs.mkdirSync(path.dirname(outPath), { recursive: true });
-          fs.writeFileSync(outPath, b);
-          return { ok: true, bytes: b.length };
+          let out = b;
+          try { out = await downscaleJpeg(b, width, height, quality); }
+          catch { /* jimp unavailable → keep raw (still valid, just larger) */ }
+          fs.writeFileSync(outPath, out);
+          return { ok: true, bytes: out.length, genSize: `${gw}x${gh}` };
         }
       }
     } catch { /* retry */ }

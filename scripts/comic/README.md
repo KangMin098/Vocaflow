@@ -197,10 +197,11 @@ differently from classic Stable Diffusion. Rules baked into `buildImagePrompt`:
    for cross-image style consistency).
 4. **Spatial anchors** for 2 characters ("X on the left, Y on the right") to reduce
    multi-character attribute bleed.
-5. **Resolution:** FLUX is trained at ~1 MP (1024²) and *loses coherence* at very
-   small sizes. We currently generate small (312×416) to meet the 50%-lighter file
-   rule — a quality trade-off. The clean fix is **generate at ~1 MP then downscale**
-   (needs a JS image lib, e.g. jimp) to get FLUX's coherence *and* small files.
+5. **Resolution (implemented):** FLUX loses coherence at tiny sizes, so `genImage`
+   **generates at ~1 MP** (aspect-matched, e.g. 864×1152) for correct anatomy/
+   composition, then **downscales with jimp** to the small display size + JPEG
+   quality ~62. Result: FLUX-grade coherence *and* light files (~25 KB, ~69%
+   smaller than the old baseline). Tune via `genMP` and `quality` in `genImage`.
 
 **Consistency ceiling on a prompt-only endpoint:** reference-based methods
 (IP-Adapter, PuLID, InstantID, character LoRA, FLUX Kontext) all require leaving the
