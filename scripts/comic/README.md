@@ -97,6 +97,33 @@ node scripts/comic/03-assemble.mjs --script out/script.json --images out/img \
   --tier child --out out/comic.child.html
 ```
 
+## Character consistency (the #1 quality axis)
+
+Prompt-only models cannot lock identity by reference, so consistency is engineered:
+
+1. **Character-lightweighting (most important):** design each character SIMPLE and
+   ICONIC — flat shapes + 1–2 unmistakable *shape* signatures — not richly detailed.
+   Complex looks (wild hair, patchwork skin) render differently every panel; simple
+   icons reproduce stably. Bonus: fewer lines → **smaller files** (helps the 50%
+   size target). e.g. Victor = round head + round glasses + apron; the Creature =
+   flat squarish head + big round eyes + jagged teeth (not "long lustrous hair,
+   patchwork skin, watery eyes…"). buildImagePrompt appends a "draw characters
+   simple and iconic" directive automatically.
+2. **Signatures must read in grayscale** — final art is grayscaled, so lean on
+   *shape* (glasses, square head, a scarf), not colour.
+3. **Model-sheet lock:** one `canonical` + `anchor` phrase per character, injected
+   verbatim into every panel; one fixed per-book `seed`.
+4. **Fewer characters per panel** + distance composition for crowds.
+5. **Consistency is a QC axis → rework:** GATE-2.5 evaluates identity drift like any
+   other defect; `identity_drift` panels are reworked by the loop-until-pass process.
+6. **When free Flux still drifts** on a hard design → escalate to **T1 (IP-Adapter/
+   LoRA)** with a reference model-sheet (paid/self-host).
+
+Empirically (Frankenstein Ch.5): switching Victor from "wild dark hair" to
+"round glasses + neat hair + apron" made him consistent across all panels; the
+Creature's simplified icon (googly eyes + lanky) held far better than the old
+patchwork design; average image dropped to ~34 KB (**~56% smaller**).
+
 ## Script schema
 
 See `schema.mjs` (`validateStructure`) for the enforced shape. Key idea: panels

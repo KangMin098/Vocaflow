@@ -127,7 +127,12 @@ export function buildImagePrompt(panel, cast, style) {
     .filter(Boolean)
     .map((c) => `${c.name.toUpperCase()} (${c.canonical}, ${c.anchor})`);
   const parts = [style];
-  if (present.length) parts.push(`Characters: ${present.join("; ")}.`);
+  if (present.length) {
+    parts.push(`Characters: ${present.join("; ")}.`);
+    // character-lightweighting: simple iconic designs reproduce far more
+    // consistently on prompt-only models (and use fewer lines → smaller files)
+    parts.push("Draw every character SIMPLE and ICONIC: flat shapes, few clean lines, the exact same unmistakable signature features in every panel, easy to redraw identically.");
+  }
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
   // reserve the caption zone (varies per panel) as empty so diverse compositions

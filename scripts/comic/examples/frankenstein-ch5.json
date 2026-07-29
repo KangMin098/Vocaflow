@@ -20,17 +20,17 @@
   },
   "cast": [
     { "id": "victor", "name": "Victor", "role": "protagonist",
-      "canonical": "a young pale scientist with wild dark hair, feverish eyes",
-      "anchor": "a stained lab apron", "seed_role": 84 },
+      "canonical": "a thin young man, round head, neat short dark bowl-cut hair, small round glasses, plain shirt",
+      "anchor": "small round glasses and a plain work apron", "seed_role": 84 },
     { "id": "creature", "name": "the Creature", "role": "antagonist-victim",
-      "canonical": "a huge very tall figure with patchwork yellow stitched skin, long lustrous black hair, watery sunken eyes, straight black lips",
-      "anchor": "visible stitches and a ragged sheet", "seed_role": 84 },
+      "canonical": "a tall lanky monster with a FLAT SQUARE head, sunken round eyes, one black stitch across the forehead, a bolt on each side of the neck, plain ragged shirt",
+      "anchor": "a flat square head, a forehead stitch and neck bolts", "seed_role": 84 },
     { "id": "clerval", "name": "Clerval", "role": "friend",
-      "canonical": "a warm cheerful young man in a traveller's coat",
-      "anchor": "a brown travelling coat", "seed_role": 84 },
+      "canonical": "a tidy young man, round head, side-parted hair, always cheerful",
+      "anchor": "a striped scarf", "seed_role": 84 },
     { "id": "elizabeth", "name": "Elizabeth", "role": "dream",
-      "canonical": "a gentle young woman with braided hair",
-      "anchor": "a blue shawl", "seed_role": 84 }
+      "canonical": "a young woman, round face, two simple braids",
+      "anchor": "a plain shawl", "seed_role": 84 }
   ],
   "panels": [
     { "n": 1, "wide": true, "beat_offset": [0, 719],
