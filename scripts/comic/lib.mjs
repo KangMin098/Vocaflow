@@ -127,6 +127,8 @@ export function buildImagePrompt(panel, cast, style) {
   if (present.length) parts.push(`Characters: ${present.join("; ")}.`);
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
+  // reserve a clear top band so overlaid speech bubbles never cover the subject
+  parts.push("Place the main subject in the lower two-thirds; keep the top quarter as plain open background (sky, wall, mist or shadow) with no important detail, leaving clear room for a speech bubble.");
   if ((panel.characters || []).length >= 3)
     parts.push("Keep characters small and spaced apart to preserve their identities (no face close-ups).");
   return parts.join(" ");
@@ -177,7 +179,7 @@ header.cover{background:var(--paper);border:4px solid var(--frame);border-radius
 .kick{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
 h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-transform:uppercase;text-wrap:balance;letter-spacing:.5px;-webkit-text-stroke:.4px var(--ink)}
 .byline{font-size:14px;margin-top:6px;border-top:2px solid var(--frame);padding-top:8px}
-.byline b{background:var(--ink);color:var(--paper);padding:0 5px}
+.byline b{font-weight:800}
 .pages{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .panel{display:flex;flex-direction:column;grid-column:span 1;margin:0;background:var(--paper);
  border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
@@ -187,7 +189,7 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
 .cap{padding:9px 11px 10px}
 .nar{font-size:13px;line-height:1.34;text-transform:uppercase;letter-spacing:.2px}
-.nar b{background:var(--ink);color:var(--paper);padding:0 3px;border-radius:1px}
+.nar b{font-weight:800;border-bottom:2px solid var(--ink)}
 .quote{margin-top:8px;background:var(--quote);border:2px solid var(--ink);border-left-width:6px;border-radius:2px;
  padding:7px 9px;font-size:12.5px;line-height:1.32;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.22)}
 .qby{display:block;text-align:right;font-size:10px;font-weight:bold;margin-top:3px;opacity:.7;text-transform:uppercase}
@@ -202,7 +204,7 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
 .label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}.label.tl{top:8px;left:8px}.label.tr{top:8px;right:8px}
 .foot{margin-top:20px;background:var(--paper);border:3px solid var(--frame);border-radius:3px;padding:14px 16px;font-size:13px;line-height:1.5;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
-.foot .tag{display:inline-block;background:var(--ink);color:var(--paper);font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
+.foot .tag{display:inline-block;background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
 @media(max-width:640px){.pages{grid-template-columns:1fr}.panel,.panel.wide{grid-column:span 1}.panel.wide .art{aspect-ratio:4/3}}
 `;
 
@@ -213,8 +215,10 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
+  // keep bubbles in the reserved top band so they sit over empty background, not the subject
+  const topPos = { br: "tr", bl: "tl", tr: "tr", tl: "tl" };
   const bubs = (t.bubbles || [])
-    .map((b) => `<div class="bub ${b.pos}">${b.text}<span class="tail"></span></div>`)
+    .map((b) => `<div class="bub ${topPos[b.pos] || "tr"}">${b.text}<span class="tail"></span></div>`)
     .join("");
   const labels = (t.labels || [])
     .map((l) => `<div class="label ${l.pos || "bl"}">${l.text}</div>`)
