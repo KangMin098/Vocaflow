@@ -66,8 +66,7 @@ async function main() {
   const cast = script.cast;
   const baseSeed = (script.adaptation && script.adaptation.seed) || cast[0]?.seed_role || 909;
   const doRepair = !!arg("repair");
-  const maxAttempts = Number(arg("max", 3));
-  const escalate = !!arg("escalate");
+  const maxAttempts = Number(arg("max", 6)); // --api: loop until pass, up to this many rounds
 
   const tokenFile = path.join(import.meta.dirname, ".pollinations-token");
   const token = (process.env.POLLINATIONS_TOKEN || (fs.existsSync(tokenFile) ? fs.readFileSync(tokenFile, "utf8") : "")).trim();
@@ -95,34 +94,47 @@ async function main() {
   const fails = script.panels.filter((p) => byN[p.n] && byN[p.n].verdict === "fail");
   console.error(`\nGATE-2.5: ${script.panels.length - fails.length}/${script.panels.length} pass, ${fails.length} to repair`);
 
-  const report = { generated_at: null, total: script.panels.length, failed: fails.map((p) => p.n), repairs: [] };
+  const report = { total: script.panels.length, failed: fails.map((p) => p.n), repairs: [] };
+
+  // per-panel attempt ledger — persists across invocations so re-running KEEPS
+  // escalating (loop-until-pass) instead of restarting from attempt 1.
+  const ledgerPath = path.join(imagesDir, "qc-ledger.json");
+  const ledger = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath, "utf8")) : {};
+  const useApi = !!(arg("api") && process.env.ANTHROPIC_API_KEY);
 
   if (doRepair) {
     for (const p of fails) {
       const v = byN[p.n];
       const img = path.join(imagesDir, `${String(p.n).padStart(2, "0")}.jpg`);
       const { width, height } = dims(p.wide);
-      let ok = false, attempts = 0;
-      for (let a = 1; a <= maxAttempts && !ok; a++) {
-        attempts = a;
-        const seed = baseSeed + (escalate ? (a - 1) * 7 : 0);
-        const prompt = refinePrompt(p, cast, STYLE, v.tags || [], v.hint || "", a);
+      // --api: loop internally until pass (up to --max rounds). verdicts mode:
+      // one escalating step per invocation (Claude re-reviews, then re-runs → keeps looping).
+      const rounds = useApi ? maxAttempts : 1;
+      let ok = false, attempt = Number(ledger[p.n] || 0);
+      for (let r = 0; r < rounds && !ok; r++) {
+        attempt++;
+        // escalate the seed every attempt so a stuck generation is escaped;
+        // the character anchors are re-asserted in the prompt so identity re-forms.
+        const seed = baseSeed + (attempt - 1) * 7;
+        const prompt = refinePrompt(p, cast, STYLE, v.tags || [], v.hint || "", attempt);
         const g = await genImage(prompt, { seed, width, height, outPath: img, token });
-        if (!g.ok) { continue; }
-        // re-verify only in --api mode; verdicts mode does a single targeted pass (re-reviewed by Claude next)
-        if (arg("api") && process.env.ANTHROPIC_API_KEY) {
+        if (!g.ok) continue;
+        if (useApi) {
           try { const rv = await verifyWithClaude(img, p, cast, process.env.ANTHROPIC_API_KEY); ok = rv.verdict === "pass"; byN[p.n] = { n: p.n, ...rv }; }
           catch { ok = true; }
-        } else { ok = true; }
+        }
       }
-      console.error(`  ↻ panel ${p.n}: repaired in ${attempts} attempt(s)${ok ? " ✓" : " (kept best)"}`);
-      report.repairs.push({ n: p.n, tags: v.tags, hint: v.hint, attempts, resolved: ok });
+      ledger[p.n] = attempt;
+      const stuck = useApi && !ok;
+      console.error(`  ↻ panel ${p.n}: attempt ${attempt}${useApi ? (ok ? " ✓ pass" : " ✗ still failing") : " (re-review next)"}${stuck && attempt >= maxAttempts ? "  → ESCALATE to T1 (IP-Adapter)" : ""}`);
+      report.repairs.push({ n: p.n, attempt, resolved: useApi ? ok : "pending-review", tags: v.tags, escalate_to_T1: stuck && attempt >= maxAttempts });
     }
+    fs.writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2));
   }
 
   const out = path.join(imagesDir, "qc-report.json");
   fs.writeFileSync(out, JSON.stringify(report, null, 2));
-  console.error(`→ wrote ${out}`);
+  console.error(`→ wrote ${out}${useApi ? "" : "  (verdicts mode: re-review the repaired panels, then re-run to keep looping)"}`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
