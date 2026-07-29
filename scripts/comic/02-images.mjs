@@ -8,7 +8,7 @@
 
 import fs from "fs";
 import path from "path";
-import { buildImagePrompt, genImage, gate2 } from "./lib.mjs";
+import { buildImagePrompt, genImage, gate2, STYLE } from "./lib.mjs";
 
 function arg(name, def) {
   const i = process.argv.indexOf(`--${name}`);
@@ -16,8 +16,6 @@ function arg(name, def) {
   const v = process.argv[i + 1];
   return v && !v.startsWith("--") ? v : true;
 }
-
-const STYLE = "clean thin black ink line cartoon, minimal light shading, simple wobbly hand-drawn illustrated-science-comic style, big-nose caricatures with expressive googly eyes, lots of white space, black and white";
 
 async function main() {
   const scriptPath = arg("script");

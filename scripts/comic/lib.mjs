@@ -117,6 +117,9 @@ export function gate1(script, sourceText) {
 
 /* ---------- Phase C: prompt composition ---------- */
 
+// the fixed house style — appended to every panel so style stays locked
+export const STYLE = "clean thin black ink line cartoon, minimal light shading, simple wobbly hand-drawn illustrated-science-comic style, big-nose caricatures with expressive googly eyes, lots of white space, black and white";
+
 export function buildImagePrompt(panel, cast, style) {
   const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
   const present = (panel.characters || [])
@@ -127,11 +130,45 @@ export function buildImagePrompt(panel, cast, style) {
   if (present.length) parts.push(`Characters: ${present.join("; ")}.`);
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
-  // reserve a large clear TOP band for the caption box; subject sits low
-  parts.push("IMPORTANT layout: place the main subject in the LOWER HALF of a tall vertical frame; keep the entire TOP 40% as plain open empty background (sky, wall, mist or shadow) with no important detail, reserved for a caption box.");
+  // reserve the caption zone (varies per panel) as empty so diverse compositions
+  // still leave clean room for the caption box; the rest is free for dynamic framing
+  const zoneText = {
+    top: "the TOP third", tl: "the UPPER-LEFT area", tr: "the UPPER-RIGHT area",
+    bl: "the LOWER-LEFT area", br: "the LOWER-RIGHT area",
+  }[panel.cap_zone || "top"] || "the TOP third";
+  parts.push(`IMPORTANT: keep ${zoneText} as plain open empty background (sky, wall, mist, shadow or floor) with no important detail, reserved for a caption box; frame the main subject clearly in the remaining space.`);
   if ((panel.characters || []).length >= 3)
     parts.push("Keep characters small and spaced apart to preserve their identities (no face close-ups).");
   return parts.join(" ");
+}
+
+/* ---------- GATE-2.5: repair-prompt refinement ---------- */
+// Given a panel that failed QC (with issue tags), build a stricter prompt that
+// targets the specific defects while keeping the character anchors/style locked.
+export const ISSUE_TAGS = ["extra_figures", "scene_mismatch", "identity_drift", "capzone_blocked", "style_drift"];
+
+export function refinePrompt(panel, cast, style, tags = [], hint = "", attempt = 1) {
+  const base = buildImagePrompt(panel, cast, style);
+  const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
+  const n = Number.isInteger(panel.figure_count) ? panel.figure_count : (panel.characters || []).length;
+  const crowd = /crowd|peasants|villagers|dancing|montage|mob/i.test(panel.scene || "");
+  const extra = [];
+  if (!crowd && (tags.includes("extra_figures") || tags.includes("scene_mismatch")))
+    extra.push(`Show EXACTLY ${n} figure${n === 1 ? "" : "s"} and absolutely NO other people, creatures, or floating heads anywhere in the frame.`);
+  if (tags.includes("scene_mismatch"))
+    extra.push(`The panel MUST clearly depict this exact action: ${panel.scene}.`);
+  if (tags.includes("identity_drift"))
+    for (const id of panel.characters || []) {
+      const c = byId[id];
+      if (c) extra.push(`${c.name} must look identical to their established design: ${c.canonical}, with ${c.anchor}.`);
+    }
+  if (tags.includes("capzone_blocked"))
+    extra.push(`Keep the ${(panel.cap_zone || "top")} area a completely empty blank background.`);
+  if (tags.includes("style_drift"))
+    extra.push("Strictly keep a clean thin black-and-white cartoon line style, not dark or scratchy.");
+  if (hint) extra.push(hint);
+  if (attempt >= 2) extra.push("Use a simpler, clearer composition than the previous attempt.");
+  return `${base} REPAIR CONSTRAINTS: ${extra.join(" ")}`;
 }
 
 /* ---------- Phase C + GATE-2: image generation ---------- */
@@ -192,8 +229,13 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
  border:3px solid var(--frame);border-radius:3px;overflow:hidden;aspect-ratio:3/4;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
 .panel.wide{grid-column:span 2;aspect-ratio:3/2}
 .panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
-/* caption stack pinned to the TOP of the panel, inside the border */
-.toptext{position:absolute;top:6px;left:6px;right:6px;display:flex;flex-direction:column;gap:5px;pointer-events:none}
+/* caption stack placed in the panel's reserved empty zone (varies per panel) */
+.toptext{position:absolute;display:flex;flex-direction:column;gap:5px;pointer-events:none}
+.toptext.z-top{top:6px;left:6px;right:6px}
+.toptext.z-tl{top:6px;left:6px;max-width:64%}
+.toptext.z-tr{top:6px;right:6px;max-width:64%}
+.toptext.z-bl{bottom:6px;left:6px;max-width:64%}
+.toptext.z-br{bottom:6px;right:6px;max-width:64%}
 .cap{background:var(--paper);border:2.5px solid var(--ink);border-radius:2px;padding:6px 9px;
  font-size:12.5px;line-height:1.28;text-transform:uppercase;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.28)}
 .cap b{font-weight:800;border-bottom:2px solid var(--ink)}
@@ -235,9 +277,10 @@ function panelHTML(p, tier, defTier, dir) {
   const quote = t.quote
     ? `<div class="quote">&ldquo;${t.quote}&rdquo;<span class="qby">&mdash; ${t.quote_by || "SOURCE"}</span></div>`
     : "";
+  const zone = p.cap_zone || "top";
   return `<figure class="panel${p.wide ? " wide" : ""}">
   <img src="${imgDataUri(dir, p.n)}" alt="">
-  <div class="toptext">${nar}${quote}</div>
+  <div class="toptext z-${zone}">${nar}${quote}</div>
   ${bubs}${labels}
 </figure>`;
 }

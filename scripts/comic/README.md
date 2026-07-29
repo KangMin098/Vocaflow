@@ -20,9 +20,49 @@ collapse into **one image-gen call**, and lettering becomes **free** overlay.
 ## Pipeline
 
 ```
-01-script   Phase A + GATE-1   source → validated script JSON
-02-images   Phase C + GATE-2   script → one lightweight panel image each (free Flux)
-03-assemble Phase D/E          script + images → Gonick-style HTML (per age tier)
+01-script   Phase A + GATE-1     source → validated script JSON
+02-images   Phase C + GATE-2     script → one lightweight panel image each (free Flux)
+02b-verify  Phase C' + GATE-2.5  analyze each panel → repair failing panels (defect-targeted)
+03-assemble Phase D/E            script + images → Gonick-style HTML (per age tier)
+```
+
+### GATE-2.5 (analyze & repair) — `02b-verify.mjs`
+Byte checks (GATE-2) only catch blank images; GATE-2.5 catches *wrong* images and
+regenerates just those, keeping the rest untouched.
+
+**Key elements analyzed** (per panel): ① scene fidelity ② figure count (extra/missing
+people) ③ character identity / consistency (anchors present, matches other panels)
+④ caption-zone clearance (the reserved `cap_zone` is empty) ⑤ style adherence.
+
+**When (optimal timing):**
+- Run **after 02-images, before 03-assemble** — repair is localized and cheap.
+- Ideal is a **post-batch full pass** (all panels exist → can judge cross-panel drift),
+  plus optional per-panel checks inside generation for the fastest feedback.
+
+**How (repair escalation):** each failure carries issue **tags**; `refinePrompt` appends
+defect-targeted constraints (e.g. `extra_figures` → "exactly N figures, no others";
+`identity_drift` → re-assert the character anchor; `scene_mismatch` → re-assert the action)
+plus a free-text `hint`. Attempts loop up to `--max`; from attempt 2 the prompt asks for a
+*simpler composition*, and `--escalate` offsets the seed to escape a stuck generation while
+keeping the anchor tokens (so identity holds). If nothing passes, the best is kept and
+**logged in `qc-report.json`** — never silently accepted.
+
+**Analyst (vision) — two modes:**
+- `--api` : Anthropic vision (needs `ANTHROPIC_API_KEY`) → fully autonomous verify→repair→re-verify.
+- `--verdicts <file>` : a JSON authored by Claude in-session (no key needed) —
+  `{ "panels": [ { "n": 4, "verdict": "fail", "tags": ["extra_figures"], "hint": "no mummy" } ] }`.
+
+**Optimal conditions:** use the **Seed token** (avoid throttling during repeated regen);
+generate/repair the whole book in **one session** (limits style drift); keep repair
+**localized** to failing panels; cap total regen. Identity defects that survive repair are a
+signal to escalate to **T1 (IP-Adapter/LoRA)** — free Flux cannot lock identity by prompt alone.
+
+```bash
+# Claude in-session verdicts (works with no API key):
+node scripts/comic/02b-verify.mjs --script out/script.json --images out/img \
+  --verdicts qc.json --repair --escalate --max 3
+# Fully autonomous (with ANTHROPIC_API_KEY):
+node scripts/comic/02b-verify.mjs --script out/script.json --images out/img --api --repair
 ```
 
 ### GATE-1 (blocking) — `01-script.mjs`
