@@ -25,6 +25,9 @@ async function main() {
   if (!scriptPath || !outDir) { console.error("--script and --out required"); process.exit(2); }
   const only = arg("only") ? Number(arg("only")) : null;
   const force = !!arg("force");
+  // lightweight by default (~55-60% smaller files than 640x460); override with --w/--h
+  const width = Number(arg("w", 384));
+  const height = Number(arg("h", 288));
 
   const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
   const cast = script.cast;
@@ -39,7 +42,7 @@ async function main() {
     const prompt = buildImagePrompt(p, cast, STYLE);
     // fixed per-book seed keeps the cast/style stable across panels
     const seed = baseSeed;
-    const r = await genImage(prompt, { seed, width: 640, height: 460, outPath });
+    const r = await genImage(prompt, { seed, width, height, outPath });
     const g = r.ok ? gate2(outPath) : { ok: false };
     if (g.ok) { console.error(`✓ panel ${p.n}  ${g.bytes}B`); ok++; }
     else { console.error(`✗ panel ${p.n}  FAILED (GATE-2)`); fail++; }
