@@ -124,6 +124,29 @@ Empirically (Frankenstein Ch.5): switching Victor from "wild dark hair" to
 Creature's simplified icon (googly eyes + lanky) held far better than the old
 patchwork design; average image dropped to ~34 KB (**~56% smaller**).
 
+### Which signature features actually hold — derived from a controlled test
+Generating three test characters (each dominated by a different feature type)
+together across three very different scenes showed a clear ranking:
+
+| feature | reliability | note |
+|---|---|---|
+| hard **headgear / accessory**, stated *positively* (top hat, round glasses, bald, bowtie) | ★★★★★ | top hat & glasses persisted in **100%** of scenes |
+| **silhouette / height** (very tall vs short-round) | ★★★ | helps at distance; homogenises in groups |
+| **hairstyle** | ★★ | an afro drifted to spiky/mohawk; only *bald* is stable |
+| bold single **garment** | ★★ | secondary; can be cropped/occluded |
+| **face detail, colour** | ★ | do not rely on it (final art is grayscale) |
+| a **negative** ("NO glasses") or fine trait | ✗ | ignored — the model added the dominant motif to everyone |
+
+**Rules that follow:**
+1. Give each character **one unique, positive, hard signature** — ideally headgear/
+   accessory — that no other cast member shares. Never distinguish characters by
+   hairstyle or by the *absence* of a feature.
+2. **Prefer solo panels.** In a shared frame prompt-only Flux **homogenises** the cast
+   (everyone drifts to a common look), so multi-character distinctness is unreliable;
+   when unavoidable, use a **large silhouette/height gap** and spatial separation.
+3. **Pick signatures the model actually renders** — top hat / glasses / bald work;
+   "flat square head + neck bolts" did not. Test a new signature before adopting it.
+
 ## Script schema
 
 See `schema.mjs` (`validateStructure`) for the enforced shape. Key idea: panels
