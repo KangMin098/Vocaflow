@@ -25,9 +25,11 @@ async function main() {
   if (!scriptPath || !outDir) { console.error("--script and --out required"); process.exit(2); }
   const only = arg("only") ? Number(arg("only")) : null;
   const force = !!arg("force");
-  // lightweight by default (~55-60% smaller files than 640x460); override with --w/--h
-  const width = Number(arg("w", 384));
-  const height = Number(arg("h", 288));
+  // lightweight dims, shaped per panel: portrait 3:4 for normal, landscape 3:2 for wide.
+  // caption box sits over the reserved top band, so tall frames suit normal panels.
+  const dims = (wide) => wide
+    ? { width: Number(arg("ww", 480)), height: Number(arg("wh", 320)) }
+    : { width: Number(arg("w", 312)), height: Number(arg("h", 416)) };
 
   const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
   const cast = script.cast;
@@ -42,6 +44,7 @@ async function main() {
     const prompt = buildImagePrompt(p, cast, STYLE);
     // fixed per-book seed keeps the cast/style stable across panels
     const seed = baseSeed;
+    const { width, height } = dims(p.wide);
     const r = await genImage(prompt, { seed, width, height, outPath });
     const g = r.ok ? gate2(outPath) : { ok: false };
     if (g.ok) { console.error(`✓ panel ${p.n}  ${g.bytes}B`); ok++; }

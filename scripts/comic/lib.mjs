@@ -127,8 +127,8 @@ export function buildImagePrompt(panel, cast, style) {
   if (present.length) parts.push(`Characters: ${present.join("; ")}.`);
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
-  // reserve a clear top band so overlaid speech bubbles never cover the subject
-  parts.push("Place the main subject in the lower two-thirds; keep the top quarter as plain open background (sky, wall, mist or shadow) with no important detail, leaving clear room for a speech bubble.");
+  // reserve a large clear TOP band for the caption box; subject sits low
+  parts.push("IMPORTANT layout: place the main subject in the LOWER HALF of a tall vertical frame; keep the entire TOP 40% as plain open empty background (sky, wall, mist or shadow) with no important detail, reserved for a caption box.");
   if ((panel.characters || []).length >= 3)
     parts.push("Keep characters small and spaced apart to preserve their identities (no face close-ups).");
   return parts.join(" ");
@@ -164,11 +164,12 @@ export function gate2(outPath, minBytes = 4000) {
 
 /* ---------- Phase D/E: Gonick-style HTML assembly ---------- */
 
-// Split-panel layout: art region on top (never covered by narration) + a
-// dedicated caption zone below inside the same panel border. Only short speech
-// bubbles sit over the art, kept in corners over the empty/white areas.
+// Gonick-style single panel: the art fills the panel; a caption box sits INSIDE
+// the panel at the TOP (over the reserved empty top band of the art) and speech
+// bubbles float over the art's empty space pointing at the speakers. No separate
+// bottom text strip — all text lives within the one panel, woven with the art.
 const CSS = `
-:root{--paper:#f3ead6;--ink:#1a1712;--frame:#141210;--quote:#fff7e0;--stage:#d8c9a8;--artbg:#e9e1cd}
+:root{--paper:#f6efdd;--ink:#141210;--frame:#141210;--quote:#fff6d9;--stage:#d8c9a8;--artbg:#efe8d5}
 @media(prefers-color-scheme:dark){:root{--stage:#20242b}}
 :root[data-theme="light"]{--stage:#d8c9a8}:root[data-theme="dark"]{--stage:#20242b}
 *{box-sizing:border-box}
@@ -181,31 +182,32 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .byline{font-size:14px;margin-top:6px;border-top:2px solid var(--frame);padding-top:8px}
 .byline b{font-weight:800}
 .pages{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.panel{display:flex;flex-direction:column;grid-column:span 1;margin:0;background:var(--paper);
- border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
-.panel.wide{grid-column:span 2}
-.art{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--artbg);border-bottom:3px solid var(--frame)}
-.panel.wide .art{aspect-ratio:16/6}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
-.cap{padding:9px 11px 10px}
-.nar{font-size:13px;line-height:1.34;text-transform:uppercase;letter-spacing:.2px}
-.nar b{font-weight:800;border-bottom:2px solid var(--ink)}
-.quote{margin-top:8px;background:var(--quote);border:2px solid var(--ink);border-left-width:6px;border-radius:2px;
- padding:7px 9px;font-size:12.5px;line-height:1.32;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.22)}
-.qby{display:block;text-align:right;font-size:10px;font-weight:bold;margin-top:3px;opacity:.7;text-transform:uppercase}
-.bub{position:absolute;background:#fff;color:#111;border:2.5px solid #111;border-radius:44% 46% 45% 47%/50% 52% 48% 50%;
- padding:5px 8px;font-size:11px;line-height:1.14;text-transform:uppercase;max-width:46%;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.25)}
+.panel{position:relative;grid-column:span 1;margin:0;background:var(--artbg);
+ border:3px solid var(--frame);border-radius:3px;overflow:hidden;aspect-ratio:3/4;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
+.panel.wide{grid-column:span 2;aspect-ratio:3/2}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
+/* caption stack pinned to the TOP of the panel, inside the border */
+.toptext{position:absolute;top:6px;left:6px;right:6px;display:flex;flex-direction:column;gap:5px;pointer-events:none}
+.cap{background:var(--paper);border:2.5px solid var(--ink);border-radius:2px;padding:6px 9px;
+ font-size:12.5px;line-height:1.28;text-transform:uppercase;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.28)}
+.cap b{font-weight:800;border-bottom:2px solid var(--ink)}
+.quote{background:var(--quote);border:2.5px solid var(--ink);border-left-width:6px;border-radius:2px;padding:6px 9px;
+ font-size:11.5px;line-height:1.26;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.24)}
+.qby{display:block;text-align:right;font-size:9.5px;font-weight:bold;margin-top:2px;opacity:.7;text-transform:uppercase}
+/* speech bubbles float over the art near the speakers */
+.bub{position:absolute;background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 46% 45% 47%/50% 52% 48% 50%;
+ padding:5px 8px;font-size:11px;line-height:1.14;text-transform:uppercase;max-width:44%;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.25)}
 .bub .tail{position:absolute;width:13px;height:13px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;transform:rotate(45deg)}
-.bub.tr{top:7px;right:7px}.bub.tr .tail{left:15px;bottom:-7px}
-.bub.br{bottom:7px;right:7px}.bub.br .tail{left:15px;top:-7px;transform:rotate(225deg)}
-.bub.tl{top:7px;left:7px}.bub.tl .tail{right:15px;bottom:-7px}
-.bub.bl{bottom:7px;left:7px}.bub.bl .tail{right:15px;top:-7px;transform:rotate(225deg)}
+.bub.br{bottom:8px;right:8px}.bub.br .tail{left:15px;top:-7px;transform:rotate(225deg)}
+.bub.bl{bottom:8px;left:8px}.bub.bl .tail{right:15px;top:-7px;transform:rotate(225deg)}
+.bub.mr{bottom:34%;right:8px}.bub.mr .tail{left:15px;bottom:-7px}
+.bub.ml{bottom:34%;left:8px}.bub.ml .tail{right:15px;bottom:-7px}
 .label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
-.label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}.label.tl{top:8px;left:8px}.label.tr{top:8px;right:8px}
+.label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
 .foot{margin-top:20px;background:var(--paper);border:3px solid var(--frame);border-radius:3px;padding:14px 16px;font-size:13px;line-height:1.5;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
 .foot .tag{display:inline-block;background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
-@media(max-width:640px){.pages{grid-template-columns:1fr}.panel,.panel.wide{grid-column:span 1}.panel.wide .art{aspect-ratio:4/3}}
+@media(max-width:640px){.pages{grid-template-columns:1fr}.panel,.panel.wide{grid-column:span 1;aspect-ratio:3/4}}
 `;
 
 function imgDataUri(dir, n) {
@@ -215,21 +217,22 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // keep bubbles in the reserved top band so they sit over empty background, not the subject
-  const topPos = { br: "tr", bl: "tl", tr: "tr", tl: "tl" };
+  // top band holds the caption box(es); bubbles float low over the art near speakers
+  const lowPos = { tr: "mr", tl: "ml", br: "br", bl: "bl", mr: "mr", ml: "ml" };
   const bubs = (t.bubbles || [])
-    .map((b) => `<div class="bub ${topPos[b.pos] || "tr"}">${b.text}<span class="tail"></span></div>`)
+    .map((b) => `<div class="bub ${lowPos[b.pos] || "br"}">${b.text}<span class="tail"></span></div>`)
     .join("");
   const labels = (t.labels || [])
-    .map((l) => `<div class="label ${l.pos || "bl"}">${l.text}</div>`)
+    .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
     .join("");
+  const nar = t.narration ? `<div class="cap">${t.narration}</div>` : "";
   const quote = t.quote
     ? `<div class="quote">&ldquo;${t.quote}&rdquo;<span class="qby">&mdash; ${t.quote_by || "SOURCE"}</span></div>`
     : "";
-  const nar = t.narration ? `<div class="nar">${t.narration}</div>` : "";
   return `<figure class="panel${p.wide ? " wide" : ""}">
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${bubs}${labels}</div>
-  <div class="cap">${nar}${quote}</div>
+  <img src="${imgDataUri(dir, p.n)}" alt="">
+  <div class="toptext">${nar}${quote}</div>
+  ${bubs}${labels}
 </figure>`;
 }
 
