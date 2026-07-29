@@ -61,7 +61,8 @@ Return STRICT JSON only:
 
 async function main() {
   const scriptPath = arg("script"), imagesDir = arg("images");
-  if (!scriptPath || !imagesDir) { console.error("--script and --images required"); process.exit(2); }
+  const learnOnly = (arg("learn-global") || arg("learn")) && (!scriptPath || !imagesDir);
+  if (!learnOnly && (!scriptPath || !imagesDir)) { console.error("--script and --images required"); process.exit(2); }
   // --- learning: record a proven fix into the playbook so it's applied forever ---
   // --learn-global "constraint"   → injected into every future prompt (prevention)
   // --learn tag="constraint"      → applied whenever that issue tag is repaired

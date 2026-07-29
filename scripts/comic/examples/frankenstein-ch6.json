@@ -30,8 +30,8 @@
       "id": "victor",
       "name": "Victor",
       "role": "protagonist",
-      "canonical": "a young pale man with wild dark hair, recovering from illness",
-      "anchor": "a stained lab apron",
+      "canonical": "a thin young man, round head, neat short dark bowl-cut hair, small round glasses, plain shirt",
+      "anchor": "small round glasses and a plain work apron",
       "seed_role": 84
     },
     {
@@ -62,8 +62,8 @@
       "id": "william",
       "name": "William",
       "role": "child",
-      "canonical": "a small cherubic boy with curling hair, laughing blue eyes and dimples",
-      "anchor": "a little sailor collar",
+      "canonical": "a small cherubic boy with dimples wearing a little sailor cap",
+      "anchor": "a little sailor cap",
       "seed_role": 84
     },
     {
