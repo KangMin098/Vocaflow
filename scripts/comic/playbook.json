@@ -13,6 +13,9 @@
     "style_drift": "Keep a clean thin black-and-white cartoon line style, light and tidy.",
     "deathbed": [
       "Female-dominant emotional scenes (deathbed/sickbed) collapse mixed-gender groups to women on free FLUX and drop male signifiers (glasses) — frame as joined-hands close beat or a 2-figure male-subject shot; full mixed group needs T1 IP-Adapter."
+    ],
+    "krempe": [
+      "Free FLUX will not render Krempe as short/squat/dwarfish — it defaults to average or tall height; lock him instead via wild grey hair + deep scowl + gruff caricature + finger-jab gesture (matches ch3), never rely on stature."
     ]
   }
 }

@@ -1,0 +1,666 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch4",
+    "title": "Frankenstein · Chapter 4 — The Workshop of Filthy Creation",
+    "author": "Mary Shelley, Frankenstein (1831), Chapter 4",
+    "source": "file",
+    "ref": "scratchpad-foreign/frank4/pg84.raw.txt",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 16,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "art_maturity": "mature",
+    "source_span": [
+      0,
+      14403
+    ],
+    "original_words": 2533,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "victor",
+      "name": "Victor",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
+      "role": "character",
+      "seed_role": 84
+    },
+    {
+      "id": "krempe",
+      "name": "Krempe",
+      "canonical": "a short squat gruff professor in a curly powdered wig, permanent scowl, a jabbing pointed finger",
+      "anchor": "a curly powdered wig, squat build and a jabbing finger",
+      "role": "character",
+      "seed_role": 30
+    },
+    {
+      "id": "waldman",
+      "name": "Waldman",
+      "canonical": "a benevolent bald old professor with half-moon spectacles and a scholar's gown, warm open-handed gesture, clean-shaven",
+      "anchor": "a bald head with half-moon spectacles and a scholar's gown",
+      "role": "character",
+      "seed_role": 55
+    },
+    {
+      "id": "alphonse",
+      "name": "Alphonse",
+      "canonical": "a tall stooped elderly gentleman, balding grey hair, a long white beard, leaning on a walking cane, in a long coat",
+      "anchor": "a long white beard and a walking cane (elderly, stooped)",
+      "role": "character",
+      "seed_role": 20
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a lean bespectacled young man in a stained lab apron bent alone over glowing chemical apparatus in a high garret laboratory before dawn, the last stars fading in the window, candle guttering, his shadowed eyes fixed and feverish",
+      "composition": "wide, solitary obsession, cool dawn light",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AFTER WALDMAN'S LECTURE, <b>CHEMISTRY</b> BECOMES VICTOR'S WHOLE WORLD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "From this day natural philosophy, and particularly chemistry... became nearly my sole occupation.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "the stars often disappeared in the light of morning whilst I was yet engaged in my laboratory",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        0,
+        900
+      ]
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a dwarfish short round pot-bellied old professor with a grey powdered wig and a deep scowling gruff face, barely chest-high, jabbing a stubby finger up at a tall lean bespectacled young man in a stained lab apron, a comic height difference, a cluttered lecture bench behind",
+      "composition": "two-shot caricature, tiny squat scowling professor beside tall student",
+      "characters": [
+        "victor",
+        "krempe"
+      ],
+      "text": {
+        "teen": {
+          "narration": "KREMPE STILL NEEDLES HIM ABOUT THE OLD ALCHEMISTS.",
+          "bubbles": [
+            {
+              "speaker": "KREMPE",
+              "text": "how Cornelius Agrippa went on",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "In M. Waldman I found a true friend. His gentleness was never tinged by dogmatism",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        900,
+        1800
+      ]
+    },
+    {
+      "n": 3,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the same bespectacled young man alone at his cluttered desk deep at night, letters from home lying unopened and dusty, a small unlit portrait of a golden-haired woman turned aside, two years of seasons hinted in the window",
+      "composition": "wide, the pull of science over home",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "TWO YEARS PASS. HE NEVER ONCE GOES HOME TO GENEVA.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Two years passed in this manner, during which I paid no visit to Geneva",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "None but those who have experienced them can conceive of the enticements of science.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        1800,
+        2701
+      ]
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man holding a candle up to a human skeleton and anatomical drawings pinned to the wall, gazing with dawning obsession, deep shadows",
+      "composition": "close, the fatal question forming",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ONE QUESTION BEGINS TO CONSUME HIM.",
+          "bubbles": [
+            {
+              "speaker": "VICTOR",
+              "text": "Whence, I often asked myself, did the principle of life proceed?",
+              "pos": "tc",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "It was a bold question, and one which has ever been considered as a mystery",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        2701,
+        3601
+      ]
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man in a dark coat stepping through the iron gate of a moonlit churchyard at night, a lantern low in his hand, leaning gravestones around him, resolute and grim",
+      "composition": "close, threshold into the graves",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "TO STUDY <b>LIFE</b>, HE TURNS TO <b>DEATH</b>.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "To examine the causes of life, we must first have recourse to death.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "a churchyard was to me merely the receptacle of bodies deprived of life",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        3601,
+        4501
+      ]
+    },
+    {
+      "n": 6,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a dim vaulted charnel-house lit by a single lantern, the bespectacled young man crouched examining decay and bone, unflinching, cobwebs and stone niches around him",
+      "composition": "wide, days and nights among the dead",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FOR DAYS AND NIGHTS HE HAUNTS THE VAULTS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "forced to spend days and nights in vaults and charnel-houses",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I saw how the worm inherited the wonders of the eye and brain",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        4501,
+        5401
+      ]
+    },
+    {
+      "n": 7,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man struck motionless as a brilliant beam of light breaks over him out of surrounding darkness, awe and terror on his lit face, arms half-raised",
+      "composition": "wide, the blinding revelation",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN, OUT OF THE DARKNESS — A SUDDEN LIGHT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "from the midst of this darkness a sudden light broke in upon me-a light so brilliant and wondrous, yet so simple",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "VICTOR",
+              "text": "Remember, I am not recording the vision of a madman.",
+              "pos": "br",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        5401,
+        6301
+      ]
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man alone, face transfigured with rapture and dread, a faint spark of animation glowing between his cupped hands",
+      "composition": "close, the terrible discovery seized",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE HAS FOUND THE SECRET OF LIFE ITSELF.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I succeeded in discovering the cause of generation and life; nay, more, I became myself capable of bestowing animation upon lifeless matter.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "The astonishment which I had at first experienced on this discovery soon gave place to delight and rapture.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        6301,
+        7202
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a gaunt older frame-narrator version of the same bespectacled man, hollow-cheeked and grave, looking directly out as if warning the listener, firelight on his ravaged face",
+      "composition": "close, direct address, a warning from the future",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FROM THE RUIN OF HIS FUTURE, VICTOR WARNS US.",
+          "bubbles": [
+            {
+              "speaker": "VICTOR",
+              "text": "Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "how much happier that man is who believes his native town to be the world, than he who aspires to become greater than his nature will allow",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        7202,
+        8102
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man in a stained lab apron leaning over a large drafting table, drawing on a huge sheet the full head-to-toe outline of a giant eight-foot human figure, calipers in his hand, the oversized anatomical diagram dominating the page, cold ambition in his shadowed eyes",
+      "composition": "close, the monstrous plan drawn",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE RESOLVES TO BUILD A BEING — BUT <b>GIGANTIC</b>.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "to make the being of a gigantic stature, that is to say, about eight feet in height, and proportionably large",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "VICTOR",
+              "text": "It was with these feelings that I began the creation of a human being.",
+              "pos": "br",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        8102,
+        9002
+      ]
+    },
+    {
+      "n": 11,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man haloed in visionary light, arms outspread, imagining a radiant torrent of light pouring into a dark world, exalted and blind to danger",
+      "composition": "wide, grandiose dream of creation",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE DREAMS OF BECOMING A <b>CREATOR</b> OF A NEW RACE.",
+          "bubbles": [
+            {
+              "speaker": "VICTOR",
+              "text": "Life and death appeared to me ideal bounds, which I should first break through, and pour a torrent of light into our dark world.",
+              "pos": "tc",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "A new species would bless me as its creator and source",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        9002,
+        9902
+      ]
+    },
+    {
+      "n": 12,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a cramped attic cell at the very top of the house crowded with specimen jars, retorts and bone, a long sheet-shrouded gigantic human form lying on a central workbench slab, the bespectacled young man in a stained apron standing beside it with staring bloodshot eyes, a single oil lamp burning",
+      "composition": "wide, the secret workshop revealed",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IN A GARRET CELL HE HIDES HIS <b>WORKSHOP OF FILTHY CREATION</b>.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "In a solitary chamber, or rather cell, at the top of the house",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I kept my workshop of filthy creation... my eyeballs were starting from their sockets in attending to the details of my employment",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        9902,
+        10802
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "moonlight through a high window falling on the emaciated bespectacled young man bent over his grim work, pale and hollow, the moon a cold witness",
+      "composition": "close, midnight labour under the moon",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "NIGHT AFTER NIGHT, WASTING, HE WORKS ON.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the moon gazed on my midnight labours, while, with unrelaxed and breathless eagerness, I pursued nature to her hiding-places",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "My cheek had grown pale with study, and my person had become emaciated with confinement.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        10802,
+        11702
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the emaciated bespectacled young man carrying a sack of bones up a dark staircase from a charnel vault, face turned with loathing yet driven on, grim resolve",
+      "composition": "close, gathering the dreadful materials",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE ROBS THE GRAVES FOR HIS MATERIALS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I collected bones from charnel-houses and disturbed, with profane fingers, the tremendous secrets of the human frame.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "The dissecting room and the slaughter-house furnished many of my materials",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        11702,
+        12603
+      ]
+    },
+    {
+      "n": 15,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a radiant summer landscape of harvest fields and vines beyond a window, while inside the pale bespectacled young man ignores it entirely, an unanswered letter from his father in his slack hand",
+      "composition": "wide, beauty outside, blindness within",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "A BEAUTIFUL SUMMER PASSES UNSEEN. HIS FATHER WRITES.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The summer months passed while I was thus engaged, heart and soul, in one pursuit.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ALPHONSE",
+              "text": "You must pardon me if I regard any interruption in your correspondence as a proof that your other duties are equally neglected.",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        12603,
+        13503
+      ]
+    },
+    {
+      "n": 16,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the withered autumn leaves falling past the window as the ravaged, trembling bespectacled young man startles at a single drifting leaf, near collapse, the shrouded giant nearly finished behind him",
+      "composition": "wide, a wreck on the brink of completion",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BY AUTUMN HE IS A WRECK — AND THE WORK IS ALMOST DONE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The leaves of that year had withered before my work drew near to a close",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "the fall of a leaf startled me, and I shunned my fellow creatures as if I had been guilty of a crime",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "the energy of my purpose alone sustained me",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        13503,
+        14403
+      ]
+    }
+  ]
+}

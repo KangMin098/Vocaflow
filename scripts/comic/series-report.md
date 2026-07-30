@@ -1,6 +1,6 @@
 # Frankenstein — Series Evaluation
 
-Chapters: 1, 2, 3, 5, 6, 7
+Chapters: 1, 2, 3, 4, 5, 6, 7
 
 ## Chapter 1 — Frankenstein · Chapter 1 — A Gift Called Elizabeth
 - structure: ok
@@ -21,6 +21,13 @@ Chapters: 1, 2, 3, 5, 6, 7
 - panels: 16 · retention: 25.3% · verbatim lines: 25
 - images: 16/16 ok, avg 23628B
 - characters: victor, alphonse, caroline, elizabeth, clerval, krempe, waldman
+- cast vs bible: in sync ✓
+
+## Chapter 4 — Frankenstein · Chapter 4 — The Workshop of Filthy Creation
+- structure: ok
+- panels: 16 · retention: 25.9% · verbatim lines: 33
+- images: 16/16 ok, avg 25342B
+- characters: victor, krempe
 - cast vs bible: in sync ✓
 
 ## Chapter 5 — Frankenstein · Chapter 5 — The Creation
@@ -47,7 +54,7 @@ Chapters: 1, 2, 3, 5, 6, 7
 ## Cross-chapter continuity
 | character | bible signature | appears in |
 |---|---|---|
-| Victor | undefined | used:1,2,3,5,6,7 / bible:1,2,3,5,6,7 ✓ |
+| Victor | undefined | used:1,2,3,4,5,6,7 / bible:1,2,3,4,5,6,7 ✓ |
 | the Creature | undefined | used:5,7 / bible:5,7 ✓ |
 | Clerval | undefined | used:2,3,5,6,7 / bible:2,3,5,6,7 ✓ |
 | Elizabeth | undefined | used:1,2,3,5,6,7 / bible:1,2,3,5,6,7 ✓ |
@@ -56,7 +63,7 @@ Chapters: 1, 2, 3, 5, 6, 7
 | Justine | undefined | used:6 / bible:6 ✓ |
 | William | undefined | used:6 / bible:6 ✓ |
 | Waldman | undefined | used:3,6 / bible:3,6 ✓ |
-| Krempe | undefined | used:3,6 / bible:3,6 ✓ |
+| Krempe | undefined | used:3,4,6 / bible:3,4,6 ✓ |
 | Caroline | undefined | used:1,3 / bible:1,3 ✓ |
 | Beaufort | undefined | used:1 / bible:1 ✓ |
 
