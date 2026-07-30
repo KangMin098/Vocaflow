@@ -36,7 +36,7 @@ if (arg("sync-cast")) {
     let changed = 0;
     for (const c of s.cast) {
       const b = BIBLE.characters[c.id];
-      if (!b) continue;
+      if (!b || c.variant) continue;
       if (c.canonical !== b.canonical || c.anchor !== b.anchor || c.name !== b.name) {
         c.name = b.name; c.canonical = b.canonical; c.anchor = b.anchor; changed++;
       }
@@ -77,6 +77,7 @@ for (const { f, n } of files) {
   for (const c of s.cast) {
     const b = BIBLE.characters[c.id];
     if (!b) { drift.push(`${c.id} (not in bible)`); continue; }
+    if (c.variant) continue; // intentional age/state variant (e.g. child Victor) — skip
     if (c.canonical !== b.canonical || c.anchor !== b.anchor) drift.push(`${c.id} (desc ≠ bible)`);
   }
   // image QC (if images present)
