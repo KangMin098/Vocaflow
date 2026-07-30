@@ -1,12 +1,19 @@
 # Frankenstein — Series Evaluation
 
-Chapters: 1, 5, 6, 7
+Chapters: 1, 2, 5, 6, 7
 
 ## Chapter 1 — Frankenstein · Chapter 1 — A Gift Called Elizabeth
 - structure: ok
 - panels: 15 · retention: 25.3% · verbatim lines: 15
 - images: 15/15 ok, avg 21472B
 - characters: alphonse, beaufort, caroline, victor, elizabeth
+- cast vs bible: in sync ✓
+
+## Chapter 2 — Frankenstein · Chapter 2 — The Seed of an Obsession
+- structure: ok
+- panels: 15 · retention: 25.6% · verbatim lines: 18
+- images: 15/15 ok, avg 25824B
+- characters: elizabeth, victor, clerval, alphonse
 - cast vs bible: in sync ✓
 
 ## Chapter 5 — Frankenstein · Chapter 5 — The Creation
@@ -33,11 +40,11 @@ Chapters: 1, 5, 6, 7
 ## Cross-chapter continuity
 | character | bible signature | appears in |
 |---|---|---|
-| Victor | undefined | used:1,5,6,7 / bible:1,5,6,7 ✓ |
+| Victor | undefined | used:1,2,5,6,7 / bible:1,5,6,7 ⚠ |
 | the Creature | undefined | used:5,7 / bible:5,7 ✓ |
-| Clerval | undefined | used:5,6,7 / bible:5,6,7 ✓ |
-| Elizabeth | undefined | used:1,5,6,7 / bible:1,5,6,7 ✓ |
-| Alphonse | undefined | used:1,7 / bible:1,7 ✓ |
+| Clerval | undefined | used:2,5,6,7 / bible:5,6,7 ⚠ |
+| Elizabeth | undefined | used:1,2,5,6,7 / bible:1,5,6,7 ⚠ |
+| Alphonse | undefined | used:1,2,7 / bible:1,7 ⚠ |
 | Ernest | undefined | used:7 / bible:7 ✓ |
 | Justine | undefined | used:6 / bible:6 ✓ |
 | William | undefined | used:6 / bible:6 ✓ |
@@ -50,3 +57,7 @@ Chapters: 1, 5, 6, 7
 1. ch5: cast drift (victor (desc ≠ bible), creature (desc ≠ bible), clerval (desc ≠ bible), elizabeth (desc ≠ bible)) → run --sync-cast + regen those panels
 2. ch6: cast drift (victor (desc ≠ bible), clerval (desc ≠ bible), elizabeth (desc ≠ bible), justine (desc ≠ bible), william (desc ≠ bible), waldman (desc ≠ bible), krempe (desc ≠ bible)) → run --sync-cast + regen those panels
 3. ch7: cast drift (victor (desc ≠ bible), clerval (desc ≠ bible), creature (desc ≠ bible), alphonse (desc ≠ bible), ernest (desc ≠ bible), elizabeth (desc ≠ bible)) → run --sync-cast + regen those panels
+4. victor: appears_in bible(1,5,6,7) ≠ used(1,2,5,6,7)
+5. clerval: appears_in bible(5,6,7) ≠ used(2,5,6,7)
+6. elizabeth: appears_in bible(1,5,6,7) ≠ used(1,2,5,6,7)
+7. alphonse: appears_in bible(1,7) ≠ used(1,2,7)
