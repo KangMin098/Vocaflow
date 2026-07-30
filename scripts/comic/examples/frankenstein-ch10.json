@@ -1,0 +1,745 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch10",
+    "title": "Frankenstein · Chapter 10 — The Meeting on the Sea of Ice",
+    "author": "Mary Shelley, Frankenstein (1831), Chapter 10",
+    "source": "file",
+    "ref": "scratchpad-foreign/frank4/pg84.raw.txt",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 16,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "art_maturity": "mature",
+    "source_span": [
+      0,
+      13003
+    ],
+    "original_words": 2357,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "victor",
+      "name": "Victor",
+      "role": "protagonist — brilliant, obsessive, guilt-ridden, sickly",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
+      "seed_role": 84
+    },
+    {
+      "id": "creature",
+      "name": "the Creature",
+      "role": "the made being — intelligent, eloquent, desperately lonely, then vengeful",
+      "canonical": "a very tall gaunt figure, chalk-white skin, bald head with one bold black stitch-seam across the brow, a bolt at the neck, heavy seams on the arms, deep sorrowful hollow eyes, sharp teeth, ragged shirt",
+      "anchor": "tallest gaunt bald body, a brow stitch-seam, a neck bolt and sorrowful hollow eyes",
+      "seed_role": 66
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a lone bespectacled young man in a dark coat standing dwarfed beneath the towering blue icy wall of a vast glacier in an Alpine valley, shattered pines around, awesome silence",
+      "composition": "wide, humbled beneath the glacier",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR SEEKS OUT THE SUBLIME GLACIERS ABOVE CHAMOUNIX.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the icy wall of the glacier overhung me",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "the solemn silence of this glorious presence-chamber of imperial Nature",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        0,
+        813
+      ]
+    },
+    {
+      "n": 2,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the young man resting at peace among grand shapes of snowy peaks, glittering pinnacles and an eagle soaring in cloud, a fleeting serenity on his worn face",
+      "composition": "wide, the sublime brings brief peace",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE GRANDEUR TRANQUILLISES HIS GRIEF FOR A NIGHT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "These sublime and magnificent scenes afforded me the greatest consolation that I was capable of receiving",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "they all gathered round me and bade me be at peace",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "although they did not remove my grief, they subdued and tranquillised it",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        813,
+        1625
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man setting out in pouring rain and thick mist, determined and grim, a mule beside him, mountain summits hidden in cloud",
+      "composition": "close, resolve against the storm",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BY MORNING THE GLOOM RETURNS. HE CLIMBS ANYWAY.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The rain was pouring in torrents, and thick mists hid the summits of the mountains",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I resolved to ascend to the summit of Montanvert",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        1625,
+        2438
+      ]
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the young man climbing a steep winding mountain path strewn with avalanche-broken pines, some snapped and leaning, a terrifically desolate slope",
+      "composition": "close, the desolate ascent",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE PATH UP MONTANVERT IS BLEAK AND BROKEN.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "It is a scene terrifically desolate.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "where trees lie broken and strewed on the ground",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "In a thousand spots the traces of the winter avalanche may be perceived",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        2438,
+        3251
+      ]
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the young man pausing on a high ridge in the mist, gazing over a valley of curling river-mists, a melancholy contemplative figure",
+      "composition": "close, brooding on man's frailty",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE BROODS ON THE FRAILTY OF THE HUMAN MIND.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "We rest; a dream has power to poison sleep.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "Nought may endure but mutability!",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        3251,
+        4063
+      ]
+    },
+    {
+      "n": 6,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the vast uneven sea of ice stretching like frozen waves riven by deep crevasses, the small figure of the young man descending onto the glacier, sublime and immense",
+      "composition": "wide, crossing the frozen sea",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT NOON HE DESCENDS ONTO THE MER DE GLACE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "For some time I sat upon the rock that overlooks the sea of ice.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I descended upon the glacier",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "The surface is very uneven, rising like the waves of a troubled sea",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        4063,
+        4876
+      ]
+    },
+    {
+      "n": 7,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the young man standing small in a recess of rock on the glittering glacier with the vast white dome of Mont Blanc rising in awful majesty above the clouds, a moment of swelling awe",
+      "composition": "wide, Mont Blanc in awful majesty",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "MONT BLANC RISES ABOVE — HIS HEART LIFTS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "above it rose Mont Blanc, in awful majesty",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "My heart, which was before sorrowful, now swelled with something like joy",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "gazing on this wonderful and stupendous scene",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        4876,
+        5689
+      ]
+    },
+    {
+      "n": 8,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a huge distant figure of a man bounding across the ice crevasses toward the viewer with superhuman speed and impossible stature, the small bespectacled young man frozen in alarm in the foreground",
+      "composition": "wide distance shot, the giant approaches",
+      "characters": [
+        "victor",
+        "creature"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN — A SHAPE OF MORE THAN HUMAN SIZE, RUSHING ACROSS THE ICE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I suddenly beheld the figure of a man, at some distance, advancing towards me with superhuman speed",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "He bounded over the crevices in the ice",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "his stature, also, as he approached, seemed to exceed that of man",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        5689,
+        6502
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "close on the bespectacled young man recoiling in rage and horror as he recognises the towering bald hollow-eyed creature with a stitched brow and a neck bolt, its face bespeaking bitter anguish and malignity",
+      "composition": "close two-shot, dreadful recognition",
+      "characters": [
+        "victor",
+        "creature"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT IS THE WRETCH HE MADE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "it was the wretch whom I had created",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I trembled with rage and horror",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "his countenance bespoke bitter anguish, combined with disdain and malignity",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        6502,
+        7314
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man flinging out an arm and shouting in fury at the towering creature on the ice, face twisted with hatred, the giant impassive before him",
+      "composition": "close two-shot, Victor's furious curse",
+      "characters": [
+        "victor",
+        "creature"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR ERUPTS IN HATRED.",
+          "bubbles": [
+            {
+              "speaker": "VICTOR",
+              "text": "Devil... do you dare approach me?",
+              "pos": "tc",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "VICTOR",
+              "text": "Begone, vile insect!",
+              "pos": "br",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "VICTOR",
+              "text": "that I may trample you to dust!",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        7314,
+        8127
+      ]
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "close on the towering bald creature with hollow eyes and stitched brow speaking with sorrowful dignity, one great hand raised, anguish and reproach in its ruined face",
+      "composition": "close, the creature answers with grief",
+      "characters": [
+        "creature"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT THE CREATURE ANSWERS — ELOQUENT, AND WOUNDED.",
+          "bubbles": [
+            {
+              "speaker": "CREATURE",
+              "text": "I expected this reception... All men hate the wretched",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "how, then, must I be hated, who am miserable beyond all living things!",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "Yet you, my creator, detest and spurn me, thy creature",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        8127,
+        8940
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the towering creature standing firm on the ice, addressing the small young man with grave demand, a threat and a bargain in its bearing",
+      "composition": "close two-shot, the creature's demand",
+      "characters": [
+        "creature",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT DEMANDS ITS CREATOR DO HIS DUTY.",
+          "bubbles": [
+            {
+              "speaker": "CREATURE",
+              "text": "Do your duty towards me, and I will do mine towards you and the rest of mankind",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "if you refuse, I will glut the maw of death, until it be satiated with the blood of your remaining friends",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        8940,
+        9752
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the young man lunging at the giant, who effortlessly holds him off at arm's length on the ice, calm and immovable, clearly the stronger",
+      "composition": "close two-shot, the futile attack",
+      "characters": [
+        "victor",
+        "creature"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR ATTACKS — BUT THE CREATURE IS FAR STRONGER.",
+          "bubbles": [
+            {
+              "speaker": "CREATURE",
+              "text": "Be calm!",
+              "pos": "tc",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "thou hast made me more powerful than thyself; my height is superior to thine, my joints more supple",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "I am thy creature, and I will be even mild and docile to my natural lord and king",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        9752,
+        10565
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "close on the towering creature's sorrowful hollow-eyed face turned pleading to the heavens, the small young man listening despite himself, snow around",
+      "composition": "close, the fallen angel's plea",
+      "characters": [
+        "creature",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT PLEADS: IT WAS BORN GOOD, AND MISERY MADE IT CRUEL.",
+          "bubbles": [
+            {
+              "speaker": "CREATURE",
+              "text": "I ought to be thy Adam, but I am rather the fallen angel",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "I was benevolent and good; misery made me a fiend. Make me happy, and I shall again be virtuous.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "Everywhere I see bliss, from which I alone am irrevocably excluded",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        10565,
+        11378
+      ]
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the towering creature beckoning the young man to follow across the ice toward a distant small hut, the low sun still high over the snowy precipices",
+      "composition": "medium two-shot, led toward the hut",
+      "characters": [
+        "creature",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT ASKS ONLY THAT ITS TALE BE HEARD.",
+          "bubbles": [
+            {
+              "speaker": "CREATURE",
+              "text": "Hear my tale; it is long and strange",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "come to the hut upon the mountain",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "CREATURE",
+              "text": "abandon or commiserate me, as you shall judge that I deserve",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        11378,
+        12190
+      ]
+    },
+    {
+      "n": 16,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "inside a dim mountain hut, the towering creature seated by a small fire with an air of exultation, the bespectacled young man across from it heavy-hearted, firelight and ice-blue window light",
+      "composition": "wide interior two-shot, the fireside truce",
+      "characters": [
+        "creature",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR CONSENTS TO LISTEN. THE CREATURE BEGINS ITS TALE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I with a heavy heart and depressed spirits",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "he thus began his tale.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "seating myself by the fire which my odious companion had lighted",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        12190,
+        13003
+      ]
+    }
+  ]
+}
