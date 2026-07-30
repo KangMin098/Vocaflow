@@ -20,7 +20,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ]
     },
     "creature": {
@@ -72,7 +73,8 @@
         3,
         5,
         6,
-        7
+        7,
+        8
       ]
     },
     "alphonse": {
@@ -117,7 +119,8 @@
       "anchor": "a white servant's cap and clasped hands",
       "consistency": "the ONLY one in a small white servant's cap; modest and gentle.",
       "appears_in": [
-        6
+        6,
+        8
       ]
     },
     "william": {

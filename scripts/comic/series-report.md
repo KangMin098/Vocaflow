@@ -1,6 +1,6 @@
 # Frankenstein — Series Evaluation
 
-Chapters: 1, 2, 3, 4, 5, 6, 7
+Chapters: 1, 2, 3, 4, 5, 6, 7, 8
 
 ## Chapter 1 — Frankenstein · Chapter 1 — A Gift Called Elizabeth
 - structure: ok
@@ -33,34 +33,41 @@ Chapters: 1, 2, 3, 4, 5, 6, 7
 ## Chapter 5 — Frankenstein · Chapter 5 — The Creation
 - structure: ok
 - panels: 18 · retention: 23.5% · verbatim lines: 18
-- images: 18/18 ok, avg 26372B
+- images: 18/18 ok, avg 25569B
 - characters: victor, creature, elizabeth, clerval
 - cast vs bible: in sync ✓
 
 ## Chapter 6 — Frankenstein · Chapter 6 — The Letter from Home
 - structure: ok
 - panels: 16 · retention: 26.0% · verbatim lines: 21
-- images: 16/16 ok, avg 24759B
+- images: 16/16 ok, avg 25366B
 - characters: victor, clerval, elizabeth, justine, william, waldman, krempe
 - cast vs bible: in sync ✓
 
 ## Chapter 7 — Frankenstein · Chapter 7 — The Storm & the Murderer
 - structure: ok
 - panels: 17 · retention: 24.8% · verbatim lines: 35
-- images: 17/17 ok, avg 24105B
+- images: 17/17 ok, avg 25107B
 - characters: victor, clerval, elizabeth, creature, ernest, alphonse
+- cast vs bible: in sync ✓
+
+## Chapter 8 — Frankenstein · Chapter 8 — The Trial of Justine
+- structure: ok
+- panels: 16 · retention: 24.6% · verbatim lines: 50
+- images: 16/16 ok, avg 27669B
+- characters: victor, justine, elizabeth
 - cast vs bible: in sync ✓
 
 ## Cross-chapter continuity
 | character | bible signature | appears in |
 |---|---|---|
-| Victor | undefined | used:1,2,3,4,5,6,7 / bible:1,2,3,4,5,6,7 ✓ |
+| Victor | undefined | used:1,2,3,4,5,6,7,8 / bible:1,2,3,4,5,6,7,8 ✓ |
 | the Creature | undefined | used:5,7 / bible:5,7 ✓ |
 | Clerval | undefined | used:2,3,5,6,7 / bible:2,3,5,6,7 ✓ |
-| Elizabeth | undefined | used:1,2,3,5,6,7 / bible:1,2,3,5,6,7 ✓ |
+| Elizabeth | undefined | used:1,2,3,5,6,7,8 / bible:1,2,3,5,6,7,8 ✓ |
 | Alphonse | undefined | used:1,2,3,7 / bible:1,2,3,7 ✓ |
 | Ernest | undefined | used:7 / bible:7 ✓ |
-| Justine | undefined | used:6 / bible:6 ✓ |
+| Justine | undefined | used:6,8 / bible:6,8 ✓ |
 | William | undefined | used:6 / bible:6 ✓ |
 | Waldman | undefined | used:3,6 / bible:3,6 ✓ |
 | Krempe | undefined | used:3,4,6 / bible:3,4,6 ✓ |
