@@ -157,13 +157,9 @@ export function buildImagePrompt(panel, cast, style) {
   }
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
-  // The caption sits in its OWN band above the art (no overlay), so the art may
-  // use the whole frame — just keep the main subject fully inside the edges.
-  parts.push("Fill the frame with the scene and keep the main subject fully inside the edges, not cropped.");
-  // if this panel carries dialogue, leave a little top-corner air so small speech
-  // bubbles sit over open background rather than over a face
-  const hasBubbles = Object.values(panel.text || {}).some((t) => (t.bubbles && t.bubbles.length) || t.quote_bubble);
-  if (hasBubbles) parts.push("Leave a little open background near the top corners (sky, wall or air) so a small speech bubble fits without covering a face.");
+  // Text lives in its own zone ABOVE the art (not overlaid), so the art can fill
+  // the whole frame with the subject prominent — just keep it inside the edges.
+  parts.push("Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.");
   if ((panel.characters || []).length >= 3)
     parts.push("Show the characters small and spread far apart in a wide shot so each stays a distinct full figure.");
   // proactively apply learned global lessons to prevent known defects
@@ -284,42 +280,35 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .panel{display:flex;flex-direction:column;grid-column:span 1;background:var(--paper);
  border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
 .panel.wide{grid-column:span 2}
-/* TOP caption band — its own region, never over the art */
-.cap{padding:8px 11px 9px;border-bottom:3px solid var(--frame)}
-.nar{font-size:12.5px;line-height:1.3;text-transform:uppercase;letter-spacing:.2px}
-.nar b{font-weight:800;border-bottom:2px solid var(--ink)}
-.quote{margin-top:7px;background:var(--quote);border:2px solid var(--ink);border-left-width:6px;border-radius:2px;
- padding:6px 9px;font-size:12px;line-height:1.3;letter-spacing:.2px}
-.qby{display:block;text-align:right;font-size:9.5px;font-weight:bold;margin-top:3px;opacity:.7;text-transform:uppercase}
-/* ART region below the caption — fully visible */
+/* ONE unified text system: a zone of comic bubbles/boxes ABOVE the art (never over it) */
+.stack{display:flex;flex-direction:column;gap:6px;padding:9px 10px 11px;background:var(--artbg);border-bottom:3px solid var(--frame)}
 .art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg);overflow:hidden}
 .panel.wide .art{aspect-ratio:2/1}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
-/* short dialogue bubbles overlay the art in a corner */
-.bub{position:absolute;background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 46% 45% 47%/50% 52% 48% 50%;
- padding:5px 8px;font-size:11px;line-height:1.14;text-transform:uppercase;max-width:46%;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.25)}
-.bub .tail{position:absolute;width:13px;height:13px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;transform:rotate(45deg)}
-.bub.tr{top:8px;right:8px}.bub.tr .tail{left:15px;bottom:-7px}
-.bub.tl{top:8px;left:8px}.bub.tl .tail{right:15px;bottom:-7px}
-.bub.br{bottom:8px;right:8px}.bub.br .tail{left:15px;top:-7px;transform:rotate(225deg)}
-.bub.bl{bottom:8px;left:8px}.bub.bl .tail{right:15px;top:-7px;transform:rotate(225deg)}
-.bub.tc{top:8px;left:50%;transform:translateX(-50%)}.bub.tc .tail{left:calc(50% - 6px);bottom:-7px}
-.bub.speech{max-width:56%;font-size:11px;line-height:1.2}
-/* SHOUT — spiky burst for exclamations */
-.bub.shout{background:#fff;border:none;border-radius:0;max-width:58%;font-weight:800;text-align:center;
+.tb{position:relative;max-width:86%;background:#fff;color:#111;border:2.5px solid #111;border-radius:44% 46% 45% 47%/50% 52% 48% 50%;
+ padding:6px 10px;font-size:11px;line-height:1.18;text-transform:uppercase;letter-spacing:.2px;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.22)}
+.tb.right{align-self:flex-end}.tb.left{align-self:flex-start}
+.tb .who{display:block;font-size:8px;font-weight:800;opacity:.55;margin-bottom:1px}
+.tb .qby2{display:block;text-align:right;font-size:8.5px;font-weight:bold;opacity:.55;margin-top:2px}
+/* SPEECH gets a little tail toward the scene below */
+.tb.speech::after{content:"";position:absolute;width:12px;height:12px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;bottom:-7px;left:18px;transform:rotate(45deg)}
+.tb.right.speech::after{left:auto;right:18px}
+/* CAPTION — rectangular narrator box (paper) */
+.tb.caption{background:var(--paper);border-radius:2px;max-width:96%}
+/* SHOUT — spiky burst */
+.tb.shout{border:none;border-radius:0;font-weight:800;text-align:center;background:#fff;
  clip-path:polygon(0% 22%,12% 12%,10% 0%,26% 10%,38% 0,50% 11%,62% 0,74% 10%,90% 0,88% 12%,100% 22%,90% 38%,100% 52%,88% 66%,100% 80%,84% 84%,74% 100%,60% 86%,50% 98%,40% 86%,26% 100%,16% 84%,0% 80%,12% 66%,0% 52%,10% 38%);
- filter:drop-shadow(1.5px 0 0 #111) drop-shadow(-1.5px 0 0 #111) drop-shadow(0 1.5px 0 #111) drop-shadow(0 -1.5px 0 #111);padding:12px 14px}
-.bub.shout .tail{display:none}
-/* THOUGHT — rounded cloud with little trailing circles */
-.bub.thought{border-radius:50%/46%;max-width:52%}
-.bub.thought .tail{display:none}
-.bub.thought::after{content:"";position:absolute;width:9px;height:9px;background:#fff;border:2.5px solid #111;border-radius:50%;bottom:-6px;left:16px;box-shadow:-10px 8px 0 -2px #fff,-10px 8px 0 0 #111}
+ filter:drop-shadow(1.5px 0 0 #111) drop-shadow(-1.5px 0 0 #111) drop-shadow(0 1.5px 0 #111) drop-shadow(0 -1.5px 0 #111);padding:11px 14px}
+/* THOUGHT — cloud */
+.tb.thought{border-radius:50%/42%}
+.tb.thought::after{content:"";position:absolute;width:8px;height:8px;background:#fff;border:2.5px solid #111;border-radius:50%;bottom:-6px;left:20px;box-shadow:-9px 7px 0 -2px #fff,-9px 7px 0 0 #111}
 /* WHISPER — dashed, quiet */
-.bub.whisper{border-style:dashed;opacity:.9;font-style:italic}
-/* CAPTION — a small rectangular narrator box floating over the art corner */
-.bub.caption{background:var(--paper);border:2px solid var(--ink);border-radius:2px;max-width:60%;text-transform:uppercase;letter-spacing:.2px}
-.bub.caption .tail{display:none}
-.qby2{display:block;text-align:right;font-size:8.5px;font-weight:bold;opacity:.6;margin-top:2px}
+.tb.whisper{border-style:dashed;font-style:italic;opacity:.92}
+/* QUOTE — verbatim source line, yellow */
+.tb.quote{background:var(--quote);border-radius:2px;max-width:96%;border-left-width:6px}
+.label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
+ text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
+.label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
 .label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
 .label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
@@ -335,32 +324,25 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // bubbles overlay the art — varied KIND (speech/shout/thought/whisper/caption)
-  // and position per situation, so panels don't all look the same.
-  const bubPos = { tr: "tr", tl: "tl", br: "br", bl: "bl", tc: "tc", mr: "br", ml: "bl" };
-  const bubs = (t.bubbles || [])
-    .map((b) => {
-      const kind = b.kind || "speech";
-      const by = b.verbatim && b.by ? `<span class="qby2">&mdash; ${b.by}</span>` : "";
-      return `<div class="bub ${kind} ${bubPos[b.pos] || "br"}">${b.text}${by}<span class="tail"></span></div>`;
-    })
-    .join("");
+  // ONE unified text system: narration, verbatim quotes and dialogue are ALL comic
+  // bubbles/boxes, stacked over the empty upper area of the art (no separate band).
+  const sideOf = (pos) => (pos === "tr" || pos === "br") ? "right" : "left";
+  const items = [];
+  if (t.narration) items.push(`<div class="tb caption left">${t.narration}</div>`);
+  if (t.quote) items.push(`<div class="tb quote left">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
+  for (const b of t.bubbles || []) {
+    const kind = b.kind || "speech";
+    const side = kind === "caption" || kind === "quote" ? "left" : sideOf(b.pos);
+    const who = b.speaker && kind !== "caption" ? `<span class="who">${String(b.speaker).toUpperCase()}</span>` : "";
+    const by = b.verbatim && b.by ? `<span class="qby2">&mdash; ${b.by}</span>` : "";
+    items.push(`<div class="tb ${kind} ${side}">${who}${b.text}${by}</div>`);
+  }
   const labels = (t.labels || [])
     .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
     .join("");
-  const nar = t.narration ? `<div class="nar">${t.narration}</div>` : "";
-  // a verbatim quote can render as a SPEECH BUBBLE over the art (spoken lines →
-  // comic/webtoon feel) or stay in the caption band (descriptive narration).
-  const quoteBubble = (t.quote && t.quote_bubble)
-    ? `<div class="bub speech ${bubPos[t.quote_pos] || "tr"}">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span><span class="tail"></span></div>`
-    : "";
-  const quoteBand = (t.quote && !t.quote_bubble)
-    ? `<div class="quote">&ldquo;${t.quote}&rdquo;<span class="qby">&mdash; ${t.quote_by || "SOURCE"}</span></div>`
-    : "";
-  const capBand = (nar || quoteBand) ? `<div class="cap">${nar}${quoteBand}</div>` : "";
   return `<figure class="panel${p.wide ? " wide" : ""}">
-  ${capBand}
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${bubs}${quoteBubble}${labels}</div>
+  <div class="stack">${items.join("")}</div>
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${labels}</div>
 </figure>`;
 }
 
