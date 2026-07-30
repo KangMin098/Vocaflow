@@ -8,7 +8,7 @@
 
 import fs from "fs";
 import path from "path";
-import { buildImagePrompt, genImage, gate2, STYLE } from "./lib.mjs";
+import { buildImagePrompt, genImage, gate2, styleFor } from "./lib.mjs";
 
 function arg(name, def) {
   const i = process.argv.indexOf(`--${name}`);
@@ -32,6 +32,9 @@ async function main() {
   const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
   const cast = script.cast;
   const baseSeed = (script.adaptation && script.adaptation.seed) || cast[0]?.seed_role || 909;
+  // pick the art style from the book's difficulty (V-level) or an explicit override
+  const STYLE = styleFor(script.adaptation.target_v_level, script.adaptation.art_maturity);
+  console.error(`→ style: ${script.adaptation.art_maturity || "V" + script.adaptation.target_v_level} tier`);
 
   // Pollinations token (Seed+ tier): env var first, then a gitignored local file.
   // NEVER commit the token; scripts/comic/.pollinations-token is gitignored.

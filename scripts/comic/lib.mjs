@@ -124,8 +124,22 @@ export function gate1(script, sourceText) {
 
 /* ---------- Phase C: prompt composition ---------- */
 
-// the fixed house style — appended to every panel so style stays locked
-export const STYLE = "clean thin black ink line cartoon, strictly monochrome black and white, no colour, grayscale ink and light hatching only, simple wobbly hand-drawn illustrated-science-comic style, big-nose caricatures with expressive googly eyes, lots of white space";
+// Art style is matched to the BOOK'S DIFFICULTY so characters read at the right
+// maturity: a cute big-eyed cartoon suits an easy children's book but looks too
+// juvenile for a hard adult classic like Frankenstein. Three tiers, chosen from the
+// adaptation's V-level (or an explicit adaptation.art_maturity override).
+export const STYLES = {
+  young: "cute simple hand-drawn cartoon, chibi child-friendly proportions, big round expressive eyes, thick clean black lines, whimsical, strictly monochrome black and white, no colour",
+  teen: "clean hand-drawn black-and-white cartoon, balanced proportions, expressive but natural-sized eyes, light ink and a little hatching, strictly monochrome, no colour",
+  mature: "mature graphic-novel black-and-white ink illustration, realistic adult human proportions and faces, restrained expressive features with natural eyes (NOT big cartoon eyes), fine cross-hatching for shadow, a serious literary gothic tone, strictly monochrome, no colour",
+};
+export function styleFor(vLevel, override) {
+  if (override && STYLES[override]) return STYLES[override];
+  const v = Number(vLevel) || 7;
+  return v >= 9 ? STYLES.mature : v >= 5 ? STYLES.teen : STYLES.young;
+}
+// backward-compatible default
+export const STYLE = STYLES.teen;
 
 // learned QC lessons (playbook.json). global constraints are injected into EVERY
 // prompt (prevention); by_tag constraints target specific defects during repair.

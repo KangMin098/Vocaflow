@@ -17,7 +17,7 @@
 
 import fs from "fs";
 import path from "path";
-import { refinePrompt, genImage, gate2, STYLE } from "./lib.mjs";
+import { refinePrompt, genImage, gate2, styleFor } from "./lib.mjs";
 
 function arg(name, def) {
   const i = process.argv.indexOf(`--${name}`);
@@ -137,7 +137,7 @@ async function main() {
         // escalate the seed every attempt so a stuck generation is escaped;
         // the character anchors are re-asserted in the prompt so identity re-forms.
         const seed = baseSeed + (attempt - 1) * 7;
-        const prompt = refinePrompt(p, cast, STYLE, v.tags || [], v.hint || "", attempt);
+        const prompt = refinePrompt(p, cast, styleFor(script.adaptation.target_v_level, script.adaptation.art_maturity), v.tags || [], v.hint || "", attempt);
         const g = await genImage(prompt, { seed, width, height, outPath: img, token });
         if (!g.ok) continue;
         if (useApi) {

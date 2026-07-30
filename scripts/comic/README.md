@@ -122,6 +122,22 @@ node scripts/comic/03-assemble.mjs --script out/script.json --images out/img \
   --tier child --out out/comic.child.html
 ```
 
+## Art style matched to the book's difficulty
+
+A cute big-eyed cartoon suits an easy children's book but looks too juvenile for a
+hard adult classic. `styleFor(vLevel, override)` picks the art tier from the
+adaptation's `target_v_level` (or an explicit `adaptation.art_maturity`):
+
+| tier | when | look |
+|---|---|---|
+| `young` | V < 5 (kids) | chibi proportions, big round eyes, thick lines, whimsical |
+| `teen` | V 5–8 | balanced cartoon, natural-sized eyes, light ink |
+| `mature` | V ≥ 9 (adult classics) | graphic-novel ink, realistic adult proportions, restrained faces, cross-hatching, serious gothic tone |
+
+Frankenstein (V10) → **mature**: characters read as adults with the right gravity,
+while the character-bible signatures (glasses+apron, bonnet+braid+locket, tall bald
+gaunt creature) still hold. 02-images / 02b-verify select the tier automatically.
+
 ## Character consistency (the #1 quality axis)
 
 Prompt-only models cannot lock identity by reference, so consistency is engineered:
