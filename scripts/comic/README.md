@@ -17,6 +17,16 @@ over the art as crisp HTML/CSS, so it stays editable, multilingual, and lets the
 Verified comic-production order is kept; the four art stages (pencils→inks→colors)
 collapse into **one image-gen call**, and lettering becomes **free** overlay.
 
+## Operating standard: the 9+ loop
+
+Every chapter is held to a **9/10 bar on every element** (story, images, difficulty-fit,
+character consistency, distinctness, scene fidelity, text/verbatim, layout, continuity).
+The per-chapter loop is: **evaluate → any element < 9 auto-triggers remediation →
+regenerate (QC loop-until-pass) → re-evaluate**, repeating until nothing scores below 9.
+A sub-9 score is not a question to the user — it is a work item the process must clear.
+`evaluate.mjs` surfaces the structural/continuity items; Claude scores the visual/story
+elements and drives the `02b-verify` repair loop for anything under the bar.
+
 ## Pipeline
 
 ```

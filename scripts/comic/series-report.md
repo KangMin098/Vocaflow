@@ -5,7 +5,7 @@ Chapters: 1, 5, 6, 7
 ## Chapter 1 — Frankenstein · Chapter 1 — A Gift Called Elizabeth
 - structure: ok
 - panels: 15 · retention: 25.3% · verbatim lines: 15
-- images: 15/15 ok, avg 22171B
+- images: 15/15 ok, avg 21472B
 - characters: alphonse, beaufort, caroline, victor, elizabeth
 - cast vs bible: in sync ✓
 
