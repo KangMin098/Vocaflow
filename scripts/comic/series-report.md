@@ -1,6 +1,6 @@
 # Frankenstein — Series Evaluation
 
-Chapters: 1, 2, 3, 4, 5, 6, 7, 8
+Chapters: 1, 2, 3, 4, 5, 6, 7, 8, 9
 
 ## Chapter 1 — Frankenstein · Chapter 1 — A Gift Called Elizabeth
 - structure: ok
@@ -58,14 +58,21 @@ Chapters: 1, 2, 3, 4, 5, 6, 7, 8
 - characters: victor, justine, elizabeth
 - cast vs bible: in sync ✓
 
+## Chapter 9 — Frankenstein · Chapter 9 — The Weight of Remorse
+- structure: ok
+- panels: 16 · retention: 26.5% · verbatim lines: 35
+- images: 16/16 ok, avg 25054B
+- characters: victor, alphonse, elizabeth
+- cast vs bible: in sync ✓
+
 ## Cross-chapter continuity
 | character | bible signature | appears in |
 |---|---|---|
-| Victor | undefined | used:1,2,3,4,5,6,7,8 / bible:1,2,3,4,5,6,7,8 ✓ |
+| Victor | undefined | used:1,2,3,4,5,6,7,8,9 / bible:1,2,3,4,5,6,7,8,9 ✓ |
 | the Creature | undefined | used:5,7 / bible:5,7 ✓ |
 | Clerval | undefined | used:2,3,5,6,7 / bible:2,3,5,6,7 ✓ |
-| Elizabeth | undefined | used:1,2,3,5,6,7,8 / bible:1,2,3,5,6,7,8 ✓ |
-| Alphonse | undefined | used:1,2,3,7 / bible:1,2,3,7 ✓ |
+| Elizabeth | undefined | used:1,2,3,5,6,7,8,9 / bible:1,2,3,5,6,7,8,9 ✓ |
+| Alphonse | undefined | used:1,2,3,7,9 / bible:1,2,3,7,9 ✓ |
 | Ernest | undefined | used:7 / bible:7 ✓ |
 | Justine | undefined | used:6,8 / bible:6,8 ✓ |
 | William | undefined | used:6 / bible:6 ✓ |
