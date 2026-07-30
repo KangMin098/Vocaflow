@@ -1,13 +1,13 @@
 {
   "_doc": "Learned QC lessons, phrased POSITIVELY (FLUX is guidance-distilled at CFG=1, so negative prompts like 'no X' are ignored — always state the positive opposite). 'global' constraints are injected into EVERY panel prompt (prevention). 'by_tag' constraints are applied when repairing a panel with that issue tag. When a rework proves a fix, record it here so quality is maintained, not re-discovered. Update via: node 02b-verify.mjs --learn-global \"...\" or --learn tag=\"...\".",
+  "_lesson_meta": "Do NOT name a specific accessory (e.g. 'top hat') in a GLOBAL constraint — FLUX ignores the exclusivity logic and just draws the named object everywhere (it summoned top hats onto the storm crowd and the creature). Keep accessory rules per-character in the cast, or in by_tag applied only during repair.",
   "global": [
-    "Draw every character as a complete full-body figure, from head to feet, standing whole in the scene.",
-    "Each accessory belongs to exactly one character: the top hat appears only on Clerval; the round glasses appear only on Victor; every other character keeps their own separate look."
+    "Draw every character as a complete full-body figure, from head to feet, standing whole in the scene."
   ],
   "by_tag": {
     "cropped_figure": "Show each character's complete body from head to toe, standing whole.",
     "extra_figures": "Include only the exact characters listed, each a complete separate full body, with empty background around them.",
-    "identity_drift": "Keep each character's fixed signature identical to every other panel (glasses = Victor, top hat = Clerval, bald hollow-eyed ghoul = the Creature).",
+    "identity_drift": "Keep each character identical to their own established design from the other panels.",
     "scene_mismatch": "Show the stated action clearly and literally.",
     "capzone_blocked": "Keep the caption zone as a plain empty area of background.",
     "style_drift": "Keep a clean thin black-and-white cartoon line style, light and tidy."
