@@ -92,16 +92,29 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "William is dead!—... Victor, he is murdered!",
-          "quote_by": "ALPHONSE / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
+          "narration": "BACK IN INGOLSTADT, A LETTER FROM HOME REACHES VICTOR — AND ITS WARM OPENING TURNS TO HORROR.",
           "bubbles": [
             {
               "speaker": "clerval",
               "text": "A LETTER FROM HOME, VICTOR!",
-              "pos": "tl"
+              "pos": "tl",
+              "kind": "speech"
+            },
+            {
+              "speaker": "letter",
+              "text": "William is dead!—... Victor, he is murdered!",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "ALPHONSE"
+            },
+            {
+              "speaker": "",
+              "text": "even now your eye skims over the page to seek the words which are to convey to you the horrible tidings.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }
@@ -123,20 +136,31 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
+          "narration": "THE NEWS SHATTERS HIM; CLERVAL CAN ONLY GRIEVE ALONGSIDE.",
           "bubbles": [
             {
               "speaker": "victor",
-              "text": "NO... NOT LITTLE WILLIAM!",
-              "pos": "tr"
+              "text": "NO — NOT WILLIAM!",
+              "pos": "tr",
+              "kind": "shout"
             },
             {
               "speaker": "clerval",
-              "text": "MY FRIEND — WHAT HAS HAPPENED?",
-              "pos": "bl"
+              "text": "I can offer you no consolation, my friend... your disaster is irreparable.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "CLERVAL"
+            },
+            {
+              "speaker": "",
+              "text": "Tears also gushed from the eyes of Clerval, as he read the account of my misfortune.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
-          ],
-          "quote_by": "SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -153,9 +177,19 @@
       "characters": [],
       "text": {
         "teen": {
-          "narration": "FOUND AT DAWN ON THE GRASS — THE KILLER&rsquo;S MARK ON HIS NECK.",
-          "quote_by": "ALPHONSE / SHELLEY, 1818",
-          "bubbles": []
+          "narration": "THE LETTER RELATES HOW LITTLE WILLIAM WANDERED OFF AT DUSK AND WAS FOUND AT DAWN.",
+          "quote_by": "ALPHONSE, SHELLEY 1818",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the anguish that was visible in my countenance betrayed the secret to Elizabeth.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ],
+          "quote": "About five in the morning I discovered my lovely boy, whom the night before I had seen blooming and active in health, stretched on the grass livid and motionless; the print of the murder's finger was on his neck."
         }
       }
     },
@@ -174,16 +208,29 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "O God! I have murdered my darling child!",
-          "quote_by": "ELIZABETH / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
+          "narration": "A TREASURED MINIATURE WILLIAM WORE IS GONE — AND ELIZABETH BLAMES HERSELF.",
           "bubbles": [
             {
               "speaker": "elizabeth",
-              "text": "THE MINIATURE... IT&rsquo;S GONE!",
-              "pos": "bl"
+              "text": "O God! I have murdered my darling child!",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "ELIZABETH"
+            },
+            {
+              "speaker": "elizabeth",
+              "text": "THE PICTURE... IT'S GONE!",
+              "pos": "bl",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "This picture is gone, and was doubtless the temptation which urged the murderer to the deed.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }
@@ -204,13 +251,23 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote_by": "SHELLEY, 1818",
+          "narration": "VICTOR RACES HOME, YET DREAD SLOWS HIM AS GENEVA NEARS.",
           "bubbles": [
             {
               "speaker": "victor",
-              "text": "HOW CAN I FACE THEM?",
-              "pos": "tr"
+              "text": "I could hardly sustain the multitude of feelings that crowded into my mind.",
+              "pos": "tr",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "VICTOR"
+            },
+            {
+              "speaker": "",
+              "text": "I passed through scenes familiar to my youth, but which I had not seen for nearly six years.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }
@@ -231,16 +288,23 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "Dear mountains! my own beautiful lake!",
-          "quote_by": "VICTOR / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
+          "narration": "THE SIGHT OF HIS HOME MOUNTAINS BREAKS HIM OPEN.",
           "bubbles": [
             {
               "speaker": "victor",
-              "text": "DO YOU MOCK MY GRIEF?",
-              "pos": "bl"
+              "text": "Dear mountains! my own beautiful lake! how do you welcome your wanderer? Your summits are clear; the sky and lake are blue and placid.",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "VICTOR"
+            },
+            {
+              "speaker": "",
+              "text": "I wept like a child.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }
@@ -259,9 +323,19 @@
       "characters": [],
       "text": {
         "teen": {
-          "narration": "A HUGE STORM BREAKS OVER THE LAKE THAT NIGHT.",
-          "quote_by": "VICTOR / SHELLEY, 1818",
-          "bubbles": []
+          "narration": "LOCKED OUT OF TOWN AT NIGHT, HE GOES TO THE MURDER SPOT AS A HUGE STORM BREAKS.",
+          "quote_by": "VICTOR, SHELLEY 1818",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the thunder burst with a terrific crash over my head.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ],
+          "quote": "vivid flashes of lightning dazzled my eyes, illuminating the lake, making it appear like a vast sheet of fire"
         }
       }
     },
@@ -280,12 +354,25 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "William, dear angel! this is thy funeral, this thy dirge!",
-          "quote_by": "VICTOR / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
-          "bubbles": []
+          "narration": "HE CRIES OUT TO THE STORM AS IF IT WERE HIS BROTHER'S FUNERAL.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "William, dear angel! this is thy funeral, this thy dirge!",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "VICTOR"
+            },
+            {
+              "speaker": "",
+              "text": "This noble war in the sky elevated my spirits",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -305,15 +392,25 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote_by": "VICTOR / SHELLEY, 1818",
+          "narration": "THEN, IN A LIGHTNING FLASH — A FIGURE HE KNOWS INSTANTLY.",
+          "quote_by": "VICTOR, SHELLEY 1818",
           "bubbles": [
             {
               "speaker": "victor",
-              "text": "THAT SHAPE — ! IT CAN&rsquo;T BE!",
-              "pos": "tl"
+              "text": "THAT SHAPE — !",
+              "pos": "tl",
+              "kind": "shout"
+            },
+            {
+              "speaker": "",
+              "text": "The figure passed me quickly, and I lost it in the gloom.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
-          ]
+          ],
+          "quote": "A flash of lightning illuminated the object, and discovered its shape plainly to me; its gigantic stature, and the deformity of its aspect more hideous than belongs to humanity, instantly informed me that it was the wretch"
         }
       }
     },
@@ -332,16 +429,29 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "He was the murderer! I could not doubt it.",
-          "quote_by": "VICTOR / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
+          "narration": "THE TRUTH LANDS LIKE A HAMMER: HIS OWN CREATION KILLED WILLIAM.",
           "bubbles": [
             {
               "speaker": "victor",
-              "text": "I MADE HIM... I MADE THIS!",
-              "pos": "bl"
+              "text": "Nothing in human shape could have destroyed the fair child. He was the murderer! I could not doubt it.",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "VICTOR"
+            },
+            {
+              "speaker": "victor",
+              "text": "I MADE THIS...",
+              "pos": "bl",
+              "kind": "thought"
+            },
+            {
+              "speaker": "",
+              "text": "The mere presence of the idea was an irresistible proof of the fact.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }
@@ -362,15 +472,19 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote_by": "VICTOR / SHELLEY, 1818",
+          "narration": "AND THEN IT IS GONE — UP A SHEER CLIFF NO MAN COULD CLIMB.",
+          "quote_by": "VICTOR, SHELLEY 1818",
           "bubbles": [
             {
-              "speaker": "victor",
-              "text": "GONE — UP A CLIFF NO MAN COULD CLIMB.",
-              "pos": "tl"
+              "speaker": "",
+              "text": "I remained motionless. The thunder ceased; but the rain still continued",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
-          ]
+          ],
+          "quote": "another flash discovered him to me hanging among the rocks... He soon reached the summit, and disappeared."
         }
       }
     },
@@ -389,12 +503,25 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "my own vampire, my own spirit let loose from the grave",
-          "quote_by": "VICTOR / SHELLEY, 1818",
-          "bubbles": [],
-          "quote_bubble": true,
-          "quote_pos": "tr"
+          "narration": "THE GUILT IS UNBEARABLE: HE MADE THE THING NOW DESTROYING ALL HE LOVES.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "I considered the being whom I had cast among mankind... nearly in the light of my own vampire, my own spirit let loose from the grave, and forced to destroy all that was dear to me.",
+              "pos": "tr",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "VICTOR"
+            },
+            {
+              "speaker": "",
+              "text": "No one can conceive the anguish I suffered during the remainder of the night, which I spent, cold and wet, in the open air.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -413,15 +540,19 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote_by": "VICTOR / SHELLEY, 1818",
+          "narration": "WHO WOULD BELIEVE A TALE OF A MAN-MADE MONSTER? HE CHOOSES SILENCE.",
+          "quote_by": "VICTOR, SHELLEY 1818",
           "bubbles": [
             {
-              "speaker": "victor",
-              "text": "WHO WOULD BELIEVE ME? THEY&rsquo;D CALL IT MADNESS.",
-              "pos": "tr"
+              "speaker": "",
+              "text": "I well knew that if any other had communicated such a relation to me, I should have looked upon it as the ravings of insanity.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
-          ]
+          ],
+          "quote": "A being whom I myself had formed, and endued with life, had met me at midnight among the precipices of an inaccessible mountain... These reflections determined me, and I resolved to remain silent."
         }
       }
     },
@@ -438,9 +569,19 @@
       "characters": [],
       "text": {
         "teen": {
-          "narration": "HOME AT LAST — HER PORTRAIT, AND WILLIAM&rsquo;S LITTLE FACE.",
-          "quote_by": "SHELLEY, 1818",
-          "bubbles": []
+          "narration": "INSIDE HIS FATHER'S HOUSE, HIS MOTHER'S PORTRAIT AND WILLIAM'S MINIATURE WAIT.",
+          "quote_by": "VICTOR, SHELLEY 1818",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Six years had elapsed, passed in a dream but for one indelible trace",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ],
+          "quote": "Below this picture was a miniature of William; and my tears flowed when I looked upon it."
         }
       }
     },
@@ -460,16 +601,29 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "Justine Moritz... so frightful, so appalling a crime?",
-          "quote_by": "ERNEST / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
+          "narration": "HIS BROTHER ERNEST BRINGS A SECOND BLOW: SOMEONE HAS BEEN ARRESTED.",
           "bubbles": [
             {
               "speaker": "ernest",
-              "text": "VICTOR — THEY&rsquo;VE ARRESTED SOMEONE!",
-              "pos": "tl"
+              "text": "THEY'VE ARRESTED SOMEONE!",
+              "pos": "tl",
+              "kind": "speech"
+            },
+            {
+              "speaker": "ernest",
+              "text": "who would credit that Justine Moritz, who was so amiable, and fond of all the family, could suddenly become so capable of so frightful, so appalling a crime?",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "ERNEST"
+            },
+            {
+              "speaker": "",
+              "text": "her own behaviour has been so confused, as to add to the evidence of facts a weight that, I fear, leaves no hope for doubt.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }
@@ -491,18 +645,33 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
+          "narration": "VICTOR KNOWS THE REAL KILLER — BUT CANNOT SAY. HE CAN ONLY PROTEST.",
           "bubbles": [
             {
               "speaker": "victor",
-              "text": "JUSTINE IS INNOCENT!",
-              "pos": "br"
+              "text": "Justine is innocent",
+              "pos": "bl",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "VICTOR"
+            },
+            {
+              "speaker": "alphonse",
+              "text": "If she is, God forbid that she should suffer as guilty. She is to be tried today, and I hope, I sincerely hope, that she will be acquitted.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "ALPHONSE"
+            },
+            {
+              "speaker": "",
+              "text": "I was firmly convinced in my own mind that Justine, and indeed every human being, was guiltless of this murder.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
-          ],
-          "quote": "She is to be tried today... she will be acquitted.",
-          "quote_by": "ALPHONSE / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr"
+          ]
         }
       }
     },
@@ -522,16 +691,29 @@
       ],
       "text": {
         "teen": {
-          "narration": "",
-          "quote": "who is safe, if she be convicted of crime?",
-          "quote_by": "ELIZABETH / SHELLEY, 1818",
-          "quote_bubble": true,
-          "quote_pos": "tr",
+          "narration": "ELIZABETH CLINGS TO HOPE — AND ASKS THE QUESTION THAT HAUNTS THE WHOLE STORY.",
           "bubbles": [
             {
               "speaker": "elizabeth",
-              "text": "YOU MUST SAVE HER, VICTOR!",
-              "pos": "bl"
+              "text": "who is safe, if she be convicted of crime? I rely on her innocence as certainly as I do upon my own.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "ELIZABETH"
+            },
+            {
+              "speaker": "elizabeth",
+              "text": "SAVE HER, VICTOR.",
+              "pos": "bl",
+              "kind": "whisper"
+            },
+            {
+              "speaker": "",
+              "text": "Time had altered her since I last beheld her; it had endowed her with loveliness surpassing the beauty of her childish years.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
             }
           ]
         }

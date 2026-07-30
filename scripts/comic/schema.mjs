@@ -4,7 +4,7 @@
 // (image generation, lettering, age tiers, validation all read from it).
 
 export const AGE_TIERS = ["child", "teen", "adult"];
-export const BUBBLE_POS = ["tl", "tr", "bl", "br"];
+export const BUBBLE_POS = ["tl", "tr", "bl", "br", "tc"];
 
 /**
  * Shape (informational — validateStructure enforces the required parts):

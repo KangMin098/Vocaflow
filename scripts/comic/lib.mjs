@@ -81,9 +81,16 @@ export function gate1(script, sourceText) {
 
   for (const p of script.panels) {
     for (const [tier, t] of Object.entries(p.text || {})) {
-      if (!t.quote) continue;
-      const m = quoteMatch(sourceNorm, t.quote);
-      quotes.push({ panel: p.n, tier, ok: m.ok, missing: m.missing, quote: t.quote });
+      if (t.quote) {
+        const m = quoteMatch(sourceNorm, t.quote);
+        quotes.push({ panel: p.n, tier, ok: m.ok, missing: m.missing, quote: t.quote });
+      }
+      // verbatim speech bubbles are verified too (bubbles can be the primary text)
+      for (const b of t.bubbles || []) {
+        if (!b.verbatim) continue;
+        const m = quoteMatch(sourceNorm, b.text);
+        quotes.push({ panel: p.n, tier, ok: m.ok, missing: m.missing, quote: b.text });
+      }
     }
   }
   const quotesOk = quotes.every((q) => q.ok);
@@ -296,8 +303,22 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .bub.tl{top:8px;left:8px}.bub.tl .tail{right:15px;bottom:-7px}
 .bub.br{bottom:8px;right:8px}.bub.br .tail{left:15px;top:-7px;transform:rotate(225deg)}
 .bub.bl{bottom:8px;left:8px}.bub.bl .tail{right:15px;top:-7px;transform:rotate(225deg)}
-/* speech-bubble variant that carries a verbatim spoken line */
-.bub.speech{max-width:54%;font-size:11px;line-height:1.2}
+.bub.tc{top:8px;left:50%;transform:translateX(-50%)}.bub.tc .tail{left:calc(50% - 6px);bottom:-7px}
+.bub.speech{max-width:56%;font-size:11px;line-height:1.2}
+/* SHOUT — spiky burst for exclamations */
+.bub.shout{background:#fff;border:none;border-radius:0;max-width:58%;font-weight:800;text-align:center;
+ clip-path:polygon(0% 22%,12% 12%,10% 0%,26% 10%,38% 0,50% 11%,62% 0,74% 10%,90% 0,88% 12%,100% 22%,90% 38%,100% 52%,88% 66%,100% 80%,84% 84%,74% 100%,60% 86%,50% 98%,40% 86%,26% 100%,16% 84%,0% 80%,12% 66%,0% 52%,10% 38%);
+ filter:drop-shadow(1.5px 0 0 #111) drop-shadow(-1.5px 0 0 #111) drop-shadow(0 1.5px 0 #111) drop-shadow(0 -1.5px 0 #111);padding:12px 14px}
+.bub.shout .tail{display:none}
+/* THOUGHT — rounded cloud with little trailing circles */
+.bub.thought{border-radius:50%/46%;max-width:52%}
+.bub.thought .tail{display:none}
+.bub.thought::after{content:"";position:absolute;width:9px;height:9px;background:#fff;border:2.5px solid #111;border-radius:50%;bottom:-6px;left:16px;box-shadow:-10px 8px 0 -2px #fff,-10px 8px 0 0 #111}
+/* WHISPER — dashed, quiet */
+.bub.whisper{border-style:dashed;opacity:.9;font-style:italic}
+/* CAPTION — a small rectangular narrator box floating over the art corner */
+.bub.caption{background:var(--paper);border:2px solid var(--ink);border-radius:2px;max-width:60%;text-transform:uppercase;letter-spacing:.2px}
+.bub.caption .tail{display:none}
 .qby2{display:block;text-align:right;font-size:8.5px;font-weight:bold;opacity:.6;margin-top:2px}
 .label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
@@ -314,10 +335,15 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // bubbles overlay the art in a corner (short dialogue only)
-  const bubPos = { tr: "tr", tl: "tl", br: "br", bl: "bl", mr: "br", ml: "bl" };
+  // bubbles overlay the art — varied KIND (speech/shout/thought/whisper/caption)
+  // and position per situation, so panels don't all look the same.
+  const bubPos = { tr: "tr", tl: "tl", br: "br", bl: "bl", tc: "tc", mr: "br", ml: "bl" };
   const bubs = (t.bubbles || [])
-    .map((b) => `<div class="bub ${bubPos[b.pos] || "br"}">${b.text}<span class="tail"></span></div>`)
+    .map((b) => {
+      const kind = b.kind || "speech";
+      const by = b.verbatim && b.by ? `<span class="qby2">&mdash; ${b.by}</span>` : "";
+      return `<div class="bub ${kind} ${bubPos[b.pos] || "br"}">${b.text}${by}<span class="tail"></span></div>`;
+    })
     .join("");
   const labels = (t.labels || [])
     .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
