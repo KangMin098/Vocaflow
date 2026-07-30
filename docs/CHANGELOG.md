@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 만화화 파이프라인 — 최종 인수 게이트 (final-audit) + Frankenstein 1~10장
+
+- **`scripts/comic/final-audit.mjs` 신설**: 전권 완료 시 실행하는 SHIP/NO-SHIP 인수 게이트. 완결성(4 Letter + 24 Chapter = 28섹션)·GATE-1 verbatim 실검·이미지 GATE-2·원문반영 밴드(≥25%)·인지부하(말풍선 ≤4)·캐스트 연속성(bible appears_in)·9.5 QC 원장(`qc-scores.json`)을 종합해 우선순위 remediation 큐 + 단일 판정 산출. `--remediate`로 appears_in 자동 정합.
+- **`scripts/comic/qc-scores.json` 신설**: 챕터별 비전-QC 원장(floor + 패널별 status: remediated/accepted-limit/open). open 이 하나라도 있으면 SHIP 차단, 문서화된 무료 FLUX 천장(accepted-limit)은 경고로만 노출.
+- **Frankenstein 3~10장 완성 + 5·6·7장 성숙톤 재정렬**: 전 챕터 mature 그래픽노블 잉크 + Elizabeth 금발 단일 땋은머리 캐논 통일. Victor·Creature·Elizabeth·Alphonse 1→10장 교차 일관(연속성 remediation 0). 전 챕터 원문반영 25.0~26.5%.
+
 ### 잔여 근본분해 + 아포스트로피 생략 추출 필터 (카테고리 2·3)
 
 - **잔여 정밀 재분류**(162권, 3,092 lemma): OCR 아님(SE 손교정) 재확인 — ① 작가 의도 비표준(방언·조어·후렴) + ② 추출 파편(하이픈/아포스트로피 분해) + ③ 진짜 희귀·전문어. Wiktionary 전수조회로 en 712/foreign 422/부재 1,958 실측.
