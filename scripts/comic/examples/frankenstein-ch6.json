@@ -105,7 +105,8 @@
             {
               "speaker": "victor",
               "text": "DEAR, DEAR ELIZABETH!",
-              "pos": "br"
+              "pos": "br",
+              "kind": "shout"
             }
           ],
           "quote": null
@@ -128,8 +129,24 @@
       "text": {
         "teen": {
           "narration": "HER LETTER IS ALL WORRY AND LOVE &mdash; BEGGING FOR JUST ONE WORD THAT HE IS ALIVE.",
-          "quote": "You have been ill, very ill... Get well—and return to us. You will find a happy, cheerful home and friends who love you dearly.",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "You have been ill, very ill... Get well—and return to us. You will find a happy, cheerful home and friends who love you dearly.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "I have prevented his encountering the inconveniences and perhaps dangers of so long a journey",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -147,8 +164,24 @@
       "text": {
         "teen": {
           "narration": "SHE PAINTS THE HOME THAT WAITS FOR HIM &mdash; GENEVA, UNCHANGED, SERENE, AND SAFE.",
-          "quote": "The blue lake and snow-clad mountains—they never change; and I think our placid home and our contented hearts are regulated by the same immutable laws.",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The blue lake and snow-clad mountains—they never change; and I think our placid home and our contented hearts are regulated by the same immutable laws.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "My trifling occupations take up my time and amuse me, and I am rewarded for any exertions by seeing none but happy, kind faces around me.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -168,8 +201,16 @@
       "text": {
         "teen": {
           "narration": "SHE TELLS OF <b>JUSTINE</b>, THE FAMILY&rsquo;S BELOVED SERVANT GIRL, RAISED ALMOST AS A DAUGHTER AND CHERISHED BY ALL.",
-          "quote": "if you were in an ill humour, one glance from Justine could dissipate it... Justine was the most grateful little creature in the world",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "if you were in an ill humour, one glance from Justine could dissipate it... Justine was the most grateful little creature in the world",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -189,8 +230,24 @@
       "text": {
         "teen": {
           "narration": "BUT JUSTINE&rsquo;S LIFE HAS BEEN A STRING OF CRUELTIES: A MOTHER WHO BLAMED HER, AND SIBLINGS LOST ONE AFTER ANOTHER.",
-          "quote": "One by one, her brothers and sister died; and her mother, with the exception of her neglected daughter, was left childless.",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "One by one, her brothers and sister died; and her mother, with the exception of her neglected daughter, was left childless.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "The conscience of the woman was troubled; she began to think that the deaths of her favourites was a judgement from heaven to chastise her partiality.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -210,8 +267,16 @@
       "text": {
         "teen": {
           "narration": "THIS LAST WINTER HER REPENTANT MOTHER DIED, AND JUSTINE RETURNED AT LAST TO THE ONLY FAMILY THAT EVER LOVED HER.",
-          "quote": "she is now at peace for ever",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "she is now at peace for ever",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -231,8 +296,24 @@
       "text": {
         "teen": {
           "narration": "AND SHE GUSHES ABOUT LITTLE <b>WILLIAM</b>, THE BABY OF THE FAMILY &mdash; A HAPPY DETAIL THAT WILL LATER BREAK YOUR HEART.",
-          "quote": "he is very tall of his age, with sweet laughing blue eyes, dark eyelashes, and curling hair. When he smiles, two little dimples appear on each cheek, which are rosy with health.",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "he is very tall of his age, with sweet laughing blue eyes, dark eyelashes, and curling hair. When he smiles, two little dimples appear on each cheek, which are rosy with health.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "When he smiles, two little dimples appear on each cheek, which are rosy with health.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -252,8 +333,16 @@
       "text": {
         "teen": {
           "narration": "SHE SIGNS OFF STILL AFRAID FOR HIM, PLEADING FOR A REPLY.",
-          "quote": "Write, dearest Victor,—one line—one word will be a blessing to us.",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Write, dearest Victor,—one line—one word will be a blessing to us.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "ELIZABETH / SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -294,8 +383,24 @@
       "text": {
         "teen": {
           "narration": "BUT ONE DEEP SCAR REMAINS: HE NOW <b>DREADS SCIENCE ITSELF</b>. THE MERE SIGHT OF A LAB TOOL SICKENS HIM.",
-          "quote": "I had conceived a violent antipathy even to the name of natural philosophy.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I had conceived a violent antipathy even to the name of natural philosophy.",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "When I was otherwise quite restored to health, the sight of a chemical instrument would renew all the agony of my nervous symptoms.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -316,8 +421,16 @@
       "text": {
         "teen": {
           "narration": "KIND PROFESSOR <b>WALDMAN</b> PRAISES HIS GENIUS &mdash; NEVER GUESSING THAT EVERY KIND WORD IS AGONY.",
-          "quote": "M. Waldman inflicted torture when he praised, with kindness and warmth, the astonishing progress I had made... He meant to please, and he tormented me.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "M. Waldman inflicted torture when he praised, with kindness and warmth, the astonishing progress I had made... He meant to please, and he tormented me.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -342,11 +455,18 @@
             {
               "speaker": "krempe",
               "text": "D—N THE FELLOW!",
-              "pos": "br"
+              "pos": "br",
+              "kind": "shout"
+            },
+            {
+              "speaker": "",
+              "text": "he has outstript us all",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "KREMPE / SHELLEY, 1818"
             }
-          ],
-          "quote": "he has outstript us all",
-          "quote_by": "KREMPE / SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -367,8 +487,24 @@
       "text": {
         "teen": {
           "narration": "TO FLEE HIS MEMORIES, VICTOR JOINS CLERVAL IN THE POETRY OF THE EAST, AND FINDS IT SOOTHING.",
-          "quote": "life appears to consist in a warm sun and a garden of roses,—in the smiles and frowns of a fair enemy, and the fire that consumes your own heart.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "life appears to consist in a warm sun and a garden of roses,—in the smiles and frowns of a fair enemy, and the fire that consumes your own heart.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "Their melancholy is soothing, and their joy elevating, to a degree I never experienced in studying the authors of any other country.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -389,8 +525,16 @@
       "text": {
         "teen": {
           "narration": "COME SPRING, THE TWO TAKE A WALKING TOUR, AND VICTOR&rsquo;S OLD JOY IN NATURE FLOODS BACK.",
-          "quote": "A serene sky and verdant fields filled me with ecstasy... The present season was indeed divine; the flowers of spring bloomed in the hedges",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "A serene sky and verdant fields filled me with ecstasy... The present season was indeed divine; the flowers of spring bloomed in the hedges",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -411,8 +555,24 @@
       "text": {
         "teen": {
           "narration": "IT IS CLERVAL&rsquo;S GENTLENESS, NOT MEDICINE, THAT TRULY HEALS HIM.",
-          "quote": "Excellent friend! how sincerely you did love me, and endeavour to elevate my mind until it was on a level with your own.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Excellent friend! how sincerely you did love me, and endeavour to elevate my mind until it was on a level with your own.",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            },
+            {
+              "speaker": "",
+              "text": "A selfish pursuit had cramped and narrowed me, until your gentleness and affection warmed and opened my senses",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
         }
       }
     },
@@ -432,8 +592,16 @@
       "text": {
         "teen": {
           "narration": "HE COMES HOME ALMOST HAPPY &mdash; NEVER GUESSING THIS IS THE LAST CALM BEFORE THE STORM HIS OWN HANDS BEGAN.",
-          "quote": "My own spirits were high, and I bounded along with feelings of unbridled joy and hilarity.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "My own spirits were high, and I bounded along with feelings of unbridled joy and hilarity.",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     }

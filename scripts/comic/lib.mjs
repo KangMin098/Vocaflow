@@ -125,7 +125,7 @@ export function gate1(script, sourceText) {
 /* ---------- Phase C: prompt composition ---------- */
 
 // the fixed house style — appended to every panel so style stays locked
-export const STYLE = "clean thin black ink line cartoon, minimal light shading, simple wobbly hand-drawn illustrated-science-comic style, big-nose caricatures with expressive googly eyes, lots of white space, black and white";
+export const STYLE = "clean thin black ink line cartoon, strictly monochrome black and white, no colour, grayscale ink and light hatching only, simple wobbly hand-drawn illustrated-science-comic style, big-nose caricatures with expressive googly eyes, lots of white space";
 
 // learned QC lessons (playbook.json). global constraints are injected into EVERY
 // prompt (prevention); by_tag constraints target specific defects during repair.

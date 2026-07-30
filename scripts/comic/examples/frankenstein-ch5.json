@@ -79,11 +79,18 @@
             {
               "speaker": "victor",
               "text": "TONIGHT... IT LIVES.",
-              "pos": "tr"
+              "pos": "tr",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "It was on a dreary night of November that I beheld the accomplishment of my toils.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
             }
-          ],
-          "quote": "It was on a dreary night of November that I beheld the accomplishment of my toils.",
-          "quote_by": "SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -102,8 +109,16 @@
       "text": {
         "teen": {
           "narration": "AND THEN &mdash; A SPARK. IT <b>BREATHES</b>.",
-          "quote": "I saw the dull yellow eye of the creature open; it breathed hard, and a convulsive motion agitated its limbs.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I saw the dull yellow eye of the creature open; it breathed hard, and a convulsive motion agitated its limbs.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -123,8 +138,16 @@
       "text": {
         "teen": {
           "narration": "HE HAD CHOSEN EVERY PART TO BE <b>BEAUTIFUL</b>. HE WAS WRONG.",
-          "quote": "His limbs were in proportion, and I had selected his features as beautiful. Beautiful! Great God!",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "His limbs were in proportion, and I had selected his features as beautiful. Beautiful! Great God!",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -144,8 +167,16 @@
       "text": {
         "teen": {
           "narration": "THE DETAILS THAT SHOULD HAVE BEEN LOVELY MADE IT ONLY MORE <b>HORRIBLE</b>.",
-          "quote": "His yellow skin scarcely covered the work of muscles and arteries beneath; his hair was of a lustrous black, and flowing; his teeth of a pearly whiteness",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "His yellow skin scarcely covered the work of muscles and arteries beneath; his hair was of a lustrous black, and flowing; his teeth of a pearly whiteness",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -168,11 +199,18 @@
             {
               "speaker": "victor",
               "text": "WHAT HAVE I MADE?",
-              "pos": "tr"
+              "pos": "tr",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "now that I had finished, the beauty of the dream vanished, and breathless horror and disgust filled my heart.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
             }
-          ],
-          "quote": "now that I had finished, the beauty of the dream vanished, and breathless horror and disgust filled my heart.",
-          "quote_by": "SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -191,8 +229,16 @@
       "text": {
         "teen": {
           "narration": "HE COULD NOT BEAR TO LOOK AT IT. SO HE <b>RAN</b> &mdash; AND TRIED TO SLEEP.",
-          "quote": "Unable to endure the aspect of the being I had created, I rushed out of the room",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Unable to endure the aspect of the being I had created, I rushed out of the room",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -211,8 +257,16 @@
       "text": {
         "teen": {
           "narration": "BUT SLEEP BROUGHT <b>WORSE</b>: HE KISSED HIS BELOVED ELIZABETH, AND SHE ROTTED INTO A CORPSE IN HIS ARMS.",
-          "quote": "I thought I saw Elizabeth, in the bloom of health, walking in the streets of Ingolstadt.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I thought I saw Elizabeth, in the bloom of health, walking in the streets of Ingolstadt.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -232,8 +286,16 @@
       "text": {
         "teen": {
           "narration": "HE WOKE... AND IT WAS <b>STANDING OVER HIM</b>.",
-          "quote": "I beheld the wretch … the miserable monster whom I had created.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I beheld the wretch … the miserable monster whom I had created.",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -252,8 +314,16 @@
       "text": {
         "teen": {
           "narration": "IT TRIED TO <b>SPEAK</b> &mdash; MAYBE EVEN TO SMILE. VICTOR SAW ONLY A MONSTER.",
-          "quote": "His jaws opened, and he muttered some inarticulate sounds, while a grin wrinkled his cheeks.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "His jaws opened, and he muttered some inarticulate sounds, while a grin wrinkled his cheeks.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -277,11 +347,18 @@
             {
               "speaker": "creature",
               "text": "...",
-              "pos": "tl"
+              "pos": "tl",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "one hand was stretched out, seemingly to detain me, but I escaped and rushed downstairs.",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
             }
-          ],
-          "quote": "one hand was stretched out, seemingly to detain me, but I escaped and rushed downstairs.",
-          "quote_by": "SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -300,8 +377,16 @@
       "text": {
         "teen": {
           "narration": "HE HID IN THE COURTYARD TILL DAWN, FLINCHING AT EVERY SOUND.",
-          "quote": "No mortal could support the horror of that countenance.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "No mortal could support the horror of that countenance.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -326,8 +411,16 @@
               "pos": "tr"
             }
           ],
-          "quote": "Morning, dismal and wet, at length dawned",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Morning, dismal and wet, at length dawned",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -346,8 +439,16 @@
       "text": {
         "teen": {
           "narration": "HE WALKED AND WALKED, TRYING TO OUTRUN HIS OWN <b>FEAR</b>.",
-          "quote": "My heart palpitated in the sickness of fear, and I hurried on with irregular steps, not daring to look about me",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "My heart palpitated in the sickness of fear, and I hurried on with irregular steps, not daring to look about me",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -371,11 +472,18 @@
             {
               "speaker": "clerval",
               "text": "MY DEAR FRANKENSTEIN, HOW GLAD I AM TO SEE YOU!",
-              "pos": "tr"
+              "pos": "tr",
+              "kind": "shout"
+            },
+            {
+              "speaker": "",
+              "text": "I grasped his hand, and in a moment forgot my horror and misfortune",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
             }
-          ],
-          "quote": "I grasped his hand, and in a moment forgot my horror and misfortune",
-          "quote_by": "SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -395,8 +503,16 @@
       "text": {
         "teen": {
           "narration": "BUT ONE TERROR GNAWED AT HIM: WAS THE CREATURE <b>STILL UP THERE?</b>",
-          "quote": "I dreaded to behold this monster, but I feared still more that Henry should see him.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I dreaded to behold this monster, but I feared still more that Henry should see him.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -415,8 +531,16 @@
       "text": {
         "teen": {
           "narration": "HE THREW THE DOOR OPEN LIKE A CHILD DARING A GHOST... AND FOUND <b>NOTHING</b>. IT HAD FLED.",
-          "quote": "I threw the door forcibly open, as children are accustomed to do when they expect a spectre to stand in waiting for them on the other side; but nothing appeared.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I threw the door forcibly open, as children are accustomed to do when they expect a spectre to stand in waiting for them on the other side; but nothing appeared.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     },
@@ -440,11 +564,18 @@
             {
               "speaker": "victor",
               "text": "SAVE ME! SAVE ME!",
-              "pos": "tr"
+              "pos": "tr",
+              "kind": "shout"
+            },
+            {
+              "speaker": "",
+              "text": "I imagined that the monster seized me; I struggled furiously and fell down in a fit.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
             }
-          ],
-          "quote": "I imagined that the monster seized me; I struggled furiously and fell down in a fit.",
-          "quote_by": "SHELLEY, 1818"
+          ]
         }
       }
     },
@@ -464,8 +595,16 @@
       "text": {
         "teen": {
           "narration": "A <b>NERVOUS FEVER</b> TOOK HIM FOR MONTHS. HENRY NURSED HIM BACK &mdash; NEVER GUESSING THE REAL CAUSE. THE MAKER SURVIVED. HIS SECRET DID NOT DIE.",
-          "quote": "This was the commencement of a nervous fever which confined me for several months. During all that time Henry was my only nurse.",
-          "quote_by": "SHELLEY, 1818"
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "This was the commencement of a nervous fever which confined me for several months. During all that time Henry was my only nurse.",
+              "pos": "tl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY, 1818"
+            }
+          ]
         }
       }
     }
