@@ -15,6 +15,8 @@
       "consistency": "the ONLY one with round glasses + apron; bare-headed; tired shadowed eyes show his obsession/guilt; never a hat.",
       "appears_in": [
         1,
+        2,
+        3,
         5,
         6,
         7
@@ -46,6 +48,8 @@
       "anchor": "a black top hat, a long scarf and a book under the arm",
       "consistency": "the ONLY one in a top hat; buoyant and smiling; scarf + book mark the wandering poet.",
       "appears_in": [
+        2,
+        3,
         5,
         6,
         7
@@ -63,6 +67,8 @@
       "consistency": "ALWAYS bright fair/golden hair (her defining trait across every age); a bonnet as an adult; braid + shawl; never glasses, never an apron.",
       "appears_in": [
         1,
+        2,
+        3,
         5,
         6,
         7
@@ -80,6 +86,8 @@
       "consistency": "the ONLY bearded elder with a cane; stooped; no hat, no gown (distinct from Waldman).",
       "appears_in": [
         1,
+        2,
+        3,
         7
       ]
     },
@@ -136,6 +144,7 @@
       "anchor": "a bald head with half-moon spectacles and a scholar's gown",
       "consistency": "kindly professor: bald + half-moon specs + gown, clean-shaven (distinct from bearded Alphonse and wigged Krempe).",
       "appears_in": [
+        3,
         6
       ]
     },
@@ -150,6 +159,7 @@
       "anchor": "a curly powdered wig, squat build and a jabbing finger",
       "consistency": "short + squat + powdered wig + scowl (distinct from tall bald professors).",
       "appears_in": [
+        3,
         6
       ]
     },
@@ -164,7 +174,8 @@
       "anchor": "dark hair in a centre-parted bun, a cross necklace and a high-collar dark dress",
       "consistency": "the ONLY grown woman with a bun + cross necklace; no bonnet (that is Elizabeth), no servant cap.",
       "appears_in": [
-        1
+        1,
+        3
       ]
     },
     "beaufort": {

@@ -10,6 +10,9 @@
     "identity_drift": "Keep each character identical to their own established design from the other panels.",
     "scene_mismatch": "Show the stated action clearly and literally.",
     "capzone_blocked": "Keep the caption zone as a plain empty area of background.",
-    "style_drift": "Keep a clean thin black-and-white cartoon line style, light and tidy."
+    "style_drift": "Keep a clean thin black-and-white cartoon line style, light and tidy.",
+    "deathbed": [
+      "Female-dominant emotional scenes (deathbed/sickbed) collapse mixed-gender groups to women on free FLUX and drop male signifiers (glasses) — frame as joined-hands close beat or a 2-figure male-subject shot; full mixed group needs T1 IP-Adapter."
+    ]
   }
 }

@@ -30,56 +30,56 @@
       "id": "victor",
       "name": "Victor",
       "role": "protagonist",
-      "canonical": "a thin young man, round head, neat short dark hair, small round glasses, plain shirt",
-      "anchor": "small round glasses and a plain work apron",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
       "seed_role": 84
     },
     {
       "id": "clerval",
       "name": "Clerval",
       "role": "friend",
-      "canonical": "a cheerful young man who always wears a black top hat and a black coat",
-      "anchor": "a black top hat and black coat",
+      "canonical": "a cheerful upright young man in a black top hat and a long travel scarf, a book of poems under his arm, bright smiling face",
+      "anchor": "a black top hat, a long scarf and a book under the arm",
       "seed_role": 84
     },
     {
       "id": "elizabeth",
       "name": "Elizabeth",
       "role": "cousin",
-      "canonical": "a gentle young woman wearing a white bonnet over a long braid, with a shoulder shawl",
-      "anchor": "a white bonnet and a shoulder shawl",
+      "canonical": "a gentle graceful young woman with bright fair golden hair in a long braid under a white bonnet, an oval locket at her throat and a shoulder shawl",
+      "anchor": "bright fair golden hair, a white bonnet, an oval locket and a shawl",
       "seed_role": 84
     },
     {
       "id": "justine",
       "name": "Justine",
       "role": "servant",
-      "canonical": "a sweet frank-faced young servant girl in a white servant's cap",
-      "anchor": "a white servant's cap",
+      "canonical": "a slight sweet-faced young servant girl in a white servant's cap and a plain apron-dress, hands gently clasped, anxious gentle face",
+      "anchor": "a white servant's cap and clasped hands",
       "seed_role": 84
     },
     {
       "id": "william",
       "name": "William",
       "role": "child",
-      "canonical": "a small cherubic boy with dimples wearing a little sailor cap",
-      "anchor": "a little sailor cap",
+      "canonical": "a tiny cherubic boy in a little sailor cap and sailor collar, dimples, wearing an oval locket, giggling",
+      "anchor": "a little sailor cap, sailor collar and an oval locket",
       "seed_role": 84
     },
     {
       "id": "waldman",
       "name": "Waldman",
       "role": "professor",
-      "canonical": "a kindly old professor, bald on top with a long grey beard and a gown",
-      "anchor": "a bald head with a long grey beard and a professor's gown",
+      "canonical": "a benevolent bald old professor with half-moon spectacles and a scholar's gown, warm open-handed gesture, clean-shaven",
+      "anchor": "a bald head with half-moon spectacles and a scholar's gown",
       "seed_role": 84
     },
     {
       "id": "krempe",
       "name": "Krempe",
       "role": "professor",
-      "canonical": "a short squat gruff professor in a curly powdered wig, scowling",
-      "anchor": "a curly powdered wig and a squat scowling build",
+      "canonical": "a short squat gruff professor in a curly powdered wig, permanent scowl, a jabbing pointed finger",
+      "anchor": "a curly powdered wig, squat build and a jabbing finger",
       "seed_role": 84
     }
   ],

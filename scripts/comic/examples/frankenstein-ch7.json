@@ -30,48 +30,48 @@
       "id": "victor",
       "name": "Victor",
       "role": "protagonist",
-      "canonical": "a thin young man, round head, neat short dark hair, small round glasses, plain shirt",
-      "anchor": "small round glasses and a plain work apron",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
       "seed_role": 84
     },
     {
       "id": "clerval",
       "name": "Clerval",
       "role": "friend",
-      "canonical": "a cheerful young man who always wears a black top hat and a black coat",
-      "anchor": "a black top hat and black coat",
+      "canonical": "a cheerful upright young man in a black top hat and a long travel scarf, a book of poems under his arm, bright smiling face",
+      "anchor": "a black top hat, a long scarf and a book under the arm",
       "seed_role": 84
     },
     {
       "id": "creature",
       "name": "the Creature",
       "role": "antagonist",
-      "canonical": "a very tall gaunt BALD creature, chalk-white skin, huge black hollow eyes, sharp jagged teeth, ragged shirt",
-      "anchor": "a tall gaunt bald chalk-white body, black hollow eyes and jagged teeth",
+      "canonical": "a very tall gaunt figure, chalk-white skin, bald head with one bold black stitch-seam across the brow, a bolt at the neck, heavy seams on the arms, deep sorrowful hollow eyes, sharp teeth, ragged shirt",
+      "anchor": "tallest gaunt bald body, a brow stitch-seam, a neck bolt and sorrowful hollow eyes",
       "seed_role": 84
     },
     {
       "id": "alphonse",
       "name": "Alphonse",
       "role": "father",
-      "canonical": "an elderly gentleman with a long white beard leaning on a walking cane",
-      "anchor": "a long white beard and a walking cane",
+      "canonical": "a tall stooped elderly gentleman, balding grey hair, a long white beard, leaning on a walking cane, in a long coat",
+      "anchor": "a long white beard and a walking cane (elderly, stooped)",
       "seed_role": 84
     },
     {
       "id": "ernest",
       "name": "Ernest",
       "role": "brother",
-      "canonical": "a teenage boy wearing a flat newsboy cap, no glasses",
-      "anchor": "a flat newsboy cap",
+      "canonical": "a wiry teenage boy in a flat newsboy cap, open-collar shirt with rolled sleeves, no glasses, eager restless look",
+      "anchor": "a flat newsboy cap and rolled-sleeve open collar",
       "seed_role": 84
     },
     {
       "id": "elizabeth",
       "name": "Elizabeth",
       "role": "cousin",
-      "canonical": "a gentle young woman wearing a white bonnet over a long braid, with a shoulder shawl",
-      "anchor": "a white bonnet and a shoulder shawl",
+      "canonical": "a gentle graceful young woman with bright fair golden hair in a long braid under a white bonnet, an oval locket at her throat and a shoulder shawl",
+      "anchor": "bright fair golden hair, a white bonnet, an oval locket and a shawl",
       "seed_role": 84
     }
   ],
