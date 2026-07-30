@@ -12,7 +12,7 @@ Chapters: 1, 2, 5, 6, 7
 ## Chapter 2 — Frankenstein · Chapter 2 — The Seed of an Obsession
 - structure: ok
 - panels: 15 · retention: 25.6% · verbatim lines: 18
-- images: 15/15 ok, avg 25824B
+- images: 15/15 ok, avg 25909B
 - characters: elizabeth, victor, clerval, alphonse
 - cast vs bible: in sync ✓
 
