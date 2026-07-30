@@ -153,6 +153,10 @@ export function buildImagePrompt(panel, cast, style) {
   // The caption sits in its OWN band above the art (no overlay), so the art may
   // use the whole frame — just keep the main subject fully inside the edges.
   parts.push("Fill the frame with the scene and keep the main subject fully inside the edges, not cropped.");
+  // if this panel carries dialogue, leave a little top-corner air so small speech
+  // bubbles sit over open background rather than over a face
+  const hasBubbles = Object.values(panel.text || {}).some((t) => (t.bubbles && t.bubbles.length) || t.quote_bubble);
+  if (hasBubbles) parts.push("Leave a little open background near the top corners (sky, wall or air) so a small speech bubble fits without covering a face.");
   if ((panel.characters || []).length >= 3)
     parts.push("Show the characters small and spread far apart in a wide shot so each stays a distinct full figure.");
   // proactively apply learned global lessons to prevent known defects
@@ -292,6 +296,9 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .bub.tl{top:8px;left:8px}.bub.tl .tail{right:15px;bottom:-7px}
 .bub.br{bottom:8px;right:8px}.bub.br .tail{left:15px;top:-7px;transform:rotate(225deg)}
 .bub.bl{bottom:8px;left:8px}.bub.bl .tail{right:15px;top:-7px;transform:rotate(225deg)}
+/* speech-bubble variant that carries a verbatim spoken line */
+.bub.speech{max-width:54%;font-size:11px;line-height:1.2}
+.qby2{display:block;text-align:right;font-size:8.5px;font-weight:bold;opacity:.6;margin-top:2px}
 .label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
 .label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
@@ -316,13 +323,18 @@ function panelHTML(p, tier, defTier, dir) {
     .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
     .join("");
   const nar = t.narration ? `<div class="nar">${t.narration}</div>` : "";
-  const quote = t.quote
+  // a verbatim quote can render as a SPEECH BUBBLE over the art (spoken lines →
+  // comic/webtoon feel) or stay in the caption band (descriptive narration).
+  const quoteBubble = (t.quote && t.quote_bubble)
+    ? `<div class="bub speech ${bubPos[t.quote_pos] || "tr"}">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span><span class="tail"></span></div>`
+    : "";
+  const quoteBand = (t.quote && !t.quote_bubble)
     ? `<div class="quote">&ldquo;${t.quote}&rdquo;<span class="qby">&mdash; ${t.quote_by || "SOURCE"}</span></div>`
     : "";
-  const capBand = (nar || quote) ? `<div class="cap">${nar}${quote}</div>` : "";
+  const capBand = (nar || quoteBand) ? `<div class="cap">${nar}${quoteBand}</div>` : "";
   return `<figure class="panel${p.wide ? " wide" : ""}">
   ${capBand}
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${bubs}${labels}</div>
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${bubs}${quoteBubble}${labels}</div>
 </figure>`;
 }
 

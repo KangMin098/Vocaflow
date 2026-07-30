@@ -93,8 +93,10 @@
       "text": {
         "teen": {
           "narration": "BACK IN INGOLSTADT A LETTER ARRIVES FROM VICTOR&rsquo;S FATHER. THE FIRST LINES ARE WARM &mdash; THEN THE FLOOR FALLS AWAY.",
-          "quote": "William is dead!—that sweet child, whose smiles delighted and warmed my heart, who was so gentle, yet so gay! Victor, he is murdered!",
-          "quote_by": "ALPHONSE / SHELLEY, 1818"
+          "quote": "William is dead!—... Victor, he is murdered!",
+          "quote_by": "ALPHONSE / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     },
@@ -163,7 +165,9 @@
         "teen": {
           "narration": "A TREASURED MINIATURE WILLIAM WORE THAT NIGHT IS GONE &mdash; STOLEN BY THE KILLER. <b>ELIZABETH</b> BLAMES HERSELF.",
           "quote": "O God! I have murdered my darling child!",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "quote_by": "ELIZABETH / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     },
@@ -204,8 +208,10 @@
       "text": {
         "teen": {
           "narration": "THE SIGHT OF HIS HOME MOUNTAINS BREAKS HIM OPEN.",
-          "quote": "Dear mountains! my own beautiful lake! how do you welcome your wanderer? Your summits are clear; the sky and lake are blue and placid. Is this to prognosticate peace, or to mock at my unhappiness?",
-          "quote_by": "VICTOR / SHELLEY, 1818"
+          "quote": "Dear mountains! my own beautiful lake! how do you welcome your wanderer?",
+          "quote_by": "VICTOR / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     },
@@ -245,7 +251,9 @@
         "teen": {
           "narration": "HE CRIES OUT TO THE STORM AS IF IT WERE HIS BROTHER&rsquo;S FUNERAL.",
           "quote": "William, dear angel! this is thy funeral, this thy dirge!",
-          "quote_by": "VICTOR / SHELLEY, 1818"
+          "quote_by": "VICTOR / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     },
@@ -287,8 +295,10 @@
       "text": {
         "teen": {
           "narration": "THE TRUTH LANDS LIKE A HAMMER: <b>HIS CREATION</b> KILLED WILLIAM.",
-          "quote": "Nothing in human shape could have destroyed the fair child. He was the murderer! I could not doubt it.",
-          "quote_by": "VICTOR / SHELLEY, 1818"
+          "quote": "He was the murderer! I could not doubt it.",
+          "quote_by": "VICTOR / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tl"
         }
       }
     },
@@ -391,8 +401,10 @@
       "text": {
         "teen": {
           "narration": "HIS BROTHER <b>ERNEST</b> BRINGS A SECOND BLOW: SOMEONE HAS BEEN ARRESTED FOR THE MURDER.",
-          "quote": "who would credit that Justine Moritz, who was so amiable, and fond of all the family, could suddenly become so capable of so frightful, so appalling a crime?",
-          "quote_by": "ERNEST / SHELLEY, 1818"
+          "quote": "Justine Moritz... so frightful, so appalling a crime?",
+          "quote_by": "ERNEST / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     },
@@ -420,8 +432,10 @@
               "pos": "br"
             }
           ],
-          "quote": "If she is, God forbid that she should suffer as guilty. She is to be tried today, and I hope, I sincerely hope, that she will be acquitted.",
-          "quote_by": "ALPHONSE / SHELLEY, 1818"
+          "quote": "She is to be tried today... she will be acquitted.",
+          "quote_by": "ALPHONSE / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     },
@@ -442,8 +456,10 @@
       "text": {
         "teen": {
           "narration": "ELIZABETH CLINGS TO HOPE FOR JUSTINE &mdash; AND ASKS THE QUESTION THAT HAUNTS THE WHOLE STORY.",
-          "quote": "who is safe, if she be convicted of crime? I rely on her innocence as certainly as I do upon my own.",
-          "quote_by": "ELIZABETH / SHELLEY, 1818"
+          "quote": "who is safe, if she be convicted of crime?",
+          "quote_by": "ELIZABETH / SHELLEY, 1818",
+          "quote_bubble": true,
+          "quote_pos": "tr"
         }
       }
     }
