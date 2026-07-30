@@ -52,6 +52,15 @@ keeping the anchor tokens (so identity holds). If nothing passes, the best is ke
 - `--verdicts <file>` : a JSON authored by Claude in-session (no key needed) —
   `{ "panels": [ { "n": 4, "verdict": "fail", "tags": ["extra_figures"], "hint": "no mummy" } ] }`.
 
+### Layout: caption band over art (text never covers characters)
+Captions/quotes are **not overlaid** on the art (overlay covered characters — worst
+with large HQ figures + long quotes). Instead each panel is a **top caption band
+(its own paper region) + the artwork below it**, so text and art never overlap
+(matches Gonick's caption-box-over-art pages and the comic best practice "give text
+its own space, don't obstruct the art"). Only short dialogue bubbles overlay the art
+in a corner. Because the caption no longer needs empty space *in* the image, the art
+prompt fills the whole frame (keeping the subject inside the edges).
+
 **Head-only / cropped figures** are a first-class defect: the `cropped_figure` tag
 adds a "full body head-to-toe, no floating head" constraint on repair.
 

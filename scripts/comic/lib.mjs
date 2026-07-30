@@ -150,13 +150,9 @@ export function buildImagePrompt(panel, cast, style) {
   }
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
-  // reserve the caption zone (varies per panel) as empty so diverse compositions
-  // still leave clean room for the caption box; the rest is free for dynamic framing
-  const zoneText = {
-    top: "the TOP third", tl: "the UPPER-LEFT area", tr: "the UPPER-RIGHT area",
-    bl: "the LOWER-LEFT area", br: "the LOWER-RIGHT area",
-  }[panel.cap_zone || "top"] || "the TOP third";
-  parts.push(`Leave ${zoneText} as a plain empty area of open background (sky, wall, mist, shadow or floor) for a caption box, and place the main subject clearly in the rest of the frame.`);
+  // The caption sits in its OWN band above the art (no overlay), so the art may
+  // use the whole frame — just keep the main subject fully inside the edges.
+  parts.push("Fill the frame with the scene and keep the main subject fully inside the edges, not cropped.");
   if ((panel.characters || []).length >= 3)
     parts.push("Show the characters small and spread far apart in a wide shot so each stays a distinct full figure.");
   // proactively apply learned global lessons to prevent known defects
@@ -255,10 +251,11 @@ export function gate2(outPath, minBytes = 4000) {
 
 /* ---------- Phase D/E: Gonick-style HTML assembly ---------- */
 
-// Gonick-style single panel: the art fills the panel; a caption box sits INSIDE
-// the panel at the TOP (over the reserved empty top band of the art) and speech
-// bubbles float over the art's empty space pointing at the speakers. No separate
-// bottom text strip — all text lives within the one panel, woven with the art.
+// Gonick-style panel (IMG_1175 layout): a caption BAND sits at the TOP of the
+// panel (its own paper region) and the artwork sits BELOW it — text and art never
+// overlap, so captions can never cover a character (comic best practice: give text
+// its own space, don't obstruct the art). Only short speech bubbles overlay the art
+// in a corner for dialogue.
 const CSS = `
 :root{--paper:#f6efdd;--ink:#141210;--frame:#141210;--quote:#fff6d9;--stage:#d8c9a8;--artbg:#efe8d5}
 @media(prefers-color-scheme:dark){:root{--stage:#20242b}}
@@ -272,38 +269,35 @@ header.cover{background:var(--paper);border:4px solid var(--frame);border-radius
 h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-transform:uppercase;text-wrap:balance;letter-spacing:.5px;-webkit-text-stroke:.4px var(--ink)}
 .byline{font-size:14px;margin-top:6px;border-top:2px solid var(--frame);padding-top:8px}
 .byline b{font-weight:800}
-.pages{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.panel{position:relative;grid-column:span 1;margin:0;background:var(--artbg);
- border:3px solid var(--frame);border-radius:3px;overflow:hidden;aspect-ratio:3/4;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
-.panel.wide{grid-column:span 2;aspect-ratio:3/2}
-.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
-/* caption stack placed in the panel's reserved empty zone (varies per panel) */
-.toptext{position:absolute;display:flex;flex-direction:column;gap:5px;pointer-events:none}
-.toptext.z-top{top:6px;left:6px;right:6px}
-.toptext.z-tl{top:6px;left:6px;max-width:64%}
-.toptext.z-tr{top:6px;right:6px;max-width:64%}
-.toptext.z-bl{bottom:6px;left:6px;max-width:64%}
-.toptext.z-br{bottom:6px;right:6px;max-width:64%}
-.cap{background:var(--paper);border:2.5px solid var(--ink);border-radius:2px;padding:6px 9px;
- font-size:12.5px;line-height:1.28;text-transform:uppercase;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.28)}
-.cap b{font-weight:800;border-bottom:2px solid var(--ink)}
-.quote{background:var(--quote);border:2.5px solid var(--ink);border-left-width:6px;border-radius:2px;padding:6px 9px;
- font-size:11.5px;line-height:1.26;letter-spacing:.2px;box-shadow:2px 2px 0 rgba(0,0,0,.24)}
-.qby{display:block;text-align:right;font-size:9.5px;font-weight:bold;margin-top:2px;opacity:.7;text-transform:uppercase}
-/* speech bubbles float over the art near the speakers */
+.pages{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:start}
+.panel{display:flex;flex-direction:column;grid-column:span 1;background:var(--paper);
+ border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
+.panel.wide{grid-column:span 2}
+/* TOP caption band — its own region, never over the art */
+.cap{padding:8px 11px 9px;border-bottom:3px solid var(--frame)}
+.nar{font-size:12.5px;line-height:1.3;text-transform:uppercase;letter-spacing:.2px}
+.nar b{font-weight:800;border-bottom:2px solid var(--ink)}
+.quote{margin-top:7px;background:var(--quote);border:2px solid var(--ink);border-left-width:6px;border-radius:2px;
+ padding:6px 9px;font-size:12px;line-height:1.3;letter-spacing:.2px}
+.qby{display:block;text-align:right;font-size:9.5px;font-weight:bold;margin-top:3px;opacity:.7;text-transform:uppercase}
+/* ART region below the caption — fully visible */
+.art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg);overflow:hidden}
+.panel.wide .art{aspect-ratio:2/1}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
+/* short dialogue bubbles overlay the art in a corner */
 .bub{position:absolute;background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 46% 45% 47%/50% 52% 48% 50%;
- padding:5px 8px;font-size:11px;line-height:1.14;text-transform:uppercase;max-width:44%;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.25)}
+ padding:5px 8px;font-size:11px;line-height:1.14;text-transform:uppercase;max-width:46%;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.25)}
 .bub .tail{position:absolute;width:13px;height:13px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;transform:rotate(45deg)}
+.bub.tr{top:8px;right:8px}.bub.tr .tail{left:15px;bottom:-7px}
+.bub.tl{top:8px;left:8px}.bub.tl .tail{right:15px;bottom:-7px}
 .bub.br{bottom:8px;right:8px}.bub.br .tail{left:15px;top:-7px;transform:rotate(225deg)}
 .bub.bl{bottom:8px;left:8px}.bub.bl .tail{right:15px;top:-7px;transform:rotate(225deg)}
-.bub.mr{bottom:34%;right:8px}.bub.mr .tail{left:15px;bottom:-7px}
-.bub.ml{bottom:34%;left:8px}.bub.ml .tail{right:15px;bottom:-7px}
 .label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
 .label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
 .foot{margin-top:20px;background:var(--paper);border:3px solid var(--frame);border-radius:3px;padding:14px 16px;font-size:13px;line-height:1.5;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
 .foot .tag{display:inline-block;background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
-@media(max-width:640px){.pages{grid-template-columns:1fr}.panel,.panel.wide{grid-column:span 1;aspect-ratio:3/4}}
+@media(max-width:640px){.pages{grid-template-columns:1fr}.panel.wide{grid-column:span 1}.panel.wide .art{aspect-ratio:4/3}}
 `;
 
 function imgDataUri(dir, n) {
@@ -313,23 +307,22 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // top band holds the caption box(es); bubbles float low over the art near speakers
-  const lowPos = { tr: "mr", tl: "ml", br: "br", bl: "bl", mr: "mr", ml: "ml" };
+  // bubbles overlay the art in a corner (short dialogue only)
+  const bubPos = { tr: "tr", tl: "tl", br: "br", bl: "bl", mr: "br", ml: "bl" };
   const bubs = (t.bubbles || [])
-    .map((b) => `<div class="bub ${lowPos[b.pos] || "br"}">${b.text}<span class="tail"></span></div>`)
+    .map((b) => `<div class="bub ${bubPos[b.pos] || "br"}">${b.text}<span class="tail"></span></div>`)
     .join("");
   const labels = (t.labels || [])
     .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
     .join("");
-  const nar = t.narration ? `<div class="cap">${t.narration}</div>` : "";
+  const nar = t.narration ? `<div class="nar">${t.narration}</div>` : "";
   const quote = t.quote
     ? `<div class="quote">&ldquo;${t.quote}&rdquo;<span class="qby">&mdash; ${t.quote_by || "SOURCE"}</span></div>`
     : "";
-  const zone = p.cap_zone || "top";
+  const capBand = (nar || quote) ? `<div class="cap">${nar}${quote}</div>` : "";
   return `<figure class="panel${p.wide ? " wide" : ""}">
-  <img src="${imgDataUri(dir, p.n)}" alt="">
-  <div class="toptext z-${zone}">${nar}${quote}</div>
-  ${bubs}${labels}
+  ${capBand}
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${bubs}${labels}</div>
 </figure>`;
 }
 
