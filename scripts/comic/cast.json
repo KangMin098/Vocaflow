@@ -1,0 +1,86 @@
+{
+  "_doc": "Character bible — the single source of truth for every recurring character across ALL chapters. Each character has ONE unique, positive, HARD, shape-based signature (readable in grayscale) so it reproduces consistently on prompt-only FLUX and stays distinct from the others. Chapter scripts sync their cast from here (evaluate.mjs --sync-cast) so descriptions never drift between chapters. Rule: distinguish by a UNIQUE signature's presence, never by hairstyle or by the absence of a feature.",
+  "book": "Mary Shelley, Frankenstein (1818)",
+  "characters": {
+    "victor": {
+      "name": "Victor", "role": "protagonist",
+      "signature": "round glasses + work apron (bare head)",
+      "canonical": "a thin young man, round head, neat short dark hair, small round glasses, plain shirt",
+      "anchor": "small round glasses and a plain work apron",
+      "consistency": "the ONLY character with round glasses + apron and a bare head; keep hair short and neat, never a hat.",
+      "appears_in": [5, 6, 7]
+    },
+    "creature": {
+      "name": "the Creature", "role": "antagonist-victim",
+      "signature": "tall gaunt bald ghoul, black hollow eyes, jagged teeth",
+      "canonical": "a very tall gaunt BALD creature, chalk-white skin, huge black hollow eyes, sharp jagged teeth, ragged shirt",
+      "anchor": "a tall gaunt bald chalk-white body, black hollow eyes and jagged teeth",
+      "consistency": "always the TALLEST, lankiest figure; bald with sunken black eye-sockets and a jagged-tooth mouth; never a hat or hair.",
+      "appears_in": [5, 7]
+    },
+    "clerval": {
+      "name": "Clerval", "role": "friend",
+      "signature": "black top hat + black coat (cheerful)",
+      "canonical": "a cheerful young man who always wears a black top hat and a black coat",
+      "anchor": "a black top hat and black coat",
+      "consistency": "the ONLY character in a top hat; always cheerful; the top hat belongs to him alone.",
+      "appears_in": [5, 6, 7]
+    },
+    "elizabeth": {
+      "name": "Elizabeth", "role": "cousin / beloved",
+      "signature": "white bonnet + shawl (long braid)",
+      "canonical": "a gentle young woman wearing a white bonnet over a long braid, with a shoulder shawl",
+      "anchor": "a white bonnet and a shoulder shawl",
+      "consistency": "the ONLY character in a bonnet; a woman with a long braid and shawl; never glasses and never an apron (those belong to Victor).",
+      "appears_in": [5, 6, 7]
+    },
+    "alphonse": {
+      "name": "Alphonse", "role": "father",
+      "signature": "long white beard + walking cane (elderly)",
+      "canonical": "an elderly gentleman with a long white beard leaning on a walking cane",
+      "anchor": "a long white beard and a walking cane",
+      "consistency": "the ONLY elderly figure; long white beard and a cane; no hat.",
+      "appears_in": [7]
+    },
+    "ernest": {
+      "name": "Ernest", "role": "younger brother",
+      "signature": "flat newsboy cap (teen)",
+      "canonical": "a teenage boy wearing a flat newsboy cap, no glasses",
+      "anchor": "a flat newsboy cap",
+      "consistency": "the ONLY character in a flat cap; a younger teen; no glasses and no apron.",
+      "appears_in": [7]
+    },
+    "justine": {
+      "name": "Justine", "role": "servant girl",
+      "signature": "white servant's cap (frank-faced)",
+      "canonical": "a sweet frank-faced young servant girl in a white servant's cap",
+      "anchor": "a white servant's cap",
+      "consistency": "the ONLY character in a small white servant's cap.",
+      "appears_in": [6]
+    },
+    "william": {
+      "name": "William", "role": "little brother (child)",
+      "signature": "little sailor cap (small child, dimples)",
+      "canonical": "a small cherubic boy with dimples wearing a little sailor cap",
+      "anchor": "a little sailor cap",
+      "consistency": "the only small child; sailor cap and dimples.",
+      "appears_in": [6]
+    },
+    "waldman": {
+      "name": "Waldman", "role": "kindly professor",
+      "signature": "bald head + long grey beard (kindly)",
+      "canonical": "a kindly old professor, bald on top with a long grey beard and a gown",
+      "anchor": "a bald head with a long grey beard and a professor's gown",
+      "consistency": "kindly elderly professor, grey beard + gown; distinct from Krempe by warmth and a longer beard.",
+      "appears_in": [6]
+    },
+    "krempe": {
+      "name": "Krempe", "role": "gruff professor",
+      "signature": "squat + curly powdered wig (scowling)",
+      "canonical": "a short squat gruff professor in a curly powdered wig, scowling",
+      "anchor": "a curly powdered wig and a squat scowling build",
+      "consistency": "short, squat, scowling, in a powdered wig; distinct from Waldman by build and wig.",
+      "appears_in": [6]
+    }
+  }
+}

@@ -30,7 +30,7 @@
       "id": "victor",
       "name": "Victor",
       "role": "protagonist",
-      "canonical": "a thin young man, round head, neat short dark bowl-cut hair, small round glasses, plain shirt",
+      "canonical": "a thin young man, round head, neat short dark hair, small round glasses, plain shirt",
       "anchor": "small round glasses and a plain work apron",
       "seed_role": 84
     },
@@ -38,8 +38,8 @@
       "id": "clerval",
       "name": "Clerval",
       "role": "friend",
-      "canonical": "a cheerful young man who always wears a black top hat",
-      "anchor": "a black top hat",
+      "canonical": "a cheerful young man who always wears a black top hat and a black coat",
+      "anchor": "a black top hat and black coat",
       "seed_role": 84
     },
     {
@@ -62,16 +62,16 @@
       "id": "ernest",
       "name": "Ernest",
       "role": "brother",
-      "canonical": "a teenage boy wearing a flat cap",
-      "anchor": "a flat cap",
+      "canonical": "a teenage boy wearing a flat newsboy cap, no glasses",
+      "anchor": "a flat newsboy cap",
       "seed_role": 84
     },
     {
       "id": "elizabeth",
       "name": "Elizabeth",
       "role": "cousin",
-      "canonical": "a gentle young woman with two simple braids",
-      "anchor": "two braids and a plain shawl",
+      "canonical": "a gentle young woman wearing a white bonnet over a long braid, with a shoulder shawl",
+      "anchor": "a white bonnet and a shoulder shawl",
       "seed_role": 84
     }
   ],

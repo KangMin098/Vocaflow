@@ -30,7 +30,7 @@
       "id": "victor",
       "name": "Victor",
       "role": "protagonist",
-      "canonical": "a thin young man, round head, neat short dark bowl-cut hair, small round glasses, plain shirt",
+      "canonical": "a thin young man, round head, neat short dark hair, small round glasses, plain shirt",
       "anchor": "small round glasses and a plain work apron",
       "seed_role": 84
     },
@@ -38,23 +38,23 @@
       "id": "clerval",
       "name": "Clerval",
       "role": "friend",
-      "canonical": "a cheerful young man who always wears a black top hat",
-      "anchor": "a black top hat",
+      "canonical": "a cheerful young man who always wears a black top hat and a black coat",
+      "anchor": "a black top hat and black coat",
       "seed_role": 84
     },
     {
       "id": "elizabeth",
       "name": "Elizabeth",
       "role": "cousin",
-      "canonical": "a gentle young woman with braided hair",
-      "anchor": "a blue shawl",
+      "canonical": "a gentle young woman wearing a white bonnet over a long braid, with a shoulder shawl",
+      "anchor": "a white bonnet and a shoulder shawl",
       "seed_role": 84
     },
     {
       "id": "justine",
       "name": "Justine",
       "role": "servant",
-      "canonical": "a sweet frank-faced young servant girl with a white cap",
+      "canonical": "a sweet frank-faced young servant girl in a white servant's cap",
       "anchor": "a white servant's cap",
       "seed_role": 84
     },
@@ -70,16 +70,16 @@
       "id": "waldman",
       "name": "Waldman",
       "role": "professor",
-      "canonical": "a kindly older professor with spectacles",
-      "anchor": "round spectacles",
+      "canonical": "a kindly old professor, bald on top with a long grey beard and a gown",
+      "anchor": "a bald head with a long grey beard and a professor's gown",
       "seed_role": 84
     },
     {
       "id": "krempe",
       "name": "Krempe",
       "role": "professor",
-      "canonical": "a squat gruff frowning professor",
-      "anchor": "a blunt scowl and old wig",
+      "canonical": "a short squat gruff professor in a curly powdered wig, scowling",
+      "anchor": "a curly powdered wig and a squat scowling build",
       "seed_role": 84
     }
   ],
