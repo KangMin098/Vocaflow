@@ -1,6 +1,6 @@
 # Frankenstein — Series Evaluation
 
-Chapters: 1, 2, 3, 4, 5, 6, 7, 8, 9
+Chapters: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 
 ## Chapter 1 — Frankenstein · Chapter 1 — A Gift Called Elizabeth
 - structure: ok
@@ -65,11 +65,18 @@ Chapters: 1, 2, 3, 4, 5, 6, 7, 8, 9
 - characters: victor, alphonse, elizabeth
 - cast vs bible: in sync ✓
 
+## Chapter 10 — Frankenstein · Chapter 10 — The Meeting on the Sea of Ice
+- structure: ok
+- panels: 16 · retention: 25.2% · verbatim lines: 44
+- images: 16/16 ok, avg 24151B
+- characters: victor, creature
+- cast vs bible: in sync ✓
+
 ## Cross-chapter continuity
 | character | bible signature | appears in |
 |---|---|---|
-| Victor | undefined | used:1,2,3,4,5,6,7,8,9 / bible:1,2,3,4,5,6,7,8,9 ✓ |
-| the Creature | undefined | used:5,7 / bible:5,7 ✓ |
+| Victor | undefined | used:1,2,3,4,5,6,7,8,9,10 / bible:1,2,3,4,5,6,7,8,9,10 ✓ |
+| the Creature | undefined | used:5,7,10 / bible:5,7,10 ✓ |
 | Clerval | undefined | used:2,3,5,6,7 / bible:2,3,5,6,7 ✓ |
 | Elizabeth | undefined | used:1,2,3,5,6,7,8,9 / bible:1,2,3,5,6,7,8,9 ✓ |
 | Alphonse | undefined | used:1,2,3,7,9 / bible:1,2,3,7,9 ✓ |
