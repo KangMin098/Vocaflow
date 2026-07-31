@@ -138,5 +138,11 @@
         2
       ]
     }
-  }
+  },
+  "_lessons": [
+    "SINGLE-SUBJECT default: one named character per panel — eliminates multi-figure homogenization (the #1 failure).",
+    "Negatives are IGNORED by FLUX. To remove an unwanted attribute, replace the ambiguous item with an unambiguous POSITIVE alternative.",
+    "Night-Scrooge wizard basin fix: bare-headed + striped nightshirt (NOT nightcap/gown, which read as wizard hat/robe).",
+    "Ghost-of-Past head-flame: phrase as fire sprouting from the bald scalp + hands empty (not candle/torch)."
+  ]
 }

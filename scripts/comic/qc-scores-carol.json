@@ -21,38 +21,24 @@
     },
     "2": {
       "elements": {
-        "art": 9.2,
-        "character": 9,
-        "scene": 9.1
+        "art": 9.3,
+        "character": 9.3,
+        "scene": 9.2
       },
       "flagged": [
         {
-          "panel": 11,
+          "panel": 0,
           "element": "character",
           "score": 9.3,
           "status": "remediated",
-          "note": "Fezziwig re-locked to clean-shaven Welsh-wig (was bearded, bleeding into Christmas Present)"
-        },
-        {
-          "panel": 16,
-          "element": "character",
-          "score": 9.2,
-          "status": "remediated",
-          "note": "Belle two-figure: young-Scrooge now renders male (was female-homogenized)"
+          "note": "RE-STAGED FULLY SINGLE-SUBJECT: eliminated the 2-figure wizard-bleed. Scrooge locked via bare-headed + striped nightshirt (positive anti-wizard anchor, since negatives are ignored); Ghost head-flame via fire-from-scalp wording"
         },
         {
           "panel": 2,
-          "element": "character",
-          "score": 9.4,
-          "status": "remediated",
-          "note": "hero reveal: Ghost of Past head-flame + nightcap Scrooge achieved via explicit skull-flame wording + seed 246"
-        },
-        {
-          "panel": 3,
-          "element": "character",
-          "score": 8.8,
+          "element": "scene",
+          "score": 9.2,
           "status": "accepted-limit",
-          "note": "child-spirit + old-miser 2-figure composition: FLUX gives a handheld torch not the head-flame and pushes Scrooge toward a pointed hat; head-flame renders reliably only in the single-focus reveal (P2)"
+          "note": "Ghost still adds a small handheld candle alongside the head-flame; teen-tier free-FLUX line quality caps ~9.3 — true 9.5 needs paid reference-conditioning"
         }
       ]
     }

@@ -23,16 +23,17 @@
     ],
     "original_words": 6149,
     "art_shared_across_tiers": true,
-    "seed": 246
+    "seed": 248
   },
   "cast": [
     {
       "id": "scrooge",
       "name": "Scrooge",
       "role": "protagonist — cold, miserly old man who is redeemed",
-      "canonical": "a bent thin miserly old man with a sharp pointed nose, shrivelled frowning face and thin lips, in a long shabby dark tailcoat, carrying a cane",
-      "anchor": "a bent thin old man, pointed nose, hard frown, shabby dark tailcoat + cane",
-      "seed_role": 46
+      "canonical": "a thin bent elderly man with a sharp pointed nose and a completely smooth clean-shaven face, bald on top with short wispy grey hair only at the sides, wearing a plain knee-length striped cotton nightshirt, barefoot",
+      "anchor": "thin bent bald clean-shaven old man, sharp nose, striped nightshirt, barefoot, bare-headed",
+      "seed_role": 46,
+      "variant": "nightcap"
     },
     {
       "id": "past",
@@ -109,7 +110,7 @@
       "n": 2,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald top of its head (the fire grows from its skull, no candle, no torch), glowing softly, ALONE, no other figure, floating in a dark bedroom (revealed from Scrooge's point of view)",
+      "scene": "a small barefoot child in a plain white robe, BOTH HANDS EMPTY at its sides, a tuft of bright fire sprouting straight up from the very top of its smooth bald scalp like burning hair, glowing softly, ALONE, no other figure, in a dark bedroom (Scrooge's point of view)",
       "composition": "single subject — the reveal",
       "characters": [
         "past"
@@ -162,7 +163,7 @@
       "n": 3,
       "wide": false,
       "cap_zone": "top",
-      "scene": "close on a small barefoot child in a plain white robe with a bright flame burning out of the bald top of its head (the fire grows from its skull, no candle, no torch), glowing softly, ALONE, no other figure, speaking gently",
+      "scene": "close on a small barefoot child in a plain white robe, BOTH HANDS EMPTY at its sides, a tuft of bright fire sprouting straight up from the very top of its smooth bald scalp like burning hair, glowing softly, ALONE, no other figure, speaking",
       "composition": "single subject — the Ghost speaks",
       "characters": [
         "past"
@@ -215,7 +216,7 @@
       "n": 4,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald top of its head (the fire grows from its skull, no candle, no torch), glowing softly, ALONE, no other figure, one small hand extended toward the viewer in a beckoning gesture, a plain bedroom wall behind",
+      "scene": "a small barefoot child in a plain white robe, BOTH HANDS EMPTY at its sides, a tuft of bright fire sprouting straight up from the very top of its smooth bald scalp like burning hair, glowing softly, ALONE, no other figure (hands still empty), a plain bedroom wall behind",
       "composition": "single subject — beckoning",
       "characters": [
         "past"
@@ -260,7 +261,7 @@
       "n": 5,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a bent thin clean-shaven pointed-nose old miser in a soft floppy round nightcap and dressing-gown, ALONE, no other figure, no pointed hat, no beard, standing in a clear cold snowy country lane clasping his hands in wonder",
+      "scene": "a thin bent bald-topped CLEAN-SHAVEN old man with a sharp pointed nose (wispy grey side-hair, bare-headed, NO hat), in a plain striped knee-length nightshirt, barefoot, ALONE, standing in a snowy country lane clasping his hands in wonder",
       "composition": "single subject — Scrooge in his boyhood country",
       "characters": [
         "scrooge"
@@ -662,7 +663,7 @@
       "n": 13,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a bent thin clean-shaven pointed-nose old miser in a soft floppy round nightcap and dressing-gown, ALONE, no other figure, no pointed hat, no beard, moved and thoughtful, at the edge of a warm fading ballroom glow behind him",
+      "scene": "a thin bent bald-topped CLEAN-SHAVEN old man with a sharp pointed nose (wispy grey side-hair, bare-headed, NO hat), in a plain striped knee-length nightshirt, barefoot, ALONE, moved and thoughtful, a warm ballroom glow fading behind him",
       "composition": "single subject — Scrooge reflects",
       "characters": [
         "scrooge"
@@ -927,7 +928,7 @@
       "n": 18,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a bent thin clean-shaven pointed-nose old miser in a soft floppy round nightcap and dressing-gown, ALONE, no other figure, no pointed hat, no beard, forcing a big cone-shaped metal snuffer-cap downward with both hands, brilliant light bursting out from under the cap at his feet (the spirit reduced to that light)",
+      "scene": "a thin bent bald-topped CLEAN-SHAVEN old man with a sharp pointed nose (wispy grey side-hair, bare-headed, NO hat), in a plain striped knee-length nightshirt, barefoot, ALONE, recoiling with both arms raised as a brilliant burst of light floods up from the floor at his feet",
       "composition": "single subject — Scrooge snuffs the light",
       "characters": [
         "scrooge"
