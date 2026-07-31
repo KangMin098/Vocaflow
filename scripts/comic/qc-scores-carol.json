@@ -2,9 +2,59 @@
   "bar": 9.5,
   "_doc": "Per-stave vision-QC ledger for A Christmas Carol final acceptance gate. Teen art tier.",
   "chapters": {
-    "1": { "floor": 9.0, "flagged": [
-      { "panel": 15, "score": 9.0, "status": "accepted-limit", "note": "Marley renders solid, not translucent (teen-tier free-FLUX limit); pigtail + cash-box/padlock chain carry identity" },
-      { "panel": 18, "score": 8.9, "status": "accepted-limit", "note": "the sky-full-of-phantoms crowd will not render on free FLUX; Marley + chain + city + warning bubbles carry the beat" }
-    ] }
+    "1": {
+      "floor": 9,
+      "flagged": [
+        {
+          "panel": 15,
+          "score": 9,
+          "status": "accepted-limit",
+          "note": "Marley renders solid, not translucent (teen-tier free-FLUX limit); pigtail + cash-box/padlock chain carry identity"
+        },
+        {
+          "panel": 18,
+          "score": 8.9,
+          "status": "accepted-limit",
+          "note": "the sky-full-of-phantoms crowd will not render on free FLUX; Marley + chain + city + warning bubbles carry the beat"
+        }
+      ]
+    },
+    "2": {
+      "elements": {
+        "art": 9.2,
+        "character": 9,
+        "scene": 9.1
+      },
+      "flagged": [
+        {
+          "panel": 11,
+          "element": "character",
+          "score": 9.3,
+          "status": "remediated",
+          "note": "Fezziwig re-locked to clean-shaven Welsh-wig (was bearded, bleeding into Christmas Present)"
+        },
+        {
+          "panel": 16,
+          "element": "character",
+          "score": 9.2,
+          "status": "remediated",
+          "note": "Belle two-figure: young-Scrooge now renders male (was female-homogenized)"
+        },
+        {
+          "panel": 2,
+          "element": "character",
+          "score": 9.4,
+          "status": "remediated",
+          "note": "hero reveal: Ghost of Past head-flame + nightcap Scrooge achieved via explicit skull-flame wording + seed 246"
+        },
+        {
+          "panel": 3,
+          "element": "character",
+          "score": 8.8,
+          "status": "accepted-limit",
+          "note": "child-spirit + old-miser 2-figure composition: FLUX gives a handheld torch not the head-flame and pushes Scrooge toward a pointed hat; head-flame renders reliably only in the single-focus reveal (P2)"
+        }
+      ]
+    }
   }
 }

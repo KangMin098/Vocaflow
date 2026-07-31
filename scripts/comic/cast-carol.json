@@ -14,7 +14,8 @@
       "anchor": "a bent thin old man, pointed nose, hard frown, shabby dark tailcoat + cane",
       "consistency": "the ONLY bent pointed-nose miser; sour frown; dark shabby tailcoat (or nightcap+gown at home); never jolly until the finale.",
       "appears_in": [
-        1
+        1,
+        2
       ]
     },
     "marley": {
@@ -66,10 +67,12 @@
       "head": "a strange young-old face, long white hair, a bright jet of clear light springing from the crown",
       "trait_mark": "a pure white tunic with a holly sprig, holding a cap shaped like a candle-extinguisher",
       "expression": "gentle, uncanny, serene",
-      "canonical": "a small luminous spirit that seems both a child and an old person, with long white hair and a bright flame of light springing from its head, in a pure white tunic trimmed with summer flowers, holding a cap shaped like a candle-extinguisher",
-      "anchor": "small glowing child-old spirit, white tunic, a flame from its crown, extinguisher-cap",
-      "consistency": "the ONLY small glowing white-tunic spirit with a flame from its head; carries the extinguisher-cap.",
-      "appears_in": []
+      "canonical": "a small child-sized barefoot spirit in a plain pure-white robe, glowing softly, with a single bright candle-flame rising straight up out of the very top of its bare head like a living crown of fire, carrying a shiny cone-shaped metal candle-snuffer cap under one arm; no hat, no staff, no torch",
+      "anchor": "small glowing child-spirit, a flame rising from the top of its bare head, white robe, snuffer-cap under arm; NO hat, NO staff",
+      "consistency": "the ONLY small child-sized glowing white-robe spirit with a flame growing straight out of the bald crown of its head (phrase it as: no candle, no torch, the fire grows from its skull — else FLUX draws a handheld torch); never a hat, never a staff.",
+      "appears_in": [
+        2
+      ]
     },
     "present": {
       "name": "Ghost of Christmas Present",
@@ -114,10 +117,12 @@
       "head": "a round jolly face under a large Welsh wig",
       "trait_mark": "a big Welsh wig, a comfortable waistcoat and shiny buckled shoes, calves that shine",
       "expression": "beaming, generous, dancing",
-      "canonical": "a jovial rotund old gentleman with a round beaming face under a big Welsh wig, a comfortable waistcoat and shiny buckled shoes",
-      "anchor": "rotund beaming old master, big Welsh wig, buckled shiny shoes",
-      "consistency": "the ONLY rotund Welsh-wig master with buckled shoes; always jovial and dancing.",
-      "appears_in": []
+      "canonical": "a jovial rotund clean-shaven old gentleman with a big round smiling clean-shaven face under a large curly white 18th-century wig, a comfortable waistcoat and shiny buckled shoes; no beard",
+      "anchor": "rotund clean-shaven old master, large curly white wig, buckled shoes, NO beard",
+      "consistency": "the ONLY rotund Welsh-wig master; CLEAN-SHAVEN, no beard (so he never blurs into bearded Christmas Present); buckled shoes.",
+      "appears_in": [
+        2
+      ]
     },
     "belle": {
       "name": "Belle",
@@ -129,7 +134,9 @@
       "canonical": "a gentle graceful young woman with a soft kind face and hair in simple ringlets, in a plain modest early-Victorian dress and shawl",
       "anchor": "gentle young woman, simple ringlets, plain modest dress and shawl",
       "consistency": "the ONLY young sweetheart in a plain dress with ringlets; warm but sorrowful.",
-      "appears_in": []
+      "appears_in": [
+        2
+      ]
     }
   }
 }

@@ -38,16 +38,16 @@
       "id": "past",
       "name": "Ghost of Christmas Past",
       "role": "first of the three spirits — memory",
-      "canonical": "a small luminous spirit that seems both a child and an old person, with long white hair and a bright flame of light springing from its head, in a pure white tunic trimmed with summer flowers, holding a cap shaped like a candle-extinguisher",
-      "anchor": "small glowing child-old spirit, white tunic, a flame from its crown, extinguisher-cap",
+      "canonical": "a small child-sized barefoot spirit in a plain pure-white robe, glowing softly, with a single bright candle-flame rising straight up out of the very top of its bare head like a living crown of fire, carrying a shiny cone-shaped metal candle-snuffer cap under one arm; no hat, no staff, no torch",
+      "anchor": "small glowing child-spirit, a flame rising from the top of its bare head, white robe, snuffer-cap under arm; NO hat, NO staff",
       "seed_role": 51
     },
     {
       "id": "fezziwig",
       "name": "Fezziwig",
       "role": "Scrooge's jovial old master (in Christmas Past)",
-      "canonical": "a jovial rotund old gentleman with a round beaming face under a big Welsh wig, a comfortable waistcoat and shiny buckled shoes",
-      "anchor": "rotund beaming old master, big Welsh wig, buckled shiny shoes",
+      "canonical": "a jovial rotund clean-shaven old gentleman with a big round smiling clean-shaven face under a large curly white 18th-century wig, a comfortable waistcoat and shiny buckled shoes; no beard",
+      "anchor": "rotund clean-shaven old master, large curly white wig, buckled shoes, NO beard",
       "seed_role": 60
     },
     {
@@ -109,7 +109,7 @@
       "n": 2,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a small luminous child-yet-aged spirit with long white hair and a bright jet of clear light springing from the crown of its head, in a pure white tunic with a holly sprig, holding a candle-extinguisher cap, beside the startled old miser in his nightcap",
+      "scene": "a small barefoot child in a plain white robe, ALONE, with a single tall bright flame burning directly on the bare crown of its hairless head like a candle whose wick is its own scalp (there is no candle and no torch, the fire grows straight out of the top of its skull), soft glow all around, dark bedroom",
       "composition": "wide, the strange glowing visitor",
       "characters": [
         "past",
@@ -163,7 +163,7 @@
       "n": 3,
       "wide": false,
       "cap_zone": "top",
-      "scene": "close on the glowing white-tunic spirit with the flame at its crown speaking gently to the wary old miser, the extinguisher-cap under its arm",
+      "scene": "close two-shot of a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch) speaking gently to a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard)",
       "composition": "close, the Ghost names itself",
       "characters": [
         "past",
@@ -217,7 +217,7 @@
       "n": 4,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the glowing spirit clasping the old miser's arm and drawing him toward a bedroom wall, the two of them beginning to pass straight through it, the miser in nightcap and slippers",
+      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch) gently taking the arm of a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard) and leading him through a bedroom wall",
       "composition": "close, through the wall",
       "characters": [
         "past",
@@ -476,7 +476,7 @@
       "n": 9,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a warm warehouse counting-house, a jovial rotund old master in a big Welsh wig laughing behind a very high desk, the old miser pointing in delight, the glowing spirit near",
+      "scene": "a jovial rotund CLEAN-SHAVEN old master in a large curly white wig (no beard) laughing behind a very high desk, the bent pointed-nose old miser pointing in delight",
       "composition": "close, old Fezziwig alive again",
       "characters": [
         "fezziwig",
@@ -522,7 +522,7 @@
       "n": 10,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the rotund Welsh-wig master clapping his hands and springing down from his high desk with wonderful agility, calling for the shutters up and the floor cleared for a party",
+      "scene": "the rotund clean-shaven Welsh-wig master (no beard) clapping his hands and springing down from his high desk, calling for the floor cleared for a party",
       "composition": "close, Fezziwig calls the party",
       "characters": [
         "fezziwig"
@@ -575,7 +575,7 @@
       "n": 11,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a bright warm warehouse turned ballroom, a fiddler up on the high desk, Mrs Fezziwig one vast smile, many couples dancing in joyful rows under warm lamplight and holly",
+      "scene": "a bright warm warehouse ballroom, a fiddler on a high desk, the rotund clean-shaven white-wig master (no beard) and many couples dancing under warm lamplight and holly",
       "composition": "wide, the Fezziwig ball",
       "characters": [
         "fezziwig"
@@ -628,7 +628,7 @@
       "n": 12,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the rotund Welsh-wig master and his substantial smiling wife dancing a lively reel in the middle of the floor, his buckled shoes and shining calves flashing, everyone delighted",
+      "scene": "the rotund clean-shaven white-wig master (no beard) and his stout smiling wife dancing a lively reel, his buckled shoes and shining calves flashing",
       "composition": "close, Fezziwig cuts a caper",
       "characters": [
         "fezziwig"
@@ -673,7 +673,7 @@
       "n": 13,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the glowing spirit and the old miser standing aside from the fading ball, the miser earnestly defending his old master, the light on the Ghost's head burning clear",
+      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch) standing beside a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard) at the edge of a fading warm ball",
       "composition": "close, the lesson of small kindness",
       "characters": [
         "past",
@@ -833,7 +833,7 @@
       "n": 16,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the gentle ringletted young woman gently releasing the young man from their engagement, sorrowful but resolved, turning to leave him",
+      "scene": "a gentle young woman with simple ringlets in a plain dress gently releasing a clearly-male dark-haired young man with side-whiskers and a firm jaw from their engagement, sorrowful but resolved",
       "composition": "close, Belle sets him free",
       "characters": [
         "belle"
@@ -940,7 +940,7 @@
       "n": 18,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the anguished old miser wrestling with the glowing spirit and forcing the great candle-extinguisher cap down over its head, brilliant light streaming out from under the cap onto the ground",
+      "scene": "a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard) pressing a big cone-shaped metal snuffer cap down onto the head of a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch), light streaming from under the cap",
       "composition": "close, Scrooge puts out the light",
       "characters": [
         "scrooge",
