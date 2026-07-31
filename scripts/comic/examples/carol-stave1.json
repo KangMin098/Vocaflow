@@ -30,8 +30,8 @@
       "id": "scrooge",
       "name": "Scrooge",
       "role": "protagonist — cold, miserly old man who is redeemed",
-      "canonical": "a bent thin miserly old man with a sharp pointed nose, shrivelled frowning face and thin lips, in a long shabby dark tailcoat, carrying a cane",
-      "anchor": "a bent thin old man, pointed nose, hard frown, shabby dark tailcoat + cane",
+      "canonical": "a bent thin elderly man with a sharp pointed nose, shrivelled frowning face, thin lips, clean-shaven, bald on top with short wispy grey side-hair",
+      "anchor": "bent thin bald clean-shaven old man, sharp pointed nose, hard frown",
       "seed_role": 46
     },
     {
@@ -170,7 +170,7 @@
       "n": 3,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a tight close portrait of the bent old miser, sharp pointed nose, shrivelled frowning cheek, thin blue lips, red eyes, a frosty rime on his brow, radiating cold",
+      "scene": "a tight close portrait of the bent old miser, sharp pointed nose, shrivelled frowning cheek, thin blue lips, red eyes, a frosty rime on his brow, radiating cold, in a dark tailcoat",
       "composition": "close, the coldest man in London",
       "characters": [
         "scrooge"
@@ -215,7 +215,7 @@
       "n": 4,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the sharp-nosed old miser walking a frozen London street, snow and wind streaming past him while he ignores it entirely, a self-contained aura of cold about him",
+      "scene": "the sharp-nosed old miser walking a frozen London street, snow and wind streaming past him while he ignores it entirely, a self-contained aura of cold about him, in a long dark coat",
       "composition": "close, carrying his own winter",
       "characters": [
         "scrooge"
@@ -260,10 +260,9 @@
       "n": 5,
       "wide": true,
       "cap_zone": "top",
-      "scene": "the dim counting-house on Christmas Eve, the sharp-nosed miser at a big ledger by a tiny fire, and beyond a thin clerk in a long white comforter scarf shivering over letters at a single coal, fog at the window",
-      "composition": "wide, master and freezing clerk",
+      "scene": "a thin poor clerk in a long white woollen comforter scarf and fingerless mittens, ALONE, shivering over letters at a tiny desk by a single glowing coal, fog at the window",
+      "composition": "single subject — the freezing clerk",
       "characters": [
-        "scrooge",
         "bob"
       ],
       "text": {
@@ -306,11 +305,10 @@
       "n": 6,
       "wide": false,
       "cap_zone": "top",
-      "scene": "inside a dim counting-house: a ruddy cheerful young man with side-whiskers, a scarf and a sprig of holly on his coat leaning warmly over the desk, while a sour bent sharp-nosed old miser in a dark tailcoat scowls up from his ledger by a tiny fire",
-      "composition": "close two-shot, warmth meets ice",
+      "scene": "a ruddy cheerful young man with side-whiskers, a scarf and a sprig of holly on his coat, ALONE, bursting in from the frosty street with arms wide and a warm grin",
+      "composition": "single subject — Fred arrives",
       "characters": [
-        "fred",
-        "scrooge"
+        "fred"
       ],
       "text": {
         "teen": {
@@ -352,11 +350,10 @@
       "n": 7,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the sour miser and the ruddy cheerful nephew arguing across the counting-house desk, the old man jabbing a bony finger, the young man open-handed and warm",
-      "composition": "close two-shot, the Christmas argument",
+      "scene": "a bent thin bald clean-shaven pointed-nose old miser in a long dark Victorian tailcoat, ALONE, scowling and jabbing a bony finger across his ledger desk",
+      "composition": "single subject — Scrooge argues back",
       "characters": [
-        "scrooge",
-        "fred"
+        "scrooge"
       ],
       "text": {
         "teen": {
@@ -459,8 +456,8 @@
       "n": 9,
       "wide": false,
       "cap_zone": "top",
-      "scene": "two plump kindly gentlemen with hats off and subscription books bowing to the scowling sharp-nosed miser at his desk, asking for charity",
-      "composition": "close, the charity collectors call",
+      "scene": "a bent thin bald clean-shaven pointed-nose old miser in a long dark tailcoat, ALONE, frowning coldly over subscription papers on his desk",
+      "composition": "single subject — the charity refused",
       "characters": [
         "scrooge"
       ],
@@ -504,7 +501,7 @@
       "n": 10,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the cold miser waving the charity gentlemen away with a hard sneer, turning back to his money, utterly without pity",
+      "scene": "the cold miser waving the charity gentlemen away with a hard sneer, turning back to his money, utterly without pity, in a long dark tailcoat",
       "composition": "close, a heart of stone",
       "characters": [
         "scrooge"
@@ -594,7 +591,7 @@
       "n": 12,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the sharp-nosed miser recoiling at his own front door as the heavy brass door-knocker has become the ghostly glowing face of Marley, spectacles pushed up on its spectral forehead, a dismal light around it",
+      "scene": "the sharp-nosed miser recoiling at his own front door as the heavy brass door-knocker has become the ghostly glowing face of Marley, spectacles pushed up on its spectral forehead, a dismal light around it, in a long dark coat and top hat",
       "composition": "close, the knocker becomes a face",
       "characters": [
         "scrooge"
@@ -647,7 +644,7 @@
       "n": 13,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the miser in nightcap and dressing-gown starting up from his chair by a low fire as a disused bell high on the wall swings wildly of its own accord, dread on his face",
+      "scene": "the miser in nightcap and dressing-gown starting up from his chair by a low fire as a disused bell high on the wall swings wildly of its own accord, dread on his face, in a striped nightshirt and floppy nightcap",
       "composition": "close, the bells ring themselves",
       "characters": [
         "scrooge"
@@ -700,7 +697,7 @@
       "n": 14,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the terrified miser clutching his chair as a heavy clanking of dragged chains rises up a dark stairwell toward his door, a booming cellar door thrown open below",
+      "scene": "the terrified miser clutching his chair as a heavy clanking of dragged chains rises up a dark stairwell toward his door, a booming cellar door thrown open below, in a striped nightshirt and floppy nightcap",
       "composition": "close, something climbs the stairs",
       "characters": [
         "scrooge"
@@ -745,11 +742,10 @@
       "n": 15,
       "wide": true,
       "cap_zone": "top",
-      "scene": "the translucent ghost of Marley in pigtail and waistcoat passing through the closed door, wound in a long heavy chain forged of cash-boxes, padlocks, keys and ledgers, a cloth bandage tied round its head, the miser cowering",
-      "composition": "wide, Marley's Ghost appears",
+      "scene": "the translucent ghost of Marley, ALONE, in an old pigtail and waistcoat, a cloth bandage tied round his head, wound in a long heavy chain of cash-boxes, padlocks and keys, passing through a heavy closed door",
+      "composition": "single subject — Marley enters",
       "characters": [
-        "marley",
-        "scrooge"
+        "marley"
       ],
       "text": {
         "teen": {
@@ -799,11 +795,10 @@
       "n": 16,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the miser in nightcap trying to sneer at the spectral bound ghost seated across the low fire, half-terrified, cracking a nervous joke",
-      "composition": "close two-shot, denial and dread",
+      "scene": "a bent bald clean-shaven pointed-nose old man in a striped nightshirt and floppy nightcap, ALONE, cowering and clutching a chair in terror by a low fire",
+      "composition": "single subject — Scrooge cowers",
       "characters": [
-        "scrooge",
-        "marley"
+        "scrooge"
       ],
       "text": {
         "teen": {
@@ -853,11 +848,10 @@
       "n": 17,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the anguished translucent ghost lifting its heavy chain of cash-boxes at arm's length, wringing its shadowy hands, the miser on his knees before it",
-      "composition": "close, the ghost's terrible lesson",
+      "scene": "the translucent ghost of Marley, ALONE, bandaged head and pigtail, lifting his heavy chain of cash-boxes and padlocks at arm's length, wringing his shadowy hands in anguish",
+      "composition": "single subject — the chain he forged",
       "characters": [
-        "marley",
-        "scrooge"
+        "marley"
       ],
       "text": {
         "teen": {
@@ -907,11 +901,10 @@
       "n": 18,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a bent sharp-nosed old miser at a wide-open window at night, staring out at a dark sky FILLED with many drifting translucent phantom figures, each bound and dragging chains, wailing as they wander over the snowy rooftops",
-      "composition": "wide, the warning and the phantom night",
+      "scene": "the translucent ghost of Marley, ALONE, bandaged and chained, floating backward out through a wide-open window into the dark night",
+      "composition": "single subject — Marley departs",
       "characters": [
-        "marley",
-        "scrooge"
+        "marley"
       ],
       "text": {
         "teen": {

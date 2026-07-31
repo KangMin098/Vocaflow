@@ -10,9 +10,9 @@
       "head": "a sharp pointed nose, shrivelled cheeks, a hard tight frown, thin lips",
       "trait_mark": "a long shabby dark tailcoat and a walking cane; later a white nightcap and gown",
       "expression": "sour and pinched, softening to wonder by the end",
-      "canonical": "a bent thin miserly old man with a sharp pointed nose, shrivelled frowning face and thin lips, in a long shabby dark tailcoat, carrying a cane",
-      "anchor": "a bent thin old man, pointed nose, hard frown, shabby dark tailcoat + cane",
-      "consistency": "the ONLY bent pointed-nose miser; sour frown; dark shabby tailcoat (or nightcap+gown at home); never jolly until the finale.",
+      "canonical": "a bent thin elderly man with a sharp pointed nose, shrivelled frowning face, thin lips, clean-shaven, bald on top with short wispy grey side-hair",
+      "anchor": "bent thin bald clean-shaven old man, sharp pointed nose, hard frown",
+      "consistency": "the ONLY bent pointed-nose bald clean-shaven miser; costume varies by scene (dark tailcoat by day, striped nightshirt at night) — never a wizard hat/beard.",
       "appears_in": [
         1,
         2
@@ -143,6 +143,7 @@
     "SINGLE-SUBJECT default: one named character per panel — eliminates multi-figure homogenization (the #1 failure).",
     "Negatives are IGNORED by FLUX. To remove an unwanted attribute, replace the ambiguous item with an unambiguous POSITIVE alternative.",
     "Night-Scrooge wizard basin fix: bare-headed + striped nightshirt (NOT nightcap/gown, which read as wizard hat/robe).",
-    "Ghost-of-Past head-flame: phrase as fire sprouting from the bald scalp + hands empty (not candle/torch)."
+    "Ghost-of-Past head-flame: phrase as fire sprouting from the bald scalp + hands empty (not candle/torch).",
+    "Costume-neutral canonical: for characters who change clothes (Scrooge day tailcoat vs night nightshirt), keep the bible canonical face/body-only and set costume in each scene — prevents costume conflict/wizard-drift."
   ]
 }
