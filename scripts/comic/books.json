@@ -1,0 +1,41 @@
+{
+  "_doc": "Book registry for the comic pipeline. Each book declares its bible, file naming, section manifest, image dir template, retention band and QC ledger so evaluate/final-audit generalise across books. imgBase {key} = section's imgKey + number.",
+  "frankenstein": {
+    "title": "Frankenstein",
+    "bible": "cast.json",
+    "filePrefix": "frankenstein-",
+    "imgBase": "scratchpad-foreign/frank{key}/img",
+    "retentionMin": 25,
+    "qcLedger": "qc-scores.json",
+    "sections": [
+      {
+        "kind": "Letter",
+        "stem": "letter",
+        "count": 4,
+        "imgKey": "L"
+      },
+      {
+        "kind": "Chapter",
+        "stem": "ch",
+        "count": 24,
+        "imgKey": ""
+      }
+    ]
+  },
+  "carol": {
+    "title": "A Christmas Carol",
+    "bible": "cast-carol.json",
+    "filePrefix": "carol-",
+    "imgBase": "scratchpad-foreign/carol{key}/img",
+    "retentionMin": 12,
+    "qcLedger": "qc-scores-carol.json",
+    "sections": [
+      {
+        "kind": "Stave",
+        "stem": "stave",
+        "count": 5,
+        "imgKey": ""
+      }
+    ]
+  }
+}

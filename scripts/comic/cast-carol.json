@@ -1,0 +1,115 @@
+{
+  "_doc": "Character bible for A Christmas Carol (Dickens, Gutenberg 46). Single source of truth for visual consistency. Teen art tier (V7). Same ICONIC TRAIT SILHOUETTE strategy as the Frankenstein bible: silhouette + head signature + trait-mark so each character is instantly distinct and consistent across all 5 staves.",
+  "_strategy": "ICONIC TRAIT SILHOUETTE — every character = a distinct silhouette + a head signature + a trait-mark object, so free-tier FLUX keeps them apart and consistent.",
+  "book": "A Christmas Carol",
+  "characters": {
+    "scrooge": {
+      "name": "Scrooge",
+      "role": "protagonist — cold, miserly old man who is redeemed",
+      "silhouette": "a bent, stiff, thin old man",
+      "head": "a sharp pointed nose, shrivelled cheeks, a hard tight frown, thin lips",
+      "trait_mark": "a long shabby dark tailcoat and a walking cane; later a white nightcap and gown",
+      "expression": "sour and pinched, softening to wonder by the end",
+      "canonical": "a bent thin miserly old man with a sharp pointed nose, shrivelled frowning face and thin lips, in a long shabby dark tailcoat, carrying a cane",
+      "anchor": "a bent thin old man, pointed nose, hard frown, shabby dark tailcoat + cane",
+      "consistency": "the ONLY bent pointed-nose miser; sour frown; dark shabby tailcoat (or nightcap+gown at home); never jolly until the finale.",
+      "appears_in": []
+    },
+    "marley": {
+      "name": "Marley's Ghost",
+      "role": "Scrooge's dead partner — a warning spirit",
+      "silhouette": "a translucent ghostly man dragging a long heavy chain",
+      "head": "a gaunt pale face with a cloth bandage tied up round the head and jaw, a pigtail",
+      "trait_mark": "a long chain wound about him forged of cash-boxes, keys, padlocks, ledgers and heavy purses",
+      "expression": "anguished, spectral, mournful",
+      "canonical": "a translucent ghostly man in an old-fashioned pigtail, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
+      "anchor": "translucent ghost, head-bandage + pigtail, bound in a chain of cash-boxes and padlocks",
+      "consistency": "the ONLY see-through figure; ALWAYS bound in the cash-box chain with the jaw bandage; never solid.",
+      "appears_in": []
+    },
+    "bob": {
+      "name": "Bob Cratchit",
+      "role": "Scrooge's poor, warm-hearted clerk",
+      "silhouette": "a thin stooped clerk with no overcoat",
+      "head": "a mild kindly face, thinning hair",
+      "trait_mark": "a long white woollen comforter (scarf) trailing down, fingerless mittens",
+      "expression": "meek, patient, warm",
+      "canonical": "a thin poor clerk with a mild kindly face, wrapped in a long white woollen comforter scarf and fingerless mittens, no overcoat",
+      "anchor": "thin clerk, long white comforter scarf, fingerless mittens, no coat",
+      "consistency": "the ONLY one in the long white comforter scarf; always coatless and cold; gentle.",
+      "appears_in": []
+    },
+    "fred": {
+      "name": "Fred",
+      "role": "Scrooge's cheerful nephew",
+      "silhouette": "an upright warm young man",
+      "head": "a handsome ruddy glowing face, bright eyes, side-whiskers",
+      "trait_mark": "a cheerful scarf and a sprig of holly on his coat, always mid-laugh",
+      "expression": "beaming, good-humoured",
+      "canonical": "a handsome ruddy cheerful young man with side-whiskers and bright eyes, glowing with warmth, a scarf and a sprig of holly on his coat",
+      "anchor": "ruddy glowing young man, side-whiskers, holly sprig, warm laugh",
+      "consistency": "the ONLY glowing cheerful young man; ruddy warm face; holly sprig; opposite of Scrooge.",
+      "appears_in": []
+    },
+    "past": {
+      "name": "Ghost of Christmas Past",
+      "role": "first of the three spirits — memory",
+      "silhouette": "a small luminous figure, child-like yet aged",
+      "head": "a strange young-old face, long white hair, a bright jet of clear light springing from the crown",
+      "trait_mark": "a pure white tunic with a holly sprig, holding a cap shaped like a candle-extinguisher",
+      "expression": "gentle, uncanny, serene",
+      "canonical": "a small luminous spirit that seems both a child and an old person, with long white hair and a bright flame of light springing from its head, in a pure white tunic trimmed with summer flowers, holding a cap shaped like a candle-extinguisher",
+      "anchor": "small glowing child-old spirit, white tunic, a flame from its crown, extinguisher-cap",
+      "consistency": "the ONLY small glowing white-tunic spirit with a flame from its head; carries the extinguisher-cap.",
+      "appears_in": []
+    },
+    "present": {
+      "name": "Ghost of Christmas Present",
+      "role": "second of the three spirits — abundance & joy",
+      "silhouette": "a jolly bare-chested giant",
+      "head": "a genial bearded face, dark brown curls, a holly wreath crown with icicles",
+      "trait_mark": "a deep-green fur-lined robe open at the chest and a glowing torch shaped like a horn of plenty",
+      "expression": "hearty, generous, booming",
+      "canonical": "a jolly cheerful bearded giant with dark brown curls, crowned with a holly wreath, wearing a deep-green fur-lined robe open at the chest, bearing a glowing torch shaped like a horn of plenty",
+      "anchor": "jolly bearded giant, holly-wreath crown, green fur robe, glowing horn-torch",
+      "consistency": "the ONLY jolly bearded giant in the green holly-crowned robe with the horn-torch; huge and warm.",
+      "appears_in": []
+    },
+    "future": {
+      "name": "Ghost of Christmas Yet to Come",
+      "role": "third of the three spirits — the silent Phantom of the future",
+      "silhouette": "a tall faceless shrouded phantom",
+      "head": "no visible face — only darkness within a deep black hood",
+      "trait_mark": "a full-length black hooded robe; one pale outstretched pointing hand is the only part visible",
+      "expression": "silent, grave, dreadful",
+      "canonical": "a tall silent Phantom shrouded head to foot in a deep black hooded robe that hides its face entirely, only one pale outstretched pointing hand visible",
+      "anchor": "tall faceless black-hooded phantom, only a pointing hand visible",
+      "consistency": "the ONLY all-black faceless hooded phantom; never speaks; only the pointing hand shows.",
+      "appears_in": []
+    },
+    "tim": {
+      "name": "Tiny Tim",
+      "role": "Bob Cratchit's frail, good little son",
+      "silhouette": "a very small frail boy leaning on a crutch",
+      "head": "a sweet pale little face, big trusting eyes",
+      "trait_mark": "a little wooden crutch and an iron brace on his small legs",
+      "expression": "sweet, patient, cheerful despite illness",
+      "canonical": "a very small frail sweet-faced boy with big trusting eyes, an iron brace on his little legs, leaning on a small wooden crutch",
+      "anchor": "tiny frail boy, small crutch, iron leg-brace, sweet pale face",
+      "consistency": "the ONLY small boy with the little crutch + leg-brace; frail and sweet.",
+      "appears_in": []
+    },
+    "fezziwig": {
+      "name": "Fezziwig",
+      "role": "Scrooge's jovial old master (in Christmas Past)",
+      "silhouette": "a rotund beaming old gentleman",
+      "head": "a round jolly face under a large Welsh wig",
+      "trait_mark": "a big Welsh wig, a comfortable waistcoat and shiny buckled shoes, calves that shine",
+      "expression": "beaming, generous, dancing",
+      "canonical": "a jovial rotund old gentleman with a round beaming face under a big Welsh wig, a comfortable waistcoat and shiny buckled shoes",
+      "anchor": "rotund beaming old master, big Welsh wig, buckled shiny shoes",
+      "consistency": "the ONLY rotund Welsh-wig master with buckled shoes; always jovial and dancing.",
+      "appears_in": []
+    }
+  }
+}
