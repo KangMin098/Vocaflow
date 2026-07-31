@@ -152,6 +152,19 @@ export function getPlaybook() {
   return _playbook;
 }
 
+// Which corners/edges of the panel hold text (so the art can reserve them as empty).
+// narration + verbatim quote default to the top-left caption slot; bubbles use their pos.
+export function textZones(panel) {
+  const set = new Set();
+  for (const tv of Object.values(panel.text || {})) {
+    if (!tv || typeof tv !== "object") continue;
+    if (tv.narration) set.add("tl");
+    if (tv.quote) set.add("tl");
+    for (const b of tv.bubbles || []) set.add(b.pos && ["tl", "tr", "bl", "br", "tc"].includes(b.pos) ? b.pos : "tr");
+  }
+  return [...set];
+}
+
 export function buildImagePrompt(panel, cast, style) {
   // FLUX prompt-craft: subject-first (position = weight), natural language, the
   // fixed style clause pinned at the END, and POSITIVE phrasing only (FLUX is
@@ -171,9 +184,16 @@ export function buildImagePrompt(panel, cast, style) {
   }
   parts.push(`Scene: ${panel.scene}.`);
   parts.push(`Composition: ${panel.composition}.`);
-  // Text lives in its own zone ABOVE the art (not overlaid), so the art can fill
-  // the whole frame with the subject prominent — just keep it inside the edges.
   parts.push("Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.");
+  // Gonick-style FREE text overlay: speech balloons & caption boxes sit OVER the art
+  // in its empty areas. So the art must RESERVE those zones as open background and keep
+  // the subject (and its face) out of them — this is how the text never covers a figure.
+  const zones = textZones(panel);
+  if (zones.length) {
+    // Reliable on FLUX: a single subject standing in the CENTER leaves the four corners
+    // as open background — exactly where the Gonick caption boxes/balloons overlay.
+    parts.push("Frame the single subject in the centre so all four corners stay as open, uncluttered background (sky, wall, or floor) — clear room for comic caption boxes and speech balloons to sit in the corners without covering the figure or its face.");
+  }
   if ((panel.characters || []).length >= 3)
     parts.push("Show the characters small and spread far apart in a wide shot so each stays a distinct full figure.");
   // proactively apply learned global lessons to prevent known defects
@@ -272,11 +292,11 @@ export function gate2(outPath, minBytes = 4000) {
 
 /* ---------- Phase D/E: Gonick-style HTML assembly ---------- */
 
-// Gonick-style panel (IMG_1175 layout): a caption BAND sits at the TOP of the
-// panel (its own paper region) and the artwork sits BELOW it — text and art never
-// overlap, so captions can never cover a character (comic best practice: give text
-// its own space, don't obstruct the art). Only short speech bubbles overlay the art
-// in a corner for dialogue.
+// Gonick-style FREE text composition (ref: Cartoon History pages): speech balloons
+// and caption boxes are placed OVER the art, in its empty corners/edges, at varied
+// positions and sizes — dynamic like the reference. The art is generated with those
+// zones reserved as open background (see buildImagePrompt), so text never covers the
+// subject. Each text item is absolutely positioned by its `pos` (tl/tr/bl/br/tc).
 const CSS = `
 :root{--paper:#f6efdd;--ink:#141210;--frame:#141210;--quote:#fff6d9;--stage:#d8c9a8;--artbg:#efe8d5}
 @media(prefers-color-scheme:dark){:root{--stage:#20242b}}
@@ -291,44 +311,44 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .byline{font-size:14px;margin-top:6px;border-top:2px solid var(--frame);padding-top:8px}
 .byline b{font-weight:800}
 .pages{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:start}
-.panel{display:flex;flex-direction:column;grid-column:span 1;background:var(--paper);
+.panel{position:relative;grid-column:span 1;background:var(--paper);
  border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
 .panel.wide{grid-column:span 2}
-/* ONE unified text system: a zone of comic bubbles/boxes ABOVE the art (never over it) */
-.stack{display:flex;flex-direction:column;gap:6px;padding:9px 10px 11px;background:var(--artbg);border-bottom:3px solid var(--frame)}
+/* the art fills the whole panel; text floats over it */
 .art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg);overflow:hidden}
 .panel.wide .art{aspect-ratio:2/1}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1);mix-blend-mode:multiply}
-.tb{position:relative;max-width:86%;background:#fff;color:#111;border:2.5px solid #111;border-radius:44% 46% 45% 47%/50% 52% 48% 50%;
- padding:6px 10px;font-size:11px;line-height:1.18;text-transform:uppercase;letter-spacing:.2px;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.22)}
-.tb.right{align-self:flex-end}.tb.left{align-self:flex-start}
-.tb .who{display:block;font-size:8px;font-weight:800;opacity:.55;margin-bottom:1px}
-.tb .qby2{display:block;text-align:right;font-size:8.5px;font-weight:bold;opacity:.55;margin-top:2px}
-/* SPEECH gets a little tail toward the scene below */
-.tb.speech::after{content:"";position:absolute;width:12px;height:12px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;bottom:-7px;left:18px;transform:rotate(45deg)}
-.tb.right.speech::after{left:auto;right:18px}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
+/* free-floating text boxes, absolutely placed in the reserved empty zones */
+.tb{position:absolute;max-width:52%;background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 47% 45% 48%/52% 50% 50% 48%;
+ padding:5px 9px;font-size:10.5px;line-height:1.16;text-transform:uppercase;letter-spacing:.2px;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.28);z-index:2}
+.tb.widebox{max-width:74%}
+.tb.at-tl{top:5px;left:5px}.tb.at-tr{top:5px;right:5px}.tb.at-bl{bottom:5px;left:5px}.tb.at-br{bottom:5px;right:5px}
+.tb.at-tc{top:5px;left:50%;transform:translateX(-50%);max-width:66%}
+.tb .who{display:block;font-size:8px;font-weight:800;opacity:.6;margin-bottom:1px}
+.tb .qby2{display:block;text-align:right;font-size:8px;font-weight:bold;opacity:.55;margin-top:1px}
+/* SPEECH — tail toward the subject (down) */
+.tb.speech::after{content:"";position:absolute;width:11px;height:11px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;bottom:-6px;left:16px;transform:rotate(45deg)}
+.tb.speech.at-tr::after,.tb.speech.at-br::after{left:auto;right:16px}
+.tb.speech.at-bl::after,.tb.speech.at-br::after{bottom:auto;top:-6px;transform:rotate(225deg)}
 /* CAPTION — rectangular narrator box (paper) */
-.tb.caption{background:var(--paper);border-radius:2px;max-width:96%}
+.tb.caption{background:var(--paper);border-radius:2px;border-width:2px}
 /* SHOUT — spiky burst */
 .tb.shout{border:none;border-radius:0;font-weight:800;text-align:center;background:#fff;
  clip-path:polygon(0% 22%,12% 12%,10% 0%,26% 10%,38% 0,50% 11%,62% 0,74% 10%,90% 0,88% 12%,100% 22%,90% 38%,100% 52%,88% 66%,100% 80%,84% 84%,74% 100%,60% 86%,50% 98%,40% 86%,26% 100%,16% 84%,0% 80%,12% 66%,0% 52%,10% 38%);
- filter:drop-shadow(1.5px 0 0 #111) drop-shadow(-1.5px 0 0 #111) drop-shadow(0 1.5px 0 #111) drop-shadow(0 -1.5px 0 #111);padding:11px 14px}
+ filter:drop-shadow(1.5px 0 0 #111) drop-shadow(-1.5px 0 0 #111) drop-shadow(0 1.5px 0 #111) drop-shadow(0 -1.5px 0 #111);padding:10px 13px}
 /* THOUGHT — cloud */
-.tb.thought{border-radius:50%/42%}
-.tb.thought::after{content:"";position:absolute;width:8px;height:8px;background:#fff;border:2.5px solid #111;border-radius:50%;bottom:-6px;left:20px;box-shadow:-9px 7px 0 -2px #fff,-9px 7px 0 0 #111}
+.tb.thought{border-radius:50%/44%}
+.tb.thought::after{content:"";position:absolute;width:8px;height:8px;background:#fff;border:2.5px solid #111;border-radius:50%;bottom:-6px;left:18px;box-shadow:-9px 7px 0 -2px #fff,-9px 7px 0 0 #111}
 /* WHISPER — dashed, quiet */
-.tb.whisper{border-style:dashed;font-style:italic;opacity:.92}
+.tb.whisper{border-style:dashed;font-style:italic}
 /* QUOTE — verbatim source line, yellow */
-.tb.quote{background:var(--quote);border-radius:2px;max-width:96%;border-left-width:6px}
-.label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
- text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
-.label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
-.label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;
+.tb.quote{background:var(--quote);border-radius:2px;border-left-width:6px}
+.label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;z-index:2;
  text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
 .label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
 .foot{margin-top:20px;background:var(--paper);border:3px solid var(--frame);border-radius:3px;padding:14px 16px;font-size:13px;line-height:1.5;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
 .foot .tag{display:inline-block;background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
-@media(max-width:640px){.pages{grid-template-columns:1fr}.panel.wide{grid-column:span 1}.panel.wide .art{aspect-ratio:4/3}}
+@media(max-width:640px){.pages{grid-template-columns:1fr}.panel.wide{grid-column:span 1}.panel.wide .art{aspect-ratio:4/3}.tb{font-size:11px}}
 `;
 
 function imgDataUri(dir, n) {
@@ -338,25 +358,28 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // ONE unified text system: narration, verbatim quotes and dialogue are ALL comic
-  // bubbles/boxes, stacked over the empty upper area of the art (no separate band).
-  const sideOf = (pos) => (pos === "tr" || pos === "br") ? "right" : "left";
+  // Gonick-style FREE overlay: every text item floats over the art at its `pos`.
+  // Captions/quotes are wider paper boxes in a corner; speech/thought/shout are
+  // balloons placed near the subject. The art reserves these zones (buildImagePrompt).
+  const POS = new Set(["tl", "tr", "bl", "br", "tc"]);
+  const at = (pos, def) => `at-${POS.has(pos) ? pos : def}`;
   const items = [];
-  if (t.narration) items.push(`<div class="tb caption left">${t.narration}</div>`);
-  if (t.quote) items.push(`<div class="tb quote left">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
+  // narration → top-left caption box; verbatim source quote → top-right paper box
+  if (t.narration) items.push(`<div class="tb caption widebox ${at(t.narration_pos, "tl")}">${t.narration}</div>`);
+  if (t.quote) items.push(`<div class="tb quote widebox ${at(t.quote_pos, "tr")}">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
   for (const b of t.bubbles || []) {
     const kind = b.kind || "speech";
-    const side = kind === "caption" || kind === "quote" ? "left" : sideOf(b.pos);
+    // captions/quotes are wider boxes; dialogue balloons stay compact
+    const wide = (kind === "caption" || kind === "quote") ? " widebox" : "";
     const who = b.speaker && kind !== "caption" ? `<span class="who">${String(b.speaker).toUpperCase()}</span>` : "";
     const by = b.verbatim && b.by ? `<span class="qby2">&mdash; ${b.by}</span>` : "";
-    items.push(`<div class="tb ${kind} ${side}">${who}${b.text}${by}</div>`);
+    items.push(`<div class="tb ${kind}${wide} ${at(b.pos, kind === "caption" ? "tl" : "tr")}">${who}${b.text}${by}</div>`);
   }
   const labels = (t.labels || [])
     .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
     .join("");
   return `<figure class="panel${p.wide ? " wide" : ""}">
-  <div class="stack">${items.join("")}</div>
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${labels}</div>
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${items.join("")}${labels}</div>
 </figure>`;
 }
 
