@@ -3,19 +3,32 @@
   "_doc": "Per-stave vision-QC ledger for A Christmas Carol final acceptance gate. Teen art tier.",
   "chapters": {
     "1": {
-      "floor": 9,
+      "elements": {
+        "art": 9,
+        "character": 9,
+        "scene": 9.2
+      },
       "flagged": [
         {
-          "panel": 15,
-          "score": 9,
-          "status": "accepted-limit",
-          "note": "Marley renders solid, not translucent (teen-tier free-FLUX limit); pigtail + cash-box/padlock chain carry identity"
+          "panel": 0,
+          "element": "character",
+          "score": 9.2,
+          "status": "remediated",
+          "note": "re-staged fully single-subject; Scrooge costume-neutral bible fixed day/night; Marley P15 now male + chain via chain-first + seed change"
         },
         {
-          "panel": 18,
-          "score": 8.9,
+          "panel": 16,
+          "element": "art",
+          "score": 8.4,
           "status": "accepted-limit",
-          "note": "the sky-full-of-phantoms crowd will not render on free FLUX; Marley + chain + city + warning bubbles carry the beat"
+          "note": "P16 stubbornly renders photorealistic + bearded despite explicit cartoon/clean-shaven wording — free-FLUX style-drift basin"
+        },
+        {
+          "panel": 17,
+          "element": "character",
+          "score": 8.5,
+          "status": "accepted-limit",
+          "note": "Marley P17 reads androgynous (full face-bandage); the wound cash-box chain is a complex accessory free FLUX renders unreliably — needs paid reference-conditioning"
         }
       ]
     },
