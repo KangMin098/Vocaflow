@@ -107,6 +107,13 @@ async function auditSection(sec, n) {
   for (const c of s.cast) { const b = BIBLE.characters[c.id]; if (!b) { drift.push(`${c.id}(not in bible)`); continue; } if (c.variant) continue; if (c.canonical !== b.canonical || c.anchor !== b.anchor) drift.push(`${c.id}(≠bible)`); }
   if (drift.length) queue.push({ sev: "warn", msg: `${label}: cast drift ${drift.join(",")}`, fix: "sync cast from bible + regen" });
 
+  // SINGLE-SUBJECT design rule: one named character per panel is the default (free/paid FLUX
+  // homogenizes multiple identities in one frame). 2+ named chars = identity-risk; must be a
+  // deliberate exception (OTS / symbolic / crowd) or re-staged as shot-reverse-shot singles.
+  const multi = s.panels.filter((p) => (p.characters || []).length >= 2).map((p) => p.n);
+  const singleRatio = Math.round(((s.panels.length - multi.length) / s.panels.length) * 100);
+  if (multi.length) queue.push({ sev: "warn", msg: `${label}: ${multi.length} multi-subject panel(s) vs single-subject rule (${singleRatio}% single) — identity risk: ${multi.join(",")}`, fix: "re-stage as single-subject (shot/reverse-shot) unless a justified OTS/symbolic/crowd shot" });
+
   // Per-ELEMENT 9.5 QC. Vision elements art/character/scene come from the ledger;
   // story (retention) & composition (bubbles/occlusion) are auto-derived here so the
   // whole rubric is scored. Any element below the bar with an 'open' flag BLOCKS;

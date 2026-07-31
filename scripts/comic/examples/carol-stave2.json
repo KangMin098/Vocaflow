@@ -23,7 +23,7 @@
     ],
     "original_words": 6149,
     "art_shared_across_tiers": true,
-    "seed": 46
+    "seed": 246
   },
   "cast": [
     {
@@ -109,11 +109,10 @@
       "n": 2,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a small barefoot child in a plain white robe, ALONE, with a single tall bright flame burning directly on the bare crown of its hairless head like a candle whose wick is its own scalp (there is no candle and no torch, the fire grows straight out of the top of its skull), soft glow all around, dark bedroom",
-      "composition": "wide, the strange glowing visitor",
+      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald top of its head (the fire grows from its skull, no candle, no torch), glowing softly, ALONE, no other figure, floating in a dark bedroom (revealed from Scrooge's point of view)",
+      "composition": "single subject — the reveal",
       "characters": [
-        "past",
-        "scrooge"
+        "past"
       ],
       "text": {
         "teen": {
@@ -163,11 +162,10 @@
       "n": 3,
       "wide": false,
       "cap_zone": "top",
-      "scene": "close two-shot of a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch) speaking gently to a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard)",
-      "composition": "close, the Ghost names itself",
+      "scene": "close on a small barefoot child in a plain white robe with a bright flame burning out of the bald top of its head (the fire grows from its skull, no candle, no torch), glowing softly, ALONE, no other figure, speaking gently",
+      "composition": "single subject — the Ghost speaks",
       "characters": [
-        "past",
-        "scrooge"
+        "past"
       ],
       "text": {
         "teen": {
@@ -217,11 +215,10 @@
       "n": 4,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch) gently taking the arm of a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard) and leading him through a bedroom wall",
-      "composition": "close, through the wall",
+      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald top of its head (the fire grows from its skull, no candle, no torch), glowing softly, ALONE, no other figure, one small hand extended toward the viewer in a beckoning gesture, a plain bedroom wall behind",
+      "composition": "single subject — beckoning",
       "characters": [
-        "past",
-        "scrooge"
+        "past"
       ],
       "text": {
         "teen": {
@@ -263,11 +260,10 @@
       "n": 5,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a clear cold snowy country road with fields on either side, the old miser in his nightcap and gown clasping his hands in wonder as he recognises his boyhood home, the glowing spirit beside him",
-      "composition": "wide, back to his boyhood country",
+      "scene": "a bent thin clean-shaven pointed-nose old miser in a soft floppy round nightcap and dressing-gown, ALONE, no other figure, no pointed hat, no beard, standing in a clear cold snowy country lane clasping his hands in wonder",
+      "composition": "single subject — Scrooge in his boyhood country",
       "characters": [
-        "scrooge",
-        "past"
+        "scrooge"
       ],
       "text": {
         "teen": {
@@ -317,12 +313,9 @@
       "n": 6,
       "wide": true,
       "cap_zone": "top",
-      "scene": "merry country boys on shaggy ponies and in carts trotting down the snowy lane shouting to one another, the old miser and the glowing spirit watching them pass like ghosts",
-      "composition": "wide, shadows of a merrier past",
-      "characters": [
-        "scrooge",
-        "past"
-      ],
+      "scene": "merry country boys on shaggy ponies trotting down a snowy lane shouting to one another, seen like faint faded shadows, no main foreground figure",
+      "composition": "scene shot — shadows of the past",
+      "characters": [],
       "text": {
         "teen": {
           "narration": "MERRY BOYS PASS — SHADOWS THAT CANNOT SEE THEM.",
@@ -371,12 +364,9 @@
       "n": 7,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a long bare cold schoolroom, a single lonely small boy reading alone at a desk by a feeble fire, while the old miser sits weeping on a bench watching his forgotten childhood self",
-      "composition": "close, the forgotten lonely boy",
-      "characters": [
-        "scrooge",
-        "past"
-      ],
+      "scene": "a single lonely small boy reading alone at a desk by a feeble fire in a long bare cold schoolroom, no other figure",
+      "composition": "single subject — the forgotten boy",
+      "characters": [],
       "text": {
         "teen": {
           "narration": "A LONELY BOY, LEFT ALONE AT SCHOOL AT CHRISTMAS.",
@@ -476,11 +466,10 @@
       "n": 9,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a jovial rotund CLEAN-SHAVEN old master in a large curly white wig (no beard) laughing behind a very high desk, the bent pointed-nose old miser pointing in delight",
-      "composition": "close, old Fezziwig alive again",
+      "scene": "a jovial rotund clean-shaven old master in a large curly white wig (no beard), ALONE, laughing behind a very high desk",
+      "composition": "single subject — Fezziwig",
       "characters": [
-        "fezziwig",
-        "scrooge"
+        "fezziwig"
       ],
       "text": {
         "teen": {
@@ -673,10 +662,9 @@
       "n": 13,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch) standing beside a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard) at the edge of a fading warm ball",
-      "composition": "close, the lesson of small kindness",
+      "scene": "a bent thin clean-shaven pointed-nose old miser in a soft floppy round nightcap and dressing-gown, ALONE, no other figure, no pointed hat, no beard, moved and thoughtful, at the edge of a warm fading ballroom glow behind him",
+      "composition": "single subject — Scrooge reflects",
       "characters": [
-        "past",
         "scrooge"
       ],
       "text": {
@@ -833,8 +821,8 @@
       "n": 16,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a gentle young woman with simple ringlets in a plain dress gently releasing a clearly-male dark-haired young man with side-whiskers and a firm jaw from their engagement, sorrowful but resolved",
-      "composition": "close, Belle sets him free",
+      "scene": "a gentle young woman with simple ringlets in a plain modest dress, ALONE, sorrowful but resolved, half-turning away as if releasing someone off-frame",
+      "composition": "single subject — Belle sets him free",
       "characters": [
         "belle"
       ],
@@ -886,11 +874,10 @@
       "n": 17,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a warm firelit parlour years on, the same woman now a comely matron laughing among her many boisterous children and loving husband by the Christmas fire, the old miser watching in aching sorrow",
-      "composition": "wide, the family Scrooge never had",
+      "scene": "a gentle comely matron with simple ringlets (grown-up Belle), ALONE as the clear subject by a warm Christmas fire, a tender wistful expression, her family only soft blurred shapes far in the background",
+      "composition": "single subject — Belle, years on",
       "characters": [
-        "belle",
-        "scrooge"
+        "belle"
       ],
       "text": {
         "teen": {
@@ -940,11 +927,10 @@
       "n": 18,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a bent thin CLEAN-SHAVEN pointed-nose old miser wearing a soft floppy round nightcap (NOT a pointed wizard hat, no beard) pressing a big cone-shaped metal snuffer cap down onto the head of a small barefoot child in a plain white robe with a bright flame burning out of the bald crown of its head (no candle, no torch), light streaming from under the cap",
-      "composition": "close, Scrooge puts out the light",
+      "scene": "a bent thin clean-shaven pointed-nose old miser in a soft floppy round nightcap and dressing-gown, ALONE, no other figure, no pointed hat, no beard, forcing a big cone-shaped metal snuffer-cap downward with both hands, brilliant light bursting out from under the cap at his feet (the spirit reduced to that light)",
+      "composition": "single subject — Scrooge snuffs the light",
       "characters": [
-        "scrooge",
-        "past"
+        "scrooge"
       ],
       "text": {
         "teen": {
