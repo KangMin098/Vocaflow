@@ -13,7 +13,9 @@
       "canonical": "a bent thin miserly old man with a sharp pointed nose, shrivelled frowning face and thin lips, in a long shabby dark tailcoat, carrying a cane",
       "anchor": "a bent thin old man, pointed nose, hard frown, shabby dark tailcoat + cane",
       "consistency": "the ONLY bent pointed-nose miser; sour frown; dark shabby tailcoat (or nightcap+gown at home); never jolly until the finale.",
-      "appears_in": []
+      "appears_in": [
+        1
+      ]
     },
     "marley": {
       "name": "Marley's Ghost",
@@ -25,7 +27,9 @@
       "canonical": "a translucent ghostly man in an old-fashioned pigtail, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
       "anchor": "translucent ghost, head-bandage + pigtail, bound in a chain of cash-boxes and padlocks",
       "consistency": "the ONLY see-through figure; ALWAYS bound in the cash-box chain with the jaw bandage; never solid.",
-      "appears_in": []
+      "appears_in": [
+        1
+      ]
     },
     "bob": {
       "name": "Bob Cratchit",
@@ -37,7 +41,9 @@
       "canonical": "a thin poor clerk with a mild kindly face, wrapped in a long white woollen comforter scarf and fingerless mittens, no overcoat",
       "anchor": "thin clerk, long white comforter scarf, fingerless mittens, no coat",
       "consistency": "the ONLY one in the long white comforter scarf; always coatless and cold; gentle.",
-      "appears_in": []
+      "appears_in": [
+        1
+      ]
     },
     "fred": {
       "name": "Fred",
@@ -49,7 +55,9 @@
       "canonical": "a handsome ruddy cheerful young man with side-whiskers and bright eyes, glowing with warmth, a scarf and a sprig of holly on his coat",
       "anchor": "ruddy glowing young man, side-whiskers, holly sprig, warm laugh",
       "consistency": "the ONLY glowing cheerful young man; ruddy warm face; holly sprig; opposite of Scrooge.",
-      "appears_in": []
+      "appears_in": [
+        1
+      ]
     },
     "past": {
       "name": "Ghost of Christmas Past",

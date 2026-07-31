@@ -1,0 +1,10 @@
+{
+  "bar": 9.5,
+  "_doc": "Per-stave vision-QC ledger for A Christmas Carol final acceptance gate. Teen art tier.",
+  "chapters": {
+    "1": { "floor": 9.0, "flagged": [
+      { "panel": 15, "score": 9.0, "status": "accepted-limit", "note": "Marley renders solid, not translucent (teen-tier free-FLUX limit); pigtail + cash-box/padlock chain carry identity" },
+      { "panel": 18, "score": 8.9, "status": "accepted-limit", "note": "the sky-full-of-phantoms crowd will not render on free FLUX; Marley + chain + city + warning bubbles carry the beat" }
+    ] }
+  }
+}
