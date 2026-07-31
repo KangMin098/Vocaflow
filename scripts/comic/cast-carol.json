@@ -118,6 +118,18 @@
       "anchor": "rotund beaming old master, big Welsh wig, buckled shiny shoes",
       "consistency": "the ONLY rotund Welsh-wig master with buckled shoes; always jovial and dancing.",
       "appears_in": []
+    },
+    "belle": {
+      "name": "Belle",
+      "role": "Scrooge's former fiancee, in Christmas Past",
+      "silhouette": "a gentle graceful young woman in a plain modest dress",
+      "head": "a soft kind face, hair in simple ringlets",
+      "trait_mark": "a plain shawl, no jewels — she chose love over wealth",
+      "expression": "tender, then sorrowful",
+      "canonical": "a gentle graceful young woman with a soft kind face and hair in simple ringlets, in a plain modest early-Victorian dress and shawl",
+      "anchor": "gentle young woman, simple ringlets, plain modest dress and shawl",
+      "consistency": "the ONLY young sweetheart in a plain dress with ringlets; warm but sorrowful.",
+      "appears_in": []
     }
   }
 }
