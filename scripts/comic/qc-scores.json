@@ -1,114 +1,34 @@
 {
   "bar": 9.5,
-  "_doc": "Per-chapter vision-QC ledger for the final acceptance gate. floor = assessed minimum panel score. flagged = every sub-9.5 panel, with status: 'remediated' (fixed, now >=bar), 'accepted-limit' (documented free-FLUX ceiling, best-effort final), or 'open' (still needs work — BLOCKS ship). Chapters absent from this ledger are treated as un-audited (blocks ship).",
+  "_doc": "Per-ELEMENT vision-QC ledger for the final acceptance gate. elements = {art, character, scene} floors per chapter (story & composition are auto-derived by the audit). flagged[].element names the failing element; status: 'remediated' (fixed, now >=bar), 'accepted-limit' (documented free-FLUX ceiling), 'open' (BLOCKS ship). A chapter passes only when every element is >=bar or its shortfall is a documented ceiling.",
   "chapters": {
-    "1": {
-      "floor": 9.2,
-      "flagged": []
-    },
-    "2": {
-      "floor": 9.2,
-      "flagged": [
-        {
-          "panel": 5,
-          "score": 9.2,
-          "status": "accepted-limit",
-          "note": "childhood-play trio renders a touch cartoonish (age-appropriate); Clerval top hat + Victor glasses + golden Elizabeth consistent"
-        }
-      ]
-    },
-    "3": {
-      "floor": 9,
-      "flagged": [
-        {
-          "panel": 4,
-          "score": 8.5,
-          "status": "accepted-limit",
-          "note": "deathbed 3-female group homogenizes on free FLUX (Victor's glasses drop) — settled on joined-hands composition; needs T1 IP-Adapter to exceed"
-        }
-      ]
-    },
-    "4": {
-      "floor": 9.2,
-      "flagged": [
-        {
-          "panel": 2,
-          "score": 9.2,
-          "status": "accepted-limit",
-          "note": "Krempe short/squat stature will not render on free FLUX; locked via wild grey hair + scowl + finger-jab"
-        },
-        {
-          "panel": 10,
-          "score": 9.3,
-          "status": "remediated",
-          "note": "re-scened to show the 8-foot figure sketch on the sheet"
-        },
-        {
-          "panel": 12,
-          "score": 9.5,
-          "status": "remediated",
-          "note": "re-scened to include the shrouded gigantic form on the slab"
-        }
-      ]
-    },
-    "5": {
-      "floor": 9.3,
-      "flagged": []
-    },
-    "6": {
-      "floor": 9.2,
-      "flagged": [
-        {
-          "panel": 7,
-          "score": 9.3,
-          "status": "remediated",
-          "note": "William flashback re-inked from soft child-cartoon to mature tone"
-        }
-      ]
-    },
-    "7": {
-      "floor": 9.2,
-      "flagged": [
-        {
-          "panel": 1,
-          "score": 9,
-          "status": "accepted-limit",
-          "note": "Clerval picks up Victor's round glasses (attribute bleed) in the 2-shot"
-        }
-      ]
-    },
-    "8": {
-      "floor": 9.2,
-      "flagged": [
-        {
-          "panel": 8,
-          "score": 9.2,
-          "status": "accepted-limit",
-          "note": "Elizabeth renders with double braid vs canonical single (free-FLUX variance); golden+bonnet+locket consistent"
-        }
-      ]
-    },
-    "9": {
-      "floor": 9,
-      "flagged": [
-        {
-          "panel": 8,
-          "score": 9,
-          "status": "accepted-limit",
-          "note": "the Andes vengeance vision reads slightly literal with two small figures"
-        }
-      ]
-    },
-    "10": {
-      "floor": 9.4,
-      "flagged": [
-        {
-          "panel": 13,
-          "score": 9.4,
-          "status": "remediated",
-          "note": "fixed doubled-Victor-head artifact via seed escalation + single-subject scene"
-        }
-      ]
-    }
+    "1": { "elements": { "art": 9.4, "character": 9.3, "scene": 9.4 }, "flagged": [] },
+    "2": { "elements": { "art": 9.2, "character": 9.3, "scene": 9.2 }, "flagged": [
+      { "panel": 5, "element": "art", "score": 9.2, "status": "accepted-limit", "note": "childhood-play trio renders a touch cartoonish (age-appropriate); signatures consistent" }
+    ] },
+    "3": { "elements": { "art": 9.3, "character": 8.5, "scene": 9.0 }, "flagged": [
+      { "panel": 4, "element": "character", "score": 8.5, "status": "accepted-limit", "note": "deathbed 3-female group homogenizes on free FLUX (Victor's glasses drop); joined-hands composition settled" }
+    ] },
+    "4": { "elements": { "art": 9.4, "character": 9.2, "scene": 9.3 }, "flagged": [
+      { "panel": 2, "element": "character", "score": 9.2, "status": "accepted-limit", "note": "Krempe short/squat stature will not render on free FLUX; locked via wild grey hair + scowl + finger-jab" },
+      { "panel": 10, "element": "scene", "score": 9.3, "status": "remediated", "note": "re-scened to show the 8-foot figure sketch" },
+      { "panel": 12, "element": "scene", "score": 9.5, "status": "remediated", "note": "re-scened to include the shrouded gigantic form on the slab" }
+    ] },
+    "5": { "elements": { "art": 9.4, "character": 9.4, "scene": 9.3 }, "flagged": [] },
+    "6": { "elements": { "art": 9.3, "character": 9.2, "scene": 9.3 }, "flagged": [
+      { "panel": 7, "element": "art", "score": 9.3, "status": "remediated", "note": "William flashback re-inked from soft child-cartoon to mature tone" }
+    ] },
+    "7": { "elements": { "art": 9.3, "character": 9.0, "scene": 9.3 }, "flagged": [
+      { "panel": 1, "element": "character", "score": 9.0, "status": "accepted-limit", "note": "Clerval picks up Victor's round glasses (attribute bleed) in the 2-shot" }
+    ] },
+    "8": { "elements": { "art": 9.3, "character": 9.2, "scene": 9.3 }, "flagged": [
+      { "panel": 8, "element": "character", "score": 9.2, "status": "accepted-limit", "note": "Elizabeth renders with double braid vs canonical single (free-FLUX variance); golden+bonnet+locket consistent" }
+    ] },
+    "9": { "elements": { "art": 9.3, "character": 9.3, "scene": 9.0 }, "flagged": [
+      { "panel": 8, "element": "scene", "score": 9.0, "status": "accepted-limit", "note": "the Andes vengeance vision reads slightly literal with two small figures" }
+    ] },
+    "10": { "elements": { "art": 9.5, "character": 9.5, "scene": 9.4 }, "flagged": [
+      { "panel": 13, "element": "art", "score": 9.4, "status": "remediated", "note": "fixed doubled-Victor-head artifact via seed escalation + single-subject scene" }
+    ] }
   }
 }

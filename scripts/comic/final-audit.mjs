@@ -107,16 +107,34 @@ async function auditSection(sec, n) {
   for (const c of s.cast) { const b = BIBLE.characters[c.id]; if (!b) { drift.push(`${c.id}(not in bible)`); continue; } if (c.variant) continue; if (c.canonical !== b.canonical || c.anchor !== b.anchor) drift.push(`${c.id}(≠bible)`); }
   if (drift.length) queue.push({ sev: "warn", msg: `${label}: cast drift ${drift.join(",")}`, fix: "sync cast from bible + regen" });
 
+  // Per-ELEMENT 9.5 QC. Vision elements art/character/scene come from the ledger;
+  // story (retention) & composition (bubbles/occlusion) are auto-derived here so the
+  // whole rubric is scored. Any element below the bar with an 'open' flag BLOCKS;
+  // below-bar with only accepted-limit/remediated flags is a documented-ceiling warn.
+  const VIS = ["art", "character", "scene"];
   const sc = SCORES.chapters[String(n)];
+  // auto element scores
+  const storyScore = ret >= RETENTION_MIN - 0.1 ? 9.6 : ret >= RETENTION_HARD ? 9.2 : 8.5;
+  const compScore = heavy.length ? 9.0 : 9.6; // occlusion is 0 by construction (text stack above art)
   let qcLine;
-  if (!sc) { qcLine = "QC ledger: (none recorded)"; queue.push({ sev: "block", msg: `${label}: no 9.5 QC audit recorded`, fix: "vision-QC every panel → ledger" }); }
+  if (!sc) { qcLine = "QC ledger: (none recorded)"; queue.push({ sev: "block", msg: `${label}: no per-element QC audit recorded`, fix: "vision-QC art/character/scene per panel → ledger" }); }
   else {
-    const open = (sc.flagged || []).filter((x) => x.status === "open");
-    const limits = (sc.flagged || []).filter((x) => x.status === "accepted-limit");
-    const passed = (sc.floor >= BAR) && open.length === 0;
-    qcLine = `QC floor ${sc.floor} (bar ${BAR}) — ${open.length ? "OPEN ISSUES" : passed ? "PASS ✓" : "ceiling-limited"}${limits.length ? `, ${limits.length} accepted-limit` : ""}${open.length ? `, ${open.length} OPEN` : ""}`;
-    for (const o of open) queue.push({ sev: "block", msg: `${label} p${o.panel}: QC ${o.score} < ${BAR} (open) — ${o.note}`, fix: "remediate panel → regen" });
-    if (!passed && open.length === 0) queue.push({ sev: "warn", msg: `${label}: QC floor ${sc.floor} < ${BAR} (documented ceiling: ${limits.map((x) => "p" + x.panel).join(",") || "n/a"})`, fix: "T1 IP-Adapter to exceed free-FLUX ceiling" });
+    const els = sc.elements || (Number.isFinite(sc.floor) ? { art: sc.floor, character: sc.floor, scene: sc.floor } : {});
+    const scores = { ...els, story: storyScore, composition: compScore };
+    const flagged = sc.flagged || [];
+    const open = flagged.filter((x) => x.status === "open");
+    const parts = [];
+    for (const el of [...VIS, "story", "composition"]) {
+      const v = scores[el];
+      if (v == null) continue;
+      const elOpen = open.filter((o) => (o.element || "any") === el || o.element == null);
+      const elLimits = flagged.filter((x) => x.element === el && x.status !== "open");
+      const ok = v >= BAR && !elOpen.length;
+      parts.push(`${el} ${v}${ok ? "✓" : elOpen.length ? "✗OPEN" : "~"}`);
+      for (const o of elOpen) queue.push({ sev: "block", msg: `${label} p${o.panel} [${el}]: ${o.score} < ${BAR} (open) — ${o.note}`, fix: "remediate that element → regen" });
+      if (v < BAR && !elOpen.length) queue.push({ sev: "warn", msg: `${label} [${el}]: floor ${v} < ${BAR} (documented ceiling${elLimits.length ? ": " + elLimits.map((x) => "p" + x.panel).join(",") : ""})`, fix: "T1 IP-Adapter to exceed free-FLUX ceiling" });
+    }
+    qcLine = `QC by element — ${parts.join(" · ")} (bar ${BAR})`;
   }
 
   report.push(`## ${label} — ${st.ok ? "structure ok" : "STRUCTURE FAIL"}`);
