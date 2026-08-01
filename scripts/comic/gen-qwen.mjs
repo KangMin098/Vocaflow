@@ -36,14 +36,22 @@ const ENDPOINT = String(arg("endpoint", process.env.DASHSCOPE_ENDPOINT
 const GEN_MODEL = String(arg("gen-model", "qwen-image-max"));        // text->image (ref sheets)
 const EDIT_MODEL = String(arg("edit-model", "qwen-image-edit-max")); // image+text (panels)
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
-// STATIC RESOLUTION (cost-efficiency by design): the webtoon column is 680px wide →
-// ~650px CSS display for the art. Flat B&W line art stays crisp at ~1.25x DPI (unlike
-// photos it needs no 2x), and delivery downscales to ~820px anyway, so generating above
-// ~1024px is wasted spend. We fix ONE static size per orientation = 0.79 MP each (≈21%
-// cheaper than 864x1152=0.995MP on per-megapixel billing) and uniform across the book.
-// Aspect matches the display frames (portrait 3:4 panel / 4:3 wide) so nothing is cropped.
-const SIZE_PORTRAIT = String(arg("size", "768*1024"));   // 3:4, ~0.79 MP
-const SIZE_WIDE = String(arg("wide-size", "1024*768"));  // 4:3, ~0.79 MP
+// RESOLUTION BY DISPLAY SIZE (cost-efficiency by design). The comic is laid out like a
+// BOOK PAGE — several panels per page on a 12-col grid, not one full-width image. So a
+// panel's on-screen size depends on how many columns it spans, and its generation
+// resolution should match THAT, not the page width. Flat B&W line art stays crisp at
+// ~1.4x its display px (unlike photos it needs no 2x). Three role tiers keyed to a ~860px
+// page:  full = span-12 splash (~850px → 1024w), half = span-6 2-up (~420px → 576w),
+// third = span-4 3-up (~280px → 448w). A typical mixed page averages ~0.41 MP/panel vs a
+// uniform 0.79 MP (≈48% cheaper on per-megapixel billing). Override any tier with a flag.
+const SIZE = {
+  full: String(arg("size-full", "1024*768")),  // 4:3 landscape splash/establishing, ~0.79 MP
+  half: String(arg("size-half", "576*768")),    // 3:4 portrait, the default 2-up, ~0.44 MP
+  third: String(arg("size-third", "448*576")),  // 3:4 portrait, small 3-up, ~0.26 MP
+};
+// panel "size" role: "full" | "half" | "third". Back-compat: legacy `wide:true` → full,
+// otherwise → half. The comic-page renderer spans 12/6/4 grid columns to match.
+function panelSize(p) { return SIZE[p.size] || (p.wide ? SIZE.full : SIZE.half); }
 // FAILURE-REDUCTION by design: tight FACE close-ups / caricature portraits RELIABLY make
 // the multi-view reference sheet leak (duplicate heads / a 6-up grid) — proven on p12.
 // Route ONLY those shots to t2i (no ref) so they never enter that failure basin. The regex
@@ -154,9 +162,10 @@ async function genPanel(p) {
     solo,
     "Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.",
     BLANK, NOTEXT].filter(Boolean).join(" ");
-  // static resolution (see top): 4:3 wide / 3:4 portrait, both ~0.79 MP, matching the
-  // display frames so nothing is cropped. Never a hard 16:9 (that invites sheet-leak).
-  const size = p.wide ? SIZE_WIDE : SIZE_PORTRAIT;
+  // resolution keyed to the panel's page-grid display size (see SIZE map) — most panels are
+  // sub-page-width so this is far cheaper than a uniform full-width render. Never a hard
+  // 16:9 (that invites sheet-leak); full=4:3 landscape, half/third=3:4 portrait.
+  const size = panelSize(p);
   const buf = noref
     ? await call(GEN_MODEL, [{ text }], size)
     : await call(EDIT_MODEL, [...ids.map((id) => ({ image: dataUri(path.join(refsDir, `${id}.jpg`)) })), { text }], size);
