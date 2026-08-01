@@ -20,7 +20,8 @@
         "count": 24,
         "imgKey": ""
       }
-    ]
+    ],
+    "defectsLedger": "qc-defects.json"
   },
   "carol": {
     "title": "A Christmas Carol",
@@ -36,6 +37,7 @@
         "count": 5,
         "imgKey": ""
       }
-    ]
+    ],
+    "defectsLedger": "qc-defects-carol.json"
   }
 }

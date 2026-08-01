@@ -1,0 +1,135 @@
+{
+  "_doc": "VISION-QC defect ledger. Every built section's panels are inspected by a vision agent (Read each image) against the defect checklist: anatomy (extra limbs), extra-objects, subject-count, style-drift, identity, readability. final-audit BLOCKS ship on (a) any built section not inspected, or (b) any panel with an OPEN high-severity defect. status: open | remediated | accepted-limit.",
+  "checklist": [
+    "anatomy",
+    "extra-object",
+    "subject-count",
+    "style-drift",
+    "identity",
+    "readability"
+  ],
+  "sections": {
+    "1": {
+      "inspected": true,
+      "defects": [
+        {
+          "panel": 7,
+          "severity": "med",
+          "tags": [
+            "identity"
+          ],
+          "note": "Scrooge drawn with a straggly beard (canonical clean-shaven) | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
+          "status": "open"
+        },
+        {
+          "panel": 12,
+          "severity": "med",
+          "tags": [
+            "missing-element"
+          ],
+          "note": "door-knocker not transformed into Marley's face | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
+          "status": "open"
+        },
+        {
+          "panel": 14,
+          "severity": "high",
+          "tags": [
+            "style-drift",
+            "identity"
+          ],
+          "note": "photorealistic bearded render, scene absent | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
+          "status": "open"
+        },
+        {
+          "panel": 16,
+          "severity": "high",
+          "tags": [
+            "style-drift",
+            "identity"
+          ],
+          "note": "photorealistic bearded render, cowering scene absent | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
+          "status": "open"
+        },
+        {
+          "panel": 17,
+          "severity": "high",
+          "tags": [
+            "style-drift",
+            "identity"
+          ],
+          "note": "sepia painterly, mummy-wrapped face, ambiguous gender Marley | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
+          "status": "open"
+        }
+      ]
+    },
+    "2": {
+      "inspected": true,
+      "defects": [
+        {
+          "panel": 1,
+          "severity": "low",
+          "tags": [
+            "identity"
+          ],
+          "note": "day-coat+cane instead of nightcap/nightshirt",
+          "status": "open"
+        },
+        {
+          "panel": 2,
+          "severity": "high",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "head-flame PLUS a handheld flaming vessel (should be empty hands)",
+          "status": "open"
+        },
+        {
+          "panel": 3,
+          "severity": "high",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "head-flame PLUS handheld torch/candle",
+          "status": "open"
+        },
+        {
+          "panel": 4,
+          "severity": "high",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "head-flame PLUS handheld candle/vessel",
+          "status": "open"
+        },
+        {
+          "panel": 5,
+          "severity": "med",
+          "tags": [
+            "style-drift"
+          ],
+          "note": "sepia wash + elfin ears on Scrooge",
+          "status": "open"
+        },
+        {
+          "panel": 9,
+          "severity": "high",
+          "tags": [
+            "identity"
+          ],
+          "note": "Fezziwig drawn bearded (must be clean-shaven)",
+          "status": "open"
+        },
+        {
+          "panel": 12,
+          "severity": "med",
+          "tags": [
+            "subject-count"
+          ],
+          "note": "three main dancers (should be Fezziwig + one wife)",
+          "status": "open"
+        }
+      ]
+    }
+  },
+  "_status_note": "DETECTION works (this ledger + final-audit gate). FIXING the high defects (style-drift to photoreal, Ghost head-flame+torch, bearded identity) FAILS on free Pollinations — proven across seeds 46/51/61 + many phrasings; FLUX ignores style/negative control on these panels. Clean fix requires paid reference+style conditioning (FLUX.2 / Pollinations kontext)."
+}

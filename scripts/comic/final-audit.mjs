@@ -33,6 +33,7 @@ if (!CFG) { console.error(`unknown book '${BOOK}' — known: ${Object.keys(REGIS
 
 const BIBLE = JSON.parse(fs.readFileSync(path.join(HERE, CFG.bible), "utf8"));
 const SCORES = readJson(path.join(HERE, CFG.qcLedger)) || { bar: 9.5, chapters: {} };
+const DEFECTS = CFG.defectsLedger ? (readJson(path.join(HERE, CFG.defectsLedger)) || { sections: {} }) : null;
 const BAR = SCORES.bar || 9.5;
 const RETENTION_MIN = CFG.retentionMin ?? 25;
 const RETENTION_HARD = Math.max(10, RETENTION_MIN - 5);
@@ -100,6 +101,25 @@ async function auditSection(sec, n) {
     if (bad.length) queue.push({ sev: "block", msg: `${label}: image GATE-2 fail ${bad.join(",")}`, fix: "rm those + rerun 02-images (sequential resume)" });
   } else queue.push({ sev: "block", msg: `${label}: no images generated`, fix: "run 02-images" });
 
+  // VISION-QC gate: every built section must be inspected panel-by-panel for image
+  // defects (extra limbs, extra objects, subject-count, style-drift, identity). An
+  // OPEN high-severity defect (or 'remediating', i.e. not yet re-confirmed) blocks ship.
+  let visionLine = "vision-QC: (ledger not configured)";
+  if (DEFECTS && fs.existsSync(imgDir)) {
+    const dsec = DEFECTS.sections?.[String(n)];
+    if (!dsec || !dsec.inspected) {
+      visionLine = "vision-QC: NOT INSPECTED";
+      queue.push({ sev: "block", msg: `${label}: not vision-QC'd (no per-panel defect inspection)`, fix: "run the vision-QC inspector → defects ledger" });
+    } else {
+      const openish = (dsec.defects || []).filter((d) => d.status === "open" || d.status === "remediating");
+      const highs = openish.filter((d) => d.severity === "high");
+      const meds = openish.filter((d) => d.severity !== "high");
+      for (const d of highs) queue.push({ sev: "block", msg: `${label} p${d.panel}: OPEN high defect [${(d.tags || []).join(",")}] — ${d.note}`, fix: "regenerate panel + re-inspect" });
+      if (meds.length) queue.push({ sev: "warn", msg: `${label}: ${meds.length} open med/low defect(s): ${meds.map((d) => "p" + d.panel).join(",")}`, fix: "regenerate or accept" });
+      visionLine = `vision-QC: inspected · ${highs.length} high / ${meds.length} med-low open (of ${(dsec.defects || []).length} logged)`;
+    }
+  }
+
   const used = new Set();
   for (const p of s.panels) for (const id of p.characters || []) used.add(id);
   for (const id of used) (appear[id] = appear[id] || []).push(n);
@@ -149,7 +169,8 @@ async function auditSection(sec, n) {
   report.push(`- panels ${s.panels.length} · retention ${ret.toFixed(1)}% · art ${styleName}`);
   report.push(`- ${imgReport}`);
   report.push(`- characters: ${[...used].join(", ") || "—"} · cast ${drift.length ? "DRIFT " + drift.join(",") : "in sync ✓"}`);
-  report.push(`- ${qcLine}`, "");
+  report.push(`- ${qcLine}`);
+  report.push(`- ${visionLine}`, "");
 }
 
 for (const sec of CFG.sections) for (let n = 1; n <= sec.count; n++) await auditSection(sec, n);
