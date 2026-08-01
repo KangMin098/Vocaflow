@@ -49,8 +49,8 @@ fs.mkdirSync(refsDir, { recursive: true });
 
 // flat "ligne claire" ink look (documented Qwen line-art recipe) + explicit no-text.
 const INK = "Flat minimalistic black and white high-contrast line drawing, coloring-book / ligne-claire style: precise continuous equal-width black ink outlines, simple flat shapes, light hatching only, caricatured expressive faces, strictly black and white, no gradients, no soft shading, no photorealism, plain white background.";
-const NOTEXT = "A single clean illustration with no text, no words, no letters, no speech bubbles, no caption boxes, no panel borders.";
-const NEG = "text, words, letters, numbers, speech bubbles, caption boxes, panel borders, colour, gradient, soft shading, photorealistic, 3d render, extra limbs, deformed hands";
+const NOTEXT = "A single clean illustration with no text, no words, no letters, no readable signs or signboards, no speech bubbles, no caption boxes, no panel borders.";
+const NEG = "text, words, letters, numbers, signboards, signage, labels, speech bubbles, caption boxes, panel borders, duplicate character, extra heads, multiple views, expression sheet, colour, gradient, soft shading, photorealistic, 3d render, extra limbs, deformed hands";
 
 const dataUri = (p) => `data:image/jpeg;base64,${fs.readFileSync(p).toString("base64")}`;
 
@@ -78,7 +78,12 @@ async function call(model, content, size, tries = 3) {
   throw new Error(lastErr || "gen failed");
 }
 
-// 1) build a flat-ink reference sheet for one character (text -> image)
+// 1) build a character reference sheet (text -> image).
+// A multi-view sheet (front + 3/4 + side + expressions) is the RIGHT edit anchor here: a
+// single figure on a plain white background makes qwen-image-edit under-edit (it keeps the
+// white background and drops the scene). The sheet gives rich identity AND lets the edit
+// model repaint a full scene. The only failure it caused was duplicate heads leaking into
+// WIDE panels — fixed by keeping edit panels portrait (see genPanel) + anti-dup negatives.
 async function buildRef(c) {
   const out = path.join(refsDir, `${c.id}.jpg`);
   if (fs.existsSync(out) && !has("refs-force")) { console.error(`· ref ${c.id} exists`); return out; }
@@ -95,30 +100,41 @@ async function genPanel(p) {
   const outPath = path.join(outDir, `${String(p.n).padStart(2, "0")}.jpg`);
   const ids = (p.characters || []).filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`)));
   const chars = ids.map((id) => byId[id]).filter(Boolean);
-  const refLines = chars.map((c, i) => `Reference image ${i + 1} is the character sheet for ${c.name.toUpperCase()} — keep ${c.name} exactly identical to it (same face, hair, build, costume).`);
-  const roster = chars.map((c) => `${c.name.toUpperCase()} (${c.canonical}, ${c.anchor})`).join("; ");
+  const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must look exactly like the person in reference image ${i + 1} (same face, hair, build, costume).`);
   let placement = "";
   if (chars.length === 2) placement = ` Place ${chars[0].name} on the left and ${chars[1].name} on the right, clearly apart.`;
   else if (chars.length >= 3) placement = " Show each character as a distinct full figure, spread apart.";
-  const text = [INK, refLines.join(" "),
-    roster ? `Characters in this scene: ${roster}.` : "",
-    `Scene: ${p.scene}.`, `Composition: ${p.composition}.${placement}`,
+  // SCENE-DOMINANT framing: the instruction leads with "draw a NEW full scene" so the edit
+  // model repaints a real background instead of preserving the reference's plain sheet, and
+  // the reference is demoted to an identity source only.
+  const text = [INK,
+    `Draw a completely NEW single illustration of this scene, with a full drawn background — do NOT keep a plain white background. Scene: ${p.scene}.`,
+    `Composition: ${p.composition}.${placement}`,
+    refLines.join(" "),
+    "The reference images define ONLY each character's appearance. Include exactly ONE instance of each character; do NOT copy the reference layout and do NOT reproduce multiple views, extra heads, busts or an expression row.",
     "Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.",
     NOTEXT].filter(Boolean).join(" ");
   const content = [...ids.map((id) => ({ image: dataUri(path.join(refsDir, `${id}.jpg`)) })), { text }];
-  const size = p.wide ? "1152*648" : "864*1152";
+  // Keep edit panels portrait/gentle-landscape — a hard 16:9 canvas invites the sheet's
+  // extra views to fill the horizontal space (duplicate heads). 4:3 is the widest we allow.
+  const size = p.wide ? "1024*768" : "864*1152";
   const buf = await call(EDIT_MODEL, content, size);
   fs.writeFileSync(outPath, buf);
   console.error(`✓ panel ${p.n}  ${buf.length}B  (refs: ${ids.join(",") || "none"})`);
 }
 
 // ---- run ----
+// space calls out — the free tier throttles on QPS (Throttling.RateQuota), so a short
+// gap between sequential calls avoids losing an image to a burst.
+const GAP = Number(arg("gap", 3000));
+const pause = () => new Promise((z) => setTimeout(z, GAP));
 console.error(`→ Qwen (gen=${GEN_MODEL}, edit=${EDIT_MODEL}); refs for: ${cast.map((c) => c.id).join(", ")}`);
-for (const c of cast) { try { await buildRef(c); } catch (e) { console.error(`✗ ref ${c.id}: ${e.message}`); } }
+for (const c of cast) { try { await buildRef(c); } catch (e) { console.error(`✗ ref ${c.id}: ${e.message}`); } await pause(); }
 if (has("refs-only")) { console.error("refs-only done"); process.exit(0); }
 let ok = 0, fail = 0;
 for (const p of [...script.panels].sort((a, b) => a.n - b.n)) {
   if (onlyPanels && !onlyPanels.includes(p.n)) continue;
   try { await genPanel(p); ok++; } catch (e) { console.error(`✗ panel ${p.n}: ${e.message}`); fail++; }
+  await pause();
 }
 console.error(`\ndone — ${ok} panels, ${fail} failed`);
