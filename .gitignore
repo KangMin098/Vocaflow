@@ -91,3 +91,5 @@ scratchpad-foreign/
 .pollinations-token
 scripts/comic/.pollinations-token
 scripts/comic/.gemini-token
+scripts/comic/.openai-token
+scripts/comic/.dashscope-token
