@@ -130,7 +130,7 @@ export function gate1(script, sourceText) {
 // adaptation's V-level (or an explicit adaptation.art_maturity override).
 export const STYLES = {
   young: "cute simple hand-drawn cartoon, chibi child-friendly proportions, big round expressive eyes, thick clean black lines, whimsical, strictly monochrome black and white, no colour",
-  teen: "clean hand-drawn black-and-white cartoon, balanced proportions, expressive but natural-sized eyes, light ink and a little hatching, strictly monochrome, no colour",
+  teen: "a simple flat black-and-white CARTOON in the style of a Larry Gonick cartoon-history comic, loose bold hand-inked outlines, light cross-hatching for shade, caricatured expressive proportions, plainly hand-drawn 2D line art, strictly monochrome black and white",
   mature: "mature graphic-novel black-and-white ink illustration, realistic adult human proportions and faces, restrained expressive features with natural eyes (NOT big cartoon eyes), fine cross-hatching for shadow, a serious literary gothic tone, strictly monochrome, no colour",
 };
 export function styleFor(vLevel, override) {
@@ -174,6 +174,9 @@ export function buildImagePrompt(panel, cast, style) {
   const chars = (panel.characters || []).map((id) => byId[id]).filter(Boolean);
   const present = chars.map((c) => `${c.name.toUpperCase()} (${c.canonical}, ${c.anchor})`);
   const parts = [];
+  // STYLE-FIRST: lead with the art style so FLUX (which weights leading tokens most)
+  // locks the cartoon look before the realistic face descriptions pull it toward photo.
+  parts.push(`${style}.`);
   if (present.length) {
     parts.push(`Characters: ${present.join("; ")}.`);
     // character-lightweighting: simple iconic designs reproduce far more
