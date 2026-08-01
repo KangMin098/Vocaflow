@@ -297,62 +297,56 @@ export function gate2(outPath, minBytes = 4000) {
 // positions and sizes — dynamic like the reference. The art is generated with those
 // zones reserved as open background (see buildImagePrompt), so text never covers the
 // subject. Each text item is absolutely positioned by its `pos` (tl/tr/bl/br/tc).
+// WEBTOON vertical layout (web, not app): one panel per row in a single centred
+// column you scroll top-to-bottom. Per beat the reading order is unambiguous:
+// [narration caption] -> [ART] -> [dialogue balloons] -> [verbatim source quote].
+// Text is NEVER over the art (occlusion 0) and never side-by-side (no jumble).
 const CSS = `
-:root{--paper:#f6efdd;--ink:#141210;--frame:#141210;--quote:#fff6d9;--stage:#d8c9a8;--artbg:#efe8d5}
-@media(prefers-color-scheme:dark){:root{--stage:#20242b}}
-:root[data-theme="light"]{--stage:#d8c9a8}:root[data-theme="dark"]{--stage:#20242b}
+:root{--paper:#f6efdd;--ink:#141210;--frame:#141210;--quote:#fff6d9;--quoteln:#c99a17;--stage:#d3c4a4;--artbg:#efe8d5;--say:#ffffff}
+@media(prefers-color-scheme:dark){:root{--paper:#20242b;--ink:#e9e4d8;--frame:#0c0e12;--quote:#332c14;--quoteln:#d6a53a;--stage:#14161b;--artbg:#191d24;--say:#262b34}}
+:root[data-theme="light"]{--paper:#f6efdd;--ink:#141210;--frame:#141210;--quote:#fff6d9;--stage:#d3c4a4;--artbg:#efe8d5;--say:#fff}
+:root[data-theme="dark"]{--paper:#20242b;--ink:#e9e4d8;--frame:#0c0e12;--quote:#332c14;--quoteln:#d6a53a;--stage:#14161b;--artbg:#191d24;--say:#262b34}
 *{box-sizing:border-box}
 body{margin:0;background:var(--stage);color:var(--ink);
- font-family:"Comic Sans MS","Comic Neue","Chalkboard SE",ui-rounded,system-ui,sans-serif;-webkit-text-size-adjust:100%}
-.book{max-width:940px;margin:0 auto;padding:18px 12px 60px}
-header.cover{background:var(--paper);border:4px solid var(--frame);border-radius:4px;padding:22px 20px;margin-bottom:16px;box-shadow:6px 6px 0 rgba(0,0,0,.25)}
-.kick{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
-h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-transform:uppercase;text-wrap:balance;letter-spacing:.5px;-webkit-text-stroke:.4px var(--ink)}
-.byline{font-size:14px;margin-top:6px;border-top:2px solid var(--frame);padding-top:8px}
+ font-family:"Comic Sans MS","Comic Neue","Chalkboard SE",ui-rounded,system-ui,sans-serif;-webkit-text-size-adjust:100%;line-height:1.45}
+.book{max-width:680px;margin:0 auto;padding:16px 12px 72px}
+header.cover{background:var(--paper);border:3px solid var(--frame);border-radius:8px;padding:20px 18px;margin-bottom:20px;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
+.kick{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
+h1{font-size:clamp(22px,5.5vw,34px);line-height:1.06;margin:.2em 0 .12em;text-transform:uppercase;text-wrap:balance;letter-spacing:.4px}
+.byline{font-size:13.5px;margin-top:8px;border-top:2px solid var(--frame);padding-top:8px}
 .byline b{font-weight:800}
-.pages{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:start}
-.panel{display:flex;flex-direction:column;grid-column:span 1;background:var(--paper);
- border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
-.panel.wide{grid-column:span 2}
-/* CAPTION BAND (Gonick top caption boxes) — narration & source quotes live here, in
- their OWN reserved paper strip above the art, so they NEVER cover a character. */
-.capband{background:var(--artbg);border-bottom:3px solid var(--frame);padding:7px 8px;display:flex;flex-wrap:wrap;gap:5px}
-.capband:empty{display:none}
-.capband .tb{position:static;max-width:100%;flex:1 1 46%}
-/* the art sits below; only short dialogue balloons float over it, in the clear corners */
-.art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg);overflow:hidden}
-.panel.wide .art{aspect-ratio:2/1}
+/* single vertical column — scroll to read */
+.pages{display:flex;flex-direction:column;gap:22px}
+.beat{background:var(--paper);border:3px solid var(--frame);border-radius:8px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
+/* NARRATION — the play-by-play caption box on top of the beat */
+.narr{background:var(--artbg);border-bottom:3px solid var(--frame);padding:11px 15px;font-size:14px;font-weight:700;
+ text-transform:uppercase;letter-spacing:.3px;line-height:1.35}
+.narr:empty{display:none}
+/* the ART */
+.art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg)}
+.beat.wide .art{aspect-ratio:16/9}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
-.tb{background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 47% 45% 48%/52% 50% 50% 48%;
- padding:5px 9px;font-size:10.5px;line-height:1.16;text-transform:uppercase;letter-spacing:.2px;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.28)}
-.art .tb{position:absolute;max-width:44%;z-index:2}
-.art .tb.at-tl{top:5px;left:5px}.art .tb.at-tr{top:5px;right:5px}.art .tb.at-bl{bottom:5px;left:5px}.art .tb.at-br{bottom:5px;right:5px}
-.art .tb.at-tc{top:5px;left:50%;transform:translateX(-50%);max-width:56%}
-.tb .who{display:block;font-size:8px;font-weight:800;opacity:.6;margin-bottom:1px}
-.tb .qby2{display:block;text-align:right;font-size:8px;font-weight:bold;opacity:.55;margin-top:1px}
-/* SPEECH — tail toward the subject (down) */
-.tb.speech::after{content:"";position:absolute;width:11px;height:11px;background:#fff;border-right:2.5px solid #111;border-bottom:2.5px solid #111;bottom:-6px;left:16px;transform:rotate(45deg)}
-.tb.speech.at-tr::after,.tb.speech.at-br::after{left:auto;right:16px}
-.tb.speech.at-bl::after,.tb.speech.at-br::after{bottom:auto;top:-6px;transform:rotate(225deg)}
-/* CAPTION — rectangular narrator box (paper) */
-.tb.caption{background:var(--paper);border-radius:2px;border-width:2px}
-/* SHOUT — spiky burst */
-.tb.shout{border:none;border-radius:0;font-weight:800;text-align:center;background:#fff;
- clip-path:polygon(0% 22%,12% 12%,10% 0%,26% 10%,38% 0,50% 11%,62% 0,74% 10%,90% 0,88% 12%,100% 22%,90% 38%,100% 52%,88% 66%,100% 80%,84% 84%,74% 100%,60% 86%,50% 98%,40% 86%,26% 100%,16% 84%,0% 80%,12% 66%,0% 52%,10% 38%);
- filter:drop-shadow(1.5px 0 0 #111) drop-shadow(-1.5px 0 0 #111) drop-shadow(0 1.5px 0 #111) drop-shadow(0 -1.5px 0 #111);padding:10px 13px}
-/* THOUGHT — cloud */
-.tb.thought{border-radius:50%/44%}
-.tb.thought::after{content:"";position:absolute;width:8px;height:8px;background:#fff;border:2.5px solid #111;border-radius:50%;bottom:-6px;left:18px;box-shadow:-9px 7px 0 -2px #fff,-9px 7px 0 0 #111}
-/* WHISPER — dashed, quiet */
-.tb.whisper{border-style:dashed;font-style:italic}
-/* QUOTE — verbatim source line, yellow */
-.tb.quote{background:var(--quote);border-radius:2px;border-left-width:6px}
-.label{position:absolute;background:var(--paper);border:2px solid var(--ink);font-size:10px;font-weight:bold;z-index:2;
- text-transform:uppercase;letter-spacing:.5px;padding:1px 5px;border-radius:1px;box-shadow:1px 1px 0 rgba(0,0,0,.25)}
-.label.bl{bottom:8px;left:8px}.label.br{bottom:8px;right:8px}
-.foot{margin-top:20px;background:var(--paper);border:3px solid var(--frame);border-radius:3px;padding:14px 16px;font-size:13px;line-height:1.5;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
-.foot .tag{display:inline-block;background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
-@media(max-width:640px){.pages{grid-template-columns:1fr}.panel.wide{grid-column:span 1}.panel.wide .art{aspect-ratio:4/3}.tb{font-size:11px}}
+/* the dialogue + source quotes, stacked vertically BELOW the art in reading order */
+.say{padding:13px 15px;display:flex;flex-direction:column;gap:11px}
+.say:empty{display:none}
+.bubble{position:relative;align-self:flex-start;max-width:92%;background:var(--say);color:var(--ink);
+ border:2.5px solid var(--frame);border-radius:16px;padding:9px 13px;font-size:14.5px;line-height:1.34;box-shadow:2px 2px 0 rgba(0,0,0,.18)}
+.bubble .who{display:block;font-size:10px;font-weight:800;letter-spacing:.5px;opacity:.6;text-transform:uppercase;margin-bottom:2px}
+/* speech tail pointing up toward the art */
+.bubble.speech::before{content:"";position:absolute;top:-9px;left:22px;width:15px;height:15px;background:var(--say);
+ border-left:2.5px solid var(--frame);border-top:2.5px solid var(--frame);transform:rotate(45deg)}
+.bubble.shout{border-radius:6px;border-width:3px;font-weight:800;text-transform:uppercase}
+.bubble.shout .txt{font-size:16px}
+.bubble.thought{border-radius:26px;border-style:solid}
+.bubble.thought::before{content:"";position:absolute;top:-10px;left:20px;width:11px;height:11px;background:var(--say);border:2.5px solid var(--frame);border-radius:50%}
+.bubble.whisper{border-style:dashed;font-style:italic;opacity:.9}
+/* VERBATIM source quote — Dickens's exact words, distinct yellow box with a source tag */
+.qbox{background:var(--quote);border:2px solid var(--frame);border-left:6px solid var(--quoteln);border-radius:4px;
+ padding:8px 13px;font-size:13.5px;line-height:1.4;font-style:italic}
+.qbox .src{display:block;text-align:right;font-style:normal;font-weight:800;font-size:10px;letter-spacing:.5px;opacity:.6;margin-top:3px;text-transform:uppercase}
+.foot{margin-top:22px;background:var(--paper);border:3px solid var(--frame);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
+.foot .tag{display:inline-block;border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
+@media(max-width:640px){.book{padding:12px 9px 60px}.narr{font-size:13.5px}.bubble{font-size:15px;max-width:96%}}
 `;
 
 function imgDataUri(dir, n) {
@@ -362,32 +356,31 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // OCCLUSION-SAFE Gonick layout: narration + verbatim captions go in a reserved
-  // caption BAND above the art (never over a character); only short dialogue balloons
-  // (speech/thought/shout/whisper) float over the art's clear corners.
-  const POS = new Set(["tl", "tr", "bl", "br", "tc"]);
-  const at = (pos, def) => `at-${POS.has(pos) ? pos : def}`;
-  // ALL text lives in the reserved caption band above the art → ZERO occlusion,
-  // guaranteed by construction (verified by verify-occlusion.mjs). Dialogue keeps its
-  // speech/thought/shout styling and a speaker label, but sits in the band, never over
-  // a character. (Floating balloons over art need controlled art — a paid-tier upgrade.)
-  const band = [];
-  const floatB = [];
-  void at;
-  if (t.narration) band.push(`<div class="tb caption">${t.narration}</div>`);
-  if (t.quote) band.push(`<div class="tb quote">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
+  // WEBTOON reading order (top→bottom, one clear path): narration caption, then the
+  // art, then dialogue balloons, then verbatim source quotes. Dialogue and quotes are
+  // separated into their own kinds so the reader always knows who is speaking vs the
+  // author's exact words. Nothing is placed over the art or side-by-side.
+  const dialogueKinds = new Set(["speech", "thought", "shout", "whisper"]);
+  const dialogue = [];   // characters talking
+  const quotes = [];     // verbatim source lines (caption/quote kinds that are verbatim)
+  const narr = t.narration ? `<div class="narr">${t.narration}</div>` : `<div class="narr"></div>`;
+  if (t.quote) quotes.push(`<div class="qbox">&ldquo;${t.quote}&rdquo;<span class="src">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
   for (const b of t.bubbles || []) {
     const kind = b.kind || "speech";
-    const who = b.speaker && kind !== "caption" ? `<span class="who">${String(b.speaker).toUpperCase()}</span>` : "";
-    const by = b.verbatim && b.by ? `<span class="qby2">&mdash; ${b.by}</span>` : "";
-    band.push(`<div class="tb ${kind}">${who}${b.text}${by}</div>`);
+    if (dialogueKinds.has(kind)) {
+      const who = b.speaker ? `<span class="who">${String(b.speaker).toUpperCase()}</span>` : "";
+      dialogue.push(`<div class="bubble ${kind}">${who}<span class="txt">${b.text}</span></div>`);
+    } else {
+      // caption/quote kinds = the author's exact words → source quote box
+      const src = b.by || t.quote_by || "SOURCE";
+      quotes.push(`<div class="qbox">&ldquo;${b.text}&rdquo;<span class="src">&mdash; ${src}</span></div>`);
+    }
   }
-  const labels = (t.labels || [])
-    .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
-    .join("");
-  return `<figure class="panel${p.wide ? " wide" : ""}">
-  <div class="capband">${band.join("")}</div>
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${floatB.join("")}${labels}</div>
+  const say = [...dialogue, ...quotes].join("");
+  return `<figure class="beat${p.wide ? " wide" : ""}">
+  ${narr}
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt=""></div>
+  <div class="say">${say}</div>
 </figure>`;
 }
 
@@ -406,15 +399,15 @@ export function assembleHTML(script, { tier, imagesDir }) {
  <header class="cover">
   <div class="kick">Vocaflow Cartoon Reader &middot; Tier: ${useTier} &middot; Style: ${a.style}${a.target_v_level ? " &middot; V" + a.target_v_level : ""}</div>
   <h1>${b.title}</h1>
-  <div class="byline">Adapted from <b>${b.author}</b> &middot; verbatim source quotes shown in the yellow boxes</div>
+  <div class="byline">Adapted from <b>${b.author}</b> &middot; scroll down to read &middot; the author&rsquo;s exact words are in the yellow quote boxes</div>
  </header>
  <div class="pages">
 ${panels}
  </div>
  <div class="foot">
-  <span class="tag">Narration</span> plain-english play-by-play &middot;
-  <span class="tag">Yellow</span> the author&rsquo;s exact words &middot;
-  <span class="tag">Bubbles</span> the characters talk.
+  Each beat reads top&#8594;bottom: <span class="tag">Caption</span> what&rsquo;s happening &middot;
+  the <span class="tag">Picture</span> &middot; <span class="tag">Speech</span> the characters talk &middot;
+  <span class="tag">Yellow</span> Dickens&rsquo;s exact words.
  </div>
 </div>`;
 }
