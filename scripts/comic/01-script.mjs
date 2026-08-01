@@ -31,7 +31,13 @@ async function generateWithApi() {
   const sys = `You adapt difficult books into fun, character-driven cartoon scripts in the tradition of the illustrated science comic (loose art, dense in-panel text: narration boxes + speech bubbles + verbatim author quotes).
 Output ONLY a JSON object matching this schema (comments are illustrative):
 ${schema.split("/**")[1].split("*/")[0]}
-Rules: ${panels} panels; make it an entertaining STORY (characters, conflict, humour), not a lecture; every "quote" field MUST be an EXACT substring of the provided source (you may condense with "…" between exact fragments); give recurring characters an "anchor" prop for visual consistency; multi-character panels use distance composition.`;
+Rules: ${panels} panels; make it an entertaining STORY (characters, conflict, humour), not a lecture; every "quote" field MUST be an EXACT substring of the provided source (you may condense with "…" between exact fragments); give recurring characters an "anchor" prop for visual consistency.
+
+IMAGE-PROMPT RULES (the "scene"/"composition" fields feed a black-and-white cartoon image model — keep them backend-neutral so no post-patching is needed):
+- SINGLE SUBJECT PER PANEL: each panel should feature exactly ONE named character (our design locks identity best this way). Split a two-character exchange across consecutive single-subject panels rather than putting both in one frame.
+- Describe only the SCENE and ACTION in "scene". Do NOT embed any art-style, medium, or camera instructions (no "drawn as a cartoon", "flat ink", "not a photo", "not 3D", "photorealistic", "3D render") — the image backend fixes the house style; style words in the scene only cause drift.
+- OUTPUT IS BLACK-AND-WHITE: never let meaning depend on colour. Do not write colour words ("blue lips", "red eyes", "white scarf", "red holly") as literal instructions — describe them by tone/shape/texture instead ("frost-pale lips", "wide staring eyes", "a long woollen comforter", "a sprig of holly"). A colour word makes the model render actual colour.
+- Keep "scene" a concrete, self-contained visual (setting, the one character, what they do, key props) and "composition" a short shot note (e.g. "close, low angle").`;
   const msg = await client.messages.create({
     model: "claude-opus-4-8",
     max_tokens: 8000,
