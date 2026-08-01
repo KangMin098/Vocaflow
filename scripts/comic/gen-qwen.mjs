@@ -36,6 +36,24 @@ const ENDPOINT = String(arg("endpoint", process.env.DASHSCOPE_ENDPOINT
 const GEN_MODEL = String(arg("gen-model", "qwen-image-max"));        // text->image (ref sheets)
 const EDIT_MODEL = String(arg("edit-model", "qwen-image-edit-max")); // image+text (panels)
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
+// STATIC RESOLUTION (cost-efficiency by design): the webtoon column is 680px wide →
+// ~650px CSS display for the art. Flat B&W line art stays crisp at ~1.25x DPI (unlike
+// photos it needs no 2x), and delivery downscales to ~820px anyway, so generating above
+// ~1024px is wasted spend. We fix ONE static size per orientation = 0.79 MP each (≈21%
+// cheaper than 864x1152=0.995MP on per-megapixel billing) and uniform across the book.
+// Aspect matches the display frames (portrait 3:4 panel / 4:3 wide) so nothing is cropped.
+const SIZE_PORTRAIT = String(arg("size", "768*1024"));   // 3:4, ~0.79 MP
+const SIZE_WIDE = String(arg("wide-size", "1024*768"));  // 4:3, ~0.79 MP
+// FAILURE-REDUCTION by design: tight FACE close-ups / caricature portraits RELIABLY make
+// the multi-view reference sheet leak (duplicate heads / a 6-up grid) — proven on p12.
+// Route ONLY those shots to t2i (no ref) so they never enter that failure basin. The regex
+// is deliberately TIGHT — a bare "close" shot note is common on full-body medium shots, and
+// over-routing to t2i would forfeit the reference identity lock (our #1 priority). Panels
+// that are costume-divergent (nightwear vs the sheet's default) or otherwise ref-hostile
+// should carry an explicit "noref": true in the script (01-script sets this). QC→regen is
+// the backstop for anything that slips through. Disable auto-routing with --no-auto-noref.
+const AUTO_NOREF = !has("no-auto-noref");
+const CLOSEUP_RE = /\b(caricature|portrait|head-and-shoulders|bust shot|extreme close|tight close|face fills)\b/i;
 
 const tokenFile = path.join(HERE, ".dashscope-token");
 const KEY = (process.env.DASHSCOPE_API_KEY || (fs.existsSync(tokenFile) ? fs.readFileSync(tokenFile, "utf8") : "")).trim();
@@ -111,7 +129,8 @@ async function genPanel(p) {
   // --noref generates pure text-to-image (no ref image) with the character described inline —
   // full compositional freedom, zero sheet-leak, at a small identity cost the caricature
   // description absorbs. Also auto-engages when a panel has no reference available.
-  const noref = has("noref") || ids.length === 0;
+  const closeup = CLOSEUP_RE.test(`${p.composition || ""} ${p.scene || ""}`);
+  const noref = has("noref") || p.noref === true || ids.length === 0 || (AUTO_NOREF && closeup);
   // edit mode: point at the ref images (identity=ref, costume/pose=scene).
   const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must have exactly the same FACE and body identity as the person in reference image ${i + 1} (same face, nose, baldness, build) — but their clothing, headwear and pose come from the scene description below, NOT from the reference.`);
   // t2i mode: describe each character's appearance inline (no ref to point at).
@@ -135,9 +154,9 @@ async function genPanel(p) {
     solo,
     "Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.",
     BLANK, NOTEXT].filter(Boolean).join(" ");
-  // Keep panels portrait/gentle-landscape — a hard 16:9 canvas invites the sheet's extra
-  // views to fill the horizontal space (duplicate heads). 4:3 is the widest we allow.
-  const size = p.wide ? "1024*768" : "864*1152";
+  // static resolution (see top): 4:3 wide / 3:4 portrait, both ~0.79 MP, matching the
+  // display frames so nothing is cropped. Never a hard 16:9 (that invites sheet-leak).
+  const size = p.wide ? SIZE_WIDE : SIZE_PORTRAIT;
   const buf = noref
     ? await call(GEN_MODEL, [{ text }], size)
     : await call(EDIT_MODEL, [...ids.map((id) => ({ image: dataUri(path.join(refsDir, `${id}.jpg`)) })), { text }], size);

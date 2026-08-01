@@ -130,7 +130,7 @@ export function gate1(script, sourceText) {
 // adaptation's V-level (or an explicit adaptation.art_maturity override).
 export const STYLES = {
   young: "cute simple hand-drawn cartoon, chibi child-friendly proportions, big round expressive eyes, thick clean black lines, whimsical, strictly monochrome black and white, no colour",
-  teen: "a simple flat black-and-white CARTOON in the style of a Larry Gonick cartoon-history comic, loose bold hand-inked outlines, light cross-hatching for shade, caricatured expressive proportions, plainly hand-drawn 2D line art, strictly monochrome black and white",
+  teen: "a bold flat black-and-white CARTOON in the style of a Larry Gonick cartoon-history comic, thick crisp black ink outlines, simple high-contrast flat shapes, light cross-hatching for shade, caricatured expressive faces, plainly hand-drawn 2D comic line art, strictly black and white",
   mature: "mature graphic-novel black-and-white ink illustration, realistic adult human proportions and faces, restrained expressive features with natural eyes (NOT big cartoon eyes), fine cross-hatching for shadow, a serious literary gothic tone, strictly monochrome, no colour",
 };
 export function styleFor(vLevel, override) {
@@ -326,8 +326,8 @@ h1{font-size:clamp(22px,5.5vw,34px);line-height:1.06;margin:.2em 0 .12em;text-tr
  text-transform:uppercase;letter-spacing:.3px;line-height:1.35}
 .narr:empty{display:none}
 /* the ART */
-.art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg)}
-.beat.wide .art{aspect-ratio:16/9}
+.art{position:relative;width:100%;aspect-ratio:3/4;background:var(--artbg)}
+.beat.wide .art{aspect-ratio:4/3}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
 /* the dialogue + source quotes, stacked vertically BELOW the art in reading order */
 .say{padding:13px 15px;display:flex;flex-direction:column;gap:11px}

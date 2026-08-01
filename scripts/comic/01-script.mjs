@@ -37,7 +37,8 @@ IMAGE-PROMPT RULES (the "scene"/"composition" fields feed a black-and-white cart
 - SINGLE SUBJECT PER PANEL: each panel should feature exactly ONE named character (our design locks identity best this way). Split a two-character exchange across consecutive single-subject panels rather than putting both in one frame.
 - Describe only the SCENE and ACTION in "scene". Do NOT embed any art-style, medium, or camera instructions (no "drawn as a cartoon", "flat ink", "not a photo", "not 3D", "photorealistic", "3D render") — the image backend fixes the house style; style words in the scene only cause drift.
 - OUTPUT IS BLACK-AND-WHITE: never let meaning depend on colour. Do not write colour words ("blue lips", "red eyes", "white scarf", "red holly") as literal instructions — describe them by tone/shape/texture instead ("frost-pale lips", "wide staring eyes", "a long woollen comforter", "a sprig of holly"). A colour word makes the model render actual colour.
-- Keep "scene" a concrete, self-contained visual (setting, the one character, what they do, key props) and "composition" a short shot note (e.g. "close, low angle").`;
+- Keep "scene" a concrete, self-contained visual (setting, the one character, what they do, key props) and "composition" a short shot note (e.g. "close, low angle").
+- Set "noref": true on any panel that is a TIGHT FACIAL CLOSE-UP / caricature portrait, OR where the character wears clothing clearly different from their default look (nightwear, a disguise, a costume change). Such panels are generated without the reference sheet (from the description) because the sheet otherwise leaks duplicate heads or forces the wrong outfit. Leave "noref" unset (full-body scene, default outfit) so the reference locks identity.`;
   const msg = await client.messages.create({
     model: "claude-opus-4-8",
     max_tokens: 8000,
