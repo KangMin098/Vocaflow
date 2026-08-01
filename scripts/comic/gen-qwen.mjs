@@ -47,10 +47,16 @@ const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
 const refsDir = path.join(outDir, "refs");
 fs.mkdirSync(refsDir, { recursive: true });
 
-// flat "ligne claire" ink look (documented Qwen line-art recipe) + explicit no-text.
-const INK = "Flat minimalistic black and white high-contrast line drawing, coloring-book / ligne-claire style: precise continuous equal-width black ink outlines, simple flat shapes, light hatching only, caricatured expressive faces, strictly black and white, no gradients, no soft shading, no photorealism, plain white background.";
-const NOTEXT = "A single clean illustration with no text, no words, no letters, no readable signs or signboards, no speech bubbles, no caption boxes, no panel borders.";
-const NEG = "text, words, letters, numbers, signboards, signage, labels, speech bubbles, caption boxes, panel borders, duplicate character, extra heads, multiple views, expression sheet, colour, gradient, soft shading, photorealistic, 3d render, extra limbs, deformed hands";
+// Vision-QC-tuned prompt clauses (Carol Stave1 defects → fixes):
+// - style: bold Gonick ink with SOLID BLACK fills (thin "coloring-book" outlines drifted)
+// - HARDBW: Qwen renders colour words literally → force B&W and ignore colour words
+// - BLANK: Qwen scribbles garbled glyphs on papers/signs → force blank
+// - NOTEXT + NEG: no lettering, no duplicate person/second face, no colour
+const INK = "Bold flat black-and-white hand-inked cartoon in the style of a Larry Gonick history comic: thick confident black ink outlines with SOLID BLACK ink fills and strong high contrast, simple flat shapes, light cross-hatching for shade, caricatured expressive faces. Strictly black, white and grey ink only — NO colour. Not thin uniform coloring-book outlines, not photorealistic, not 3D.";
+const HARDBW = "Render the ENTIRE image in black and white ink ONLY — no colour anywhere. Ignore any colour words in the description (blue, red, white, brown, ruddy, etc.); depict those things only as black, white and grey ink.";
+const BLANK = "Any papers, books, ledgers, letters or signs must be completely BLANK with no writing or lettering on them.";
+const NOTEXT = "A single clean illustration with no text, no words, no letters, no readable signs, no speech bubbles, no caption boxes, no panel borders.";
+const NEG = "colour, coloured, tinted, blue, red, green, brown skin, gradient, soft shading, photorealistic, 3d render, thin uniform outlines, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, caption boxes, panel borders, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars";
 
 const dataUri = (p) => `data:image/jpeg;base64,${fs.readFileSync(p).toString("base64")}`;
 
@@ -100,27 +106,43 @@ async function genPanel(p) {
   const outPath = path.join(outDir, `${String(p.n).padStart(2, "0")}.jpg`);
   const ids = (p.characters || []).filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`)));
   const chars = ids.map((id) => byId[id]).filter(Boolean);
-  const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must look exactly like the person in reference image ${i + 1} (same face, hair, build, costume).`);
+  // NOREF fallback: tight facial close-ups reproduce the multi-view sheet's grid no matter
+  // what the text says (the reference's STRUCTURE overrides instructions). For those panels,
+  // --noref generates pure text-to-image (no ref image) with the character described inline —
+  // full compositional freedom, zero sheet-leak, at a small identity cost the caricature
+  // description absorbs. Also auto-engages when a panel has no reference available.
+  const noref = has("noref") || ids.length === 0;
+  // edit mode: point at the ref images (identity=ref, costume/pose=scene).
+  const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must have exactly the same FACE and body identity as the person in reference image ${i + 1} (same face, nose, baldness, build) — but their clothing, headwear and pose come from the scene description below, NOT from the reference.`);
+  // t2i mode: describe each character's appearance inline (no ref to point at).
+  const descLines = chars.map((c) => `${c.name.toUpperCase()} is ${c.canonical}, ${c.anchor}.`);
   let placement = "";
   if (chars.length === 2) placement = ` Place ${chars[0].name} on the left and ${chars[1].name} on the right, clearly apart.`;
   else if (chars.length >= 3) placement = " Show each character as a distinct full figure, spread apart.";
-  // SCENE-DOMINANT framing: the instruction leads with "draw a NEW full scene" so the edit
-  // model repaints a real background instead of preserving the reference's plain sheet, and
-  // the reference is demoted to an identity source only.
-  const text = [INK,
-    `Draw a completely NEW single illustration of this scene, with a full drawn background — do NOT keep a plain white background. Scene: ${p.scene}.`,
+  const solo = chars.length === 1
+    ? "There is exactly ONE person in the whole image — no other people, no bystanders, and never draw the same face or figure twice."
+    : "";
+  // strip the legacy FLUX-era style meta-prefix baked into some scene texts
+  // ("drawn as a simple flat black-and-white cartoon caricature ... not 3D): ...") — on an
+  // edit model that phrasing reads as "make a caricature model sheet" and yields a 6-up grid.
+  const scene = String(p.scene || "").replace(/^drawn as a[^:]*:\s*/i, "");
+  // SCENE-DOMINANT framing + Vision-QC fixes (HARDBW colour, BLANK papers, solo/no-dup).
+  const text = [INK, HARDBW,
+    `Draw ONE finished single-scene comic illustration with a full drawn background — do NOT keep a plain white background, and this is NOT a character model sheet or a grid of head studies. Show each character full-figure (head to feet, with arms and hands), not a floating bust. Scene: ${scene}.`,
     `Composition: ${p.composition}.${placement}`,
-    refLines.join(" "),
-    "The reference images define ONLY each character's appearance. Include exactly ONE instance of each character; do NOT copy the reference layout and do NOT reproduce multiple views, extra heads, busts or an expression row.",
+    (noref ? descLines.join(" ") : refLines.join(" ")),
+    noref ? "" : "The reference images define ONLY each character's appearance. Include exactly ONE instance of each character; do NOT copy the reference layout and do NOT reproduce multiple views, extra heads, busts or an expression row.",
+    solo,
     "Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.",
-    NOTEXT].filter(Boolean).join(" ");
-  const content = [...ids.map((id) => ({ image: dataUri(path.join(refsDir, `${id}.jpg`)) })), { text }];
-  // Keep edit panels portrait/gentle-landscape — a hard 16:9 canvas invites the sheet's
-  // extra views to fill the horizontal space (duplicate heads). 4:3 is the widest we allow.
+    BLANK, NOTEXT].filter(Boolean).join(" ");
+  // Keep panels portrait/gentle-landscape — a hard 16:9 canvas invites the sheet's extra
+  // views to fill the horizontal space (duplicate heads). 4:3 is the widest we allow.
   const size = p.wide ? "1024*768" : "864*1152";
-  const buf = await call(EDIT_MODEL, content, size);
+  const buf = noref
+    ? await call(GEN_MODEL, [{ text }], size)
+    : await call(EDIT_MODEL, [...ids.map((id) => ({ image: dataUri(path.join(refsDir, `${id}.jpg`)) })), { text }], size);
   fs.writeFileSync(outPath, buf);
-  console.error(`✓ panel ${p.n}  ${buf.length}B  (refs: ${ids.join(",") || "none"})`);
+  console.error(`✓ panel ${p.n}  ${buf.length}B  (${noref ? "t2i/noref" : "refs: " + ids.join(",")})`);
 }
 
 // ---- run ----

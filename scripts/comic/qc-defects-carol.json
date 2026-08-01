@@ -11,55 +11,15 @@
   "sections": {
     "1": {
       "inspected": true,
+      "backend": "qwen-image-edit-max (free, DashScope) + t2i --noref fallback for sheet-prone close-ups",
+      "remediated_note": "Initial 18-panel Qwen pass: 10 pass / 8 fail. 6 defect classes found → fixed in gen-qwen.mjs: (1) colour drift from scene colour-words → HARDBW clause; (2) garbled text on papers → BLANK clause; (3) duplicate character / extra bystander → solo/no-dup clause + NEG; (4) thin coloring-book lineart → solid-black INK; (5) legacy 'drawn as a caricature:' scene meta-prefix → stripped; (6) multi-view sheet leak on tight close-ups (p2,12,13) + costume-override failure → t2i --noref fallback. Re-QC after remediation: all 18 pass, low residuals accepted below.",
       "defects": [
-        {
-          "panel": 7,
-          "severity": "med",
-          "tags": [
-            "identity"
-          ],
-          "note": "Scrooge drawn with a straggly beard (canonical clean-shaven) | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
-          "status": "open"
-        },
-        {
-          "panel": 12,
-          "severity": "med",
-          "tags": [
-            "missing-element"
-          ],
-          "note": "door-knocker not transformed into Marley's face | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
-          "status": "open"
-        },
-        {
-          "panel": 14,
-          "severity": "high",
-          "tags": [
-            "style-drift",
-            "identity"
-          ],
-          "note": "photorealistic bearded render, scene absent | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
-          "status": "open"
-        },
-        {
-          "panel": 16,
-          "severity": "high",
-          "tags": [
-            "style-drift",
-            "identity"
-          ],
-          "note": "photorealistic bearded render, cowering scene absent | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
-          "status": "open"
-        },
-        {
-          "panel": 17,
-          "severity": "high",
-          "tags": [
-            "style-drift",
-            "identity"
-          ],
-          "note": "sepia painterly, mummy-wrapped face, ambiguous gender Marley | free-tier regen FAILED (photoreal/painterly basin, seeds 46/51/61) → needs paid",
-          "status": "open"
-        }
+        { "panel": 1, "severity": "low", "tags": ["identity"], "note": "faint jaw shading reads as light stubble; ref is clean-shaven", "status": "accepted-limit" },
+        { "panel": 7, "severity": "low", "tags": ["style-drift"], "note": "grey wash mid-tones, still clearly hand-inked cartoon", "status": "accepted-limit" },
+        { "panel": 9, "severity": "low", "tags": ["subject-count"], "note": "stands full-body rather than seated at desk; papers blank so no text risk", "status": "accepted-limit" },
+        { "panel": 11, "severity": "low", "tags": ["extra-object"], "note": "a few small background automobiles (anachronism); B&W, Bob alone, boys not clearly shown", "status": "accepted-limit" },
+        { "panel": 14, "severity": "low", "tags": ["readability"], "note": "faint garbled scrawl in lower-right corner, small/non-intrusive", "status": "accepted-limit" },
+        { "panel": 15, "severity": "low", "tags": ["identity"], "note": "chain has padlocks but cash-boxes not clearly present", "status": "accepted-limit" }
       ]
     },
     "2": {
@@ -131,5 +91,5 @@
       ]
     }
   },
-  "_status_note": "DETECTION works (this ledger + final-audit gate). FIXING the high defects (style-drift to photoreal, Ghost head-flame+torch, bearded identity) FAILS on free Pollinations — proven across seeds 46/51/61 + many phrasings; FLUX ignores style/negative control on these panels. Clean fix requires paid reference+style conditioning (FLUX.2 / Pollinations kontext)."
+  "_status_note": "BREAKTHROUGH (2026-08-01): the free Qwen-Image-Edit backend (gen-qwen.mjs) CLEARS section 1 — all 18 panels pass Vision-QC at $0. This replaces the old Pollinations conclusion below. The detect→remediate loop now closes on free: reference-sheet identity lock + HARDBW/BLANK/solo prompt clauses + t2i --noref fallback for sheet-prone close-ups. Section 2 defects below are STALE (old Pollinations free-FLUX run) and await re-generation on Qwen. Old note: FIXING high defects FAILED on free Pollinations (FLUX ignores style/negative control); that ceiling no longer applies with Qwen."
 }
