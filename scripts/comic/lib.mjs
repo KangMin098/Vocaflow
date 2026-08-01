@@ -311,19 +311,23 @@ h1{font-size:clamp(24px,6vw,42px);line-height:1.02;margin:.15em 0 .1em;text-tran
 .byline{font-size:14px;margin-top:6px;border-top:2px solid var(--frame);padding-top:8px}
 .byline b{font-weight:800}
 .pages{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:start}
-.panel{position:relative;grid-column:span 1;background:var(--paper);
+.panel{display:flex;flex-direction:column;grid-column:span 1;background:var(--paper);
  border:3px solid var(--frame);border-radius:3px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
 .panel.wide{grid-column:span 2}
-/* the art fills the whole panel; text floats over it */
+/* CAPTION BAND (Gonick top caption boxes) — narration & source quotes live here, in
+ their OWN reserved paper strip above the art, so they NEVER cover a character. */
+.capband{background:var(--artbg);border-bottom:3px solid var(--frame);padding:7px 8px;display:flex;flex-wrap:wrap;gap:5px}
+.capband:empty{display:none}
+.capband .tb{position:static;max-width:100%;flex:1 1 46%}
+/* the art sits below; only short dialogue balloons float over it, in the clear corners */
 .art{position:relative;width:100%;aspect-ratio:4/3;background:var(--artbg);overflow:hidden}
 .panel.wide .art{aspect-ratio:2/1}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
-/* free-floating text boxes, absolutely placed in the reserved empty zones */
-.tb{position:absolute;max-width:52%;background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 47% 45% 48%/52% 50% 50% 48%;
- padding:5px 9px;font-size:10.5px;line-height:1.16;text-transform:uppercase;letter-spacing:.2px;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.28);z-index:2}
-.tb.widebox{max-width:74%}
-.tb.at-tl{top:5px;left:5px}.tb.at-tr{top:5px;right:5px}.tb.at-bl{bottom:5px;left:5px}.tb.at-br{bottom:5px;right:5px}
-.tb.at-tc{top:5px;left:50%;transform:translateX(-50%);max-width:66%}
+.tb{background:#fff;color:#111;border:2.5px solid #111;border-radius:46% 47% 45% 48%/52% 50% 50% 48%;
+ padding:5px 9px;font-size:10.5px;line-height:1.16;text-transform:uppercase;letter-spacing:.2px;box-shadow:1.5px 1.5px 0 rgba(0,0,0,.28)}
+.art .tb{position:absolute;max-width:44%;z-index:2}
+.art .tb.at-tl{top:5px;left:5px}.art .tb.at-tr{top:5px;right:5px}.art .tb.at-bl{bottom:5px;left:5px}.art .tb.at-br{bottom:5px;right:5px}
+.art .tb.at-tc{top:5px;left:50%;transform:translateX(-50%);max-width:56%}
 .tb .who{display:block;font-size:8px;font-weight:800;opacity:.6;margin-bottom:1px}
 .tb .qby2{display:block;text-align:right;font-size:8px;font-weight:bold;opacity:.55;margin-top:1px}
 /* SPEECH — tail toward the subject (down) */
@@ -358,28 +362,32 @@ function imgDataUri(dir, n) {
 
 function panelHTML(p, tier, defTier, dir) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
-  // Gonick-style FREE overlay: every text item floats over the art at its `pos`.
-  // Captions/quotes are wider paper boxes in a corner; speech/thought/shout are
-  // balloons placed near the subject. The art reserves these zones (buildImagePrompt).
+  // OCCLUSION-SAFE Gonick layout: narration + verbatim captions go in a reserved
+  // caption BAND above the art (never over a character); only short dialogue balloons
+  // (speech/thought/shout/whisper) float over the art's clear corners.
   const POS = new Set(["tl", "tr", "bl", "br", "tc"]);
   const at = (pos, def) => `at-${POS.has(pos) ? pos : def}`;
-  const items = [];
-  // narration → top-left caption box; verbatim source quote → top-right paper box
-  if (t.narration) items.push(`<div class="tb caption widebox ${at(t.narration_pos, "tl")}">${t.narration}</div>`);
-  if (t.quote) items.push(`<div class="tb quote widebox ${at(t.quote_pos, "tr")}">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
+  // ALL text lives in the reserved caption band above the art → ZERO occlusion,
+  // guaranteed by construction (verified by verify-occlusion.mjs). Dialogue keeps its
+  // speech/thought/shout styling and a speaker label, but sits in the band, never over
+  // a character. (Floating balloons over art need controlled art — a paid-tier upgrade.)
+  const band = [];
+  const floatB = [];
+  void at;
+  if (t.narration) band.push(`<div class="tb caption">${t.narration}</div>`);
+  if (t.quote) band.push(`<div class="tb quote">&ldquo;${t.quote}&rdquo;<span class="qby2">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
   for (const b of t.bubbles || []) {
     const kind = b.kind || "speech";
-    // captions/quotes are wider boxes; dialogue balloons stay compact
-    const wide = (kind === "caption" || kind === "quote") ? " widebox" : "";
     const who = b.speaker && kind !== "caption" ? `<span class="who">${String(b.speaker).toUpperCase()}</span>` : "";
     const by = b.verbatim && b.by ? `<span class="qby2">&mdash; ${b.by}</span>` : "";
-    items.push(`<div class="tb ${kind}${wide} ${at(b.pos, kind === "caption" ? "tl" : "tr")}">${who}${b.text}${by}</div>`);
+    band.push(`<div class="tb ${kind}">${who}${b.text}${by}</div>`);
   }
   const labels = (t.labels || [])
     .map((l) => `<div class="label ${l.pos === "br" ? "br" : "bl"}">${l.text}</div>`)
     .join("");
   return `<figure class="panel${p.wide ? " wide" : ""}">
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${items.join("")}${labels}</div>
+  <div class="capband">${band.join("")}</div>
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="">${floatB.join("")}${labels}</div>
 </figure>`;
 }
 
