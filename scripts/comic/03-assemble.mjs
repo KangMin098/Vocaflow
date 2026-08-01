@@ -10,7 +10,7 @@
 
 import fs from "fs";
 import path from "path";
-import { assembleHTML } from "./lib.mjs";
+import { assembleHTML, assembleComicHTML } from "./lib.mjs";
 
 function arg(name, def) {
   const i = process.argv.indexOf(`--${name}`);
@@ -38,10 +38,14 @@ function main() {
     process.exit(1);
   }
 
-  const html = assembleHTML(script, { tier, imagesDir });
+  // --layout webtoon (default, single vertical column) | comic (multi-panel book pages)
+  const layout = arg("layout", "webtoon");
+  const html = layout === "comic"
+    ? assembleComicHTML(script, { tier, imagesDir })
+    : assembleHTML(script, { tier, imagesDir });
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, html);
-  console.error(`✓ assembled ${script.panels.length} panels (tier=${tier}) → ${out}  (${html.length} bytes)`);
+  console.error(`✓ assembled ${script.panels.length} panels (layout=${layout}, tier=${tier}) → ${out}  (${html.length} bytes)`);
 }
 
 main();

@@ -352,6 +352,53 @@ h1{font-size:clamp(22px,5.5vw,34px);line-height:1.06;margin:.2em 0 .12em;text-tr
 @media(max-width:640px){.book{padding:12px 9px 60px}.narr{font-size:13.5px}.bubble{font-size:15px;max-width:96%}}
 `;
 
+// Comic-book PAGE-grid stylesheet (self-contained, theme-aware). Tokens drive light/dark;
+// panel art is baked B&W so only frames/gutters/overlay boxes re-theme.
+const COMIC_CSS = `
+:root{--pg:#e8e4da;--panel:#fff;--frame:#141414;--ink:#17140f;--cap:#fbf3dd;--capink:#1a1712;
+--say:#ffffff;--quote:#fff3b0;--quoteln:#c8961f;--quoteink:#241f00;--dur:.18s}
+@media(prefers-color-scheme:dark){:root{--pg:#15171b;--panel:#0e0f12;--frame:#3a3d44;--ink:#e7e7e7;
+--cap:#26210f;--capink:#f2ead2;--say:#e9e9ea;--quote:#3a3208;--quoteln:#8a7314;--quoteink:#f6efcf}}
+:root[data-theme="dark"]{--pg:#15171b;--panel:#0e0f12;--frame:#3a3d44;--ink:#e7e7e7;--cap:#26210f;--capink:#f2ead2;--say:#e9e9ea;--quote:#3a3208;--quoteln:#8a7314;--quoteink:#f6efcf}
+:root[data-theme="light"]{--pg:#e8e4da;--panel:#fff;--frame:#141414;--ink:#17140f;--cap:#fbf3dd;--capink:#1a1712;--say:#fff;--quote:#fff3b0;--quoteln:#c8961f;--quoteink:#241f00}
+*{box-sizing:border-box}
+body{margin:0}
+.reader{background:var(--pg);color:var(--ink);min-height:100vh;padding:0 0 64px;
+font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased}
+.cover{max-width:880px;margin:0 auto;padding:26px 18px 8px;text-align:center}
+.cover .kick{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.cover h1{font-size:clamp(26px,5vw,40px);margin:.2em 0 .1em;font-weight:800}
+.cover .byline{font-size:13px;opacity:.7}
+/* one comic page = a 12-col grid; tiers form as rows via source order + spans */
+.page{max-width:880px;margin:22px auto;padding:clamp(10px,1.8vw,18px);background:var(--panel);
+border:3px solid var(--frame);border-radius:4px;box-shadow:4px 4px 0 rgba(0,0,0,.18);
+display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(7px,1.5vw,15px)}
+.panel{position:relative;overflow:hidden;border:3px solid var(--frame);border-radius:3px;background:var(--panel)}
+.panel>img{display:block;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
+.sp12{grid-column:span 12;aspect-ratio:4/3}
+.sp6{grid-column:span 6;aspect-ratio:3/4}
+.sp4{grid-column:span 4;aspect-ratio:3/4}
+/* text overlays — percentage-anchored, width-capped so art keeps breathing */
+.panel .cap,.panel .says,.panel .qbox{position:absolute;z-index:2;font-family:Georgia,serif;
+line-height:1.24;overflow-wrap:break-word;hyphens:auto}
+.cap{top:5%;left:4.5%;max-width:62%;background:var(--cap);color:var(--capink);border:2px solid var(--frame);
+border-radius:3px;padding:.34em .55em;font-size:clamp(11px,1.5vw,14px);font-weight:600;box-shadow:2px 2px 0 rgba(0,0,0,.25)}
+.says{left:5%;bottom:5%;max-width:60%;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.bub{background:var(--say);color:#111;border:2px solid #111;border-radius:14px;padding:.4em .7em;
+font-size:clamp(12px,1.6vw,15px);max-width:100%;box-shadow:1px 2px 0 rgba(0,0,0,.2)}
+.bub .who{font-size:.72em;letter-spacing:.04em;opacity:.65;display:block;font-weight:800}
+.qbox{right:4.5%;bottom:5%;max-width:46%;background:var(--quote);color:var(--quoteink);border:1.5px solid var(--quoteln);
+border-left:5px solid var(--quoteln);border-radius:3px;padding:.4em .6em;font-style:italic;font-size:clamp(10px,1.4vw,13px)}
+.qbox .src{display:block;text-align:right;font-style:normal;font-weight:800;font-size:.72em;letter-spacing:.04em;opacity:.6;margin-top:2px;text-transform:uppercase}
+/* PHONE: reflow to one vertical column in reading order (Webtoon pattern) */
+@media(max-width:768px){
+.page{grid-template-columns:1fr;gap:clamp(22px,7vw,48px);box-shadow:none;border-width:2px}
+.sp12,.sp6,.sp4{grid-column:1/-1;aspect-ratio:auto}
+.panel>img{height:auto}
+.cap{max-width:82%}.says{max-width:84%}.qbox{max-width:70%}
+}
+`;
+
 function imgDataUri(dir, n) {
   const p = path.join(dir, `${String(n).padStart(2, "0")}.jpg`);
   return "data:image/jpeg;base64," + fs.readFileSync(p).toString("base64");
@@ -412,5 +459,85 @@ ${panels}
   the <span class="tag">Picture</span> &middot; <span class="tag">Speech</span> the characters talk &middot;
   <span class="tag">Yellow</span> Dickens&rsquo;s exact words.
  </div>
+</div>`;
+}
+
+/* ---------- Comic-book PAGE layout (grid of panels per page) ----------
+ * Research-backed: CSS Grid 12-col + numeric spans (no masonry/areas/flex); DOM order =
+ * reading order; TIER-based pages (rows are atomic reading units → unambiguous Z-path);
+ * full=own row / half=2-up / third=3-up, never mixing half+third in a tier (no blockage);
+ * under-filled tiers widen their panels to fill the row; text overlaid as HTML (caption
+ * top-left, speech bubbles bottom, verbatim quote bottom-right); responsive reflow to a
+ * single vertical column < 768px (Webtoon pattern, lettering re-wraps); theme-aware. */
+function packPages(panels) {
+  const roleOf = (p) => p.size || (p.wide ? "full" : "half");
+  const cap = { full: 1, half: 2, third: 3 };
+  const tiers = [];
+  let cur = null;
+  for (const p of panels) {
+    const r = roleOf(p);
+    if (r === "full") { if (cur) { tiers.push(cur); cur = null; } tiers.push({ kind: "full", panels: [p] }); continue; }
+    if (!cur || cur.kind !== r || cur.panels.length >= cap[r]) { if (cur) tiers.push(cur); cur = { kind: r, panels: [p] }; }
+    else cur.panels.push(p);
+  }
+  if (cur) tiers.push(cur);
+  // group tiers into pages: target 3 tiers/page (max), or ~6 panels/page — a calm density.
+  const pages = []; let pg = [], pc = 0;
+  for (const t of tiers) {
+    pg.push(t); pc += t.panels.length;
+    if (pg.length >= 3 || pc >= 6) { pages.push(pg); pg = []; pc = 0; }
+  }
+  if (pg.length) pages.push(pg);
+  return pages;
+}
+// grid-column span class for a panel given its tier kind + how many panels share the tier.
+// Orphans widen to fill the row (full 12-col): lone half/third → span 12; a 2-of-3 → span 6.
+function cellClass(kind, count) {
+  if (kind === "full" || count === 1) return "sp12";
+  if (kind === "half") return "sp6";
+  return count === 2 ? "sp6" : "sp4"; // third
+}
+function comicPanelHTML(p, tier, defTier, dir, cls) {
+  const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
+  const dialogueKinds = new Set(["speech", "thought", "shout", "whisper"]);
+  const caption = t.narration ? `<div class="cap">${t.narration}</div>` : "";
+  const bubbles = [], quotes = [];
+  for (const b of t.bubbles || []) {
+    const kind = b.kind || "speech";
+    if (dialogueKinds.has(kind)) {
+      const who = b.speaker ? `<b class="who">${String(b.speaker).toUpperCase()}</b> ` : "";
+      bubbles.push(`<div class="bub ${kind}">${who}<span>${b.text}</span></div>`);
+    } else {
+      quotes.push(`<div class="qbox">&ldquo;${b.text}&rdquo;<span class="src">&mdash; ${b.by || t.quote_by || "SOURCE"}</span></div>`);
+    }
+  }
+  if (t.quote) quotes.push(`<div class="qbox">&ldquo;${t.quote}&rdquo;<span class="src">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
+  const says = bubbles.length ? `<div class="says">${bubbles.join("")}</div>` : "";
+  return `<figure class="panel ${cls}">
+  <img src="${imgDataUri(dir, p.n)}" alt="">
+  ${caption}${says}${quotes.join("")}
+</figure>`;
+}
+export function assembleComicHTML(script, { tier, imagesDir }) {
+  const defTier = script.adaptation.default_tier;
+  const useTier = tier || defTier;
+  const panels = [...script.panels].sort((a, b) => a.n - b.n);
+  const pages = packPages(panels);
+  const pagesHTML = pages.map((tiers, i) => {
+    const cells = tiers.flatMap((t) => t.panels.map((p) => comicPanelHTML(p, useTier, defTier, imagesDir, cellClass(t.kind, t.panels.length)))).join("\n  ");
+    return `<section class="page" aria-roledescription="comic page" aria-label="Page ${i + 1} of ${pages.length}">
+  ${cells}
+</section>`;
+  }).join("\n");
+  const a = script.adaptation, b = script.book;
+  return `<title>${b.title} — Comic (${useTier})</title>
+<style>${COMIC_CSS}</style>
+<div class="reader">
+ <header class="cover">
+  <div class="kick">Vocaflow Comic Reader &middot; Tier: ${useTier} &middot; Style: ${a.style}${a.target_v_level ? " &middot; V" + a.target_v_level : ""}</div>
+  <h1>${b.title}</h1>
+  <div class="byline">Adapted from <b>${b.author}</b> &middot; the author&rsquo;s exact words are in the yellow quote boxes</div>
+ </header>
+${pagesHTML}
 </div>`;
 }
