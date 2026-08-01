@@ -429,7 +429,7 @@ function panelHTML(p, tier, defTier, dir) {
   const say = [...dialogue, ...quotes].join("");
   return `<figure class="beat${p.wide ? " wide" : ""}">
   ${narr}
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt=""></div>
+  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="" loading="lazy" decoding="async"></div>
   <div class="say">${say}</div>
 </figure>`;
 }
@@ -514,7 +514,7 @@ function comicPanelHTML(p, tier, defTier, dir, cls) {
   if (t.quote) quotes.push(`<div class="qbox">&ldquo;${t.quote}&rdquo;<span class="src">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
   const says = bubbles.length ? `<div class="says">${bubbles.join("")}</div>` : "";
   return `<figure class="panel ${cls}">
-  <img src="${imgDataUri(dir, p.n)}" alt="">
+  <img src="${imgDataUri(dir, p.n)}" alt="" loading="lazy" decoding="async">
   ${caption}${says}${quotes.join("")}
 </figure>`;
 }

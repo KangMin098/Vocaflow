@@ -36,18 +36,19 @@ const ENDPOINT = String(arg("endpoint", process.env.DASHSCOPE_ENDPOINT
 const GEN_MODEL = String(arg("gen-model", "qwen-image-max"));        // text->image (ref sheets)
 const EDIT_MODEL = String(arg("edit-model", "qwen-image-edit-max")); // image+text (panels)
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
-// RESOLUTION BY DISPLAY SIZE (cost-efficiency by design). The comic is laid out like a
-// BOOK PAGE — several panels per page on a 12-col grid, not one full-width image. So a
-// panel's on-screen size depends on how many columns it spans, and its generation
-// resolution should match THAT, not the page width. Flat B&W line art stays crisp at
-// ~1.4x its display px (unlike photos it needs no 2x). Three role tiers keyed to a ~860px
-// page:  full = span-12 splash (~850px → 1024w), half = span-6 2-up (~420px → 576w),
-// third = span-4 3-up (~280px → 448w). A typical mixed page averages ~0.41 MP/panel vs a
-// uniform 0.79 MP (≈48% cheaper on per-megapixel billing). Override any tier with a flag.
+// RESOLUTION BY DISPLAY SIZE, with a PHONE FLOOR (cost-efficiency for a WEB target that
+// includes phones). On desktop the comic is a multi-panel BOOK PAGE (small cells), but the
+// product is published on the web and read on phones too — and < 768px the page reflows to
+// a single vertical column where EVERY panel is full width (~390 CSS px → ~640px at ~1.6x
+// DPI). Flat B&W line art needs no 2x, but it must still meet that phone-full-width floor
+// or small-role panels blur on mobile. So tiers are floored to phone crispness rather than
+// sized to the tiny desktop cell: full (also a desktop splash) 1024w; half/third share a
+// ~640-704w floor. Average ~0.63 MP/panel — still cheaper than a naive uniform 1024×1365
+// (1.4 MP) while staying crisp on phone. Override any tier with a flag.
 const SIZE = {
-  full: String(arg("size-full", "1024*768")),  // 4:3 landscape splash/establishing, ~0.79 MP
-  half: String(arg("size-half", "576*768")),    // 3:4 portrait, the default 2-up, ~0.44 MP
-  third: String(arg("size-third", "448*576")),  // 3:4 portrait, small 3-up, ~0.26 MP
+  full: String(arg("size-full", "1024*768")),  // 4:3 splash/establishing + phone full-width, ~0.79 MP
+  half: String(arg("size-half", "704*939")),    // 3:4 standard 2-up, phone-full-width floor, ~0.66 MP
+  third: String(arg("size-third", "640*853")),  // 3:4 quick 3-up beat, ~0.55 MP
 };
 // panel "size" role: "full" | "half" | "third". Back-compat: legacy `wide:true` → full,
 // otherwise → half. The comic-page renderer spans 12/6/4 grid columns to match.
