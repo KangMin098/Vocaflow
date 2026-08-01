@@ -90,3 +90,4 @@ scratchpad-foreign/
 # Pollinations API token (Seed+ tier) — never commit secrets
 .pollinations-token
 scripts/comic/.pollinations-token
+scripts/comic/.gemini-token
