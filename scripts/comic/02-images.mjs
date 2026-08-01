@@ -50,8 +50,11 @@ async function main() {
     if (!force && gate2(outPath).ok) { console.error(`· panel ${p.n} exists, skip`); skip++; continue; }
 
     const prompt = buildImagePrompt(p, cast, STYLE);
-    // fixed per-book seed keeps the cast/style stable across panels
-    const seed = baseSeed;
+    // DISTINCT seed per panel (baseSeed + panel number). A single fixed seed makes
+    // panels collapse into near-duplicates once prompts are similar (same character +
+    // style-first) — each panel needs its own seed for a distinct composition. A
+    // panel can pin its own seed via panel.seed to lock a good result.
+    const seed = Number.isInteger(p.seed) ? p.seed : baseSeed + p.n * 7;
     const { width, height } = dims(p.wide);
     const r = await genImage(prompt, { seed, width, height, outPath, token });
     const g = r.ok ? gate2(outPath) : { ok: false };
