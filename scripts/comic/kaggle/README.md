@@ -1,4 +1,16 @@
-# Free self-hosting: Qwen-Image-Edit on Kaggle → drive from the local pipeline
+# Free self-hosting: Qwen on Kaggle → drive from the local pipeline
+
+> ✅ **VALIDATED (2026-08): free Kaggle T4 runs Qwen at API quality.** Not fp8 (T4 has no fp8)
+> but **GGUF Q3 + a Lightning 4-step LoRA** → flat B&W Gonick, ~1.5 min/panel, **$0**. A 90-panel
+> book ≈ 2.25 h; ~13 books/week within the 30 GPU-h quota. Setup = one cell:
+> [`qwen-lightning-cell.py`](./qwen-lightning-cell.py) (paste into a fresh T4 notebook). Then drive
+> with `gen-comfy.mjs --wf-gen ../wf/qwen-t2i-lightning.api.json`. RunPod 4090 (fp8, ~15 s/panel,
+> paid) is the same workflow, just faster. The Qwen-Image-Edit fp8 flow below is the PAID-GPU
+> variant; on a free T4 use the GGUF+Lightning cell instead.
+
+---
+
+## (paid-GPU variant) Qwen-Image-Edit fp8 on Kaggle → drive from the local pipeline
 
 Run our exact production model (**Qwen-Image-Edit-2511**, open-weight Apache-2.0) on a **free
 Kaggle GPU** (P100 16GB, 30 GPU-h/week) and drive it from the local Vocaflow pipeline via
