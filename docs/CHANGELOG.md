@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 만화화 파이프라인 — 무료 Qwen 백엔드 + 만화/웹툰 이중 렌더 + 표시크기 해상도 설계
+
+- **무료 이미지 백엔드 = Qwen-Image-Edit (Alibaba DashScope)** — `scripts/comic/gen-qwen.mjs` 신설. 신규가입 100장 무료(90일·카드불필요·싱가포르 Intl)로 캐릭터 identity 잠금이 되는 유일한 실용 무료 경로(딥서치 결론). 2단계: `qwen-image-max`(캐릭터 시트 t2i) → `qwen-image-edit-max`(패널 편집). Nano Banana Pro 무료 API는 부재(limit:0 실측), Pollinations FLUX는 identity 없음 → 기각. 대안 어댑터 `gen-openai.mjs`·`gen-nanobanana.mjs`도 정비(유료).
+- **Carol Stave 1 무료 실증 (18/18 ship)**: 생성→Vision-QC(3에이전트)→결함 6종 식별→프롬프트 보완→재생성→재-QC 완결 루프. Qwen 특유 결함 대응을 어댑터에 상수화: HARDBW(색단어 강제흑백)·BLANK(빈 종이)·solo/no-dup·솔리드 잉크·씬 메타접두사 strip·**t2i `--noref` 폴백**(클로즈업 시트누출+의상오버라이드 회피, 정규식 자동 라우팅). `qc-defects-carol.json` section1 재검사(low 6 accepted-limit).
+- **스크립트 생성기 백엔드-중립화** (`01-script.mjs`): scene에 art-style/색단어/메타 금지, 단일주체/패널, 패널별 `size`(full/half/third)·`noref` 지정 지침 추가 → 런타임 패치 없이 Qwen 네이티브.
+- **표시크기 기반 해상도 + 폰 하한**: 만화책 페이지-그리드는 패널당 표시크기가 작고 가변 → 역할 티어(full 1024×768/half 704×939/third 640×853). <768px 리플로우 시 폰 풀폭이 되므로 flat 라인아트 ~1.6× DPI 하한 적용. 균일 대비 저비용 + 폰 크리스프.
+- **이중 레이아웃 렌더러** (`03-assemble.mjs --layout comic|webtoon`, 딥서치 최적안): CSS Grid 12칼럼 + 숫자 span, **tier(행) 원자적 = Z-path 보장**, DOM순서=읽기순서, 텍스트 HTML 오버레이(캡션·말풍선+꼬리·원문박스), <768px 세로 리플로우(Webtoon), 강조배분(페이지당 full≤1), 워드카운트 role 승급, orphan 행채움, 테마변수, `loading=lazy`. `--external` 웹배포 모드(HTML 3.8MB→18KB + img/ 분리). 한 소스 → 만화책/웹툰 동시 산출.
+
 ### 만화화 파이프라인 — 최종 인수 게이트 (final-audit) + Frankenstein 1~10장
 
 - **`scripts/comic/final-audit.mjs` 신설**: 전권 완료 시 실행하는 SHIP/NO-SHIP 인수 게이트. 완결성(4 Letter + 24 Chapter = 28섹션)·GATE-1 verbatim 실검·이미지 GATE-2·원문반영 밴드(≥25%)·인지부하(말풍선 ≤4)·캐스트 연속성(bible appears_in)·9.5 QC 원장(`qc-scores.json`)을 종합해 우선순위 remediation 큐 + 단일 판정 산출. `--remediate`로 appears_in 자동 정합.
