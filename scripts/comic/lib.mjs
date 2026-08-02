@@ -384,9 +384,12 @@ line-height:1.24;overflow-wrap:break-word;hyphens:auto}
 .cap{top:5%;left:4.5%;max-width:62%;background:var(--cap);color:var(--capink);border:2px solid var(--frame);
 border-radius:3px;padding:.34em .55em;font-size:clamp(11px,1.5vw,14px);font-weight:600;box-shadow:2px 2px 0 rgba(0,0,0,.25)}
 .says{left:5%;bottom:5%;max-width:60%;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.bub{background:var(--say);color:#111;border:2px solid #111;border-radius:14px;padding:.4em .7em;
+.bub{position:relative;background:var(--say);color:#111;border:2px solid #111;border-radius:14px;padding:.4em .7em;
 font-size:clamp(12px,1.6vw,15px);max-width:100%;box-shadow:1px 2px 0 rgba(0,0,0,.2)}
 .bub .who{font-size:.72em;letter-spacing:.04em;opacity:.65;display:block;font-weight:800}
+/* tail on the bottom balloon points down toward the (single) subject */
+.says .bub:last-child::after{content:"";position:absolute;left:18px;bottom:-10px;width:0;height:0;border:9px solid transparent;border-top-color:#111}
+.says .bub:last-child::before{content:"";position:absolute;left:19px;bottom:-6px;width:0;height:0;border:8px solid transparent;border-top-color:var(--say);z-index:1}
 .qbox{right:4.5%;bottom:5%;max-width:46%;background:var(--quote);color:var(--quoteink);border:1.5px solid var(--quoteln);
 border-left:5px solid var(--quoteln);border-radius:3px;padding:.4em .6em;font-style:italic;font-size:clamp(10px,1.4vw,13px)}
 .qbox .src{display:block;text-align:right;font-style:normal;font-weight:800;font-size:.72em;letter-spacing:.04em;opacity:.6;margin-top:2px;text-transform:uppercase}
@@ -399,12 +402,17 @@ border-left:5px solid var(--quoteln);border-radius:3px;padding:.4em .6em;font-st
 }
 `;
 
-function imgDataUri(dir, n) {
-  const p = path.join(dir, `${String(n).padStart(2, "0")}.jpg`);
+// image source for the <img>: self-contained data URI (single shareable file / artifact),
+// or a relative path "img/NN.jpg" for WEB DEPLOYMENT (HTML stays ~tiny, images cache on a
+// CDN, phones fetch lazily). 03-assemble --external copies the panels to <out>/img/.
+function imgSrc(dir, n, external) {
+  const nn = String(n).padStart(2, "0");
+  if (external) return `img/${nn}.jpg`;
+  const p = path.join(dir, `${nn}.jpg`);
   return "data:image/jpeg;base64," + fs.readFileSync(p).toString("base64");
 }
 
-function panelHTML(p, tier, defTier, dir) {
+function panelHTML(p, tier, defTier, dir, ext) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
   // WEBTOON reading order (top→bottom, one clear path): narration caption, then the
   // art, then dialogue balloons, then verbatim source quotes. Dialogue and quotes are
@@ -429,17 +437,17 @@ function panelHTML(p, tier, defTier, dir) {
   const say = [...dialogue, ...quotes].join("");
   return `<figure class="beat${p.wide ? " wide" : ""}">
   ${narr}
-  <div class="art"><img src="${imgDataUri(dir, p.n)}" alt="" loading="lazy" decoding="async"></div>
+  <div class="art"><img src="${imgSrc(dir, p.n, ext)}" alt="" loading="lazy" decoding="async"></div>
   <div class="say">${say}</div>
 </figure>`;
 }
 
-export function assembleHTML(script, { tier, imagesDir }) {
+export function assembleHTML(script, { tier, imagesDir, external }) {
   const defTier = script.adaptation.default_tier;
   const useTier = tier || defTier;
   const panels = [...script.panels]
     .sort((a, b) => a.n - b.n)
-    .map((p) => panelHTML(p, useTier, defTier, imagesDir))
+    .map((p) => panelHTML(p, useTier, defTier, imagesDir, external))
     .join("\n");
   const a = script.adaptation;
   const b = script.book;
@@ -470,7 +478,7 @@ ${panels}
  * top-left, speech bubbles bottom, verbatim quote bottom-right); responsive reflow to a
  * single vertical column < 768px (Webtoon pattern, lettering re-wraps); theme-aware. */
 function packPages(panels) {
-  const roleOf = (p) => p.size || (p.wide ? "full" : "half");
+  const roleOf = (p) => p._role || p.size || (p.wide ? "full" : "half");
   const cap = { full: 1, half: 2, third: 3 };
   const tiers = [];
   let cur = null;
@@ -481,13 +489,17 @@ function packPages(panels) {
     else cur.panels.push(p);
   }
   if (cur) tiers.push(cur);
-  // group tiers into pages: target 3 tiers/page (max), or ~6 panels/page — a calm density.
-  const pages = []; let pg = [], pc = 0;
+  // group tiers into pages: max 3 tiers OR ~6 panels/page (calm density), and EMPHASIS
+  // RATIONING — at most one full/splash panel per page, so a big panel reads as a real
+  // accent against denser neighbours instead of a slideshow.
+  const pages = []; let pg = [], pc = 0, pf = 0;
+  const flush = () => { if (pg.length) pages.push(pg); pg = []; pc = 0; pf = 0; };
   for (const t of tiers) {
-    pg.push(t); pc += t.panels.length;
-    if (pg.length >= 3 || pc >= 6) { pages.push(pg); pg = []; pc = 0; }
+    if (t.kind === "full" && pf >= 1) flush();       // second full → new page
+    pg.push(t); pc += t.panels.length; if (t.kind === "full") pf++;
+    if (pg.length >= 3 || pc >= 6) flush();
   }
-  if (pg.length) pages.push(pg);
+  flush();
   return pages;
 }
 // grid-column span class for a panel given its tier kind + how many panels share the tier.
@@ -497,7 +509,15 @@ function cellClass(kind, count) {
   if (kind === "half") return "sp6";
   return count === 2 ? "sp6" : "sp4"; // third
 }
-function comicPanelHTML(p, tier, defTier, dir, cls) {
+// count words in a panel's text for the tier (narration + dialogue + verbatim quote)
+function panelWords(p, tier, defTier) {
+  const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
+  let s = t.narration || "";
+  for (const b of t.bubbles || []) s += " " + (b.text || "");
+  if (t.quote) s += " " + t.quote;
+  return (s.trim().match(/\S+/g) || []).length;
+}
+function comicPanelHTML(p, tier, defTier, dir, cls, ext) {
   const t = (p.text && (p.text[tier] || p.text[defTier])) || {};
   const dialogueKinds = new Set(["speech", "thought", "shout", "whisper"]);
   const caption = t.narration ? `<div class="cap">${t.narration}</div>` : "";
@@ -514,17 +534,28 @@ function comicPanelHTML(p, tier, defTier, dir, cls) {
   if (t.quote) quotes.push(`<div class="qbox">&ldquo;${t.quote}&rdquo;<span class="src">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
   const says = bubbles.length ? `<div class="says">${bubbles.join("")}</div>` : "";
   return `<figure class="panel ${cls}">
-  <img src="${imgDataUri(dir, p.n)}" alt="" loading="lazy" decoding="async">
+  <img src="${imgSrc(dir, p.n, ext)}" alt="" loading="lazy" decoding="async">
   ${caption}${says}${quotes.join("")}
 </figure>`;
 }
-export function assembleComicHTML(script, { tier, imagesDir }) {
+export function assembleComicHTML(script, { tier, imagesDir, external }) {
   const defTier = script.adaptation.default_tier;
   const useTier = tier || defTier;
   const panels = [...script.panels].sort((a, b) => a.n - b.n);
+  // WORD-COUNT role promotion (conservative — protects the SMALLEST tier, rarely forces a
+  // full). Our panels always carry a verbatim quote box + narration, so the baseline word
+  // count is high; promoting on a low threshold would make every panel a full and destroy
+  // the grid. So: a "third" with real text → "half"; only a genuinely huge panel → "full".
+  for (const p of panels) {
+    let role = p.size || (p.wide ? "full" : "half");
+    const w = panelWords(p, useTier, defTier);
+    if (role === "third" && w > 22) role = "half";
+    else if (role === "half" && w > 60) role = "full";
+    p._role = role;
+  }
   const pages = packPages(panels);
   const pagesHTML = pages.map((tiers, i) => {
-    const cells = tiers.flatMap((t) => t.panels.map((p) => comicPanelHTML(p, useTier, defTier, imagesDir, cellClass(t.kind, t.panels.length)))).join("\n  ");
+    const cells = tiers.flatMap((t) => t.panels.map((p) => comicPanelHTML(p, useTier, defTier, imagesDir, cellClass(t.kind, t.panels.length), external))).join("\n  ");
     return `<section class="page" aria-roledescription="comic page" aria-label="Page ${i + 1} of ${pages.length}">
   ${cells}
 </section>`;

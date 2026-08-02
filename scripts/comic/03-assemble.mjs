@@ -40,12 +40,28 @@ function main() {
 
   // --layout webtoon (default, single vertical column) | comic (multi-panel book pages)
   const layout = arg("layout", "webtoon");
+  // --external: reference images as img/NN.jpg (copied next to the HTML) instead of inlining
+  // them as data URIs. This is the WEB-DEPLOYMENT mode — the HTML stays tiny (~tens of KB),
+  // images cache on a CDN, and phones fetch them lazily. Omit for a single self-contained
+  // file (sharing / an Artifact, which forbids external hosts).
+  const external = !!arg("external");
   const html = layout === "comic"
-    ? assembleComicHTML(script, { tier, imagesDir })
-    : assembleHTML(script, { tier, imagesDir });
+    ? assembleComicHTML(script, { tier, imagesDir, external })
+    : assembleHTML(script, { tier, imagesDir, external });
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, html);
-  console.error(`✓ assembled ${script.panels.length} panels (layout=${layout}, tier=${tier}) → ${out}  (${html.length} bytes)`);
+  if (external) {
+    const imgOut = path.join(path.dirname(out), "img");
+    fs.mkdirSync(imgOut, { recursive: true });
+    let copied = 0;
+    for (const p of script.panels) {
+      const nn = `${String(p.n).padStart(2, "0")}.jpg`;
+      const src = path.join(imagesDir, nn);
+      if (fs.existsSync(src)) { fs.copyFileSync(src, path.join(imgOut, nn)); copied++; }
+    }
+    console.error(`  → external images: copied ${copied} → ${imgOut}`);
+  }
+  console.error(`✓ assembled ${script.panels.length} panels (layout=${layout}, tier=${tier}${external ? ", external" : ", self-contained"}) → ${out}  (${html.length} bytes)`);
 }
 
 main();
