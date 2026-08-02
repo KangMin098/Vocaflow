@@ -322,8 +322,8 @@ h1{font-size:clamp(22px,5.5vw,34px);line-height:1.06;margin:.2em 0 .12em;text-tr
 .pages{display:flex;flex-direction:column;gap:22px}
 .beat{background:var(--paper);border:3px solid var(--frame);border-radius:8px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
 /* NARRATION — the play-by-play caption box on top of the beat */
-.narr{background:var(--artbg);border-bottom:3px solid var(--frame);padding:11px 15px;font-size:14px;font-weight:700;
- text-transform:uppercase;letter-spacing:.3px;line-height:1.35}
+.narr{background:var(--artbg);border-bottom:3px solid var(--frame);padding:11px 15px;font-size:clamp(14px,2.2vw,15px);font-weight:600;
+ letter-spacing:.1px;line-height:1.4}
 .narr:empty{display:none}
 /* the ART */
 .art{position:relative;width:100%;aspect-ratio:3/4;background:var(--artbg)}
@@ -345,68 +345,64 @@ h1{font-size:clamp(22px,5.5vw,34px);line-height:1.06;margin:.2em 0 .12em;text-tr
 .bubble.whisper{border-style:dashed;font-style:italic;opacity:.9}
 /* VERBATIM source quote — Dickens's exact words, distinct yellow box with a source tag */
 .qbox{background:var(--quote);border:2px solid var(--frame);border-left:6px solid var(--quoteln);border-radius:4px;
- padding:8px 13px;font-size:13.5px;line-height:1.4;font-style:italic}
+ padding:8px 13px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(13.5px,2.1vw,15px);line-height:1.42;font-style:italic}
 .qbox .src{display:block;text-align:right;font-style:normal;font-weight:800;font-size:10px;letter-spacing:.5px;opacity:.6;margin-top:3px;text-transform:uppercase}
 .foot{margin-top:22px;background:var(--paper);border:3px solid var(--frame);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
 .foot .tag{display:inline-block;border:1.5px solid var(--ink);font-weight:700;font-size:11px;padding:1px 6px;margin-right:6px;text-transform:uppercase}
 @media(max-width:640px){.book{padding:12px 9px 60px}.narr{font-size:13.5px}.bubble{font-size:15px;max-width:96%}}
 `;
 
-// Comic-book PAGE-grid stylesheet (self-contained, theme-aware). Tokens drive light/dark;
-// panel art is baked B&W so only frames/gutters/overlay boxes re-theme.
+// Comic-book PAGE-grid stylesheet (self-contained, theme-aware). Research-backed TEXT
+// COMPOSITION: text lives in BANDS around each panel (caption above, dialogue + verbatim
+// quote below), NEVER overlaid on the art — our AI art has no guaranteed negative space, so
+// bands = zero occlusion on desktop AND phone. Three distinct VOICES by shape (not colour
+// alone): narration = tinted rounded-rect sans caption; dialogue = rounded-rect sans
+// balloon; verbatim quote = SERIF block-quote (the "book" voice) with attribution. Sentence
+// case for an educational read; fluid type floored for phones.
 const COMIC_CSS = `
-:root{--pg:#e8e4da;--panel:#fff;--frame:#141414;--ink:#17140f;--cap:#fbf3dd;--capink:#1a1712;
---say:#ffffff;--quote:#fff3b0;--quoteln:#c8961f;--quoteink:#241f00;--dur:.18s}
+:root{--pg:#e8e4da;--panel:#fff;--frame:#141414;--ink:#17140f;--cap:#efe9dc;--capink:#2a251c;
+--say:#fff;--sayink:#141414;--quote:#f6eed6;--quoteln:#b98a2e;--quoteink:#2c2510;--dur:.18s}
 @media(prefers-color-scheme:dark){:root{--pg:#15171b;--panel:#0e0f12;--frame:#3a3d44;--ink:#e7e7e7;
---cap:#26210f;--capink:#f2ead2;--say:#e9e9ea;--quote:#3a3208;--quoteln:#8a7314;--quoteink:#f6efcf}}
-:root[data-theme="dark"]{--pg:#15171b;--panel:#0e0f12;--frame:#3a3d44;--ink:#e7e7e7;--cap:#26210f;--capink:#f2ead2;--say:#e9e9ea;--quote:#3a3208;--quoteln:#8a7314;--quoteink:#f6efcf}
-:root[data-theme="light"]{--pg:#e8e4da;--panel:#fff;--frame:#141414;--ink:#17140f;--cap:#fbf3dd;--capink:#1a1712;--say:#fff;--quote:#fff3b0;--quoteln:#c8961f;--quoteink:#241f00}
-*{box-sizing:border-box}
-body{margin:0}
+--cap:#23252b;--capink:#dfe2e8;--say:#e9e9ea;--sayink:#141414;--quote:#2a2612;--quoteln:#8a7314;--quoteink:#efe7cd}}
+:root[data-theme="dark"]{--pg:#15171b;--panel:#0e0f12;--frame:#3a3d44;--ink:#e7e7e7;--cap:#23252b;--capink:#dfe2e8;--say:#e9e9ea;--sayink:#141414;--quote:#2a2612;--quoteln:#8a7314;--quoteink:#efe7cd}
+:root[data-theme="light"]{--pg:#e8e4da;--panel:#fff;--frame:#141414;--ink:#17140f;--cap:#efe9dc;--capink:#2a251c;--say:#fff;--sayink:#141414;--quote:#f6eed6;--quoteln:#b98a2e;--quoteink:#2c2510}
+*{box-sizing:border-box}body{margin:0}
 .reader{background:var(--pg);color:var(--ink);min-height:100vh;padding:0 0 64px;
-font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased}
-.cover{max-width:880px;margin:0 auto;padding:26px 18px 8px;text-align:center}
+font-family:-apple-system,"Segoe UI",Roboto,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.cover{max-width:900px;margin:0 auto;padding:26px 18px 8px;text-align:center}
 .cover .kick{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
-.cover h1{font-size:clamp(26px,5vw,40px);margin:.2em 0 .1em;font-weight:800}
+.cover h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(26px,5vw,40px);margin:.2em 0 .1em;font-weight:800}
 .cover .byline{font-size:13px;opacity:.7}
 /* one comic page = a 12-col grid; tiers form as rows via source order + spans */
-.page{max-width:880px;margin:22px auto;padding:clamp(10px,1.8vw,18px);background:var(--panel);
-border:3px solid var(--frame);border-radius:4px;box-shadow:4px 4px 0 rgba(0,0,0,.18);
-display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(7px,1.5vw,15px)}
-.panel{position:relative;overflow:hidden;border:3px solid var(--frame);border-radius:3px;background:var(--panel)}
-.panel>img{display:block;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
-.sp12{grid-column:span 12;aspect-ratio:4/3}
-.sp6{grid-column:span 6;aspect-ratio:3/4}
-.sp4{grid-column:span 4;aspect-ratio:3/4}
-/* text overlays — percentage-anchored, width-capped so art keeps breathing */
-.panel .cap,.panel .says,.panel .qbox{position:absolute;z-index:2;font-family:Georgia,serif;
-line-height:1.24;overflow-wrap:break-word;hyphens:auto}
-.cap{top:5%;left:4.5%;max-width:62%;background:var(--cap);color:var(--capink);border:2px solid var(--frame);
-border-radius:3px;padding:.34em .55em;font-size:clamp(11px,1.5vw,14px);font-weight:600;box-shadow:2px 2px 0 rgba(0,0,0,.25)}
-.says{left:5%;bottom:5%;max-width:60%;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.bub{position:relative;background:var(--say);color:#111;border:2px solid #111;border-radius:14px;padding:.4em .7em;
-font-size:clamp(12px,1.6vw,15px);max-width:100%;box-shadow:1px 2px 0 rgba(0,0,0,.2)}
-.bub .who{font-size:.72em;letter-spacing:.04em;opacity:.65;display:block;font-weight:800}
-/* tail on the bottom balloon points down toward the (single) subject */
-.says .bub:last-child::after{content:"";position:absolute;left:18px;bottom:-10px;width:0;height:0;border:9px solid transparent;border-top-color:#111}
-.says .bub:last-child::before{content:"";position:absolute;left:19px;bottom:-6px;width:0;height:0;border:8px solid transparent;border-top-color:var(--say);z-index:1}
-.qbox{right:4.5%;bottom:5%;max-width:46%;background:var(--quote);color:var(--quoteink);border:1.5px solid var(--quoteln);
-border-left:5px solid var(--quoteln);border-radius:3px;padding:.4em .6em;font-style:italic;font-size:clamp(10px,1.4vw,13px)}
-.qbox .src{display:block;text-align:right;font-style:normal;font-weight:800;font-size:.72em;letter-spacing:.04em;opacity:.6;margin-top:2px;text-transform:uppercase}
-/* PHONE: reflow to one vertical column, and UN-OVERLAY the text so it never covers the art.
- * On a full-width phone panel an overlaid box hides too much of the picture, so each panel
- * becomes a flex column — caption ABOVE the image, dialogue + verbatim quote BELOW it — i.e.
- * the zero-occlusion Webtoon reading order (caption → picture → speech → source). */
+.page{max-width:900px;margin:22px auto;padding:clamp(10px,1.8vw,18px);background:var(--panel);
+border:3px solid var(--frame);border-radius:4px;box-shadow:4px 4px 0 rgba(0,0,0,.16);
+display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(10px,1.8vw,18px);align-items:start}
+.panel{display:flex;flex-direction:column;min-width:0}
+.sp12{grid-column:span 12}.sp6{grid-column:span 6}.sp4{grid-column:span 4}
+/* the ART — framed; text never sits on top of it */
+.panel .art{width:100%;overflow:hidden;border:3px solid var(--frame);border-radius:3px;background:var(--panel)}
+.sp12 .art{aspect-ratio:4/3}.sp6 .art{aspect-ratio:3/4}.sp4 .art{aspect-ratio:3/4}
+.panel .art img{display:block;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) grayscale(1)}
+/* NARRATION — caption band ABOVE the art (read first). Sans, tinted, sentence case. */
+.cap{order:-1;background:var(--cap);color:var(--capink);border:2px solid var(--frame);border-radius:5px;
+padding:.42em .62em;margin:0 0 7px;font-size:clamp(13px,1.7vw,15px);line-height:1.35;font-weight:600;overflow-wrap:break-word}
+/* DIALOGUE — balloon band BELOW the art. Rounded-rect sans, one utterance each. */
+.says{display:flex;flex-direction:column;gap:7px;margin:8px 0 0;align-items:flex-start}
+.bub{max-width:96%;background:var(--say);color:var(--sayink);border:2px solid #111;border-radius:14px;
+padding:.42em .72em;font-size:clamp(14px,1.9vw,16px);line-height:1.2;box-shadow:1px 2px 0 rgba(0,0,0,.15);overflow-wrap:break-word}
+.bub .who{display:block;font-size:.7em;font-weight:800;letter-spacing:.04em;opacity:.6;text-transform:uppercase}
+.bub.shout{border-radius:5px;border-width:2.5px;font-weight:800}
+.bub.whisper{border-style:dashed;font-style:italic;opacity:.9}
+.bub.thought{border-radius:22px}
+/* VERBATIM QUOTE — the "book" voice: SERIF, block-quote bar, parchment, attribution. */
+.qbox{margin:8px 0 0;background:var(--quote);color:var(--quoteink);border-left:5px solid var(--quoteln);
+border-radius:0 4px 4px 0;padding:.5em .72em;font-family:Georgia,"Times New Roman",serif;font-style:italic;
+font-size:clamp(13px,1.7vw,15px);line-height:1.4;overflow-wrap:break-word}
+.qbox .src{display:block;text-align:right;font-style:normal;font-weight:700;font-size:.72em;letter-spacing:.03em;opacity:.6;margin-top:3px;text-transform:uppercase}
+/* PHONE: bands are already occlusion-free — just reflow the grid to one column */
 @media(max-width:768px){
-.page{grid-template-columns:1fr;gap:clamp(22px,7vw,48px);box-shadow:none;border-width:2px}
-.sp12,.sp6,.sp4{grid-column:1/-1;aspect-ratio:auto}
-.panel{display:flex;flex-direction:column;overflow:visible}
-.panel>img{height:auto;order:0;border-radius:2px}
-.panel .cap{position:static;order:-1;max-width:100%;margin:0 0 8px;box-shadow:none}
-.panel .says{position:static;order:1;max-width:100%;margin:9px 0 0}
-.panel .qbox{position:static;order:2;max-width:100%;margin:9px 0 0}
-.says .bub{max-width:96%}
-.says .bub:last-child::after,.says .bub:last-child::before{display:none}
+.page{grid-template-columns:1fr;gap:clamp(20px,6vw,40px);box-shadow:none;border-width:2px}
+.sp12,.sp6,.sp4{grid-column:1/-1}
 }
 `;
 
@@ -541,8 +537,11 @@ function comicPanelHTML(p, tier, defTier, dir, cls, ext) {
   }
   if (t.quote) quotes.push(`<div class="qbox">&ldquo;${t.quote}&rdquo;<span class="src">&mdash; ${t.quote_by || "SOURCE"}</span></div>`);
   const says = bubbles.length ? `<div class="says">${bubbles.join("")}</div>` : "";
+  // text lives in BANDS around the art (caption above, dialogue + verbatim quote below),
+  // never overlaid — our AI art has no guaranteed negative space, so bands = zero occlusion
+  // (the research-backed default; big text-heavy webtoons float text off the art too).
   return `<figure class="panel ${cls}">
-  <img src="${imgSrc(dir, p.n, ext)}" alt="" loading="lazy" decoding="async">
+  <div class="art"><img src="${imgSrc(dir, p.n, ext)}" alt="" loading="lazy" decoding="async"></div>
   ${caption}${says}${quotes.join("")}
 </figure>`;
 }

@@ -16,7 +16,8 @@
 - **Carol Stave 1 무료 실증 (18/18 ship)**: 생성→Vision-QC(3에이전트)→결함 6종 식별→프롬프트 보완→재생성→재-QC 완결 루프. Qwen 특유 결함 대응을 어댑터에 상수화: HARDBW(색단어 강제흑백)·BLANK(빈 종이)·solo/no-dup·솔리드 잉크·씬 메타접두사 strip·**t2i `--noref` 폴백**(클로즈업 시트누출+의상오버라이드 회피, 정규식 자동 라우팅). `qc-defects-carol.json` section1 재검사(low 6 accepted-limit).
 - **스크립트 생성기 백엔드-중립화** (`01-script.mjs`): scene에 art-style/색단어/메타 금지, 단일주체/패널, 패널별 `size`(full/half/third)·`noref` 지정 지침 추가 → 런타임 패치 없이 Qwen 네이티브.
 - **표시크기 기반 해상도 + 폰 하한**: 만화책 페이지-그리드는 패널당 표시크기가 작고 가변 → 역할 티어(full 1024×768/half 704×939/third 640×853). <768px 리플로우 시 폰 풀폭이 되므로 flat 라인아트 ~1.6× DPI 하한 적용. 균일 대비 저비용 + 폰 크리스프.
-- **이중 레이아웃 렌더러** (`03-assemble.mjs --layout comic|webtoon`, 딥서치 최적안): CSS Grid 12칼럼 + 숫자 span, **tier(행) 원자적 = Z-path 보장**, DOM순서=읽기순서, 텍스트 HTML 오버레이(캡션·말풍선+꼬리·원문박스), <768px 세로 리플로우(Webtoon), 강조배분(페이지당 full≤1), 워드카운트 role 승급, orphan 행채움, 테마변수, `loading=lazy`. `--external` 웹배포 모드(HTML 3.8MB→18KB + img/ 분리). 한 소스 → 만화책/웹툰 동시 산출.
+- **이중 레이아웃 렌더러** (`03-assemble.mjs --layout comic|webtoon`, 딥서치 최적안): CSS Grid 12칼럼 + 숫자 span, **tier(행) 원자적 = Z-path 보장**, DOM순서=읽기순서, <768px 세로 리플로우(Webtoon), 강조배분(페이지당 full≤1), 워드카운트 role 승급, orphan 행채움, 테마변수, `loading=lazy`. `--external` 웹배포 모드(HTML 3.8MB→18KB + img/ 분리). 한 소스 → 만화책/웹툰 동시 산출.
+- **텍스트 구성 3-보이스(레터링 크래프트 딥서치 최적안)**: 텍스트를 그림 위가 아니라 **밴드**에 배치(AI 아트는 여백 미보장 → 가림 0, 데스크톱·폰 공통). 모양으로 목소리 구분(색맹 안전): **나레이션**=틴트 라운드사각 캡션(위)·**대사**=라운드사각 말풍선(아래)·**원문인용**=세리프+좌측 인용바+양피지+"— 저자"(책의 목소리). 교육·원문충실 → 문장case, 강조 italic/bold-italic, 폰 하한 반응형 타이포(clamp). 만화 데스크톱 오버레이 폐기 → 밴드 통일.
 
 ### 만화화 파이프라인 — 최종 인수 게이트 (final-audit) + Frankenstein 1~10장
 
