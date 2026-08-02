@@ -21,25 +21,24 @@ pip -q install -r requirements.txt
 echo "== 2/5 place Qwen-Image-Edit models =="
 mkdir -p models/diffusion_models models/text_encoders models/vae models/loras
 # If you attached a dataset of the models, symlink them in; otherwise download (needs Internet ON).
-# The Comfy-Org repackaged Qwen-Image-Edit files + the official example workflows are documented at:
-#   https://docs.comfy.org/tutorials/image/qwen/qwen-image-edit   (confirm current filenames there)
-# FP8 fits Kaggle P100 16GB; use a GGUF Q4 build for <=14GB. Fill these URLs from the doc above:
-Q_DIFF_URL="${Q_DIFF_URL:-}"   # e.g. .../qwen_image_edit_2511_fp8_e4m3fn.safetensors
-Q_TENC_URL="${Q_TENC_URL:-}"   # e.g. .../qwen_2.5_vl_7b_fp8_scaled.safetensors
-Q_VAE_URL="${Q_VAE_URL:-}"     # e.g. .../qwen_image_vae.safetensors
-Q_LORA_URL="${Q_LORA_URL:-}"   # optional Lightning LoRA (speed) or your flat-ink/character LoRA
-dl(){ [ -n "$1" ] && { echo "  ↓ $2"; wget -qc "$1" -O "$2"; } || echo "  (skip $2 — set its URL or attach a dataset)"; }
+# Verified Comfy-Org repackaged Qwen-Image-Edit-2511 files (docs.comfy.org/.../qwen-image-edit-2511).
+# fp8mixed ≈19GB fits P100 16GB VRAM; swap Q_DIFF_URL for a GGUF Q4 build for <=14GB.
+Q_DIFF_URL="${Q_DIFF_URL:-https://huggingface.co/Comfy-Org/Qwen-Image-Edit_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors}"
+Q_TENC_URL="${Q_TENC_URL:-https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors}"
+Q_VAE_URL="${Q_VAE_URL:-https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors}"
+Q_LORA_URL="${Q_LORA_URL:-https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors}"  # 4-step speed LoRA (optional)
+dl(){ [ -f "$2" ] && { echo "  ✓ have $2"; return; }; [ -n "$1" ] && { echo "  ↓ $2"; wget -qc "$1" -O "$2"; } || echo "  (skip $2)"; }
 if ls "$MODELS_CACHE"/*/*.safetensors >/dev/null 2>&1; then
   echo "  linking models from attached dataset(s)…"
   find "$MODELS_CACHE" -name '*edit*fp8*.safetensors' -exec ln -sf {} models/diffusion_models/ \;
   find "$MODELS_CACHE" -name '*vl*.safetensors'       -exec ln -sf {} models/text_encoders/ \;
   find "$MODELS_CACHE" -name '*vae*.safetensors'      -exec ln -sf {} models/vae/ \;
-  find "$MODELS_CACHE" -name '*lora*.safetensors' -o -name '*Lightning*.safetensors' 2>/dev/null | xargs -r -I{} ln -sf {} models/loras/
+  find "$MODELS_CACHE" \( -iname '*lora*.safetensors' -o -iname '*Lightning*.safetensors' \) -exec ln -sf {} models/loras/ \;
 else
-  dl "$Q_DIFF_URL" models/diffusion_models/qwen-image-edit.safetensors
-  dl "$Q_TENC_URL" models/text_encoders/qwen-vl.safetensors
-  dl "$Q_VAE_URL"  models/vae/qwen-image-vae.safetensors
-  dl "$Q_LORA_URL" models/loras/qwen-lightning.safetensors
+  dl "$Q_DIFF_URL" models/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors
+  dl "$Q_TENC_URL" models/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors
+  dl "$Q_VAE_URL"  models/vae/qwen_image_vae.safetensors
+  dl "$Q_LORA_URL" models/loras/Qwen-Image-Lightning-4steps-V1.0.safetensors
 fi
 
 echo "== 3/5 get cloudflared =="
