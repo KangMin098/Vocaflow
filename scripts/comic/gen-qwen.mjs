@@ -24,6 +24,7 @@
 
 import fs from "fs";
 import path from "path";
+import { NEG, SIZES, panelDims, useNoref, refPromptText, panelPromptText } from "./comic-prompt.mjs";
 
 const HERE = import.meta.dirname;
 function arg(name, def) { const i = process.argv.indexOf(`--${name}`); if (i === -1) return def; const v = process.argv[i + 1]; return v && !v.startsWith("--") ? v : true; }
@@ -36,33 +37,11 @@ const ENDPOINT = String(arg("endpoint", process.env.DASHSCOPE_ENDPOINT
 const GEN_MODEL = String(arg("gen-model", "qwen-image-max"));        // text->image (ref sheets)
 const EDIT_MODEL = String(arg("edit-model", "qwen-image-edit-max")); // image+text (panels)
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
-// RESOLUTION BY DISPLAY SIZE, with a PHONE FLOOR (cost-efficiency for a WEB target that
-// includes phones). On desktop the comic is a multi-panel BOOK PAGE (small cells), but the
-// product is published on the web and read on phones too — and < 768px the page reflows to
-// a single vertical column where EVERY panel is full width (~390 CSS px → ~640px at ~1.6x
-// DPI). Flat B&W line art needs no 2x, but it must still meet that phone-full-width floor
-// or small-role panels blur on mobile. So tiers are floored to phone crispness rather than
-// sized to the tiny desktop cell: full (also a desktop splash) 1024w; half/third share a
-// ~640-704w floor. Average ~0.63 MP/panel — still cheaper than a naive uniform 1024×1365
-// (1.4 MP) while staying crisp on phone. Override any tier with a flag.
-const SIZE = {
-  full: String(arg("size-full", "1024*768")),  // 4:3 splash/establishing + phone full-width, ~0.79 MP
-  half: String(arg("size-half", "704*939")),    // 3:4 standard 2-up, phone-full-width floor, ~0.66 MP
-  third: String(arg("size-third", "640*853")),  // 3:4 quick 3-up beat, ~0.55 MP
-};
-// panel "size" role: "full" | "half" | "third". Back-compat: legacy `wide:true` → full,
-// otherwise → half. The comic-page renderer spans 12/6/4 grid columns to match.
-function panelSize(p) { return SIZE[p.size] || (p.wide ? SIZE.full : SIZE.half); }
-// FAILURE-REDUCTION by design: tight FACE close-ups / caricature portraits RELIABLY make
-// the multi-view reference sheet leak (duplicate heads / a 6-up grid) — proven on p12.
-// Route ONLY those shots to t2i (no ref) so they never enter that failure basin. The regex
-// is deliberately TIGHT — a bare "close" shot note is common on full-body medium shots, and
-// over-routing to t2i would forfeit the reference identity lock (our #1 priority). Panels
-// that are costume-divergent (nightwear vs the sheet's default) or otherwise ref-hostile
-// should carry an explicit "noref": true in the script (01-script sets this). QC→regen is
-// the backstop for anything that slips through. Disable auto-routing with --no-auto-noref.
+// resolution tiers + close-up routing live in comic-prompt.mjs (shared). DashScope wants a
+// "W*H" string; format the shared px dims. AUTO_NOREF disable flag: --no-auto-noref.
 const AUTO_NOREF = !has("no-auto-noref");
-const CLOSEUP_RE = /\b(caricature|portrait|head-and-shoulders|bust shot|extreme close|tight close|face fills)\b/i;
+const qwenSize = (p) => { const d = panelDims(p); return `${d.w}*${d.h}`; };
+const REF_SIZE = `${SIZES.full.w}*${SIZES.full.h}`;
 
 const tokenFile = path.join(HERE, ".dashscope-token");
 const KEY = (process.env.DASHSCOPE_API_KEY || (fs.existsSync(tokenFile) ? fs.readFileSync(tokenFile, "utf8") : "")).trim();
@@ -73,17 +52,6 @@ const cast = script.cast || [];
 const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
 const refsDir = path.join(outDir, "refs");
 fs.mkdirSync(refsDir, { recursive: true });
-
-// Vision-QC-tuned prompt clauses (Carol Stave1 defects → fixes):
-// - style: bold Gonick ink with SOLID BLACK fills (thin "coloring-book" outlines drifted)
-// - HARDBW: Qwen renders colour words literally → force B&W and ignore colour words
-// - BLANK: Qwen scribbles garbled glyphs on papers/signs → force blank
-// - NOTEXT + NEG: no lettering, no duplicate person/second face, no colour
-const INK = "Bold flat black-and-white hand-inked cartoon in the style of a Larry Gonick history comic: thick confident black ink outlines with SOLID BLACK ink fills and strong high contrast, simple flat shapes, light cross-hatching for shade, caricatured expressive faces. Strictly black, white and grey ink only — NO colour. Not thin uniform coloring-book outlines, not photorealistic, not 3D.";
-const HARDBW = "Render the ENTIRE image in black and white ink ONLY — no colour anywhere. Ignore any colour words in the description (blue, red, white, brown, ruddy, etc.); depict those things only as black, white and grey ink.";
-const BLANK = "Any papers, books, ledgers, letters or signs must be completely BLANK with no writing or lettering on them.";
-const NOTEXT = "A single clean illustration with no text, no words, no letters, no readable signs, no speech bubbles, no caption boxes, no panel borders.";
-const NEG = "colour, coloured, tinted, blue, red, green, brown skin, gradient, soft shading, photorealistic, 3d render, thin uniform outlines, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, caption boxes, panel borders, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars";
 
 const dataUri = (p) => `data:image/jpeg;base64,${fs.readFileSync(p).toString("base64")}`;
 
@@ -120,8 +88,7 @@ async function call(model, content, size, tries = 3) {
 async function buildRef(c) {
   const out = path.join(refsDir, `${c.id}.jpg`);
   if (fs.existsSync(out) && !has("refs-force")) { console.error(`· ref ${c.id} exists`); return out; }
-  const text = `${INK} A character model sheet of ONE single figure — the SAME person shown front view, three-quarter view and side view, plus three facial expressions. ${c.name}: ${c.canonical}, ${c.anchor}. Keep the design simple and iconic with the exact same signature features in every view. ${NOTEXT}`;
-  const buf = await call(GEN_MODEL, [{ text }], "1024*768");
+  const buf = await call(GEN_MODEL, [{ text: refPromptText(c) }], REF_SIZE);
   fs.writeFileSync(out, buf);
   console.error(`✓ ref ${c.id}  ${buf.length}B`);
   return out;
@@ -133,40 +100,10 @@ async function genPanel(p) {
   const outPath = path.join(outDir, `${String(p.n).padStart(2, "0")}.jpg`);
   const ids = (p.characters || []).filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`)));
   const chars = ids.map((id) => byId[id]).filter(Boolean);
-  // NOREF fallback: tight facial close-ups reproduce the multi-view sheet's grid no matter
-  // what the text says (the reference's STRUCTURE overrides instructions). For those panels,
-  // --noref generates pure text-to-image (no ref image) with the character described inline —
-  // full compositional freedom, zero sheet-leak, at a small identity cost the caricature
-  // description absorbs. Also auto-engages when a panel has no reference available.
-  const closeup = CLOSEUP_RE.test(`${p.composition || ""} ${p.scene || ""}`);
-  const noref = has("noref") || p.noref === true || ids.length === 0 || (AUTO_NOREF && closeup);
-  // edit mode: point at the ref images (identity=ref, costume/pose=scene).
-  const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must have exactly the same FACE and body identity as the person in reference image ${i + 1} (same face, nose, baldness, build) — but their clothing, headwear and pose come from the scene description below, NOT from the reference.`);
-  // t2i mode: describe each character's appearance inline (no ref to point at).
-  const descLines = chars.map((c) => `${c.name.toUpperCase()} is ${c.canonical}, ${c.anchor}.`);
-  let placement = "";
-  if (chars.length === 2) placement = ` Place ${chars[0].name} on the left and ${chars[1].name} on the right, clearly apart.`;
-  else if (chars.length >= 3) placement = " Show each character as a distinct full figure, spread apart.";
-  const solo = chars.length === 1
-    ? "There is exactly ONE person in the whole image — no other people, no bystanders, and never draw the same face or figure twice."
-    : "";
-  // strip the legacy FLUX-era style meta-prefix baked into some scene texts
-  // ("drawn as a simple flat black-and-white cartoon caricature ... not 3D): ...") — on an
-  // edit model that phrasing reads as "make a caricature model sheet" and yields a 6-up grid.
-  const scene = String(p.scene || "").replace(/^drawn as a[^:]*:\s*/i, "");
-  // SCENE-DOMINANT framing + Vision-QC fixes (HARDBW colour, BLANK papers, solo/no-dup).
-  const text = [INK, HARDBW,
-    `Draw ONE finished single-scene comic illustration with a full drawn background — do NOT keep a plain white background, and this is NOT a character model sheet or a grid of head studies. Show each character full-figure (head to feet, with arms and hands), not a floating bust. Scene: ${scene}.`,
-    `Composition: ${p.composition}.${placement}`,
-    (noref ? descLines.join(" ") : refLines.join(" ")),
-    noref ? "" : "The reference images define ONLY each character's appearance. Include exactly ONE instance of each character; do NOT copy the reference layout and do NOT reproduce multiple views, extra heads, busts or an expression row.",
-    solo,
-    "Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.",
-    BLANK, NOTEXT].filter(Boolean).join(" ");
-  // resolution keyed to the panel's page-grid display size (see SIZE map) — most panels are
-  // sub-page-width so this is far cheaper than a uniform full-width render. Never a hard
-  // 16:9 (that invites sheet-leak); full=4:3 landscape, half/third=3:4 portrait.
-  const size = panelSize(p);
+  // route close-ups / costume-divergent / ref-less panels to t2i (see comic-prompt.useNoref)
+  const noref = useNoref(p, ids.length, { forceNoref: has("noref"), autoNoref: AUTO_NOREF });
+  const text = panelPromptText(p, chars, { noref });
+  const size = qwenSize(p);
   const buf = noref
     ? await call(GEN_MODEL, [{ text }], size)
     : await call(EDIT_MODEL, [...ids.map((id) => ({ image: dataUri(path.join(refsDir, `${id}.jpg`)) })), { text }], size);
