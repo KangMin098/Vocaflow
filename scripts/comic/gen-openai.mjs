@@ -26,9 +26,14 @@ const has = (name) => process.argv.includes(`--${name}`);
 
 const scriptPath = arg("script"); const outDir = arg("out");
 if (!scriptPath || !outDir) { console.error("--script and --out required"); process.exit(2); }
-const MODEL = arg("model", "gpt-image-1");
-const SIZE = arg("size", "1024x1024");
+// DEFAULT = gpt-image-2 (current flagship; gpt-image-1/1.5/mini all retire 2026-12-01).
+// NOTE: gpt-image-2 requires ORG IDENTITY VERIFICATION (else 403) and has NO free tier.
+const MODEL = arg("model", "gpt-image-2");
+const SIZE = arg("size", "1024x1536"); // portrait 2:3, matches our comic panels
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
+// input_fidelity is edits-only AND is LOCKED to high on gpt-image-2 (sending it → 400).
+// Only send it for the older gpt-image-1/1.5 that still accept the param.
+const SEND_FIDELITY = /gpt-image-1(\.5)?$/.test(MODEL);
 
 const tokenFile = path.join(HERE, ".openai-token");
 const KEY = (process.env.OPENAI_API_KEY || (fs.existsSync(tokenFile) ? fs.readFileSync(tokenFile, "utf8") : "")).trim();
@@ -80,7 +85,8 @@ async function genPanel(p) {
     fd.append("model", MODEL);
     fd.append("prompt", prompt);
     fd.append("size", SIZE);
-    fd.append("input_fidelity", "high");
+    // gpt-image-2 forces high fidelity and rejects the param; only send on older models.
+    if (SEND_FIDELITY) fd.append("input_fidelity", "high");
     for (const id of ids) {
       const buf = fs.readFileSync(path.join(refsDir, `${id}.png`));
       fd.append("image[]", new Blob([buf], { type: "image/png" }), `${id}.png`);
