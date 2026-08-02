@@ -393,12 +393,20 @@ font-size:clamp(12px,1.6vw,15px);max-width:100%;box-shadow:1px 2px 0 rgba(0,0,0,
 .qbox{right:4.5%;bottom:5%;max-width:46%;background:var(--quote);color:var(--quoteink);border:1.5px solid var(--quoteln);
 border-left:5px solid var(--quoteln);border-radius:3px;padding:.4em .6em;font-style:italic;font-size:clamp(10px,1.4vw,13px)}
 .qbox .src{display:block;text-align:right;font-style:normal;font-weight:800;font-size:.72em;letter-spacing:.04em;opacity:.6;margin-top:2px;text-transform:uppercase}
-/* PHONE: reflow to one vertical column in reading order (Webtoon pattern) */
+/* PHONE: reflow to one vertical column, and UN-OVERLAY the text so it never covers the art.
+ * On a full-width phone panel an overlaid box hides too much of the picture, so each panel
+ * becomes a flex column — caption ABOVE the image, dialogue + verbatim quote BELOW it — i.e.
+ * the zero-occlusion Webtoon reading order (caption → picture → speech → source). */
 @media(max-width:768px){
 .page{grid-template-columns:1fr;gap:clamp(22px,7vw,48px);box-shadow:none;border-width:2px}
 .sp12,.sp6,.sp4{grid-column:1/-1;aspect-ratio:auto}
-.panel>img{height:auto}
-.cap{max-width:82%}.says{max-width:84%}.qbox{max-width:70%}
+.panel{display:flex;flex-direction:column;overflow:visible}
+.panel>img{height:auto;order:0;border-radius:2px}
+.panel .cap{position:static;order:-1;max-width:100%;margin:0 0 8px;box-shadow:none}
+.panel .says{position:static;order:1;max-width:100%;margin:9px 0 0}
+.panel .qbox{position:static;order:2;max-width:100%;margin:9px 0 0}
+.says .bub{max-width:96%}
+.says .bub:last-child::after,.says .bub:last-child::before{display:none}
 }
 `;
 
