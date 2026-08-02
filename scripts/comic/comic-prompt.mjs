@@ -14,7 +14,11 @@ export const INK = "Bold flat black-and-white hand-inked cartoon in the style of
 export const HARDBW = "Render the ENTIRE image in black and white ink ONLY — no colour anywhere. Ignore any colour words in the description (blue, red, white, brown, ruddy, etc.); depict those things only as black, white and grey ink.";
 export const BLANK = "Any papers, books, ledgers, letters or signs must be completely BLANK with no writing or lettering on them.";
 export const NOTEXT = "A single clean illustration with no text, no words, no letters, no readable signs, no speech bubbles, no caption boxes, no panel borders.";
-export const NEG = "colour, coloured, tinted, blue, red, green, brown skin, gradient, soft shading, photorealistic, 3d render, thin uniform outlines, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, caption boxes, panel borders, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars";
+// NEG is actively honoured by SDXL (verified) and ignored by Qwen (harmless there). It holds
+// only ALWAYS-unwanted things (never character-specific — e.g. NOT "beard", since some
+// characters have one; clean-shaven is set per-character via the canonical description). The
+// ornate-frame / decorative-background terms fix an SDXL base-model tendency found in testing.
+export const NEG = "colour, coloured, tinted, blue, red, green, brown skin, gradient, soft shading, photorealistic, 3d render, thin uniform outlines, dense cross-hatching, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, caption boxes, panel borders, ornate frame, decorative border, background pattern, floral, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars";
 
 // Display-size tiers in px (see gen-qwen for the phone-floor rationale): full = 4:3 splash,
 // half/third = 3:4, floored so panels stay crisp at phone full-width. Reference sheets use
