@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, type Word,
   GameMusic,
@@ -72,6 +72,7 @@ export function MorphemeRulesGame({ onExit, onCorrect }: Props) {
   const [built, setBuilt] = useState(0);
   const [miss, setMiss] = useState(0);
   const mounted = useRef(true);
+  useEffect(() => () => { mounted.current = false; }, []);
 
   const assembled = (pre?.text ?? '') + (root?.text ?? '');
   const validWord = pre && root ? VALID[assembled] : undefined;

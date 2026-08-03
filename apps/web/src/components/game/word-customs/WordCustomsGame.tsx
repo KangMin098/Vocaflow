@@ -108,8 +108,11 @@ function buildDaysFromPool(pool?: Word[]): Day[] | null {
     const slice = u.slice(d * PER, d * PER + PER);
     if (slice.length < 3) break;
     const allowPos = d >= 1;
+    // 위조 위치를 매 판 랜덤화(항상 2·5번이면 "2·5는 가짜"로 학습돼 판정이 무의미) — 최소 1명은 진짜.
+    const forgeCount = Math.min(2, Math.max(1, slice.length - 1));
+    const forgeSet = new Set(shuffle(slice.map((_, i) => i)).slice(0, forgeCount));
     const travelers: Traveler[] = slice.map((item, i) => {
-      const forge: Field | null = i === 1 ? 'definition' : i === 4 ? (allowPos ? 'pos' : 'definition') : null;
+      const forge: Field | null = forgeSet.has(i) ? (allowPos && Math.random() < 0.5 ? 'pos' : 'definition') : null;
       if (!forge) return L(item.en, item.ko, item.posTrue, item.example);
       if (forge === 'definition') {
         const other = slice.find((x, j) => j !== i && x.ko !== item.ko) ?? u.find((x) => x.ko !== item.ko)!;

@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, ParticleBurst, useSfx, shuffle, type Word,
   GameMusic,
@@ -76,6 +76,7 @@ export function SilentRuleGame({ onExit, onCorrect }: Props) {
   const [solvedPanels, setSolvedPanels] = useState(0);
   const [misses, setMisses] = useState(0);
   const mounted = useRef(true);
+  useEffect(() => () => { mounted.current = false; }, []);
   const lock = useRef(false);
 
   const cluster = CLUSTERS[ci];
