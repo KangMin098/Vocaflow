@@ -8,6 +8,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -94,6 +95,8 @@ export function LexiconEstateGame({ wordPool, onExit, onCorrect }: Props) {
     const grade = conns >= 8 ? '완벽한 설계' : conns >= 5 ? '훌륭한 저택' : '저택 완성';
     return (
       <div className="gk-root le-root">
+
+            <GameMusic gameId="lexicon-estate" />
         <GameKitStyles />
         <AmbientBackground center="#E4ECF5" mid="#A9BFD8" edge="#152238" glow="rgba(120,180,255,.3)" glowAt="50% 30%" watermark="lexicon-estate" />
         <style dangerouslySetInnerHTML={{ __html: LE_CSS }} />
@@ -116,6 +119,8 @@ export function LexiconEstateGame({ wordPool, onExit, onCorrect }: Props) {
 
   return (
     <div className="gk-root le-root">
+
+          <GameMusic gameId="lexicon-estate" />
       <GameKitStyles />
       <AmbientBackground center="#E4ECF5" mid="#A9BFD8" edge="#152238" glow="rgba(120,180,255,.28)" glowAt="50% 20%" watermark="lexicon-estate" />
       <style dangerouslySetInnerHTML={{ __html: LE_CSS }} />

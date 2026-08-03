@@ -100,6 +100,7 @@ export default function ArcadePage() {
         </div>
 
         <p className="arc-note">모든 게임은 학습 기록(FSRS)과 연동됩니다. 단어장·스크립트에서 <code>?set=</code>·<code>?text=</code>로 진입하면 그 자료의 단어로 플레이합니다.</p>
+        <p className="arc-credit">배경음악: Kevin MacLeod (incompetech.com) · <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a></p>
       </div>
     </div>
   );
@@ -173,6 +174,9 @@ const ARC_CSS = `
 
   .arc-note { margin: clamp(28px, 5vh, 44px) 0 0; font-size: 12.5px; line-height: 1.6; color: rgba(240,226,220,.5); max-width: 62ch; }
   .arc-note code { font-family: var(--font-english, ui-monospace, monospace); font-size: 11.5px; color: rgba(255,225,200,.72); background: rgba(255,255,255,.06); padding: 1px 5px; border-radius: 5px; }
+  .arc-credit { margin: 10px 0 0; font-size: 11px; color: rgba(240,226,220,.38); }
+  .arc-credit a { color: rgba(240,226,220,.55); text-decoration: underline; }
+  .arc-credit a:hover { color: rgba(255,225,200,.8); }
 
   @keyframes arc-drift { from { transform: translate3d(-2%, -1%, 0); } to { transform: translate3d(2%, 2.5%, 0); } }
   @media (prefers-reduced-motion: reduce) { .arc-glow { animation: none; } .arc-card, .arc-arrow { transition: none; } }

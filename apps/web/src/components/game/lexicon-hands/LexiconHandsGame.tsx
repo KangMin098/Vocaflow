@@ -9,6 +9,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst,
   useSfx, useCountUp, shuffle, clamp, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -209,6 +210,8 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
   if (phase === 'done') {
     return (
       <div className="gk-root lh-root">
+
+            <GameMusic gameId="lexicon-hands" />
         <GameKitStyles />
         <AmbientBackground center="#ECE4F0" mid="#C6B2D4" edge="#231732" glow="rgba(130,240,200,.26)" glowAt="50% 40%" watermark="lexicon-hands" />
         <style dangerouslySetInnerHTML={{ __html: LH_CSS }} />
@@ -231,6 +234,8 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
 
   return (
     <div className="gk-root lh-root">
+
+          <GameMusic gameId="lexicon-hands" />
       <GameKitStyles />
       <AmbientBackground center="#ECE4F0" mid="#C6B2D4" edge="#231732" glow="rgba(130,240,200,.24)" glowAt="50% 52%" watermark="lexicon-hands" />
       <style dangerouslySetInnerHTML={{ __html: LH_CSS }} />

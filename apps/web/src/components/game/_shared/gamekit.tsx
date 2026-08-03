@@ -122,6 +122,152 @@ export function useSfx() {
   return { muted, setMuted, tone, correct, wrong, fanfare, click, coin, dispose };
 }
 
+// ─── BGM (큐레이션 실제 트랙 · public/audio/games/) ───────────────────────
+// 게임 무드에 맞춘 로열티프리 루프(Kevin MacLeod · incompetech.com · CC-BY 3.0 ·
+// 크레딧: public/audio/games/CREDITS.txt · 아케이드 푸터 표기). 90초 세그먼트 +
+// 페이드로 경량화(~1MB). 합성음이 아니라 실제 음원. 기본 OFF(연구: 개인차 큼 +
+// 언어학습 특성상 무가사·저자극) · localStorage 기억 · 페이드 인/아웃 · SFX/TTS 시
+// 살짝 덕킹 · 자동재생 차단 시 다음 제스처에 시작. 파일 없으면 hasTrack=false(무해).
+export const MUSIC_SRC: Partial<Record<ArcadeGameId, string>> = {
+  cascade: "/audio/games/cascade.mp3", // 8bit Dungeon Level — 경쾌한 아케이드
+  "letter-forge": "/audio/games/letter-forge.mp3", // Bit Quest — 칩튠 생성
+  "daily-blitz": "/audio/games/daily-blitz.mp3", // Bit Shift — 데일리 활기
+  "ghost-race": "/audio/games/ghost-race.mp3", // Awesome Call — 경쟁 질주
+  "lexicon-hands": "/audio/games/lexicon-hands.mp3", // Bass Walker — 워킹베이스 긴장(Balatro)
+  "word-economy": "/audio/games/word-economy.mp3", // Balzan Groove — 전략 그루브
+  "word-customs": "/audio/games/word-customs.mp3", // An Upsetting Theme — 심문 긴박(Papers Please)
+  connections: "/audio/games/connections.mp3", // Amazing Plan — 경쾌한 퍼즐
+  "lexicon-detective": "/audio/games/lexicon-detective.mp3", // Awkward Meeting — 추리(Golden Idol)
+  "morpheme-rules": "/audio/games/morpheme-rules.mp3", // Anamalie — 기묘한 퍼즐(Baba Is You)
+  "glyph-tongue": "/audio/games/glyph-tongue.mp3", // Atlantean Twilight — 고대 정적(Chants of Sennaar)
+  "silent-rule": "/audio/games/silent-rule.mp3", // Airship Serenity — 명상 귀납(The Witness)
+  "word-orrery": "/audio/games/word-orrery.mp3", // Awaiting Return — 심우주 경외(Outer Wilds)
+  "lexicon-estate": "/audio/games/lexicon-estate.mp3", // Ashton Manor — 저택 탐험(Blue Prince)
+};
+const MUSIC_PREF_KEY = "vocaflow-arcade-music";
+const MUSIC_VOL = 0.3;
+
+function rampVolume(a: HTMLAudioElement, to: number, ms: number, done?: () => void) {
+  const from = a.volume;
+  const start = performance.now();
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / ms);
+    a.volume = clamp(from + (to - from) * t, 0, 1);
+    if (t < 1) requestAnimationFrame(step);
+    else done?.();
+  };
+  requestAnimationFrame(step);
+}
+
+export function useGameMusic(gameId: ArcadeGameId) {
+  const src = MUSIC_SRC[gameId];
+  const [on, setOn] = useState(false);
+  const aRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(MUSIC_PREF_KEY) === "1") setOn(true);
+    } catch {
+      /* private mode */
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!src || typeof window === "undefined") return;
+    if (on) {
+      let a = aRef.current;
+      if (!a) {
+        a = new Audio(src);
+        a.loop = true;
+        a.preload = "auto";
+        a.volume = 0;
+        aRef.current = a;
+      }
+      const audio = a;
+      const begin = () => rampVolume(audio, MUSIC_VOL, 900);
+      audio
+        .play()
+        .then(begin)
+        .catch(() => {
+          // 브라우저 자동재생 차단 → 다음 사용자 제스처에 시작
+          const kick = () => {
+            void audio.play().then(begin).catch(() => {});
+          };
+          window.addEventListener("pointerdown", kick, { once: true });
+        });
+    } else if (aRef.current) {
+      const audio = aRef.current;
+      rampVolume(audio, 0, 450, () => audio.pause());
+    }
+  }, [on, src]);
+
+  useEffect(
+    () => () => {
+      const a = aRef.current;
+      if (a) {
+        a.pause();
+        a.src = "";
+        aRef.current = null;
+      }
+    },
+    [],
+  );
+
+  const toggle = useCallback(() => {
+    setOn((v) => {
+      const nv = !v;
+      try {
+        localStorage.setItem(MUSIC_PREF_KEY, nv ? "1" : "0");
+      } catch {
+        /* private mode */
+      }
+      return nv;
+    });
+  }, []);
+
+  // 큰 SFX/TTS 순간 배경음을 잠깐 낮췄다 복귀 (음성·효과음이 묻히지 않게).
+  const duck = useCallback((ms = 300) => {
+    const a = aRef.current;
+    if (!a || a.paused) return;
+    rampVolume(a, MUSIC_VOL * 0.32, 120);
+    window.setTimeout(() => {
+      const b = aRef.current;
+      if (b && !b.paused) rampVolume(b, MUSIC_VOL, 450);
+    }, ms);
+  }, []);
+
+  return { on, toggle, duck, hasTrack: !!src };
+}
+
+export function IconMusic({ on }: { on: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 18V6l10-2v12" />
+      <circle cx="6.5" cy="18" r="2.5" />
+      <circle cx="16.5" cy="16" r="2.5" />
+      {!on && <path d="M4 3.5l16 17" opacity=".9" />}
+    </svg>
+  );
+}
+
+// 게임 루트 어디에나 1줄로: <GameMusic gameId="cascade" />
+export function GameMusic({ gameId }: { gameId: ArcadeGameId }) {
+  const m = useGameMusic(gameId);
+  if (!m.hasTrack) return null;
+  return (
+    <button
+      type="button"
+      className="gk-music-btn"
+      onClick={m.toggle}
+      aria-pressed={m.on}
+      aria-label={m.on ? "배경음악 끄기" : "배경음악 켜기"}
+      data-on={m.on ? "1" : "0"}
+    >
+      <IconMusic on={m.on} />
+    </button>
+  );
+}
+
 // ─── 카운트업 ───
 export function useCountUp(value: number, durMs = 450) {
   const [shown, setShown] = useState(value);
@@ -432,6 +578,12 @@ const GK_CSS = `
   .gk-icon-btn:hover { border-color: var(--t3); color: var(--t1); }
   .gk-exit { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 12px; font-weight: 700; cursor: pointer; min-height: 44px; transition: background .15s, color .15s, border-color .15s; }
   .gk-exit:hover { color: var(--t1); border-color: var(--t3); }
+
+  .gk-music-btn { position: fixed; left: 16px; bottom: 16px; z-index: 40; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--t3); backdrop-filter: blur(6px); cursor: pointer; transition: color .15s, border-color .15s, transform .12s; }
+  .gk-music-btn:hover { color: var(--t1); border-color: var(--t3); }
+  .gk-music-btn:active { transform: scale(.94); }
+  .gk-music-btn[data-on="1"] { color: var(--combo); border-color: color-mix(in srgb, var(--combo) 50%, var(--bd)); }
+  .gk-music-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
 
   .gk-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(20px, 4.4vh, 44px); padding: 20px 16px; min-height: 0; }
 

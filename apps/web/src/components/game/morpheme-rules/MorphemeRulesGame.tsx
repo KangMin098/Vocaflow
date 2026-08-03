@@ -8,6 +8,7 @@
 import { useCallback, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -108,6 +109,8 @@ export function MorphemeRulesGame({ onExit, onCorrect }: Props) {
   if (phase === 'done') {
     return (
       <div className="gk-root mr-root">
+
+            <GameMusic gameId="morpheme-rules" />
         <GameKitStyles />
         <AmbientBackground center="#EAEEF3" mid="#B9C4D2" edge="#1A2330" glow="rgba(120,200,255,.26)" glowAt="50% 30%" watermark="morpheme-rules" />
         <style dangerouslySetInnerHTML={{ __html: MR_CSS }} />
@@ -130,6 +133,8 @@ export function MorphemeRulesGame({ onExit, onCorrect }: Props) {
 
   return (
     <div className="gk-root mr-root">
+
+          <GameMusic gameId="morpheme-rules" />
       <GameKitStyles />
       <AmbientBackground center="#EAEEF3" mid="#B9C4D2" edge="#1A2330" glow="rgba(120,200,255,.24)" glowAt="50% 24%" watermark="morpheme-rules" />
       <style dangerouslySetInnerHTML={{ __html: MR_CSS }} />

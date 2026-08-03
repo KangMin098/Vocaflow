@@ -7,6 +7,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, shuffle, pickDistinct, clamp, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -146,6 +147,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
   return (
     <div className="gk-root gr-root">
+
+          <GameMusic gameId="ghost-race" />
       <GameKitStyles />
       <AmbientBackground center="#F4EBF6" mid="#DEC8E7" edge="#4E3277" glow="rgba(255,120,205,.36)" glowAt="50% 15%" watermark="ghost-race" />
       <style dangerouslySetInnerHTML={{ __html: GR_CSS }} />

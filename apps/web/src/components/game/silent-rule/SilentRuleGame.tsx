@@ -8,6 +8,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, GameMark, Hud, GameDone, ParticleBurst, useSfx, shuffle, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -123,6 +124,8 @@ export function SilentRuleGame({ onExit, onCorrect }: Props) {
   if (phase === 'done') {
     return (
       <div className="gk-root sr-root">
+
+            <GameMusic gameId="silent-rule" />
         <GameKitStyles />
         <AmbientBackground center="#EAF3EE" mid="#AAC9BE" edge="#173F3B" glow="rgba(120,230,180,.3)" glowAt="50% 30%" watermark="silent-rule" />
         <style dangerouslySetInnerHTML={{ __html: SR_CSS }} />
@@ -145,6 +148,8 @@ export function SilentRuleGame({ onExit, onCorrect }: Props) {
 
   return (
     <div className="gk-root sr-root">
+
+          <GameMusic gameId="silent-rule" />
       <GameKitStyles />
       <AmbientBackground center="#EAF3EE" mid="#AAC9BE" edge="#173F3B" glow="rgba(120,230,180,.28)" glowAt="50% 22%" watermark="silent-rule" />
       <style dangerouslySetInnerHTML={{ __html: SR_CSS }} />

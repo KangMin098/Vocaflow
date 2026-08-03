@@ -8,6 +8,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, useSfx, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -158,6 +159,8 @@ export function LexiconDetectiveGame({ onExit, onCorrect, onWrong }: Props) {
   if (phase === 'done') {
     return (
       <div className="gk-root ld-root">
+
+            <GameMusic gameId="lexicon-detective" />
         <GameKitStyles />
         <AmbientBackground center="#EEE6D2" mid="#CDBE99" edge="#2E2A1C" glow="rgba(200,170,90,.28)" glowAt="50% 30%" watermark="lexicon-detective" />
         <style dangerouslySetInnerHTML={{ __html: LD_CSS }} />
@@ -180,6 +183,8 @@ export function LexiconDetectiveGame({ onExit, onCorrect, onWrong }: Props) {
 
   return (
     <div className="gk-root ld-root">
+
+          <GameMusic gameId="lexicon-detective" />
       <GameKitStyles />
       <AmbientBackground center="#EEE6D2" mid="#CDBE99" edge="#2E2A1C" glow="rgba(200,170,90,.26)" glowAt="50% 18%" watermark="lexicon-detective" />
       <style dangerouslySetInnerHTML={{ __html: LD_CSS }} />

@@ -17,6 +17,7 @@ import {
   clamp,
   Kbd,
   type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props {
@@ -257,6 +258,8 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
   return (
     <div className="gk-root lf-root">
+
+          <GameMusic gameId="letter-forge" />
       <GameKitStyles />
       <AmbientBackground center="#FBF1E3" mid="#EED2AC" edge="#583120" glow="rgba(255,178,92,.34)" glowAt="50% 26%" watermark="letter-forge" />
       <style dangerouslySetInnerHTML={{ __html: LF_CSS }} />

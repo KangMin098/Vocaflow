@@ -9,6 +9,7 @@ import { memo, useCallback, useMemo, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone,
   useSfx, shuffle, clamp, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -211,6 +212,8 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     const total = chambers.reduce((n, c) => n + c.length, 0);
     return (
       <div className="gk-root gt-root">
+
+            <GameMusic gameId="glyph-tongue" />
         <GameKitStyles />
         <AmbientBackground center="#F3EEE1" mid="#D8CFBE" edge="#3E4A63" glow="rgba(150,190,215,.30)" glowAt="50% 30%" watermark="glyph-tongue" />
         <style dangerouslySetInnerHTML={{ __html: GT_CSS }} />
@@ -233,6 +236,8 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
   return (
     <div className="gk-root gt-root">
+
+          <GameMusic gameId="glyph-tongue" />
       <GameKitStyles />
       <AmbientBackground center="#F3EEE1" mid="#D8CFBE" edge="#3E4A63" glow="rgba(150,190,215,.30)" glowAt="50% 22%" watermark="glyph-tongue" />
       <style dangerouslySetInnerHTML={{ __html: GT_CSS }} />

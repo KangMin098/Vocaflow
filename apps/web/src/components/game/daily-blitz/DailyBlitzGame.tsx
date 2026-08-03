@@ -7,6 +7,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, GameMark, IconSound, ParticleBurst, useSfx, shuffle, pickDistinct, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -176,6 +177,8 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
 
   return (
     <div className="gk-root db-root">
+
+          <GameMusic gameId="daily-blitz" />
       <GameKitStyles />
       <AmbientBackground center="#FBEFE8" mid="#F2D2C3" edge="#7A3B54" glow="rgba(255,158,120,.34)" glowAt="50% 34%" watermark="daily-blitz" />
       <style dangerouslySetInnerHTML={{ __html: DB_CSS }} />

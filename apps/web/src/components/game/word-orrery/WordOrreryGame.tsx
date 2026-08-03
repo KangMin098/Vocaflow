@@ -12,6 +12,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, type Word,
+  GameMusic,
 } from '@/components/game/_shared/gamekit';
 
 interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
@@ -123,6 +124,8 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     const grade = perfect ? '완벽한 항해 — 앎이 곧 열쇠였다' : attempts <= 3 ? '핵에 도달했다' : '봉인을 모두 열었다';
     return (
       <div className="gk-root wo-root">
+
+            <GameMusic gameId="word-orrery" />
         <GameKitStyles />
         <AmbientBackground center="#3A4468" mid="#141A2E" edge="#080A16" glow="rgba(255,176,86,.34)" glowAt="50% 48%" watermark="word-orrery" />
         <style dangerouslySetInnerHTML={{ __html: WO_CSS }} />
@@ -145,6 +148,8 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
 
   return (
     <div className="gk-root wo-root">
+
+          <GameMusic gameId="word-orrery" />
       <GameKitStyles />
       <AmbientBackground center="#3A4468" mid="#141A2E" edge="#080A16" glow="rgba(255,176,86,.3)" glowAt="50% 46%" watermark="word-orrery" />
       <style dangerouslySetInnerHTML={{ __html: WO_CSS }} />
