@@ -268,7 +268,7 @@ const LD_CSS = `
   .ld-file { width: min(620px, 94vw); padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--bg) 78%, #fff); border: 1px solid var(--bd); box-shadow: 0 16px 40px -22px rgba(30,26,14,.6); }
   .ld-file-h { font-family: var(--font-english, monospace); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--t3); font-weight: 700; }
   .ld-narr { margin: 8px 0 0; font-family: var(--font-body, Georgia, serif); font-size: clamp(15px, 2.3vw, 18px); line-height: 2; color: var(--t1); }
-  .ld-slot { display: inline-flex; align-items: center; min-width: 74px; padding: 6px 10px; margin: 0 2px; border-radius: 7px; border: 1.5px dashed var(--active); background: color-mix(in srgb, var(--active) 6%, transparent); color: var(--t1); font-family: inherit; font-size: .92em; cursor: pointer; vertical-align: baseline; transition: border-color .15s, background .15s; }
+  .ld-slot { display: inline-flex; align-items: center; min-width: 74px; min-height: 44px; padding: 9px 12px; margin: 0 2px; border-radius: 7px; border: 1.5px dashed var(--active); background: color-mix(in srgb, var(--active) 6%, transparent); color: var(--t1); font-family: inherit; font-size: .92em; cursor: pointer; vertical-align: baseline; transition: border-color .15s, background .15s; }
   .ld-slot:hover:not(:disabled) { background: color-mix(in srgb, var(--active) 14%, transparent); }
   .ld-slot:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--active) 30%, transparent); }
   .ld-slot-hint { color: var(--active); font-size: .82em; font-style: italic; }

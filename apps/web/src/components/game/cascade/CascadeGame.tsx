@@ -58,6 +58,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const [timeLeft, setTimeLeft] = useState(SESSION_MS);
   const [phase, setPhase] = useState<'playing' | 'done'>('playing');
   const [floatGain, setFloatGain] = useState<{ idx: number; val: number; key: number } | null>(null);
+  const [announce, setAnnounce] = useState('');
 
   const shownScore = useCountUp(score);
   const idRef = useRef(0);
@@ -171,6 +172,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setFloatGain({ idx, val: g, key: Date.now() });
       sfx.correct(nc, nc % 5 === 0);
       onCorrect?.(a.word);
+      setAnnounce(`짝 성공 · ${a.word.en}`);
       const pair = new Set([selected, idx]);
       setClearing((prev) => new Set([...prev, ...pair]));
       setSelected(null);
@@ -189,6 +191,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setBadPair([selected, idx]);
       sfx.wrong();
       onWrong?.(a.word);
+      setAnnounce('짝이 아니에요');
       setSelected(null);
       setTimeout(() => mounted.current && setBadPair(null), 360);
     }
@@ -205,6 +208,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     <div className="gk-root cs-root">
 
           <GameMusic gameId="cascade" />
+      <div className="gk-sr" aria-live="polite">{announce}</div>
       <GameKitStyles />
       <AmbientBackground center="#ECF7F7" mid="#C2E5E9" edge="#153E54" glow="rgba(120,224,235,.32)" glowAt="50% 34%" watermark="cascade" />
       <style dangerouslySetInnerHTML={{ __html: CS_CSS }} />

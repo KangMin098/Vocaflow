@@ -367,7 +367,7 @@ const LF_CSS = `
   @keyframes lf-deplete { 0% { transform: scaleX(1); background: linear-gradient(90deg,var(--combo),var(--streak)); } 55% { background: linear-gradient(90deg,var(--combo),var(--streak)); } 80% { background: var(--warning); } 100% { transform: scaleX(0); background: var(--error); } }
 
   .lf-slots { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 640px; }
-  .lf-slot { position: relative; overflow: visible; width: clamp(38px, 8.2vw, 54px); height: clamp(48px, 10vw, 62px); border-radius: var(--r-md, 10px); border: 2px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, system-ui); font-size: clamp(20px, 4.4vw, 28px); font-weight: 800; display: grid; place-items: center; cursor: pointer; transition: border-color .15s, background .15s, transform .1s; }
+  .lf-slot { position: relative; overflow: visible; width: clamp(44px, 8.2vw, 54px); height: clamp(48px, 10vw, 62px); border-radius: var(--r-md, 10px); border: 2px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, system-ui); font-size: clamp(20px, 4.4vw, 28px); font-weight: 800; display: grid; place-items: center; cursor: pointer; transition: border-color .15s, background .15s, transform .1s; }
   .lf-slot--filled { border-color: var(--combo); border-style: solid; background: color-mix(in srgb, var(--combo) 8%, var(--bg)); }
   .lf-slot--filled:not([disabled]):active { transform: scale(.94); }
   .lf-slot--hint { border-color: var(--active); background: color-mix(in srgb, var(--active) 12%, var(--bg)); color: var(--active); }
@@ -381,7 +381,7 @@ const LF_CSS = `
   .lf-gain { color: var(--success); font-family: var(--font-display, system-ui); }
 
   .lf-tray { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 620px; }
-  .lf-key { width: clamp(42px, 9vw, 56px); height: clamp(48px, 10vw, 60px); border-radius: var(--r-md, 10px); border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, system-ui); font-size: clamp(18px, 4vw, 24px); font-weight: 800; cursor: pointer; transition: transform .1s, border-color .15s, box-shadow .15s, opacity .15s; }
+  .lf-key { width: clamp(44px, 9vw, 56px); height: clamp(48px, 10vw, 60px); border-radius: var(--r-md, 10px); border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, system-ui); font-size: clamp(18px, 4vw, 24px); font-weight: 800; cursor: pointer; transition: transform .1s, border-color .15s, box-shadow .15s, opacity .15s; }
   .lf-key:hover:not(:disabled) { border-color: var(--combo); transform: translateY(-2px); box-shadow: 0 6px 18px color-mix(in srgb, var(--combo) 18%, transparent); }
   .lf-key:active:not(:disabled) { transform: translateY(0) scale(.92); }
   .lf-key:focus-visible { outline: none; border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }

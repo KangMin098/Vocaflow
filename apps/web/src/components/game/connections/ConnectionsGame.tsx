@@ -220,8 +220,8 @@ export function ConnectionsGame({ onExit, onCorrect }: Props) {
 const CN_CSS = `
   .cn-lives { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
   .cn-dots { display: flex; gap: 4px; }
-  .cn-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--streak); }
-  .cn-dot--off { background: var(--bd); }
+  .cn-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--streak); }
+  .cn-dot--off { background: transparent; box-shadow: inset 0 0 0 1.6px var(--bd); }
   .cn-stage { gap: 14px; justify-content: flex-start; padding-top: clamp(12px, 4vh, 40px); }
   .cn-help { font-size: 13px; color: var(--t3); margin: 0; text-align: center; }
   .cn-help b { color: var(--t1); }

@@ -21,6 +21,8 @@ const DEFAULT_POOL: Word[] = [
 
 const N = 12;
 const DEFAULT_GHOST_MS = 27000;
+// 유령 = 자기 최고기록. 하한이 없으면 승급할수록 유령이 무한히 빨라져 리그가 막힘 → 하한.
+const GHOST_FLOOR_MS = 12000;
 const STORE_KEY = 'vf_ghostrace_v1';
 
 interface Store { wins: number; bestMs: number | null; }
@@ -92,7 +94,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     if (youWon) sfx.fanfare(); else sfx.wrong();
     setStore((prev) => {
       const wins = prev.wins + (youWon ? 1 : 0);
-      const bestMs = youWon ? Math.min(prev.bestMs ?? Infinity, ms) : prev.bestMs;
+      const bestMs = youWon ? Math.max(GHOST_FLOOR_MS, Math.min(prev.bestMs ?? Infinity, ms)) : prev.bestMs;
       const ns = { wins, bestMs: bestMs === Infinity ? ms : bestMs };
       try { window.localStorage.setItem(STORE_KEY, JSON.stringify(ns)); } catch { /* noop */ }
       return ns;
