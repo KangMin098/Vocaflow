@@ -665,7 +665,12 @@ export function GameKitStyles() {
 const GK_GRAIN = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
 
 const GK_CSS = `
-  .gk-root { position: relative; width: 100vw; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background: var(--bg2); color: var(--t1); font-family: var(--font-display, system-ui, sans-serif); user-select: none; }
+  .gk-root { position: relative; width: 100vw; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background: var(--bg2); color: var(--t1); font-family: var(--font-display, system-ui, sans-serif); user-select: none;
+    --ease-spring: cubic-bezier(.34, 1.56, .64, 1); --ease-settle: cubic-bezier(.22, .61, .36, 1); }
+  /* 진짜 스프링 오버슈트(지원 브라우저) — 리빌·누름 감촉 고급화. 미지원 시 위 cubic-bezier 폴백. */
+  @supports (animation-timing-function: linear(0, 1)) {
+    .gk-root { --ease-spring: linear(0, 0.55 11%, 1.06 30%, 0.985 46%, 1.008 62%, 0.998 80%, 1); }
+  }
   .gk-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .gk-root > :not(.gk-energy):not(.gk-atmos) { position: relative; z-index: 1; }
   .gk-energy { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--streak) 50%, transparent), transparent 60%); transition: opacity .5s ease, transform .6s ease; }
@@ -706,7 +711,7 @@ const GK_CSS = `
 
   .gk-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(20px, 4.4vh, 44px); padding: 20px 16px; min-height: 0; }
 
-  .gk-tile { position: relative; overflow: visible; display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 16px 18px; border-radius: var(--r-lg, 14px); border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, var(--font-display, system-ui)); font-size: clamp(16px, 3vw, 22px); font-weight: 700; cursor: pointer; text-align: left; transition: transform .12s var(--ease, ease-out), border-color .15s, background .15s, box-shadow .15s; }
+  .gk-tile { position: relative; overflow: visible; display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 16px 18px; border-radius: var(--r-lg, 14px); border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, var(--font-display, system-ui)); font-size: clamp(16px, 3vw, 22px); font-weight: 700; cursor: pointer; text-align: left; transition: transform .2s var(--ease-spring), border-color .15s, background .15s, box-shadow .15s; }
   .gk-tile:hover:not(:disabled) { border-color: var(--combo); transform: translateY(-3px); box-shadow: 0 8px 24px color-mix(in srgb, var(--combo) 18%, transparent); }
   .gk-tile:active:not(:disabled) { transform: translateY(0) scale(.96); }
   .gk-tile:focus-visible { outline: none; border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
@@ -714,7 +719,7 @@ const GK_CSS = `
   .gk-tile--wrong { border-color: var(--error); background: var(--error-light); color: var(--error); animation: gk-shake .36s ease-in-out; }
   .gk-tile--dim { opacity: .4; }
 
-  .gk-btn { min-height: 48px; padding: 0 24px; border-radius: var(--r-md, 10px); border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-display, system-ui); font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .12s, background .15s, border-color .15s; }
+  .gk-btn { min-height: 48px; padding: 0 24px; border-radius: var(--r-md, 10px); border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-display, system-ui); font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .2s var(--ease-spring), background .15s, border-color .15s; }
   .gk-btn:hover { border-color: var(--t3); }
   .gk-btn:active { transform: scale(.97); }
   .gk-btn--primary { background: var(--combo); border-color: var(--combo); color: var(--ti); }
@@ -746,15 +751,18 @@ const GK_CSS = `
 
   @keyframes gk-pop { 0% { transform: scale(.9); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
   .gk-bump { animation: gk-pop .3s var(--ease, ease-out); }
-  @keyframes gk-correct { 0% { transform: scale(1); } 35% { transform: scale(1.05); } 100% { transform: scale(1); } }
+  @keyframes gk-correct { 0% { transform: scale(1); } 16% { transform: scale(.97); } 55% { transform: scale(1.06); } 100% { transform: scale(1); } }
   @keyframes gk-shake { 0%,100% { transform: translateX(0); } 18% { transform: translateX(-7px); } 38% { transform: translateX(7px); } 58% { transform: translateX(-5px); } 78% { transform: translateX(4px); } }
   @keyframes gk-gain { 0% { opacity: 0; transform: translateY(8px) scale(.8); } 25% { opacity: 1; transform: translateY(-2px) scale(1.1); } 100% { opacity: 0; transform: translateY(-22px) scale(1); } }
   @keyframes gk-particle { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(.2); opacity: 0; } }
   @keyframes gk-spin { to { transform: rotate(360deg); } }
 
+  @keyframes gk-rm-fade { from { opacity: .45; } to { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) {
     .gk-tile, .gk-btn, .gk-progress-fill, .gk-combo, .gk-energy { transition: none; }
-    .gk-tile--correct, .gk-tile--wrong, .gk-bump, .gk-done-lead { animation: none !important; }
+    /* 모션 제거 대신 잔잔한 페이드로 대체 — 전정계 자극 없이도 피드백이 살아있게. */
+    .gk-tile--correct, .gk-tile--wrong { animation: gk-rm-fade .28s ease !important; }
+    .gk-bump, .gk-done-lead { animation: none !important; }
     .gk-particle { display: none; }
     .gk-spinner { animation-duration: 2s; }
   }

@@ -58,7 +58,8 @@ export function getArcadeMeta(): ArcadeMeta {
   const m = read()
   const gap = daysBetween(m.day, today())
   if (gap <= 0) return { ...m, level: levelForXp(m.xp) }
-  return { ...m, todayXp: 0, streak: gap === 1 ? m.streak : 0, level: levelForXp(m.xp) }
+  // 하루 유예(gap 2까지 스트릭 보존) — 한 번 건너뛴다고 0으로 리셋하지 않는다(윤리적 스트릭).
+  return { ...m, todayXp: 0, streak: gap <= 2 ? m.streak : 0, level: levelForXp(m.xp) }
 }
 
 // 게임 완료 시 1회 호출 — XP 지급 + 스트릭 갱신. 반환: 갱신된 메타.
@@ -73,6 +74,9 @@ export function awardArcadeXp(accuracy = 0): ArcadeMeta {
     streak = prev.streak === 0 ? 1 : prev.streak
   } else if (gap === 1) {
     streak = prev.streak + 1
+    todayXp = gain
+  } else if (gap === 2) {
+    streak = Math.max(1, prev.streak) // 하루 유예 — 스트릭 보존(증가는 안 함)
     todayXp = gain
   } else {
     streak = 1
