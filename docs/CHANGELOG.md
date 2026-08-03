@@ -16,6 +16,7 @@
 - **음원**: Kevin MacLeod(incompetech.com) **CC-BY 3.0** 14곡을 게임 무드별 매칭(Balatro=Bass Walker 워킹베이스 / Papers Please=An Upsetting Theme 심문 / Outer Wilds=Awaiting Return 심우주 / The Witness=Airship Serenity 명상 등). ffmpeg로 90초 루프 세그먼트+페이드 경량화(~1MB/곡, 총 17MB). `public/audio/games/*.mp3` + `CREDITS.txt`, 아케이드 푸터 저작자 표기.
 - **실오디오 시스템** (`gamekit.tsx` `useGameMusic`/`GameMusic`/`MUSIC_SRC`): 합성음 아닌 `HTMLAudioElement` — 게임별 트랙·루프·페이드 인/아웃·**기본 OFF**(연구: 개인차+언어학습 무가사 저자극)·`localStorage` 기억·SFX/TTS 덕킹·자동재생 차단 폴백(다음 제스처 시작)·접근성(aria-pressed·44px). 14게임에 `<GameMusic gameId>` 1줄 배선.
 - **효과음 실샘플 교체 (P1)**: `useSfx`가 합성 오실레이터 → **CC0 실제 샘플**(Kenney "Interface Sounds"/"Music Jingles", CC0 1.0 무저작권, `public/audio/sfx/` 6종 132KB) Web Audio 버퍼 저지연 재생으로 격상. 콤보는 `playbackRate` 상승, 로드 전/실패 시에만 합성 폴백(무음 방지). API 불변 → 14게임 코드 변경 0. correct/wrong/combo/click/coin/complete.
+- **리텐션 메타 — 데일리 스트릭·XP·오늘의 목표 (P2)**: `lib/game/arcade-meta.ts`(localStorage, DB 무변경) — 연속 플레이 일수 스트릭 + 누적 XP·레벨(√곡선) + 데일리 목표(30 XP). 게임 완료 단일 지점 `useRecordGameScore`에서 `awardArcadeXp`(미로그인도 동작). 아케이드 허브 상단 `ArcadeMetaStrip`(SSR 안전 클라이언트)로 🔥연속일·Lv 진행바·오늘의 목표 노출 → 재방문(스트릭)·성장(XP)·오늘의 목표로 중독성 강화(가변보상 원리).
 
 ### 만화화 파이프라인 — 무료 Qwen 백엔드 + 만화/웹툰 이중 렌더 + 표시크기 해상도 설계
 

@@ -11,6 +11,7 @@
 
 import { useEffect, useRef } from 'react'
 
+import { awardArcadeXp } from '@/lib/game/arcade-meta'
 import { createClient } from '@/lib/supabase/client'
 
 export type ScoreModule =
@@ -87,6 +88,8 @@ export function useRecordGameScore(input: GameScoreInput | null): void {
     if (done.current || !input) return
     done.current = true
     void recordGameScore(input)
+    // 리텐션 메타: 데일리 플레이 스트릭 + XP (localStorage, 미로그인도 동작).
+    awardArcadeXp(input.accuracy ?? 0)
     // 완료 시점 1회만 — input 갱신에 재실행하지 않음(의도)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input !== null])

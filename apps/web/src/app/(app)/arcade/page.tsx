@@ -5,6 +5,8 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import ArcadeMetaStrip from '@/components/game/ArcadeMetaStrip';
+
 interface GameCard {
   slug: string; name: string; tagline: string; layer: string; ref: string;
   a: string; b: string; glow: string; accent: string; mark: ReactNode;
@@ -74,6 +76,8 @@ export default function ArcadePage() {
           <p className="arc-sub">저마다 다른 세계. 각자의 방식으로 인출·추론·의미 연결을 연습하세요.</p>
         </header>
 
+        <ArcadeMetaStrip />
+
         <div className="arc-grid">
           {GAMES.map((g) => (
             <Link
@@ -132,6 +136,22 @@ const ARC_CSS = `
   .arc-title { margin: 10px 0 0; font-size: clamp(38px, 7vw, 60px); font-weight: 800; letter-spacing: -.01em; line-height: 1; color: #FBF3EC;
     text-shadow: 0 2px 30px rgba(0,0,0,.4); }
   .arc-sub { margin: 16px 0 0; max-width: 46ch; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.5; color: rgba(246,232,224,.68); }
+
+  .arc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 3vw, 30px); margin: 0 0 clamp(22px, 4vh, 34px); padding: 14px 18px; border-radius: 16px;
+    background: linear-gradient(150deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+  .arc-meta--ghost { min-height: 66px; }
+  .arc-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .arc-meta-num { font-size: 21px; font-weight: 800; color: #FBF3EC; font-variant-numeric: tabular-nums; letter-spacing: -.01em; display: inline-flex; align-items: baseline; gap: 5px; }
+  .arc-meta-flame { font-size: 17px; }
+  .arc-meta-lbl { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: rgba(246,232,224,.6); display: flex; flex-direction: column; gap: 5px; }
+  .arc-meta-level { min-width: 128px; }
+  .arc-meta-goal { min-width: 150px; margin-left: auto; }
+  .arc-meta-goal-total { font-size: 12px; font-weight: 700; color: rgba(246,232,224,.5); }
+  .arc-meta-goal[data-met="1"] .arc-meta-num { color: #9BE8C0; }
+  .arc-meta-bar { display: block; height: 5px; border-radius: 999px; background: rgba(255,255,255,.14); overflow: hidden; margin-top: 3px; }
+  .arc-meta-bar--goal { width: 100%; }
+  .arc-meta-bar-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #FFB984, #F0A084); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+  .arc-meta-goal[data-met="1"] .arc-meta-bar-fill { background: linear-gradient(90deg, #7FE0A8, #9BE8C0); }
 
   .arc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.8vw, 20px); }
   @media (max-width: 860px) { .arc-grid { grid-template-columns: repeat(2, 1fr); } }
