@@ -15,6 +15,8 @@ import {
   type ReactNode,
 } from 'react';
 
+import { getArcadeMeta } from '@/lib/game/arcade-meta';
+
 export type Word = {
   en: string;
   ko: string;
@@ -544,6 +546,37 @@ export function GameDone({
   celebrate?: boolean;
   mark?: ArcadeGameId;
 }) {
+  const [copied, setCopied] = useState(false);
+
+  // 결과 공유 (Wordle식 바이럴) — 클라이언트 전용. 모바일 navigator.share, 그 외 클립보드.
+  const onShare = useCallback(async () => {
+    const statStr = stats
+      .filter((s) => typeof s.num === 'string' || typeof s.num === 'number')
+      .map((s) => `${s.label} ${s.num}`)
+      .join(' · ');
+    const meta = getArcadeMeta();
+    const lines = [lead];
+    if (statStr) lines.push(statStr);
+    if (meta.streak > 1) lines.push(`🔥 ${meta.streak}일 연속`);
+    const text = lines.join('\n');
+    const url = typeof window !== 'undefined' ? `${window.location.origin}/arcade` : '';
+    try {
+      if (typeof navigator !== 'undefined' && navigator.share) {
+        await navigator.share({ title: 'Vocaflow 아케이드', text, url });
+        return; // 공유 시트로 처리됨 (취소 포함)
+      }
+    } catch {
+      return; // 사용자 취소 등 — 클립보드로 이중 실행하지 않음
+    }
+    try {
+      await navigator.clipboard.writeText(url ? `${text}\n${url}` : text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      /* 클립보드 미허용 */
+    }
+  }, [lead, stats]);
+
   return (
     <main className="gk-done" role="status">
       {celebrate && (
@@ -551,7 +584,11 @@ export function GameDone({
           <ParticleBurst intensity={3} />
         </div>
       )}
-      {mark && <div className="gk-done-mark" aria-hidden="true"><GameMark id={mark} /></div>}
+      {mark && (
+        <div className="gk-done-mark" aria-hidden="true">
+          <GameMark id={mark} />
+        </div>
+      )}
       <p className="gk-done-lead">{lead}</p>
       <div className="gk-done-stats">
         {stats.map((s, i) => (
@@ -564,6 +601,9 @@ export function GameDone({
       <div className="gk-done-actions">
         <button type="button" onClick={onRestart} className="gk-btn gk-btn--primary">
           {restartLabel}
+        </button>
+        <button type="button" onClick={onShare} className="gk-btn" aria-live="polite">
+          {copied ? '복사됨 ✓' : '결과 공유'}
         </button>
         <button type="button" onClick={onExit} className="gk-btn">
           나가기

@@ -17,6 +17,7 @@
 - **실오디오 시스템** (`gamekit.tsx` `useGameMusic`/`GameMusic`/`MUSIC_SRC`): 합성음 아닌 `HTMLAudioElement` — 게임별 트랙·루프·페이드 인/아웃·**기본 OFF**(연구: 개인차+언어학습 무가사 저자극)·`localStorage` 기억·SFX/TTS 덕킹·자동재생 차단 폴백(다음 제스처 시작)·접근성(aria-pressed·44px). 14게임에 `<GameMusic gameId>` 1줄 배선.
 - **효과음 실샘플 교체 (P1)**: `useSfx`가 합성 오실레이터 → **CC0 실제 샘플**(Kenney "Interface Sounds"/"Music Jingles", CC0 1.0 무저작권, `public/audio/sfx/` 6종 132KB) Web Audio 버퍼 저지연 재생으로 격상. 콤보는 `playbackRate` 상승, 로드 전/실패 시에만 합성 폴백(무음 방지). API 불변 → 14게임 코드 변경 0. correct/wrong/combo/click/coin/complete.
 - **리텐션 메타 — 데일리 스트릭·XP·오늘의 목표 (P2)**: `lib/game/arcade-meta.ts`(localStorage, DB 무변경) — 연속 플레이 일수 스트릭 + 누적 XP·레벨(√곡선) + 데일리 목표(30 XP). 게임 완료 단일 지점 `useRecordGameScore`에서 `awardArcadeXp`(미로그인도 동작). 아케이드 허브 상단 `ArcadeMetaStrip`(SSR 안전 클라이언트)로 🔥연속일·Lv 진행바·오늘의 목표 노출 → 재방문(스트릭)·성장(XP)·오늘의 목표로 중독성 강화(가변보상 원리).
+- **결과 공유 카드 (P3)**: 공유 `GameDone`에 "결과 공유" 버튼 — 완료 메시지+주요 스탯+🔥연속일을 조합해 **모바일 `navigator.share` / 그 외 클립보드 복사**(Wordle식 바이럴). 클라이언트 전용·DB 무변경, 14게임 코드 변경 0(공유 컴포넌트 한 곳). 리더보드(서버 집계)는 마이그레이션 필요로 후속 승인 대상.
 
 ### 만화화 파이프라인 — 무료 Qwen 백엔드 + 만화/웹툰 이중 렌더 + 표시크기 해상도 설계
 
