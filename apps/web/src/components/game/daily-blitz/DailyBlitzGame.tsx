@@ -82,10 +82,13 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
   const [reveal, setReveal] = useState(false);
   const [results, setResults] = useState<('fast' | 'ok' | 'miss')[]>([]);
   const [copied, setCopied] = useState(false);
+  const [announce, setAnnounce] = useState('');
   const qStart = useRef(0);
   const qTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lock = useRef(false);
   const mounted = useRef(true);
+  // 타이머가 render-0 의 answer 를 캡처해 런을 오염시키던 버그 → 항상 최신 answer 로 라우팅.
+  const answerRef = useRef<(i: number) => void>(() => {});
 
   useEffect(() => {
     mounted.current = true;
@@ -106,7 +109,7 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
     setPicked(null); setReveal(false); lock.current = false;
     qStart.current = Date.now();
     if (qTimer.current) clearTimeout(qTimer.current);
-    qTimer.current = setTimeout(() => answer(-1), PER_MS);
+    qTimer.current = setTimeout(() => answerRef.current(-1), PER_MS);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dailySet]);
 
@@ -123,6 +126,7 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
     const ok = !!chosen && chosen.en === target.en;
     const fast = ok && Date.now() - qStart.current < PER_MS * 0.45;
     setPicked(i); setReveal(true);
+    setAnnounce(ok ? `정답 ${target.en}` : `틀렸어요, 정답은 ${target.en}`);
     setResults((r) => [...r, ok ? (fast ? 'fast' : 'ok') : 'miss']);
     if (ok) { sfx.correct(0, false); onCorrect?.(target); } else { sfx.wrong(); onWrong?.(target); }
     setTimeout(() => {
@@ -132,6 +136,7 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
     }, ok ? 500 : 850);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qi, options, dailySet, results, sfx, buildOptions, onCorrect, onWrong]);
+  answerRef.current = answer;
 
   const finish = useCallback((res: ('fast' | 'ok' | 'miss')[]) => {
     const correct = res.filter((r) => r !== 'miss').length;
@@ -179,6 +184,7 @@ export function DailyBlitzGame({ onExit, onCorrect, onWrong }: Props) {
     <div className="gk-root db-root">
 
           <GameMusic gameId="daily-blitz" />
+      <div className="gk-sr" aria-live="assertive">{announce}</div>
       <GameKitStyles />
       <AmbientBackground center="#FBEFE8" mid="#F2D2C3" edge="#7A3B54" glow="rgba(255,158,120,.34)" glowAt="50% 34%" watermark="daily-blitz" />
       <style dangerouslySetInnerHTML={{ __html: DB_CSS }} />

@@ -16,6 +16,7 @@ import {
   shuffle,
   clamp,
   Kbd,
+  NotEnoughWords,
   type Word,
   GameMusic,
 } from '@/components/game/_shared/gamekit';
@@ -111,7 +112,8 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const startQ = useCallback(
     (index: number) => {
       if (!mounted.current) return;
-      if (index >= roundLen) { setPhase('done'); setQ(null); qRef.current = null; return; }
+      // 길이 필터(3~12) 후 풀이 비면 buildQ 가 undefined 를 읽어 크래시 → 안전 종료.
+      if (index >= roundLen || pool.length === 0) { setPhase('done'); setQ(null); qRef.current = null; return; }
       const nq = buildQ();
       qRef.current = nq;
       setQ(nq);
@@ -255,6 +257,8 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const len = target.length;
   const usedIds = new Set(filled);
   const comboTier = clamp(Math.floor(combo / 5), 0, 3);
+
+  if (pool.length === 0) return <NotEnoughWords need={5} onExit={onExit} />;
 
   return (
     <div className="gk-root lf-root">

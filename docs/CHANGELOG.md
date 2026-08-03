@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 14게임 전수 감사 — P0 버그·설계정확성·접근성 수정
+
+- **전수 감사**(게임 3그룹 + 공유 kit 병렬 리뷰 + 디자인 딥서치)로 파일:라인 근거 수집 후 우선순위 수정.
+- **공유 kit P0(전 게임 영향)**: ① `useGameMusic` 자동재생 리스너 cleanup 누락 → 음악 OFF 후 탭이 되살리던 버그·리스너 리크 수정(onRef 가드+cleanup). ② `awardArcadeXp`가 스캐폴드 완료 경로에 미배선 → 스트릭/XP가 대부분 게임에서 안 쌓이던 것 배선. ③ `GameDone` `celebrate` 기본 OFF(Calm UI "폭죽 금지" 준수 — 패배 시 폭죽 제거). ④ 음악 FAB `env(safe-area-inset)` + SFX 재생마다 피치·음량 지터(반복음 피로 제거). ⑤ 공유 에러 처리(취소 vs 실패 구분).
+- **게임별 P0**: daily-blitz 스테일-클로저 타이머(런 전체 오염) → `answerRef`; letter-forge·cascade 길이/ko 필터 후 빈 풀 크래시 → `NotEnoughWords` 가드; cascade 무해결 보드 소프트락 → 자동 재셔플(`hasMove`/`settleSafe`); glyph-tongue 다크모드 룬 안보임(`#3B3050`→토큰) + 중복-ko 미해결 석실 → ko 중복 제거; word-economy 동의어 distractor 오답 → ko 제외.
+
 ### 아케이드 14게임 BGM — 게임별 무드 매칭 배경음악 (P0)
 
 - **딥서치 분석 결론 적용**: 아케이드 14게임은 흥미(검증된 인디 원형 14종)·주스(공유 `gamekit`)·세션 중독성은 상위권이나 **BGM이 0/14**로 몰입의 최대 미개발 지렛대였음. 각 게임 무드(긴장·박진감·탐험·정적)에 맞는 **실제 큐레이션 BGM** 추가.

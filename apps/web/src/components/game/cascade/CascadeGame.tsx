@@ -6,7 +6,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, useCountUp, shuffle, clamp, type Word,
+  GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, NotEnoughWords, useSfx, useCountUp, shuffle, clamp, type Word,
   GameMusic,
 } from '@/components/game/_shared/gamekit';
 
@@ -25,6 +25,19 @@ const SESSION_MS = 90000;
 
 interface Cell { id: number; word: Word; side: 'en' | 'ko'; fresh?: boolean; }
 type Board = (Cell | null)[]; // length COLS*ROWS, index = row*COLS+col (row 0 = top)
+
+// 보드에 매칭 가능한 짝(같은 단어의 en+ko 가 동시 존재)이 하나라도 있는가 — 소프트락 감지.
+function hasMove(b: Board): boolean {
+  const sides = new Map<string, Set<'en' | 'ko'>>();
+  for (const cell of b) {
+    if (!cell) continue;
+    const s = sides.get(cell.word.en) ?? new Set<'en' | 'ko'>();
+    s.add(cell.side);
+    sides.set(cell.word.en, s);
+  }
+  for (const s of sides.values()) if (s.size >= 2) return true;
+  return false;
+}
 
 export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const pool = useMemo(() => {
@@ -86,18 +99,27 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     return next;
   }, [drawCell]);
 
+  // settle 후 매칭 가능한 짝이 하나도 없으면(소프트락) 보드를 새로 뽑아 다시 채운다.
+  const settleSafe = useCallback((b: Board): Board => {
+    let nb = settle(b);
+    let guard = 0;
+    while (!hasMove(nb) && guard++ < 12) nb = settle(new Array(COLS * ROWS).fill(null));
+    return nb;
+  }, [settle]);
+
   const newGame = useCallback(() => {
+    if (pool.length === 0) return; // 빈 풀 — 렌더 가드가 NotEnoughWords 표시
     queueRef.current = [];
     idRef.current = 0;
     refillQueue();
     let b: Board = new Array(COLS * ROWS).fill(null);
-    b = settle(b);
+    b = settleSafe(b);
     setBoard(b); setSelected(null); setBadPair(null); setClearing(new Set());
     setScore(0); setCombo(0); setBestCombo(0); setCleared(0);
     comboRef.current = 0;
     setTimeLeft(SESSION_MS); setPhase('playing');
     endRef.current = Date.now() + SESSION_MS;
-  }, [refillQueue, settle]);
+  }, [pool.length, refillQueue, settleSafe]);
 
   // 타이머
   useEffect(() => {
@@ -158,7 +180,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
         setBoard((cur) => {
           const nb = cur.slice();
           pair.forEach((p) => { nb[p] = null; });
-          return settle(nb);
+          return settleSafe(nb);
         });
         setClearing((prev) => { const n = new Set(prev); pair.forEach((p) => n.delete(p)); return n; });
       }, 260);
@@ -170,12 +192,14 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setSelected(null);
       setTimeout(() => mounted.current && setBadPair(null), 360);
     }
-  }, [phase, board, selected, clearing, sfx, bumpCombo, settle, onCorrect, onWrong]);
+  }, [phase, board, selected, clearing, sfx, bumpCombo, settleSafe, onCorrect, onWrong]);
 
   const handleExit = useCallback(() => { cancelAnimationFrame(rafRef.current); onExit?.(); }, [onExit]);
 
   const secs = Math.ceil(timeLeft / 1000);
   const lowTime = secs <= 10;
+
+  if (pool.length === 0) return <NotEnoughWords need={6} onExit={onExit} />;
 
   return (
     <div className="gk-root cs-root">

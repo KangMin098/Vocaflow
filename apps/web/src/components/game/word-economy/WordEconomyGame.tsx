@@ -67,7 +67,8 @@ export function WordEconomyGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
   const nextQ = useCallback(() => {
     const target = pool[Math.floor(Math.random() * pool.length)];
-    const distract = pickDistinct(pool, tileCount - 1, (w) => w.en === target.en);
+    // 같은 뜻(ko)의 동의어를 distractor 로 쓰면 정답인데 오답 처리되므로 제외.
+    const distract = pickDistinct(pool, tileCount - 1, (w) => w.en === target.en || w.ko === target.ko);
     keyRef.current += 1;
     setQ({ key: keyRef.current, target, options: shuffle([target, ...distract]) });
     setPicked(null); setReveal(false); setHidden([]); setFiftyUsed(false);

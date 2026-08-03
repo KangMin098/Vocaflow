@@ -142,7 +142,9 @@ export function useSfx() {
       const g = c.createGain();
       s.buffer = buf;
       s.playbackRate.value = rate;
-      g.gain.value = gain;
+      // 반복음 피로 제거 — 재생마다 미세 피치·음량 지터(±45센트 / ±9%).
+      if (s.detune) s.detune.value = (Math.random() * 2 - 1) * 45;
+      g.gain.value = gain * (0.9 + Math.random() * 0.18);
       s.connect(g);
       g.connect(c.destination);
       s.start();
@@ -232,6 +234,8 @@ export function useGameMusic(gameId: ArcadeGameId) {
   const src = MUSIC_SRC[gameId];
   const [on, setOn] = useState(false);
   const aRef = useRef<HTMLAudioElement | null>(null);
+  const onRef = useRef(on);
+  onRef.current = on;
 
   useEffect(() => {
     try {
@@ -243,6 +247,9 @@ export function useGameMusic(gameId: ArcadeGameId) {
 
   useEffect(() => {
     if (!src || typeof window === "undefined") return;
+    // 자동재생 차단 시 다음 제스처에 시작하는 리스너 — 반드시 cleanup 으로 제거해야
+    // OFF 후 탭이 음악을 되살리는 버그·리스너 리크를 막는다.
+    let kick: ((e: Event) => void) | null = null;
     if (on) {
       let a = aRef.current;
       if (!a) {
@@ -258,16 +265,20 @@ export function useGameMusic(gameId: ArcadeGameId) {
         .play()
         .then(begin)
         .catch(() => {
-          // 브라우저 자동재생 차단 → 다음 사용자 제스처에 시작
-          const kick = () => {
-            void audio.play().then(begin).catch(() => {});
+          kick = () => {
+            // OFF 됐거나 오디오가 교체됐으면 무시
+            if (onRef.current && aRef.current === audio) void audio.play().then(begin).catch(() => {});
+            if (kick) window.removeEventListener("pointerdown", kick);
           };
-          window.addEventListener("pointerdown", kick, { once: true });
+          window.addEventListener("pointerdown", kick);
         });
     } else if (aRef.current) {
       const audio = aRef.current;
       rampVolume(audio, 0, 450, () => audio.pause());
     }
+    return () => {
+      if (kick) window.removeEventListener("pointerdown", kick);
+    };
   }, [on, src]);
 
   useEffect(
@@ -535,7 +546,7 @@ export function GameDone({
   onRestart,
   onExit,
   restartLabel = '다시 하기',
-  celebrate = true,
+  celebrate = false, // Calm UI — 완료 시 폭죽 금지(차분한 마무리). 승리에 한해 게임이 명시 opt-in.
   mark,
 }: {
   lead?: string;
@@ -563,10 +574,11 @@ export function GameDone({
     try {
       if (typeof navigator !== 'undefined' && navigator.share) {
         await navigator.share({ title: 'Vocaflow 아케이드', text, url });
-        return; // 공유 시트로 처리됨 (취소 포함)
+        return; // 공유 시트로 처리됨
       }
-    } catch {
-      return; // 사용자 취소 등 — 클립보드로 이중 실행하지 않음
+    } catch (e) {
+      // 사용자 취소(AbortError)는 조용히 종료. 그 외 실패(NotAllowedError 등)는 클립보드 폴백.
+      if (e instanceof DOMException && e.name === 'AbortError') return;
     }
     try {
       await navigator.clipboard.writeText(url ? `${text}\n${url}` : text);
@@ -686,7 +698,7 @@ const GK_CSS = `
   .gk-exit { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: var(--r-md, 8px); border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 12px; font-weight: 700; cursor: pointer; min-height: 44px; transition: background .15s, color .15s, border-color .15s; }
   .gk-exit:hover { color: var(--t1); border-color: var(--t3); }
 
-  .gk-music-btn { position: fixed; left: 16px; bottom: 16px; z-index: 40; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--t3); backdrop-filter: blur(6px); cursor: pointer; transition: color .15s, border-color .15s, transform .12s; }
+  .gk-music-btn { position: fixed; left: 16px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 40; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--t3); backdrop-filter: blur(6px); cursor: pointer; transition: color .15s, border-color .15s, transform .12s; }
   .gk-music-btn:hover { color: var(--t1); border-color: var(--t3); }
   .gk-music-btn:active { transform: scale(.94); }
   .gk-music-btn[data-on="1"] { color: var(--combo); border-color: color-mix(in srgb, var(--combo) 50%, var(--bd)); }

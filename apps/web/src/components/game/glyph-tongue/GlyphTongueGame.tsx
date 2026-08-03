@@ -81,8 +81,9 @@ function buildChambersFromPool(pool?: Word[]): GWord[][] | null {
   if (!pool || pool.length < 4) return null;
   const usable: GWord[] = [];
   const seen = new Set<string>();
+  const seenKo = new Set<string>(); // 같은 뜻이 두 룬에 걸리면 1:1 매핑상 석실이 영영 안 풀림 → ko 도 중복 제거
   for (const w of pool) {
-    if (!w.en || !w.ko || !w.example || seen.has(w.en)) continue;
+    if (!w.en || !w.ko || !w.example || seen.has(w.en) || seenKo.has(w.ko)) continue;
     const forms = [w.en, ...(w.inflected ?? [])].filter((f) => f && f.length >= 2);
     let ins: string | null = null;
     for (const f of forms) {
@@ -91,6 +92,7 @@ function buildChambersFromPool(pool?: Word[]): GWord[][] | null {
     }
     if (!ins) continue; // 예문에 단어가 없으면(블랭크 불가) 제외
     seen.add(w.en);
+    seenKo.add(w.ko);
     usable.push({ en: w.en, ko: w.ko, ins: [ins] });
   }
   if (usable.length < 4) return null;
@@ -315,7 +317,7 @@ const GT_CSS = `
   .gt-tablet { margin: 0; padding: 9px 16px; border-radius: 8px; background: color-mix(in srgb, var(--bg) 64%, transparent); border: 1px solid var(--bd); border-left: 3px solid color-mix(in srgb, var(--t1) 14%, transparent);
     font-family: var(--font-body, Georgia, serif); font-size: clamp(14px, 2.2vw, 17px); line-height: 1.5; color: var(--t1); backdrop-filter: blur(3px); transition: border-color .2s, background .2s; }
   .gt-tablet--focus { border-left-color: var(--combo); background: color-mix(in srgb, var(--combo) 8%, var(--bg)); }
-  .gt-rune-slot { display: inline-flex; align-items: center; justify-content: center; vertical-align: -0.32em; width: 1.5em; height: 1.5em; margin: 0 2px; color: #3B3050; border-radius: 5px; transition: color .2s, background .2s; }
+  .gt-rune-slot { display: inline-flex; align-items: center; justify-content: center; vertical-align: -0.32em; width: 1.5em; height: 1.5em; margin: 0 2px; color: var(--t1); border-radius: 5px; transition: color .2s, background .2s; }
   .gt-rune-slot--focus { color: var(--combo); background: color-mix(in srgb, var(--combo) 16%, transparent); }
   .gt-rune-inline { width: 1em; height: 1.4em; }
   .gt-word { color: var(--success); font-family: var(--font-english, system-ui); font-weight: 800; font-style: normal; animation: gt-decipher .5s ease-out; }
@@ -329,7 +331,7 @@ const GT_CSS = `
   .gt-card--target { border-color: color-mix(in srgb, var(--combo) 55%, var(--bd)); border-style: dashed; }
   .gt-card--focus { border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 22%, transparent); }
   .gt-card--solved { border-color: var(--success); background: color-mix(in srgb, var(--success) 10%, var(--bg)); cursor: default; }
-  .gt-card-glyph { height: 46px; display: grid; place-items: center; color: #3B3050; }
+  .gt-card-glyph { height: 46px; display: grid; place-items: center; color: var(--t1); }
   .gt-rune-card { width: 30px; height: 44px; }
   .gt-card-word { color: var(--success); font-family: var(--font-english, system-ui); font-weight: 800; font-size: clamp(12px, 2.2vw, 15px); animation: gt-decipher .5s ease-out; }
   .gt-slot { font-size: 11px; font-weight: 700; text-align: center; line-height: 1.2; padding: 4px 4px; border-radius: 6px; min-height: 30px; display: grid; place-items: center; width: 100%;

@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ResourceContext } from '@/components/layout/ResourceContext';
 import { GameLoading, NotEnoughWords, type Word, type ArcadeGameId } from '@/components/game/_shared/gamekit';
 import { createClient } from '@/lib/supabase/client';
+import { awardArcadeXp } from '@/lib/game/arcade-meta';
 import { recordGameScore } from '@/lib/scores/record-score';
 import { recordGameResult } from '@/lib/game/record-result';
 import { fetchScopedWords } from '@/lib/workspace/scoped-words';
@@ -106,16 +107,20 @@ export function GamePlayScaffold({
     const captured = correct + wrong;
     if (!scoredRef.current && captured > 0) {
       scoredRef.current = true;
+      const accuracy = Math.round((correct / captured) * 100);
       void recordGameScore({
         module,
         score: correct * 100,
         totalQuestions: captured,
         correctCount: correct,
-        accuracy: Math.round((correct / captured) * 100),
+        accuracy,
         durationSeconds: startRef.current ? Math.round((Date.now() - startRef.current) / 1000) : undefined,
         ...(text ? { textId: text } : {}),
         metadata: { captured, wrong, scoped },
       });
+      // 리텐션 메타(데일리 스트릭·XP) — recordGameScore(useRecordGameScore 훅)를 안 거치는
+      // 스캐폴드 경로에서도 적립되도록 여기서 직접 호출.
+      awardArcadeXp(accuracy);
     }
     router.push(resolveSessionReturnHref(from, text, `/${moduleHub(module)}`));
   };
