@@ -199,6 +199,7 @@ export function WordCustomsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       <div className="gk-root wc-root">
 
             <GameMusic gameId="word-customs" />
+      <div className="gk-sr" aria-live="assertive">{verdict?.text ?? ''}</div>
         <GameKitStyles />
         <AmbientBackground center="#F2E9D6" mid="#D6C4A0" edge="#3C2E22" glow="rgba(214,160,90,.32)" glowAt="50% 30%" watermark="word-customs" />
         <style dangerouslySetInnerHTML={{ __html: WC_CSS }} />
@@ -224,6 +225,7 @@ export function WordCustomsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     <div className="gk-root wc-root">
 
           <GameMusic gameId="word-customs" />
+      <div className="gk-sr" aria-live="assertive">{verdict?.text ?? ''}</div>
       <GameKitStyles />
       <AmbientBackground center="#F2E9D6" mid="#D6C4A0" edge="#3C2E22" glow="rgba(214,160,90,.3)" glowAt="50% 20%" watermark="word-customs" />
       <style dangerouslySetInnerHTML={{ __html: WC_CSS }} />

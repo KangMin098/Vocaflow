@@ -216,6 +216,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       <div className="gk-root gt-root">
 
             <GameMusic gameId="glyph-tongue" />
+      <div className="gk-sr" aria-live="polite">{sealMsg}</div>
         <GameKitStyles />
         <AmbientBackground center="#F3EEE1" mid="#D8CFBE" edge="#3E4A63" glow="rgba(150,190,215,.30)" glowAt="50% 30%" watermark="glyph-tongue" />
         <style dangerouslySetInnerHTML={{ __html: GT_CSS }} />
@@ -240,6 +241,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     <div className="gk-root gt-root">
 
           <GameMusic gameId="glyph-tongue" />
+      <div className="gk-sr" aria-live="polite">{sealMsg}</div>
       <GameKitStyles />
       <AmbientBackground center="#F3EEE1" mid="#D8CFBE" edge="#3E4A63" glow="rgba(150,190,215,.30)" glowAt="50% 22%" watermark="glyph-tongue" />
       <style dangerouslySetInnerHTML={{ __html: GT_CSS }} />

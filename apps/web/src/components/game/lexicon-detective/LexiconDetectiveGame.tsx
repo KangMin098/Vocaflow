@@ -161,6 +161,7 @@ export function LexiconDetectiveGame({ onExit, onCorrect, onWrong }: Props) {
       <div className="gk-root ld-root">
 
             <GameMusic gameId="lexicon-detective" />
+      <div className="gk-sr" aria-live="polite">{msg}</div>
         <GameKitStyles />
         <AmbientBackground center="#EEE6D2" mid="#CDBE99" edge="#2E2A1C" glow="rgba(200,170,90,.28)" glowAt="50% 30%" watermark="lexicon-detective" />
         <style dangerouslySetInnerHTML={{ __html: LD_CSS }} />
@@ -185,6 +186,7 @@ export function LexiconDetectiveGame({ onExit, onCorrect, onWrong }: Props) {
     <div className="gk-root ld-root">
 
           <GameMusic gameId="lexicon-detective" />
+      <div className="gk-sr" aria-live="polite">{msg}</div>
       <GameKitStyles />
       <AmbientBackground center="#EEE6D2" mid="#CDBE99" edge="#2E2A1C" glow="rgba(200,170,90,.26)" glowAt="50% 18%" watermark="lexicon-detective" />
       <style dangerouslySetInnerHTML={{ __html: LD_CSS }} />

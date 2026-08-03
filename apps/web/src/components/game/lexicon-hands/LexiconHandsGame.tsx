@@ -212,6 +212,7 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
       <div className="gk-root lh-root">
 
             <GameMusic gameId="lexicon-hands" />
+      <div className="gk-sr" aria-live="polite">{flash}</div>
         <GameKitStyles />
         <AmbientBackground center="#ECE4F0" mid="#C6B2D4" edge="#231732" glow="rgba(130,240,200,.26)" glowAt="50% 40%" watermark="lexicon-hands" />
         <style dangerouslySetInnerHTML={{ __html: LH_CSS }} />
@@ -236,6 +237,7 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     <div className="gk-root lh-root">
 
           <GameMusic gameId="lexicon-hands" />
+      <div className="gk-sr" aria-live="polite">{flash}</div>
       <GameKitStyles />
       <AmbientBackground center="#ECE4F0" mid="#C6B2D4" edge="#231732" glow="rgba(130,240,200,.24)" glowAt="50% 52%" watermark="lexicon-hands" />
       <style dangerouslySetInnerHTML={{ __html: LH_CSS }} />

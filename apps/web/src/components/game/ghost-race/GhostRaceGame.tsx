@@ -55,6 +55,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const [options, setOptions] = useState<Word[]>([]);
   const [target, setTarget] = useState<Word | null>(null);
   const [picked, setPicked] = useState<number | null>(null);
+  const [announce, setAnnounce] = useState('');
   const [reveal, setReveal] = useState(false);
   const [combo, setCombo] = useState(0);
   const [won, setWon] = useState(false);
@@ -130,11 +131,13 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       youRef.current += 1; setYouPos(youRef.current);
       sfx.correct(nc, nc % 5 === 0);
       onCorrect?.(target);
+      setAnnounce(`정답 ${target.en}`);
       if (youRef.current >= N) { endRace(true); return; }
       setTimeout(() => { if (mounted.current && !endedRef.current) { setQi((n) => n + 1); nextQ(youRef.current); } }, 260);
     } else {
       comboRef.current = 0; setCombo(0);
       setStumble(true); sfx.wrong(); onWrong?.(target);
+      setAnnounce(`틀렸어요, 정답은 ${target.en}`);
       setTimeout(() => mounted.current && setStumble(false), 500);
       setTimeout(() => { if (mounted.current && !endedRef.current) { setQi((n) => n + 1); nextQ(youRef.current); } }, 650);
     }
@@ -151,6 +154,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     <div className="gk-root gr-root">
 
           <GameMusic gameId="ghost-race" />
+      <div className="gk-sr" aria-live="assertive">{announce}</div>
       <GameKitStyles />
       <AmbientBackground center="#F4EBF6" mid="#DEC8E7" edge="#4E3277" glow="rgba(255,120,205,.36)" glowAt="50% 15%" watermark="ghost-race" />
       <style dangerouslySetInnerHTML={{ __html: GR_CSS }} />

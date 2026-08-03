@@ -53,6 +53,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
 
   const [observed, setObserved] = useState<boolean[]>(Array(N).fill(false));
   const [sealsOpen, setSealsOpen] = useState<boolean[]>(Array(SEALS.length).fill(false));
+  const [announce, setAnnounce] = useState('');
   const [choices, setChoices] = useState<number[][]>([]);
   const [focus, setFocus] = useState<'orrery' | 'core' | number>('orrery');
   const [revealed, setRevealed] = useState(false); // 관측 패널에서 이름 공개 여부
@@ -101,6 +102,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       setSealsOpen((s) => { const n = s.slice(); n[sIdx] = true; return n; });
       setJustSeal(sIdx); setTimeout(() => mounted.current && setJustSeal(null), 800);
       onCorrect?.({ en: PLANETS[planetIdx].en, ko: PLANETS[planetIdx].ko });
+      setAnnounce(`${PLANETS[planetIdx].ko} — 봉인이 열렸다`);
       if (openCount + 1 >= SEALS.length) {
         setTimeout(() => { if (mounted.current) { sfx.fanfare(); setPhase('done'); } }, 700);
       }
@@ -108,6 +110,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       sfx.wrong(); setAttempts((a) => a + 1);
       setShake(sIdx); setTimeout(() => mounted.current && setShake(null), 400);
       onWrong?.({ en: PLANETS[planetIdx].en, ko: PLANETS[planetIdx].ko });
+      setAnnounce('이 성좌의 이름이 아니다');
     }
   }, [sealsOpen, openCount, sfx, onCorrect, onWrong]);
 
@@ -126,6 +129,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       <div className="gk-root wo-root">
 
             <GameMusic gameId="word-orrery" />
+      <div className="gk-sr" aria-live="assertive">{announce}</div>
         <GameKitStyles />
         <AmbientBackground center="#3A4468" mid="#141A2E" edge="#080A16" glow="rgba(255,176,86,.34)" glowAt="50% 48%" watermark="word-orrery" />
         <style dangerouslySetInnerHTML={{ __html: WO_CSS }} />
@@ -150,6 +154,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     <div className="gk-root wo-root">
 
           <GameMusic gameId="word-orrery" />
+      <div className="gk-sr" aria-live="assertive">{announce}</div>
       <GameKitStyles />
       <AmbientBackground center="#3A4468" mid="#141A2E" edge="#080A16" glow="rgba(255,176,86,.3)" glowAt="50% 46%" watermark="word-orrery" />
       <style dangerouslySetInnerHTML={{ __html: WO_CSS }} />

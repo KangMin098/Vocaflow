@@ -111,6 +111,7 @@ export function MorphemeRulesGame({ onExit, onCorrect }: Props) {
       <div className="gk-root mr-root">
 
             <GameMusic gameId="morpheme-rules" />
+      <div className="gk-sr" aria-live="polite">{msg}</div>
         <GameKitStyles />
         <AmbientBackground center="#EAEEF3" mid="#B9C4D2" edge="#1A2330" glow="rgba(120,200,255,.26)" glowAt="50% 30%" watermark="morpheme-rules" />
         <style dangerouslySetInnerHTML={{ __html: MR_CSS }} />
@@ -135,6 +136,7 @@ export function MorphemeRulesGame({ onExit, onCorrect }: Props) {
     <div className="gk-root mr-root">
 
           <GameMusic gameId="morpheme-rules" />
+      <div className="gk-sr" aria-live="polite">{msg}</div>
       <GameKitStyles />
       <AmbientBackground center="#EAEEF3" mid="#B9C4D2" edge="#1A2330" glow="rgba(120,200,255,.24)" glowAt="50% 24%" watermark="morpheme-rules" />
       <style dangerouslySetInnerHTML={{ __html: MR_CSS }} />

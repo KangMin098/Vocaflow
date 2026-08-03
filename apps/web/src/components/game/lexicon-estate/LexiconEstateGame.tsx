@@ -97,6 +97,7 @@ export function LexiconEstateGame({ wordPool, onExit, onCorrect }: Props) {
       <div className="gk-root le-root">
 
             <GameMusic gameId="lexicon-estate" />
+      <div className="gk-sr" aria-live="polite">{flash}</div>
         <GameKitStyles />
         <AmbientBackground center="#E4ECF5" mid="#A9BFD8" edge="#152238" glow="rgba(120,180,255,.3)" glowAt="50% 30%" watermark="lexicon-estate" />
         <style dangerouslySetInnerHTML={{ __html: LE_CSS }} />
@@ -121,6 +122,7 @@ export function LexiconEstateGame({ wordPool, onExit, onCorrect }: Props) {
     <div className="gk-root le-root">
 
           <GameMusic gameId="lexicon-estate" />
+      <div className="gk-sr" aria-live="polite">{flash}</div>
       <GameKitStyles />
       <AmbientBackground center="#E4ECF5" mid="#A9BFD8" edge="#152238" glow="rgba(120,180,255,.28)" glowAt="50% 20%" watermark="lexicon-estate" />
       <style dangerouslySetInnerHTML={{ __html: LE_CSS }} />
