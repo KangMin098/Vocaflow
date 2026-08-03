@@ -56,65 +56,132 @@ export function pickDistinct<T>(pool: T[], n: number, exclude: (t: T) => boolean
   return shuffle(pool.filter((x) => !exclude(x))).slice(0, n);
 }
 
-// ─── SFX (Web Audio, 무자산) ───
+// ─── SFX (큐레이션 CC0 샘플 · public/audio/sfx/ · Kenney CC0 1.0, 무저작권) ───
+// 실제 효과음 샘플을 Web Audio 버퍼로 저지연 재생(합성 아님). 로드 전/실패 시에만
+// 합성 tone 폴백으로 무음 방지. 콤보는 playbackRate로 상승감. mute 지원.
+const SFX_SRC = {
+  correct: "/audio/sfx/correct.wav",
+  wrong: "/audio/sfx/wrong.wav",
+  combo: "/audio/sfx/combo.wav",
+  complete: "/audio/sfx/complete.ogg",
+  click: "/audio/sfx/click.wav",
+  coin: "/audio/sfx/coin.wav",
+} as const;
+type SfxName = keyof typeof SFX_SRC;
+
 export function useSfx() {
   const [muted, setMuted] = useState(false);
   const mutedRef = useRef(false);
   mutedRef.current = muted;
   const ctxRef = useRef<AudioContext | null>(null);
+  const bufRef = useRef<Partial<Record<SfxName, AudioBuffer>>>({});
+  const loadingRef = useRef(false);
 
+  const audioCtx = useCallback(() => {
+    if (typeof window === "undefined") return null;
+    const AC =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AC) return null;
+    if (!ctxRef.current) ctxRef.current = new AC();
+    if (ctxRef.current.state === "suspended") void ctxRef.current.resume();
+    return ctxRef.current;
+  }, []);
+
+  const loadSamples = useCallback(() => {
+    if (loadingRef.current) return;
+    const c = ctxRef.current;
+    if (!c) return;
+    loadingRef.current = true;
+    (Object.keys(SFX_SRC) as SfxName[]).forEach((name) => {
+      fetch(SFX_SRC[name])
+        .then((r) => r.arrayBuffer())
+        .then((ab) => c.decodeAudioData(ab))
+        .then((buf) => {
+          bufRef.current[name] = buf;
+        })
+        .catch(() => {});
+    });
+  }, []);
+
+  // 합성 폴백 (샘플 로드 전) — 기존 무자산 tone 유지.
   const tone = useCallback(
-    (freq: number, dur = 0.09, type: OscillatorType = 'sine', gain = 0.05, at = 0) => {
-      if (mutedRef.current || typeof window === 'undefined') return;
-      const AC =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-      if (!AC) return;
-      if (!ctxRef.current) ctxRef.current = new AC();
-      const ctx = ctxRef.current;
-      if (ctx.state === 'suspended') void ctx.resume();
-      const t0 = ctx.currentTime + at;
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
+    (freq: number, dur = 0.09, type: OscillatorType = "sine", gain = 0.05, at = 0) => {
+      if (mutedRef.current) return;
+      const c = audioCtx();
+      if (!c) return;
+      const t0 = c.currentTime + at;
+      const o = c.createOscillator();
+      const g = c.createGain();
       o.type = type;
       o.frequency.setValueAtTime(freq, t0);
       g.gain.setValueAtTime(gain, t0);
       g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
       o.connect(g);
-      g.connect(ctx.destination);
+      g.connect(c.destination);
       o.start(t0);
       o.stop(t0 + dur);
     },
-    [],
+    [audioCtx],
+  );
+
+  const play = useCallback(
+    (name: SfxName, rate: number, gain: number, fallback?: () => void) => {
+      if (mutedRef.current) return;
+      const c = audioCtx();
+      if (!c) return;
+      loadSamples();
+      const buf = bufRef.current[name];
+      if (!buf) {
+        fallback?.();
+        return;
+      }
+      const s = c.createBufferSource();
+      const g = c.createGain();
+      s.buffer = buf;
+      s.playbackRate.value = rate;
+      g.gain.value = gain;
+      s.connect(g);
+      g.connect(c.destination);
+      s.start();
+    },
+    [audioCtx, loadSamples],
   );
 
   const correct = useCallback(
     (combo = 0, milestone = false) => {
-      const b = 520 + Math.min(combo, 12) * 26;
-      tone(b, 0.1, 'triangle', 0.06);
-      tone(b * 1.5, 0.12, 'sine', 0.045, 0.05);
-      if (milestone) {
-        tone(b * 2, 0.14, 'sine', 0.05, 0.1);
-        tone(b * 2.5, 0.16, 'sine', 0.045, 0.17);
-      }
+      play("correct", 1 + Math.min(combo, 12) * 0.03, 0.6, () =>
+        tone(520 + Math.min(combo, 12) * 26, 0.1, "triangle", 0.06),
+      );
+      if (milestone) play("combo", 1, 0.55);
     },
-    [tone],
+    [play, tone],
   );
-  const wrong = useCallback(() => {
-    tone(150, 0.16, 'sawtooth', 0.05);
-    tone(110, 0.18, 'sawtooth', 0.04, 0.04);
-  }, [tone]);
-  const fanfare = useCallback(() => {
-    [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.22, 'sine', 0.05, i * 0.11));
-  }, [tone]);
-  const click = useCallback(() => tone(340, 0.05, 'sine', 0.03), [tone]);
-  const coin = useCallback(() => {
-    tone(880, 0.06, 'square', 0.035);
-    tone(1320, 0.08, 'square', 0.03, 0.04);
-  }, [tone]);
+  const wrong = useCallback(
+    () => play("wrong", 1, 0.5, () => tone(150, 0.16, "sawtooth", 0.05)),
+    [play, tone],
+  );
+  const fanfare = useCallback(
+    () =>
+      play("complete", 1, 0.7, () =>
+        [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.22, "sine", 0.05, i * 0.11)),
+      ),
+    [play, tone],
+  );
+  const click = useCallback(
+    () => play("click", 1, 0.4, () => tone(340, 0.05, "sine", 0.03)),
+    [play, tone],
+  );
+  const coin = useCallback(
+    () => play("coin", 1, 0.5, () => tone(880, 0.06, "square", 0.035)),
+    [play, tone],
+  );
+
   const dispose = useCallback(() => {
     if (ctxRef.current) void ctxRef.current.close().catch(() => {});
     ctxRef.current = null;
+    bufRef.current = {};
+    loadingRef.current = false;
   }, []);
 
   useEffect(() => () => dispose(), [dispose]);

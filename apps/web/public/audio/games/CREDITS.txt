@@ -27,3 +27,19 @@ Per-game track mapping:
   lexicon-estate     "Ashton Manor"       by Kevin MacLeod (incompetech.com) — CC-BY 3.0
 
 Attribution is also surfaced in-app on the /arcade page footer.
+
+
+Sound Effects (public/audio/sfx/)
+=================================
+
+Kenney (kenney.nl) — "Interface Sounds" and "Music Jingles" packs.
+License: Creative Commons Zero (CC0 1.0 Universal) — public domain.
+https://creativecommons.org/publicdomain/zero/1.0/
+No attribution required (credit to Kenney is optional and given here as courtesy).
+
+  correct.wav   confirmation_001  (Interface Sounds, CC0)
+  wrong.wav     error_002         (Interface Sounds, CC0)
+  combo.wav     maximize_003      (Interface Sounds, CC0)
+  click.wav     click_001         (Interface Sounds, CC0)
+  coin.wav      pluck_001         (Interface Sounds, CC0)
+  complete.ogg  jingles_pizzi_1   (Music Jingles, CC0)

@@ -15,6 +15,7 @@
 - **딥서치 분석 결론 적용**: 아케이드 14게임은 흥미(검증된 인디 원형 14종)·주스(공유 `gamekit`)·세션 중독성은 상위권이나 **BGM이 0/14**로 몰입의 최대 미개발 지렛대였음. 각 게임 무드(긴장·박진감·탐험·정적)에 맞는 **실제 큐레이션 BGM** 추가.
 - **음원**: Kevin MacLeod(incompetech.com) **CC-BY 3.0** 14곡을 게임 무드별 매칭(Balatro=Bass Walker 워킹베이스 / Papers Please=An Upsetting Theme 심문 / Outer Wilds=Awaiting Return 심우주 / The Witness=Airship Serenity 명상 등). ffmpeg로 90초 루프 세그먼트+페이드 경량화(~1MB/곡, 총 17MB). `public/audio/games/*.mp3` + `CREDITS.txt`, 아케이드 푸터 저작자 표기.
 - **실오디오 시스템** (`gamekit.tsx` `useGameMusic`/`GameMusic`/`MUSIC_SRC`): 합성음 아닌 `HTMLAudioElement` — 게임별 트랙·루프·페이드 인/아웃·**기본 OFF**(연구: 개인차+언어학습 무가사 저자극)·`localStorage` 기억·SFX/TTS 덕킹·자동재생 차단 폴백(다음 제스처 시작)·접근성(aria-pressed·44px). 14게임에 `<GameMusic gameId>` 1줄 배선.
+- **효과음 실샘플 교체 (P1)**: `useSfx`가 합성 오실레이터 → **CC0 실제 샘플**(Kenney "Interface Sounds"/"Music Jingles", CC0 1.0 무저작권, `public/audio/sfx/` 6종 132KB) Web Audio 버퍼 저지연 재생으로 격상. 콤보는 `playbackRate` 상승, 로드 전/실패 시에만 합성 폴백(무음 방지). API 불변 → 14게임 코드 변경 0. correct/wrong/combo/click/coin/complete.
 
 ### 만화화 파이프라인 — 무료 Qwen 백엔드 + 만화/웹툰 이중 렌더 + 표시크기 해상도 설계
 
