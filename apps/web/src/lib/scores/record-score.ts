@@ -37,6 +37,7 @@ export type ScoreModule =
   | 'lexicon-estate'
   | 'word-orrery'
   | 'wordsmith-vigil'
+  | 'morphmerge'
 
 export interface GameScoreInput {
   module: ScoreModule

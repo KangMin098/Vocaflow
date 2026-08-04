@@ -62,6 +62,9 @@ const GAMES: GameCard[] = [
   { slug: 'wordsmith-vigil', name: "Wordsmith's Vigil", tagline: '뜻을 든 정령을 영단어 타이핑으로 흩어라', layer: 'L4b 생성', ref: 'Typing of the Dead',
     a: '#B5763A', b: '#3A2A1C', glow: 'rgba(255,196,120,.5)', accent: '#F2DCB0',
     mark: M(<><path d="M23 6l-11 11-3 6 6-3L26 9z" /><path d="M9 23l2 2" opacity=".7" /><path d="M6 26h6" opacity=".5" /></>) },
+  { slug: 'morphmerge', name: 'Morphmerge', tagline: '같은 어족의 형태를 알아보고 합쳐 수집하라', layer: 'L4b 형태론', ref: '2048 · Merge',
+    a: '#3E9E6A', b: '#173F2C', glow: 'rgba(130,235,170,.44)', accent: '#D2F3DE',
+    mark: M(<><rect x="5" y="5" width="9" height="9" rx="1.6" /><rect x="18" y="5" width="9" height="9" rx="1.6" opacity=".7" /><rect x="11.5" y="18" width="9" height="9" rx="1.6" /><path d="M14 9.5h4" opacity=".6" /></>) },
 ];
 
 export default function ArcadePage() {

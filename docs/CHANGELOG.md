@@ -10,12 +10,18 @@
 
 ## Unreleased (v06.34 → next)
 
+### 신규 게임 — Morphmerge (어족 합치기 · 형태론 채널)
+
+- 시장 딥서치 후속 — 평가에서 드러난 **미개척 채널 "형태론/굴절"**을 메우는 머지 게임(2048/Merge 원형). 클라이언트 전용.
+- **루프**: 보드의 단어 형태 타일 중 **같은 어족(같은 lemma의 굴절형: go/goes/went/gone)의 모든 형태를 골라 합치면** 어족 보석으로 수집. 혼합=오답(콤보 리셋), 부분=감점없이 안내. 90초 세션·콤보. **불규칙 활용 인지** 훈련.
+- **데이터**: 스코프 단어의 `inflected` 형으로 어족 구성(4어족 이상이면 사용), 부족하면 불규칙 풍부한 기본 어족 12종. `MorphmergeGame` + `/play/morphmerge` · gamekit 공용 + 접근성(aria-pressed·aria-live·reduced-motion)·스프링. 배선: ArcadeGameId/ModuleId/ScoreModule/MARK/MUSIC_SRC/카드.
+
 ### 신규 게임 — Wordsmith's Vigil (타이핑 서바이버 · 생성 채널)
 
 - **시장 딥서치**(세계 베스트 게임 + 학습앱 리텐션) 결론 반영 — 아케이드가 **재인 편중**이라 최대 학습 ROI인 **생성(타이핑)** 게임을 신설. 원형: Typing of the Dead × Vampire Survivors.
 - **루프**: 뜻(ko)을 든 안개 정령이 촛불로 낙하 → 그 영단어를 **정확히 타이핑**(prefix 조준·완성 시 격파). 콤보·촛불 3개(놓치면 소진)·난이도 램프. 생성효과(직접 생성 회상 ~40%↑) + 철자 정밀. 스코프 단어(FSRS due) 시드.
 - **구현**: `components/game/wordsmith-vigil/WordsmithVigilGame.tsx` + `/play/wordsmith-vigil` 라우트. gamekit 공용(AmbientBackground·GameDone·GameMusic·useSfx·ParticleBurst) + 접근성(실제 input=모바일 키보드·aria-live·reduced-motion) + 스프링/오디오 폴리시. `ArcadeGameId`·`ModuleId`·`ScoreModule`·MARK·MUSIC_SRC·아케이드 카드 배선.
-- ⚠️ 점수/FSRS **persistence 는 `module_id` enum 확장 마이그레이션 후 활성**(아케이드 스위트 공통 · 승인 후 적용). 게임 자체·XP/스트릭(localStorage)은 즉시 동작.
+- ⚠️ 점수/FSRS persistence: 기존 14 아케이드는 `module_id` enum 등록 완료(저장 O). **신규 `wordsmith-vigil` 1개 값만 enum 추가 마이그레이션 필요**(승인 후). 게임 자체·XP/스트릭(localStorage)은 즉시 동작.
 
 ### 아케이드 디자인 폴리시 레이어 — 감촉·모션 고급화(딥서치 상위안, 14게임 일괄)
 
