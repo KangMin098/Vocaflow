@@ -93,3 +93,6 @@ scripts/comic/.pollinations-token
 scripts/comic/.gemini-token
 scripts/comic/.openai-token
 scripts/comic/.dashscope-token
+scripts/comic/runpod/.runpod-key
+scripts/comic/.comfy-url
+scripts/comic/runpod/.runpod-pod
