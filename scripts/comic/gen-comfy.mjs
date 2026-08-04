@@ -63,7 +63,8 @@ async function aiDockLogin() {
     if (!loginBase && /\/login/i.test(loc)) loginBase = loc.replace(/\/login.*$/i, "");
   } catch {}
   if (!loginBase) loginBase = COMFY.replace(/-(\d+)\.proxy\.runpod\.net/i, "-1111.proxy.runpod.net"); // AI-Dock portal
-  loginBase = loginBase.replace(/\/$/, "");
+  // the probe's Location is often http:// — force https so the POST isn't 301-redirected before auth
+  loginBase = loginBase.replace(/^http:/i, "https:").replace(/\/$/, "");
   const body = new URLSearchParams({ user: CRED_USER, password: CRED_PASS }).toString();
   const r = await fetch(`${loginBase}/login`, { method: "POST", redirect: "manual",
     headers: { "Content-Type": "application/x-www-form-urlencoded" }, body, signal: AbortSignal.timeout(25000) });
@@ -88,7 +89,12 @@ const cast = script.cast || [];
 const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
 const refsDir = path.join(outDir, "refs");
 fs.mkdirSync(refsDir, { recursive: true });
-const loadWF = (f) => JSON.parse(fs.readFileSync(path.isAbsolute(f) ? f : path.join(process.cwd(), f), "utf8"));
+const loadWF = (f) => {
+  const raw = JSON.parse(fs.readFileSync(path.isAbsolute(f) ? f : path.join(process.cwd(), f), "utf8"));
+  // strip top-level non-node keys (e.g. "_note") — ComfyUI /prompt 500s on nodes without class_type
+  const wf = {}; for (const [k, v] of Object.entries(raw)) if (!k.startsWith("_")) wf[k] = v;
+  return wf;
+};
 const clientId = "vocaflow-comic";
 
 // --- ComfyUI REST helpers ---
