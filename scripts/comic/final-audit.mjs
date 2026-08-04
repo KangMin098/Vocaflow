@@ -175,14 +175,31 @@ async function auditSection(sec, n) {
 
 for (const sec of CFG.sections) for (let n = 1; n <= sec.count; n++) await auditSection(sec, n);
 
-report.push("## Cross-section continuity");
-report.push("| character | appears in | bible appears_in | |");
-report.push("|---|---|---|---|");
+// cross-panel 캐릭터 일관성 = ViStoryBench 헤드라인 + 우리 1순위. per-panel 'character' 품질과 별개로
+// "같은 캐릭터가 모든 등장에서 동일한 얼굴·실루엣·시그니처인가"를 SCORES.consistency 에서 게이트.
+// 2개 이상 등장하는 캐릭터만 대상(단일 등장은 일관성 개념 없음). 미평가=block(반드시 감사).
+const CONS = SCORES.consistency || {};
+report.push("## Cross-section continuity + cross-panel 캐릭터 일관성");
+report.push("| character | appears in | bible appears_in | 일관성 | |");
+report.push("|---|---|---|---|---|");
 for (const [id, b] of Object.entries(BIBLE.characters)) {
   const chs = (appear[id] || []).sort((a, b) => a - b);
   const declared = (b.appears_in || []).slice().sort((a, b) => a - b);
   const ok = JSON.stringify(chs) === JSON.stringify(declared);
-  report.push(`| ${b.name} | ${chs.join(",") || "—"} | ${declared.join(",")} | ${ok ? "✓" : "⚠"} |`);
+  let consCell = "—";
+  if (chs.length >= 2) {
+    const c = CONS[id];
+    if (!c || c.score == null) {
+      consCell = "MISSING";
+      queue.push({ sev: "block", msg: `${id}: cross-panel 일관성 미평가(등장 ${chs.join(",")})`, fix: `${chs.length}개 등장 패널을 함께 보고 얼굴·실루엣·시그니처 동일성 점수를 qc-scores consistency 에 기록` });
+    } else {
+      const cOpen = (c.flagged || []).filter((f) => f.status === "open");
+      consCell = `${c.score}${c.score >= BAR && !cOpen.length ? "✓" : cOpen.length ? "✗OPEN" : "~"}`;
+      if (c.score < BAR && cOpen.length) queue.push({ sev: "block", msg: `${id}: cross-panel 일관성 ${c.score} < ${BAR} (open) — ${cOpen.map((f) => f.note).join("; ")}`, fix: "드리프트 패널 재생성(참조 재적용) 또는 캐릭터 LoRA" });
+      else if (c.score < BAR) queue.push({ sev: "warn", msg: `${id}: cross-panel 일관성 ${c.score} < ${BAR} (documented ceiling)`, fix: "참조-only 천장 — 자가생성 시트로 캐릭터 LoRA(라이선스 0) 학습해 초과 가능" });
+    }
+  }
+  report.push(`| ${b.name} | ${chs.join(",") || "—"} | ${declared.join(",")} | ${consCell} | ${ok ? "✓" : "⚠"} |`);
   if (!ok) queue.push({ sev: "warn", msg: `${id}: appears_in bible(${declared.join(",")}) ≠ used(${chs.join(",")})`, fix: "reconcile appears_in" });
 }
 for (const id of Object.keys(appear)) if (!BIBLE.characters[id]) queue.push({ sev: "block", msg: `${id}: rendered but missing from bible`, fix: "add to bible" });
