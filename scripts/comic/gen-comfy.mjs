@@ -107,8 +107,10 @@ async function runWorkflow(wf, tries = 2) {
 }
 
 function fillCommon(wf, prompt, w, h) {
-  inject(wf, T_PROMPT, (n) => { n.inputs.text = prompt; });
-  inject(wf, T_NEG, (n) => { n.inputs.text = NEG; });
+  // CLIPTextEncode 는 .text, Qwen Edit(TextEncodeQwenImageEdit/Plus)는 .prompt 필드 — 둘 다 지원.
+  const setText = (n, v) => { if ("prompt" in n.inputs) n.inputs.prompt = v; else n.inputs.text = v; };
+  inject(wf, T_PROMPT, (n) => setText(n, prompt));
+  inject(wf, T_NEG, (n) => setText(n, NEG));
   inject(wf, T_SIZE, (n) => { if ("width" in n.inputs) n.inputs.width = w; if ("height" in n.inputs) n.inputs.height = h; }, /EmptyLatent|EmptySD3|Latent.*Image|Empty.*Latent/i);
 }
 
