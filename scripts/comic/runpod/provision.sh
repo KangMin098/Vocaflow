@@ -39,8 +39,12 @@ dl() { # <url> <destdir> <name>
 }
 HF="https://huggingface.co"
 
-# Edit 본체 (품질↔디스크: Q5 권장 ~15GB, 디스크 타이트하면 Q4 로 교체)
-EDIT_Q="Q5_K_M"   # 또는 Q4_K_M
+# Edit 본체 (품질↔VRAM 자동: 22GB+ = Q5 ~15GB, 그 미만 = Q4). ENV EDIT_Q 로 강제 가능.
+if [ -z "${EDIT_Q:-}" ]; then
+  VRAM="$(nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits 2>/dev/null | head -1 | tr -dc 0-9)"
+  if [ -n "$VRAM" ] && [ "$VRAM" -ge 22000 ]; then EDIT_Q="Q5_K_M"; else EDIT_Q="Q4_K_M"; fi
+  echo "VRAM=${VRAM:-?}MB → EDIT_Q=$EDIT_Q"
+fi
 dl "$HF/unsloth/Qwen-Image-Edit-2511-GGUF/resolve/main/qwen-image-edit-2511-${EDIT_Q}.gguf" "$MODELS/unet" "qwen-image-edit-2511-${EDIT_Q}.gguf"
 # 인코더 + 비전 프로젝터 (Edit 참조 경로 필수)
 dl "$HF/chatpig/qwen2.5-vl-7b-it-gguf/resolve/main/qwen2.5-vl-7b-it-q4_k_m.gguf" "$MODELS/text_encoders" "qwen2.5-vl-7b-it-q4_k_m.gguf"
@@ -49,10 +53,12 @@ dl "$HF/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae
 # Lightning 8-step (Edit) — 5x 가속
 dl "$HF/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors" "$MODELS/loras" "Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors"
 
-# (선택) 다중 캐릭터 참조 시트를 pod에서 t2i로 생성하려면 아래 주석 해제 — t2i 모델(+~10GB).
-#   Scrooge 시트를 로컬에서 미리 올리면(gen-comfy refs/) t2i 모델 없이도 됨.
-# dl "$HF/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q3_K_S.gguf" "$MODELS/unet" "qwen-image-Q3_K_S.gguf"
-# dl "$HF/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors" "$MODELS/loras" "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors"
+# t2i 참조 시트 생성용 (gen-comfy buildRef → 캐릭터 시트). qwen-t2i-lightning.api.json 이 사용.
+# 로컬에 미리 만든 시트를 refs/ 로 올리면 이 둘은 생략 가능(NO_T2I=1 로 스킵).
+if [ "${NO_T2I:-0}" != "1" ]; then
+  dl "$HF/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q3_K_S.gguf" "$MODELS/unet" "qwen-image-Q3_K_S.gguf"
+  dl "$HF/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors" "$MODELS/loras" "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors"
+fi
 
 echo "== 모델 =="; du -sh "$MODELS"/*/* 2>/dev/null | sort -h | tail -8
 

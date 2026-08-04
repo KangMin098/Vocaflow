@@ -29,8 +29,49 @@ const has = (name) => process.argv.includes(`--${name}`);
 
 const scriptPath = arg("script"); const outDir = arg("out");
 if (!scriptPath || !outDir) { console.error("--script and --out required"); process.exit(2); }
-const COMFY = String(arg("comfy", process.env.COMFY_URL || "")).replace(/\/$/, "");
+let COMFY = String(arg("comfy", process.env.COMFY_URL || "")).replace(/\/$/, "");
 if (!COMFY) { console.error("No ComfyUI URL. Set env COMFY_URL or --comfy <tunnel-url> (see scripts/comic/kaggle/)."); process.exit(3); }
+// Auth. Two mechanisms, both supported:
+//  1) HTTP Basic (Authorization header) — plain reverse-proxy basic-auth or URL userinfo.
+//  2) AI-Dock (RunPod) form login — the ComfyUI port (…-8188…) 302-redirects to the portal
+//     (…-1111…/login). We POST user/pass to the portal /login, capture the ai_dock_*_token
+//     cookie (same signing secret across ports), and send it as a Cookie header to 8188.
+// Creds: --user/--pass, COMFY_USER/COMFY_PASS, or URL userinfo. Portal URL is auto-derived by
+// swapping the -<port>- proxy segment to -1111- (override with --login-url / COMFY_LOGIN_URL).
+let CRED_USER = arg("user", process.env.COMFY_USER || "");
+let CRED_PASS = arg("pass", process.env.COMFY_PASS || "");
+try {
+  const u = new URL(COMFY);
+  if (u.username) { CRED_USER = CRED_USER || decodeURIComponent(u.username); CRED_PASS = CRED_PASS || decodeURIComponent(u.password); u.username = ""; u.password = ""; COMFY = u.toString().replace(/\/$/, ""); }
+} catch {}
+let AUTH_HEADER = CRED_USER ? { Authorization: "Basic " + Buffer.from(`${CRED_USER}:${CRED_PASS}`).toString("base64") } : null;
+let COOKIE = process.env.COMFY_COOKIE || ""; // set directly, or filled by aiDockLogin()
+const authHeaders = (extra) => {
+  const h = { ...(extra || {}), ...(AUTH_HEADER || {}) };
+  if (COOKIE) h.Cookie = COOKIE;
+  return h;
+};
+// If ComfyUI redirects to an AI-Dock login portal, obtain a session cookie once.
+async function aiDockLogin() {
+  if (COOKIE || !CRED_USER) return;
+  // does 8188 redirect to a portal /login?
+  let loginBase = arg("login-url", process.env.COMFY_LOGIN_URL || "");
+  try {
+    const probe = await fetch(`${COMFY}/system_stats`, { redirect: "manual", signal: AbortSignal.timeout(20000) });
+    if (probe.status === 200) return; // no portal auth needed
+    const loc = probe.headers.get("location") || "";
+    if (!loginBase && /\/login/i.test(loc)) loginBase = loc.replace(/\/login.*$/i, "");
+  } catch {}
+  if (!loginBase) loginBase = COMFY.replace(/-(\d+)\.proxy\.runpod\.net/i, "-1111.proxy.runpod.net"); // AI-Dock portal
+  loginBase = loginBase.replace(/\/$/, "");
+  const body = new URLSearchParams({ user: CRED_USER, password: CRED_PASS }).toString();
+  const r = await fetch(`${loginBase}/login`, { method: "POST", redirect: "manual",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }, body, signal: AbortSignal.timeout(25000) });
+  const sc = r.headers.get("set-cookie") || "";
+  const m = sc.match(/ai_dock_[a-f0-9]+_token=[^;]+/i);
+  if (m) { COOKIE = m[0]; console.error(`✓ AI-Dock login OK (${loginBase.replace(/^https?:\/\//, "")})`); }
+  else console.error(`! AI-Dock login: no token cookie (status ${r.status}) — check --user/--pass`);
+}
 const WF_GEN = arg("wf-gen"); const WF_EDIT = arg("wf-edit");
 if (!WF_GEN) { console.error("--wf-gen <workflow.api.json> required (a ComfyUI t2i workflow exported as API format)"); process.exit(3); }
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
@@ -67,7 +108,7 @@ async function uploadImage(filePath) {
   const fd = new FormData();
   fd.append("image", new Blob([buf], { type: "image/jpeg" }), path.basename(filePath));
   fd.append("overwrite", "true");
-  const r = await fetch(`${COMFY}/upload/image`, { method: "POST", body: fd, signal: AbortSignal.timeout(60000) });
+  const r = await fetch(`${COMFY}/upload/image`, { method: "POST", body: fd, headers: authHeaders(), signal: AbortSignal.timeout(60000) });
   if (!r.ok) throw new Error(`upload ${r.status}`);
   const j = await r.json();
   return j.subfolder ? `${j.subfolder}/${j.name}` : j.name;
@@ -78,14 +119,14 @@ async function runWorkflow(wf, tries = 2) {
   let lastErr = "";
   for (let a = 0; a < tries; a++) {
     try {
-      const q = await fetch(`${COMFY}/prompt`, { method: "POST", headers: { "Content-Type": "application/json" },
+      const q = await fetch(`${COMFY}/prompt`, { method: "POST", headers: authHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({ prompt: wf, client_id: clientId }), signal: AbortSignal.timeout(60000) });
       if (!q.ok) { lastErr = `queue ${q.status}: ${(await q.text()).slice(0, 300)}`; throw new Error(lastErr); }
       const { prompt_id } = await q.json();
       // poll history until the job appears with outputs (ComfyUI runs async)
       for (let i = 0; i < 240; i++) {
         await new Promise((z) => setTimeout(z, 2000));
-        const h = await fetch(`${COMFY}/history/${prompt_id}`, { signal: AbortSignal.timeout(30000) });
+        const h = await fetch(`${COMFY}/history/${prompt_id}`, { headers: authHeaders(), signal: AbortSignal.timeout(30000) });
         if (!h.ok) continue;
         const hist = (await h.json())[prompt_id];
         if (!hist) continue;
@@ -94,7 +135,7 @@ async function runWorkflow(wf, tries = 2) {
         const imgMeta = Object.values(outs).flatMap((o) => o.images || [])[0];
         if (imgMeta) {
           const u = new URLSearchParams({ filename: imgMeta.filename, subfolder: imgMeta.subfolder || "", type: imgMeta.type || "output" });
-          const img = await fetch(`${COMFY}/view?${u}`, { signal: AbortSignal.timeout(120000) });
+          const img = await fetch(`${COMFY}/view?${u}`, { headers: authHeaders(), signal: AbortSignal.timeout(120000) });
           if (!img.ok) throw new Error(`view ${img.status}`);
           return Buffer.from(await img.arrayBuffer());
         }
@@ -151,6 +192,7 @@ async function genPanel(p) {
 
 // ---- run ----
 const pause = () => new Promise((z) => setTimeout(z, GAP));
+await aiDockLogin();
 console.error(`→ ComfyUI @ ${COMFY}; refs for: ${cast.map((c) => c.id).join(", ")}`);
 for (const c of cast) { try { await buildRef(c); } catch (e) { console.error(`✗ ref ${c.id}: ${e.message}`); } await pause(); }
 if (has("refs-only")) { console.error("refs-only done"); process.exit(0); }

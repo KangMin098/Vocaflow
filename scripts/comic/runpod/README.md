@@ -7,8 +7,21 @@ RunPod **ComfyUI - AI-Dock**(`ghcr.io/ai-dock/comfyui`) Pod에서 Qwen-Image-Edi
 ## 0) Pod 준비
 - Pod **Start** → 상태 **Running** → **Connect → HTTP Services → 8188** 링크의 URL 확보
   (`https://<podid>-8188.proxy.runpod.net`). ComfyUI가 뜰 때까지 1-2분.
-- ⚠️ **디스크**: Edit Q5 세트 ~15GB. Container disk 15GB면 부족 → 네트워크 볼륨(`/workspace`)에
-  모델을 두거나 `provision.sh`의 `EDIT_Q=Q4_K_M`로 낮춘다.
+- ⚠️ **디스크**: Edit Q5 + t2i 세트 ~25GB. VRAM 22GB+ 면 Q5 자동, 그 미만은 Q4 자동
+  (`provision.sh` 가 nvidia-smi 로 감지). 강제하려면 `EDIT_Q=Q4_K_M`.
+- **인증(AI-Dock)**: AI-Dock 이미지는 모든 서비스 앞에 **폼 로그인**(포트 1111 `/login`)을 둔다.
+  기본 계정 `user` / `password` (또는 Pod 환경변수 `WEB_USER`/`WEB_PASSWORD`). HTTP Basic 이 아니라
+  쿠키 세션 — `gen-comfy.mjs` 가 `--user/--pass` 로 1111 에 자동 로그인해 `ai_dock_*_token` 쿠키를
+  받아 8188 요청에 실어 보낸다(포트 간 서명키 공유). Cloudflare Quick Tunnel 링크는 로그인 우회.
+
+## 0.5) ComfyUI 업데이트 (필수 — AI-Dock 기본 이미지는 구버전)
+Qwen-Image-Edit-2511 의 `TextEncodeQwenImageEditPlus` 는 최신 ComfyUI 에만 있다. Pod 터미널에서:
+```bash
+CD=""; for c in /opt/ComfyUI "${WORKSPACE:-/workspace}/ComfyUI" /ComfyUI "$HOME/ComfyUI"; do [ -f "$c/main.py" ] && { CD="$c"; break; }; done
+cd "$CD" && git pull --ff-only 2>/dev/null || (git fetch --depth 1 origin master && git reset --hard origin/master)
+python3 -m pip -q install -r requirements.txt
+```
+(provision.sh 가 끝에 ComfyUI 를 재시작하므로 업데이트 → provision 순서로.)
 
 ## 1) 프로비저닝 (Pod 웹 터미널에서 1회)
 Pod의 **JupyterLab Terminal** 또는 **Connect → Web Terminal**에서:
@@ -27,6 +40,7 @@ cp <scrooge-sheet>.png out/carol-runpod/refs/scrooge.jpg
 
 COMFY_URL="https://<podid>-8188.proxy.runpod.net" \
 node scripts/comic/gen-comfy.mjs \
+  --user user --pass password \   # AI-Dock 폼 로그인 → 쿠키 자동 획득
   --script scripts/comic/examples/carol-stave1.json \
   --out out/carol-runpod \
   --wf-gen scripts/comic/wf/qwen-t2i-lightning.api.json \

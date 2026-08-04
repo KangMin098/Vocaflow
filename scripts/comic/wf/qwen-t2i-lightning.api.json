@@ -1,7 +1,7 @@
 {
   "_note": "Validated free-Kaggle path: Qwen-Image GGUF Q3 + Lightning 4-step on a T4. API-quality flat B&W, ~1.5 min/panel, $0. Drive with gen-comfy.mjs --wf-gen this-file (nodes titled PROMPT/NEG/SIZE are injected per panel). Setup: scripts/comic/kaggle/README.md.",
   "1": { "class_type": "UnetLoaderGGUF", "inputs": { "unet_name": "qwen-image-Q3_K_S.gguf" }, "_meta": { "title": "unet" } },
-  "11": { "class_type": "LoraLoaderModelOnly", "inputs": { "lora_name": "Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors", "strength_model": 1.0, "model": ["1", 0] }, "_meta": { "title": "lightning" } },
+  "11": { "class_type": "LoraLoaderModelOnly", "inputs": { "lora_name": "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors", "strength_model": 1.0, "model": ["1", 0] }, "_meta": { "title": "lightning" } },
   "2": { "class_type": "CLIPLoaderGGUF", "inputs": { "clip_name": "qwen2.5-vl-7b-it-q4_k_m.gguf", "type": "qwen_image" }, "_meta": { "title": "clip" } },
   "3": { "class_type": "VAELoader", "inputs": { "vae_name": "qwen_image_vae.safetensors" }, "_meta": { "title": "vae" } },
   "4": { "class_type": "CLIPTextEncode", "inputs": { "text": "", "clip": ["2", 0] }, "_meta": { "title": "PROMPT" } },
