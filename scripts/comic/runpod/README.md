@@ -23,6 +23,15 @@ python3 -m pip -q install -r requirements.txt
 ```
 (provision.sh 가 끝에 ComfyUI 를 재시작하므로 업데이트 → provision 순서로.)
 
+⚠️ **PyTorch 2.5+ 필수** — 최신 ComfyUI 의 Qwen 텍스트 인코더는 `scaled_dot_product_attention(enable_gqa=…)`
+(torch 2.5+) 를 쓴다. AI-Dock 기본 torch 2.4.1 이면 인코딩 단계에서 `unexpected keyword argument 'enable_gqa'`
+로 죽는다. venv 에서 업그레이드:
+```bash
+/opt/environments/python/comfyui/bin/python -m pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+sudo supervisorctl restart comfyui
+```
+(xformers 버전 경고는 무시 — ComfyUI 는 pytorch attention 사용.)
+
 ## 1) 프로비저닝 (Pod 웹 터미널에서 1회)
 Pod의 **JupyterLab Terminal** 또는 **Connect → Web Terminal**에서:
 ```bash
@@ -43,7 +52,7 @@ node scripts/comic/gen-comfy.mjs \
   --user user --pass password \   # AI-Dock 폼 로그인 → 쿠키 자동 획득
   --script scripts/comic/examples/carol-stave1.json \
   --out out/carol-runpod \
-  --wf-gen scripts/comic/wf/qwen-t2i-lightning.api.json \
+  --wf-gen scripts/comic/wf/qwen-t2i-from-edit.api.json \  # Edit 모델을 t2i 로 재사용(별도 t2i 모델 불필요)
   --wf-edit scripts/comic/wf/qwen-edit-lightning.api.json \
   --panels 1,4,9,13          # 먼저 Edit 패널만으로 파이프라인 검증
 ```

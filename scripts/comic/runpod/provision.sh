@@ -53,9 +53,10 @@ dl "$HF/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae
 # Lightning 8-step (Edit) — 5x 가속
 dl "$HF/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors" "$MODELS/loras" "Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors"
 
-# t2i 참조 시트 생성용 (gen-comfy buildRef → 캐릭터 시트). qwen-t2i-lightning.api.json 이 사용.
-# 로컬에 미리 만든 시트를 refs/ 로 올리면 이 둘은 생략 가능(NO_T2I=1 로 스킵).
-if [ "${NO_T2I:-0}" != "1" ]; then
+# t2i 참조 시트: Edit-2511 모델을 그대로 t2i 로 쓰면(wf/qwen-t2i-from-edit.api.json) 별도 t2i
+# 모델이 필요 없다 — 4090 실측(~7s/1024²) 검증됨. 그래서 기본 다운로드 OFF.
+# 순수 Qwen-Image t2i(별도 8GB, city96 Q3) 를 원하면 WANT_T2I=1 로 켠다.
+if [ "${WANT_T2I:-0}" = "1" ]; then
   dl "$HF/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q3_K_S.gguf" "$MODELS/unet" "qwen-image-Q3_K_S.gguf"
   dl "$HF/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors" "$MODELS/loras" "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors"
 fi
@@ -63,7 +64,10 @@ fi
 echo "== 모델 =="; du -sh "$MODELS"/*/* 2>/dev/null | sort -h | tail -8
 
 # ── 4) ComfyUI 재시작 (GGUF 노드 로드) ──
-echo ">> ComfyUI 재시작"
-( supervisorctl restart comfyui 2>/dev/null ) \
-  || ( pkill -f "main.py" 2>/dev/null; echo "  (supervisor 없음 — 수동 재시작 또는 AI-Dock 서비스 재시작 필요)" )
+# ⚠️ pkill -f main.py 는 AI-Dock 서비스 포털(1111)까지 죽여 로그인이 502 가 된다 — 쓰지 말 것.
+# AI-Dock 은 supervisord 로 관리하므로 sudo supervisorctl 로 comfyui 만 재시작한다.
+echo ">> ComfyUI 재시작 (sudo supervisorctl)"
+( sudo supervisorctl restart comfyui 2>/dev/null ) \
+  || ( supervisorctl restart comfyui 2>/dev/null ) \
+  || echo "  (supervisorctl 실패 — 터미널에서 'sudo supervisorctl restart comfyui' 수동 실행)"
 echo "DONE — /object_info 에 UnetLoaderGGUF 뜨면 준비 완료. gen-comfy.mjs 로 구동하세요."
