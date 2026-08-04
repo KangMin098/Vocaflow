@@ -77,7 +77,8 @@ export type ModuleId =
   | 'morpheme-rules' // L4b 형태소 조립·규칙 재작성 (Baba Is You 계열)
   | 'silent-rule' // L4b 철자 규칙 귀납 (The Witness 계열)
   | 'lexicon-estate' // L5 의미장 인접 배치·드래프트 (Blue Prince 계열)
-  | 'word-orrery'; // L5 지식 게이트 탐사 (Outer Wilds 계열)
+  | 'word-orrery' // L5 지식 게이트 탐사 (Outer Wilds 계열)
+  | 'wordsmith-vigil'; // L4b 타이핑 생성 서바이버 (Typing of the Dead 계열)
 
 /**
  * 사용자 단계 — §17.2 [2] 상태 축 — 사용자 상태

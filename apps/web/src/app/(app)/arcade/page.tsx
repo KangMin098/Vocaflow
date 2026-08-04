@@ -59,6 +59,9 @@ const GAMES: GameCard[] = [
   { slug: 'ghost-race', name: 'Ghost Race', tagline: '유령과 속도 대결 · 리그 승급', layer: 'L4a 경쟁', ref: 'Kahoot',
     a: '#B34480', b: '#38296A', glow: 'rgba(255,158,224,.5)', accent: '#FFD1EE',
     mark: M(<><path d="M9 6v20" /><path d="M9 7h13l-3 4 3 4H9" /><path d="M4 14h3M3 19h4" opacity=".6" /></>) },
+  { slug: 'wordsmith-vigil', name: "Wordsmith's Vigil", tagline: '뜻을 든 정령을 영단어 타이핑으로 흩어라', layer: 'L4b 생성', ref: 'Typing of the Dead',
+    a: '#B5763A', b: '#3A2A1C', glow: 'rgba(255,196,120,.5)', accent: '#F2DCB0',
+    mark: M(<><path d="M23 6l-11 11-3 6 6-3L26 9z" /><path d="M9 23l2 2" opacity=".7" /><path d="M6 26h6" opacity=".5" /></>) },
 ];
 
 export default function ArcadePage() {

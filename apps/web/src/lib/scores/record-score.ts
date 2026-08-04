@@ -36,6 +36,7 @@ export type ScoreModule =
   | 'silent-rule'
   | 'lexicon-estate'
   | 'word-orrery'
+  | 'wordsmith-vigil'
 
 export interface GameScoreInput {
   module: ScoreModule

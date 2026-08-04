@@ -42,7 +42,8 @@ export type ArcadeGameId =
   | 'morpheme-rules'
   | 'silent-rule'
   | 'lexicon-estate'
-  | 'word-orrery';
+  | 'word-orrery'
+  | 'wordsmith-vigil';
 
 // ─── 유틸 ───
 export function shuffle<T>(arr: T[]): T[] {
@@ -214,6 +215,7 @@ export const MUSIC_SRC: Partial<Record<ArcadeGameId, string>> = {
   "silent-rule": "/audio/games/silent-rule.mp3", // Airship Serenity — 명상 귀납(The Witness)
   "word-orrery": "/audio/games/word-orrery.mp3", // Awaiting Return — 심우주 경외(Outer Wilds)
   "lexicon-estate": "/audio/games/lexicon-estate.mp3", // Ashton Manor — 저택 탐험(Blue Prince)
+  "wordsmith-vigil": "/audio/games/letter-forge.mp3", // Bit Quest — 타이핑 아케이드(재사용)
 };
 const MUSIC_PREF_KEY = "vocaflow-arcade-music";
 const MUSIC_VOL = 0.3;
@@ -428,6 +430,7 @@ const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
   'silent-rule': (<><rect x="7" y="7" width="18" height="18" rx="3.5" /><circle cx="11" cy="11" r="1.7" fill="currentColor" stroke="none" /><path d="M11 11h5.5v5.5" /></>),
   'lexicon-estate': (<><rect x="5" y="6" width="22" height="20" rx="2" /><path d="M16 6v20M5 15h11" /><path d="M16 21h11" opacity=".5" /></>),
   'word-orrery': (<><circle cx="16" cy="16" r="4.5" /><ellipse cx="16" cy="16" rx="11" ry="11" opacity=".55" /><circle cx="27" cy="16" r="1.7" fill="currentColor" stroke="none" /></>),
+  'wordsmith-vigil': (<><path d="M23 6l-11 11-3 6 6-3L26 9z" /><path d="M9 23l2 2" opacity=".7" /><path d="M6 26h6" opacity=".5" /></>),
 };
 export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
   return (
