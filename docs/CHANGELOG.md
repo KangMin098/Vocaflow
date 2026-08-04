@@ -10,6 +10,12 @@
 
 ## Unreleased (v06.34 → next)
 
+### 신규 게임 — Wordfall Cadence (듣기 케이던스 · 청각 채널)
+
+- 시장 딥서치 후속 — 아케이드에 **전무하던 "청각/듣기" 채널**을 메움(EchoMatch 코어 보완). 리듬 계열.
+- **루프**: 영단어 발음(SpeechSynthesis TTS)을 듣고, 케이던스(제한시간) 다하기 전에 **4개 뜻 후보 중 정답을 고름**. 정답 속도 보너스·콤보·기회 3(♪), 난이도 램프. "다시 듣기" 지원. TTS 부재 시 안내 게이트, en 보이스 자동 선택. 동의어(ko 동일) distractor 제외.
+- `WordfallCadenceGame` + `/play/wordfall-cadence` · gamekit 공용 + 접근성(aria-live·reduced-motion) + 스프링. 배선 + `module_id` enum 값 추가(마이그레이션 적용).
+
 ### 신규 게임 — Morphmerge (어족 합치기 · 형태론 채널)
 
 - 시장 딥서치 후속 — 평가에서 드러난 **미개척 채널 "형태론/굴절"**을 메우는 머지 게임(2048/Merge 원형). 클라이언트 전용.
@@ -21,7 +27,7 @@
 - **시장 딥서치**(세계 베스트 게임 + 학습앱 리텐션) 결론 반영 — 아케이드가 **재인 편중**이라 최대 학습 ROI인 **생성(타이핑)** 게임을 신설. 원형: Typing of the Dead × Vampire Survivors.
 - **루프**: 뜻(ko)을 든 안개 정령이 촛불로 낙하 → 그 영단어를 **정확히 타이핑**(prefix 조준·완성 시 격파). 콤보·촛불 3개(놓치면 소진)·난이도 램프. 생성효과(직접 생성 회상 ~40%↑) + 철자 정밀. 스코프 단어(FSRS due) 시드.
 - **구현**: `components/game/wordsmith-vigil/WordsmithVigilGame.tsx` + `/play/wordsmith-vigil` 라우트. gamekit 공용(AmbientBackground·GameDone·GameMusic·useSfx·ParticleBurst) + 접근성(실제 input=모바일 키보드·aria-live·reduced-motion) + 스프링/오디오 폴리시. `ArcadeGameId`·`ModuleId`·`ScoreModule`·MARK·MUSIC_SRC·아케이드 카드 배선.
-- ⚠️ 점수/FSRS persistence: 기존 14 아케이드는 `module_id` enum 등록 완료(저장 O). **신규 `wordsmith-vigil` 1개 값만 enum 추가 마이그레이션 필요**(승인 후). 게임 자체·XP/스트릭(localStorage)은 즉시 동작.
+- ✅ 점수/FSRS persistence: `module_id` enum 에 `wordsmith-vigil`·`morphmerge`·`wordfall-cadence` 3값 추가 마이그레이션 **적용 완료**(신규 3게임 저장 활성). 기존 14 아케이드는 등록돼 있었음.
 
 ### 아케이드 디자인 폴리시 레이어 — 감촉·모션 고급화(딥서치 상위안, 14게임 일괄)
 

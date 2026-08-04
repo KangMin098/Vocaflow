@@ -38,6 +38,7 @@ export type ScoreModule =
   | 'word-orrery'
   | 'wordsmith-vigil'
   | 'morphmerge'
+  | 'wordfall-cadence'
 
 export interface GameScoreInput {
   module: ScoreModule

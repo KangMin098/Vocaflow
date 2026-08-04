@@ -44,7 +44,8 @@ export type ArcadeGameId =
   | 'lexicon-estate'
   | 'word-orrery'
   | 'wordsmith-vigil'
-  | 'morphmerge';
+  | 'morphmerge'
+  | 'wordfall-cadence';
 
 // ─── 유틸 ───
 export function shuffle<T>(arr: T[]): T[] {
@@ -218,6 +219,7 @@ export const MUSIC_SRC: Partial<Record<ArcadeGameId, string>> = {
   "lexicon-estate": "/audio/games/lexicon-estate.mp3", // Ashton Manor — 저택 탐험(Blue Prince)
   "wordsmith-vigil": "/audio/games/letter-forge.mp3", // Bit Quest — 타이핑 아케이드(재사용)
   "morphmerge": "/audio/games/cascade.mp3", // 8bit Dungeon Level — 경쾌한 머지(재사용)
+  "wordfall-cadence": "/audio/games/silent-rule.mp3", // Airship Serenity — 잔잔한 듣기(재사용)
 };
 const MUSIC_PREF_KEY = "vocaflow-arcade-music";
 const MUSIC_VOL = 0.3;
@@ -434,6 +436,7 @@ const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
   'word-orrery': (<><circle cx="16" cy="16" r="4.5" /><ellipse cx="16" cy="16" rx="11" ry="11" opacity=".55" /><circle cx="27" cy="16" r="1.7" fill="currentColor" stroke="none" /></>),
   'wordsmith-vigil': (<><path d="M23 6l-11 11-3 6 6-3L26 9z" /><path d="M9 23l2 2" opacity=".7" /><path d="M6 26h6" opacity=".5" /></>),
   'morphmerge': (<><rect x="5" y="5" width="9" height="9" rx="1.6" /><rect x="18" y="5" width="9" height="9" rx="1.6" opacity=".7" /><rect x="11.5" y="18" width="9" height="9" rx="1.6" /><path d="M14 9.5h4" opacity=".6" /></>),
+  'wordfall-cadence': (<><path d="M6 16v6M12 11v11M18 7v15M24 13v9" opacity=".9" /><path d="M4 9a5 5 0 0 1 8 0" opacity=".55" /></>),
 };
 export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
   return (

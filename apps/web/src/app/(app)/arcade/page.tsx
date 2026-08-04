@@ -65,6 +65,9 @@ const GAMES: GameCard[] = [
   { slug: 'morphmerge', name: 'Morphmerge', tagline: '같은 어족의 형태를 알아보고 합쳐 수집하라', layer: 'L4b 형태론', ref: '2048 · Merge',
     a: '#3E9E6A', b: '#173F2C', glow: 'rgba(130,235,170,.44)', accent: '#D2F3DE',
     mark: M(<><rect x="5" y="5" width="9" height="9" rx="1.6" /><rect x="18" y="5" width="9" height="9" rx="1.6" opacity=".7" /><rect x="11.5" y="18" width="9" height="9" rx="1.6" /><path d="M14 9.5h4" opacity=".6" /></>) },
+  { slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라', layer: 'L4c 듣기', ref: 'Rhythm',
+    a: '#4C6FA6', b: '#182444', glow: 'rgba(140,180,255,.44)', accent: '#D4E2FA',
+    mark: M(<><path d="M6 16v6M12 11v11M18 7v15M24 13v9" opacity=".9" /><path d="M4 9a5 5 0 0 1 8 0" opacity=".55" /></>) },
 ];
 
 export default function ArcadePage() {
