@@ -63,6 +63,23 @@ fi
 
 echo "== 모델 =="; du -sh "$MODELS"/*/* 2>/dev/null | sort -h | tail -8
 
+# ── 3.5) PyTorch 2.5+ 보장 ──
+# 최신 ComfyUI 의 Qwen 인코더는 scaled_dot_product_attention(enable_gqa=)(torch 2.5+)를 쓴다.
+# AI-Dock 기본 torch 2.4.1 이면 인코딩 단계에서 크래시 → 새 pod(컨테이너 리셋)마다 필수.
+VENV_PY="/opt/environments/python/comfyui/bin/python"; [ -x "$VENV_PY" ] || VENV_PY="$(command -v python3)"
+# 새 pod(컨테이너 리셋)는 볼륨의 최신 ComfyUI(0.30+) 의존성(sqlalchemy 등)이 venv 에 없어 기동 실패 →
+# requirements 재설치 필수.
+echo ">> ComfyUI requirements 설치"
+"$VENV_PY" -m pip install -q -r "$CD/requirements.txt" 2>&1 | tail -3
+"$VENV_PY" -m pip -q install sqlalchemy alembic 2>/dev/null || true
+TORCH_V="$("$VENV_PY" -c 'import torch;print(torch.__version__)' 2>/dev/null | cut -d+ -f1)"
+echo "torch=${TORCH_V:-none}"
+case "$TORCH_V" in
+  2.[0-4].*|1.*|"" ) echo ">> torch 업그레이드 → 2.6.0+cu124 (enable_gqa 지원)"
+    "$VENV_PY" -m pip install -q torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124 ;;
+  * ) echo "· torch OK (>=2.5)" ;;
+esac
+
 # ── 4) ComfyUI 재시작 (GGUF 노드 로드) ──
 # ⚠️ pkill -f main.py 는 AI-Dock 서비스 포털(1111)까지 죽여 로그인이 502 가 된다 — 쓰지 말 것.
 # AI-Dock 은 supervisord 로 관리하므로 sudo supervisorctl 로 comfyui 만 재시작한다.

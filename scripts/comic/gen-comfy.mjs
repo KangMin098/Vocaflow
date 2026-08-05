@@ -159,6 +159,9 @@ function fillCommon(wf, prompt, w, h) {
   inject(wf, T_PROMPT, (n) => setText(n, prompt));
   inject(wf, T_NEG, (n) => setText(n, NEG));
   inject(wf, T_SIZE, (n) => { if ("width" in n.inputs) n.inputs.width = w; if ("height" in n.inputs) n.inputs.height = h; }, /EmptyLatent|EmptySD3|Latent.*Image|Empty.*Latent/i);
+  // vary the sampler seed each call so retries / best-of-N / repair produce a DIFFERENT image
+  // (fixed workflow seeds made regeneration reproduce the same defect — repair loop couldn't work).
+  for (const n of Object.values(wf)) if (n.class_type === "KSampler" && n.inputs && "seed" in n.inputs) n.inputs.seed = Math.floor(Math.random() * 1e15);
 }
 
 // 1) reference sheet (t2i)

@@ -34,19 +34,43 @@ async function post(sub) {
   return r.json().catch(() => ({}));
 }
 const line = (p) => `pod ${p.id} | desired=${p.desiredStatus} | ${p.machine?.gpuDisplayName || p.gpuCount + "×GPU"} | $${p.costPerHr}/h`;
+async function createPod(body) {
+  const r = await fetch(`${BASE}/pods`, { method: "POST", headers: H, body: JSON.stringify(body), signal: AbortSignal.timeout(40000) });
+  const txt = await r.text();
+  if (!r.ok) throw new Error(`create ${r.status}: ${txt.slice(0, 300)}`);
+  return JSON.parse(txt);
+}
+async function del(id) { const r = await fetch(`${BASE}/pods/${id}`, { method: "DELETE", headers: H, signal: AbortSignal.timeout(30000) }); if (!r.ok && r.status !== 200) throw new Error(`delete ${r.status}: ${(await r.text()).slice(0, 200)}`); }
+async function waitRunning(id, secs = 240) {
+  for (let t = 0; t < secs; t += 8) { await new Promise((z) => setTimeout(z, 8000)); let p; try { p = await (await fetch(`${BASE}/pods/${id}`, { headers: H })).json(); } catch { continue; } process.stdout.write(`  ${p.desiredStatus}…`); if (p.desiredStatus === "RUNNING") { console.log(""); return p; } }
+  return null;
+}
+// GPU 우선순위 (24GB 급) — --gpu "이름" 으로 단일 강제 가능
+const GPUS = arg("gpu") ? [arg("gpu")] : ["NVIDIA GeForce RTX 4090", "NVIDIA RTX A5000", "NVIDIA GeForce RTX 3090", "NVIDIA L40S", "NVIDIA L4"];
 
 try {
   if (action === "status") {
     console.log(line(await get()));
   } else if (action === "stop") {
-    await post("stop");
-    await new Promise((z) => setTimeout(z, 2500));
-    console.log("stopped →", line(await get()));
+    await post("stop"); await new Promise((z) => setTimeout(z, 2500)); console.log("stopped →", line(await get()));
   } else if (action === "start") {
-    await post("start");
-    await new Promise((z) => setTimeout(z, 2500));
-    console.log("started →", line(await get()));
+    await post("start"); await new Promise((z) => setTimeout(z, 2500)); console.log("started →", line(await get()));
+  } else if (action === "wait") {
+    const p = await waitRunning(POD); console.log(p ? "RUNNING → " + line(p) : "timeout(아직 RUNNING 아님)"); process.exit(p ? 0 : 1);
+  } else if (action === "terminate") {
+    await del(POD); console.log(`terminated ${POD}`);
+  } else if (action === "new") {
+    // 기존 pod 구성(네트워크볼륨·템플릿·디스크)을 상속해 다른 호스트에 새 pod 생성 (GPU 부족 폴백)
+    const cur = await get();
+    if (!cur.networkVolumeId) { console.error("현재 pod 에 networkVolumeId 없음 — 새 pod 에 모델 볼륨이 안 붙는다. 중단."); process.exit(1); }
+    const body = { cloudType: "SECURE", gpuTypeIds: GPUS, gpuCount: 1, templateId: cur.templateId, networkVolumeId: cur.networkVolumeId, containerDiskInGb: cur.containerDiskInGb || 15, name: arg("name", "vocaflow-comic") };
+    console.log(`creating pod on volume ${cur.networkVolumeId}, GPU priority: ${GPUS.join(" > ")}`);
+    const np = await createPod(body);
+    fs.writeFileSync(path.join(HERE, ".runpod-pod"), np.id);
+    console.log(`✓ new pod ${np.id} (.runpod-pod 갱신) | 이전 pod ${POD} 은 필요없으면: node pod.mjs terminate --pod ${POD}`);
+    const p = await waitRunning(np.id); console.log(p ? "RUNNING → " + line(p) : "생성됐으나 아직 RUNNING 대기 중 — node pod.mjs wait");
+    process.exit(p ? 0 : 1);
   } else {
-    console.error(`unknown action "${action}" (status|stop|start)`); process.exit(2);
+    console.error(`unknown action "${action}" (status|stop|start|wait|new|terminate)`); process.exit(2);
   }
 } catch (e) { console.error("✗", e.message); process.exit(1); }
