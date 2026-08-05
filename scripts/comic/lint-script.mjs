@@ -14,7 +14,9 @@ const castIds = new Set((script.cast || []).map((c) => c.id.toLowerCase()));
 
 // ── 규칙 ──
 const CHROMA = /\b(red|reddish|blue|bluish|green|greenish|yellow|orange|purple|violet|pink|brown|ruddy|golden|gold|crimson|scarlet|tan|amber|teal|magenta|turquoise)\b/i; // white/black/grey/silver = 잉크 팔레트라 허용
-const BAKED = /\breading\s|\bsign\s+reading\b|\binscribed\b|\bengraved with\b|[“"'][^“”"']{2,}[”"']|\b[A-Z]{3,}\b/; // "reading X" / 따옴표 텍스트 / ALLCAPS 간판
+// 간판/글자 요청만 잡는다. 동사 "reading a book" 오탐 방지(Stave2 P7 에서 발견 → 규칙 개선):
+// "sign reading" · "reading '따옴표'" · 따옴표 텍스트 · ALLCAPS 간판만.
+const BAKED = /\bsign\s+reading\b|\breading\s+["'“]|\binscribed\b|\bengraved with\b|[“"'][^“”"']{2,}[”"']|\b[A-Z]{3,}\b/;
 const ISOBG = /\bplain white background\b|\bwhite background\b|\bisolated on\b|\btransparent background\b|\bplain background\b|\bcheckerboard\b|\bblank background\b/i;
 const META = /^\s*(drawn as|rendered as|in the style of a simple)\b/i;
 const CLOSEUP = /close[- ]?up|tight portrait|extreme close|face fills|head and shoulders/i;
