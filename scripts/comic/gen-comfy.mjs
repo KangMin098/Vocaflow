@@ -21,6 +21,7 @@
 
 import fs from "fs";
 import path from "path";
+import { Jimp } from "jimp";
 import { NEG, SIZES, panelDims, useNoref, refPromptText, panelPromptText } from "./comic-prompt.mjs";
 
 const HERE = import.meta.dirname;
@@ -171,8 +172,16 @@ async function buildRef(c) {
   const wf = loadWF(WF_GEN);
   fillCommon(wf, refPromptText(c), SIZES.full.w, SIZES.full.h);
   const buf = await runWorkflow(wf);
-  fs.writeFileSync(out, buf);
-  console.error(`✓ ref ${c.id}  ${buf.length}B`);
+  // center-crop to the single figure — the model draws faint duplicate torsos at the L/R edges of
+  // a "single figure" ref, and those leak into edit panels as a phantom second person (4090 실측).
+  let outBuf = buf;
+  try {
+    const img = await Jimp.read(buf); const W = img.bitmap.width;
+    img.crop({ x: Math.round(W * 0.24), y: 0, w: Math.round(W * 0.52), h: img.bitmap.height });
+    outBuf = await img.getBuffer("image/jpeg", { quality: 92 });
+  } catch { /* jimp 실패 시 원본 사용 */ }
+  fs.writeFileSync(out, outBuf);
+  console.error(`✓ ref ${c.id}  ${outBuf.length}B`);
   return out;
 }
 
