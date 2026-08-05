@@ -77,6 +77,9 @@ async function aiDockLogin() {
 const WF_GEN = arg("wf-gen"); const WF_EDIT = arg("wf-edit");
 if (!WF_GEN) { console.error("--wf-gen <workflow.api.json> required (a ComfyUI t2i workflow exported as API format)"); process.exit(3); }
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
+// S2.5 corrective repair: per-panel regen_hint from a QC verdicts file → injected into the prompt
+// so a failed panel is re-generated WITH the fix, not just re-rolled on a new seed.
+const HINTS = (() => { const f = arg("hints"); if (!f) return {}; try { const v = JSON.parse(fs.readFileSync(f, "utf8")); const o = {}; for (const [k, r] of Object.entries(v)) if (r && r.regen_hint) o[k] = r.regen_hint; return o; } catch { return {}; } })();
 const AUTO_NOREF = !has("no-auto-noref");
 const GAP = Number(arg("gap", 800));
 // node-title conventions (override if your workflow uses different titles)
@@ -192,7 +195,8 @@ async function genPanel(p) {
   const chars = ids.map((id) => byId[id]).filter(Boolean);
   const noref = useNoref(p, ids.length, { forceNoref: has("noref"), autoNoref: AUTO_NOREF });
   const d = panelDims(p);
-  const text = panelPromptText(p, chars, { noref });
+  let text = panelPromptText(p, chars, { noref });
+  if (HINTS[p.n]) { text += ` IMPORTANT CORRECTION (fix this specifically): ${HINTS[p.n]}.`; console.error(`  ↳ P${p.n} correction: ${HINTS[p.n]}`); }
   let wf, mode;
   if (noref || !WF_EDIT) { wf = loadWF(WF_GEN); fillCommon(wf, text, d.w, d.h); mode = "t2i/noref"; }
   else {

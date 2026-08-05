@@ -101,6 +101,19 @@ RunPod Secure Cloud **Stop→Start "GPU 없음"** 으로 생성 전면 중단됨
 
 ---
 
+## 5.5 자립형 배치 — Claude 를 "필요한 위치마다" (효율+품질)
+Claude 판단을 후행 1곳이 아니라 파이프라인 전반의 최적 지점에 배치해, 사람 개입 없이 효율·품질 자립:
+
+| 위치 | 스테이지 | Claude 역할 | 효과 | 구현 |
+|---|---|---|---|---|
+| 앞 | **S0.5 preflight** | 생성 전 text↔scene 정합 검사 | **효율**(GPU 낭비 사전 차단) | `preflight.mjs` ✅ |
+| 중간 | **S2 패널 게이트** | 이미지 vs 스펙 hard-fail | 품질 | `qc-comfy.mjs` ✅ |
+| 중간 | **S2.5 교정수리** | regen_hint 를 프롬프트에 주입(재롤 아닌 교정) | **효율+품질** | `gen-comfy --hints` ✅ |
+| 뒤 | **S3 교차 일관성(T2)** | 캐릭터 크로스 표류 검사 | 품질 | `qc-cross.mjs` ✅ |
+| 최종 | **T3 독립감사** | 전수 적대 재검증 | 품질 | 에이전트/`--sdk` ✅ |
+
+오케스트레이터 `gen-verified.mjs`: lint→preflight→생성→S2→(교정)→S3→조립. `--sdk`(+키)면 end-to-end 자동, 없으면 각 Claude 스테이지 checkpoint→`--resume`. 실증: 각색본에서 S0.5 18/18 coherent · S2 18/18 pass · S3 4/4 consistent 전부 PASS.
+
 ## 6. 반영 상태 요약 (traceability)
 - ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
 - ❌ 미구현(다음): T2 교차·T3 독립검증 코드화, best-of-N, L5 감사 실측연동, 목표지표 게이트, 인프라 폴백(새 pod/Kaggle), **GPU 확보 후 Before/After 실증**.
