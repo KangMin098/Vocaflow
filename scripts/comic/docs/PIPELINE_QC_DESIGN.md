@@ -39,10 +39,10 @@ Claude는 지금 **author-time 정적 템플릿 작성자**로 앉아 있다. �
 
 | 층 | 내용 | 상태 | 위치 |
 |---|---|---|---|
-| **L0 하드닝** | scene에서 텍스트토큰·색단어 제거, 배경 강제, 캐릭터 차별화; NEG 방어; **scene 린트로 클래스 강제** | 🟡 인스턴스만 (린트 ❌) | `examples/carol-stave1.adapted.json`, `comic-prompt.mjs` NEG |
+| **L0 하드닝** | scene에서 텍스트토큰·색단어 제거, 배경 강제, 캐릭터 차별화; NEG 방어; **scene 린트로 클래스 강제** | ✅ 린트 강제(원본 19E BLOCK / 각색 PASS 실증) | `examples/carol-stave1.adapted.json`, `comic-prompt.mjs` NEG, `lint-script.mjs` |
 | **L1 생성** | gen-comfy REST 드라이버, best-of-N | ✅ (best-of-N ❌) | `gen-comfy.mjs` |
 | **L2 시각 게이트** | 패널별 hard-fail 루브릭 채점(§3 T1) | 🟡 스캐폴드 | `qc-comfy.mjs` |
-| **L3 수리 루프** | 불합격만 원인별 프롬프트 패치 후 재생성, ≤3회 | 🟡 수동(`--panels`) — **자동 오케스트레이션 ❌** | (TODO) `gen-verified.mjs` |
+| **L3 수리 루프** | 불합격만 재생성, ≤3회, **전원 PASS 시에만 조립**(R1 강제) | ✅ 강제 폐루프(키 없으면 checkpoint) | `gen-verified.mjs` |
 | **L4 텍스트/학습층** | 각색(≤2블록·화자=화면내·아이코닉만 verbatim·gloss·목표어휘) | 🟡 carol만 | `carol-stave1.adapted.json` |
 | **L5 수용 감사** | L2 실측결과 소비, 전원 PASS 시 SHIP | ❌ 미연동 | `final-audit-*.md` |
 
@@ -91,7 +91,7 @@ Claude를 **런타임 3역할**로 앉힌다. 전부 in-loop.
 **목표 지표(아직 게이트로 인코딩 안 됨 ❌)**: 첫 통과율 55%(10/18) → 폐루프 후 **실질 배포 품질 ≥95%**, `baked_text/no_background/identity_collapse` **hard-fail 0**, 캡션 ≤2/패널, 화면밖 화자 0.
 
 ### 4-1. 회귀 픽스처 (재설계가 재난을 막는다는 "증명")
-기존 결함 8패널(SCROUGEME·체커보드·Marley근육질·빈말풍선…) + 기대 hard-fail 을 픽스처로 저장 → `qc-comfy` 가 **전부 FAIL 로 잡는지** 자체 검증. ❌ TODO.
+기존 결함 8패널(SCROUGEME·체커보드·Marley근육질·빈말풍선…) + 기대 hard-fail 을 픽스처로 저장 → 게이트 verdicts 가 **전부 FAIL 로 잡는지** 검증. ✅ **8/8 정확 포착, 🟢 PASS**. `fixtures/carol-stave1-known-bad.{expected,verdicts}.json` + `qc-regress.mjs`.
 
 ---
 
@@ -102,7 +102,7 @@ RunPod Secure Cloud **Stop→Start "GPU 없음"** 으로 생성 전면 중단됨
 ---
 
 ## 6. 반영 상태 요약 (traceability)
-- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), QC 게이트 스캐폴드(`qc-comfy.mjs`), pod 제어(`runpod/pod.mjs`), 본 설계서.
-- ❌ 미구현(다음): `gen-verified.mjs`(강제 폐루프·L3 자동수리), scene 린트, T2/T3 검증, 회귀 픽스처, 목표지표 게이트, 인프라 폴백, **GPU 확보 후 Before/After 실증**.
+- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
+- ❌ 미구현(다음): T2 교차·T3 독립검증 코드화, best-of-N, L5 감사 실측연동, 목표지표 게이트, 인프라 폴백(새 pod/Kaggle), **GPU 확보 후 Before/After 실증**.
 
-> 결론: **이미지 품질 해결의 "예방↔포착 설계"는 반영**됐으나, 그것을 **강제·증명·자동화**하는 층(gen-verified·린트·픽스처·3중검증)은 아직 미구현이다. 본 문서가 그 전체를 못박은 단일 소스다.
+> 결론: 이미지 품질의 **예방↔포착 설계 + 그것을 강제·증명하는 층**(린트로 생성 전 차단 · gen-verified로 검증 전 조립 금지 · 회귀 픽스처로 재난 재발 차단 증명)이 **코드로 반영·검증**됨. 남은 건 다중검증(T2/T3) 코드화·인프라 폴백·GPU 실증. 본 문서가 단일 소스.
