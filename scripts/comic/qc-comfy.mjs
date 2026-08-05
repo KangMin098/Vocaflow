@@ -28,6 +28,7 @@ const HARD_FAIL_RUBRIC = [
   "identity_collapse: Scrooge and Marley are indistinguishable (Marley must show jaw-bandage + money-chain + be translucent)",
   "text_image_mismatch: the picture contradicts the panel's caption/scene (e.g. caption says sliding on ice but a cart is drawn; says transparent but drawn opaque)",
   "artifact: extra limbs, deformed hands, garbled anatomy, style break (thin coloring-book lines / photoreal / 3D)",
+  "style_drift: NOT flat black-and-white ink — halftone/benday dot shading, screentone, manga-style or semi-realistic rendering. (개별로 grayscale 라도 하우스 플랫잉크와 다르면 실패. 책 전체 톤 균일성은 qc-book/S3.5 에서 재확인.)",
 ];
 
 function buildSpec(script, imagesDir) {
