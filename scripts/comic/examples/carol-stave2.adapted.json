@@ -42,7 +42,7 @@
     { "n": 1, "wide": false, "noref": false, "cap_zone": "top",
       "scene": "the bald pointed-nosed old miser in a nightcap sitting bolt upright in his curtained four-poster bed at midnight as a sudden light floods the room and an unseen hand pulls back the bed-curtains",
       "composition": "close, the stroke of One", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "THE CLOCK STRUCK ONE.", "bubbles": [
+      "text": { "teen": { "narration": "AS MARLEY HAD WARNED, THE FIRST SPIRIT CAME — WHEN THE CLOCK STRUCK ONE.", "bubbles": [
         { "speaker": "", "text": "Light flooded the room, and an unseen hand drew back his bed-curtains.", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [37773, 39659] },
     { "n": 2, "wide": true, "noref": false, "cap_zone": "top",
@@ -79,7 +79,7 @@
     { "n": 7, "wide": false, "noref": true, "cap_zone": "top",
       "scene": "a single lonely small boy reading by himself at a desk beside a feeble fire in a long, bare, cold schoolroom, no one else there",
       "composition": "single subject — the forgotten boy", "characters": [],
-      "text": { "teen": { "narration": "ONE LONELY BOY WAS LEFT BEHIND AT SCHOOL FOR CHRISTMAS.", "bubbles": [
+      "text": { "teen": { "narration": "WHILE THE OTHER BOYS RODE HOME, ONE LONELY BOY WAS LEFT BEHIND AT SCHOOL FOR CHRISTMAS.", "bubbles": [
         { "speaker": "", "text": "It was Scrooge himself, as he used to be — and the old man wept to see him.", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [49087, 50973] },
     { "n": 8, "wide": false, "noref": true, "cap_zone": "top",
@@ -91,7 +91,7 @@
     { "n": 9, "wide": false, "noref": false, "cap_zone": "top",
       "scene": "a jolly rotund clean-shaven old master with a big round smiling face under a large curly old-fashioned white wig, laughing behind a very high clerk's desk in a warm warehouse office",
       "composition": "single subject — Fezziwig", "characters": ["fezziwig"],
-      "text": { "teen": { "narration": "NEXT: THE WAREHOUSE OF JOLLY OLD FEZZIWIG.", "bubbles": [
+      "text": { "teen": { "narration": "THE SPIRIT CARRIED HIM ON — TO A WAREHOUSE HE ONCE KNEW: JOLLY OLD FEZZIWIG'S, WHERE YOUNG SCROOGE WAS AN APPRENTICE.", "bubbles": [
         { "speaker": "", "text": "'Why, it's old Fezziwig — alive again!' cried Scrooge. 'I was apprenticed here!'", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [52859, 54745] },
     { "n": 10, "wide": false, "noref": false, "cap_zone": "top",
@@ -116,12 +116,12 @@
       "scene": "the thin bald clean-shaven old man in a striped nightshirt, barefoot, thoughtful and moved, the warm glow of the ballroom fading behind him",
       "composition": "single subject — Scrooge reflects", "characters": ["scrooge"],
       "text": { "teen": { "narration": "THE SPIRIT ASKED WHAT SUCH KINDNESS WAS WORTH.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "He had the power to make our work a joy or a burden — and that is no small thing.", "pos": "bl", "kind": "speech" } ] } },
+        { "speaker": "SCROOGE", "text": "A few kind words, a little laughter… Fezziwig made us as happy as if it had cost a fortune.", "pos": "bl", "kind": "speech" } ] } },
       "beat_offset": [60402, 62287] },
     { "n": 14, "wide": false, "noref": false, "cap_zone": "top",
       "scene": "a gentle young woman with simple ringlets in a plain dress, tears in her eyes, sitting by candlelight beside a lean dark-haired young man whose sharp face has begun to harden with greed",
       "composition": "close — Belle and the young Scrooge", "characters": ["belle"],
-      "text": { "teen": { "narration": "YEARS LATER — SCROOGE'S YOUNG SWEETHEART, BELLE.", "bubbles": [
+      "text": { "teen": { "narration": "YEARS LATER. THE HARD-EYED YOUNG MAN BESIDE HER WAS SCROOGE HIMSELF — AND BELLE, THE GIRL HE HAD LOVED.", "bubbles": [
         { "speaker": "BELLE", "text": "Another idol has taken my place.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
       "beat_offset": [62287, 64173] },
     { "n": 15, "wide": false, "noref": false, "cap_zone": "top",
@@ -149,7 +149,7 @@
       "composition": "single subject — Scrooge snuffs the light", "characters": ["scrooge"],
       "text": { "teen": { "narration": "UNABLE TO BEAR MORE, SCROOGE TRIED TO PUT THE SPIRIT OUT.", "bubbles": [
         { "speaker": "SCROOGE", "text": "No more! Show me no more — haunt me no longer!", "pos": "tc", "kind": "shout", "verbatim": true, "by": "DICKENS 1843" },
-        { "speaker": "", "text": "He pressed the great snuffer-cap down hard — but the light streamed out from under it.", "pos": "br", "kind": "caption" } ] } },
+        { "speaker": "", "text": "He forced the snuffer-cap down hard — but the light would not die. And Scrooge knew this was only the FIRST of the three spirits.", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [69830, 71716] }
   ]
 }

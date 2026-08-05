@@ -65,7 +65,7 @@
       "composition": "wide, a cold opening at the grave",
       "characters": ["scrooge"],
       "text": { "teen": { "narration": "LONDON. SEVEN YEARS AGO.", "bubbles": [
-        { "speaker": "", "text": "Old Marley — Scrooge's business partner — was dead. Dead as a doornail.", "pos": "bl", "kind": "caption" }
+        { "speaker": "", "text": "Old Marley — Scrooge's business partner — was dead. Dead as a doornail. And Scrooge stood over his grave, unmoved.", "pos": "bl", "kind": "caption" }
       ] } },
       "beat_offset": [0, 2008]
     },
@@ -157,7 +157,8 @@
       "composition": "close, a heart of stone",
       "characters": ["scrooge"],
       "text": { "teen": { "narration": "HIS ANSWER WAS MERCILESS.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "If they would rather die, they had better do it — and decrease the surplus population.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" }
+        { "speaker": "SCROOGE", "text": "If they would rather die, they had better do it — and decrease the surplus population.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" },
+        { "speaker": "", "text": "He meant the poor should be shut away in prisons and workhouses — or left to die.", "pos": "bl", "kind": "caption" }
       ] } },
       "beat_offset": [18076, 20084]
     },
@@ -186,7 +187,7 @@
       "scene": "the miser in a striped nightgown and floppy nightcap starting up from a chair beside a low fire as a big old bell high on the wall swings wildly by itself with motion lines, dread on his face, a dim room",
       "composition": "close, the bells ring themselves",
       "characters": ["scrooge"],
-      "text": { "teen": { "narration": "ALONE BY THE FIRE, A LONG-DEAD BELL BEGAN TO RING.", "bubbles": [
+      "text": { "teen": { "narration": "ALONE BY THE FIRE, A LONG-SILENT BELL BEGAN TO RING BY ITSELF.", "bubbles": [
         { "speaker": "", "text": "Then every bell in the house rang out at once — and just as suddenly, stopped.", "pos": "br", "kind": "caption" }
       ] } },
       "beat_offset": [24101, 26109]
@@ -238,8 +239,8 @@
       "composition": "single subject — Marley departs",
       "characters": ["marley"],
       "text": { "teen": { "narration": "MARLEY GAVE HIS WARNING AND JOINED THE PHANTOMS OF THE NIGHT.", "bubbles": [
-        { "speaker": "MARLEY", "text": "You will be haunted by Three Spirits.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" },
-        { "speaker": "MARLEY", "text": "This is your one chance to escape my fate.", "pos": "bl", "kind": "speech" }
+        { "speaker": "MARLEY", "text": "You will be haunted by Three Spirits. Expect the first when the clock strikes one.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" },
+        { "speaker": "MARLEY", "text": "It is your one chance to escape my fate.", "pos": "bl", "kind": "speech" }
       ] } },
       "beat_offset": [34143, 36151]
     }
