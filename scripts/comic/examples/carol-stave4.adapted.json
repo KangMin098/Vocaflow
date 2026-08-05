@@ -131,8 +131,8 @@
         { "speaker": "SCROOGE", "text": "I will honour Christmas in my heart, and keep it all the year! I am not the man I was!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
       "beat_offset": [151500, 153600] },
     { "n": 18, "wide": false, "noref": false, "cap_zone": "top",
-      "scene": "the tall black hooded phantom shrinking and dwindling down until it becomes a wooden bedpost, which the bald old man in his nightshirt is clutching in his own bedroom as pale dawn light fills the window",
-      "composition": "close — the phantom becomes a bedpost", "characters": ["scrooge"],
+      "scene": "the old bald pointed-nosed man in his striped nightshirt, barefoot, entirely alone in his own plain bedroom, joyfully hugging the plain wooden bedpost of his four-poster bed with both hands, bright morning sunlight streaming through the window — no one else in the room",
+      "composition": "close — alone and alive at last", "characters": ["scrooge"],
       "text": { "teen": { "narration": "THE SPIRIT SHRANK, COLLAPSED — AND DWINDLED INTO A BEDPOST.", "bubbles": [
         { "speaker": "", "text": "It was his own bed. His own room. And he was ALIVE — with time to set everything right!", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [153600, 155700] }

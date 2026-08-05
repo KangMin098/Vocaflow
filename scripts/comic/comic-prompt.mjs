@@ -43,7 +43,12 @@ export function useNoref(p, charCount, { forceNoref = false, autoNoref = true } 
 // reference-sheet prompt: ONE figure, multi-view + expressions, flat ink, no text.
 export function refPromptText(c) {
   // 단일뷰 전신 1인 — 다중뷰 모델시트는 edit 조건화 때 2번째 인물/여분 몸을 누출한다(4090 실측).
-  return `${INK} A single full-length character reference of ONE figure ONLY: ${c.name} standing straight and facing forward, whole body from head to feet, arms at the sides, calm neutral expression, centred on a plain white background. Exactly ONE person — no second figure, no side or back views, no row of expression heads, no duplicate. ${c.name}: ${c.canonical}, ${c.anchor}. Simple and iconic with the signature features clearly visible. ${NOTEXT}`;
+  // faceless/추상 캐릭터(미래의 유령 등)는 "neutral expression"이 얼굴을 유도하므로 분기(R11 확장).
+  const faceless = /faceless|no face|face[^.]*hidden|hidden in (black|darkness|shadow)/i.test(`${c.canonical} ${c.anchor} ${c.distinct_from || ""}`);
+  const pose = faceless
+    ? "standing straight and facing forward, whole body from head to feet, its face and head COMPLETELY hidden in solid black shadow — NO visible face, no eyes, no nose, no mouth"
+    : "standing straight and facing forward, whole body from head to feet, arms at the sides, a calm neutral expression";
+  return `${INK} A single full-length character reference of ONE figure ONLY: ${c.name} ${pose}, centred on a plain white background. Exactly ONE person — no second figure, no side or back views, no row of expression heads, no duplicate. ${c.name}: ${c.canonical}, ${c.anchor}. Simple and iconic with the signature features clearly visible. ${NOTEXT}`;
 }
 
 // panel prompt: scene-dominant, identity from ref (or inline description when noref), with
