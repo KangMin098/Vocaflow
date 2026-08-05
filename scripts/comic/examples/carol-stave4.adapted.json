@@ -77,8 +77,8 @@
         { "speaker": "", "text": "'We are saved,' she whispered. 'God forgive us — but thank Heaven.'", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [132600, 134700] },
     { "n": 9, "wide": true, "noref": true, "cap_zone": "top",
-      "scene": "the poor Cratchit family sitting very still and quiet, the mother in dark clothes with her sewing fallen in her lap; by the fire an empty little stool and a small child's crutch, carefully kept",
-      "composition": "scene — grief in the Cratchit home", "characters": [],
+      "scene": "a hushed grieving Victorian family room; the mother in dark clothes sits very still, her sewing fallen in her lap; by the fire stands a small bare empty stool with a little child's crutch leaning carefully against it — but no child sits there, for the little boy is gone",
+      "composition": "scene — the empty place", "characters": [],
       "text": { "teen": { "narration": "AT THE CRATCHIT HOME, ALL WAS QUIET AND STILL.", "bubbles": [
         { "speaker": "", "text": "An empty stool. A little crutch, lovingly kept. Tiny Tim was gone.", "pos": "br", "kind": "caption" } ] } },
       "beat_offset": [134700, 136800] },
