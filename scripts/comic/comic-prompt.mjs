@@ -65,6 +65,7 @@ export function panelPromptText(p, chars, { noref }) {
   // strip the legacy FLUX-era style meta-prefix baked into some scene texts.
   const scene = String(p.scene || "").replace(/^drawn as a[^:]*:\s*/i, "");
   return [INK, HARDBW,
+    "Setting: Victorian London around 1843 — everything period-accurate (clothing, furniture, lighting, buildings). Absolutely NO modern objects, no modern clothing, no electric or fluorescent lights, no modern kitchens or furniture.",
     `Draw ONE finished single-scene comic illustration with a full drawn background — do NOT keep a plain white background, and this is NOT a character model sheet or a grid of head studies. Show each character full-figure (head to feet, with arms and hands), not a floating bust. Scene: ${scene}.`,
     `Composition: ${p.composition}.${placement}`,
     (noref ? descLines.join(" ") : refLines.join(" ")),

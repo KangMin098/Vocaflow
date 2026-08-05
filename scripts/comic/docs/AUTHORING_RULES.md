@@ -35,6 +35,10 @@
   5. **반복 금지·전진**: 같은 정보를 3연속 패널로 되풀이 말고(춥다×3) 다음을 가리켜라.
   6. **문화어 인라인 gloss**: workhouse·apprentice·snuffer-cap 등은 narration 안에서 짧게 풀어준다.
 
+### v4 — 4권 종합 검증에서 승격 (신규)
+- **R17 시대 앵커(period anchor)**: 시대착오(현대 부엌·복장·조명·건물)가 특히 **t2i 군중/장면**("family dinner", "party", "classroom", "office")에서 체계적으로 샌다 — NEG만으론 부족. 그래서 **모든 패널 프롬프트에 "Victorian London around 1843, period-accurate; NO modern objects/clothing/lighting/furniture" 포지티브 앵커**를 상시 주입(comic-prompt panelPromptText). NEG(modern kitchen/clothing/…)와 이중 방어. (4권 검증: S2 P7/8·S3 P8/15·S1 P8·S4 P8/10 실측.)
+- **R18 부재의 묘사**: 인물의 **부재/죽음**을 그릴 땐 scene 에 "그 인물이 없음"을 **명시**한다. "empty stool + crutch"만 쓰면 모델이 살아있는 아이를 채워 넣는다(S4 P9 Tim 실측: 죽었는데 살아있게 그려짐 → 스토리 힌지 붕괴). scene: "no child on the stool — he is gone".
+
 ## 자동화 상태
 | 규칙 | 자동 강제 | 수단 |
 |---|---|---|
