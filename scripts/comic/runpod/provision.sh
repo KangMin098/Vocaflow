@@ -10,6 +10,11 @@
 #   --wf-edit scripts/comic/wf/qwen-edit-lightning.api.json
 set -u
 export HF_HUB_ENABLE_HXFER_TRANSFER=0
+# pip 캐시를 네트워크볼륨에 둔다 → 새 pod(컨테이너 리셋)이 torch(2.5GB)·requirements 를
+# 재다운로드하지 않고 볼륨 캐시에서 설치(재프로비저닝 ~3분→~1분). Secure Cloud stop→start
+# 불가로 매번 새 pod 을 만들 때의 세팅 낭비 제거.
+export PIP_CACHE_DIR="${WORKSPACE:-/workspace}/.pipcache"
+mkdir -p "$PIP_CACHE_DIR"
 
 # ── 1) ComfyUI 위치 탐지 (AI-Dock 은 보통 /opt/ComfyUI, 모델은 /workspace 볼륨) ──
 CD=""
