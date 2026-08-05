@@ -18,7 +18,7 @@ export const NOTEXT = "A single clean illustration with no text, no words, no le
 // only ALWAYS-unwanted things (never character-specific — e.g. NOT "beard", since some
 // characters have one; clean-shaven is set per-character via the canonical description). The
 // ornate-frame / decorative-background terms fix an SDXL base-model tendency found in testing.
-export const NEG = "colour, coloured, tinted, blue, red, green, brown skin, gradient, soft shading, photorealistic, 3d render, thin uniform outlines, dense cross-hatching, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, caption boxes, panel borders, ornate frame, decorative border, background pattern, floral, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars";
+export const NEG = "colour, coloured, tinted, blue, red, green, brown skin, gradient, soft shading, photorealistic, 3d render, thin uniform outlines, dense cross-hatching, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, empty speech balloon, blank speech bubble, caption boxes, panel borders, ornate frame, decorative border, background pattern, floral, checkerboard, transparency grid, isolated on plain white background, sticker, cutout, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars";
 
 // Display-size tiers in px (see gen-qwen for the phone-floor rationale): full = 4:3 splash,
 // half/third = 3:4, floored so panels stay crisp at phone full-width. Reference sheets use
