@@ -10,7 +10,8 @@ const scriptArg = arg("script");
 if (!scriptArg) { console.error("--script <s.json> 필요"); process.exit(2); }
 const script = JSON.parse(fs.readFileSync(path.isAbsolute(scriptArg) ? scriptArg : path.join(process.cwd(), scriptArg), "utf8"));
 const tier = arg("tier", script.adaptation?.default_tier || "teen");
-const castIds = new Set((script.cast || []).map((c) => c.id.toLowerCase()));
+// 화자 라벨은 cast 의 id 또는 name 과 매칭(예: id "tim" ↔ 라벨 "TINY TIM"=name). Stave3 에서 발견.
+const castIds = new Set(); for (const c of script.cast || []) { castIds.add(String(c.id).toLowerCase()); if (c.name) castIds.add(String(c.name).toLowerCase()); }
 
 // ── 규칙 ──
 const CHROMA = /\b(red|reddish|blue|bluish|green|greenish|yellow|orange|purple|violet|pink|brown|ruddy|golden|gold|crimson|scarlet|tan|amber|teal|magenta|turquoise)\b/i; // white/black/grey/silver = 잉크 팔레트라 허용
