@@ -155,7 +155,8 @@ Carol graphic-novel 마감에서 재생성이 수렴하지 않음(교정 17 → 
 자세한 규칙: AUTHORING_RULES R22 / R22b.
 
 ## 6. 반영 상태 요약 (traceability)
-- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **R21 수렴 엔진(`repair-loop.mjs`) + gen-verified S2.5 배선**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
+- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어+**scene-aware 절(`comic-prompt.mjs::sceneClauses`/`propLines`)**, **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **R21 수렴 엔진(`repair-loop.mjs`, 2R+ 자동 noref) + gen-verified S2.5 배선**, **R22 구조 후처리(`post-fix.mjs`, 최후·용도한정)**, **R24 전수 릴리스 게이트(`release-gate.mjs`, 커버리지 강제→누락 패널 HOLD + 책 SHIP/HOLD 집계)**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
+- **게이트 계층 최상단 = `release-gate.mjs`(책 스코프)**: per-stave `gen-verified`(패널/교차) 위에 얹혀 전 스테이브 전 패널을 scene-match+하드페일로 재검증하고 커버리지를 강제한다. `qc-book`(스타일/연속성)과 함께 통과해야 최종 SHIP. 스팟-교정만 재검증하는 것을 exit 2(UNINSPECTED)로 원천 차단.
 - ❌ 미구현(다음): T3 독립검증 코드화, R22 구조적 후처리 헬퍼(묘비 blank·후드 darken·투명 합성), L5 감사 실측연동, 목표지표 게이트, 인프라 폴백(새 pod/Kaggle), **GPU 확보 후 Before/After 실증 + Carol 잔여 패널 수렴**.
 
 > 결론: 이미지 품질의 **예방↔포착 설계 + 그것을 강제·증명하는 층**(린트로 생성 전 차단 · gen-verified로 검증 전 조립 금지 · 회귀 픽스처로 재난 재발 차단 증명)이 **코드로 반영·검증**됨. 남은 건 다중검증(T2/T3) 코드화·인프라 폴백·GPU 실증. 본 문서가 단일 소스.

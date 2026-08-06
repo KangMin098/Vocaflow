@@ -79,10 +79,10 @@ Carol graphic-novel 마감에서 재생성이 수렴하지 않은 실측(교정 
 | R9,R11,R13 | 🟡 저작 규율(부분 lint) | 저자/Claude 준수 |
 | R21 | ✅ | `repair-loop.mjs`(2R+ 자동 noref) |
 | R22 | ✅ noref 승격 · 🟡 채택한계 판단 | `repair-loop.mjs` / Claude |
-| R24 전수 재게이트 | 🟡 프로세스 규율 | 스테이브별 병렬 Claude vision |
+| R24 전수 재게이트 | ✅ 커버리지 강제 · 🟡 판정 | `release-gate.mjs`(누락 패널=HOLD) + Claude vision |
 | R25 scene-aware 방어 | ✅ | `sceneClauses`+`propLines`(`comic-prompt.mjs`) |
 
 ## 다음 승격 후보 (열려 있음)
 - R11 을 lint 로: 스테이지의 각 유령/정령 cast 에 signature 표식 필드 필수화.
 - 다중 인물 패널 = 다중 참조(image1/2/3) 지원(현재 단일 참조 → 2인 비트는 R13 로 우회).
-- R24 를 코드로: `qc-book.mjs` 를 전 패널 강제(부분 재검증 차단) + 스테이브별 에이전트 팬아웃 오케스트레이션.
+- ~~R24 를 코드로~~ ✅ 완료: `release-gate.mjs` — 스테이브별 전 패널 매니페스트 + 커버리지 강제(스크립트 패널 중 verdict 누락 시 UNINSPECTED→HOLD, exit 2) + 책 단위 SHIP/HOLD 집계 + 재생성 커맨드 자동 출력. (판정 자체는 여전히 Claude vision: 에이전트 스테이브별 팬아웃 또는 `--sdk`.)
