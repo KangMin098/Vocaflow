@@ -194,7 +194,7 @@ async function buildRef(c) {
 
 // 2) panel — edit from the character's reference sheet, or t2i for close-ups / --noref
 async function genPanel(p) {
-  const outPath = path.join(outDir, `${String(p.n).padStart(2, "0")}.jpg`);
+  const outPath = path.join(outDir, `${String(p.n).padStart(2, "0")}${arg("suffix", "")}.jpg`);
   const ids = (p.characters || []).filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`)));
   const chars = ids.map((id) => byId[id]).filter(Boolean);
   const noref = useNoref(p, ids.length, { forceNoref: has("noref"), autoNoref: AUTO_NOREF });
