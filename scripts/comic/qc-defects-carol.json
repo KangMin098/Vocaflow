@@ -190,5 +190,89 @@
       }
     ],
     "not_reinspected": "remaining ~71 panels retained from prior passing QC; not re-Read this pass"
+  },
+  "full_regate_2026_08_06": {
+    "method": "5 parallel Claude vision agents, one per stave, each Read all 18 panels vs script scene/text + rubric",
+    "pass": {
+      "s1": "15/18",
+      "s2": "17/18",
+      "s3": "16/18",
+      "s4": "14/18",
+      "s5": "17/18",
+      "total": "79/90 (87.8%)"
+    },
+    "hard_fail_blocking": {
+      "1": [
+        {
+          "panel": 18,
+          "defect": "duplicate Marley (solid + floating ghost)"
+        }
+      ],
+      "2": [
+        {
+          "panel": 6,
+          "defect": "solid grown horsemen instead of faint see-through shadow-boys; town not country lane"
+        }
+      ],
+      "3": [
+        {
+          "panel": 6,
+          "defect": "Tim missing crutch+iron brace; Bob drawn as teenager"
+        },
+        {
+          "panel": 17,
+          "defect": "Present ghost reverts to young/dark, not aged (breaks P16)"
+        },
+        {
+          "panel": 18,
+          "defect": "Present ghost doubled + not aged"
+        }
+      ],
+      "4": [
+        {
+          "panel": 7,
+          "defect": "exposed corpse face under sheet (death-stave hard-fail)"
+        }
+      ],
+      "5": [
+        {
+          "panel": 15,
+          "defect": "Bob rendered as Fred-like dandy = identity collapse"
+        }
+      ]
+    },
+    "waivable": {
+      "4": [
+        {
+          "panel": 14,
+          "defect": "legible SCROOGE carved on tombstone — diegetic/intended name reveal; allow or blank"
+        }
+      ]
+    },
+    "med_nonblocking": {
+      "1": [
+        {
+          "panel": 15,
+          "defect": "Marley muscular+opaque (adopted glow-fix insufficient)"
+        },
+        {
+          "panel": 17,
+          "defect": "Marley muscular+opaque+wrong pose"
+        }
+      ],
+      "5": [
+        {
+          "panel": 11,
+          "defect": "party guests ~1950s hairstyles + off-style softer render (anachronism+style drift)"
+        }
+      ]
+    },
+    "systematic_patterns": [
+      "departing-spirit panels double the figure (S1 P18, S3 P18) → add NEG single-instance + rule",
+      "translucent ghost renders opaque (Marley S1, needs stronger spectral treatment)",
+      "aging continuity fails to persist across panels once established (S3 P16→P17/P18)",
+      "character identity drift on secondary chars (Bob→Fred/teen, Tim props dropped) → lock ref + explicit props each panel"
+    ],
+    "recommendation": "HOLD — 7 hard-fail panels across staves (S1:18, S2:6, S3:6/17/18, S4:7, S5:15) + 1 waivable (S4:14). Prior remediation fixed the 19 originally-flagged but full gate reveals 7 more, several in never-flagged panels. Converge these 7 (needs pod) before publishing to learners."
   }
 }
