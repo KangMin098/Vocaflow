@@ -74,7 +74,14 @@ while (true) {
     if (has("sdk")) { // R21 수렴엔진: 실패 패널만 best-of-N 재검증·동결 → 재생성 없이 S3 로
       console.log(`  S2 실패 → R21 수렴엔진 ${fails.join(",")}`);
       const rst = run([S("repair-loop.mjs"), "--script", SCRIPT, "--out", OUT, "--wf-gen", arg("wf-gen"), "--wf-edit", arg("wf-edit"), "--user", arg("user", "user"), "--pass", arg("pass", "password"), ...(arg("comfy-url") ? ["--comfy-url", arg("comfy-url")] : []), "--panels", fails.join(","), "--hints", hintsPath, "--n", arg("bestof", "3"), "--k", arg("repair-rounds", "2"), "--sdk"], env);
-      if (rst !== 0) { console.error("✗ R21: 미해결 패널 잔존(사람 플래그) — qc/repair-report.json 확인"); process.exit(1); }
+      if (rst !== 0) { // R21 미해결 → (opt) R22 구조적 후처리로 재롤 저항 결함(faceless·묘비·불투명) 확정 교정
+        const rep = readJson(path.join(QC, "repair-report.json")); const fl = (rep && rep.flagged) || [];
+        if (has("post-fix") && fl.length) { // 결정적 후처리 후 재생성 없이 S3 로(top 가드가 재생성해 덮어쓰는 것 방지 위해 fall-through)
+          console.log(`  R21 미해결 → R22 구조적 후처리 ${fl.join(",")}`);
+          run([S("post-fix.mjs"), "--images", OUT, "--script", SCRIPT, "--panels", fl.join(","), "--sdk"], env);
+          console.log("  R22 적용 완료 → S3 진행");
+        } else { console.error("✗ R21: 미해결 패널 잔존(사람 플래그) — qc/repair-report.json 확인"); process.exit(1); }
+      }
     } else { panels = fails.join(","); console.log(`  S2 실패 → 교정 재생성 ${panels}`); continue; }
   }
   // S3 교차 일관성
