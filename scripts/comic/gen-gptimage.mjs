@@ -51,9 +51,12 @@ const STYLE = arg("style") === "webtoon" ? WEBTOON : null;
 // NEG(우리 규약)를 OpenAI 프롬프트용 avoid 절로 접어 넣는다(음성 프롬프트 필드 부재).
 const AVOID = `Absolutely AVOID and do NOT include: ${negForLevel(VLEVEL, STYLE)}.`;
 const NOTXT = "Render NO text, NO words, NO letters, NO speech balloons or callout shapes anywhere — lettering is added later.";
+// 스타일 앵커: 하나의 기준 화풍 이미지를 모든 패널의 "마지막 참조"로 고정 → 전권 화풍 균일화(일관성).
+const STYLE_REF = arg("style-ref") && arg("style-ref") !== true ? String(arg("style-ref")) : null;
+const STYLE_NOTE = STYLE_REF ? " The FINAL reference image defines ONLY the drawing STYLE (line weight, tone, screentone density, overall look) — match that art style EXACTLY across the whole book; do NOT copy its content, characters, poses or composition." : "";
 const refPrompt = (c) => `${refPromptText(c, VLEVEL, STYLE)} ${AVOID}`;
 const chOf = (p) => (p.characters || []).map((id) => byId[id]).filter(Boolean);
-const panelPrompt = (p, chars) => `${panelPromptText(p, chars, { noref: false, vlevel: VLEVEL, style: STYLE })} ${NOTXT} ${AVOID}`;
+const panelPrompt = (p, chars) => `${panelPromptText(p, chars, { noref: false, vlevel: VLEVEL, style: STYLE })} ${NOTXT}${STYLE_NOTE} ${AVOID}`;
 const nnPath = (n) => path.join(OUT, `${String(n).padStart(2, "0")}.jpg`);
 const refPath = (id) => path.join(refsDir, `${id}.png`);
 
@@ -92,9 +95,11 @@ async function buildRef(c) {
 async function genPanelSync(p) {
   const chars = chOf(p).filter((c) => fs.existsSync(refPath(c.id)));
   const prompt = panelPrompt(p, chars);
-  if (DRY) { console.error(`[dry] panel ${p.n} (${chars.map((c) => c.id).join(",") || "noref"}): ${prompt.slice(0, 120)}…`); return; }
-  const buf = chars.length ? await editImage(prompt, chars.map((c) => refPath(c.id))) : await genImage(prompt);
-  fs.writeFileSync(nnPath(p.n), buf); console.error(`✓ panel ${p.n} (refs: ${chars.map((c) => c.id).join(",") || "none"})`);
+  // 참조 순서: 캐스트(1..N, refLines 대응) → 스타일 앵커(마지막, 화풍 전용).
+  const refs = [...chars.map((c) => refPath(c.id)), ...(STYLE_REF && fs.existsSync(STYLE_REF) ? [STYLE_REF] : [])];
+  if (DRY) { console.error(`[dry] panel ${p.n} (${chars.map((c) => c.id).join(",") || "noref"}${STYLE_REF ? "+style" : ""}): ${prompt.slice(0, 120)}…`); return; }
+  const buf = refs.length ? await editImage(prompt, refs) : await genImage(prompt);
+  fs.writeFileSync(nnPath(p.n), buf); console.error(`✓ panel ${p.n} (refs: ${chars.map((c) => c.id).join(",") || "none"}${STYLE_REF ? "+style" : ""})`);
 }
 // 간단 동시성 풀
 async function pool(items, worker, n) {
