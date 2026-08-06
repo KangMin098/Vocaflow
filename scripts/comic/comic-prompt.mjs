@@ -56,6 +56,12 @@ export const REALISTIC = { register: "realistic-lite",
   ink: "Realistic black-and-white comic illustration: TRUE-TO-LIFE adult human proportions and ordinary realistic faces, grounded, natural and mature — like a realistic graphic novel or a Victorian illustrated newspaper. Moderate clean line work with restrained hatching and light grey tone for a readable comic look — realistic but NOT fussy over-rendered fine-art. Black, white and grey ink only, no colour.",
   negExtra: "anime, manga stylization, shoujo, romance-manga, bishounen pretty boy, idealized handsome model faces, big sparkly eyes, cutesy, chibi, cartoon, cel-shaded flatness, sticker look, dense wood-engraving over-rendering, painterly photoreal render" };
 
+// GONICK 화풍 — Larry Gonick "Cartoon History/Guide" 교육만화. 느슨·경쾌·유머 펜선, 심플·효율(저품질 티어 궁합).
+// 사용자 레퍼런스 확정 화풍. 팩트 기반 내용 + 카툰 표현(순정·리얼리즘 아님).
+export const GONICK = { register: "gonick",
+  ink: "Loose, energetic hand-drawn CARTOON pen-and-ink in the style of Larry Gonick's 'Cartoon History of the Universe' and 'Cartoon Guide' books: confident scratchy expressive linework, lively caricatured faces with exaggerated humorous expressions and animated body language, SIMPLE economical drawing — mostly clean bold black outline with only a little rough hatching, lots of WHITE SPACE and flat areas, minimal shading. Witty, warm, readable educational-comic look. CRITICAL: keep this SAME light simple loose cartoon style for EVERY panel — even ghosts, spirits, monsters, night scenes or dramatic/scary moments stay simple, cartoony and lightly drawn; NEVER switch to heavy realistic rendering, dense shading, or a serious painterly look for dramatic scenes. NOT realistic, NOT polished, NOT painterly, NOT anime, NOT gritty. Black and white ink with occasional light grey wash, no colour.",
+  negExtra: "photorealistic, realistic rendering, dense fine-art cross-hatching, wood-engraving, etching, painterly, oil painting, anime, manga, shoujo, bishounen, pretty idealized faces, big sparkly eyes, 3d render, heavy detail overrendering, gritty dark, colour" };
+
 // Display-size tiers in px (see gen-qwen for the phone-floor rationale): full = 4:3 splash,
 // half/third = 3:4, floored so panels stay crisp at phone full-width. Reference sheets use
 // the full (landscape) tier.

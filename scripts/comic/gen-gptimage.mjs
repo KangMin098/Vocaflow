@@ -22,7 +22,7 @@
 //   node gen-gptimage.mjs --script S.json --out DIR --batch [--responses-model gpt-5.1] [--poll]
 import fs from "fs";
 import path from "path";
-import { refPromptText, panelPromptText, negForLevel, styleForLevel, WEBTOON, REALISTIC } from "./comic-prompt.mjs";
+import { refPromptText, panelPromptText, negForLevel, styleForLevel, WEBTOON, REALISTIC, GONICK } from "./comic-prompt.mjs";
 
 const HERE = import.meta.dirname, API = "https://api.openai.com/v1";
 const arg = (n, d) => { const i = process.argv.indexOf(`--${n}`); if (i === -1) return d; const v = process.argv[i + 1]; return v && !v.startsWith("--") ? v : true; };
@@ -47,7 +47,7 @@ if (!KEY && !DRY) { console.error("OpenAI 키 없음(.openai-token/OPENAI_API_KE
 const AUTH = { Authorization: `Bearer ${KEY}` };
 
 // 화풍: 기본 styleForLevel(레벨별) · --style webtoon → 웹툰 화풍(깨끗·가독·표현력, 저비용 궁합).
-const STYLE = arg("style") === "webtoon" ? WEBTOON : arg("style") === "realistic" ? REALISTIC : null;
+const STYLE = { webtoon: WEBTOON, realistic: REALISTIC, gonick: GONICK }[arg("style")] || null;
 // NEG(우리 규약)를 OpenAI 프롬프트용 avoid 절로 접어 넣는다(음성 프롬프트 필드 부재).
 const AVOID = `Absolutely AVOID and do NOT include: ${negForLevel(VLEVEL, STYLE)}.`;
 const NOTXT = "Render NO text, NO words, NO letters, NO speech balloons or callout shapes anywhere — lettering is added later.";
