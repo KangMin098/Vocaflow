@@ -69,7 +69,14 @@ while (true) {
   try { fs.rmSync(hintsPath, { force: true }); } catch {}
   // S2 패널 QC
   const st2 = claudeStage("S2 패널 QC", [S("qc-comfy.mjs"), "--script", SCRIPT, "--images", OUT, "--out", QC], "qc-verdicts.json", [S("qc-comfy.mjs"), "--verdicts", QC]);
-  if (st2 !== 0) { const v = readJson(hintsPath); panels = Object.entries(v).filter(([, r]) => r.pass === false).map(([n]) => +n).sort((a, b) => a - b).join(","); console.log(`  S2 실패 → 교정 재생성 ${panels}`); continue; }
+  if (st2 !== 0) {
+    const v = readJson(hintsPath); const fails = Object.entries(v).filter(([, r]) => r.pass === false).map(([n]) => +n).sort((a, b) => a - b);
+    if (has("sdk")) { // R21 수렴엔진: 실패 패널만 best-of-N 재검증·동결 → 재생성 없이 S3 로
+      console.log(`  S2 실패 → R21 수렴엔진 ${fails.join(",")}`);
+      const rst = run([S("repair-loop.mjs"), "--script", SCRIPT, "--out", OUT, "--wf-gen", arg("wf-gen"), "--wf-edit", arg("wf-edit"), "--user", arg("user", "user"), "--pass", arg("pass", "password"), ...(arg("comfy-url") ? ["--comfy-url", arg("comfy-url")] : []), "--panels", fails.join(","), "--hints", hintsPath, "--n", arg("bestof", "3"), "--k", arg("repair-rounds", "2"), "--sdk"], env);
+      if (rst !== 0) { console.error("✗ R21: 미해결 패널 잔존(사람 플래그) — qc/repair-report.json 확인"); process.exit(1); }
+    } else { panels = fails.join(","); console.log(`  S2 실패 → 교정 재생성 ${panels}`); continue; }
+  }
   // S3 교차 일관성
   const st3 = claudeStage("S3 교차 일관성", [S("qc-cross.mjs"), "--script", SCRIPT, "--images", OUT, "--out", QC], "cross-verdicts.json", [S("qc-cross.mjs"), "--verdicts", QC]);
   if (st3 !== 0) { const cv = readJson(path.join(QC, "cross-verdicts.json")); const set = new Set(); for (const r of Object.values(cv)) if (r.consistent === false) (r.regen_panels || []).forEach((n) => set.add(n)); panels = [...set].sort((a, b) => a - b).join(","); console.log(`  S3 드리프트 → 재생성 ${panels}`); continue; }

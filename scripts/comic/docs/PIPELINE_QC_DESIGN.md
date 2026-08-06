@@ -141,10 +141,15 @@ Carol graphic-novel 마감에서 재생성이 수렴하지 않음(교정 17 → 
 | **레지스터별 고유 결함**(realistic=텍스트·색틴트·얼굴·불투명) | **R20 레지스터 결함 프로파일**(NEG/힌트/난제목록 부속) |
 | **힌트 천장**(faceless·투명·노화·빈돌 저항) | **R22 구조적 해법**(조명연출·inpaint·별도 ref·noref·diegetic 수용) |
 | **게이트 우회**(스팟체크로 SHIP 선언) | **R23 게이트 강제**: gen-verified 경로 + 릴리스 게이트 없이 SHIP 금지 |
-핵심: 교정은 "재생성"이 아니라 **"재생성+재검증+동결"의 폐쇄 루프**여야 수렴한다. 지금 파이프라인은 재생성만 하고 재검증을 사람(나)에게 맡겨 새어나갔다 → gen-verified 를 **패널 단위 verify-gate + best-of-N** 로 강화하는 것이 다음 구현.
+핵심: 교정은 "재생성"이 아니라 **"재생성+재검증+동결"의 폐쇄 루프**여야 수렴한다. 지금 파이프라인은 재생성만 하고 재검증을 사람(나)에게 맡겨 새어나갔다.
+
+**구현(배선 완료)**: `repair-loop.mjs`(R21 수렴 엔진 = best-of-N 후보 → 패널별 재검증 → 통과분 채택·동결 → ≤K 후 사람 플래그)를 **gen-verified 의 S2.5 자리에 배선**. S2 실패 시:
+- `--sdk`(헤드리스): 실패 패널만 `repair-loop --sdk` 로 수렴 → 재생성 없이 S3 로 진행. 미해결 패널은 `qc/repair-report.json` 에 플래그하고 `exit 1`(무한루프 대신 사람 확인). 튜닝: `--bestof N`(기본 3), `--repair-rounds K`(기본 2).
+- 키 없음: 기존 `panels=fails` 단순 재생성 경로 유지(레거시). 또는 `repair-loop`(no-sdk)로 후보를 모아 에이전트가 `repair-picks.json` 채택하는 2단 흐름을 별도 사용.
+남은 것: **④ 엔진으로 Carol 잔여 패널 수렴**(pod 기동 필요 — 사용자 확인).
 
 ## 6. 반영 상태 요약 (traceability)
-- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
-- ❌ 미구현(다음): T2 교차·T3 독립검증 코드화, best-of-N, L5 감사 실측연동, 목표지표 게이트, 인프라 폴백(새 pod/Kaggle), **GPU 확보 후 Before/After 실증**.
+- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **R21 수렴 엔진(`repair-loop.mjs`) + gen-verified S2.5 배선**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
+- ❌ 미구현(다음): T3 독립검증 코드화, R22 구조적 후처리 헬퍼(묘비 blank·후드 darken·투명 합성), L5 감사 실측연동, 목표지표 게이트, 인프라 폴백(새 pod/Kaggle), **GPU 확보 후 Before/After 실증 + Carol 잔여 패널 수렴**.
 
 > 결론: 이미지 품질의 **예방↔포착 설계 + 그것을 강제·증명하는 층**(린트로 생성 전 차단 · gen-verified로 검증 전 조립 금지 · 회귀 픽스처로 재난 재발 차단 증명)이 **코드로 반영·검증**됨. 남은 건 다중검증(T2/T3) 코드화·인프라 폴백·GPU 실증. 본 문서가 단일 소스.
