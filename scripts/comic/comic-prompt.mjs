@@ -40,7 +40,7 @@ export const NOTEXT = "A single clean illustration with no text, no words, no le
 // ornate-frame / decorative-background terms fix an SDXL base-model tendency found in testing.
 // 항상 원치 않는 것(색·텍스트·중복·시대착오·기형). 스타일별(halftone vs chibi 등)은 styleForLevel().negExtra 로
 // 레벨에 맞춰 붙는다 — 그래서 halftone/semi-realistic 을 BASE 에서 뺐다(고레벨에선 오히려 허용).
-const NEG_BASE = "colour, coloured, tinted, blue, red, green, yellow, orange, purple, brown skin, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, empty speech balloon, blank speech bubble, caption boxes, panel borders, ornate frame, decorative border, background pattern, floral, checkerboard, transparency grid, isolated on plain white background, sticker, cutout, duplicate character, second face, twin, extra person, bystander, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars, modern kitchen, fitted cabinets, gas stove, electric light, contemporary clothing, cardigan, eyeglasses, wristwatch, floating disembodied head";
+const NEG_BASE = "colour, coloured, tinted, blue, red, green, yellow, orange, purple, brown skin, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, empty speech balloon, blank speech bubble, caption boxes, panel borders, ornate frame, decorative border, background pattern, floral, checkerboard, transparency grid, isolated on plain white background, sticker, cutout, duplicate character, second face, twin, extra person, bystander, same character twice, two of the same figure, cloned figure, ghostly double of the same person, mirrored duplicate, reflection duplicate, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars, modern kitchen, fitted cabinets, gas stove, electric light, contemporary clothing, cardigan, eyeglasses, wristwatch, floating disembodied head";
 export function negForLevel(vlevel) { return NEG_BASE + ", " + styleForLevel(vlevel).negExtra; }
 export const NEG = negForLevel(6); // 기본(하위호환)
 
@@ -77,6 +77,22 @@ export function refPromptText(c, vlevel) {
 
 // panel prompt: scene-dominant, identity from ref (or inline description when noref), with
 // the HARDBW / BLANK / solo / anti-sheet / scene-meta-strip fixes.
+// 전수 게이트(2026-08-06)가 드러낸 4대 체계 결함을 scene 키워드로 자동 강제한다.
+// 수동 힌트에 의존하지 않고, 의도가 scene 에 있으면 프롬프트가 스스로 방어한다.
+export function sceneClauses(scene) {
+  const s = String(scene || ""); const out = [];
+  // ① 반투명 유령이 불투명으로 그려지는 문제(Marley 등)
+  if (/translucent|see-?through|transparent|semi-?transparent|visible through|through (his|her|its) (transparent |ghostly )?(body|form)/i.test(s))
+    out.push("This ghost is genuinely SEE-THROUGH and TRANSLUCENT — the wall, door and objects behind are clearly visible THROUGH the faint spectral body; render it as a pale transparent apparition, NEVER a solid opaque figure.");
+  // ② 노화가 확립된 뒤 이후 패널에서 되돌아가는 연속성 붕괴(현재 유령)
+  if (/\baged\b|grey hair|gray hair|white beard|white hair|near death|end of (its|his|the)( one)?( night of)? life|elderly|worn with age|old and weary/i.test(s))
+    out.push("This character is now VISIBLY OLD and AGED — grey or white hair and beard, deeply wrinkled gaunt face, frail and weary; do NOT draw them young, muscular or dark-haired.");
+  // ③ 떠나는/부유하는 영혼 패널에서 같은 인물이 둘로 복제되는 문제
+  if (/floating|drifting|fade|departing|through the (door|window|wall)|out (of )?the window|rises? (up|into)|vanish|drift(s|ing)? (away|off)/i.test(s))
+    out.push("Show EXACTLY ONE instance of this figure — never draw the same character twice, no second, doubled or duplicate copy of the same ghost or person anywhere in the frame.");
+  return out;
+}
+
 export function panelPromptText(p, chars, { noref, vlevel }) {
   const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must have exactly the same FACE and body identity as the person in reference image ${i + 1} (same face, nose, baldness, build) — but their clothing, headwear and pose come from the scene description below, NOT from the reference.`);
   const descLines = chars.map((c) => `${c.name.toUpperCase()} is ${c.canonical}, ${c.anchor}.`);
@@ -88,13 +104,19 @@ export function panelPromptText(p, chars, { noref, vlevel }) {
     : "";
   // strip the legacy FLUX-era style meta-prefix baked into some scene texts.
   const scene = String(p.scene || "").replace(/^drawn as a[^:]*:\s*/i, "");
+  // 2차 캐릭터 소품 드리프트 방지: edit 모드에선 anchor(스카프·목발·보조기·쇠사슬 등)가 프롬프트에
+  // 안 실려 소품이 탈락했다 → 두 모드 모두 "시그니처 특징/소품"으로 상시 재명시.
+  const propLines = chars.map((c) => `${c.name.toUpperCase()} must clearly keep their signature identifying features and props: ${c.anchor}.`);
+  const sc = sceneClauses(scene);
   return [styleForLevel(vlevel).ink, HARDBW,
     "Setting: Victorian London around 1843 — everything period-accurate (clothing, furniture, lighting, buildings). Absolutely NO modern objects, no modern clothing, no electric or fluorescent lights, no modern kitchens or furniture.",
     `Draw ONE finished single-scene comic illustration with a full drawn background — do NOT keep a plain white background, and this is NOT a character model sheet or a grid of head studies. Show each character full-figure (head to feet, with arms and hands), not a floating bust. Scene: ${scene}.`,
     `Composition: ${p.composition}.${placement}`,
     (noref ? descLines.join(" ") : refLines.join(" ")),
-    noref ? "" : "The reference images define ONLY each character's appearance. Include exactly ONE instance of each character; do NOT copy the reference layout and do NOT reproduce multiple views, extra heads, busts or an expression row.",
+    propLines.join(" "),
+    noref ? "" : "The reference images define ONLY each character's face and build; clothing, headwear and pose come from the scene, but the signature props above must persist. Include exactly ONE instance of each character; do NOT copy the reference layout and do NOT reproduce multiple views, extra heads, busts or an expression row.",
     solo,
+    ...sc,
     "Fill the frame with the scene, the main subject prominent and fully inside the edges, not cropped.",
     BLANK, NOTEXT].filter(Boolean).join(" ");
 }

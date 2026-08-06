@@ -66,6 +66,8 @@ Carol graphic-novel 마감에서 재생성이 수렴하지 않은 실측(교정 
   - 순서: **① 힌트 재생성(edit) → ② 안 되면 그 패널만 noref t2i → ③ 그래도 안 되면 채택-한계/사람 플래그**. post-fix는 그 다음.
 - **R22b post-fix(`post-fix.mjs`)는 최후·용도 한정**(사각 fill의 한계 실증): 좌표 기반 결정적 3연산 `void`/`blank`/`translucent` 은 **균일 배경 위 직사각 영역**에만 적합. **유기적 실루엣(후드)·라인아트 텍스처(간판)에는 쓰지 말 것** — 후드 void는 하늘로 삐져나온 검은 사각형, 간판 blank은 라인아트 위 회색 검열박스가 되어 **원 결함보다 나쁨**. 이 경우 R22 ①②(noref 재생성)로 대체. post-fix는 원본을 `qc/prefix-backup/` 에 백업(가역)하므로 실패 시 즉시 revert. `gen-verified --post-fix` 배선은 유지하되 **기본 비활성**.
 - **R23 게이트 없이 SHIP 선언 금지(프로세스 규율)**: 수동 조립·게시로 게이트를 **우회하지 말 것**. 항상 `gen-verified` 강제 경로(전원 PASS 시에만 assemble) + 게시 전 **릴리스 게이트(qc + 스토리 + 책)** 통과 필수. **스팟체크로 "완료" 선언 금지** — 엄격 게이트가 진실. (이번 세션 최대 실패요인 = 내 규율.)
+- **R24 릴리스 게이트는 전수(全 패널)여야 한다**(실증 도출 2026-08-06): 스팟-교정한 "플래그 N패널"만 재검증하면 **한 번도 플래그된 적 없는 패널의 신규 결함을 놓친다**. Carol 마감에서 19패널만 고치고 근접-마감으로 판단했으나, 전수 재게이트(90패널)가 **never-flagged 패널 7건의 하드페일**(S1 P18·S2 P6·S3 P6/17/18·S4 P7·S5 P15)을 드러냄. ⇒ 게시 전 반드시 **전 패널** Claude vision(스테이브당 1 에이전트 병렬)로 재게이트. 교정은 국소, **검증은 전역**.
+- **R25 scene 에 의도가 있으면 프롬프트가 스스로 강제한다(scene-aware 방어)**: 수동 힌트에 의존하면 반복 결함이 샌다. `comic-prompt.mjs::sceneClauses(scene)` 가 scene 키워드로 자동 절 주입 — **반투명**(see-through/translucent→불투명 금지), **노화 연속성**(aged/grey→young 금지), **이탈-중복**(floating/through window→단일 인물). 또한 **캐릭터 소품 상시 재명시**(`propLines`): edit 모드에서 anchor(스카프·목발·보조기·쇠사슬)가 프롬프트에 안 실려 소품이 탈락하던 것을 두 모드 모두 강제. NEG_BASE 에 "same character twice/cloned/ghostly double" 추가.
 
 ## 자동화 상태
 | 규칙 | 자동 강제 | 수단 |
@@ -75,7 +77,12 @@ Carol graphic-novel 마감에서 재생성이 수렴하지 않은 실측(교정 
 | R7,R8 | ✅ | `gen-comfy.mjs` |
 | R12 | ✅ | `preflight.mjs`(S0.5) |
 | R9,R11,R13 | 🟡 저작 규율(부분 lint) | 저자/Claude 준수 |
+| R21 | ✅ | `repair-loop.mjs`(2R+ 자동 noref) |
+| R22 | ✅ noref 승격 · 🟡 채택한계 판단 | `repair-loop.mjs` / Claude |
+| R24 전수 재게이트 | 🟡 프로세스 규율 | 스테이브별 병렬 Claude vision |
+| R25 scene-aware 방어 | ✅ | `sceneClauses`+`propLines`(`comic-prompt.mjs`) |
 
 ## 다음 승격 후보 (열려 있음)
 - R11 을 lint 로: 스테이지의 각 유령/정령 cast 에 signature 표식 필드 필수화.
 - 다중 인물 패널 = 다중 참조(image1/2/3) 지원(현재 단일 참조 → 2인 비트는 R13 로 우회).
+- R24 를 코드로: `qc-book.mjs` 를 전 패널 강제(부분 재검증 차단) + 스테이브별 에이전트 팬아웃 오케스트레이션.
