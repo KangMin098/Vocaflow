@@ -14,12 +14,60 @@
       "backend": "qwen-image-edit-max (free, DashScope) + t2i --noref fallback for sheet-prone close-ups",
       "remediated_note": "Initial 18-panel Qwen pass: 10 pass / 8 fail. 6 defect classes found → fixed in gen-qwen.mjs: (1) colour drift from scene colour-words → HARDBW clause; (2) garbled text on papers → BLANK clause; (3) duplicate character / extra bystander → solo/no-dup clause + NEG; (4) thin coloring-book lineart → solid-black INK; (5) legacy 'drawn as a caricature:' scene meta-prefix → stripped; (6) multi-view sheet leak on tight close-ups (p2,12,13) + costume-override failure → t2i --noref fallback. Re-QC after remediation: all 18 pass, low residuals accepted below.",
       "defects": [
-        { "panel": 1, "severity": "low", "tags": ["identity"], "note": "faint jaw shading reads as light stubble; ref is clean-shaven", "status": "accepted-limit" },
-        { "panel": 7, "severity": "low", "tags": ["style-drift"], "note": "grey wash mid-tones, still clearly hand-inked cartoon", "status": "accepted-limit" },
-        { "panel": 9, "severity": "low", "tags": ["subject-count"], "note": "stands full-body rather than seated at desk; papers blank so no text risk", "status": "accepted-limit" },
-        { "panel": 11, "severity": "low", "tags": ["extra-object"], "note": "a few small background automobiles (anachronism); B&W, Bob alone, boys not clearly shown", "status": "accepted-limit" },
-        { "panel": 14, "severity": "low", "tags": ["readability"], "note": "faint garbled scrawl in lower-right corner, small/non-intrusive", "status": "accepted-limit" },
-        { "panel": 15, "severity": "low", "tags": ["identity"], "note": "chain has padlocks but cash-boxes not clearly present", "status": "accepted-limit" }
+        {
+          "panel": 1,
+          "severity": "low",
+          "tags": [
+            "identity"
+          ],
+          "note": "faint jaw shading reads as light stubble; ref is clean-shaven",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 7,
+          "severity": "low",
+          "tags": [
+            "style-drift"
+          ],
+          "note": "grey wash mid-tones, still clearly hand-inked cartoon",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 9,
+          "severity": "low",
+          "tags": [
+            "subject-count"
+          ],
+          "note": "stands full-body rather than seated at desk; papers blank so no text risk",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 11,
+          "severity": "low",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "a few small background automobiles (anachronism); B&W, Bob alone, boys not clearly shown",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 14,
+          "severity": "low",
+          "tags": [
+            "readability"
+          ],
+          "note": "faint garbled scrawl in lower-right corner, small/non-intrusive",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 15,
+          "severity": "low",
+          "tags": [
+            "identity"
+          ],
+          "note": "chain has padlocks but cash-boxes not clearly present",
+          "status": "accepted-limit"
+        }
       ]
     },
     "2": {
@@ -32,7 +80,7 @@
             "identity"
           ],
           "note": "day-coat+cane instead of nightcap/nightshirt",
-          "status": "open"
+          "status": "remediated"
         },
         {
           "panel": 2,
@@ -41,7 +89,7 @@
             "extra-object"
           ],
           "note": "head-flame PLUS a handheld flaming vessel (should be empty hands)",
-          "status": "open"
+          "status": "remediated"
         },
         {
           "panel": 3,
@@ -50,7 +98,7 @@
             "extra-object"
           ],
           "note": "head-flame PLUS handheld torch/candle",
-          "status": "open"
+          "status": "remediated"
         },
         {
           "panel": 4,
@@ -59,7 +107,7 @@
             "extra-object"
           ],
           "note": "head-flame PLUS handheld candle/vessel",
-          "status": "open"
+          "status": "remediated"
         },
         {
           "panel": 5,
@@ -68,7 +116,7 @@
             "style-drift"
           ],
           "note": "sepia wash + elfin ears on Scrooge",
-          "status": "open"
+          "status": "remediated"
         },
         {
           "panel": 9,
@@ -77,7 +125,7 @@
             "identity"
           ],
           "note": "Fezziwig drawn bearded (must be clean-shaven)",
-          "status": "open"
+          "status": "remediated"
         },
         {
           "panel": 12,
@@ -86,10 +134,61 @@
             "subject-count"
           ],
           "note": "three main dancers (should be Fezziwig + one wife)",
-          "status": "open"
+          "status": "remediated"
         }
       ]
     }
   },
-  "_status_note": "BREAKTHROUGH (2026-08-01): the free Qwen-Image-Edit backend (gen-qwen.mjs) CLEARS section 1 — all 18 panels pass Vision-QC at $0. This replaces the old Pollinations conclusion below. The detect→remediate loop now closes on free: reference-sheet identity lock + HARDBW/BLANK/solo prompt clauses + t2i --noref fallback for sheet-prone close-ups. Section 2 defects below are STALE (old Pollinations free-FLUX run) and await re-generation on Qwen. Old note: FIXING high defects FAILED on free Pollinations (FLUX ignores style/negative control); that ceiling no longer applies with Qwen."
+  "_status_note": "BREAKTHROUGH (2026-08-01): the free Qwen-Image-Edit backend (gen-qwen.mjs) CLEARS section 1 — all 18 panels pass Vision-QC at $0. This replaces the old Pollinations conclusion below. The detect→remediate loop now closes on free: reference-sheet identity lock + HARDBW/BLANK/solo prompt clauses + t2i --noref fallback for sheet-prone close-ups. Section 2 defects below are STALE (old Pollinations free-FLUX run) and await re-generation on Qwen. Old note: FIXING high defects FAILED on free Pollinations (FLUX ignores style/negative control); that ceiling no longer applies with Qwen.",
+  "release_remediation_2026_08_06": {
+    "method": "pod recreate(37vw8a0sc6m65p) → provision(torch2.6+GGUF) → per-panel hinted regen(best-of-N) + noref t2i for hint-resistant + Claude vision verify each → adopt/freeze. post-fix rectangles found unsuitable for organic/line-art regions → solved by noref regen instead.",
+    "fixed": {
+      "1": {
+        "panels": [
+          8,
+          12,
+          15
+        ],
+        "notes": "P8 empty-balloon→none; P12 gold-leak→pure B&W; P15 solid Marley→spectral-glow+cash-boxes (literal translucency = accepted-limit, glow convention)"
+      },
+      "2": {
+        "panels": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          12
+        ],
+        "notes": "P1 nightcap/bed; P2/3/4 head-flame only(no handheld vessel); P5 elfin-ears→normal(noref); P9 Fezziwig clean-shaven; P12 two dancers"
+      },
+      "3": {
+        "panels": [
+          6,
+          10,
+          16,
+          17
+        ],
+        "notes": "P6 head attached; P10 correct Bob+Tim; P16 ghost aged(noref); P17 no empty balloons"
+      },
+      "4": {
+        "panels": [
+          5,
+          6,
+          16
+        ],
+        "notes": "P5 blank signs+no balloons(noref r3); P6 corpse fully shrouded; P16 faceless void hood(noref)"
+      }
+    },
+    "verified": "each regenerated panel Read+verified by Claude vision this pass",
+    "accepted_limits": [
+      {
+        "stave": 1,
+        "panel": 15,
+        "note": "Marley opaque with spectral glow aura instead of literal see-through; comic convention"
+      }
+    ],
+    "not_reinspected": "remaining ~71 panels retained from prior passing QC; not re-Read this pass"
+  }
 }
