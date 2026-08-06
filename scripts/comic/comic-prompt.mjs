@@ -41,8 +41,14 @@ export const NOTEXT = "A single clean illustration with no text, no words, no le
 // 항상 원치 않는 것(색·텍스트·중복·시대착오·기형). 스타일별(halftone vs chibi 등)은 styleForLevel().negExtra 로
 // 레벨에 맞춰 붙는다 — 그래서 halftone/semi-realistic 을 BASE 에서 뺐다(고레벨에선 오히려 허용).
 const NEG_BASE = "colour, coloured, tinted, blue, red, green, yellow, orange, purple, brown skin, text, words, letters, numbers, writing on paper, scribbled glyphs, signboards, labels, speech bubbles, empty speech balloon, blank speech bubble, caption boxes, panel borders, ornate frame, decorative border, background pattern, floral, checkerboard, transparency grid, isolated on plain white background, sticker, cutout, duplicate character, second face, twin, extra person, bystander, same character twice, two of the same figure, cloned figure, ghostly double of the same person, mirrored duplicate, reflection duplicate, extra heads, multiple views, expression sheet, extra limbs, deformed hands, modern objects, cars, modern kitchen, fitted cabinets, gas stove, electric light, contemporary clothing, cardigan, eyeglasses, wristwatch, floating disembodied head";
-export function negForLevel(vlevel) { return NEG_BASE + ", " + styleForLevel(vlevel).negExtra; }
+export function negForLevel(vlevel, style) { return NEG_BASE + ", " + ((style && style.negExtra) || styleForLevel(vlevel).negExtra); }
 export const NEG = negForLevel(6); // 기본(하위호환)
+
+// 웹툰 방향 화풍 — 디테일 리얼리즘 대신 "깨끗·가독·표현력 + 세로스크롤 즉독성". 효율(저품질 티어)과 궁합.
+// 일관성(캐릭터 실루엣)·스토리 표현력을 우선하고 파인아트 밀도는 버린다. B&W 유지(HTML 레터링).
+export const WEBTOON = { register: "webtoon",
+  ink: "Clean modern webtoon / manhwa style: bold clear CONSISTENT line art, simple flat grey tones and light screentone (NOT dense cross-hatching, NOT fine-art realism), expressive readable faces and clear body language, strong recognizable character silhouettes, uncluttered backgrounds that read instantly at a glance while scrolling vertically. Black, white and a few flat greys only, no colour.",
+  negExtra: "fine-art realism, dense cross-hatching, wood-engraving, etching, photorealistic, painterly, oil-painting, cluttered detail, muddy heavy shading, chibi, big-head toddler" };
 
 // Display-size tiers in px (see gen-qwen for the phone-floor rationale): full = 4:3 splash,
 // half/third = 3:4, floored so panels stay crisp at phone full-width. Reference sheets use
@@ -65,14 +71,14 @@ export function useNoref(p, charCount, { forceNoref = false, autoNoref = true } 
 }
 
 // reference-sheet prompt: ONE figure, multi-view + expressions, flat ink, no text.
-export function refPromptText(c, vlevel) {
+export function refPromptText(c, vlevel, style) {
   // 단일뷰 전신 1인 — 다중뷰 모델시트는 edit 조건화 때 2번째 인물/여분 몸을 누출한다(4090 실측).
   // faceless/추상 캐릭터(미래의 유령 등)는 "neutral expression"이 얼굴을 유도하므로 분기(R11 확장).
   const faceless = /faceless|no face|face[^.]*hidden|hidden in (black|darkness|shadow)/i.test(`${c.canonical} ${c.anchor} ${c.distinct_from || ""}`);
   const pose = faceless
     ? "standing straight and facing forward, whole body from head to feet, its face and head COMPLETELY hidden in solid black shadow — NO visible face, no eyes, no nose, no mouth"
     : "standing straight and facing forward, whole body from head to feet, arms at the sides, a calm neutral expression";
-  return `${styleForLevel(vlevel).ink} A single full-length character reference of ONE figure ONLY: ${c.name} ${pose}, centred on a plain white background. Exactly ONE person — no second figure, no side or back views, no row of expression heads, no duplicate. ${c.name}: ${c.canonical}, ${c.anchor}. Clear and iconic with the signature features. ${NOTEXT}`;
+  return `${(style && style.ink) || styleForLevel(vlevel).ink} A single full-length character reference of ONE figure ONLY: ${c.name} ${pose}, centred on a plain white background. Exactly ONE person — no second figure, no side or back views, no row of expression heads, no duplicate. ${c.name}: ${c.canonical}, ${c.anchor}. Clear and iconic with the signature features. ${NOTEXT}`;
 }
 
 // panel prompt: scene-dominant, identity from ref (or inline description when noref), with
@@ -93,7 +99,7 @@ export function sceneClauses(scene) {
   return out;
 }
 
-export function panelPromptText(p, chars, { noref, vlevel }) {
+export function panelPromptText(p, chars, { noref, vlevel, style }) {
   const refLines = chars.map((c, i) => `${c.name.toUpperCase()} must have exactly the same FACE and body identity as the person in reference image ${i + 1} (same face, nose, baldness, build) — but their clothing, headwear and pose come from the scene description below, NOT from the reference.`);
   const descLines = chars.map((c) => `${c.name.toUpperCase()} is ${c.canonical}, ${c.anchor}.`);
   let placement = "";
@@ -108,7 +114,7 @@ export function panelPromptText(p, chars, { noref, vlevel }) {
   // 안 실려 소품이 탈락했다 → 두 모드 모두 "시그니처 특징/소품"으로 상시 재명시.
   const propLines = chars.map((c) => `${c.name.toUpperCase()} must clearly keep their signature identifying features and props: ${c.anchor}.`);
   const sc = sceneClauses(scene);
-  return [styleForLevel(vlevel).ink, HARDBW,
+  return [((style && style.ink) || styleForLevel(vlevel).ink), HARDBW,
     "Setting: Victorian London around 1843 — everything period-accurate (clothing, furniture, lighting, buildings). Absolutely NO modern objects, no modern clothing, no electric or fluorescent lights, no modern kitchens or furniture.",
     `Draw ONE finished single-scene comic illustration with a full drawn background — do NOT keep a plain white background, and this is NOT a character model sheet or a grid of head studies. Show each character full-figure (head to feet, with arms and hands), not a floating bust. Scene: ${scene}.`,
     `Composition: ${p.composition}.${placement}`,
