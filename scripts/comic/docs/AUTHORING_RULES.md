@@ -39,6 +39,20 @@
 - **R17 시대 앵커(period anchor)**: 시대착오(현대 부엌·복장·조명·건물)가 특히 **t2i 군중/장면**("family dinner", "party", "classroom", "office")에서 체계적으로 샌다 — NEG만으론 부족. 그래서 **모든 패널 프롬프트에 "Victorian London around 1843, period-accurate; NO modern objects/clothing/lighting/furniture" 포지티브 앵커**를 상시 주입(comic-prompt panelPromptText). NEG(modern kitchen/clothing/…)와 이중 방어. (4권 검증: S2 P7/8·S3 P8/15·S1 P8·S4 P8/10 실측.)
 - **R18 부재의 묘사**: 인물의 **부재/죽음**을 그릴 땐 scene 에 "그 인물이 없음"을 **명시**한다. "empty stool + crutch"만 쓰면 모델이 살아있는 아이를 채워 넣는다(S4 P9 Tim 실측: 죽었는데 살아있게 그려짐 → 스토리 힌지 붕괴). scene: "no child on the stool — he is gone".
 
+### v5 — 레벨 적응형 레지스터 (신규, 핵심)
+- **R19 레벨 적응형 레지스터(art·text·story)**: 산출물의 **사실감/정교함을 도서 레벨(target_v_level 0~11)에 맞추되 "약간 상향"**(존중·비유아틱). 상급 도서인데 유아·초등 스타일 이미지면 부적합.
+  - **아트 사다리**(흑백 유지 — 사실감=디테일·해칭·정확한 비례에서, 색 아님):
+    | eff level(=vlevel+1.5) | register | 느낌 |
+    |---|---|---|
+    | ≤4 | **cartoon** | 두꺼운 단순 선·둥근 형태, 유아용 |
+    | ≤7 | **comic** | 펜·잉크 만화, 성인 비례(비-chibi), 가벼운 해칭 (Gonick↑) |
+    | ≤10 | **graphic-novel** | 사실적 비례+해칭+절제된 screentone, 문학적 그래픽노블/판화 |
+    | >10 | **realistic** | 사실적 에칭·명암, 성인 고급 |
+    구현: `comic-prompt.styleForLevel(vlevel)` → {ink, negExtra}. `gen-comfy --vlevel N` 강제. NEG도 **레벨-상대**: 저레벨은 halftone/사실주의 차단, 고레벨은 chibi/유아틱 차단(그래서 예전 "halftone 결함"이 고레벨에선 정상). QC `style_drift`도 레지스터 기준(`qc-comfy` 매니페스트에 expected_art_register).
+  - **텍스트 레지스터**: 어휘 난이도·문장 복잡도·문체를 레벨(+약간)에 맞춘다. 저레벨=짧고 쉬운 문장, 고레벨=풍부한 어휘·복문·문학적 뉘앙스 유지(무조건 쉽게 X). 아이코닉 원문 보존 비율도 레벨↑일수록↑.
+  - **스토리 레지스터**: 주제의 미묘함·아이러니·도덕적 복잡성을 레벨에 맞춘다. 저레벨=명시적·직접적, 고레벨=암시·여백 허용.
+  - Carol=V7 → 기대 register "graphic-novel"(약간 상향). 기존 flat 카툰본은 V7엔 다소 유아틱 → 상향 재렌더 권장.
+
 ## 자동화 상태
 | 규칙 | 자동 강제 | 수단 |
 |---|---|---|

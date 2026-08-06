@@ -22,7 +22,7 @@
 import fs from "fs";
 import path from "path";
 import { Jimp } from "jimp";
-import { NEG, SIZES, panelDims, useNoref, refPromptText, panelPromptText } from "./comic-prompt.mjs";
+import { negForLevel, SIZES, panelDims, useNoref, refPromptText, panelPromptText, styleForLevel } from "./comic-prompt.mjs";
 
 const HERE = import.meta.dirname;
 function arg(name, def) { const i = process.argv.indexOf(`--${name}`); if (i === -1) return def; const v = process.argv[i + 1]; return v && !v.startsWith("--") ? v : true; }
@@ -90,6 +90,10 @@ const T_REF = String(arg("title-refimage", "REFIMAGE"));
 
 const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
 const cast = script.cast || [];
+// R19: 도서 레벨에 맞춘 아트 레지스터 + 레벨-상대 NEG. --vlevel 로 강제 가능.
+const VLEVEL = arg("vlevel") != null ? Number(arg("vlevel")) : (script.adaptation?.target_v_level ?? 6);
+const NEG_L = negForLevel(VLEVEL);
+console.error(`art register: ${styleForLevel(VLEVEL).register} (V-Level ${VLEVEL} +약간상향)`);
 const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
 const refsDir = path.join(outDir, "refs");
 fs.mkdirSync(refsDir, { recursive: true });
@@ -161,7 +165,7 @@ function fillCommon(wf, prompt, w, h) {
   // CLIPTextEncode 는 .text, Qwen Edit(TextEncodeQwenImageEdit/Plus)는 .prompt 필드 — 둘 다 지원.
   const setText = (n, v) => { if ("prompt" in n.inputs) n.inputs.prompt = v; else n.inputs.text = v; };
   inject(wf, T_PROMPT, (n) => setText(n, prompt));
-  inject(wf, T_NEG, (n) => setText(n, NEG));
+  inject(wf, T_NEG, (n) => setText(n, NEG_L));
   inject(wf, T_SIZE, (n) => { if ("width" in n.inputs) n.inputs.width = w; if ("height" in n.inputs) n.inputs.height = h; }, /EmptyLatent|EmptySD3|Latent.*Image|Empty.*Latent/i);
   // vary the sampler seed each call so retries / best-of-N / repair produce a DIFFERENT image
   // (fixed workflow seeds made regeneration reproduce the same defect — repair loop couldn't work).
@@ -173,7 +177,7 @@ async function buildRef(c) {
   const out = path.join(refsDir, `${c.id}.jpg`);
   if (fs.existsSync(out) && !has("refs-force")) { console.error(`· ref ${c.id} exists`); return out; }
   const wf = loadWF(WF_GEN);
-  fillCommon(wf, refPromptText(c), SIZES.full.w, SIZES.full.h);
+  fillCommon(wf, refPromptText(c, VLEVEL), SIZES.full.w, SIZES.full.h);
   const buf = await runWorkflow(wf);
   // center-crop to the single figure — the model draws faint duplicate torsos at the L/R edges of
   // a "single figure" ref, and those leak into edit panels as a phantom second person (4090 실측).
@@ -195,7 +199,7 @@ async function genPanel(p) {
   const chars = ids.map((id) => byId[id]).filter(Boolean);
   const noref = useNoref(p, ids.length, { forceNoref: has("noref"), autoNoref: AUTO_NOREF });
   const d = panelDims(p);
-  let text = panelPromptText(p, chars, { noref });
+  let text = panelPromptText(p, chars, { noref, vlevel: VLEVEL });
   if (HINTS[p.n]) { text += ` IMPORTANT CORRECTION (fix this specifically): ${HINTS[p.n]}.`; console.error(`  ↳ P${p.n} correction: ${HINTS[p.n]}`); }
   let wf, mode;
   if (noref || !WF_EDIT) { wf = loadWF(WF_GEN); fillCommon(wf, text, d.w, d.h); mode = "t2i/noref"; }

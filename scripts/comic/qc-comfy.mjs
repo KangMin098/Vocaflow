@@ -14,6 +14,7 @@
 //   { "2": { "pass": false, "hard_fail": ["baked_text"], "scores": {...}, "regen_hint": "blank sign; ..." }, ... }
 import fs from "fs";
 import path from "path";
+import { styleForLevel } from "./comic-prompt.mjs";
 
 const arg = (n, d) => { const i = process.argv.indexOf(`--${n}`); if (i === -1) return d; const v = process.argv[i + 1]; return v && !v.startsWith("--") ? v : true; };
 const has = (n) => process.argv.includes(`--${n}`);
@@ -28,7 +29,7 @@ const HARD_FAIL_RUBRIC = [
   "identity_collapse: Scrooge and Marley are indistinguishable (Marley must show jaw-bandage + money-chain + be translucent)",
   "text_image_mismatch: the picture contradicts the panel's caption/scene (e.g. caption says sliding on ice but a cart is drawn; says transparent but drawn opaque)",
   "artifact: extra limbs, deformed hands, garbled anatomy, style break (thin coloring-book lines / photoreal / 3D)",
-  "style_drift: NOT flat black-and-white ink — halftone/benday dot shading, screentone, manga-style or semi-realistic rendering. (개별로 grayscale 라도 하우스 플랫잉크와 다르면 실패. 책 전체 톤 균일성은 qc-book/S3.5 에서 재확인.)",
+  "style_drift: 이 책의 아트 레지스터(레벨 연동, 아래 명시)와 다르면 실패. 저레벨(cartoon/comic)은 flat 잉크가 정상이라 halftone/반실사가 결함이지만, 고레벨(graphic-novel/realistic)은 오히려 halftone/사실적 해칭이 정상이고 유아틱 플랫카툰이 결함이다. 색은 어느 레벨이든 결함. 책 전체 톤 균일성은 qc-book/S3.5.",
 ];
 
 function buildSpec(script, imagesDir) {
@@ -74,7 +75,9 @@ const script = JSON.parse(fs.readFileSync(path.isAbsolute(arg("script")) ? arg("
 const imagesDir = arg("images");
 if (!imagesDir) { console.error("--images <dir> 필요"); process.exit(2); }
 const spec = buildSpec(script, imagesDir);
-const manifest = { rubric: HARD_FAIL_RUBRIC, instruction: "각 패널 이미지를 열어 scene/captions/characters 와 대조하고, hard_fail 규칙 위반이 하나라도 있으면 pass=false. qc-verdicts.json 에 {panel:{pass,hard_fail[],scores{},regen_hint}} 로 기록.", panels: spec };
+const vlevel = script.adaptation?.target_v_level ?? 6;
+const register = styleForLevel(vlevel).register;
+const manifest = { rubric: HARD_FAIL_RUBRIC, book_v_level: vlevel, expected_art_register: register, instruction: `이 책은 V-Level ${vlevel} → 기대 아트 레지스터 = "${register}" (레벨보다 약간 상향). style_drift 는 이 레지스터 기준으로 판단(고레벨이면 halftone/사실적 해칭은 정상, 유아틱 플랫카툰이 결함). 각 패널을 scene/captions/characters 와 대조해 hard_fail 위반 있으면 pass=false. qc-verdicts.json 에 {panel:{pass,hard_fail[],scores{},regen_hint}} 로 기록.`, panels: spec };
 fs.writeFileSync(path.join(outDir, "qc-manifest.json"), JSON.stringify(manifest, null, 2));
 console.log(`manifest → ${path.join(outDir, "qc-manifest.json")}  (${spec.length} panels, ${spec.filter((s) => !s.image_exists).length} missing images)`);
 
