@@ -50,6 +50,12 @@ export const WEBTOON = { register: "webtoon",
   ink: "Clean modern webtoon / manhwa style: bold clear CONSISTENT line art, simple flat grey tones and light screentone (NOT dense cross-hatching, NOT fine-art realism), expressive readable faces and clear body language, strong recognizable character silhouettes, uncluttered backgrounds that read instantly at a glance while scrolling vertically. Black, white and a few flat greys only, no colour.",
   negExtra: "fine-art realism, dense cross-hatching, wood-engraving, etching, photorealistic, painterly, oil-painting, cluttered detail, muddy heavy shading, chibi, big-head toddler" };
 
+// 사실적·효율 화풍 — "만화지만 사실적, 순정만화(shoujo) 아님". grounded 실사 비율/얼굴, 만화·애니·미남화 배제,
+// 그러나 파인아트 과렌더도 배제(효율). 세로스크롤 가독 유지. B&W(HTML 레터링).
+export const REALISTIC = { register: "realistic-lite",
+  ink: "Realistic black-and-white comic illustration: TRUE-TO-LIFE adult human proportions and ordinary realistic faces, grounded, natural and mature — like a realistic graphic novel or a Victorian illustrated newspaper. Moderate clean line work with restrained hatching and light grey tone for a readable comic look — realistic but NOT fussy over-rendered fine-art. Black, white and grey ink only, no colour.",
+  negExtra: "anime, manga stylization, shoujo, romance-manga, bishounen pretty boy, idealized handsome model faces, big sparkly eyes, cutesy, chibi, cartoon, cel-shaded flatness, sticker look, dense wood-engraving over-rendering, painterly photoreal render" };
+
 // Display-size tiers in px (see gen-qwen for the phone-floor rationale): full = 4:3 splash,
 // half/third = 3:4, floored so panels stay crisp at phone full-width. Reference sheets use
 // the full (landscape) tier.
