@@ -146,7 +146,13 @@ Carol graphic-novel 마감에서 재생성이 수렴하지 않음(교정 17 → 
 **구현(배선 완료)**: `repair-loop.mjs`(R21 수렴 엔진 = best-of-N 후보 → 패널별 재검증 → 통과분 채택·동결 → ≤K 후 사람 플래그)를 **gen-verified 의 S2.5 자리에 배선**. S2 실패 시:
 - `--sdk`(헤드리스): 실패 패널만 `repair-loop --sdk` 로 수렴 → 재생성 없이 S3 로 진행. 미해결 패널은 `qc/repair-report.json` 에 플래그하고 `exit 1`(무한루프 대신 사람 확인). 튜닝: `--bestof N`(기본 3), `--repair-rounds K`(기본 2).
 - 키 없음: 기존 `panels=fails` 단순 재생성 경로 유지(레거시). 또는 `repair-loop`(no-sdk)로 후보를 모아 에이전트가 `repair-picks.json` 채택하는 2단 흐름을 별도 사용.
-남은 것: **④ 엔진으로 Carol 잔여 패널 수렴**(pod 기동 필요 — 사용자 확인).
+**④ 완료(2026-08-06)**: Carol 잔여 19패널을 이 방식으로 마감 — pod 재생성+프로비저닝 후 결함별 힌트 재생성 + 각 패널 Claude vision 재검증 + 채택·동결. 18 클린 + 1 채택-한계(Stave1 P15 Marley 반투명=글로우 관례).
+
+**실측 도출 규칙 갱신**:
+- **힌트-저항 결함의 1차 해법 = `noref t2i`**(근본원인=ref 조건화): elfin 귀·유령 노화·faceless 후드·baked 사인 전부 noref 재생성으로 해결. → `repair-loop` 이 **2라운드+ 자동 noref 승격**하도록 반영(genArgs r≥2 → `--noref`).
+- **post-fix 사각 fill 은 유기/라인아트 영역에 부적합**(실증): 후드 void=삐져나온 검은 박스, 간판 blank=회색 검열박스. → **균일 배경 직사각에만** 사용, 그 외는 noref 재생성. `--post-fix` 는 기본 비활성.
+- **whack-a-mole 재현**: "blank sign" 힌트가 빈 말풍선 유발 → 복합 NEG(말풍선 금지 병기)로 수렴. R21 검증-게이트가 포착.
+자세한 규칙: AUTHORING_RULES R22 / R22b.
 
 ## 6. 반영 상태 요약 (traceability)
 - ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어(`comic-prompt.mjs`), **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **R21 수렴 엔진(`repair-loop.mjs`) + gen-verified S2.5 배선**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.

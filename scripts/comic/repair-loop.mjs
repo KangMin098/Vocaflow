@@ -42,10 +42,11 @@ if (has("adopt")) {
   process.exit(flagged.length ? 1 : 0);
 }
 
-const genArgs = (n) => [path.join(HERE, "gen-comfy.mjs"), "--script", SCRIPT, "--out", OUT, "--wf-gen", arg("wf-gen"), "--wf-edit", arg("wf-edit"), "--user", arg("user", "user"), "--pass", arg("pass", "password"), "--panels", String(n), "--suffix", "-cand", ...(arg("hints") ? ["--hints", arg("hints")] : [])];
+// R22 실측: 힌트-저항 결함은 대개 ref 조건화가 원인 → 2라운드+ 는 자동 noref(t2i) 승격.
+const genArgs = (n, r) => [path.join(HERE, "gen-comfy.mjs"), "--script", SCRIPT, "--out", OUT, "--wf-gen", arg("wf-gen"), "--wf-edit", arg("wf-edit"), "--user", arg("user", "user"), "--pass", arg("pass", "password"), "--panels", String(n), "--suffix", "-cand", ...(r >= 2 ? ["--noref"] : []), ...(arg("hints") ? ["--hints", arg("hints")] : [])];
 const env = arg("comfy-url") ? { ...process.env, COMFY_URL: arg("comfy-url") } : process.env;
 function makeCandidate(n, r, j) { // gen-comfy writes OUT/NN-cand.jpg (random seed) → move to cand path
-  const st = spawnSync(node, genArgs(n), { stdio: "inherit", env }).status;
+  const st = spawnSync(node, genArgs(n, r), { stdio: "inherit", env }).status;
   const src = path.join(OUT, `${String(n).padStart(2, "0")}-cand.jpg`);
   if (st !== 0 || !fs.existsSync(src)) return null;
   const dst = cand(n, r, j); fs.renameSync(src, dst); return dst;
