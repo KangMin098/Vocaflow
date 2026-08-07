@@ -108,6 +108,9 @@ export function sceneClauses(scene) {
   // ③ 떠나는/부유하는 영혼 패널에서 같은 인물이 둘로 복제되는 문제
   if (/floating|drifting|fade|departing|through the (door|window|wall)|out (of )?the window|rises? (up|into)|vanish|drift(s|ing)? (away|off)/i.test(s))
     out.push("Show EXACTLY ONE instance of this figure — never draw the same character twice, no second, doubled or duplicate copy of the same ghost or person anywhere in the frame.");
+  // ④ 유령이 묘사 안 된 패널에 초자연 요소 환각 삽입 금지(R27 — 구원/일상 패널 유령 환각).
+  if (!/ghost|spirit|phantom|spectre|apparition|wraith|marley|hooded|holly.crown|torch|giant|the (past|present)\b|yet.?to.?come|snuffer|bell tolls?/i.test(s))
+    out.push("This is an ordinary human scene with NO supernatural elements — do NOT add any ghost, spirit, phantom, floating figure, spectral form or dangling chains; only real people and the described setting.");
   return out;
 }
 
@@ -124,7 +127,16 @@ export function panelPromptText(p, chars, { noref, vlevel, style }) {
   const scene = String(p.scene || "").replace(/^drawn as a[^:]*:\s*/i, "");
   // 2차 캐릭터 소품 드리프트 방지: edit 모드에선 anchor(스카프·목발·보조기·쇠사슬 등)가 프롬프트에
   // 안 실려 소품이 탈락했다 → 두 모드 모두 "시그니처 특징/소품"으로 상시 재명시.
-  const propLines = chars.map((c) => `${c.name.toUpperCase()} must clearly keep their signature identifying features and props: ${c.anchor}.`);
+  // R27 구조화: faceless 엔티티는 고정 묘사 앵커(패널간 렌더 드리프트 방지), 아동은 크기 강조(성인화 방지).
+  const propLines = chars.map((c) => {
+    const a = `${c.canonical || ""} ${c.anchor || ""} ${c.distinct_from || ""}`;
+    let extra = "";
+    if (/faceless|no face|face[^.]*hidden|hidden in (black|darkness|shadow)|black void|hooded (shroud|phantom|figure)/i.test(a))
+      extra = " ALWAYS render this figure as a TALL solid BLACK hooded shroud with a pure black VOID where the face should be — identical in EVERY panel, NEVER white, pale, grey, veiled or translucent.";
+    else if ((/\b(boy|child|lad|kid|son)\b|little|small|frail|tiny/i.test(a)) && !/\b(man|grown|adult|father|master|gentleman)\b/i.test(a))
+      extra = " (a VERY SMALL young CHILD, clearly NOT a grown adult — small body and childish face).";
+    return `${c.name.toUpperCase()} must clearly keep their signature features and props: ${c.anchor}.${extra}`;
+  });
   const sc = sceneClauses(scene);
   return [((style && style.ink) || styleForLevel(vlevel).ink), HARDBW,
     "Setting: Victorian London around 1843 — everything period-accurate (clothing, furniture, lighting, buildings). Absolutely NO modern objects, no modern clothing, no electric or fluorescent lights, no modern kitchens or furniture.",
