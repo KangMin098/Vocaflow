@@ -39,6 +39,8 @@ const QUALITY = arg("quality", "high");
 const CONC = Number(arg("concurrency", 4));
 const onlyPanels = arg("panels") ? String(arg("panels")).split(",").map(Number) : null;
 const DRY = has("dry-run");
+// S2.5 교정 힌트: {panel:{regen_hint}} → 프롬프트에 "IMPORTANT CORRECTION" 으로 주입(재롤 아닌 교정).
+const HINTS = (() => { const f = arg("hints"); if (!f || f === true) return {}; try { const v = JSON.parse(fs.readFileSync(f, "utf8")); const o = {}; for (const [k, r] of Object.entries(v)) if (r && r.regen_hint) o[k] = r.regen_hint; return o; } catch { return {}; } })();
 const refsDir = path.join(OUT, "refs"); fs.mkdirSync(refsDir, { recursive: true });
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -56,7 +58,7 @@ const STYLE_REF = arg("style-ref") && arg("style-ref") !== true ? String(arg("st
 const STYLE_NOTE = STYLE_REF ? " The FINAL reference image defines ONLY the drawing STYLE (line weight, tone, screentone density, overall look) — match that art style EXACTLY across the whole book; do NOT copy its content, characters, poses or composition." : "";
 const refPrompt = (c) => `${refPromptText(c, VLEVEL, STYLE)} ${AVOID}`;
 const chOf = (p) => (p.characters || []).map((id) => byId[id]).filter(Boolean);
-const panelPrompt = (p, chars) => `${panelPromptText(p, chars, { noref: false, vlevel: VLEVEL, style: STYLE })} ${NOTXT}${STYLE_NOTE} ${AVOID}`;
+const panelPrompt = (p, chars) => `${panelPromptText(p, chars, { noref: false, vlevel: VLEVEL, style: STYLE })} ${NOTXT}${STYLE_NOTE}${HINTS[p.n] ? ` IMPORTANT CORRECTION: ${HINTS[p.n]}` : ""} ${AVOID}`;
 const nnPath = (n) => path.join(OUT, `${String(n).padStart(2, "0")}.jpg`);
 const refPath = (id) => path.join(refsDir, `${id}.png`);
 
