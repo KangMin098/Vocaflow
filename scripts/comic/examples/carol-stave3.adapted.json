@@ -3,149 +3,622 @@
     "id": "dickens-carol-stave3",
     "title": "A Christmas Carol · Stave 3 — The Second of the Three Spirits",
     "author": "Charles Dickens, A Christmas Carol (1843)",
-    "source": "file", "ref": "scratchpad-foreign/carol/pg46.raw.txt", "total_words": 28000
+    "source": "file",
+    "ref": "scratchpad-foreign/carol/pg46.raw.txt",
+    "total_words": 28000
   },
   "adaptation": {
-    "style": "gonick", "panel_count": 18, "default_tier": "teen",
-    "tiers": ["child", "teen", "adult"], "target_v_level": 7, "text_mode": "adapted",
+    "style": "gonick",
+    "panel_count": 18,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 7,
+    "text_mode": "adapted",
     "_authoring_rules": "scripts/comic/docs/AUTHORING_RULES.md (v3)",
-    "target_vocab": ["spirit", "plenty", "clerk", "frail", "crutch", "toast", "ignorance", "want", "doom"],
-    "iconic_quotes_kept": ["Come in! and know me better, man!", "God bless us, every one!", "If these shadows remain unaltered", "This boy is Ignorance. This girl is Want", "Are there no prisons?"],
-    "art_shared_across_tiers": true, "seed": 46
+    "target_vocab": [
+      "spirit",
+      "plenty",
+      "clerk",
+      "frail",
+      "crutch",
+      "toast",
+      "ignorance",
+      "want",
+      "doom"
+    ],
+    "iconic_quotes_kept": [
+      "Come in! and know me better, man!",
+      "God bless us, every one!",
+      "If these shadows remain unaltered",
+      "This boy is Ignorance. This girl is Want",
+      "Are there no prisons?"
+    ],
+    "art_shared_across_tiers": true,
+    "seed": 46
   },
   "cast": [
-    { "id": "scrooge", "name": "Scrooge", "role": "old miser, slowly softening",
+    {
+      "id": "scrooge",
+      "name": "Scrooge",
+      "role": "old miser, slowly softening",
       "canonical": "a thin bent elderly man, completely bald on top with wispy grey side-hair, a long smooth clean-shaven face and a sharp pointed nose, in a plain striped knee-length nightshirt, barefoot, bare-headed",
       "anchor": "thin bent bald clean-shaven old man, sharp nose, striped nightshirt, barefoot",
-      "distinct_from": "the old bald Scrooge — not a giant, not a ghost", "seed_role": 46 },
-    { "id": "present", "name": "Ghost of Christmas Present", "role": "second spirit — abundance",
+      "distinct_from": "the old bald Scrooge — not a giant, not a ghost",
+      "seed_role": 46
+    },
+    {
+      "id": "present",
+      "name": "Ghost of Christmas Present",
+      "role": "second spirit — abundance",
       "canonical": "a huge jolly giant with a broad bare chest, dark curly hair and a short curly beard, in a loose open robe trimmed with thick white fur that leaves his chest bare, a wreath of holly with little icicles on his head, holding up a bright torch shaped like a horn of plenty",
       "anchor": "jolly bare-chested giant, holly-and-icicle wreath crown, horn-shaped torch, fur-trimmed open robe",
-      "distinct_from": "a warm crowned GIANT — never small, never skeletal; his unmistakable marks are the holly-wreath crown and the horn-shaped torch", "seed_role": 55 },
-    { "id": "tim", "name": "Tiny Tim", "role": "Bob Cratchit's frail, sweet youngest son",
+      "distinct_from": "a warm crowned GIANT — never small, never skeletal; his unmistakable marks are the holly-wreath crown and the horn-shaped torch",
+      "seed_role": 55
+    },
+    {
+      "id": "tim",
+      "name": "Tiny Tim",
+      "role": "Bob Cratchit's frail, sweet youngest son",
       "canonical": "a very small frail sickly boy with a thin pale face and a brave sweet smile, one thin leg in an iron brace, leaning on a little wooden crutch, dressed poorly but neatly",
       "anchor": "tiny frail boy, iron leg-brace, little wooden crutch, sweet smile",
-      "distinct_from": "a tiny disabled child with a crutch — the smallest figure", "seed_role": 20 },
-    { "id": "bob", "name": "Bob Cratchit", "role": "Scrooge's poor, warm-hearted clerk",
+      "distinct_from": "a tiny disabled child with a crutch — the smallest figure",
+      "seed_role": 20
+    },
+    {
+      "id": "bob",
+      "name": "Bob Cratchit",
+      "role": "Scrooge's poor, warm-hearted clerk",
       "canonical": "a thin gentle clerk with dark hair and a mild kind face, wound in a long white knitted comforter scarf, in a threadbare coat",
       "anchor": "thin dark-haired clerk, long white comforter scarf",
-      "distinct_from": "a grown thin clerk — not bald, not a giant", "seed_role": 22 },
-    { "id": "fred", "name": "Fred", "role": "Scrooge's cheerful nephew",
+      "distinct_from": "a grown thin clerk — not bald, not a giant",
+      "seed_role": 22
+    },
+    {
+      "id": "fred",
+      "name": "Fred",
+      "role": "Scrooge's cheerful nephew",
       "canonical": "a cheerful handsome young man with dark side-whiskers and a small moustache, bright warm eyes, a scarf and a sprig of holly pinned to his coat",
       "anchor": "cheerful young man, dark side-whiskers, holly sprig on his coat",
-      "distinct_from": "young and warm — not the old miser", "seed_role": 35 }
+      "distinct_from": "young and warm — not the old miser",
+      "seed_role": 35
+    }
   ],
   "panels": [
-    { "n": 1, "wide": false, "noref": false, "cap_zone": "top",
+    {
+      "n": 1,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald pointed-nosed old man in a striped nightshirt sitting up in bed at midnight, a strange warm blaze of light glowing under the door of the next room, drawing him toward it",
-      "composition": "close, called by the light", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "THE BELL STRUCK ONE AGAIN, AND A STRANGE LIGHT GLOWED FROM THE NEXT ROOM.", "bubbles": [
-        { "speaker": "", "text": "Scrooge's own room was changed — but who was waiting for him inside?", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [71716, 74282] },
-    { "n": 2, "wide": true, "noref": false, "cap_zone": "top",
+      "composition": "close, called by the light",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE BELL STRUCK ONE AGAIN, AND A STRANGE LIGHT GLOWED FROM THE NEXT ROOM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Scrooge's own room was changed — but who was waiting for him inside?",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        71716,
+        74282
+      ]
+    },
+    {
+      "n": 2,
+      "wide": true,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "a huge jolly bare-chested giant with a holly-and-icicle wreath crown and a torch shaped like a horn of plenty, seated on a throne heaped with turkeys, holly, fruit, puddings and bowls of punch, in a room turned into a warm woodland grove",
-      "composition": "wide — the throne of plenty", "characters": ["present"],
-      "text": { "teen": { "narration": "THE SECOND SPIRIT — THE GHOST OF CHRISTMAS PRESENT, A JOLLY GIANT ON A THRONE OF FOOD.", "bubbles": [
-        { "speaker": "PRESENT", "text": "Come in — and know me better, man!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [74282, 76847] },
-    { "n": 3, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "wide — the throne of plenty",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE SECOND SPIRIT — THE GHOST OF CHRISTMAS PRESENT, A JOLLY GIANT ON A THRONE OF FOOD.",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "Come in — and know me better, man!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        74282,
+        76847
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the jolly bare-chested giant standing tall, his holly wreath crown and his horn-shaped torch held high, beaming warmly down at someone below",
-      "composition": "single subject — look upon me", "characters": ["present"],
-      "text": { "teen": { "narration": "", "bubbles": [
-        { "speaker": "PRESENT", "text": "You have never seen the like of me before! Look upon me!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" },
-        { "speaker": "", "text": "He was crowned with holly, and his torch poured warmth on all it touched.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [76847, 79413] },
-    { "n": 4, "wide": true, "noref": false, "cap_zone": "top",
+      "composition": "single subject — look upon me",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "You have never seen the like of me before! Look upon me!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "He was crowned with holly, and his torch poured warmth on all it touched.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        76847,
+        79413
+      ]
+    },
+    {
+      "n": 4,
+      "wide": true,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the giant ghost striding over the snowy rooftops of a whole city at night, sprinkling glittering sparks from his horn-shaped torch down onto the people and their dinners below",
-      "composition": "wide — blessing the city", "characters": ["present"],
-      "text": { "teen": { "narration": "THE SPIRIT CARRIED SCROOGE OUT OVER THE CITY, BLESSING EVERY DINNER WITH HIS TORCH.", "bubbles": [
-        { "speaker": "", "text": "Wherever people were poorest, he sprinkled the most cheer of all.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [79413, 81978] },
-    { "n": 5, "wide": true, "noref": true, "cap_zone": "top",
+      "composition": "wide — blessing the city",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE SPIRIT CARRIED SCROOGE OUT OVER THE CITY, BLESSING EVERY DINNER WITH HIS TORCH.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Wherever people were poorest, he sprinkled the most cheer of all.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        79413,
+        81978
+      ]
+    },
+    {
+      "n": 5,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
       "scene": "the small plain kitchen of a poor family on Christmas Day, a thin cheerful mother and several children in worn but tidy clothes bustling to lay a modest Christmas dinner, a tiny fire",
-      "composition": "scene — the Cratchit home", "characters": [],
-      "text": { "teen": { "narration": "THEY CAME TO THE HOME OF BOB CRATCHIT, SCROOGE'S POOR CLERK.", "bubbles": [
-        { "speaker": "", "text": "Mrs Cratchit and the children were laying their small Christmas dinner with great pride.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [81978, 84544] },
-    { "n": 6, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "scene — the Cratchit home",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THEY CAME TO THE HOME OF BOB CRATCHIT, SCROOGE'S POOR CLERK.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Mrs Cratchit and the children were laying their small Christmas dinner with great pride.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        81978,
+        84544
+      ]
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the thin dark-haired clerk in his long white comforter scarf carrying his youngest son home on his shoulder — a very small frail boy with a little wooden crutch and one leg in an iron brace",
-      "composition": "close — Bob carries Tiny Tim", "characters": ["tim"],
-      "text": { "teen": { "narration": "BOB CAME HOME CARRYING HIS YOUNGEST — LITTLE TINY TIM.", "bubbles": [
-        { "speaker": "", "text": "Frail Tim, with his crutch and iron leg-brace, was as good as gold.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [84544, 87109] },
-    { "n": 7, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — Bob carries Tiny Tim",
+      "characters": [
+        "tim"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BOB CAME HOME CARRYING HIS YOUNGEST — LITTLE TINY TIM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Frail Tim, with his crutch and iron leg-brace, was as good as gold.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        84544,
+        87109
+      ]
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the tiny frail boy with his little crutch and iron leg-brace, looking up with a sweet brave smile, a warm poor room behind him",
-      "composition": "single subject — Tiny Tim's hope", "characters": ["tim"],
-      "text": { "teen": { "narration": "", "bubbles": [
-        { "speaker": "TINY TIM", "text": "I hope the people saw me in church — I like them to remember who made lame beggars walk.", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [87109, 89675] },
-    { "n": 8, "wide": true, "noref": true, "cap_zone": "top",
+      "composition": "single subject — Tiny Tim's hope",
+      "characters": [
+        "tim"
+      ],
+      "text": {
+        "teen": {
+          "narration": "",
+          "bubbles": [
+            {
+              "speaker": "TINY TIM",
+              "text": "I hope the people saw me in church — I like them to remember who made lame beggars walk.",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        87109,
+        89675
+      ]
+    },
+    {
+      "n": 8,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
       "scene": "the whole poor family crowded happily around a small table for Christmas dinner — a little roast goose and a small flaming pudding — everyone beaming with delight",
-      "composition": "scene — the small splendid dinner", "characters": [],
-      "text": { "teen": { "narration": "THE WHOLE FAMILY DELIGHTED IN THEIR SMALL, SPLENDID DINNER.", "bubbles": [
-        { "speaker": "", "text": "There never was such a goose — and oh, what a wonderful pudding!", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [89675, 92240] },
-    { "n": 9, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "scene — the small splendid dinner",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THE WHOLE FAMILY DELIGHTED IN THEIR SMALL, SPLENDID DINNER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "There never was such a goose — and oh, what a wonderful pudding!",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        89675,
+        92240
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the thin dark-haired clerk in his white comforter scarf lifting a glass in a warm toast at the head of the small dinner table, his family around him",
-      "composition": "close — Bob's toast", "characters": ["bob"],
-      "text": { "teen": { "narration": "BOB RAISED A CHRISTMAS TOAST.", "bubbles": [
-        { "speaker": "BOB", "text": "A merry Christmas to us all, my dears — God bless us!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [92240, 94806] },
-    { "n": 10, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — Bob's toast",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BOB RAISED A CHRISTMAS TOAST.",
+          "bubbles": [
+            {
+              "speaker": "BOB",
+              "text": "A merry Christmas to us all, my dears — God bless us!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        92240,
+        94806
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the tiny frail boy with his crutch, seated close by his father's side, lifting his small face to answer, warm firelight around them",
-      "composition": "close — and Tiny Tim answers", "characters": ["tim"],
-      "text": { "teen": { "narration": "AND TINY TIM ANSWERED.", "bubbles": [
-        { "speaker": "TINY TIM", "text": "God bless us, every one!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [94806, 97371] },
-    { "n": 11, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — and Tiny Tim answers",
+      "characters": [
+        "tim"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND TINY TIM ANSWERED.",
+          "bubbles": [
+            {
+              "speaker": "TINY TIM",
+              "text": "God bless us, every one!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        94806,
+        97371
+      ]
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald pointed-nosed old man in his striped nightshirt watching the little crippled boy from the shadows, a new softness and worry on his hard face",
-      "composition": "close — a new feeling", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "SCROOGE FELT SOMETHING NEW — CONCERN FOR THE BOY.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "Spirit, tell me — will Tiny Tim live?", "pos": "br", "kind": "speech" } ] } },
-      "beat_offset": [97371, 99937] },
-    { "n": 12, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — a new feeling",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE FELT SOMETHING NEW — CONCERN FOR THE BOY.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Spirit, tell me — will Tiny Tim live?",
+              "pos": "br",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        97371,
+        99937
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the giant holly-crowned ghost looking down gravely, his torch dimmed, one great hand raised in solemn warning",
-      "composition": "close — the grave answer", "characters": ["present"],
-      "text": { "teen": { "narration": "THE SPIRIT'S ANSWER WAS GRAVE.", "bubbles": [
-        { "speaker": "PRESENT", "text": "I see a vacant seat, and a crutch without an owner. If nothing changes, the child will die.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [99937, 102502] },
-    { "n": 13, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — the grave answer",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE SPIRIT'S ANSWER WAS GRAVE.",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "I see a vacant seat, and a crutch without an owner. If nothing changes, the child will die.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": false,
+              "adapted_from": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        99937,
+        102502
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the giant holly-crowned ghost leaning down sternly, his cheerful face now serious, pointing a warning finger",
-      "composition": "close — his own words returned", "characters": ["present"],
-      "text": { "teen": { "narration": "THEN THE SPIRIT THREW SCROOGE'S OWN CRUEL WORDS BACK AT HIM.", "bubbles": [
-        { "speaker": "PRESENT", "text": "'Decrease the surplus population'? Take care WHO you call surplus — if you have a heart, and not a stone.", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [102502, 105068] },
-    { "n": 14, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — his own words returned",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN THE SPIRIT THREW SCROOGE'S OWN CRUEL WORDS BACK AT HIM.",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "'Decrease the surplus population'? Take care WHO you call surplus — if you have a heart, and not a stone.",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        102502,
+        105068
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the thin dark-haired clerk in his white comforter scarf raising his glass again at the little table, kindly, though his tired wife beside him looks cross",
-      "composition": "close — a toast to the hard master", "characters": ["bob"],
-      "text": { "teen": { "narration": "BOB EVEN DRANK TO HIS HARD MASTER.", "bubbles": [
-        { "speaker": "BOB", "text": "To Mr Scrooge — the Founder of the Feast!", "pos": "tc", "kind": "speech" },
-        { "speaker": "", "text": "Mrs Cratchit's face fell. 'The Founder of the Feast, indeed!' she said.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [105068, 107633] },
-    { "n": 15, "wide": true, "noref": true, "cap_zone": "top",
+      "composition": "close — a toast to the hard master",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BOB EVEN DRANK TO HIS HARD MASTER.",
+          "bubbles": [
+            {
+              "speaker": "BOB",
+              "text": "To Mr Scrooge — the Founder of the Feast!",
+              "pos": "tc",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "Mrs Cratchit's face fell. 'The Founder of the Feast, indeed!' she said.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        105068,
+        107633
+      ]
+    },
+    {
+      "n": 15,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
       "scene": "a bright warm parlour where a crowd of cheerful young guests laugh and play a party game, a handsome young man with dark side-whiskers and a holly sprig laughing warmly among them",
-      "composition": "wide — Fred's party", "characters": [],
-      "text": { "teen": { "narration": "AT FRED'S PARTY, THE LAUGHTER WAS WARM — EVEN ABOUT UNCLE SCROOGE.", "bubbles": [
-        { "speaker": "FRED", "text": "He told me Christmas was a humbug — ha ha! But I mean to be kind to him anyway.", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [107633, 110199] },
-    { "n": 16, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "wide — Fred's party",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "AT FRED'S PARTY, THE LAUGHTER WAS WARM — EVEN ABOUT UNCLE SCROOGE.",
+          "bubbles": [
+            {
+              "speaker": "FRED",
+              "text": "He told me Christmas was a humbug — ha ha! But I mean to be kind to him anyway.",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        107633,
+        110199
+      ]
+    },
+    {
+      "n": 16,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the giant ghost now looking suddenly aged — his hair and beard turned grey, his torch burning low — near the end of his one night of life",
-      "composition": "close — the spirit grows old", "characters": ["present"],
-      "text": { "teen": { "narration": "AS THE NIGHT PASSED, THE SPIRIT GREW OLD, HIS HAIR TURNING GREY.", "bubbles": [
-        { "speaker": "PRESENT", "text": "My life on this earth is very brief. It ends tonight.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [110199, 112764] },
-    { "n": 17, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — the spirit grows old",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AS THE NIGHT PASSED, THE SPIRIT GREW OLD, HIS HAIR TURNING GREY.",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "My life upon this globe is very brief. It ends tonight.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        110199,
+        112764
+      ]
+    },
+    {
+      "n": 17,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the aged giant ghost opening his fur-trimmed robe to reveal two wretched, starving, ragged children — a boy and a girl — clinging to his legs, hollow-eyed and desperate",
-      "composition": "close — Ignorance and Want", "characters": ["present"],
-      "text": { "teen": { "narration": "FROM UNDER HIS ROBE CAME TWO STARVING, RAGGED CHILDREN.", "bubbles": [
-        { "speaker": "PRESENT", "text": "This boy is Ignorance. This girl is Want. Beware them both — but most of all, beware this boy.", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [112764, 115330] },
-    { "n": 18, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — Ignorance and Want",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FROM UNDER HIS ROBE CAME TWO STARVING, RAGGED CHILDREN.",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "This boy is Ignorance. This girl is Want. Beware them both — but most of all, beware this boy.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        112764,
+        115330
+      ]
+    },
+    {
+      "n": 18,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the aged giant ghost fading away as a great bell tolls midnight; behind him a silent, hooded, faceless phantom in a black robe begins to glide toward the viewer",
-      "composition": "close — midnight, and the last phantom comes", "characters": ["present"],
-      "text": { "teen": { "narration": "AS MIDNIGHT STRUCK, THE SPIRIT THREW SCROOGE'S WORDS BACK ONCE MORE — AND VANISHED.", "bubbles": [
-        { "speaker": "PRESENT", "text": "Are there no prisons? Are there no workhouses?", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" },
-        { "speaker": "", "text": "The clock struck twelve — and a silent, hooded phantom came gliding toward Scrooge.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [115330, 117895] }
+      "composition": "close — midnight, and the last phantom comes",
+      "characters": [
+        "present"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AS MIDNIGHT STRUCK, THE SPIRIT THREW SCROOGE'S WORDS BACK ONCE MORE — AND VANISHED.",
+          "bubbles": [
+            {
+              "speaker": "PRESENT",
+              "text": "Are there no prisons? Are there no workhouses?",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The clock struck twelve — and a silent, hooded phantom came gliding toward Scrooge.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        115330,
+        117895
+      ]
+    }
   ]
 }

@@ -3,143 +3,592 @@
     "id": "dickens-carol-stave5",
     "title": "A Christmas Carol · Stave 5 — The End of It",
     "author": "Charles Dickens, A Christmas Carol (1843)",
-    "source": "file", "ref": "scratchpad-foreign/carol/pg46.raw.txt", "total_words": 28000
+    "source": "file",
+    "ref": "scratchpad-foreign/carol/pg46.raw.txt",
+    "total_words": 28000
   },
   "adaptation": {
-    "style": "gonick", "panel_count": 18, "default_tier": "teen",
-    "tiers": ["child", "teen", "adult"], "target_v_level": 7, "text_mode": "adapted",
+    "style": "gonick",
+    "panel_count": 18,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 7,
+    "text_mode": "adapted",
     "_authoring_rules": "scripts/comic/docs/AUTHORING_RULES.md (v4)",
-    "target_vocab": ["merry", "generous", "turkey", "raise", "salary", "kindness", "bless", "redeem"],
-    "iconic_quotes_kept": ["as light as a feather", "What's to-day?", "I'll raise your salary", "God bless us, every one!", "Scrooge was better than his word"],
-    "art_shared_across_tiers": true, "seed": 46
+    "target_vocab": [
+      "merry",
+      "generous",
+      "turkey",
+      "raise",
+      "salary",
+      "kindness",
+      "bless",
+      "redeem"
+    ],
+    "iconic_quotes_kept": [
+      "as light as a feather",
+      "What's to-day?",
+      "I'll raise your salary",
+      "God bless us, every one!",
+      "Scrooge was better than his word"
+    ],
+    "art_shared_across_tiers": true,
+    "seed": 46
   },
   "cast": [
-    { "id": "scrooge", "name": "Scrooge", "role": "the redeemed miser, now warm and joyful",
+    {
+      "id": "scrooge",
+      "name": "Scrooge",
+      "role": "the redeemed miser, now warm and joyful",
       "canonical": "a thin bent elderly man, completely bald on top with wispy grey side-hair, a long smooth clean-shaven face and a sharp pointed nose, now bright-eyed and beaming with joy, in a dark Victorian tailcoat",
       "anchor": "thin bent bald clean-shaven old man, sharp pointed nose, now smiling warmly",
-      "distinct_from": "the same old bald Scrooge — but now happy, not sour", "seed_role": 46 },
-    { "id": "bob", "name": "Bob Cratchit", "role": "Scrooge's clerk, soon rewarded",
+      "distinct_from": "the same old bald Scrooge — but now happy, not sour",
+      "seed_role": 46
+    },
+    {
+      "id": "bob",
+      "name": "Bob Cratchit",
+      "role": "Scrooge's clerk, soon rewarded",
       "canonical": "a thin gentle clerk with dark hair and a mild kind face, wound in a long white knitted comforter scarf, in a threadbare coat",
       "anchor": "thin dark-haired clerk, long white comforter scarf",
-      "distinct_from": "a grown thin clerk — not bald", "seed_role": 22 },
-    { "id": "fred", "name": "Fred", "role": "Scrooge's cheerful nephew",
+      "distinct_from": "a grown thin clerk — not bald",
+      "seed_role": 22
+    },
+    {
+      "id": "fred",
+      "name": "Fred",
+      "role": "Scrooge's cheerful nephew",
       "canonical": "a cheerful handsome young man with dark side-whiskers and a small moustache, bright warm eyes, a scarf and a sprig of holly pinned to his coat",
       "anchor": "cheerful young man, dark side-whiskers, holly sprig on his coat",
-      "distinct_from": "young and warm — not the old man", "seed_role": 35 },
-    { "id": "tim", "name": "Tiny Tim", "role": "Bob's frail, sweet son — who lives",
+      "distinct_from": "young and warm — not the old man",
+      "seed_role": 35
+    },
+    {
+      "id": "tim",
+      "name": "Tiny Tim",
+      "role": "Bob's frail, sweet son — who lives",
       "canonical": "a small frail boy with a thin pale face and a sweet happy smile, one leg in an iron brace, leaning on a little wooden crutch, dressed poorly but neatly",
       "anchor": "tiny frail boy, iron leg-brace, little wooden crutch, happy smile",
-      "distinct_from": "a tiny disabled child with a crutch — the smallest figure", "seed_role": 20 }
+      "distinct_from": "a tiny disabled child with a crutch — the smallest figure",
+      "seed_role": 20
+    }
   ],
   "panels": [
-    { "n": 1, "wide": false, "noref": false, "cap_zone": "top",
+    {
+      "n": 1,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald pointed-nosed old man in a striped nightshirt and nightcap sitting up in his four-poster bed on a bright snowy Christmas morning, both arms flung wide, his whole face lit with joy and relief",
-      "composition": "close — awake, alive, overjoyed", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "CHRISTMAS MORNING! SCROOGE WOKE — ALIVE, AND FREE.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "I'm as light as a feather, as happy as an angel! A merry Christmas to everybody!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [155700, 157800] },
-    { "n": 2, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — awake, alive, overjoyed",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "CHRISTMAS MORNING! SCROOGE WOKE — ALIVE, AND FREE.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "I'm as light as a feather, as happy as an angel! A merry Christmas to everybody!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        155700,
+        157800
+      ]
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald old man in his nightshirt and nightcap laughing and half-dancing in the middle of his plain bedroom, giddy with happiness, tears of joy on his cheeks",
-      "composition": "close — giddy with joy", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "HE LAUGHED AND CRIED AT ONCE.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "I don't even know how long I was among the Spirits — but the whole night, and it's not too late!", "pos": "br", "kind": "speech" } ] } },
-      "beat_offset": [157800, 159900] },
-    { "n": 3, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — giddy with joy",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE LAUGHED AND CRIED AT ONCE.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "I don't even know how long I was among the Spirits — but the whole night, and it's not too late!",
+              "pos": "br",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        157800,
+        159900
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald old man in his nightcap leaning far out of his upstairs window into the cold sunny morning, calling down cheerfully to the snowy street below",
-      "composition": "close — calling to the street", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "HE THREW OPEN THE WINDOW.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "You there, boy! What's today?", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [159900, 162000] },
-    { "n": 4, "wide": false, "noref": true, "cap_zone": "top",
+      "composition": "close — calling to the street",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE THREW OPEN THE WINDOW.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "You there, boy! What's today?",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": false,
+              "adapted_from": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        159900,
+        162000
+      ]
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "noref": true,
+      "cap_zone": "top",
       "scene": "a small ragged Victorian boy standing in the snowy street below, looking up in surprise, one hand shading his eyes",
-      "composition": "scene — the boy answers", "characters": [],
-      "text": { "teen": { "narration": "THE BOY STARED UP IN SURPRISE.", "bubbles": [
-        { "speaker": "", "text": "'Today? Why — it's CHRISTMAS DAY, sir!'", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [162000, 164100] },
-    { "n": 5, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "scene — the boy answers",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THE BOY STARED UP IN SURPRISE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "'Today? Why — it's CHRISTMAS DAY, sir!'",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        162000,
+        164100
+      ]
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the delighted bald old man at his window, clapping his hands, calling an eager order down to the boy in the street",
-      "composition": "close — the great turkey plan", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "HE HAD NOT MISSED IT! THE SPIRITS DID IT ALL IN ONE NIGHT.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "Go and buy the prize turkey in the shop window — the big one! Come back with the man and I'll give you a shilling!", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [164100, 166200] },
-    { "n": 6, "wide": true, "noref": true, "cap_zone": "top",
+      "composition": "close — the great turkey plan",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE HAD NOT MISSED IT! THE SPIRITS DID IT ALL IN ONE NIGHT.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Go and buy the prize turkey in the shop window — the big one! Come back with the man and I'll give you a shilling!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        164100,
+        166200
+      ]
+    },
+    {
+      "n": 6,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
       "scene": "a delivery man staggering to a townhouse door under an enormous plucked Christmas turkey almost as big as himself, in a snowy Victorian street",
-      "composition": "wide — the enormous turkey", "characters": [],
-      "text": { "teen": { "narration": "HE SENT THE GREAT TURKEY TO THE CRATCHITS — WITHOUT SIGNING HIS NAME.", "bubbles": [
-        { "speaker": "", "text": "It was twice the size of little Tiny Tim!", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [166200, 168300] },
-    { "n": 7, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "wide — the enormous turkey",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "HE SENT THE GREAT TURKEY TO THE CRATCHITS — WITHOUT SIGNING HIS NAME.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "It was twice the size of little Tiny Tim!",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        166200,
+        168300
+      ]
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald pointed-nosed old man now dressed in his best dark Victorian tailcoat and top hat, out in the snowy street, beaming and tipping his hat warmly to passers-by",
-      "composition": "close — merry in the street", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "HE DRESSED IN HIS BEST AND WENT OUT, BEAMING AT EVERYONE.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "A merry Christmas to you, sir! And a happy new year!", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [168300, 170400] },
-    { "n": 8, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — merry in the street",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE DRESSED IN HIS BEST AND WENT OUT, BEAMING AT EVERYONE.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "A merry Christmas to you, sir! And a happy new year!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        168300,
+        170400
+      ]
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the old man in his tailcoat and top hat shaking hands warmly with a portly charity gentleman on the street, pressing a generous gift on him, both moved",
-      "composition": "close — making amends", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "HE FOUND THE CHARITY MAN HE HAD ONCE TURNED AWAY.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "Put me down for this much — and forgive my past unkindness. You are very good!", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [170400, 172500] },
-    { "n": 9, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — making amends",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE FOUND THE CHARITY MAN HE HAD ONCE TURNED AWAY.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Put me down for this much — and forgive my past unkindness. You are very good!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        170400,
+        172500
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the old man in his tailcoat standing hopeful and a little nervous at a cheerful front door, hat held in both hands",
-      "composition": "close — at Fred's door", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "THEN HE DID SOMETHING HE HAD NEVER DARED.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "Fred! It's your uncle Scrooge. I've come to dinner — will you let me in?", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [172500, 174600] },
-    { "n": 10, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — at Fred's door",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN HE DID SOMETHING HE HAD NEVER DARED.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Fred! It's your uncle Scrooge. I've come to dinner — will you let me in?",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        172500,
+        174600
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the cheerful young man with dark side-whiskers and a holly sprig throwing the door wide with both arms, his face bursting with delight and welcome",
-      "composition": "close — Fred welcomes him", "characters": ["fred"],
-      "text": { "teen": { "narration": "FRED WELCOMED HIM WITH HIS WHOLE HEART.", "bubbles": [
-        { "speaker": "FRED", "text": "Why, bless my soul — Uncle! Of course! Come in, come in!", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [174600, 176700] },
-    { "n": 11, "wide": true, "noref": true, "cap_zone": "top",
+      "composition": "close — Fred welcomes him",
+      "characters": [
+        "fred"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FRED WELCOMED HIM WITH HIS WHOLE HEART.",
+          "bubbles": [
+            {
+              "speaker": "FRED",
+              "text": "Why, bless my soul — Uncle! Of course! Come in, come in!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        174600,
+        176700
+      ]
+    },
+    {
+      "n": 11,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
       "scene": "a warm bright Victorian parlour full of happy guests at a Christmas dinner, an old bald clean-shaven man in a tailcoat seated joyfully among them, glasses raised",
-      "composition": "wide — the wonderful party", "characters": [],
-      "text": { "teen": { "narration": "IT WAS A WONDERFUL PARTY. SCROOGE HAD NEVER BEEN SO HAPPY.", "bubbles": [
-        { "speaker": "", "text": "He stayed the whole evening — and felt, at last, that he was home.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [176700, 178800] },
-    { "n": 12, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "wide — the wonderful party",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "IT WAS A WONDERFUL PARTY. SCROOGE HAD NEVER BEEN SO HAPPY.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "He stayed the whole evening — and felt, at last, that he was home.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        176700,
+        178800
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the bald pointed-nosed old man in his tailcoat sitting behind his counting-house desk early in the morning, pretending to scowl fiercely, though a smile is breaking through",
-      "composition": "close — the pretended scolding", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "NEXT MORNING SCROOGE CAME EARLY, TO PLAY A TRICK ON BOB.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "What do you mean by coming in at THIS time of day?!", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [178800, 180900] },
-    { "n": 13, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — the pretended scolding",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "NEXT MORNING SCROOGE CAME EARLY, TO PLAY A TRICK ON BOB.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "What do you mean by coming in at THIS time of day?!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        178800,
+        180900
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the thin dark-haired clerk in his long white comforter scarf creeping guiltily to his high stool, trembling, expecting to be dismissed",
-      "composition": "close — Bob comes late", "characters": ["bob"],
-      "text": { "teen": { "narration": "POOR BOB HAD COME EIGHTEEN MINUTES LATE.", "bubbles": [
-        { "speaker": "BOB", "text": "I'm very sorry, sir. It shall not happen again — I was making rather merry yesterday.", "pos": "br", "kind": "speech" } ] } },
-      "beat_offset": [180900, 183000] },
-    { "n": 14, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — Bob comes late",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "POOR BOB HAD COME EIGHTEEN MINUTES LATE.",
+          "bubbles": [
+            {
+              "speaker": "BOB",
+              "text": "I'm very sorry, sir. It shall not happen again — I was making rather merry yesterday.",
+              "pos": "br",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        180900,
+        183000
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the beaming bald old man springing up and clapping his astonished clerk warmly on the shoulder, both of them lit with surprise and delight",
-      "composition": "close — I'll raise your salary!", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "THEN SCROOGE COULD HOLD IT IN NO LONGER.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "And therefore — I am about to RAISE your salary!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" },
-        { "speaker": "", "text": "For a moment Bob thought his master had gone mad.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [183000, 185100] },
-    { "n": 15, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "close — I'll raise your salary!",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN SCROOGE COULD HOLD IT IN NO LONGER.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "And therefore — I am about to RAISE your salary!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "For a moment Bob thought his master had gone mad.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        183000,
+        185100
+      ]
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the warm old man grasping his clerk's hand in both of his, earnest and kind, promising help; the clerk overwhelmed with gratitude",
-      "composition": "close — a promise to the family", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "AND HE MEANT EVERY WORD.", "bubbles": [
-        { "speaker": "SCROOGE", "text": "A merry Christmas, Bob! I will help your struggling family, my good fellow — this very afternoon!", "pos": "tc", "kind": "speech" } ] } },
-      "beat_offset": [185100, 187200] },
-    { "n": 16, "wide": true, "noref": false, "cap_zone": "top",
+      "composition": "close — a promise to the family",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND HE MEANT EVERY WORD.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "A merry Christmas, Bob! I will help your struggling family, my good fellow — this very afternoon!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        185100,
+        187200
+      ]
+    },
+    {
+      "n": 16,
+      "wide": true,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the small frail happy boy with his little crutch and iron leg-brace, alive and well, sitting on the knee of the beaming old bald man who has become like a father to him, a warm fireside behind",
-      "composition": "wide — Tiny Tim lives", "characters": ["tim"],
-      "text": { "teen": { "narration": "TINY TIM DID NOT DIE. SCROOGE BECAME A SECOND FATHER TO HIM.", "bubbles": [
-        { "speaker": "", "text": "Scrooge was better than his word — he did it all, and infinitely more.", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [187200, 189300] },
-    { "n": 17, "wide": false, "noref": false, "cap_zone": "top",
+      "composition": "wide — Tiny Tim lives",
+      "characters": [
+        "tim"
+      ],
+      "text": {
+        "teen": {
+          "narration": "TINY TIM DID NOT DIE. SCROOGE BECAME A SECOND FATHER TO HIM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Scrooge was better than his word — he did it all, and infinitely more.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        187200,
+        189300
+      ]
+    },
+    {
+      "n": 17,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "a close warm view of the small frail boy with his crutch, his sweet face lifted, glowing with happiness by the firelight",
-      "composition": "close — Tiny Tim's blessing", "characters": ["tim"],
-      "text": { "teen": { "narration": "AND, AS TINY TIM SAID —", "bubbles": [
-        { "speaker": "TINY TIM", "text": "God bless us, every one!", "pos": "tc", "kind": "speech", "verbatim": true, "by": "DICKENS 1843" } ] } },
-      "beat_offset": [189300, 191400] },
-    { "n": 18, "wide": true, "noref": false, "cap_zone": "top",
+      "composition": "close — Tiny Tim's blessing",
+      "characters": [
+        "tim"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND, AS TINY TIM SAID —",
+          "bubbles": [
+            {
+              "speaker": "TINY TIM",
+              "text": "God bless us, every one!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        189300,
+        191400
+      ]
+    },
+    {
+      "n": 18,
+      "wide": true,
+      "noref": false,
+      "cap_zone": "top",
       "scene": "the beaming old bald man in his tailcoat walking a snowy Christmas street among warm, happy people who greet him gladly, holly and lit windows all around",
-      "composition": "wide — Scrooge kept Christmas well", "characters": ["scrooge"],
-      "text": { "teen": { "narration": "SCROOGE KEPT CHRISTMAS WELL — AND KNEW HOW, IF ANY MAN ALIVE.", "bubbles": [
-        { "speaker": "", "text": "May that be truly said of us, and all of us. And so — a merry Christmas to everyone!", "pos": "br", "kind": "caption" } ] } },
-      "beat_offset": [191400, 193500] }
+      "composition": "wide — Scrooge kept Christmas well",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE KEPT CHRISTMAS WELL — AND KNEW HOW, IF ANY MAN ALIVE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "May that be truly said of us, and all of us. And so — a merry Christmas to everyone!",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        191400,
+        193500
+      ]
+    }
   ]
 }
