@@ -296,5 +296,31 @@
     "after_converge": "90/90 (전 블로킹 재검증 통과)",
     "ratchet": "R27(구원패널 유령환각·noref엔티티 드리프트·아동크기)",
     "verdict": "SHIP 가능 — 전 90패널 하드페일 0, 화풍 균일(Gonick), 크로스스테이브 Scrooge 일관(공유참조)"
+  },
+  "flux2_full_rebuild_2026_08_07": {
+    "goal": "무료 자가호스트로 전권 화풍 통일(사용자 옵션 A)",
+    "backend": "FLUX.2 dev GGUF Q4 + Turbo LoRA, GONICK, ReferenceLatent 다중참조",
+    "s2_gate": {
+      "s1": "15/18",
+      "s2": "13/18",
+      "s3": "12/18",
+      "s4": "6/18",
+      "s5": "9/18",
+      "total": "56/90 (62%)"
+    },
+    "systemic_defects": [
+      "다중참조가 2차캐릭터를 주인공으로 복제/중복",
+      "faceless 팬텀 붕괴(얼굴/눈/인간복제)",
+      "baked 텍스트(말풍선/간판/묘비)",
+      "간헐 컬러누출·Tim과대·유령환각"
+    ],
+    "strengths": [
+      "화풍 통일(seam 없음)",
+      "반투명 최고수준",
+      "무료·자가호스트",
+      "R29 의상 고정 작동"
+    ],
+    "verdict": "실패 — GPT 책(90/90) 대비 절반. 34 블로킹 근본적(재발성). GPT GONICK 책을 최종 채택.",
+    "ratchet": "R30(FLUX.2 다중참조 다인만화 부적합)"
   }
 }

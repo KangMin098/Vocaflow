@@ -40,17 +40,24 @@ async function uploadImg(buf, name) {
 }
 async function runWF(wf, tag) {
   const t0 = Date.now();
-  const q = await fetch(COMFY + "/prompt", { method: "POST", headers: H({ "Content-Type": "application/json" }), body: JSON.stringify({ prompt: wf }), signal: AbortSignal.timeout(30000) });
-  if (!q.ok) { console.error(`${tag} /prompt ${q.status}: ${(await q.text()).slice(0, 200)}`); return null; }
-  const { prompt_id } = await q.json();
-  for (let i = 0; i < 180; i++) {
+  let prompt_id = null;
+  for (let a = 0; a < 4 && !prompt_id; a++) { // /prompt 전송(일시 오류 재시도)
+    try { const q = await fetch(COMFY + "/prompt", { method: "POST", headers: H({ "Content-Type": "application/json" }), body: JSON.stringify({ prompt: wf }), signal: AbortSignal.timeout(30000) });
+      if (!q.ok) { console.error(`${tag} /prompt ${q.status}: ${(await q.text()).slice(0, 160)}`); return null; }
+      prompt_id = (await q.json()).prompt_id;
+    } catch (e) { await new Promise((z) => setTimeout(z, 4000)); }
+  }
+  if (!prompt_id) { console.error(`${tag} /prompt 실패(네트워크)`); return null; }
+  for (let i = 0; i < 200; i++) {
     await new Promise((z) => setTimeout(z, 2000));
-    const hj = await (await fetch(COMFY + `/history/${prompt_id}`, { headers: H() })).json(); const rec = hj[prompt_id];
-    if (rec?.outputs) { for (const o of Object.values(rec.outputs)) for (const im of (o.images || [])) {
-      const u = new URLSearchParams({ filename: im.filename, subfolder: im.subfolder || "", type: im.type || "output" });
-      const buf = Buffer.from(await (await fetch(COMFY + "/view?" + u, { headers: H() })).arrayBuffer());
-      console.error(`✓ ${tag} in ${((Date.now() - t0) / 1000).toFixed(1)}s`); return buf; } return null; }
-    if (rec?.status?.status_str === "error") { console.error(`${tag} ERROR ${JSON.stringify(rec.status).slice(0, 300)}`); return null; }
+    try {
+      const hj = await (await fetch(COMFY + `/history/${prompt_id}`, { headers: H(), signal: AbortSignal.timeout(30000) })).json(); const rec = hj[prompt_id];
+      if (rec?.outputs) { for (const o of Object.values(rec.outputs)) for (const im of (o.images || [])) {
+        const u = new URLSearchParams({ filename: im.filename, subfolder: im.subfolder || "", type: im.type || "output" });
+        const buf = Buffer.from(await (await fetch(COMFY + "/view?" + u, { headers: H(), signal: AbortSignal.timeout(120000) })).arrayBuffer());
+        console.error(`✓ ${tag} in ${((Date.now() - t0) / 1000).toFixed(1)}s`); return buf; } return null; }
+      if (rec?.status?.status_str === "error") { console.error(`${tag} ERROR ${JSON.stringify(rec.status).slice(0, 300)}`); return null; }
+    } catch (e) { /* ECONNRESET 등 일시 오류 — 폴링 계속 */ }
   }
   console.error(`${tag} timeout`); return null;
 }
@@ -81,6 +88,7 @@ async function buildRef(c) {
   if (!uploaded[c.id]) uploaded[c.id] = await uploadImg(fs.readFileSync(refPath(c.id)), `flux_${c.id}.png`);
 }
 async function genPanel(p) {
+  if (fs.existsSync(nnPath(p.n)) && !has("force")) { console.error(`· panel ${p.n} 있음(skip)`); return; }
   const chars = (p.characters || []).map((id) => byId[id]).filter((c) => c && fs.existsSync(refPath(c.id)));
   const prompt = `${BWLEAD}${panelPromptText(p, chars, { noref: false, vlevel: VLEVEL, style: STYLE })} ${AVOID}`;
   const wf = { ...loaders(), "4": { class_type: "CLIPTextEncode", inputs: { text: prompt, clip: ["2", 0] } } };
