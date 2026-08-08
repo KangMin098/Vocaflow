@@ -24,11 +24,24 @@
 - **Sidebar Practice 그룹에 `Arcade` 등재**(`Gamepad2`) — 이전엔 `/hub` 를 스크롤해 진입 카드를 찾는 것이 유일한 통로였다.
 - 신규: `lib/game/due-words.ts`(`fetchDueGameWords` · cap 40 · `next_review_at` ASC nullsFirst, flashcard/pairflip 과 동일 정책 · 굴절형 보강). `scoped-words.loadInflectedForms` export 승격(중복 쿼리 방지).
 - **회귀 고정** — `07-arcade-games.spec.ts`: ① 허브 테스트를 IA v07.4 로 갱신(오늘의 추천 + 2섹션 + 19카드 전수 딥링크) ② **신규 "비스코프 진입 — mine 게임이 내 복습 단어를 쓴다"** — 브레드크럼 `내 복습 단어`(맛보기 아님) + 제시된 뜻이 사용자 `vocabularies` 소속임을 service-role DB 단언(`fetchUserVocabWords` 헬퍼 신설). DEFAULT_POOL 회귀 시 실패한다.
-- 검증: `tsc --noEmit` 0 error · `07-arcade-games` **16/16 pass** · `/arcade`·`/hub` 200 · 렌더 확인(mine 8 / bank 11 = 19).
-- ⚠️ 별건: `next lint` 는 `eslint-module-utils/resolve` 미해결로 이 환경에서 실행 불가(본 변경과 무관한 선재 의존성 문제).
+
+#### 전수 테스트 라운드 — 도출 케이스 36 + 발견 결함 5 수정
+
+테스트 케이스를 축(발견성 / 스코프 3단 / 세션 셸 / 영속화 / 반응형·a11y)으로 도출해 unit 20 + e2e 16 을 작성하고, 그 과정에서 나온 결함을 전부 수정.
+
+- **[자체 결함] wordblitz 가 카탈로그 광고와 다르게 동작** — `source:'mine'` 으로 "내 단어로 플레이" 섹션에 넣었지만, 이 페이지는 스캐폴드를 안 쓰고 자체 스코프 로직을 복제하고 있어 mine 단계가 없었다(= 아케이드에서 열면 여전히 DEFAULT_POOL). 스코프 해석을 **`lib/game/use-word-scope.ts` 공용 훅**으로 추출해 스캐폴드 17종과 독립 3D 가 같은 규칙을 공유하도록 통합. 브레드크럼 매핑도 `lib/game/scope-resource.ts` 로 분리.
+- **[선재 결함 · 전 게임 영향] 셸 X·Esc 로 닫으면 세션 기록이 통째로 유실** — `scores` 적재와 스트릭·XP 적립이 **게임 내부 종료 버튼**의 `onExit` 에만 걸려 있었다. 학습자가 실제로 가장 많이 누르는 종료는 세션 셸 상단 X 와 Esc(SessionFrame 이 라우팅으로 처리 → `onExit` 미호출). 실측: 4문항 플레이 후 X → `learning_records` 6행 / `scores` **0행**. **`lib/game/use-session-recorder.ts`** 신설 — 언마운트(=세션을 떠나는 모든 경로) 시 1회 가드 flush.
+- **[선재 결함 · 전역] 모든 (main) 페이지에 가로 스크롤바** — FlowNav 리치 툴팁(`w-240px`)이 `opacity-0` 여도 레이아웃을 점유해 좁은 폭에서 뷰포트를 넘겼다(실측 `/hub`·`/arcade` 768px **39px**, 900px 23px). `<nav>` 에 `overflow-x-clip`(다른 축을 스크롤로 승격하지 않아 툴팁 하단 전개는 유지).
+- **[자체 결함] 깨진 카피 2종** — due 0 일 때 `"내 복습 단어  로 진행"`(수 없는 문장)과 `"복습 임박 0개"` 배지. 3상태(단어없음 / 있고 due 0 / 있고 due N)를 각각 자연스러운 문장으로 분기(`mineBadge`·`mineDesc`·`dailyMeta`).
+- **[일관성] FlowNav 단계 누락** — Sidebar Practice 에 Arcade 를 넣었는데 `getStageFromPathname` 에 `/arcade` 가 없어 단계 하이라이트가 안 됐다. `practice` 로 매핑.
+- **[판단] 오늘의 추천에서 3D·베타 제외** — 모바일 three.js 번들 부담 + 베타(pirate-quest)는 학습 기록 미연동이라 "오늘 이거 하나만"의 약속과 맞지 않음. 직접 선택은 그대로 가능.
+- 테스트: `src/lib/game/__tests__/catalog.test.ts` **20 케이스**(카탈로그 ↔ 실제 `/play` 디렉터리 정합 · 필수 필드 · source↔minWords 정합 · `gamePlayHref` 엣지 · `pickDailyGame` 결정론/3D제외/전순회/음수 · `kstDayIndex` KST 자정 경계) + `tests/e2e/09-arcade-access.spec.ts` **16 케이스**(비로그인 맛보기·깨진 카피 회귀·반응형 3뷰포트 / 사이드바 활성·문구↔카드수 일치·섹션 카운트·추천 결정론 / explicit 우선·단어0 안내·bank 격리·wordblitz mine / 세션셸 신규3종·`?from` 우선·Esc 복귀 / X 종료 영속화 / 44px·제목계층·포커스링).
+- 검증: `tsc --noEmit` 0 error · **vitest 185 pass** · **e2e 07 16/16 + 09 16/16 pass**.
+- ⚠️ 미수정(별건, 본 변경과 무관): ① `next lint` 가 `eslint-module-utils/resolve` 미해결로 이 환경에서 실행 불가 ② `/library/books` 768px 가로 넘침 **324px** — `BooksExplorer` 의 고정폭 `w-[270px]` 표지(v06.33)가 원인.
 
 ### 신규 파이프라인 — CCP (Comic Curation Pipeline · book→comic)
 
+- **세로 스크롤 몰입 모드(P2)** — 리더 상단에 **Page↔Scroll 토글**(Rows3/Square·뷰 localStorage 영속). Scroll = 전 컷 세로 스택(웹툰형) + IntersectionObserver로 현재 컷 추적(레일·카운터·aria-live) + 스크롤 시 크롬 자동숨김 + 레일 dot 탭 scrollIntoView. 뷰 통합 nav()로 키보드/푸터/레일 공용, `renderPanel` 추출로 두 모드 공용. reduced-motion 대응.
 - **정본 회상 보상 루프(P2)** — verbatim blur→reveal 후 **"기억했어요 / 다시 볼게요"** 자가판정(Desirable Difficulty) + 세션 회상 집계 → 완독 화면 "정본 대사 N개를 기억했어요"(자기효능감·폭죽 없음). Emotional Encoding.
 - **Admin 순차 작업 가이드** — `/admin/comic` Catalog "작업 순서"(① 큐 적재 → ② 드레인 생성 → ③ 검수 → ④ 발행) + 검수 콘솔 단계별 "이 단계에서 할 일" 문구.
 - **맥락 속 어휘 학습(P2)** — 리더 `학습 단어` 칩 실동작: 정본 대사에서 `lookup_word_meaning`(RPC)로 레벨 검증한 학습가치 단어(v≥5)를 컷별 target_vocab에 배정(Carol 17컷·23단어 · humbug/haunt/toll/ignorance…). 칩 탭 → 팝오버에 **실제 뜻(meaning_ko)·품사·CEFR·예문 인라인** + **단어장 추가**(`addWordToVault` 서버액션, 멱등). Context-Dependent + Dual Coding 실현(기존 뜻 조회/추가 자산 재사용, 마이그레이션 무).
