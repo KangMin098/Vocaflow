@@ -7,6 +7,7 @@ export type MemoryStatus = 'stable' | 'shaky' | 'risk' | 'new'
 export type ModeKey =
   | 'listen'
   | 'read'
+  | 'comic'
   | 'shadow'
   | 'words'
   | 'flashcard'

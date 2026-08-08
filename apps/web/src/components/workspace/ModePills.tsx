@@ -25,6 +25,7 @@ interface Mode {
 const MODES: Mode[] = [
   { key: 'listen', label: '듣기', group: 'input' },
   { key: 'read', label: '읽기', group: 'input' },
+  { key: 'comic', label: '만화', group: 'input' },
   { key: 'shadow', label: '따라읽기', group: 'input' },
   { key: 'words', label: '단어', group: 'study' },
   { key: 'flashcard', label: '카드', group: 'study' },
@@ -105,7 +106,9 @@ export function ModePills({
                   //   shadow → 같은 페이지 인라인 따라읽기 (?mode=shadow) · words → 단어장(WordVault) · 게임 → 모듈 hub
                   //   listen/read/spellforge → 워크스페이스 내부 (?mode=)
                   const href =
-                    mode.key === 'shadow'
+                    mode.key === 'comic'
+                      ? `/text/${textId}/comic`
+                      : mode.key === 'shadow'
                       ? `/text/${textId}?mode=shadow`
                       : mode.key === 'words'
                         ? withReturn(wordsHref)

@@ -5,6 +5,7 @@
 import {
   ArrowLeft,
   BarChart3,
+  BookImage,
   BookMarked,
   Brain,
   CreditCard,
@@ -62,6 +63,7 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Sparkles },
       { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
       { href: '/admin/vrl/automation', label: 'VRL Automation', Icon: Workflow },
+      { href: '/admin/comic', label: 'Comic Pipeline', Icon: BookImage },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },

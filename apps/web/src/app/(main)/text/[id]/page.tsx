@@ -225,6 +225,7 @@ const MOCK_PARAGRAPHS = [
 const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   listen: 'done',
   read: 'done',
+  comic: 'pending',
   shadow: 'pending',
   words: 'active',
   flashcard: 'pending',

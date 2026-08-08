@@ -226,6 +226,24 @@ Phase 2K Polish:
 
 ---
 
+## /admin/comic — CCP (Comic Curation Pipeline · 신설)
+
+도서 → 만화 큐레이션·생성·QC·발행. AdminSidebar 사용자&콘텐츠 그룹 등재(`BookImage`).
+
+| 탭 | 기능 |
+|---|---|
+| **Catalog** | 만화화 대상 도서(ready/published) + 만화 상태(없음/초안/발행)·컷수·큐 상태. 체크박스 → **만화 생성 큐**(`enqueue_comic_jobs`) |
+| **Published** | 생성된 만화(초안/발행) 관리 — QC 게이트(`panels_pass`) 통과분만 **발행**(`admin_set_comic_published`) · 회수 |
+
+- KPI 4: 대상 도서 / 초안 / 발행됨 / 큐 대기.
+- 데이터: `listComicCatalog`(library_books + comic_books 헤더 + comic_gen 잡 병합). 마이그레이션 미적용 시 빈 목록 안내로 degrade.
+- 생성 드레인: Claude Code `scripts/lcp/generate-comic.mjs` (drain.mjs 🎞 등록). QC 판정(`qc_verdict`: verbatim_mismatch·rule_violations)은 헤더에 지속 저장(job.result는 재적재 시 소실 → 런 로그 전용).
+- 발행 강제 게이트: `admin_set_comic_published` 가 `panels_pass=true` + 컷 존재 검증 후에만 published.
+
+상세 설계: `scripts/comic/docs/COMIC_PIPELINE_DESIGN.md`.
+
+---
+
 ## /admin (대시보드)
 
 ```

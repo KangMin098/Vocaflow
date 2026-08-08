@@ -41,6 +41,7 @@
 | `/text/new` | `(main)/text/new/page.tsx` | 입력 — 단일 / 책 (챕터별) 모드 (v06.34) |
 | `/text/[id]` | `(main)/text/[id]/page.tsx` + `layout.tsx` | 워크스페이스 (ReadingUniverse + ChapterSidebar) |
 | `/text/[id]/echo` | `(main)/text/[id]/echo/page.tsx` | EchoMatch 따라읽기 (v06.33) |
+| `/text/[id]/comic` | `(main)/text/[id]/comic/page.tsx` | Comic Reader (CCP) — 발행 만화 리더, 미발행 EmptyState degrade |
 
 ### 라이브러리 (L0 Discover)
 
@@ -173,6 +174,7 @@
 | `/admin/vrl/users` | stub | user_profiles.current_v_level 분포 |
 | `/admin/vrl/snapshots` | stub | snapshots audit chain |
 | `/admin/vrl/automation` | `admin/vrl/automation/page.tsx` | pg_cron + V-Level 분포 + 진단 활용도 (v06.34) |
+| `/admin/comic` | `admin/comic/page.tsx` + `AdminComicClient.tsx` | CCP — Catalog(큐 적재) / Published(QC 게이트 발행) |
 
 ---
 

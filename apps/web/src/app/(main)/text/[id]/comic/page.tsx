@@ -1,0 +1,114 @@
+// apps/web/src/app/(main)/text/[id]/comic/page.tsx
+//
+// CCP 학습자 리더 라우트 — /text/[id]/comic (ModePills '만화' 진입).
+// echo/page.tsx 패턴: texts 직접 fetch → library_book 분기 → 발행 만화 로드 → 리더.
+// 검토 반영: RPC(select_book_comic) 미적용(PGRST202)/미발행/사용자글 = notFound 아님,
+//   전부 차분한 EmptyState 로 degrade(마이그레이션 미적용 상태에서 크래시 방지).
+
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { ArrowLeft, BookImage } from 'lucide-react'
+
+import { createClient } from '@/lib/supabase/server'
+import { ComicReader, type ComicPage } from '@/components/comic/ComicReader'
+
+interface PageProps {
+  params: { id: string }
+}
+
+export const metadata = { title: '만화 · Vocaflow' }
+export const dynamic = 'force-dynamic'
+
+function ComicEmpty({ textId, message }: { textId: string; message: string }) {
+  return (
+    <div className="mx-auto max-w-[860px] px-4">
+      <div className="py-3">
+        <Link
+          href={`/text/${textId}?mode=read`}
+          className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t3)] transition-colors hover:text-[var(--p)]"
+        >
+          <ArrowLeft size={14} aria-hidden /> 본문으로
+        </Link>
+      </div>
+      <div className="mt-6 flex flex-col items-center gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-6 py-16 text-center">
+        <BookImage size={26} className="text-[var(--t3)]" aria-hidden />
+        <div>
+          <p className="font-display text-[16px] font-[800] text-[var(--t1)]">{message}</p>
+          <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
+            준비되면 이 자리에서 이야기를 만화로 만나 볼 수 있어요.
+          </p>
+        </div>
+        <Link
+          href={`/text/${textId}?mode=read`}
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)]"
+        >
+          본문 읽기
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default async function ComicModePage({ params }: PageProps) {
+  const client = (await createClient()) as unknown as SupabaseClient
+
+  const { data: text } = await client
+    .from('texts')
+    .select('id, title, chapter_title, chapter_idx, library_book_id')
+    .eq('id', params.id)
+    .maybeSingle()
+
+  if (!text) notFound()
+
+  const t = text as {
+    id: string
+    title: string | null
+    chapter_title: string | null
+    chapter_idx: number | null
+    library_book_id: string | null
+  }
+
+  // 사용자 직접 입력 글 = 만화 미지원(라이브러리 도서만 큐레이션 대상)
+  if (!t.library_book_id || t.chapter_idx == null) {
+    return <ComicEmpty textId={t.id} message="이 글은 아직 만화를 지원하지 않아요" />
+  }
+
+  // 발행 만화 로드 — RPC 미적용/미발행 전부 graceful degrade
+  let pages: ComicPage[] = []
+  let bookTitle = t.title ?? '이야기'
+  try {
+    const [{ data: book }, { data: rows, error }] = await Promise.all([
+      client.from('library_books').select('title').eq('id', t.library_book_id).maybeSingle(),
+      client.rpc('select_book_comic', { p_book_id: t.library_book_id, p_chapter_idx: t.chapter_idx }),
+    ])
+    if (book) bookTitle = (book as { title: string }).title ?? bookTitle
+    if (!error && Array.isArray(rows)) {
+      pages = (rows as Array<{
+        page_order: number
+        chapter_idx: number
+        image_url: string
+        bubbles: ComicPage['bubbles']
+        target_vocab: string[]
+        stave_label: string | null
+        book_v_level: number | null
+      }>).map((r) => ({
+        pageOrder: r.page_order,
+        chapterIdx: r.chapter_idx,
+        imageUrl: r.image_url,
+        bubbles: Array.isArray(r.bubbles) ? r.bubbles : [],
+        targetVocab: Array.isArray(r.target_vocab) ? r.target_vocab : [],
+        staveLabel: r.stave_label,
+        bookVLevel: r.book_v_level,
+      }))
+    }
+  } catch {
+    pages = []
+  }
+
+  if (pages.length === 0) {
+    return <ComicEmpty textId={t.id} message="이 책의 만화는 준비 중이에요" />
+  }
+
+  return <ComicReader textId={t.id} bookTitle={bookTitle} pages={pages} />
+}

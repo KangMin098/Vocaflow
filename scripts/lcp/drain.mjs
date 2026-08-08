@@ -36,6 +36,7 @@ const TASK_LABEL = {
   quiz_gen: '📝 스크립트 퀴즈',
   level_verify: '🔬 레벨 검토',
   vocab_audit: '🔬 어휘 감사',
+  comic_gen: '🎞 만화 생성',
 }
 // task_type → 실행 helper 커맨드 순서 (id 삽입)
 const RUNBOOK = {
@@ -56,12 +57,17 @@ const RUNBOOK = {
     `node scripts/lcp/audit-vocab.mjs plan ${id} [ch]`,
     `node scripts/lcp/audit-vocab.mjs apply ${id} --file audit.json`,
   ],
+  comic_gen: (id) => [
+    `node scripts/lcp/generate-comic.mjs plan ${id}`,
+    `node scripts/lcp/generate-comic.mjs content ${id} <ch>   # 각색 스크립트 → 컷 조립(scripts/comic)`,
+    `node scripts/lcp/generate-comic.mjs insert ${id} --file pages.json --commit`,
+  ],
 }
 
 async function loadJobs() {
   const { data, error } = await db
     .from('book_curation_jobs')
-    .select('book_id, task_type, status, chapters_done, chapters_total, questions_created, error, note, created_at')
+    .select('book_id, task_type, status, chapters_done, chapters_total, questions_created, panels_done, panels_total, error, note, created_at')
     .in('status', ACTIVE)
     .order('created_at', { ascending: true })
   if (error) throw new Error(`jobs lookup failed: ${error.message}`)
@@ -84,6 +90,7 @@ async function loadJobs() {
 
 function progressStr(j) {
   if (j.task_type === 'quiz_gen') return ` (${j.chapters_done}/${j.chapters_total}ch·${j.questions_created}문)`
+  if (j.task_type === 'comic_gen') return ` (${j.panels_done ?? 0}/${j.panels_total ?? '?'}컷)`
   return ''
 }
 
