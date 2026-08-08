@@ -8,7 +8,7 @@
 --   ② 이미지 = 외부/서명 URL (illustrations 관례) — 공개 버킷 신설 안 함(드래프트 유출·egress 차단).
 --   ③ 학습자 RPC 전부 status='published' 게이트(quiz 템플릿엔 필터 없음 → 유출 방지).
 --   ④ book_curation_jobs panels_total/panels_done 실 컬럼 신설(questions_created 재활용 금지).
--- 적용: 사용자 승인 후 apply_migration (자동 적용 금지 규칙).
+-- 적용: 2026-08-08 dev(jajenrevcbmrpaliomxv) SQL Editor 로 적용 완료 + service_role 검증(테이블 2·RPC 5).
 
 -- ─────────────────────────────────────────────────────────────
 -- 1. comic_books — 도서별 만화 헤더(발행 게이트 + QC 판정 사본)

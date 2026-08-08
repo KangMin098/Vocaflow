@@ -146,7 +146,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `library_seed_catalog` | 1,843 | 4 MB | seed 후보 — `imported_book_id` FK ON DELETE SET NULL (소스 GET 복귀 핵심) · curation_meta JSONB |
 | `library_source_catalogs` | 11 | 80 kB | 9 소스 (gutenberg / standard_ebooks / wikibooks / wikisource / librivox / openstax / open_library / hathitrust / simple_wikipedia) + manual + voa_learning · composite_score · S/A/B/C/M tier |
 | `book_curation_jobs` | 1 | 136 kB | v06.34 — admin /curation dev 일괄 처리 큐 · task_type(voice_map/quiz_gen/level_verify/vocab_audit/**comic_gen**) + panels_total/done |
-| `comic_books` | — | — | **CCP** 만화 헤더(발행 게이트) — library_book_id PK/FK · status(draft/published/archived) · qc_verdict JSONB(지속) · panels_pass · panels_total · style/backend · RLS admin-only. 마이그레이션 `20260808120000` (승인 대기) |
+| `comic_books` | 0 | — | **CCP** 만화 헤더(발행 게이트) — library_book_id PK/FK · status(draft/published/archived) · qc_verdict JSONB(지속) · panels_pass · panels_total · style/backend · RLS admin-only. 마이그레이션 `20260808120000` **적용됨(2026-08-08)** |
 | `comic_pages` | — | — | **CCP** 컷 — (library_book_id,chapter_idx,page_order) UNIQUE · image_url(외부 URL) · bubbles JSONB · target_vocab[] · RLS admin-only, 학습자는 `select_book_comic` RPC(published 게이트) read |
 
 CCP RPC: `enqueue_comic_jobs` · `admin_set_comic_published`(panels_pass 강제) · `select_book_comic` · `list_book_comic_catalog` · `book_comic_available` — 학습자 read 3종 전부 `comic_books.status='published' AND library_books.status='published'` 게이트(DEFINER + authenticated).
