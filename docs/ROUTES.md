@@ -51,6 +51,7 @@
 | `/library/books` | `(main)/library/books/page.tsx` | 도서 그리드 (BooksExplorer) |
 | `/library/books/[bookId]` | `(main)/library/books/[bookId]/page.tsx` | 도서 상세 |
 | `/library/comics` | `(main)/library/comics/page.tsx` | 만화 탭 (CCP) — 발행 만화 카탈로그 + 이어서 보기 (ComicsBrowser) |
+| `/library/comics/[bookId]` | `(main)/library/comics/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
 | `/library/vocab` | `(main)/library/vocab/page.tsx` | 공용 단어장 (8 카테고리) |
 | `/library/scripts` | `(main)/library/scripts/page.tsx` | redirect → `/library/books` (v06.34) |
 | `/library/scripts/[bookId]` | `(main)/library/scripts/[bookId]/page.tsx` | redirect → `/library/books/[bookId]` |

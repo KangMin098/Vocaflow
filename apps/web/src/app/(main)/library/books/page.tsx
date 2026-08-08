@@ -242,7 +242,7 @@ export default async function LibraryBooksPage() {
       vLevel: c.vLevel,
       panelsTotal: c.panelsTotal,
       coverArt: c.coverArt,
-      href: e ? `/text/${e.resumeTextId ?? e.firstTextId}/comic` : `/library/books/${c.bookId}`,
+      href: e ? `/text/${e.resumeTextId ?? e.firstTextId}/comic` : `/library/comics/${c.bookId}`,
       enrolled: !!e,
     };
   });
@@ -259,7 +259,7 @@ export default async function LibraryBooksPage() {
         has_comic: true,
         comic_href: e
           ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
-          : `/library/books/${b.id}`,
+          : `/library/comics/${b.id}`,
       };
     });
   }

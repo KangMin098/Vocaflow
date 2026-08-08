@@ -96,9 +96,11 @@ export default async function LibraryComicsPage() {
           : 0
         : Math.min(100, Math.round((p.lastIndex / total) * 100))
 
-    // 미등록 학습자는 아직 리더에 들어갈 수 없다(라우트가 texts.id 요구) → 도서 상세(등록 흐름)로.
-    // P1 에서 /library/comics/[bookId] 프리뷰 + 자동 등록으로 대체 (설계서 D4).
-    const href = e ? `/text/${e.resumeTextId ?? e.firstTextId}/comic` : `/library/books/${c.bookId}`
+    // 미등록 학습자는 리더에 바로 들어갈 수 없다(라우트가 texts.id 요구) →
+    // 프리뷰 + 포맷 선택(등록 후 진입)을 거친다 (설계서 D4).
+    const href = e
+      ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
+      : `/library/comics/${c.bookId}`
 
     const ctaLabel = !e
       ? '만화 미리보기'

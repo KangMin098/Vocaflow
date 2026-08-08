@@ -426,11 +426,14 @@ comic_pages.target_vocab (verbatim 정본만)
 - [x] 회귀 `tests/e2e/11-comic-discovery.spec.ts` — 탭 이동 · 카드 진입 경로 · 포맷 칩이 배지 보유 도서만 남기는지
 - 남은 G4/G5: 노출 순서(알파벳)와 커버 payload 는 `list_comic_catalog` RPC 가 필요 → P1
 
-### P1 — 선택 · 프리뷰 (마이그레이션 1건, 승인 필요)
-- [ ] 마이그레이션: `list_comic_catalog` · `preview_book_comic` · `comic_books.feature_rank` · `preview_from`
-- [ ] `/library/comics/[bookId]` + `ComicFormatChoice` + `prescribe.ts`
-- [ ] 미등록 → 자동 enroll → 리더 연속 진입
-- [ ] e2e: `09-comic-discovery.spec.ts`(탭 → 프리뷰 → enroll → 리더 → 진도 DB 단언)
+### P1 — 선택 · 프리뷰 ✅ 코드 완료 (2026-08-08) · ⏳ 마이그레이션 승인 대기
+- [x] 마이그레이션 **작성**: [20260808240000_comic_catalog_p1.sql](../supabase/migrations/20260808240000_comic_catalog_p1.sql) — `list_comic_catalog` · `preview_book_comic` · `comic_books.feature_rank`/`preview_from` · anon GRANT. **미적용**(승인 후 SQL Editor)
+- [x] `/library/comics/[bookId]` — 미등록·비로그인 프리뷰 3컷 + 포맷 선택
+- [x] `lib/comic/prescribe.ts` + 단위 테스트 9종 — 권장 1개(만화는 "어려울 때/복습할 때"만)
+- [x] `ComicFormatChoice` — 미등록은 `enroll_library_book`(멱등) 후 리더 직행, 비로그인은 `?next=` 로 복귀
+- [x] 진입 경로 재배선: 만화 탭·히어로·상세 시트의 미등록 href → `/library/comics/[bookId]`
+- [x] e2e 4종 — 마이그레이션 **미적용 상태에서 통과**(2단 폴백 검증). 적용 후 동일 스펙이 P1 경로를 검증
+- 계약: 조회는 `list_comic_catalog` 우선, 실패 시 `list_book_comic_catalog`+전권 RPC 폴백 → 적용 전후 모두 동작
 
 ### P2 — 체계 정합
 - [ ] `v_library_catalog` 뷰 + 4종 발행 조건 단일화

@@ -1,16 +1,16 @@
 // apps/web/src/lib/comic/catalog.ts
 //
-// CCP 학습자 카탈로그 조회 — /library/books 히어로와 /library/comics 탭의 단일 출처.
-// 이전엔 books/page.tsx 안에 인라인으로 있었고(도서 페이지 전용), 만화 탭이 생기며 중복될 자리라 lib 으로 승격.
+// CCP 학습자 카탈로그 조회 — /library/books 히어로 · /library/comics 탭 · 만화 상세의 단일 출처.
 //
-// ⚠️ 커버(첫 컷) 조회 한계 — 발행 게이트 RPC 중 컷 URL 을 주는 것이 select_book_comic_all(전권 컷 전량)뿐이라
-//    커버 1장을 위해 전권 payload 를 받는다. comic_pages 직접 select 는 RLS(admin/curator)로 막혀 대안이 아님.
-//    그래서 coverLimit 으로 "실제 그려지는 카드 수"만큼만 커버를 받는다(히어로 4 / 탭 그리드 상한).
-//    설계서 §7.1 list_comic_catalog(RPC 내부에서 첫 컷만 뽑음)로 P1 에서 대체 — 그때 fetchComicCovers 는 삭제된다.
+// 조회 경로 2단 (마이그레이션 적용 여부에 무관하게 동작):
+//   ① list_comic_catalog (P1 · 20260808240000) — RPC 안에서 첫 컷 커버까지 뽑고 feature_rank 로 큐레이션 정렬.
+//   ② 폴백: list_book_comic_catalog(알파벳순) + 도서별 select_book_comic_all 로 커버.
+//      ⚠️ 폴백은 커버 1장을 위해 전권 컷 payload 를 받는다(RLS 로 comic_pages 직접 select 불가).
+//         그래서 coverLimit(실제 렌더되는 카드 수)으로 상한을 건다. 마이그레이션 적용 후엔 ①만 탄다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-/** coverLimit 미지정 시 커버를 받아올 최대 도서 수 (그 이상은 coverArt=null → 폴백 아이콘) */
+/** coverLimit 미지정 시 폴백 경로에서 커버를 받아올 최대 도서 수 */
 const DEFAULT_COVER_LIMIT = 12
 
 export interface ComicCatalogItem {
@@ -21,9 +21,46 @@ export interface ComicCatalogItem {
   panelsTotal: number
   /** 첫 컷 이미지 URL (미조회/실패 시 null → 폴백 아이콘) */
   coverArt: string | null
+  // ── 아래는 list_comic_catalog(P1) 에서만 채워짐. 폴백 경로에선 null/0 ──
+  /** 만화가 존재하는 챕터 수 */
+  chaptersTotal: number
+  genreNorm: string | null
+  /** i+1 판정용 (judgeIPlusOne) */
+  lexicalCoverage: Record<string, number> | null
+  isPictureBook: boolean
+  /** 원문 읽기 예상 시간(분) — 포맷 선택 카드의 비교 정보 */
+  readingMinutes: number | null
+  bookChapterCount: number | null
+  hasAudio: boolean
+  publishedAt: string | null
 }
 
-interface CatalogRow {
+export interface ComicCatalogOptions {
+  /** 반환 항목 수 상한 (미지정 = 전량) */
+  limit?: number
+  /** 폴백 경로에서 커버를 받아올 상위 N개 (0 = 커버 조회 안 함). 미지정 = DEFAULT_COVER_LIMIT */
+  coverLimit?: number
+}
+
+interface RichRow {
+  library_book_id: string
+  title: string
+  author: string | null
+  book_v_level: number | null
+  panels_total: number | null
+  chapters_total: number | null
+  cover_url: string | null
+  genre_norm: string | null
+  lexical_coverage: Record<string, number> | null
+  is_picture_book: boolean | null
+  reading_minutes: number | null
+  book_chapter_count: number | null
+  has_audio: boolean | null
+  feature_rank: number | null
+  published_at: string | null
+}
+
+interface LegacyRow {
   library_book_id: string
   title: string
   author: string | null
@@ -31,17 +68,48 @@ interface CatalogRow {
   panels_total: number | null
 }
 
-export interface ComicCatalogOptions {
-  /** 반환 항목 수 상한 (미지정 = 전량) */
-  limit?: number
-  /** 커버를 받아올 상위 N개 (0 = 커버 조회 안 함). 미지정 = DEFAULT_COVER_LIMIT */
-  coverLimit?: number
+function fromRich(r: RichRow): ComicCatalogItem {
+  return {
+    bookId: r.library_book_id,
+    title: r.title,
+    author: r.author,
+    vLevel: r.book_v_level,
+    panelsTotal: r.panels_total ?? 0,
+    coverArt: r.cover_url,
+    chaptersTotal: r.chapters_total ?? 0,
+    genreNorm: r.genre_norm,
+    lexicalCoverage: r.lexical_coverage,
+    isPictureBook: r.is_picture_book === true,
+    readingMinutes: r.reading_minutes,
+    bookChapterCount: r.book_chapter_count,
+    hasAudio: r.has_audio === true,
+    publishedAt: r.published_at,
+  }
+}
+
+function fromLegacy(r: LegacyRow): ComicCatalogItem {
+  return {
+    bookId: r.library_book_id,
+    title: r.title,
+    author: r.author,
+    vLevel: r.book_v_level,
+    panelsTotal: r.panels_total ?? 0,
+    coverArt: null,
+    chaptersTotal: 0,
+    genreNorm: null,
+    lexicalCoverage: null,
+    isPictureBook: false,
+    readingMinutes: null,
+    bookChapterCount: null,
+    hasAudio: false,
+    publishedAt: null,
+  }
 }
 
 /**
- * 발행된 만화 카탈로그. RPC(list_book_comic_catalog)는 comic_books.status='published'
- * AND library_books.status='published' 이중 게이트가 걸려 있어 미발행 유출 없음.
- * RPC 미적용/오류 시 빈 배열(호출부는 섹션 자체를 생략 — graceful degrade).
+ * 발행된 만화 카탈로그. 두 RPC 모두 comic_books.status='published'
+ * AND library_books.status='published' 이중 게이트라 미발행 유출 없음.
+ * 전부 실패하면 빈 배열(호출부는 섹션 자체를 생략 — graceful degrade).
  */
 export async function fetchComicCatalog(
   client: SupabaseClient,
@@ -49,25 +117,29 @@ export async function fetchComicCatalog(
 ): Promise<ComicCatalogItem[]> {
   const { limit, coverLimit = DEFAULT_COVER_LIMIT } = options
 
-  let rows: CatalogRow[] = []
+  // ① P1 경로
+  try {
+    const { data, error } = await client.rpc('list_comic_catalog')
+    if (!error && Array.isArray(data)) {
+      const items = (data as RichRow[]).map(fromRich)
+      return typeof limit === 'number' ? items.slice(0, limit) : items
+    }
+  } catch {
+    // 미적용(PGRST202) 등 — 폴백으로
+  }
+
+  // ② 폴백 경로
+  let rows: LegacyRow[] = []
   try {
     const { data, error } = await client.rpc('list_book_comic_catalog')
     if (error || !Array.isArray(data)) return []
-    rows = data as CatalogRow[]
+    rows = data as LegacyRow[]
   } catch {
     return []
   }
 
   const sliced = typeof limit === 'number' ? rows.slice(0, limit) : rows
-  const items: ComicCatalogItem[] = sliced.map((r) => ({
-    bookId: r.library_book_id,
-    title: r.title,
-    author: r.author,
-    vLevel: r.book_v_level,
-    panelsTotal: r.panels_total ?? 0,
-    coverArt: null,
-  }))
-
+  const items = sliced.map(fromLegacy)
   if (coverLimit <= 0 || items.length === 0) return items
 
   const covers = await fetchComicCovers(
@@ -78,7 +150,7 @@ export async function fetchComicCatalog(
   return items.map((i) => ({ ...i, coverArt: covers.get(i.bookId) ?? null }))
 }
 
-/** 도서별 첫 컷 URL. 실패한 책은 map 에서 빠짐(호출부가 null 폴백). */
+/** 폴백 전용 — 도서별 첫 컷 URL. 실패한 책은 map 에서 빠짐(호출부가 null 폴백). */
 async function fetchComicCovers(
   client: SupabaseClient,
   bookIds: string[],
@@ -109,4 +181,59 @@ async function fetchComicCovers(
  */
 export function comicBookIdsOf(items: ComicCatalogItem[]): Set<string> {
   return new Set(items.map((i) => i.bookId))
+}
+
+export interface ComicPreviewPanel {
+  pageOrder: number
+  chapterIdx: number
+  imageUrl: string
+  staveLabel: string | null
+}
+
+/**
+ * 미등록/비로그인 프리뷰 컷. preview_book_comic(P1) 우선, 미적용 시 전권 RPC 앞부분으로 폴백.
+ * 대사(bubbles)는 의도적으로 버린다 — 프리뷰는 유입용이고, 정본 대사/vocab 은 리더의 학습 자산.
+ */
+export async function fetchComicPreview(
+  client: SupabaseClient,
+  bookId: string,
+  limit = 3,
+): Promise<ComicPreviewPanel[]> {
+  const cap = Math.max(1, Math.min(limit, 5))
+
+  try {
+    const { data, error } = await client.rpc('preview_book_comic', {
+      p_book_id: bookId,
+      p_limit: cap,
+    })
+    if (!error && Array.isArray(data)) return mapPanels(data)
+  } catch {
+    // 미적용 — 폴백
+  }
+
+  try {
+    const { data, error } = await client.rpc('select_book_comic_all', { p_book_id: bookId })
+    if (!error && Array.isArray(data)) return mapPanels(data.slice(0, cap))
+  } catch {
+    return []
+  }
+  return []
+}
+
+function mapPanels(rows: unknown[]): ComicPreviewPanel[] {
+  return (
+    rows as Array<{
+      page_order: number
+      chapter_idx: number
+      image_url: string
+      stave_label: string | null
+    }>
+  )
+    .filter((r) => typeof r?.image_url === 'string' && r.image_url.length > 0)
+    .map((r) => ({
+      pageOrder: r.page_order,
+      chapterIdx: r.chapter_idx,
+      imageUrl: r.image_url,
+      staveLabel: r.stave_label ?? null,
+    }))
 }

@@ -91,10 +91,10 @@ test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () =
       const count = await cards.count();
       expect(count).toBeGreaterThan(0);
 
-      // 카드 진입 경로 — 등록: /text/[id]/comic · 미등록: 도서 상세(등록 흐름)
+      // 카드 진입 경로 — 등록: /text/[id]/comic · 미등록: 만화 상세(프리뷰 + 등록 흐름)
       const firstLink = cards.first().getByRole('link').first();
       const href = await firstLink.getAttribute('href');
-      expect(href, `card href: ${href}`).toMatch(/^\/(text\/[^/]+\/comic|library\/books\/[^/]+)$/);
+      expect(href, `card href: ${href}`).toMatch(/^\/(text\/[^/]+\/comic|library\/comics\/[^/]+)$/);
       console.log(`[comic] 카탈로그 ${count}편 · 첫 카드 → ${href}`);
     }
 
@@ -140,5 +140,68 @@ test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () =
 
     const fatal = fatalErrors(errors);
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
+  });
+
+  test('만화 상세 — 미등록 학습자에게 프리뷰 + 포맷 선택(등록 유도)이 뜬다', async ({ page }) => {
+    test.setTimeout(90_000);
+
+    await page.goto('/library/comics', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    const detailLink = page.locator('a[href^="/library/comics/"]').first();
+    if (!(await detailLink.isVisible().catch(() => false))) {
+      console.log('[comic] 미등록 만화 없음(전부 등록됨 또는 카탈로그 0) — 종료');
+      return;
+    }
+    await detailLink.click();
+    await page.waitForURL(/\/library\/comics\/[0-9a-f-]{36}/, { timeout: 20_000 });
+
+    // 프리뷰 — 서버 하드캡(≤5)을 넘지 않는다
+    const preview = page.getByRole('region', { name: '만화 미리보기' });
+    await expect(preview).toBeVisible({ timeout: 15_000 });
+    const shots = preview.locator('img');
+    const shotCount = await shots.count();
+    expect(shotCount).toBeGreaterThan(0);
+    expect(shotCount).toBeLessThanOrEqual(5);
+
+    // 포맷 선택 — 권장은 정확히 1개 (선택 피로 방지 · 설계서 D5)
+    const choice = page.getByRole('region', { name: '학습 방식 선택' });
+    await expect(choice).toBeVisible();
+    await expect(choice.getByText('만화로 먼저')).toBeVisible();
+    await expect(choice.getByText('원문으로 읽기')).toBeVisible();
+    await expect(choice.getByText('지금 추천')).toHaveCount(1);
+
+    // 미등록 로그인 사용자 → 등록 후 진입 버튼(=클릭 시 enroll). 여기선 계정 상태를 바꾸지 않으려
+    // 버튼 존재까지만 단언한다(실제 enroll 은 도서 등록 플로우 회귀가 담당).
+    await expect(choice.getByRole('button', { name: /만화로 먼저/ })).toBeVisible();
+
+    console.log(`[comic] 상세 프리뷰 ${shotCount}컷 · 포맷 선택 렌더 OK`);
+  });
+});
+
+test.describe('CCP 발견 — 비로그인 유입 경로', () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test('비로그인도 만화 프리뷰를 보고, 시작은 로그인으로 유도된다', async ({ page }) => {
+    test.setTimeout(90_000);
+
+    await page.goto('/library/comics', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    const detailLink = page.locator('a[href^="/library/comics/"]').first();
+    if (!(await detailLink.isVisible().catch(() => false))) {
+      console.log('[comic] 비로그인 카탈로그 비어 있음 — 종료');
+      return;
+    }
+    const href = await detailLink.getAttribute('href');
+    await page.goto(href!, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    // 유입 자산: 등록 전에도 컷이 보여야 한다 (G3 해소의 핵심)
+    await expect(page.getByRole('region', { name: '만화 미리보기' })).toBeVisible({
+      timeout: 15_000,
+    });
+
+    // 시작은 로그인으로 — next 로 이 페이지에 되돌아온다
+    const choice = page.getByRole('region', { name: '학습 방식 선택' });
+    const loginLink = choice.getByRole('link', { name: /만화로 먼저/ });
+    await expect(loginLink).toBeVisible();
+    const loginHref = await loginLink.getAttribute('href');
+    expect(loginHref, `login href: ${loginHref}`).toMatch(/^\/login\?next=%2Flibrary%2Fcomics%2F/);
   });
 });

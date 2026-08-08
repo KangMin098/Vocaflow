@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### CCP × Library P1 — 등록 전에도 만화를 보고, 어느 입구로 들어갈지 고른다
+
+**마이그레이션 [20260808240000_comic_catalog_p1.sql](../supabase/migrations/20260808240000_comic_catalog_p1.sql) 작성 · 미적용(승인 대기)**. 코드는 적용 전후 모두 동작하도록 2단 폴백.
+
+- **`/library/comics/[bookId]` 신설 — G3 해소**: 리더 라우트가 `texts.id`(=등록)를 요구해 **미등록 학습자는 만화를 아예 못 봤다**. 이제 비로그인·미등록도 프리뷰 3컷을 본다. 프리뷰는 **아트만** — 정본 대사·`target_vocab` 은 리더의 학습 자산이라 싣지 않는다.
+- **`ComicFormatChoice`** — 만화/원문/듣기 3카드. **권장은 정확히 1개**(선택 피로 방지), 나머지도 그대로 선택 가능(강제 이동 없음). 미등록이 시작하면 `enroll_library_book`(멱등) 후 해당 포맷으로 직행, 비로그인은 `?next=` 로 되돌아온다.
+- **`lib/comic/prescribe.ts` + 단위 테스트 9종** — 이어보기 > 복습(본문 완독 이력) > 난이도 > 미진단 순. **적정 난이도(ideal)에선 본문을 권장**한다: 만화를 항상 앞세우면 seductive details(그림이 본문 읽기 시간을 밀어냄) 문제를 제품이 스스로 만든다.
+- **마이그레이션 내용** — `comic_books.feature_rank`(노출 순서 · G4) + `preview_from`(스포일러 회피 오프셋) · `list_comic_catalog`(RPC 안에서 첫 컷 커버 + 커버리지/낭독/챕터 메타까지 1회 · G5) · `preview_book_comic`(published 이중 게이트 + **서버 하드캡 5컷** + anon GRANT).
+- **진입 경로 재배선**: 만화 탭 카드 · 도서 히어로 · 상세 시트의 미등록 href → `/library/comics/[bookId]`.
+- **검증**: e2e 4종이 **마이그레이션 미적용 상태에서 통과**(= 폴백 경로 실증) · 04-ui-smoke 5/5 · unit 55 pass · `tsc --noEmit` 클린. 프리뷰 3컷 실렌더 확인(anon).
+
 ### CCP × Library P0 — 만화가 라이브러리의 고를 수 있는 포맷이 됐다
 
 설계(아래) 의 P0 구현. **마이그레이션 없음** — 기존 발행 게이트 RPC(`list_book_comic_catalog`)만 사용.
