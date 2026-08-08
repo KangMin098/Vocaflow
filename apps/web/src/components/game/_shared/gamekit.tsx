@@ -16,7 +16,8 @@ import {
 } from 'react';
 
 import { getArcadeMeta } from '@/lib/game/arcade-meta';
-import { GAME_MARKS } from '@/lib/game/catalog';
+import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog';
+import { readMusicPref, writeMusicPref } from '@/lib/game/music-pref';
 
 export type Word = {
   en: string;
@@ -203,26 +204,8 @@ export function useSfx() {
 // 페이드로 경량화(~1MB). 합성음이 아니라 실제 음원. 기본 OFF(연구: 개인차 큼 +
 // 언어학습 특성상 무가사·저자극) · localStorage 기억 · 페이드 인/아웃 · SFX/TTS 시
 // 살짝 덕킹 · 자동재생 차단 시 다음 제스처에 시작. 파일 없으면 hasTrack=false(무해).
-export const MUSIC_SRC: Partial<Record<ArcadeGameId, string>> = {
-  cascade: "/audio/games/cascade.mp3", // 8bit Dungeon Level — 경쾌한 아케이드
-  "letter-forge": "/audio/games/letter-forge.mp3", // Bit Quest — 칩튠 생성
-  "daily-blitz": "/audio/games/daily-blitz.mp3", // Bit Shift — 데일리 활기
-  "ghost-race": "/audio/games/ghost-race.mp3", // Awesome Call — 경쟁 질주
-  "lexicon-hands": "/audio/games/lexicon-hands.mp3", // Bass Walker — 워킹베이스 긴장(Balatro)
-  "word-economy": "/audio/games/word-economy.mp3", // Balzan Groove — 전략 그루브
-  "word-customs": "/audio/games/word-customs.mp3", // An Upsetting Theme — 심문 긴박(Papers Please)
-  connections: "/audio/games/connections.mp3", // Amazing Plan — 경쾌한 퍼즐
-  "lexicon-detective": "/audio/games/lexicon-detective.mp3", // Awkward Meeting — 추리(Golden Idol)
-  "morpheme-rules": "/audio/games/morpheme-rules.mp3", // Anamalie — 기묘한 퍼즐(Baba Is You)
-  "glyph-tongue": "/audio/games/glyph-tongue.mp3", // Atlantean Twilight — 고대 정적(Chants of Sennaar)
-  "silent-rule": "/audio/games/silent-rule.mp3", // Airship Serenity — 명상 귀납(The Witness)
-  "word-orrery": "/audio/games/word-orrery.mp3", // Awaiting Return — 심우주 경외(Outer Wilds)
-  "lexicon-estate": "/audio/games/lexicon-estate.mp3", // Ashton Manor — 저택 탐험(Blue Prince)
-  "wordsmith-vigil": "/audio/games/letter-forge.mp3", // Bit Quest — 타이핑 아케이드(재사용)
-  "morphmerge": "/audio/games/cascade.mp3", // 8bit Dungeon Level — 경쾌한 머지(재사용)
-  "wordfall-cadence": "/audio/games/silent-rule.mp3", // Airship Serenity — 잔잔한 듣기(재사용)
-};
-const MUSIC_PREF_KEY = "vocaflow-arcade-music";
+// 트랙 매핑은 lib/game/catalog 의 `music` 필드 단일 출처 — 여기 복제본이 따로 있던 시절
+// 독립 3D 2종(wordblitz·pirate-quest)이 이 표에서 빠져 영영 무음이었다.
 const MUSIC_VOL = 0.3;
 
 function rampVolume(a: HTMLAudioElement, to: number, ms: number, done?: () => void) {
@@ -237,19 +220,19 @@ function rampVolume(a: HTMLAudioElement, to: number, ms: number, done?: () => vo
   requestAnimationFrame(step);
 }
 
-export function useGameMusic(gameId: ArcadeGameId) {
-  const src = MUSIC_SRC[gameId];
+export function useGameMusic(gameId: GameSlug) {
+  const src = GAME_BY_SLUG[gameId]?.music;
   const [on, setOn] = useState(false);
+  /** 사용자가 아직 한 번도 정하지 않음 → 버튼을 첫 진입에 한해 눈에 띄게(발견성). */
+  const [undecided, setUndecided] = useState(false);
   const aRef = useRef<HTMLAudioElement | null>(null);
   const onRef = useRef(on);
   onRef.current = on;
 
   useEffect(() => {
-    try {
-      if (localStorage.getItem(MUSIC_PREF_KEY) === "1") setOn(true);
-    } catch {
-      /* private mode */
-    }
+    const pref = readMusicPref();
+    if (pref === true) setOn(true);
+    if (pref === null) setUndecided(true);
   }, []);
 
   useEffect(() => {
@@ -301,13 +284,10 @@ export function useGameMusic(gameId: ArcadeGameId) {
   );
 
   const toggle = useCallback(() => {
+    setUndecided(false); // 한 번이라도 정하면 강조 해제
     setOn((v) => {
       const nv = !v;
-      try {
-        localStorage.setItem(MUSIC_PREF_KEY, nv ? "1" : "0");
-      } catch {
-        /* private mode */
-      }
+      writeMusicPref(nv);
       return nv;
     });
   }, []);
@@ -323,7 +303,7 @@ export function useGameMusic(gameId: ArcadeGameId) {
     }, ms);
   }, []);
 
-  return { on, toggle, duck, hasTrack: !!src };
+  return { on, toggle, duck, hasTrack: !!src, undecided };
 }
 
 export function IconMusic({ on }: { on: boolean }) {
@@ -338,7 +318,10 @@ export function IconMusic({ on }: { on: boolean }) {
 }
 
 // 게임 루트 어디에나 1줄로: <GameMusic gameId="cascade" />
-export function GameMusic({ gameId }: { gameId: ArcadeGameId }) {
+//
+// 첫 진입(선호 미결정)에는 라벨 "배경음악"을 함께 펼쳐 존재를 알린다 — 이전에는 아이콘만
+// 있어서 BGM 이 있는 줄도 몰랐다. 한 번이라도 켜거나 끄면 아이콘만 남는다(Calm UI).
+export function GameMusic({ gameId }: { gameId: GameSlug }) {
   const m = useGameMusic(gameId);
   if (!m.hasTrack) return null;
   return (
@@ -349,8 +332,10 @@ export function GameMusic({ gameId }: { gameId: ArcadeGameId }) {
       aria-pressed={m.on}
       aria-label={m.on ? "배경음악 끄기" : "배경음악 켜기"}
       data-on={m.on ? "1" : "0"}
+      data-hint={m.undecided ? "1" : "0"}
     >
       <IconMusic on={m.on} />
+      {m.undecided && <span className="gk-music-hint">배경음악</span>}
     </button>
   );
 }
@@ -665,7 +650,10 @@ const GK_CSS = `
     .gk-root { --ease-spring: linear(0, 0.55 11%, 1.06 30%, 0.985 46%, 1.008 62%, 0.998 80%, 1); }
   }
   .gk-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .gk-root > :not(.gk-energy):not(.gk-atmos) { position: relative; z-index: 1; }
+  /* 배경 레이어 위로 콘텐츠를 올리는 규칙. 명시도가 (0,3,0) 이라 .gk-music-btn(0,1,0)의
+     position:fixed 를 덮어써서, 음악 버튼이 좌하단 고정이 아니라 게임 상단 흐름에 전체 너비로
+     박혀 있었다(=음악 컨트롤로 인식 불가). 배경 레이어들과 같은 방식으로 제외한다. */
+  .gk-root > :not(.gk-energy):not(.gk-atmos):not(.gk-music-btn) { position: relative; z-index: 1; }
   .gk-energy { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--streak) 50%, transparent), transparent 60%); transition: opacity .5s ease, transform .6s ease; }
 
   /* 분위기 배경 레이어 (AmbientBackground) */
@@ -701,6 +689,10 @@ const GK_CSS = `
   .gk-music-btn:active { transform: scale(.94); }
   .gk-music-btn[data-on="1"] { color: var(--combo); border-color: color-mix(in srgb, var(--combo) 50%, var(--bd)); }
   .gk-music-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
+  /* 첫 진입(선호 미결정) — 라벨을 펼쳐 BGM 존재를 알린다. 한 번 정하면 아이콘만 남음. */
+  .gk-music-btn[data-hint="1"] { width: auto; gap: 8px; padding: 0 16px 0 13px; border-color: color-mix(in srgb, var(--combo) 45%, var(--bd)); color: var(--t1); }
+  .gk-music-hint { font-family: var(--font-display, system-ui, sans-serif); font-size: 12.5px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+  @media (max-width: 420px) { .gk-music-hint { display: none; } .gk-music-btn[data-hint="1"] { width: 44px; padding: 0; } }
 
   .gk-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(20px, 4.4vh, 44px); padding: 20px 16px; min-height: 0; }
 

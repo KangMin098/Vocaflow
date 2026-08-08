@@ -57,7 +57,15 @@ export interface GameEntry {
   is3d?: boolean
   /** 베타 — 학습 기록 미연동 */
   beta?: boolean
+  /**
+   * 배경음악 트랙 (`public/audio/games/*.mp3` · Kevin MacLeod CC-BY 3.0).
+   * 게임 무드에 맞춰 큐레이션. 곡 수(14) < 게임 수(19)라 일부는 무드가 가까운 곡을 재사용한다.
+   */
+  music?: string
 }
+
+/** BGM 경로 헬퍼 — 파일명만 적고 경로는 한 곳에서. */
+const bgm = (name: string) => `/audio/games/${name}.mp3`
 
 // ─── 라인 마크 (32×32 stroke) ───
 export const GAME_MARKS: Record<GameSlug, ReactNode> = {
@@ -91,36 +99,43 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     slug: 'cascade', name: 'Cascade', tagline: '단어와 뜻을 이어 지우는 낙하 보드',
     layer: 'L4a 재인', ref: 'Match-3', source: 'mine', emoji: '🌊', closeHref: '/arcade', minWords: 6,
     mood: { a: '#2E92A8', b: '#123C59', glow: 'rgba(130,232,238,.5)', accent: '#BEF3F7' },
+    music: bgm('cascade'),
   },
   {
     slug: 'ghost-race', name: 'Ghost Race', tagline: '유령과 속도 대결 · 리그 승급',
     layer: 'L4a 경쟁', ref: 'Kahoot', source: 'mine', emoji: '🏁', closeHref: '/arcade', minWords: 4,
     mood: { a: '#B34480', b: '#38296A', glow: 'rgba(255,158,224,.5)', accent: '#FFD1EE' },
+    music: bgm('ghost-race'),
   },
   {
     slug: 'word-economy', name: 'Word Economy', tagline: '코인을 벌어 파워업에 전략 투자',
     layer: 'L4a 전략', ref: 'Gimkit', source: 'mine', emoji: '🪙', closeHref: '/arcade', minWords: 4,
     mood: { a: '#C99A34', b: '#77481E', glow: 'rgba(255,216,124,.55)', accent: '#FFECBB' },
+    music: bgm('word-economy'),
   },
   {
     slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라',
     layer: 'L4c 듣기', ref: 'Rhythm', source: 'mine', emoji: '🎵', closeHref: '/arcade', minWords: 4,
     mood: { a: '#4C6FA6', b: '#182444', glow: 'rgba(140,180,255,.44)', accent: '#D4E2FA' },
+    music: bgm('silent-rule'),
   },
   {
     slug: 'letter-forge', name: 'Letter Forge', tagline: '흩어진 글자로 철자를 벼려내다',
     layer: 'L4b 생성', ref: '애너그램', source: 'mine', emoji: '🔤', closeHref: '/arcade', minWords: 5,
     mood: { a: '#C4692C', b: '#54261F', glow: 'rgba(255,186,96,.55)', accent: '#FFD9A0' },
+    music: bgm('letter-forge'),
   },
   {
     slug: 'wordsmith-vigil', name: "Wordsmith's Vigil", tagline: '뜻을 든 정령을 영단어 타이핑으로 흩어라',
     layer: 'L4b 생성', ref: 'Typing of the Dead', source: 'mine', emoji: '🖋', closeHref: '/arcade', minWords: 5,
     mood: { a: '#B5763A', b: '#3A2A1C', glow: 'rgba(255,196,120,.5)', accent: '#F2DCB0' },
+    music: bgm('letter-forge'),
   },
   {
     slug: 'morphmerge', name: 'Morphmerge', tagline: '같은 어족의 형태를 알아보고 합쳐 수집하라',
     layer: 'L4b 형태론', ref: '2048 · Merge', source: 'mine', emoji: '🧬', closeHref: '/arcade', minWords: 4,
     mood: { a: '#3E9E6A', b: '#173F2C', glow: 'rgba(130,235,170,.44)', accent: '#D2F3DE' },
+    music: bgm('cascade'),
   },
 
   // ── source: bank — 내장 큐레이션 뱅크 (수제 콘텐츠 · 스코프 무관) ──
@@ -128,51 +143,61 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     slug: 'daily-blitz', name: 'Daily Blitz', tagline: '매일 새로운 10단어 · 스트릭',
     layer: '리텐션', ref: 'Wordle', source: 'bank', emoji: '📅', closeHref: '/arcade', minWords: 0,
     mood: { a: '#E8846A', b: '#7C3B5E', glow: 'rgba(255,196,150,.55)', accent: '#FFE0C4' },
+    music: bgm('daily-blitz'),
   },
   {
     slug: 'connections', name: 'Connections', tagline: '16단어를 숨은 4개 의미로 잇다',
     layer: 'L5 관계', ref: 'NYT', source: 'bank', emoji: '🧩', closeHref: '/arcade', minWords: 0,
     mood: { a: '#7150A8', b: '#2C2356', glow: 'rgba(206,178,255,.5)', accent: '#E3D4FF' },
+    music: bgm('connections'),
   },
   {
     slug: 'glyph-tongue', name: 'The Glyph Tongue', tagline: '뜻을 주지 않는다 — 문맥으로 룬을 해독',
     layer: 'L2 해독', ref: 'Chants of Sennaar', source: 'bank', emoji: '📜', closeHref: '/arcade', minWords: 0,
     mood: { a: '#6E86A6', b: '#333E56', glow: 'rgba(184,210,230,.5)', accent: '#DCE8F2' },
+    music: bgm('glyph-tongue'),
   },
   {
     slug: 'word-customs', name: 'Word Customs', tagline: '단어의 여권을 심사해 위조를 적발하라',
     layer: 'L3+ 검증', ref: 'Papers, Please', source: 'bank', emoji: '🛂', closeHref: '/arcade', minWords: 0,
     mood: { a: '#B08444', b: '#4A3524', glow: 'rgba(230,190,120,.5)', accent: '#F2E2C0' },
+    music: bgm('word-customs'),
   },
   {
     slug: 'morpheme-rules', name: 'Morpheme Rules', tagline: '형태소를 조립하면 그 뜻이 세계를 바꾼다',
     layer: 'L4b 형태론', ref: 'Baba Is You', source: 'bank', emoji: '🔠', closeHref: '/arcade', minWords: 0,
     mood: { a: '#4C7A9E', b: '#1A2330', glow: 'rgba(130,205,255,.44)', accent: '#D4EAFA' },
+    music: bgm('morpheme-rules'),
   },
   {
     slug: 'silent-rule', name: 'The Silent Rule', tagline: '설명 없이 철자 규칙을 스스로 귀납하라',
     layer: 'L4b 귀납', ref: 'The Witness', source: 'bank', emoji: '🔆', closeHref: '/arcade', minWords: 0,
     mood: { a: '#3E9E86', b: '#173F3B', glow: 'rgba(140,235,190,.44)', accent: '#D2F3E4' },
+    music: bgm('silent-rule'),
   },
   {
     slug: 'lexicon-hands', name: 'Lexicon Hands', tagline: '어원·품사 시너지로 배수를 폭발시켜라',
     layer: 'L4+ 시너지', ref: 'Balatro', source: 'bank', emoji: '🃏', closeHref: '/arcade', minWords: 0,
     mood: { a: '#7B4BA6', b: '#241732', glow: 'rgba(150,240,205,.42)', accent: '#CFF6E6' },
+    music: bgm('lexicon-hands'),
   },
   {
     slug: 'lexicon-detective', name: 'Lexicon Detective', tagline: '현장 단서를 수확해 사건을 재구성하라',
     layer: 'L5 추리', ref: 'Golden Idol', source: 'bank', emoji: '🔍', closeHref: '/arcade', minWords: 0,
     mood: { a: '#9A7B3C', b: '#2E2A1C', glow: 'rgba(214,184,110,.46)', accent: '#F0E4C2' },
+    music: bgm('lexicon-detective'),
   },
   {
     slug: 'lexicon-estate', name: 'Lexicon Estate', tagline: '단어-방을 배치해 의미장 저택을 짓다',
     layer: 'L5 의미망', ref: 'Blue Prince', source: 'bank', emoji: '🏛', closeHref: '/arcade', minWords: 0,
     mood: { a: '#3E6EA6', b: '#152238', glow: 'rgba(130,180,255,.44)', accent: '#CFE2FA' },
+    music: bgm('lexicon-estate'),
   },
   {
     slug: 'word-orrery', name: 'The Word Orrery', tagline: '행성을 탐사해 앎으로 핵의 봉인을 연다',
     layer: 'L5 탐사', ref: 'Outer Wilds', source: 'bank', emoji: '🪐', closeHref: '/arcade', minWords: 0,
     mood: { a: '#3B4468', b: '#0A0E1E', glow: 'rgba(255,176,86,.42)', accent: '#FFD9A0' },
+    music: bgm('word-orrery'),
   },
 
   // ── 독립 3D 2종 — 자체 엔진(three.js). 아케이드에서도 발견 가능해야 한다. ──
@@ -180,11 +205,13 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     slug: 'wordblitz', name: 'WordBlitz', tagline: '집게로 단어를 낚아채는 3D 인형뽑기',
     layer: 'L4a 자동화', ref: '크레인 게임', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 4, is3d: true,
     mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
+    music: bgm('daily-blitz'),
   },
   {
     slug: 'pirate-quest', name: "Pirate's Bounty", tagline: '해변에서 보물 단어를 찾는 3D 모험',
     layer: 'L4a 재인', ref: '3D 어드벤처', source: 'bank', emoji: '🏴‍☠️', closeHref: '/arcade', minWords: 0, is3d: true, beta: true,
     mood: { a: '#2E7D8F', b: '#123040', glow: 'rgba(120,220,230,.45)', accent: '#C8F0F5' },
+    music: bgm('word-orrery'),
   },
 ] as const
 

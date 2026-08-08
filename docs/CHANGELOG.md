@@ -39,6 +39,16 @@
 - 검증: `tsc --noEmit` 0 error · **vitest 185 pass** · **e2e 07 16/16 + 09 16/16 pass**.
 - ⚠️ 미수정(별건, 본 변경과 무관): ① `next lint` 가 `eslint-module-utils/resolve` 미해결로 이 환경에서 실행 불가 ② `/library/books` 768px 가로 넘침 **324px** — `BooksExplorer` 의 고정폭 `w-[270px]` 표지(v06.33)가 원인.
 
+#### BGM 이 안 들리던 진짜 이유 — CSS 명시도 + 발견성 (v07.4)
+
+"각 게임에 BGM 없음" 제보 조사. 재생 로직·음원·배선은 **전부 정상**이었다(토글 시 `paused:false · currentTime 진행 · vol 0.3 · loop`). 원인은 둘:
+
+- **[P0 · CSS 명시도] 음악 버튼이 좌하단 고정이 아니라 게임 상단 흐름에 전체 너비로 박혀 있었다.** `.gk-root > :not(.gk-energy):not(.gk-atmos)`(명시도 0,3,0)가 `.gk-music-btn`(0,1,0)의 `position: fixed` 를 이겨 `position: relative` 로 계산됐고, `.gk-root` 가 flex 컨테이너라 `inline-flex` 가 blockify 돼 폭 1280px 로 퍼졌다(실측). 음악 컨트롤로 보이지 않으니 아무도 누르지 않았다. WordBlitz 는 `.wbz-root > :not(.wbz-energy)` 로 같은 문제. 배경 레이어처럼 `:not(.gk-music-btn)` 로 제외.
+- **[P1 · 발견성] 기본 OFF 인데 켜는 길이 게임 안 무라벨 아이콘 하나뿐.** ① **아케이드 허브에 "배경음악 켬/끔" 토글** 신설(`ArcadeMetaStrip` · 게임 진입 전 조용한 맥락에서 결정) ② 선호 미결정(`null`)이면 게임 내 버튼이 **"배경음악" 라벨을 펼쳐** 존재를 알리고, 한 번 정하면 아이콘만 남김. 선호 키는 `lib/game/music-pref.ts` 로 분리해 허브·게임이 공유. 기본값은 계속 OFF(자동재생은 Calm UI·브라우저 정책 위반).
+- **[커버리지] 트랙 매핑을 카탈로그로 통합** — gamekit 의 `MUSIC_SRC` 복제본에서 독립 3D 2종이 빠져 **WordBlitz·Pirate's Bounty 는 트랙 자체가 없었다**. `GameEntry.music` 필드로 이관하고 두 게임에 배선(각각 Bit Shift / Awaiting Return 재사용) + gamekit 미사용 게임엔 `GameKitStyles` 동반 주입. `useGameMusic`·`GameMusic` 타입을 `GameSlug` 로 확장.
+- 검증: **19종 전수 실측** — 18개 아케이드 라우트에서 `position:fixed` · 좌하단 14px · mp3 요청 확인(ALL OK), pirate-quest 배선 후 07 스펙 전수 통과.
+- 회귀 고정 +5: unit `BGM 커버리지` 3(전 게임 트랙 보유 · 파일 실존 · 경로 형식) + e2e `F1`(허브 토글 → 게임 자동 적용) · `F2`(미결정 시 라벨 힌트 → 결정 후 해제) + **07 게임별 루프에 음악 버튼 존재·fixed·좌하단·폭 단언 추가**(레이아웃 붕괴 재발 시 14게임 전부에서 실패).
+
 ### 신규 파이프라인 — CCP (Comic Curation Pipeline · book→comic)
 
 - **진도 영속(P3 · 연속성)** — 마이그레이션 `20260808160000` **적용됨**: `comic_read_progress`(user_id+library_book_id PK · RLS user-owns) + `save_comic_progress` RPC. 리더가 위치를 서버에 **디바운스 저장** + 진입 시 **서버 진도 우선 복원**(localStorage 폴백) → **기기 간 이어보기** + 완독 시각 기록. 리더 route가 진도 로드 → `initialIndex` 전달.

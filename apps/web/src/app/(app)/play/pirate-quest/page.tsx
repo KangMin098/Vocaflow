@@ -6,6 +6,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { ResourceContext } from '@/components/layout/ResourceContext';
+import { GameKitStyles, GameMusic } from '@/components/game/_shared/gamekit';
 
 const PirateQuestGame = dynamic(
   () =>
@@ -48,6 +49,10 @@ export default function PirateQuestPage() {
       />
       {/* 복귀는 아케이드 — 카탈로그 closeHref 및 세션 셸 닫기(X/Esc)와 같은 목적지. */}
       <PirateQuestGame onExit={() => router.push('/arcade')} />
+      {/* 배경음악 — R3F 캔버스 밖에서 좌하단 fixed 로 띄운다(gamekit 미사용 게임이라 스타일 동반 주입).
+          카탈로그가 트랙을 선언해두고 컨트롤이 없으면 그 선언이 거짓이 된다. */}
+      <GameKitStyles />
+      <GameMusic gameId="pirate-quest" />
     </main>
   );
 }

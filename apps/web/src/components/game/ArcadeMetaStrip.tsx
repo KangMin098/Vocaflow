@@ -1,7 +1,11 @@
 // apps/web/src/components/game/ArcadeMetaStrip.tsx
-// 아케이드 허브 상단 리텐션 스트립 — 연속일 스트릭 · 레벨 · 오늘의 목표(XP) 진행.
+// 아케이드 허브 상단 리텐션 스트립 — 연속일 스트릭 · 레벨 · 오늘의 목표(XP) 진행 · 배경음악.
 // 클라이언트 전용(localStorage). SSR 안전: 마운트 전엔 렌더 안 함(하이드레이션 불일치 방지).
 // 스타일 클래스(.arc-meta*)는 arcade/page.tsx 의 ARC_CSS 에 정의 — 황혼 테마 일관.
+//
+// 배경음악 토글(v07.4) — 큐레이션 BGM 14곡을 붙여놓고도 듣는 학습자가 없었다. 원인은
+// 재생 로직이 아니라 발견성: 기본 OFF 인데 켜는 길이 게임 안 작은 아이콘 하나뿐이었다.
+// 게임에 들어가기 전 조용한 맥락에서 정할 수 있게 허브로 끌어올린다(같은 localStorage 키).
 
 'use client'
 
@@ -14,17 +18,30 @@ import {
   xpForLevel,
   type ArcadeMeta,
 } from '@/lib/game/arcade-meta'
+import { readMusicPref, writeMusicPref } from '@/lib/game/music-pref'
 
 export default function ArcadeMetaStrip() {
   const [meta, setMeta] = useState<ArcadeMeta | null>(null)
+  const [music, setMusic] = useState(false)
 
   useEffect(() => {
     setMeta(getArcadeMeta())
+    setMusic(readMusicPref() === true)
     // 다른 탭/복귀 시 최신화
-    const onFocus = () => setMeta(getArcadeMeta())
+    const onFocus = () => {
+      setMeta(getArcadeMeta())
+      setMusic(readMusicPref() === true)
+    }
     window.addEventListener('focus', onFocus)
     return () => window.removeEventListener('focus', onFocus)
   }, [])
+
+  const toggleMusic = () => {
+    setMusic((v) => {
+      writeMusicPref(!v)
+      return !v
+    })
+  }
 
   if (!meta) return <div className="arc-meta arc-meta--ghost" aria-hidden="true" />
 
@@ -65,6 +82,25 @@ export default function ArcadeMetaStrip() {
           </span>
         </span>
       </div>
+
+      {/* 배경음악 — 게임 진입 전에 정한다. 모든 게임이 같은 선호를 따른다. */}
+      <button
+        type="button"
+        className="arc-meta-music"
+        onClick={toggleMusic}
+        aria-pressed={music}
+        data-on={music ? '1' : '0'}
+        aria-label={music ? '배경음악 끄기' : '배경음악 켜기'}
+        title="모든 게임에 적용돼요"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M9 18V6l10-2v12" />
+          <circle cx="6.5" cy="18" r="2.5" />
+          <circle cx="16.5" cy="16" r="2.5" />
+          {!music && <path d="M4 3.5l16 17" opacity=".9" />}
+        </svg>
+        <span>배경음악 {music ? '켬' : '끔'}</span>
+      </button>
     </div>
   )
 }

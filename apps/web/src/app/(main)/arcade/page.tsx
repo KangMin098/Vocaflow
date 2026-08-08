@@ -353,6 +353,15 @@ const ARC_CSS = `
   .arc-meta-lbl { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: rgba(246,232,224,.6); display: flex; flex-direction: column; gap: 5px; }
   .arc-meta-level { min-width: 128px; }
   .arc-meta-goal { min-width: 150px; margin-left: auto; }
+  .arc-meta-music { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+    font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
+    color: rgba(246,232,224,.72); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
+    transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
+  .arc-meta-music:hover { color: #FBF3EC; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); }
+  .arc-meta-music:active { transform: scale(.97); }
+  .arc-meta-music:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
+  .arc-meta-music[data-on="1"] { color: #FFE0C4; background: rgba(255,184,132,.16); border-color: rgba(255,184,132,.4); }
+  @media (prefers-reduced-motion: reduce) { .arc-meta-music { transition: none; } }
   .arc-meta-goal-total { font-size: 12px; font-weight: 700; color: rgba(246,232,224,.5); }
   .arc-meta-goal[data-met="1"] .arc-meta-num { color: #9BE8C0; }
   .arc-meta-bar { display: block; height: 5px; border-radius: 999px; background: rgba(255,255,255,.14); overflow: hidden; margin-top: 3px; }

@@ -99,6 +99,29 @@ describe('GAME_CATALOG 항목 무결성', () => {
   })
 })
 
+describe('BGM 커버리지', () => {
+  // 트랙 매핑이 gamekit 에 따로 있던 시절 독립 3D 2종(wordblitz·pirate-quest)이
+  // 표에서 빠져 영영 무음이었다. 카탈로그로 통합했으니 전수 보유를 강제한다.
+  it('모든 게임이 배경음악 트랙을 가진다', () => {
+    const silent = GAME_CATALOG.filter((g) => !g.music).map((g) => g.slug)
+    expect(silent, `BGM 없는 게임: ${silent.join(', ')}`).toEqual([])
+  })
+
+  it('트랙 파일이 실제로 public 에 존재한다 (404 무음 방지)', () => {
+    for (const g of GAME_CATALOG) {
+      const rel = (g.music as string).replace(/^\//, '')
+      const abs = path.resolve(process.cwd(), 'public', rel)
+      expect(fs.existsSync(abs), `${g.slug}: ${g.music} 파일 없음`).toBe(true)
+    }
+  })
+
+  it('트랙 경로 형식이 일관된다', () => {
+    for (const g of GAME_CATALOG) {
+      expect(g.music, `${g.slug}.music`).toMatch(/^\/audio\/games\/[a-z-]+\.mp3$/)
+    }
+  })
+})
+
 describe('gamePlayHref', () => {
   it('스코프 없으면 순수 경로', () => {
     expect(gamePlayHref('cascade')).toBe('/play/cascade')

@@ -10,6 +10,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { GameKitStyles, GameMusic } from '@/components/game/_shared/gamekit';
 import { SAMPLE_WORDS, type Word } from '@/lib/wordblitz/data';
 
 interface WordBlitzGameProps {
@@ -384,6 +385,13 @@ export function WordBlitzGame({
         )}
       </header>
 
+      {/* 배경음악 — 아케이드 17종과 같은 선호(localStorage)를 공유. 이전엔 트랙 매핑에서
+          빠져 있어 WordBlitz 만 영영 무음이었다.
+          WordBlitz 는 gamekit 을 쓰지 않으므로 .gk-music-btn 스타일을 함께 주입해야 한다
+          (GK_CSS 는 전부 .gk-* 프리픽스라 이 게임 스타일과 충돌하지 않고, 중복 주입도 무해). */}
+      <GameKitStyles />
+      <GameMusic gameId="wordblitz" />
+
       <div className="wbz-sr" aria-live="assertive" role="status">
         {feedbackMsg}
       </div>
@@ -629,7 +637,9 @@ const STYLES = `
       color-mix(in srgb, var(--streak) 55%, transparent), transparent 60%);
     transition: opacity 0.5s ease, transform 0.6s ease;
   }
-  .wbz-root > :not(.wbz-energy) { position: relative; z-index: 1; }
+  /* gamekit 과 동일 이슈 — 이 규칙(0,2,0)이 .gk-music-btn(0,1,0)의 position:fixed 를 이겨서
+     음악 버튼이 좌하단 고정이 아니라 흐름에 박힌다. 배경 레이어처럼 제외한다. */
+  .wbz-root > :not(.wbz-energy):not(.gk-music-btn) { position: relative; z-index: 1; }
 
   .wbz-hud {
     display: grid; grid-template-columns: auto 1fr auto auto auto;

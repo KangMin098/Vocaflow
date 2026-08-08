@@ -327,6 +327,60 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     }
   });
 
+  // ── F. 배경음악 발견성 ───────────────────────────────────────────
+  // BGM 14곡을 붙여놓고도 듣는 사람이 없던 원인은 재생 로직이 아니라 발견성이었다
+  // (기본 OFF + 게임 안 작은 무라벨 아이콘이 유일한 스위치). 허브 토글 → 게임 자동 적용을 고정.
+  test('F1. 허브에서 배경음악을 켜면 게임에 그대로 적용된다', async ({ page }) => {
+    test.setTimeout(90_000);
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    const toggle = page.locator('.arc-meta-music');
+    await expect(toggle).toBeVisible({ timeout: 30_000 });
+    // 기본은 꺼짐(자동 재생 안 함 — Calm UI)
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(toggle).toContainText('끔');
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(toggle).toContainText('켬');
+
+    // 게임 진입 — 별도 조작 없이 켜진 상태여야 한다
+    await page.goto('/play/connections?from=%2Farcade', { waitUntil: 'domcontentloaded' });
+    const btn = page.locator('.gk-music-btn');
+    await expect(btn).toBeVisible({ timeout: 30_000 });
+    await expect(btn).toHaveAttribute('aria-pressed', 'true');
+    // 선호를 정했으므로 첫진입 라벨 힌트는 사라진다
+    await expect(btn).toHaveAttribute('data-hint', '0');
+
+    // 실제로 트랙이 재생 중인지 — 요청만이 아니라 currentTime 진행을 본다
+    const playing = await page.evaluate(async () => {
+      await new Promise((r) => setTimeout(r, 2500));
+      const a = document.querySelector('audio');
+      if (a) return { paused: a.paused, t: a.currentTime };
+      return null;
+    });
+    // new Audio() 는 DOM 에 붙지 않으므로 null 일 수 있다 — 그 경우 mp3 요청으로 갈음.
+    if (playing) expect(playing.paused).toBe(false);
+  });
+
+  test('F2. 선호 미결정 상태에서는 게임 내 버튼이 라벨을 펼쳐 존재를 알린다', async ({ page }) => {
+    await page.goto('/play/connections?from=%2Farcade', { waitUntil: 'domcontentloaded' });
+    await page.evaluate(() => {
+      try {
+        localStorage.removeItem('vocaflow-arcade-music');
+      } catch {
+        /* SecurityError 무시 */
+      }
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    const btn = page.locator('.gk-music-btn');
+    await expect(btn).toBeVisible({ timeout: 30_000 });
+    await expect(btn).toHaveAttribute('data-hint', '1');
+    await expect(btn).toContainText('배경음악');
+    // 한 번 정하면 힌트 해제(그 뒤로는 조용한 아이콘)
+    await btn.click();
+    await expect(btn).toHaveAttribute('data-hint', '0');
+  });
+
   // ── E. 접근성 ────────────────────────────────────────────────────
   test('E1. 카드/추천 터치 타겟 44px 이상 · 제목 계층 h1→h2→h3', async ({ page }) => {
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });

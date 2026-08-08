@@ -286,6 +286,18 @@ test.describe('아케이드 게임 전수 스모크', () => {
       // 에러 바운더리/404 감지
       await expect(page.getByText(/문제가 발생했어요|problem occurred|페이지를 찾을 수 없어요/)).toHaveCount(0);
 
+      // 배경음악 컨트롤 — 존재 + 좌하단 fixed 배치.
+      //   BGM 14곡을 붙여놓고도 아무도 못 들은 이유가 여기 있었다: .gk-root/.wbz-root 의
+      //   `> :not(...)` 규칙(명시도 우위)이 .gk-music-btn 의 position:fixed 를 덮어써
+      //   버튼이 게임 상단 흐름에 전체 너비로 박혀 있었고, 음악 컨트롤로 보이지 않았다.
+      const music = page.locator('.gk-music-btn');
+      await expect(music, `[${g.slug}] 배경음악 버튼 없음`).toBeVisible({ timeout: 15_000 });
+      const mBox = await music.boundingBox();
+      const vh = page.viewportSize()?.height ?? 720;
+      expect(await music.evaluate((el) => getComputedStyle(el).position), `[${g.slug}] 음악 버튼 position`).toBe('fixed');
+      expect(vh - (mBox!.y + mBox!.height), `[${g.slug}] 음악 버튼이 좌하단이 아님`).toBeLessThanOrEqual(24);
+      expect(mBox!.width, `[${g.slug}] 음악 버튼이 전체 너비로 퍼짐(레이아웃 붕괴)`).toBeLessThan(240);
+
       // 첫 입력 → 반응(작동·사용성)
       if (g.play) await g.play(page);
 

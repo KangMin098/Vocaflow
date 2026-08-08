@@ -514,6 +514,15 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 ### 리텐션 메타
 `lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP. `ArcadeMetaStrip` 노출.
 
+### 배경음악
+트랙은 카탈로그 `GameEntry.music`(`public/audio/games/*.mp3` · Kevin MacLeod CC-BY 3.0 · 곡 14 < 게임 19 라 일부 재사용).
+선호는 `lib/game/music-pref.ts` 단일 키(`vocaflow-arcade-music`) — **허브 토글**(`ArcadeMetaStrip`)과 **게임 내 버튼**(`GameMusic`)이 공유.
+기본 OFF(자동재생 금지). 미결정 상태에선 게임 내 버튼이 "배경음악" 라벨을 펼쳐 존재를 알린다.
+
+⚠️ `.gk-root > :not(...)` / `.wbz-root > :not(...)` 같은 자식 일괄 규칙에 **반드시 `:not(.gk-music-btn)` 을 넣을 것** —
+빠뜨리면 명시도에 밀려 `position: fixed` 가 죽고 버튼이 흐름에 박힌다(v07.4 이전 전 게임 증상).
+gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles` 를 함께 렌더해야 버튼 스타일이 적용된다.
+
 ---
 
 ## 베타 — Pirate Quest
