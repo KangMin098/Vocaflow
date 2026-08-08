@@ -30,6 +30,17 @@
 - 회귀 스펙: `lib/pd-comic/__tests__/model.test.ts`(7) — 단계 목록이 드레인 전이표와 어긋나면 실패. `tests/e2e/13-pdcp-console.spec.ts`(5) — 8라우트 admin 게이트 + 조작면 렌더. `DEV_ADMIN_BYPASS` 활성 시 게이트 검증은 성립하지 않으므로 스펙이 이를 탐지해 skip 한다(빨간 스펙으로 학습되면 진짜 구멍을 놓친다).
 
 
+### 아케이드 BGM v07.7 — 측정으로 선곡 + 마디 정렬 루프 (마이그레이션 없음)
+
+사용자 피드백: "웅장하면서 긴장감과 긴박감이 있어야 함. 빠른 템포도 필요하고."
+
+- **왜 v07.6 이 못 맞췄는지가 측정으로 드러났다** — 후보 118곡(Scott Buckley 72 + Alexander Nakarada 46)을 재보니 Buckley 라이브러리 대부분이 `pulse`(온셋 자기상관 피크 선명도) ≈ 1.0, 즉 **박이 노이즈와 구별되지 않는 앰비언트**였다. 제목이 장엄해도 몰아치지 않는 실체가 이것이다. 측정 축 6개: `bpm` · `onset/s`(긴박) · `pulse`(추진) · `low%`(150Hz 이하 타격) · `full%`(웅장) · `tension`(2~6kHz 변동).
+- **BGM 19곡 재선곡** — `Alexander Nakarada`(creatorchords.com · CC-BY 4.0)가 전 축에서 앞서 16슬롯, Scott Buckley 3슬롯 유지(`morpheme-rules` Simulacra · `lexicon-detective` Honour Among Thieves · `word-orrery` Electric Dreams). **전 곡 129~161 BPM**, 19종 고유 트랙. 33.3 MB. 예: wordblitz *Riders of Ragnarok*(161) · ghost-race *Through the White Steppes*(161) · wordfall-cadence *Into Battle*(pulse 3.74 — 케이던스 게임에 가장 또렷한 박) · wordsmith-vigil *Daudir*(저역 타격 39% — 전 곡 최고) · glyph-tongue *Fantasy Soundscape*(pulse 5.65 · 긴장 1.33).
+- **루프를 마디 정수배로 자른다** — `loopLen = bars × 4 × 60/bpm`, 크로스페이드도 1마디. 꼬리(start+loopLen)와 머리(start)의 **박 위상이 같아져** 크로스페이드가 박 위에 정확히 얹힌다. 임의 길이로 자르면 겹박(플램)이 나 추진력이 뭉개진다. 길이 109.5~110.6초(59~74마디).
+- ⚠️ **크로스페이드가 조용히 사라지는 두 번째 경로 발견** — `-t X` 로 뜬 조각이 MP3 프레임 경계 때문에 X 보다 아주 살짝 짧으면 `acrossfade=d=X` 가 성립하지 않아 통째로 빠진다(19곡 중 다수가 딱 1마디 짧게 구워졌다). `X+0.4`초를 떠서 필터 안에서 `atrim` 으로 정확히 자르는 것으로 해결. 빌드 스크립트에 `출력 길이 == loopLen` 단언 추가.
+- 표기 갱신 — `CREDITS.txt` 전면 재작성(선곡 근거 수치 + 곡별 BPM·마디 수 포함) · `/arcade` 푸터에 두 아티스트 + CREDITS 링크.
+- **검증** — 12-arcade-audio 3/3(루프 길이 단언을 마디 정수배 범위 108.8~111.4초로 갱신) · 스피커 실재생 오디션 19곡 + 루프 이음매 2곡(경과 282초, 실패 0) · `tsc` 클린.
+
 ### 아케이드 오디오 v07.6 — 실제 시네마틱 음원 + 실녹음 효과음 (마이그레이션 없음)
 
 - **BGM 19곡 전면 교체 — Kevin MacLeod(CC-BY 3.0) → Scott Buckley(CC-BY 4.0)**. 직전 세트는 8비트 칩튠을 걷어낸 결과물이었지만 여전히 샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었다. 교체본은 라이브 감각의 시네마틱 스코어(`word-orrery` = *Adrift Among Infinite Stars*, `wordblitz` = *Escape Velocity*, `pirate-quest` = *The Great Sea* …). 게임 19종 × 서로 다른 19곡, 중복 없음.

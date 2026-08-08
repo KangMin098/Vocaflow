@@ -58,11 +58,12 @@ export interface GameEntry {
   /** 베타 — 학습 기록 미연동 */
   beta?: boolean
   /**
-   * 배경음악 트랙 (`public/audio/games/<slug>.mp3` · Scott Buckley CC-BY 4.0).
+   * 배경음악 트랙 (`public/audio/games/<slug>.mp3` ·
+   * Alexander Nakarada / Scott Buckley · 둘 다 CC-BY 4.0).
    *
-   * v07.6 에서 **실음원 전면 교체** — v07.5 에서 칩튠 대신 붙인 Kevin MacLeod 세트도
-   * 샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었고, 루프가 110초마다 8초씩
-   * 끊겨 있었다. 지금은 시네마틱 스코어 19종 **고유 트랙**(재사용 0) · 심리스 110초 루프.
+   * v07.7 에서 **측정 기반 재선곡** — 요구는 "웅장 + 긴장 + 긴박 + 빠른 템포".
+   * 후보 118곡의 BPM·어택밀도·박 선명도·저역 타격·충만도·긴장도를 재서 상위만 남겼다
+   * (전 곡 129~161 BPM). 루프는 **마디 정수배**로 잘라 되감기는 지점의 박 위상을 맞춘다.
    * 곡별 크레딧은 `public/audio/games/CREDITS.txt` (CC-BY 4.0 은 표기 의무 — /arcade 푸터).
    */
   music?: string

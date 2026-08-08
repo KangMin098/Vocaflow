@@ -3,9 +3,11 @@
 // 아케이드 오디오 회귀 — "소리가 실제로 실제 음악·실제 효과음인가"를 고정한다.
 //
 // 배경(v07.6 이전 결함 두 가지):
-//   ① BGM 이 조용히 망가져 있었다. 루프 세그먼트를 asplit + atrim 으로 만들었더니
-//      acrossfade 가 빈 스트림을 받아 통째로 사라져, 110초여야 할 트랙이 104초(body 만)로
-//      구워졌다. 파일은 멀쩡히 200 을 주니 아무도 몰랐다 → **길이를 단언**한다.
+//   ① BGM 이 조용히 망가져 있었다. 크로스페이드가 사라지는 경로가 둘이나 있다 —
+//      (a) 한 입력을 asplit 으로 쪼개 atrim 셋을 물리면 acrossfade 가 빈 스트림을 받고,
+//      (b) `-t X` 로 뜬 조각이 MP3 프레임 경계 때문에 X 보다 살짝 짧으면 acrossfade=d=X
+//          가 성립하지 않는다. 둘 다 파일은 멀쩡히 200 을 주고 재생도 되는데 1마디 짧고
+//      루프마다 클릭이 난다 → **길이를 단언**해서 잡는다.
 //   ② 효과음이 Kenney "Interface Sounds"(대역제한 합성음)라 말 그대로 컴퓨터 삑 소리였다.
 //      FFT 실측: 6종 전부 모노 · 8 kHz 이상 에너지 0~0.6%. 교체본은 스테레오 실녹음이므로
 //      **채널 수와 길이**를 단언해 합성음으로의 회귀를 막는다.
@@ -41,7 +43,11 @@ const SFX_FILES: Array<[string, number, number]> = [
   ['complete.ogg', 2.7, 2.9],
 ];
 
-const LOOP_SECONDS = 110;
+// v07.7 부터 루프를 **마디 정수배**로 자른다(되감기 지점의 박 위상을 맞추기 위해).
+// 그래서 길이가 템포마다 다르다 — 실측 109.5~110.6초(59~74마디, 129~161 BPM).
+// 이 창을 벗어나면 크로스페이드가 소실됐거나(1마디 짧아짐) 빌드 설정이 바뀐 것이다.
+const LOOP_MIN = 108.8;
+const LOOP_MAX = 111.4;
 
 async function login(page: Page) {
   for (let attempt = 0; attempt < 4; attempt++) {
@@ -90,13 +96,13 @@ async function decodeMeta(page: Page, url: string) {
 }
 
 test.describe('아케이드 오디오 자산', () => {
-  test('A+B · BGM 19곡이 전부 존재하고 110초 심리스 루프로 구워져 있다', async ({ page }) => {
+  test('A+B · BGM 19곡이 전부 존재하고 마디 정수배 심리스 루프로 구워져 있다', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' }); // fetch/AudioContext 실행 컨텍스트
     for (const slug of BGM_SLUGS) {
       const meta = await decodeMeta(page, `/audio/games/${slug}.mp3`);
-      // 104초로 구워지던 회귀(크로스페이드 소실)를 여기서 잡는다.
-      expect(meta.duration, `${slug} 길이`).toBeGreaterThan(LOOP_SECONDS - 1);
-      expect(meta.duration, `${slug} 길이`).toBeLessThan(LOOP_SECONDS + 1.5);
+      // 크로스페이드가 조용히 사라지면 정확히 1마디(1.5~1.9초) 짧게 구워진다 — 여기서 잡는다.
+      expect(meta.duration, `${slug} 길이`).toBeGreaterThan(LOOP_MIN);
+      expect(meta.duration, `${slug} 길이`).toBeLessThan(LOOP_MAX);
       expect(meta.channels, `${slug} 채널`).toBe(2);
       expect(meta.bytes, `${slug} 용량`).toBeGreaterThan(700_000);
     }

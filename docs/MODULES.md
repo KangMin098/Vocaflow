@@ -545,20 +545,32 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 `lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP. `ArcadeMetaStrip` 노출.
 
 ### 배경음악
-**v07.6 — 실음원 + 심리스 루프 + 기본 ON.** v07.5 에서 칩튠을 걷어내고 붙인 Kevin MacLeod 세트도
-샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었고, 무엇보다 **루프가 깨져 있었다**(3s 페이드인 /
-5s 페이드아웃 → 110초마다 8초 무음 구멍). 지금은 **Scott Buckley**(scottbuckley.com.au · CC-BY 4.0)
-시네마틱 스코어로 **19종 전부 고유 트랙**(재사용 0), 가공은 자동 구간 선정(인트로 15%·아웃트로 8%
-제외 후 초당 RMS 에서 `평균 − 0.6×표준편차` 최대인 116초 창) →
-`concat( acrossfade(꼬리 6s, 머리 6s), body )` **심리스 110초 루프** → -16 LUFS / TP -1.5 dBTP →
-VBR MP3(-q:a 5) 44.1kHz 스테레오. 총 31.7 MB.
+**v07.7 — 측정으로 선곡 + 마디 정렬 루프.** 요구는 "웅장하면서 긴장감과 긴박감, 빠른 템포".
+v07.6 의 Scott Buckley 세트가 이를 못 맞춘 이유는 **측정 가능했다**: 후보 118곡
+(Buckley 72 + Nakarada 46)을 재보니 Buckley 라이브러리 대부분이 `pulse`(자기상관 피크 선명도)
+≈ 1.0 — 박이 노이즈와 구별되지 않는 앰비언트였다. 제목이 아무리 장엄해도 몰아치지 않는다.
 
-⚠️ 루프를 다시 구울 때: 한 입력을 `asplit=3` 으로 쪼개 `atrim` 셋을 물리면 `acrossfade` 가 빈 스트림을
-받아 **크로스페이드가 통째로 사라진다**(110초가 아니라 body 만 104초로 구워짐 · HTTP 200 이라 무증상).
-head/tail/body 를 각각 별도 `-i` 로 열 것. 회귀는 `tests/e2e/12-arcade-audio.spec.ts` 가 잡는다.
+측정 축: `bpm`(온셋 포락선 자기상관) · `onset/s`(초당 어택 = **긴박**) · `pulse`(박 선명도 = 추진) ·
+`low%`(150Hz 이하 온셋 에너지 = 타격) · `full%`(RMS 가 피크 60% 이상인 시간 비율 = **웅장**) ·
+`tension`(2~6kHz 시간 변동 = 트레몰로·스타카토·불협).
+**Alexander Nakarada**(creatorchords.com · CC-BY 4.0)가 전 축에서 크게 앞서 19슬롯 중 16을 가져갔다.
+전 곡 **129~161 BPM**, 19종 고유 트랙(재사용 0), 총 33.3 MB.
+
+루프는 **마디 정수배**로 자른다 — `loopLen = bars × 4 × 60/bpm`, 크로스페이드도 1마디.
+그래야 꼬리(start+loopLen)와 머리(start)의 **박 위상이 같아져** 크로스페이드가 박 위에 얹힌다.
+임의 길이로 자르면 겹박(플램)이 나 추진력이 뭉개진다. 길이는 템포에 따라 109.5~110.6초(59~74마디).
+정규화 -16 LUFS / TP -1.5 dBTP → VBR MP3(-q:a 5) 44.1kHz 스테레오.
+
+⚠️ 루프를 다시 구울 때 **크로스페이드가 조용히 사라지는 경로가 둘** 있다. 둘 다 파일은 HTTP 200 이고
+재생도 되는데 딱 1마디 짧고 루프마다 클릭이 난다:
+① 한 입력을 `asplit=3` 으로 쪼개 `atrim` 셋을 물리면 `acrossfade` 가 빈 스트림을 받는다 →
+head/tail/body 를 각각 별도 `-i` 로 열 것.
+② `-t X` 로 뜬 조각이 MP3 프레임 경계 때문에 X 보다 살짝 짧으면 `acrossfade=d=X` 가 성립하지 않는다 →
+`X+0.4`초를 떠서 필터 안에서 `atrim` 으로 정확히 자를 것.
+빌드 스크립트에 출력 길이 == loopLen 단언을 두고, 회귀는 `tests/e2e/12-arcade-audio.spec.ts` 가 잡는다.
 
 트랙은 카탈로그 `GameEntry.music`(`public/audio/games/<slug>.mp3`). 크레딧은 같은 폴더 `CREDITS.txt`
-+ `/arcade` 푸터 표기(CC-BY 4.0 은 표기 의무).
++ `/arcade` 푸터 표기(CC-BY 4.0 은 표기 의무 — 두 아티스트 모두 명시).
 선호는 `lib/game/music-pref.ts` 단일 키(`vocaflow-arcade-music`) — **허브 토글**(`ArcadeMetaStrip`)과 **게임 내 버튼**(`GameMusic`)이 공유.
 **기본 ON**(v07.6 사용자 결정 — 단어 게임에 음악이 중요). 이전 기본 OFF 는 Calm UI 근거였지만 결과가
 무음이었다(토글 전에는 트랙을 내려받지도 않음). 자동재생 정책은 `play()` 거부 시

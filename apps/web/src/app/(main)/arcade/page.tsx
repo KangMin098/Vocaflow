@@ -143,14 +143,21 @@ export default async function ArcadePage() {
         </p>
         <p className="arc-credit">
           배경음악:{' '}
+          <a href="https://creatorchords.com" target="_blank" rel="noopener noreferrer">
+            Alexander Nakarada
+          </a>
+          {' · '}
           <a href="https://www.scottbuckley.com.au/" target="_blank" rel="noopener noreferrer">
             Scott Buckley
-          </a>{' '}
-          ·{' '}
+          </a>
+          {' · '}
           <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
             CC-BY 4.0
-          </a>{' '}
-          · 효과음: Mixkit
+          </a>
+          {' · 효과음: Mixkit · 곡별 크레딧은 '}
+          <a href="/audio/games/CREDITS.txt" target="_blank" rel="noopener noreferrer">
+            CREDITS
+          </a>
         </p>
       </div>
     </div>
