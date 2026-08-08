@@ -24,6 +24,8 @@ const GUARDED = [
   { method: 'POST', path: '/api/pdcp/enqueue', body: { source: 'internet-archive', identifiers: ['x'] } },
   { method: 'POST', path: '/api/pdcp/drain', body: {} },
   { method: 'POST', path: '/api/pdcp/retry', body: {} },
+  { method: 'GET', path: '/api/pdcp/assist' },
+  { method: 'POST', path: '/api/pdcp/assist', body: { site: 'dcm', slug: 'gate-probe' } },
 ] as const
 
 /**
@@ -104,5 +106,41 @@ test.describe('PDCP 콘솔 — 조작면', () => {
     // 능력 차이가 실제로 표에 드러나는가 — 대량 O/X 가 한 행씩
     await expect(page.getByRole('row', { name: /Internet Archive/ })).toContainText('api')
     await expect(page.getByRole('row', { name: /로컬 디렉터리/ })).toContainText('manual')
+  })
+})
+
+test.describe('PDCP 소스 GET — 정교화된 발견', () => {
+  test.beforeEach(async ({ page }) => {
+    const res = await page.goto('/admin/pd-comics')
+    test.skip(!res || res.url().includes('/login'), '관리자 세션 없음')
+    await page.getByRole('button', { name: '소스 · 대량 적재' }).click()
+  })
+
+  test('프리셋 출발점과 필터가 노출된다', async ({ page }) => {
+    // 자유 검색만 두면 저작권 살아 있는 자료가 상위에 섞인다(실측) — 출발점이 반드시 필요
+    await expect(page.getByRole('button', { name: /Fawcett Comics/ })).toBeVisible()
+    await expect(page.getByLabel('발행 상한')).toHaveValue('1963')
+    await expect(page.getByLabel('컬렉션')).toBeVisible()
+  })
+
+  test('프리셋을 누르면 큐레이션 컬렉션 결과가 위험도 배지와 함께 나온다', async ({ page }) => {
+    await page.getByRole('button', { name: /Fawcett Comics/ }).click()
+    await expect(page.getByText(/전체 \d+건 중/)).toBeVisible({ timeout: 20_000 })
+    // 위험도를 색만으로 전달하지 않는다 — 라벨이 함께 있어야 한다
+    await expect(page.getByText('큐레이션').first()).toBeVisible()
+    await expect(page.getByText(/확인 필요|PD 확정/).first()).toBeVisible()
+  })
+
+  test('브라우저 보조 패널이 자동 수집을 하지 않는 이유를 밝힌다', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: /브라우저 보조 취득/ })).toBeVisible()
+    await expect(page.getByRole('button', { name: '브라우저 열기' })).toBeVisible()
+    // 정책 근거가 화면에 없으면 다음 사람이 스크래퍼를 붙이려 든다
+    await expect(page.getByText(/robots\.txt|403|Cloudflare/)).toBeVisible()
+  })
+
+  test('작업명 없이는 브라우저 세션을 시작할 수 없다', async ({ page }) => {
+    await expect(page.getByRole('button', { name: '브라우저 열기' })).toBeDisabled()
+    await page.getByLabel('작업명').fill('whiz-002')
+    await expect(page.getByRole('button', { name: '브라우저 열기' })).toBeEnabled()
   })
 })

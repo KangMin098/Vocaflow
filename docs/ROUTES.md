@@ -207,18 +207,19 @@
 | `POST /api/lcp/dev-process` | dev 환경 admin 트리거 — book_id 단권 |
 | `POST /api/lcp/dev-drain-queue` | v06.34 — status='queued' N권 → dev-process 순차 호출 |
 
-### `/api/pdcp/*` (7) — 퍼블릭도메인 만화 파이프라인 (전부 admin 게이트)
+### `/api/pdcp/*` (9) — 퍼블릭도메인 만화 파이프라인 (전부 admin 게이트)
 
 | 라우트 | 설명 |
 |---|---|
 | `GET /api/pdcp/sources` | 어댑터 능력표 (`scripts/comic/pd/sources` 를 동적 import — 앱에 복제하지 않음) |
-| `POST /api/pdcp/search` | 소스별 검색 + PD 판정 힌트 + 기적재 표시. bulk 미지원 어댑터는 400 |
+| `POST /api/pdcp/search` | 소스별 검색 + 필터(컬렉션·연도·정렬·페이지) + **PD 위험도 랭킹** + 기적재 표시. bulk 미지원 어댑터는 400 |
 | `POST /api/pdcp/enqueue` | 대량 적재 → `status='queued'`. `pages` 로 테스트 모드(앞 N장) |
 | `POST /api/pdcp/drain` | **dev 전용**(prod 403). 호출 1회 = 호 1개의 다음 단계 1개. `dryRun` 지원 |
 | `POST /api/pdcp/retry` | 실패 표시(`last_error`)만 삭제 — 단계 보존, 멈춘 지점부터 재개 |
 | `GET /api/pdcp/queue` | 큐 라이브 조회 (드레인 루프가 단계마다 재조회) |
 | `GET /api/pdcp/doctor` | 외부 도구 점검 (ffmpeg · tesseract · 소스 접근) |
 | `DELETE/PATCH /api/pdcp/issue` | 호 삭제(발행분 거부 · `purge=1` 시 작업 디렉터리 동반 삭제) / 단계 되돌리기 |
+| `GET/POST /api/pdcp/assist` | **브라우저 보조 취득** — 방문 대상 사이트 목록 / 실제 크롬 창 세션 시작(dev 전용). 자동 수집이 금지·불가한 소스를 사람이 운전 |
 | `POST /api/lcp/dev-validate` | dev 검증 |
 
 ### `/api/acp/*` ACP Worker (2)

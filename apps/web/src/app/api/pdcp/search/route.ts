@@ -21,7 +21,19 @@ export async function POST(request: Request): Promise<NextResponse> {
   const adminOrError = await requireAdminApi()
   if (adminOrError instanceof NextResponse) return adminOrError
 
-  let body: { source?: string; query?: string; limit?: number }
+  let body: {
+    source?: string
+    query?: string
+    limit?: number
+    filters?: {
+      collection?: string
+      yearFrom?: number
+      yearTo?: number
+      minPages?: number
+      sort?: string
+      page?: number
+    }
+  }
   try {
     body = await request.json()
   } catch {
@@ -30,8 +42,13 @@ export async function POST(request: Request): Promise<NextResponse> {
   const source = String(body.source ?? '')
   const query = String(body.query ?? '').trim()
   const limit = Math.min(50, Math.max(1, Number(body.limit) || 20))
-  if (!source || !query) {
-    return NextResponse.json({ error: 'source 와 query 가 필요합니다' }, { status: 400 })
+  const filters = body.filters ?? {}
+  // 컬렉션 프리셋만으로도 검색이 성립한다(질의 없이 "Fawcett 전체 훑기").
+  if (!source || (!query && !filters.collection && !filters.yearTo && !filters.yearFrom)) {
+    return NextResponse.json(
+      { error: 'source 와 (query 또는 필터 하나 이상)이 필요합니다' },
+      { status: 400 },
+    )
   }
 
   try {
@@ -42,7 +59,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         { status: 400 },
       )
     }
-    const items = await ad.search(query, limit)
+    const items = await ad.search(query, limit, filters)
 
     // 이미 큐/서가에 있는 식별자는 중복 적재를 막기 위해 표시한다
     const client = createAdminClient() as unknown as SupabaseClient
@@ -60,6 +77,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     return NextResponse.json({
       source: { id: ad.id, label: ad.label },
+      // 총건수·현재 페이지를 함께 준다 — 몇 건 중 몇 건을 보고 있는지 모르면
+      // 운영자가 "이게 전부인가?"를 판단할 수 없다.
+      totalFound: (items as unknown as { totalFound?: number }).totalFound ?? items.length,
+      page: (items as unknown as { page?: number }).page ?? 1,
       items: items.map((it) => {
         const hint = ad.pdHint(it)
         return {
@@ -72,6 +93,10 @@ export async function POST(request: Request): Promise<NextResponse> {
           url: it.url,
           pdBasis: hint.basis,
           pdNote: hint.note,
+          // 어댑터가 매긴 저작권 위험도 — 정렬도 이미 이 순서로 돼 있다
+          pdRisk: (it as { pdRisk?: string }).pdRisk ?? null,
+          pdRiskReason: (it as { pdRiskReason?: string }).pdRiskReason ?? null,
+          pdCurated: Boolean((it as { pdCurated?: boolean }).pdCurated),
           existingStatus: known.get(it.identifier) ?? null,
         }
       }),

@@ -15,11 +15,29 @@ import { PD_STAGES, stageIndex, type PdComicAdminRow } from '@/lib/pd-comic/mode
 
 const ACCENT = '#8B5CF6'
 
+interface Preset {
+  key: string
+  label: string
+  note: string
+  query?: string
+  filters?: Record<string, unknown>
+  count?: number
+}
+
+interface AssistSite {
+  key: string
+  label: string
+  url: string
+  policy: string
+}
+
 interface AdapterInfo {
   id: string
   label: string
   caps: Record<string, unknown>
   profile: Record<string, unknown>
+  presets?: Preset[] | null
+  sites?: AssistSite[] | null
 }
 
 interface SearchItem {
@@ -32,7 +50,18 @@ interface SearchItem {
   url: string
   pdBasis: string | null
   pdNote: string
+  /** 어댑터가 매긴 저작권 위험도 — 목록은 이미 이 순서로 정렬돼 온다 */
+  pdRisk: 'ok' | 'caution' | 'high' | null
+  pdRiskReason: string | null
+  pdCurated: boolean
   existingStatus: string | null
+}
+
+/** 위험도 배지 — 색만으로 구분하지 않고 라벨을 함께 둔다(색맹 대응). */
+const RISK_UI: Record<string, { label: string; fg: string; bg: string }> = {
+  ok: { label: 'PD 확정', fg: 'var(--success)', bg: 'var(--success-light)' },
+  caution: { label: '확인 필요', fg: 'var(--warning)', bg: 'var(--warning-light)' },
+  high: { label: '위험', fg: 'var(--error)', bg: 'var(--error-light)' },
 }
 
 type Tab = 'source' | 'queue' | 'tools'
@@ -111,6 +140,12 @@ function SourceTab({
   // 테스트 모드 — 전권(52p) 대신 앞 N장만 받아 파라미터를 먼저 확인한다
   const [testMode, setTestMode] = useState(true)
   const [pages, setPages] = useState(6)
+  // 발견 필터 — 자유 검색만으로는 저작권 살아 있는 자료가 상위에 섞인다(실측)
+  const [collection, setCollection] = useState('')
+  const [yearTo, setYearTo] = useState<number | ''>(1963)
+  const [sort, setSort] = useState('relevance')
+  const [page, setPage] = useState(1)
+  const [totalFound, setTotalFound] = useState(0)
 
   useEffect(() => {
     void fetch('/api/pdcp/sources')
@@ -119,20 +154,41 @@ function SourceTab({
       .catch(() => setAdapters([]))
   }, [])
 
-  const search = async () => {
+  const search = async (opts: { page?: number; preset?: Preset } = {}) => {
+    const p = opts.page ?? 1
     setBusy(true)
     setItems([])
     setSel(new Set())
+    setPage(p)
+    // 프리셋은 질의와 필터를 한 번에 갈아끼운다 — 눌렀는데 이전 필터가 남아 있으면 결과가 어긋난다
+    const q = opts.preset ? (opts.preset.query ?? '') : query
+    const f = opts.preset
+      ? { ...opts.preset.filters, page: p }
+      : {
+          ...(collection ? { collection } : {}),
+          ...(yearTo === '' ? {} : { yearTo: Number(yearTo) }),
+          ...(sort !== 'relevance' ? { sort } : {}),
+          page: p,
+        }
+    if (opts.preset) {
+      setQuery(q)
+      setCollection(String(opts.preset.filters?.collection ?? ''))
+      setYearTo((opts.preset.filters?.yearTo as number) ?? '')
+      setSort(String(opts.preset.filters?.sort ?? 'relevance'))
+    }
     try {
       const r = await fetch('/api/pdcp/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ source, query, limit: 20 }),
+        body: JSON.stringify({ source, query: q, limit: 20, filters: f }),
       })
       const j = await r.json()
       if (!r.ok) throw new Error(j.error ?? '검색 실패')
       setItems(j.items ?? [])
-      onMsg(`${j.source?.label ?? source} — ${j.items?.length ?? 0}건`)
+      setTotalFound(Number(j.totalFound) || 0)
+      onMsg(
+        `${j.source?.label ?? source} — 전체 ${Number(j.totalFound) || 0}건 중 ${j.items?.length ?? 0}건 표시`,
+      )
     } catch (e) {
       onMsg((e as Error).message)
     } finally {
@@ -238,6 +294,71 @@ function SourceTab({
           </button>
         </div>
 
+        {/* 프리셋 — 자유 검색은 관련 없는 도서를 끌고 온다. PD 확률 높은 출발점을 먼저 준다. */}
+        {(cur?.presets?.length ?? 0) > 0 && (
+          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+              출발점
+            </span>
+            {cur!.presets!.map((pr) => (
+              <button
+                key={pr.key}
+                type="button"
+                title={pr.note}
+                onClick={() => void search({ preset: pr })}
+                disabled={busy}
+                className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50"
+              >
+                {pr.label}
+                {pr.count != null && (
+                  <span className="ml-1.5 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+                    ~{pr.count}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* 필터 — 연도 상한이 없으면 1990·2008년 자료가 결과 상단을 채운다(실측) */}
+        <div className="mt-3 flex flex-wrap items-end gap-2 border-t border-[var(--bd)] pt-3">
+          <label className="flex flex-col gap-1">
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">컬렉션</span>
+            <input
+              value={collection}
+              onChange={(e) => setCollection(e.target.value)}
+              placeholder="fawcett-comics"
+              className="min-h-[36px] w-[170px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[12px]"
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">발행 상한</span>
+            <input
+              type="number"
+              value={yearTo}
+              onChange={(e) => setYearTo(e.target.value === '' ? '' : Number(e.target.value))}
+              placeholder="1963"
+              className="min-h-[36px] w-[100px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-right font-mono text-[12px] tabular-nums"
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">정렬</span>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+            >
+              <option value="relevance">관련도</option>
+              <option value="downloads">인기</option>
+              <option value="year-asc">오래된 순</option>
+              <option value="year-desc">최신 순</option>
+            </select>
+          </label>
+          <span className="font-body text-[11.5px] text-[var(--t3)]">
+            1964년 이후는 저작권이 자동 갱신되어 사용할 수 없습니다 — 상한을 1963 이하로 두세요.
+          </span>
+        </div>
+
         <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-[var(--bd)] pt-3">
           <label className="flex items-center gap-2 font-body text-[12.5px] text-[var(--t1)]">
             <input type="checkbox" checked={testMode} onChange={(e) => setTestMode(e.target.checked)} />
@@ -262,10 +383,10 @@ function SourceTab({
           </span>
         </div>
 
-        {!bulkOk && cur && (
+        {!bulkOk && cur && !cur.caps.assisted && (
           <p className="mt-2 rounded-[var(--r-md)] bg-[var(--warning-light)] px-3 py-2 font-body text-[12px] text-[var(--t1)]">
             {cur.label} 은 자동 대량 취득을 지원하지 않습니다({String(cur.caps.discovery)}). 사람이 정상 다운로드한 뒤{' '}
-            <code className="font-mono">local-dir</code> 로 넣으세요 — 우회 크롤링은 하지 않습니다.
+            <code className="font-mono">local-dir</code> 로 넣거나 아래 <b>브라우저 보조</b>를 쓰세요.
           </p>
         )}
       </section>
@@ -324,14 +445,21 @@ function SourceTab({
                       {it.publishedYear && <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">{it.publishedYear}</span>}
                       {it.pageCount && <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">{it.pageCount}p</span>}
                     </p>
-                    <p className="mt-0.5 font-body text-[11.5px] text-[var(--t2)]">
-                      PD:{' '}
-                      {it.pdBasis ? (
-                        <b className="text-[var(--success)]">{it.pdBasis}</b>
-                      ) : (
-                        <b className="text-[var(--warning)]">미확정</b>
-                      )}{' '}
-                      — {it.pdNote}
+                    <p className="mt-1 flex flex-wrap items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
+                      {it.pdRisk && RISK_UI[it.pdRisk] && (
+                        <span
+                          className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                          style={{ color: RISK_UI[it.pdRisk].fg, background: RISK_UI[it.pdRisk].bg }}
+                        >
+                          {RISK_UI[it.pdRisk].label}
+                        </span>
+                      )}
+                      {it.pdCurated && (
+                        <span className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">
+                          큐레이션
+                        </span>
+                      )}
+                      <span>{it.pdRiskReason ?? it.pdNote}</span>
                     </p>
                     {it.existingStatus && (
                       <p className="mt-0.5 font-mono text-[11px] text-[var(--t3)]">이미 등록됨 · {it.existingStatus}</p>
@@ -341,9 +469,136 @@ function SourceTab({
               )
             })}
           </ul>
+          {totalFound > items.length && (
+            <div className="flex items-center justify-between border-t border-[var(--bd)] px-4 py-2">
+              <button
+                type="button"
+                disabled={busy || page <= 1}
+                onClick={() => void search({ page: page - 1 })}
+                className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-40"
+              >
+                이전
+              </button>
+              <span className="font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
+                {page} 페이지 · 전체 {totalFound}건
+              </span>
+              <button
+                type="button"
+                disabled={busy || page * 20 >= totalFound}
+                onClick={() => void search({ page: page + 1 })}
+                className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-40"
+              >
+                다음
+              </button>
+            </div>
+          )}
         </section>
       )}
+
+      <AssistPanel onMsg={onMsg} />
     </div>
+  )
+}
+
+// ─── 브라우저 보조 — 자동 수집이 금지·불가한 소스를 사람이 운전 ────────
+//
+// 왜 스크래퍼가 아닌가: Comic Book Plus 는 robots.txt 에서 ClaudeBot·anthropic-ai 를
+// 전면 차단하고 목록 엔드포인트까지 Disallow 했다. Digital Comic Museum 은 403 + 계정,
+// LoC·HathiTrust 는 Cloudflare 챌린지다. 명시된 거부를 뚫는 대신 사람이 직접 받고,
+// 도구는 **저장·압축해제·정렬·매니페스트**만 자동화한다.
+function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
+  const [sites, setSites] = useState<AssistSite[]>([])
+  const [available, setAvailable] = useState(false)
+  const [site, setSite] = useState('')
+  const [slug, setSlug] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  useEffect(() => {
+    void fetch('/api/pdcp/assist')
+      .then((r) => (r.ok ? r.json() : { sites: [], available: false }))
+      .then((j) => {
+        setSites(j.sites ?? [])
+        setAvailable(Boolean(j.available))
+        if ((j.sites ?? []).length) setSite(j.sites[0].key)
+      })
+      .catch(() => setSites([]))
+  }, [])
+
+  if (sites.length === 0) return null
+  const cur = sites.find((s) => s.key === site)
+
+  const start = async () => {
+    setBusy(true)
+    try {
+      const r = await fetch('/api/pdcp/assist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site, slug, timeout: 900 }),
+      })
+      const j = await r.json()
+      onMsg(r.ok ? j.message : (j.error ?? '세션 시작 실패'))
+    } catch (e) {
+      onMsg((e as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+      <h3 className="font-display text-[13px] font-[800] text-[var(--t1)]">
+        브라우저 보조 취득 — 로그인·선택은 사람, 정리는 자동
+      </h3>
+      <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t2)]">
+        자동 수집을 거부하거나 계정이 필요한 사이트용입니다. 창이 뜨면 직접 로그인해 원하는 호를
+        내려받고 창을 닫으면, 받은 CBZ/ZIP/이미지를 풀어 <code className="font-mono">pages/</code> 로
+        정규화합니다. 로그인 세션은 다음 회차에 재사용됩니다.
+      </p>
+
+      <div className="mt-3 flex flex-wrap items-end gap-2">
+        <label className="flex flex-col gap-1">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">사이트</span>
+          <select
+            value={site}
+            onChange={(e) => setSite(e.target.value)}
+            className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+          >
+            {sites.map((s) => (
+              <option key={s.key} value={s.key}>{s.label}</option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">작업명</span>
+          <input
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+            placeholder="whiz-comics-002"
+            className="min-h-[36px] w-[200px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[12px]"
+          />
+        </label>
+        <button
+          type="button"
+          onClick={() => void start()}
+          disabled={busy || !available || !slug}
+          className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
+          style={{ background: ACCENT }}
+        >
+          {busy ? '여는 중…' : '브라우저 열기'}
+        </button>
+      </div>
+
+      {cur && (
+        <p className="mt-2 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2 font-body text-[11.5px] text-[var(--t2)]">
+          <b className="text-[var(--t1)]">{cur.label}</b> — {cur.policy}
+        </p>
+      )}
+      {!available && (
+        <p className="mt-2 font-body text-[11.5px] text-[var(--warning)]">
+          창은 <b>서버가 도는 컴퓨터</b>에 열립니다 — 배포 환경에서는 사용할 수 없습니다.
+        </p>
+      )}
+    </section>
   )
 }
 

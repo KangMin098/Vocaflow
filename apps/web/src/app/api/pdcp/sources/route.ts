@@ -24,6 +24,9 @@ export async function GET(): Promise<NextResponse> {
         id: a.id,
         label: a.label,
         caps: a.caps,
+        // 검색 출발점(IA) · 방문 대상 사이트(브라우저 보조) — 어댑터가 스스로 신고한다
+        presets: (a as { presets?: unknown }).presets ?? null,
+        sites: (a as { sites?: unknown }).sites ?? null,
         profile: a.profile,
       })),
     })

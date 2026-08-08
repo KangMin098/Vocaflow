@@ -10,6 +10,45 @@
 
 ## Unreleased (v06.34 → next)
 
+### PDCP 소스 GET 정교화 + 브라우저 보조 취득 (마이그레이션 없음)
+
+**딥서치 결론 — 소스를 늘리는 것보다 있는 소스를 제대로 쓰는 게 이득이었다.**
+후보를 전부 실측(2026-08-09)한 결과, 골든에이지 만화 전권 스캔을 자동 취득할 수 있는 곳은
+사실상 Internet Archive 하나다.
+
+| 소스 | 실측 결과 | 처리 |
+|---|---|---|
+| Internet Archive | 검색 API·hOCR 개방 | **자동** (정교화 대상) |
+| Comic Book Plus | robots.txt 가 `ClaudeBot`·`anthropic-ai` 를 전면 Disallow + 목록/벌크 엔드포인트 전부 Disallow | 브라우저 보조 |
+| Digital Comic Museum | 일반 클라이언트 403 · 무료 계정 필요 | 브라우저 보조 |
+| Library of Congress | Cloudflare 챌린지("Just a moment…") | 브라우저 보조 |
+| HathiTrust | 다운로드 403 | 브라우저 보조 |
+| DPLA · Smithsonian · Europeana | API 키 필요 + **만화 페이지 스캔은 사실상 없음**(아카이브로 되돌아감) | 미채택 |
+| Wikimedia Commons | 개방 API 지만 표지·낱장 위주, 전권 시퀀스 아님 | 미채택 |
+
+명시적으로 자동 수집을 거부한 사이트에는 스크래퍼를 붙이지 않았다.
+
+#### IA 발견 정교화 (`sources/discovery.mjs` 신설)
+
+- **저작권 살아 있는 자료가 검색 상위에 올라오던 문제**를 고쳤다. 초기 질의는 `q AND mediatype:texts` 한 줄이라 "classics illustrated" 에 Strega Nona(2017)·Great Illustrated Classics(1990) 가 상위였다.
+- `collection:comics` 로 좁히는 건 **더 나쁘다** — 실측 116,891건 상위가 Batman 1940·Spawn·Daredevil, 즉 사용자 업로드 침해물이다. **컬렉션이 곧 PD 보증은 아니다.**
+- 대신 ① 제목 우선 질의 ② 컬렉션·연도·최소페이지 필터 + 정렬 + 페이지네이션 ③ **PD 위험도 3등급 판정 후 재정렬**(같은 등급 안에서는 큐레이션 컬렉션 우선) ④ 프리셋 출발점 3종(Fawcett 813건 · Classics Illustrated · PD 확정 구간).
+- **제목에서 연도 추출** — IA `year`/`date` 필드는 만화 컬렉션에서 자주 빈다(fawcett 상위 6건 중 5건). "Whiz Comics 002 (1940-02)" → 1940. 호수(002·51)를 연도로 오해하지 않는다.
+- PD 확정 상한을 **1929 → 1930** 으로 갱신(2026-01-01 부로 1930년 발행물 PD). `PD_YEAR_CUTOFF` 한 곳만 고치면 힌트·위험도·프리셋이 함께 따라온다.
+
+#### 브라우저 보조 취득 (`sources/browser-assist.mjs` · `assist.mjs` · `/api/pdcp/assist`)
+
+- 진짜 크롬 창을 띄우고 **사람이 로그인·선택·다운로드**하면, 도구가 받은 파일을 포착해 CBZ/ZIP 을 풀고 `pages/` 로 정렬·정규화한 뒤 매니페스트를 쓴다. 자동 클릭·자동 순회는 하지 않는다(그건 스크래퍼다).
+- 로그인 세션은 영속 프로필에 남아 다음 회차에 재사용된다.
+- ZIP 리더를 직접 구현했다 — 이 환경에 unzip 이 없고 Node 에 zip 리더가 없다. 실물 CBZ(IA, 37엔트리 · store+deflate 혼재)로 검증: **36장 추출 → 복원 단계 통과**.
+- CBR(RAR)·PDF 는 해제하지 못한다는 사실을 메모로 남긴다 — 조용히 0장이 되면 성공처럼 보인다.
+
+#### 그 밖에
+
+- **vitest 종료 코드 134** — 테스트 파일이 4개가 되자 전부 통과한 뒤 SIGABRT 로 죽었다(Node 24.15 · 워커 스레드 풀). 결과는 초록인데 CI 는 빨간불이 되는 유형이라 `scripts/comic/pd/vitest.config.mjs` 로 `pool: forks` 고정.
+- 회귀 스펙 +33: `discovery.test.mjs`(21) · `assist.test.mjs`(8, 합성 ZIP 으로 store/deflate·정렬·손상파일 격리 검증) · e2e +4(프리셋·위험도 배지·보조 패널 정책 표기·작업명 검증).
+
+
 ### PDCP 운영 콘솔 — 파이프라인을 화면에서 돌린다 (마이그레이션 `pdcp_queue_states_and_monitoring`)
 
 - `/admin/pd-comics` 가 **읽기 전용 목록에서 조작면으로**. 3탭 — 소스·대량 적재 / 큐·드레인 / 도구.

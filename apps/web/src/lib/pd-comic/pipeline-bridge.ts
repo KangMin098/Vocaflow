@@ -71,9 +71,20 @@ export interface AdapterInfo {
   label: string
   caps: AdapterCaps
   profile: AdapterProfile
-  search: (q: string, limit?: number) => Promise<SourceItem[]>
+  /** 검색 필터 — 어댑터마다 지원 범위가 다르며, 모르는 키는 무시한다. */
+  search: (q: string, limit?: number, filters?: DiscoveryFilters) => Promise<SourceItem[]>
   metadata: (id: string) => Promise<SourceItem>
   pdHint: (item: SourceItem) => { basis: string | null; note: string }
+}
+
+/** 발견 단계 필터. IA 가 전부 지원하고, 나머지 어댑터는 해당 없는 키를 무시한다. */
+export interface DiscoveryFilters {
+  collection?: string
+  yearFrom?: number
+  yearTo?: number
+  minPages?: number
+  sort?: string
+  page?: number
 }
 
 export interface SourceItem {

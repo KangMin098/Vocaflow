@@ -16,6 +16,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { buildQuery, PD_YEAR_CUTOFF, rankByPdRisk, sortParam, yearFromTitle } from './discovery.mjs'
 import { delay, usPdHint } from './types.mjs'
 
 const UA = 'Vocaflow-PDCP/1.0 (educational; contact via repo)'
@@ -61,25 +62,89 @@ export const internetArchive = {
     ocrStrategy: 'source-hocr',
   },
 
-  async search(q, limit = 20) {
+  /**
+   * 한 번에 훑을 만한 출발점. 자유 검색은 관련 없는 도서를 끌고 오므로
+   * **PD 확률이 높은 컬렉션**을 미리 세어두고 클릭 한 번으로 들어가게 한다.
+   * `count` 는 실측값(2026-08-09) — 표시용이며 실제 건수는 검색 때 다시 센다.
+   */
+  presets: [
+    {
+      key: 'fawcett',
+      label: 'Fawcett Comics (큐레이션)',
+      note: 'Captain Marvel 계열. 사서 큐레이션 컬렉션 — PD 확률 높음',
+      filters: { collection: 'fawcett-comics' },
+      count: 813,
+    },
+    {
+      key: 'classics-illustrated',
+      label: 'Classics Illustrated',
+      note: '고전 각색 만화 — 학습 소재 적합도가 가장 높다',
+      query: 'classics illustrated',
+      filters: { sort: 'year-asc' },
+      count: 29,
+    },
+    {
+      key: 'golden-age-pd',
+      label: '골든에이지 PD 확정 구간',
+      note: `${PD_YEAR_CUTOFF}년 이하 — 미국 기준 저작권 소멸 확정`,
+      filters: { yearTo: PD_YEAR_CUTOFF, sort: 'downloads' },
+    },
+  ],
+
+  /**
+   * @param {string} q
+   * @param {number} limit
+   * @param {import('./discovery.mjs').DiscoveryFilters=} filters
+   *
+   * 정교화 항목(초기 한 줄 질의 대비):
+   *   · 제목 우선 질의 — 전문 검색이 만화책 OCR 본문에 걸려 엉뚱한 도서를 올리던 문제
+   *   · 컬렉션/연도 필터 · 정렬 · 페이지네이션
+   *   · **PD 위험도 판정 후 재정렬** — 저작권 살아 있는 자료가 상단에 오지 않게
+   *   · 표지 1장짜리 잡항목 제거(minPages)
+   */
+  async search(q, limit = 20, filters = {}) {
+    const page = Math.max(1, Number(filters.page) || 1)
+    const params = new URLSearchParams({
+      q: buildQuery(q, filters),
+      rows: String(limit),
+      page: String(page),
+      output: 'json',
+    })
+    const sort = sortParam(filters.sort)
+    if (sort) params.set('sort[]', sort)
     const url =
       'https://archive.org/advancedsearch.php?' +
-      new URLSearchParams({
-        q: `${q} AND mediatype:texts`,
-        rows: String(limit),
-        output: 'json',
-      }) +
-      '&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=year&fl%5B%5D=date&fl%5B%5D=imagecount'
+      params +
+      '&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=year&fl%5B%5D=date&fl%5B%5D=imagecount' +
+      '&fl%5B%5D=collection&fl%5B%5D=creator&fl%5B%5D=downloads'
     const j = await getJson(url)
-    return (j.response?.docs ?? []).map((d) => ({
+
+    let items = (j.response?.docs ?? []).map((d) => ({
       sourceId: this.id,
       identifier: d.identifier,
       title: d.title ?? d.identifier,
-      publishedYear: Number(d.year) || undefined,
+      // 셋 다 없으면 PD 판정이 '불명'으로 떨어져 운영자가 원본을 열어야 한다 → 제목까지 훑는다
+      publishedYear:
+        Number(d.year) ||
+        Number(String(d.date ?? '').slice(0, 4)) ||
+        yearFromTitle(d.title) ||
+        undefined,
       pageCount: Number(d.imagecount) || undefined,
       url: `https://archive.org/details/${d.identifier}`,
       raw: d,
     }))
+
+    // imagecount 가 있는데 표지 몇 장뿐인 항목은 만화 한 호가 아니다.
+    // (없으면 거르지 않는다 — 이 컬렉션은 imagecount 가 비는 경우가 흔하다)
+    const minPages = Number(filters.minPages) || 0
+    if (minPages > 0) {
+      items = items.filter((it) => it.pageCount == null || it.pageCount >= minPages)
+    }
+
+    const ranked = rankByPdRisk(items)
+    ranked.totalFound = Number(j.response?.numFound) || ranked.length
+    ranked.page = page
+    return ranked
   },
 
   /**
