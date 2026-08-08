@@ -112,6 +112,7 @@ export interface ComicTestInput {
   model?: string | null
   site?: string | null
   style?: string | null
+  env?: string | null
   note?: string | null
   libraryBookId?: string | null
 }
@@ -124,6 +125,7 @@ export async function createComicTestAction(input: ComicTestInput): Promise<Acti
       label: input.label.trim(),
       backend: input.backend || null, model: input.model || null,
       site: input.site || null, style: input.style || null,
+      params: input.env ? { env: input.env } : null,
       note: input.note || null, library_book_id: input.libraryBookId || null,
       status: 'planned',
     })

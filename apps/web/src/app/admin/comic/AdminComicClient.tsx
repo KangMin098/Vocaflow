@@ -230,7 +230,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
       )}
 
       {tab === 'styles' && <StylesTab styles={styles} />}
-      {tab === 'tests' && <TestsTab tests={tests} models={models} />}
+      {tab === 'tests' && <TestsTab tests={tests} models={models} styles={styles} />}
       {tab === 'models' && <ModelsTab models={models} />}
     </div>
   )
@@ -401,10 +401,10 @@ function ModelStatusPill({ status }: { status: string }) {
   return <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: s.tone, background: `color-mix(in srgb, ${s.tone} 12%, transparent)` }}>{s.label}</span>
 }
 
-function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] }) {
+function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: ComicModel[]; styles: ComicStyle[] }) {
   const router = useRouter()
   const [pending, start] = useTransition()
-  const [form, setForm] = useState({ label: '', backend: '', model: '', site: '', note: '' })
+  const [form, setForm] = useState({ label: '', backend: '', model: '', site: '', style: '', note: '' })
   const [env, setEnv] = useState('runpod-4090') // 자가호스트 우선
   const [msg, setMsg] = useState<string | null>(null)
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }))
@@ -419,8 +419,8 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
     if (!form.backend) { setMsg('모델을 선택하세요.'); return }
     setMsg(null)
     start(async () => {
-      const res = await createComicTestAction({ ...form, note: `[환경:${env}] ${form.note}`.trim() })
-      if (res.ok) { setForm({ label: '', backend: '', model: '', site: '', note: '' }); router.refresh() }
+      const res = await createComicTestAction({ ...form, env, note: `[환경:${env}]${form.style ? `[스타일:${form.style}]` : ''} ${form.note}`.trim() })
+      if (res.ok) { setForm({ label: '', backend: '', model: '', site: '', style: '', note: '' }); router.refresh() }
       else setMsg(`실패: ${res.error}`)
     })
   }
@@ -463,6 +463,15 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
             선택: <b className="text-[var(--t1)]">{form.model}</b> · <span className="font-mono text-[11px]">{form.backend}</span> · @{form.site}
           </p>
         )}
+        {styles.length > 0 && (
+          <label className="flex flex-col gap-1">
+            <span className="font-display text-[11px] font-[700] text-[var(--t3)]">스타일 (선택 — 실험 매트릭스: 모델×환경×스타일)</span>
+            <select aria-label="스타일 선택" value={form.style} onChange={(e) => setForm((f) => ({ ...f, style: e.target.value }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+              <option value="">— 스타일 무관 —</option>
+              {styles.filter((s) => s.status !== 'rejected').map((s) => <option key={s.key} value={s.key}>{s.name} · {s.format}/{s.genre}</option>)}
+            </select>
+          </label>
+        )}
         <Field label="메모" value={form.note} onChange={set('note')} placeholder="가설·파라미터·기대 결과" />
         <div className="flex items-center gap-3">
           <button onClick={submit} disabled={pending} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
@@ -490,6 +499,8 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
                 {t.backend && <span className="inline-flex items-center gap-1"><Cpu size={11} />{t.backend}</span>}
                 {t.model && <span>· {t.model}</span>}
                 {t.site && <span>· {t.site}</span>}
+                {t.style && <span className="inline-flex items-center gap-1">· <Palette size={11} />{t.style}</span>}
+                {typeof (t.params as { env?: string } | null)?.env === 'string' && <span>· env {(t.params as { env: string }).env}</span>}
               </div>
               {t.result && (
                 <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[12px] text-[var(--t2)]">

@@ -39,14 +39,26 @@ if (!runner) { console.error(`✗ 러너 미구현: ${MODEL}`); process.exit(1) 
 console.error(`▶ ${m.name} · env=${ENV}(${ENV_INFO[ENV]?.connect}) · runner=${runner.script}`)
 console.error(`  샘플 컷: ${PANELS.join(',')} · fit ${m.comic_fit} · min_vram ${m.min_vram_gb ?? '-'}GB`)
 
+// 스타일(선택): art_prompt 해석 → 생성 화풍 고정
+const STYLE = arg('style')
+let style = null
+if (STYLE) {
+  const { data: st } = await db.from('comic_styles').select('key, name, format, genre, palette, art_prompt, negative_prompt').eq('key', STYLE).maybeSingle()
+  if (!st) { console.error(`✗ 스타일 없음: ${STYLE}`); process.exit(1) }
+  style = st
+  console.error(`  스타일: ${st.name} (${st.format}/${st.genre}/${st.palette})`)
+  console.error(`    art_prompt: ${(st.art_prompt || '').slice(0, 90)}...`)
+}
+
 const bookId = BOOK || '66b084a0-72a1-414a-98ea-3c27308772fc' // Carol default
 const adapted = SCRIPT || 'scripts/comic/examples/carol-stave1.adapted.json'
 const outDir = path.resolve(`out/test-${MODEL}-${Date.now() % 1e6}`)
 
 // 2) run 기록 시작
 const { data: runRow } = await db.from('comic_gen_runs').insert({
-  library_book_id: bookId, backend: m.key, model: m.name, site: ENV, style: 'gonick',
-  status: 'running', panels_total: PANELS.length, panels_done: 0, note: `[테스트] ${ENV} 자가호스트 샘플`,
+  library_book_id: bookId, backend: m.key, model: m.name, site: ENV, style: style?.key ?? null,
+  status: 'running', panels_total: PANELS.length, panels_done: 0,
+  note: `[테스트] ${ENV} 샘플${style ? ` · 스타일 ${style.name}` : ''}`,
 }).select('id').single()
 console.error(`  run ${runRow?.id?.slice(0, 8)} 시작`)
 
