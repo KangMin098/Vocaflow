@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
-import { enqueueComicJobs, setComicPublished } from '@/lib/comic/admin-queries'
+import { archiveComic, deleteComic, enqueueComicJobs, setComicPublished } from '@/lib/comic/admin-queries'
 
 export interface ActionResult<T = unknown> {
   ok: boolean
@@ -38,8 +38,37 @@ export async function setComicPublishedAction(
     const client = (await createClient()) as unknown as SupabaseClient
     await setComicPublished(client, bookId, published)
     revalidatePath('/admin/comic')
+    revalidatePath(`/admin/comic/${bookId}`)
     return { ok: true }
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : '발행 상태 변경 실패' }
+  }
+}
+
+export async function archiveComicAction(
+  bookId: string,
+  archived: boolean,
+): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/comic')
+    const client = (await createClient()) as unknown as SupabaseClient
+    await archiveComic(client, bookId, archived)
+    revalidatePath('/admin/comic')
+    revalidatePath(`/admin/comic/${bookId}`)
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '보관 상태 변경 실패' }
+  }
+}
+
+export async function deleteComicAction(bookId: string): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/comic')
+    const client = (await createClient()) as unknown as SupabaseClient
+    await deleteComic(client, bookId)
+    revalidatePath('/admin/comic')
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '삭제 실패' }
   }
 }

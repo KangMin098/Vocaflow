@@ -104,3 +104,125 @@ export async function setComicPublished(
   })
   if (error) throw new Error(error.message)
 }
+
+/** 보관/복원 — comic_books.status 직접 갱신(RLS admin 정책). archived ↔ draft. */
+export async function archiveComic(
+  client: SupabaseClient,
+  bookId: string,
+  archived: boolean,
+): Promise<void> {
+  const { error } = await client
+    .from('comic_books')
+    .update({ status: archived ? 'archived' : 'draft', published_at: null })
+    .eq('library_book_id', bookId)
+  if (error) throw new Error(error.message)
+}
+
+/** 삭제 — comic_pages + comic_books + comic_gen 잡 제거(RLS admin). 버킷 오브젝트는 별도. */
+export async function deleteComic(client: SupabaseClient, bookId: string): Promise<void> {
+  const { error: pErr } = await client.from('comic_pages').delete().eq('library_book_id', bookId)
+  if (pErr) throw new Error(pErr.message)
+  const { error: hErr } = await client.from('comic_books').delete().eq('library_book_id', bookId)
+  if (hErr) throw new Error(hErr.message)
+  await client
+    .from('book_curation_jobs')
+    .delete()
+    .eq('book_id', bookId)
+    .eq('task_type', 'comic_gen')
+}
+
+// ── 검수 상세 ─────────────────────────────────────────────────
+export type ComicStage = 'none' | 'queued' | 'generating' | 'review' | 'published' | 'archived'
+
+export interface ComicBubbleRow {
+  speaker?: string | null
+  text: string
+  kind?: string | null
+  pos?: string | null
+  verbatim?: boolean
+  by?: string | null
+}
+export interface ComicPageRow {
+  chapter_idx: number
+  page_order: number
+  image_url: string
+  bubbles: ComicBubbleRow[]
+  target_vocab: string[]
+  stave_label: string | null
+}
+export interface ComicDetail {
+  bookId: string
+  title: string
+  author: string | null
+  bookStatus: string
+  vLevel: number | null
+  header: {
+    status: string
+    panels_total: number
+    panels_pass: boolean
+    style: string | null
+    backend: string | null
+    qc_verdict: Record<string, unknown> | null
+    published_at: string | null
+  } | null
+  job: { status: string; panels_done: number | null; panels_total: number | null; error: string | null } | null
+  pages: ComicPageRow[]
+  stage: ComicStage
+}
+
+/** 파이프라인 단계 파생(헤더 status + 잡 status + 컷 존재). */
+export function deriveStage(
+  comicStatus: string | null | undefined,
+  jobStatus: string | null | undefined,
+  panels: number,
+): ComicStage {
+  if (jobStatus === 'running') return 'generating'
+  if (jobStatus === 'pending') return 'queued'
+  if (comicStatus === 'published') return 'published'
+  if (comicStatus === 'archived') return 'archived'
+  if ((comicStatus === 'draft' || panels > 0) && panels > 0) return 'review'
+  if (jobStatus === 'failed') return 'queued'
+  return 'none'
+}
+
+export async function fetchBookComicDetail(
+  client: SupabaseClient,
+  bookId: string,
+): Promise<ComicDetail | null> {
+  const [{ data: book }, { data: header }, { data: job }, { data: pages }] = await Promise.all([
+    client.from('library_books').select('id, title, author, status, book_v_level').eq('id', bookId).maybeSingle(),
+    client
+      .from('comic_books')
+      .select('status, panels_total, panels_pass, style, backend, qc_verdict, published_at')
+      .eq('library_book_id', bookId)
+      .maybeSingle(),
+    client
+      .from('book_curation_jobs')
+      .select('status, panels_done, panels_total, error')
+      .eq('book_id', bookId)
+      .eq('task_type', 'comic_gen')
+      .maybeSingle(),
+    client
+      .from('comic_pages')
+      .select('chapter_idx, page_order, image_url, bubbles, target_vocab, stave_label')
+      .eq('library_book_id', bookId)
+      .order('chapter_idx')
+      .order('page_order'),
+  ])
+  if (!book) return null
+  const b = book as { id: string; title: string; author: string | null; status: string; book_v_level: number | null }
+  const h = header as ComicDetail['header']
+  const j = job as ComicDetail['job']
+  const pg = (pages as ComicPageRow[]) ?? []
+  return {
+    bookId: b.id,
+    title: b.title,
+    author: b.author,
+    bookStatus: b.status,
+    vLevel: b.book_v_level,
+    header: h,
+    job: j,
+    pages: pg,
+    stage: deriveStage(h?.status, j?.status, pg.length),
+  }
+}

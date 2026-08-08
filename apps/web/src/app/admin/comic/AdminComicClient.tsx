@@ -6,6 +6,7 @@
 
 import { useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { BookImage, CheckCircle2, CircleSlash, Clock, Loader2, ShieldCheck } from 'lucide-react'
 import type { ComicCatalogRow, ComicStats } from '@/lib/comic/admin-queries'
 import { enqueueComicJobsAction, setComicPublishedAction } from './actions'
@@ -165,7 +166,14 @@ export function AdminComicClient({ rows, stats }: { rows: ComicCatalogRow[]; sta
               )}
               {publishedRows.map((r) => (
                 <tr key={r.bookId} className="border-b border-[var(--bd)]/60 last:border-0">
-                  <Td><span className="font-display text-[13px] font-[600] text-[var(--t1)]">{r.title}</span></Td>
+                  <Td>
+                <Link
+                  href={`/admin/comic/${r.bookId}`}
+                  className="font-display text-[13px] font-[600] text-[var(--t1)] underline-offset-2 hover:text-[#8B5CF6] hover:underline"
+                >
+                  {r.title}
+                </Link>
+              </Td>
                   <Td><StatusPill status={r.comicStatus} /></Td>
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{r.panelsTotal}</Td>
                   <Td>
@@ -239,7 +247,14 @@ function CatalogTable({
                   className="h-4 w-4 accent-[#8B5CF6]"
                 />
               </Td>
-              <Td><span className="font-display text-[13px] font-[600] text-[var(--t1)]">{r.title}</span></Td>
+              <Td>
+                <Link
+                  href={`/admin/comic/${r.bookId}`}
+                  className="font-display text-[13px] font-[600] text-[var(--t1)] underline-offset-2 hover:text-[#8B5CF6] hover:underline"
+                >
+                  {r.title}
+                </Link>
+              </Td>
               <Td className="font-body text-[12px] text-[var(--t3)]">{r.author ?? '—'}</Td>
               <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{r.vLevel ?? '—'}</Td>
               <Td className="font-body text-[12px] text-[var(--t3)]">{r.bookStatus}</Td>
