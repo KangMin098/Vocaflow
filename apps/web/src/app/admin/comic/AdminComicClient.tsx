@@ -11,6 +11,8 @@ import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskCo
 import type { ComicCatalogRow, ComicModel, ComicStats, ComicStyle, ComicTest } from '@/lib/comic/admin-queries'
 import { createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicStyleStatusAction, setComicPublishedAction } from './actions'
 import { StyleSwatch, genreHue } from '@/components/comic/StyleSwatch'
+import { FORMAT_ORDER, formatMeta } from '@/lib/comic/format'
+import { ScrollText, BookOpen } from 'lucide-react'
 
 const ACCENT = '#8B5CF6'
 type TabKey = 'catalog' | 'published' | 'tests' | 'models' | 'styles'
@@ -255,7 +257,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
     <div className="flex flex-col gap-4">
       <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
-          <b className="text-[var(--t1)]">만화 스타일 프리셋</b> — 생성 만화의 디자인을 <b>포맷(웹툰/만화/그래픽노블) × 연령 × 장르 × 난이도(V-Level)</b>로 선택. 각 카드의 미리보기는 그 스타일의 시각 특성(스크린톤·하프톤·크로스해치·시네마틱)을 표현합니다. 도서 검수 화면에서 도서별 스타일을 지정하면 드레인이 그 art_prompt 로 생성합니다.
+          <b className="text-[var(--t1)]">먼저 구성 방식, 그다음 화풍</b> — 스타일은 두 축입니다. <b>①구성 방식(포맷)</b>은 <b>어떻게 배치하고 읽는가</b>(웹툰=세로 스크롤 / 만화·코믹=페이지 넘김 / 그래픽노블=대형 컷)로, 컷 비율·리더 모드·레이아웃을 정합니다. <b>②화풍</b>은 그 안의 <b>그림체·팔레트</b>(잉크/스크린톤/하프톤/컬러)입니다. 아래는 구성 방식별로 묶었고, 각 카드가 화풍입니다. 장르·연령은 큐레이션 필터. 도서 검수에서 스타일을 지정하면 드레인이 그 화풍으로 생성합니다.
         </p>
         {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">스타일 상태 변경 실패 — {err}</p>}
       </div>
@@ -273,38 +275,58 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
       {styles.length === 0 ? (
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">스타일 카탈로그가 비어 있습니다. (국내외 딥서치 시드 대기)</p>
       ) : (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((s) => (
-            <figure key={s.key} className="group flex flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-shadow hover:shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
-              {/* 비주얼 스와치 배너 + 이름 오버레이 */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[var(--bd)]">
-                <StyleSwatch format={s.format} palette={s.palette} genre={s.genre} styleKey={s.key} />
-                <div className="absolute inset-x-0 bottom-0 flex items-end gap-1.5 p-2.5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0))' }}>
-                  <span className="font-display text-[13px] font-[800] leading-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">{s.name}</span>
-                  {s.is_default && <span className="shrink-0 rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white" style={{ background: ACCENT }}>기본</span>}
-                </div>
-                <div className="absolute right-2 top-2"><ModelStatusPill status={s.status === 'adopted' ? 'adopted' : s.status === 'rejected' ? 'rejected' : 'candidate'} /></div>
-              </div>
-              {/* 본문 */}
-              <figcaption className="flex flex-1 flex-col gap-2 p-3">
-                <div className="flex flex-wrap items-center gap-1">
-                  <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `${genreHue(s.genre)}1a` }}>
-                    <span className="h-1.5 w-1.5 rounded-full" style={{ background: genreHue(s.genre) }} aria-hidden />{s.genre}
+        <div className="flex flex-col gap-7">
+          {FORMAT_ORDER.filter((f) => filtered.some((s) => s.format === f)).map((f) => {
+            const meta = formatMeta(f)
+            const group = filtered.filter((s) => s.format === f)
+            const scroll = meta.reader === 'scroll'
+            return (
+              <section key={f} className="flex flex-col gap-3">
+                {/* 구성 방식 헤더 — 읽는 방식 + 레이아웃 설명 */}
+                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-[var(--r-md)] border-l-[3px] bg-[var(--bg2)] px-3.5 py-2.5" style={{ borderLeftColor: ACCENT }}>
+                  <span className="inline-flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
+                    {scroll ? <ScrollText size={15} style={{ color: ACCENT }} /> : <BookOpen size={15} style={{ color: ACCENT }} />}{meta.label}
                   </span>
-                  {[s.format, s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">{t}</span>)}
-                  {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
+                  <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}1a` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
+                  <span className="font-mono text-[11px] text-[var(--t3)]">{meta.layout}</span>
+                  <span className="font-body text-[11px] text-[var(--t4)]">· 화풍 {group.length}종</span>
+                  <p className="w-full font-body text-[11px] leading-relaxed text-[var(--t3)]">{meta.blurb}</p>
                 </div>
-                {s.art_prompt && <p className="line-clamp-2 font-body text-[11px] leading-relaxed text-[var(--t3)]" title={s.art_prompt}>{s.art_prompt}</p>}
-                <div className="mt-auto flex items-center gap-2 pt-1">
-                  <select aria-label={`${s.name} 상태`} value={s.status} disabled={busy === s.key} onChange={(e) => setStatus(s.key, e.target.value)} className="min-h-11 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
-                    {['candidate', 'adopted', 'rejected'].map((st) => <option key={st} value={st}>{st}</option>)}
-                  </select>
-                  {busy === s.key && <Loader2 size={13} className="animate-spin text-[var(--t3)]" />}
-                  {s.source_url && <a href={s.source_url} target="_blank" rel="noreferrer" aria-label="레퍼런스 출처" className="text-[var(--t3)] transition-colors hover:text-[var(--active)]"><ExternalLink size={13} /></a>}
+                {/* 화풍 카드 */}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {group.map((s) => (
+                    <figure key={s.key} className="group flex flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-shadow hover:shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
+                      <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[var(--bd)]">
+                        <StyleSwatch format={s.format} palette={s.palette} genre={s.genre} styleKey={s.key} />
+                        <div className="absolute inset-x-0 bottom-0 flex items-end gap-1.5 p-2.5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0))' }}>
+                          <span className="font-display text-[13px] font-[800] leading-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">{s.name}</span>
+                          {s.is_default && <span className="shrink-0 rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white" style={{ background: ACCENT }}>기본</span>}
+                        </div>
+                        <div className="absolute right-2 top-2"><ModelStatusPill status={s.status === 'adopted' ? 'adopted' : s.status === 'rejected' ? 'rejected' : 'candidate'} /></div>
+                      </div>
+                      <figcaption className="flex flex-1 flex-col gap-2 p-3">
+                        <div className="flex flex-wrap items-center gap-1">
+                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `${genreHue(s.genre)}1a` }}>
+                            <span className="h-1.5 w-1.5 rounded-full" style={{ background: genreHue(s.genre) }} aria-hidden />{s.genre}
+                          </span>
+                          {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">{t}</span>)}
+                          {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
+                        </div>
+                        {s.art_prompt && <p className="line-clamp-2 font-body text-[11px] leading-relaxed text-[var(--t3)]" title={s.art_prompt}>{s.art_prompt}</p>}
+                        <div className="mt-auto flex items-center gap-2 pt-1">
+                          <select aria-label={`${s.name} 상태`} value={s.status} disabled={busy === s.key} onChange={(e) => setStatus(s.key, e.target.value)} className="min-h-11 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
+                            {['candidate', 'adopted', 'rejected'].map((st) => <option key={st} value={st}>{st}</option>)}
+                          </select>
+                          {busy === s.key && <Loader2 size={13} className="animate-spin text-[var(--t3)]" />}
+                          {s.source_url && <a href={s.source_url} target="_blank" rel="noreferrer" aria-label="레퍼런스 출처" className="text-[var(--t3)] transition-colors hover:text-[var(--active)]"><ExternalLink size={13} /></a>}
+                        </div>
+                      </figcaption>
+                    </figure>
+                  ))}
                 </div>
-              </figcaption>
-            </figure>
-          ))}
+              </section>
+            )
+          })}
         </div>
       )}
     </div>
