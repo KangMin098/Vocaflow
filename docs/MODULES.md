@@ -487,6 +487,22 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 `GameMark`(gamekit) · `SESSION_META`(SessionFrame) · 진입 카드 문구 · 아케이드 그리드가 전부 여기서 파생된다.
 **게임을 추가할 때 손대는 곳은 카탈로그 1곳 + `/play/<slug>/page.tsx` + `ArcadeGameId`/`ModuleId` enum.**
 
+### 계열(family) — 같은 인지 루프는 한 장으로 접는다
+실측 대조 결과 **`wordblitz`·`daily-blitz`·`word-economy`·`ghost-race` 4종(1,604줄)이 완전히 같은 루프**였다 —
+`target.ko` 프롬프트 → 4지선다 en 타일 → `o.en === target.en`. 다른 건 게임이 아니라 위에 얹은 메타(타이머·데일리·경제·경쟁)뿐.
+
+지우지 않는 이유: 학습적으로 같아도 **동기 장치로는 다르고**, 같은 문답 위에 모드를 얹는 구조는 Gimkit이 검증했다.
+진짜 문제는 존재가 아니라 **19장을 동급 카드로 평평하게 깔아 "또 같은 거네"로 읽힌 것** → 허브에서 계열 1장으로 접는다.
+
+- `GAME_FAMILIES` (계열 정의) + `GameEntry.family` / `modeLabel` / `modeNote` / `modeOrder`
+- `hubSections()` → 섹션별 `HubItem[]`(`{kind:'game'}` | `{kind:'family', modes}`). `countHubGames()` 로 배지 산출
+- 계열은 **쪼개지지 않는다** — 멤버 다수가 속한 섹션으로 통째 이동(blitz = mine). 소수파 모드는 칩 설명에 명시(데일리 = 내장 뱅크)
+- 계열 카드는 `<a>` 가 아니다(중첩 앵커 금지) — 카드는 컨테이너, **모드 칩 하나하나가 플레이 링크**
+- 멤버가 1개면 접지 않는다. 게임 코드는 무변경 — 접기는 순수 표시 계층
+
+**유지한 약한 중복** — `letter-forge`(글자 제공) → `wordsmith-vigil`(무단서 타이핑)는 Desirable Difficulty 계단,
+`connections`(선택 분류) ↔ `lexicon-estate`(공간 배치)는 입력 방식이 달라 학습 경험이 구분된다.
+
 ### 데이터 소스 2분류 (`source`) — 학습자 선택의 1차 축
 | source | 수 | 의미 |
 |---|---|---|

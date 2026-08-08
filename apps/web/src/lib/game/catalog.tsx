@@ -62,7 +62,58 @@ export interface GameEntry {
    * 게임 무드에 맞춰 큐레이션. 곡 수(14) < 게임 수(19)라 일부는 무드가 가까운 곡을 재사용한다.
    */
   music?: string
+  /** 같은 인지 루프를 공유하는 계열 — 허브에서 한 장으로 접힌다. 단독 게임은 undefined. */
+  family?: FamilyKey
+  /** 계열 안에서 이 게임이 제공하는 "모드" 이름 (예: 클래식 · 고스트) */
+  modeLabel?: string
+  /** 모드 칩 아래 한 줄 — 이 모드만의 차별점 */
+  modeNote?: string
+  /** 계열 안 모드 정렬 (작을수록 먼저). 기본 모드가 맨 앞에 오도록 명시한다. */
+  modeOrder?: number
 }
+
+// ─── 계열(family) — 같은 인지 루프, 다른 동기 장치 ────────────────
+//
+// 왜 필요한가:
+//   실측 결과 wordblitz·daily-blitz·word-economy·ghost-race 4종(1,604줄)이
+//   **완전히 같은 루프**였다 — `target.ko` 프롬프트 → 4지선다 en 타일 → `o.en === target.en`.
+//   다른 건 게임이 아니라 그 위에 얹은 메타(타이머·데일리·경제·경쟁)뿐.
+//
+//   그렇다고 지울 것은 아니다. 학습적으로는 같아도 **동기 장치로는 서로 다르고**,
+//   같은 문답 위에 모드를 얹는 구조는 Gimkit 이 검증한 방식이다.
+//   진짜 문제는 존재가 아니라 **19장을 동급 카드로 평평하게 깔아 "또 같은 거네"로 읽히는 것**.
+//   → 허브에서 계열 1장으로 접고, 그 안에서 모드를 고르게 한다. 게임 코드는 그대로.
+
+export type FamilyKey = 'blitz'
+
+export interface GameFamily {
+  key: FamilyKey
+  /** 계열 이름 — 카드 제목 */
+  name: string
+  /** 계열이 훈련하는 것 한 줄 */
+  tagline: string
+  layer: string
+  ref: string
+  mood: GameMood
+  /** 계열 대표 마크로 쓸 게임 slug */
+  markOf: GameSlug
+}
+
+export const GAME_FAMILIES: readonly GameFamily[] = [
+  {
+    key: 'blitz',
+    name: '속사 인출',
+    tagline: '뜻을 보고 단어를 빠르게 — 같은 인출을 네 가지 재미로',
+    layer: 'L4a 재인',
+    ref: 'Gimkit · Kahoot · Wordle',
+    mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
+    markOf: 'wordblitz',
+  },
+] as const
+
+export const FAMILY_BY_KEY: Record<string, GameFamily> = Object.fromEntries(
+  GAME_FAMILIES.map((f) => [f.key, f]),
+)
 
 /** BGM 경로 헬퍼 — 파일명만 적고 경로는 한 곳에서. */
 const bgm = (name: string) => `/audio/games/${name}.mp3`
@@ -106,12 +157,14 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     layer: 'L4a 경쟁', ref: 'Kahoot', source: 'mine', emoji: '🏁', closeHref: '/arcade', minWords: 4,
     mood: { a: '#B34480', b: '#38296A', glow: 'rgba(255,158,224,.5)', accent: '#FFD1EE' },
     music: bgm('ghost-race'),
+    family: 'blitz', modeOrder: 2, modeLabel: '고스트', modeNote: '지난 기록과 나란히 달리기',
   },
   {
     slug: 'word-economy', name: 'Word Economy', tagline: '코인을 벌어 파워업에 전략 투자',
     layer: 'L4a 전략', ref: 'Gimkit', source: 'mine', emoji: '🪙', closeHref: '/arcade', minWords: 4,
     mood: { a: '#C99A34', b: '#77481E', glow: 'rgba(255,216,124,.55)', accent: '#FFECBB' },
     music: bgm('word-economy'),
+    family: 'blitz', modeOrder: 3, modeLabel: '이코노미', modeNote: '코인을 벌어 파워업에 투자',
   },
   {
     slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라',
@@ -144,6 +197,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     layer: '리텐션', ref: 'Wordle', source: 'bank', emoji: '📅', closeHref: '/arcade', minWords: 0,
     mood: { a: '#E8846A', b: '#7C3B5E', glow: 'rgba(255,196,150,.55)', accent: '#FFE0C4' },
     music: bgm('daily-blitz'),
+    family: 'blitz', modeOrder: 4, modeLabel: '데일리', modeNote: '매일 10문항 · 내장 뱅크 · 스트릭',
   },
   {
     slug: 'connections', name: 'Connections', tagline: '16단어를 숨은 4개 의미로 잇다',
@@ -202,10 +256,12 @@ export const GAME_CATALOG: readonly GameEntry[] = [
 
   // ── 독립 3D 2종 — 자체 엔진(three.js). 아케이드에서도 발견 가능해야 한다. ──
   {
-    slug: 'wordblitz', name: 'WordBlitz', tagline: '집게로 단어를 낚아채는 3D 인형뽑기',
-    layer: 'L4a 자동화', ref: '크레인 게임', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 4, is3d: true,
+    // v07 재설계로 three.js 인형뽑기 → 순수 2D DOM 속사 인지(MODULES.md §5). 3D 아님.
+    slug: 'wordblitz', name: 'WordBlitz', tagline: '타이머와 콤보로 몰아붙이는 순수 속도전',
+    layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 4,
     mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
     music: bgm('daily-blitz'),
+    family: 'blitz', modeOrder: 1, modeLabel: '클래식', modeNote: '타이머·콤보·레벨업',
   },
   {
     slug: 'pirate-quest', name: "Pirate's Bounty", tagline: '해변에서 보물 단어를 찾는 3D 모험',
@@ -228,6 +284,79 @@ export const MINE_GAMES = GAME_CATALOG.filter((g) => g.source === 'mine')
 
 /** 내장 큐레이션 뱅크 게임 */
 export const BANK_GAMES = GAME_CATALOG.filter((g) => g.source === 'bank')
+
+// ─── 허브 표시 단위 ───────────────────────────────────────────────
+//
+// 허브는 "게임 목록"이 아니라 "고를 거리 목록"을 그린다.
+// 같은 계열 게임이 2개 이상 있으면 계열 1장으로 접고, 그 안에서 모드를 고르게 한다.
+
+export type HubItem =
+  | { kind: 'game'; game: GameEntry }
+  | { kind: 'family'; family: GameFamily; modes: GameEntry[] }
+
+/**
+ * 게임 목록 → 허브 표시 단위.
+ * 계열이 같은 게임을 하나로 접되, **계열 멤버가 이 목록에 1개뿐이면 접지 않는다**
+ * (혼자 있는 계열 카드는 클릭이 한 번 더 드는 손해만 남는다).
+ * 정렬은 입력 순서를 보존 — 계열 카드는 그 계열 첫 멤버의 자리에 놓인다.
+ */
+export function buildHubItems(games: readonly GameEntry[]): HubItem[] {
+  const byFamily = new Map<FamilyKey, GameEntry[]>()
+  for (const g of games) {
+    if (!g.family) continue
+    const list = byFamily.get(g.family) ?? []
+    list.push(g)
+    byFamily.set(g.family, list)
+  }
+
+  const emitted = new Set<FamilyKey>()
+  const items: HubItem[] = []
+  for (const g of games) {
+    const members = g.family ? byFamily.get(g.family) : undefined
+    if (!g.family || !members || members.length < 2) {
+      items.push({ kind: 'game', game: g })
+      continue
+    }
+    if (emitted.has(g.family)) continue
+    emitted.add(g.family)
+    const family = FAMILY_BY_KEY[g.family]
+    if (!family) {
+      items.push({ kind: 'game', game: g })
+      continue
+    }
+    // 카탈로그 순서가 아니라 modeOrder 로 정렬 — 기본 모드(클래식)가 맨 앞에 오게.
+    const modes = [...members].sort(
+      (a, b) => (a.modeOrder ?? Number.MAX_SAFE_INTEGER) - (b.modeOrder ?? Number.MAX_SAFE_INTEGER),
+    )
+    items.push({ kind: 'family', family, modes })
+  }
+  return items
+}
+
+/**
+ * 표시 단위에 실제로 담긴 게임 수 — 섹션 배지는 카드 수가 아니라 이 값을 써야 한다.
+ * (계열이 통째로 다른 섹션으로 옮겨가므로 `MINE_GAMES.length` 와 어긋난다)
+ */
+export function countHubGames(items: readonly HubItem[]): number {
+  return items.reduce((n, i) => n + (i.kind === 'game' ? 1 : i.modes.length), 0)
+}
+
+/**
+ * 계열 접기는 섹션(mine/bank) 단위로 하면 계열이 쪼개진다 —
+ * blitz 계열은 3종이 mine, 1종(데일리)이 bank 다. 학습자에겐 같은 게임의 모드이므로
+ * **계열은 다수가 속한 섹션에 통째로 싣고**, 소수파 모드는 칩에 그 사실을 표기한다.
+ */
+export function hubSections(): { mine: HubItem[]; bank: HubItem[] } {
+  const homeOf = new Map<FamilyKey, GameSource>()
+  for (const f of GAME_FAMILIES) {
+    const members = GAME_CATALOG.filter((g) => g.family === f.key)
+    const mineCount = members.filter((g) => g.source === 'mine').length
+    homeOf.set(f.key, mineCount * 2 >= members.length ? 'mine' : 'bank')
+  }
+  const pick = (src: GameSource) =>
+    GAME_CATALOG.filter((g) => (g.family ? homeOf.get(g.family) === src : g.source === src))
+  return { mine: buildHubItems(pick('mine')), bank: buildHubItems(pick('bank')) }
+}
 
 /** 게임 slug → 플레이 URL. 스코프(set/text/chapter)와 복귀(from)를 함께 싣는다. */
 export function gamePlayHref(

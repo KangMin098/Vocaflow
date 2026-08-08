@@ -169,19 +169,52 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     expect(claimed, `진입 카드 aria-label 에 게임 수 없음: "${aria}"`).toBeGreaterThan(0);
 
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('a.arc-card').first()).toBeVisible({ timeout: 30_000 });
-    expect(await page.locator('a.arc-card').count()).toBe(claimed);
+    await expect(page.locator('.arc-grid a[href^="/play/"]').first()).toBeVisible({ timeout: 30_000 });
+    // 계열 접기 이후 카드 수 ≠ 게임 수 — 진입 카드가 약속한 수는 "도달 가능한 게임 수"다.
+    expect(await page.locator('.arc-grid a[href^="/play/"]').count()).toBe(claimed);
   });
 
-  test('A3. 섹션 카운트 배지가 실제 카드 수와 일치한다', async ({ page }) => {
+  test('A3. 섹션 카운트 배지가 그 섹션에서 실제로 도달 가능한 게임 수와 일치한다', async ({ page }) => {
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.arc-sec').first()).toBeVisible({ timeout: 30_000 });
     const sections = page.locator('.arc-sec');
     for (let i = 0; i < (await sections.count()); i++) {
       const sec = sections.nth(i);
       const claimed = Number((await sec.locator('.arc-sec-count').innerText()).trim());
-      expect(await sec.locator('a.arc-card').count()).toBe(claimed);
+      expect(await sec.locator('a[href^="/play/"]').count()).toBe(claimed);
     }
+  });
+
+  // 중복 체감(“또 같은 거네”)의 원인은 게임 존재가 아니라 19장을 동급으로 평평하게 깐 것.
+  // 같은 인지 루프를 공유하는 계열은 한 장으로 접히되, 게임은 하나도 사라지지 않아야 한다.
+  test('A5. 계열 접기 — 카드 수 < 게임 수, 그러나 모든 게임에 여전히 도달 가능', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.arc-grid').first()).toBeVisible({ timeout: 30_000 });
+
+    const cards = await page.locator('.arc-card').count(); // 단독 게임 + 계열 카드
+    const links = await page.locator('.arc-grid a[href^="/play/"]').count();
+    expect(cards, '접혔는데 카드 수가 그대로면 접기 실패').toBeLessThan(links);
+
+    // 계열 카드는 링크가 아니라 컨테이너 — 중첩 <a> 없이 모드 칩이 링크여야 한다
+    const family = page.locator('.arc-card--family').first();
+    await expect(family).toBeVisible();
+    expect(await family.evaluate((el) => el.tagName)).not.toBe('A');
+    const modes = family.locator('a.arc-mode');
+    expect(await modes.count()).toBeGreaterThanOrEqual(2);
+    for (const href of await modes.evaluateAll((els) =>
+      els.map((e) => (e as HTMLAnchorElement).getAttribute('href')),
+    )) {
+      expect(href).toMatch(/^\/play\/[a-z-]+\?from=(\/|%2F)arcade$/);
+    }
+    // 모드 칩도 44px 터치 타겟
+    const mBox = await modes.first().boundingBox();
+    expect(mBox!.height).toBeGreaterThanOrEqual(44);
+
+    // 접힌 게임이 중복 노출되지 않는다(계열 카드 + 단독 카드에 이중 등장 금지)
+    const all = await page
+      .locator('.arc-grid a[href^="/play/"]')
+      .evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).pathname));
+    expect(new Set(all).size, `중복 노출: ${all.join(', ')}`).toBe(all.length);
   });
 
   test('A4. 오늘의 추천은 새로고침해도 같은 게임이다 (결정론 회전)', async ({ page }) => {

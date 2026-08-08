@@ -17,9 +17,12 @@ import {
   GAME_BY_SLUG,
   GAME_CATALOG,
   GAME_COUNT,
+  GAME_FAMILIES,
   GAME_MARKS,
   MINE_GAMES,
+  buildHubItems,
   gamePlayHref,
+  hubSections,
   kstDayIndex,
   pickDailyGame,
 } from '../catalog'
@@ -96,6 +99,89 @@ describe('GAME_CATALOG 항목 무결성', () => {
 
   it('mine + bank 가 전체를 빠짐없이 분할한다', () => {
     expect(MINE_GAMES.length + BANK_GAMES.length).toBe(GAME_COUNT)
+  })
+})
+
+describe('계열(family) 접기', () => {
+  it('계열 키는 GAME_FAMILIES 에 정의돼 있다', () => {
+    const known = new Set(GAME_FAMILIES.map((f) => f.key))
+    const unknown = GAME_CATALOG.filter((g) => g.family && !known.has(g.family)).map((g) => g.slug)
+    expect(unknown, `정의 없는 family: ${unknown.join(', ')}`).toEqual([])
+  })
+
+  it('계열 소속 게임은 모드 라벨을 가진다 (칩에 이름이 비면 고를 수 없다)', () => {
+    const noLabel = GAME_CATALOG.filter((g) => g.family && !g.modeLabel).map((g) => g.slug)
+    expect(noLabel, `modeLabel 누락: ${noLabel.join(', ')}`).toEqual([])
+  })
+
+  it('한 계열 안에서 모드 라벨이 겹치지 않는다', () => {
+    for (const f of GAME_FAMILIES) {
+      const labels = GAME_CATALOG.filter((g) => g.family === f.key).map((g) => g.modeLabel)
+      expect(new Set(labels).size, `${f.key} 모드 라벨 중복: ${labels.join(', ')}`).toBe(labels.length)
+    }
+  })
+
+  it('모드는 modeOrder 순으로 나온다 — 기본 모드가 맨 앞', () => {
+    const items = buildHubItems(GAME_CATALOG.filter((g) => g.family === 'blitz'))
+    const fam = items.find((i) => i.kind === 'family')
+    expect(fam?.kind).toBe('family')
+    if (fam?.kind !== 'family') return
+    const orders = fam.modes.map((m) => m.modeOrder ?? Number.MAX_SAFE_INTEGER)
+    expect(orders).toEqual([...orders].sort((a, b) => a - b))
+    expect(fam.modes[0].modeLabel).toBe('클래식')
+  })
+
+  it('모든 계열은 멤버가 2개 이상이다 (1개면 접을 이유가 없다)', () => {
+    for (const f of GAME_FAMILIES) {
+      const n = GAME_CATALOG.filter((g) => g.family === f.key).length
+      expect(n, `${f.key} 멤버 ${n}개`).toBeGreaterThanOrEqual(2)
+    }
+  })
+
+  it('접어도 게임이 사라지지 않는다 — 허브 표시 단위가 전 게임을 정확히 1번씩 담는다', () => {
+    const { mine, bank } = hubSections()
+    const reached: string[] = []
+    for (const item of [...mine, ...bank]) {
+      if (item.kind === 'game') reached.push(item.game.slug)
+      else reached.push(...item.modes.map((m) => m.slug))
+    }
+    expect(reached.length, `중복 노출: ${reached.length} vs ${GAME_COUNT}`).toBe(GAME_COUNT)
+    expect(new Set(reached).size).toBe(GAME_COUNT)
+    expect([...reached].sort()).toEqual(GAME_CATALOG.map((g) => g.slug).sort())
+  })
+
+  it('계열은 쪼개지지 않는다 — 멤버 전원이 같은 섹션에 있다', () => {
+    const { mine, bank } = hubSections()
+    for (const f of GAME_FAMILIES) {
+      const inMine = mine.some((i) => i.kind === 'family' && i.family.key === f.key)
+      const inBank = bank.some((i) => i.kind === 'family' && i.family.key === f.key)
+      expect(Number(inMine) + Number(inBank), `${f.key} 가 0곳 또는 양쪽에 있음`).toBe(1)
+      const home = inMine ? mine : bank
+      const card = home.find((i) => i.kind === 'family' && i.family.key === f.key)
+      const members = GAME_CATALOG.filter((g) => g.family === f.key)
+      expect(card && card.kind === 'family' ? card.modes.length : 0).toBe(members.length)
+    }
+  })
+
+  it('접힌 뒤 카드 수가 실제로 줄어든다 (중복 체감 완화의 정량 근거)', () => {
+    const { mine, bank } = hubSections()
+    expect(mine.length + bank.length).toBeLessThan(GAME_COUNT)
+  })
+
+  it('buildHubItems — 멤버가 1개뿐이면 접지 않는다', () => {
+    const single = GAME_CATALOG.filter((g) => g.family === 'blitz').slice(0, 1)
+    const items = buildHubItems(single)
+    expect(items).toHaveLength(1)
+    expect(items[0].kind).toBe('game')
+  })
+
+  it('buildHubItems — 계열 카드는 첫 멤버 자리에 놓여 정렬이 튀지 않는다', () => {
+    const games = GAME_CATALOG.filter((g) => g.source === 'mine')
+    const items = buildHubItems(games)
+    const firstFamilyMemberIdx = games.findIndex((g) => g.family === 'blitz')
+    const familyCardIdx = items.findIndex((i) => i.kind === 'family')
+    const before = games.slice(0, firstFamilyMemberIdx).filter((g) => g.family !== 'blitz').length
+    expect(familyCardIdx).toBe(before)
   })
 })
 

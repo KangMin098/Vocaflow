@@ -239,12 +239,13 @@ test.describe('아케이드 게임 전수 스모크', () => {
     await expect(page.getByRole('heading', { name: /내 단어로 플레이/ })).toBeVisible();
     await expect(page.getByRole('heading', { name: /큐레이션 세계/ })).toBeVisible();
 
-    const cards = page.locator('a.arc-card');
-    // 게임 로스터는 성장한다(카탈로그 현재 19) — 정확 카운트는 brittle → 하한 + 딥링크 무결성
-    await expect(cards.first()).toBeVisible({ timeout: 10_000 });
-    expect(await cards.count()).toBeGreaterThanOrEqual(19);
-    // 각 카드가 /play/<slug> 로 연결되는지. from 은 URLSearchParams 인코딩(%2F) — 양쪽 허용.
-    for (const href of await cards.evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute('href')))) {
+    // 계열 접기(v07.4) 이후 카드 수 ≠ 게임 수 — 도달 가능한 플레이 링크로 센다.
+    // (단독 게임은 카드 자체가 링크, 계열은 카드 안 모드 칩이 링크)
+    const links = page.locator('.arc-grid a[href^="/play/"]');
+    await expect(links.first()).toBeVisible({ timeout: 10_000 });
+    expect(await links.count()).toBeGreaterThanOrEqual(19);
+    // 각 링크가 /play/<slug> 로 연결되는지. from 은 URLSearchParams 인코딩(%2F) — 양쪽 허용.
+    for (const href of await links.evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute('href')))) {
       expect(href).toMatch(/^\/play\/[a-z-]+\?from=(\/|%2F)arcade$/);
     }
     // 오늘의 추천도 실제 게임으로 연결돼야 한다(빈 CTA 방지)

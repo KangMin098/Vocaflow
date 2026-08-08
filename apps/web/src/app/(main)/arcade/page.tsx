@@ -23,14 +23,16 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 import ArcadeMetaStrip from '@/components/game/ArcadeMetaStrip';
 import {
-  BANK_GAMES,
   GAME_COUNT,
   GAME_MARKS,
-  MINE_GAMES,
+  countHubGames,
   gamePlayHref,
+  hubSections,
   kstDayIndex,
   pickDailyGame,
   type GameEntry,
+  type GameFamily,
+  type HubItem,
 } from '@/lib/game/catalog';
 import { createClient } from '@/lib/supabase/server';
 
@@ -80,6 +82,8 @@ export default async function ArcadePage() {
   const stats = await fetchVocabStats();
   const mineReady = stats.total >= MINE_READY_THRESHOLD;
   const daily = pickDailyGame(kstDayIndex(), stats.total);
+  // 같은 인지 루프를 공유하는 계열은 한 장으로 접힌다(중복 체감 제거).
+  const sections = hubSections();
 
   return (
     <div className="arc-scene">
@@ -106,7 +110,8 @@ export default async function ArcadePage() {
           eyebrow="My Words"
           title="내 단어로 플레이"
           desc={mineDesc(mineReady, stats)}
-          games={MINE_GAMES}
+          items={sections.mine}
+          gameCount={countHubGames(sections.mine)}
           badge={mineBadge(mineReady, stats)}
           badgeTone={mineReady ? 'live' : 'muted'}
           action={mineReady ? undefined : { href: '/wordvault', label: '단어 모으러 가기' }}
@@ -118,7 +123,8 @@ export default async function ArcadePage() {
           eyebrow="Curated Worlds"
           title="큐레이션 세계"
           desc="수제 콘텐츠로 문맥 추론·철자 규칙·의미 관계를 연습해요. 내 단어가 없어도 지금 바로 플레이할 수 있습니다."
-          games={BANK_GAMES}
+          items={sections.bank}
+          gameCount={countHubGames(sections.bank)}
         />
 
         <p className="arc-note">
@@ -214,7 +220,8 @@ function GameSection({
   eyebrow,
   title,
   desc,
-  games,
+  items,
+  gameCount,
   badge,
   badgeTone,
   action,
@@ -223,7 +230,10 @@ function GameSection({
   eyebrow: string;
   title: string;
   desc: string;
-  games: readonly GameEntry[];
+  /** 표시 단위 — 단독 게임 또는 계열(모드 묶음) */
+  items: HubItem[];
+  /** 배지에 쓸 실제 게임 수 (계열은 여러 개를 한 장으로 접으므로 카드 수와 다르다) */
+  gameCount: number;
   badge?: string;
   badgeTone?: 'live' | 'muted';
   action?: { href: string; label: string };
@@ -235,7 +245,7 @@ function GameSection({
           <p className="arc-sec-eyebrow">{eyebrow}</p>
           <h2 id={`arc-sec-${id}`} className="arc-sec-title">
             {title}
-            <span className="arc-sec-count">{games.length}</span>
+            <span className="arc-sec-count">{gameCount}</span>
           </h2>
         </div>
         {badge && (
@@ -257,46 +267,106 @@ function GameSection({
       </p>
 
       <div className="arc-grid">
-        {games.map((g) => (
-          <Link
-            key={g.slug}
-            href={gamePlayHref(g.slug, { from: '/arcade' })}
-            className="arc-card"
-            style={
-              {
-                ['--m-a']: g.mood.a,
-                ['--m-b']: g.mood.b,
-                ['--m-glow']: g.mood.glow,
-                ['--m-accent']: g.mood.accent,
-              } as CSSProperties
-            }
-          >
-            <span className="arc-card-glow" aria-hidden="true" />
-            <div className="arc-card-top">
-              <span className="arc-mark">
-                <Mark slug={g.slug} />
-              </span>
-              <span className="arc-chips">
-                {g.is3d && <span className="arc-chip arc-chip--3d">3D</span>}
-                {g.beta && <span className="arc-chip arc-chip--beta">베타</span>}
-                <span className="arc-chip">{g.layer}</span>
-              </span>
-            </div>
-            <div className="arc-card-body">
-              <h3 className="arc-name">{g.name}</h3>
-              <p className="arc-tag">{g.tagline}</p>
-            </div>
-            <div className="arc-card-foot">
-              <span className="arc-ref">{g.ref}</span>
-              <span className="arc-play">
-                플레이 <span className="arc-arrow">→</span>
-              </span>
-            </div>
-          </Link>
-        ))}
+        {items.map((item) =>
+          item.kind === 'game' ? (
+            <GameCard key={item.game.slug} game={item.game} />
+          ) : (
+            <FamilyCard key={item.family.key} family={item.family} modes={item.modes} />
+          ),
+        )}
       </div>
     </section>
   );
+}
+
+// ── 단독 게임 카드 ───────────────────────────────────────────────
+function GameCard({ game: g }: { game: GameEntry }) {
+  return (
+    <Link
+      href={gamePlayHref(g.slug, { from: '/arcade' })}
+      className="arc-card"
+      style={moodVars(g.mood)}
+    >
+      <span className="arc-card-glow" aria-hidden="true" />
+      <div className="arc-card-top">
+        <span className="arc-mark">
+          <Mark slug={g.slug} />
+        </span>
+        <span className="arc-chips">
+          {g.is3d && <span className="arc-chip arc-chip--3d">3D</span>}
+          {g.beta && <span className="arc-chip arc-chip--beta">베타</span>}
+          <span className="arc-chip">{g.layer}</span>
+        </span>
+      </div>
+      <div className="arc-card-body">
+        <h3 className="arc-name">{g.name}</h3>
+        <p className="arc-tag">{g.tagline}</p>
+      </div>
+      <div className="arc-card-foot">
+        <span className="arc-ref">{g.ref}</span>
+        <span className="arc-play">
+          플레이 <span className="arc-arrow">→</span>
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+// ── 계열 카드 — 같은 인출을 여러 재미로 ──────────────────────────
+//
+// 카드 자체는 링크가 아니다(중첩 <a> 금지). 모드 칩 하나하나가 실제 플레이 링크.
+// "왜 비슷한 게 여러 개인가"에 답하려면 공통점(인출)과 차이(동기 장치)를 같이 보여야 한다.
+function FamilyCard({ family: f, modes }: { family: GameFamily; modes: GameEntry[] }) {
+  return (
+    <div
+      className="arc-card arc-card--family"
+      style={moodVars(f.mood)}
+      role="group"
+      aria-labelledby={`arc-fam-${f.key}`}
+    >
+      <span className="arc-card-glow" aria-hidden="true" />
+      <div className="arc-card-top">
+        <span className="arc-mark">
+          <Mark slug={f.markOf} />
+        </span>
+        <span className="arc-chips">
+          <span className="arc-chip arc-chip--modes">{modes.length}모드</span>
+          <span className="arc-chip">{f.layer}</span>
+        </span>
+      </div>
+      <div className="arc-card-body">
+        <h3 id={`arc-fam-${f.key}`} className="arc-name">
+          {f.name}
+        </h3>
+        <p className="arc-tag">{f.tagline}</p>
+      </div>
+      <ul className="arc-modes">
+        {modes.map((m) => (
+          <li key={m.slug}>
+            <Link href={gamePlayHref(m.slug, { from: '/arcade' })} className="arc-mode">
+              <span className="arc-mode-name">{m.modeLabel ?? m.name}</span>
+              {m.modeNote && <span className="arc-mode-note">{m.modeNote}</span>}
+              <span className="arc-arrow" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <div className="arc-card-foot">
+        <span className="arc-ref">{f.ref}</span>
+      </div>
+    </div>
+  );
+}
+
+function moodVars(m: GameEntry['mood']): CSSProperties {
+  return {
+    ['--m-a']: m.a,
+    ['--m-b']: m.b,
+    ['--m-glow']: m.glow,
+    ['--m-accent']: m.accent,
+  } as CSSProperties;
 }
 
 function Mark({ slug }: { slug: GameEntry['slug'] }) {
@@ -445,6 +515,24 @@ const ARC_CSS = `
     color: rgba(255,255,255,.92); background: rgba(0,0,0,.20); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
   .arc-chip--3d { color: #EAF6FF; background: rgba(120,190,255,.24); border-color: rgba(180,220,255,.36); }
   .arc-chip--beta { color: #FFE7C2; background: rgba(255,180,110,.22); border-color: rgba(255,200,150,.36); }
+  .arc-chip--modes { color: var(--m-accent); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.3); }
+
+  /* ── 계열 카드 — 같은 인출, 다른 재미. 카드는 컨테이너, 모드 칩이 링크 ── */
+  .arc-card--family { cursor: default; grid-column: span 2; min-height: 208px; }
+  .arc-card--family:hover { transform: none; box-shadow: 0 22px 48px -22px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.18); }
+  @media (max-width: 560px) { .arc-card--family { grid-column: span 1; } }
+  .arc-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+  @media (max-width: 560px) { .arc-modes { grid-template-columns: 1fr; } }
+  .arc-mode { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: 12px; text-decoration: none;
+    background: rgba(0,0,0,.20); border: 1px solid rgba(255,255,255,.16); color: #fff;
+    transition: background-color .2s var(--ease, ease), border-color .2s var(--ease, ease), transform .2s var(--ease, ease); }
+  .arc-mode:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.34); transform: translateX(2px); }
+  .arc-mode:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,.6); }
+  .arc-mode-name { font-size: 13px; font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
+  .arc-mode-note { flex: 1; min-width: 0; font-size: 11px; line-height: 1.3; color: rgba(255,255,255,.7); word-break: keep-all; }
+  .arc-mode .arc-arrow { font-size: 12px; color: var(--m-accent); }
+  .arc-mode:hover .arc-arrow { transform: translateX(3px); }
+  @media (prefers-reduced-motion: reduce) { .arc-mode { transition: none; } }
 
   .arc-card-body { margin-top: auto; }
   .arc-name { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: -.01em; color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.28); }
