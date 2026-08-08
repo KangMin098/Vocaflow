@@ -4,9 +4,11 @@
 // pod id: --pod <id> · env RUNPOD_POD_ID · 또는 .runpod-pod 파일.
 //
 // Usage:
+//   node scripts/comic/runpod/pod.mjs list                 # 전체 pod(과금 없음)
 //   node scripts/comic/runpod/pod.mjs status [--pod <id>]
-//   node scripts/comic/runpod/pod.mjs stop   [--pod <id>]
-//   node scripts/comic/runpod/pod.mjs start  [--pod <id>]
+//   node scripts/comic/runpod/pod.mjs start  [--pod <id>]   # 기동(과금) + .comfy-url 저장
+//   node scripts/comic/runpod/pod.mjs url    [--pod <id>]   # 8188 프록시 URL → .comfy-url
+//   node scripts/comic/runpod/pod.mjs stop   [--pod <id>]   # 정지(과금 중단)
 import fs from "fs";
 import path from "path";
 
@@ -16,12 +18,28 @@ const readMaybe = (p) => { try { return fs.readFileSync(p, "utf8").trim(); } cat
 
 const KEY = (process.env.RUNPOD_API_KEY || readMaybe(path.join(HERE, ".runpod-key"))).trim();
 if (!KEY) { console.error("no RunPod key — set env RUNPOD_API_KEY or write scripts/comic/runpod/.runpod-key"); process.exit(3); }
-const POD = String(arg("pod", process.env.RUNPOD_POD_ID || readMaybe(path.join(HERE, ".runpod-pod")))).trim();
-if (!POD) { console.error("no pod id — pass --pod <id> or set RUNPOD_POD_ID / .runpod-pod"); process.exit(3); }
 const action = (process.argv[2] || "status").toLowerCase();
 
 const BASE = "https://rest.runpod.io/v1";
 const H = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };
+// ComfyUI 프록시 URL 은 pod id 로 결정적: https://<id>-8188.proxy.runpod.net. 기동/조회 시 .comfy-url 로 저장해
+// gen-comfy/gen-flux2 가 그대로 소비. ai-dock 포털 로그인(1111)은 gen-comfy 가 --user/--pass 로 처리.
+const COMFY_URL_FILE = path.join(HERE, "..", ".comfy-url");
+const comfyUrl = (id) => `https://${id}-8188.proxy.runpod.net`;
+const saveComfyUrl = (id) => { const u = comfyUrl(id); fs.writeFileSync(COMFY_URL_FILE, u + "\n"); return u; };
+
+// list: pod id 불필요 (전체 조회, read-only)
+if (action === "list") {
+  const r = await fetch(`${BASE}/pods`, { headers: H, signal: AbortSignal.timeout(25000) });
+  if (!r.ok) { console.error(`list ${r.status}: ${(await r.text()).slice(0, 200)}`); process.exit(1); }
+  const raw = await r.json(); const pods = Array.isArray(raw) ? raw : (raw.pods || []);
+  for (const p of pods) console.log(`${p.desiredStatus === "RUNNING" ? "▶" : "■"} ${p.id}  ${(p.name || "").padEnd(18)} ${p.desiredStatus.padEnd(8)} ${(p.machine?.gpuDisplayName || p.gpuCount + "×GPU")} $${p.costPerHr}/h  ${p.desiredStatus === "RUNNING" ? comfyUrl(p.id) : ""}`);
+  console.log(`총 ${pods.length} pod${pods.some((p) => p.desiredStatus === "RUNNING") ? "" : " · RUNNING 없음(start 필요, 과금)"}`);
+  process.exit(0);
+}
+
+const POD = String(arg("pod", process.env.RUNPOD_POD_ID || readMaybe(path.join(HERE, ".runpod-pod")))).trim();
+if (!POD) { console.error("no pod id — pass --pod <id> or set RUNPOD_POD_ID / .runpod-pod"); process.exit(3); }
 
 async function get() {
   const r = await fetch(`${BASE}/pods/${POD}`, { headers: H, signal: AbortSignal.timeout(25000) });
@@ -55,6 +73,9 @@ try {
     await post("stop"); await new Promise((z) => setTimeout(z, 2500)); console.log("stopped →", line(await get()));
   } else if (action === "start") {
     await post("start"); await new Promise((z) => setTimeout(z, 2500)); console.log("started →", line(await get()));
+    const u = saveComfyUrl(POD); console.log(`ComfyUI URL → ${u}  (.comfy-url 저장 · 기동 30~90s 후 도달)`);
+  } else if (action === "url") {
+    const u = saveComfyUrl(POD); console.log(`${u}  (.comfy-url 저장)`);
   } else if (action === "wait") {
     const p = await waitRunning(POD); console.log(p ? "RUNNING → " + line(p) : "timeout(아직 RUNNING 아님)"); process.exit(p ? 0 : 1);
   } else if (action === "terminate") {
@@ -71,6 +92,6 @@ try {
     const p = await waitRunning(np.id); console.log(p ? "RUNNING → " + line(p) : "생성됐으나 아직 RUNNING 대기 중 — node pod.mjs wait");
     process.exit(p ? 0 : 1);
   } else {
-    console.error(`unknown action "${action}" (status|stop|start|wait|new|terminate)`); process.exit(2);
+    console.error(`unknown action "${action}" (list|status|start|stop|wait|url|new|terminate)`); process.exit(2);
   }
 } catch (e) { console.error("✗", e.message); process.exit(1); }

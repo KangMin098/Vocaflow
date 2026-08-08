@@ -96,3 +96,6 @@ scripts/comic/.dashscope-token
 scripts/comic/runpod/.runpod-key
 scripts/comic/.comfy-url
 scripts/comic/runpod/.runpod-pod
+
+scripts/comic/.comfy-user
+scripts/comic/.comfy-pass

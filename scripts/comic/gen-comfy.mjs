@@ -39,8 +39,11 @@ if (!COMFY) { console.error("No ComfyUI URL. Set env COMFY_URL or --comfy <tunne
 //     cookie (same signing secret across ports), and send it as a Cookie header to 8188.
 // Creds: --user/--pass, COMFY_USER/COMFY_PASS, or URL userinfo. Portal URL is auto-derived by
 // swapping the -<port>- proxy segment to -1111- (override with --login-url / COMFY_LOGIN_URL).
-let CRED_USER = arg("user", process.env.COMFY_USER || "");
-let CRED_PASS = arg("pass", process.env.COMFY_PASS || "");
+// ai-dock 포털 로그인 자격증명. 우선순위: --user/--pass > env COMFY_USER/PASS > URL userinfo >
+// gitignored 파일(scripts/comic/.comfy-user / .comfy-pass) — pod 마다 반복 입력 없이 자가호스트 연결 고정.
+const credFile = (n) => { try { return fs.readFileSync(path.join(HERE, n), "utf8").trim(); } catch { return ""; } };
+let CRED_USER = arg("user", process.env.COMFY_USER || credFile(".comfy-user"));
+let CRED_PASS = arg("pass", process.env.COMFY_PASS || credFile(".comfy-pass"));
 try {
   const u = new URL(COMFY);
   if (u.username) { CRED_USER = CRED_USER || decodeURIComponent(u.username); CRED_PASS = CRED_PASS || decodeURIComponent(u.password); u.username = ""; u.password = ""; COMFY = u.toString().replace(/\/$/, ""); }

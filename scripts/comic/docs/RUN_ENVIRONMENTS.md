@@ -13,6 +13,29 @@
 
 > **핵심**: Kaggle도 ComfyUI를 띄우고 **cloudflared 터널로 공개 URL**을 만들면 RunPod과 **동일한 `gen-*.mjs`가 그대로** 동작(COMFY_URL만 교체). 즉 자가호스트 두 환경이 드롭인 호환.
 
+## 연결 환경(계정) — `node scripts/comic/connect-check.mjs`
+
+세 연결(Kaggle · RunPod · ComfyUI)을 **read-only(과금 없음)** 로 한 번에 점검. 자격증명이 준비되면 즉시 ✓.
+**Python 불필요** — 이 환경은 Python 미설치(전부 Node REST 클라이언트). MCP: Supabase 만 `.mcp.json` 구성(토큰 필요),
+Kaggle/RunPod 공식 MCP 는 없어 **Node 클라이언트가 통합 계층**(`pod.mjs` · `connect-check.mjs`).
+
+| 연결 | 자격증명 위치(gitignored) | 발급 | 상태 확인 |
+|---|---|---|---|
+| **RunPod** | `scripts/comic/runpod/.runpod-key` · env `RUNPOD_API_KEY` | runpod.io → Settings → API Keys | `pod.mjs list` |
+| **Kaggle** | `~/.kaggle/kaggle.json` · env `KAGGLE_USERNAME`+`KAGGLE_KEY` | kaggle.com → Settings → API → **Create New Token** | connect-check |
+| **ComfyUI 포털** | `scripts/comic/.comfy-user` · `.comfy-pass` · env `COMFY_USER/PASS` | ai-dock pod 생성 시 지정 | gen-comfy 자동 로그인 |
+| **ComfyUI URL** | `scripts/comic/.comfy-url` (pod.mjs 가 자동 저장) | pod 기동/터널 | connect-check |
+
+### RunPod 기동(과금 — 확인 후)
+프로비저닝된 pod 3개(ai-dock ComfyUI, 공유 모델 볼륨 `napges0q7i`, $0.74/hr)가 정지 상태로 대기.
+**볼륨 단일 연결** → 한 번에 1개만 실행.
+```bash
+node scripts/comic/runpod/pod.mjs list                       # 전체(과금 없음)
+node scripts/comic/runpod/pod.mjs start --pod <id>           # 기동(과금) + .comfy-url 자동 저장
+node scripts/comic/runpod/pod.mjs stop  --pod <id>           # 정지(과금 중단) — 작업 끝나면 필수
+```
+기동 후 `connect-check` 로 ComfyUI ✓ 확인 → 오케스트레이터 `--run`.
+
 ## 모델 → 러너 매핑 (`scripts/comic/model-runners.mjs`)
 
 각 러너는 `adapter`(계약 종류) + argv 조립(`buildRunnerArgs`)을 소유 — 오케스트레이터는 조립만 호출.
