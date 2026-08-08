@@ -110,6 +110,7 @@ const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
 const cast = script.cast || [];
 // R19: 도서 레벨에 맞춘 아트 레지스터 + 레벨-상대 NEG. --vlevel 로 강제 가능.
 const VLEVEL = arg("vlevel") != null ? Number(arg("vlevel")) : (script.adaptation?.target_v_level ?? 6);
+const FORMAT = arg("format") || null; // 구성 방식(포맷) → 컷 종횡비(웹툰=세로 / 페이지=그리드 / 그래픽노블=시네마틱)
 const NEG_L = negForLevel(VLEVEL, STYLE_OBJ);
 console.error(`art register: ${(STYLE_OBJ && STYLE_OBJ.register) || styleForLevel(VLEVEL).register} (V-Level ${VLEVEL} +약간상향)${STYLE_OBJ ? " · 선택 스타일 주입" : ""}`);
 const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
@@ -219,7 +220,7 @@ async function genPanel(p) {
   const ids = WF_EDIT ? allIds.filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`))) : allIds;
   const chars = ids.map((id) => byId[id]).filter(Boolean);
   const noref = useNoref(p, ids.length, { forceNoref: has("noref") || !WF_EDIT, autoNoref: AUTO_NOREF });
-  const d = panelDims(p);
+  const d = panelDims(p, FORMAT);
   let text = panelPromptText(p, chars, { noref, vlevel: VLEVEL, style: STYLE_OBJ });
   if (HINTS[p.n]) { text += ` IMPORTANT CORRECTION (fix this specifically): ${HINTS[p.n]}.`; console.error(`  ↳ P${p.n} correction: ${HINTS[p.n]}`); }
   let wf, mode;

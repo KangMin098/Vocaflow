@@ -69,7 +69,7 @@ export function resolveRunner(backend) {
  * wfEdit 는 wfEditEnvs 로 환경 게이팅(예: edit 모델 미프로비저닝 Kaggle 에선 t2i-only).
  */
 export function buildRunnerArgs(runner, ctx) {
-  const { script, outDir, env, panels, comfy, vlevel, styleInk, styleNeg, styleName } = ctx
+  const { script, outDir, env, panels, comfy, vlevel, styleInk, styleNeg, styleName, styleFormat } = ctx
   const a = ['--script', script, '--out', outDir]
   if (runner.adapter === 'comfy') {
     if (!runner.wfGen) throw new Error(`${runner.key} 러너 워크플로(wfGen) 미정의 — wf/*.api.json 추가 필요`)
@@ -80,6 +80,7 @@ export function buildRunnerArgs(runner, ctx) {
     // 선택 화풍: DB comic_styles art_prompt/negative_prompt 를 ink/negExtra 로 직접 주입.
     if (styleInk) { a.push('--style-ink', styleInk); if (styleNeg) a.push('--style-neg', styleNeg) }
     if (styleName) a.push('--style', styleName)
+    if (styleFormat) a.push('--format', styleFormat) // 구성 방식 → 컷 종횡비
   } else if (runner.adapter === 'flux2') {
     // gen-flux2 는 인라인 프리셋만(gonick/webtoon) — DB 임의 스타일 키는 gonick 로 폴백(오작동 방지).
     a.push('--style', ['gonick', 'webtoon'].includes(styleName) ? styleName : 'gonick')

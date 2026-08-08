@@ -66,8 +66,21 @@ export const GONICK = { register: "gonick",
 // half/third = 3:4, floored so panels stay crisp at phone full-width. Reference sheets use
 // the full (landscape) tier.
 export const SIZES = { full: { w: 1024, h: 768 }, half: { w: 704, h: 939 }, third: { w: 640, h: 853 } };
-export function panelDims(p) {
-  const role = p.size && SIZES[p.size] ? p.size : (p.wide ? "full" : "half");
+// 구성 방식(포맷)이 컷 종횡비를 결정한다 — 웹툰/만화(스크롤)은 세로 고정(가로 splash 금지, 세로 즉독),
+// 만화/코믹(페이지)은 그리드(가로 splash + 세로 컷 혼합), 그래픽노블은 시네마틱 대형.
+export const SCROLL_SIZES = { tall: { w: 832, h: 1216 }, splash: { w: 1024, h: 1024 } };
+export const CINEMA_SIZES = { full: { w: 1152, h: 768 }, half: { w: 768, h: 1024 } };
+const SCROLL_FORMATS = new Set(["webtoon", "manhwa-page"]);
+export function panelDims(p, format) {
+  if (SCROLL_FORMATS.has(format)) { // 세로 스크롤: 항상 세로 — 넓은 컷도 정사각 splash(가로 금지)
+    const role = (p.wide || p.size === "full") ? "splash" : "tall";
+    return { ...SCROLL_SIZES[role], role: `wtn-${role}` };
+  }
+  if (format === "graphic-novel") { // 시네마틱: 넓은 컷=대형 가로, 그 외 세로
+    const role = (p.wide || p.size === "full") ? "full" : "half";
+    return { ...CINEMA_SIZES[role], role: `gn-${role}` };
+  }
+  const role = p.size && SIZES[p.size] ? p.size : (p.wide ? "full" : "half"); // 페이지 그리드(만화/코믹): 기존
   return { ...SIZES[role], role };
 }
 

@@ -93,15 +93,15 @@ if (MODE === 'pull') {
 }
 
 // ── 스타일 해석(DB) ──
-let STYLE_OBJ = null, styleLabel = 'level-default'
+let STYLE_OBJ = null, styleLabel = 'level-default', FORMAT = null
 if (STYLE_KEY) {
   const named = { gonick: GONICK, webtoon: WEBTOON, realistic: REALISTIC }
   if (named[STYLE_KEY]) { STYLE_OBJ = named[STYLE_KEY]; styleLabel = STYLE_KEY }
   else if (DB) {
-    const { data: st } = await DB.from('comic_styles').select('key,name,art_prompt,negative_prompt').eq('key', STYLE_KEY).maybeSingle()
+    const { data: st } = await DB.from('comic_styles').select('key,name,format,art_prompt,negative_prompt').eq('key', STYLE_KEY).maybeSingle()
     if (!st) { console.error(`✗ 스타일 없음: ${STYLE_KEY}`); process.exit(1) }
     STYLE_OBJ = { register: st.key, ink: st.art_prompt, negExtra: st.negative_prompt || styleForLevel(6).negExtra }
-    styleLabel = `${st.name} (${st.key})`
+    styleLabel = `${st.name} (${st.key})`; FORMAT = st.format
   } else { console.error('✗ 스타일 조회 불가(Supabase env 없음) — 명명 프리셋만 가능'); process.exit(1) }
 }
 
@@ -130,7 +130,7 @@ for (const n of PANELS) {
   const p = panelById[n]; if (!p) { console.error(`! 컷 ${n} 없음 — skip`); continue }
   const ids = (p.characters || []).filter((id) => byId[id])
   const chars = ids.map((id) => byId[id])
-  const d = panelDims(p)
+  const d = panelDims(p, FORMAT)
   const text = panelPromptText(p, chars, { noref: true, vlevel: VLEVEL, style: STYLE_OBJ })
   manifest.push({ n, wf: fill(text, d.w, d.h) })
 }
@@ -145,7 +145,12 @@ os.makedirs('/kaggle/working/out', exist_ok=True)
 COMFY='/kaggle/tmp/ComfyUI'; os.makedirs('/kaggle/tmp', exist_ok=True)
 def sh(*a, **k): return subprocess.run(list(a), **k)
 if not os.path.isdir(COMFY):
-    sh('git','clone','--depth','1','https://github.com/comfyanonymous/ComfyUI', COMFY)
+    sh('git','clone','https://github.com/comfyanonymous/ComfyUI', COMFY)
+    # Kaggle 프리인스톨 comfy_kitchen(torch>=2.7의 list[int] custom_op 요구)은 P100-호환 torch(<=2.6)와
+    # 상충(교집합 없음). comfy_kitchen 의존 도입 이전 ComfyUI 로 고정 — Qwen-Image+GGUF 존재, comfy_kitchen 미사용.
+    _sha=subprocess.run(['git','-C',COMFY,'rev-list','-1','--before=2025-11-01','HEAD'],capture_output=True,text=True).stdout.strip()
+    if _sha:
+        sh('git','-C',COMFY,'checkout',_sha); print('ComfyUI pinned', _sha[:10], flush=True)
 if not os.path.isdir(COMFY+'/custom_nodes/ComfyUI-GGUF'):
     sh('git','clone','--depth','1','https://github.com/city96/ComfyUI-GGUF', COMFY+'/custom_nodes/ComfyUI-GGUF')
 # torch 버전 스퀴즈: (a) P100(sm_60)은 torch<=2.6 필요(2.10+cu128이 sm_60 드롭) (b) Kaggle 프리인스톨

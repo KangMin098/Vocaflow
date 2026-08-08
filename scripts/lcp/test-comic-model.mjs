@@ -71,7 +71,7 @@ let runnerArgs
 try {
   runnerArgs = buildRunnerArgs(runner, {
     script: adapted, outDir, env: ENV, panels: PANELS, comfy: ENV !== 'api' ? comfy : null, vlevel,
-    styleInk: style?.art_prompt || null, styleNeg: style?.negative_prompt || null, styleName: style?.key || null,
+    styleInk: style?.art_prompt || null, styleNeg: style?.negative_prompt || null, styleName: style?.key || null, styleFormat: style?.format || null,
   })
 } catch (e) {
   console.error(`✗ ${e.message}`); await db.from('comic_gen_runs').update({ status: 'failed', error: e.message }).eq('id', runRow.id); process.exit(1)
