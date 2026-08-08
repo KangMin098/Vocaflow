@@ -43,6 +43,7 @@
 
 - **세로 스크롤 몰입 모드(P2)** — 리더 상단에 **Page↔Scroll 토글**(Rows3/Square·뷰 localStorage 영속). Scroll = 전 컷 세로 스택(웹툰형) + IntersectionObserver로 현재 컷 추적(레일·카운터·aria-live) + 스크롤 시 크롬 자동숨김 + 레일 dot 탭 scrollIntoView. 뷰 통합 nav()로 키보드/푸터/레일 공용, `renderPanel` 추출로 두 모드 공용. reduced-motion 대응.
 - **정본 회상 보상 루프(P2)** — verbatim blur→reveal 후 **"기억했어요 / 다시 볼게요"** 자가판정(Desirable Difficulty) + 세션 회상 집계 → 완독 화면 "정본 대사 N개를 기억했어요"(자기효능감·폭죽 없음). Emotional Encoding.
+- **Admin 검수 품질(P3)** — 검수 그리드 **썸네일**(Supabase 이미지 변환 `render/image ?width=320` · 변환 미지원 시 원본 onError 폴백) → 90 full-res 로드 회피. **생성 중 실시간 진행**(queued/generating 시 5s 자동 갱신 · router.refresh).
 - **Admin 순차 작업 가이드** — `/admin/comic` Catalog "작업 순서"(① 큐 적재 → ② 드레인 생성 → ③ 검수 → ④ 발행) + 검수 콘솔 단계별 "이 단계에서 할 일" 문구.
 - **맥락 속 어휘 학습(P2)** — 리더 `학습 단어` 칩 실동작: 정본 대사에서 `lookup_word_meaning`(RPC)로 레벨 검증한 학습가치 단어(v≥5)를 컷별 target_vocab에 배정(Carol 17컷·23단어 · humbug/haunt/toll/ignorance…). 칩 탭 → 팝오버에 **실제 뜻(meaning_ko)·품사·CEFR·예문 인라인** + **단어장 추가**(`addWordToVault` 서버액션, 멱등). Context-Dependent + Dual Coding 실현(기존 뜻 조회/추가 자산 재사용, 마이그레이션 무).
 

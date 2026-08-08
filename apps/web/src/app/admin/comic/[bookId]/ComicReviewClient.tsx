@@ -3,7 +3,7 @@
 
 'use client'
 
-import { useMemo, useState, useTransition, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -20,7 +20,7 @@ const STAGE_FLOW: ComicStage[] = ['queued', 'generating', 'review', 'published']
 const STAGE_HINT: Record<ComicStage, string> = {
   none: '아직 만화가 없습니다. Comic Pipeline(Catalog)에서 이 도서를 "만화 생성 큐"에 적재하세요.',
   queued: 'Claude Code 드레인으로 컷을 생성하세요 — node scripts/lcp/generate-comic.mjs plan → content → insert. 완료 후 새로고침.',
-  generating: '생성이 진행 중입니다. 새로고침으로 진행(패널 수)을 확인하세요.',
+  generating: '생성이 진행 중입니다. 진행(패널 수)이 자동으로 갱신됩니다.',
   review: '컷과 QC(정본 불일치·규칙 위반)를 확인하세요. 이상 없으면 [게시 →], 문제가 있으면 [보완]으로 재생성 큐에 되돌립니다.',
   published: '학습자에게 노출 중입니다. 내용을 고치려면 [회수(검수로)] 후 [보완], 잠시 숨기려면 [보관]하세요.',
   archived: '보관된 만화입니다. [복원(검수)]으로 검수 상태로 되돌린 뒤 다시 발행할 수 있습니다.',
@@ -34,10 +34,24 @@ const STAGE_META: Record<ComicStage, { label: string; tone: string }> = {
   archived: { label: '보관', tone: 'var(--t3)' },
 }
 
+// 검수 그리드 썸네일 — Supabase 이미지 변환(90 full-res 로드 회피). 변환 미지원 시 원본 폴백(onError).
+function thumb(url: string): string {
+  if (!url.includes('/storage/v1/object/public/')) return url
+  const t = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
+  return `${t}${t.includes('?') ? '&' : '?'}width=320&quality=60&resize=contain`
+}
+
 export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
   const router = useRouter()
   const [pending, start] = useTransition()
   const [msg, setMsg] = useState<string | null>(null)
+
+  // 생성 중 실시간 진행 — 5s마다 서버 데이터 갱신(패널 수/단계)
+  useEffect(() => {
+    if (detail.stage !== 'generating' && detail.stage !== 'queued') return
+    const id = setInterval(() => router.refresh(), 5000)
+    return () => clearInterval(id)
+  }, [detail.stage, router])
 
   const { bookId, title, author, bookStatus, vLevel, header, job, pages, stage } = detail
   const qc = (header?.qc_verdict ?? {}) as {
@@ -274,9 +288,10 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
                   <div className="relative bg-[var(--bg2)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={p.image_url}
+                      src={thumb(p.image_url)}
                       alt={`컷 ${p.page_order}`}
                       loading="lazy"
+                      onError={(e) => { const el = e.currentTarget; if (el.src !== p.image_url) el.src = p.image_url }}
                       className="aspect-[3/4] w-full object-cover"
                     />
                     <span className="absolute left-1.5 top-1.5 rounded-[var(--r-sm)] bg-black/60 px-1.5 py-0.5 font-mono text-[10px] font-[700] text-white">
