@@ -1,65 +1,91 @@
-Vocaflow Arcade — Background Music Credits
-==========================================
+Vocaflow Arcade — Audio Credits
+===============================
 
-All tracks by Kevin MacLeod (incompetech.com).
-Licensed under Creative Commons: By Attribution 3.0 (CC-BY 3.0)
-http://creativecommons.org/licenses/by/3.0/
+BACKGROUND MUSIC
+----------------
+All tracks by Scott Buckley (www.scottbuckley.com.au).
+Licensed under Creative Commons Attribution 4.0 International (CC-BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
 
-Source: https://incompetech.com/music/royalty-free/mp3-royaltyfree/
-Processed for Vocaflow: ~110s loop segment taken past the intro, 3s fade in /
-5s fade out, EBU R128 loudness-normalised to -16 LUFS (TP -1.5 dBTP) for a
-consistent level across games, re-encoded to 128 kbps 44.1 kHz stereo MP3.
-No melodic content altered.
+Attribution is also surfaced in-app on the /arcade page footer.
 
-v07.5 — CHIPTUNE REPLACED
--------------------------
-The previous set leaned on 8-bit square-wave tracks (8bit Dungeon Level,
-Bit Quest, Bit Shift, Awesome Call ...). They read as thin "PC beep" music and
-clashed with the weight of a study space. Every game now has its own
-orchestral / cinematic / ambient track — no track is reused.
+Processed for Vocaflow (no melodic content altered):
+  · A 116 s window is chosen automatically from each original — intro (first
+    15%) and outro (last 8%) excluded, then the window scoring highest on
+    "loud but steady" (mean RMS − 0.6 × SD of the per-second envelope).
+  · That window is rebuilt as a SEAMLESS 110 s loop:
+        out = concat( acrossfade(tail 6 s, head 6 s), body 98 s )
+    Both join points (body→tail, head→body) are original, uncut continuity,
+    so the loop has no hole and no click. The previous build faded 3 s in /
+    5 s out, which punched an 8-second gap into the music every 110 seconds.
+  · EBU R128 loudness-normalised to -16 LUFS (TP -1.5 dBTP) so no game is
+    louder than another, then encoded to VBR MP3 (-q:a 5), 44.1 kHz stereo.
+
+v07.6 — KEVIN MACLEOD REPLACED BY SCOTT BUCKLEY
+-----------------------------------------------
+The previous set (Kevin MacLeod, CC-BY 3.0) was itself a fix for an 8-bit
+chiptune set. It was still sample-library orchestral and read as thin next to
+the weight the arcade is going for. Scott Buckley's library is live-feel
+cinematic scoring — the "Interstellar" register the product actually wanted.
 
 Per-game track mapping (19 games, 19 distinct tracks):
 
   -- 속사 인출 계열 (blitz family) --
-  wordblitz          "Prelude and Action"   — 장중한 오케스트라 추진
-  ghost-race         "Rising Tide"          — 고조되는 질주
-  word-economy       "Movement Proposition" — 전략적 진행
-  daily-blitz        "Heroic Age"           — 매일의 영웅적 시작
+  wordblitz          "Escape Velocity"              — 가속하는 추진
+  ghost-race         "Juggernaut"                   — 멈추지 않는 추격
+  word-economy       "Shoulders of Giants"          — 축적되는 전략
+  daily-blitz        "Hymn to the Dawn"             — 하루의 시작
 
   -- 내 단어로 플레이 --
-  cascade            "Deep Haze"            — 흐르는 물결·낙하
-  wordfall-cadence   "Long Note Four"       — 지속음 (청각 집중)
-  letter-forge       "Thunderbird"          — 대장간의 타격
-  wordsmith-vigil    "Volatile Reaction"    — 밤샘 전투의 긴장
-  morphmerge         "Mystic Force"         — 결합의 신비
+  cascade            "Cirrus"                       — 흐르는 낙하
+  wordfall-cadence   "Permafrost"                   — 지속음 (청각 집중)
+  letter-forge       "Song of the Forge"            — 대장간의 타격
+  wordsmith-vigil    "Hour of the Witch"            — 밤샘 전투의 긴장
+  morphmerge         "Incantation"                  — 결합의 주문
 
   -- 큐레이션 세계 --
-  connections        "Impact Andante"       — 사색적 시네마틱
-  glyph-tongue       "Ossuary 6 - Air"      — 고대 석실의 정적
-  word-customs       "Interloper"           — 심문의 압박
-  morpheme-rules     "Echoes of Time v2"    — 규칙과 시간
-  silent-rule        "Lightless Dawn"       — 명상적 귀납
-  lexicon-hands      "Ibn Al-Noor"          — 시너지의 고조
-  lexicon-detective  "Anguish"              — 사건의 무게
-  lexicon-estate     "Shores of Avalon"     — 저택·의미장 탐험
-  word-orrery        "Immersed"             — 심우주 몰입
-  pirate-quest       "Achaidh Cheide"       — 켈틱 항해
+  connections        "Reverie"                      — 사색
+  glyph-tongue       "Memories of Stone"            — 고대 석실의 정적
+  word-customs       "Shadows and Dust"             — 심문의 압박
+  morpheme-rules     "Passage of Time"              — 규칙과 시간
+  silent-rule        "Clear Skies"                  — 명상적 귀납
+  lexicon-hands      "Effervescence"                — 시너지의 고조
+  lexicon-detective  "Penumbra"                     — 사건의 그늘
+  lexicon-estate     "Age of Wonder"                — 저택·의미장 탐험
+  word-orrery        "Adrift Among Infinite Stars"  — 심우주 몰입
+  pirate-quest       "The Great Sea"                — 대양 항해
 
-All of the above: by Kevin MacLeod (incompetech.com), CC-BY 3.0.
-Attribution is also surfaced in-app on the /arcade page footer.
+All of the above: by Scott Buckley (www.scottbuckley.com.au), CC-BY 4.0.
 
 
-Sound Effects (public/audio/sfx/)
-=================================
+SOUND EFFECTS
+-------------
+Source: Mixkit (mixkit.co) — Mixkit Free Sound Effects License.
+Free for commercial and non-commercial use, no attribution required;
+redistribution as a standalone sound library is not permitted (we embed only).
 
-Kenney (kenney.nl) — "Interface Sounds" and "Music Jingles" packs.
-License: Creative Commons Zero (CC0 1.0 Universal) — public domain.
-https://creativecommons.org/publicdomain/zero/1.0/
-No attribution required (credit to Kenney is optional and given here as courtesy).
+v07.6 — KENNEY SYNTH BLIPS REPLACED BY RECORDED SOURCES
+--------------------------------------------------------
+Measured (FFT, see the analysis notes below) on the outgoing Kenney set:
+all six files were MONO, carried 0–0.6% of their energy above 8 kHz, and two
+of them (correct, complete) had a spectral flatness of 0.0000. Those are
+band-limited synthesised tones — the "just computer sounds" complaint was
+literally correct. Every replacement is a stereo recording with inharmonic
+partials, a natural decay and real high-frequency air.
 
-  correct.wav   confirmation_001  (Interface Sounds, CC0)
-  wrong.wav     error_002         (Interface Sounds, CC0)
-  combo.wav     maximize_003      (Interface Sounds, CC0)
-  click.wav     click_001         (Interface Sounds, CC0)
-  coin.wav      pluck_001         (Interface Sounds, CC0)
-  complete.ogg  jingles_pizzi_1   (Music Jingles, CC0)
+  correct   ← "Achievement bell"              0.65 s  peak -3 dBFS
+  wrong     ← "Wood hard hit"                 0.30 s  peak -8 dBFS
+  combo     ← "Fairy arcade sparkle"          0.95 s  peak -6 dBFS
+  click     ← "Typewriter soft click"         0.15 s  peak -9 dBFS
+  coin      ← "Clinking coins"                0.45 s  peak -6 dBFS
+  complete  ← "Orchestra triumphant trumpets" 2.80 s  peak -3 dBFS
+
+Processing: trimmed to the window shown (chosen off a 0.1 s-resolution RMS
+envelope so no attack is clipped and no tail is cut mid-decay), 8 ms fade in
+against click noise, fade out over the last 0.1–0.9 s, then two-pass peak
+normalisation to the target above. Peak targets encode the intended hierarchy
+(완주 > 정답 > 코인·콤보 > 오답 > 클릭); the per-call gains in gamekit's
+useSfx sit on top of them.
+
+wrong is a wooden knock rather than a buzzer on purpose — Empathetic
+Feedback (CLAUDE.md 디자인 철학 3): 오답에 비난조를 싣지 않는다.

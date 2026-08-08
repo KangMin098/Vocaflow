@@ -63,9 +63,15 @@ export function pickDistinct<T>(pool: T[], n: number, exclude: (t: T) => boolean
   return shuffle(pool.filter((x) => !exclude(x))).slice(0, n);
 }
 
-// ─── SFX (큐레이션 CC0 샘플 · public/audio/sfx/ · Kenney CC0 1.0, 무저작권) ───
+// ─── SFX (실녹음 샘플 · public/audio/sfx/ · Mixkit 무료 라이선스) ───────────
 // 실제 효과음 샘플을 Web Audio 버퍼로 저지연 재생(합성 아님). 로드 전/실패 시에만
 // 합성 tone 폴백으로 무음 방지. 콤보는 playbackRate로 상승감. mute 지원.
+//
+// v07.6 — Kenney "Interface Sounds" 를 걷어냈다. FFT 실측으로 6종 전부 모노 ·
+// 8 kHz 이상 에너지 0~0.6% · correct/complete 는 스펙트럴 평탄도 0.0000 —
+// 대역제한 합성음이라 "그냥 컴퓨터 소리" 라는 지적이 수치로도 맞았다.
+// 교체본(벨·나무 타격·동전·타자기·금관 합주)은 전부 스테레오 실녹음이고
+// 비조화 부분음·자연 감쇠·고역 공기감을 갖는다. 상세는 games/CREDITS.txt.
 const SFX_SRC = {
   correct: "/audio/sfx/correct.wav",
   wrong: "/audio/sfx/wrong.wav",
@@ -199,11 +205,17 @@ export function useSfx() {
 }
 
 // ─── BGM (큐레이션 실제 트랙 · public/audio/games/) ───────────────────────
-// 게임 무드에 맞춘 로열티프리 루프(Kevin MacLeod · incompetech.com · CC-BY 3.0 ·
-// 크레딧: public/audio/games/CREDITS.txt · 아케이드 푸터 표기). 90초 세그먼트 +
-// 페이드로 경량화(~1MB). 합성음이 아니라 실제 음원. 기본 OFF(연구: 개인차 큼 +
-// 언어학습 특성상 무가사·저자극) · localStorage 기억 · 페이드 인/아웃 · SFX/TTS 시
-// 살짝 덕킹 · 자동재생 차단 시 다음 제스처에 시작. 파일 없으면 hasTrack=false(무해).
+// 게임 무드에 맞춘 시네마틱 오케스트라 루프(Scott Buckley · scottbuckley.com.au ·
+// CC-BY 4.0 · 크레딧: public/audio/games/CREDITS.txt · 아케이드 푸터 표기).
+//
+// v07.6 — 곡을 110초 **심리스 루프**로 굽는다: 꼬리 6초를 머리 6초에 크로스페이드해
+// 이어붙여, 반복 지점이 원곡 그대로의 연결이 되게 했다. 이전 빌드는 3초 페이드인 /
+// 5초 페이드아웃이라 110초마다 8초짜리 무음 구멍이 생겼다(그래서 "음악이 없다"고
+// 느끼기 쉬웠다). 트랙 간 음량은 -16 LUFS 로 통일.
+//
+// 기본 OFF(연구: 개인차 큼 + 언어학습 특성상 무가사·저자극) · localStorage 기억 ·
+// 페이드 인/아웃 · SFX/TTS 시 살짝 덕킹 · 자동재생 차단 시 다음 제스처에 시작.
+// 파일 없으면 hasTrack=false(무해).
 // 트랙 매핑은 lib/game/catalog 의 `music` 필드 단일 출처 — 여기 복제본이 따로 있던 시절
 // 독립 3D 2종(wordblitz·pirate-quest)이 이 표에서 빠져 영영 무음이었다.
 const MUSIC_VOL = 0.3;

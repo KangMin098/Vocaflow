@@ -10,6 +10,18 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 오디오 v07.6 — 실제 시네마틱 음원 + 실녹음 효과음 (마이그레이션 없음)
+
+- **BGM 19곡 전면 교체 — Kevin MacLeod(CC-BY 3.0) → Scott Buckley(CC-BY 4.0)**. 직전 세트는 8비트 칩튠을 걷어낸 결과물이었지만 여전히 샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었다. 교체본은 라이브 감각의 시네마틱 스코어(`word-orrery` = *Adrift Among Infinite Stars*, `wordblitz` = *Escape Velocity*, `pirate-quest` = *The Great Sea* …). 게임 19종 × 서로 다른 19곡, 중복 없음.
+- **루프가 심리스가 됐다** — 이전 빌드는 3초 페이드인 / 5초 페이드아웃이라 **110초마다 8초짜리 무음 구멍**이 생겼다. 지금은 꼬리 6초를 머리 6초에 크로스페이드해 잇는다: `concat( acrossfade(tail, head), body )`. 두 이음매(body→tail, head→body)가 모두 원곡 그대로의 연결이라 구멍도 클릭도 없다.
+- ⚠️ **빌드 함정(회귀 spec 으로 고정)**: 한 입력을 `asplit=3` 으로 쪼개 `atrim` 셋을 물리면 `acrossfade` 가 빈 스트림을 받아 **크로스페이드 구간이 통째로 사라진다**(결과가 110초가 아니라 body 만 104초). head/tail/body 를 각각 별도 `-i` 로 열어야 한다. 파일은 멀쩡히 200 을 주므로 육안으로는 안 잡힌다.
+- 구간 선정은 자동 — 인트로(앞 15%)·아웃트로(뒤 8%)를 뺀 뒤 초당 RMS 포락선에서 `평균 − 0.6×표준편차`가 최대인 116초 창(= 웅장하되 흔들리지 않는 구간). 전 곡 -16 LUFS / TP -1.5 dBTP 통일, VBR MP3(-q:a 5), 총 31.7 MB.
+- **효과음 6종 교체 — Kenney "Interface Sounds"(CC0) → Mixkit 실녹음**. FFT 실측으로 기존 세트는 **6종 전부 모노 · 8 kHz 이상 에너지 0~0.6% · `correct`/`complete` 는 스펙트럴 평탄도 0.0000** — 대역제한 합성음이었다("그냥 컴퓨터 소리"라는 지적이 수치로도 맞았다). 교체본은 전부 스테레오 실녹음이고 비조화 부분음·자연 감쇠·고역 공기감을 갖는다: `correct`=실제 벨 0.65s / `wrong`=나무 타격 0.30s / `combo`=반짝임 0.95s / `click`=타자기 타건 0.15s / `coin`=실제 동전 0.45s / `complete`=금관 합주 2.8s. 총 494 KB. `wrong` 을 버저가 아닌 나무 타격으로 둔 건 Empathetic Feedback(오답에 비난조 금지).
+- 코드 변경 없음 — `SFX_SRC` 확장자 매핑(`complete` 만 `.ogg`)을 그대로 유지. `useSfx` 의 호출별 게인 위계도 그대로(피크 목표가 완주 > 정답 > 코인·콤보 > 오답 > 클릭 순으로 이미 설계됨).
+- 표기 갱신 — `public/audio/games/CREDITS.txt` 전면 재작성 · `/arcade` 푸터 "Scott Buckley · CC-BY 4.0 · 효과음: Mixkit".
+- **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 게임에서 배경음악 토글 시 해당 mp3 를 실제로 요청하는지(재생 경로 전체). `tsc --noEmit` 클린.
+- ℹ️ 배경음악 기본값은 계속 **OFF** — spec C 가 "토글 전에는 트랙을 내려받지 않음"까지 단언한다. 즉 처음 들어온 학습자는 좌하단 "배경음악" 버튼을 누르기 전에는 음악을 듣지 못한다(의도된 Calm UI · 자동재생 정책).
+
 ### 만화 = `/library` 탭 → **사이드바 최상위 메뉴** `/comics` (사용자 결정 2026-08-09)
 
 - `LibraryTabs` 4탭 → **3탭 복귀**(도서/스크립트/공용 단어장). 만화는 사이드바 Scripts 그룹의 `Comics` 항목으로 승격 — `(main)/library/comics/**` → `(main)/comics/**` 이동.

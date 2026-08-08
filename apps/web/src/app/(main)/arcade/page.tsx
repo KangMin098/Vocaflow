@@ -142,10 +142,15 @@ export default async function ArcadePage() {
           아무 것도 지정하지 않으면 “내 단어로 플레이”는 복습 큐를, “큐레이션 세계”는 내장 콘텐츠를 씁니다.
         </p>
         <p className="arc-credit">
-          배경음악: Kevin MacLeod (incompetech.com) ·{' '}
-          <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">
-            CC-BY 3.0
-          </a>
+          배경음악:{' '}
+          <a href="https://www.scottbuckley.com.au/" target="_blank" rel="noopener noreferrer">
+            Scott Buckley
+          </a>{' '}
+          ·{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
+            CC-BY 4.0
+          </a>{' '}
+          · 효과음: Mixkit
         </p>
       </div>
     </div>
