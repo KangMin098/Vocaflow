@@ -315,11 +315,29 @@ PD 만화는 **독립 콘텐츠로 먼저 매력적이고, 그다음 원작으�
 
 ---
 
-## 8. 스키마 (승인 대기)
+## 8. 스키마 ✅ dev 적용 완료 (2026-08-09)
 
-`scripts/comic/pd/migration.sql` — `pd_comic_issues` / `pd_comic_panels` 독립 테이블,
-RLS(발행본만 read), 학습자 RPC 3종, 그리고 **발행 게이트 DB 제약**.
-CLAUDE.md 규칙에 따라 **승인 전 적용하지 않는다**.
+`supabase/migrations/20260809020000_pdcp_public_domain_comics.sql` —
+`pd_comic_issues` / `pd_comic_panels` 독립 테이블, RLS(발행본만 read), 학습자 RPC 3종,
+`updated_at` 트리거(기존 `set_updated_at()` 규약 재사용), 그리고 **발행 게이트 DB 제약**.
+
+### 게이트 실증 — 적용 직후 6종 검증
+
+| 시나리오 | 결과 |
+|---|---|
+| PD 근거 없이 `status='published'` INSERT | **차단** (check_violation) |
+| 근거·검증자·검증시각·출처URL 갖춘 INSERT | 통과 |
+| 발행본에서 `pd_basis` 를 NULL 로 UPDATE | **차단** |
+| `list_pd_comics()` — 미발행 호 | 0건 |
+| `select_pd_comic()` — 미발행 호 | 0건 |
+| `select_pd_comic_provenance()` — 미발행 호 | 0건 |
+
+세 번째 줄이 특히 중요하다. 발행 후에 근거만 지우는 경로까지 막아야 게이트가 의미를 갖는다.
+
+**앱 관통 확인**: `/comics/restored` 가 발행본만 노출하고 초안(`review` 상태)은 안 보인다.
+리더는 출처 푸터(원작·연도·아카이브 링크·"저작권 만료")까지 정상 렌더.
+
+> ⚠️ 검증에 쓴 시드 행(`gate-test-*`)은 전부 삭제했다 — 현재 `pd_comic_issues` 0행.
 
 ---
 
@@ -334,6 +352,6 @@ CLAUDE.md 규칙에 따라 **승인 전 적용하지 않는다**.
 | §4 컷 분할 | ⚠️ 구현 · 스토리 페이지 5/4/3컷 정상 · 캡션이 거터 가로지르면 병합 |
 | §5 대사 추출(hOCR) | ⚠️ 구현 · 24% · 천장 확인 |
 | §5-B 컷 직접 OCR | ✅ 구현 · **33% · 비라틴 −92%** (A안 검증) |
-| §6 Admin 독립 큐 | ❌ 미구현 |
-| §7 학습자 독립 면 | ❌ 미구현 |
-| §8 스키마 | 작성 완료 · **승인 대기** |
+| §6 Admin 독립 큐 | ✅ /admin/pd-comics (단계 카운트·stepper·근거 경고) |
+| §7 학습자 독립 면 | ✅ /comics/restored 서가 + [slug] 리더 (출처 푸터) |
+| §8 스키마 | ✅ **dev 적용 완료** · 게이트 6종 실증 |

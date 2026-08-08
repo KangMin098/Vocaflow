@@ -1,7 +1,7 @@
--- scripts/comic/pd/migration.sql
+-- supabase/migrations/20260809020000_pdcp_public_domain_comics.sql
 --
 -- PDCP — 퍼블릭 도메인 스캔 만화. **CCP(AI 생성)와 완전히 분리된 독립 스키마.**
--- ⚠️ 사용자 승인 전 적용 금지 (CLAUDE.md). 승인 시 supabase/migrations/ 로 옮겨 apply_migration.
+-- ✅ 사용자 승인 후 dev 적용 완료 (2026-08-09) — apply_migration: pdcp_public_domain_comics
 --
 -- ── 왜 comic_books/comic_pages 를 확장하지 않고 분리하는가 ──────────────────
 -- 처음엔 `source_kind` 판별 컬럼을 붙여 한 테이블에 담으려 했으나, 두 소재의 성질이
@@ -109,6 +109,17 @@ create index if not exists pd_panels_issue_order_idx
 create index if not exists pd_issues_status_idx on public.pd_comic_issues (status);
 create index if not exists pd_issues_book_idx on public.pd_comic_issues (library_book_id)
   where library_book_id is not null;
+
+-- ── updated_at 트리거 (comic_books/comic_pages 와 동일 규약) ─────────
+drop trigger if exists trg_pd_comic_issues_updated on public.pd_comic_issues;
+create trigger trg_pd_comic_issues_updated
+  before update on public.pd_comic_issues
+  for each row execute function public.set_updated_at();
+
+drop trigger if exists trg_pd_comic_panels_updated on public.pd_comic_panels;
+create trigger trg_pd_comic_panels_updated
+  before update on public.pd_comic_panels
+  for each row execute function public.set_updated_at();
 
 -- ═══════════════════════════════════════════════════════════════════
 -- 3. RLS — 학습자는 발행본만, 쓰기는 admin 만
