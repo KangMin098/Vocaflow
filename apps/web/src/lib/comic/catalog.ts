@@ -1,6 +1,6 @@
 // apps/web/src/lib/comic/catalog.ts
 //
-// CCP 학습자 카탈로그 조회 — /library/books 히어로 · /library/comics 탭 · 만화 상세의 단일 출처.
+// CCP 학습자 카탈로그 조회 — /library/books 히어로 · /comics 탭 · 만화 상세의 단일 출처.
 //
 // 조회 경로 2단 (마이그레이션 적용 여부에 무관하게 동작):
 //   ① list_comic_catalog (P1 · 20260808240000) — RPC 안에서 첫 컷 커버까지 뽑고 feature_rank 로 큐레이션 정렬.

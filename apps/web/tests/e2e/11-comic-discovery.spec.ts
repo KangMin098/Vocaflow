@@ -2,7 +2,7 @@
 // CCP 발견 회귀 — 만화가 /library 에서 학습자가 고를 수 있는 포맷으로 노출되는지.
 //   설계: docs/CCP_LIBRARY_INTEGRATION.md (P0 — 탭 · 포맷 facet · 배지 · 카드 진입)
 //   ① /library 4탭에 '만화' 가 있고 탭 이동이 동작한다
-//   ② /library/comics 카탈로그가 렌더되고 각 카드가 유효한 진입 경로를 갖는다
+//   ② /comics 카탈로그가 렌더되고 각 카드가 유효한 진입 경로를 갖는다
 //   ③ 도서 탐색의 '포맷' 구획에서 만화 보유 도서로 결과를 좁힐 수 있다
 // 카탈로그가 비어 있으면(발행 만화 0) 빈 상태를 단언하고 종료 — 콘텐츠 의존 false-fail 방지.
 import { test, expect, type Page } from '@playwright/test';
@@ -48,7 +48,7 @@ function fatalErrors(errors: string[]): string[] {
   );
 }
 
-test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () => {
+test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
   test.beforeAll(async ({ browser }) => {
     const page = await browser.newPage({ storageState: undefined });
     await loginRuntimeUser(page);
@@ -57,7 +57,7 @@ test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () =
   });
   test.use({ storageState: STATE_PATH });
 
-  test('라이브러리 탭에 만화가 있고, 카탈로그 카드가 유효한 진입 경로를 갖는다', async ({
+  test('사이드바 만화 메뉴로 들어가고, 카탈로그 카드가 유효한 진입 경로를 갖는다', async ({
     page,
   }) => {
     test.setTimeout(90_000);
@@ -65,19 +65,21 @@ test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () =
 
     await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 30_000 });
 
-    // ① 탭 — 도서/만화/스크립트/공용 단어장 4개
+    // ① 만화는 /library 하위 탭이 아니라 사이드바 최상위 메뉴다(2026-08-09 결정)
     const tabs = page.getByRole('tablist', { name: '라이브러리 탭' });
     await expect(tabs).toBeVisible({ timeout: 15_000 });
-    const comicTab = tabs.getByRole('tab', { name: '만화' });
-    await expect(comicTab).toBeVisible();
+    await expect(tabs.getByRole('tab', { name: '만화' })).toHaveCount(0);
 
-    await comicTab.click();
-    await page.waitForURL(/\/library\/comics/, { timeout: 20_000 });
+    // 사이드바 루트는 <aside aria-label="주 메뉴"> → 암묵 role 은 complementary(navigation 아님)
+    const sidebar = page.getByRole('complementary', { name: '주 메뉴' });
+    const comicMenu = sidebar.getByRole('link', { name: /^만화/ });
+    await expect(comicMenu).toBeVisible({ timeout: 15_000 });
+
+    await comicMenu.click();
+    await page.waitForURL(/\/comics$/, { timeout: 20_000 });
     await expect(page.getByRole('heading', { name: '만화', level: 1 })).toBeVisible({
       timeout: 15_000,
     });
-    // 활성 탭 표시(aria-selected) — 색상 단독 전달 금지 원칙의 접근성 계약
-    await expect(tabs.getByRole('tab', { name: '만화' })).toHaveAttribute('aria-selected', 'true');
 
     // ② 카탈로그
     const all = page.getByRole('region', { name: '전체 만화' });
@@ -94,7 +96,7 @@ test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () =
       // 카드 진입 경로 — 등록: /text/[id]/comic · 미등록: 만화 상세(프리뷰 + 등록 흐름)
       const firstLink = cards.first().getByRole('link').first();
       const href = await firstLink.getAttribute('href');
-      expect(href, `card href: ${href}`).toMatch(/^\/(text\/[^/]+\/comic|library\/comics\/[^/]+)$/);
+      expect(href, `card href: ${href}`).toMatch(/^\/(text\/[^/]+\/comic|comics\/book\/[^/]+)$/);
       console.log(`[comic] 카탈로그 ${count}편 · 첫 카드 → ${href}`);
     }
 
@@ -145,14 +147,14 @@ test.describe('CCP 발견 — 라이브러리 만화 탭 · 포맷 필터', () =
   test('만화 상세 — 미등록 학습자에게 프리뷰 + 포맷 선택(등록 유도)이 뜬다', async ({ page }) => {
     test.setTimeout(90_000);
 
-    await page.goto('/library/comics', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    const detailLink = page.locator('a[href^="/library/comics/"]').first();
+    await page.goto('/comics', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    const detailLink = page.locator('a[href^="/comics/book/"]').first();
     if (!(await detailLink.isVisible().catch(() => false))) {
       console.log('[comic] 미등록 만화 없음(전부 등록됨 또는 카탈로그 0) — 종료');
       return;
     }
     await detailLink.click();
-    await page.waitForURL(/\/library\/comics\/[0-9a-f-]{36}/, { timeout: 20_000 });
+    await page.waitForURL(/\/comics\/book\/[0-9a-f-]{36}/, { timeout: 20_000 });
 
     // 프리뷰 — 서버 하드캡(≤5)을 넘지 않는다
     const preview = page.getByRole('region', { name: '만화 미리보기' });
@@ -183,8 +185,8 @@ test.describe('CCP 발견 — 비로그인 유입 경로', () => {
   test('비로그인도 만화 프리뷰를 보고, 시작은 로그인으로 유도된다', async ({ page }) => {
     test.setTimeout(90_000);
 
-    await page.goto('/library/comics', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    const detailLink = page.locator('a[href^="/library/comics/"]').first();
+    await page.goto('/comics', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    const detailLink = page.locator('a[href^="/comics/book/"]').first();
     if (!(await detailLink.isVisible().catch(() => false))) {
       console.log('[comic] 비로그인 카탈로그 비어 있음 — 종료');
       return;
@@ -202,6 +204,6 @@ test.describe('CCP 발견 — 비로그인 유입 경로', () => {
     const loginLink = choice.getByRole('link', { name: /만화로 먼저/ });
     await expect(loginLink).toBeVisible();
     const loginHref = await loginLink.getAttribute('href');
-    expect(loginHref, `login href: ${loginHref}`).toMatch(/^\/login\?next=%2Flibrary%2Fcomics%2F/);
+    expect(loginHref, `login href: ${loginHref}`).toMatch(/^\/login\?next=%2Fcomics%2Fbook%2F/);
   });
 });

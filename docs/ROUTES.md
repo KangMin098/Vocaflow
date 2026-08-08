@@ -50,8 +50,8 @@
 | `/library` | `(main)/library/page.tsx` + `layout.tsx` | redirect → `/library/books` |
 | `/library/books` | `(main)/library/books/page.tsx` | 도서 그리드 (BooksExplorer) |
 | `/library/books/[bookId]` | `(main)/library/books/[bookId]/page.tsx` | 도서 상세 |
-| `/library/comics` | `(main)/library/comics/page.tsx` | 만화 탭 (CCP) — 발행 만화 카탈로그 + 이어서 보기 (ComicsBrowser) |
-| `/library/comics/[bookId]` | `(main)/library/comics/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
+| `/comics` | `(main)/comics/page.tsx` | **만화 (CCP) — 사이드바 최상위 메뉴**. 발행 만화 카탈로그 + 이어서 보기 (ComicsBrowser) |
+| `/comics/book/[bookId]` | `(main)/comics/book/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
 | `/library/vocab` | `(main)/library/vocab/page.tsx` | 공용 단어장 (8 카테고리) |
 | `/library/scripts` | `(main)/library/scripts/page.tsx` | redirect → `/library/books` (v06.34) |
 | `/library/scripts/[bookId]` | `(main)/library/scripts/[bookId]/page.tsx` | redirect → `/library/books/[bookId]` |
@@ -248,7 +248,7 @@
 | `app/(marketing)/layout.tsx` | 랜딩 |
 | `app/(main)/layout.tsx` | Sidebar + FlowNav + SessionFrame 자동 주입 |
 | `app/(main)/dashboard/layout.tsx` | metadata server layout (page.tsx 가 'use client') |
-| `app/(main)/library/layout.tsx` | LibraryTabs (4탭 — 도서/만화/스크립트/공용 단어장) + max-w-wide |
+| `app/(main)/library/layout.tsx` | LibraryTabs (3탭 — 도서/스크립트/공용 단어장) + max-w-wide. 만화는 최상위 `/comics` 로 분리(2026-08-09) |
 | `app/(main)/my/layout.tsx` | 내 자산 wrapper |
 | `app/(main)/text/[id]/layout.tsx` | 워크스페이스 RSC — v_text_content fetch + chapter context (library_book_id / user_book_group_id 분기) |
 | `app/(app)/layout.tsx` | 풀스크린 게임 (WordBlitz / Pirate Quest) — SessionFrame 자동 주입 |

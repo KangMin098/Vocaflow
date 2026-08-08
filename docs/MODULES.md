@@ -455,12 +455,13 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 라우트
 - `/text/[id]/comic` — ModePills input 그룹 "만화" 진입 (라이브러리 도서 + 발행 만화 존재 시). 없으면 EmptyState.
-- `/library/comics` — 만화 탭(발견). 카탈로그 + 이어서 보기(`comic_read_progress`). 등록 도서면 리더 직행, 미등록이면 만화 상세로.
-- `/library/comics/[bookId]` — 만화 상세. **미등록·비로그인도 프리뷰 3컷 열람**(아트만 — 정본 대사/vocab 은 리더 자산) + 포맷 선택. 시작 시 `enroll_library_book`(멱등) 후 리더 직행.
+- `/comics` — **만화 메뉴**(사이드바 Scripts 그룹 최상위 · `/library` 하위 탭 아님). 카탈로그 + 이어서 보기(`comic_read_progress`). 등록 도서면 리더 직행, 미등록이면 만화 상세로.
+- `/comics/book/[bookId]` — 만화 상세. **미등록·비로그인도 프리뷰 3컷 열람**(아트만 — 정본 대사/vocab 은 리더 자산) + 포맷 선택. 시작 시 `enroll_library_book`(멱등) 후 리더 직행.
+  - `book/` 세그먼트를 낀 이유: 같은 레벨에 PDCP(복원 만화)의 `/comics/[slug]` 가 있어 동적 세그먼트 이름 충돌(Next.js 빌드 실패)을 피해야 한다.
 
 ### 발견 (v07 CCP × Library — `docs/CCP_LIBRARY_INTEGRATION.md`)
 만화는 **별도 콘텐츠가 아니라 같은 책(Work)의 다른 표현형(Expression)** — 데이터는 `library_books` 앵커, 탐색 UI 만 독립 코너화.
-- **탭**: LibraryTabs 4탭(도서/만화/스크립트/공용 단어장). 만화 액센트 = gold `--active`.
+- **메뉴**: 사이드바 Scripts 그룹의 `Comics`(최상위). 2026-08-09 사용자 결정으로 LibraryTabs 4번째 탭에서 승격 — `/library` 탭은 3탭(도서/스크립트/공용 단어장)으로 복귀. 만화 액센트 = gold `--active`.
 - **포맷 facet**: 장르 축과 직교. `BookFilterBar` "포맷" 구획(만화/원어민 음성) + QuickPick "만화로" + `BookGridCard` 배지(아이콘+sr-only).
 - **선택**: `NetflixDetailSheet` 도서 상세에 gold 보조 CTA(만화로 읽기 / 만화 미리보기) + 만화 상세의 `ComicFormatChoice`(만화/원문/듣기 3카드, **권장 1개만** "지금 추천").
 - **처방**: `lib/comic/prescribe.ts` — 이어보기 > 복습 > 난이도 > 미진단 순. 적정 난이도(ideal)에선 **본문을 권장**(만화는 스캐폴드).

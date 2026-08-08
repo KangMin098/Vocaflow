@@ -1,8 +1,9 @@
-// apps/web/src/app/(main)/library/comics/page.tsx
+// apps/web/src/app/(main)/comics/page.tsx
 //
-// /library/comics — 만화 탭 (라이브러리 4번째 입구).
+// /comics — 만화 (사이드바 Scripts 그룹의 최상위 메뉴).
 // 설계: docs/CCP_LIBRARY_INTEGRATION.md — 만화는 새 장르가 아니라 "같은 책의 다른 표현형(Expression)"이라
 // 데이터는 library_books 에 앵커된 채, 탐색 UI 에서만 독립 코너로 제시한다.
+// 위치는 /library 하위 탭 → 최상위 메뉴로 승격(사용자 결정 2026-08-09). 데이터 축은 그대로.
 //
 // 진도(comic_read_progress)와 등록(texts)은 축이 다르다:
 //   · 등록 = 부모 도서 등록 여부 → 리더 라우트(/text/[id]/comic) 진입 가능 여부
@@ -100,7 +101,7 @@ export default async function LibraryComicsPage() {
     // 프리뷰 + 포맷 선택(등록 후 진입)을 거친다 (설계서 D4).
     const href = e
       ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
-      : `/library/comics/${c.bookId}`
+      : `/comics/book/${c.bookId}`
 
     const ctaLabel = !e
       ? '만화 미리보기'

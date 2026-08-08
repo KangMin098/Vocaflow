@@ -229,7 +229,7 @@ export default async function LibraryBooksPage() {
   }
 
   // ── 만화 (CCP) — 카탈로그 1회로 히어로 + 도서 카드 포맷 배지를 함께 처리 ──
-  //   조회는 lib/comic/catalog.ts 단일 출처(만화 탭 /library/comics 와 공유).
+  //   조회는 lib/comic/catalog.ts 단일 출처(만화 탭 /comics 와 공유).
   //   히어로 route 분기: 등록 → /text/[textId]/comic · 미등록 → 도서 상세(등록 흐름)
   //   커버는 실제로 그려지는 히어로 N개만 (커버 1장 = 전권 payload — lib/comic/catalog.ts 주석 참조)
   const comicCatalog = await fetchComicCatalog(client, { coverLimit: HERO_N });
@@ -242,7 +242,7 @@ export default async function LibraryBooksPage() {
       vLevel: c.vLevel,
       panelsTotal: c.panelsTotal,
       coverArt: c.coverArt,
-      href: e ? `/text/${e.resumeTextId ?? e.firstTextId}/comic` : `/library/comics/${c.bookId}`,
+      href: e ? `/text/${e.resumeTextId ?? e.firstTextId}/comic` : `/comics/book/${c.bookId}`,
       enrolled: !!e,
     };
   });
@@ -285,7 +285,7 @@ export default async function LibraryBooksPage() {
         has_comic: true,
         comic_href: e
           ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
-          : `/library/comics/${b.id}`,
+          : `/comics/book/${b.id}`,
         comic_progress_pct: cp?.pct ?? 0,
         comic_completed: cp?.completed ?? false,
       };

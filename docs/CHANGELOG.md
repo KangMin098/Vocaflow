@@ -10,6 +10,14 @@
 
 ## Unreleased (v06.34 → next)
 
+### 만화 = `/library` 탭 → **사이드바 최상위 메뉴** `/comics` (사용자 결정 2026-08-09)
+
+- `LibraryTabs` 4탭 → **3탭 복귀**(도서/스크립트/공용 단어장). 만화는 사이드바 Scripts 그룹의 `Comics` 항목으로 승격 — `(main)/library/comics/**` → `(main)/comics/**` 이동.
+- **데이터 축은 불변**: 만화는 여전히 `library_books` 앵커(D1)이고, 도서 카드의 만화 배지·포맷 필터·상세 시트 gold CTA 는 `/library` 에 그대로 남는다. 입구만 밖으로 나왔다.
+- ⚠️ **병행 세션(PDCP)과의 라우트 충돌 해소**: 같은 시간 다른 세션이 퍼블릭도메인 복원 만화용으로 `(main)/comics/[slug]` 와 `(main)/library/comics` 를 만들고 있었다. `[bookId]`/`[slug]` 형제 동적 세그먼트는 **Next.js 빌드가 깨지는** 조합이라 CCP 상세를 `/comics/book/[bookId]` 로 한 단계 내렸다. 사이드바에 `Comics` 라벨이 둘이던 것도 PDCP 쪽을 `Restored` 로 분리(해당 세션이 이후 `/restored` 로 이동).
+- 검증: `tsc --noEmit` 클린(이동 후 `.next/types` 스테일 정리 포함) · e2e 11-comic 4/4(사이드바 진입 · 카드 href 계약 `/comics/book/…` · 프리뷰 · 로그인 유도 `next=%2Fcomics%2Fbook%2F`) · 04-ui-smoke 5/5.
+- ⚠️ 구 경로 `/library/comics` 는 CCP 쪽 리다이렉트를 두지 않았다 — 그 자리를 PDCP 가 쓰고 있었기 때문(현재는 `/restored` 로 이동 중).
+
 ### CCP × Library P2 — 만화가 단어장·발행 체계에 정합으로 편입됐다 (마이그레이션 없음)
 
 - **발행 조건 단일화 — `lib/library/publish-gate.ts` 신설**: "학습자에게 무엇이 보이는가"가 화면마다 흩어져(도서 3조건 / 아티클 2조건 / 만화 RPC 내부) 한 곳만 고치면 조용히 어긋나던 것을 묶었다. **카탈로그 게이트(published_at 요구) ≠ 열람 게이트(status만)** 라는 사실도 의도로 문서화 — 만화 RPC 기준과 맞춘 것. 설계서의 `v_library_catalog` 뷰는 **P3 로 연기**: 소비자(통합 홈)가 없는 지금 뷰만 추가하면 아무도 안 쓰는 정의가 하나 더 늘 뿐이라, 실제 쿼리 지점을 먼저 묶는 쪽을 택했다(설계서 검토 로그에 반영).

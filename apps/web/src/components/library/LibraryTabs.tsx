@@ -1,20 +1,20 @@
 // apps/web/src/components/library/LibraryTabs.tsx
 //
-// /library 하위 4탭 네비게이션 — 도서 / 만화 / 스크립트 / 공용 단어장.
+// /library 하위 3탭 네비게이션 — 도서 / 스크립트 / 공용 단어장.
 // 스크립트 = ACP(/admin/articles) 게시 아티클(짧은 글) 학습.
-// 만화(v07) = 도서의 다른 표현형(Expression) — 별도 콘텐츠가 아니라 같은 책의 다른 입구.
-//   탭은 '입구' 축, 데이터는 도서에 앵커된 포맷 facet (docs/CCP_LIBRARY_INTEGRATION.md D1·D2).
+// 만화(v07)는 여기 탭이 아니라 **사이드바 최상위 메뉴 `/comics`** 로 분리(사용자 결정 2026-08-09).
+//   데이터는 여전히 도서에 앵커된 포맷(Expression)이고, 도서 카드의 만화 배지/포맷 필터는 유지된다.
+//   (docs/CCP_LIBRARY_INTEGRATION.md D1·D2)
 // usePathname 기반 활성 표현, 보라(#8B5CF6) 일관.
 
 'use client'
 
-import { BookImage, BookOpen, FileText, Layers } from 'lucide-react'
+import { BookOpen, FileText, Layers } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const TABS = [
   { label: '도서', href: '/library/books', icon: BookOpen },
-  { label: '만화', href: '/library/comics', icon: BookImage },
   { label: '스크립트', href: '/library/scripts', icon: FileText },
   { label: '공용 단어장', href: '/library/vocab', icon: Layers },
 ] as const
@@ -26,7 +26,7 @@ export function LibraryTabs() {
     <nav
       role="tablist"
       aria-label="라이브러리 탭"
-      // 4탭 — 390px 에서 가로 스크롤 폴백(라벨 줄바꿈/찌그러짐 방지)
+      // 390px 에서 가로 스크롤 폴백(라벨 줄바꿈/찌그러짐 방지)
       className="flex gap-1 overflow-x-auto border-b border-[var(--bd)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {TABS.map((tab) => {

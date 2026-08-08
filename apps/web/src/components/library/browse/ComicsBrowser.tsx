@@ -1,6 +1,6 @@
 // apps/web/src/components/library/browse/ComicsBrowser.tsx
 //
-// /library/comics 탐색 오케스트레이터 — 만화(도서의 포맷) 카탈로그.
+// /comics 탐색 오케스트레이터 — 만화(도서의 포맷) 카탈로그.
 //   ① 이어서 보기 레인 (comic_read_progress 진행분)
 //   ② 전체 그리드 + 레벨 밴드 필터 (facet-adaptive — 실재 밴드만 칩 노출)
 // 설계: docs/CCP_LIBRARY_INTEGRATION.md §8.1. BooksExplorer 의 구조(레인 → 필터 → 그리드)를
