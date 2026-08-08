@@ -4,7 +4,7 @@
 
 'use client'
 
-import { useMemo, useState, useTransition, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Palette, Plus, ShieldCheck } from 'lucide-react'
@@ -408,6 +408,13 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
   const [env, setEnv] = useState('runpod-4090') // 자가호스트 우선
   const [msg, setMsg] = useState<string | null>(null)
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  // 라이브 모니터링: 진행 중(running/planned) 테스트가 있으면 12초마다 서버 재조회 → 상태·결과 자동 갱신
+  const anyLive = tests.some((t) => t.status === 'running' || t.status === 'planned')
+  useEffect(() => {
+    if (!anyLive) return
+    const id = setInterval(() => router.refresh(), 12000)
+    return () => clearInterval(id)
+  }, [anyLive, router])
   // 선택 제약: 고른 환경에서 실행 가능한 모델만
   const envModels = models.filter((m) => (m.run_envs ?? []).includes(env))
   const pickModel = (key: string) => {
@@ -491,7 +498,17 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
               <div className="flex flex-wrap items-center gap-2">
                 <FlaskConical size={14} style={{ color: ACCENT }} />
                 <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{t.label}</span>
-                <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT, background: 'var(--bg2)' }}>{t.status}</span>
+                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT, background: 'var(--bg2)' }}>
+                  {t.status === 'running' && <Loader2 size={10} className="animate-spin" />}{t.status}
+                </span>
+                {(() => {
+                  const url = (t.params as { kernel_url?: string } | null)?.kernel_url
+                  return typeof url === 'string' ? (
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-0.5 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
+                      <ExternalLink size={11} />모니터링
+                    </a>
+                  ) : null
+                })()}
                 <div className="flex-1" />
                 <span className="font-mono text-[11px] text-[var(--t4)]">{new Date(t.created_at).toLocaleDateString('ko-KR')}</span>
               </div>
@@ -501,6 +518,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                 {t.site && <span>· {t.site}</span>}
                 {t.style && <span className="inline-flex items-center gap-1">· <Palette size={11} />{t.style}</span>}
                 {typeof (t.params as { env?: string } | null)?.env === 'string' && <span>· env {(t.params as { env: string }).env}</span>}
+                {Array.isArray((t.params as { panels?: unknown } | null)?.panels) && <span>· 컷 {((t.params as { panels: number[] }).panels).join(',')}</span>}
               </div>
               {t.result && (
                 <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[12px] text-[var(--t2)]">

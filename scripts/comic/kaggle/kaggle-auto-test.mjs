@@ -38,6 +38,23 @@ const SLUG = `${KUSER.toLowerCase()}/${SLUG_NAME}`
 // status/pull 전용 모드 (push 없이 조회)
 const MODE = has('status') ? 'status' : has('pull') ? 'pull' : 'run'
 
+// Supabase (관측: comic_gen_runs + comic_gen_tests) — 한 번만 생성해 전 경로 공유
+const { createClient } = await import('@supabase/supabase-js')
+const DB = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+  ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } }) : null
+
+// 테스트/런 행 종료 처리 — --pull(별도 프로세스) · --poll(동일 프로세스) 양쪽에서 slug 로 조회해 갱신.
+async function finalizeTest(pass, total, outDir) {
+  if (!DB) return
+  try {
+    const { data: t } = await DB.from('comic_gen_tests').select('id, params').eq('site', 'kaggle').contains('params', { slug: SLUG_NAME }).order('created_at', { ascending: false }).limit(1).maybeSingle()
+    if (t) await DB.from('comic_gen_tests').update({ status: pass > 0 ? 'done' : 'failed', result: { pass, total, sample_dir: outDir, kernel_url: t.params?.kernel_url || null } }).eq('id', t.id)
+    const rid = t?.params?.run_id
+    if (rid) await DB.from('comic_gen_runs').update({ status: pass > 0 ? 'done' : 'failed', panels_done: total, panels_pass: pass, panels_fail: total - pass, finished_at: new Date().toISOString() }).eq('id', rid)
+    if (t) console.error(`  test/run 관측 갱신 → ${pass > 0 ? 'done' : 'failed'}`)
+  } catch (e) { console.error(`  (finalize skip: ${e.message})`) }
+}
+
 async function kget(p) { const r = await fetch(`${KAPI}${p}`, { headers: KH, signal: AbortSignal.timeout(30000) }); return { status: r.status, json: await r.json().catch(() => null), text: null } }
 async function kernelStatus() { const r = await fetch(`${KAPI}/kernels/status?userName=${encodeURIComponent(KUSER)}&kernelSlug=${SLUG_NAME}`, { headers: KH, signal: AbortSignal.timeout(30000) }); return r.json() }
 
@@ -69,6 +86,7 @@ if (MODE === 'pull') {
   const outDir = path.resolve(`out/kaggle-${SLUG_NAME}`)
   const s = await kernelStatus(); console.error(`status: ${s.status}${s.failureMessage ? ' · ' + s.failureMessage : ''}`)
   const { got, total } = await pullOutput(outDir)
+  await finalizeTest(got, PANELS.length, outDir)
   console.error(`\n✓ ${got} 이미지 pull · ${outDir} (총 파일 ${total})`); process.exit(got > 0 ? 0 : 1)
 }
 
@@ -77,10 +95,8 @@ let STYLE_OBJ = null, styleLabel = 'level-default'
 if (STYLE_KEY) {
   const named = { gonick: GONICK, webtoon: WEBTOON, realistic: REALISTIC }
   if (named[STYLE_KEY]) { STYLE_OBJ = named[STYLE_KEY]; styleLabel = STYLE_KEY }
-  else if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    const { createClient } = await import('@supabase/supabase-js')
-    const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
-    const { data: st } = await db.from('comic_styles').select('key,name,art_prompt,negative_prompt').eq('key', STYLE_KEY).maybeSingle()
+  else if (DB) {
+    const { data: st } = await DB.from('comic_styles').select('key,name,art_prompt,negative_prompt').eq('key', STYLE_KEY).maybeSingle()
     if (!st) { console.error(`✗ 스타일 없음: ${STYLE_KEY}`); process.exit(1) }
     STYLE_OBJ = { register: st.key, ink: st.art_prompt, negExtra: st.negative_prompt || styleForLevel(6).negExtra }
     styleLabel = `${st.name} (${st.key})`
@@ -198,13 +214,12 @@ if (has('dry')) {
 }
 
 // ── observability run 기록 ──
+const BOOK_ID = script.library_book_id || '66b084a0-72a1-414a-98ea-3c27308772fc'
 let runId = null
-if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+if (DB) {
   try {
-    const { createClient } = await import('@supabase/supabase-js')
-    const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
-    const { data } = await db.from('comic_gen_runs').insert({
-      library_book_id: script.library_book_id || '66b084a0-72a1-414a-98ea-3c27308772fc',
+    const { data } = await DB.from('comic_gen_runs').insert({
+      library_book_id: BOOK_ID,
       backend: 'qwen-image-edit-2511', model: 'Qwen-Image GGUF Q3 + Lightning', site: 'kaggle-t4', style: STYLE_KEY || null,
       status: 'running', panels_total: manifest.length, panels_done: 0, note: `[Kaggle headless] ${styleLabel} · slug ${SLUG_NAME}`,
     }).select('id').single()
@@ -222,6 +237,19 @@ const pr = await fetch(`${KAPI}/kernels/push`, { method: 'POST', headers: KH, bo
 const pj = await pr.json().catch(() => ({}))
 if (!pr.ok || pj.hasError) { console.error(`✗ push ${pr.status}: ${pj.error || JSON.stringify(pj).slice(0, 200)}`); process.exit(1) }
 console.error(`✓ push OK · ${pj.url} (v${pj.versionNumber})`)
+
+// ── comic_gen_tests 행(테스트 탭 라이브 모니터링) — kernel_url + slug + run 연결 ──
+if (DB) {
+  try {
+    await DB.from('comic_gen_tests').insert({
+      library_book_id: BOOK_ID, label: `[Kaggle] ${path.basename(SCRIPT).replace(/\.adapted\.json$/, '')} · ${styleLabel}`,
+      backend: 'qwen-image-edit-2511', model: 'Qwen-Image GGUF Q3 + Lightning', site: 'kaggle', style: STYLE_KEY || null,
+      status: 'running', params: { env: 'kaggle-t4', slug: SLUG_NAME, kernel_url: pj.url, panels: PANELS, run_id: runId, vlevel: VLEVEL },
+      sample: { panels: PANELS }, note: `headless GPU · ${styleLabel} · 컷 ${PANELS.join(',')}`,
+    })
+    console.error('  test 기록(관리자 → 테스트 탭에서 모니터링) · kernel_url 링크 포함')
+  } catch (e) { console.error(`  (test 기록 skip: ${e.message})`) }
+}
 
 if (!has('poll')) {
   console.error(`\n  진행 확인:  node scripts/comic/kaggle/kaggle-auto-test.mjs --status --slug ${SLUG_NAME}`)
@@ -242,19 +270,11 @@ for (let i = 0; i < 240; i++) { // 최대 ~2h
 }
 console.error('')
 if (!final) { console.error('✗ 폴링 타임아웃 — 나중에 --status/--pull 로 확인'); process.exit(1) }
-if (final.status !== 'complete') { console.error(`✗ 커널 ${final.status}: ${final.failureMessage || ''}`); if (runId) await updateRun(runId, 'failed', 0, final.failureMessage); process.exit(1) }
-
 const outDir = path.resolve(`out/kaggle-${SLUG_NAME}`)
-const { got, total } = await pullOutput(outDir)
-if (runId) await updateRun(runId, got > 0 ? 'done' : 'failed', got)
+if (final.status !== 'complete') { console.error(`✗ 커널 ${final.status}: ${final.failureMessage || ''}`); await finalizeTest(0, manifest.length, outDir); process.exit(1) }
+
+const { got } = await pullOutput(outDir)
+await finalizeTest(got, manifest.length, outDir)
 console.error(`\n✓ 완료 · ${got}/${manifest.length} 이미지 · ${outDir}`)
 console.error('  → Claude Code 가 이미지를 열어 엄격 루브릭(캐릭터/화풍/텍스트-free/정본) 채점')
 process.exit(got > 0 ? 0 : 1)
-
-async function updateRun(id, status, pass, err) {
-  try {
-    const { createClient } = await import('@supabase/supabase-js')
-    const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
-    await db.from('comic_gen_runs').update({ status, panels_done: manifest.length, panels_pass: pass, panels_fail: manifest.length - pass, error: err || null, finished_at: new Date().toISOString() }).eq('id', id)
-  } catch { /* noop */ }
-}
