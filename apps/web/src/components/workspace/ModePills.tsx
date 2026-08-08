@@ -145,6 +145,7 @@ export function ModePills({
                             : undefined
                         }
                       >
+                        {/* 만화 = 킬러 모드: 비활성 시 gold underline 신호(Calm — 폭죽 없음) */}
                         {/* Status dot */}
                         <span
                           aria-hidden
@@ -162,7 +163,15 @@ export function ModePills({
                                 : undefined,
                           }}
                         />
-                        <span>{mode.label}</span>
+                        <span
+                          className={
+                            mode.key === 'comic' && !isActive
+                              ? 'underline decoration-2 underline-offset-4 decoration-[#B0843A]'
+                              : undefined
+                          }
+                        >
+                          {mode.label}
+                        </span>
                       </Link>
                     </span>
                   )
