@@ -13,7 +13,8 @@
 // 커버리지:
 //   A 자산 존재 — 카탈로그 19게임의 BGM + SFX 6종이 전부 200
 //   B 빌드 무결성 — BGM 110초(심리스 루프 구축 성공) · SFX 길이/채널
-//   C 실제 재생 경로 — 게임에서 배경음악 토글 시 그 게임의 mp3 를 실제로 요청하는가
+//   C 기본 ON(v07.6) — 선호 미설정 학습자가 게임 진입만으로 트랙을 받는가,
+//     그리고 명시적 OFF 는 기본값 변경에 덮이지 않고 유지되는가
 import { test, expect, type Page } from '@playwright/test';
 
 const RUNTIME_USER = {
@@ -112,8 +113,11 @@ test.describe('아케이드 오디오 자산', () => {
     }
   });
 
-  test('C · 게임에서 배경음악을 켜면 그 게임의 트랙을 실제로 내려받는다', async ({ page }) => {
+  test('C · 선호 미설정이면 기본 ON — 게임 진입만으로 그 게임의 트랙을 내려받는다', async ({ page }) => {
     await login(page);
+    // 이전 테스트가 남긴 선호를 지워 "처음 온 학습자" 상태를 만든다.
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await page.evaluate(() => localStorage.removeItem('vocaflow-arcade-music'));
 
     const requested: string[] = [];
     page.on('request', (r) => {
@@ -125,14 +129,21 @@ test.describe('아케이드 오디오 자산', () => {
 
     const musicBtn = page.locator('.gk-music-btn');
     await musicBtn.waitFor({ state: 'visible', timeout: 30_000 });
-    // 기본 OFF 이므로 켜기 전에는 트랙을 받지 않는다(불필요한 1.5MB 전송 방지).
-    expect(requested, '토글 전 선다운로드 없음').toHaveLength(0);
-
-    await musicBtn.click(); // 사용자 제스처 = 자동재생 정책 통과
-    await expect(musicBtn).toHaveAttribute('data-on', '1');
-
+    await expect(musicBtn, '미설정 = 기본 ON').toHaveAttribute('data-on', '1');
+    // v07.6 핵심 회귀: 토글을 누르지 않아도 트랙을 받아야 한다.
+    // (기본 OFF 이던 시절에는 여기서 0건이라 아무도 음악을 듣지 못했다.)
     await expect
-      .poll(() => requested.some((p) => p === '/audio/games/word-orrery.mp3'), { timeout: 15_000 })
+      .poll(() => requested.some((p) => p === '/audio/games/word-orrery.mp3'), { timeout: 20_000 })
       .toBe(true);
+
+    // 끄면 꺼진 채로 남는다 — 기본값 변경이 명시적 OFF 를 덮어쓰지 않는다.
+    await musicBtn.click();
+    await expect(musicBtn).toHaveAttribute('data-on', '0');
+    expect(await page.evaluate(() => localStorage.getItem('vocaflow-arcade-music'))).toBe('0');
+
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    const afterReload = page.locator('.gk-music-btn');
+    await afterReload.waitFor({ state: 'visible', timeout: 30_000 });
+    await expect(afterReload, 'OFF 선택 유지').toHaveAttribute('data-on', '0');
   });
 });

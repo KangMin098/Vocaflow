@@ -19,8 +19,9 @@
 - **효과음 6종 교체 — Kenney "Interface Sounds"(CC0) → Mixkit 실녹음**. FFT 실측으로 기존 세트는 **6종 전부 모노 · 8 kHz 이상 에너지 0~0.6% · `correct`/`complete` 는 스펙트럴 평탄도 0.0000** — 대역제한 합성음이었다("그냥 컴퓨터 소리"라는 지적이 수치로도 맞았다). 교체본은 전부 스테레오 실녹음이고 비조화 부분음·자연 감쇠·고역 공기감을 갖는다: `correct`=실제 벨 0.65s / `wrong`=나무 타격 0.30s / `combo`=반짝임 0.95s / `click`=타자기 타건 0.15s / `coin`=실제 동전 0.45s / `complete`=금관 합주 2.8s. 총 494 KB. `wrong` 을 버저가 아닌 나무 타격으로 둔 건 Empathetic Feedback(오답에 비난조 금지).
 - 코드 변경 없음 — `SFX_SRC` 확장자 매핑(`complete` 만 `.ogg`)을 그대로 유지. `useSfx` 의 호출별 게인 위계도 그대로(피크 목표가 완주 > 정답 > 코인·콤보 > 오답 > 클릭 순으로 이미 설계됨).
 - 표기 갱신 — `public/audio/games/CREDITS.txt` 전면 재작성 · `/arcade` 푸터 "Scott Buckley · CC-BY 4.0 · 효과음: Mixkit".
-- **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 게임에서 배경음악 토글 시 해당 mp3 를 실제로 요청하는지(재생 경로 전체). `tsc --noEmit` 클린.
-- ℹ️ 배경음악 기본값은 계속 **OFF** — spec C 가 "토글 전에는 트랙을 내려받지 않음"까지 단언한다. 즉 처음 들어온 학습자는 좌하단 "배경음악" 버튼을 누르기 전에는 음악을 듣지 못한다(의도된 Calm UI · 자동재생 정책).
+- **배경음악 기본값 OFF → ON** (사용자 결정 2026-08-09: "단어 게임은 음악이 중요함"). 기존 OFF 의 근거는 Calm UI 였지만 실측 결과가 Calm 이 아니라 **무음**이었다 — 토글 전에는 트랙을 내려받지도 않아, 시네마틱 BGM 19곡을 붙여놓고도 처음 들어온 학습자는 한 곡도 듣지 못했다. `DEFAULT_MUSIC_ON` + `readMusicOn()` 신설: `readMusicPref()` 는 미설정을 `null` 로 유지하고 실제 판단만 기본값으로 폴백해, **명시적으로 OFF 를 고른 학습자를 기본값 변경이 덮어쓰지 않는다**. `useGameMusic` 은 초기값을 상수로 잡아(하이드레이션 불일치·아이콘 깜빡임 제거) `ready` 게이트 전에는 절대 소리를 내지 않는다.
+- 자동재생 차단 대응에 **`keydown` 추가** — 기존엔 `pointerdown` 만 듣고 있어, 포인터를 안 쓰는 타이핑 게임(wordsmith-vigil·letter-forge 등)은 기본 ON 이어도 영영 무음이 될 참이었다.
+- **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 선호 미설정 학습자가 **토글 없이 게임 진입만으로** 트랙을 받는지 + 명시적 OFF 가 리로드 후에도 유지되는지. 기존 [09-arcade-access.spec.ts](../apps/web/tests/e2e/09-arcade-access.spec.ts) F1 은 기본 ON 기준으로 재작성(허브 토글 → 게임 적용을 끄기/켜기 양방향으로 고정) — F1·F2 2/2 pass.
 
 ### 만화 메뉴 통합 — `Comics` 하나 안에 **Adapted(도서 각색) · Restored(원본 복원)** (사용자 결정 2026-08-09)
 

@@ -361,22 +361,34 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
   });
 
   // ── F. 배경음악 발견성 ───────────────────────────────────────────
-  // BGM 14곡을 붙여놓고도 듣는 사람이 없던 원인은 재생 로직이 아니라 발견성이었다
-  // (기본 OFF + 게임 안 작은 무라벨 아이콘이 유일한 스위치). 허브 토글 → 게임 자동 적용을 고정.
-  test('F1. 허브에서 배경음악을 켜면 게임에 그대로 적용된다', async ({ page }) => {
-    test.setTimeout(90_000);
+  // BGM 을 붙여놓고도 듣는 사람이 없던 원인은 재생 로직이 아니라 발견성이었다
+  // (기본 OFF + 게임 안 작은 무라벨 아이콘이 유일한 스위치). v07.6 에서 기본값을 ON 으로
+  // 뒤집었으므로(사용자 결정 — 단어 게임에 음악이 중요), 허브 알약은 "끄는 길"이기도 하다.
+  // 여기서는 허브 토글 → 게임 자동 적용을 **양방향으로** 고정한다.
+  test('F1. 허브 배경음악 토글이 게임에 그대로 적용된다 (기본 ON · 끄기/켜기 양방향)', async ({ page }) => {
+    test.setTimeout(120_000);
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
     const toggle = page.locator('.arc-meta-music');
     await expect(toggle).toBeVisible({ timeout: 30_000 });
-    // 기본은 꺼짐(자동 재생 안 함 — Calm UI)
-    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-    await expect(toggle).toContainText('끔');
-
-    await toggle.click();
+    // v07.6 — 미설정 학습자의 기본은 켜짐. (자동재생 정책은 gamekit 이 제스처로 처리)
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
     await expect(toggle).toContainText('켬');
 
-    // 게임 진입 — 별도 조작 없이 켜진 상태여야 한다
+    // ① 끄기 → 게임에도 꺼진 채로 전달
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(toggle).toContainText('끔');
+    await page.goto('/play/connections?from=%2Farcade', { waitUntil: 'domcontentloaded' });
+    const offBtn = page.locator('.gk-music-btn');
+    await expect(offBtn).toBeVisible({ timeout: 30_000 });
+    await expect(offBtn).toHaveAttribute('aria-pressed', 'false');
+
+    // ② 다시 켜기 → 게임에서 실제 재생까지
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(toggle).toBeVisible({ timeout: 30_000 });
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+
     await page.goto('/play/connections?from=%2Farcade', { waitUntil: 'domcontentloaded' });
     const btn = page.locator('.gk-music-btn');
     await expect(btn).toBeVisible({ timeout: 30_000 });

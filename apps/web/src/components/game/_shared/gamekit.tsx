@@ -17,7 +17,7 @@ import {
 
 import { getArcadeMeta } from '@/lib/game/arcade-meta';
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog';
-import { readMusicPref, writeMusicPref } from '@/lib/game/music-pref';
+import { DEFAULT_MUSIC_ON, readMusicPref, writeMusicPref } from '@/lib/game/music-pref';
 
 export type Word = {
   en: string;
@@ -213,8 +213,11 @@ export function useSfx() {
 // 5초 페이드아웃이라 110초마다 8초짜리 무음 구멍이 생겼다(그래서 "음악이 없다"고
 // 느끼기 쉬웠다). 트랙 간 음량은 -16 LUFS 로 통일.
 //
-// 기본 OFF(연구: 개인차 큼 + 언어학습 특성상 무가사·저자극) · localStorage 기억 ·
-// 페이드 인/아웃 · SFX/TTS 시 살짝 덕킹 · 자동재생 차단 시 다음 제스처에 시작.
+// 기본 **ON**(v07.6 사용자 결정 — "단어 게임은 음악이 중요함"). 이전 기본 OFF 는
+// Calm UI 근거였지만 결과가 Calm 이 아니라 무음이었다: 토글 전에는 트랙을 내려받지도
+// 않아 19곡을 붙여놓고도 첫 진입 학습자는 한 곡도 듣지 못했다. 상세는 music-pref.ts.
+// localStorage 기억 · 페이드 인/아웃 · SFX/TTS 시 살짝 덕킹 ·
+// 자동재생 차단 시 다음 제스처(pointerdown/keydown)에 시작.
 // 파일 없으면 hasTrack=false(무해).
 // 트랙 매핑은 lib/game/catalog 의 `music` 필드 단일 출처 — 여기 복제본이 따로 있던 시절
 // 독립 3D 2종(wordblitz·pirate-quest)이 이 표에서 빠져 영영 무음이었다.
@@ -234,24 +237,32 @@ function rampVolume(a: HTMLAudioElement, to: number, ms: number, done?: () => vo
 
 export function useGameMusic(gameId: GameSlug) {
   const src = GAME_BY_SLUG[gameId]?.music;
-  const [on, setOn] = useState(false);
+  // 초기값은 localStorage 가 아니라 상수 — 서버·클라이언트가 같은 값을 그려
+  // 하이드레이션 불일치도, 아이콘이 OFF→ON 으로 튀는 깜빡임도 없다.
+  const [on, setOn] = useState(DEFAULT_MUSIC_ON);
   /** 사용자가 아직 한 번도 정하지 않음 → 버튼을 첫 진입에 한해 눈에 띄게(발견성). */
   const [undecided, setUndecided] = useState(false);
+  /** 선호를 읽기 전에는 소리를 내지 않는다 — OFF 를 고른 학습자에게 한 순간도 울리면 안 된다. */
+  const [ready, setReady] = useState(false);
   const aRef = useRef<HTMLAudioElement | null>(null);
   const onRef = useRef(on);
   onRef.current = on;
 
   useEffect(() => {
     const pref = readMusicPref();
-    if (pref === true) setOn(true);
     if (pref === null) setUndecided(true);
+    else setOn(pref);
+    setReady(true);
   }, []);
 
   useEffect(() => {
-    if (!src || typeof window === "undefined") return;
+    if (!ready || !src || typeof window === "undefined") return;
     // 자동재생 차단 시 다음 제스처에 시작하는 리스너 — 반드시 cleanup 으로 제거해야
     // OFF 후 탭이 음악을 되살리는 버그·리스너 리크를 막는다.
+    // pointerdown 만으로는 부족하다: 타이핑 게임(wordsmith-vigil·letter-forge 등)은
+    // 포인터를 한 번도 안 쓰고 끝낼 수 있어, 기본 ON 인데 영영 무음이 된다.
     let kick: ((e: Event) => void) | null = null;
+    const KICK_EVENTS = ["pointerdown", "keydown"] as const;
     if (on) {
       let a = aRef.current;
       if (!a) {
@@ -270,18 +281,18 @@ export function useGameMusic(gameId: GameSlug) {
           kick = () => {
             // OFF 됐거나 오디오가 교체됐으면 무시
             if (onRef.current && aRef.current === audio) void audio.play().then(begin).catch(() => {});
-            if (kick) window.removeEventListener("pointerdown", kick);
+            if (kick) for (const ev of KICK_EVENTS) window.removeEventListener(ev, kick);
           };
-          window.addEventListener("pointerdown", kick);
+          for (const ev of KICK_EVENTS) window.addEventListener(ev, kick);
         });
     } else if (aRef.current) {
       const audio = aRef.current;
       rampVolume(audio, 0, 450, () => audio.pause());
     }
     return () => {
-      if (kick) window.removeEventListener("pointerdown", kick);
+      if (kick) for (const ev of KICK_EVENTS) window.removeEventListener(ev, kick);
     };
-  }, [on, src]);
+  }, [on, src, ready]);
 
   useEffect(
     () => () => {
@@ -331,8 +342,10 @@ export function IconMusic({ on }: { on: boolean }) {
 
 // 게임 루트 어디에나 1줄로: <GameMusic gameId="cascade" />
 //
-// 첫 진입(선호 미결정)에는 라벨 "배경음악"을 함께 펼쳐 존재를 알린다 — 이전에는 아이콘만
-// 있어서 BGM 이 있는 줄도 몰랐다. 한 번이라도 켜거나 끄면 아이콘만 남는다(Calm UI).
+// 첫 진입(선호 미결정)에는 라벨 "배경음악"을 함께 펼쳐 존재를 알린다. 기본 ON 이 된
+// v07.6 부터 이 라벨의 역할은 "여기 음악이 있다"에서 **"지금 나는 소리는 이것이고,
+// 여기서 끌 수 있다"**로 바뀐다 — 소리가 갑자기 나는데 출처를 못 찾는 상황을 막는다.
+// 한 번이라도 켜거나 끄면 아이콘만 남는다(Calm UI).
 export function GameMusic({ gameId }: { gameId: GameSlug }) {
   const m = useGameMusic(gameId);
   if (!m.hasTrack) return null;

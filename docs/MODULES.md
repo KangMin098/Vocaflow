@@ -545,14 +545,33 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 `lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP. `ArcadeMetaStrip` 노출.
 
 ### 배경음악
-**v07.5 — 칩튠 전면 교체.** 이전 세트(8bit Dungeon Level · Bit Quest · Bit Shift …)는 8비트 스퀘어파라
-"PC 효과음 같은 얇은 느낌"이었고 학습 공간의 무게와 맞지 않았다. 오케스트라·시네마틱·앰비언트로
-**19종 전부 고유 트랙** 재큐레이션(재사용 0). 가공: 인트로 이후 ~110초 루프 · 3s/5s 페이드 ·
-EBU R128 -16 LUFS 정규화(게임 간 레벨 일관) · 128kbps 44.1kHz 스테레오.
+**v07.6 — 실음원 + 심리스 루프 + 기본 ON.** v07.5 에서 칩튠을 걷어내고 붙인 Kevin MacLeod 세트도
+샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었고, 무엇보다 **루프가 깨져 있었다**(3s 페이드인 /
+5s 페이드아웃 → 110초마다 8초 무음 구멍). 지금은 **Scott Buckley**(scottbuckley.com.au · CC-BY 4.0)
+시네마틱 스코어로 **19종 전부 고유 트랙**(재사용 0), 가공은 자동 구간 선정(인트로 15%·아웃트로 8%
+제외 후 초당 RMS 에서 `평균 − 0.6×표준편차` 최대인 116초 창) →
+`concat( acrossfade(꼬리 6s, 머리 6s), body )` **심리스 110초 루프** → -16 LUFS / TP -1.5 dBTP →
+VBR MP3(-q:a 5) 44.1kHz 스테레오. 총 31.7 MB.
 
-트랙은 카탈로그 `GameEntry.music`(`public/audio/games/<slug>.mp3` · Kevin MacLeod CC-BY 3.0).
+⚠️ 루프를 다시 구울 때: 한 입력을 `asplit=3` 으로 쪼개 `atrim` 셋을 물리면 `acrossfade` 가 빈 스트림을
+받아 **크로스페이드가 통째로 사라진다**(110초가 아니라 body 만 104초로 구워짐 · HTTP 200 이라 무증상).
+head/tail/body 를 각각 별도 `-i` 로 열 것. 회귀는 `tests/e2e/12-arcade-audio.spec.ts` 가 잡는다.
+
+트랙은 카탈로그 `GameEntry.music`(`public/audio/games/<slug>.mp3`). 크레딧은 같은 폴더 `CREDITS.txt`
++ `/arcade` 푸터 표기(CC-BY 4.0 은 표기 의무).
 선호는 `lib/game/music-pref.ts` 단일 키(`vocaflow-arcade-music`) — **허브 토글**(`ArcadeMetaStrip`)과 **게임 내 버튼**(`GameMusic`)이 공유.
-기본 OFF(자동재생 금지). 미결정 상태에선 게임 내 버튼이 "배경음악" 라벨을 펼쳐 존재를 알린다.
+**기본 ON**(v07.6 사용자 결정 — 단어 게임에 음악이 중요). 이전 기본 OFF 는 Calm UI 근거였지만 결과가
+무음이었다(토글 전에는 트랙을 내려받지도 않음). 자동재생 정책은 `play()` 거부 시
+다음 제스처(`pointerdown`/`keydown`)에 시작하는 방식으로 처리 — 타이핑 전용 게임 때문에 `keydown` 이 필수.
+미결정 상태에선 게임 내 버튼이 "배경음악" 라벨을 펼쳐 지금 나는 소리의 출처와 끄는 길을 알린다.
+`readMusicPref()` 는 미설정을 `null` 로 유지하고, 실제 on/off 판단은 `readMusicOn()`(= `?? DEFAULT_MUSIC_ON`)을 쓴다
+— 명시적 OFF 를 기본값 변경이 덮어쓰지 않게 하기 위해서.
+
+**효과음(v07.6)** — Kenney "Interface Sounds"(CC0) → **Mixkit 실녹음**. FFT 실측상 기존 6종은 전부 모노 ·
+8 kHz 이상 에너지 0~0.6% · `correct`/`complete` 는 스펙트럴 평탄도 0.0000 인 대역제한 합성음이었다.
+교체본은 스테레오 실녹음(벨 · 나무 타격 · 반짝임 · 타자기 타건 · 실제 동전 · 금관 합주 · 총 494 KB).
+`useSfx` API·`SFX_SRC` 확장자 매핑 불변 → 게임 코드 변경 0. 오답이 버저가 아니라 나무 타격인 것은
+Empathetic Feedback(오답에 비난조 금지).
 
 ⚠️ `.gk-root > :not(...)` / `.wbz-root > :not(...)` 같은 자식 일괄 규칙에 **반드시 `:not(.gk-music-btn)` 을 넣을 것** —
 빠뜨리면 명시도에 밀려 `position: fixed` 가 죽고 버튼이 흐름에 박힌다(v07.4 이전 전 게임 증상).

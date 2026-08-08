@@ -3,9 +3,11 @@
 // 클라이언트 전용(localStorage). SSR 안전: 마운트 전엔 렌더 안 함(하이드레이션 불일치 방지).
 // 스타일 클래스(.arc-meta*)는 arcade/page.tsx 의 ARC_CSS 에 정의 — 황혼 테마 일관.
 //
-// 배경음악 토글(v07.4) — 큐레이션 BGM 14곡을 붙여놓고도 듣는 학습자가 없었다. 원인은
+// 배경음악 토글(v07.4) — 큐레이션 BGM 을 붙여놓고도 듣는 학습자가 없었다. 원인은
 // 재생 로직이 아니라 발견성: 기본 OFF 인데 켜는 길이 게임 안 작은 아이콘 하나뿐이었다.
 // 게임에 들어가기 전 조용한 맥락에서 정할 수 있게 허브로 끌어올린다(같은 localStorage 키).
+// v07.6 부터 기본값이 ON 이라 이 알약의 역할은 "끄는 길"이 된다 — 그래서 미설정 상태를
+// 기본값으로 해석해야 게임 화면과 표시가 일치한다(lib/game/music-pref).
 
 'use client'
 
@@ -18,19 +20,21 @@ import {
   xpForLevel,
   type ArcadeMeta,
 } from '@/lib/game/arcade-meta'
-import { readMusicPref, writeMusicPref } from '@/lib/game/music-pref'
+import { DEFAULT_MUSIC_ON, readMusicOn, writeMusicPref } from '@/lib/game/music-pref'
 
 export default function ArcadeMetaStrip() {
   const [meta, setMeta] = useState<ArcadeMeta | null>(null)
-  const [music, setMusic] = useState(false)
+  // 미설정이면 기본값(v07.6 부터 ON) — `=== true` 로 읽으면 기본 ON 인데도
+  // 허브 알약만 "끔"으로 표시돼 게임 안 상태와 어긋난다.
+  const [music, setMusic] = useState(DEFAULT_MUSIC_ON)
 
   useEffect(() => {
     setMeta(getArcadeMeta())
-    setMusic(readMusicPref() === true)
+    setMusic(readMusicOn())
     // 다른 탭/복귀 시 최신화
     const onFocus = () => {
       setMeta(getArcadeMeta())
-      setMusic(readMusicPref() === true)
+      setMusic(readMusicOn())
     }
     window.addEventListener('focus', onFocus)
     return () => window.removeEventListener('focus', onFocus)

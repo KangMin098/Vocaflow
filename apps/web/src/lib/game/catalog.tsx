@@ -58,12 +58,12 @@ export interface GameEntry {
   /** 베타 — 학습 기록 미연동 */
   beta?: boolean
   /**
-   * 배경음악 트랙 (`public/audio/games/<slug>.mp3` · Kevin MacLeod CC-BY 3.0).
+   * 배경음악 트랙 (`public/audio/games/<slug>.mp3` · Scott Buckley CC-BY 4.0).
    *
-   * v07.5 에서 **칩튠 전면 교체** — 8bit Dungeon Level·Bit Quest·Bit Shift 같은
-   * 8비트 스퀘어파 트랙은 "PC 효과음 같은 얇은 느낌"이라 학습 공간의 무게와 맞지 않았다.
-   * 오케스트라·시네마틱·앰비언트로 19종 전부 **고유 트랙** 재큐레이션(재사용 0).
-   * 곡별 크레딧은 `public/audio/games/CREDITS.txt`.
+   * v07.6 에서 **실음원 전면 교체** — v07.5 에서 칩튠 대신 붙인 Kevin MacLeod 세트도
+   * 샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었고, 루프가 110초마다 8초씩
+   * 끊겨 있었다. 지금은 시네마틱 스코어 19종 **고유 트랙**(재사용 0) · 심리스 110초 루프.
+   * 곡별 크레딧은 `public/audio/games/CREDITS.txt` (CC-BY 4.0 은 표기 의무 — /arcade 푸터).
    */
   music?: string
   /** 같은 인지 루프를 공유하는 계열 — 허브에서 한 장으로 접힌다. 단독 게임은 undefined. */
