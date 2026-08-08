@@ -61,6 +61,20 @@ export async function archiveComicAction(
   }
 }
 
+export async function setComicModelStatusAction(key: string, status: string): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/comic')
+    if (!['candidate', 'testing', 'adopted', 'rejected'].includes(status)) return { ok: false, error: '잘못된 상태' }
+    const client = (await createClient()) as unknown as SupabaseClient
+    const { error } = await client.from('comic_gen_models').update({ status }).eq('key', key)
+    if (error) return { ok: false, error: error.message }
+    revalidatePath('/admin/comic')
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '모델 상태 변경 실패' }
+  }
+}
+
 export interface ComicTestInput {
   label: string
   backend?: string | null

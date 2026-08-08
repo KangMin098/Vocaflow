@@ -247,6 +247,24 @@ export async function fetchDrainObservability(
   return { runs: runList, events }
 }
 
+export interface ComicModel {
+  key: string; name: string; provider: string | null; site: string | null; hosting: string | null
+  cost_per_image_usd: number | null; cost_note: string | null
+  multiref: boolean | null; text_control: string | null; char_consistency: string | null; style_consistency: string | null
+  vram_fit_4090: boolean | null; license: string | null
+  comic_fit: number | null; strengths: string | null; weaknesses: string | null; source_url: string | null
+  status: string; sort: number
+}
+
+/** 이미지 생성 모델 레지스트리 — comic_fit 내림차순. */
+export async function fetchComicModels(client: SupabaseClient): Promise<ComicModel[]> {
+  const { data } = await client
+    .from('comic_gen_models')
+    .select('key, name, provider, site, hosting, cost_per_image_usd, cost_note, multiref, text_control, char_consistency, style_consistency, vram_fit_4090, license, comic_fit, strengths, weaknesses, source_url, status, sort')
+    .order('comic_fit', { ascending: false, nullsFirst: false })
+  return (data as ComicModel[]) ?? []
+}
+
 /** 테스트(실험) 목록. */
 export async function fetchComicTests(client: SupabaseClient): Promise<ComicTest[]> {
   const { data } = await client

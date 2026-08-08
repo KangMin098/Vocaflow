@@ -7,12 +7,12 @@
 import { useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, FlaskConical, Loader2, Plus, ShieldCheck } from 'lucide-react'
-import type { ComicCatalogRow, ComicStats, ComicTest } from '@/lib/comic/admin-queries'
-import { createComicTestAction, enqueueComicJobsAction, setComicPublishedAction } from './actions'
+import { BookImage, Boxes, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Plus, ShieldCheck } from 'lucide-react'
+import type { ComicCatalogRow, ComicModel, ComicStats, ComicTest } from '@/lib/comic/admin-queries'
+import { createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicPublishedAction } from './actions'
 
 const ACCENT = '#8B5CF6'
-type TabKey = 'catalog' | 'published' | 'tests'
+type TabKey = 'catalog' | 'published' | 'tests' | 'models'
 
 const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
@@ -21,7 +21,7 @@ const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string;
   archived: { label: '보관', tone: 'var(--t3)' },
 }
 
-export function AdminComicClient({ rows, stats, tests }: { rows: ComicCatalogRow[]; stats: ComicStats; tests: ComicTest[] }) {
+export function AdminComicClient({ rows, stats, tests, models }: { rows: ComicCatalogRow[]; stats: ComicStats; tests: ComicTest[]; models: ComicModel[] }) {
   const router = useRouter()
   const [tab, setTab] = useState<TabKey>('catalog')
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -115,7 +115,7 @@ export function AdminComicClient({ rows, stats, tests }: { rows: ComicCatalogRow
 
       {/* 탭 */}
       <div role="tablist" className="flex gap-1 border-b border-[var(--bd)]">
-        {(['catalog', 'published', 'tests'] as TabKey[]).map((k) => (
+        {(['catalog', 'published', 'tests', 'models'] as TabKey[]).map((k) => (
           <button
             key={k}
             role="tab"
@@ -126,7 +126,7 @@ export function AdminComicClient({ rows, stats, tests }: { rows: ComicCatalogRow
             }`}
             style={tab === k ? { borderColor: ACCENT } : undefined}
           >
-            {k === 'catalog' ? 'Catalog' : k === 'published' ? 'Published' : '테스트'}
+            {k === 'catalog' ? 'Catalog' : k === 'published' ? 'Published' : k === 'tests' ? '테스트' : '모델'}
           </button>
         ))}
       </div>
@@ -229,17 +229,89 @@ export function AdminComicClient({ rows, stats, tests }: { rows: ComicCatalogRow
         </div>
       )}
 
-      {tab === 'tests' && <TestsTab tests={tests} />}
+      {tab === 'tests' && <TestsTab tests={tests} models={models} />}
+      {tab === 'models' && <ModelsTab models={models} />}
     </div>
   )
 }
 
-function TestsTab({ tests }: { tests: ComicTest[] }) {
+function ModelsTab({ models }: { models: ComicModel[] }) {
+  const router = useRouter()
+  const [pending, start] = useTransition()
+  const setStatus = (key: string, status: string) =>
+    start(async () => { const r = await setComicModelStatusAction(key, status); if (r.ok) router.refresh() })
+  const cap = (v: string | null) => (v === 'high' ? 'var(--memory-stable)' : v === 'medium' ? 'var(--memory-shaky)' : v === 'low' ? 'var(--memory-risk)' : 'var(--t3)')
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+        <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+          <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 다중참조/텍스트제어/캐릭터·화풍 일관성/4090 적합/비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크. 테스트 탭에서 이 모델들로 실험을 계획합니다.
+        </p>
+      </div>
+      {models.length === 0 ? (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">모델 카탈로그가 비어 있습니다. (시장 조사 시드 대기)</p>
+      ) : (
+        <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
+          <table className="w-full min-w-[900px] text-left">
+            <thead>
+              <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t3)]">
+                <Th>Fit</Th><Th>모델</Th><Th>호스팅</Th><Th>비용/장</Th><Th>다중참조</Th><Th>텍스트</Th><Th>캐릭터</Th><Th>화풍</Th><Th>4090</Th><Th>상태</Th><Th></Th>
+              </tr>
+            </thead>
+            <tbody>
+              {models.map((m) => (
+                <tr key={m.key} className="border-b border-[var(--bd)]/60 last:border-0 align-top hover:bg-[var(--bg2)]/40">
+                  <Td><span className="font-display text-[15px] font-[800] tabular-nums" style={{ color: (m.comic_fit ?? 0) >= 80 ? 'var(--memory-stable)' : (m.comic_fit ?? 0) >= 60 ? 'var(--memory-shaky)' : 'var(--t2)' }}>{m.comic_fit ?? '—'}</span></Td>
+                  <Td>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{m.name}</span>
+                      {m.source_url && <a href={m.source_url} target="_blank" rel="noreferrer" className="text-[var(--t3)] hover:text-[var(--active)]"><ExternalLink size={12} /></a>}
+                    </div>
+                    <span className="font-body text-[11px] text-[var(--t3)]">{m.provider} · {m.site}</span>
+                    {m.strengths && <p className="mt-0.5 max-w-[280px] font-body text-[11px] text-[var(--t3)]">➕ {m.strengths}</p>}
+                    {m.weaknesses && <p className="max-w-[280px] font-body text-[11px] text-[var(--t4)]">➖ {m.weaknesses}</p>}
+                  </Td>
+                  <Td className="font-body text-[12px] text-[var(--t2)]">{m.hosting ?? '—'}</Td>
+                  <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.cost_per_image_usd != null ? `$${m.cost_per_image_usd}` : m.hosting === 'self-host' ? '무료*' : '—'}</Td>
+                  <Td>{m.multiref == null ? '—' : m.multiref ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--t4)]" />}</Td>
+                  <Td className="font-body text-[12px]" ><span style={{ color: m.text_control === 'strong' ? 'var(--memory-stable)' : m.text_control === 'weak' ? 'var(--memory-shaky)' : 'var(--t3)' }}>{m.text_control ?? '—'}</span></Td>
+                  <Td className="font-display text-[12px] font-[700]" ><span style={{ color: cap(m.char_consistency) }}>{m.char_consistency ?? '—'}</span></Td>
+                  <Td className="font-display text-[12px] font-[700]"><span style={{ color: cap(m.style_consistency) }}>{m.style_consistency ?? '—'}</span></Td>
+                  <Td>{m.vram_fit_4090 == null ? '—' : m.vram_fit_4090 ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--memory-risk)]" />}</Td>
+                  <Td><ModelStatusPill status={m.status} /></Td>
+                  <Td>
+                    <select value={m.status} disabled={pending} onChange={(e) => setStatus(m.key, e.target.value)} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)]">
+                      {['candidate', 'testing', 'adopted', 'rejected'].map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </Td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
+}
+function ModelStatusPill({ status }: { status: string }) {
+  const m: Record<string, { label: string; tone: string }> = {
+    candidate: { label: '후보', tone: 'var(--t3)' }, testing: { label: '테스트', tone: ACCENT },
+    adopted: { label: '채택', tone: 'var(--memory-stable)' }, rejected: { label: '제외', tone: 'var(--memory-risk)' },
+  }
+  const s = m[status] ?? { label: status, tone: 'var(--t3)' }
+  return <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: s.tone, background: `color-mix(in srgb, ${s.tone} 12%, transparent)` }}>{s.label}</span>
+}
+
+function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] }) {
   const router = useRouter()
   const [pending, start] = useTransition()
   const [form, setForm] = useState({ label: '', backend: '', model: '', site: '', note: '' })
   const [msg, setMsg] = useState<string | null>(null)
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  const pickModel = (key: string) => {
+    const m = models.find((x) => x.key === key)
+    if (m) setForm((f) => ({ ...f, backend: m.key, model: m.name, site: m.site ?? '' }))
+  }
   const submit = () => {
     if (!form.label.trim()) { setMsg('테스트 이름을 입력하세요.'); return }
     setMsg(null)
@@ -261,6 +333,15 @@ function TestsTab({ tests }: { tests: ComicTest[] }) {
       {/* 새 테스트 계획 */}
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <p className="font-display text-[12px] font-[700] text-[var(--t1)]">새 테스트 계획</p>
+        {models.length > 0 && (
+          <label className="flex flex-col gap-1">
+            <span className="font-display text-[11px] font-[700] text-[var(--t3)]">모델 카탈로그에서 선택 (백엔드/모델/사이트 자동 채움)</span>
+            <select onChange={(e) => e.target.value && pickModel(e.target.value)} defaultValue="" className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+              <option value="">— 모델 선택 —</option>
+              {models.map((m) => <option key={m.key} value={m.key}>{m.name} · {m.hosting ?? ''} · fit {m.comic_fit ?? '?'}</option>)}
+            </select>
+          </label>
+        )}
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <Field label="이름*" value={form.label} onChange={set('label')} placeholder="예: Qwen-2512 vs GPT 화풍 일관성" />
           <Field label="백엔드" value={form.backend} onChange={set('backend')} placeholder="gpt-image-2 / flux2-dev / qwen-2512" />
