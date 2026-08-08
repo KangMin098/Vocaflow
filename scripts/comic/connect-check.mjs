@@ -20,25 +20,22 @@ const G = '\x1b[32m', R = '\x1b[31m', Y = '\x1b[33m', DIM = '\x1b[2m', X = '\x1b
 const rows = []
 const row = (name, ok, detail, hint) => rows.push({ name, ok, detail, hint })
 
-// ── Kaggle (무료 T4 · 인터랙티브 노트북) ──
-// Kaggle 경로는 브라우저 노트북에 qwen-lightning-cell.py 를 붙여 Run 하는 인터랙티브 방식 —
-// 로그인 세션으로 동작하므로 API 토큰이 필수가 아니다. 게다가 www.kaggle.com/api/v1 의 인증 게이트
-// 엔드포인트가 유효 토큰에도 401 을 반환(신뢰불가)하여 토큰 유효성 API 검증은 무의미 → 토큰 존재/
-// Kaggle 도달성만 보고한다(가짜 401 오탐 제거).
-async function checkKaggle() {
+// ── Kaggle (무료 T4 · headless 커널 push) ──
+// 신형 Kaggle 토큰(KGAT_…)은 Basic 이 아니라 **Bearer** 인증. group=profile 은 인증 게이트라
+// 유효 토큰만 200 → headless push 가능 여부를 정확히 판별(구형 Basic 검증의 오탐 제거).
+export function kaggleCreds() {
   const kj = readJson(path.join(os.homedir(), '.kaggle', 'kaggle.json'))
-  const user = process.env.KAGGLE_USERNAME || kj?.username
-  const hasToken = !!(process.env.KAGGLE_KEY || kj?.key)
-  let reachable = false
+  return { user: process.env.KAGGLE_USERNAME || kj?.username, key: process.env.KAGGLE_KEY || kj?.key }
+}
+async function checkKaggle() {
+  const { user, key } = kaggleCreds()
+  if (!key) return row('Kaggle', null, '토큰 없음', 'kaggle.com → Settings → API → Create New Token → ~/.kaggle/kaggle.json')
   try {
-    const r = await fetch('https://www.kaggle.com/api/v1/datasets/list?page=1&pageSize=1', { signal: AbortSignal.timeout(15000) })
-    reachable = r.status === 200
-  } catch { /* 오프라인 */ }
-  const net = reachable ? '' : ' · kaggle.com 도달 불가(오프라인?)'
-  if (hasToken) return row('Kaggle', true, `토큰 있음(user=${user || '?'}) · 인터랙티브 노트북 경로${net}`,
-    'headless 아님 — 노트북에 qwen-lightning-cell.py 붙여 Run → 터널 URL 을 .comfy-url 로')
-  return row('Kaggle', null, `토큰 없음(선택) · 인터랙티브 노트북 경로 가능${net}`,
-    'API 토큰 없이도 브라우저 노트북 실행 가능(토큰은 headless push 용, 파이프라인 미사용)')
+    const r = await fetch('https://www.kaggle.com/api/v1/kernels/list?group=profile&page=1&pageSize=1', { headers: { Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(20000) })
+    if (r.status === 200) return row('Kaggle', true, `연결됨(Bearer) user=${user || '?'} · headless 커널 push 가능`)
+    if (r.status === 401) return row('Kaggle', false, `토큰 거부(401) user=${user || '?'}`, 'Create New Token 재발급 후 ~/.kaggle/kaggle.json 교체')
+    return row('Kaggle', false, `HTTP ${r.status}`)
+  } catch (e) { return row('Kaggle', false, `네트워크 오류: ${e.message}`) }
 }
 
 // ── RunPod (유료 4090 · 헤드리스 pod) ──

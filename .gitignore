@@ -99,3 +99,5 @@ scripts/comic/runpod/.runpod-pod
 
 scripts/comic/.comfy-user
 scripts/comic/.comfy-pass
+scripts/comic/kaggle/_gen-kernel.py
+out/
