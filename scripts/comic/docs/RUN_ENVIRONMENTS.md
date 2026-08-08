@@ -22,7 +22,7 @@ Kaggle/RunPod 공식 MCP 는 없어 **Node 클라이언트가 통합 계층**(`p
 | 연결 | 자격증명 위치(gitignored) | 발급 | 상태 확인 |
 |---|---|---|---|
 | **RunPod** | `scripts/comic/runpod/.runpod-key` · env `RUNPOD_API_KEY` | runpod.io → Settings → API Keys | `pod.mjs list` |
-| **Kaggle** | `~/.kaggle/kaggle.json` · env `KAGGLE_USERNAME`+`KAGGLE_KEY` | kaggle.com → Settings → API → **Create New Token** | connect-check |
+| **Kaggle** | (선택) `~/.kaggle/kaggle.json` | 브라우저 로그인이면 충분 · 토큰은 headless push 전용(파이프라인 미사용) | connect-check |
 | **ComfyUI 포털** | `scripts/comic/.comfy-user` · `.comfy-pass` · env `COMFY_USER/PASS` | ai-dock pod 생성 시 지정 | gen-comfy 자동 로그인 |
 | **ComfyUI URL** | `scripts/comic/.comfy-url` (pod.mjs 가 자동 저장) | pod 기동/터널 | connect-check |
 
@@ -60,7 +60,8 @@ DB `comic_styles.art_prompt`/`negative_prompt` → 오케스트레이터가 `--s
 
 ## Kaggle 셋업 (자가호스트 무료 · 검증됨 2026-08)
 
-**경로 A(권장·검증)** — `scripts/comic/kaggle/qwen-lightning-cell.py` 전체를 Kaggle 노트북 셀 1개에 붙여 실행
+**경로 A(권장·검증) — 인터랙티브(브라우저 로그인, API 토큰 불필요)**.
+`scripts/comic/kaggle/qwen-lightning-cell.py` 전체를 Kaggle 노트북 셀 1개에 붙여 실행
 (Settings: GPU **T4 x2** + Internet **On**):
 1. ComfyUI + ComfyUI-GGUF 설치
 2. Qwen-Image GGUF **Q3_K_S**(t2i base) + qwen2.5-vl-7b Q4(text enc) + mmproj + vae + **Lightning 4-step LoRA** 다운로드
