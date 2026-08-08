@@ -101,7 +101,7 @@ export default async function LibraryComicsPage() {
     // 프리뷰 + 포맷 선택(등록 후 진입)을 거친다 (설계서 D4).
     const href = e
       ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
-      : `/comics/book/${c.bookId}`
+      : `/comics/adapted/${c.bookId}`
 
     const ctaLabel = !e
       ? '만화 미리보기'

@@ -55,7 +55,7 @@ export function ComicFormatChoice({
   const [busy, setBusy] = useState<FormatKey | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const loginHref = `/login?next=${encodeURIComponent(`/comics/book/${bookId}`)}`
+  const loginHref = `/login?next=${encodeURIComponent(`/comics/adapted/${bookId}`)}`
 
   /** 미등록 학습자 진입 — 등록(멱등) 후 해당 포맷으로. 실패해도 차분히 안내. */
   async function enrollAndGo(target: FormatKey) {

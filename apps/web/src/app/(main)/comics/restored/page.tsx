@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/restored/page.tsx — /restored
+// apps/web/src/app/(main)/comics/restored/page.tsx — /comics/restored
 //
 // 복원 만화 서가 — PDCP 학습자 진입면. **CCP(도서→AI 생성 만화)와 별도 메뉴.**
 //
@@ -51,7 +51,7 @@ export default async function PdComicsPage() {
             {issues.map((it) => (
               <li key={it.id}>
                 <Link
-                  href={`/restored/${it.slug}`}
+                  href={`/comics/restored/${it.slug}`}
                   className="group flex h-full flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 >
                   <div className="relative aspect-[2/3] w-full overflow-hidden bg-[var(--bg3)]">

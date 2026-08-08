@@ -143,7 +143,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
       <div className="flex flex-col gap-6 py-5 md:py-7">
         <div>
           <Link
-            href="/comics"
+            href="/comics/adapted"
             className="inline-flex min-h-11 items-center gap-1.5 font-body text-[12.5px] font-[500] text-[var(--t3)] transition-colors hover:text-[var(--p)]"
           >
             <ArrowLeft size={14} aria-hidden /> 만화 목록

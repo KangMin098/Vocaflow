@@ -50,8 +50,11 @@
 | `/library` | `(main)/library/page.tsx` + `layout.tsx` | redirect → `/library/books` |
 | `/library/books` | `(main)/library/books/page.tsx` | 도서 그리드 (BooksExplorer) |
 | `/library/books/[bookId]` | `(main)/library/books/[bookId]/page.tsx` | 도서 상세 |
-| `/comics` | `(main)/comics/page.tsx` | **만화 (CCP) — 사이드바 최상위 메뉴**. 발행 만화 카탈로그 + 이어서 보기 (ComicsBrowser) |
-| `/comics/book/[bookId]` | `(main)/comics/book/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
+| `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 사이드바 최상위 단일 메뉴**. redirect → `/comics/adapted`. layout 에 ComicsTabs(Adapted·Restored) |
+| `/comics/adapted` | `(main)/comics/adapted/page.tsx` | **Adapted(도서 각색 · CCP)** — 발행 만화 카탈로그 + 이어서 보기 (ComicsBrowser) |
+| `/comics/adapted/[bookId]` | `(main)/comics/adapted/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
+| `/comics/restored` | `(main)/comics/restored/page.tsx` | **Restored(원본 복원 · PDCP)** — 퍼블릭도메인 만화 서가 (구 `/restored`) |
+| `/comics/restored/[slug]` | `(main)/comics/restored/[slug]/page.tsx` | 복원 만화 리더 (호 단위 · 세로 스크롤) |
 | `/library/vocab` | `(main)/library/vocab/page.tsx` | 공용 단어장 (8 카테고리) |
 | `/library/scripts` | `(main)/library/scripts/page.tsx` | redirect → `/library/books` (v06.34) |
 | `/library/scripts/[bookId]` | `(main)/library/scripts/[bookId]/page.tsx` | redirect → `/library/books/[bookId]` |

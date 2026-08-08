@@ -22,6 +22,16 @@
 - **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 게임에서 배경음악 토글 시 해당 mp3 를 실제로 요청하는지(재생 경로 전체). `tsc --noEmit` 클린.
 - ℹ️ 배경음악 기본값은 계속 **OFF** — spec C 가 "토글 전에는 트랙을 내려받지 않음"까지 단언한다. 즉 처음 들어온 학습자는 좌하단 "배경음악" 버튼을 누르기 전에는 음악을 듣지 못한다(의도된 Calm UI · 자동재생 정책).
 
+### 만화 메뉴 통합 — `Comics` 하나 안에 **Adapted(도서 각색) · Restored(원본 복원)** (사용자 결정 2026-08-09)
+
+두 만화 기능(CCP 도서 각색 · PDCP 원본 복원)이 사이드바에 각각 최상위 항목으로 있던 것을 **입구 하나로 합치고 안에서 출처로 나눴다**. 학습자에겐 둘 다 "만화"라 입구가 둘이면 어느 쪽을 눌러야 할지 알 수 없다.
+
+- **라우트 재편**: `/comics` → `/comics/adapted` 리다이렉트(`/library` 패턴 동일) · `(main)/comics/adapted/**`(구 `/comics`+`/comics/book`) · `(main)/comics/restored/**`(구 `/restored`). `layout.tsx` + 신규 `ComicsTabs`(role=tablist · aria-selected · 44px, LibraryTabs 와 동일 패턴).
+- **명명 — `Adapted` / `Restored`**: 기술(AI·스캔)이 아니라 **원작에 무슨 일이 있었는지**로 지은 과거분사 쌍. "AI Comics"류는 기술이 바뀌면 낡고, 각색의 정본 정합(R4)이라는 핵심 가치를 가린다. 기각한 대안: `Booktoon`(CCP 전용이라 쌍이 안 맞음) · `Generated`(기술 노출) · `Classics`(복원본이 고전이 아닐 수 있음) · `Reimagined`(각색보다 과장).
+- 사이드바는 `Comics` 단일 항목으로 복귀 — PDCP 의 `Restored` 최상위 항목 제거(탭으로 편입).
+- **회귀 함정 하나 고침**: 통합 후 e2e 3·4번이 `/comics`(리다이렉트) 진입 → 카드 링크 미발견으로 **조용히 공회전 통과**하고 있었다. 진입을 정규 목록 URL(`/comics/adapted`)로 바꿔 실제 프리뷰 3컷·로그인 유도까지 다시 검증된다.
+- 검증: `tsc --noEmit` 클린 · e2e 11-comic 4/4(탭 aria-selected · href 계약 `/comics/adapted/…` · 프리뷰 3컷) · 04-ui-smoke 5/5 · 4개 라우트 실렌더(구 `/restored` 404 확인).
+
 ### 만화 = `/library` 탭 → **사이드바 최상위 메뉴** `/comics` (사용자 결정 2026-08-09)
 
 - `LibraryTabs` 4탭 → **3탭 복귀**(도서/스크립트/공용 단어장). 만화는 사이드바 Scripts 그룹의 `Comics` 항목으로 승격 — `(main)/library/comics/**` → `(main)/comics/**` 이동.

@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/restored/[slug]/page.tsx — /restored/[slug]
+// apps/web/src/app/(main)/comics/restored/[slug]/page.tsx — /comics/restored/[slug]
 //
 // PD 복원 만화 리더 — 호 단위 독립 라우트. **CCP 의 `/text/[id]/comic` 과 별도.**
 //
@@ -40,7 +40,7 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
     <div className="mx-auto w-full max-w-[820px] px-3 pb-16 md:px-4">
       <header className="flex items-center gap-2 py-3">
         <Link
-          href="/restored"
+          href="/comics/restored"
           className="inline-flex min-h-[44px] items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t3)] transition-colors hover:text-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden /> 서가
@@ -139,7 +139,7 @@ function NotReady() {
         복원 만화 서가를 만들고 있습니다.
       </p>
       <Link
-        href="/restored"
+        href="/comics/restored"
         className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)]"
       >
         서가로

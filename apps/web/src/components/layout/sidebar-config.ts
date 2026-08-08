@@ -23,7 +23,6 @@ import {
   Layers,
   Mic2,
   Pencil,
-  ScanLine,
   ScrollText,
   Settings,
   Shuffle,
@@ -64,14 +63,15 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Compass,
         ariaLabel: '공용 콘텐츠 라이브러리',
       },
-      // Comics — 도서의 다른 표현형(만화). /library 하위 탭이 아니라 최상위 메뉴로 분리
-      // (사용자 결정 2026-08-09). 데이터는 여전히 library_books 앵커이고,
-      // 도서 카드의 만화 배지·포맷 필터는 /library 에 그대로 남는다.
+      // Comics — 만화 단일 메뉴(사용자 결정 2026-08-09). /library 하위 탭이 아니라 최상위.
+      //   메뉴 안에서 **출처**로 나뉜다: Adapted(도서 각색 · CCP) · Restored(원본 복원 · PDCP).
+      //   학습자에겐 둘 다 "만화"이므로 입구를 둘로 쪼개지 않는다.
+      //   데이터는 각자 유지(CCP=library_books 앵커 / PDCP=호 단위 독립).
       {
         label: 'Comics',
         href: '/comics',
         icon: BookImage,
-        ariaLabel: '만화 — 도서를 그림으로 먼저 만나는 입구',
+        ariaLabel: '만화 — 도서 각색(Adapted) · 원본 복원(Restored)',
       },
       {
         label: 'My Scripts',
@@ -79,16 +79,8 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: BookOpen,
         ariaLabel: '내가 등록한 스크립트',
       },
-      // PDCP — 퍼블릭도메인 복원 만화. 도서 챕터에 종속된 CCP 만화(/text/[id]/comic)와 달리
-      // 호 단위 독립 콘텐츠라 자기 서가를 가진다.
-      // ⚠️ 라벨을 'Comics'→'Restored' 로 변경(2026-08-09): 위 CCP 항목과 같은 그룹에 동일 라벨
-      //    'Comics' 가 둘이면 학습자가 구분할 수 없다. href/icon 은 그대로 — 이름은 재검토 대상.
-      {
-        label: 'Restored',
-        href: '/restored',
-        icon: ScanLine,
-        ariaLabel: '복원 만화 — 저작권 만료 고전 만화를 디지털 복원',
-      },
+      // PDCP(복원 만화)는 사이드바 최상위 항목에서 제거됐다 — Comics 메뉴 안의 'Restored' 탭
+      // (`/comics/restored`)으로 편입(사용자 결정 2026-08-09). 만화 입구는 하나여야 한다.
     ],
   },
   {
