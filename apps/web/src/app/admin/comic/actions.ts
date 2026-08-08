@@ -61,6 +61,35 @@ export async function archiveComicAction(
   }
 }
 
+export interface ComicTestInput {
+  label: string
+  backend?: string | null
+  model?: string | null
+  site?: string | null
+  style?: string | null
+  note?: string | null
+  libraryBookId?: string | null
+}
+export async function createComicTestAction(input: ComicTestInput): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/comic')
+    if (!input.label?.trim()) return { ok: false, error: '테스트 이름을 입력하세요.' }
+    const client = (await createClient()) as unknown as SupabaseClient
+    const { error } = await client.from('comic_gen_tests').insert({
+      label: input.label.trim(),
+      backend: input.backend || null, model: input.model || null,
+      site: input.site || null, style: input.style || null,
+      note: input.note || null, library_book_id: input.libraryBookId || null,
+      status: 'planned',
+    })
+    if (error) return { ok: false, error: error.message }
+    revalidatePath('/admin/comic')
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '테스트 생성 실패' }
+  }
+}
+
 export async function deleteComicAction(bookId: string): Promise<ActionResult> {
   try {
     await requireAdmin('/admin/comic')

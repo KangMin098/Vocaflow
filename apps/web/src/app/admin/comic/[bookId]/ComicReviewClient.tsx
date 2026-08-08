@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   AlertTriangle, ArrowLeft, Archive, ArchiveRestore, CheckCircle2, ChevronLeft,
-  ChevronRight, Loader2, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
+  ChevronRight, Cpu, Loader2, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
 } from 'lucide-react'
 import type { ComicDetail, ComicStage } from '@/lib/comic/admin-queries'
 import {
@@ -128,6 +128,9 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
           {vLevel != null && (
             <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] text-[var(--t2)]">V{vLevel}</span>
           )}
+          <Link href={`/admin/comic/${bookId}/drain`} className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `${ACCENT}55`, color: ACCENT }}>
+            <Cpu size={12} /> 드레인 관측 →
+          </Link>
         </div>
         {msg && (
           <span className={`font-body text-[12px] ${msg.startsWith('실패') ? 'text-[var(--memory-risk)]' : 'text-[var(--memory-stable)]'}`}>

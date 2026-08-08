@@ -179,7 +179,9 @@
 | `/admin/vrl/users` | stub | user_profiles.current_v_level 분포 |
 | `/admin/vrl/snapshots` | stub | snapshots audit chain |
 | `/admin/vrl/automation` | `admin/vrl/automation/page.tsx` | pg_cron + V-Level 분포 + 진단 활용도 (v06.34) |
-| `/admin/comic` | `admin/comic/page.tsx` + `AdminComicClient.tsx` | CCP — Catalog(큐 적재) / Published(QC 게이트 발행) |
+| `/admin/comic` | `admin/comic/page.tsx` + `AdminComicClient.tsx` | CCP — Catalog(큐 적재·작업순서) / Published(QC 게이트 발행) / 테스트(실험) |
+| `/admin/comic/[bookId]` | `admin/comic/[bookId]/page.tsx` + `ComicReviewClient.tsx` | 검수 — 단계 stepper + QC + 컷 전수(썸네일) + 게시/보관/삭제/보완 |
+| `/admin/comic/[bookId]/drain` | `admin/comic/[bookId]/drain/page.tsx` + `DrainConsole.tsx` | 드레인 관측 — 실행/진행/자기발전/평가이력/컷상태/발행차단 사유 |
 
 ---
 

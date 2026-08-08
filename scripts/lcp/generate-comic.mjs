@@ -128,9 +128,36 @@ async function insert(bookId, file, commit) {
   }, { onConflict: 'library_book_id' })
   if (cbErr) { console.error('comic_books upsert 실패:', cbErr.message); process.exit(1) }
 
+  // 관측(observability) 기록 — 실행 + 컷 이벤트
+  await recordObservability(bookId, doc, rows, panelsPass)
   // job write-back
   await refreshJob(bookId, rows.length)
   console.log(`✓ 적재 완료 — ${rows.length}컷${panelsPass ? ' · QC 통과(발행 가능)' : ' · QC 미통과(발행 차단)'}`)
+}
+
+// 관측: comic_gen_runs 1건 + comic_panel_events N건 (pages.json 의 run/qc/per-panel 메타 기반)
+async function recordObservability(bookId, doc, rows, panelsPass) {
+  const run = doc.run || {}
+  const qc = doc.qc || {}
+  const failed = (qc.failed || []).length
+  const { data: runRow, error } = await db.from('comic_gen_runs').insert({
+    library_book_id: bookId, backend: run.backend || doc.backend || null, model: run.model || null,
+    site: run.site || null, style: doc.style || null, status: 'done',
+    panels_total: rows.length, panels_done: rows.length,
+    panels_pass: rows.length - failed, panels_fail: failed, iterations: run.iterations || 0,
+    verbatim_mismatch: (qc.verbatim_mismatch || []).length, rule_violations: (qc.rule_violations || []).length,
+    cost_usd: run.cost_usd ?? null, note: run.note || (panelsPass ? null : 'QC 미통과'),
+    finished_at: new Date().toISOString(),
+  }).select('id').single()
+  if (error) { console.error('  (관측 run 기록 실패:', error.message, ')'); return }
+  const ev = doc.pages.map((p) => ({
+    run_id: runRow.id, library_book_id: bookId, chapter_idx: p.chapter_idx, page_order: p.page_order,
+    attempt: p.attempt || 1, phase: p.phase || 'verbatim', status: p.qc_status || 'pass',
+    score: p.score ?? 100, verdict: p.verdict || {}, backend: run.backend || doc.backend || null,
+    message: p.qc_message || '정본 대조 통과',
+  }))
+  const { error: evErr } = await db.from('comic_panel_events').insert(ev)
+  console.error(evErr ? `  (관측 events 실패: ${evErr.message})` : `  관측 기록: run ${runRow.id.slice(0, 8)} + ${ev.length} events`)
 }
 
 async function refreshJob(bookId, panelsDone) {

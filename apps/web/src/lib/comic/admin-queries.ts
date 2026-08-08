@@ -198,6 +198,65 @@ export function deriveStage(
   return 'none'
 }
 
+// ── 드레인 관측(observability) + 테스트 ─────────────────────────
+export interface DrainRun {
+  id: string
+  backend: string | null; model: string | null; site: string | null; style: string | null
+  status: string
+  panels_total: number; panels_done: number; panels_pass: number; panels_fail: number
+  iterations: number; verbatim_mismatch: number; rule_violations: number
+  cost_usd: number | null; note: string | null; error: string | null
+  started_at: string; finished_at: string | null
+}
+export interface PanelEvent {
+  chapter_idx: number | null; page_order: number | null; attempt: number
+  phase: string | null; status: string | null; score: number | null
+  verdict: Record<string, unknown> | null; backend: string | null
+  duration_ms: number | null; message: string | null; created_at: string
+}
+export interface ComicTest {
+  id: string; library_book_id: string | null; label: string
+  backend: string | null; model: string | null; site: string | null; style: string | null
+  params: Record<string, unknown> | null; sample: Record<string, unknown> | null
+  status: string; result: Record<string, unknown> | null; cost_usd: number | null
+  note: string | null; created_at: string
+}
+
+/** 도서 드레인 관측 — 실행 이력 + 최신 실행의 컷 이벤트. */
+export async function fetchDrainObservability(
+  client: SupabaseClient,
+  bookId: string,
+): Promise<{ runs: DrainRun[]; events: PanelEvent[] }> {
+  const { data: runs } = await client
+    .from('comic_gen_runs')
+    .select('id, backend, model, site, style, status, panels_total, panels_done, panels_pass, panels_fail, iterations, verbatim_mismatch, rule_violations, cost_usd, note, error, started_at, finished_at')
+    .eq('library_book_id', bookId)
+    .order('started_at', { ascending: false })
+  const runList = (runs as DrainRun[]) ?? []
+  let events: PanelEvent[] = []
+  if (runList[0]) {
+    const { data: ev } = await client
+      .from('comic_panel_events')
+      .select('chapter_idx, page_order, attempt, phase, status, score, verdict, backend, duration_ms, message, created_at')
+      .eq('run_id', runList[0].id)
+      .order('chapter_idx')
+      .order('page_order')
+      .order('attempt')
+    events = (ev as PanelEvent[]) ?? []
+  }
+  return { runs: runList, events }
+}
+
+/** 테스트(실험) 목록. */
+export async function fetchComicTests(client: SupabaseClient): Promise<ComicTest[]> {
+  const { data } = await client
+    .from('comic_gen_tests')
+    .select('id, library_book_id, label, backend, model, site, style, params, sample, status, result, cost_usd, note, created_at')
+    .order('created_at', { ascending: false })
+    .limit(50)
+  return (data as ComicTest[]) ?? []
+}
+
 export async function fetchBookComicDetail(
   client: SupabaseClient,
   bookId: string,

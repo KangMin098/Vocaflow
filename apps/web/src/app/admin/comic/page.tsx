@@ -4,7 +4,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
-import { listComicCatalog, summarize } from '@/lib/comic/admin-queries'
+import { fetchComicTests, listComicCatalog, summarize } from '@/lib/comic/admin-queries'
 import { AdminComicClient } from './AdminComicClient'
 
 export const dynamic = 'force-dynamic'
@@ -13,7 +13,7 @@ export const metadata = { title: 'Comic Pipeline · Admin' }
 export default async function AdminComicPage() {
   await requireAdmin('/admin/comic')
   const client = (await createClient()) as unknown as SupabaseClient
-  const rows = await listComicCatalog(client)
+  const [rows, tests] = await Promise.all([listComicCatalog(client), fetchComicTests(client)])
   const stats = summarize(rows)
-  return <AdminComicClient rows={rows} stats={stats} />
+  return <AdminComicClient rows={rows} stats={stats} tests={tests} />
 }

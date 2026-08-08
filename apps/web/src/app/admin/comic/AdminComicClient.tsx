@@ -7,12 +7,12 @@
 import { useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { BookImage, CheckCircle2, CircleSlash, Clock, Loader2, ShieldCheck } from 'lucide-react'
-import type { ComicCatalogRow, ComicStats } from '@/lib/comic/admin-queries'
-import { enqueueComicJobsAction, setComicPublishedAction } from './actions'
+import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, FlaskConical, Loader2, Plus, ShieldCheck } from 'lucide-react'
+import type { ComicCatalogRow, ComicStats, ComicTest } from '@/lib/comic/admin-queries'
+import { createComicTestAction, enqueueComicJobsAction, setComicPublishedAction } from './actions'
 
 const ACCENT = '#8B5CF6'
-type TabKey = 'catalog' | 'published'
+type TabKey = 'catalog' | 'published' | 'tests'
 
 const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
@@ -21,7 +21,7 @@ const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string;
   archived: { label: '보관', tone: 'var(--t3)' },
 }
 
-export function AdminComicClient({ rows, stats }: { rows: ComicCatalogRow[]; stats: ComicStats }) {
+export function AdminComicClient({ rows, stats, tests }: { rows: ComicCatalogRow[]; stats: ComicStats; tests: ComicTest[] }) {
   const router = useRouter()
   const [tab, setTab] = useState<TabKey>('catalog')
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -115,7 +115,7 @@ export function AdminComicClient({ rows, stats }: { rows: ComicCatalogRow[]; sta
 
       {/* 탭 */}
       <div role="tablist" className="flex gap-1 border-b border-[var(--bd)]">
-        {(['catalog', 'published'] as TabKey[]).map((k) => (
+        {(['catalog', 'published', 'tests'] as TabKey[]).map((k) => (
           <button
             key={k}
             role="tab"
@@ -126,7 +126,7 @@ export function AdminComicClient({ rows, stats }: { rows: ComicCatalogRow[]; sta
             }`}
             style={tab === k ? { borderColor: ACCENT } : undefined}
           >
-            {k === 'catalog' ? 'Catalog' : 'Published'}
+            {k === 'catalog' ? 'Catalog' : k === 'published' ? 'Published' : '테스트'}
           </button>
         ))}
       </div>
@@ -228,7 +228,93 @@ export function AdminComicClient({ rows, stats }: { rows: ComicCatalogRow[]; sta
           </table>
         </div>
       )}
+
+      {tab === 'tests' && <TestsTab tests={tests} />}
     </div>
+  )
+}
+
+function TestsTab({ tests }: { tests: ComicTest[] }) {
+  const router = useRouter()
+  const [pending, start] = useTransition()
+  const [form, setForm] = useState({ label: '', backend: '', model: '', site: '', note: '' })
+  const [msg, setMsg] = useState<string | null>(null)
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  const submit = () => {
+    if (!form.label.trim()) { setMsg('테스트 이름을 입력하세요.'); return }
+    setMsg(null)
+    start(async () => {
+      const res = await createComicTestAction(form)
+      if (res.ok) { setForm({ label: '', backend: '', model: '', site: '', note: '' }); router.refresh() }
+      else setMsg(`실패: ${res.error}`)
+    })
+  }
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+        <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+          <b className="text-[var(--t1)]">테스트 모드</b> — 더 나은 생성 파이프라인을 위한 실험(백엔드/모델/사이트/파라미터 A·B)을 <b>계획·기록·비교</b>합니다.
+          실행은 드레인 스크립트(Claude Code)로 돌리고, 점수·비용·샘플 결과를 이 카드에 축적해 백엔드 판정(예: R30 GPT vs FLUX.2) 근거로 삼습니다.
+        </p>
+      </div>
+
+      {/* 새 테스트 계획 */}
+      <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <p className="font-display text-[12px] font-[700] text-[var(--t1)]">새 테스트 계획</p>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <Field label="이름*" value={form.label} onChange={set('label')} placeholder="예: Qwen-2512 vs GPT 화풍 일관성" />
+          <Field label="백엔드" value={form.backend} onChange={set('backend')} placeholder="gpt-image-2 / flux2-dev / qwen-2512" />
+          <Field label="모델" value={form.model} onChange={set('model')} placeholder="체크포인트/버전" />
+          <Field label="사이트" value={form.site} onChange={set('site')} placeholder="openai-api / runpod-comfyui / dashscope" />
+        </div>
+        <Field label="메모" value={form.note} onChange={set('note')} placeholder="가설·파라미터·기대 결과" />
+        <div className="flex items-center gap-3">
+          <button onClick={submit} disabled={pending} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
+            {pending ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />} 계획 추가
+          </button>
+          {msg && <span className="font-body text-[12px] text-[var(--memory-risk)]">{msg}</span>}
+        </div>
+      </div>
+
+      {/* 테스트 목록 */}
+      {tests.length === 0 ? (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">아직 테스트가 없습니다.</p>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {tests.map((t) => (
+            <div key={t.id} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <FlaskConical size={14} style={{ color: ACCENT }} />
+                <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{t.label}</span>
+                <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : ACCENT, background: 'var(--bg2)' }}>{t.status}</span>
+                <div className="flex-1" />
+                <span className="font-mono text-[11px] text-[var(--t4)]">{new Date(t.created_at).toLocaleDateString('ko-KR')}</span>
+              </div>
+              <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-[var(--t3)]">
+                {t.backend && <span className="inline-flex items-center gap-1"><Cpu size={11} />{t.backend}</span>}
+                {t.model && <span>· {t.model}</span>}
+                {t.site && <span>· {t.site}</span>}
+              </div>
+              {t.result && (
+                <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[12px] text-[var(--t2)]">
+                  {Object.entries(t.result).map(([k, v]) => `${k}: ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')}
+                </p>
+              )}
+              {t.note && <p className="mt-1 font-body text-[12px] italic text-[var(--t3)]">{t.note}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function Field({ label, value, onChange, placeholder }: { label: string; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; placeholder?: string }) {
+  return (
+    <label className="flex flex-col gap-1">
+      <span className="font-display text-[11px] font-[700] text-[var(--t3)]">{label}</span>
+      <input value={value} onChange={onChange} placeholder={placeholder} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]" />
+    </label>
   )
 }
 
