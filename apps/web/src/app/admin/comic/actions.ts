@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
-import { archiveComic, deleteComic, enqueueComicJobs, setComicPublished } from '@/lib/comic/admin-queries'
+import { archiveComic, collectComicStoragePaths, deleteComic, enqueueComicJobs, setComicPublished } from '@/lib/comic/admin-queries'
 
 export interface ActionResult<T = unknown> {
   ok: boolean
@@ -65,6 +65,11 @@ export async function deleteComicAction(bookId: string): Promise<ActionResult> {
   try {
     await requireAdmin('/admin/comic')
     const client = (await createClient()) as unknown as SupabaseClient
+    // 버킷 오브젝트 먼저 정리(고아 스토리지 방지) — best-effort, 실패해도 DB 삭제는 진행
+    try {
+      const st = await collectComicStoragePaths(client, bookId)
+      if (st && st.paths.length > 0) await client.storage.from(st.bucket).remove(st.paths)
+    } catch { /* 스토리지 정리 실패는 무시 */ }
     await deleteComic(client, bookId)
     revalidatePath('/admin/comic')
     return { ok: true }

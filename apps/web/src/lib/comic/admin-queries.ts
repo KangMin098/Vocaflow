@@ -105,7 +105,8 @@ export async function setComicPublished(
   if (error) throw new Error(error.message)
 }
 
-/** 보관/복원 — comic_books.status 직접 갱신(RLS admin 정책). archived ↔ draft. */
+/** 보관/복원 — comic_books.status 직접 갱신(RLS admin). 보관 시 comic_gen 잡도 정리
+ *  (미완 잡이 deriveStage 를 shadow 해 archived 를 못 보이게 하는 결함 차단). */
 export async function archiveComic(
   client: SupabaseClient,
   bookId: string,
@@ -116,19 +117,31 @@ export async function archiveComic(
     .update({ status: archived ? 'archived' : 'draft', published_at: null })
     .eq('library_book_id', bookId)
   if (error) throw new Error(error.message)
+  if (archived) {
+    await client.from('book_curation_jobs').delete().eq('book_id', bookId).eq('task_type', 'comic_gen')
+  }
 }
 
-/** 삭제 — comic_pages + comic_books + comic_gen 잡 제거(RLS admin). 버킷 오브젝트는 별도. */
+/** 삭제 — admin_delete_comic RPC(pages+header+job 단일 트랜잭션). 버킷 정리는 action 에서. */
 export async function deleteComic(client: SupabaseClient, bookId: string): Promise<void> {
-  const { error: pErr } = await client.from('comic_pages').delete().eq('library_book_id', bookId)
-  if (pErr) throw new Error(pErr.message)
-  const { error: hErr } = await client.from('comic_books').delete().eq('library_book_id', bookId)
-  if (hErr) throw new Error(hErr.message)
-  await client
-    .from('book_curation_jobs')
-    .delete()
-    .eq('book_id', bookId)
-    .eq('task_type', 'comic_gen')
+  const { error } = await client.rpc('admin_delete_comic', { p_book_id: bookId })
+  if (error) throw new Error(error.message)
+}
+
+/** 삭제 전 버킷 오브젝트 경로 수집(고아 스토리지 방지). image_url 에서 버킷/경로 파싱. */
+export async function collectComicStoragePaths(
+  client: SupabaseClient,
+  bookId: string,
+): Promise<{ bucket: string; paths: string[] } | null> {
+  const { data } = await client.from('comic_pages').select('image_url').eq('library_book_id', bookId)
+  const rows = (data as Array<{ image_url: string }> | null) ?? []
+  const paths: string[] = []
+  let bucket = ''
+  for (const r of rows) {
+    const m = r.image_url.match(/\/storage\/v1\/object\/(?:public\/)?([^/]+)\/(.+)$/)
+    if (m) { bucket = m[1]; paths.push(decodeURIComponent(m[2])) }
+  }
+  return bucket ? { bucket, paths } : null
 }
 
 // ── 검수 상세 ─────────────────────────────────────────────────
@@ -176,11 +189,11 @@ export function deriveStage(
   jobStatus: string | null | undefined,
   panels: number,
 ): ComicStage {
+  if (comicStatus === 'archived') return 'archived' // 관리자 종결 결정 — 잡보다 우선
   if (jobStatus === 'running') return 'generating'
   if (jobStatus === 'pending') return 'queued'
   if (comicStatus === 'published') return 'published'
-  if (comicStatus === 'archived') return 'archived'
-  if ((comicStatus === 'draft' || panels > 0) && panels > 0) return 'review'
+  if (panels > 0) return 'review'
   if (jobStatus === 'failed') return 'queued'
   return 'none'
 }

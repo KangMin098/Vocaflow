@@ -85,7 +85,7 @@ export function ModePills({
     <nav
       aria-label="학습 단계 선택"
       // UnifiedHeader 부모가 이미 sticky — 자체 sticky 제거 (stacking context 충돌 차단)
-      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)]/95 backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] ${
+      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)]/95 backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
         isFocusMode
           ? '-translate-y-1 opacity-40 hover:translate-y-0 hover:opacity-100'
           : 'opacity-100'
@@ -129,7 +129,7 @@ export function ModePills({
                       <Link
                         href={href}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                        className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
                           isActive
                             ? 'text-white shadow-[var(--sh-sm)]'
                             : isDone

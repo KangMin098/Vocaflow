@@ -74,15 +74,29 @@ export default async function ComicModePage({ params }: PageProps) {
     return <ComicEmpty textId={t.id} message="이 글은 아직 만화를 지원하지 않아요" />
   }
 
-  // 발행 만화 로드 — RPC 미적용/미발행 전부 graceful degrade
+  // 발행 만화 로드 — 도서 전권(전 챕터/컷)을 한 번에(레일=stave 다중 dot + 챕터 연속).
+  // RPC 미적용/미발행 전부 graceful degrade.
   let pages: ComicPage[] = []
   let bookTitle = t.title ?? '이야기'
   try {
-    const [{ data: book }, { data: rows, error }] = await Promise.all([
+    const [{ data: book }, allRes] = await Promise.all([
       client.from('library_books').select('title').eq('id', t.library_book_id).maybeSingle(),
-      client.rpc('select_book_comic', { p_book_id: t.library_book_id, p_chapter_idx: t.chapter_idx }),
+      client.rpc('select_book_comic_all', { p_book_id: t.library_book_id }),
     ])
     if (book) bookTitle = (book as { title: string }).title ?? bookTitle
+    let rows = allRes.data
+    let error = allRes.error
+    // 폴백: 전권 RPC 미적용/미발행 시 챕터 단위(구 RPC)로 — 마이그레이션 전에도 리더 유지
+    if (error || !Array.isArray(rows) || rows.length === 0) {
+      const per = await client.rpc('select_book_comic', {
+        p_book_id: t.library_book_id,
+        p_chapter_idx: t.chapter_idx,
+      })
+      if (!per.error && Array.isArray(per.data) && per.data.length > 0) {
+        rows = per.data
+        error = null
+      }
+    }
     if (!error && Array.isArray(rows)) {
       pages = (rows as Array<{
         page_order: number

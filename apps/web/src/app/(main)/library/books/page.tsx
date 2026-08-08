@@ -236,13 +236,19 @@ export default async function LibraryBooksPage() {
       book_v_level: number | null;
       panels_total: number;
     }>;
-    for (const c of rows.slice(0, 4)) {
-      let coverArt: string | null = null;
-      const { data: firstPage } = await client.rpc('select_book_comic', {
-        p_book_id: c.library_book_id,
-        p_chapter_idx: 1,
-      });
-      if (Array.isArray(firstPage) && firstPage[0]?.image_url) coverArt = firstPage[0].image_url as string;
+    const top = rows.slice(0, 4);
+    // 커버 아트 병렬 fetch (N+1 직렬 제거) — 첫 컷(select_book_comic_all 첫 행)
+    const covers = await Promise.all(
+      top.map(async (c) => {
+        try {
+          const { data } = await client.rpc('select_book_comic_all', { p_book_id: c.library_book_id });
+          return Array.isArray(data) && data[0]?.image_url ? (data[0].image_url as string) : null;
+        } catch {
+          return null;
+        }
+      }),
+    );
+    top.forEach((c, idx) => {
       const e = enrollmentByBook.get(c.library_book_id);
       const href = e
         ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
@@ -253,11 +259,11 @@ export default async function LibraryBooksPage() {
         author: c.author,
         vLevel: c.book_v_level,
         panelsTotal: c.panels_total,
-        coverArt,
+        coverArt: covers[idx],
         href,
         enrolled: !!e,
       });
-    }
+    });
   } catch {
     // RPC 미적용 등 — 히어로 생략(graceful)
   }

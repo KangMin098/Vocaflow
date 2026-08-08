@@ -1,20 +1,18 @@
 // apps/web/src/components/comic/ComicReader.tsx
 //
-// CCP 학습자 리더 v2 — "아트는 무대, UI는 조명" (웹툰/Kindle/Duolingo/MasterClass 딥서치 반영).
-//   · 몰입 크롬 자동숨김 + 중앙 탭 토글 + 글래스(paper-blur) 상/하단바 (Naver Webtoon·Apple)
-//   · stave-dot 진행 레일 + gold ring 현재 위치 + dot 탭 점프 (Kindle 챕터 스크러버·Duolingo 노드)
-//   · 방향성 페이지 전환 + 엣지 rubber-band + Space/Shift+Space (Lezhin·Kindle)
-//   · 대사 non-cover + film-strip gold hairline tie + 화자 dot+라벨 (Dual Coding)
-//   · verbatim blur→reveal 유지(Desirable Difficulty) · Light/Dim 리딩 모드
-//   · Calm UI: 폭죽/트로피 없음 · prefers-reduced-motion 전면 대응 · 앱 토큰만
+// CCP 학습자 리더 v3 — 3관점 QA 감사(학습자·접근성·제3자) 반영.
+//   접근성: 포커스-인지 키 핸들러(포커스가 컨트롤에 있으면 슬라이드 조작 안 함) · 실 모달
+//     (aria-modal·focus 이동·Esc·focus 복귀) · 숨은 크롬 focus 시 자동 노출 · aria-live 컷 안내
+//     · 44px 히트영역 · gold CTA 고대비 dark 텍스트 · 레일 shape 백업(완료/현재/남음).
+//   UX: 크롬 컨트롤發 넘김은 크롬 유지(버튼 자기소멸 방지) · Dim 토큰 오버라이드(누수 0)
+//     · 위치/Dim 영속(localStorage) · 첫 진입 온보딩 힌트 · 긴 대사 스크롤 · 깨진 이미지 폴백.
+//   전권 로드(select_book_comic_all)로 stave-dot 레일 다중 dot + 챕터 연속.
 
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import {
-  ArrowLeft, ArrowRight, BookOpen, Eye, ListChecks, Moon, Sparkles, Sun,
-} from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookImage, BookOpen, Eye, ListChecks, Moon, Sparkles, Sun } from 'lucide-react'
 
 export interface ComicBubble {
   speaker?: string | null
@@ -39,12 +37,21 @@ interface ComicReaderProps {
   pages: ComicPage[]
 }
 
-// 화자별 낮은-채도 hue (색 + 이름 라벨 병행 → 색맹 대응)
+const ON_GOLD = '#231a09' // gold(--active) 위 고대비 텍스트 (AA 통과, 양 테마)
+// Dim 리딩 모드 — 토큰 오버라이드(모든 하위 요소 일괄 다크 · 누수 0)
+const DIM_VARS: Record<string, string> = {
+  '--bg': '#1a150f', '--bg2': '#120f0c', '--bg3': '#241d14',
+  '--t1': '#ece4d6', '--t2': 'rgba(236,228,214,.64)', '--t3': 'rgba(236,228,214,.44)', '--t4': 'rgba(236,228,214,.22)',
+  '--bd': '#3a3226', '--reading-bg': '#120F0C', '--mat-glass-bg-thin': 'rgba(26,21,15,.78)',
+}
+
 function speakerHue(name: string): string {
   let h = 0
   for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360
-  return `hsl(${h} 32% 52%)`
+  return `hsl(${h} 34% 56%)`
 }
+const isInteractive = (el: EventTarget | null): boolean =>
+  el instanceof HTMLElement && !!el.closest('button,a,input,textarea,select,[role="dialog"],[data-no-nav]')
 
 export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
   const total = pages.length
@@ -55,167 +62,196 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
   const [dim, setDim] = useState(false)
   const [bump, setBump] = useState<'l' | 'r' | null>(null)
   const [dir, setDir] = useState<1 | -1>(1)
+  const [broken, setBroken] = useState<Set<number>>(new Set())
+  const [coach, setCoach] = useState(false)
   const touch = useRef<{ x: number; y: number; moved: boolean } | null>(null)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const bumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const reduced = useRef(false)
+  const dialogRef = useRef<HTMLDivElement | null>(null)
+  const vocabTrigger = useRef<HTMLElement | null>(null)
+  const posKey = `vocaflow.comic.pos.${textId}`
 
+  // 마운트: reduced-motion · 위치/Dim 복원 · 크롬 자동숨김 · 온보딩
   useEffect(() => {
-    reduced.current = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    // 진입 2.5s 뒤 크롬 자동 숨김(reduced-motion 시 유지)
-    if (!reduced.current) hideTimer.current = setTimeout(() => setChrome(false), 2500)
-    return () => { if (hideTimer.current) clearTimeout(hideTimer.current) }
+    reduced.current = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    try {
+      const saved = JSON.parse(localStorage.getItem(posKey) || '{}')
+      if (typeof saved.i === 'number') setI(Math.max(0, Math.min(total, saved.i)))
+      if (typeof saved.dim === 'boolean') setDim(saved.dim)
+      if (!localStorage.getItem('vocaflow.comic.coached')) setCoach(true)
+    } catch { /* noop */ }
+    if (!reduced.current) hideTimer.current = setTimeout(() => setChrome(false), 3000)
+    return () => { if (hideTimer.current) clearTimeout(hideTimer.current); if (bumpTimer.current) clearTimeout(bumpTimer.current) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const atEnd = i >= total // total = "다음 단계" 페이지
-  const go = useCallback((n: number, d: 1 | -1) => {
+  // 위치/Dim 영속
+  useEffect(() => { try { localStorage.setItem(posKey, JSON.stringify({ i, dim })) } catch { /* noop */ } }, [i, dim, posKey])
+
+  const dismissCoach = useCallback(() => {
+    setCoach(false)
+    try { localStorage.setItem('vocaflow.comic.coached', '1') } catch { /* noop */ }
+  }, [])
+
+  const atEnd = i >= total
+  // src: 'chrome' 이면 크롬 유지(버튼/레일發 넘김이 스스로를 숨기지 않게)
+  const go = useCallback((n: number, d: 1 | -1, src?: 'chrome' | 'key') => {
     setI((p) => {
       const t = Math.max(0, Math.min(total, n))
-      if (t === p) { // 경계 — rubber-band
-        if (!reduced.current) { setBump(d < 0 ? 'l' : 'r'); setTimeout(() => setBump(null), 200) }
+      if (t === p) {
+        if (!reduced.current) { setBump(d < 0 ? 'l' : 'r'); if (bumpTimer.current) clearTimeout(bumpTimer.current); bumpTimer.current = setTimeout(() => setBump(null), 200) }
         return p
       }
-      setDir(d); setChrome(false) // 넘김 시 크롬 숨김
-      if (hideTimer.current) clearTimeout(hideTimer.current)
+      setDir(d)
+      if (src === 'key') setChrome(true)           // 키보드 사용자는 크롬 노출 유지
+      else if (src !== 'chrome') { setChrome(false); if (hideTimer.current) clearTimeout(hideTimer.current) }
       return t
     })
-  }, [total])
+    if (coach) dismissCoach()
+  }, [total, coach, dismissCoach])
 
+  // 포커스-인지 키 핸들러 (다이얼로그 열림/컨트롤 포커스 시 슬라이드 조작 안 함)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); go(i + 1, 1) }
-      else if (e.key === 'ArrowLeft' || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); go(i - 1, -1) }
+      if (vocab) return // 모달 열림 → 리더 조작 차단(모달 자체 Esc 는 아래 effect)
+      if (isInteractive(document.activeElement) && document.activeElement !== document.body) return
+      if (e.key === 'ArrowRight' || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); go(i + 1, 1, 'key') }
+      else if (e.key === 'ArrowLeft' || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); go(i - 1, -1, 'key') }
+      else if (e.key.toLowerCase() === 'm' || e.key === 'Escape') setChrome((c) => !c) // 크롬 토글(키보드)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [i, go])
+  }, [i, go, vocab])
 
-  const reveal = (key: string) => setRevealed((s) => new Set(s).add(key))
+  // 모달: 포커스 이동 + Esc + 포커스 복귀
+  useEffect(() => {
+    if (!vocab) return
+    const prev = document.activeElement as HTMLElement | null
+    vocabTrigger.current = prev
+    const node = dialogRef.current
+    const focusables = node?.querySelectorAll<HTMLElement>('button,a[href]')
+    focusables?.[0]?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { e.stopPropagation(); setVocab(null); return }
+      if (e.key === 'Tab' && focusables && focusables.length) {
+        const first = focusables[0], last = focusables[focusables.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
+    document.addEventListener('keydown', onKey, true)
+    return () => { document.removeEventListener('keydown', onKey, true); vocabTrigger.current?.focus?.() }
+  }, [vocab])
+
+  const toggleReveal = (key: string) => setRevealed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n })
+
   const page = i < total ? pages[i] : null
   const stave = page?.staveLabel ?? (page ? `Chapter ${page.chapterIdx}` : '')
 
-  // stave 그룹 (진행 레일 + dot 점프)
+  // stave 그룹 (staveLabel 기준 — 전권 로드로 다중 dot)
   const staves = useMemo(() => {
-    const seen = new Map<number, { idx: number; label: string; first: number; count: number }>()
+    const seen = new Map<string, { key: string; label: string; first: number; count: number }>()
     pages.forEach((p, gi) => {
-      if (!seen.has(p.chapterIdx)) seen.set(p.chapterIdx, { idx: p.chapterIdx, label: p.staveLabel ?? `Ch ${p.chapterIdx}`, first: gi, count: 0 })
-      seen.get(p.chapterIdx)!.count++
+      const k = p.staveLabel ?? `Ch ${p.chapterIdx}`
+      if (!seen.has(k)) seen.set(k, { key: k, label: k, first: gi, count: 0 })
+      seen.get(k)!.count++
     })
-    return [...seen.values()].sort((a, b) => a.idx - b.idx)
+    return [...seen.values()]
   }, [pages])
-  const curStave = page?.chapterIdx ?? staves[staves.length - 1]?.idx
+  const curStaveKey = page ? (page.staveLabel ?? `Ch ${page.chapterIdx}`) : staves[staves.length - 1]?.key
+
+  const glass = { background: 'var(--mat-glass-bg-thin, rgba(250,250,247,.72))' }
+  const rootStyle = { ...(dim ? DIM_VARS : {}), background: 'var(--reading-bg)', transition: 'background .3s var(--ease)' } as React.CSSProperties
 
   return (
     <div
-      className="relative min-h-[calc(100vh-3rem)] select-none"
-      style={{ background: dim ? '#120F0C' : 'var(--reading-bg)', transition: 'background .3s var(--ease)' }}
+      className="relative min-h-[calc(100vh-3rem)]"
+      style={rootStyle}
+      role="region"
+      aria-roledescription="만화 리더"
+      aria-label={`${bookTitle} 만화`}
     >
-      {/* ── 상단 글래스바 (auto-hide) ── */}
+      {/* SR 전용 컷 안내 */}
+      <div aria-live="polite" className="sr-only">
+        {page ? `${stave}, 컷 ${i + 1} / ${total}` : `완료. 총 ${total}컷`}
+      </div>
+
+      {/* 상단 글래스바 (auto-hide · focus 시 자동 노출) */}
       <header
-        className={`fixed inset-x-0 top-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${
-          chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
-        }`}
+        onFocus={() => setChrome(true)}
+        className={`fixed inset-x-0 top-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
-        <div className="mx-auto flex max-w-[860px] items-center justify-between gap-3 px-4 py-2.5">
-          <Link
-            href={`/text/${textId}?mode=read`}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2 py-1 font-body text-[12px] font-[600] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)]"
-            style={{ background: 'var(--mat-glass-bg-thin, rgba(250,250,247,.72))' }}
-          >
-            <ArrowLeft size={14} aria-hidden /> 본문
+        <div className="mx-auto flex max-w-[860px] items-center justify-between gap-3 px-4 py-2">
+          <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)]" style={glass}>
+            <ArrowLeft size={15} aria-hidden /> 본문
           </Link>
-          <span className="truncate font-display text-[12px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]">
-            {bookTitle}
-          </span>
-          <button
-            type="button"
-            onClick={() => setDim((d) => !d)}
-            aria-label={dim ? '밝게' : '어둡게(몰입)'}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--active)]"
-            style={{ background: 'var(--mat-glass-bg-thin, rgba(250,250,247,.72))' }}
-          >
-            {dim ? <Sun size={15} /> : <Moon size={15} />}
+          <span className="truncate font-display text-[12px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]">{bookTitle}</span>
+          <button type="button" onClick={() => setDim((d) => !d)} aria-label={dim ? '밝은 모드로' : '어두운(몰입) 모드로'} aria-pressed={dim} className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--active)]" style={glass}>
+            {dim ? <Sun size={16} /> : <Moon size={16} />}
           </button>
         </div>
       </header>
 
-      {/* ── 뷰포트 ── */}
+      {/* 뷰포트 */}
       <div
-        className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-[860px] flex-col justify-center px-4 py-14"
+        className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-[860px] flex-col justify-start px-4 pb-24 pt-16 [touch-action:pan-y]"
         onPointerDown={(e) => (touch.current = { x: e.clientX, y: e.clientY, moved: false })}
-        onPointerMove={(e) => {
-          if (touch.current && (Math.abs(e.clientX - touch.current.x) > 8 || Math.abs(e.clientY - touch.current.y) > 8)) touch.current.moved = true
-        }}
+        onPointerMove={(e) => { if (touch.current && (Math.abs(e.clientX - touch.current.x) > 8 || Math.abs(e.clientY - touch.current.y) > 8)) touch.current.moved = true }}
         onPointerUp={(e) => {
           const t = touch.current; touch.current = null; if (!t) return
           const dx = e.clientX - t.x, dy = e.clientY - t.y
           if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) return go(i + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1)
           if (!t.moved) {
-            if ((e.target as HTMLElement).closest('button,a,[data-no-nav]')) return
-            const x = e.clientX / window.innerWidth
+            if (isInteractive(e.target)) return
+            const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+            const x = (e.clientX - rect.left) / rect.width
             if (x > 0.62) go(i + 1, 1)
             else if (x < 0.38) go(i - 1, -1)
-            else setChrome((c) => !c) // 중앙 탭 = 크롬 토글
+            else setChrome((c) => !c)
           }
         }}
       >
         {page ? (
-          <article
-            key={i}
-            className={`flex flex-col gap-0 ${bump === 'l' ? 'animate-[bumpL_.2s_ease]' : bump === 'r' ? 'animate-[bumpR_.2s_ease]' : dir === 1 ? 'animate-[slideN_.26s_ease]' : 'animate-[slideP_.26s_ease]'} motion-reduce:animate-none`}
-          >
-            {/* film-strip 카드: 아트 + gold hairline tie + 대사존 */}
-            <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] shadow-[var(--sh-sm)]" style={{ background: dim ? '#1a150f' : 'var(--bg)' }}>
-              {/* 아트 (온전 · contain) */}
-              <div className="flex items-center justify-center" style={{ background: dim ? '#0d0b08' : 'var(--bg2)' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={page.imageUrl}
-                  alt={`${bookTitle} — ${stave} 컷 ${page.pageOrder}`}
-                  loading="lazy"
-                  className="max-h-[58vh] w-auto max-w-full"
-                />
+          <article key={i} className={`select-none ${bump === 'l' ? 'animate-[bumpL_.2s_ease]' : bump === 'r' ? 'animate-[bumpR_.2s_ease]' : dir === 1 ? 'animate-[slideN_.26s_ease]' : 'animate-[slideP_.26s_ease]'} motion-reduce:animate-none`}>
+            <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
+              {/* 아트 */}
+              <div className="flex items-center justify-center bg-[var(--bg2)]">
+                {broken.has(i) || !page.imageUrl ? (
+                  <div className="grid h-[40vh] w-full place-items-center text-[var(--t4)]"><BookImage size={30} aria-hidden /></div>
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={page.imageUrl} alt={`${bookTitle} — ${stave} 컷 ${page.pageOrder}`} loading="lazy" onError={() => setBroken((s) => new Set(s).add(i))} className="max-h-[56vh] w-auto max-w-full" />
+                )}
               </div>
-              {/* gold hairline tie */}
               <div aria-hidden style={{ height: 2, background: 'color-mix(in srgb, var(--active) 30%, transparent)' }} />
-              {/* 대사존 */}
-              <div className="flex flex-col gap-2 px-3.5 py-3" style={{ color: dim ? '#e8e0d2' : undefined }}>
+              {/* 대사존 (텍스트 선택 허용) */}
+              <div className="flex select-text flex-col gap-2 px-3.5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="font-display text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active)]">{stave}</span>
-                  <span className="h-px flex-1" style={{ background: 'var(--bd)' }} aria-hidden />
+                  <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                 </div>
                 {page.bubbles.length === 0 && <p className="font-body text-[12px] text-[var(--t4)]">…</p>}
                 {page.bubbles.map((b, bi) => {
                   const key = `${i}-${bi}`
                   const isCap = (b.kind ?? 'speech') === 'caption'
-                  const hidden = b.verbatim && !revealed.has(key)
-                  if (isCap) {
-                    return (
-                      <p key={key} className="border-l-[3px] pl-3 font-serif text-[13px] italic leading-relaxed" style={{ borderColor: 'var(--active)', color: dim ? '#c9bfad' : 'var(--t2)' }}>
-                        {b.text}
-                      </p>
-                    )
-                  }
+                  const shown = !b.verbatim || revealed.has(key)
+                  if (isCap) return <p key={key} className="border-l-[3px] border-[var(--active)] pl-3 font-serif text-[13px] italic leading-relaxed text-[var(--t2)]">{b.text}</p>
                   return (
                     <div key={key} className="flex flex-col gap-0.5">
                       {b.speaker && (
-                        <span className="inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em]" style={{ color: dim ? '#b9ad97' : 'var(--t3)' }}>
-                          <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: speakerHue(b.speaker) }} />
-                          {b.speaker}
+                        <span className="inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+                          <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: speakerHue(b.speaker) }} />{b.speaker}
                         </span>
                       )}
-                      {hidden ? (
-                        <button
-                          type="button" data-no-nav onClick={() => reveal(key)}
-                          aria-label="정본 대사 확인 (기억해 보고 탭)" aria-expanded={false}
-                          className="group inline-flex items-center gap-2 self-start rounded-[var(--r-md)] px-2.5 py-1.5 text-left font-body text-[14px] transition-colors"
-                          style={{ border: '1px dashed color-mix(in srgb, var(--active) 55%, transparent)', background: 'color-mix(in srgb, var(--active) 8%, transparent)', color: 'var(--t3)' }}
-                        >
-                          <Eye size={13} aria-hidden style={{ color: 'var(--active)' }} />
-                          <span className="select-none blur-[4px] transition group-hover:blur-[3px] motion-reduce:transition-none">{b.text}</span>
-                          <span className="shrink-0 font-display text-[10px] font-[700] underline underline-offset-2" style={{ color: 'var(--active)' }}>기억나면 탭</span>
+                      {b.verbatim ? (
+                        <button type="button" data-no-nav onClick={() => toggleReveal(key)} aria-pressed={shown} aria-label={shown ? `정본 대사: ${b.text}` : '정본 대사 — 기억해 보고 탭하여 확인'} className="group inline-flex min-h-11 items-center gap-2 self-start rounded-[var(--r-md)] px-2.5 py-1.5 text-left font-body text-[14px] transition-colors motion-reduce:transition-none" style={{ border: '1px dashed color-mix(in srgb, var(--active) 55%, transparent)', background: 'color-mix(in srgb, var(--active) 8%, transparent)', color: shown ? 'var(--t1)' : 'var(--t3)' }}>
+                          {!shown && <Eye size={13} aria-hidden style={{ color: 'var(--active)' }} />}
+                          <span className={shown ? '' : 'select-none blur-[4px]'}>{b.text}</span>
+                          {!shown && <span className="shrink-0 font-display text-[10px] font-[700] underline underline-offset-2" style={{ color: 'var(--active)' }}>기억나면 탭</span>}
                         </button>
                       ) : (
-                        <p className={`font-body text-[14px] leading-snug ${b.kind === 'shout' ? 'font-[800]' : ''}`} style={{ color: dim ? '#ece4d6' : 'var(--t1)' }}>{b.text}</p>
+                        <p className={`font-body text-[14px] leading-snug text-[var(--t1)] ${b.kind === 'shout' ? 'font-[800]' : ''}`}>{b.text}</p>
                       )}
                     </div>
                   )
@@ -223,18 +259,11 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
               </div>
             </div>
 
-            {/* target_vocab 칩 */}
             {page.targetVocab.length > 0 && (
               <div className="mt-3 flex flex-wrap items-center gap-1.5">
                 <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">학습 단어</span>
                 {page.targetVocab.map((w) => (
-                  <button
-                    key={w} type="button" data-no-nav onClick={() => setVocab(w)}
-                    className="rounded-[var(--r-full)] border px-2.5 py-1 font-body text-[12px] font-[600] transition-colors"
-                    style={{ borderColor: 'var(--bd)', background: 'var(--bg2)', color: 'var(--t1)' }}
-                  >
-                    {w}
-                  </button>
+                  <button key={w} type="button" data-no-nav onClick={(e) => { vocabTrigger.current = e.currentTarget; setVocab(w) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-body text-[13px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--active)] motion-reduce:transition-none">{w}</button>
                 ))}
               </div>
             )}
@@ -247,10 +276,10 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
               <p className="mt-1 font-body text-[13px] text-[var(--t2)]">이야기의 흐름을 잡았다면, 이제 본문으로 더 깊이 만나 볼까요?</p>
             </div>
             <div className="flex flex-wrap justify-center gap-2">
-              <Link href={`/text/${textId}?mode=read`} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-transform hover:-translate-y-px" style={{ background: 'var(--active)' }}>
+              <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-px motion-reduce:transition-none" style={{ background: 'var(--active)', color: ON_GOLD }}>
                 <BookOpen size={14} aria-hidden /> 본문 읽기
               </Link>
-              <Link href="/scriptquiz" className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:border-[var(--active)]">
+              <Link href="/scriptquiz" className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:border-[var(--active)]">
                 <ListChecks size={14} aria-hidden /> 퀴즈로 확인
               </Link>
             </div>
@@ -258,65 +287,54 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
         )}
       </div>
 
-      {/* ── 하단 글래스바: stave-dot 진행 레일 (auto-hide) ── */}
+      {/* 하단 글래스바: stave-dot 레일 */}
       <footer
-        className={`fixed inset-x-0 bottom-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${
-          chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'
-        }`}
+        onFocus={() => setChrome(true)}
+        className={`fixed inset-x-0 bottom-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
       >
-        <div className="mx-auto flex max-w-[860px] items-center gap-3 px-4 py-3">
-          <button type="button" data-no-nav onClick={() => go(i - 1, -1)} disabled={i === 0} aria-label="이전 컷"
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30"
-            style={{ background: 'var(--mat-glass-bg-thin, rgba(250,250,247,.72))' }}>
-            <ArrowLeft size={16} />
-          </button>
+        <div className="mx-auto flex max-w-[860px] items-center gap-2 px-4 py-2.5">
+          <button type="button" data-no-nav onClick={() => go(i - 1, -1, 'chrome')} disabled={i === 0} aria-label="이전 컷" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30 motion-reduce:transition-none" style={glass}><ArrowLeft size={17} /></button>
 
-          {/* stave dot rail */}
-          <div className="flex flex-1 items-center justify-center gap-1.5 rounded-[var(--r-full)] px-3 py-2 backdrop-blur-xl" style={{ background: 'var(--mat-glass-bg-thin, rgba(250,250,247,.72))' }}>
+          <div className="flex flex-1 items-center justify-center gap-1 rounded-[var(--r-full)] px-2 py-1 backdrop-blur-xl" style={glass}>
             {staves.map((s, si) => {
-              const isCur = s.idx === curStave
+              const isCur = s.key === curStaveKey
               const passed = i >= s.first + s.count
               const within = isCur && page ? (i - s.first + 1) / s.count : passed ? 1 : 0
+              const state = passed ? '읽음' : isCur ? '현재' : '남음'
               return (
-                <button
-                  key={s.idx} type="button" data-no-nav onClick={() => go(s.first, s.first < i ? -1 : 1)}
-                  aria-label={`${s.label}, ${s.count}컷${isCur ? ' (현재)' : ''}`}
-                  className="group relative flex h-6 items-center px-1"
-                  style={{ minWidth: 22 }}
-                >
-                  {si > 0 && <span aria-hidden className="absolute -left-1 h-px w-1.5" style={{ background: 'var(--bd)' }} />}
-                  <span
-                    aria-hidden
-                    className="relative inline-flex h-2.5 w-2.5 items-center justify-center rounded-full transition-all"
-                    style={{
-                      background: within >= 1 ? 'var(--active)' : within > 0 ? `color-mix(in srgb, var(--active) ${Math.round(within * 100)}%, var(--t4))` : 'var(--t4)',
-                      boxShadow: isCur ? '0 0 0 2px color-mix(in srgb, var(--active) 45%, transparent)' : 'none',
-                    }}
-                  />
+                <button key={s.key} type="button" data-no-nav onClick={() => { if (s.first !== i) go(s.first, s.first < i ? -1 : 1, 'chrome') }} aria-label={`${s.label}, ${s.count}컷, ${state}`} aria-current={isCur ? 'true' : undefined} className="group inline-flex h-11 items-center px-1.5">
+                  {si > 0 && <span aria-hidden className="mr-1.5 h-px w-1.5 bg-[var(--bd)]" />}
+                  <span aria-hidden className="relative inline-flex h-3 w-3 items-center justify-center rounded-full transition-all motion-reduce:transition-none" style={{
+                    background: within >= 1 ? 'var(--active)' : within > 0 ? `color-mix(in srgb, var(--active) ${Math.round(within * 100)}%, transparent)` : 'transparent',
+                    border: within >= 1 ? 'none' : `1.5px solid ${isCur ? 'var(--active)' : 'var(--t4)'}`,
+                    boxShadow: isCur ? '0 0 0 2px color-mix(in srgb, var(--active) 40%, transparent)' : 'none',
+                  }} />
                 </button>
               )
             })}
           </div>
 
-          <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--t3)]">{atEnd ? `${total}/${total}` : `${i + 1}/${total}`}</span>
-
-          <button type="button" data-no-nav onClick={() => go(i + 1, 1)} disabled={atEnd} aria-label="다음 컷"
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30"
-            style={{ background: 'var(--mat-glass-bg-thin, rgba(250,250,247,.72))' }}>
-            <ArrowRight size={16} />
-          </button>
+          <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--t3)]" aria-hidden>{atEnd ? '완료' : `${i + 1}/${total}`}</span>
+          <button type="button" data-no-nav onClick={() => go(i + 1, 1, 'chrome')} disabled={atEnd} aria-label="다음 컷" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30 motion-reduce:transition-none" style={glass}><ArrowRight size={17} /></button>
         </div>
       </footer>
 
-      {/* 단어 팝오버 */}
+      {/* 첫 진입 온보딩 힌트 */}
+      {coach && (
+        <button type="button" onClick={dismissCoach} aria-label="안내 닫기" className="fixed inset-x-0 bottom-24 z-40 mx-auto flex w-fit items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-4 py-2 font-body text-[12px] text-[var(--t2)] shadow-[var(--sh-lg)] backdrop-blur-xl" style={glass}>
+          <Eye size={13} aria-hidden style={{ color: 'var(--active)' }} /> 가운데를 탭하면 메뉴 · 좌우로 넘겨요
+        </button>
+      )}
+
+      {/* 단어 팝오버 (실 모달) */}
       {vocab && (
-        <div role="dialog" aria-label={`${vocab} 학습`} className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 p-4 sm:items-center" onClick={() => setVocab(null)}>
-          <div className="w-full max-w-sm rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-lg)]" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center" onClick={() => setVocab(null)}>
+          <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={`${vocab} 학습`} className="w-full max-w-sm rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-lg)]" onClick={(e) => e.stopPropagation()}>
             <p className="font-display text-[20px] font-[800] text-[var(--t1)]">{vocab}</p>
             <p className="mt-1 font-body text-[12px] text-[var(--t3)]">이 장면의 맥락에서 만난 단어예요. 단어장에서 뜻과 함께 익혀 보세요.</p>
             <div className="mt-4 flex justify-end gap-2">
-              <button type="button" onClick={() => setVocab(null)} className="rounded-[var(--r-full)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t3)] hover:text-[var(--t1)]">닫기</button>
-              <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] text-white" style={{ background: 'var(--active)' }}>
+              <button type="button" onClick={() => setVocab(null)} className="min-h-11 rounded-[var(--r-full)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t3)] hover:text-[var(--t1)]">닫기</button>
+              <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700]" style={{ background: 'var(--active)', color: ON_GOLD }}>
                 <BookOpen size={13} aria-hidden /> 단어장에서 보기
               </Link>
             </div>

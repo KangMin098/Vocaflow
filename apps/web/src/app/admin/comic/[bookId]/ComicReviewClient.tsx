@@ -62,12 +62,32 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
     })
   }
 
-  const publish = () => run(() => setComicPublishedAction(bookId, true))
-  const unpublish = () => run(() => setComicPublishedAction(bookId, false))
-  const archive = () => run(() => archiveComicAction(bookId, true))
-  const unarchive = () => run(() => archiveComicAction(bookId, false))
-  const rework = () => run(() => enqueueComicJobsAction([bookId]), '이 도서를 재생성 큐로 되돌릴까요? (보완)')
-  const del = () => run(() => deleteComicAction(bookId), `"${title}" 만화(컷 ${pages.length})를 영구 삭제할까요?`, 'list')
+  const publish = () => run(() => setComicPublishedAction(bookId, true), '이 만화를 발행해 학습자에게 노출할까요?')
+  const unpublish = () => run(() => setComicPublishedAction(bookId, false), '발행을 회수해 학습자 노출을 중단할까요?')
+  const archive = () =>
+    run(
+      () => archiveComicAction(bookId, true),
+      stage === 'published' ? '발행 중인 만화를 보관(노출 즉시 중단)할까요?' : '이 만화를 보관할까요?',
+    )
+  const unarchive = () => run(() => archiveComicAction(bookId, false), '보관을 해제해 검수 상태로 되돌릴까요?')
+  const rework = () =>
+    run(
+      async () => {
+        const res = await enqueueComicJobsAction([bookId])
+        if (res.ok && (res.data?.queued ?? 0) === 0)
+          return { ok: false, error: '큐 적재 대상이 아닙니다 (도서 상태 확인).' }
+        return res
+      },
+      '이 도서를 재생성 큐로 되돌릴까요? (발행 중이면 자동으로 미발행됩니다)',
+    )
+  const del = () =>
+    run(
+      () => deleteComicAction(bookId),
+      stage === 'published'
+        ? `⚠️ 발행 중인 만화입니다. 삭제하면 학습자 열람이 즉시 중단됩니다.\n"${title}" 만화(컷 ${pages.length})를 영구 삭제할까요?`
+        : `"${title}" 만화(컷 ${pages.length})를 영구 삭제할까요?`,
+      'list',
+    )
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -99,7 +119,8 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
         <div className="flex items-center gap-2 overflow-x-auto pb-1">
           {STAGE_FLOW.map((s, i) => {
             const active = s === stage
-            const done = STAGE_FLOW.indexOf(stage) > i
+            // archived = 발행까지 거친 종결 → 이전 단계 진행 이력 보존(전부 done 표시)
+            const done = stage === 'archived' ? true : STAGE_FLOW.indexOf(stage) > i
             const m = STAGE_META[s]
             return (
               <div key={s} className="flex items-center gap-2">
@@ -186,6 +207,36 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
           {header?.backend && <span>백엔드: <b className="text-[var(--t2)]">{header.backend}</b></span>}
           {header?.published_at && <span>발행: <b className="text-[var(--t2)]">{new Date(header.published_at).toLocaleString('ko-KR')}</b></span>}
           {job?.error && <span className="text-[var(--memory-risk)]">잡 오류: {job.error}</span>}
+        </div>
+      )}
+
+      {/* QC 상세 — 어떤 컷/규칙이 실패했는지 (발행/보완 판단 근거) */}
+      {(verbatimN > 0 || ruleN > 0) && (
+        <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--memory-shaky)]/40 bg-[color-mix(in_srgb,var(--memory-shaky)_7%,transparent)] p-4">
+          {verbatimN > 0 && (
+            <div>
+              <p className="mb-1 font-display text-[12px] font-[700] text-[var(--memory-risk)]">정본 불일치 {verbatimN}건</p>
+              <ul className="flex flex-col gap-0.5">
+                {(qc.verbatim_mismatch as unknown[]).map((v, k) => (
+                  <li key={k} className="font-body text-[12px] text-[var(--t2)]">
+                    • {typeof v === 'string' ? v : JSON.stringify(v)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {ruleN > 0 && (
+            <div>
+              <p className="mb-1 font-display text-[12px] font-[700] text-[var(--memory-shaky)]">규칙 위반 {ruleN}건</p>
+              <ul className="flex flex-col gap-0.5">
+                {(qc.rule_violations as unknown[]).map((v, k) => (
+                  <li key={k} className="font-body text-[12px] text-[var(--t2)]">
+                    • {typeof v === 'string' ? v : JSON.stringify(v)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

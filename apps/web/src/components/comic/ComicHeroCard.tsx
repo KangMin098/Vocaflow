@@ -59,7 +59,7 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
                     <Meta>GONICK 화풍</Meta>
                   </div>
                 </div>
-                <span className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)]" style={{ background: 'var(--active)' }}>
+                <span className="inline-flex min-h-11 w-fit items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)]" style={{ background: 'var(--active)', color: '#231a09' }}>
                   {it.enrolled ? '만화로 읽기' : '만화 미리보기'}
                   <ArrowRight size={14} aria-hidden className="transition-transform duration-[var(--dur-normal)] group-hover:translate-x-1 motion-reduce:transition-none" />
                 </span>
