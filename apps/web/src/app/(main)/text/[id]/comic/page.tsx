@@ -124,5 +124,27 @@ export default async function ComicModePage({ params }: PageProps) {
     return <ComicEmpty textId={t.id} message="이 책의 만화는 준비 중이에요" />
   }
 
-  return <ComicReader textId={t.id} bookTitle={bookTitle} pages={pages} />
+  // 진도 로드(기기 간 이어보기) — RLS user-owns · 미적용/미로그인 시 0
+  let initialIndex = 0
+  try {
+    const { data: prog } = await client
+      .from('comic_read_progress')
+      .select('last_index')
+      .eq('library_book_id', t.library_book_id)
+      .maybeSingle()
+    const li = (prog as { last_index: number } | null)?.last_index
+    if (typeof li === 'number') initialIndex = Math.max(0, Math.min(pages.length, li))
+  } catch {
+    initialIndex = 0
+  }
+
+  return (
+    <ComicReader
+      textId={t.id}
+      bookTitle={bookTitle}
+      pages={pages}
+      libraryBookId={t.library_book_id}
+      initialIndex={initialIndex}
+    />
+  )
 }

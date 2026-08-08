@@ -13,6 +13,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, BookImage, BookOpen, Check, Eye, ListChecks, Loader2, Moon, Plus, Rows3, Sparkles, Square, Sun } from 'lucide-react'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { addWordToVault } from '@/lib/wordvault/add-word'
 
@@ -47,6 +48,8 @@ interface ComicReaderProps {
   textId: string
   bookTitle: string
   pages: ComicPage[]
+  libraryBookId?: string | null
+  initialIndex?: number
 }
 
 const ON_GOLD = '#231a09' // gold(--active) 위 고대비 텍스트 (AA 통과, 양 테마)
@@ -65,7 +68,7 @@ function speakerHue(name: string): string {
 const isInteractive = (el: EventTarget | null): boolean =>
   el instanceof HTMLElement && !!el.closest('button,a,input,textarea,select,[role="dialog"],[data-no-nav]')
 
-export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
+export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, initialIndex = 0 }: ComicReaderProps) {
   const total = pages.length
   const [i, setI] = useState(0)
   const [revealed, setRevealed] = useState<Set<string>>(new Set())
@@ -94,7 +97,9 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
     reduced.current = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     try {
       const saved = JSON.parse(localStorage.getItem(posKey) || '{}')
-      if (typeof saved.i === 'number') setI(Math.max(0, Math.min(total, saved.i)))
+      // 서버 진도(기기 간) 우선, 없으면 localStorage(기기 로컬)
+      const start = initialIndex > 0 ? initialIndex : (typeof saved.i === 'number' ? saved.i : 0)
+      setI(Math.max(0, Math.min(total, start)))
       if (typeof saved.dim === 'boolean') setDim(saved.dim)
       if (saved.view === 'scroll' || saved.view === 'page') setView(saved.view)
       if (!localStorage.getItem('vocaflow.comic.coached')) setCoach(true)
@@ -106,6 +111,17 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
 
   // 위치/Dim/뷰 영속
   useEffect(() => { try { localStorage.setItem(posKey, JSON.stringify({ i, dim, view })) } catch { /* noop */ } }, [i, dim, view, posKey])
+
+  // 서버 진도 저장(기기 간 이어보기) — 디바운스 1.2s · 미적용/미로그인 시 조용히 무시
+  useEffect(() => {
+    if (!libraryBookId) return
+    const id = setTimeout(() => {
+      ;(createClient() as unknown as SupabaseClient)
+        .rpc('save_comic_progress', { p_book_id: libraryBookId, p_last_index: i, p_total: total, p_completed: i >= total })
+        .then(undefined, () => { /* 미적용/오류 무시 */ })
+    }, 1200)
+    return () => clearTimeout(id)
+  }, [i, libraryBookId, total])
 
   const dismissCoach = useCallback(() => {
     setCoach(false)
