@@ -10,43 +10,16 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-export interface PdComicIssue {
-  id: string
-  slug: string
-  title: string
-  seriesTitle: string | null
-  issueNo: number | null
-  publishedYear: number | null
-  coverUrl: string | null
-  panelsTotal: number
-  vLevel: number | null
-  libraryBookId: string | null
-}
+// 순수 타입·상수는 model.ts 가 SSoT (클라이언트도 import 해야 하므로 server-only 밖).
+import type {
+  PdComicAdminRow,
+  PdComicIssue,
+  PdComicPanel,
+  PdComicProvenance,
+  PdResult,
+} from './model'
 
-export interface PdComicPanel {
-  panelOrder: number
-  sourcePageNo: number
-  imageUrl: string
-  bubbles: Array<{ text: string; box?: { x: number; y: number; w: number; h: number }; kind?: string }>
-  targetVocab: string[]
-}
-
-export interface PdComicProvenance {
-  title: string
-  seriesTitle: string | null
-  issueNo: number | null
-  publishedYear: number | null
-  sourceArchive: string | null
-  sourceUrl: string | null
-  pdBasis: string | null
-}
-
-/** 스키마 미적용을 정상 상태로 구분하기 위한 래퍼. */
-export interface PdResult<T> {
-  /** 마이그레이션이 적용돼 조회가 실제로 수행됐는가 */
-  ready: boolean
-  data: T
-}
+export * from './model'
 
 const NOT_READY = /relation .* does not exist|function .* does not exist|Could not find the function|PGRST202|42P01/i
 
@@ -125,17 +98,6 @@ export async function selectPdProvenance(
 
 // ── Admin (전 상태 조회 — RLS 우회는 하지 않고 admin 세션으로) ──────
 
-export interface PdComicAdminRow extends PdComicIssue {
-  status: string
-  sourceAdapter: string
-  sourceIdentifier: string
-  sourceUrl: string | null
-  pdBasis: string | null
-  pdCheckedAt: string | null
-  publishedAt: string | null
-  qc: Record<string, unknown> | null
-}
-
 export async function listPdComicsAdmin(
   client: SupabaseClient,
 ): Promise<PdResult<PdComicAdminRow[]>> {
@@ -144,7 +106,7 @@ export async function listPdComicsAdmin(
     .select(
       'id, slug, title, series_title, issue_no, published_year, cover_url, panels_total, v_level, ' +
         'library_book_id, status, source_adapter, source_identifier, source_url, pd_basis, ' +
-        'pd_checked_at, published_at, qc',
+        'pd_checked_at, published_at, qc, last_error, attempts',
     )
     .order('created_at', { ascending: false })
   if (error) {
@@ -171,23 +133,11 @@ export async function listPdComicsAdmin(
       sourceUrl: (r.source_url as string) ?? null,
       pdBasis: (r.pd_basis as string) ?? null,
       pdCheckedAt: (r.pd_checked_at as string) ?? null,
+      lastError: (r.last_error as string) ?? null,
+      attempts: (r.attempts as number) ?? 0,
       publishedAt: (r.published_at as string) ?? null,
       qc: (r.qc as Record<string, unknown>) ?? null,
     })),
   }
 }
 
-/** 파이프라인 단계 — Admin stepper 와 CLI 단계명을 한 곳에서 맞춘다. */
-export const PD_STAGES = [
-  { key: 'acquired', label: '취득' },
-  { key: 'restored', label: '복원' },
-  { key: 'segmented', label: '컷 분할' },
-  { key: 'ocr', label: '대사 추출' },
-  { key: 'review', label: '검수' },
-  { key: 'published', label: '발행' },
-] as const
-
-export function stageIndex(status: string): number {
-  const i = PD_STAGES.findIndex((s) => s.key === status)
-  return i < 0 ? 0 : i
-}

@@ -101,3 +101,7 @@ scripts/comic/.comfy-user
 scripts/comic/.comfy-pass
 scripts/comic/kaggle/_gen-kernel.py
 out/
+
+# PDCP 파이프라인 로컬 바이너리 (ffmpeg·tesseract) — 커밋 대상 아님
+/tools/
+/work/

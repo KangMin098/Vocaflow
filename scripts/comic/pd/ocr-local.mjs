@@ -122,7 +122,13 @@ async function main() {
   const panels = args.limit ? panelMf.panels.slice(0, args.limit) : panelMf.panels
   console.log(`컷 ${panels.length}개 · PSM ${args.psm} · eng 고정 · 최소신뢰 ${args.minConf}\n`)
 
-  const worker = await createWorker('eng', 1, { logger: () => {} })
+  // cachePath 를 고정하지 않으면 tesseract.js 가 **현재 작업 디렉터리**에 eng.traineddata(5MB)를
+  // 떨어뜨린다. Admin 드레인은 저장소 루트를 cwd 로 spawn 하므로 그대로 두면 루트가 오염된다.
+  const cachePath = process.env.TESSERACTJS_DIR
+    ? path.resolve(process.env.TESSERACTJS_DIR)
+    : path.join(root, '.tesseract-cache')
+  fs.mkdirSync(cachePath, { recursive: true })
+  const worker = await createWorker('eng', 1, { logger: () => {}, cachePath })
   // ★ eng 고정이 핵심. 자동 스크립트 판별을 끄면 손레터링의 키릴 오인이 사라진다(실측 12→0).
   await worker.setParameters({ tessedit_pageseg_mode: String(args.psm) })
 

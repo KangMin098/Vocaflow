@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### PDCP 운영 콘솔 — 파이프라인을 화면에서 돌린다 (마이그레이션 `pdcp_queue_states_and_monitoring`)
+
+- `/admin/pd-comics` 가 **읽기 전용 목록에서 조작면으로**. 3탭 — 소스·대량 적재 / 큐·드레인 / 도구.
+  - 어댑터 능력표는 `scripts/comic/pd/sources` 를 **동적 import** 해서 그린다. 앱에 베껴두면 즉시 drift 한다(아케이드 카탈로그가 4곳에 복제돼 전부 낡았던 실패의 재발 방지).
+  - **테스트 모드** — 전권 대신 앞 N장만 취득해 파라미터를 먼저 확인. 52p 한 호를 매번 받아보며 튜닝할 수는 없다.
+  - **드레인** — 호출 1회 = 호 1개의 다음 단계 1개. UI 가 반복 호출하며 라이브 로그를 쌓는다. dry-run 으로 실행할 CLI 명령을 먼저 보여준다. prod 403(앱이 ffmpeg 을 돌리는 건 로컬 한정).
+- 신규 API 8종 `/api/pdcp/*` (sources·search·enqueue·drain·retry·queue·doctor·issue) — 전부 admin 게이트.
+- **실측 end-to-end**: Classics Illustrated #27 을 테스트 모드(4p)로 적재 → queued→acquired→restored→segmented→ocr→review 전 구간을 콘솔에서 완주. 컷 8개 · 대사 20개(그대로 쓸 수 있음 50%).
+
+#### 이번에 드러나 고친 결함 4건
+
+- **실패가 단계를 지웠다** — 드레인이 실패 시 `status='failed'` 로 덮어써 *어느 단계에서 멈췄는지*가 사라졌고, 그 호는 큐에서 영구 이탈했다(복원 단계 ffmpeg 부재로 실측). 이제 status 는 보존하고 `last_error` 로만 표시 → 원인을 고친 뒤 **멈춘 지점부터** 재개. 자동 선택은 `last_error` 있는 행을 건너뛴다(같은 실패 무한 반복 방지).
+- **admin 화면이 낡은 스냅샷을 보여줬다** — Next 14 가 전역 fetch 를 패치해 서버 측 GET 을 기본 캐시하는데 supabase-js 조회가 거기 걸렸다(DB 는 review·8컷인데 API 는 직전 failed 를 반환). `createAdminClient` 에 `cache:'no-store'` 를 못 박음 — **PDCP 뿐 아니라 서비스롤을 쓰는 admin 화면 전체에 해당하던 문제**.
+- **server-only 가 클라이언트 번들로 새어 빌드가 통째로 깨졌다** — 운영 콘솔(클라이언트)이 `queries.ts` 에서 타입·상수를 가져오는 순간 `/api/pdcp/*` 전부 500. 순수 타입/상수를 `lib/pd-comic/model.ts` 로 분리.
+- **`stageIndex` 가 미지 상태를 0(대기)으로 뭉갰다** — 실패·보관이 정상 대기처럼 보였다. -1 을 돌려주고 stepper 는 별도 표기.
+
+- ffmpeg/tesseract 를 `tools/`(gitignore)에서도 찾도록 폴백 추가 — Windows 는 ffmpeg 기본 설치가 없어 PATH 만 보면 복원 단계가 통째로 실패한다.
+- 회귀 스펙: `lib/pd-comic/__tests__/model.test.ts`(7) — 단계 목록이 드레인 전이표와 어긋나면 실패. `tests/e2e/13-pdcp-console.spec.ts`(5) — 8라우트 admin 게이트 + 조작면 렌더. `DEV_ADMIN_BYPASS` 활성 시 게이트 검증은 성립하지 않으므로 스펙이 이를 탐지해 skip 한다(빨간 스펙으로 학습되면 진짜 구멍을 놓친다).
+
+
 ### 아케이드 오디오 v07.6 — 실제 시네마틱 음원 + 실녹음 효과음 (마이그레이션 없음)
 
 - **BGM 19곡 전면 교체 — Kevin MacLeod(CC-BY 3.0) → Scott Buckley(CC-BY 4.0)**. 직전 세트는 8비트 칩튠을 걷어낸 결과물이었지만 여전히 샘플 라이브러리 오케스트라라 "웅장"과 거리가 있었다. 교체본은 라이브 감각의 시네마틱 스코어(`word-orrery` = *Adrift Among Infinite Stars*, `wordblitz` = *Escape Velocity*, `pirate-quest` = *The Great Sea* …). 게임 19종 × 서로 다른 19곡, 중복 없음.

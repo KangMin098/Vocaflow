@@ -187,6 +187,7 @@
 | `/admin/comic` | `admin/comic/page.tsx` + `AdminComicClient.tsx` | CCP — Catalog(큐 적재·작업순서) / Published(QC 게이트 발행) / 테스트(실험) |
 | `/admin/comic/[bookId]` | `admin/comic/[bookId]/page.tsx` + `ComicReviewClient.tsx` | 검수 — 단계 stepper + QC + 컷 전수(썸네일) + 게시/보관/삭제/보완 |
 | `/admin/comic/[bookId]/drain` | `admin/comic/[bookId]/drain/page.tsx` + `DrainConsole.tsx` | 드레인 관측 — 실행/진행/자기발전/평가이력/컷상태/발행차단 사유 |
+| `/admin/pd-comics` | `admin/pd-comics/page.tsx` + `AdminPdComicsClient.tsx` | **PDCP 운영 콘솔** (CCP와 별도) — 소스·대량 적재 / 큐·드레인 / 도구. 어댑터 능력표 · 테스트 모드(앞 N장) · dry-run · 라이브 로그 · 실패 재시도 |
 
 ---
 
@@ -205,6 +206,19 @@
 | `POST /api/lcp/process` | pg_cron worker target — X-LCP-Token + msg_id |
 | `POST /api/lcp/dev-process` | dev 환경 admin 트리거 — book_id 단권 |
 | `POST /api/lcp/dev-drain-queue` | v06.34 — status='queued' N권 → dev-process 순차 호출 |
+
+### `/api/pdcp/*` (7) — 퍼블릭도메인 만화 파이프라인 (전부 admin 게이트)
+
+| 라우트 | 설명 |
+|---|---|
+| `GET /api/pdcp/sources` | 어댑터 능력표 (`scripts/comic/pd/sources` 를 동적 import — 앱에 복제하지 않음) |
+| `POST /api/pdcp/search` | 소스별 검색 + PD 판정 힌트 + 기적재 표시. bulk 미지원 어댑터는 400 |
+| `POST /api/pdcp/enqueue` | 대량 적재 → `status='queued'`. `pages` 로 테스트 모드(앞 N장) |
+| `POST /api/pdcp/drain` | **dev 전용**(prod 403). 호출 1회 = 호 1개의 다음 단계 1개. `dryRun` 지원 |
+| `POST /api/pdcp/retry` | 실패 표시(`last_error`)만 삭제 — 단계 보존, 멈춘 지점부터 재개 |
+| `GET /api/pdcp/queue` | 큐 라이브 조회 (드레인 루프가 단계마다 재조회) |
+| `GET /api/pdcp/doctor` | 외부 도구 점검 (ffmpeg · tesseract · 소스 접근) |
+| `DELETE/PATCH /api/pdcp/issue` | 호 삭제(발행분 거부 · `purge=1` 시 작업 디렉터리 동반 삭제) / 단계 되돌리기 |
 | `POST /api/lcp/dev-validate` | dev 검증 |
 
 ### `/api/acp/*` ACP Worker (2)
