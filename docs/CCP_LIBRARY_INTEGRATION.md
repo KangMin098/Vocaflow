@@ -409,6 +409,7 @@ comic_pages.target_vocab (verbatim 정본만)
 |---|---|---|
 | 이미지 외부 URL 만료 | 카탈로그 깨짐(리더는 `broken` 상태 처리 존재) | 카탈로그 커버 실패 시 `BookImage` 폴백(현행) + 발행 시 HEAD 검증 잡 |
 | anon RPC 확대 | 미발행 유출 | 프리뷰 RPC 는 published 이중 게이트 + LIMIT 5 하드캡 + `target_vocab` 미포함 |
+| **(2026-08-09 실측) Supabase 기본 권한이 anon EXECUTE 를 자동 부여** | `select_book_comic_all` 로 **전권 90컷 + bubbles + target_vocab** 이 비로그인에 노출. 프리뷰 하드캡이 무력화 | `REVOKE EXECUTE ON select_book_comic_all(uuid), select_book_comic(uuid,int) FROM anon` — 리더는 authenticated 전용이고 프리뷰는 `preview_book_comic` 이 담당하므로 안전. **승인 대기** |
 | 콘텐츠 편중(현재 2권: Frankenstein·A Christmas Carol) | 탭이 빈약해 보임 | 카탈로그 <3권이면 탭 대신 도서 히어로만 노출(자동 degrade) |
 | 생성 비용 | 확장 제약 | 자가호스트 우선 정책 유지(RunPod/Kaggle) — [RUN_ENVIRONMENTS.md](../scripts/comic/docs/RUN_ENVIRONMENTS.md) |
 | 각색 정확도 | 오독 유발 | verbatim 버블 + `verbatim-audit` 래칫(기존) + `vocab_orphans` 게이트 |

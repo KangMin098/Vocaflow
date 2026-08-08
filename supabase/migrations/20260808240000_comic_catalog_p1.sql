@@ -10,7 +10,15 @@
 --
 -- 보안: 두 read RPC 모두 SECURITY DEFINER + comic_books/library_books 이중 published 게이트 유지.
 --   프리뷰는 anon 허용(등록 전 유입) + 서버측 LIMIT 하드캡(≤5)으로 전권 유출 차단.
--- 적용: 사용자 승인 후 SQL Editor / apply_migration (자동 적용 금지 — CLAUDE.md).
+-- 적용: 2026-08-09 dev(jajenrevcbmrpaliomxv) apply_migration(comic_catalog_p1) 완료 — 사용자 승인 후.
+--   검증: list_comic_catalog 1행(A Christmas Carol · 90컷 · 5챕터 · cover_url 실값)
+--        preview_book_comic(p_limit=99) → 5행(서버 하드캡 동작) · 두 함수 anon EXECUTE 확인.
+--
+-- ⚠️ 적용 중 발견 — Supabase 기본 권한(ALTER DEFAULT PRIVILEGES)이 public 스키마의 새 함수에
+--   anon/authenticated EXECUTE 를 자동 부여한다. 그래서 `REVOKE ALL ... FROM PUBLIC` 만으로는
+--   anon 이 막히지 않으며, 실제로 select_book_comic_all(전권 90컷 + bubbles + target_vocab)도
+--   anon 실행 가능 상태다(마이그레이션 파일엔 authenticated 만 GRANT 했음에도).
+--   → 프리뷰 하드캡(5컷)은 전권 유출을 막지 못한다. 후속 마이그레이션에서 명시 REVOKE 필요(승인 대기).
 
 -- ─────────────────────────────────────────────────────────────
 -- 1. comic_books — 큐레이션 컬럼

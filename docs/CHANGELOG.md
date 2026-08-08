@@ -21,7 +21,9 @@
 
 ### CCP × Library P1 — 등록 전에도 만화를 보고, 어느 입구로 들어갈지 고른다
 
-**마이그레이션 [20260808240000_comic_catalog_p1.sql](../supabase/migrations/20260808240000_comic_catalog_p1.sql) 작성 · 미적용(승인 대기)**. 코드는 적용 전후 모두 동작하도록 2단 폴백.
+**마이그레이션 [20260808240000_comic_catalog_p1.sql](../supabase/migrations/20260808240000_comic_catalog_p1.sql) — 2026-08-09 사용자 승인 후 dev 적용 완료.** 검증: `list_comic_catalog` 1행(A Christmas Carol · 90컷 · 5챕터 · cover_url 실값) · `preview_book_comic(p_limit=99)` → **5행**(서버 하드캡 동작) · 앱 상세에 "5챕터 · 약 3시간 · 90컷" 실렌더 · e2e 4/4(이제 P1 경로). 코드는 여전히 2단 폴백을 유지해 롤백에도 견딘다.
+
+> ⚠️ **적용 중 발견(후속 필요)**: Supabase 기본 권한이 public 스키마 신규 함수에 anon/authenticated EXECUTE 를 자동 부여한다. `REVOKE ALL … FROM PUBLIC` 은 PUBLIC 의사롤만 건드리므로 anon 이 남는다. 실제로 **`select_book_comic_all`(전권 90컷 + bubbles + target_vocab)이 anon 실행 가능** — 마이그레이션 파일은 authenticated 만 GRANT 했는데도. 즉 프리뷰 5컷 하드캡은 전권 유출을 막지 못한다. 명시 REVOKE 마이그레이션 필요(승인 대기).
 
 - **`/library/comics/[bookId]` 신설 — G3 해소**: 리더 라우트가 `texts.id`(=등록)를 요구해 **미등록 학습자는 만화를 아예 못 봤다**. 이제 비로그인·미등록도 프리뷰 3컷을 본다. 프리뷰는 **아트만** — 정본 대사·`target_vocab` 은 리더의 학습 자산이라 싣지 않는다.
 - **`ComicFormatChoice`** — 만화/원문/듣기 3카드. **권장은 정확히 1개**(선택 피로 방지), 나머지도 그대로 선택 가능(강제 이동 없음). 미등록이 시작하면 `enroll_library_book`(멱등) 후 해당 포맷으로 직행, 비로그인은 `?next=` 로 되돌아온다.
