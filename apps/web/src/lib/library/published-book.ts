@@ -41,8 +41,11 @@ export interface PublishedBook {
   has_audio?: boolean
   /** 발행된 만화 존재 여부 (comic_books.status='published') — 포맷 배지/필터용 */
   has_comic?: boolean
-  /** 만화 진입 경로 — 등록: /text/[chapter]/comic · 미등록: 도서 상세(등록 흐름). has_comic 일 때만 유효 */
+  /** 만화 진입 경로 — 등록: /text/[chapter]/comic · 미등록: 만화 상세(프리뷰). has_comic 일 때만 유효 */
   comic_href?: string | null
+  /** 만화 진도 0~100 (comic_read_progress) — 본문 진도(progress_pct)와 분리 회계 */
+  comic_progress_pct?: number
+  comic_completed?: boolean
   /** 정렬 '신규순' 용 */
   published_at?: string | null
   // 사용자별 enrollment 상태 + 진행도 + 동적 CTA

@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { Capsule, Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
 import { ScriptsBrowser } from '@/components/library/browse/ScriptsBrowser'
+import { applyArticleCatalogGate } from '@/lib/library/publish-gate'
 import type { PublishedArticle } from '@/lib/articles/types'
 
 export const metadata = {
@@ -22,14 +23,14 @@ export default async function LibraryScriptsPage() {
   const client = (await createClient()) as unknown as SupabaseClient
 
   // published + copyright_safe 아티클 (RLS anyone_read_published_safe_articles 기준 일치)
-  const { data } = await client
-    .from('library_articles')
-    .select(
-      'id, title, author, source, source_url, cefr_level, word_count, reading_minutes, category_tags, published_at, article_v_level, register, audio_url',
-    )
-    .eq('status', 'published')
-    .eq('copyright_safe_in_kr', true)
-    .order('published_at', { ascending: false, nullsFirst: false })
+  // 조건은 lib/library/publish-gate.ts 단일 출처 — 도서/만화 게이트와 함께 관리.
+  const { data } = await applyArticleCatalogGate(
+    client
+      .from('library_articles')
+      .select(
+        'id, title, author, source, source_url, cefr_level, word_count, reading_minutes, category_tags, published_at, article_v_level, register, audio_url',
+      ),
+  ).order('published_at', { ascending: false, nullsFirst: false })
 
   const articles = (data ?? []) as unknown as PublishedArticle[]
   const totalWords = articles.reduce((s, a) => s + (a.word_count ?? 0), 0)

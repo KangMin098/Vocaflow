@@ -11,6 +11,7 @@ import { createClient } from '@/lib/supabase/server';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
 import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroCard';
 import { comicBookIdsOf, fetchComicCatalog } from '@/lib/comic/catalog';
+import { applyBookCatalogGate } from '@/lib/library/publish-gate';
 import type { PublishedBook } from '@/lib/library/published-book';
 
 /** 만화 히어로에 노출할 최대 도서 수 (커버 조회 상한과 동일) */
@@ -61,17 +62,16 @@ export default async function LibraryBooksPage() {
   // 공개 출시 판정은 published_at (정식 publish RPC 가 찍음) 으로 한다.
   // status='published' 단독은 부족 — 그 값은 챕터 단어장 발행 트리거를 쏘는
   // 메커니즘으로도 쓰여(ready→published) published_at 없이 올라간 도서가 섞임.
-  const { data, error } = await client
-    .from('library_books')
-    .select(
-      'id, title, author, cefr_level, cefr_band, book_v_level, ' +
-        'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
-        'is_picture_book, librivox_audio, published_at, curation_metadata',
-    )
-    .eq('status', 'published')
-    .eq('copyright_safe_in_kr', true)
-    .not('published_at', 'is', null)
-    .order('published_at', { ascending: false });
+  // 조건 자체는 lib/library/publish-gate.ts 가 단일 출처(스크립트/만화와 함께 관리).
+  const { data, error } = await applyBookCatalogGate(
+    client
+      .from('library_books')
+      .select(
+        'id, title, author, cefr_level, cefr_band, book_v_level, ' +
+          'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
+          'is_picture_book, librivox_audio, published_at, curation_metadata',
+      ),
+  ).order('published_at', { ascending: false });
 
   let books: PublishedBook[] = error
     ? []
@@ -251,15 +251,43 @@ export default async function LibraryBooksPage() {
   //   같은 카탈로그를 재사용하므로 추가 쿼리 없음.
   const comicBookIds = comicBookIdsOf(comicCatalog);
   if (comicBookIds.size > 0) {
+    // 만화 진도 — 본문 진도(texts.status)와 분리 회계라 별도 조회(설계서 R1·R2).
+    const comicProgress = new Map<string, { pct: number; completed: boolean }>();
+    if (user) {
+      const panelsByBook = new Map(comicCatalog.map((c) => [c.bookId, c.panelsTotal]));
+      const { data: prog } = await client
+        .from('comic_read_progress')
+        .select('library_book_id, last_index, panels_total, completed_at')
+        .in('library_book_id', Array.from(comicBookIds));
+      for (const r of (prog ?? []) as Array<{
+        library_book_id: string;
+        last_index: number | null;
+        panels_total: number | null;
+        completed_at: string | null;
+      }>) {
+        const completed = r.completed_at != null;
+        const total = panelsByBook.get(r.library_book_id) || (r.panels_total ?? 0);
+        const pct = completed
+          ? 100
+          : total > 0
+            ? Math.min(100, Math.round(((r.last_index ?? 0) / total) * 100))
+            : 0;
+        comicProgress.set(r.library_book_id, { pct, completed });
+      }
+    }
+
     books = books.map((b) => {
       if (!comicBookIds.has(b.id)) return b;
       const e = enrollmentByBook.get(b.id);
+      const cp = comicProgress.get(b.id);
       return {
         ...b,
         has_comic: true,
         comic_href: e
           ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
           : `/library/comics/${b.id}`,
+        comic_progress_pct: cp?.pct ?? 0,
+        comic_completed: cp?.completed ?? false,
       };
     });
   }

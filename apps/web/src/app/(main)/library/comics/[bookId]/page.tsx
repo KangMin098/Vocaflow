@@ -8,7 +8,7 @@
 
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, BookImage } from 'lucide-react'
+import { ArrowLeft, BookImage, Layers } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { Screen } from '@/components/ui/ios'
@@ -17,6 +17,7 @@ import { fetchComicCatalog, fetchComicPreview } from '@/lib/comic/catalog'
 import { prescribeFormat } from '@/lib/comic/prescribe'
 import { ComicFormatChoice } from '@/components/comic/ComicFormatChoice'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
+import { applyBookReadGate } from '@/lib/library/publish-gate'
 
 interface PageProps {
   params: { bookId: string }
@@ -42,14 +43,15 @@ export default async function ComicDetailPage({ params }: PageProps) {
 
   const [panels, bookRes, userRes] = await Promise.all([
     fetchComicPreview(client, bookId, PREVIEW_PANELS),
-    client
-      .from('library_books')
-      .select(
-        'title, author, chapter_count, reading_minutes, lexical_coverage, is_picture_book, librivox_audio',
-      )
-      .eq('id', bookId)
-      .eq('status', 'published')
-      .maybeSingle(),
+    // 열람 게이트(status만) — 만화 RPC 와 동일 기준. 카탈로그 게이트보다 느슨한 이유는 publish-gate.ts 주석 참조.
+    applyBookReadGate(
+      client
+        .from('library_books')
+        .select(
+          'title, author, chapter_count, reading_minutes, lexical_coverage, is_picture_book, librivox_audio',
+        )
+        .eq('id', bookId),
+    ).maybeSingle(),
     client.auth.getUser(),
   ])
 
@@ -218,9 +220,18 @@ export default async function ComicDetailPage({ params }: PageProps) {
           prescription={prescription}
         />
 
-        <p className="px-1 font-body text-[12px] text-[var(--t3)]">
-          만화는 본문을 대신하지 않아요 — 이야기를 먼저 잡아두면 원문이 훨씬 잘 읽혀요.
-        </p>
+        {/* 3종 체계 연결 — 만화에서 만난 단어는 이 책의 챕터 단어장으로 이어진다 */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-1">
+          <Link
+            href={`/library/books/${bookId}?preview=1`}
+            className="inline-flex min-h-11 items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--p)] transition-colors hover:text-[var(--p-dark)]"
+          >
+            <Layers size={14} aria-hidden /> 이 책의 단어장 보기
+          </Link>
+          <p className="font-body text-[12px] text-[var(--t3)]">
+            만화는 본문을 대신하지 않아요 — 이야기를 먼저 잡아두면 원문이 훨씬 잘 읽혀요.
+          </p>
+        </div>
       </div>
     </Screen>
   )

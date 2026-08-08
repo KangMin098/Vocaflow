@@ -70,6 +70,9 @@ interface BookVariant {
   /** v07 CCP — 만화 진입(포맷 선택). 발행 만화가 있는 도서에서만 non-null */
   comicHref?: string | null
   comicLabel?: string
+  /** 만화 진도(0~100) — 본문 진도와 분리 회계(R1·R2) */
+  comicProgressPct?: number
+  comicCompleted?: boolean
   // v06.34 — 큐레이션 메타 (선택 의사결정 보조)
   synopsisKo?: string | null
   learningValue?: string | null
@@ -420,6 +423,20 @@ function BookBody({ v }: { v: BookVariant }) {
 
       {v.progressPercent != null && v.progressPercent > 0 && (
         <ProgressRow percent={v.progressPercent} accent="var(--p)" />
+      )}
+
+      {/* 만화 회계는 본문 진도와 분리 표기 — 만화를 다 봤다고 챕터가 완료되진 않는다
+          (docs/CCP_LIBRARY_INTEGRATION.md R1·R2) */}
+      {v.comicHref && (v.comicProgressPct ?? 0) > 0 && (
+        <div className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+          <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[700] text-[var(--t2)]">
+            <BookImage size={13} aria-hidden style={{ color: 'var(--active)' }} />
+            만화 미리 봄
+          </span>
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
+            {v.comicCompleted ? '다 봤어요' : `${v.comicProgressPct}%`}
+          </span>
+        </div>
       )}
 
       {/* v06.34 — 큐레이션 메타: 선택 의사결정 보조 */}

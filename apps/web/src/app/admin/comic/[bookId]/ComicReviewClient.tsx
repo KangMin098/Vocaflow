@@ -11,6 +11,8 @@ import {
   ChevronRight, Cpu, Loader2, Palette, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
 } from 'lucide-react'
 import type { ComicDetail, ComicStage, ComicStyle } from '@/lib/comic/admin-queries'
+// 타입만 가져온다 — vocab-integrity 는 'server-only' 모듈이라 값 import 시 클라 번들이 깨진다.
+import type { VocabIntegrity } from '@/lib/comic/vocab-integrity'
 import {
   archiveComicAction, deleteComicAction, enqueueComicJobsAction, setBookStyleAction, setComicPublishedAction,
 } from '../actions'
@@ -41,7 +43,16 @@ function thumb(url: string): string {
   return `${t}${t.includes('?') ? '&' : '?'}width=320&quality=60&resize=contain`
 }
 
-export function ComicReviewClient({ detail, styles }: { detail: ComicDetail; styles: ComicStyle[] }) {
+export function ComicReviewClient({
+  detail,
+  styles,
+  vocabIntegrity,
+}: {
+  detail: ComicDetail
+  styles: ComicStyle[]
+  /** 만화 target_vocab ↔ 챕터 단어장 정합 (설계서 §7.4) */
+  vocabIntegrity?: VocabIntegrity
+}) {
   const router = useRouter()
   const [pending, start] = useTransition()
   const [msg, setMsg] = useState<string | null>(null)
@@ -70,6 +81,9 @@ export function ComicReviewClient({ detail, styles }: { detail: ComicDetail; sty
   }
   const verbatimN = Array.isArray(qc.verbatim_mismatch) ? qc.verbatim_mismatch.length : 0
   const ruleN = Array.isArray(qc.rule_violations) ? qc.rule_violations.length : 0
+  // 단어장 미등록(고아) — 학습자가 만화에서 만난 단어가 FSRS 로 이어지지 않는 상태
+  const orphanN = vocabIntegrity?.orphans.length ?? 0
+  const vocabUnknown = !vocabIntegrity || vocabIntegrity.noWordSets || vocabIntegrity.total === 0
 
   // stave(chapter)별 그룹
   const byStave = useMemo(() => {
@@ -254,7 +268,7 @@ export function ComicReviewClient({ detail, styles }: { detail: ComicDetail; sty
       </div>
 
       {/* QC 카드 */}
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         <QcTile label="컷 수" value={String(pages.length)} />
         <QcTile
           label="QC 게이트"
@@ -264,6 +278,11 @@ export function ComicReviewClient({ detail, styles }: { detail: ComicDetail; sty
         />
         <QcTile label="정본 불일치" value={String(verbatimN)} tone={verbatimN ? 'var(--memory-risk)' : 'var(--t2)'} />
         <QcTile label="규칙 위반" value={String(ruleN)} tone={ruleN ? 'var(--memory-shaky)' : 'var(--t2)'} />
+        <QcTile
+          label="단어장 미등록"
+          value={vocabUnknown ? '판정 불가' : String(orphanN)}
+          tone={vocabUnknown ? 'var(--t3)' : orphanN ? 'var(--memory-shaky)' : 'var(--memory-stable)'}
+        />
       </div>
       {(header?.style || header?.backend || job?.error) && (
         <div className="flex flex-wrap gap-x-6 gap-y-1 font-body text-[12px] text-[var(--t3)]">
@@ -302,6 +321,38 @@ export function ComicReviewClient({ detail, styles }: { detail: ComicDetail; sty
             </div>
           )}
         </div>
+      )}
+
+      {/* 단어장 정합 — 발행 차단은 아니지만, 고아 단어는 만화→FSRS 승계가 끊긴 상태라 고쳐야 한다 */}
+      {!vocabUnknown && orphanN > 0 && vocabIntegrity && (
+        <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--memory-shaky)]/40 bg-[color-mix(in_srgb,var(--memory-shaky)_7%,transparent)] p-4">
+          <p className="font-display text-[12px] font-[700] text-[var(--memory-shaky)]">
+            챕터 단어장에 없는 단어 {orphanN}개 (표면화 {vocabIntegrity.total} · 일치{' '}
+            {vocabIntegrity.matched})
+          </p>
+          <p className="font-body text-[11.5px] text-[var(--t3)]">
+            target_vocab 은 verbatim(정본) 버블에서만 뽑아야 원문·퀴즈와 단어가 일치합니다. 아래 단어는
+            학습자가 만화에서 만나도 단어장·FSRS 로 이어지지 않습니다.
+          </p>
+          <ul className="flex flex-wrap gap-1.5">
+            {vocabIntegrity.orphans.slice(0, 40).map((w) => (
+              <li
+                key={w}
+                className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] text-[var(--t2)]"
+              >
+                {w}
+              </li>
+            ))}
+            {orphanN > 40 && (
+              <li className="font-body text-[11px] text-[var(--t3)]">외 {orphanN - 40}개</li>
+            )}
+          </ul>
+        </div>
+      )}
+      {vocabUnknown && pages.length > 0 && (
+        <p className="font-body text-[11.5px] text-[var(--t3)]">
+          단어장 정합 판정 불가 — 이 도서의 챕터 단어장이 아직 없거나 만화가 표면화하는 정본 vocab 이 0개입니다.
+        </p>
       )}
 
       {/* 컷 검수 — stave별 */}
