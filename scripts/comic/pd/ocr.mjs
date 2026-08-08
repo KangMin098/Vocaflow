@@ -169,7 +169,7 @@ function overlapArea(line, box) {
 }
 
 /** 복원본 px → 컷 기준 0~1. 컷 밖으로 삐져나온 부분은 잘라낸다(음수 좌표 방지). */
-function normalize(box, panelBox) {
+export function normalize(box, panelBox) {
   const x0 = Math.max(box.x0, panelBox.x)
   const y0 = Math.max(box.y0, panelBox.y)
   const x1 = Math.min(box.x1, panelBox.x + panelBox.w)
@@ -231,7 +231,7 @@ export function judgeBubble(text, avgConf) {
  * 같은 컷 안의 라인들을 말풍선으로 묶는다.
  * 말풍선 하나는 여러 줄이지만 **세로로 가깝고 가로로 겹친다**. 그 두 조건으로 잇는다.
  */
-function groupLines(lines, panelBox) {
+export function groupLines(lines, panelBox) {
   const sorted = [...lines].sort((a, b) => a.rb.y0 - b.rb.y0)
   const groups = []
   for (const ln of sorted) {
