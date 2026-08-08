@@ -35,7 +35,7 @@
 - **Hub** `/text/[id]/comic` — TextViewer input 모드 "만화"(ModePills). Calm 2D 리더 + 대사 non-cover 대사존 + verbatim blur→reveal(회상) + 정본 정합 vocab 칩 + effortful 유입 CTA. RPC 미적용/미발행 시 EmptyState degrade.
 - **Admin 파이프라인 완성** — `/admin/comic/[bookId]` 검수 콘솔: 단계 stepper(큐→생성→검수→게시) + QC 카드(panels_pass·정본불일치·규칙위반) + stave별 컷 전수 검수(그림+대사+정본✓) + 단계 제어(게시/회수/보관/복원/삭제/보완=재생성 큐). 삭제·보관은 RLS admin 서버액션 직접(마이그레이션 무).
 - **리더 v2(딥서치 반영: Naver Webtoon·Kindle·Duolingo·MasterClass)** — 몰입 크롬 자동숨김+중앙 탭 토글+글래스(paper-blur) · **stave-dot 진행 레일**(gold ring·탭 점프) · 방향성 전환+엣지 rubber-band+Space키 · 대사 film-strip gold tie+화자 dot+라벨 · **Light/Dim 리딩 모드** · verbatim blur→reveal 유지 · reduced-motion 전면. 토큰만(신규 hex 0, gold=`--active`). ModePills "만화" gold underline.
-- **QA 사이클(학습자·접근성·제3자·Admin 4관점 감사 → 수정)** — 마이그레이션 `20260808140000`(승인 후):
+- **QA 사이클(학습자·접근성·제3자·Admin 4관점 감사 → 수정)** — 마이그레이션 `20260808140000` **적용됨 2026-08-08**(전권 90컷·5 stave 레일·삭제 RPC 검증):
   - *구조*: 리더가 `select_book_comic_all`로 **도서 전권(전 챕터)** 로드 → stave-dot 레일 다중 dot + 챕터 연속(기존 1챕터만 로드해 레일 붕괴 결함). RPC 미적용 시 챕터 단위 폴백.
   - *접근성*: 포커스-인지 키 핸들러(컨트롤 포커스 시 슬라이드 조작 안 함) · vocab 실 모달(aria-modal·focus 이동·Esc·focus 복귀·Tab 트랩) · 숨은 크롬 focus 자동노출 + 'm'/Esc 토글 · `aria-live` 컷 안내 · 44px 히트영역 · gold CTA 고대비(#231a09) · 레일 shape 백업(완료/현재/남음) · reveal 마운트 유지+aria-pressed · ModePills reduced-motion.
   - *UX/연속성*: 크롬 컨트롤發 넘김은 크롬 유지(버튼 자기소멸 방지) · Dim 토큰 오버라이드(밝은 요소 누수 0) · 위치/Dim localStorage 영속 · 첫 진입 온보딩 힌트 · 긴 대사 스크롤 · 깨진 이미지 폴백 · 히어로 커버 병렬화.

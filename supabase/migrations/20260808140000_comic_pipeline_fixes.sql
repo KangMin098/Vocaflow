@@ -6,7 +6,7 @@
 --   ② 발행본 재생성(보완) 시 미발행 — enqueue_comic_jobs 가 published 헤더를 draft 로 강등
 --      (학습자에 stale/불일치 컷 노출 차단).
 --   ③ 원자적 삭제 — admin_delete_comic: pages+header+job 단일 트랜잭션(고아 행 방지).
--- 적용: 사용자 승인 후 SQL Editor / apply-migration.
+-- 적용: 2026-08-08 dev(jajenrevcbmrpaliomxv) Management API 적용 완료 + 검증(전권 90컷·5 stave·삭제 RPC).
 
 -- ① 리더 전권 로드 (published 게이트)
 CREATE OR REPLACE FUNCTION public.select_book_comic_all(p_book_id uuid)
