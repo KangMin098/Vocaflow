@@ -58,20 +58,31 @@ export function parseHocr(html) {
     const pbox = bboxOf(marks[i].title)
 
     const lines = []
-    const lineRe = /<span class="ocr_line"[^>]*title="([^"]*)"[^>]*>([\s\S]*?)<\/span>\s*(?=<span class="ocr_line"|<\/p>|<\/div>)/g
+    // 라인 클래스 3종: ocr_line(1231) · ocr_caption(186) · ocr_textfloat(26)
+    //
+    // ★ 검증하고 기각한 가설 (다시 시도하지 말 것):
+    //   "ocr_caption 이 인쇄체 내레이션 박스일 테니, 그것만 자동 채택하면 품질이 오른다"
+    //   → **정반대였다.** ocr_caption 20건의 실제 내용은 `"<="` `"<"` `"2"` `"E"` `"+"` 같은
+    //     **순수 노이즈**다. Tesseract 가 컷 테두리·말풍선 꼬리 같은 잡선을 caption 으로 라벨한다.
+    //     포함시키자 통과율이 24% → 13% 로 떨어졌다(노이즈 20건 유입).
+    //   → 결론: 내레이션 박스는 그냥 `ocr_line` 으로 들어온다. ocr_line 만 쓴다.
+    //     조사용으로 파싱은 하되 기본 제외( --include-nonline 로 확인 가능 ).
+    const lineRe =
+      /<span class="(ocr_line|ocr_caption|ocr_textfloat)"[^>]*title="([^"]*)"[^>]*>([\s\S]*?)<\/span>\s*(?=<span class="(?:ocr_line|ocr_caption|ocr_textfloat)"|<\/p>|<\/div>)/g
     let lm
     while ((lm = lineRe.exec(chunk))) {
-      const lbox = bboxOf(unescapeHtml(lm[1]))
+      const lineClass = lm[1]
+      const lbox = bboxOf(unescapeHtml(lm[2]))
       const words = []
       const wordRe = /<span class="ocrx_word"[^>]*title="([^"]*)"[^>]*>([^<]*)<\/span>/g
       let wm
-      while ((wm = wordRe.exec(lm[2]))) {
+      while ((wm = wordRe.exec(lm[3]))) {
         const t = unescapeHtml(wm[2]).trim()
         if (!t) continue
         const wt = unescapeHtml(wm[1])
         words.push({ text: t, box: bboxOf(wt), conf: confOf(wt) ?? 0 })
       }
-      if (words.length) lines.push({ box: lbox, words })
+      if (words.length) lines.push({ box: lbox, words, lineClass })
     }
     pages.push({ pageIndex: i, box: pbox, lines })
   }
@@ -226,6 +237,8 @@ function groupLines(lines, panelBox) {
   for (const ln of sorted) {
     const lineH = ln.rb.y1 - ln.rb.y0
     const g = groups.find((gr) => {
+      // 캡션 줄과 말풍선 줄은 섞지 않는다 — 서로 다른 발화 주체이고 품질도 다르다.
+      if (gr.lineClass !== ln.lineClass) return false
       const gap = ln.rb.y0 - gr.y1
       const overlap =
         Math.min(gr.x1, ln.rb.x1) - Math.max(gr.x0, ln.rb.x0) > Math.min(gr.x1 - gr.x0, ln.rb.x1 - ln.rb.x0) * 0.25
@@ -236,19 +249,20 @@ function groupLines(lines, panelBox) {
       g.x0 = Math.min(g.x0, ln.rb.x0); g.y0 = Math.min(g.y0, ln.rb.y0)
       g.x1 = Math.max(g.x1, ln.rb.x1); g.y1 = Math.max(g.y1, ln.rb.y1)
     } else {
-      groups.push({ lines: [ln], x0: ln.rb.x0, y0: ln.rb.y0, x1: ln.rb.x1, y1: ln.rb.y1 })
+      groups.push({ lines: [ln], lineClass: ln.lineClass, x0: ln.rb.x0, y0: ln.rb.y0, x1: ln.rb.x1, y1: ln.rb.y1 })
     }
   }
-  return groups.map((g) => ({ box: normalize(g, panelBox), lines: g.lines }))
+  return groups.map((g) => ({ box: normalize(g, panelBox), lines: g.lines, lineClass: g.lineClass }))
 }
 
 function parseArgs(argv) {
-  const a = { minConf: 60 }
+  const a = { minConf: 60, includeNonLine: false }
   for (let i = 2; i < argv.length; i++) {
     const k = argv[i]
     if (k === '--intake') a.intake = argv[++i]
     else if (k === '--min-conf') a.minConf = Number(argv[++i])
     else if (k === '--gazetteer') a.gazetteer = argv[++i]
+    else if (k === '--include-nonline') a.includeNonLine = true
   }
   if (!a.intake) {
     console.error('사용법: node scripts/comic/pd/ocr.mjs --intake intake/<slug> [--min-conf 60] [--gazetteer names.json]')
@@ -280,6 +294,7 @@ async function main() {
   const allCandidates = new Set()
   let dropped = 0
   let needReview = 0
+  const byKind = {}
 
   for (const [i, rec] of restoreMf.pages.entries()) {
     const hp = pages[i]
@@ -291,6 +306,7 @@ async function main() {
     // 라인을 복원본 좌표로 옮기고, 신뢰도 낮은 단어는 버린다
     const lines = []
     for (const ln of hp.lines) {
+      if (!args.includeNonLine && ln.lineClass !== 'ocr_line') continue
       const words = ln.words.filter((w) => w.box && w.conf >= args.minConf)
       dropped += ln.words.length - words.length
       if (words.length === 0) continue
@@ -300,7 +316,7 @@ async function main() {
         x1: Math.max(...words.map((w) => w.box.x1)),
         y1: Math.max(...words.map((w) => w.box.y1)),
       }
-      lines.push({ rb: toRestored(b, rec), text: words.map((w) => w.text).join(' '), words })
+      lines.push({ rb: toRestored(b, rec), text: words.map((w) => w.text).join(' '), words, lineClass: ln.lineClass })
     }
 
     // 라인 → 컷 배타 배정.
@@ -327,9 +343,15 @@ async function main() {
         const { text, properNounCandidates } = truecase(raw, gaz)
         properNounCandidates.filter((c) => !isGarbledWord(c)).forEach((c) => allCandidates.add(c))
         const conf = Math.round(words.reduce((s, w) => s + w.conf, 0) / Math.max(1, words.length))
+        // Tesseract 레이아웃 분류가 곧 발화 형태다: ocr_caption = 인쇄체 캡션 박스,
+        // 나머지 = 손레터링 말풍선. 실측상 품질이 완전히 다르므로 분리해 다룬다.
+        const kind = g.lineClass === 'ocr_caption' ? 'caption' : 'balloon'
         const { needsReview, reasons } = judgeBubble(text, conf)
         if (needsReview) needReview += 1
-        return { text, raw, box: g.box, confidence: conf, needsReview, reasons }
+        byKind[kind] = byKind[kind] || { total: 0, clean: 0 }
+        byKind[kind].total += 1
+        if (!needsReview) byKind[kind].clean += 1
+        return { text, raw, kind, box: g.box, confidence: conf, needsReview, reasons }
       })
       out.push({ pageOrder: panel.pageOrder, page: panel.page, panelIndex: panel.panelIndex, bubbles })
     }
@@ -343,7 +365,7 @@ async function main() {
     JSON.stringify(
       {
         minConf: args.minConf,
-        stats: { panels: out.length, panelsWithText: withText, bubbles: totalBubbles, droppedWords: dropped, needsReview: needReview },
+        stats: { panels: out.length, panelsWithText: withText, bubbles: totalBubbles, droppedWords: dropped, needsReview: needReview, byKind },
         // 사람이 확인해 gazetteer 로 되먹임 → 다음 실행에서 고유명사가 복원된다
         properNounCandidates: [...allCandidates].sort(),
         panels: out,
@@ -357,6 +379,9 @@ async function main() {
   const pct = Math.round((clean / Math.max(1, totalBubbles)) * 100)
   console.log(`컷 ${out.length}개 중 ${withText}개에서 대사 ${totalBubbles}개 추출 (저신뢰 단어 ${dropped}개 제외)`)
   console.log(`  그대로 쓸 수 있음 ${clean}개(${pct}%) · 검수 필요 ${needReview}개`)
+  for (const [k, v] of Object.entries(byKind)) {
+    console.log(`    ${k.padEnd(8)} ${v.clean}/${v.total} 통과 (${Math.round((v.clean / Math.max(1, v.total)) * 100)}%)`)
+  }
   console.log(`고유명사 후보 ${allCandidates.size}개 — 확인 후 --gazetteer 로 되먹이면 대문자 복원됩니다`)
   console.log(`→ ${path.relative(process.cwd(), mf)}`)
 
