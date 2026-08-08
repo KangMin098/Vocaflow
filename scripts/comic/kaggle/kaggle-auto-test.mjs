@@ -148,8 +148,10 @@ if not os.path.isdir(COMFY):
     sh('git','clone','--depth','1','https://github.com/comfyanonymous/ComfyUI', COMFY)
 if not os.path.isdir(COMFY+'/custom_nodes/ComfyUI-GGUF'):
     sh('git','clone','--depth','1','https://github.com/city96/ComfyUI-GGUF', COMFY+'/custom_nodes/ComfyUI-GGUF')
-# Kaggle의 GPU-매칭 torch 유지 — requirements 에서 torch/vision/audio 제외(재설치 시 nvidia-cu 불일치
-# → CUDA 'no kernel image available'). 나머지 의존성만 설치.
+# Kaggle가 P100(sm_60)을 배정하면 프리인스톨 torch(2.10+cu128)가 sm_60 미지원 → CUDA 'no kernel image'.
+# API push 는 GPU 종류(T4/P100)를 못 고르므로, Pascal(sm_60)+Turing(sm_75) 모두 지원하는 torch 로 고정.
+sh(sys.executable,'-m','pip','-q','install','torch==2.5.1','torchvision==0.20.1','--index-url','https://download.pytorch.org/whl/cu121')
+# requirements 는 torch/vision/audio 제외 설치(위 고정 torch 유지)
 _lines=open(COMFY+'/requirements.txt').read().splitlines()
 def _pk(r): return r.strip().split('==')[0].split('>')[0].split('<')[0].split('~')[0].split(';')[0].strip().lower()
 _req=[r for r in _lines if r.strip() and not r.strip().startswith('#') and _pk(r) not in ('torch','torchvision','torchaudio')]
