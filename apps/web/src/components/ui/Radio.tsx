@@ -9,7 +9,7 @@
 
 "use client";
 
-import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
 // ══════════════════════════════════════════════════════════════
@@ -36,7 +36,10 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     },
     ref,
   ) => {
-    const inputId = id ?? `r-${rest.name ?? "radio"}-${rest.value ?? Math.random().toString(36).slice(2, 7)}`;
+    // value 가 없는 Radio 는 Math.random() 으로 id 를 만들어 Toggle 과 같은 hydration mismatch 를
+    // 낼 수 있다(서버/클라 값 상이 → label htmlFor 연결 붕괴). useId 로 안정화.
+    const autoId = useId();
+    const inputId = id ?? `r-${rest.name ?? "radio"}-${rest.value ?? autoId}`;
 
     return (
       <label

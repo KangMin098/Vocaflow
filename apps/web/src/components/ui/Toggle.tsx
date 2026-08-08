@@ -9,7 +9,7 @@
 
 "use client";
 
-import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
 // ══════════════════════════════════════════════════════════════
@@ -43,7 +43,11 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
     },
     ref,
   ) => {
-    const inputId = id ?? `tg-${Math.random().toString(36).slice(2, 9)}`;
+    // useId — Math.random() 은 서버/클라가 다른 값을 내 hydration mismatch 를 만든다
+    // (2026-08-09 실측: /settings 콘솔 `Prop id did not match. Server: tg-xxx Client: tg-yyy`).
+    // id 가 어긋나면 label htmlFor ↔ input 연결이 깨져 라벨 클릭·스크린리더 연결도 함께 흔들린다.
+    const autoId = useId();
+    const inputId = id ?? `tg-${autoId}`;
 
     // 크기별 치수
     const dimensions = {
