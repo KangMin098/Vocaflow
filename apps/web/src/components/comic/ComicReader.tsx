@@ -79,6 +79,7 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
   const [vocabInfo, setVocabInfo] = useState<VocabInfo | null>(null)
   const [vocabBusy, setVocabBusy] = useState(false)
   const [added, setAdded] = useState<'idle' | 'adding' | 'done' | 'exists'>('idle')
+  const [recalled, setRecalled] = useState<Set<string>>(new Set()) // 세션 회상 성공(자기효능감)
   const touch = useRef<{ x: number; y: number; moved: boolean } | null>(null)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const bumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -160,6 +161,8 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
   }, [vocab])
 
   const toggleReveal = (key: string) => setRevealed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n })
+  const toggleRecall = (key: string) => setRecalled((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n })
+  const reblur = (key: string) => setRevealed((s) => { const n = new Set(s); n.delete(key); return n })
 
   // 단어 팝오버 열림 → 실제 뜻 조회(lookup_word_meaning)
   useEffect(() => {
@@ -284,11 +287,21 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
                         </span>
                       )}
                       {b.verbatim ? (
-                        <button type="button" data-no-nav onClick={() => toggleReveal(key)} aria-pressed={shown} aria-label={shown ? `정본 대사: ${b.text}` : '정본 대사 — 기억해 보고 탭하여 확인'} className="group inline-flex min-h-11 items-center gap-2 self-start rounded-[var(--r-md)] px-2.5 py-1.5 text-left font-body text-[14px] transition-colors motion-reduce:transition-none" style={{ border: '1px dashed color-mix(in srgb, var(--active) 55%, transparent)', background: 'color-mix(in srgb, var(--active) 8%, transparent)', color: shown ? 'var(--t1)' : 'var(--t3)' }}>
-                          {!shown && <Eye size={13} aria-hidden style={{ color: 'var(--active)' }} />}
-                          <span className={shown ? '' : 'select-none blur-[4px]'}>{b.text}</span>
-                          {!shown && <span className="shrink-0 font-display text-[10px] font-[700] underline underline-offset-2" style={{ color: 'var(--active)' }}>기억나면 탭</span>}
-                        </button>
+                        <div className="flex flex-col gap-1.5 self-start">
+                          <button type="button" data-no-nav onClick={() => toggleReveal(key)} aria-pressed={shown} aria-label={shown ? `정본 대사: ${b.text}` : '정본 대사 — 기억해 보고 탭하여 확인'} className="group inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-2.5 py-1.5 text-left font-body text-[14px] transition-colors motion-reduce:transition-none" style={{ border: '1px dashed color-mix(in srgb, var(--active) 55%, transparent)', background: 'color-mix(in srgb, var(--active) 8%, transparent)', color: shown ? 'var(--t1)' : 'var(--t3)' }}>
+                            {!shown && <Eye size={13} aria-hidden style={{ color: 'var(--active)' }} />}
+                            <span className={shown ? '' : 'select-none blur-[4px]'}>{b.text}</span>
+                            {!shown && <span className="shrink-0 font-display text-[10px] font-[700] underline underline-offset-2" style={{ color: 'var(--active)' }}>기억나면 탭</span>}
+                          </button>
+                          {shown && (
+                            <div className="flex items-center gap-2 pl-1">
+                              <button type="button" data-no-nav onClick={() => toggleRecall(key)} aria-pressed={recalled.has(key)} className="inline-flex min-h-9 items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700] transition-colors motion-reduce:transition-none" style={recalled.has(key) ? { background: 'color-mix(in srgb, var(--memory-stable) 16%, transparent)', color: 'var(--memory-stable)' } : { border: '1px solid var(--bd)', color: 'var(--t3)' }}>
+                                {recalled.has(key) ? <><Check size={12} /> 기억함</> : '기억했어요'}
+                              </button>
+                              <button type="button" data-no-nav onClick={() => reblur(key)} className="min-h-9 font-body text-[11px] text-[var(--t3)] underline underline-offset-2 hover:text-[var(--t1)]">다시 볼게요</button>
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <p className={`font-body text-[14px] leading-snug text-[var(--t1)] ${b.kind === 'shout' ? 'font-[800]' : ''}`}>{b.text}</p>
                       )}
@@ -313,6 +326,11 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
             <div>
               <p className="font-display text-[17px] font-[800] text-[var(--t1)]">여기까지 잘 읽었어요</p>
               <p className="mt-1 font-body text-[13px] text-[var(--t2)]">이야기의 흐름을 잡았다면, 이제 본문으로 더 깊이 만나 볼까요?</p>
+              {recalled.size > 0 && (
+                <p className="mt-2 inline-flex items-center gap-1.5 font-body text-[13px] font-[600]" style={{ color: 'var(--memory-stable)' }}>
+                  <Check size={14} aria-hidden /> 정본 대사 {recalled.size}개를 기억했어요
+                </p>
+              )}
             </div>
             <div className="flex flex-wrap justify-center gap-2">
               <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-px motion-reduce:transition-none" style={{ background: 'var(--active)', color: ON_GOLD }}>

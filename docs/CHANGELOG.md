@@ -29,6 +29,8 @@
 
 ### 신규 파이프라인 — CCP (Comic Curation Pipeline · book→comic)
 
+- **정본 회상 보상 루프(P2)** — verbatim blur→reveal 후 **"기억했어요 / 다시 볼게요"** 자가판정(Desirable Difficulty) + 세션 회상 집계 → 완독 화면 "정본 대사 N개를 기억했어요"(자기효능감·폭죽 없음). Emotional Encoding.
+- **Admin 순차 작업 가이드** — `/admin/comic` Catalog "작업 순서"(① 큐 적재 → ② 드레인 생성 → ③ 검수 → ④ 발행) + 검수 콘솔 단계별 "이 단계에서 할 일" 문구.
 - **맥락 속 어휘 학습(P2)** — 리더 `학습 단어` 칩 실동작: 정본 대사에서 `lookup_word_meaning`(RPC)로 레벨 검증한 학습가치 단어(v≥5)를 컷별 target_vocab에 배정(Carol 17컷·23단어 · humbug/haunt/toll/ignorance…). 칩 탭 → 팝오버에 **실제 뜻(meaning_ko)·품사·CEFR·예문 인라인** + **단어장 추가**(`addWordToVault` 서버액션, 멱등). Context-Dependent + Dual Coding 실현(기존 뜻 조회/추가 자산 재사용, 마이그레이션 무).
 
 - 자기발전 만화 파이프라인을 정식 제품 통합(설계 → 이중 검토[교육학·아키텍처] → 구현). 상세: `scripts/comic/docs/COMIC_PIPELINE_DESIGN.md`.

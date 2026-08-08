@@ -92,6 +92,20 @@ export function AdminComicClient({ rows, stats }: { rows: ComicCatalogRow[]; sta
         <StatTile label="큐 대기" value={stats.queued} Icon={Loader2} tone={ACCENT} />
       </div>
 
+      {/* 순차 작업 가이드 */}
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}0a` }}>
+        <p className="mb-1.5 font-display text-[12px] font-[700] text-[var(--t1)]">작업 순서</p>
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 font-body text-[12px] text-[var(--t2)]">
+          <Step n={1}>대상 도서 선택 → <b>만화 생성 큐</b> 적재</Step>
+          <Arrow />
+          <Step n={2}>Claude Code 드레인(<code className="font-mono text-[11px]">generate-comic.mjs</code>)으로 컷 생성</Step>
+          <Arrow />
+          <Step n={3}>제목 클릭 → <b>검수</b>에서 QC·컷 확인</Step>
+          <Arrow />
+          <Step n={4}>QC 통과 시 <b>발행</b> → 학습자 노출</Step>
+        </ol>
+      </div>
+
       {rows.length === 0 && (
         <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">
           표시할 도서가 없습니다. 마이그레이션(<code className="font-mono text-[12px]">20260808120000_comic_pipeline.sql</code>) 적용 후
@@ -323,6 +337,24 @@ function StatTile({
       </div>
     </div>
   )
+}
+
+function Step({ n, children }: { n: number; children: ReactNode }) {
+  return (
+    <li className="inline-flex items-center gap-1.5">
+      <span
+        className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-display text-[10px] font-[800] text-white"
+        style={{ backgroundColor: ACCENT }}
+        aria-hidden
+      >
+        {n}
+      </span>
+      <span>{children}</span>
+    </li>
+  )
+}
+function Arrow() {
+  return <span aria-hidden className="text-[var(--t4)]">→</span>
 }
 
 function Th({ children }: { children?: ReactNode }) {

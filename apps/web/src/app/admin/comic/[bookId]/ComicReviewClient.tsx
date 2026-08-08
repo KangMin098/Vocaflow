@@ -17,6 +17,14 @@ import {
 
 const ACCENT = '#8B5CF6'
 const STAGE_FLOW: ComicStage[] = ['queued', 'generating', 'review', 'published']
+const STAGE_HINT: Record<ComicStage, string> = {
+  none: '아직 만화가 없습니다. Comic Pipeline(Catalog)에서 이 도서를 "만화 생성 큐"에 적재하세요.',
+  queued: 'Claude Code 드레인으로 컷을 생성하세요 — node scripts/lcp/generate-comic.mjs plan → content → insert. 완료 후 새로고침.',
+  generating: '생성이 진행 중입니다. 새로고침으로 진행(패널 수)을 확인하세요.',
+  review: '컷과 QC(정본 불일치·규칙 위반)를 확인하세요. 이상 없으면 [게시 →], 문제가 있으면 [보완]으로 재생성 큐에 되돌립니다.',
+  published: '학습자에게 노출 중입니다. 내용을 고치려면 [회수(검수로)] 후 [보완], 잠시 숨기려면 [보관]하세요.',
+  archived: '보관된 만화입니다. [복원(검수)]으로 검수 상태로 되돌린 뒤 다시 발행할 수 있습니다.',
+}
 const STAGE_META: Record<ComicStage, { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
   queued: { label: '큐 대기', tone: ACCENT },
@@ -187,6 +195,12 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
           <Btn onClick={del} disabled={pending} icon={Trash2} tone="var(--memory-risk)">삭제</Btn>
           <Btn onClick={() => router.refresh()} disabled={pending} icon={RefreshCw}>새로고침</Btn>
         </div>
+
+        {/* 이 단계에서 할 일 */}
+        <p className="mt-3 flex items-start gap-1.5 border-t border-[var(--bd)] pt-3 font-body text-[12px] text-[var(--t3)]">
+          <span aria-hidden style={{ color: ACCENT }}>›</span>
+          {STAGE_HINT[stage]}
+        </p>
       </div>
 
       {/* QC 카드 */}
