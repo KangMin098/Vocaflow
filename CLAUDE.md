@@ -17,6 +17,7 @@
 | UI / 컴포넌트 | [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) · [docs/MODULES.md](./docs/MODULES.md) |
 | DB / 마이그레이션 | [docs/DB_SCHEMA.md](./docs/DB_SCHEMA.md) · [docs/LIBRARY_PIPELINE.md](./docs/LIBRARY_PIPELINE.md) |
 | 라이브러리 큐레이션 | [docs/LIBRARY_PIPELINE.md](./docs/LIBRARY_PIPELINE.md) · [docs/ADMIN_CONSOLE.md](./docs/ADMIN_CONSOLE.md) |
+| 만화(CCP) 카탈로그 편입 | [docs/CCP_LIBRARY_INTEGRATION.md](./docs/CCP_LIBRARY_INTEGRATION.md) · [scripts/comic/docs/COMIC_PIPELINE_DESIGN.md](./scripts/comic/docs/COMIC_PIPELINE_DESIGN.md) |
 | 새 학습 모듈 | [docs/LEARNING_MODEL.md](./docs/LEARNING_MODEL.md) · [docs/MODULES.md](./docs/MODULES.md) |
 | 학습자 관리 / 목표 / 리포트 / B2B | [docs/LEARNER_MANAGEMENT.md](./docs/LEARNER_MANAGEMENT.md) · [docs/VOCAB_LAYERS.md](./docs/VOCAB_LAYERS.md) |
 | 라우트 설계 | [docs/ROUTES.md](./docs/ROUTES.md) · [docs/MODULES.md](./docs/MODULES.md) |

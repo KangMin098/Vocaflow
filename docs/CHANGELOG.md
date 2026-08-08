@@ -10,6 +10,10 @@
 
 ## Unreleased (v06.34 → next)
 
+### 설계 — CCP × Library 만화 카탈로그 편입 ([CCP_LIBRARY_INTEGRATION.md](./CCP_LIBRARY_INTEGRATION.md))
+
+만화를 `/library` 의 정식 학습 포맷으로 편입하는 설계 확정(구현 미착수). 핵심 판정: 만화 = **같은 책(Work)의 다른 표현형(Expression)** — FRBR 근거로 데이터는 `library_books` 앵커 유지, 탐색 UI 만 독립 코너화(4탭 `/library/comics` + 포맷 facet). 실측 결함 8종(G1~G8) 명시 — 만화 전용 진입점·필터 부재, **미등록 학습자 열람 불가**(라우트가 `texts.id` 요구), 히어로 알파벳순 4권 고정, 커버 1장에 전권 RPC 4회, 단어장(`target_vocab`) 미연계, 진도 이원화. seductive details 연구 근거로 **만화 완주 ≠ 챕터 완료**를 코드 계약(R1~R6)으로 고정. 신설 예정 RPC `list_comic_catalog`/`preview_book_comic`/`v_library_catalog` SQL 초안 포함(마이그레이션 미적용 — 승인 대기).
+
 ### 아케이드 접근 모델 재설계 — 카탈로그 SSoT · 기본 스코프 = 내 복습 단어 (v07.4)
 
 딥서치(choice overload · SDT 자율성 · Gimkit/Blooket 모드 선택) 결론: **"추천 하나 + 전부 열람"**. 선택지가 작업기억을 넘으면 자율성이 아니라 마비가 되고, 반대로 선택권을 뺏으면 SDT 자율성이 깎인다. 그리고 학습자가 게임 앞에서 실제로 궁금한 건 장르가 아니라 **"이게 내 단어를 쓰나"**.
