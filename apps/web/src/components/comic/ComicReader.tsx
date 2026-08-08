@@ -68,6 +68,15 @@ function speakerHue(name: string): string {
 const isInteractive = (el: EventTarget | null): boolean =>
   el instanceof HTMLElement && !!el.closest('button,a,input,textarea,select,[role="dialog"],[data-no-nav]')
 
+/** 글자를 입력받는 곳 / 모달 안 — 여기서는 리더 단축키를 절대 가로채지 않는다. */
+const isTextEntry = (el: EventTarget | null): boolean =>
+  el instanceof HTMLElement &&
+  !!el.closest('input,textarea,select,[contenteditable="true"],[role="dialog"]')
+
+/** 버튼·링크에 포커스가 있는 상태 (Space 는 그 버튼을 눌러야 하므로 양보) */
+const isOnControl = (el: EventTarget | null): boolean =>
+  el instanceof HTMLElement && el !== document.body && !!el.closest('button,a')
+
 export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, initialIndex = 0 }: ComicReaderProps) {
   const total = pages.length
   const [i, setI] = useState(0)
@@ -160,9 +169,15 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (vocab) return // 모달 열림 → 리더 조작 차단(모달 자체 Esc 는 아래 effect)
-      if (isInteractive(document.activeElement) && document.activeElement !== document.body) return
-      if (e.key === 'ArrowRight' || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); nav(i + 1, 1, 'key') }
-      else if (e.key === 'ArrowLeft' || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); nav(i - 1, -1, 'key') }
+      // 입력 필드/모달 안에서는 무조건 양보.
+      if (isTextEntry(document.activeElement)) return
+      // ⚠️ 예전엔 "버튼에 포커스가 있으면" 전부 양보했는데, 이전/다음 컷 버튼을 마우스로 한 번 누르면
+      //    포커스가 그 버튼에 남아 **화살표 넘김이 조용히 죽었다**(2026-08-09 실측: 6 → → 6).
+      //    마우스와 키보드를 섞어 쓰는 것이 정상 사용이므로 화살표는 항상 받는다.
+      //    Space 만 예외 — 포커스된 버튼을 누르는 키라 리더가 가로채면 이중 동작이 된다.
+      const onControl = isOnControl(document.activeElement)
+      if (e.key === 'ArrowRight' || (e.key === ' ' && !e.shiftKey && !onControl)) { e.preventDefault(); nav(i + 1, 1, 'key') }
+      else if (e.key === 'ArrowLeft' || (e.key === ' ' && e.shiftKey && !onControl)) { e.preventDefault(); nav(i - 1, -1, 'key') }
       else if (e.key.toLowerCase() === 'm' || e.key === 'Escape') setChrome((c) => !c) // 크롬 토글(키보드)
     }
     window.addEventListener('keydown', onKey)
