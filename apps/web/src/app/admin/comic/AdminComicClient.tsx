@@ -255,7 +255,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
           <table className="w-full min-w-[900px] text-left">
             <thead>
               <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t3)]">
-                <Th>Fit</Th><Th>모델</Th><Th>호스팅</Th><Th>비용/장</Th><Th>다중참조</Th><Th>텍스트</Th><Th>캐릭터</Th><Th>화풍</Th><Th>4090</Th><Th>상태</Th><Th></Th>
+                <Th>Fit</Th><Th>모델</Th><Th>실행환경</Th><Th>비용/장</Th><Th>다중참조</Th><Th>텍스트</Th><Th>캐릭터</Th><Th>화풍</Th><Th>VRAM</Th><Th>상태</Th><Th></Th>
               </tr>
             </thead>
             <tbody>
@@ -271,13 +271,18 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
                     {m.strengths && <p className="mt-0.5 max-w-[280px] font-body text-[11px] text-[var(--t3)]">➕ {m.strengths}</p>}
                     {m.weaknesses && <p className="max-w-[280px] font-body text-[11px] text-[var(--t4)]">➖ {m.weaknesses}</p>}
                   </Td>
-                  <Td className="font-body text-[12px] text-[var(--t2)]">{m.hosting ?? '—'}</Td>
-                  <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.cost_per_image_usd != null ? `$${m.cost_per_image_usd}` : m.hosting === 'self-host' ? '무료*' : '—'}</Td>
+                  <Td>
+                    <div className="flex flex-wrap gap-1">
+                      {(m.run_envs ?? []).map((e) => <EnvPill key={e} env={e} />)}
+                      {(!m.run_envs || m.run_envs.length === 0) && <span className="text-[var(--t4)]">—</span>}
+                    </div>
+                  </Td>
+                  <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.cost_per_image_usd != null ? `$${m.cost_per_image_usd}` : (m.run_envs ?? []).some((e) => e !== 'api') ? '무료*' : '—'}</Td>
                   <Td>{m.multiref == null ? '—' : m.multiref ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--t4)]" />}</Td>
                   <Td className="font-body text-[12px]" ><span style={{ color: m.text_control === 'strong' ? 'var(--memory-stable)' : m.text_control === 'weak' ? 'var(--memory-shaky)' : 'var(--t3)' }}>{m.text_control ?? '—'}</span></Td>
                   <Td className="font-display text-[12px] font-[700]" ><span style={{ color: cap(m.char_consistency) }}>{m.char_consistency ?? '—'}</span></Td>
                   <Td className="font-display text-[12px] font-[700]"><span style={{ color: cap(m.style_consistency) }}>{m.style_consistency ?? '—'}</span></Td>
-                  <Td>{m.vram_fit_4090 == null ? '—' : m.vram_fit_4090 ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--memory-risk)]" />}</Td>
+                  <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.min_vram_gb != null ? `${m.min_vram_gb}GB` : '—'}</Td>
                   <Td><ModelStatusPill status={m.status} /></Td>
                   <Td>
                     <select value={m.status} disabled={pending} onChange={(e) => setStatus(m.key, e.target.value)} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)]">
@@ -293,6 +298,15 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
     </div>
   )
 }
+const ENV_META: Record<string, { label: string; tone: string }> = {
+  'runpod-4090': { label: 'RunPod', tone: 'var(--memory-stable)' },
+  'kaggle-t4': { label: 'Kaggle', tone: 'var(--info)' },
+  api: { label: 'API', tone: 'var(--t3)' },
+}
+function EnvPill({ env }: { env: string }) {
+  const m = ENV_META[env] ?? { label: env, tone: 'var(--t3)' }
+  return <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[10px] font-[700]" style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>{m.label}</span>
+}
 function ModelStatusPill({ status }: { status: string }) {
   const m: Record<string, { label: string; tone: string }> = {
     candidate: { label: '후보', tone: 'var(--t3)' }, testing: { label: '테스트', tone: ACCENT },
@@ -306,17 +320,21 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
   const router = useRouter()
   const [pending, start] = useTransition()
   const [form, setForm] = useState({ label: '', backend: '', model: '', site: '', note: '' })
+  const [env, setEnv] = useState('runpod-4090') // 자가호스트 우선
   const [msg, setMsg] = useState<string | null>(null)
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  // 선택 제약: 고른 환경에서 실행 가능한 모델만
+  const envModels = models.filter((m) => (m.run_envs ?? []).includes(env))
   const pickModel = (key: string) => {
     const m = models.find((x) => x.key === key)
-    if (m) setForm((f) => ({ ...f, backend: m.key, model: m.name, site: m.site ?? '' }))
+    if (m) setForm((f) => ({ ...f, backend: m.key, model: m.name, site: env === 'api' ? (m.site ?? '') : (env === 'kaggle-t4' ? 'kaggle' : 'runpod-comfyui') }))
   }
   const submit = () => {
     if (!form.label.trim()) { setMsg('테스트 이름을 입력하세요.'); return }
+    if (!form.backend) { setMsg('모델을 선택하세요.'); return }
     setMsg(null)
     start(async () => {
-      const res = await createComicTestAction(form)
+      const res = await createComicTestAction({ ...form, note: `[환경:${env}] ${form.note}`.trim() })
       if (res.ok) { setForm({ label: '', backend: '', model: '', site: '', note: '' }); router.refresh() }
       else setMsg(`실패: ${res.error}`)
     })
@@ -334,13 +352,23 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <p className="font-display text-[12px] font-[700] text-[var(--t1)]">새 테스트 계획</p>
         {models.length > 0 && (
-          <label className="flex flex-col gap-1">
-            <span className="font-display text-[11px] font-[700] text-[var(--t3)]">모델 카탈로그에서 선택 (백엔드/모델/사이트 자동 채움)</span>
-            <select onChange={(e) => e.target.value && pickModel(e.target.value)} defaultValue="" className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
-              <option value="">— 모델 선택 —</option>
-              {models.map((m) => <option key={m.key} value={m.key}>{m.name} · {m.hosting ?? ''} · fit {m.comic_fit ?? '?'}</option>)}
-            </select>
-          </label>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-[180px_1fr]">
+            <label className="flex flex-col gap-1">
+              <span className="font-display text-[11px] font-[700] text-[var(--t3)]">실행 환경 (자가호스트 우선)</span>
+              <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+                <option value="runpod-4090">RunPod 4090 (24GB)</option>
+                <option value="kaggle-t4">Kaggle T4 (16GB)</option>
+                <option value="api">API (폐쇄 모델)</option>
+              </select>
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="font-display text-[11px] font-[700] text-[var(--t3)]">모델 — 이 환경에서 실행 가능한 것만 ({envModels.length})</span>
+              <select value={form.backend} onChange={(e) => e.target.value && pickModel(e.target.value)} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+                <option value="">— 모델 선택 —</option>
+                {envModels.map((m) => <option key={m.key} value={m.key}>{m.name} · fit {m.comic_fit ?? '?'}{m.min_vram_gb ? ` · ${m.min_vram_gb}GB` : ''}</option>)}
+              </select>
+            </label>
+          </div>
         )}
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <Field label="이름*" value={form.label} onChange={set('label')} placeholder="예: Qwen-2512 vs GPT 화풍 일관성" />

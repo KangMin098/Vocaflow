@@ -254,13 +254,14 @@ export interface ComicModel {
   vram_fit_4090: boolean | null; license: string | null
   comic_fit: number | null; strengths: string | null; weaknesses: string | null; source_url: string | null
   status: string; sort: number
+  run_envs: string[] | null; min_vram_gb: number | null
 }
 
 /** 이미지 생성 모델 레지스트리 — comic_fit 내림차순. */
 export async function fetchComicModels(client: SupabaseClient): Promise<ComicModel[]> {
   const { data } = await client
     .from('comic_gen_models')
-    .select('key, name, provider, site, hosting, cost_per_image_usd, cost_note, multiref, text_control, char_consistency, style_consistency, vram_fit_4090, license, comic_fit, strengths, weaknesses, source_url, status, sort')
+    .select('key, name, provider, site, hosting, cost_per_image_usd, cost_note, multiref, text_control, char_consistency, style_consistency, vram_fit_4090, license, comic_fit, strengths, weaknesses, source_url, status, sort, run_envs, min_vram_gb')
     .order('comic_fit', { ascending: false, nullsFirst: false })
   return (data as ComicModel[]) ?? []
 }
