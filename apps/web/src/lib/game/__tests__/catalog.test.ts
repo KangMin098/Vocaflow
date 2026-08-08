@@ -203,8 +203,38 @@ describe('BGM 커버리지', () => {
 
   it('트랙 경로 형식이 일관된다', () => {
     for (const g of GAME_CATALOG) {
-      expect(g.music, `${g.slug}.music`).toMatch(/^\/audio\/games\/[a-z-]+\.mp3$/)
+      expect(g.music, `${g.slug}.music`).toMatch(/^\/audio\/games\/[a-z0-9-]+\.mp3$/)
     }
+  })
+
+  // v07.5 — 게임마다 고유 트랙. 재사용은 "또 같은 음악"으로 읽혀 몰입을 깎는다.
+  it('트랙이 게임 간 재사용되지 않는다', () => {
+    const used = GAME_CATALOG.map((g) => g.music as string)
+    const dup = used.filter((m, i) => used.indexOf(m) !== i)
+    expect([...new Set(dup)], `재사용 트랙: ${[...new Set(dup)].join(', ')}`).toEqual([])
+  })
+
+  // 이전 세트는 8비트 스퀘어파(칩튠)라 "PC 효과음 같은 얇은 느낌"이었다.
+  // 오케스트라·시네마틱으로 전면 교체했으므로 칩튠 복귀를 막는다.
+  it('칩튠 트랙이 크레딧에 다시 들어오지 않는다', () => {
+    const credits = fs.readFileSync(
+      path.resolve(process.cwd(), 'public/audio/games/CREDITS.txt'),
+      'utf8',
+    )
+    const chiptune = ['8bit Dungeon Level', 'Bit Quest', 'Bit Shift', 'Awesome Call', 'Bass Walker']
+    const back = chiptune.filter((t) => new RegExp(`^\\s*\\w[\\w-]*\\s+"${t}"`, 'm').test(credits))
+    expect(back, `칩튠 복귀: ${back.join(', ')}`).toEqual([])
+  })
+
+  it('모든 게임이 크레딧에 곡명과 함께 기재돼 있다 (CC-BY 준수)', () => {
+    const credits = fs.readFileSync(
+      path.resolve(process.cwd(), 'public/audio/games/CREDITS.txt'),
+      'utf8',
+    )
+    const missing = GAME_CATALOG.filter(
+      (g) => !new RegExp(`^\\s*${g.slug}\\s+"[^"]+"`, 'm').test(credits),
+    ).map((g) => g.slug)
+    expect(missing, `크레딧 누락: ${missing.join(', ')}`).toEqual([])
   })
 })
 

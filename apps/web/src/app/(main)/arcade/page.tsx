@@ -1,5 +1,5 @@
 // apps/web/src/app/(main)/arcade/page.tsx — /arcade
-// 아케이드 허브 — 황혼 갤러리 + 게임별 무드 포탈(스테인드글라스).
+// 아케이드 허브 — "저녁의 서재". 플랫폼 Reading Room 아트 디렉션의 야간 대응면.
 //
 // 라우트 그룹 (main) — 허브는 세션이 아니다. 이전에는 (app)(=SessionFrame 전용 풀스크린 그룹)에
 // 있어 Sidebar·FlowNav 가 통째로 사라졌고, 그래서 사이드바에 넣을 수도 없었다.
@@ -16,6 +16,16 @@
 //   "이게 내 단어를 쓰나?" 이므로, 1차 분류축을 데이터 소스로 둔다.
 //
 //   게임 정의(이름·무드·마크·소스)는 lib/game/catalog 단일 출처 — 이 파일은 배치만 한다.
+//
+// ── 아트 디렉션 (v07.5) ───────────────────────────────────────────
+//   이전: 보라–마젠타 황혼 + 카드 19장 풀블리드 무지개 그라디언트.
+//   플랫폼 토큰(deep ink #0F2540 · paper #FBFAF6 · muted gold #B0843A,
+//   Linear식 단일 액센트 "gold 는 5% 미만·시그니처에만")과 접점이 전혀 없어
+//   페이퍼 톤 셸 안에서 다른 앱을 붙여둔 것처럼 읽혔다.
+//
+//   지금: 앱 다크 테마 캔버스(warm dark paper #181410)를 바닥에 깔고 deep ink 를 씌운
+//   "저녁의 서재". 게임 개성은 색면이 아니라 **잉크 위 24% 틴트 + 2px 액센트 엣지 + 마크**로,
+//   금빛은 오늘의 추천 한 곳에만. 색이 정보를 나르되 시선을 분산시키지 않게 한다.
 
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
@@ -388,31 +398,40 @@ function Mark({ slug }: { slug: GameEntry['slug'] }) {
 const GRAIN = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
 
 const ARC_CSS = `
-  /* (main) 셸(Sidebar + FlowNav) 안에 놓이므로 좌우 여백을 스스로 두고 라운드 카드로 앉는다. */
+  /* ── 아트 디렉션 (v07.5 재정렬) ────────────────────────────────
+     이전: 보라–마젠타 황혼 + 카드 19장 풀블리드 무지개 그라디언트.
+     플랫폼(Reading Room — deep ink #0F2540 · paper #FBFAF6 · muted gold #B0843A,
+     Linear식 단일 액센트 5% 미만)과 아무 접점이 없어, 페이퍼 톤 셸 안에서
+     "다른 앱을 붙여놓은" 이물질로 읽혔다.
+
+     지금: 앱의 **다크 테마 캔버스(warm dark paper #181410)** 를 바닥으로 깔고
+     deep ink 를 한 겹 씌운 "저녁의 서재". 앰비언트도 gold + ink 두 색만.
+     게임별 개성은 풀블리드 색면이 아니라 **잉크 베이스 위 22% 틴트 + 액센트 마크**로.
+     ───────────────────────────────────────────────────────────── */
   .arc-scene {
     position: relative; min-height: calc(100vh - 96px); width: auto; overflow: hidden; isolation: isolate;
     margin: 12px clamp(12px, 2vw, 20px) 20px;
     border-radius: 24px;
     background:
-      radial-gradient(130% 90% at 12% -5%, #3d2752 0%, transparent 52%),
-      radial-gradient(120% 100% at 105% 108%, #5e2b44 0%, transparent 48%),
-      linear-gradient(158deg, #191129 0%, #241634 46%, #2c1830 100%);
+      radial-gradient(125% 85% at 14% -8%, #16283E 0%, transparent 54%),
+      radial-gradient(115% 95% at 102% 106%, #241C14 0%, transparent 50%),
+      linear-gradient(160deg, #13100C 0%, #181410 46%, #121821 100%);
     font-family: var(--font-display, system-ui, sans-serif);
   }
   .arc-glow { position: absolute; inset: -25%; z-index: 0; pointer-events: none;
     background:
-      radial-gradient(38% 40% at 28% 22%, rgba(255,186,132,.20), transparent 70%),
-      radial-gradient(44% 46% at 78% 74%, rgba(176,116,240,.18), transparent 70%);
+      radial-gradient(38% 40% at 26% 20%, rgba(176,132,58,.16), transparent 70%),
+      radial-gradient(44% 46% at 80% 78%, rgba(15,37,64,.42), transparent 70%);
     animation: arc-drift 26s ease-in-out infinite alternate; }
   .arc-grain { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay; background-image: url("${GRAIN}"); }
   .arc-vig { position: absolute; inset: 0; z-index: 0; pointer-events: none; box-shadow: inset 0 0 220px 30px rgba(0,0,0,.5), inset 0 0 60px rgba(0,0,0,.25); border-radius: 24px; }
 
   .arc-inner { position: relative; z-index: 1; max-width: 1040px; margin: 0 auto; padding: clamp(36px, 7vh, 76px) clamp(20px, 4vw, 44px) 56px; }
   .arc-head { margin-bottom: clamp(24px, 4vh, 40px); }
-  .arc-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,225,200,.62); }
+  .arc-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: rgba(212,168,86,.72); }
   .arc-title { margin: 10px 0 0; font-size: clamp(38px, 7vw, 60px); font-weight: 800; letter-spacing: -.01em; line-height: 1; color: #FBF3EC;
     text-shadow: 0 2px 30px rgba(0,0,0,.4); }
-  .arc-sub { margin: 16px 0 0; max-width: 46ch; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.5; color: rgba(246,232,224,.68); }
+  .arc-sub { margin: 16px 0 0; max-width: 46ch; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.5; color: rgba(240,234,224,.62); }
 
   .arc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 3vw, 30px); margin: 0 0 clamp(20px, 3.5vh, 30px); padding: 14px 18px; border-radius: 16px;
     background: linear-gradient(150deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
@@ -441,31 +460,37 @@ const ARC_CSS = `
 
   /* ── ① 오늘의 추천 ── */
   .arc-daily { margin: 0 0 clamp(30px, 5vh, 46px); }
+  /* 오늘의 추천 = 이 화면의 유일한 시그니처 모먼트.
+     브랜드 규칙(gold 는 5% 미만, 보상·시그니처에만)에 따라 **여기서만** 금빛을 쓴다.
+     추천 게임의 무드색은 마크에만 남겨 "오늘"이라는 의미가 색을 이기게 한다. */
   .arc-daily-card {
     position: relative; overflow: hidden; isolation: isolate;
     display: flex; align-items: center; gap: clamp(16px, 3vw, 26px);
     padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 30px);
-    border-radius: 22px; text-decoration: none; color: #fff;
-    background: linear-gradient(122deg, var(--m-a) 0%, var(--m-b) 100%);
-    border: 1px solid rgba(255,255,255,.2);
-    box-shadow: 0 26px 56px -24px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.2);
-    transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .42s cubic-bezier(.2,.8,.2,1);
+    border-radius: 22px; text-decoration: none; color: #F7F0E4;
+    background:
+      radial-gradient(120% 160% at 0% 0%, rgba(176,132,58,.30) 0%, transparent 58%),
+      linear-gradient(122deg, #1F1710 0%, #171E2B 100%);
+    border: 1px solid rgba(212,168,86,.34);
+    box-shadow: 0 26px 56px -24px rgba(0,0,0,.85), inset 0 1px 0 rgba(212,168,86,.20);
+    transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .42s cubic-bezier(.2,.8,.2,1), border-color .42s ease;
   }
-  .arc-daily-card:hover { transform: translateY(-5px); box-shadow: 0 36px 70px -24px rgba(0,0,0,.85), 0 0 48px -8px var(--m-glow); }
-  .arc-daily-card:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,.6), 0 26px 56px -24px rgba(0,0,0,.8); }
+  .arc-daily-card:hover { transform: translateY(-5px); border-color: rgba(212,168,86,.6);
+    box-shadow: 0 36px 70px -24px rgba(0,0,0,.9), 0 0 44px -16px rgba(212,168,86,.5); }
+  .arc-daily-card:focus-visible { outline: none; box-shadow: 0 0 0 3px #D4A856, 0 26px 56px -24px rgba(0,0,0,.8); }
   .arc-daily-mark { flex-shrink: 0; width: 62px; height: 62px; display: grid; place-items: center; border-radius: 16px;
-    color: var(--m-accent); background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.24);
+    color: var(--m-accent); background: rgba(255,255,255,.08); border: 1px solid rgba(212,168,86,.28);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.26), 0 6px 18px -6px rgba(0,0,0,.45); }
   .arc-daily-mark svg { width: 36px; height: 36px; filter: drop-shadow(0 0 8px var(--m-glow)); }
   .arc-daily-body { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 2px; }
-  .arc-daily-eyebrow { font-family: var(--font-english, ui-monospace, monospace); font-size: 10.5px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.66); }
+  .arc-daily-eyebrow { font-family: var(--font-english, ui-monospace, monospace); font-size: 10.5px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #D4A856; }
   .arc-daily-name { margin: 3px 0 0; font-size: clamp(22px, 3vw, 27px); font-weight: 800; letter-spacing: -.01em; color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.3); }
   .arc-daily-tag { margin-top: 4px; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,.85); word-break: keep-all; }
-  .arc-daily-meta { margin-top: 9px; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; color: var(--m-accent); }
+  .arc-daily-meta { margin-top: 9px; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; color: rgba(212,168,86,.9); }
   .arc-daily-cta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px; padding: 11px 20px; border-radius: 999px;
-    font-size: 14px; font-weight: 800; color: #201525; background: rgba(255,255,255,.92);
+    font-size: 14px; font-weight: 800; color: #17110A; background: linear-gradient(180deg,#E6C275,#C9A055);
     box-shadow: 0 8px 22px -8px rgba(0,0,0,.5); }
-  .arc-daily-card:hover .arc-daily-cta { background: #fff; }
+  .arc-daily-card:hover .arc-daily-cta { background: linear-gradient(180deg,#F0D08A,#D4A856); }
   @media (max-width: 620px) {
     .arc-daily-card { flex-wrap: wrap; }
     .arc-daily-cta { width: 100%; justify-content: center; }
@@ -474,11 +499,11 @@ const ARC_CSS = `
   /* ── ②③ 섹션 ── */
   .arc-sec { margin: 0 0 clamp(32px, 5.5vh, 52px); }
   .arc-sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; }
-  .arc-sec-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,225,200,.5); }
+  .arc-sec-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: rgba(240,234,224,.42); }
   .arc-sec-title { display: flex; align-items: center; gap: 9px; margin: 5px 0 0; font-size: clamp(19px, 2.4vw, 23px); font-weight: 800; letter-spacing: -.01em; color: #FBF3EC; }
-  .arc-sec-count { font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800; color: rgba(255,225,200,.62); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
+  .arc-sec-count { font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800; color: rgba(240,234,224,.6); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
   .arc-sec-badge { flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: .02em; padding: 6px 12px; border-radius: 999px; border: 1px solid transparent; }
-  .arc-sec-badge[data-tone="live"] { color: #9BE8C0; background: rgba(125,224,168,.12); border-color: rgba(125,224,168,.3); }
+  .arc-sec-badge[data-tone="live"] { color: #E6C275; background: rgba(176,132,58,.16); border-color: rgba(212,168,86,.36); }
   .arc-sec-badge[data-tone="muted"] { color: rgba(246,232,224,.66); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
   .arc-sec-desc { margin: 10px 0 18px; max-width: 68ch; font-size: 12.5px; line-height: 1.65; color: rgba(240,226,220,.58); word-break: keep-all; }
   .arc-sec-link { color: rgba(255,225,200,.9); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
@@ -488,31 +513,39 @@ const ARC_CSS = `
   @media (max-width: 860px) { .arc-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { .arc-grid { grid-template-columns: 1fr; } }
 
+  /* 카드 = 공통 잉크 베이스 + 게임 무드 22% 틴트. 색은 장식이 아니라 식별 신호.
+     (이전엔 카드마다 100% 채도 그라디언트 → 19색 무지개로 시선이 분산됐다) */
   .arc-card {
     position: relative; overflow: hidden; isolation: isolate;
     display: flex; flex-direction: column; gap: 14px; min-height: 208px; padding: 22px 22px 18px;
-    border-radius: 20px; text-decoration: none; color: #fff;
-    background: linear-gradient(152deg, var(--m-a) 0%, var(--m-b) 100%);
-    border: 1px solid rgba(255,255,255,.16);
-    box-shadow: 0 22px 48px -22px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.18);
-    transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .42s cubic-bezier(.2,.8,.2,1);
+    border-radius: 20px; text-decoration: none; color: #F2ECE3;
+    background:
+      linear-gradient(158deg, color-mix(in srgb, var(--m-a) 24%, #171310) 0%, #131009 62%, #14171E 100%);
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 20px 44px -24px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.09);
+    transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .42s cubic-bezier(.2,.8,.2,1), border-color .42s ease;
   }
+  /* 상단 2px 액센트 엣지 — 게임 정체성을 색면이 아닌 얇은 신호로 */
+  .arc-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; pointer-events: none;
+    background: linear-gradient(90deg, var(--m-accent), transparent 72%); opacity: .55; transition: opacity .42s ease; }
+  .arc-card:hover::before, .arc-card--family:hover::before { opacity: 1; }
   .arc-card-glow { position: absolute; inset: 0; z-index: -1; pointer-events: none;
-    background: radial-gradient(78% 58% at 28% 6%, var(--m-glow), transparent 62%); opacity: .85; transition: opacity .42s ease; }
+    background: radial-gradient(72% 54% at 26% 4%, var(--m-glow), transparent 64%); opacity: .30; transition: opacity .42s ease; }
   .arc-card::after, .arc-daily-card::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
     background: linear-gradient(180deg, rgba(255,255,255,.10), transparent 34%); }
-  .arc-card:hover { transform: translateY(-7px) scale(1.014); box-shadow: 0 34px 64px -22px rgba(0,0,0,.8), 0 0 44px -8px var(--m-glow); }
-  .arc-card:hover .arc-card-glow, .arc-daily-card:hover .arc-card-glow { opacity: 1; }
-  .arc-card:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,.6), 0 22px 48px -22px rgba(0,0,0,.75); }
+  .arc-card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--m-accent) 34%, rgba(255,255,255,.10));
+    box-shadow: 0 30px 58px -24px rgba(0,0,0,.85), 0 0 32px -14px var(--m-glow); }
+  .arc-card:hover .arc-card-glow, .arc-daily-card:hover .arc-card-glow { opacity: .62; }
+  .arc-card:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--m-accent), 0 22px 48px -22px rgba(0,0,0,.75); }
 
   .arc-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
   .arc-chips { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
   .arc-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px;
-    color: var(--m-accent); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+    color: var(--m-accent); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 4px 14px -4px rgba(0,0,0,.4); }
   .arc-mark svg { width: 26px; height: 26px; filter: drop-shadow(0 0 6px var(--m-glow)); }
   .arc-chip { font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-    color: rgba(255,255,255,.92); background: rgba(0,0,0,.20); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
+    color: rgba(240,234,224,.78); background: rgba(0,0,0,.28); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
   .arc-chip--3d { color: #EAF6FF; background: rgba(120,190,255,.24); border-color: rgba(180,220,255,.36); }
   .arc-chip--beta { color: #FFE7C2; background: rgba(255,180,110,.22); border-color: rgba(255,200,150,.36); }
   .arc-chip--modes { color: var(--m-accent); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.3); }

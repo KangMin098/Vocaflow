@@ -531,7 +531,12 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 `lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP. `ArcadeMetaStrip` 노출.
 
 ### 배경음악
-트랙은 카탈로그 `GameEntry.music`(`public/audio/games/*.mp3` · Kevin MacLeod CC-BY 3.0 · 곡 14 < 게임 19 라 일부 재사용).
+**v07.5 — 칩튠 전면 교체.** 이전 세트(8bit Dungeon Level · Bit Quest · Bit Shift …)는 8비트 스퀘어파라
+"PC 효과음 같은 얇은 느낌"이었고 학습 공간의 무게와 맞지 않았다. 오케스트라·시네마틱·앰비언트로
+**19종 전부 고유 트랙** 재큐레이션(재사용 0). 가공: 인트로 이후 ~110초 루프 · 3s/5s 페이드 ·
+EBU R128 -16 LUFS 정규화(게임 간 레벨 일관) · 128kbps 44.1kHz 스테레오.
+
+트랙은 카탈로그 `GameEntry.music`(`public/audio/games/<slug>.mp3` · Kevin MacLeod CC-BY 3.0).
 선호는 `lib/game/music-pref.ts` 단일 키(`vocaflow-arcade-music`) — **허브 토글**(`ArcadeMetaStrip`)과 **게임 내 버튼**(`GameMusic`)이 공유.
 기본 OFF(자동재생 금지). 미결정 상태에선 게임 내 버튼이 "배경음악" 라벨을 펼쳐 존재를 알린다.
 

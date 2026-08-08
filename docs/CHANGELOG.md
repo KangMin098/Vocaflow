@@ -39,6 +39,23 @@
 - 검증: `tsc --noEmit` 0 error · **vitest 185 pass** · **e2e 07 16/16 + 09 16/16 pass**.
 - ⚠️ 미수정(별건, 본 변경과 무관): ① `next lint` 가 `eslint-module-utils/resolve` 미해결로 이 환경에서 실행 불가 ② `/library/books` 768px 가로 넘침 **324px** — `BooksExplorer` 의 고정폭 `w-[270px]` 표지(v06.33)가 원인.
 
+#### BGM 시네마틱 전면 교체 + 아케이드 아트 디렉션 브랜드 정렬 (v07.5)
+
+**① BGM — 칩튠 19곡 전량 교체.** 이전 세트는 8비트 스퀘어파(8bit Dungeon Level · Bit Quest · Bit Shift · Awesome Call …)라 "PC 효과음 같은 얇은 느낌"이었고 학습 공간의 무게와 맞지 않았다.
+
+- incompetech(Kevin MacLeod, CC-BY 3.0) 카탈로그에서 **오케스트라·시네마틱·앰비언트 23곡을 검증**해 게임 무드별로 재큐레이션 → **19종 전부 고유 트랙**(재사용 0). 예: wordblitz "Prelude and Action" · glyph-tongue "Ossuary 6 - Air" · silent-rule "Lightless Dawn" · lexicon-estate "Shores of Avalon" · word-orrery "Immersed" · pirate-quest "Achaidh Cheide".
+- 가공(포터블 ffmpeg 9.0): 인트로 이후 **~110초 루프** · 3s 페이드인 / 5s 페이드아웃 · **EBU R128 -16 LUFS (TP -1.5)** 정규화로 게임 간 레벨 일관 · 128kbps 44.1kHz **스테레오**(폭·저역 유지). 17MB(14곡 112kbps) → 33MB(19곡 128kbps).
+- `CREDITS.txt` 전면 갱신(곡명·게임 매핑·가공 방식). 앱 내 `/arcade` 푸터 표기 유지.
+
+**② 아트 디렉션 — 플랫폼 정렬.** 아케이드가 보라–마젠타 황혼 배경 + 카드 19장 풀블리드 무지개 그라디언트였다. 플랫폼 토큰(Reading Room — deep ink `#0F2540` · paper `#FBFAF6` · muted gold `#B0843A`, Linear식 "gold 는 5% 미만·시그니처에만")과 접점이 전혀 없어, 페이퍼 톤 셸 안에서 **다른 앱을 붙여둔 이물질**로 읽혔다(허브를 `(main)` 으로 옮기며 더 두드러짐).
+
+- 씬: 앱 **다크 테마 캔버스**(warm dark paper `#181410`) 바닥 + deep ink 웨시 = "저녁의 서재". 앰비언트 글로우도 gold + ink 두 색만(이전 오렌지+퍼플).
+- 카드: 공통 잉크 베이스 + **게임 무드 24% 틴트**로 통일. 정체성은 색면이 아니라 **2px 상단 액센트 엣지 + 마크 색 + hover 글로우**가 담당 → 19색 무지개 제거, 식별성은 유지.
+- **금빛은 오늘의 추천 한 곳에만**(카드 배경 웨시 · eyebrow · CTA). 브랜드의 단일 액센트 규칙을 화면에서 실제로 지킨다.
+- 섹션 배지 `live` 도 초록 → 금빛으로 통일. 칩·마크 컨테이너 채도 하향.
+- 회귀 +4: 트랙 재사용 금지 · **칩튠 곡명 복귀 차단**(CREDITS 정규식) · 전 게임 크레딧 기재(CC-BY 준수) · 경로 형식.
+- 검증: tsc 0 · vitest 202 · e2e 07+09 35/35 · 신규 mp3 서빙 200.
+
 #### 중복 게임 정리 — 계열(family) 접기 (v07.4)
 
 "중복 게임이 많다" 제보 조사. 핵심 루프를 코드로 대조한 결과 **19종 중 4종이 같은 엔진의 스킨**이었다.

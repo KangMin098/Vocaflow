@@ -5,27 +5,47 @@ All tracks by Kevin MacLeod (incompetech.com).
 Licensed under Creative Commons: By Attribution 3.0 (CC-BY 3.0)
 http://creativecommons.org/licenses/by/3.0/
 
-Source mirror: https://archive.org/details/Incompetech
-Processed for Vocaflow: trimmed to a ~90s loop segment with fade in/out,
-re-encoded to 112 kbps MP3. No melodic content altered.
+Source: https://incompetech.com/music/royalty-free/mp3-royaltyfree/
+Processed for Vocaflow: ~110s loop segment taken past the intro, 3s fade in /
+5s fade out, EBU R128 loudness-normalised to -16 LUFS (TP -1.5 dBTP) for a
+consistent level across games, re-encoded to 128 kbps 44.1 kHz stereo MP3.
+No melodic content altered.
 
-Per-game track mapping:
+v07.5 — CHIPTUNE REPLACED
+-------------------------
+The previous set leaned on 8-bit square-wave tracks (8bit Dungeon Level,
+Bit Quest, Bit Shift, Awesome Call ...). They read as thin "PC beep" music and
+clashed with the weight of a study space. Every game now has its own
+orchestral / cinematic / ambient track — no track is reused.
 
-  cascade            "8bit Dungeon Level" by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  letter-forge       "Bit Quest"          by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  daily-blitz        "Bit Shift"          by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  ghost-race         "Awesome Call"       by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  lexicon-hands      "Bass Walker"        by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  word-economy       "Balzan Groove"      by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  word-customs       "An Upsetting Theme" by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  connections        "Amazing Plan"       by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  lexicon-detective  "Awkward Meeting"    by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  morpheme-rules     "Anamalie"           by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  glyph-tongue       "Atlantean Twilight" by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  silent-rule        "Airship Serenity"   by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  word-orrery        "Awaiting Return"    by Kevin MacLeod (incompetech.com) — CC-BY 3.0
-  lexicon-estate     "Ashton Manor"       by Kevin MacLeod (incompetech.com) — CC-BY 3.0
+Per-game track mapping (19 games, 19 distinct tracks):
 
+  -- 속사 인출 계열 (blitz family) --
+  wordblitz          "Prelude and Action"   — 장중한 오케스트라 추진
+  ghost-race         "Rising Tide"          — 고조되는 질주
+  word-economy       "Movement Proposition" — 전략적 진행
+  daily-blitz        "Heroic Age"           — 매일의 영웅적 시작
+
+  -- 내 단어로 플레이 --
+  cascade            "Deep Haze"            — 흐르는 물결·낙하
+  wordfall-cadence   "Long Note Four"       — 지속음 (청각 집중)
+  letter-forge       "Thunderbird"          — 대장간의 타격
+  wordsmith-vigil    "Volatile Reaction"    — 밤샘 전투의 긴장
+  morphmerge         "Mystic Force"         — 결합의 신비
+
+  -- 큐레이션 세계 --
+  connections        "Impact Andante"       — 사색적 시네마틱
+  glyph-tongue       "Ossuary 6 - Air"      — 고대 석실의 정적
+  word-customs       "Interloper"           — 심문의 압박
+  morpheme-rules     "Echoes of Time v2"    — 규칙과 시간
+  silent-rule        "Lightless Dawn"       — 명상적 귀납
+  lexicon-hands      "Ibn Al-Noor"          — 시너지의 고조
+  lexicon-detective  "Anguish"              — 사건의 무게
+  lexicon-estate     "Shores of Avalon"     — 저택·의미장 탐험
+  word-orrery        "Immersed"             — 심우주 몰입
+  pirate-quest       "Achaidh Cheide"       — 켈틱 항해
+
+All of the above: by Kevin MacLeod (incompetech.com), CC-BY 3.0.
 Attribution is also surfaced in-app on the /arcade page footer.
 
 

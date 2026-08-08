@@ -58,8 +58,12 @@ export interface GameEntry {
   /** 베타 — 학습 기록 미연동 */
   beta?: boolean
   /**
-   * 배경음악 트랙 (`public/audio/games/*.mp3` · Kevin MacLeod CC-BY 3.0).
-   * 게임 무드에 맞춰 큐레이션. 곡 수(14) < 게임 수(19)라 일부는 무드가 가까운 곡을 재사용한다.
+   * 배경음악 트랙 (`public/audio/games/<slug>.mp3` · Kevin MacLeod CC-BY 3.0).
+   *
+   * v07.5 에서 **칩튠 전면 교체** — 8bit Dungeon Level·Bit Quest·Bit Shift 같은
+   * 8비트 스퀘어파 트랙은 "PC 효과음 같은 얇은 느낌"이라 학습 공간의 무게와 맞지 않았다.
+   * 오케스트라·시네마틱·앰비언트로 19종 전부 **고유 트랙** 재큐레이션(재사용 0).
+   * 곡별 크레딧은 `public/audio/games/CREDITS.txt`.
    */
   music?: string
   /** 같은 인지 루프를 공유하는 계열 — 허브에서 한 장으로 접힌다. 단독 게임은 undefined. */
@@ -170,7 +174,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라',
     layer: 'L4c 듣기', ref: 'Rhythm', source: 'mine', emoji: '🎵', closeHref: '/arcade', minWords: 4,
     mood: { a: '#4C6FA6', b: '#182444', glow: 'rgba(140,180,255,.44)', accent: '#D4E2FA' },
-    music: bgm('silent-rule'),
+    music: bgm('wordfall-cadence'),
   },
   {
     slug: 'letter-forge', name: 'Letter Forge', tagline: '흩어진 글자로 철자를 벼려내다',
@@ -182,13 +186,13 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     slug: 'wordsmith-vigil', name: "Wordsmith's Vigil", tagline: '뜻을 든 정령을 영단어 타이핑으로 흩어라',
     layer: 'L4b 생성', ref: 'Typing of the Dead', source: 'mine', emoji: '🖋', closeHref: '/arcade', minWords: 5,
     mood: { a: '#B5763A', b: '#3A2A1C', glow: 'rgba(255,196,120,.5)', accent: '#F2DCB0' },
-    music: bgm('letter-forge'),
+    music: bgm('wordsmith-vigil'),
   },
   {
     slug: 'morphmerge', name: 'Morphmerge', tagline: '같은 어족의 형태를 알아보고 합쳐 수집하라',
     layer: 'L4b 형태론', ref: '2048 · Merge', source: 'mine', emoji: '🧬', closeHref: '/arcade', minWords: 4,
     mood: { a: '#3E9E6A', b: '#173F2C', glow: 'rgba(130,235,170,.44)', accent: '#D2F3DE' },
-    music: bgm('cascade'),
+    music: bgm('morphmerge'),
   },
 
   // ── source: bank — 내장 큐레이션 뱅크 (수제 콘텐츠 · 스코프 무관) ──
@@ -260,14 +264,14 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     slug: 'wordblitz', name: 'WordBlitz', tagline: '타이머와 콤보로 몰아붙이는 순수 속도전',
     layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 4,
     mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
-    music: bgm('daily-blitz'),
+    music: bgm('wordblitz'),
     family: 'blitz', modeOrder: 1, modeLabel: '클래식', modeNote: '타이머·콤보·레벨업',
   },
   {
     slug: 'pirate-quest', name: "Pirate's Bounty", tagline: '해변에서 보물 단어를 찾는 3D 모험',
     layer: 'L4a 재인', ref: '3D 어드벤처', source: 'bank', emoji: '🏴‍☠️', closeHref: '/arcade', minWords: 0, is3d: true, beta: true,
     mood: { a: '#2E7D8F', b: '#123040', glow: 'rgba(120,220,230,.45)', accent: '#C8F0F5' },
-    music: bgm('word-orrery'),
+    music: bgm('pirate-quest'),
   },
 ] as const
 
