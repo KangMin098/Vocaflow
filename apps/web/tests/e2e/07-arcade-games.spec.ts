@@ -2,12 +2,16 @@
 // 아케이드 게임 전수 스모크 — 14개 /play/* 라우트가 (1) 콘솔 에러 없이 마운트되고
 // (2) 첫 입력에 반응하는지(작동·사용성)를 회귀로 고정한다.
 //   - 계정: runtime-test-0705@vocaflow.dev (04/05 spec 과 동일 · vocab 10 · 활동 시드)
-//   - 비스코프 진입(?set/?text 없음) → 각 게임은 내장 단어 뱅크로 즉시 렌더돼야 함
-//     (play-scaffold: scoped=false → NotEnoughWords 게이트 미발동)
+//   - 비스코프 진입(?set/?text 없음) → v07.4 부터 source:'mine' 게임은 사용자 due 큐(vocab 10)로,
+//     source:'bank' 게임은 내장 뱅크로 렌더된다. mine 스코프는 단어 부족해도 맛보기로 degrade 하므로
+//     NotEnoughWords 게이트는 여전히 발동하지 않는다(explicit ?set/?text 진입 전용).
+//   - 로스터 19종 중 아래 14종을 개별 검증(허브 테스트가 19 카드 전수 딥링크를 커버)
 //   - "준비 마커" 가시 = 마운트 성공, "첫 입력 → 반응 마커" = 입력 처리 정상(사용성)
 //   - 콘솔 에러/4xx·5xx/pageerror 0 을 게임별로 단언(silent 붕괴 감지)
 //   - pirate-quest 는 three.js 캔버스(3D 클릭) — DOM 이동 불가 → 렌더만 검증(WebGL 노이즈 제외)
 import { test, expect, type Page, type Locator } from '@playwright/test';
+
+import { fetchUserVocabWords, userIdByEmail } from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -225,18 +229,28 @@ test.describe('아케이드 게임 전수 스모크', () => {
   });
   test.use({ storageState: STATE_PATH });
 
-  test('아케이드 허브가 12개 게임 카드를 콘솔 에러 없이 렌더한다', async ({ page }) => {
+  test('아케이드 허브 — 2섹션 + 오늘의 추천 + 전 카드 딥링크 무결성', async ({ page }) => {
     const errors = collectConsoleErrors(page);
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('heading', { name: '아케이드' })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible({ timeout: 30_000 });
+
+    // IA v07.4 — ① 오늘의 추천 ② 내 단어로 플레이 ③ 큐레이션 세계
+    await expect(page.locator('.arc-daily-card')).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('heading', { name: /내 단어로 플레이/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /큐레이션 세계/ })).toBeVisible();
+
     const cards = page.locator('a.arc-card');
-    // 게임 로스터는 성장한다(현재 14) — 정확 카운트는 brittle → 하한 + 딥링크 무결성으로 검증
+    // 게임 로스터는 성장한다(카탈로그 현재 19) — 정확 카운트는 brittle → 하한 + 딥링크 무결성
     await expect(cards.first()).toBeVisible({ timeout: 10_000 });
-    expect(await cards.count()).toBeGreaterThanOrEqual(12);
-    // 각 카드가 /play/<slug> 로 연결되는지(딥링크 무결성)
+    expect(await cards.count()).toBeGreaterThanOrEqual(19);
+    // 각 카드가 /play/<slug> 로 연결되는지. from 은 URLSearchParams 인코딩(%2F) — 양쪽 허용.
     for (const href of await cards.evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute('href')))) {
-      expect(href).toMatch(/^\/play\/[a-z-]+\?from=\/arcade$/);
+      expect(href).toMatch(/^\/play\/[a-z-]+\?from=(\/|%2F)arcade$/);
     }
+    // 오늘의 추천도 실제 게임으로 연결돼야 한다(빈 CTA 방지)
+    const dailyHref = await page.locator('.arc-daily-card').getAttribute('href');
+    expect(dailyHref).toMatch(/^\/play\/[a-z-]+\?from=(\/|%2F)arcade$/);
+
     const fatal = fatalErrors(errors);
     expect(fatal, `[arcade] console: ${fatal.join(' | ')}`).toHaveLength(0);
   });
@@ -284,4 +298,37 @@ test.describe('아케이드 게임 전수 스모크', () => {
       }
     });
   }
+
+  // v07.4 회귀 — 아케이드에서 스코프 없이 연 mine 게임이 하드코딩 DEFAULT_POOL 로 조용히
+  // 돌아가던 결함(내 단어 미사용 → recordGameResult silent skip → FSRS 무반영)의 재발 차단.
+  // 브레드크럼 라벨 + 실제 제시된 뜻이 내 단어장 소속인지 2중으로 단언한다.
+  test('비스코프 진입 — mine 게임이 내 복습 단어를 쓴다 (FSRS 연동 회귀)', async ({ page }) => {
+    test.setTimeout(60_000);
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    test.skip(!userId, 'SERVICE_ROLE_KEY 없음 — DB 단언 불가');
+    const mine = await fetchUserVocabWords(userId as string);
+    test.skip(mine.length < 4, `due 단어 ${mine.length}개 — ghost-race minWords 4 미달`);
+
+    await page.goto('/play/ghost-race?from=/arcade', { waitUntil: 'domcontentloaded' });
+    await page.evaluate(() => {
+      try {
+        localStorage.removeItem('vf_ghostrace_v1');
+      } catch {
+        /* SecurityError 무시 */
+      }
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+
+    // ① 세션 셸 브레드크럼 — mine 스코프가 실제로 해석됐다(맛보기 폴백 아님)
+    await expect(page.getByText('내 복습 단어')).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByText('맛보기 단어')).toHaveCount(0);
+
+    // ② 제시된 뜻이 내 단어장 소속 — 내장 DEFAULT_POOL 이면 여기서 실패한다
+    await expect(page.locator('.gr-meaning')).toBeVisible({ timeout: 15_000 });
+    const shown = (await page.locator('.gr-meaning').first().innerText()).trim();
+    expect(
+      mine.map((w) => w.meaning),
+      `제시된 뜻 "${shown}" 이 사용자 단어장에 없음 — DEFAULT_POOL 회귀 의심`,
+    ).toContain(shown);
+  });
 });

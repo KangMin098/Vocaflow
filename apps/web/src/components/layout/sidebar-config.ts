@@ -16,6 +16,7 @@ import {
   BarChart3,
   BookOpen,
   Compass,
+  Gamepad2,
   GraduationCap,
   Home,
   Layers,
@@ -111,6 +112,14 @@ export const NAV_GROUPS: NavGroup[] = [
         href: '/spellforge',
         icon: Pencil,
         ariaLabel: '스펠포지 — 철자 생성 인출',
+      },
+      // Arcade — 게임 스위트(L4a~L5). 이전에는 /hub 의 진입 카드 하나가 유일한 통로라
+      // 허브를 스크롤해 내려가지 않으면 존재 자체를 발견할 수 없었다. Practice 상시 노출로 승격.
+      {
+        label: 'Arcade',
+        href: '/arcade',
+        icon: Gamepad2,
+        ariaLabel: '아케이드 — 단어 게임 모음 (내 복습 단어 · 큐레이션 세계)',
       },
     ],
   },

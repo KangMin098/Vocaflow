@@ -1,14 +1,19 @@
 // apps/web/src/components/home/ArcadeEntryCard.tsx
 // 허브 → 아케이드 진입 카드. 황혼 갤러리 무드(아케이드 아이덴티티) 배너 + 컨트롤러 마크 + CTA.
 // Calm UI — 강조는 그라디언트 하나, 나머지는 조용히.
+//
+// 게임 수는 GAME_CATALOG 에서 파생 — 손으로 적던 시절 aria("12종")와 본문("14개 세계")이
+// 실제 수(당시 17)와 각각 다르게 낡아 있었다. 카탈로그에 게임을 추가하면 이 문구가 함께 따라온다.
 
 import Link from 'next/link';
+
+import { GAME_COUNT, MINE_GAMES } from '@/lib/game/catalog';
 
 export function ArcadeEntryCard() {
   return (
     <Link
       href="/arcade"
-      aria-label="아케이드 — 단어 게임 12종"
+      aria-label={`아케이드 — 단어 게임 ${GAME_COUNT}종`}
       className="group relative flex items-center gap-4 overflow-hidden rounded-[var(--r-lg)] px-5 py-4 transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2"
       style={{
         background: 'linear-gradient(120deg, #2b1d3e 0%, #3a2450 42%, #4a2740 100%)',
@@ -43,7 +48,7 @@ export function ArcadeEntryCard() {
           아케이드
         </span>
         <span className="mt-0.5 block truncate text-[12.5px]" style={{ color: 'rgba(246,232,224,.72)' }}>
-          14개 세계에서 단어를 놀이로 — 해독 · 추리 · 탐사
+          {GAME_COUNT}개 세계에서 단어를 놀이로 — {MINE_GAMES.length}종은 내 복습 단어로
         </span>
       </span>
       {/* CTA */}

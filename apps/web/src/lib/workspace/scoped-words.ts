@@ -44,7 +44,7 @@ function buildIllustrationMatcher(
 }
 
 /** lemma 목록 → shared_dictionary.inflected_forms 일괄 조회 (lemma → forms 맵) */
-async function loadInflectedForms(
+export async function loadInflectedForms(
   client: SupabaseClient,
   lemmas: string[],
 ): Promise<Map<string, string[]>> {

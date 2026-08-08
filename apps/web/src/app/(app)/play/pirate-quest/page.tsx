@@ -46,7 +46,8 @@ export default function PirateQuestPage() {
           position: '베타 · 단어 모험',
         }}
       />
-      <PirateQuestGame onExit={() => router.push('/library')} />
+      {/* 복귀는 아케이드 — 카탈로그 closeHref 및 세션 셸 닫기(X/Esc)와 같은 목적지. */}
+      <PirateQuestGame onExit={() => router.push('/arcade')} />
     </main>
   );
 }

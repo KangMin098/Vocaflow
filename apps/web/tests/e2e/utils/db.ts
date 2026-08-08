@@ -143,6 +143,29 @@ export async function deleteWordFamiliaritySince(userId: string, sinceIso: strin
   return data?.length ?? 0;
 }
 
+/**
+ * 사용자 vocabularies 를 due 우선으로 조회 — 게임이 "내 단어"를 실제로 쓰는지 단언용.
+ * 정렬은 lib/game/due-words.fetchDueGameWords 와 동일(next_review_at ASC nullsFirst → created_at ASC).
+ */
+export async function fetchUserVocabWords(
+  userId: string,
+  limit = 40,
+): Promise<Array<{ word: string; meaning: string }>> {
+  const c = serviceClient();
+  if (!c) return [];
+  const { data, error } = await c
+    .from('vocabularies')
+    .select('word, meaning')
+    .eq('user_id', userId)
+    .not('meaning', 'is', null)
+    .neq('meaning', '')
+    .order('next_review_at', { ascending: true, nullsFirst: true })
+    .order('created_at', { ascending: true })
+    .limit(limit);
+  if (error) return [];
+  return (data ?? []).map((r) => ({ word: r.word as string, meaning: (r.meaning as string) ?? '' }));
+}
+
 /** user_profiles.current_v_level 조회 (밴드 적응성 검증용 · 원복 기준값). 키/행 없으면 null. */
 export async function getUserVLevel(userId: string): Promise<number | null> {
   const c = serviceClient();

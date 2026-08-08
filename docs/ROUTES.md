@@ -88,14 +88,19 @@
 | **PairFlip** (L4a 공간기억) | `/pairflip` | `/pairflip/play` | `/pairflip/results` | 5단계 (8~20장 · 2줄 고정) |
 | **ScriptQuiz** (L5 정복) | `/scriptquiz` | `/scriptquiz/play` | — | 3-screen 영어 immersion |
 | **Dictation** (L6 완성) | `/dictate` | `/dictate/setup` → `/dictate/session` | `/dictate/results` | CEFR 자동감지 · 단어별 채점 |
-| **아케이드 스위트** (v07.3) | `/arcade` (허브) | `(app)/play/{letter-forge,cascade,connections,word-economy,daily-blitz,ghost-race}` | — | 공용 게임킷·스캐폴드 위 6종. `?set=`/`?text=` 스코프. Connections/Daily는 내장 뱅크 |
+| **아케이드 스위트** (v07.4) | `(main)/arcade` (허브) | `(app)/play/{19종}` | — | 카탈로그 SSoT `lib/game/catalog.tsx`. 스코프 3단: `?set=`/`?text=` → 내 due 큐 → 맛보기 |
 | **DCP 구문 연습** (CTP ⑥) | — | `(main)/practice/dcp` | — | hub 처방 ④ 연습 진입. order(순서 배열)/insert(위치 삽입) · `grade_dcp_item` 서버 채점 · 오답 error_cause 1-tap |
 
-### 베타
+#### 아케이드 19종 (`(app)/play/<slug>`)
 
-| 경로 | 파일 | 비고 |
+`source` = 학습자에게 보이는 1차 분류축 — "이 게임이 내 단어를 쓰는가".
+
+| source | 게임 | 비고 |
 |---|---|---|
-| `/play/pirate-quest` | `(app)/play/pirate-quest/page.tsx` | 단어 모험 (R3F) |
+| **mine** (8) | `cascade` · `ghost-race` · `word-economy` · `wordfall-cadence` · `letter-forge` · `wordsmith-vigil` · `morphmerge` · `wordblitz` | 스코프 없으면 사용자 due 큐로 플레이 → FSRS 갱신. 단어 부족 시 맛보기 폴백(라벨 명시) |
+| **bank** (11) | `daily-blitz` · `connections` · `glyph-tongue` · `word-customs` · `morpheme-rules` · `silent-rule` · `lexicon-hands` · `lexicon-detective` · `lexicon-estate` · `word-orrery` · `pirate-quest` | 내장 큐레이션 뱅크(`minWords=0`) — 사용자 단어 미사용 |
+
+`wordblitz` · `pirate-quest` 는 독립 3D(three.js) 페이지로 `GamePlayScaffold` 미사용. `pirate-quest` 는 베타(학습 기록 미연동).
 
 ---
 

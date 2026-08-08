@@ -27,6 +27,7 @@ import {
   type ReactNode,
 } from 'react'
 
+import { GAME_CATALOG } from '@/lib/game/catalog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 // ── Session metadata ─────────────────────────────────────────────
@@ -36,30 +37,27 @@ interface SessionMeta {
   closeHref: string
 }
 
-const SESSION_META: Record<string, SessionMeta> = {
+// 모듈 세션 — 각 모듈 hub 로 복귀.
+const MODULE_SESSION_META: Record<string, SessionMeta> = {
   '/flashcard/play': { title: '플래시카드', emoji: '🎯', closeHref: '/flashcard' },
   '/spellforge/play': { title: 'SpellForge', emoji: '⚡', closeHref: '/spellforge' },
   '/scriptquiz/play': { title: 'ScriptQuiz', emoji: '🏆', closeHref: '/scriptquiz' },
   '/dictate/session': { title: 'Dictation', emoji: '🎙', closeHref: '/dictate' },
-  '/play/wordblitz': { title: 'WordBlitz', emoji: '⏱', closeHref: '/wordblitz' },
-  '/play/pirate-quest': { title: "Pirate's Bounty", emoji: '🏴‍☠️', closeHref: '/hub' },
   '/pairflip/play': { title: 'PairFlip', emoji: '🎴', closeHref: '/pairflip' },
   '/wordvault/browse': { title: 'WordVault', emoji: '📖', closeHref: '/wordvault' },
-  // ── 아케이드 스위트 6종 (v07.3) ──
-  '/play/letter-forge': { title: 'Letter Forge', emoji: '🔤', closeHref: '/arcade' },
-  '/play/cascade': { title: 'Cascade', emoji: '🌊', closeHref: '/arcade' },
-  '/play/connections': { title: 'Connections', emoji: '🧩', closeHref: '/arcade' },
-  '/play/word-economy': { title: 'Word Economy', emoji: '🪙', closeHref: '/arcade' },
-  '/play/daily-blitz': { title: 'Daily Blitz', emoji: '📅', closeHref: '/arcade' },
-  '/play/ghost-race': { title: 'Ghost Race', emoji: '🏁', closeHref: '/arcade' },
-  '/play/glyph-tongue': { title: 'The Glyph Tongue', emoji: '📜', closeHref: '/arcade' },
-  '/play/word-customs': { title: 'Word Customs', emoji: '🛂', closeHref: '/arcade' },
-  '/play/lexicon-hands': { title: 'Lexicon Hands', emoji: '🃏', closeHref: '/arcade' },
-  '/play/lexicon-detective': { title: 'Lexicon Detective', emoji: '🔍', closeHref: '/arcade' },
-  '/play/morpheme-rules': { title: 'Morpheme Rules', emoji: '🧩', closeHref: '/arcade' },
-  '/play/silent-rule': { title: 'The Silent Rule', emoji: '🔆', closeHref: '/arcade' },
-  '/play/lexicon-estate': { title: 'Lexicon Estate', emoji: '🏛', closeHref: '/arcade' },
-  '/play/word-orrery': { title: 'The Word Orrery', emoji: '🪐', closeHref: '/arcade' },
+}
+
+// 아케이드 게임 세션 — GAME_CATALOG 에서 파생.
+//   손으로 유지하던 시절 신규 3종(wordsmith-vigil·morphmerge·wordfall-cadence)이 누락돼
+//   셸 제목이 "학습 세션 ✨"으로 뜨고 닫기가 /arcade 가 아닌 /hub 로 갔다. 카탈로그 파생으로 재발 차단.
+const SESSION_META: Record<string, SessionMeta> = {
+  ...MODULE_SESSION_META,
+  ...Object.fromEntries(
+    GAME_CATALOG.map((g) => [
+      `/play/${g.slug}`,
+      { title: g.name, emoji: g.emoji, closeHref: g.closeHref } satisfies SessionMeta,
+    ]),
+  ),
 }
 
 const DEFAULT_META: SessionMeta = {

@@ -10,6 +10,23 @@
 
 ## Unreleased (v06.34 → next)
 
+### 아케이드 접근 모델 재설계 — 카탈로그 SSoT · 기본 스코프 = 내 복습 단어 (v07.4)
+
+딥서치(choice overload · SDT 자율성 · Gimkit/Blooket 모드 선택) 결론: **"추천 하나 + 전부 열람"**. 선택지가 작업기억을 넘으면 자율성이 아니라 마비가 되고, 반대로 선택권을 뺏으면 SDT 자율성이 깎인다. 그리고 학습자가 게임 앞에서 실제로 궁금한 건 장르가 아니라 **"이게 내 단어를 쓰나"**.
+
+- **P0 — 아케이드 진입 게임이 내 단어를 한 번도 안 만졌음(수정)**: `/arcade` 카드는 `?set=`/`?text=` 없이 게임을 열었고, `GamePlayScaffold` 는 스코프가 없으면 `wordPool` 을 주지 않았다 → 게임이 하드코딩 `DEFAULT_POOL` 로 돌고 `recordGameResult` 가 `vocabularies` 조회 실패로 silent skip. 허브가 내걸던 "모든 게임은 학습 기록(FSRS)과 연동됩니다"가 **기본 진입에서 거짓**이었다. 스코프를 3단으로 재정의 — ① `?set=`/`?text=` → ② **사용자 due 큐**(신규 기본) → ③ 맛보기. ③으로 떨어질 때는 세션 셸 브레드크럼에 "맛보기 단어 · 내 단어장이 채워지면 내 단어로 바뀌어요"로 정직하게 표기.
+- **`lib/game/catalog.tsx` 신설 — 게임 정의 SSoT(19종)**: slug·이름·태그라인·인지계층·무드·마크·`source`(mine/bank)·`minWords`·`closeHref`. 같은 사실이 4곳(arcade 페이지 GAMES 17 · gamekit `MARK_PATHS` 17 · SessionFrame `SESSION_META` 14 · ArcadeEntryCard 문구 "12종"/"14개 세계")에 복제돼 전부 다르게 낡아 있던 drift 를 제거. `GameMark` 는 카탈로그 `GAME_MARKS` 참조, SessionFrame·진입 카드 문구는 파생.
+  - 부수 복구: **누락돼 있던 3종**(`wordsmith-vigil`·`morphmerge`·`wordfall-cadence`)의 세션 셸 제목이 "학습 세션 ✨"로 뜨고 닫기가 `/hub` 로 오배송되던 문제 해소.
+  - 부수 복구: 스캐폴드 exit 폴백이 존재하지 않는 라우트(`/cascade` 등 module id)로 push 하던 것을 `/arcade` 로 교정.
+  - 부수 복구: 아케이드 그리드에서 누락돼 있던 `wordblitz`·`pirate-quest` 편입 → 발견 가능. `pirate-quest` 자체 exit 도 `/library` → `/arcade`.
+- **`/arcade` IA 재설계** — ① 오늘의 추천 1종(KST 날짜 시드 결정론 회전 · 보유 단어 ≥6 이면 mine 풀에서, 아니면 bank 풀에서) ② **내 단어로 플레이**(8종 · "복습 임박 N개" 배지 · FSRS 반영 명시) ③ **큐레이션 세계**(11종 · 단어 없이 즉시 플레이). 3D·베타 칩 추가.
+- **`(app)` → `(main)` 라우트 그룹 이동**: 허브는 세션이 아닌데 `(app)`(SessionFrame 전용 풀스크린 그룹)에 있어 Sidebar·FlowNav 가 통째로 사라졌다. URL 은 `/arcade` 그대로. 게임 본체 `/play/*` 만 `(app)` 에 잔류.
+- **Sidebar Practice 그룹에 `Arcade` 등재**(`Gamepad2`) — 이전엔 `/hub` 를 스크롤해 진입 카드를 찾는 것이 유일한 통로였다.
+- 신규: `lib/game/due-words.ts`(`fetchDueGameWords` · cap 40 · `next_review_at` ASC nullsFirst, flashcard/pairflip 과 동일 정책 · 굴절형 보강). `scoped-words.loadInflectedForms` export 승격(중복 쿼리 방지).
+- **회귀 고정** — `07-arcade-games.spec.ts`: ① 허브 테스트를 IA v07.4 로 갱신(오늘의 추천 + 2섹션 + 19카드 전수 딥링크) ② **신규 "비스코프 진입 — mine 게임이 내 복습 단어를 쓴다"** — 브레드크럼 `내 복습 단어`(맛보기 아님) + 제시된 뜻이 사용자 `vocabularies` 소속임을 service-role DB 단언(`fetchUserVocabWords` 헬퍼 신설). DEFAULT_POOL 회귀 시 실패한다.
+- 검증: `tsc --noEmit` 0 error · `07-arcade-games` **16/16 pass** · `/arcade`·`/hub` 200 · 렌더 확인(mine 8 / bank 11 = 19).
+- ⚠️ 별건: `next lint` 는 `eslint-module-utils/resolve` 미해결로 이 환경에서 실행 불가(본 변경과 무관한 선재 의존성 문제).
+
 ### 신규 파이프라인 — CCP (Comic Curation Pipeline · book→comic)
 
 - 자기발전 만화 파이프라인을 정식 제품 통합(설계 → 이중 검토[교육학·아키텍처] → 구현). 상세: `scripts/comic/docs/COMIC_PIPELINE_DESIGN.md`.

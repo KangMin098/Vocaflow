@@ -77,7 +77,7 @@ export default async function HubPage() {
           <ModuleGrid />
         </section>
 
-        {/* ④-b 아케이드 진입 — 단어 게임 12종 */}
+        {/* ④-b 아케이드 진입 — 게임 수는 GAME_CATALOG 파생(ArcadeEntryCard) */}
         <section aria-label="아케이드">
           <h2 className="sr-only">아케이드</h2>
           <ArcadeEntryCard />

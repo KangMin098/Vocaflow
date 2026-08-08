@@ -472,13 +472,48 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ---
 
+## 아케이드 스위트 (게임 19종 · v07.4)
+
+### 목적
+9모듈이 커버하지 않는 인지 채널(문맥 추론 · 철자 규칙 귀납 · 의미망 · 형태론 · 청각)을
+검증된 인디 게임 원형으로 훈련. 모듈이 아니라 **모듈 위에 얹히는 놀이 표면**.
+
+### 라우트
+- `(main)/arcade` — 허브 (Sidebar Practice 그룹 등재 · `/hub` ArcadeEntryCard)
+- `(app)/play/<slug>` — 게임 본체 19종 (풀스크린 · SessionFrame 자동 주입)
+
+### 카탈로그 SSoT — `lib/game/catalog.tsx`
+게임 정의(이름 · 태그라인 · 인지계층 · 무드 4색 · 라인 마크 · `source` · `minWords` · `closeHref`)의 유일한 출처.
+`GameMark`(gamekit) · `SESSION_META`(SessionFrame) · 진입 카드 문구 · 아케이드 그리드가 전부 여기서 파생된다.
+**게임을 추가할 때 손대는 곳은 카탈로그 1곳 + `/play/<slug>/page.tsx` + `ArcadeGameId`/`ModuleId` enum.**
+
+### 데이터 소스 2분류 (`source`) — 학습자 선택의 1차 축
+| source | 수 | 의미 |
+|---|---|---|
+| `mine` | 8 | 내 단어로 플레이 → FSRS 갱신 (`minWords` 4~6) |
+| `bank` | 11 | 내장 큐레이션 뱅크 (`minWords=0`) — 단어 없이 즉시 플레이 |
+
+### 스코프 3단 (`lib/game/play-scaffold.tsx`)
+1. **explicit** — `?set=` / `?text=` (+`?chapter=`) → `fetchScopedWords`. 단어 부족 시 `NotEnoughWords` 안내(몰래 바꿔치지 않음).
+2. **mine** — 스코프 없음 + `minWords>0` → `fetchDueGameWords`(due 우선 cap 40). **아케이드 기본값.**
+3. **demo** — ①②로 최소 단어 미달 → 게임 내장 맛보기 풀. 브레드크럼에 "맛보기 단어"로 명시(기록되지 않는 플레이를 오인시키지 않음).
+
+### 허브 IA
+① 오늘의 추천 1종(KST 날짜 시드 결정론 회전) → ② 내 단어로 플레이 → ③ 큐레이션 세계.
+근거: choice overload(선택지 과다 = 마비) vs SDT 자율성 → "추천 하나 + 전부 열람".
+
+### 리텐션 메타
+`lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP. `ArcadeMetaStrip` 노출.
+
+---
+
 ## 베타 — Pirate Quest
 
 ### 목적
-단어 모험 3D 게임 (R3F · @react-three/fiber + drei).
+단어 모험 3D 게임 (R3F · @react-three/fiber + drei). 아케이드 카탈로그 `source: bank` · `beta`.
 
 ### 라우트
-- `/play/pirate-quest` — 풀스크린 (사이드바 X · SessionFrame ✓)
+- `/play/pirate-quest` — 풀스크린 (사이드바 X · SessionFrame ✓ · 복귀 `/arcade`)
 
 ### 컴포넌트 (`components/pirate-quest/`)
 - `PirateQuestGame.tsx` / `PirateQuestUI.tsx` / `PirateQuestUI.css`

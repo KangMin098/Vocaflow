@@ -16,6 +16,7 @@ import {
 } from 'react';
 
 import { getArcadeMeta } from '@/lib/game/arcade-meta';
+import { GAME_MARKS } from '@/lib/game/catalog';
 
 export type Word = {
   en: string;
@@ -419,29 +420,12 @@ export function ParticleBurst({ intensity = 1 }: { intensity?: number }) {
 }
 
 // ─── 게임별 아이덴티티 마크 (SVG · 이모지 대체) ───
-const MARK_PATHS: Record<ArcadeGameId, ReactNode> = {
-  'daily-blitz': (<><path d="M6 22h20" /><path d="M16 22a6 6 0 0 0-6-6" opacity=".55" /><path d="M16 22a6 6 0 0 1 6-6" /><path d="M16 6v3M25 9l-2 2M7 9l2 2" /></>),
-  'letter-forge': (<><path d="M7 20h13l4 4H11l-4-4Z" /><path d="M20 20l3-6" /><path d="M9 14l4-6 4 6" /><path d="M10.5 11.5h5" /></>),
-  'cascade': (<><path d="M5 12c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0" /><path d="M5 18c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0" opacity=".7" /><path d="M5 24c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0" opacity=".45" /></>),
-  'connections': (<><circle cx="10" cy="10" r="2.4" /><circle cx="22" cy="10" r="2.4" /><circle cx="10" cy="22" r="2.4" /><circle cx="22" cy="22" r="2.4" /><path d="M12.4 10h7.2M10 12.4v7.2M12 12l8 8" opacity=".7" /></>),
-  'word-economy': (<><ellipse cx="16" cy="10" rx="8" ry="3.4" /><path d="M8 10v6c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4v-6" /><path d="M8 16c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4" opacity=".6" /><path d="M8 22c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4" opacity=".4" /></>),
-  'ghost-race': (<><path d="M9 6v20" /><path d="M9 7h13l-3 4 3 4H9" /><path d="M4 14h3M3 19h4" opacity=".6" /></>),
-  'glyph-tongue': (<><path d="M16 6v20" /><path d="M9 11h14M8 16h16M10 21h12" opacity=".85" /><circle cx="16" cy="6" r="1.5" /></>),
-  'word-customs': (<><path d="M10 5h9l4 4v18H10z" /><path d="M19 5v4h4" opacity=".7" /><path d="M13 14h7M13 18h7M13 22h4" opacity=".85" /></>),
-  'lexicon-hands': (<><rect x="7" y="11" width="11" height="15" rx="1.6" transform="rotate(-10 12.5 18.5)" /><rect x="14" y="9" width="11" height="15" rx="1.6" transform="rotate(10 19.5 16.5)" /></>),
-  'lexicon-detective': (<><circle cx="14" cy="13" r="6.5" /><path d="M18.8 17.8L25 24" /><path d="M11 13h6" opacity=".5" /></>),
-  'morpheme-rules': (<><rect x="5" y="12" width="9" height="8" rx="1.4" /><rect x="18" y="12" width="9" height="8" rx="1.4" /><path d="M14 16h4" /></>),
-  'silent-rule': (<><rect x="7" y="7" width="18" height="18" rx="3.5" /><circle cx="11" cy="11" r="1.7" fill="currentColor" stroke="none" /><path d="M11 11h5.5v5.5" /></>),
-  'lexicon-estate': (<><rect x="5" y="6" width="22" height="20" rx="2" /><path d="M16 6v20M5 15h11" /><path d="M16 21h11" opacity=".5" /></>),
-  'word-orrery': (<><circle cx="16" cy="16" r="4.5" /><ellipse cx="16" cy="16" rx="11" ry="11" opacity=".55" /><circle cx="27" cy="16" r="1.7" fill="currentColor" stroke="none" /></>),
-  'wordsmith-vigil': (<><path d="M23 6l-11 11-3 6 6-3L26 9z" /><path d="M9 23l2 2" opacity=".7" /><path d="M6 26h6" opacity=".5" /></>),
-  'morphmerge': (<><rect x="5" y="5" width="9" height="9" rx="1.6" /><rect x="18" y="5" width="9" height="9" rx="1.6" opacity=".7" /><rect x="11.5" y="18" width="9" height="9" rx="1.6" /><path d="M14 9.5h4" opacity=".6" /></>),
-  'wordfall-cadence': (<><path d="M6 16v6M12 11v11M18 7v15M24 13v9" opacity=".9" /><path d="M4 9a5 5 0 0 1 8 0" opacity=".55" /></>),
-};
+// path 정의는 lib/game/catalog 의 GAME_MARKS 단일 출처 — 허브 카드와 게임 내 워터마크가
+// 같은 마크를 쓰도록(이전엔 arcade/page.tsx 에 같은 path 가 복제돼 있었다).
 export function GameMark({ id, className }: { id: ArcadeGameId; className?: string }) {
   return (
     <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={className}>
-      {MARK_PATHS[id]}
+      {GAME_MARKS[id]}
     </svg>
   );
 }
