@@ -18,6 +18,7 @@
 - **Hub** `/text/[id]/comic` — TextViewer input 모드 "만화"(ModePills). Calm 2D 리더 + 대사 non-cover 대사존 + verbatim blur→reveal(회상) + 정본 정합 vocab 칩 + effortful 유입 CTA. RPC 미적용/미발행 시 EmptyState degrade.
 - **Admin 파이프라인 완성** — `/admin/comic/[bookId]` 검수 콘솔: 단계 stepper(큐→생성→검수→게시) + QC 카드(panels_pass·정본불일치·규칙위반) + stave별 컷 전수 검수(그림+대사+정본✓) + 단계 제어(게시/회수/보관/복원/삭제/보완=재생성 큐). 삭제·보관은 RLS admin 서버액션 직접(마이그레이션 무).
 - **리더 v2(딥서치 반영: Naver Webtoon·Kindle·Duolingo·MasterClass)** — 몰입 크롬 자동숨김+중앙 탭 토글+글래스(paper-blur) · **stave-dot 진행 레일**(gold ring·탭 점프) · 방향성 전환+엣지 rubber-band+Space키 · 대사 film-strip gold tie+화자 dot+라벨 · **Light/Dim 리딩 모드** · verbatim blur→reveal 유지 · reduced-motion 전면. 토큰만(신규 hex 0, gold=`--active`). ModePills "만화" gold underline.
+- **라이브러리 히어로 카드** — `/library/books` 상단에 `ComicHeroCard`(MasterClass/Apple 히어로·Linear hover): 실제 첫 컷 아트 블리드 + paper 그라디언트 + 단일 gold CTA + hover lift/scale. `list_book_comic_catalog`(published)로 발견, enrollment 분기 route(등록→`/text/[id]/comic` · 미등록→도서 상세). RPC 미적용 시 graceful 생략.
 - **P2 시드(2026-08-08)** — A Christmas Carol(book `66b084a0…`) 90컷 GONICK 실 발행: 공개 버킷 `comic/carol/sN/NN.jpg` 90컷 업로드 + `comic_pages` 90행 + `comic_books` published(panels_pass·QC 판정 지속) + 도서 ready→published. `select_book_comic` 5챕터×18컷 반환 검증. ⚠️ 이미지=full-res(~2.7MB/컷 · P3 압축 여지) · 공개 버킷은 발행본 전용(드래프트는 private+signed 재검토). 도서 발행은 dev 데모용(status→ready PATCH로 원복 가능).
 
 ### 신규 게임 — Wordfall Cadence (듣기 케이던스 · 청각 채널)

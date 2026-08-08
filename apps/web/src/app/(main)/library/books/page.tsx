@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { Capsule, Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
+import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroCard';
 import type { PublishedBook } from '@/lib/library/published-book';
 
 export const metadata = {
@@ -223,6 +224,44 @@ export default async function LibraryBooksPage() {
     });
   }
 
+  // ── 만화 발행 도서 히어로 (CCP) — list_book_comic_catalog(published 게이트) + 첫 컷 아트 ──
+  //   enrollment 정보로 route 분기: 등록 → /text/[textId]/comic · 미등록 → 도서 상세(등록 흐름)
+  const comicHeroes: ComicHeroItem[] = [];
+  try {
+    const { data: cat } = await client.rpc('list_book_comic_catalog');
+    const rows = (Array.isArray(cat) ? cat : []) as Array<{
+      library_book_id: string;
+      title: string;
+      author: string | null;
+      book_v_level: number | null;
+      panels_total: number;
+    }>;
+    for (const c of rows.slice(0, 4)) {
+      let coverArt: string | null = null;
+      const { data: firstPage } = await client.rpc('select_book_comic', {
+        p_book_id: c.library_book_id,
+        p_chapter_idx: 1,
+      });
+      if (Array.isArray(firstPage) && firstPage[0]?.image_url) coverArt = firstPage[0].image_url as string;
+      const e = enrollmentByBook.get(c.library_book_id);
+      const href = e
+        ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
+        : `/library/books/${c.library_book_id}`;
+      comicHeroes.push({
+        bookId: c.library_book_id,
+        title: c.title,
+        author: c.author,
+        vLevel: c.book_v_level,
+        panelsTotal: c.panels_total,
+        coverArt,
+        href,
+        enrolled: !!e,
+      });
+    }
+  } catch {
+    // RPC 미적용 등 — 히어로 생략(graceful)
+  }
+
   const totalBooks = books.length;
   const totalChapters = books.reduce((s, b) => s + (b.chapter_count ?? 0), 0);
   const totalWords = books.reduce((s, b) => s + (b.word_count ?? 0), 0);
@@ -267,6 +306,8 @@ export default async function LibraryBooksPage() {
             </div>
           )}
         </header>
+
+        {comicHeroes.length > 0 && <ComicHeroCard items={comicHeroes} />}
 
         <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} />
       </div>
