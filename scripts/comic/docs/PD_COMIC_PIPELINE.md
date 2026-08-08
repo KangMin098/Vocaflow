@@ -134,17 +134,64 @@ DB 제약(`pd_issues_publish_gate`)이 근거 없는 발행을 원천 차단한�
 
 ---
 
-## 5. 대사 추출 — 소스에 따라 경로가 갈린다
+## 5. 대사 추출 — `ocr.mjs` ⚠️ 구현 · **품질 한계 실측됨**
 
-| ocrStrategy | 대상 | 방법 |
+PD 스캔이 CCP 와 갈리는 결정적 지점: AI 만화는 대사가 이미 데이터지만,
+PD 스캔은 **이미지에 구워져** 있어 리더의 대사존·verbatim reveal·vocab 칩이 전부 죽는다.
+
+IA 는 Tesseract hOCR 을 함께 준다(실측 52p / 7,615단어 / 단어별 bbox + `x_wconf`).
+그래서 이 단계는 "OCR 을 돌린다"가 아니라 **"이미 있는 좌표를 컷에 배분한다"** 이다.
+
+### 좌표 체인
+```
+hOCR px(원본 스캔) ─(복원 크롭 빼기)→ ─(업스케일 곱)→ 복원본 px
+                   ─(컷 박스 빼고 나누기)→ 컷 기준 0~1 정규화
+```
+정규화로 끝내는 이유: 컷 이미지는 웹 배포용으로 한 번 더 축소되므로 px 로 두면 깨진다.
+
+### 구현된 것
+- hOCR 파싱(정규식 — 1.4MB 를 DOM 에 올리지 않는다)
+- **컷 배타 배정** — 컷 박스가 겹칠 때 "중심이 든 컷 전부"가 아니라 겹침 면적 최대 컷 하나에만.
+  (중심 기준으로 하니 같은 대사가 두 컷에 중복 출현했다 — 실측 후 수정)
+- 라인 → 말풍선 묶기 (세로 근접 + 가로 겹침)
+- truecasing — 문장 케이스 · `I`/`I'm` 복원 · 고유명사는 gazetteer 로 되먹임
+- 품질 판정 `needsReview` + 사유
+
+### ★ 실측 결과 — hOCR 만으로는 부족하다
+
+`ClassicsIllustrated027TheSpy` 6페이지 / 15컷:
+
+| 지표 | 값 |
+|---|---|
+| 대사 추출 | 12컷에서 25개 |
+| 그대로 사용 가능 | **6개 (24%)** |
+| 검수 필요 | 19개 |
+| 사유 1위 | **비라틴 문자 12건** |
+
+**뚜렷한 패턴: 캡션 박스(인쇄체)는 거의 완벽하고, 손레터링 말풍선은 깨진다.**
+
+```
+✅ "Night was coming on... George washington, in disguise, sought shelter from the storm"
+✅ "Our story begins on a stormy evening in the westchester hills of new york, late the year of 1780..."
+❌ "my nome is wh rton “му “yt thank yous іп such tul."
+❌ "Tu be сай when this war гіз win, though I my sister, not of my opinion."
+```
+
+Tesseract 가 단어별로 스크립트를 자동 판별하다 손글씨를 **키릴 문자로 오인**한다(`іп` `сай` `гіз` `му`).
+
+### 결론 — 전략 수정
+`source-hocr` 은 **캡션 전용**으로 강등한다. 말풍선은 별도 처리가 필요하다.
+
+| 대상 | 전략 | 상태 |
 |---|---|---|
-| `source-hocr` | IA | hOCR 단어 bbox ∩ 컷 bbox → 컷별 대사. **엔진 불필요** |
-| `own-ocr` | local-dir · IIIF | OCR 엔진 필요 (미정) |
+| 캡션 박스(인쇄체) | IA hOCR 그대로 | ✅ 사용 가능 |
+| 손레터링 말풍선 | 전용 OCR (손글씨 특화 · 영어 고정) 또는 사람 입력 | ❌ 미해결 |
 
-공통 후처리: **truecasing**(골든에이지 레터링은 전부 대문자 — 그대로면 학습 자료로 못 씀) →
-레마화 → `shared_dictionary` 매칭 → V-Level → `target_vocab`.
+Tesseract hOCR 에 `ocr_caption`(186) / `ocr_photo`(153) 영역 분류가 이미 들어 있으므로,
+영역 클래스로 캡션과 말풍선을 갈라 **캡션만 자동 채택**하는 것이 다음 단계다.
 
-> 미구현. IA 경로는 좌표가 이미 있어 구현 난이도가 낮고, `own-ocr` 은 엔진 선택이 선행돼야 한다.
+### 남은 후처리 (미구현)
+레마화 → `shared_dictionary` 매칭 → V-Level → `target_vocab`
 
 ---
 
@@ -211,8 +258,8 @@ CLAUDE.md 규칙에 따라 **승인 전 적용하지 않는다**.
 | §1 `acquire.mjs` 정규화 취득 | ✅ 구현 · IA 실측(52p 인식, 6p 취득, hOCR 1.3MB 확보) |
 | §2 법적 검증 힌트 | ✅ 구현 (판정은 사람 + DB 게이트) |
 | §3 복원 | ✅ 구현 · 실소재 검증 |
-| §4 컷 분할 | ⚠️ 구현 · 3/4 컷 (병합 1건) |
-| §5 대사 추출 | ❌ 미구현 |
+| §4 컷 분할 | ⚠️ 구현 · 스토리 페이지 5/4/3컷 정상 · 캡션이 거터 가로지르면 병합 |
+| §5 대사 추출 | ⚠️ 구현 · **캡션은 사용 가능, 말풍선은 24%** — 전용 OCR 필요 |
 | §6 Admin 독립 큐 | ❌ 미구현 |
 | §7 학습자 독립 면 | ❌ 미구현 |
 | §8 스키마 | 작성 완료 · **승인 대기** |
