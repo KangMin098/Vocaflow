@@ -16,6 +16,7 @@
 - **DB**(마이그레이션 `20260808120000_comic_pipeline.sql` — **적용됨 2026-08-08**): `comic_books`(발행 게이트 헤더 + qc_verdict 지속) + `comic_pages`((library_book_id,chapter_idx,page_order) 자연키 · image_url 외부 URL · bubbles · target_vocab) + `book_curation_jobs.task_type='comic_gen'` + `panels_total/done` 컬럼 + RPC 5종(`enqueue_comic_jobs`·`admin_set_comic_published`·`select_book_comic`·`list_book_comic_catalog`·`book_comic_available` — 학습자 read 전부 published 게이트).
 - **Admin** `/admin/comic` — Catalog(큐 적재) / Published(QC 게이트 강제 발행·회수). AdminSidebar 등재(BookImage). 드레인 `scripts/lcp/generate-comic.mjs`(plan/content/insert) + `drain.mjs` 🎞 등록.
 - **Hub** `/text/[id]/comic` — TextViewer input 모드 "만화"(ModePills). Calm 2D 리더 + 대사 non-cover 대사존 + verbatim blur→reveal(회상) + 정본 정합 vocab 칩 + effortful 유입 CTA. RPC 미적용/미발행 시 EmptyState degrade.
+- **P2 시드(2026-08-08)** — A Christmas Carol(book `66b084a0…`) 90컷 GONICK 실 발행: 공개 버킷 `comic/carol/sN/NN.jpg` 90컷 업로드 + `comic_pages` 90행 + `comic_books` published(panels_pass·QC 판정 지속) + 도서 ready→published. `select_book_comic` 5챕터×18컷 반환 검증. ⚠️ 이미지=full-res(~2.7MB/컷 · P3 압축 여지) · 공개 버킷은 발행본 전용(드래프트는 private+signed 재검토). 도서 발행은 dev 데모용(status→ready PATCH로 원복 가능).
 
 ### 신규 게임 — Wordfall Cadence (듣기 케이던스 · 청각 채널)
 
