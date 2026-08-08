@@ -22,7 +22,7 @@
 import fs from "fs";
 import path from "path";
 import { Jimp } from "jimp";
-import { negForLevel, SIZES, panelDims, useNoref, refPromptText, panelPromptText, styleForLevel } from "./comic-prompt.mjs";
+import { negForLevel, SIZES, panelDims, useNoref, refPromptText, panelPromptText, styleForLevel, GONICK, WEBTOON, REALISTIC } from "./comic-prompt.mjs";
 
 const HERE = import.meta.dirname;
 function arg(name, def) { const i = process.argv.indexOf(`--${name}`); if (i === -1) return def; const v = process.argv[i + 1]; return v && !v.startsWith("--") ? v : true; }
@@ -88,12 +88,27 @@ const T_NEG = String(arg("title-neg", "NEG"));
 const T_SIZE = String(arg("title-size", "SIZE"));
 const T_REF = String(arg("title-refimage", "REFIMAGE"));
 
+// 선택 화풍(스타일). 두 경로:
+//  1) 명명 프리셋 --style <gonick|webtoon|realistic> — comic-prompt.mjs 내장 style 객체.
+//  2) DB comic_styles 임의 화풍 — --style-ink <art_prompt> [--style-neg <negative_prompt>] 로
+//     선행 아트 클로즈(ink)와 style-specific negExtra 를 직접 주입(오케스트레이터가 넘김).
+// 미지정 시 styleForLevel(vlevel) 레벨 적응형 기본(하위호환).
+const NAMED_STYLES = { gonick: GONICK, webtoon: WEBTOON, realistic: REALISTIC };
+const STYLE_INK = arg("style-ink"), STYLE_NEG = arg("style-neg"), STYLE_NAME = arg("style");
+let STYLE_OBJ = null;
+if (typeof STYLE_INK === "string" && STYLE_INK.length > 2) {
+  STYLE_OBJ = { register: typeof STYLE_NAME === "string" ? STYLE_NAME : "custom", ink: STYLE_INK,
+    negExtra: typeof STYLE_NEG === "string" && STYLE_NEG.length > 1 ? STYLE_NEG : styleForLevel(6).negExtra };
+} else if (typeof STYLE_NAME === "string" && NAMED_STYLES[STYLE_NAME]) {
+  STYLE_OBJ = NAMED_STYLES[STYLE_NAME];
+}
+
 const script = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
 const cast = script.cast || [];
 // R19: 도서 레벨에 맞춘 아트 레지스터 + 레벨-상대 NEG. --vlevel 로 강제 가능.
 const VLEVEL = arg("vlevel") != null ? Number(arg("vlevel")) : (script.adaptation?.target_v_level ?? 6);
-const NEG_L = negForLevel(VLEVEL);
-console.error(`art register: ${styleForLevel(VLEVEL).register} (V-Level ${VLEVEL} +약간상향)`);
+const NEG_L = negForLevel(VLEVEL, STYLE_OBJ);
+console.error(`art register: ${(STYLE_OBJ && STYLE_OBJ.register) || styleForLevel(VLEVEL).register} (V-Level ${VLEVEL} +약간상향)${STYLE_OBJ ? " · 선택 스타일 주입" : ""}`);
 const byId = Object.fromEntries(cast.map((c) => [c.id, c]));
 const refsDir = path.join(outDir, "refs");
 fs.mkdirSync(refsDir, { recursive: true });
@@ -177,7 +192,7 @@ async function buildRef(c) {
   const out = path.join(refsDir, `${c.id}.jpg`);
   if (fs.existsSync(out) && !has("refs-force")) { console.error(`· ref ${c.id} exists`); return out; }
   const wf = loadWF(WF_GEN);
-  fillCommon(wf, refPromptText(c, VLEVEL), SIZES.full.w, SIZES.full.h);
+  fillCommon(wf, refPromptText(c, VLEVEL, STYLE_OBJ), SIZES.full.w, SIZES.full.h);
   const buf = await runWorkflow(wf);
   // center-crop to the single figure — the model draws faint duplicate torsos at the L/R edges of
   // a "single figure" ref, and those leak into edit panels as a phantom second person (4090 실측).
@@ -195,11 +210,14 @@ async function buildRef(c) {
 // 2) panel — edit from the character's reference sheet, or t2i for close-ups / --noref
 async function genPanel(p) {
   const outPath = path.join(outDir, `${String(p.n).padStart(2, "0")}${arg("suffix", "")}.jpg`);
-  const ids = (p.characters || []).filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`)));
+  // edit 모드: 참조 시트가 있는 캐릭터만. t2i-only(--wf-edit 없음): 참조 없이도 인라인 묘사로 전원 포함
+  // — 참조 게이팅을 그대로 두면 chars 가 비어 캐릭터 묘사(descLines/propLines)가 통째로 탈락한다.
+  const allIds = (p.characters || []).filter((id) => byId[id]);
+  const ids = WF_EDIT ? allIds.filter((id) => fs.existsSync(path.join(refsDir, `${id}.jpg`))) : allIds;
   const chars = ids.map((id) => byId[id]).filter(Boolean);
-  const noref = useNoref(p, ids.length, { forceNoref: has("noref"), autoNoref: AUTO_NOREF });
+  const noref = useNoref(p, ids.length, { forceNoref: has("noref") || !WF_EDIT, autoNoref: AUTO_NOREF });
   const d = panelDims(p);
-  let text = panelPromptText(p, chars, { noref, vlevel: VLEVEL });
+  let text = panelPromptText(p, chars, { noref, vlevel: VLEVEL, style: STYLE_OBJ });
   if (HINTS[p.n]) { text += ` IMPORTANT CORRECTION (fix this specifically): ${HINTS[p.n]}.`; console.error(`  ↳ P${p.n} correction: ${HINTS[p.n]}`); }
   let wf, mode;
   if (noref || !WF_EDIT) { wf = loadWF(WF_GEN); fillCommon(wf, text, d.w, d.h); mode = "t2i/noref"; }
@@ -219,9 +237,13 @@ async function genPanel(p) {
 // ---- run ----
 const pause = () => new Promise((z) => setTimeout(z, GAP));
 await aiDockLogin();
-console.error(`→ ComfyUI @ ${COMFY}; refs for: ${cast.map((c) => c.id).join(", ")}`);
-for (const c of cast) { try { await buildRef(c); } catch (e) { console.error(`✗ ref ${c.id}: ${e.message}`); } await pause(); }
-if (has("refs-only")) { console.error("refs-only done"); process.exit(0); }
+if (WF_EDIT || has("refs-only")) {
+  console.error(`→ ComfyUI @ ${COMFY}; refs for: ${cast.map((c) => c.id).join(", ")}`);
+  for (const c of cast) { try { await buildRef(c); } catch (e) { console.error(`✗ ref ${c.id}: ${e.message}`); } await pause(); }
+  if (has("refs-only")) { console.error("refs-only done"); process.exit(0); }
+} else {
+  console.error(`→ ComfyUI @ ${COMFY}; t2i-only (--wf-edit 없음) — 레퍼런스 시트 생략, 전 컷 인라인 캐릭터 묘사`);
+}
 let ok = 0, fail = 0;
 for (const p of [...script.panels].sort((a, b) => a.n - b.n)) {
   if (onlyPanels && !onlyPanels.includes(p.n)) continue;

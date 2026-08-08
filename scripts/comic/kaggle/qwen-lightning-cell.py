@@ -15,20 +15,25 @@ if not os.path.isdir('custom_nodes/ComfyUI-GGUF'):
     sh('git', 'clone', '--depth', '1', H + 'github.com/city96/ComfyUI-GGUF', 'custom_nodes/ComfyUI-GGUF')
 sh(sys.executable, '-m', 'pip', '-q', 'install', '-r', 'requirements.txt', 'gguf', 'pycloudflared', 'huggingface_hub')
 from huggingface_hub import hf_hub_download, list_repo_files
-def grab(repo, needle, sub):
-    c = [f for f in list_repo_files(repo) if needle.lower() in f.lower() and f.lower().endswith(('.gguf', '.safetensors'))]
-    if not c:
+def grab(repo, needle, sub, outname=None):
+    cs = [f for f in list_repo_files(repo) if needle.lower() in f.lower() and f.lower().endswith(('.gguf', '.safetensors'))]
+    cs.sort(key=lambda f: (0 if 'bf16' in f.lower() else 1, len(f)))  # 여러 변형 매칭 시 bf16 우선(워크플로 기대명)
+    if not cs:
         print('!! no match', repo, needle); return
-    f = hf_hub_download(repo, c[0]); os.makedirs('models/' + sub, exist_ok=True)
-    d = 'models/' + sub + '/' + os.path.basename(c[0])
-    if not os.path.exists(d):
-        os.symlink(f, d)
-    print('ok', os.path.getsize(f) // 1048576, 'MB', c[0])
-grab('city96/Qwen-Image-gguf', 'Q3_K_S', 'unet')
-grab('chatpig/qwen2.5-vl-7b-it-gguf', 'Q4_K_M', 'text_encoders')
+    src = cs[0]
+    f = hf_hub_download(repo, src); os.makedirs('models/' + sub, exist_ok=True)
+    # 파일명을 워크플로(wf/qwen-t2i-lightning.api.json)가 참조하는 정확한 이름으로 강제 — 대소문자·변형
+    # 불일치 시 ComfyUI 가 노드에서 모델을 못 찾아 /prompt 500. outname 로 심링크명을 고정한다.
+    d = 'models/' + sub + '/' + (outname or os.path.basename(src))
+    if os.path.lexists(d):
+        os.remove(d)
+    os.symlink(f, d)
+    print('ok', os.path.getsize(f) // 1048576, 'MB', src, '->', os.path.basename(d))
+grab('city96/Qwen-Image-gguf', 'Q3_K_S', 'unet', 'qwen-image-Q3_K_S.gguf')
+grab('chatpig/qwen2.5-vl-7b-it-gguf', 'Q4_K_M', 'text_encoders', 'qwen2.5-vl-7b-it-q4_k_m.gguf')
 grab('chatpig/qwen2.5-vl-7b-it-gguf', 'mmproj', 'text_encoders')
-grab('Comfy-Org/Qwen-Image_ComfyUI', 'qwen_image_vae', 'vae')
-grab('lightx2v/Qwen-Image-Lightning', '4steps', 'loras')   # Lightning 4-step LoRA (5x speedup)
+grab('Comfy-Org/Qwen-Image_ComfyUI', 'qwen_image_vae', 'vae', 'qwen_image_vae.safetensors')
+grab('lightx2v/Qwen-Image-Lightning', '4steps', 'loras', 'Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors')  # 4-step LoRA
 subprocess.run(['pkill', '-f', 'main.py']); time.sleep(2)
 subprocess.Popen([sys.executable, '-u', 'main.py', '--listen', '0.0.0.0', '--port', '8188', '--lowvram'],
                  stdout=open('/kaggle/working/comfy.log', 'w'), stderr=subprocess.STDOUT)
