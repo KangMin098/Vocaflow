@@ -67,14 +67,16 @@ async function pullOutput(outDir) {
   let got = 0
   for (const f of files) {
     const name = f.fileName || f.name || ''
-    if (!/\.(jpg|jpeg|png)$/i.test(name)) continue
+    const isImg = /\.(jpg|jpeg|png)$/i.test(name)
+    const isDiag = /_comfy\.log$|_manifest\.json$/i.test(name) // 진단 파일도 함께 pull(실패 원인 자가진단)
+    if (!isImg && !isDiag) continue
     const url = f.url || f.downloadUrl
     if (!url) continue
     const d = await fetch(url, { headers: KH, signal: AbortSignal.timeout(120000) })
     if (!d.ok) { console.error(`  ✗ ${name} ${d.status}`); continue }
     const buf = Buffer.from(await d.arrayBuffer())
     fs.writeFileSync(path.join(outDir, path.basename(name)), buf)
-    console.error(`  ✓ ${path.basename(name)} ${(buf.length / 1024).toFixed(0)}KB`); got++
+    console.error(`  ${isImg ? '✓' : '·'} ${path.basename(name)} ${(buf.length / 1024).toFixed(0)}KB`); if (isImg) got++
   }
   if (j.log) fs.writeFileSync(path.join(outDir, '_kernel.log'), typeof j.log === 'string' ? j.log : JSON.stringify(j.log, null, 2))
   return { got, total: files.length }
@@ -146,7 +148,14 @@ if not os.path.isdir(COMFY):
     sh('git','clone','--depth','1','https://github.com/comfyanonymous/ComfyUI', COMFY)
 if not os.path.isdir(COMFY+'/custom_nodes/ComfyUI-GGUF'):
     sh('git','clone','--depth','1','https://github.com/city96/ComfyUI-GGUF', COMFY+'/custom_nodes/ComfyUI-GGUF')
-sh(sys.executable,'-m','pip','-q','install','-r',COMFY+'/requirements.txt','gguf','huggingface_hub')
+# Kaggle의 GPU-매칭 torch 유지 — requirements 에서 torch/vision/audio 제외(재설치 시 nvidia-cu 불일치
+# → CUDA 'no kernel image available'). 나머지 의존성만 설치.
+_lines=open(COMFY+'/requirements.txt').read().splitlines()
+def _pk(r): return r.strip().split('==')[0].split('>')[0].split('<')[0].split('~')[0].split(';')[0].strip().lower()
+_req=[r for r in _lines if r.strip() and not r.strip().startswith('#') and _pk(r) not in ('torch','torchvision','torchaudio')]
+open('/kaggle/tmp/req.txt','w').write('\\n'.join(_req))
+sh(sys.executable,'-m','pip','-q','install','-r','/kaggle/tmp/req.txt','gguf','huggingface_hub')
+import torch; print('GPU:', torch.cuda.get_device_name(0), 'cc', torch.cuda.get_device_capability(0), 'torch', torch.__version__, flush=True)
 from huggingface_hub import hf_hub_download, list_repo_files
 def grab(repo, needle, sub, outname):
     cs=[f for f in list_repo_files(repo) if needle.lower() in f.lower() and f.lower().endswith(('.gguf','.safetensors'))]
@@ -182,15 +191,19 @@ for item in WF:
     n=item['n']
     try:
         pid=post('/prompt', {'prompt':item['wf'],'client_id':'kag'})['prompt_id']
-        img=None
+        img=None; err=None
         for _ in range(240):
             time.sleep(2)
             try: h=post('/history/'+pid)
             except Exception: continue
-            if pid in h and h[pid].get('outputs'):
-                imgs=[im for o in h[pid]['outputs'].values() for im in o.get('images',[])]
-                if imgs: img=imgs[0]; break
-        if not img: print('panel',n,'no output'); results.append({'n':n,'ok':False}); continue
+            if pid in h:
+                st=h[pid].get('status',{}) or {}
+                if st.get('status_str')=='error': err=str(st.get('messages',''))[:500]; break
+                outs=h[pid].get('outputs')
+                if outs:
+                    imgs=[im for o in outs.values() for im in o.get('images',[])]
+                    if imgs: img=imgs[0]; break
+        if not img: print('panel',n,'no output',err or ''); results.append({'n':n,'ok':False,'err':err}); continue
         u='http://127.0.0.1:8188/view?'+urllib.parse.urlencode({'filename':img['filename'],'subfolder':img.get('subfolder',''),'type':img.get('type','output')})
         data=urllib.request.urlopen(u, timeout=180).read()
         open('/kaggle/working/out/%02d.jpg'%n,'wb').write(data)
