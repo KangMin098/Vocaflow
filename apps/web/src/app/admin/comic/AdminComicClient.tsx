@@ -237,16 +237,26 @@ export function AdminComicClient({ rows, stats, tests, models }: { rows: ComicCa
 
 function ModelsTab({ models }: { models: ComicModel[] }) {
   const router = useRouter()
-  const [pending, start] = useTransition()
-  const setStatus = (key: string, status: string) =>
-    start(async () => { const r = await setComicModelStatusAction(key, status); if (r.ok) router.refresh() })
+  const [, start] = useTransition()
+  const [busyKey, setBusyKey] = useState<string | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+  const setStatus = (key: string, status: string) => {
+    setBusyKey(key); setErr(null)
+    start(async () => {
+      const r = await setComicModelStatusAction(key, status)
+      setBusyKey(null)
+      if (r.ok) router.refresh()
+      else setErr(`${key}: ${r.error}`)
+    })
+  }
   const cap = (v: string | null) => (v === 'high' ? 'var(--memory-stable)' : v === 'medium' ? 'var(--memory-shaky)' : v === 'low' ? 'var(--memory-risk)' : 'var(--t3)')
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
-          <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 다중참조/텍스트제어/캐릭터·화풍 일관성/4090 적합/비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크. 테스트 탭에서 이 모델들로 실험을 계획합니다.
+          <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 실행환경(RunPod/Kaggle/API)·다중참조·텍스트제어·캐릭터/화풍 일관성·VRAM·비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크.
         </p>
+        {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">상태 변경 실패 — {err}</p>}
       </div>
       {models.length === 0 ? (
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">모델 카탈로그가 비어 있습니다. (시장 조사 시드 대기)</p>
@@ -285,7 +295,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.min_vram_gb != null ? `${m.min_vram_gb}GB` : '—'}</Td>
                   <Td><ModelStatusPill status={m.status} /></Td>
                   <Td>
-                    <select value={m.status} disabled={pending} onChange={(e) => setStatus(m.key, e.target.value)} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)]">
+                    <select aria-label={`${m.name} 상태 변경`} value={m.status} disabled={busyKey === m.key} onChange={(e) => setStatus(m.key, e.target.value)} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
                       {['candidate', 'testing', 'adopted', 'rejected'].map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </Td>
@@ -363,19 +373,21 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
             </label>
             <label className="flex flex-col gap-1">
               <span className="font-display text-[11px] font-[700] text-[var(--t3)]">모델 — 이 환경에서 실행 가능한 것만 ({envModels.length})</span>
-              <select value={form.backend} onChange={(e) => e.target.value && pickModel(e.target.value)} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+              <select aria-label="모델 선택" value={form.backend} onChange={(e) => e.target.value ? pickModel(e.target.value) : setForm((f) => ({ ...f, backend: '', model: '', site: '' }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="">— 모델 선택 —</option>
                 {envModels.map((m) => <option key={m.key} value={m.key}>{m.name} · fit {m.comic_fit ?? '?'}{m.min_vram_gb ? ` · ${m.min_vram_gb}GB` : ''}</option>)}
               </select>
+              {envModels.length === 0 && <span className="font-body text-[11px] text-[var(--memory-shaky)]">이 환경에서 실행 가능한 모델이 없습니다 — 다른 환경을 선택하세요.</span>}
             </label>
           </div>
         )}
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <Field label="이름*" value={form.label} onChange={set('label')} placeholder="예: Qwen-2512 vs GPT 화풍 일관성" />
-          <Field label="백엔드" value={form.backend} onChange={set('backend')} placeholder="gpt-image-2 / flux2-dev / qwen-2512" />
-          <Field label="모델" value={form.model} onChange={set('model')} placeholder="체크포인트/버전" />
-          <Field label="사이트" value={form.site} onChange={set('site')} placeholder="openai-api / runpod-comfyui / dashscope" />
-        </div>
+        <Field label="이름*" value={form.label} onChange={set('label')} placeholder="예: Qwen-2511 vs FLUX.2 화풍 일관성" />
+        {/* 모델은 위 환경-제약 드롭다운으로만 선택(자유입력 제거 → 제약 강제) */}
+        {form.backend && (
+          <p className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[12px] text-[var(--t2)]">
+            선택: <b className="text-[var(--t1)]">{form.model}</b> · <span className="font-mono text-[11px]">{form.backend}</span> · @{form.site}
+          </p>
+        )}
         <Field label="메모" value={form.note} onChange={set('note')} placeholder="가설·파라미터·기대 결과" />
         <div className="flex items-center gap-3">
           <button onClick={submit} disabled={pending} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
@@ -395,7 +407,7 @@ function TestsTab({ tests, models }: { tests: ComicTest[]; models: ComicModel[] 
               <div className="flex flex-wrap items-center gap-2">
                 <FlaskConical size={14} style={{ color: ACCENT }} />
                 <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{t.label}</span>
-                <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : ACCENT, background: 'var(--bg2)' }}>{t.status}</span>
+                <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT, background: 'var(--bg2)' }}>{t.status}</span>
                 <div className="flex-1" />
                 <span className="font-mono text-[11px] text-[var(--t4)]">{new Date(t.created_at).toLocaleDateString('ko-KR')}</span>
               </div>

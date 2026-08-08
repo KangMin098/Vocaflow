@@ -14,6 +14,7 @@ const STATUS_TONE: Record<string, string> = {
   pass: 'var(--memory-stable)', fail: 'var(--memory-risk)', repairing: 'var(--memory-shaky)',
   pending: 'var(--t4)', skipped: 'var(--t3)',
 }
+const STATUS_GLYPH: Record<string, string> = { pass: '✓', fail: '✗', repairing: '↻', pending: '·', skipped: '–' }
 
 export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; runs: DrainRun[]; events: PanelEvent[] }) {
   const router = useRouter()
@@ -29,6 +30,7 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
   const byPanel = useMemo(() => {
     const m = new Map<string, PanelEvent>()
     for (const e of events) {
+      if (e.chapter_idx == null || e.page_order == null) continue // null 좌표 skip(셀 붕괴 방지)
       const k = `${e.chapter_idx}-${e.page_order}`
       const prev = m.get(k)
       if (!prev || e.attempt >= prev.attempt) m.set(k, e)
@@ -44,12 +46,16 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
   if (!run) blockers.push('드레인 실행 기록이 없습니다 — 아직 생성이 돌지 않았습니다.')
   else {
     if (run.status === 'running') blockers.push(`생성 진행 중 (${run.panels_done}/${run.panels_total}컷)`)
-    if (run.status === 'failed') blockers.push(`생성 실패${run.error ? `: ${run.error}` : ''}`)
+    else if (run.status === 'failed') blockers.push(`생성 실패${run.error ? `: ${run.error}` : ''}`)
+    else if (run.status === 'queued' || run.status === 'cancelled') blockers.push(`${run.status === 'queued' ? '대기' : '취소'}된 실행 — 재실행 필요`)
     if (run.panels_fail > 0) blockers.push(`${run.panels_fail}컷 QC 미통과`)
     if (run.verbatim_mismatch > 0) blockers.push(`정본 불일치 ${run.verbatim_mismatch}건`)
     if (run.rule_violations > 0) blockers.push(`규칙 위반 ${run.rule_violations}건`)
+    // 발행 게이트는 comic_books.panels_pass 가 권위(검수/발행 콘솔과 단일 소스)
+    if (run.status === 'done' && detail.header && detail.header.panels_pass !== true) blockers.push('QC 게이트 미통과(panels_pass=false) — 발행 차단')
   }
-  const publishable = run && run.status === 'done' && run.panels_fail === 0 && run.verbatim_mismatch === 0 && run.rule_violations === 0
+  // 발행 가능 = 헤더 권위 게이트(검수/Published 와 동일 소스) + 최신 실행 완료
+  const publishable = detail.header?.panels_pass === true && (!run || run.status === 'done')
   const dur = run?.finished_at && run.started_at ? Math.round((+new Date(run.finished_at) - +new Date(run.started_at)) / 1000) : null
 
   return (
@@ -140,11 +146,15 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
                   <span className="font-mono text-[11px] text-[var(--t3)]">Stave {ch}</span>
                   <div className="flex flex-wrap gap-1.5">
                     {[...byPanel.values()].filter((e) => e.chapter_idx === ch).sort((a, b) => (a.page_order ?? 0) - (b.page_order ?? 0)).map((e) => (
-                      <div key={`${e.chapter_idx}-${e.page_order}`} title={`컷 ${e.page_order} · ${e.phase} · ${e.status}${e.score != null ? ` · ${e.score}점` : ''}${e.attempt > 1 ? ` · ${e.attempt}회 시도` : ''}${e.message ? `\n${e.message}` : ''}`}
-                        className="relative grid h-9 w-9 place-items-center rounded-[var(--r-sm)] font-mono text-[10px] font-[700] text-white"
+                      <div key={`${e.chapter_idx}-${e.page_order}`} role="img" tabIndex={0}
+                        aria-label={`컷 ${e.page_order} ${e.status ?? 'pending'}${e.attempt > 1 ? ` ${e.attempt}회 시도` : ''}${e.score != null ? ` ${e.score}점` : ''}`}
+                        title={`컷 ${e.page_order} · ${e.phase} · ${e.status}${e.score != null ? ` · ${e.score}점` : ''}${e.attempt > 1 ? ` · ${e.attempt}회 시도` : ''}${e.message ? `\n${e.message}` : ''}`}
+                        className="relative grid h-9 w-9 place-items-center rounded-[var(--r-sm)] font-mono text-[10px] font-[700] text-white focus:outline-none focus:ring-2 focus:ring-[var(--active)]"
                         style={{ background: STATUS_TONE[e.status ?? 'pending'] ?? 'var(--t4)' }}>
                         {e.page_order}
-                        {e.attempt > 1 && <span className="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-items-center rounded-full bg-[var(--memory-shaky)] text-[8px] text-white">{e.attempt}</span>}
+                        {/* 상태 글리프(색상만 정보 금지) */}
+                        <span aria-hidden className="absolute bottom-0 left-0.5 text-[9px] leading-none opacity-90">{STATUS_GLYPH[e.status ?? 'pending'] ?? ''}</span>
+                        {e.attempt > 1 && <span aria-hidden className="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-items-center rounded-full bg-[var(--memory-shaky)] text-[8px] text-white">{e.attempt}</span>}
                       </div>
                     ))}
                   </div>
@@ -160,7 +170,7 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
               <table className="w-full min-w-[560px] text-left font-body text-[12px]">
                 <thead><tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-[11px] uppercase text-[var(--t3)]"><th className="px-3 py-1.5">컷</th><th className="px-3 py-1.5">phase</th><th className="px-3 py-1.5">상태</th><th className="px-3 py-1.5">점수</th><th className="px-3 py-1.5">메시지</th></tr></thead>
                 <tbody>
-                  {events.slice(0, 40).map((e, k) => (
+                  {[...events].sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at)).slice(0, 40).map((e, k) => (
                     <tr key={k} className="border-b border-[var(--bd)]/50 last:border-0">
                       <td className="px-3 py-1.5 font-mono text-[var(--t2)]">S{e.chapter_idx}·{e.page_order}{e.attempt > 1 ? ` (#${e.attempt})` : ''}</td>
                       <td className="px-3 py-1.5 text-[var(--t3)]">{e.phase}</td>
