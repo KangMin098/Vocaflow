@@ -12,7 +12,19 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, BookImage, BookOpen, Eye, ListChecks, Moon, Sparkles, Sun } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookImage, BookOpen, Check, Eye, ListChecks, Loader2, Moon, Plus, Sparkles, Sun } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { addWordToVault } from '@/lib/wordvault/add-word'
+
+interface VocabInfo {
+  found?: boolean
+  resolved_word?: string
+  meaning_ko?: string
+  pos?: string
+  cefr_level?: string
+  v_level?: number
+  example_en?: string
+}
 
 export interface ComicBubble {
   speaker?: string | null
@@ -64,6 +76,9 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
   const [dir, setDir] = useState<1 | -1>(1)
   const [broken, setBroken] = useState<Set<number>>(new Set())
   const [coach, setCoach] = useState(false)
+  const [vocabInfo, setVocabInfo] = useState<VocabInfo | null>(null)
+  const [vocabBusy, setVocabBusy] = useState(false)
+  const [added, setAdded] = useState<'idle' | 'adding' | 'done' | 'exists'>('idle')
   const touch = useRef<{ x: number; y: number; moved: boolean } | null>(null)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const bumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -145,6 +160,30 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
   }, [vocab])
 
   const toggleReveal = (key: string) => setRevealed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n })
+
+  // 단어 팝오버 열림 → 실제 뜻 조회(lookup_word_meaning)
+  useEffect(() => {
+    if (!vocab) { setVocabInfo(null); setAdded('idle'); return }
+    setVocabBusy(true); setVocabInfo(null)
+    let alive = true
+    createClient()
+      .rpc('lookup_word_meaning', { p_surface: vocab })
+      .then(({ data }: { data: unknown }) => { if (alive) setVocabInfo((Array.isArray(data) ? data[0] : data) ?? null) })
+      .then(undefined, () => { if (alive) setVocabInfo(null) })
+      .then(() => { if (alive) setVocabBusy(false) })
+    return () => { alive = false }
+  }, [vocab])
+
+  const addToVault = async () => {
+    if (!vocab || added === 'adding') return
+    setAdded('adding')
+    const res = await addWordToVault({
+      word: vocab, meaning: vocabInfo?.meaning_ko ?? null, pronunciation: null,
+      pos: vocabInfo?.pos ?? null, cefrLevel: vocabInfo?.cefr_level ?? null,
+      exampleSentence: vocabInfo?.example_en ?? null, textId,
+    })
+    setAdded(res.ok ? (res.alreadyExists ? 'exists' : 'done') : 'idle')
+  }
 
   const page = i < total ? pages[i] : null
   const stave = page?.staveLabel ?? (page ? `Chapter ${page.chapterIdx}` : '')
@@ -330,13 +369,34 @@ export function ComicReader({ textId, bookTitle, pages }: ComicReaderProps) {
       {vocab && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center" onClick={() => setVocab(null)}>
           <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={`${vocab} 학습`} className="w-full max-w-sm rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-lg)]" onClick={(e) => e.stopPropagation()}>
-            <p className="font-display text-[20px] font-[800] text-[var(--t1)]">{vocab}</p>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">이 장면의 맥락에서 만난 단어예요. 단어장에서 뜻과 함께 익혀 보세요.</p>
-            <div className="mt-4 flex justify-end gap-2">
+            <div className="flex items-baseline gap-2">
+              <p className="font-display text-[22px] font-[800] text-[var(--t1)]">{vocab}</p>
+              {vocabInfo?.pos && <span className="font-body text-[12px] italic text-[var(--t3)]">{vocabInfo.pos}</span>}
+              {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t3)]">{vocabInfo.cefr_level}</span>}
+            </div>
+            {vocabBusy ? (
+              <p className="mt-3 inline-flex items-center gap-1.5 font-body text-[13px] text-[var(--t3)]"><Loader2 size={13} className="animate-spin" /> 뜻을 불러오는 중…</p>
+            ) : vocabInfo?.meaning_ko ? (
+              <>
+                <p className="mt-2 font-body text-[15px] font-[600] leading-snug text-[var(--t1)]">{vocabInfo.meaning_ko}</p>
+                {vocabInfo.example_en && (
+                  <p className="mt-2 border-l-[3px] border-[var(--active)] pl-3 font-serif text-[13px] italic leading-relaxed text-[var(--t2)]">{vocabInfo.example_en}</p>
+                )}
+              </>
+            ) : (
+              <p className="mt-2 font-body text-[13px] text-[var(--t3)]">이 장면의 맥락에서 만난 단어예요.</p>
+            )}
+            <div className="mt-4 flex items-center justify-between gap-2">
               <button type="button" onClick={() => setVocab(null)} className="min-h-11 rounded-[var(--r-full)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t3)] hover:text-[var(--t1)]">닫기</button>
-              <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700]" style={{ background: 'var(--active)', color: ON_GOLD }}>
-                <BookOpen size={13} aria-hidden /> 단어장에서 보기
-              </Link>
+              <div className="flex gap-2">
+                <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--active)] hover:text-[var(--t1)]">
+                  <BookOpen size={13} aria-hidden /> 단어장
+                </Link>
+                <button type="button" onClick={addToVault} disabled={added === 'adding' || added === 'done' || added === 'exists'} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] disabled:opacity-70" style={{ background: 'var(--active)', color: ON_GOLD }}>
+                  {added === 'adding' ? <Loader2 size={13} className="animate-spin" /> : added === 'done' || added === 'exists' ? <Check size={14} /> : <Plus size={14} />}
+                  {added === 'done' ? '추가됨' : added === 'exists' ? '이미 있음' : '단어장 추가'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

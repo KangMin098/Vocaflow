@@ -29,6 +29,8 @@
 
 ### 신규 파이프라인 — CCP (Comic Curation Pipeline · book→comic)
 
+- **맥락 속 어휘 학습(P2)** — 리더 `학습 단어` 칩 실동작: 정본 대사에서 `lookup_word_meaning`(RPC)로 레벨 검증한 학습가치 단어(v≥5)를 컷별 target_vocab에 배정(Carol 17컷·23단어 · humbug/haunt/toll/ignorance…). 칩 탭 → 팝오버에 **실제 뜻(meaning_ko)·품사·CEFR·예문 인라인** + **단어장 추가**(`addWordToVault` 서버액션, 멱등). Context-Dependent + Dual Coding 실현(기존 뜻 조회/추가 자산 재사용, 마이그레이션 무).
+
 - 자기발전 만화 파이프라인을 정식 제품 통합(설계 → 이중 검토[교육학·아키텍처] → 구현). 상세: `scripts/comic/docs/COMIC_PIPELINE_DESIGN.md`.
 - **DB**(마이그레이션 `20260808120000_comic_pipeline.sql` — **적용됨 2026-08-08**): `comic_books`(발행 게이트 헤더 + qc_verdict 지속) + `comic_pages`((library_book_id,chapter_idx,page_order) 자연키 · image_url 외부 URL · bubbles · target_vocab) + `book_curation_jobs.task_type='comic_gen'` + `panels_total/done` 컬럼 + RPC 5종(`enqueue_comic_jobs`·`admin_set_comic_published`·`select_book_comic`·`list_book_comic_catalog`·`book_comic_available` — 학습자 read 전부 published 게이트).
 - **Admin** `/admin/comic` — Catalog(큐 적재) / Published(QC 게이트 강제 발행·회수). AdminSidebar 등재(BookImage). 드레인 `scripts/lcp/generate-comic.mjs`(plan/content/insert) + `drain.mjs` 🎞 등록.
