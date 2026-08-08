@@ -71,9 +71,17 @@ export function ComicFormatChoice({
             ? `/text/${first}?mode=listen`
             : `/text/${first}?mode=read`,
       )
-    } catch {
+    } catch (e) {
       setBusy(null)
-      setError('지금은 시작할 수 없었어요. 잠시 후 다시 시도해 주세요.')
+      // 실패 원인을 삼키지 않는다 — 이전엔 전부 "잠시 후 다시" 로 뭉개져
+      // 도서 메타 결손(cefr_level NULL 등)으로 등록이 막혀도 아무도 알 수 없었다(2026-08-09 실측).
+      // 학습자에겐 차분한 한 줄, 그 뒤에 실제 사유를 작게 붙여 자가진단/문의가 가능하게 한다.
+      const detail = e instanceof Error ? e.message.replace(/^enrollBook failed:\s*/, '') : ''
+      setError(
+        detail
+          ? `지금은 시작할 수 없었어요. 잠시 후 다시 시도해 주세요. (${detail.slice(0, 160)})`
+          : '지금은 시작할 수 없었어요. 잠시 후 다시 시도해 주세요.',
+      )
     }
   }
 

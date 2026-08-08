@@ -253,3 +253,28 @@ export async function countDiagnosticSnapshotsSince(
   if (error) return -1;
   return count ?? 0;
 }
+
+/**
+ * CCP 만화 진도 — 리더가 save_comic_progress 로 서버에 위치를 남겼는지 단언용.
+ * 행이 없으면 null (아직 한 번도 안 봄).
+ */
+export async function getComicProgress(
+  userId: string,
+  bookId: string,
+): Promise<{ lastIndex: number; panelsTotal: number; completed: boolean } | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('comic_read_progress')
+    .select('last_index, panels_total, completed_at')
+    .eq('user_id', userId)
+    .eq('library_book_id', bookId)
+    .maybeSingle();
+  if (error || !data) return null;
+  const row = data as { last_index: number | null; panels_total: number | null; completed_at: string | null };
+  return {
+    lastIndex: row.last_index ?? 0,
+    panelsTotal: row.panels_total ?? 0,
+    completed: row.completed_at != null,
+  };
+}

@@ -7,6 +7,8 @@
 // 카탈로그가 비어 있으면(발행 만화 0) 빈 상태를 단언하고 종료 — 콘텐츠 의존 false-fail 방지.
 import { test, expect, type Page } from '@playwright/test';
 
+import { getComicProgress, userIdByEmail } from './utils/db';
+
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
@@ -38,6 +40,18 @@ function collectConsoleErrors(page: Page): string[] {
   });
   page.on('pageerror', (e) => errors.push(`PAGEERROR: ${String(e).slice(0, 200)}`));
   return errors;
+}
+
+/**
+ * 카탈로그 첫 카드의 도서 id — 카드 href 는 등록 상태에 따라 상세/리더로 갈리므로
+ * href 로 도서를 식별하면 상태에 따라 테스트가 조용히 공회전한다. data-book-id 로 고정한다.
+ * 카탈로그가 비어 있으면 null.
+ */
+async function firstCatalogBookId(page: Page): Promise<string | null> {
+  await page.goto('/comics/adapted', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  const card = page.locator('a[data-book-id]').first();
+  if (!(await card.isVisible().catch(() => false))) return null;
+  return card.getAttribute('data-book-id');
 }
 
 /** 04-ui-smoke 와 동일한 환경 노이즈 필터 (auth refresh 경합 · dev 콜드 청크) */
@@ -153,17 +167,15 @@ test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
   });
 
-  test('만화 상세 — 미등록 학습자에게 프리뷰 + 포맷 선택(등록 유도)이 뜬다', async ({ page }) => {
+  test('만화 상세 — 프리뷰 + 포맷 선택이 뜬다', async ({ page }) => {
     test.setTimeout(90_000);
 
-    await page.goto('/comics/adapted', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    const detailLink = page.locator('a[href^="/comics/adapted/"]').first();
-    if (!(await detailLink.isVisible().catch(() => false))) {
-      console.log('[comic] 미등록 만화 없음(전부 등록됨 또는 카탈로그 0) — 종료');
+    const bookId = await firstCatalogBookId(page);
+    if (!bookId) {
+      console.log('[comic] 카탈로그 0 — 종료');
       return;
     }
-    await detailLink.click();
-    await page.waitForURL(/\/comics\/adapted\/[0-9a-f-]{36}/, { timeout: 20_000 });
+    await page.goto(`/comics/adapted/${bookId}`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
 
     // 프리뷰 — 서버 하드캡(≤5)을 넘지 않는다
     const preview = page.getByRole('region', { name: '만화 미리보기' });
@@ -180,11 +192,64 @@ test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
     await expect(choice.getByText('원문으로 읽기')).toBeVisible();
     await expect(choice.getByText('지금 추천')).toHaveCount(1);
 
-    // 미등록 로그인 사용자 → 등록 후 진입 버튼(=클릭 시 enroll). 여기선 계정 상태를 바꾸지 않으려
-    // 버튼 존재까지만 단언한다(실제 enroll 은 도서 등록 플로우 회귀가 담당).
-    await expect(choice.getByRole('button', { name: /만화로 먼저/ })).toBeVisible();
+    // 시작 어포던스는 등록 상태에 따라 형태가 다르다 —
+    //   미등록: <button>(클릭 시 enroll_library_book) · 등록: <a>(리더 직행).
+    // 계정이 이 도서를 등록하고 나면 영구히 link 이므로 둘 다 허용한다(상태 의존 false-fail 차단).
+    const startBtn = choice.getByRole('button', { name: /만화로 먼저/ });
+    const startLink = choice.getByRole('link', { name: /만화로 먼저/ });
+    const enrolled = await startLink.isVisible().catch(() => false);
+    await expect(enrolled ? startLink : startBtn).toBeVisible();
 
-    console.log(`[comic] 상세 프리뷰 ${shotCount}컷 · 포맷 선택 렌더 OK`);
+    console.log(`[comic] 상세 프리뷰 ${shotCount}컷 · 포맷 선택 렌더 OK (등록=${enrolled})`);
+  });
+
+  test('만화 리더 — 컷과 정본 대사가 뜨고 진도가 서버에 남는다', async ({ page }) => {
+    test.setTimeout(150_000);
+
+    const bookId = await firstCatalogBookId(page);
+    if (!bookId) {
+      console.log('[comic] 카탈로그 0 — 종료');
+      return;
+    }
+    await page.goto(`/comics/adapted/${bookId}`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    // 시작 — 미등록이면 enroll 후, 등록이면 곧장 리더로.
+    //   ⚠️ 이 경로가 조용히 죽어 있었다(2026-08-09): library_books.cefr_level 이 NULL 이면
+    //      enroll_library_book 이 예외를 던져 만화를 아예 볼 수 없었다. 그 회귀를 여기서 잡는다.
+    const choice = page.getByRole('region', { name: '학습 방식 선택' });
+    await choice
+      .getByRole('link', { name: /만화로 먼저/ })
+      .or(choice.getByRole('button', { name: /만화로 먼저/ }))
+      .first()
+      .click();
+
+    await page.waitForURL(/\/text\/[0-9a-f-]{36}\/comic/, { timeout: 90_000 });
+
+    // 리더 렌더 — 컷 위치 표시 + 정본 대사(verbatim 버블은 blur→tap-reveal 이라 DOM 에는 있다)
+    await expect(page.getByText(/컷 \d+ \/ \d+/)).toBeVisible({ timeout: 20_000 });
+    const panelImgs = await page.locator('img').count();
+    expect(panelImgs).toBeGreaterThan(0);
+
+    // 진도 영속 — 몇 컷 넘긴 뒤 comic_read_progress 에 기록되는지 service-role 로 단언
+    for (let i = 0; i < 3; i++) {
+      await page.keyboard.press('ArrowRight');
+      await page.waitForTimeout(400);
+    }
+
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    if (!userId) {
+      console.log('[comic] SERVICE_ROLE 키 없음 — UI 단언까지만');
+      return;
+    }
+    await expect(async () => {
+      const p = await getComicProgress(userId, bookId);
+      expect(p, 'comic_read_progress row').not.toBeNull();
+      expect(p!.lastIndex).toBeGreaterThan(0);
+      expect(p!.panelsTotal).toBeGreaterThan(0);
+    }).toPass({ timeout: 20_000 });
+
+    const prog = await getComicProgress(userId, bookId);
+    console.log(`[comic] 리더 OK · 진도 ${prog?.lastIndex}/${prog?.panelsTotal}`);
   });
 });
 

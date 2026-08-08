@@ -127,20 +127,18 @@ export function useHubStats(): HubStatsState {
         curation_query: Record<string, unknown> | null
       }> = []
       if (setIds.length > 0) {
-        const withBridge = await supabase
+        // ⚠️ 예외로 스키마를 탐지하지 않는다 — 이전 구현은 category_id 를 먼저 select 하고
+        //    실패하면 legacy 로 폴백했는데, 이 DB 는 브릿지 마이그레이션
+        //    (20260518130000_shared_word_sets_category_bridge.sql)이 미적용이라
+        //    **구독 세트가 있는 모든 사용자의 허브 로드마다 400 이 확정 발생**했다
+        //    (2026-08-09 실측: column shared_word_sets.category_id does not exist).
+        //    한 번은 폴백돼 화면은 멀쩡했지만 왕복 1회 낭비 + 콘솔/모니터링 오염.
+        //    브릿지 적용 시 아래 select 에 category_id 를 되돌리고 실패 폴백을 다시 붙일 것.
+        const legacy = await supabase
           .from('shared_word_sets')
-          .select('id, title, cover_emoji, category, cefr_level, category_id, curation_query')
+          .select('id, title, cover_emoji, category, cefr_level, curation_query')
           .in('id', setIds)
-        if (withBridge.error) {
-          // 컬럼 미존재 — legacy fallback
-          const legacy = await supabase
-            .from('shared_word_sets')
-            .select('id, title, cover_emoji, category, cefr_level, curation_query')
-            .in('id', setIds)
-          setsData = (legacy.data ?? []) as typeof setsData
-        } else {
-          setsData = (withBridge.data ?? []) as unknown as typeof setsData
-        }
+        setsData = (legacy.data ?? []) as typeof setsData
       }
 
       const textsRes =

@@ -166,6 +166,9 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
   return (
     <Link
       href={item.href}
+      // 카드 목적지는 등록 상태에 따라 바뀐다(미등록=상세 · 등록=리더 직행).
+      // 그래서 href 로 도서를 식별하면 회귀 테스트가 상태에 따라 조용히 공회전한다(2026-08-09 실측).
+      data-book-id={item.bookId}
       aria-label={`${item.title} — ${item.ctaLabel}`}
       className="group flex h-full flex-col overflow-hidden rounded-[var(--r-ios-2xl,20px)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-[transform,box-shadow] duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
