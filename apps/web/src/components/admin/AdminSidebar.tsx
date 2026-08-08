@@ -16,6 +16,7 @@ import {
   Library,
   Newspaper,
   Scale,
+  ScanLine,
   ShieldCheck,
   Sliders,
   Sparkles,
@@ -64,6 +65,8 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
       { href: '/admin/vrl/automation', label: 'VRL Automation', Icon: Workflow },
       { href: '/admin/comic', label: 'Comic Pipeline', Icon: BookImage },
+      // PDCP — 퍼블릭도메인 스캔 만화. CCP(위)와 단계·QC·법적 게이트가 전부 달라 별도 메뉴.
+      { href: '/admin/pd-comics', label: 'PD Comic Pipeline', Icon: ScanLine },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },

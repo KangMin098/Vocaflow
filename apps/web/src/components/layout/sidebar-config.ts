@@ -14,6 +14,7 @@
 
 import {
   BarChart3,
+  BookImage,
   BookOpen,
   Compass,
   Gamepad2,
@@ -22,6 +23,7 @@ import {
   Layers,
   Mic2,
   Pencil,
+  ScanLine,
   ScrollText,
   Settings,
   Shuffle,
@@ -62,11 +64,30 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Compass,
         ariaLabel: '공용 콘텐츠 라이브러리',
       },
+      // Comics — 도서의 다른 표현형(만화). /library 하위 탭이 아니라 최상위 메뉴로 분리
+      // (사용자 결정 2026-08-09). 데이터는 여전히 library_books 앵커이고,
+      // 도서 카드의 만화 배지·포맷 필터는 /library 에 그대로 남는다.
+      {
+        label: 'Comics',
+        href: '/comics',
+        icon: BookImage,
+        ariaLabel: '만화 — 도서를 그림으로 먼저 만나는 입구',
+      },
       {
         label: 'My Scripts',
         href: '/text',
         icon: BookOpen,
         ariaLabel: '내가 등록한 스크립트',
+      },
+      // PDCP — 퍼블릭도메인 복원 만화. 도서 챕터에 종속된 CCP 만화(/text/[id]/comic)와 달리
+      // 호 단위 독립 콘텐츠라 자기 서가를 가진다.
+      // ⚠️ 라벨을 'Comics'→'Restored' 로 변경(2026-08-09): 위 CCP 항목과 같은 그룹에 동일 라벨
+      //    'Comics' 가 둘이면 학습자가 구분할 수 없다. href/icon 은 그대로 — 이름은 재검토 대상.
+      {
+        label: 'Restored',
+        href: '/restored',
+        icon: ScanLine,
+        ariaLabel: '복원 만화 — 저작권 만료 고전 만화를 디지털 복원',
       },
     ],
   },
