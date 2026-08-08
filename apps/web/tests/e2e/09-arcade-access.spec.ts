@@ -1,0 +1,357 @@
+// apps/web/tests/e2e/09-arcade-access.spec.ts
+//
+// 아케이드 "접근 모델" 회귀 — 게임이 잘 도는지(=07 스모크)가 아니라,
+// **학습자가 게임에 어떻게 닿고 어떤 단어로 놀게 되는지**를 고정한다.
+//
+// 배경(v07.4 이전 결함):
+//   · /arcade 카드가 스코프 없이 게임을 열어 전부 하드코딩 DEFAULT_POOL 로 돌았고
+//     recordGameResult 가 silent skip → 허브가 광고한 FSRS 연동이 기본 경로에서 거짓
+//   · 게임 정의가 4곳에 복제돼 카운트·세션 셸 메타가 각각 낡음(신규 3종은 아예 누락)
+//   · /arcade 가 (app) 풀스크린 그룹에 있어 Sidebar 로 갈 수 없었음
+//
+// 커버리지 축:
+//   A 발견성(사이드바·허브 진입·섹션 IA)  B 스코프 3단(explicit/mine/demo)
+//   C 세션 셸(제목·닫기·복귀)             D 영속화(scores·learning_records)
+//   E 반응형·접근성
+import { test, expect, type Page } from '@playwright/test';
+
+import {
+  countLearningRecordsSince,
+  countScoresSince,
+  fetchUserVocabWords,
+  resetDueCards,
+  userIdByEmail,
+} from './utils/db';
+
+const RUNTIME_USER = {
+  email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+};
+
+const STATE_PATH = 'test-results/.auth-arcade-access.json';
+
+/** 실 단어 40개 보유 공용 단어장 — explicit 스코프 픽스처. */
+const FIXTURE_SET_ID = 'dcb6f06e-bc30-4fe3-80bf-577ad08be233';
+/** 존재하지 않는 세트 — explicit 인데 단어 0 인 경로 픽스처. */
+const EMPTY_SET_ID = '00000000-0000-4000-8000-000000000000';
+
+async function login(page: Page) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    await page.goto('/login', { waitUntil: 'domcontentloaded' });
+    const email = page.locator('input[type="email"]');
+    try {
+      await email.waitFor({ state: 'visible', timeout: 15_000 });
+    } catch {
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      continue;
+    }
+    await page.waitForTimeout(1000); // 하이드레이션 — controlled input 리셋 방지
+    for (let i = 0; i < 3; i++) {
+      await email.fill(RUNTIME_USER.email);
+      await page.fill('input[type="password"]', RUNTIME_USER.password);
+      if ((await email.inputValue()) === RUNTIME_USER.email) break;
+      await page.waitForTimeout(500);
+    }
+    await page.click('button[type="submit"]');
+    try {
+      await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 });
+      return;
+    } catch {
+      await page.reload({ waitUntil: 'domcontentloaded' });
+    }
+  }
+  throw new Error('로그인 실패 — 4회 재시도 후에도 리다이렉트 안 됨');
+}
+
+function collectConsoleErrors(page: Page): string[] {
+  const errors: string[] = [];
+  page.on('console', (m) => {
+    if (m.type() === 'error') errors.push(m.text().slice(0, 200));
+  });
+  page.on('pageerror', (e) => errors.push(`PAGEERROR: ${String(e).slice(0, 200)}`));
+  return errors;
+}
+
+function fatalErrors(errors: string[]): string[] {
+  return errors.filter(
+    (e) => !/favicon|404 \(Not Found\)|auth-js|auth\/v1\/token|Failed to fetch|ChunkLoadError/.test(e),
+  );
+}
+
+/** fire-and-forget 서버액션 폴링 — 최대 waitMs 까지 조건 충족 대기. */
+async function pollUntil(fn: () => Promise<boolean>, waitMs = 12_000): Promise<boolean> {
+  const deadline = Date.now() + waitMs;
+  while (Date.now() < deadline) {
+    if (await fn()) return true;
+    await new Promise((r) => setTimeout(r, 800));
+  }
+  return false;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// 비로그인 — 단어가 없는 사용자가 보는 아케이드 (신규 유입 경로)
+// ══════════════════════════════════════════════════════════════════
+test.describe('A. 발견성 — 비로그인(단어 0)', () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test('맛보기 배지 + "단어 모으러 가기" 유도 — 0개 배지 같은 깨진 카피 없음', async ({ page }) => {
+    const errors = collectConsoleErrors(page);
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible({
+      timeout: 30_000,
+    });
+
+    // 단어 0 → mine 섹션은 맛보기 상태이고, 단어를 모으러 갈 길을 준다
+    await expect(page.locator('.arc-sec-badge[data-tone="muted"]')).toContainText('맛보기');
+    await expect(page.getByRole('link', { name: /단어 모으러 가기/ })).toBeVisible();
+
+    // 깨진 카피 회귀 — "0개" 배지 / 수 없는 "내 복습 단어 로 진행"
+    const body = (await page.locator('.arc-inner').innerText()).replace(/\s+/g, ' ');
+    expect(body, '0개 배지는 무의미한 노출').not.toContain('복습 임박 0개');
+    expect(body, '수 없는 문장(깨진 템플릿)').not.toMatch(/내 복습 단어\s*로 진행/);
+
+    // 단어가 없어도 오늘의 추천은 반드시 있어야 한다(=bank 게임)
+    await expect(page.locator('.arc-daily-card')).toBeVisible();
+    expect(await page.locator('.arc-daily-meta').innerText()).toContain('단어 없이 바로 시작');
+
+    expect(fatalErrors(errors)).toHaveLength(0);
+  });
+
+  test('반응형 — 390 / 768 / 1280 에서 가로 스크롤 0', async ({ page }) => {
+    for (const [w, h] of [
+      [390, 844],
+      [768, 1024],
+      [1280, 900],
+    ] as const) {
+      await page.setViewportSize({ width: w, height: h });
+      await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+      await expect(page.locator('.arc-grid').first()).toBeVisible({ timeout: 30_000 });
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `viewport ${w}px 가로 넘침 ${overflow}px`).toBeLessThanOrEqual(1);
+    }
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// 로그인 — 실제 학습자 경로
+// ══════════════════════════════════════════════════════════════════
+test.describe('아케이드 접근 모델 (로그인)', () => {
+  test.beforeAll(async ({ browser }) => {
+    test.setTimeout(120_000);
+    const page = await browser.newPage({ storageState: undefined });
+    await login(page);
+    await page.context().storageState({ path: STATE_PATH });
+    await page.close();
+  });
+  test.use({ storageState: STATE_PATH });
+
+  // ── A. 발견성 ────────────────────────────────────────────────────
+  test('A1. 사이드바 Practice 에 Arcade 가 있고 /arcade 에서 활성 표시된다', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    const link = page.locator('aside[aria-label="주 메뉴"] a[href="/arcade"]');
+    await expect(link).toBeVisible({ timeout: 30_000 });
+    await expect(link).toHaveAttribute('aria-current', 'page');
+    // 허브는 세션이 아니다 — 전역 셸이 살아 있어야 한다((app) 그룹 잔류 회귀 차단)
+    await expect(page.locator('aside[aria-label="주 메뉴"]')).toBeVisible();
+  });
+
+  test('A2. /hub 진입 카드의 게임 수가 허브 실제 카드 수와 일치한다 (문구 드리프트 차단)', async ({
+    page,
+  }) => {
+    await page.goto('/hub', { waitUntil: 'domcontentloaded' });
+    // 사이드바에도 /arcade 링크가 있으므로 본문(진입 카드)로 한정한다.
+    const entry = page.locator('main a[href="/arcade"]').first();
+    await expect(entry).toBeVisible({ timeout: 30_000 });
+    const aria = (await entry.getAttribute('aria-label')) ?? '';
+    const claimed = Number(aria.match(/(\d+)\s*종/)?.[1] ?? 0);
+    expect(claimed, `진입 카드 aria-label 에 게임 수 없음: "${aria}"`).toBeGreaterThan(0);
+
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('a.arc-card').first()).toBeVisible({ timeout: 30_000 });
+    expect(await page.locator('a.arc-card').count()).toBe(claimed);
+  });
+
+  test('A3. 섹션 카운트 배지가 실제 카드 수와 일치한다', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.arc-sec').first()).toBeVisible({ timeout: 30_000 });
+    const sections = page.locator('.arc-sec');
+    for (let i = 0; i < (await sections.count()); i++) {
+      const sec = sections.nth(i);
+      const claimed = Number((await sec.locator('.arc-sec-count').innerText()).trim());
+      expect(await sec.locator('a.arc-card').count()).toBe(claimed);
+    }
+  });
+
+  test('A4. 오늘의 추천은 새로고침해도 같은 게임이다 (결정론 회전)', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.arc-daily-card')).toBeVisible({ timeout: 30_000 });
+    const first = await page.locator('.arc-daily-card').getAttribute('href');
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.arc-daily-card')).toBeVisible({ timeout: 30_000 });
+    expect(await page.locator('.arc-daily-card').getAttribute('href')).toBe(first);
+  });
+
+  // ── B. 스코프 3단 ────────────────────────────────────────────────
+  test('B1. explicit(?set=) — 그 단어장 이름이 세션 셸에 뜨고 내 due 큐로 덮이지 않는다', async ({
+    page,
+  }) => {
+    await page.goto(`/play/cascade?set=${FIXTURE_SET_ID}&from=/arcade`, {
+      waitUntil: 'domcontentloaded',
+    });
+    await expect(page.getByRole('grid', { name: '매칭 보드' })).toBeVisible({ timeout: 30_000 });
+    // 명시 스코프가 이겨야 한다 — mine 라벨이 뜨면 스코프 우선순위 회귀
+    await expect(page.getByText('내 복습 단어')).toHaveCount(0);
+    await expect(page.getByText('맛보기 단어')).toHaveCount(0);
+    await expect(page.locator('header[role="banner"]')).toContainText('Ch.');
+  });
+
+  test('B2. explicit 인데 단어 0 — 다른 단어로 바꿔치지 않고 안내한다', async ({ page }) => {
+    await page.goto(`/play/cascade?set=${EMPTY_SET_ID}&from=/arcade`, {
+      waitUntil: 'domcontentloaded',
+    });
+    await expect(page.getByRole('alert')).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByText('학습할 단어가 부족해요')).toBeVisible();
+    // 조용히 맛보기/내 단어로 대체되면 안 된다
+    await expect(page.getByRole('grid', { name: '매칭 보드' })).toHaveCount(0);
+    // 돌아갈 길이 있어야 한다
+    await expect(page.getByRole('button', { name: '돌아가기' })).toBeVisible();
+  });
+
+  test('B3. bank 게임은 비스코프 진입에서 "큐레이션 세계" — 내 단어를 끌어오지 않는다', async ({
+    page,
+  }) => {
+    await page.goto('/play/connections?from=/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('button', { name: '섞기' })).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator('header[role="banner"]')).toContainText('큐레이션 세계');
+    await expect(page.getByText('내 복습 단어')).toHaveCount(0);
+  });
+
+  test('B4. wordblitz(독립 3D)도 mine 스코프를 따른다 — 카탈로그 source 와 실제 동작 일치', async ({
+    page,
+  }) => {
+    test.setTimeout(90_000);
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    test.skip(!userId, 'SERVICE_ROLE_KEY 없음');
+    const mine = await fetchUserVocabWords(userId as string);
+    test.skip(mine.length < 4, `단어 ${mine.length}개 — minWords 4 미달`);
+
+    await page.goto('/play/wordblitz?from=/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByText('이 뜻의 단어는?')).toBeVisible({ timeout: 45_000 });
+    // 카탈로그가 source:'mine' 이라 광고하므로 실제로도 내 단어여야 한다
+    await expect(page.getByText('내 복습 단어')).toBeVisible();
+    await expect(page.getByText('맛보기 단어')).toHaveCount(0);
+  });
+
+  // ── C. 세션 셸 ───────────────────────────────────────────────────
+  test('C1. 카탈로그 파생 세션 메타 — 신규 3종도 게임 이름으로 뜨고 닫기가 /arcade 로 간다', async ({
+    page,
+  }) => {
+    // 손으로 유지하던 SESSION_META 에서 누락돼 "학습 세션 ✨" + /hub 로 오배송되던 게임들
+    for (const [slug, name] of [
+      ['wordsmith-vigil', "Wordsmith's Vigil"],
+      ['morphmerge', 'Morphmerge'],
+      ['wordfall-cadence', 'Wordfall Cadence'],
+    ] as const) {
+      await page.goto(`/play/${slug}`, { waitUntil: 'domcontentloaded' });
+      const header = page.locator('header[role="banner"]');
+      await expect(header).toBeVisible({ timeout: 30_000 });
+      await expect(header.getByRole('heading', { level: 1 })).toHaveText(name);
+      await expect(header.getByRole('heading', { level: 1 })).not.toHaveText('학습 세션');
+      // ?from 없음 → 카탈로그 closeHref(/arcade)
+      await expect(header.getByRole('link', { name: /세션 닫기/ })).toHaveAttribute('href', '/arcade');
+    }
+  });
+
+  test('C2. ?from= 이 닫기 목적지를 이긴다 (워크스페이스 제자리 복귀)', async ({ page }) => {
+    await page.goto('/play/connections?from=%2Fhub', { waitUntil: 'domcontentloaded' });
+    const close = page.locator('header[role="banner"]').getByRole('link', { name: /세션 닫기/ });
+    await expect(close).toBeVisible({ timeout: 30_000 });
+    await expect(close).toHaveAttribute('href', '/hub');
+  });
+
+  test('C3. Esc 로 세션을 닫으면 출처로 돌아온다', async ({ page }) => {
+    await page.goto('/play/connections?from=%2Farcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('button', { name: '섞기' })).toBeVisible({ timeout: 30_000 });
+    await page.keyboard.press('Escape');
+    await page.waitForURL('**/arcade', { timeout: 20_000 });
+    await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible();
+  });
+
+  // ── D. 영속화 ────────────────────────────────────────────────────
+  // 셸 상단 X 는 학습자가 가장 많이 누르는 종료 경로인데, 예전엔 게임 내부 종료 버튼만
+  // scores·XP 를 적재해서 이 경로로 나가면 세션 기록이 통째로 유실됐다(실측: learning_records 6 / scores 0).
+  // 이 테스트는 **X 로 닫는 경로**를 일부러 사용한다.
+  test('D1. mine 게임 인출 → 셸 X 로 닫아도 scores + learning_records 가 남는다', async ({ page }) => {
+    test.setTimeout(90_000);
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    test.skip(!userId, 'SERVICE_ROLE_KEY 없음');
+    const mine = await fetchUserVocabWords(userId as string);
+    test.skip(mine.length < 4, `단어 ${mine.length}개 — minWords 4 미달`);
+
+    const since = new Date(Date.now() - 2000).toISOString();
+    try {
+      await page.goto('/play/ghost-race?from=%2Farcade', { waitUntil: 'domcontentloaded' });
+      await page.evaluate(() => {
+        try {
+          localStorage.removeItem('vf_ghostrace_v1');
+        } catch {
+          /* SecurityError 무시 */
+        }
+      });
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await expect(page.locator('.gr-meaning')).toBeVisible({ timeout: 30_000 });
+      await expect(page.getByText('내 복습 단어')).toBeVisible();
+
+      // 몇 문항 응답 → 인출 결과 발생
+      for (let i = 0; i < 4; i++) {
+        await page.locator('.gr-tile').first().click();
+        await page.waitForTimeout(700);
+      }
+      // 세션 종료(닫기) → scores 적재
+      await page.locator('header[role="banner"]').getByRole('link', { name: /세션 닫기/ }).click();
+      await page.waitForURL('**/arcade', { timeout: 20_000 });
+
+      expect(
+        await pollUntil(async () => (await countLearningRecordsSince(userId as string, 'ghost-race', since)) > 0),
+        'learning_records 미적재 — 내 단어가 아닌 DEFAULT_POOL 로 돌았을 가능성',
+      ).toBe(true);
+      expect(
+        await pollUntil(async () => (await countScoresSince(userId as string, 'ghost-race', since)) > 0),
+        'scores 미적재',
+      ).toBe(true);
+    } finally {
+      // 게임이 SRS 를 미래로 밀면 다음 실행에서 due 가 말라 테스트가 흔들린다 → 원복
+      await resetDueCards(userId as string);
+    }
+  });
+
+  // ── E. 접근성 ────────────────────────────────────────────────────
+  test('E1. 카드/추천 터치 타겟 44px 이상 · 제목 계층 h1→h2→h3', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('a.arc-card').first()).toBeVisible({ timeout: 30_000 });
+
+    for (const loc of [page.locator('.arc-daily-card'), page.locator('a.arc-card').first()]) {
+      const box = await loc.boundingBox();
+      expect(box, 'boundingBox 없음').toBeTruthy();
+      expect(box!.height).toBeGreaterThanOrEqual(44);
+    }
+
+    // h1 은 정확히 1개, 섹션 제목은 h2, 카드 제목은 h3 (스크린리더 목차 무결성)
+    expect(await page.locator('.arc-inner h1').count()).toBe(1);
+    expect(await page.locator('.arc-sec h2').count()).toBeGreaterThanOrEqual(2);
+    expect(await page.locator('a.arc-card h3').count()).toBe(await page.locator('a.arc-card').count());
+  });
+
+  test('E2. 키보드만으로 오늘의 추천에 도달하고 포커스가 보인다', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.arc-daily-card')).toBeVisible({ timeout: 30_000 });
+    await page.locator('.arc-daily-card').focus();
+    await expect(page.locator('.arc-daily-card')).toBeFocused();
+    const shadow = await page
+      .locator('.arc-daily-card')
+      .evaluate((el) => getComputedStyle(el).boxShadow);
+    expect(shadow, '포커스 링 없음(:focus-visible 미적용)').not.toBe('none');
+  });
+});

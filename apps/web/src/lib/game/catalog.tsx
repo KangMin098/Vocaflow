@@ -224,12 +224,17 @@ export function gamePlayHref(
  *   · 복습할 내 단어가 충분하면 → mine 게임에서 회전 (오늘 학습이 곧 게임)
  *   · 부족하면 → bank 게임에서 회전 (단어가 없어도 즉시 놀 수 있음)
  *
+ * 3D·베타는 추천에서 제외 — 모바일에서 무겁고(three.js 번들) 베타는 학습 기록이 없어
+ * "오늘 이거 하나만" 이라는 약속에 맞지 않는다. 직접 고르면 물론 플레이 가능.
+ *
  * @param dayIndex    KST 기준 epoch day (동일 날짜 = 동일 추천 · SSR/CSR 정합)
  * @param vocabCount  사용자가 보유한 (뜻이 있는) 단어 수 — mine 게임 minWords 최댓값 6 이 기준
  */
 export function pickDailyGame(dayIndex: number, vocabCount: number): GameEntry {
-  const pool = vocabCount >= 6 ? MINE_GAMES : BANK_GAMES
-  return pool[((dayIndex % pool.length) + pool.length) % pool.length]
+  const base = vocabCount >= 6 ? MINE_GAMES : BANK_GAMES
+  const pool = base.filter((g) => !g.is3d && !g.beta)
+  const from = pool.length > 0 ? pool : base
+  return from[((dayIndex % from.length) + from.length) % from.length]
 }
 
 /** KST 기준 epoch day — 추천 회전 시드. */

@@ -493,10 +493,19 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 | `mine` | 8 | 내 단어로 플레이 → FSRS 갱신 (`minWords` 4~6) |
 | `bank` | 11 | 내장 큐레이션 뱅크 (`minWords=0`) — 단어 없이 즉시 플레이 |
 
-### 스코프 3단 (`lib/game/play-scaffold.tsx`)
+### 스코프 3단 (`lib/game/use-word-scope.ts`)
 1. **explicit** — `?set=` / `?text=` (+`?chapter=`) → `fetchScopedWords`. 단어 부족 시 `NotEnoughWords` 안내(몰래 바꿔치지 않음).
 2. **mine** — 스코프 없음 + `minWords>0` → `fetchDueGameWords`(due 우선 cap 40). **아케이드 기본값.**
 3. **demo** — ①②로 최소 단어 미달 → 게임 내장 맛보기 풀. 브레드크럼에 "맛보기 단어"로 명시(기록되지 않는 플레이를 오인시키지 않음).
+
+**훅으로 뽑은 이유** — 스캐폴드(17종)와 독립 3D `/play/wordblitz` 가 스코프 로직을 각자 복제하고 있었다.
+카탈로그가 `source:'mine'` 이라 광고하는데 실제로는 내 단어를 안 쓰는 불일치가 실제로 발생했으므로,
+두 경로가 같은 훅을 쓰게 강제한다. 브레드크럼 매핑은 `lib/game/scope-resource.ts`.
+
+### 세션 기록 (`lib/game/use-session-recorder.ts`)
+정/오답 집계 → `scores` 적재 + 아케이드 XP·스트릭 적립. **언마운트에서도 flush**(1회 가드).
+게임 내부 종료 버튼뿐 아니라 세션 셸 X·Esc·브라우저 뒤로까지 덮는다 —
+예전엔 `onExit` 에만 걸려 있어 X 로 나가면 `learning_records` 만 남고 `scores`·XP 는 통째로 유실됐다.
 
 ### 허브 IA
 ① 오늘의 추천 1종(KST 날짜 시드 결정론 회전) → ② 내 단어로 플레이 → ③ 큐레이션 세계.

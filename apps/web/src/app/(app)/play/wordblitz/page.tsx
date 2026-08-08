@@ -2,22 +2,23 @@
 // Next.js App Router - /play/wordblitz
 // SSR 비활성화 (Three.js는 client-only)
 //
-// ?set={챕터 단어장 id} | ?text={스크립트 texts.id} 가 있으면 그 자료의 단어를
-// wordPool 로 주입 (워크스페이스 "블리츠" pill). 없으면 기존 기본 단어 풀.
+// 단어 스코프는 `useGameWordScope` 공용 훅 — 스캐폴드 17종과 동일한 3단 규칙:
+//   ?set=/?text= → 내 복습 큐(due) → 맛보기.
+//   (v07.4 이전엔 이 페이지가 자체 스코프 로직을 복제했고 mine 단계가 없어,
+//    카탈로그가 `source:'mine'` 으로 광고하는데 정작 내 단어를 안 쓰는 불일치가 있었다.)
 
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { ResourceContext } from '@/components/layout/ResourceContext';
 import { WordBlitzLoading } from '@/components/game/wordblitz/WordBlitzUI';
-import { recordGameScore } from '@/lib/scores/record-score';
-import { createClient } from '@/lib/supabase/client';
+import { gameResourceContext } from '@/lib/game/scope-resource';
+import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
+import { useGameWordScope } from '@/lib/game/use-word-scope';
 import { POINTS, type Word } from '@/lib/wordblitz/data';
 import { recordWordBlitzResult } from '@/lib/wordblitz/record-result';
-import { fetchScopedWords } from '@/lib/workspace/scoped-words';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
 const WordBlitzGame = dynamic(
@@ -31,72 +32,26 @@ const WordBlitzGame = dynamic(
   }
 );
 
-interface ScopedPool {
-  words: Word[];
-  title: string;
-  subtitle: string;
-}
+/** 4지선다 1문항을 만들려면 정답 1 + 오답 3. */
+const MIN_WORDS = 4;
 
 export default function WordBlitzPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const set = searchParams.get('set') ?? undefined;
-  const text = searchParams.get('text') ?? undefined;
-  const from = searchParams.get('from') ?? undefined;
-  // 세트 내 특정 챕터만 학습 (?set=…&chapter=N)
-  const chapterNum = Number(searchParams.get('chapter'));
-  const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null;
-  const scoped = !!(set || text);
+  const scope = useGameWordScope({ label: 'WordBlitz', minWords: MIN_WORDS });
+  // 세션 집계 — 셸 X·Esc·뒤로가기 포함 모든 종료 경로에서 scores·XP 적립.
+  // 점수 산식은 게임 고정점 복제(POINTS).
+  const session = useGameSessionRecorder({
+    module: 'wordblitz',
+    scope,
+    computeScore: (correct, wrong) => correct * POINTS.CORRECT + wrong * POINTS.WRONG,
+  });
 
-  // scoped: null = 로딩, ScopedPool = 완료, { words: [] } = 단어 0개
-  const [pool, setPool] = useState<ScopedPool | null>(null);
-
-  // 세션 집계 — 정/오답 카운트(점수 복제 + scores 적재) + 시작 시각(소요시간).
-  const correctRef = useRef(0);
-  const wrongRef = useRef(0);
-  const startRef = useRef(0);
-  const scoredRef = useRef(false); // exit 1회만 scores 적재
-  useEffect(() => {
-    startRef.current = Date.now();
-  }, []);
-
-  useEffect(() => {
-    if (!scoped) return;
-    let mounted = true;
-    void (async () => {
-      const client = createClient();
-      const {
-        data: { user },
-      } = await client.auth.getUser();
-      const res = await fetchScopedWords(client, {
-        set,
-        text,
-        chapter,
-        userId: user?.id ?? null,
-      });
-      if (!mounted) return;
-      setPool({
-        words: (res?.words ?? []).map((w) => ({
-          en: w.word,
-          ko: w.meaning,
-          pron: w.pronunciation || undefined,
-        })),
-        title: res?.title ?? '단어 게임',
-        subtitle: res?.subtitle ?? '',
-      });
-    })();
-    return () => {
-      mounted = false;
-    };
-  }, [scoped, set, text, chapter]);
-
-  // 스코프 진입인데 아직 로딩 중
-  if (scoped && pool === null) {
+  if (scope.loading) {
     return <WordBlitzLoading message="단어 불러오는 중..." />;
   }
 
-  // 스코프 진입인데 단어 0개
-  if (scoped && pool && pool.words.length === 0) {
+  // ?set=/?text= 로 명시 진입했는데 그 자료에 단어가 없음 — 다른 단어로 바꿔치지 않고 안내.
+  if (scope.insufficient) {
     return (
       <main
         className="flex h-screen w-screen flex-col items-center justify-center gap-4 px-6 text-center"
@@ -113,8 +68,8 @@ export default function WordBlitzPage() {
         </p>
         <button
           type="button"
-          onClick={() => router.push('/wordvault')}
-          className="rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[800]"
+          onClick={() => router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordvault'))}
+          className="min-h-[44px] rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[800]"
           style={{ background: 'var(--combo)', color: 'var(--ti)' }}
         >
           내 단어장으로
@@ -123,56 +78,29 @@ export default function WordBlitzPage() {
     );
   }
 
+  // gamekit Word({en,ko,pron,…}) → wordblitz Word({en,ko,pron}) — 상위호환 서브셋.
+  const wordPool: Word[] | undefined = scope.words?.map((w) => ({
+    en: w.en,
+    ko: w.ko,
+    ...(w.pron ? { pron: w.pron } : {}),
+  }));
+
   return (
     <main style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <ResourceContext
-        resource={
-          scoped && pool
-            ? {
-                type: 'vocab',
-                label: pool.title,
-                position: pool.subtitle,
-                href: '/text',
-              }
-            : {
-                type: 'library',
-                label: '속사 인지',
-                position: '빠른 단어 게임',
-                href: '/wordblitz',
-              }
-        }
-      />
+      <ResourceContext resource={gameResourceContext(scope)} />
       <WordBlitzGame
-        wordPool={scoped && pool ? pool.words : undefined}
+        wordPool={wordPool}
         onExit={() => {
-          // 게임 세션 점수 적재 (scores) — 1회. captured 0(미플레이)면 skip.
-          const correct = correctRef.current;
-          const wrong = wrongRef.current;
-          const captured = correct + wrong;
-          if (!scoredRef.current && captured > 0) {
-            scoredRef.current = true;
-            void recordGameScore({
-              module: 'wordblitz',
-              score: correct * POINTS.CORRECT + wrong * POINTS.WRONG, // 게임 점수식 복제(고정점)
-              totalQuestions: captured,
-              correctCount: correct,
-              accuracy: Math.round((correct / captured) * 100),
-              durationSeconds: startRef.current
-                ? Math.round((Date.now() - startRef.current) / 1000)
-                : undefined,
-              ...(text ? { textId: text } : {}),
-              metadata: { captured, wrong, scoped },
-            });
-          }
-          // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (id 유실·엉뚱한 목적지 방지)
-          router.push(resolveSessionReturnHref(from, text, '/wordblitz'));
+          session.flush();
+          // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
+          router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordblitz'));
         }}
         onCorrect={(word) => {
-          correctRef.current += 1;
+          session.countCorrect();
           void recordWordBlitzResult({ word: word.en, isCorrect: true }); // learning_records(FSRS)
         }}
         onWrong={(word) => {
-          wrongRef.current += 1;
+          session.countWrong();
           void recordWordBlitzResult({ word: word.en, isCorrect: false });
         }}
       />

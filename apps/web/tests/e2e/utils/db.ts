@@ -166,6 +166,29 @@ export async function fetchUserVocabWords(
   return (data ?? []).map((r) => ({ word: r.word as string, meaning: (r.meaning as string) ?? '' }));
 }
 
+/**
+ * 특정 시각 이후 module 별 learning_records 행 개수 — 게임 인출 결과의 FSRS audit 단언용.
+ * recordGameResult 는 fire-and-forget 이므로 호출부에서 폴링 권장.
+ *
+ * ⚠ 시각 컬럼은 `attempted_at` — scores(created_at) 와 다르다(실측 검증).
+ */
+export async function countLearningRecordsSince(
+  userId: string,
+  module: string,
+  sinceIso: string,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { count, error } = await c
+    .from('learning_records')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .eq('module', module)
+    .gte('attempted_at', sinceIso);
+  if (error) return -1;
+  return count ?? 0;
+}
+
 /** user_profiles.current_v_level 조회 (밴드 적응성 검증용 · 원복 기준값). 키/행 없으면 null. */
 export async function getUserVLevel(userId: string): Promise<number | null> {
   const c = serviceClient();

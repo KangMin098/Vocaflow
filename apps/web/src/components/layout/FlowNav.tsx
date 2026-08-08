@@ -187,7 +187,9 @@ function getStageFromPathname(pathname: string): FlowStage | null {
     pathname.startsWith('/flashcard') ||
     pathname.startsWith('/spellforge') ||
     pathname.startsWith('/wordblitz') ||
-    pathname.startsWith('/pairflip')
+    pathname.startsWith('/pairflip') ||
+    // 아케이드는 Sidebar Practice 그룹 소속(v07.4) — FlowNav 단계도 같이 맞춘다.
+    pathname === '/arcade'
   )
     return 'practice'
   if (pathname === '/scriptquiz' || pathname.startsWith('/scriptquiz/')) return 'conquer'
@@ -639,7 +641,10 @@ export function FlowNav({ momentum: momentumProp }: { momentum?: FlowNavMomentum
   return (
     <nav
       aria-label="학습 여정"
-      className="sticky top-0 z-30 w-full border-b border-[var(--bd)] bg-[var(--bg)]/95 backdrop-blur"
+      // overflow-x:clip — 리치 툴팁(w-240px · opacity-0 이어도 레이아웃 점유)이 좁은 폭에서
+      //   뷰포트를 넘어 **모든 (main) 페이지에 가로 스크롤바**를 만들던 결함 차단(실측 768px 39px).
+      //   `clip` 은 `hidden` 과 달리 다른 축을 스크롤로 승격시키지 않아 툴팁이 아래로 펼쳐지는 건 그대로 유지된다.
+      className="sticky top-0 z-30 w-full overflow-x-clip border-b border-[var(--bd)] bg-[var(--bg)]/95 backdrop-blur"
     >
       {/* Desktop */}
       <div className="relative mx-auto hidden max-w-6xl items-stretch gap-1 px-4 py-2.5 md:flex">

@@ -105,19 +105,11 @@ export default async function ArcadePage() {
           id="mine"
           eyebrow="My Words"
           title="내 단어로 플레이"
-          desc={
-            mineReady
-              ? `내 단어 ${stats.total}개 중 복습이 임박한 것부터 나와요. 결과는 기억 곡선(FSRS)에 반영됩니다.`
-              : `내 단어가 ${MINE_READY_THRESHOLD}개 이상이면 여기 게임들이 내 단어로 바뀝니다. 지금은 맛보기 단어로 열려요.`
-          }
+          desc={mineDesc(mineReady, stats)}
           games={MINE_GAMES}
-          badge={mineReady ? `복습 임박 ${stats.dueNow}개` : '맛보기'}
+          badge={mineBadge(mineReady, stats)}
           badgeTone={mineReady ? 'live' : 'muted'}
-          action={
-            mineReady
-              ? undefined
-              : { href: '/wordvault', label: '단어 모으러 가기' }
-          }
+          action={mineReady ? undefined : { href: '/wordvault', label: '단어 모으러 가기' }}
         />
 
         {/* ③ 큐레이션 세계 */}
@@ -142,6 +134,33 @@ export default async function ArcadePage() {
       </div>
     </div>
   );
+}
+
+// ── 카피 — 3상태(단어없음 / 있고 due 0 / 있고 due N) 를 각각 자연스럽게 ──
+//
+// Empathetic Feedback: "복습 임박 0개" 같은 무의미한 0 배지나
+// "내 복습 단어 로 진행"(수 없는 문장) 같은 깨진 문장을 만들지 않는다.
+function mineBadge(mineReady: boolean, s: VocabStats): string {
+  if (!mineReady) return '맛보기';
+  return s.dueNow > 0 ? `복습 임박 ${s.dueNow}개` : '복습 완료 ✓';
+}
+
+function mineDesc(mineReady: boolean, s: VocabStats): string {
+  if (!mineReady) {
+    return `내 단어가 ${MINE_READY_THRESHOLD}개 이상이면 여기 게임들이 내 단어로 바뀝니다. 지금은 맛보기 단어로 열려요.`;
+  }
+  if (s.dueNow > 0) {
+    return `내 단어 ${s.total}개 중 복습이 임박한 것부터 나와요. 결과는 기억 곡선(FSRS)에 반영됩니다.`;
+  }
+  return `오늘 복습할 단어는 다 봤어요. 내 단어 ${s.total}개로 한 번 더 놀 수 있고, 결과는 기억 곡선에 반영됩니다.`;
+}
+
+/** 오늘의 추천 카드 한 줄 — 단어 수가 0이어도 문장이 깨지지 않게. */
+function dailyMeta(usesMyWords: boolean, s: VocabStats): string {
+  if (!usesMyWords) return '큐레이션 콘텐츠 · 단어 없이 바로 시작';
+  return s.dueNow > 0
+    ? `복습 임박한 내 단어 ${s.dueNow}개로 진행 · 기억 곡선 반영`
+    : `내 단어 ${s.total}개로 진행 · 기억 곡선 반영`;
 }
 
 // ── ① 오늘의 추천 ────────────────────────────────────────────────
@@ -179,11 +198,7 @@ function DailyPick({
             {game.name}
           </h2>
           <span className="arc-daily-tag">{game.tagline}</span>
-          <span className="arc-daily-meta">
-            {usesMyWords
-              ? `내 복습 단어 ${stats.dueNow > 0 ? `${stats.dueNow}개 ` : ''}로 진행 · 기억 곡선 반영`
-              : '큐레이션 콘텐츠 · 단어 없이 바로 시작'}
-          </span>
+          <span className="arc-daily-meta">{dailyMeta(usesMyWords, stats)}</span>
         </span>
         <span className="arc-daily-cta">
           시작 <span className="arc-arrow">→</span>
