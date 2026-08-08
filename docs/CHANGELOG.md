@@ -10,6 +10,17 @@
 
 ## Unreleased (v06.34 → next)
 
+### CCP × Library P0 — 만화가 라이브러리의 고를 수 있는 포맷이 됐다
+
+설계(아래) 의 P0 구현. **마이그레이션 없음** — 기존 발행 게이트 RPC(`list_book_comic_catalog`)만 사용.
+
+- **`/library/comics` 신설 + LibraryTabs 4탭**(도서/만화/스크립트/공용 단어장). 만화 탭 = `kind=book ∧ format∋comic` 의 저장된 뷰 — 콘텐츠 복제 0. 이어서 보기 레인(`comic_read_progress`) + 레벨 밴드 필터(facet-adaptive) + 발행 0일 때 차분한 빈 상태.
+- **포맷 축 도입(장르와 직교)**: `BookFilterBar` "음성" 구획 → **"포맷"**(만화/원어민 음성)으로 승격 · `BookFilters.comicOnly` · QuickPick "만화로" · `BookGridCard` gold 배지(아이콘 + sr-only 텍스트 — 색상 단독 전달 금지). 이제 "SF이면서 만화"가 질의된다.
+- **선택 지점 배선**: `NetflixDetailSheet` 도서 상세에 gold 보조 CTA(등록: 만화로 읽기 / 미등록: 만화 미리보기). `toBookDetailVariant` 경유라 spotlight·rail·그리드 전부 자동 적용.
+- **`lib/comic/catalog.ts` 단일 출처 신설** — 이전엔 `library/books/page.tsx` 안에 인라인. 커버(첫 컷) 조회를 `coverLimit`(실제 렌더 카드 수)로 상한: 히어로 4권만 받는다. `select_book_comic_all` 이 커버 1장에 전권 payload 를 주는 구조라 도서 수 증가 시 터질 자리였음 — 근본 해소(RPC `list_comic_catalog`)는 P1.
+- **회귀** — `11-comic-discovery.spec.ts`: 탭 이동(aria-selected) · 카드 href 계약(`/text/[id]/comic` 또는 `/library/books/[id]`) · **포맷 칩 적용 후 남은 도서 수 = 만화 배지 수**(필터가 거짓말하면 실패). 발행 만화 0이면 빈 상태 단언 후 종료(콘텐츠 의존 false-fail 방지).
+- 실측 확인: 발행 만화 1편 · 04-ui-smoke 5/5 통과 · 신규 spec 2/2 통과 · `tsc --noEmit` 클린.
+
 ### 설계 — CCP × Library 만화 카탈로그 편입 ([CCP_LIBRARY_INTEGRATION.md](./CCP_LIBRARY_INTEGRATION.md))
 
 만화를 `/library` 의 정식 학습 포맷으로 편입하는 설계 확정(구현 미착수). 핵심 판정: 만화 = **같은 책(Work)의 다른 표현형(Expression)** — FRBR 근거로 데이터는 `library_books` 앵커 유지, 탐색 UI 만 독립 코너화(4탭 `/library/comics` + 포맷 facet). 실측 결함 8종(G1~G8) 명시 — 만화 전용 진입점·필터 부재, **미등록 학습자 열람 불가**(라우트가 `texts.id` 요구), 히어로 알파벳순 4권 고정, 커버 1장에 전권 RPC 4회, 단어장(`target_vocab`) 미연계, 진도 이원화. seductive details 연구 근거로 **만화 완주 ≠ 챕터 완료**를 코드 계약(R1~R6)으로 고정. 신설 예정 RPC `list_comic_catalog`/`preview_book_comic`/`v_library_catalog` SQL 초안 포함(마이그레이션 미적용 — 승인 대기).

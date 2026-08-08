@@ -10,7 +10,11 @@ import { Capsule, Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
 import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroCard';
+import { comicBookIdsOf, fetchComicCatalog } from '@/lib/comic/catalog';
 import type { PublishedBook } from '@/lib/library/published-book';
+
+/** 만화 히어로에 노출할 최대 도서 수 (커버 조회 상한과 동일) */
+const HERO_N = 4;
 
 export const metadata = {
   title: '도서 — Vocaflow Library',
@@ -224,48 +228,40 @@ export default async function LibraryBooksPage() {
     });
   }
 
-  // ── 만화 발행 도서 히어로 (CCP) — list_book_comic_catalog(published 게이트) + 첫 컷 아트 ──
-  //   enrollment 정보로 route 분기: 등록 → /text/[textId]/comic · 미등록 → 도서 상세(등록 흐름)
-  const comicHeroes: ComicHeroItem[] = [];
-  try {
-    const { data: cat } = await client.rpc('list_book_comic_catalog');
-    const rows = (Array.isArray(cat) ? cat : []) as Array<{
-      library_book_id: string;
-      title: string;
-      author: string | null;
-      book_v_level: number | null;
-      panels_total: number;
-    }>;
-    const top = rows.slice(0, 4);
-    // 커버 아트 병렬 fetch (N+1 직렬 제거) — 첫 컷(select_book_comic_all 첫 행)
-    const covers = await Promise.all(
-      top.map(async (c) => {
-        try {
-          const { data } = await client.rpc('select_book_comic_all', { p_book_id: c.library_book_id });
-          return Array.isArray(data) && data[0]?.image_url ? (data[0].image_url as string) : null;
-        } catch {
-          return null;
-        }
-      }),
-    );
-    top.forEach((c, idx) => {
-      const e = enrollmentByBook.get(c.library_book_id);
-      const href = e
-        ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
-        : `/library/books/${c.library_book_id}`;
-      comicHeroes.push({
-        bookId: c.library_book_id,
-        title: c.title,
-        author: c.author,
-        vLevel: c.book_v_level,
-        panelsTotal: c.panels_total,
-        coverArt: covers[idx],
-        href,
-        enrolled: !!e,
-      });
+  // ── 만화 (CCP) — 카탈로그 1회로 히어로 + 도서 카드 포맷 배지를 함께 처리 ──
+  //   조회는 lib/comic/catalog.ts 단일 출처(만화 탭 /library/comics 와 공유).
+  //   히어로 route 분기: 등록 → /text/[textId]/comic · 미등록 → 도서 상세(등록 흐름)
+  //   커버는 실제로 그려지는 히어로 N개만 (커버 1장 = 전권 payload — lib/comic/catalog.ts 주석 참조)
+  const comicCatalog = await fetchComicCatalog(client, { coverLimit: HERO_N });
+  const comicHeroes: ComicHeroItem[] = comicCatalog.slice(0, HERO_N).map((c) => {
+    const e = enrollmentByBook.get(c.bookId);
+    return {
+      bookId: c.bookId,
+      title: c.title,
+      author: c.author,
+      vLevel: c.vLevel,
+      panelsTotal: c.panelsTotal,
+      coverArt: c.coverArt,
+      href: e ? `/text/${e.resumeTextId ?? e.firstTextId}/comic` : `/library/books/${c.bookId}`,
+      enrolled: !!e,
+    };
+  });
+
+  // 포맷 배지/필터/상세 시트 CTA — 히어로 상한과 무관하게 전량 필요.
+  //   같은 카탈로그를 재사용하므로 추가 쿼리 없음.
+  const comicBookIds = comicBookIdsOf(comicCatalog);
+  if (comicBookIds.size > 0) {
+    books = books.map((b) => {
+      if (!comicBookIds.has(b.id)) return b;
+      const e = enrollmentByBook.get(b.id);
+      return {
+        ...b,
+        has_comic: true,
+        comic_href: e
+          ? `/text/${e.resumeTextId ?? e.firstTextId}/comic`
+          : `/library/books/${b.id}`,
+      };
     });
-  } catch {
-    // RPC 미적용 등 — 히어로 생략(graceful)
   }
 
   const totalBooks = books.length;

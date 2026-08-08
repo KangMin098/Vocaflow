@@ -455,6 +455,15 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 라우트
 - `/text/[id]/comic` — ModePills input 그룹 "만화" 진입 (라이브러리 도서 + 발행 만화 존재 시). 없으면 EmptyState.
+- `/library/comics` — 만화 탭(발견). 카탈로그 + 이어서 보기(`comic_read_progress`). 등록 도서면 리더 직행, 미등록이면 도서 상세(등록 흐름)로.
+
+### 발견 (v07 CCP × Library — `docs/CCP_LIBRARY_INTEGRATION.md`)
+만화는 **별도 콘텐츠가 아니라 같은 책(Work)의 다른 표현형(Expression)** — 데이터는 `library_books` 앵커, 탐색 UI 만 독립 코너화.
+- **탭**: LibraryTabs 4탭(도서/만화/스크립트/공용 단어장). 만화 액센트 = gold `--active`.
+- **포맷 facet**: 장르 축과 직교. `BookFilterBar` "포맷" 구획(만화/원어민 음성) + QuickPick "만화로" + `BookGridCard` 배지(아이콘+sr-only).
+- **선택**: `NetflixDetailSheet` 도서 상세에 gold 보조 CTA(만화로 읽기 / 만화 미리보기) — 본문 CTA 와 동등 위계.
+- **조회 단일 출처**: `lib/comic/catalog.ts` (`fetchComicCatalog` / `comicBookIdsOf`) — 도서 히어로와 만화 탭 공유.
+- **분리 회계**: 만화 완주는 챕터 완료(`texts.status`)를 만들지 않음 — `comic_read_progress` 만 갱신(seductive details 방어).
 
 ### 리더 (`components/comic/ComicReader.tsx`)
 - **Calm UI**: 앱 토큰 재스킨 · 2D 페이지 전환 + `prefers-reduced-motion` 즉시 컷 (아티팩트 3D 쇼케이스와 분리).

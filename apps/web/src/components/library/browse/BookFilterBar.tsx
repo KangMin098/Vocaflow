@@ -2,14 +2,14 @@
 //
 // 도서 탐색 필터/정렬 바 — "항상 펼친 상세 패널" 재설계 (v06.35).
 //   상단: 검색 · 정렬 · 결과수 · 초기화
-//   구획(항상 노출, facet-adaptive): 내 학습 상태 · 나에게(i+1) · 레벨 · 장르 · 주제 · 연령 · 길이 · 음성
+//   구획(항상 노출, facet-adaptive): 내 학습 상태 · 나에게(i+1) · 레벨 · 장르 · 주제 · 연령 · 길이 · 포맷(만화/음성)
 // 이전 "묶음 한 카드 + 상세 disclosure" 를 라벨 구획으로 분리해 각 조건을 또렷하게.
 // 레벨 단위 = V-Level (CEFR 는 카드 배지 보조). 상태는 BooksExplorer 소유, facets 로 실재 값만 노출.
 
 'use client'
 
 import { useState } from 'react'
-import { Search, SlidersHorizontal, X } from 'lucide-react'
+import { BookImage, Search, SlidersHorizontal, X } from 'lucide-react'
 
 import {
   AGE_BANDS,
@@ -39,6 +39,8 @@ export interface BookFilters {
   age: AgeBand | null
   length: LengthBucket | null
   audioOnly: boolean
+  /** 포맷 — 만화(comic_books published)로도 볼 수 있는 도서만 */
+  comicOnly: boolean
 }
 
 export type BookSort = 'recommended' | 'easy' | 'hard' | 'short' | 'popular' | 'new'
@@ -53,6 +55,7 @@ export const EMPTY_FILTERS: BookFilters = {
   age: null,
   length: null,
   audioOnly: false,
+  comicOnly: false,
 }
 
 const ENROLL_OPTIONS: { key: EnrollFilter; label: string }[] = [
@@ -85,6 +88,8 @@ export interface FacetData {
   ages: AgeBand[]
   lengths: LengthBucket[]
   hasAudio: boolean
+  /** 발행된 만화를 가진 도서가 하나라도 있는지 */
+  hasComic: boolean
   /** 로그인 사용자가 등록(내 서재)한 도서가 하나라도 있는지 */
   hasEnrollments: boolean
 }
@@ -163,7 +168,8 @@ export function BookFilterBar({
     filters.theme !== null ||
     filters.age !== null ||
     filters.length !== null ||
-    filters.audioOnly
+    filters.audioOnly ||
+    filters.comicOnly
 
   const myBand = diagnosed ? vBandOf(userVLevel) : null
 
@@ -349,15 +355,25 @@ export function BookFilterBar({
         </Section>
       )}
 
-      {/* 음성 — 원어민 음성 보유 도서 (facet-adaptive) */}
-      {facets.hasAudio && (
-        <Section label="음성">
-          <Chip
-            active={filters.audioOnly}
-            onClick={() => onChange({ audioOnly: !filters.audioOnly })}
-          >
-            🔊 원어민 음성
-          </Chip>
+      {/* 포맷 — 같은 책의 다른 표현형(만화/음성). 장르 축과 직교(docs/CCP_LIBRARY_INTEGRATION.md D3). */}
+      {(facets.hasComic || facets.hasAudio) && (
+        <Section label="포맷">
+          {facets.hasComic && (
+            <Chip
+              active={filters.comicOnly}
+              onClick={() => onChange({ comicOnly: !filters.comicOnly })}
+            >
+              <BookImage size={11} aria-hidden /> 만화로도 볼 수 있어요
+            </Chip>
+          )}
+          {facets.hasAudio && (
+            <Chip
+              active={filters.audioOnly}
+              onClick={() => onChange({ audioOnly: !filters.audioOnly })}
+            >
+              🔊 원어민 음성
+            </Chip>
+          )}
         </Section>
       )}
     </div>

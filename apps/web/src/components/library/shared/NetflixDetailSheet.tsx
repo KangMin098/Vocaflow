@@ -15,7 +15,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
-import { X, Clock, BookOpen, Layers, Sparkles, Volume2 } from 'lucide-react'
+import { X, Clock, BookImage, BookOpen, Layers, Sparkles, Volume2 } from 'lucide-react'
 
 import { bookCover } from '@/lib/library/book-cover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
@@ -67,6 +67,9 @@ interface BookVariant {
   mine?: MyProgress
   ctaHref: string
   ctaLabel: string
+  /** v07 CCP — 만화 진입(포맷 선택). 발행 만화가 있는 도서에서만 non-null */
+  comicHref?: string | null
+  comicLabel?: string
   // v06.34 — 큐레이션 메타 (선택 의사결정 보조)
   synopsisKo?: string | null
   learningValue?: string | null
@@ -866,6 +869,18 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
         >
           나중에
         </button>
+        {/* 포맷 선택 — 만화 발행 도서만. 본문 CTA 와 동등 위계(강요 아님), gold 로 계열 구분 */}
+        {variant.type === 'book' && variant.comicHref && (
+          <Link
+            href={variant.comicHref}
+            onClick={onClose}
+            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-4 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            style={{ backgroundColor: 'var(--active)', color: '#231a09' }}
+          >
+            <BookImage size={14} aria-hidden />
+            {variant.comicLabel ?? '만화로 읽기'}
+          </Link>
+        )}
         <Link
           href={variant.ctaHref}
           onClick={onClose}

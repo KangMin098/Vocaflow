@@ -124,6 +124,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
     const lengthSet = new Set<LengthBucket>()
     const themeFreq = new Map<string, number>()
     let hasAudio = false
+    let hasComic = false
     let hasEnrollments = false
     for (const b of books) {
       const vb = vBandOf(b.book_v_level)
@@ -135,6 +136,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       if (lb) lengthSet.add(lb)
       for (const th of b.themes ?? []) themeFreq.set(th, (themeFreq.get(th) ?? 0) + 1)
       if (b.has_audio) hasAudio = true
+      if (b.has_comic) hasComic = true
       if (b.enrollment_state && b.enrollment_state !== 'not_enrolled') hasEnrollments = true
     }
     // tie-break 은 code-unit 비교 (localeCompare 는 Node↔브라우저 collation 차이로
@@ -149,6 +151,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       ages: AGE_BANDS.filter((a) => ageSet.has(a.key)).map((a) => a.key),
       lengths: LENGTH_BUCKETS.filter((l) => lengthSet.has(l.key)).map((l) => l.key),
       hasAudio,
+      hasComic,
       hasEnrollments,
     }
   }, [books])
@@ -177,6 +180,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       if (filters.age && ageBandOf(b.age_band) !== filters.age) return false
       if (filters.length && lengthBucket(b.reading_minutes) !== filters.length) return false
       if (filters.audioOnly && !b.has_audio) return false
+      if (filters.comicOnly && !b.has_comic) return false
       return true
     })
 
@@ -302,6 +306,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
           sort={sort}
           diagnosed={diagnosed}
           hasAudio={facets.hasAudio}
+          hasComic={facets.hasComic}
           onApply={(f, s) => {
             setFilters(f)
             setSort(s)

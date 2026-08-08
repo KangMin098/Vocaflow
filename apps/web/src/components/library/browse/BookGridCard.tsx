@@ -9,6 +9,7 @@
 import Image from 'next/image'
 import { Check, Sparkles, Volume2 } from 'lucide-react'
 
+import { ComicBadge } from '@/components/comic/ComicBadge'
 import { bookCover } from '@/lib/library/book-cover'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
@@ -128,6 +129,8 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
               <Volume2 size={9} />
             </span>
           )}
+          {/* 포맷 — 만화로도 볼 수 있는 도서 (CCP) */}
+          {book.has_comic && <ComicBadge variant="tile" />}
         </div>
 
         {/* in_progress 진행 바 */}

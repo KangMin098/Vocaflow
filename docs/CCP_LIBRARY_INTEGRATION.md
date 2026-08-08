@@ -418,10 +418,13 @@ comic_pages.target_vocab (verbatim 정본만)
 
 ## 13. 로드맵
 
-### P0 — 발견 (마이그레이션 없이 가능한 것부터)
-- [ ] `LibraryTabs` 4탭 + `/library/comics` 페이지(기존 `list_book_comic_catalog` 로 우선 동작)
-- [ ] `ComicBadge` + `PublishedBook.has_comic` + `BookFilterBar` formats facet
-- [ ] 히어로 커버 로딩 개선(전권 RPC 4회 → 카탈로그 1회)
+### P0 — 발견 ✅ 완료 (2026-08-08 · 마이그레이션 없음)
+- [x] `LibraryTabs` 4탭 + `/library/comics` 페이지 — 기존 `list_book_comic_catalog` 로 동작, 이어서 보기 레인 + 레벨 밴드 필터
+- [x] `lib/comic/catalog.ts` 단일 출처 — 도서 히어로/만화 탭 공유. 커버 조회는 `coverLimit`(실제 렌더 카드 수)로 상한
+- [x] `ComicBadge` + `PublishedBook.has_comic`/`comic_href` + `BookFilterBar` "포맷" 구획 + QuickPick "만화로"
+- [x] `NetflixDetailSheet` gold 보조 CTA(만화로 읽기 / 만화 미리보기) — spotlight·rail·그리드 공통(`toBookDetailVariant`)
+- [x] 회귀 `tests/e2e/11-comic-discovery.spec.ts` — 탭 이동 · 카드 진입 경로 · 포맷 칩이 배지 보유 도서만 남기는지
+- 남은 G4/G5: 노출 순서(알파벳)와 커버 payload 는 `list_comic_catalog` RPC 가 필요 → P1
 
 ### P1 — 선택 · 프리뷰 (마이그레이션 1건, 승인 필요)
 - [ ] 마이그레이션: `list_comic_catalog` · `preview_book_comic` · `comic_books.feature_rank` · `preview_from`

@@ -14,6 +14,7 @@ interface Preset {
   emoji: string
   needsDiag?: boolean
   needsAudio?: boolean
+  needsComic?: boolean
   patch: Partial<BookFilters>
   sort: BookSort
 }
@@ -22,6 +23,7 @@ const PRESETS: Preset[] = [
   { id: 'forme', label: '나에게 맞는', emoji: '🎯', needsDiag: true, patch: { fit: 'ideal' }, sort: 'recommended' },
   { id: 'challenge', label: '도전', emoji: '🔥', needsDiag: true, patch: { fit: 'challenge' }, sort: 'recommended' },
   { id: 'light', label: '가볍게', emoji: '☕', patch: { length: 'short' }, sort: 'short' },
+  { id: 'comic', label: '만화로', emoji: '🎞️', needsComic: true, patch: { comicOnly: true }, sort: 'recommended' },
   { id: 'audio', label: '오디오북', emoji: '🔊', needsAudio: true, patch: { audioOnly: true }, sort: 'recommended' },
   { id: 'popular', label: '인기', emoji: '⭐', patch: {}, sort: 'popular' },
 ]
@@ -31,6 +33,7 @@ interface Props {
   sort: BookSort
   diagnosed: boolean
   hasAudio: boolean
+  hasComic: boolean
   onApply: (filters: BookFilters, sort: BookSort) => void
 }
 
@@ -38,9 +41,10 @@ function targetOf(p: Preset): { filters: BookFilters; sort: BookSort } {
   return { filters: { ...EMPTY_FILTERS, ...p.patch }, sort: p.sort }
 }
 
-export function BookQuickPicks({ filters, sort, diagnosed, hasAudio, onApply }: Props) {
+export function BookQuickPicks({ filters, sort, diagnosed, hasAudio, hasComic, onApply }: Props) {
   const visible = PRESETS.filter(
-    (p) => (!p.needsDiag || diagnosed) && (!p.needsAudio || hasAudio),
+    (p) =>
+      (!p.needsDiag || diagnosed) && (!p.needsAudio || hasAudio) && (!p.needsComic || hasComic),
   )
   if (visible.length === 0) return null
 

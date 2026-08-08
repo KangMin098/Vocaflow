@@ -48,6 +48,9 @@ export function toBookDetailVariant(
     // enrollment 상태별 동적 CTA (page.tsx 가 미리 계산하여 prop 으로 전달)
     ctaHref: book.cta_href ?? `/library/books/${book.id}`,
     ctaLabel: book.cta_label ?? '미리보기',
+    // 포맷 선택 — 만화가 발행된 도서만 보조 CTA 노출 (docs/CCP_LIBRARY_INTEGRATION.md D5)
+    comicHref: book.has_comic ? (book.comic_href ?? null) : null,
+    comicLabel: isEnrolled ? '만화로 읽기' : '만화 미리보기',
     // 학습 제외 — enrolled 도서만 노출 (Footer 가 알아서 분기)
     isEnrolled,
     onUnenroll: isEnrolled ? handlers.onUnenroll : undefined,
