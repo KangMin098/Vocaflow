@@ -46,15 +46,24 @@ async function plan(bookId) {
   const { data: pages } = await db.from('comic_pages')
     .select('chapter_idx, page_order').eq('library_book_id', bookId)
   const { data: header } = await db.from('comic_books')
-    .select('status, panels_total, panels_pass').eq('library_book_id', bookId).maybeSingle()
+    .select('status, panels_total, panels_pass, style_key').eq('library_book_id', bookId).maybeSingle()
+  // 선택된 스타일(포맷×연령×장르×난이도 → art_prompt) — 생성이 이 디자인으로
+  let style = null
+  if (header?.style_key) {
+    const { data: st } = await db.from('comic_styles')
+      .select('key, name, format, age_band, genre, difficulty_min, difficulty_max, palette, art_prompt, negative_prompt, lettering')
+      .eq('key', header.style_key).maybeSingle()
+    style = st ?? null
+  }
   const byCh = {}
   for (const p of pages ?? []) byCh[p.chapter_idx] = (byCh[p.chapter_idx] ?? 0) + 1
   console.log(JSON.stringify({
     book: { id: book.id, title: book.title, author: book.author, status: book.status, v_level: book.book_v_level, chapters: book.chapter_count },
     header: header ?? { status: 'none' },
+    style: style ?? '(미선택 — Admin 검수에서 스타일 선택 권장)',
     existing_pages: byCh,
     total_pages: (pages ?? []).length,
-    guidance: '각색 스크립트(scripts/comic/examples/*.adapted.json) 기준 컷 생성 → pages.json 조립 → insert',
+    guidance: '① 선택 style.art_prompt/negative_prompt 로 화풍 고정 ② 각색 스크립트 기준 컷 생성 → pages.json 조립 → insert',
   }, null, 2))
 }
 

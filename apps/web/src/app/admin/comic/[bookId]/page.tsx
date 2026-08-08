@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
-import { fetchBookComicDetail } from '@/lib/comic/admin-queries'
+import { fetchBookComicDetail, fetchComicStyles } from '@/lib/comic/admin-queries'
 import { ComicReviewClient } from './ComicReviewClient'
 
 export const dynamic = 'force-dynamic'
@@ -14,7 +14,10 @@ export const metadata = { title: '만화 검수 · Admin' }
 export default async function ComicReviewPage({ params }: { params: { bookId: string } }) {
   await requireAdmin('/admin/comic')
   const client = (await createClient()) as unknown as SupabaseClient
-  const detail = await fetchBookComicDetail(client, params.bookId)
+  const [detail, styles] = await Promise.all([
+    fetchBookComicDetail(client, params.bookId),
+    fetchComicStyles(client),
+  ])
   if (!detail) notFound()
-  return <ComicReviewClient detail={detail} />
+  return <ComicReviewClient detail={detail} styles={styles} />
 }

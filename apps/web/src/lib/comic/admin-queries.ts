@@ -174,6 +174,7 @@ export interface ComicDetail {
     panels_total: number
     panels_pass: boolean
     style: string | null
+    style_key: string | null
     backend: string | null
     qc_verdict: Record<string, unknown> | null
     published_at: string | null
@@ -257,6 +258,23 @@ export interface ComicModel {
   run_envs: string[] | null; min_vram_gb: number | null
 }
 
+export interface ComicStyle {
+  key: string; name: string; format: string | null; age_band: string | null; genre: string | null
+  difficulty_min: number | null; difficulty_max: number | null; palette: string | null
+  art_prompt: string | null; negative_prompt: string | null; lettering: string | null
+  reference: string | null; source_url: string | null; status: string; is_default: boolean; sort: number
+}
+
+/** 만화 스타일 프리셋 카탈로그. */
+export async function fetchComicStyles(client: SupabaseClient): Promise<ComicStyle[]> {
+  const { data } = await client
+    .from('comic_styles')
+    .select('key, name, format, age_band, genre, difficulty_min, difficulty_max, palette, art_prompt, negative_prompt, lettering, reference, source_url, status, is_default, sort')
+    .order('sort')
+    .order('name')
+  return (data as ComicStyle[]) ?? []
+}
+
 /** 이미지 생성 모델 레지스트리 — comic_fit 내림차순. */
 export async function fetchComicModels(client: SupabaseClient): Promise<ComicModel[]> {
   const { data } = await client
@@ -284,7 +302,7 @@ export async function fetchBookComicDetail(
     client.from('library_books').select('id, title, author, status, book_v_level').eq('id', bookId).maybeSingle(),
     client
       .from('comic_books')
-      .select('status, panels_total, panels_pass, style, backend, qc_verdict, published_at')
+      .select('status, panels_total, panels_pass, style, style_key, backend, qc_verdict, published_at')
       .eq('library_book_id', bookId)
       .maybeSingle(),
     client

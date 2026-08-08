@@ -93,6 +93,8 @@
 
 ### 신규 파이프라인 — CCP (Comic Curation Pipeline · book→comic)
 
+- **만화 스타일 선택(디자인 · 국내외 딥서치)** — 마이그레이션 `20260808240000` **적용됨**: `comic_styles`(포맷×연령×장르×난이도(V-Level) → 모델-레디 art_prompt·negative·lettering·palette·근거URL·상태) + `comic_books.style_key`. **국내외 딥서치로 20 프리셋 시드**: 웹툰 10(순정/로판/액션판타지/일상개그/감성일상/스릴러느와르/미스터리/학습만화/사극무협/공포) + 국제 10(Gonick교육/빅토리아동판화/그래픽노블/리뉴클레르/소년·소녀·청년·코도모 만화/슈퍼히어로/정밀리터러리). Admin **"스타일" 탭**(포맷/연령/장르 필터·art_prompt 프리뷰·상태) + **검수 콘솔 도서별 스타일 드롭다운**(setBookStyleAction) → `generate-comic.mjs plan`이 선택 art_prompt 노출 → 생성이 그 디자인으로. Carol=Gonick 기본(is_default).
+
 - **진도 영속(P3 · 연속성)** — 마이그레이션 `20260808160000` **적용됨**: `comic_read_progress`(user_id+library_book_id PK · RLS user-owns) + `save_comic_progress` RPC. 리더가 위치를 서버에 **디바운스 저장** + 진입 시 **서버 진도 우선 복원**(localStorage 폴백) → **기기 간 이어보기** + 완독 시각 기록. 리더 route가 진도 로드 → `initialIndex` 전달.
 - **세로 스크롤 몰입 모드(P2)** — 리더 상단에 **Page↔Scroll 토글**(Rows3/Square·뷰 localStorage 영속). Scroll = 전 컷 세로 스택(웹툰형) + IntersectionObserver로 현재 컷 추적(레일·카운터·aria-live) + 스크롤 시 크롬 자동숨김 + 레일 dot 탭 scrollIntoView. 뷰 통합 nav()로 키보드/푸터/레일 공용, `renderPanel` 추출로 두 모드 공용. reduced-motion 대응.
 - **정본 회상 보상 루프(P2)** — verbatim blur→reveal 후 **"기억했어요 / 다시 볼게요"** 자가판정(Desirable Difficulty) + 세션 회상 집계 → 완독 화면 "정본 대사 N개를 기억했어요"(자기효능감·폭죽 없음). Emotional Encoding.

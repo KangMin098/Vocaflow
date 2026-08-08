@@ -8,11 +8,11 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   AlertTriangle, ArrowLeft, Archive, ArchiveRestore, CheckCircle2, ChevronLeft,
-  ChevronRight, Cpu, Loader2, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
+  ChevronRight, Cpu, Loader2, Palette, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
 } from 'lucide-react'
-import type { ComicDetail, ComicStage } from '@/lib/comic/admin-queries'
+import type { ComicDetail, ComicStage, ComicStyle } from '@/lib/comic/admin-queries'
 import {
-  archiveComicAction, deleteComicAction, enqueueComicJobsAction, setComicPublishedAction,
+  archiveComicAction, deleteComicAction, enqueueComicJobsAction, setBookStyleAction, setComicPublishedAction,
 } from '../actions'
 
 const ACCENT = '#8B5CF6'
@@ -41,10 +41,20 @@ function thumb(url: string): string {
   return `${t}${t.includes('?') ? '&' : '?'}width=320&quality=60&resize=contain`
 }
 
-export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
+export function ComicReviewClient({ detail, styles }: { detail: ComicDetail; styles: ComicStyle[] }) {
   const router = useRouter()
   const [pending, start] = useTransition()
   const [msg, setMsg] = useState<string | null>(null)
+  const [styleBusy, setStyleBusy] = useState(false)
+  const setStyle = (key: string) => {
+    setStyleBusy(true); setMsg(null)
+    start(async () => {
+      const r = await setBookStyleAction(detail.bookId, key || null)
+      setStyleBusy(false)
+      if (r.ok) router.refresh(); else setMsg(`스타일 지정 실패: ${r.error}`)
+    })
+  }
+  const curStyle = styles.find((s) => s.key === detail.header?.style_key)
 
   // 생성 중 실시간 진행 — 5s마다 서버 데이터 갱신(패널 수/단계)
   useEffect(() => {
@@ -136,6 +146,29 @@ export function ComicReviewClient({ detail }: { detail: ComicDetail }) {
           <span className={`font-body text-[12px] ${msg.startsWith('실패') ? 'text-[var(--memory-risk)]' : 'text-[var(--memory-stable)]'}`}>
             {msg}
           </span>
+        )}
+      </div>
+
+      {/* 만화 스타일 선택 (포맷×연령×장르×난이도) */}
+      <div className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--t1)]">
+          <Palette size={15} style={{ color: ACCENT }} /> 만화 스타일
+        </span>
+        <select
+          aria-label="만화 스타일 선택"
+          value={detail.header?.style_key ?? ''}
+          disabled={styleBusy}
+          onChange={(e) => setStyle(e.target.value)}
+          className="min-h-11 min-w-[240px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)] disabled:opacity-50"
+        >
+          <option value="">— 스타일 선택 —</option>
+          {styles.filter((s) => s.status !== 'rejected').map((s) => (
+            <option key={s.key} value={s.key}>{s.name} · {s.format}/{s.age_band}/{s.genre} · V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</option>
+          ))}
+        </select>
+        {styleBusy && <Loader2 size={14} className="animate-spin text-[var(--t3)]" />}
+        {curStyle && (
+          <span className="font-body text-[12px] text-[var(--t3)]">{curStyle.palette} · 생성 시 이 art_prompt 적용</span>
         )}
       </div>
 

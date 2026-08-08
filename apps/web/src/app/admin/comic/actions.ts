@@ -61,6 +61,37 @@ export async function archiveComicAction(
   }
 }
 
+export async function setComicStyleStatusAction(key: string, status: string): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/comic')
+    if (!['candidate', 'adopted', 'rejected'].includes(status)) return { ok: false, error: '잘못된 상태' }
+    const client = (await createClient()) as unknown as SupabaseClient
+    const { error } = await client.from('comic_styles').update({ status }).eq('key', key)
+    if (error) return { ok: false, error: error.message }
+    revalidatePath('/admin/comic')
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '스타일 상태 변경 실패' }
+  }
+}
+
+/** 도서별 스타일 선택 — comic_books.style_key (없으면 헤더 upsert). */
+export async function setBookStyleAction(bookId: string, styleKey: string | null): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/comic')
+    const client = (await createClient()) as unknown as SupabaseClient
+    const { error } = await client
+      .from('comic_books')
+      .upsert({ library_book_id: bookId, style_key: styleKey }, { onConflict: 'library_book_id' })
+    if (error) return { ok: false, error: error.message }
+    revalidatePath('/admin/comic')
+    revalidatePath(`/admin/comic/${bookId}`)
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '스타일 지정 실패' }
+  }
+}
+
 export async function setComicModelStatusAction(key: string, status: string): Promise<ActionResult> {
   try {
     await requireAdmin('/admin/comic')

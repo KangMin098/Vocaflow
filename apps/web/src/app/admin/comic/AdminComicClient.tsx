@@ -7,12 +7,12 @@
 import { useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { BookImage, Boxes, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Plus, ShieldCheck } from 'lucide-react'
-import type { ComicCatalogRow, ComicModel, ComicStats, ComicTest } from '@/lib/comic/admin-queries'
-import { createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicPublishedAction } from './actions'
+import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Palette, Plus, ShieldCheck } from 'lucide-react'
+import type { ComicCatalogRow, ComicModel, ComicStats, ComicStyle, ComicTest } from '@/lib/comic/admin-queries'
+import { createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicStyleStatusAction, setComicPublishedAction } from './actions'
 
 const ACCENT = '#8B5CF6'
-type TabKey = 'catalog' | 'published' | 'tests' | 'models'
+type TabKey = 'catalog' | 'published' | 'tests' | 'models' | 'styles'
 
 const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
@@ -21,7 +21,7 @@ const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string;
   archived: { label: '보관', tone: 'var(--t3)' },
 }
 
-export function AdminComicClient({ rows, stats, tests, models }: { rows: ComicCatalogRow[]; stats: ComicStats; tests: ComicTest[]; models: ComicModel[] }) {
+export function AdminComicClient({ rows, stats, tests, models, styles }: { rows: ComicCatalogRow[]; stats: ComicStats; tests: ComicTest[]; models: ComicModel[]; styles: ComicStyle[] }) {
   const router = useRouter()
   const [tab, setTab] = useState<TabKey>('catalog')
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -115,7 +115,7 @@ export function AdminComicClient({ rows, stats, tests, models }: { rows: ComicCa
 
       {/* 탭 */}
       <div role="tablist" className="flex gap-1 border-b border-[var(--bd)]">
-        {(['catalog', 'published', 'tests', 'models'] as TabKey[]).map((k) => (
+        {(['catalog', 'published', 'styles', 'tests', 'models'] as TabKey[]).map((k) => (
           <button
             key={k}
             role="tab"
@@ -126,7 +126,7 @@ export function AdminComicClient({ rows, stats, tests, models }: { rows: ComicCa
             }`}
             style={tab === k ? { borderColor: ACCENT } : undefined}
           >
-            {k === 'catalog' ? 'Catalog' : k === 'published' ? 'Published' : k === 'tests' ? '테스트' : '모델'}
+            {k === 'catalog' ? 'Catalog' : k === 'published' ? 'Published' : k === 'styles' ? '스타일' : k === 'tests' ? '테스트' : '모델'}
           </button>
         ))}
       </div>
@@ -229,9 +229,84 @@ export function AdminComicClient({ rows, stats, tests, models }: { rows: ComicCa
         </div>
       )}
 
+      {tab === 'styles' && <StylesTab styles={styles} />}
       {tab === 'tests' && <TestsTab tests={tests} models={models} />}
       {tab === 'models' && <ModelsTab models={models} />}
     </div>
+  )
+}
+
+function StylesTab({ styles }: { styles: ComicStyle[] }) {
+  const router = useRouter()
+  const [, start] = useTransition()
+  const [busy, setBusy] = useState<string | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+  const [fmt, setFmt] = useState(''); const [age, setAge] = useState(''); const [genre, setGenre] = useState('')
+  const uniq = (k: keyof ComicStyle) => [...new Set(styles.map((s) => s[k]).filter(Boolean))] as string[]
+  const filtered = styles.filter((s) => (!fmt || s.format === fmt) && (!age || s.age_band === age) && (!genre || s.genre === genre))
+  const setStatus = (key: string, status: string) => {
+    setBusy(key); setErr(null)
+    start(async () => { const r = await setComicStyleStatusAction(key, status); setBusy(null); if (r.ok) router.refresh(); else setErr(`${key}: ${r.error}`) })
+  }
+  const PAL: Record<string, string> = { bw: '#3a3a3a', color: '#8B5CF6', pastel: '#E9A6C0', duotone: '#4A7FB5', sepia: '#9C7A4A' }
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+        <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+          <b className="text-[var(--t1)]">만화 스타일 프리셋</b> — 생성 만화의 디자인을 <b>포맷(웹툰/만화/그래픽노블) × 연령 × 장르 × 난이도(V-Level)</b>로 선택. 국내외 딥서치 기반 프리셋 = 모델-레디 아트 프롬프트. 도서 검수 화면에서 도서별 스타일을 지정하면 생성 드레인이 그 art_prompt 로 생성합니다.
+        </p>
+        {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">스타일 상태 변경 실패 — {err}</p>}
+      </div>
+
+      {/* 차원 필터 */}
+      <div className="flex flex-wrap gap-2">
+        <FilterSel label="포맷" value={fmt} onChange={setFmt} opts={uniq('format')} />
+        <FilterSel label="연령" value={age} onChange={setAge} opts={uniq('age_band')} />
+        <FilterSel label="장르" value={genre} onChange={setGenre} opts={uniq('genre')} />
+        <span className="self-center font-body text-[12px] text-[var(--t3)]">{filtered.length}/{styles.length}</span>
+      </div>
+
+      {styles.length === 0 ? (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">스타일 카탈로그가 비어 있습니다. (국내외 딥서치 시드 대기)</p>
+      ) : (
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {filtered.map((s) => (
+            <div key={s.key} className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="h-3 w-3 shrink-0 rounded-full" style={{ background: PAL[s.palette ?? ''] ?? 'var(--t4)' }} aria-hidden />
+                <span className="font-display text-[13px] font-[800] text-[var(--t1)]">{s.name}</span>
+                {s.is_default && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-white" style={{ background: ACCENT }}>기본</span>}
+                {s.source_url && <a href={s.source_url} target="_blank" rel="noreferrer" className="text-[var(--t3)] hover:text-[var(--active)]"><ExternalLink size={12} /></a>}
+                <div className="flex-1" />
+                <ModelStatusPill status={s.status === 'adopted' ? 'adopted' : s.status === 'rejected' ? 'rejected' : 'candidate'} />
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {[s.format, s.age_band, s.genre, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">{t}</span>)}
+                {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
+              </div>
+              {s.art_prompt && <p className="line-clamp-3 font-body text-[11px] leading-relaxed text-[var(--t3)]" title={s.art_prompt}>{s.art_prompt}</p>}
+              {s.reference && <p className="font-body text-[11px] italic text-[var(--t4)]">ref: {s.reference}</p>}
+              <div className="mt-1">
+                <select aria-label={`${s.name} 상태`} value={s.status} disabled={busy === s.key} onChange={(e) => setStatus(s.key, e.target.value)} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
+                  {['candidate', 'adopted', 'rejected'].map((st) => <option key={st} value={st}>{st}</option>)}
+                </select>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+function FilterSel({ label, value, onChange, opts }: { label: string; value: string; onChange: (v: string) => void; opts: string[] }) {
+  return (
+    <label className="inline-flex items-center gap-1.5">
+      <span className="font-display text-[11px] font-[700] text-[var(--t3)]">{label}</span>
+      <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-body text-[12px] text-[var(--t1)]">
+        <option value="">전체</option>
+        {opts.map((o) => <option key={o} value={o}>{o}</option>)}
+      </select>
+    </label>
   )
 }
 
