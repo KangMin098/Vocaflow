@@ -28,6 +28,21 @@ import { getAdapter, listAdapters } from './sources/index.mjs'
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
 
+// 저장소 tools/ 자동 인식 — 앱 브리지(pipeline-bridge.ts resolveTools)와 동일 규칙.
+// CLI 를 직접 돌릴 때도 env 수동 세팅 없이 ffmpeg·tesseract.js 가 잡히게 한다(앱↔CLI 일관).
+// tools/ 는 .gitignore 대상(커밋 안 됨)이지만 있으면 설정 0으로 동작.
+;(function resolveTools() {
+  const root = path.resolve(HERE, '..', '..', '..')
+  if (!process.env.FFMPEG_BIN) {
+    const local = path.join(root, 'tools', 'ffmpeg', 'ffmpeg.exe')
+    if (fs.existsSync(local)) process.env.FFMPEG_BIN = local
+  }
+  if (!process.env.TESSERACTJS_DIR) {
+    const local = path.join(root, 'tools', 'tess')
+    if (fs.existsSync(path.join(local, 'eng.traineddata'))) process.env.TESSERACTJS_DIR = local
+  }
+})()
+
 function parseArgs(argv) {
   const a = { pages: null, testPages: 6 }
   for (let i = 2; i < argv.length; i++) {
