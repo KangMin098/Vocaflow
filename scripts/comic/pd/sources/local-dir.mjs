@@ -36,14 +36,14 @@ import path from 'node:path'
 const IMG_RE = /\.(jpe?g|png|tif?f|webp)$/i
 
 function readSidecar(dir) {
+  // source.json(출처·PD 근거)은 권장이지만 필수는 아니다 — 다른 소스와 동일하게 취득은 진행하고,
+  // PD 근거 없으면 **발행만 차단**된다(DB publish gate). 하드 실패는 "안 되는 소스"를 만든다(실측).
   const f = path.join(dir, 'source.json')
   if (!fs.existsSync(f)) {
-    throw new Error(
-      `source.json 이 없습니다: ${f}\n` +
-        '수동 취득 소재는 출처·PD 근거를 반드시 함께 적어야 파이프라인에 들어갈 수 있습니다.',
-    )
+    console.error(`  ⚠️ source.json 없음(${dir}) — 출처·PD 근거 미기재. 취득은 진행, 발행은 차단.`)
+    return {}
   }
-  return JSON.parse(fs.readFileSync(f, 'utf8'))
+  try { return JSON.parse(fs.readFileSync(f, 'utf8')) } catch (e) { console.error(`  ⚠️ source.json 파싱 실패(${f}): ${e.message}`); return {} }
 }
 
 export const localDir = {
