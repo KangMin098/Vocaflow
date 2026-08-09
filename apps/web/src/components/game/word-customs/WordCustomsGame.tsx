@@ -997,19 +997,23 @@ export function WordCustomsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
                 serial={phase === 'reveal' ? processed : processed + 1}
                 revealed={phase === 'reveal'}
               />
+              {/* stamp·burst·gain 은 같은 부모의 형제이고 각자 자기 카운터(.n)로 키를 쓴다.
+                  셋은 같은 판정에서 함께 증가하므로 n 이 겹치는 순간 React 가
+                  "two children with the same key" 로 한쪽을 버린다(실측 세션당 5회).
+                  리마운트(애니메이션 재생) 효과는 유지하고 충돌만 없애려면 네임스페이스가 필요하다. */}
               {stamp && (
-                <div key={stamp.n} className={`wc-stampmark wc-stampmark--${stamp.kind}`} aria-hidden="true">
+                <div key={`stamp-${stamp.n}`} className={`wc-stampmark wc-stampmark--${stamp.kind}`} aria-hidden="true">
                   <span className="wc-stampmark-ko">{stamp.kind === 'approve' ? '통과' : stamp.kind === 'deny' ? '반송' : '미결'}</span>
                   <span className="wc-stampmark-en">{stamp.kind === 'approve' ? 'APPROVED' : stamp.kind === 'deny' ? 'DENIED' : 'PENDING'}</span>
                 </div>
               )}
               {burst && (
-                <span key={burst.n} className="wc-burst-at" aria-hidden="true">
+                <span key={`burst-${burst.n}`} className="wc-burst-at" aria-hidden="true">
                   <ParticleBurst intensity={burst.power} colors={['var(--success)', 'var(--streak)', 'var(--combo)']} />
                 </span>
               )}
               {gain && (
-                <span key={gain.n} className="wc-gain" aria-hidden="true">
+                <span key={`gain-${gain.n}`} className="wc-gain" aria-hidden="true">
                   +{gain.v}{gain.mult > 1 && <em>×{gain.mult}</em>}{gain.pledged && <em>속결×2</em>}
                 </span>
               )}

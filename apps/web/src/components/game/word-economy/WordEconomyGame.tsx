@@ -801,10 +801,14 @@ export function WordEconomyGame({ wordPool, onExit, onCorrect, onWrong }: Props)
               )}
             </div>
             <span className="we-label">{q.settling ? '보유 지분을 정산하세요' : '이 뜻의 종목을 체결하세요'}</span>
-            <h1 className="we-meaning" key={q.key}>{q.target.ko}</h1>
+            {/* 둘 다 문항이 바뀔 때 리마운트돼야 한다(뜻은 bump 애니메이션, 게이지는 초기화).
+                다만 같은 부모의 형제이므로 key 가 겹치면 React 가 한쪽을 버린다 —
+                실제로 q.key 를 그대로 둬서 "two children with the same key" 경고가 났다.
+                네임스페이스를 붙여 리마운트 효과는 유지하고 충돌만 없앤다. */}
+            <h1 className="we-meaning" key={`meaning-${q.key}`}>{q.target.ko}</h1>
             {reveal
               ? <div className="we-quote we-quote--done"><span className={`we-delta ${delta >= 0 ? 'we-delta--up' : 'we-delta--down'}`}>{delta >= 0 ? '▲ +' : '▼ '}{Math.abs(delta)}🪙</span></div>
-              : <QuoteGauge key={q.key} win={q.win} mult={projMult} />}
+              : <QuoteGauge key={`gauge-${q.key}`} win={q.win} mult={projMult} />}
           </div>
 
           <div className={`we-tiles ${q.options.length <= 2 ? 'we-tiles--two' : ''}`}>
