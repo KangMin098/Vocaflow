@@ -156,6 +156,90 @@ export function detectBalloons(file, textBoxes, opt = {}) {
 }
 
 /**
+ * **OCR 없이** 말풍선 후보를 찾는다 — OCR 재현율의 분모를 만들기 위한 것.
+ *
+ * 왜 필요한가:
+ *   기존 OCR 채점(tune.mjs)은 "찾은 대사 중 몇 개가 깨끗한가"만 본다. **놓친 대사는 모른다.**
+ *   그래서 스윕이 정밀도만 올리고 재현율은 오히려 떨어뜨릴 수 있다
+ *   (실측: 0004-c02 의 "Yassuh, yassuh!" 풍선이 통째로 미검출인데 점수는 높았다).
+ *
+ *   손으로 전사해 정답을 만들 수도 있지만, 풍선의 **개수**만 알면 재현율은 나온다.
+ *   말풍선은 그림과 다른 시각적 성질을 갖는다 — 밝고, 뭉툭하고, 안에 잉크가 있다.
+ *   그걸로 후보를 세고 `OCR 이 텍스트를 넣은 후보 / 전체 후보` 를 재현율로 쓴다.
+ *
+ * detectBalloons 와 다른 점: 저건 OCR 좌표를 씨앗으로 받아 **확장**한다(정밀).
+ * 이건 씨앗 없이 **탐색**한다(재현율 측정용). 오탐이 섞이므로 지우기에는 쓰지 않는다.
+ *
+ * ⚠️ **아직 보정되지 않았다 — 지표로 쓰지 마라.** (실측 2026-08-09)
+ *   Classics Illustrated #27 로 재봤더니 OCR 이 **찾아낸** 풍선조차 후보로 못 잡았다
+ *   (0004-c04: OCR 2개 검출 · 후보 0). 그 상태로 재현율을 계산하면 8% 가 나오는데,
+ *   그건 OCR 이 아니라 이 검출기의 실패를 재는 수다.
+ *   분모가 틀린 지표는 없느니만 못하다 — 스윕이 엉뚱한 방향으로 최적화된다.
+ *
+ *   왜 못 잡나: 밝은 성분이 배경과 이어지면 bbox 가 커져 채움률(0.55) 문턱에 걸린다.
+ *   문턱을 낮추면 이번엔 그림 영역이 후보로 들어온다 — 정답 없이 조정하면 그 트랩이다
+ *   (컷분할에서 프록시 지표가 과분할을 고른 것과 같은 구조).
+ *
+ *   **다음 단계는 사람이 세는 것이다.** 표본 컷의 실제 말풍선 수를 truth 에 박고,
+ *   그걸 분모로 OCR 재현율을 재야 한다. 컷분할 정답(`samples` 아래 truth.json)과 같은 방식.
+ */
+export function detectBalloonCandidates(file, opt = {}) {
+  const analysis = opt.analysis ?? 900
+  const bright = opt.bright ?? BRIGHT
+  const minArea = opt.minArea ?? 0.004
+  const maxArea = opt.maxArea ?? 0.3
+  const img = readRgb(file, analysis)
+  const { labels, boxes } = labelBright(img, bright)
+  const total = img.w * img.h
+
+  const out = []
+  for (const [id, b] of boxes.entries()) {
+    const bw = b.x1 - b.x0
+    const bh = b.y1 - b.y0
+    const bboxArea = bw * bh
+    if (bboxArea / total < minArea || bboxArea / total > maxArea) continue
+    if (bw < 12 || bh < 8) continue
+    // 뭉툭함 — 풍선은 박스를 대부분 채운다. 얇은 하이라이트·테두리 획을 걸러낸다.
+    if (b.area / bboxArea < 0.55) continue
+    const aspect = Math.max(bw / bh, bh / bw)
+    if (aspect > 8) continue
+
+    // 안에 잉크(글자)가 있어야 말풍선이다. 하늘·눈밭은 밝지만 잉크가 없다.
+    // 너무 많으면 그림 영역이다(밝은 배경 위 검은 물체).
+    let dark = 0
+    let n = 0
+    for (let y = b.y0; y < b.y1; y += 2) {
+      for (let x = b.x0; x < b.x1; x += 2) {
+        n++
+        const [r, g, bl] = px(img, x, y)
+        if ((r * 299 + g * 587 + bl * 114) / 1000 < 110) dark++
+      }
+    }
+    const inkRatio = n ? dark / n : 0
+    if (inkRatio < 0.03 || inkRatio > 0.45) continue
+
+    out.push({
+      x: b.x0 / img.w,
+      y: b.y0 / img.h,
+      w: bw / img.w,
+      h: bh / img.h,
+      inkRatio: +inkRatio.toFixed(3),
+      label: id,
+    })
+  }
+  return out
+}
+
+/** 두 박스의 교집합 비율(작은 쪽 기준) — 후보와 OCR 결과를 짝지을 때 쓴다. */
+export function overlapRatio(a, b) {
+  const ix = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x))
+  const iy = Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y))
+  const inter = ix * iy
+  const small = Math.min(a.w * a.h, b.w * b.h)
+  return small > 0 ? inter / small : 0
+}
+
+/**
  * 겹치거나 맞닿은 박스를 합친다.
  * 후퇴 박스들이 한 캡션의 조각인 경우가 흔해, 합치지 않으면 사이에 글자가 남는다.
  */
