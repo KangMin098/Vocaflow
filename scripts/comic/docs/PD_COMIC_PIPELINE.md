@@ -411,3 +411,67 @@ node scripts/comic/pd/tune.mjs report          # 표본별 이력 + 교차 평�
 |---|---|---|---|
 | 컷 분할 | 고정 `dilate 2` | **페이지별 적응형** | 교차 평균 -2.661 → -0.894 |
 | 대사 추출 | `psm 3` | **`psm 4`** | 두 표본 모두 1위 (32.84 / 7.95) |
+
+---
+
+## 🚀 사용법 (구성 보존 현대화 — 채택 플로우)
+
+> 사고방식: **스크립트=손(취득·복원·OCR·합성), Claude Code=눈·판단(현대화 판정·좌표·대사)**.
+> 도구: `tools/ffmpeg/ffmpeg.exe` · `tools/tess/eng.traineddata` (로컬). Playwright chromium 은 `apps/web`(e2e).
+
+### Phase 1 — 취득·전처리 (자동)
+```bash
+# (선택) 소스 발굴 → 큐 적재
+node scripts/comic/pd/curate.mjs --query "whiz comics" --top 6 [--enqueue]
+
+# 환경 점검 → 계획 → 앞 6쪽 QC → 전권
+node scripts/comic/pd/pipeline.mjs --doctor
+node scripts/comic/pd/pipeline.mjs --source internet-archive --id <식별자> --dry-run
+node scripts/comic/pd/pipeline.mjs --source internet-archive --id <식별자> --test
+node scripts/comic/pd/pipeline.mjs --source internet-archive --id <식별자> --out work/<slug> --record
+#   pipeline = acquire → restore(ffmpeg) → segment → ocr(tesseract) → refine intake
+#   소스: internet-archive · iiif · local-dir(수기 다운로드) · browser-assist
+#   --record 를 붙여야 Admin 모니터에 뜬다(pd_comic_issues.qc.workDir).
+```
+
+### Phase 2 — 이미지 현대화 (색채·디자인, 구성 100% 보존)
+```bash
+node scripts/comic/pd/page-modern.mjs --workdir work/<slug> --level MAX
+#   A(클린)<B(밸런스)<C(볼드)<MAX(플랫벡터, 최대 현대). 원작 페이지 구성 그대로.
+#   결과: work/<slug>/page-modern/*.jpg + compare_preview.jpg(원작|결과)
+```
+
+### Phase 3 — 내용(대사) 현대화
+```bash
+# 대사 확보: OCR 자동분은 refine, OCR 누락분은 Claude Code 비전 전사
+node scripts/comic/pd/refine.mjs --intake work/<slug>   # → refine.intake.json
+#   Claude Code 가 refine.output.json 작성(모던 i+1) 후:
+node scripts/comic/pd/refine.mjs --ingest work/<slug>   # → bubbles.refined.manifest.json
+
+# 말풍선 좌표+대사 스펙 작성 = Claude Code 가 각 페이지를 보고 직접(OCR 좌표 신뢰 불가)
+#   좌표 판독: page-modern 이미지에 10% 그리드 오버레이(ffmpeg)로 보고 비율(0~1) 지정
+#   → work/<slug>/letter.spec.json  { "<page>": [{type:'balloon'|'caption', x,y,w,h, text}] }
+```
+
+### Phase 4 — 리더 생성·검증 (test → fix → verify)
+```bash
+node scripts/comic/pd/page-html.mjs --workdir work/<slug>      # → page-html/reader.html
+node scripts/comic/pd/render-check.cjs --workdir work/<slug>   # Playwright 렌더 스크린샷
+#   Claude Code 가 renders/pNN.png 판정 → 어긋난 좌표는 letter.spec.json 숫자만 수정 → 재실행
+#   (이미지 재작업 없이 좌표 수렴 — HTML 오버레이의 핵심 장점)
+```
+
+### Phase 5 — 모니터링·자기발전 기록
+```bash
+node scripts/comic/pd/oplog.mjs --slug <slug> --content "<제목>" \
+  --phase page-modern --action improve|adopt|reject|pivot|evaluate|note \
+  --title "..." --detail "..." --verdict "..." --next "..."
+#   → work/_oplog.jsonl → Admin 모니터 최상단 '자기발전 타임라인'
+```
+Admin: `/admin/pd-comics` → **테스트·모니터** → 이슈행 **라이브 진행**(원본·복원·컷 + 현대화 산출물)
+· **모던 리더 ↗**(발행 전 preview: 이미지+모던 대사+TTS+단어뜻).
+
+### 발행 (학습자)
+PD 근거(`pd_basis`) 확정 후 학습자 서가 `/comics/restored/<slug>` 로. 그 전엔 admin preview 까지.
+
+**대안(비채택, 참고)**: `webtoon.mjs`(세로 리플로우—구성 변경) · `dialogue-below.mjs`(컷 아래 대사 바) · `page-letter.mjs`/`reletter.mjs`(원작 위 래스터 레터링—좌표 취약 반려).
