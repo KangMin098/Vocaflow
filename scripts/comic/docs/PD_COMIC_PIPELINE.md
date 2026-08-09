@@ -34,6 +34,11 @@
 > ⛔ **원작 위 덮어쓰기 반려** (`reletter.mjs` 실측): OCR 말풍선 box 좌표가 부정확하고 미검출도 있어 흰 말풍선이 엉뚱한 위치에 찍히며 원문이 잔존 → **작화 훼손**. 래스터/HTML 불문 stamp-over 폐기(`reletter.manifest.json` verdict=반려).
 > ✅ **채택**: 모던 컷 **아래**에 클린 sans 대사 바(forest 강조 `#2E7D5A` + `refined` i+1 재작성). **좌표 불필요** → 소스 불문 안정, 작화 100% 보존. 이 대사가 곧 **웹 리더 HTML 대사 레이어**(선택가능 텍스트·TTS·i+1)의 소스. (`dialogue.manifest.json` verdict=채택.)
 
+> **자기발전 타임라인 (`oplog.mjs` → `work/_oplog.jsonl` → 모니터)**
+> 오퍼레이터 루프의 "시도 → 단계별 평가 → 평가 기반 자기발전(개선/채택/반려/피벗)"을 한 줄씩 append-only 로그로 쌓는다.
+> 각 실험/판정 때 `node oplog.mjs --slug <slug> --phase <p> --action evaluate|improve|adopt|reject|pivot|note --title … --verdict … --next …` 로 기록.
+> Admin 모니터 최상단 **자기발전 타임라인** 카드가 콘텐츠별 단계 흐름(액션색 점 미니맵 + 확장 시 전체 스텝)을 **한눈에** 렌더. API=`/api/pdcp/oplog`. 이로써 "지금 뭐가 어떻게 진행·평가·개선되는지"가 UI 에서 보인다.
+
 마지막 줄이 결정적이다. 저작권 게이트를 "판별 컬럼이 `pd-scan` 일 때만" 거는 **조건부 제약**은
 그 컬럼 하나만 잘못 들어가도 무너진다. 독립 테이블이면 **그 테이블의 모든 행**에 무조건 걸 수 있다.
 게다가 두 소재는 단위(챕터 vs 호)가 달라, 한 테이블에 담으면 모든 쿼리·화면·QC 에 분기가 번진다.

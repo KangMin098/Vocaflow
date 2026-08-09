@@ -866,6 +866,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         {stuck.length > 0 && <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {stuck.length}</span>}
       </div>
 
+      <SelfDevTimeline active={active} />
+
       {rows.length === 0 ? (
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
       ) : (
@@ -960,6 +962,92 @@ function Lightbox({ issueId, rels, index, onIndex, onClose }: { issueId: string;
 
 // 라이브 진행 — 어디 콘텐츠의 몇 번째 아이템이 진행 중인지(진행율) + 중간 결과 이미지(원본/복원/컷)를 수시 폴링.
 interface Prog { stage?: string; current?: string; done?: number; total?: number; pct?: number }
+// ── 자기발전 타임라인 ─────────────────────────────────────────────────────
+// "무엇을 시도 → 단계별 평가 → 평가 기반 자기발전(개선/채택/반려/피벗)" 흐름을 한눈에.
+type OpStep = { seq: number; ts: string | null; slug: string; content: string; phase: string; action: 'evaluate' | 'adopt' | 'reject' | 'improve' | 'pivot' | 'note'; title: string; detail: string; verdict: string | null; next: string | null }
+type OpContent = { slug: string; content: string; total: number; lastAction: string; lastVerdict: string | null; next: string | null }
+
+const OP_META: Record<OpStep['action'], { label: string; color: string; bg: string }> = {
+  adopt: { label: '채택', color: '#2E7D5A', bg: '#2E7D5A18' },
+  reject: { label: '반려', color: '#9C3A30', bg: '#9C3A3018' },
+  improve: { label: '개선', color: '#B5803A', bg: '#B5803A18' },
+  pivot: { label: '피벗', color: '#8B5CF6', bg: '#8B5CF618' },
+  evaluate: { label: '평가', color: '#5B6470', bg: '#5B647018' },
+  note: { label: '메모', color: '#8A8278', bg: '#8A827818' },
+}
+
+function SelfDevTimeline({ active }: { active: boolean }) {
+  const [data, setData] = useState<{ steps: OpStep[]; contents: OpContent[] } | null>(null)
+  const [open, setOpen] = useState<string | null>(null)
+  useEffect(() => {
+    let alive = true
+    const poll = async () => {
+      try { const r = await fetch('/api/pdcp/oplog', { cache: 'no-store' }); const j = await r.json(); if (alive) setData(j) } catch { /* noop */ }
+    }
+    void poll()
+    if (!active) return () => { alive = false }
+    const id = setInterval(poll, 5000)
+    return () => { alive = false; clearInterval(id) }
+  }, [active])
+
+  if (!data || data.contents.length === 0) return null
+  const contents = [...data.contents].sort((a, b) => b.total - a.total)
+
+  return (
+    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">자기발전 타임라인</span>
+        <span className="font-body text-[11px] text-[var(--t3)]">시도 → 단계별 평가 → 평가 기반 자기발전. 콘텐츠 클릭 시 전체 흐름.</span>
+      </div>
+      <ul className="flex flex-col gap-1.5">
+        {contents.map((c) => {
+          const steps = data.steps.filter((s) => s.slug === c.slug).sort((a, b) => a.seq - b.seq)
+          const isOpen = open === c.slug
+          const lm = OP_META[(c.lastAction as OpStep['action']) in OP_META ? (c.lastAction as OpStep['action']) : 'note']
+          return (
+            <li key={c.slug} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)]">
+              <button type="button" onClick={() => setOpen(isOpen ? null : c.slug)} className="flex w-full items-center gap-2 px-2.5 py-2 text-left">
+                <span className="min-w-0 flex-1 truncate font-body text-[12.5px] font-[600] text-[var(--t1)]">{c.content}</span>
+                {/* 단계 흐름 미니맵(한눈) — 각 스텝을 액션색 점으로 */}
+                <span className="hidden items-center gap-0.5 sm:flex">
+                  {steps.map((s) => <span key={s.seq} title={`${OP_META[s.action].label} · ${s.title}`} className="h-2 w-2 rounded-full" style={{ background: OP_META[s.action].color }} />)}
+                </span>
+                <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: lm.color, background: lm.bg }}>{c.lastVerdict ? c.lastVerdict.split('—')[0].trim() : lm.label}</span>
+                <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">{steps.length}스텝</span>
+                <span className="font-mono text-[11px] text-[var(--t3)]">{isOpen ? '▾' : '▸'}</span>
+              </button>
+              {isOpen && (
+                <ol className="flex flex-col gap-0 border-t border-[var(--bd)] px-2.5 py-2">
+                  {steps.map((s, i) => {
+                    const m = OP_META[s.action]
+                    return (
+                      <li key={s.seq} className="relative flex gap-2.5 pb-2.5 last:pb-0">
+                        {/* 세로 연결선 */}
+                        {i < steps.length - 1 && <span className="absolute left-[5px] top-4 h-full w-px" style={{ background: 'var(--bd)' }} />}
+                        <span className="relative z-10 mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-[var(--bg)]" style={{ background: m.color }} />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]" style={{ color: m.color, background: m.bg }}>{m.label}</span>
+                            <span className="font-mono text-[9.5px] text-[var(--t3)]">{s.phase}</span>
+                            <span className="font-body text-[12px] font-[600] text-[var(--t1)]">{s.title}</span>
+                            {s.verdict && <span className="font-mono text-[10px] font-[700]" style={{ color: m.color }}>· {s.verdict}</span>}
+                          </div>
+                          {s.detail && <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t2)]">{s.detail}</p>}
+                          {s.next && <p className="mt-0.5 font-body text-[10.5px] text-[var(--t3)]">→ 다음: {s.next}</p>}
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ol>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
 type ModernArt = { key: string; label: string; preview: string | null; strip: string | null; verdict: { result?: string; [k: string]: unknown } | null }
 
 function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: string[], index: number) => void }) {
