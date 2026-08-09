@@ -189,6 +189,18 @@ psm 4 = "가변 크기 텍스트 한 열" — 말풍선은 세로로 쌓인 짧�
 - 자동재생 차단 대응에 **`keydown` 추가** — 기존엔 `pointerdown` 만 듣고 있어, 포인터를 안 쓰는 타이핑 게임(wordsmith-vigil·letter-forge 등)은 기본 ON 이어도 영영 무음이 될 참이었다.
 - **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 선호 미설정 학습자가 **토글 없이 게임 진입만으로** 트랙을 받는지 + 명시적 OFF 가 리로드 후에도 유지되는지. 기존 [09-arcade-access.spec.ts](../apps/web/tests/e2e/09-arcade-access.spec.ts) F1 은 기본 ON 기준으로 재작성(허브 토글 → 게임 적용을 끄기/켜기 양방향으로 고정) — F1·F2 2/2 pass.
 
+### 학습자 화면 품질 자기발전 루프 — 접근성 게이트 신설 + 토큰 체계 개편 (2026-08-09)
+
+"측정 → 결함 → 수정 → 재측정"을 9회 돌려 만화·도서 화면의 접근성 위반을 **0** 으로 만들고, 그 측정 자체를 상시 게이트(`14-learner-quality.spec.ts`)로 고정했다. 측정 도구는 `@axe-core/playwright`(WCAG 2.1 A/AA) 신규 도입.
+
+- **근본 원인은 토큰이었다 — 면(fill)과 잉크(ink) 분리(ADR-004)**: 브랜드/시스템 원색을 *작은 글자*로 쓰면 거의 전부 AA 미달이었다(실측: `--active` 3.24 · `--ios-green` 2.02 · `--ios-orange` 1.99 · `--learn-known` 2.23). 다크에선 반대로 밝은 원색이 흰 글자와 부딪혔다(`--p` 위 흰 글자 2.90 · `--success` 위 2.98). → 배경·아이콘은 원색 그대로 두고 **글자만** 새 토큰으로: `--active-ink` · `--ios-*-ink`(7종) · `--learn-*-ink`(3종) · `--on-p`(테마별 반전).
+- **`--t3` 는 텍스트 색이 아니다**를 규칙으로 확정: 알파 0.38 은 종이 위 2.35:1 이고 **어떤 알파로도 4.5 를 못 넘긴다**(0.62=`--t2` 가 최소선 4.79). 저자명·설명·탭 캡션·메타 등 의미 있는 글자를 `--t2` 로 올렸다(ComicsTabs · LibraryTabs · FlowNav · ComicsBrowser · ComicHeroCard · ComicFormatChoice · BookGridCard · BookFilterBar · BookShelfRail · LibraryGrid · 만화 상세/리더).
+- **공용 컴포넌트 교정**: `Capsule` 이 tint 위에 원색 글자 + `opacity:0.85` 이중 감광이라 2.01:1 이었다 → ink 토큰 + opacity 제거. `i-plus-one` 적합도 배지도 ink 토큰으로(가장 많이 걸린 41 노드).
+- **ARIA 구조 수정**: LibraryGrid 의 `role="list"` 가 listitem 의 직접 부모가 아니어서 `aria-required-children`(critical)이 떴다 → 실제 부모로 이동.
+- **44px 터치 타겟**(CLAUDE.md 절대 금지 항목) 전수 교정: 필터 칩 36개 · 빠른 선택 · 검색/정렬 컨트롤 · 코버플로우 점(6×6 → 44px 히트영역 + 안쪽 점) · 사이드바 로고/접기 · 만화 레벨 칩.
+- **결과**: 만화 카탈로그/상세/복원 서가/리더 · 도서 목록 = **라이트·다크 모두 axe 위반 0**, 학습자 콘텐츠 내 44px 미만 **0**.
+- 검증: 14-learner-quality 4/4 · 11/12/13 회귀 15/16(1건은 dev 콜드 컴파일 타임아웃, 단독 재실행 통과) · unit 225 · tsc 클린.
+
 ### 만화 화면 기본 조작 전수 점검 — `13-comic-navigation.spec.ts` 신설 (2026-08-09)
 
 카탈로그 · 상세 · 리더 컨트롤 · 이탈/복귀 · 종료 CTA · Restored 탭을 자동 감사하고 상시 회귀로 고정.

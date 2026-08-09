@@ -174,7 +174,9 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
   const activeBook = books[active]!
 
   return (
-    <div role="list" className="flex flex-col items-center gap-6">
+    // role="list" 였으나 자식이 listitem 이 아니라 무대·탭리스트·버튼이라
+    // aria-required-children(critical) 위반이었다(2026-08-09 axe). 목록이 아니므로 role 제거.
+    <div className="flex flex-col items-center gap-6">
       {/* Stage — 3D perspective + 좌우 화살표 */}
       <div className="relative w-full">
         {/* Soft floor gradient (책 아래 ambient) */}
@@ -185,6 +187,9 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
 
         <div
           ref={stageRef}
+          // role="list" 는 listitem 의 **직접 부모**여야 한다. 예전엔 바깥 래퍼에 붙어 있어
+          // 사이에 무대·탭리스트가 끼면서 aria-required-children/parent 가 동시에 깨졌다(2026-08-09 axe).
+          role="list"
           className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center"
           style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
           onTouchStart={onTouchStart}
@@ -251,16 +256,21 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           {activeBook.title}
         </h2>
         {activeBook.author && (
-          <p className="font-body text-[13px] text-[var(--t3)]">{activeBook.author}</p>
+          <p className="font-body text-[13px] text-[var(--t2)]">{activeBook.author}</p>
         )}
-        <div className="mt-1 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-[var(--t3)]">
+        <div className="mt-1 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-[var(--t2)]">
           {(activeBook.cefr_band ?? activeBook.cefr_level) && (
             <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
               {activeBook.cefr_band ?? activeBook.cefr_level}
             </span>
           )}
           {activeBook.book_v_level != null && (
-            <span className="rounded-[var(--r-sm)] bg-[#FBBF24]/15 px-2 py-0.5 font-display text-[10px] font-[700] text-[#92400E]">
+            // 하드코딩 앰버(#92400E on #FBBF24/15)는 다크에서 1.87:1 이었다(2026-08-09 axe).
+            // 면=tint 토큰 · 글자=ink 토큰으로 분리하면 양 테마 모두 AA.
+            <span
+              className="rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+              style={{ background: 'var(--ios-yellow-tint)', color: 'var(--ios-yellow-ink)' }}
+            >
               V{activeBook.book_v_level}
             </span>
           )}
@@ -269,7 +279,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             <span>·  {Math.round(activeBook.reading_minutes / 60)}h</span>
           )}
           {activeBook.word_set_count != null && activeBook.word_set_count > 0 && (
-            <span className="inline-flex items-center gap-0.5 text-[#8B5CF6]">
+            <span className="inline-flex items-center gap-0.5 text-[var(--p-dark)]">
               ·  <Sparkles size={9} aria-hidden />
               {activeBook.word_set_count}개 단어장
             </span>
@@ -293,7 +303,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
                 style={{ backgroundColor: fit.color }}
               />
               나에게 {fit.label}
-              <span className="font-mono font-[600] opacity-70">{fit.coverage}%</span>
+              <span className="font-mono font-[600]">{fit.coverage}%</span>
             </span>
           )
         })()}
@@ -311,17 +321,17 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
                   : '미리보기 · 상세'
           const bg =
             state === 'in_progress'
-              ? 'bg-[var(--p)] text-white'
+              ? 'bg-[var(--p)] text-[var(--on-p)]'
               : state === 'completed'
                 ? 'bg-[var(--success)] text-white'
                 : state === 'enrolled'
-                  ? 'bg-[var(--p)] text-white'
+                  ? 'bg-[var(--p)] text-[var(--on-p)]'
                   : 'bg-[var(--t1)] text-[var(--bg)]'
           return (
             <button
               type="button"
               onClick={() => openDetail(activeBook)}
-              className={`mt-3 inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
+              className={`mt-3 inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
             >
               {label}
             </button>
@@ -339,12 +349,19 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             aria-selected={idx === active}
             aria-label={`${idx + 1} / ${books.length}: ${b.title}`}
             onClick={() => goTo(idx)}
-            className={`h-1.5 rounded-full transition-all duration-[${CAROUSEL_DURATION}ms] ${
-              idx === active
-                ? 'w-6 bg-[var(--t1)]'
-                : 'w-1.5 bg-[var(--t3)]/40 hover:bg-[var(--t3)]'
-            }`}
-          />
+            // 점은 시각적으로 작아야 하지만 손가락 타겟은 44px 이어야 한다(CLAUDE.md 절대 금지 항목).
+            // 버튼을 44px 히트영역으로 두고 안쪽 span 만 점으로 그린다.
+            className="group flex h-11 w-11 items-center justify-center"
+          >
+            <span
+              aria-hidden
+              className={`h-1.5 rounded-full transition-all duration-[${CAROUSEL_DURATION}ms] ${
+                idx === active
+                  ? 'w-6 bg-[var(--t1)]'
+                  : 'w-1.5 bg-[var(--t3)]/40 group-hover:bg-[var(--t3)]'
+              }`}
+            />
+          </button>
         ))}
       </div>
 

@@ -302,7 +302,7 @@ function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
         <span className="flex flex-col items-start leading-none">
           <span className="font-display text-[14px] font-[800] tabular-nums text-[var(--t1)]">
             {momentum.streak}
-            <span className="ml-0.5 text-[10px] font-[700] text-[var(--t3)]">일</span>
+            <span className="ml-0.5 text-[10px] font-[700] text-[var(--t2)]">일</span>
           </span>
           <span className="mt-0.5 font-mono text-[9px] font-[600] uppercase tracking-wider text-[#D97706]">
             연속 학습
@@ -321,7 +321,7 @@ function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
               <span className="font-display text-[13px] font-[800] text-[var(--t1)]">
                 {momentum.streak > 0 ? `${momentum.streak}일 연속 학습 중` : '오늘부터 시작해요'}
               </span>
-              <span className="font-body text-[11px] text-[var(--t3)]">
+              <span className="font-body text-[11px] text-[var(--t2)]">
                 {momentum.streak > 0 ? '오늘도 좋은 흐름이에요' : '한 걸음이면 충분해요'}
               </span>
             </div>
@@ -330,12 +330,12 @@ function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
           {/* 어휘 자산 — 4색 분포 */}
           <div className="flex flex-col gap-1.5">
             <div className="flex items-baseline justify-between">
-              <span className="font-mono text-[9.5px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+              <span className="font-mono text-[9.5px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                 내 어휘 자산
               </span>
               <span className="font-display text-[12px] font-[800] tabular-nums text-[var(--t1)]">
                 {masteryTotal(momentum.mastery)}
-                <span className="ml-0.5 text-[9px] font-[600] text-[var(--t3)]">개</span>
+                <span className="ml-0.5 text-[9px] font-[600] text-[var(--t2)]">개</span>
               </span>
             </div>
             <MasteryBar mastery={momentum.mastery} />
@@ -384,7 +384,7 @@ function MasteryBar({ mastery }: { mastery: FlowNavMomentum['mastery'] }) {
 
 function MasteryLegend({ color, label, n }: { color: string; label: string; n: number }) {
   return (
-    <span className="inline-flex items-center gap-1 font-mono text-[9.5px] text-[var(--t3)]">
+    <span className="inline-flex items-center gap-1 font-mono text-[9.5px] text-[var(--t2)]">
       <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} aria-hidden />
       {label} <strong className="font-[700] text-[var(--t2)]">{n}</strong>
     </span>
@@ -459,7 +459,7 @@ function StageDesktop({
         <span className="flex min-w-0 flex-col items-start">
           <span
             className={`truncate font-display text-[12px] font-[700] leading-tight tracking-tight transition-colors ${
-              isCurrent ? 'text-[var(--t1)]' : 'text-[var(--t3)] group-hover:text-[var(--t1)]'
+              isCurrent ? 'text-[var(--t1)]' : 'text-[var(--t2)] group-hover:text-[var(--t1)]'
             }`}
           >
             {stage.label}
@@ -474,7 +474,7 @@ function StageDesktop({
           ) : (
             <span
               className={`font-mono text-[9px] uppercase tracking-wider tabular-nums ${
-                isCurrent ? 'text-[var(--t2)]' : 'text-[var(--t3)] opacity-60'
+                isCurrent ? 'text-[var(--t2)]' : 'text-[var(--t2)] opacity-60'
               }`}
             >
               {stage.progress > 0 && !isMeta ? `${stage.progress}%` : stage.subtitle}
@@ -500,7 +500,7 @@ function StageDesktop({
               <span className="font-display text-[13px] font-[800] text-[var(--t1)]">
                 {stage.label}
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--t3)]">
+              <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--t2)]">
                 {stage.subtitle}
               </span>
             </div>
@@ -524,7 +524,7 @@ function StageDesktop({
                 />
               </div>
             )}
-            <span className="font-mono text-[10px] text-[var(--t3)]">{stage.stat}</span>
+            <span className="font-mono text-[10px] text-[var(--t2)]">{stage.stat}</span>
 
             {isRecommended ? (
               <span
@@ -535,7 +535,7 @@ function StageDesktop({
                 거의 다 왔어요 — {100 - stage.progress}%만 더!
               </span>
             ) : (
-              <span className="mt-0.5 font-body text-[10px] italic text-[var(--t3)]">
+              <span className="mt-0.5 font-body text-[10px] italic text-[var(--t2)]">
                 클릭하면 바로 시작해요
               </span>
             )}

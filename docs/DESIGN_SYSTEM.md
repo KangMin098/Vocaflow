@@ -61,6 +61,24 @@
 | **브랜드** | Ink Navy `#1E3A5F` + Muted Gold `#B8893B` accent | iOS systemIndigo `#5856D6` |
 | **타이포** | **Lora editorial** hero (42-52px display) + Plus Jakarta UI 칩 + DM Sans 한글 | Plus Jakarta hero 32-34px |
 
+### 색상 토큰 — 면(fill) vs 잉크(ink) 분리 규칙 (v07 · 2026-08-09)
+
+**규칙**: 색 토큰은 "칠하는 색"과 "그 위의 글자색"이 다르다. 작은 글자에는 반드시 `-ink` 계열을 쓴다.
+
+| 용도 | 면/아이콘/테두리 | 글자 (AA 4.5:1) |
+|---|---|---|
+| 골드 강조 | `--active` | `--active-ink` |
+| iOS 톤 캡슐 | `--ios-*-tint` | `--ios-*-ink` |
+| 학습 상태 (i+1 배지 등) | `--learn-*` | `--learn-*-ink` |
+| 브랜드 채움 배지 | `--p` | `--on-p` (테마별 반전) |
+
+**`--t3` 는 텍스트 색이 아니다.** 알파 0.38 은 종이 위 2.35:1 이라 어떤 조합으로도 AA 를 못 넘긴다
+(0.62 = `--t2` 가 최소선 4.79:1). 저자명·설명·메타처럼 **의미 있는 글자는 `--t2` 이상**,
+`--t3`/`--t4` 는 장식·아이콘·비활성 전용.
+
+측정 근거: ADR-004([DESIGN_DECISIONS.md](./DESIGN_DECISIONS.md)) · 회귀 게이트
+`apps/web/tests/e2e/14-learner-quality.spec.ts`(axe WCAG 2.1 AA · 라이트/다크 · 44px 터치 타겟).
+
 ### 색상 토큰 (Reading Room)
 
 ```css

@@ -57,14 +57,16 @@ export function judgeIPlusOne(
   const cov = coverageAtLevel(coverage, vLevel);
   if (cov == null) return null;
 
+  // color 는 배지의 "글자+테두리" 에 쓰인다 → 잉크 토큰(AA 통과)을 쓴다.
+  // 원색(--learn-known 등)은 종이 위 2.0~3.6:1 이라 작은 글자로 읽히지 않았다(2026-08-09 axe 실측).
   const d = illustrated ? ILLUSTRATION_DISCOUNT : 0;
   if (cov >= 98 - d)
-    return { coverage: cov, tier: 'easy', label: '수월해요', color: 'var(--t3)' };
+    return { coverage: cov, tier: 'easy', label: '수월해요', color: 'var(--t2)' };
   if (cov >= 95 - d)
-    return { coverage: cov, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known)' };
+    return { coverage: cov, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known-ink)' };
   if (cov >= 85 - d)
-    return { coverage: cov, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
-  return { coverage: cov, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
+    return { coverage: cov, tier: 'challenge', label: '도전적', color: 'var(--learn-review-ink)' };
+  return { coverage: cov, tier: 'hard', label: '어려워요', color: 'var(--learn-error-ink)' };
 }
 
 // ─────────────────────────────────────────────────────────────

@@ -76,7 +76,7 @@ export function Sidebar({ streak }: SidebarProps) {
         {!collapsed && (
           <Link
             href="/hub"
-            className="flex items-center gap-2.5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+            className="flex min-h-11 items-center gap-2.5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
             aria-label="Vocaflow 홈"
           >
             <span
@@ -97,7 +97,7 @@ export function Sidebar({ streak }: SidebarProps) {
           aria-label={collapsed ? '사이드바 펼치기' : '사이드바 접기'}
           aria-expanded={!collapsed}
           title={collapsed ? '사이드바 펼치기' : '사이드바 접기'}
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Menu size={18} strokeWidth={2} aria-hidden="true" />
         </button>

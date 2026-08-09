@@ -33,6 +33,13 @@
     --learn-error:          #EF4444;
     --learn-error-light:    #FEF2F2;
 
+    /* v07 — 학습 상태색을 "작은 글자"로 쓸 때의 잉크.
+       원색은 종이 위에서 2.0~3.6:1 이라 WCAG AA(4.5) 미달이다(2026-08-09 axe 실측:
+       known 2.23 · review 1.89 · error 3.31 on --bg2). 면/점/막대는 원색, 글자는 잉크. */
+    --learn-known-ink:      #0F6B4A;  /* on --bg2 5.74:1 */
+    --learn-review-ink:     #7A5200;  /* on --bg2 6.09:1 */
+    --learn-error-ink:      #A32218;  /* on --bg2 6.60:1 */
+
     /* CEFR 난이도 (긍정 기반) */
     --level-a:       #10B981;
     --level-a-light: #ECFDF5;
@@ -135,6 +142,11 @@
     --learn-review-light:   #1F1610;
     --learn-error:          #F87171;
     --learn-error-light:    #1F1010;
+
+    /* 다크에서는 밝은 원색이 어두운 배경 위에서 이미 대비를 확보한다 → 그대로 사용 */
+    --learn-known-ink:      #34D399;
+    --learn-review-ink:     #FBBF24;
+    --learn-error-ink:      #F87171;
 
     --level-a:       #34D399;
     --level-a-light: #0A1F18;

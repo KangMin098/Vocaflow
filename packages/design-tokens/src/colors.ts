@@ -20,7 +20,8 @@ export const colorsLight = {
   pDark: '#051428',
 
   // 시그니처 모먼트 ONLY — Linear single-accent 원칙
-  active: '#B0843A',     // muted gold (적용 면적 5% 미만)
+  active: '#B0843A',     // muted gold (적용 면적 5% 미만) — 면/아이콘용
+  activeInk: '#8A6420',  // 골드를 작은 글자로 쓸 때 (on --bg 5.12:1 · AA)
   activeLight: '#F4EAD3',
 
   // semantic — sophisticated muted
@@ -59,6 +60,7 @@ export const colorsDark = {
   pDark: '#4F84BC',
 
   active: '#D4A856',
+  activeInk: '#D4A856',  // 다크는 원색 그대로 AA (on --bg 4.93:1)
   activeLight: 'rgba(212, 168, 86, 0.18)',
   success: '#5BA47D',
   successLight: 'rgba(91, 164, 125, 0.18)',

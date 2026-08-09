@@ -98,7 +98,10 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
         <div className="absolute left-2 top-2 flex flex-col gap-1">
           {state === 'completed' && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--success)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              // --success 는 다크에서 밝은 초록(#5BA47D)이라 흰 글자와 2.9:1 이었다(2026-08-09 axe).
+              // --memory-stable(#2E7D5A)은 양 테마 동일값이라 흰 글자로 5.0:1 확보.
+              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              style={{ background: 'var(--memory-stable)' }}
               title="완독한 도서"
             >
               <Check size={9} strokeWidth={2.5} aria-hidden /> 완독
@@ -106,7 +109,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           )}
           {state === 'in_progress' && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--on-p)] shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
               title={`학습 중 · ${book.progress_pct ?? 0}%`}
             >
               ● {book.progress_pct ?? 0}%
@@ -150,7 +153,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           {book.title}
         </h3>
         {book.author && (
-          <p className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">{book.author}</p>
+          <p className="line-clamp-1 font-body text-[11px] text-[var(--t2)]">{book.author}</p>
         )}
 
         {/* i+1 적합도 (진단 시) */}
@@ -162,7 +165,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           >
             <span aria-hidden className="h-1 w-1 rounded-full" style={{ backgroundColor: fit.color }} />
             {fit.label}
-            <span className="font-mono opacity-70">{fit.coverage}%</span>
+            <span className="font-mono">{fit.coverage}%</span>
           </span>
         )}
 

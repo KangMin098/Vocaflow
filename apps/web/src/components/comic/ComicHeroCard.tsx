@@ -31,7 +31,7 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
         <h2 className="font-display text-[13px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           만화로 읽기
         </h2>
-        <span className="font-body text-[12px] text-[var(--t3)]">그림과 정본 대사로 이야기에 먼저 몰입해요</span>
+        <span className="font-body text-[12px] text-[var(--t2)]">그림과 정본 대사로 이야기에 먼저 몰입해요</span>
       </div>
 
       <div className={`grid gap-3 ${items.length > 1 ? 'md:grid-cols-2' : ''}`}>
@@ -46,13 +46,13 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
               {/* 콘텐츠 */}
               <div className="order-2 flex flex-col justify-between gap-4 p-5 sm:order-1">
                 <div className="flex flex-col gap-2">
-                  <span className="font-display text-[10px] font-[800] uppercase tracking-[0.16em]" style={{ color: 'var(--active)' }}>
+                  <span className="font-display text-[10px] font-[800] uppercase tracking-[0.16em]" style={{ color: 'var(--active-ink)' }}>
                     만화 · Comic
                   </span>
                   <h3 className="font-display text-[22px] font-[800] leading-[1.08] tracking-[-0.01em] text-[var(--t1)] text-balance">
                     {it.title}
                   </h3>
-                  {it.author && <p className="font-body text-[12px] text-[var(--t3)]">{it.author}</p>}
+                  {it.author && <p className="font-body text-[12px] text-[var(--t2)]">{it.author}</p>}
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
                     <Meta>{it.panelsTotal}컷</Meta>
                     {it.vLevel != null && <Meta>V{it.vLevel}</Meta>}
@@ -103,7 +103,7 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
 
 function Meta({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+    <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
       {children}
     </span>
   )

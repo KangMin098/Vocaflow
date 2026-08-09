@@ -122,7 +122,7 @@ function Chip({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors ${
+      className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors ${
         active
           ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
           : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:bg-[var(--bg2)]'
@@ -197,7 +197,7 @@ export function BookFilterBar({
             onChange={(e) => onChange({ search: e.target.value })}
             placeholder="제목·저자 검색"
             aria-label="도서 검색"
-            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           />
         </div>
 
@@ -210,7 +210,7 @@ export function BookFilterBar({
             id="book-sort"
             value={sort}
             onChange={(e) => onSortChange(e.target.value as BookSort)}
-            className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-2.5 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-2.5 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.key} value={o.key}>
@@ -224,13 +224,13 @@ export function BookFilterBar({
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5 font-display text-[11px] font-[600] text-[var(--t3)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+            className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
           >
             <X size={11} aria-hidden /> 초기화
           </button>
         )}
 
-        <span className="whitespace-nowrap font-mono text-[11.5px] text-[var(--t3)]">
+        <span className="whitespace-nowrap font-mono text-[11.5px] text-[var(--t2)]">
           <strong className="font-display font-[700] text-[var(--t1)]">{resultCount}</strong>
           {resultCount !== totalCount && ` / ${totalCount}`} 권
         </span>
@@ -277,7 +277,7 @@ export function BookFilterBar({
             >
               <span className="font-mono">{b.short}</span> {b.label}
               {myBand === b.key && (
-                <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1 py-px font-mono text-[8.5px] font-[700] text-white">
+                <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1 py-px font-mono text-[8.5px] font-[700] text-[var(--on-p)]">
                   내 레벨
                 </span>
               )}

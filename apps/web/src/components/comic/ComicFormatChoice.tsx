@@ -159,7 +159,7 @@ export function ComicFormatChoice({
                     </span>
                   )}
                 </div>
-                <span className="font-mono text-[11.5px] tabular-nums text-[var(--t3)]">{c.meta}</span>
+                <span className="font-mono text-[11.5px] tabular-nums text-[var(--t2)]">{c.meta}</span>
                 <p className="font-body text-[13px] text-[var(--t2)]">{c.body}</p>
                 <span className="mt-auto pt-1 font-display text-[13px] font-[700] text-[var(--p)]">
                   {busy === c.key ? '준비 중…' : enrolled ? '시작하기 →' : isLoggedIn ? '시작하기 →' : '로그인하고 시작 →'}
@@ -207,7 +207,7 @@ export function ComicFormatChoice({
       )}
 
       {!enrolled && isLoggedIn && (
-        <p className="px-1 font-body text-[12px] text-[var(--t3)]">
+        <p className="px-1 font-body text-[12px] text-[var(--t2)]">
           시작하면 이 책이 내 학습에 추가되고, 챕터별 단어장도 함께 준비돼요.
         </p>
       )}

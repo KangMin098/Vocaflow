@@ -290,7 +290,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
           <div aria-hidden style={{ height: 2, background: 'color-mix(in srgb, var(--active) 30%, transparent)' }} />
           <div className="flex select-text flex-col gap-2 px-3.5 py-3">
             <div className="flex items-center gap-2">
-              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active)]">{st}</span>
+              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active-ink)]">{st}</span>
               <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
             </div>
             {p.bubbles.length === 0 && <p className="font-body text-[12px] text-[var(--t4)]">…</p>}
@@ -387,7 +387,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
           <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)]" style={glass}>
             <ArrowLeft size={15} aria-hidden /> 본문
           </Link>
-          <span className="hidden truncate font-display text-[12px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)] sm:block">{bookTitle}</span>
+          <span className="hidden truncate font-display text-[12px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)] sm:block">{bookTitle}</span>
           <div className="flex items-center gap-1">
             <button type="button" onClick={() => setView((v) => (v === 'page' ? 'scroll' : 'page'))} aria-label={view === 'page' ? '세로 스크롤 모드로' : '페이지 넘김 모드로'} className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--active)]" style={glass}>
               {view === 'page' ? <Rows3 size={16} /> : <Square size={16} />}
@@ -463,7 +463,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
             })}
           </div>
 
-          <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--t3)]" aria-hidden>{atEnd ? '완료' : `${i + 1}/${total}`}</span>
+          <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--t2)]" aria-hidden>{atEnd ? '완료' : `${i + 1}/${total}`}</span>
           <button type="button" data-no-nav onClick={() => go(i + 1, 1, 'chrome')} disabled={atEnd} aria-label="다음 컷" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30 motion-reduce:transition-none" style={glass}><ArrowRight size={17} /></button>
         </div>
       </footer>

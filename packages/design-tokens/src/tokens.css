@@ -41,12 +41,19 @@
   --p: #0F2540;          /* deep ink (modern editorial) */
   --p-hover: #081832;
   --p-light: #E3E8EE;    /* pale tint */
+  /* v07 — --p 면 위에 얹는 글자색. 라이트 --p(#0F2540)는 흰 글자 15.45:1 로 안전하지만,
+     다크 --p(#6B9BD1)는 흰 글자가 2.90:1 이라 AA 미달이었다(2026-08-09 axe: "내 레벨" 배지).
+     칠하는 색이 테마마다 뒤집히므로 글자색도 토큰으로 뒤집는다. */
+  --on-p: #FFFFFF;
   --p-dark: #051428;
 
   /* Active = Muted Gold — 시그니처 모먼트 ONLY (Linear single-accent 원칙)
      v06.40 — 적용 면적 5% 미만으로 제한 (HubHero CTA, streak chip, 보상 모먼트만) */
-  --active: #B0843A;     /* muted gold (살짝 less yellow) */
+  --active: #B0843A;     /* muted gold (살짝 less yellow) — 면/아이콘/테두리용 */
   --active-light: #F4EAD3;
+  /* v07 — 골드를 "작은 글자"로 쓸 때의 잉크. --active(#B0843A)는 종이(--bg) 위에서 3.24:1 이라
+     WCAG AA(본문 4.5:1)를 못 넘긴다(2026-08-09 axe 실측). 면/아이콘은 --active, 글자는 이 토큰. */
+  --active-ink: #8A6420; /* gold ink — on --bg 5.12:1 (AA) */
 
   /* ─────── Semantic = paper-tone (채도 하향 · sophisticated) ─────── */
   /*  v06.40 — Reflect/Bear 정제: 더 muted, 덜 mustard */
@@ -176,6 +183,18 @@
   --ios-purple-tint: #F3E8FF;
   --ios-pink-tint: #FCE7F3;
 
+  /* v07 — tint 위에 얹는 "글자용" 잉크.
+     iOS 원색(--ios-green #34C759 등)을 같은 계열 tint 위에 글자로 쓰면 2.0~3.5:1 로
+     WCAG AA(4.5:1) 를 전부 미달한다(2026-08-09 axe 실측: green 2.02 · orange 1.99 · red 2.97).
+     면(tint)과 글자(ink)를 분리한다 — 배경은 그대로, 글자만 깊게. */
+  --ios-red-ink: #B3261E;     /* on --ios-red-tint 5.48:1 */
+  --ios-orange-ink: #8A4B00;  /* on --ios-orange-tint 6.14:1 */
+  --ios-yellow-ink: #92400E;  /* on --ios-yellow-tint 6.37:1 (기존 값 유지) */
+  --ios-green-ink: #1F6B49;   /* on --ios-green-tint 5.86:1 */
+  --ios-blue-ink: #005BBB;    /* on --ios-blue-tint 5.75:1 */
+  --ios-purple-ink: #6D28A8;  /* on --ios-purple-tint 7.06:1 */
+  --ios-pink-ink: #B01142;    /* on --ios-pink-tint 5.94:1 */
+
   /* iOS Status Bar / Label 대비 텍스트 */
   --ios-label-primary: var(--t1);
   --ios-label-secondary: var(--t2);
@@ -267,9 +286,12 @@
   --p-hover: #87B0DC;
   --p-light: rgba(107, 155, 209, 0.18);
   --p-dark: #4F84BC;
+  --on-p: #231D17;       /* 다크의 밝은 --p 위에는 잉크 글자 (5.74:1) */
 
   --active: #D4A856;     /* lighter muted gold */
   --active-light: rgba(212, 168, 86, 0.18);
+  /* 다크에서는 --active 자체가 어두운 배경 위 5:1 이상 → 같은 값 사용(별도 어둡게 할 필요 없음) */
+  --active-ink: #D4A856; /* gold ink — on dark --bg 4.93:1 / --bg2 5.41:1 (AA) */
   --success: #5BA47D;
   --success-light: rgba(91, 164, 125, 0.18);
   --error: #C25E54;
@@ -324,6 +346,16 @@
   --ios-blue-tint: rgba(10, 132, 255, .15);
   --ios-purple-tint: rgba(191, 90, 242, .15);
   --ios-pink-tint: rgba(255, 55, 95, .15);
+
+  /* 다크에서는 tint 가 어두운 반투명이라 vivid 원색이 그대로 밝은 글자로 통한다
+     (어두운 배경 위 밝은 색 = 대비 확보). 라이트처럼 어둡게 만들면 오히려 안 보인다. */
+  --ios-red-ink: var(--ios-red-vivid);
+  --ios-orange-ink: var(--ios-orange-vivid);
+  --ios-yellow-ink: var(--ios-yellow-vivid);
+  --ios-green-ink: var(--ios-green-vivid);
+  --ios-blue-ink: var(--ios-blue-vivid);
+  --ios-purple-ink: var(--ios-purple-vivid);
+  --ios-pink-ink: var(--ios-pink-vivid);
 
   /* Glass dark — v06.40 정제 */
   --mat-glass-bg-thin: rgba(35, 29, 23, .72);

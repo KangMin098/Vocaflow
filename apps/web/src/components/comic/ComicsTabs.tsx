@@ -44,12 +44,12 @@ export function ComicsTabs() {
             className={`flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-1 ${
               isActive
                 ? 'border-[var(--active)] text-[var(--t1)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]'
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]'
             }`}
           >
             <Icon size={16} aria-hidden />
             {tab.label}
-            <span className="font-body text-[12px] font-[500] text-[var(--t3)]">{tab.ko}</span>
+            <span className="font-body text-[12px] font-[500] text-[var(--t2)]">{tab.ko}</span>
           </Link>
         )
       })}

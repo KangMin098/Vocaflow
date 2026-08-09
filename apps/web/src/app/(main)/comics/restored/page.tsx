@@ -30,7 +30,7 @@ export default async function PdComicsPage() {
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header>
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--active)]">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--active-ink)]">
             Restored Comics
           </p>
           <h1 className="mt-1 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">

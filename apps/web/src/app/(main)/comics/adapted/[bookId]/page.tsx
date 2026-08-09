@@ -144,7 +144,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
         <div>
           <Link
             href="/comics/adapted"
-            className="inline-flex min-h-11 items-center gap-1.5 font-body text-[12.5px] font-[500] text-[var(--t3)] transition-colors hover:text-[var(--p)]"
+            className="inline-flex min-h-11 items-center gap-1.5 font-body text-[12.5px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
           >
             <ArrowLeft size={14} aria-hidden /> 만화 목록
           </Link>
@@ -154,14 +154,14 @@ export default async function ComicDetailPage({ params }: PageProps) {
         <header className="flex flex-col gap-2 px-1">
           <span
             className="font-display text-[10px] font-[800] uppercase tracking-[0.16em]"
-            style={{ color: 'var(--active)' }}
+            style={{ color: 'var(--active-ink)' }}
           >
             만화 · Comic
           </span>
           <h1 className="font-editorial text-[34px] font-[500] leading-[1.06] tracking-[-0.012em] text-[var(--t1)] md:text-[44px]">
             {title}
           </h1>
-          {author && <p className="font-body text-[13px] text-[var(--t3)]">{author}</p>}
+          {author && <p className="font-body text-[13px] text-[var(--t2)]">{author}</p>}
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             {item.panelsTotal > 0 && <Meta>{item.panelsTotal}컷</Meta>}
             {item.vLevel != null && <Meta>V{item.vLevel}</Meta>}
@@ -190,7 +190,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
                 </div>
               ))}
             </div>
-            <p className="px-1 font-body text-[12px] text-[var(--t3)]">
+            <p className="px-1 font-body text-[12px] text-[var(--t2)]">
               {panels.length}컷 미리보기 — 대사와 단어는 시작하면 만날 수 있어요.
             </p>
           </section>
@@ -228,7 +228,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
           >
             <Layers size={14} aria-hidden /> 이 책의 단어장 보기
           </Link>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             만화는 본문을 대신하지 않아요 — 이야기를 먼저 잡아두면 원문이 훨씬 잘 읽혀요.
           </p>
         </div>
@@ -239,7 +239,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
 
 function Meta({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+    <span className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
       {children}
     </span>
   )

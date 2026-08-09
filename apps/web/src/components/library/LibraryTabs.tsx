@@ -41,7 +41,7 @@ export function LibraryTabs() {
             className={`flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
               isActive
                 ? 'border-[#8B5CF6] text-[var(--t1)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]'
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]'
             }`}
           >
             <Icon size={16} aria-hidden />

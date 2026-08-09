@@ -44,7 +44,7 @@ export function BookShelfRail({
           )}
           {title}
         </h2>
-        {hint && <span className="font-body text-[11.5px] text-[var(--t3)]">{hint}</span>}
+        {hint && <span className="font-body text-[11.5px] text-[var(--t2)]">{hint}</span>}
       </div>
 
       <div

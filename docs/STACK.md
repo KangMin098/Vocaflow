@@ -51,6 +51,7 @@ vocaflow/
 | `typescript` | 5.x | |
 | `vitest` | 1.6.0 | 단위 테스트 |
 | `@playwright/test` | 1.60.0 | E2E |
+| `@axe-core/playwright` | 4.12.x | 접근성 자동 감사(WCAG 2.1 AA) — 14-learner-quality 게이트 |
 
 ### Supabase
 

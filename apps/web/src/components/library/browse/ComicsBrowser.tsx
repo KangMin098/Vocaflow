@@ -70,7 +70,7 @@ export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
         </div>
         <Link
           href="/library/books"
-          className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-colors hover:bg-[var(--p-dark)]"
+          className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-colors hover:bg-[var(--p-dark)]"
         >
           도서 보러 가기
         </Link>
@@ -99,7 +99,7 @@ export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
       <section className="flex flex-col gap-4" aria-label="전체 만화">
         <div className="flex flex-wrap items-center justify-between gap-2 px-1">
           <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">전체 만화</h2>
-          <span className="font-mono text-[11.5px] text-[var(--t3)]">
+          <span className="font-mono text-[11.5px] text-[var(--t2)]">
             <strong className="font-display font-[700] text-[var(--t1)]">{visible.length}</strong>
             {visible.length !== items.length && ` / ${items.length}`} 편
           </span>
@@ -116,7 +116,7 @@ export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
                   type="button"
                   aria-pressed={active}
                   onClick={() => setBand(active ? null : b.key)}
-                  className={`inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 ${
+                  className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 ${
                     active
                       ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
                       : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:bg-[var(--bg2)]'
@@ -189,7 +189,7 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
           </div>
         )}
         {item.completed && (
-          <span className="absolute left-2 top-2 inline-flex items-center rounded-[var(--r-full)] bg-[var(--success)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]">
+          <span className="absolute left-2 top-2 inline-flex items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{ background: 'var(--memory-stable)' }}>
             다 봤어요
           </span>
         )}
@@ -207,7 +207,7 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
       <div className="flex flex-1 flex-col gap-2 p-4">
         <span
           className="font-display text-[10px] font-[800] uppercase tracking-[0.16em]"
-          style={{ color: 'var(--active)' }}
+          style={{ color: 'var(--active-ink)' }}
         >
           만화 · Comic
         </span>
@@ -215,7 +215,7 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
           {item.title}
         </h3>
         {item.author && (
-          <p className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">{item.author}</p>
+          <p className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">{item.author}</p>
         )}
 
         <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
@@ -242,7 +242,7 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
 
 function Meta({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+    <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
       {children}
     </span>
   )
