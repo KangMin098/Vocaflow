@@ -12,14 +12,19 @@ const Game = dynamic(
 );
 
 export default function LexiconDetectivePlayPage() {
-  // 내장 사건 뱅크(현장·서사 큐레이션) 사용 → minWords=0.
+  // 사건(증거 봉투·조서 진술·함정·위증)을 학습자 단어장에서 절차적으로 생성한다.
+  // 진술 5줄 + 함정 봉투 5개 = 최대 10개 어휘가 필요하고, 게임 내부에서 다시 뜻 중복을
+  // 제거하므로 여기서 10개를 요구한다(내부 하한 8).
   return (
     <Suspense fallback={<GameLoading message="사건철을 여는 중…" />}>
       <GamePlayScaffold
         module="lexicon-detective"
         label="Lexicon Detective"
-        minWords={0}
-        render={({ onCorrect, onWrong, onExit }) => <Game onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
+        minWords={10}
+        loadingMessage="사건철을 여는 중…"
+        render={({ wordPool, onCorrect, onWrong, onExit }) => (
+          <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />
+        )}
       />
     </Suspense>
   );

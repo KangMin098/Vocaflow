@@ -12,14 +12,18 @@ const Game = dynamic(
 );
 
 export default function LexiconEstatePlayPage() {
-  // 내장 의미장 뱅크(6 카테고리 × 4) 사용 → minWords=0.
+  // 한 판이 3층 × 최대 9칸 = 22개 방 + 4지선다 오답 보기까지 쓰므로 12개부터 내 단어로 짓는다.
+  // 그보다 적으면 스캐폴드가 wordPool 을 넘기지 않고(demo), 게임이 내장 맛보기 뱅크로 돈다.
   return (
     <Suspense fallback={<GameLoading message="도면을 펼치는 중…" />}>
       <GamePlayScaffold
         module="lexicon-estate"
         label="Lexicon Estate"
-        minWords={0}
-        render={({ onCorrect, onWrong, onExit }) => <Game onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
+        minWords={12}
+        loadingMessage="도면을 펼치는 중…"
+        render={({ wordPool, onCorrect, onWrong, onExit }) => (
+          <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />
+        )}
       />
     </Suspense>
   );
