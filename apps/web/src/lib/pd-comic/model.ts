@@ -78,4 +78,17 @@ export interface PdComicAdminRow extends PdComicIssue {
   attempts: number
   publishedAt: string | null
   qc: Record<string, unknown> | null
+  /** 마지막 드레인 실행 시각 — "지금 진행 중/멈춤" 라이브 판단 근거 */
+  lastRunAt: string | null
+  /** 테스트 모드 취득 페이지 수(NULL=전권, N=앞 N쪽만) — 테스트 이슈 식별 */
+  acquirePages: number | null
+}
+
+/** Admin 모니터용 컷(발행 전 포함) — 콘텐츠(대사/OCR) 상태 관찰. */
+export interface PdPanelAdmin {
+  panelOrder: number
+  sourcePageNo: number | null
+  imageUrl: string | null
+  bubbles: Array<{ text: string; kind?: string; confidence?: number; box?: { x: number; y: number; w: number; h: number } }>
+  targetVocab: string[]
 }

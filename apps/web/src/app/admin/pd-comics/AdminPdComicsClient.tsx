@@ -11,7 +11,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { PD_STAGES, stageIndex, type PdComicAdminRow } from '@/lib/pd-comic/model'
+import { PD_STAGES, stageIndex, type PdComicAdminRow, type PdPanelAdmin } from '@/lib/pd-comic/model'
 
 const ACCENT = '#8B5CF6'
 
@@ -64,7 +64,7 @@ const RISK_UI: Record<string, { label: string; fg: string; bg: string }> = {
   high: { label: '위험', fg: 'var(--error)', bg: 'var(--error-light)' },
 }
 
-type Tab = 'source' | 'queue' | 'tools'
+type Tab = 'source' | 'queue' | 'monitor' | 'tools'
 
 export function AdminPdComicsClient({
   initialRows,
@@ -89,6 +89,7 @@ export function AdminPdComicsClient({
           [
             ['source', '소스 · 대량 적재'],
             ['queue', '큐 · 드레인'],
+            ['monitor', '테스트 · 모니터'],
             ['tools', '도구'],
           ] as Array<[Tab, string]>
         ).map(([k, label]) => (
@@ -116,6 +117,7 @@ export function AdminPdComicsClient({
 
       {tab === 'source' && <SourceTab onMsg={setMsg} onEnqueued={refresh} schemaReady={schemaReady} />}
       {tab === 'queue' && <QueueTab rows={rows} onMsg={setMsg} onRefresh={refresh} />}
+      {tab === 'monitor' && <MonitorTab rows={rows} onMsg={setMsg} onRefresh={refresh} active={tab === 'monitor'} />}
       {tab === 'tools' && <ToolsTab />}
     </>
   )
@@ -777,6 +779,170 @@ function QueueTab({
       )}
 
       <IssueList rows={rows} />
+    </div>
+  )
+}
+
+// ─── 테스트 · 모니터 탭 ──────────────────────────────────────────────
+// 파이프라인이 지금 "무엇을 · 어떤 상태로 · 어떻게" 처리 중인지 실시간 관측 + 이슈별 테스트 실행.
+//   라이브 자동 새로고침 · 단계 분포 · 진행/멈춤 신호 · 이슈별 관측(테스트 플래그·시도·최근 실행·QC)
+//   · 컷 콘텐츠(대사/OCR) 드릴다운 · dry-run 미리보기 / 한 단계 진행.
+
+function relTime(iso: string | null): string {
+  if (!iso) return '—'
+  const t = new Date(iso).getTime()
+  if (Number.isNaN(t)) return '—'
+  const s = Math.max(0, Math.round((Date.now() - t) / 1000))
+  if (s < 60) return `${s}초 전`
+  if (s < 3600) return `${Math.floor(s / 60)}분 전`
+  if (s < 86400) return `${Math.floor(s / 3600)}시간 전`
+  return `${Math.floor(s / 86400)}일 전`
+}
+const RECENT_MS = 30_000 // 최근 실행 = "방금 진행 중" 신호 (DRAINABLE 은 큐 탭 정의 재사용)
+
+function MonitorTab({ rows, onMsg, onRefresh, active }: {
+  rows: PdComicAdminRow[]; onMsg: (s: string) => void; onRefresh: () => Promise<void>; active: boolean
+}) {
+  const [live, setLive] = useState(true)
+  const [lastPoll, setLastPoll] = useState<number>(Date.now())
+  const [open, setOpen] = useState<string | null>(null)
+  const [busy, setBusy] = useState<string | null>(null)
+
+  // 라이브 자동 새로고침 (활성 탭 + LIVE 일 때만 — 드레인 없이도 상태가 갱신됨)
+  useEffect(() => {
+    if (!active || !live) return
+    const id = setInterval(() => { void onRefresh().then(() => setLastPoll(Date.now())) }, 4000)
+    return () => clearInterval(id)
+  }, [active, live, onRefresh])
+
+  const dist = PD_STAGES.map((s) => ({ ...s, n: rows.filter((r) => r.status === s.key).length }))
+  const drainable = rows.filter((r) => DRAINABLE.has(r.status) && !r.lastError)
+  const stuck = rows.filter((r) => r.lastError)
+  const runningNow = rows.filter((r) => r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
+
+  const drainOne = async (issueId: string, dryRun: boolean) => {
+    setBusy(issueId)
+    try {
+      const r = await fetch('/api/pdcp/drain', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId, dryRun }) })
+      const j = await r.json()
+      if (!r.ok) { onMsg(`드레인 실패: ${j.error ?? r.status}`); return }
+      if (j.dryRun) onMsg(`[미리보기] ${j.from ?? '?'} → ${j.to ?? '?'} · ${j.command ?? ''}`)
+      else if (j.ok) onMsg(`진행: ${j.from} → ${j.to} (${j.tookMs}ms)`)
+      else onMsg(`드레인: ${j.message ?? j.error ?? '완료'}`)
+      await onRefresh(); setLastPoll(Date.now())
+    } finally { setBusy(null) }
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border px-3.5 py-2.5" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+        <span className="font-display text-[12.5px] font-[700] text-[var(--t1)]">테스트 · 모니터</span>
+        <span className="font-body text-[11.5px] text-[var(--t2)]">파이프라인이 지금 무엇을 · 어떤 상태로 · 어떻게 처리 중인지 실시간 관측</span>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="font-mono text-[11px] text-[var(--t3)]">{live ? `자동 새로고침 · ${relTime(new Date(lastPoll).toISOString())}` : '수동'}</span>
+          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t3)' }} aria-pressed={live}>
+            {live ? '● LIVE' : '○ 정지'}
+          </button>
+          <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
+        {dist.map((s) => (
+          <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 text-center">
+            <div className="font-display text-[18px] font-[800] tabular-nums text-[var(--t1)]">{s.n}</div>
+            <div className="font-body text-[11px] text-[var(--t3)]">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-2 font-body text-[11.5px]">
+        <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--success-light)', color: 'var(--success)' }}>드레인 대상 {drainable.length}</span>
+        <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--p-light)', color: 'var(--p)' }}>방금 진행 {runningNow.length}</span>
+        {stuck.length > 0 && <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {stuck.length}</span>}
+      </div>
+
+      {rows.length === 0 ? (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
+      ) : (
+        <ul className="flex flex-col gap-2">
+          {rows.map((r) => {
+            const running = Boolean(r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
+            const ocr = (r.qc?.ocr ?? null) as Record<string, unknown> | null
+            const tookMs = typeof r.qc?.tookMs === 'number' ? (r.qc.tookMs as number) : null
+            return (
+              <li key={r.id} className="rounded-[var(--r-lg)] border bg-[var(--bg)] px-4 py-3" style={{ borderColor: r.lastError ? 'var(--error)' : running ? ACCENT : 'var(--bd)' }}>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  {running && <span className="inline-block h-2 w-2 rounded-full" style={{ background: ACCENT }} aria-label="방금 진행" />}
+                  <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
+                  <span className="font-mono text-[11px] text-[var(--t3)]">{r.sourceAdapter}</span>
+                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ background: `${ACCENT}1a`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
+                  <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
+                </div>
+                <Stepper status={r.status} failed={Boolean(r.lastError)} />
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-[var(--t2)]">
+                  <span>시도 {r.attempts}</span>
+                  <span>최근 실행 {relTime(r.lastRunAt)}</span>
+                  {tookMs != null && <span>{(tookMs / 1000).toFixed(1)}s</span>}
+                  {ocr && <span className="text-[var(--t3)]">OCR {Object.entries(ocr).slice(0, 3).map(([k, v]) => `${k}:${v !== null && typeof v === 'object' ? '…' : String(v)}`).join(' · ')}</span>}
+                  <span className="text-[var(--t3)]">PD {r.pdBasis ?? '미기재'}</span>
+                </div>
+                {r.lastError && <p className="mt-1.5 rounded-[var(--r-sm)] bg-[var(--error-light)] px-2.5 py-1.5 font-mono text-[11px] text-[var(--error)]">멈춤: {r.lastError.slice(0, 220)}</p>}
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
+                  {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
+                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '콘텐츠 상태'}</button>
+                </div>
+                {open === r.id && <PanelDrill issueId={r.id} />}
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+// 컷 콘텐츠 드릴다운 — 발행 전 이슈의 대사/OCR 상태(어떤 컨텐츠가 어떻게 됐나)
+function PanelDrill({ issueId }: { issueId: string }) {
+  const [panels, setPanels] = useState<PdPanelAdmin[] | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+  useEffect(() => {
+    let alive = true
+    setPanels(null); setErr(null)
+    fetch(`/api/pdcp/panels?issueId=${encodeURIComponent(issueId)}`, { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((j) => { if (alive) setPanels((j.panels ?? []) as PdPanelAdmin[]) })
+      .catch(() => { if (alive) setErr('불러오기 실패') })
+    return () => { alive = false }
+  }, [issueId])
+  if (err) return <p className="mt-2 font-body text-[11.5px] text-[var(--error)]">{err}</p>
+  if (panels === null) return <p className="mt-2 font-body text-[11.5px] text-[var(--t3)]">불러오는 중…</p>
+  if (panels.length === 0) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t3)]">아직 컷 콘텐츠가 없습니다 — 컷 분할(segment) 이후 생성됩니다.</p>
+  const totalBubbles = panels.reduce((a, p) => a + p.bubbles.length, 0)
+  return (
+    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+      <p className="mb-1.5 font-mono text-[11px] text-[var(--t2)]">컷 {panels.length} · 대사 {totalBubbles}개</p>
+      <ul className="flex max-h-72 flex-col gap-1.5 overflow-y-auto">
+        {panels.map((p) => (
+          <li key={p.panelOrder} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5">
+            <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t3)]">
+              <span>#{p.panelOrder}</span>
+              {p.sourcePageNo != null && <span>p.{p.sourcePageNo}</span>}
+              <span className="ml-auto">대사 {p.bubbles.length}</span>
+            </div>
+            {p.bubbles.length > 0 && (
+              <ul className="mt-1 flex flex-col gap-0.5">
+                {p.bubbles.map((b, i) => (
+                  <li key={i} className="flex items-baseline gap-1.5 font-body text-[11.5px] text-[var(--t1)]">
+                    <span className="shrink-0 font-mono text-[9.5px] text-[var(--t4)]">{b.kind ?? 'speech'}{typeof b.confidence === 'number' ? ` ${Math.round(b.confidence * 100)}%` : ''}</span>
+                    <span className="flex-1">{b.text || <em className="text-[var(--t4)]">(빈 대사)</em>}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

@@ -16,6 +16,7 @@ import type {
   PdComicIssue,
   PdComicPanel,
   PdComicProvenance,
+  PdPanelAdmin,
   PdResult,
 } from './model'
 
@@ -106,7 +107,7 @@ export async function listPdComicsAdmin(
     .select(
       'id, slug, title, series_title, issue_no, published_year, cover_url, panels_total, v_level, ' +
         'library_book_id, status, source_adapter, source_identifier, source_url, pd_basis, ' +
-        'pd_checked_at, published_at, qc, last_error, attempts',
+        'pd_checked_at, published_at, qc, last_error, attempts, last_run_at, acquire_pages',
     )
     .order('created_at', { ascending: false })
   if (error) {
@@ -137,6 +138,39 @@ export async function listPdComicsAdmin(
       attempts: (r.attempts as number) ?? 0,
       publishedAt: (r.published_at as string) ?? null,
       qc: (r.qc as Record<string, unknown>) ?? null,
+      lastRunAt: (r.last_run_at as string) ?? null,
+      acquirePages: (r.acquire_pages as number) ?? null,
+    })),
+  }
+}
+
+/**
+ * Admin 컷 콘텐츠 조회 — 발행 전 이슈의 대사/OCR 상태 관찰용.
+ * pd_comic_panels 는 published-gate RLS 라 학습자 경로로는 못 읽는다 → service-role(admin) 세션 전용.
+ * 스키마/이슈 미존재는 정상(ready:false / 빈 배열).
+ */
+export async function selectPdPanelsAdmin(
+  client: SupabaseClient,
+  issueId: string,
+): Promise<PdResult<PdPanelAdmin[]>> {
+  const { data, error } = await client
+    .from('pd_comic_panels')
+    .select('panel_order, source_page_no, image_url, bubbles, target_vocab')
+    .eq('issue_id', issueId)
+    .order('panel_order', { ascending: true })
+  if (error) {
+    if (isSchemaMissing(error)) return { ready: false, data: [] }
+    throw error
+  }
+  const rows = (data ?? []) as unknown as Array<Record<string, unknown>>
+  return {
+    ready: true,
+    data: rows.map((r) => ({
+      panelOrder: Number(r.panel_order),
+      sourcePageNo: r.source_page_no == null ? null : Number(r.source_page_no),
+      imageUrl: (r.image_url as string) ?? null,
+      bubbles: Array.isArray(r.bubbles) ? (r.bubbles as PdPanelAdmin['bubbles']) : [],
+      targetVocab: Array.isArray(r.target_vocab) ? (r.target_vocab as string[]) : [],
     })),
   }
 }
