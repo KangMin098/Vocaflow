@@ -872,8 +872,11 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         <ul className="flex flex-col gap-2">
           {sortedRows.map((r) => {
             const running = Boolean(r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
-            const ocr = (r.qc?.ocr ?? null) as Record<string, unknown> | null
+            const ocr = (r.qc?.ocr ?? null) as { bubbles?: number; needsReview?: number } | null
             const tookMs = typeof r.qc?.tookMs === 'number' ? (r.qc.tookMs as number) : null
+            // 원본 텍스트 품질 = 그대로 쓸 수 있는 대사 비율(스캔 깨끗함·OCR 경로의 지표). 콘텐츠 간 품질 비교 근거.
+            const usablePct = ocr?.bubbles ? Math.round((100 * (ocr.bubbles - (ocr.needsReview ?? 0))) / ocr.bubbles) : null
+            const usableTone = usablePct == null ? 'var(--t3)' : usablePct >= 70 ? 'var(--success)' : usablePct >= 45 ? 'var(--warning)' : 'var(--error)'
             const method = (r.qc?.method ?? null) as { textSource?: string; ocrStrategy?: string; hocrUsed?: boolean; format?: string; restore?: { crop?: boolean; sat?: number; scale?: number } } | null
             return (
               <li key={r.id} className="rounded-[var(--r-lg)] border bg-[var(--bg)] px-4 py-3" style={{ borderColor: r.lastError ? 'var(--error)' : running ? ACCENT : 'var(--bd)' }}>
@@ -889,7 +892,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <span>시도 {r.attempts}</span>
                   <span>최근 실행 {relTime(r.lastRunAt)}</span>
                   {tookMs != null && <span>{(tookMs / 1000).toFixed(1)}s</span>}
-                  {ocr && <span className="text-[var(--t3)]">OCR {Object.entries(ocr).slice(0, 3).map(([k, v]) => `${k}:${v !== null && typeof v === 'object' ? '…' : String(v)}`).join(' · ')}</span>}
+                  {ocr?.bubbles != null && <span className="text-[var(--t3)]">OCR {ocr.bubbles}대사 · 검수 {ocr.needsReview ?? 0}</span>}
+                  {usablePct != null && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-[700]" style={{ color: usableTone, background: 'var(--bg2)' }} title="그대로 쓸 수 있는 대사 비율 — 콘텐츠 품질 비교 지표(높을수록 스캔·OCR 양호)">사용가능 {usablePct}%</span>}
                   <span className="text-[var(--t3)]">PD {r.pdBasis ?? '미기재'}</span>
                 </div>
                 {/* 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단). 텍스트 소스(hOCR vs 이미지 OCR)·형식·복원 프로파일 */}
