@@ -916,6 +916,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
                   <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
                   <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
+                  <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
                 </div>
                 {openLive === r.id && <LiveProgress issueId={r.id} onZoom={(rels, index) => setZoom({ issueId: r.id, rels, index })} />}
                 {open === r.id && <PanelDrill issueId={r.id} />}
