@@ -13,6 +13,7 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 const arg = (n, d) => { const i = process.argv.indexOf(`--${n}`); return i === -1 ? d : process.argv[i + 1] }
+const has = (n) => process.argv.includes(`--${n}`)
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
 const REPO = path.resolve(HERE, '..', '..', '..')
 const FF = process.env.FFMPEG_BIN || (fs.existsSync(path.join(REPO, 'tools', 'ffmpeg', 'ffmpeg.exe')) ? path.join(REPO, 'tools', 'ffmpeg', 'ffmpeg.exe') : 'ffmpeg')
@@ -33,14 +34,25 @@ const outDir = path.join(WD, 'webtoon')
 const tmpDir = path.join(outDir, 'panels')
 fs.mkdirSync(tmpDir, { recursive: true })
 
-// 개선 복원(v3 계열) + 웹툰 폭 정규화 + 하단 거터. 원작 컷 파일을 직접 처리(작화 보존).
-const restoreVf = 'eq=gamma_b=1.1:saturation=1.34:contrast=1.07,hqdn3d=2:2:5:5,unsharp=5:5:0.5:5:5:0.0'
+// 현대화 처리(원작 작화 보존, GPU 모델 없음):
+//   --modern: 확연한 현대화 — 디스크린(smartblur) + 평면컬러 양자화(palette 40색) + 강채도 + 무테두리.
+//             halftone 점 텍스처(옛 인쇄 신호 #1) 제거 → 모던 flat-color. (실측: 확연히 현대적)
+//   기본:     v3 계열 개선 복원(황색중화·디스크린 약·채도·샤픈).
+const MODERN = has('modern')
+const padVf = `pad=${W}:ih+${G}:(ow-iw)/2:0:color=${BG}`
+// colorlevels: 크림 종이(하이라이트)를 순백으로 당김 + 청색 채널을 더 늘려 황색 캐스트 제거.
+//   rimax/gimax 0.92 → 92% 이상은 흰색, bimax 0.86 → 청색을 더 강히 늘려 누런기 중화.
+const restoreVf = MODERN
+  ? `crop=iw-12:ih-12,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02`
+  : `eq=gamma_b=1.1:saturation=1.34:contrast=1.07,hqdn3d=2:2:5:5,unsharp=5:5:0.5:5:5:0.0`
 const cleaned = []
 for (const [i, p] of panels.entries()) {
   const src = path.isAbsolute(p.file) ? p.file : path.join(REPO, p.file)
   const inFile = fs.existsSync(src) ? src : path.join(WD, 'panels', path.basename(p.file))
   const out = path.join(tmpDir, `${String(i).padStart(3, '0')}.jpg`)
-  const vf = `${restoreVf},scale=${W}:-1:flags=lanczos,pad=${W}:ih+${G}:(ow-iw)/2:0:color=${BG}`
+  const vf = MODERN
+    ? `${restoreVf},scale=${W}:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=40[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4,${padVf}`
+    : `${restoreVf},scale=${W}:-1:flags=lanczos,${padVf}`
   const r = spawnSync(FF, ['-y', '-i', inFile, '-vf', vf, '-q:v', '3', out], { encoding: 'utf8' })
   if (r.status === 0 && fs.existsSync(out)) cleaned.push(out)
   else console.error(`  ✗ 컷 ${i} 처리 실패`)
