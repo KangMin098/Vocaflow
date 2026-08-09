@@ -33,6 +33,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { pathToFileURL } from 'node:url'
+import { emitProgress } from './progress.mjs'
 
 import { groupLines, isGarbledWord, judgeBubble, normalize, truecase } from './ocr.mjs'
 
@@ -143,6 +144,7 @@ async function main() {
   let dropped = 0
 
   for (const [i, p] of panels.entries()) {
+    emitProgress(root, { stage: 'ocr', done: i, total: panels.length, current: `컷 ${i + 1}` })
     const file = path.resolve(process.cwd(), p.file)
     const { data } = await worker.recognize(file)
     const W = data.width ?? p.srcBox.w

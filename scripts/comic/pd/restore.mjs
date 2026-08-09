@@ -20,6 +20,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { emitProgress } from './progress.mjs'
 
 import {
   assertFfmpeg,
@@ -102,6 +103,7 @@ async function main() {
   for (const [i, file] of files.entries()) {
     const name = path.basename(file).replace(IMG_RE, '.jpg')
     const out = path.join(args.out, name)
+    emitProgress(path.dirname(args.out), { stage: 'restore', done: i, total: files.length, current: name })
 
     const img = readRgb(file, 360)
     const box = args.crop ? scaleBox(contentBBox(img), img, 2) : null

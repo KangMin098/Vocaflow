@@ -806,6 +806,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   const [live, setLive] = useState(true)
   const [lastPoll, setLastPoll] = useState<number>(Date.now())
   const [open, setOpen] = useState<string | null>(null)
+  const [openLive, setOpenLive] = useState<string | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
 
   // 라이브 자동 새로고침 (활성 탭 + LIVE 일 때만 — 드레인 없이도 상태가 갱신됨)
@@ -890,14 +891,69 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
                   {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
-                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '콘텐츠 상태'}</button>
+                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
+                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
                 </div>
+                {openLive === r.id && <LiveProgress issueId={r.id} />}
                 {open === r.id && <PanelDrill issueId={r.id} />}
               </li>
             )
           })}
         </ul>
       )}
+    </div>
+  )
+}
+
+// 라이브 진행 — 어디 콘텐츠의 몇 번째 아이템이 진행 중인지(진행율) + 중간 결과 이미지(원본/복원/컷)를 수시 폴링.
+interface Prog { stage?: string; current?: string; done?: number; total?: number; pct?: number }
+function LiveProgress({ issueId }: { issueId: string }) {
+  const [data, setData] = useState<{ workDir?: boolean; status?: string | null; panelsTotal?: number | null; progress?: Prog | null; artifacts?: Record<string, string[]> } | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+  useEffect(() => {
+    let alive = true
+    const poll = async () => {
+      try { const r = await fetch(`/api/pdcp/progress?issueId=${encodeURIComponent(issueId)}`, { cache: 'no-store' }); const j = await r.json(); if (alive) setData(j) }
+      catch { if (alive) setErr('진행 조회 실패') }
+    }
+    poll(); const id = setInterval(poll, 2500) // 수시 갱신
+    return () => { alive = false; clearInterval(id) }
+  }, [issueId])
+  if (err) return <p className="mt-2 font-body text-[11.5px] text-[var(--error)]">{err}</p>
+  if (!data) return <p className="mt-2 font-body text-[11.5px] text-[var(--t3)]">불러오는 중…</p>
+  if (!data.workDir) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t3)]">work 산출물이 없습니다 — 중간 이미지를 보려면 <code className="font-mono">--record</code> 로 실행하세요(<code className="font-mono">--out work/&lt;slug&gt;</code> 면 재부팅 후에도 유지).</p>
+  const p = data.progress
+  const KINDS: Array<[string, string]> = [['pages', '원본'], ['restored', '복원'], ['panels', '컷']]
+  const anyArt = KINDS.some(([k]) => (data.artifacts?.[k]?.length ?? 0) > 0)
+  return (
+    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+      {p && typeof p.done === 'number' && (
+        <div className="mb-2.5">
+          <div className="flex items-center justify-between font-mono text-[11px] text-[var(--t2)]">
+            <span>{p.stage} · {p.current ?? ''}</span>
+            <span className="tabular-nums">{p.done}/{p.total} ({p.pct ?? 0}%)</span>
+          </div>
+          <div className="mt-1 h-1.5 w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
+            <div className="h-full rounded-[var(--r-full)] transition-all" style={{ width: `${p.pct ?? 0}%`, background: ACCENT }} />
+          </div>
+        </div>
+      )}
+      {KINDS.map(([kind, label]) => {
+        const files = data.artifacts?.[kind] ?? []
+        if (!files.length) return null
+        return (
+          <div key={kind} className="mb-2">
+            <p className="mb-1 font-mono text-[10.5px] text-[var(--t3)]">{label} {files.length}장</p>
+            <div className="flex gap-1.5 overflow-x-auto pb-1">
+              {files.slice(0, 30).map((f) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={f} src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(`${kind}/${f}`)}`} alt={f} loading="lazy" title={f} className="h-24 w-auto shrink-0 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] object-contain" />
+              ))}
+            </div>
+          </div>
+        )
+      })}
+      {!p && !anyArt && <p className="font-body text-[11.5px] text-[var(--t3)]">아직 산출물이 없습니다 — 드레인이 진행되면 여기 원본→복원→컷 이미지가 수시로 채워집니다.</p>}
     </div>
   )
 }

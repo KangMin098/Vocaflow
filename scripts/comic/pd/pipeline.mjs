@@ -207,7 +207,7 @@ async function main() {
   const REPO = path.resolve(HERE, '..', '..', '..')
   let rec = null, issueId = null
   if (args.record && !args.dryRun) {
-    rec = await createRecorder(REPO)
+    rec = await createRecorder(REPO, root)
     if (rec) {
       let meta = null
       try { meta = ad.meta ? await ad.meta(String(args.id)) : null } catch { /* noop */ }

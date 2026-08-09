@@ -24,8 +24,9 @@ const slugify = (s) => String(s || 'issue').toLowerCase().replace(/[^a-z0-9]+/g,
 /**
  * 레코더 생성. env 없으면 null(무기록 graceful).
  * @param {string} root 저장소 루트
+ * @param {string=} workDir 이 실행의 작업 디렉터리(절대경로) — 진행 아티팩트(중간 이미지) 서빙 근거로 qc 에 저장.
  */
-export async function createRecorder(root) {
+export async function createRecorder(root, workDir) {
   loadEnv(root)
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -54,15 +55,14 @@ export async function createRecorder(root) {
         return data?.id ?? null
       } catch (e) { console.error(`   (기록 오류: ${e.message})`); return null }
     },
-    /** 단계 전이 기록 — status + last_run_at (+ qc/panels_total). */
+    /** 단계 전이 기록 — status + last_run_at (+ qc/panels_total). qc 엔 항상 workDir 를 병합(아티팩트 서빙 근거). */
     async stage(issueId, status, extra = {}) {
       if (!issueId) return
       try {
         await db.from('pd_comic_issues').update({
           status, last_run_at: new Date().toISOString(),
-          ...(extra.qc ? { qc: extra.qc } : {}),
+          qc: { ...(extra.qc || {}), ...(workDir ? { workDir } : {}) },
           ...(extra.panelsTotal != null ? { panels_total: extra.panelsTotal } : {}),
-          ...(extra.attemptsInc ? {} : {}),
         }).eq('id', issueId)
       } catch (e) { console.error(`   (단계 기록 오류: ${e.message})`) }
     },
