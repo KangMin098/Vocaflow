@@ -18,11 +18,13 @@ export const dynamic = 'force-dynamic'
 const KINDS = ['pages', 'restored', 'panels'] as const
 const IMG = /\.(jpe?g|png)$/i
 
-// 현대화 산출물(Claude Code 오퍼레이터 루프) — 각 단계의 프리뷰 스트립 + verdict 를 모니터에 노출.
-const MODERN_KINDS: { key: string; label: string; manifest: string }[] = [
-  { key: 'webtoon', label: '모던 웹툰 (flat-color)', manifest: 'webtoon.manifest.json' },
-  { key: 'dialogue', label: '모던 대사 레이어', manifest: 'dialogue.manifest.json' },
-  { key: 'reletter', label: '재레터링 (반려 기록)', manifest: 'reletter.manifest.json' },
+// 현대화 산출물(Claude Code 오퍼레이터 루프) — 각 단계의 프리뷰 이미지 + verdict 를 모니터에 노출.
+const MODERN_KINDS: { key: string; label: string; manifest: string; preview: string }[] = [
+  { key: 'page-modern', label: '구성 보존 현대화 (원작 | 결과)', manifest: 'page-modern.manifest.json', preview: 'compare_preview.jpg' },
+  { key: 'page-letter', label: '구성 보존 모던 레터링 (원작 | 결과)', manifest: 'page-letter.manifest.json', preview: 'compare_0004.jpg' },
+  { key: 'webtoon', label: '모던 웹툰 (flat-color)', manifest: 'webtoon.manifest.json', preview: 'strip_preview.jpg' },
+  { key: 'dialogue', label: '모던 대사 레이어', manifest: 'dialogue.manifest.json', preview: 'strip_preview.jpg' },
+  { key: 'reletter', label: '재레터링 (반려 기록)', manifest: 'reletter.manifest.json', preview: 'strip_preview.jpg' },
 ]
 
 type ModernArtifact = { key: string; label: string; preview: string | null; strip: string | null; verdict: unknown }
@@ -68,7 +70,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   for (const m of MODERN_KINDS) {
     const dir = path.join(workDir, m.key)
     if (!fs.existsSync(dir)) continue
-    const previewRel = fs.existsSync(path.join(dir, 'strip_preview.jpg')) ? `${m.key}/strip_preview.jpg` : null
+    const previewRel = fs.existsSync(path.join(dir, m.preview)) ? `${m.key}/${m.preview}` : null
     const stripRel = fs.existsSync(path.join(dir, 'strip.jpg')) ? `${m.key}/strip.jpg` : null
     let verdict: unknown = null
     try {
