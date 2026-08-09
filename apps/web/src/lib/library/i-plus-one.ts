@@ -97,8 +97,9 @@ export function judgeArticleIPlusOne(
   const effectiveUserVLevel = userVLevel && userVLevel > 0 ? userVLevel : 5;
   const gap = articleVLevel - effectiveUserVLevel;
   const base = { gap, effectiveUserVLevel };
-  if (gap <= 0) return { ...base, tier: 'easy', label: '수월해요', color: 'var(--t3)' };
-  if (gap === 1) return { ...base, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known)' };
-  if (gap === 2) return { ...base, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
-  return { ...base, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
+  // 책 버전과 동일 규칙 — 배지 글자이므로 잉크 토큰(AA). --t3 는 텍스트 색이 아니다.
+  if (gap <= 0) return { ...base, tier: 'easy', label: '수월해요', color: 'var(--t2)' };
+  if (gap === 1) return { ...base, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known-ink)' };
+  if (gap === 2) return { ...base, tier: 'challenge', label: '도전적', color: 'var(--learn-review-ink)' };
+  return { ...base, tier: 'hard', label: '어려워요', color: 'var(--learn-error-ink)' };
 }

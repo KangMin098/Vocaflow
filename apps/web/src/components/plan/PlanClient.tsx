@@ -388,7 +388,7 @@ export function PlanClient({
       </header>
 
       {error && (
-        <p role="alert" className="font-body text-[13px] text-[var(--error)]">
+        <p role="alert" className="font-body text-[13px] text-[var(--error-ink)]">
           {error}
         </p>
       )}
@@ -729,7 +729,8 @@ function WeekBoard({
                   </span>
                   <span
                     className={`font-mono text-[9.5px] leading-none tabular-nums ${
-                      isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+                      // 오늘 칸은 --p 틴트 배경 위 글자라 --on-p-tint (다크에서 --p 는 4.32:1)
+                      isToday ? 'text-[var(--on-p-tint)]' : 'text-[var(--t2)]'
                     }`}
                   >
                     {weekDates[d.value - 1] ?? ''}
@@ -1066,7 +1067,7 @@ function ItemConfig({
       <button
         type="button"
         onClick={onRemove}
-        className="inline-flex h-9 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex h-9 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <Trash2 size={13} strokeWidth={1.75} aria-hidden /> 계획에서 빼기
       </button>
@@ -1429,7 +1430,7 @@ function ArticleSelectPane({
           <button
             type="button"
             onClick={onClear}
-            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             {n}개 선택 · 해제
           </button>

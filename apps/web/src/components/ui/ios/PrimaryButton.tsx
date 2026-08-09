@@ -55,31 +55,34 @@ const TONE: Record<PrimaryButtonTone, ToneStyle> = {
   },
   brand: {
     bg: 'bg-[var(--p)]',
-    text: 'text-white',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:bg-[var(--p-hover)]',
     glow: 'shadow-ios-glow-tint',
   },
+  // 채움 위 흰 글자는 4.5:1 을 넘겨야 한다 — iOS 원색(red 3.55 · orange 2.20 · green 2.22)은
+  //   전부 미달이었다(2026-08-09 axe 실측). Reading Room semantic 팔레트(더 깊은 톤)로 교체하고,
+  //   앰버처럼 밝은 면에는 흰 글자 대신 잉크 글자를 얹는다(#231a09 on --warning = 5.00).
   critical: {
-    bg: 'bg-ios-red',
-    text: 'text-white',
+    bg: 'bg-[var(--error)]',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-red',
   },
   warning: {
-    bg: 'bg-ios-orange',
-    text: 'text-white',
+    bg: 'bg-[var(--warning)]',
+    text: 'text-[#231a09]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-orange',
   },
   info: {
-    bg: 'bg-ios-blue',
-    text: 'text-white',
+    bg: 'bg-[var(--info)]',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-blue',
   },
   success: {
-    bg: 'bg-ios-green',
-    text: 'text-white',
+    bg: 'bg-[var(--success)]',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-green',
   },

@@ -173,7 +173,7 @@ export function TextCard({ text }: TextCardProps) {
       disabled={pending}
       aria-label={isLibraryBookCard ? `${text.title} 내 학습에서 제외` : `${text.title} 삭제`}
       title={isLibraryBookCard ? '내 학습에서 제외' : '삭제'}
-      className="absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-[var(--t2)] opacity-0 shadow-[var(--sh-sm)] backdrop-blur transition-all duration-[var(--dur-normal)] group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error)] disabled:opacity-50"
+      className="absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-[var(--t2)] opacity-0 shadow-[var(--sh-sm)] backdrop-blur transition-all duration-[var(--dur-normal)] group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] disabled:opacity-50"
     >
       {pending ? (
         <Loader2 size={12} className="animate-spin" aria-hidden />

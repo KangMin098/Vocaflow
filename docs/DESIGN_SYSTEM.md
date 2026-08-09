@@ -74,6 +74,8 @@
 | 브랜드 tint 칩 | `--p-light` | `--on-p-tint` (테마별 반전) |
 | semantic 칩(성공/오류/주의/정보) | `--success`/`--error`/`--warning`/`--info` (+ tint) | `--success-ink`/`--error-ink`/`--warning-ink`/`--info-ink` |
 | Memory Decay 4색 | `--memory-*` | `--memory-*-ink` |
+| semantic 채움 버튼(critical/success/info) | `--error`/`--success`/`--info` | `--on-semantic` (테마별 반전) |
+| ACP 트랙 액센트 | `--track-*` (테마별 반전) | 같은 토큰 — 라이트=진한 원색 · 다크=밝은 톤 |
 
 **`--t3` 는 텍스트 색이 아니다.** 알파 0.38 은 종이 위 2.35:1 이라 어떤 조합으로도 AA 를 못 넘긴다
 (0.62 = `--t2` 가 최소선 4.79:1). 저자명·설명·메타처럼 **의미 있는 글자는 `--t2` 이상**,

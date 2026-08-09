@@ -19,13 +19,15 @@ export interface StatPillProps {
 }
 
 const ACCENT_COLORS: Record<NonNullable<StatPillProps['accent']>, string> = {
+  // 값(숫자)은 --bg3 위에 얹히는 **글자**다 — iOS 원색은 여기서 1.7~2.0:1 로 AA 미달이었다
+  //   (2026-08-09 axe 실측: green 1.78 · orange 1.76). 점(dotColor)은 원색, 숫자는 잉크.
   neutral: 'var(--t1)',
-  brand: 'var(--p)',
-  green: 'var(--ios-green)',
-  orange: 'var(--ios-orange)',
-  red: 'var(--ios-red)',
-  purple: 'var(--ios-purple)',
-  blue: 'var(--ios-blue)',
+  brand: 'var(--on-p-tint)',
+  green: 'var(--ios-green-ink)',
+  orange: 'var(--ios-orange-ink)',
+  red: 'var(--ios-red-ink)',
+  purple: 'var(--ios-purple-ink)',
+  blue: 'var(--ios-blue-ink)',
 }
 
 export function StatPill({

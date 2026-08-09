@@ -409,7 +409,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       </div>
 
       {error && (
-        <div role="alert" className="mb-4 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-3 font-body text-[12px] text-[var(--error)]">
+        <div role="alert" className="mb-4 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-3 font-body text-[12px] text-[var(--error-ink)]">
           {error}
         </div>
       )}
@@ -693,7 +693,7 @@ function ScoreRow({ label, weight, value, contribution }: {
       <td className="py-1 pr-2 text-[var(--t2)]">{label}</td>
       <td className="py-1 pr-2 text-right text-[var(--t2)]">× {weight}</td>
       <td className="py-1 pr-2 text-right tabular-nums text-[var(--t1)]">{value.toFixed(4)}</td>
-      <td className={`py-1 text-right tabular-nums ${isPenalty ? 'text-[var(--error)]' : 'text-[var(--success)]'}`}>
+      <td className={`py-1 text-right tabular-nums ${isPenalty ? 'text-[var(--error-ink)]' : 'text-[var(--success)]'}`}>
         {isPenalty ? '' : '+'}{contribution.toFixed(4)}
       </td>
     </tr>

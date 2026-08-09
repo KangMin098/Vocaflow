@@ -89,7 +89,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '귀로 들은 소리를 입으로 재생하면 발화가 자동화돼요 (Dual Coding).',
     method: ['먼저 듣기', '문장 따라 말하기', '쉐도잉'],
     mode: 'listen',
-    accent: '#2563EB',
+    accent: 'var(--track-listen)',
   },
   {
     key: 'easy',
@@ -102,7 +102,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '아는 단어 비율이 높을수록 맥락에서 새 단어를 추론하기 쉬워요 (i+1).',
     method: ['훑어 읽기', '모르는 단어 클릭', '문단 요약'],
     mode: 'read',
-    accent: '#0F766E',
+    accent: 'var(--track-easy)',
   },
   {
     key: 'topic',
@@ -115,7 +115,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '관심 있는 주제는 감정 부호화로 더 오래 기억돼요 (Emotional Encoding).',
     method: ['주제 고르기', '핵심 정보 찾기', '새 어휘 수집'],
     mode: 'read',
-    accent: '#7C3AED',
+    accent: 'var(--track-topic)',
   },
   {
     key: 'news',
@@ -128,7 +128,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '같은 시사 어휘를 여러 글에서 다시 만나면 간격 반복 효과가 생겨요 (Spaced Repetition).',
     method: ['헤드라인 보기', '육하원칙 찾기', '후속 글 읽기'],
     mode: 'read',
-    accent: '#B45309',
+    accent: 'var(--track-news)',
   },
   {
     key: 'argue',
@@ -141,7 +141,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '약간 어려운 분투(Desirable Difficulty)가 더 깊은 이해와 기억을 만들어요.',
     method: ['주장 찾기', '근거 따라가기', '반론 떠올리기'],
     mode: 'read_nd',
-    accent: '#15803D',
+    accent: 'var(--track-argue)',
     note: '원문 그대로 · 단어는 클릭으로 조회 (저작권 보호)',
   },
   {
@@ -155,7 +155,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '숫자·근거와 함께 읽으면 주장과 사실을 구분하는 힘이 길러져요 (Desirable Difficulty).',
     method: ['핵심 지표 찾기', '추세 읽기', '출처 확인'],
     mode: 'read',
-    accent: '#0891B2',
+    accent: 'var(--track-data)',
   },
   {
     key: 'reference',
@@ -168,7 +168,7 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
     why: '다양한 주제를 넓게 읽으면 배경지식(스키마)이 쌓여 새 글 이해가 빨라져요 (Schema Theory).',
     method: ['관심 항목 찾기', '핵심 문단 읽기', '새 어휘 수집'],
     mode: 'read',
-    accent: '#7C2D12',
+    accent: 'var(--track-reference)',
   },
 ]
 
@@ -182,9 +182,10 @@ export const SOURCE_TRACKS: SourceTrack[] = RAW_TRACKS.map((t) => ({
 export type TrackFit = 'fit' | 'easy' | 'hard'
 
 export const TRACK_FIT_META: Record<TrackFit, { label: string; color: string }> = {
-  fit: { label: '딱 맞아요', color: 'var(--learn-known)' },
-  easy: { label: '수월해요', color: 'var(--t3)' },
-  hard: { label: '도전', color: 'var(--learn-review)' },
+  // 배지 글자 → 잉크 토큰(AA). --t3 는 텍스트 색이 아니다.
+  fit: { label: '딱 맞아요', color: 'var(--learn-known-ink)' },
+  easy: { label: '수월해요', color: 'var(--t2)' },
+  hard: { label: '도전', color: 'var(--learn-review-ink)' },
 }
 
 /** effectiveUserV 가 트랙 V밴드 [vMin,vMax] 의 아래=hard / 위=easy / 안=fit. */

@@ -509,8 +509,8 @@ export default function SettingsPage() {
           {/* Danger zone */}
           <div className="mt-4 rounded-[var(--r-md)] border border-[var(--error)]/20 bg-[var(--error-light)]/40 p-4">
             <header className="flex items-center gap-2">
-              <AlertTriangle size={14} className="text-[var(--error)]" aria-hidden />
-              <p className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--error)]">
+              <AlertTriangle size={14} className="text-[var(--error-ink)]" aria-hidden />
+              <p className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--error-ink)]">
                 위험 구역
               </p>
             </header>
@@ -522,7 +522,7 @@ export default function SettingsPage() {
                 <LogOut size={12} aria-hidden />
                 로그아웃
               </button>
-              <button className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)]">
+              <button className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)]">
                 <Trash2 size={12} aria-hidden />
                 계정 해지
               </button>

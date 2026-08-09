@@ -331,7 +331,7 @@ export function VocabSetPreviewModal({
             </div>
           )}
           {error && !loading && (
-            <p role="alert" className="py-6 text-center font-body text-[13px] text-[var(--error)]">
+            <p role="alert" className="py-6 text-center font-body text-[13px] text-[var(--error-ink)]">
               {error}
             </p>
           )}

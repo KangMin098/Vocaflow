@@ -86,7 +86,7 @@ export function CompletionState({
                   href={`/flashcard?word=${dw.word.id}`}
                   className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-left no-underline transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-sm)]"
                 >
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[800] text-[var(--error)]">
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[800] text-[var(--error-ink)]">
                     {dw.attemptCount}
                   </span>
                   <span className="min-w-0 flex-1">

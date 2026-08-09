@@ -42,7 +42,7 @@ interface ToneStyle {
 //    neutral/gray 라벨도 --t3(0.38 알파)는 어떤 배경에서도 4.5 를 못 넘겨(최대 2.4) --t2 로 올림.
 const TONE_STYLES: Record<CapsuleTone, ToneStyle> = {
   neutral: { bg: 'var(--bg3)', label: 'var(--t2)', value: 'var(--t1)' },
-  brand: { bg: 'var(--p-light)', label: 'var(--p-dark)', value: 'var(--p-dark)' },
+  brand: { bg: 'var(--p-light)', label: 'var(--on-p-tint)', value: 'var(--on-p-tint)' },
   red: { bg: 'var(--ios-red-tint)', label: 'var(--ios-red-ink)', value: 'var(--ios-red-ink)' },
   orange: { bg: 'var(--ios-orange-tint)', label: 'var(--ios-orange-ink)', value: 'var(--ios-orange-ink)' },
   yellow: { bg: 'var(--ios-yellow-tint)', label: 'var(--ios-yellow-ink)', value: 'var(--ios-yellow-ink)' },

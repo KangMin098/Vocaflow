@@ -110,8 +110,9 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
           </div>
           <a
             href="/scriptquiz/play"
-            className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] active:scale-[0.97]"
-            style={{ backgroundColor: QUIZ_ACCENT }}
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] active:scale-[0.97]"
+            // 골드 면 위에는 종이색(--ti)이 아니라 잉크를 얹어야 AA (5.0:1)
+            style={{ backgroundColor: QUIZ_ACCENT, color: '#231a09' }}
           >
             <Sparkles size={13} strokeWidth={2.5} aria-hidden />
             샘플 퀴즈 체험
@@ -210,6 +211,7 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
               label: '시작하기',
               href: ctaHref,
               accent: QUIZ_ACCENT,
+              accentText: '#231a09', // 골드 면 위 잉크 (5.0:1)
               disabled: !selected,
               disabledReason: !selected ? '먼저 챕터를 선택해주세요' : undefined,
             }}

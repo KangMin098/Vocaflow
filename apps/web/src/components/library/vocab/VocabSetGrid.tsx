@@ -24,11 +24,12 @@ import { VocabSetPreviewModal } from './VocabSetPreviewModal'
 
 // 추천 티어 배지 (recommend_word_sets_for_user recommendation_type) — RecommendedSetsSection 정합.
 const TIER_BADGE: Record<string, { label: string; bg: string; text: string }> = {
-  primary: { label: '메인', bg: 'var(--p)', text: 'var(--ti)' },
-  stretch: { label: '도전', bg: 'var(--active)', text: 'var(--ti)' },
+  // bg 는 면 · text 는 그 위 글자 — 채움/틴트별로 잉크를 맞춘다(2026-08-09 axe).
+  primary: { label: '메인', bg: 'var(--p)', text: 'var(--on-p)' },
+  stretch: { label: '도전', bg: 'var(--active)', text: '#231a09' },
   review: { label: '보강', bg: 'var(--bg3)', text: 'var(--t2)' },
-  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info)' },
-  etymology: { label: '어원', bg: 'var(--warn-light, var(--info-light))', text: 'var(--warn, var(--info))' },
+  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info-ink)' },
+  etymology: { label: '어원', bg: 'var(--warning-light)', text: 'var(--warning-ink)' },
   topic: { label: '주제', bg: 'var(--bg3)', text: 'var(--t2)' },
   fallback: { label: '추천', bg: 'var(--bg3)', text: 'var(--t2)' },
 }

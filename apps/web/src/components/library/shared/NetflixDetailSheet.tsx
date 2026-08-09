@@ -871,7 +871,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
             type="button"
             onClick={() => variant.onUnenroll?.()}
             disabled={variant.unenrollPending}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error)] disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] disabled:opacity-50"
             title="내 학습 도서 목록에서 빼기 (단어 학습 기록은 보존)"
           >
             {variant.unenrollPending ? '제외 중…' : '− 내 학습에서 제외'}

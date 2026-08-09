@@ -161,7 +161,9 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
           </span>
           <span
             className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10.5px] font-[800]"
-            style={{ color: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 14%, transparent)` }}
+            // 배경을 글자색의 14% 로 깔면 글자와 배경이 같은 계열이라 대비가 4.5 를 넘기 어렵다
+            // (2026-08-09 실측 4.49). 중립 면(--bg2) 위에 잉크를 얹는다.
+            style={{ color: fitMeta.color, backgroundColor: 'var(--bg2)' }}
           >
             {fitMeta.label}
           </span>

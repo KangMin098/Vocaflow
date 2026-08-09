@@ -30,7 +30,7 @@ interface ReasonStyle {
 
 const REASON_STYLES: Record<string, ReasonStyle> = {
   diagnostic_completed:       { icon: Compass,      label: '진단 완료',     color: 'var(--p)' },
-  track_diagnostic_completed: { icon: Target,       label: 'track 진단',    color: 'var(--p-dark)' },
+  track_diagnostic_completed: { icon: Target,       label: 'track 진단',    color: 'var(--on-p-tint)' },
   auto_promotion:             { icon: Sparkles,     label: '자동 상향',     color: 'var(--active)' },
   self_declared:              { icon: SettingsIcon, label: '직접 설정',     color: 'var(--info)' },
   learning_data:              { icon: Brain,        label: '학습 누적',     color: 'var(--success)' },

@@ -53,7 +53,7 @@ export function PrescriptionArticleLaunch({
         {label}
       </button>
       {error && (
-        <span className="font-body text-[11px] text-[var(--error)]" role="alert">
+        <span className="font-body text-[11px] text-[var(--error-ink)]" role="alert">
           {error}
         </span>
       )}

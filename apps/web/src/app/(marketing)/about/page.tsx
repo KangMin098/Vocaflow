@@ -121,7 +121,7 @@ interface Module {
 
 const MODULES: Module[] = [
   { href: '/text', label: 'TextViewer', desc: '스크립트 입력 → AI 단어 추출', icon: '📖', color: 'var(--p)' },
-  { href: '/wordvault', label: 'WordVault', desc: '맥락 결합 단어장', icon: '📝', color: 'var(--p-dark)' },
+  { href: '/wordvault', label: 'WordVault', desc: '맥락 결합 단어장', icon: '📝', color: 'var(--on-p-tint)' },
   { href: '/flashcard', label: 'Flashcard', desc: 'SM-2 간격 반복', icon: '🃏', color: 'var(--p)' },
   { href: '/spellforge', label: 'SpellForge', desc: '능동적 타이핑 회상', icon: '⚡', color: '#4A9FCF' },
   { href: '/play/wordblitz', label: 'WordBlitz', desc: '속사 단어 인지', icon: '⏱', color: '#8B5CF6' },
@@ -309,7 +309,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-16 md:py-20">
           <header className="mb-8 text-center">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--error)]">
+            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--error-ink)]">
               What we never do
             </p>
             <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[32px]">
@@ -330,7 +330,7 @@ export default function AboutPage() {
                 className="flex items-start gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
               >
                 <span className="flex shrink-0 flex-col items-center gap-1 pt-0.5">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[700] text-[var(--error)]">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[700] text-[var(--error-ink)]">
                     ✕
                   </span>
                   <span className="h-3 w-px bg-[var(--bd)]" aria-hidden />

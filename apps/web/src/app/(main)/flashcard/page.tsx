@@ -16,7 +16,10 @@ import { HubStartCard } from '@/components/hub/HubStartCard'
 import { ModuleHero } from '@/components/hub/ModuleHero'
 import { TodayQueue, type QueueBucket } from '@/components/hub/TodayQueue'
 
-const FLASHCARD_ACCENT = '#EC4899' // CLAUDE.md §13 — Flashcard 모듈 색
+const FLASHCARD_ACCENT = '#EC4899' // CLAUDE.md §13 — Flashcard 모듈 색(면/그래프/점)
+// 같은 핑크를 '채움 위 글자' 나 '작은 글자' 로 쓰면 3.4~3.5:1 로 AA 미달이라(2026-08-09 axe)
+// 글자·채움 CTA 는 한 단계 깊은 톤을 쓴다(흰 글자 6.04 · 종이 위 5.78).
+const FLASHCARD_INK = '#BE185D'
 
 const QUEUE: QueueBucket[] = [
   { kind: 'risk', count: 5, preview: ['vulnerable', 'unmistakable', 'inclined'] },
@@ -98,7 +101,7 @@ export default function FlashcardHubPage() {
           <header className="mb-3 flex items-center gap-2">
             <span
               className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)]"
-              style={{ backgroundColor: `${FLASHCARD_ACCENT}15`, color: FLASHCARD_ACCENT }}
+              style={{ backgroundColor: '#FCE7F3', color: FLASHCARD_INK }}
               aria-hidden
             >
               <Activity size={13} strokeWidth={2} />
@@ -142,7 +145,7 @@ export default function FlashcardHubPage() {
           <header className="flex items-center gap-2">
             <span
               className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)]"
-              style={{ backgroundColor: '#FCE7F3', color: FLASHCARD_ACCENT }}
+              style={{ backgroundColor: '#FCE7F3', color: FLASHCARD_INK }}
               aria-hidden
             >
               <Flame size={13} strokeWidth={2} />
@@ -194,7 +197,7 @@ export default function FlashcardHubPage() {
         cta={{
           label: '시작하기',
           href: `/flashcard/play?vocab=${vocab}&mode=${mode}&length=${length}`,
-          accent: FLASHCARD_ACCENT,
+          accent: FLASHCARD_INK,
         }}
       />
     </div>

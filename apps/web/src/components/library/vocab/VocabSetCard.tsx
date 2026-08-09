@@ -143,7 +143,7 @@ export function VocabSetCard({
         }
         className={`absolute bottom-3 right-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-[var(--dur-normal)] group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 ${
           isSubscribed
-            ? 'bg-[var(--error-light)] text-[var(--error)] ring-1 ring-[var(--error)] hover:scale-110 focus-visible:ring-[var(--error)]/40'
+            ? 'bg-[var(--error-light)] text-[var(--error-ink)] ring-1 ring-[var(--error)] hover:scale-110 focus-visible:ring-[var(--error)]/40'
             : 'bg-white text-[var(--t1)] hover:scale-110 focus-visible:ring-white/60'
         }`}
       >
@@ -159,7 +159,7 @@ export function VocabSetCard({
       {errorMessage && (
         <p
           role="alert"
-          className="mt-2 font-body text-[11px] text-[var(--error)]"
+          className="mt-2 font-body text-[11px] text-[var(--error-ink)]"
         >
           {errorMessage}
         </p>

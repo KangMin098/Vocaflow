@@ -57,7 +57,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
       </header>
 
       {error && (
-        <p role="alert" className="font-body text-[13px] text-[var(--error)]">
+        <p role="alert" className="font-body text-[13px] text-[var(--error-ink)]">
           {error}
         </p>
       )}

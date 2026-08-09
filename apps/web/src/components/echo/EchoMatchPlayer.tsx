@@ -326,17 +326,17 @@ export function EchoMatchPlayer({
         >
           {error ? (
             <>
-              <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error)]">
+              <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error-ink)]">
                 음성 모델 로드 실패
               </p>
-              <p className="mt-1 font-body text-[12px] text-[var(--error)]">{error}</p>
+              <p className="mt-1 font-body text-[12px] text-[var(--error-ink)]">{error}</p>
               <button
                 type="button"
                 onClick={() => {
                   setError(null)
                   setPiperReady(false)
                 }}
-                className="mt-2 inline-flex items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--error)] transition-colors hover:bg-[var(--error-light)]"
+                className="mt-2 inline-flex items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)]"
               >
                 다시 시도
               </button>
@@ -495,10 +495,10 @@ function PhaseController({
   if (phase === 'recording') {
     return (
       <div className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--error)]/30 bg-[var(--error-light)] p-5">
-        <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error)]">
+        <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error-ink)]">
           ② Repeat — 따라 말하세요
         </p>
-        <div className="flex items-center gap-2 text-[var(--error)]">
+        <div className="flex items-center gap-2 text-[var(--error-ink)]">
           <Mic size={18} className="animate-[pulse-soft_1.5s_ease-in-out_infinite]" aria-hidden />
           <span className="font-body text-[13px] font-[600]">녹음 중</span>
         </div>

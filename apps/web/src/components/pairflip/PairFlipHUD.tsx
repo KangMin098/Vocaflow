@@ -40,7 +40,7 @@ export function PairFlipHUD({
       <div
         className={`flex items-center gap-2 rounded-[var(--r-md)] px-3 py-1.5 ${
           isUrgent
-            ? 'animate-pf-pulse bg-[var(--error-light)] text-[var(--error)]'
+            ? 'animate-pf-pulse bg-[var(--error-light)] text-[var(--error-ink)]'
             : 'bg-[var(--bg2)] text-[var(--t1)]'
         }`}
         aria-label={`남은 시간 ${minutes}분 ${seconds}초`}

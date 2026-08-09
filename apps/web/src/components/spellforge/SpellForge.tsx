@@ -382,7 +382,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
         href={backHref}
         aria-label="스펠 닫기 — 스크립트로 돌아가기"
         title="스크립트로 돌아가기"
-        className="fixed right-4 top-4 z-[55] inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="fixed right-4 top-4 z-[55] inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={18} strokeWidth={2} aria-hidden />
       </Link>

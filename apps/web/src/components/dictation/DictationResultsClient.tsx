@@ -280,7 +280,7 @@ export function DictationResultsClient() {
               >
                 {m.word}
                 {m.occurrences > 1 && (
-                  <span className="font-mono text-[10px] font-[700] text-[var(--error)]">
+                  <span className="font-mono text-[10px] font-[700] text-[var(--error-ink)]">
                     ×{m.occurrences}
                   </span>
                 )}
@@ -423,7 +423,7 @@ function ErrorAnalysis({
                 <p className="flex-1 font-body text-[13px] font-[600] text-[var(--t1)]">
                   {p.description}
                 </p>
-                <span className="font-mono text-[12px] font-[700] text-[var(--error)]">
+                <span className="font-mono text-[12px] font-[700] text-[var(--error-ink)]">
                   {p.frequency}회
                 </span>
               </header>
@@ -435,7 +435,7 @@ function ErrorAnalysis({
                   >
                     <span className="text-[var(--success)]">{ex.expected}</span>
                     <span className="text-[var(--t2)]">→</span>
-                    <span className="text-[var(--error)]">{ex.actual || '(누락)'}</span>
+                    <span className="text-[var(--error-ink)]">{ex.actual || '(누락)'}</span>
                   </span>
                 ))}
               </div>

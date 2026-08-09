@@ -84,6 +84,15 @@
     --memory-risk-ink:   #9C3A30;  /* 종이 6.57 · bg3 5.53 */
     --memory-new-ink:    #5F5A52;  /* 6.55:1 */
 
+    /* v07 — ACP 트랙 액센트. 카드 배경이 같은 색 5% wash 라 **글자로도** 쓰인다.
+       라이트는 진한 원색이 통하지만 다크에서는 2.8~3.2:1 로 미달이라 테마별로 뒤집는다. */
+    --track-listen:    #2563EB;
+    --track-easy:      #0F766E;
+    --track-topic:     #7C3AED;
+    --track-news:      #B45309;
+    --track-argue:     #15803D;
+    --track-data:      #0891B2;
+    --track-reference: #7C2D12;
     /* CEFR Distribution Fills — v06.19 (분포 시각화 전용 · badge 토큰과 분리) */
     --cefr-a1: #86EFAC;
     --cefr-a2: #22C55E;
@@ -179,6 +188,14 @@
     --slot-current-bg: rgba(96,165,250,0.10);
     --slot-typed-bg:   #141E30;
 
+    /* 트랙 액센트 다크 — 어두운 카드 위에서 읽히도록 밝은 쪽으로 */
+    --track-listen:    #93B4FF;
+    --track-easy:      #5EC8BC;
+    --track-topic:     #C4A2FA;
+    --track-news:      #E0A960;
+    --track-argue:     #6EDB9B;
+    --track-data:      #5FCDE8;
+    --track-reference: #E8A184;
     /* CEFR Distribution Fills — 다크모드 (대비 4.5:1 WCAG AA) */
     --cefr-a1: #4ADE80;
     --cefr-a2: #16A34A;

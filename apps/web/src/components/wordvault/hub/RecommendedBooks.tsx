@@ -34,7 +34,7 @@ type FitTier = NonNullable<ReturnType<typeof judgeIPlusOne>>['tier']
 
 const FIT_META: Record<FitTier, { label: string; bg: string; color: string }> = {
   ideal: { label: '딱 맞아요', bg: '#E8F8EE', color: '#15803D' },
-  challenge: { label: '도전', bg: 'var(--p-light)', color: 'var(--p-dark)' },
+  challenge: { label: '도전', bg: 'var(--p-light)', color: 'var(--on-p-tint)' },
   easy: { label: '쉬워요', bg: '#F1F5F9', color: '#475569' },
   hard: { label: '어려워요', bg: '#FFF1E5', color: '#9A3412' },
 }

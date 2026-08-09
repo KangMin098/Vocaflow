@@ -30,6 +30,8 @@ export interface HubStartCardProps {
     label: string
     href: string
     accent?: string
+    /** 채움(accent) 위에 얹는 글자색 — 밝은 면(골드 등)에는 잉크를 넘겨야 AA 를 넘긴다 */
+    accentText?: string
     /** 비활성 시 사유 메시지 */
     disabled?: boolean
     disabledReason?: string
@@ -45,6 +47,8 @@ export function HubStartCard({
   cta,
 }: HubStartCardProps) {
   const accent = cta.accent ?? 'var(--p)'
+  // 기본은 종이색이지만, 밝은 채움에서는 호출부가 잉크를 지정한다(2026-08-09 axe: 골드 3.23 · 핑크 3.37).
+  const accentText = cta.accentText ?? 'var(--ti)'
   return (
     <section
       aria-label={title}
@@ -151,8 +155,8 @@ export function HubStartCard({
         ) : (
           <a
             href={cta.href}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.97] sm:w-auto"
-            style={{ backgroundColor: accent }}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.97] sm:w-auto"
+            style={{ backgroundColor: accent, color: accentText }}
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}

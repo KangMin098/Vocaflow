@@ -17,7 +17,7 @@ export function FirstJudge({ visible, onJudge }: FirstJudgeProps) {
     >
       <button
         onClick={() => onJudge('no')}
-        className="flex flex-1 items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[rgba(239,68,68,0.25)] bg-[var(--bg)] px-4 py-3.5 font-display text-[14px] font-[600] text-[var(--error)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:shadow-[var(--sh-md)]"
+        className="flex flex-1 items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[rgba(239,68,68,0.25)] bg-[var(--bg)] px-4 py-3.5 font-display text-[14px] font-[600] text-[var(--error-ink)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:shadow-[var(--sh-md)]"
       >
         <span className="text-[18px]">😅</span>
         <span>모르겠어요</span>

@@ -142,7 +142,7 @@ export function VLevelPromotionCheck() {
         {loading ? '확인 중…' : '갱신 확인'}
       </button>
       {error && (
-        <p role="alert" className="ml-2 font-body text-[11px] text-[var(--error)]">
+        <p role="alert" className="ml-2 font-body text-[11px] text-[var(--error-ink)]">
           {error}
         </p>
       )}

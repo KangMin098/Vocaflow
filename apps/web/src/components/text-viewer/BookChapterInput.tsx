@@ -162,7 +162,7 @@ export function BookChapterInput({
                 htmlFor="book-title"
                 className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
               >
-                책 제목 <span className="text-[var(--error)]">*</span>
+                책 제목 <span className="text-[var(--error-ink)]">*</span>
               </label>
               <input
                 id="book-title"
@@ -300,7 +300,7 @@ export function BookChapterInput({
                 {currentLen === 0 ? (
                   <span className="text-t3">최소 {CONTENT_MIN}자</span>
                 ) : currentTooShort ? (
-                  <span className="text-[var(--error)]">
+                  <span className="text-[var(--error-ink)]">
                     {currentLen}자 · {CONTENT_MIN - currentLen}자 더 필요
                   </span>
                 ) : (
@@ -422,7 +422,7 @@ function IconBtn({
       title={label}
       className={`flex h-8 w-8 items-center justify-center rounded-lg text-t3 transition-colors duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
         danger
-          ? 'hover:bg-[var(--error-light)] hover:text-[var(--error)]'
+          ? 'hover:bg-[var(--error-light)] hover:text-[var(--error-ink)]'
           : 'hover:bg-bg3 hover:text-t1'
       }`}
     >

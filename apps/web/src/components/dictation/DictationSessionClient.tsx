@@ -640,8 +640,8 @@ function FeedbackSection({
 const WORD_STATUS_STYLES: Record<WordResult['status'], string> = {
   correct: 'text-[var(--success)] bg-[var(--success-light)]/40',
   misspelled: 'text-[var(--warning)] bg-[var(--warning-light)]/40 underline decoration-wavy',
-  wrong: 'text-[var(--error)] bg-[var(--error-light)]/40 line-through',
-  missing: 'text-[var(--error)] border border-dashed border-[var(--error)]',
+  wrong: 'text-[var(--error-ink)] bg-[var(--error-light)]/40 line-through',
+  missing: 'text-[var(--error-ink)] border border-dashed border-[var(--error)]',
   extra: 'text-[var(--warning)] line-through opacity-60',
 };
 

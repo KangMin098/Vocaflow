@@ -201,7 +201,7 @@ export function ComicFormatChoice({
       </div>
 
       {error && (
-        <p role="alert" className="px-1 font-body text-[12.5px] text-[var(--error)]">
+        <p role="alert" className="px-1 font-body text-[12.5px] text-[var(--error-ink)]">
           {error}
         </p>
       )}

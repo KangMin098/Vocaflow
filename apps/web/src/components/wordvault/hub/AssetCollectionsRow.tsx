@@ -52,7 +52,7 @@ const TYPE_BADGE: Record<
 > = {
   text: {
     label: '스크립트',
-    class: 'bg-[var(--p-light)] text-[var(--p-dark)]',
+    class: 'bg-[var(--p-light)] text-[var(--on-p-tint)]',
   },
   custom: {
     label: '내가 만든',

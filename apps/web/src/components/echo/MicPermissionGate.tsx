@@ -26,7 +26,7 @@ export function MicPermissionGate({ onGrant, error }: Props) {
         {error && (
           <div
             role="alert"
-            className="mt-4 inline-flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-3 text-left font-body text-[12px] text-[var(--error)]"
+            className="mt-4 inline-flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-3 text-left font-body text-[12px] text-[var(--error-ink)]"
           >
             <AlertCircle size={12} className="mt-0.5 shrink-0" aria-hidden /> {error}
           </div>

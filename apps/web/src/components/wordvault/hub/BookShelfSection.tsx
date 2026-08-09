@@ -45,7 +45,7 @@ interface BookShelfSectionProps {
 const TYPE_BADGE: Record<BookType, { label: string; className: string }> = {
   text: {
     label: '스크립트',
-    className: 'bg-[var(--p-light)] text-[var(--p-dark)]',
+    className: 'bg-[var(--p-light)] text-[var(--on-p-tint)]',
   },
   shared: {
     label: '공용 단어장',

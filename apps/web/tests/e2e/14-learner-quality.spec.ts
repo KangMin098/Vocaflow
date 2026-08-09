@@ -167,12 +167,24 @@ test.describe('학습자 화면 품질 게이트', () => {
     }
   });
 
-  // 2회차(2026-08-09)에 위반 0 이 된 화면들을 게이트에 편입한다.
-  //   나머지 학습자 화면(wordvault·flashcard·scriptquiz·plan·settings·library/*)은 아직 잔여가 있어
-  //   여기 넣지 않았다 — 0 이 되는 대로 이 배열에 한 줄씩 추가하는 것이 이 루프의 진행 방식이다.
-  test('메타·연습 화면 — 접근성 위반 0 (라이트/다크)', async ({ page }) => {
-    test.setTimeout(300_000);
-    for (const path of ['/hub', '/dashboard', '/dictate', '/arcade']) {
+  // 4회차(2026-08-09)에 **학습자 화면 전체**가 위반 0 이 됐다 — 전부 게이트에 넣는다.
+  //   새 학습자 화면을 만들면 이 배열에 한 줄 추가하는 것이 이 루프의 유지 방식이다.
+  //   (어드민·아케이드 게임 내부는 자체 팔레트라 이 게이트의 대상이 아니다.)
+  test('메타·연습·자산 화면 — 접근성 위반 0 (라이트/다크)', async ({ page }) => {
+    test.setTimeout(900_000);
+    for (const path of [
+      '/hub',
+      '/dashboard',
+      '/dictate',
+      '/arcade',
+      '/wordvault',
+      '/flashcard',
+      '/scriptquiz',
+      '/plan',
+      '/settings',
+      '/library/scripts',
+      '/library/vocab',
+    ]) {
       for (const theme of ['light', 'dark'] as const) {
         await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 45_000 });
         await setTheme(page, theme);

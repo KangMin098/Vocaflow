@@ -373,7 +373,7 @@ export function DiagnosticClient() {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="rounded-[var(--r-lg)] border border-[var(--bde)] bg-[var(--error-light)] p-6">
-          <p className="font-body text-[var(--error)]">{error}</p>
+          <p className="font-body text-[var(--error-ink)]">{error}</p>
           <button
             onClick={() => {
               setError(null)
