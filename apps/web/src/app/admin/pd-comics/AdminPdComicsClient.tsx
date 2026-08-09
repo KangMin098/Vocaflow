@@ -868,6 +868,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
 
       <SelfDevTimeline active={active} />
 
+      <ModernizationMethods />
+
       {rows.length === 0 ? (
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
       ) : (
@@ -963,6 +965,42 @@ function Lightbox({ issueId, rels, index, onIndex, onClose }: { issueId: string;
 
 // 라이브 진행 — 어디 콘텐츠의 몇 번째 아이템이 진행 중인지(진행율) + 중간 결과 이미지(원본/복원/컷)를 수시 폴링.
 interface Prog { stage?: string; current?: string; done?: number; total?: number; pct?: number }
+// ── 현대화 방법 (2트랙) 안내 ───────────────────────────────────────────────
+// 콘솔에서 "어떤 방법으로 현대화하는지"와 실행법을 보여준다. 기본=작화 보존(Claude Code/CPU),
+// 선택=AI 리스타일(GPU 모델, Kaggle 파일럿→RunPod 양산). 실제 실행은 CLI(GPU 는 외부 Kaggle/RunPod).
+function ModernizationMethods() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+      <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-2 px-3 py-2.5 text-left">
+        <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">현대화 방법 (2트랙)</span>
+        <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>기본 · 작화 보존</span>
+        <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: '#8B5CF6', background: '#8B5CF618' }}>선택 · AI 리스타일</span>
+        <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">{open ? '▾' : '▸'}</span>
+      </button>
+      {open && (
+        <div className="grid gap-2.5 border-t border-[var(--bd)] p-3 md:grid-cols-2">
+          <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+            <p className="font-display text-[12px] font-[800] text-[var(--t1)]">① 작화 보존 <span className="font-body font-[500] text-[var(--t3)]">— Claude Code / CPU · $0</span></p>
+            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작 그림 <b>그대로</b> + 색채·디자인(ffmpeg)·대사(HTML)만 현대화. 저작권 안전. <b>발행 기본.</b></p>
+            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">page-modern.mjs --workdir work/&lt;slug&gt; --level MAX
+page-html.mjs --workdir work/&lt;slug&gt;
+render-check.cjs --workdir work/&lt;slug&gt;</pre>
+          </div>
+          <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+            <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t3)]">— GPU 모델 · 선택</span></p>
+            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). Kaggle 무료 파일럿(SDXL+ControlNet) → 필요 시 RunPod 양산(QIE 2511). 레터링 오버레이 폴백.</p>
+            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">ai-restyle/prep.mjs --workdir work/&lt;slug&gt; --engine kaggle-sdxl
+# → inputs+job.json zip → Kaggle Dataset → kaggle_pilot.ipynb Run All
+ai-restyle/ingest.mjs --workdir work/&lt;slug&gt; --zip restyled.zip</pre>
+          </div>
+          <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 외부(Kaggle/RunPod)라 콘솔은 준비·회수·비교·판정을 담당합니다.</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── 자기발전 타임라인 ─────────────────────────────────────────────────────
 // "무엇을 시도 → 단계별 평가 → 평가 기반 자기발전(개선/채택/반려/피벗)" 흐름을 한눈에.
 type OpStep = { seq: number; ts: string | null; slug: string; content: string; phase: string; action: 'evaluate' | 'adopt' | 'reject' | 'improve' | 'pivot' | 'note'; title: string; detail: string; verdict: string | null; next: string | null }

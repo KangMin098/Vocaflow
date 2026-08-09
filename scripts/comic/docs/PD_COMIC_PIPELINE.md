@@ -20,11 +20,19 @@
 | 실패 모드 | 생성 품질 저하 | **저작권 사고(되돌릴 수 없음)** |
 | **현대화 수단** | **GPU 이미지 생성 모델** | **Claude Code 작업 기반** (비전·판단·글) + CPU(ffmpeg) |
 
-> ⚠️ **명시 지침 — PDCP 는 모델 베이스가 아니다(Claude Code 작업 기반).** 현대화에 GPU 생성/컬러화/업스케일
-> 모델(MangaNinja·Style2Paints·Real-ESRGAN·LAMA 등)을 **쓰지 않는다.** 원작 작화는 보존하고, "모던"은 **제시·포맷**으로
-> 만든다: ①ffmpeg 복원 튜닝(Claude Code 가 이미지 보고 파라미터 결정 — `restore-lab.mjs`) ②웹툰 세로 리플로우(레이아웃)
-> ③구 레터링 제거→**HTML 재레터링**(Claude Code 가 현대 영어·i+1 로 재작성 — `refine.mjs`) ④학습 레이어. Claude Code
-> 오퍼레이터 루프(평가→기록→조정→반복→QC 게이트)가 주요 기능이며 모든 결정이 모니터링된다. (GPU 모델은 CCP 전용.)
+> ⚠️ **현대화 2트랙 (콘솔에서 선택 · 2026-08-10 갱신).** 초기 지침은 "GPU 금지, Claude Code 단일"이었으나
+> 사용자 결정으로 **선택 트랙**을 추가했다.
+>
+> **① 작화 보존 (기본, Claude Code/CPU)** — 원작 그림을 **그대로 유지**하고 "제시·포맷"만 현대화:
+> ⓐffmpeg 색채·디자인(`page-modern` A/B/C/MAX) ⓑHTML 모던 말풍선(`letter.spec`→`page-html`, `render-check` 검증)
+> ⓒ학습 레이어(TTS·단어뜻). $0·로컬·저작권 안전. **발행 기본.**
+>
+> **② AI 리스타일 (선택, GPU 모델)** — 원작을 **다시 그림**(화풍 변경, 구도·인물 유지). CCP 모델 재사용:
+> **Qwen-Image-Edit 2511**(양산·RunPod fp8) / **SDXL+ControlNet Lineart**(파일럿·Kaggle 무료 T4x2). 패널 크롭 단위
+> + 레터링 오버레이 폴백(텍스트 뭉개짐 차단). 2단 로켓: Kaggle 검증($0) → 부족 시 RunPod 양산(호당 ~$1.5).
+> 스크립트: `scripts/comic/pd/ai-restyle/`. **명시 선택해야 돈다(기본 아님).**
+>
+> Claude Code 오퍼레이터 루프(평가→기록→조정→반복→QC 게이트)는 두 트랙 공통 주요 기능이며 모든 결정이 모니터링된다.
 
 > **현대화 레시피 (실측 수렴, `webtoon.mjs --modern`)** — "확연히 현대적"으로 판정된 CPU-only 체인:
 > ①**무테두리 crop** ②**colorlevels 화이트포인트 정규화**(크림 종이→순백 + 청색채널↑ 황색캐스트 제거) ③**smartblur 디스크린**(halftone 점 제거) ④**eq 강채도(1.5)/대비** ⑤**palette 40색 평면화**(flat vibrant 컬러) ⑥세로 vstack.
