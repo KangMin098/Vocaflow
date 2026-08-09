@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### PDCP 스키마 정합 — MCP 로 DB 를 직접 점검해 결함 3건 (마이그레이션 `pdcp_adapter_browser_assist_and_term_expired_basis`)
+
+Supabase MCP 가 붙어 DB 를 직접 볼 수 있게 되자, 코드만 봐서는 안 보이던 것들이 나왔다.
+
+- **큐 마이그레이션에 로컬 파일이 없었다.** `pdcp_queue_states_and_monitoring` 을 MCP 로만 적용하고
+  `supabase/migrations/` 에 남기지 않아, 새 환경에서는 `queued`·`last_error`·`attempts`·`acquire_pages`
+  없이 테이블이 만들어졌다 — 콘솔과 드레인이 통째로 깨지는 상태. 적용된 DDL 을 DB 에서 역으로 읽어
+  파일로 기록했다.
+- **파일명 버전이 DB 기록과 달랐다.** `20260809020000_pdcp_...` 인데 DB 는 `20260808161400` —
+  `db push` 가 같은 변경을 다시 적용하려 든다. DB 기록에 맞춰 rename.
+- **`browser-assist` 가 어댑터 CHECK 에 없었다.** 브라우저 보조로 사람이 직접 받은 호를 큐에 넣으면
+  제약 위반으로 거부된다 — 어댑터는 이미 코드에 등록돼 동작하는데 적재 경로만 막혀 있었다.
+- **PD 근거 토큰이 코드와 갈렸다.** 검색 랭킹은 `PD_YEAR_CUTOFF`(1930)를 쓰는데 `usPdHint` 만 1929 가
+  하드코딩돼, 1930년 발행물이 목록에선 "PD 확정"인데 적재하면 "미확정"이 됐다.
+  토큰을 연도 비종속 `term-expired` 로 바꾸고 상한을 한 곳(`PD_YEAR_CUTOFF`)에서만 읽게 했다 —
+  `pre-1929` 같은 토큰은 매년 1월 1일에 거짓이 된다. 회귀 스펙 5건으로 고정(총 66건).
+
+검증: `browser-assist` + `term-expired` 로 실제 INSERT 성공(롤백). anon 세션으로 미발행 호 0건 노출 확인.
+
+#### 그 밖에 확인한 것
+
+- 대기 중이던 `get_comic_format` 마이그레이션은 **이미 적용돼 정상 동작**(발행 만화에서 `comic-page` 반환,
+  authenticated·anon EXECUTE 권한 정상). 대기 메모 삭제.
+- DB 통계 갱신: **81 테이블 · 6 view · 310 함수 · 377 migrations** (문서상 59/5/227/58 로 낡아 있었다).
+- `DB_SCHEMA.md` 에 PDCP 섹션 추가 — 상태 전이·발행 게이트·근거 토큰·RLS 이중 게이트.
+- Supabase advisor: ERROR 9건은 전부 기존 것(VCB/LCP 작업 테이블 8개 RLS 미적용 +
+  `csat_stage_catalog` SECURITY DEFINER 뷰). PDCP 관련 경고는 설계대로 —
+  발행 게이트 SECURITY DEFINER RPC 와 published-only 읽기 정책.
+
+
 ### PDCP 자기발전 — 손으로 고른 파라미터를 측정으로 갈아치웠다 (마이그레이션 없음)
 
 `scripts/comic/pd/tune.mjs` 신설. CCP 의 gen-verified 폐루프에 대응하는 PDCP 쪽 장치로,

@@ -154,9 +154,9 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 ---
 
-## 📊 DB 핵심 통계 (2026-06-08)
+## 📊 DB 핵심 통계 (2026-08-09)
 
-- **59 테이블** · **5 view** · **227 함수** · **58 migrations**
+- **81 테이블** · **6 view** · **310 함수** · **377 migrations** (2026-08-09 실측)
 - 전체 DB: **350 MB** (v06.34 VACUUM FULL 후, 이전 606 MB)
 - `shared_dictionary` 45,292 row · meaning_ko 100%
 - `library_books` 20 · `texts` 238 · `vocabularies` 5,896

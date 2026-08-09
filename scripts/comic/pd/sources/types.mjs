@@ -80,6 +80,8 @@
  * @property {(item: SourceItem) => { basis: string|null, note: string }} pdHint
  */
 
+import { PD_YEAR_CUTOFF, RENEWAL_ERA_END } from './discovery.mjs'
+
 /** 요청 간 최소 간격 — 어느 소스든 예의를 지킨다(차단·법적 위험 회피). */
 export function delay(ms) {
   return new Promise((r) => setTimeout(r, ms))
@@ -88,11 +90,20 @@ export function delay(ms) {
 /**
  * PD 판정 힌트 — 미국 저작권 기준. **자동 판정이 아니라 사람 검증의 출발점**이다.
  * 최종 판정은 사람이 갱신 기록을 확인해 입력한다(발행 게이트에서 DB 제약으로 강제).
+ *
+ * 연도 상한은 `discovery.mjs` 의 `PD_YEAR_CUTOFF` 를 그대로 쓴다 — 여기에 숫자를 또 적으면
+ * 갈린다. 실제로 그랬다: 검색 랭킹은 1930 으로 올렸는데 이 함수만 1929 에 남아,
+ * 1930년 발행물이 목록에선 'PD 확정'인데 적재하면 '미확정'이 됐다.
+ *
+ * `basis` 토큰이 'term-expired'(보호기간 만료)인 이유도 같다. 'pre-1929' 처럼 연도를 박으면
+ * 매년 1월 1일에 거짓이 된다.
  */
 export function usPdHint(year) {
   if (!year) return { basis: null, note: '발행연도 불명 — 수동 확인 필요' }
-  if (year <= 1929) return { basis: 'pre-1929', note: `${year}년 발행 — 미국 기준 PD 확정` }
-  if (year <= 1963) {
+  if (year <= PD_YEAR_CUTOFF) {
+    return { basis: 'term-expired', note: `${year}년 발행 — 미국 기준 보호기간 만료(PD 확정)` }
+  }
+  if (year <= RENEWAL_ERA_END) {
     return {
       basis: null,
       note: `${year}년 발행 — 저작권 **갱신 여부** 확인 필요. 갱신 기록 없으면 PD, 있으면 사용 불가.`,

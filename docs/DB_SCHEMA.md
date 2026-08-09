@@ -408,3 +408,55 @@ WHERE n.nspname='public';
 SELECT version, name FROM supabase_migrations.schema_migrations
 ORDER BY version DESC LIMIT 20;
 ```
+
+## PDCP — 퍼블릭도메인 스캔 만화 (2026-08-09)
+
+**CCP(`comic_books`/`comic_pages`)와 완전 별도 테이블.** 왜 합치지 않았나: PDCP 는 발행 전에
+**저작권 근거를 사람이 입증**해야 하고 CCP 는 그럴 필요가 없다. 한 테이블에 조건부 게이트를
+얹으면 판별 컬럼 하나가 틀리는 순간 게이트가 통째로 무너진다.
+
+| 테이블 | 키 | 비고 |
+|---|---|---|
+| `pd_comic_issues` | `slug` unique · `(source_adapter, source_identifier)` unique | 호 헤더 + 파이프라인 상태 + 발행 게이트 |
+| `pd_comic_panels` | `(issue_id, panel_order)` | 컷 단위 이미지 + 말풍선 jsonb |
+
+### 상태 (`pd_issues_status_chk`)
+
+`queued → acquired → restored → segmented → ocr → review → published` (+ `archived`).
+
+`failed` 는 CHECK 에 남아 있지만 **드레인이 쓰지 않는다** — status 를 덮으면 어느 단계에서
+멈췄는지가 사라져 재시도 지점을 복원할 수 없기 때문. 실패는 `last_error` 로만 표시하고
+단계는 보존한다(재시도 = `last_error` 를 NULL 로).
+
+### 발행 게이트 (`pd_issues_publish_gate`)
+
+```
+status <> 'published' OR (pd_basis IS NOT NULL AND pd_checked_at IS NOT NULL
+                          AND pd_checked_by IS NOT NULL AND source_url IS NOT NULL)
+```
+
+근거·검증자·시각·출처URL 없이는 **DB 가 발행을 거부한다**. 애플리케이션 검증이 아니라 제약이다.
+
+### PD 근거 토큰 (`pd_issues_basis_chk`)
+
+`term-expired` · `no-renewal` · `explicit-license` (+ 레거시 `pre-1929`).
+
+`pre-1929` 처럼 연도를 박은 토큰은 **매년 1월 1일에 거짓**이 된다(2026-01-01 부로 1930년물도 PD).
+연도 상한은 코드의 `PD_YEAR_CUTOFF` 한 곳에만 둔다.
+
+### 어댑터 (`pd_issues_adapter_chk`)
+
+`internet-archive` · `browser-assist` · `local-dir` · `iiif`.
+
+### 관측 컬럼
+
+`last_error` · `last_run_at` · `attempts` · `acquire_pages`(테스트 모드 — NULL 이면 전권).
+큐 부분 인덱스 `pd_issues_queue_idx (status, created_at) WHERE status IN (미완 5단계)`.
+
+### 학습자 RPC (SECURITY DEFINER · 발행 게이트)
+
+`list_pd_comics()` · `select_pd_comic(slug)` · `select_pd_comic_provenance(slug)`.
+
+RLS 는 `status='published'` 읽기만 허용하고, 컷은 **부모 호의 발행 상태**를 따른다
+(`EXISTS (SELECT 1 FROM pd_comic_issues i WHERE i.id = issue_id AND i.status='published')`).
+anon 세션으로 실측 검증: 미발행 호 0건 노출.

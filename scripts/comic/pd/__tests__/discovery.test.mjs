@@ -142,3 +142,38 @@ describe('rankByPdRisk', () => {
     expect(x.pdRiskReason).toContain('2017')
   })
 })
+
+// ─── PD 근거 토큰 · 컷오프 단일화 회귀 ───────────────────────────────
+//
+// 실측 사고: 검색 랭킹은 PD_YEAR_CUTOFF(1930)를 쓰는데 usPdHint 만 1929 가 하드코딩돼 있어
+// 1930년 발행물이 목록에선 'PD 확정', 적재하면 '미확정'으로 갈렸다.
+// 두 경로가 같은 상수를 보는지 여기서 고정한다.
+
+import { usPdHint } from '../sources/types.mjs'
+
+describe('usPdHint ↔ PD_YEAR_CUTOFF 단일화', () => {
+  it('컷오프 해에도 PD 확정 근거가 나온다', () => {
+    expect(usPdHint(PD_YEAR_CUTOFF).basis).toBe('term-expired')
+  })
+
+  it('컷오프 다음 해부터는 근거 없음 — 사람이 갱신 기록을 확인해야 한다', () => {
+    expect(usPdHint(PD_YEAR_CUTOFF + 1).basis).toBeNull()
+  })
+
+  it('랭킹과 근거가 같은 해에서 같은 판단을 한다 (갈리면 목록과 적재가 어긋난다)', () => {
+    for (const y of [1900, PD_YEAR_CUTOFF - 1, PD_YEAR_CUTOFF]) {
+      const curated = { publishedYear: y, raw: { collection: ['fawcett-comics'] } }
+      expect(assessPdRisk(curated).level, `${y}`).toBe('ok')
+      expect(usPdHint(y).basis, `${y}`).toBe('term-expired')
+    }
+  })
+
+  it("근거 토큰에 연도를 박지 않는다 — 매년 1월 1일에 거짓이 된다", () => {
+    expect(usPdHint(1900).basis).not.toMatch(/\d{4}/)
+  })
+
+  it('갱신 구간 상한을 넘으면 자동 갱신 대상으로 본다', () => {
+    expect(usPdHint(RENEWAL_ERA_END).note).toMatch(/갱신 여부/)
+    expect(usPdHint(RENEWAL_ERA_END + 1).note).toMatch(/자동 갱신/)
+  })
+})
