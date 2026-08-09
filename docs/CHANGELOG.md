@@ -68,6 +68,24 @@
 
 `ExtractionCell` 배지 = `resolved_pct`, 옆 `·N↑` = `unresolved_count`(진짜 공백). 툴팁에 사전 결합률·타사전 해석·노이즈 제외를 함께 노출. `admin-queries.ts` 는 새 5컬럼을 함께 select/머지.
 
+#### 전체 도서 재추출 + 미등록어 드레인 (2026-08-09)
+
+40권 전체에 `backfill_book_lemmas` → 미결합 5,547 → **5,466**(81행 신규 결합, 7/13 이후 늘어난 사전 반영). `fill_lbv_resolution(null,false)` 로 5,466행 전량 재계산.
+
+미등록어 수집은 **`collect_archaic_candidates` 를 쓰지 않았다** — `total_frequency = total_frequency + EXCLUDED` 누산이라 재실행 시 빈도가 부풀고, 드레인 임계(`freq>=3 OR books>=2`)가 그 값을 읽어 노이즈가 통과한다(`stage_book_dict_candidates` 주석의 "멱등"은 사실이 아님). `library_book_vocabularies` 원본에서 재계산하는 멱등 upsert 로 대체 → **4,722단어**.
+
+드레인은 임계가 비용 캡이라 카탈로그 미해결 478개 중 46개만 대상이 됐다(나머지는 hapax). `dict-selfheal-drain.mjs` 에 **`SOURCE=corpus` 모드** 추가 — 후보를 임계가 아니라 "현재 카탈로그에서 실제 미해결"(`lemma IS NULL` + `noise_kind IS NULL` + `resolved_via IN (not_found,invalid)`)로 잡는다. Wiktionary 게이트는 그대로.
+
+| 드레인 478단어 | |
+|---|--:|
+| `lexicon_clean` 적재 | **112** |
+| 영어 섹션 없음(게이트 정상 거부 — 프랑스 은어·그리스/라틴·고유명사·의성어) | 347 |
+| reject / thin / 번역실패 | 6 / 9 / 1 |
+
+**해석률 99.49% → 99.61%, 미해결 489행 → 373행.** Les Misérables 98.7→98.9 · Sociology 98.7→**99.3** · Gibbon 99.3→99.5 · Dialogues 99.6→99.8.
+
+남은 373행은 ① HTML 엔티티 조각(`ocial`·`ociety`·`eople` — 위 디코더 수정 후 **재수집해야** 사라짐) ② Hugo 은어장 프랑스어 ③ 그리스/라틴 전문어 ④ 인도 문화 차용어·의성어 ⑤ `brac`/`scarum` 등 이미 `TOKEN_BLOCKLIST` 에 있는 레거시 행. 즉 드레인으로 더 회수할 것은 남지 않았고, 나머지는 재수집 또는 정상 잔여다.
+
 #### 미결
 
 - `v_book_extraction_stats` · `v_book_extraction_reasons` 가 Supabase advisor `security_definer_view` ERROR (전자는 v06.35 이전부터). 프로젝트 규약(`20260614150000_views_security_invoker`)상 `security_invoker=true` 여야 하나, 적용 시 `DEV_ADMIN_BYPASS` 경로(합성 admin = anon 세션)에서 미발행 도서 통계가 안 보이게 된다 — 사용자 판단 대기.
