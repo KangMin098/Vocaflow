@@ -171,7 +171,7 @@ export function DictationHubClient() {
             <p className="font-body text-[13px] text-[var(--t2)]">{suggestion.reason}</p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[11px] font-[700] text-[var(--p-dark)]">
+            <span className="rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[11px] font-[700] text-[var(--on-p-tint)]">
               {suggestion.resource.cefr ?? 'B1'}
             </span>
             <span className="font-body text-[12px] text-[var(--t2)]">
@@ -309,7 +309,7 @@ export function DictationHubClient() {
                   <button
                     type="button"
                     onClick={handleDirectInputSubmit}
-                    className="flex-1 rounded-[var(--r-md)] bg-[var(--p)] py-2 font-display text-[13px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                    className="flex-1 rounded-[var(--r-md)] bg-[var(--p)] py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                   >
                     분석 + 시작
                   </button>
@@ -382,7 +382,7 @@ export function DictationHubClient() {
                 ) : (
                   <Link
                     href={`/dictate/session?sessionId=${s.id}`}
-                    className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--p)] hover:bg-[var(--p)]/20"
+                    className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] hover:bg-[var(--p)]/20"
                   >
                     이어하기
                   </Link>

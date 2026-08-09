@@ -19,7 +19,7 @@ export default function NotFound() {
         <div className="mt-6 flex justify-center">
           <Link
             href="/hub"
-            className="rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
+            className="rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
           >
             홈으로 돌아가기
           </Link>

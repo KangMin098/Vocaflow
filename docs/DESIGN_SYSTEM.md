@@ -71,6 +71,9 @@
 | iOS 톤 캡슐 | `--ios-*-tint` | `--ios-*-ink` |
 | 학습 상태 (i+1 배지 등) | `--learn-*` | `--learn-*-ink` |
 | 브랜드 채움 배지 | `--p` | `--on-p` (테마별 반전) |
+| 브랜드 tint 칩 | `--p-light` | `--on-p-tint` (테마별 반전) |
+| semantic 칩(성공/오류/주의/정보) | `--success`/`--error`/`--warning`/`--info` (+ tint) | `--success-ink`/`--error-ink`/`--warning-ink`/`--info-ink` |
+| Memory Decay 4색 | `--memory-*` | `--memory-*-ink` |
 
 **`--t3` 는 텍스트 색이 아니다.** 알파 0.38 은 종이 위 2.35:1 이라 어떤 조합으로도 AA 를 못 넘긴다
 (0.62 = `--t2` 가 최소선 4.79:1). 저자명·설명·메타처럼 **의미 있는 글자는 `--t2` 이상**,

@@ -237,7 +237,7 @@ export default function SettingsPage() {
             <a
               key={c.href}
               href={c.href}
-              className="rounded-ios-pill bg-[var(--bg)] px-3 py-1.5 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--p)] active:scale-[0.97]"
+              className="rounded-ios-pill bg-[var(--bg)] px-3 py-1.5 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] active:scale-[0.97]"
             >
               {c.label}
             </a>

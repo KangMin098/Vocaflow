@@ -21,7 +21,7 @@ export function CategoryChip({ category, onClick, isMore = false }: CategoryChip
       {!isMore && <span className="text-base leading-none">{category.emoji}</span>}
       <span>{category.label}</span>
       {!isMore && (
-        <span className="inline-flex h-[18px] min-w-[32px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 font-display text-[11px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]">
+        <span className="inline-flex h-[18px] min-w-[32px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 font-display text-[11px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--on-p-tint)]">
           {formatCount(category.count)}
         </span>
       )}

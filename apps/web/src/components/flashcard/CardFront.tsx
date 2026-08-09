@@ -67,7 +67,7 @@ export function CardFront({
           aria-hidden={!hintVisible}
         >
           <span>첫 글자가 떠오르지 않으면:</span>
-          <span className="inline-block rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-0.5 font-english text-[14px] font-[700] not-italic tracking-[0.04em] text-[var(--p)]">
+          <span className="inline-block rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-0.5 font-english text-[14px] font-[700] not-italic tracking-[0.04em] text-[var(--on-p-tint)]">
             {firstLetters}
           </span>
         </div>

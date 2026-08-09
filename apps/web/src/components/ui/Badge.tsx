@@ -34,10 +34,10 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 // ══════════════════════════════════════════════════════════════
 const variantStyles: Record<BadgeVariant, string> = {
   blue: "bg-p-light text-p",
-  green: "bg-success-light text-success",
+  green: "bg-success-light text-[var(--success-ink)]",
   gray: "bg-bg3 text-t2",
   yellow: "bg-warning-light text-warning",
-  red: "bg-error-light text-error",
+  red: "bg-error-light text-[var(--error-ink)]",
   purple: "bg-[var(--combo)]/15 text-[var(--combo)]",
 };
 

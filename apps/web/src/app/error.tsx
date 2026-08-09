@@ -38,7 +38,7 @@ export default function GlobalError({
         <div className="mt-6 flex justify-center gap-3">
           <button
             onClick={reset}
-            className="rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
+            className="rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
           >
             다시 시도
           </button>

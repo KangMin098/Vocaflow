@@ -293,7 +293,7 @@ function ScreenCard({ screen }: { screen: Screen }) {
     >
       {/* Icon */}
       <span
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--on-p-tint)]"
         aria-hidden="true"
       >
         <Icon size={16} strokeWidth={1.75} />

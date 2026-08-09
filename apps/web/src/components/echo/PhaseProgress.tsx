@@ -35,7 +35,7 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
                 key={p.key}
                 className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] transition-colors ${
                   isActive
-                    ? 'bg-[var(--p)] text-[var(--ti)]'
+                    ? 'bg-[var(--p)] text-[var(--on-p)]'
                     : isPassed
                       ? 'bg-[var(--success-light)] text-[var(--success)]'
                       : 'bg-[var(--bg3)] text-[var(--t2)]'

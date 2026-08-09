@@ -241,7 +241,7 @@ export function BookChapterInput({
               disabled={chapters.length >= MAX_CHAPTERS}
               aria-label="오른쪽에 챕터 추가"
               title={chapters.length >= MAX_CHAPTERS ? `최대 ${MAX_CHAPTERS}개` : '오른쪽에 챕터 추가'}
-              className="flex h-9 shrink-0 snap-start items-center gap-1 rounded-lg border-2 border-dashed border-bd px-s-3 font-display text-[12px] font-[700] text-t3 transition-all duration-normal hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex h-9 shrink-0 snap-start items-center gap-1 rounded-lg border-2 border-dashed border-bd px-s-3 font-display text-[12px] font-[700] text-t3 transition-all duration-normal hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Plus size={14} aria-hidden />
               추가
@@ -257,7 +257,7 @@ export function BookChapterInput({
         >
           {/* 페이지 헤더 */}
           <div className="flex items-center gap-s-3 border-b border-bd bg-bg2 px-s-4 py-s-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--p)] font-display text-[13px] font-[800] text-[var(--ti)] shadow-sm">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--p)] font-display text-[13px] font-[800] text-[var(--on-p)] shadow-sm">
               {active + 1}
             </span>
             <input
@@ -449,7 +449,7 @@ function NavBtn({
       disabled={disabled}
       className={`inline-flex items-center gap-1 rounded-lg px-s-3 py-s-2 font-display text-[12.5px] font-[600] transition-all duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
         primary
-          ? 'bg-[var(--p)] text-[var(--ti)] shadow-sm hover:bg-[var(--p-hover)]'
+          ? 'bg-[var(--p)] text-[var(--on-p)] shadow-sm hover:bg-[var(--p-hover)]'
           : 'border border-bd bg-bg text-t2 hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >

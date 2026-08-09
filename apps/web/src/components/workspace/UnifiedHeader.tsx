@@ -279,7 +279,7 @@ export function UnifiedHeader({
             aria-pressed={isFocusMode}
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isFocusMode
-                ? 'border-[var(--p)]/25 bg-[var(--p-light)] text-[var(--p)]'
+                ? 'border-[var(--p)]/25 bg-[var(--p-light)] text-[var(--on-p-tint)]'
                 : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >

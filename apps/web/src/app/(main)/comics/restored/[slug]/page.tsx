@@ -140,7 +140,7 @@ function NotReady() {
       </p>
       <Link
         href="/comics/restored"
-        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)]"
+        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)]"
       >
         서가로
       </Link>

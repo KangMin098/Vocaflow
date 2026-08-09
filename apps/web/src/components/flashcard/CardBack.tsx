@@ -41,7 +41,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       <div className="mx-auto mb-5 h-px w-8 bg-[var(--bd)]" aria-hidden="true" />
 
       <p className="text-center">
-        <span className="inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
+        <span className="inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
           {word.pos}
         </span>
       </p>

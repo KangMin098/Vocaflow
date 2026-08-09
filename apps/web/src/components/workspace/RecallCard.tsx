@@ -141,8 +141,8 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
           aria-label="발음 듣기"
           className={`shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] transition-colors ${
             isPlaying
-              ? 'bg-[var(--p)] text-[var(--ti)]'
-              : 'bg-[var(--p-light)] text-[var(--p)] hover:bg-[var(--p)] hover:text-[var(--ti)]'
+              ? 'bg-[var(--p)] text-[var(--on-p)]'
+              : 'bg-[var(--p-light)] text-[var(--on-p-tint)] hover:bg-[var(--p)] hover:text-[var(--on-p)]'
           }`}
         >
           <Volume2 size={13} strokeWidth={2.2} aria-hidden="true" />

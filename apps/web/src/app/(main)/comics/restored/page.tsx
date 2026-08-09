@@ -109,7 +109,7 @@ function NotReady() {
       </p>
       <Link
         href="/library/books"
-        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)]"
+        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)]"
       >
         도서 라이브러리로
       </Link>

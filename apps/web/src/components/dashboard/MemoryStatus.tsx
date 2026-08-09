@@ -49,7 +49,7 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
         </p>
         <Link
           href="/library"
-          className="group mt-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)]"
+          className="group mt-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)]"
         >
           읽을거리 찾아보기
           <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -75,7 +75,7 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
         {attention > 0 && (
           <Link
             href="/flashcard"
-            className="group inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)]"
+            className="group inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)]"
           >
             <span className="tabular-nums">{attention}개</span> 복습하기
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />

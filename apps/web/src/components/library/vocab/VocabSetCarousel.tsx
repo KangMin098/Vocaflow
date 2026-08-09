@@ -28,11 +28,14 @@ import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './ca
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const DURATION = 600
 
+// accent = 활성 탭처럼 **흰 글자를 얹는 면**이라 흰색 대비 4.5:1 이상이어야 한다.
+//   기존 값은 csat 3.19 · middle 3.68 · elementary 3.77 로 미달이었다(2026-08-09 axe 실측).
+//   그라디언트(from/to)는 시각 정체성이라 그대로 두고 accent 만 한 단계 깊게 조정.
 const CATEGORY_COLOR: Record<string, { from: string; to: string; accent: string }> = {
-  elementary: { from: '#34D399', to: '#059669', accent: '#059669' },
-  middle: { from: '#22D3EE', to: '#0891B2', accent: '#0891B2' },
+  elementary: { from: '#34D399', to: '#059669', accent: '#047857' },
+  middle: { from: '#22D3EE', to: '#0891B2', accent: '#0E7490' },
   high: { from: '#60A5FA', to: '#2563EB', accent: '#2563EB' },
-  csat: { from: '#FBBF24', to: '#D97706', accent: '#D97706' },
+  csat: { from: '#FBBF24', to: '#D97706', accent: '#A2570A' },
   eng_test: { from: '#A78BFA', to: '#7C3AED', accent: '#7C3AED' },
   civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
   business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },

@@ -140,7 +140,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
           type="button"
           onClick={() => speak(headWord)}
           aria-label="발음 듣기"
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Volume2 size={14} aria-hidden />
         </button>
@@ -190,7 +190,7 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
         <RegisterBadge register={result.wordRegister} />
         <PosBadge pos={result.pos} />
         {result.cefrLevel && (
-          <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--p)]">
+          <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--on-p-tint)]">
             {result.cefrLevel}
           </span>
         )}

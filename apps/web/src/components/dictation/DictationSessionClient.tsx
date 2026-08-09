@@ -317,7 +317,7 @@ export function DictationSessionClient() {
             aria-pressed={focusMode}
             className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[600] transition-colors ${FOCUS_RING} ${
               focusMode
-                ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
+                ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                 : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
             }`}
             title="Focus Mode (F)"
@@ -390,7 +390,7 @@ export function DictationSessionClient() {
                   aria-label={`재생 속도 ${s}배`}
                   className={`rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700] transition-colors ${FOCUS_RING} ${
                     Math.abs(speed - s) < 0.01
-                      ? 'bg-[var(--p)] text-[var(--ti)]'
+                      ? 'bg-[var(--p)] text-[var(--on-p)]'
                       : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
                   }`}
                 >

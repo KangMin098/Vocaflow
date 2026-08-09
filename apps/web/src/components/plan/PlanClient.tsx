@@ -375,7 +375,7 @@ export function PlanClient({
       <header>
         <h1 className="flex items-center gap-2 font-display text-[22px] font-[800] text-[var(--t1)]">
           <span
-            className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--p)]"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
             aria-hidden
           >
             <Sparkles size={18} strokeWidth={1.75} />
@@ -441,13 +441,14 @@ export function PlanClient({
                   }}
                   className={`inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
-                      ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+                      ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                       : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
                   }`}
                 >
                   <Icon size={13} strokeWidth={1.75} aria-hidden />
                   {MATERIAL_LABEL[t]}
-                  <span className="font-mono text-[10px] opacity-70">{tabMaterials[t].length}</span>
+                  {/* opacity 로 덧대어 흐리게 하면 색 토큰이 확보한 대비가 다시 깎인다(2026-08-09 axe) */}
+                  <span className="font-mono text-[10px]">{tabMaterials[t].length}</span>
                 </button>
               )
             })}
@@ -734,7 +735,7 @@ function WeekBoard({
                     {weekDates[d.value - 1] ?? ''}
                   </span>
                   {isToday && (
-                    <span className="mt-0.5 rounded-full bg-[var(--p)] px-1.5 py-[1.5px] font-display text-[8px] font-[800] leading-none text-[var(--ti)]">
+                    <span className="mt-0.5 rounded-full bg-[var(--p)] px-1.5 py-[1.5px] font-display text-[8px] font-[800] leading-none text-[var(--on-p)]">
                       오늘
                     </span>
                   )}
@@ -799,7 +800,7 @@ function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; o
       title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
       className={`flex w-full flex-col gap-1.5 rounded-[var(--r-sm)] border p-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:-translate-y-px hover:border-[var(--p)] hover:shadow-[var(--sh-xs)]'
       }`}
     >
@@ -858,7 +859,7 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
       title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
       className={`flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--p)]'
       }`}
     >
@@ -917,7 +918,7 @@ function MiniMaterialGlyph({ item }: { item: PlanItem }) {
   const Icon = MATERIAL_ICON[item.materialType]
   return (
     <span
-      className="inline-flex h-9 w-7 shrink-0 items-center justify-center rounded-[3px] bg-[var(--p-light)] text-[var(--p)]"
+      className="inline-flex h-9 w-7 shrink-0 items-center justify-center rounded-[3px] bg-[var(--p-light)] text-[var(--on-p-tint)]"
       aria-hidden
     >
       <Icon size={15} strokeWidth={1.75} />
@@ -984,7 +985,7 @@ function DraftConfig({
         type="button"
         onClick={onCommit}
         disabled={adding || draft.activities.size === 0}
-        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {adding
           ? '담는 중…'
@@ -1170,7 +1171,7 @@ function ChapterList({
             >
               <span
                 className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[4px] border transition-colors duration-[var(--dur-normal)] ${
-                  on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]' : 'border-[var(--bd)] bg-[var(--bg)]'
+                  on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]' : 'border-[var(--bd)] bg-[var(--bg)]'
                 }`}
                 aria-hidden
               >
@@ -1355,7 +1356,7 @@ function ArticleNav({
               title={p.full ?? p.label}
               className={`flex min-h-[38px] w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 on
-                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
               }`}
             >
@@ -1414,7 +1415,7 @@ function ArticleSelectPane({
     <div className="flex flex-col gap-3">
       {/* 헤더 */}
       <div className="flex items-center gap-1.5 border-b border-[var(--bd)] pb-2.5">
-        <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
+        <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]" aria-hidden>
           <Icon size={13} strokeWidth={1.75} />
         </span>
         <h2 className="min-w-0 truncate font-display text-[14px] font-[800] text-[var(--t1)]">
@@ -1475,7 +1476,7 @@ function ArticleSelectPane({
             type="button"
             onClick={onCommit}
             disabled={adding || activities.size === 0}
-            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {adding
               ? '담는 중…'
@@ -1525,7 +1526,7 @@ function ArticlePickRow({
         <span
           className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-[var(--dur-normal)] ${
             selected
-              ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+              ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
               : 'border-[var(--bd)] bg-[var(--bg)] group-hover:border-[var(--p)]'
           }`}
           aria-hidden
@@ -1606,18 +1607,18 @@ function MaterialRow({
         )}
         {inPlan ? (
           <span
-            className="inline-flex h-6 shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 font-display text-[9px] font-[800] text-[var(--ti)]"
+            className="inline-flex h-6 shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 font-display text-[9px] font-[800] text-[var(--on-p)]"
             title={`계획에 ${count}개 담김`}
           >
             <Check size={10} strokeWidth={3} aria-hidden /> {count}
           </span>
         ) : picked ? (
-          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--ti)]" aria-hidden>
+          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--on-p)]" aria-hidden>
             <Check size={13} strokeWidth={3} />
           </span>
         ) : (
           <span
-            className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[var(--p)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p)] group-hover:text-[var(--ti)]"
+            className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[var(--p)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p)] group-hover:text-[var(--on-p)]"
             aria-hidden
           >
             <Plus size={13} strokeWidth={2.5} />
@@ -1648,7 +1649,7 @@ function MaterialBadge({ type, m }: { type: MaterialType; m: MaterialOption }) {
   }
   const Icon = type === 'article' ? Newspaper : type === 'word_set' ? Layers : FileText
   return (
-    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]" aria-hidden>
+    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]" aria-hidden>
       <Icon size={15} strokeWidth={1.75} />
     </span>
   )
@@ -1677,7 +1678,7 @@ function RailButton({
       title={short ? `${label} (${short})` : label}
       className={`flex min-h-[40px] w-full flex-col items-start justify-center rounded-[var(--r-md)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
@@ -1711,7 +1712,7 @@ function ActivityChip({
         small ? 'text-[12px]' : 'text-[13px]'
       } ${
         selected
-          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)]'
+          ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
@@ -1750,10 +1751,10 @@ function WeekdayChips({
             aria-label={`${d.label}요일 ${date}${isToday ? ' (오늘)' : ''}`}
             className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               on
-                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+                ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
                 : isToday
                   ? 'border-[var(--p)] bg-[var(--bg)] text-[var(--t1)] hover:bg-[var(--p-light)]'
-                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--on-p-tint)]'
             }`}
           >
             <span className="font-display text-[14px] font-[800] leading-none">{weekdayLabel(d.value)}</span>
@@ -1843,7 +1844,7 @@ function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: 
     <Link
       href={href}
       title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
-      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <ActivityGlyph activity={activity} size="sm" />
       {def.label}

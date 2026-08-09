@@ -69,7 +69,7 @@ export function RecentActivity() {
       {/* Header */}
       <header className="flex shrink-0 items-center gap-2 border-r border-[var(--bd)] pr-3">
         <span
-          className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]"
+          className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden="true"
         >
           <Activity size={12} strokeWidth={2.2} />

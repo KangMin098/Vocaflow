@@ -49,7 +49,7 @@ export function TodayPrescriptionCard({ data }: { data: TodayPrescription }) {
           </h2>
         </div>
         <span
-          className="shrink-0 rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-0.5 font-mono text-[11px] font-[700] text-[var(--p)]"
+          className="shrink-0 rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-0.5 font-mono text-[11px] font-[700] text-[var(--on-p-tint)]"
           title={`학습 스테이지 ${data.stage}`}
         >
           {data.stage}
@@ -157,7 +157,7 @@ function BlockRow({
         {step}
       </span>
       <span
-        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--p)]"
+        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
         aria-hidden
       >
         <Icon size={16} strokeWidth={1.9} />
@@ -175,7 +175,7 @@ function LaunchLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0"
+      className="inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0"
     >
       {label}
     </Link>
@@ -184,9 +184,9 @@ function LaunchLink({ href, label }: { href: string; label: string }) {
 
 function StatusPill({ label, tone }: { label: string; tone: 'ok' | 'soon' | 'muted' }) {
   const styleByTone: Record<typeof tone, { bg: string; color: string }> = {
-    ok: { bg: 'var(--success-light)', color: 'var(--success)' },
-    soon: { bg: 'var(--p-light)', color: 'var(--p)' },
-    muted: { bg: 'var(--bg3)', color: 'var(--t3)' },
+    ok: { bg: 'var(--success-light)', color: 'var(--success-ink)' },
+    soon: { bg: 'var(--p-light)', color: 'var(--on-p-tint)' },
+    muted: { bg: 'var(--bg3)', color: 'var(--t2)' },
   }
   const s = styleByTone[tone]
   return (
@@ -218,7 +218,7 @@ function CandidateRow({ candidate: c }: { candidate: PrescriptionCandidate }) {
         <Link
           href={`/library/books/${c.id}`}
           aria-label={`${c.title} 읽기`}
-          className="inline-flex min-h-[36px] shrink-0 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0"
+          className="inline-flex min-h-[36px] shrink-0 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0"
         >
           읽기
         </Link>

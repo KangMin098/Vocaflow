@@ -21,32 +21,44 @@ export interface TodayQueueProps {
   totalLabel?: string
 }
 
+// color = 막대·점을 칠하는 색 · ink = 그 색 계열을 **글자**로 쓸 때(AA 확보) · tint = 카드 배경.
+//   같은 값을 글자에도 쓰면 종이 위 2.0~3.6:1 로 미달이었다(2026-08-09 axe 실측).
+//   ⚠️ `${meta.color}0D` 처럼 var() 문자열에 알파 hex 를 붙이던 코드는 **무효 CSS** 라
+//      카드 배경/테두리가 실제로는 투명이었다 → color-mix 로 교체.
 const KIND_META: Record<
   QueueBucket['kind'],
-  { label: string; color: string; bg: string; description: string }
+  { label: string; color: string; ink: string; tint: string; edge: string; description: string }
 > = {
   stable: {
     label: '안정',
-    color: 'var(--memory-stable, #22C55E)',
-    bg: 'rgba(34, 197, 94, 0.12)',
+    color: 'var(--memory-stable)',
+    ink: 'var(--memory-stable-ink)',
+    tint: 'color-mix(in srgb, var(--memory-stable) 8%, transparent)',
+    edge: 'color-mix(in srgb, var(--memory-stable) 30%, transparent)',
     description: '확실히 알고 있어요',
   },
   shaky: {
     label: '흔들림',
-    color: 'var(--memory-shaky, #F59E0B)',
-    bg: 'rgba(245, 158, 11, 0.12)',
+    color: 'var(--memory-shaky)',
+    ink: 'var(--memory-shaky-ink)',
+    tint: 'color-mix(in srgb, var(--memory-shaky) 8%, transparent)',
+    edge: 'color-mix(in srgb, var(--memory-shaky) 30%, transparent)',
     description: '가끔 헷갈려요',
   },
   risk: {
     label: '흐릿함',
-    color: 'var(--memory-risk, #EF4444)',
-    bg: 'rgba(239, 68, 68, 0.12)',
+    color: 'var(--memory-risk)',
+    ink: 'var(--memory-risk-ink)',
+    tint: 'color-mix(in srgb, var(--memory-risk) 8%, transparent)',
+    edge: 'color-mix(in srgb, var(--memory-risk) 30%, transparent)',
     description: '오늘 만나주세요',
   },
   new: {
     label: '새 단어',
-    color: 'var(--memory-new, #94A3B8)',
-    bg: 'rgba(148, 163, 184, 0.12)',
+    color: 'var(--memory-new)',
+    ink: 'var(--memory-new-ink)',
+    tint: 'color-mix(in srgb, var(--memory-new) 8%, transparent)',
+    edge: 'color-mix(in srgb, var(--memory-new) 30%, transparent)',
     description: '처음 만나요',
   },
 }
@@ -62,7 +74,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
     >
       <header className="mb-4 flex items-center gap-2">
         <span
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]"
+          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
         >
           <Sparkles size={13} strokeWidth={2} />
@@ -94,7 +106,6 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
               key={b.kind}
               style={{ width: `${pct}%`, backgroundColor: meta.color }}
               title={`${meta.label}: ${b.count}개`}
-              aria-label={`${meta.label}: ${b.count}개`}
             />
           )
         })}
@@ -115,9 +126,9 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
                 dim
                   ? { borderColor: 'var(--bd)', background: 'var(--bg2)', opacity: 0.55 }
                   : {
-                      // 카드 active: 5% color wash + 30% border tint (Memory Decay 정체성)
-                      borderColor: `${meta.color}3D`,
-                      background: `${meta.color}0D`,
+                      // 카드 active: color wash + border tint (Memory Decay 정체성)
+                      borderColor: meta.edge,
+                      background: meta.tint,
                     }
               }
             >
@@ -127,7 +138,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
                   style={{ backgroundColor: meta.color }}
                   aria-hidden
                 />
-                <p className="font-display text-[11px] font-[700] uppercase tracking-[0.06em]" style={{ color: dim ? 'var(--t3)' : meta.color }}>
+                <p className="font-display text-[11px] font-[700] uppercase tracking-[0.06em]" style={{ color: dim ? 'var(--t2)' : meta.ink }}>
                   {meta.label}
                 </p>
               </div>

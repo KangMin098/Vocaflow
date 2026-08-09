@@ -34,7 +34,7 @@ export function MicPermissionGate({ onGrant, error }: Props) {
         <button
           type="button"
           onClick={onGrant}
-          className="mt-6 inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97]"
+          className="mt-6 inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97]"
         >
           <Mic size={14} aria-hidden /> 마이크 사용 허용
         </button>

@@ -133,7 +133,7 @@ function CompletionResult({
           onClick={() =>
             router.push(`/text/${result.nextChapterTextId}?mode=read`)
           }
-          className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           다음 장
           <ArrowRight size={10} aria-hidden />

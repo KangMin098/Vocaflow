@@ -297,6 +297,17 @@ psm 4 = "가변 크기 텍스트 한 열" — 말풍선은 세로로 쌓인 짧�
 - 자동재생 차단 대응에 **`keydown` 추가** — 기존엔 `pointerdown` 만 듣고 있어, 포인터를 안 쓰는 타이핑 게임(wordsmith-vigil·letter-forge 등)은 기본 ON 이어도 영영 무음이 될 참이었다.
 - **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 선호 미설정 학습자가 **토글 없이 게임 진입만으로** 트랙을 받는지 + 명시적 OFF 가 리로드 후에도 유지되는지. 기존 [09-arcade-access.spec.ts](../apps/web/tests/e2e/09-arcade-access.spec.ts) F1 은 기본 ON 기준으로 재작성(허브 토글 → 게임 적용을 끄기/켜기 양방향으로 고정) — F1·F2 2/2 pass.
 
+### 품질 루프 3회차 — 잉크 토큰 체계 완성, hub·dashboard·dictate·arcade 도 게이트 편입 (2026-08-09)
+
+2회차의 잔여(47건)를 계속 좁히며, "면 vs 잉크" 규칙을 **semantic·brand tint 까지** 확장해 체계를 닫았다.
+
+- **잉크 토큰 3계열 추가** — `--on-p-tint`(브랜드 tint 칩 · 테마별 반전) · `--success/error/warning/info-ink` · (2회차의) `--memory-*-ink`. 실측 미달치: success 4.21 · warning 2.82 · info 3.63 · 다크 tint 위 success 4.27.
+- **`--memory-stable-ink` 재조정** `#2E7D5A → #1F6B49` — 종이(4.79)는 통과했지만 `--bg3`(4.03)에서 미달이었다. 잉크는 **가장 어두운 종이 톤 기준**으로 잡아야 한다는 걸 이번에 확인.
+- **무효 CSS 2건 추가 제거** — `TodayQueue` 의 `` `${meta.color}0D` `` (var() + 알파 hex)로 카드 배경·테두리가 실제로는 **투명**이었다. `color-mix()` 로 교체(ScriptQuiz 와 같은 유형, 세 번째 발견).
+- **공용 컴포넌트 교정** — `TodayQueue`(hub·flashcard·spellforge 3화면 공용) 색 구조를 `color/ink/tint/edge` 로 분리 · 분포 막대의 `aria-prohibited-attr` 제거 · `VocabSetCarousel` 활성 탭 accent 3종을 흰 글자 AA 기준으로 심화(csat 3.19→5.38 등) · `RecommendedSetsSection` 배지 팔레트 · `PlanClient` 의 `opacity-70` 이중 감광 제거.
+- **게이트 확장** — `14-learner-quality` 에 **hub·dashboard·dictate·arcade** 추가(라이트/다크 0 유지). 나머지 화면(wordvault·flashcard·scriptquiz·plan·settings·library/*)은 잔여가 남아 아직 넣지 않았다 — **0 이 되는 대로 배열에 한 줄씩 추가**하는 것이 이 루프의 진행 방식이고, 스펙 주석에 그렇게 적어두었다.
+- 검증: 14-learner-quality 5/5 · 11/12/13 포함 21/21 · 04-ui-smoke 5/5 · unit 229 · tsc 클린.
+
 ### 품질 루프 2회차 — 학습자 전 화면으로 확대, 접근성 위반 719 → 20 (2026-08-09)
 
 1회차(만화·도서)를 앱 전역 학습자 화면 11곳(hub·dashboard·wordvault·flashcard·scriptquiz·dictate·arcade·library/scripts·library/vocab·plan·settings)으로 넓혀 같은 루프를 돌렸다.

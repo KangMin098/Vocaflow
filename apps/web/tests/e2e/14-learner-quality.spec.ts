@@ -167,6 +167,22 @@ test.describe('학습자 화면 품질 게이트', () => {
     }
   });
 
+  // 2회차(2026-08-09)에 위반 0 이 된 화면들을 게이트에 편입한다.
+  //   나머지 학습자 화면(wordvault·flashcard·scriptquiz·plan·settings·library/*)은 아직 잔여가 있어
+  //   여기 넣지 않았다 — 0 이 되는 대로 이 배열에 한 줄씩 추가하는 것이 이 루프의 진행 방식이다.
+  test('메타·연습 화면 — 접근성 위반 0 (라이트/다크)', async ({ page }) => {
+    test.setTimeout(300_000);
+    for (const path of ['/hub', '/dashboard', '/dictate', '/arcade']) {
+      for (const theme of ['light', 'dark'] as const) {
+        await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 45_000 });
+        await setTheme(page, theme);
+        await page.waitForTimeout(900);
+        const violations = await axeViolations(page);
+        expect(violations, `${path}/${theme}`).toEqual([]);
+      }
+    }
+  });
+
   test('터치 타겟 — 학습자 콘텐츠 안에서 44px 미만 0', async ({ page }) => {
     test.setTimeout(240_000);
     for (const path of ['/comics/adapted', '/library/books', '/comics/restored']) {

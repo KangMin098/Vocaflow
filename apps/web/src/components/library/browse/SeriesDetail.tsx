@@ -250,7 +250,7 @@ export function SeriesDetail({
                 <span className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--bg)] py-1 pl-1.5 pr-2.5 font-display text-[12px] font-[600] text-[var(--t2)] shadow-[var(--sh-xs)]">
                   <span
                     aria-hidden
-                    className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--p)] font-mono text-[9.5px] font-[800] text-[var(--ti)]"
+                    className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--p)] font-mono text-[9.5px] font-[800] text-[var(--on-p)]"
                   >
                     {i + 1}
                   </span>

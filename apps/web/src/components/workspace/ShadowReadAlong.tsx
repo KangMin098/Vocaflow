@@ -64,7 +64,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
     return (
       <PanelShell>
         <div className="flex flex-col items-center gap-3 py-2 text-center">
-          <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--p)]">
+          <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--on-p-tint)]">
             <Check size={22} strokeWidth={2.5} aria-hidden />
           </span>
           <div>
@@ -101,7 +101,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
     return (
       <PanelShell>
         <div className="flex flex-col items-center gap-3 py-2 text-center">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--p)]">
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--on-p-tint)]">
             <Ear size={24} strokeWidth={2} aria-hidden />
           </span>
           <div>

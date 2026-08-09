@@ -468,7 +468,7 @@ export function DiagnosticClient() {
           </button>
           <button
             onClick={() => void startTest(t)}
-            className="group inline-flex shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-3.5 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group inline-flex shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-3.5 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             시작
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -612,7 +612,7 @@ export function DiagnosticClient() {
           </button>
           <button
             onClick={() => handleAnswer(true)}
-            className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+            className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
           >
             <CheckCircle2 size={20} /> 알아요
           </button>
@@ -734,7 +734,7 @@ export function DiagnosticClient() {
                       {rec.title}
                     </span>
                     {REC_LABEL[rec.recommendation_type] && (
-                      <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--p)]">
+                      <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p-tint)]">
                         {REC_LABEL[rec.recommendation_type]}
                       </span>
                     )}
@@ -819,7 +819,7 @@ export function DiagnosticClient() {
 
       <button
         onClick={() => router.push(isTrack ? '/diagnostic' : '/wordvault')}
-        className="w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+        className="w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
       >
         {isTrack ? '다른 진단 받기' : '내 단어장으로 가기'}
       </button>
@@ -874,7 +874,7 @@ function InfoModal({
               <div className="flex items-center gap-2">
                 <h2 className="font-display text-[17px] font-[700] text-[var(--t1)]">{p.title}</h2>
                 {p.recommended && (
-                  <span className="rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--ti)]">
+                  <span className="rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p)]">
                     추천
                   </span>
                 )}
@@ -972,7 +972,7 @@ function InfoModal({
           </button>
           <button
             onClick={onStart}
-            className="group flex flex-[2] items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-3 font-display text-[14px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)]"
+            className="group flex flex-[2] items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
           >
             이 진단 시작
             <ArrowRight
@@ -1059,7 +1059,7 @@ function LevelGuideModal({
                 >
                   <span
                     className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] font-display text-[12px] font-[700] ${
-                      active ? 'bg-[var(--p)] text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
+                      active ? 'bg-[var(--p)] text-[var(--on-p)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                     }`}
                   >
                     {isTrack ? `L${b.level}` : `V${b.level}`}
@@ -1075,7 +1075,7 @@ function LevelGuideModal({
                         </span>
                       )}
                       {active && (
-                        <span className="rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--ti)]">
+                        <span className="rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p)]">
                           현재
                         </span>
                       )}

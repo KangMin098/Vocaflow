@@ -125,9 +125,9 @@ export function SampleScripts({ onSelect }: SampleScriptsProps) {
                 <span
                   className={cn(
                     'rounded px-s-1 py-[1px] font-mono text-[9px] uppercase tracking-wider',
-                    sample.difficulty === '쉬움' && 'bg-success-light text-success',
+                    sample.difficulty === '쉬움' && 'bg-success-light text-[var(--success-ink)]',
                     sample.difficulty === '보통' && 'bg-warning-light text-warning',
-                    sample.difficulty === '어려움' && 'bg-error-light text-error'
+                    sample.difficulty === '어려움' && 'bg-error-light text-[var(--error-ink)]'
                   )}
                 >
                   {sample.difficulty}

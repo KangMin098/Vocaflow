@@ -35,11 +35,12 @@ const TYPE_BADGE: Record<
   string,
   { label: string; bg: string; text: string }
 > = {
-  primary:   { label: '메인', bg: 'var(--p)',          text: 'var(--ti)' },
-  stretch:   { label: '도전', bg: 'var(--active)',     text: 'var(--ti)' },
+  // bg 는 면, text 는 그 위 글자 — 원색을 글자로 쓰면 tint 위에서 AA 미달이라 잉크 토큰을 쓴다.
+  primary:   { label: '메인', bg: 'var(--p)',          text: 'var(--on-p)' },
+  stretch:   { label: '도전', bg: 'var(--active)',     text: '#231a09' },
   review:    { label: '보강', bg: 'var(--bg3)',        text: 'var(--t2)' },
-  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info)' },
-  etymology: { label: '어원', bg: 'var(--warn-light, var(--info-light))', text: 'var(--warn, var(--info))' },
+  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info-ink)' },
+  etymology: { label: '어원', bg: 'var(--warning-light)', text: 'var(--warning-ink)' },
   topic:     { label: '주제', bg: 'var(--bg3)',        text: 'var(--t2)' },
   fallback:  { label: '추천', bg: 'var(--bg3)',        text: 'var(--t2)' },
 }
@@ -92,7 +93,7 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
       >
         <div className="flex items-start gap-4">
           <span
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] text-[var(--ti)]"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] text-[var(--on-p)]"
             aria-hidden
           >
             <Compass size={20} strokeWidth={2.25} />
@@ -110,7 +111,7 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
           </div>
           <Link
             href="/diagnostic"
-            className="shrink-0 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+            className="shrink-0 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
           >
             진단 시작
           </Link>

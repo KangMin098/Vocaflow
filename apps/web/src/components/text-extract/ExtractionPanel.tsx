@@ -401,7 +401,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         <button
           onClick={() => void handleExtract()}
           disabled={loading}
-          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:opacity-50"
+          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
           {loading ? '분석 중…' : '추출 분석'}
@@ -460,7 +460,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                 onClick={() => setDisplayPct(c.value)}
                 className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] border px-2 py-1 font-display text-[11px] font-[700] transition-all ${
                   active
-                    ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p)]'
+                    ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                     : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)]'
                 }`}
               >
@@ -495,7 +495,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
             <button
               onClick={() => void handleSave()}
               disabled={saving || selected.size === 0}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] hover:bg-[var(--p-hover)] disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p)] hover:bg-[var(--p-hover)] disabled:opacity-50"
             >
               {saving ? <Loader2 size={12} className="animate-spin" /> : <CheckCircle2 size={12} />}
               {saving ? '저장 중…' : '내 단어장에 추가'}
@@ -530,7 +530,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         <div className="flex items-baseline gap-2">
                           <span className="font-english text-[18px] font-[600] text-[var(--t1)]">{r.word}</span>
                           <span className="font-body text-[11px] text-[var(--t2)]">{r.pos}</span>
-                          <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--p)]">V{r.v_level}</span>
+                          <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p-tint)]">V{r.v_level}</span>
                           {r.cefr_level && (
                             <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{r.cefr_level}</span>
                           )}
@@ -571,7 +571,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           aria-label={`${r.word} 몰라요 — 학습 유지`}
                           aria-pressed={fam === 'unknown'}
                           className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
-                            fam === 'unknown' ? 'bg-[var(--p)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--p-light)] hover:text-[var(--p)]'
+                            fam === 'unknown' ? 'bg-[var(--p)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)]'
                           }`}
                         >
                           몰라요
@@ -628,7 +628,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">
                             &ldquo;{r.source_sentence ?? r.example_en}&rdquo;
                             {r.source_sentence && (
-                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 align-middle font-display text-[9px] font-[700] not-italic text-[var(--p)]">
+                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 align-middle font-display text-[9px] font-[700] not-italic text-[var(--on-p-tint)]">
                                 본문
                               </span>
                             )}

@@ -19,6 +19,8 @@
 //   C 진입점 — 스크립트 화면에 아케이드 문이 있는가
 import { test, expect, type Page } from '@playwright/test';
 
+import { fetchSharedSetWords } from './utils/db';
+
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
@@ -107,6 +109,50 @@ test.describe('아케이드 자료 연계', () => {
     }
 
     expect(failures, `자료 연계 실패:\n${failures.join('\n')}`).toEqual([]);
+  });
+
+  // A 는 라벨만 본다 — 그것만으로는 부족하다는 것이 v07.8 에서 드러났다.
+  // morpheme-rules 는 자료 라벨을 정상으로 달고도 실제 문제는 내장 61단어 격자에서 냈고,
+  // 그 결과 onCorrect/onWrong 의 99.7% 가 recordGameResult 에서 silent skip 됐다
+  // (DB 실측: vocabularies 2,106행 중 7행만 겹침). "라벨이 맞다 ≠ 그 자료로 논다".
+  test('A3 · 화면에 실제로 그 자료의 단어가 나온다 (라벨만 맞는 가짜 연계 차단)', async ({ page }) => {
+    test.setTimeout(19 * 40_000);
+    const setWords = await fetchSharedSetWords(FIXTURE_SET.id);
+    test.skip(setWords.length < 10, 'service-role 키 없음 또는 픽스처 세트 비어 있음');
+
+    const en = setWords.map((w) => w.word.toLowerCase()).filter((w) => w.length >= 3);
+    const ko = setWords.map((w) => w.meaning.trim()).filter((m) => m.length >= 2);
+
+    const failures: string[] = [];
+    for (const slug of ALL_GAMES) {
+      await page.goto(`/play/${slug}?set=${FIXTURE_SET.id}&from=%2Farcade`, {
+        waitUntil: 'domcontentloaded',
+      });
+      await page.locator('[aria-label^="현재 학습:"]').first().waitFor({ state: 'attached', timeout: 25_000 });
+
+      // 여러 게임이 인트로 화면을 둔다(사건철 열기 · 오늘의 챌린지 시작 · 잠수 시작 …).
+      // 자료 단어는 그 뒤에 나오므로 시작류 버튼이 있으면 한 번 눌러준다.
+      const start = page
+        .getByRole('button', { name: /시작|열기|출발|입장|들어가|잠수|펼치기|받기/ })
+        .first();
+      if (await start.isVisible().catch(() => false)) {
+        await start.click().catch(() => {});
+      }
+
+      // 렌더 여유 — 절차 생성·TTS 게이트가 있는 게임이 있다.
+      let hit: string | null = null;
+      for (let i = 0; i < 12 && !hit; i++) {
+        const text = ((await page.locator('body').innerText().catch(() => '')) || '').toLowerCase();
+        hit =
+          en.find((w) => text.includes(w)) ??
+          ko.find((m) => text.includes(m.toLowerCase())) ??
+          null;
+        if (!hit) await page.waitForTimeout(1200);
+      }
+      if (!hit) failures.push(`${slug}: 자료 단어가 화면에 한 개도 안 나온다(내장 콘텐츠 의심)`);
+    }
+
+    expect(failures, `가짜 연계(라벨만 자료):\n${failures.join('\n')}`).toEqual([]);
   });
 
   test('A2 · ?text= (내 스크립트) 도 같은 방식으로 실린다', async ({ page }) => {

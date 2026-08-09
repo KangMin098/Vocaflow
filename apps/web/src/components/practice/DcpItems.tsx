@@ -48,7 +48,7 @@ export function DcpOrderItem({
             className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2.5"
           >
             <span
-              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] font-mono text-[12px] font-[700] text-[var(--p)]"
+              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] font-mono text-[12px] font-[700] text-[var(--on-p-tint)]"
               aria-hidden
             >
               {pos + 1}
@@ -76,7 +76,7 @@ function MoveButton({ dir, disabled, onClick }: { dir: 'up' | 'down'; disabled: 
       onClick={onClick}
       disabled={disabled}
       aria-label={dir === 'up' ? '위로 이동' : '아래로 이동'}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-35"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-35"
     >
       <Icon size={18} strokeWidth={2.25} aria-hidden />
     </button>
@@ -169,7 +169,7 @@ function SubmitButton({ disabled, onClick }: { disabled: boolean; onClick: () =>
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-45"
+      className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-45"
     >
       제출
     </button>

@@ -61,7 +61,7 @@ export function TeacherClient({
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-10">
       <header className="flex items-center gap-2">
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--p)]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
         >
           <GraduationCap size={18} strokeWidth={1.75} />
@@ -95,7 +95,7 @@ export function TeacherClient({
             type="button"
             onClick={handleCreate}
             disabled={!name.trim() || pending}
-            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-50"
           >
             <Plus size={14} strokeWidth={2} aria-hidden /> 개설
           </button>

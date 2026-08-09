@@ -326,7 +326,7 @@ export default function PricingPage() {
                     href={t.ctaHref}
                     className={`relative mt-6 inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[14px] font-[700] transition-all duration-[var(--dur-normal)] active:scale-[0.97] ${
                       t.highlight
-                        ? 'bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)] hover:bg-[var(--p-hover)] hover:shadow-[var(--sh-md)]'
+                        ? 'bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)] hover:bg-[var(--p-hover)] hover:shadow-[var(--sh-md)]'
                         : 'border-2 border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:bg-[var(--p-light)]'
                     }`}
                   >

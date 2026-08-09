@@ -105,7 +105,7 @@ function ManageCard({
     >
       <header className="flex items-center gap-2">
         <span
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]"
+          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
         >
           {icon}

@@ -130,7 +130,7 @@ export default function WordBlitzHubPage() {
         >
           <header className="flex items-center gap-2">
             <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
               aria-hidden
             >
               <Layers size={14} strokeWidth={1.75} />
@@ -238,7 +238,7 @@ export default function WordBlitzHubPage() {
                   {s.score.toLocaleString()}
                   <span className="ml-1 font-mono text-[10px] text-[var(--t2)]">점</span>
                 </span>
-                <span className="shrink-0 rounded-full bg-[var(--p-light)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--p)]">
+                <span className="shrink-0 rounded-full bg-[var(--p-light)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--on-p-tint)]">
                   콤보 {s.combo}
                 </span>
                 <span className="w-12 shrink-0 text-right font-mono text-[12px] tabular-nums text-[var(--t2)]">

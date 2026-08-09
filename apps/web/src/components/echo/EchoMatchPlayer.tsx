@@ -439,7 +439,7 @@ export function EchoMatchPlayer({
           type="button"
           onClick={handleNext}
           disabled={currentIdx === last || phase === 'recording'}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-30"
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-30"
         >
           다음 <ChevronRight size={13} aria-hidden />
         </button>
@@ -472,7 +472,7 @@ function PhaseController({
           type="button"
           onClick={onStart}
           disabled={!piperReady}
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
         >
           <Play size={15} aria-hidden /> {piperReady ? '시작' : '음성 모델 준비 중…'}
         </button>

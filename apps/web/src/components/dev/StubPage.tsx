@@ -52,7 +52,7 @@ export function StubPage({ title, description, upcoming = [] }: StubPageProps) {
           </Link>
           <Link
             href="/hub"
-            className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
+            className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
           >
             허브로
           </Link>

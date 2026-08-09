@@ -462,7 +462,7 @@ function BookBody({ v }: { v: BookVariant }) {
             {v.themes.map((th, i) => (
               <span
                 key={`${th}-${i}`}
-                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--p-dark)]"
+                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--on-p-tint)]"
               >
                 {th}
               </span>

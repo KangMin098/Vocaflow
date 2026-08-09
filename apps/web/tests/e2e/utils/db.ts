@@ -167,6 +167,32 @@ export async function fetchUserVocabWords(
 }
 
 /**
+ * 공용 단어장/도서 챕터 세트의 단어 — "게임이 정말 이 자료로 도는가" 단언용.
+ *
+ * 라벨(세션 셸 aria-label)만 보면 부족하다는 것이 v07.8 에서 드러났다:
+ * morpheme-rules 는 자료 라벨을 정상으로 달고도 실제 문제는 내장 61단어 격자에서
+ * 냈고, 그래서 onCorrect/onWrong 의 99.7% 가 recordGameResult 에서 silent skip 됐다.
+ * 화면에 그 자료의 단어가 실제로 나오는지까지 봐야 한다.
+ */
+export async function fetchSharedSetWords(
+  setId: string,
+  limit = 60,
+): Promise<Array<{ word: string; meaning: string }>> {
+  const c = serviceClient();
+  if (!c) return [];
+  const { data, error } = await c
+    .from('shared_words')
+    .select('word, meaning_ko')
+    .eq('set_id', setId)
+    .limit(limit);
+  if (error) return [];
+  return (data ?? []).map((r) => ({
+    word: (r.word as string) ?? '',
+    meaning: (r.meaning_ko as string) ?? '',
+  }));
+}
+
+/**
  * 특정 시각 이후 module 별 learning_records 행 개수 — 게임 인출 결과의 FSRS audit 단언용.
  * recordGameResult 는 fire-and-forget 이므로 호출부에서 폴링 권장.
  *

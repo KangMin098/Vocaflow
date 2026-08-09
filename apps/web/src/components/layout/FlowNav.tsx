@@ -354,7 +354,7 @@ function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
               <strong className="font-display font-[700] text-[var(--t1)]">{momentum.weekDays}일</strong>
               {' 학습'}
             </span>
-            <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-display text-[10px] font-[800] text-[var(--p)]">
+            <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-display text-[10px] font-[800] text-[var(--on-p-tint)]">
               여정 {JOURNEY_PERCENT}%
             </span>
           </div>

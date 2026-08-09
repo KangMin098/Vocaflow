@@ -42,7 +42,7 @@ export function MeaningDisplay({
 
       {/* Meaning */}
       <div className="group mb-2 text-center">
-        <span className="mb-3 inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
+        <span className="mb-3 inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
           {pos}
         </span>
         <h2 className="mb-2 font-english text-[36px] font-[600] leading-tight text-[var(--t1)]">

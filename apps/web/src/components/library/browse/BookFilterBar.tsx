@@ -124,7 +124,7 @@ function Chip({
       onClick={onClick}
       className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors ${
         active
-          ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
+          ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
           : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:bg-[var(--bg2)]'
       }`}
     >
@@ -317,7 +317,7 @@ export function BookFilterBar({
             <button
               type="button"
               onClick={() => setAllThemes((v) => !v)}
-              className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
+              className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
             >
               {allThemes ? '접기' : `+${facets.themes.length - THEME_PREVIEW}개 더보기`}
             </button>

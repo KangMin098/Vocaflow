@@ -222,7 +222,7 @@ export function DictationSetupClient() {
                     {meta.icon} {meta.label}
                   </span>
                   {recommended && (
-                    <span className="rounded-full bg-[var(--p)] px-2 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--ti)]">
+                    <span className="rounded-full bg-[var(--p)] px-2 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--on-p)]">
                       추천
                     </span>
                   )}
@@ -245,7 +245,7 @@ export function DictationSetupClient() {
               onClick={() => setCount(c)}
               className={`rounded-[var(--r-md)] border py-2 font-display text-[14px] font-[600] transition-colors ${
                 count === c
-                  ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
+                  ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                   : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
               }`}
               aria-pressed={count === c}
@@ -347,7 +347,7 @@ export function DictationSetupClient() {
                     onClick={() => setSpeed(s)}
                     className={`flex-1 rounded-[var(--r-sm)] border py-1.5 font-mono text-[11px] font-[600] transition-colors ${
                       Math.abs(speed - s) < 0.01
-                        ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
+                        ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                         : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
                     }`}
                   >
@@ -373,7 +373,7 @@ export function DictationSetupClient() {
                     onClick={() => setAutoRepeat(n)}
                     className={`flex-1 rounded-[var(--r-sm)] border py-1.5 font-mono text-[11px] font-[600] transition-colors ${
                       autoRepeat === n
-                        ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
+                        ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                         : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
                     }`}
                   >

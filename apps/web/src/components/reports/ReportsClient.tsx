@@ -36,7 +36,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
     <div className="mx-auto flex max-w-2xl flex-col gap-5 px-4 py-10">
       <header className="flex items-center gap-2">
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--p)]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
         >
           <CalendarRange size={18} strokeWidth={1.75} />
