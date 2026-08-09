@@ -18,7 +18,7 @@ const REPO = path.resolve(HERE, '..', '..', '..')
 const FF = process.env.FFMPEG_BIN || (fs.existsSync(path.join(REPO, 'tools', 'ffmpeg', 'ffmpeg.exe')) ? path.join(REPO, 'tools', 'ffmpeg', 'ffmpeg.exe') : 'ffmpeg')
 
 const WD = arg('workdir')
-const LEVEL = String(arg('level', 'C')).toUpperCase() // 색감 강도 A(클린)/B(밸런스)/C(볼드). 사용자 선택=C.
+const LEVEL = String(arg('level', 'MAX')).toUpperCase() // 색감 강도 A<B<C<MAX. 사용자 요청=최대한 현대적 → MAX.
 const LIMIT = arg('limit') ? Number(arg('limit')) : null
 if (!WD || !fs.existsSync(WD)) { console.error(`--workdir <dir> 필요: ${WD}`); process.exit(2) }
 
@@ -32,18 +32,21 @@ if (!files.length) { console.error(`입력 페이지 없음: ${srcDir}`); proces
 const outDir = path.join(WD, 'page-modern')
 fs.mkdirSync(outDir, { recursive: true })
 
-// 원작 구성 보존 = 리플로우/스택 없음. 페이지 단위로 "이미지=그래픽(색감)"만 현대화(3단계).
-//   colorlevels: 크림 종이→순백 + 청색채널↑ 황색캐스트 제거  ·  smartblur: halftone 디스크린(radius ≤5)
-//   eq: 강채도 vibrant  ·  palette: 평면컬러  ·  강도 A(클린)<B(밸런스)<C(볼드, 디지털 그래픽노블)
+// 원작 구성 보존 = 리플로우/스택 없음. 페이지 단위로 "이미지=그래픽(색채·디자인)"만 현대화(4단계).
+//   colorlevels: 크림 종이→순백 + 청색채널↑ 황색캐스트 제거  ·  smartblur/median: 디스크린·엣지보존 평탄화
+//   eq: 강채도 vibrant  ·  palette/elbg: 평면컬러  ·  colorbalance: 모던 색 그레이드(teal-orange)
+//   강도 A(클린)<B(밸런스)<C(볼드)<MAX(플랫벡터 — 최대한 현대적: median 평탄화+elbg 플랫+모던 그레이드)
+// 각 레벨은 crop 이후의 완전한 -vf 체인을 담는다(WP=화이트포인트 공통).
+const WP = 'colorlevels=rimax=0.90:gimax=0.91:bimax=0.84'
 const LEVELS = {
-  A: { grade: `crop=iw-12:ih-12,colorlevels=rimax=0.94:gimax=0.95:bimax=0.90,eq=saturation=1.22:contrast=1.06`, colors: 0 },
-  B: { grade: `crop=iw-12:ih-12,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02`, colors: 64 },
-  C: { grade: `crop=iw-12:ih-12,colorlevels=rimax=0.90:gimax=0.91:bimax=0.84,smartblur=5:0.7:0,eq=saturation=1.78:contrast=1.24:gamma_b=1.02`, colors: 48 },
+  A: `crop=iw-12:ih-12,colorlevels=rimax=0.94:gimax=0.95:bimax=0.90,eq=saturation=1.22:contrast=1.06`,
+  B: `crop=iw-12:ih-12,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02,split[s0][s1];[s0]palettegen=max_colors=64:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3`,
+  C: `crop=iw-12:ih-12,colorlevels=rimax=0.90:gimax=0.91:bimax=0.84,smartblur=5:0.7:0,eq=saturation=1.78:contrast=1.24:gamma_b=1.02,split[s0][s1];[s0]palettegen=max_colors=48:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3`,
+  MAX: `crop=iw-12:ih-12,${WP},median=radius=3,eq=saturation=1.62:contrast=1.15:gamma_b=1.02,colorbalance=rs=-0.04:bs=0.05:rm=0.02:rh=0.04:bh=-0.04,elbg=l=56:n=2,deband`,
 }
-const sel = LEVELS[LEVEL] || LEVELS.C
-const COLORS = sel.colors
-const gradeVf = sel.grade
-const paletteVf = COLORS ? `split[s0][s1];[s0]palettegen=max_colors=${COLORS}:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3` : null
+const gradeVf = LEVELS[LEVEL] || LEVELS.MAX
+const COLORS = LEVEL === 'MAX' ? 56 : (LEVEL === 'C' ? 48 : (LEVEL === 'B' ? 64 : 0))
+const paletteVf = null // 레벨 문자열에 평탄화/포스터가 이미 포함됨
 
 const results = []
 for (const f of files) {
