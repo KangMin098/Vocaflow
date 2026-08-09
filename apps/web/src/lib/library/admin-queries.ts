@@ -1101,13 +1101,32 @@ export async function extractBookVocabularyAdmin(
 // 9. 책 lemma 사전 바인딩 실패 진단 (원인별)
 // ─────────────────────────────────────────────
 
+/**
+ * 미바인딩 사유.
+ *
+ * 앞 5개 = **조치 대상**, 뒤 4개(v06.35 신규 3 + noise) = **설명됨, 조치 불요**.
+ * v06.35 이전에는 뒤쪽이 전부 genuine_miss/noise 로 뭉뚱그려져 Les Misérables 이
+ * 1,294건으로 보였다(실제 조치 대상 165건).
+ */
 export type UnboundReason =
-  | 'spelling_variant'  // US/UK 철자 변형 시 사전 히트 (variant_hit 에 canonical)
   | 'genuine_miss'      // 영단어로 보이나 사전 미등재 — seed 후보
-  | 'noise'             // 고유명사·로마숫자·단편 (학습 대상 아님)
+  | 'no_meaning'        // meaning_ko 비어있음
   | 'no_v_level'        // dict row 있으나 v_level NULL
   | 'not_classified'    // classified_by NULL (자동 분류 미완료)
-  | 'no_meaning'        // meaning_ko 비어있음
+  | 'spelling_variant'  // US/UK 철자 차이·방언 표기 — canonical 이 사전에 있음
+  | 'lexicon_only'      // v06.35 — lexicon_clean 에만 존재 (shared_dictionary 등재 대상 아님)
+  | 'morphology'        // v06.35 — 파생/굴절/복합/정규화로 base 도달 (재추출 시 base 로 surface)
+  | 'foreign'           // v06.35 — 영어가 아님 (resolved_lang 에 언어 코드)
+  | 'noise'             // 고유명사·로마숫자·단편 (학습 대상 아님)
+
+/** 조치가 필요한 사유 — 패널 헤더 건수의 기준. */
+export const ACTIONABLE_UNBOUND_REASONS: readonly UnboundReason[] = [
+  'genuine_miss',
+  'no_meaning',
+  'no_v_level',
+  'not_classified',
+  'spelling_variant',
+]
 
 export interface UnboundLemma {
   lemma: string
@@ -1139,6 +1158,13 @@ export interface UnboundLemma {
    * (processed/addable_modern/person_noise/geo_noise/spelling_variant/pending). 미수집 시 null.
    */
   archaic_class: string | null
+  /**
+   * v06.35 — lookup_word_meaning 해석 경로 (coverage-clean/derivation/dialect/…).
+   * reason 이 lexicon_only·morphology·foreign 일 때 "무엇이 해석했는지" 근거.
+   */
+  resolved_via: string | null
+  /** v06.35 — 해석 언어. 'en' 이 아니면 원문 외국어 인용 (fr/la/it/de/es …). */
+  resolved_lang: string | null
 }
 
 export async function findUnboundBookLemmas(

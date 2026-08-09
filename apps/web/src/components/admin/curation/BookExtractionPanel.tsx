@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Loader2, Zap, AlertCircle, BookPlus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import {
+  ACTIONABLE_UNBOUND_REASONS,
   extractBookVocabularyAdmin,
   findUnboundBookLemmas,
   stageBookDictCandidates,
@@ -19,21 +20,27 @@ import {
 import { RegisterBadge } from '@/components/library/RegisterBadge'
 
 const REASON_LABEL: Record<UnboundReason, string> = {
-  spelling_variant: '철자 변형',
   genuine_miss: '실단어 미등재',
-  noise: '노이즈',
+  no_meaning: '뜻 누락',
   no_v_level: 'V-Level 없음',
   not_classified: '분류 미완료',
-  no_meaning: '뜻 누락',
+  spelling_variant: '철자 변형',
+  lexicon_only: '보조사전 해석',
+  morphology: '형태 회수',
+  foreign: '외국어',
+  noise: '노이즈',
 }
 
 const REASON_HINT: Record<UnboundReason, string> = {
-  spelling_variant: 'US/UK 철자 차이 — canonical 철자가 사전에 있어 재추출 시 자동 회수됨',
   genuine_miss: '영단어로 보이나 사전 미등재 — seed/dict-fill 큐 후보',
-  noise: '고유명사·로마숫자·단편 — 학습 대상 아님 (무시)',
+  no_meaning: 'meaning_ko 비어있음 — dict-fill 큐 등록',
   no_v_level: 'dict row 있으나 v_level NULL — VRL 분류 큐 등록',
   not_classified: 'classified_by NULL — VRL 자동 분류 미수행',
-  no_meaning: 'meaning_ko 비어있음 — dict-fill 큐 등록',
+  spelling_variant: 'US/UK 철자 차이·방언 표기 — canonical 철자가 사전에 있어 재추출 시 자동 회수됨',
+  lexicon_only: 'lexicon_clean 으로 뜻이 해석됨 — shared_dictionary 등재 대상 아님 (무시)',
+  morphology: '파생·굴절·복합·정규화로 base 표제어에 도달 — 재추출 시 base 로 surface (무시)',
+  foreign: '영어가 아닌 원문 인용 (프랑스어·라틴어 등) — 학습 대상 아님 (무시)',
+  noise: '고유명사·로마숫자·단편 — 학습 대상 아님 (무시)',
 }
 
 interface BookExtractionPanelProps {
@@ -106,6 +113,15 @@ export function BookExtractionPanel({
     }
     return map
   })()
+
+  // v06.35 — 헤더 건수는 **조치 대상만** 센다.
+  //   이전에는 전체를 셌고, 그 전체에는 lexicon_clean 으로 이미 해석된 것 · 파생/굴절로 base 에
+  //   회수되는 것 · 원문 외국어가 통째로 섞여 있었다 (Les Misérables 1,294건 중 조치 대상 165건).
+  //   설명된 항목은 목록에 그대로 남긴다 — "왜 사전에 없는데 문제가 아닌지" 를 볼 수 있어야 한다.
+  const actionableCount = unbound
+    ? unbound.filter((r) => ACTIONABLE_UNBOUND_REASONS.includes(r.reason)).length
+    : 0
+  const explainedCount = unbound ? unbound.length - actionableCount : 0
 
   // 추출기 freq_external_a 클러스터로 base 에 회수되는 lemma — reason 과 무관.
   // 진단상 genuine_miss/noise 로 보여도 추출 시 base 단어로 surface 되므로 seed 우선순위 낮음.
@@ -268,10 +284,12 @@ export function BookExtractionPanel({
               id="unbound-title"
               className="font-display text-[12px] font-[700] text-[var(--learn-error)]"
             >
-              사전 미바인딩 단어 ({unbound.length}건)
+              사전 미바인딩 단어 (조치 대상 {actionableCount}건)
             </h3>
             <span className="font-body text-[11px] text-[var(--t2)]">
-              추출에서 제외된 lemma — 원인 진단용
+              {explainedCount > 0
+                ? `+ 설명됨 ${explainedCount}건 (보조사전·형태 회수·외국어·노이즈 — 조치 불요)`
+                : '추출에서 제외된 lemma — 원인 진단용'}
             </span>
           </header>
 
@@ -360,18 +378,30 @@ export function BookExtractionPanel({
                       {i + 1}
                     </Td>
                     <Td className="font-display font-[600]">{r.lemma}</Td>
-                    <Td title={REASON_HINT[r.reason]}>
+                    <Td
+                      title={
+                        r.resolved_via
+                          ? `${REASON_HINT[r.reason]}\n해석 경로: ${r.resolved_via}${
+                              r.resolved_lang ? ` (${r.resolved_lang})` : ''
+                            }`
+                          : REASON_HINT[r.reason]
+                      }
+                    >
                       <span
                         className={
                           'font-mono text-[10px] ' +
                           (r.reason === 'spelling_variant'
-                            ? 'text-[var(--active)]'
+                            ? 'text-[var(--active-ink)]'
                             : r.reason === 'genuine_miss'
                               ? 'text-[var(--learn-error)]'
                               : 'text-[var(--t2)]')
                         }
                       >
                         {REASON_LABEL[r.reason]}
+                        {/* 외국어는 어느 언어인지가 곧 판단 근거 — 라벨만으로는 부족하다. */}
+                        {r.reason === 'foreign' && r.resolved_lang && (
+                          <span className="ml-1 uppercase opacity-80">{r.resolved_lang}</span>
+                        )}
                       </span>
                     </Td>
                     <Td className="font-mono text-[10px] text-[var(--active)]">

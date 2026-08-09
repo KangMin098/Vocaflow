@@ -86,6 +86,31 @@
 
 남은 373행은 ① HTML 엔티티 조각(`ocial`·`ociety`·`eople` — 위 디코더 수정 후 **재수집해야** 사라짐) ② Hugo 은어장 프랑스어 ③ 그리스/라틴 전문어 ④ 인도 문화 차용어·의성어 ⑤ `brac`/`scarum` 등 이미 `TOKEN_BLOCKLIST` 에 있는 레거시 행. 즉 드레인으로 더 회수할 것은 남지 않았고, 나머지는 재수집 또는 정상 잔여다.
 
+#### 추출 패널 "사전 미바인딩" 도 같은 착시였다 (마이그레이션 1건)
+
+**마이그레이션 [20260809155433_find_unbound_resolution_aware.sql](../supabase/migrations/20260809155433_find_unbound_resolution_aware.sql) — 2026-08-10 사용자 승인 후 dev 적용 완료.**
+
+테이블 셀은 고쳤는데 `BookExtractionPanel` 의 "사전 미바인딩 단어" 는 그대로였다. `find_unbound_book_lemmas` 의 결합 판정이 `shared_dictionary` 직접 + `spelling_variants` + `en_inflection_bases` + `archaic_dictionary` 4가지뿐이라, `lookup_word_meaning` 의 나머지 티어(`lexicon_clean` · `spelling_norm` · `dialect_map` · derivation · normalized · cluster)를 안 본다.
+
+| 도서 | 패널 표시 | 조치 대상 | 배율 |
+|---|--:|--:|--:|
+| Les Misérables | 1,294 | 165 | 8× |
+| Introduction to Sociology | 1,212 | 79 | 15× |
+| Dialogues | 632 | 26 | 24× |
+| Pride and Prejudice | 205 | 4 | **51×** |
+
+`resolved_via`/`resolved_lang`/`noise_kind` 를 읽어 reason 을 쪼갰다. 새 3종은 모두 **조치 불요**:
+
+| reason | 의미 |
+|---|---|
+| `foreign` | 영어 아님 — Hugo 원문 프랑스어 · Gibbon 라틴어 (`resolved_lang` 노출) |
+| `morphology` | 파생·굴절·복합·정규화로 base 도달 — 재추출 시 base 로 surface |
+| `lexicon_only` | `lexicon_clean` 으로 뜻이 해석됨 — `shared_dictionary` 등재 대상 아님 |
+
+Les Misérables 1,294 내역: `lexicon_only` 594 · `foreign` 417 · `genuine_miss` 153 · `morphology` 103 · `noise` 15 · `spelling_variant` 12.
+
+**행은 숨기지 않는다** — 큐레이터가 "왜 사전에 없는데 문제가 아닌지"를 봐야 하므로 목록에 남기고, 정렬로 조치 대상을 위로 올린다. 헤더 건수만 조치 대상 기준으로 바꾸고 옆에 `+ 설명됨 N건` 을 표기. 반환 타입 변경(2컬럼 추가)이라 DROP 후 재생성.
+
 #### 미결
 
 - `v_book_extraction_stats` · `v_book_extraction_reasons` 가 Supabase advisor `security_definer_view` ERROR (전자는 v06.35 이전부터). 프로젝트 규약(`20260614150000_views_security_invoker`)상 `security_invoker=true` 여야 하나, 적용 시 `DEV_ADMIN_BYPASS` 경로(합성 admin = anon 세션)에서 미발행 도서 통계가 안 보이게 된다 — 사용자 판단 대기.
