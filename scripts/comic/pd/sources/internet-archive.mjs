@@ -201,18 +201,38 @@ export const internetArchive = {
   },
 
   /**
-   * 페이지 참조 — IA 의 `/page/nN_w<width>.jpg` 서비스를 쓴다.
-   * jp2.zip 전체(40MB+)를 받아 풀 필요가 없고, 원하는 폭으로 바로 받는다.
+   * 페이지 참조 — 항목 패키징에 따라 두 경로:
+   *   ① jp2.zip/pdf 있음 → IA `/page/nN_w<width>.jpg` 생성 서비스(원하는 폭, zip 안 받아도 됨).
+   *   ② 낱장 개별 JPG(jp2 없음 — 흔한 만화 업로드) → 파일을 직접 나열해 다운로드.
+   * 접근 제한(대출 전용) 항목은 취득 불가 — 명확히 실패시킨다(실측: Don Quixote·Ivanhoe 배치 실패 규명).
    */
   async pages(identifier, { width = 1600, count } = {}) {
-    const meta = await this.metadata(identifier)
-    const n = count ?? meta.pageCount
-    if (!n) throw new Error(`페이지 수를 알 수 없습니다: ${identifier}`)
+    const j = await getJson(`https://archive.org/metadata/${encodeURIComponent(identifier)}`)
+    if (j.metadata?.['access-restricted-item'] === 'true' || j.metadata?.['access-restricted-item'] === true) {
+      throw new Error(`접근 제한(대출 전용) 항목 — 페이지 취득 불가: ${identifier}`)
+    }
+    const files = j.files ?? []
+    const base = findBase(files)
+    // ② 낱장 개별 JPG (jp2/pdf 없음) — 썸네일/아이템타일 제외 후 자연 정렬해 직접 URL.
+    if (!base) {
+      const loose = files
+        .filter((f) => /\.jpe?g$/i.test(f.name) && !f.name.startsWith('__') && !/thumb/i.test(f.name))
+        .map((f) => f.name)
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+      if (loose.length >= 3) {
+        const sliced = count ? loose.slice(0, count) : loose
+        return sliced.map((name, i) => ({
+          index: i, kind: 'url', ext: 'jpg',
+          locator: `https://archive.org/download/${encodeURIComponent(identifier)}/${encodeURIComponent(name)}`,
+        }))
+      }
+    }
+    // ① jp2/pdf 생성 서비스.
+    const n = count ?? (Number(j.metadata?.imagecount) || (base ? await this.countPagesInZip(identifier, base) : undefined))
+    if (!n) throw new Error(`페이지 수를 알 수 없습니다(낱장·jp2·pdf 모두 없음): ${identifier}`)
     return Array.from({ length: n }, (_, i) => ({
-      index: i,
-      kind: 'url',
+      index: i, kind: 'url', ext: 'jpg',
       locator: `https://archive.org/download/${encodeURIComponent(identifier)}/page/n${i}_w${width}.jpg`,
-      ext: 'jpg',
     }))
   },
 
