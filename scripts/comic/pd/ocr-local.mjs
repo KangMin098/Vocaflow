@@ -51,7 +51,12 @@ function loadTesseract() {
 }
 
 function parseArgs(argv) {
-  const a = { psm: 3, minConf: 55 }
+  // psm 4 = "가변 크기 텍스트 한 열" — 말풍선은 세로로 쌓인 짧은 줄이라 여기에 맞는다.
+  // 자기발전 스윕(tune.mjs, 12조합 × 표본 2종) 실측 2026-08-09:
+  //   psm3/55(직전 기본)  All Top 30.97 · Classics Illustrated 6.84
+  //   psm4/55(채택)       All Top 32.84 · Classics Illustrated 7.95   ← 두 표본 모두 1위
+  //   psm6·psm11 은 대사를 3~5배 많이 뱉지만 95%가 검수 대상이고 비라틴 오염까지 낳는다.
+  const a = { psm: 4, minConf: 55 }
   for (let i = 2; i < argv.length; i++) {
     const k = argv[i]
     if (k === '--intake') a.intake = argv[++i]

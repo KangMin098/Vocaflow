@@ -116,6 +116,9 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
       const toks = sentence.tokens
       for (let ti = 0; ti < toks.length; ti++) {
         const token = toks[ti]
+        // 인덱스 접근은 타입상 undefined 가능(noUncheckedIndexedAccess) — 루프 범위상
+        // 실제로는 항상 존재하지만, 가드가 없으면 패키지 typecheck 가 통째로 실패한다.
+        if (!token) continue
         // stopword/punct는 통계에서 제외 (WLP 기본 옵션과 동일 정책)
         if (token.isStopWord || token.isPunctuation) continue
         // R3 (CLAUDE.md v06.29) — 고유명사 (PROPN) 차단

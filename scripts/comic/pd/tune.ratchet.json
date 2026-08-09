@@ -1,0 +1,444 @@
+{
+  "entries": [
+    {
+      "key": "segment:_tune",
+      "kind": "segment",
+      "sample": "_tune",
+      "at": "2026-08-09T00:54:20.836Z",
+      "best": {
+        "analysis": 800,
+        "dilate": 0,
+        "score": -0.3333,
+        "mae": 0.333,
+        "coverage": 0.942,
+        "sliverRate": 0,
+        "perPage": [
+          {
+            "page": "0003",
+            "found": 7,
+            "truth": 7,
+            "coverage": 0.98,
+            "slivers": 0
+          },
+          {
+            "page": "0005",
+            "found": 8,
+            "truth": 8,
+            "coverage": 0.883,
+            "slivers": 0
+          },
+          {
+            "page": "0008",
+            "found": 7,
+            "truth": 8,
+            "coverage": 0.963,
+            "slivers": 0
+          }
+        ]
+      },
+      "improved": true,
+      "previousBest": null,
+      "tried": 17,
+      "top": [
+        {
+          "analysis": 800,
+          "dilate": 0,
+          "score": -0.3333,
+          "mae": 0.333,
+          "coverage": 0.942,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0003",
+              "found": 7,
+              "truth": 7,
+              "coverage": 0.98,
+              "slivers": 0
+            },
+            {
+              "page": "0005",
+              "found": 8,
+              "truth": 8,
+              "coverage": 0.883,
+              "slivers": 0
+            },
+            {
+              "page": "0008",
+              "found": 7,
+              "truth": 8,
+              "coverage": 0.963,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 1500,
+          "dilate": 0,
+          "score": -0.3333,
+          "mae": 0.333,
+          "coverage": 0.931,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0003",
+              "found": 7,
+              "truth": 7,
+              "coverage": 0.967,
+              "slivers": 0
+            },
+            {
+              "page": "0005",
+              "found": 8,
+              "truth": 8,
+              "coverage": 0.875,
+              "slivers": 0
+            },
+            {
+              "page": "0008",
+              "found": 7,
+              "truth": 8,
+              "coverage": 0.95,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 1100,
+          "dilate": null,
+          "score": -0.6667,
+          "mae": 0.667,
+          "coverage": 0.892,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0003",
+              "found": 7,
+              "truth": 7,
+              "coverage": 0.971,
+              "slivers": 0
+            },
+            {
+              "page": "0005",
+              "found": 8,
+              "truth": 8,
+              "coverage": 0.879,
+              "slivers": 0
+            },
+            {
+              "page": "0008",
+              "found": 6,
+              "truth": 8,
+              "coverage": 0.826,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 1100,
+          "dilate": 0,
+          "score": -0.6667,
+          "mae": 0.667,
+          "coverage": 0.892,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0003",
+              "found": 7,
+              "truth": 7,
+              "coverage": 0.971,
+              "slivers": 0
+            },
+            {
+              "page": "0005",
+              "found": 8,
+              "truth": 8,
+              "coverage": 0.879,
+              "slivers": 0
+            },
+            {
+              "page": "0008",
+              "found": 6,
+              "truth": 8,
+              "coverage": 0.826,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 1100,
+          "dilate": 1,
+          "score": -0.6667,
+          "mae": 0.667,
+          "coverage": 0.884,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0003",
+              "found": 7,
+              "truth": 7,
+              "coverage": 0.963,
+              "slivers": 0
+            },
+            {
+              "page": "0005",
+              "found": 8,
+              "truth": 8,
+              "coverage": 0.869,
+              "slivers": 0
+            },
+            {
+              "page": "0008",
+              "found": 6,
+              "truth": 8,
+              "coverage": 0.819,
+              "slivers": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "segment:_tune-ci",
+      "kind": "segment",
+      "sample": "_tune-ci",
+      "at": "2026-08-09T00:55:40.458Z",
+      "best": {
+        "analysis": 1500,
+        "dilate": 3,
+        "score": -0.2385,
+        "mae": 0,
+        "coverage": 1.01,
+        "sliverRate": 0,
+        "perPage": [
+          {
+            "page": "0004",
+            "found": 6,
+            "truth": 6,
+            "coverage": 1.01,
+            "slivers": 0
+          }
+        ]
+      },
+      "improved": true,
+      "previousBest": null,
+      "tried": 17,
+      "top": [
+        {
+          "analysis": 1500,
+          "dilate": 3,
+          "score": -0.2385,
+          "mae": 0,
+          "coverage": 1.01,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0004",
+              "found": 6,
+              "truth": 6,
+              "coverage": 1.01,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 800,
+          "dilate": 3,
+          "score": -1,
+          "mae": 1,
+          "coverage": 0.931,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0004",
+              "found": 5,
+              "truth": 6,
+              "coverage": 0.931,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 1100,
+          "dilate": 3,
+          "score": -1,
+          "mae": 1,
+          "coverage": 0.802,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0004",
+              "found": 5,
+              "truth": 6,
+              "coverage": 0.802,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 800,
+          "dilate": 2,
+          "score": -1.1089,
+          "mae": 1,
+          "coverage": 0.977,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0004",
+              "found": 5,
+              "truth": 6,
+              "coverage": 0.977,
+              "slivers": 0
+            }
+          ]
+        },
+        {
+          "analysis": 1100,
+          "dilate": null,
+          "score": -1.1219,
+          "mae": 1,
+          "coverage": 0.98,
+          "sliverRate": 0,
+          "perPage": [
+            {
+              "page": "0004",
+              "found": 5,
+              "truth": 6,
+              "coverage": 0.98,
+              "slivers": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ocr:_tune",
+      "kind": "ocr",
+      "sample": "_tune",
+      "at": "2026-08-09T01:03:35.641Z",
+      "best": {
+        "psm": 4,
+        "minConf": 55,
+        "score": 32.84,
+        "clean": 34,
+        "bubbles": 81,
+        "reviewRate": 0.58,
+        "nonLatin": 0
+      },
+      "improved": true,
+      "previousBest": null,
+      "tried": 12,
+      "top": [
+        {
+          "psm": 4,
+          "minConf": 55,
+          "score": 32.84,
+          "clean": 34,
+          "bubbles": 81,
+          "reviewRate": 0.58,
+          "nonLatin": 0
+        },
+        {
+          "psm": 4,
+          "minConf": 40,
+          "score": 32.8,
+          "clean": 34,
+          "bubbles": 85,
+          "reviewRate": 0.6,
+          "nonLatin": 0
+        },
+        {
+          "psm": 3,
+          "minConf": 55,
+          "score": 30.97,
+          "clean": 32,
+          "bubbles": 66,
+          "reviewRate": 0.515,
+          "nonLatin": 0
+        },
+        {
+          "psm": 6,
+          "minConf": 55,
+          "score": 30.372,
+          "clean": 32,
+          "bubbles": 172,
+          "reviewRate": 0.814,
+          "nonLatin": 0
+        },
+        {
+          "psm": 3,
+          "minConf": 40,
+          "score": 28.909,
+          "clean": 30,
+          "bubbles": 66,
+          "reviewRate": 0.545,
+          "nonLatin": 0
+        }
+      ]
+    },
+    {
+      "key": "ocr:_tune-ci",
+      "kind": "ocr",
+      "sample": "_tune-ci",
+      "at": "2026-08-09T01:07:59.628Z",
+      "best": {
+        "psm": 4,
+        "minConf": 55,
+        "score": 7.947,
+        "clean": 9,
+        "bubbles": 19,
+        "reviewRate": 0.526,
+        "nonLatin": 0
+      },
+      "improved": true,
+      "previousBest": null,
+      "tried": 12,
+      "top": [
+        {
+          "psm": 4,
+          "minConf": 55,
+          "score": 7.947,
+          "clean": 9,
+          "bubbles": 19,
+          "reviewRate": 0.526,
+          "nonLatin": 0
+        },
+        {
+          "psm": 4,
+          "minConf": 40,
+          "score": 7.9,
+          "clean": 9,
+          "bubbles": 20,
+          "reviewRate": 0.55,
+          "nonLatin": 0
+        },
+        {
+          "psm": 3,
+          "minConf": 40,
+          "score": 7.857,
+          "clean": 9,
+          "bubbles": 21,
+          "reviewRate": 0.571,
+          "nonLatin": 0
+        },
+        {
+          "psm": 11,
+          "minConf": 55,
+          "score": 7.474,
+          "clean": 9,
+          "bubbles": 38,
+          "reviewRate": 0.763,
+          "nonLatin": 0
+        },
+        {
+          "psm": 11,
+          "minConf": 40,
+          "score": 7.305,
+          "clean": 9,
+          "bubbles": 59,
+          "reviewRate": 0.847,
+          "nonLatin": 0
+        }
+      ]
+    }
+  ]
+}

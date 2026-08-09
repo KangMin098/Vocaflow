@@ -38,7 +38,9 @@ import { assertFfmpeg, px, readRgb, runFilter } from './lib-img.mjs'
 function parseArgs(argv) {
     // 분석 해상도가 결정적이다 — 480px 로 줄이면 2~6px 거터가 1px 미만으로 뭉개져
   // 컷이 전혀 안 나뉜다(실측). 1100px 에서 거터가 안정적으로 살아난다.
-  const a = { web: 1200, minArea: 0.03, analysis: 1100, bgThreshold: 236, dilate: 2 }
+  // dilate 는 기본값을 두지 않는다 — 페이지마다 자동 선택(pickPanelsAdaptive)이 기본이고,
+  // 명시했을 때만 그 값으로 고정한다(스윕·재현용).
+  const a = { web: 1200, minArea: 0.03, analysis: 1100, bgThreshold: 236, dilate: null }
   for (let i = 2; i < argv.length; i++) {
     const k = argv[i]
     if (k === '--in') a.in = argv[++i]
@@ -180,6 +182,53 @@ export function findPanels(img, opt) {
     .sort((a, b) => (Math.abs(a.y0 - b.y0) > H * 0.05 ? a.y0 - b.y0 : a.x0 - b.x0))
 }
 
+/**
+ * 배경 팽창(dilate)을 **페이지마다 자동으로 고른다.**
+ *
+ * 왜 고정값이 안 되는가 (자기발전 스윕 실측 2026-08-09, tune.mjs):
+ *   같은 Internet Archive 라도 스캔마다 최적값이 정반대였다.
+ *     All Top Comics #6  거터가 넓고 깨끗 → dilate 0 이 정답(7/8/7), dilate 2 는 컷을 갉아먹어 오차 3
+ *     Classics Illustrated #27  거터에 잡티 → dilate 0 은 붙어버려 오차 3, dilate 3 이 정답(6/6)
+ *   전역 상수 하나로는 둘 중 하나가 반드시 망가진다. 실제로 운영값(1100/2)은
+ *   16개 조합 중 거의 최하위(-4.2)였다.
+ *
+ * 무감독 선택 기준: **박스 겹침(커버리지 > 1)이 풀리는 첫 지점.**
+ *
+ *   "컷이 가장 많이 갈리는 값"을 고르는 규칙을 먼저 짰다가 폐기했다 — 과분할이 이긴다.
+ *   실제로 정답 7컷 페이지에서 9컷을, 정답 1컷 광고 지면에서 3컷을 골랐다.
+ *
+ *   사다리 실측(페이지별 컷수/커버리지)을 보면 신호가 분명하다:
+ *     All Top 0003 (정답 7)  d0:7/0.95  d1:7/0.94  d2:9/0.87  d3:8/0.52
+ *     All Top 0005 (정답 8)  d0:8/0.86  d1:8/0.85  d2:4/0.22
+ *     CI     0004 (정답 6)  d0:2/1.05  d1:4/1.00  d2:5/0.97  d3:5/0.79
+ *   커버리지가 1을 넘는다는 건 바운딩 박스가 **서로 겹친다**는 뜻이고, 곧 컷이 아직
+ *   병합돼 있다는 신호다(CI 0004 의 d0·d1). 겹침이 풀리는 순간이 구조가 드러난 지점이다.
+ *   반대로 이미 겹치지 않는 페이지(All Top 전부)는 더 팽창시킬 이유가 없다 —
+ *   팽창은 컷을 갉아 커버리지를 무너뜨린다(0005 의 0.86 → 0.22).
+ */
+const OVERLAP_COVERAGE = 0.98
+const COLLAPSE_RATIO = 0.5
+
+function pickPanelsAdaptive(img, base, ladder) {
+  const total = img.w * img.h
+  const measure = (dilate) => {
+    const panels = findPanels(img, { ...base, dilate })
+    return { panels, dilate, coverage: panels.reduce((s, p) => s + p.w * p.h, 0) / total }
+  }
+
+  let cur = measure(ladder[0])
+  const first = cur.coverage
+  for (const dilate of ladder.slice(1)) {
+    // 겹침이 없으면 구조가 이미 드러난 것 — 더 팽창시키면 컷을 갉는다
+    if (cur.coverage <= OVERLAP_COVERAGE) break
+    const next = measure(dilate)
+    // 팽창이 커버리지를 반토막 냈다면 컷이 먹힌 것이지 갈린 게 아니다
+    if (next.panels.length === 0 || next.coverage < first * COLLAPSE_RATIO) break
+    cur = next
+  }
+  return cur
+}
+
 async function main() {
   const args = parseArgs(process.argv)
   assertFfmpeg()
@@ -194,7 +243,13 @@ async function main() {
   let order = 0
   for (const [pi, file] of files.entries()) {
     const img = readRgb(file, args.analysis)
-    const panels = findPanels(img, { minArea: args.minArea, bgThreshold: args.bgThreshold, dilate: args.dilate })
+    // --dilate 를 명시하면 그 값을 쓰고(재현·스윕용), 없으면 페이지마다 자동 선택한다.
+    const base = { minArea: args.minArea, bgThreshold: args.bgThreshold }
+    const chosen =
+      args.dilate == null
+        ? pickPanelsAdaptive(img, base, [0, 1, 2, 3])
+        : { panels: findPanels(img, { ...base, dilate: args.dilate }), dilate: args.dilate }
+    const panels = chosen.panels
     const k = img.srcW / img.w
     const pageName = path.basename(file).replace(IMG_RE, '')
 
@@ -221,7 +276,10 @@ async function main() {
         srcBox: { x, y, w, h },
       })
     })
-    console.log(`[${pi + 1}/${files.length}] ${pageName} → 컷 ${panels.length}개`)
+    console.log(
+      `[${pi + 1}/${files.length}] ${pageName} → 컷 ${panels.length}개` +
+        (args.dilate == null ? `  (팽창 ${chosen.dilate} 자동선택)` : ''),
+    )
   }
 
   const mf = path.join(args.out, 'panels.manifest.json')
