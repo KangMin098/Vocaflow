@@ -153,7 +153,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   // ── source: mine — 내 복습 큐/단어장/스크립트 단어로 플레이 (FSRS 갱신) ──
   {
     slug: 'cascade', name: 'Cascade', tagline: '단어와 뜻을 이어 지우는 낙하 보드',
-    layer: 'L4a 재인', ref: 'Match-3', source: 'mine', emoji: '🌊', closeHref: '/arcade', minWords: 6,
+    layer: 'L4a 재인', ref: 'Match-3', source: 'mine', emoji: '🌊', closeHref: '/arcade', minWords: 8,
     mood: { a: '#2E92A8', b: '#123C59', glow: 'rgba(130,232,238,.5)', accent: '#BEF3F7' },
     music: bgm('cascade'),
   },
@@ -191,7 +191,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'morphmerge', name: 'Morphmerge', tagline: '같은 어족의 형태를 알아보고 합쳐 수집하라',
-    layer: 'L4b 형태론', ref: '2048 · Merge', source: 'mine', emoji: '🧬', closeHref: '/arcade', minWords: 4,
+    layer: 'L4b 형태론', ref: '2048 · Merge', source: 'mine', emoji: '🧬', closeHref: '/arcade', minWords: 8,
     mood: { a: '#3E9E6A', b: '#173F2C', glow: 'rgba(130,235,170,.44)', accent: '#D2F3DE' },
     music: bgm('morphmerge'),
   },
@@ -199,14 +199,14 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   // ── source: bank — 내장 큐레이션 뱅크 (수제 콘텐츠 · 스코프 무관) ──
   {
     slug: 'daily-blitz', name: 'Daily Blitz', tagline: '매일 새로운 10단어 · 스트릭',
-    layer: '리텐션', ref: 'Wordle', source: 'bank', emoji: '📅', closeHref: '/arcade', minWords: 0,
+    layer: '리텐션', ref: 'Wordle', source: 'mine', emoji: '📅', closeHref: '/arcade', minWords: 8,
     mood: { a: '#E8846A', b: '#7C3B5E', glow: 'rgba(255,196,150,.55)', accent: '#FFE0C4' },
     music: bgm('daily-blitz'),
     family: 'blitz', modeOrder: 4, modeLabel: '데일리', modeNote: '매일 10문항 · 내장 뱅크 · 스트릭',
   },
   {
-    slug: 'connections', name: 'Connections', tagline: '16단어를 숨은 4개 의미로 잇다',
-    layer: 'L5 관계', ref: 'NYT', source: 'bank', emoji: '🧩', closeHref: '/arcade', minWords: 0,
+    slug: 'connections', name: 'Connections', tagline: '뜻만 보고 숨은 규칙을 잇다',
+    layer: 'L5 관계', ref: 'NYT', source: 'mine', emoji: '🧩', closeHref: '/arcade', minWords: 16,
     mood: { a: '#7150A8', b: '#2C2356', glow: 'rgba(206,178,255,.5)', accent: '#E3D4FF' },
     music: bgm('connections'),
   },
@@ -218,7 +218,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'word-customs', name: 'Word Customs', tagline: '단어의 여권을 심사해 위조를 적발하라',
-    layer: 'L3+ 검증', ref: 'Papers, Please', source: 'bank', emoji: '🛂', closeHref: '/arcade', minWords: 0,
+    layer: 'L3+ 검증', ref: 'Papers, Please', source: 'mine', emoji: '🛂', closeHref: '/arcade', minWords: 8,
     mood: { a: '#B08444', b: '#4A3524', glow: 'rgba(230,190,120,.5)', accent: '#F2E2C0' },
     music: bgm('word-customs'),
   },
@@ -236,7 +236,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'lexicon-hands', name: 'Lexicon Hands', tagline: '어원·품사 시너지로 배수를 폭발시켜라',
-    layer: 'L4+ 시너지', ref: 'Balatro', source: 'bank', emoji: '🃏', closeHref: '/arcade', minWords: 0,
+    layer: 'L4+ 시너지', ref: 'Balatro', source: 'mine', emoji: '🃏', closeHref: '/arcade', minWords: 12,
     mood: { a: '#7B4BA6', b: '#241732', glow: 'rgba(150,240,205,.42)', accent: '#CFF6E6' },
     music: bgm('lexicon-hands'),
   },

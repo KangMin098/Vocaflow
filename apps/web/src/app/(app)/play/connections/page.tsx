@@ -12,14 +12,18 @@ const Game = dynamic(
 );
 
 export default function ConnectionsPlayPage() {
-  // Connections 는 내장 큐레이션 뱅크 사용(스코프 단어 불필요) → minWords=0.
+  // 격자 한 판이 16타일(규칙 그룹 + 침입자)이라 최소 16단어가 필요하다.
+  // v07.9 이전에는 내장 큐레이션 뱅크만 돌려 minWords=0 이었고, 그 탓에 학습자
+  // 단어장이 한 글자도 쓰이지 않아 learning_records 가 0건이었다.
   return (
     <Suspense fallback={<GameLoading message="게임 초기화 중…" />}>
       <GamePlayScaffold
         module="connections"
         label="Connections"
-        minWords={0}
-        render={({ onCorrect, onExit }) => <Game onCorrect={onCorrect} onExit={onExit} />}
+        minWords={16}
+        render={({ wordPool, onCorrect, onWrong, onExit }) => (
+          <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />
+        )}
       />
     </Suspense>
   );

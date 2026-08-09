@@ -14,7 +14,9 @@ const Game = dynamic(
 export default function CascadePlayPage() {
   return (
     <Suspense fallback={<GameLoading message="게임 초기화 중…" />}>
-      <GamePlayScaffold module="cascade" label="Cascade" minWords={6} render={(p) => <Game {...p} />} />
+      {/* 보드에 서로 다른 단어 8장이 동시에 올라간다 — 그보다 적으면 소거법으로 뜻을
+          몰라도 풀리고(인출 무력화), 같은 단어만 겹쳐 판이 단조로워진다. */}
+      <GamePlayScaffold module="cascade" label="Cascade" minWords={8} render={(p) => <Game {...p} />} />
     </Suspense>
   );
 }
