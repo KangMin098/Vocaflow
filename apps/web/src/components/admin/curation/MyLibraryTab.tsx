@@ -569,7 +569,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             📂 Curated Books
           </h2>
-          <span className="font-mono text-[12px] text-[var(--t3)]">
+          <span className="font-mono text-[12px] text-[var(--t2)]">
             {visible.length === books.length
               ? `${books.length}권`
               : `${visible.length} / ${books.length}권`}
@@ -669,7 +669,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             <Search
               size={12}
               aria-hidden
-              className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t2)]"
             />
             <input
               type="text"
@@ -677,14 +677,14 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
               onChange={(e) => setTitleSearch(e.target.value)}
               placeholder="제목·저자 검색"
               aria-label="제목 또는 저자 검색"
-              className="h-8 w-44 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] pl-7 pr-7 font-body text-[12px] text-[var(--t1)] placeholder:text-[var(--t3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="h-8 w-44 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] pl-7 pr-7 font-body text-[12px] text-[var(--t1)] placeholder:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             />
             {titleSearch && (
               <button
                 type="button"
                 onClick={() => setTitleSearch('')}
                 aria-label="검색어 지우기"
-                className="absolute right-1 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                className="absolute right-1 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
               >
                 <X size={11} />
               </button>
@@ -806,7 +806,12 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
                 <Th align="center" title="V-Level (p75) · 정밀 centroid">V · Cent</Th>
                 <Th align="center" title="CEFR-J 12-band (internal heuristic) · confidence">CEFR-J</Th>
                 <Th align="center" title="Flesch-Kincaid Grade Level">F-K</Th>
-                <Th align="center" title="단어 추출 + lemma 사전 매핑 진행도">추출</Th>
+                <Th
+                  align="center"
+                  title="추출 어휘 해석률 — 사전 결합 + 고어/방언/외국어 해석 + 인명·지명 제외. 배지 옆 숫자는 어떤 자산으로도 해석 안 된 진짜 공백."
+                >
+                  추출
+                </Th>
                 <Th align="center" title="발행된 챕터 단어장 수 (검수·발행 완료 여부)">단어장</Th>
                 <Th align="right">단어</Th>
                 <Th align="right">갱신</Th>
@@ -908,7 +913,7 @@ function BookRow({
         </button>
       </Td>
       <Td>
-        <span className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+        <span className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
           {book.author ?? '—'}
         </span>
       </Td>
@@ -935,7 +940,7 @@ function BookRow({
             {book.book_v_level != null ? `V${book.book_v_level}` : '—'}
           </span>
           {book.v_level_centroid_precise && (
-            <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
               {book.v_level_centroid_precise}
             </span>
           )}
@@ -974,6 +979,10 @@ function BookRow({
           extracted={book.extracted_count}
           coverage={book.lemma_coverage_pct ? parseFloat(book.lemma_coverage_pct) : null}
           unbound={book.lemma_unbound}
+          resolvedPct={book.resolved_pct ? parseFloat(book.resolved_pct) : null}
+          noise={book.noise_count}
+          resolvedOther={book.resolved_other_count}
+          unresolved={book.unresolved_count}
         />
       </Td>
       <Td align="center">
@@ -988,7 +997,7 @@ function BookRow({
         {/* suppressHydrationWarning: 서버/클라이언트 렌더 시각 차이로 "25분 전" / "26분 전" mismatch 정상.
             상대 시간은 본질적으로 시간 의존 — server SSR 시점 != client hydrate 시점. */}
         <span
-          className="font-mono text-[11px] text-[var(--t3)]"
+          className="font-mono text-[11px] text-[var(--t2)]"
           suppressHydrationWarning
         >
           {formatRelative(book.updated_at)}
@@ -1003,7 +1012,7 @@ function BookRow({
               disabled={pending}
               title="실패 도서 영구 삭제"
               aria-label={`${book.title} 영구 삭제`}
-              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] disabled:opacity-50"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] disabled:opacity-50"
             >
               {pending ? (
                 <Loader2 size={13} className="animate-spin" />
@@ -1012,7 +1021,7 @@ function BookRow({
               )}
             </button>
           )}
-          <ChevronRight size={14} className="text-[var(--t3)]" aria-hidden />
+          <ChevronRight size={14} className="text-[var(--t2)]" aria-hidden />
         </div>
       </Td>
     </tr>
@@ -1020,35 +1029,55 @@ function BookRow({
 }
 
 /**
- * 추출 진행도 셀 — v06.34
+ * 추출 진행 셀 — v06.35 부터 **해석률** 기준.
+ *
  * 4-state:
  *   - extracted=0/null: "—" 미추출 (회색)
- *   - coverage=100%: "완료 ✓" (success)
- *   - coverage≥95%: "{n}% · {unbound} 보강" (info — 사전 보완 일부 남음)
- *   - coverage<95%: "{n}% · {unbound} 보강" (warning — 사전 보강 필요)
+ *   - unresolved=0: "✓ 완료" (success)
+ *   - 해석률≥99%: "{n}% · {unresolved}↑" (info — 진짜 공백 소수)
+ *   - 해석률<99%: "{n}% · {unresolved}↑" (warning — 사전 보강 필요)
+ *
+ * 왜 바꿨나 (2026-08-09 실측): 이전 지표 lemma_coverage_pct 는 shared_dictionary 결합만 쟀다.
+ * 그래서 고어(thee/whilst — enforce_archaic_not_in_shared/ADR D4 로 애초에 등재 금지) ·
+ * 외국어 원문 인용(Les Misérables 의 de/la/du 748회) · 인명/지명(elizabeth 602회) 이
+ * 전부 "추출 실패" 로 표시됐다. Les Misérables 89.5% → 실제 해석률 98.7%.
+ *
+ * 이제 배지 숫자는 resolved_pct(설명된 비율)이고, 남은 작업량은 unresolved(진짜 공백)로 센다.
+ * lemma 결합률은 툴팁에 그대로 유지 — 학습 단어 선택은 여전히 결합된 것만 쓴다.
  */
 function ExtractionCell({
   extracted,
   coverage,
   unbound,
+  resolvedPct,
+  noise,
+  resolvedOther,
+  unresolved,
 }: {
   extracted: number | null
   coverage: number | null
   unbound: number | null
+  resolvedPct: number | null
+  noise: number | null
+  resolvedOther: number | null
+  unresolved: number | null
 }) {
   if (!extracted || extracted === 0) {
-    return <span className="font-mono text-[11px] text-[var(--t4)]">—</span>
+    return <span className="font-mono text-[11px] text-[var(--t2)]">—</span>
   }
   if (coverage == null) {
     return (
-      <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+      <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
         {extracted.toLocaleString()}
       </span>
     )
   }
 
-  const isComplete = coverage >= 100 && (unbound ?? 0) === 0
-  const isHigh = coverage >= 95
+  // 백필 전(resolved_pct NULL)에는 구 지표로 폴백해 화면이 비지 않게 한다.
+  const shown = resolvedPct ?? coverage
+  const remaining = unresolved ?? unbound ?? 0
+  const isComplete = remaining === 0
+  const isHigh = shown >= 99
   const tone = isComplete ? 'success' : isHigh ? 'info' : 'warning'
   const colors = {
     success: { bg: 'var(--success-light)', fg: 'var(--success)', border: 'var(--success)' },
@@ -1056,19 +1085,29 @@ function ExtractionCell({
     warning: { bg: 'var(--warning-light)', fg: 'var(--warning)', border: 'var(--warning)' },
   }[tone]
 
+  const title = [
+    `추출 ${extracted.toLocaleString()}단어`,
+    `해석 ${shown}% · 미해결 ${remaining}개`,
+    `사전 결합 ${coverage}% (${(extracted - (unbound ?? 0)).toLocaleString()}개)`,
+    resolvedOther != null ? `고어·방언·외국어 해석 ${resolvedOther}개` : null,
+    noise != null && noise > 0 ? `인명·지명 제외 ${noise}개` : null,
+  ]
+    .filter(Boolean)
+    .join('\n')
+
   return (
     <span
       className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
       style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
-      title={`추출 ${extracted.toLocaleString()}단어 · 매핑 ${coverage}% · 미매핑 ${unbound ?? 0}개`}
+      title={title}
     >
       {isComplete ? (
         <>✓ 완료</>
       ) : (
         <>
-          {coverage.toFixed(0)}%
-          {unbound != null && unbound > 0 && (
-            <span className="font-display text-[9px] opacity-80">·{unbound}↑</span>
+          {shown.toFixed(0)}%
+          {remaining > 0 && (
+            <span className="font-display text-[9px] opacity-80">·{remaining}↑</span>
           )}
         </>
       )}
@@ -1087,7 +1126,7 @@ function ExtractionCell({
  */
 function WordSetCell({ count }: { count: number | null }) {
   if (!count || count === 0) {
-    return <span className="font-mono text-[11px] text-[var(--t4)]">—</span>
+    return <span className="font-mono text-[11px] text-[var(--t2)]">—</span>
   }
   return (
     <span
@@ -1137,7 +1176,7 @@ function FilterChip({
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
         active
           ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-          : 'text-[var(--t3)] hover:text-[var(--t2)]',
+          : 'text-[var(--t2)] hover:text-[var(--t2)]',
       ].join(' ')}
     >
       {badge && (
@@ -1150,7 +1189,7 @@ function FilterChip({
       )}
       {label}
       {count > 0 && (
-        <span className="font-mono text-[10px] text-[var(--t3)]">{count}</span>
+        <span className="font-mono text-[10px] text-[var(--t2)]">{count}</span>
       )}
     </button>
   );
@@ -1172,7 +1211,7 @@ function Th({
       className={[
         'px-3 py-2',
         align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
-        'font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]',
+        'font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]',
         title ? 'cursor-help' : '',
       ].join(' ')}
       scope="col"
@@ -1245,7 +1284,7 @@ function SourceBadge({
       className="inline-flex items-center gap-1 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-full)]"
     >
       {badge}
-      <ExternalLink size={10} aria-hidden className="text-[var(--t3)]" />
+      <ExternalLink size={10} aria-hidden className="text-[var(--t2)]" />
     </a>
   );
 }
@@ -1363,7 +1402,7 @@ function CurationWorkflowGuide({
         type="button"
         onClick={onRunQueue}
         disabled={drainRunning}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         <PlayCircle size={13} aria-hidden /> 큐 처리 (dev · {queued}권)
       </button>
@@ -1376,7 +1415,7 @@ function CurationWorkflowGuide({
       <button
         type="button"
         onClick={() => onFocus('ready')}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
+        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
       >
         검토대기 보기
       </button>
@@ -1389,10 +1428,10 @@ function CurationWorkflowGuide({
   return (
     <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       <div className="flex items-center justify-between gap-2">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           작업 순서
         </span>
-        <span className="font-mono text-[10px] text-[var(--t4)]">단계를 클릭하면 목록이 필터됩니다</span>
+        <span className="font-mono text-[10px] text-[var(--t2)]">단계를 클릭하면 목록이 필터됩니다</span>
       </div>
 
       {/* 스테퍼 */}
@@ -1403,7 +1442,7 @@ function CurationWorkflowGuide({
           return (
             <div key={s.key} className="flex shrink-0 items-center gap-1">
               {i > 0 && (
-                <ChevronRight size={13} className="shrink-0 text-[var(--t4)]" aria-hidden />
+                <ChevronRight size={13} className="shrink-0 text-[var(--t2)]" aria-hidden />
               )}
               <button
                 type="button"
@@ -1415,14 +1454,14 @@ function CurationWorkflowGuide({
                     ? 'bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
                     : s.count > 0
                       ? 'bg-[var(--bg)] text-[var(--t1)] ring-1 ring-[var(--bd)] hover:ring-[var(--p)]'
-                      : 'bg-transparent text-[var(--t4)] hover:text-[var(--t2)]',
+                      : 'bg-transparent text-[var(--t2)] hover:text-[var(--t2)]',
                   isViewing && !isCurrent ? 'ring-2 ring-[var(--p)]' : '',
                 ].join(' ')}
                 title={`${s.label} ${s.count}권 — 클릭 시 목록 필터`}
               >
                 <span
                   className={`flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-[800] ${
-                    isCurrent ? 'bg-white/25 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                    isCurrent ? 'bg-white/25 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                   }`}
                 >
                   {s.n}
@@ -1457,7 +1496,7 @@ function EmptyAll() {
       <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
         아직 등록된 책이 없습니다
       </h3>
-      <p className="font-body text-[12px] text-[var(--t3)]">
+      <p className="font-body text-[12px] text-[var(--t2)]">
         추천 시드 또는 ID 입력 탭에서 책을 큐에 추가하세요.
       </p>
     </div>
@@ -1477,7 +1516,7 @@ function EmptyFiltered({ onReset }: { onReset: () => void }) {
       <button
         type="button"
         onClick={onReset}
-        className="mt-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="mt-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         필터 초기화
       </button>
@@ -1535,7 +1574,7 @@ function BulkActionToolbar({
       <div className="flex items-center gap-2 font-display text-[12px] text-[var(--t1)]">
         <span className="font-[700] text-[var(--p-dark)]">{selectedCount}권</span>
         선택됨
-        <span className="font-mono text-[10px] text-[var(--t3)]">
+        <span className="font-mono text-[10px] text-[var(--t2)]">
           (검토대기 {readyCount} · 처리중 {inProgressCount}
           {failedCount > 0 ? ` · 실패 ${failedCount}` : ''})
         </span>
@@ -1554,7 +1593,7 @@ function BulkActionToolbar({
                   failedCount > 0 ? ` + 실패 ${failedCount}` : ''
                 } = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level·LibriVox 자동매핑). 실패 도서는 ingest 부터 재시작.`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1665,7 +1704,7 @@ function BulkActionToolbar({
           onClick={onClear}
           disabled={pending}
           aria-label="선택 해제"
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-40"
+          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-40"
         >
           <X size={13} />
         </button>
@@ -1822,7 +1861,7 @@ function DrainBanner({
               type="button"
               onClick={onDismiss}
               aria-label="이 결과 닫기"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             >
               <X size={13} />
             </button>
@@ -1861,7 +1900,7 @@ function ToolbarBtn({
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
       {count > 0 && (
-        <span className="ml-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0 font-mono text-[10px] text-[var(--p-dark)]">
+        <span className="ml-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0 font-mono text-[10px] text-[var(--on-p-tint)]">
           {count}
         </span>
       )}

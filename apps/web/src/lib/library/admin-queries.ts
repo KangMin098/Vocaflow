@@ -93,6 +93,20 @@ export interface LibraryBookAdminRow {
   /** NUMERIC(5,1) — supabase-js 는 string 반환 */
   lemma_coverage_pct: string | null
   /**
+   * v06.35 — lemma_coverage_pct 는 shared_dictionary 결합만 재서, 고어(ADR D4 로 등재 금지)·
+   * 외국어 원문 인용·인명/지명을 전부 "추출 실패" 로 표시했다. 아래 4개가 실제 판단 지표.
+   */
+  /** 인명·지명 (학습 단어가 아니므로 분모에서 제외) */
+  noise_count: number | null
+  /** lemma 는 없지만 고어/방언/철자/외국어 사전으로 해석된 행 */
+  resolved_other_count: number | null
+  /** 어떤 자산으로도 해석 안 되는 행 = 진짜 남은 공백 */
+  unresolved_count: number | null
+  /** (결합 + 노이즈 + 타사전 해석) / 전체 — NUMERIC(5,1) */
+  resolved_pct: string | null
+  /** 결합 / (전체 − 노이즈) — NUMERIC(5,1) */
+  learnable_coverage_pct: string | null
+  /**
    * 발행된 챕터 단어장 수 — `shared_word_sets` 중 category='library_book'
    * AND is_published=true AND curation_query->>'book_id' = books.id.
    * 0/null = admin 검수·발행 작업 안 됨, N = N개 챕터 단어장 발행됨.
@@ -195,28 +209,51 @@ export async function listAllAdminBooks(
   if (books.length === 0) return books
 
   // v06.34 — 추출/매핑 stats 머지 (v_book_extraction_stats)
+  // v06.35 — 해석률 계열 5개 추가. lemma_coverage_pct 단독으로는 고어·외국어·인명이 전부
+  //          "추출 실패" 로 보였다 (Les Misérables 89.5% → 실제 해석률 98.7%).
+  type ExtractionStats = Pick<
+    LibraryBookAdminRow,
+    | 'extracted_count'
+    | 'lemma_bound'
+    | 'lemma_unbound'
+    | 'lemma_coverage_pct'
+    | 'noise_count'
+    | 'resolved_other_count'
+    | 'unresolved_count'
+    | 'resolved_pct'
+    | 'learnable_coverage_pct'
+  >
+  const STATS_COLUMNS = [
+    'book_id',
+    'extracted_count',
+    'lemma_bound',
+    'lemma_unbound',
+    'lemma_coverage_pct',
+    'noise_count',
+    'resolved_other_count',
+    'unresolved_count',
+    'resolved_pct',
+    'learnable_coverage_pct',
+  ].join(', ')
+
   const ids = books.map((b) => b.id)
   const { data: statsRows } = await client
     .from('v_book_extraction_stats')
-    .select('book_id, extracted_count, lemma_bound, lemma_unbound, lemma_coverage_pct')
+    .select(STATS_COLUMNS)
     .in('book_id', ids)
 
-  const statsMap = new Map<
-    string,
-    Pick<LibraryBookAdminRow, 'extracted_count' | 'lemma_bound' | 'lemma_unbound' | 'lemma_coverage_pct'>
-  >()
-  for (const r of (statsRows ?? []) as Array<{
-    book_id: string
-    extracted_count: number | null
-    lemma_bound: number | null
-    lemma_unbound: number | null
-    lemma_coverage_pct: string | null
-  }>) {
+  const statsMap = new Map<string, ExtractionStats>()
+  for (const r of (statsRows ?? []) as unknown as Array<ExtractionStats & { book_id: string }>) {
     statsMap.set(r.book_id, {
       extracted_count: r.extracted_count,
       lemma_bound: r.lemma_bound,
       lemma_unbound: r.lemma_unbound,
       lemma_coverage_pct: r.lemma_coverage_pct,
+      noise_count: r.noise_count,
+      resolved_other_count: r.resolved_other_count,
+      unresolved_count: r.unresolved_count,
+      resolved_pct: r.resolved_pct,
+      learnable_coverage_pct: r.learnable_coverage_pct,
     })
   }
 
@@ -226,6 +263,11 @@ export async function listAllAdminBooks(
     b.lemma_bound = s?.lemma_bound ?? null
     b.lemma_unbound = s?.lemma_unbound ?? null
     b.lemma_coverage_pct = s?.lemma_coverage_pct ?? null
+    b.noise_count = s?.noise_count ?? null
+    b.resolved_other_count = s?.resolved_other_count ?? null
+    b.unresolved_count = s?.unresolved_count ?? null
+    b.resolved_pct = s?.resolved_pct ?? null
+    b.learnable_coverage_pct = s?.learnable_coverage_pct ?? null
   }
 
   // 발행된 챕터 단어장 카운트 머지 — shared_word_sets.curation_query->>'book_id' 별 count.

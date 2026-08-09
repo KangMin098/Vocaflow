@@ -72,6 +72,8 @@
 
 13 컬럼: 제목 · 저자 · 소스 · 상태 · CEFR · V·Cent · CEFR-J · F-K · 추출 · 단어장 · 단어 · 갱신 · 상세.
 
+**"추출" 셀 = 해석률 (v06.35 재정의)** — 이전에는 `lemma_coverage_pct`(shared_dictionary 결합률)를 그대로 보여줘, 결합돼선 안 되는 고어·외국어 원문 인용·인명/지명이 전부 "추출 실패"로 표시됐다(Les Misérables 89.5% → 실제 98.7%). 지금 배지 숫자는 `resolved_pct`(결합 + 고어/방언/외국어 해석 + 인명·지명 제외), 옆 `·N↑` 은 **어떤 자산으로도 해석 안 된 진짜 공백**(`unresolved_count`). 툴팁에 사전 결합률·타사전 해석 수·노이즈 제외 수를 함께 노출. 상태: `unresolved=0` → `✓ 완료`(success) · 해석률 ≥99% → info · 미만 → warning.
+
 #### 필터
 - 소스 필터 (composite_score 기반 9 카탈로그)
 - 레벨 필터 (V-Level 0-11)

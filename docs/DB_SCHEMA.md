@@ -140,7 +140,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `library_books` | 20 | 760 kB | 도서 마스터 — status 10 단계 · 4축 난이도 (book_v_level · cefr_band · cefrj_level · flesch_kincaid_grade) · `librivox_audio` JSONB · `cover_image_url` · `copyright_safe_in_kr` · `is_picture_book` (GENERATED · 삽화≥4+단어<5000 · judgeIPlusOne -7pp 보정) |
 | `library_chapters_master` | 1,296 | 1.4 MB | chapter 정본 — `content_hash` ref content_chunks · paragraph_offsets · sentence_offsets · word_count · `group_label` · `source_href`(원본 챕터 deep-link, SE TOC 매핑 · NULL→도서 TOC fallback) · `chapter_v_level`(챕터별 어휘 V-level p75·V11 제외 · 1,295/1,296 · book_v_level 편차 노출 · migration `20260709145433`) |
 | `content_chunks` | 1,174 | 13 MB | SHA-256 dedup 본문 저장 — PK=hash only · TOAST 대형 |
-| `library_book_vocabularies` | 94,915 | 39 MB | chapter별 사전계산 단어 (v06.34 VACUUM FULL 후 233→39 MB) |
+| `library_book_vocabularies` | 96,636 | 39 MB | chapter별 사전계산 단어 (v06.34 VACUUM FULL 후 233→39 MB) · **v06.35** 진단 4컬럼 `resolved_via` / `resolved_lang` / `resolved_word` / `noise_kind` (`lemma IS NULL` 행에 `lookup_word_meaning` 해석 결과 기록 — `lemma` 자체는 불변) + 부분 인덱스 `idx_lbv_unbound_book WHERE lemma IS NULL` |
 | `library_articles` | 4 | 104 kB | ACP — 짧은 글 · `license_class` / `register` / `lexical_noise` / `display_only` (ACP §18 게이트 · BEFORE INSERT/UPDATE 트리거 `acp_apply_license_gate` 자동 도출 · `trg_la_require_audio` = VOA 발행 시 `audio_url` 필수 게이트, 듣기 정체성) |
 | `library_article_vocabularies` | 0 | 40 kB | article 단어 |
 | `library_seed_catalog` | 1,843 | 4 MB | seed 후보 — `imported_book_id` FK ON DELETE SET NULL (소스 GET 복귀 핵심) · curation_meta JSONB |
@@ -192,12 +192,13 @@ cast-2000 audit chain — 4 테이블 cascade:
 
 ---
 
-## Views (5)
+## Views (6)
 
 | view | 용도 |
 |---|---|
 | `v_text_content` | `texts` + `library_chapters_master` + `content_chunks` JOIN — 워크스페이스 본문 fetch (v06.34: `user_book_group_id` 컬럼 추가) |
-| `v_book_extraction_stats` | 도서별 추출 어휘 / lemma bound/unbound / coverage % 집계 |
+| `v_book_extraction_stats` | 도서별 추출 어휘 집계. **v06.35**: 기존 `lemma_*` 5컬럼 + 해석률 5컬럼(`noise_count` · `resolved_other_count` · `unresolved_count` · `resolved_pct` · `learnable_coverage_pct`) |
+| `v_book_extraction_reasons` | **v06.35 신규** — 도서별 어휘를 `bound` / `noise_person` / `noise_geo` / `foreign_{lang}` / `dialect_spelling` / `morphology` / `lexicon_only` / `unresolved` 버킷으로 분해 |
 | `v_user_book_progress` | 사용자별 도서 진행도 |
 | `library_seed_catalog_view` | seed catalog UI 용 가공 |
 | `user_vocab_enriched` | 사용자 단어장 + 사전 메타 enriched |
@@ -236,6 +237,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `compute_book_cefrj(p_book_id uuid)` | CEFR-J 12-band (internal heuristic) + cefr_band auto |
 | `compute_book_coverage(p_book_id uuid)` | 레벨별 기지어 커버리지 (i+1 판정) |
 | `backfill_book_lemmas(p_book_id uuid)` | direct-bind / 추출 / percentile 정상화 게이트 |
+| `fill_lbv_resolution(p_book_id uuid, p_only_new boolean)` | **v06.35** — `lemma IS NULL` 행에 `lookup_word_meaning` 해석(`resolved_via`/`lang`/`word`) + `noise_kind` 기록. `trg_lbv_fill_lemma` 가 INSERT 시 동일 로직 수행 |
 | `collect_archaic_candidates(p_book_id uuid)` | 미바인딩 단어를 archaic_candidates 로 수집 |
 | `classify_archaic_candidates()` | 재출현 게이트 — derivational / inflection / variant 분류 |
 

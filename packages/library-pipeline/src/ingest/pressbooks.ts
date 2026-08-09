@@ -203,7 +203,8 @@ function sliceElementByClass(html: string, classRe: RegExp): string | null {
 }
 
 /** Pressbooks 챕터 inner HTML → plain text (boilerplate·figure 제거, block 줄바꿈). */
-function htmlToPlainText(html: string): string {
+/** export 이유: test/entity-decode.test.ts 회귀 (수치 엔티티 잔존 재발 방지). */
+export function htmlToPlainText(html: string): string {
   let work = html
   // boilerplate 컨테이너 제거
   work = work.replace(/<(nav|footer|script|style|aside|form|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
@@ -224,7 +225,16 @@ function htmlToPlainText(html: string): string {
   return work.trim()
 }
 
-/** 최소 HTML entity 디코딩 (standard-ebooks 와 동일 세트). */
+/**
+ * HTML entity 디코딩.
+ *
+ * ⚠️ 열거형 whitelist 만 두면 안 된다 (v06.35 실측):
+ *   opentextbc(Pressbooks) 본문은 곱슬 큰따옴표를 **수치 엔티티** `&#8220;`/`&#8221;` 로 쓴다.
+ *   named `&ldquo;` 만 처리하던 이전 버전에서는 이게 그대로 본문에 남았고, winkNLP 가
+ *   `&#8220;social` 을 한 토큰으로 물어 첫 글자를 먹은 조각(ocial · ociety · eople · bject)이
+ *   추출 어휘에 들어갔다 — Introduction to Sociology 815행. 그래서 named 뒤에
+ *   **generic 수치/hex fallback** 을 반드시 마지막에 둔다 (wikisource·voa 와 동일 패턴).
+ */
 function decodeEntities(s: string): string {
   return s
     .replace(/&amp;/g, '&')
@@ -244,4 +254,7 @@ function decodeEntities(s: string): string {
     .replace(/&lsquo;/g, '‘')
     .replace(/&rdquo;/g, '”')
     .replace(/&ldquo;/g, '“')
+    // generic fallback — named 로 못 잡은 나머지 수치/hex 엔티티 전부.
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
 }

@@ -73,8 +73,33 @@ function isValidLearningWord(raw: string): boolean {
   if (!/^[a-z'-]+$/.test(lemma)) return false
   // 시작/끝이 apostrophe·하이픈이면 거부 ('s, -ed 등)
   if (/^['-]|['-]$/.test(lemma)) return false
+  // v06.35 — 로마숫자 장 번호 (CHAPTER XLIX · XXXIX). 고전 전권에서 반복 유입되므로 규칙으로 막는다.
+  //   'i'(1인칭) · 'mix'/'dim'/'did' 같은 실단어와 겹치지 않도록 길이 3 이상 + 순수 로마숫자만.
+  if (lemma.length >= 3 && /^[ivxlcdm]+$/.test(lemma) && !/^(mix|dim|did|mid|lid|civil)$/.test(lemma)) {
+    return false
+  }
   if (TOKEN_BLOCKLIST.has(lemma)) return false
   return true
+}
+
+// v06.35 — URL 잔해 필터.
+//   참고문헌·각주가 많은 교재(opentextbc Introduction to Sociology 등)에서
+//   `www.globalissues.org/article/...` 같은 URL 이 '.'/'/' 로 쪼개지며
+//   globalissues · religionfor · activitieson · pdf · org 같은 조각이 학습 어휘로 들어왔다.
+//   판정: 문장이 URL 을 포함하고, 토큰 좌우에 공백 없이 '.' 또는 '/' 가 붙어 있을 때.
+//   (문장 끝 마침표 오탐 방지 — 오른쪽 '.' 만으로는 판정하지 않고 URL 문맥을 함께 요구한다.)
+const URL_CONTEXT = /https?:\/\/|www\./i
+const URL_GLUE = new Set(['.', '/'])
+function isUrlDebris(
+  sentenceText: string,
+  token: WlpToken,
+  prev: WlpToken | undefined,
+  next: WlpToken | undefined,
+): boolean {
+  if (!URL_CONTEXT.test(sentenceText)) return false
+  const gluedLeft = !!prev && URL_GLUE.has(prev.surface) && prev.charEnd === token.charStart
+  const gluedRight = !!next && URL_GLUE.has(next.surface) && token.charEnd === next.charStart
+  return gluedLeft || gluedRight
 }
 
 // Phase 14.8 — 아포스트로피 생략 방언 파편 필터 (근본 규칙, 열거 blocklist 대체)
@@ -129,6 +154,8 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         if (!isValidLearningWord(token.lemma)) continue
         // Phase 14.8 — 아포스트로피 생략 방언 파편 (foun'·hadn'·doin'·wukkin')
         if (isApostropheElision(token, toks[ti + 1])) continue
+        // v06.35 — 참고문헌 URL 잔해 (globalissues·religionfor·pdf·org)
+        if (isUrlDebris(sentence.text, token, toks[ti - 1], toks[ti + 1])) continue
 
         const mapped = POS_MAP[token.pos] ?? null
         const existing = chapterCounts.get(token.lemma)

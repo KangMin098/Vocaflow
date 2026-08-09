@@ -10,6 +10,69 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 "%"가 거짓말을 하고 있었다 — 지표를 사전 결합률에서 해석률로 (마이그레이션 2건)
+
+**마이그레이션 [20260809120419_lbv_resolution_diagnostics.sql](../supabase/migrations/20260809120419_lbv_resolution_diagnostics.sql) · [20260809120437_v_book_extraction_stats_v2.sql](../supabase/migrations/20260809120437_v_book_extraction_stats_v2.sql) — 2026-08-09 사용자 승인 후 dev 적용 완료.**
+
+#### 발단
+
+`/admin/curation` 이 Les Misérables 을 "추출 89.5%", Introduction to Sociology 를 "88.4%" 로 표시했다. 40권 중 32권이 100% 미만.
+
+원인은 추출이 아니라 **지표**였다. `v_book_extraction_stats.lemma_coverage_pct` 는 `shared_dictionary`(45,682 표제어) 결합률 하나만 쟀는데, 결합 실패에는 **결합돼선 안 되는 것**이 대량 섞여 있었다:
+
+| 미매핑 4,882 단어 (17,971 출현) | 단어 | 출현 |
+|---|--:|--:|
+| 인명·지명 (`elizabeth` 602회 · `darcy` 392회) | 132 | 3,942 |
+| 외국어 기능어 (`de` 799 · `la` 401 — Hugo 원문 프랑스어) | 291 | 3,238 |
+| 고어 (`whilst` · `thee` · `hast`) — `enforce_archaic_not_in_shared`(ADR D4)로 **등재 자체가 금지** | 21 | 898 |
+| 복합어·파생형·방언·철자변형 | 1,674 | 4,239 |
+| 진짜 사전 공백 | 2,744 | 5,654 |
+
+게다가 프로젝트에는 이미 `lexicon_clean`(455,037 · en/la/fr/it/de/es) · `spelling_norm`(312,642) · `archaic_dictionary`(810) · `dialect_map`(147) 과 이들을 전부 순차 조회하는 `lookup_word_meaning()` 이 구축돼 있었다. **결합 트리거만 그걸 안 봤다** — `trg_lbv_fill_lemma` 는 10티어 중 `direct`+`inflection` 2티어만 시도.
+
+미매핑 4,882 단어를 `lookup_word_meaning` 에 넣으니 **4,362개(89.3%) · 출현 기준 94.6%** 가 해석됐다.
+
+#### 설계 결정 — `lemma` 는 건드리지 않는다
+
+`select_book_chapter_vocab` 이 `COALESCE(bv.lemma, bv.word)` → `shared_dictionary` 조인으로 학습 단어를 뽑는다. 해석 결과를 `lemma` 에 써 넣으면 `lexicon_clean` 에 en 표제어로 있는 `elizabeth`·`darcy` 가 **학습 단어로 승격**된다. 고어도 ADR D4 때문에 구조적으로 `lemma` 를 가질 수 없다. → 해석은 별도 진단 컬럼에만 기록하고, 지표를 그 컬럼으로 계산한다.
+
+- `library_book_vocabularies` + `resolved_via` / `resolved_lang` / `resolved_word` / `noise_kind`, 부분 인덱스 `idx_lbv_unbound_book WHERE lemma IS NULL`.
+- `fill_lbv_resolution(p_book_id, p_only_new)` 신규 + `trg_lbv_fill_lemma` 확장(기존 lemma 로직 불변, 뒤에 해석 기록만 추가).
+- `v_book_extraction_stats` 기존 5컬럼 유지 + `noise_count` · `resolved_other_count` · `unresolved_count` · `resolved_pct` · `learnable_coverage_pct`.
+- `v_book_extraction_reasons` 신규 — `bound`/`noise_person`/`noise_geo`/`foreign_{lang}`/`dialect_spelling`/`morphology`/`lexicon_only`/`unresolved` 버킷.
+
+**백필 5,547행 → 전체 해석률 94.26% → 99.49%** (미해결 489행).
+
+| 책 | 구 지표 | 해석률 | 미해결 |
+|---|--:|--:|--:|
+| Les Misérables | 89.5 | **98.7** | 167 |
+| Introduction to Sociology | 88.4 | **98.7** | 142 |
+| Dialogues | 92.9 | **99.6** | 39 |
+| Pride and Prejudice | 94.9 | **99.9** | 4 |
+
+#### 파생 발견 1 — HTML 수치 엔티티가 단어 첫 글자를 먹고 있었다
+
+미해결 단어에 `ocial` · `ociety` · `eople` · `bject` 같은 조각이 있었다. `first_sentence` 를 보니 본문에 `&#8220;` 가 그대로 남아 있었다 — `pressbooks`/`standard-ebooks` 의 `decodeEntities` 가 named(`&ldquo;`)만 열거하고 **수치 fallback 이 없었다**. opentextbc 는 수치 엔티티를 쓴다. winkNLP 가 `&#8220;social` 을 한 토큰으로 물면서 첫 글자가 사라졌다. **Introduction to Sociology 815행 오염.**
+
+- 두 ingester 에 `&#(\d+);` / `&#x([0-9a-fA-F]+);` generic fallback 추가 (나머지 7개 ingester 는 이미 있었음 — whitelist 복사가 원인).
+- `htmlToPlainText` export + 회귀 [test/entity-decode.test.ts](../packages/library-pipeline/test/entity-decode.test.ts) 8케이스 (수치/hex/첫글자유실/named 회귀).
+- ⚠️ 이미 적재된 815행은 **해당 도서 재수집 시에만** 사라진다. 현재 published + 챕터 단어장 23권이라 재수집은 cascade 삭제를 동반 — 미실행, 사용자 판단 대기.
+
+#### 파생 발견 2 — 추출 노이즈 규칙 2건
+
+`extract-lemmas.ts`:
+- 로마숫자 장 번호(`CHAPTER XLIX` → `xlix`) 거부 — 길이 3+ 순수 로마숫자, `mix`/`dim`/`did`/`mid`/`lid`/`civil` 예외.
+- 참고문헌 URL 잔해 거부 — 문장이 `http`/`www.` 를 포함하고 토큰 좌우에 공백 없이 `.`/`/` 가 붙을 때(`globalissues` · `religionfor` · `pdf` · `org`). 문장 끝 마침표 오탐 방지를 위해 URL 문맥을 함께 요구.
+
+#### 어드민
+
+`ExtractionCell` 배지 = `resolved_pct`, 옆 `·N↑` = `unresolved_count`(진짜 공백). 툴팁에 사전 결합률·타사전 해석·노이즈 제외를 함께 노출. `admin-queries.ts` 는 새 5컬럼을 함께 select/머지.
+
+#### 미결
+
+- `v_book_extraction_stats` · `v_book_extraction_reasons` 가 Supabase advisor `security_definer_view` ERROR (전자는 v06.35 이전부터). 프로젝트 규약(`20260614150000_views_security_invoker`)상 `security_invoker=true` 여야 하나, 적용 시 `DEV_ADMIN_BYPASS` 경로(합성 admin = anon 세션)에서 미발행 도서 통계가 안 보이게 된다 — 사용자 판단 대기.
+- 미해결 489행(520단어): 프랑스어 은어(Hugo 은어장) · 그리스/라틴 전문어 · 현대 사회학 신조어(`xenocentrism` · `normlessness`) · 인도 문화 차용어 · 의성어. `dict-selfheal-drain.mjs` 드레인 대상.
+
 ### 만화 탭 이름을 학습자 말로 · Comics 를 별도 메뉴로
 
 `Adapted / 도서 각색`, `Restored / 원본 복원` 은 **우리 파이프라인 용어**였다. 원작에 무슨 처리를

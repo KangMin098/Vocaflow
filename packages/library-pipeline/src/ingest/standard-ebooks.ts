@@ -249,7 +249,8 @@ function stripMatterSections(html: string): string {
  * - 기타 태그 stripped
  * - HTML entity 디코딩 (최소)
  */
-function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map()): string {
+/** export 이유: test/entity-decode.test.ts 회귀 (수치 엔티티 잔존 재발 방지). */
+export function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map()): string {
   // 1. <body> 만 추출
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)
   let work = bodyMatch ? bodyMatch[1]! : html
@@ -369,7 +370,9 @@ function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map())
   // 6. 모든 남은 태그 strip
   work = work.replace(/<[^>]+>/g, '')
 
-  // 7. HTML entity 디코딩 (최소)
+  // 7. HTML entity 디코딩
+  //    named 만 열거하면 수치 엔티티(&#8220; 등)가 본문에 남아 토큰 첫 글자를 먹는다
+  //    (pressbooks 에서 실측된 결함 — 같은 whitelist 를 복사한 여기도 동일 위험) → generic fallback 필수.
   work = work
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
@@ -386,6 +389,8 @@ function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map())
     .replace(/&lsquo;/g, '‘')
     .replace(/&rdquo;/g, '”')
     .replace(/&ldquo;/g, '“')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
 
   // 8. whitespace 정규화 (3+ 개 newline → 2개)
   work = work.replace(/[ \t]+/g, ' ')

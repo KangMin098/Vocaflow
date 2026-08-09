@@ -86,6 +86,19 @@ queued
 
 **dictionary self-heal 드레인 (v06.35, 외부 소스·LLM 0)** — ingest 가 `collect_archaic_candidates` 로 쌓는 미해소어(`archaic_candidates`) 중 진짜 희귀·전문 실단어를 **Wiktionary 게이트**로 정확 해소해 `lexicon_clean`(ko_source=`wikt-selfheal`) 자동 적재 → 다음 `lookup_word_meaning` 부터 coverage-clean 티어 해소(사전 자가성장). 스크립트: `dict-selfheal-core.mjs`(게이트: 영어섹션+register 판정·plural/alt-form/"See X" 리다이렉트 추적·`koQualityOk`) + `dict-selfheal-drain.mjs`(archaic_candidates→적재, 멱등·배치 캡·기존제외). 뜻 = Wiktionary 정의문 → Google 번역(LLM 생성 0). **핫패스(ingest 요청) 밖 드레인**이라 외부 조회 지연이 ingest 를 안 막음 — 크론/Claude Code 드레인 주기 실행. 게이트 정밀도: coinage/외국어/눈방언은 영어섹션 부재/register 태그로 자동 거부(시연 379후보→55통과, 오역 0). cf. 반례로 형태소 자동분해는 `cameleopard→came+leopard`(기린) 오뜻 부여로 기각.
 
+**추출 지표 재정의 (v06.35)** — `/admin/curation` 의 "추출 %" 는 `v_book_extraction_stats.lemma_coverage_pct`, 즉 `shared_dictionary` 결합률 하나만 봤다. 그런데 결합 실패에는 **결합돼선 안 되는 것**이 대량 섞인다: 고어(`enforce_archaic_not_in_shared`/ADR D4 로 등재 금지) · 외국어 원문 인용(Les Misérables `de`/`la`/`du` 748회) · 인명/지명(P&P `elizabeth` 602회). 미매핑 4,882 단어를 `lookup_word_meaning` 에 넣으면 **4,362개(89.3%) · 출현 기준 94.6% 가 해석**된다 — 자산(`lexicon_clean` 455,037 · `spelling_norm` 312,642 · `archaic_dictionary` 810 · `dialect_map` 147)은 이미 있는데 지표가 안 봤을 뿐.
+
+- 마이그레이션 `20260809120419_lbv_resolution_diagnostics` + `20260809120437_v_book_extraction_stats_v2`.
+- `library_book_vocabularies` 에 `resolved_via`/`resolved_lang`/`resolved_word`/`noise_kind` 추가. **`lemma` 는 불변** — `select_book_chapter_vocab` 이 `COALESCE(bv.lemma, bv.word)` → `shared_dictionary` 로 학습 단어를 뽑으므로, 해석 결과를 `lemma` 에 쓰면 `lexicon_clean` 에 en 표제어로 있는 인명이 학습 단어로 승격된다.
+- 백필 `fill_lbv_resolution()` 5,547행 → 전체 해석률 **94.26% → 99.49%** (미해결 489행). 책별: Les Misérables 89.5→98.7 · Sociology 88.4→98.7 · Dialogues 92.9→99.6.
+- 남은 미해결의 성격: 프랑스어 은어(Hugo 은어장) · 그리스/라틴 전문어 · 현대 사회학 신조어 · 인도 문화 차용어 · 의성어.
+
+**HTML 수치 엔티티 잔존 (v06.35 수정)** — `pressbooks`/`standard-ebooks` 의 `decodeEntities` 가 named 엔티티만 열거하고 **수치 fallback 이 없었다**. opentextbc 본문은 곱슬 큰따옴표를 `&#8220;`/`&#8221;` 로 쓰는데, 이게 본문에 남아 winkNLP 가 `&#8220;social` 을 한 토큰으로 물면서 **첫 글자를 먹은 조각**(`ocial` · `ociety` · `eople` · `bject`)이 추출 어휘에 들어갔다 — Introduction to Sociology 815행. 두 ingester 에 `&#(\d+);` / `&#x([0-9a-fA-F]+);` generic fallback 추가 (다른 7개 ingester 는 이미 있었음) + 회귀 `test/entity-decode.test.ts`. **이미 적재된 조각은 해당 도서 재수집 시에만 사라진다.**
+
+**추출 노이즈 규칙 2건 추가 (v06.35)** — `extract-lemmas.ts`:
+- 로마숫자 장 번호(`CHAPTER XLIX` → `xlix`) — 길이 3+ 순수 로마숫자 거부 (`mix`/`dim`/`did`/`mid`/`lid`/`civil` 예외).
+- 참고문헌 URL 잔해 — 문장이 URL(`http`/`www.`)을 포함하고 토큰 좌우에 공백 없이 `.`/`/` 가 붙으면 제외 (`globalissues` · `religionfor` · `pdf` · `org`). 문장 끝 마침표 오탐 방지를 위해 URL 문맥을 함께 요구.
+
 #### 7. Auto Curate
 - `auto_curate_book(p_book_id)` RETURNS text — 3분기 게이트:
 
