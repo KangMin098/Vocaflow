@@ -8,18 +8,22 @@ import { GameLoading } from '@/components/game/_shared/gamekit';
 
 const Game = dynamic(
   () => import('@/components/game/silent-rule/SilentRuleGame').then((m) => ({ default: m.SilentRuleGame })),
-  { ssr: false, loading: () => <GameLoading message="패널을 여는 중…" /> },
+  { ssr: false, loading: () => <GameLoading message="문을 여는 중…" /> },
 );
 
 export default function SilentRulePlayPage() {
-  // 내장 규칙 클러스터 뱅크 사용 → minWords=0.
+  // 학습자 단어에서 철자 규칙 쌍을 파생해 격자에 우선 배치한다(그 칸만 FSRS 기록).
+  // 파생에 실패한 규칙만 내장 뱅크로 채우므로 6개면 세션이 성립한다.
   return (
-    <Suspense fallback={<GameLoading message="패널을 여는 중…" />}>
+    <Suspense fallback={<GameLoading message="문을 여는 중…" />}>
       <GamePlayScaffold
         module="silent-rule"
         label="The Silent Rule"
-        minWords={0}
-        render={({ onCorrect, onWrong, onExit }) => <Game onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
+        minWords={6}
+        loadingMessage="문을 여는 중…"
+        render={({ wordPool, onCorrect, onWrong, onExit }) => (
+          <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />
+        )}
       />
     </Suspense>
   );

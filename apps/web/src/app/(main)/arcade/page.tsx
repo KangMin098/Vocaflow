@@ -38,6 +38,7 @@ import {
   countHubGames,
   gamePlayHref,
   hubSections,
+  HUB_TRACKS,
   kstDayIndex,
   pickDailyGame,
   type GameEntry,
@@ -195,34 +196,29 @@ export default async function ArcadePage({
         {/* ① 오늘의 추천 — 고르지 않아도 시작되는 기본값 */}
         <DailyPick game={daily} mineReady={mineReady} stats={stats} scope={scope} />
 
-        {/* ② 내 단어로 플레이 */}
-        <GameSection
-          id="mine"
-          eyebrow="My Words"
-          title={scope.active ? '이 자료로 플레이' : '내 단어로 플레이'}
-          desc={scope.active ? '선택한 자료의 단어를 인출 훈련으로 돌립니다.' : mineDesc(mineReady, stats)}
-          items={sections.mine}
-          gameCount={countHubGames(sections.mine)}
-          badge={scope.active ? '자료 적용됨' : mineBadge(mineReady, stats)}
-          badgeTone={scope.active || mineReady ? 'live' : 'muted'}
-          action={scope.active || mineReady ? undefined : { href: '/wordvault', label: '단어 모으러 가기' }}
-          scope={scope}
-        />
-
-        {/* ③ 큐레이션 세계 */}
-        <GameSection
-          id="bank"
-          eyebrow="Curated Worlds"
-          title="큐레이션 세계"
-          desc={
-            scope.active
-              ? '같은 자료의 단어를 문맥 추론·철자 규칙·의미 관계로 다시 만납니다.'
-              : '수제 콘텐츠로 문맥 추론·철자 규칙·의미 관계를 연습해요. 내 단어가 없어도 지금 바로 플레이할 수 있습니다.'
-          }
-          items={sections.bank}
-          gameCount={countHubGames(sections.bank)}
-          scope={scope}
-        />
+        {/* ②③④ 학습 동사별 트랙 — v07.8.
+            이전 축은 "내 단어 / 큐레이션 뱅크"였는데, 전 게임이 학습자 단어를 쓰게 되면서
+            그 축이 죽었다(전부 한쪽으로 몰림). 지금 고를 때 실제로 궁금한 것은
+            "지금 어떤 연습을 하고 싶은가" 이므로 재인 → 생성 → 추론 순으로 나눈다. */}
+        {HUB_TRACKS.map((t, i) => (
+          <GameSection
+            key={t.key}
+            id={t.key}
+            eyebrow={t.eyebrow}
+            title={t.title}
+            desc={scope.active ? `${t.desc.split('. ')[0]}. 선택한 자료의 단어로 진행합니다.` : t.desc}
+            items={sections[t.key]}
+            gameCount={countHubGames(sections[t.key])}
+            badge={i === 0 ? (scope.active ? '자료 적용됨' : mineBadge(mineReady, stats)) : undefined}
+            badgeTone={scope.active || mineReady ? 'live' : 'muted'}
+            action={
+              i === 0 && !scope.active && !mineReady
+                ? { href: '/wordvault', label: '단어 모으러 가기' }
+                : undefined
+            }
+            scope={scope}
+          />
+        ))}
 
         {!scope.active && (
           <p className="arc-note">
@@ -275,7 +271,10 @@ function mineDesc(mineReady: boolean, s: VocabStats): string {
 
 /** 오늘의 추천 카드 한 줄 — 단어 수가 0이어도 문장이 깨지지 않게. */
 function dailyMeta(usesMyWords: boolean, s: VocabStats): string {
-  if (!usesMyWords) return '큐레이션 콘텐츠 · 단어 없이 바로 시작';
+  // v07.8 — 이전 문구는 '큐레이션 콘텐츠 · 단어 없이 바로 시작' 이었다. 전 게임이 학습자
+  // 단어를 쓰게 된 지금 "큐레이션 콘텐츠"는 거짓이다. 단어가 부족하면 맛보기로 degrade
+  // 되고 그때는 FSRS 에 남지 않는다 — 그 사실을 숨기지 않는다.
+  if (!usesMyWords) return '단어 없이 바로 시작 · 맛보기 단어로 진행(기록 안 됨)';
   return s.dueNow > 0
     ? `복습 임박한 내 단어 ${s.dueNow}개로 진행 · 기억 곡선 반영`
     : `내 단어 ${s.total}개로 진행 · 기억 곡선 반영`;

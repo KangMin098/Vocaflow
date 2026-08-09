@@ -19,12 +19,14 @@ import {
   GAME_COUNT,
   GAME_FAMILIES,
   GAME_MARKS,
+  HUB_TRACKS,
   MINE_GAMES,
   buildHubItems,
   gamePlayHref,
   hubSections,
   kstDayIndex,
   pickDailyGame,
+  trackOf,
 } from '../catalog'
 
 /** 실제 파일시스템의 /play/<slug> 라우트 목록 — 카탈로그가 따라가야 할 진실. */
@@ -139,9 +141,9 @@ describe('계열(family) 접기', () => {
   })
 
   it('접어도 게임이 사라지지 않는다 — 허브 표시 단위가 전 게임을 정확히 1번씩 담는다', () => {
-    const { mine, bank } = hubSections()
+    const s = hubSections()
     const reached: string[] = []
-    for (const item of [...mine, ...bank]) {
+    for (const item of [...s.recall, ...s.produce, ...s.reason]) {
       if (item.kind === 'game') reached.push(item.game.slug)
       else reached.push(...item.modes.map((m) => m.slug))
     }
@@ -150,22 +152,53 @@ describe('계열(family) 접기', () => {
     expect([...reached].sort()).toEqual(GAME_CATALOG.map((g) => g.slug).sort())
   })
 
-  it('계열은 쪼개지지 않는다 — 멤버 전원이 같은 섹션에 있다', () => {
-    const { mine, bank } = hubSections()
+  it('계열은 쪼개지지 않는다 — 멤버 전원이 같은 트랙에 있다', () => {
+    const s = hubSections()
+    const tracks = [s.recall, s.produce, s.reason]
     for (const f of GAME_FAMILIES) {
-      const inMine = mine.some((i) => i.kind === 'family' && i.family.key === f.key)
-      const inBank = bank.some((i) => i.kind === 'family' && i.family.key === f.key)
-      expect(Number(inMine) + Number(inBank), `${f.key} 가 0곳 또는 양쪽에 있음`).toBe(1)
-      const home = inMine ? mine : bank
-      const card = home.find((i) => i.kind === 'family' && i.family.key === f.key)
+      const homes = tracks.filter((t) => t.some((i) => i.kind === 'family' && i.family.key === f.key))
+      expect(homes.length, `${f.key} 가 0곳 또는 여러 트랙에 있음`).toBe(1)
+      const card = homes[0].find((i) => i.kind === 'family' && i.family.key === f.key)
       const members = GAME_CATALOG.filter((g) => g.family === f.key)
       expect(card && card.kind === 'family' ? card.modes.length : 0).toBe(members.length)
     }
   })
 
   it('접힌 뒤 카드 수가 실제로 줄어든다 (중복 체감 완화의 정량 근거)', () => {
-    const { mine, bank } = hubSections()
-    expect(mine.length + bank.length).toBeLessThan(GAME_COUNT)
+    const s = hubSections()
+    expect(s.recall.length + s.produce.length + s.reason.length).toBeLessThan(GAME_COUNT)
+  })
+
+  // v07.8 — 분류축이 source(내 단어/뱅크) 에서 학습 동사 트랙으로 바뀌었다.
+  // 전 게임이 학습자 단어를 쓰게 되면서 옛 축이 한쪽으로 몰려 죽었기 때문이다.
+  it('트랙 분류가 전 게임을 정확히 1번씩 덮는다 (누락·중복 없음)', () => {
+    const seen = new Set<string>()
+    for (const g of GAME_CATALOG) {
+      const t = trackOf(g.slug)
+      expect(['recall', 'produce', 'reason'], `${g.slug} 트랙 미지정`).toContain(t)
+      expect(seen.has(g.slug)).toBe(false)
+      seen.add(g.slug)
+    }
+    expect(seen.size).toBe(GAME_COUNT)
+  })
+
+  it('빈 트랙이 없다 — 섹션이 비면 허브에 죽은 헤딩이 남는다', () => {
+    const s = hubSections()
+    for (const t of HUB_TRACKS) {
+      expect(s[t.key].length, `${t.key} 트랙이 비었다`).toBeGreaterThan(0)
+    }
+  })
+
+  // BANK_GAMES 가 비면서 pickDailyGame 이 from[NaN] → undefined 로 죽던 회귀.
+  // 단어 0개 학습자의 /arcade 가 통째로 크래시했다.
+  it('오늘의 추천은 보유 단어 수와 무관하게 항상 실재한다', () => {
+    for (const vocab of [0, 1, 5, 6, 40]) {
+      for (const day of [0, 1, 7, 12345]) {
+        const g = pickDailyGame(day, vocab)
+        expect(g, `vocab=${vocab} day=${day}`).toBeTruthy()
+        expect(typeof g.slug).toBe('string')
+      }
+    }
   })
 
   it('buildHubItems — 멤버가 1개뿐이면 접지 않는다', () => {
@@ -266,11 +299,25 @@ describe('gamePlayHref', () => {
 })
 
 describe('pickDailyGame — 오늘의 추천', () => {
-  it('단어가 충분하면 mine, 부족하면 bank 에서 고른다', () => {
+  // v07.8 — 이전 단언은 "단어가 충분하면 mine, 부족하면 bank" 였다.
+  // 전 게임이 학습자 단어를 쓰게 되면서 bank 후보가 사라졌고, 그 분기를 유지하면
+  // 단어 부족 학습자에게 후보 0개 → from[NaN] → undefined 로 /arcade 가 죽는다.
+  // 지금은 보유량과 무관하게 고르고, 부족분은 게임 안에서 맛보기로 degrade 한다.
+  it('보유 단어 수와 무관하게 항상 실재하는 게임을 고른다', () => {
     for (let d = 0; d < 40; d++) {
-      expect(pickDailyGame(d, 6).source).toBe('mine')
-      expect(pickDailyGame(d, 5).source).toBe('bank')
-      expect(pickDailyGame(d, 0).source).toBe('bank')
+      for (const count of [0, 5, 6, 200]) {
+        const g = pickDailyGame(d, count)
+        expect(g, `day=${d} vocab=${count}`).toBeTruthy()
+        expect(GAME_CATALOG.some((x) => x.slug === g.slug)).toBe(true)
+      }
+    }
+  })
+
+  it('추천에는 3D·베타를 올리지 않는다 (모바일 번들·기록 미연동)', () => {
+    for (let d = 0; d < 40; d++) {
+      const g = pickDailyGame(d, 20)
+      expect(g.is3d ?? false, `${g.slug} 가 3D`).toBe(false)
+      expect(g.beta ?? false, `${g.slug} 가 베타`).toBe(false)
     }
   })
 

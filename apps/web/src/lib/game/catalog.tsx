@@ -158,28 +158,28 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     music: bgm('cascade'),
   },
   {
-    slug: 'ghost-race', name: 'Ghost Race', tagline: '유령과 속도 대결 · 리그 승급',
-    layer: 'L4a 경쟁', ref: 'Kahoot', source: 'mine', emoji: '🏁', closeHref: '/arcade', minWords: 4,
+    slug: 'ghost-race', name: 'Ghost Race', tagline: '3랩 추격전 — 인·아웃 라인을 걸어라',
+    layer: 'L4a 경쟁', ref: 'Kahoot', source: 'mine', emoji: '🏁', closeHref: '/arcade', minWords: 6,
     mood: { a: '#B34480', b: '#38296A', glow: 'rgba(255,158,224,.5)', accent: '#FFD1EE' },
     music: bgm('ghost-race'),
-    family: 'blitz', modeOrder: 2, modeLabel: '고스트', modeNote: '지난 기록과 나란히 달리기',
+    family: 'blitz', modeOrder: 2, modeLabel: '고스트', modeNote: '라인 선택 · 콤보로 유령 묶기',
   },
   {
     slug: 'word-economy', name: 'Word Economy', tagline: '코인을 벌어 파워업에 전략 투자',
-    layer: 'L4a 전략', ref: 'Gimkit', source: 'mine', emoji: '🪙', closeHref: '/arcade', minWords: 4,
+    layer: 'L4a 전략', ref: 'Gimkit', source: 'mine', emoji: '🪙', closeHref: '/arcade', minWords: 6,
     mood: { a: '#C99A34', b: '#77481E', glow: 'rgba(255,216,124,.55)', accent: '#FFECBB' },
     music: bgm('word-economy'),
     family: 'blitz', modeOrder: 3, modeLabel: '이코노미', modeNote: '코인을 벌어 파워업에 투자',
   },
   {
     slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라',
-    layer: 'L4c 듣기', ref: 'Rhythm', source: 'mine', emoji: '🎵', closeHref: '/arcade', minWords: 4,
+    layer: 'L4c 듣기', ref: 'Rhythm', source: 'mine', emoji: '🎵', closeHref: '/arcade', minWords: 6,
     mood: { a: '#4C6FA6', b: '#182444', glow: 'rgba(140,180,255,.44)', accent: '#D4E2FA' },
     music: bgm('wordfall-cadence'),
   },
   {
     slug: 'letter-forge', name: 'Letter Forge', tagline: '흩어진 글자로 철자를 벼려내다',
-    layer: 'L4b 생성', ref: '애너그램', source: 'mine', emoji: '🔤', closeHref: '/arcade', minWords: 5,
+    layer: 'L4b 생성', ref: '애너그램', source: 'mine', emoji: '🔤', closeHref: '/arcade', minWords: 6,
     mood: { a: '#C4692C', b: '#54261F', glow: 'rgba(255,186,96,.55)', accent: '#FFD9A0' },
     music: bgm('letter-forge'),
   },
@@ -224,13 +224,13 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'morpheme-rules', name: 'Morpheme Rules', tagline: '형태소를 조립하면 그 뜻이 세계를 바꾼다',
-    layer: 'L4b 형태론', ref: 'Baba Is You', source: 'bank', emoji: '🔠', closeHref: '/arcade', minWords: 0,
+    layer: 'L4b 형태론', ref: 'Baba Is You', source: 'mine', emoji: '🔠', closeHref: '/arcade', minWords: 6,
     mood: { a: '#4C7A9E', b: '#1A2330', glow: 'rgba(130,205,255,.44)', accent: '#D4EAFA' },
     music: bgm('morpheme-rules'),
   },
   {
     slug: 'silent-rule', name: 'The Silent Rule', tagline: '설명 없이 철자 규칙을 스스로 귀납하라',
-    layer: 'L4b 귀납', ref: 'The Witness', source: 'bank', emoji: '🔆', closeHref: '/arcade', minWords: 0,
+    layer: 'L4b 귀납', ref: 'The Witness', source: 'mine', emoji: '🔆', closeHref: '/arcade', minWords: 6,
     mood: { a: '#3E9E86', b: '#173F3B', glow: 'rgba(140,235,190,.44)', accent: '#D2F3E4' },
     music: bgm('silent-rule'),
   },
@@ -263,7 +263,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   {
     // v07 재설계로 three.js 인형뽑기 → 순수 2D DOM 속사 인지(MODULES.md §5). 3D 아님.
     slug: 'wordblitz', name: 'WordBlitz', tagline: '타이머와 콤보로 몰아붙이는 순수 속도전',
-    layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 4,
+    layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 10,
     mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
     music: bgm('wordblitz'),
     family: 'blitz', modeOrder: 1, modeLabel: '클래식', modeNote: '타이머·콤보·레벨업',
@@ -287,8 +287,70 @@ export const GAME_COUNT = GAME_CATALOG.length
 /** 내 단어로 플레이하는 게임 (FSRS 갱신) */
 export const MINE_GAMES = GAME_CATALOG.filter((g) => g.source === 'mine')
 
-/** 내장 큐레이션 뱅크 게임 */
+/** 내장 큐레이션 뱅크 게임 — v07.8 이후 0개(전 게임이 학습자 단어를 쓴다). */
 export const BANK_GAMES = GAME_CATALOG.filter((g) => g.source === 'bank')
+
+// ─── 허브 분류축 (v07.8 재정의) ───────────────────────────────────
+//
+// 이전 축은 `source`(내 단어 / 큐레이션 뱅크)였다. 그 축이 유효했던 이유는 절반의
+// 게임이 하드코딩 콘텐츠로 돌아 학습자 단어를 아예 안 썼기 때문이다 —
+// 그리고 그게 정확히 v07.8에서 고친 결함이다(DB 실측: 그 게임들의
+// learning_records 가 0건이었다. recordGameResult 는 사용자 vocabularies 에 없는
+// 단어를 silent skip 한다). 이제 19종 전부가 내 단어로 도니 그 축은 죽었다.
+//
+// 새 축은 **학습자가 무엇을 하는가** — 프로젝트 L계층의 진행(재인 → 생성 → 추론)과
+// 같은 순서다. 고를 때 실제로 궁금한 것이 "이게 내 단어를 쓰나"에서
+// "지금 나는 어떤 연습을 하고 싶나"로 바뀌었기 때문이다.
+export type HubTrack = 'recall' | 'produce' | 'reason'
+
+export const HUB_TRACKS: { key: HubTrack; eyebrow: string; title: string; desc: string }[] = [
+  {
+    key: 'recall',
+    eyebrow: 'Fast Recall',
+    title: '빠르게 떠올리기',
+    desc: '뜻을 보고 단어를 즉시 인출해요. 속도와 자동화가 목표 — 짧고 몰아칩니다.',
+  },
+  {
+    key: 'produce',
+    eyebrow: 'Produce',
+    title: '직접 만들어 내기',
+    desc: '고르는 게 아니라 씁니다. 철자·형태소·발음으로 단어를 손수 만들어 내요.',
+  },
+  {
+    key: 'reason',
+    eyebrow: 'Reason',
+    title: '읽고 추론하기',
+    desc: '문맥·규칙·의미 관계로 답에 도달해요. 느리지만 가장 오래 남습니다.',
+  },
+]
+
+/** slug → 트랙. layer 문자열 파싱 대신 명시 표로 둔다(오분류가 조용히 생기지 않게). */
+const TRACK_OF: Record<GameSlug, HubTrack> = {
+  // 재인·속사 — 보고 즉시 떠올리기
+  wordblitz: 'recall',
+  'ghost-race': 'recall',
+  'word-economy': 'recall',
+  'daily-blitz': 'recall',
+  cascade: 'recall',
+  'pirate-quest': 'recall',
+  // 생성 — 직접 만들어 내기(철자·형태소·발음)
+  'letter-forge': 'produce',
+  'wordsmith-vigil': 'produce',
+  morphmerge: 'produce',
+  'morpheme-rules': 'produce',
+  'silent-rule': 'produce',
+  'wordfall-cadence': 'produce',
+  // 추론 — 문맥·규칙·의미 관계
+  'glyph-tongue': 'reason',
+  'word-customs': 'reason',
+  connections: 'reason',
+  'lexicon-hands': 'reason',
+  'lexicon-detective': 'reason',
+  'lexicon-estate': 'reason',
+  'word-orrery': 'reason',
+}
+
+export const trackOf = (slug: GameSlug): HubTrack => TRACK_OF[slug]
 
 // ─── 허브 표시 단위 ───────────────────────────────────────────────
 //
@@ -347,20 +409,31 @@ export function countHubGames(items: readonly HubItem[]): number {
 }
 
 /**
- * 계열 접기는 섹션(mine/bank) 단위로 하면 계열이 쪼개진다 —
- * blitz 계열은 3종이 mine, 1종(데일리)이 bank 다. 학습자에겐 같은 게임의 모드이므로
- * **계열은 다수가 속한 섹션에 통째로 싣고**, 소수파 모드는 칩에 그 사실을 표기한다.
+ * 트랙별 허브 표시 단위.
+ *
+ * 계열 접기를 섹션 단위로 하면 계열이 쪼개진다 — 학습자에겐 같은 게임의 모드이므로
+ * **계열은 다수가 속한 트랙에 통째로 싣는다**(소수파 모드는 칩에 그 사실을 표기).
  */
-export function hubSections(): { mine: HubItem[]; bank: HubItem[] } {
-  const homeOf = new Map<FamilyKey, GameSource>()
+export function hubSections(): Record<HubTrack, HubItem[]> {
+  const homeOf = new Map<FamilyKey, HubTrack>()
   for (const f of GAME_FAMILIES) {
     const members = GAME_CATALOG.filter((g) => g.family === f.key)
-    const mineCount = members.filter((g) => g.source === 'mine').length
-    homeOf.set(f.key, mineCount * 2 >= members.length ? 'mine' : 'bank')
+    const tally = new Map<HubTrack, number>()
+    for (const g of members) {
+      const t = trackOf(g.slug)
+      tally.set(t, (tally.get(t) ?? 0) + 1)
+    }
+    let best: HubTrack = trackOf(members[0].slug)
+    for (const [t, n] of tally) if (n > (tally.get(best) ?? 0)) best = t
+    homeOf.set(f.key, best)
   }
-  const pick = (src: GameSource) =>
-    GAME_CATALOG.filter((g) => (g.family ? homeOf.get(g.family) === src : g.source === src))
-  return { mine: buildHubItems(pick('mine')), bank: buildHubItems(pick('bank')) }
+  const pick = (track: HubTrack) =>
+    GAME_CATALOG.filter((g) => (g.family ? homeOf.get(g.family) === track : trackOf(g.slug) === track))
+  return {
+    recall: buildHubItems(pick('recall')),
+    produce: buildHubItems(pick('produce')),
+    reason: buildHubItems(pick('reason')),
+  }
 }
 
 /** 게임 slug → 플레이 URL. 스코프(set/text/chapter)와 복귀(from)를 함께 싣는다. */
@@ -382,19 +455,27 @@ export function gamePlayHref(
  *
  * 근거(딥서치): 선택지가 작업기억을 넘어서면 자율성이 아니라 마비를 만든다.
  * "기본 하나를 제시하고, 원하면 전부 둘러보게" 하는 구조가 완주율을 지킨다.
- *   · 복습할 내 단어가 충분하면 → mine 게임에서 회전 (오늘 학습이 곧 게임)
- *   · 부족하면 → bank 게임에서 회전 (단어가 없어도 즉시 놀 수 있음)
  *
- * 3D·베타는 추천에서 제외 — 모바일에서 무겁고(three.js 번들) 베타는 학습 기록이 없어
- * "오늘 이거 하나만" 이라는 약속에 맞지 않는다. 직접 고르면 물론 플레이 가능.
+ * v07.8 — 이전에는 `vocabCount >= 6 ? MINE_GAMES : BANK_GAMES` 로 갈랐다. 전 게임이
+ * 학습자 단어를 쓰게 되면서 BANK_GAMES 가 **빈 배열**이 됐고, 그대로 두면 단어가
+ * 6개 미만인 학습자에게 `from.length === 0` → `dayIndex % 0 === NaN` →
+ * `from[NaN] === undefined` 로 /arcade 가 통째로 죽는다. 분기를 없애고, 그럼에도
+ * 어떤 이유로든 후보가 비면 전체 카탈로그로 되돌아가도록 방어한다.
  *
- * @param dayIndex    KST 기준 epoch day (동일 날짜 = 동일 추천 · SSR/CSR 정합)
- * @param vocabCount  사용자가 보유한 (뜻이 있는) 단어 수 — mine 게임 minWords 최댓값 6 이 기준
+ * 단어가 부족한 학습자는 게임 안에서 맛보기로 degrade 되므로(useGameWordScope 3단)
+ * 추천을 따로 가를 이유 자체가 사라졌다.
+ *
+ * 3D·베타는 추천에서 제외 — 모바일에서 무겁고(three.js 번들) "오늘 이거 하나만"
+ * 이라는 약속에 맞지 않는다. 직접 고르면 물론 플레이 가능.
+ *
+ * @param dayIndex   KST 기준 epoch day (동일 날짜 = 동일 추천 · SSR/CSR 정합)
+ * @param vocabCount 보유 단어 수 — 현재 추천 대상 선정에는 쓰지 않는다(시그니처 유지).
  */
 export function pickDailyGame(dayIndex: number, vocabCount: number): GameEntry {
-  const base = vocabCount >= 6 ? MINE_GAMES : BANK_GAMES
-  const pool = base.filter((g) => !g.is3d && !g.beta)
-  const from = pool.length > 0 ? pool : base
+  void vocabCount
+  const light = GAME_CATALOG.filter((g) => !g.is3d && !g.beta)
+  const from = light.length > 0 ? light : GAME_CATALOG
+  if (from.length === 0) throw new Error('GAME_CATALOG 가 비어 있다 — 추천을 만들 수 없다')
   return from[((dayIndex % from.length) + from.length) % from.length]
 }
 

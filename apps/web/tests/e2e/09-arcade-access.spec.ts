@@ -110,7 +110,10 @@ test.describe('A. 발견성 — 비로그인(단어 0)', () => {
     expect(body, '0개 배지는 무의미한 노출').not.toContain('복습 임박 0개');
     expect(body, '수 없는 문장(깨진 템플릿)').not.toMatch(/내 복습 단어\s*로 진행/);
 
-    // 단어가 없어도 오늘의 추천은 반드시 있어야 한다(=bank 게임)
+    // 단어가 없어도 오늘의 추천은 반드시 있어야 한다.
+    // ⚠️ v07.8 회귀 지점: 전 게임이 source:'mine' 이 되면서 BANK_GAMES 가 비었고,
+    // pickDailyGame 이 `vocabCount < 6 ? BANK_GAMES : ...` 로 갈리던 시절이라면
+    // 후보 0개 → from[NaN] → undefined → 이 페이지가 통째로 죽는다.
     await expect(page.locator('.arc-daily-card')).toBeVisible();
     expect(await page.locator('.arc-daily-meta').innerText()).toContain('단어 없이 바로 시작');
 
@@ -252,13 +255,21 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     await expect(page.getByRole('button', { name: '돌아가기' })).toBeVisible();
   });
 
-  test('B3. bank 게임은 비스코프 진입에서 "큐레이션 세계" — 내 단어를 끌어오지 않는다', async ({
-    page,
-  }) => {
+  // v07.8 — 이전 단언은 'bank 게임은 "큐레이션 세계" 라벨' 이었다. 그 분류축이 사라졌다:
+  // 전 게임이 학습자 단어를 쓰고, 단어가 모자라면 **맛보기로 degrade** 한다.
+  // 중요한 계약은 이제 "조용히 degrade 하지 않는다" 이다 — 맛보기는 FSRS 에 남지 않으므로
+  // 기록되는 플레이로 오인하면 학습자가 진도를 착각한다.
+  test('B3. 단어가 모자라면 맛보기로 degrade 하되 그 사실을 라벨로 밝힌다', async ({ page }) => {
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    const mine = userId ? await fetchUserVocabWords(userId) : [];
+    // connections 는 격자 한 판에 16개가 필요하다 — 그보다 많으면 이 경로가 아니다.
+    test.skip(mine.length >= 16, `단어 ${mine.length}개 — degrade 경로가 아니다`);
+
     await page.goto('/play/connections?from=/arcade', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('button', { name: '섞기' })).toBeVisible({ timeout: 30_000 });
-    await expect(page.locator('header[role="banner"]')).toContainText('큐레이션 세계');
-    await expect(page.getByText('내 복습 단어')).toHaveCount(0);
+    const res = page.locator('[aria-label^="현재 학습:"]').first();
+    await res.waitFor({ state: 'attached', timeout: 30_000 });
+    const label = (await res.getAttribute('aria-label')) ?? '';
+    expect(label, `맛보기 degrade 를 숨기고 있다 — aria-label="${label}"`).toContain('맛보기');
   });
 
   test('B4. wordblitz(독립 3D)도 mine 스코프를 따른다 — 카탈로그 source 와 실제 동작 일치', async ({
