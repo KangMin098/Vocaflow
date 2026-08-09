@@ -13,11 +13,18 @@
 
 import { Html, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { memo, useMemo, useRef, useState } from 'react';
+import { memo, useMemo, useRef, useState, type CSSProperties } from 'react';
 import * as THREE from 'three';
 
-/** 마커 표시 상태 — 색만이 아니라 글리프·문구로도 구분한다(색각 대응). */
-export type MarkerMode = 'label' | 'hidden' | 'hauled' | 'correct' | 'wrong';
+/**
+ * 마커 표시 상태 — 색만이 아니라 글리프·문구로도 구분한다(색각 대응).
+ *
+ * v08.2 에서 'hauled' 를 없앴다. 회수한 자리를 ✓ + 영단어 + 한국어 뜻으로 계속 띄우면
+ *   ① 남은 후보를 화면이 대신 지워줘 마지막 회수가 강제 2지선다가 되고,
+ *   ② "영어와 뜻이 동시에 화면에 있는 순간 0" 이라는 이 게임의 인출 전제가 깨진다.
+ * 이제 회수한 자리도 잠수 중에는 물에 잠긴 자리와 완전히 똑같이 보인다.
+ */
+export type MarkerMode = 'label' | 'hidden' | 'correct' | 'wrong';
 
 export interface MarkerView {
   badge: number;
@@ -25,6 +32,11 @@ export interface MarkerView {
   en: string;
   ko: string;
   interactive: boolean;
+  /**
+   * 화면 세로 계단(px). 카메라 피치가 7° 남짓이라 z 가 달라도 라벨이 같은 높이에
+   * 찍힌다 — 3D 좌표가 아니라 화면 픽셀로 올려야 실제로 안 겹친다.
+   */
+  liftPx: number;
   onPick: () => void;
 }
 
@@ -63,7 +75,6 @@ function meshOnlyBox(obj: THREE.Object3D): THREE.Box3 {
 const MODE_GLYPH: Record<MarkerMode, string> = {
   label: '',
   hidden: '≈',
-  hauled: '✓',
   correct: '✓',
   wrong: '✕',
 };
@@ -193,46 +204,54 @@ export const PirateModel = memo(function PirateModel({
 
       {marker && (
         <Html position={[0, TARGET_HEIGHT * scale + 0.45, 0]} center zIndexRange={[12, 0]}>
-          <button
-            type="button"
-            className="pq-mk"
-            data-mode={marker.mode}
-            data-hover={hovered ? '1' : '0'}
-            aria-disabled={marker.interactive ? undefined : 'true'}
-            tabIndex={marker.interactive ? 0 : -1}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (marker.interactive) marker.onPick();
-            }}
-            onPointerEnter={() => setHovered(true)}
-            onPointerLeave={() => setHovered(false)}
-            aria-label={
-              marker.mode === 'label'
-                ? `${marker.badge}번 자리 · ${marker.en}`
-                : marker.mode === 'hidden'
-                  ? `${marker.badge}번 자리 · 물에 잠김`
-                  : `${marker.badge}번 자리 · ${marker.en} ${marker.ko}`
-            }
+          {/* 계단 래퍼 — 버튼 자신의 hover/active transform 과 충돌하지 않게 한 겹 감싼다.
+              줄기(pq-mk-stem)가 올라간 라벨과 그 자리의 오브젝트를 눈으로 다시 잇는다. */}
+          <span
+            className="pq-mk-lift"
+            style={{ '--pq-lift': `${Math.max(0, marker.liftPx)}px` } as CSSProperties}
           >
-            <span className="pq-mk-badge" aria-hidden="true">
-              {marker.badge}
-            </span>
-            {marker.mode === 'label' ? (
-              <span className="pq-mk-en">{marker.en}</span>
-            ) : marker.mode === 'hidden' ? (
-              <span className="pq-mk-glyph" aria-hidden="true">
-                {MODE_GLYPH.hidden}
+            {marker.liftPx > 0 && <span className="pq-mk-stem" aria-hidden="true" />}
+            <button
+              type="button"
+              className="pq-mk"
+              data-mode={marker.mode}
+              data-hover={hovered ? '1' : '0'}
+              aria-disabled={marker.interactive ? undefined : 'true'}
+              tabIndex={marker.interactive ? 0 : -1}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (marker.interactive) marker.onPick();
+              }}
+              onPointerEnter={() => setHovered(true)}
+              onPointerLeave={() => setHovered(false)}
+              aria-label={
+                marker.mode === 'label'
+                  ? `${marker.badge}번 자리 · ${marker.en}`
+                  : marker.mode === 'hidden'
+                    ? `${marker.badge}번 자리 · 물에 잠김`
+                    : `${marker.badge}번 자리 · ${marker.en} ${marker.ko}`
+              }
+            >
+              <span className="pq-mk-badge" aria-hidden="true">
+                {marker.badge}
               </span>
-            ) : (
-              <span className="pq-mk-pair">
-                <span className="pq-mk-glyph" aria-hidden="true">
-                  {MODE_GLYPH[marker.mode]}
-                </span>
+              {marker.mode === 'label' ? (
                 <span className="pq-mk-en">{marker.en}</span>
-                <span className="pq-mk-ko">{marker.ko}</span>
-              </span>
-            )}
-          </button>
+              ) : marker.mode === 'hidden' ? (
+                <span className="pq-mk-glyph" aria-hidden="true">
+                  {MODE_GLYPH.hidden}
+                </span>
+              ) : (
+                <span className="pq-mk-pair">
+                  <span className="pq-mk-glyph" aria-hidden="true">
+                    {MODE_GLYPH[marker.mode]}
+                  </span>
+                  <span className="pq-mk-en">{marker.en}</span>
+                  <span className="pq-mk-ko">{marker.ko}</span>
+                </span>
+              )}
+            </button>
+          </span>
         </Html>
       )}
 

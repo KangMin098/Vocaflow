@@ -13,7 +13,7 @@ import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 import { PirateModel, type MarkerView } from './PirateModel';
-import type { SceneryPlacement } from './logic';
+import { beachMetrics, type SceneryPlacement } from './logic';
 
 export interface SceneMarker extends MarkerView {
   slot: number;
@@ -37,21 +37,19 @@ function mixHex(a: string, b: string, t: number): string {
   return `#${pa.lerp(pb, t).getHexString()}`;
 }
 
+/**
+ * 카메라는 logic.beachMetrics 와 **같은 식**을 써야 한다 — 마커 자리 선택이 이 투영으로
+ * 겹침을 푼다. 여기서 targetWidth 를 14 로 고정하고 있던 것이 390px 겹침의 절반이었다
+ * (세로로 긴 화면에서 카메라가 z≈44 까지 물러나 1유닛 ≈ 27.9px 이 됐다).
+ */
 function ResponsiveCamera() {
   const { camera, size } = useThree();
   useEffect(() => {
-    const aspect = size.width / size.height;
-    const targetWidth = 14.0;
-    const targetHeight = 11.0;
-    const fov = 38;
-    const fovRad = (fov * Math.PI) / 180;
-    let z = targetHeight / 2 / Math.tan(fovRad / 2);
-    const zForWidth = targetWidth / 2 / Math.tan(fovRad / 2) / Math.max(aspect, 0.1);
-    z = Math.max(z, zForWidth);
-    camera.position.set(0, 5.5, z);
+    const m = beachMetrics(size.width, size.height);
+    camera.position.set(0, 5.5, m.camZ);
     if ((camera as THREE.PerspectiveCamera).isPerspectiveCamera) {
       const persp = camera as THREE.PerspectiveCamera;
-      persp.fov = fov;
+      persp.fov = 38;
       persp.updateProjectionMatrix();
     }
     camera.lookAt(0, 1.3, 0);

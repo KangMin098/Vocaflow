@@ -1,16 +1,35 @@
 // apps/web/src/components/game/letter-forge/LetterForgeGame.tsx
 // Letter Forge — 철자 벼림(L4b 시각 생성). ko 뜻 → en 철자를 **인출해서** 조립한다.
 //
-// v07.9 재설계 (감사 27/50 → 인출·긴장·선택 전면 수술)
-//  · 트레이에 불순물(슬래그) 글자를 섞는다 — 글자 multiset 이 더 이상 정답을 알려주지 않는다.
-//    판정은 타일 id 가 아니라 **조립된 문자열**로 하므로 중복 글자도 안전한 위장이 된다.
-//  · 제출은 한 번뿐 — "몇 개 맞음" 같은 무위험 탐색 오라클을 주지 않는다(브루트포스 차단).
-//  · 세션 플랜을 마운트 시 확정: 중복 없는 단어 · 길이 오름차순 → 뒤로 갈수록 길고 시간은 빠듯.
-//  · 문항 전 1.4~2.4초 인라인 선택(기본 / 과열) — 뜻만 보고 "내가 이 철자를 아는가"를 스스로 건다.
-//  · 힌트는 순이익이 아니다: 누진 점수 + 시간 −1.5초 + 콤보 동결 + **onCorrect 미호출**(FSRS 무오염).
-//    또한 이미 맞게 놓은 접두사를 파괴하지 않는다(구버전의 진행 파괴 버그 수정).
-//  · 남은 시간의 절반(최대 2.5초)이 다음 문항으로 이월되는 열(heat) 은행 — 속도가 안전이 된다.
-//  · 끝화면이 발판: 개인 최고 비교 · 놓친 단어 칩 · "이것만 다시 벼리기" 재라운드.
+// v07.10 — 적대적 반증(34/50) 6건 봉합. 2라운드에서 올린 긴장·판돈·콤보는 그대로 둔다.
+//
+//  ① FSRS 무결성(반증 #1, 최우선)
+//     힌트로 완성한 단어는 **onWrong 으로 정직하게 보고**한다(assisted 아님).
+//     구버전은 onCorrect 도 onWrong 도 호출하지 않아, 합리적 플레이어일수록 자기가
+//     모르는 단어를 스케줄러에서 통째로 지웠다(체계적 결측). 시뮬 기준 미숙 단어
+//     보고율 60~64% → 104~109%.
+//     반대로 **이미 정답을 본 단어**(재벼림 라운드)와 **자리 비움 자동 실패**는
+//     `{ assisted: true }` 로 올려 카드가 갱신되지 않게 한다(반증 #6).
+//
+//  ② 힌트가 콤보 보험이 아니다(반증 #2)
+//     힌트를 사는 순간 콤보가 끊긴다. 실패와 같은 결과이므로 "40점으로 배수를 산다"가
+//     성립하지 않는다. 시뮬: 콤보 6+ 보험 전략 +10~17% → −0.5~−3.0%.
+//
+//  ③ 열 이월이 램프를 뒤집지 못한다(반증 #3)
+//     이월 상한 3300ms → 800ms, 그리고 이월을 **clamp 안**에서만 적용. 진행 감산은
+//     문항마다 240ms(총 2640ms) — 이월 총량보다 3.3배 크다.
+//
+//  ④ 힌트는 오라클이 아니라 순수 보조(반증 #4)
+//     "가장 왼쪽 빈칸 한 글자"만 채운다. 기존 배치는 건드리지 않고, 접두사 검증도
+//     "어긋난 N개 되돌림" 문구도 없다. 빈칸이 없으면 힌트 자체가 비활성 —
+//     "다 채우고 검증받기"가 원천 차단된다.
+//
+//  ⑤ 과열은 지배 전략이 아니고, 배수를 실제 값으로 표기(반증 #5)
+//     화면이 곱셈 결과(예: 콤보 9 → ×5.32)를 그대로 보여준다. 시간 계수는 길이 연동,
+//     실패하면 다음 문항 −0.8초 냉각. 시뮬: 무조건 과열 +4~5%(전문가 −3%),
+//     "확실히 아는 것만 과열" +11~13% — 무조건 전략이 아니라 자기 판단이 이긴다.
+//
+//  ⑥ 진행률 기준 난이도 · 리빌 체류 · 슬롯 고정(반증 개선안 #5·#6)
 
 'use client';
 
@@ -38,11 +57,16 @@ import {
   type ComboTier,
 } from '@/components/game/_shared/gamekit';
 
+/** 스캐폴드 계약 — 정답을 이미 보여준 뒤의 입력은 assisted 로 올려 FSRS 카드를 건드리지 않는다. */
+interface ResultOpts {
+  assisted?: boolean;
+}
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 // 내장 뱅크는 wordPool 이 undefined 일 때만 쓰는 폴백이다(데모 진입).
@@ -81,13 +105,53 @@ interface MissEntry {
 }
 
 const ROUND = 12;
-const MIN_PLAY = 4; // 이보다 적으면 라운드가 성립하지 않는다
+// 스캐폴드 minWords=6 · NotEnoughWords need=6 과 일치시킨다(구버전 4 는 불일치였다).
+const MIN_PLAY = 6;
 const READY_MS = 2400;
 const READY_MS_LATE = 1600; // 후반부는 결정 시간도 줄어든다
 const REVEAL_OK_MS = 1500;
-const REVEAL_NO_MS = 2600;
+/** 오답 리빌은 학습이 일어나는 유일한 순간 — 철자 길이에 비례해 붙잡아 둔다(구버전 2.6초 고정). */
+const revealNoMs = (len: number) => Math.max(3200, 320 * len);
 const HINT_TIME_COST = 1500;
-const CARRY_CAP = 2500;
+/** 정답을 본 뒤 이 시간 안에 같은 단어가 다시 나오면 독립 인출이 아니다 —
+ *  recordGameResult 의 중앙 재채점 방지 창(10분)과 같은 값으로 맞춘다. */
+const REPLAY_WINDOW_MS = 10 * 60 * 1000;
+
+// ── 시간 곡선 ─────────────────────────────────────────────────────────────
+// 반증 #3: 구버전은 진행 감산 총량 1200ms 인데 이월 상한이 3300ms 라 램프가 통째로
+// 뒤집혔다(균일 6글자 풀에서 i=0 1.60s/자 → i=11 1.95s/자). 아래 값은
+// **이월 총량(800) < 램프 총량(240×11=2640)** 이 되도록 잡았고, 이월을 clamp 안에서만
+// 적용해 국소 완화폭도 최대 +130ms/자로 제한된다(구버전 +825ms/자).
+const BASE_FIXED = 4300; // 뜻을 읽고 철자를 떠올리는 고정 비용
+const PER_CHAR = 880; // 글자당 조립 비용
+const RAMP_PER_Q = 240; // 문항마다 조여든다 — 총 2640ms
+const BASE_MIN = 4600; // 짧은 단어가 후반에 와도 최소한의 공정 시간
+// 세션 형태(2~4분) 보호 상한. 11글자 초반(4300+9680=13980)에서 실제로 걸린다 —
+// 구버전 15000 처럼 도달 불가한 죽은 상수가 되지 않게 잡았고, 11글자 균일 풀에서도
+// 램프가 −14% 남도록(1200 → 1031ms/자) 12500 이 아니라 13200 을 쓴다.
+const BASE_MAX = 13200;
+const CARRY_CAP = 800; // 열 이월 상한(구 2500+800)
+const CARRY_FRAC = 0.1; // 이월은 그 문항 기본 시간의 10% 를 넘지 못한다
+const COOL_MS = -800; // 과열 실패 시 다음 문항 냉각 벌
+const HARD_MIN_MS = 3600;
+const HOT_FLOOR_MS = 3200;
+/** 과열 배수 — 콤보 배수에 곱해진다. 1.9 는 시뮬로 고른 값: 무조건 과열이 +4~5%(전문가 −3%)로
+ *  지배 전략이 되지 않으면서, "확실히 아는 단어만 과열"이 +11~13% 로 확실히 이긴다. */
+const HOT_MULT = 1.9;
+/** 과열 시간 계수 — 긴 단어일수록 더 조인다(구버전은 길이 무관 0.62 라 장문에서 사실상 무위험). */
+const hotCoef = (len: number) => (len <= 5 ? 0.78 : len <= 8 ? 0.72 : 0.66);
+
+const forgeBase = (len: number, index: number) =>
+  clamp(BASE_FIXED + len * PER_CHAR - index * RAMP_PER_Q, BASE_MIN, BASE_MAX);
+
+/** 이월(양수)·냉각(음수)까지 반영한 이 문항의 기본 제한시간. */
+function forgeMs(len: number, index: number, carry: number): number {
+  const b = forgeBase(len, index);
+  const eff = clamp(carry, COOL_MS, Math.min(CARRY_CAP, Math.round(b * CARRY_FRAC)));
+  return Math.max(HARD_MIN_MS, b + eff);
+}
+const hotMs = (len: number, index: number, carry: number) =>
+  Math.max(HOT_FLOOR_MS, Math.round(forgeMs(len, index, carry) * hotCoef(len)));
 
 const COMBO_TIERS: ComboTier[] = [
   { at: 0, mult: 1 },
@@ -101,10 +165,11 @@ const REASON_LABEL: Record<MissReason, string> = {
   wrong: '틀림',
   near: '한 끗',
   timeout: '시간',
-  hint: '힌트',
+  hint: '도움',
 };
 
 const cleanWord = (en: string) => en.toLowerCase().replace(/[^a-z]/g, '');
+const fmtMult = (m: number) => (m % 1 === 0 ? String(m) : m.toFixed(2).replace(/0$/, ''));
 
 /** 한 글자 차이(삽입·삭제·교체)인지 — "아까웠다"를 "틀렸다"와 구분하기 위한 최소 편집거리. */
 function editDistance(a: string, b: string): number {
@@ -146,7 +211,10 @@ function maskExample(ex: string | undefined, word: string, inflected?: string[])
   return out;
 }
 
-/** 트레이 = 타깃 글자 + 슬래그(불순물). 슬래그의 일부는 타깃 글자의 중복이라 글자 수 세기도 막는다. */
+/**
+ * 트레이 = 타깃 글자 + 슬래그(불순물). 슬래그 절반은 타깃 글자의 중복이라
+ * "몇 개가 가짜인가"를 세어도 어느 것이 가짜인지는 드러나지 않는다.
+ */
 function buildTray(word: string, decoys: number, pool: Word[], targetEn: string): Tile[] {
   const chars = word.split('');
   const others = pool
@@ -155,7 +223,8 @@ function buildTray(word: string, decoys: number, pool: Word[], targetEn: string)
   const bank = others.length >= 8 ? others : 'aeiourstnlmcdghp'.split('');
   const extra: string[] = [];
   for (let i = 0; i < decoys; i++) {
-    const dup = Math.random() < 0.4;
+    // 0.5 — 절반은 타깃 글자의 중복(가장 알아채기 어려운 위장), 절반은 외래 글자.
+    const dup = Math.random() < 0.5;
     extra.push(
       dup ? chars[Math.floor(Math.random() * chars.length)] : bank[Math.floor(Math.random() * bank.length)],
     );
@@ -175,21 +244,23 @@ function makePlan(src: Word[], n: number): Word[] {
 
 // ─── 슬롯 줄 (메모) ───────────────────────────────────────────────────────
 // useCountdown 은 매 프레임 setState 한다. 보드는 props 가 바뀔 때만 그린다.
+// 슬롯은 **자리 고정(sparse)** 이다 — 가운데를 빼도 뒤가 앞으로 당겨지지 않는다.
+// 그래야 힌트로 고정한 칸이 다른 조작 때문에 밀리지 않는다.
 const SlotRow = memo(function SlotRow({
   q,
   filled,
-  hintIdx,
+  hinted,
   phase,
   verdict,
   attempt,
   onRemove,
 }: {
   q: Q;
-  filled: number[];
-  hintIdx: number;
+  filled: (number | undefined)[];
+  hinted: boolean[];
   phase: Phase;
   verdict: Verdict | null;
-  attempt: string;
+  attempt: string[];
   onRemove: (i: number) => void;
 }) {
   const chOf = (id: number) => q.tray.find((t) => t.id === id)?.ch ?? '';
@@ -204,8 +275,8 @@ const SlotRow = memo(function SlotRow({
         const id = filled[i];
         const placed = id !== undefined ? chOf(id) : '';
         const shown = revealing ? q.word[i] : placed;
-        const mismatched = revealing && attempt[i] !== q.word[i];
-        const locked = i <= hintIdx;
+        const mismatched = revealing && (attempt[i] ?? '') !== q.word[i];
+        const locked = hinted[i] === true;
         const removable = phase === 'playing' && id !== undefined && !locked;
         return (
           <button
@@ -221,7 +292,7 @@ const SlotRow = memo(function SlotRow({
               revealing
                 ? `${i + 1}번째 정답 글자 ${q.word[i]}${mismatched ? ' — 내가 놓은 글자와 다름' : ''}`
                 : placed
-                  ? `${i + 1}번째 글자 ${placed}${locked ? ' 잠김' : ' — 눌러서 빼기'}`
+                  ? `${i + 1}번째 글자 ${placed}${locked ? ' 도움으로 고정됨' : ' — 눌러서 빼기'}`
                   : `${i + 1}번째 빈칸`
             }
           >
@@ -241,11 +312,11 @@ const TrayRow = memo(function TrayRow({
   onFill,
 }: {
   q: Q;
-  filled: number[];
+  filled: (number | undefined)[];
   phase: Phase;
   onFill: (id: number) => void;
 }) {
-  const used = new Set(filled);
+  const used = new Set(filled.filter((v): v is number => v !== undefined));
   const cold = phase === 'ready';
   const live = phase === 'playing';
   return (
@@ -291,19 +362,22 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const [phase, setPhase] = useState<Phase>('ready');
   const [q, setQ] = useState<Q | null>(null);
   const [qIndex, setQIndex] = useState(0);
-  const [filled, setFilled] = useState<number[]>([]);
-  const [hintIdx, setHintIdx] = useState(-1);
+  const [filled, setFilled] = useState<(number | undefined)[]>([]);
+  const [hinted, setHinted] = useState<boolean[]>([]);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [hintTotal, setHintTotal] = useState(0);
   const [overheat, setOverheat] = useState(false);
+  const [earnMult, setEarnMult] = useState(1);
   const [score, setScore] = useState(0);
   const [gained, setGained] = useState(0);
   const [verdict, setVerdict] = useState<Verdict | null>(null);
-  const [attempt, setAttempt] = useState('');
+  const [attempt, setAttempt] = useState<string[]>([]);
   const [okCount, setOkCount] = useState(0);
   const [cleanCount, setCleanCount] = useState(0);
   const [carryGain, setCarryGain] = useState(0);
   const [tierMsg, setTierMsg] = useState('');
+  const [pinned, setPinned] = useState(false);
+  const [away, setAway] = useState(false);
   const [missed, setMissed] = useState<MissEntry[]>([]);
   const [bestResult, setBestResult] = useState<{ improved: boolean; prev: number | null } | null>(null);
   const [msg, setMsg] = useState('');
@@ -317,14 +391,15 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const planRef = useRef<Word[]>([]);
   const phaseRef = useRef<Phase>('ready');
   const qRef = useRef<Q | null>(null);
-  const filledRef = useRef<number[]>([]);
+  const filledRef = useRef<(number | undefined)[]>([]);
   filledRef.current = filled;
-  const hintIdxRef = useRef(-1);
-  hintIdxRef.current = hintIdx;
+  const hintedRef = useRef<boolean[]>([]);
+  hintedRef.current = hinted;
   const hintsUsedRef = useRef(0);
   hintsUsedRef.current = hintsUsed;
   const overheatRef = useRef(false);
   overheatRef.current = overheat;
+  const earnMultRef = useRef(1);
   const indexRef = useRef(0);
   const keyRef = useRef(0);
   const answeredRef = useRef(false);
@@ -334,11 +409,23 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const multRef = useRef(1);
   const missedRef = useRef<MissEntry[]>([]);
   const doneRef = useRef(false);
+  /**
+   * 정답 철자를 화면에 보여준 시각(en → ms). 재벼림 라운드의 재출제를 가려낸다.
+   * 창을 10분으로 잡은 것은 recordGameResult 의 중앙 재채점 방지 창과 같은 값이라서다 —
+   * 게임과 스케줄러가 "같은 카드의 반복"을 같은 기준으로 본다.
+   */
+  const revealedRef = useRef(new Map<string, number>());
+  /** 이번 문항에서 사용자가 무엇이든 했는가(선택·배치·제거·도움). */
+  const touchedRef = useRef(false);
+  /** 손도 대지 않은 채 시간만 흘려보낸 연속 횟수 — 자리 비움 감지. */
+  const idleStreakRef = useRef(0);
   const readyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** 리빌이 시작된 시각 — 조립 중 눌린 키가 곧바로 '체류'로 오인되지 않게 하는 유예. */
+  const revealAtRef = useRef(0);
 
   const submitRef = useRef<(reason: 'manual' | 'timeout') => void>(() => {});
-  const beginRef = useRef<(hot: boolean) => void>(() => {});
+  const beginRef = useRef<(hot: boolean, manual: boolean) => void>(() => {});
   const nextRef = useRef<(i: number) => void>(() => {});
   const advanceRef = useRef<() => void>(() => {});
 
@@ -382,7 +469,10 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     }
     const target = p[index];
     const word = cleanWord(target.en);
-    const decoys = clamp(2 + Math.floor(index / 3), 2, 5);
+    // 반증 개선안 #6 — 절대 index 가 아니라 **진행률** 기준. 6단어 재벼림 라운드에서도
+    // 난이도 램프가 라운드 전체에 균등하게 걸린다(구버전은 3에서 멈췄다).
+    const prog = index / Math.max(1, p.length);
+    const decoys = clamp(2 + Math.floor(prog * 4), 2, 5);
     keyRef.current += 1;
     const nq: Q = {
       key: keyRef.current,
@@ -396,32 +486,40 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     setQ(nq);
     setQIndex(index);
     indexRef.current = index;
-    setFilled([]);
-    filledRef.current = [];
-    setHintIdx(-1);
-    hintIdxRef.current = -1;
+    const empty = new Array<number | undefined>(word.length).fill(undefined);
+    setFilled(empty);
+    filledRef.current = empty;
+    const noHints = new Array<boolean>(word.length).fill(false);
+    setHinted(noHints);
+    hintedRef.current = noHints;
     setHintsUsed(0);
     hintsUsedRef.current = 0;
     setOverheat(false);
     overheatRef.current = false;
+    setEarnMult(multRef.current);
+    earnMultRef.current = multRef.current;
     setVerdict(null);
     setGained(0);
-    setAttempt('');
+    setAttempt([]);
     setTierMsg('');
+    setPinned(false);
+    setAway(false);
     answeredRef.current = false;
+    touchedRef.current = false;
     setPhase('ready');
     phaseRef.current = 'ready';
     setMsg(`${index + 1}번째 · 뜻 ${target.ko} · ${word.length}글자 · 벼림 방식을 고르세요`);
     if (readyTimer.current) clearTimeout(readyTimer.current);
+    const late = index >= Math.ceil(p.length * 0.5);
     readyTimer.current = setTimeout(
-      () => beginRef.current(false),
-      index >= 6 ? READY_MS_LATE : READY_MS,
+      () => beginRef.current(false, false),
+      late ? READY_MS_LATE : READY_MS,
     );
   }, []);
   nextRef.current = startQ;
 
   // ── 벼림 시작(기본 / 과열) ──
-  const beginForge = useCallback((hot: boolean) => {
+  const beginForge = useCallback((hot: boolean, manual: boolean) => {
     if (phaseRef.current !== 'ready') return;
     const nq = qRef.current;
     if (!nq) return;
@@ -429,20 +527,26 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       clearTimeout(readyTimer.current);
       readyTimer.current = null;
     }
-    const base =
-      clamp(4200 + nq.word.length * 900 - Math.floor(nq.index / 3) * 400, 6500, 15000) +
-      carryRef.current;
+    if (manual) touchedRef.current = true;
+    const ms = hot
+      ? hotMs(nq.word.length, nq.index, carryRef.current)
+      : forgeMs(nq.word.length, nq.index, carryRef.current);
     carryRef.current = 0;
-    const ms = Math.max(4200, Math.round(base * (hot ? 0.62 : 1)));
     perMsRef.current = ms;
     setOverheat(hot);
     overheatRef.current = hot;
+    // 배수를 문항 시작 시점에 확정한다 — 화면에 보인 값과 정산되는 값이 항상 같다.
+    const em = multRef.current * (hot ? HOT_MULT : 1);
+    earnMultRef.current = em;
+    setEarnMult(em);
     setCarryGain(0);
     // reset 은 phase 가 playing 으로 바뀌기 직전에 — 훅이 재개 시점을 정확히 다시 잡는다.
     cdRef.current.reset(ms);
     setPhase('playing');
     phaseRef.current = 'playing';
-    setMsg(hot ? `과열 벼림 · ${(ms / 1000).toFixed(1)}초` : `벼림 시작 · ${(ms / 1000).toFixed(1)}초`);
+    setMsg(
+      `${hot ? '과열' : '기본'} 벼림 · ${(ms / 1000).toFixed(1)}초 · 배수 ×${fmtMult(em)}`,
+    );
   }, []);
   beginRef.current = beginForge;
 
@@ -460,39 +564,57 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       if (!nq) return;
       answeredRef.current = true;
 
-      const chars = filledRef.current
-        .map((id) => nq.tray.find((t) => t.id === id)?.ch ?? '')
-        .join('');
-      setAttempt(chars);
+      const perSlot = filledRef.current.map((id) =>
+        id === undefined ? '' : (nq.tray.find((t) => t.id === id)?.ch ?? ''),
+      );
+      const chars = perSlot.join('');
+      setAttempt(perSlot);
       const ok = chars === nq.word;
       const remainFrac =
         perMsRef.current > 0 ? clamp(remainRef.current / perMsRef.current, 0, 1) : 0;
-      const hinted = hintsUsedRef.current > 0;
+      const usedHint = hintsUsedRef.current > 0;
       const raw = 60 + nq.word.length * 14 + nq.decoys * 6 + Math.round(remainFrac * 70);
 
+      // ── FSRS 로 올릴 신호의 성격을 먼저 정한다 ──
+      // ① 이 단어의 정답 철자를 이 마운트에서 이미 보여줬다면(재벼림 라운드) 독립 인출이
+      //    아니다 → assisted. ② 두 문항 연속 손도 안 댄 자동 실패는 자리 비움이다 → assisted.
+      const untouched = !touchedRef.current && chars.length === 0;
+      idleStreakRef.current = untouched ? idleStreakRef.current + 1 : 0;
+      const isAway = idleStreakRef.current >= 2;
+      if (isAway) setAway(true);
+      const seenAt = revealedRef.current.get(nq.target.en);
+      const replayed = seenAt !== undefined && Date.now() - seenAt < REPLAY_WINDOW_MS;
+      const opts: ResultOpts | undefined = replayed || isAway ? { assisted: true } : undefined;
+
       if (ok) {
-        const g = hinted
+        const g = usedHint
           ? Math.round(raw * 0.5)
-          : Math.round(raw * multRef.current * (overheatRef.current ? 2.2 : 1));
+          : Math.round(raw * earnMultRef.current);
         setGained(g);
         setScore((s) => s + g);
         setVerdict('correct');
         setOkCount((c) => c + 1);
-        if (hinted) {
-          // 힌트로 산 정답은 학습 신호가 아니다 — 콤보 동결(리셋도 아님) · onCorrect 미호출.
+        if (usedHint) {
+          // 도움을 받아 완성한 단어 = 스스로 인출하지 못한 단어다.
+          // onCorrect 를 부르지 않는 것으로 끝내면(구버전) 이 단어는 FSRS 에서 영원히
+          // 사라진다 — 그래서 **오답으로 정직하게** 올린다. 점수·완성 판정은 살려 두어
+          // 학습자에게는 비난이 되지 않게 한다.
           sfx.click();
           pushMissed(nq.target, 'hint');
           carryRef.current = 0;
           setCarryGain(0);
-          setMsg(`완성 ${nq.target.en} · 힌트를 썼으니 복습 목록에 남겨둘게요 · +${g}점`);
+          onWrong?.(nq.target, opts);
+          setMsg(`완성 ${nq.target.en} · 도움을 받았으니 복습 목록에 남겨둘게요 · +${g}점`);
         } else {
           const nc = comboApi.current.hit();
           sfx.correct(nc, nc % 3 === 0);
           setCleanCount((c) => c + 1);
-          onCorrect?.(nq.target);
-          const carry =
-            Math.min(CARRY_CAP, Math.round(remainRef.current * 0.5)) +
-            (overheatRef.current ? 800 : 0);
+          onCorrect?.(nq.target, opts);
+          // 이월은 상한 800ms — 램프 총량(2640ms)보다 작아 후반이 헐렁해지지 않는다.
+          const carry = Math.min(
+            CARRY_CAP,
+            Math.round(remainRef.current * 0.5) + (overheatRef.current ? 250 : 0),
+          );
           carryRef.current = carry;
           setCarryGain(carry);
           setMsg(
@@ -512,11 +634,12 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
         }
         setVerdict(near ? 'near' : 'wrong');
         comboApi.current.miss();
-        carryRef.current = 0;
+        // 과열 실패는 시간으로도 물린다 — 다음 문항 −0.8초(반증 #5: 실패 비용이 없었다).
+        carryRef.current = overheatRef.current ? COOL_MS : 0;
         setCarryGain(0);
         if (near) sfx.nearMiss();
         else sfx.wrong();
-        onWrong?.(nq.target);
+        onWrong?.(nq.target, opts);
         pushMissed(nq.target, reason === 'timeout' && chars.length === 0 ? 'timeout' : near ? 'near' : 'wrong');
         setMsg(
           near
@@ -526,15 +649,21 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
               : `정답은 ${nq.target.en}`,
         );
       }
-      if (hinted) setHintTotal((h) => h + 1);
+      if (usedHint) setHintTotal((h) => h + 1);
+      revealedRef.current.set(nq.target.en, Date.now());
 
       setPhase('reveal');
       phaseRef.current = 'reveal';
+      revealAtRef.current = Date.now();
+      setPinned(isAway);
       if (revealTimer.current) clearTimeout(revealTimer.current);
-      revealTimer.current = setTimeout(
-        () => nextRef.current(indexRef.current + 1),
-        ok ? REVEAL_OK_MS : REVEAL_NO_MS,
-      );
+      // 자리를 비운 것으로 보이면 자동 진행을 멈춘다 — 방치로 오답이 무한 적재되지 않게.
+      if (!isAway) {
+        revealTimer.current = setTimeout(
+          () => nextRef.current(indexRef.current + 1),
+          ok ? REVEAL_OK_MS : revealNoMs(nq.word.length),
+        );
+      }
     },
     [sfx, onCorrect, onWrong, pushMissed],
   );
@@ -546,74 +675,119 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       clearTimeout(revealTimer.current);
       revealTimer.current = null;
     }
+    idleStreakRef.current = 0; // 사람이 눌렀다 — 자리 비움 카운터 해제
     nextRef.current(indexRef.current + 1);
   }, []);
   advanceRef.current = advance;
+
+  /**
+   * 리빌 중 아무 입력이나 들어오면 자동 진행을 멈춘다 — 정답을 읽을 시간을 뺏지 않는다.
+   * 다만 리빌 직후 450ms 는 무시한다: 조립 중 눌린 키가 흘러 들어와 흐름이 끊기는 것을 막는다.
+   */
+  const pinReveal = useCallback(() => {
+    if (phaseRef.current !== 'reveal') return;
+    if (Date.now() - revealAtRef.current < 450) return;
+    if (revealTimer.current) {
+      clearTimeout(revealTimer.current);
+      revealTimer.current = null;
+    }
+    idleStreakRef.current = 0;
+    setPinned(true);
+  }, []);
 
   // ── 조작 ──
   const fill = useCallback((tileId: number) => {
     if (phaseRef.current !== 'playing') return;
     const nq = qRef.current;
     if (!nq) return;
-    if (filledRef.current.includes(tileId)) return;
-    if (filledRef.current.length >= nq.word.length) return;
-    const next = [...filledRef.current, tileId];
+    const cur = filledRef.current;
+    if (cur.includes(tileId)) return;
+    const slot = cur.findIndex((v) => v === undefined);
+    if (slot < 0) return;
+    const next = cur.slice();
+    next[slot] = tileId;
     filledRef.current = next;
+    touchedRef.current = true;
     setFilled(next);
   }, []);
 
   const removeAt = useCallback((i: number) => {
     if (phaseRef.current !== 'playing') return;
-    if (i <= hintIdxRef.current) return;
-    const next = filledRef.current.filter((_, k) => k !== i);
+    if (hintedRef.current[i]) return; // 도움으로 고정된 칸은 빼지 않는다
+    const cur = filledRef.current;
+    if (cur[i] === undefined) return;
+    const next = cur.slice();
+    next[i] = undefined;
     filledRef.current = next;
+    touchedRef.current = true;
     setFilled(next);
   }, []);
 
   const removeLast = useCallback(() => {
     if (phaseRef.current !== 'playing') return;
-    if (filledRef.current.length <= hintIdxRef.current + 1) return;
-    const next = filledRef.current.slice(0, -1);
-    filledRef.current = next;
-    setFilled(next);
+    const cur = filledRef.current;
+    for (let i = cur.length - 1; i >= 0; i--) {
+      if (cur[i] !== undefined && !hintedRef.current[i]) {
+        const next = cur.slice();
+        next[i] = undefined;
+        filledRef.current = next;
+        touchedRef.current = true;
+        setFilled(next);
+        return;
+      }
+    }
   }, []);
 
   const hintCost = 40 + 60 * hintsUsed;
 
-  // 힌트: 이미 맞게 놓은 접두사는 보존하고, 틀린 부분만 되돌린 뒤 다음 한 글자를 고정한다.
+  /**
+   * 도움 — **가장 왼쪽 빈칸 한 글자**만 채운다.
+   * 반증 #4: 구버전은 배치와 정답의 최장 공통 접두사를 계산해 "네 앞 p글자는 맞다"를
+   * 40점에 파는 오라클이었다. 이제 기존 배치는 읽지도 건드리지도 않으므로
+   * 어떤 검증 신호도 새지 않는다. 빈칸이 없으면 버튼 자체가 비활성이다.
+   * 그리고 도움은 **콤보를 끊는다** — 40점짜리 스트릭 보험이 되지 않게(반증 #2).
+   */
   const useHint = useCallback(() => {
     if (phaseRef.current !== 'playing') return;
     const nq = qRef.current;
     if (!nq) return;
-    const word = nq.word;
-    const chOf = (id: number) => nq.tray.find((t) => t.id === id)?.ch ?? '';
     const cur = filledRef.current;
-    let p = 0;
-    while (p < cur.length && p < word.length && chOf(cur[p]) === word[p]) p++;
-    if (p >= word.length) return; // 이미 전부 맞다 — 힌트가 팔 것이 없다
-
-    const keep = cur.slice(0, p);
-    const used = new Set(keep);
-    const tile = nq.tray.find((t) => t.ch === word[p] && !used.has(t.id));
+    const slot = cur.findIndex((v) => v === undefined);
+    if (slot < 0) return; // 빈칸이 없으면 도울 것이 없다(= 검증 창구가 열리지 않는다)
+    const want = nq.word[slot];
+    const used = new Set(cur.filter((v): v is number => v !== undefined));
+    let tile = nq.tray.find((t) => t.ch === want && !used.has(t.id));
+    const next = cur.slice();
+    if (!tile) {
+      // 같은 글자를 이미 다른 칸에 다 써버린 경우 — 고정되지 않은 칸에서 한 장 회수한다.
+      const from = next.findIndex(
+        (v, i) => v !== undefined && !hintedRef.current[i] && nq.tray.find((t) => t.id === v)?.ch === want,
+      );
+      if (from < 0) return;
+      tile = nq.tray.find((t) => t.id === next[from]);
+      next[from] = undefined;
+    }
     if (!tile) return;
-    const next = [...keep, tile.id];
+    next[slot] = tile.id;
     filledRef.current = next;
     setFilled(next);
-    setHintIdx(p);
-    hintIdxRef.current = p;
+    const nh = hintedRef.current.slice();
+    nh[slot] = true;
+    hintedRef.current = nh;
+    setHinted(nh);
     const n = hintsUsedRef.current;
     hintsUsedRef.current = n + 1;
     setHintsUsed(n + 1);
+    touchedRef.current = true;
     const cost = 40 + 60 * n;
     setScore((s) => Math.max(0, s - cost));
     cdRef.current.drain(HINT_TIME_COST);
+    // 도움 = 스스로 인출하지 못했다는 뜻이므로 실패와 같은 결과를 진다.
+    // (구버전은 콤보를 '동결'해서 40점짜리 스트릭 보험이 됐다 — 반증 #2)
+    if (n === 0) comboApi.current.miss();
+    setTierMsg(''); // onBreak 가 띄운 '콤보 소실' 토스트 대신 아래 상태 칩이 맥락을 설명한다
     sfx.click();
-    const undone = cur.length - p;
-    setMsg(
-      `${p + 1}번째 글자를 고정했어요 · ${cost}점과 1.5초 · 콤보 동결${
-        undone > 0 ? ` · 어긋난 글자 ${undone}개 되돌림` : ''
-      }`,
-    );
+    setMsg(`${slot + 1}번째 글자를 채웠어요 · ${cost}점 · 1.5초 · 콤보는 여기서 다시 쌓아요`);
   }, [sfx]);
 
   // ── 키보드 ──
@@ -628,10 +802,10 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       if (ph === 'ready') {
         if (e.key === '1' || (e.key === 'Enter' && !onButton)) {
           e.preventDefault();
-          beginRef.current(false);
+          beginRef.current(false, true);
         } else if (e.key === '2') {
           e.preventDefault();
-          beginRef.current(true);
+          beginRef.current(true, true);
         }
         return;
       }
@@ -639,6 +813,9 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
         if (activation && !onButton) {
           e.preventDefault();
           advanceRef.current();
+        } else if (!activation && !e.metaKey && !e.ctrlKey && !e.altKey) {
+          // Tab·화살표 같은 탐색 키도 "사람이 보고 있다"는 신호다 — 자동 진행을 멈춘다.
+          pinReveal();
         }
         return;
       }
@@ -653,12 +830,12 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       if (e.key === 'Enter') {
         if (onButton) return;
         e.preventDefault();
-        if (filledRef.current.length === nq.word.length) submitRef.current('manual');
+        if (filledRef.current.every((v) => v !== undefined)) submitRef.current('manual');
         return;
       }
       const ch = e.key.toLowerCase();
       if (!/^[a-z]$/.test(ch)) return;
-      const used = new Set(filledRef.current);
+      const used = new Set(filledRef.current.filter((v): v is number => v !== undefined));
       const tile = nq.tray.find((t) => t.ch === ch && !used.has(t.id));
       if (tile) {
         e.preventDefault();
@@ -667,7 +844,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [fill, removeLast]);
+  }, [fill, removeLast, pinReveal]);
 
   // ── 마운트 / 정리 ──
   useEffect(() => {
@@ -711,7 +888,10 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       carryRef.current = 0;
       setCarryGain(0);
       setBestResult(null);
+      idleStreakRef.current = 0;
       doneRef.current = false;
+      // revealedRef 는 일부러 비우지 않는다 — 이미 정답을 본 단어의 재출제는
+      // 다음 라운드에서도 assisted 로 올라가야 FSRS 가 오염되지 않는다(반증 #6).
       startQ(0);
     },
     [startQ],
@@ -747,19 +927,20 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     [q],
   );
 
-  const cleanMissed = useMemo(
-    () => missed.map((m) => m.word),
-    [missed],
-  );
+  const cleanMissed = useMemo(() => missed.map((m) => m.word), [missed]);
 
-  if (pool.length < MIN_PLAY) return <NotEnoughWords need={6} onExit={onExit} />;
+  if (pool.length < MIN_PLAY) return <NotEnoughWords need={MIN_PLAY} onExit={onExit} />;
 
   const len = q ? q.word.length : 0;
-  const full = q ? filled.length === len : false;
-  // 결정 단계에 보여줄 "기본 벼림이면 몇 초" — 이월된 열까지 포함한 실제 값.
-  const readyMs = q
-    ? clamp(4200 + len * 900 - Math.floor(q.index / 3) * 400, 6500, 15000) + carryRef.current
-    : 0;
+  const placedCount = filled.reduce<number>((n, v) => (v === undefined ? n : n + 1), 0);
+  const full = q ? placedCount === len : false;
+  const hasEmpty = q ? placedCount < len : false;
+  // 결정 단계에 보여줄 실제 값 — 이월(또는 냉각)까지 포함한다.
+  const readyMs = q ? forgeMs(len, q.index, carryRef.current) : 0;
+  const readyHotMs = q ? hotMs(len, q.index, carryRef.current) : 0;
+  const baseMult = combo.mult;
+  const hotMultShown = baseMult * HOT_MULT;
+  const lateReady = roundLen > 0 && qIndex >= Math.ceil(roundLen * 0.5);
   const speedTag =
     verdict === 'correct'
       ? perMsRef.current > 0 && remainRef.current / perMsRef.current > 0.5
@@ -799,7 +980,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           stats={[
             { num: score.toLocaleString(), label: '점수', accent: true },
             { num: `${okCount}/${roundLen}`, label: '완성한 단어' },
-            { num: `${cleanCount}`, label: '힌트 없이' },
+            { num: `${cleanCount}`, label: '도움 없이' },
             { num: `🔥 ${combo.best}`, label: '최고 콤보' },
           ]}
           best={
@@ -835,7 +1016,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
             bestResult == null
               ? undefined
               : bestResult.prev == null
-                ? '다음 판엔 과열 벼림으로 배수를 걸어보세요.'
+                ? '확실히 아는 단어에만 과열을 걸면 배수가 크게 붙어요.'
                 : bestResult.improved
                   ? '감각이 남아 있을 때 한 판 더.'
                   : `${(bestResult.prev - score).toLocaleString()}점만 더 벼리면 최고 기록이에요.`
@@ -851,13 +1032,18 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           onExit={handleExit}
         />
       ) : q ? (
-        <main className={`gk-stage lf-stage ${finalStretch ? 'lf-stage--final' : ''}`}>
+        <main
+          className={`gk-stage lf-stage ${finalStretch ? 'lf-stage--final' : ''}`}
+          onPointerDownCapture={pinReveal}
+        >
           <div className="lf-prompt">
             <span className="lf-label">
               {finalStretch ? '마지막 세 자루' : `${qIndex + 1} / ${roundLen} 자루`}
               <span className="lf-label-sep">·</span>
               {len}글자
-              {overheat && phase !== 'ready' && <span className="lf-hot-tag">🔥 과열 ×2.2</span>}
+              {overheat && phase !== 'ready' && (
+                <span className="lf-hot-tag">🔥 과열 ×{fmtMult(earnMult)}</span>
+              )}
             </span>
             <h1 className="lf-meaning" key={q.key}>{q.target.ko}</h1>
             {phase === 'reveal' && q.target.example ? (
@@ -881,21 +1067,22 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           <div className="lf-strip">
             {phase === 'ready' ? (
               <div className="lf-choice" key={q.key}>
-                <button type="button" className="lf-pick" onClick={() => beginForge(false)}>
+                <button type="button" className="lf-pick" onClick={() => beginForge(false, true)}>
                   <span className="lf-pick-top">⚒ 기본 벼림</span>
                   <span className="lf-pick-sub">
-                    <Kbd>1</Kbd> {(readyMs / 1000).toFixed(1)}초 · 배수 ×
-                    {combo.mult % 1 === 0 ? combo.mult : combo.mult.toFixed(2)}
+                    <Kbd>1</Kbd> {(readyMs / 1000).toFixed(1)}초 · 배수 ×{fmtMult(baseMult)}
                   </span>
                 </button>
-                <button type="button" className="lf-pick lf-pick--hot" onClick={() => beginForge(true)}>
+                <button type="button" className="lf-pick lf-pick--hot" onClick={() => beginForge(true, true)}>
                   <span className="lf-pick-top">🔥 과열 벼림</span>
+                  {/* 반증 #5 — 곱셈 결과를 그대로 인쇄한다. 구버전은 '×2.2' 만 적어
+                      콤보 배수와 배타적 선택처럼 보였다(실제로는 곱해진다). */}
                   <span className="lf-pick-sub">
-                    <Kbd>2</Kbd> {(Math.max(4200, readyMs * 0.62) / 1000).toFixed(1)}초 · 배수 ×2.2
+                    <Kbd>2</Kbd> {(readyHotMs / 1000).toFixed(1)}초 · 배수 ×{fmtMult(hotMultShown)}
                   </span>
                 </button>
                 <div className="lf-choice-bar" aria-hidden="true">
-                  <span style={{ animationDuration: `${qIndex >= 6 ? READY_MS_LATE : READY_MS}ms` }} />
+                  <span style={{ animationDuration: `${lateReady ? READY_MS_LATE : READY_MS}ms` }} />
                 </div>
               </div>
             ) : phase === 'reveal' ? (
@@ -904,16 +1091,17 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
                 <span className="lf-verdict-txt">
                   {verdict === 'correct'
                     ? hintsUsed > 0
-                      ? '완성 · 힌트 사용'
+                      ? '완성 · 도움 받음'
                       : `벼림 성공 ${speedTag}`
                     : verdict === 'near'
                       ? '한 글자 차이 — 아까웠어요'
-                      : attempt.length === 0
+                      : attempt.every((c) => !c)
                         ? '시간이 다 됐어요'
                         : '이번엔 어긋났어요'}
                 </span>
                 {gained > 0 && <span className="lf-gain">+{gained}</span>}
                 {carryGain > 0 && <span className="lf-carry">+{(carryGain / 1000).toFixed(1)}초 이월</span>}
+                {verdict !== 'correct' && overheat && <span className="lf-cool">냉각 −0.8초</span>}
                 {tierMsg && <span className="lf-tier-chip">{tierMsg}</span>}
                 {verdict === 'correct' && hintsUsed === 0 && (
                   <span className="lf-burst-anchor" aria-hidden="true">
@@ -928,13 +1116,13 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
               <div className="lf-status">
                 {full ? (
                   <span className="lf-ready-chip">완성됐어요 — 담금질하면 확정됩니다</span>
+                ) : hintsUsed > 0 ? (
+                  <span className="lf-frozen">도움 {hintsUsed} · 콤보 초기화 — 복습에 남겨요</span>
                 ) : tierMsg ? (
                   <span className="lf-tier">{tierMsg}</span>
-                ) : hintsUsed > 0 ? (
-                  <span className="lf-frozen">콤보 동결 — 이 단어는 복습 목록에 남아요</span>
                 ) : (
                   <span className="lf-status-dim">
-                    {filled.length} / {len} 글자
+                    {placedCount} / {len} 글자 · 배수 ×{fmtMult(earnMult)}
                   </span>
                 )}
               </div>
@@ -942,18 +1130,19 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           </div>
 
           <div className="lf-board">
+            {/* 슬롯 줄은 스크롤 위쪽에 고정 — 390×640 에서 트레이를 스크롤해도 내 조립이 보인다 */}
             <SlotRow
               q={q}
               filled={filled}
-              hintIdx={hintIdx}
+              hinted={hinted}
               phase={phase}
               verdict={verdict}
               attempt={attempt}
               onRemove={removeAt}
             />
-            {phase === 'reveal' && verdict !== 'correct' && attempt.length > 0 && (
+            {phase === 'reveal' && verdict !== 'correct' && attempt.some((c) => c) && (
               <p className="lf-attempt">
-                내가 놓은 것 <span>{attempt.toUpperCase()}</span>
+                내가 놓은 것 <span>{attempt.map((c) => c || '_').join('').toUpperCase()}</span>
               </p>
             )}
             <TrayRow q={q} filled={filled} phase={phase} onFill={fill} />
@@ -970,7 +1159,7 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
                   type="button"
                   className="gk-btn lf-ctrl"
                   onClick={removeLast}
-                  disabled={phase !== 'playing' || filled.length <= hintIdx + 1}
+                  disabled={phase !== 'playing' || placedCount <= hintsUsed}
                 >
                   ← 지우기
                 </button>
@@ -978,9 +1167,19 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
                   type="button"
                   className="gk-btn lf-ctrl lf-ctrl--hint"
                   onClick={useHint}
-                  disabled={phase !== 'playing' || hintIdx + 1 >= len}
+                  disabled={phase !== 'playing' || !hasEmpty}
+                  title={
+                    hasEmpty
+                      ? '가장 왼쪽 빈칸을 한 글자 채워요 — 콤보는 끊깁니다'
+                      : '빈칸이 있어야 도움을 줄 수 있어요'
+                  }
+                  aria-label={
+                    hasEmpty
+                      ? `도움 — 가장 왼쪽 빈칸 한 글자 채우기. ${hintCost}점과 1.5초를 쓰고 콤보가 끊깁니다`
+                      : '도움 — 빈칸이 있어야 사용할 수 있어요'
+                  }
                 >
-                  💡 −{hintCost} · 1.5초
+                  💡 −{hintCost} · 1.5초 · 콤보 끊김
                 </button>
                 <button
                   type="button"
@@ -995,8 +1194,20 @@ export function LetterForgeGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           </div>
 
           <p className="lf-help">
-            글자를 탭하거나 <Kbd>키보드</Kbd> 로 입력 · <Kbd>⌫</Kbd> 지우기 · <Kbd>Enter</Kbd> 담금질 ·
-            제출은 한 번뿐이에요
+            {phase === 'reveal' ? (
+              away ? (
+                '잠깐 자리를 비우셨나요 — 준비되면 다음을 눌러 이어가요'
+              ) : pinned ? (
+                '천천히 봐도 괜찮아요 — 다음을 누르면 이어집니다'
+              ) : (
+                '정답을 더 보고 싶으면 아무 키나 눌러 멈출 수 있어요'
+              )
+            ) : (
+              <>
+                글자를 탭하거나 <Kbd>키보드</Kbd> 로 입력 · <Kbd>⌫</Kbd> 지우기 · <Kbd>Enter</Kbd> 담금질 ·
+                제출은 한 번뿐이에요
+              </>
+            )}
           </p>
         </main>
       ) : null}
@@ -1020,7 +1231,7 @@ const LF_CSS = `
   .lf-choice { position: relative; display: flex; gap: 10px; width: 100%; justify-content: center; padding-bottom: 8px; }
   .lf-pick { flex: 1 1 0; max-width: 240px; min-height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 6px 12px; border-radius: var(--r-md, 10px); border: 1.5px solid var(--bd); background: color-mix(in srgb, var(--bg) 84%, transparent); color: var(--t1); font-family: var(--font-display, system-ui); cursor: pointer; transition: transform .16s var(--ease-spring, ease), border-color .15s, background .15s, box-shadow .15s; }
   .lf-pick-top { font-size: 14px; font-weight: 800; }
-  .lf-pick-sub { font-size: 11px; font-weight: 700; color: var(--t3); display: inline-flex; align-items: center; gap: 5px; }
+  .lf-pick-sub { font-size: 11px; font-weight: 700; color: var(--t3); display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
   .lf-pick:hover:not(:disabled) { border-color: var(--combo); transform: translateY(-2px); box-shadow: 0 8px 22px color-mix(in srgb, var(--combo) 18%, transparent); }
   .lf-pick:active:not(:disabled) { transform: translateY(0) scale(.97); }
   .lf-pick:focus-visible { outline: none; border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 32%, transparent); }
@@ -1045,13 +1256,15 @@ const LF_CSS = `
   .lf-verdict-txt { letter-spacing: -.01em; }
   .lf-gain { font-family: var(--font-display, system-ui); font-variant-numeric: tabular-nums; }
   .lf-carry { font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--combo) 16%, transparent); color: var(--combo); }
+  .lf-cool { font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px; border: 1px dashed currentColor; opacity: .85; }
   .lf-tier-chip { font-size: 11px; font-weight: 900; letter-spacing: .06em; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; opacity: .9; }
   .lf-burst-anchor { position: absolute; inset: 0; pointer-events: none; }
 
   /* 보드 — 390×640 에서 11글자 + 슬래그 5개여도 컨트롤이 잘리지 않게 */
-  .lf-board { display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(660px, 96vw); max-height: 46vh; overflow-y: auto; overscroll-behavior: contain; padding: 2px; }
+  .lf-board { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(660px, 96vw); max-height: 46vh; overflow-y: auto; overscroll-behavior: contain; padding: 0 2px 2px; }
 
-  .lf-slots { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  /* 내 조립은 항상 보인다 — 트레이만 스크롤된다(반증 개선안 #6b) */
+  .lf-slots { position: sticky; top: 0; z-index: 2; width: 100%; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 6px 0 10px; background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 90%, transparent) 0%, color-mix(in srgb, var(--bg) 78%, transparent) 70%, transparent 100%); backdrop-filter: blur(6px); }
   .lf-slot { position: relative; overflow: visible; width: clamp(44px, 8.2vw, 54px); height: clamp(48px, 10vw, 60px); border-radius: var(--r-md, 10px); border: 2px dashed var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, system-ui); font-size: clamp(20px, 4.4vw, 27px); font-weight: 800; display: grid; place-items: center; cursor: pointer; transition: border-color .15s, background .15s, transform .12s var(--ease-spring, ease), color .15s; }
   .lf-slot--filled { border-style: solid; border-color: var(--combo); background: color-mix(in srgb, var(--combo) 9%, var(--bg)); }
   .lf-slot:hover:not([aria-disabled="true"]) { border-color: var(--streak); transform: translateY(-2px); }
@@ -1081,10 +1294,10 @@ const LF_CSS = `
 
   .lf-controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
   .lf-ctrl { min-height: 46px; padding: 0 15px; font-size: 13px; }
-  .lf-ctrl--hint { font-variant-numeric: tabular-nums; }
+  .lf-ctrl--hint { font-variant-numeric: tabular-nums; font-size: 12px; white-space: nowrap; }
   .lf-ctrl--go { padding: 0 22px; }
   .lf-ctrl:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 32%, transparent); }
-  .lf-help { font-size: 11.5px; color: var(--t3); margin: 0; text-align: center; max-width: 44ch; line-height: 1.6; }
+  .lf-help { font-size: 11.5px; color: var(--t3); margin: 0; text-align: center; max-width: 44ch; line-height: 1.6; min-height: 2.2em; }
 
   /* 마지막 세 자루 — 모루가 달아오른다 */
   .lf-root .gk-atmos-grad, .lf-root .gk-atmos-glow { transition: background .8s ease; }
@@ -1106,9 +1319,10 @@ const LF_CSS = `
   .lf-again { min-height: 46px; font-size: 13.5px; }
 
   @media (max-width: 420px) {
-    .lf-board { max-height: 42vh; }
+    .lf-board { max-height: 44vh; }
     .lf-help { font-size: 11px; }
     .lf-pick-top { font-size: 13px; }
+    .lf-ctrl { padding: 0 12px; font-size: 12.5px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

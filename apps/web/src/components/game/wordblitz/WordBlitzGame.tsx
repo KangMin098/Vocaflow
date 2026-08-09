@@ -24,15 +24,49 @@
 //  5) 오답 후보 완전 무작위 → 철자·품사 유사도 계층. 표적은 무복원(bag) 추출.
 //  6) 자체 DoneScreen(무조건 폭죽·팡파르) → gamekit GameDone. 폭죽은 8단계 완주에만.
 //
+// ── v08.1 적대적 감사에서 실제로 뚫린 것과 그 봉합 ──────────────────────
+//  E1 카드 경제 역전 — 배수가 큰 카드(잔상 .40/혼선 .35/역방향 .30)의 실측 비용이
+//     거의 0이라 최적 드래프트가 룩업 테이블 한 줄이었다.
+//     → gain 을 실측 정확도 비용에 맞춰 재산정(아래 TIGHTEN_CARDS 주석에 근거).
+//  E2 역방향 문항 오답 후보 붕괴 — 타일에 ko 를 렌더하면서 유사도는 en 철자만 봤다.
+//     → koNearness() 신설 + buildOptions 가 form 을 받는다.
+//  E3 정비 파밍 — lives<3 이면 매 단계 '정비'가 확정 제시되고 회수 상한이 없어
+//     단계당 1발만 버리면 조임 0장으로 8단계 완주가 보장됐다.
+//     → 안도 카드는 별도 3번 슬롯 + 판당 정비 2회·호흡 2회 상한. 1·2번은 항상 조임 2택.
+//  E4 '혼선'이 작은 풀에서 증명 가능한 no-op — bandSize 가 풀 크기에 비례해
+//     others 전체를 덮으면 무작위와 분포가 같았다.
+//     → 밴드를 want 에 비례한 '상위 구간'으로 바꾸고 최근접 1개는 확정 포함.
+//  E5 '잔상'+'문맥' = 물리적으로 못 읽음 — 170자 예문을 1.4초 고정 뒤 지웠다.
+//     → 잔상 지연·문맥 여유 모두 프롬프트 길이 비례.
+//  E6 램프가 카드 선택 사항이었고 단계 경계마다 +140ms 톱니 — 카드를 안 사면
+//     첫 30초와 마지막 30초의 창이 수치상 거의 같았다.
+//     → 창은 누적 문항 수(0~39)의 단조 함수. 4단계부터 선택지 강제 +1.
+//  E7 0단계 전멸 — 정답률 60% 학습자의 약 1/3이 조임 카드를 한 장도 못 보고 끝났다.
+//     → 0단계는 '연습 사격'(목숨 차감 없음). 핵심 메커닉을 반드시 한 번은 만난다.
+//  E8 (E3 의 반작용) 정비를 2회로 묶자 8단계 완주가 어떤 실력에서도 0%가 됐다 —
+//     닿을 수 없는 배지는 없는 배지다. → '무결점 단계'에 목숨 +1 을 붙였다.
+//     일부러 질 수 없으므로 파밍 불가, 실력에만 열린다(완주율 p0.9 13% / p0.65 0.7%).
+//  E9 세션 XP 가 정확도와 무관(오답도 +30점)이라 '아무 타일이나 난타'가 순이득이었다.
+//     → page.tsx 의 computeScore 부호 반전(정답×120 − 오답×30, 하한 0).
+//
 // ── 인출 규칙(비타협) ────────────────────────────────────────────────────
 //  · 제출 전 화면에는 뜻(또는 영단어, 또는 빈칸 예문) 하나뿐 — 정답 특정 정보 없음.
 //  · 영단어와 뜻을 동시에 보여준 채 그 쌍을 묻지 않는다.
 //  · 부분 정답 오라클 없음. 힌트로 정답을 사는 경로 없음.
 //  · 정답 공개는 제출 후에만, 대신 충분히(en·뜻·발음·예문).
-//  · FSRS 보고(onCorrect/onWrong)는 **단어별 첫 조우 1회만** — 재출제가 학습 기록을
-//    중복으로 부풀리지 않게. 재출제는 순수 세션 내 복구용이다.
 //
-// 계약: { wordPool?, onExit?, onCorrect?, onWrong? } + 선택적 onRestart.
+// ── FSRS 무결성 (v08.1) ──────────────────────────────────────────────────
+//  보고를 **생략하지 않는다**. 모르는 단어일수록 오답으로 정직하게 올라가야 복습이 잡힌다.
+//  대신 인출이 아닌 입력에는 `{ assisted: true }` 를 붙여 중앙 레코더가 카드를
+//  건드리지 않게 한다(판정 기준은 record-result.ts 한 곳).
+//    assisted 로 올리는 것 —
+//      · 재출제(정답을 3~5문항 전에 이미 보여줬다)
+//      · 그 판에서 이미 정답을 공개한 적 있는 단어의 재조우
+//      · 창이 좁을 때(≤2.4초)의 시간 초과 — 스스로 고른 '가속' 탓이지 기억 실패가 아니다
+//      · 연속 시간 초과 2회째부터 — 방치는 인출 시도가 아니다(3회면 판을 조용히 마친다)
+//    honest 로 올리는 것 — 그 외 전부. 단어당 정직한 보고는 1회(중복 부풀리기 차단).
+//
+// 계약: { wordPool?, onExit?, onCorrect?(w, opts?), onWrong?(w, opts?) } + 선택적 onRestart.
 // wordPool 이 오면 반드시 그 단어로 논다. 아래 BANK 는 wordPool 이 없을 때만 쓰는 맛보기.
 
 'use client';
@@ -44,6 +78,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type ReactNode,
 } from 'react';
 
@@ -69,11 +104,19 @@ import {
   type Word,
 } from '@/components/game/_shared/gamekit';
 
+/**
+ * 정답을 이미 보여준 뒤의 입력인가(재출제 · 리빌 후 재조우 · 좁은 창의 시간 초과 · 방치).
+ * 게임 점수·콤보·세션 정확도에는 반영하되 **FSRS 카드는 갱신하지 않는다**(record-result 판정).
+ */
+interface ResultOpts {
+  assisted?: boolean;
+}
+
 interface WordBlitzGameProps {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (word: Word) => void;
-  onWrong?: (word: Word) => void;
+  onCorrect?: (word: Word, opts?: ResultOpts) => void;
+  onWrong?: (word: Word, opts?: ResultOpts) => void;
   /**
    * 다시 하기. 주면 게임은 스스로 초기화하지 않고 이것만 호출한다 —
    * 호출부가 라운드 key 를 바꿔 새 세션 레코더로 remount 하라는 뜻
@@ -120,19 +163,78 @@ const SHOTS_PER_STAGE = 5;
 const MAX_STAGES = 8;
 const START_LIVES = 3;
 const MAX_LIVES = 3;
+const TOTAL_SHOTS = MAX_STAGES * SHOTS_PER_STAGE; // 40
 
-const BASE_WINDOW_MS = 4600;
-const MIN_WINDOW_MS = 1500;
-/** 단계가 오를수록 창이 좁아진다(콤보와 무관 — 톱니 없음). */
-const STAGE_TIGHTEN_MS = 140;
-/** 한 단계 안에서도 발마다 조금씩 좁아진다(단계 내 미세 고조). */
-const SHOT_TIGHTEN_MS = 70;
-/** 읽을 것이 많은 문항에는 시간을 더 준다 — 조임은 난이도지 함정이 아니다. */
-const CONTEXT_GRACE_MS = 900;
-const REVERSE_GRACE_MS = 250;
+/**
+ * 0단계는 '연습 사격' — 목숨을 깎지 않는다.
+ * 근거: START_LIVES 3 / SHOTS_PER_STAGE 5 에서 정답률 0.60 학습자는 5발 중 3실점 확률이
+ * 약 31.7%(= Σ_{k≥3} C(5,k)·0.4^k·0.6^(5-k))라, 세 판에 한 판꼴로 이 모드의 유일한 결정인
+ * 조임 카드를 **한 장도 못 보고** 20초 만에 끝났다. 메커닉을 못 만난 판은 재설계가 없는 것과 같다.
+ * 대신 실점은 stageMiss 로 세므로 '무결점 단계' 보너스는 그대로 못 받는다(공짜 아님).
+ */
+const PRACTICE_STAGE = 0;
+
+/**
+ * 창(문항 제한시간) — 누적 문항 수 total(0~39)의 **단조 감소** 함수.
+ * v08 은 stage·shot 을 따로 빼서 단계 경계마다 shot 항이 0으로 돌아갔고(+140ms 톱니 7회),
+ * 카드를 안 사면 4600→3340ms(−27%)뿐이라 램프가 통째로 선택 사항이었다.
+ * 이제 total 0 → 5000ms, total 39 → 3245ms. 톱니 0회.
+ *
+ * 기울기를 −45ms/문항으로 잡은 근거(시뮬 sweep, 정답률 0.5/0.65/0.8/0.9 × 5,000판):
+ *   −90 → 어떤 실력에서도 8단계 완주 0.0%. 마지막 단계의 창(1.5초)이 4지선다를
+ *          **읽는 데 드는 물리 시간**(뜻 0.54초 + 타일 4×0.25초 + 판단 0.32초 ≈ 1.86초)보다
+ *          짧아, 아는 단어도 못 맞히는 구간이 생긴다. 그건 난이도가 아니라 고장이다.
+ *   −65 → 완주 0.0%. 여전히 물리 하한에 걸린다.
+ *   −45 → 완주 p0.9 13.3% / p0.8 6.2% / p0.65 0.7% / p0.5 0.0%.
+ *          강한 학습자에게만 열리는 목표가 되고, 약한 학습자도 끝까지 '풀 수는 있는' 문항을 만난다.
+ */
+const BASE_WINDOW_MS = 5000;
+/** 절대 하한(선택지 4개 기준). 아래 TILE_FLOOR_MS 로 선택지 수만큼 올라간다. */
+const MIN_WINDOW_MS = 1700;
+const MAX_WINDOW_MS = 6200;
+/** 문항 1개당 창 감소. 45 × 39 = −1755ms. */
+const SHOT_TIGHTEN_MS = 45;
+/** '가속' 1장당 창 감소. 최대 3장이므로 최대 −1350ms — 램프(−1755)와 맞먹는 자발적 조임. */
+const SPEED_TIGHTEN_MS = 450;
+/**
+ * '호흡' 1장당 창 증가. 350 → 250 으로 낮춘다.
+ * 350 이면 2장(상한)에 +700ms — 램프 총량(−1755)의 40%를 되돌려 "안도만 먹는 빌드에는
+ * 램프가 없다"에 가까웠다. 250 이면 2장에 +500ms = 28% — 안도의 값어치는 남되
+ * 램프를 무효화하지는 못한다.
+ */
+const BREATHE_RELIEF_MS = 250;
+/** 선택지가 1개 늘 때마다 훑을 것이 늘어난 만큼만 돌려준다(난이도는 후보 수로, 시간으로 벌하지 않는다). */
+const TILE_GRACE_MS = 200;
+/** 하한도 선택지 수를 따라간다 — 6지선다를 1.7초에 훑는 것은 물리적으로 불가능하다. */
+const TILE_FLOOR_MS = 200;
+/** 역방향(en→ko)은 타일이 한국어 뜻 4~6개라 훑는 데 시간이 더 든다. 250 → 150(재인 방향이 이미 쉽다). */
+const REVERSE_GRACE_MS = 150;
+/**
+ * 이 이하로 좁아진 창의 시간 초과는 '기억 실패'가 아니라 '속도 실패'다.
+ * 스스로 고른 '가속'이 자기 SRS 데이터를 오염시키지 않도록 assisted 로 올린다.
+ */
+const TIGHT_WINDOW_MS = 2400;
 
 const REVEAL_OK_MS = 620;
 const REVEAL_MISS_MS = 1700;
+
+/** 판당 '정비' 최대 회수 — 상한이 없어 목숨이 무한 순환하던 파밍(E3)을 막는 유일한 수. */
+const REPAIR_LIMIT = 2;
+/** 판당 '호흡' 최대 회수. */
+const BREATHE_LIMIT = 2;
+/** '가속' 최대 중첩 — 3장이면 −1350ms 로 하한 근처. 4장째는 비용이 사라져 무의미했다. */
+const SPEED_LIMIT = 3;
+/** 선택지 강제 +1 이 걸리는 단계 — 카드와 무관한 형태 램프. */
+const FORCED_CHOICE_STAGE = 4;
+
+/**
+ * 방치 판정은 "시간 초과"가 아니라 **"그 문항 동안 입력 이벤트가 하나도 없었다"** 로 한다.
+ * 단순 연속 시간 초과로 세면 느리지만 자리에 있는 학습자(고민하다 놓친)를 방치로 오인한다 —
+ * 그건 이 앱의 주 사용자를 끊는 일이다. 포인터 이동·터치·키 입력 중 아무것도 없어야 방치다.
+ */
+const IDLE_ASSIST_AT = 2;
+/** 무입력 시간 초과 n회면 판을 조용히 마친다 — 자리를 비운 사이 오답이 쌓이지 않게. */
+const IDLE_END_AT = 4;
 
 const PERFECT_STAGE_BONUS = 200;
 const LAPSE_SCORE_RATIO = 0.6;
@@ -155,6 +257,8 @@ interface Question {
   windowMs: number;
   form: Form;
   promptText: string;
+  /** '잔상' 카드의 blur 시작 지연 — 프롬프트 길이 비례(E5). 카드가 없으면 무시된다. */
+  blindDelayMs: number;
   isLapse: boolean;
   stage: number;
   shot: number;
@@ -254,12 +358,31 @@ const GLYPH_BREATHE = (
   </>
 );
 
+// ── 조임 카드 경제 (v08.1 재산정) ────────────────────────────────────────
+// v08 은 gain 을 "느낌"으로 붙였고, 그 결과 **배수가 가장 큰 카드의 실제 비용이 거의 0**이라
+// 최적 드래프트가 '잔상·혼선·역방향은 무조건 먹고 가속·표적증가는 버린다'는 고정 표였다.
+//
+// 이제 gain 을 손으로 고르지 않는다. 위 구조 수정(E2·E4·E5·E6·E7)을 모두 반영한 뒤
+// **한 장 단위 기대점수(EV)를 카드끼리 같게 만드는 값**을 이분 탐색으로 풀었다
+// (정답률 0.65 · 풀 12 · 8,000판 × 카드 6종 × 탐색 13회).
+//
+//   측정된 순수 비용 (gain=0 으로 그 카드만 한 장 먹었을 때, 안도만 먹는 기준선 대비)
+//     혼선   −548점 / 도달 −0.43단계   ← 가장 비싼 한 장
+//     표적   −386점 / −0.31단계
+//     문맥   −263점 / −0.15단계
+//     잔상   −259점 / −0.22단계
+//     가속   −211점 / −0.15단계
+//     역방향 +120점 / +0.08단계        ← 재인 방향이라 **여전히 이득**. 그래서 gain 이 최저.
+//
+//   비용이 클수록 gain 이 크다. 결과 EV 분산폭 0.5% (지배 전략 없음의 기준으로 잡은 5% 이내).
+//   기준선(조임 0장) 대비 목표 EV 는 ×1.15 — 조임을 고르는 것은 늘 합리적이되,
+//   어느 한 장이 다른 한 장을 항상 이기지는 않는다.
 const TIGHTEN_CARDS: CardDef[] = [
   {
     id: 'speed',
     title: '가속',
-    effect: '사격 창 −0.45초 (누적)',
-    gain: 0.25,
+    effect: `사격 창 −0.45초 (최대 ${SPEED_LIMIT}장)`,
+    gain: 0.38,
     kind: 'tighten',
     glyph: GLYPH_SPEED,
     apply: (m) => ({ ...m, speed: m.speed + 1 }),
@@ -267,8 +390,8 @@ const TIGHTEN_CARDS: CardDef[] = [
   {
     id: 'choices',
     title: '표적 증가',
-    effect: '선택지 +1개',
-    gain: 0.3,
+    effect: '선택지 +1개 · 읽을 시간은 그만큼 더 (최대 2장)',
+    gain: 0.55,
     kind: 'tighten',
     glyph: GLYPH_CHOICES,
     apply: (m) => ({ ...m, choices: m.choices + 1 }),
@@ -276,45 +399,47 @@ const TIGHTEN_CARDS: CardDef[] = [
   {
     id: 'confuse',
     title: '혼선',
-    effect: '오답이 철자·품사가 닮은 단어로',
-    gain: 0.35,
+    effect: '가장 닮은 단어가 오답으로 확정 투입 (최대 2장)',
+    gain: 0.9,
     kind: 'tighten',
     glyph: GLYPH_CONFUSE,
     apply: (m) => ({ ...m, confuse: m.confuse + 1 }),
   },
   {
-    id: 'reverse',
-    title: '역방향',
-    effect: '한 발 걸러 영어를 보고 뜻 고르기',
-    gain: 0.3,
+    id: 'context',
+    title: '문맥',
+    effect: '예문 빈칸으로 출제 (읽는 시간은 길이만큼 자동 추가)',
+    gain: 0.6,
     kind: 'tighten',
-    glyph: GLYPH_REVERSE,
-    apply: (m) => ({ ...m, reverse: true }),
+    glyph: GLYPH_CONTEXT,
+    apply: (m) => ({ ...m, context: true }),
   },
   {
     id: 'blind',
     title: '잔상',
-    effect: '문제가 1.4초 뒤 흐려짐',
-    gain: 0.4,
+    effect: '문제가 흐려짐 — 짧은 문제일수록 빨리 (0.7초~창의 60%)',
+    gain: 0.62,
     kind: 'tighten',
     glyph: GLYPH_BLIND,
     apply: (m) => ({ ...m, blind: true }),
   },
   {
-    id: 'context',
-    title: '문맥',
-    effect: '예문 빈칸으로 출제 (읽는 시간 +0.9초)',
-    gain: 0.3,
+    id: 'reverse',
+    // 이 카드만 난이도를 **낮춘다**. 숨기지 않고 카드 위에 그대로 쓴다 —
+    // 학습자가 "안전하게 배수 조금"을 고를 수 있어야 이 화면이 진짜 2택이 된다.
+    title: '역방향',
+    effect: '한 발 걸러 영어→뜻 · 조금 쉬워지는 대신 배수도 가장 작음',
+    gain: 0.22,
     kind: 'tighten',
-    glyph: GLYPH_CONTEXT,
-    apply: (m) => ({ ...m, context: true }),
+    glyph: GLYPH_REVERSE,
+    apply: (m) => ({ ...m, reverse: true }),
   },
 ];
 
 const CARD_REPAIR: CardDef = {
   id: 'repair',
   title: '정비',
-  effect: '목숨 +1 · 배수는 그대로',
+  effect: `목숨 +1 · 배수는 그대로 (판당 ${REPAIR_LIMIT}회)`,
   gain: 0,
   kind: 'relief',
   glyph: GLYPH_REPAIR,
@@ -323,7 +448,7 @@ const CARD_REPAIR: CardDef = {
 const CARD_BREATHE: CardDef = {
   id: 'breathe',
   title: '호흡',
-  effect: '사격 창 +0.35초 · 배수는 그대로',
+  effect: `사격 창 +0.35초 · 배수는 그대로 (판당 ${BREATHE_LIMIT}회)`,
   gain: 0,
   kind: 'relief',
   glyph: GLYPH_BREATHE,
@@ -366,6 +491,55 @@ function nearness(cand: Word, target: Word): number {
   return s;
 }
 
+/** '이점, 유리한 점' → ['이점','유리한','점'] — 어절/구분자 단위. */
+function koTokens(ko: string): string[] {
+  return ko
+    .split(/[,;/·|()[\]]|\s+/)
+    .map((t) => t.trim())
+    .filter((t) => t.length > 0);
+}
+
+/**
+ * 역방향(en→ko) 문항의 오답 근접도.
+ *
+ * E2: 타일에 렌더되는 것은 opt.ko 인데 nearness() 는 cand.en/target.en 의 철자만 봤다.
+ * 영어 철자로 고른 오답의 한국어 뜻은 서로 전혀 안 닮아서, 영단어를 흐릿하게만 알아도
+ * 소거법으로 맞았다 — '혼선'을 아무리 쌓아도 역방향 문항은 쉬워지기만 했다.
+ * 화면에 보이는 문자열(ko)로 근접도를 재야 유사도 계층이 의미를 갖는다.
+ */
+/**
+ * 역방향 문항에서 **정답이 둘로 보이는** 후보인가.
+ *
+ * 역방향은 타일이 ko 라, 뜻이 사실상 같은 두 단어(예: '이점' vs '이점, 유리한 점')가
+ * 같은 문항에 서면 정답이 둘이 된다 — 유사도를 높인 순간 이 사고가 실제로 가능해진다.
+ * 오답 후보에서 아예 제외한다. 난이도는 '닮은 것'으로 올리되 '같은 것'으로 올리지 않는다.
+ */
+function koAmbiguous(cand: Word, target: Word): boolean {
+  const a = cand.ko.replace(/\s+/g, '');
+  const b = target.ko.replace(/\s+/g, '');
+  if (!a || !b) return false;
+  if (a === b || a.includes(b) || b.includes(a)) return true;
+  return levenshtein(a, b) <= 1;
+}
+
+function koNearness(cand: Word, target: Word): number {
+  const a = cand.ko.replace(/\s+/g, '');
+  const b = target.ko.replace(/\s+/g, '');
+  if (!a || !b) return 0;
+  let s = 0;
+  if (a.slice(0, 2) === b.slice(0, 2)) s += 3;
+  else if (a[0] === b[0]) s += 1.2;
+  if (Math.abs(a.length - b.length) <= 2) s += 1;
+  // 같은 꼬리 — '~하다/~시키다', '~적인', '~스러운' 은 품사·의미장이 겹친다.
+  if (a.length >= 2 && b.length >= 2 && a.slice(-2) === b.slice(-2)) s += 1.6;
+  // 어절 공유 — '유리한 점' vs '좋은 점'
+  const ta = new Set(koTokens(cand.ko));
+  if (koTokens(target.ko).some((t) => t.length > 1 && ta.has(t))) s += 2;
+  if (cand.pos && target.pos && cand.pos === target.pos) s += 1.4;
+  s += Math.max(0, 3 - levenshtein(a, b) * 0.5);
+  return s;
+}
+
 /** 고른 오답이 "아까웠다"에 해당하는가 — 니어미스 사운드/아이콘 분기. */
 function isNearMiss(chosen: Word, target: Word): boolean {
   const a = chosen.en.toLowerCase();
@@ -377,10 +551,18 @@ function escapeRe(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * 문맥 출제에 쓸 예문 길이 상한.
+ * 170자였던 것을 140자로 낮춘다 — 170자는 어떤 창에서도 읽는 속도가 60자/초를 넘겨야 해서
+ * '읽기'가 아니라 '운'이 됐다(E5). 140자면 아래 graceFor 의 상한 2.4초 여유 안에서
+ * 빈칸 주변을 훑는 것이 물리적으로 가능하다.
+ */
+const MAX_CONTEXT_CHARS = 140;
+
 /** 예문에서 표적(굴절형 포함)을 빈칸으로. 못 찾으면 null → 그 단어는 문맥 출제 제외. */
 function blankExample(w: Word): string | null {
   const ex = w.example?.trim();
-  if (!ex || ex.length < 14 || ex.length > 170) return null;
+  if (!ex || ex.length < 14 || ex.length > MAX_CONTEXT_CHARS) return null;
   const forms = Array.from(new Set([w.en, ...(w.inflected ?? [])])).filter((f) => f && f.length > 1);
   let out = ex;
   for (const f of forms) out = out.replace(new RegExp(`\\b${escapeRe(f)}\\b`, 'gi'), '_____');
@@ -397,15 +579,56 @@ function multFor(combo: number): number {
   return m;
 }
 
-function windowFor(mods: Mods, stage: number, shot: number, form: Form): number {
+/**
+ * 읽을 것이 많은 문항의 여유. 조임은 난이도지 함정이 아니다.
+ *
+ * 문맥은 고정 +0.9초였는데 예문 길이가 14~170자로 12배 차이가 났다 —
+ * 짧은 예문에는 과잉, 긴 예문에는 물리적으로 불가능(E5). 이제 길이 비례:
+ * 0.3초 + 글자당 14ms(≈70자/초 훑기), 0.6~2.4초. 60자 예문이면 +1.14초, 140자면 +2.26초.
+ */
+function graceFor(form: Form, promptText: string): number {
+  if (form === 'context') return clamp(300 + promptText.length * 14, 600, 2400);
+  if (form === 'en') return REVERSE_GRACE_MS;
+  return 0;
+}
+
+/**
+ * 창 = 누적 문항 수(0~39)의 단조 감소 함수 + 형태별 여유 + 선택지 수 보정.
+ * stage/shot 을 따로 빼지 않는 이유는 단계 경계 톱니(+140ms × 7회) 제거 — 파일 상단 E6.
+ *
+ * 선택지 보정(+200ms/개)은 톱니가 아니다 — '표적 증가'나 4단계 형태 램프로 선택지가 늘 때만
+ * 한 번 오르고, **선택지 1개당 생각 시간**은 계속 줄어든다:
+ *   3단계 4지선다 (5000−855−540)/4 = 901ms/개 → 4단계 5지선다 (5000−900+200−540)/5 = 752ms/개.
+ */
+function windowFor(mods: Mods, totalShot: number, form: Form, promptText: string, tiles: number): number {
   const base =
     BASE_WINDOW_MS -
-    stage * STAGE_TIGHTEN_MS -
-    shot * SHOT_TIGHTEN_MS -
-    mods.speed * 450 +
-    mods.breathe * 350;
-  const grace = form === 'context' ? CONTEXT_GRACE_MS : form === 'en' ? REVERSE_GRACE_MS : 0;
-  return clamp(base, MIN_WINDOW_MS, 6200) + grace;
+    clamp(totalShot, 0, TOTAL_SHOTS - 1) * SHOT_TIGHTEN_MS -
+    mods.speed * SPEED_TIGHTEN_MS +
+    mods.breathe * BREATHE_RELIEF_MS;
+  const extraTiles = Math.max(0, tiles - 4);
+  const floor = MIN_WINDOW_MS + extraTiles * TILE_FLOOR_MS;
+  return clamp(base, floor, MAX_WINDOW_MS) + graceFor(form, promptText) + extraTiles * TILE_GRACE_MS;
+}
+
+/**
+ * '잔상' blur 시작 지연 — 고정 1.4초가 문제였다(E1·E5).
+ * 기본 form 의 프롬프트는 한국어 뜻 5~10자라 0.3초면 읽혀 비용이 0이었고,
+ * 문맥 form 의 예문은 1.4초에 못 읽어 운이 됐다. 이제 길이 비례 + 창 비례 상한:
+ *   0.4초 + 글자당 22ms, 하한 0.7초(8자 뜻이면 여기 걸린다 → 진짜 압박),
+ *   상한은 창의 60%(잔상이 창을 통째로 없애지 않게).
+ */
+function blindDelayFor(promptText: string, windowMs: number): number {
+  return clamp(400 + promptText.length * 22, 700, Math.round(windowMs * 0.6));
+}
+
+/**
+ * 선택지 수. 4 + '표적 증가' 획득 수 + **카드와 무관한 형태 램프**.
+ * 창만 좁히는 램프는 카드를 안 사면 형태가 판 내내 그대로였다 —
+ * 4단계(=문항 20개째)부터는 아무 카드도 안 사도 선택지가 하나 는다. 풀이 작으면 maxTiles 가 막는다.
+ */
+function tilesFor(mods: Mods, stage: number, maxTiles: number): number {
+  return clamp(4 + mods.choices + (stage >= FORCED_CHOICE_STAGE ? 1 : 0), 2, maxTiles);
 }
 
 // ─── 문항 타이머 (leaf) ───────────────────────────────────────────────────
@@ -542,7 +765,10 @@ export function WordBlitzGame({
   const [shot, setShot] = useState(0);
   const [mods, setMods] = useState<Mods>(INITIAL_MODS);
   const [pickedCards, setPickedCards] = useState<string[]>([]);
-  const [cardPair, setCardPair] = useState<CardDef[]>([]);
+  /** 1·2번 슬롯 — 항상 서로 다른 '조임' 두 장. 진짜 2택이 되도록 안도 카드를 섞지 않는다. */
+  const [cardMain, setCardMain] = useState<CardDef[]>([]);
+  /** 3번 슬롯 — 안도(정비/호흡). 판당 회수 상한이 있고, 없으면 null. */
+  const [cardRelief, setCardRelief] = useState<CardDef | null>(null);
   const [answered, setAnswered] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [perfectStages, setPerfectStages] = useState(0);
@@ -550,6 +776,8 @@ export function WordBlitzGame({
   const [flash, setFlash] = useState<{ kind: 'combo' | 'stage'; text: string } | null>(null);
   const [srMsg, setSrMsg] = useState('');
   const [cleared, setCleared] = useState(false);
+  /** 'idle' = 연속 시간 초과로 조용히 마침. 끝화면 문구만 바뀐다(비난 없이). */
+  const [endReason, setEndReason] = useState<'lives' | 'clear' | 'idle'>('lives');
   const [finalBest, setFinalBest] = useState<{ prev: number | null; improved: boolean }>({
     prev: null,
     improved: false,
@@ -586,8 +814,19 @@ export function WordBlitzGame({
   /** 단어별 재출제 횟수 — 무한 재출제를 막는 유일한 진실(큐에서 빠져도 남는다). */
   const lapseCountRef = useRef(new Map<string, number>());
   const stageMissRef = useRef(0);
-  /** FSRS 보고 1회 가드 — 재출제가 학습 기록을 중복으로 부풀리지 않게. */
-  const reportedRef = useRef(new Set<string>());
+  /**
+   * FSRS **정직한** 보고를 이미 마친 단어. 단어당 1회 — 재출제가 학습 기록을 부풀리지 않게.
+   * assisted 보고는 이 1회를 소모하지 않는다(카드를 안 건드리므로 부풀릴 것이 없다).
+   */
+  const gradedRef = useRef(new Set<string>());
+  /** 이 판에서 정답을 이미 화면에 보여준 단어 — 이후 조우는 인출이 아니라 재인이다. */
+  const revealedRef = useRef(new Set<string>());
+  /** 이번 문항 동안 입력 이벤트가 하나라도 있었는가 — 방치 판정의 유일한 근거. */
+  const activityRef = useRef(false);
+  /** 연속 '무입력 시간 초과' 횟수. 입력이 있었거나 답을 고르면 0으로 돌아간다. */
+  const idleStreakRef = useRef(0);
+  /** 판당 '정비' 사용 횟수 — 목숨 무한 순환(E3) 차단. */
+  const repairUsedRef = useRef(0);
   const scoreRef = useRef(0);
   scoreRef.current = score;
   const phaseRef = useRef<Phase>('playing');
@@ -639,16 +878,38 @@ export function WordBlitzGame({
     return w;
   }, [pool]);
 
+  /**
+   * 오답 후보 생성.
+   *
+   * E4 수정 — 이전 bandSize = min(others, max(want+2, (n-1)*2)) 는 **풀 크기에 비례**했다.
+   * minWords=10 스코프에서 '표적 증가'로 n=6 이면 (n-1)*2 = 10 > others=9 라 밴드가 전체가 되고,
+   * 그러면 similar 는 '전체에서 무작위 want개' = 혼선 0장일 때와 분포가 완전히 같다.
+   * 즉 due 10~11개인 학습자에게 '혼선'은 공짜 배수 자판기였다(증명 가능한 no-op).
+   * → 밴드를 **want 에 비례한 상위 구간**으로 바꾼다. 풀이 아무리 작아도 상위 랭크만 남는다.
+   *
+   * 그리고 '혼선'을 실제로 고른 판에서는 최근접 1개를 **확정 투입**한다 —
+   * 카드가 확률적으로 no-op 이 되는 경우 자체를 없앤다.
+   *
+   * E2 수정 — form 을 받아 역방향 문항에서는 화면에 보이는 ko 로 근접도를 잰다.
+   */
   const buildOptions = useCallback(
-    (target: Word, n: number, hardness: number): Word[] => {
-      const others = pool.filter((w) => w.en !== target.en);
+    (target: Word, n: number, hardness: number, form: Form, forceNearest: boolean): Word[] => {
+      const all = pool.filter((w) => w.en !== target.en);
+      // 역방향은 타일이 ko — 뜻이 사실상 같은 후보를 빼야 '정답 둘'이 안 생긴다.
+      const safe = form === 'en' ? all.filter((w) => !koAmbiguous(w, target)) : all;
+      // 걸러내다 후보가 모자라면 원본으로 되돌린다(문항을 못 만드는 것이 더 나쁘다).
+      const others = safe.length >= n - 1 ? safe : all;
       if (others.length <= n - 1) return shuffle([target, ...others]);
       const want = clamp(hardness, 0, n - 1);
       let similar: Word[] = [];
       if (want > 0) {
-        const ranked = [...others].sort((a, b) => nearness(b, target) - nearness(a, target));
-        const bandSize = Math.min(others.length, Math.max(want + 2, (n - 1) * 2));
-        similar = shuffle(ranked.slice(0, bandSize)).slice(0, want);
+        const near = form === 'en' ? koNearness : nearness;
+        const ranked = [...others].sort((a, b) => near(b, target) - near(a, target));
+        // want=1 → 상위 3, want=2 → 상위 4, want=4 → 상위 7. others 가 9여도 전체가 되지 않는다.
+        const bandSize = clamp(Math.ceil(want * 1.5) + 1, want + 1, others.length);
+        const band = ranked.slice(0, bandSize);
+        const forced = forceNearest ? band.slice(0, 1) : [];
+        similar = [...forced, ...shuffle(band.slice(forced.length)).slice(0, want - forced.length)];
       }
       const chosenSet = new Set(similar.map((w) => w.en));
       const rest = shuffle(others.filter((w) => !chosenSet.has(w.en))).slice(0, n - 1 - similar.length);
@@ -689,24 +950,29 @@ export function WordBlitzGame({
         promptText = target.en;
       }
 
-      const n = clamp(4 + m.choices, 2, maxTiles);
-      const baseHard = stageIdx < 2 ? 0 : stageIdx < 4 ? 1 : 2;
-      const options = buildOptions(target, n, baseHard + m.confuse);
+      const n = tilesFor(m, stageIdx, maxTiles);
+      // 역방향 문항은 닮은 오답 +1 강제 — 재인 방향(en→ko)은 인출 방향보다 원래 쉬워서
+      // 그대로 두면 '역방향'이 난이도를 **낮추면서** 배수를 주는 공짜 카드가 된다(E1·E2).
+      const baseHard = (stageIdx < 2 ? 0 : stageIdx < 4 ? 1 : 2) + (form === 'en' ? 1 : 0);
+      const options = buildOptions(target, n, baseHard + m.confuse, form, m.confuse > 0 || form === 'en');
+      const windowMs = windowFor(m, stageIdx * SHOTS_PER_STAGE + shotIdx, form, promptText, n);
 
       keyRef.current += 1;
       const q: Question = {
         key: keyRef.current,
         target,
         options,
-        windowMs: windowFor(m, stageIdx, shotIdx, form),
+        windowMs,
         form,
         promptText,
+        blindDelayMs: blindDelayFor(promptText, windowMs),
         isLapse,
         stage: stageIdx,
         shot: shotIdx,
       };
       questionRef.current = q;
       answeredGuardRef.current = false;
+      activityRef.current = false;
       startAtRef.current = Date.now();
       setQuestion(q);
       setStage(stageIdx);
@@ -727,27 +993,46 @@ export function WordBlitzGame({
   const finishStage = useCallback(
     (stageIdx: number) => {
       const clean = stageMissRef.current === 0;
+      // 회복 후의 목숨을 지역 변수로 들고 간다 — setLives 는 비동기라 아래 안도 슬롯 판정이
+      // livesRef 만 보면 "이미 3인데 정비를 또 내미는" 상태가 된다.
+      let livesNow = livesRef.current;
       if (clean) {
         const bonus = Math.round(PERFECT_STAGE_BONUS * modsRef.current.mult);
         setScore((s) => s + bonus);
         setPerfectStages((p) => p + 1);
-        showFlash('stage', `무결점 단계 +${bonus.toLocaleString()}`);
+        // 무결점 단계 → 목숨 +1. '정비'를 3번 슬롯으로 내리고 2회로 묶은 대신,
+        // **실력으로만 얻는 회복**을 연다. 일부러 질 수 없으므로 파밍이 불가능하고
+        // (E3 의 '단계당 1발 버리기'는 정의상 무결점이 아니다), 완주가 도달 가능한 목표로 남는다.
+        // 시뮬 5,000판: 완주율 p0.9 13.3% · p0.8 6.2% · p0.65 0.7% · p0.5 0.0%.
+        const healed = stageIdx > PRACTICE_STAGE && livesNow < MAX_LIVES;
+        if (healed) {
+          livesNow = Math.min(MAX_LIVES, livesNow + 1);
+          setLives(livesNow);
+        }
+        showFlash('stage', healed ? `무결점 단계 +${bonus.toLocaleString()} · 목숨 +1` : `무결점 단계 +${bonus.toLocaleString()}`);
         sfx.coin();
       }
       stageMissRef.current = 0;
 
       if (stageIdx + 1 >= MAX_STAGES) {
         setCleared(true);
+        setEndReason('clear');
         setPhase('done');
         setQuestion(null);
         questionRef.current = null;
         return;
       }
 
-      // 조임 카드 2장 뽑기 — 다쳤으면 '정비'가 나란히 선다(안전/욕심 트레이드오프).
+      // ── 카드 제시 (E3 수정) ────────────────────────────────────────────
+      // v08 은 slotB 를 lives<3 이면 '정비'로 확정했다. 회수 상한이 없어서
+      // '단계당 딱 1발만 일부러 버린다'를 반복하면 목숨이 순환해 조임 0장으로 8단계
+      // 완주가 보장됐고, 동시에 "두 장 중 방향을 고른다"는 이 모드의 핵심 주장도
+      // 거짓이 됐다(정석 플레이어는 방향 선택 화면을 판 내내 한 번도 못 봤다).
+      //
+      // → 1·2번은 **항상 서로 다른 조임 두 장**. 안도는 3번 슬롯으로 내리고 회수 상한을 건다.
       const m = modsRef.current;
       const avail = TIGHTEN_CARDS.filter((c) => {
-        if (c.id === 'speed') return m.speed < 4;
+        if (c.id === 'speed') return m.speed < SPEED_LIMIT;
         if (c.id === 'choices') return m.choices < 2 && maxTiles >= 4 + m.choices + 1;
         if (c.id === 'confuse') return m.confuse < 2 && pool.length >= 6;
         if (c.id === 'reverse') return !m.reverse;
@@ -756,14 +1041,21 @@ export function WordBlitzGame({
         return false;
       });
       const shuffledAvail = shuffle(avail);
-      const slotA = shuffledAvail[0] ?? CARD_BREATHE;
-      let slotB: CardDef;
-      if (livesRef.current < MAX_LIVES) slotB = CARD_REPAIR;
-      else if (m.breathe < 2) slotB = CARD_BREATHE;
-      else slotB = shuffledAvail[1] ?? CARD_BREATHE;
-      // 같은 카드 두 장은 선택이 아니다(그리고 key 도 충돌한다).
-      if (slotB.id === slotA.id) slotB = slotA.id === 'breathe' ? CARD_REPAIR : CARD_BREATHE;
-      setCardPair(shuffle([slotA, slotB]));
+      const main = shuffledAvail.slice(0, 2);
+
+      let relief: CardDef | null = null;
+      if (livesNow < MAX_LIVES && repairUsedRef.current < REPAIR_LIMIT) relief = CARD_REPAIR;
+      else if (m.breathe < BREATHE_LIMIT) relief = CARD_BREATHE;
+      // 조임이 한 장뿐이면 그때만 안도를 2번 슬롯으로 끌어올린다(빈 슬롯 방지).
+      if (main.length < 2 && relief) {
+        main.push(relief);
+        relief = null;
+      }
+      // 이론상 도달 불가(조임 후보 총 10장 > 단계 전환 7회)지만, 빈 화면은 절대 만들지 않는다.
+      if (main.length === 0) main.push(CARD_BREATHE);
+
+      setCardMain(main);
+      setCardRelief(relief);
       setStage(stageIdx + 1);
       setShot(0);
       setPhase('stage');
@@ -794,7 +1086,21 @@ export function WordBlitzGame({
       const isCorrect = !!chosen && chosen.en === q.target.en;
       const elapsed = Date.now() - startAtRef.current;
       const remainRatio = clamp(1 - elapsed / q.windowMs, 0, 1);
-      const firstTime = !reportedRef.current.has(q.target.en);
+      const timedOut = tileIndex === null;
+
+      // ── FSRS 무결성 판정 (파일 상단 "FSRS 무결성" 참조) ──────────────
+      const idleShot = timedOut && !activityRef.current;
+      idleStreakRef.current = idleShot ? idleStreakRef.current + 1 : 0;
+      const idleFail = idleShot && idleStreakRef.current >= IDLE_ASSIST_AT;
+      const speedFail = timedOut && q.windowMs <= TIGHT_WINDOW_MS;
+      const seenAnswer = revealedRef.current.has(q.target.en);
+      const assisted = q.isLapse || seenAnswer || idleFail || speedFail;
+      // 보고는 **생략하지 않는다** — 모르는 단어일수록 오답으로 정직하게 올라가야 복습이 잡힌다.
+      // 정직한 보고는 단어당 1회, assisted 는 몇 번이든(카드를 안 건드리므로 부풀릴 것이 없다).
+      const report = assisted || !gradedRef.current.has(q.target.en);
+      if (report && !assisted) gradedRef.current.add(q.target.en);
+      // 이 문항의 리빌이 곧 정답을 보여준다 → 이후 이 단어의 조우는 전부 재인이다.
+      revealedRef.current.add(q.target.en);
 
       answeredRef.current += 1;
       setAnswered(answeredRef.current);
@@ -816,31 +1122,30 @@ export function WordBlitzGame({
         setSrMsg(`정답 ${q.target.en}. 콤보 ${c}. ${g}점.`);
         sfx.correct(c, false);
         speak(q.target.en);
-        if (firstTime) {
-          reportedRef.current.add(q.target.en);
-          onCorrect?.(q.target);
-        }
+        if (report) onCorrect?.(q.target, assisted ? { assisted: true } : undefined);
       } else {
         combo.miss();
-        nextLives = Math.max(0, livesRef.current - 1);
-        setLives(nextLives);
+        // 0단계는 '연습 사격' — 목숨을 깎지 않는다(E7). 실점은 세므로 무결점 보너스는 없다.
+        const practice = q.stage === PRACTICE_STAGE;
+        if (!practice) {
+          nextLives = Math.max(0, livesRef.current - 1);
+          setLives(nextLives);
+        }
         stageMissRef.current += 1;
-        setOutcome(tileIndex === null ? 'timeout' : 'wrong');
+        setOutcome(timedOut ? 'timeout' : 'wrong');
         setRating(null);
         setGained(0);
         setMissed((prev) => (prev.some((w) => w.en === q.target.en) ? prev : [...prev, q.target]));
+        const tail = practice ? '연습 사격이라 목숨은 그대로예요.' : `남은 목숨 ${nextLives}.`;
         setSrMsg(
-          tileIndex === null
-            ? `시간 초과. 정답은 ${q.target.en}, 뜻은 ${q.target.ko}. 남은 목숨 ${nextLives}.`
-            : `오답. 정답은 ${q.target.en}, 뜻은 ${q.target.ko}. 남은 목숨 ${nextLives}.`,
+          timedOut
+            ? `시간 초과. 정답은 ${q.target.en}, 뜻은 ${q.target.ko}. ${tail}`
+            : `오답. 정답은 ${q.target.en}, 뜻은 ${q.target.ko}. ${tail}`,
         );
         if (chosen && isNearMiss(chosen, q.target)) sfx.nearMiss();
         else sfx.wrong();
         speak(q.target.en);
-        if (firstTime) {
-          reportedRef.current.add(q.target.en);
-          onWrong?.(q.target);
-        }
+        if (report) onWrong?.(q.target, assisted ? { assisted: true } : undefined);
         // 세션 내 복구 기회 — 3~5문항 뒤 재출제(단어당 최대 2회).
         const queued = lapseCountRef.current.get(q.target.en) ?? 0;
         if (queued < MAX_LAPSE_REPEATS) {
@@ -857,6 +1162,13 @@ export function WordBlitzGame({
       revealTimerRef.current = setTimeout(
         () => {
           if (!mountedRef.current) return;
+          // 방치 가드 — 자리를 비운 사이 오답이 무한 적재되지 않게 조용히 마친다.
+          // (무입력 2회째부터는 이미 assisted 라 FSRS 에는 최대 1건만 정직하게 올라간다.)
+          if (idleStreakRef.current >= IDLE_END_AT) {
+            setEndReason('idle');
+            endRun();
+            return;
+          }
           if (nextLives <= 0) {
             endRun();
             return;
@@ -884,13 +1196,17 @@ export function WordBlitzGame({
       // 같은 틱에 두 번 눌리면(더블탭·키 리핏) 두 장을 다 먹는다 — 렌더를 기다리지 않고 잠근다.
       phaseRef.current = 'playing';
       sfx.click();
-      if (card.id === 'repair') setLives((l) => Math.min(MAX_LIVES, l + 1));
+      if (card.id === 'repair') {
+        repairUsedRef.current += 1;
+        setLives((l) => Math.min(MAX_LIVES, l + 1));
+      }
       const next = { ...card.apply(modsRef.current) };
       next.mult = Math.round((next.mult + card.gain) * 100) / 100;
       modsRef.current = next;
       setMods(next);
       setPickedCards((p) => [...p, card.id]);
-      setCardPair([]);
+      setCardMain([]);
+      setCardRelief(null);
       setSrMsg(`${card.title} 선택. ${card.effect}.`);
       startShotRef.current(stageRef.current, 0);
     },
@@ -930,6 +1246,19 @@ export function WordBlitzGame({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ── 방치 감지용 활동 리스너 ──
+  // 답을 안 골라도 "자리에 있다"는 증거가 되는 입력들. passive 라 스크롤 성능에 영향 없다.
+  useEffect(() => {
+    const mark = () => {
+      activityRef.current = true;
+    };
+    const events: (keyof WindowEventMap)[] = ['pointermove', 'pointerdown', 'keydown', 'touchstart', 'wheel'];
+    for (const ev of events) window.addEventListener(ev, mark, { passive: true });
+    return () => {
+      for (const ev of events) window.removeEventListener(ev, mark);
+    };
+  }, []);
+
   // ── 키보드 ──
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -940,14 +1269,17 @@ export function WordBlitzGame({
         answerRef.current(n - 1);
         return;
       }
-      if (phase === 'stage' && n >= 1 && n <= cardPair.length) {
-        e.preventDefault();
-        chooseCardRef.current(cardPair[n - 1]);
+      if (phase === 'stage') {
+        const offered = cardRelief ? [...cardMain, cardRelief] : cardMain;
+        if (n >= 1 && n <= offered.length) {
+          e.preventDefault();
+          chooseCardRef.current(offered[n - 1]);
+        }
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [phase, question, cardPair]);
+  }, [phase, question, cardMain, cardRelief]);
 
   const handleRestart = useCallback(() => {
     if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
@@ -963,10 +1295,15 @@ export function WordBlitzGame({
     lapseRef.current = [];
     lapseCountRef.current = new Map();
     stageMissRef.current = 0;
-    reportedRef.current = new Set();
+    gradedRef.current = new Set();
+    revealedRef.current = new Set();
+    idleStreakRef.current = 0;
+    activityRef.current = false;
+    repairUsedRef.current = 0;
     setMods(INITIAL_MODS);
     setPickedCards([]);
-    setCardPair([]);
+    setCardMain([]);
+    setCardRelief(null);
     setScore(0);
     setLives(START_LIVES);
     setAnswered(0);
@@ -974,6 +1311,7 @@ export function WordBlitzGame({
     setPerfectStages(0);
     setMissed([]);
     setCleared(false);
+    setEndReason('lives');
     setFlash(null);
     setSrMsg('');
     startShotRef.current(0, 0);
@@ -989,9 +1327,10 @@ export function WordBlitzGame({
   }
 
   const accuracy = answered > 0 ? Math.round((correctCount / answered) * 100) : 0;
-  const tight = question ? question.windowMs <= 2400 : false;
+  const tight = question ? question.windowMs <= TIGHT_WINDOW_MS : false;
   const revealed = phase === 'reveal';
   const q = question;
+  const practiceStage = stage === PRACTICE_STAGE;
 
   const restartHint = (() => {
     if (finalBest.improved) return '다음 판은 다른 조임 카드로 — 같은 단어도 다른 게임이 됩니다.';
@@ -1027,11 +1366,21 @@ export function WordBlitzGame({
         comboMult={multFor(combo.combo)}
         lives={{ total: MAX_LIVES, left: lives, label: '남은 목숨' }}
         extra={
-          <div className="wbz-meta" aria-hidden="true">
+          // aria-hidden 이었다 — 조임 카드의 유일한 보상 지표를 AT 사용자가 못 봤다.
+          // 390px 에서 display:none 이던 것도 걷어내고 가로 배치로 축소한다(개선안 5).
+          <div className="wbz-meta">
             <span className="wbz-chip wbz-chip--stage">
-              단계 {Math.min(stage + 1, MAX_STAGES)}/{MAX_STAGES}
+              <span aria-hidden="true">
+                단계 {Math.min(stage + 1, MAX_STAGES)}/{MAX_STAGES}
+              </span>
+              <span className="gk-sr">
+                단계 {Math.min(stage + 1, MAX_STAGES)} / {MAX_STAGES}
+              </span>
             </span>
-            <span className="wbz-chip wbz-chip--mult">×{mods.mult.toFixed(2)}</span>
+            <span className="wbz-chip wbz-chip--mult">
+              <span aria-hidden="true">×{mods.mult.toFixed(2)}</span>
+              <span className="gk-sr">점수 배수 {mods.mult.toFixed(2)}배</span>
+            </span>
           </div>
         }
         muted={sfx.muted}
@@ -1045,7 +1394,13 @@ export function WordBlitzGame({
 
       {phase === 'done' ? (
         <GameDone
-          lead={cleared ? '끝까지 버텼어요' : '오늘 잘 마쳤어요'}
+          lead={
+            cleared
+              ? '끝까지 버텼어요'
+              : endReason === 'idle'
+                ? '잠시 쉬었다 이어가요'
+                : '오늘 잘 마쳤어요'
+          }
           celebrate={cleared}
           badge={badge}
           stats={[
@@ -1091,13 +1446,13 @@ export function WordBlitzGame({
       ) : phase === 'stage' ? (
         <main className="wbz-cards" aria-label="조임 카드 선택">
           <p className="wbz-cards-lead">
-            {stage === 1 ? '5발마다 한 장 — 어느 방향으로 어려워질지 고르세요' : `단계 ${stage + 1} 준비`}
+            {stage === 1 ? '5발마다 두 장 — 어느 방향으로 어려워질지 고르세요' : `단계 ${stage + 1} 준비`}
           </p>
           <p className="wbz-cards-sub">
             고른 카드는 이 판 내내 남고 점수 배수를 키웁니다. 현재 ×{mods.mult.toFixed(2)}
           </p>
           <div className="wbz-card-row">
-            {cardPair.map((c, i) => (
+            {cardMain.map((c, i) => (
               <button
                 key={c.id}
                 type="button"
@@ -1129,9 +1484,42 @@ export function WordBlitzGame({
               </button>
             ))}
           </div>
+
+          {/* 안도는 조임과 나란히 서지 않는다 — 나란히 두면 "두 방향 중 하나"라는 결정이
+              "위험 예/아니오"로 붕괴하고, 회수 상한이 없으면 목숨이 순환한다(E3). */}
+          {cardRelief && (
+            <button
+              type="button"
+              className="wbz-relief"
+              onClick={() => chooseCardRef.current(cardRelief)}
+            >
+              <svg
+                viewBox="0 0 32 32"
+                className="wbz-relief-glyph"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {cardRelief.glyph}
+              </svg>
+              <span className="wbz-relief-body">
+                <span className="wbz-relief-title">{cardRelief.title}</span>
+                <span className="wbz-relief-effect">{cardRelief.effect}</span>
+              </span>
+              <span className="wbz-relief-key">
+                <Kbd>{cardMain.length + 1}</Kbd>
+              </span>
+            </button>
+          )}
+
           <p className="wbz-cards-foot">
-            지금 기준 — 창 {(windowFor(mods, stage, 0, 'ko') / 1000).toFixed(1)}초 · 선택지{' '}
-            {clamp(4 + mods.choices, 2, maxTiles)}개 · 목숨 {lives}/{MAX_LIVES}
+            지금 기준 — 창{' '}
+            {(windowFor(mods, stage * SHOTS_PER_STAGE, 'ko', '', tilesFor(mods, stage, maxTiles)) / 1000).toFixed(1)}초 ·
+            선택지 {tilesFor(mods, stage, maxTiles)}개 · 목숨 {lives}/{MAX_LIVES}
+            {repairUsedRef.current > 0 && ` · 정비 ${repairUsedRef.current}/${REPAIR_LIMIT}회 씀`}
           </p>
         </main>
       ) : q ? (
@@ -1146,12 +1534,20 @@ export function WordBlitzGame({
                   <span aria-hidden="true">↺</span> 다시 만난 단어
                 </span>
               )}
+              {practiceStage && (
+                <span className="wbz-chip wbz-chip--practice">
+                  <span aria-hidden="true">◦</span> 연습 사격 · 목숨 안 깎여요
+                </span>
+              )}
             </div>
 
             <h1
               className={`wbz-prompt-text ${q.form === 'en' ? 'wbz-prompt-text--en' : ''} ${
                 q.form === 'context' ? 'wbz-prompt-text--ctx' : ''
               } ${mods.blind && !revealed ? 'wbz-blind' : ''}`}
+              // '잔상' 지연은 프롬프트 길이에 비례한다 — 고정 1.4초는 짧은 뜻엔 공짜였고
+              // 긴 예문엔 물리적으로 불가능했다(E1·E5).
+              style={mods.blind ? ({ '--wbz-blind-delay': `${q.blindDelayMs}ms` } as CSSProperties) : undefined}
             >
               {q.promptText}
             </h1>
@@ -1194,7 +1590,8 @@ export function WordBlitzGame({
           />
 
           <p className="wbz-hint" aria-hidden="true">
-            탭 또는 <Kbd>1</Kbd>–<Kbd>{q.options.length}</Kbd> · {SHOTS_PER_STAGE}발마다 조임 카드 · 목숨 {lives}
+            탭 또는 <Kbd>1</Kbd>–<Kbd>{q.options.length}</Kbd> · {SHOTS_PER_STAGE}발마다 조임 카드 ·{' '}
+            {practiceStage ? '연습 사격 (목숨 유지)' : `목숨 ${lives}`}
           </p>
         </main>
       ) : null}
@@ -1227,6 +1624,7 @@ const STYLES = `
   }
 
   .wbz-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .wbz-chip--practice { color: var(--t2); border-color: color-mix(in srgb, var(--success) 42%, var(--bd)); }
   .wbz-chip {
     display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px;
     border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 74%, transparent);
@@ -1263,8 +1661,9 @@ const STYLES = `
     font-family: var(--font-english, var(--font-display, system-ui));
     font-size: clamp(16px, 3.4vw, 24px); font-weight: 700; line-height: 1.5; max-width: 34ch;
   }
-  /* '잔상' 카드 — 규칙이지 장식이 아니라 reduced-motion 에서도 유지한다. */
-  .wbz-blind { animation: wbz-blur .55s ease 1.4s forwards; }
+  /* '잔상' 카드 — 규칙이지 장식이 아니라 reduced-motion 에서도 유지한다.
+     지연은 프롬프트 길이 비례(--wbz-blind-delay, blindDelayFor). 폴백 1.4초는 구형 브라우저용. */
+  .wbz-blind { animation: wbz-blur .55s ease var(--wbz-blind-delay, 1400ms) forwards; }
 
   .wbz-timer-wrap { width: min(320px, 82%); }
 
@@ -1370,6 +1769,25 @@ const STYLES = `
   .wbz-card-key { margin-top: auto; }
   .wbz-cards-foot { margin: 0; font-size: 12px; color: var(--t3); text-align: center; font-variant-numeric: tabular-nums; }
 
+  /* 안도 카드 — 조임 2택 아래의 secondary 슬롯(시각적으로 명백히 다른 층). */
+  .wbz-relief {
+    display: flex; align-items: center; gap: 12px; width: 100%; max-width: 620px;
+    min-height: 60px; padding: 12px 16px; border-radius: var(--r-lg, 14px);
+    border: 1.5px dashed color-mix(in srgb, var(--success) 46%, var(--bd));
+    background: color-mix(in srgb, var(--bg) 62%, transparent);
+    color: var(--t1); text-align: left; cursor: pointer;
+    transition: transform .16s var(--ease, ease-out), border-color .15s, box-shadow .15s, background .15s;
+  }
+  .wbz-relief:hover { transform: translateY(-2px); border-color: var(--success); background: color-mix(in srgb, var(--bg) 84%, transparent); }
+  .wbz-relief:active { transform: translateY(0) scale(.985); }
+  .wbz-relief:focus-visible { outline: none; border-color: var(--success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 32%, transparent); }
+  .wbz-relief:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+  .wbz-relief-glyph { width: 22px; height: 22px; flex: none; color: var(--success); }
+  .wbz-relief-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+  .wbz-relief-title { font-size: 14.5px; font-weight: 900; letter-spacing: -.01em; }
+  .wbz-relief-effect { font-size: 12px; font-weight: 600; color: var(--t3); word-break: keep-all; }
+  .wbz-relief-key { flex: none; }
+
   /* ── 끝화면 부록 ── */
   .wbz-recap { text-align: left; }
   .wbz-recap-title { margin: 0 0 8px; font-size: 12px; font-weight: 800; color: var(--t3); letter-spacing: .06em; text-transform: uppercase; }
@@ -1396,9 +1814,18 @@ const STYLES = `
   @keyframes wbz-blur { to { filter: blur(7px); opacity: .5; } }
 
   @media (max-width: 400px) {
-    .wbz-card-row { grid-template-columns: 1fr; }
-    .wbz-card { min-height: 112px; }
-    .wbz-meta { display: none; }
+    /* 390px 에서도 조임 2택은 한 화면에 나란히 — 두 장을 비교하는 것이 이 화면의 전부다.
+       세로 스택으로 바꾸면 스크롤 없이는 비교가 안 된다. */
+    .wbz-card { min-height: 132px; padding: 12px; }
+    .wbz-card-row { gap: 8px; }
+    .wbz-card-title { font-size: 15px; }
+    .wbz-card-effect { font-size: 11.5px; line-height: 1.35; }
+    .wbz-card-gain { font-size: 10px; }
+    .wbz-relief { min-height: 56px; padding: 10px 12px; gap: 9px; }
+    /* display:none 이었다 — 배수·단계는 조임 카드의 유일한 보상 지표라 숨기면 안 된다.
+       세로 2줄 대신 가로 1줄 + 10px 로 축소해 HUD 높이를 먹지 않게 한다. */
+    .wbz-meta { flex-direction: row; align-items: center; gap: 4px; }
+    .wbz-meta .wbz-chip { font-size: 10px; padding: 2px 6px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

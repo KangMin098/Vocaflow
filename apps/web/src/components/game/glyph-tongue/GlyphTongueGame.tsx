@@ -26,6 +26,19 @@
 //   · "N개 맞음" 같은 무위험 탐색 오라클이 없다 — 봉인은 등불·연쇄·기록을 건다.
 //   · 정답 공개는 봉인 이후에만. 대신 그때는 룬이 영어로 풀리고 뜻이 함께 남는다.
 //   · 등불이 꺼져도 못 읽은 룬은 결과 화면에서 전부 펼쳐 보여준다(오답=학습 기회).
+//
+// v07.10 — 적대적 반증 대응. 다섯 구멍을 닫았다(재미 손실 없이 비용·정보만 조정):
+//   ① 룬 형태가 판마다 고정이라 두 판이면 21단어 뱅크 전체가 '형태 암기'로 풀렸다.
+//      → 글리프 해시에 runSeed 를 섞고 runSeed 를 난수로 시작한다. 형태는 판마다 새로 뽑힌다.
+//   ② 석실 3의 미끼 3개가 전부 '앞 석실에서 이미 공개된 뜻'이라 무비용 소거 → 마지막 룬 공짜.
+//      → 미끼는 **아직 공개되지 않은 뜻**(예비 풀 = 여분 단어 + 이번 판 미사용 뱅크,
+//        모자라면 아직 열지 않은 석실)에서만 뽑는다.
+//   ③ 예문 없는 스코프로 들어가면 조용히 내장 뱅크로 갈아타고 FSRS 는 0줄이었다.
+//      → 판 구성에 '내 단어 N개 · 큐레이션 M개'를 표기하고, 학습자 단어를 앞 석실부터 배치한다.
+//   ④ 소거로 확정한 정답·탁본 정답이 FSRS 에 '안다'로 올라갔다.
+//      → 둘 다 `{ assisted: true }` 로 올린다(호출을 생략하지 않는다 — 생략하면 모르는 단어가
+//        FSRS 에서 사라진다). 반대로 **끝내 못 읽은 룬은 오답으로 정직하게 올린다**.
+//   ⑤ 탁본으로 산 룬이 '읽어낸 룬' 지표에 그대로 잡혔다 → 지표에서 분리 표기.
 
 'use client';
 
@@ -37,7 +50,17 @@ import {
   shuffle, clamp, pickDistinct, type Word,
 } from '@/components/game/_shared/gamekit';
 
-interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
+/**
+ * `assisted` — 정답을 이미 보여준 뒤의 입력(탁본으로 산 골격 · 이미 한 번 어긋나 후보가
+ * 좁혀진 룬). 점수·연쇄는 게임이 알아서 하되 FSRS 카드는 갱신하지 않는다(record-result 중앙 판정).
+ */
+interface ResultOpts { assisted?: boolean }
+interface Props {
+  wordPool?: Word[];
+  onExit?: () => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
+}
 
 // ── 튜닝 상수 (한곳에 모아 균형을 눈으로 읽게) ──────────────────────────────
 const TOTAL_MS = 150_000;   // 등불 총량
@@ -62,7 +85,7 @@ const RUNE_NAMES = ['가', '나', '다', '라', '마', '바', '사', '아'];
 const BURST_COLORS = ['#C8A44A', '#E7D9AE', 'var(--success)'];
 
 // ── 석실 뱅크: 뜻 미제공. 룬마다 영어 비문 2개로만 삼각측량한다. {}=룬 자리 ──
-interface GWord { en: string; ko: string; ins: string[] }
+interface GWord { en: string; ko: string; ins: string[]; own?: boolean }
 const WORD_BANK: GWord[] = [
   { en: 'reluctant', ko: '마지못한·꺼리는', ins: ['The boy was {} to leave his warm bed.', 'She gave a {} nod, still unsure of the plan.'] },
   { en: 'exhausted', ko: '기진맥진한', ins: ['After the long march, the soldiers were {}.', 'He was so {} that he fell asleep at the table.'] },
@@ -95,8 +118,13 @@ interface Glyph { strokes: string[]; dots: [number, number][] }
 
 // salt 는 같은 석실 안에서 두 룬이 거의 같게 그려질 때 형태를 갈라놓는 재추첨 씨앗이다.
 // 표현 공간이 좁으면(3열×4행) 충돌이 실제로 일어나고, 그 순간 게임은 읽을 수 없는 함정이 된다.
-function buildGlyph(word: string, salt = 0): Glyph {
-  const rnd = mulberry32(hashStr(salt ? `${word}#${salt}` : word));
+//
+// seed 는 **판 단위 재추첨 토큰**이다. 이게 없으면 형태가 단어 문자열만으로 결정돼
+// 판이 바뀌어도 같은 룬이 그려지고, 21단어 뱅크를 두 판만 돌면 '비문을 읽는 게임'이
+// '형태→뜻 암기 게임'으로 무너진다(반증 실측: 3판째부터 오답 0·시간 손실 0).
+// 같은 판 안에서는 seed 가 고정이라 비문/코덱스/최종 봉인의 룬이 서로 일치한다.
+function buildGlyph(word: string, salt = 0, seed = 0): Glyph {
+  const rnd = mulberry32(hashStr(`${word}#${salt}@${seed}`));
   const node = (c: number, r: number) => `${COLS[c]} ${ROWS[r]}`;
   let c = Math.floor(rnd() * 3), r = Math.floor(rnd() * 4);
   const pts: [number, number][] = [[c, r]];
@@ -131,8 +159,8 @@ const glyphKey = (g: Glyph) => g.strokes.join('|') + '#' + g.dots.map((d) => d.j
 /** 스크린리더용 형태 서술 — svg 를 aria-hidden 으로만 두면 이 게임은 성립하지 않는다. */
 const glyphDesc = (g: Glyph) => (g.dots.length ? `${g.strokes.length}획과 점 ${g.dots.length}개` : `${g.strokes.length}획`);
 
-const Rune = memo(function Rune({ word, salt = 0, className }: { word: string; salt?: number; className?: string }) {
-  const g = useMemo(() => buildGlyph(word, salt), [word, salt]);
+const Rune = memo(function Rune({ word, salt = 0, seed = 0, className }: { word: string; salt?: number; seed?: number; className?: string }) {
+  const g = useMemo(() => buildGlyph(word, salt, seed), [word, salt, seed]);
   return (
     <svg viewBox="0 0 40 56" className={className} fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {g.strokes.map((d, i) => <path key={i} d={d} />)}
@@ -161,7 +189,7 @@ function poolToWords(pool?: Word[]): GWord[] {
     }
     if (!ins) continue; // 예문에 단어가 없으면 블랭크 불가 → 제외
     seen.add(w.en); seenKo.add(w.ko);
-    out.push({ en: w.en, ko: w.ko, ins: [ins] });
+    out.push({ en: w.en, ko: w.ko, ins: [ins], own: true });
   }
   return out;
 }
@@ -169,8 +197,28 @@ function poolToWords(pool?: Word[]): GWord[] {
 /** 미끼가 정답의 동의어면 불공정해진다 — 문자열이 서로를 품으면 후보에서 뺀다. */
 const koClashes = (a: string, b: string) => a === b || a.includes(b) || b.includes(a);
 
-interface Run { chambers: GWord[][]; spareKo: string[]; seed: number }
+interface Run { chambers: GWord[][]; reserveKo: string[]; seed: number; ownCount: number }
 const RUN_CAPACITY = CHAMBER_SIZES.reduce((a, b) => a + b, 0);
+
+/**
+ * 미끼 예비 풀 — 이번 판에서 **끝까지 정답으로 공개되지 않을** 뜻만 모은다.
+ *   ① 석실에 못 들어간 여분 단어의 뜻  ② 이번 판에 안 쓰인 내장 뱅크 단어의 뜻
+ *
+ * 이게 없으면 마지막 석실(미끼 3개)의 미끼가 전부 앞 석실에서 이미 영어+뜻으로
+ * 공개된 것이라 무비용으로 지워지고, 5룬-5칩 완전대응이 복구돼 마지막 룬이 공짜가 된다
+ * (반증 실측: 석실 3에서 4개만 맞히면 5번째는 100% 정답).
+ * 내장 뱅크 21 − 한 판 14 = 최소 7개가 항상 남으므로 최대 미끼 수(3)를 늘 채운다.
+ */
+function reserveMeanings(source: GWord[], usedUpTo: number): string[] {
+  const spare = source.slice(usedUpTo).map((w) => w.ko);
+  const srcEn = new Set(source.map((w) => w.en.toLowerCase()));
+  const srcKo = source.map((w) => w.ko);
+  const unused = WORD_BANK
+    .filter((w) => !srcEn.has(w.en.toLowerCase()) && !srcKo.some((k) => koClashes(k, w.ko)))
+    .map((w) => w.ko);
+  return Array.from(new Set([...spare, ...unused]));
+}
+
 /**
  * 판마다 단어 구성·석실 순서가 새로 뽑힌다. 두 번째 판이 '답 외우기'가 되지 않게.
  * seed 는 난수원이 아니라 재추첨 토큰이다 — 값이 바뀌면 새 판을 뽑는다(결과에 함께 실어 보낸다).
@@ -178,6 +226,10 @@ const RUN_CAPACITY = CHAMBER_SIZES.reduce((a, b) => a + b, 0);
  * 학습자 단어를 **전부** 먼저 쓰고, 모자라는 자리만 큐레이션 룬으로 채운다.
  * 이전 구현은 "쓸 만한 단어가 7개 미만이면 통째로 내장 뱅크"라 예문 있는 단어가
  * 5개인 학습자는 자기 단어를 한 개도 만나지 못했다(=FSRS 에도 한 줄 안 남았다).
+ *
+ * v07.10 — own 을 섞지 않고 **앞 석실부터** 배치한다. 150초 예산에서 석실 3까지
+ * 도달하지 못하는 판이 정상 범위인데(반증 시뮬), own 을 섞으면 학습자 단어가
+ * 도달 못 한 석실에 갇혀 FSRS 에 한 줄도 안 남는다. 석실 내부 순서는 여전히 무작위다.
  */
 function buildRun(pool: Word[] | undefined, seed: number): Run {
   const own = shuffle(poolToWords(pool));
@@ -188,12 +240,12 @@ function buildRun(pool: Word[] | undefined, seed: number): Run {
     const filler = shuffle(WORD_BANK).filter(
       (w) => !ownEn.has(w.en.toLowerCase()) && !ownKo.some((k) => koClashes(k, w.ko)),
     );
-    source = shuffle([...own, ...filler.slice(0, RUN_CAPACITY - own.length)]);
+    source = [...own, ...filler.slice(0, RUN_CAPACITY - own.length)];
   }
   const chambers: GWord[][] = [];
   let i = 0;
   for (const size of CHAMBER_SIZES) {
-    const chunk = source.slice(i, i + size);
+    const chunk = shuffle(source.slice(i, i + size));
     if (chunk.length < 3) break;
     chambers.push(chunk);
     i += chunk.length;
@@ -202,21 +254,172 @@ function buildRun(pool: Word[] | undefined, seed: number): Run {
     const fallback = shuffle(WORD_BANK);
     return {
       chambers: [fallback.slice(0, 4), fallback.slice(4, 9), fallback.slice(9, 14)],
-      spareKo: fallback.slice(14).map((w) => w.ko),
+      reserveKo: reserveMeanings(fallback, 14),
       seed,
+      ownCount: 0,
     };
   }
-  return { chambers, spareKo: source.slice(i).map((w) => w.ko), seed };
+  return {
+    chambers,
+    reserveKo: reserveMeanings(source, i),
+    seed,
+    ownCount: chambers.reduce((n, c) => n + c.filter((w) => w.own).length, 0),
+  };
 }
 
-interface LogEntry { en: string; ko: string; salt: number; rubbed: boolean }
+interface LogEntry { en: string; ko: string; salt: number; seed: number; rubbed: boolean }
+interface GlyphMeta { salt: number; desc: string; name: string }
+
+/** 탁본 결과 표시 — 첫 글자·끝 글자·길이만. 가운데는 점으로 가린다. */
+const rubOf = (en: string) => {
+  const n = en.length;
+  if (n <= 2) return en.split('').join(' ');
+  return [en[0], ...Array.from({ length: n - 2 }, () => '·'), en[n - 1]].join(' ');
+};
+
+// ── 무거운 하위 트리는 memo 로 잘라낸다 ─────────────────────────────────────
+// 등불(TimerBar)은 rAF 마다 갱신된다. 그대로 두면 석실 3에서 비문 10줄 + 룬 SVG 15개 +
+// 칩 8개가 60Hz 로 재조정돼 저사양 모바일에서 프레임이 떨어진다. 이 세 덩어리는
+// 시계와 무관한 값에만 의존하므로 memo 경계를 두면 실제 리렌더가 '상태가 바뀔 때'로 준다.
+
+const Tablets = memo(function Tablets({
+  inscriptions, solved, focusEn, glyphs, seed,
+}: {
+  inscriptions: { en: string; text: string }[];
+  solved: Set<string>;
+  focusEn: string | null;
+  glyphs: Record<string, GlyphMeta>;
+  seed: number;
+}) {
+  return (
+    <div className="gt-tablets">
+      {inscriptions.map((ins, i) => {
+        const isSolved = solved.has(ins.en);
+        const focused = focusEn === ins.en;
+        const meta = glyphs[ins.en];
+        const parts = ins.text.split('{}');
+        return (
+          <p key={`${ins.en}-${i}`} className={`gt-tablet ${focused ? 'gt-tablet--focus' : ''} ${isSolved ? 'gt-tablet--read' : ''}`}>
+            {parts.map((seg, j) => (
+              <span key={j}>
+                {seg}
+                {j < parts.length - 1 && (
+                  isSolved
+                    ? <b className="gt-word">{ins.en}</b>
+                    : (
+                      <span
+                        className={`gt-rune-slot ${focused ? 'gt-rune-slot--focus' : ''}`}
+                        role="img"
+                        aria-label={`룬 ${meta?.name ?? ''}`}
+                      >
+                        <Rune word={ins.en} salt={meta?.salt ?? 0} seed={seed} className="gt-rune-inline" />
+                      </span>
+                    )
+                )}
+              </span>
+            ))}
+          </p>
+        );
+      })}
+    </div>
+  );
+});
+
+const Codex = memo(function Codex({
+  words, solved, assign, misread, glyphs, rubbed, held, focusEn, locked, seed, onTapRune,
+}: {
+  words: GWord[];
+  solved: Set<string>;
+  assign: Record<string, string>;
+  misread: string[];
+  glyphs: Record<string, GlyphMeta>;
+  rubbed: Set<string>;
+  held: string | null;
+  focusEn: string | null;
+  locked: boolean;
+  seed: number;
+  onTapRune: (en: string) => void;
+}) {
+  return (
+    <div className="gt-codex" role="group" aria-label="코덱스">
+      {words.map((w) => {
+        const isSolved = solved.has(w.en);
+        const guess = assign[w.en];
+        const bad = misread.includes(w.en);
+        const meta = glyphs[w.en];
+        const isRubbed = rubbed.has(w.en);
+        return (
+          <button
+            key={w.en}
+            type="button"
+            className={[
+              'gt-card',
+              isSolved ? 'gt-card--solved' : '',
+              focusEn === w.en ? 'gt-card--focus' : '',
+              held && !isSolved ? 'gt-card--target' : '',
+              guess && !isSolved && !bad ? 'gt-card--bound' : '',
+              bad ? 'gt-card--misread' : '',
+            ].filter(Boolean).join(' ')}
+            onClick={() => onTapRune(w.en)}
+            disabled={isSolved || locked}
+            aria-label={
+              isSolved
+                ? `해독됨 · ${w.en} · ${w.ko}`
+                : `룬 ${meta?.name ?? ''} (${meta?.desc ?? ''})${guess ? ` · 가설 ${guess}` : ' · 뜻 미지정'}`
+            }
+          >
+            <span className="gt-card-glyph">
+              {isSolved ? <b className="gt-card-word">{w.en}</b> : <Rune word={w.en} salt={meta?.salt ?? 0} seed={seed} className="gt-rune-card" />}
+            </span>
+            {!isSolved && <span className="gt-card-name" aria-hidden="true">룬 {meta?.name}</span>}
+            {!isSolved && isRubbed && <span className="gt-rub-out" aria-hidden="true">{rubOf(w.en)}</span>}
+            <span className={`gt-slot ${guess ? 'gt-slot--filled' : ''} ${isSolved ? 'gt-slot--locked' : ''} ${bad ? 'gt-slot--misread' : ''}`}>
+              {isSolved && <FeedbackIcon kind="correct" size={12} />}
+              {bad && <FeedbackIcon kind="wrong" size={12} />}
+              <span className="gt-slot-t">{isSolved ? w.ko : guess || '뜻?'}</span>
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+});
+
+const Bank = memo(function Bank({
+  chips, held, locked, onTap,
+}: {
+  chips: string[];
+  held: string | null;
+  locked: boolean;
+  onTap: (ko: string) => void;
+}) {
+  return (
+    <div className="gt-bank" role="group" aria-label="뜻 후보">
+      {chips.map((ko) => (
+        <button
+          key={ko}
+          type="button"
+          className={`gt-chip ${held === ko ? 'gt-chip--held' : ''}`}
+          onClick={() => onTap(ko)}
+          disabled={locked}
+          aria-pressed={held === ko}
+        >
+          {ko}
+        </button>
+      ))}
+      {chips.length === 0 && <span className="gt-bank-empty">모든 뜻을 배치했어요 — 봉인하세요</span>}
+    </div>
+  );
+});
 
 export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const sfx = useSfx();
-  const [runSeed, setRunSeed] = useState(0);
-  // runSeed 는 난수 씨앗이 아니라 memo 무효화 토큰이다 — 재시작마다 새 판을 뽑는다.
+  // runSeed 는 판 구성과 **룬 형태**를 동시에 재추첨하는 토큰이다.
+  // 0 에서 시작하면 "매 세션의 첫 판"이 늘 같은 형태라 세션을 새로 열어 형태를 외울 수
+  // 있다 — 그래서 첫 값부터 난수다(이 게임은 ssr:false 라 hydration 불일치가 없다).
+  const [runSeed, setRunSeed] = useState(() => (Math.random() * 0x7fffffff) | 0);
   const run = useMemo(() => buildRun(wordPool, runSeed), [wordPool, runSeed]);
-  const { chambers, spareKo } = run;
+  const { chambers, reserveKo, ownCount } = run;
   const totalRunes = useMemo(() => chambers.reduce((n, c) => n + c.length, 0), [chambers]);
 
   const [chamberIdx, setChamberIdx] = useState(0);
@@ -245,6 +448,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const [recallResult, setRecallResult] = useState<Record<string, boolean> | null>(null);
 
   const lapsedRef = useRef<Set<string>>(new Set()); // onWrong 은 룬당 한 번만 — 난사가 FSRS 를 오염시키지 않게
+  const flushedRef = useRef(false);                 // 판 종료 시 미해독 룬 적재는 판당 한 번만
   const timersRef = useRef<number[]>([]);
   const later = useCallback((fn: () => void, ms: number) => {
     const id = window.setTimeout(fn, ms);
@@ -277,22 +481,30 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const glyphs = useMemo(() => {
     // 같은 석실에서 두 룬이 같은 형태로 그려지면 읽을 수 없다 — 충돌 시 재솔트.
     const used = new Set<string>();
-    const map: Record<string, { salt: number; desc: string; name: string }> = {};
+    const map: Record<string, GlyphMeta> = {};
     words.forEach((w, i) => {
-      let salt = 0, g = buildGlyph(w.en, 0);
-      while (used.has(glyphKey(g)) && salt < 8) { salt += 1; g = buildGlyph(w.en, salt); }
+      let salt = 0, g = buildGlyph(w.en, 0, runSeed);
+      while (used.has(glyphKey(g)) && salt < 8) { salt += 1; g = buildGlyph(w.en, salt, runSeed); }
       used.add(glyphKey(g));
       map[w.en] = { salt, desc: glyphDesc(g), name: RUNE_NAMES[i] ?? `${i + 1}` };
     });
     return map;
-  }, [words]);
+  }, [words, runSeed]);
 
   const decoys = useMemo(() => {
     const chamberKo = words.map((w) => w.ko);
     const n = CHAMBER_DECOYS[Math.min(chamberIdx, CHAMBER_DECOYS.length - 1)];
-    const candidates = Array.from(new Set([...chambers.flat().map((w) => w.ko), ...spareKo]));
-    return pickDistinct(candidates, n, (ko) => chamberKo.some((c) => koClashes(c, ko)));
-  }, [words, chamberIdx, chambers, spareKo]);
+    const excluded = (ko: string) => chamberKo.some((c) => koClashes(c, ko));
+    // 1순위: 예비 풀 — 이번 판에서 끝내 정답이 되지 않는 뜻. 여기서 뽑힌 미끼는
+    // 판이 끝날 때까지 '아니라고 확정할 근거'가 생기지 않는다.
+    const primary = pickDistinct(reserveKo, n, excluded);
+    if (primary.length >= n) return primary;
+    // 2순위: 아직 열지 않은 석실의 정답 — 지금 시점에는 화면에 공개된 적이 없다.
+    // (이미 연 석실의 뜻은 영어+뜻이 카드에 남아 있어 무비용 소거 대상이므로 절대 쓰지 않는다.)
+    const taken = new Set(primary);
+    const ahead = chambers.slice(chamberIdx + 1).flat().map((w) => w.ko);
+    return [...primary, ...pickDistinct(ahead, n - primary.length, (ko) => taken.has(ko) || excluded(ko))];
+  }, [words, chamberIdx, chambers, reserveKo]);
   const decoySet = useMemo(() => new Set(decoys), [decoys]);
 
   const inscriptions = useMemo(() => {
@@ -374,8 +586,16 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     if (own.length < 3) { setOutcome('clear'); setPhase('done'); sfx.fanfare(); return; }
     const picked = shuffle(own).slice(0, 6);
     const pickedKo = picked.map((e) => e.ko);
-    const spare = Array.from(new Set([...chambers.flat().map((w) => w.ko), ...spareKo]));
-    const extra = pickDistinct(spare, 2, (ko) => pickedKo.some((c) => koClashes(c, ko)));
+    // 최종 봉인의 여분 칩도 예비 풀 우선 — 이번 판에 이미 해독한 뜻을 섞으면
+    // "저건 아까 읽은 그 단어 뜻"으로 지워져 6칩-6카드 완전대응이 복구된다.
+    const readKo = new Set(log.map((e) => e.ko));
+    const extraExcluded = (ko: string) => pickedKo.some((c) => koClashes(c, ko));
+    let extra = pickDistinct(reserveKo, 2, extraExcluded);
+    if (extra.length < 2) {
+      const taken = new Set(extra);
+      const unread = chambers.flat().map((w) => w.ko).filter((ko) => !readKo.has(ko));
+      extra = [...extra, ...pickDistinct(unread, 2 - extra.length, (ko) => taken.has(ko) || extraExcluded(ko))];
+    }
     setRecallWords(picked);
     setRecallBank(shuffle([...pickedKo, ...extra]));
     setRecallAssign({}); setRecallHeld(null); setRecallResult(null);
@@ -384,7 +604,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     setPhase('recall');
     cd.reset(RECALL_MS);
     sfx.coin();
-  }, [chamberIdx, chambers, log, spareKo, sfx, cd]);
+  }, [chamberIdx, chambers, log, reserveKo, sfx, cd]);
 
   const seal = useCallback(() => {
     if (cleared) { advance(); return; }
@@ -410,11 +630,15 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       if (assign[w.en] !== w.ko) return;
       nextSolved.add(w.en);
       const wasRubbed = rubbed.has(w.en);
-      newLog.push({ en: w.en, ko: w.ko, salt: glyphs[w.en]?.salt ?? 0, rubbed: wasRubbed });
-      if (wasRubbed) return; // 탁본으로 산 정답 — 점수·연쇄·FSRS 전부 없음
+      // 이미 한 번 어긋난 룬은 후보가 좁혀진 상태다 — 극단적으로는 8초를 내고 소거로
+      // 확정한 정답이라 '안다'의 근거가 못 된다. 그렇다고 호출을 생략하면 모르는 단어가
+      // FSRS 에서 통째로 사라지므로(letter-forge 함정), 생략 대신 assisted 로 올린다.
+      const assisted = wasRubbed || lapsedRef.current.has(w.en);
+      newLog.push({ en: w.en, ko: w.ko, salt: glyphs[w.en]?.salt ?? 0, seed: runSeed, rubbed: wasRubbed });
+      onCorrect?.({ en: w.en, ko: w.ko }, assisted ? { assisted: true } : undefined);
+      if (wasRubbed) return; // 탁본으로 산 정답 — 점수·연쇄 없음(게임 보상까지 회수)
       scored += 1;
       gained += Math.round(BASE_SCORE * chMult * multAtSeal * (allRight ? batch : 1));
-      onCorrect?.({ en: w.en, ko: w.ko });
     });
     wrongEns.forEach((en) => {
       const w = words.find((x) => x.en === en);
@@ -470,9 +694,12 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     const parts: string[] = [];
     if (ok > 0) parts.push(`${ok}개가 문맥과 맞았어요`);
     if (wrongEns.length > 0) parts.push(`${wrongEns.length}개는 아직 어긋나요 · 등불 −${(wrongEns.length * LOSS_MS) / 1000}초`);
-    if (usedDecoy) parts.push('그중 하나는 이 석실의 뜻이 아니에요');
+    // 미끼 안내는 **어긋난 배치가 2개 이상일 때만**. 1개만 걸고 봉인해서 이 문장을 사면
+    // 8초에 특정 칩 하나를 '미끼 확정'으로 지우는 무위험 오라클이 된다(미끼 3개 = 24초에
+    // 석실 3이 완전대응으로 붕괴). 2개 이상이면 어느 쪽인지 알 수 없어 정보값이 남지 않는다.
+    if (usedDecoy && wrongEns.length >= 2) parts.push('그중 하나는 이 석실의 뜻이 아니에요');
     setSealMsg(parts.join(' · '));
-  }, [cleared, advance, locked, words, solved, assign, combo, chamberIdx, decoySet, rubbed, glyphs, onCorrect, onWrong, cd, sfx, later]);
+  }, [cleared, advance, locked, words, solved, assign, combo, chamberIdx, decoySet, rubbed, glyphs, runSeed, onCorrect, onWrong, cd, sfx, later]);
 
   // ── 최종 봉인 ─────────────────────────────────────────────────────────────
   const gradeRecall = useCallback(() => {
@@ -483,7 +710,8 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       result[e.en] = hit;
       if (hit) right += 1;
     });
-    // FSRS 는 여기서 건드리지 않는다 — 같은 단어를 한 세션에 두 번 적재하지 않기 위해.
+    // FSRS 는 여기서 건드리지 않는다 — 여기 실린 단어는 이미 해독 단계에서 한 번
+    // 채점됐고, record-result 의 10분 재채점 쿨다운이 어차피 두 번째 적재를 막는다.
     // 이 라운드의 역할은 기록이 아니라 인출 강화와 클라이맥스다.
     const perfect = right === recallWords.length && recallWords.length > 0;
     setScore((s) => s + right * RECALL_SCORE + (perfect ? RECALL_PERFECT_BONUS : 0));
@@ -529,6 +757,32 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   }, [recallBank, recallAssign]);
   const recallAllBound = recallWords.length > 0 && recallWords.every((e) => recallAssign[e.en]);
 
+  // ── 판 종료 — 끝내 못 읽은 룬을 오답으로 정직하게 올린다 ──────────────────
+  //
+  // 해독하지 못한 룬을 아무것도 기록하지 않으면, **모르는 단어일수록 FSRS 에서
+  // 사라져** 복습이 영영 안 잡힌다(letter-forge 가 정확히 이 함정에 빠졌다).
+  // 다만 도달하지 못한 석실의 룬은 제외한다 — 본 적 없는 단어를 오답으로 만들 수는 없다.
+  // 상한: 들어간 석실의 룬 수(최대 14) × 판당 1회, lapsedRef 로 중복 차단. 방치로
+  // 오답이 무한 적재되는 경로는 없다(같은 카드 재채점은 중앙 10분 쿨다운도 막는다).
+  const unreadInEntered = useMemo(() => {
+    const decoded = new Set(log.map((e) => e.en));
+    return chambers.slice(0, chamberIdx + 1).flat().filter((w) => !decoded.has(w.en));
+  }, [log, chambers, chamberIdx]);
+  const unreachedWords = useMemo(
+    () => chambers.slice(chamberIdx + 1).flat(),
+    [chambers, chamberIdx],
+  );
+
+  useEffect(() => {
+    if (phase !== 'done' || flushedRef.current) return;
+    flushedRef.current = true;
+    unreadInEntered.forEach((w) => {
+      if (lapsedRef.current.has(w.en)) return;
+      lapsedRef.current.add(w.en);
+      onWrong?.({ en: w.en, ko: w.ko });
+    });
+  }, [phase, unreadInEntered, onWrong]);
+
   // ── 개인 기록 ─────────────────────────────────────────────────────────────
   useEffect(() => {
     if (phase !== 'done' || bestDoneRef.current) return;
@@ -541,9 +795,12 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     timersRef.current.forEach((t) => window.clearTimeout(t));
     timersRef.current = [];
     lapsedRef.current = new Set();
+    flushedRef.current = false;
     bestDoneRef.current = false;
     setBestInfo(null);
-    setRunSeed((s) => s + 1);
+    // 값이 반드시 바뀌도록 최소 1 은 더하고, 그 위에 난수를 얹어 다음 판의 룬 형태를
+    // 예측 불가로 만든다(연속 재시작으로 seed 를 세어 형태를 되짚는 경로 차단).
+    setRunSeed((s) => (s + 1 + ((Math.random() * 0xffff) | 0)) | 0);
     setChamberIdx(0);
     setAssign({}); setHeld(null); setSolved(new Set()); setRubbed(new Set());
     setMisread([]); setFocusEn(null); setSealMsg(''); setSealTone('info');
@@ -555,50 +812,37 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     cd.reset(TOTAL_MS);
   }, [combo, cd]);
 
-  // 비문 렌더: 해독된 룬은 영어 단어로, 아니면 룬으로.
-  const renderInscription = useCallback((en: string, text: string) => {
-    const parts = text.split('{}');
-    const isSolved = solved.has(en);
-    const focused = focusEn === en;
-    const meta = glyphs[en];
-    return parts.map((seg, i) => (
-      <span key={i}>
-        {seg}
-        {i < parts.length - 1 && (
-          isSolved
-            ? <b className="gt-word">{en}</b>
-            : (
-              <span
-                className={`gt-rune-slot ${focused ? 'gt-rune-slot--focus' : ''}`}
-                role="img"
-                aria-label={`룬 ${meta?.name ?? ''}`}
-              >
-                <Rune word={en} salt={meta?.salt ?? 0} className="gt-rune-inline" />
-              </span>
-            )
-        )}
-      </span>
-    ));
-  }, [solved, focusEn, glyphs]);
-
   const shownScore = useCountUp(score);
-  const solvedTotal = log.length;
+  const decodedTotal = log.length;                             // 진행도(탁본 포함)
+  const rubbedTotal = log.filter((e) => e.rubbed).length;
+  const readTotal = decodedTotal - rubbedTotal;                // 스스로 읽어낸 룬만
 
   // ── 결과 ──────────────────────────────────────────────────────────────────
   if (phase === 'done') {
-    const missedNow = words.filter((w) => !solved.has(w.en));
     const recallMissed = recallResult ? recallWords.filter((e) => !recallResult[e.en]) : [];
     const recallRight = recallResult ? recallWords.length - recallMissed.length : 0;
     const perfectRecall = recallResult !== null && recallWords.length > 0 && recallMissed.length === 0;
     const win = outcome === 'clear';
 
-    const reveal = (missedNow.length > 0 || recallMissed.length > 0) ? (
+    // 헤더 :28 의 약속 이행 — 도달하지 못한 석실의 룬까지 전부 펼친다.
+    // 다만 두 묶음을 나눈다: 앞은 오답으로 복습에 올라간 것, 뒤는 만나지 못해 기록도 없는 것.
+    const reveal = (unreadInEntered.length > 0 || unreachedWords.length > 0 || recallMissed.length > 0) ? (
       <div className="gt-reveal">
-        {missedNow.length > 0 && (
+        {unreadInEntered.length > 0 && (
           <>
-            <p className="gt-reveal-h">못 읽고 남은 룬</p>
+            <p className="gt-reveal-h">못 읽고 남은 룬 · 복습에 담았어요</p>
             <ul className="gt-reveal-list">
-              {missedNow.map((w) => (
+              {unreadInEntered.map((w) => (
+                <li key={w.en}><b>{w.en}</b><span>{w.ko}</span></li>
+              ))}
+            </ul>
+          </>
+        )}
+        {unreachedWords.length > 0 && (
+          <>
+            <p className="gt-reveal-h">아직 열지 못한 석실</p>
+            <ul className="gt-reveal-list">
+              {unreachedWords.map((w) => (
                 <li key={w.en}><b>{w.en}</b><span>{w.ko}</span></li>
               ))}
             </ul>
@@ -637,7 +881,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
         : undefined;
 
     const hint = outcome === 'timeout'
-      ? `${solvedTotal}개 룬에서 등불이 꺼졌어요 · 확신하는 룬을 묶어 봉인하면 등불이 더 오래 갑니다.`
+      ? `${readTotal}개 룬에서 등불이 꺼졌어요 · 확신하는 룬을 묶어 봉인하면 등불이 더 오래 갑니다.`
       : bestInfo?.improved
         ? '다음 판은 탁본 없이 한 석실 더 노려보세요.'
         : pb.best !== null && score < pb.best
@@ -660,7 +904,8 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           reveal={reveal}
           stats={[
             { num: score.toLocaleString(), label: '점수', accent: true },
-            { num: `${solvedTotal}/${totalRunes}`, label: '읽어낸 룬' },
+            // 탁본으로 산 룬은 '읽어낸' 것이 아니다 — 지표에서 분리해야 자기기록이 거짓이 안 된다.
+            { num: `${readTotal}/${totalRunes}`, label: rubbedTotal > 0 ? `읽어낸 룬 · 탁본 ${rubbedTotal}` : '읽어낸 룬' },
             { num: combo.best, label: '최장 연쇄' },
           ]}
           best={bestInfo ? { prev: bestInfo.prev, now: score, label: '점수', improved: bestInfo.improved } : undefined}
@@ -713,7 +958,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
                     aria-label={guess ? `${e.en} · 가설 ${guess}` : `${e.en} · 뜻 미지정`}
                   >
                     <span className="gt-card-glyph">
-                      <Rune word={e.en} salt={e.salt} className="gt-rune-card gt-rune-card--faint" />
+                      <Rune word={e.en} salt={e.salt} seed={e.seed} className="gt-rune-card gt-rune-card--faint" />
                     </span>
                     <span className="gt-card-en">{e.en}</span>
                     <span className={`gt-slot ${guess ? 'gt-slot--filled' : ''}`}>{guess || '뜻?'}</span>
@@ -749,11 +994,6 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
   // ── 해독 ──────────────────────────────────────────────────────────────────
   const focusMeta = focusEn ? glyphs[focusEn] : null;
-  const rubOf = (en: string) => {
-    const n = en.length;
-    if (n <= 2) return en.split('').join(' ');
-    return [en[0], ...Array.from({ length: n - 2 }, () => '·'), en[n - 1]].join(' ');
-  };
 
   return (
     <div className="gk-root gt-root" data-streak={combo.combo >= 10 ? '2' : combo.combo >= 6 ? '1' : '0'}>
@@ -771,7 +1011,7 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       <style dangerouslySetInnerHTML={{ __html: GT_CSS }} />
       <Hud
         score={shownScore}
-        progress={totalRunes ? solvedTotal / totalRunes : 0}
+        progress={totalRunes ? decodedTotal / totalRunes : 0}
         combo={combo.combo}
         comboMult={combo.mult}
         muted={sfx.muted}
@@ -795,16 +1035,17 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
             <span className="gt-chapter-m">석실 {chamberIdx + 1}/{chambers.length} · </span>
             한 번에 묶어 봉인할수록 배수 ↑ · 어긋나면 등불 −{LOSS_MS / 1000}초 · 뱅크에는 이 석실의 것이 아닌 뜻도 섞여 있다
           </span>
+          {/* 어떤 단어로 도는 판인지 숨기지 않는다 — 예문이 붙은 내 단어가 0개면
+              화면은 '내 복습 단어'를 광고하는데 FSRS 에는 한 줄도 안 남는 사고가 났었다. */}
+          <span className="gt-help-sub gt-pool">
+            {ownCount > 0
+              ? `이 판의 룬 — 내 단어 ${ownCount}개 · 큐레이션 ${totalRunes - ownCount}개`
+              : `이 판의 룬 — 큐레이션 ${totalRunes}개 (예문이 붙은 내 단어가 없어요)`}
+          </span>
         </p>
 
         {/* 비문 벽 */}
-        <div className="gt-tablets">
-          {inscriptions.map((ins, i) => (
-            <p key={`${ins.en}-${i}`} className={`gt-tablet ${focusEn === ins.en ? 'gt-tablet--focus' : ''} ${solved.has(ins.en) ? 'gt-tablet--read' : ''}`}>
-              {renderInscription(ins.en, ins.text)}
-            </p>
-          ))}
-        </div>
+        <Tablets inscriptions={inscriptions} solved={solved} focusEn={focusEn} glyphs={glyphs} seed={runSeed} />
 
         {/* 코덱스 */}
         <div className="gt-codex-wrap">
@@ -813,67 +1054,23 @@ export function GlyphTongueGame({ wordPool, onExit, onCorrect, onWrong }: Props)
               <ParticleBurst intensity={2} colors={BURST_COLORS} />
             </span>
           )}
-          <div className="gt-codex" role="group" aria-label="코덱스">
-            {words.map((w) => {
-              const isSolved = solved.has(w.en);
-              const guess = assign[w.en];
-              const bad = misread.includes(w.en);
-              const meta = glyphs[w.en];
-              const isRubbed = rubbed.has(w.en);
-              return (
-                <button
-                  key={w.en}
-                  type="button"
-                  className={[
-                    'gt-card',
-                    isSolved ? 'gt-card--solved' : '',
-                    focusEn === w.en ? 'gt-card--focus' : '',
-                    held && !isSolved ? 'gt-card--target' : '',
-                    guess && !isSolved && !bad ? 'gt-card--bound' : '',
-                    bad ? 'gt-card--misread' : '',
-                  ].filter(Boolean).join(' ')}
-                  onClick={() => tapRune(w.en)}
-                  disabled={isSolved || locked}
-                  aria-label={
-                    isSolved
-                      ? `해독됨 · ${w.en} · ${w.ko}`
-                      : `룬 ${meta?.name ?? ''} (${meta?.desc ?? ''})${guess ? ` · 가설 ${guess}` : ' · 뜻 미지정'}`
-                  }
-                >
-                  <span className="gt-card-glyph">
-                    {isSolved ? <b className="gt-card-word">{w.en}</b> : <Rune word={w.en} salt={meta?.salt ?? 0} className="gt-rune-card" />}
-                  </span>
-                  {!isSolved && <span className="gt-card-name" aria-hidden="true">룬 {meta?.name}</span>}
-                  {!isSolved && isRubbed && <span className="gt-rub-out" aria-hidden="true">{rubOf(w.en)}</span>}
-                  <span className={`gt-slot ${guess ? 'gt-slot--filled' : ''} ${isSolved ? 'gt-slot--locked' : ''} ${bad ? 'gt-slot--misread' : ''}`}>
-                    {isSolved && <FeedbackIcon kind="correct" size={12} />}
-                    {bad && <FeedbackIcon kind="wrong" size={12} />}
-                    <span className="gt-slot-t">{isSolved ? w.ko : guess || '뜻?'}</span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          <Codex
+            words={words}
+            solved={solved}
+            assign={assign}
+            misread={misread}
+            glyphs={glyphs}
+            rubbed={rubbed}
+            held={held}
+            focusEn={focusEn}
+            locked={locked}
+            seed={runSeed}
+            onTapRune={tapRune}
+          />
         </div>
 
         {/* 뜻 뱅크 */}
-        {!cleared && (
-          <div className="gt-bank" role="group" aria-label="뜻 후보">
-            {bank.map((ko) => (
-              <button
-                key={ko}
-                type="button"
-                className={`gt-chip ${held === ko ? 'gt-chip--held' : ''}`}
-                onClick={() => tapMeaning(ko)}
-                disabled={locked}
-                aria-pressed={held === ko}
-              >
-                {ko}
-              </button>
-            ))}
-            {bank.length === 0 && <span className="gt-bank-empty">모든 뜻을 배치했어요 — 봉인하세요</span>}
-          </div>
-        )}
+        {!cleared && <Bank chips={bank} held={held} locked={locked} onTap={tapMeaning} />}
 
         <div className="gt-actions">
           {gain && <span key={gain.id} className="gt-gain" aria-hidden="true">+{gain.v.toLocaleString()}</span>}
@@ -939,13 +1136,22 @@ const GT_CSS = `
   .gt-help { margin: 0; font-size: 12.5px; color: var(--t2); text-align: center; max-width: 62ch; display: flex; flex-direction: column; gap: 3px; }
   .gt-help b { color: var(--t1); }
   .gt-help-sub { font-size: 11.5px; color: var(--t3); }
+  .gt-pool { font-size: 11px; letter-spacing: .01em; opacity: .92; }
   .gt-help--final { font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: 14px; color: var(--t1); }
 
   .gt-tablets { display: flex; flex-direction: column; gap: 6px; width: min(680px, 94vw); }
   .gt-tablet { margin: 0; padding: 8px 15px; border-radius: 8px; background: color-mix(in srgb, var(--bg) 64%, transparent); border: 1px solid var(--bd); border-left: 3px solid color-mix(in srgb, var(--t1) 14%, transparent);
     font-family: var(--font-body, Georgia, serif); font-size: clamp(13.5px, 2.1vw, 16.5px); line-height: 1.5; color: var(--t1); backdrop-filter: blur(3px); transition: border-color .2s, background .2s, opacity .2s; }
-  /* 석실 3 은 비문이 10줄이다 — 390px 에서 시계가 도는 동안 스크롤하게 두지 않도록 압축. */
-  @media (max-width: 520px) { .gt-tablets { gap: 5px; } .gt-tablet { padding: 6px 11px; line-height: 1.42; } }
+  /* 석실 3 은 비문이 10줄이다. 390px 에서 실측하면 비문 ≈510px + 코덱스 200 + 뱅크 102 +
+     액션 120 + HUD 56 ≈ 1,030px 로 가용 높이(약 700px)를 넘어, 시계가 도는 동안
+     코덱스·뱅크가 화면 밖으로 밀려 스크롤을 강요했다. 압축만으로는 못 막는다 —
+     비문 영역만 자체 스크롤로 분리해 조작부(코덱스·뱅크·봉인)를 항상 화면에 붙여둔다. */
+  @media (max-width: 520px) {
+    .gt-tablets { gap: 5px; max-height: 38vh; overflow-y: auto; overscroll-behavior: contain; padding-right: 2px; }
+    .gt-tablet { padding: 6px 11px; line-height: 1.42; }
+    /* 이미 읽어낸 비문은 한 줄로 접는다 — 근거를 남기되 자리를 돌려준다. */
+    .gt-tablet--read { max-height: 2.1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: .78; }
+  }
   .gt-tablet--focus { border-left-color: var(--combo); background: color-mix(in srgb, var(--combo) 8%, var(--bg)); }
   .gt-tablet--read { border-left-color: color-mix(in srgb, var(--success) 60%, transparent); }
   .gt-root[data-streak="1"] .gt-tablet, .gt-root[data-streak="2"] .gt-tablet { border-left-color: color-mix(in srgb, var(--streak) 55%, transparent); }

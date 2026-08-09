@@ -18,10 +18,19 @@ import { gameResourceContext } from '@/lib/game/scope-resource';
 import { recordGameResult } from '@/lib/game/record-result';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
+/**
+ * `assisted` — 정답을 이미 보여준 뒤의 입력(힌트 구매 · 리빌 직후 재출제 · 자동 pass).
+ * 게임 점수·콤보에는 반영하되 **FSRS 에는 올리지 않는다**. 넘기지 않으면 false.
+ * (판정 자체는 record-result 가 중앙에서 한다 — 게임별로 기준이 갈리지 않게.)
+ */
+export interface ResultOpts {
+  assisted?: boolean;
+}
+
 interface RenderArgs {
   wordPool?: Word[];
-  onCorrect: (word: Word) => void;
-  onWrong: (word: Word) => void;
+  onCorrect: (word: Word, opts?: ResultOpts) => void;
+  onWrong: (word: Word, opts?: ResultOpts) => void;
   onExit: () => void;
 }
 
@@ -61,13 +70,13 @@ export function GamePlayScaffold({
     router.push(resolveSessionReturnHref(scope.from, scope.text, '/arcade'));
   };
 
-  const onCorrect = (word: Word) => {
+  const onCorrect = (word: Word, opts?: ResultOpts) => {
     session.countCorrect();
-    void recordGameResult({ word: word.en, isCorrect: true, module });
+    void recordGameResult({ word: word.en, isCorrect: true, module, assisted: opts?.assisted });
   };
-  const onWrong = (word: Word) => {
+  const onWrong = (word: Word, opts?: ResultOpts) => {
     session.countWrong();
-    void recordGameResult({ word: word.en, isCorrect: false, module });
+    void recordGameResult({ word: word.en, isCorrect: false, module, assisted: opts?.assisted });
   };
 
   return (

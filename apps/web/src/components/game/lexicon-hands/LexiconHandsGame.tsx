@@ -18,15 +18,30 @@
 //                        부분 정답 개수를 알려주지 않는다(무위험 탐색 오라클 차단).
 //   · 검수(lives) — 반려마다 1 소모. 0 이면 계약 파기. 반려는 플레이를 소모하지 않는다.
 //   · 연쇄(combo) — 납품한 카드 수만큼 누적. 반려 한 번에 통째로 소멸.
-//   · 감정(hint)  — 카드 1장의 뜻을 공개. 대신 칩 절반 + **FSRS 미적재**
-//                   (힌트로 산 정답을 인출로 기록하지 않는다).
-//   · 시간        — 2계약부터 카운트다운. 납품은 시간을 벌고, 반려는 시간을 깎는다.
+//   · 감정(hint)  — 카드 1장의 뜻을 공개. 대신 칩 절반 + **assisted 표시**
+//                   (힌트로 산 정답을 FSRS 인출로 올리지 않는다).
+//   · 시간        — 세 계약 모두 카운트다운. 납품은 시간을 벌고, 반려는 시간을 깎는다.
+//                   1계약의 만료는 패배가 아니라 '남은 납품 기회 축소'라는 소프트 압박.
 //   · 정산 + 조커 — 계약 사이 남은 자원을 칩으로 환산하고 조커 1장을 영입한다.
 //                   조커 8종 전부 실제 점수식에 들어간다(장식 없음).
 //
+// v07.10 반증 감사 대응 (익스플로짓 봉쇄)
+//   ① 반려 리빌 세탁 — 반려로 뜻이 공개된 단어는 재드로우가 잠기고(revealedRef),
+//      돌아와도 `appraised` 로 생성돼 칩 절반 + assisted 처리된다. '뜻을 이미 본 카드'는
+//      감정이든 반려든 한 가지 규칙으로 통일.
+//   ② 회수업자 파밍 — salvage 를 '매 납품에 붙는 영구 가산'에서 '반려 순간 1회성 회수'로
+//      바꿔 배수를 타지 않게 했다. 고의 반려를 반복해도 정상 납품 1회를 이기지 못한다.
+//   ③ 드래프트 폭발 — 조커에 계열(group)을 붙여 같은 계열 중복 영입을 막고, 계약 진척은
+//      한 납품당 목표의 45% 로 상한을 둔다(0.45×2 < 1 → 어떤 조커 조합도 2플레이 클리어 불가).
+//      상한 초과분은 사라지지 않고 총 칩으로 이월된다.
+//   ④ 무시계 체류 — 1계약에도 시계를 둔다(소프트 만료).
+//
 // FSRS 정직성
-//   맞게 납품한 카드만 onCorrect. 어긋나 소각된 카드만 onWrong.
-//   버림은 전략이지 오답이 아니므로 아무것도 기록하지 않는다. 감정한 카드도 기록하지 않는다.
+//   맞게 납품한 카드만 onCorrect, 어긋나 소각된 카드만 onWrong — **모르는 단어일수록
+//   오답으로 정직하게 올라가야 복습이 잡힌다**. 다만 뜻을 이미 본 카드(감정 · 반려 복귀)는
+//   `{ assisted: true }` 로 올려 점수·통계에는 남기되 스케줄은 건드리지 않는다.
+//   버림은 전략이지 오답이 아니므로 아무것도 기록하지 않는다.
+//   같은 단어는 한 런에서 오답 1회 · 정답 1회까지만 올린다(적재 상한 = 풀 크기).
 //   맛보기 풀로 도는 동안(내 단어장이 얇을 때)에는 한 건도 적재하지 않는다.
 
 'use client';
@@ -37,6 +52,7 @@ import {
   AmbientBackground,
   Hud,
   GameDone,
+  NotEnoughWords,
   GameMusic,
   ParticleBurst,
   FeedbackIcon,
@@ -53,16 +69,27 @@ import {
   type Word,
 } from '@/components/game/_shared/gamekit';
 
+/** 정답을 이미 보여준 뒤의 입력 표시 — 스캐폴드가 FSRS 적재에서 걸러낸다. */
+interface ResultOpts { assisted?: boolean }
+
 interface Props {
   wordPool?: Word[];
+  /**
+   * 단어 스코프 종류. `explicit`(?set= / ?text=)은 사용자가 "이 자료로"를 명시한 것이므로
+   * 정제 후 풀이 얇아도 **맛보기로 몰래 갈아치지 않는다**(use-word-scope 의 원칙).
+   */
+  scopeKind?: 'explicit' | 'mine' | 'bank';
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 // ─── 계약 규격 ────────────────────────────────────────────────────────────
 // 목표는 5배씩 오르지만 화력도 같이 오른다(조커 영입 + 연쇄 배수 + 주문판 확대).
-// 1계약은 시간 없음 — 규칙을 배우는 판에서 시계를 돌리면 배우기 전에 진다.
+// 1계약도 시계를 둔다(150초). 예전에는 timeMs=0 이라 첫 판의 체류 시간이 무제한이었고
+// 첫 30초와 마지막 30초의 수치가 완전히 같았다(긴장 곡선 0 · 세션 상한 소멸).
+// 대신 만료가 패배가 아니다 — 규칙을 배우는 판에서 시계로 죽이면 배우기 전에 진다.
+// 만료 시 남은 납품 기회만 2로 줄어든다(soft deadline). 안내 카드를 읽는 동안은 멈춰 있다.
 interface RoundSpec {
   target: number;
   slots: number;
@@ -77,9 +104,9 @@ interface RoundSpec {
 }
 const ROUNDS: RoundSpec[] = [
   {
-    target: 420, slots: 3, hand: 8, plays: 4, lives: 3, discards: 3, appraisals: 2, timeMs: 0,
+    target: 420, slots: 3, hand: 8, plays: 4, lives: 3, discards: 3, appraisals: 2, timeMs: 150_000,
     title: '첫 계약 · 소량 납품',
-    note: '주문 3건. 시계는 아직 돌지 않는다. 한 장씩 안전하게 내면 목표에 닿지 못한다 — 묶어라.',
+    note: '주문 3건, 150초. 납기를 넘겨도 계약은 깨지지 않는다 — 연장 납기 60초가 붙고 납품 기회만 줄어든다.',
   },
   {
     target: 1150, slots: 4, hand: 8, plays: 4, lives: 3, discards: 2, appraisals: 2, timeMs: 95_000,
@@ -101,32 +128,84 @@ const CASH_PLAY = 45;
 const CASH_LIFE = 70;
 const CASH_APPRAISE = 30;
 
-// 맛보기로 내려가는 하한. 라우트의 minWords(12)보다 낮게 잡는다 — 뜻이 겹치는 단어를
-// 걷어내면(buildPool) 12개가 10~11개로 줄 수 있는데, 그때 학습자 단어를 통째로 버리고
-// 맛보기로 갈아타면 그 판의 FSRS 적재가 0이 된다. 한 계약이 성립하는 최소치까지는 내 단어로 돈다.
+// 맛보기로 내려가는 하한. 라우트의 minWords(16)보다 낮게 잡는다 — 뜻이 겹치는 단어와
+// 2어 표제어(give up 등)를 걷어내면(buildPool) 16개가 10~13개로 줄 수 있는데, 그때 학습자
+// 단어를 통째로 버리고 맛보기로 갈아타면 그 판의 FSRS 적재가 0이 된다.
+// 한 계약이 성립하는 최소치까지는 내 단어로 돈다. explicit 스코프는 아예 갈아치지 않는다.
 const MIN_POOL = 10;
 /** 라우트(play/lexicon-hands/page.tsx)의 minWords — 안내 문구가 게이트와 어긋나지 않게 여기에도 둔다. */
-const ROUTE_MIN_WORDS = 12;
+const ROUTE_MIN_WORDS = 16;
 const APPRAISED_CHIP_RATIO = 0.5;
 const DELIVER_EXTEND_MS = 3_000;
 const REJECT_DRAIN_MS = 8_000;
 
+/**
+ * 한 번의 납품이 계약 진척에 밀어 넣을 수 있는 최대치(목표 대비).
+ *
+ * 왜 0.45 인가 — 0.45 × 2 = 0.9 < 1. 어떤 조커 조합에서도 **두 번의 납품으로는 계약이
+ * 끝나지 않는다**. 감사 전에는 다발상인+마감꾼(배수 12.75)뿐 아니라 학자 단독·직감가
+ * 단독·이중장부 단독까지 3계약(2,600)을 2플레이에 끝냈고(시뮬 17개 빌드 중 14개),
+ * 그 결과 85초 타이머가 20초 만에 무의미해졌다.
+ *
+ * 상한은 '점수를 깎는 벌'이 아니다 — 초과분은 총 칩(런 기록)으로 그대로 이월된다.
+ * 그리고 실제로 걸리는 구간은 5장 완납급 대형 납품뿐이다: 3장 묶음 학습자의 최고 납품이
+ * 1,102점(3계약 상한 1,170) 이라 중간 학습자에게는 한 번도 걸리지 않는다.
+ */
+const ROUND_PROGRESS_CAP_RATIO = 0.45;
+/** 회수업자 1장당 회수 칩 — 배수를 타지 않는 즉시 정산. */
+const SALVAGE_PER_CARD = 18;
+/**
+ * 회수 계열(검수관·회수업자)의 상시 화력. 이 둘은 '실패했을 때만' 일하는 조커라,
+ * 드래프트에서 연달아 뽑으면 마지막 계약이 수학적으로 클리어 불가가 됐다
+ * (3장 묶음 학습자 5플레이 최대 2,295 < 2,600). 죽은 픽을 없애는 최소 하한.
+ * 진척 상한(45%)이 위쪽을 이미 막고 있으므로 이 값이 커져도 2플레이 클리어는 생기지 않는다.
+ */
+const RECOVERY_CHIP = 8;
+/** 반려로 뜻이 공개된 단어를 다시 뽑지 않는 드로우 수. */
+const REVEAL_LOCK_DRAWS = 2;
+/**
+ * 1계약 소프트 납기 만료 시 남기는 납품 기회.
+ * 3인 이유 — 진척 상한(45%)이 걸린 뒤 1계약 목표 420 을 채우려면 최소 3납품이 필요하다
+ * (상한 189 × 3 = 567 ≥ 420, × 2 = 378 < 420). 2로 줄이면 150초를 넘긴 순간 수학적으로
+ * 패배가 확정된다 — 배우는 판에서 그건 벌이 아니라 함정이다.
+ * 그래서 이 축소는 사실상 '한 판도 내지 않고 150초를 쓴 사람'에게만 걸린다.
+ */
+const SOFT_DEADLINE_PLAYS = 3;
+/**
+ * 소프트 만료 뒤에 붙는 연장 납기. 이번엔 진짜로 계약이 끝난다.
+ * 이게 없으면 1계약 체류 시간이 여전히 무제한이라(그냥 안 내면 된다) 세션 상한이 사라진다.
+ */
+const SOFT_DEADLINE_TAIL_MS = 60_000;
+
 // ─── 조커 ─────────────────────────────────────────────────────────────────
-// 전부 scorePlay() 안에서 실제로 계산된다. 보유하지 않으면 아무 일도 일어나지 않는다.
+// 전부 실제 점수식에 들어간다(검수관·회수업자는 반려 경로에서). 보유하지 않으면 아무 일도 없다.
+//
+// `group` — 같은 계열은 한 런에 하나만 영입할 수 있다(:takeJoker 이후 드래프트에서 배제).
+// 감사에서 '다발상인 + 마감꾼'이 5장 배수를 7 → 12.75(+82%)로 띄워 마지막 계약을 2플레이로
+// 무너뜨렸다. 선택지를 지우는 대신 **한 계약에 같은 계열은 겹치지 않는다**는 규칙 하나로
+// 곱셈 스택을 끊고, 대신 매 런의 빌드가 서로 달라진다.
 type JokerId =
   | 'scholar' | 'bundler' | 'instinct' | 'closer'
   | 'inspector' | 'steady' | 'ledger' | 'salvage';
-interface Joker { id: JokerId; name: string; desc: string; glyph: ReactNode }
+type JokerGroup = 'chip' | 'mult' | 'combo' | 'recover';
+interface Joker { id: JokerId; name: string; group: JokerGroup; desc: string; glyph: ReactNode }
+
+const GROUP_LABEL: Record<JokerGroup, string> = {
+  chip: '칩 계열', mult: '배수 계열', combo: '연쇄 계열', recover: '회수 계열',
+};
 
 const JOKER_POOL: Joker[] = [
-  { id: 'scholar', name: '학자', desc: '7글자 이상 단어 1장당 +12칩', glyph: <path d="M3 7l7-3 7 3-7 3-7-3Zm3 4.2V15c0 .9 1.8 1.8 4 1.8s4-.9 4-1.8v-3.8" /> },
-  { id: 'bundler', name: '다발상인', desc: '3장 이상 묶으면 묶음 배수 +1.5', glyph: <path d="M4 6h12v10H4zM4 9.5h12M8.5 6v10" /> },
-  { id: 'instinct', name: '직감가', desc: '감정하지 않은 카드 1장당 +10칩', glyph: <path d="M10 3.5v13M3.5 10h13M6 6l8 8M14 6l-8 8" /> },
-  { id: 'closer', name: '마감꾼', desc: '주문판을 한 번에 비우면 묶음 배수 ×1.5', glyph: <path d="M4 10.5l4 4 8-9" /> },
-  { id: 'inspector', name: '검수관', desc: '반려돼도 맞춘 카드는 칩 절반으로 득점', glyph: <path d="M10 3.5l6 2.5v4.5c0 3.4-2.6 5.4-6 6-3.4-.6-6-2.6-6-6V6l6-2.5Z" /> },
-  { id: 'steady', name: '무결점', desc: '검수를 한 번도 잃지 않았으면 납품마다 +35칩', glyph: <path d="M10 3.2l2.1 4.4 4.7.6-3.5 3.3.9 4.8L10 14l-4.2 2.3.9-4.8L3.2 8.2l4.7-.6L10 3.2Z" /> },
-  { id: 'ledger', name: '이중장부', desc: '연쇄 배수 +0.5', glyph: <path d="M5 4h10v12H5zM7.5 7.5h5M7.5 10.5h5M7.5 13.5h3" /> },
-  { id: 'salvage', name: '회수업자', desc: '이 계약에서 소각된 카드 1장당 +18칩', glyph: <path d="M6 7h8l-1 9H7L6 7Zm1.5-2.5h5M4.5 7h11" /> },
+  { id: 'scholar', name: '학자', group: 'chip', desc: '7글자 이상 단어 1장당 +12칩', glyph: <path d="M3 7l7-3 7 3-7 3-7-3Zm3 4.2V15c0 .9 1.8 1.8 4 1.8s4-.9 4-1.8v-3.8" /> },
+  { id: 'bundler', name: '다발상인', group: 'mult', desc: '3장 이상 묶으면 묶음 배수 +1.5', glyph: <path d="M4 6h12v10H4zM4 9.5h12M8.5 6v10" /> },
+  { id: 'instinct', name: '직감가', group: 'chip', desc: '감정하지 않은 카드 1장당 +10칩', glyph: <path d="M10 3.5v13M3.5 10h13M6 6l8 8M14 6l-8 8" /> },
+  // ×1.5 → ×1.35. 마감꾼 단독(5장 완납 9.45)이 다발상인 단독(8.5)을 압도하지 않도록.
+  { id: 'closer', name: '마감꾼', group: 'mult', desc: '주문판을 한 번에 비우면 묶음 배수 ×1.35', glyph: <path d="M4 10.5l4 4 8-9" /> },
+  { id: 'inspector', name: '검수관', group: 'recover', desc: `납품 1장당 +${RECOVERY_CHIP}칩 · 반려돼도 맞춘 카드는 칩 절반으로 득점`, glyph: <path d="M10 3.5l6 2.5v4.5c0 3.4-2.6 5.4-6 6-3.4-.6-6-2.6-6-6V6l6-2.5Z" /> },
+  { id: 'steady', name: '무결점', group: 'chip', desc: '검수를 한 번도 잃지 않았으면 납품마다 +35칩', glyph: <path d="M10 3.2l2.1 4.4 4.7.6-3.5 3.3.9 4.8L10 14l-4.2 2.3.9-4.8L3.2 8.2l4.7-.6L10 3.2Z" /> },
+  // 무조건 +0.5 였을 때는 연쇄가 0인 첫 납품까지 공짜로 부풀렸다 — 연쇄가 실제로 붙었을 때만.
+  { id: 'ledger', name: '이중장부', group: 'combo', desc: '연쇄 3장 이상일 때 연쇄 배수 +0.5', glyph: <path d="M5 4h10v12H5zM7.5 7.5h5M7.5 10.5h5M7.5 13.5h3" /> },
+  // '이 계약에서 소각된 카드 1장당 매 납품 +18칩' → '반려 순간 1회 회수'. 배수를 타지 않는다.
+  { id: 'salvage', name: '회수업자', group: 'recover', desc: `납품 1장당 +${RECOVERY_CHIP}칩 · 반려된 카드 1장당 +${SALVAGE_PER_CARD}칩을 그 자리에서 회수`, glyph: <path d="M6 7h8l-1 9H7L6 7Zm1.5-2.5h5M4.5 7h11" /> },
 ];
 const JOKER_BY_ID = new Map<JokerId, Joker>(JOKER_POOL.map((j) => [j.id, j]));
 
@@ -203,35 +282,47 @@ interface ScoreCtx {
   comboBefore: number;
   jokers: JokerId[];
   livesFull: boolean;
-  burnedCount: number;
   fillsAll: boolean;
 }
 interface ScoreOut { chips: number; bundle: number; comboMult: number; score: number; label: string }
 
+/**
+ * 곱셈 폭주 방지 그물. 계열 배제(:JOKER_POOL group)로 다발상인+마감꾼이 이미 막혀 있어
+ * 현재 조커 조합으로는 여기 걸리지 않지만(최대 8.5 vs 상한 10.15), 조커가 추가될 때
+ * 배수축이 조용히 두 배가 되는 사고를 막는 상한으로 남겨 둔다.
+ */
+const BUNDLE_MULT_CAP_RATIO = 1.45;
+
 function scorePlay(ctx: ScoreCtx): ScoreOut {
   const has = (id: JokerId) => ctx.jokers.includes(id);
   const n = clamp(ctx.cards.length, 0, 5);
+  // 회수 계열은 같은 계열이라 둘 다 가질 수 없다 — 중복 가산이 생기지 않는다.
+  const recovery = has('inspector') || has('salvage');
   let chips = 0;
   for (const c of ctx.cards) {
     chips += c.appraised ? Math.round(c.chips * APPRAISED_CHIP_RATIO) : c.chips;
     if (has('scholar') && c.en.length >= 7) chips += 12;
     if (has('instinct') && !c.appraised) chips += 10;
+    if (recovery) chips += RECOVERY_CHIP;
   }
   if (n > 0 && has('steady') && ctx.livesFull) chips += 35;
-  if (has('salvage')) chips += 18 * ctx.burnedCount;
 
   let bundle = BUNDLE[n];
   if (has('bundler') && n >= 3) bundle += 1.5;
-  if (has('closer') && ctx.fillsAll && n >= 2) bundle *= 1.5;
+  if (has('closer') && ctx.fillsAll && n >= 2) bundle *= 1.35;
+  bundle = Math.min(bundle, BUNDLE[n] * BUNDLE_MULT_CAP_RATIO);
 
   let comboMult = multFor(ctx.comboBefore);
-  if (has('ledger')) comboMult += 0.5;
+  if (has('ledger') && ctx.comboBefore >= 3) comboMult += 0.5;
 
+  const b = r1(bundle);
+  const cm = r1(comboMult);
   return {
     chips,
-    bundle: r1(bundle),
-    comboMult: r1(comboMult),
-    score: Math.round(chips * bundle * comboMult),
+    bundle: b,
+    comboMult: cm,
+    // 화면에 보이는 식(chips × bundle × comboMult)과 점수가 어긋나지 않도록 반올림한 값으로 곱한다.
+    score: Math.round(chips * b * cm),
     label: BUNDLE_LABEL[n],
   };
 }
@@ -248,6 +339,10 @@ interface PlayResult {
   label: string;
   headline: string;
   consolation: number;
+  /** 계약 진척 상한을 넘겨 총 칩으로 이월된 몫. */
+  carried: number;
+  /** 반려 시 회수업자가 그 자리에서 회수한 칩. */
+  salvaged: number;
 }
 
 // ─── 아이콘 ───────────────────────────────────────────────────────────────
@@ -282,16 +377,43 @@ function IconBurn() {
   );
 }
 
-export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
+export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorrect, onWrong }: Props) {
   const sfx = useSfx();
 
   // ── 자료: 학습자 단어장이 1순위. 얇을 때만 맛보기. ──
+  // explicit 스코프(?set= / ?text=)는 사용자가 자료를 지목한 것이다 — 정제 후 얇아도
+  // 맛보기로 바꿔치지 않고 안내 화면을 띄운다(use-word-scope 의 '몰래 바꿔치지 않는다' 원칙).
   const mine = useMemo(() => buildPool(wordPool ?? []), [wordPool]);
-  const demoMode = mine.length < MIN_POOL;
+  const thin = mine.length < MIN_POOL;
+  const blocked = thin && scopeKind === 'explicit';
+  const demoMode = thin && !blocked;
   const pool = useMemo(() => (demoMode ? buildPool(DEMO_POOL) : mine), [demoMode, mine]);
 
-  const emitCorrect = useCallback((w: Word) => { if (!demoMode) onCorrect?.(w); }, [demoMode, onCorrect]);
-  const emitWrong = useCallback((w: Word) => { if (!demoMode) onWrong?.(w); }, [demoMode, onWrong]);
+  // 같은 단어를 한 런에서 여러 번 FSRS 로 올리지 않는다 — 반려·재드로우를 반복해도
+  // 적재 상한이 풀 크기를 넘지 않게. (중앙 recordGameResult 의 10분 규칙과 이중 방어)
+  const wrongOnceRef = useRef(new Set<string>());
+  const correctOnceRef = useRef(new Set<string>());
+
+  const emitCorrect = useCallback((w: Word, assisted: boolean) => {
+    if (demoMode) return;
+    const k = w.en.toLowerCase();
+    // assisted 는 스케줄에 반영되지 않으니 1회 제한에서도 제외 — 세션 통계에는 남는다.
+    if (!assisted) {
+      if (correctOnceRef.current.has(k)) return;
+      correctOnceRef.current.add(k);
+    }
+    onCorrect?.(w, assisted ? { assisted: true } : undefined);
+  }, [demoMode, onCorrect]);
+
+  const emitWrong = useCallback((w: Word, assisted: boolean) => {
+    if (demoMode) return;
+    const k = w.en.toLowerCase();
+    if (!assisted) {
+      if (wrongOnceRef.current.has(k)) return;
+      wrongOnceRef.current.add(k);
+    }
+    onWrong?.(w, assisted ? { assisted: true } : undefined);
+  }, [demoMode, onWrong]);
 
   // ── 진행 상태 ──
   // 시작 화면을 따로 두지 않는다 — 첫 계약은 이미 깔린 채로 열리고, 규칙은 보드 위에
@@ -322,6 +444,8 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
   const [openJoker, setOpenJoker] = useState<JokerId | null>(null);
   const [showRules, setShowRules] = useState(false);
 
+  // 이 계약에서 소각된 카드 수 — 결과 패널의 문구용. 점수식에는 더 이상 들어가지 않는다
+  // (회수업자가 '매 납품 영구 가산'이던 시절의 파밍 축을 제거했다).
   const [burnedThisRound, setBurnedThisRound] = useState(0);
   const [missed, setMissed] = useState<Word[]>([]);
   const [result, setResult] = useState<PlayResult | null>(null);
@@ -340,6 +464,17 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
   const cardIdRef = useRef(0);
   const orderIdRef = useRef(0);
   const seenRef = useRef(new Map<string, number>());
+  /**
+   * 반려 결과 패널이 뜻을 전부 공개한 단어들.
+   *  · `revealLockRef` — 남은 드로우 잠금 횟수. 방금 뜻을 본 단어가 같은 라운드에 곧장
+   *    손패로 돌아와 '정상 인출'로 세탁되던 경로(감사 익스플로짓 #1)를 끊는다.
+   *  · `revealedEnRef` — 한 번 공개된 단어는 잠금이 풀려 돌아와도 `appraised` 카드로
+   *    생성된다(칩 절반 · assisted). 감정한 카드와 완전히 같은 취급.
+   */
+  const revealLockRef = useRef(new Map<string, number>());
+  const revealedEnRef = useRef(new Set<string>());
+  /** 1계약 소프트 납기를 이미 한 번 넘겼는지 — 두 번째 만료는 계약 종료. */
+  const softHitRef = useRef(false);
   const phaseRef = useRef(phase);
   phaseRef.current = phase;
   const noteTimer = useRef(0);
@@ -362,11 +497,12 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
 
   const combo = useCombo();
 
-  // ── 시간 — 2계약부터. 납품은 시간을 벌고 반려는 깎는다. ──
+  // ── 시간 — 세 계약 모두. 납품은 시간을 벌고 반려는 깎는다. ──
+  // 안내 카드를 펴 놓은 동안은 멈춰 있다 — 규칙을 읽는 시간에 시계를 돌리면 첫 판이 벌칙이 된다.
   const timeUpRef = useRef<(() => void) | null>(null);
   const timer = useCountdown({
     totalMs: Math.max(ROUNDS[0].timeMs, 1_000),
-    running: phase === 'play' && ROUNDS[roundIdx].timeMs > 0,
+    running: phase === 'play' && ROUNDS[roundIdx].timeMs > 0 && !(roundIdx === 0 && showIntro),
     warnAtMs: 20_000,
     onEnd: () => { if (phaseRef.current === 'play') timeUpRef.current?.(); },
   });
@@ -376,11 +512,17 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
   // ── 손패·주문판 갱신 ──
   const takeWords = useCallback((n: number, excludeEn: Set<string>): Word[] => {
     if (n <= 0) return [];
-    const avail = pool.filter((w) => !excludeEn.has(w.en.toLowerCase()));
     // 섞은 뒤 "덜 나온 단어" 우선 — 단어장 전체가 돌아가게 한다(같은 8개만 반복 금지).
-    const ranked = shuffle(avail).sort(
-      (a, b) => (seenRef.current.get(a.en.toLowerCase()) ?? 0) - (seenRef.current.get(b.en.toLowerCase()) ?? 0),
-    );
+    const rank = (w: Word) => seenRef.current.get(w.en.toLowerCase()) ?? 0;
+    const avail = shuffle(pool.filter((w) => !excludeEn.has(w.en.toLowerCase())));
+    const locked: Word[] = [];
+    const free: Word[] = [];
+    for (const w of avail) {
+      if ((revealLockRef.current.get(w.en.toLowerCase()) ?? 0) > 0) locked.push(w);
+      else free.push(w);
+    }
+    // 잠긴 단어는 후순위. 풀이 작아 손패를 못 채울 때만 뒤에서 끌어 쓴다(교착 방지).
+    const ranked = [...free.sort((a, b) => rank(a) - rank(b)), ...locked.sort((a, b) => rank(a) - rank(b))];
     const picked = ranked.slice(0, n);
     for (const w of picked) {
       const k = w.en.toLowerCase();
@@ -395,7 +537,8 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     en: w.en,
     ko: w.ko,
     chips: chipsFor(w.en),
-    appraised: false,
+    // 반려로 이미 뜻이 공개된 단어는 돌아와도 '감정한 카드'로 태어난다 — 칩 절반, FSRS 제외.
+    appraised: revealedEnRef.current.has(w.en.toLowerCase()),
   }), []);
 
   /** 손패를 채우고, 답이 손패를 떠난 주문을 걷어내고, 빈 슬롯을 새 주문으로 메운다. */
@@ -403,6 +546,11 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     (handAfter: Card[], ordersAfter: Order[], s: RoundSpec): { hand: Card[]; orders: Order[] } => {
       const excl = new Set(handAfter.map((c) => c.en.toLowerCase()));
       const drawn = takeWords(s.hand - handAfter.length, excl);
+      // 잠금은 드로우 단위로 녹는다 — 정산이 한 번 돌 때마다 1씩.
+      for (const [k, v] of revealLockRef.current) {
+        if (v <= 1) revealLockRef.current.delete(k);
+        else revealLockRef.current.set(k, v - 1);
+      }
       const nextHand = [...handAfter, ...drawn.map(toCard)];
       const handKo = new Set(nextHand.map((c) => normKo(c.ko)));
       const kept = ordersAfter.filter((o) => handKo.has(normKo(o.ko)));
@@ -437,6 +585,7 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     setNote('');
     setCashOut(null);
     combo.reset();
+    softHitRef.current = false;
     timerRef.current.reset(Math.max(s.timeMs, 1_000));
     setPhase('play');
   }, [settleBoard, combo.reset]);
@@ -457,10 +606,13 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
       const s = ROUNDS[roundIdx];
       const cleared = scoreNow >= s.target;
       if (!cleared) {
+        // 0.9 → 0.85. 3장 묶음만 성립하는 학습자가 마지막 계약에서 닿는 지점이 0.88 이라,
+        // 0.9 컷이면 "거의 닿았어요"를 받아야 할 사람이 정확히 그 밖으로 떨어졌다.
         const ratio = s.target > 0 ? scoreNow / s.target : 0;
-        if (ratio >= 0.9) sfx.nearMiss();
+        const near = ratio >= 0.85;
+        if (near) sfx.nearMiss();
         else sfx.wrong();
-        endRun(false, ratio >= 0.9
+        endRun(false, near
           ? `목표까지 ${(s.target - scoreNow).toLocaleString()}점 — 거의 닿았어요`
           : reason);
         return;
@@ -473,8 +625,18 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
         endRun(true, '');
         return;
       }
+      // 같은 계열은 겹쳐 뽑히지 않는다 — 배수 계열 두 장(다발상인×마감꾼)이 5장 배수를
+      // 7 → 12.75 로 띄우던 곱셈 스택을 드래프트 단계에서 끊는다. 8종 중 최대 3종만
+      // 빠지므로(칩 계열이 최대) 후보는 언제나 3장 이상 남는다.
       const owned = new Set(jokers);
-      setDraft(shuffle(JOKER_POOL.filter((j) => !owned.has(j.id))).slice(0, 3).map((j) => j.id));
+      const ownedGroups = new Set(
+        jokers.map((id) => JOKER_BY_ID.get(id)?.group).filter(Boolean) as JokerGroup[],
+      );
+      setDraft(
+        shuffle(JOKER_POOL.filter((j) => !owned.has(j.id) && !ownedGroups.has(j.group)))
+          .slice(0, 3)
+          .map((j) => j.id),
+      );
       setPhase('settle');
       sfx.fanfare();
     },
@@ -482,10 +644,24 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
   );
 
   // 시간 초과 — 최신 상태를 ref 로 잡아 콜백이 낡은 값을 보지 않게 한다.
-  const liveRef = useRef({ roundScore, plays, lives, appraisals });
-  liveRef.current = { roundScore, plays, lives, appraisals };
+  const liveRef = useRef({ roundScore, plays, lives, appraisals, roundIdx });
+  liveRef.current = { roundScore, plays, lives, appraisals, roundIdx };
   timeUpRef.current = () => {
     const v = liveRef.current;
+    // 1계약은 배우는 판이다 — 만료가 곧 패배면 규칙을 익히기 전에 진다.
+    // 대신 남은 납품 기회를 둘로 줄여 '수치상 시간 곡선'을 만든다(soft deadline).
+    if (v.roundIdx === 0 && !softHitRef.current) {
+      softHitRef.current = true;
+      if (v.plays > SOFT_DEADLINE_PLAYS) setPlays(SOFT_DEADLINE_PLAYS);
+      say(
+        v.plays > SOFT_DEADLINE_PLAYS
+          ? `납기를 넘겼어요 — 남은 납품 기회 ${SOFT_DEADLINE_PLAYS}번, 연장 납기 ${SOFT_DEADLINE_TAIL_MS / 1000}초`
+          : `납기를 넘겼어요 — 연장 납기 ${SOFT_DEADLINE_TAIL_MS / 1000}초 안에 마무리해요`,
+      );
+      sfx.nearMiss();
+      timerRef.current.reset(SOFT_DEADLINE_TAIL_MS);
+      return;
+    }
     finishRound(v.roundScore, 0, v.lives, v.appraisals, '납기를 넘겼어요');
   };
 
@@ -503,11 +679,12 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
       comboBefore: combo.combo,
       jokers,
       livesFull,
-      burnedCount: burnedThisRound,
       fillsAll: selCards.length > 0 && selCards.length === orders.length,
     }),
-    [selCards, combo.combo, jokers, livesFull, burnedThisRound, orders.length],
+    [selCards, combo.combo, jokers, livesFull, orders.length],
   );
+  /** 한 납품이 계약 진척에 넣을 수 있는 상한. 초과분은 총 칩으로 이월된다. */
+  const playCap = Math.ceil(spec.target * ROUND_PROGRESS_CAP_RATIO);
   const remain = Math.max(0, spec.target - roundScore);
   const needPerPlay = plays > 0 ? Math.ceil(remain / plays) : remain;
   const flip = useFlipGrid(useMemo(() => hand.map((c) => String(c.id)), [hand]));
@@ -533,6 +710,9 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     if (appraisals <= 0) { say('감정을 다 썼어요'); return; }
     setAppraisals((n) => n - 1);
     setHand((h) => h.map((c) => (c.id === card.id ? { ...c, appraised: true } : c)));
+    // 감정도 '뜻을 본 것'이다 — 반품 후 새로 뽑아도 감정 상태로 돌아온다.
+    // (이게 없으면 감정 → 반품 → 재드로우로 칩 절반과 FSRS 제외를 동시에 세탁할 수 있다.)
+    revealedEnRef.current.add(card.en.toLowerCase());
     setArm(null);
     sfx.click();
     say(`감정 — ${card.en} · ${card.ko}. 칩은 절반이 되고 복습 기록에는 남지 않아요.`);
@@ -600,19 +780,21 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
 
     if (allOk) {
       const cards = graded.map((g) => g.card);
-      const out = scorePlay({
-        cards, comboBefore: combo.combo, jokers, livesFull,
-        burnedCount: burnedThisRound, fillsAll,
-      });
+      const out = scorePlay({ cards, comboBefore: combo.combo, jokers, livesFull, fillsAll });
       let last = combo.combo;
       for (const c of cards) {
         last = combo.hit();
-        if (!c.appraised) emitCorrect({ en: c.en, ko: c.ko });
+        // 감정했거나 반려로 뜻을 이미 본 카드 = assisted. 점수·연쇄에는 그대로 반영하되
+        // 복습 스케줄에는 올리지 않는다(스캐폴드가 걸러낸다).
+        emitCorrect({ en: c.en, ko: c.ko }, c.appraised);
       }
       setBestCombo((b) => Math.max(b, last));
       setBestHand((b) => Math.max(b, out.score));
       setDelivered((d) => d + cards.length);
-      const ns = roundScore + out.score;
+      // 계약 진척은 상한까지만. 넘긴 몫(carried)은 버려지지 않고 총 칩으로 넘어간다.
+      const gain = Math.min(out.score, playCap);
+      const carried = out.score - gain;
+      const ns = roundScore + gain;
       const pl = plays - 1;
       setRoundScore(ns);
       addTotal(out.score);
@@ -622,7 +804,7 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
       sfx.correct(last, out.bundle >= 3.5);
       setResult({
         ok: true, rows, score: out.score, chips: out.chips, bundle: out.bundle,
-        comboMult: out.comboMult, label: out.label, consolation: 0,
+        comboMult: out.comboMult, label: out.label, consolation: 0, carried, salvaged: 0,
         headline: fillsAll && cards.length >= 2 ? `${out.label} · 주문판을 비웠어요` : `${out.label} 성공`,
       });
 
@@ -653,19 +835,34 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
         (s, g) => s + (g.card.appraised ? Math.round(g.card.chips * APPRAISED_CHIP_RATIO) : g.card.chips),
         0,
       );
-      setRoundScore((v) => v + consolation);
-      addTotal(consolation);
+    }
+    // 회수업자 — 예전에는 '이 계약에서 소각된 카드 수'가 이후 **모든** 납품에 영구 가산돼
+    // (4장 반려 2회 → 매 납품 +144칩, 기본 92칩 대비 +157%) 고의 반려가 최적 전략이 됐다.
+    // 지금은 반려 순간 1회만, 배수를 타지 않는 회수로 정산한다.
+    // 상한은 목숨이 대신 건다: 3계약은 반려 1회(최대 +90칩 = 진척 상한의 7.7%)가 한계다.
+    let salvaged = 0;
+    if (jokers.includes('salvage') && wrongs.length > 0) salvaged = SALVAGE_PER_CARD * wrongs.length;
+    const recovered = consolation + salvaged;
+    if (recovered > 0) {
+      setRoundScore((v) => v + recovered);
+      addTotal(recovered);
     }
 
     for (const g of wrongs) {
-      if (!g.card.appraised) emitWrong({ en: g.card.en, ko: g.card.ko });
+      // 뜻을 이미 본 카드(감정 · 반려 복귀)만 assisted. 그 외에는 **모르는 단어일수록
+      // 정직하게 오답으로 올린다** — 여기서 도망가면 모르는 단어가 복습에서 사라진다.
+      emitWrong({ en: g.card.en, ko: g.card.ko }, g.card.appraised);
       setMissed((prev) => (prev.some((x) => x.en === g.card.en) ? prev : [...prev, { en: g.card.en, ko: g.card.ko }]));
+      // 지금 결과 패널이 이 단어의 실제 뜻을 공개한다 → 재드로우 잠금 + 영구 '공개' 표시.
+      const k = g.card.en.toLowerCase();
+      revealedEnRef.current.add(k);
+      revealLockRef.current.set(k, REVEAL_LOCK_DRAWS);
     }
     setBurnedThisRound((n) => n + wrongs.length);
     sfx.nearMiss();
     setResult({
       ok: false, rows, score: 0, chips: 0, bundle: 0, comboMult: 0, label: '',
-      consolation,
+      consolation, salvaged, carried: 0,
       headline: rights.length > 0
         ? `반려 — ${wrongs.length}장이 어긋나 묶음 전체가 되돌아왔어요`
         : '반려 — 이번 묶음은 통째로 되돌아왔어요',
@@ -682,11 +879,11 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     setAssign({});
     setActiveSlot(board.orders[0]?.id ?? null);
 
-    const ns = roundScore + consolation;
+    const ns = roundScore + recovered;
     if (ns >= spec.target) { finishRound(ns, plays, lv, appraisals, ''); return; }
     if (lv <= 0) { finishRound(ns, plays, 0, appraisals, '검수를 모두 잃었어요'); return; }
   }, [
-    phase, orders, assign, cardById, combo, jokers, livesFull, burnedThisRound, hand, spec,
+    phase, orders, assign, cardById, combo, jokers, livesFull, hand, spec, playCap,
     roundScore, plays, lives, appraisals, settleBoard, addTotal, emitCorrect, emitWrong,
     finishRound, say, sfx, timer,
   ]);
@@ -719,6 +916,10 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     setBestInfo(null);
     setShowIntro(false); // 두 번째 런에서까지 규칙판을 다시 펴지 않는다
     seenRef.current = new Map();
+    revealLockRef.current = new Map();
+    revealedEnRef.current = new Set();
+    wrongOnceRef.current = new Set();
+    correctOnceRef.current = new Set();
     startRound(0);
   }, [startRound]);
 
@@ -760,6 +961,13 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
     />
   );
 
+  // ─── 지목한 자료가 너무 얇을 때 ───
+  // explicit 스코프는 사용자가 "이 자료로"를 명시한 것 — 맛보기로 몰래 갈아치지 않는다.
+  // (라우트 게이트 minWords 는 정제 전 개수라, 2어 표제어·뜻 중복을 걷어내면 미달할 수 있다.)
+  if (blocked) {
+    return <NotEnoughWords need={ROUTE_MIN_WORDS} onExit={handleExit} />;
+  }
+
   // ─── 완료 ───
   if (phase === 'done') {
     const revealWords = missed.slice(-8);
@@ -772,7 +980,8 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
         <Hud muted={sfx.muted} onToggleMute={() => sfx.setMuted((m) => !m)} onExit={handleExit} />
         <GameDone
           mark="lexicon-hands"
-          celebrate={won}
+          // Calm UI — 진행률 100% 에 폭죽을 터뜨리지 않는다. 마무리는 배지와 기록으로.
+          celebrate={false}
           lead={won ? '세 계약을 모두 납품했어요' : endReason || `${roundIdx + 1}번째 계약에서 멈췄어요`}
           badge={
             won ? <>전 계약 완납 · 조커 {jokers.length}장</>
@@ -846,7 +1055,10 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
                 <b>{total.toLocaleString()}</b>
               </li>
             </ul>
-            <p className="lh-brief-kicker lh-draft-h">조커 한 장을 영입하세요 — 다음 계약의 점수식이 바뀝니다</p>
+            <p className="lh-brief-kicker lh-draft-h">
+              조커 한 장을 영입하세요 — 다음 계약의 점수식이 바뀝니다
+              {jokers.length > 0 && ' · 이미 가진 계열은 후보에서 빠집니다'}
+            </p>
             <div className="lh-draft">
               {draft.map((id) => {
                 const j = JOKER_BY_ID.get(id);
@@ -855,6 +1067,7 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
                   <button key={id} type="button" className="lh-draft-card" onClick={() => takeJoker(id)}>
                     <span className="lh-draft-ic"><JokerGlyph glyph={j.glyph} /></span>
                     <b>{j.name}</b>
+                    <span className="lh-draft-group">{GROUP_LABEL[j.group]}</span>
                     <span className="lh-draft-desc">{j.desc}</span>
                   </button>
                 );
@@ -890,7 +1103,12 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
         lives={{ total: spec.lives, left: lives, label: '남은 검수' }}
         extra={
           <div className="lh-hud">
-            <span className="gk-stat-label">계약 {roundIdx + 1}/3</span>
+            <span className="gk-stat-label">
+              계약 {roundIdx + 1}/3
+              {/* 맛보기 배지는 상시 — 인트로를 닫으면 사라지던 탓에 2계약부터는
+                  '내 단어로 도는 중'이라고 오해할 수 있었다. */}
+              {demoMode && <span className="lh-demo-tag" title="맛보기 단어 — 복습 일정에 반영되지 않아요">맛보기</span>}
+            </span>
             <span className="lh-hud-v">납품 {plays} · 버림 {discards} · 감정 {appraisals}</span>
           </div>
         }
@@ -904,7 +1122,7 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
             <h1 className="lh-brief-title">주문서에는 뜻만, 손패에는 단어만 적혀 있다</h1>
             <ol className="lh-brief-steps">
               <li><span className="lh-step-n">1</span>주문판의 <b>한국어 뜻</b> 위에 손패의 <b>영단어</b>를 올린다.</li>
-              <li><span className="lh-step-n">2</span>한 번에 여러 주문을 묶을수록 배수가 커진다 — {fmtMult(BUNDLE[1])} · {fmtMult(BUNDLE[2])} · {fmtMult(BUNDLE[3])} · {fmtMult(BUNDLE[4])} · {fmtMult(BUNDLE[5])}.</li>
+              <li><span className="lh-step-n">2</span>한 번에 여러 주문을 묶을수록 배수가 커진다 — {fmtMult(BUNDLE[1])} · {fmtMult(BUNDLE[2])} · {fmtMult(BUNDLE[3])} · {fmtMult(BUNDLE[4])} · {fmtMult(BUNDLE[5])}. 다만 한 납품이 계약 진척에 넣는 몫에는 상한이 있고, 넘긴 몫은 <b>총 칩</b>으로 넘어간다.</li>
               <li><span className="lh-step-n">3</span>한 장이라도 어긋나면 <b>묶음 전체가 반려</b>되고 검수를 하나 잃는다. 어디가 틀렸는지는 낸 뒤에 전부 알려준다.</li>
               <li><span className="lh-step-n">4</span>모르는 단어는 <b>감정</b>으로 뜻을 열 수 있다. 대신 칩은 절반이고 복습 기록에는 남지 않는다.</li>
             </ol>
@@ -996,12 +1214,15 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
           })}
         </div>
 
-        {/* 족보표 — 항상 노출. 지금 성립하는 행은 색 + 좌측 바 + 체크 아이콘 3중 인코딩. */}
+        {/* 족보표 — 넓은 화면에서는 5행 전부. 390px 에서는 '지금'과 '한 장 더' 두 칸만
+            남긴다(--near). 동시에 대조해야 하는 항목 수를 줄이는 게 목적이라
+            난이도가 아니라 화면에서 덜어 낸다 — 전체 표는 규칙 패널에 그대로 있다. */}
         <div className="lh-rail" aria-label="묶음 배수표">
           {[1, 2, 3, 4, 5].map((n) => {
             const on = selCards.length === n;
+            const near = n === Math.max(1, selCards.length) || n === Math.min(5, Math.max(1, selCards.length) + 1);
             return (
-              <span key={n} className={`lh-rail-item ${on ? 'lh-rail-item--on' : ''}`}>
+              <span key={n} className={`lh-rail-item ${on ? 'lh-rail-item--on' : ''} ${near ? 'lh-rail-item--near' : ''}`}>
                 {on && <FeedbackIcon kind="correct" size={11} />}
                 <b>{n}장</b>
                 <i>×{fmtMult(BUNDLE[n])}</i>
@@ -1018,8 +1239,20 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
                 <FeedbackIcon kind={result.ok ? 'correct' : 'near'} size={15} />
                 {result.headline}
                 {result.ok && <span className="lh-result-eq">{result.chips} × {fmtMult(result.bundle)} × {fmtMult(result.comboMult)} = <b>{result.score.toLocaleString()}</b></span>}
-                {!result.ok && result.consolation > 0 && <span className="lh-result-eq">검수관 보전 <b>+{result.consolation.toLocaleString()}</b></span>}
+                {!result.ok && (result.consolation > 0 || result.salvaged > 0) && (
+                  <span className="lh-result-eq">
+                    {result.consolation > 0 && <>검수관 보전 <b>+{result.consolation.toLocaleString()}</b></>}
+                    {result.consolation > 0 && result.salvaged > 0 && ' · '}
+                    {result.salvaged > 0 && <>회수 <b>+{result.salvaged.toLocaleString()}</b></>}
+                  </span>
+                )}
               </p>
+              {result.ok && result.carried > 0 && (
+                <p className="lh-carry">
+                  계약 진척은 한 납품당 {playCap.toLocaleString()}까지 — 초과한{' '}
+                  <b>{result.carried.toLocaleString()}</b>은 총 칩으로 넘어갔어요.
+                </p>
+              )}
               <ul className="lh-result-rows">
                 {result.rows.map((r) => (
                   <li key={r.en} className={r.ok ? 'ok' : 'no'}>
@@ -1099,17 +1332,28 @@ export function LexiconHandsGame({ wordPool, onExit, onCorrect, onWrong }: Props
           >
             납품 {selCards.length > 0 ? `${selCards.length}장 · ×${fmtMult(preview.bundle)}` : ''}
           </button>
+          {/* 규칙 버튼은 액션바 안에 산다 — 390px 에서 독립 행 44px 을 더 쓰면
+              주문판과 손패가 한 화면에 들어오지 않는다. */}
+          <button
+            type="button"
+            className={`gk-btn lh-tool lh-rules-btn ${showRules ? 'lh-tool--on' : ''}`}
+            onClick={() => setShowRules((v) => !v)}
+            aria-expanded={showRules}
+            aria-label={showRules ? '규칙 접기' : '규칙 보기'}
+          >
+            규칙
+          </button>
         </div>
 
-        <button type="button" className="lh-rules-btn" onClick={() => setShowRules((v) => !v)} aria-expanded={showRules}>
-          {showRules ? '규칙 접기' : '규칙 보기'}
-        </button>
         {showRules && (
           <div className="lh-rules" role="note">
             <p>{spec.title} — {spec.note}</p>
-            <p>한 장이라도 어긋나면 묶음 전체가 반려되고 검수 1을 잃습니다(납품 기회는 소모하지 않아요). 어긋난 카드는 뜻을 공개하고 손패에서 빠집니다.</p>
-            <p>감정한 카드는 칩이 절반이고 복습 기록에 남지 않아요. 반품은 오답이 아니므로 아무것도 기록하지 않습니다.</p>
-            {timed && <p>납품 1장당 +{DELIVER_EXTEND_MS / 1000}초, 반려 1회당 −{REJECT_DRAIN_MS / 1000}초.</p>}
+            <p>묶음 배수 — {[1, 2, 3, 4, 5].map((n) => `${n}장 ×${fmtMult(BUNDLE[n])}`).join(' · ')}.</p>
+            <p>한 장이라도 어긋나면 묶음 전체가 반려되고 검수 1을 잃습니다(납품 기회는 소모하지 않아요). 어긋난 카드는 뜻을 공개하고 손패에서 빠지며, 곧바로 다시 뽑히지 않습니다.</p>
+            <p>감정한 카드와 뜻이 공개된 카드는 칩이 절반이고 복습 기록에 남지 않아요. 반품은 오답이 아니므로 아무것도 기록하지 않습니다.</p>
+            <p>한 번의 납품이 계약 진척에 넣을 수 있는 상한은 {playCap.toLocaleString()}입니다 — 초과분은 사라지지 않고 총 칩으로 넘어갑니다.</p>
+            {timed && <p>납품 1장당 +{DELIVER_EXTEND_MS / 1000}초, 반려 1회당 −{REJECT_DRAIN_MS / 1000}초.{roundIdx === 0 && ` 첫 계약은 납기를 넘겨도 계약이 깨지지 않아요 — 연장 납기 ${SOFT_DEADLINE_TAIL_MS / 1000}초가 붙고 남은 납품 기회가 ${SOFT_DEADLINE_PLAYS}번을 넘지 않게 조정돼요.`}</p>}
+            {burnedThisRound > 0 && <p>이 계약에서 되돌아온 카드 {burnedThisRound}장 — 끝나면 뜻을 한 번 더 모아 보여드려요.</p>}
           </div>
         )}
       </main>
@@ -1127,6 +1371,8 @@ const LH_CSS = `
   .lh-root .gk-hud { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 10px 12px; }
   .lh-root .gk-hud > .gk-progress-spacer { flex: 1 1 auto; min-width: 8px; }
   .lh-hud { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+  .lh-root .lh-hud .gk-stat-label { display: inline-flex; align-items: center; gap: 5px; }
+  .lh-demo-tag { display: inline-flex; align-items: center; padding: 1px 6px; border-radius: 999px; border: 1px dashed color-mix(in srgb, var(--t1) 34%, transparent); font-size: 9.5px; font-weight: 800; letter-spacing: .02em; color: var(--t2); text-transform: none; }
   .lh-hud-v { font-family: var(--font-display, system-ui); font-size: 12.5px; font-weight: 800; color: var(--t1); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
   .lh-root .lh-stage { gap: clamp(8px, 1.5vh, 14px); justify-content: flex-start; align-items: center; padding: clamp(10px, 2vh, 18px) 12px calc(18px + env(safe-area-inset-bottom, 0px)); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
@@ -1158,6 +1404,7 @@ const LH_CSS = `
   .lh-draft-card:focus-visible { outline: none; border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
   .lh-draft-card b { font-size: 14px; font-weight: 900; }
   .lh-draft-ic { display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; border-radius: 9px; background: color-mix(in srgb, var(--combo) 14%, transparent); color: var(--combo); }
+  .lh-draft-group { font-family: var(--font-english, monospace); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--t3); }
   .lh-draft-desc { font-size: 11.5px; line-height: 1.45; color: var(--t3); }
   .lh-skip { align-self: flex-start; }
 
@@ -1171,7 +1418,9 @@ const LH_CSS = `
   .lh-joker-pop { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); z-index: 5; width: max-content; max-width: 220px; padding: 7px 11px; border-radius: 9px; border: 1px solid var(--bd); background: var(--bg); color: var(--t2); font-size: 11.5px; line-height: 1.45; box-shadow: 0 12px 26px -12px rgba(0,0,0,.5); }
 
   /* ── 목표 ── */
-  .lh-goal { display: flex; flex-direction: column; align-items: center; gap: 4px; width: min(430px, 94vw); }
+  /* sticky — 390px 에서 주문판과 손패를 오가며 스크롤해도 남은 시간·목표가 화면에서
+     사라지지 않게. 대조해야 할 정보가 스크롤 밖으로 나가는 게 인지부하의 절반이었다. */
+  .lh-goal { position: sticky; top: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 4px; width: min(430px, 94vw); padding: 4px 0 6px; background: linear-gradient(to bottom, var(--bg2) 72%, transparent); }
   .lh-timer { width: 100%; margin-bottom: 2px; }
   .lh-goal-row { display: flex; align-items: baseline; gap: 8px; }
   .lh-goal-label { font-family: var(--font-english, monospace); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--t3); }
@@ -1233,6 +1482,8 @@ const LH_CSS = `
   .lh-result-rows li.no > .gk-fbicon { color: var(--streak, var(--combo)); }
   .lh-result-rows b { font-family: var(--font-english, system-ui); font-weight: 800; color: var(--t1); }
   .lh-result-rows em { font-style: normal; font-weight: 800; color: var(--t1); }
+  .lh-carry { margin: 7px 0 0; font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: 11.5px; line-height: 1.5; color: var(--t3); }
+  .lh-carry b { font-style: normal; font-weight: 800; color: var(--t2); font-variant-numeric: tabular-nums; }
 
   /* ── 손패 ── */
   .lh-hand { display: flex; gap: clamp(5px, 1.1vw, 9px); justify-content: center; flex-wrap: wrap; width: min(760px, 98vw); }
@@ -1256,10 +1507,9 @@ const LH_CSS = `
   .lh-tool--on { border-color: var(--combo); color: var(--combo); box-shadow: 0 0 0 2px color-mix(in srgb, var(--combo) 26%, transparent); }
   .lh-deliver { min-height: 46px; min-width: 168px; font-variant-numeric: tabular-nums; }
 
-  .lh-rules-btn { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--bd); background: transparent; color: var(--t3); font-family: var(--font-display, system-ui); font-size: 11.5px; font-weight: 700; cursor: pointer; transition: color .15s, border-color .15s; }
-  .lh-rules-btn:hover { color: var(--t1); border-color: var(--t3); }
-  .lh-rules-btn:active { transform: scale(.97); }
-  .lh-rules-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 28%, transparent); }
+  /* 액션바 안에 들어간 규칙 토글 — .lh-tool 의 4상태를 그대로 물려받고 폭만 줄인다. */
+  .lh-rules-btn { flex: none; min-width: 52px; padding: 0 12px; color: var(--t3); }
+  .lh-rules-btn:hover { color: var(--t1); }
   .lh-rules { width: min(560px, 94vw); padding: 11px 14px; border-radius: var(--r-md, 12px); border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 84%, transparent); }
   .lh-rules p { margin: 0 0 6px; font-size: 12px; line-height: 1.6; color: var(--t2); }
   .lh-rules p:last-child { margin-bottom: 0; }
@@ -1272,15 +1522,36 @@ const LH_CSS = `
   .lh-reveal-list span { color: var(--t3); }
   .lh-foot-joker { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--bd); color: var(--t2); font-size: 12px; font-weight: 700; }
 
-  @media (max-width: 420px) {
-    .lh-slot { grid-template-columns: auto 1fr; grid-template-areas: 'ic ko' 'ic card'; row-gap: 2px; }
+  /* ── 390px 동시 가시성 ──────────────────────────────────────────────────
+     감사 최대 약점: 5주문 + 9카드 = 14개를 대조해야 하는데 세로 합계가 ~950px 라
+     390×844 에서 스크롤 왕복 없이는 한 번도 같이 볼 수 없었다.
+     여기서 주문 블록 308→~144px · 손패 196→~101px · 규칙 버튼 행 44→0px 로 줄여
+     HUD 포함 세로 합계를 ~630px 로 내린다. 44px 터치 하한은 그대로 지킨다. */
+  @media (max-width: 430px) {
+    .lh-root .lh-stage { gap: 8px; padding-left: 8px; padding-right: 8px; }
+    .lh-goal { gap: 2px; }
+    .lh-score { font-size: 26px; }
+    .lh-orders { grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; }
+    .lh-slot { grid-template-columns: auto 1fr; grid-template-areas: 'ic ko' 'ic card'; row-gap: 1px; gap: 6px; min-height: 44px; padding: 6px 8px; }
     .lh-slot-ic { grid-area: ic; }
-    .lh-slot-ko { grid-area: ko; }
-    .lh-slot-card { grid-area: card; justify-self: start; text-align: left; }
+    .lh-slot-ko { grid-area: ko; font-size: 12.5px; line-height: 1.2; }
+    .lh-slot-card { grid-area: card; justify-self: start; text-align: left; font-size: 12px; }
+    .lh-slot-card i { font-size: 10.5px; }
+    /* 배수표는 '지금'과 '한 장 더' 두 칸만 — 동시 항목 수를 5→2 로. 전체 표는 규칙 패널에. */
+    .lh-rail-item:not(.lh-rail-item--near) { display: none; }
+    .lh-hand { gap: 5px; width: 100%; }
+    .lh-card { width: clamp(58px, 17.5vw, 76px); min-height: 48px; padding: 6px 4px; gap: 1px; }
+    .lh-card-en { font-size: clamp(11px, 3vw, 13px); }
+    .lh-card-ko { font-size: 9px; }
+    .lh-card-chip { font-size: 9px; }
+    .lh-joker { min-height: 44px; padding: 4px 11px; font-size: 11.5px; }
     /* 좌하단 고정 배경음 버튼(44px)이 액션 바를 덮지 않도록 왼쪽을 비운다. */
+    /* 감정 · 반품 · 납품 · 규칙 네 버튼이 한 줄에 들어가야 한다(줄바꿈하면 세로 44px 추가).
+       44px 터치 하한은 min-width 로 지키고 여백만 줄인다. */
     .lh-actions { flex-wrap: nowrap; gap: 6px; padding-left: 50px; }
-    .lh-tool { padding: 0 9px; font-size: 12px; }
-    .lh-deliver { flex: 1 1 auto; min-width: 0; padding: 0 10px; font-size: 13px; }
+    .lh-tool { min-width: 44px; padding: 0 7px; gap: 4px; font-size: 11.5px; }
+    .lh-rules-btn { min-width: 44px; padding: 0 7px; }
+    .lh-deliver { flex: 1 1 auto; min-width: 0; padding: 0 8px; font-size: 12.5px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

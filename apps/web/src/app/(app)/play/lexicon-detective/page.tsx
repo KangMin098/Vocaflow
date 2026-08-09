@@ -13,8 +13,10 @@ const Game = dynamic(
 
 export default function LexiconDetectivePlayPage() {
   // 사건(증거 봉투·조서 진술·함정·위증)을 학습자 단어장에서 절차적으로 생성한다.
-  // 진술 5줄 + 함정 봉투 5개 = 최대 10개 어휘가 필요하고, 게임 내부에서 다시 뜻 중복을
-  // 제거하므로 여기서 10개를 요구한다(내부 하한 8).
+  // v07.10 부터 위증 수·진술 수가 매 판 추첨이라 한 사건이 쓰는 어휘는
+  // 봉투 8개 + 위증 최대 3개 = 최대 11개다. 다만 게임 내부 planCase 가
+  // 풀 크기에 맞춰 함정 → 위증 → 진술 줄 순으로 줄여 8개까지 안전하게 내려간다
+  // (시뮬 8~40단어 × 3사건 × 4,000판 위반 0건). 카탈로그와 같은 10 을 유지한다.
   return (
     <Suspense fallback={<GameLoading message="사건철을 여는 중…" />}>
       <GamePlayScaffold

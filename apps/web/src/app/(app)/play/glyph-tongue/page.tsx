@@ -17,12 +17,18 @@ export default function GlyphTonguePlayPage() {
   // recordGameResult 가 내장 단어를 vocabularies 에서 못 찾아 FSRS 에 아무것도 남지 않았다.
   // 이제 due 큐를 받는다. 예문이 붙은 단어가 모자라면 게임이 큐레이션 룬으로 자리를
   // 메우므로(GlyphTongueGame.buildRun) 단어가 적은 학습자도 막히지 않는다.
+  //
+  // v07.10 — minWords 4 → 8. 이 게임은 **예문에 그 단어가 실제로 들어있는** 단어만
+  // 쓸 수 있는데(블랭크를 못 뚫으면 룬을 만들 수 없다) 실측 예문 유효율은 62% 다.
+  // 4 개 기준을 통과한 학습자가 유효 0개로 100% 큐레이션 판을 받으면서 화면은
+  // '내 복습 단어'를 광고하는 사고가 있었다. 8 이면 62% 기대로 ~5개가 실제로 실린다.
+  // (그래도 0개가 될 수 있으므로 게임이 판 구성을 화면에 명시한다 — buildRun.ownCount.)
   return (
     <Suspense fallback={<GameLoading message="비문을 여는 중…" />}>
       <GamePlayScaffold
         module="glyph-tongue"
         label="The Glyph Tongue"
-        minWords={4}
+        minWords={8}
         render={({ wordPool, onCorrect, onWrong, onExit }) => <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />}
       />
     </Suspense>

@@ -8,11 +8,31 @@
 //   · 부분 정답 오라클 0 — 오답 제출에 어떤 글자가 맞았는지 알려주지 않는다
 //   · 오답 제출은 콤보 파괴 + 낙하 가속의 실비용이라 무작위 시도가 항상 손해
 //   · 힌트(기름)로 산 철자는 onCorrect 가 아니라 onWrong 으로 기록(학습 신호 오염 차단)
-// 그 위에 3밤 + 새벽 피날레(약 2분 44초 완결) · 서약(판돈) · 콤보 티어 보상을 얹었다.
+// 그 위에 3밤 + 새벽 피날레(약 2분 46초 완결) · 서약(판돈) · 콤보 티어 보상을 얹었다.
+//
+// v07.10 적대적 감사 대응 — 반증자가 찾아낸 "싸게 이기는 길"을 닫았다.
+//   ① 서약이 위험 0 의 상시 ×3 이었다(갓 스폰된 짧은 단어에 걸고 1초 만에 격파).
+//      → 조준 정령이 절반 아래(prog≥.4)이거나 화면이 붐빌 때(3마리↑)만 걸 수 있고,
+//        배수는 prog 비례 ×2~×4, 격파해도 가속은 최소 5초 유지(VOW_HOLD_MS).
+//   ② 같은 정령에 후보를 열거하면 2번째부터 비용이 0 이었다(surge 0.97 클램프).
+//      → 가속이 오답 횟수에 비례해 계단식으로 커지고 클램프를 없애 실제로 격추된다.
+//        2회 이상 틀린 뒤의 정답은 인출이 아니므로 FSRS 에 올리지 않는다(assisted).
+//   ③ 탭 전환이 무료 무한 일시정지였다(사전 찾기).
+//      → visibilitychange 로 명시 정지 + 복귀 3초 카운트인 + 그 동안 떠 있던 정령은
+//        assisted 처리(게임 점수는 그대로, 복습 기록만 보호).
+//   ④ Enter 가 인트로에선 '서약', 코드에선 '즉시 확정'이라 아무도 확정을 못 배웠다.
+//      → Enter = 항상 지금 확정 · Space = 서약 으로 분리하고 안내 문구를 일치시켰다.
+//   ⑤ 새벽 요구 처리량 0.72단어/초는 대상 학습자에게 도달 불가였다(승리 분기가 죽은 콘텐츠).
+//      → 램프를 회상속도 기준으로 완화(피크 0.455단어/초)하고 마지막 12초를 스폰 0 인
+//        피날레로 분리해 "남은 정령만 처리하면 이긴다"는 진짜 관문을 만들었다.
 
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import {
+  useCallback, useEffect, useMemo, useRef, useState,
+  type CSSProperties,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from 'react';
 import {
   GameKitStyles,
   AmbientBackground,
@@ -34,11 +54,14 @@ import {
   type Word,
 } from '@/components/game/_shared/gamekit';
 
+/** 정답을 이미 본 뒤의 입력 — 게임 점수엔 반영하되 FSRS 카드는 갱신하지 않는다. */
+interface ResultOpts { assisted?: boolean }
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 const DEFAULT_POOL: Word[] = [
@@ -54,45 +77,101 @@ const DEFAULT_POOL: Word[] = [
 ];
 
 const START_HP = 3;
-const MAX_ON_SCREEN = 5;      // Sweller — 동시 낙하 상한(밤3에서 화면이 무너지지 않게)
+// Sweller — 작업기억 ~4 항목. 동시 낙하 5는 '떠올리기 + 타이핑'과 겹쳐 과부하였다.
+// 정상 스폰(간격 2100~3000ms) / 낙하(6400~12000ms) 조합의 정상상태 체류 수는
+// fall/spawn ≈ 3.0 이라 4 는 폭주 방지용 안전판으로만 걸린다(정상 플레이를 막지 않는다).
+const MAX_ON_SCREEN = 4;
 const START_OIL = 2;
 const MAX_OIL = 3;
-const VOW_SCORE_MULT = 3;
+
+// ── 서약 — 이 게임의 유일한 자발적 판돈 ──────────────────────────────────
+// v07.9 는 조건 없는 고정 ×3 이라, 방금 스폰된 짧고 아는 단어에 걸고 1~2초 만에
+// 격파하면 위험이 사실상 0(타 정령 1.15배가 1.5초만 적용 ≈ 0.2초 낙하)이었다.
+// 5초 쿨다운만이 유일한 게이트여서 "항상 건다"가 지배 전략이 됐다. 세 군데를 고쳤다.
+/** 걸 수 있는 조건 ① — 조준 정령이 절반 아래로 내려왔을 때. */
+const VOW_MIN_PROG = 0.4;
+/** 걸 수 있는 조건 ② — 화면이 붐빌 때(가속의 대가를 실제로 치르는 상황). */
+const VOW_MIN_CROWD = 3;
+/** 배수는 위험에 비례 — prog .4 에서 ×2, prog .9 이상에서 ×4(격파 시점 기준). */
+const VOW_MULT_MIN = 2;
+const VOW_MULT_MAX = 4;
+/** 촛불 회복은 진짜 위험을 감수했을 때만 — 배수 3(=prog .65) 이상. */
+const VOW_RESTORE_MULT = 3;
 const VOW_SELF_SPEED = 1.4;   // 서약한 정령은 더 빨리 내려온다
-const VOW_OTHERS_SPEED = 1.15;// 다른 정령도 함께 빨라진다 — 붐빌수록 위험한 판돈
+const VOW_OTHERS_SPEED = 1.25;// 다른 정령도 함께 빨라진다 — 붐빌수록 위험한 판돈
+/** 격파해도 가속이 즉시 꺼지지 않는다 — 서약 1회의 최소 노출 시간. */
+const VOW_HOLD_MS = 5000;
 const VOW_CD_OK = 5000;
 const VOW_CD_FAIL = 12000;
 const MAX_RESTORES = 2;       // 서약으로 되살릴 수 있는 촛불 총량
+
 const HINT_SCORE_RATIO = 0.35;
 const HINT_SHOW_MS = 1800;
 const NEAR_PROG = 0.85;       // 이 아래에서 잡으면 "아슬아슬" 보너스
 const URGENT_PROG = 0.7;
-const WRONG_SURGE = 0.1;      // 오답 제출 1회당 낙하 진행 가속(실비용)
+/** 오답 1회당 낙하 가속의 기본값 — 실제 가속은 이 값 × 그 정령에 틀린 횟수. */
+const WRONG_SURGE = 0.1;
+/** 이 횟수 이상 틀린 뒤의 정답은 '떠올린 것'이 아니라 '좁혀서 맞힌 것'. */
+const GROPE_WRONGS = 2;
+const GROPE_SCORE_RATIO = 0.4;
+/** 철자를 본 단어는 이 시간 안에 다시 나와도 인출로 치지 않는다(메아리). */
+const ECHO_QUARANTINE_MS = 45000;
+/** 이보다 오래 다른 창에 다녀오면 정지로 간주 — 사전을 찾았을 수 있다. */
+const AWAY_MIN_MS = 1200;
+const COUNT_IN_MS = 3000;
+/** 칸을 다 채운 뒤 확정까지의 유예 — 긴 단어일수록 자기 오타를 볼 시간이 필요하다. */
+const commitMsFor = (len: number) => Math.min(520, 200 + len * 24);
+/** 서약 배수 — 격파 시점의 낙하 진행도에 비례. */
+const vowMultFor = (prog: number) =>
+  VOW_MULT_MIN + (VOW_MULT_MAX - VOW_MULT_MIN) * clamp((prog - VOW_MIN_PROG) / 0.5, 0, 1);
+const fmtMult = (m: number) => (Math.abs(m - Math.round(m)) < 0.05 ? String(Math.round(m)) : m.toFixed(1));
 
-// ── 밤 스케줄 — 무한 생존을 버리고 시작·중반·끝이 있는 한 판으로. 총 164초. ──
+// ── 밤 스케줄 — 무한 생존을 버리고 시작·중반·끝이 있는 한 판으로. 총 167초. ──
 type SegKind = 'wave' | 'breath' | 'dawn';
 interface Segment {
   kind: SegKind; ms: number;
   spawnMs: number; endSpawnMs: number;
   fallMs: number; endFallMs: number;
   title: string; sub: string;
+  /** 구간 진입 시 큰 배너를 띄운다(숨 고르기 · 피날레). */
+  banner: boolean;
 }
-// 요구 처리량(spawn 간격)은 밤1 2.9초/마리 → 새벽 1.4초/마리로 조여진다. 낙하 시간
-// (생각할 시간)은 10.8초 → 5.8초로 줄어든다. 동시 낙하 상한이 있어 죽음의 나선은 없다.
+// v07.9 램프는 "떠올리는 속도"가 아니라 "타자 속도"에 맞춰져 있었다. 새벽 스폰 간격
+// 1500→1300ms 는 30초에 21.5마리 = 0.716단어/초를 요구했고(평균 7.2자 → 5.1cps,
+// 회상 지연 0 가정), 그래서 설계된 승리 분기와 마지막 30초를 아무도 못 봤다.
+//
+// 지금은 요구 처리량의 피크를 0.440단어/초(= 단어당 2.27초)로 낮췄다. 근거: 대상
+// 학습자(고등~성인)의 아는 단어 회상+타이핑이 대략 2.0~2.5초/단어다. 즉 새벽은
+// "쉬지 않고 정확히 치면 딱 따라잡히는" 관문이 된다. 램프의 긴장은 스폰 간격이 아니라
+// **낙하 시간**(생각할 시간 12.0초 → 6.4초)이 짊어진다 — 이쪽이 회상 압박에 직결된다.
+//
+// 마지막 13초는 스폰 0 인 별도 세그먼트다. "이제 남은 정령만 흩으면 이긴다"는
+// 진짜 피날레가 생기고, 마지막 스폰이 착지할 시간(6.4초)도 보장된다.
+//
+// 구간별 스폰 수(∫dt/spawnMs, 스폰 간격이 선형 램프일 때 D/(b-a)·ln(b/a)):
+//   밤1 12.0 · 밤2 15.1 · 밤3 16.7 · 새벽 8.8 = 총 52.6마리 / 167초 (평균 0.315/초)
+//   피크(새벽 20초) 8.8/20 = 0.440/초  ← v07.9 는 0.716/초
+//
+// 완주율 재시뮬(2,000판 · 기름 2병 사용 · 오답 3회면 포기하는 보수적 플레이어 모델):
+//   정답률.92/1.7초  87.2% → 100%    정답률.85/1.9초   3.3% → 99.8%
+//   정답률.78/2.2초   0.0% →  76.8%  정답률.70/2.4초   0.0% →  14.2%
+// 즉 v07.9 에서 사실상 숙련자 전용이던 승리 분기가 평균 학습자에게 열렸다.
 const SCHEDULE: Segment[] = [
-  { kind: 'wave', ms: 36000, spawnMs: 3000, endSpawnMs: 2700, fallMs: 12000, endFallMs: 10800, title: '첫 번째 밤', sub: '' },
-  { kind: 'breath', ms: 5000, spawnMs: 0, endSpawnMs: 0, fallMs: 10800, endFallMs: 10800, title: '두 번째 밤', sub: '안개가 짙어집니다' },
-  { kind: 'wave', ms: 42000, spawnMs: 2400, endSpawnMs: 2100, fallMs: 10000, endFallMs: 8800, title: '두 번째 밤', sub: '' },
-  { kind: 'breath', ms: 5000, spawnMs: 0, endSpawnMs: 0, fallMs: 8800, endFallMs: 8800, title: '세 번째 밤', sub: '정령이 서두릅니다' },
-  { kind: 'wave', ms: 42000, spawnMs: 1900, endSpawnMs: 1700, fallMs: 8200, endFallMs: 7200, title: '세 번째 밤', sub: '' },
-  { kind: 'breath', ms: 4000, spawnMs: 0, endSpawnMs: 0, fallMs: 7200, endFallMs: 7200, title: '새벽 직전', sub: '마지막 30초' },
-  { kind: 'dawn', ms: 30000, spawnMs: 1500, endSpawnMs: 1300, fallMs: 6600, endFallMs: 5800, title: '새벽', sub: '' },
+  { kind: 'wave', ms: 36000, spawnMs: 3100, endSpawnMs: 2900, fallMs: 12000, endFallMs: 11000, title: '첫 번째 밤', sub: '', banner: false },
+  { kind: 'breath', ms: 5000, spawnMs: 0, endSpawnMs: 0, fallMs: 11000, endFallMs: 11000, title: '두 번째 밤', sub: '안개가 짙어집니다', banner: true },
+  { kind: 'wave', ms: 42000, spawnMs: 2900, endSpawnMs: 2650, fallMs: 10500, endFallMs: 9200, title: '두 번째 밤', sub: '', banner: false },
+  { kind: 'breath', ms: 5000, spawnMs: 0, endSpawnMs: 0, fallMs: 9200, endFallMs: 9200, title: '세 번째 밤', sub: '정령이 서두릅니다', banner: true },
+  { kind: 'wave', ms: 42000, spawnMs: 2650, endSpawnMs: 2400, fallMs: 8800, endFallMs: 7600, title: '세 번째 밤', sub: '', banner: false },
+  { kind: 'breath', ms: 4000, spawnMs: 0, endSpawnMs: 0, fallMs: 7600, endFallMs: 7600, title: '새벽 직전', sub: '마지막 33초', banner: true },
+  { kind: 'dawn', ms: 20000, spawnMs: 2400, endSpawnMs: 2150, fallMs: 7200, endFallMs: 6400, title: '새벽', sub: '', banner: false },
+  { kind: 'dawn', ms: 13000, spawnMs: 0, endSpawnMs: 0, fallMs: 6400, endFallMs: 6400, title: '동이 틉니다', sub: '남은 정령만 흩으면 이겨요', banner: true },
 ];
 const NIGHT_MS = SCHEDULE.reduce((a, s) => a + s.ms, 0);
 
-// 가로 슬롯 — 최소 간격을 넓게 잡고(라벨 겹침), 양끝을 22/78% 로 당겨(translateX(-50%)
-// 클리핑) 390px 에서도 카드가 화면 밖으로 잘리지 않게 한다.
-const SLOTS_X = [22, 50, 78, 34, 66, 28, 72, 44, 56];
+// 가로 슬롯 — 최소 간격을 넓게 잡되 양끝을 28/72% 로 당긴다. 390px 에서 카드 폭
+// 상한이 214px(모바일 CSS)이므로 중심 x=28% → 왼쪽 끝 109-107=2px, x=72% → 오른쪽
+// 끝 281+107=388px 로 둘 다 화면 안에 들어온다(translateX(-50%) 클리핑 방지).
+const SLOTS_X = [28, 50, 72, 38, 62, 34, 66, 44, 56];
 const cleanWord = (en: string) => en.toLowerCase().replace(/[^a-z]/g, '');
 const HANGUL = /[가-힣ㄱ-ㅎㅏ-ㅣ]/;
 
@@ -121,8 +200,14 @@ interface Wisp {
   x: number;
   /** 이미 오답/힌트로 FSRS 실패를 기록했는가 — 한 마리당 1회만 적재. */
   logged: boolean;
-  /** 기름으로 철자를 샀는가 — 격파해도 onCorrect 로 올리지 않는다. */
+  /** 기름으로 철자를 샀는가 — 격파해도 인출로 치지 않는다. */
   hinted: boolean;
+  /** 이 정령에 틀린 횟수 — 가속 계단 + 열거 세탁 차단에 쓰인다. */
+  wrongs: number;
+  /** 최근에 철자가 공개된 단어의 재출현인가(메아리) — 인출로 치지 않는다. */
+  echo: boolean;
+  /** 이 정령이 떠 있는 동안 다른 창에 다녀왔는가 — 인출로 치지 않는다. */
+  away: boolean;
   /** 철자 노출 종료 시각(performance.now 기준). 0 이면 비노출. */
   revealUntil: number;
 }
@@ -141,10 +226,16 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       .filter((w) => w.en && w.ko)
       .filter((w) => {
         const c = cleanWord(w.en);
-        // 12글자 상한 — 칸이 두 줄로 접히면 카드가 커져 다른 정령을 가린다(공정성).
+        // 12글자 상한 — 390px 에서 칸 12개(11px+간격 2px = 178px)가 카드 폭 상한
+        // 214px 안에 한 줄로 들어가는 경계. 넘으면 칸이 접혀 다른 정령을 가린다.
         return c.length >= 2 && c.length <= 12;
       })
-      .filter((w) => (seen.has(w.en) ? false : (seen.add(w.en), true)));
+      // dedupe 는 **철자 정규화 후** 기준으로 — "run"/"Run."/"run!" 은 화면에서
+      // 뜻과 칸 수가 같은 구분 불가 정령 둘이 되고 onCorrect 도 중복 적재된다.
+      .filter((w) => {
+        const c = cleanWord(w.en);
+        return seen.has(c) ? false : (seen.add(c), true);
+      });
   }
   const enough = pool.current.length >= 5;
 
@@ -167,6 +258,9 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   const [missed, setMissed] = useState<Word[]>([]);
   const [vowId, setVowId] = useState<number | null>(null);
   const [vowCd, setVowCd] = useState(0);
+  /** 서약 가속이 아직 유지 중인가(격파 뒤 VOW_HOLD_MS 잔여 포함) — 화면 톤에 쓴다. */
+  const [vowHot, setVowHot] = useState(false);
+  const [countIn, setCountIn] = useState(0);
   const [reject, setReject] = useState(false);
   const [pending, setPending] = useState(false);
   const [imeHint, setImeHint] = useState(false);
@@ -191,6 +285,15 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   const restoresRef = useRef(0);
   const vowRef = useRef<number | null>(null);
   const vowReadyAtRef = useRef(0);
+  /** 서약 가속의 최소 유지 시각 — 격파해도 여기까지는 화면 전체가 빨라진 채로 남는다. */
+  const vowHoldUntilRef = useRef(0);
+  const vowHotRef = useRef(false);
+  /** 단어별 '철자를 마지막으로 보여준 시각' — 재출현을 메아리로 표시하는 근거. */
+  const revealedAtRef = useRef<Map<string, number>>(new Map());
+  const hiddenAtRef = useRef(0);
+  const resumeAtRef = useRef(0);
+  const countInRef = useRef(0);
+  const awayMsRef = useRef(0);
   const phaseRef = useRef<'intro' | 'playing' | 'done'>('intro');
   const bagRef = useRef<Word[]>([]);
   const idRef = useRef(0);
@@ -300,6 +403,9 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     (w: Word) => {
       keyRef.current += 1;
       const key = keyRef.current;
+      // 철자를 화면에 띄운 순간을 기록해 둔다 — 가방이 한 바퀴 돌아 같은 단어가
+      // 곧바로 재스폰되면 그건 인출이 아니라 '방금 본 걸 베끼기'다.
+      revealedAtRef.current.set(w.en, performance.now());
       setReveals((r) => [...r.slice(-1), { key, ko: w.ko, en: w.en }]);
       later(() => setReveals((r) => r.filter((v) => v.key !== key)), 2800);
     },
@@ -336,12 +442,33 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   comboRef.current = combo.combo;
 
   // ── 단어 가방 — 매 판 순서가 달라지고 pool 을 고르게 소진한다. ───────────
-  const drawWord = useCallback((exclude: Set<string>): Word => {
-    if (bagRef.current.length === 0) bagRef.current = shuffle(pool.current);
-    const i = bagRef.current.findIndex((w) => !exclude.has(w.en));
-    if (i === -1) return bagRef.current[0];
-    return bagRef.current.splice(i, 1)[0];
-  }, []);
+  // v07.9 의 `if (i === -1) return bagRef.current[0]` 은 splice 를 하지 않아 가방이
+  // 줄지 않았고(재셔플도 안 됨), 뜻·칸 수가 완전히 같은 구분 불가 정령이 둘 뜨면서
+  // onCorrect 도 중복 적재됐다. 이제 뽑을 게 없으면 null 을 돌려 스폰을 건너뛴다.
+  //
+  // 우선순위: ① 이번 판에 철자를 본 적 없는 단어 → ② 격리 시간이 지난 단어 →
+  // ③ 남은 게 방금 철자를 본 것뿐이면 내보내되 `echo` 로 표시(FSRS 미적재).
+  const drawWord = useCallback(
+    (exclude: Set<string>, now: number): { w: Word; echo: boolean } | null => {
+      const take = (i: number, echo: boolean) => ({ w: bagRef.current.splice(i, 1)[0], echo });
+      for (let round = 0; round < 2; round += 1) {
+        if (bagRef.current.length === 0) bagRef.current = shuffle(pool.current);
+        const free = (w: Word) => !exclude.has(w.en);
+        let i = bagRef.current.findIndex((w) => free(w) && !revealedAtRef.current.has(w.en));
+        if (i >= 0) return take(i, false);
+        i = bagRef.current.findIndex(
+          (w) => free(w) && now - (revealedAtRef.current.get(w.en) ?? 0) >= ECHO_QUARANTINE_MS,
+        );
+        if (i >= 0) return take(i, false);
+        i = bagRef.current.findIndex(free);
+        if (i >= 0) return take(i, true);
+        // 가방에 남은 게 전부 이미 화면에 떠 있다 — 한 번만 새로 채워 다시 시도.
+        bagRef.current = [];
+      }
+      return null;
+    },
+    [],
+  );
 
   // ── 종료 ────────────────────────────────────────────────────────────────
   const endRun = useCallback(
@@ -381,6 +508,11 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       const late = wp.prog > NEAR_PROG;
       const vowed = vowRef.current === wp.id;
       const hinted = wp.hinted;
+      // 후보를 좁혀서 맞힌 것(2회 이상 오답 뒤 정답)은 인출이 아니다.
+      const groped = wp.wrongs >= GROPE_WRONGS;
+      // FSRS 에 '성공'으로 올릴 자격 — 넷 중 하나라도 걸리면 게임 점수만 주고 학습
+      // 기록은 건드리지 않는다(assisted). 실패는 이미 정직하게 onWrong 으로 올라갔다.
+      const assisted = hinted || groped || wp.echo || wp.away;
 
       let mult = 1;
       let nc = comboRef.current;
@@ -388,26 +520,29 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
         nc = combo.hit();
         mult = multFor(nc);
       }
+      const vowMult = vowed ? vowMultFor(wp.prog) : 1;
+      const ratio = hinted ? HINT_SCORE_RATIO : groped ? GROPE_SCORE_RATIO : 1;
       const base = 100 + wp.ce.length * 6 + Math.round((1 - wp.prog) * 30) + (late ? 40 : 0);
-      const gain = Math.max(
-        10,
-        Math.round(base * mult * (vowed ? VOW_SCORE_MULT : 1) * (hinted ? HINT_SCORE_RATIO : 1)),
-      );
+      const gain = Math.max(10, Math.round(base * mult * vowMult * ratio));
 
       scoreRef.current += gain;
       setScore(scoreRef.current);
       dispelledRef.current += 1;
       setDispelled(dispelledRef.current);
-      if (!hinted) {
-        hitsRef.current += 1;
-        onCorrect?.(wp.w);
-      }
+      // 기름으로 산 철자는 '철자 정확도' 통계에서 빼되, 호출 자체는 항상 한다 —
+      // 아예 안 부르면 모르는 단어가 학습 기록에서 조용히 사라진다(letter-forge 의 함정).
+      if (!hinted) hitsRef.current += 1;
+      onCorrect?.(wp.w, assisted ? { assisted: true } : undefined);
 
       if (vowed) {
         vowRef.current = null;
         setVowId(null);
         vowReadyAtRef.current = performance.now() + VOW_CD_OK;
-        if (!hinted && hpRef.current < START_HP && restoresRef.current < MAX_RESTORES) {
+        // 촛불 회복은 진짜 위험을 감수한 서약(배수 3 이상 = prog .65 이후)에만.
+        if (
+          !assisted && vowMult >= VOW_RESTORE_MULT &&
+          hpRef.current < START_HP && restoresRef.current < MAX_RESTORES
+        ) {
           restoresRef.current += 1;
           hpRef.current += 1;
           setHp(hpRef.current);
@@ -458,7 +593,14 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
         wp.logged = true;
         onWrong?.(wp.w);
       }
-      wp.prog = Math.min(0.97, wp.prog + WRONG_SURGE);
+      wp.wrongs += 1;
+      // v07.9 는 `Math.min(0.97, prog + 0.10)` 이라 2번째 오답부터 한계비용이
+      // 낙하 1초뿐이었고 오답만으로는 절대 격추되지 않았다 — 뜻+칸 수로 좁힌 후보
+      // 3~5개를 공짜로 열거할 수 있었다는 뜻이다. 이제 가속은 오답 횟수에 비례하고
+      // (0.10 / 0.20 / 0.30 …) 클램프가 없어 실제로 촛불을 잃는다.
+      //   prog .20 에서 시작하면 가속만으로 .20→.30→.50→.80, 4번째 오답에 격추.
+      //   자연 낙하(시도당 ~1초)까지 넣고 재시뮬하면 3번째 시도에서 촛불이 꺼진다.
+      wp.prog = Math.min(1, wp.prog + WRONG_SURGE * wp.wrongs);
       wispsRef.current = wispsRef.current.map((v) => (v.id === wp.id ? { ...wp } : v));
       setWisps(wispsRef.current);
       setTyped('');
@@ -466,8 +608,12 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       setReject(true);
       later(() => setReject(false), 260);
       sfx.nearMiss();
-      pushFloat(x, y, '다시 — 천천히', 'warn');
-      setAnnounce('아직이에요 — 다시 떠올려 보세요');
+      pushFloat(x, y, wp.wrongs === 1 ? '다시 — 천천히' : '정령이 서두릅니다', 'warn');
+      setAnnounce(
+        wp.wrongs === 1
+          ? '아직이에요 — 다시 떠올려 보세요'
+          : '아직이에요 — 이 정령이 더 빨리 내려옵니다',
+      );
     },
     [breakVow, combo, dispel, later, onWrong, pushFloat, sfx, yOf],
   );
@@ -496,15 +642,17 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       setTyped(v);
       typedRef.current = v;
       if (v.length === wp.ce.length) {
-        // 마지막 글자 오타를 바로 알아챈 경우를 위해 260ms 유예 — 그 사이 백스페이스면 물린다.
-        // (Enter 를 누르면 기다리지 않고 즉시 확정.)
+        // 자기 오타를 알아챌 유예 — 그 사이 백스페이스면 물린다. 고정 260ms 는 11자
+        // 단어를 훑기에 짧아 '한 글자 실수 → 전체 재입력'이 잦았으므로 길이에 비례시켰다
+        // (5자 320ms · 12자 488ms). 정보를 주는 게 아니라 자기 입력을 볼 시간만 준다.
+        // 급한 사람은 Enter 로 즉시 확정한다.
         setPending(true);
         commitRef.current = window.setTimeout(() => {
           commitRef.current = null;
           if (!mounted.current) return;
           setPending(false);
           if (typedRef.current === v) submit(v);
-        }, 260);
+        }, commitMsFor(wp.ce.length));
       }
     },
     [cancelCommit, later, submit],
@@ -546,6 +694,12 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   );
 
   // ── 서약 — 이 게임의 유일한 자발적 판돈 ─────────────────────────────────
+  /** 판돈이 성립하는 상황인가 — 이미 위태롭거나, 화면이 붐벼서 가속이 실제로 아픈 때. */
+  const vowGateOk = useCallback(
+    (wp: Wisp | null) => !!wp && (wp.prog >= VOW_MIN_PROG || wispsRef.current.length >= VOW_MIN_CROWD),
+    [],
+  );
+
   const makeVow = useCallback(() => {
     if (phaseRef.current !== 'playing') return;
     if (vowRef.current != null) return;
@@ -553,12 +707,21 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     const id = targetRef.current;
     const wp = id == null ? null : wispsRef.current.find((v) => v.id === id);
     if (!wp || wp.hinted) return;
+    if (!vowGateOk(wp)) {
+      // 거절도 조용히 넘기지 않는다 — 왜 안 되는지 모르면 규칙을 못 배운다.
+      sfx.click();
+      setAnnounce('서약은 정령이 절반 아래로 내려왔거나 셋 이상일 때 걸 수 있어요');
+      return;
+    }
     vowRef.current = wp.id;
     setVowId(wp.id);
+    // 격파해도 가속이 즉시 꺼지지 않는다 — 서약 한 번의 최소 노출 5초.
+    // 이게 없으면 갓 스폰된 짧은 단어에 걸고 1초 만에 끝내 위험을 회피할 수 있었다.
+    vowHoldUntilRef.current = performance.now() + VOW_HOLD_MS;
     sfx.coin();
-    pushFloat(wp.x, yOf(wp.prog), `서약 ×${VOW_SCORE_MULT}`, 'gain');
-    setAnnounce('서약 — 점수 세 배, 대신 모든 정령이 빨라집니다');
-  }, [pushFloat, sfx, yOf]);
+    pushFloat(wp.x, yOf(wp.prog), `서약 ×${fmtMult(vowMultFor(wp.prog))}`, 'gain');
+    setAnnounce('서약 — 늦게 잡을수록 배수가 커집니다. 대신 5초 동안 모든 정령이 빨라져요');
+  }, [pushFloat, sfx, vowGateOk, yOf]);
 
   // ── 기름 — 철자를 사는 대신 학습 기록은 정직하게 실패로 남는다 ───────────
   const useOil = useCallback(() => {
@@ -571,6 +734,8 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     setOil(oilRef.current);
     wp.hinted = true;
     wp.revealUntil = performance.now() + HINT_SHOW_MS;
+    // 이 단어의 철자를 보여줬다 — 곧 재출현해도 인출로 치지 않기 위한 표시.
+    revealedAtRef.current.set(wp.w.en, performance.now());
     if (!wp.logged) {
       wp.logged = true;
       onWrong?.(wp.w);
@@ -589,16 +754,22 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
         cycleTarget(e.shiftKey ? -1 : 1);
         return;
       }
+      // Enter 는 언제나 '지금 확정'. v07.9 는 입력이 비었을 때만 서약이라 인트로가
+      // 가르친 규칙(Enter=서약)과 실제 동작이 달랐고, 그래서 대부분의 플레이어가
+      // 확정 단축키를 못 배운 채 매 단어 유예 시간을 통째로 기다렸다.
       if (e.key === 'Enter') {
         e.preventDefault();
         if (e.shiftKey) { useOil(); return; }
-        if (typedRef.current.length > 0) {
-          cancelCommit();
-          submit(typedRef.current);
-          return;
-        }
-        // 방금 확정된 직후의 습관성 Enter 로 서약이 걸리지 않게 한다(의도하지 않은 판돈 금지).
-        if (performance.now() - lastSubmitRef.current < 500) return;
+        if (typedRef.current.length === 0) return;
+        cancelCommit();
+        submit(typedRef.current);
+        return;
+      }
+      // Space 는 철자에 쓰이지 않는다(cleanWord 가 걸러낸다) — 서약 전용 키로 쓴다.
+      if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        // 방금 확정된 직후의 습관성 입력으로 판돈이 걸리지 않게 한다.
+        if (performance.now() - lastSubmitRef.current < 400) return;
         makeVow();
       }
     },
@@ -611,13 +782,41 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     const onWinKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (document.activeElement === quillRef.current) return;
-      if (/^[a-zA-Z]$/.test(e.key) || e.key === 'Enter' || e.key === 'Tab') {
+      if (/^[a-zA-Z]$/.test(e.key) || e.key === 'Enter' || e.key === 'Tab' || e.key === ' ') {
         quillRef.current?.focus();
       }
     };
     window.addEventListener('keydown', onWinKey);
     return () => window.removeEventListener('keydown', onWinKey);
   }, [phase]);
+
+  // ── 탭 전환 = 무료 무한 일시정지 차단 ───────────────────────────────────
+  // rAF 는 탭이 숨으면 멈추고 dt 클램프가 누락 시간을 버려서, 사전을 찾아보고 돌아와도
+  // 아무 흔적이 없었다. 게임을 강제로 계속 굴리는 건 부당하니(전화·알림) 대신
+  //   ① 정지를 명시하고(복귀 3초 카운트인) ② 그동안 떠 있던 정령은 assisted 로 표시해
+  //      **점수는 그대로 주되 복습 기록만 보호**한다.
+  useEffect(() => {
+    if (phase !== 'playing') return;
+    const onVis = () => {
+      if (document.visibilityState === 'hidden') {
+        hiddenAtRef.current = performance.now();
+        return;
+      }
+      if (hiddenAtRef.current === 0) return;
+      const away = performance.now() - hiddenAtRef.current;
+      hiddenAtRef.current = 0;
+      if (away < AWAY_MIN_MS) return;
+      awayMsRef.current += away;
+      wispsRef.current = wispsRef.current.map((v) => (v.away ? v : { ...v, away: true }));
+      setWisps(wispsRef.current);
+      resumeAtRef.current = performance.now() + COUNT_IN_MS;
+      lastRef.current = performance.now();
+      cancelCommit();
+      setAnnounce('다른 창에 다녀왔어요 — 3초 뒤 다시 시작합니다');
+    };
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, [cancelCommit, phase]);
 
   // ── 메인 루프 ───────────────────────────────────────────────────────────
   useEffect(() => {
@@ -627,6 +826,23 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
 
     const loop = (now: number) => {
       if (!mounted.current || endedRef.current || phaseRef.current !== 'playing') return;
+
+      // 탭이 숨은 동안은 명시적으로 얼린다(브라우저가 rAF 를 계속 돌리는 경우까지 포함).
+      if (typeof document !== 'undefined' && document.hidden) {
+        lastRef.current = now;
+        rafRef.current = requestAnimationFrame(loop);
+        return;
+      }
+      // 복귀 카운트인 — 돌아오자마자 정령이 코앞에 있는 상황을 만들지 않는다.
+      if (now < resumeAtRef.current) {
+        lastRef.current = now;
+        const s = Math.ceil((resumeAtRef.current - now) / 1000);
+        if (countInRef.current !== s) { countInRef.current = s; setCountIn(s); }
+        rafRef.current = requestAnimationFrame(loop);
+        return;
+      }
+      if (countInRef.current !== 0) { countInRef.current = 0; setCountIn(0); }
+
       const dt = Math.min(64, now - lastRef.current);
       lastRef.current = now;
 
@@ -640,12 +856,15 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
         const seg = SCHEDULE[segRef.current];
         setSegIdx(segRef.current);
         spawnAccRef.current = 0;
-        if (seg.kind === 'breath') {
+        if (seg.banner) {
           setBanner({ title: `ㅡ ${seg.title} ㅡ`, sub: seg.sub });
           setAnnounce(`${seg.title} — ${seg.sub}`);
         } else {
           setBanner(null);
-          if (seg.kind === 'dawn') setAnnounce('새벽 — 마지막 구간입니다');
+          // 새벽 진입 — 마지막 구간의 판돈(남은 촛불)을 명시한다.
+          if (seg.kind === 'dawn') {
+            setAnnounce(`새벽 — 마지막 33초. 촛불 ${hpRef.current}개가 남았어요`);
+          }
         }
       }
       if (segRef.current >= SCHEDULE.length) {
@@ -658,13 +877,17 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       const t = clamp(segTRef.current / seg.ms, 0, 1);
       const fallMs = seg.fallMs + (seg.endFallMs - seg.fallMs) * t;
       const spawnMs = seg.spawnMs + (seg.endSpawnMs - seg.spawnMs) * t;
-      const vowActive = vowRef.current != null;
+      // 서약 가속은 격파 뒤에도 VOW_HOLD_MS 까지 남는다 — '걸고 바로 끝내기'로
+      // 위험을 회피할 수 없게 하는 장치. 화면 톤(ember)도 이 동안 켜져 있다.
+      const othersFast = vowRef.current != null || now < vowHoldUntilRef.current;
+      if (vowHotRef.current !== othersFast) { vowHotRef.current = othersFast; setVowHot(othersFast); }
 
       const escaped: Wisp[] = [];
       const next: Wisp[] = [];
       for (const wp of wispsRef.current) {
         let speed = 1;
-        if (vowActive) speed *= wp.id === vowRef.current ? VOW_SELF_SPEED : VOW_OTHERS_SPEED;
+        if (wp.id === vowRef.current) speed *= VOW_SELF_SPEED;
+        else if (othersFast) speed *= VOW_OTHERS_SPEED;
         if (slowIdRef.current === wp.id && now < slowUntilRef.current) speed *= 0.75;
         const prog = wp.prog + (dt / fallMs) * speed;
         if (prog >= 1) escaped.push(wp);
@@ -700,16 +923,24 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       // 스폰
       if (seg.spawnMs > 0) {
         spawnAccRef.current += dt;
-        if (spawnAccRef.current >= spawnMs && next.length < MAX_ON_SCREEN) {
-          spawnAccRef.current = 0;
+        if (spawnAccRef.current >= spawnMs) {
           const busy = new Set(next.map((v) => v.w.en));
-          const w = drawWord(busy);
-          idRef.current += 1;
-          // 위쪽(방금 생성된 구간)에 있는 정령과만 겹치면 되므로 그 자리들만 피한다.
-          const x = freeSlot(next.filter((v) => v.prog < 0.3).map((v) => v.x));
-          next.push({ id: idRef.current, w, ce: cleanWord(w.en), prog: 0, x, logged: false, hinted: false, revealUntil: 0 });
-        } else if (spawnAccRef.current >= spawnMs) {
-          spawnAccRef.current = spawnMs * 0.6; // 만원이면 조금 뒤에 다시 시도
+          const drawn = next.length < MAX_ON_SCREEN ? drawWord(busy, now) : null;
+          if (drawn) {
+            spawnAccRef.current = 0;
+            idRef.current += 1;
+            // 위쪽(방금 생성된 구간)에 있는 정령과만 겹치면 되므로 그 자리들만 피한다.
+            const x = freeSlot(next.filter((v) => v.prog < 0.3).map((v) => v.x));
+            next.push({
+              id: idRef.current, w: drawn.w, ce: cleanWord(drawn.w.en), prog: 0, x,
+              logged: false, hinted: false, wrongs: 0, echo: drawn.echo,
+              // 카운트인이 끝나기 전에는 스폰이 없으므로 새 정령은 away 를 물려받지 않는다.
+              away: false, revealUntil: 0,
+            });
+          } else {
+            // 만원이거나 뽑을 단어가 없다 — 조금 뒤에 다시 시도(가방을 비우지 않는다).
+            spawnAccRef.current = spawnMs * 0.6;
+          }
         }
       }
 
@@ -759,6 +990,13 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     restoresRef.current = 0;
     vowRef.current = null;
     vowReadyAtRef.current = 0;
+    vowHoldUntilRef.current = 0;
+    vowHotRef.current = false;
+    revealedAtRef.current = new Map();
+    hiddenAtRef.current = 0;
+    resumeAtRef.current = 0;
+    countInRef.current = 0;
+    awayMsRef.current = 0;
     wispsRef.current = [];
     targetRef.current = null;
     typedRef.current = '';
@@ -775,6 +1013,7 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     setWisps([]); setTargetId(null); setTyped(''); setHp(START_HP); setOil(START_OIL);
     setScore(0); setDispelled(0); setSegIdx(0); setNightLeft(NIGHT_MS); setBanner(null);
     setBursts([]); setFloats([]); setReveals([]); setMissed([]); setVowId(null); setVowCd(0);
+    setVowHot(false); setCountIn(0);
     setReject(false); setPending(false); setImeHint(false); setBestInfo(null); setWon(false);
     lastSubmitRef.current = 0;
     setAnnounce('첫 번째 밤이 시작됩니다');
@@ -807,12 +1046,13 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
           <h1 className="wv-intro-title">필경사의 밤</h1>
           <p className="wv-intro-lead">뜻만 든 안개 정령이 촛불로 내려옵니다. 철자는 어디에도 적혀 있지 않아요.</p>
           <ul className="wv-intro-list">
-            <li><b>조준된 정령</b>의 영어 철자를 떠올려 칸을 채우면 흩어집니다. 칸을 다 채우면 곧바로 확정되는데, 그 찰나에 <Kbd>←</Kbd> 백스페이스로 되물릴 수 있어요.</li>
+            <li><b>조준된 정령</b>의 영어 철자를 떠올려 칸을 채우면 흩어집니다. 칸을 다 채우면 잠깐 뒤 확정되는데, 그 찰나에 <Kbd>←</Kbd> 백스페이스로 되물릴 수 있어요.</li>
+            <li><Kbd>Enter</Kbd> <b>지금 확정</b> — 기다리지 않고 바로 던집니다. 같은 정령에 거듭 틀리면 그만큼 더 빨리 내려와요.</li>
             <li><Kbd>Tab</Kbd> 조준 바꾸기 · 정령을 눌러도 됩니다. 조준을 바꾸면 쓰던 글자는 지워져요.</li>
-            <li><Kbd>Enter</Kbd> <b>서약</b> — 점수 ×3, 촛불도 되살릴 수 있지만 <b>모든 정령이 빨라집니다</b>.</li>
+            <li><Kbd>Space</Kbd> <b>서약</b> — 정령이 <b>절반 아래로 내려왔거나 셋 이상</b>일 때만 걸 수 있어요. 늦게 잡을수록 점수 배수가 ×2 에서 ×4 까지 오르지만, <b>5초 동안 모든 정령이 빨라집니다</b>.</li>
             <li><Kbd>Shift</Kbd>+<Kbd>Enter</Kbd> <b>기름</b> — 철자를 잠깐 비춥니다. 대신 점수는 3분의 1, 복습 기록엔 &lsquo;아직&rsquo;으로 남아요.</li>
           </ul>
-          <p className="wv-intro-foot">세 밤과 새벽, 약 2분 45초. 촛불 하나라도 남기고 새벽을 맞으면 이깁니다.</p>
+          <p className="wv-intro-foot">세 밤과 새벽, 약 2분 47초. 마지막 13초엔 새 정령이 오지 않아요 — 남은 정령만 흩으면 이깁니다.</p>
           <div className="wv-intro-act">
             <button type="button" className="gk-btn gk-btn--primary" onClick={begin}>촛불 켜기</button>
             {onExit && <button type="button" className="gk-btn" onClick={onExit}>나가기</button>}
@@ -864,10 +1104,18 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
           }
           restartHint={
             won
-              ? '다음 밤엔 서약을 한 번 더 걸어 보세요 — 붐빌 때 거는 서약이 가장 값집니다.'
+              ? '서약은 늦게 잡을수록 배수가 커집니다 — 아슬아슬한 정령에 걸어 보세요.'
               : uniqueMissed.length > 0
                 ? `아래쪽 정령부터 조준하면 촛불이 버팁니다. ${uniqueMissed[0].ko}(${uniqueMissed[0].en})부터 다시.`
                 : '조준을 자주 바꾸기보다 한 마리를 끝까지 — 그게 더 빠릅니다.'
+          }
+          footer={
+            awayMsRef.current > 0 ? (
+              <span>
+                다른 창에 다녀온 {Math.round(awayMsRef.current / 1000)}초 동안 게임은 멈춰 있었어요.
+                그때 떠 있던 정령은 복습 기록에 올리지 않았습니다.
+              </span>
+            ) : undefined
           }
           onRestart={begin}
           onExit={() => onExit?.()}
@@ -877,7 +1125,9 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     );
   }
 
-  const vowReady = vowId == null && vowCd === 0 && target != null && !target.hinted;
+  const vowGated = target != null && !vowGateOk(target);
+  const vowReady = vowId == null && vowCd === 0 && target != null && !target.hinted && !vowGated;
+  const vowPreview = target ? fmtMult(vowMultFor(target.prog)) : fmtMult(VOW_MULT_MIN);
 
   return (
     <div
@@ -893,13 +1143,13 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       <GameKitStyles />
       <AmbientBackground
         center="#F7ECD8" mid="#D8B888" edge="#3A2A1C"
-        glow={vowId != null ? 'rgba(255,140,60,.5)' : golden ? 'rgba(255,214,150,.5)' : 'rgba(255,196,120,.3)'}
-        glowAt={vowId != null ? '50% 45%' : '50% 26%'}
+        glow={vowHot ? 'rgba(255,140,60,.5)' : golden ? 'rgba(255,214,150,.5)' : 'rgba(255,196,120,.3)'}
+        glowAt={vowHot ? '50% 45%' : '50% 26%'}
         watermark="wordsmith-vigil"
       />
       {/* 배경 레이어 — gk-atmos 클래스를 함께 달아야 킷의 `> :not(.gk-atmos)` 규칙이
           이 두 장을 z-index:1 콘텐츠로 끌어올리지 않는다(그러면 화면을 덮는다). */}
-      <div className="gk-atmos wv-ember" aria-hidden="true" data-on={vowId != null ? '1' : '0'} />
+      <div className="gk-atmos wv-ember" aria-hidden="true" data-on={vowHot ? '1' : '0'} />
       <div className="gk-atmos wv-gold" aria-hidden="true" data-on={golden ? '1' : '0'} />
       <style dangerouslySetInnerHTML={{ __html: WV_CSS }} />
       <GameMusic gameId="wordsmith-vigil" />
@@ -977,8 +1227,14 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
                 <span className="wv-wisp-ko">{wp.w.ko}</span>
                 {isTarget && wp.w.pos && <span className="wv-pos">{wp.w.pos}</span>}
               </span>
+              {/* --wv-commit — 유예 애니메이션 길이를 실제 확정 유예(단어 길이 비례)와 맞춘다. */}
               {isTarget && (
-                <span className="wv-slots" aria-hidden="true" data-pending={pending ? '1' : '0'}>
+                <span
+                  className="wv-slots"
+                  aria-hidden="true"
+                  data-pending={pending ? '1' : '0'}
+                  style={{ '--wv-commit': `${commitMsFor(wp.ce.length)}ms` } as CSSProperties}
+                >
                   {Array.from({ length: wp.ce.length }).map((_, i) => {
                     const ch = i < typed.length ? typed[i] : null;
                     const rv = revealed ? wp.ce[i] : null;
@@ -990,7 +1246,8 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
                   })}
                 </span>
               )}
-              {vowed && <span className="wv-vow-tag" aria-hidden="true">서약 ×{VOW_SCORE_MULT}</span>}
+              {/* 배수는 낙하가 깊어질수록 오른다 — '조금만 더 버텨서 잡을까'가 매번 계산이 되게. */}
+              {vowed && <span className="wv-vow-tag" aria-hidden="true">서약 ×{fmtMult(vowMultFor(wp.prog))}</span>}
             </button>
           );
         })}
@@ -1032,6 +1289,12 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
             한/영 키를 눌러 영문으로 입력해 주세요
           </p>
         )}
+        {countIn > 0 && (
+          <p className="wv-pause" role="status">
+            <FeedbackIcon kind="near" />
+            다른 창에 다녀왔어요 — {countIn}초 뒤 다시 시작합니다. 지금 떠 있는 정령은 복습 기록에 올리지 않아요.
+          </p>
+        )}
       </div>
 
       <div className={`wv-quillbar ${focused ? '' : 'wv-quillbar--blur'}`}>
@@ -1061,10 +1324,26 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
           className="wv-act wv-act--vow"
           onClick={makeVow}
           disabled={!vowReady}
-          aria-label={vowId != null ? '서약 진행 중' : vowCd > 0 ? `서약 ${vowCd}초 뒤 가능` : '서약하기 — 점수 세 배, 모든 정령이 빨라집니다'}
+          title={
+            vowGated
+              ? '서약은 정령이 절반 아래로 내려왔거나 셋 이상일 때 걸 수 있어요'
+              : '서약 — 늦게 잡을수록 배수가 커지고, 5초 동안 모든 정령이 빨라집니다'
+          }
+          aria-label={
+            vowId != null
+              ? '서약 진행 중'
+              : vowCd > 0
+                ? `서약 ${vowCd}초 뒤 가능`
+                : vowGated
+                  ? '서약 불가 — 정령이 절반 아래로 내려왔거나 셋 이상일 때 걸 수 있어요'
+                  : `서약하기 — 지금 걸면 점수 ${vowPreview}배, 5초 동안 모든 정령이 빨라집니다`
+          }
         >
           <span className="wv-act-ic" aria-hidden="true">🜂</span>
-          <span className="wv-act-t">{vowId != null ? '서약 중' : vowCd > 0 ? `${vowCd}s` : `서약 ×${VOW_SCORE_MULT}`}</span>
+          {/* 색만으로 상태를 알리지 않는다 — 문구 자체가 '지금 걸 수 있는가'를 말한다. */}
+          <span className="wv-act-t">
+            {vowId != null ? '서약 중' : vowCd > 0 ? `${vowCd}s` : vowGated ? '아직' : `서약 ×${vowPreview}`}
+          </span>
         </button>
         <button
           type="button"
@@ -1080,7 +1359,7 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
 
       {segIdx === 0 && (
         <p className="wv-keys">
-          <Kbd>Tab</Kbd> 조준 · <Kbd>Enter</Kbd> 서약 · <Kbd>Shift</Kbd>+<Kbd>Enter</Kbd> 기름
+          <Kbd>Enter</Kbd> 지금 확정 · <Kbd>Tab</Kbd> 조준 · <Kbd>Space</Kbd> 서약 · <Kbd>Shift</Kbd>+<Kbd>Enter</Kbd> 기름
         </p>
       )}
     </div>
@@ -1158,7 +1437,7 @@ const WV_CSS = `
   .wv-slot[data-on="1"] { color: var(--combo); border-bottom-color: var(--combo); }
   .wv-slot[data-rev="1"] { color: #E8862F; border-bottom-color: color-mix(in srgb, #E8862F 60%, transparent); }
   /* 확정 직전 유예 — 지금 백스페이스하면 물릴 수 있다는 신호. */
-  .wv-slots[data-pending="1"] .wv-slot { animation: wv-dry .26s linear forwards; }
+  .wv-slots[data-pending="1"] .wv-slot { animation: wv-dry var(--wv-commit, .32s) linear forwards; }
 
   .wv-wisp--on { border-color: var(--combo); background: color-mix(in srgb, var(--bg) 92%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 26%, transparent), 0 8px 24px -8px rgba(0,0,0,.4); }
   .wv-wisp--urgent { border-style: dashed; border-color: var(--error); }
@@ -1181,11 +1460,13 @@ const WV_CSS = `
 
   /* ── 하단 벨트(놓친 단어 공개 · IME 안내) — 모달 아님, 게임은 계속 흐른다. ── */
   .wv-belt { display: flex; flex-direction: column; gap: 6px; padding: 0 16px; z-index: 2; }
-  .wv-reveal, .wv-ime { display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border-radius: var(--r-md, 10px); border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 84%, transparent); font-size: 13px; color: var(--t2); animation: wv-slip .22s ease-out; }
+  .wv-reveal, .wv-ime, .wv-pause { display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border-radius: var(--r-md, 10px); border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 84%, transparent); font-size: 13px; color: var(--t2); animation: wv-slip .22s ease-out; }
   .wv-reveal { color: var(--t2); }
   .wv-reveal-ko { font-weight: 800; color: var(--t1); }
   .wv-reveal-en { font-family: var(--font-english, ui-monospace, monospace); font-weight: 800; color: #E8862F; letter-spacing: .04em; }
   .wv-ime { border-color: color-mix(in srgb, var(--combo) 45%, var(--bd)); color: var(--t1); font-weight: 700; }
+  /* 탭 전환 정지 — 모달이 아니라 흐름 안의 인라인 배지(학습 중단 금지). */
+  .wv-pause { border-color: color-mix(in srgb, #E8862F 50%, var(--bd)); color: var(--t1); font-weight: 700; line-height: 1.45; }
 
   /* ── 붓 바 ── */
   .wv-quillbar { display: flex; align-items: center; gap: 8px; padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 60%, transparent); z-index: 2; transition: opacity .2s; }
@@ -1228,6 +1509,16 @@ const WV_CSS = `
     .wv-quill-ic { display: none; }
     .wv-quillbar { gap: 6px; padding-left: 12px; padding-right: 12px; }
     .wv-hud { gap: 8px; padding: 10px 12px 8px; }
+
+    /* 390px 공정성 수정 — v07.9 는 max-width:40vw(=125px 콘텐츠) 라 8칸부터 칸이 두
+       줄로 접혔고, 뜻은 nowrap+ellipsis 라 8자 넘는 한국어가 잘려 무엇을 떠올려야
+       하는지조차 알 수 없었다. 카드 폭 상한 214px = 12칸(11+2px)×12 + 22 + 좌우
+       패딩 20 → 12글자까지 한 줄. 중심 x 는 28~72% 라 좌우 클리핑도 없다. */
+    .wv-wisp { max-width: min(72vw, 214px); padding: 7px 10px; gap: 4px; }
+    .wv-wisp-ko { white-space: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: clip; text-align: center; line-height: 1.24; font-size: 14px; }
+    .wv-slots { gap: 2px; }
+    .wv-slot { min-width: 11px; height: 18px; padding: 0 1px; font-size: 12px; }
+    .wv-pause { font-size: 12px; }
   }
 
   @keyframes wv-flicker { 0%,100% { opacity: 1; transform: scale(1); } 45% { opacity: .78; transform: scale(.9) translateY(.5px); } }

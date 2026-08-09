@@ -33,7 +33,12 @@ const PirateQuestGame = dynamic(
   },
 );
 
-/** 한 잠수에 최대 6자리 + 최근 회피 여유. 이보다 적으면 내장 해적 뱅크로 논다. */
+/**
+ * 한 잠수에 최대 5자리(PQ.MAX_K) + 최근 회피 여유.
+ * ⚠️ 스캐폴드의 판정은 raw row 수라 meaning 이 빈 항목도 세어진다. 게임 쪽은 그 사실을
+ *    알고 **정제된 단어가 3개만 남아도 그것으로 논다** — 이전처럼 조용히 해적 뱅크로
+ *    바꿔치지 않는다(PirateQuestGame 의 pool useMemo 참조).
+ */
 const MIN_WORDS = 8;
 
 export default function PirateQuestPage() {

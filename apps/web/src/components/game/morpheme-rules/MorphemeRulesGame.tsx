@@ -16,6 +16,21 @@
 //   · 해독한 블록으로 얻은 정답은 onCorrect 로 올리지 않는다(힌트로 산 정답 금지).
 //   · 무위험 탐색 오라클 없음 — 모든 시도가 시간과 콤보를 실제로 태운다.
 //   · 정답 공개는 발동 후, 그리고 시간이 끝난 뒤 결과 화면에서 충분히.
+//
+// v07.10 — 적대적 반증 5건 대응. 각 대응은 해당 지점 주석에 근거를 남긴다.
+//   ① 원장이 '다른 봉인의 정답'을 알려주던 오라클 제거 + 이미 드러난 말로 푼 봉인은
+//      assisted 로 올린다(무료 초점 순회로 무자격 onCorrect 를 뽑던 경로 차단).
+//   ② 해독 배제법 — 실제로 놓은 블록만 보던 assisted 판정에 '남은 후보 1개' 를 추가.
+//   ③ 봉인 접두사 다양성을 생성기 하드 제약으로 승격(morpheme-bank).
+//   ④ 확신 발동에 횟수 상한 3 — 시간 이득만으로는 항상 이기던 지배 전략을 자원 배분으로.
+//   ⑤ 인터루드 중 키 입력 전면 차단 + 한글 IME 에서 죽던 단축키를 e.code 로.
+//
+// FSRS 계약(중앙 recordGameResult 와의 분담)
+//   · 봉인당 첫 시도 1회만 올린다(게임 내 반복은 독립 인출이 아니다).
+//   · 모르는 봉인은 반드시 오답으로 올린다 — 안 올리고 도망가지 않는다.
+//   · 정답을 이미 본 뒤의 입력은 { assisted: true } 로 올린다(호출 자체를 생략하지 않는다).
+//   · 실제 카드 갱신은 학습자 vocabularies 에 있는 단어에서만 일어난다 → 생성기가
+//     학습자 단어를 봉인으로 우선 배치한다(시뮬 실측 세션당 2.69 → 7.52개).
 
 'use client';
 
@@ -42,33 +57,53 @@ import {
 
 import {
   makeSession,
+  deriveBias,
   findOwnWord,
   SPELL_BY_KEY,
   TOTAL_SEALS,
-  ROOT_KEYS,
   type Corridor,
   type Prefix,
   type Root,
   type Spell,
 } from './morpheme-bank';
 
+/** 스캐폴드 계약 — 정답을 이미 보여준 뒤의 입력은 assisted 로 표시해 올린다. */
+interface ResultOpts {
+  assisted?: boolean;
+}
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 /** 세션 총 제한 시간. 정답 가산은 킷이 총량의 75% 로 자동 상한 → 최장 ≈ 3분 50초. */
 const TOTAL_MS = 130_000;
 const WARN_MS = 15_000;
-/** 확신 발동 — 성공 시 점수 ×2 와 추가 시간, 실패 시 추가 시간 손실. */
-const CONVICTION_BONUS_MS = 4_000;
+
+// ── 확신 발동 (익스플로짓 4) ────────────────────────────────────────────────
+// 반증 지적: 성공 +4초 / 실패 −8초 라 손익분기 확신도가 p=2/3, 그런데 '아는 단어' 에서는
+// p≈1 이므로 확신이 순수 상위호환이 됐다 — 메타인지 판단이 Shift+Enter 연타로 축약됐다.
+// 두 곳을 고친다.
+//   · 시간 이득을 4초 → 2초로. 회랑 기본 벌점 5~7초 기준 손익분기가 p≈0.8 로 올라간다
+//     (확신 EV_time − 일반 EV_time = 2p − 8(1−p) > 0  ⟺  p > 0.8).
+//   · 세션당 3회 상한. 점수 ×2 의 가치는 '언제 쓰느냐'(회랑 깊이 × 콤보 배수)에 달리므로
+//     남발이 불가능해지고 '어디에 걸 것인가' 라는 실제 선택이 생긴다. 빗나가도 소모된다.
+const CONVICTION_BONUS_MS = 2_000;
 const CONVICTION_PENALTY_MS = 8_000;
+const CONVICTION_CHARGES = 3;
+
 const DECODE_COST_MS = 4_000;
 const DECODE_TOKENS = 3;
 const CORRIDOR_CLEAR_MS = 5_000;
 const CORRIDOR_CLEAR_SCORE = 200;
+
+/** 물리 키 기준 단축키(한글 IME 에서도 동작). e.key 는 보조 판정으로만 쓴다. */
+const KEY_ROOT_CODES = ['KeyQ', 'KeyW', 'KeyE', 'KeyR'];
+const KEY_PREFIX_CODES = ['Digit1', 'Digit2', 'Digit3', 'Digit4'];
+const KEY_PREFIX_NUMPAD = ['Numpad1', 'Numpad2', 'Numpad3', 'Numpad4'];
 
 type FlashKind = 'correct' | 'near' | 'wrong' | 'info';
 interface Flash {
@@ -105,17 +140,18 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 0x7fffffff));
   const [runNo, setRunNo] = useState(0);
 
-  // 학습자 단어장에 실제로 등장하는 어근을 회랑 생성에 가중치로 준다(Context-Dependent).
-  const biasRoots = useMemo(() => {
-    const s = new Set<string>();
-    for (const w of wordPool ?? []) {
-      const en = w.en.toLowerCase();
-      for (const r of ROOT_KEYS) if (en.includes(r)) s.add(r);
-    }
-    return s;
-  }, [wordPool]);
+  // 학습자 단어장 연결 — 정확 일치만(deriveBias 주석에 오탐 근거). 부분문자열 bias 는
+  // 실 DB 에서 'do'→abandon, 'read'→already 처럼 오탐이 지배적이라 걷어냈다.
+  const bias = useMemo(() => deriveBias(wordPool), [wordPool]);
 
-  const corridors = useMemo<Corridor[]>(() => makeSession(seed, biasRoots), [seed, biasRoots]);
+  const corridors = useMemo<Corridor[]>(() => makeSession(seed, bias), [seed, bias]);
+
+  // 이 판에서 실제로 FSRS 카드가 갱신될 수 있는 봉인 수 — 화면에 정직하게 표기한다.
+  // (recordGameResult 는 학습자 vocabularies 에 없는 단어를 조용히 skip 한다.)
+  const ownSealCount = useMemo(
+    () => corridors.reduce((n, c) => n + c.seals.filter((s) => bias.words.has(s.spell.word)).length, 0),
+    [corridors, bias],
+  );
 
   // ── 진행 상태 ───────────────────────────────────────────────────────────
   const [ci, setCi] = useState(0);
@@ -127,7 +163,18 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
   const [pre, setPre] = useState<Prefix | null>(null);
   const [root, setRoot] = useState<Root | null>(null);
   const [decoded, setDecoded] = useState<Set<string>>(() => new Set());
+  /**
+   * 게임이 **공짜로 인쇄해 버린** 형태소 뜻(해독 토큰을 쓰지 않고 얻은 것).
+   *
+   * 없는 말을 발동하면 오답 한 줄이 `pre.rule`("un- 은 이미 된 것을 되돌린다")을 찍는다.
+   * 가르치는 한 줄이라 없앨 수 없지만, 그러고 나서 그 접두사로 연 봉인을 '스스로 인출했다'
+   * 고 기록하면 해독으로 산 정답을 막아 놓은 계약이 뒷문으로 새는 것이다(익스플로짓 2 동류).
+   * 그래서 '직접 사용' 판정에만 넣고 **배제법 카운트에는 넣지 않는다** — 오답 두 번으로
+   * 회랑 전체가 assisted 가 되면 정답률 0.5~0.7 학습자만 복습 기록을 잃는다(불공정).
+   */
+  const [shown, setShown] = useState<Set<string>>(() => new Set());
   const [tokens, setTokens] = useState(DECODE_TOKENS);
+  const [sureLeft, setSureLeft] = useState(CONVICTION_CHARGES);
   const [arming, setArming] = useState(false);
   const [interlude, setInterlude] = useState(false);
 
@@ -150,6 +197,15 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
   const scoreRef = useRef(0);
   const remainRef = useRef(TOTAL_MS);
   const recordedRef = useRef<Set<string>>(new Set());
+  /**
+   * 익스플로짓 1 — 게임이 철자와 뜻을 이미 인쇄해 준 단어들.
+   *
+   * 실재하지만 이 봉인이 아닌 말을 쏘면 플래시가 "'unlock' 는 실제로 있는 말이에요 — 열다"
+   * 를 찍는다. 그 뒤 초점을 옮겨 같은 말을 다시 쏘면 맞지만, 그건 학습자의 인출이 아니라
+   * 게임이 알려준 것이다. 판 전체에 걸쳐 기억해 두고 assisted 로 올린다
+   * (회랑이 바뀌어도 같은 주문이 다시 봉인으로 나올 수 있어 판 단위로 유지한다).
+   */
+  const revealedRef = useRef<Set<string>>(new Set());
   const tierUpRef = useRef<string | null>(null);
   const finishRef = useRef<(reason: 'clear' | 'timeout') => void>(() => {});
   const advanceTimerRef = useRef<number | null>(null);
@@ -203,7 +259,9 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
     setPre(null);
     setRoot(null);
     setDecoded(new Set());
+    setShown(new Set());
     setTokens(DECODE_TOKENS);
+    setSureLeft(CONVICTION_CHARGES);
     setArming(false);
     setInterlude(false);
     setScore(0);
@@ -218,6 +276,7 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
     phaseRef.current = 'play';
     interludeRef.current = false;
     recordedRef.current = new Set();
+    revealedRef.current = new Set();
     tierUpRef.current = null;
     comboRef.current.reset();
     timeRef.current.reset(TOTAL_MS);
@@ -266,6 +325,12 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
       setPre(null);
       setRoot(null);
       setArming(false);
+      // 해독은 '이 회랑 동안'만 유효하다. 이전에는 decoded 가 판 끝까지 남아, 회랑 1 에서
+      // 'un' 을 연 학습자가 이후 회랑에서 'un' 을 쓰는 모든 봉인을 점수 절반 + 복습 기록
+      // 없음으로 잃었다(접두사 8종 중 회랑당 3~4종 재등장 → 3회랑 누적 재등장 확률 ≈82%).
+      // 문구도 '이 회랑 동안' 으로 맞췄다. 오답으로 공짜로 드러난 규칙도 같이 리셋한다.
+      setDecoded(new Set());
+      setShown(new Set());
       setFocusId(corridors[next].seals[0].id);
     },
     [corridors],
@@ -273,7 +338,7 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
 
   // ── 발동 ────────────────────────────────────────────────────────────────
   const cast = useCallback(
-    (conviction: boolean) => {
+    (wantConviction: boolean) => {
       if (phaseRef.current !== 'play' || interludeRef.current) return;
       if (arming) {
         setArming(false);
@@ -288,11 +353,36 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         corridor.seals.find((s) => !broken.includes(s.id));
       if (!seal) return;
 
+      // 확신은 세션 3회 한정 — 다 쓰면 Shift+Enter 도 일반 발동으로 떨어진다(익스플로짓 4).
+      const conviction = wantConviction && sureLeft > 0;
+
       const key = `${pre.text}+${root.text}`;
       const wordText = pre.text + root.text;
       const spell: Spell | undefined = SPELL_BY_KEY[key];
-      const assisted = decoded.has(`p:${pre.text}`) || decoded.has(`r:${root.text}`);
       const firstTry = !recordedRef.current.has(seal.id);
+
+      // ── assisted 판정 — '이 정답을 학습자가 인출했는가' ────────────────────
+      // 이전에는 실제로 놓은 블록이 해독됐는지만 봤다(:294). 반증자는 두 우회로를 냈다.
+      //   · 배제법: 접두사 3종 중 2종을 해독하면 남은 1종이 정답인데, 그 블록은 decoded 에
+      //     없으므로 assisted=false 로 통과했다. → 남은 후보가 1개면 그 선택은 정보가 0이다.
+      //   · 원장 순회: 다른 봉인에 쏴서 게임이 철자·뜻을 인쇄해 준 말을 초점만 옮겨 재사용.
+      //   · 공짜 규칙: 없는 말을 쏘면 오답 한 줄이 그 접두사의 규칙을 인쇄한다(shown).
+      const usedDecodedBlock = decoded.has(`p:${pre.text}`) || decoded.has(`r:${root.text}`);
+      const usedShownBlock = shown.has(`p:${pre.text}`) || shown.has(`r:${root.text}`);
+      const preLeft = corridor.prefixes.reduce((n, p) => n + (decoded.has(`p:${p.text}`) ? 0 : 1), 0);
+      const rootLeft = corridor.roots.reduce((n, r) => n + (decoded.has(`r:${r.text}`) ? 0 : 1), 0);
+      const byElimination = preLeft <= 1 || rootLeft <= 1;
+      const alreadyShown = revealedRef.current.has(wordText);
+      const assisted = usedDecodedBlock || usedShownBlock || byElimination || alreadyShown;
+      const assistReason = usedDecodedBlock
+        ? '해독한 블록'
+        : alreadyShown
+          ? '이미 드러난 말'
+          : usedShownBlock
+            ? '규칙이 드러난 블록'
+            : '남은 후보가 하나';
+
+      if (conviction) setSureLeft((n) => n - 1);
 
       const addLedger = (entry: LedgerEntry) =>
         setLedger((l) => (l.some((e) => e.key === entry.key) ? l.map((e) => (e.key === entry.key ? entry : e)) : [...l, entry]));
@@ -304,7 +394,12 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         const pen = corridor.penaltyMs + (conviction ? CONVICTION_PENALTY_MS : 0);
         time.drain(pen);
         addLedger({ key, word: wordText, ko: '', kind: 'dead' });
+        // 아래 한 줄이 pre.rule 을 인쇄한다 → 이 접두사의 뜻은 이제 공짜로 드러났다.
+        // 블록에도 그대로 남겨 둔다(같은 말을 두 번 외우게 하지 않는다 — 인지부하).
+        setShown((s) => (s.has(`p:${pre.text}`) ? s : new Set(s).add(`p:${pre.text}`)));
         if (firstTry) {
+          // 모르는 봉인은 정직하게 오답으로 올린다 — 안 올리면 복습이 안 잡힌다.
+          // (오답은 assisted 를 붙이지 않는다: 도움을 받고도 틀렸다면 더더욱 진짜 실패다.)
           recordedRef.current.add(seal.id);
           onWrong?.({ en: seal.spell.word, ko: seal.spell.ko });
         }
@@ -314,7 +409,7 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
           main: `'${wordText}' 은 쓰이지 않는 말이에요`,
           sub: `${pre.rule} — ${root.text} 에는 그럴 자리가 없어요. −${Math.round(pen / 1000)}초${
             lost >= 2 ? ` · 콤보 ${lost} 끊김 −3초` : ''
-          }`,
+          }${conviction ? ` · 확신 ${sureLeft - 1}회 남음` : ''}`,
         });
         return;
       }
@@ -326,6 +421,8 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         const pen = Math.max(2000, corridor.penaltyMs - 2000) + (conviction ? CONVICTION_PENALTY_MS : 0);
         time.drain(pen);
         addLedger({ key, word: spell.word, ko: spell.ko, kind: 'real' });
+        // 여기서 게임이 철자와 뜻을 인쇄했다 — 이후 이 말로 푸는 봉인은 인출이 아니다.
+        revealedRef.current.add(spell.word);
         if (firstTry) {
           recordedRef.current.add(seal.id);
           onWrong?.({ en: seal.spell.word, ko: seal.spell.ko });
@@ -336,7 +433,7 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
           main: `'${spell.word}' 는 실제로 있는 말이에요 — ${spell.ko}`,
           sub: `다만 이 봉인이 기다리는 뜻은 아니에요. −${Math.round(pen / 1000)}초${
             lost >= 2 ? ` · 콤보 ${lost} 끊김 −3초` : ''
-          }`,
+          }${conviction ? ` · 확신 ${sureLeft - 1}회 남음` : ''}`,
         });
         return;
       }
@@ -357,12 +454,14 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
 
       if (firstTry) {
         recordedRef.current.add(seal.id);
-        // 해독으로 산 정답은 FSRS 에 '알았다'로 올리지 않는다.
-        if (!assisted) onCorrect?.({ en: spell.word, ko: spell.ko });
+        // 도움을 받아 얻은 정답도 **올리기는 한다** — 다만 assisted 로 표시해서 중앙
+        // recordGameResult 가 카드를 갱신하지 않게 한다. 호출을 생략해 버리면 세션 통계에서
+        // 사라져 "안 푼 것"과 구분이 안 된다.
+        onCorrect?.({ en: spell.word, ko: spell.ko }, assisted ? { assisted: true } : undefined);
       }
       if (conviction) setConvictions((n) => n + 1);
 
-      const own = findOwnWord(wordPool, spell.r, spell.word);
+      const own = findOwnWord(wordPool, spell.word);
       const nextBroken = [...broken, seal.id];
       setBroken(nextBroken);
       setBuilt((b) => b + 1);
@@ -377,8 +476,8 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         sub: [
           `+${gain}점`,
           mult > 1 ? `콤보 ${c} ${fmtMult(mult)}` : null,
-          conviction ? '확신 ×2' : null,
-          assisted ? '해독 사용 · 복습 기록 없음' : null,
+          conviction ? `확신 ×2 · ${sureLeft - 1}회 남음` : null,
+          assisted ? `${assistReason} · 점수 절반, 복습 기록 없음` : null,
           `+${Math.round(rewardMs / 1000)}초`,
           tierLabel ? `${tierLabel} 돌파` : null,
         ]
@@ -417,6 +516,8 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
       focusId,
       broken,
       decoded,
+      shown,
+      sureLeft,
       combo,
       time,
       sfxWrong,
@@ -440,6 +541,12 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         setArming(false);
         return;
       }
+      // 오답으로 이미 규칙이 드러난 블록에는 토큰·시간을 받지 않는다(이미 가진 정보를 되팔지 않기).
+      if (shown.has(k)) {
+        setArming(false);
+        pushFlash({ kind: 'info', main: `${text} 의 뜻은 이미 드러나 있어요 — 해독을 쓰지 않았어요` });
+        return;
+      }
       if (tokens <= 0) return;
       setDecoded((d) => new Set(d).add(k));
       setTokens((t) => t - 1);
@@ -448,11 +555,11 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
       setArming(false);
       pushFlash({
         kind: 'info',
-        main: `해독 — ${text} 의 뜻이 드러났어요`,
+        main: `해독 — ${text} 의 뜻이 드러났어요 (이 회랑 동안)`,
         sub: `−${DECODE_COST_MS / 1000}초 · 이 블록으로 만든 말은 점수 절반, 복습 기록 없음`,
       });
     },
-    [decoded, tokens, time, coin, pushFlash],
+    [decoded, shown, tokens, time, coin, pushFlash],
   );
 
   const choosePrefix = useCallback(
@@ -493,6 +600,7 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
 
   const moveFocus = useCallback(
     (dir: 1 | -1) => {
+      if (phaseRef.current !== 'play' || interludeRef.current) return;
       const open = corridor.seals.filter((s) => !broken.includes(s.id));
       if (open.length < 2) return;
       const cur = Math.max(0, open.findIndex((s) => s.id === focusId));
@@ -504,57 +612,70 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
   );
 
   // ── 키보드 ──────────────────────────────────────────────────────────────
-  const apiRef = useRef({ cast, choosePrefix, chooseRoot, moveFocus, corridor, setPre, setRoot, setArming, tokens, arming });
-  apiRef.current = { cast, choosePrefix, chooseRoot, moveFocus, corridor, setPre, setRoot, setArming, tokens, arming };
+  //
+  // 익스플로짓 5-a: 회랑 전환(1.2초) 중에는 어떤 키도 상태를 바꾸지 않는다. 예전에는
+  // H 만 interludeRef 를 안 봐서, 전환 중 H 로 arming 을 몰래 켠 뒤 전환이 끝나고 누른
+  // 첫 블록이 '선택'이 아니라 '해독'으로 처리돼 토큰 1개와 4초가 의도 없이 날아갔다.
+  //
+  // 익스플로짓 5-b(한글 IME): e.key 만 보면 한글 입력 상태에서 H/Q/W/E/R 이 ㅗ/ㅂ/ㅈ/ㄷ/ㄱ
+  // 로 들어와 전부 무반응이었다(숫자와 Enter 만 생존). 물리 키 e.code 를 1순위로 보고
+  // e.key 는 보조로만 쓴다. 조합 중(isComposing / keyCode 229)이면 아예 손대지 않는다.
+  const apiRef = useRef({ cast, choosePrefix, chooseRoot, moveFocus, corridor, setPre, setRoot, setArming, tokens, arming, sureLeft, interlude });
+  apiRef.current = { cast, choosePrefix, chooseRoot, moveFocus, corridor, setPre, setRoot, setArming, tokens, arming, sureLeft, interlude };
 
   useEffect(() => {
     if (phase !== 'play') return;
     const onKey = (e: KeyboardEvent) => {
+      if (e.isComposing || e.keyCode === 229) return; // IME 조합 중 — 게임 입력으로 삼지 않는다
       const api = apiRef.current;
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (api.interlude) return; // 회랑 전환 중 — 모든 단축키 정지
+      const code = e.code;
       const k = e.key.toLowerCase();
 
-      if (e.key === 'Enter') {
+      if (code === 'Enter' || code === 'NumpadEnter' || e.key === 'Enter') {
         // 버튼에 포커스가 있으면 그 버튼의 기본 동작에 맡긴다(이중 발동 방지).
         if (tag === 'BUTTON' && !e.shiftKey) return;
         e.preventDefault();
-        api.cast(e.shiftKey);
+        api.cast(e.shiftKey && api.sureLeft > 0);
         return;
       }
-      if (e.key === 'Backspace') {
+      if (code === 'Backspace' || e.key === 'Backspace') {
         e.preventDefault();
         api.setPre(null);
         api.setRoot(null);
         return;
       }
-      if (e.key === 'Escape' && api.arming) {
+      if ((code === 'Escape' || e.key === 'Escape') && api.arming) {
         e.preventDefault();
         api.setArming(false);
         return;
       }
-      if (e.key === 'ArrowRight') {
+      if (code === 'ArrowRight' || e.key === 'ArrowRight') {
         e.preventDefault();
         api.moveFocus(1);
         return;
       }
-      if (e.key === 'ArrowLeft') {
+      if (code === 'ArrowLeft' || e.key === 'ArrowLeft') {
         e.preventDefault();
         api.moveFocus(-1);
         return;
       }
-      if (k === 'h') {
+      if (code === 'KeyH' || k === 'h') {
         e.preventDefault();
         if (api.tokens > 0) api.setArming((v) => !v);
         return;
       }
-      const pIdx = ['1', '2', '3', '4'].indexOf(e.key);
+      const pIdx = code
+        ? Math.max(KEY_PREFIX_CODES.indexOf(code), KEY_PREFIX_NUMPAD.indexOf(code))
+        : ['1', '2', '3', '4'].indexOf(e.key);
       if (pIdx >= 0 && api.corridor.prefixes[pIdx]) {
         e.preventDefault();
         api.choosePrefix(api.corridor.prefixes[pIdx]);
         return;
       }
-      const rIdx = ['q', 'w', 'e', 'r'].indexOf(k);
+      const rIdx = code ? KEY_ROOT_CODES.indexOf(code) : ['q', 'w', 'e', 'r'].indexOf(k);
       if (rIdx >= 0 && api.corridor.roots[rIdx]) {
         e.preventDefault();
         api.chooseRoot(api.corridor.roots[rIdx]);
@@ -562,17 +683,28 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
   // ── 파생 값 ─────────────────────────────────────────────────────────────
   const focusSealObj = corridor.seals.find((s) => s.id === focusId) ?? corridor.seals.find((s) => !broken.includes(s.id)) ?? null;
-  const openSeals = corridor.seals.filter((s) => !broken.includes(s.id));
-  const pendingKeys = new Set(openSeals.map((s) => `${s.spell.p}+${s.spell.r}`));
   const lastBrokenId = broken.length > 0 ? broken[broken.length - 1] : null;
   const assembled = `${pre?.text ?? ''}${root?.text ?? ''}`;
   const benchReady = !!pre && !!root;
   const canCast = benchReady && !interlude && !arming && phase === 'play';
-  const assistedNow = !!pre && !!root && (decoded.has(`p:${pre.text}`) || decoded.has(`r:${root.text}`));
+  // 발동 전 예고용 assisted — cast 안의 판정과 같은 규칙(해독 블록 · 남은 후보 1개 · 이미 드러난 말).
+  const preLeftNow = corridor.prefixes.reduce((n, p) => n + (decoded.has(`p:${p.text}`) ? 0 : 1), 0);
+  const rootLeftNow = corridor.roots.reduce((n, r) => n + (decoded.has(`r:${r.text}`) ? 0 : 1), 0);
+  const assistedNow =
+    !!pre &&
+    !!root &&
+    (decoded.has(`p:${pre.text}`) ||
+      decoded.has(`r:${root.text}`) ||
+      shown.has(`p:${pre.text}`) ||
+      shown.has(`r:${root.text}`) ||
+      preLeftNow <= 1 ||
+      rootLeftNow <= 1 ||
+      revealedRef.current.has(assembled));
   const nextMult = multFor(combo.combo + 1);
 
   // ── 완료 화면 ───────────────────────────────────────────────────────────
@@ -593,7 +725,9 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         <Hud muted={muted} onToggleMute={() => setMuted((m) => !m)} onExit={() => onExit?.()} />
         <GameDone
           mark="morpheme-rules"
-          celebrate={cleared}
+          // 전 회랑 통과에도 폭죽을 띄우지 않는다 — CLAUDE.md '진행률 100% 시 폭죽·트로피 금지'.
+          // 성취는 조용한 fanfare 한 번 + '전 회랑 통과' 배지로만 말한다(Calm UI).
+          celebrate={false}
           lead={cleared ? '회랑을 전부 지났어요' : '시간이 다 됐어요'}
           badge={
             pb.improved ? (
@@ -699,6 +833,14 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         <div className="mr-head">
           <h1 className="mr-title">{corridor.title}</h1>
           <p className="mr-sub">{corridor.sub}</p>
+          {/* 이 판이 내 복습에 실제로 닿는지 정직하게 말한다 — 카탈로그 문구가 아니라 실측값. */}
+          <p className="mr-scope">
+            {ownSealCount > 0
+              ? `내 단어장에서 온 봉인 ${ownSealCount}개 — 이 봉인이 복습 일정에 반영돼요`
+              : bias.words.size > 0
+                ? '이번 세트는 내 단어장과 겹치는 봉인이 없어요 — 형태소 연습으로 즐겨요'
+                : '맛보기 격자 — 단어장이 채워지면 내 단어가 봉인으로 나와요'}
+          </p>
         </div>
 
         {/* 봉인 목록 — 하나만 '지금 겨누는 봉인'. 발동은 이 봉인에 대해서만 판정된다. */}
@@ -782,6 +924,8 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
             {corridor.prefixes.map((p, i) => {
               const on = pre?.text === p.text;
               const dec = decoded.has(`p:${p.text}`);
+              // 오답 한 줄로 이미 규칙을 인쇄해 준 접두사는 뜻을 계속 보여 준다(재암기 강요 금지).
+              const wasShown = !dec && shown.has(`p:${p.text}`);
               return (
                 <button
                   key={p.text}
@@ -790,12 +934,13 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
                   data-kind="pre"
                   data-on={on ? '1' : '0'}
                   data-decoded={dec ? '1' : '0'}
+                  data-shown={wasShown ? '1' : '0'}
                   aria-pressed={on}
-                  aria-label={arming ? `${p.text} 해독하기` : `접두사 ${p.text}${dec ? ` (${p.ko})` : ''}`}
+                  aria-label={arming ? `${p.text} 해독하기` : `접두사 ${p.text}${dec || wasShown ? ` (${p.ko})` : ''}`}
                   onClick={() => choosePrefix(p)}
                 >
                   <b>{p.text}-</b>
-                  <span className="mr-block-ko">{dec ? p.ko : arming ? '해독?' : '　'}</span>
+                  <span className="mr-block-ko">{dec || wasShown ? p.ko : arming ? '해독?' : '　'}</span>
                   <span className="mr-block-key" aria-hidden="true">
                     <Kbd>{i + 1}</Kbd>
                   </span>
@@ -840,15 +985,20 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
           >
             발동 <Kbd>Enter</Kbd>
           </button>
-          <button
-            type="button"
-            className="gk-btn mr-cast mr-cast--sure"
-            onClick={() => cast(true)}
-            disabled={!canCast}
-            aria-label={`확신 발동 — 점수 두 배, 성공 시 시간 ${CONVICTION_BONUS_MS / 1000}초 추가, 실패 시 ${CONVICTION_PENALTY_MS / 1000}초 추가 손실`}
-          >
-            확신 발동 ×2 <Kbd>⇧Enter</Kbd>
-          </button>
+          <div className="mr-sure-wrap">
+            <button
+              type="button"
+              className="gk-btn mr-cast mr-cast--sure"
+              onClick={() => cast(true)}
+              disabled={!canCast || sureLeft <= 0}
+              aria-label={`확신 발동 — 남은 ${sureLeft}회. 점수 두 배, 성공 시 시간 ${
+                CONVICTION_BONUS_MS / 1000
+              }초 추가, 실패 시 ${CONVICTION_PENALTY_MS / 1000}초 추가 손실. 빗나가도 한 번은 소모됩니다`}
+            >
+              확신 발동 ×2 <Kbd>⇧Enter</Kbd>
+            </button>
+            <LifePips total={CONVICTION_CHARGES} left={sureLeft} label="남은 확신" />
+          </div>
           <div className="mr-decode-wrap">
             <button
               type="button"
@@ -883,12 +1033,21 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
 
         <p className="mr-stakes">
           {arming ? (
-            <>뜻을 열 블록을 고르세요 · −{DECODE_COST_MS / 1000}초 · 그 블록으로 만든 말은 점수 절반, 복습 기록 없음</>
+            <>
+              뜻을 열 블록을 고르세요 · −{DECODE_COST_MS / 1000}초 · 이 회랑 동안 유효 · 그 블록으로 만든 말은 점수 절반,
+              복습 기록 없음
+            </>
           ) : benchReady ? (
             <>
-              지금 발동하면 {Math.round((100 + corridor.index * 20) * nextMult * (assistedNow ? 0.5 : 1))}점 · 확신이면{' '}
-              {Math.round((100 + corridor.index * 20) * nextMult * 2 * (assistedNow ? 0.5 : 1))}점 · 빗나가면 −
-              {Math.round(corridor.penaltyMs / 1000)}초{combo.combo >= 2 ? `, 콤보 ${combo.combo} 소멸` : ''}
+              지금 발동하면 {Math.round((100 + corridor.index * 20) * nextMult * (assistedNow ? 0.5 : 1))}점 ·{' '}
+              {sureLeft > 0
+                ? `확신이면 ${Math.round(
+                    (100 + corridor.index * 20) * nextMult * 2 * (assistedNow ? 0.5 : 1),
+                  )}점, 남은 ${sureLeft}회`
+                : '확신은 다 썼어요'}{' '}
+              · 빗나가면 −{Math.round(corridor.penaltyMs / 1000)}초
+              {combo.combo >= 2 ? `, 콤보 ${combo.combo} 소멸` : ''}
+              {assistedNow ? ' · 이미 드러난 정보라 복습 기록은 안 돼요' : ''}
             </>
           ) : (
             <>겨눈 봉인이 원하는 뜻을 접두사 + 어근으로 만들어 발동하세요. 판정은 발동한 뒤에 나옵니다.</>
@@ -909,25 +1068,23 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
           )}
         </div>
 
-        {/* 이 회랑에서 '판명된' 조합 — 전부 시간을 치르고 얻은 정보다(무료 오라클 아님) */}
+        {/* 이 회랑에서 '판명된' 조합 — 전부 시간을 치르고 얻은 정보다(무료 오라클 아님).
+            익스플로짓 1: 예전에는 real 칩이 '어떤 봉인이 기다린다' 로 **다른 봉인의 정답임을
+            직접 알려줬다**. 열린 봉인이 하나 남고 pending 칩이 하나면 그 칩이 곧 정답이라
+            영어 지식 0으로 확정 해제됐다. 지금은 실재/없음만 구분하고 대기 여부는 말하지 않는다.
+            대신 뜻을 항상 보여준다 — 시간을 치르고 산 정보이므로 가르치는 쪽이 맞다. */}
         {ledger.length > 0 && (
-          <div className="mr-ledger" role="group" aria-label="이 회랑에서 판명된 조합">
-            {ledger.map((e) => {
-              const pending = e.kind === 'real' && pendingKeys.has(e.key);
-              return (
+          <div className="mr-ledger-wrap">
+            <p className="mr-ledger-note">판명된 조합 — 여기 드러난 말로 여는 봉인은 점수 절반 · 복습 기록 없음</p>
+            <div className="mr-ledger" role="group" aria-label="이 회랑에서 판명된 조합">
+              {ledger.map((e) => (
                 <span key={e.key} className="mr-chip" data-kind={e.kind}>
                   <FeedbackIcon kind={e.kind === 'solved' ? 'correct' : e.kind === 'real' ? 'near' : 'wrong'} size={11} />
                   <b>{e.word}</b>
-                  {e.kind === 'dead' ? (
-                    <i>없는 말</i>
-                  ) : pending ? (
-                    <i>어떤 봉인이 기다린다</i>
-                  ) : (
-                    <i>{e.ko}</i>
-                  )}
+                  <i>{e.kind === 'dead' ? '없는 말' : e.ko}</i>
                 </span>
-              );
-            })}
+              ))}
+            </div>
           </div>
         )}
       </main>
@@ -944,6 +1101,7 @@ const MR_CSS = `
   .mr-head { text-align: center; }
   .mr-title { margin: 0; font-family: var(--font-display, system-ui); font-size: clamp(18px, 3vw, 23px); font-weight: 800; color: var(--t1); }
   .mr-sub { margin: 3px 0 0; font-size: 12.5px; color: var(--t3); }
+  .mr-scope { margin: 3px 0 0; font-size: 11.5px; font-weight: 700; color: var(--t3); opacity: .92; }
 
   /* ── 봉인 칩 ── */
   .mr-seals { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
@@ -1003,6 +1161,8 @@ const MR_CSS = `
   .mr-block:disabled { opacity: .45; cursor: default; }
   .mr-block[data-on="1"] { transform: translateY(-3px); box-shadow: 0 0 0 2px currentColor, 0 10px 20px -10px color-mix(in srgb, currentColor 55%, transparent); filter: brightness(1.05); }
   .mr-block[data-decoded="1"] .mr-block-ko { opacity: 1; color: var(--t2); }
+  /* 오답으로 드러난 규칙 — 해독과 구분되게 점선 밑줄 + 낮은 대비(색만으로 말하지 않는다). */
+  .mr-block[data-shown="1"] .mr-block-ko { opacity: .95; color: var(--t3); text-decoration: underline dotted; text-underline-offset: 2px; }
   .mr-blocks[data-arming="1"] .mr-block { border-style: dashed; }
   .mr-blocks[data-arming="1"] .mr-block[data-decoded="1"] { opacity: .5; border-style: solid; }
   /* 회랑 전환 1.2초 — disabled 를 걸면 키보드 포커스가 날아가므로 시각만 잠근다. */
@@ -1014,7 +1174,8 @@ const MR_CSS = `
   .mr-cast--sure { border-color: color-mix(in srgb, var(--streak) 62%, var(--bd)); color: var(--streak); font-weight: 800; }
   .mr-cast--sure:hover:not(:disabled) { border-color: var(--streak); background: color-mix(in srgb, var(--streak) 10%, var(--bg)); }
   .mr-cast--sure:focus-visible, .mr-cast:focus-visible, .mr-decode:focus-visible, .mr-clear:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
-  .mr-decode-wrap { display: inline-flex; align-items: center; gap: 7px; }
+  .mr-sure-wrap, .mr-decode-wrap { display: inline-flex; align-items: center; gap: 7px; }
+  .mr-cast--sure:disabled { border-color: var(--bd); color: var(--t3); }
   .mr-decode { display: inline-flex; align-items: center; gap: 7px; padding: 0 14px; }
   .mr-decode[data-arm="1"] { border-color: var(--warning); color: var(--warning); background: color-mix(in srgb, var(--warning) 12%, var(--bg)); }
   .mr-decode[data-arm="1"]::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
@@ -1036,6 +1197,8 @@ const MR_CSS = `
   .mr-flash[data-kind="info"] { color: var(--t2); }
 
   /* ── 판명된 조합 원장 ── */
+  .mr-ledger-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; width: min(680px, 96vw); }
+  .mr-ledger-note { margin: 0; font-size: 11px; line-height: 1.4; text-align: center; color: var(--t3); opacity: .9; }
   .mr-ledger { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: min(680px, 96vw); padding-bottom: 6px; }
   .mr-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--bd);
     background: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 11px; }
@@ -1072,8 +1235,10 @@ const MR_CSS = `
     .mr-block { min-width: 76px; padding: 8px 10px 9px; }
     .mr-actions { gap: 6px; }
     .mr-cast, .mr-decode, .mr-clear { padding: 0 12px; font-size: 13px; }
+    .mr-ledger-wrap { width: 100%; }
     .mr-ledger { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; padding-bottom: 8px; }
     .mr-chip { flex: none; }
+    .mr-scope { font-size: 11px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

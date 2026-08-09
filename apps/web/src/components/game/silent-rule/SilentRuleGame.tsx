@@ -23,11 +23,17 @@ import {
 
 import { buildDeck, buildGate, MAX_GATES, type Deck, type Gate, type Tile } from './rules';
 
+/**
+ * `assisted` — 정답을 이미 보여준 뒤의 입력. 게임 점수·콤보에는 반영하되 FSRS 에는 올리지 않는다.
+ * 판정 자체는 record-result 가 중앙에서 한다(play-scaffold.tsx ResultOpts).
+ */
+interface ResultOpts { assisted?: boolean }
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 // 증거와 격자를 한 화면에 둔다 — 화면을 쪼개면 게임이 '증거 암기'를 재게 되고,
@@ -38,10 +44,39 @@ const TOTAL_MS = 120_000;
 const WARN_MS = 15_000;
 const TILE_POINTS = 120;
 const CLEAN_BONUS = 250;
-const CLEAN_MS = 14_000;
 const MISS_MS = 8_000;
-const SEAL_WIN_MS = 16_000;
+
+/**
+ * 완봉 보너스 시간은 **뒤로 갈수록 줄어든다**.
+ *
+ * v07.10 반증 #4 실측: 고정 +14초는 8칸 판정의 한계 작업 증가분(약 +3초)을 크게 웃돌아
+ * 잘하는 플레이어의 마지막 30초가 첫 30초보다 헐거워졌다("난이도가 조여든다" 주장 반증).
+ * 문 index 당 −1.5초, 하한 5초 — 문 1 은 +14초, 문 8 은 +5초다. 8문 전부 완봉해도
+ * 가산 총량은 71.5초로 useCountdown 의 가산 상한(총량의 75% = 90초) 안쪽에 머문다.
+ */
+const cleanBonusMs = (gateIndex: number) => Math.max(5_000, 14_000 - gateIndex * 1_500);
+
+/**
+ * 봉인 판돈 (v07.10 반증 #2 — "봉인은 항상 거는 게 맞다"의 정면 수정).
+ *
+ * 예전: 성공 +points(2배) / 실패 −points/2 → 점수 손익분기 p = 1/3. 봉인 성공률이 0.9 였으니
+ * '넘어간다'는 눌러선 안 되는 지배당한 선택지였다.
+ * 지금: 성공 +points×0.5 / 실패 −points 전액 + **연속(콤보) 끊김**.
+ *   손익분기 p = 1 / (1 + 0.5) = 2/3.
+ *   여기에 콤보 손실이 얹히므로 배수가 높을수록 손익분기가 더 올라간다 —
+ *   "완봉으로 연속을 쌓는 중이면 걸지 않고, 한 칸 흘려 연속이 이미 끊겼으면 건다"가 된다.
+ */
+const SEAL_WIN_RATIO = 0.5;
+const SEAL_WIN_MS = 12_000;
 const SEAL_LOSE_MS = 14_000;
+
+/**
+ * 판정 화면은 정답이 전부 보이는 화면이다. 여기서 시계를 완전히 멈추면 '무료 열람 시간'이
+ * 되어 뒤의 판단을 공짜로 준비할 수 있다. 1/3 속도로 흘려 체류에 값을 매긴다.
+ * (리빌 화면은 규칙을 배우는 자리이므로 그대로 무료다 — 학습에는 값을 매기지 않는다.)
+ */
+const VERDICT_TICK_MS = 300;
+const VERDICT_DRAIN_MS = 100;
 
 const COMBO_TIERS: ComboTier[] = [
   { at: 0, mult: 1 },
@@ -58,7 +93,8 @@ interface Run {
 
 function makeRun(pool: Word[] | undefined): Run {
   const deck = buildDeck(pool);
-  const gate = buildGate(deck, 0, new Set<string>());
+  // 첫 문에는 넘겨받은 예비 쌍이 없다 → 봉인 없음. 공개된 규칙이 아직 하나도 없으니 당연하다.
+  const gate = buildGate(deck, 0, new Set<string>(), null);
   return { deck, gate, used: new Set(gate.keys) };
 }
 
@@ -70,7 +106,22 @@ function tileState(t: Tile, lit: boolean): TileState {
   return lit ? 'lured' : 'kept';
 }
 
+/**
+ * 배지 라벨은 **내 판단의 정오** 한 축만 말한다.
+ *
+ * v07.10 반증 #6: 예전에는 아이콘(판단의 정오)과 텍스트('옳음'/'어긋남' = 철자의 정오)를
+ * 한 배지에 섞어, 놓친 칸에 빨간 ✗ 옆에 '옳음'이라고 적혀 두 인코딩이 서로 모순됐다.
+ * 철자의 정오는 취소선(.sr-panel-word--bad)이 이미 인코딩한다 — 겹쳐 쓰지 않는다.
+ */
 const STATE_LABEL: Record<TileState, string> = {
+  hit: '맞힘',
+  kept: '지킴',
+  missed: '놓침',
+  lured: '걸림',
+};
+
+/** 스크린리더에는 두 축을 풀어서 읽어 준다. */
+const STATE_SR: Record<TileState, string> = {
   hit: '옳은 철자를 밝혔다',
   kept: '어긋난 철자를 남겨 뒀다',
   missed: '옳은데 밝히지 않았다',
@@ -110,7 +161,8 @@ const TileGrid = memo(function TileGrid({
             onClick={mode === 'judge' ? () => onToggle(t.text) : undefined}
           >
             <span className="sr-panel-top">
-              <span className="sr-panel-num" aria-hidden="true">{i + 1}</span>
+              {/* 숫자 = 그 칸의 단축키. 10번째 칸은 0 이다(1–9 다음). */}
+              <span className="sr-panel-num" aria-hidden="true">{i === 9 ? 0 : i + 1}</span>
               <span className="sr-panel-node" aria-hidden="true" />
             </span>
             <span
@@ -122,8 +174,9 @@ const TileGrid = memo(function TileGrid({
             {st && (
               <span className="sr-panel-mark">
                 <FeedbackIcon kind={good ? 'correct' : 'wrong'} size={13} />
-                <span className="sr-panel-mark-t">{t.valid ? '옳음' : '어긋남'}</span>
-                <span className="gk-sr">{STATE_LABEL[st]}</span>
+                <span className="sr-panel-mark-t">{STATE_LABEL[st]}</span>
+                {t.outside?.kind === 'exception' && <span className="sr-panel-ex">예외</span>}
+                <span className="gk-sr">{STATE_SR[st]}</span>
               </span>
             )}
           </button>
@@ -180,7 +233,7 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
 
   const onTimeUp = useCallback(() => {
     const p = phaseRef.current;
-    if (p === 'gate' || p === 'seal') {
+    if (p === 'gate' || p === 'seal' || p === 'verdict') {
       setPendingRule(`${gateRef.current.rule.statement} — ${gateRef.current.rule.hint}`);
     }
     setPhase('done');
@@ -193,6 +246,22 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     onWarn: () => sfx.click(),
     onEnd: onTimeUp,
   });
+  const clockRef = useRef(clock);
+  clockRef.current = clock;
+
+  // 판정 화면의 1/3 속도 시계. useCountdown 은 배속 개념이 없으므로 멈춘 시계를
+  // 주기적으로 조금씩 깎아 같은 효과를 낸다(300ms 실시간마다 100ms 소모).
+  useEffect(() => {
+    if (!started || phase !== 'verdict') return;
+    const id = window.setInterval(() => clockRef.current.drain(VERDICT_DRAIN_MS), VERDICT_TICK_MS);
+    return () => window.clearInterval(id);
+  }, [started, phase]);
+
+  // 멈춘 시계는 rAF 루프가 돌지 않아 onEnd 가 못 뜬다 — 판정 중 0 이 되면 여기서 끝낸다.
+  useEffect(() => {
+    if (!started || phase !== 'verdict' || clock.remainMs > 0) return;
+    onTimeUp();
+  }, [started, phase, clock.remainMs, onTimeUp]);
 
   // 스코프가 바뀌면(내 단어 로드 완료 등) 덱을 다시 짠다.
   // 진행 중에는 갈아끼우지 않는다 — 판정 도중 격자가 바뀌면 그건 불공정이다.
@@ -209,7 +278,27 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     setBestRes(pb.submit(score));
   }, [phase, score, pb, bestRes]);
 
-  const credit = useCallback((w: Word | undefined, ok: boolean) => {
+  /**
+   * FSRS 적재 정책 (v07.10 반증 #4 — "굴절형 판정이 원형 단어의 안정도를 대리로 올린다").
+   *
+   * 격자 타일은 'armies / armys' 같은 **표면 철자 판정**이다. 옳은 철자 타일은 정답이
+   * 글자 그대로 칸에 인쇄돼 있고, 'army = 군대'라는 의미는 한 번도 인출되지 않는다.
+   * 그런데 credit 은 원형 'army' 로 올라가 Rating.Good 으로 stability 를 밀어올렸다.
+   * → 격자에서 **맞힌** 판정은 assisted 로 올린다. 점수·콤보·"내 단어 N개"는 그대로지만
+   *   복습 스케줄은 건드리지 않는다.
+   *
+   * 반대로 **틀린** 판정은 정직하게 오답으로 올린다. 내 단어의 옳은 철자를 못 알아봤거나
+   * 비단어에 걸렸다는 것은 그 단어에 대한 실패의 증거이고, 여기서 침묵하면
+   * "합리적으로 플레이할수록 내가 모르는 단어가 복습 큐에서 사라지는" letter-forge 함정에
+   * 그대로 빠진다. 모르는 단어일수록 오답으로 올라가야 복습이 잡힌다.
+   *
+   * 유일한 비-assisted 정답 경로는 봉인이다 — 화면에 없는 규칙을 떠올려 철자를 **손으로
+   * 생성**하므로 진짜 인출이다.
+   *
+   * 무한 적재 경로는 없다: 제출은 최소 1칸을 밝혀야 가능하고(방치 진행 불가),
+   * 시간 종료는 아무것도 기록하지 않으며, 같은 카드 재채점은 중앙에서 10분 쿨다운이 막는다.
+   */
+  const credit = useCallback((w: Word | undefined, ok: boolean, assisted: boolean) => {
     if (!w) return;
     const key = (w.en ?? '').trim().toLowerCase();
     if (!key) return;
@@ -217,8 +306,9 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       mineRef.current.add(key);
       setMineUsed(mineRef.current.size);
     }
-    if (ok) onCorrect?.(w);
-    else onWrong?.(w);
+    const opts = assisted ? { assisted: true } : undefined;
+    if (ok) onCorrect?.(w, opts);
+    else onWrong?.(w, opts);
   }, [onCorrect, onWrong]);
 
   const toggle = useCallback((text: string) => {
@@ -249,7 +339,8 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       const key = (t.src?.en ?? '').trim().toLowerCase();
       if (t.src && !scored.has(key)) {
         scored.add(key);
-        credit(t.src, ok);
+        // 맞힌 판정 = 재인(정답이 칸에 인쇄돼 있다) → assisted. 틀린 판정 = 정직한 오답.
+        credit(t.src, ok, ok);
       }
     }
 
@@ -265,7 +356,7 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     if (kind === 'clean') {
       setCleanGates((n) => n + 1);
       combo.hit();
-      clock.extend(CLEAN_MS);
+      clock.extend(cleanBonusMs(g.index));
       setGlow(true);
       later(() => setGlow(false), 900);
       sfxRef.current.correct(combo.combo + 1, false);
@@ -302,27 +393,32 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     const answer = sealInput.trim().toLowerCase();
     if (answer.length < 3) return;
     const won = answer === seal.answer;
-    credit(seal.src, won);
+    // 봉인만이 이 게임의 **진짜 인출**이다 — 화면에 없는 규칙을 떠올려 철자를 손으로 생성한다.
+    // 그래서 여기만 assisted 없이(=FSRS 에 실제로) 기록한다.
+    credit(seal.src, won, false);
     if (won) {
-      setScore((s) => s + v.points);
+      setScore((s) => s + Math.round(v.points * SEAL_WIN_RATIO));
       setSealsWon((n) => n + 1);
       clock.extend(SEAL_WIN_MS);
       sfxRef.current.fanfare();
     } else {
-      setScore((s) => Math.max(0, s - Math.round(v.points / 2)));
+      setScore((s) => Math.max(0, s - v.points));
       setMissed((m) => [...m, { wrong: seal.prompt, fix: seal.answer }]);
       clock.drain(SEAL_LOSE_MS);
+      // 판돈에는 연속도 포함된다 — 이게 없으면 완봉 직후 봉인이 다시 공짜가 된다.
+      combo.miss();
       sfxRef.current.wrong();
     }
     setSealResult(won ? 'won' : 'lost');
     setPhase('reveal');
-  }, [sealInput, verdict, clock, credit]);
+  }, [sealInput, verdict, clock, credit, combo]);
 
   const nextGate = useCallback(() => {
     setRun((r) => {
       const i = r.gate.index + 1;
       if (i >= MAX_GATES) return r;
-      const g = buildGate(r.deck, i, r.used);
+      // 직전 문이 떼어 둔 예비 쌍이 이번 문의 봉인어가 된다.
+      const g = buildGate(r.deck, i, r.used, r.gate.reserve);
       return { deck: r.deck, gate: g, used: new Set([...r.used, ...g.keys]) };
     });
     if (gateRef.current.index + 1 >= MAX_GATES) {
@@ -372,8 +468,9 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       const op = keyOps.current;
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      if (op.phase === 'gate' && /^[1-9]$/.test(e.key)) {
-        const t = gateRef.current.tiles[Number(e.key) - 1];
+      // 마지막 문은 10칸이다 — 0 을 10번 칸에 준다.
+      if (op.phase === 'gate' && /^[0-9]$/.test(e.key)) {
+        const t = gateRef.current.tiles[e.key === '0' ? 9 : Number(e.key) - 1];
         if (t) { e.preventDefault(); op.toggle(t.text); }
         return;
       }
@@ -390,6 +487,13 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   useEffect(() => { if (phase === 'seal') sealRef.current?.focus(); }, [phase]);
 
   const badTiles = useMemo(() => gate.tiles.filter((t) => !t.valid), [gate.tiles]);
+
+  /**
+   * 봉인을 제안할 자격 — 두 칸 이상 흘린 문에서는 걸 수 없다.
+   * 규칙을 못 읽은 문에서까지 열어 두면 봉인이 '판돈'이 아니라 **공짜 재도전**이 된다
+   * (v07.10 반증 #2). 완봉·한 칸 차이일 때만, 즉 "읽었다고 생각할 때만" 걸 수 있다.
+   */
+  const sealOffered = !!gate.seal && !!verdict && verdict.kind !== 'off';
   const liveMsg = verdict
     ? verdict.kind === 'clean'
       ? '완봉 — 한 칸도 어긋나지 않았어요'
@@ -407,11 +511,14 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
 
   if (phase === 'done') {
     const allClean = gatesDone > 0 && cleanGates === gatesDone;
-    const badge = combo.best >= 4
-      ? '침묵의 독해 · 통찰 4연속'
-      : sealsWon >= 2
-        ? `봉인 ${sealsWon}회 · 규칙을 손으로 썼다`
-        : undefined;
+    // Calm UI — 완료 시 폭죽 금지. 완주의 표시는 배지 한 줄로 조용히 남긴다.
+    const badge = allClean && gatesDone >= 3
+      ? `무결 완주 · ${gatesDone}문 전부 완봉`
+      : combo.best >= 4
+        ? '침묵의 독해 · 통찰 4연속'
+        : sealsWon >= 2
+          ? `봉인 ${sealsWon}회 · 규칙을 손으로 썼다`
+          : undefined;
     const hint = bestRes && bestRes.prev != null && !bestRes.improved
       ? `개인 최고까지 ${Math.max(1, bestRes.prev - score)}점 — 완봉 한 번이면 닿아요`
       : '문마다 규칙이 다시 뽑혀요 — 다음 판은 다른 침묵이 열립니다';
@@ -425,7 +532,6 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         <GameDone
           mark="silent-rule"
           lead={allClean ? '침묵을 끝까지 읽어냈어요' : '규칙이 보이기 시작했어요'}
-          celebrate={allClean && gatesDone >= 3}
           badge={badge}
           stats={[
             { num: score, label: '점수', accent: true },
@@ -456,7 +562,13 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
           footer={
             mineUsed > 0 ? (
               <span className="sr-foot-chip">내 단어 {mineUsed}개가 이번 판에 나왔어요</span>
-            ) : undefined
+            ) : (
+              // v07.10 반증 #5 — 파생 0쌍이면 격자가 전부 내장 뱅크다. 그 사실을 숨기면
+              // 학습자는 '내 단어로 플레이했다'고 오인한다. 침묵하지 않는다.
+              <span className="sr-foot-chip" data-tone="plain">
+                이번 판은 내장 규칙 뱅크로 열렸어요 — 내 단어에서 굴절 규칙이 파생되지 않았습니다
+              </span>
+            )
           }
           restartLabel="다시 귀납"
           restartHint={hint}
@@ -500,12 +612,22 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                 제출은 한 번 · 힌트 없음 · 완봉하면 시간이 늘고 두 칸 이상 어긋나면 줄어듭니다.
                 {started ? '' : ' 첫 칸을 밝히면 시계가 시작됩니다.'}
               </p>
+              <p className="sr-brief-s">
+                뒤로 갈수록 <b>규칙의 예외</b>가 한두 칸 섞입니다 — 끝 글자만 맞춰서는 넘지 못해요.
+              </p>
+              {run.deck.mineCount === 0 && (
+                <p className="sr-brief-note">
+                  이번 판은 <b>내장 규칙 뱅크</b>로 열립니다 — 내 단어에서 굴절 규칙이 파생되지 않았어요.
+                </p>
+              )}
             </div>
           ) : (
             <p className="sr-instr">철자가 <b>옳은 칸만</b> 밝히세요. <span className="sr-instr-dim">제출은 한 번뿐입니다.</span></p>
           )}
 
-          {/* 증거는 격자와 같은 화면에 둔다 — 이 게임이 재는 것은 규칙 귀납이지 증거 암기가 아니다. */}
+          {/* 증거는 격자와 같은 화면에 둔다 — 이 게임이 재는 것은 규칙 귀납이지 증거 암기가 아니다.
+              다만 '어긋난 예시 → 옳은 철자' 화살표는 변환 자체를 통째로 넘겨주는 정보라
+              연습 구간(문 1·2)에서만 붙인다(gate.evidence.showFix). */}
           <div className="sr-ev">
             <div className="sr-ev-row" data-kind="ok">
               <span className="sr-ev-tag"><FeedbackIcon kind="correct" size={12} /> 옳다</span>
@@ -519,8 +641,12 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                 {gate.evidence.bad.map((b) => (
                   <span key={b.text} className="sr-ev-word sr-ev-word--bad">
                     <s>{b.text}</s>
-                    <span className="sr-ev-arrow" aria-hidden="true">→</span>
-                    <b>{b.fix}</b>
+                    {gate.evidence.showFix && (
+                      <>
+                        <span className="sr-ev-arrow" aria-hidden="true">→</span>
+                        <b>{b.fix}</b>
+                      </>
+                    )}
                   </span>
                 ))}
               </span>
@@ -533,7 +659,9 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
             <button type="button" className="gk-btn gk-btn--primary sr-check" onClick={submitJudge} disabled={sel.size === 0}>
               판정 확정
             </button>
-            <span className="sr-keys"><Kbd>1</Kbd>–<Kbd>9</Kbd> 토글 · <Kbd>Enter</Kbd> 제출</span>
+            <span className="sr-keys">
+              <Kbd>1</Kbd>–<Kbd>9</Kbd>{gate.tiles.length >= 10 && <>·<Kbd>0</Kbd></>} 토글 · <Kbd>Enter</Kbd> 제출
+            </span>
           </div>
         </main>
       )}
@@ -550,30 +678,41 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
             </span>
             <span className="sr-verdict-num">
               +{verdict.points}점
-              {verdict.kind === 'clean' && <em className="sr-verdict-time" data-dir="up">+{CLEAN_MS / 1000}초</em>}
+              {verdict.kind === 'clean' && <em className="sr-verdict-time" data-dir="up">+{cleanBonusMs(gate.index) / 1000}초</em>}
               {verdict.kind === 'off' && <em className="sr-verdict-time" data-dir="down">−{MISS_MS / 1000}초</em>}
             </span>
           </div>
           <TileGrid tiles={gate.tiles} cols={gate.cols} sel={sel} mode="verdict" shake={shake} glow={glow} onToggle={toggle} />
+          {gate.exceptionNote && <p className="sr-ex-note">{gate.exceptionNote}</p>}
           <div className="sr-choice">
             <button type="button" className="gk-btn sr-choice-btn" onClick={skipSeal}>
               <span className="sr-choice-t">넘어간다</span>
               <span className="sr-choice-s">{verdict.points}점을 그대로 챙깁니다</span>
             </button>
-            {gate.seal && (
+            {sealOffered && gate.seal && (
               <button type="button" className="gk-btn gk-btn--primary sr-choice-btn" onClick={startSeal}>
-                <span className="sr-choice-t">봉인한다</span>
-                <span className="sr-choice-s">성공 ×2 · 실패 −{Math.round(verdict.points / 2)}점 −{SEAL_LOSE_MS / 1000}초</span>
+                <span className="sr-choice-t">봉인한다 · 문 {gate.seal.fromGate + 1}의 규칙</span>
+                <span className="sr-choice-s">
+                  성공 +{Math.round(verdict.points * SEAL_WIN_RATIO)}점 +{SEAL_WIN_MS / 1000}초 ·
+                  {' '}실패 −{verdict.points}점 −{SEAL_LOSE_MS / 1000}초{combo.combo > 0 ? ' · 연속 끊김' : ''}
+                </span>
               </button>
             )}
           </div>
+          <p className="sr-instr-dim">
+            판정 화면에서는 시계가 1/3 속도로 흐릅니다.
+            {gate.seal && !sealOffered ? ' 두 칸 이상 어긋난 문에서는 봉인을 걸 수 없어요.' : ''}
+          </p>
         </main>
       )}
 
       {phase === 'seal' && gate.seal && (
         <main className="gk-stage sr-stage">
           <p className="sr-eyebrow">문 {gate.index + 1} · 봉인</p>
-          <p className="sr-instr">아래 철자를 <b>규칙대로 고쳐 쓰세요.</b></p>
+          <p className="sr-instr">
+            <b>문 {gate.seal.fromGate + 1}에서 열린 규칙</b>으로 아래 철자를 고쳐 쓰세요.
+            <span className="sr-instr-dim"> 그 규칙은 지금 화면에 없습니다.</span>
+          </p>
           <div className="sr-seal-word">
             <s>{gate.seal.prompt}</s>
             {gate.seal.src?.ko && <span className="sr-seal-ko">{gate.seal.src.ko}</span>}
@@ -620,11 +759,16 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                 : `봉인 실패 — ${gate.seal.prompt} 의 옳은 철자는 ${gate.seal.answer}`}
             </p>
           )}
+          {gate.exceptionNote && <p className="sr-ex-note">{gate.exceptionNote}</p>}
           <div className="sr-fixes">
             {badTiles.map((t) => (
               <span key={t.text} className="sr-fix">
                 <s>{t.text}</s> → <b>{t.fix}</b>
-                {t.foreign && <em className="sr-fix-note">다른 규칙</em>}
+                {t.outside && (
+                  <em className="sr-fix-note">
+                    {t.outside.kind === 'exception' ? '예외' : '다른 규칙'}
+                  </em>
+                )}
               </span>
             ))}
           </div>
@@ -657,7 +801,14 @@ const SR_CSS = `
   .sr-brief-t { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--t2); }
   .sr-brief-t b { color: var(--t1); }
   .sr-brief-s { margin: 0; font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: 12.5px; color: var(--t3); }
+  .sr-brief-s b { font-style: normal; color: var(--t2); }
+  .sr-brief-note { margin: 2px 0 0; font-size: 12px; font-weight: 700; color: var(--warning); }
+  .sr-brief-note b { color: var(--warning); }
   .sr-go { min-width: 168px; }
+
+  /* 예외 안내 — 판정·리빌에서만. 제출 전에는 절대 뜨지 않는다. */
+  .sr-ex-note { margin: 0; max-width: min(56ch, 94vw); text-align: center; font-size: 12.5px; font-weight: 700; color: var(--warning); }
+  .sr-panel-ex { font-family: var(--font-display, system-ui); font-size: 9.5px; font-weight: 800; letter-spacing: .04em; color: var(--warning); border: 1px solid color-mix(in srgb, var(--warning) 45%, transparent); border-radius: 999px; padding: 0 5px; }
 
   /* ── 증거 (격자와 같은 화면 · 두 줄) ── */
   .sr-ev { display: flex; flex-direction: column; gap: 6px; width: min(680px, 94vw); padding: 10px 14px; border-radius: var(--r-lg, 14px); border: 1.5px solid var(--bd); background: color-mix(in srgb, var(--bg) 70%, transparent); }
@@ -759,7 +910,8 @@ const SR_CSS = `
   .sr-recap-rule { margin: 0; font-size: 13px; font-weight: 700; color: var(--t2); }
   .sr-recap-h { margin: 0; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--t3); }
   .sr-recap-list { display: flex; flex-wrap: wrap; gap: 6px 14px; }
-  .sr-foot-chip { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 12px; font-weight: 700; color: var(--t2); }
+  .sr-foot-chip { display: inline-block; max-width: min(46ch, 92vw); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 12px; font-weight: 700; color: var(--t2); line-height: 1.45; }
+  .sr-foot-chip[data-tone="plain"] { border-radius: 12px; color: var(--t3); font-weight: 600; }
 
   @media (prefers-reduced-motion: reduce) {
     .sr-grid--shake { animation: none; }

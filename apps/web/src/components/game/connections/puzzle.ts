@@ -9,25 +9,39 @@
 //   해결의 핵심은 **어느 쪽을 숨기느냐**다. 보드에는 한국어 뜻만 인쇄하고,
 //   그룹을 잇는 규칙은 **숨겨진 영단어의 형태**에 둔다. 그러면
 //     · 뜻 → 영단어를 머릿속에서 인출하지 않으면 규칙 자체가 보이지 않는다(Active Recall)
-//     · 규칙은 철자·품사처럼 **객관적으로 검증 가능**해서 판정이 불공정할 여지가 없다
+//     · 규칙은 철자처럼 **객관적으로 검증 가능**해서 판정이 불공정할 여지가 없다
 //     · 어떤 단어 묶음에서도 절차적으로 생성되므로 매 판 새 격자가 나온다
+//
+// v07.10 적대적 반증 대응 — 세 구멍을 생성기 차원에서 막았다.
+//   A) **정찰 익스플로짓**: 라운드 1을 끝내면 확정 막대가 12단어의 en 을 인쇄하는데,
+//      다음 격자가 같은 풀에서 다시 뽑혀 2·3라운드 보드의 40~98%(실측)가 "이미 철자를
+//      본 타일"이었다. 인출 게임이 세션의 3분의 2에서 기억력 게임으로 무너진다.
+//      → `exposed`(en 을 이미 인쇄한 타일 id)를 받아 **그룹 단어는 거기서 뽑지 않는다**.
+//   B) **품사 규칙 누수**: 한국어 뜻이 품사를 그대로 노출한다(동사 뜻의 99%가 '~다'
+//      종결). '품사' 칩이 뜨면 한글 어미만 훑어 4개를 공짜로 특정할 수 있었고, 실측
+//      28.0% 의 라운드에 이 규칙이 들어갔다. → POS 규칙 **제거**. 대신 철자를 통째로
+//      인출해야만 판정되는 '들어 있는 글자'(has) 규칙을 넣어 규칙 종류 수를 유지한다.
+//   C) **동일 kind 함정**: 칩은 규칙의 "종류"만 공개하는데, 같은 종류의 **다른** 규칙이
+//      보드에서 정확히 4개를 만족하면 칩이 거짓말이 된다(실측 79.9% 의 보드에 존재).
+//      → 침입자까지 확정한 **최종 보드**를 다시 검사해 그런 시도는 기각한다.
 //
 // 격자 불변식 (이걸 깨면 문제가 불공정해진다)
 //   1. 선택된 규칙 하나당 보드 위 만족 단어가 **정확히 4개**.
 //   2. 각 그룹 단어는 선택된 규칙 중 **자기 규칙 하나만** 만족.
 //   3. 침입자(어느 그룹에도 없는 단어)는 선택된 규칙을 **하나도** 만족하지 않는다.
-//   위 셋이 보장되면 정답 분할은 유일하다.
+//   4. (v07.10) 보드 위에 **선택 규칙과 같은 종류이면서 정확히 4개를 만족하는 다른
+//      규칙**이 없다 — 칩에 적힌 종류로 좁힌 답이 유일하다.
+//   위 넷이 보장되면 정답 분할은 유일하고, 칩은 거짓말을 하지 않는다.
 
 import { shuffle, type Word } from '@/components/game/_shared/gamekit';
 
-export type RuleKind = 'start' | 'end' | 'prefix' | 'suffix' | 'len' | 'pos' | 'spell';
+export type RuleKind = 'start' | 'end' | 'prefix' | 'suffix' | 'len' | 'has' | 'spell';
 
 export interface TileWord extends Word {
   /** 보드 키 — 정규화 철자(중복 제거 후 유일). */
   id: string;
   /** 소문자 알파벳만 남긴 철자 — 모든 규칙 판정의 기준. */
   norm: string;
-  posKey: string | null;
   /** 학습자 단어장에서 온 단어인가 — false 면 FSRS 에 적재하지 않는다. */
   own: boolean;
 }
@@ -39,7 +53,8 @@ export interface Rule {
   kindLabel: string;
   /** 제출 후에만 공개되는 것 — 규칙의 실제 값. */
   valueLabel: string;
-  /** 1(명백) ~ 4(까다로움). 점수 배수의 기준. */
+  /** 1(명백) ~ 4(까다로움). 점수 배수의 기준. kind 마다 고정이라 칩에 미리 공개해도
+   *  정답 정보가 새지 않는다(어느 타일이 속하는지는 여전히 감춰져 있다). */
   tier: number;
   test: (t: TileWord) => boolean;
 }
@@ -55,21 +70,11 @@ export interface Grid {
   tiles: TileWord[];
   groups: PuzzleGroup[];
   intruders: TileWord[];
+  /** 미노출 재료가 모자라 노출 단어를 다시 쓴 격자인가 — 게임 쪽 계측용. */
+  reusedExposed: boolean;
 }
 
 // ─── 정규화 ───────────────────────────────────────────────────────────────
-
-const POS_ALIAS: Record<string, string> = {
-  noun: '명사', n: '명사', 'n.': '명사', nn: '명사', 명사: '명사',
-  verb: '동사', v: '동사', 'v.': '동사', vb: '동사', 동사: '동사',
-  adjective: '형용사', adj: '형용사', 'adj.': '형용사', a: '형용사', 형용사: '형용사',
-  adverb: '부사', adv: '부사', 'adv.': '부사', 부사: '부사',
-};
-
-function posKeyOf(pos?: string): string | null {
-  if (!pos) return null;
-  return POS_ALIAS[pos.trim().toLowerCase()] ?? null;
-}
 
 function normEn(en: string): string {
   return en.toLowerCase().replace(/[^a-z]/g, '');
@@ -86,16 +91,21 @@ export function buildTiles(words: Word[], own: boolean): TileWord[] {
     if (!ko) continue;
     if (seen.has(norm)) continue;
     seen.add(norm);
-    out.push({ ...w, ko, id: norm, norm, posKey: posKeyOf(w.pos), own });
+    out.push({ ...w, ko, id: norm, norm, own });
   }
   return out;
 }
 
 // ─── 규칙 후보 ────────────────────────────────────────────────────────────
-// 전부 **철자·품사 기반**이다. 의미장(감정/날씨 …)으로 묶지 않는 이유: 임의의
-// 학습자 단어 묶음에서 의미장을 자동 분류하면 오분류가 반드시 생기고, 그 순간
-// "단어를 정확히 아는데도 목숨을 잃는" 불공정이 발생한다. 철자 규칙은 학습자가
-// 정답 공개 후 100% 스스로 검증할 수 있다.
+// 전부 **철자 기반**이다. 의미장(감정/날씨 …)으로 묶지 않는 이유: 임의의 학습자 단어
+// 묶음에서 의미장을 자동 분류하면 오분류가 반드시 생기고, 그 순간 "단어를 정확히
+// 아는데도 목숨을 잃는" 불공정이 발생한다. 철자 규칙은 학습자가 정답 공개 후 100%
+// 스스로 검증할 수 있다.
+//
+// 품사 규칙이 사라진 이유(v07.10): 품사는 철자가 아니라 **한국어 뜻**에 드러난다.
+// 실 DB 실측으로 동사 뜻의 99.0% 가 '다'로 끝나고 명사는 0.2% 다. 그래서 '품사' 칩은
+// 영어를 한 글자도 떠올리지 않고 한글 어미만으로 4개를 특정하게 해줬다 — 이 게임의
+// 존재 이유(뜻 → 영단어 인출)를 정면으로 무효화하는 규칙이라 후보에서 제거했다.
 
 const PREFIXES = [
   'un', 're', 'dis', 'in', 'im', 'pre', 'ex', 'con', 'com', 'pro', 'sub',
@@ -109,10 +119,12 @@ const SUFFIXES = [
   'ate', 'ary', 'ory', 'ing', 'ed', 'ly', 'er', 'or', 'al', 'ic', 'y',
 ];
 
-const POS_KEYS = ['명사', '동사', '형용사', '부사'];
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 /** 후보 규칙이 되려면 보드 재료 안에 만족 단어가 4~9개. 너무 넓은 규칙은
- *  침입자 후보를 고갈시켜(불변식 3) 격자를 못 만들게 한다. */
+ *  침입자 후보를 고갈시켜(불변식 3) 격자를 못 만들게 한다.
+ *  '들어 있는 글자'가 이 상한 덕에 자동으로 걸러진다 — e·a·t 처럼 흔한 글자는
+ *  48타일 풀에서 30개 이상을 물어 후보에서 탈락하고, b·k·p·w 같은 글자만 남는다. */
 const MIN_MEMBERS = 4;
 const MAX_MEMBERS = 9;
 
@@ -159,6 +171,17 @@ function buildCandidates(tiles: TileWord[], excludeRuleIds: ReadonlySet<string>)
     }),
   );
 
+  SUFFIXES.forEach((s) =>
+    add({
+      id: `suf:${s}`,
+      kind: 'suffix',
+      kindLabel: '뒤에 붙는 조각',
+      valueLabel: `-${s} 로 끝나는 단어`,
+      tier: 2,
+      test: (t) => t.norm.length >= s.length + 3 && t.norm.endsWith(s),
+    }),
+  );
+
   PREFIXES.forEach((p) =>
     add({
       id: `pre:${p}`,
@@ -170,14 +193,16 @@ function buildCandidates(tiles: TileWord[], excludeRuleIds: ReadonlySet<string>)
     }),
   );
 
-  SUFFIXES.forEach((s) =>
+  // 철자를 통째로 떠올려야만 판정되는 규칙 — 제거한 품사 규칙의 자리를 메운다.
+  // 첫 글자·끝 글자만 기억나서는 절대 풀 수 없다는 점에서 인출 강도가 가장 높다.
+  LETTERS.forEach((L) =>
     add({
-      id: `suf:${s}`,
-      kind: 'suffix',
-      kindLabel: '뒤에 붙는 조각',
-      valueLabel: `-${s} 로 끝나는 단어`,
-      tier: 2,
-      test: (t) => t.norm.length >= s.length + 3 && t.norm.endsWith(s),
+      id: `has:${L}`,
+      kind: 'has',
+      kindLabel: '들어 있는 글자',
+      valueLabel: `${L} 가 들어 있는 단어`,
+      tier: 3,
+      test: (t) => t.norm.includes(L),
     }),
   );
 
@@ -209,17 +234,6 @@ function buildCandidates(tiles: TileWord[], excludeRuleIds: ReadonlySet<string>)
       valueLabel: `${n}글자 이상인 단어`,
       tier: 3,
       test: (t) => t.norm.length >= n,
-    }),
-  );
-
-  POS_KEYS.forEach((p) =>
-    add({
-      id: `pos:${p}`,
-      kind: 'pos',
-      kindLabel: '품사',
-      valueLabel: `${p}`,
-      tier: 1,
-      test: (t) => t.posKey === p,
     }),
   );
 
@@ -255,21 +269,70 @@ function buildCandidates(tiles: TileWord[], excludeRuleIds: ReadonlySet<string>)
 
 export type TierBias = 'low' | 'any' | 'high';
 
+interface Chosen {
+  rule: Rule;
+  tiles: TileWord[];
+}
+
 interface BuildOptions {
   round: number;
   targetGroups: number;
   boardSize: number;
   tierBias: TierBias;
   excludeRuleIds: ReadonlySet<string>;
+  /** en 을 이미 화면에 인쇄한 타일 — 그룹 단어로 다시 쓰지 않는다(정찰 익스플로짓 차단). */
+  exposed: ReadonlySet<string>;
+}
+
+const ATTEMPTS = 240;
+
+function keyOf(tiles: TileWord[]): string {
+  return tiles
+    .map((t) => t.id)
+    .sort()
+    .join('|');
+}
+
+/**
+ * 불변식 4 검사 — 완성된 보드에 "칩이 가리킬 수 있는 다른 정답"이 있는가.
+ *
+ * 칩은 규칙의 **종류**만 공개한다. 그래서 같은 종류의 다른 규칙이 보드에서 정확히
+ * 4개를 만족하면, 그 4개를 고른 학습자는 규칙을 정확히 읽어내고도 목숨을 잃는다.
+ * 반증 실측: 현행 생성기의 보드 79.9% 에 이런 함정이 최소 하나씩 있었다.
+ */
+function hasSameKindTrap(board: TileWord[], chosen: Chosen[]): boolean {
+  const kinds = new Set(chosen.map((c) => c.rule.kindLabel));
+  const answerKeys = new Set(chosen.map((c) => keyOf(c.tiles)));
+  const cands = buildCandidates(board, new Set<string>());
+  for (const c of cands) {
+    if (c.members.length !== 4) continue;
+    if (!kinds.has(c.rule.kindLabel)) continue;
+    if (answerKeys.has(keyOf(c.members))) continue;
+    return true;
+  }
+  return false;
+}
+
+interface Assembled {
+  chosen: Chosen[];
+  intruders: TileWord[];
+  board: TileWord[];
+  reusedExposed: boolean;
 }
 
 function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
-  const candidates = buildCandidates(pool, opts.excludeRuleIds);
+  const fresh = pool.filter((t) => !opts.exposed.has(t.id));
+  // 그룹 단어는 미노출 타일에서만 뽑는다. 재료가 그룹을 채울 만큼도 없을 때만 제약을 푼다
+  // (+2 여유는 규칙 선택의 자유도 — 딱 맞게 남으면 240번을 돌려도 규칙이 안 선다).
+  const enough = fresh.length >= opts.targetGroups * 4 + 2;
+  const groupPool = enough ? fresh : pool;
+  const candidates = buildCandidates(groupPool, opts.excludeRuleIds);
   if (candidates.length === 0) return null;
 
-  let best: { rule: Rule; tiles: TileWord[] }[] = [];
+  let clean: Assembled | null = null;
+  let dirty: Assembled | null = null;
 
-  for (let attempt = 0; attempt < 240; attempt++) {
+  for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
     const ordered = candidates
       .map((c) => ({
         c,
@@ -279,7 +342,7 @@ function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
       }))
       .sort((a, b) => a.k - b.k);
 
-    const chosen: { rule: Rule; tiles: TileWord[] }[] = [];
+    const chosen: Chosen[] = [];
     const used = new Set<string>();
     const kinds = new Set<RuleKind>();
 
@@ -299,25 +362,47 @@ function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
       picked.forEach((t) => used.add(t.id));
     }
 
-    if (chosen.length > best.length) best = chosen;
-    if (best.length >= opts.targetGroups) break;
+    if (chosen.length < 2) continue;
+    if (dirty && chosen.length < dirty.chosen.length) continue;
+
+    // 불변식 3 — 침입자는 어떤 선택 규칙도 만족하면 안 된다.
+    const usedIds = new Set(chosen.flatMap((g) => g.tiles.map((t) => t.id)));
+    const eligible = (t: TileWord) => !usedIds.has(t.id) && chosen.every((g) => !g.rule.test(t));
+    const want = Math.max(0, opts.boardSize - chosen.length * 4);
+    // 노출 단어를 침입자로 깔면 "en 을 아는 타일 = 침입자"라는 소거 오라클이 생긴다.
+    // 미노출 침입자를 먼저 채우고, 정말 모자랄 때만 노출 단어를 섞는다.
+    const freshIntr = shuffle(pool.filter((t) => eligible(t) && !opts.exposed.has(t.id)));
+    let intruders = freshIntr.slice(0, want);
+    let reusedExposed = !enough;
+    if (intruders.length < want) {
+      const taken = new Set(intruders.map((t) => t.id));
+      const stale = shuffle(
+        pool.filter((t) => eligible(t) && opts.exposed.has(t.id) && !taken.has(t.id)),
+      );
+      const add = stale.slice(0, want - intruders.length);
+      if (add.length > 0) reusedExposed = true;
+      intruders = [...intruders, ...add];
+    }
+
+    const board = [...chosen.flatMap((g) => g.tiles), ...intruders];
+    const asm: Assembled = { chosen, intruders, board, reusedExposed };
+
+    if (!dirty || chosen.length > dirty.chosen.length) dirty = asm;
+    if (hasSameKindTrap(board, chosen)) continue;
+    if (!clean || chosen.length > clean.chosen.length) clean = asm;
+    if (clean.chosen.length >= opts.targetGroups) break;
   }
 
-  if (best.length < 2) return null;
-
-  const usedIds = new Set(best.flatMap((g) => g.tiles.map((t) => t.id)));
-  // 불변식 3 — 침입자는 어떤 선택 규칙도 만족하면 안 된다.
-  const intruderPool = pool.filter(
-    (t) => !usedIds.has(t.id) && best.every((g) => !g.rule.test(t)),
-  );
-  const want = Math.max(0, opts.boardSize - best.length * 4);
-  const intruders = shuffle(intruderPool).slice(0, want);
+  // 함정 없는 배치를 못 찾으면 "판이 없는 것"보다는 낫다 — 있는 것 중 최선을 낸다.
+  const best = clean ?? dirty;
+  if (!best) return null;
 
   return {
     round: opts.round,
-    tiles: shuffle([...best.flatMap((g) => g.tiles), ...intruders]),
-    groups: best.map((g) => ({ rule: g.rule, tiles: g.tiles })),
-    intruders,
+    tiles: shuffle(best.board),
+    groups: best.chosen.map((g) => ({ rule: g.rule, tiles: g.tiles })),
+    intruders: best.intruders,
+    reusedExposed: best.reusedExposed,
   };
 }
 
@@ -329,9 +414,21 @@ function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
 // 실수 예산과 시계는 라운드를 넘어 이어진다 — 뒤로 갈수록 실제로 조인다.
 export const ROUND_SPECS: { groups: number; board: number; bias: TierBias; name: string; note: string }[] = [
   { groups: 3, board: 16, bias: 'low', name: '격자 1', note: '숨은 규칙 3개 · 나머지는 어디에도 속하지 않아요' },
-  { groups: 3, board: 16, bias: 'any', name: '격자 2', note: '규칙이 덜 뻔해집니다' },
+  { groups: 3, board: 16, bias: 'any', name: '격자 2', note: '규칙이 덜 뻔해집니다 · 앞 격자 단어는 다시 안 나와요' },
   { groups: 2, board: 16, bias: 'high', name: '격자 3', note: '규칙 2개 · 절반이 잡음입니다' },
 ];
+
+/**
+ * 한 세션이 필요로 하는 타일 수 = 16 × 3라운드 = 48.
+ *
+ * 세 격자가 **한 단어도 겹치지 않으려면** 이만큼이 있어야 한다. 학습자 단어가 모자라면
+ * ConnectionsGame 이 DEMO_POOL 로 여기까지 채운다(own=false → FSRS 미적재).
+ * 실측(1,200단어 표본 · 150세션 × 3라운드, 단어장 16/24/34/40/52):
+ *   48 → 그룹 단어 재사용 0.0% · 보드 재사용 0.0% · 보드 16칸 100% · 생성 실패 0.0%
+ *   44 → 보드 재사용 0.5%(격자3 1.4%) · 격자3 생성 실패 1.3%
+ * 44 에서 이미 새기 시작하므로 딱 필요한 48 로 잡는다(그 이상은 맛보기 단어만 늘린다).
+ */
+export const POOL_TARGET = 48;
 
 /**
  * 라운드 격자 생성.
@@ -340,12 +437,16 @@ export const ROUND_SPECS: { groups: number; board: number; bias: TierBias; name:
  * 실측(단어 22개 · 34개 풀 각 400세션): 제약으로 강제하면 2번째 격자가 규칙을
  * 3개 채우지 못해 목표 3그룹 달성률이 절반으로 떨어졌다. 규칙이 모자라면
  * 중복 금지를 풀어 더 많은 그룹을 얻는 쪽을 택한다 — 판의 형태가 먼저다.
- * 목표를 못 채우면 찾은 만큼(최소 2그룹)으로 낮춰 만든다.
+ *
+ * exposed(en 을 이미 인쇄한 타일)는 반대로 **강한 제약**이다. 여기가 뚫리면 게임의
+ * 전제(뜻 → 영단어 인출)가 무너지기 때문에, 그룹 단어를 채울 재료가 물리적으로
+ * 모자랄 때만 풀린다.
  */
 export function generateGrid(
   pool: TileWord[],
   round: number,
   excludeRuleIds: ReadonlySet<string>,
+  exposed: ReadonlySet<string>,
 ): Grid | null {
   const spec = ROUND_SPECS[Math.min(round, ROUND_SPECS.length - 1)];
   const opts = {
@@ -353,6 +454,7 @@ export function generateGrid(
     targetGroups: spec.groups,
     boardSize: spec.board,
     tierBias: spec.bias,
+    exposed,
   };
   const preferred = buildGrid(pool, { ...opts, excludeRuleIds });
   if (preferred && preferred.groups.length >= spec.groups) return preferred;
@@ -363,9 +465,10 @@ export function generateGrid(
 }
 
 // ─── 맛보기 단어 풀 ───────────────────────────────────────────────────────
-// wordPool 이 없을 때만 쓰는 폴백. 이전 판의 "고정 퍼즐 5개"가 아니라 **단순한
-// 단어 목록**이다 — 격자는 여기서도 매 판 새로 조립된다. 이 단어들은 학습자
-// vocabularies 에 없을 수 있으므로 own=false 로 태깅해 FSRS 에 적재하지 않는다.
+// wordPool 이 없거나 세 격자를 채우기에 모자랄 때 쓰는 폴백. 이전 판의 "고정 퍼즐
+// 5개"가 아니라 **단순한 단어 목록**이다 — 격자는 여기서도 매 판 새로 조립된다.
+// 이 단어들은 학습자 vocabularies 에 없을 수 있으므로 own=false 로 태깅해 FSRS 에
+// 적재하지 않는다.
 export const DEMO_POOL: Word[] = [
   { en: 'joy', ko: '기쁨', pos: 'noun' }, { en: 'anger', ko: '분노', pos: 'noun' },
   { en: 'fear', ko: '두려움', pos: 'noun' }, { en: 'grief', ko: '슬픔', pos: 'noun' },

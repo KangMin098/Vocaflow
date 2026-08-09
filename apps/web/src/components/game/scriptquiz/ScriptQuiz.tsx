@@ -273,13 +273,13 @@ function StartScreen({
           QUIZ
         </span>
       </h1>
-      <p className="mt-3 font-mono text-[11px] font-[700] uppercase tracking-[0.20em] text-[var(--t3)]">
+      <p className="mt-3 font-mono text-[11px] font-[700] uppercase tracking-[0.20em] text-[var(--t2)]">
         스크립트 독해 퀴즈
       </p>
 
       {/* 스크립트 정보 */}
       <div className="mt-10 rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 shadow-[var(--sh-md)]">
-        <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--on-p-tint)]">
           <BookOpen size={11} aria-hidden />
           스크립트 기반 퀴즈
         </span>
@@ -287,14 +287,14 @@ function StartScreen({
           {session.textTitle}
         </h2>
         {session.textChapter && (
-          <p className="mt-1 font-display text-[14px] font-[600] text-[var(--t3)]">
+          <p className="mt-1 font-display text-[14px] font-[600] text-[var(--t2)]">
             {session.textChapter}
           </p>
         )}
 
         <div className="mt-6 grid grid-cols-3 gap-4 border-y border-[var(--bd)] py-4">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-[var(--t3)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-[var(--t2)]">
               문항
             </p>
             <p className="mt-1 font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
@@ -302,16 +302,16 @@ function StartScreen({
             </p>
           </div>
           <div className="border-x border-[var(--bd)]">
-            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-[var(--t3)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-[var(--t2)]">
               제한 시간
             </p>
             <p className="mt-1 font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
               {QUESTION_TIME_LIMIT}
-              <span className="text-[12px] text-[var(--t3)]">s</span>
+              <span className="text-[12px] text-[var(--t2)]">s</span>
             </p>
           </div>
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-[var(--t3)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-[var(--t2)]">
               만점
             </p>
             <p className="mt-1 font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
@@ -404,14 +404,14 @@ function QuestionScreen({
       <div className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-10">
         {/* 문제 박스 */}
         <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] md:p-7">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--p-light)] px-2.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--p-light)] px-2.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--on-p-tint)]">
             {question.type === 'truefalse' ? 'OX' : '4지선다'}
           </span>
           <h2 className="mt-3 font-english text-[18px] font-[600] leading-[1.6] text-[var(--t1)] md:text-[20px]">
             {question.question}
           </h2>
           {showKorean && question.questionKo && (
-            <p className="mt-1.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+            <p className="mt-1.5 font-body text-[12px] leading-relaxed text-[var(--t2)]">
               {question.questionKo}
             </p>
           )}
@@ -458,12 +458,12 @@ function QuestionScreen({
                     </span>
                     <span className="font-display text-[12px] font-[600] text-[var(--t2)]">
                       {opt.text} ·{' '}
-                      <kbd className="rounded bg-[var(--bg2)] px-1 py-0.5 font-mono text-[10px] text-[var(--t3)]">
+                      <kbd className="rounded bg-[var(--bg2)] px-1 py-0.5 font-mono text-[10px] text-[var(--t2)]">
                         {symbol}
                       </kbd>
                     </span>
                     {showKorean && opt.textKo && (
-                      <span className="font-body text-[10px] text-[var(--t3)]">
+                      <span className="font-body text-[10px] text-[var(--t2)]">
                         {opt.textKo}
                       </span>
                     )}
@@ -517,7 +517,7 @@ function QuestionScreen({
                         {opt.text}
                       </span>
                       {showKorean && opt.textKo && (
-                        <span className="mt-0.5 block font-body text-[12px] text-[var(--t3)]">
+                        <span className="mt-0.5 block font-body text-[12px] text-[var(--t2)]">
                           {opt.textKo}
                         </span>
                       )}
@@ -548,7 +548,7 @@ function QuestionScreen({
 
         {/* 키보드 힌트 */}
         {answerState === 'idle' && (
-          <p className="mt-3 text-center font-mono text-[10px] text-[var(--t3)]">
+          <p className="mt-3 text-center font-mono text-[10px] text-[var(--t2)]">
             키보드 {question.type === 'truefalse' ? 'O / X (← →)' : '1 ~ ' + question.options.length}{' '}
             도 사용할 수 있어요.
           </p>
@@ -648,7 +648,7 @@ function ResultScreen({
               />
             </svg>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-              <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+              <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
                 정확도
               </p>
               <p className="font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
@@ -666,7 +666,7 @@ function ResultScreen({
             </p>
             <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--success)]">
               {stats.correct}
-              <span className="ml-1 text-[12px] text-[var(--t3)]">/ {totalQ}</span>
+              <span className="ml-1 text-[12px] text-[var(--t2)]">/ {totalQ}</span>
             </p>
           </div>
           <div className="rounded-[var(--r-md)] bg-[var(--error-light)] p-4 text-center">
@@ -678,12 +678,12 @@ function ResultScreen({
             </p>
           </div>
           <div className="rounded-[var(--r-md)] bg-[var(--bg2)] p-4 text-center">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
               평균 시간
             </p>
             <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--t1)]">
               {stats.avgTimeSec}
-              <span className="ml-1 text-[12px] text-[var(--t3)]">s</span>
+              <span className="ml-1 text-[12px] text-[var(--t2)]">s</span>
             </p>
           </div>
         </div>
@@ -696,7 +696,7 @@ function ResultScreen({
               <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
                 다시 만나봐요
               </h2>
-              <span className="font-mono text-[11px] text-[var(--t3)]">{wrongQs.length}문제</span>
+              <span className="font-mono text-[11px] text-[var(--t2)]">{wrongQs.length}문제</span>
             </header>
             <ul className="space-y-2">
               {wrongQs.map((q) => (

@@ -12,15 +12,18 @@ const Game = dynamic(
 );
 
 export default function ConnectionsPlayPage() {
-  // 격자 한 판이 16타일(규칙 그룹 + 침입자)이라 최소 16단어가 필요하다.
-  // v07.9 이전에는 내장 큐레이션 뱅크만 돌려 minWords=0 이었고, 그 탓에 학습자
-  // 단어장이 한 글자도 쓰이지 않아 learning_records 가 0건이었다.
+  // minWords 는 **buildTiles 통과 후의 타일 수**가 아니라 raw 단어 수라, 16 으로 잡으면
+  // 3자 미만·14자 초과·정규화 중복이 걸러진 뒤 보드가 무너졌다(v07.10 반증 실측:
+  // 통과 타일 16개일 때 보드 평균 14.01칸 · 최소 9칸 · 16칸 미만 82.4% · 격자1 생성
+  // 실패 2.0%). 24 로 올려 설계 스펙(그룹 3/3/2 · 보드 16칸)이 성립하는 구간에서만
+  // 진입시킨다. 세 격자를 한 단어도 겹치지 않게 채우는 데 필요한 48칸 중 모자란
+  // 자리는 게임 쪽에서 맛보기 단어(own=false · FSRS 미적재)로 메운다.
   return (
     <Suspense fallback={<GameLoading message="게임 초기화 중…" />}>
       <GamePlayScaffold
         module="connections"
         label="Connections"
-        minWords={16}
+        minWords={24}
         render={({ wordPool, onCorrect, onWrong, onExit }) => (
           <Game wordPool={wordPool} onCorrect={onCorrect} onWrong={onWrong} onExit={onExit} />
         )}

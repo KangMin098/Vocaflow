@@ -16,6 +16,37 @@
 //  6) 내장 뱅크는 폴백일 뿐. wordPool 이 오면 **학습자의 도서/스크립트/단어장 단어**로 돈다.
 //     그래야 recordGameResult 가 silent skip 되지 않고 FSRS 에 적재된다.
 //
+// ── v07.10 · 적대적 반증 4건 봉쇄 (수치는 전부 재시뮬로 확인, scratchpad/db-sim*.js) ──
+//  E1 [높음] 스트릭 무임승차 — finish() 가 성적을 보지 않아 "40초 오답 난사"·"90초 방치"로도
+//     연속 +1 이 지급됐다. → 성능 게이트 3분기(counted / held / none)로 교체.
+//     · counted(+1)  = dailyN 전 문항 도달 && 정답 ≥ ceil(dailyN×0.4)
+//     · held(유지)   = 문항 80% 이상 도달 — 연속을 끊지 않되 늘리지도 않는다(나쁜 날 보호)
+//     · none(끊김)   = 그 외(방치)
+//     실측 30일 후 평균 연속: 정답률0.5 학습자 24.8일 · 0.35 학습자 14.6일 ·
+//     오답난사 3.9일 · 방치 0.0일 (이전에는 셋 다 30일).
+//     또한 데일리 시도는 성적과 무관하게 소비된다(today 마커) — 게이트를 못 넘었다고
+//     같은 시드의 데일리를 다시 도는 "정답 본 뒤 재도전" 루프가 생기지 않게.
+//  E2 [보통] 고갈된 연장전이 방금 정답을 공개한 단어를 재출제 → 점수 파밍.
+//     → 연장전은 **이번 판에 안 쓴 단어만** 쓰고, 미사용이 3개 미만이면 열지 않고 끝낸다.
+//     실측 평균 점수: pool 8 = 47,440 → 571점 / pool 48 = 42,393 → 3,669점.
+//     "작은 단어장이 유리"가 "큰 단어장이 유리"로 뒤집혔다.
+//  E3 [보통] 소거법 누수 — 오늘의 세트가 풀 전체라 후반 문항이 영어 없이 확정됐다.
+//     → dailyN = min(10, max(5, pool−5)) 로 항상 미공개 예비어를 남기고,
+//       오답 후보는 **아직 공개되지 않은 단어 우선**. 실측 확정 문항 비율:
+//       pool 8 = 22.0% → 0.0% / pool 10 = 19.4% → 0.0% / pool 12 = 6.4% → 0.0%.
+//       그래도 확정되는 문항(작은 풀의 연장전)은 forced 로 표시해 **정답만 assisted 로**
+//       올린다 — 소거법으로 맞힌 것은 인출이 아니므로 FSRS 를 오염시키지 않는다.
+//       (오답은 assisted 가 아니다. 모르는 단어는 정직하게 오답으로 올라가야 복습이 잡힌다.)
+//  E4 [보통] 자유 모드 재시작 루프로 같은 단어에 Rating.Again 무제한 적재.
+//     → 보고 기록을 판 단위(new Set)가 아니라 **페이지 세션 전체의 시각 Map** 으로 바꾸고
+//       record-result 의 REGRADE_COOLDOWN_MS(10분)를 그대로 미러링한다. 재시작 루프는
+//       서버 왕복조차 하지 않는다. 자유 모드 단어 선정도 "가장 오래 안 본 순"이라
+//       방금 답을 본 단어로 되돌아가지 않는다.
+//  + 답이 둘인 문항 차단(collides): 같은 뜻·굴절쌍(develop/developed)을 후보에서 배제.
+//    hard 모드의 nearness 가 굴절쌍을 오히려 상위로 끌어올리던 문제까지 함께 닫힌다.
+//  + 시간 가산 한도(총량의 75%)에 걸렸을 때 그 사실을 화면에 말한다 — 잘하는 학습자만
+//    겪던 "이유 없는 불이익" 제거.
+//
 // 인출 규칙: 제출 전 화면에는 한국어 뜻만 있다(정답 특정 정보 없음). 부분 정답 오라클 없음.
 // 정답 공개는 제출 후, 예문·발음까지 충분히.
 
@@ -28,11 +59,13 @@ import {
   useCountdown, useCombo, usePersonalBest, DEFAULT_COMBO_TIERS,
 } from '@/components/game/_shared/gamekit';
 
+interface ResultOpts { assisted?: boolean }
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 // 폴백 뱅크 — wordPool 이 없을 때(비로그인·단어장 미충족)만 쓰는 맛보기.
@@ -64,6 +97,27 @@ const BANK: Word[] = [
 ];
 
 const DAILY_MAX = 10;
+/** 오늘의 세트 최소 문항 — 이보다 작으면 "하루의 의식"이 성립하지 않는다. */
+const DAILY_MIN = 5;
+/**
+ * 오늘의 세트 밖에 남겨 두는 예비 단어 수.
+ * 이게 0 이면(= 오늘의 세트가 풀 전체) 매 문항의 정답 공개가 곧 소거법 단서가 되어
+ * 후반 문항이 영어 지식 없이 확정된다(반증 E3, 실측 pool 10 에서 19.4%).
+ * 5 개를 남기면 연장전 재고(≥3)와 "미공개 오답 후보" 여유(+2)가 동시에 확보된다.
+ */
+const POOL_RESERVE = 5;
+/**
+ * 연장전을 열기 위한 최소 미사용 단어 수.
+ * 미사용이 1 개면 "남은 건 그것뿐"이라 정답이 자동 확정된다. 3 개면 최악의 경우에도
+ * 후보가 셋 이상 남아 추측 확률이 1/3 을 넘지 않는다.
+ */
+const OT_RESERVE = 3;
+/** 연속 +1 에 필요한 정답 비율 — 게이트 근거는 파일 상단 주석의 시뮬 수치 참조. */
+const STREAK_MARK_RATIO = 0.4;
+/** 연속을 "끊지 않는"(유지) 최소 도달 비율 — 느린 학습자가 구조적으로 지지 않게. */
+const STREAK_HOLD_RATIO = 0.8;
+/** record-result.ts 의 REGRADE_COOLDOWN_MS 와 같은 값 — 재시작 루프를 서버 앞에서 끊는다. */
+const REPORT_COOLDOWN_MS = 10 * 60 * 1000;
 const TOTAL_MS = 90_000;
 /** useCountdown 내부 가산 상한과 같은 비율 — 화면에 찍는 "+N초"가 거짓이 되지 않게 미러링한다. */
 const EXTEND_CAP = TOTAL_MS * 0.75;
@@ -77,12 +131,14 @@ type Stage = 'decide' | 'pick' | 'reveal';
 type Phase = 'intro' | 'playing' | 'result';
 type Mark = 'fast' | 'ok' | 'stake' | 'wrong' | 'skip';
 type Mode = 'daily' | 'free';
+/** 데일리 판정 — counted(+1) · held(연속 유지) · none(연속 끊김) · free(집계 대상 아님). */
+type Outcome = 'counted' | 'held' | 'none' | 'free';
 
 interface Store {
   lastDate: string;
   streak: number;
   history: string[];
-  today?: { date: string; grid: string; correct: number; score: number };
+  today?: { date: string; grid: string; correct: number; score: number; counted: boolean };
 }
 
 interface Question {
@@ -91,9 +147,16 @@ interface Question {
   /** 통합 라운드 인덱스(0-based). dailyN 이상이면 연장전. */
   round: number;
   over: boolean;
+  /**
+   * 오답 후보가 **전부 이미 공개된 단어**인가.
+   * 이 경우 소거법만으로 정답이 확정되므로 "맞힌 것"은 인출이 아니다 → assisted 로 보고.
+   */
+  forced: boolean;
 }
 
-const MARK_CHAR: Record<Mark, string> = { fast: '🟩', ok: '🟨', stake: '🟪', wrong: '🟥', skip: '⬛' };
+// 색 하나로만 구분되던 결과 그리드를 형태까지 다르게 — 공유 텍스트에도 그대로 실린다.
+// (사각 / 마름모 / 별 / 삼각 / 빈칸)
+const MARK_CHAR: Record<Mark, string> = { fast: '🟩', ok: '🔷', stake: '⭐', wrong: '🔺', skip: '⬛' };
 const MARK_GLYPH: Record<Mark, string> = { fast: '✓✓', ok: '✓', stake: '★', wrong: '✕', skip: '·' };
 const MARK_TEXT: Record<Mark, string> = { fast: '빠른 정답', ok: '정답', stake: '승부 성공', wrong: '오답', skip: '미도달' };
 
@@ -153,23 +216,62 @@ function isNearMiss(chosen: Word, target: Word) {
   return a.slice(0, 3) === b.slice(0, 3) || levenshtein(a, b) <= 2;
 }
 
-function optionCount(round: number, over: boolean, poolSize: number) {
-  const want = over ? 6 : round < 3 ? 4 : round < 7 ? 5 : 6;
+/**
+ * 답이 둘이 되는 후보를 구조적으로 배제한다.
+ * 같은 한국어 뜻(동의어)·굴절쌍(develop/developed)은 "정답이 두 개인 문항"이고,
+ * 특히 hard 모드에서 위험하다 — nearness 가 같은 품사(+1.6)·같은 끝 3자(+1.4)·낮은
+ * 편집거리를 가산해서 굴절쌍을 오히려 상위 후보로 끌어올리기 때문이다.
+ */
+function collides(cand: Word, target: Word) {
+  const a = cand.en.trim().toLowerCase();
+  const b = target.en.trim().toLowerCase();
+  if (a === b) return true;
+  if (cand.ko.trim() === target.ko.trim()) return true;
+  const ci = (cand.inflected ?? []).map((s) => s.trim().toLowerCase());
+  const ti = (target.inflected ?? []).map((s) => s.trim().toLowerCase());
+  if (ci.includes(b) || ti.includes(a)) return true;
+  return ci.some((x) => ti.includes(x));
+}
+
+/**
+ * 선택지 수 — dailyN 이 풀 크기에 따라 5~10 으로 변하므로 절대 라운드가 아니라
+ * **진행 비율**로 조인다(dailyN=10 일 때는 기존과 동일한 4/5/6 배분).
+ */
+function optionCount(round: number, over: boolean, dailyN: number, poolSize: number) {
+  const t = dailyN > 0 ? round / dailyN : 1;
+  const want = over ? 6 : t < 0.3 ? 4 : t < 0.7 ? 5 : 6;
   return clamp(Math.min(want, poolSize), 2, 6);
 }
 
-function makeQuestion(pool: Word[], word: Word, round: number, over: boolean): Question {
-  const n = optionCount(round, over, pool.length);
-  const others = pool.filter((w) => w.en !== word.en);
-  const hard = over || round >= 4;
-  let picked: Word[];
-  if (hard && others.length > n - 1) {
-    const ranked = [...others].sort((x, y) => nearness(y, word) - nearness(x, word));
-    picked = shuffle(ranked.slice(0, Math.min(others.length, (n - 1) * 3))).slice(0, n - 1);
-  } else {
-    picked = shuffle(others).slice(0, n - 1);
+function chooseDistractors(cands: Word[], word: Word, need: number, hard: boolean): Word[] {
+  if (need <= 0) return [];
+  if (cands.length <= need) return shuffle(cands);
+  if (!hard) return shuffle(cands).slice(0, need);
+  const ranked = [...cands].sort((x, y) => nearness(y, word) - nearness(x, word));
+  return shuffle(ranked.slice(0, Math.min(cands.length, need * 3))).slice(0, need);
+}
+
+/**
+ * @param seen 이번 판에서 이미 정답이 공개된 단어들 — 오답 후보에서 **뒤로 민다**.
+ *             (지워버리면 후보가 모자라므로 부족분만 채운다 = 하한 보장)
+ */
+function makeQuestion(
+  pool: Word[], word: Word, round: number, over: boolean, dailyN: number, seen: Set<string>,
+): Question {
+  const n = optionCount(round, over, dailyN, pool.length);
+  const need = n - 1;
+  const strict = pool.filter((w) => !collides(w, word));
+  // 동의어·굴절쌍을 걸러내다 후보가 0 이 되는 극단(중복 뜻만 있는 풀)에서는 en 만 다르면 허용.
+  const usable = strict.length > 0 ? strict : pool.filter((w) => w.en.toLowerCase() !== word.en.toLowerCase());
+  const hard = over || round >= Math.ceil(dailyN * 0.4);
+  const fresh = usable.filter((w) => !seen.has(w.en));
+  const picked = chooseDistractors(fresh, word, need, hard);
+  if (picked.length < need) {
+    const stale = usable.filter((w) => seen.has(w.en));
+    picked.push(...chooseDistractors(stale, word, need - picked.length, hard));
   }
-  return { word, options: shuffle([word, ...picked]), round, over };
+  const forced = picked.length > 0 && picked.every((w) => seen.has(w.en));
+  return { word, options: shuffle([word, ...picked]), round, over, forced };
 }
 
 function multFor(combo: number) {
@@ -295,9 +397,13 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const sfx = useSfx();
 
   // ── 단어 원천: wordPool 우선(= 학습자의 도서/스크립트/단어장). 없을 때만 내장 뱅크.
-  const pool = useMemo<Word[]>(() => (wordPool && wordPool.length >= 5 ? wordPool : BANK), [wordPool]);
-  const usingOwn = !!(wordPool && wordPool.length >= 5);
-  const dailyN = Math.min(DAILY_MAX, pool.length);
+  // 기준을 8 로 올린 이유: 스캐폴드 minWords 와 같고, dailyN(≥5) + 예비어(≥3)가 성립하는
+  // 최소 크기다. 그 아래에서는 오늘의 세트가 사실상 풀 전체가 되어 소거법이 열린다.
+  const pool = useMemo<Word[]>(() => (wordPool && wordPool.length >= 8 ? wordPool : BANK), [wordPool]);
+  const usingOwn = !!(wordPool && wordPool.length >= 8);
+  // 오늘의 세트는 절대 풀 전체가 되지 않는다 — 예비어 5개를 남긴다(E3).
+  const dailyN = Math.min(DAILY_MAX, Math.max(DAILY_MIN, pool.length - POOL_RESERVE));
+  const streakMark = Math.max(2, Math.ceil(dailyN * STREAK_MARK_RATIO));
 
   const today = useMemo(() => (typeof window === 'undefined' ? new Date(0) : new Date()), []);
   const tKey = dateKey(today);
@@ -320,8 +426,11 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const [stakeTries, setStakeTries] = useState(0);
   const [missed, setMissed] = useState<Word[]>([]);
   const [gain, setGain] = useState<{ id: number; txt: string; tone: 'good' | 'bad' } | null>(null);
+  const [capNote, setCapNote] = useState(false);
   const [announce, setAnnounce] = useState('');
   const [toMidnight, setToMidnight] = useState('');
+  const [outcome, setOutcome] = useState<Outcome>('free');
+  const [otClosed, setOtClosed] = useState(false);
   const [bestInfo, setBestInfo] = useState<{ prev: number | null; improved: boolean }>({ prev: null, improved: false });
 
   const stageRef = useRef<Stage>('decide');
@@ -331,14 +440,23 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   storeRef.current = store;
   const resultsRef = useRef<Mark[]>([]);
   const runWordsRef = useRef<Word[]>([]);
+  /** 연장전 재고 — 이번 판에서 아직 쓰지 않은 단어만 들어간다(E2). */
   const otQueueRef = useRef<Word[]>([]);
-  const reportedRef = useRef<Set<string>>(new Set());
+  /** 이번 판에서 정답이 공개된 단어 — 오답 후보를 미공개 우선으로 고르는 데 쓴다(E3). */
+  const seenRef = useRef<Set<string>>(new Set());
+  /** 페이지 세션 전체에서 각 단어를 마지막으로 본 시각 — 자유 모드 단어 선정 순서(E4). */
+  const seenAtRef = useRef<Map<string, number>>(new Map());
+  /** 각 단어를 FSRS 로 마지막 보고한 시각 — 판이 바뀌어도 초기화하지 않는다(E4). */
+  const reportedAtRef = useRef<Map<string, number>>(new Map());
   const grantedRef = useRef(0);
+  const capNoticedRef = useRef(false);
   const qStartRef = useRef(0);
   const stakedRef = useRef(false);
   const finishedRef = useRef(false);
+  const modeRef = useRef<Mode>('daily');
   const nextTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const gainTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const capTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const gainId = useRef(0);
   const mounted = useRef(true);
 
@@ -370,7 +488,14 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       let s: Store;
       if (raw) {
         const p = JSON.parse(raw) as Partial<Store>;
-        s = { lastDate: p.lastDate ?? '', streak: p.streak ?? 0, history: p.history ?? [], today: p.today };
+        // counted 는 v07.10 신설 — 이전 기록은 전부 "연속에 반영됨"으로 읽는다.
+        const t = p.today;
+        s = {
+          lastDate: p.lastDate ?? '',
+          streak: p.streak ?? 0,
+          history: p.history ?? [],
+          today: t ? { ...t, counted: t.counted ?? true } : undefined,
+        };
       } else {
         const legacy = window.localStorage.getItem(LEGACY_KEY);
         const lp = legacy ? (JSON.parse(legacy) as Partial<Store>) : null;
@@ -386,6 +511,7 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       mounted.current = false;
       if (nextTimer.current) clearTimeout(nextTimer.current);
       if (gainTimer.current) clearTimeout(gainTimer.current);
+      if (capTimer.current) clearTimeout(capTimer.current);
     };
   }, [tKey]);
 
@@ -422,43 +548,63 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     setScore(scoreRef.current);
   }, []);
 
-  /** useCountdown 의 가산 상한을 그대로 미러링 — 실제로 더해진 만큼만 화면에 찍는다. */
+  /**
+   * useCountdown 의 가산 상한을 그대로 미러링 — 실제로 더해진 만큼만 화면에 찍는다.
+   * 상한에 처음 걸린 순간에는 그 사실을 시계 옆에 한 번 말한다. 지금까지는 정답을
+   * 맞혔는데 게이지가 안 늘어나는 이유가 화면 어디에도 없었다(잘하는 학습자만 겪는 불이익).
+   */
   const grantTime = useCallback((ms: number) => {
     const allowed = Math.max(0, Math.min(ms, EXTEND_CAP - grantedRef.current));
-    if (allowed <= 0) return 0;
+    if (allowed <= 0) {
+      if (!capNoticedRef.current) {
+        capNoticedRef.current = true;
+        setCapNote(true);
+        if (capTimer.current) clearTimeout(capTimer.current);
+        capTimer.current = setTimeout(() => { if (mounted.current) setCapNote(false); }, 3600);
+      }
+      return 0;
+    }
     grantedRef.current += allowed;
     countRef.current.extend(allowed);
     return allowed;
   }, []);
 
-  const nextOvertimeWord = useCallback(() => {
-    if (otQueueRef.current.length === 0) otQueueRef.current = shuffle(pool);
-    return otQueueRef.current.pop() as Word;
-  }, [pool]);
+  /**
+   * 무작위로 섞은 뒤 "가장 오래 안 본 순"으로 안정 정렬.
+   * 자유 모드 재시작이 방금 정답을 공개한 단어로 되돌아가 점수를 파밍하던 경로를 막는다.
+   */
+  const freshOrder = useCallback((list: Word[]) => {
+    const seenAt = seenAtRef.current;
+    return shuffle(list).sort((a, b) => (seenAt.get(a.en) ?? 0) - (seenAt.get(b.en) ?? 0));
+  }, []);
 
   const startQuestion = useCallback((idx: number) => {
     const over = idx >= dailyN;
-    const w = over ? nextOvertimeWord() : runWordsRef.current[idx];
-    setQuestion(makeQuestion(pool, w, idx, over));
+    const w = over ? otQueueRef.current.shift() : runWordsRef.current[idx];
+    if (!w) { finishRef.current('quit'); return; }
+    setQuestion(makeQuestion(pool, w, idx, over, dailyN, seenRef.current));
     setPicked(null);
     setStaked(false);
     stakedRef.current = false;
     setStage('decide');
     stageRef.current = 'decide';
     qStartRef.current = performance.now();
-  }, [dailyN, nextOvertimeWord, pool]);
+  }, [dailyN, pool]);
 
   const startRun = useCallback((m: Mode) => {
     if (nextTimer.current) { clearTimeout(nextTimer.current); nextTimer.current = null; }
     const words = m === 'daily'
       ? seededShuffle(pool, mulberry32(dayNo)).slice(0, dailyN)
-      : shuffle(pool).slice(0, dailyN);
+      : freshOrder(pool).slice(0, dailyN);
     runWordsRef.current = words;
-    otQueueRef.current = shuffle(pool.filter((w) => !words.some((x) => x.en === w.en)));
-    reportedRef.current = new Set();
+    // 연장전 재고 = 오늘의 세트 밖 단어만. 재충전(= 같은 단어 재출제) 경로를 없앴다(E2).
+    otQueueRef.current = freshOrder(pool.filter((w) => !words.some((x) => x.en === w.en)));
+    seenRef.current = new Set();
     resultsRef.current = [];
     grantedRef.current = 0;
+    capNoticedRef.current = false;
     finishedRef.current = false;
+    modeRef.current = m;
     combo.reset();
     scoreRef.current = 0;
     setMode(m);
@@ -471,11 +617,14 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     setStakeTries(0);
     setMissed([]);
     setGain(null);
+    setCapNote(false);
+    setOtClosed(false);
+    setOutcome('free');
     setAnnounce('');
     countRef.current.reset();
     setPhase('playing');
     startQuestion(0);
-  }, [combo, dailyN, dayNo, pool, startQuestion]);
+  }, [combo, dailyN, dayNo, freshOrder, pool, startQuestion]);
 
   const finish = useCallback((reason: 'time' | 'quit') => {
     if (finishedRef.current) return;
@@ -483,6 +632,7 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     if (nextTimer.current) { clearTimeout(nextTimer.current); nextTimer.current = null; }
 
     const padded = [...resultsRef.current];
+    const attempted = padded.length;
     while (padded.length < dailyN) padded.push('skip');
     resultsRef.current = padded;
     setResults(padded);
@@ -498,34 +648,60 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     const finalScore = scoreRef.current;
     setBestInfo(bestRef.current.submit(finalScore));
 
-    if (mode === 'daily' && !alreadyDone) {
+    // ── 스트릭 성능 게이트(E1) ──────────────────────────────────────────────
+    // 시계만 태우면 지급되던 연속 기록을 3분기로 나눈다.
+    //   counted — 전 문항 도달 + 정답 ≥ streakMark → 연속 +1, 캘린더 점 채움
+    //   held    — 80% 이상 도달 → 연속을 끊지 않되 늘리지도 않는다(나쁜 날 보호)
+    //   none    — 그 외(방치) → 오늘은 기록되지 않는다
+    // 어느 쪽이든 today 마커는 남긴다. 게이트를 못 넘었다고 같은 시드의 데일리를
+    // "정답을 다 본 채로" 다시 도는 루프가 생기면 게이트 자체가 무의미해지기 때문이다.
+    let verdict: Outcome = 'free';
+    if (modeRef.current === 'daily' && !alreadyDone) {
+      const reachedAll = attempted >= dailyN;
+      const held = attempted >= Math.ceil(dailyN * STREAK_HOLD_RATIO);
+      verdict = reachedAll && correct >= streakMark ? 'counted' : held ? 'held' : 'none';
+
       const cur: Store = storeRef.current ?? { lastDate: '', streak: 0, history: [] };
-      const newStreak = !cur.lastDate
+      const bumped = !cur.lastDate
         ? 1
         : cur.lastDate === tKey
           ? cur.streak
           : isYesterday(cur.lastDate, tKey)
             ? cur.streak + 1
             : 1;
+      // held 는 사슬만 이어 준다 — 없던 연속을 만들어 주지는 않는다(그러면 그게 다시 무임승차다).
+      const chainKept = verdict !== 'none';
       const ns: Store = {
-        lastDate: tKey,
-        streak: newStreak,
-        history: Array.from(new Set([...cur.history, tKey])).slice(-14),
-        today: { date: tKey, grid: padded.map((r) => MARK_CHAR[r]).join(''), correct, score: finalScore },
+        lastDate: chainKept ? tKey : cur.lastDate,
+        streak: verdict === 'counted' ? bumped : cur.streak,
+        history: verdict === 'counted'
+          ? Array.from(new Set([...cur.history, tKey])).slice(-14)
+          : cur.history,
+        today: { date: tKey, grid: padded.map((r) => MARK_CHAR[r]).join(''), correct, score: finalScore, counted: verdict === 'counted' },
       };
       storeRef.current = ns;
       setStore(ns);
       try { window.localStorage.setItem(STORE_KEY, JSON.stringify(ns)); } catch { /* private mode */ }
     }
-    setAnnounce(reason === 'time' ? '시간 종료' : '세션 종료');
-  }, [alreadyDone, dailyN, mode, sfx, tKey]);
+    setOutcome(verdict);
+    setOtClosed(reason === 'quit');
+    setAnnounce(
+      reason === 'quit'
+        ? '단어를 모두 돌았어요. 결과를 확인하세요.'
+        : '시간 종료. 결과를 확인하세요.',
+    );
+  }, [alreadyDone, dailyN, sfx, streakMark, tKey]);
   finishRef.current = finish;
 
   const advance = useCallback((from: number) => {
     if (finishedRef.current || !mounted.current) return;
     if (countRef.current.remainMs <= 0) { finishRef.current('time'); return; }
-    startQuestion(from + 1);
-  }, [startQuestion]);
+    const next = from + 1;
+    // 연장전은 "이번 판에 안 쓴 단어"가 충분할 때만 연다. 재고가 마르면 방금 답을 공개한
+    // 단어로 되돌아가는 대신 판을 닫는다(E2 · E3).
+    if (next >= dailyN && otQueueRef.current.length < OT_RESERVE) { finishRef.current('quit'); return; }
+    startQuestion(next);
+  }, [dailyN, startQuestion]);
 
   const openOptions = useCallback((stake: boolean) => {
     if (stageRef.current !== 'decide' || !mounted.current) return;
@@ -568,7 +744,7 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       const pts = Math.round(100 * mult * (wasStaked ? 3 : 1) * speed);
       addScore(pts);
       const added = grantTime(rewardMs(q.round, q.over, dailyN) * (wasStaked ? 2 : 1));
-      const secTxt = added > 0 ? ` · +${(added / 1000).toFixed(1)}초` : ' · 시간 가산 한도';
+      const secTxt = added > 0 ? ` · +${(added / 1000).toFixed(1)}초` : ' · 시계 가산 한도';
       showGain(`+${pts}${secTxt}`, 'good');
       // 티어 승급 사운드는 useCombo 의 onTierUp 이 이미 냈다 — 겹쳐 울리지 않게.
       if (!tierUp) sfx.correct(c, false);
@@ -598,10 +774,26 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       if (ok) setOverOk((n) => n + 1);
     }
 
-    // FSRS 는 세션 내 첫 조우만 적재한다 — 연장전 재출현으로 같은 단어를 도배하지 않게.
-    if (!reportedRef.current.has(q.word.en)) {
-      reportedRef.current.add(q.word.en);
-      if (ok) onCorrect?.(q.word); else onWrong?.(q.word);
+    // 정답 공개 — 이후 이 단어는 오답 후보에서 뒤로 밀리고, 자유 모드 재시작에서도 뒤로 간다.
+    seenRef.current.add(q.word.en);
+    seenAtRef.current.set(q.word.en, Date.now());
+
+    // ── FSRS 적재 ──────────────────────────────────────────────────────────
+    // 원칙: **답한 단어는 처음 만났을 때 반드시 올라간다. 특히 틀린 단어가 그렇다.**
+    //   모르는 단어를 안 올리면(letter-forge 함정) 합리적으로 플레이할수록 자기가 모르는
+    //   단어를 복습 큐에서 지우게 된다. 여기서 걸러지는 것은 "같은 단어의 재채점"뿐이다.
+    // ① 10분 쿨다운(record-result 의 REGRADE_COOLDOWN_MS 와 같은 값)을 판 단위가 아니라
+    //    **페이지 세션** 단위로 건다 — "다시 도전"을 반복해 같은 단어에 Rating.Again 을
+    //    쌓던 경로가 닫힌다(E4). 서버도 어차피 이 창 안의 재채점은 버리므로 왕복도 아낀다.
+    // ② 오답 후보가 전부 이미 공개된 단어였다면(forced) 정답은 소거법의 결과다 →
+    //    assisted 로 올려 카드를 갱신하지 않는다. **오답은 assisted 가 아니다** —
+    //    소거법이 열려 있었는데도 틀렸다면 그건 정직한 "모름"이고, 복습이 잡혀야 한다.
+    const key = q.word.en.toLowerCase();
+    const lastAt = reportedAtRef.current.get(key) ?? 0;
+    if (Date.now() - lastAt >= REPORT_COOLDOWN_MS) {
+      reportedAtRef.current.set(key, Date.now());
+      if (ok) onCorrect?.(q.word, { assisted: q.forced });
+      else onWrong?.(q.word);
     }
 
     const hold = ok ? 950 : 1600;
@@ -643,6 +835,7 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
 
   // ── 파생값 ──
   const correctCount = results.filter((r) => r === 'fast' || r === 'ok' || r === 'stake').length;
+  const attemptedCount = results.filter((r) => r !== 'skip').length;
   const grid = results.map((r) => MARK_CHAR[r]).join('');
   const streak = store?.streak ?? 0;
   const progress = question ? clamp((question.over ? dailyN : question.round) / dailyN, 0, 1) : 0;
@@ -668,7 +861,9 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     [streak],
   );
 
-  if (pool.length < 5) return <NotEnoughWords need={5} onExit={onExit} />;
+  // pool 은 구조상 항상 8 이상이다(폴백 BANK 48). 그래도 상위에서 BANK 를 바꾸는 변경이
+  // 들어오면 조용히 깨지는 대신 안내로 멈추게 둔다 — 스캐폴드 minWords 와 같은 8.
+  if (pool.length < 8) return <NotEnoughWords need={8} onExit={onExit} />;
 
   return (
     <div className="gk-root db-root">
@@ -720,13 +915,23 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
             </ul>
 
             <WeekDots week={week} today={tKey} done={doneSet} />
+            <p className="db-gate-note">
+              {dailyN}문항을 끝내고 <b>{streakMark}개 이상</b> 맞히면 <span aria-hidden="true">🔥</span> 연속 +1.
+              모자란 날에도 끝까지 돌면 연속은 그대로 이어집니다.
+            </p>
 
             {alreadyDone ? (
               <>
-                <div className="db-done-badge">
-                  오늘 완료 · {store?.today?.correct}/{dailyN} · {store?.today?.score?.toLocaleString()}점
+                <div className={`db-done-badge ${store?.today?.counted ? '' : 'db-done-badge--held'}`}>
+                  <span aria-hidden="true">{store?.today?.counted ? '✓' : '↺'}</span>
+                  {store?.today?.counted ? '오늘 완료' : '오늘 도전함'} · {store?.today?.correct}/{dailyN} · {store?.today?.score?.toLocaleString()}점
                   <span className="db-done-grid" aria-hidden="true">{store?.today?.grid}</span>
                 </div>
+                {!store?.today?.counted && (
+                  <p className="db-gate-note">
+                    오늘 기록은 연속에 더해지지 않았어요. 연속은 그대로예요 — 내일 {streakMark}개를 넘겨 보세요.
+                  </p>
+                )}
                 <div className="db-actions">
                   <button type="button" className="gk-btn gk-btn--primary db-start" onClick={() => startRun('free')}>
                     다시 도전 · 다른 단어
@@ -759,6 +964,11 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
           />
           <div className="db-clock">
             <TimerBar frac={count.frac} warning={count.warning} seconds={count.remainSec} label="남은 시간" />
+            {capNote && (
+              <p className="db-cap" role="status">
+                <span aria-hidden="true">⌛</span> 시계 가산 한도 · +{Math.round(EXTEND_CAP / 1000)}초까지 채웠어요
+              </p>
+            )}
           </div>
           <div className="db-pips" aria-hidden="true">
             {Array.from({ length: dailyN }, (_, i) => {
@@ -802,10 +1012,15 @@ export function DailyBlitzGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       {phase === 'result' && (
         <ResultView
           mode={mode}
+          outcome={outcome}
+          otClosed={otClosed}
+          poolSize={pool.length}
           grid={grid}
           results={results}
           dailyN={dailyN}
+          streakMark={streakMark}
           correctCount={correctCount}
+          attemptedCount={attemptedCount}
           score={score}
           overOk={overOk}
           overTotal={overTotal}
@@ -852,15 +1067,20 @@ function WeekDots({ week, today, done }: { week: string[]; today: string; done: 
 
 // ─── 결과 ───
 function ResultView({
-  mode, grid, results, dailyN, correctCount, score, overOk, overTotal,
-  stakeWins, stakeTries, missed, bestPrev, bestImproved, streak, week, today, done, toMidnight, comboBest,
-  onRestart, onExit,
+  mode, outcome, otClosed, poolSize, grid, results, dailyN, streakMark, correctCount, attemptedCount,
+  score, overOk, overTotal, stakeWins, stakeTries, missed, bestPrev, bestImproved, streak,
+  week, today, done, toMidnight, comboBest, onRestart, onExit,
 }: {
   mode: Mode;
+  outcome: Outcome;
+  otClosed: boolean;
+  poolSize: number;
   grid: string;
   results: Mark[];
   dailyN: number;
+  streakMark: number;
   correctCount: number;
+  attemptedCount: number;
   score: number;
   overOk: number;
   overTotal: number;
@@ -881,11 +1101,16 @@ function ResultView({
   const perfect = correctCount === dailyN && dailyN > 0;
   const improved = bestImproved;
 
-  const lead = perfect
-    ? '오늘 전부 통과했어요'
-    : correctCount >= Math.ceil(dailyN * 0.7)
-      ? '오늘 잘 마쳤어요'
-      : '오늘도 한 걸음';
+  // Empathetic Feedback — 미달을 비난하지 않는다. "안 됐다"가 아니라 "이렇게 하면 된다".
+  const lead = outcome === 'none'
+    ? '오늘은 여기까지 — 다음엔 끝까지 가 봐요'
+    : outcome === 'held'
+      ? '오늘도 한 바퀴 돌았어요'
+      : perfect
+        ? '오늘 전부 통과했어요'
+        : correctCount >= Math.ceil(dailyN * 0.7)
+          ? '오늘 잘 마쳤어요'
+          : '오늘도 한 걸음';
 
   const stats: { num: ReactNode; label: string; accent?: boolean }[] = [
     { num: score.toLocaleString(), label: '점수', accent: true },
@@ -893,13 +1118,26 @@ function ResultView({
     { num: grid, label: '기록' },
   ];
   if (overTotal > 0) stats.push({ num: `${overOk}/${overTotal}`, label: '연장전' });
-  if (mode === 'daily') stats.push({ num: `🔥 ${streak}`, label: '연속' });
+  if (mode === 'daily') {
+    // 숫자는 같아도 라벨이 "무슨 일이 일어났는지"를 말한다 — 색이나 아이콘 없이도 읽힌다.
+    stats.push({
+      num: `🔥 ${streak}`,
+      label: outcome === 'counted' ? '연속 +1' : outcome === 'held' ? '연속 유지' : '연속',
+    });
+  }
 
-  const hint = overTotal === 0
-    ? '시간을 아끼면 연장전이 열려요. 확실한 단어는 빠르게 통과하세요.'
-    : stakeTries === 0
-      ? `연장 ${overTotal}라운드. 확실한 단어에 승부를 걸면 점수가 3배가 됩니다.`
-      : `연장 ${overTotal}라운드 · 승부 ${stakeWins}/${stakeTries}. 다음엔 한 라운드 더.`;
+  // 다음 판의 목표를 한 줄로. 판정에 따라 "무엇을 하면 되는지"가 먼저 온다.
+  const hint = outcome === 'none'
+    ? `${dailyN}문항 중 ${attemptedCount}문항까지 갔어요. 끝까지 돌면 연속이 이어지고, ${streakMark}개를 넘기면 +1 이 됩니다.`
+    : outcome === 'held'
+      ? `정답 ${correctCount}개 — ${streakMark}개부터 연속 +1 이에요.${streak > 0 ? ` 연속 ${streak}일은 끊기지 않았습니다.` : ' 내일 넘기면 연속이 시작돼요.'}`
+      : otClosed
+        ? `단어가 ${poolSize}개라 연장전이 ${overTotal}라운드에서 닫혔어요. 단어장을 채우면 연장전이 길어집니다.`
+        : overTotal === 0
+          ? '시간을 아끼면 연장전이 열려요. 확실한 단어는 빠르게 통과하세요.'
+          : stakeTries === 0
+            ? `연장 ${overTotal}라운드. 확실한 단어에 승부를 걸면 점수가 3배가 됩니다.`
+            : `연장 ${overTotal}라운드 · 승부 ${stakeWins}/${stakeTries}. 다음엔 한 라운드 더.`;
 
   const badge = improved
     ? <><span aria-hidden="true">▲</span> 개인 최고 갱신</>
@@ -986,7 +1224,12 @@ const DB_CSS = `
   .db-rules li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; line-height: 1.55; color: var(--t2); }
   .db-rules b { color: var(--t1); }
   .db-rule-n { flex: none; width: 19px; height: 19px; margin-top: 1px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: var(--ti); background: var(--combo); }
+  /* 스트릭 규약 — 캘린더 바로 아래에서 "무엇을 하면 연속이 오르는지"를 미리 말한다. */
+  .db-gate-note { margin: 0; max-width: 40ch; font-size: 12.5px; line-height: 1.6; color: var(--t3); }
+  .db-gate-note b { color: var(--t2); font-weight: 800; }
   .db-done-badge { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; font-size: 13.5px; font-weight: 700; color: var(--t1); background: color-mix(in srgb, var(--success) 14%, transparent); border: 1px solid color-mix(in srgb, var(--success) 40%, var(--bd)); padding: 8px 16px; border-radius: 999px; }
+  /* 게이트 미달은 "실패"가 아니라 "기록되지 않음" — 경고색이 아니라 중립 톤. */
+  .db-done-badge--held { background: color-mix(in srgb, var(--t1) 7%, transparent); border-color: var(--bd); color: var(--t2); }
   .db-done-grid { letter-spacing: 2px; }
   .db-start { min-width: 220px; font-size: 16px; min-height: 54px; }
   .db-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
@@ -1000,6 +1243,8 @@ const DB_CSS = `
   .db-clock { padding: 10px 16px 0; }
   .db-clock .gk-timer { width: min(560px, 92vw); margin: 0 auto; }
   .db-clock .gk-timer-track { height: 10px; }
+  /* 가산 상한 고지 — 3.6초 뒤 사라지는 정적 칩(모달 아님 · 학습 흐름을 끊지 않는다). */
+  .db-cap { width: min(560px, 92vw); margin: 6px auto 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: var(--t3); border: 1px dashed var(--bd); border-radius: 999px; padding: 4px 10px; background: color-mix(in srgb, var(--bg) 70%, transparent); }
 
   .db-pips { display: flex; gap: 5px; align-items: center; justify-content: center; padding: 10px 16px 0; flex-wrap: wrap; }
   .db-pip { position: relative; width: 24px; height: 20px; border-radius: 6px; background: var(--bg3); border: 1px solid var(--bd); }
@@ -1074,7 +1319,7 @@ const DB_CSS = `
 
   /* 결과 화면 — 세로로 긴 구성(오답 복습 카드 + 캘린더)이라 작은 화면에서 스크롤을 허용한다. */
   .db-root .gk-done { overflow-y: auto; justify-content: center; gap: 26px; }
-  /* stats 3번째 칸은 항상 이모지 결과 그리드(ResultView 의 stats 배열 순서 고정).
+  /* stats 3번째 칸은 항상 결과 그리드(ResultView 의 stats 배열 순서 고정).
      기본 num 크기(최대 38px)로는 10칸이 가로를 터뜨린다. */
   .db-root .gk-done-stat:nth-child(3) .gk-done-num { font-size: clamp(15px, 3.8vw, 22px); letter-spacing: 2px; line-height: 1.3; }
 

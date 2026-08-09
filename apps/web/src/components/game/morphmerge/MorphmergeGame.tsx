@@ -15,12 +15,31 @@
 //      vocabularies 와 무관한 판이 되어 learning_records 가 0 건이었다. 이제 스코프
 //      어족은 항상 쓰고(2배 가중), 굴절형 없는 스코프 단어도 방해 타일로 판에 올린다.
 //
+// v07.10 적대적 감사 대응. 반증자가 코드로 잡아낸 네 구멍을 막았다.
+//   A) 어간 스캔 — 한국어를 안 읽고 실 세트 79.0% 완성. morph-bank 쪽에서 라이벌 어간 묶음을
+//      강제 편입해 37.8% 로 내렸다(측정 조건은 morph-bank.ts 헤더 주석).
+//   B) 1타일 부분 제출로 무위험 FSRS 'Good' 파밍 — 부분 제출은 이제 **오답으로 정직하게
+//      올라가고** 시간도 깎는다. Rating.Good 은 힌트·재열람 없는 완성에서만 나온다.
+//      세션 시뮬(지식률 0.6 · 200세션): 1타일 파밍의 세션당 FSRS Good 8.8회 → 0회
+//      (대신 Again 10.1 → 23.2 — 못 세운 낱말이 전부 복습 대상으로 올라간다).
+//   C) 넘기기가 열등 전략 — 넘기기 −3초+콤보 소멸이 '아무거나 하나 찍기'(기대 −2.6초)에
+//      밀렸다. 이제 −1.5초 + **콤보 동결**(연속 3회까지) + 0점이라, 모르면 넘기는 쪽이
+//      기대값에서 앞선다. 찍기는 여전히 −4초와 콤보 소멸을 감수해야 한다.
+//      시뮬: 찍기/정직 점수비 87%(9,575/11,052) → 44%(7,967/17,933). 정직이 최적이 됐다.
+//   D) 리빌 암기 루프 — 답을 열람한 낱말이 다시 나오면 점수 45% · 시간 보너스 50% 이고
+//      FSRS 에는 assisted 로 올린다(=스케줄 미반영). 답을 사서 되파는 경로를 없앴다.
+//      시뮬(소규모 판): 암기 루프/정직 점수비 94%(25,877/27,575) → 47%(13,735/29,385).
+//
 // 인출 규칙 준수 요약
-//   · 제출 전 화면: 한국어 뜻 1개(=문제) + 영어 형태 타일들. 어느 타일이 답인지 특정할
-//     정보는 없다. 형태 수(N)는 문제 사양이지 시도에 대한 피드백이 아니다.
+//   · 제출 전 화면: 한국어 뜻 1개(=문제) + 영어 형태 타일들. 같은 크기의 어간 묶음이
+//     최소 2개 깔려 있어, 어느 타일이 답인지는 **뜻을 알아야** 갈린다.
+//     형태 수(N)는 문제 사양이지 시도에 대한 피드백이 아니다.
 //   · 부분 합치기는 "탐색"이 아니라 **비용을 치른 안전 선택**이다 — 어족을 소모하고
-//     배수가 오르지 않는다. 다시 찔러볼 수 없다.
-//   · 문맥(예문) 힌트로 산 정답은 onCorrect 로 올리지 않는다.
+//     시간을 깎고 배수가 오르지 않는다. 다시 찔러볼 수 없다.
+//   · 문맥(예문) 힌트로 산 정답, 이미 답을 열람한 낱말의 재출제 → `{ assisted: true }`.
+//     점수·콤보에는 반영하되 FSRS 카드는 갱신하지 않는다.
+//   · **모르는 낱말은 반드시 오답으로 올라간다.** 넘기기·부분 제출·오답 모두 onWrong 이다 —
+//     기록을 피해 도망가면 정작 복습이 필요한 낱말이 스케줄에서 사라진다.
 //   · 오답 귀속은 언제나 '이번 라운드의 대상 낱말' 하나 — 임의 lemma 강등 없음.
 
 'use client';
@@ -68,15 +87,27 @@ import {
   type Round,
 } from './morph-bank';
 
+/** 스캐폴드 계약 — `assisted: true` 는 게임 점수엔 반영, FSRS 카드는 미갱신. */
+interface ResultOpts {
+  assisted?: boolean;
+}
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 /** 기본 제한 시간. 가산은 킷이 총량의 75% 로 상한 → 최장 ≈ 2분 55초. */
 const TOTAL_MS = 100_000;
+/**
+ * 킷 `useCountdown` 의 가산 상한(총량의 75%)을 여기서도 그대로 센다.
+ * 킷은 상한을 넘긴 extend 를 조용히 버리는데, 그러면 화면에는 "+2.8초"가 뜨고
+ * 시계는 그대로인 **거짓 신호**가 된다. 실제로 들어간 양만 표시하고, 다 찼으면
+ * '시계 가득'이라고 말한다. (상한 비율이 킷에서 바뀌면 이 값도 같이 바꿔야 한다.)
+ */
+const EXTEND_CAP_MS = TOTAL_MS * 0.75;
 const WARN_MS = 15_000;
 /** 마지막 구간 — 모든 획득 ×1.25. 시계가 곧 판돈이 되는 구간. */
 const RUSH_MS = 25_000;
@@ -91,8 +122,37 @@ const T_FULL_BASE = 2_000;
 const T_FULL_PER_FORM = 400;
 const T_TIER_UP = 3_000;
 const T_WRONG = 4_000;
-const T_PASS = 3_000;
+/**
+ * 넘기기 3.0 → 1.5초. 콤보 소멸도 뺐다(동결).
+ *
+ * 근거(반증자 계산 재현): 4형태·13타일 보드에서 타일 하나를 찍으면 맞을 확률 p≈0.31.
+ * 기대 시간손실 = 0.31×(−1.5) + 0.69×(−4) = −3.2초 + 69% 콤보 소멸.
+ * 넘기기가 −3초·콤보 확정 소멸이던 판에서는 '아무거나 찍기'가 항상 우월했다.
+ * −1.5초·콤보 유지로 낮추면 확신이 없는 순간에는 넘기기가 앞선다(−1.5 > −3.2).
+ * 대신 넘긴 라운드는 0점이라, 아는 낱말을 넘기는 것은 여전히 손해다.
+ */
+const T_PASS = 1_500;
+/** 부분 제출도 시간을 쓴다 — '무비용 안전 선택'이 지배 전략이 되지 않게. */
+const T_PARTIAL = 1_500;
 const T_HINT = 1_500;
+/** 답을 이미 열람한 낱말의 재출제 — 인출이 아니라 재인이므로 점수·시간 보상을 깎는다. */
+const RELEARN_SCORE = 0.45;
+const RELEARN_TIME = 0.5;
+/**
+ * 완성 없이(넘기기·부분 합치기) 이 횟수가 연속되면 콤보가 식는다.
+ *
+ * 넘기기에서 콤보 소멸을 뺐더니 시뮬에서 정직 플레이의 콤보가 **한 번도 끊기지 않아**
+ * 최고 콤보 = 완성 수가 됐다(지식률 0.5에서 24연속). 그러면 콤보가 긴장이 아니라 계수기다.
+ * 3회로 두면 (a) 한두 번 모르는 것은 여전히 공짜고 (b) 지식률 0.5 학습자는 세션당
+ * 서너 번 식어 판돈이 되살아난다. 3번째 직전 라운드는 화면에 남은 횟수를 알려 준다.
+ */
+const COMBO_COLD_AT = 3;
+/**
+ * 이 시간 안에 눌린 넘기기는 "읽고 내린 판단"으로 보지 않는다.
+ * 뜻을 읽지도 않고 P 를 연타해 오답만 쌓는 경로를 막는다 — 이 경우 FSRS 에는
+ * 올리지 않고(assisted) 시간만 소모된다. 한국어 한 줄 + 보드 훑기의 하한이 약 1초다.
+ */
+const PASS_READ_MS = 900;
 
 const HOLD_MS: Record<VerdictKind, number> = {
   full: 1_050,
@@ -217,6 +277,8 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const [missed, setMissed] = useState<MissedEntry[]>([]);
   const [hintUsed, setHintUsed] = useState(false);
   const [hintText, setHintText] = useState<string | null>(null);
+  const [relearn, setRelearn] = useState(false);
+  const [cold, setCold] = useState(0);
   const [announce, setAnnounce] = useState('');
   const [gainFx, setGainFx] = useState<{ seq: number; text: string } | null>(null);
   const [timeFx, setTimeFx] = useState<{ seq: number; text: string; bad: boolean } | null>(null);
@@ -234,6 +296,12 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   phaseRef.current = phase;
   const hintRef = useRef(false);
   hintRef.current = hintUsed;
+  /** 답을 열람했지만 **스스로 세우지는 못한** 어족 — 재출제 시 재인 취급. */
+  const revealedRef = useRef<Set<string>>(new Set());
+  const relearnRef = useRef(false);
+  const roundStartRef = useRef(0);
+  /** 완성 없이 지나간 연속 라운드 수(넘기기·부분 합치기). COMBO_COLD_AT 에서 콤보가 식는다. */
+  const coldRef = useRef(0);
   const solvedRef = useRef(0);
   const bagRef = useRef<Family[]>([]);
   const prevLemmaRef = useRef<string | null>(null);
@@ -265,6 +333,19 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   });
   const { extend, drain, reset: resetClock } = cd;
 
+  // 실제로 시계에 들어간 양만 돌려준다(상한 초과분은 0).
+  const grantedRef = useRef(0);
+  const grantTime = useCallback(
+    (ms: number): number => {
+      const allowed = Math.max(0, Math.min(ms, EXTEND_CAP_MS - grantedRef.current));
+      if (allowed <= 0) return 0;
+      grantedRef.current += allowed;
+      extend(allowed);
+      return allowed;
+    },
+    [extend],
+  );
+
   const rush = phase !== 'done' && cd.remainMs > 0 && cd.remainMs <= RUSH_MS;
   rushRef.current = rush;
 
@@ -272,9 +353,10 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   // 티어 승급은 hit() 안에서 동기 호출된다 — 시간 가산은 여기서 하되, 표시는
   // 같은 프레임의 정답 가산과 합쳐서 한 번만 띄운다(문구가 서로를 덮어쓰지 않게).
   const pendingTierRef = useRef<string | null>(null);
+  const pendingTierMsRef = useRef(0);
   const combo = useCombo({
     onTierUp: (tier) => {
-      extend(T_TIER_UP);
+      pendingTierMsRef.current = grantTime(T_TIER_UP);
       pendingTierRef.current = tier.label ?? fmtMult(tier.mult);
       coin();
     },
@@ -294,13 +376,19 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     prevLemmaRef.current = fam.lemma;
     roundIdRef.current += 1;
     const r = buildRound(p, fam, solvedRef.current, roundIdRef.current);
+    const seenAnswer = revealedRef.current.has(fam.lemma);
+    relearnRef.current = seenAnswer;
+    roundStartRef.current = performance.now();
     setRound(r);
+    setRelearn(seenAnswer);
     setSel([]);
     setVerdict(null);
     setHintUsed(false);
     setHintText(null);
     setPhase('playing');
-    setAnnounce(`${fam.ko} · ${r.answer.length}형태${r.dropped ? ' · 원형 제외' : ''}`);
+    setAnnounce(
+      `${fam.ko} · ${r.answer.length}형태${r.dropped ? ' · 원형 제외' : ''}${seenAnswer ? ' · 아까 답을 본 낱말' : ''}`,
+    );
   }, []);
 
   // 마운트 · 자료 교체 시 판 구성
@@ -309,6 +397,7 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     prevLemmaRef.current = null;
     roundIdRef.current = 0;
     solvedRef.current = 0;
+    revealedRef.current = new Set();
     nextRound();
   }, [pool, nextRound]);
 
@@ -317,6 +406,12 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     bagRef.current = [];
     prevLemmaRef.current = null;
     roundIdRef.current = 0;
+    revealedRef.current = new Set();
+    coldRef.current = 0;
+    grantedRef.current = 0;
+    pendingTierMsRef.current = 0;
+    pendingTierRef.current = null;
+    setCold(0);
     setScore(0);
     setSolved(0);
     setGems([]);
@@ -400,8 +495,36 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       const good = picked.filter((f) => answerSet.has(f));
       const bad = picked.filter((f) => !answerSet.has(f));
       const hinted = hintRef.current;
+      // 이 낱말의 답을 이번 세션에서 이미 열람했는가 — 그렇다면 이번 완성은 인출이 아니다.
+      const seenAnswer = relearnRef.current;
       const rushMul = rushRef.current ? RUSH_MULT : 1;
       const hintMul = hinted ? 0.5 : 1;
+      const relearnMul = seenAnswer ? RELEARN_SCORE : 1;
+      /** 정답을 이미 본 뒤의 '정답'은 FSRS 에 올리지 않는다(재인 ≠ 인출). */
+      const assistedOpts: ResultOpts | undefined = hinted || seenAnswer ? { assisted: true } : undefined;
+      /** 답을 열람만 하고 스스로 세우지 못한 어족은 이후 재출제에서 재인 취급. */
+      const markSeen = () => revealedRef.current.add(r.fam.lemma);
+      /**
+       * 완성 없이 지나간 라운드를 센다. 3번째에서 콤보가 식는다 —
+       * 넘기기 자체는 공짜(콤보 유지)로 두되, 넘기기만으로 배수를 무한정 들고 가지는
+       * 못하게 하는 상한이다. 반환값은 화면에 띄울 안내 문구.
+       */
+      const coolOff = (): string => {
+        const streak = coldRef.current + 1;
+        if (streak >= COMBO_COLD_AT) {
+          coldRef.current = 0;
+          setCold(0);
+          comboMiss();
+          return '콤보가 식었어요';
+        }
+        coldRef.current = streak;
+        setCold(streak);
+        return `콤보 유지 ${streak}/${COMBO_COLD_AT}`;
+      };
+      const resetCold = () => {
+        coldRef.current = 0;
+        setCold(0);
+      };
 
       let kind: VerdictKind;
       if (mode === 'pass') kind = 'pass';
@@ -419,51 +542,67 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         const mult = multFor(c);
         const base =
           good.length * PTS_TILE + PTS_COMPLETE + PTS_PER_EXTRA_FORM * Math.max(0, r.answer.length - 2);
-        gain = Math.round(base * mult * rushMul * hintMul);
+        gain = Math.round(base * mult * rushMul * hintMul * relearnMul);
         merged = good;
         icon = 'correct';
-        main = `합쳐졌어요 · ${fmtMult(mult)}${rushMul > 1 ? ' · 러시' : ''}`;
-        const addMs = T_FULL_BASE + T_FULL_PER_FORM * Math.max(0, r.answer.length - 2);
-        extend(addMs);
+        main = seenAnswer
+          ? `다시 세웠어요 · ${fmtMult(mult)} · 점수 절반`
+          : `합쳐졌어요 · ${fmtMult(mult)}${rushMul > 1 ? ' · 러시' : ''}`;
+        // 답을 열람했던 낱말은 시간 보상도 절반 — '한 번 사서 계속 되파는' 루프를 끊는다.
+        const addMs = Math.round(
+          (T_FULL_BASE + T_FULL_PER_FORM * Math.max(0, r.answer.length - 2)) * (seenAnswer ? RELEARN_TIME : 1),
+        );
+        const gotMs = grantTime(addMs) + pendingTierMsRef.current;
+        pendingTierMsRef.current = 0;
         const tierLabel = pendingTierRef.current;
         pendingTierRef.current = null;
-        showTime(
-          tierLabel ? `+${fmtSec(addMs + T_TIER_UP)}초 · ${tierLabel}` : `+${fmtSec(addMs)}초`,
-          false,
-        );
+        // 상한에 걸려 실제로 안 들어갔으면 들어간 척하지 않는다.
+        const timeText = gotMs > 0 ? `+${fmtSec(gotMs)}초` : '시계 가득';
+        showTime(tierLabel ? `${timeText} · ${tierLabel}` : timeText, false);
         sfxCorrect(c, c % 3 === 0);
         setBurstSeq((n) => n + 1);
         solvedRef.current += 1;
         setSolved((s) => s + 1);
         setGems((g) => [...g, r.fam.lemma]);
-        if (!hinted) onCorrect?.(r.fam.word);
+        resetCold();
+        onCorrect?.(r.fam.word, assistedOpts);
       } else if (kind === 'partial') {
-        gain = Math.round(good.length * PTS_TILE_PARTIAL * rushMul * hintMul);
+        gain = Math.round(good.length * PTS_TILE_PARTIAL * rushMul * hintMul * relearnMul);
         merged = good;
         icon = 'near';
-        main = `부분 합치기 · ${good.length}/${r.answer.length}형태 · 배수는 그대로`;
+        main = `부분 합치기 · ${good.length}/${r.answer.length}형태 · ${coolOff()}`;
         nearMiss();
         setBurstSeq((n) => n + 1);
-        // 뜻→낱말 인출 자체는 성공한 절반 이상의 시도만 FSRS 에 올린다.
-        if (!hinted && good.length >= Math.ceil(r.answer.length / 2)) onCorrect?.(r.fam.word);
+        drain(T_PARTIAL);
+        showTime(`−${fmtSec(T_PARTIAL)}초`, true);
+        // 절반만 모은 것은 이 낱말을 아직 못 세운 것이다 → **오답으로 정직하게** 올린다.
+        // (이전엔 good ≥ ⌈N/2⌉ 이면 Rating.Good 이 나가, 2형태 어족에서 타일 하나만 찍는
+        //  무위험 파밍이 성립했다. 다음 판에 다시 만나는 쪽이 학습자에게 이득이다.)
+        onWrong?.(r.fam.word);
+        markSeen();
         setMissed((m) => [...m, { key: `${r.id}`, lemma: r.fam.lemma, ko: r.fam.ko, forms: r.fam.forms }]);
       } else if (kind === 'wrong') {
         comboMiss();
+        resetCold();
         icon = 'wrong';
         main = '다른 낱말의 형태가 섞였어요';
         drain(T_WRONG);
         showTime(`−${fmtSec(T_WRONG)}초`, true);
         sfxWrong();
         onWrong?.(r.fam.word);
+        markSeen();
         setMissed((m) => [...m, { key: `${r.id}`, lemma: r.fam.lemma, ko: r.fam.ko, forms: r.fam.forms }]);
       } else {
-        comboMiss();
+        // 넘기기 — 콤보는 끊지 않고 **동결**한다(0점 + 시간만 지불).
         icon = 'near';
-        main = '넘겼어요 — 답을 열어 둘게요';
+        main = `넘겼어요 — 답을 열어 둘게요 · ${coolOff()}`;
         drain(T_PASS);
         showTime(`−${fmtSec(T_PASS)}초`, true);
         tone(220, 0.13, 'sine', 0.04);
-        onWrong?.(r.fam.word);
+        // 뜻을 읽을 새도 없이 눌린 연타는 "모른다"는 신호가 아니다 → FSRS 미반영.
+        const read = performance.now() - roundStartRef.current >= PASS_READ_MS;
+        onWrong?.(r.fam.word, read ? undefined : { assisted: true });
+        markSeen();
         setMissed((m) => [...m, { key: `${r.id}`, lemma: r.fam.lemma, ko: r.fam.ko, forms: r.fam.forms }]);
       }
 
@@ -490,7 +629,7 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       setPhase('reveal');
       setAnnounce(`${main}. ${r.fam.lemma} · ${r.fam.ko} — ${r.fam.forms.join(', ')}`);
     },
-    [comboHit, comboMiss, extend, drain, showTime, sfxCorrect, sfxWrong, nearMiss, tone, onCorrect, onWrong],
+    [comboHit, comboMiss, grantTime, drain, showTime, sfxCorrect, sfxWrong, nearMiss, tone, onCorrect, onWrong],
   );
 
   // 리빌 유지 시간 후 다음 라운드
@@ -601,7 +740,10 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   }, [verdict]);
 
   // ── 렌더 ────────────────────────────────────────────────────────────────
-  if (pool.families.length < 2) return <NotEnoughWords need={8} onExit={onExit} />;
+  // 어족이 0개일 때만 막는다. (이전 `< 2` 는 사실상 도달 불가였다 — buildPool 이 스코프
+  //  어족이 모자라면 뱅크로 보충하므로 families 는 0 아니면 3 이상이다. 0 이 되는 경우는
+  //  굴절형 있는 스코프 단어가 하나도 없고 뱅크 32어족까지 전부 사용자 단어와 겹칠 때뿐.)
+  if (pool.families.length === 0) return <NotEnoughWords need={8} onExit={onExit} />;
 
   if (phase === 'done') {
     const prev = bestInfo?.prev ?? null;
@@ -741,6 +883,16 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         <div className="mm-chips">
           <span className="mm-chip mm-chip--n">{need}형태</span>
           {round.dropped && <span className="mm-chip mm-chip--drop">원형 제외</span>}
+          {relearn && (
+            <span className="mm-chip mm-chip--relearn" title="아까 답을 열어 본 낱말이에요 — 점수 절반, 복습 기록에는 남지 않아요">
+              <FeedbackIcon kind="near" size={11} /> 답을 봤던 낱말
+            </span>
+          )}
+          {!round.fam.scoped && (
+            <span className="mm-chip mm-chip--bank" title="내 단어장에 없는 보충 낱말이에요 — 복습 기록에는 남지 않아요">
+              보충 낱말
+            </span>
+          )}
           {rush && <span className="mm-chip mm-chip--rush">러시 ×1.25</span>}
           <button
             type="button"
@@ -789,7 +941,7 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
           <span className="mm-verdict-body">
             <span className="mm-verdict-forms">
               {round.id === 1
-                ? '한 낱말의 형태를 전부 모으면 합쳐져요 — 예: go · goes · went · gone'
+                ? '한 낱말의 형태를 전부 모으면 합쳐져요 — 단수/복수·과거형까지 한 묶음이에요'
                 : `전부 맞히면 배수가 오르고 시간이 늘어요 · 하나라도 틀리면 −${fmtSec(T_WRONG)}초`}
             </span>
           </span>
@@ -809,15 +961,20 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         </button>
         <button type="button" className="gk-btn" onClick={() => resolve('pass')} disabled={locked}>
           넘기기 −{fmtSec(T_PASS)}초
+          {combo.combo > 0 && (cold >= COMBO_COLD_AT - 1 ? ' · 콤보 식음' : ' · 콤보 유지')}
         </button>
       </div>
 
       <p className="mm-note">
-        {sel.length === 0
-          ? '한국어 뜻에 맞는 낱말의 형태만 고르세요'
-          : full
+        {sel.length > 0
+          ? full
             ? `완성 제출 · 맞으면 ${fmtMult(multFor(combo.combo + 1))} 배수와 시간 보너스`
-            : '지금 낸 것만 채점돼요 · 안전하지만 배수는 오르지 않아요'}
+            : `지금 낸 것만 채점돼요 · −${fmtSec(T_PARTIAL)}초 · 배수는 오르지 않아요`
+          : cold >= COMBO_COLD_AT - 1 && combo.combo > 0
+            ? '완성 없이 한 번 더 지나가면 콤보가 식어요'
+            : pool.scopedCount === 0
+              ? '맛보기 판이에요 — 복습 기록에는 남지 않아요 · 뜻에 맞는 낱말의 형태만 고르세요'
+              : `한국어 뜻에 맞는 낱말의 형태만 고르세요 · 모르겠으면 넘기기(−${fmtSec(T_PASS)}초)가 찍기보다 나아요`}
       </p>
 
       <p className="mm-keys">
@@ -858,6 +1015,9 @@ const MM_CSS = `
   .mm-chip--n { border-color: color-mix(in srgb, var(--combo) 45%, var(--bd)); color: var(--combo); }
   .mm-chip--drop { border-color: color-mix(in srgb, var(--active) 55%, var(--bd)); color: var(--active); }
   .mm-chip--rush { border-color: color-mix(in srgb, var(--warning) 55%, var(--bd)); color: var(--warning); }
+  /* 색만으로 알리지 않는다 — 아이콘(FeedbackIcon near)과 글자를 함께 준다. */
+  .mm-chip--relearn { gap: 4px; border-style: dashed; border-color: color-mix(in srgb, var(--warning) 50%, var(--bd)); color: var(--warning); }
+  .mm-chip--bank { border-style: dashed; color: var(--t3); }
   .mm-hintbtn { margin-left: auto; min-height: 44px; padding: 0 12px; border-radius: var(--r-md, 8px); border: 1px dashed var(--bd); background: transparent; color: var(--t3); font-family: var(--font-display, system-ui); font-size: 11.5px; font-weight: 700; cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
   .mm-hintbtn:hover:not(:disabled) { color: var(--t1); border-color: var(--t3); background: color-mix(in srgb, var(--bg) 70%, transparent); }
   .mm-hintbtn:active:not(:disabled) { transform: scale(.97); }

@@ -236,16 +236,102 @@ function countValid(pset: Set<string>, root: string): number {
   return SPELLS_BY_ROOT[root].reduce((n, s) => n + (pset.has(s.p) ? 1 : 0), 0);
 }
 
+// ─── 학습자 단어장 연결 ────────────────────────────────────────────────────
+//
+// v07.10. 이전 bias 는 `en.includes(root)` 부분문자열이었다. 실 DB(vocabularies 2,106행)
+// 에서 이 규칙은 'do'→abandon/doctor/anecdote, 'read'→already/spread, 'tell'→intelligent
+// 처럼 오탐이 지배적이라 "내 단어와 연결됐다"가 사실상 무작위였다.
+//
+// 지금은 **정확 일치만** 쓴다 — 세 경로 모두 양쪽 형태소가 큐레이션된 것이라 오탐이 0이다:
+//   ① 학습자 단어가 어근 자체와 같다        (cover, place, …)
+//   ② 학습자 단어가 뱅크 주문과 같다        (discover → 어근 cover)
+//   ③ 학습자 단어가 접두사+어근과 같다      (unread 처럼 뱅크에 없는 조합도 어근은 유효)
+//
+// 자동 형태소 분해(임의 단어를 접두사+나머지로 쪼개기)는 **일부러 하지 않는다**.
+// 실제로 돌려보면 release=re+lease, display=dis+play, remain=re+main, repair=re+pair,
+// disease=dis+ease, prepare=pre+pare 처럼 '진짜 단어 + 진짜 접두사'인데 형태론적으로는
+// 틀린 분해가 대량으로 나온다. 잘못 가르치는 것은 안 가르치는 것보다 나쁘다.
+export interface SessionBias {
+  /** 회랑 격자에 우선 배치할 어근. */
+  roots: Set<string>;
+  /** 학습자 단어장에 실제로 있는 단어(소문자). 봉인 우선 선정 + FSRS 적재 대상. */
+  words: Set<string>;
+}
+
+export function deriveBias(pool: { en: string }[] | undefined): SessionBias {
+  const words = new Set<string>();
+  const roots = new Set<string>();
+  if (!pool || pool.length === 0) return { roots, words };
+  for (const w of pool) {
+    const en = w.en.trim().toLowerCase();
+    if (en) words.add(en);
+  }
+  for (const r of ROOT_KEYS) if (words.has(r)) roots.add(r); // ①
+  for (const s of SPELLS) if (words.has(s.word)) roots.add(s.r); // ②
+  for (const p of PREFIX_KEYS) for (const r of ROOT_KEYS) if (words.has(p + r)) roots.add(r); // ③
+  return { roots, words };
+}
+
+// ─── 봉인 접두사 다양성 (익스플로짓 3) ─────────────────────────────────────
+//
+// 반증 실측: 봉인 전원이 같은 접두사인 회랑이 회랑1 기준 15.1%. 그러면 첫 봉인에서
+// 접두사를 알아낸 순간 나머지는 어근 n지선다로 줄어 형태론 판단 자체가 사라진다.
+// 이전 가드(:300-307)는 "어근이 안 겹치는 대체 주문"을 찾다가 없으면 조용히 포기했다 —
+// 좁은 격자에서 그 대체는 대개 없으므로 가드가 사실상 꺼져 있었다.
+//
+// 지금은 두 단계에서 막는다:
+//   (a) 격자 단계 — '접두사도 어근도 서로 다른' 주문을 몇 개까지 뽑을 수 있는지
+//       이분 최대매칭으로 **실제로 계산**해, 목표 종수를 못 만드는 격자는 아예 거른다.
+//   (b) 선정 단계 — 그 매칭을 먼저 깔고 남은 자리를 채운다(포기 경로 없음).
+const PREFIX_DIVERSITY_TARGET = 3;
+
+function prefixTarget(cfg: CorridorCfg): number {
+  return Math.min(cfg.seals, cfg.nPre, PREFIX_DIVERSITY_TARGET);
+}
+
+/** valid 안에서 접두사·어근이 모두 서로 다른 주문을 최대 몇 개 뽑을 수 있나(이분 최대매칭). */
+function maxDistinctMatch(valid: Spell[]): number {
+  const byPre = new Map<string, string[]>();
+  for (const s of valid) {
+    const a = byPre.get(s.p);
+    if (a) a.push(s.r);
+    else byPre.set(s.p, [s.r]);
+  }
+  const matchRoot = new Map<string, string>();
+  const augment = (p: string, seen: Set<string>): boolean => {
+    for (const r of byPre.get(p) ?? []) {
+      if (seen.has(r)) continue;
+      seen.add(r);
+      const cur = matchRoot.get(r);
+      if (cur === undefined || augment(cur, seen)) {
+        matchRoot.set(r, p);
+        return true;
+      }
+    }
+    return false;
+  };
+  let m = 0;
+  for (const p of byPre.keys()) if (augment(p, new Set())) m++;
+  return m;
+}
+
 /**
  * 격자를 고른다. 계약:
  *  (a) 실재 단어 수 ≥ 봉인 수 + 2  → 반드시 미끼가 존재한다.
  *  (b) 실재 단어 수 < 전체 칸 수    → 반드시 '없는 말' 칸이 존재한다.
- * 두 조건을 못 맞추면 단계적으로 완화한다(항상 판이 성립하도록).
+ *  (c) 접두사 다양성 목표를 실제로 달성 가능한 격자여야 한다(strict 2 에서만 강제).
+ * 조건을 못 맞추면 단계적으로 완화한다(항상 판이 성립하도록).
  */
-function choosePick(rng: () => number, cfg: CorridorCfg, bias: Set<string>, strict: number): Pick | null {
+function choosePick(rng: () => number, cfg: CorridorCfg, bias: SessionBias, strict: number): Pick | null {
   let best: Pick | null = null;
   const cells = cfg.nPre * cfg.nRoot;
   const minValid = strict >= 2 ? cfg.seals + 2 : strict === 1 ? cfg.seals + 1 : cfg.seals;
+  const wantPre = prefixTarget(cfg);
+  // '더 볼 필요 없는' 격자 비용 — 미끼 밀도 정확 + 학습자 단어 3개(또는 가능한 만큼) 포함.
+  // 단어장이 비면 exitCost = 0 이라 기존과 같은 속도로 즉시 빠진다.
+  // 실측(4,000 세션 시뮬): 전수 탐색 대비 세션 생성 16.4ms → 1.4ms, 학습자 단어 봉인 9.21 → 7.52개.
+  const ownGlobal = SPELLS.reduce((n, s) => n + (bias.words.has(s.word) ? 1 : 0), 0);
+  const exitCost = -Math.min(cfg.seals, 3, ownGlobal) * 1.2;
 
   for (let a = 0; a < 40; a++) {
     const prefixes = rshuffle(rng, PREFIX_KEYS).slice(0, cfg.nPre);
@@ -264,16 +350,76 @@ function choosePick(rng: () => number, cfg: CorridorCfg, bias: Set<string>, stri
       // 봉인은 어근이 겹치지 않게 뽑는다 → 서로 다른 어근이 최소 seals 개 필요.
       const distinctRoots = new Set(valid.map((s) => s.r)).size;
       if (distinctRoots < cfg.seals) continue;
-      const biasHit = roots.filter((r) => bias.has(r)).length;
-      const cost = Math.abs(total - cfg.targetValid) - biasHit * 0.7;
-      if (!best || cost < best.cost) best = { prefixes, roots, valid, cost };
-      if (cost <= 0) return best;
+      const biasHit = roots.filter((r) => bias.roots.has(r)).length;
+      const ownHit = valid.reduce((n, s) => n + (bias.words.has(s.word) ? 1 : 0), 0);
+      // 격자 비용: 미끼 밀도 목표에서 벗어난 만큼 벌점, 학습자 어근·단어는 감점(우대).
+      // 학습자 단어 가중치(1.2)를 어근(0.7)보다 크게 둔 이유 — 봉인이 학습자 단어일 때만
+      // recordGameResult 가 실제로 카드를 갱신한다(그 외는 vocabularies 미존재로 skip).
+      const cost = Math.abs(total - cfg.targetValid) - biasHit * 0.7 - Math.min(ownHit, cfg.seals) * 1.2;
+      if (best && cost >= best.cost) continue; // 최대매칭 계산 전에 걸러 비용을 아낀다
+      if (strict >= 2 && maxDistinctMatch(valid) < wantPre) continue;
+      best = { prefixes, roots, valid, cost };
+      if (cost <= exitCost) return best;
     }
   }
   return best;
 }
 
-function buildCorridor(rng: () => number, index: number, bias: Set<string>): Corridor {
+/**
+ * 봉인 선정 — 어근 중복 없이, 접두사는 목표 종수 이상, 학습자 단어는 우선.
+ * 최대매칭을 먼저 깔기 때문에 "대체가 없어 조용히 포기"하는 경로가 존재하지 않는다.
+ */
+function selectSeals(rng: () => number, valid: Spell[], cfg: CorridorCfg, bias: SessionBias): Spell[] {
+  const wantPre = Math.min(prefixTarget(cfg), maxDistinctMatch(valid));
+  const ownValid = valid.filter((s) => bias.words.has(s.word));
+  const wantOwn = Math.min(cfg.seals, new Set(ownValid.map((s) => s.r)).size);
+
+  let best: Spell[] = [];
+  let bestRank = -1;
+
+  for (let t = 0; t < 16; t++) {
+    // 학습자 단어를 앞으로(안정 정렬) — 접두사 다양성 목표를 깨지 않는 선에서만 반영된다.
+    const ordered = rshuffle(rng, valid).sort((a, b) => (bias.words.has(b.word) ? 1 : 0) - (bias.words.has(a.word) ? 1 : 0));
+    const seals: Spell[] = [];
+    const usedRoots = new Set<string>();
+    const usedPre = new Set<string>();
+    // ① 접두사·어근 모두 새로운 것 — 다양성을 먼저 확보한다.
+    for (const s of ordered) {
+      if (seals.length >= cfg.seals) break;
+      if (usedRoots.has(s.r) || usedPre.has(s.p)) continue;
+      seals.push(s);
+      usedRoots.add(s.r);
+      usedPre.add(s.p);
+    }
+    // ② 어근만 새로운 것 — 남은 자리를 채운다(접두사 재사용 허용).
+    for (const s of ordered) {
+      if (seals.length >= cfg.seals) break;
+      if (usedRoots.has(s.r)) continue;
+      seals.push(s);
+      usedRoots.add(s.r);
+      usedPre.add(s.p);
+    }
+    // ③ 격자가 극단적으로 좁을 때만 어근 중복 허용(실측 0회 — 판이 멈추지 않게 하는 보험).
+    for (const s of ordered) {
+      if (seals.length >= cfg.seals) break;
+      if (seals.includes(s)) continue;
+      seals.push(s);
+    }
+
+    const dp = new Set(seals.map((s) => s.p)).size;
+    const own = seals.reduce((n, s) => n + (bias.words.has(s.word) ? 1 : 0), 0);
+    // 다양성이 우선(×100), 학습자 단어는 그 안에서의 우대.
+    const rank = Math.min(dp, wantPre) * 100 + own;
+    if (rank > bestRank) {
+      bestRank = rank;
+      best = seals;
+    }
+    if (dp >= wantPre && own >= wantOwn) break;
+  }
+  return best;
+}
+
+function buildCorridor(rng: () => number, index: number, bias: SessionBias): Corridor {
   const cfg = CORRIDOR_CFG[index];
   const pick = choosePick(rng, cfg, bias, 2) ?? choosePick(rng, cfg, bias, 1) ?? choosePick(rng, cfg, bias, 0);
 
@@ -286,31 +432,7 @@ function buildCorridor(rng: () => number, index: number, bias: Set<string>): Cor
   const pset = new Set(prefixes);
   const rset = new Set(roots);
   const valid = pick ? pick.valid : SPELLS.filter((s) => pset.has(s.p) && rset.has(s.r));
-
-  // 봉인 선택 — 어근 중복 없이, 접두사는 되도록 두 종류 이상.
-  const shuffled = rshuffle(rng, valid);
-  const seals: Spell[] = [];
-  const usedRoots = new Set<string>();
-  for (const s of shuffled) {
-    if (seals.length >= cfg.seals) break;
-    if (usedRoots.has(s.r)) continue;
-    seals.push(s);
-    usedRoots.add(s.r);
-  }
-  if (seals.length > 1 && new Set(seals.map((s) => s.p)).size === 1) {
-    const alt = shuffled.find((s) => s.p !== seals[0].p && !usedRoots.has(s.r));
-    if (alt) {
-      usedRoots.delete(seals[seals.length - 1].r);
-      seals[seals.length - 1] = alt;
-      usedRoots.add(alt.r);
-    }
-  }
-  // 어근 중복 없이 못 채운 경우(격자가 좁을 때)만 중복을 허용해 개수를 맞춘다.
-  for (const s of shuffled) {
-    if (seals.length >= cfg.seals) break;
-    if (seals.includes(s)) continue;
-    seals.push(s);
-  }
+  const seals = selectSeals(rng, valid, cfg, bias);
 
   return {
     index,
@@ -324,19 +446,22 @@ function buildCorridor(rng: () => number, index: number, bias: Set<string>): Cor
   };
 }
 
-/** 시드 하나로 4회랑 전부를 만든다. bias 는 학습자 단어장에 등장하는 어근(문맥 연결). */
-export function makeSession(seed: number, bias: Set<string>): Corridor[] {
+/** 시드 하나로 4회랑 전부를 만든다. bias 는 학습자 단어장 정확 일치 결과(deriveBias). */
+export function makeSession(seed: number, bias: SessionBias): Corridor[] {
   const rng = mulberry32(seed);
   return CORRIDOR_CFG.map((_, i) => buildCorridor(rng, i, bias));
 }
 
-/** 학습자 단어장에서 이 어근을 품은 단어 하나 — 문맥 연결용(없으면 null). */
-export function findOwnWord(pool: { en: string; ko: string }[] | undefined, root: string, word: string) {
+/**
+ * 학습자 단어장에 이 단어가 실제로 있으면 그 항목 — 없으면 null.
+ *
+ * 이전에는 `en.includes(root)` 폴백이 있어서 실 DB 에서 undo 옆에 '내 단어장 · abandon'
+ * 이 떴다. 거짓 연결은 Context-Dependent 를 돕기는커녕 학습자를 헷갈리게 한다.
+ */
+export function findOwnWord(pool: { en: string; ko: string }[] | undefined, word: string) {
   if (!pool || pool.length === 0) return null;
   const lower = word.toLowerCase();
-  const exact = pool.find((w) => w.en.toLowerCase() === lower);
-  if (exact) return exact;
-  return pool.find((w) => w.en.toLowerCase().includes(root) && w.en.toLowerCase() !== root) ?? null;
+  return pool.find((w) => w.en.trim().toLowerCase() === lower) ?? null;
 }
 
-export { ROOT_KEYS };
+export { ROOT_KEYS, PREFIX_KEYS };

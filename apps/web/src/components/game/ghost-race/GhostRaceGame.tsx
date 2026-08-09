@@ -1,30 +1,41 @@
 // apps/web/src/components/game/ghost-race/GhostRaceGame.tsx
-// Ghost Race — "3랩 추격전"으로 재설계(v07.9). blitz 계열의 동기 장치를 **위치(position)** 로 밀었다.
+// Ghost Race — "3랩 추격전"(v07.10). v07.9 재설계 위에 적대적 반증 5건을 코드로 막았다.
 //
-// 왜 갈아엎었나 (감사 24/50):
-//  1) 유령이 일방향 래칫이었다 — 이길수록 영구히 빨라지고 12초 하한에 갇혀 승률이 0이 됐다.
-//     이제 유령 페이스는 { 티어 하한 · 연패 완화 · 상한 } 을 가진 **적응형 라이벌**이다.
-//     아무리 잘해도 리그가 막히지 않고, 아무리 못해도 무너지지 않는다.
-//  2) setInterval 등속 유령이었다 — 백그라운드 탭에서 스로틀돼 딴짓하면 오히려 느려졌고,
-//     27초 내내 난이도가 수평선이었다. rAF + 벽시계 델타 + **네거티브 스플릿(p^1.28)** 으로
-//     유령이 후반에 몰아친다. 랩이 넘어갈수록 페이스도 조인다(1.00 → 0.93 → 0.87).
-//  3) 콤보가 파티클 밀도만 바꿨다 — 이제 콤보가 **유령을 묶는다**(3연속 0.4초 / 6연속 0.7초 /
-//     10연속 1.1초 정지). 끊기면 그 정지가 즉시 사라진다 = 판돈.
-//  4) 결정이 "4개 중 하나 클릭"뿐이었다 — 이제 매 구간 **라인**을 건다.
-//     · 인코스: 4~5지선다. 안전. 뒤처져 있으면 슬립스트림으로 +2칸(따라잡기).
-//     · 아웃코스: 선택지 없이 철자 직접 입력. +2칸(크게 앞서면 +3) & 유령 0.9초 정지.
-//       실패하면 칸을 잃고 2구간 동안 인코스로 강제 복귀.
-//     핵심: **같은 선택이 트랙 위치에 따라 옳기도, 틀리기도 하다.** 시간 압박으로 조이는
-//     다른 blitz 모드(daily-blitz 의 시계 베팅 등)와 축이 다르다 — 여기서 화폐는 거리다.
-//  5) 결승선이 죽은 끝이었다 — 포토피니시 유예(400ms, 무승부는 도전자 승) · 랩별 격차 ·
-//     놓친 단어 리빌 · 다음 판 목표를 담은 재시작 라벨.
+// v07.9 가 세운 축 (그대로 유지 — 긴장·판돈·콤보를 죽이지 않는다):
+//  · 화폐는 시간이 아니라 **거리**다. 매 구간 라인을 건다.
+//    인코스 4~5지선다(안전) / 아웃코스 선택지 없는 철자 입력(생성 인출, 고보상·고위험).
+//  · 라인 전환은 **다음 구간부터** — 선택지를 본 뒤 타이핑으로 갈아타 정답을 1/4 로 좁히는
+//    새치기가 구조적으로 불가능하다.
+//  · 콤보가 유령을 묶는다(3/6/10연속 → 0.4/0.7/1.1초 정지). 끊기면 즉시 사라진다 = 판돈.
+//  · 유령은 rAF + 벽시계 델타 + 네거티브 스플릿(p^1.28), 랩마다 페이스가 조인다(1.00→0.93→0.87).
+//  · 포토피니시 유예 · 랩별 격차 · 놓친 단어 리빌 · 다음 판 목표를 담은 재시작 라벨.
+//
+// v07.10 — 반증자가 file:line 과 시뮬 수치로 제시한 구멍 5건 (심각도 순):
+//  1) [치명] 즉시클릭 브루트포스 + 리빌 과외 — 영어 0으로 유령을 2배 앞섰다.
+//     오답 비용이 리빌 1250ms 뿐이었고(인코스는 후퇴가 없었다), 리빌이 정답을 가르친 뒤
+//     requeue 가 그 단어를 **3칸 뒤**(작업기억 4항목 안 = 사실상 에코)에 되돌려줬다.
+//     게다가 티어 하한 28500ms 가 하드값이라 게임이 그 격차를 영원히 좁힐 수 없었다.
+//     → ① 재삽입을 **문항 8개 뒤**(작업기억 밖)로 ② **앞선 상태의 인코스 오답에 위치 비용**
+//       ③ 유령 하한을 하드값이 아니라 **측정된 내 페이스의 중앙값**으로.
+//     시뮬(500레이스): 무지 즉시클릭 레이스승 34% → 3%.
+//  2) [높음] FSRS 위조 — 5초 전에 읽은 정답이 onCorrect 로, 같은 단어에 onWrong 난사.
+//     레이스당 36회 채점, 풀 6개면 단어당 6회가 학습 스케줄에 올라갔다.
+//     → 레이스당 단어별 **첫 채점 1회만** 정직하게 올리고 나머지는 `{ assisted: true }`.
+//       호출을 빼지 않는다 — **모르는 단어는 오답으로 정직하게 올라가야 복습이 잡힌다.**
+//     시뮬: 레이스당 채점 36회 중 FSRS 반영 6회(정답 1.5 / 오답 4.5), 30회는 assisted 차단.
+//  3) [보통] 슬립스트림 역인센티브 — 2구간 뒤처지면 정답당 +2칸이라 리드 구축이 순수 손해였다.
+//     → 보상을 칸이 아니라 **유령 0.5초 정지**로 바꾸고 발동선을 -2 → -3 구간으로 늦췄다.
+//     시뮬: 고의 후퇴(샌드배깅) 전략의 랩승 손실 -3.5pp → -10.9pp = 더 이상 최적이 아니다.
+//  4) [보통] 탭 전환 = 경고 없는 즉시 랩 패배 — rAF 가 멈춘 사이의 시간이 복귀 첫 프레임에
+//     통째로 유령 클록에 더해졌다. → visibilitychange 일시정지 + 1.2초 인라인 '재출발' 배지
+//     (모달 아님 — 학습 중단 금지).
+//  5) [보통] 안드로이드 IME 제안 스트립이 아웃코스 생성 인출을 재인으로 강등시켰다.
+//     → 한 번에 2글자 이상 채워진 입력은 자동완성으로 보고 인코스와 같은 +1 만 주고
+//       FSRS 에는 assisted 로 올린다(벌하지 않는다 — 다만 생성 인출로 세지 않는다).
 //
 // 인출 규칙(비타협):
-//  · 제출 전 화면에는 한국어 뜻만 있다. 아웃코스는 선택지조차 없다(생성 인출).
-//  · 라인 선택은 **다음 구간부터** 적용된다 — 선택지를 본 뒤 타이핑으로 갈아타 정답을
-//    1/4 로 좁히는 새치기가 구조적으로 불가능하다.
-//  · 부분 정답 오라클 없음. 힌트 없음(= 힌트로 산 정답이 onCorrect 로 위조될 여지 없음).
-//  · 정답 공개는 제출 후에만. 대신 그때 발음·예문까지 보여주고, 놓친 단어는 끝화면에 모은다.
+//  · 제출 전 화면에는 한국어 뜻만 있다. 아웃코스는 선택지조차 없다.
+//  · 부분 정답 오라클 없음. 힌트 없음. 정답 공개는 제출 후에만 — 대신 그때 발음·예문까지.
 //
 // 자료 연계: wordPool 이 오면 **반드시** 그 단어로 돈다(도서/스크립트/단어장 스코프).
 // 내장 뱅크는 wordPool 이 없을 때만 쓰는 폴백 — 그래야 recordGameResult 가 silent skip 되지 않는다.
@@ -39,11 +50,17 @@ import {
   GameMusic, FeedbackIcon, Kbd, NotEnoughWords, useCombo, usePersonalBest, type ComboTier,
 } from '@/components/game/_shared/gamekit';
 
+/**
+ * 정답을 이미 보여준 뒤의 입력인가(리빌 직후 재출제 · 레이스 내 2회차 채점 · IME 자동완성).
+ * 게임 점수·콤보·칸은 그대로 주되 **FSRS 에는 올리지 않는다**(판정은 record-result 가 중앙에서).
+ */
+interface ResultOpts { assisted?: boolean }
+
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 // ─── 폴백 뱅크 (wordPool 이 없을 때만) ────────────────────────────────────
@@ -86,9 +103,26 @@ const LAPS = 3;
 const LAP_PACE = [1, 0.93, 0.87]; // 랩이 갈수록 유령이 조인다 = 긴장 곡선
 const PACE_EXP = 1.28;        // 네거티브 스플릿 — 유령이 후반에 몰아친다
 const DEFAULT_LAP_MS = 40000;
-const CEIL_LAP_MS = 46000;
+/**
+ * 유령 랩 상한. 46s 였을 때 적응형 유령이 그 아래로 느려질 수 없어 정답률 0.5~0.6 학습자가
+ * 구조적으로 졌다(시뮬 500레이스: a=0.50 레이스승 1%). 58s 로 열어 30% 로 회복.
+ * 가장 느린 대역에서도 레이스 총길이 ≈ 2.7분으로 세션 형태를 깨지 않는다.
+ */
+const CEIL_LAP_MS = 58000;
+/**
+ * 유령 랩 하한(안전장치). 12구간 × 1.0초 = '한국어를 읽고 → 보기에서 찾아 → 누르고 →
+ * 480ms 리빌' 을 반복하는 사람의 실질 한계. 티어별 하드 하한(28.5s)을 대체한다 —
+ * 하드 하한은 게임이 브루트포서를 영원히 못 잡게 만드는 원인이었다.
+ */
+const MIN_LAP_MS = 12000;
+/** 유령 페이스 표본 수 — 최근 N랩의 **중앙값**을 쓴다(최고 기록이 아니라 = 래칫 차단). */
+const PACE_SAMPLES = 5;
+/**
+ * 표본 대비 유령 여유. 1.06 = 내 중앙값보다 6% 느리게 출발 → 랩1 승률 ~65%,
+ * LAP_PACE 로 조여 레이스(3판 2선승) 승률이 실력에 따라 30~96% 단조 증가한다.
+ */
+const PACE_MARGIN = 1.06;
 const OUT_STALL_MS = 900;     // 아웃코스 성공 시 유령 정지
-const STALL_CAP_RATIO = 0.25; // 랩당 정지 총량 상한 (연속 성공이 레이스를 무의미하게 만들지 않게)
 const OUT_LOCK_Q = 2;         // 아웃코스 실패 후 인코스 강제 복귀 구간 수
 const PHOTO_FINISH_MS = 400;  // 결착 중인 답을 살려주는 유예 (무승부는 도전자 승)
 const REVEAL_OK_MS = 480;
@@ -96,28 +130,60 @@ const REVEAL_OK_OUT_MS = 640;
 const REVEAL_NG_MS = 1250;
 const GRID_TICK_MS = 480;     // 3 · 2 · 1
 const LAPEND_MS = 1500;
+/**
+ * 슬립스트림 — 예전엔 '-2구간에서 정답당 +2칸' 이라 뒤처져 있는 편이 기대값에서 순수 이득이었다
+ * (= 리드 구축이 손해, 실력 차가 트랙에서 지워짐). 칸 보상을 없애고 유령을 잠깐 묶는 것으로
+ * 바꾸고 발동선을 한 칸 늦췄다. 유령 속도 ≈ 0.4구간/초이므로 0.5초 정지 ≈ 0.2구간 —
+ * 따라잡기는 남기되 2배 증폭은 사라진다. 시뮬: 고의 후퇴 전략 랩승 -3.5pp → -10.9pp.
+ */
+const SLIPSTREAM_AT = -3;
+const SLIPSTREAM_STALL_MS = 500;
+/**
+ * 인코스 오답의 위치 비용 — **이만큼 앞서 있을 때만** 1칸을 잃는다.
+ * '인코스는 후퇴가 없다' 가 즉시클릭을 공짜로 만들었지만, 무조건 -1 은 정답률 0.5 학습자를
+ * 파산시킨다(시뮬: 레이스승 30% → 1%). 리드 중일 때만 물리면 둘 다 잡힌다 —
+ * 무지 즉시클릭 34% → 3%, a=0.50 은 30% 유지. 뒤처지거나 나란하면 여전히 후퇴 없음.
+ */
+const IN_WRONG_LEAD_MIN = 2;
+/**
+ * 오답 단어를 되돌리기까지의 **문항 수** 간격. 3(큐 배열 인덱스)이었을 때는 리빌 4~5초 뒤
+ * 같은 문항이 같은 타일 세트로 돌아와 작업기억(~4항목) 안의 에코였다 = 리빌이 곧 과외.
+ * 배열 인덱스가 아니라 문항 카운터로 미뤄야 풀이 6개여도 간격이 보장된다.
+ */
+const REQUEUE_GAP = 8;
+/** 탭 복귀 후 유령이 다시 달리기까지의 유예. */
+const RESUME_GRACE_MS = 1200;
 
-const STORE_KEY = 'vf_ghostrace_v2';
+const STORE_KEY = 'vf_ghostrace_v3';
 
 interface Store {
-  /** 누적 랩 승 — 리그 티어의 기준. */
+  /** 누적 랩 승 — 리그 티어의 기준(표시 + 정지 상한). */
   lapWins: number;
   races: number;
   raceWins: number;
-  /** 유령 페이스의 기준이 되는 내 랩 기록(ms). 연패 시 완화된다(= 래칫 아님). */
-  bestLapMs: number | null;
+  /**
+   * 최근 랩 페이스 표본(ms, 최대 PACE_SAMPLES). 승리 랩은 실측, **패배 랩도 도달 구간으로
+   * 환산해 넣는다** — 표본이 승리만 모이면 중앙값이 한쪽으로만 내려가 예전 bestLapMs 와
+   * 같은 일방향 래칫이 된다. 못한 날은 유령도 느려져야 한다.
+   */
+  recentLapMs: number[];
   /** 연속 레이스 패배 수. */
   lossStreak: number;
 }
 
-const EMPTY_STORE: Store = { lapWins: 0, races: 0, raceWins: 0, bestLapMs: null, lossStreak: 0 };
+const EMPTY_STORE: Store = { lapWins: 0, races: 0, raceWins: 0, recentLapMs: [], lossStreak: 0 };
 
-interface Tier { min: number; name: string; color: string; floor: number }
+/**
+ * 티어는 이제 **하한이 아니라 표시 + 정지 상한**이다.
+ * 하한(floor)은 잘하는 플레이어를 유령이 영원히 못 잡게 만드는 원인이었으므로 제거했다.
+ * 대신 리그가 올라갈수록 콤보·아웃코스로 살 수 있는 '유령 정지' 총량이 조금씩 줄어든다.
+ */
+interface Tier { min: number; name: string; color: string; stallCap: number }
 const TIERS: Tier[] = [
-  { min: 0, name: '브론즈', color: '#B06C3A', floor: 36000 },
-  { min: 4, name: '실버', color: '#7C8598', floor: 33000 },
-  { min: 9, name: '골드', color: '#B98C22', floor: 30500 },
-  { min: 18, name: '플래티넘', color: '#2F8B99', floor: 28500 },
+  { min: 0, name: '브론즈', color: '#B06C3A', stallCap: 0.25 },
+  { min: 4, name: '실버', color: '#7C8598', stallCap: 0.22 },
+  { min: 9, name: '골드', color: '#B98C22', stallCap: 0.19 },
+  { min: 18, name: '플래티넘', color: '#2F8B99', stallCap: 0.16 },
 ];
 const tierOf = (lapWins: number) => TIERS.slice().reverse().find((t) => lapWins >= t.min)!;
 const nextTierOf = (lapWins: number) => TIERS.find((t) => t.min > lapWins) ?? null;
@@ -202,11 +268,14 @@ function readStore(): Store {
     const raw = window.localStorage.getItem(STORE_KEY);
     if (!raw) return EMPTY_STORE;
     const p = JSON.parse(raw) as Partial<Store>;
+    const samples = Array.isArray(p.recentLapMs)
+      ? p.recentLapMs.filter((n) => typeof n === 'number' && n > 0).slice(-PACE_SAMPLES)
+      : [];
     return {
       lapWins: Number(p.lapWins) || 0,
       races: Number(p.races) || 0,
       raceWins: Number(p.raceWins) || 0,
-      bestLapMs: typeof p.bestLapMs === 'number' && p.bestLapMs > 0 ? p.bestLapMs : null,
+      recentLapMs: samples,
       lossStreak: Number(p.lossStreak) || 0,
     };
   } catch {
@@ -214,14 +283,32 @@ function readStore(): Store {
   }
 }
 
-/** 유령 랩 목표 시간 — 티어 하한 · 연패 완화 · 상한을 가진 적응형 라이벌(래칫 아님). */
+/** 표본 중앙값 — 한 번의 대박/폭망 랩이 유령 페이스를 끌고 가지 않게 평균 대신 중앙값. */
+function medianOf(xs: number[]): number | null {
+  if (xs.length === 0) return null;
+  const s = [...xs].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 === 1 ? s[m] : Math.round((s[m - 1] + s[m]) / 2);
+}
+
+/**
+ * 유령 랩 목표 시간 — **측정된 내 페이스**를 따라오는 적응형 라이벌.
+ * 기준은 최근 랩 표본의 중앙값(승리는 실측, 패배는 도달 구간 환산)이라 양방향으로 움직인다.
+ * 하한 MIN_LAP_MS 는 데이터가 망가졌을 때의 안전장치일 뿐, 티어와 무관하다.
+ */
 function computeLapMs(lapIdx: number, s: Store, lapWinsThisRace: number): number {
-  const t = tierOf(s.lapWins);
-  let base = clamp((s.bestLapMs ?? DEFAULT_LAP_MS) * 1.06, t.floor, CEIL_LAP_MS);
+  const med = medianOf(s.recentLapMs);
+  let base = clamp((med ?? DEFAULT_LAP_MS) * PACE_MARGIN, MIN_LAP_MS, CEIL_LAP_MS);
   if (s.lossStreak >= 2) base = Math.min(CEIL_LAP_MS, base * 1.1);
   let ms = base * LAP_PACE[lapIdx];
   if (lapIdx === LAPS - 1 && lapWinsThisRace === 0) ms *= 1.08; // 마지막 기회 — 조용히 완화
   return Math.round(ms);
+}
+
+/** 랩 페이스 표본 1개 — 이겼으면 실측, 졌으면 '도달 구간 기준 환산 완주 시간'. */
+function paceSample(elapsedMs: number, segReached: number, won: boolean): number {
+  if (won) return Math.round(elapsedMs);
+  return Math.min(150000, Math.round((elapsedMs * SEG) / Math.max(1, segReached)));
 }
 
 // ─── 게임 ────────────────────────────────────────────────────────────────
@@ -265,6 +352,10 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const [toast, setToast] = useState('');
   const [srMsg, setSrMsg] = useState('');
   const [lapEndMsg, setLapEndMsg] = useState('');
+  /** 탭에서 돌아온 직후의 재출발 유예 — 트랙 위 인라인 배지(모달 아님). */
+  const [resuming, setResuming] = useState(false);
+  /** 이번 아웃코스 정답이 IME 자동완성으로 채워졌는가(리빌에 조용히 알린다). */
+  const [autoFilledShown, setAutoFilledShown] = useState(false);
 
   const [result, setResult] = useState<{
     lapWins: number;
@@ -279,6 +370,33 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const mountedRef = useRef(true);
   const timersRef = useRef<number[]>([]);
   const queueRef = useRef<Word[]>([]);
+  /** 오답 재삽입 대기열 — { 단어, 이 문항 번호 이후에 다시 낸다 }. */
+  const pendingRef = useRef<{ w: Word; at: number }[]>([]);
+  /** 이번 레이스에서 출제한 문항 수 — 재삽입 간격의 단위(배열 인덱스가 아니라). */
+  const drawNoRef = useRef(0);
+  /** 직전에 출제한 단어 — 셔플 경계에서 같은 단어가 연달아 나오는 것을 막는다. */
+  const lastDrawnRef = useRef<string>('');
+  /**
+   * 레이스당 단어별 채점 원장 — { 채점 횟수, 정답을 화면에서 본 적 있는가 }.
+   * FSRS 에 정직하게 올릴 자격은 단어당 레이스 1회뿐이다.
+   */
+  const gradedRef = useRef(new Map<string, { n: number; revealed: boolean }>());
+  /** 이번 레이스의 랩 페이스 표본(패배 랩 포함). */
+  const paceRef = useRef<number[]>([]);
+  /** 탭 복귀 유예 종료 시각(performance.now 기준). 0 이면 유예 없음. */
+  const resumeAtRef = useRef(0);
+  /** 이번 문항의 입력이 IME 제안/붙여넣기로 한 번에 채워졌는가. */
+  const autoFillRef = useRef(false);
+  const typedRef = useRef('');
+  /**
+   * 이번 문항 도중 탭이 숨겨졌다 돌아왔는가.
+   * 일시정지는 사람의 사정(전화·알림)을 위한 것이라 게임에서는 벌하지 않지만,
+   * 화면 밖에서 얼마든지 찾아볼 수 있었으므로 **정답**은 독립 인출로 세지 않는다.
+   * (오답은 그대로 정직하게 올린다 — 모르는 단어를 FSRS 에서 지우면 안 된다.)
+   */
+  const pausedQRef = useRef(false);
+  /** 마지막 '제출 결과' 낭독 시각 — 리드 밴드 변화가 이를 덮어쓰지 않게 한다. */
+  const srAtRef = useRef(0);
   const youRef = useRef(0);
   const ghostSegRef = useRef(0);
   const ghostClockRef = useRef(0);
@@ -326,10 +444,23 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     };
   }, []);
 
+  /**
+   * 라이브 리전 단일 창구 — prio 2(제출 결과)가 prio 1(리드 밴드 변화·레인 토스트)을 이긴다.
+   * 예전엔 정답 낭독 직후 밴드 이펙트가 같은 배치에서 '앞섬 1구간' 으로 덮어써,
+   * 스크린리더 사용자가 **정확히 성공한 순간에** 정답 낭독을 잃었다.
+   */
+  const say = useCallback((text: string, prio: 1 | 2) => {
+    const now = performance.now();
+    if (prio < 2 && now - srAtRef.current < 900) return;
+    if (prio >= 2) srAtRef.current = now;
+    setSrMsg(text);
+  }, []);
+
   const laneToast = useCallback((msg: string) => {
     setToast(msg);
+    say(msg, 1); // 토스트 자체는 aria-hidden — 낭독은 여기 한 곳에서만
     after(1400, () => setToast(''));
-  }, [after]);
+  }, [after, say]);
 
   const combo = useCombo({
     tiers: COMBO_TIERS,
@@ -344,13 +475,72 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
   // ─── 단어 큐 — 같은 랩에서 같은 단어가 3~4번 나오던 순수 랜덤을 버린다 ───
   const drawWord = useCallback((): Word => {
+    const n = drawNoRef.current;
+    drawNoRef.current = n + 1;
+    const pend = pendingRef.current;
+
+    // ① 재삽입 예정 시점이 된 단어가 있으면 그것부터.
+    const due = pend.findIndex((p) => p.at <= n);
+    if (due >= 0) {
+      const w = pend.splice(due, 1)[0].w;
+      lastDrawnRef.current = w.en;
+      return w;
+    }
+
+    // ② 대기 중인 단어와 직전 문항은 자연 큐에서도 건너뛴다.
+    //    (예전엔 재삽입 대기 중인 단어를 셔플 큐가 그대로 다시 뽑아, 8문항 간격 약속이 새어
+    //     6개 풀에서 최소 1문항 만에 같은 문항이 돌아왔다. 셔플 경계 충돌도 여기서 함께 막힌다.)
+    const held = new Set(pend.map((p) => p.w.en));
     if (queueRef.current.length === 0) queueRef.current = shuffle(pool);
-    return queueRef.current.shift()!;
+    const idx = queueRef.current.findIndex((w) => !held.has(w.en) && w.en !== lastDrawnRef.current);
+    if (idx >= 0) {
+      const w = queueRef.current.splice(idx, 1)[0];
+      lastDrawnRef.current = w.en;
+      return w;
+    }
+
+    // ③ 풀이 작아 남은 후보가 전부 대기 중이면, 가장 오래 기다린 단어를 앞당긴다.
+    //    (간격 약속은 풀 크기를 넘을 수 없다 — 6개 풀에서는 6문항이 물리적 상한이다.)
+    if (pend.length > 0) {
+      let oldest = 0;
+      for (let i = 1; i < pend.length; i++) if (pend[i].at < pend[oldest].at) oldest = i;
+      const w = pend.splice(oldest, 1)[0].w;
+      lastDrawnRef.current = w.en;
+      return w;
+    }
+    const w = queueRef.current.shift() ?? shuffle(pool)[0];
+    lastDrawnRef.current = w.en;
+    return w;
   }, [pool]);
+
+  /**
+   * 오답 단어 재삽입 — **문항 번호 기준**으로 REQUEUE_GAP 개 뒤에 되돌린다.
+   * 예전엔 큐 배열의 3번 인덱스에 splice 했는데, 풀이 6개면 3~4문항 뒤에 같은 한국어가
+   * 같은 타일 세트로 돌아왔다(작업기억 4항목 안 = 리빌이 곧 정답 과외).
+   * 큐가 비어 재셔플되면 배열 인덱스는 의미를 잃으므로 카운터로 미룬다.
+   */
   const requeue = useCallback((w: Word) => {
-    const q = queueRef.current;
-    q.splice(Math.min(3, q.length), 0, w); // 같은 레이스 안에서 한 번 더 인출(간격 재시도)
+    pendingRef.current = pendingRef.current.filter((p) => p.w.en !== w.en);
+    pendingRef.current.push({ w, at: drawNoRef.current + REQUEUE_GAP });
   }, []);
+
+  /**
+   * FSRS 채점 — 레이스당 단어별 **첫 1회만** 정직하게 올린다.
+   * 두 번째부터, 그리고 이미 정답을 화면에서 본 뒤의 입력(리빌 후 재출제 · IME 자동완성)은
+   * `{ assisted: true }` 로 올려 카드 갱신에서 빠진다(판정은 record-result 중앙에서).
+   *
+   * **호출 자체를 빼지 않는다.** 못 쓴 단어를 아무것도 안 올리면 합리적인 플레이어일수록
+   * 자기가 모르는 단어를 FSRS 에서 지워버리는 결과가 된다 — 모르는 단어일수록
+   * 오답으로 정직하게 올라가야 복습이 잡힌다.
+   */
+  const grade = useCallback((w: Word, isCorrect: boolean, forcedAssist: boolean) => {
+    const key = w.en.toLowerCase();
+    const rec = gradedRef.current.get(key) ?? { n: 0, revealed: false };
+    const assisted = forcedAssist || rec.n > 0 || rec.revealed;
+    gradedRef.current.set(key, { n: rec.n + 1, revealed: rec.revealed || !isCorrect });
+    if (isCorrect) onCorrect?.(w, { assisted });
+    else onWrong?.(w, { assisted });
+  }, [onCorrect, onWrong]);
 
   const nextQuestion = useCallback(() => {
     if (outLockRef.current > 0) {
@@ -371,14 +561,18 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     setVerdict(null);
     setReveal(false);
     setTyped('');
+    typedRef.current = '';
+    autoFillRef.current = false;
+    pausedQRef.current = false;
+    setAutoFilledShown(false);
     setQKey((n) => n + 1);
     lockRef.current = false;
   }, [drawWord, pool]);
 
-  // ─── 유령 정지(콤보·아웃코스 보상) — 랩당 상한이 있다 ───
+  // ─── 유령 정지(콤보·아웃코스·슬립스트림 보상) — 랩당 상한이 있다(티어가 올라갈수록 조인다) ───
   const stallGhost = useCallback((ms: number) => {
     if (ms <= 0) return 0;
-    const cap = lapMsRef.current * STALL_CAP_RATIO;
+    const cap = lapMsRef.current * tierOf(storeRef.current.lapWins).stallCap;
     const allowed = Math.max(0, Math.min(ms, cap - stallGrantedRef.current));
     if (allowed <= 0) return 0;
     stallGrantedRef.current += allowed;
@@ -393,16 +587,12 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     const prev = storeRef.current;
     const raceWon = wins >= 2;
     const lossStreak = raceWon ? 0 : prev.lossStreak + 1;
-    let bestLapMs = prev.bestLapMs;
-    if (bestLap != null) bestLapMs = Math.min(bestLapMs ?? Number.POSITIVE_INFINITY, bestLap);
-    if (!raceWon && lossStreak >= 3 && bestLapMs != null) {
-      bestLapMs = Math.min(CEIL_LAP_MS, Math.round(bestLapMs * 1.08)); // 3연패 완화 — 래칫 차단
-    }
+    // 승리 랩은 실측, 패배 랩은 도달 구간 환산 — 둘 다 표본에 들어가야 유령이 양방향으로 움직인다.
     const next: Store = {
       lapWins: prev.lapWins + wins,
       races: prev.races + 1,
       raceWins: prev.raceWins + (raceWon ? 1 : 0),
-      bestLapMs: bestLapMs ?? null,
+      recentLapMs: [...prev.recentLapMs, ...paceRef.current].slice(-PACE_SAMPLES),
       lossStreak,
     };
     setStore(next);
@@ -432,11 +622,16 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     if (lapEndedRef.current) return;
     lapEndedRef.current = true;
     lockRef.current = true;
+    resumeAtRef.current = 0;
+    setResuming(false);
     clearTimers();
     const ms = Math.round(performance.now() - lapStartRef.current);
     const results = [...lapResRef.current, youWon];
     lapResRef.current = results;
     if (youWon) lapTimesRef.current.push(ms);
+    // 유령 페이스 표본 — 패배 랩도 '도달 구간 환산 완주 시간' 으로 남긴다.
+    // 승리만 모으면 중앙값이 내려가기만 해서 예전 bestLapMs 와 같은 일방향 래칫이 된다.
+    paceRef.current.push(paceSample(ms, youRef.current, youWon));
     setLapRes(results);
 
     if (youWon) {
@@ -478,7 +673,9 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     lapEndedRef.current = false;
     outLockRef.current = 0;
     prevBandRef.current = 99;
+    resumeAtRef.current = 0;
     comboReset();
+    setResuming(false);
     setYouSeg(0);
     setGhostSeg(0);
     setOutLock(0);
@@ -514,14 +711,26 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     return () => ids.forEach((id) => window.clearTimeout(id));
   }, [phase, lapIdx, beginLap]);
 
-  // ─── 유령 페이스 클록 (rAF · 벽시계 델타 · 네거티브 스플릿) ───
+  // ─── 유령 페이스 클록 (rAF · 벽시계 델타 · 네거티브 스플릿 · 탭 비가시 일시정지) ───
   useEffect(() => {
     if (phase !== 'racing') return;
     let raf = 0;
     let last = performance.now();
+    let wasHidden = false;
     const loop = () => {
       if (!mountedRef.current || lapEndedRef.current) return;
       const now = performance.now();
+      // 탭 복귀 유예 — 숨어 있던 시간이 통째로 유령 클록에 더해지지 않게 last 를 끌고 가면서
+      // 1.2초 동안 유령을 세워 둔다. 전화 한 통이 랩 즉사가 되던 경로를 끊는다.
+      if (resumeAtRef.current > now) {
+        last = now;
+        raf = requestAnimationFrame(loop);
+        return;
+      }
+      if (resumeAtRef.current !== 0) {
+        resumeAtRef.current = 0;
+        setResuming(false);
+      }
       let dt = now - last;
       last = now;
       if (dt < 0) dt = 0;
@@ -548,8 +757,10 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
         setGhostSeg(gi);
       }
       if (segF >= SEG) {
-        // 포토피니시 — 결착 중인 답을 살려준다(무승부는 도전자 승).
-        if (graceRef.current === 0 && lockRef.current && youRef.current >= SEG - 1) {
+        // 포토피니시 — 마지막 한 구간을 남긴 도전자에게 400ms 를 준다(무승부는 도전자 승).
+        // 예전엔 `lockRef`(= 이미 제출해 리빌 중) 까지 요구해서, 리빌 1250ms 안에 다음 문항이
+        // 뜨지 않으니 사실상 발동하지 않았다. 조건을 '11구간 도달' 하나로 줄인다.
+        if (graceRef.current === 0 && youRef.current >= SEG - 1) {
           graceRef.current = now + PHOTO_FINISH_MS;
         }
         if (graceRef.current > now) {
@@ -561,8 +772,27 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       }
       raf = requestAnimationFrame(loop);
     };
+    const onVis = () => {
+      if (document.visibilityState === 'hidden') {
+        wasHidden = true;
+        cancelAnimationFrame(raf);
+        return;
+      }
+      if (!wasHidden) return;
+      wasHidden = false;
+      if (!mountedRef.current || lapEndedRef.current) return;
+      last = performance.now();
+      resumeAtRef.current = last + RESUME_GRACE_MS;
+      pausedQRef.current = true;
+      setResuming(true);
+      raf = requestAnimationFrame(loop);
+    };
+    document.addEventListener('visibilitychange', onVis);
     raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      document.removeEventListener('visibilitychange', onVis);
+      cancelAnimationFrame(raf);
+    };
   }, [phase]);
 
   // 최종 구간 고조
@@ -579,14 +809,16 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     const band = gap >= 2 ? 2 : gap === 1 ? 1 : gap === 0 ? 0 : gap === -1 ? -1 : -2;
     if (band === prevBandRef.current) return;
     prevBandRef.current = band;
-    setSrMsg(
+    // prio 1 — 제출 결과 낭독(prio 2) 이 아직 900ms 안이면 덮지 않는다.
+    say(
       band === 2 ? `앞섬 ${gap}구간`
         : band === 1 ? '앞섬 1구간'
           : band === 0 ? '유령과 나란히'
             : band === -1 ? '뒤처짐 1구간'
               : `뒤처짐 ${-gap}구간`,
+      1,
     );
-  }, [youSeg, ghostSeg, phase]);
+  }, [youSeg, ghostSeg, phase, say]);
 
   // ─── 전진 ───
   const advance = useCallback((d: number) => {
@@ -599,9 +831,12 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   // ─── 제출 ───
   const submit = useCallback((raw: string, tileIdx: number | null) => {
     if (phase !== 'racing' || !target || lockRef.current || lapEndedRef.current) return;
+    if (resumeAtRef.current > performance.now()) return; // 탭 복귀 재출발 유예 중
     lockRef.current = true;
 
     const isOut = lineRef.current === 'out';
+    // IME 제안 스트립·붙여넣기로 한 번에 채워진 철자는 '생성 인출' 이 아니다.
+    const autoFilled = isOut && autoFillRef.current;
     const answers = [target.en, ...(target.inflected ?? [])].map((s) => norm(s));
     const given = norm(raw);
     const ok = isOut ? answers.includes(given) : given === norm(target.en);
@@ -613,22 +848,28 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
     if (ok) {
       const nc = comboHit();
-      const gain = isOut ? (gap >= 3 ? 3 : 2) : (gap <= -2 ? 2 : 1);
+      // 자동완성은 벌하지 않는다 — 다만 철자를 만든 게 아니므로 인코스와 같은 +1 만 준다.
+      const gain = autoFilled ? 1 : isOut ? (gap >= 3 ? 3 : 2) : 1;
       const pos = advance(gain);
-      stallGhost(isOut ? OUT_STALL_MS : 0);
+      if (isOut && !autoFilled) stallGhost(OUT_STALL_MS);
+      // 슬립스트림 — 칸을 두 배로 주는 대신 유령을 잠깐 묶는다(리드 구축이 손해가 되지 않게).
+      const slip = !isOut && gap <= SLIPSTREAM_AT ? stallGhost(SLIPSTREAM_STALL_MS) : 0;
       stallGhost(stallForCombo(nc));
       setVerdict('correct');
+      setAutoFilledShown(autoFilled);
       sfx.correct(nc, nc % 5 === 0);
-      onCorrect?.(target);
-      setSrMsg(`정답 ${target.en} · ${gain}구간 전진`);
-      if (gap <= -2 && !isOut) laneToast('슬립스트림 · 2구간 전진');
+      // 자동완성으로 채웠거나 이 문항 도중 탭을 떠났다 왔으면 독립 인출이 아니다.
+      grade(target, true, autoFilled || pausedQRef.current);
+      say(`정답 ${target.en} · ${gain}구간 전진`, 2);
+      if (slip > 0) laneToast(`슬립스트림 · 유령 ${(slip / 1000).toFixed(1)}초 정지`);
       if (pos >= SEG) { endLap(true); return; }
       after(isOut ? REVEAL_OK_OUT_MS : REVEAL_OK_MS, () => { if (!lapEndedRef.current) nextQuestion(); });
       return;
     }
 
     comboMiss();
-    onWrong?.(target);
+    // 모르는 단어는 **정직한 오답으로** 올라간다(레이스 첫 채점이면 assisted 아님).
+    grade(target, false, false);
     missedRef.current.push(target);
     requeue(target);
 
@@ -636,7 +877,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       // 철자 하나 차이 — 칸도 잃지 않고 복귀 잠금도 걸지 않는다(비난 금지, 다만 콤보는 끊긴다).
       setVerdict('near');
       sfx.nearMiss();
-      setSrMsg(`아까워요, 정답은 ${target.en}`);
+      say(`아까워요, 정답은 ${target.en}`, 2);
     } else if (isOut) {
       const loss = gap >= 3 ? 2 : 1;
       advance(-loss);
@@ -646,15 +887,19 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setNextLine('in');
       setVerdict('wrong');
       sfx.wrong();
-      setSrMsg(`정답은 ${target.en} · ${loss}구간 후퇴, 인코스로 복귀`);
+      say(`정답은 ${target.en} · ${loss}구간 후퇴, 인코스로 복귀`, 2);
     } else {
+      // 인코스 오답의 위치 비용 — 리드를 IN_WRONG_LEAD_MIN 이상 쌓았을 때만 1칸을 반납한다.
+      // 뒤처지거나 나란한 사람에게는 여전히 후퇴가 없다(정답률 0.5 대 보호).
+      const loss = gap >= IN_WRONG_LEAD_MIN ? 1 : 0;
+      if (loss > 0) advance(-loss);
       setVerdict('wrong');
       sfx.wrong();
-      setSrMsg(`정답은 ${target.en}`);
+      say(loss > 0 ? `정답은 ${target.en} · 리드 1구간 반납` : `정답은 ${target.en}`, 2);
     }
     after(REVEAL_NG_MS, () => { if (!lapEndedRef.current) nextQuestion(); });
   }, [
-    phase, target, comboHit, comboMiss, advance, stallGhost, sfx, onCorrect, onWrong,
+    phase, target, comboHit, comboMiss, advance, stallGhost, sfx, grade, say,
     after, nextQuestion, endLap, requeue, laneToast,
   ]);
 
@@ -671,6 +916,11 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const restart = useCallback(() => {
     clearTimers();
     queueRef.current = [];
+    pendingRef.current = [];
+    drawNoRef.current = 0;
+    lastDrawnRef.current = '';
+    gradedRef.current = new Map(); // 채점 원장은 레이스 단위 — 새 레이스에서 다시 1회씩 정직하게
+    paceRef.current = [];
     missedRef.current = [];
     lapTimesRef.current = [];
     lapResRef.current = [];
@@ -678,6 +928,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     nextLineRef.current = 'in';
     lineRef.current = 'in';
     outLockRef.current = 0;
+    resumeAtRef.current = 0;
+    setResuming(false);
     setLapRes([]);
     setLapIdx(0);
     setNextLine('in');
@@ -720,6 +972,11 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [phase, options, reveal, submit, chooseLine, skipGrid]);
 
+  // 재출발 유예는 시각 배지(aria-hidden)로 보이므로, 낭독은 라이브 리전 한 곳에서 따로 준다.
+  useEffect(() => {
+    if (resuming) say('돌아왔어요 · 유령을 잠시 세웠습니다', 2);
+  }, [resuming, say]);
+
   // 리빌 뒤 포커스 복원 — disabled 대신 aria-disabled 를 쓰므로 포커스가 날아가지 않지만,
   // 문항이 교체되면 노드가 바뀌므로 키보드 사용자에게 같은 자리로 되돌려준다.
   useEffect(() => {
@@ -735,11 +992,14 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
   const tier = tierOf(store.lapWins);
   const gap = youSeg - ghostSeg;
-  const inGain = gap <= -2 ? 2 : 1;
+  const inSlip = gap <= SLIPSTREAM_AT;      // 인코스 정답 시 유령 0.5초 정지
+  const inLoss = gap >= IN_WRONG_LEAD_MIN ? 1 : 0; // 인코스 오답 시 반납할 칸
   const outGain = gap >= 3 ? 3 : 2;
   const outLoss = gap >= 3 ? 2 : 1;
   const youPct = (youSeg / SEG) * 100;
   const comboStall = stallForCombo(combo.combo);
+  const lapWinCount = lapRes.filter((r) => r === true).length;
+  const lapLossCount = lapRes.filter((r) => r === false).length;
 
   const gapText = gap > 0 ? `앞섬 ${gap}구간` : gap < 0 ? `뒤처짐 ${-gap}구간` : '나란히';
   const raceWins = result?.lapWins ?? 0;
@@ -767,7 +1027,13 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
               <span className="gk-stat-label">리그</span>
               <span className="gr-tier">{tier.name} · {store.lapWins}랩승</span>
             </div>
-            <div className="gr-lappips" role="img" aria-label={`랩 ${Math.min(lapIdx + 1, LAPS)} / ${LAPS}`}>
+            {/* 3판 2선승 스코어를 핍 색만이 아니라 이름으로도 준다 —
+                예전엔 시각장애 사용자가 랩 스코어를 lapend 화면 외에서 알 방법이 없었다. */}
+            <div
+              className="gr-lappips"
+              role="img"
+              aria-label={`랩 ${Math.min(lapIdx + 1, LAPS)} / ${LAPS} · ${lapWinCount}승 ${lapLossCount}패`}
+            >
               {Array.from({ length: LAPS }, (_, i) => (
                 <span
                   key={i}
@@ -810,7 +1076,14 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
           </span>
           <span className="gr-meta-lap">랩 {Math.min(lapIdx + 1, LAPS)}/{LAPS} · 유령 {(lapMs / 1000).toFixed(1)}초</span>
         </div>
-        {toast && <div className="gr-toast" role="status">{toast}</div>}
+        {/* 낭독은 상단 gk-sr 한 곳에서만 — 여기 role="status" 를 두면 라이브 리전이 둘이 되어
+            정답 낭독과 경합한다(laneToast 가 gk-sr 로 prio 1 낭독을 이미 보낸다). */}
+        {toast && <div className="gr-toast" aria-hidden="true">{toast}</div>}
+        {resuming && (
+          <div className="gr-resume" aria-hidden="true">
+            <span className="gr-resume-mark">⏸</span> 돌아왔어요 · 유령을 세워 뒀습니다
+          </div>
+        )}
       </div>
 
       {phase === 'result' && result ? (
@@ -862,7 +1135,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
               ? nextTierOf(store.lapWins)
                 ? `${nextTierOf(store.lapWins)!.name}까지 ${nextTierOf(store.lapWins)!.min - store.lapWins}랩승`
                 : '유령은 이제 당신의 최고 랩을 따라옵니다'
-              : '뒤처졌을 때 인코스는 2구간씩 당겨줘요 — 슬립스트림을 쓰세요'
+              : `${-SLIPSTREAM_AT}구간 뒤처지면 인코스 정답마다 유령이 잠깐 멈춰요 — 거기서 붙이세요`
           }
           onRestart={restart}
           onExit={handleExit}
@@ -875,7 +1148,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
           <LineSwitch
             nextLine={nextLine}
             outLock={outLock}
-            inGain={1}
+            inSlip={false}
+            inLoss={0}
             outGain={2}
             outLoss={1}
             onChoose={chooseLine}
@@ -944,7 +1218,17 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
                   ref={inputRef}
                   className="gr-sprint-input"
                   value={typed}
-                  onChange={(e) => setTyped(e.target.value)}
+                  onChange={(e) => {
+                    const next = e.target.value;
+                    // 안드로이드 IME(Gboard 등)의 상단 제안 스트립은 autoComplete/autoCorrect/
+                    // spellCheck 를 전부 무시한다. 물리 입력과 구분되는 유일한 신호는
+                    // "한 번에 두 글자 이상이 채워지는 것" — 키 입력은 브라우저가 글자마다
+                    // input 이벤트를 낸다. 막지는 않고, 생성 인출로 세지 않기 위해 표시만 한다.
+                    if (next.length - typedRef.current.length >= 2) autoFillRef.current = true;
+                    typedRef.current = next;
+                    setTyped(next);
+                  }}
+                  onPaste={(e) => { e.preventDefault(); autoFillRef.current = true; }}
                   readOnly={reveal}
                   autoComplete="off"
                   autoCorrect="off"
@@ -974,6 +1258,9 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
                   {target.pron && <i className="gr-reveal-pron">{target.pron}</i>}
                   <span className="gr-reveal-ko">{target.ko}</span>
                   {verdict === 'near' && <span className="gr-reveal-tag">철자 하나 차이 — 칸은 지켰어요</span>}
+                  {autoFilledShown && (
+                    <span className="gr-reveal-tag">자동완성으로 채워진 답 — 인코스와 같은 1구간으로 계산했어요</span>
+                  )}
                 </span>
                 {target.example && <span className="gr-reveal-ex">{highlight(target.example, target.en)}</span>}
               </>
@@ -983,7 +1270,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
           <LineSwitch
             nextLine={nextLine}
             outLock={outLock}
-            inGain={inGain}
+            inSlip={inSlip}
+            inLoss={inLoss}
             outGain={outGain}
             outLoss={outLoss}
             onChoose={chooseLine}
@@ -998,11 +1286,14 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
 // ─── 라인 전환 바 ─────────────────────────────────────────────────────────
 function LineSwitch({
-  nextLine, outLock, inGain, outGain, outLoss, onChoose, heading, note,
+  nextLine, outLock, inSlip, inLoss, outGain, outLoss, onChoose, heading, note,
 }: {
   nextLine: Line;
   outLock: number;
-  inGain: number;
+  /** 지금 위치에서 인코스 정답이 유령을 묶는가(슬립스트림 발동 구간인가). */
+  inSlip: boolean;
+  /** 지금 위치에서 인코스 오답이 반납할 칸(리드 중이 아니면 0). */
+  inLoss: number;
   outGain: number;
   outLoss: number;
   onChoose: (l: Line) => void;
@@ -1024,7 +1315,10 @@ function LineSwitch({
             <span className="gr-linebtn-mark" aria-hidden="true">{nextLine === 'in' ? '●' : '○'}</span>
             인코스 <Kbd>1</Kbd>
           </span>
-          <span className="gr-linebtn-s">보기에서 고르기 · +{inGain}구간{inGain > 1 ? ' (슬립스트림)' : ''} · 후퇴 없음</span>
+          <span className="gr-linebtn-s">
+            보기에서 고르기 · +1구간{inSlip ? ' · 슬립스트림(유령 0.5초 정지)' : ''}
+            {inLoss > 0 ? ` · 오답 −${inLoss}구간(리드 반납)` : ' · 후퇴 없음'}
+          </span>
         </button>
         <button
           type="button"
@@ -1090,6 +1384,10 @@ const GR_CSS = `
 
   .gr-toast { position: absolute; left: 50%; bottom: -13px; transform: translateX(-50%); z-index: 5; padding: 5px 13px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--streak) 45%, var(--bd)); background: color-mix(in srgb, var(--bg) 92%, transparent); color: var(--t1); font-size: 11.5px; font-weight: 800; white-space: nowrap; box-shadow: 0 6px 18px -8px rgba(0,0,0,.42); animation: gr-toast-in .28s var(--ease-settle, ease-out); }
   @keyframes gr-toast-in { from { opacity: 0; transform: translate(-50%, 5px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+  /* 탭 복귀 재출발 — 모달로 학습을 끊지 않고 트랙 위에 인라인으로만 알린다. */
+  .gr-resume { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 6; display: inline-flex; align-items: center; gap: 7px; padding: 7px 15px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--combo) 52%, var(--bd)); background: color-mix(in srgb, var(--bg) 94%, transparent); color: var(--t1); font-family: var(--font-display, system-ui); font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 8px 22px -10px rgba(0,0,0,.5); animation: gr-toast-in .22s var(--ease-settle, ease-out); }
+  .gr-resume-mark { font-size: 11px; color: var(--combo); }
 
   .gr-stage { gap: clamp(10px, 2.2vh, 22px); justify-content: center; }
   .gr-lineflag { display: inline-flex; align-items: center; gap: 7px; padding: 5px 13px; border-radius: 999px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 12px; font-weight: 800; color: var(--t2); }
@@ -1176,7 +1474,7 @@ const GR_CSS = `
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .gr-meaning, .gr-grid-count, .gr-lapend-h, .gr-toast { animation: none; }
+    .gr-meaning, .gr-grid-count, .gr-lapend-h, .gr-toast, .gr-resume { animation: none; }
     .gr-you[data-verdict="wrong"] { animation: none; }
     .gr-line--you, .gr-you, .gr-lane, .gr-track, .gr-linebtn { transition: none; }
     .gr-track[data-final="1"] .gr-lane--you { height: 30px; }

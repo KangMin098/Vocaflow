@@ -27,7 +27,10 @@ import { gameResourceContext } from '@/lib/game/scope-resource';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
 import { useGameWordScope, type WordScope } from '@/lib/game/use-word-scope';
 import { POINTS } from '@/lib/wordblitz/data';
-import { recordWordBlitzResult } from '@/lib/wordblitz/record-result';
+// v08.1 — 전용 recordWordBlitzResult 대신 공용 recordGameResult 를 쓴다.
+// 전용 레코더에는 FSRS 무결성 가드(assisted 무시 · 같은 카드 10분 재채점 금지)가 없어서
+// 게임이 assisted 를 붙여도 그대로 카드가 갱신됐다. 판정은 중앙 한 곳(record-result.ts).
+import { recordGameResult } from '@/lib/game/record-result';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
 const WordBlitzGame = dynamic(
@@ -130,7 +133,11 @@ function WordBlitzRound({
   const session = useGameSessionRecorder({
     module: 'wordblitz',
     scope,
-    computeScore: (correct, wrong) => correct * POINTS.CORRECT + wrong * POINTS.WRONG,
+    // v08.1 — 오답이 **가점**이었다(correct×120 + wrong×30). 그래서 아케이드 XP 관점에서
+    // '아무 타일이나 눌러 최대한 많은 단어를 만난다'가 순이득이었다(정확도와 무관한 XP).
+    // 부호를 뒤집어 정확도에 연동한다. 0 미만으로는 내려가지 않는다 —
+    // 못 푼 판이 마이너스로 남는 것은 비난이고, 이 앱의 피드백 원칙에 어긋난다.
+    computeScore: (correct, wrong) => Math.max(0, correct * POINTS.CORRECT - wrong * POINTS.WRONG),
   });
 
   return (
@@ -141,13 +148,25 @@ function WordBlitzRound({
         // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
         router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordblitz'));
       }}
-      onCorrect={(word) => {
+      // opts.assisted = 정답을 이미 보여준 뒤의 입력(재출제 · 좁은 창 시간 초과 · 방치).
+      // 세션 정확도에는 정직하게 반영하되 FSRS 카드는 중앙에서 건너뛴다.
+      onCorrect={(word, opts) => {
         session.countCorrect();
-        void recordWordBlitzResult({ word: word.en, isCorrect: true }); // learning_records(FSRS)
+        void recordGameResult({
+          word: word.en,
+          isCorrect: true,
+          module: 'wordblitz',
+          assisted: opts?.assisted,
+        });
       }}
-      onWrong={(word) => {
+      onWrong={(word, opts) => {
         session.countWrong();
-        void recordWordBlitzResult({ word: word.en, isCorrect: false });
+        void recordGameResult({
+          word: word.en,
+          isCorrect: false,
+          module: 'wordblitz',
+          assisted: opts?.assisted,
+        });
       }}
       onRestart={() => {
         session.flush();

@@ -21,9 +21,46 @@ export const GOAL = 40;
 export const LIVES = 3;
 /** 보드가 돌로 굳어 게임이 불가능해지지 않게 하는 상한. */
 export const MAX_ROCKS = 5;
-/** 보드에 동시에 존재할 서로 다른 단어 수 — 인지 부하 상한(Sweller ~4±)과 스캔 시간의 타협. */
+/**
+ * 보드에 **동시에** 올라가는 서로 다른 단어의 상한(하드 캡).
+ * ACTIVE 는 '아직 덜 나온 단어'의 정원 — 이미 두 번 나온 단어는 정원에서 빠져
+ * 새 단어가 들어올 자리를 만든다(보드 회전). 회전을 pickTarget 이 아니라 보드
+ * 생성 쪽에서 만드는 게 핵심이다: 출제는 균등 무작위여야 정보가 새지 않는다.
+ */
 export const DISTINCT_MAX = 8;
+export const DISTINCT_ACTIVE = 6;
 export const DISTINCT_MIN = 5;
+/** 한 단어가 보드를 삼키지 않게 하는 장수 상한. */
+export const COPY_MAX = 3;
+/** 이 횟수만큼 출제된 단어는 더 복제하지 않는다 — 자리를 비워 다음 단어를 부른다. */
+export const RETIRE_ASKED = 2;
+
+// ─── 통화(currency) 상수 ──────────────────────────────────────────────────
+// 감사 지적: 낙차12·뭉치45·돌70 이 **전부 점수**라 "어느 장을 짚나"가 결정이 안 됐다
+// (최선-최저 격차 8점 = 숙고 0.2초 비용). 세 갈래를 서로 다른 통화로 가른다.
+//   · 돌 옆의 장 → 다음 뜻의 **시간**
+//   · 뭉친 장   → 예약된 **낙석 취소**(보드) + 만조(목숨)
+//   · 낮은 장   → **점수**. 대신 2막부터 깊은 낙차는 보드를 흔들어 낙석을 부른다(비용).
+
+/** 속도 보너스 가중치. 140 → 70: 숙고 1초의 값이 54점/초 → 27점/초로 내려간다. */
+export const SPEED_PT = 70;
+/** 낙차 1칸당 점수 — '낮은 장 = 점수' 통화. */
+export const FALL_PT = 12;
+/** 돌 1개 파괴 → 다음 뜻 제한시간 가산. */
+export const ROCK_TIME_MS = 900;
+/** 한 턴에 얻을 수 있는 시간 상한(돌 2개분). */
+export const ROCK_TIME_CAP_MS = 1800;
+/** 이 낙차 이상이면 보드가 흔들려 낙석이 하나 예약된다(2막부터). */
+export const DEEP_FELL = 4;
+/** 만조 게이지가 이만큼 차면 물방울 하나. */
+export const TIDE_NEED = 2;
+/**
+ * 세션당 물방울 환급 상한 — 콤보 순환으로 목숨을 무한 환급하던 구멍의 뚜껑.
+ * 2 인 이유: 고의로 '맞히다 틀리다'를 순환하는 플레이어의 완주 하한 정확도를
+ * 시뮬로 재면 상한 4 → 85.7%, 3 → 87.5%, 2 → 88.9% 다(구판 콤보 순환은 90.9%).
+ * 2 여야 "환급을 노리고 일부러 끊는" 쪽이 구판보다 유의하게 유리해지지 않는다.
+ */
+export const TIDE_MAX_REFUND = 2;
 
 export type WordCell = { id: number; kind: 'word'; word: Word };
 export type RockCell = { id: number; kind: 'rock' };
@@ -124,6 +161,15 @@ export function adjacentRocks(b: Board, indices: number[]): number[] {
   return [...out];
 }
 
+/** 이 칸이 돌과 맞닿아 있는가 — 어포던스 표식용(정답과 무관하므로 정보 누출 없음). */
+export function touchesRock(b: Board, i: number): boolean {
+  for (const n of neighborsOf(i)) {
+    const c = b[n];
+    if (c && c.kind === 'rock') return true;
+  }
+  return false;
+}
+
 export function removeIds(b: Board, ids: Set<number>): Board {
   return b.map((c) => (c && ids.has(c.id) ? null : c));
 }
@@ -196,7 +242,83 @@ export function actOf(clears: number): 1 | 2 | 3 {
   return 3;
 }
 
-/** 막별 낙석 주기(인출 n회마다 1개). 0 = 낙석 없음. */
+/**
+ * 막별 낙석 주기(인출 n회마다 1개). 0 = 낙석 없음.
+ * 6/4 였을 때 세션 전체 예약 낙석이 4개뿐이라 보드 위 돌이 평균 0.4개였고
+ * "3막 압력의 실체가 시계 하나뿐"이라는 감사 지적을 받았다. 3/2 로 올려
+ * 무실수 플레이 기준 평균 0.7개(측정) — 돌이 실제로 보드에 남아 통화가 된다.
+ */
 export function rockCadence(act: 1 | 2 | 3): number {
-  return act === 1 ? 0 : act === 2 ? 6 : 4;
+  return act === 1 ? 0 : act === 2 ? 3 : 2;
+}
+
+// ─── 동의어 충돌 ──────────────────────────────────────────────────────────
+//
+// '줄이다/줄어들다', '측정하다/측정' 처럼 뜻이 겹치는 두 단어가 같은 보드에 오르면
+// **뜻을 아는 학습자가 오답 처리**된다(구판은 ko 완전일치만 걷어냈다).
+// 풀에서 지우지 않고 **같은 보드에 동시에 올리지 않는** 제약으로만 푼다 —
+// 지워 버리면 그 단어는 세션에서 영영 학습되지 않는다.
+
+/** 비교용 정규화 — 공백·중점·괄호 주석 제거. */
+export function normKo(ko: string): string {
+  return ko
+    .replace(/\([^)]*\)/g, '')
+    .replace(/[\s·,~]/g, '')
+    .trim();
+}
+
+export function levenshtein(a: string, b: string): number {
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  let prev = new Array<number>(b.length + 1);
+  let cur = new Array<number>(b.length + 1);
+  for (let j = 0; j <= b.length; j++) prev[j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    cur[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      cur[j] = Math.min(cur[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost);
+    }
+    const swap = prev;
+    prev = cur;
+    cur = swap;
+  }
+  return prev[b.length];
+}
+
+/**
+ * 두 뜻이 같은 보드에서 충돌하는가.
+ *  (a) 한쪽이 다른 쪽을 통째로 품는다 — 측정 ⊂ 측정하다, 경향 ⊂ ~하는 경향이 있는
+ *  (b) 3글자 이상끼리 편집거리 2 이하 — 줄이다 ↔ 줄어들다, 내성적인 ↔ 내향적인
+ *
+ * (b)의 '3글자 이상' 이 중요하다. 두 글자 명사에까지 편집거리를 적용하면
+ * 결과/결정 · 용기/용서 · 실수/실패 · 능력/능률 처럼 **전혀 헷갈리지 않는** 쌍이
+ * 무더기로 걸려 보드 다양성이 무너진다(측정: 한글 2자 명사는 한 음절만 달라도
+ * 편집거리 1). 헷갈리는 쌍은 대개 어간을 공유하는 3자 이상 용언이다.
+ */
+export function koClash(a: string, b: string): boolean {
+  const x = normKo(a);
+  const y = normKo(b);
+  if (!x || !y) return false;
+  if (x === y) return true;
+  if (x.length >= 2 && y.length >= 2 && (x.includes(y) || y.includes(x))) return true;
+  if (Math.min(x.length, y.length) < 3) return false;
+  return levenshtein(x, y) <= 2;
+}
+
+/** 풀 전체의 충돌 쌍표 — 보드 생성에서 "이 단어는 지금 못 올린다" 판정에 쓴다. */
+export function buildClashMap(words: Word[]): Map<string, Set<string>> {
+  const m = new Map<string, Set<string>>();
+  for (const w of words) m.set(w.en, new Set<string>());
+  // 풀이 아주 큰 경우 O(n²) 를 피한다 — 그때는 완전일치 중복만 이미 제거된 상태로 둔다.
+  if (words.length > 400) return m;
+  for (let i = 0; i < words.length; i++) {
+    for (let j = i + 1; j < words.length; j++) {
+      if (!koClash(words[i].ko, words[j].ko)) continue;
+      m.get(words[i].en)!.add(words[j].en);
+      m.get(words[j].en)!.add(words[i].en);
+    }
+  }
+  return m;
 }

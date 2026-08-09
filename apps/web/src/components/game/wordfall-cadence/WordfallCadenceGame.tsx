@@ -35,6 +35,18 @@
 //     아니어야 하므로 박과 배수를 태운다. 정답을 사는 수단은 이 게임에 없다.
 //
 // 자료 연계: wordPool 이 오면 반드시 그 단어로만 돈다. 내장 뱅크는 폴백 전용.
+//
+// v07.10 — 적대적 반증 6건 봉합. 재미(판돈·콤보·긴장)는 그대로 두고 "싸게 이기는 길"만 끊었다.
+//   ① 종지가 '방금 리빌로 철자·IPA·뜻을 통째로 본 단어' 재출제였다 → 표적 구성을
+//      '이번 악장에서 들은 것 1~2 + 처음 듣는 소리' 로 바꿨고(표적의 절반이 진짜 청취),
+//      **이미 리빌된 단어의 채점은 전부 `{ assisted: true }`** 로 올려 FSRS 스케줄에서
+//      뺀다(점수·콤보·♪ 는 그대로).
+//   ② 종지 배점을 1/3 로 낮추고(200/600 → 80/200) 안전 선택을 상황 의존값으로 만들었다.
+//      2/3 도 소액 페널티를 물어 '무손실 도박'이 사라졌다. 종지 기여도 47.4% → 24.9%.
+//   ③ 남은 박보다 비싼 앙코르·종지 재청취를 잠갔다(라벨도 '박이 모자라요'로 바뀐다).
+//   ④ 열기에 성과와 무관한 바닥값을 깔았다 — 정확도 0.5~0.7 학습자도 램프를 만난다.
+//   ⑤ 종지 보드는 '들은 것 3 · 처음 듣는 것 3' 으로 고정 — '들었는가'가 단서가 아니다.
+//   ⑥ 같은 한국어 뜻이 두 타일에 뜨는 것을 막고, 큐 재빌드 경계의 즉시 재출제를 막았다.
 
 'use client';
 
@@ -60,11 +72,15 @@ import {
   type ComboTier,
 } from '@/components/game/_shared/gamekit';
 
+/** 스캐폴드 계약(v07.8) — 정답을 이미 보여준 뒤의 입력은 assisted 로 올린다. */
+interface ResultOpts {
+  assisted?: boolean;
+}
 interface Props {
   wordPool?: Word[];
   onExit?: () => void;
-  onCorrect?: (w: Word) => void;
-  onWrong?: (w: Word) => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
 // ── 폴백 뱅크 — wordPool 이 없을 때만 쓴다(데모/직접 진입) ──────────────────
@@ -100,6 +116,19 @@ const BEAT_MS = [640, 615, 590, 565, 540];
 const BEATS = [12, 11, 10, 9, 8];
 const TILES = [4, 4, 5, 5, 5];
 const TTS_RATE = [0.9, 0.95, 1.0, 1.05, 1.1];
+/**
+ * 성과와 무관한 열기 바닥 — 몇 문제마다 한 단계가 강제로 오르는가.
+ *
+ * 근거(반증 실측): 승급은 '3연속 정답'에서만 일어나고 오답은 −1 이다. 정확도 p 의
+ * 평균 연속 길이는 p/(1−p) 이므로 p ≤ 0.70 이면 평균 2.3 < 3 — 열기가 0~1 을 벗어나지
+ * 못한다. 그 학습자의 15번째 문제(11박×615ms·4지)는 1번째(12박×640ms·4지)와 사실상
+ * 같아서 램프가 '이미 잘하는 사람'에게만 존재했다. 이 앱의 주 사용자가 바로 0.5~0.7 이다.
+ *
+ * 4로 잡은 이유: 15문제 세션에서 0→3 까지 딱 세 번 오른다(4·8·12번째 문제 뒤).
+ * 13번째 문제에서 누구나 열기 3(9박×565=5.09s·5지)에 닿고, 마지막 단계 4 는 성과로만
+ * 열린다 — 바닥이 천장까지 밀어 올리면 잘하는 사람의 보상이 사라진다.
+ */
+const HEAT_FLOOR_EVERY = 4;
 const ECHO_LOCK_HEAT = 4;
 const MAX_ECHO = 2;
 /** 앙코르 비용(박) · 그 문제의 배수 곱 — 확신을 시간과 점수로 산다. */
@@ -120,10 +149,42 @@ const CHAIN_LEN = 3;
 const CHAIN_BOARD = 6;
 const CHAIN_BEATS = 18;
 const CHAIN_REPLAY_COST = 4;
-const CHAIN_HIT = 200;
-const CHAIN_PERFECT = 600;
-const SAFE_BONUS = 120;
-const MIN_POOL = 6;
+/**
+ * 종지 배점 — 200/600 에서 1/3 로 낮췄다.
+ *
+ * 근거(반증 실측): 완주 퍼펙트 런에서 본 루프 15문제 합계 ≈7,320점 대 종지 3회 합계
+ * ≈7,800점 — 점수의 47~52%가 3회의 종지에 몰려 있었다. 게임의 본체는 본 루프의 청취인데
+ * 점수는 종지가 결정하고 있었다는 뜻이다.
+ *
+ * 80/200 으로 재계산(node 시뮬): 종지 3회를 전부 3/3 으로 쓸어도 완주 퍼펙트 런의
+ * 종지 기여도는 47.4% → 24.9%. 3/3 = 440×콤보배수라 본 루프 한 문제 최대(100×3×3=900)의
+ * 절반이고, 2/3 = 120×배수로 뚝 떨어져 '전부 잇는 순간'의 낙차는 3.7배로 오히려 커졌다.
+ */
+const CHAIN_HIT = 80;
+const CHAIN_PERFECT = 200;
+/**
+ * 2/3 페널티 — '2개만 맞히면 ♪ 도 안 잃고 점수는 챙긴다'가 도박을 도박이 아니게 만들었다.
+ * ♪ 는 그대로 두되(3회 실패로 게임이 끝나는 구조라 목숨 페널티를 더 얹으면 가혹하다)
+ * 점수에서 40 을 물린다 — 2/3 순수익 120 은 안전 선택 밑값(60)의 두 배에서 멈춘다.
+ */
+const CHAIN_NEAR_PENALTY = 40;
+/**
+ * 안전 선택 = (밑값 + 열기당 + 잃은 ♪ 당) × 콤보배수.
+ * 고정 120 은 종지 기대값에 항상 졌다(1적중만 해도 200×배수). 상황 의존으로 바꿔
+ * "열기가 높고 ♪ 가 깎였을 때는 굳히는 게 맞다"를 실제로 성립시킨다.
+ * 콤보배수를 곱하는 이유: 종지만 배수를 받으면 콤보가 쌓일수록 도박이 자동으로 이긴다 —
+ * 두 선택지를 같은 통화로 만들어야 판단이 '위험' 하나로 좁혀진다.
+ */
+const SAFE_BASE = 60;
+const SAFE_PER_HEAT = 40;
+const SAFE_PER_LOST_HP = 30;
+/**
+ * 최소 풀 6 → 8.
+ * 근거: 6이면 15문제 + 종지 9슬롯이 전부 같은 6단어에서 나오고, 열기 2 이상(5지)에서는
+ * 6개 중 5개가 항상 보드에 올라 정답 확률이 구조적으로 1/5 로 고정됐다. 종지 보드(6칸)도
+ * 풀 전체가 되어 미끼가 미끼가 아니게 된다. 8이면 5지 보드가 8중 5, 종지가 8중 6이다.
+ */
+const MIN_POOL = 8;
 const REVEAL_OK_MS = 900;
 const REVEAL_NG_MS = 1700;
 const CHAIN_REVEAL_MS = 2800;
@@ -144,6 +205,15 @@ function multFor(c: number) {
 function fmtMult(m: number) {
   if (Number.isInteger(m)) return String(m);
   return m.toFixed(2).replace(/0+$/, '').replace(/\.$/, '');
+}
+
+/**
+ * 실효 열기 = max(성과 열기, 진행 바닥). 난도 노브 다섯 개는 전부 이 값을 쓴다.
+ * 앙코르 하드락만 성과 열기를 쓴다 — 못 따라가는 학습자에게서 재청취를 뺏으면 안 된다.
+ */
+function effHeatOf(perfHeat: number, answered: number) {
+  const floor = Math.min(BEATS.length - 1, Math.floor(answered / HEAT_FLOOR_EVERY));
+  return clamp(Math.max(perfHeat, floor), 0, BEATS.length - 1);
 }
 
 // ── 음운 유사도 — 디스트랙터가 "아무 단어"가 아니라 **헷갈릴 만한 소리**가 되게 ──
@@ -184,31 +254,121 @@ function phonScore(a: Word, b: Word) {
 /** 이 점수 이상이면 "아까웠어요"(near) — 오답음이 아니라 니어미스음으로 다룬다. */
 const NEAR_AT = 7;
 
-/** 열기가 오를수록 음운 이웃 비중이 커진다. 전부 유사어로 채우면 불공정하므로 상한을 둔다. */
+/**
+ * 열기가 오를수록 음운 이웃 비중이 커진다. 전부 유사어로 채우면 불공정하므로 상한을 둔다.
+ *
+ * ko 중복 차단: 이전 판은 target 과의 ko 충돌만 걸렀다. 디스트랙터끼리 뜻이 같으면
+ * (consequence / outcome 둘 다 '결과') 글자까지 똑같은 타일 두 개가 떠서 정답이 존재하지
+ * 않는 문제가 된다 — 실 어휘 세트(도서 챕터)에서 실제로 흔하다. 채택할 때마다 ko 를 적어 둔다.
+ */
 function pickOptions(pool: Word[], target: Word, n: number, heat: number): Word[] {
+  const usedKo = new Set<string>([target.ko]);
+  const out: Word[] = [];
+  const take = (w: Word) => {
+    if (out.length >= n) return;
+    if (w.en === target.en || usedKo.has(w.ko)) return;
+    out.push(w);
+    usedKo.add(w.ko);
+  };
   const cands = pool.filter((w) => w.en !== target.en && w.ko !== target.ko);
-  if (cands.length <= n) return shuffle(cands).slice(0, n);
   const nearWanted = clamp(heat, 0, Math.max(0, n - 1));
   const scored = cands
     .map((w) => ({ w, s: phonScore(target, w) + Math.random() * 0.8 }))
     .sort((a, b) => b.s - a.s);
-  const near = scored.slice(0, nearWanted).map((x) => x.w);
-  const nearSet = new Set(near.map((w) => w.en));
-  const rest = shuffle(cands.filter((w) => !nearSet.has(w.en)));
-  return [...near, ...rest.slice(0, Math.max(0, n - near.length))];
+  for (const x of scored) {
+    if (out.length >= nearWanted) break;
+    take(x.w);
+  }
+  for (const w of shuffle(cands)) {
+    if (out.length >= n) break;
+    take(w);
+  }
+  return out;
 }
 
-/** 종지 보드용 미끼 — 세 표적 중 무엇과도 헷갈릴 만한 소리를 우선. */
-function pickChainDecoys(pool: Word[], targets: Word[], n: number): Word[] {
-  const tEn = new Set(targets.map((t) => t.en));
-  const tKo = new Set(targets.map((t) => t.ko));
-  const cands = pool.filter((w) => !tEn.has(w.en) && !tKo.has(w.ko));
-  if (cands.length <= n) return shuffle(cands).slice(0, n);
-  return cands
-    .map((w) => ({ w, s: Math.max(...targets.map((t) => phonScore(t, w))) + Math.random() * 0.8 }))
-    .sort((a, b) => b.s - a.s)
-    .slice(0, n)
-    .map((x) => x.w);
+/**
+ * 종지 보드 구성 — 표적 CHAIN_LEN 개 + 미끼로 boardSize 칸을 채운다.
+ *
+ * 반증 두 건을 한 구조로 막는다.
+ *  ① 표적을 전부 heardWords 에서 뽑으면, 몇 초 전 리빌 카드가 철자·IPA·뜻·예문을
+ *     통째로 보여준 단어를 다시 묻는 셈이다. 점수도 FSRS 크레딧도 '청취'가 아니라
+ *     '방금 본 것 순서 기억'에 붙는다.
+ *  ② 표적이 전부 '이번 악장에 뜻이 공개된 단어'라는 사실 자체가 비언어 단서다.
+ *     이번 악장에 안 나온 ko 타일은 소리를 한 번도 안 듣고 배제할 수 있어서
+ *     후보가 6→4 로 줄고 무작위 성공률이 1/120 → 1/24 로 다섯 배 올랐다.
+ *
+ * 그래서 표적은 '이번 악장에서 들은 것 1~2 + 처음 듣는 소리'로 짜고, 미끼가 그 반대를
+ * 채워 **보드는 항상 들은 것 절반 · 처음 듣는 것 절반**이 된다. '들었는가'로는 아무것도
+ * 좁혀지지 않는다(무작위 성공률 1/108, 이전 1/24). 종지는 순서 기억 과제에서 청취 과제가
+ * 되고, 처음 듣는 표적은 리빌된 적이 없으므로 FSRS 에 정직하게 올라간다.
+ * (악장과의 연결감을 위해 들은 단어는 한둘 남긴다. 그것들은 assisted 로 걸러진다.)
+ */
+function buildChainSet(
+  pool: Word[],
+  heard: Word[],
+  len: number,
+  boardSize: number,
+): { targets: Word[]; board: Word[] } {
+  const seenEn = new Set<string>();
+  const heardU = heard
+    .filter((w) => pool.some((p) => p.en === w.en))
+    .filter((w) => (seenEn.has(w.en) ? false : (seenEn.add(w.en), true)));
+  const heardEn = new Set(heardU.map((w) => w.en));
+  const fresh = pool.filter((w) => !heardEn.has(w.en));
+
+  const usedKo = new Set<string>();
+  const usedEn = new Set<string>();
+  const targets: Word[] = [];
+  const takeTarget = (w: Word) => {
+    if (targets.length >= len || usedEn.has(w.en) || usedKo.has(w.ko)) return;
+    targets.push(w);
+    usedEn.add(w.en);
+    usedKo.add(w.ko);
+  };
+  // 표적 안의 '들은 단어' 개수를 1 또는 2 로 무작위화한다. 개수가 고정이면 규칙을
+  // 아는 플레이어가 후보 공간을 120 → 54 로 반으로 접을 수 있다(들은 3칸 중 하나만
+  // 표적이라고 확신). 1/2 를 섞으면 54+54=108 로 거의 접히지 않는다.
+  const wantHeardTargets = 1 + (Math.random() < 0.5 ? 1 : 0);
+  for (const w of shuffle(heardU)) {
+    if (targets.length >= wantHeardTargets) break;
+    takeTarget(w);
+  }
+  for (const w of shuffle(fresh)) {
+    if (targets.length >= len) break;
+    takeTarget(w);
+  }
+  // 풀이 작아 처음 듣는 소리가 모자라면 들은 것으로 채운다(게임이 멈추는 것보다 낫다).
+  for (const w of shuffle(pool)) {
+    if (targets.length >= len) break;
+    takeTarget(w);
+  }
+
+  const rank = (cands: Word[]) =>
+    cands
+      .map((w) => ({
+        w,
+        s: (targets.length ? Math.max(...targets.map((t) => phonScore(t, w))) : 0) + Math.random() * 0.8,
+      }))
+      .sort((a, b) => b.s - a.s)
+      .map((x) => x.w);
+
+  const decoys: Word[] = [];
+  const need = Math.max(0, boardSize - targets.length);
+  const takeDecoy = (w: Word, cap: number) => {
+    if (decoys.length >= cap || usedEn.has(w.en) || usedKo.has(w.ko)) return;
+    decoys.push(w);
+    usedEn.add(w.en);
+    usedKo.add(w.ko);
+  };
+  // 보드의 '들은 것' 개수를 절반으로 고정한다 — 표적에 든 만큼을 미끼에서 뺀다.
+  const heardOnBoard = Math.floor(boardSize / 2);
+  const heardInTargets = targets.filter((t) => heardEn.has(t.en)).length;
+  const heardDecoyCap = Math.min(need, Math.max(0, heardOnBoard - heardInTargets));
+  for (const w of rank(heardU)) takeDecoy(w, heardDecoyCap);
+  for (const w of rank(fresh)) takeDecoy(w, need);
+  for (const w of shuffle(pool)) takeDecoy(w, need);
+
+  return { targets, board: shuffle([...targets, ...decoys]) };
 }
 
 /** 놓친 단어를 앞쪽에 섞어 넣은 출제 큐 — "다음 판의 이유"를 자료로 만든다. */
@@ -385,6 +545,8 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   const [hp, setHp] = useState(START_HP);
   const [score, setScore] = useState(0);
   const [heat, setHeat] = useState(0);
+  /** 화면에 그리는 열기 — 실효값(성과 열기와 진행 바닥 중 큰 쪽). */
+  const [stageHeat, setStageHeat] = useState(0);
   const [cleared, setCleared] = useState(0);
   const [heard, setHeard] = useState(0);
   const [inMovement, setInMovement] = useState(0);
@@ -430,6 +592,9 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   const chainSubmittedRef = useRef(false);
   const hpRef = useRef(START_HP);
   const heatRef = useRef(0);
+  /** 지금 진행 중인 문제·종지가 실제로 쓰는 실효 열기 — 박 길이·발화 속도가 도중에
+   *  어긋나지 않도록 시작 시점에 한 번 고정한다(앙코르 비용 계산도 이 값을 쓴다). */
+  const qHeatRef = useRef(0);
   const runRef = useRef(0);
   const scoreRef = useRef(0);
   const clearedRef = useRef(0);
@@ -437,6 +602,15 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   const movementRef = useRef(1);
   const echoRef = useRef(0);
   const heardWordsRef = useRef<Word[]>([]);
+  /**
+   * 이 판에서 **정답을 화면에 펼친 적이 있는** 단어. 리빌 카드는 철자·발음기호·뜻·예문을
+   * 전부 보여주므로, 그 뒤의 같은 단어 채점은 인출이 아니라 재인이다.
+   * 여기 있는 단어는 onCorrect/onWrong 에 `{ assisted: true }` 로 올려 FSRS 에서 뺀다
+   * (점수·콤보·♪ 는 그대로 — 게임은 게임대로 굴러가야 한다).
+   */
+  const revealedRef = useRef<Set<string>>(new Set());
+  /** 큐 재빌드 경계에서 같은 단어를 연달아 내지 않기 위한 직전 출제어. */
+  const lastServedRef = useRef('');
   const missedRef = useRef<Word[]>([]);
   const queueRef = useRef<Word[]>([]);
   const lockRef = useRef(false);
@@ -526,15 +700,33 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
     [hasTTS, pushTimer],
   );
 
+  /** 지금까지 본 루프에서 답한 문제 수 — 열기 바닥의 기준. */
+  const answeredCount = useCallback(
+    () => (movementRef.current - 1) * PER_MOVEMENT + inMovementRef.current,
+    [],
+  );
+
   const takeNext = useCallback(() => {
     if (queueRef.current.length === 0) queueRef.current = buildQueue(poolRef.current, []);
-    return queueRef.current.shift() ?? poolRef.current[0];
+    let w = queueRef.current.shift() ?? poolRef.current[0];
+    // 큐는 풀 한 바퀴짜리라 재빌드 경계에서 직전 문제와 같은 단어가 이어질 수 있다
+    // (풀 8이면 1/8). 그건 방금 리빌로 철자·뜻을 통째로 본 단어를 곧바로 되묻는
+    // 공짜 정답이므로, 큐 안쪽 한 칸과 자리를 바꾼다.
+    if (w && w.en === lastServedRef.current && queueRef.current.length > 0) {
+      const swap = queueRef.current.shift() as Word;
+      queueRef.current.unshift(w);
+      w = swap;
+    }
+    lastServedRef.current = w?.en ?? '';
+    return w;
   }, []);
 
   // ── 문제 시작 ─────────────────────────────────────────────────────────────
   const startQuestion = useCallback(() => {
     if (!mountedRef.current) return;
-    const h = heatRef.current;
+    const h = effHeatOf(heatRef.current, answeredCount());
+    qHeatRef.current = h;
+    setStageHeat(h);
     const target = takeNext();
     const n = Math.min(TILES[h], poolRef.current.length);
     const opts = shuffle([target, ...pickOptions(poolRef.current, target, n - 1, h)]);
@@ -560,7 +752,7 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       if (!lockRef.current) cdRef.current.reset(BEATS[h] * BEAT_MS[h]);
       setSpeaking(false);
     });
-  }, [speak, takeNext]);
+  }, [answeredCount, speak, takeNext]);
 
   const endGame = useCallback(() => {
     clearTimers();
@@ -606,23 +798,18 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   );
 
   const beginChain = useCallback(() => {
-    const h = heatRef.current;
-    // 한 악장 안에서 같은 단어가 두 번 나올 수 있다(큐가 한 바퀴 돈 경우).
-    // 표적이 중복되면 보드 키가 겹치고 "순서대로 잇기"가 성립하지 않는다.
-    const seen = new Set<string>();
-    const targets: Word[] = shuffle(heardWordsRef.current)
-      .filter((w) => (seen.has(w.en) ? false : (seen.add(w.en), true)))
-      .slice(0, CHAIN_LEN);
-    let guard = 0;
-    while (targets.length < CHAIN_LEN && guard < 40) {
-      guard += 1;
-      const w = takeNext();
-      if (!targets.some((t) => t.en === w.en)) targets.push(w);
-    }
+    const h = effHeatOf(heatRef.current, answeredCount());
+    qHeatRef.current = h;
+    setStageHeat(h);
+    const { targets, board } = buildChainSet(
+      poolRef.current,
+      heardWordsRef.current,
+      CHAIN_LEN,
+      Math.min(CHAIN_BOARD, poolRef.current.length),
+    );
     chainSubmittedRef.current = false;
-    const decoys = pickChainDecoys(poolRef.current, targets, CHAIN_BOARD - targets.length);
     setChainTargets(targets);
-    setChainBoard(shuffle([...targets, ...decoys]));
+    setChainBoard(board);
     setChainPicks([]);
     setChainResult(null);
     setChainReplayed(false);
@@ -636,10 +823,10 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
     playSeq(targets, TTS_RATE[h], () => {
       if (!mountedRef.current) return;
       lastBeatRef.current = -1;
-      cdRef.current.reset(CHAIN_BEATS * BEAT_MS[heatRef.current]);
+      cdRef.current.reset(CHAIN_BEATS * BEAT_MS[h]);
       setChainStage('pick');
     });
-  }, [playSeq, takeNext]);
+  }, [answeredCount, playSeq]);
 
   const finishMovement = useCallback(() => {
     heardWordsRef.current = [];
@@ -667,19 +854,30 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
     let hits = 0;
     targets.forEach((t, i) => {
       const got = chosen[i];
+      // 이 판에서 이미 리빌 카드로 철자·발음기호·뜻을 펼친 단어라면, 종지의 결과는
+      // 청취 인출이 아니라 '방금 본 것' 재인이다 → assisted 로 올려 FSRS 에서 뺀다.
+      // 처음 듣는 표적(보드 절반)은 리빌된 적이 없으므로 정직하게 올라간다.
+      const assisted = revealedRef.current.has(t.en);
       if (got && got.en === t.en) {
         hits += 1;
-        onCorrectRef.current?.(t);
+        onCorrectRef.current?.(t, { assisted });
       } else {
-        onWrongRef.current?.(t);
+        // 모르는 단어일수록 오답으로 올라가야 복습이 잡힌다 — 호출을 건너뛰지 않는다.
+        onWrongRef.current?.(t, { assisted });
         if (!missedRef.current.some((m) => m.en === t.en)) {
           missedRef.current = [...missedRef.current, t];
           setMissed(missedRef.current);
         }
       }
+      // 종지 리빌도 en·IPA·ko 를 전부 펼친다 — 이 뒤로는 이 단어가 assisted 다.
+      revealedRef.current.add(t.en);
     });
     const mult = multFor(comboCountRef.current);
-    const gain = Math.round((hits * CHAIN_HIT + (hits === CHAIN_LEN ? CHAIN_PERFECT : 0)) * mult);
+    const raw =
+      hits * CHAIN_HIT +
+      (hits === CHAIN_LEN ? CHAIN_PERFECT : 0) -
+      (hits === CHAIN_LEN - 1 ? CHAIN_NEAR_PENALTY : 0);
+    const gain = Math.round(Math.max(0, raw) * mult);
     scoreRef.current += gain;
     setScore(scoreRef.current);
     clearedRef.current += hits;
@@ -694,13 +892,19 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       setAnnounce(`종지 성공 · ${CHAIN_LEN}개 모두 · +${gain}점 · ♪ 하나 회복`);
     } else {
       combo.miss();
-      if (hits < 2) {
+      // ♪ 는 CHAIN_LEN-1 미만에서만 잃는다. 2/3 는 목숨 대신 점수(CHAIN_NEAR_PENALTY)를
+      // 문다 — 3회 실패로 판이 끝나는 구조에서 목숨 페널티를 더 얹으면 가혹해진다.
+      if (hits < CHAIN_LEN - 1) {
         hpRef.current -= 1;
         setHp(hpRef.current);
       }
-      if (hits === 2) sfxRef.current.nearMiss();
+      if (hits === CHAIN_LEN - 1) sfxRef.current.nearMiss();
       else sfxRef.current.wrong();
-      setAnnounce(`종지 ${hits}/${CHAIN_LEN} · +${gain}점`);
+      setAnnounce(
+        hits === CHAIN_LEN - 1
+          ? `종지 ${hits}/${CHAIN_LEN} · 하나가 어긋났어요 · +${gain}점`
+          : `종지 ${hits}/${CHAIN_LEN} · +${gain}점 · ♪ 하나를 썼어요`,
+      );
     }
     setChainResult({ hits, picks: chosen });
     setChainStage('reveal');
@@ -726,6 +930,9 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       const chosen = idx === null ? null : cur.options[idx];
       const ok = !!chosen && chosen.en === cur.target.en;
       const kind: FeedKind = ok ? 'correct' : chosen && phonScore(cur.target, chosen) >= NEAR_AT ? 'near' : 'wrong';
+      // 큐가 한 바퀴를 돌아 같은 단어가 다시 나온 경우 — 그 사이 리빌 카드가 철자·뜻을
+      // 다 보여줬으므로 이번 채점은 재인이다. 점수·콤보는 그대로, FSRS 만 뺀다.
+      const assisted = revealedRef.current.has(cur.target.en);
 
       heardWordsRef.current = [...heardWordsRef.current, cur.target];
       setHeard((n) => n + 1);
@@ -746,7 +953,7 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
           setHeat(heatRef.current);
         }
         sfxRef.current.correct(nc, nc % 5 === 0);
-        onCorrectRef.current?.(cur.target);
+        onCorrectRef.current?.(cur.target, { assisted });
         setAnnounce(`정답 · ${cur.target.en} · ${cur.target.ko} · ×${ladderRef.current} · +${gain}점`);
       } else {
         combo.miss();
@@ -759,7 +966,9 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
         setHp(hpRef.current);
         if (kind === 'near') sfxRef.current.nearMiss();
         else sfxRef.current.wrong();
-        onWrongRef.current?.(cur.target);
+        // 시간 만료(idx === null)도 정직한 오답으로 올린다 — 소리를 듣고도 못 짚은 것은
+        // 진짜 실패다. 방치로 무한 적재되지는 않는다: ♪ 3 이 소진되면 판이 끝난다.
+        onWrongRef.current?.(cur.target, { assisted });
         if (!missedRef.current.some((m) => m.en === cur.target.en)) {
           missedRef.current = [...missedRef.current, cur.target];
           setMissed(missedRef.current);
@@ -774,6 +983,8 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       }
       setPicked(idx);
       setReveal({ kind, word: cur.target, picked: idx, gain });
+      // 이 순간부터 이 단어는 '정답을 본 단어'다.
+      revealedRef.current.add(cur.target.en);
 
       pushTimer(
         window.setTimeout(
@@ -809,23 +1020,34 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   };
 
   // ── 앙코르(다시 듣기) ─────────────────────────────────────────────────────
+  // 앙코르 하드락은 **성과 열기**로만 건다. 진행 바닥(effHeat)으로 잠그면 못 따라가는
+  // 학습자에게서 재청취를 빼앗게 된다 — 익스플로짓을 막다가 불공정을 만드는 짓이다.
   const echoLocked = heat >= ECHO_LOCK_HEAT;
   const echoSpent = echoes >= MAX_ECHO;
-  const echoDisabled = !q || !!reveal || echoLocked || echoSpent || speaking;
+  const echoCost = ECHO_BEAT_COST[Math.min(echoes, ECHO_BEAT_COST.length - 1)];
+  /** 남은 박이 비용 이하면 누르는 순간 시계가 0 아래로 밀려 즉사한다 — 아예 못 누르게. */
+  const echoNoBeats = beatsLeft <= echoCost;
+  const echoDisabled = !q || !!reveal || echoLocked || echoSpent || speaking || echoNoBeats;
 
   const doEcho = useCallback(() => {
     const cur = qRef.current;
     if (!cur || lockRef.current || speakingRef.current) return;
     if (heatRef.current >= ECHO_LOCK_HEAT) return;
     if (echoRef.current >= MAX_ECHO) return;
+    const h = qHeatRef.current;
     const cost = ECHO_BEAT_COST[echoRef.current];
+    // 키보드 R 경로는 aria-disabled 를 거치지 않는다 — 같은 검사를 동기로 한 번 더.
+    // 비용과 같거나 적게 남았으면 재생이 끝나는 순간 onEnd → answer(null) 로 ♪ 가
+    // 아무 설명 없이 사라진다(WARN_BEATS=2 라 3박에서는 경고조차 안 뜬다).
+    const leftBeats = Math.ceil(Math.max(0, cdRef.current.remainMs) / BEAT_MS[h]);
+    if (leftBeats <= cost) return;
     echoRef.current += 1;
     setEchoes(echoRef.current);
-    cdRef.current.drain(cost * BEAT_MS[heatRef.current]);
+    cdRef.current.drain(cost * BEAT_MS[h]);
     sfxRef.current.click();
     setAnnounce(`앙코르 · ${cost}박 소모 · 이 문제 ${ECHO_LABEL[echoRef.current]}`);
     setSpeaking(true);
-    speak(cur.target.en, TTS_RATE[heatRef.current], () => {
+    speak(cur.target.en, TTS_RATE[h], () => {
       if (mountedRef.current) setSpeaking(false);
     });
   }, [speak]);
@@ -847,10 +1069,14 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   const chainReplay = useCallback(() => {
     if (chainStageRef.current !== 'pick') return;
     if (chainReplayed) return;
+    const h = qHeatRef.current;
+    // 앙코르와 같은 이유의 동기 가드 — 남은 박이 비용 이하면 재생이 끝나는 순간
+    // 시간 만료가 종지를 강제 제출한다(고른 것도 없이 0/3 → ♪ 하나 소멸).
+    if (Math.ceil(Math.max(0, cdRef.current.remainMs) / BEAT_MS[h]) <= CHAIN_REPLAY_COST) return;
     setChainReplayed(true);
-    cdRef.current.drain(CHAIN_REPLAY_COST * BEAT_MS[heatRef.current]);
+    cdRef.current.drain(CHAIN_REPLAY_COST * BEAT_MS[h]);
     setAnnounce(`종지 다시 듣기 · ${CHAIN_REPLAY_COST}박 소모`);
-    playSeq(chainTargetsRef.current, TTS_RATE[heatRef.current], () => {
+    playSeq(chainTargetsRef.current, TTS_RATE[h], () => {
       /* 재생이 끝나면 시계가 저절로 다시 흐른다 */
     });
   }, [chainReplayed, playSeq]);
@@ -864,13 +1090,21 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
   submitChainRef.current = submitChain;
 
   // ── 악장 종료 선택 ────────────────────────────────────────────────────────
+  /** 지금 '이어 가기'를 고르면 받는 점수 — 열기·잃은 ♪·콤보에 따라 달라진다. */
+  const safeBonusNow = useCallback(() => {
+    const h = effHeatOf(heatRef.current, answeredCount());
+    const base = SAFE_BASE + SAFE_PER_HEAT * h + SAFE_PER_LOST_HP * (MAX_HP - hpRef.current);
+    return Math.round(base * multFor(comboCountRef.current));
+  }, [answeredCount]);
+
   const takeSafe = useCallback(() => {
-    scoreRef.current += SAFE_BONUS;
+    const bonus = safeBonusNow();
+    scoreRef.current += bonus;
     setScore(scoreRef.current);
     sfxRef.current.coin();
-    setAnnounce(`이어 가기 · +${SAFE_BONUS}점`);
+    setAnnounce(`이어 가기 · +${bonus}점`);
     finishMovement();
-  }, [finishMovement]);
+  }, [finishMovement, safeBonusNow]);
   const takeSafeRef = useRef(takeSafe);
   takeSafeRef.current = takeSafe;
   const beginChainRef = useRef(beginChain);
@@ -891,9 +1125,9 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       }
       setCountIn(n);
       sfxRef.current.click();
-      pushTimer(window.setTimeout(tick, BEAT_MS[heatRef.current]));
+      pushTimer(window.setTimeout(tick, BEAT_MS[qHeatRef.current]));
     };
-    pushTimer(window.setTimeout(tick, BEAT_MS[heatRef.current]));
+    pushTimer(window.setTimeout(tick, BEAT_MS[qHeatRef.current]));
   }, [pushTimer, startQuestion]);
 
   const resetRun = useCallback(
@@ -902,7 +1136,13 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       queueRef.current = buildQueue(poolRef.current, focusMissed ? missedRef.current : []);
       heatRef.current = 0;
       setHeat(0);
+      qHeatRef.current = 0;
+      setStageHeat(0);
       runRef.current = 0;
+      lastServedRef.current = '';
+      // '한 판 더'는 새 인출 기회다 — 지난 판에서 본 리빌은 이 판의 채점을 막지 않는다.
+      // (같은 카드를 연달아 채점하는 것은 record-result 의 10분 최소간격이 중앙에서 막는다.)
+      revealedRef.current = new Set();
       hpRef.current = START_HP;
       setHp(START_HP);
       scoreRef.current = 0;
@@ -1212,6 +1452,9 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
     : clamp(1 - cd.frac, 0, 1);
   const warn = running && beatsLeft <= (phase === 'chain' ? CHAIN_WARN_BEATS : WARN_BEATS);
   const echoMultLabel = ECHO_LABEL[Math.min(echoes, MAX_ECHO)];
+  /** 종지 재청취도 남은 박이 비용 이하면 잠근다 — 앙코르와 같은 즉사 경로였다. */
+  const chainReplayNoBeats = beatsLeft <= CHAIN_REPLAY_COST;
+  const chainReplayDisabled = chainReplayed || chainPlaying > 0 || chainReplayNoBeats;
 
   return (
     <div className="gk-root wf-root">
@@ -1221,12 +1464,14 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
       {musicBtn}
       <div className="gk-sr" aria-live="assertive">{announce}</div>
 
+      {/* ♪ 는 '남은 기회'(목숨) 전용 기호다. 문제에 남은 시간은 '박'이라고만 부른다 —
+          타이머·목숨·HUD 점 셋이 서로 다른 것을 같은 글자로 부르던 것이 clarity 최대 결함이었다. */}
       <Hud
         score={score}
         progress={progress}
         combo={combo.combo}
         comboMult={combo.mult}
-        lives={{ total: MAX_HP, left: Math.max(0, hp), label: '남은 박자' }}
+        lives={{ total: MAX_HP, left: Math.max(0, hp), label: '♪ 남은 기회' }}
         muted={sfx.muted}
         onToggleMute={() => sfx.setMuted(!sfx.muted)}
         onExit={onExit}
@@ -1248,6 +1493,9 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
             </p>
             <p className="wf-panel-sub">
               다시 듣기는 박과 배수를 태웁니다 · 악장 5문제마다 <b>종지</b>를 걸지 고릅니다
+            </p>
+            <p className="wf-panel-sub">
+              <b>박</b> = 이 문제에 남은 시간 · <b>♪</b> = 남은 기회 (세 번 어긋나면 판이 끝나요)
             </p>
             <button type="button" className="gk-btn gk-btn--primary wf-gate-btn" onClick={beginRun}>
               준비됐어요
@@ -1274,11 +1522,11 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
                   <i key={i} data-on={i < inMovement ? '1' : '0'} />
                 ))}
               </span>
-              <span className="wf-heat" aria-label={`열기 ${heat} 단계`}>
+              <span className="wf-heat" aria-label={`열기 ${stageHeat} 단계`}>
                 열기
                 <span className="wf-heat-bars" aria-hidden="true">
                   {Array.from({ length: BEATS.length - 1 }, (_, i) => (
-                    <i key={i} data-on={i < heat ? '1' : '0'} />
+                    <i key={i} data-on={i < stageHeat ? '1' : '0'} />
                   ))}
                 </span>
               </span>
@@ -1349,7 +1597,7 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
               </div>
               <p className="wf-read" data-warn={warn ? '1' : '0'}>
                 {warn && <FeedbackIcon kind="wrong" size={13} />}
-                <span className="wf-read-beat">♪ {beatsLeft}박</span>
+                <span className="wf-read-beat">{beatsLeft}박</span>
                 <span className="wf-read-mult">×{fmtMult(ladderMult * ECHO_MULT[Math.min(echoes, MAX_ECHO)])}</span>
               </p>
             </div>
@@ -1383,9 +1631,13 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
                     ? '한 번에 들어야 해요'
                     : echoSpent
                       ? '앙코르 소진'
-                      : `다시 듣기 −${ECHO_BEAT_COST[echoes]}박`}
+                      : echoNoBeats
+                        ? `박이 모자라요 (−${echoCost}박 필요)`
+                        : `다시 듣기 −${echoCost}박`}
                 </span>
-                {!echoLocked && !echoSpent && <span className="wf-listen-cost">{ECHO_LABEL[echoes + 1]}</span>}
+                {!echoLocked && !echoSpent && !echoNoBeats && (
+                  <span className="wf-listen-cost">{ECHO_LABEL[echoes + 1]}</span>
+                )}
               </button>
               <span className="wf-echo" aria-label={`남은 앙코르 ${Math.max(0, MAX_ECHO - echoes)}회`}>
                 {Array.from({ length: MAX_ECHO }, (_, i) => (
@@ -1408,19 +1660,19 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
             <p className="wf-caption wf-caption--solo">악장 {Math.min(movement, MOVEMENTS)} 끝</p>
             <h2 id="wf-wager-title" className="wf-panel-title">종지를 걸까요?</h2>
             <p className="wf-panel-sub">
-              방금 들은 단어 <b>{CHAIN_LEN}개</b>가 이어서 흐릅니다. 순서대로 뜻을 이으면
-              큰 점수와 <b>♪ 하나</b>를 돌려받습니다.
+              단어 <b>{CHAIN_LEN}개</b>가 이어서 흐릅니다 — 대부분 <b>이번 악장에 나오지 않은 소리</b>예요.
+              순서대로 뜻을 이으면 큰 점수와 <b>♪ 하나</b>를 돌려받습니다.
             </p>
             <p className="wf-panel-warn">
               <FeedbackIcon kind="wrong" size={13} />
-              {CHAIN_LEN - 1}개 미만이면 ♪ 하나를 잃어요 · 지금 남은 ♪ {hp}
+              어긋나면 지금 연쇄 {combo.combo}가 끊겨요 · {CHAIN_LEN - 1}개 미만이면 ♪ 하나 · 지금 ♪ {hp}
             </p>
             <div className="wf-wager-btns">
               <button type="button" className="gk-btn gk-btn--primary wf-wager-btn" onClick={beginChain}>
                 종지 걸기
               </button>
               <button type="button" className="gk-btn wf-wager-btn" onClick={takeSafe}>
-                그냥 이어 가기 <span className="wf-wager-sub">+{SAFE_BONUS}점</span>
+                그냥 이어 가기 <span className="wf-wager-sub">+{safeBonusNow()}점</span>
               </button>
             </div>
           </section>
@@ -1506,7 +1758,7 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
                 </div>
                 <p className="wf-read" data-warn={warn ? '1' : '0'}>
                   {warn && <FeedbackIcon kind="wrong" size={13} />}
-                  <span className="wf-read-beat">♪ {beatsLeft}박</span>
+                  <span className="wf-read-beat">{beatsLeft}박</span>
                 </p>
               </div>
             )}
@@ -1526,14 +1778,18 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
                 <button
                   type="button"
                   className="wf-listen"
-                  aria-disabled={chainReplayed || chainPlaying > 0}
+                  aria-disabled={chainReplayDisabled}
                   onClick={() => {
-                    if (chainReplayed || chainPlaying > 0) return;
+                    if (chainReplayDisabled) return;
                     chainReplay();
                   }}
                 >
                   <span className="wf-listen-txt">
-                    {chainReplayed ? '다시 듣기 소진' : `다시 듣기 −${CHAIN_REPLAY_COST}박`}
+                    {chainReplayed
+                      ? '다시 듣기 소진'
+                      : chainReplayNoBeats
+                        ? `박이 모자라요 (−${CHAIN_REPLAY_COST}박 필요)`
+                        : `다시 듣기 −${CHAIN_REPLAY_COST}박`}
                   </span>
                 </button>
                 <button

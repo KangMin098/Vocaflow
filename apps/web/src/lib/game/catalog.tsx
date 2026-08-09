@@ -173,7 +173,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라',
-    layer: 'L4c 듣기', ref: 'Rhythm', source: 'mine', emoji: '🎵', closeHref: '/arcade', minWords: 6,
+    layer: 'L4c 듣기', ref: 'Rhythm', source: 'mine', emoji: '🎵', closeHref: '/arcade', minWords: 8,
     mood: { a: '#4C6FA6', b: '#182444', glow: 'rgba(140,180,255,.44)', accent: '#D4E2FA' },
     music: bgm('wordfall-cadence'),
   },
@@ -206,13 +206,13 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'connections', name: 'Connections', tagline: '뜻만 보고 숨은 규칙을 잇다',
-    layer: 'L5 관계', ref: 'NYT', source: 'mine', emoji: '🧩', closeHref: '/arcade', minWords: 16,
+    layer: 'L5 관계', ref: 'NYT', source: 'mine', emoji: '🧩', closeHref: '/arcade', minWords: 24,
     mood: { a: '#7150A8', b: '#2C2356', glow: 'rgba(206,178,255,.5)', accent: '#E3D4FF' },
     music: bgm('connections'),
   },
   {
     slug: 'glyph-tongue', name: 'The Glyph Tongue', tagline: '뜻을 주지 않는다 — 문맥으로 룬을 해독',
-    layer: 'L2 해독', ref: 'Chants of Sennaar', source: 'mine', emoji: '📜', closeHref: '/arcade', minWords: 4,
+    layer: 'L2 해독', ref: 'Chants of Sennaar', source: 'mine', emoji: '📜', closeHref: '/arcade', minWords: 8,
     mood: { a: '#6E86A6', b: '#333E56', glow: 'rgba(184,210,230,.5)', accent: '#DCE8F2' },
     music: bgm('glyph-tongue'),
   },
@@ -224,19 +224,19 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'morpheme-rules', name: 'Morpheme Rules', tagline: '형태소를 조립하면 그 뜻이 세계를 바꾼다',
-    layer: 'L4b 형태론', ref: 'Baba Is You', source: 'mine', emoji: '🔠', closeHref: '/arcade', minWords: 6,
+    layer: 'L4b 형태론', ref: 'Baba Is You', source: 'mine', emoji: '🔠', closeHref: '/arcade', minWords: 1,
     mood: { a: '#4C7A9E', b: '#1A2330', glow: 'rgba(130,205,255,.44)', accent: '#D4EAFA' },
     music: bgm('morpheme-rules'),
   },
   {
     slug: 'silent-rule', name: 'The Silent Rule', tagline: '설명 없이 철자 규칙을 스스로 귀납하라',
-    layer: 'L4b 귀납', ref: 'The Witness', source: 'mine', emoji: '🔆', closeHref: '/arcade', minWords: 6,
+    layer: 'L4b 귀납', ref: 'The Witness', source: 'mine', emoji: '🔆', closeHref: '/arcade', minWords: 12,
     mood: { a: '#3E9E86', b: '#173F3B', glow: 'rgba(140,235,190,.44)', accent: '#D2F3E4' },
     music: bgm('silent-rule'),
   },
   {
     slug: 'lexicon-hands', name: 'Lexicon Hands', tagline: '어원·품사 시너지로 배수를 폭발시켜라',
-    layer: 'L4+ 시너지', ref: 'Balatro', source: 'mine', emoji: '🃏', closeHref: '/arcade', minWords: 12,
+    layer: 'L4+ 시너지', ref: 'Balatro', source: 'mine', emoji: '🃏', closeHref: '/arcade', minWords: 16,
     mood: { a: '#7B4BA6', b: '#241732', glow: 'rgba(150,240,205,.42)', accent: '#CFF6E6' },
     music: bgm('lexicon-hands'),
   },
@@ -248,7 +248,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'lexicon-estate', name: 'Lexicon Estate', tagline: '단어-방을 배치해 의미장 저택을 짓다',
-    layer: 'L5 의미망', ref: 'Blue Prince', source: 'mine', emoji: '🏛', closeHref: '/arcade', minWords: 12,
+    layer: 'L5 의미망', ref: 'Blue Prince', source: 'mine', emoji: '🏛', closeHref: '/arcade', minWords: 20,
     mood: { a: '#3E6EA6', b: '#152238', glow: 'rgba(130,180,255,.44)', accent: '#CFE2FA' },
     music: bgm('lexicon-estate'),
   },
