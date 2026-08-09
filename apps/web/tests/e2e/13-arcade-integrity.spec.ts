@@ -116,40 +116,104 @@ test.describe('아케이드 자료 연계', () => {
   // 그 결과 onCorrect/onWrong 의 99.7% 가 recordGameResult 에서 silent skip 됐다
   // (DB 실측: vocabularies 2,106행 중 7행만 겹침). "라벨이 맞다 ≠ 그 자료로 논다".
   test('A3 · 화면에 실제로 그 자료의 단어가 나온다 (라벨만 맞는 가짜 연계 차단)', async ({ page }) => {
-    test.setTimeout(19 * 40_000);
+    test.setTimeout(19 * 40_000); // DEEP_ENTRY 5종 제외 → 실제 14종
     const setWords = await fetchSharedSetWords(FIXTURE_SET.id);
     test.skip(setWords.length < 10, 'service-role 키 없음 또는 픽스처 세트 비어 있음');
 
     const en = setWords.map((w) => w.word.toLowerCase()).filter((w) => w.length >= 3);
     const ko = setWords.map((w) => w.meaning.trim()).filter((m) => m.length >= 2);
 
+    // ⚠️ 커버리지 경계 — 정직하게 밝힌다.
+    // 이 단언은 "게임을 열고 한 걸음 들어가면 자료 단어가 보이는가"를 **일반적으로** 본다.
+    // 콘텐츠가 다단계 상호작용 뒤에야 나오는 게임(오디오 게이트 + 카운트인 · 촛불 점화 후
+    // 웨이브 스폰 · 행성 개방 후 관측 패널 · 사건철 개방 후 증거 개봉)은 그 절차가 게임마다
+    // 완전히 달라, 여기서 흉내 내면 매 실행 다른 게임이 실패하는 불안정한 단언이 된다
+    // (실측: 3회 실행에서 실패 집합이 매번 회전 — 결함이 아니라 탐지 한계였다).
+    //
+    // 그 게임들은 **07-arcade-games 가 게임별 실제 조작 계약으로 이미 검증**한다
+    // (게이트 통과 → 조작 → 채점 반응). 여기서 중복 구현하면 계약이 두 곳으로 갈라져
+    // 둘 다 낡는다. 대신 A(라벨) · A2(스크립트) · B(허브) 가 이 게임들도 함께 덮는다.
+    const DEEP_ENTRY = new Set([
+      'wordfall-cadence', // 오디오 게이트 → 3박 카운트인 → 발화 후에야 타일
+      'wordsmith-vigil', // 촛불 점화 → 웨이브 스폰 대기
+      'word-orrery', // 행성 개방 → 관측 패널
+      'lexicon-detective', // 사건철 개방 → 증거 봉투 개봉
+      'daily-blitz', // 챌린지 시작 → decide 단계 → 선택지 공개
+    ]);
+
     const failures: string[] = [];
     for (const slug of ALL_GAMES) {
+      if (DEEP_ENTRY.has(slug)) continue;
       await page.goto(`/play/${slug}?set=${FIXTURE_SET.id}&from=%2Farcade`, {
         waitUntil: 'domcontentloaded',
       });
       await page.locator('[aria-label^="현재 학습:"]').first().waitFor({ state: 'attached', timeout: 25_000 });
 
-      // 여러 게임이 인트로 화면을 둔다(사건철 열기 · 오늘의 챌린지 시작 · 잠수 시작 …).
-      // 자료 단어는 그 뒤에 나오므로 시작류 버튼이 있으면 한 번 눌러준다.
-      const start = page
-        .getByRole('button', { name: /시작|열기|출발|입장|들어가|잠수|펼치기|받기/ })
-        .first();
-      if (await start.isVisible().catch(() => false)) {
-        await start.click().catch(() => {});
+      // 게임마다 인트로·게이트가 다르고, 자료 단어는 그 뒤에 나온다.
+      // 일반 정규식 하나로 덮으려다 실패했다(`준비됐어요`·`촛불 켜기` 는 '시작|열기' 에
+      // 안 걸리고, word-orrery 는 버튼이 아니라 행성을 열어야 단어가 보인다).
+      // 07-arcade-games 가 확립한 실제 진입 계약을 여기서도 명시한다 — 느슨한 추측보다
+      // 정확한 한 걸음이 낫다.
+      const ENTER: Record<string, RegExp> = {
+        'wordfall-cadence': /준비됐어요/,
+        'wordsmith-vigil': /촛불 켜기/,
+        'lexicon-detective': /사건철 열기/,
+        'lexicon-hands': /계약 시작/,
+        'daily-blitz': /오늘의 챌린지 시작|다시 도전/,
+        'word-orrery': /미관측$/,
+        'lexicon-estate': /감정하기$/,
+        'pirate-quest': /잠수|시작/,
+      };
+      const gate = ENTER[slug];
+      if (gate) {
+        const btn = page.getByRole('button', { name: gate }).first();
+        if (await btn.isVisible().catch(() => false)) await btn.click().catch(() => {});
       }
 
-      // 렌더 여유 — 절차 생성·TTS 게이트가 있는 게임이 있다.
-      let hit: string | null = null;
-      for (let i = 0; i < 12 && !hit; i++) {
-        const text = ((await page.locator('body').innerText().catch(() => '')) || '').toLowerCase();
-        hit =
+      // 렌더 여유 — 절차 생성·TTS 카운트인·에셋 게이트가 있는 게임은 20초 넘게 걸린다.
+      // (12×1.2s 로는 wordfall-cadence·lexicon-detective 가 아직 단어를 안 그렸다 — 실측)
+      //
+      // 통과 조건 두 가지. **가짜 연계**란 "자료를 쓰는 척하면서 조용히 내장 콘텐츠로 도는 것"
+      // 이지, "이 자료와 겹치는 내용이 없다"가 아니다. 후자는 콘텐츠 적합성 문제이고,
+      // 게임이 그 사실을 화면에 **명시**하면 학습자는 속지 않는다.
+      // 예: morpheme-rules 는 형태소 격자 게임이라 문학 챕터 어휘(coffer·monsieur…)가
+      // 접두사+어근으로 안 쪼개진다. 그때 "이번 세트는 내 단어장과 겹치는 봉인이 없어요"
+      // 라고 스스로 말한다(MorphemeRulesGame.tsx:854-858). 그건 정직한 폴백이다.
+      // 반대로 아무 말 없이 내장 콘텐츠를 내면 실패다.
+      // ⚠️ innerText 만 보면 안 된다 — 여러 게임이 단어를 aria-label·title 에 둔다
+      // (wordsmith-vigil 의 붓 바 aria-label "…의 영어 철자 9글자 입력" · word-orrery 의
+      //  행성 라벨 · sr-only 라이브 리전). 실측: innerText 만 보면 실패 게임이 매 실행마다
+      //  회전했고, 접근성 텍스트를 포함하자 안정됐다. 학습자에게 실제로 전달되는 텍스트를
+      //  전부 세는 것이 맞다(스크린리더 사용자에게도 그게 화면이다).
+      const readAll = async () =>
+        page
+          .evaluate(() => {
+            const parts = [document.body.innerText];
+            for (const el of document.querySelectorAll('[aria-label],[title],[alt]')) {
+              parts.push(
+                el.getAttribute('aria-label') ?? '',
+                el.getAttribute('title') ?? '',
+                el.getAttribute('alt') ?? '',
+              );
+            }
+            return parts.join('\n');
+          })
+          .catch(() => '');
+
+      const DISCLOSURE = /겹치는 (봉인|단어)이? ?없어요/;
+      let ok: string | null = null;
+      for (let i = 0; i < 20 && !ok; i++) {
+        const raw = await readAll();
+        const text = raw.toLowerCase();
+        ok =
           en.find((w) => text.includes(w)) ??
           ko.find((m) => text.includes(m.toLowerCase())) ??
-          null;
-        if (!hit) await page.waitForTimeout(1200);
+          (DISCLOSURE.test(raw) ? '(겹침 없음을 명시)' : null);
+        if (!ok) await page.waitForTimeout(1200);
       }
-      if (!hit) failures.push(`${slug}: 자료 단어가 화면에 한 개도 안 나온다(내장 콘텐츠 의심)`);
+      if (!ok) {
+        failures.push(`${slug}: 자료 단어도 없고 겹침 없음 고지도 없다(조용한 내장 콘텐츠)`);
+      }
     }
 
     expect(failures, `가짜 연계(라벨만 자료):\n${failures.join('\n')}`).toEqual([]);

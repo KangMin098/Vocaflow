@@ -236,7 +236,9 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     await page.goto(`/play/cascade?set=${FIXTURE_SET_ID}&from=/arcade`, {
       waitUntil: 'domcontentloaded',
     });
-    await expect(page.getByRole('grid', { name: '매칭 보드' })).toBeVisible({ timeout: 30_000 });
+    // v07.8 재설계로 cascade 의 grid 이름이 '매칭 보드' → '단어 보드' 로 바뀌었다
+    // (선택 단계가 사라지고 탭 1회가 곧 제출이다 — `.cs-tile--sel` 도 소멸).
+    await expect(page.getByRole('grid', { name: '단어 보드' })).toBeVisible({ timeout: 30_000 });
     // 명시 스코프가 이겨야 한다 — mine 라벨이 뜨면 스코프 우선순위 회귀
     await expect(page.getByText('내 복습 단어')).toHaveCount(0);
     await expect(page.getByText('맛보기 단어')).toHaveCount(0);
@@ -247,10 +249,12 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     await page.goto(`/play/cascade?set=${EMPTY_SET_ID}&from=/arcade`, {
       waitUntil: 'domcontentloaded',
     });
-    await expect(page.getByRole('alert')).toBeVisible({ timeout: 30_000 });
+    // ⚠️ getByRole('alert') 만 쓰면 Next 의 라우트 어나운서(#__next-route-announcer__)까지
+    // 잡혀 strict mode 위반이 난다 — 안내 블록(.gk-empty)으로 한정한다.
+    await expect(page.locator('.gk-empty[role="alert"]')).toBeVisible({ timeout: 30_000 });
     await expect(page.getByText('학습할 단어가 부족해요')).toBeVisible();
-    // 조용히 맛보기/내 단어로 대체되면 안 된다
-    await expect(page.getByRole('grid', { name: '매칭 보드' })).toHaveCount(0);
+    // 조용히 맛보기/내 단어로 대체되면 안 된다 (v07.8: grid 이름 '매칭 보드' → '단어 보드')
+    await expect(page.getByRole('grid', { name: '단어 보드' })).toHaveCount(0);
     // 돌아갈 길이 있어야 한다
     await expect(page.getByRole('button', { name: '돌아가기' })).toBeVisible();
   });
@@ -259,17 +263,42 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
   // 전 게임이 학습자 단어를 쓰고, 단어가 모자라면 **맛보기로 degrade** 한다.
   // 중요한 계약은 이제 "조용히 degrade 하지 않는다" 이다 — 맛보기는 FSRS 에 남지 않으므로
   // 기록되는 플레이로 오인하면 학습자가 진도를 착각한다.
-  test('B3. 단어가 모자라면 맛보기로 degrade 하되 그 사실을 라벨로 밝힌다', async ({ page }) => {
+  // v07.8 — 이전 단언은 'bank 게임은 "큐레이션 세계" 라벨' 이었다. 그 분류축이 사라졌다:
+  // 전 게임이 학습자 단어를 쓰고, 단어가 모자랄 때만 맛보기로 degrade 한다.
+  //
+  // 그런데 검증 계정은 **뜻 있는 단어 225개**(DB 실측)라 어떤 게임의 minWords(최대 24)도
+  // 넘는다 — degrade 경로 자체가 발생하지 않는다. 그 경로를 단언하려던 테스트는 영구
+  // 스킵이 되어 아무것도 지키지 못했다. 그래서 **검증 가능한 반대 사실**을 못으로 박는다:
+  // 단어가 충분하면 비스코프 진입에서 **19종 어느 것도 맛보기로 떨어지지 않는다.**
+  // (스코프 경로는 13-arcade-integrity 가 덮는다. 여기는 mine 경로 담당.)
+  test('B3. 단어가 충분하면 비스코프 진입에서 19종 어느 것도 맛보기로 떨어지지 않는다', async ({ page }) => {
+    test.setTimeout(19 * 25_000);
     const userId = await userIdByEmail(RUNTIME_USER.email);
-    const mine = userId ? await fetchUserVocabWords(userId) : [];
-    // connections 는 격자 한 판에 16개가 필요하다 — 그보다 많으면 이 경로가 아니다.
-    test.skip(mine.length >= 16, `단어 ${mine.length}개 — degrade 경로가 아니다`);
+    const mine = userId ? await fetchUserVocabWords(userId, 40) : [];
+    // 최대 minWords 는 connections 24. 그보다 적으면 degrade 가 정상이라 이 단언이 성립 안 한다.
+    test.skip(mine.length < 24, `단어 ${mine.length}개 — 전 게임 minWords 를 못 채운다`);
 
-    await page.goto('/play/connections?from=/arcade', { waitUntil: 'domcontentloaded' });
-    const res = page.locator('[aria-label^="현재 학습:"]').first();
-    await res.waitFor({ state: 'attached', timeout: 30_000 });
-    const label = (await res.getAttribute('aria-label')) ?? '';
-    expect(label, `맛보기 degrade 를 숨기고 있다 — aria-label="${label}"`).toContain('맛보기');
+    const ALL = [
+      'cascade', 'ghost-race', 'word-economy', 'wordfall-cadence', 'letter-forge',
+      'wordsmith-vigil', 'morphmerge', 'daily-blitz', 'connections', 'glyph-tongue',
+      'word-customs', 'morpheme-rules', 'silent-rule', 'lexicon-hands', 'lexicon-detective',
+      'lexicon-estate', 'word-orrery', 'wordblitz', 'pirate-quest',
+    ];
+    const degraded: string[] = [];
+    for (const slug of ALL) {
+      await page.goto(`/play/${slug}?from=/arcade`, { waitUntil: 'domcontentloaded' });
+      const res = page.locator('[aria-label^="현재 학습:"]').first();
+      try {
+        await res.waitFor({ state: 'attached', timeout: 20_000 });
+      } catch {
+        degraded.push(`${slug}: 자료 컨텍스트 미렌더`);
+        continue;
+      }
+      const label = (await res.getAttribute('aria-label')) ?? '';
+      // 맛보기 = 내장 뱅크 = recordGameResult 가 전부 silent skip = 학습 기록 0.
+      if (label.includes('맛보기')) degraded.push(`${slug}: ${label.slice(0, 70)}`);
+    }
+    expect(degraded, `단어 ${mine.length}개인데 맛보기로 떨어진 게임:\n${degraded.join('\n')}`).toEqual([]);
   });
 
   test('B4. wordblitz(독립 3D)도 mine 스코프를 따른다 — 카탈로그 source 와 실제 동작 일치', async ({

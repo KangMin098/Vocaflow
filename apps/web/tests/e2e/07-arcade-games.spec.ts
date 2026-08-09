@@ -1,7 +1,9 @@
 // apps/web/tests/e2e/07-arcade-games.spec.ts
 // 아케이드 게임 전수 스모크 — 19개 /play/* 라우트가 (1) 콘솔 에러 없이 마운트되고
 // (2) 핵심 루프의 첫 입력에 반응하는지(작동·사용성)를 회귀로 고정한다.
-//   - 계정: runtime-test-0705@vocaflow.dev (04/05 spec 과 동일 · vocab 10 · 활동 시드)
+//   - 계정: runtime-test-0705@vocaflow.dev (04/05 spec 과 동일 · 활동 시드)
+//     ⚠️ 뜻 있는 단어 **225개**(DB 실측 2026-08-09) — 전 게임 minWords(최대 24)를 넘는다.
+//     즉 비스코프 진입에서도 19종 전부 실제 내 단어로 돌고 맛보기 degrade 는 일어나지 않는다.
 //   - 비스코프 진입(?set/?text 없음) → source:'mine' 게임은 사용자 due 큐(vocab 10)로 돌고,
 //     minWords 를 못 채우는 게임(connections 24 · lexicon-estate 20 · lexicon-hands 16 …)은
 //     맛보기(demo)로 degrade 한다. NotEnoughWords 게이트는 explicit ?set/?text 진입 전용이므로
