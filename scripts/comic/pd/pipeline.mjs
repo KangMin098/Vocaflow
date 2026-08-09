@@ -25,6 +25,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 import { getAdapter, listAdapters } from './sources/index.mjs'
+import { createRecorder } from './pd-record.mjs'
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
 
@@ -55,6 +56,7 @@ function parseArgs(argv) {
     else if (k === '--dry-run') a.dryRun = true
     else if (k === '--test') a.test = true
     else if (k === '--doctor') a.doctor = true
+    else if (k === '--record') a.record = true
     else if (k === '--keep') a.keep = true
   }
   return a
@@ -201,12 +203,27 @@ async function main() {
   )
   if (args.dryRun) console.log('\n실행될 명령:')
 
+  // 진행 기록(--record) — CLI 테스트를 admin '테스트·모니터' 탭에서 라이브로 보이게 한다.
+  const REPO = path.resolve(HERE, '..', '..', '..')
+  let rec = null, issueId = null
+  if (args.record && !args.dryRun) {
+    rec = await createRecorder(REPO)
+    if (rec) {
+      let meta = null
+      try { meta = ad.meta ? await ad.meta(String(args.id)) : null } catch { /* noop */ }
+      const prettyTitle = meta?.title || String(args.id).replace(/[_.-]+/g, ' ').replace(/\b([a-z])/g, (_m, c) => c.toUpperCase()).trim()
+      issueId = await rec.upsert({ source: args.source, id: String(args.id), title: prettyTitle, seriesTitle: meta?.seriesTitle ?? null, testPages: pages })
+      if (issueId) console.log(`  📡 기록 → pd_comic_issues ${String(issueId).slice(0, 8)} · admin 테스트·모니터 탭에 라이브 표시`)
+    }
+  }
+
   try {
     // ① 취득
     run('acquire.mjs', [
       '--source', args.source, '--id', String(args.id), '--out', root,
       ...(pages ? ['--pages', String(pages)] : []),
     ], args)
+    if (rec) await rec.stage(issueId, 'acquired')
 
     // ② 복원 — 어댑터 프로파일을 그대로 인자로 넘긴다
     run('restore.mjs', [
@@ -215,12 +232,17 @@ async function main() {
       ...(p.denoise ? [] : ['--no-denoise']),
       ...(p.needsCrop ? [] : ['--no-crop']),
     ], args)
+    if (rec) await rec.stage(issueId, 'restored')
 
     // ③ 컷 분할
     run('segment.mjs', [
       '--in', path.join(root, 'restored'), '--out', path.join(root, 'panels'),
       '--analysis', String(p.segmentAnalysis), '--dilate', String(p.segmentDilate),
     ], args)
+    if (rec) {
+      const pm = readJson(path.join(root, 'panels', 'panels.manifest.json'))
+      await rec.stage(issueId, 'segmented', { panelsTotal: Array.isArray(pm?.panels) ? pm.panels.length : (pm?.count ?? null) })
+    }
 
     // ④ 대사 — 소스가 선언한 전략에 따라 스크립트가 갈린다.
     //   dry-run 은 아직 아무것도 받지 않았으므로 **파일 존재가 아니라 어댑터 선언**으로 판단해야
@@ -251,6 +273,11 @@ async function main() {
     }
 
     qcSummary(root)
+    if (rec) {
+      const bl = readJson(path.join(root, 'bubbles.local.manifest.json'))
+      await rec.stage(issueId, 'ocr', { qc: { ocr: bl?.stats ?? null, lastStage: 'ocr' } })
+      console.log('  📡 기록 완료 — /admin/pd-comics 테스트·모니터 탭에서 상태·QC·컷 콘텐츠 확인')
+    }
   } finally {
     if (isTest && !args.keep) {
       console.log(`\n테스트 산출물은 임시 디렉터리에 있습니다(--keep 없으면 다음 부팅 시 정리):\n  ${root}`)
