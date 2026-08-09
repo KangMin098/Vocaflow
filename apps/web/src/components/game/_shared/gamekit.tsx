@@ -19,6 +19,19 @@ import { getArcadeMeta } from '@/lib/game/arcade-meta';
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog';
 import { DEFAULT_MUSIC_ON, readMusicPref, writeMusicPref } from '@/lib/game/music-pref';
 
+// 게임 메커닉 훅(시간·콤보·FLIP·개인기록)은 mechanics.tsx 에 있다.
+// 게임이 import 를 한 군데로 유지할 수 있게 여기서 다시 내보낸다.
+export {
+  useCountdown,
+  useCombo,
+  useFlipGrid,
+  usePersonalBest,
+  DEFAULT_COMBO_TIERS,
+  type Countdown,
+  type ComboState,
+  type ComboTier,
+} from './mechanics';
+
 export type Word = {
   en: string;
   ko: string;
@@ -191,6 +204,15 @@ export function useSfx() {
     () => play("coin", 1, 0.5, () => tone(880, 0.06, "square", 0.035)),
     [play, tone],
   );
+  // 니어미스 — "틀렸다"가 아니라 "아까웠다". 오답음과 반드시 구분돼야 한다.
+  // 전용 샘플을 새로 받지 않고, wrong 을 높고 여리게(짧은 '탁') 낸 뒤 90ms 뒤
+  // correct 벨을 낮고 아주 여리게 겹쳐 "닿을 뻔한" 잔향을 만든다.
+  // 감사 지적: 현재 모든 게임이 near-miss 를 full wrong 음으로 때워 학습자가
+  // 3/4 맞힌 시도와 완전 오답을 소리로 구분하지 못한다.
+  const nearMiss = useCallback(() => {
+    play("wrong", 1.28, 0.3, () => tone(300, 0.08, "triangle", 0.035));
+    window.setTimeout(() => play("correct", 0.78, 0.16), 90);
+  }, [play, tone]);
 
   const dispose = useCallback(() => {
     if (ctxRef.current) void ctxRef.current.close().catch(() => {});
@@ -201,7 +223,89 @@ export function useSfx() {
 
   useEffect(() => () => dispose(), [dispose]);
 
-  return { muted, setMuted, tone, correct, wrong, fanfare, click, coin, dispose };
+  return { muted, setMuted, tone, correct, wrong, fanfare, click, coin, nearMiss, dispose };
+}
+
+// ─── 정답/오답 아이콘 ─────────────────────────────────────────────────────
+// CLAUDE.md 는 "정답/오답: 색상 + 아이콘 + 애니메이션 3중 피드백"을 요구하는데
+// 킷이 색·모션 2축만 제공해 **전 게임이 똑같이 아이콘 축을 누락**하고 있었다
+// (v07.8 전수 감사). 색만으로 정보를 전달하면 색각 이상 사용자에게는 피드백이 없다.
+export function FeedbackIcon({
+  kind,
+  size = 14,
+}: {
+  kind: 'correct' | 'wrong' | 'near';
+  size?: number;
+}) {
+  const label = kind === 'correct' ? '정답' : kind === 'wrong' ? '오답' : '거의';
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role="img"
+      aria-label={label}
+      className="gk-fbicon"
+    >
+      {kind === 'correct' && <path d="M3 8.5l3.2 3.2L13 5" />}
+      {kind === 'wrong' && <path d="M4 4l8 8M12 4l-8 8" />}
+      {kind === 'near' && <path d="M3 11.5l4-4 3 3 3.5-5" />}
+    </svg>
+  );
+}
+
+// ─── 남은 시간 게이지 ─────────────────────────────────────────────────────
+// mechanics 의 useCountdown 과 짝. 마지막 구간에서 색·맥동이 바뀌어 "시간이 없다"가
+// 숫자가 아니라 몸으로 읽히게 한다. reduced-motion 이면 맥동 없이 색만 바뀐다.
+export function TimerBar({
+  frac,
+  warning = false,
+  label = '남은 시간',
+  seconds,
+}: {
+  /** 남은 비율 0..1 */
+  frac: number;
+  warning?: boolean;
+  label?: string;
+  /** 주면 게이지 옆에 초를 표기(스크린리더에도 읽힌다). */
+  seconds?: number;
+}) {
+  return (
+    <div className="gk-timer" data-warn={warning ? '1' : '0'}>
+      <div
+        className="gk-timer-track"
+        role="progressbar"
+        aria-label={label}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(clamp(frac, 0, 1) * 100)}
+      >
+        <div className="gk-timer-fill" style={{ width: `${clamp(frac, 0, 1) * 100}%` }} />
+      </div>
+      {seconds !== undefined && (
+        <span className="gk-timer-sec" aria-live="off">
+          {Math.max(0, seconds)}s
+        </span>
+      )}
+    </div>
+  );
+}
+
+// ─── 목숨 / 실수 예산 pip ─────────────────────────────────────────────────
+// 색만으로 남은 목숨을 말하지 않는다 — 남은 것은 채워진 원, 잃은 것은 빈 원(이중 인코딩).
+export function LifePips({ total, left, label = '남은 기회' }: { total: number; left: number; label?: string }) {
+  return (
+    <div className="gk-pips" role="img" aria-label={`${label} ${left}/${total}`}>
+      {Array.from({ length: total }, (_, i) => (
+        <span key={i} className="gk-pip" data-on={i < left ? '1' : '0'} aria-hidden="true" />
+      ))}
+    </div>
+  );
 }
 
 // ─── BGM (큐레이션 실제 트랙 · public/audio/games/) ───────────────────────
@@ -397,9 +501,14 @@ export function useCountUp(value: number, durMs = 450) {
 }
 
 // ─── 파티클 버스트 ───
+// colors 를 주면 그 색으로 터진다 — "무엇을 해냈는지"를 파티클에도 인코딩하기 위해
+// (예: Connections 에서 맞힌 그룹의 색). 안 주면 기존 4색 그대로.
 const PARTICLE_COLORS = ['var(--streak)', 'var(--combo)', 'var(--success)', 'var(--active)'];
-export function ParticleBurst({ intensity = 1 }: { intensity?: number }) {
+export function ParticleBurst({ intensity = 1, colors }: { intensity?: number; colors?: string[] }) {
+  const palette = colors && colors.length > 0 ? colors : PARTICLE_COLORS;
+  const paletteKey = palette.join('|');
   const parts = useMemo(() => {
+    const pal = paletteKey.split('|');
     const c = 8 + intensity * 6;
     return Array.from({ length: c }, (_, i) => {
       const a = (Math.PI * 2 * i) / c + (Math.random() - 0.5) * 0.6;
@@ -409,10 +518,10 @@ export function ParticleBurst({ intensity = 1 }: { intensity?: number }) {
         ty: Math.sin(a) * d,
         s: 5 + Math.random() * 6,
         delay: Math.random() * 0.04,
-        color: PARTICLE_COLORS[i % PARTICLE_COLORS.length],
+        color: pal[i % pal.length],
       };
     });
-  }, [intensity]);
+  }, [intensity, paletteKey]);
   return (
     <span className="gk-burst" aria-hidden="true">
       {parts.map((p, i) => (
@@ -488,6 +597,8 @@ export function Hud({
   score,
   progress,
   combo,
+  comboMult,
+  lives,
   extra,
   muted,
   onToggleMute,
@@ -496,6 +607,10 @@ export function Hud({
   score?: number;
   progress?: number; // 0..1
   combo?: number;
+  /** 콤보 배수 — 주면 콤보 옆에 ×2.0 처럼 붙어 "지금 뭘 잃게 되는지"가 보인다. */
+  comboMult?: number;
+  /** 실수 예산. 색+빈원 이중 인코딩으로 렌더(목숨형 게임 공통 수요). */
+  lives?: { total: number; left: number; label?: string };
   extra?: ReactNode;
   muted: boolean;
   onToggleMute: () => void;
@@ -522,11 +637,15 @@ export function Hud({
         <div className="gk-progress-spacer" />
       )}
       {extra}
+      {lives && <LifePips total={lives.total} left={lives.left} label={lives.label} />}
       {combo !== undefined && (
         <div className="gk-stat gk-stat--right">
           <span className="gk-stat-label">콤보</span>
           <span key={combo} data-tier={tier} className={`gk-combo ${combo > 0 ? 'gk-combo--on gk-bump' : ''}`}>
             {combo > 0 ? `🔥 ${combo}` : '—'}
+            {combo > 0 && comboMult !== undefined && comboMult > 1 && (
+              <span className="gk-combo-mult">×{comboMult % 1 === 0 ? comboMult : comboMult.toFixed(1)}</span>
+            )}
           </span>
         </div>
       )}
@@ -549,6 +668,12 @@ export function Hud({
 }
 
 // ─── 완료 화면 ───
+// v07.8 — 끝화면이 "죽은 끝"이던 문제를 고치는 슬롯 4개를 더했다.
+// 감사 19건 중 다수가 같은 지적을 했다: 재시작 버튼은 있는데 **다시 할 이유**가 없다.
+//   best        — 어제의 나와의 비교. 리더보드가 아니다(Calm UI · 남과 겨루지 않는다).
+//   badge       — 신기록·티어 승급 같은 조용한 배지(폭죽 금지 원칙과 양립).
+//   restartHint — 재시작 버튼 아래 한 줄. "0.6초만 줄이면 됩니다" 같은 다음 판 목표.
+//   reveal      — 패배 시 정답 공개 블록. 지금은 게임이 phase 를 직접 쪼개야 했다.
 export function GameDone({
   lead = '오늘 잘 마쳤어요',
   stats,
@@ -557,6 +682,11 @@ export function GameDone({
   restartLabel = '다시 하기',
   celebrate = false, // Calm UI — 완료 시 폭죽 금지(차분한 마무리). 승리에 한해 게임이 명시 opt-in.
   mark,
+  best,
+  badge,
+  restartHint,
+  reveal,
+  footer,
 }: {
   lead?: string;
   stats: { num: ReactNode; label: string; accent?: boolean }[];
@@ -565,6 +695,13 @@ export function GameDone({
   restartLabel?: string;
   celebrate?: boolean;
   mark?: ArcadeGameId;
+  /** 개인 최고 비교. prev 가 null 이면 첫 기록으로 표기. */
+  best?: { prev: number | null; now: number; label: string; improved?: boolean };
+  badge?: ReactNode;
+  restartHint?: string;
+  /** 결과 상단에 얹는 블록 — 주로 패배 시 정답 공개. */
+  reveal?: ReactNode;
+  footer?: ReactNode;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -611,6 +748,8 @@ export function GameDone({
         </div>
       )}
       <p className="gk-done-lead">{lead}</p>
+      {badge && <div className="gk-done-badge">{badge}</div>}
+      {reveal && <div className="gk-done-reveal">{reveal}</div>}
       <div className="gk-done-stats">
         {stats.map((s, i) => (
           <div key={i} className="gk-done-stat">
@@ -619,6 +758,15 @@ export function GameDone({
           </div>
         ))}
       </div>
+      {best && (
+        <p className="gk-done-best" data-improved={best.improved ? '1' : '0'}>
+          {best.prev == null
+            ? `첫 기록 · ${best.label} ${best.now}`
+            : best.improved
+              ? `개인 최고 갱신 · ${best.label} ${best.prev} → ${best.now}`
+              : `개인 최고 ${best.label} ${best.prev} · 이번 ${best.now}`}
+        </p>
+      )}
       <div className="gk-done-actions">
         <button type="button" onClick={onRestart} className="gk-btn gk-btn--primary">
           {restartLabel}
@@ -630,6 +778,8 @@ export function GameDone({
           나가기
         </button>
       </div>
+      {restartHint && <p className="gk-done-hint">{restartHint}</p>}
+      {footer && <div className="gk-done-footer">{footer}</div>}
     </main>
   );
 }
@@ -696,6 +846,23 @@ const GK_CSS = `
   .gk-atmos-mark svg { width: 100%; height: auto; display: block; }
   .gk-atmos-vig { position: absolute; inset: 0; box-shadow: inset 0 0 210px 40px rgba(28,14,38,.44), inset 0 -70px 100px rgba(18,8,28,.34); }
 
+  /* ── 다크 모드 (v07.8 결함 수정) ──────────────────────────────────────
+     게임은 AmbientBackground 에 밝은 색을 하드코딩해 넘긴다(예: center="#ECF7F7").
+     그런데 텍스트는 테마 토큰(--t1)이라 다크에서 밝아진다 → **밝은 배경 위 밝은 글씨**.
+     GK_CSS 에 data-theme 분기가 한 줄도 없어서 19게임이 전부 같은 증상이었다.
+
+     19개 게임의 색 인자를 각각 고치는 대신, 여기서 게임의 색조는 유지한 채
+     명도만 다크 캔버스(--bg)로 끌어내린다 — 중앙 한 곳 수정으로 전 게임 해결. */
+  [data-theme="dark"] .gk-atmos-grad {
+    background: radial-gradient(128% 112% at 50% 15%,
+      color-mix(in srgb, var(--at-c) 24%, var(--bg)) 0%,
+      color-mix(in srgb, var(--at-m) 30%, var(--bg)) 37%,
+      color-mix(in srgb, var(--at-e) 58%, var(--bg)) 92%);
+  }
+  [data-theme="dark"] .gk-atmos-glow { opacity: .55; }
+  [data-theme="dark"] .gk-atmos-mark { opacity: .5; mix-blend-mode: overlay; }
+  [data-theme="dark"] .gk-atmos-vig { box-shadow: inset 0 0 210px 40px rgba(0,0,0,.5), inset 0 -70px 100px rgba(0,0,0,.4); }
+
   .gk-hud { display: grid; grid-template-columns: auto 1fr auto auto auto auto; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--bd); }
   .gk-stat { display: flex; flex-direction: column; line-height: 1.05; }
   .gk-stat--right { align-items: flex-end; }
@@ -734,6 +901,29 @@ const GK_CSS = `
   .gk-tile--correct { border-color: var(--success); background: var(--success-light); color: var(--success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 32%, transparent), 0 8px 30px color-mix(in srgb, var(--success) 28%, transparent); animation: gk-correct .4s var(--ease, ease-out); }
   .gk-tile--wrong { border-color: var(--error); background: var(--error-light); color: var(--error); animation: gk-shake .36s ease-in-out; }
   .gk-tile--dim { opacity: .4; }
+  /* 리빌·잠금 상태는 disabled 대신 aria-disabled 로 — disabled 를 걸면 포커스가 즉시
+     날아가 키보드 사용자가 방금 답한 타일을 잃는다(4지선다 계열 전 게임 공통 버그). */
+  .gk-tile[aria-disabled="true"] { pointer-events: none; }
+  .gk-tile[aria-disabled="true"]:not(.gk-tile--correct):not(.gk-tile--wrong) { opacity: .45; }
+
+  /* ── 남은 시간 게이지 ── */
+  .gk-timer { display: flex; align-items: center; gap: 8px; min-width: 96px; }
+  .gk-timer-track { flex: 1; height: 6px; border-radius: 999px; background: color-mix(in srgb, var(--t1) 12%, transparent); overflow: hidden; }
+  .gk-timer-fill { height: 100%; border-radius: 999px; background: var(--combo); transition: width .12s linear, background .25s; }
+  .gk-timer-sec { font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--t3); min-width: 28px; text-align: right; }
+  .gk-timer[data-warn="1"] .gk-timer-fill { background: var(--error); animation: gk-timer-pulse .62s ease-in-out infinite; }
+  .gk-timer[data-warn="1"] .gk-timer-sec { color: var(--error); }
+  @keyframes gk-timer-pulse { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+
+  /* ── 목숨 pip — 색만이 아니라 채움/빔으로도 구분(색각 대응) ── */
+  .gk-pips { display: inline-flex; align-items: center; gap: 5px; }
+  .gk-pip { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--t1) 34%, transparent); background: transparent; transition: background .2s, border-color .2s, transform .2s var(--ease-spring); }
+  .gk-pip[data-on="1"] { background: var(--streak, var(--combo)); border-color: var(--streak, var(--combo)); }
+  .gk-pip[data-on="0"] { transform: scale(.82); }
+
+  /* ── 정답/오답 아이콘 — 색+아이콘+모션 3중 피드백의 아이콘 축 ── */
+  .gk-fbicon { flex: none; vertical-align: -2px; }
+  .gk-combo-mult { margin-left: 6px; font-size: .78em; font-weight: 800; opacity: .85; }
 
   .gk-btn { min-height: 48px; padding: 0 24px; border-radius: var(--r-md, 10px); border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-display, system-ui); font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .2s var(--ease-spring), background .15s, border-color .15s; }
   .gk-btn:hover { border-color: var(--t3); }
@@ -752,6 +942,13 @@ const GK_CSS = `
   .gk-done-num { font-size: clamp(24px, 6vw, 38px); font-weight: 800; font-variant-numeric: tabular-nums; color: var(--t1); }
   .gk-done-lbl { font-size: 12px; font-weight: 700; color: var(--t3); text-align: center; }
   .gk-done-actions { display: flex; gap: 12px; }
+  /* 끝화면을 "다음 판의 발판"으로 만드는 슬롯들 — 전부 조용한 톤(폭죽 금지 원칙 유지). */
+  .gk-done-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--streak, var(--combo)) 45%, var(--bd)); background: color-mix(in srgb, var(--streak, var(--combo)) 12%, transparent); color: var(--t1); font-size: 12.5px; font-weight: 800; letter-spacing: -.01em; }
+  .gk-done-reveal { max-width: min(560px, 92vw); padding: 14px 18px; border-radius: var(--r-lg, 14px); border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 72%, transparent); color: var(--t2); font-size: 14px; line-height: 1.7; }
+  .gk-done-best { margin: -14px 0 0; font-size: 13px; font-weight: 700; color: var(--t3); font-variant-numeric: tabular-nums; text-align: center; }
+  .gk-done-best[data-improved="1"] { color: var(--streak, var(--combo)); }
+  .gk-done-hint { margin: -18px 0 0; font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: 13.5px; color: var(--t3); text-align: center; }
+  .gk-done-footer { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: min(600px, 92vw); }
 
   .gk-burst { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; overflow: visible; }
   .gk-particle { position: absolute; border-radius: 50%; animation: gk-particle .66s var(--ease, cubic-bezier(.2,.7,.3,1)) forwards; }
