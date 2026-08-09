@@ -35,6 +35,7 @@ import { createRequire } from 'node:module'
 import { pathToFileURL } from 'node:url'
 import { emitProgress } from './progress.mjs'
 
+import { probeSize } from './lib-img.mjs'
 import { groupLines, isGarbledWord, judgeBubble, normalize, truecase } from './ocr.mjs'
 
 function loadTesseract() {
@@ -147,8 +148,15 @@ async function main() {
     emitProgress(root, { stage: 'ocr', done: i, total: panels.length, current: `컷 ${i + 1}` })
     const file = path.resolve(process.cwd(), p.file)
     const { data } = await worker.recognize(file)
-    const W = data.width ?? p.srcBox.w
-    const H = data.height ?? p.srcBox.h
+    // ⚠️ srcBox 로 폴백하면 안 된다 — **좌표계가 다르다.**
+    //   컷 파일은 segment 가 --web(기본 1200px)으로 줄여 쓴 것이고 srcBox 는 원본 스캔 좌표다.
+    //   실측: 파일 1200×1780 vs srcBox 3606×5348 → 모든 말풍선 박스가 정확히 3배 어긋났다
+    //   (캡션이 y=0.82 인데 0.28 로 기록). 이 좌표는 비파괴 대사 오버레이(page-letter)와
+    //   현대화 말풍선 마스킹이 그대로 쓰므로, 조용히 틀리면 글자가 엉뚱한 자리에 얹힌다.
+    //   tesseract 가 치수를 안 줄 때는 **파일을 직접 재어** 같은 좌표계를 유지한다.
+    const probed = data.width && data.height ? null : probeSize(file)
+    const W = data.width ?? probed.w
+    const H = data.height ?? probed.h
 
     const words = (data.words ?? [])
       .filter((w) => w.text?.trim() && !isNoiseToken(w.text.trim()))
