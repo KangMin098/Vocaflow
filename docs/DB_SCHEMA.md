@@ -155,7 +155,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `comic_gen_models` | 17 | — | **CCP** 이미지 생성 모델 레지스트리(시장조사) — run_envs[](runpod/kaggle/api)·min_vram·comic_fit·능력·상태 · RLS admin. `20260808200000/220000` |
 | `comic_styles` | 20 | — | **CCP** 만화 스타일 프리셋 — 포맷×연령×장르×난이도 → art_prompt/negative/lettering · RLS admin. `comic_books.style_key` FK. `20260808240000` |
 
-CCP RPC: `enqueue_comic_jobs` · `admin_set_comic_published`(panels_pass 강제) · `select_book_comic` · `list_book_comic_catalog` · `book_comic_available` — 학습자 read 3종 전부 `comic_books.status='published' AND library_books.status='published'` 게이트(DEFINER + authenticated).
+CCP RPC: `enqueue_comic_jobs` · `admin_set_comic_published`(panels_pass 강제) · `select_book_comic` · `select_book_comic_all` · `list_book_comic_catalog` · `book_comic_available` · `get_comic_format`(리더 구성 방식 → 웹툰=세로스크롤 자동, `20260809` 적용) — 학습자 read 전부 `comic_books.status='published' AND library_books.status='published'` 게이트(DEFINER + authenticated).
 
 ### 5️⃣ VCB (Vocabulary Curation Build) Pipeline
 
