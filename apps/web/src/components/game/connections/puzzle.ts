@@ -25,13 +25,29 @@
 //      보드에서 정확히 4개를 만족하면 칩이 거짓말이 된다(실측 79.9% 의 보드에 존재).
 //      → 침입자까지 확정한 **최종 보드**를 다시 검사해 그런 시도는 기각한다.
 //
+// v07.11 풀 크기 스케일 다운 — "16칸 × 3격자" 고정 규격을 버렸다.
+//   문제: 규격이 고정이라 세 격자를 겹치지 않게 채우는 데 48타일이 필요했고, 그래서
+//   진입 하한이 24단어였다. DB 실측상 공용 단어장·도서 챕터 653세트의 **43.2%** 가
+//   24단어에 미달한다 — 학습자가 고른 챕터의 절반 가까이를 거절하고 있었다.
+//   해결: 보드 칸 수·그룹 수·침입자 수·라운드 수를 **전부 풀 크기의 함수**로 만든다.
+//     · groupCap(noise) = floor(16 / (4 × (1 + noise)))  — 보드 상한 16칸에서 역산
+//     · intrudersFor(g, noise) = clamp(round(4g × noise), 4, 16 − 4g)
+//     · planFor(P) = 각 격자가 `4·Σ그룹 + 침입자 + 탐색여지 4 ≤ P` 를 만족하는
+//       최대 라운드 / 최대 그룹 조합 (20타일이면 3격자, 44타일이면 v07.10 규격 그대로)
+//   품질 하한은 **함수가 아니라 상수**로 남긴다 — 침입자는 어떤 보드에서도 최소 4칸이다.
+//   침입자가 0이면 마지막 그룹이 소거법으로 공짜가 되므로, 그룹 수를 깎아서라도
+//   침입자 4칸을 먼저 확보한다(seatIntruders). 그래서 최소 보드는 4+4 = 8칸이고
+//   그것이 이 게임의 구조적 하한이다.
+//
 // 격자 불변식 (이걸 깨면 문제가 불공정해진다)
 //   1. 선택된 규칙 하나당 보드 위 만족 단어가 **정확히 4개**.
 //   2. 각 그룹 단어는 선택된 규칙 중 **자기 규칙 하나만** 만족.
 //   3. 침입자(어느 그룹에도 없는 단어)는 선택된 규칙을 **하나도** 만족하지 않는다.
+//      그리고 침입자는 **항상 4칸 이상** — 소거법으로 마지막 그룹이 확정되지 않는다.
 //   4. (v07.10) 보드 위에 **선택 규칙과 같은 종류이면서 정확히 4개를 만족하는 다른
 //      규칙**이 없다 — 칩에 적힌 종류로 좁힌 답이 유일하다.
-//   위 넷이 보장되면 정답 분할은 유일하고, 칩은 거짓말을 하지 않는다.
+//   5. 보드에 같은 타일 id 가 두 번 오르지 않는다(중복 타일 = 불공정).
+//   위 다섯이 보장되면 정답 분할은 유일하고, 칩은 거짓말을 하지 않는다.
 
 import { shuffle, type Word } from '@/components/game/_shared/gamekit';
 
@@ -73,6 +89,46 @@ export interface Grid {
   /** 미노출 재료가 모자라 노출 단어를 다시 쓴 격자인가 — 게임 쪽 계측용. */
   reusedExposed: boolean;
 }
+
+// ─── 규격 상수 ────────────────────────────────────────────────────────────
+// 여기 있는 것만 상수다. 나머지(보드 칸 수·그룹 수·라운드 수·침입자 수)는 전부
+// 풀 크기의 함수다.
+
+/** 한 그룹의 크기. 4는 UI 계약(확인 (n/4) 버튼 · 4열 격자)이자 인지부하 상한이다. */
+export const GROUP_SIZE = 4;
+/** 한 보드의 그룹 상한 — 칩 4개 이상은 동시 4항목 원칙(Cognitive Load)을 넘는다. */
+export const MAX_GROUPS = 3;
+/** 보드 칸 상한 — 390px 4열에서 4행까지가 스크롤 없이 읽히는 한계. */
+export const BOARD_MAX = 16;
+/** 침입자 하한 — **품질 바닥**. 0이면 마지막 그룹이 소거법으로 공짜가 된다.
+ *  4칸이면 마지막 그룹 앞에서도 C(8,4)=70 가지가 남아 소거가 성립하지 않는다. */
+export const MIN_INTRUDERS = 4;
+/** 격자 하나가 성립하는 구조적 최소 타일 수 = 그룹 4 + 침입자 4. */
+export const MIN_TILES = GROUP_SIZE + MIN_INTRUDERS;
+/**
+ * 생성기가 **고를 여지**로 남겨 두는 여분 타일.
+ *
+ * 계획이 미노출 타일을 한 칸도 남김없이 쓰면 마지막 격자는 재료가 딱 맞아떨어져
+ * 배치가 단 하나로 굳는다. 그러면 불변식 4(칩 종류가 같은 다른 정확히-4 규칙 금지)를
+ * 어기는 배치가 나와도 피할 데가 없다 — 실측으로 최소 풀에서 함정 격자가 9.7% 였다.
+ * 여분 4칸을 남기면 240회 탐색이 실제로 다른 배치를 볼 수 있다.
+ */
+const SEARCH_SLACK = GROUP_SIZE;
+
+/** 내 단어가 이보다 적을 때만 맛보기로 자리를 메운다 — 3격자 곡선이 서는 최소 풀
+ *  (= 4 그룹 + 4 침입자 + 여분 4 을 세 격자에 굴리는 데 필요한 20칸).
+ *  20 이상이면 한 타일도 섞지 않는다. 내가 고른 자료로만 도는 것이 먼저다. */
+export const PAD_FLOOR = 20;
+/** 내 단어가 아예 없는 맛보기 진입 — 이때는 온전한 3격자(16칸 × 3) 규격으로 돈다. */
+export const DEMO_TILES = 48;
+
+/** 마지막 격자가 아닌 곳의 잡음 비율(그룹 타일 대비). g=3 에서 침입자 4칸 = 보드의 1/4. */
+const NOISE_EARLY = 1 / 3;
+/** 마지막 격자 — 보드의 절반이 잡음. */
+const NOISE_FINAL = 1;
+
+/** 규칙 하나가 물어도 되는 최대 단어 수의 절대 상한(넓은 규칙 = 침입자 고갈). */
+const MAX_MEMBERS_CAP = 9;
 
 // ─── 정규화 ───────────────────────────────────────────────────────────────
 
@@ -121,29 +177,44 @@ const SUFFIXES = [
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-/** 후보 규칙이 되려면 보드 재료 안에 만족 단어가 4~9개. 너무 넓은 규칙은
- *  침입자 후보를 고갈시켜(불변식 3) 격자를 못 만들게 한다.
- *  '들어 있는 글자'가 이 상한 덕에 자동으로 걸러진다 — e·a·t 처럼 흔한 글자는
- *  48타일 풀에서 30개 이상을 물어 후보에서 탈락하고, b·k·p·w 같은 글자만 남는다. */
-const MIN_MEMBERS = 4;
-const MAX_MEMBERS = 9;
+/** 후보 규칙이 되려면 만족 단어가 정확히 GROUP_SIZE 개 이상. */
+const MIN_MEMBERS = GROUP_SIZE;
+
+/**
+ * 규칙 하나가 물어도 되는 최대 단어 수 — **풀 크기의 함수**다.
+ *
+ * 너무 넓은 규칙은 침입자 후보를 고갈시켜(불변식 3) 격자를 못 만들게 한다. 큰 풀에서
+ * 이 상한이 하던 일은 그대로다('들어 있는 글자' 중 e·a·t 처럼 흔한 글자를 탈락시킨다).
+ * 작은 풀에서는 상한 자체가 훨씬 빡빡해야 한다 — 8타일 풀에서 5개를 무는 규칙을 쓰면
+ * 남는 칸이 3개뿐이라 침입자 4칸을 못 채운다. 그래서
+ *   room = 풀 − 침입자 하한 − 다른 그룹들이 최소로 쓸 자리
+ * 를 상한으로 삼는다(8타일·1그룹 → 4, 48타일·3그룹 → 9).
+ */
+function maxMembersFor(poolSize: number, groups: number): number {
+  const room = poolSize - MIN_INTRUDERS - GROUP_SIZE * Math.max(0, groups - 1);
+  return Math.min(MAX_MEMBERS_CAP, Math.max(GROUP_SIZE, room));
+}
 
 interface Candidate {
   rule: Rule;
   members: TileWord[];
 }
 
-function makeCandidate(rule: Rule, tiles: TileWord[]): Candidate | null {
+function makeCandidate(rule: Rule, tiles: TileWord[], maxMembers: number): Candidate | null {
   const members = tiles.filter(rule.test);
-  if (members.length < MIN_MEMBERS || members.length > MAX_MEMBERS) return null;
+  if (members.length < MIN_MEMBERS || members.length > maxMembers) return null;
   return { rule, members };
 }
 
-function buildCandidates(tiles: TileWord[], excludeRuleIds: ReadonlySet<string>): Candidate[] {
+function buildCandidates(
+  tiles: TileWord[],
+  excludeRuleIds: ReadonlySet<string>,
+  maxMembers: number,
+): Candidate[] {
   const out: Candidate[] = [];
   const add = (rule: Rule) => {
     if (excludeRuleIds.has(rule.id)) return;
-    const c = makeCandidate(rule, tiles);
+    const c = makeCandidate(rule, tiles, maxMembers);
     if (c) out.push(c);
   };
 
@@ -265,9 +336,136 @@ function buildCandidates(tiles: TileWord[], excludeRuleIds: ReadonlySet<string>)
   return out;
 }
 
-// ─── 격자 조립 ────────────────────────────────────────────────────────────
+// ─── 라운드 규격 — 전부 풀 크기의 함수 ─────────────────────────────────────
+// 긴장 곡선은 풀이 작아져도 그대로 유지된다: 앞 격자는 명백한 규칙 · 낮은 잡음,
+// 마지막 격자는 까다로운 규칙 · **보드의 절반이 잡음**. 달라지는 것은 크기뿐이다.
 
 export type TierBias = 'low' | 'any' | 'high';
+
+export interface RoundSpec {
+  round: number;
+  groups: number;
+  intruders: number;
+  /** 4 × groups + intruders — 생성기가 실제로 더 적게 낼 수 있는 **목표치**다. */
+  board: number;
+  noise: number;
+  bias: TierBias;
+  name: string;
+  note: string;
+}
+
+/** 침입자 수 — 그룹 수 × 잡음 비율. 하한은 품질 바닥 4, 상한은 보드 16칸에서 남는 자리. */
+export function intrudersFor(groups: number, noise: number): number {
+  const room = Math.max(MIN_INTRUDERS, BOARD_MAX - GROUP_SIZE * groups);
+  const want = Math.round(GROUP_SIZE * groups * noise);
+  return Math.min(room, Math.max(MIN_INTRUDERS, want));
+}
+
+/** 잡음 비율이 정해지면 보드 상한 16칸에서 그룹 수 상한이 역산된다(1/3 → 3 · 1 → 2). */
+function groupCap(noise: number): number {
+  return Math.max(1, Math.min(MAX_GROUPS, Math.floor(BOARD_MAX / (GROUP_SIZE * (1 + noise)))));
+}
+
+function noiseFor(round: number, rounds: number): number {
+  return round === rounds - 1 ? NOISE_FINAL : NOISE_EARLY;
+}
+
+/**
+ * 라운드 r 시작 시점에 필요한 **미노출** 타일 수 = 지금까지 그룹으로 소모한 타일 + 이번 보드.
+ *
+ * 그룹 단어는 확정 막대가 en 을 인쇄하므로 세션 내내 다시 못 쓴다(정찰 익스플로짓 차단).
+ * 반대로 침입자는 en 이 라운드 중간에 공개되지 않으므로 다음 격자에서 재사용해도
+ * 정보가 새지 않는다 — 그래서 누적되는 것은 **그룹 타일뿐**이다. 이 비대칭 덕분에
+ * 세 격자를 굴리는 데 48타일이 아니라 20타일이면 된다.
+ */
+function fits(gs: number[], tiles: number): boolean {
+  let burned = 0;
+  for (let r = 0; r < gs.length; r++) {
+    burned += GROUP_SIZE * gs[r];
+    if (burned + intrudersFor(gs[r], noiseFor(r, gs.length)) + SEARCH_SLACK > tiles) return false;
+  }
+  return true;
+}
+
+/** 그룹 수는 라운드가 갈수록 줄어든다(비증가) — 잡음이 늘어나는 곡선과 짝을 이룬다. */
+function shapesFor(rounds: number): number[][] {
+  const out: number[][] = [];
+  const acc: number[] = [];
+  const walk = (r: number, prev: number) => {
+    if (r === rounds) {
+      out.push([...acc]);
+      return;
+    }
+    const cap = Math.min(prev, groupCap(noiseFor(r, rounds)));
+    for (let g = cap; g >= 1; g--) {
+      acc.push(g);
+      walk(r + 1, g);
+      acc.pop();
+    }
+  };
+  walk(0, MAX_GROUPS);
+  return out;
+}
+
+/** 확정 기회(=총 그룹 수)를 먼저 최대화하고, 같으면 라운드 간 낙차가 작은 쪽을 고른다. */
+function rank(gs: number[]): number {
+  const total = gs.reduce((a, b) => a + b, 0);
+  const spread = gs[0] - gs[gs.length - 1];
+  return total * 100 - spread * 10 + gs[0];
+}
+
+function specFor(groups: number, round: number, rounds: number): RoundSpec {
+  const noise = noiseFor(round, rounds);
+  const intruders = intrudersFor(groups, noise);
+  const bias: TierBias =
+    rounds === 1 ? 'any' : round === 0 ? 'low' : round === rounds - 1 ? 'high' : 'any';
+  const note =
+    rounds > 1 && round === rounds - 1
+      ? `규칙 ${groups}개 · 보드의 절반이 잡음입니다`
+      : round === 0
+        ? `숨은 규칙 ${groups}개 · 나머지 ${intruders}칸은 어디에도 속하지 않아요`
+        : `규칙 ${groups}개 · 규칙이 덜 뻔해집니다 · 앞 격자 단어는 다시 안 나와요`;
+  return {
+    round,
+    groups,
+    intruders,
+    board: GROUP_SIZE * groups + intruders,
+    noise,
+    bias,
+    name: `격자 ${round + 1}`,
+    note,
+  };
+}
+
+/**
+ * 풀 크기 → 세션 규격.
+ *
+ * 라운드 수를 먼저 최대화하고(3막 곡선이 먼저다), 그 안에서 확정 기회를 최대화한다.
+ * 실측 사다리(타일 수 → 계획 · 보드):
+ *   12~15 → [1]           8
+ *   16~19 → [1,1]         8·8
+ *   20~23 → [1,1,1]       8·8·8          ← 게임이 풀을 여기까지 보강하므로 실질 하한
+ *   24~27 → [2,1,1]       12·8·8
+ *   28~31 → [2,2,1]       12·12·8
+ *   32~35 → [3,2,1]       16·12·8
+ *   36~39 → [3,3,1]       16·16·8
+ *   40~43 → [3,2,2]       16·12·16
+ *   44~   → [3,3,2]       16·16·16       (v07.10 규격과 동일)
+ * 12타일 미만이면 빈 배열 — 격자 하나(8칸)에 탐색 여지 4칸을 더할 재료가 없다.
+ */
+export function planFor(tiles: number): RoundSpec[] {
+  for (let rounds = 3; rounds >= 1; rounds--) {
+    let best: number[] | null = null;
+    for (const gs of shapesFor(rounds)) {
+      if (!fits(gs, tiles)) continue;
+      if (!best || rank(gs) > rank(best)) best = gs;
+    }
+    if (best) return best.map((g, r) => specFor(g, r, best!.length));
+  }
+  return [];
+}
+
+// ─── 격자 조립 ────────────────────────────────────────────────────────────
 
 interface Chosen {
   rule: Rule;
@@ -275,10 +473,7 @@ interface Chosen {
 }
 
 interface BuildOptions {
-  round: number;
-  targetGroups: number;
-  boardSize: number;
-  tierBias: TierBias;
+  spec: RoundSpec;
   excludeRuleIds: ReadonlySet<string>;
   /** en 을 이미 화면에 인쇄한 타일 — 그룹 단어로 다시 쓰지 않는다(정찰 익스플로짓 차단). */
   exposed: ReadonlySet<string>;
@@ -299,13 +494,14 @@ function keyOf(tiles: TileWord[]): string {
  * 칩은 규칙의 **종류**만 공개한다. 그래서 같은 종류의 다른 규칙이 보드에서 정확히
  * 4개를 만족하면, 그 4개를 고른 학습자는 규칙을 정확히 읽어내고도 목숨을 잃는다.
  * 반증 실측: 현행 생성기의 보드 79.9% 에 이런 함정이 최소 하나씩 있었다.
+ * (상한을 보드 크기로 열어 둔다 — 여기서는 "정확히 4개"만 보므로 상한이 답을 가리면 안 된다.)
  */
 function hasSameKindTrap(board: TileWord[], chosen: Chosen[]): boolean {
   const kinds = new Set(chosen.map((c) => c.rule.kindLabel));
   const answerKeys = new Set(chosen.map((c) => keyOf(c.tiles)));
-  const cands = buildCandidates(board, new Set<string>());
+  const cands = buildCandidates(board, new Set<string>(), board.length);
   for (const c of cands) {
-    if (c.members.length !== 4) continue;
+    if (c.members.length !== GROUP_SIZE) continue;
     if (!kinds.has(c.rule.kindLabel)) continue;
     if (answerKeys.has(keyOf(c.members))) continue;
     return true;
@@ -320,25 +516,89 @@ interface Assembled {
   reusedExposed: boolean;
 }
 
+/**
+ * 침입자 자리 채우기 — **그룹 수보다 침입자 하한이 우선**이다.
+ *
+ * 작은 풀에서 그룹을 욕심껏 세우면 남는 칸이 없어 침입자가 0~2칸으로 쪼그라들고,
+ * 그 순간 마지막 그룹이 소거법으로 공짜가 된다(3라운드에서 막은 익스플로짓의 부활).
+ * 그래서 침입자 4칸을 못 채우면 그룹을 하나씩 덜어내며 다시 센다. 그룹 1개까지
+ * 줄여도 못 채우면 그 시도는 버린다 — 불공정한 판을 내느니 다른 배치를 찾는다.
+ */
+function seatIntruders(pool: TileWord[], chosen: Chosen[], opts: BuildOptions): Assembled | null {
+  let picked = chosen;
+  const seat = (intruders: TileWord[]): Assembled => ({
+    chosen: picked,
+    intruders,
+    board: [...picked.flatMap((g) => g.tiles), ...intruders],
+    reusedExposed: [...picked.flatMap((g) => g.tiles), ...intruders].some((t) =>
+      opts.exposed.has(t.id),
+    ),
+  });
+  while (picked.length >= 1) {
+    // 규칙이 계획보다 적게 서면 그만큼 **잡음을 늘려** 보드 크기를 지킨다 — 규칙이
+    // 적은 판이 오히려 쉬워지는 역전을 막는다(계획 보드 16칸 · 규칙 2개 → 침입자 8칸).
+    const want = Math.max(MIN_INTRUDERS, opts.spec.board - GROUP_SIZE * picked.length);
+    const usedIds = new Set(picked.flatMap((g) => g.tiles.map((t) => t.id)));
+    const eligible = pool.filter(
+      (t) => !usedIds.has(t.id) && picked.every((g) => !g.rule.test(t)),
+    );
+    // 노출 단어를 침입자로 깔면 "en 을 아는 타일 = 침입자"라는 소거 오라클이 생긴다.
+    // 미노출 침입자를 먼저 채우고, 정말 모자랄 때만 노출 단어를 섞는다.
+    const freshOnes = eligible.filter((t) => !opts.exposed.has(t.id));
+    if (freshOnes.length >= MIN_INTRUDERS) {
+      return seat(shuffle(freshOnes).slice(0, Math.min(want, freshOnes.length)));
+    }
+    if (picked.length > 1) {
+      picked = picked.slice(0, picked.length - 1);
+      continue;
+    }
+    const stale = eligible.filter((t) => opts.exposed.has(t.id));
+    const all = [...shuffle(freshOnes), ...shuffle(stale)];
+    if (all.length < MIN_INTRUDERS) return null;
+    return seat(all.slice(0, Math.min(want, all.length)));
+  }
+  return null;
+}
+
+/** 그룹이 많은 배치가 낫고, 같은 그룹 수면 노출 단어를 한 칸도 안 쓴 배치가 낫다. */
+function better(a: Assembled, b: Assembled | null): boolean {
+  if (!b) return true;
+  if (a.chosen.length !== b.chosen.length) return a.chosen.length > b.chosen.length;
+  return !a.reusedExposed && b.reusedExposed;
+}
+
 function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
   const fresh = pool.filter((t) => !opts.exposed.has(t.id));
-  // 그룹 단어는 미노출 타일에서만 뽑는다. 재료가 그룹을 채울 만큼도 없을 때만 제약을 푼다
-  // (+2 여유는 규칙 선택의 자유도 — 딱 맞게 남으면 240번을 돌려도 규칙이 안 선다).
-  const enough = fresh.length >= opts.targetGroups * 4 + 2;
-  const groupPool = enough ? fresh : pool;
-  const candidates = buildCandidates(groupPool, opts.excludeRuleIds);
+  // 재료가 빠듯할 때의 **양보 순서**가 이 게임의 품질을 가른다.
+  //   ① 그룹 단어는 끝까지 미노출로 — 여기가 뚫리면 "1격자를 정찰로 쓰고 나머지는
+  //      기억으로 푼다"는 v07.10 의 치명 익스플로짓이 그대로 부활한다.
+  //   ② 그다음이 그룹 수 — 침입자 4칸(소거법 차단)보다 그룹 하나를 먼저 포기한다.
+  //   ③ 마지막이 침입자의 신선도 — 노출 단어가 침입자로 깔리면 "철자를 아는 타일 =
+  //      침입자"라는 약한 오라클이 생기지만, ①②를 파는 것보다는 훨씬 싸다.
+  let target = Math.max(1, opts.spec.groups);
+  while (target > 1 && fresh.length < GROUP_SIZE * target) target--;
+  const groupPool = fresh.length >= GROUP_SIZE * target ? fresh : pool;
+  const candidates = buildCandidates(
+    groupPool,
+    opts.excludeRuleIds,
+    maxMembersFor(groupPool.length, target),
+  );
   if (candidates.length === 0) return null;
 
   let clean: Assembled | null = null;
   let dirty: Assembled | null = null;
 
   for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+    const bias = opts.spec.bias;
     const ordered = candidates
       .map((c) => ({
         c,
         k:
           Math.random() +
-          (opts.tierBias === 'low' ? c.rule.tier * 0.3 : opts.tierBias === 'high' ? -c.rule.tier * 0.3 : 0),
+          (bias === 'low' ? c.rule.tier * 0.3 : bias === 'high' ? -c.rule.tier * 0.3 : 0) -
+          // 내 단어로 네 칸을 채울 수 있는 규칙을 먼저 본다 — 맛보기로 메운 자리가
+          // 확정 막대(=학습 산출물)를 차지하지 않게. 풀이 전부 내 단어면 무효한 항이다.
+          0.3 * Math.min(1, c.members.filter((m) => m.own).length / GROUP_SIZE),
       }))
       .sort((a, b) => a.k - b.k);
 
@@ -347,7 +607,7 @@ function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
     const kinds = new Set<RuleKind>();
 
     for (const { c } of ordered) {
-      if (chosen.length >= opts.targetGroups) break;
+      if (chosen.length >= target) break;
       // 같은 종류 규칙 둘은 안 쓴다 — 종류 라벨을 미리 공개하므로 중복되면 읽히지 않는다.
       if (kinds.has(c.rule.kind)) continue;
       // 이미 확정한 그룹의 단어가 이 규칙도 만족하면 불변식 2 위반.
@@ -355,42 +615,26 @@ function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
       const avail = c.members.filter(
         (m) => !used.has(m.id) && chosen.every((ch) => !ch.rule.test(m)),
       );
-      if (avail.length < 4) continue;
-      const picked = shuffle(avail).slice(0, 4);
+      if (avail.length < GROUP_SIZE) continue;
+      // 같은 값이면 **내 단어**를 그룹에 올린다 — 맛보기로 메운 자리는 침입자로 밀린다.
+      // (그룹 단어만 확정 막대에 en+ko 로 인쇄되고 FSRS 에 올라간다.)
+      const picked = shuffle(avail)
+        .sort((a, b) => Number(b.own) - Number(a.own))
+        .slice(0, GROUP_SIZE);
       chosen.push({ rule: c.rule, tiles: picked });
       kinds.add(c.rule.kind);
       picked.forEach((t) => used.add(t.id));
     }
 
-    if (chosen.length < 2) continue;
-    if (dirty && chosen.length < dirty.chosen.length) continue;
+    if (chosen.length < 1) continue;
+    const asm = seatIntruders(pool, chosen, opts);
+    if (!asm) continue;
 
-    // 불변식 3 — 침입자는 어떤 선택 규칙도 만족하면 안 된다.
-    const usedIds = new Set(chosen.flatMap((g) => g.tiles.map((t) => t.id)));
-    const eligible = (t: TileWord) => !usedIds.has(t.id) && chosen.every((g) => !g.rule.test(t));
-    const want = Math.max(0, opts.boardSize - chosen.length * 4);
-    // 노출 단어를 침입자로 깔면 "en 을 아는 타일 = 침입자"라는 소거 오라클이 생긴다.
-    // 미노출 침입자를 먼저 채우고, 정말 모자랄 때만 노출 단어를 섞는다.
-    const freshIntr = shuffle(pool.filter((t) => eligible(t) && !opts.exposed.has(t.id)));
-    let intruders = freshIntr.slice(0, want);
-    let reusedExposed = !enough;
-    if (intruders.length < want) {
-      const taken = new Set(intruders.map((t) => t.id));
-      const stale = shuffle(
-        pool.filter((t) => eligible(t) && opts.exposed.has(t.id) && !taken.has(t.id)),
-      );
-      const add = stale.slice(0, want - intruders.length);
-      if (add.length > 0) reusedExposed = true;
-      intruders = [...intruders, ...add];
-    }
-
-    const board = [...chosen.flatMap((g) => g.tiles), ...intruders];
-    const asm: Assembled = { chosen, intruders, board, reusedExposed };
-
-    if (!dirty || chosen.length > dirty.chosen.length) dirty = asm;
-    if (hasSameKindTrap(board, chosen)) continue;
-    if (!clean || chosen.length > clean.chosen.length) clean = asm;
-    if (clean.chosen.length >= opts.targetGroups) break;
+    if (better(asm, dirty)) dirty = asm;
+    if (hasSameKindTrap(asm.board, asm.chosen)) continue;
+    if (better(asm, clean)) clean = asm;
+    // better() 는 타입 가드가 아니라 clean 이 여전히 null 일 수 있다(첫 배치가 함정인 경우).
+    if (clean && clean.chosen.length >= target && !clean.reusedExposed) break;
   }
 
   // 함정 없는 배치를 못 찾으면 "판이 없는 것"보다는 낫다 — 있는 것 중 최선을 낸다.
@@ -398,37 +642,13 @@ function buildGrid(pool: TileWord[], opts: BuildOptions): Grid | null {
   if (!best) return null;
 
   return {
-    round: opts.round,
+    round: opts.spec.round,
     tiles: shuffle(best.board),
     groups: best.chosen.map((g) => ({ rule: g.rule, tiles: g.tiles })),
     intruders: best.intruders,
     reusedExposed: best.reusedExposed,
   };
 }
-
-// ─── 라운드 규격 ──────────────────────────────────────────────────────────
-// 긴장 곡선: 보드 크기는 그대로인데 **신호 대 잡음이 나빠지고** 규칙이 미묘해진다.
-//   격자 1 — 규칙 3, 침입자 4, 명백한 규칙 우선
-//   격자 2 — 규칙 3, 침입자 4, 규칙 종류 무작위
-//   격자 3 — 규칙 2, 침입자 8, 까다로운 규칙 우선 (절반이 잡음)
-// 실수 예산과 시계는 라운드를 넘어 이어진다 — 뒤로 갈수록 실제로 조인다.
-export const ROUND_SPECS: { groups: number; board: number; bias: TierBias; name: string; note: string }[] = [
-  { groups: 3, board: 16, bias: 'low', name: '격자 1', note: '숨은 규칙 3개 · 나머지는 어디에도 속하지 않아요' },
-  { groups: 3, board: 16, bias: 'any', name: '격자 2', note: '규칙이 덜 뻔해집니다 · 앞 격자 단어는 다시 안 나와요' },
-  { groups: 2, board: 16, bias: 'high', name: '격자 3', note: '규칙 2개 · 절반이 잡음입니다' },
-];
-
-/**
- * 한 세션이 필요로 하는 타일 수 = 16 × 3라운드 = 48.
- *
- * 세 격자가 **한 단어도 겹치지 않으려면** 이만큼이 있어야 한다. 학습자 단어가 모자라면
- * ConnectionsGame 이 DEMO_POOL 로 여기까지 채운다(own=false → FSRS 미적재).
- * 실측(1,200단어 표본 · 150세션 × 3라운드, 단어장 16/24/34/40/52):
- *   48 → 그룹 단어 재사용 0.0% · 보드 재사용 0.0% · 보드 16칸 100% · 생성 실패 0.0%
- *   44 → 보드 재사용 0.5%(격자3 1.4%) · 격자3 생성 실패 1.3%
- * 44 에서 이미 새기 시작하므로 딱 필요한 48 로 잡는다(그 이상은 맛보기 단어만 늘린다).
- */
-export const POOL_TARGET = 48;
 
 /**
  * 라운드 격자 생성.
@@ -444,31 +664,23 @@ export const POOL_TARGET = 48;
  */
 export function generateGrid(
   pool: TileWord[],
-  round: number,
+  spec: RoundSpec,
   excludeRuleIds: ReadonlySet<string>,
   exposed: ReadonlySet<string>,
 ): Grid | null {
-  const spec = ROUND_SPECS[Math.min(round, ROUND_SPECS.length - 1)];
-  const opts = {
-    round,
-    targetGroups: spec.groups,
-    boardSize: spec.board,
-    tierBias: spec.bias,
-    exposed,
-  };
-  const preferred = buildGrid(pool, { ...opts, excludeRuleIds });
+  const preferred = buildGrid(pool, { spec, excludeRuleIds, exposed });
   if (preferred && preferred.groups.length >= spec.groups) return preferred;
-  const relaxed = buildGrid(pool, { ...opts, excludeRuleIds: new Set<string>() });
+  const relaxed = buildGrid(pool, { spec, excludeRuleIds: new Set<string>(), exposed });
   if (!preferred) return relaxed;
   if (relaxed && relaxed.groups.length > preferred.groups.length) return relaxed;
   return preferred;
 }
 
 // ─── 맛보기 단어 풀 ───────────────────────────────────────────────────────
-// wordPool 이 없거나 세 격자를 채우기에 모자랄 때 쓰는 폴백. 이전 판의 "고정 퍼즐
-// 5개"가 아니라 **단순한 단어 목록**이다 — 격자는 여기서도 매 판 새로 조립된다.
-// 이 단어들은 학습자 vocabularies 에 없을 수 있으므로 own=false 로 태깅해 FSRS 에
-// 적재하지 않는다.
+// wordPool 이 없거나(맛보기 진입) 격자 하나를 세우기에도 모자랄 때 쓰는 폴백.
+// 이전 판의 "고정 퍼즐 5개"가 아니라 **단순한 단어 목록**이다 — 격자는 여기서도 매 판
+// 새로 조립된다. 이 단어들은 학습자 vocabularies 에 없을 수 있으므로 own=false 로
+// 태깅해 FSRS 에 적재하지 않는다.
 export const DEMO_POOL: Word[] = [
   { en: 'joy', ko: '기쁨', pos: 'noun' }, { en: 'anger', ko: '분노', pos: 'noun' },
   { en: 'fear', ko: '두려움', pos: 'noun' }, { en: 'grief', ko: '슬픔', pos: 'noun' },

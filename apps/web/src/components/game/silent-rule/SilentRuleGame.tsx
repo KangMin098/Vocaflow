@@ -21,7 +21,7 @@ import {
   type Word, type ComboTier,
 } from '@/components/game/_shared/gamekit';
 
-import { buildDeck, buildGate, MAX_GATES, type Deck, type Gate, type Tile } from './rules';
+import { buildDeck, buildGate, gatesFor, type Deck, type Gate, type Tile } from './rules';
 
 /**
  * `assisted` — 정답을 이미 보여준 뒤의 입력. 게임 점수·콤보에는 반영하되 FSRS 에는 올리지 않는다.
@@ -51,10 +51,14 @@ const MISS_MS = 8_000;
  *
  * v07.10 반증 #4 실측: 고정 +14초는 8칸 판정의 한계 작업 증가분(약 +3초)을 크게 웃돌아
  * 잘하는 플레이어의 마지막 30초가 첫 30초보다 헐거워졌다("난이도가 조여든다" 주장 반증).
- * 문 index 당 −1.5초, 하한 5초 — 문 1 은 +14초, 문 8 은 +5초다. 8문 전부 완봉해도
- * 가산 총량은 71.5초로 useCountdown 의 가산 상한(총량의 75% = 90초) 안쪽에 머문다.
+ *
+ * v07.11 — index 가 아니라 **진행률**의 함수로 바꿨다: 14초 → 5초.
+ *   cleanBonusMs(prog) = 14000 − prog × 9000
+ * 문 수가 8이든 4든 첫 문은 +14초, 마지막 문은 +5초로 같은 곡선을 돈다(index 기반이면
+ * 짧은 판에서 곡선이 잘려 끝까지 헐거운 채로 끝난다). 8문 전부 완봉해도 가산 총량은
+ * 76초로 useCountdown 의 가산 상한(총량의 75% = 90초) 안쪽이다.
  */
-const cleanBonusMs = (gateIndex: number) => Math.max(5_000, 14_000 - gateIndex * 1_500);
+const cleanBonusMs = (prog: number) => Math.round((14_000 - prog * 9_000) / 1_000) * 1_000;
 
 /**
  * 봉인 판돈 (v07.10 반증 #2 — "봉인은 항상 거는 게 맞다"의 정면 수정).
@@ -89,13 +93,16 @@ interface Run {
   deck: Deck;
   gate: Gate;
   used: Set<string>;
+  /** 이 판의 문 수 — 규칙 공급량의 함수(rules.gatesFor). 한 판에 열리는 규칙이 10개인 지금은 8. */
+  total: number;
 }
 
 function makeRun(pool: Word[] | undefined): Run {
   const deck = buildDeck(pool);
+  const total = gatesFor(deck);
   // 첫 문에는 넘겨받은 예비 쌍이 없다 → 봉인 없음. 공개된 규칙이 아직 하나도 없으니 당연하다.
-  const gate = buildGate(deck, 0, new Set<string>(), null);
-  return { deck, gate, used: new Set(gate.keys) };
+  const gate = buildGate(deck, 0, new Set<string>(), null, total);
+  return { deck, gate, used: new Set(gate.keys), total };
 }
 
 /** 타일의 판정 상태 — 색 외에 아이콘·취소선·라벨로도 구분한다(색각 이중 인코딩). */
@@ -226,10 +233,15 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const pb = usePersonalBest('silent-rule');
 
   const gate = run.gate;
+  const totalGates = run.total;
+  /** 진행률 — 시간 곡선·문 규격이 전부 이 값의 함수다. 문 수가 몇이든 0 → 1 을 다 돈다. */
+  const gateProg = totalGates <= 1 ? 1 : gate.index / (totalGates - 1);
   const phaseRef = useRef(phase);
   phaseRef.current = phase;
   const gateRef = useRef(gate);
   gateRef.current = gate;
+  const runRef = useRef(run);
+  runRef.current = run;
 
   const onTimeUp = useCallback(() => {
     const p = phaseRef.current;
@@ -356,7 +368,8 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     if (kind === 'clean') {
       setCleanGates((n) => n + 1);
       combo.hit();
-      clock.extend(cleanBonusMs(g.index));
+      const t = runRef.current.total;
+      clock.extend(cleanBonusMs(t <= 1 ? 1 : g.index / (t - 1)));
       setGlow(true);
       later(() => setGlow(false), 900);
       sfxRef.current.correct(combo.combo + 1, false);
@@ -416,12 +429,12 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const nextGate = useCallback(() => {
     setRun((r) => {
       const i = r.gate.index + 1;
-      if (i >= MAX_GATES) return r;
+      if (i >= r.total) return r;
       // 직전 문이 떼어 둔 예비 쌍이 이번 문의 봉인어가 된다.
-      const g = buildGate(r.deck, i, r.used, r.gate.reserve);
-      return { deck: r.deck, gate: g, used: new Set([...r.used, ...g.keys]) };
+      const g = buildGate(r.deck, i, r.used, r.gate.reserve, r.total);
+      return { deck: r.deck, gate: g, used: new Set([...r.used, ...g.keys]), total: r.total };
     });
-    if (gateRef.current.index + 1 >= MAX_GATES) {
+    if (gateRef.current.index + 1 >= runRef.current.total) {
       setPhase('done');
       return;
     }
@@ -596,7 +609,7 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         extra={
           <div className="sr-hud">
             <TimerBar frac={clock.frac} warning={clock.warning} seconds={clock.remainSec} label="남은 시간" />
-            <span className="sr-hud-gate">문 {gate.index + 1}/{MAX_GATES}</span>
+            <span className="sr-hud-gate">문 {gate.index + 1}/{totalGates}</span>
           </div>
         }
       />
@@ -678,7 +691,7 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
             </span>
             <span className="sr-verdict-num">
               +{verdict.points}점
-              {verdict.kind === 'clean' && <em className="sr-verdict-time" data-dir="up">+{cleanBonusMs(gate.index) / 1000}초</em>}
+              {verdict.kind === 'clean' && <em className="sr-verdict-time" data-dir="up">+{cleanBonusMs(gateProg) / 1000}초</em>}
               {verdict.kind === 'off' && <em className="sr-verdict-time" data-dir="down">−{MISS_MS / 1000}초</em>}
             </span>
           </div>
@@ -773,7 +786,7 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
             ))}
           </div>
           <button type="button" className="gk-btn gk-btn--primary sr-go" onClick={nextGate}>
-            {gate.index + 1 < MAX_GATES ? '다음 문 →' : '침묵을 끝내다'}
+            {gate.index + 1 < totalGates ? '다음 문 →' : '침묵을 끝내다'}
           </button>
         </main>
       )}

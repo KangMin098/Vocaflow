@@ -36,6 +36,20 @@
 //      상한 초과분은 사라지지 않고 총 칩으로 이월된다.
 //   ④ 무시계 체류 — 1계약에도 시계를 둔다(소프트 만료).
 //
+// v07.11 규격의 함수화 (자료가 작다고 게임을 거절하지 않는다)
+//   손패 장수·주문 칸 수·목표·납기·감정·반품이 전부 상수였다. 그래서 라우트 게이트를
+//   minWords=16 까지 올려야 했고, 학습자가 지목한 도서 챕터·공용 단어장의 **31.4%** 가
+//   입장에서 거절됐다(653세트 실측 · 1사분위 11단어 · 중앙값 30 · 최소 1).
+//   지금은 여섯 축 전부가 정제 풀 크기 n 의 함수다(:buildRounds) —
+//     손패 = min(n, clamp(min(base, n−2), 5, 9))       · 풀에 항상 2장을 남긴다
+//     주문 = min(clamp(min(base, ⌊손패×.56⌋), 2, 5), 손패−3) · 미끼 3장을 항상 남긴다
+//     목표 = K × (평균 칩 × 주문 × 묶음배수[주문])      · 큰 풀에서 420/1,150/2,600 로 수렴
+//     납기 = base × clamp(.5 + .5 × 주문/base주문, .5, 1)
+//     감정 = ⌈n/6⌉ 상한 · 반품 = 풀 여분(n − 손패) 상한
+//   게이트는 16 → **8**. 판이 짧아지는 것은 정상이고, 못 여는 것은 정상이 아니다.
+//   미끼는 절대 3장 아래로 내려가지 않는다 — 손패 수 = 주문 수가 되는 순간 마지막 한 장이
+//   소거법으로 자동 정답이 되기 때문이다. 이 하한이 minWords 8 을 떠받치는 유일한 이유다.
+//
 // FSRS 정직성
 //   맞게 납품한 카드만 onCorrect, 어긋나 소각된 카드만 onWrong — **모르는 단어일수록
 //   오답으로 정직하게 올라가야 복습이 잡힌다**. 다만 뜻을 이미 본 카드(감정 · 반려 복귀)는
@@ -84,12 +98,40 @@ interface Props {
   onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
-// ─── 계약 규격 ────────────────────────────────────────────────────────────
-// 목표는 5배씩 오르지만 화력도 같이 오른다(조커 영입 + 연쇄 배수 + 주문판 확대).
-// 1계약도 시계를 둔다(150초). 예전에는 timeMs=0 이라 첫 판의 체류 시간이 무제한이었고
+// ─── 계약 규격 — 전부 풀 크기의 함수 ──────────────────────────────────────
+// 목표는 계약마다 오르지만 화력도 같이 오른다(조커 영입 + 연쇄 배수 + 주문판 확대).
+// 세 계약 모두 시계를 둔다. 예전에는 1계약이 timeMs=0 이라 체류 시간이 무제한이었고
 // 첫 30초와 마지막 30초의 수치가 완전히 같았다(긴장 곡선 0 · 세션 상한 소멸).
-// 대신 만료가 패배가 아니다 — 규칙을 배우는 판에서 시계로 죽이면 배우기 전에 진다.
-// 만료 시 남은 납품 기회만 2로 줄어든다(soft deadline). 안내 카드를 읽는 동안은 멈춰 있다.
+// 대신 1계약은 만료가 패배가 아니다 — 규칙을 배우는 판에서 시계로 죽이면 배우기 전에 진다.
+// 만료 시 남은 납품 기회만 줄어든다(soft deadline). 안내 카드를 읽는 동안은 멈춰 있다.
+//
+// v07.11 — 규격을 상수에서 함수로.
+//   예전에는 손패 8~9장 · 주문 3~5건 · 목표 420/1,150/2,600 이 **상수** 였다. 그래서
+//   정제된 단어가 그 판을 못 채우면 게임이 아예 열리지 않았고, 라우트 게이트를 16까지
+//   올려야 했다(공용 단어장 + 도서 챕터 653세트 중 **31.4% 차단** · 1사분위 11단어).
+//   단어가 적으면 판이 짧아지는 게 정상이지, 못 여는 게 정상이 아니다.
+//
+//   handFor(n)     = min(n, clamp(min(base, n − HAND_SPARE), 5, 9))
+//        · 항상 두 장은 풀에 남긴다 → 반품·재드로우가 방금 뺀 카드를 그대로 돌려주지 않는다.
+//        · 손패 ≤ n 이 보장되므로 **손패에 빈 자리가 생기지 않는다**.
+//   slotsFor(hand) = min(clamp(min(base, ⌊hand × 0.56⌋), 2, 5), hand − DECOY_MIN)
+//        · `hand − 3` 이 이 함수의 존재 이유다. 손패 수와 주문 수가 같아지는 순간
+//          마지막 한 장이 **소거법으로 자동 정답**이 된다. 미끼를 항상 3장 이상 남겨,
+//          s−1건을 이미 아는 학습자에게도 마지막 칸이 "4장 중 하나"인 진짜 도박으로 남는다.
+//        · 주문 ko 는 손패 카드에서만 뽑히므로 주문 ≤ 손패는 늘 참 — 즉 **주문판에도
+//          빈칸이 생기지 않는다**(orders.length === slots 가 항상 성립).
+//        · 큰 풀에서는 예전 값 그대로다 — 손패 8 → 주문 3·4, 손패 9 → 주문 5.
+//   targetFor(ri)  = K[ri] × (평균 칩 × slots × BUNDLE[slots])
+//        · 목표를 절대 점수가 아니라 **"이 판에서 실제로 낼 수 있는 한 판"의 배수**로 둔다.
+//          K = 1.82 / 2.61 / 3.38 은 예전 상수를 «평균 칩 22 × 주문 × 배수» 로 나눈 값이라
+//          풀이 크면 420/1,150/2,600 에 자료 길이에 따라 ±7% 로 수렴한다(맛보기 풀 =
+//          440/1,200/2,730 · 평균 칩 23.1). 주문이 3 → 2건으로 줄면 목표도 같이 내려온다.
+//   timeFor(ri)    = base × clamp(.5 + .5 × slots / baseSlots, .5, 1)
+//        · 한 판에 읽어야 할 주문이 줄면 필요한 시간도 준다. 절반 아래로는 내리지 않는다.
+//   감정 = ⌈n/6⌉ 상한 · 반품 = 풀 여분(n − 손패) 상한
+//        · 감정은 단어의 뜻을 영구히 여는 행위라 작은 풀에서 값이 기하급수로 커진다.
+//          6단어 풀에서 계약마다 2회면 한 런에 풀 전체가 열려 인출이 사라진다.
+//          n ≥ 9 부터는 예전 값(2·2·1 / 3·2·2)과 같다.
 interface RoundSpec {
   target: number;
   slots: number;
@@ -102,23 +144,30 @@ interface RoundSpec {
   title: string;
   note: string;
 }
-const ROUNDS: RoundSpec[] = [
-  {
-    target: 420, slots: 3, hand: 8, plays: 4, lives: 3, discards: 3, appraisals: 2, timeMs: 150_000,
-    title: '첫 계약 · 소량 납품',
-    note: '주문 3건, 150초. 납기를 넘겨도 계약은 깨지지 않는다 — 연장 납기 60초가 붙고 납품 기회만 줄어든다.',
-  },
-  {
-    target: 1150, slots: 4, hand: 8, plays: 4, lives: 3, discards: 2, appraisals: 2, timeMs: 95_000,
-    title: '두 번째 계약 · 정시 납품',
-    note: '주문 4건, 95초. 납품 1장당 +3초, 반려 1회당 −8초. 세 장 이상 묶지 않으면 목표가 멀다.',
-  },
-  {
-    target: 2600, slots: 5, hand: 9, plays: 5, lives: 2, discards: 2, appraisals: 1, timeMs: 85_000,
-    title: '마지막 계약 · 대량 특송',
-    note: '주문 5건, 85초, 검수는 둘뿐. 네 장 묶음이 아니면 시간 안에 목표를 넘기기 어렵다.',
-  },
-];
+
+/** 계약별 기준값 — 풀이 넉넉하면 이 값이 그대로 쓰인다(예전 상수와 동일). */
+const BASE_HAND = [8, 8, 9];
+const BASE_SLOTS = [3, 4, 5];
+const BASE_PLAYS = [4, 4, 5];
+const BASE_LIVES = [3, 3, 2];
+const BASE_DISCARDS = [3, 2, 2];
+const BASE_APPRAISALS = [2, 2, 1];
+const BASE_TIME_MS = [150_000, 95_000, 85_000];
+const ROUND_TITLES = ['첫 계약 · 소량 납품', '두 번째 계약 · 정시 납품', '마지막 계약 · 대량 특송'];
+/** 예전 목표(420/1,150/2,600)를 «평균 칩 × 주문 수 × 묶음 배수» 로 나눈 값. */
+const TARGET_K = [1.82, 2.61, 3.38];
+/** 손패 중 주문에 걸리는 비율 상한. 나머지가 미끼다. 8×.56=4 · 9×.56=5 — 예전 값과 일치. */
+const SLOT_RATIO = 0.56;
+/** 손패에 깔지 않고 풀에 남겨 두는 여분 — 반품·재드로우가 헛돌지 않게. */
+const HAND_SPARE = 2;
+const HAND_MIN = 5;
+const HAND_MAX = 9;
+/**
+ * 어떤 풀 크기에서도 손패에 남는 최소 미끼 수. 이게 0 이면 마지막 주문이 소거법으로
+ * 자동 정답이 되고, 1~2 면 s−1건을 아는 학습자의 마지막 칸이 2~3지선다로 물러진다.
+ * 3 이면 큰 풀(미끼 4~5장)과 같은 급의 도박이 유지된다.
+ */
+const DECOY_MIN = 3;
 
 // 묶음 배수 — 이 게임의 족보표. 항상 화면에 떠 있다(규칙을 30초에 무료로 이해).
 const BUNDLE = [0, 1, 2, 3.5, 5, 7];
@@ -128,13 +177,26 @@ const CASH_PLAY = 45;
 const CASH_LIFE = 70;
 const CASH_APPRAISE = 30;
 
-// 맛보기로 내려가는 하한. 라우트의 minWords(16)보다 낮게 잡는다 — 뜻이 겹치는 단어와
-// 2어 표제어(give up 등)를 걷어내면(buildPool) 16개가 10~13개로 줄 수 있는데, 그때 학습자
-// 단어를 통째로 버리고 맛보기로 갈아타면 그 판의 FSRS 적재가 0이 된다.
-// 한 계약이 성립하는 최소치까지는 내 단어로 돈다. explicit 스코프는 아예 갈아치지 않는다.
-const MIN_POOL = 10;
-/** 라우트(play/lexicon-hands/page.tsx)의 minWords — 안내 문구가 게이트와 어긋나지 않게 여기에도 둔다. */
-const ROUTE_MIN_WORDS = 16;
+/**
+ * 계약이 구조적으로 성립하는 정제 후 최소 풀. 이 아래로는 내 단어를 쓰지 않는다.
+ *
+ * 6인 이유 — 판이 성립하려면 손패 ≥ 주문 + 미끼 3 이고, 묶음 배수가 의미를 가지려면
+ * 주문 ≥ 2 다. 즉 손패 ≥ 5. 여기에 반품·재드로우가 방금 뺀 카드를 그대로 돌려주지
+ * 않도록 풀에 여분 1장을 남기면 **6** 이 바닥이다. 5 로 내리면 손패 = 풀 전체가 되어
+ * 반품이 아무것도 바꾸지 못하고, 4 로 내리면 미끼가 2장으로 줄어 마지막 주문이
+ * 3지선다가 된다(= 소거법이 되살아나는 지점). 그래서 6 아래로는 내리지 않는다.
+ *
+ * 라우트의 minWords(8)보다 낮게 잡는 이유는 그대로다 — 뜻이 겹치는 단어와 2어 표제어
+ * (give up 등)를 걷어내면(buildPool) 8개가 6~7개로 줄 수 있는데, 그때 학습자 단어를
+ * 통째로 버리고 맛보기로 갈아타면 그 판의 FSRS 적재가 0이 된다.
+ * explicit 스코프는 아예 갈아치지 않는다.
+ */
+const MIN_POOL = 6;
+/**
+ * 라우트(play/lexicon-hands/page.tsx)의 minWords — 안내 문구가 게이트와 어긋나지 않게 여기에도 둔다.
+ * 16 → 8. buildPool 탈락분(약 4/3배 여유)을 감안해 MIN_POOL(6) 위로 잡은 최솟값이다.
+ */
+const ROUTE_MIN_WORDS = 8;
 const APPRAISED_CHIP_RATIO = 0.5;
 const DELIVER_EXTEND_MS = 3_000;
 const REJECT_DRAIN_MS = 8_000;
@@ -165,12 +227,13 @@ const RECOVERY_CHIP = 8;
 const REVEAL_LOCK_DRAWS = 2;
 /**
  * 1계약 소프트 납기 만료 시 남기는 납품 기회.
- * 3인 이유 — 진척 상한(45%)이 걸린 뒤 1계약 목표 420 을 채우려면 최소 3납품이 필요하다
- * (상한 189 × 3 = 567 ≥ 420, × 2 = 378 < 420). 2로 줄이면 150초를 넘긴 순간 수학적으로
- * 패배가 확정된다 — 배우는 판에서 그건 벌이 아니라 함정이다.
- * 그래서 이 축소는 사실상 '한 판도 내지 않고 150초를 쓴 사람'에게만 걸린다.
+ * 상수가 아니라 진척 상한에서 유도한다 — ⌈1 / 0.45⌉ = 3. 목표가 풀 크기에 따라
+ * 움직여도 "상한에 걸린 채로도 남은 기회만으로 목표를 채울 수 있다"가 계속 참이다
+ * (상한×3 = 1.35 × 목표 ≥ 목표 · 상한×2 = 0.9 × 목표 < 목표).
+ * 2로 줄이면 납기를 넘긴 순간 수학적으로 패배가 확정된다 — 배우는 판에서 그건 함정이다.
+ * 그래서 이 축소는 사실상 '한 판도 내지 않고 납기를 다 쓴 사람'에게만 걸린다.
  */
-const SOFT_DEADLINE_PLAYS = 3;
+const SOFT_DEADLINE_PLAYS = Math.ceil(1 / ROUND_PROGRESS_CAP_RATIO);
 /**
  * 소프트 만료 뒤에 붙는 연장 납기. 이번엔 진짜로 계약이 끝난다.
  * 이게 없으면 1계약 체류 시간이 여전히 무제한이라(그냥 안 내면 된다) 세션 상한이 사라진다.
@@ -265,6 +328,63 @@ function buildPool(src: Word[]): Word[] {
     out.push({ ...w, en, ko });
   }
   return out;
+}
+
+// ─── 계약 규격 산출 ───────────────────────────────────────────────────────
+/** 1..n 을 훑는다 — 족보표·규칙판이 "이 판에서 실제로 도달 가능한 묶음"만 그리게. */
+const upto = (n: number) => Array.from({ length: Math.max(0, n) }, (_, i) => i + 1);
+
+/** 손패 장수 — 풀에서 항상 HAND_SPARE 장을 남긴다(반품·재드로우가 헛돌지 않게). */
+function handFor(n: number, ri: number): number {
+  return Math.min(n, clamp(Math.min(BASE_HAND[ri], n - HAND_SPARE), HAND_MIN, HAND_MAX));
+}
+/** 주문 칸 수 — 손패의 56% 이하 · 그리고 반드시 손패보다 미끼 3장만큼 적다. */
+function slotsFor(hand: number, ri: number): number {
+  const wanted = clamp(Math.min(BASE_SLOTS[ri], Math.floor(hand * SLOT_RATIO)), Math.min(2, hand), 5);
+  return Math.max(0, Math.min(wanted, hand - DECOY_MIN));
+}
+
+/**
+ * 정제된 풀로 세 계약의 규격을 짠다. 순수 함수 — 같은 풀이면 같은 계약이 나온다.
+ *
+ * 목표는 «평균 칩 × 주문 수 × 그 주문 수의 묶음 배수» 를 한 판의 기준으로 삼고
+ * 계약별 계수 K 를 곱한다. 평균 칩이 풀에서 나오므로 긴 단어가 많은 자료는 목표가
+ * 같이 올라가고, 짧은 단어 자료는 같이 내려온다 — 필요한 납품 횟수가 자료와 무관해진다.
+ */
+function buildRounds(pool: Word[]): RoundSpec[] {
+  const n = pool.length;
+  const avgChip = n > 0 ? pool.reduce((s, w) => s + chipsFor(w.en), 0) / n : 22;
+  return BASE_HAND.map((_, ri) => {
+    const hand = handFor(n, ri);
+    const slots = slotsFor(hand, ri);
+    const target = Math.max(60, Math.round((TARGET_K[ri] * avgChip * slots * BUNDLE[slots]) / 10) * 10);
+    const timeMs = Math.round((BASE_TIME_MS[ri] * clamp(0.5 + (0.5 * slots) / BASE_SLOTS[ri], 0.5, 1)) / 1000) * 1000;
+    const lives = BASE_LIVES[ri];
+    const sec = Math.round(timeMs / 1000);
+    // 한 판에 묶으라고 권할 장수 — 도달 가능한 최대 묶음 바로 아래.
+    const urge = Math.max(2, slots - 1);
+    const note = ri === 0
+      ? `주문 ${slots}건, ${sec}초. 납기를 넘겨도 계약은 깨지지 않는다 — 연장 납기 ${SOFT_DEADLINE_TAIL_MS / 1000}초가 붙고 납품 기회만 줄어든다.`
+      : ri === 1
+        ? `주문 ${slots}건, ${sec}초. 납품 1장당 +${DELIVER_EXTEND_MS / 1000}초, 반려 1회당 −${REJECT_DRAIN_MS / 1000}초. ${Math.min(slots, 3)}장 이상 묶지 않으면 목표가 멀다.`
+        : `주문 ${slots}건, ${sec}초, 검수는 ${lives}뿐. ${urge}장 묶음이 아니면 시간 안에 목표를 넘기기 어렵다.`;
+    return {
+      target,
+      slots,
+      hand,
+      plays: BASE_PLAYS[ri],
+      lives,
+      // 반품은 풀에 남은 여분만큼만 의미가 있다 — 여분이 0이면 같은 카드가 그대로 돌아온다.
+      discards: clamp(n - hand, 1, BASE_DISCARDS[ri]),
+      // 감정은 풀의 일부를 영구히 여는 행위다(revealedEnRef). 6단어 풀에서 계약마다 2회면
+      // 한 런에 풀의 전부가 열려 인출이 사라진다 — 1/6 비율로 묶어 둔다.
+      // n ≥ 9 부터는 예전 값(2·2·1)과 같아지므로 지금까지 열리던 자료는 아무것도 달라지지 않는다.
+      appraisals: clamp(Math.round(n / 6), 1, BASE_APPRAISALS[ri]),
+      timeMs,
+      title: ROUND_TITLES[ri],
+      note,
+    };
+  });
 }
 
 // ─── 점수식 ───────────────────────────────────────────────────────────────
@@ -389,6 +509,12 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
   const demoMode = thin && !blocked;
   const pool = useMemo(() => (demoMode ? buildPool(DEMO_POOL) : mine), [demoMode, mine]);
 
+  // 세 계약의 규격은 풀에서 나온다 — 손패·주문 칸·목표·납기·감정·반품 전부.
+  // pool 은 로드 후 고정이므로 이 배열도 런 내내 안정적이다(계약 중간에 판이 바뀌지 않는다).
+  const specs = useMemo(() => buildRounds(pool), [pool]);
+  /** 이 판에서 도달 가능한 최대 묶음 — 족보표·안내 문구가 못 만드는 배수를 광고하지 않게. */
+  const maxSlots = useMemo(() => specs.reduce((m, s) => Math.max(m, s.slots), 0), [specs]);
+
   // 같은 단어를 한 런에서 여러 번 FSRS 로 올리지 않는다 — 반려·재드로우를 반복해도
   // 적재 상한이 풀 크기를 넘지 않게. (중앙 recordGameResult 의 10분 규칙과 이중 방어)
   const wrongOnceRef = useRef(new Set<string>());
@@ -428,10 +554,10 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
   const [activeSlot, setActiveSlot] = useState<number | null>(null);
   const [arm, setArm] = useState<'appraise' | 'discard' | null>(null);
 
-  const [plays, setPlays] = useState(ROUNDS[0].plays);
-  const [lives, setLives] = useState(ROUNDS[0].lives);
-  const [discards, setDiscards] = useState(ROUNDS[0].discards);
-  const [appraisals, setAppraisals] = useState(ROUNDS[0].appraisals);
+  const [plays, setPlays] = useState(specs[0].plays);
+  const [lives, setLives] = useState(specs[0].lives);
+  const [discards, setDiscards] = useState(specs[0].discards);
+  const [appraisals, setAppraisals] = useState(specs[0].appraisals);
 
   const [roundScore, setRoundScore] = useState(0);
   const [total, setTotal] = useState(0);
@@ -458,7 +584,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
   const [bestInfo, setBestInfo] = useState<{ prev: number | null; improved: boolean } | null>(null);
 
   const pb = usePersonalBest('lexicon-hands');
-  const spec = ROUNDS[roundIdx];
+  const spec = specs[roundIdx];
   const shownRound = useCountUp(roundScore);
 
   const cardIdRef = useRef(0);
@@ -501,8 +627,8 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
   // 안내 카드를 펴 놓은 동안은 멈춰 있다 — 규칙을 읽는 시간에 시계를 돌리면 첫 판이 벌칙이 된다.
   const timeUpRef = useRef<(() => void) | null>(null);
   const timer = useCountdown({
-    totalMs: Math.max(ROUNDS[0].timeMs, 1_000),
-    running: phase === 'play' && ROUNDS[roundIdx].timeMs > 0 && !(roundIdx === 0 && showIntro),
+    totalMs: Math.max(specs[0].timeMs, 1_000),
+    running: phase === 'play' && specs[roundIdx].timeMs > 0 && !(roundIdx === 0 && showIntro),
     warnAtMs: 20_000,
     onEnd: () => { if (phaseRef.current === 'play') timeUpRef.current?.(); },
   });
@@ -568,7 +694,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
   );
 
   const startRound = useCallback((ri: number) => {
-    const s = ROUNDS[ri];
+    const s = specs[ri];
     const board = settleBoard([], [], s);
     setHand(board.hand);
     setOrders(board.orders);
@@ -588,7 +714,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
     softHitRef.current = false;
     timerRef.current.reset(Math.max(s.timeMs, 1_000));
     setPhase('play');
-  }, [settleBoard, combo.reset]);
+  }, [specs, settleBoard, combo.reset]);
 
   // ── 런 종료 ──
   const endRun = useCallback((didWin: boolean, reason: string) => {
@@ -603,7 +729,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
   // ── 계약 종료 판정 ──
   const finishRound = useCallback(
     (scoreNow: number, playsLeft: number, livesLeft: number, appraisalsLeft: number, reason: string) => {
-      const s = ROUNDS[roundIdx];
+      const s = specs[roundIdx];
       const cleared = scoreNow >= s.target;
       if (!cleared) {
         // 0.9 → 0.85. 3장 묶음만 성립하는 학습자가 마지막 계약에서 닿는 지점이 0.88 이라,
@@ -621,7 +747,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
       addTotal(cash);
       setCashOut({ plays: playsLeft, lives: livesLeft, appraisals: appraisalsLeft, sum: cash });
       if (cash > 0) sfx.coin();
-      if (roundIdx + 1 >= ROUNDS.length) {
+      if (roundIdx + 1 >= specs.length) {
         endRun(true, '');
         return;
       }
@@ -640,7 +766,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
       setPhase('settle');
       sfx.fanfare();
     },
-    [roundIdx, jokers, addTotal, endRun, sfx],
+    [specs, roundIdx, jokers, addTotal, endRun, sfx],
   );
 
   // 시간 초과 — 최신 상태를 ref 로 잡아 콜백이 낡은 값을 보지 않게 한다.
@@ -1008,7 +1134,9 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
           restartHint={
             won
               ? '다음 런은 조커를 다르게 골라 보세요 — 같은 단어라도 점수식이 달라져요.'
-              : `한 번에 한 장 더 묶으면 배수가 ${fmtMult(BUNDLE[2])} → ${fmtMult(BUNDLE[3])} 로 뜁니다.`
+              : maxSlots >= 3
+                ? `한 번에 한 장 더 묶으면 배수가 ${fmtMult(BUNDLE[2])} → ${fmtMult(BUNDLE[3])} 로 뜁니다.`
+                : `주문 ${maxSlots}건을 한 번에 묶으면 배수가 ${fmtMult(BUNDLE[1])} → ${fmtMult(BUNDLE[maxSlots])} 로 뜁니다.`
           }
           footer={
             jokers.length > 0 ? (
@@ -1073,7 +1201,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
                 );
               })}
             </div>
-            <p className="lh-brief-note">{ROUNDS[roundIdx + 1]?.note}</p>
+            <p className="lh-brief-note">{specs[roundIdx + 1]?.note}</p>
             <button type="button" className="gk-btn lh-skip" onClick={skipJoker}>
               영입 없이 진행
             </button>
@@ -1122,11 +1250,13 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
             <h1 className="lh-brief-title">주문서에는 뜻만, 손패에는 단어만 적혀 있다</h1>
             <ol className="lh-brief-steps">
               <li><span className="lh-step-n">1</span>주문판의 <b>한국어 뜻</b> 위에 손패의 <b>영단어</b>를 올린다.</li>
-              <li><span className="lh-step-n">2</span>한 번에 여러 주문을 묶을수록 배수가 커진다 — {fmtMult(BUNDLE[1])} · {fmtMult(BUNDLE[2])} · {fmtMult(BUNDLE[3])} · {fmtMult(BUNDLE[4])} · {fmtMult(BUNDLE[5])}. 다만 한 납품이 계약 진척에 넣는 몫에는 상한이 있고, 넘긴 몫은 <b>총 칩</b>으로 넘어간다.</li>
+              {/* 배수표는 이 판에서 실제로 도달 가능한 묶음까지만 — 6단어짜리 자료에
+                  ×7 을 광고해 두면 평생 못 만드는 숫자를 목표로 삼게 된다. */}
+              <li><span className="lh-step-n">2</span>한 번에 여러 주문을 묶을수록 배수가 커진다 — {upto(maxSlots).map((n) => fmtMult(BUNDLE[n])).join(' · ')}. 다만 한 납품이 계약 진척에 넣는 몫에는 상한이 있고, 넘긴 몫은 <b>총 칩</b>으로 넘어간다.</li>
               <li><span className="lh-step-n">3</span>한 장이라도 어긋나면 <b>묶음 전체가 반려</b>되고 검수를 하나 잃는다. 어디가 틀렸는지는 낸 뒤에 전부 알려준다.</li>
               <li><span className="lh-step-n">4</span>모르는 단어는 <b>감정</b>으로 뜻을 열 수 있다. 대신 칩은 절반이고 복습 기록에는 남지 않는다.</li>
             </ol>
-            <p className="lh-brief-note">{ROUNDS[0].note}</p>
+            <p className="lh-brief-note">{specs[0].note}</p>
             {demoMode && (
               <p className="lh-brief-demo">
                 지금은 맛보기 단어로 돌아갑니다. 내 단어장에 서로 다른 뜻의 단어가 {ROUTE_MIN_WORDS}개
@@ -1214,13 +1344,14 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
           })}
         </div>
 
-        {/* 족보표 — 넓은 화면에서는 5행 전부. 390px 에서는 '지금'과 '한 장 더' 두 칸만
+        {/* 족보표 — 이 계약의 주문 칸 수까지만 그린다(작은 풀에서 3~5장 행은 만들 수
+            없는 숫자라 인지부하만 된다). 390px 에서는 '지금'과 '한 장 더' 두 칸만
             남긴다(--near). 동시에 대조해야 하는 항목 수를 줄이는 게 목적이라
             난이도가 아니라 화면에서 덜어 낸다 — 전체 표는 규칙 패널에 그대로 있다. */}
         <div className="lh-rail" aria-label="묶음 배수표">
-          {[1, 2, 3, 4, 5].map((n) => {
+          {upto(spec.slots).map((n) => {
             const on = selCards.length === n;
-            const near = n === Math.max(1, selCards.length) || n === Math.min(5, Math.max(1, selCards.length) + 1);
+            const near = n === Math.max(1, selCards.length) || n === Math.min(spec.slots, Math.max(1, selCards.length) + 1);
             return (
               <span key={n} className={`lh-rail-item ${on ? 'lh-rail-item--on' : ''} ${near ? 'lh-rail-item--near' : ''}`}>
                 {on && <FeedbackIcon kind="correct" size={11} />}
@@ -1348,7 +1479,7 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
         {showRules && (
           <div className="lh-rules" role="note">
             <p>{spec.title} — {spec.note}</p>
-            <p>묶음 배수 — {[1, 2, 3, 4, 5].map((n) => `${n}장 ×${fmtMult(BUNDLE[n])}`).join(' · ')}.</p>
+            <p>묶음 배수 — {upto(spec.slots).map((n) => `${n}장 ×${fmtMult(BUNDLE[n])}`).join(' · ')}. 손패 {spec.hand}장 중 {spec.hand - spec.slots}장은 이번 주문에 없는 미끼예요.</p>
             <p>한 장이라도 어긋나면 묶음 전체가 반려되고 검수 1을 잃습니다(납품 기회는 소모하지 않아요). 어긋난 카드는 뜻을 공개하고 손패에서 빠지며, 곧바로 다시 뽑히지 않습니다.</p>
             <p>감정한 카드와 뜻이 공개된 카드는 칩이 절반이고 복습 기록에 남지 않아요. 반품은 오답이 아니므로 아무것도 기록하지 않습니다.</p>
             <p>한 번의 납품이 계약 진척에 넣을 수 있는 상한은 {playCap.toLocaleString()}입니다 — 초과분은 사라지지 않고 총 칩으로 넘어갑니다.</p>

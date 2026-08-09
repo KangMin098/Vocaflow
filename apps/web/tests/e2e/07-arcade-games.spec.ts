@@ -4,10 +4,12 @@
 //   - 계정: runtime-test-0705@vocaflow.dev (04/05 spec 과 동일 · 활동 시드)
 //     ⚠️ 뜻 있는 단어 **225개**(DB 실측 2026-08-09) — 전 게임 minWords(최대 24)를 넘는다.
 //     즉 비스코프 진입에서도 19종 전부 실제 내 단어로 돌고 맛보기 degrade 는 일어나지 않는다.
-//   - 비스코프 진입(?set/?text 없음) → source:'mine' 게임은 사용자 due 큐(vocab 10)로 돌고,
-//     minWords 를 못 채우는 게임(connections 24 · lexicon-estate 20 · lexicon-hands 16 …)은
-//     맛보기(demo)로 degrade 한다. NotEnoughWords 게이트는 explicit ?set/?text 진입 전용이므로
-//     19종 모두 실제로 마운트된다(use-word-scope.ts:158-171).
+//   - 비스코프 진입(?set/?text 없음) → source:'mine' 게임은 사용자 due 큐로 돈다.
+//     minWords 는 v07.9 스케일 다운 후 전 게임 **1~8**(도서 챕터 653세트의 1사분위가
+//     11단어라 높은 minWords 는 학습자가 고른 자료를 거절한다 — connections 24 는 43% 를
+//     막았다). 그보다 단어가 적은 계정에서만 맛보기(demo)로 degrade 한다.
+//     NotEnoughWords 게이트는 explicit ?set/?text 진입 전용이라 19종 모두 마운트된다
+//     (use-word-scope.ts:158-171).
 //   - 로스터 19종 **전부** 를 개별 검증한다(허브 테스트는 19 카드 딥링크 무결성만 커버).
 //   - 계약 3단: "준비 마커 가시" → "의미 있는 첫 입력" → "관측 가능한 반응".
 //     * 준비 마커는 **조작 가능한 요소**로 잡는다. 그냥 뜻 h1 같은 표시용 노드를 쓰면
@@ -287,7 +289,7 @@ const GAMES: GameSpec[] = [
     ready: (p) => p.getByRole('button', { name: /확인 \(\d\/4\)/ }),
     play: async (p) => {
       const tiles = p.locator('.cn-grid button.cn-tile');
-      await expect(tiles.nth(3)).toBeVisible(); // 보드 16칸
+      await expect(tiles.nth(3)).toBeVisible(); // 보드는 풀 크기의 함수(최소 8칸)
       for (let i = 0; i < 4; i++) await tiles.nth(i).click();
       await expect(tiles.nth(0)).toHaveAttribute('aria-pressed', 'true');
       const submit = p.getByRole('button', { name: /확인 \(4\/4\)/ });

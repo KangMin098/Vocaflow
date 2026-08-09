@@ -206,7 +206,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'connections', name: 'Connections', tagline: '뜻만 보고 숨은 규칙을 잇다',
-    layer: 'L5 관계', ref: 'NYT', source: 'mine', emoji: '🧩', closeHref: '/arcade', minWords: 24,
+    layer: 'L5 관계', ref: 'NYT', source: 'mine', emoji: '🧩', closeHref: '/arcade', minWords: 8,
     mood: { a: '#7150A8', b: '#2C2356', glow: 'rgba(206,178,255,.5)', accent: '#E3D4FF' },
     music: bgm('connections'),
   },
@@ -230,25 +230,25 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'silent-rule', name: 'The Silent Rule', tagline: '설명 없이 철자 규칙을 스스로 귀납하라',
-    layer: 'L4b 귀납', ref: 'The Witness', source: 'mine', emoji: '🔆', closeHref: '/arcade', minWords: 12,
+    layer: 'L4b 귀납', ref: 'The Witness', source: 'mine', emoji: '🔆', closeHref: '/arcade', minWords: 6,
     mood: { a: '#3E9E86', b: '#173F3B', glow: 'rgba(140,235,190,.44)', accent: '#D2F3E4' },
     music: bgm('silent-rule'),
   },
   {
     slug: 'lexicon-hands', name: 'Lexicon Hands', tagline: '어원·품사 시너지로 배수를 폭발시켜라',
-    layer: 'L4+ 시너지', ref: 'Balatro', source: 'mine', emoji: '🃏', closeHref: '/arcade', minWords: 16,
+    layer: 'L4+ 시너지', ref: 'Balatro', source: 'mine', emoji: '🃏', closeHref: '/arcade', minWords: 8,
     mood: { a: '#7B4BA6', b: '#241732', glow: 'rgba(150,240,205,.42)', accent: '#CFF6E6' },
     music: bgm('lexicon-hands'),
   },
   {
     slug: 'lexicon-detective', name: 'Lexicon Detective', tagline: '현장 단서를 수확해 사건을 재구성하라',
-    layer: 'L5 추리', ref: 'Golden Idol', source: 'mine', emoji: '🔍', closeHref: '/arcade', minWords: 10,
+    layer: 'L5 추리', ref: 'Golden Idol', source: 'mine', emoji: '🔍', closeHref: '/arcade', minWords: 6,
     mood: { a: '#9A7B3C', b: '#2E2A1C', glow: 'rgba(214,184,110,.46)', accent: '#F0E4C2' },
     music: bgm('lexicon-detective'),
   },
   {
     slug: 'lexicon-estate', name: 'Lexicon Estate', tagline: '단어-방을 배치해 의미장 저택을 짓다',
-    layer: 'L5 의미망', ref: 'Blue Prince', source: 'mine', emoji: '🏛', closeHref: '/arcade', minWords: 20,
+    layer: 'L5 의미망', ref: 'Blue Prince', source: 'mine', emoji: '🏛', closeHref: '/arcade', minWords: 8,
     mood: { a: '#3E6EA6', b: '#152238', glow: 'rgba(130,180,255,.44)', accent: '#CFE2FA' },
     music: bgm('lexicon-estate'),
   },
@@ -263,7 +263,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   {
     // v07 재설계로 three.js 인형뽑기 → 순수 2D DOM 속사 인지(MODULES.md §5). 3D 아님.
     slug: 'wordblitz', name: 'WordBlitz', tagline: '타이머와 콤보로 몰아붙이는 순수 속도전',
-    layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 10,
+    layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 6,
     mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
     music: bgm('wordblitz'),
     family: 'blitz', modeOrder: 1, modeLabel: '클래식', modeNote: '타이머·콤보·레벨업',

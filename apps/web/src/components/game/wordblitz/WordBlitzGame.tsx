@@ -49,6 +49,24 @@
 //  E9 세션 XP 가 정확도와 무관(오답도 +30점)이라 '아무 타일이나 난타'가 순이득이었다.
 //     → page.tsx 의 computeScore 부호 반전(정답×120 − 오답×30, 하한 0).
 //
+// ── v08.2 자료 크기 대응 — "고른 자료로는 못 여는 게임"을 없앤다 ─────────
+//  입장 하한이 10 이라 공용 단어장 + 도서 챕터 653 세트 중 **20.8%** 가 거절됐다
+//  (세트 크기 1사분위 11단어 · 중앙값 30 · 최소 1). 단어가 적으면 판이 짧아지는 것이 정상이지
+//  게임이 안 열리는 것은 정상이 아니다. 판의 형태를 전부 **풀 크기 n 의 함수**로 바꾸고
+//  하한을 6 으로 내린다(거절 20.8% → 10.3%).
+//    · stagesFor(n)   = clamp(round(n×3 / 5), 3, 8) — 한 단어를 세 번쯤 만나면 판을 접는다
+//    · maxTilesFor(n) = clamp(min(n−2, ⌊n×0.75⌋), 4, 6) — 보드 밖에 **항상 2단어 이상**
+//    · 창·미끼 난이도·선택지 램프를 절대 문항 수가 아니라 **진행률**로 — 20발 판도 끝은 3.2초
+//    · 표적 추출은 풀 12 미만에서 무복원 bag → 가중 복원추출(근거는 drawTarget 주석)
+//    · 조임 카드 게이트(혼선·표적증가·문맥·역방향)도 전부 n 의 함수 — 작은 풀에서
+//      "증명 가능한 no-op 카드"가 배수만 주는 일이 없게(E4 와 같은 사고의 재발 방지)
+//
+//  **왜 6 아래로 못 내리는가** — 이 게임의 최소 보드는 4지선다다(3지선다는 추측률이
+//  25%→33% 로 뛰고, 콤보·목숨이 걸린 속사에서 그 8%p 는 실력 신호를 덮는다).
+//  거기에 "보드 밖 2단어"가 필요하다: 보드가 풀 전체를 덮으면 ⑴ 미끼 선택이 사라져
+//  '혼선'이 정의상 no-op 이 되고 ⑵ 매 문항이 같은 네 장이라 인출이 위치 기억으로 바뀐다.
+//  4 + 2 = 6. 5단어면 보드가 풀의 80%, 4단어면 100% 다.
+//
 // ── 인출 규칙(비타협) ────────────────────────────────────────────────────
 //  · 제출 전 화면에는 뜻(또는 영단어, 또는 빈칸 예문) 하나뿐 — 정답 특정 정보 없음.
 //  · 영단어와 뜻을 동시에 보여준 채 그 쌍을 묻지 않는다.
@@ -157,13 +175,75 @@ const BANK: Word[] = [
 ];
 
 // ─── 규칙 상수 ────────────────────────────────────────────────────────────
-/** 게임이 성립하는 절대 하한(선택지 4개 + 표적 반복 완화). page 의 minWords 는 더 높다. */
+/**
+ * 게임이 성립하는 절대 하한 = 4지선다 + 보드 밖 2단어. 파일 상단 v08.2 참조.
+ * page 의 minWords 도 같은 값이다 — 게임이 여는 자료를 페이지가 거절하지 않는다.
+ */
 const MIN_POOL = 6;
+/** 보드 최소 선택지. 3지선다는 추측률 33% — 속사에서 실력 신호를 덮는다. */
+const MIN_TILES = 4;
 const SHOTS_PER_STAGE = 5;
+/**
+ * 단계 수 하한 — 연습 사격(0단계) + 조임 카드 결정 2회는 어떤 풀에서도 보장한다.
+ * MIN_POOL 6 에서 stagesFor 는 이미 4를 주므로(=카드 3회) 이 값은 안전망이다.
+ */
+const MIN_STAGES = 3;
 const MAX_STAGES = 8;
+/** 한 단어를 몇 번 만나면 판을 접는가. cascade goalFor(n)=n×3 과 같은 근거. */
+const SHOTS_PER_WORD = 3;
 const START_LIVES = 3;
 const MAX_LIVES = 3;
-const TOTAL_SHOTS = MAX_STAGES * SHOTS_PER_STAGE; // 40
+
+// ─── 풀 크기 스케일 (v08.2) ──────────────────────────────────────────────
+/**
+ * 판 길이 — 풀 크기의 함수. n×3 발을 5발 단계로 끊는다.
+ *   n=6 → 4단계(20발, 단어당 3.3회) · n=10 → 6단계(30발) · n≥14 → 8단계(40발, 종전과 동일)
+ * 하한 3단계는 "연습 사격 + 조임 카드 2회"를 보장하는 값이다 —
+ * 이 모드의 유일한 결정이 카드라, 카드를 한 번도 못 보는 판은 재설계가 없는 것과 같다(E7).
+ */
+function stagesFor(poolSize: number): number {
+  return clamp(Math.round((poolSize * SHOTS_PER_WORD) / SHOTS_PER_STAGE), MIN_STAGES, MAX_STAGES);
+}
+
+/**
+ * 선택지 상한 — 보드가 풀을 다 덮지 않게 **항상 2단어를 보드 밖에** 남긴다.
+ *   n=6 → 4 · n=7 → 5 · n=8 이상 → 6(종전과 동일)
+ * 보드 = 풀이 되는 순간 오답 후보를 '고를' 여지가 사라져 '혼선'이 no-op 이 되고,
+ * 매 문항이 같은 타일 집합이라 인출이 위치 기억으로 바뀐다.
+ */
+function maxTilesFor(poolSize: number): number {
+  return clamp(Math.min(poolSize - 2, Math.floor(poolSize * 0.75)), MIN_TILES, 6);
+}
+
+/**
+ * '문맥' 카드를 제안하려면 빈칸을 만들 수 있는 단어가 이만큼 필요하다.
+ * 고정 4였다 — 풀 6에서는 2/3을 요구하는 셈이라 사실상 영구 봉인이었다. 이제 풀의 절반(상한 4).
+ */
+function contextNeedFor(poolSize: number): number {
+  return clamp(Math.ceil(poolSize / 2), 2, 4);
+}
+
+/**
+ * 단어당 재출제 상한. 작은 풀에서는 추출기가 이미 같은 단어를 3회 남짓 돌리므로
+ * 재출제까지 2회를 허용하면 20발 판의 절반이 같은 두세 단어로 채워진다. 10 미만은 1회.
+ */
+function lapseRepeatsFor(poolSize: number): number {
+  return poolSize >= 10 ? 2 : 1;
+}
+
+/** 판 진행률 0..1 — 절대 문항 수 대신 이 값으로 창·난이도·형태 램프를 몬다. */
+function progressAt(totalShot: number, totalShots: number): number {
+  const span = Math.max(1, totalShots - 1);
+  return clamp(totalShot, 0, span) / span;
+}
+
+/**
+ * 미끼 난이도(닮은 오답 강제 수) — 종전에는 stage<2/stage<4 라는 절대 단계였다.
+ * 4단계짜리 짧은 판은 2단계(가장 어려운 구간)에 영영 못 갔다. 진행률 35%/70% 로 바꾼다.
+ */
+function hardnessFor(progress: number): number {
+  return progress < 0.35 ? 0 : progress < 0.7 ? 1 : 2;
+}
 
 /**
  * 0단계는 '연습 사격' — 목숨을 깎지 않는다.
@@ -175,10 +255,12 @@ const TOTAL_SHOTS = MAX_STAGES * SHOTS_PER_STAGE; // 40
 const PRACTICE_STAGE = 0;
 
 /**
- * 창(문항 제한시간) — 누적 문항 수 total(0~39)의 **단조 감소** 함수.
+ * 창(문항 제한시간) — 판 **진행률**의 단조 감소 함수.
  * v08 은 stage·shot 을 따로 빼서 단계 경계마다 shot 항이 0으로 돌아갔고(+140ms 톱니 7회),
  * 카드를 안 사면 4600→3340ms(−27%)뿐이라 램프가 통째로 선택 사항이었다.
- * 이제 total 0 → 5000ms, total 39 → 3245ms. 톱니 0회.
+ * v08.1 은 −45ms/문항의 절대 기울기였는데, 판 길이가 풀 크기를 따라가면서
+ * 20발 판은 −855ms(−17%) 밖에 못 좁혀졌다 — 짧은 판에는 후반이 없는 셈.
+ * 이제 진행률 0 → 5000ms, 진행률 1 → 3245ms. **판 길이와 무관하게 같은 낙폭**, 톱니 0회.
  *
  * 기울기를 −45ms/문항으로 잡은 근거(시뮬 sweep, 정답률 0.5/0.65/0.8/0.9 × 5,000판):
  *   −90 → 어떤 실력에서도 8단계 완주 0.0%. 마지막 단계의 창(1.5초)이 4지선다를
@@ -192,8 +274,8 @@ const BASE_WINDOW_MS = 5000;
 /** 절대 하한(선택지 4개 기준). 아래 TILE_FLOOR_MS 로 선택지 수만큼 올라간다. */
 const MIN_WINDOW_MS = 1700;
 const MAX_WINDOW_MS = 6200;
-/** 문항 1개당 창 감소. 45 × 39 = −1755ms. */
-const SHOT_TIGHTEN_MS = 45;
+/** 판 전체에서 창이 좁아지는 총량. v08.1 의 −45ms × 39문항 = −1755ms 를 그대로 옮겼다. */
+const RAMP_TOTAL_MS = 1755;
 /** '가속' 1장당 창 감소. 최대 3장이므로 최대 −1350ms — 램프(−1755)와 맞먹는 자발적 조임. */
 const SPEED_TIGHTEN_MS = 450;
 /**
@@ -224,8 +306,11 @@ const REPAIR_LIMIT = 2;
 const BREATHE_LIMIT = 2;
 /** '가속' 최대 중첩 — 3장이면 −1350ms 로 하한 근처. 4장째는 비용이 사라져 무의미했다. */
 const SPEED_LIMIT = 3;
-/** 선택지 강제 +1 이 걸리는 단계 — 카드와 무관한 형태 램프. */
-const FORCED_CHOICE_STAGE = 4;
+/**
+ * 선택지 강제 +1 이 걸리는 **진행률** — 카드와 무관한 형태 램프.
+ * 절대 단계(4)였다: 4단계짜리 짧은 판은 램프에 영영 못 닿았다. 8단계 판에서는 종전과 동일(20발째).
+ */
+const FORCED_CHOICE_AT = 0.5;
 
 /**
  * 방치 판정은 "시간 초과"가 아니라 **"그 문항 동안 입력 이벤트가 하나도 없었다"** 로 한다.
@@ -236,11 +321,25 @@ const IDLE_ASSIST_AT = 2;
 /** 무입력 시간 초과 n회면 판을 조용히 마친다 — 자리를 비운 사이 오답이 쌓이지 않게. */
 const IDLE_END_AT = 4;
 
+/**
+ * 무복원 bag 을 쓰는 최소 풀. 아래로는 가중 복원추출 — 근거는 drawTarget 주석(소거법).
+ * 12 는 "이번 패스에 이미 나온 표적"을 머리로 추적할 수 있느냐의 경계로 잡았다
+ * (작업기억 ~4항목 원칙 · 3~5초 창). 시뮬로 커버리지 손실이 0인 구간이기도 하다.
+ */
+const BAG_MIN_POOL = 12;
+
 const PERFECT_STAGE_BONUS = 200;
 const LAPSE_SCORE_RATIO = 0.6;
-const MAX_LAPSE_REPEATS = 2;
 
-const BEST_KEY = 'wordblitz-score';
+/**
+ * 개인 최고 키. 판 길이가 풀 크기를 따라가면서 8단계 판과 4단계 판의 점수는
+ * 비교 대상이 아니게 됐다 — 같은 키에 넣으면 작은 자료로는 영영 못 깨는 기록이 되고
+ * "개인 최고까지 N점" 이 격려가 아니라 조롱이 된다. 판 길이별로 분리한다.
+ * (8단계 = 종전 유일한 형태 → 기존 키를 그대로 유지해 기록이 사라지지 않는다.)
+ */
+function bestKeyFor(stages: number): string {
+  return stages >= MAX_STAGES ? 'wordblitz-score' : `wordblitz-score-s${stages}`;
+}
 
 type Phase = 'playing' | 'reveal' | 'stage' | 'done';
 type Outcome = 'correct' | 'wrong' | 'timeout';
@@ -593,22 +692,32 @@ function graceFor(form: Form, promptText: string): number {
 }
 
 /**
- * 창 = 누적 문항 수(0~39)의 단조 감소 함수 + 형태별 여유 + 선택지 수 보정.
+ * 창 = 진행률의 단조 감소 함수 + 형태별 여유 + 선택지 수 보정.
  * stage/shot 을 따로 빼지 않는 이유는 단계 경계 톱니(+140ms × 7회) 제거 — 파일 상단 E6.
+ * 진행률로 모는 이유는 짧은 판(작은 풀)에도 후반을 만들기 위함 — 파일 상단 v08.2.
  *
- * 선택지 보정(+200ms/개)은 톱니가 아니다 — '표적 증가'나 4단계 형태 램프로 선택지가 늘 때만
- * 한 번 오르고, **선택지 1개당 생각 시간**은 계속 줄어든다:
- *   3단계 4지선다 (5000−855−540)/4 = 901ms/개 → 4단계 5지선다 (5000−900+200−540)/5 = 752ms/개.
+ * 선택지 보정(+200ms/개)은 톱니가 아니다 — '표적 증가'나 진행률 50% 형태 램프로 선택지가
+ * 늘 때만 한 번 오르고, **선택지 1개당 생각 시간**은 계속 줄어든다:
+ *   진행률 .4 4지선다 (5000−702−540)/4 = 940ms/개 → .5 5지선다 (5000−878+200−540)/5 = 756ms/개.
  */
-function windowFor(mods: Mods, totalShot: number, form: Form, promptText: string, tiles: number): number {
+function windowFor(
+  mods: Mods,
+  totalShot: number,
+  totalShots: number,
+  form: Form,
+  promptText: string,
+  tiles: number,
+): number {
   const base =
     BASE_WINDOW_MS -
-    clamp(totalShot, 0, TOTAL_SHOTS - 1) * SHOT_TIGHTEN_MS -
+    RAMP_TOTAL_MS * progressAt(totalShot, totalShots) -
     mods.speed * SPEED_TIGHTEN_MS +
     mods.breathe * BREATHE_RELIEF_MS;
-  const extraTiles = Math.max(0, tiles - 4);
+  const extraTiles = Math.max(0, tiles - MIN_TILES);
   const floor = MIN_WINDOW_MS + extraTiles * TILE_FLOOR_MS;
-  return clamp(base, floor, MAX_WINDOW_MS) + graceFor(form, promptText) + extraTiles * TILE_GRACE_MS;
+  return Math.round(
+    clamp(base, floor, MAX_WINDOW_MS) + graceFor(form, promptText) + extraTiles * TILE_GRACE_MS,
+  );
 }
 
 /**
@@ -625,10 +734,18 @@ function blindDelayFor(promptText: string, windowMs: number): number {
 /**
  * 선택지 수. 4 + '표적 증가' 획득 수 + **카드와 무관한 형태 램프**.
  * 창만 좁히는 램프는 카드를 안 사면 형태가 판 내내 그대로였다 —
- * 4단계(=문항 20개째)부터는 아무 카드도 안 사도 선택지가 하나 는다. 풀이 작으면 maxTiles 가 막는다.
+ * 판의 절반을 넘기면 아무 카드도 안 사도 선택지가 하나 는다(8단계 판에서는 종전과 같은 4단계).
+ *
+ * 램프는 **단계 시작 진행률**로 판정한다 — 문항별 진행률로 재면 단계 중간에 보드가 늘어
+ * 직전 카드 화면이 광고한 "선택지 N개"가 거짓말이 된다.
+ * 풀이 작으면 maxTilesFor(n) 이 막는다(풀 6~7은 4~5지선다 고정, 램프 없음).
  */
-function tilesFor(mods: Mods, stage: number, maxTiles: number): number {
-  return clamp(4 + mods.choices + (stage >= FORCED_CHOICE_STAGE ? 1 : 0), 2, maxTiles);
+function tilesFor(mods: Mods, stageProgress: number, maxTiles: number): number {
+  return clamp(
+    MIN_TILES + mods.choices + (stageProgress >= FORCED_CHOICE_AT ? 1 : 0),
+    MIN_TILES,
+    maxTiles,
+  );
 }
 
 // ─── 문항 타이머 (leaf) ───────────────────────────────────────────────────
@@ -745,9 +862,29 @@ export function WordBlitzGame({
     });
   }, [wordPool]);
 
-  /** '문맥' 카드를 제안할 수 있는가 — 빈칸을 만들 수 있는 단어가 충분해야 한다. */
+  // ── 판의 형태는 전부 풀 크기의 함수다(v08.2) ──
+  const stages = stagesFor(pool.length);
+  const totalShots = stages * SHOTS_PER_STAGE;
+  const maxTiles = maxTilesFor(pool.length);
+  const maxLapseRepeats = lapseRepeatsFor(pool.length);
+
+  /** '문맥' 카드를 제안할 수 있는가 — 빈칸을 만들 수 있는 단어가 풀의 절반은 돼야 한다. */
   const contextable = useMemo(() => pool.filter((w) => blankExample(w) !== null).length, [pool]);
-  const maxTiles = Math.min(6, pool.length);
+  const contextReady = contextable >= contextNeedFor(pool.length);
+
+  /**
+   * '역방향' 카드를 제안해도 되는가 — 어떤 표적을 뽑아도 **뜻이 겹치지 않는 오답**으로
+   * 보드를 다 채울 수 있어야 한다. 작은 풀에서 뜻이 비슷한 단어가 몇 개만 있어도
+   * 역방향 문항은 '정답이 둘'이 되거나 선택지가 줄어(=쉬워져) 배수만 챙기는 카드가 된다.
+   * 60 초과 풀은 실패 사례가 없고 O(n²) 비용만 커서 통과시킨다(마운트 1회 계산).
+   */
+  const reverseSafe = useMemo(() => {
+    if (pool.length > 60) return true;
+    const need = Math.min(maxTiles - 1, pool.length - 1);
+    return pool.every(
+      (t) => pool.filter((w) => w.en !== t.en && !koAmbiguous(w, t)).length >= need,
+    );
+  }, [pool, maxTiles]);
 
   const sfx = useSfx();
   const mutedRef = useRef(false);
@@ -791,7 +928,7 @@ export function WordBlitzGame({
       if (tier.label) setFlash({ kind: 'combo', text: `${tier.label} · 콤보 ${c} · ×${tier.mult}` });
     },
   });
-  const best = usePersonalBest(BEST_KEY, true);
+  const best = usePersonalBest(bestKeyFor(stages), true);
 
   // ── 로직용 ref (rAF·타이머 콜백에서 stale 방지) ──
   const answeredGuardRef = useRef(false);
@@ -810,6 +947,8 @@ export function WordBlitzGame({
   const answeredRef = useRef(0);
   const bagRef = useRef<Word[]>([]);
   const recentRef = useRef<string[]>([]);
+  /** 단어별 등장 횟수 — 작은 풀의 가중 복원추출이 커버리지를 유지하는 유일한 수단. */
+  const seenCountRef = useRef(new Map<string, number>());
   const lapseRef = useRef<{ word: Word; dueAt: number }[]>([]);
   /** 단어별 재출제 횟수 — 무한 재출제를 막는 유일한 진실(큐에서 빠져도 남는다). */
   const lapseCountRef = useRef(new Map<string, number>());
@@ -864,16 +1003,54 @@ export function WordBlitzGame({
     [enableSpeech],
   );
 
-  // ── 표적 추출: 무복원(bag). 직전 3개와 겹치면 한 칸 회전. ──
+  /**
+   * ── 표적 추출 ────────────────────────────────────────────────────────────
+   * 큰 풀(≥12): 무복원 bag. 직전 3개와 겹치면 한 칸 회전. 한 패스에 전 단어를 정확히 한 번씩.
+   *
+   * 작은 풀(<12): **가중 복원추출**. bag 을 그대로 쓰면 소거법이 되살아나기 때문이다 —
+   * 무복원은 "이번 패스에 이미 나온 단어"를 다음 패스까지 **확률 0** 으로 만든다.
+   * 풀 6이면 그 소진 목록이 최대 5개, 3~5초 안에 머리로 추적 가능한 크기다. 실측(node 시뮬,
+   * 각 3,000판·4지선다·뜻은 하나도 모르는 적대자):
+   *     bag  — 보드 후보가 1개로 확정되는 문항 **24.9%**, 최적 추측 성공률 51.9%
+   *     가중 — 확정 **0.0%**(어떤 단어도 확률 0 이 되지 않는다), 성공률 38.5%
+   * 가중치 w = 1/(1+만난 횟수), 직전 2발은 ×0.35 — **배제가 아니라 약화**다.
+   * 값 대신 지표로 고른 계수다: 지수 2는 적대자 43%·커버리지 100%, 지수 1은 38.5%·99.9%,
+   * 무가중(순수 균등)은 25%지만 커버리지가 96%로 떨어져 안 만나고 끝나는 단어가 생긴다.
+   * 커버리지 대가는 이 구간에서 거의 0 — 풀 6 에서 99.9%(bag 100%), 풀 10 에서 98.7%(bag 99.9%).
+   * 반대로 풀 24 에서는 bag 94.2% → 가중 84.9% 로 벌어지므로 큰 풀은 bag 을 유지한다.
+   */
   const drawTarget = useCallback((): Word => {
-    if (bagRef.current.length === 0) {
-      let next = shuffle(pool);
-      if (next.length > 1 && recentRef.current.includes(next[next.length - 1].en)) {
-        next = [next[next.length - 1], ...next.slice(0, next.length - 1)];
+    if (pool.length >= BAG_MIN_POOL) {
+      if (bagRef.current.length === 0) {
+        let next = shuffle(pool);
+        if (next.length > 1 && recentRef.current.includes(next[next.length - 1].en)) {
+          next = [next[next.length - 1], ...next.slice(0, next.length - 1)];
+        }
+        bagRef.current = next;
       }
-      bagRef.current = next;
+      const drawn = bagRef.current.pop()!;
+      recentRef.current = [...recentRef.current, drawn.en].slice(-3);
+      seenCountRef.current.set(drawn.en, (seenCountRef.current.get(drawn.en) ?? 0) + 1);
+      return drawn;
     }
-    const w = bagRef.current.pop()!;
+
+    const near = recentRef.current.slice(-2);
+    const weights = pool.map((w) => {
+      const base = 1 / (1 + (seenCountRef.current.get(w.en) ?? 0));
+      return near.includes(w.en) ? base * 0.35 : base;
+    });
+    const total = weights.reduce((a, b) => a + b, 0);
+    let roll = Math.random() * total;
+    let idx = pool.length - 1;
+    for (let i = 0; i < pool.length; i++) {
+      roll -= weights[i];
+      if (roll <= 0) {
+        idx = i;
+        break;
+      }
+    }
+    const w = pool[idx];
+    seenCountRef.current.set(w.en, (seenCountRef.current.get(w.en) ?? 0) + 1);
     recentRef.current = [...recentRef.current, w.en].slice(-3);
     return w;
   }, [pool]);
@@ -893,12 +1070,16 @@ export function WordBlitzGame({
    * E2 수정 — form 을 받아 역방향 문항에서는 화면에 보이는 ko 로 근접도를 잰다.
    */
   const buildOptions = useCallback(
-    (target: Word, n: number, hardness: number, form: Form, forceNearest: boolean): Word[] => {
+    (target: Word, tiles: number, hardness: number, form: Form, forceNearest: boolean): Word[] => {
       const all = pool.filter((w) => w.en !== target.en);
       // 역방향은 타일이 ko — 뜻이 사실상 같은 후보를 빼야 '정답 둘'이 안 생긴다.
       const safe = form === 'en' ? all.filter((w) => !koAmbiguous(w, target)) : all;
-      // 걸러내다 후보가 모자라면 원본으로 되돌린다(문항을 못 만드는 것이 더 나쁘다).
-      const others = safe.length >= n - 1 ? safe : all;
+      // v08.2 — 종전에는 안전 후보가 tiles−1 에 모자라면 통째로 원본(모호한 후보 포함)으로
+      // 되돌렸다. 작은 풀에서는 그 분기가 실제로 열려 '정답이 둘로 보이는 문항'이 생긴다.
+      // 이제는 **선택지를 한두 개 줄여서라도** 안전 후보만 쓴다 — 3지선다가 정답 둘보다 낫다.
+      // ('역방향' 카드 자체가 reverseSafe 게이트를 통과해야 나오므로 여기 걸리는 일은 사실상 없다.)
+      const others = safe.length >= 2 ? safe : all;
+      const n = clamp(Math.min(tiles, others.length + 1), 2, tiles);
       if (others.length <= n - 1) return shuffle([target, ...others]);
       const want = clamp(hardness, 0, n - 1);
       let similar: Word[] = [];
@@ -906,7 +1087,10 @@ export function WordBlitzGame({
         const near = form === 'en' ? koNearness : nearness;
         const ranked = [...others].sort((a, b) => near(b, target) - near(a, target));
         // want=1 → 상위 3, want=2 → 상위 4, want=4 → 상위 7. others 가 9여도 전체가 되지 않는다.
-        const bandSize = clamp(Math.ceil(want * 1.5) + 1, want + 1, others.length);
+        // v08.2 — 풀이 작으면 그 값이 others 를 통째로 덮어 다시 무작위와 같아진다(E4 재발).
+        // 밴드는 **가능한 한 최소 1개를 밖에 남긴다**: others 5 · want 3 이면 상위 4에서 뽑는다.
+        const bandCap = Math.max(want + 1, others.length - 1);
+        const bandSize = clamp(Math.min(Math.ceil(want * 1.5) + 1, bandCap), want + 1, others.length);
         const band = ranked.slice(0, bandSize);
         const forced = forceNearest ? band.slice(0, 1) : [];
         similar = [...forced, ...shuffle(band.slice(forced.length)).slice(0, want - forced.length)];
@@ -925,9 +1109,12 @@ export function WordBlitzGame({
       const total = answeredRef.current;
 
       // 재출제 큐 우선 — 틀린 단어를 3~5문항 뒤에 다시 만난다.
+      // 작은 풀에서는 큐의 단어를 방금 뽑았을 수 있다 → 직전 표적과 같으면 이번엔 건너뛴다
+      // (같은 단어가 연속 두 문항으로 서면 "재출제"가 아니라 고장으로 읽힌다).
       let target: Word | null = null;
       let isLapse = false;
-      const dueIdx = lapseRef.current.findIndex((l) => l.dueAt <= total);
+      const lastEn = recentRef.current[recentRef.current.length - 1];
+      const dueIdx = lapseRef.current.findIndex((l) => l.dueAt <= total && l.word.en !== lastEn);
       if (dueIdx >= 0) {
         const [entry] = lapseRef.current.splice(dueIdx, 1);
         target = entry.word;
@@ -950,12 +1137,15 @@ export function WordBlitzGame({
         promptText = target.en;
       }
 
-      const n = tilesFor(m, stageIdx, maxTiles);
+      const shotNo = stageIdx * SHOTS_PER_STAGE + shotIdx;
+      const stageProgress = (stageIdx * SHOTS_PER_STAGE) / totalShots;
+      const n = tilesFor(m, stageProgress, maxTiles);
       // 역방향 문항은 닮은 오답 +1 강제 — 재인 방향(en→ko)은 인출 방향보다 원래 쉬워서
       // 그대로 두면 '역방향'이 난이도를 **낮추면서** 배수를 주는 공짜 카드가 된다(E1·E2).
-      const baseHard = (stageIdx < 2 ? 0 : stageIdx < 4 ? 1 : 2) + (form === 'en' ? 1 : 0);
+      const baseHard = hardnessFor(progressAt(shotNo, totalShots)) + (form === 'en' ? 1 : 0);
       const options = buildOptions(target, n, baseHard + m.confuse, form, m.confuse > 0 || form === 'en');
-      const windowMs = windowFor(m, stageIdx * SHOTS_PER_STAGE + shotIdx, form, promptText, n);
+      // 창은 **실제로 렌더될 타일 수**로 잰다 — 안전 후보가 모자라 보드가 줄면 여유도 줄어야 한다.
+      const windowMs = windowFor(m, shotNo, totalShots, form, promptText, options.length);
 
       keyRef.current += 1;
       const q: Question = {
@@ -983,7 +1173,7 @@ export function WordBlitzGame({
       setGained(0);
       setPhase('playing');
     },
-    [buildOptions, drawTarget, maxTiles],
+    [buildOptions, drawTarget, maxTiles, totalShots],
   );
 
   const startShotRef = useRef(startShot);
@@ -1004,6 +1194,9 @@ export function WordBlitzGame({
         // **실력으로만 얻는 회복**을 연다. 일부러 질 수 없으므로 파밍이 불가능하고
         // (E3 의 '단계당 1발 버리기'는 정의상 무결점이 아니다), 완주가 도달 가능한 목표로 남는다.
         // 시뮬 5,000판: 완주율 p0.9 13.3% · p0.8 6.2% · p0.65 0.7% · p0.5 0.0%.
+        // (v08.2 — 판 길이가 풀을 따라가므로 짧은 판일수록 완주가 쉬워진다. 대신 창 낙폭이
+        //  같은 총량을 짧은 판에 몰아 넣어 문항당 압박은 더 가파르다. 개인 최고 기록도
+        //  bestKeyFor 로 판 길이별로 분리해 서로 다른 길이를 겨루게 두지 않는다.)
         const healed = stageIdx > PRACTICE_STAGE && livesNow < MAX_LIVES;
         if (healed) {
           livesNow = Math.min(MAX_LIVES, livesNow + 1);
@@ -1014,7 +1207,7 @@ export function WordBlitzGame({
       }
       stageMissRef.current = 0;
 
-      if (stageIdx + 1 >= MAX_STAGES) {
+      if (stageIdx + 1 >= stages) {
         setCleared(true);
         setEndReason('clear');
         setPhase('done');
@@ -1030,14 +1223,21 @@ export function WordBlitzGame({
       // 거짓이 됐다(정석 플레이어는 방향 선택 화면을 판 내내 한 번도 못 봤다).
       //
       // → 1·2번은 **항상 서로 다른 조임 두 장**. 안도는 3번 슬롯으로 내리고 회수 상한을 건다.
+      //
+      // v08.2 — 게이트는 전부 풀 크기의 함수다. 작은 풀에서 **효과가 증명 가능하게 0인 카드**가
+      // 배수만 주고 팔리면 그게 곧 익스플로짓이다(E4 가 정확히 그 사고였다).
+      //   표적 증가 — maxTilesFor(n) 이 이미 막는다(풀 6~7은 보드가 안 큰다)
+      //   혼선     — 보드 밖에 미끼 후보가 남아야 '고르는' 의미가 있다(= 풀 ≥ 보드+2)
+      //   문맥     — 빈칸을 만들 수 있는 단어가 풀의 절반 이상
+      //   역방향   — 뜻이 겹치지 않는 오답으로 보드를 채울 수 있어야(reverseSafe)
       const m = modsRef.current;
       const avail = TIGHTEN_CARDS.filter((c) => {
         if (c.id === 'speed') return m.speed < SPEED_LIMIT;
-        if (c.id === 'choices') return m.choices < 2 && maxTiles >= 4 + m.choices + 1;
-        if (c.id === 'confuse') return m.confuse < 2 && pool.length >= 6;
-        if (c.id === 'reverse') return !m.reverse;
+        if (c.id === 'choices') return m.choices < 2 && maxTiles >= MIN_TILES + m.choices + 1;
+        if (c.id === 'confuse') return m.confuse < 2 && pool.length >= maxTiles + 2;
+        if (c.id === 'reverse') return !m.reverse && reverseSafe;
         if (c.id === 'blind') return !m.blind;
-        if (c.id === 'context') return !m.context && contextable >= 4;
+        if (c.id === 'context') return !m.context && contextReady;
         return false;
       });
       const shuffledAvail = shuffle(avail);
@@ -1051,7 +1251,7 @@ export function WordBlitzGame({
         main.push(relief);
         relief = null;
       }
-      // 이론상 도달 불가(조임 후보 총 10장 > 단계 전환 7회)지만, 빈 화면은 절대 만들지 않는다.
+      // 작은 풀에서는 실제로 도달한다(풀 6이면 '표적 증가'가 통째로 빠진다) — 빈 화면은 절대 없다.
       if (main.length === 0) main.push(CARD_BREATHE);
 
       setCardMain(main);
@@ -1062,7 +1262,7 @@ export function WordBlitzGame({
       setQuestion(null);
       questionRef.current = null;
     },
-    [contextable, maxTiles, pool.length, sfx, showFlash],
+    [contextReady, maxTiles, pool.length, reverseSafe, sfx, showFlash, stages],
   );
 
   const finishStageRef = useRef(finishStage);
@@ -1146,9 +1346,9 @@ export function WordBlitzGame({
         else sfx.wrong();
         speak(q.target.en);
         if (report) onWrong?.(q.target, assisted ? { assisted: true } : undefined);
-        // 세션 내 복구 기회 — 3~5문항 뒤 재출제(단어당 최대 2회).
+        // 세션 내 복구 기회 — 3~5문항 뒤 재출제(단어당 상한은 풀 크기의 함수).
         const queued = lapseCountRef.current.get(q.target.en) ?? 0;
-        if (queued < MAX_LAPSE_REPEATS) {
+        if (queued < maxLapseRepeats) {
           lapseCountRef.current.set(q.target.en, queued + 1);
           lapseRef.current = [
             ...lapseRef.current.filter((l) => l.word.en !== q.target.en),
@@ -1180,7 +1380,7 @@ export function WordBlitzGame({
         isCorrect ? REVEAL_OK_MS : REVEAL_MISS_MS,
       );
     },
-    [combo, endRun, onCorrect, onWrong, sfx, speak],
+    [combo, endRun, maxLapseRepeats, onCorrect, onWrong, sfx, speak],
   );
 
   const answerRef = useRef(answer);
@@ -1292,6 +1492,7 @@ export function WordBlitzGame({
     answeredRef.current = 0;
     bagRef.current = [];
     recentRef.current = [];
+    seenCountRef.current = new Map();
     lapseRef.current = [];
     lapseCountRef.current = new Map();
     stageMissRef.current = 0;
@@ -1340,7 +1541,7 @@ export function WordBlitzGame({
 
   const badge: ReactNode = cleared ? (
     <>
-      <span aria-hidden="true">🏁</span> 8단계 완주
+      <span aria-hidden="true">🏁</span> {stages}단계 완주
     </>
   ) : finalBest.improved ? (
     <>
@@ -1361,7 +1562,7 @@ export function WordBlitzGame({
 
       <Hud
         score={shownScore}
-        progress={(stage * SHOTS_PER_STAGE + shot) / (MAX_STAGES * SHOTS_PER_STAGE)}
+        progress={(stage * SHOTS_PER_STAGE + shot) / totalShots}
         combo={combo.combo}
         comboMult={multFor(combo.combo)}
         lives={{ total: MAX_LIVES, left: lives, label: '남은 목숨' }}
@@ -1371,10 +1572,10 @@ export function WordBlitzGame({
           <div className="wbz-meta">
             <span className="wbz-chip wbz-chip--stage">
               <span aria-hidden="true">
-                단계 {Math.min(stage + 1, MAX_STAGES)}/{MAX_STAGES}
+                단계 {Math.min(stage + 1, stages)}/{stages}
               </span>
               <span className="gk-sr">
-                단계 {Math.min(stage + 1, MAX_STAGES)} / {MAX_STAGES}
+                단계 {Math.min(stage + 1, stages)} / {stages}
               </span>
             </span>
             <span className="wbz-chip wbz-chip--mult">
@@ -1407,7 +1608,7 @@ export function WordBlitzGame({
             { num: score.toLocaleString(), label: '점수', accent: true },
             { num: `${correctCount}/${answered}`, label: `정답 · ${accuracy}%` },
             { num: `🔥 ${combo.best}`, label: '최고 콤보' },
-            { num: `${Math.min(stage + 1, MAX_STAGES)}단계`, label: `배수 ×${mods.mult.toFixed(2)}` },
+            { num: `${Math.min(stage + 1, stages)}/${stages}단계`, label: `배수 ×${mods.mult.toFixed(2)}` },
           ]}
           best={{ prev: finalBest.prev, now: score, label: '점수', improved: finalBest.improved }}
           restartLabel="한 판 더"
@@ -1446,7 +1647,9 @@ export function WordBlitzGame({
       ) : phase === 'stage' ? (
         <main className="wbz-cards" aria-label="조임 카드 선택">
           <p className="wbz-cards-lead">
-            {stage === 1 ? '5발마다 두 장 — 어느 방향으로 어려워질지 고르세요' : `단계 ${stage + 1} 준비`}
+            {stage === 1
+              ? `${SHOTS_PER_STAGE}발마다 두 장 — 어느 방향으로 어려워질지 고르세요`
+              : `단계 ${stage + 1}/${stages} 준비`}
           </p>
           <p className="wbz-cards-sub">
             고른 카드는 이 판 내내 남고 점수 배수를 키웁니다. 현재 ×{mods.mult.toFixed(2)}
@@ -1517,8 +1720,18 @@ export function WordBlitzGame({
 
           <p className="wbz-cards-foot">
             지금 기준 — 창{' '}
-            {(windowFor(mods, stage * SHOTS_PER_STAGE, 'ko', '', tilesFor(mods, stage, maxTiles)) / 1000).toFixed(1)}초 ·
-            선택지 {tilesFor(mods, stage, maxTiles)}개 · 목숨 {lives}/{MAX_LIVES}
+            {(
+              windowFor(
+                mods,
+                stage * SHOTS_PER_STAGE,
+                totalShots,
+                'ko',
+                '',
+                tilesFor(mods, (stage * SHOTS_PER_STAGE) / totalShots, maxTiles),
+              ) / 1000
+            ).toFixed(1)}
+            초 · 선택지 {tilesFor(mods, (stage * SHOTS_PER_STAGE) / totalShots, maxTiles)}개 · 목숨{' '}
+            {lives}/{MAX_LIVES}
             {repairUsedRef.current > 0 && ` · 정비 ${repairUsedRef.current}/${REPAIR_LIMIT}회 씀`}
           </p>
         </main>

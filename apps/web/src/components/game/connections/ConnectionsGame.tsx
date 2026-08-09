@@ -17,13 +17,25 @@
 //      → ① roundClear 에서 en 을 더 이상 펼치지 않는다(끝화면에 모아서 공개).
 //        ② en 을 인쇄한 타일 id 를 세션 내내 누적해 generateGrid 에 넘기고,
 //           그룹 단어는 거기서 뽑지 않는다.
-//        ③ 세 격자(16×3=48)를 한 단어도 겹치지 않고 채우도록 풀을 POOL_TARGET 까지
+//        ③ 세 격자(16×3=48)를 한 단어도 겹치지 않고 채우도록 풀을 48타일까지
 //           맛보기 단어로 보강한다. 실측 결과 그룹 재사용 0.0% · 보드 재사용 0.0%.
 //   B) [높음] '품사' 칩은 한국어 뜻의 어미만 읽고 공짜로 확정된다 → 규칙 자체를 제거(puzzle.ts).
 //   C) [보통] 힌트 3장이 사실상 무료라 항상 다 쓰는 것이 우세 → 격자당 1회 상한 +
 //      누진 시간 비용 + 콤보 소멸 + 다음 확정 배수 몰수. 아래 판돈 상수 주석 참조.
 //   D) [보통] 단어장이 작으면 보드가 9~15칸으로 쪼그라들어 5택4 브루트포스가 됐다
 //      → 풀 보강으로 보드를 항상 16칸으로 보장(실측 최소 16칸 · 16칸 미만 0.0%).
+//
+// v07.11 풀 크기 스케일 다운 — "16칸 × 3격자" 고정 규격이 진입 하한 24단어를 만들었고,
+//   DB 실측상 공용 단어장·도서 챕터 653세트의 43.2% 가 거기서 거절당했다. 규격을
+//   전부 풀 크기의 함수로 바꾸고(puzzle.ts planFor) 하한을 24 → 8 로 내렸다.
+//     · 세션 시계 = 20초 × 확정 기회 + 20초 (70~180초) — 짧은 판은 짧게 끝난다
+//     · 펼치기 장수 = 격자 수(격자당 1회 상한은 그대로)
+//     · 콤보 티어 = 총 확정 기회의 25/40/60/85% — 3확정 세션도 티어를 밟는다
+//     · 진행률·라운드 전환은 계획 길이 기준
+//   품질 하한은 함수로 만들지 않았다: 침입자 4칸 · 그룹 4칸은 어떤 풀에서도 상수다.
+//   실측(실 DB 세트 275개 × 20세션 = 5,500세션 · 15,700격자): 중복 타일 0 · 규칙
+//   겹침 0 · 침입자 오적중 0 · 침입자 4칸 미만 0 · 노출 단어가 그룹에 오른 격자 0 ·
+//   생성 실패 0 · 완주 100%.
 //
 // 인출 규칙 준수
 //   · 제출 전 공개: 한국어 뜻 · 규칙의 "종류" · 규칙의 tier(종류마다 고정이라 정보 누수 아님).
@@ -69,12 +81,15 @@ import {
 import {
   buildTiles,
   generateGrid,
-  ROUND_SPECS,
-  POOL_TARGET,
+  planFor,
   DEMO_POOL,
+  PAD_FLOOR,
+  DEMO_TILES,
+  MIN_TILES,
   type Grid,
   type PuzzleGroup,
   type Rule,
+  type RoundSpec,
   type TileWord,
 } from './puzzle';
 
@@ -90,14 +105,20 @@ interface Props {
   onWrong?: (w: Word, opts?: ResultOpts) => void;
 }
 
-// ─── 판돈 상수 ────────────────────────────────────────────────────────────
-const TOTAL_MS = 180_000;      // 3분에서 출발. 확정마다 늘어나고 실수마다 줄어든다.
+// ─── 판돈 ─────────────────────────────────────────────────────────────────
+// 사건 단위 값(확정 보상 · 실수 벌칙)은 상수다 — 풀이 작다고 한 번의 실수가 더
+// 아프거나 덜 아프면 안 된다. 반대로 **세션 단위 값**(시계 · 펼치기 장수 · 콤보 티어)은
+// 확정 기회 수의 함수다. 판이 짧으면 시계도 짧고, 티어도 그 안에서 다 밟힌다.
 const WARN_MS = 20_000;
 const GROUP_EXTEND_MS = 10_000;
 const ROUND_EXTEND_MS = 12_000;
 const WRONG_DRAIN_MS = 8_000;
 const MAX_LIVES = 4;
-const MAX_HINTS = 3;
+
+/** 세션 시계 — 확정 한 번당 20초 + 진입 여유 20초. 8확정이면 180초(v07.10 과 동일). */
+function clockFor(totalGroups: number): number {
+  return clamp(20_000 * totalGroups + 20_000, 70_000, 180_000);
+}
 
 /**
  * 힌트 재가격 (v07.10).
@@ -108,9 +129,8 @@ const MAX_HINTS = 3;
  *
  * 지금은 세 가지를 동시에 지불한다 — 어느 하나도 점수 0 상태에서 회피되지 않는다.
  *   ① 격자당 1회 상한(HINT_PER_GRID). 3장을 한 격자에 몰아 규칙을 역산하는 절차
- *      자체가 불가능해진다. 세션 총량은 그대로 3장이라 "막힐 때마다 한 번"은 남는다.
- *   ② 누진 시간 8/14/20초(합 42초 = 시작 시계의 23%). 가산 상한이 총량의 75% 라
- *      뒤에서 벌충되지 않는다.
+ *      자체가 불가능해진다. 세션 총량은 격자 수와 같아 "막힐 때마다 한 번"은 남는다.
+ *   ② 누진 시간 8/14/20초. 가산 상한이 총량의 75% 라 뒤에서 벌충되지 않는다.
  *   ③ 콤보 소멸 + **다음 확정 1회는 배수 없이 기본 점수만**. 잘 굴러갈수록 비싸고
  *      (콤보 5·선점 ×2.0 구간에서 다음 확정이 1,320 → 400점), 이미 막혀서 콤보가
  *      끊긴 학습자에게는 싸다. 상황 의존적이라 지배 전략이 되지 않는다.
@@ -118,25 +138,42 @@ const MAX_HINTS = 3;
 const HINT_DRAIN_MS = [8_000, 14_000, 20_000];
 const HINT_PER_GRID = 1;
 
-/** 격자 한 판이 16칸이라 세 격자를 겹치지 않고 채우려면 POOL_TARGET(=48) 타일이 필요하다.
- *  학습자 단어가 이보다 적으면 맛보기 단어로 보강하되, 게임 진입 자체는 이 수를 요구한다.
- *  (반증 실측: buildTiles 통과 타일 24개 미만에서는 보드가 평균 14.1칸으로 무너졌다.) */
-const MIN_POOL = 24;
+/** 게이트 문구용 최소 단어 수 — puzzle.ts 의 구조적 하한(그룹 4 + 침입자 4)과 같다.
+ *  이보다 적으면 한 격자의 절반 이상을 맛보기로 메워야 해서 "내 자료로 공부한다"가
+ *  성립하지 않는다. 그 위·PAD_FLOOR 미만 구간은 게임이 맛보기로 자리를 메운다. */
+const MIN_POOL = MIN_TILES;
 
 const GROUP_COLORS = ['var(--success)', 'var(--combo)', 'var(--active)', 'var(--streak)'];
 
-// 한 세션의 확정 횟수가 8회라 기본 티어(3/6/10/16)는 절반도 못 밟는다. 촘촘하게 다시 잡는다.
-const CN_TIERS: ComboTier[] = [
-  { at: 0, mult: 1 },
-  { at: 2, mult: 1.3, label: '연결' },
-  { at: 3, mult: 1.6, label: '흐름' },
-  { at: 5, mult: 2.2, label: '통찰' },
-  { at: 7, mult: 3, label: '완전' },
-];
+/**
+ * 콤보 티어 — **확정 기회 수의 함수**.
+ *
+ * 기본 티어(3/6/10/16)는 8확정 세션에서도 절반을 못 밟았고, 스케일 다운 뒤 3확정
+ * 세션에서는 아예 하나도 안 열린다. 그래서 문턱을 절대 횟수가 아니라 **진행률**로
+ * 잡는다(25% · 40% · 60% · 85%). 8확정이면 2/4/5/7 로 v07.10 과 거의 같고,
+ * 3확정이면 2/3 두 단계가 열려 짧은 판도 배수 곡선을 끝까지 탄다.
+ */
+function tiersFor(totalGroups: number): ComboTier[] {
+  const marks: [number, number, string][] = [
+    [0.25, 1.3, '연결'],
+    [0.4, 1.6, '흐름'],
+    [0.6, 2.2, '통찰'],
+    [0.85, 3, '완전'],
+  ];
+  const out: ComboTier[] = [{ at: 0, mult: 1 }];
+  let prev = 1;
+  for (const [frac, mult, label] of marks) {
+    const at = Math.max(prev + 1, Math.ceil(totalGroups * frac));
+    if (at > totalGroups) break;
+    out.push({ at, mult, label });
+    prev = at;
+  }
+  return out;
+}
 
-function multFor(combo: number): number {
+function multFor(tiers: ComboTier[], combo: number): number {
   let m = 1;
-  for (const t of CN_TIERS) if (combo >= t.at) m = t.mult;
+  for (const t of tiers) if (combo >= t.at) m = t.mult;
   return m;
 }
 
@@ -246,18 +283,28 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   sfxRef.current = sfx;
 
   // ── 단어 풀 ──
-  // 세 격자가 한 단어도 겹치지 않으려면 16×3 = POOL_TARGET 타일이 필요하다.
-  // 학습자 단어가 모자란 만큼만 맛보기 단어로 채운다(own=false → FSRS 미적재).
-  // 실측(단어장 40개): 보드 타일의 16.5% 만 맛보기 단어, 그룹 단어 재사용 0.0%.
+  // v07.10 은 무조건 48타일까지 맛보기로 채웠다("16칸 × 3격자" 고정 규격 때문에).
+  // 이제 규격이 풀을 따라오므로 **내 단어가 PAD_FLOOR 이상이면 한 타일도 섞지 않는다** —
+  // 내가 고른 도서 챕터로만 도는 것이 먼저다. 모자랄 때만 3격자 곡선이 서는 최소치까지
+  // 자리를 메우고(own=false → FSRS 미적재), 내 단어가 아예 없는 맛보기 진입에서는
+  // 온전한 규격(48타일 · 16칸 3격자)으로 돈다.
   const basePool = useMemo(() => {
     const own = buildTiles(wordPool ?? [], true);
-    if (own.length >= POOL_TARGET) return own;
+    if (own.length >= PAD_FLOOR) return own;
     const seen = new Set(own.map((t) => t.id));
     const filler = shuffle(buildTiles(DEMO_POOL, false).filter((t) => !seen.has(t.id)));
-    return [...own, ...filler.slice(0, POOL_TARGET - own.length)];
+    const want = own.length === 0 ? DEMO_TILES : PAD_FLOOR;
+    return [...own, ...filler.slice(0, Math.max(0, want - own.length))];
   }, [wordPool]);
 
   const ownCount = useMemo(() => basePool.filter((t) => t.own).length, [basePool]);
+
+  /** 세션 규격 — 라운드 수·그룹 수·보드 칸 수가 전부 여기서 나온다. */
+  const plan = useMemo<RoundSpec[]>(() => planFor(basePool.length), [basePool]);
+  const totalGroups = useMemo(() => plan.reduce((a, s) => a + s.groups, 0), [plan]);
+  const totalMs = useMemo(() => clockFor(totalGroups), [totalGroups]);
+  const maxHints = plan.length;
+  const cnTiers = useMemo(() => tiersFor(totalGroups), [totalGroups]);
 
   const usedRuleIds = useRef<Set<string>>(new Set());
   /** en 을 화면에 인쇄한 적 있는 타일 — 다음 격자의 **그룹 단어**에서 제외한다. */
@@ -267,15 +314,17 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     (round: number) => {
       // 규칙 중복 금지는 generateGrid 안에서 "선호"로 처리된다(규칙이 모자라면 스스로 푼다).
       // exposed 는 반대로 강한 제약이다 — 여기가 뚫리면 게임의 전제가 무너진다.
-      const g = generateGrid(basePool, round, usedRuleIds.current, exposedIds.current);
+      const spec = plan[round];
+      if (!spec) return null;
+      const g = generateGrid(basePool, spec, usedRuleIds.current, exposedIds.current);
       g?.groups.forEach((x) => usedRuleIds.current.add(x.rule.id));
       return g;
     },
-    [basePool],
+    [basePool, plan],
   );
 
   const [grid, setGrid] = useState<Grid | null>(() =>
-    generateGrid(basePool, 0, new Set<string>(), new Set<string>()),
+    plan.length > 0 ? generateGrid(basePool, plan[0], new Set<string>(), new Set<string>()) : null,
   );
   const [roundIdx, setRoundIdx] = useState(0);
   /** "섞기"로 학습자가 직접 바꾼 배치. null 이면 격자가 준 순서 그대로. */
@@ -294,7 +343,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   const [justSolvedId, setJustSolvedId] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(MAX_LIVES);
-  const [hintsLeft, setHintsLeft] = useState(MAX_HINTS);
+  const [hintsLeft, setHintsLeft] = useState(maxHints);
   const [hintsInGrid, setHintsInGrid] = useState(0);
   /** 힌트로 몰수된 배수 — 다음 확정 N회는 기본 점수만 준다. */
   const [plainCharges, setPlainCharges] = useState(0);
@@ -362,7 +411,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
   const finishRef = useRef<(r: EndReason) => void>(() => {});
   const clock = useCountdown({
-    totalMs: TOTAL_MS,
+    totalMs,
     running: phase === 'playing',
     warnAtMs: WARN_MS,
     onEnd: () => finishRef.current('timeout'),
@@ -372,7 +421,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   clockRef.current = clock;
 
   const combo = useCombo({
-    tiers: CN_TIERS,
+    tiers: cnTiers,
     onTierUp: (t, c) => {
       sfxRef.current.coin();
       setToast(`${c}연속 · 점수 ×${t.mult}`);
@@ -497,11 +546,11 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
         (x) => x.rule.id !== rule.id && x.rule.tier < rule.tier,
       ).length;
       const plain = plainCharges > 0;
-      const mult = plain ? 1 : multFor(combo.combo + 1);
+      const mult = plain ? 1 : multFor(cnTiers, combo.combo + 1);
       const preempt = plain ? 1 : preemptFor(lowerLeft);
       return Math.round(100 * rule.tier * mult * preempt);
     },
-    [remainingRules, plainCharges, combo.combo],
+    [remainingRules, plainCharges, combo.combo, cnTiers],
   );
 
   // ── 조작 ──
@@ -552,7 +601,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       const plain = plainRef.current > 0;
       const c = comboRef.current.hit();
       // 힌트를 산 직후의 확정은 배수 없이 기본 점수만 — 산 정보로 딴 점수는 싸다.
-      const mult = plain ? 1 : multFor(c);
+      const mult = plain ? 1 : multFor(cnTiers, c);
       const preempt = plain ? 1 : preemptFor(lowerLeft);
       const gain = Math.round(100 * g.rule.tier * mult * preempt);
       if (plain) setPlainCharges((n) => Math.max(0, n - 1));
@@ -635,7 +684,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
   ]);
 
   const hintBlocked = hintsLeft <= 0 || hintsInGrid >= HINT_PER_GRID;
-  const hintDrainMs = HINT_DRAIN_MS[Math.min(MAX_HINTS - hintsLeft, HINT_DRAIN_MS.length - 1)];
+  const hintDrainMs = HINT_DRAIN_MS[Math.min(maxHints - hintsLeft, HINT_DRAIN_MS.length - 1)];
 
   const spendHint = useCallback(() => {
     if (phase !== 'playing' || hintsLeft <= 0 || hintsInGrid >= HINT_PER_GRID) return;
@@ -672,7 +721,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     const id = window.setTimeout(() => {
       if (!mounted.current) return;
       const next = roundIdx + 1;
-      if (next >= ROUND_SPECS.length) {
+      if (next >= plan.length) {
         finishRef.current('won');
         return;
       }
@@ -691,11 +740,11 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
       setHintsInGrid(0);
       setOneAway(false);
       setWrongIds([]);
-      setMsg(`${ROUND_SPECS[next].name} — ${ROUND_SPECS[next].note}`);
+      setMsg(`${plan[next].name} — ${plan[next].note}`);
       setPhase('playing');
     }, 2200);
     return () => window.clearTimeout(id);
-  }, [phase, roundIdx, makeGrid]);
+  }, [phase, roundIdx, makeGrid, plan]);
 
   const restart = useCallback(() => {
     usedRuleIds.current = new Set();
@@ -703,7 +752,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     firedWrong.current = new Set();
     firedCorrect.current = new Set();
     endedRef.current = false;
-    const g = generateGrid(basePool, 0, new Set<string>(), new Set<string>());
+    const g = plan.length > 0 ? generateGrid(basePool, plan[0], new Set<string>(), new Set<string>()) : null;
     g?.groups.forEach((x) => usedRuleIds.current.add(x.rule.id));
     scoreRef.current = 0;
     setGrid(g);
@@ -720,7 +769,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     setJustSolvedId(null);
     setScore(0);
     setLives(MAX_LIVES);
-    setHintsLeft(MAX_HINTS);
+    setHintsLeft(maxHints);
     setHintsInGrid(0);
     setPlainCharges(0);
     setBestInfo(null);
@@ -728,17 +777,18 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     setToast('');
     setGainFx(null);
     combo.reset();
-    clockRef.current.reset(TOTAL_MS);
+    clockRef.current.reset(totalMs);
     setPhase('playing');
-  }, [basePool, combo]);
+  }, [basePool, combo, plan, maxHints, totalMs]);
 
   const handleExit = useCallback(() => onExit?.(), [onExit]);
 
   const shownScore = useCountUp(score, 380);
-  const spec = ROUND_SPECS[Math.min(roundIdx, ROUND_SPECS.length - 1)];
+  const spec = plan[Math.min(roundIdx, Math.max(0, plan.length - 1))];
   const plannedGroups = grid ? Math.max(1, grid.groups.length) : 1;
+  // 진행률도 절대 격자 수가 아니라 **계획 길이** 기준 — 1격자 세션도 끝에서 100% 가 된다.
   const progress = clamp(
-    (roundIdx + solved.length / plannedGroups) / ROUND_SPECS.length,
+    (roundIdx + solved.length / plannedGroups) / Math.max(1, plan.length),
     0,
     1,
   );
@@ -802,7 +852,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
 
   const doneLead =
     endReason === 'won'
-      ? '세 격자를 모두 열었어요'
+      ? `${plan.length}격자를 모두 열었어요`
       : endReason === 'timeout'
         ? '시간이 여기까지였어요'
         : endReason === 'ended'
@@ -827,7 +877,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     [learned],
   );
 
-  if (!grid) {
+  if (!grid || !spec) {
     return <NotEnoughWords need={MIN_POOL} onExit={handleExit} />;
   }
 
@@ -882,7 +932,7 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
               </>
             ) : endReason === 'won' ? (
               <>
-                <FeedbackIcon kind="correct" size={13} /> 세 격자 완주
+                <FeedbackIcon kind="correct" size={13} /> {plan.length}격자 완주
               </>
             ) : undefined
           }
@@ -1034,9 +1084,11 @@ export function ConnectionsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
           <p className="cn-source">
             {grid.reusedExposed
               ? `내 단어 ${ownCount}개 — 재료가 빠듯해 앞 격자에서 본 단어가 일부 다시 나왔어요`
-              : ownCount >= POOL_TARGET
-                ? `내 단어 ${ownCount}개로 매번 새로 짜는 격자예요 · 세 격자에 같은 단어는 두 번 나오지 않아요`
-                : `내 단어 ${ownCount}개 + 맛보기 단어 — 세 격자(${POOL_TARGET}칸)를 겹치지 않게 채우려고 자리를 메웠어요`}
+              : ownCount === 0
+                ? `맛보기 단어로 도는 ${plan.length}격자예요 · 내 단어장이 채워지면 내 단어로 바뀌어요`
+                : ownCount >= basePool.length
+                  ? `내 단어 ${ownCount}개로만 짠 ${plan.length}격자예요 · 같은 단어는 두 번 나오지 않아요`
+                  : `내 단어 ${ownCount}개 + 맛보기 ${basePool.length - ownCount}개 — 자리를 메워 ${plan.length}격자를 만들었어요`}
           </p>
 
           {gainFx && (

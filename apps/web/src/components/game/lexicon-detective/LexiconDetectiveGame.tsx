@@ -31,7 +31,7 @@
 
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import {
   GameKitStyles,
   AmbientBackground,
@@ -62,56 +62,80 @@ interface Props {
 }
 
 // ─── 사건 규격 ────────────────────────────────────────────────────────────
-// 위증 수(falses)와 진술 수(entries)는 **범위**다. 매 판 균등 추첨한다.
-// 봉투 총수(envelopes)만 사건별 상수 — 이래야 화면의 두 수로 위증 수가 역산되지 않는다.
-//   보이는 것: 봉투 8개 · 진술 M줄
-//   숨는 것 : 위증 F줄, 정답 M−F줄, 함정 8−(M−F)개
-// 정답 줄은 항상 2줄 이상으로 강제한다 — '전부 위증' 배치는 영단어 지식 0으로
-// 이기는 판이 되므로 원천 차단한다(반증 지적: 올인 원샷).
+// v07.11 — 사건의 크기를 **풀 크기의 함수**로 만든다.
+//
+// 이전 판은 봉투 8개가 상수라 서로 다른 뜻 9~11 개를 요구했고, 학습자가 고른 도서
+// 챕터·공용 단어장 653세트 중 20.8% 가 입장 자체를 거절당했다(1사분위 11단어·중앙값 30).
+// 단어가 적으면 사건이 작아지는 것은 정상이다 — 못 여는 것보다 낫다.
+//
+//   봉투   E = clamp(round(풀 × 0.75), 4, 8) ∧ (풀 − 1)   ← 위증용 재고를 1 이상 남긴다
+//   정답상한 Amax = E ≤ 4 ? E − 1 : E − 2          (함정 봉투를 항상 남긴다)
+//   진술   M ∈ [round(E × entriesFrac) − spread, round(E × entriesFrac)] ∩ [3, Amax]
+//   위증   F ∈ [0, min(round(M × falseFrac), M − 2, 풀 − E)]
+//   함정   T = E − (M − F) ≥ 1  (풀 6 이상이면 항상 ≥ 2)
+//
+// 풀 11단어 이상이면 E = 8 · M · F 범위가 v07.10 과 **완전히 같은 수**로 떨어진다.
+// 즉 건강한 단어장에서는 아무것도 바뀌지 않고, 얇은 챕터에서만 사건이 작아진다.
+//
+// 이 스케일에서도 v07.10 이 막은 것이 되살아나지 않는다:
+//   ① **위증 수 역산 불가** — 화면에 보이는 건 E 와 M 뿐이다. M ≤ Amax 라서
+//      F 의 가능 구간 하한이 항상 0 이고, 상한은 항상 1 이상이다 → 관측으로 F 가 특정 안 된다.
+//      (v07.10 이 falsesMin=0 을 강제했던 이유를 구조로 승격시킨 것이다.)
+//   ② **마지막 줄 소거법 불가** — 정답 줄이 하나 남았을 때 후보 봉투는 T + 1 ≥ 2 개다.
+//      M ≤ Amax ≤ E − 1 이 이걸 보장한다.
+//   ③ **한 화면 중복 없음** — 봉투·정답·위증은 pickUniqueKo 결과의 서로소 구간에서 자른다.
+//
+// 봉투 수 E 는 세 사건 모두 같다(풀 크기만의 함수). 사건마다 흔들면 화면의 두 수로
+// 위증 수를 역산하는 길이 다시 열린다(v07.10 익스플로짓 1).
 interface CaseSpec {
   lives: number;
-  envelopes: number;
-  entriesMin: number;
-  entriesMax: number;
-  falsesMin: number;
-  falsesMax: number;
+  /** 진술 줄 수 상한 = 봉투 수 × 이 배율. 정답 상한(Amax)으로 다시 조인다. */
+  entriesFrac: number;
+  /** 진술 줄 수 하한 = 상한 − 이 폭. 0 이면 줄 수 고정. */
+  entriesSpread: number;
+  /** 위증 줄 상한 = 진술 줄 수 × 이 배율. */
+  falseFrac: number;
   note: string;
 }
 const SPECS: CaseSpec[] = [
   {
     lives: 3,
-    envelopes: 8,
-    entriesMin: 4,
-    entriesMax: 5,
-    falsesMin: 0,
-    falsesMax: 1,
+    entriesFrac: 0.625, // E=8 → 5
+    entriesSpread: 1, //   → 4~5 (v07.10 과 동일)
+    falseFrac: 0.25, //    M=5 → 1 (v07.10 falsesMax 와 동일)
     note: '조서와 현장이 처음 맞대어진다. 맞물리지 않는 진술이 섞였을 수도, 없을 수도 있다.',
   },
   {
     lives: 3,
-    envelopes: 8,
-    entriesMin: 5,
-    entriesMax: 6,
-    falsesMin: 0,
-    falsesMax: 2,
+    entriesFrac: 0.75, // E=8 → 6
+    entriesSpread: 1, //   → 5~6 (v07.10 과 동일)
+    falseFrac: 0.4, //     M=6 → 2 (v07.10 falsesMax 와 동일)
     note: '봉투가 다시 봉인됐다. 위증이 몇 줄인지 세어 주는 사람은 없다.',
   },
   {
     // 진술 줄 변주는 심증 3인 사건 1·2 에 몰아 두었다 — 심증 2 인 마지막 사건까지
-    // 6줄이 나오면 정답률 0.5~0.7 학습자에게 최악 조합이 겹친다(시뮬 20,000런).
+    // 최대 줄 수가 나오면 정답률 0.5~0.7 학습자에게 최악 조합이 겹친다(시뮬 20,000런).
+    // → entriesSpread 0 으로 줄 수를 고정한다.
     //
-    // falsesMin 은 반드시 0 이어야 한다. 1 로 두면 진술 5줄 중 4줄을 매치로 확정한
-    // 순간 falses ≤ 1 과 falsesMin = 1 이 만나 **마지막 한 줄이 공짜 기각으로 확정**된다
-    // (시뮬 400,000판 실측: 그 관측 조합에서 성공률 100.0%). 하한을 0 으로 내리면 50.1%.
+    // 위증 하한은 구조적으로 0 이다(planCase). 1 로 두면 진술 5줄 중 4줄을 매치로 확정한
+    // 순간 F ≤ 1 과 F ≥ 1 이 만나 **마지막 한 줄이 공짜 기각으로 확정**된다
+    // (시뮬 400,000판 실측: 그 관측 조합에서 성공률 100.0%). 하한 0 이면 50.1%.
     lives: 2,
-    envelopes: 8,
-    entriesMin: 5,
-    entriesMax: 5,
-    falsesMin: 0,
-    falsesMax: 3,
+    entriesFrac: 0.625, // E=8 → 5 (v07.10 과 동일)
+    entriesSpread: 0,
+    falseFrac: 0.6, //     M=5 → 3 (v07.10 falsesMax 와 동일)
     note: '심증은 둘뿐이다. 위증이 몇 줄인지는 이번에도 조서 어디에도 없다.',
   },
 ];
+
+/** 봉투 하한 — 정답 2줄 + 함정 1개. 3개로 내리면 정답이 항상 2줄이라 F = M − 2 로 역산된다. */
+const MIN_ENVELOPES = 4;
+/** 봉투 상한 — 동시 인지 항목 상한(Cognitive Load). v07.10 의 고정값과 같다. */
+const MAX_ENVELOPES = 8;
+/** 진술 하한 — 3줄. 2줄이면 정답 2줄이 강제되어 F = 0 이 특정된다. */
+const MIN_ENTRIES = 3;
+/** 위증 후보로 더 뽑아 둘 여유분 — 최대 위증 수 round(6 × 0.6) = 4 를 덮는다. */
+const FALSE_HEADROOM = 4;
 
 const PT_MATCH = 100;
 const PT_REJECT = 120;
@@ -127,7 +151,13 @@ const ALL_IN_MULT = 2;
  * 학습자에게 과하므로 절반 — 신중함이 보상받되 실패가 런을 끝내지는 않는 선.
  */
 const COLD_FORFEIT = 0.5;
-const MIN_UNIQUE_WORDS = 8;
+/**
+ * 사건을 만들 수 있는 서로 다른 '첫 뜻'의 최소 개수 — 이 아래는 맛보기 풀로 논다.
+ *
+ * 5 = 봉투 4(정답 2 + 함정 2) + 위증 후보 1. 4 로 내리면 위증 상한이 0 이 되어
+ * '기각'이 죽고 F 가 항상 0 으로 특정된다. 그건 더 이상 이 게임이 아니다.
+ */
+const MIN_UNIQUE_WORDS = 5;
 const EMPTY_NOTE = { text: '', ok: false } as const;
 
 // 맛보기 풀 — 내 단어장이 아직 얇으면 useGameWordScope 가 wordPool 을 주지 않는다(demo degrade).
@@ -208,6 +238,52 @@ const glossKey = (s: string) =>
 
 const enKey = (s: string) => s.trim().toLowerCase();
 const randInt = (min: number, max: number) => min + Math.floor(Math.random() * (max - min + 1));
+const clampInt = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, Math.round(v)));
+
+// ─── 풀 크기 → 사건 규모 ──────────────────────────────────────────────────
+
+/** 풀에서 서로 다른 '첫 뜻'의 개수 — 사건 규모의 유일한 입력. demoMode 판정과 같은 키를 쓴다. */
+function poolCapacity(pool: Word[]): number {
+  const keys = new Set<string>();
+  for (const w of pool) {
+    const k = w.ko ? glossKey(w.ko) : '';
+    if (k) keys.add(k);
+  }
+  return keys.size;
+}
+
+/**
+ * 봉투 수 — 풀의 75%, 단 **최소 1개는 봉투 밖에 남긴다**(capacity − 1 상한).
+ * 그 여분이 위증 진술이 빌려 쓸 '현장에 없는 단어' 재고다. 재고가 0 이면 위증 상한이
+ * 0 이 되어 기각이 죽는다 → 이 상한이 위증 가능성을 구조적으로 보장한다.
+ * 4 미만이면 함정이 사라지고, 8 초과는 동시 인지 항목 상한을 넘긴다.
+ * 풀 11단어 이상은 전부 8 — v07.10 과 완전히 같은 판이 된다.
+ */
+function envelopesFor(capacity: number): number {
+  return Math.max(2, Math.min(capacity - 1, clampInt(capacity * 0.75, MIN_ENVELOPES, MAX_ENVELOPES)));
+}
+
+/**
+ * 정답 줄 상한 — 함정 봉투를 최소 1개(봉투 5개부터는 2개) 남긴다.
+ * 이 상한이 곧 '마지막 줄 소거법' 차단이다: 정답 줄이 하나 남은 시점에 남은 후보 봉투는
+ * 함정 수 + 1 개이므로, 상한을 E − 1 로 잡으면 후보가 절대 1개로 좁혀지지 않는다.
+ */
+function maxAnswersFor(envelopes: number): number {
+  return Math.max(2, envelopes <= MIN_ENVELOPES ? envelopes - 1 : envelopes - 2);
+}
+
+/**
+ * 보드 열 수 — 봉투 수가 줄어도 격자에 빈 트랙이 남지 않게 열을 직접 정한다.
+ * auto-fill 은 660px 폭에 항상 7 트랙을 깔아, 봉투 4개짜리 사건에서 오른쪽 3칸이
+ * 통째로 비어 보였다(작은 풀에서만 드러나던 레이아웃 구멍).
+ */
+function boardCols(n: number): number {
+  return n <= 7 ? Math.max(1, n) : 4;
+}
+/** 390px 폭에서는 한 줄 4칸이 상한 — 5~6개는 3칸 두 줄이 더 읽힌다. */
+function boardColsSm(n: number): number {
+  return n <= 4 ? Math.max(1, n) : n <= 6 ? 3 : 4;
+}
 
 /**
  * 뜻이 겹치지 않는 단어를 n 개 고른다.
@@ -254,26 +330,28 @@ interface CasePlan {
 }
 
 /**
- * 스펙 범위에서 이번 판의 사건 형태를 뽑는다.
- * 필요한 서로 다른 단어 수 = 봉투 수 + 위증 수(위증 진술은 봉투에 없는 단어의 뜻을 빌린다).
- * 풀이 얇으면 함정 봉투 → 위증 → 진술 줄 순으로 줄인다 — 사건의 모양을 마지막까지 지킨다.
+ * 이번 판의 사건 형태를 뽑는다 — **모든 수가 봉투 수(=풀 크기)의 함수**다.
+ *
+ * 필요한 서로 다른 뜻 = 봉투 E + 위증 F (위증 진술은 봉투에 **없는** 단어의 뜻을 빌린다).
+ * 세 상한의 최솟값으로 F 를 조여서 이 합이 avail 을 절대 넘지 않게 한다 → 재시도 루프가 없다.
+ *
+ * 불변식(어떤 avail ≥ 5 에서도):
+ *   entries ≥ 3 · answers ≥ 2 · traps ≥ 1 · envelopes + falses ≤ avail
+ *   F 의 가능 구간 = [0, ≥1]  → 화면의 (E, M) 만으로 위증 수가 특정되지 않는다.
  */
-function planCase(spec: CaseSpec, avail: number): CasePlan {
-  let entries = randInt(spec.entriesMin, spec.entriesMax);
-  let falses = Math.min(randInt(spec.falsesMin, spec.falsesMax), entries - 2);
-  let envelopes = spec.envelopes;
+function planCase(spec: CaseSpec, envelopes: number, avail: number): CasePlan {
+  const maxA = maxAnswersFor(envelopes);
+  const hi = Math.min(maxA, Math.max(MIN_ENTRIES, Math.round(envelopes * spec.entriesFrac)));
+  const lo = Math.min(hi, Math.max(MIN_ENTRIES, hi - spec.entriesSpread));
+  const entries = randInt(lo, hi);
 
-  for (let guard = 0; guard < 32 && envelopes + falses > avail; guard += 1) {
-    const answers = entries - falses;
-    if (envelopes > answers + 2) envelopes -= 1;
-    else if (falses > 0) falses -= 1;
-    else if (entries > 3) entries -= 1;
-    else break;
-  }
-
-  const answers = Math.max(2, entries - falses);
-  falses = entries - answers;
-  envelopes = Math.max(answers + 1, Math.min(envelopes, Math.max(answers + 1, avail - falses)));
+  // 위증 상한 — ① 스펙 비율 ② 정답 2줄 보존 ③ 봉투 밖 단어 재고. 하한은 언제나 0.
+  const cap = Math.max(
+    0,
+    Math.min(Math.round(entries * spec.falseFrac), entries - 2, avail - envelopes),
+  );
+  const falses = randInt(0, cap);
+  const answers = entries - falses;
   return { entries, falses, answers, traps: envelopes - answers, envelopes };
 }
 
@@ -282,9 +360,11 @@ function buildCase(
   spec: CaseSpec,
   flavor: { title: string; scene: string },
   used: Set<string>,
+  capacity: number,
 ): CaseData {
-  const picked = pickUniqueKo(pool, spec.envelopes + spec.falsesMax, used);
-  const plan = planCase(spec, picked.length);
+  const want = envelopesFor(capacity);
+  const picked = pickUniqueKo(pool, want + FALSE_HEADROOM, used);
+  const plan = planCase(spec, Math.min(want, picked.length), picked.length);
 
   // 위증 진술의 뜻은 **이번 런에서 아직 안 쓴 단어**에서 빌린다.
   // 앞 사건에서 정답으로 확정한 뜻이 뒤 사건에서 위증으로 뒤집히면 학습자가 방금 세운
@@ -314,9 +394,12 @@ function buildCase(
 }
 
 function buildCases(pool: Word[]): CaseData[] {
+  // capacity 는 런 전체에서 한 번만 잰다 — 봉투 수가 사건마다 흔들리면
+  // 화면의 두 수(봉투 N · 진술 M)로 위증 수를 역산하는 길이 열린다.
+  const capacity = poolCapacity(pool);
   const flavors = shuffle(FLAVORS);
   const used = new Set<string>();
-  return SPECS.map((spec, i) => buildCase(pool, spec, flavors[i % flavors.length], used));
+  return SPECS.map((spec, i) => buildCase(pool, spec, flavors[i % flavors.length], used, capacity));
 }
 
 /** 연쇄 수 → 배수. useCombo 의 상태 갱신은 비동기라, 한 번에 여러 줄을 판정할 땐 직접 계산한다. */
@@ -403,12 +486,9 @@ export function LexiconDetectiveGame({ wordPool, onExit, onCorrect, onWrong }: P
     return out;
   }, [wordPool]);
 
-  // demo 판정도 사건 생성과 **같은 키**(첫 뜻)로 센다 — 두 기준이 어긋나면
-  // "8개는 있는데 사건이 안 만들어지는" 구간이 생긴다.
-  const demoMode = useMemo(
-    () => new Set(mine.map((w) => glossKey(w.ko))).size < MIN_UNIQUE_WORDS,
-    [mine],
-  );
+  // demo 판정과 사건 규모는 **같은 함수**로 센다(poolCapacity) — 두 기준이 어긋나면
+  // "단어는 있는데 사건이 안 만들어지는" 구간이 생긴다.
+  const demoMode = useMemo(() => poolCapacity(mine) < MIN_UNIQUE_WORDS, [mine]);
   const pool = demoMode ? DEMO_POOL : mine;
 
   // ── FSRS 무결성 ────────────────────────────────────────────────────────
@@ -889,7 +969,9 @@ export function LexiconDetectiveGame({ wordPool, onExit, onCorrect, onWrong }: P
             <span className="ld-foot">
               {demoMode
                 ? `사건 ${SPECS.length}건 · 맛보기 어휘로 진행합니다 — 복습 기록은 남지 않아요`
-                : `사건 ${SPECS.length}건 · 내 단어장에서 매 판 새로 구성됩니다`}
+                : cases[0] && cases[0].envelopes.length < MAX_ENVELOPES
+                  ? `사건 ${SPECS.length}건 · 고른 자료에 맞춰 봉투 ${cases[0].envelopes.length}개짜리 사건으로 짜였어요`
+                  : `사건 ${SPECS.length}건 · 내 단어장에서 매 판 새로 구성됩니다`}
             </span>
           </div>
         </main>
@@ -1090,8 +1172,18 @@ export function LexiconDetectiveGame({ wordPool, onExit, onCorrect, onWrong }: P
           )}
         </div>
 
-        {/* 증거 봉투 */}
-        <div className="ld-board" role="group" aria-label="증거 봉투">
+        {/* 증거 봉투 — 열 수는 봉투 수의 함수다(빈 트랙 0). */}
+        <div
+          className="ld-board"
+          role="group"
+          aria-label="증거 봉투"
+          style={
+            {
+              '--ld-cols': String(boardCols(cur.envelopes.length)),
+              '--ld-cols-sm': String(boardColsSm(cur.envelopes.length)),
+            } as CSSProperties
+          }
+        >
           {cur.envelopes.map((w, i) => {
             const isOpen = opened.has(w.en);
             const isUsed = usedEn.has(w.en);
@@ -1256,15 +1348,16 @@ const LD_CSS = `
   .ld-brief { margin: 0; padding: 16px 20px 16px 38px; list-style: decimal; width: min(600px, 94vw); border-radius: 14px; border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 76%, #fff); box-shadow: 0 16px 40px -22px rgba(30,26,14,.6); font-family: var(--font-body, Georgia, serif); font-size: 14px; line-height: 1.85; color: var(--t2); }
   .ld-brief b { font-family: var(--font-display, system-ui); font-weight: 800; color: var(--t1); }
 
-  .ld-board { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; width: min(660px, 96vw); }
-  @media (max-width: 420px) { .ld-board { grid-template-columns: repeat(auto-fill, minmax(74px, 1fr)); gap: 6px; } }
+  /* 열 수·폭 모두 봉투 수의 함수(--ld-cols). auto-fill 은 봉투가 줄면 빈 트랙을 남긴다. */
+  .ld-board { display: grid; grid-template-columns: repeat(var(--ld-cols, 4), minmax(0, 1fr)); gap: 8px; width: min(660px, max(320px, calc(var(--ld-cols, 4) * 108px)), 96vw); }
+  @media (max-width: 420px) { .ld-board { grid-template-columns: repeat(var(--ld-cols-sm, 4), minmax(0, 1fr)); gap: 6px; width: 96vw; } }
   .ld-env { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 58px; padding: 8px 5px; border-radius: 10px; border: 1.5px solid var(--bd); background: color-mix(in srgb, var(--bg) 62%, transparent); color: var(--t2); cursor: pointer; transition: transform .12s var(--ease-spring), border-color .15s, background .15s, box-shadow .15s, opacity .2s; text-align: center; }
   .ld-env:hover:not([aria-disabled="true"]) { transform: translateY(-2px); border-color: var(--active); color: var(--t1); }
   .ld-env:active:not([aria-disabled="true"]) { transform: translateY(0) scale(.96); }
   .ld-env:focus-visible { outline: none; border-color: var(--active); box-shadow: 0 0 0 3px color-mix(in srgb, var(--active) 28%, transparent); }
   .ld-env-ic { display: inline-flex; color: var(--t3); transition: color .15s; }
   .ld-env--open .ld-env-ic { color: var(--active); }
-  .ld-env-no { font-size: 10.5px; font-weight: 700; color: var(--t3); letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+  .ld-env-no { font-size: 10.5px; font-weight: 700; color: var(--t3); letter-spacing: .01em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
   .ld-env-word { font-family: var(--font-english, system-ui); font-size: 13.5px; font-weight: 800; color: var(--t1); line-height: 1.15; overflow-wrap: anywhere; }
   .ld-env--open { border-color: color-mix(in srgb, var(--active) 48%, var(--bd)); background: color-mix(in srgb, var(--active) 9%, var(--bg)); }
   .ld-env--held { border-color: var(--combo); background: var(--combo); box-shadow: 0 6px 18px color-mix(in srgb, var(--combo) 32%, transparent); }
