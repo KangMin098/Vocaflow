@@ -43,7 +43,10 @@ for (const iss of issues) {
   process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '')
   if (r.status !== 0) {
     // 실패를 DB 에 기록 → 모니터가 "멈춤" 사유를 보여준다(관측의 핵심).
-    const errLine = `${r.stdout || ''}${r.stderr || ''}`.split('\n').reverse().map((l) => l.trim()).find((l) => /실패|없습니다|취득 0|Error|error|Cannot|ENOENT/i.test(l))?.slice(0, 300) || `파이프라인 종료 ${r.status}`
+    // 정보성 사유(접근 제한·없습니다·취득 0 등) 우선, 없으면 일반 래퍼("...실패 (exit N)").
+    const lines = `${r.stdout || ''}${r.stderr || ''}`.split('\n').map((l) => l.trim()).filter(Boolean)
+    const informative = /접근 제한|없습니다|취득 0|페이지 수를 알 수|Cannot|ENOENT|not found/i
+    const errLine = (lines.reverse().find((l) => informative.test(l)) || lines.find((l) => /실패|error/i.test(l)) || `파이프라인 종료 ${r.status}`).slice(0, 300)
     await db.from('pd_comic_issues').update({ last_error: errLine }).eq('source_adapter', iss.source_adapter).eq('source_identifier', iss.source_identifier)
     console.error(`  ✗ 파이프라인 실패 → 기록: ${errLine}`); fail++; continue
   }
