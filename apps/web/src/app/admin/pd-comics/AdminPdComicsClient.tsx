@@ -808,6 +808,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   const [open, setOpen] = useState<string | null>(null)
   const [openLive, setOpenLive] = useState<string | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
+  const [zoom, setZoom] = useState<{ issueId: string; rels: string[]; index: number } | null>(null) // 라이트박스
 
   // 라이브 자동 새로고침 (활성 탭 + LIVE 일 때만 — 드레인 없이도 상태가 갱신됨)
   useEffect(() => {
@@ -820,6 +821,9 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   const drainable = rows.filter((r) => DRAINABLE.has(r.status) && !r.lastError)
   const stuck = rows.filter((r) => r.lastError)
   const runningNow = rows.filter((r) => r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
+  // 관리자 주의 우선순위 정렬: 멈춤(수정 필요) → 방금 진행(관찰) → 진행 대상 → 완료
+  const rank = (r: PdComicAdminRow) => r.lastError ? 0 : (r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS ? 1 : (DRAINABLE.has(r.status) ? 2 : 3))
+  const sortedRows = [...rows].sort((a, b) => rank(a) - rank(b))
 
   const drainOne = async (issueId: string, dryRun: boolean) => {
     setBusy(issueId)
@@ -866,10 +870,11 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
       ) : (
         <ul className="flex flex-col gap-2">
-          {rows.map((r) => {
+          {sortedRows.map((r) => {
             const running = Boolean(r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
             const ocr = (r.qc?.ocr ?? null) as Record<string, unknown> | null
             const tookMs = typeof r.qc?.tookMs === 'number' ? (r.qc.tookMs as number) : null
+            const method = (r.qc?.method ?? null) as { textSource?: string; ocrStrategy?: string; hocrUsed?: boolean; format?: string; restore?: { crop?: boolean; sat?: number; scale?: number } } | null
             return (
               <li key={r.id} className="rounded-[var(--r-lg)] border bg-[var(--bg)] px-4 py-3" style={{ borderColor: r.lastError ? 'var(--error)' : running ? ACCENT : 'var(--bd)' }}>
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -887,6 +892,18 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   {ocr && <span className="text-[var(--t3)]">OCR {Object.entries(ocr).slice(0, 3).map(([k, v]) => `${k}:${v !== null && typeof v === 'object' ? '…' : String(v)}`).join(' · ')}</span>}
                   <span className="text-[var(--t3)]">PD {r.pdBasis ?? '미기재'}</span>
                 </div>
+                {/* 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단). 텍스트 소스(hOCR vs 이미지 OCR)·형식·복원 프로파일 */}
+                {method && (
+                  <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                    <span className="font-display text-[10px] font-[700] text-[var(--t3)]">작업 방식</span>
+                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: method.hocrUsed ? 'var(--success)' : ACCENT, background: method.hocrUsed ? 'var(--success-light)' : `${ACCENT}1a` }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 품질 높음' : '이미지 스캔뿐이라 tesseract 로 OCR — 오탈자·파편 가능'}>
+                      {method.textSource ?? (method.hocrUsed ? 'hOCR' : 'tesseract OCR')}
+                    </span>
+                    {method.format && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">형식 {method.format}</span>}
+                    {method.ocrStrategy && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">전략 {method.ocrStrategy}</span>}
+                    {method.restore && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">복원 crop:{String(method.restore.crop)} ·sat{method.restore.sat} ·x{method.restore.scale}</span>}
+                  </div>
+                )}
                 {r.lastError && <p className="mt-1.5 rounded-[var(--r-sm)] bg-[var(--error-light)] px-2.5 py-1.5 font-mono text-[11px] text-[var(--error)]">멈춤: {r.lastError.slice(0, 220)}</p>}
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
@@ -894,20 +911,52 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
                   <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
                 </div>
-                {openLive === r.id && <LiveProgress issueId={r.id} />}
+                {openLive === r.id && <LiveProgress issueId={r.id} onZoom={(rels, index) => setZoom({ issueId: r.id, rels, index })} />}
                 {open === r.id && <PanelDrill issueId={r.id} />}
               </li>
             )
           })}
         </ul>
       )}
+      {zoom && <Lightbox issueId={zoom.issueId} rels={zoom.rels} index={zoom.index} onIndex={(i) => setZoom((z) => (z ? { ...z, index: i } : z))} onClose={() => setZoom(null)} />}
+    </div>
+  )
+}
+
+// 라이트박스 — 중간 결과 이미지를 크게 보기(썸네일이 작아 세부 확인 불가). ←/→ 이동 · Esc/배경 닫기.
+function Lightbox({ issueId, rels, index, onIndex, onClose }: { issueId: string; rels: string[]; index: number; onIndex: (i: number) => void; onClose: () => void }) {
+  const clamp = (i: number) => Math.max(0, Math.min(rels.length - 1, i))
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      else if (e.key === 'ArrowLeft') onIndex(clamp(index - 1))
+      else if (e.key === 'ArrowRight') onIndex(clamp(index + 1))
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, rels.length])
+  const rel = rels[index]
+  return (
+    <div role="dialog" aria-modal="true" aria-label="이미지 크게 보기" onClick={onClose}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 p-6" style={{ background: 'rgba(0,0,0,0.82)' }}>
+      <div className="flex w-full max-w-[1100px] items-center justify-between font-mono text-[12px] text-white/80" onClick={(e) => e.stopPropagation()}>
+        <span>{rel} · {index + 1}/{rels.length}</span>
+        <button type="button" onClick={onClose} className="rounded-[var(--r-full)] border border-white/30 px-3 py-1 font-display text-[12px] font-[700] text-white hover:bg-white/10">닫기 ✕</button>
+      </div>
+      <div className="flex max-h-[78vh] w-full max-w-[1100px] items-center justify-center gap-3" onClick={(e) => e.stopPropagation()}>
+        <button type="button" onClick={() => onIndex(clamp(index - 1))} disabled={index <= 0} className="min-h-11 min-w-11 rounded-[var(--r-full)] border border-white/30 text-[18px] text-white disabled:opacity-30 hover:bg-white/10" aria-label="이전">‹</button>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(rel)}`} alt={rel} className="max-h-[78vh] max-w-full rounded-[var(--r-md)] object-contain" style={{ background: '#fff' }} />
+        <button type="button" onClick={() => onIndex(clamp(index + 1))} disabled={index >= rels.length - 1} className="min-h-11 min-w-11 rounded-[var(--r-full)] border border-white/30 text-[18px] text-white disabled:opacity-30 hover:bg-white/10" aria-label="다음">›</button>
+      </div>
     </div>
   )
 }
 
 // 라이브 진행 — 어디 콘텐츠의 몇 번째 아이템이 진행 중인지(진행율) + 중간 결과 이미지(원본/복원/컷)를 수시 폴링.
 interface Prog { stage?: string; current?: string; done?: number; total?: number; pct?: number }
-function LiveProgress({ issueId }: { issueId: string }) {
+function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: string[], index: number) => void }) {
   const [data, setData] = useState<{ workDir?: boolean; status?: string | null; panelsTotal?: number | null; progress?: Prog | null; artifacts?: Record<string, string[]> } | null>(null)
   const [err, setErr] = useState<string | null>(null)
   useEffect(() => {
@@ -941,13 +990,16 @@ function LiveProgress({ issueId }: { issueId: string }) {
       {KINDS.map(([kind, label]) => {
         const files = data.artifacts?.[kind] ?? []
         if (!files.length) return null
+        const rels = files.map((f) => `${kind}/${f}`)
         return (
           <div key={kind} className="mb-2">
-            <p className="mb-1 font-mono text-[10.5px] text-[var(--t3)]">{label} {files.length}장</p>
+            <p className="mb-1 font-mono text-[10.5px] text-[var(--t3)]">{label} {files.length}장 · 클릭하면 크게</p>
             <div className="flex gap-1.5 overflow-x-auto pb-1">
-              {files.slice(0, 30).map((f) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={f} src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(`${kind}/${f}`)}`} alt={f} loading="lazy" title={f} className="h-24 w-auto shrink-0 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] object-contain" />
+              {files.slice(0, 30).map((f, idx) => (
+                <button key={f} type="button" onClick={() => onZoom(rels, idx)} title={`${f} — 크게 보기`} className="shrink-0 cursor-zoom-in overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] transition-shadow hover:shadow-[0_0_0_2px_var(--p)]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(rels[idx])}`} alt={f} loading="lazy" className="h-28 w-auto object-contain" />
+                </button>
               ))}
             </div>
           </div>

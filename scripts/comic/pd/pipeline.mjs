@@ -275,8 +275,21 @@ async function main() {
     qcSummary(root)
     if (rec) {
       const bl = readJson(path.join(root, 'bubbles.local.manifest.json'))
-      await rec.stage(issueId, 'ocr', { qc: { ocr: bl?.stats ?? null, lastStage: 'ocr' } })
-      console.log('  📡 기록 완료 — /admin/pd-comics 테스트·모니터 탭에서 상태·QC·컷 콘텐츠 확인')
+      // 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단 근거): 원본에 텍스트/hOCR 있어 추출했는가 vs 이미지 OCR.
+      const hocrUsed = fs.existsSync(path.join(root, 'ocr', 'source.hocr'))
+      let format = null
+      try { format = [...new Set(fs.readdirSync(path.join(root, 'pages')).map((f) => path.extname(f).toLowerCase()).filter(Boolean))].join('/') || null } catch { /* noop */ }
+      const method = {
+        adapter: args.source,
+        ocrStrategy: p.ocrStrategy,
+        hocrUsed,
+        textSource: hocrUsed ? 'hOCR (원본 텍스트/OCR 레이어 추출)' : 'tesseract (이미지 스캔 OCR)',
+        format,
+        restore: { crop: p.needsCrop, sat: p.saturation, scale: p.upscale },
+        segment: { analysis: p.segmentAnalysis, dilate: p.segmentDilate },
+      }
+      await rec.stage(issueId, 'ocr', { qc: { ocr: bl?.stats ?? null, lastStage: 'ocr', method } })
+      console.log('  📡 기록 완료 — /admin/pd-comics 테스트·모니터 탭에서 상태·QC·작업방식·중간이미지 확인')
     }
   } finally {
     if (isTest && !args.keep) {

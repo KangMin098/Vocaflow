@@ -86,23 +86,27 @@ test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
 
     // 사이드바 루트는 <aside aria-label="주 메뉴"> → 암묵 role 은 complementary(navigation 아님)
     const sidebar = page.getByRole('complementary', { name: '주 메뉴' });
-    const comicMenu = sidebar.getByRole('link', { name: /^만화/ });
+    // 사이드바 라벨은 자주 바뀐다(만화 → Comics → Book Comics) → href 로 고정
+    const comicMenu = sidebar.locator('a[href^="/comics"]').first();
     await expect(comicMenu).toBeVisible({ timeout: 15_000 });
 
     await comicMenu.click();
     // /comics 는 첫 탭(Adapted)으로 리다이렉트 — /library 와 같은 패턴
     await page.waitForURL(/\/comics\/adapted$/, { timeout: 20_000 });
-    await expect(page.getByRole('heading', { name: '만화', level: 1 })).toBeVisible({
+    // 제목도 라벨이라 바뀐다(만화 → 책 만화) — 두 종류를 구분하려고 붙인 수식어까지
+    // 깨지지 않도록 부분일치로 단언한다.
+    await expect(page.getByRole('heading', { name: /만화/, level: 1 })).toBeVisible({
       timeout: 15_000,
     });
 
-    // 메뉴 하나(Comics) 안에서 출처로 나뉜다 — Adapted(도서 각색) · Restored(원본 복원)
+    // 메뉴 하나(Comics) 안에서 출처로 나뉜다 — 도서 각색 / 원본 복원.
+    // ⚠️ 라벨은 바뀔 수 있으므로(2026-08-09 Adapted→Book Comics) **href 로** 단언한다.
     const comicTabs = page.getByRole('tablist', { name: '만화 탭' });
-    await expect(comicTabs.getByRole('tab', { name: /Adapted/ })).toHaveAttribute(
+    await expect(comicTabs.locator('a[href="/comics/adapted"]')).toHaveAttribute(
       'aria-selected',
       'true',
     );
-    await expect(comicTabs.getByRole('tab', { name: /Restored/ })).toBeVisible();
+    await expect(comicTabs.locator('a[href="/comics/restored"]')).toBeVisible();
 
     // ② 카탈로그
     const all = page.getByRole('region', { name: '전체 만화' });

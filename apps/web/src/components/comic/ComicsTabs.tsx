@@ -1,15 +1,18 @@
 // apps/web/src/components/comic/ComicsTabs.tsx
 //
-// /comics 하위 2탭 — Adapted(도서 각색) / Restored(원본 복원).
+// /comics 하위 2탭.
 //
-// 두 만화는 **출처가 다르다**:
-//   · Adapted  — 우리가 가진 원서를 모델로 각색해 그린 만화 (CCP). 원작 텍스트가 정본이고 만화는 그 표현형.
-//   · Restored — 저작권 만료 만화 원본을 수집해 디지털 복원·현대화한 것 (PDCP). 원작이 만화 자체다.
-// 학습자에겐 둘 다 "만화"이므로 메뉴는 하나(Comics)로 두고, 안에서 출처로 나눈다(사용자 결정 2026-08-09).
+// 라벨을 Adapted / Restored 에서 바꾼 이유 (2026-08-09):
+//   그 둘은 **우리 파이프라인 용어**였다 — 원작에 무슨 처리를 했는지를 말할 뿐,
+//   학습자가 "무엇을 읽게 되는지"는 하나도 알려주지 않는다. 각색·복원은 우리 사정이고
+//   학습자에게는 *읽는 책의 만화판*인지 *진짜 옛 영어 만화책*인지가 유일하게 중요한 차이다.
 //
-// 라벨을 과거분사 쌍(Adapted/Restored)으로 맞춘 이유: 기술(AI/스캔)이 아니라 **원작에 무슨 일이 있었는지**를
-// 말하는 이름이라 오래 간다. "AI 만화"는 기술이 바뀌면 낡고, 학습자에게 품질 신호도 주지 못한다.
+// 지금 이름은 **읽을 거리 자체**를 가리킨다:
+//   · Book Comics    — 라이브러리 도서를 만화로 (CCP). 원문·퀴즈와 이어진다.
+//   · Vintage Comics — 1940~50년대 실제 영어 만화책 (PDCP). 만화 자체가 원작.
+//
 // LibraryTabs 와 동일한 탭 패턴(role=tablist + aria-selected + 44px) — 학습자가 이미 아는 구조.
+// URL 슬러그(adapted/restored)는 그대로 둔다 — 화면 문구가 아니고, 지금 바꾸면 다른 작업과 충돌한다.
 
 'use client'
 
@@ -18,8 +21,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const TABS = [
-  { label: 'Adapted', ko: '도서 각색', href: '/comics/adapted', icon: BookImage },
-  { label: 'Restored', ko: '원본 복원', href: '/comics/restored', icon: ScanLine },
+  { label: 'Book Comics', ko: '읽는 책을 만화로', href: '/comics/adapted', icon: BookImage },
+  { label: 'Vintage Comics', ko: '옛 영어 만화책', href: '/comics/restored', icon: ScanLine },
 ] as const
 
 export function ComicsTabs() {
@@ -40,7 +43,7 @@ export function ComicsTabs() {
             href={tab.href}
             role="tab"
             aria-selected={isActive}
-            aria-label={`${tab.label} — ${tab.ko} 만화`}
+            aria-label={`${tab.label} — ${tab.ko}`}
             className={`flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-1 ${
               isActive
                 ? 'border-[var(--active)] text-[var(--t1)]'

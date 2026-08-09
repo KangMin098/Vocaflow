@@ -142,7 +142,7 @@ export default async function LibraryComicsPage() {
               <BookImage size={16} />
             </span>
             <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              만화
+              책 만화
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">

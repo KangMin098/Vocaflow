@@ -23,6 +23,7 @@ import {
   Layers,
   Mic2,
   Pencil,
+  ScanLine,
   ScrollText,
   Settings,
   Shuffle,
@@ -63,24 +64,36 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Compass,
         ariaLabel: '공용 콘텐츠 라이브러리',
       },
-      // Comics — 만화 단일 메뉴(사용자 결정 2026-08-09). /library 하위 탭이 아니라 최상위.
-      //   메뉴 안에서 **출처**로 나뉜다: Adapted(도서 각색 · CCP) · Restored(원본 복원 · PDCP).
-      //   학습자에겐 둘 다 "만화"이므로 입구를 둘로 쪼개지 않는다.
-      //   데이터는 각자 유지(CCP=library_books 앵커 / PDCP=호 단위 독립).
-      {
-        label: 'Comics',
-        href: '/comics',
-        icon: BookImage,
-        ariaLabel: '만화 — 도서 각색(Adapted) · 원본 복원(Restored)',
-      },
       {
         label: 'My Scripts',
         href: '/text',
         icon: BookOpen,
         ariaLabel: '내가 등록한 스크립트',
       },
-      // PDCP(복원 만화)는 사이드바 최상위 항목에서 제거됐다 — Comics 메뉴 안의 'Restored' 탭
-      // (`/comics/restored`)으로 편입(사용자 결정 2026-08-09). 만화 입구는 하나여야 한다.
+    ],
+  },
+  // Comics — Scripts 에서 빼내 **바로 아래 별도 메뉴**로 (사용자 결정 2026-08-09).
+  //   Scripts 는 "읽을 원문"의 그룹이다. 만화는 원문이 아니라 **읽는 방식**이라
+  //   그 안에 두면 Library·My Scripts 와 같은 층위로 오해된다.
+  //   flowStage 를 'script' 로 남긴 이유: 학습 흐름상 여전히 읽기 단계이고,
+  //   FlowNav 는 NAV_GROUPS 를 쓰지 않으므로 단계가 늘어나지 않는다.
+  {
+    label: 'Comics',
+    accent: '#8B5CF6',
+    flowStage: 'script',
+    items: [
+      {
+        label: 'Book Comics',
+        href: '/comics/adapted',
+        icon: BookImage,
+        ariaLabel: 'Book Comics — 읽는 책을 만화로',
+      },
+      {
+        label: 'Vintage Comics',
+        href: '/comics/restored',
+        icon: ScanLine,
+        ariaLabel: 'Vintage Comics — 1940~50년대 옛 영어 만화책',
+      },
     ],
   },
   {

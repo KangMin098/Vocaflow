@@ -31,10 +31,10 @@ export default async function PdComicsPage() {
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header>
           <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--active-ink)]">
-            Restored Comics
+            Vintage Comics
           </p>
           <h1 className="mt-1 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">
-            복원 만화
+            옛 영어 만화책
           </h1>
           <p className="mt-2 max-w-[60ch] font-body text-[14px] leading-relaxed text-[var(--t2)]">
             저작권이 만료된 1940~50년대 만화를 디지털 복원했습니다. 종이 변색과 인쇄 망점을 걷어내고
@@ -65,7 +65,7 @@ export default async function PdComicsPage() {
                         className="h-full w-full object-cover"
                       />
                     ) : (
-                      <span className="flex h-full items-center justify-center font-mono text-[11px] text-[var(--t4)]">
+                      <span className="flex h-full items-center justify-center font-mono text-[11px] text-[var(--t2)]">
                         no cover
                       </span>
                     )}
@@ -78,7 +78,7 @@ export default async function PdComicsPage() {
                   </div>
                   <div className="flex flex-1 flex-col gap-1 px-3 py-2.5">
                     {it.seriesTitle && (
-                      <p className="truncate font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+                      <p className="truncate font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                         {it.seriesTitle}
                         {it.issueNo != null && ` #${it.issueNo}`}
                       </p>
@@ -86,7 +86,7 @@ export default async function PdComicsPage() {
                     <h2 className="line-clamp-2 font-display text-[14px] font-[700] leading-snug text-[var(--t1)]">
                       {it.title}
                     </h2>
-                    <p className="mt-auto font-mono text-[11px] tabular-nums text-[var(--t3)]">
+                    <p className="mt-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
                       {it.panelsTotal}컷
                     </p>
                   </div>

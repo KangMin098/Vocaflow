@@ -10,6 +10,78 @@
 
 ## Unreleased (v06.34 → next)
 
+### 만화 탭 이름을 학습자 말로 · Comics 를 별도 메뉴로
+
+`Adapted / 도서 각색`, `Restored / 원본 복원` 은 **우리 파이프라인 용어**였다. 원작에 무슨 처리를
+했는지를 말할 뿐, 학습자가 *무엇을 읽게 되는지*는 하나도 알려주지 않는다. 각색·복원은 우리 사정이다.
+
+| 이전 | 지금 | 학습자에게 |
+|---|---|---|
+| Adapted · 도서 각색 | **Book Comics** · 읽는 책을 만화로 | 라이브러리 도서의 만화판 — 원문·퀴즈와 이어진다 |
+| Restored · 원본 복원 | **Vintage Comics** · 옛 영어 만화책 | 1940~50년대 실제 영어 만화책 |
+
+- `/comics/restored` 페이지 제목도 `복원 만화` → `옛 영어 만화책`, `/comics/adapted` 는 `만화` → `책 만화`
+  (탭이 둘인데 제목이 그냥 "만화"면 어느 쪽인지 알 수 없다).
+- **Comics 를 Scripts 그룹에서 빼 바로 아래 별도 메뉴로.** Scripts 는 "읽을 원문"의 그룹인데
+  만화는 원문이 아니라 **읽는 방식**이라, 그 안에 두면 Library·My Scripts 와 같은 층위로 오해된다.
+  메뉴 안에 두 종류를 그대로 노출한다 — 사이드바에서 바로 고를 수 있다.
+- URL 슬러그(`adapted`/`restored`)는 그대로 뒀다 — 화면 문구가 아니고, 참조가 67곳이라 지금 바꾸면
+  진행 중인 다른 작업과 충돌한다. 이름 정합을 원하면 리다이렉트와 함께 별도로 처리할 일이다.
+- `Sidebar` 의 React key 가 `flowStage` 였는데 Comics 가 `script` 를 공유하게 되어 중복 → `label` 로 교체.
+- 스펙: 사이드바·탭 단언은 이미 href 기반이라 그대로 통과. 제목 단언 하나만 부분일치로 완화.
+
+
+### 아케이드 v07.8 — 19종 전수 재설계 + 도서·스크립트·단어장 연계 (마이그레이션 1건)
+
+**마이그레이션 [20260809120000_add_remaining_arcade_module_ids.sql](../supabase/migrations/20260809120000_add_remaining_arcade_module_ids.sql) — 2026-08-09 사용자 승인 후 dev 적용 완료.** enum 조회로 `pirate-quest` 확인.
+
+#### 발단 — 재미 감사에서 제품 유효성 결함이 나왔다
+
+19게임을 10축 루브릭으로 전수 감사(게임당 1에이전트 병렬). 평균이 **tensionCurve 1.42/5 · decisions 1.47 · streakHook 1.79 · learningIntegrity 1.95**.
+
+가장 중요한 발견은 재미가 아니었다 — **게임 7종 이상이 영어를 한 글자도 몰라도 이길 수 있었고**, 그 결과가 FSRS 로 "학습했다"고 기록됐다. `pirate-quest` 는 정답 라벨이 **그 뜻을 그대로 조형한 GLB 위**에 붙어 있었고, `connections` 는 타일에 한글 뜻이 상시 노출돼 "한글 명사 분류"였으며, `morphmerge` 는 부분 선택 시 "(2/5)" 로 정답 개수를 알려줘 **무위험 브루트포스가 최적 전략**이었다.
+
+#### DB 실측 — 큐레이션 계열 10종은 학습 기록이 구조적으로 불가능했다
+
+`learning_records` 조회 결과 connections · glyph-tongue · letter-forge · lexicon-* · morpheme-rules · silent-rule · word-orrery · wordsmith-vigil · pirate-quest 가 **0건**. 원인은 enum 이 아니라 `recordGameResult` 가 **사용자 `vocabularies` 에 없는 단어를 silent skip** 하는 것 — 내장 뱅크로만 도는 게임은 아무리 플레이해도 FSRS·XP·점수가 남지 않는다. **wordPool 을 쓰는 것이 곧 학습 연계**라는 사실이 여기서 확정됐다.
+
+#### 공유 킷 선행 확장 (게임별 구현보다 먼저)
+
+감사 19건 중 13건이 독립적으로 같은 훅을 요청했다. 19개 에이전트가 각자 만들면 19개의 다른 구현이 남으므로 먼저 놓았다.
+- `mechanics.tsx` 신설 — `useCountdown`(벽시계 · `extend`/`drain` 1급 · 가산 75% 상한으로 세션 길이 보호) · `useCombo`(티어·마일스톤·끊김) · `useFlipGrid`(보드 재배치 FLIP — 타일이 순간이동하던 문제) · `usePersonalBest`
+- `gamekit` — **`FeedbackIcon`**(CLAUDE.md 가 요구하는 색+아이콘+모션 3중 피드백인데 **킷에 아이콘 축이 없어 19게임이 전부 2축만** 쓰고 있었다) · `TimerBar` · `LifePips`(채움/빔 이중 인코딩) · `Hud lives/comboMult` · `ParticleBurst colors` · `useSfx.nearMiss` · `GameDone best/badge/restartHint/reveal/footer`
+- **결함 수정 ①** `GK_CSS` 에 `data-theme` 분기가 0줄 — 다크에서 게임이 하드코딩한 밝은 그라디언트 위에 밝은 텍스트(`--t1`)를 그렸다. 19게임 색 인자를 고치는 대신 색조는 유지하고 명도만 `--bg` 로 끌어내리는 규칙을 중앙에 추가.
+- **결함 수정 ②** 리빌 시 `disabled` 를 걸어 키보드 포커스가 날아가던 문제 → `.gk-tile[aria-disabled]` 패턴.
+
+#### 19종 재설계 (3웨이브 병렬 · 총 +22,000줄)
+
+- **웨이브1(최하위 7종)** — pirate-quest 는 라벨↔모델 결합을 끊고 훑기(영단어만)→회수(뜻만) 2단 페이즈로 분리해 제출 순간 정답 단서를 0으로 만들었다. **마지막 한 자리는 묻지 않는다**(소거법 정답이 FSRS 를 오염시키는 경로 차단). glyph-tongue 은 등불 150초 단일 자원 + 묶음 봉인 배수 + 상시 미끼로 "마지막 룬 = 공짜" 제거.
+- **웨이브2(중위 6종)** — connections 는 타일에서 영단어를 지우고 규칙을 **숨겨진 영단어의 형태**(끝 글자·접사·길이·품사)로 옮겨, 뜻→영단어 인출 없이는 규칙이 보이지 않게 했다. 절차 생성기에 불변식 3종(정답 분할 유일성)을 코드로 강제하고 1,200격자 × 3풀 실측 위반 0. daily-blitz 는 `page.tsx` 가 **`wordPool` 을 아예 안 넘기고 있었다**(FSRS 0건의 직접 원인).
+- **웨이브3(나머지 6종)** — blitz 계열 4종이 완전히 같은 루프였던 문제에 대해 각 모드의 동기 장치를 극단으로 밀어 차별화. ghost-race 는 자기파괴적 래칫(이길수록 유령이 영구히 빨라져 12초 하한에 갇힘)을 티어 하한·연패 완화·상한을 가진 적응형 라이벌로 교체하고, 시간이 아니라 **거리**를 화폐로 쓰는 3랩 추격전이 됐다.
+
+#### 도서 · 스크립트 · 공용 단어장 연계 — 끊긴 세 곳
+
+배관(`?set=`/`?text=` → `useGameWordScope`)은 있었는데:
+- **허브가 스코프를 버렸다** — 카드가 `gamePlayHref(slug,{from:'/arcade'})` 하드코딩이라 `?set=` 을 달고 와도 게임 진입 순간 증발. 이제 `searchParams` 를 읽어 19종 카드·오늘의 추천·계열 모드칩 전부에 싣고 `from` 도 스코프를 유지한다(게임에서 나가도 같은 자료로 이어감). 자료명 배너 + 해제 링크.
+- **도서/공용단어장 모달이 4개 게임만** 제공 → `VocabSetPreviewModal` 에 "🕹 아케이드 19종" 칩. 이 모달을 도서 상세·단어장 목록·`/wordvault` 세 화면이 공유하므로 한 줄로 세 진입면이 열렸다. 이 칩들의 24px 터치 타겟도 44px 로 교정(CLAUDE.md 위반이었다).
+- **스크립트 화면도 둘뿐** → `ModePills` 에 '아케이드' pill 정식 추가(`ModeKey` 확장).
+
+카탈로그 정합 — 19종 전부 `source:'mine'` + 라우트 실값 `minWords`. `pirate-quest` 는 `ArcadeGameId`·`ModuleId`·`ScoreModule` 편입 + `GamePlayScaffold` 전환으로 **처음으로 FSRS·scores 가 남는다**(DB enum 이 `pirate_quest` 언더스코어라 하이픈 insert 가 조용히 실패하던 경로 — 사용 행 0건 확인 후 하이픈 추가).
+
+#### ⚠️ 허브 분류축 교체 — `source` 축이 죽었다
+
+전 게임이 학습자 단어를 쓰게 되면서 `mine`/`bank` 축이 한쪽으로 몰려 무의미해졌다. 그대로 두면 **"큐레이션 세계" 섹션이 빈 채로 남고**, 더 심각하게 `pickDailyGame` 이 `vocabCount < 6 ? BANK_GAMES : …` 로 갈리므로 후보 0개 → `from[NaN]` → `undefined` 로 **단어 6개 미만 학습자의 `/arcade` 가 통째로 크래시**한다.
+
+새 축은 **학습 동사**(L계층 진행과 같은 순서): `빠르게 떠올리기(6)` · `직접 만들어 내기(6)` · `읽고 추론하기(7)`. `HUB_TRACKS` + `trackOf()` 로 카탈로그에 명시(문자열 파싱 금지 — 오분류가 조용히 생기지 않게). `pickDailyGame` 은 분기를 없애고 후보가 비면 전체 카탈로그로 되돌아가도록 방어.
+
+#### 검증
+
+- **신규 spec [13-arcade-integrity.spec.ts](../apps/web/tests/e2e/13-arcade-integrity.spec.ts)** — 기존 07 은 "마운트 + 첫 입력 + 콘솔에러 0"만 봐서 **게임이 wordPool 을 통째로 무시해도 초록불**이었다. 이제 ⓐ **19종 전부가 `?set=` 자료를 실제로 싣는지**(세션 셸 `aria-label` 로 판정 · **맛보기 degrade 를 실패로 잡는다**) ⓑ 허브가 모든 카드에 스코프를 전달하는지 ⓒ 스크립트 화면 진입문. **A·B·C 전부 pass**(A2 는 storage-state 경합 flake, 재시도 통과).
+- 유닛 [catalog.test.ts](../apps/web/src/lib/game/__tests__/catalog.test.ts) 40/40 — 트랙 분류 전수 커버·빈 트랙 금지·`pickDailyGame` 크래시 회귀 추가.
+- `tsc --noEmit` 클린.
+- ⚠️ 09-arcade-access B3 재작성 — 'bank 게임 = 큐레이션 세계' 단언이 죽었다. 새 계약은 **"조용히 degrade 하지 않는다"**(맛보기는 FSRS 에 안 남으므로 기록되는 플레이로 오인하면 진도를 착각한다).
+- ⚠️ 테스트 함정: 사이드바에도 "아케이드" 링크가 있어 `getByRole('link', {name:/아케이드/})` 는 ModePills 안으로 한정해야 한다.
+
 ### 🔒 public 스키마 노출 정리 — anon 키로 사전을 고칠 수 있던 상태 (마이그레이션 `harden_public_reference_tables_and_drop_scratch`)
 
 MCP 로 권한을 직접 조회하다 발견. **advisor 가 WARN 으로 조용히 세던 것의 실체가 이거였다.**

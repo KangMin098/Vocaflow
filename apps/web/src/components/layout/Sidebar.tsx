@@ -1,7 +1,7 @@
 // apps/web/src/components/layout/Sidebar.tsx
 //
 // 5 그룹 IA — sidebar-config.ts 기반 (CLAUDE.md §17.10 IA 정합).
-// 구성: [Header(로고+토글)] [Streak 미니카드] [META] [divider] [NAV_GROUPS×5] [divider] [FOOTER]
+// 구성: [Header(로고+토글)] [Streak 미니카드] [META] [divider] [NAV_GROUPS] [divider] [FOOTER]
 // 햄버거로 240px ↔ 72px 축소/확대, localStorage 유지.
 
 'use client'
@@ -123,7 +123,7 @@ export function Sidebar({ streak }: SidebarProps) {
                 className="text-[var(--active)]"
                 aria-hidden="true"
               />
-              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
                 Streak
               </span>
             </div>
@@ -146,11 +146,13 @@ export function Sidebar({ streak }: SidebarProps) {
         {/* divider */}
         <div className="my-4 border-t border-[var(--bd)]" aria-hidden="true" />
 
-        {/* NAV_GROUPS — 5 그룹 (FlowNav 1:1 매핑) */}
+        {/* NAV_GROUPS — 학습 흐름 5그룹 + Comics(Scripts 아래 별도 메뉴) */}
         <div className="space-y-6">
           {NAV_GROUPS.map((group) => (
             <NavGroupBlock
-              key={group.flowStage}
+              // flowStage 는 더 이상 고유하지 않다 — Comics 그룹이 Scripts 와 같은
+              // 'script' 단계를 공유한다(읽기 단계이되 별도 메뉴). 라벨이 고유 키다.
+              key={group.label}
               group={group}
               pathname={pathname}
               collapsed={collapsed}
@@ -189,7 +191,7 @@ function NavGroupBlock({ group, pathname, collapsed }: NavGroupBlockProps) {
             style={{ backgroundColor: group.accent }}
             aria-hidden="true"
           />
-          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             {group.label}
           </span>
           <span
@@ -252,7 +254,7 @@ function NavLinkItem({ item, pathname, collapsed, accent }: NavLinkItemProps) {
         } ${
           isActive
             ? 'font-[600] text-[var(--t1)]'
-            : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
+            : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
         }`}
         style={isActive ? { backgroundColor: activeBg } : undefined}
       >
@@ -281,7 +283,7 @@ function NavLinkItem({ item, pathname, collapsed, accent }: NavLinkItemProps) {
             strokeWidth={1.75}
             aria-hidden="true"
             className={`transition-colors duration-[var(--dur-normal)] ${
-              isActive ? '' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+              isActive ? '' : 'text-[var(--t2)] group-hover:text-[var(--t2)]'
             }`}
             style={isActive ? { color: accentColor } : undefined}
           />
