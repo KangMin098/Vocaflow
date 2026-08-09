@@ -59,9 +59,9 @@ export function LibraryCard({ text }: LibraryCardProps) {
         <h3 className="line-clamp-2 font-english text-[15px] font-[600] leading-tight text-[var(--t1)]">
           {text.title}
         </h3>
-        <p className="truncate font-body text-[12px] font-[500] text-[var(--t3)]">{text.author}</p>
+        <p className="truncate font-body text-[12px] font-[500] text-[var(--t2)]">{text.author}</p>
 
-        <div className="mt-1.5 flex items-center justify-between font-body text-[11px] text-[var(--t3)]">
+        <div className="mt-1.5 flex items-center justify-between font-body text-[11px] text-[var(--t2)]">
           <span>{text.wordCount}단어</span>
           <span className="font-display font-[700] tabular-nums" style={{ color: progressColor }}>
             {progressLabel}

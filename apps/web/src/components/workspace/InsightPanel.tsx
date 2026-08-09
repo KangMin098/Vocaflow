@@ -91,13 +91,13 @@ export function InsightPanel({
 
           {/* Bookmarks */}
           <section className="mb-8">
-            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               <Bookmark size={11} fill="currentColor" strokeWidth={0} aria-hidden="true" />
               북마크 ({bookmarks.length})
             </h3>
 
             {bookmarks.length === 0 ? (
-              <p className="px-3 py-6 text-center font-body text-[12px] italic text-[var(--t3)]">
+              <p className="px-3 py-6 text-center font-body text-[12px] italic text-[var(--t2)]">
                 북마크가 없어요. B 키로 추가할 수 있어요.
               </p>
             ) : (
@@ -114,7 +114,7 @@ export function InsightPanel({
                       <span className="line-clamp-2 block font-english text-[13px] italic leading-snug text-[var(--t1)]">
                         &ldquo;{b.text}&rdquo;
                       </span>
-                      <span className="mt-0.5 block font-body text-[11px] text-[var(--t3)]">
+                      <span className="mt-0.5 block font-body text-[11px] text-[var(--t2)]">
                         Page {b.page} · {b.addedAt}
                       </span>
                     </span>
@@ -126,7 +126,7 @@ export function InsightPanel({
 
           {/* Memory Decay */}
           <section>
-            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               <Layers size={11} strokeWidth={2} aria-hidden="true" />
               기억 상태
             </h3>
@@ -186,13 +186,13 @@ function DecayCard({ color, label, count, hint, hasGlow, hasPulse }: DecayCardPr
         }}
         aria-hidden="true"
       />
-      <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
       <p className="mb-0.5 font-display text-[22px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {count}
       </p>
-      <p className="font-body text-[11px] text-[var(--t3)]">{hint}</p>
+      <p className="font-body text-[11px] text-[var(--t2)]">{hint}</p>
     </div>
   )
 }

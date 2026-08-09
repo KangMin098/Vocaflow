@@ -24,7 +24,7 @@ export function ScoreCard({ score, feedback, tone }: Props) {
     >
       <div className="flex items-baseline justify-between gap-4">
         <div className="flex flex-col">
-          <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             overall
           </span>
           <span
@@ -32,7 +32,7 @@ export function ScoreCard({ score, feedback, tone }: Props) {
             style={{ color: TONE_COLOR[tone] }}
           >
             {score.overall}
-            <span className="ml-1 font-display text-[14px] font-[600] text-[var(--t3)]">/100</span>
+            <span className="ml-1 font-display text-[14px] font-[600] text-[var(--t2)]">/100</span>
           </span>
         </div>
         <p
@@ -56,10 +56,10 @@ function Axis({ label, value, weight }: { label: string; value: number; weight: 
   return (
     <div className="flex flex-col gap-1.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
       <div className="flex items-baseline justify-between">
-        <span className="font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
+        <span className="font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t2)]">
           {label}
         </span>
-        <span className="font-mono text-[9px] text-[var(--t4)]">{weight}</span>
+        <span className="font-mono text-[9px] text-[var(--t2)]">{weight}</span>
       </div>
       <span className="font-mono text-[18px] font-[700] tabular-nums text-[var(--t1)]">
         {value}

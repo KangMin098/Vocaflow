@@ -291,7 +291,7 @@ export function WordVaultBrowseClient({
 
             {/* ── 4. 단어 리스트 / 필터 빈 상태 ── */}
             {words.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t3)]">
+              <div className="rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t2)]">
                 이 필터에 해당하는 단어가 없어요
               </div>
             ) : (
@@ -315,11 +315,11 @@ export function WordVaultBrowseClient({
 function EmptyAll() {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-16 text-center">
-      <Layers size={32} className="text-[var(--t3)]" aria-hidden />
+      <Layers size={32} className="text-[var(--t2)]" aria-hidden />
       <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
         아직 보유한 단어가 없어요
       </p>
-      <p className="max-w-[360px] font-body text-[13px] text-[var(--t3)]">
+      <p className="max-w-[360px] font-body text-[13px] text-[var(--t2)]">
         공용 단어장을 추가하거나, 내 스크립트에서 단어를 추출해 보세요.
       </p>
       <div className="mt-2 flex flex-wrap items-center justify-center gap-2">

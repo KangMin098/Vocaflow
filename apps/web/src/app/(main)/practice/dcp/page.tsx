@@ -25,7 +25,7 @@ export default async function DcpPracticePage() {
         <header className="flex flex-col gap-1">
           <Link
             href="/hub"
-            className="inline-flex w-fit items-center gap-1 font-display text-[12px] font-[700] text-[var(--t3)] no-underline transition-colors hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex w-fit items-center gap-1 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <ArrowLeft size={13} strokeWidth={2} aria-hidden />
             오늘

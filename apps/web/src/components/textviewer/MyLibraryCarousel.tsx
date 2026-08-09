@@ -246,7 +246,7 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
               {t.label}
               <span
                 className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
-                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {t.count}
@@ -365,7 +365,7 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
         </>
       ) : (
         <div className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-8 py-12 text-center">
-          <p className="font-body text-[13px] text-[var(--t3)]">
+          <p className="font-body text-[13px] text-[var(--t2)]">
             {tab === 'books'
               ? '아직 라이브러리에 도서가 없어요'
               : tab === 'scripts'
@@ -657,7 +657,7 @@ function HeroInfo({
       <h2 className="line-clamp-2 font-display text-[22px] font-[800] leading-tight tracking-[-0.01em] text-[var(--t1)] md:text-[26px]">
         {title}
       </h2>
-      <p className="font-body text-[13px] text-[var(--t3)]">{subtitle}</p>
+      <p className="font-body text-[13px] text-[var(--t2)]">{subtitle}</p>
       <Link
         href={href}
         className="mt-2 inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"

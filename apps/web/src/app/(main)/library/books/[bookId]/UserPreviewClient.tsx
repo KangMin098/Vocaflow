@@ -88,7 +88,7 @@ export function UserPreviewClient({
           도서로
         </Link>
         {readingMinutes > 0 && (
-          <span className="font-mono text-[11px] text-[var(--t3)]">
+          <span className="font-mono text-[11px] text-[var(--t2)]">
             예상 학습 시간 약 {Math.round(readingMinutes / 60)}시간
           </span>
         )}
@@ -132,7 +132,7 @@ export function UserPreviewClient({
                 <AlertCircle size={12} aria-hidden /> {error}
               </span>
             ) : (
-              <span className="font-body text-[12px] text-[var(--t3)]">
+              <span className="font-body text-[12px] text-[var(--t2)]">
                 내 학습에 추가하면 모든 장을 chapter 단위로 학습할 수 있어요.
               </span>
             )}
@@ -196,11 +196,11 @@ function DifficultyCard({
       className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4"
     >
       <header className="mb-3 flex items-baseline justify-between gap-2">
-        <h2 className="font-display text-[12px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+        <h2 className="font-display text-[12px] font-[700] uppercase tracking-wider text-[var(--t2)]">
           난이도 지수
         </h2>
         <span
-          className="font-mono text-[10px] text-[var(--t3)]"
+          className="font-mono text-[10px] text-[var(--t2)]"
           title="네 가지 지수가 책의 서로 다른 측면을 잡아냅니다."
         >
           4축
@@ -235,7 +235,7 @@ function DifficultyCard({
       </div>
 
       {lemmaCoveragePct != null && (
-        <p className="mt-3 font-body text-[11px] text-[var(--t3)]">
+        <p className="mt-3 font-body text-[11px] text-[var(--t2)]">
           어휘 매칭 {lemmaCoveragePct}% · 외부 표준: CEFR-J Wordlist v1.6 (© Tono Lab, Tokyo University of Foreign Studies)
         </p>
       )}
@@ -254,14 +254,14 @@ function Stat({
 }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="font-display text-[10px] font-[600] uppercase tracking-wide text-[var(--t3)]">
+      <span className="font-display text-[10px] font-[600] uppercase tracking-wide text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[18px] font-[700] tabular-nums text-[var(--t1)]">
         {value}
       </span>
       {sub && (
-        <span className="font-mono text-[10px] text-[var(--t3)]">{sub}</span>
+        <span className="font-mono text-[10px] text-[var(--t2)]">{sub}</span>
       )}
     </div>
   );

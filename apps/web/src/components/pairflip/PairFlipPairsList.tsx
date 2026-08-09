@@ -41,14 +41,14 @@ export function PairFlipPairsList({ pairs }: PairsListProps) {
           >
             학습한 단어
           </h3>
-          <span className="font-mono text-[12px] font-[600] text-[var(--t3)]">
+          <span className="font-mono text-[12px] font-[600] text-[var(--t2)]">
             {pairs.length}쌍
           </span>
         </div>
         <ChevronDown
           size={16}
           aria-hidden
-          className="text-[var(--t3)] transition-transform"
+          className="text-[var(--t2)] transition-transform"
           style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
         />
       </button>
@@ -68,7 +68,7 @@ export function PairFlipPairsList({ pairs }: PairsListProps) {
                   <p className="truncate font-english text-[14px] font-[600] text-[var(--t1)]">
                     {p.word}
                   </p>
-                  <p className="truncate font-body text-[12px] text-[var(--t3)]">
+                  <p className="truncate font-body text-[12px] text-[var(--t2)]">
                     {p.meaning}
                   </p>
                 </div>

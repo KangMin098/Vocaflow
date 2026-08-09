@@ -37,14 +37,14 @@ export function ContinueRow({
     return (
       <div className="flex items-center gap-4 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-5">
         <span
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t3)]"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t2)]"
           aria-hidden
         >
           <Clock3 size={16} />
         </span>
         <div className="min-w-0 flex-1">
           <p className="font-display text-[13px] font-[600] text-[var(--t1)]">{emptyLabel}</p>
-          <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">{emptyHint}</p>
+          <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">{emptyHint}</p>
         </div>
       </div>
     )
@@ -75,18 +75,18 @@ export function ContinueRow({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2">
-            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
               이어하기
             </span>
             {session.hint && (
-              <span className="font-mono text-[10px] text-[var(--t3)]">· {session.hint}</span>
+              <span className="font-mono text-[10px] text-[var(--t2)]">· {session.hint}</span>
             )}
           </div>
           <p className="mt-0.5 truncate font-display text-[15px] font-[700] text-[var(--t1)]">
             {session.title}
           </p>
           {session.subtitle && (
-            <p className="mt-0.5 truncate font-body text-[12px] text-[var(--t3)]">
+            <p className="mt-0.5 truncate font-body text-[12px] text-[var(--t2)]">
               {session.subtitle}
             </p>
           )}

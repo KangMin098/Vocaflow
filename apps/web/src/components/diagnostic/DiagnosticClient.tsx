@@ -455,14 +455,14 @@ export function DiagnosticClient() {
           </span>
           <div className="min-w-0 flex-1">
             <p className="font-display text-[14px] font-[700] text-[var(--t1)]">{goal}</p>
-            <p className="truncate font-body text-[11px] text-[var(--t3)]">
+            <p className="truncate font-body text-[11px] text-[var(--t2)]">
               {p.title} · {t.question_count}문항 · {t.estimated_minutes}분
             </p>
           </div>
           <button
             onClick={() => setInfoTest(t)}
             aria-label={`${goal} 안내`}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <Info size={16} />
           </button>
@@ -499,11 +499,11 @@ export function DiagnosticClient() {
               <button
                 onClick={() => setLevelGuideOpen(true)}
                 aria-label="레벨 안내 보기"
-                className="inline-flex h-5 w-5 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--p)]"
+                className="inline-flex h-5 w-5 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--p)]"
               >
                 <Info size={13} aria-hidden />
               </button>
-              <span className="text-[var(--t3)]">· {relativeTime(lastLevel.when)}</span>
+              <span className="text-[var(--t2)]">· {relativeTime(lastLevel.when)}</span>
             </span>
             <button
               onClick={() => router.push('/diagnostic/history')}
@@ -516,11 +516,11 @@ export function DiagnosticClient() {
 
         {/* 진단 선택 — 추천 기본값 부각(default effect) + 목표 기반 분기(means-end) */}
         {loadingTests ? (
-          <div className="flex items-center gap-2 font-body text-[13px] text-[var(--t3)]">
+          <div className="flex items-center gap-2 font-body text-[13px] text-[var(--t2)]">
             <Loader2 size={14} className="animate-spin" /> 진단 목록 불러오는 중…
           </div>
         ) : tests.length === 0 ? (
-          <p className="font-body text-[13px] text-[var(--t3)]">사용 가능한 진단이 없어요.</p>
+          <p className="font-body text-[13px] text-[var(--t2)]">사용 가능한 진단이 없어요.</p>
         ) : (
           <>
             {primary && renderHero(primary)}
@@ -528,7 +528,7 @@ export function DiagnosticClient() {
             {secondary.length > 0 && (
               <section aria-label="목표별 진단" className="mt-7">
                 <div className="mb-3 flex items-center gap-3">
-                  <span className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+                  <span className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                     또는, 목표가 분명하다면
                   </span>
                   <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
@@ -577,12 +577,12 @@ export function DiagnosticClient() {
               type="button"
               onClick={() => setPhase('start')}
               aria-label="진단 그만두기 — 시작 화면으로"
-              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[12px] font-[600] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             >
               ← 그만두기
             </button>
           </div>
-          <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             <span>
               {currentIdx + 1} / {questions.length}
             </span>
@@ -600,7 +600,7 @@ export function DiagnosticClient() {
           <p className="font-editorial text-[56px] font-[500] leading-tight tracking-[-0.015em] text-[var(--t1)]">
             {q.word}
           </p>
-          <p className="mt-3 font-body text-[12px] text-[var(--t3)]">이 단어의 뜻을 알고 있나요?</p>
+          <p className="mt-3 font-body text-[12px] text-[var(--t2)]">이 단어의 뜻을 알고 있나요?</p>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -698,7 +698,7 @@ export function DiagnosticClient() {
                 {band.description_ko ? ` — ${band.description_ko}` : ''}
               </p>
               {(cefrRange || band.test_score_hints) && (
-                <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+                <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
                   {cefrRange && `CEFR ${cefrRange}`}
                   {cefrRange && band.test_score_hints && ' · '}
                   {band.test_score_hints}
@@ -739,7 +739,7 @@ export function DiagnosticClient() {
                       </span>
                     )}
                   </span>
-                  <span className="mt-0.5 block font-body text-[12px] text-[var(--t3)]">
+                  <span className="mt-0.5 block font-body text-[12px] text-[var(--t2)]">
                     {rec.word_count}개 단어
                   </span>
                 </span>
@@ -787,7 +787,7 @@ export function DiagnosticClient() {
           <h2 className="mb-1 font-display text-[15px] font-[700] text-[var(--t1)]">
             관심 분야가 있나요?
           </h2>
-          <p className="mb-3 font-body text-[12px] text-[var(--t3)]">
+          <p className="mb-3 font-body text-[12px] text-[var(--t2)]">
             선택하면 관련 단어장을 함께 추천해드려요. (선택)
           </p>
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
@@ -892,7 +892,7 @@ function InfoModal({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} />
           </button>
@@ -909,7 +909,7 @@ function InfoModal({
 
           {/* 이런 분께 */}
           <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3.5 py-2.5">
-            <Users size={15} className="shrink-0 text-[var(--t3)]" aria-hidden />
+            <Users size={15} className="shrink-0 text-[var(--t2)]" aria-hidden />
             <p className="font-body text-[13px] text-[var(--t2)]">
               <span className="font-[600] text-[var(--t1)]">이런 분께</span> · {p.who}
             </p>
@@ -917,7 +917,7 @@ function InfoModal({
 
           {/* 결과 활용 */}
           <div>
-            <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               결과 활용
             </h3>
             <ul className="flex flex-col gap-1.5">
@@ -935,7 +935,7 @@ function InfoModal({
 
           {/* 학습 흐름 */}
           <div>
-            <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               학습 흐름
             </h3>
             <div className="flex items-stretch gap-1">
@@ -952,7 +952,7 @@ function InfoModal({
                   {i < info.steps.length - 1 && (
                     <ArrowRight
                       size={13}
-                      className="shrink-0 self-center text-[var(--t4)]"
+                      className="shrink-0 self-center text-[var(--t2)]"
                       aria-hidden
                     />
                   )}
@@ -1016,7 +1016,7 @@ function LevelGuideModal({
         <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
           <div>
             <h2 className="font-display text-[17px] font-[700] text-[var(--t1)]">레벨 안내</h2>
-            <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+            <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t2)]">
               Vocaflow는 어휘를 <strong className="text-[var(--t2)]">V0~V11</strong> 등급으로 나눠요.
               한국 학제·수능·시험 기준에 맞춰 설계됐어요.
             </p>
@@ -1024,7 +1024,7 @@ function LevelGuideModal({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} />
           </button>
@@ -1042,7 +1042,7 @@ function LevelGuideModal({
         {/* V0~V11 사다리 (SSoT) */}
         <div className="flex flex-col gap-1 overflow-y-auto p-4">
           {sorted.length === 0 ? (
-            <p className="p-3 font-body text-[13px] text-[var(--t3)]">레벨 정보를 불러오는 중…</p>
+            <p className="p-3 font-body text-[13px] text-[var(--t2)]">레벨 정보를 불러오는 중…</p>
           ) : (
             sorted.map((b) => {
               const active = currentLevel === b.level
@@ -1081,12 +1081,12 @@ function LevelGuideModal({
                       )}
                     </div>
                     {b.description_ko && (
-                      <p className="font-body text-[12px] leading-snug text-[var(--t3)]">
+                      <p className="font-body text-[12px] leading-snug text-[var(--t2)]">
                         {b.description_ko}
                       </p>
                     )}
                     {b.test_score_hints && (
-                      <p className="font-body text-[11px] leading-snug text-[var(--t4)]">
+                      <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
                         {b.test_score_hints}
                       </p>
                     )}

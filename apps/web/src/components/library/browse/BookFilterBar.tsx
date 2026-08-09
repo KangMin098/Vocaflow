@@ -189,7 +189,7 @@ export function BookFilterBar({
           <Search
             size={14}
             aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           />
           <input
             type="search"
@@ -197,12 +197,12 @@ export function BookFilterBar({
             onChange={(e) => onChange({ search: e.target.value })}
             placeholder="제목·저자 검색"
             aria-label="도서 검색"
-            className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           />
         </div>
 
         <div className="inline-flex items-center gap-1.5">
-          <SlidersHorizontal size={13} aria-hidden className="text-[var(--t3)]" />
+          <SlidersHorizontal size={13} aria-hidden className="text-[var(--t2)]" />
           <label htmlFor="book-sort" className="sr-only">
             정렬
           </label>

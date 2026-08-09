@@ -90,10 +90,10 @@ export function VoicePickerPopover() {
           className="absolute bottom-[calc(100%+8px)] right-0 z-[80] flex max-h-[60vh] w-[300px] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xl)]"
         >
           <header className="flex items-center justify-between border-b border-[var(--bd)] px-3 py-2">
-            <span className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+            <span className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
               브라우저 음성
             </span>
-            <span className="font-mono text-[10px] text-[var(--t3)]">{voices.length}개</span>
+            <span className="font-mono text-[10px] text-[var(--t2)]">{voices.length}개</span>
           </header>
 
           <ul className="flex-1 overflow-y-auto py-1">
@@ -111,7 +111,7 @@ export function VoicePickerPopover() {
               >
                 <div className="min-w-0 flex-1">
                   <p className="font-display text-[12px] font-[600] text-[var(--t1)]">자동 선택</p>
-                  <p className="font-body text-[10px] text-[var(--t3)]">최적 음성 자동 선정</p>
+                  <p className="font-body text-[10px] text-[var(--t2)]">최적 음성 자동 선정</p>
                 </div>
                 {tts.state.selectedVoiceURI === null && (
                   <span className="text-[var(--p)]" aria-hidden>
@@ -122,7 +122,7 @@ export function VoicePickerPopover() {
             </li>
 
             {voices.length === 0 && (
-              <li className="px-3 py-4 text-center font-body text-[11px] text-[var(--t3)]">
+              <li className="px-3 py-4 text-center font-body text-[11px] text-[var(--t2)]">
                 사용 가능한 음성이 없어요
               </li>
             )}
@@ -164,7 +164,7 @@ export function VoicePickerPopover() {
                           {v.name}
                         </p>
                         <div className="flex items-center gap-1.5">
-                          <span className="font-mono text-[9px] text-[var(--t3)]">{v.lang}</span>
+                          <span className="font-mono text-[9px] text-[var(--t2)]">{v.lang}</span>
                           <span
                             className={`rounded-[2px] px-1 py-px font-display text-[8px] font-[700] ${QUALITY_COLOR[quality]}`}
                           >

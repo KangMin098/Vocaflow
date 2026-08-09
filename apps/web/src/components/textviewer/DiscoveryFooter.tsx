@@ -22,13 +22,13 @@ export function DiscoveryFooter() {
         <p className="font-display text-[13px] font-[700] text-[var(--t1)]">
           새로운 스크립트이 필요하신가요?
         </p>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           큐레이션된 스크립트을 라이브러리에서 찾아보세요
         </p>
       </div>
       <ArrowRight
         size={16}
-        className="text-[var(--t3)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
+        className="text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
         aria-hidden="true"
       />
     </Link>

@@ -73,9 +73,9 @@ export function CEFRDistribution({ buckets }: CEFRDistributionProps) {
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             레벨별
           </h2>
-          <p className="font-body text-[11px] text-[var(--t3)]">CEFR 6단계 분포</p>
+          <p className="font-body text-[11px] text-[var(--t2)]">CEFR 6단계 분포</p>
         </div>
-        <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+        <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
           {total}개
         </span>
       </header>
@@ -116,7 +116,7 @@ export function CEFRDistribution({ buckets }: CEFRDistributionProps) {
                 <CountLabel count={count} />
                 <ArrowRight
                   size={12}
-                  className="shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
+                  className="shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
                   aria-hidden="true"
                 />
               </Link>

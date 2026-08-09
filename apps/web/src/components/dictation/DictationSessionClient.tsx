@@ -217,14 +217,14 @@ export function DictationSessionClient() {
   if (status === 'not-found') {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
-        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t3)]">
+        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t2)]">
           <X size={22} />
         </span>
         <div>
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             세션을 찾을 수 없어요
           </h2>
-          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t3)]">
+          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
             받아쓰기 세션은 이 기기에만 저장돼요. 링크를 공유받았거나 오래된 세션이면
             다시 시작해 주세요.
           </p>
@@ -244,7 +244,7 @@ export function DictationSessionClient() {
 
   if (!session || !currentItem) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t3)]">
+      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t2)]">
         세션을 불러오는 중...
       </div>
     );
@@ -293,7 +293,7 @@ export function DictationSessionClient() {
             나가기
           </button>
           <div className="flex-1">
-            <p className="truncate font-body text-[12px] text-[var(--t3)]">
+            <p className="truncate font-body text-[12px] text-[var(--t2)]">
               {session.resourceTitle}
             </p>
             <div className="mt-1 flex items-center gap-2">
@@ -336,7 +336,7 @@ export function DictationSessionClient() {
             >
               🎧 듣고 받아쓰기
             </span>
-            <span className="font-mono text-[11px] text-[var(--t3)]">
+            <span className="font-mono text-[11px] text-[var(--t2)]">
               {audio.isPlaying ? `재생 중 ${audio.iteration}/${autoRepeat}` : '대기'}
             </span>
           </div>
@@ -400,7 +400,7 @@ export function DictationSessionClient() {
             </div>
           </div>
 
-          <div className="mt-3 flex items-center gap-2 text-center text-[11px] text-[var(--t3)]">
+          <div className="mt-3 flex items-center gap-2 text-center text-[11px] text-[var(--t2)]">
             <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">Space</kbd>
             <span>재생</span>
             <span className="opacity-50">·</span>
@@ -455,7 +455,7 @@ export function DictationSessionClient() {
             {/* 힌트 버튼들 */}
             {hintAllowed && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
-                <span className="font-body text-[11px] text-[var(--t3)]">힌트:</span>
+                <span className="font-body text-[11px] text-[var(--t2)]">힌트:</span>
                 {HINT_STAGES.map((stage) => {
                   const used = usedHints.includes(stage.level);
                   return (
@@ -468,7 +468,7 @@ export function DictationSessionClient() {
                         activeHint === stage.level
                           ? 'border-[var(--active)] bg-[var(--active-light)] text-[var(--active)]'
                           : used
-                            ? 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t3)]'
+                            ? 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)]'
                             : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
                       }`}
                     >
@@ -592,7 +592,7 @@ function FeedbackSection({
       {/* 오류 패턴 */}
       {result.errorPatterns.length > 0 && (
         <div className="mb-4">
-          <h4 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+          <h4 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             💡 발견된 패턴
           </h4>
           <ul className="space-y-1.5">
@@ -674,7 +674,7 @@ function WordStatusLegend({ statuses }: { statuses: Set<WordResult['status']> })
           >
             Aa
           </span>
-          <span className="font-body text-[11px] text-[var(--t3)]">{WORD_STATUS_LABELS[s]}</span>
+          <span className="font-body text-[11px] text-[var(--t2)]">{WORD_STATUS_LABELS[s]}</span>
         </span>
       ))}
     </div>

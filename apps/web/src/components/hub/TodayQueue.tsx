@@ -68,17 +68,23 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
           <Sparkles size={13} strokeWidth={2} />
         </span>
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">오늘의 큐</h2>
-        <span className="font-body text-[12px] text-[var(--t3)]">·</span>
-        <p className="font-body text-[12px] text-[var(--t3)]">기억 상태별 추천</p>
+        <span className="font-body text-[12px] text-[var(--t2)]">·</span>
+        <p className="font-body text-[12px] text-[var(--t2)]">기억 상태별 추천</p>
         <span
-          className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t3)]"
+          className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]"
         >
           {totalLabel ?? `${total}개`}
         </span>
       </header>
 
       {/* 4단계 분포 가로 바 */}
-      <div className="mb-4 flex h-2 w-full overflow-hidden rounded-full bg-[var(--bg3)]">
+      {/* 막대 전체를 하나의 그림으로 읽히게 한다 — 조각 div 에 aria-label 을 다는 것은
+          role 없는 요소에 금지된 속성이라 axe(aria-prohibited-attr) 위반이었다. */}
+      <div
+        className="mb-4 flex h-2 w-full overflow-hidden rounded-full bg-[var(--bg3)]"
+        role="img"
+        aria-label={buckets.filter((b) => b.count > 0).map((b) => KIND_META[b.kind].label + ' ' + b.count + '개').join(', ')}
+      >
         {buckets.map((b) => {
           if (b.count === 0) return null
           const pct = total > 0 ? (b.count / total) * 100 : 0
@@ -128,7 +134,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
               <p className="mt-1.5 font-display text-[22px] font-[800] tabular-nums leading-none text-[var(--t1)]">
                 {count}
               </p>
-              <p className="mt-1 font-body text-[11px] leading-tight text-[var(--t3)]">
+              <p className="mt-1 font-body text-[11px] leading-tight text-[var(--t2)]">
                 {meta.description}
               </p>
               {b?.preview && b.preview.length > 0 && (
@@ -143,7 +149,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
 
       {/* 빈 상태 (전체 큐 0) */}
       {visibleBuckets.length === 0 && (
-        <p className="mt-3 text-center font-body text-[12px] italic text-[var(--t3)]">
+        <p className="mt-3 text-center font-body text-[12px] italic text-[var(--t2)]">
           오늘 만날 단어가 없어요. 단어장을 추가하거나 새 라운드를 시작해보세요.
         </p>
       )}

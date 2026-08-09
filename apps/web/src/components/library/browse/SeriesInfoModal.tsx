@@ -237,7 +237,7 @@ export function SeriesInfoModal({
                   <SourceDetail key={s.key} source={s} maxCount={maxSourceCount} />
                 ))}
               </div>
-              <p className="mt-0.5 font-body text-[11px] leading-[1.4] text-[var(--t3)]">
+              <p className="mt-0.5 font-body text-[11px] leading-[1.4] text-[var(--t2)]">
                 모두 신뢰할 수 있는 원문에서 큐레이션 · 원문은 각 글에서 열 수 있어요.
               </p>
             </Zone>
@@ -251,7 +251,7 @@ export function SeriesInfoModal({
             <div className="flex flex-col gap-0.5">
               <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
               <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
-              {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
+              {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t2)]">※ {track.note}</p>}
             </div>
           </div>
         </div>
@@ -306,7 +306,7 @@ function DifficultyGauge({
         <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
           <Target size={14} aria-hidden /> {fitMeta.label}
         </span>
-        <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">시리즈 {cefrLabel}</span>
+        <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">시리즈 {cefrLabel}</span>
       </div>
       <div className="relative mt-1 h-2.5 w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
         {/* 시리즈 밴드 */}
@@ -320,7 +320,7 @@ function DifficultyGauge({
           <span className="block h-4 w-4 rounded-[var(--r-full)] border-[2.5px] border-[var(--bg)] bg-[var(--t1)] shadow-[var(--sh-sm)]" />
         </span>
       </div>
-      <div className="flex items-center justify-between font-mono text-[10.5px] font-[600] text-[var(--t3)]">
+      <div className="flex items-center justify-between font-mono text-[10.5px] font-[600] text-[var(--t2)]">
         <span>← 쉬움</span>
         <span className="font-[700] text-[var(--t2)]">내 레벨 · {userV > 0 ? `V${userV}` : '기준'} · {myCefr}</span>
         <span>어려움 →</span>
@@ -346,7 +346,7 @@ function SourceDetail({ source, maxCount }: { source: TrackStat['sources'][numbe
           </span>
           <span className="ml-auto shrink-0 font-mono text-[11px] font-[700] text-[var(--t2)]">{source.count}편</span>
         </div>
-        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t3)]">{source.blurb}</p>}
+        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t2)]">{source.blurb}</p>}
         <div className="mt-0.5 h-[3px] w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
           <div className="h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: `color-mix(in srgb, ${source.color} 60%, transparent)` }} />
         </div>
@@ -380,7 +380,7 @@ function StatTile({
       <span aria-hidden style={{ color: muted ? 'var(--t3)' : tint ?? 'var(--t2)' }}>
         <Icon size={16} aria-hidden />
       </span>
-      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.05em] text-[var(--t3)]">{label}</span>
+      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.05em] text-[var(--t2)]">{label}</span>
       <span className="font-display text-[14px] font-[800] leading-none" style={{ color: muted ? 'var(--t3)' : 'var(--t1)' }}>
         {value}
       </span>

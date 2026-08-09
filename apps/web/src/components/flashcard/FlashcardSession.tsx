@@ -253,7 +253,7 @@ export function FlashcardSession({
       <HonestyHint visible={phase === 'flipped'} />
 
       <p
-        className="mt-6 font-mono text-[12px] text-[var(--t3)]"
+        className="mt-6 font-mono text-[12px] text-[var(--t2)]"
         aria-label={`${currentIdx + 1}번째 카드, 총 ${queue.length}개`}
       >
         <strong className="font-[700] text-[var(--t1)]">{currentIdx + 1}</strong>

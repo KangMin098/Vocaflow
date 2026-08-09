@@ -7,7 +7,7 @@
 // 카탈로그가 비어 있으면(발행 만화 0) 빈 상태를 단언하고 종료 — 콘텐츠 의존 false-fail 방지.
 import { test, expect, type Page } from '@playwright/test';
 
-import { getComicProgress, userIdByEmail } from './utils/db';
+import { getComicProgress, serviceClient, userIdByEmail } from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -216,6 +216,18 @@ test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
       return;
     }
     await page.goto(`/comics/adapted/${bookId}`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    // ⚠️ 리더는 저장된 진도 위치에서 열린다. 이전 실행이 마지막 컷을 남겨두면 종료 화면이 떠
+    //    '컷 N / M' 도 화살표 이동도 없다 → 시작 위치를 0 으로 고정한다(2026-08-09 실측).
+    const uid = await userIdByEmail(RUNTIME_USER.email);
+    const svc = serviceClient();
+    if (uid && svc) {
+      await svc
+        .from('comic_read_progress')
+        .update({ last_index: 0 })
+        .eq('user_id', uid)
+        .eq('library_book_id', bookId);
+    }
 
     // 시작 — 미등록이면 enroll 후, 등록이면 곧장 리더로.
     //   ⚠️ 이 경로가 조용히 죽어 있었다(2026-08-09): library_books.cefr_level 이 NULL 이면

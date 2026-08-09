@@ -171,7 +171,7 @@ export default function RootIndexPage() {
           <p className="mt-2 font-body text-[16px] text-[var(--t2)]">
             영어 스크립트 기반 종합 학습 플랫폼
           </p>
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t3)]">
+          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t2)]">
             개발 진입점 · 화면 인덱스 + 진행 현황
           </p>
         </header>
@@ -183,12 +183,12 @@ export default function RootIndexPage() {
         >
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+              <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
                 전체 진행률
               </p>
               <p className="mt-1 font-display text-[40px] font-[800] leading-none text-[var(--t1)]">
                 {donePercent}
-                <span className="ml-1 text-[24px] text-[var(--t3)]">%</span>
+                <span className="ml-1 text-[24px] text-[var(--t2)]">%</span>
               </p>
               <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
                 {done} / {total} 화면 구현 완료
@@ -224,13 +224,13 @@ export default function RootIndexPage() {
                 <h2 className="font-display text-[18px] font-[700] text-[var(--t1)]">
                   {group.title}
                 </h2>
-                <span className="font-body text-[13px] text-[var(--t3)]">·</span>
-                <p className="font-body text-[13px] text-[var(--t3)]">{group.description}</p>
+                <span className="font-body text-[13px] text-[var(--t2)]">·</span>
+                <p className="font-body text-[13px] text-[var(--t2)]">{group.description}</p>
                 <span
                   className="ml-auto h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
                   aria-hidden="true"
                 />
-                <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+                <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                   {group.screens.filter((s) => s.status === 'done').length} / {group.screens.length}
                 </span>
               </header>
@@ -248,10 +248,10 @@ export default function RootIndexPage() {
 
         {/* ── 푸터 ── */}
         <footer className="mt-12 text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t3)]">
+          <p className="font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t2)]">
             Vocaflow Design System v06.6 · Phase 1.5
           </p>
-          <p className="mt-2 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-2 font-body text-[12px] text-[var(--t2)]">
             완성형 화면은 클릭하여 검증할 수 있습니다 · 대기 화면은 placeholder가 표시됩니다
           </p>
         </footer>
@@ -315,8 +315,8 @@ function ScreenCard({ screen }: { screen: Screen }) {
             </span>
           </span>
         </div>
-        <p className="truncate font-body text-[12px] text-[var(--t3)]">{screen.description}</p>
-        <p className="mt-1 truncate font-mono text-[10px] text-[var(--t4)]">{screen.href}</p>
+        <p className="truncate font-body text-[12px] text-[var(--t2)]">{screen.description}</p>
+        <p className="mt-1 truncate font-mono text-[10px] text-[var(--t2)]">{screen.href}</p>
       </div>
     </div>
   )

@@ -65,7 +65,7 @@ export function Pagination({ textId, currentPage, totalPages }: PaginationProps)
         {pageNumbers.map((p, i) => {
           if (p === 'gap') {
             return (
-              <span key={`gap-${i}`} className="px-1 font-display font-[700] text-[var(--t4)]">
+              <span key={`gap-${i}`} className="px-1 font-display font-[700] text-[var(--t2)]">
                 ⋯
               </span>
             )

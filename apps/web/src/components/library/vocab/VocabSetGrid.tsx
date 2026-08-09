@@ -202,7 +202,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           <Search
             size={16}
             aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           />
           <input
             type="search"
@@ -210,7 +210,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             onChange={(e) => setQuery(e.target.value)}
             placeholder="단어장 이름·설명 검색"
             aria-label="공용 단어장 검색"
-            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t3)] transition-colors focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
+            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t2)] transition-colors focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
           />
         </div>
 
@@ -244,7 +244,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
               내 단어장만
               <span
                 className={`inline-flex min-w-[18px] justify-center rounded-[var(--r-full)] px-1 text-[11px] tabular-nums ${
-                  mineOnly ? 'bg-white/20 text-white' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                  mineOnly ? 'bg-white/20 text-white' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {mineCount}
@@ -354,7 +354,7 @@ function DiagnosePrompt() {
           <span className="font-display text-[13.5px] font-[800] text-[var(--t1)]">
             내 수준 맞춤 추천 받기
           </span>
-          <span className="font-body text-[12px] text-[var(--t3)]">
+          <span className="font-body text-[12px] text-[var(--t2)]">
             1분 진단하면 지금 딱 맞는 단어장을 추천해드려요
           </span>
         </span>
@@ -396,7 +396,7 @@ function FeaturedRow({
           <Sparkles size={14} />
         </span>
         <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">{title}</h2>
-        <span className="font-body text-[12px] text-[var(--t3)]">{subtitle}</span>
+        <span className="font-body text-[12px] text-[var(--t2)]">{subtitle}</span>
       </div>
       <div className="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
         {items.map(({ set, type, reason }) => {
@@ -419,7 +419,7 @@ function FeaturedRow({
                 >
                   {badge.label}
                 </span>
-                <span className="line-clamp-2 font-body text-[10.5px] leading-snug text-[var(--t3)]">
+                <span className="line-clamp-2 font-body text-[10.5px] leading-snug text-[var(--t2)]">
                   {reason}
                 </span>
               </div>
@@ -435,7 +435,7 @@ function EmptyState({ title, body }: { title: string; body: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center">
       <p className="font-display text-[14px] font-[600] text-[var(--t2)]">{title}</p>
-      <p className="max-w-[360px] font-body text-[12px] text-[var(--t3)]">{body}</p>
+      <p className="max-w-[360px] font-body text-[12px] text-[var(--t2)]">{body}</p>
     </div>
   )
 }

@@ -99,7 +99,7 @@ export function TextHubContent() {
           <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
             새 스크립트 추가하기
           </p>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             텍스트 직접 입력 · PDF · DOCX · TXT · URL
           </p>
         </div>

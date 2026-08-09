@@ -90,7 +90,7 @@ export function ChapterSidebar({
       aria-label="장 목록"
     >
       <div className="border-b border-[var(--bd)] px-3 py-2">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">목차</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">목차</span>
       </div>
 
       <ul role="list" className="flex flex-col gap-0.5 p-2">
@@ -106,11 +106,11 @@ export function ChapterSidebar({
                   className="flex w-full items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-1.5 text-left text-[var(--t2)] transition-colors hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 >
                   {isCollapsed ? (
-                    <ChevronRight size={12} className="shrink-0 text-[var(--t3)]" aria-hidden />
+                    <ChevronRight size={12} className="shrink-0 text-[var(--t2)]" aria-hidden />
                   ) : (
-                    <ChevronDown size={12} className="shrink-0 text-[var(--t3)]" aria-hidden />
+                    <ChevronDown size={12} className="shrink-0 text-[var(--t2)]" aria-hidden />
                   )}
-                  <span className="line-clamp-2 font-display text-[11px] font-[700] uppercase tracking-wide text-[var(--t3)]">
+                  <span className="line-clamp-2 font-display text-[11px] font-[700] uppercase tracking-wide text-[var(--t2)]">
                     {seg.label}
                   </span>
                   <span className="ml-auto shrink-0 font-mono text-[10px] text-[var(--t5)]">
@@ -185,7 +185,7 @@ function ChapterRow({
           <span
             className={[
               'font-mono text-[11px] tabular-nums',
-              active ? 'text-[var(--ti)]' : 'text-[var(--t3)]',
+              active ? 'text-[var(--ti)]' : 'text-[var(--t2)]',
             ].join(' ')}
           >
             {ch.chapter_idx.toString().padStart(2, '0')}
@@ -204,7 +204,7 @@ function ChapterRow({
                 'font-mono text-[9px] font-[700] leading-none tabular-nums',
                 active
                   ? 'border-[var(--ti)] text-[var(--ti)] opacity-80'
-                  : 'border-[var(--bd)] text-[var(--t3)]',
+                  : 'border-[var(--bd)] text-[var(--t2)]',
               ].join(' ')}
               title={`이 장의 어휘 난이도 V${ch.chapter_v_level} — 책 전체 라벨과 다를 수 있어요`}
             >
@@ -241,7 +241,7 @@ function ChapterRow({
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
             active
               ? 'text-[var(--ti)] opacity-70 hover:opacity-100'
-              : 'text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--p)]',
+              : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--p)]',
           ].join(' ')}
         >
           <ExternalLink size={11} aria-hidden />

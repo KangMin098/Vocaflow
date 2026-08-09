@@ -80,9 +80,9 @@ export function BrowseSourceBar({
           onClick={() => next && onGoToChapter(next)}
         />
 
-        <span className="ml-1.5 shrink-0 font-mono text-[11px] font-[600] tabular-nums text-[var(--t3)]">
+        <span className="ml-1.5 shrink-0 font-mono text-[11px] font-[600] tabular-nums text-[var(--t2)]">
           {idx >= 0 ? idx + 1 : chapterIdx}/{chapters.length}
-          <span className="mx-1 text-[var(--t4)]">·</span>
+          <span className="mx-1 text-[var(--t2)]">·</span>
           <span className="text-[var(--t2)]">{wordCount.toLocaleString()}</span>단어
         </span>
       </div>

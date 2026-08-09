@@ -77,7 +77,7 @@ function ModuleCardImpl({ moduleId, lastStudiedAt }: ModuleCardProps) {
       <span className="font-display text-[13px] font-[600] text-[var(--t1)]">{label}</span>
 
       <span
-        className={`font-body text-[11px] ${lastStudiedAt ? 'text-[var(--t3)]' : 'text-[var(--t4)]'}`}
+        className={`font-body text-[11px] ${lastStudiedAt ? 'text-[var(--t2)]' : 'text-[var(--t2)]'}`}
       >
         {subline}
       </span>

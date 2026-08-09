@@ -95,7 +95,7 @@ function Stat({ value, label }: { value: string | number; label: string }) {
       <p className="mb-1.5 font-display text-[32px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value}
       </p>
-      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
         {label}
       </p>
     </div>

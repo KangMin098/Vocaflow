@@ -148,7 +148,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
           type="button"
           onClick={onClose}
           aria-label="닫기"
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <X size={14} aria-hidden />
         </button>
@@ -159,7 +159,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
         {loading ? (
           <div className="flex items-center gap-2 py-1">
             <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-[var(--bg3)]" />
-            <span className="font-body text-[12px] text-[var(--t3)]">찾는 중…</span>
+            <span className="font-body text-[12px] text-[var(--t2)]">찾는 중…</span>
           </div>
         ) : result?.found && isSuggestion ? (
           <SuggestionBody result={result} />
@@ -195,12 +195,12 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
           </span>
         )}
         {result.vLevel != null && (
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t3)]">
+          <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">
             V{result.vLevel}
           </span>
         )}
         {showResolved && (
-          <span className="font-body text-[10px] text-[var(--t3)]">
+          <span className="font-body text-[10px] text-[var(--t2)]">
             ← {surface} 의 원형
           </span>
         )}
@@ -232,21 +232,21 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
 
       {/* 학습 차등 안내 (archaic → 읽기 참고용, 암기 대상 아님) */}
       {result.wordRegister === 'archaic_literary' && (
-        <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+        <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
           📜 고어·문어체 — 읽기 참고용이에요 (암기보다 의미만 알아두면 충분해요)
         </p>
       )}
 
       {/* 외국어 안내 — 영어 학습 대상 아님, 독해 이해용 */}
       {foreign && (
-        <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+        <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
           {foreign.flag} {foreign.label} 낱말 — 독해 이해용이에요 (영어 암기 대상은 아니에요)
         </p>
       )}
 
       {/* 방언·고어·역사철자 안내 — 표준어로 이해 */}
       {(result.matchVia === 'dialect' || result.matchVia === 'spelling') && result.resolvedWord && (
-        <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+        <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
           🗣 방언·옛 철자 — 표준어 “{result.resolvedWord}” 로 이해하면 돼요
         </p>
       )}
@@ -266,11 +266,11 @@ function SuggestionBody({ result }: { result: WordLookup }) {
           <span className="font-english text-[15px] font-[600] text-[var(--t1)]">
             {result.resolvedWord}
           </span>
-          <span className="font-body text-[10px] text-[var(--t3)]">(추정)</span>
+          <span className="font-body text-[10px] text-[var(--t2)]">(추정)</span>
         </div>
         <p className="mt-1 font-body text-[13px] leading-relaxed text-[var(--t2)]">{result.meaningKo}</p>
       </div>
-      <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
         방언·옛 철자·오탈자일 수 있어요. 문맥으로 확인하세요.
       </p>
     </div>
@@ -281,7 +281,7 @@ function NotFoundBody() {
   return (
     <div className="flex flex-col gap-1">
       <p className="font-body text-[13px] font-[600] text-[var(--t2)]">사전에 없는 단어예요</p>
-      <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
         외국어·고유명사이거나 인식 오류일 수 있어요. 영어 어휘가 아니면 학습 대상에서 제외됩니다.
       </p>
     </div>

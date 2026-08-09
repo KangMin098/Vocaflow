@@ -250,7 +250,14 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
     )
     document.querySelectorAll('[data-gi]').forEach((el) => obs.observe(el))
-    const onScroll = () => setChrome(false)
+    // 스크롤하면 몰입을 위해 크롬을 숨긴다 — 단, **컨트롤에 포커스가 있을 때는 숨기지 않는다.**
+    // 키보드로 컨트롤에 포커스하면 브라우저가 그 요소를 보이게 스크롤하고, 그 스크롤이 다시
+    // 크롬을 숨겨 focus 자동 노출이 즉시 취소됐다(2026-08-09 실측: 세로 스크롤 모드에서 키보드 갇힘).
+    const onScroll = () => {
+      const ae = document.activeElement
+      if (ae instanceof HTMLElement && ae.closest('header,footer')) return
+      setChrome(false)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => { obs.disconnect(); window.removeEventListener('scroll', onScroll) }
   }, [view, total])
@@ -281,7 +288,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
         <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
           <div className="flex items-center justify-center bg-[var(--bg2)]">
             {broken.has(gi) || !p.imageUrl ? (
-              <div className="grid h-[40vh] w-full place-items-center text-[var(--t4)]"><BookImage size={30} aria-hidden /></div>
+              <div className="grid h-[40vh] w-full place-items-center text-[var(--t2)]"><BookImage size={30} aria-hidden /></div>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={p.imageUrl} alt={`${bookTitle} — ${st} 컷 ${p.pageOrder}`} loading="lazy" onError={() => setBroken((s) => new Set(s).add(gi))} className={`w-auto max-w-full ${view === 'scroll' ? 'max-h-[82vh]' : 'max-h-[56vh]'}`} />
@@ -293,7 +300,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
               <span className="font-display text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active-ink)]">{st}</span>
               <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
             </div>
-            {p.bubbles.length === 0 && <p className="font-body text-[12px] text-[var(--t4)]">…</p>}
+            {p.bubbles.length === 0 && <p className="font-body text-[12px] text-[var(--t2)]">…</p>}
             {p.bubbles.map((b, bi) => {
               const key = `${gi}-${bi}`
               const isCap = (b.kind ?? 'speech') === 'caption'
@@ -302,7 +309,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
               return (
                 <div key={key} className="flex flex-col gap-0.5">
                   {b.speaker && (
-                    <span className="inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+                    <span className="inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                       <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: speakerHue(b.speaker) }} />{b.speaker}
                     </span>
                   )}
@@ -318,7 +325,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
                           <button type="button" data-no-nav onClick={() => toggleRecall(key)} aria-pressed={recalled.has(key)} className="inline-flex min-h-9 items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700] transition-colors motion-reduce:transition-none" style={recalled.has(key) ? { background: 'color-mix(in srgb, var(--memory-stable) 16%, transparent)', color: 'var(--memory-stable)' } : { border: '1px solid var(--bd)', color: 'var(--t3)' }}>
                             {recalled.has(key) ? <><Check size={12} /> 기억함</> : '기억했어요'}
                           </button>
-                          <button type="button" data-no-nav onClick={() => reblur(key)} className="min-h-9 font-body text-[11px] text-[var(--t3)] underline underline-offset-2 hover:text-[var(--t1)]">다시 볼게요</button>
+                          <button type="button" data-no-nav onClick={() => reblur(key)} className="min-h-9 font-body text-[11px] text-[var(--t2)] underline underline-offset-2 hover:text-[var(--t1)]">다시 볼게요</button>
                         </div>
                       )}
                     </div>
@@ -332,7 +339,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
         </div>
         {p.targetVocab.length > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">학습 단어</span>
+            <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">학습 단어</span>
             {p.targetVocab.map((w) => (
               <button key={w} type="button" data-no-nav onClick={(e) => { vocabTrigger.current = e.currentTarget; setVocab(w) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-body text-[13px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--active)] motion-reduce:transition-none">{w}</button>
             ))}
@@ -481,11 +488,11 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
           <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={`${vocab} 학습`} className="w-full max-w-sm rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-lg)]" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-baseline gap-2">
               <p className="font-display text-[22px] font-[800] text-[var(--t1)]">{vocab}</p>
-              {vocabInfo?.pos && <span className="font-body text-[12px] italic text-[var(--t3)]">{vocabInfo.pos}</span>}
-              {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t3)]">{vocabInfo.cefr_level}</span>}
+              {vocabInfo?.pos && <span className="font-body text-[12px] italic text-[var(--t2)]">{vocabInfo.pos}</span>}
+              {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.cefr_level}</span>}
             </div>
             {vocabBusy ? (
-              <p className="mt-3 inline-flex items-center gap-1.5 font-body text-[13px] text-[var(--t3)]"><Loader2 size={13} className="animate-spin" /> 뜻을 불러오는 중…</p>
+              <p className="mt-3 inline-flex items-center gap-1.5 font-body text-[13px] text-[var(--t2)]"><Loader2 size={13} className="animate-spin" /> 뜻을 불러오는 중…</p>
             ) : vocabInfo?.meaning_ko ? (
               <>
                 <p className="mt-2 font-body text-[15px] font-[600] leading-snug text-[var(--t1)]">{vocabInfo.meaning_ko}</p>
@@ -494,10 +501,10 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
                 )}
               </>
             ) : (
-              <p className="mt-2 font-body text-[13px] text-[var(--t3)]">이 장면의 맥락에서 만난 단어예요.</p>
+              <p className="mt-2 font-body text-[13px] text-[var(--t2)]">이 장면의 맥락에서 만난 단어예요.</p>
             )}
             <div className="mt-4 flex items-center justify-between gap-2">
-              <button type="button" onClick={() => setVocab(null)} className="min-h-11 rounded-[var(--r-full)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t3)] hover:text-[var(--t1)]">닫기</button>
+              <button type="button" onClick={() => setVocab(null)} className="min-h-11 rounded-[var(--r-full)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]">닫기</button>
               <div className="flex gap-2">
                 <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--active)] hover:text-[var(--t1)]">
                   <BookOpen size={13} aria-hidden /> 단어장

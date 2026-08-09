@@ -69,7 +69,7 @@ export function ArticleCard({
   )
 
   const Meta = (
-    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] font-[600] text-[var(--t3)]">
+    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] font-[600] text-[var(--t2)]">
       {mins != null && (
         <span className="inline-flex items-center gap-1 tabular-nums">
           <Clock size={11} aria-hidden /> {mins}분
@@ -127,7 +127,7 @@ export function ArticleCard({
             {article.title}
           </h3>
           {article.author && (
-            <p className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">{article.author}</p>
+            <p className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">{article.author}</p>
           )}
           {Meta}
           {Tags}
@@ -180,7 +180,7 @@ function OriginalLink({ href }: { href: string }) {
       onClick={(e) => e.stopPropagation()}
       title="원문 보기"
       aria-label="원문 보기"
-      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] text-[var(--t4)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <ExternalLink size={13} aria-hidden />
     </a>

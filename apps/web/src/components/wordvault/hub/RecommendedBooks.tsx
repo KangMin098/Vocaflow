@@ -168,7 +168,7 @@ export function RecommendedBooks() {
   if (state.kind === 'empty' || state.kind === 'error' || ranked.length === 0) {
     return (
       <Frame title="다음 권장 도서">
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           모든 권장 도서를 학습 중이에요.{' '}
           <Link
             href="/library/books"
@@ -274,7 +274,7 @@ function BookCard({
           {book.title}
         </span>
         {book.author && (
-          <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">
+          <span className="line-clamp-1 font-body text-[11px] text-[var(--t2)]">
             {book.author}
           </span>
         )}

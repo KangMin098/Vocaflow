@@ -27,14 +27,14 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       )}
 
       <div className="mb-6 flex items-center justify-between opacity-50">
-        <span className="font-body text-[10px] italic text-[var(--t3)]">{word.textTitle}에서</span>
+        <span className="font-body text-[10px] italic text-[var(--t2)]">{word.textTitle}에서</span>
       </div>
 
       <h3 className="mb-1.5 text-center font-english text-[22px] font-[600] text-[var(--t2)]">
         {word.text}
       </h3>
 
-      <p className="mb-3 text-center font-mono text-[12px] text-[var(--t3)]">
+      <p className="mb-3 text-center font-mono text-[12px] text-[var(--t2)]">
         {word.pronunciation}
       </p>
 
@@ -54,13 +54,13 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           per-sense meanings_ko(Phase B 100%) 노출. 단일 sense면 flat meaning 으로 충분(미표시). */}
       {word.senses && word.senses.length >= 2 && (
         <div className="mb-5 flex flex-col gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
-          <span className="mb-0.5 font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="mb-0.5 font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             품사별 뜻
           </span>
           {word.senses.map((s, i) => (
             <div key={`${s.pos}-${i}`} className="flex items-baseline gap-2">
               {s.pos && (
-                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-px font-mono text-[10px] font-[700] text-[var(--t3)]">
+                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-px font-mono text-[10px] font-[700] text-[var(--t2)]">
                   {posLabel(s.pos)}
                 </span>
               )}
@@ -92,7 +92,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           forms={word.inflectedForms}
         />
 
-        <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t3)]">
+        <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t2)]">
           — {word.textTitle}, {word.textChapter}
         </span>
       </div>
@@ -101,7 +101,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           정답면 하단, 예문 보조 톤. 학습 중 자극 최소화(Calm UI) — 최대 3개. */}
       {word.collocations && word.collocations.length > 0 && (
         <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
-          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             함께 쓰는 표현
           </span>
           {word.collocations.slice(0, 3).map((c) => (
@@ -119,12 +119,12 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           prefix→root→suffix 순 chip. 데이터 있을 때만(Progressive Disclosure). */}
       {word.roots && word.roots.length > 0 && (
         <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
-          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             어원
           </span>
           {word.roots.map((r, i) => (
             <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1.5">
-              {i > 0 && <span className="text-[11px] text-[var(--t4)]">+</span>}
+              {i > 0 && <span className="text-[11px] text-[var(--t2)]">+</span>}
               <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-0.5 text-[12px]">
                 <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
                 <span className="font-body text-[var(--t2)]"> {r.gloss}</span>

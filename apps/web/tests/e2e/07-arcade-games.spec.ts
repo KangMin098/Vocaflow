@@ -229,15 +229,23 @@ test.describe('아케이드 게임 전수 스모크', () => {
   });
   test.use({ storageState: STATE_PATH });
 
-  test('아케이드 허브 — 2섹션 + 오늘의 추천 + 전 카드 딥링크 무결성', async ({ page }) => {
+  test('아케이드 허브 — 3트랙 + 오늘의 추천 + 전 카드 딥링크 무결성', async ({ page }) => {
     const errors = collectConsoleErrors(page);
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible({ timeout: 30_000 });
 
-    // IA v07.4 — ① 오늘의 추천 ② 내 단어로 플레이 ③ 큐레이션 세계
+    // IA v07.8 — ① 오늘의 추천 ②③④ 학습 동사 트랙.
+    // 이전 축(내 단어 / 큐레이션 세계)은 죽었다: 19종 전부가 학습자 단어를 쓰게 되면서
+    // 한쪽 섹션이 비었고, pickDailyGame 이 빈 후보로 크래시하는 경로까지 생겼다.
     await expect(page.locator('.arc-daily-card')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByRole('heading', { name: /내 단어로 플레이/ })).toBeVisible();
-    await expect(page.getByRole('heading', { name: /큐레이션 세계/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /빠르게 떠올리기/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /직접 만들어 내기/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /읽고 추론하기/ })).toBeVisible();
+    // 빈 트랙이 생기면 죽은 헤딩이 남는다 — 섹션마다 카드가 최소 1장.
+    for (const id of ['recall', 'produce', 'reason']) {
+      const sec = page.locator(`section[aria-labelledby="arc-sec-${id}"]`);
+      expect(await sec.locator('a[href^="/play/"]').count(), `${id} 트랙이 비었다`).toBeGreaterThan(0);
+    }
 
     // 계열 접기(v07.4) 이후 카드 수 ≠ 게임 수 — 도달 가능한 플레이 링크로 센다.
     // (단독 게임은 카드 자체가 링크, 계열은 카드 안 모드 칩이 링크)

@@ -498,7 +498,7 @@ function BookBody({ v }: { v: BookVariant }) {
 
       {v.estBasis && (
         <Section title="V-Level 추정 근거">
-          <p className="font-body text-[11.5px] italic leading-[1.6] text-[var(--t3)]">
+          <p className="font-body text-[11.5px] italic leading-[1.6] text-[var(--t2)]">
             {v.estBasis}
           </p>
         </Section>
@@ -528,7 +528,7 @@ function Section({
 }) {
   return (
     <section className="flex flex-col gap-1.5">
-      <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]">
+      <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
         {title}
       </h3>
       <div>{children}</div>
@@ -595,7 +595,7 @@ function MyProgressSection({
   return (
     <section className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
       <div className="flex items-center justify-between gap-2">
-        <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]">
+        <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
           내 학습
         </h3>
         <span
@@ -611,7 +611,7 @@ function MyProgressSection({
       {(hasUnits || pct > 0) && (
         <div>
           <div className="mb-1 flex items-baseline justify-between">
-            <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+            <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
               진도
             </span>
             <span className="font-display text-[12px] font-[700] tabular-nums text-[var(--t1)]">
@@ -724,7 +724,7 @@ function IPlusOneRow({
           aria-hidden
         />
       </div>
-      <p className="mt-1.5 font-body text-[10.5px] leading-relaxed text-[var(--t3)]">
+      <p className="mt-1.5 font-body text-[10.5px] leading-relaxed text-[var(--t2)]">
         {fit.tier === 'ideal'
           ? '모르는 단어가 적당해서 맥락으로 익히기 좋아요 (i+1).'
           : fit.tier === 'easy'
@@ -758,7 +758,7 @@ function ScriptBody({ v }: { v: ScriptVariant }) {
 
       {v.preview && (
         <div className="rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3">
-          <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+          <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             미리보기
           </p>
           <p className="font-english text-[14px] leading-relaxed text-[var(--t2)]">
@@ -800,7 +800,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
       {/* 단어 sample */}
       {v.samples && v.samples.length > 0 && (
         <div>
-          <p className="mb-2 inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+          <p className="mb-2 inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             <Sparkles size={11} aria-hidden /> 단어 미리보기 ({v.samples.length})
           </p>
           <ul className="grid grid-cols-1 gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 p-3 sm:grid-cols-2">
@@ -809,7 +809,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
                 <span className="font-english text-[14px] font-[600] text-[var(--t1)]">
                   {w.word}
                 </span>
-                <span className="truncate font-body text-[11.5px] text-[var(--t3)]">
+                <span className="truncate font-body text-[11.5px] text-[var(--t2)]">
                   {w.meaningKo}
                 </span>
               </li>
@@ -871,7 +871,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
             type="button"
             onClick={() => variant.onUnenroll?.()}
             disabled={variant.unenrollPending}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t3)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error)] disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error)] disabled:opacity-50"
             title="내 학습 도서 목록에서 빼기 (단어 학습 기록은 보존)"
           >
             {variant.unenrollPending ? '제외 중…' : '− 내 학습에서 제외'}
@@ -915,13 +915,13 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="flex flex-col gap-0.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-2.5">
-      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">
         {value}
       </span>
-      {sub && <span className="font-mono text-[9.5px] text-[var(--t3)]">{sub}</span>}
+      {sub && <span className="font-mono text-[9.5px] text-[var(--t2)]">{sub}</span>}
     </div>
   )
 }
@@ -937,8 +937,8 @@ function MetaItem({
 }) {
   return (
     <span className="inline-flex items-baseline gap-1.5 font-body text-[12px] text-[var(--t2)]">
-      {icon && <span className="text-[var(--t3)]">{icon}</span>}
-      <span className="text-[var(--t3)]">{label}</span>
+      {icon && <span className="text-[var(--t2)]">{icon}</span>}
+      <span className="text-[var(--t2)]">{label}</span>
       <strong className="font-display font-[700] text-[var(--t1)]">{value}</strong>
     </span>
   )
@@ -948,7 +948,7 @@ function ProgressRow({ percent, accent }: { percent: number; accent: string }) {
   return (
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
       <div className="mb-1.5 flex items-baseline justify-between">
-        <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+        <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
           학습 진행
         </span>
         <span className="font-display text-[14px] font-[700] tabular-nums" style={{ color: accent }}>
@@ -968,6 +968,6 @@ function ProgressRow({ percent, accent }: { percent: number; accent: string }) {
 
 function Tip({ text }: { text: string }) {
   return (
-    <p className="font-body text-[11.5px] italic text-[var(--t3)]">💡 {text}</p>
+    <p className="font-body text-[11.5px] italic text-[var(--t2)]">💡 {text}</p>
   )
 }

@@ -98,10 +98,10 @@ export function BookDetailClient({
                 <Sparkles size={9} aria-hidden /> 추천
               </span>
             </div>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
               도서에서 직접 추출된 핵심 어휘 · 챕터별로 학습할 수 있어요
             </p>
-            <div className="mt-1.5 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="mt-1.5 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t2)]">
               <span className="font-display font-[700] text-[var(--t1)]">
                 {chapterSets.length}챕터
               </span>
@@ -134,7 +134,7 @@ export function BookDetailClient({
           </div>
           <ChevronDown
             size={18}
-            className={`shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] ${primaryExpanded ? 'rotate-180' : ''}`}
+            className={`shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] ${primaryExpanded ? 'rotate-180' : ''}`}
             aria-hidden
           />
         </button>
@@ -142,7 +142,7 @@ export function BookDetailClient({
         {/* Tier 1.5 · 챕터별 grid (펼침 시) */}
         {primaryExpanded && (
           <div className="border-t border-[var(--bd)] bg-[var(--bg2)]/40 p-4">
-            <p className="mb-3 font-body text-[11px] text-[var(--t3)]">
+            <p className="mb-3 font-body text-[11px] text-[var(--t2)]">
               챕터를 클릭하면 단어 미리보기 + 내 단어장에 추가할 수 있어요
             </p>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
@@ -162,14 +162,14 @@ export function BookDetailClient({
                         Ch.{set.chapterIdx}
                       </span>
                       {pending ? (
-                        <Loader2 size={11} className="animate-spin text-[var(--t3)]" />
+                        <Loader2 size={11} className="animate-spin text-[var(--t2)]" />
                       ) : subscribed ? (
                         <CheckCircle2 size={12} className="text-[var(--success)]" aria-hidden />
                       ) : null}
                     </div>
                     <span className="font-display text-[18px] font-[700] tabular-nums leading-none text-[var(--t1)]">
                       {set.wordCount}
-                      <span className="ml-1 font-display text-[10px] font-[600] text-[var(--t3)]">
+                      <span className="ml-1 font-display text-[10px] font-[600] text-[var(--t2)]">
                         단어
                       </span>
                     </span>
@@ -186,7 +186,7 @@ export function BookDetailClient({
         className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)]/40"
         onToggle={(e) => setSupplementaryExpanded(e.currentTarget.open)}
       >
-        <summary className="flex cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t3)] transition-colors hover:text-[var(--t1)]">
+        <summary className="flex cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">
           <span>보조 단어장 (선택)</span>
           {supplementaryExpanded ? (
             <ChevronUp size={14} aria-hidden />
@@ -194,7 +194,7 @@ export function BookDetailClient({
             <ChevronDown size={14} aria-hidden />
           )}
         </summary>
-        <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t3)]">
+        <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t2)]">
           이 도서와 연관된 추가 단어장은 아직 준비되지 않았어요. <br />
           공용 단어장은{' '}
           <a href="/library/vocab" className="font-display font-[700] text-[#8B5CF6] hover:underline">

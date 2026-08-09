@@ -133,7 +133,7 @@ export function ModePills({
                         <ChevronRight
                           size={11}
                           aria-hidden
-                          className="mx-0.5 shrink-0 text-[var(--t4)]"
+                          className="mx-0.5 shrink-0 text-[var(--t2)]"
                         />
                       )}
                       <Link
@@ -144,7 +144,7 @@ export function ModePills({
                             ? 'text-white shadow-[var(--sh-sm)]'
                             : isDone
                             ? 'text-[var(--t1)] hover:bg-[var(--bg2)]'
-                            : 'text-[var(--t3)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
+                            : 'text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
                         }`}
                         style={
                           isActive

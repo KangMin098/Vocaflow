@@ -52,7 +52,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
       {/* ── Header ── */}
       <header className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-5xl px-6 py-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
             <FileText size={11} className="text-[var(--p)]" aria-hidden />
             법적 문서
           </span>
@@ -62,12 +62,12 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
           <p className="mt-3 max-w-2xl font-body text-[15px] leading-relaxed text-[var(--t2)]">
             {intro}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-4 font-mono text-[11px] text-[var(--t3)]">
+          <div className="mt-5 flex flex-wrap items-center gap-4 font-mono text-[11px] text-[var(--t2)]">
             <span className="inline-flex items-center gap-1.5">
               <Calendar size={12} aria-hidden />
               시행일 {effectiveDate}
             </span>
-            <span className="text-[var(--t4)]">·</span>
+            <span className="text-[var(--t2)]">·</span>
             <span>버전 {version}</span>
           </div>
         </div>
@@ -82,7 +82,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
               aria-label="목차"
               className="sticky top-20 space-y-1 border-l border-[var(--bd)] pl-4"
             >
-              <p className="mb-3 font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+              <p className="mb-3 font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
                 목차
               </p>
               {sections.map((s, i) => (
@@ -95,7 +95,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
                       : 'text-[var(--t2)] hover:text-[var(--t1)]'
                   }`}
                 >
-                  <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+                  <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
                     {String(i + 1).padStart(2, '0')}
                   </span>{' '}
                   {s.title}
@@ -109,7 +109,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
             {sections.map((s, i) => (
               <section key={s.id} id={s.id} className="scroll-mt-20">
                 <h2 className="flex items-baseline gap-3 font-display text-[20px] font-[700] tracking-tight text-[var(--t1)] md:text-[22px]">
-                  <span className="font-mono text-[12px] font-[600] tabular-nums text-[var(--t3)]">
+                  <span className="font-mono text-[12px] font-[600] tabular-nums text-[var(--t2)]">
                     {String(i + 1).padStart(2, '0')}.
                   </span>
                   {s.title}
@@ -144,7 +144,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
             ))}
 
             {/* footer */}
-            <footer className="border-t border-[var(--bd)] pt-6 font-body text-[12px] text-[var(--t3)]">
+            <footer className="border-t border-[var(--bd)] pt-6 font-body text-[12px] text-[var(--t2)]">
               본 문서에 대한 문의는{' '}
               <a
                 href="mailto:legal@vocaflow.app"

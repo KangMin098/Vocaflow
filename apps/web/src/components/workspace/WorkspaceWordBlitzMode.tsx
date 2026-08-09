@@ -102,7 +102,7 @@ export function WorkspaceWordBlitzMode({
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           WordBlitz 시작 불가
         </h2>
-        <p className="max-w-md font-body text-[13px] text-[var(--t3)]">{error}</p>
+        <p className="max-w-md font-body text-[13px] text-[var(--t2)]">{error}</p>
         <button
           type="button"
           onClick={handleExit}

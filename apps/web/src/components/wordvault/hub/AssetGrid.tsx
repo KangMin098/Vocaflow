@@ -40,12 +40,12 @@ export function AssetGrid({ books }: AssetGridProps) {
       {/* Header — title + count + search */}
       <header className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-baseline gap-3">
-          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
             내 단어장
           </span>
           <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
             {NF.format(books.length)}
-            <span className="ml-1 text-[var(--t3)]">개</span>
+            <span className="ml-1 text-[var(--t2)]">개</span>
           </span>
         </div>
 
@@ -53,7 +53,7 @@ export function AssetGrid({ books }: AssetGridProps) {
           <Search
             size={13}
             aria-hidden
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           />
           <input
             type="search"
@@ -61,14 +61,14 @@ export function AssetGrid({ books }: AssetGridProps) {
             onChange={(e) => setQ(e.target.value)}
             placeholder="단어장 검색"
             aria-label="단어장 검색"
-            className="h-9 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-8 pr-8 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/15"
+            className="h-9 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-8 pr-8 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/15"
           />
           {q && (
             <button
               type="button"
               onClick={() => setQ('')}
               aria-label="검색 지우기"
-              className="absolute right-2 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              className="absolute right-2 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               <X size={11} />
             </button>
@@ -78,7 +78,7 @@ export function AssetGrid({ books }: AssetGridProps) {
 
       {/* Grid */}
       {visible.length === 0 ? (
-        <div className="py-10 text-center font-body text-[13px] text-[var(--t3)]">
+        <div className="py-10 text-center font-body text-[13px] text-[var(--t2)]">
           {q ? `"${q}" 와 일치하는 단어장이 없어요.` : '아직 단어장이 없어요.'}
         </div>
       ) : (
@@ -125,10 +125,10 @@ function AssetCard({ book }: { book: VaultBook }) {
     >
       {/* Top row — type + title */}
       <div className="flex flex-col gap-1">
-        <div className="flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           <span>{book.type === 'text' ? '스크립트' : '단어장'}</span>
           {book.subtitle && (
-            <span className="truncate text-[var(--t4)]">{book.subtitle}</span>
+            <span className="truncate text-[var(--t2)]">{book.subtitle}</span>
           )}
         </div>
         <h3 className="line-clamp-2 font-english text-[14px] font-[600] leading-snug text-[var(--t1)] group-hover:text-[var(--p)]">
@@ -141,7 +141,7 @@ function AssetCard({ book }: { book: VaultBook }) {
         <span className="font-display text-[28px] font-[800] leading-none tracking-[-0.02em] tabular-nums text-[var(--t1)]">
           {NF.format(total)}
         </span>
-        <span className="font-body text-[11px] text-[var(--t3)]">단어</span>
+        <span className="font-body text-[11px] text-[var(--t2)]">단어</span>
       </div>
 
       {/* Mini bar */}
@@ -153,7 +153,7 @@ function AssetCard({ book }: { book: VaultBook }) {
       </div>
 
       {/* Inline counts */}
-      <div className="flex items-center gap-3 font-mono text-[10px] tabular-nums text-[var(--t3)]">
+      <div className="flex items-center gap-3 font-mono text-[10px] tabular-nums text-[var(--t2)]">
         {d.stable > 0 && (
           <span>
             <span style={{ color: '#22C55E' }}>●</span> {d.stable}

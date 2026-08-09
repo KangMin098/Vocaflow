@@ -297,7 +297,7 @@ export function EchoMatchPlayer({
   if (sentences.length === 0) {
     return (
       <div className="mx-auto max-w-2xl px-6 py-12 text-center">
-        <p className="font-body text-[14px] text-[var(--t3)]">
+        <p className="font-body text-[14px] text-[var(--t2)]">
           연습할 문장이 없어요. 본문을 확인해주세요.
         </p>
       </div>
@@ -308,7 +308,7 @@ export function EchoMatchPlayer({
     <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-6">
       {/* Header — 책 컨텍스트 */}
       {(bookTitle || chapterTitle) && (
-        <header className="font-body text-[12px] text-[var(--t3)]">
+        <header className="font-body text-[12px] text-[var(--t2)]">
           {bookTitle}
           {chapterTitle && ` · ${chapterTitle}`}
           {' · 따라읽기'}
@@ -369,7 +369,7 @@ export function EchoMatchPlayer({
                   aria-hidden
                 />
               </div>
-              <p className="mt-1.5 font-body text-[10px] text-[var(--t3)]">
+              <p className="mt-1.5 font-body text-[10px] text-[var(--t2)]">
                 첫 사용 시 1회 (~17MB · HuggingFace 에서 로드). 다음 진입은 즉시 시작.
               </p>
             </>
@@ -405,7 +405,7 @@ export function EchoMatchPlayer({
       {/* #2 단어 정확도 — 측정된 경우만(미지원/실패는 숨김). 낮으면 억양 점수 참고 안내. */}
       {phase === 'scored' && wordRatio != null && (
         <p
-          className={`px-1 font-body text-[12px] ${lowWords ? 'text-[var(--learn-review)]' : 'text-[var(--t3)]'}`}
+          className={`px-1 font-body text-[12px] ${lowWords ? 'text-[var(--learn-review)]' : 'text-[var(--t2)]'}`}
         >
           이번 발화에서 문장 단어의 <span className="font-mono font-[700] tabular-nums">{Math.round(wordRatio * 100)}%</span>가 인식됐어요
           {lowWords ? ' — 억양 점수는 참고만 하고, 단어부터 또박또박 읽어봐요.' : '.'}
@@ -465,7 +465,7 @@ function PhaseController({
   if (phase === 'idle') {
     return (
       <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           ① Listen → ② Repeat → ③ Compare → ④ Score
         </p>
         <button

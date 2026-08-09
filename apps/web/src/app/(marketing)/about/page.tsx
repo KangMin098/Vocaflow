@@ -140,7 +140,7 @@ export default function AboutPage() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)] via-[var(--bg)] to-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center md:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             우리의 미션
           </span>
@@ -196,7 +196,7 @@ export default function AboutPage() {
                   >
                     <Icon size={20} strokeWidth={1.75} />
                   </span>
-                  <p className="relative mt-4 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+                  <p className="relative mt-4 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
                     {p.en}
                   </p>
                   <h3 className="relative mt-1 font-display text-[20px] font-[700] text-[var(--t1)]">
@@ -244,7 +244,7 @@ export default function AboutPage() {
                       <Icon size={16} strokeWidth={1.75} />
                     </span>
                     <div className="min-w-0">
-                      <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--t3)]">
+                      <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--t2)]">
                         {String(i + 1).padStart(2, '0')} · {p.en}
                       </p>
                       <h3 className="mt-1 font-display text-[15px] font-[700] text-[var(--t1)]">
@@ -290,7 +290,7 @@ export default function AboutPage() {
                   <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
                     {m.label}
                   </span>
-                  <span className="font-body text-[10px] leading-tight text-[var(--t3)]">
+                  <span className="font-body text-[10px] leading-tight text-[var(--t2)]">
                     {m.desc}
                   </span>
                   <span
@@ -339,7 +339,7 @@ export default function AboutPage() {
                   </span>
                 </span>
                 <div className="min-w-0 flex-1 space-y-2">
-                  <p className="font-body text-[13px] text-[var(--t3)] line-through decoration-[var(--error)]/40">
+                  <p className="font-body text-[13px] text-[var(--t2)] line-through decoration-[var(--error)]/40">
                     {item.bad}
                   </p>
                   <p className="font-body text-[14px] leading-relaxed text-[var(--t1)]">

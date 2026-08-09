@@ -70,7 +70,7 @@ export function WorkspaceChapterNav({
             {bookTitle}
           </h2>
           {bookAuthor && (
-            <p className="mt-0.5 line-clamp-1 font-body text-[11px] text-[var(--t3)]">
+            <p className="mt-0.5 line-clamp-1 font-body text-[11px] text-[var(--t2)]">
               {bookAuthor}
             </p>
           )}
@@ -79,7 +79,7 @@ export function WorkspaceChapterNav({
           type="button"
           onClick={onClose}
           aria-label="닫기"
-          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <X size={12} aria-hidden />
         </button>
@@ -112,7 +112,7 @@ export function WorkspaceChapterNav({
                 <span
                   className={[
                     'font-mono text-[11px] tabular-nums',
-                    active ? 'text-[var(--ti)] opacity-80' : 'text-[var(--t3)]',
+                    active ? 'text-[var(--ti)] opacity-80' : 'text-[var(--t2)]',
                   ].join(' ')}
                 >
                   {ch.chapterIdx.toString().padStart(2, '0')}
@@ -136,7 +136,7 @@ function ChapterStatusIcon({
   status: BookContextChapter['status'];
   active: boolean;
 }) {
-  const color = active ? 'text-[var(--ti)]' : 'text-[var(--t3)]';
+  const color = active ? 'text-[var(--ti)]' : 'text-[var(--t2)]';
 
   if (status === 'completed' || status === 'extracted' || status === 'conquered') {
     return <Check size={12} className={`shrink-0 ${color}`} aria-label="완료" />;

@@ -71,7 +71,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
             <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
               {total}개 문장을 모두 따라 읽었어요
             </p>
-            <p className="mt-1 font-body text-[12.5px] italic text-[var(--t3)]">
+            <p className="mt-1 font-body text-[12.5px] italic text-[var(--t2)]">
               소리 내어 읽은 만큼 더 또렷하게 남아요 · 잠깐 쉬어도 좋아요
             </p>
           </div>
@@ -106,7 +106,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           </span>
           <div>
             <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">따라읽기</h2>
-            <p className="mx-auto mt-1 max-w-[420px] font-body text-[12.5px] leading-relaxed text-[var(--t3)]">
+            <p className="mx-auto mt-1 max-w-[420px] font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
               문장을 듣고 그대로 따라 말해요. 한 문장이 끝나면 자동으로 다음 문장으로 이어집니다.
             </p>
           </div>
@@ -117,7 +117,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           >
             <Play size={17} fill="currentColor" aria-hidden /> 시작하기
           </button>
-          <p className="flex items-center gap-1.5 font-body text-[11px] text-[var(--t4)]">
+          <p className="flex items-center gap-1.5 font-body text-[11px] text-[var(--t2)]">
             {state.recognitionSupported ? (
               <>
                 <Mic size={12} aria-hidden /> 마이크로 발화를 부드럽게 인식해요 (정확한 채점은
@@ -143,7 +143,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
     <PanelShell>
       {/* 진행 표시 */}
       <div className="mb-3 flex items-center justify-between gap-3">
-        <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">
+        <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">
           문장 {Math.min(index + 1, total)} / {total}
         </span>
         <div
@@ -195,7 +195,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
       {/* 들린 말 (Progressive Disclosure — 작게) */}
       <div className="mt-2 min-h-[18px] text-center">
         {(phase === 'speaking' || phase === 'feedback') && transcript && (
-          <p className="font-body text-[12px] italic text-[var(--t4)]">
+          <p className="font-body text-[12px] italic text-[var(--t2)]">
             들린 말: “{transcript}”
           </p>
         )}
@@ -230,7 +230,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
       {/* 보조 옵션 — 속도 + 자동 진행 */}
       <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
         <div className="flex items-center gap-1">
-          <span className="font-body text-[11px] text-[var(--t4)]">속도</span>
+          <span className="font-body text-[11px] text-[var(--t2)]">속도</span>
           {RATES.map((r) => (
             <button
               key={r.value}
@@ -240,7 +240,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
               className={`h-7 rounded-[var(--r-full)] px-2.5 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 state.rate === r.value
                   ? 'bg-[var(--p)] text-white'
-                  : 'text-[var(--t3)] hover:bg-[var(--bg2)]'
+                  : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
               }`}
             >
               {r.label}
@@ -252,7 +252,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           type="button"
           onClick={() => controls.setAutoAdvance(!state.autoAdvance)}
           aria-pressed={state.autoAdvance}
-          className="inline-flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t3)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 rounded"
+          className="inline-flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 rounded"
         >
           <span
             aria-hidden
@@ -268,7 +268,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
         </button>
       </div>
 
-      <p className="mt-2.5 text-center font-body text-[11px] italic text-[var(--t4)]">
+      <p className="mt-2.5 text-center font-body text-[11px] italic text-[var(--t2)]">
         천천히 해도 괜찮아요 · 편할 때 잠깐 멈춰도 좋아요
       </p>
     </PanelShell>
@@ -330,7 +330,7 @@ function statusFor(
   if (paused) {
     return {
       icon: <Pause size={16} aria-hidden />,
-      iconWrap: 'bg-[var(--bg2)] text-[var(--t3)]',
+      iconWrap: 'bg-[var(--bg2)] text-[var(--t2)]',
       color: 'var(--t3)',
       label: '잠깐 멈췄어요',
     }

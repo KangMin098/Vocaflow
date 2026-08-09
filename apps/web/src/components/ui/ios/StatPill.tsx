@@ -58,7 +58,7 @@ export function StatPill({
             }}
           />
         )}
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
+        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
           {label}
         </span>
       </div>
@@ -70,10 +70,10 @@ export function StatPill({
           {value}
         </span>
         {unit && (
-          <span className="font-mono text-[10.5px] text-[var(--t3)]">{unit}</span>
+          <span className="font-mono text-[10.5px] text-[var(--t2)]">{unit}</span>
         )}
         {ratio && (
-          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
             {ratio}
           </span>
         )}

@@ -117,7 +117,7 @@ export function WeeklyHeatmap({ days: daysDto }: { days?: ActivityDayDto[] }) {
           <h2 className="font-display text-[14px] font-[700] tracking-tight text-[var(--t1)]">
             학습 활동
           </h2>
-          <span className="font-mono text-[10px] font-[600] uppercase tracking-[0.1em] text-[var(--t3)]">
+          <span className="font-mono text-[10px] font-[600] uppercase tracking-[0.1em] text-[var(--t2)]">
             지난 28일
           </span>
         </div>
@@ -259,7 +259,7 @@ function Stat({
 }) {
   return (
     <div className="flex flex-1 flex-col gap-0.5">
-      <dt className="font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+      <dt className="font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
         {label}
       </dt>
       <dd

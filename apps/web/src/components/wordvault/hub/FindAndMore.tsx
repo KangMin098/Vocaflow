@@ -53,7 +53,7 @@ export function FindAndMore() {
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
           찾기 / 더 많은 작업
         </h2>
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           검색하거나 전체 자산을 둘러보세요
         </p>
       </header>
@@ -65,7 +65,7 @@ export function FindAndMore() {
             size={15}
             strokeWidth={2}
             aria-hidden="true"
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           />
           <input
             type="search"
@@ -74,10 +74,10 @@ export function FindAndMore() {
             onKeyDown={onKeyDown}
             placeholder="단어 · 의미 · 예문 검색"
             aria-label="단어 검색"
-            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] pl-10 pr-14 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t3)] transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:bg-[var(--bg)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] pl-10 pr-14 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t2)] transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:bg-[var(--bg)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           />
           <kbd
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t3)]"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]"
             aria-hidden="true"
           >
             Enter
@@ -99,7 +99,7 @@ export function FindAndMore() {
           aria-disabled="true"
           tabIndex={-1}
           title="Phase 2 — 단어 다중 선택 후 태그·이동·삭제"
-          className="inline-flex min-h-[36px] cursor-not-allowed items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t3)] opacity-50"
+          className="inline-flex min-h-[36px] cursor-not-allowed items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] opacity-50"
         >
           <Layers size={12} aria-hidden="true" />
           일괄 작업 (Phase 2)

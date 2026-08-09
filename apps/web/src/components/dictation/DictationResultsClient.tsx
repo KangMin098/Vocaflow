@@ -152,7 +152,7 @@ export function DictationResultsClient() {
 
   if (!session || !aggregateData) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t3)]">
+      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t2)]">
         결과를 불러오는 중...
       </div>
     );
@@ -287,7 +287,7 @@ export function DictationResultsClient() {
               </span>
             ))}
             {mistakenWords.length > 20 && (
-              <span className="inline-flex items-center rounded-full px-3 py-1 font-body text-[12px] text-[var(--t3)]">
+              <span className="inline-flex items-center rounded-full px-3 py-1 font-body text-[12px] text-[var(--t2)]">
                 +{mistakenWords.length - 20}개 더
               </span>
             )}
@@ -309,7 +309,7 @@ export function DictationResultsClient() {
               acc >= 90 ? 'var(--success)' : acc >= 70 ? 'var(--p)' : 'var(--warning)';
             return (
               <li key={idx} className="flex items-start gap-3 px-5 py-3">
-                <span className="font-mono text-[11px] font-[700] tabular-nums text-[var(--t3)] mt-1">
+                <span className="font-mono text-[11px] font-[700] tabular-nums text-[var(--t2)] mt-1">
                   #{idx + 1}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -317,7 +317,7 @@ export function DictationResultsClient() {
                     {item.expectedText}
                   </p>
                   {item.userInput && (
-                    <p className="mt-1 truncate font-english text-[12px] text-[var(--t3)]">
+                    <p className="mt-1 truncate font-english text-[12px] text-[var(--t2)]">
                       → {item.userInput}
                     </p>
                   )}
@@ -434,7 +434,7 @@ function ErrorAnalysis({
                     className="inline-flex items-center gap-1 rounded bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px]"
                   >
                     <span className="text-[var(--success)]">{ex.expected}</span>
-                    <span className="text-[var(--t3)]">→</span>
+                    <span className="text-[var(--t2)]">→</span>
                     <span className="text-[var(--error)]">{ex.actual || '(누락)'}</span>
                   </span>
                 ))}

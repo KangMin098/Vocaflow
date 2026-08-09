@@ -396,7 +396,7 @@ export function VocabSetMatrix({
                 </span>
                 <span
                   className={`font-mono text-[9px] ${
-                    active ? 'text-[var(--t3)]' : 'text-[var(--t4)]'
+                    active ? 'text-[var(--t2)]' : 'text-[var(--t2)]'
                   }`}
                 >
                   {opt.sub}
@@ -407,7 +407,7 @@ export function VocabSetMatrix({
         </div>
 
         {/* 범례 */}
-        <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t3)]">
+        <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t2)]">
           <span className="inline-flex items-center gap-1.5">
             <span
               aria-hidden
@@ -467,7 +467,7 @@ export function VocabSetMatrix({
           </button>
           <span
             aria-hidden
-            className="hidden items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] font-[600] text-[var(--t3)] md:inline-flex"
+            className="hidden items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)] md:inline-flex"
             title="가로로 드래그해서 탐색하세요"
           >
             ← drag →
@@ -553,7 +553,7 @@ export function VocabSetMatrix({
             aria-colindex={1}
             className="sticky left-0 z-20 border-b border-r border-[var(--bd)] bg-[var(--bg2)] p-3"
           >
-            <div className="font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+            <div className="font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
               단계 ↓
             </div>
             <div className="mt-0.5 font-display text-[12px] font-[700] text-[var(--t1)]">
@@ -581,13 +581,13 @@ export function VocabSetMatrix({
                   {col.label}
                 </div>
                 {col.sub && (
-                  <div className="font-mono text-[9px] font-[500] text-[var(--t3)]">
+                  <div className="font-mono text-[9px] font-[500] text-[var(--t2)]">
                     {col.sub}
                   </div>
                 )}
                 <div
                   className={`mt-1 font-mono text-[11px] font-[700] tabular-nums ${
-                    total === 0 ? 'text-[var(--t4)]' : 'text-[var(--t2)]'
+                    total === 0 ? 'text-[var(--t2)]' : 'text-[var(--t2)]'
                   }`}
                 >
                   {total}
@@ -598,7 +598,7 @@ export function VocabSetMatrix({
           <div
             role="columnheader"
             aria-colindex={visibleCols.length + 2}
-            className="sticky top-0 z-10 border-b border-[var(--bd)] bg-[var(--bg2)] p-2 text-center font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]"
+            className="sticky top-0 z-10 border-b border-[var(--bd)] bg-[var(--bg2)] p-2 text-center font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]"
           >
             합계
           </div>
@@ -659,7 +659,7 @@ export function VocabSetMatrix({
                           </span>
                         )}
                       </div>
-                      <div className="truncate font-body text-[10px] text-[var(--t3)]">
+                      <div className="truncate font-body text-[10px] text-[var(--t2)]">
                         {cat.hint}
                       </div>
                     </div>
@@ -698,7 +698,7 @@ export function VocabSetMatrix({
                           aria-hidden
                           className="flex h-full min-h-[68px] items-center justify-center"
                         >
-                          <span className="font-mono text-[10px] text-[var(--t4)]">
+                          <span className="font-mono text-[10px] text-[var(--t2)]">
                             ∅
                           </span>
                         </div>
@@ -719,7 +719,7 @@ export function VocabSetMatrix({
                               onClick={() =>
                                 onSelectCategory(cat.id as VocabCategoryId)
                               }
-                              className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg)] py-1 text-center font-mono text-[10px] font-[700] text-[var(--t3)] transition-colors hover:border-[var(--t1)] hover:text-[var(--t1)]"
+                              className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg)] py-1 text-center font-mono text-[10px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t1)] hover:text-[var(--t1)]"
                             >
                               +{items.length - 3} 더보기
                             </button>
@@ -736,7 +736,7 @@ export function VocabSetMatrix({
                   aria-colindex={visibleCols.length + 2}
                   className={`border-b border-[var(--bd)] p-2 text-center font-mono text-[13px] font-[800] tabular-nums ${
                     total === 0
-                      ? 'bg-[var(--bg2)] text-[var(--t4)]'
+                      ? 'bg-[var(--bg2)] text-[var(--t2)]'
                       : 'bg-[var(--bg2)] text-[var(--t2)]'
                   }`}
                 >
@@ -856,7 +856,7 @@ function MatrixSetChip({
       </span>
       <span
         className={`shrink-0 font-mono text-[10px] tabular-nums ${
-          isSubscribed ? 'text-[var(--bg)]/70' : 'text-[var(--t3)]'
+          isSubscribed ? 'text-[var(--bg)]/70' : 'text-[var(--t2)]'
         }`}
       >
         {set.wordCount}

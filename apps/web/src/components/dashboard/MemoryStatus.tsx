@@ -5,6 +5,7 @@
 
 'use client'
 
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
@@ -67,7 +68,7 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
           <h2 className="font-display text-[14px] font-[700] tracking-tight text-[var(--t1)]">
             기억 상태
           </h2>
-          <span className="font-mono text-[10px] font-[600] uppercase tracking-[0.1em] text-[var(--t3)]">
+          <span className="font-mono text-[10px] font-[600] uppercase tracking-[0.1em] text-[var(--t2)]">
             총 {total.toLocaleString()}개
           </span>
         </div>
@@ -100,26 +101,28 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
       </div>
 
       {/* 범례 — 라벨 + 설명 (의미 명시) */}
-      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-4">
+      {/* dt/dd 는 dl 의 직접 자식이어야 한다(axe dlitem). 색 점·레이아웃 래퍼를 두면
+          정의 목록 시맨틱이 깨지므로, 시각 구조는 그대로 두고 요소만 평평하게 편다. */}
+      <dl className="mt-3 grid grid-cols-[auto_1fr] items-start gap-x-2 gap-y-2.5 sm:grid-cols-[auto_1fr_auto_1fr]">
         {states.map((s) => (
-          <div key={s.key} className="flex items-start gap-2">
-            <span
-              className="mt-[3px] h-2.5 w-2.5 shrink-0 rounded-[var(--r-sm)]"
-              style={{ background: `var(${s.token})` }}
-              aria-hidden
-            />
-            <div className="min-w-0">
-              <dt className="flex items-baseline gap-1.5">
-                <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
-                  {s.label}
-                </span>
-                <span className="font-display text-[12px] font-[700] tabular-nums text-[var(--t2)]">
-                  {s.count.toLocaleString()}
-                </span>
-              </dt>
-              <dd className="font-body text-[11px] leading-snug text-[var(--t3)]">{s.desc}</dd>
-            </div>
-          </div>
+          <Fragment key={s.key}>
+            <dt className="flex items-baseline gap-1.5">
+              <span
+                className="mt-[6px] h-2.5 w-2.5 shrink-0 rounded-[var(--r-sm)]"
+                style={{ background: `var(${s.token})` }}
+                aria-hidden
+              />
+              <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
+                {s.label}
+              </span>
+              <span className="font-display text-[12px] font-[700] tabular-nums text-[var(--t2)]">
+                {s.count.toLocaleString()}
+              </span>
+            </dt>
+            <dd className="min-w-0 font-body text-[11px] leading-snug text-[var(--t2)]">
+              {s.desc}
+            </dd>
+          </Fragment>
         ))}
       </dl>
     </section>

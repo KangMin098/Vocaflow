@@ -59,7 +59,7 @@ export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
         role="status"
         className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-6 py-16 text-center"
       >
-        <BookImage size={26} className="text-[var(--t3)]" aria-hidden />
+        <BookImage size={26} className="text-[var(--t2)]" aria-hidden />
         <div>
           <p className="font-display text-[16px] font-[800] text-[var(--t1)]">
             아직 준비된 만화가 없어요
@@ -184,7 +184,7 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-[var(--dur-slower)] ease-[var(--ease)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         ) : (
-          <div className="absolute inset-0 grid place-items-center text-[var(--t4)]">
+          <div className="absolute inset-0 grid place-items-center text-[var(--t2)]">
             <BookImage size={28} aria-hidden />
           </div>
         )}

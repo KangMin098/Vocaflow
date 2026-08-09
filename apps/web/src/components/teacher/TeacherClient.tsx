@@ -68,7 +68,7 @@ export function TeacherClient({
         </span>
         <div>
           <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">클래스</h1>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             클래스를 만들어 초대코드로 학생을 모아요
           </p>
         </div>
@@ -124,11 +124,11 @@ export function TeacherClient({
 
       {/* 내가 만든 클래스 */}
       <section className="flex flex-col gap-3">
-        <h2 className="font-display text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+        <h2 className="font-display text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
           내가 만든 클래스 ({classes.length})
         </h2>
         {classes.length === 0 ? (
-          <p className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-5 py-8 text-center font-body text-[13px] text-[var(--t3)]">
+          <p className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-5 py-8 text-center font-body text-[13px] text-[var(--t2)]">
             아직 만든 클래스가 없어요. 위에서 첫 클래스를 만들어 보세요.
           </p>
         ) : (
@@ -142,7 +142,7 @@ export function TeacherClient({
                   <p className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">
                     {c.name}
                   </p>
-                  <p className="mt-0.5 inline-flex items-center gap-1 font-body text-[12px] text-[var(--t3)]">
+                  <p className="mt-0.5 inline-flex items-center gap-1 font-body text-[12px] text-[var(--t2)]">
                     <Users size={11} aria-hidden /> 학생 {c.member_count}명
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export function TeacherClient({
                   {copied === c.invite_code ? (
                     <Check size={13} className="text-[var(--success)]" aria-hidden />
                   ) : (
-                    <Copy size={13} className="text-[var(--t3)]" aria-hidden />
+                    <Copy size={13} className="text-[var(--t2)]" aria-hidden />
                   )}
                 </button>
               </li>
@@ -168,7 +168,7 @@ export function TeacherClient({
       {/* 참여 중인 클래스 */}
       {memberships.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <h2 className="font-display text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             참여 중인 클래스 ({memberships.length})
           </h2>
           <ul className="flex flex-col gap-2">

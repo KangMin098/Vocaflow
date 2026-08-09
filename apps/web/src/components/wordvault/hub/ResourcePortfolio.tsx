@@ -507,8 +507,8 @@ function EmptyRow({ text, href }: { text: string; href: string }) {
       href={href}
       className="flex items-center justify-between px-4 py-4 transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)]"
     >
-      <span className="font-body text-[13px] text-[var(--t3)]">{text}</span>
-      <ChevronRight size={16} className="text-[var(--t3)]/70" aria-hidden />
+      <span className="font-body text-[13px] text-[var(--t2)]">{text}</span>
+      <ChevronRight size={16} className="text-[var(--t2)]/70" aria-hidden />
     </Link>
   )
 }
@@ -523,7 +523,7 @@ function EmptyState({
   linkLabel?: string
 }) {
   return (
-    <p className="font-body text-[13px] text-[var(--t3)]">
+    <p className="font-body text-[13px] text-[var(--t2)]">
       {text}
       {href && linkLabel && (
         <>

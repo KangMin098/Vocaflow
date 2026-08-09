@@ -92,7 +92,7 @@ export function AssetCollectionsRow({ collections }: AssetCollectionsRowProps) {
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             컬렉션
           </h2>
-          <p className="font-body text-[11px] text-[var(--t3)]">
+          <p className="font-body text-[11px] text-[var(--t2)]">
             출처별로 묶인 내 단어들
           </p>
         </div>
@@ -139,7 +139,7 @@ function CollectionCard({
           {badge.label}
         </span>
         {Icon && (
-          <span className="text-[var(--t3)]" aria-hidden="true">
+          <span className="text-[var(--t2)]" aria-hidden="true">
             <Icon width={13} height={13} strokeWidth={2} />
           </span>
         )}
@@ -151,7 +151,7 @@ function CollectionCard({
           {c.title}
         </h3>
         {c.subtitle && (
-          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {c.subtitle}
           </p>
         )}
@@ -167,7 +167,7 @@ function CollectionCard({
         </span>
         <ArrowRight
           size={14}
-          className="shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
+          className="shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
           aria-hidden="true"
         />
       </div>

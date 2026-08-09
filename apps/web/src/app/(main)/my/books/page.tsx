@@ -233,7 +233,7 @@ function Hero({
           >
             내 책장
           </h1>
-          <p className="font-body text-[12.5px] text-[var(--t3)]">
+          <p className="font-body text-[12.5px] text-[var(--t2)]">
             Library 에서 내 학습에 추가한 책들 · chapter 단위로 이어 읽어요
           </p>
         </div>
@@ -266,7 +266,7 @@ function Stat({
       >
         {value}
       </dd>
-      <dt className="font-display text-[10.5px] font-[600] uppercase tracking-[0.08em] text-[var(--t3)]">
+      <dt className="font-display text-[10.5px] font-[600] uppercase tracking-[0.08em] text-[var(--t2)]">
         {label}
       </dt>
     </div>
@@ -320,13 +320,13 @@ function BookCard({ book }: { book: BookSummary }) {
           </div>
         </div>
         {book.author && (
-          <p className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {book.author}
           </p>
         )}
 
         {/* Next/Last hint — 학습 흐름 단서 */}
-        <div className="mt-1 flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t3)]">
+        <div className="mt-1 flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
           {isComplete ? (
             <span className="inline-flex items-center gap-1 font-[600] text-[var(--learn-known)]">
               <Sparkles size={11} aria-hidden /> 완독했어요
@@ -339,11 +339,11 @@ function BookCard({ book }: { book: BookSummary }) {
               </span>
             </span>
           ) : (
-            <span className="text-[var(--t3)]">시작 대기</span>
+            <span className="text-[var(--t2)]">시작 대기</span>
           )}
           {last && (
             <>
-              <span className="text-[var(--t4)]" aria-hidden>·</span>
+              <span className="text-[var(--t2)]" aria-hidden>·</span>
               <span>{last}</span>
             </>
           )}
@@ -352,9 +352,9 @@ function BookCard({ book }: { book: BookSummary }) {
 
       <div className="flex flex-col gap-2 border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
         <div className="flex items-baseline justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
             <strong className="font-[700] text-[var(--t1)]">{book.completed_chapters}</strong>
-            <span className="text-[var(--t4)]"> / </span>
+            <span className="text-[var(--t2)]"> / </span>
             {book.chapter_count}장 완료
           </span>
           <span

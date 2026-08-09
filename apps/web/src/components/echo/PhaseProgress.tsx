@@ -38,7 +38,7 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
                     ? 'bg-[var(--p)] text-[var(--ti)]'
                     : isPassed
                       ? 'bg-[var(--success-light)] text-[var(--success)]'
-                      : 'bg-[var(--bg3)] text-[var(--t3)]'
+                      : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {p.label}
@@ -46,7 +46,7 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
             )
           })}
         </div>
-        <span className="font-mono text-[11px] text-[var(--t3)] tabular-nums">
+        <span className="font-mono text-[11px] text-[var(--t2)] tabular-nums">
           {currentSentence}/{totalSentences} · {pct}%
         </span>
       </div>

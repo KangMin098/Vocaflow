@@ -198,7 +198,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
 
         {panels.length === 0 && (
           <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center">
-            <BookImage size={24} className="text-[var(--t3)]" aria-hidden />
+            <BookImage size={24} className="text-[var(--t2)]" aria-hidden />
             <p className="font-body text-[13px] text-[var(--t2)]">
               미리보기를 준비 중이에요. 바로 시작해도 좋아요.
             </p>

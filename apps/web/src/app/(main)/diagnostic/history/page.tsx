@@ -27,7 +27,7 @@ export default async function DiagnosticHistoryPage() {
     return (
       <Screen width="content" background="bg2" padX="md">
         <div className="py-8">
-          <p className="font-body text-[var(--t3)]">로그인이 필요해요.</p>
+          <p className="font-body text-[var(--t2)]">로그인이 필요해요.</p>
         </div>
       </Screen>
     )

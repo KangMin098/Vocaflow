@@ -66,11 +66,11 @@ function TodayPlanRow({ item }: { item: PlanItem }) {
           </span>
         )}
         <span className="truncate font-display text-[13px] font-[800] text-[var(--t1)]">{item.title}</span>
-        <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">
+        <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
           {MATERIAL_LABEL[item.materialType]}
         </span>
         {item.materialType === 'book' && item.chapterCount > 1 && (
-          <span className="font-mono text-[11px] text-[var(--t3)]">
+          <span className="font-mono text-[11px] text-[var(--t2)]">
             {item.chapters.length === 0 ? '전체' : `Ch ${item.chapters.join('·')}`}
           </span>
         )}

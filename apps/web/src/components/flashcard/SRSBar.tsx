@@ -67,14 +67,14 @@ export function SRSBar({ visible, srs, onJudge }: SRSBarProps) {
             aria-label={`${label}, ${formatNextReview(rating, srs)}`}
           >
             <span
-              className="absolute right-1.5 top-1 rounded border border-[var(--bd)] bg-[var(--bg2)] px-[5px] py-[1px] font-mono text-[9px] font-[700] text-[var(--t3)] opacity-50 transition-opacity group-hover/srs:opacity-100"
+              className="absolute right-1.5 top-1 rounded border border-[var(--bd)] bg-[var(--bg2)] px-[5px] py-[1px] font-mono text-[9px] font-[700] text-[var(--t2)] opacity-50 transition-opacity group-hover/srs:opacity-100"
               aria-hidden="true"
             >
               {keyHint}
             </span>
             <span className="text-[22px] leading-none">{emoji}</span>
             <span className={`font-display text-[13px] font-[700] ${styles.label}`}>{label}</span>
-            <span className="font-mono text-[10px] font-[500] text-[var(--t3)]">
+            <span className="font-mono text-[10px] font-[500] text-[var(--t2)]">
               {formatNextReview(rating, srs)}
             </span>
           </button>

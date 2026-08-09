@@ -51,7 +51,7 @@ export function WordPeekStrip({ words, className }: WordPeekStripProps) {
       aria-label="최근에 만난 단어"
       className={className ?? 'hidden md:flex md:flex-col md:gap-2'}
     >
-      <h3 className="font-display text-[13px] font-[600] text-[var(--t3)]">
+      <h3 className="font-display text-[13px] font-[600] text-[var(--t2)]">
         최근에 만난 단어
       </h3>
       <ul className="flex flex-wrap gap-2">
@@ -70,7 +70,7 @@ export function WordPeekStrip({ words, className }: WordPeekStripProps) {
               <span className="font-english text-[14px] font-[600] text-[var(--t1)]">
                 {w.word}
               </span>
-              <span className="font-body text-[12px] text-[var(--t3)]">
+              <span className="font-body text-[12px] text-[var(--t2)]">
                 · {w.meaning}
               </span>
             </Link>

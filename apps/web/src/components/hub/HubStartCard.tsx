@@ -62,8 +62,8 @@ export function HubStartCard({
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{title}</h2>
         {description && (
           <>
-            <span className="font-body text-[12px] text-[var(--t3)]">·</span>
-            <p className="font-body text-[12px] text-[var(--t3)]">{description}</p>
+            <span className="font-body text-[12px] text-[var(--t2)]">·</span>
+            <p className="font-body text-[12px] text-[var(--t2)]">{description}</p>
           </>
         )}
       </header>
@@ -73,7 +73,7 @@ export function HubStartCard({
         <div className="mb-4">
           <label
             htmlFor={`vocab-${vocabulary.label}`}
-            className="mb-1.5 block font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+            className="mb-1.5 block font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
           >
             {vocabulary.label}
           </label>
@@ -97,7 +97,7 @@ export function HubStartCard({
       <div className="space-y-4">
         {choices.map((c) => (
           <fieldset key={c.label} className="flex flex-wrap items-center gap-3">
-            <legend className="contents font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <legend className="contents font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               {c.label}
             </legend>
             <div className="flex flex-wrap items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
@@ -131,9 +131,9 @@ export function HubStartCard({
       {/* CTA */}
       <div className="mt-6 flex flex-col items-start gap-2 border-t border-[var(--bd)] pt-5 sm:flex-row sm:items-center sm:justify-between">
         {cta.disabled && cta.disabledReason ? (
-          <p className="font-body text-[12px] italic text-[var(--t3)]">{cta.disabledReason}</p>
+          <p className="font-body text-[12px] italic text-[var(--t2)]">{cta.disabledReason}</p>
         ) : (
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             준비됐어요. 시작 버튼을 눌러주세요.
           </p>
         )}
@@ -143,7 +143,7 @@ export function HubStartCard({
             type="button"
             disabled
             aria-disabled
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--bg3)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t3)] sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--bg3)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t2)] sm:w-auto"
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}

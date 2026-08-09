@@ -243,7 +243,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       type="button"
       onClick={onClose}
       aria-label="닫기"
-      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
     >
       <X size={14} aria-hidden />
     </button>
@@ -397,9 +397,9 @@ function BrowserBody({
                 aria-hidden
               />
             </div>
-            <span className="shrink-0 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+            <span className="shrink-0 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
               <span className="text-[var(--t1)]">{currentIdx + 1}</span>
-              <span className="mx-0.5 text-[var(--t4)]">/</span>
+              <span className="mx-0.5 text-[var(--t2)]">/</span>
               {total}
             </span>
           </div>
@@ -475,10 +475,10 @@ function StepHero({
     <div className="flex flex-col gap-2 rounded-[var(--r-ios-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
       {/* meta: step number + status */}
       <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t3)]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t2)]">
           STEP <span className="font-display tabular-nums text-[var(--t1)]">{stepNumber}</span>
-          <span className="mx-1 text-[var(--t4)]">/</span>
-          <span className="font-display tabular-nums text-[var(--t3)]">{totalSteps}</span>
+          <span className="mx-1 text-[var(--t2)]">/</span>
+          <span className="font-display tabular-nums text-[var(--t2)]">{totalSteps}</span>
         </span>
         <span
           className={`inline-flex items-center gap-1.5 font-display text-[11px] font-[700] transition-colors ${
@@ -634,13 +634,13 @@ function LibriVoxBody({
     <div className="flex items-center gap-1.5">
       {/* 성우 — 최소화 (작게·truncate·모바일 숨김. 전체 이름은 title) */}
       <span
-        className="hidden min-w-0 max-w-[100px] items-center gap-1 font-body text-[10.5px] text-[var(--t3)] sm:inline-flex"
+        className="hidden min-w-0 max-w-[100px] items-center gap-1 font-body text-[10.5px] text-[var(--t2)] sm:inline-flex"
         title={currentPart?.reader ?? audio.reader ?? '원어민 낭독'}
       >
-        <Mic size={11} className="shrink-0 text-[var(--t4)]" aria-hidden />
+        <Mic size={11} className="shrink-0 text-[var(--t2)]" aria-hidden />
         <span className="truncate">{currentPart?.reader ?? audio.reader ?? '원어민'}</span>
         {multiPart && (
-          <span className="shrink-0 font-mono text-[9px] tabular-nums text-[var(--t4)]">
+          <span className="shrink-0 font-mono text-[9px] tabular-nums text-[var(--t2)]">
             {partIdx + 1}/{parts.length}
           </span>
         )}
@@ -675,9 +675,9 @@ function LibriVoxBody({
       )}
 
       {/* 시간 + seek */}
-      <span className="ml-1 shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
+      <span className="ml-1 shrink-0 font-mono text-[10px] tabular-nums text-[var(--t2)]">
         {formatAudioTime(cur)}
-        <span className="mx-0.5 text-[var(--t4)]">/</span>
+        <span className="mx-0.5 text-[var(--t2)]">/</span>
         {formatAudioTime(total)}
       </span>
       <input
@@ -700,7 +700,7 @@ function LibriVoxBody({
           rel="noreferrer"
           title="LibriVox 출처"
           aria-label="LibriVox 출처 보기"
-          className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t4)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
+          className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
         >
           <ExternalLink size={13} aria-hidden />
         </a>

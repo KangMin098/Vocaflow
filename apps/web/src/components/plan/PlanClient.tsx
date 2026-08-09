@@ -491,7 +491,7 @@ export function PlanClient({
 
               <div className="max-h-[420px] min-w-0 flex-1 overflow-y-auto pr-1">
                 {visibleGroups.length === 0 ? (
-                  <p className="px-1 py-3 font-body text-[13px] text-[var(--t3)]">
+                  <p className="px-1 py-3 font-body text-[13px] text-[var(--t2)]">
                     {tabMaterials[activeTab].length === 0 ? '표시할 자료가 없어요.' : '이 분류에 자료가 없어요.'}
                   </p>
                 ) : (
@@ -500,8 +500,8 @@ export function PlanClient({
                       <div key={g.key} className="flex flex-col gap-1.5">
                         <div className="flex items-center gap-2">
                           <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
-                          {g.short && <span className="font-mono text-[10px] text-[var(--t3)]">{g.short}</span>}
-                          <span className="font-mono text-[10px] text-[var(--t3)]">{g.items.length}</span>
+                          {g.short && <span className="font-mono text-[10px] text-[var(--t2)]">{g.short}</span>}
+                          <span className="font-mono text-[10px] text-[var(--t2)]">{g.items.length}</span>
                           <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                         </div>
                         <ul className="flex flex-col gap-1.5">
@@ -588,10 +588,10 @@ export function PlanClient({
             />
           ) : (
             <div className="flex min-h-[200px] flex-col items-center justify-center gap-2 text-center">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t3)]" aria-hidden>
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t2)]" aria-hidden>
                 <Pencil size={18} strokeWidth={1.5} />
               </span>
-              <p className="font-body text-[13px] text-[var(--t3)]">
+              <p className="font-body text-[13px] text-[var(--t2)]">
                 왼쪽에서 자료를 고르거나
                 <br />
                 위 보드의 담은 자료를 눌러 구성해요.
@@ -621,7 +621,7 @@ function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: num
         </span>
       </h2>
       {todayItems.length === 0 ? (
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           오늘({dayLabel})은 계획된 학습이 없어요 — 아래에서 자료에 {dayLabel}요일을 더해 보세요.
         </p>
       ) : (
@@ -642,7 +642,7 @@ function TodayRow({ item }: { item: PlanItem }) {
         <MiniMaterialGlyph item={item} />
         <span className="truncate font-display text-[13px] font-[800] text-[var(--t1)]">{item.title}</span>
         {item.materialType === 'book' && item.chapterCount > 1 && (
-          <span className="font-mono text-[11px] text-[var(--t3)]">
+          <span className="font-mono text-[11px] text-[var(--t2)]">
             {item.chapters.length === 0 ? '전체' : `Ch ${item.chapters.join('·')}`}
           </span>
         )}
@@ -689,7 +689,7 @@ function WeekBoard({
       <div className="flex items-center gap-1.5 px-0.5">
         <CalendarDays size={14} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
         <h2 className="font-display text-[13px] font-[800] text-[var(--t1)]">주간 보드</h2>
-        <span className="font-mono text-[11px] text-[var(--t3)]">
+        <span className="font-mono text-[11px] text-[var(--t2)]">
           {plannedDays > 0 ? `이번 주 ${plannedDays}일 계획` : '요일에 자료를 배치해요'}
         </span>
       </div>
@@ -728,7 +728,7 @@ function WeekBoard({
                   </span>
                   <span
                     className={`font-mono text-[9.5px] leading-none tabular-nums ${
-                      isToday ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                      isToday ? 'text-[var(--p)]' : 'text-[var(--t2)]'
                     }`}
                   >
                     {weekDates[d.value - 1] ?? ''}
@@ -743,7 +743,7 @@ function WeekBoard({
                 {/* 본문 — 계획 카드 스택 or 빈 상태 */}
                 <div className="flex min-h-[72px] flex-1 flex-col gap-1.5 p-1.5">
                   {empty ? (
-                    <span className="flex flex-1 items-center justify-center py-2 font-body text-[10px] italic text-[var(--t4)]">
+                    <span className="flex flex-1 items-center justify-center py-2 font-body text-[10px] italic text-[var(--t2)]">
                       비어 있음
                     </span>
                   ) : (
@@ -760,7 +760,7 @@ function WeekBoard({
 
       {unscheduled.length > 0 && (
         <div className="flex flex-col gap-1 border-t border-[var(--bd)] pt-2">
-          <p className="font-body text-[11px] text-[var(--t3)]">
+          <p className="font-body text-[11px] text-[var(--t2)]">
             <span className="font-display font-[700] text-[var(--t2)]">요일 미정</span> — 아직 요일을 안 정한
             계획이에요. 눌러서 요일을 고르면 위 보드에 배치돼요.
           </p>
@@ -825,7 +825,7 @@ function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; o
           ))}
           {overflow > 0 && (
             <span
-              className={`font-mono text-[9px] ${active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'}`}
+              className={`font-mono text-[9px] ${active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t2)]'}`}
               aria-hidden
             >
               +{overflow}
@@ -868,7 +868,7 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
         {(shown.length > 0 || chapterLabel) && (
           <span
             className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 ${
-              active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t3)]'
+              active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t2)]'
             }`}
           >
             {chapterLabel && (
@@ -1065,7 +1065,7 @@ function ItemConfig({
       <button
         type="button"
         onClick={onRemove}
-        className="inline-flex h-9 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex h-9 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <Trash2 size={13} strokeWidth={1.75} aria-hidden /> 계획에서 빼기
       </button>
@@ -1089,14 +1089,14 @@ function ConfigHeader({
     <header className="flex items-center gap-2">
       <div className="flex min-w-0 flex-1 flex-col">
         <span className="truncate font-display text-[15px] font-[800] text-[var(--t1)]">{title}</span>
-        <span className="font-display text-[11px] font-[700] text-[var(--t3)]">{subtitle}</span>
+        <span className="font-display text-[11px] font-[700] text-[var(--t2)]">{subtitle}</span>
       </div>
       {right}
       <button
         type="button"
         onClick={onClose}
         aria-label="구성 닫기"
-        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={15} strokeWidth={2} aria-hidden />
       </button>
@@ -1107,7 +1107,7 @@ function ConfigHeader({
 function ConfigBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="font-body text-[12px] text-[var(--t3)]">{label}</p>
+      <p className="font-body text-[12px] text-[var(--t2)]">{label}</p>
       {children}
     </div>
   )
@@ -1178,7 +1178,7 @@ function ChapterList({
               </span>
               <span
                 className={`w-7 shrink-0 text-right font-mono text-[12px] font-[700] tabular-nums ${
-                  on ? 'text-[var(--p)]' : 'text-[var(--t3)]'
+                  on ? 'text-[var(--p)]' : 'text-[var(--t2)]'
                 }`}
               >
                 {n}
@@ -1194,7 +1194,7 @@ function ChapterList({
               {vLevelByIdx.get(n) != null && (
                 <span
                   className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[9px] font-[700] leading-none tabular-nums ${
-                    on ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t3)]'
+                    on ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t2)]'
                   }`}
                   title={`이 장의 어휘 난이도 V${vLevelByIdx.get(n)} — 책 전체 라벨과 다를 수 있어요`}
                 >
@@ -1323,7 +1323,7 @@ function ArticleNav({
     <div className="flex gap-2.5">
       {/* ① 1단 분류(소스/카테고리) */}
       <div className="flex shrink-0 flex-col gap-1.5">
-        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           {col1Label}
         </span>
         <nav aria-label={col1Label} className="flex max-h-[400px] w-[96px] flex-col gap-1 overflow-y-auto">
@@ -1340,7 +1340,7 @@ function ArticleNav({
       </div>
       {/* ② 2단 분류(프로그램/책) */}
       <div className="flex shrink-0 flex-col gap-1.5 border-l border-[var(--bd)] pl-2.5">
-        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           {col2Label}
         </span>
         <nav aria-label={col2Label} className="flex max-h-[400px] w-[134px] flex-col gap-1 overflow-y-auto">
@@ -1362,7 +1362,7 @@ function ArticleNav({
               <span className="min-w-0 flex-1 line-clamp-2 font-display text-[11px] font-[700] leading-tight">
                 {p.label}
               </span>
-              <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+              <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${on ? 'opacity-90' : 'text-[var(--t2)]'}`}>
                 {p.items.length}
               </span>
             </button>
@@ -1419,16 +1419,16 @@ function ArticleSelectPane({
         </span>
         <h2 className="min-w-0 truncate font-display text-[14px] font-[800] text-[var(--t1)]">
           {sourceLabel}
-          {program.full ? <span className="font-[700] text-[var(--t3)]"> · {program.label}</span> : null}
+          {program.full ? <span className="font-[700] text-[var(--t2)]"> · {program.label}</span> : null}
         </h2>
-        <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
+        <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
           {program.items.length}
         </span>
         {n > 0 && (
           <button
             type="button"
             onClick={onClear}
-            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             {n}개 선택 · 해제
           </button>
@@ -1436,7 +1436,7 @@ function ArticleSelectPane({
       </div>
 
       {/* ① 컨텐츠 다건 선택 */}
-      <p className="font-body text-[12px] italic text-[var(--t3)]">
+      <p className="font-body text-[12px] italic text-[var(--t2)]">
         담을 자료를 여러 개 고르세요 — 아래에서 활동·요일을 정해 한 번에 담아요.
       </p>
       <ul className="flex max-h-[300px] flex-col gap-1.5 overflow-y-auto pr-1">
@@ -1485,7 +1485,7 @@ function ArticleSelectPane({
           </button>
         </div>
       ) : (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] p-3 text-center font-body text-[12px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] p-3 text-center font-body text-[12px] text-[var(--t2)]">
           자료를 선택하면 활동·요일 구성이 열려요.
         </p>
       )}
@@ -1536,7 +1536,7 @@ function ArticlePickRow({
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">{m.title}</span>
           {m.subtitle && (
-            <span className="truncate font-body text-[11px] leading-tight text-[var(--t3)]">{m.subtitle}</span>
+            <span className="truncate font-body text-[11px] leading-tight text-[var(--t2)]">{m.subtitle}</span>
           )}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
@@ -1596,7 +1596,7 @@ function MaterialRow({
             {displayTitle ?? m.title}
           </span>
           {m.subtitle && (
-            <span className="truncate font-body text-[11px] leading-tight text-[var(--t3)]">{m.subtitle}</span>
+            <span className="truncate font-body text-[11px] leading-tight text-[var(--t2)]">{m.subtitle}</span>
           )}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
@@ -1682,7 +1682,7 @@ function RailButton({
       }`}
     >
       <span className="w-full truncate font-display text-[11px] font-[800] leading-tight">{label}</span>
-      <span className={`font-mono text-[10px] tabular-nums ${active ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+      <span className={`font-mono text-[10px] tabular-nums ${active ? 'opacity-90' : 'text-[var(--t2)]'}`}>
         {count}
       </span>
     </button>
@@ -1757,7 +1757,7 @@ function WeekdayChips({
             }`}
           >
             <span className="font-display text-[14px] font-[800] leading-none">{weekdayLabel(d.value)}</span>
-            <span className={`font-mono text-[10px] leading-none tabular-nums ${on ? 'opacity-90' : 'text-[var(--t3)]'}`}>
+            <span className={`font-mono text-[10px] leading-none tabular-nums ${on ? 'opacity-90' : 'text-[var(--t2)]'}`}>
               {date}
             </span>
             {/* 세 번째 슬롯(높이 고정) — 선택=체크(형태), 오늘=라벨. 색상 단독 전달 금지 */}

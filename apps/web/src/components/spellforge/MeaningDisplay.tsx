@@ -24,7 +24,7 @@ export function MeaningDisplay({
   return (
     <>
       {/* Source Tag */}
-      <div className="mb-6 inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1 font-body text-[11px] italic text-[var(--t3)]">
+      <div className="mb-6 inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1 font-body text-[11px] italic text-[var(--t2)]">
         <svg
           width="11"
           height="11"
@@ -49,7 +49,7 @@ export function MeaningDisplay({
           {meaning}
         </h2>
         {/* 발음 표기는 hover 시만 노출 (Layered Disclosure) */}
-        <p className="mb-6 h-0 overflow-hidden font-mono text-[14px] text-[var(--t3)] opacity-0 transition-all duration-[var(--dur-normal)] group-hover:h-6 group-hover:opacity-100">
+        <p className="mb-6 h-0 overflow-hidden font-mono text-[14px] text-[var(--t2)] opacity-0 transition-all duration-[var(--dur-normal)] group-hover:h-6 group-hover:opacity-100">
           {pronunciation}
         </p>
       </div>

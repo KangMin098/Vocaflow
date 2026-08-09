@@ -65,7 +65,7 @@ export function ScriptsChipNav({ chips, active, onChange }: ScriptsChipNavProps)
                 size={12}
                 strokeWidth={2.2}
                 aria-hidden
-                className={isActive ? 'text-white/90' : 'text-[var(--t3)]'}
+                className={isActive ? 'text-white/90' : 'text-[var(--t2)]'}
               />
             )}
             <span className="truncate">{chip.label}</span>
@@ -73,7 +73,7 @@ export function ScriptsChipNav({ chips, active, onChange }: ScriptsChipNavProps)
               className={`inline-flex h-[18px] min-w-[22px] items-center justify-center rounded-[var(--r-full)] px-1.5 font-mono text-[10px] font-[700] tabular-nums ${
                 isActive
                   ? 'bg-white/20 text-white'
-                  : 'bg-[var(--bg2)] text-[var(--t3)] group-hover:text-[var(--t2)]'
+                  : 'bg-[var(--bg2)] text-[var(--t2)] group-hover:text-[var(--t2)]'
               }`}
             >
               {chip.count}

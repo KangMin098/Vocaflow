@@ -145,7 +145,7 @@ export function BookContentReader({
           <h2 className="line-clamp-1 font-display text-[16px] font-[700] text-[var(--t1)]">
             {bookTitle}
           </h2>
-          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {bookAuthor ?? '저자 미상'}
             {cefrLevel && (
               <>
@@ -154,11 +154,11 @@ export function BookContentReader({
               </>
             )}
             <span className="mx-1.5 text-[var(--t5)]">·</span>
-            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
               {totalWordCount.toLocaleString()} 단어
             </span>
             <span className="mx-1.5 text-[var(--t5)]">·</span>
-            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
               {chapters.length}장
             </span>
           </p>
@@ -215,7 +215,7 @@ export function BookContentReader({
               <ChevronLeft size={14} aria-hidden />
               이전
             </button>
-            <span className="font-mono text-[11px] text-[var(--t3)]">
+            <span className="font-mono text-[11px] text-[var(--t2)]">
               {activeIdx} / {chapters.length}
             </span>
             <button
@@ -253,7 +253,7 @@ export function BookContentReader({
                 )}
               </>
             ) : (
-              <div className="flex h-full items-center justify-center font-body text-[12px] text-[var(--t3)]">
+              <div className="flex h-full items-center justify-center font-body text-[12px] text-[var(--t2)]">
                 본문 없음
               </div>
             )}
@@ -321,7 +321,7 @@ function ContentLoading() {
     <div className="flex h-full items-center justify-center">
       <div className="flex flex-col items-center gap-2">
         <div className="h-8 w-8 animate-pulse rounded-full bg-[var(--bg2)]" />
-        <span className="font-mono text-[11px] text-[var(--t3)]">불러오는 중…</span>
+        <span className="font-mono text-[11px] text-[var(--t2)]">불러오는 중…</span>
       </div>
     </div>
   )
@@ -346,7 +346,7 @@ function LockedChapterPanel() {
       <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">
         이 장은 학습 추가 후 열람 가능합니다
       </h3>
-      <p className="max-w-md font-body text-[13px] leading-relaxed text-[var(--t3)]">
+      <p className="max-w-md font-body text-[13px] leading-relaxed text-[var(--t2)]">
         지금은 1장만 미리 볼 수 있습니다. 내 학습에 추가하면 모든 장을 chapter 단위로 학습할 수
         있어요.
       </p>

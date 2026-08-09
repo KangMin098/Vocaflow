@@ -53,7 +53,7 @@
   --active-light: #F4EAD3;
   /* v07 — 골드를 "작은 글자"로 쓸 때의 잉크. --active(#B0843A)는 종이(--bg) 위에서 3.24:1 이라
      WCAG AA(본문 4.5:1)를 못 넘긴다(2026-08-09 axe 실측). 면/아이콘은 --active, 글자는 이 토큰. */
-  --active-ink: #8A6420; /* gold ink — on --bg 5.12:1 (AA) */
+  --active-ink: #7E5A1B; /* gold ink — on --bg 5.97 · --bg2 5.49 · gold/amber tint 5.1~5.2 (전부 AA) */
 
   /* ─────── Semantic = paper-tone (채도 하향 · sophisticated) ─────── */
   /*  v06.40 — Reflect/Bear 정제: 더 muted, 덜 mustard */

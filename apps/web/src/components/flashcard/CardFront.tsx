@@ -30,7 +30,7 @@ export function CardFront({
     <>
       {/* Meta Row */}
       <div className="mb-6 flex items-center justify-between opacity-50 transition-opacity duration-[var(--dur-normal)] group-hover/card:opacity-100">
-        <span className="font-body text-[10px] italic text-[var(--t3)]">{word.textTitle}에서</span>
+        <span className="font-body text-[10px] italic text-[var(--t2)]">{word.textTitle}에서</span>
         <button
           onClick={(e) => {
             e.stopPropagation()
@@ -41,7 +41,7 @@ export function CardFront({
           className={`flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)] transition-all duration-[var(--dur-normal)] ${
             isBookmarked
               ? 'text-[var(--active)]'
-              : 'text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
+              : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
           } `}
         >
           <Bookmark
@@ -59,11 +59,11 @@ export function CardFront({
           {word.text}
         </h2>
 
-        <p className="mb-7 font-mono text-[16px] text-[var(--t3)]">{word.pronunciation}</p>
+        <p className="mb-7 font-mono text-[16px] text-[var(--t2)]">{word.pronunciation}</p>
 
         {/* Recall Hint Area (1.5초 후 노출) */}
         <div
-          className={`mb-4 flex h-6 items-center justify-center gap-1.5 font-body text-[12px] italic text-[var(--t3)] transition-opacity duration-[var(--dur-slow)] ${hintVisible ? 'opacity-100' : 'opacity-0'} `}
+          className={`mb-4 flex h-6 items-center justify-center gap-1.5 font-body text-[12px] italic text-[var(--t2)] transition-opacity duration-[var(--dur-slow)] ${hintVisible ? 'opacity-100' : 'opacity-0'} `}
           aria-hidden={!hintVisible}
         >
           <span>첫 글자가 떠오르지 않으면:</span>
@@ -93,7 +93,7 @@ export function CardFront({
 
       {/* Flip Hint */}
       <p
-        className={`mt-3 flex h-4 items-center justify-center gap-2 text-center font-display text-[10px] font-[600] uppercase tracking-[0.10em] text-[var(--t3)] opacity-60 transition-opacity duration-[var(--dur-normal)] ${showFlipHint ? 'opacity-60' : 'pointer-events-none opacity-0'} `}
+        className={`mt-3 flex h-4 items-center justify-center gap-2 text-center font-display text-[10px] font-[600] uppercase tracking-[0.10em] text-[var(--t2)] opacity-60 transition-opacity duration-[var(--dur-normal)] ${showFlipHint ? 'opacity-60' : 'pointer-events-none opacity-0'} `}
       >
         <span>탭 또는</span>
         <kbd className="rounded border border-[var(--bd)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">

@@ -347,7 +347,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
   if (!currentWord) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="font-body text-[var(--t3)]">학습할 단어가 없어요.</p>
+        <p className="font-body text-[var(--t2)]">학습할 단어가 없어요.</p>
       </div>
     )
   }
@@ -462,14 +462,14 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
           {currentWord.exampleSentence && (
             <div className="relative mt-6 w-full rounded-r-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] px-5 py-4 font-english text-[15px] italic leading-relaxed text-[var(--t1)]">
               {currentWord.exampleSentence}
-              <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t3)]">
+              <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t2)]">
                 — {textTitle}
               </span>
             </div>
           )}
 
           {/* Feedback Strip */}
-          <div className="mt-4 flex w-full items-center justify-center gap-5 py-2 font-mono text-[11px] text-[var(--t3)] opacity-40 transition-opacity duration-[var(--dur-normal)] hover:opacity-100">
+          <div className="mt-4 flex w-full items-center justify-center gap-5 py-2 font-mono text-[11px] text-[var(--t2)] opacity-40 transition-opacity duration-[var(--dur-normal)] hover:opacity-100">
             <div className="flex items-center gap-1.5">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 정확도
@@ -501,7 +501,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
             onClick={triggerHint}
             className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Tab
             </kbd>
             <span>힌트 (잠깐 보기)</span>
@@ -510,7 +510,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
           {mode === 'blind' && (
             <button
               onClick={() => setShowLength((s) => !s)}
-              className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[11px] font-[600] text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
             >
               {showLength ? '글자 수 가리기' : '글자 수 보기'}
             </button>
@@ -518,9 +518,9 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
 
           <button
             onClick={handleSkip}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Esc
             </kbd>
             <span>건너뛰기</span>

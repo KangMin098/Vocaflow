@@ -104,7 +104,7 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
             >
               5분 진단으로 V-Level 추천 받기
             </h2>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
               40문항으로 당신의 V-Level을 측정하고 맞춤 단어장을 추천받아요.
             </p>
           </div>
@@ -128,14 +128,14 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
       <header className="mb-3 flex items-center justify-between">
         <h2
           id="recommended-sets-heading"
-          className="inline-flex items-center gap-2 font-display text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+          className="inline-flex items-center gap-2 font-display text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
         >
           <Sparkles size={13} className="text-[var(--p)]" />
           맞춤 추천
         </h2>
         <Link
           href="/diagnostic"
-          className="font-body text-[11px] text-[var(--t3)] underline-offset-2 hover:text-[var(--t2)] hover:underline"
+          className="font-body text-[11px] text-[var(--t2)] underline-offset-2 hover:text-[var(--t2)] hover:underline"
         >
           다시 진단
         </Link>
@@ -167,14 +167,14 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
                   >
                     {badge.label}
                   </span>
-                  <span className="font-body text-[10px] text-[var(--t3)]">
+                  <span className="font-body text-[10px] text-[var(--t2)]">
                     {rec.word_count}개
                   </span>
                 </div>
                 <h3 className="truncate font-display text-[13px] font-[600] text-[var(--t1)] group-hover:text-[var(--p)]">
                   {rec.title}
                 </h3>
-                <p className="mt-0.5 truncate font-body text-[11px] text-[var(--t3)]">
+                <p className="mt-0.5 truncate font-body text-[11px] text-[var(--t2)]">
                   {rec.reason}
                 </p>
               </div>

@@ -21,7 +21,7 @@ export const colorsLight = {
 
   // 시그니처 모먼트 ONLY — Linear single-accent 원칙
   active: '#B0843A',     // muted gold (적용 면적 5% 미만) — 면/아이콘용
-  activeInk: '#8A6420',  // 골드를 작은 글자로 쓸 때 (on --bg 5.12:1 · AA)
+  activeInk: '#7E5A1B',  // 골드를 작은 글자로 쓸 때 (종이 5.97 · 앰버 tint 5.13 · AA)
   activeLight: '#F4EAD3',
 
   // semantic — sophisticated muted

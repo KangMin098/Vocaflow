@@ -72,7 +72,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
 
         <button
           onClick={() => setIsExpanded(false)}
-          className="mt-2 block w-full py-1.5 font-body text-[11px] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)]"
+          className="mt-2 block w-full py-1.5 font-body text-[11px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)]"
         >
           나중에 보기
         </button>

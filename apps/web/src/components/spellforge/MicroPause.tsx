@@ -56,7 +56,7 @@ export function MicroPause({
         </p>
         <div className="mb-4 inline-flex items-center gap-3.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[11px] text-[var(--t2)]">
           <div>
-            <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               단어
             </span>
             <strong className="ml-1 font-[700] text-[var(--t1)]">
@@ -65,13 +65,13 @@ export function MicroPause({
           </div>
           <span className="h-3 w-px bg-[var(--bd)]" />
           <div>
-            <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               정확도
             </span>
             <strong className="ml-1 font-[700] text-[var(--t1)]">{accuracy}%</strong>
           </div>
         </div>
-        <p className="font-body text-[11px] italic text-[var(--t3)]">
+        <p className="font-body text-[11px] italic text-[var(--t2)]">
           <kbd className="mx-0.5 rounded border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
             Space
           </kbd>

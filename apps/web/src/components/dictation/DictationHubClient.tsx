@@ -161,7 +161,7 @@ export function DictationHubClient() {
             </span>
             <ArrowRight
               size={18}
-              className="text-[var(--t3)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--p)]"
+              className="text-[var(--t2)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--p)]"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -174,7 +174,7 @@ export function DictationHubClient() {
             <span className="rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[11px] font-[700] text-[var(--p-dark)]">
               {suggestion.resource.cefr ?? 'B1'}
             </span>
-            <span className="font-body text-[12px] text-[var(--t3)]">
+            <span className="font-body text-[12px] text-[var(--t2)]">
               {suggestion.resource.script.split(/\s+/).length} words
             </span>
           </div>
@@ -199,7 +199,7 @@ export function DictationHubClient() {
               <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
                 라이브러리
               </h3>
-              <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">
+              <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">
                 {resources.length}개
               </span>
             </header>
@@ -218,13 +218,13 @@ export function DictationHubClient() {
                     </span>
                     <ArrowRight
                       size={14}
-                      className="text-[var(--t3)] opacity-0 transition-opacity group-hover:opacity-100"
+                      className="text-[var(--t2)] opacity-0 transition-opacity group-hover:opacity-100"
                     />
                   </Link>
                 </li>
               ))}
               {resources.length === 0 && (
-                <li className="px-3 py-4 text-center font-body text-[12px] text-[var(--t3)]">
+                <li className="px-3 py-4 text-center font-body text-[12px] text-[var(--t2)]">
                   아직 등록된 리소스가 없습니다.
                 </li>
               )}
@@ -257,7 +257,7 @@ export function DictationHubClient() {
                   type="button"
                   disabled
                   title="Phase 2 예정"
-                  className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-3 font-display text-[13px] font-[600] text-[var(--t3)] opacity-60"
+                  className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-3 font-display text-[13px] font-[600] text-[var(--t2)] opacity-60"
                 >
                   <Upload size={14} />
                   파일 업로드 (Phase 2)
@@ -353,7 +353,7 @@ export function DictationHubClient() {
                   <p className="truncate font-body text-[13px] font-[600] text-[var(--t1)]">
                     {s.resourceTitle}
                   </p>
-                  <p className="font-body text-[11px] text-[var(--t3)]">
+                  <p className="font-body text-[11px] text-[var(--t2)]">
                     {s.completedAt
                       ? `${new Date(s.completedAt).toLocaleString('ko-KR', {
                           month: 'numeric',
@@ -391,7 +391,7 @@ export function DictationHubClient() {
             );
           })}
           {sessions.length === 0 && (
-            <li className="flex items-center gap-2 px-4 py-6 font-body text-[13px] text-[var(--t3)]">
+            <li className="flex items-center gap-2 px-4 py-6 font-body text-[13px] text-[var(--t2)]">
               <TrendingUp size={14} />
               <span>아직 받아쓰기 기록이 없어요. 위에서 리소스를 선택해 시작해보세요.</span>
             </li>

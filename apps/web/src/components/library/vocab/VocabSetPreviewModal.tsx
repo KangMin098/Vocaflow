@@ -269,9 +269,9 @@ export function VocabSetPreviewModal({
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
           <span className="font-english text-[16px] font-[600] text-[var(--t1)]">{w.word}</span>
-          {w.partOfSpeech && <span className="font-body text-[11px] italic text-[var(--t3)]">{w.partOfSpeech}</span>}
+          {w.partOfSpeech && <span className="font-body text-[11px] italic text-[var(--t2)]">{w.partOfSpeech}</span>}
           {w.cefrLevel && (
-            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[600] text-[var(--t3)]">
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[600] text-[var(--t2)]">
               {w.cefrLevel}
             </span>
           )}
@@ -310,12 +310,12 @@ export function VocabSetPreviewModal({
             <h2 id="vocab-preview-title" className="line-clamp-2 font-display text-[18px] font-[700] text-[var(--t1)]">
               {set.coverEmoji} {set.title}
             </h2>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">{subtitle}</p>
+            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">{subtitle}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
             aria-label="미리보기 닫기"
           >
             <X size={18} aria-hidden />
@@ -325,7 +325,7 @@ export function VocabSetPreviewModal({
         {/* 본문 */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {loading && (
-            <div className="flex items-center justify-center gap-2 py-10 text-[var(--t3)]">
+            <div className="flex items-center justify-center gap-2 py-10 text-[var(--t2)]">
               <Loader2 size={18} className="animate-spin" aria-hidden />
               <span className="font-body text-[13px]">단어를 불러오는 중...</span>
             </div>
@@ -346,7 +346,7 @@ export function VocabSetPreviewModal({
               <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
                 하루 <b className="font-[700] text-[var(--t1)]">{plan.dailyNew}단어</b>씩 · 약{' '}
                 <b className="font-[700] text-[var(--t1)]">{plan.introDays}일</b>에 새 단어를 익혀요
-                {plan.chapters > 0 && <span className="text-[var(--t3)]"> · {plan.chapters}챕터 구성</span>}.
+                {plan.chapters > 0 && <span className="text-[var(--t2)]"> · {plan.chapters}챕터 구성</span>}.
               </p>
 
               {/* 진도-aware — 구독 후 실제 학습 진도 반영(개인화) */}
@@ -359,9 +359,9 @@ export function VocabSetPreviewModal({
                     <div className="flex items-baseline justify-between gap-2">
                       <span className="font-body text-[12px] text-[var(--t2)]">
                         학습 <b className="font-[700] text-[var(--t1)]">{learned}</b>
-                        <span className="text-[var(--t3)]"> / {set.wordCount.toLocaleString()}</span>
+                        <span className="text-[var(--t2)]"> / {set.wordCount.toLocaleString()}</span>
                       </span>
-                      <span className="font-body text-[12px] text-[var(--t3)]">
+                      <span className="font-body text-[12px] text-[var(--t2)]">
                         {remaining === 0 ? '한 바퀴 완주했어요 🎉' : `남은 ${remaining.toLocaleString()}단어 · 약 ${daysLeft}일 더`}
                       </span>
                     </div>
@@ -380,7 +380,7 @@ export function VocabSetPreviewModal({
                 )
               })()}
 
-              <p className="mt-2 flex items-start gap-1.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+              <p className="mt-2 flex items-start gap-1.5 font-body text-[12px] leading-relaxed text-[var(--t2)]">
                 <RefreshCw size={12} className="mt-[3px] shrink-0" aria-hidden />
                 <span>복습은 <b className="font-[600] text-[var(--t2)]">기억이 흐려질 때</b> 자동으로 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절돼요.</span>
               </p>
@@ -403,13 +403,13 @@ export function VocabSetPreviewModal({
                       >
                         <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)]">
                           {ch.label ?? `Chapter ${ch.n}`}
-                          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
+                          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t2)]">
                             {ch.words.length}단어 · {ch.words[0]?.cefrLevel ?? '?'}~{ch.words[ch.words.length - 1]?.cefrLevel ?? '?'}
                           </span>
                         </span>
                         <ChevronDown
                           size={16}
-                          className={`shrink-0 text-[var(--t3)] transition-transform ${open ? 'rotate-180' : ''}`}
+                          className={`shrink-0 text-[var(--t2)] transition-transform ${open ? 'rotate-180' : ''}`}
                           aria-hidden
                         />
                       </button>
@@ -425,7 +425,7 @@ export function VocabSetPreviewModal({
                       <div className="flex flex-col">
                         {/* 게임별 챕터 학습 런처 */}
                         <div className="flex flex-wrap items-center gap-1.5 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5">
-                          <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t3)]">
+                          <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t2)]">
                             이 챕터 학습
                           </span>
                           {CHAPTER_GAMES.map((g) => (
@@ -463,7 +463,7 @@ export function VocabSetPreviewModal({
           )}
 
           {!loading && !error && words && words.length === 0 && (
-            <p className="py-6 text-center font-body text-[13px] text-[var(--t3)]">아직 등록된 단어가 없어요</p>
+            <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">아직 등록된 단어가 없어요</p>
           )}
         </div>
 

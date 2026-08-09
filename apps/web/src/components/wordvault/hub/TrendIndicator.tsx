@@ -46,7 +46,7 @@ export function TrendIndicator({ stableDelta, riskDelta }: TrendIndicatorProps) 
           ? 'text-[var(--memory-stable)]'
           : item.label === '위급'
             ? 'text-[var(--active)]' // risk 증가 = 주황 (빨강 X)
-            : 'text-[var(--t3)]' // stable 감소 = 회색 (Calm UI)
+            : 'text-[var(--t2)]' // stable 감소 = 회색 (Calm UI)
         return (
           <span
             key={item.label}

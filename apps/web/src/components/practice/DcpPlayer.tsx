@@ -97,7 +97,7 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
     <section aria-label="구문 연습" className="flex flex-col gap-4">
       {/* 진행 */}
       <div className="flex items-center gap-3">
-        <span className="font-mono text-[12px] font-[700] text-[var(--t3)]">
+        <span className="font-mono text-[12px] font-[700] text-[var(--t2)]">
           {idx + 1} / {total}
         </span>
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--bg3)]" aria-hidden>
@@ -236,7 +236,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
     const correctOrder = correctOrderFromKey(sourceOrder as number[])
     return (
       <div className="flex flex-col gap-1.5">
-        <p className="font-display text-[12px] font-[700] text-[var(--t3)]">정답 순서</p>
+        <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 순서</p>
         <ol className="flex flex-col gap-1.5">
           {correctOrder.map((pIdx, pos) => (
             <li
@@ -260,7 +260,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
   withInsert.splice(position, 0, `〔${p.insert_sentence}〕`)
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="font-display text-[12px] font-[700] text-[var(--t3)]">정답 위치</p>
+      <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 위치</p>
       <ol className="flex flex-col gap-1.5">
         {withInsert.map((sentence, i) => {
           const isInserted = i === position

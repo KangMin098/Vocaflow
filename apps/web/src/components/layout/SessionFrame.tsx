@@ -261,7 +261,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                   size={14}
                   strokeWidth={2}
                   aria-hidden="true"
-                  className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+                  className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--t2)]"
                 />
               </div>
 
@@ -337,7 +337,7 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
       {meta.label && (
         <span
           aria-hidden="true"
-          className="text-[10px] font-[400] text-[var(--t4)]"
+          className="text-[10px] font-[400] text-[var(--t2)]"
         >
           ›
         </span>
@@ -351,10 +351,10 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
       {/* Position (옵션) */}
       {resource.position && (
         <>
-          <span aria-hidden="true" className="text-[10px] font-[400] text-[var(--t4)]">
+          <span aria-hidden="true" className="text-[10px] font-[400] text-[var(--t2)]">
             ›
           </span>
-          <span className="shrink-0 font-mono text-[11px] font-[500] tabular-nums text-[var(--t3)]">
+          <span className="shrink-0 font-mono text-[11px] font-[500] tabular-nums text-[var(--t2)]">
             {resource.position}
           </span>
         </>

@@ -114,7 +114,7 @@ export function FlowStripe() {
   if (state.kind === 'loading' || state.kind === 'unauth' || state.kind === 'error') {
     return (
       <Frame title="지난 28일">
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           학습 기록이 누적되면 추세가 보여요.
         </p>
       </Frame>
@@ -141,7 +141,7 @@ export function FlowStripe() {
       {/* Last activity */}
       {lastActivity && (
         <div className="mt-5 flex items-center justify-between rounded-[14px] bg-[var(--bg2)] px-4 py-3">
-          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
             마지막 학습
           </span>
           <div className="flex items-center gap-2">
@@ -149,7 +149,7 @@ export function FlowStripe() {
               {relativeDay(lastActivity.date)}
             </span>
             {lastActivity.modules.length > 0 && (
-              <span className="font-body text-[11.5px] text-[var(--t3)]">
+              <span className="font-body text-[11.5px] text-[var(--t2)]">
                 · {lastActivity.modules.map(prettyModule).join(', ')}
               </span>
             )}

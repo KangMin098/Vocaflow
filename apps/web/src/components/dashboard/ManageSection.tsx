@@ -17,7 +17,7 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
   const undiagnosed = overview.vLevel == null
   return (
     <section aria-label="학습 관리" className="flex flex-col gap-2.5">
-      <h2 className="font-display text-[13px] font-[800] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <h2 className="font-display text-[13px] font-[800] uppercase tracking-[0.06em] text-[var(--t2)]">
         학습 관리
       </h2>
       <div className="grid gap-2.5 sm:grid-cols-3">
@@ -37,7 +37,7 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
               </span>
             </p>
           ) : (
-            <p className="font-body text-[13px] text-[var(--t3)]">
+            <p className="font-body text-[13px] text-[var(--t2)]">
               5분이면 나에게 맞는 단어가 추천돼요.
             </p>
           )}
@@ -56,7 +56,7 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
               <strong className="font-display text-[var(--p)]">{overview.plan.activityCount}</strong>
             </p>
           ) : (
-            <p className="font-body text-[13px] text-[var(--t3)]">
+            <p className="font-body text-[13px] text-[var(--t2)]">
               자료를 골라 요일별 계획을 세워요.
             </p>
           )}
@@ -74,7 +74,7 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
               {fmtKDate(overview.latestReport.week_start)} 주 · 단어 {overview.latestReport.total_words}
             </p>
           ) : (
-            <p className="font-body text-[13px] text-[var(--t3)]">학습이 쌓이면 주마다 생겨요.</p>
+            <p className="font-body text-[13px] text-[var(--t2)]">학습이 쌓이면 주마다 생겨요.</p>
           )}
         </ManageCard>
       </div>

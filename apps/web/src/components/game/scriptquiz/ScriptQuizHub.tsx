@@ -15,7 +15,9 @@ import { HubStartCard } from '@/components/hub/HubStartCard'
 import { ModuleHero } from '@/components/hub/ModuleHero'
 import type { ChapterQuizCatalogBook } from '@/components/game/scriptquiz/types'
 
-const QUIZ_ACCENT = 'var(--active)' // 앰버
+const QUIZ_ACCENT = 'var(--active)' // 앰버 — 면/아이콘/막대용
+// 같은 앰버를 '글자'로 쓰면 종이 위 3.24:1 로 AA 미달이라 잉크 토큰을 쓴다(2026-08-09 axe 실측).
+const QUIZ_ACCENT_INK = 'var(--active-ink)'
 
 interface Selected {
   bookId: string
@@ -53,7 +55,7 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
         <span className="block font-display text-[13px] font-[600] text-[var(--t1)]">
           한국어 번역 보기
         </span>
-        <span className="block font-body text-[11px] text-[var(--t3)]">
+        <span className="block font-body text-[11px] text-[var(--t2)]">
           질문·선택지 아래 회색 작은 글씨로 보조 표시 — 영어로만 보고 싶다면 끄세요
         </span>
       </span>
@@ -92,7 +94,7 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
         <section className="flex flex-col items-center gap-4 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-6 py-12 text-center shadow-[var(--sh-sm)]">
           <span
             className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--r-full)]"
-            style={{ backgroundColor: 'var(--warning-light)', color: QUIZ_ACCENT }}
+            style={{ backgroundColor: 'var(--warning-light)', color: QUIZ_ACCENT_INK }}
             aria-hidden
           >
             <Sparkles size={20} strokeWidth={2} />
@@ -101,7 +103,7 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
             <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
               생성된 챕터 퀴즈가 아직 없어요
             </h2>
-            <p className="max-w-[420px] font-body text-[12.5px] leading-relaxed text-[var(--t3)]">
+            <p className="max-w-[420px] font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
               라이브러리 도서를 큐레이션하면 챕터별 스토리 퀴즈가 생성됩니다. 우선 샘플
               퀴즈로 흐름을 체험해 보세요.
             </p>
@@ -127,7 +129,7 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
               <header className="mb-4 flex flex-wrap items-center gap-2">
                 <span
                   className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)]"
-                  style={{ backgroundColor: 'var(--warning-light)', color: QUIZ_ACCENT }}
+                  style={{ backgroundColor: 'var(--warning-light)', color: QUIZ_ACCENT_INK }}
                   aria-hidden
                 >
                   <BookOpen size={13} strokeWidth={2} />
@@ -136,12 +138,12 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
                   {book.bookTitle}
                 </h2>
                 {book.bookVLevel != null && (
-                  <span className="rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] font-[600] text-[var(--t3)]">
+                  <span className="rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
                     V{book.bookVLevel}
                   </span>
                 )}
-                <span className="font-body text-[12px] text-[var(--t3)]">·</span>
-                <p className="font-mono text-[11px] text-[var(--t3)]">
+                <span className="font-body text-[12px] text-[var(--t2)]">·</span>
+                <p className="font-mono text-[11px] text-[var(--t2)]">
                   {book.chapters.length}챕터 · {book.questionTotal}문항
                 </p>
               </header>
@@ -168,8 +170,10 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
                         <span
                           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] font-display text-[13px] font-[700]"
                           style={{
-                            backgroundColor: `${QUIZ_ACCENT}15`,
-                            color: QUIZ_ACCENT,
+                            // `${QUIZ_ACCENT}15` 는 var() 문자열에 15 를 붙인 것이라 실제로는
+                            // 무효값이었고(투명 배경), 글자만 3.24:1 로 남아 대비가 깨졌다.
+                            backgroundColor: 'var(--warning-light)',
+                            color: QUIZ_ACCENT_INK,
                           }}
                           aria-hidden
                         >
@@ -179,13 +183,13 @@ export function ScriptQuizHub({ catalog }: { catalog: ChapterQuizCatalogBook[] }
                           <p className="truncate font-english text-[13px] font-[600] text-[var(--t1)]">
                             {ch.chapterTitle}
                           </p>
-                          <p className="font-mono text-[10px] text-[var(--t3)]">
+                          <p className="font-mono text-[10px] text-[var(--t2)]">
                             {ch.questionCount}문제
                           </p>
                         </div>
                         <FileText
                           size={14}
-                          className="shrink-0 text-[var(--t3)]"
+                          className="shrink-0 text-[var(--t2)]"
                           aria-hidden
                         />
                       </button>

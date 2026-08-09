@@ -648,7 +648,7 @@ export default function WorkspacePage({ params }: PageProps) {
           <h1 className="font-english text-[22px] font-[600] leading-tight text-[var(--t1)]">
             {text.title}
           </h1>
-          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t3)]">
+          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
             이 스크립트의 단어를 AI로 추출해 내 단어장에 담아보세요.
           </p>
           <ExtractionPanel text={scriptContent} textId={text.id} defaultStrategy="text" />
@@ -727,13 +727,13 @@ export default function WorkspacePage({ params }: PageProps) {
       >
         <span className="mx-auto mb-4 block h-px w-10 bg-[var(--bd)]" aria-hidden="true" />
         {wordsOnPage > 0 && (
-          <p className="font-body text-[12.5px] text-[var(--t3)]">
+          <p className="font-body text-[12.5px] text-[var(--t2)]">
             이 chapter 에서{' '}
             <strong className="font-display font-[700] text-[var(--t1)]">{wordsOnPage}</strong>개의
             학습 단어를 만났어요
           </p>
         )}
-        <p className="mt-1.5 font-body text-[12px] italic tracking-[0.01em] text-[var(--t3)]">
+        <p className="mt-1.5 font-body text-[12px] italic tracking-[0.01em] text-[var(--t2)]">
           오늘도 좋은 페이스예요 · 잠깐 쉬어도 좋아요
         </p>
       </footer>

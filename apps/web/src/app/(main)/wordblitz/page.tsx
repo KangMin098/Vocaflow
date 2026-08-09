@@ -145,7 +145,7 @@ export default function WordBlitzHubPage() {
             ].map((e) => (
               <li key={e.en}>
                 <p className="font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-[var(--t3)]">{e.en}</p>
+                <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">{e.en}</p>
               </li>
             ))}
           </ul>
@@ -164,7 +164,7 @@ export default function WordBlitzHubPage() {
               <Gamepad2 size={14} strokeWidth={1.75} />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">3단계</span>
+            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>
           </header>
           <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {RULES.map((r) => (
@@ -178,7 +178,7 @@ export default function WordBlitzHubPage() {
                 <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">
                   {r.title}
                 </p>
-                <p className="mt-1 font-body text-[11px] leading-relaxed text-[var(--t3)]">
+                <p className="mt-1 font-body text-[11px] leading-relaxed text-[var(--t2)]">
                   {r.description}
                 </p>
               </li>
@@ -205,9 +205,9 @@ export default function WordBlitzHubPage() {
           </header>
           <p className="mt-4 font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
             1,410
-            <span className="ml-1 font-display text-[16px] font-[600] text-[var(--t3)]">점</span>
+            <span className="ml-1 font-display text-[16px] font-[600] text-[var(--t2)]">점</span>
           </p>
-          <p className="mt-2 font-mono text-[11px] text-[var(--t3)]">
+          <p className="mt-2 font-mono text-[11px] text-[var(--t2)]">
             <Award size={11} className="mr-1 inline align-text-bottom" aria-hidden />
             4일 전 · 콤보 11 · 94%
           </p>
@@ -226,17 +226,17 @@ export default function WordBlitzHubPage() {
               <Clock size={14} strokeWidth={1.75} />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 기록</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">{RECENT_SCORES.length}회</span>
+            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{RECENT_SCORES.length}회</span>
           </header>
           <ul className="divide-y divide-[var(--bg2)]">
             {RECENT_SCORES.map((s, i) => (
               <li key={i} className="flex items-center gap-3 py-2.5">
-                <span className="w-16 shrink-0 font-mono text-[11px] text-[var(--t3)]">
+                <span className="w-16 shrink-0 font-mono text-[11px] text-[var(--t2)]">
                   {s.date}
                 </span>
                 <span className="flex-1 font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">
                   {s.score.toLocaleString()}
-                  <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">점</span>
+                  <span className="ml-1 font-mono text-[10px] text-[var(--t2)]">점</span>
                 </span>
                 <span className="shrink-0 rounded-full bg-[var(--p-light)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--p)]">
                   콤보 {s.combo}
@@ -259,7 +259,7 @@ export default function WordBlitzHubPage() {
           <Gamepad2 size={16} strokeWidth={2.5} aria-hidden />
           지금 한 판
         </Link>
-        <p className="mt-3 font-body text-[12px] italic text-[var(--t3)]">
+        <p className="mt-3 font-body text-[12px] italic text-[var(--t2)]">
           짧고 즐겁게. 5분 안에 끝나는 한 라운드.
         </p>
       </footer>

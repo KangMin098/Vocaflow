@@ -68,7 +68,7 @@ export function VLevelPromotionCheck() {
   // 미진단 분기 UI
   if (result && !result.promoted && result.reason.includes('진단 미완료')) {
     return (
-      <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center font-body text-[12px] text-[var(--t3)]">
+      <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center font-body text-[12px] text-[var(--t2)]">
         {result.reason}
       </div>
     )
@@ -111,7 +111,7 @@ export function VLevelPromotionCheck() {
             style={{ width: `${pct}%` }}
           />
         </div>
-        <p className="mt-2 font-body text-[10px] text-[var(--t3)]">
+        <p className="mt-2 font-body text-[10px] text-[var(--t2)]">
           {result.reason}
         </p>
       </div>
@@ -125,7 +125,7 @@ export function VLevelPromotionCheck() {
         <p className="font-display text-[12px] font-[600] text-[var(--t2)]">
           학습 활동 기반 V-Level 갱신
         </p>
-        <p className="mt-0.5 font-body text-[10px] text-[var(--t3)]">
+        <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">
           최근 30일 학습으로 다음 단계 진입 여부 확인
         </p>
       </div>

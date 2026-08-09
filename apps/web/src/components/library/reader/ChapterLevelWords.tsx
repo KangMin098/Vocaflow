@@ -72,17 +72,17 @@ export function ChapterLevelWords({ libraryBookId, chapterIdx }: ChapterLevelWor
       </header>
 
       {state.kind === 'loading' && (
-        <p className="font-body text-[12px] text-[var(--t3)]">내 레벨로 추출 중…</p>
+        <p className="font-body text-[12px] text-[var(--t2)]">내 레벨로 추출 중…</p>
       )}
 
       {state.kind === 'anon' && (
-        <p className="font-body text-[12px] leading-relaxed text-[var(--t3)]">
+        <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           로그인하면 내 진단 레벨(+1) 기준으로 이 챕터의 최적 학습 단어를 추출해 드려요.
         </p>
       )}
 
       {state.kind === 'empty' && (
-        <p className="font-body text-[12px] leading-relaxed text-[var(--t3)]">
+        <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           이 챕터에서 추출할 맞춤 단어가 없어요 (이미 학습했거나 레벨에 맞는 단어가 적음).
         </p>
       )}
@@ -97,7 +97,7 @@ function ReadyBody({ result }: { result: LeveledChapterResult }) {
   return (
     <>
       {m && (
-        <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] text-[var(--t3)]">
+        <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] text-[var(--t2)]">
           <span>
             내 레벨{' '}
             <strong className="text-[var(--t2)]">
@@ -115,7 +115,7 @@ function ReadyBody({ result }: { result: LeveledChapterResult }) {
           </span>
           <span>{result.words.length}개 추출</span>
           {m.levelSource && (
-            <span className="text-[var(--t4)]">
+            <span className="text-[var(--t2)]">
               ({m.levelSource.includes('user') ? '진단 기준' : '글 기준 추정'})
             </span>
           )}
@@ -131,7 +131,7 @@ function ReadyBody({ result }: { result: LeveledChapterResult }) {
                 {w.word}
               </span>
               {w.cefrLevel && (
-                <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">
+                <span className="shrink-0 font-mono text-[10px] text-[var(--t2)]">
                   {w.cefrLevel}·V{w.vLevel}
                 </span>
               )}

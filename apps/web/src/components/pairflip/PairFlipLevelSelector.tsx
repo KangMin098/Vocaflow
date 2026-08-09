@@ -55,7 +55,7 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
             </span>
             <span
               className={`font-mono text-[11px] font-[600] tabular-nums ${
-                isActive ? 'opacity-90' : 'text-[var(--t3)]'
+                isActive ? 'opacity-90' : 'text-[var(--t2)]'
               }`}
             >
               {lvl.cardCount}장

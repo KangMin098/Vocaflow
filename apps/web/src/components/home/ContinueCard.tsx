@@ -91,7 +91,7 @@ export function ContinueCard() {
       </h3>
 
       {/* 메타 — 시간 · 마지막 모듈 */}
-      <div className="mb-5 flex items-center gap-2 font-body text-[12px] text-[var(--t3)]">
+      <div className="mb-5 flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
         <span>{cc.relativeTime || '최근'}</span>
         <span aria-hidden="true">·</span>
         <span>{moduleLabel}</span>

@@ -26,13 +26,13 @@ function ComicEmpty({ textId, message }: { textId: string; message: string }) {
       <div className="py-3">
         <Link
           href={`/text/${textId}?mode=read`}
-          className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t3)] transition-colors hover:text-[var(--p)]"
+          className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden /> 본문으로
         </Link>
       </div>
       <div className="mt-6 flex flex-col items-center gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-6 py-16 text-center">
-        <BookImage size={26} className="text-[var(--t3)]" aria-hidden />
+        <BookImage size={26} className="text-[var(--t2)]" aria-hidden />
         <div>
           <p className="font-display text-[16px] font-[800] text-[var(--t1)]">{message}</p>
           <p className="mt-1 font-body text-[13px] text-[var(--t2)]">

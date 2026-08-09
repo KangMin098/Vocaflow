@@ -109,7 +109,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
             {LEARNING_EFFECTS.map((e) => (
               <li key={e.en}>
                 <p className="font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-[var(--t3)]">{e.en}</p>
+                <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">{e.en}</p>
               </li>
             ))}
           </ul>
@@ -129,7 +129,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
               <Sparkles size={14} strokeWidth={1.75} />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">3단계</span>
+            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>
           </header>
           <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
@@ -150,7 +150,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
                 <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">
                   {r.title}
                 </p>
-                <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t3)]">
+                <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t2)]">
                   {r.desc}
                 </p>
               </li>
@@ -181,7 +181,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
             <Layers size={14} strokeWidth={1.75} />
           </span>
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">시작 설정</h2>
-          <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">
+          <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">
             난이도와 모드를 선택하세요
           </span>
         </header>

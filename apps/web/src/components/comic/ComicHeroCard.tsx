@@ -77,7 +77,7 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-[var(--dur-slower)] ease-[var(--ease)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 ) : (
-                  <div className="absolute inset-0 grid place-items-center text-[var(--t4)]">
+                  <div className="absolute inset-0 grid place-items-center text-[var(--t2)]">
                     <BookImage size={28} aria-hidden />
                   </div>
                 )}

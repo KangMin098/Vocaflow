@@ -332,7 +332,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
   if (tokenization.uniqueFinal === 0) {
     return (
-      <div className="mt-6 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-6 text-center font-body text-[13px] text-[var(--t3)]">
+      <div className="mt-6 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-6 text-center font-body text-[13px] text-[var(--t2)]">
         본문에 영문 단어를 입력하면 AI 추출이 가능해져요
       </div>
     )
@@ -345,7 +345,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
           <Sparkles size={16} className="text-[var(--p)]" />
           AI 단어 추출 (다축 VRL)
         </h3>
-        <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+        <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
           총 {tokenization.totalWords}어 · unique {tokenization.uniqueRaw}개 · stopword 제외 후{' '}
           <strong className="text-[var(--t1)]">{tokenization.uniqueFinal}개</strong> 분석 후보
         </p>
@@ -353,7 +353,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
       {/* Level strategy selector */}
       <div className="mb-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-        <p className="mb-2 font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+        <p className="mb-2 font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
           어느 레벨을 기준으로?
         </p>
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
@@ -372,7 +372,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--t1)]">
                 <User size={12} /> 본인 레벨 기준
               </span>
-              <p className="mt-0.5 font-body text-[11px] text-[var(--t3)]">
+              <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">
                 진단된 V-Level 기준. 미진단 시 에러.
               </p>
             </div>
@@ -392,7 +392,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--t1)]">
                 <FileText size={12} /> 글 레벨 기준 (P75)
               </span>
-              <p className="mt-0.5 font-body text-[11px] text-[var(--t3)]">
+              <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">
                 글의 75% 단어가 속한 V-Level. V11 archaic 제외.
               </p>
             </div>
@@ -431,7 +431,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
             value={`${displayedResults.length} / ${meta.total_candidates}`}
             accent
           />
-          <p className="col-span-2 mt-1 font-body text-[10px] text-[var(--t3)] sm:col-span-4">
+          <p className="col-span-2 mt-1 font-body text-[10px] text-[var(--t2)] sm:col-span-4">
             기준: <strong>{SOURCE_LABEL[meta.level_source] ?? meta.level_source}</strong> ·
             <strong className="text-[var(--t1)]"> V{meta.v_threshold} 이상</strong> 단어 모두 후보
             · 빈도(70%) + 트랙(30%) 가산 정렬 · V11 archaic 도 글에 등장하면 포함
@@ -446,7 +446,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
           aria-label="표시 비율"
           className="mb-3 flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2"
         >
-          <span className="px-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+          <span className="px-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             상위 점수
           </span>
           {PCT_CHIPS.map((c) => {
@@ -465,7 +465,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                 }`}
               >
                 {c.label}
-                <span className={`font-mono text-[10px] ${active ? 'text-[var(--p)]/70' : 'text-[var(--t3)]'}`}>
+                <span className={`font-mono text-[10px] ${active ? 'text-[var(--p)]/70' : 'text-[var(--t2)]'}`}>
                   {count}
                 </span>
               </button>
@@ -475,7 +475,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       )}
 
       {results && results.length === 0 && (
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           추출 가능한 단어가 없어요 — 모두 학습 중이거나 사전에 없는 단어들이에요.
         </p>
       )}
@@ -525,11 +525,11 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         className="h-4 w-4 rounded border-[var(--bd)] accent-[var(--p)]"
                         aria-label={`${r.word} 선택`}
                       />
-                      <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t3)]">#{r.rank}</span>
+                      <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t2)]">#{r.rank}</span>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-baseline gap-2">
                           <span className="font-english text-[18px] font-[600] text-[var(--t1)]">{r.word}</span>
-                          <span className="font-body text-[11px] text-[var(--t3)]">{r.pos}</span>
+                          <span className="font-body text-[11px] text-[var(--t2)]">{r.pos}</span>
                           <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--p)]">V{r.v_level}</span>
                           {r.cefr_level && (
                             <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{r.cefr_level}</span>
@@ -553,7 +553,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         </div>
                         <p className="mt-0.5 truncate font-body text-[13px] text-[var(--t2)]">{r.meaning_ko ?? '—'}</p>
                         {inlineReason && (
-                          <p className="mt-1 inline-flex max-w-full items-center gap-1 font-body text-[11px] italic text-[var(--t3)]">
+                          <p className="mt-1 inline-flex max-w-full items-center gap-1 font-body text-[11px] italic text-[var(--t2)]">
                             <inlineReason.Icon size={11} className="shrink-0 text-[var(--p)]/70" />
                             <span className="truncate">{inlineReason.label}</span>
                           </p>
@@ -563,7 +563,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         <span className="inline-flex items-center gap-0.5 font-display text-[13px] font-[700] tabular-nums text-[var(--p)]">
                           <TrendingUp size={11} /> {r.composite_score.toFixed(3)}
                         </span>
-                        <span className="font-body text-[10px] text-[var(--t3)]">추천 점수</span>
+                        <span className="font-body text-[10px] text-[var(--t2)]">추천 점수</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <button
@@ -590,7 +590,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                       <button
                         onClick={() => setExpandedWord(isExpanded ? null : r.word)}
                         aria-label="평가 상세"
-                        className="rounded p-1 text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                        className="rounded p-1 text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
                       >
                         {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                       </button>
@@ -634,10 +634,10 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                             )}
                           </p>
                         )}
-                        <h4 className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t3)]">
+                        <h4 className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t2)]">
                           스코어 breakdown (composite = {r.composite_score.toFixed(4)})
                         </h4>
-                        <p className="mb-2 font-mono text-[9px] text-[var(--t3)]">
+                        <p className="mb-2 font-mono text-[9px] text-[var(--t2)]">
                           {bd.reasoning}{bd.method ? ` · ${bd.method}` : ''}
                         </p>
                         <table className="w-full font-mono text-[10px]">
@@ -649,7 +649,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                             )}
                           </tbody>
                         </table>
-                        <div className="mt-3 flex flex-wrap gap-2 font-body text-[10px] text-[var(--t3)]">
+                        <div className="mt-3 flex flex-wrap gap-2 font-body text-[10px] text-[var(--t2)]">
                           <span>본인 V={bd.user_v_level}</span>
                           <span>threshold V≥{bd.v_threshold}</span>
                           {r.frequency_rank && <span>freq #{r.frequency_rank}</span>}
@@ -676,7 +676,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 function MetaCell({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div>
-      <p className="font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t3)]">{label}</p>
+      <p className="font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t2)]">{label}</p>
       <p className={`font-display text-[16px] font-[800] tabular-nums ${accent ? 'text-[var(--p)]' : 'text-[var(--t1)]'}`}>
         {value}
       </p>
@@ -691,7 +691,7 @@ function ScoreRow({ label, weight, value, contribution }: {
   return (
     <tr className="border-t border-[var(--bd)]">
       <td className="py-1 pr-2 text-[var(--t2)]">{label}</td>
-      <td className="py-1 pr-2 text-right text-[var(--t3)]">× {weight}</td>
+      <td className="py-1 pr-2 text-right text-[var(--t2)]">× {weight}</td>
       <td className="py-1 pr-2 text-right tabular-nums text-[var(--t1)]">{value.toFixed(4)}</td>
       <td className={`py-1 text-right tabular-nums ${isPenalty ? 'text-[var(--error)]' : 'text-[var(--success)]'}`}>
         {isPenalty ? '' : '+'}{contribution.toFixed(4)}

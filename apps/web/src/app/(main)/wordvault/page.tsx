@@ -201,7 +201,7 @@ export default function WordVaultPage() {
               type="button"
               onClick={toggleTheme}
               aria-label="테마 전환"
-              className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               {theme === 'light' ? '🌙' : '☀️'}
             </button>

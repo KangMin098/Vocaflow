@@ -54,7 +54,7 @@ export function TodayPrescriptionCard({ data }: { data: TodayPrescription }) {
         >
           {data.stage}
         </span>
-        <span className="shrink-0 font-mono text-[11px] text-[var(--t3)]">약 {data.totalMinutes}분</span>
+        <span className="shrink-0 font-mono text-[11px] text-[var(--t2)]">약 {data.totalMinutes}분</span>
       </header>
 
       <ol className="flex flex-col gap-2">
@@ -118,7 +118,7 @@ export function TodayPrescriptionCard({ data }: { data: TodayPrescription }) {
         </BlockRow>
       </ol>
 
-      <p className="font-body text-[11px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
         학습 흔적에 맞춰 매일 새로 짜여요.{' '}
         <Link
           href="/plan"
@@ -151,7 +151,7 @@ function BlockRow({
   return (
     <li className="flex items-center gap-2.5">
       <span
-        className="inline-flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-[var(--bg3)] font-mono text-[11px] font-[700] text-[var(--t3)]"
+        className="inline-flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-[var(--bg3)] font-mono text-[11px] font-[700] text-[var(--t2)]"
         aria-hidden
       >
         {step}
@@ -208,7 +208,7 @@ function CandidateRow({ candidate: c }: { candidate: PrescriptionCandidate }) {
     <span className="flex items-center gap-2">
       <span className="min-w-0 flex-1">
         <span className="block truncate font-display text-[12px] font-[700] text-[var(--t1)]">{c.title}</span>
-        <span className="flex items-center gap-1.5 font-mono text-[10px] text-[var(--t3)]">
+        <span className="flex items-center gap-1.5 font-mono text-[10px] text-[var(--t2)]">
           {c.vLevel != null && <span>V{c.vLevel}</span>}
           {registerLabel && <span>· {registerLabel}</span>}
           {c.cefrLevel && <span>· {c.cefrLevel}</span>}

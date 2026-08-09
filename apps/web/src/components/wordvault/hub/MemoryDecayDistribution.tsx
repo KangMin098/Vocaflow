@@ -103,7 +103,7 @@ export function MemoryDecayDistribution({
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             기억 분포
           </h2>
-          <p className="font-body text-[11px] text-[var(--t3)]">
+          <p className="font-body text-[11px] text-[var(--t2)]">
             전체 {words.length}개 단어
           </p>
         </div>
@@ -158,7 +158,7 @@ export function MemoryDecayDistribution({
                   {b.label}
                 </span>
               </div>
-              <p className="font-body text-[10px] leading-tight text-[var(--t3)]">
+              <p className="font-body text-[10px] leading-tight text-[var(--t2)]">
                 {b.description}
               </p>
             </div>
@@ -182,7 +182,7 @@ export function MemoryDecayDistribution({
             </span>
             <ArrowRight
               size={11}
-              className="shrink-0 text-[var(--t3)]"
+              className="shrink-0 text-[var(--t2)]"
               aria-hidden="true"
             />
           </Link>

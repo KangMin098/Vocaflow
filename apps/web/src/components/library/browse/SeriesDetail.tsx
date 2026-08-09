@@ -118,9 +118,9 @@ export function SeriesDetail({
           >
             {cefrLabel}
           </span>
-          <span className="font-mono text-[11.5px] font-[600] text-[var(--t3)]">{count}편</span>
+          <span className="font-mono text-[11.5px] font-[600] text-[var(--t2)]">{count}편</span>
           {hasAudio && (
-            <span className="inline-flex items-center gap-1 font-mono text-[11.5px] font-[600] text-[var(--t3)]" title="원어민 음성 포함">
+            <span className="inline-flex items-center gap-1 font-mono text-[11.5px] font-[600] text-[var(--t2)]" title="원어민 음성 포함">
               <Volume2 size={12} aria-hidden /> 음성
             </span>
           )}
@@ -145,7 +145,7 @@ export function SeriesDetail({
               <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">
                 {grouped ? '주제별로 둘러보기' : '이어서 읽기'}
               </h2>
-              <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">{rest.length}편</span>
+              <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">{rest.length}편</span>
             </div>
 
             {grouped ? (
@@ -163,10 +163,10 @@ export function SeriesDetail({
                           {g.domain}
                         </span>
                       )}
-                      <span className="font-mono text-[10.5px] font-[600] text-[var(--t3)]">{g.items.length}편</span>
-                      {g.hint && <span className="font-body text-[11px] text-[var(--t3)]">· {g.hint}</span>}
+                      <span className="font-mono text-[10.5px] font-[600] text-[var(--t2)]">{g.items.length}편</span>
+                      {g.hint && <span className="font-body text-[11px] text-[var(--t2)]">· {g.hint}</span>}
                     </div>
-                    {g.blurb && <p className="font-body text-[11.5px] leading-[1.4] text-[var(--t3)]">{g.blurb}</p>}
+                    {g.blurb && <p className="font-body text-[11.5px] leading-[1.4] text-[var(--t2)]">{g.blurb}</p>}
                   </div>
                   <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {g.items.map((a) => (
@@ -199,7 +199,7 @@ export function SeriesDetail({
 
         {sources.length > 0 && (
           <div className="flex flex-col gap-2">
-            <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">출처</span>
+            <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">출처</span>
             <div className="flex flex-wrap gap-1.5">
               {sources.map((s) => (
                 <span
@@ -210,18 +210,18 @@ export function SeriesDetail({
                 >
                   <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: s.color }} />
                   {s.label}
-                  <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{s.count}</span>
+                  <span className="font-mono text-[10px] font-[700] text-[var(--t2)]">{s.count}</span>
                 </span>
               ))}
             </div>
-            <p className="font-body text-[11px] leading-[1.4] text-[var(--t3)]">
+            <p className="font-body text-[11px] leading-[1.4] text-[var(--t2)]">
               신뢰할 수 있는 원문에서 큐레이션했어요 · 원문은 각 글에서 열 수 있어요.
             </p>
           </div>
         )}
 
         <div className="flex flex-col gap-2">
-          <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">
             이 시리즈로 기르는 것
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -241,7 +241,7 @@ export function SeriesDetail({
         </p>
 
         <div className="flex flex-col gap-2">
-          <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">
             어떻게 공부하나요
           </span>
           <ol className="flex flex-wrap items-center gap-x-1 gap-y-2">
@@ -256,13 +256,13 @@ export function SeriesDetail({
                   </span>
                   {step}
                 </span>
-                {i < track.method.length - 1 && <ArrowRight size={12} aria-hidden className="text-[var(--t4)]" />}
+                {i < track.method.length - 1 && <ArrowRight size={12} aria-hidden className="text-[var(--t2)]" />}
               </li>
             ))}
           </ol>
         </div>
 
-        {track.note && <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
+        {track.note && <p className="font-body text-[11.5px] leading-[1.45] text-[var(--t2)]">※ {track.note}</p>}
       </section>
     </div>
   )

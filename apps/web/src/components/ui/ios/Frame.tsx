@@ -45,7 +45,7 @@ export function Frame({
             {title}
           </h2>
           {meta && (
-            <span className="font-mono text-[12px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
               {meta}
             </span>
           )}

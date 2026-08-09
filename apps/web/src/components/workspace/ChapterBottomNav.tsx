@@ -90,7 +90,7 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
         {items.map((it, idx) => {
           if (it === 'gap') {
             return (
-              <span key={`gap-${idx}`} className="px-1 font-display font-[700] text-[var(--t4)]" aria-hidden>
+              <span key={`gap-${idx}`} className="px-1 font-display font-[700] text-[var(--t2)]" aria-hidden>
                 ⋯
               </span>
             )

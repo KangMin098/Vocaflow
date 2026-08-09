@@ -77,6 +77,12 @@
     --memory-shaky:  #B5803A;  /* deeper warm amber — "익숙해요" 주의 (덜 mustard) */
     --memory-risk:   #9C3A30;  /* deeper warm red — "흐릿해요" 회복 필요 */
     --memory-new:    #8A8278;  /* warm gray (살짝 lighter) — "처음 만나는 단어" 중립 */
+    /* v07 — Memory Decay 색을 "작은 글자"로 쓸 때의 잉크(면·점·막대는 위 원색 유지).
+       실측: shaky 3.29 · new 3.63 (on --bg) → AA 미달. stable/risk 는 통과하지만 짝을 맞춰 정의한다. */
+    --memory-stable-ink: #2E7D5A;  /* 4.79:1 (원색 그대로) */
+    --memory-shaky-ink:  #7A5200;  /* 6.63:1 */
+    --memory-risk-ink:   #9C3A30;  /* 6.57:1 (원색 그대로) */
+    --memory-new-ink:    #5F5A52;  /* 6.55:1 */
 
     /* CEFR Distribution Fills — v06.19 (분포 시각화 전용 · badge 토큰과 분리) */
     --cefr-a1: #86EFAC;
@@ -147,6 +153,11 @@
     --learn-known-ink:      #34D399;
     --learn-review-ink:     #FBBF24;
     --learn-error-ink:      #F87171;
+    /* Memory Decay 다크 — 어두운 배경 위에서는 밝은 쪽이 대비를 얻는다 */
+    --memory-stable-ink: #5BA47D;
+    --memory-shaky-ink:  #D9A441;
+    --memory-risk-ink:   #E0796C;
+    --memory-new-ink:    #ADA69B;
 
     --level-a:       #34D399;
     --level-a-light: #0A1F18;

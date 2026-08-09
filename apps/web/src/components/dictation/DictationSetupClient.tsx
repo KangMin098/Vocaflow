@@ -160,7 +160,7 @@ export function DictationSetupClient() {
 
   if (!resource) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-8 text-center font-body text-[14px] text-[var(--t3)]">
+      <div className="mx-auto max-w-3xl px-4 py-8 text-center font-body text-[14px] text-[var(--t2)]">
         리소스를 불러오는 중...
       </div>
     );
@@ -183,7 +183,7 @@ export function DictationSetupClient() {
           <ArrowLeft size={16} />
         </button>
         <div className="flex-1">
-          <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+          <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
             Dictation Setup
           </p>
           <h1 className="font-display text-[20px] font-[700] text-[var(--t1)]">
@@ -228,7 +228,7 @@ export function DictationSetupClient() {
                   )}
                 </div>
                 <p className="font-body text-[11px] text-[var(--t2)]">{meta.description}</p>
-                <span className="font-body text-[10px] text-[var(--t3)]">{meta.group}</span>
+                <span className="font-body text-[10px] text-[var(--t2)]">{meta.group}</span>
               </button>
             );
           })}
@@ -430,7 +430,7 @@ function Section({
       <header className="mb-3 flex items-baseline justify-between">
         <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{title}</h3>
         {subtitle && (
-          <span className="font-body text-[11px] text-[var(--t3)]">{subtitle}</span>
+          <span className="font-body text-[11px] text-[var(--t2)]">{subtitle}</span>
         )}
       </header>
       {children}

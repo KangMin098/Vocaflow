@@ -113,9 +113,9 @@ export default function FlashcardHubPage() {
             <div>
               <p className="font-display text-[36px] font-[700] tabular-nums leading-none text-[var(--t1)]">
                 87
-                <span className="ml-1 text-[16px] text-[var(--t3)]">%</span>
+                <span className="ml-1 text-[16px] text-[var(--t2)]">%</span>
               </p>
-              <p className="mt-1 font-body text-[11px] text-[var(--t3)]">평균 · 오늘까지</p>
+              <p className="mt-1 font-body text-[11px] text-[var(--t2)]">평균 · 오늘까지</p>
             </div>
             <svg viewBox="0 0 100 32" className="h-12 flex-1" preserveAspectRatio="none" aria-hidden>
               <path
@@ -150,12 +150,12 @@ export default function FlashcardHubPage() {
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">Streak</h2>
           </header>
           <p className="mt-3 font-display text-[36px] font-[700] tabular-nums leading-none text-[var(--t1)]">
-            12<span className="ml-1 text-[16px] text-[var(--t3)]">일</span>
+            12<span className="ml-1 text-[16px] text-[var(--t2)]">일</span>
           </p>
-          <p className="mt-1 font-body text-[11px] text-[var(--t3)]">이번 달 최장</p>
+          <p className="mt-1 font-body text-[11px] text-[var(--t2)]">이번 달 최장</p>
           <div className="mt-3 flex items-center gap-1">
-            <Target size={12} className="text-[var(--t3)]" aria-hidden />
-            <p className="font-mono text-[10px] text-[var(--t3)]">누적 847 카드 · retention 89%</p>
+            <Target size={12} className="text-[var(--t2)]" aria-hidden />
+            <p className="font-mono text-[10px] text-[var(--t2)]">누적 847 카드 · retention 89%</p>
           </div>
         </article>
       </section>

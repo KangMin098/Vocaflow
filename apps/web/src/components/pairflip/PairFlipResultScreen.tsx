@@ -84,7 +84,7 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
         <PairFlipNextActionCard accuracy={accuracy} />
 
         {levelMeta && (
-          <p className="text-center font-body text-[11px] text-[var(--t3)]">
+          <p className="text-center font-body text-[11px] text-[var(--t2)]">
             난이도: {levelMeta.label} · {levelMeta.cardCount}장 · 시도 {result.totalAttempts}회
             {result.hintsUsed > 0 && ` · 힌트 ${result.hintsUsed}회`}
           </p>
@@ -115,7 +115,7 @@ function Stat({
     <div className="flex flex-col items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] py-2">
       <div className="flex items-center gap-1">
         {icon}
-        <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+        <span className="font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
           {label}
         </span>
       </div>

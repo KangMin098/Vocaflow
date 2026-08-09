@@ -71,7 +71,7 @@ export function SegmentControl<TKey extends string>({
           block && 'flex-1',
           isActive
             ? 'bg-[var(--bg)] text-[var(--t1)] shadow-ios-button'
-            : 'text-[var(--t3)] hover:text-[var(--t2)]',
+            : 'text-[var(--t2)] hover:text-[var(--t2)]',
         )
         const inner = (
           <>
@@ -81,7 +81,7 @@ export function SegmentControl<TKey extends string>({
               <span
                 className={cn(
                   'rounded-ios-pill px-1.5 py-px font-mono text-[10px] tabular-nums',
-                  isActive ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'text-[var(--t3)]',
+                  isActive ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'text-[var(--t2)]',
                 )}
               >
                 {item.count}

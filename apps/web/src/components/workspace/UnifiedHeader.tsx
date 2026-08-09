@@ -131,7 +131,7 @@ export function UnifiedHeader({
         <Link
           href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/my/texts'}
           aria-label={hasChapterContext ? '책으로 돌아가기' : '라이브러리로 돌아가기'}
-          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={16} strokeWidth={2} aria-hidden />
         </Link>
@@ -159,7 +159,7 @@ export function UnifiedHeader({
             {hasChapterContext ? book.title : text.title}
           </h1>
           {!isFocusMode && (
-            <div className="flex min-w-0 items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="flex min-w-0 items-center gap-2 font-body text-[11px] text-[var(--t2)]">
               <CEFRBadge level={(book?.cefrLevel ?? text.cefrLevel) as CEFRLevel} />
               {(book?.author ?? text.author) && (
                 <span className="hidden truncate font-display font-[600] text-[var(--t2)] md:inline">
@@ -168,7 +168,7 @@ export function UnifiedHeader({
               )}
               {hasChapterContext && (
                 <>
-                  <span className="text-[var(--t4)]" aria-hidden>·</span>
+                  <span className="text-[var(--t2)]" aria-hidden>·</span>
                   <span className="shrink-0 font-mono tabular-nums text-[var(--t2)]">
                     Ch.{currentChapterIdx}/{totalChapters}
                   </span>
@@ -246,7 +246,7 @@ export function UnifiedHeader({
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isBookmarked
                 ? 'border-[var(--active)]/25 bg-[var(--active-light)] text-[var(--active)]'
-                : 'border-transparent bg-transparent text-[var(--t3)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
+                : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >
             <Bookmark
@@ -264,7 +264,7 @@ export function UnifiedHeader({
               onClick={() => setIsTypeOpen((o) => !o)}
               aria-label="타이포 설정"
               aria-expanded={isTypeOpen}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
             >
               <Type size={16} strokeWidth={1.75} aria-hidden />
             </button>
@@ -280,7 +280,7 @@ export function UnifiedHeader({
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isFocusMode
                 ? 'border-[var(--p)]/25 bg-[var(--p-light)] text-[var(--p)]'
-                : 'border-transparent bg-transparent text-[var(--t3)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
+                : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >
             <Focus size={16} strokeWidth={1.75} aria-hidden />

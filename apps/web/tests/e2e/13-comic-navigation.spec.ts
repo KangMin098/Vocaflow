@@ -120,6 +120,21 @@ test.describe('만화 화면 기본 조작', () => {
     test.setTimeout(300_000);
     const bookId = await firstBookId(page);
     if (!bookId) return;
+
+    // ⚠️ 이 테스트는 '다음/이전 컷' 을 눌러야 하는데, 마지막 컷에서는 '다음 컷' 이 disabled 라
+    //    이전 실행이 남긴 진도에 따라 결과가 갈렸다(2026-08-09 실측). 시작 위치를 0 으로 고정한다.
+    const userId = await userIdByEmail(RUNTIME_USER.email);
+    const client = serviceClient();
+    const saved = userId ? await getComicProgress(userId, bookId) : null;
+    if (userId && client && saved) {
+      await client
+        .from('comic_read_progress')
+        .update({ last_index: 0 })
+        .eq('user_id', userId)
+        .eq('library_book_id', bookId);
+    }
+
+    try {
     await enterReader(page, bookId);
 
     // 자동 숨김이 실제로 일어난다(몰입) — 그리고 'm' 으로 되살아난다
@@ -132,8 +147,11 @@ test.describe('만화 화면 기본 조작', () => {
     // 숨은 컨트롤은 focus 로도 되살아나야 한다 — 키보드 사용자가 갇히지 않는 장치
     await page.keyboard.press('m'); // 다시 숨김
     await page.waitForTimeout(600);
+    // ⚠️ '다음 컷' 은 마지막 컷에서 disabled 라 focus 가 잡히지 않는다(포커스 불가 → 이벤트도 없음).
+    //    항상 활성인 stave 레일 버튼으로 focus 자동 노출을 검증한다.
     await page
-      .getByRole('button', { name: '다음 컷' })
+      .getByRole('button', { name: /컷, (읽음|현재|남음)$/ })
+      .first()
       .evaluate((el) => (el as HTMLElement).focus());
     await page.waitForTimeout(600);
     const afterFocus = await page
@@ -205,6 +223,15 @@ test.describe('만화 화면 기본 조작', () => {
     const before = await panelNo(page);
     await staves.nth(1).click();
     await expect.poll(() => panelNo(page), { timeout: 15_000 }).toBeGreaterThan(before);
+    } finally {
+      if (userId && client && saved) {
+        await client
+          .from('comic_read_progress')
+          .update({ last_index: saved.lastIndex })
+          .eq('user_id', userId)
+          .eq('library_book_id', bookId);
+      }
+    }
   });
 
   test('리더 이탈 — 본문 복귀 후 뒤로가기로 리더 복귀', async ({ page }) => {

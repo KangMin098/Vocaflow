@@ -56,7 +56,7 @@ export function CategoryMatrix({
                 isActive
                   ? 'bg-[var(--bg)]/15 text-[var(--bg)]'
                   : isEmpty
-                    ? 'text-[var(--t4)]'
+                    ? 'text-[var(--t2)]'
                     : 'bg-[var(--bg3)] text-[var(--t2)]'
               }`}
             >
@@ -85,8 +85,8 @@ export function CategoryMatrix({
                   isActive
                     ? 'text-[var(--bg)]/70'
                     : isEmpty
-                      ? 'text-[var(--t4)]'
-                      : 'text-[var(--t3)]'
+                      ? 'text-[var(--t2)]'
+                      : 'text-[var(--t2)]'
                 }`}
               >
                 {cat.hint}

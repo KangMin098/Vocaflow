@@ -76,7 +76,7 @@ export function RecentActivity() {
         </span>
         <div className="flex flex-col leading-none">
           <span className="font-display text-[12px] font-[700] text-[var(--t1)]">최근</span>
-          <span className="mt-0.5 font-mono text-[10px] font-[600] text-[var(--t3)]">
+          <span className="mt-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
             {activities.length}건
           </span>
         </div>
@@ -84,11 +84,13 @@ export function RecentActivity() {
 
       {/* Chip row */}
       <ul
-        className="flex flex-1 items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        // 가로 스크롤 영역은 키보드로도 스크롤할 수 있어야 한다(axe scrollable-region-focusable).
+        tabIndex={0}
+        className="flex flex-1 items-center gap-2 overflow-x-auto rounded-[var(--r-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="list"
       >
         {activities.length === 0 ? (
-          <li className="font-body text-[12px] text-[var(--t3)]">
+          <li className="font-body text-[12px] text-[var(--t2)]">
             아직 학습 활동이 없어요 · 첫 학습을 시작해보세요
           </li>
         ) : (
@@ -140,7 +142,7 @@ function ActivityChip({ item }: { item: ActivityItem }) {
         {body && (
           <span className="font-display text-[11px] font-[600] text-[var(--t1)]">{body}</span>
         )}
-        <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+        <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
           · {item.relativeTime}
         </span>
       </span>

@@ -118,7 +118,7 @@ export function VocabularyLevelMap() {
   if (state.kind === 'loading' || state.kind === 'unauth' || state.kind === 'error') {
     return (
       <Frame title="단어 수준 지도">
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           단어가 누적되면 V-Level 분포가 보여요.
         </p>
       </Frame>
@@ -128,7 +128,7 @@ export function VocabularyLevelMap() {
   if (state.kind === 'no-words') {
     return (
       <Frame title="단어 수준 지도">
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           사전 매칭된 단어가 없어요.
         </p>
       </Frame>
@@ -190,7 +190,7 @@ export function VocabularyLevelMap() {
                     ? 'font-[800] text-[var(--p)]'
                     : isIPlusOne
                       ? 'font-[700] text-ios-green'
-                      : 'text-[var(--t3)]'
+                      : 'text-[var(--t2)]'
                 }`}
               >
                 {lv}

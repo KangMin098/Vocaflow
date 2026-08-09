@@ -42,7 +42,7 @@ export function PairFlipModeSelector({ selected, onChange }: ModeSelectorProps) 
               isActive
                 ? 'text-[#FCD34D] shadow-sm [background:linear-gradient(135deg,#1E3A8A_0%,#1E1B4B_100%)]'
                 : m.disabled
-                  ? 'cursor-not-allowed text-[var(--t3)] opacity-60'
+                  ? 'cursor-not-allowed text-[var(--t2)] opacity-60'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
             }`}
           >

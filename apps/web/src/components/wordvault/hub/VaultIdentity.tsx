@@ -108,7 +108,7 @@ export function VaultIdentity({
             <span className="font-editorial text-[72px] font-[500] leading-[0.95] tracking-[-0.022em] tabular-nums text-[var(--t1)] md:text-[96px]">
               {NF.format(total)}
             </span>
-            <span className="mb-2 font-body text-[14px] font-[500] text-[var(--t3)]">
+            <span className="mb-2 font-body text-[14px] font-[500] text-[var(--t2)]">
               단어
             </span>
           </div>

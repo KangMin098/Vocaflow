@@ -14,7 +14,7 @@ export function KeyboardHints() {
 
   return (
     <div
-      className="fixed bottom-6 left-[264px] z-50 hidden gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)] shadow-[var(--sh-sm)] transition-opacity duration-[var(--dur-slow)] lg:flex"
+      className="fixed bottom-6 left-[264px] z-50 hidden gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)] shadow-[var(--sh-sm)] transition-opacity duration-[var(--dur-slow)] lg:flex"
       style={{ opacity }}
       aria-label="키보드 단축키"
     >

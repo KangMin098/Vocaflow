@@ -204,7 +204,7 @@ export function VocabSetCarousel({
               {c.label}
               <span
                 className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
-                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {sets.filter((s) => s.category === c.id).length}
@@ -283,7 +283,7 @@ export function VocabSetCarousel({
           <h2 className="font-display text-[20px] font-[700] leading-tight text-[var(--t1)]">
             {activeSet.title}
           </h2>
-          <p className="font-display text-[13px] text-[var(--t3)]">
+          <p className="font-display text-[13px] text-[var(--t2)]">
             <span className="font-[800] tabular-nums text-[var(--t1)]">
               {activeSet.wordCount.toLocaleString()}
             </span>{' '}

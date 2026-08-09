@@ -154,7 +154,7 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
         <div className="mt-1 flex items-center gap-2">
           <PosBadge pos={word.pos} />
           {word.pronunciation && (
-            <span className="font-mono text-[11.5px] text-[var(--t3)]">
+            <span className="font-mono text-[11.5px] text-[var(--t2)]">
               {word.pronunciation}
             </span>
           )}
@@ -170,7 +170,7 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
           {extras.senses.map((s, i) => (
             <div key={`${s.pos}-${i}`} className="flex items-baseline gap-1.5">
               {s.pos && (
-                <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 font-mono text-[9px] font-[700] text-[var(--t3)]">
+                <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
                   {posLabel(s.pos)}
                 </span>
               )}
@@ -183,10 +183,10 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
       {/* 어원 root 분해 chip */}
       {extras?.roots && extras.roots.length > 0 && (
         <div className="mt-2 flex flex-wrap items-center gap-1">
-          <span className="font-body text-[9px] uppercase tracking-[0.06em] text-[var(--t3)]">어원</span>
+          <span className="font-body text-[9px] uppercase tracking-[0.06em] text-[var(--t2)]">어원</span>
           {extras.roots.map((r, i) => (
             <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1">
-              {i > 0 && <span className="text-[10px] text-[var(--t4)]">+</span>}
+              {i > 0 && <span className="text-[10px] text-[var(--t2)]">+</span>}
               <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-1.5 py-0.5 text-[11px]">
                 <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
                 <span className="font-body text-[var(--t2)]"> {r.gloss}</span>

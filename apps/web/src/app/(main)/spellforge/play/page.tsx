@@ -98,7 +98,7 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
       <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
         {reason === 'auth' ? '로그인이 필요해요' : '연습할 단어가 아직 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
         {reason === 'auth'
           ? '로그인하면 내 단어장의 철자 연습 단어를 학습할 수 있어요.'
           : '단어장에 단어를 추가하면 SRS 큐에서 연습 단어가 채워져요. 본문에서 단어를 모으거나 단어장을 살펴보세요.'}

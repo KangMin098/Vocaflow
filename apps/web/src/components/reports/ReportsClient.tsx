@@ -43,7 +43,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
         </span>
         <div className="flex-1">
           <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">주간 리포트</h1>
-          <p className="font-body text-[12px] text-[var(--t3)]">주마다 학습을 차분히 돌아봐요</p>
+          <p className="font-body text-[12px] text-[var(--t2)]">주마다 학습을 차분히 돌아봐요</p>
         </div>
         <button
           type="button"
@@ -70,7 +70,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
           <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
             아직 리포트가 없어요
           </p>
-          <p className="font-body text-[13px] leading-relaxed text-[var(--t3)]">
+          <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
             학습을 시작하면 주마다 Report Card 가 쌓여요.
             <br />
             지금 한 주를 학습했다면 위 “이번 주 갱신”을 눌러보세요.
@@ -100,7 +100,7 @@ function ReportCard({ report }: { report: WeeklyReport }) {
         <span className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
           {formatWeek(report.week_start)}
         </span>
-        <span className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t3)]">
+        <span className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t2)]">
           <Clock size={11} aria-hidden /> {report.total_minutes}분
         </span>
       </header>
@@ -140,7 +140,7 @@ function Stat({ label, value }: { label: string; value: number }) {
       <p className="font-display text-[20px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value.toLocaleString()}
       </p>
-      <p className="mt-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="mt-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
     </div>

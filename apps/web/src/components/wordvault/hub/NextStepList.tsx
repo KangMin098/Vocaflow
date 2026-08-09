@@ -157,7 +157,7 @@ export function NextStepList() {
   if (state.kind === 'error' || state.kind === 'empty') {
     return (
       <Frame title="다음 한 단계">
-        <p className="font-body text-[13px] text-[var(--t3)]">
+        <p className="font-body text-[13px] text-[var(--t2)]">
           현재 추천 가능한 단어장이 없어요.
         </p>
       </Frame>
@@ -186,14 +186,14 @@ export function NextStepList() {
                   <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
                     {set.title}
                   </span>
-                  <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t3)]">
+                  <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t2)]">
                     {set.word_count != null && set.word_count > 0 && (
                       <span className="tabular-nums">{set.word_count}개</span>
                     )}
                   </div>
                 </div>
 
-                <ChevronRight size={16} className="shrink-0 text-[var(--t3)]/70" aria-hidden />
+                <ChevronRight size={16} className="shrink-0 text-[var(--t2)]/70" aria-hidden />
               </Link>
             )
           })}

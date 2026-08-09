@@ -53,7 +53,7 @@ export default function SidebarFooter({
           </span>
         </div>
         <div
-          className="mt-0.5 flex items-center gap-[3px] text-[10px] font-semibold text-[var(--t3)]"
+          className="mt-0.5 flex items-center gap-[3px] text-[10px] font-semibold text-[var(--t2)]"
           style={{ fontFamily: 'var(--font-mono)' }}
         >
           <span className="text-[var(--active)]">🔥</span>
@@ -63,7 +63,7 @@ export default function SidebarFooter({
 
       <Link
         href="/settings"
-        className="flex h-[30px] w-[30px] flex-shrink-0 items-center justify-center rounded-[7px] text-[13px] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+        className="flex h-[30px] w-[30px] flex-shrink-0 items-center justify-center rounded-[7px] text-[13px] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
       >
         ⚙
       </Link>

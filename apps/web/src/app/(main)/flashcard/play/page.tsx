@@ -101,7 +101,7 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
       <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
         {reason === 'auth' ? '로그인이 필요해요' : '복습할 단어가 아직 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
         {reason === 'auth'
           ? '로그인하면 내 단어장의 복습 카드를 학습할 수 있어요.'
           : '단어장에 단어를 추가하면 SRS 큐에서 복습 카드가 채워져요. 본문에서 단어를 모으거나 단어장을 살펴보세요.'}
@@ -125,7 +125,7 @@ function ScopedEmpty({ title }: { title: string | null }) {
       <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
         {title ? `"${title}" 에 학습할 단어가 아직 없어요` : '학습할 단어가 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
         이 자료의 단어장이 비어 있어요. 본문에서 단어를 추가하거나 단어장을 먼저 살펴보세요.
       </p>
       <a

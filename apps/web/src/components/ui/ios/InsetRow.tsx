@@ -62,7 +62,7 @@ export function InsetRow({
         {(subtitle || (progress && progress.total > 0)) && (
           <div className="flex items-center gap-2">
             {subtitle && (
-              <span className="line-clamp-1 font-body text-[11.5px] text-[var(--t3)]">
+              <span className="line-clamp-1 font-body text-[11.5px] text-[var(--t2)]">
                 {subtitle}
               </span>
             )}

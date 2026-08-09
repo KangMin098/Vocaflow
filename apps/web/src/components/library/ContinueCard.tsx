@@ -45,7 +45,7 @@ export function ContinueCard({ text }: ContinueCardProps) {
         {/* Info */}
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           {/* CEFR + Author */}
-          <div className="flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <div className="flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             <CEFRBadge level={text.cefrLevel} />
             <span className="truncate">{text.author}</span>
           </div>
@@ -72,7 +72,7 @@ export function ContinueCard({ text }: ContinueCardProps) {
           </div>
 
           {/* Meta */}
-          <div className="mt-1 flex items-center gap-3 font-body text-[12px] text-[var(--t3)]">
+          <div className="mt-1 flex items-center gap-3 font-body text-[12px] text-[var(--t2)]">
             <span className="inline-flex items-center gap-1">
               <BookOpen size={11} strokeWidth={1.75} aria-hidden="true" />
               {text.wordCount}단어

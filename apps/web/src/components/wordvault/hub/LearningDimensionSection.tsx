@@ -74,7 +74,7 @@ export function LearningDimensionSection({ groups }: LearningDimensionSectionPro
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
           🎯 어떻게 익혔나요
         </h2>
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           학습 채널 깊이로 본 내 단어
         </p>
       </header>
@@ -113,7 +113,7 @@ function DimensionCard({ group }: { group: MasteryGroup }) {
         <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
           {meta.label}
         </h3>
-        <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+        <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
           {isEmpty ? '아직 없어요' : meta.subtitle}
         </p>
       </div>
@@ -125,7 +125,7 @@ function DimensionCard({ group }: { group: MasteryGroup }) {
         {!isEmpty && (
           <ArrowRight
             size={14}
-            className="shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
+            className="shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
             aria-hidden="true"
           />
         )}

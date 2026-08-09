@@ -297,6 +297,22 @@ psm 4 = "가변 크기 텍스트 한 열" — 말풍선은 세로로 쌓인 짧�
 - 자동재생 차단 대응에 **`keydown` 추가** — 기존엔 `pointerdown` 만 듣고 있어, 포인터를 안 쓰는 타이핑 게임(wordsmith-vigil·letter-forge 등)은 기본 ON 이어도 영영 무음이 될 참이었다.
 - **신규 spec [12-arcade-audio.spec.ts](../apps/web/tests/e2e/12-arcade-audio.spec.ts) 3/3 pass** — ① BGM 19곡을 브라우저에서 실제 디코드해 110초·스테레오 단언(104초 회귀 차단) ② 효과음 6종 길이·스테레오 단언(모노 합성음 회귀 차단) ③ 선호 미설정 학습자가 **토글 없이 게임 진입만으로** 트랙을 받는지 + 명시적 OFF 가 리로드 후에도 유지되는지. 기존 [09-arcade-access.spec.ts](../apps/web/tests/e2e/09-arcade-access.spec.ts) F1 은 기본 ON 기준으로 재작성(허브 토글 → 게임 적용을 끄기/켜기 양방향으로 고정) — F1·F2 2/2 pass.
 
+### 품질 루프 2회차 — 학습자 전 화면으로 확대, 접근성 위반 719 → 20 (2026-08-09)
+
+1회차(만화·도서)를 앱 전역 학습자 화면 11곳(hub·dashboard·wordvault·flashcard·scriptquiz·dictate·arcade·library/scripts·library/vocab·plan·settings)으로 넓혀 같은 루프를 돌렸다.
+
+- **`--t3` 텍스트 금지 규칙을 전면 적용(코드모드)**: 학습자 표면 246파일 · 1,221곳의 `text-[var(--t3)]` → `--t2`. 어드민·게임·아케이드(`(app)`)는 자체 팔레트라 **의도적으로 제외**(admin 34곳 잔존 확인). `--t4` 를 글자로 쓰던 곳도 동일 처리.
+- **`--memory-*-ink` 4종 추가**: Memory Decay 색을 작은 글자로 쓰면 shaky 3.29 · new 3.63 으로 미달이었다. 면·점·막대는 원색 유지, 글자만 잉크(다크는 반대로 밝은 값).
+- **`--active-ink` 재조정 `#8A6420` → `#7E5A1B`**: 종이 위에선 통과했지만 앰버 tint(`--warning-light`) 위에서 4.40 으로 아슬하게 미달이었다. 종이 5.97 · 앰버 tint 5.13 으로 재조정.
+- **ScriptQuiz 챕터 칩** — `` `${QUIZ_ACCENT}15` `` 가 `var(--active)15` 라는 **무효 CSS 값**이라 배경이 투명이었고 글자만 3.24:1 로 남아 있었다(라이트 101 노드의 정체). tint 토큰 + 잉크로 교체.
+- **구조적 접근성 3종**: `aria-prohibited-attr`(role 없는 div 에 aria-label → 막대 전체를 `role="img"` 하나로) · `dlitem`/`definition-list`(dt/dd 를 dl 직계로 평탄화) · `scrollable-region-focusable`(가로 스크롤 목록에 `tabIndex=0` + 포커스 링).
+- **결과**: 총 위반 719 → **20**(색대비 719→45→그 뒤 구조 수정 포함). 만화·도서·리더 5개 화면은 계속 **0** 유지.
+
+#### 회귀 스펙 자체의 결함 2종도 수정
+
+- **진도 잔여 상태 의존** — 리더 테스트가 이전 실행이 남긴 `comic_read_progress` 위치에서 열려, 마지막 컷이면 '다음 컷'이 disabled 라 실패했다. 시작 위치를 0 으로 고정하고 `finally` 로 복원하게 바꿔 결정론화.
+- **라벨 결합** — 병행 세션이 만화 탭 라벨을 Adapted/Restored → Book Comics/Vintage Comics 로 바꾸자 스펙이 깨졌다. 탭·사이드바 단언을 **href 기준**으로 전환(라벨 변경에 무관).
+
 ### 학습자 화면 품질 자기발전 루프 — 접근성 게이트 신설 + 토큰 체계 개편 (2026-08-09)
 
 "측정 → 결함 → 수정 → 재측정"을 9회 돌려 만화·도서 화면의 접근성 위반을 **0** 으로 만들고, 그 측정 자체를 상시 게이트(`14-learner-quality.spec.ts`)로 고정했다. 측정 도구는 `@axe-core/playwright`(WCAG 2.1 A/AA) 신규 도입.

@@ -53,7 +53,7 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
         <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
           아직 게시된 스크립트가 없어요
         </p>
-        <p className="max-w-[360px] font-body text-[12px] text-[var(--t3)]">
+        <p className="max-w-[360px] font-body text-[12px] text-[var(--t2)]">
           짧은 영어 글이 큐레이션되면 여기에 표시돼요. 곧 추가될 예정이에요.
         </p>
       </div>
@@ -179,7 +179,7 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
             <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">{track.title}</h3>
             <p className="font-body text-[13px] leading-[1.45] text-[var(--t2)]">{track.oneLine}</p>
             {stat.sources.length > 0 && (
-              <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t3)]">출처 · {sourceHint(stat)}</p>
+              <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t2)]">출처 · {sourceHint(stat)}</p>
             )}
           </div>
         </div>
@@ -195,7 +195,7 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
         className="flex items-center justify-between gap-2 border-t px-5 py-3"
         style={{ borderColor: `color-mix(in srgb, ${track.accent} 18%, var(--bd))` }}
       >
-        <span className="flex items-center gap-2.5 font-mono text-[11.5px] font-[600] text-[var(--t3)]">
+        <span className="flex items-center gap-2.5 font-mono text-[11.5px] font-[600] text-[var(--t2)]">
           <span>{cefrLabel}</span>
           <span>·</span>
           <span>{count}편</span>
@@ -242,7 +242,7 @@ function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => v
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">{track.title}</span>
           {stat.sources.length > 0 && (
-            <span className="truncate font-mono text-[10px] font-[500] text-[var(--t3)]">{sourceHint(stat)}</span>
+            <span className="truncate font-mono text-[10px] font-[500] text-[var(--t2)]">{sourceHint(stat)}</span>
           )}
         </span>
         <Info size={15} aria-hidden className="shrink-0 opacity-70" style={{ color: track.accent }} />
@@ -254,8 +254,8 @@ function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => v
         aria-label={`${track.title} 글 둘러보기`}
         className="flex shrink-0 items-center gap-1.5 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
-        <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">{cefrLabel} · {count}편</span>
-        <ChevronRight size={16} aria-hidden className="text-[var(--t3)]" />
+        <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">{cefrLabel} · {count}편</span>
+        <ChevronRight size={16} aria-hidden className="text-[var(--t2)]" />
       </button>
     </li>
   )

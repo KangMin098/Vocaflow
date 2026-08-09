@@ -33,7 +33,7 @@ export default async function DashboardPage() {
   if (!overview) {
     return (
       <Screen width="wide" background="bg2" padX="md">
-        <div className="mx-auto max-w-md px-4 py-24 text-center font-body text-[14px] text-[var(--t3)]">
+        <div className="mx-auto max-w-md px-4 py-24 text-center font-body text-[14px] text-[var(--t2)]">
           로그인하면 성장 기록을 볼 수 있어요.
         </div>
       </Screen>
@@ -46,7 +46,7 @@ export default async function DashboardPage() {
         {/* 1. 헤더 + known-word 성장 hero (Implicit Progress — 게이지 대신 자라는 숫자) */}
         <header className="flex flex-col gap-4">
           <div>
-            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t2)]">
               {kstDateLabel()}
             </span>
             <h1 className="mt-1 font-editorial text-[28px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[34px]">
@@ -56,16 +56,16 @@ export default async function DashboardPage() {
           </div>
 
           <div className="flex flex-col gap-1.5 rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-5">
-            <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">
               마음에 자리잡은 단어
             </span>
             <span className="flex items-baseline gap-1.5">
               <span className="font-display text-[40px] font-[800] leading-none tabular-nums text-[var(--p)]">
                 {overview.knownWordCount.toLocaleString()}
               </span>
-              <span className="font-display text-[14px] font-[600] text-[var(--t3)]">개</span>
+              <span className="font-display text-[14px] font-[600] text-[var(--t2)]">개</span>
               {overview.currentStreak > 0 && (
-                <span className="ml-auto font-body text-[12px] text-[var(--t3)]">
+                <span className="ml-auto font-body text-[12px] text-[var(--t2)]">
                   {overview.currentStreak}일 연속 함께하는 중
                 </span>
               )}
@@ -97,10 +97,10 @@ export default async function DashboardPage() {
 
         {/* Calm closing — 정서적 부호화 */}
         <footer className="mt-4 text-center">
-          <p className="font-english text-[14px] italic leading-relaxed text-[var(--t3)]">
+          <p className="font-english text-[14px] italic leading-relaxed text-[var(--t2)]">
             “Slow is smooth, smooth is fast.”
           </p>
-          <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
             오늘도 차분한 페이스로 잘 해내고 있어요.
           </p>
         </footer>

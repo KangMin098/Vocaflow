@@ -41,7 +41,7 @@ export function TextStatusBadge({ text }: TextStatusBadgeProps) {
 
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]"
+      className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]"
       aria-label="미시작"
     >
       미시작

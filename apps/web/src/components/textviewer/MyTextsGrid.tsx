@@ -56,14 +56,14 @@ export function MyTextsGrid({ texts }: MyTextsGridProps) {
           <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
             내 스크립트
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">총 {texts.length}개</p>
+          <p className="font-body text-[12px] text-[var(--t2)]">총 {texts.length}개</p>
         </div>
 
         {/* Search */}
         <div className="relative flex-1 md:max-w-xs">
           <Search
             size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
             aria-hidden="true"
           />
           <input
@@ -72,7 +72,7 @@ export function MyTextsGrid({ texts }: MyTextsGridProps) {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="제목 또는 저자 검색"
             aria-label="스크립트 검색"
-            className="h-9 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="h-9 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           />
         </div>
       </header>

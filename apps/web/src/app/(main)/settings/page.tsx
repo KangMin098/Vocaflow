@@ -137,7 +137,7 @@ function Row({ label, description, control }: RowProps) {
       <div className="min-w-0 flex-1">
         <p className="font-display text-[14px] font-[600] text-[var(--t1)]">{label}</p>
         {description && (
-          <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+          <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t2)]">
             {description}
           </p>
         )}
@@ -380,7 +380,7 @@ export default function SettingsPage() {
                   className="h-1.5 w-32 cursor-pointer appearance-none rounded-full bg-[var(--bg3)] accent-[var(--p)]"
                   aria-label="재생 속도"
                 />
-                <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+                <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                   {ttsSpeed.toFixed(2)}x
                 </span>
               </div>
@@ -493,13 +493,13 @@ export default function SettingsPage() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">
+                  <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">
                     {row.description}
                   </p>
                 </div>
                 <ChevronRight
                   size={16}
-                  className="shrink-0 text-[var(--t3)] opacity-40 group-enabled:opacity-100"
+                  className="shrink-0 text-[var(--t2)] opacity-40 group-enabled:opacity-100"
                   aria-hidden
                 />
               </button>
@@ -532,7 +532,7 @@ export default function SettingsPage() {
       </div>
 
         <footer className="mt-10 text-center">
-          <p className="font-body text-[12px] italic text-[var(--t3)]">
+          <p className="font-body text-[12px] italic text-[var(--t2)]">
             변경 사항은 자동으로 저장됩니다.
           </p>
         </footer>

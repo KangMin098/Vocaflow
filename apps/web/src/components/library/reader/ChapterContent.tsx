@@ -39,7 +39,7 @@ export function ChapterContentView({
       aria-label={content.chapter_title ?? `Chapter ${content.chapter_idx}`}
     >
       <header className="mb-8 border-b border-[var(--bd)] pb-4">
-        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--t3)]">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--t2)]">
           Chapter {content.chapter_idx}
         </span>
         {content.chapter_title && (
@@ -95,7 +95,7 @@ function Paragraph({
     <div className="flex gap-3">
       {showMarker && (
         <span
-          className="flex h-6 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] font-mono text-[10px] tabular-nums text-[var(--t3)]"
+          className="flex h-6 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] font-mono text-[10px] tabular-nums text-[var(--t2)]"
           aria-label={`문단 ${index}`}
         >
           {index}
@@ -116,7 +116,7 @@ function SampleWordsLegend({ words }: { words: SampleWord[] }) {
       className="mt-10 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-5"
       aria-label="이 장의 핵심 어휘"
     >
-      <h2 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+      <h2 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         ✦ LV 상위 10개 어휘 (학습 가치 순)
       </h2>
       <ul role="list" className="flex flex-col gap-2">
@@ -129,9 +129,9 @@ function SampleWordsLegend({ words }: { words: SampleWord[] }) {
               {w.word}
             </span>
             {w.cefr_level && (
-              <span className="font-mono text-[10px] text-[var(--t3)]">{w.cefr_level}</span>
+              <span className="font-mono text-[10px] text-[var(--t2)]">{w.cefr_level}</span>
             )}
-            <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
               LV {w.base_learning_value.toFixed(2)}
             </span>
             {w.first_sentence && (

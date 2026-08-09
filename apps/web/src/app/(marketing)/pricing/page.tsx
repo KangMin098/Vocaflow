@@ -165,7 +165,7 @@ export default function PricingPage() {
       {/* ── Hero ── */}
       <section className="border-b border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg)]">
         <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             요금제
           </span>
@@ -225,7 +225,7 @@ export default function PricingPage() {
                 <p className="mt-0.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
                   {s.label}
                 </p>
-                <p className="mt-0.5 font-body text-[11px] text-[var(--t3)]">{s.sub}</p>
+                <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">{s.sub}</p>
               </li>
             ))}
           </ul>
@@ -297,23 +297,23 @@ export default function PricingPage() {
                             {isFree ? '무료' : displayPrice}
                           </span>
                           {!isFree && (
-                            <span className="ml-1 font-body text-[13px] text-[var(--t3)]">/ 월</span>
+                            <span className="ml-1 font-body text-[13px] text-[var(--t2)]">/ 월</span>
                           )}
                           {isFree && (
-                            <span className="ml-1 font-body text-[13px] text-[var(--t3)]">/ 평생</span>
+                            <span className="ml-1 font-body text-[13px] text-[var(--t2)]">/ 평생</span>
                           )}
                         </div>
                         {/* 연간 결제 시 보조 정보 */}
                         {showAnnual && t.annualTotal && (
                           <p className="mt-1.5 font-mono text-[11px] tabular-nums text-[var(--success)]">
-                            <span className="line-through text-[var(--t3)]">
+                            <span className="line-through text-[var(--t2)]">
                               ₩{(parseInt(t.priceMonthly.replace(/,/g, ''), 10) * 12).toLocaleString()}
                             </span>{' '}
                             → ₩{t.annualTotal} / 년
                           </p>
                         )}
                         {t.limit && (
-                          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+                          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                             {t.limit}
                           </p>
                         )}
@@ -356,7 +356,7 @@ export default function PricingPage() {
             })}
           </ul>
 
-          <p className="mx-auto mt-10 max-w-md text-center font-body text-[13px] italic text-[var(--t3)]">
+          <p className="mx-auto mt-10 max-w-md text-center font-body text-[13px] italic text-[var(--t2)]">
             14일 이내 환불 가능 · 카드 등록 없이 무료 사용 시작
           </p>
         </div>
@@ -378,13 +378,13 @@ export default function PricingPage() {
             <table className="w-full text-left text-[13px]">
               <thead className="bg-[var(--bg2)]">
                 <tr>
-                  <th className="px-4 py-3 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+                  <th className="px-4 py-3 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                     기능
                   </th>
                   {TIERS.map((t) => (
                     <th
                       key={t.id}
-                      className="px-4 py-3 text-center font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+                      className="px-4 py-3 text-center font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
                     >
                       {t.label}
                     </th>
@@ -415,7 +415,7 @@ export default function PricingPage() {
                             <Check size={12} strokeWidth={3} />
                           </span>
                         ) : cell === '·' ? (
-                          <span className="text-[var(--t3)]">—</span>
+                          <span className="text-[var(--t2)]">—</span>
                         ) : (
                           cell
                         )}
@@ -456,7 +456,7 @@ export default function PricingPage() {
                 </p>
                 <div className="mt-4 border-t border-[var(--bd)] pt-3">
                   <p className="font-display text-[13px] font-[600] text-[var(--t1)]">{t.name}</p>
-                  <p className="font-body text-[11px] text-[var(--t3)]">{t.role}</p>
+                  <p className="font-body text-[11px] text-[var(--t2)]">{t.role}</p>
                 </div>
               </li>
             ))}

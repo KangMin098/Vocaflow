@@ -113,9 +113,9 @@ export default function SpellForgeHubPage() {
           <div className="flex items-end gap-4">
             <div>
               <p className="font-display text-[36px] font-[700] tabular-nums leading-none text-[var(--t1)]">
-                92<span className="ml-1 text-[16px] text-[var(--t3)]">%</span>
+                92<span className="ml-1 text-[16px] text-[var(--t2)]">%</span>
               </p>
-              <p className="mt-1 font-body text-[11px] text-[var(--t3)]">평균 IME 정확도</p>
+              <p className="mt-1 font-body text-[11px] text-[var(--t2)]">평균 IME 정확도</p>
             </div>
             <svg viewBox="0 0 100 32" className="h-12 flex-1" preserveAspectRatio="none" aria-hidden>
               <path
@@ -149,14 +149,14 @@ export default function SpellForgeHubPage() {
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최고 점수</h2>
           </header>
           <p className="mt-3 font-display text-[36px] font-[700] tabular-nums leading-none text-[var(--t1)]">
-            1,240<span className="ml-1 text-[14px] text-[var(--t3)]">점</span>
+            1,240<span className="ml-1 text-[14px] text-[var(--t2)]">점</span>
           </p>
           <ul className="mt-3 divide-y divide-[var(--bd)]">
             {RECENT_SCORES.map((s) => (
               <li key={s.date} className="flex items-center justify-between py-1.5">
-                <span className="font-mono text-[10px] text-[var(--t3)]">{s.date}</span>
+                <span className="font-mono text-[10px] text-[var(--t2)]">{s.date}</span>
                 <span className="font-mono text-[11px] font-[700] tabular-nums text-[var(--t1)]">
-                  {s.score} <span className="text-[10px] text-[var(--t3)]">· {s.accuracy}%</span>
+                  {s.score} <span className="text-[10px] text-[var(--t2)]">· {s.accuracy}%</span>
                 </span>
               </li>
             ))}
@@ -196,7 +196,7 @@ export default function SpellForgeHubPage() {
           },
         ]}
         extras={
-          <p className="font-body text-[11px] italic leading-relaxed text-[var(--t3)]">
+          <p className="font-body text-[11px] italic leading-relaxed text-[var(--t2)]">
             <Zap size={10} className="mr-1 inline align-text-bottom text-[var(--active)]" aria-hidden />
             힌트를 사용하면 점수 -20 — 그래도 처음엔 권장해요.
           </p>

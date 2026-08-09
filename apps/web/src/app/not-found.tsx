@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg2)] p-6">
       <div className="w-full max-w-md rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 text-center shadow-[var(--sh-md)]">
-        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
           404
         </p>
         <h1 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)]">

@@ -68,7 +68,7 @@ export function WorkspaceBookContext({
       {/* 좌측: 컴팩트 breadcrumb (BookVault › 책 › Chapter N · ✓N) */}
       <nav
         aria-label="breadcrumb"
-        className="flex min-w-0 items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]"
+        className="flex min-w-0 items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]"
       >
         <Link
           href="/my/books"

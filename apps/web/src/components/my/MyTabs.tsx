@@ -35,7 +35,7 @@ export function MyTabs() {
     <header className="border-b border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
       <div className="mb-3 flex flex-col gap-0.5">
         <h1 className="font-display text-[20px] font-[700] text-[var(--t1)]">📦 My</h1>
-        <p className="font-body text-[12px] text-[var(--t3)]">내 학습 자산</p>
+        <p className="font-body text-[12px] text-[var(--t2)]">내 학습 자산</p>
       </div>
 
       <nav role="tablist" aria-label="My 탭" className="flex flex-wrap gap-1">
@@ -55,7 +55,7 @@ export function MyTabs() {
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
                 active
                   ? 'border-[var(--p)] text-[var(--p)]'
-                  : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                  : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
               ].join(' ')}
               title={subtitle}
             >

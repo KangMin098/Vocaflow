@@ -52,7 +52,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
         <p className="font-body text-[14px] text-[var(--t2)]">
           아직 V-Level 기록이 없어요.
         </p>
-        <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+        <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
           /diagnostic 진단을 완료하면 첫 snapshot이 생성돼요.
         </p>
       </div>
@@ -90,7 +90,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
                   >
                     {style.label}
                   </span>
-                  <span className="font-body text-[11px] text-[var(--t3)]">
+                  <span className="font-body text-[11px] text-[var(--t2)]">
                     {formatDate(s.taken_at)}
                   </span>
                 </div>
@@ -106,15 +106,15 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
 
               {s.taken_reason === 'track_diagnostic_completed' ? (
                 <div className="flex items-baseline gap-2">
-                  <span className="font-display text-[11px] font-[600] uppercase tracking-wide text-[var(--t3)]">
+                  <span className="font-display text-[11px] font-[600] uppercase tracking-wide text-[var(--t2)]">
                     {String((s.snapshot_meta as { track_id?: string } | null | undefined)?.track_id ?? 'track')}
                   </span>
                   {(s.snapshot_meta as { previous_track_level?: number } | null | undefined)?.previous_track_level != null && (
                     <>
-                      <span className="font-display text-[13px] font-[600] text-[var(--t3)]">
+                      <span className="font-display text-[13px] font-[600] text-[var(--t2)]">
                         L{(s.snapshot_meta as { previous_track_level?: number }).previous_track_level}
                       </span>
-                      <span className="font-body text-[10px] text-[var(--t4)]">→</span>
+                      <span className="font-body text-[10px] text-[var(--t2)]">→</span>
                     </>
                   )}
                   <span className="font-display text-[22px] font-[700] tabular-nums text-[var(--t1)]">
@@ -125,10 +125,10 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
                 <div className="flex items-baseline gap-2">
                   {s.previous_v_level != null && (
                     <>
-                      <span className="font-display text-[13px] font-[600] text-[var(--t3)]">
+                      <span className="font-display text-[13px] font-[600] text-[var(--t2)]">
                         V{s.previous_v_level}
                       </span>
-                      <span className="font-body text-[10px] text-[var(--t4)]">→</span>
+                      <span className="font-body text-[10px] text-[var(--t2)]">→</span>
                     </>
                   )}
                   <span className="font-display text-[22px] font-[700] tabular-nums text-[var(--t1)]">
@@ -138,7 +138,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
               )}
 
               {confidence !== undefined && (
-                <p className="mt-1 font-body text-[11px] text-[var(--t3)]">
+                <p className="mt-1 font-body text-[11px] text-[var(--t2)]">
                   신뢰도 {Math.round((confidence ?? 0) * 100)}%
                 </p>
               )}

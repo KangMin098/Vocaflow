@@ -29,7 +29,7 @@ export function StubPage({ title, description, upcoming = [] }: StubPageProps) {
 
         {upcoming.length > 0 && (
           <div className="mt-6 rounded-[var(--r-md)] bg-[var(--bg2)] p-4 text-left">
-            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               예정 기능
             </p>
             <ul className="mt-2 space-y-1 font-body text-[13px] text-[var(--t2)]">

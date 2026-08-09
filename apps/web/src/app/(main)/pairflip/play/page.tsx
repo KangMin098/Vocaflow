@@ -86,7 +86,7 @@ export default function PairFlipPlayPage() {
   // config + pairs 둘 다 준비될 때까지 게임(=hook) 마운트 보류 — 실 페어를 mount 시점에 주입.
   if (!config || pairs === undefined) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center gap-2 text-[var(--t3)]">
+      <div className="flex min-h-[60vh] items-center justify-center gap-2 text-[var(--t2)]">
         <Loader2 size={16} className="animate-spin" aria-hidden />
         <p className="font-body text-[14px]">세션을 준비하고 있어요</p>
       </div>
