@@ -4,7 +4,7 @@
 // 설계: scripts/comic/docs/PD_MODERNIZE_MODEL.md
 //
 //   node scripts/comic/pd/modernize.mjs --workdir work/pdcp/<slug> \
-//     [--model qwen-image-edit-2511] [--env runpod-4090] [--limit 8] [--dry-run]
+//     [--model qwen-image-edit-2511] [--env runpod-4090] [--limit 8] [--dry-run] [--erase-only]
 //
 // ── 기존 CPU 트랙(page-modern/webtoon)을 대체하지 않는다 ─────────────
 // 원작 작화를 그대로 두는 트랙과 다시 그리는 트랙은 산출물의 성격이 다르다.
@@ -30,6 +30,7 @@ import { spawnSync } from 'node:child_process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { resolveRunner } from '../model-runners.mjs'
+import { detectBalloons } from './balloons.mjs'
 import { emitProgress } from './progress.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -45,6 +46,8 @@ const arg = (n, d) => {
   return i === -1 ? d : process.argv[i + 1]
 }
 const has = (n) => process.argv.includes(`--${n}`)
+/** 매니페스트 경로는 OS 무관하게 슬래시로 — Admin 이 그대로 URL 로 쓴다. */
+const toPosix = (p) => p.split(path.sep).join('/')
 
 /**
  * 현대화 프롬프트. 구도·인물은 그대로 두고 **표현만** 바꾸라고 명시한다.
@@ -143,6 +146,10 @@ async function download(base, img, dest) {
 
 // ─── 말풍선 지우기 ───────────────────────────────────────────────────
 //
+// ⚠️ OCR 텍스트 박스를 그대로 지우면 안 된다 — 말풍선 하나가 텍스트 조각 여럿으로 잡혀
+// 조각 사이 여백과 테두리에 글자가 남는다(실측: 캡션 박스 1개가 6조각). 남은 흔적을
+// 모델이 "글자 비슷한 것"으로 재현한다. balloons.mjs 가 조각을 감싸는 풍선 영역으로 확장한다.
+//
 // bubbles 매니페스트의 box 는 **컷 기준 0~1 정규화 좌표**다(ocr-local 이 그렇게 쓴다).
 // 흰색으로 덮는다 — 모델이 "빈 말풍선"으로 인식해 형태를 유지하고, 지운 자리에
 // page-letter 가 문구를 다시 얹는다. blur 가 아니라 fill 인 이유: blur 는 글자 흔적을
@@ -181,6 +188,7 @@ async function main() {
   const env = arg('env', 'runpod-4090')
   const limit = arg('limit') ? Number(arg('limit')) : 8
   const dryRun = has('dry-run')
+  const eraseOnly = has('erase-only')
 
   const runner = resolveRunner(modelKey)
   if (!runner) throw new Error(`알 수 없는 모델: ${modelKey}`)
@@ -228,6 +236,27 @@ async function main() {
     for (const p of batch) console.log(`  ${p.file}`)
     return
   }
+
+  // --erase-only: GPU 를 쓰지 않고 **말풍선 지우기까지만** 하고 멈춘다.
+  // 모델 트랙의 유일한 비가역 비용은 GPU 시간이다. 그 전에 "글자가 정말 다 지워졌나"를
+  // 사람이 눈으로 확인할 수 있어야 한다 — 남은 글자는 모델이 가짜 글자로 재현한다.
+  if (eraseOnly) {
+    let cov = 0
+    let fb = 0
+    for (const p of panels) {
+      const name = path.basename(p.file)
+      const tb = bubblesByPanel.get(`${p.page}-${p.panelIndex}`) ?? []
+      const rs = tb.length ? detectBalloons(path.resolve(REPO, p.file), tb) : []
+      eraseBubbles(path.resolve(REPO, p.file), path.join(srcDir, name), rs)
+      cov += rs.reduce((a, b) => a + b.w * b.h, 0)
+      fb += rs.filter((b) => b.via === 'text-fallback').length
+      console.log(`  ${name}  조각 ${tb.length} → 영역 ${rs.length}`)
+    }
+    console.log(`\n지우기 미리보기 ${panels.length}컷 → ${srcDir}`)
+    console.log(`  평균 지움 면적 ${((cov / panels.length) * 100).toFixed(1)}%/컷 · 풍선 미검출 후퇴 ${fb}건`)
+    console.log('  ⚠ 글자가 남아 있으면 모델이 가짜 글자로 재현합니다 — 확인 후 진행하세요.')
+    return
+  }
   if (batch.length === 0) {
     console.log('\n남은 컷이 없습니다.')
     return
@@ -248,7 +277,11 @@ async function main() {
     const srcAbs = path.resolve(REPO, p.file)
     const name = path.basename(p.file)
     const erased = path.join(srcDir, name)
-    const boxes = bubblesByPanel.get(`${p.page}-${p.panelIndex}`) ?? []
+    const textBoxes = bubblesByPanel.get(`${p.page}-${p.panelIndex}`) ?? []
+    // 텍스트 조각 → 그것을 감싸는 말풍선 영역
+    const boxes = textBoxes.length ? detectBalloons(srcAbs, textBoxes) : []
+    const fellBack = boxes.filter((b) => b.via === 'text-fallback').length
+    const coverage = boxes.reduce((a, b) => a + b.w * b.h, 0)
     erasedTotal += eraseBubbles(srcAbs, erased, boxes)
 
     const wf = JSON.parse(JSON.stringify(wfTemplate))
@@ -277,8 +310,21 @@ async function main() {
     const img = await runWorkflow(base, wf)
     const dest = path.join(outDir, name)
     await download(base, img, dest)
-    results.push({ panel: name, src: p.file, out: path.relative(REPO, dest).replace(/\\/g, '/'), bubblesErased: boxes.length })
-    console.log(`  [${i + 1}/${batch.length}] ${name}  말풍선 ${boxes.length}개 지움`)
+    results.push({
+      panel: name,
+      src: p.file,
+      out: toPosix(path.relative(REPO, dest)),
+      erasedPreview: toPosix(path.relative(REPO, erased)),
+      textFragments: textBoxes.length,
+      regionsErased: boxes.length,
+      regionsFallback: fellBack,
+      eraseCoverage: +coverage.toFixed(4),
+    })
+    console.log(
+      `  [${i + 1}/${batch.length}] ${name}  조각 ${textBoxes.length} → 영역 ${boxes.length}` +
+        (fellBack ? ` (풍선 못 찾음 ${fellBack})` : '') +
+        `  지움 ${(coverage * 100).toFixed(1)}%`,
+    )
   }
 
   // 매니페스트는 누적 — 회차를 나눠 돌리므로 덮으면 이전 기록이 사라진다.
