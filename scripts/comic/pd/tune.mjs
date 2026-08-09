@@ -112,14 +112,21 @@ export function scorePanels(panels, truthByPage) {
 
 async function tuneSegment(args) {
   const sample = path.resolve(args.sample)
-  const truthPath = path.join(sample, 'truth.json')
+  // 정답은 작업 폴더 우선, 없으면 **저장소 사본**을 본다.
+  // 작업 폴더(work/)는 gitignore 라 지우면 사람이 센 정답이 통째로 날아간다 —
+  // 이 하네스에서 제일 비싼 산출물이라 저장소에도 남긴다(scripts/comic/pd/samples/).
+  const localTruth = path.join(sample, 'truth.json')
+  const repoTruth = path.join(HERE, 'samples', path.basename(sample), 'truth.json')
+  const truthPath = fs.existsSync(localTruth) ? localTruth : repoTruth
   if (!fs.existsSync(truthPath)) {
     throw new Error(
-      `정답 파일이 없습니다: ${truthPath}\n` +
+      `정답 파일이 없습니다: ${localTruth}\n` +
+        `  (저장소 사본도 없음: ${repoTruth})\n` +
         '  { "panelsByPage": { "0003": 7, "0005": 8 } } 형식으로 사람이 세어 넣으세요.\n' +
-        '  프록시 지표만으로 최적화하면 과분할이 이깁니다.',
+        '  프록시 지표만으로 최적화하면 과분할이 이깁니다 — scripts/comic/pd/samples/README.md 참조.',
     )
   }
+  if (truthPath === repoTruth) console.log(`정답: 저장소 사본 사용 (${repoTruth})`)
   const truth = JSON.parse(fs.readFileSync(truthPath, 'utf8')).panelsByPage
   const inDir = path.join(sample, 'restored')
 

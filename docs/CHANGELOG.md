@@ -10,6 +10,42 @@
 
 ## Unreleased (v06.34 → next)
 
+### 🔒 public 스키마 노출 정리 — anon 키로 사전을 고칠 수 있던 상태 (마이그레이션 `harden_public_reference_tables_and_drop_scratch`)
+
+MCP 로 권한을 직접 조회하다 발견. **advisor 가 WARN 으로 조용히 세던 것의 실체가 이거였다.**
+
+8개 테이블이 RLS 없이 anon 에게 `INSERT·UPDATE·DELETE·TRUNCATE` 까지 열려 있었다.
+anon 키는 브라우저에 실려 나가므로, 누구나:
+
+- `lexicon_clean` **455,037행을 UPDATE** — 학습자 단어 뜻 조회가 전부 이 테이블을 거친다
+- `extraction_test_vocab` **2,045,936행 · 1.4GB 평가 코퍼스를 TRUNCATE**
+
+실측으로 확인했다(anon 롤로 조회 성공 + `has_table_privilege` = true).
+
+#### 조치가 테이블마다 다른 이유
+
+이 테이블들을 읽는 함수(`lookup_word_meaning` 등 7종)가 **전부 SECURITY INVOKER** 다.
+정책 없이 RLS 만 켜면 호출자 권한으로 읽으므로 **학습자 단어 조회가 통째로 죽는다.**
+
+| 대상 | 조치 |
+|---|---|
+| `lexicon_clean` · `spelling_norm` · `dialect_map` · `csat_stage_gates` | 쓰기 권한 회수 + RLS + **읽기 정책** (조회 유지) |
+| `extraction_test_books` · `extraction_test_vocab` | 전 권한 회수 + RLS **정책 없음** (서비스롤 스크립트만 사용 — 실측 확인) |
+| `csat_stage_catalog` (뷰) | `security_invoker = true` — 기존 `views_security_invoker` 에서 누락됐던 한 건 |
+| `_seed_lem`(54,230행) · `_resid_ctx`(4,212행) | **DROP** — 코드·함수·뷰 참조 0건. 삭제 전 `work/db-backup/` 에 전량 백업 |
+
+**검증**: anon 이 `lexicon_clean` 455,037행을 여전히 읽고, `lookup_word_meaning` 이 정상 해소
+(`coverage-clean` tier). UPDATE·TRUNCATE·평가 코퍼스 SELECT 는 전부 차단.
+**Supabase advisor ERROR 9건 → 0건.**
+
+#### 자기발전 정답 표본을 저장소로
+
+`truth.json`(사람이 페이지를 열어 센 컷 수)이 `work/` 안에만 있었다 — gitignore 대상이라
+작업 폴더를 지우면 이 하네스에서 **제일 비싼 산출물**이 통째로 날아가고 스윕을 재현할 수 없다.
+`scripts/comic/pd/samples/` 로 옮기고 `tune.mjs` 가 작업 폴더 → 저장소 순으로 찾게 했다.
+이미지는 남기지 않고 재구성 방법만 적어둔다(README).
+
+
 ### PDCP 스키마 정합 — MCP 로 DB 를 직접 점검해 결함 3건 (마이그레이션 `pdcp_adapter_browser_assist_and_term_expired_basis`)
 
 Supabase MCP 가 붙어 DB 를 직접 볼 수 있게 되자, 코드만 봐서는 안 보이던 것들이 나왔다.
