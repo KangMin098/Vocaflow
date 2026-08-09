@@ -153,7 +153,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   // ── source: mine — 내 복습 큐/단어장/스크립트 단어로 플레이 (FSRS 갱신) ──
   {
     slug: 'cascade', name: 'Cascade', tagline: '단어와 뜻을 이어 지우는 낙하 보드',
-    layer: 'L4a 재인', ref: 'Match-3', source: 'mine', emoji: '🌊', closeHref: '/arcade', minWords: 8,
+    layer: 'L4a 재인', ref: 'Match-3', source: 'mine', emoji: '🌊', closeHref: '/arcade', minWords: 5,
     mood: { a: '#2E92A8', b: '#123C59', glow: 'rgba(130,232,238,.5)', accent: '#BEF3F7' },
     music: bgm('cascade'),
   },
@@ -254,7 +254,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'word-orrery', name: 'The Word Orrery', tagline: '행성을 탐사해 앎으로 핵의 봉인을 연다',
-    layer: 'L5 탐사', ref: 'Outer Wilds', source: 'mine', emoji: '🪐', closeHref: '/arcade', minWords: 6,
+    layer: 'L5 탐사', ref: 'Outer Wilds', source: 'mine', emoji: '🪐', closeHref: '/arcade', minWords: 4,
     mood: { a: '#3B4468', b: '#0A0E1E', glow: 'rgba(255,176,86,.42)', accent: '#FFD9A0' },
     music: bgm('word-orrery'),
   },

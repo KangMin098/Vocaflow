@@ -1,24 +1,32 @@
 // apps/web/src/components/game/word-orrery/WordOrreryGame.tsx
 // The Word Orrery — 항성계 탐사 → 핵 봉인 (Outer Wilds 계열).
 //
-// 한 판의 형태(2~4분):
-//   ① 탐사(무시간·Calm) — 여섯 성좌에서 **영어 신호**를 받아 그 의미를 골라낸다(en→ko 인출).
+// 한 판의 형태(2~3분):
+//   ① 탐사(무시간·Calm) — 성좌에서 **영어 신호**를 받아 그 의미를 골라낸다(en→ko 인출).
 //      맞히면 '정합', 틀리면 '흐림'. 어느 쪽이든 답을 보여주고 성좌는 이름을 얻는다.
-//   ② 핵(카운트다운) — 4성좌 이상 읽으면 들어갈 수 있고, **들어서면 문이 닫힌다**(코덱스 참조 불가).
-//      여섯 봉인이 하나씩, 점점 어렵게: 4지 → 6지 → 각인(철자 조립). ko→en 산출 인출.
+//   ② 핵(카운트다운) — 정해진 수만큼 읽으면 들어갈 수 있고, **들어서면 문이 닫힌다**.
+//      봉인이 하나씩, 점점 어렵게: 4지 → 6지 → 각인(철자 조립). ko→en 산출 인출.
 //   ③ 결과 — 성좌 명부 전체 공개 + 개인 최고 비교 + 다음 판 목표.
 //
 // 이 게임의 선택(트레이드오프):
-//   여섯 성좌를 다 읽고 넉넉한 시간(최대 76초)으로 안전하게 들어갈 것인가,
-//   네 성좌만 읽고 **정렬 ×1.5** 와 미관측 성좌 ×2 를 노리며 짧은 시간에 들어갈 것인가.
-//   시간은 보상이자 벌이다 — 봉인 정답 +5초, 오답 -8초, 잔광(힌트) -12초.
+//   전부 읽고 넉넉한 시간으로 안전하게 들어갈 것인가,
+//   몇 성좌를 어둠에 남기고 **정렬 배수**와 미관측 봉인 배수를 노릴 것인가.
+//   시간은 보상이자 벌이다 — 봉인 정답 +2.5초, 오답 -6초, 미관측 오답 -8초, 잔광 -9초.
+//   두 경로의 기대 점수는 시뮬레이션으로 6% 이내에 맞췄다(어느 쪽도 지배 전략이 아니다).
 //
-// 인출 규칙 준수:
-//   · 제출 전에 정답을 특정할 정보를 인쇄하지 않는다(신호 화면에 ko 없음, 봉인 화면에 코덱스 없음).
-//   · en·ko 를 동시에 띄운 채 그 쌍을 묻지 않는다 — 코덱스는 en 만, 봉인은 ko 만 보여준다.
-//   · 부분 정답 오라클 없음. 각 문항 1회 제출, 철자는 전 글자를 채워야 제출된다.
-//   · 정답 공개는 제출 후에만. 그때는 뜻·예문까지 충분히 보여준다.
-//   · onCorrect/onWrong 은 **출제된 단어**로만 나간다. 잔광(힌트)으로 산 정답은 기록하지 않는다.
+// 인출 규칙 준수 — 소거법으로 공짜가 되는 경로를 구조적으로 차단한다:
+//   · 봉인은 성좌 전수를 소진하지 않는다(봉인 수 < 성좌 수) — 마지막 봉인이 '남은 하나'가 되지 않는다.
+//   · 관측 오답 후보는 **성계 밖 단어**에서 뽑는다 — 이미 읽은 성좌의 뜻으로 소거할 수 없다.
+//   · 봉인 후보는 대상과 **같은 '읽음 계층'** 에서 채운다 — "내가 안 읽은 단어가 하나뿐"으로 확정되지 않는다.
+//   · 각인은 정답의 애너그램이 아니다 — 정답에 없는 더미 글자를 섞고 글자 수를 알려주지 않는다.
+//   · 행성을 열면 en 을 본 것으로 남는다(스침) — 보고 도망쳐 미관측 배수를 챙길 수 없다.
+//   · 제출 전에 정답을 특정할 정보를 인쇄하지 않는다. 정답 공개는 제출 후에만.
+//
+// FSRS 무결성:
+//   · 한 판에서 **단어당 이벤트 1건** 만 내보낸다(관측+봉인 이중 적재 금지). finish/이탈 시 flush.
+//   · 병합 규칙 = 보조 없는 결과 중 나쁜 쪽 우선. 모르는 단어는 정직하게 오답으로 올라가 복습이 잡힌다.
+//   · 잔광(힌트)으로 산 답 · 구조적으로 확정된 문항은 `{ assisted: true }` 로 내보낸다(카드 미갱신).
+//   · 표류(시간 초과)는 보조가 아니다 — 아무것도 보여주지 않았으므로 정직한 오답으로 기록한다.
 
 'use client';
 
@@ -29,20 +37,56 @@ import {
   type Word, type ComboTier,
 } from '@/components/game/_shared/gamekit';
 
-interface Props { wordPool?: Word[]; onExit?: () => void; onCorrect?: (w: Word) => void; onWrong?: (w: Word) => void; }
+interface ResultOpts { assisted?: boolean }
+interface Props {
+  wordPool?: Word[];
+  onExit?: () => void;
+  onCorrect?: (w: Word, opts?: ResultOpts) => void;
+  onWrong?: (w: Word, opts?: ResultOpts) => void;
+}
 
-const SYSTEM_SIZE = 6;
-const MIN_TO_ENTER = 4;
-const BASE_SEC = 40;
-const SEC_PER_CLEAN = 6;
-const SEAL_GAIN_MS = 5000;
-const SEAL_LOSS_MS = 8000;
-const FLARE_COST_MS = 12000;
+// ── 판 구성 ───────────────────────────────────────────────────────────────
+// 성좌 수는 자료 크기의 함수다. 도서 챕터·공용 세트의 절반 이상이 24단어 미만이고
+// 최소는 한 자릿수라, 6성좌를 고정하면 그 자료들이 게임을 아예 못 연다.
+// 성계 밖 오답 후보(extras)를 최소 4개 남기고 나머지를 성좌로 쓴다.
+const MAX_PLANETS = 6;
+const MIN_PLANETS = 3;
+const EXTRA_FLOOR = 4;
+/** 성계 밖 후보 보관 상한 — 이보다 많아도 후보로 다 쓰이지 않는다. */
+const EXTRA_KEEP = 14;
+
+// ── 점수·시간 (시뮬레이션으로 고른 값 · scratchpad/fix3/wo-verify.js) ────
+const OBS_PTS = 100;
+const KIND_PTS: Record<SealKind, number> = { c4: 120, c6: 150, spell: 220 };
+const ALIGN_PER_UNREAD = 0.35;
+const BLIND_MULT = 1.3;
+// 각인 봉인은 봉인 수와 무관하게 무거운 고정 비용(조립 ~12초)이라 한 칸으로 따로 잡는다.
+// 'SEC_PER_SEAL × 봉인수'로 묶으면 봉인이 2개뿐인 작은 성계에서 각인이 예산을 통째로 먹는다.
+const SEC_SPELL = 11;
+const SEC_PER_CHOICE_SEAL = 3;
+const SEC_PER_CLEAN = 2;
+const SEAL_GAIN_MS = 2500;
+const SEAL_LOSS_MS = 6000;
+const BLIND_LOSS_MS = 8000;
+/**
+ * 표류(시간 초과)는 **같은 상황의 오답보다 항상 더 비싸다**.
+ * 고정값을 쓰면 미관측 봉인(-8s)에서 버티기(-7s)가 찍기보다 이득이 되어
+ * "모르면 시간을 흘려보낸다"가 최적 플레이가 된다 — 그래서 벌에 얹는다.
+ */
+const DRIFT_EXTRA_MS = 2000;
+const FLARE_COST_MS = 7000;
+const FLARE_PTS = 40;
+const TIME_BONUS_PER_SEC = 4;
+/**
+ * 봉인별 상한 — 넘기면 '표류'. 코어 시계와 별개로 **문항 단위** 압력을 만든다.
+ * 코어 시계가 먼저 끝나면 그쪽이 이긴다(둘 중 빠른 쪽).
+ */
+const SOFT_MS: Record<SealKind, number> = { c4: 11000, c6: 13000, spell: 18000 };
+const SPELL_MIN = 3;
 const MASK = '⋯';
 
 // ── 맛보기 성계 뱅크 ──────────────────────────────────────────────────────
-// wordPool 이 없거나(비로그인·단어 부족) 6개를 못 채울 때만 쓴다. 14개에서 6개를 뽑으므로
-// 맛보기로 들어와도 판마다 성계가 달라진다(하드코딩 6성좌 고정이 재플레이를 죽였다).
+// wordPool 이 없거나(비로그인·단어 부족) 최소 구성을 못 채울 때만 쓴다.
 const BANK: Word[] = [
   { en: 'desolate', ko: '황량한', pos: 'adj', example: 'The desolate plain stretched for miles without a single tree.' },
   { en: 'profound', ko: '깊은 · 심오한', pos: 'adj', example: 'Her speech had a profound effect on everyone in the hall.' },
@@ -71,26 +115,35 @@ const RIDDLES = [
   '「{ko}」 — 그 본질을 품은 궤도. 이름을 답하라.',
 ];
 
-// 공명(콤보) 티어 — 한 판의 인출 횟수가 12회(관측 6 + 봉인 6)라 기본 티어(최대 16)를 낮춰 잡는다.
+// 공명(콤보) 티어 — 한 판의 인출이 최대 10회(관측 6 + 봉인 4)라 기본 티어를 낮춰 잡는다.
 const TIERS: ComboTier[] = [
   { at: 0, mult: 1 },
-  { at: 3, mult: 1.5, label: '공명' },
-  { at: 5, mult: 2, label: '정합' },
-  { at: 8, mult: 2.5, label: '동조' },
-  { at: 11, mult: 3, label: '전율' },
+  { at: 3, mult: 1.4, label: '공명' },
+  { at: 5, mult: 1.8, label: '정합' },
+  { at: 8, mult: 2.2, label: '동조' },
 ];
 const multOf = (c: number) => { let m = 1; for (const t of TIERS) if (c >= t.at) m = t.mult; return m; };
 
-const GLOWS = ['rgba(255,176,86,.30)', 'rgba(255,176,86,.42)', 'rgba(255,186,96,.54)', 'rgba(255,196,110,.62)', 'rgba(255,206,124,.70)'];
-const SPINS = ['90s', '70s', '52s', '38s', '28s'];
+const GLOWS = ['rgba(255,176,86,.30)', 'rgba(255,176,86,.42)', 'rgba(255,186,96,.54)', 'rgba(255,196,110,.62)'];
+const SPINS = ['90s', '68s', '48s', '32s'];
 
 type SealKind = 'c4' | 'c6' | 'spell';
 type Survey = 'clean' | 'miss' | null;
 type SealState = 'open' | 'fail' | null;
+/** 후보 한 칸 — 성좌(p) 또는 성계 밖 단어(x). 화면에는 구분 없이 같은 칩으로 나온다. */
+type Cand = { k: 'p'; i: number } | { k: 'x'; i: number };
 
-interface Planet { w: Word; icon: string; name: string; hue: string; ctx: string | null; skel: string; spellable: boolean; }
-interface Seal { p: number; kind: SealKind; choices: number[]; letters: string[]; riddle: string; }
-interface System { planets: Planet[]; seals: Seal[]; }
+interface Planet { w: Word; icon: string; name: string; hue: string; ctx: string | null; skel: string; spellable: boolean; probe: Cand[] }
+interface Seal { p: number; kind: SealKind; choices: Cand[]; letters: string[]; riddle: string; blind: boolean; soft: boolean }
+interface System {
+  planets: Planet[];
+  extras: Word[];
+  sealCount: number;
+  minToEnter: number;
+  /** 자료에서 실제로 쓸 수 있었던 단어 수 · 맛보기로 보충한 수 (무결성 배지용). */
+  fromPool: number;
+  filled: number;
+}
 
 // ── 순수 헬퍼 ─────────────────────────────────────────────────────────────
 
@@ -106,32 +159,21 @@ function maskTarget(sentence: string, en: string, inflected?: string[]): string 
     try {
       out = out.replace(new RegExp(`\\b${esc}(?:'s|s|es|ed|d|ing|er|est|ly)?\\b`, 'gi'), MASK);
     } catch {
-      // 사전 데이터가 정규식으로 못 쓸 형태면 이 어형만 건너뛴다(마스킹 실패 시 잔광은 비활성).
+      // 사전 데이터가 정규식으로 못 쓸 형태면 이 어형만 건너뛴다(마스킹 실패 시 잔광은 예문 대신 골격).
     }
   }
   return out;
 }
 
-/** 예문이 없을 때의 잔광 — 첫 글자와 길이만. 답을 주지 않되 방향은 준다. */
+/** 잔광이 파는 정보 — 첫 글자와 길이. 답을 주지 않되 방향은 준다. */
 function skeleton(en: string): string {
   const head = en.charAt(0).toUpperCase();
   const rest = '·'.repeat(Math.max(0, en.length - 1));
   return `${head}${rest} · ${en.length}글자`;
 }
 
-/** 철자 타일 — 원래 순서와 같아지지 않게 섞는다. */
-function spread(w: string): string[] {
-  const base = w.split('');
-  if (base.length < 3) return base;
-  for (let i = 0; i < 8; i++) {
-    const s = shuffle(base);
-    if (s.join('') !== w) return s;
-  }
-  return shuffle(base);
-}
-
-/** en·ko 중복을 걷어낸 사용 가능 단어. 6개를 못 채우면 뱅크로 보충한다. */
-function usableWords(pool: Word[] | undefined): Word[] {
+/** en·ko 중복을 걷어낸 사용 가능 단어. 최소 구성을 못 채우면 뱅크로 보충한다. */
+function usableWords(pool: Word[] | undefined): { words: Word[]; fromPool: number; filled: number } {
   const seenEn = new Set<string>();
   const seenKo = new Set<string>();
   const out: Word[] = [];
@@ -149,18 +191,70 @@ function usableWords(pool: Word[] | undefined): Word[] {
     }
   };
   if (pool && pool.length > 0) take(pool);
-  if (out.length < SYSTEM_SIZE) take(BANK);
-  return out;
+  const fromPool = out.length;
+  // 성좌 최소치 + 오답 후보 1개는 있어야 판이 선다.
+  if (out.length < MIN_PLANETS + 1) take(BANK);
+  return { words: out, fromPool, filled: Math.max(0, out.length - fromPool) };
+}
+
+/** 자료 크기 → 성좌 수 · 봉인 수 · 진입 요건. 적으면 판이 짧아질 뿐, 막히지 않는다. */
+export function planOrrery(total: number) {
+  const planets = Math.min(MAX_PLANETS, Math.max(MIN_PLANETS, total - EXTRA_FLOOR));
+  // 봉인 < 성좌 — 마지막 봉인이 '남은 하나'로 확정되지 않게 하는 핵심 조건.
+  const sealCount = Math.max(2, planets - 2);
+  const minToEnter = Math.max(2, Math.ceil((planets * 2) / 3));
+  return { planets, sealCount, minToEnter };
+}
+
+/** 각인용 더미 글자 — 정답에 **없는** 글자만. 다른 단어에서 뽑아 그럴듯하게. */
+function dummyLetters(en: string, others: string[], n: number): string[] {
+  const ban = new Set(en.toLowerCase().split(''));
+  const near = Array.from(new Set(others.join('').toLowerCase().split('')))
+    .filter((c) => /[a-z]/.test(c) && !ban.has(c));
+  const fallback = 'etaoinsrhldcumfgpwyb'.split('').filter((c) => !ban.has(c));
+  const merged = Array.from(new Set([...shuffle(near), ...fallback]));
+  return merged.slice(0, n);
+}
+
+/** 각인 타일 — 정답 글자 + 더미를 섞는다. 더미를 걷어낸 순서가 정답이 되면 다시 섞는다. */
+function forgeTiles(en: string, others: string[]): string[] {
+  const word = en.toLowerCase();
+  const dummies = dummyLetters(word, others, word.length >= 7 ? 3 : 2);
+  const marked = [
+    ...word.split('').map((ch) => ({ ch, real: true })),
+    ...dummies.map((ch) => ({ ch, real: false })),
+  ];
+  for (let i = 0; i < 10; i++) {
+    const s = shuffle(marked);
+    if (s.filter((t) => t.real).map((t) => t.ch).join('') !== word) return s.map((t) => t.ch);
+  }
+  return shuffle(marked).map((t) => t.ch);
+}
+
+/**
+ * 관측 오답 후보 — **성계 밖 단어 우선**.
+ * 다른 성좌의 ko 를 후보로 쓰면 이미 읽은 성좌를 지워 마지막 관측이 확정된다(구 익스플로잇 4).
+ */
+function buildProbe(target: number, planetCount: number, extraCount: number): Cand[] {
+  const xs: Cand[] = shuffle(Array.from({ length: extraCount }, (_, i) => i)).map((i) => ({ k: 'x' as const, i }));
+  const ps: Cand[] = shuffle(Array.from({ length: planetCount }, (_, i) => i).filter((i) => i !== target))
+    .map((i) => ({ k: 'p' as const, i }));
+  return shuffle([{ k: 'p' as const, i: target }, ...[...xs, ...ps].slice(0, 3)]);
 }
 
 function buildSystem(pool: Word[] | undefined): System {
-  const words = shuffle(usableWords(pool)).slice(0, SYSTEM_SIZE);
+  const { words: all, fromPool, filled } = usableWords(pool);
+  const plan = planOrrery(all.length);
+  const bag = shuffle(all);
+  const chosen = bag.slice(0, plan.planets);
+  const extras = bag.slice(plan.planets, plan.planets + EXTRA_KEEP);
+
   const adjs = shuffle(NAME_ADJ);
   const nouns = shuffle(NAME_NOUN);
   const icons = shuffle(ICONS);
   const hues = shuffle(HUES);
 
-  const planets: Planet[] = words.map((w, i) => {
+  const planets: Planet[] = chosen.map((w, i) => {
     const masked = w.example ? maskTarget(w.example, w.en, w.inflected) : null;
     return {
       w,
@@ -169,50 +263,104 @@ function buildSystem(pool: Word[] | undefined): System {
       hue: hues[i % hues.length],
       ctx: masked && masked.includes(MASK) ? masked : null,
       skel: skeleton(w.en),
-      spellable: /^[A-Za-z]{3,9}$/.test(w.en),
+      spellable: /^[A-Za-z]{3,10}$/.test(w.en),
+      probe: buildProbe(i, chosen.length, extras.length),
     };
   });
 
-  const order = shuffle(planets.map((_, i) => i));
-  const riddles = shuffle(RIDDLES);
-  const all = planets.map((_, i) => i);
-
-  const seals: Seal[] = order.map((p, step) => {
-    let kind: SealKind = step < 2 ? 'c4' : step < 4 ? 'c6' : 'spell';
-    if (kind === 'spell' && !planets[p].spellable) kind = 'c6';
-    const others = shuffle(all.filter((i) => i !== p));
-    const choices = kind === 'c4' ? shuffle([p, ...others.slice(0, 3)]) : kind === 'c6' ? shuffle(all) : [];
-    const letters = kind === 'spell' ? spread(planets[p].w.en.toLowerCase()) : [];
-    // 치환은 함수형으로 — ko 안의 `$&` 같은 시퀀스가 치환 패턴으로 해석되지 않게.
-    const riddle = riddles[step % riddles.length].replace('{ko}', () => planets[p].w.ko);
-    return { p, kind, choices, letters, riddle };
-  });
-
-  return { planets, seals };
+  return {
+    planets,
+    extras,
+    sealCount: Math.min(plan.sealCount, Math.max(1, planets.length - 1)),
+    minToEnter: Math.min(plan.minToEnter, planets.length),
+    fromPool: Math.min(fromPool, all.length),
+    filled,
+  };
 }
 
-const KIND_LABEL: Record<SealKind, string> = { c4: '네 이름 중에서', c6: '여섯 이름 중에서', spell: '각인 — 글자를 조립하라' };
-const KIND_PTS: Record<SealKind, number> = { c4: 120, c6: 150, spell: 200 };
+/**
+ * 봉인 계획 — **핵에 들어서는 순간** 만든다.
+ * 그래야 "이 플레이어가 무엇을 읽었는가"를 알고 후보를 같은 계층으로 채울 수 있다.
+ * (읽음 계층이 섞이면 "내가 모르는 단어가 후보 중 하나뿐" → 정답 확정으로 새 나간다.)
+ */
+function buildSeals(sys: System, read: boolean[]): Seal[] {
+  const idx = sys.planets.map((_, i) => i);
+  const targets = shuffle(idx).slice(0, sys.sealCount);
+  const riddles = shuffle(RIDDLES);
+  const sealed = new Set<number>();
+  const xs = sys.extras.map((_, i) => ({ k: 'x' as const, i }));
+
+  return targets.map((p, step) => {
+    const blind = !read[p];
+    const last = step === targets.length - 1;
+    // 각인은 **읽은 성좌** 에게만. 한 번도 못 본 철자를 조립하라는 건 인출이 아니라 벌이다.
+    const kind: SealKind = last && !blind && sys.planets[p].spellable
+      ? 'spell'
+      : step >= Math.floor(targets.length / 2) ? 'c6' : 'c4';
+    const need = kind === 'c6' ? 5 : kind === 'c4' ? 3 : 0;
+
+    const others = idx.filter((i) => i !== p);
+    const sameUnsealed = others.filter((i) => read[i] === !blind && !sealed.has(i));
+    const sameSealed = others.filter((i) => read[i] === !blind && sealed.has(i));
+    const diffUnsealed = others.filter((i) => read[i] !== !blind && !sealed.has(i));
+    const diffSealed = others.filter((i) => read[i] !== !blind && sealed.has(i));
+    const asP = (list: number[]): Cand[] => shuffle(list).map((i) => ({ k: 'p' as const, i }));
+    // 성계 밖 단어는 플레이어가 한 번도 본 적 없다 → '미관측' 계층과 같은 무게를 가진다.
+    const ordered: Cand[] = blind
+      ? [...asP(sameUnsealed), ...shuffle(xs), ...asP(sameSealed), ...asP(diffUnsealed), ...asP(diffSealed)]
+      : [...asP(sameUnsealed), ...asP(sameSealed), ...asP(diffUnsealed), ...shuffle(xs), ...asP(diffSealed)];
+    const picked = ordered.slice(0, need);
+
+    // 플레이어가 지워낼 수 없는 후보 수. 1이면 소거로 확정 → 기록에서 뺀다.
+    const plausible = 1 + picked.filter((c) => (c.k === 'x' ? blind : read[c.i] === !blind && !sealed.has(c.i))).length;
+
+    const letters = kind === 'spell'
+      ? forgeTiles(sys.planets[p].w.en, [
+        ...sys.planets.filter((_, i) => i !== p).map((q) => q.w.en),
+        ...sys.extras.map((w) => w.en),
+      ])
+      : [];
+    // 치환은 함수형으로 — ko 안의 `$&` 같은 시퀀스가 치환 패턴으로 해석되지 않게.
+    const riddle = riddles[step % riddles.length].replace('{ko}', () => sys.planets[p].w.ko);
+
+    sealed.add(p);
+    return {
+      p, kind, letters, riddle, blind,
+      choices: shuffle([{ k: 'p' as const, i: p }, ...picked]),
+      // 각인은 후보 목록이 없다 — plausible 이 구조적으로 1이므로 여기서 제외하지 않으면
+      // 최고 배점 문항이 통째로 FSRS 에서 사라진다(letter-forge 가 빠졌던 함정).
+      soft: kind !== 'spell' && plausible <= 1,
+    };
+  });
+}
+
+const SPELL_LABEL = '각인 — 글자를 조립하라';
 
 interface Say { kind: 'ok' | 'miss' | 'info'; text: string }
-interface Reveal { ok: boolean; hinted: boolean; blind: boolean; last: boolean }
+interface Reveal { ok: boolean; hinted: boolean; blind: boolean; drift: boolean; last: boolean }
+/** 한 판에서 한 단어에 붙은 결과들. finish 에서 단어당 1건으로 병합해 내보낸다. */
+interface Mark { w: Word; ok: boolean; assisted: boolean }
 
 export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const sfx = useSfx();
   const mounted = useRef(true);
 
   const [sys, setSys] = useState<System>(() => buildSystem(wordPool));
+  const N = sys.planets.length;
+  const S = sys.sealCount;
+
   const [phase, setPhase] = useState<'survey' | 'core' | 'done'>('survey');
   const [view, setView] = useState<'map' | number>('map');
 
   // 탐사
-  const [survey, setSurvey] = useState<Survey[]>(() => Array(SYSTEM_SIZE).fill(null));
-  const [probe, setProbe] = useState<number[] | null>(null);
+  const [survey, setSurvey] = useState<Survey[]>(() => Array(sys.planets.length).fill(null));
+  const [peeked, setPeeked] = useState<boolean[]>(() => Array(sys.planets.length).fill(false));
   const [justAnswered, setJustAnswered] = useState(false);
 
   // 핵
+  const [plan, setPlan] = useState<Seal[]>([]);
   const [step, setStep] = useState(0);
-  const [seals, setSeals] = useState<SealState[]>(() => Array(SYSTEM_SIZE).fill(null));
+  const [seals, setSeals] = useState<SealState[]>(() => Array(sys.planets.length).fill(null));
   const [reveal, setReveal] = useState<Reveal | null>(null);
   const [typed, setTyped] = useState<number[]>([]);
   const [flare, setFlare] = useState(false);
@@ -229,22 +377,53 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const [gain, setGain] = useState<{ id: number; text: string; up: boolean } | null>(null);
 
   const scoreRef = useRef(0);
-  const sealsRef = useRef<SealState[]>(Array(SYSTEM_SIZE).fill(null));
+  const sealsRef = useRef<SealState[]>([]);
   const doneRef = useRef(false);
   const remainRef = useRef(0);
+  const alignRef = useRef(1);
+  /** 이미 판정한 봉인 step — 표류 타이머와 사용자 입력의 동시 발화를 막는다. */
+  const resolvedStep = useRef(-1);
   const gainId = useRef(0);
   const planetBtns = useRef<Array<HTMLButtonElement | null>>([]);
   const lastPlanet = useRef<number | null>(null);
   const advanceBtn = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLElement | null>(null);
 
+  // ── FSRS: 단어당 1건으로 병합할 결과 장부 ────────────────────────────────
+  const marks = useRef(new Map<string, Mark[]>());
+  const noteMark = useCallback((w: Word, ok: boolean, assisted: boolean) => {
+    const key = w.en.trim().toLowerCase();
+    const list = marks.current.get(key);
+    if (list) list.push({ w, ok, assisted });
+    else marks.current.set(key, [{ w, ok, assisted }]);
+  }, []);
+  /**
+   * 병합 규칙 — 보조 없는 결과가 하나라도 있으면 그 중 **나쁜 쪽**이 이긴다.
+   * 관측에서 맞고 봉인에서 틀렸다면 오답이다(정답을 본 뒤에도 못 낸 것이므로).
+   * 보조뿐이면 실제 정오답 그대로 `assisted` 로 내보낸다 — 중앙에서 카드를 건드리지 않는다.
+   */
+  const flushMarks = useCallback(() => {
+    for (const list of marks.current.values()) {
+      const hard = list.filter((m) => !m.assisted);
+      if (hard.length > 0) {
+        if (hard.some((m) => !m.ok)) onWrong?.(hard[0].w);
+        else onCorrect?.(hard[0].w);
+      } else {
+        const m = list[0];
+        if (m.ok) onCorrect?.(m.w, { assisted: true });
+        else onWrong?.(m.w, { assisted: true });
+      }
+    }
+    marks.current.clear();
+  }, [onCorrect, onWrong]);
+
   const pb = usePersonalBest('word-orrery', true);
   // 카운트다운의 onEnd 가 finish 를 부르는데 finish 는 아래에서 선언된다 —
   // ref 로 한 단계 미뤄 선언 순서에 의존하지 않게 한다.
   const finishRef = useRef<(byTimeout: boolean) => void>(() => {});
+  const driftRef = useRef<() => void>(() => {});
 
   // 티어 승급/붕괴 메시지는 콜백에서 바로 setSay 하면 곧이어 오는 정오답 문장에 덮인다.
-  // ref 에 담아 두었다가 정오답 문장과 **합쳐서** 한 줄로 내보낸다.
   const comboNote = useRef<string | null>(null);
   const combo = useCombo({
     tiers: TIERS,
@@ -264,23 +443,33 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   const observed = survey.filter((s) => s !== null).length;
   const clean = survey.filter((s) => s === 'clean').length;
   const opened = seals.filter((s) => s === 'open').length;
-  const coreReady = observed >= MIN_TO_ENTER;
-  const entrySec = BASE_SEC + SEC_PER_CLEAN * clean;
-  const entryAlign = 1 + 0.25 * (SYSTEM_SIZE - observed);
+  /** '읽음' = 답했거나 신호를 스쳤거나. 스침도 en 을 본 것이므로 미관측 배수 자격이 사라진다. */
+  const readFlags = useMemo(() => survey.map((s, i) => s !== null || peeked[i]), [survey, peeked]);
+  const readCount = readFlags.filter(Boolean).length;
+  const coreReady = observed >= sys.minToEnter;
+  const entrySec = SEC_SPELL + SEC_PER_CHOICE_SEAL * Math.max(0, S - 1) + SEC_PER_CLEAN * clean;
+  const entryAlign = Math.round((1 + ALIGN_PER_UNREAD * (N - readCount)) * 100) / 100;
 
   const cd = useCountdown({
-    totalMs: 45000,
+    totalMs: 30000,
     running: phase === 'core' && reveal === null,
-    warnAtMs: 10000,
+    warnAtMs: 8000,
     onWarn: () => {
       sfx.tone(220, 0.2, 'triangle', 0.045);
-      setSay({ kind: 'info', text: '안정도가 흔들린다 — 10초' });
+      setSay({ kind: 'info', text: '안정도가 흔들린다 — 8초' });
     },
     onEnd: () => { if (mounted.current) finishRef.current(true); },
   });
   remainRef.current = cd.remainSec;
 
-  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
+  // 언마운트에도 장부를 비운다 — 셸 X·Esc·뒤로가기로 빠져나가도 이번 판의 인출은 남아야
+  // "모르는 단어를 도중에 나가서 FSRS 에서 지운다"가 성립하지 않는다.
+  const flushRef = useRef(flushMarks);
+  flushRef.current = flushMarks;
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; flushRef.current(); };
+  }, []);
 
   const flash = useCallback((text: string, up: boolean) => {
     gainId.current += 1;
@@ -292,20 +481,27 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     setScore(scoreRef.current);
   }, []);
 
+  const wordOf = useCallback((c: Cand): Word => (c.k === 'p' ? sys.planets[c.i].w : sys.extras[c.i]), [sys]);
+
   // ── 판 시작 / 재시작 ────────────────────────────────────────────────────
   const start = useCallback(() => {
+    const next = buildSystem(wordPool);
     doneRef.current = false;
     scoreRef.current = 0;
-    sealsRef.current = Array(SYSTEM_SIZE).fill(null);
+    sealsRef.current = Array(next.planets.length).fill(null);
+    alignRef.current = 1;
+    resolvedStep.current = -1;
     lastPlanet.current = null;
-    setSys(buildSystem(wordPool));
+    marks.current.clear();
+    setSys(next);
     setPhase('survey');
     setView('map');
-    setSurvey(Array(SYSTEM_SIZE).fill(null));
-    setProbe(null);
+    setSurvey(Array(next.planets.length).fill(null));
+    setPeeked(Array(next.planets.length).fill(false));
     setJustAnswered(false);
+    setPlan([]);
     setStep(0);
-    setSeals(Array(SYSTEM_SIZE).fill(null));
+    setSeals(Array(next.planets.length).fill(null));
     setReveal(null);
     setTyped([]);
     setFlare(false);
@@ -328,10 +524,11 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     doneRef.current = true;
     const openedNow = sealsRef.current.filter((s) => s === 'open').length;
     let bonus = 0;
-    if (!byTimeout && openedNow === SYSTEM_SIZE) {
-      bonus = Math.max(0, remainRef.current) * 4;
+    if (!byTimeout && openedNow === S) {
+      bonus = Math.round(Math.max(0, remainRef.current) * TIME_BONUS_PER_SEC * alignRef.current);
       scoreRef.current += bonus;
     }
+    flushMarks();
     setTimeBonus(bonus);
     setScore(scoreRef.current);
     const r = pb.submit(scoreRef.current);
@@ -339,75 +536,86 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     setTimedOut(byTimeout);
     setReveal(null);
     setPhase('done');
-    // 팡파르는 여섯 봉인을 전부 연 진짜 개방에만. 그 외에는 조용히 마무리한다(Calm UI).
-    if (!byTimeout && openedNow === SYSTEM_SIZE) sfx.fanfare();
+    // 팡파르는 봉인을 전부 연 진짜 개방에만. 그 외에는 조용히 마무리한다(Calm UI).
+    if (!byTimeout && openedNow === S) sfx.fanfare();
     else setSay({ kind: 'info', text: byTimeout ? '핵이 닫혔다' : '항해를 마쳤다' });
-  }, [pb, sfx]);
+  }, [pb, sfx, S, flushMarks]);
   finishRef.current = finish;
+
+  const handleExit = useCallback(() => {
+    // 도중 이탈에도 이번 판의 인출은 남긴다 — 안 그러면 모르는 단어가 복습에서 사라진다.
+    flushMarks();
+    onExit?.();
+  }, [flushMarks, onExit]);
 
   // ── 탐사: 성좌 열기 ─────────────────────────────────────────────────────
   const openPlanet = useCallback((i: number) => {
     sfx.click();
     lastPlanet.current = i;
     setJustAnswered(false);
-    if (survey[i] !== null) {
-      setProbe(null);
-      setView(i);
-      return;
-    }
-    // 오답 후보는 아직 읽지 않은 성좌에서 먼저 뽑는다 — 이미 읽은 성좌의 뜻으로
-    // 소거법을 돌리는 무위험 탐색을 줄인다.
-    const others = sys.planets.map((_, j) => j).filter((j) => j !== i);
-    const fresh = shuffle(others.filter((j) => survey[j] === null));
-    const rest = shuffle(others.filter((j) => survey[j] !== null));
-    const picked = [...fresh, ...rest].slice(0, 3);
-    setProbe(shuffle([i, ...picked]));
     setView(i);
-  }, [sfx, survey, sys]);
+    if (survey[i] !== null) return;
+    // 신호를 띄우는 순간 '스침'으로 남긴다 — 열어서 en 만 읽고 나가 미관측 배수를
+    // 챙기는 경로를 막는다. 미관측 배수를 원하면 그 행성은 열지 않아야 한다.
+    if (!peeked[i]) {
+      setPeeked((p) => { const n = p.slice(); n[i] = true; return n; });
+      setSay({ kind: 'info', text: '신호를 열었다 — 이 성좌는 읽은 것으로 남는다' });
+    }
+  }, [sfx, survey, peeked]);
 
   const backToMap = useCallback(() => {
     sfx.click();
     setView('map');
-    setProbe(null);
     setJustAnswered(false);
     const i = lastPlanet.current;
     if (i !== null) window.setTimeout(() => planetBtns.current[i]?.focus(), 0);
   }, [sfx]);
 
   // ── 탐사: 의미 제출 (en → ko) ───────────────────────────────────────────
-  const answerSurvey = useCallback((planetIdx: number, pickIdx: number) => {
-    if (typeof view !== 'number' || survey[view] !== null) return;
+  const answerSurvey = useCallback((planetIdx: number, pick: Cand) => {
+    if (survey[planetIdx] !== null) return;
     const target = sys.planets[planetIdx];
-    const ok = pickIdx === planetIdx;
+    const ok = pick.k === 'p' && pick.i === planetIdx;
+    // 성계 밖 후보가 모자라 다른 성좌로 채워졌고 그것들이 전부 이미 판정났다면
+    // 소거로 확정된 문항이다 — 점수는 주되 FSRS 에는 올리지 않는다.
+    const plausible = 1 + target.probe.filter(
+      (c) => !(c.k === 'p' && c.i === planetIdx) && (c.k === 'x' || survey[c.i] === null),
+    ).length;
+    const forced = plausible <= 1;
+
     setSurvey((s) => { const n = s.slice(); n[planetIdx] = ok ? 'clean' : 'miss'; return n; });
     setJustAnswered(true);
-    setProbe(null);
+    noteMark(target.w, ok, forced);
+
     if (ok) {
       const c = combo.hit();
-      const pts = Math.round(60 * multOf(c));
+      const pts = Math.round(OBS_PTS * multOf(c));
       addScore(pts);
       sfx.correct(c, c >= 3);
       flash(`+${pts}`, true);
       setSay({ kind: 'ok', text: withNote(`정합 — ${target.w.en}`) });
-      onCorrect?.(target.w);
     } else {
       combo.miss();
       sfx.wrong();
-      setSay({ kind: 'miss', text: withNote(`이 신호는 「${sys.planets[pickIdx].w.ko}」 쪽이 아니었어요`) });
-      onWrong?.(target.w);
+      setSay({ kind: 'miss', text: withNote(`이 신호는 「${wordOf(pick).ko}」 쪽이 아니었어요`) });
     }
-  }, [view, survey, sys, combo, addScore, sfx, flash, withNote, onCorrect, onWrong]);
+  }, [survey, sys, combo, addScore, sfx, flash, withNote, noteMark, wordOf]);
 
   // ── 핵 진입 ─────────────────────────────────────────────────────────────
   const enterCore = useCallback(() => {
     if (!coreReady) {
       sfx.click();
-      setSay({ kind: 'info', text: `아직 ${MIN_TO_ENTER - observed}개의 성좌가 어둡다` });
+      setSay({ kind: 'info', text: `아직 ${sys.minToEnter - observed}개의 성좌를 읽지 않았다` });
       return;
     }
     sfx.click();
+    alignRef.current = entryAlign;
+    resolvedStep.current = -1;
+    sealsRef.current = Array(N).fill(null);
+    setPlan(buildSeals(sys, readFlags));
     setAlign(entryAlign);
     setStep(0);
+    setSeals(Array(N).fill(null));
     setTyped([]);
     setFlare(false);
     setReveal(null);
@@ -415,49 +623,63 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     setPhase('core');
     cd.reset(entrySec * 1000);
     setSay({ kind: 'info', text: '문이 닫혔다 — 성좌 노트는 여기까지다' });
-  }, [coreReady, observed, entryAlign, entrySec, cd, sfx]);
+  }, [coreReady, observed, entryAlign, entrySec, cd, sfx, sys, readFlags, N]);
 
   // ── 핵: 봉인 판정 ───────────────────────────────────────────────────────
-  const resolveSeal = useCallback((ok: boolean) => {
-    const sl = sys.seals[step];
+  const resolveSeal = useCallback((ok: boolean, drift: boolean) => {
+    const sl = plan[step];
+    if (!sl) return;
+    // 표류 타이머는 discrete 이벤트가 아니라, 사용자가 답한 것과 같은 틱에 터질 수 있다.
+    // `reveal` 은 그 틱에 아직 반영 전이라 막지 못한다 — 봉인 단위 ref 로 한 번만 판정한다.
+    if (resolvedStep.current === step) return;
+    resolvedStep.current = step;
     const target = sys.planets[sl.p];
     const hinted = flare;
-    const blind = survey[sl.p] === null;
-    const last = step === SYSTEM_SIZE - 1;
+    const blind = sl.blind;
+    const last = step === plan.length - 1;
 
-    const nextSeals = seals.slice();
+    const nextSeals = sealsRef.current.slice();
     nextSeals[sl.p] = ok ? 'open' : 'fail';
     sealsRef.current = nextSeals;
     setSeals(nextSeals);
 
+    // 이미 관측 단계에서 이 단어를 기록했다면 여기서 또 올리지 않는다 —
+    // 장부에 쌓아 두고 finish 에서 단어당 1건으로 병합한다.
+    // 잔광으로 산 답 · 소거로 확정된 문항은 보조로 표시해 카드를 건드리지 않는다.
+    noteMark(target.w, ok, hinted || sl.soft);
+
     if (ok) {
       cd.extend(SEAL_GAIN_MS);
       if (hinted) {
-        // 잔광으로 산 정답 — 점수는 남기되 FSRS 인출 성공으로는 올리지 않는다.
-        addScore(40);
-        flash(`+40 · +${SEAL_GAIN_MS / 1000}s`, true);
+        addScore(FLARE_PTS);
+        flash(`+${FLARE_PTS} · +${SEAL_GAIN_MS / 1000}s`, true);
         sfx.correct(0, false);
         setSay({ kind: 'ok', text: '잔광이 길을 밝혔다 — 기록에는 남기지 않는다' });
       } else {
         const c = combo.hit();
-        const pts = Math.round(KIND_PTS[sl.kind] * multOf(c) * align * (blind ? 2 : 1));
+        const pts = Math.round(KIND_PTS[sl.kind] * multOf(c) * align * (blind ? BLIND_MULT : 1));
         addScore(pts);
         sfx.correct(c, c >= 3);
         flash(`+${pts} · +${SEAL_GAIN_MS / 1000}s`, true);
         if (blind) setBlindWins((b) => b + 1);
         setSay({ kind: 'ok', text: withNote(blind ? '직감 항해 — 읽지 않은 성좌를 맞혔다' : '봉인이 열렸다') });
-        onCorrect?.(target.w);
       }
     } else {
       combo.miss();
-      cd.drain(SEAL_LOSS_MS);
+      const base = blind ? BLIND_LOSS_MS : SEAL_LOSS_MS;
+      const lossMs = drift ? base + DRIFT_EXTRA_MS : base;
+      cd.drain(lossMs);
       sfx.wrong();
-      flash(`−${SEAL_LOSS_MS / 1000}s`, false);
-      setSay({ kind: 'miss', text: withNote('다른 이름이었어요 — 아래에서 확인하고 가세요') });
-      onWrong?.(target.w);
+      flash(`−${lossMs / 1000}s`, false);
+      setSay({
+        kind: 'miss',
+        text: withNote(drift ? '궤도를 놓쳤다 — 아래에서 확인하고 가세요' : '다른 이름이었어요 — 아래에서 확인하고 가세요'),
+      });
     }
-    setReveal({ ok, hinted, blind, last });
-  }, [sys, step, flare, survey, seals, cd, addScore, flash, sfx, combo, align, withNote, onCorrect, onWrong]);
+    setReveal({ ok, hinted, blind, drift, last });
+  }, [plan, step, flare, sys, cd, addScore, flash, sfx, combo, align, withNote, noteMark]);
+
+  driftRef.current = () => resolveSeal(false, true);
 
   const advance = useCallback(() => {
     const last = reveal?.last ?? false;
@@ -480,7 +702,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   }, [flare, reveal, sfx, cd, flash]);
 
   // ── 철자 조립 ───────────────────────────────────────────────────────────
-  const seal = phase === 'core' ? sys.seals[step] : null;
+  const seal: Seal | null = phase === 'core' ? plan[step] ?? null : null;
 
   const pushLetter = useCallback((i: number) => {
     setTyped((t) => (t.includes(i) || t.length >= (seal?.letters.length ?? 0) ? t : [...t, i]));
@@ -490,9 +712,12 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
 
   const submitSpell = useCallback(() => {
     if (!seal || seal.kind !== 'spell' || reveal) return;
-    if (typed.length !== seal.letters.length) return;
+    if (typed.length < SPELL_MIN) {
+      setSay({ kind: 'info', text: `글자를 ${SPELL_MIN}개 이상 새겨 주세요` });
+      return;
+    }
     const built = typed.map((i) => seal.letters[i]).join('');
-    resolveSeal(built === sys.planets[seal.p].w.en.toLowerCase());
+    resolveSeal(built === sys.planets[seal.p].w.en.toLowerCase(), false);
   }, [seal, reveal, typed, resolveSeal, sys]);
 
   // 키보드 조립 — 데스크톱에서 타일을 마우스로 쪼는 대신 바로 칠 수 있게.
@@ -517,8 +742,20 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     if (!spellLive) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const el = document.activeElement as HTMLElement | null;
+      const tag = el?.tagName?.toLowerCase() ?? '';
+      const typingField = tag === 'input' || tag === 'textarea' || tag === 'select' || el?.isContentEditable === true;
+      if (typingField) return;
+      // 버튼·링크에 포커스가 있을 때 Enter 를 가로채면 나가기·음소거·지우기를
+      // 키보드로 누를 수 없다. 활성 요소가 누를 수 있는 것이면 그대로 흘려보낸다.
+      const pressable = tag === 'button' || tag === 'a';
       if (e.key === 'Backspace') { e.preventDefault(); keyHandlers.current.pop(); return; }
-      if (e.key === 'Enter') { e.preventDefault(); keyHandlers.current.submit(); return; }
+      if (e.key === 'Enter') {
+        if (pressable) return;
+        e.preventDefault();
+        keyHandlers.current.submit();
+        return;
+      }
       const k = e.key.toLowerCase();
       if (/^[a-z]$/.test(k)) { e.preventDefault(); keyHandlers.current.push(k); }
     };
@@ -526,8 +763,21 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     return () => window.removeEventListener('keydown', onKey);
   }, [spellLive]);
 
+  // ── 봉인별 소프트 제한 — 넘기면 '표류' ──────────────────────────────────
+  // 리빌 중에는 멈춘다(읽는 시간에 벌은 없다). 표류는 오답보다 시간을 더 태우므로
+  // "모르겠으면 버틴다"가 "모르겠으면 찍는다"보다 이득이 되는 일은 없다.
+  const sealLive = phase === 'core' && seal !== null && reveal === null;
+  useEffect(() => {
+    if (!sealLive || !seal) return;
+    const ms = SOFT_MS[seal.kind];
+    const warn = window.setTimeout(() => {
+      if (mounted.current) setSay({ kind: 'info', text: '궤도가 흔들린다 — 곧 흘러간다' });
+    }, Math.max(1200, ms - 3500));
+    const go = window.setTimeout(() => { if (mounted.current) driftRef.current(); }, ms);
+    return () => { window.clearTimeout(warn); window.clearTimeout(go); };
+  }, [sealLive, seal, step]);
+
   // 포커스 관리 — 패널이 통째로 갈리는 게임이라 포커스를 놓치면 키보드 사용자가 길을 잃는다.
-  // 결과가 뜬 상태면 진행 버튼으로, 새 문항이면 패널 자체로(제목이 낭독된 뒤 Tab 이 이어진다).
   const surveyResolved = typeof view === 'number' && survey[view] !== null;
   useEffect(() => {
     const t = window.setTimeout(() => {
@@ -537,21 +787,21 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     return () => window.clearTimeout(t);
   }, [view, step, phase, reveal, surveyResolved]);
 
-  const handleExit = useCallback(() => onExit?.(), [onExit]);
-
   const positions = useMemo(() => sys.planets.map((_, i) => {
-    const ang = (-90 + i * (360 / SYSTEM_SIZE)) * (Math.PI / 180);
-    return { x: 50 + Math.cos(ang) * 38, y: 50 + Math.sin(ang) * 38 };
+    const ang = (-90 + i * (360 / sys.planets.length)) * (Math.PI / 180);
+    const r = sys.planets.length <= 3 ? 34 : 38;
+    return { x: 50 + Math.cos(ang) * r, y: 50 + Math.sin(ang) * r };
   }), [sys]);
 
-  const tier = combo.tierIndex;
+  const tier = Math.min(combo.tierIndex, SPINS.length - 1);
   const rootStyle = { ['--wo-spin' as string]: SPINS[tier] };
+  const sealTargets = useMemo(() => new Set(plan.map((s) => s.p)), [plan]);
 
   // ─────────────────────────────────────────────────────────────────────────
   if (phase === 'done') {
-    const perfect = clean === SYSTEM_SIZE && opened === SYSTEM_SIZE && flaresUsed === 0;
+    const perfect = clean === N && opened === S && flaresUsed === 0;
     const lead = perfect ? '완벽한 항해 — 앎이 곧 열쇠였다'
-      : opened === SYSTEM_SIZE ? '핵을 열었다'
+      : opened === S ? '핵을 열었다'
         : timedOut ? '핵이 닫혔다 — 연 봉인은 남는다'
           : '항해를 마쳤다';
 
@@ -560,11 +810,12 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       : perfect ? <><span aria-hidden="true">✦</span> 무결 개방</>
         : null;
 
-    const hint = opened < SYSTEM_SIZE
-      ? `봉인 ${SYSTEM_SIZE - opened}개가 남았다. 정확 관측 1개당 핵 안정도가 ${SEC_PER_CLEAN}초씩 늘어난다.`
-      : align < 1.5
-        ? `다음엔 ${MIN_TO_ENTER}성좌만 읽고 정렬 ×1.5 로 들어가 보세요 — 시간은 줄지만 점수는 커진다.`
-        : `이번 ${scoreRef.current.toLocaleString()}점. 각인 봉인까지 무결로 가면 더 간다.`;
+    const unread = N - readCount;
+    const hint = opened < S
+      ? `봉인 ${S - opened}개가 남았다. 정확 관측 1개당 핵 안정도가 ${SEC_PER_CLEAN}초씩 늘어난다.`
+      : unread > 0
+        ? `미관측 ${unread}성좌를 안고 정렬 ×${align} 로 열었다. 전부 읽는 길은 시간이 ${unread * SEC_PER_CLEAN}초 더 붙는다.`
+        : `전부 읽고 전부 열었다. 성좌를 어둠에 남기면 정렬 배수가 붙지만 안정도는 짧아진다 — 두 길의 기댓값은 비슷하다.`;
 
     return (
       <div className="gk-root wo-root" style={rootStyle}>
@@ -580,24 +831,24 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
           badge={badge}
           stats={[
             { num: score.toLocaleString(), label: timeBonus > 0 ? `점수 (시간 +${timeBonus})` : '점수', accent: true },
-            { num: `${opened}/${SYSTEM_SIZE}`, label: '연 봉인' },
+            { num: `${opened}/${S}`, label: '연 봉인' },
             { num: `${combo.best}`, label: '최장 공명' },
           ]}
           best={{ prev: bestInfo?.prev ?? null, now: score, label: '점수', improved: bestInfo?.improved }}
           reveal={
             <div className="wo-manifest">
-              <p className="wo-manifest-h">성좌 명부 — 이 항성계의 여섯 이름</p>
+              <p className="wo-manifest-h">성좌 명부 — 이 항성계의 {N}개 이름</p>
               <ul className="wo-manifest-l">
                 {sys.planets.map((p, i) => (
                   <li key={p.w.en} className="wo-manifest-i">
                     <span className="wo-mf-icon" aria-hidden="true">{p.icon}</span>
                     <span className="wo-mf-en">{p.w.en}</span>
                     <span className="wo-mf-ko">{p.w.ko}</span>
-                    <span className={`wo-mf-mark wo-mf-mark--${survey[i] ?? 'none'}`}>
-                      {survey[i] === 'clean' ? '✓ 관측' : survey[i] === 'miss' ? '~ 흐림' : '○ 미관측'}
+                    <span className={`wo-mf-mark wo-mf-mark--${survey[i] ?? (peeked[i] ? 'peek' : 'none')}`}>
+                      {survey[i] === 'clean' ? '✓ 관측' : survey[i] === 'miss' ? '~ 흐림' : peeked[i] ? '◌ 스침' : '○ 미관측'}
                     </span>
                     <span className={`wo-mf-mark wo-mf-mark--${seals[i] ?? 'none'}`}>
-                      {seals[i] === 'open' ? '✦ 개방' : seals[i] === 'fail' ? '× 실패' : '○ 미개봉'}
+                      {seals[i] === 'open' ? '✦ 개방' : seals[i] === 'fail' ? '× 실패' : sealTargets.has(i) ? '○ 미개봉' : '— 봉인 없음'}
                     </span>
                   </li>
                 ))}
@@ -622,7 +873,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
       <style dangerouslySetInnerHTML={{ __html: WO_CSS }} />
       <Hud
         score={score}
-        progress={phase === 'survey' ? observed / SYSTEM_SIZE : undefined}
+        progress={phase === 'survey' ? observed / N : undefined}
         combo={combo.combo}
         comboMult={combo.mult}
         muted={sfx.muted}
@@ -630,7 +881,7 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         onExit={handleExit}
         extra={phase === 'core'
           ? <TimerBar frac={cd.frac} warning={cd.warning} seconds={cd.remainSec} label="핵 안정도" />
-          : <div className="wo-hud"><span className="gk-stat-label">관측</span><span className="wo-hud-v">{observed}/{SYSTEM_SIZE}</span></div>}
+          : <div className="wo-hud"><span className="gk-stat-label">관측</span><span className="wo-hud-v">{observed}/{N}</span></div>}
       />
 
       <main className="gk-stage wo-stage">
@@ -644,8 +895,8 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         {phase === 'survey' && view === 'map' && (
           <>
             <p className="wo-help">
-              행성을 눌러 <b>영어 신호</b>를 받고 그 뜻을 골라라. {MIN_TO_ENTER}성좌부터 핵에 들어갈 수 있고,
-              <b> 들어서면 문이 닫힌다</b>.
+              행성을 눌러 <b>영어 신호</b>를 받고 그 뜻을 골라라. 여는 순간 <b>읽은 것으로 남는다</b>.
+              {sys.minToEnter}성좌부터 핵에 들어갈 수 있고, 들어서면 문이 닫힌다.
             </p>
 
             <div className="wo-orrery" role="group" aria-label="항성계 지도">
@@ -655,37 +906,43 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                 className={`wo-sun ${coreReady ? 'wo-sun--ready' : 'wo-sun--locked'}`}
                 onClick={enterCore}
                 aria-label={coreReady
-                  ? `핵 봉인 진입 — 안정 ${entrySec}초, 정렬 배수 ${entryAlign}배`
-                  : `핵 잠김 — ${observed}/${SYSTEM_SIZE} 관측, ${MIN_TO_ENTER}개 필요`}
+                  ? `핵 봉인 진입 — 봉인 ${S}개, 안정 ${entrySec}초, 정렬 배수 ${entryAlign}배`
+                  : `핵 잠김 — ${observed}/${N} 관측, ${sys.minToEnter}개 필요`}
               >
                 <span className="wo-sun-core" aria-hidden="true" />
                 <span className="wo-sun-label">{coreReady ? '핵 봉인' : '핵'}</span>
-                <span className="wo-sun-sub">{coreReady ? `${entrySec}초 · ×${entryAlign}` : `${observed}/${MIN_TO_ENTER}`}</span>
+                <span className="wo-sun-sub">{coreReady ? `${entrySec}초 · ×${entryAlign}` : `${observed}/${sys.minToEnter}`}</span>
               </button>
 
-              {sys.planets.map((p, i) => (
-                <button
-                  key={p.w.en}
-                  type="button"
-                  ref={(el) => { planetBtns.current[i] = el; }}
-                  className={`wo-planet wo-planet--${survey[i] ?? 'new'}`}
-                  style={{ left: `${positions[i].x}%`, top: `${positions[i].y}%`, ['--ph' as string]: p.hue }}
-                  onClick={() => openPlanet(i)}
-                  aria-label={`${p.name} — ${survey[i] === null ? '미관측' : `${p.w.en}, ${survey[i] === 'clean' ? '정합' : '흐림'}`}`}
-                >
-                  <span className="wo-planet-orb" aria-hidden="true">{p.icon}</span>
-                  <span className="wo-planet-name">{p.name}</span>
-                  <span className="wo-planet-en">{survey[i] === null ? '미관측' : p.w.en}</span>
-                </button>
-              ))}
+              {sys.planets.map((p, i) => {
+                const st = survey[i] ?? (peeked[i] ? 'peek' : 'new');
+                return (
+                  <button
+                    key={p.w.en}
+                    type="button"
+                    ref={(el) => { planetBtns.current[i] = el; }}
+                    className={`wo-planet wo-planet--${st}`}
+                    style={{ left: `${positions[i].x}%`, top: `${positions[i].y}%`, ['--ph' as string]: p.hue }}
+                    onClick={() => openPlanet(i)}
+                    aria-label={`${p.name} — ${survey[i] === null
+                      ? (peeked[i] ? `${p.w.en}, 스침 · 뜻 미판정` : '미관측')
+                      : `${p.w.en}, ${survey[i] === 'clean' ? '정합' : '흐림'}`}`}
+                  >
+                    <span className="wo-planet-orb" aria-hidden="true">{p.icon}</span>
+                    <span className="wo-planet-name">{p.name}</span>
+                    <span className="wo-planet-en">{survey[i] === null && !peeked[i] ? '미관측' : p.w.en}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {coreReady && (
               <p className="wo-entry">
                 <span className="wo-entry-k">핵 진입 시</span>
+                <b>봉인 {S}</b>
                 <b>안정 {entrySec}초</b>
                 <b>정렬 ×{entryAlign}</b>
-                {observed < SYSTEM_SIZE && <span className="wo-entry-r">미관측 {SYSTEM_SIZE - observed}성좌 — 맞히면 ×2</span>}
+                {readCount < N && <span className="wo-entry-r">읽지 않은 {N - readCount}성좌 — 맞히면 ×{BLIND_MULT}</span>}
               </p>
             )}
 
@@ -693,13 +950,23 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
             <div className="wo-codex">
               <span className="wo-codex-label">성좌 노트 · 이름만</span>
               <div className="wo-codex-list">
-                {sys.planets.map((p, i) => (
-                  <span key={p.w.en} className={`wo-codex-item is-${survey[i] ?? 'none'}`}>
-                    <span className="wo-codex-mark" aria-hidden="true">{survey[i] === 'clean' ? '✦' : survey[i] === 'miss' ? '◇' : '?'}</span>
-                    {survey[i] === null ? <i>미관측</i> : <b>{p.w.en}</b>}
-                  </span>
-                ))}
+                {sys.planets.map((p, i) => {
+                  const st = survey[i] ?? (peeked[i] ? 'peek' : 'none');
+                  return (
+                    <span key={p.w.en} className={`wo-codex-item is-${st}`}>
+                      <span className="wo-codex-mark" aria-hidden="true">
+                        {survey[i] === 'clean' ? '✦' : survey[i] === 'miss' ? '◇' : peeked[i] ? '◌' : '?'}
+                      </span>
+                      {survey[i] === null && !peeked[i] ? <i>미관측</i> : <b>{p.w.en}</b>}
+                    </span>
+                  );
+                })}
               </div>
+              <span className="wo-source">
+                이 자료 단어 {sys.fromPool}개
+                {sys.filled > 0 && <> · 맛보기 {sys.filled}개 보충</>}
+                {' · '}성좌 {N} · 봉인 {S}
+              </span>
             </div>
           </>
         )}
@@ -723,9 +990,16 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                   )}
                   <p className="wo-ask">이 신호가 가리키는 의미는?</p>
                   <div className="wo-choices" role="group" aria-label="의미 후보">
-                    {(probe ?? []).map((j) => (
-                      <button key={j} type="button" className="wo-chip wo-chip--ko" onClick={() => answerSurvey(view, j)}>
-                        {sys.planets[j].w.ko}
+                    {/* 후보는 성계 생성 때 고정된다 — 나갔다 다시 열어도 같은 후보다
+                        (열 때마다 다시 뽑으면 마음에 드는 조합이 나올 때까지 굴릴 수 있다). */}
+                    {p.probe.map((c) => (
+                      <button
+                        key={`${c.k}${c.i}`}
+                        type="button"
+                        className="wo-chip wo-chip--ko"
+                        onClick={() => answerSurvey(view, c)}
+                      >
+                        {wordOf(c).ko}
                       </button>
                     ))}
                   </div>
@@ -751,24 +1025,40 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         {/* ── 핵 봉인 ── */}
         {phase === 'core' && seal && (() => {
           const p = sys.planets[seal.p];
-          const flareText = p.ctx ?? p.skel;
+          // 잔광이 파는 것: 각인에서는 '첫 글자 + 길이'(타일이 길이를 숨기므로 이게 값이 있다),
+          // 선택형에서는 가려진 예문. 어느 쪽도 정답 자체를 인쇄하지 않는다.
+          const flareText = seal.kind === 'spell'
+            ? [p.skel, p.ctx].filter(Boolean).join('  ·  ')
+            : (p.ctx ?? p.skel);
           const canFlare = !flare && !reveal && cd.remainMs > FLARE_COST_MS + 2000;
+          const kindLabel = seal.kind === 'spell' ? SPELL_LABEL : `이름 ${seal.choices.length}개 중에서`;
           return (
-            <section ref={panelRef} tabIndex={-1} className="wo-panel wo-core" aria-label={`핵 봉인 ${step + 1} / ${SYSTEM_SIZE}`}>
+            <section ref={panelRef} tabIndex={-1} className="wo-panel wo-core" aria-label={`핵 봉인 ${step + 1} / ${S}`}>
               <p className="wo-core-head">
-                <span className="wo-core-step">봉인 {step + 1}<span className="wo-core-of">/{SYSTEM_SIZE}</span></span>
-                <span className="wo-core-kind">{KIND_LABEL[seal.kind]}</span>
+                <span className="wo-core-step">봉인 {step + 1}<span className="wo-core-of">/{S}</span></span>
+                <span className="wo-core-kind">{kindLabel}</span>
                 <span className="wo-core-align">정렬 ×{align}</span>
               </p>
 
-              <div className="wo-pips" role="img" aria-label={`연 봉인 ${opened}/${SYSTEM_SIZE}`}>
-                {sys.seals.map((s, k) => {
+              <div className="wo-pips" role="img" aria-label={`연 봉인 ${opened}/${S}`}>
+                {plan.map((s, k) => {
                   const st: string = seals[s.p] ?? (k === step ? 'now' : 'wait');
                   return <span key={k} className="wo-pip" data-s={st} />;
                 })}
               </div>
 
               <p className="wo-riddle">{seal.riddle}</p>
+
+              {!reveal && (
+                <span
+                  key={`drift-${step}`}
+                  className="wo-drift"
+                  role="img"
+                  aria-label={`이 봉인 제한 ${Math.round(SOFT_MS[seal.kind] / 1000)}초 — 넘기면 표류로 흘러간다`}
+                >
+                  <span className="wo-drift-fill" style={{ animationDuration: `${SOFT_MS[seal.kind]}ms` }} />
+                </span>
+              )}
 
               {flare && !reveal && (
                 <p className="wo-flare" role="note">
@@ -780,8 +1070,9 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
               {reveal ? (
                 <div className="wo-reveal wo-reveal--seal">
                   <span className={`wo-verdict wo-verdict--${reveal.ok ? 'ok' : 'miss'}`}>
-                    {reveal.ok ? <><FeedbackIcon kind="correct" /> {reveal.blind && !reveal.hinted ? '직감 항해' : '봉인이 열렸다'}</>
-                      : <><FeedbackIcon kind="wrong" /> 다른 이름이었어요</>}
+                    {reveal.ok
+                      ? <><FeedbackIcon kind="correct" /> {reveal.blind && !reveal.hinted ? '직감 항해' : '봉인이 열렸다'}</>
+                      : <><FeedbackIcon kind={reveal.drift ? 'near' : 'wrong'} /> {reveal.drift ? '표류 — 궤도를 놓쳤다' : '다른 이름이었어요'}</>}
                   </span>
                   <span className="wo-obs-en">{p.w.en}</span>
                   <span className="wo-obs-ko">{p.w.ko}</span>
@@ -794,13 +1085,15 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                 </div>
               ) : seal.kind === 'spell' ? (
                 <div className="wo-spell">
-                  <div className="wo-slots" aria-label={`${seal.letters.length}글자`}>
-                    {seal.letters.map((_, k) => (
-                      <span key={k} className={`wo-slot ${typed[k] !== undefined ? 'is-on' : ''}`}>
-                        {typed[k] !== undefined ? seal.letters[typed[k]].toUpperCase() : ''}
-                      </span>
+                  {/* 슬롯은 '지금까지 새긴 만큼' 만 자란다 — 정답 길이를 알려주지 않는다.
+                      타일에는 정답에 없는 더미가 섞여 있어 애너그램 조립으로는 풀리지 않는다. */}
+                  <div className="wo-slots" role="group" aria-label={`새긴 글자 ${typed.length}개`}>
+                    {typed.map((li, k) => (
+                      <span key={k} className="wo-slot is-on">{seal.letters[li].toUpperCase()}</span>
                     ))}
+                    {typed.length < seal.letters.length && <span className="wo-slot is-caret" aria-hidden="true" />}
                   </div>
+                  <p className="wo-spell-hint">글자 수는 알려주지 않는다 — 남는 글자가 섞여 있다</p>
                   {/* disabled 대신 aria-disabled — 방금 누른 타일이 focus 를 잃고 body 로
                       튀지 않게(4지선다·타일 계열 게임 공통 버그). 동작은 핸들러에서 막는다. */}
                   <div className="wo-tiles" role="group" aria-label="글자 타일">
@@ -820,14 +1113,19 @@ export function WordOrreryGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
                   <div className="wo-spell-act">
                     <button type="button" className="wo-mini" onClick={popLetter} aria-disabled={typed.length === 0} aria-label="한 글자 지우기">←</button>
                     <button type="button" className="wo-mini" onClick={clearLetters} aria-disabled={typed.length === 0}>지우기</button>
-                    <button type="button" className="wo-cta" onClick={submitSpell} aria-disabled={typed.length !== seal.letters.length}>새기다</button>
+                    <button type="button" className="wo-cta" onClick={submitSpell} aria-disabled={typed.length < SPELL_MIN}>새기다</button>
                   </div>
                 </div>
               ) : (
                 <div className="wo-choices" role="group" aria-label="이름 후보">
-                  {seal.choices.map((j) => (
-                    <button key={j} type="button" className="wo-chip" onClick={() => resolveSeal(j === seal.p)}>
-                      {sys.planets[j].w.en}
+                  {seal.choices.map((c) => (
+                    <button
+                      key={`${c.k}${c.i}`}
+                      type="button"
+                      className="wo-chip"
+                      onClick={() => resolveSeal(c.k === 'p' && c.i === seal.p, false)}
+                    >
+                      {wordOf(c).en}
                     </button>
                   ))}
                 </div>
@@ -871,7 +1169,7 @@ const WO_CSS = `
   .wo-hud { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.05; }
   .wo-hud-v { font-family: var(--font-display, system-ui); font-size: 13px; font-weight: 800; color: var(--wo-1); }
   .wo-stage { gap: clamp(10px, 2.2vh, 20px); justify-content: flex-start; padding-top: clamp(10px, 3vh, 26px); overflow-y: auto; }
-  .wo-help { margin: 0; max-width: 40ch; font-size: 13px; line-height: 1.6; color: var(--wo-2); text-align: center; word-break: keep-all; }
+  .wo-help { margin: 0; max-width: 42ch; font-size: 13px; line-height: 1.6; color: var(--wo-2); text-align: center; word-break: keep-all; }
   .wo-help b { color: var(--wo-amber-s); }
 
   /* 점수·시간 증감 플로터 */
@@ -919,13 +1217,15 @@ const WO_CSS = `
   .wo-planet-en { font-family: var(--font-english, monospace); font-size: 10px; font-weight: 700; color: var(--wo-3); }
   .wo-planet--new .wo-planet-orb { animation: wo-beacon 2.4s ease-in-out infinite; }
   .wo-planet--clean .wo-planet-orb { box-shadow: 0 0 0 2px color-mix(in srgb, var(--ph) 75%, #fff 25%), 0 6px 22px -6px color-mix(in srgb, var(--ph) 70%, #000), inset 0 2px 6px rgba(255,255,255,.28); }
-  .wo-planet--miss .wo-planet-orb { box-shadow: 0 0 0 2px rgba(200,214,244,.34), 0 6px 20px -6px rgba(0,0,0,.6), inset 0 2px 6px rgba(255,255,255,.2); opacity: .82; }
-  .wo-planet--clean .wo-planet-en, .wo-planet--miss .wo-planet-en { font-family: var(--font-english, system-ui); font-weight: 800; color: var(--wo-amber-s); }
+  .wo-planet--miss .wo-planet-orb, .wo-planet--peek .wo-planet-orb { box-shadow: 0 0 0 2px rgba(200,214,244,.34), 0 6px 20px -6px rgba(0,0,0,.6), inset 0 2px 6px rgba(255,255,255,.2); opacity: .82; }
+  .wo-planet--clean .wo-planet-en, .wo-planet--miss .wo-planet-en, .wo-planet--peek .wo-planet-en { font-family: var(--font-english, system-ui); font-weight: 800; color: var(--wo-amber-s); }
+  .wo-planet--peek .wo-planet-en { color: var(--wo-2); }
   /* 상태는 색만이 아니라 글리프로도 — 색각 대응 */
-  .wo-planet--clean .wo-planet-orb::after, .wo-planet--miss .wo-planet-orb::after {
+  .wo-planet--clean .wo-planet-orb::after, .wo-planet--miss .wo-planet-orb::after, .wo-planet--peek .wo-planet-orb::after {
     content: '✦'; position: absolute; top: -3px; right: -3px; width: 17px; height: 17px; display: grid; place-items: center;
     font-size: 10px; font-weight: 900; border-radius: 50%; background: #0B0F20; color: var(--wo-amber-s); border: 1px solid var(--wo-line); }
   .wo-planet--miss .wo-planet-orb::after { content: '◇'; color: var(--wo-2); }
+  .wo-planet--peek .wo-planet-orb::after { content: '◌'; color: var(--wo-3); }
 
   /* 진입 트레이드오프 — 안전/위험 선택을 숫자로 보여준다 */
   .wo-entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 10px; margin: 0;
@@ -947,6 +1247,10 @@ const WO_CSS = `
   .wo-codex-item.is-clean { border-color: color-mix(in srgb, #FFB056 48%, transparent); }
   .wo-codex-item.is-clean .wo-codex-mark { color: var(--wo-amber); }
   .wo-codex-item.is-miss { border-style: dashed; }
+  .wo-codex-item.is-peek { border-style: dotted; }
+  .wo-codex-item.is-peek b { color: var(--wo-2); font-weight: 700; }
+  /* 자료 무결성 — 맛보기가 몰래 섞이지 않았음을 화면에서 확인할 수 있게 */
+  .wo-source { font-size: 10.5px; color: var(--wo-3); letter-spacing: .01em; }
 
   /* ── 패널 공통 ── */
   .wo-panel { position: relative; width: min(470px, 94vw); margin: 0 auto; padding: clamp(18px, 3.2vh, 26px) clamp(16px, 4vw, 24px);
@@ -1029,6 +1333,12 @@ const WO_CSS = `
   .wo-riddle { margin: 2px 0 0; max-width: 34ch; font-family: var(--font-serif, Lora, Georgia, serif); font-style: italic;
     font-size: 15px; line-height: 1.6; color: var(--wo-1); text-align: center; word-break: keep-all; }
 
+  /* 봉인별 궤도 유지 — 다 흐르면 '표류'. 문항 단위로 시간이 눈에 보인다. */
+  .wo-drift { display: block; width: min(220px, 62%); height: 3px; border-radius: 999px; overflow: hidden;
+    background: rgba(200,214,244,.14); }
+  .wo-drift-fill { display: block; height: 100%; width: 100%; transform-origin: left center; border-radius: 999px;
+    background: linear-gradient(90deg, var(--wo-amber-s), var(--wo-amber)); animation: wo-drain linear forwards; }
+
   .wo-flare { display: flex; align-items: flex-start; gap: 8px; margin: 0; padding: 9px 13px; border-radius: 12px;
     border: 1px solid rgba(255,176,86,.34); border-left: 4px solid var(--wo-amber); background: rgba(255,176,86,.08);
     font-size: 13px; line-height: 1.55; color: var(--wo-2); text-align: left; }
@@ -1043,12 +1353,14 @@ const WO_CSS = `
   .wo-flare-btn[aria-disabled="true"] { opacity: .5; cursor: default; }
 
   /* ── 각인(철자 조립) ── */
-  .wo-spell { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-  .wo-slots { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+  .wo-spell { display: flex; flex-direction: column; align-items: center; gap: 9px; width: 100%; }
+  .wo-slots { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; min-height: 40px; }
   .wo-slot { width: 30px; height: 40px; display: grid; place-items: center; border-radius: 8px;
     border-bottom: 2px solid var(--wo-line); background: rgba(24,31,58,.55);
     font-family: var(--font-english, system-ui); font-size: 19px; font-weight: 900; color: var(--wo-1); }
   .wo-slot.is-on { border-bottom-color: var(--wo-amber); background: rgba(255,176,86,.12); }
+  .wo-slot.is-caret { background: none; border-bottom-color: var(--wo-amber-s); animation: wo-caret 1.1s steps(2, jump-none) infinite; }
+  .wo-spell-hint { margin: -3px 0 0; font-size: 11px; color: var(--wo-3); text-align: center; word-break: keep-all; }
   .wo-tiles { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
   .wo-tile { width: 44px; height: 44px; border-radius: 11px; cursor: pointer;
     font-family: var(--font-english, system-ui); font-size: 18px; font-weight: 900; color: var(--wo-1);
@@ -1087,7 +1399,7 @@ const WO_CSS = `
   .wo-mf-ko { color: var(--t2); word-break: keep-all; }
   .wo-mf-mark { font-size: 10.5px; font-weight: 800; color: var(--t3); white-space: nowrap; }
   .wo-mf-mark--clean, .wo-mf-mark--open { color: var(--streak, #E8622F); }
-  .wo-mf-mark--miss, .wo-mf-mark--fail { color: var(--t2); }
+  .wo-mf-mark--miss, .wo-mf-mark--fail, .wo-mf-mark--peek { color: var(--t2); }
   @media (max-width: 430px) {
     .wo-manifest-i { grid-template-columns: 18px minmax(0, 1fr) auto; }
     .wo-mf-ko { grid-column: 2 / -1; font-size: 12px; }
@@ -1097,11 +1409,15 @@ const WO_CSS = `
   @keyframes wo-pulse { 0%,100% { box-shadow: 0 0 0 1px rgba(255,220,160,.6), 0 0 42px -2px rgba(255,168,72,.7), 0 0 90px -10px rgba(255,140,40,.5); } 50% { box-shadow: 0 0 0 1px rgba(255,230,180,.75), 0 0 54px 2px rgba(255,178,86,.85), 0 0 110px -6px rgba(255,150,50,.6); } }
   @keyframes wo-beacon { 0%,100% { box-shadow: 0 6px 20px -6px color-mix(in srgb, var(--ph) 70%, #000), inset 0 2px 6px rgba(255,255,255,.28); } 50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ph) 40%, transparent), 0 6px 24px -4px color-mix(in srgb, var(--ph) 80%, #000), inset 0 2px 6px rgba(255,255,255,.28); } }
   @keyframes wo-rise { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes wo-drain { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+  @keyframes wo-caret { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
   @media (prefers-reduced-motion: reduce) {
-    .wo-orbit, .wo-sun--ready, .wo-planet--new .wo-planet-orb, .wo-panel, .wo-reveal { animation: none; }
+    .wo-orbit, .wo-sun--ready, .wo-planet--new .wo-planet-orb, .wo-panel, .wo-reveal, .wo-slot.is-caret { animation: none; }
     .wo-gain { animation: none; opacity: 1; }
     .wo-planet, .wo-sun, .wo-chip, .wo-cta, .wo-tile, .wo-mini { transition: none; }
     .wo-chip:hover, .wo-cta:hover, .wo-tile:hover { transform: none; }
+    /* 표류 게이지는 정보다 — 모션을 줄여도 남긴다(대신 선형·무광). */
+    .wo-drift-fill { animation-timing-function: linear; }
   }
 `;

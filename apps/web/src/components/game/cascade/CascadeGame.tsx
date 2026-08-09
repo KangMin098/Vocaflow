@@ -18,9 +18,15 @@
 //     세션 내내 `assisted: true` 로만 올라간다(FSRS 미갱신).
 //  4) [낮음] 콤보 10 티어를 반복해 목숨을 3→7 로 불리던 구멍 — 콤보 티어는 이제
 //     점수만 준다. 목숨 회복은 **물방울 1개 이하**에서만 차는 만조 게이지 하나로
-//     일원화하고 세션당 2회 상한을 걸었다(HUD 에 게이지로 명시).
+//     일원화하고 한 판 상한을 걸었다(긴 판 2회 · 짧은 판 1회 · HUD 에 게이지로 명시).
 //  + 동의어 충돌(줄이다/줄어들다)이 같은 보드에 오르지 않게 막았다 — '맞는 뜻을
 //    짚었는데 오답' 이 사라진다.
+//  + 낙석 예보(보드 위 열 표시) — '뭉친 장 = 낙석 취소'가 보이지 않는 화폐라
+//    결정이 다시 죽던 문제. 예약된 돌이 어느 열에 걸려 있는지 보여야 "지금 시간이
+//    급한가 · 보드가 굳고 있는가 · 점수를 살까"가 매 턴 다른 답을 낸다.
+//  + 스케일 다운 — 목표 인출 수·장수 상한·만조 환급을 풀 크기의 함수로 바꿨다.
+//    도서 챕터 653개 중 24단어 이상은 57% 뿐이라, 큰 판을 고정하면 나머지가 이
+//    게임을 아예 못 여는 대가를 치른다. 단어가 적으면 판이 짧아질 뿐이다.
 //
 // FSRS 적재: 학습자가 실제로 인출한 그 단어에만. 게임 쪽 횟수 상한은 두지 않는다 —
 // 중앙(recordGameResult)이 assisted 와 10분 재채점 쿨다운으로 이미 거른다. 게임이
@@ -55,13 +61,11 @@ import {
   COLS,
   ROWS,
   SIZE,
-  GOAL,
   LIVES,
   MAX_ROCKS,
   DISTINCT_MAX,
   DISTINCT_ACTIVE,
   DISTINCT_MIN,
-  COPY_MAX,
   RETIRE_ASKED,
   SPEED_PT,
   FALL_PT,
@@ -69,23 +73,26 @@ import {
   ROCK_TIME_CAP_MS,
   DEEP_FELL,
   TIDE_NEED,
-  TIDE_MAX_REFUND,
   actOf,
   adjacentRocks,
   buildClashMap,
   clusterAt,
   colOf,
   compact,
+  copyMaxFor,
   distinctEns,
   fillEmpty,
   findAnswerIndexes,
   findChains,
+  goalFor,
   isWordCell,
   removeIds,
   rockCadence,
   rockCount,
+  tideRefundFor,
   touchesRock,
   windowMsFor,
+  windowWithRocks,
   wordCounts,
   wouldChain,
   type Board,
@@ -169,6 +176,7 @@ const Tile = memo(function Tile({
   index,
   state,
   mark,
+  groupLabel,
   fresh,
   revealKo,
   flipRef,
@@ -178,6 +186,8 @@ const Tile = memo(function Tile({
   index: number;
   state: TileState;
   mark: TileMark;
+  /** '뭉친 장'이 지금 사는 것 — 낙석 취소인지 만조인지가 국면에 따라 달라진다. */
+  groupLabel: string;
   fresh: boolean;
   revealKo?: string;
   flipRef: (key: string) => (el: HTMLElement | null) => void;
@@ -206,13 +216,14 @@ const Tile = memo(function Tile({
   // 어포던스 라벨 — '이 칸을 고르면 무엇을 얻는가'. 정답과 무관한 보드 기하 정보라
   // 정답을 좁히는 데는 아무 도움이 되지 않는다(정보 누출 아님). 대신 눈으로 찾는
   // 스캔 비용이 사라져 "숙고가 항상 손해"이던 계산이 뒤집힌다.
+  const rockLabel = '돌 옆(고르면 다음 뜻 시간 +)';
   const markLabel =
     mark === 'both'
-      ? ' · 돌 옆 · 뭉친 장'
+      ? ` · ${rockLabel} · ${groupLabel}`
       : mark === 'rock'
-        ? ' · 돌 옆(고르면 다음 뜻 시간 +)'
+        ? ` · ${rockLabel}`
         : mark === 'group'
-          ? ' · 뭉친 장(고르면 낙석 취소)'
+          ? ` · ${groupLabel}`
           : '';
   return (
     <button
@@ -303,6 +314,14 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const hardMax = clamp(pool.length, DISTINCT_MIN, DISTINCT_MAX);
   const playable = pool.length >= DISTINCT_MIN;
 
+  // ─── 풀 크기로 판을 접는다(스케일 다운) ───
+  // 도서 챕터 653개 중 24단어 이상은 57% 뿐이다. 판 크기를 고정값으로 잡으면
+  // 나머지가 이 게임을 **아예 못 여는** 대가로 큰 판을 지키는 셈이 된다.
+  // 단어가 적으면 목표·장수 상한·환급 상한이 함께 줄어 판이 짧아질 뿐이다.
+  const goal = goalFor(pool.length);
+  const copyMax = copyMaxFor(pool.length);
+  const refundCap = tideRefundFor(goal);
+
   const sfx = useSfx();
 
   // ─── 상태 ───
@@ -313,6 +332,8 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const [clears, setClears] = useState(0);
   const [lives, setLives] = useState(LIVES);
   const [tide, setTide] = useState(0);
+  /** 예약된 낙석이 떨어질 열 — 보드 위 '낙석 예보'로 보여준다(아래 sync 참조). */
+  const [pendingCols, setPendingCols] = useState<number[]>([]);
   const [bestChain, setBestChain] = useState(0);
   const [won, setWon] = useState(false);
   const [lastResult, setLastResult] = useState<Result | null>(null);
@@ -359,6 +380,19 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   }, [score]);
 
   const alive = useCallback((my: number) => mountedRef.current && runRef.current === my, []);
+
+  /**
+   * 예약 낙석을 화면에 반영한다.
+   * 예보가 없으면 '뭉친 장 = 낙석 취소' 라는 통화가 **보이지 않는 화폐**가 돼
+   * 결정이 다시 죽는다(감사: decisions 2/5). 큐를 바꾼 직후마다 부른다.
+   */
+  const syncPending = useCallback(() => {
+    setPendingCols((prev) => {
+      const next = pendingRocksRef.current;
+      if (prev.length === next.length && prev.every((v, i) => v === next[i])) return prev;
+      return [...next];
+    });
+  }, []);
 
   // ─── 이펙트 레이어 ───
   // 파티클·득점 표시는 타일이 아니라 보드 위 좌표에 띄운다. 타일에 붙이면 격파와
@@ -473,7 +507,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
         if (f) cands.push({ w: f.w, freshIdx: f.idx });
       }
 
-      let dup = shuffle(onEns).filter((en) => (counts.get(en) ?? 0) < COPY_MAX);
+      let dup = shuffle(onEns).filter((en) => (counts.get(en) ?? 0) < copyMax);
       const young = dup.filter((en) => (askedRef.current.get(en) ?? 0) < RETIRE_ASKED);
       if (young.length > 0) dup = young;
       dup.sort((x, y) => (counts.get(x) ?? 0) - (counts.get(y) ?? 0));
@@ -497,7 +531,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       for (const c of cands) if (!wouldChain(b, i, c.w.en)) return take(c);
       return take(cands[0] ?? { w: pool[0] });
     },
-    [activeTarget, hardMax, mkRockCell, mkWordCell, peekFresh, pool, wordByEn],
+    [activeTarget, copyMax, hardMax, mkRockCell, mkWordCell, peekFresh, pool, wordByEn],
   );
 
   /**
@@ -546,15 +580,18 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     });
   }, []);
 
-  const startPrompt = useCallback((clearsNow: number, extraMs: number) => {
-    const grace = firstPromptRef.current ? FIRST_GRACE_MS : 0;
-    firstPromptRef.current = false;
-    touchedRef.current = false;
-    stageRef.current = 'playing';
-    setStage('playing');
-    // reset 은 stage 갱신과 같은 동기 블록에서 — 그래야 일시정지분이 정확히 복원된다.
-    clockRef.current.reset(windowMsFor(clearsNow) + extraMs + grace);
-  }, []);
+  const startPrompt = useCallback(
+    (clearsNow: number, extraMs: number, rocksNow: number) => {
+      const grace = firstPromptRef.current ? FIRST_GRACE_MS : 0;
+      firstPromptRef.current = false;
+      touchedRef.current = false;
+      stageRef.current = 'playing';
+      setStage('playing');
+      // reset 은 stage 갱신과 같은 동기 블록에서 — 그래야 일시정지분이 정확히 복원된다.
+      clockRef.current.reset(windowWithRocks(clearsNow, goal, rocksNow) + extraMs + grace);
+    },
+    [goal],
+  );
 
   const finish = useCallback(
     (didWin: boolean) => {
@@ -605,6 +642,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setClears(0);
       setLives(LIVES);
       setTide(0);
+      setPendingCols([]);
       setBestChain(0);
       setWon(false);
       setBestInfo(null);
@@ -618,7 +656,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setFx([]);
       setBanner(null);
       setAnnounce(t ? `뜻 ${t.ko} · 맞는 단어를 짚으세요` : '');
-      startPrompt(0, 0);
+      startPrompt(0, 0, 0);
     },
     [chooseCell, pickTarget, playable, pool, startPrompt, wordByEn],
   );
@@ -669,7 +707,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       }
 
       // 주기 낙석 — 2막부터 보드가 조금씩 굳는다.
-      const cad = rockCadence(actOf(clearsNow));
+      const cad = rockCadence(actOf(clearsNow, goal));
       if (cad > 0) {
         sinceRockRef.current += 1;
         if (sinceRockRef.current >= cad) {
@@ -680,11 +718,18 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
       // 다음 뜻은 **리필까지 끝난 보드**에서 뽑는다. 리필 전 보드에서 뽑으면
       // "방금 떨어진 타일은 절대 정답이 아니다"가 규칙이 돼 후보가 조용히 좁혀진다.
+      const rocksBefore = rockCount(cur);
       const filled = fillEmpty(cur, chooseCell);
+      syncPending();
+      const rocksNow = rockCount(filled.board);
       const t = pickTarget(filled.board, lastEn);
       if (!t) {
         finish(false);
         return;
+      }
+      // 돌이 새로 앉으면 그 사실을 말해 준다 — 돌세(물살이 좁아짐)는 숨은 벌이면 안 된다.
+      if (rocksNow > rocksBefore) {
+        setBanner({ text: '돌이 앉았어요 · 물살이 조금 좁아져요', tone: 'cost', key: Date.now() });
       }
 
       // 뜻과 낙하를 같은 프레임에 — 떨어지는 동안 뜻을 읽을 수 있고, 시계는 낙하가
@@ -699,10 +744,10 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setFreshIds(EMPTY_IDS);
       const extra = (link > 0 ? CHAIN_GRACE_MS : 0) + bonusMsRef.current;
       bonusMsRef.current = 0;
-      startPrompt(clearsNow, extra);
+      startPrompt(clearsNow, extra, rocksNow);
       restoreFocus();
     },
-    [addFx, alive, chooseCell, finish, pickTarget, restoreFocus, sfx, startPrompt],
+    [addFx, alive, chooseCell, finish, goal, pickTarget, restoreFocus, sfx, startPrompt, syncPending],
   );
 
   // ─── 정답 ───
@@ -742,7 +787,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       let refunded = false;
       if (livesRef.current <= 1) {
         tideRef.current += 1 + Math.max(0, cluster.length - 1);
-        while (tideRef.current >= TIDE_NEED && livesRef.current < LIVES && refundRef.current < TIDE_MAX_REFUND) {
+        while (tideRef.current >= TIDE_NEED && livesRef.current < LIVES && refundRef.current < refundCap) {
           tideRef.current -= TIDE_NEED;
           livesRef.current += 1;
           refundRef.current += 1;
@@ -755,10 +800,11 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       // ── 비용 — 깊은 낙차는 위를 크게 흔든다(2막부터 낙석 1개 예약) ──
       // 이게 없으면 '가장 낮은 장'이 점수·자원 양쪽에서 무조건 최선이라 결정이 죽는다.
       let shook = false;
-      if (settled.fell >= DEEP_FELL && actOf(nextClears) >= 2 && rockCount(settled.board) < MAX_ROCKS) {
+      if (settled.fell >= DEEP_FELL && actOf(nextClears, goal) >= 2 && rockCount(settled.board) < MAX_ROCKS) {
         pendingRocksRef.current.push(colOf(index));
         shook = true;
       }
+      if (canceled > 0 || shook) syncPending();
 
       const tag =
         rocks.length > 0
@@ -799,20 +845,21 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       await sleep(FALL_MS);
       if (!alive(my)) return;
 
-      if (nextClears >= GOAL) {
+      if (nextClears >= goal) {
         finish(true);
         return;
       }
-      if (nextClears === 14 || nextClears === 28) {
+      const nextAct = actOf(nextClears, goal);
+      if (nextAct !== actOf(nextClears - 1, goal)) {
         setBanner({
-          text: nextClears === 14 ? '2막 — 물살이 빨라지고 낙석이 시작돼요' : '3막 — 낙석이 잦아져요',
+          text: nextAct === 2 ? '2막 — 물살이 빨라지고 낙석이 시작돼요' : '3막 — 낙석이 잦아져요',
           tone: 'act',
           key: Date.now(),
         });
       }
       await settleAndContinue(my, settled.board, nextClears, cell.word.en);
     },
-    [addFx, alive, clears, finish, record, settleAndContinue, sfx],
+    [addFx, alive, clears, finish, goal, record, refundCap, settleAndContinue, sfx, syncPending],
   );
 
   // ─── 오답 · 시간초과 ───
@@ -829,14 +876,15 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       setStage('reveal');
 
       // 방치 가드 — 보드를 한 번도 건드리지 않은 시간초과가 연속되면 세션을 접는다.
-      // 마지막 한 번은 FSRS 에 올리지 않는다(자리를 비운 사람의 '오답'은 인출 실패가
-      // 아니다). 그 앞의 것들은 정직하게 오답으로 올린다 — 모르는 단어일수록
-      // 오답으로 올라가야 복습이 잡힌다.
+      // **첫 번째**는 정직하게 오답으로 올린다: 뜻을 읽고도 단어를 못 찾아 손이
+      // 멈춘 것이야말로 인출 실패이고, 모르는 단어일수록 오답으로 올라가야 복습이
+      // 잡힌다. 연속 2회째부터는 자리를 비운 쪽으로 보고 assisted 로 돌려 FSRS 를
+      // 건드리지 않는다 — 방치 한 판이 만드는 가짜 lapse 는 최대 1회다.
       const idle = kind === 'timeout' && !touchedRef.current;
       idleRef.current = idle ? idleRef.current + 1 : 0;
       const bail = idleRef.current >= IDLE_LIMIT;
 
-      record(t, false, bail);
+      record(t, false, idleRef.current >= 2);
       missedRef.current.set(t.en, t);
       revealedRef.current.add(t.en);
       comboRef.current.miss();
@@ -874,6 +922,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       let next = b0;
       if (ansCell) {
         pendingRocksRef.current.push(colOf(ansIdx));
+        syncPending();
         next = compact(removeIds(b0, new Set([ansCell.id]))).board;
         setBoard(next);
         await sleep(FALL_MS);
@@ -881,7 +930,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       }
       await settleAndContinue(my, next, clears, t.en);
     },
-    [alive, board, clears, finish, record, settleAndContinue, target],
+    [alive, board, clears, finish, record, settleAndContinue, syncPending, target],
   );
   const missRef = useRef(handleMiss);
   missRef.current = handleMiss;
@@ -947,13 +996,19 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   }, [onExit]);
 
   // ─── 파생 ───
-  const act = actOf(clears);
+  const act = actOf(clears, goal);
   const glow = act === 1 ? 'rgba(120,224,235,.32)' : act === 2 ? 'rgba(120,224,235,.46)' : 'rgba(150,236,244,.60)';
   const busy = stage !== 'playing';
+  const tideOpen = lives <= 1 && refundRef.current < refundCap;
+  /** 뭉친 장이 지금 실제로 무언가를 사는가 — 취소할 낙석이 있거나 만조가 열렸을 때만. */
+  const groupPays = pendingCols.length > 0 || tideOpen;
+  const groupLabel = pendingCols.length > 0 ? '뭉친 장(고르면 낙석 취소)' : '뭉친 장(고르면 만조 +)';
 
   // 어포던스 표식 — '돌 옆의 장'과 '뭉친 장'을 눈으로 찾지 않아도 되게 미리 칠한다.
   // 이 정보는 타깃과 무관하므로 정답을 좁히지 않는다. 스캔 비용이 사라져야
   // "숙고 0.2초 = 순손실" 이던 계산이 뒤집힌다(감사 지적 1번의 핵심).
+  // 값을 못 사는 표식은 아예 칠하지 않는다 — 1막에는 낙석 예약이 없으므로
+  // '뭉친 장' 표식이 뜨면 살 수 없는 것을 광고하는 셈이 된다(인지부하 4항목).
   const marks = useMemo(() => {
     const rock = new Set<number>();
     const group = new Set<number>();
@@ -961,10 +1016,10 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       const c = board[i];
       if (!isWordCell(c)) continue;
       if (touchesRock(board, i)) rock.add(c.id);
-      if (clusterAt(board, i).length >= 2) group.add(c.id);
+      if (groupPays && clusterAt(board, i).length >= 2) group.add(c.id);
     }
     return { rock, group };
-  }, [board]);
+  }, [board, groupPays]);
 
   const tileState = useCallback(
     (cell: Cell): TileState => {
@@ -988,8 +1043,6 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
   if (!playable) return <NotEnoughWords need={DISTINCT_MIN} onExit={onExit} />;
 
-  const tideVisible = lives <= 1 && refundRef.current < TIDE_MAX_REFUND;
-
   return (
     <div className="gk-root cs-root">
       <GameMusic gameId="cascade" />
@@ -1001,7 +1054,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       <style dangerouslySetInnerHTML={{ __html: CS_CSS }} />
       <Hud
         score={shownScore}
-        progress={clears / GOAL}
+        progress={clears / goal}
         combo={combo.combo}
         comboMult={combo.mult}
         lives={{ total: LIVES, left: lives, label: '남은 물방울' }}
@@ -1010,10 +1063,10 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
             <div className="cs-count">
               <span className="gk-stat-label">인출</span>
               <span className="cs-count-val">
-                {clears}/{GOAL}
+                {clears}/{goal}
               </span>
             </div>
-            {tideVisible && (
+            {tideOpen && (
               <div className="cs-tide" aria-label={`만조 ${tide}/${TIDE_NEED} · 채우면 물방울 하나`}>
                 <span className="gk-stat-label">만조</span>
                 <span className="cs-tide-pips" aria-hidden="true">
@@ -1037,7 +1090,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
           celebrate={won}
           stats={[
             { num: score.toLocaleString(), label: '점수', accent: true },
-            { num: `${clears}/${GOAL}`, label: '인출한 뜻' },
+            { num: `${clears}/${goal}`, label: '인출한 뜻' },
             { num: combo.best, label: '최고 연속' },
             { num: bestChain > 0 ? `${bestChain}단` : '—', label: '최고 연쇄' },
           ]}
@@ -1045,7 +1098,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
           badge={
             won ? (
               <>
-                <FeedbackIcon kind="correct" size={13} /> 완주 · 뜻 {GOAL}개
+                <FeedbackIcon kind="correct" size={13} /> 완주 · 뜻 {goal}개
               </>
             ) : bestInfo?.improved ? (
               <>
@@ -1056,7 +1109,7 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
           restartHint={
             missedList.length > 0
               ? `놓친 뜻 ${missedList.length}개 · 다음 판에서 먼저 만날 수 있어요`
-              : '물방울이 하나 남으면 만조가 차오릅니다 · 세션당 2번까지 돌려받아요'
+              : `물방울이 하나 남으면 만조가 차오릅니다 · 한 판에 ${refundCap}번까지 돌려받아요`
           }
           reveal={
             missedList.length > 0 ? (
@@ -1134,58 +1187,91 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
             )}
           </section>
 
-          <div
-            className={`cs-board ${busy ? 'cs-board--locked' : ''}`}
-            role="grid"
-            aria-label="단어 보드"
-            ref={boardElRef}
-            onKeyDown={onBoardKeyDown}
-          >
-            {Array.from({ length: ROWS }, (_, r) => (
-              <div key={r} className="cs-row" role="row">
+          {/* 예보 줄과 보드는 열이 정확히 맞아야 하므로 한 상자에 담는다. */}
+          <div className="cs-boardwrap">
+            {/* 낙석 예보 — 예약된 돌이 어느 열로 떨어지는지. 이게 없으면 '뭉친 장 =
+                낙석 취소'가 보이지 않는 화폐가 돼 매 턴의 트레이드오프가 성립하지 않는다.
+                예약이 없는 1막에는 아예 나타나지 않는다(Progressive Disclosure). */}
+            {pendingCols.length > 0 && (
+              <div
+                className="cs-forecast"
+                role="img"
+                aria-label={`낙석 예보 ${pendingCols.length}개 · 뭉친 장을 짚으면 하나씩 취소돼요`}
+              >
                 {Array.from({ length: COLS }, (_, c) => {
-                  const i = r * COLS + c;
-                  const cell = board[i];
-                  if (!cell) {
-                    return <div key={`hole-${i}`} className="cs-cell cs-cell--empty" role="gridcell" aria-label="빈 칸" />;
-                  }
-                  const st = tileState(cell);
+                  const n = pendingCols.reduce((a, x) => a + (x === c ? 1 : 0), 0);
                   return (
-                    <Tile
-                      key={cell.id}
-                      cell={cell}
-                      index={i}
-                      state={st}
-                      mark={tileMark(cell)}
-                      fresh={freshIds.has(cell.id)}
-                      revealKo={st === 'answer' && isWordCell(cell) ? cell.word.ko : undefined}
-                      flipRef={flip.ref}
-                      onTap={onTap}
-                    />
+                    <span key={c} className={`cs-fc ${n > 0 ? 'cs-fc--on' : ''}`} aria-hidden="true">
+                      {n > 0 && (
+                        <>
+                          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 4v10" />
+                            <path d="M7.5 10.5 12 15l4.5-4.5" />
+                            <path d="M5 20h14" opacity=".6" />
+                          </svg>
+                          {n > 1 && <em className="cs-fc-n">{n}</em>}
+                        </>
+                      )}
+                    </span>
                   );
                 })}
               </div>
-            ))}
-            <div className="cs-fx" aria-hidden="true">
-              {fx.map((f) => (
-                <span
-                  key={f.key}
-                  className="cs-fx-at"
-                  style={{
-                    left: `${(((f.index % COLS) + 0.5) / COLS) * 100}%`,
-                    top: `${((Math.floor(f.index / COLS) + 0.5) / ROWS) * 100}%`,
-                  }}
-                >
-                  {f.burst !== undefined && <ParticleBurst intensity={f.burst} colors={f.colors} />}
-                  {f.gain !== undefined && (
-                    <span className="cs-gain">
-                      +{f.gain}
-                      {f.tag && <em className="cs-gain-tag">{f.tag}</em>}
-                      {f.cost && <em className="cs-gain-cost">{f.cost}</em>}
-                    </span>
-                  )}
-                </span>
+            )}
+
+            <div
+              className={`cs-board ${busy ? 'cs-board--locked' : ''}`}
+              role="grid"
+              aria-label="단어 보드"
+              ref={boardElRef}
+              onKeyDown={onBoardKeyDown}
+            >
+              {Array.from({ length: ROWS }, (_, r) => (
+                <div key={r} className="cs-row" role="row">
+                  {Array.from({ length: COLS }, (_, c) => {
+                    const i = r * COLS + c;
+                    const cell = board[i];
+                    if (!cell) {
+                      return <div key={`hole-${i}`} className="cs-cell cs-cell--empty" role="gridcell" aria-label="빈 칸" />;
+                    }
+                    const st = tileState(cell);
+                    return (
+                      <Tile
+                        key={cell.id}
+                        cell={cell}
+                        index={i}
+                        state={st}
+                        mark={tileMark(cell)}
+                        groupLabel={groupLabel}
+                        fresh={freshIds.has(cell.id)}
+                        revealKo={st === 'answer' && isWordCell(cell) ? cell.word.ko : undefined}
+                        flipRef={flip.ref}
+                        onTap={onTap}
+                      />
+                    );
+                  })}
+                </div>
               ))}
+              <div className="cs-fx" aria-hidden="true">
+                {fx.map((f) => (
+                  <span
+                    key={f.key}
+                    className="cs-fx-at"
+                    style={{
+                      left: `${(((f.index % COLS) + 0.5) / COLS) * 100}%`,
+                      top: `${((Math.floor(f.index / COLS) + 0.5) / ROWS) * 100}%`,
+                    }}
+                  >
+                    {f.burst !== undefined && <ParticleBurst intensity={f.burst} colors={f.colors} />}
+                    {f.gain !== undefined && (
+                      <span className="cs-gain">
+                        +{f.gain}
+                        {f.tag && <em className="cs-gain-tag">{f.tag}</em>}
+                        {f.cost && <em className="cs-gain-cost">{f.cost}</em>}
+                      </span>
+                    )}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -1197,7 +1283,8 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
               </>
             ) : (
               <>
-                <b>돌 옆</b>은 다음 뜻의 시간 · <b>뭉친 장</b>은 낙석 취소 · <b>낮은 장</b>은 점수지만 위를 흔들어요
+                쌓인 <b>돌</b>은 물살을 좁혀요 · <b>돌 옆</b>을 짚으면 부수고 시간을 벌고 · <b>뭉친 장</b>은 낙석 취소 ·{' '}
+                <b>낮은 장</b>은 점수
               </>
             )}
           </p>
@@ -1208,7 +1295,9 @@ export function CascadeGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 }
 
 const CS_CSS = `
-  .cs-root .gk-stage { gap: clamp(12px, 2.2vh, 20px); justify-content: flex-start; padding-top: clamp(10px, 2.4vh, 22px); }
+  /* 보드 폭은 한 곳에서만 정한다 — 예보 줄이 열과 정확히 맞아야 '어느 열에 떨어지는지'가 읽힌다. */
+  .cs-root { --cs-w: max(240px, min(470px, 92vw, calc(100dvh - 368px))); --cs-gap: clamp(7px, 1.5vw, 11px); }
+  .cs-root .gk-stage { gap: clamp(10px, 2vh, 18px); justify-content: flex-start; padding-top: clamp(10px, 2.4vh, 22px); }
 
   /* HUD 는 7칸이라 gamekit 의 6열 그리드를 넘긴다 — 데스크톱에서 '나가기'가 2행으로
      떨어지던 문제. 이 게임에서만 flex-wrap 으로 바꾼다(공용 킷은 건드리지 않는다). */
@@ -1258,12 +1347,25 @@ const CS_CSS = `
   .cs-banner--cost { color: var(--warning); border-color: color-mix(in srgb, var(--warning) 55%, var(--bd)); }
   @keyframes cs-banner { 0% { opacity: 0; transform: translate(-50%, 6px); } 12% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -6px); } }
 
+  .cs-boardwrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+  /* ── 낙석 예보 ── */
+  /* 열 하나당 칸 하나. 보드와 같은 그리드라 '이 열 위에 돌이 걸려 있다'가 즉시 보인다. */
+  .cs-forecast { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--cs-gap); width: var(--cs-w);
+    margin-bottom: -4px; animation: cs-fc-in .24s ease-out; }
+  .cs-fc { display: flex; align-items: center; justify-content: center; gap: 2px; height: 17px; border-radius: 6px;
+    border: 1px dashed color-mix(in srgb, var(--t1) 12%, transparent); color: transparent; }
+  .cs-fc--on { border-style: solid; border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+    background: color-mix(in srgb, var(--warning) 12%, transparent); color: var(--warning); }
+  .cs-fc-n { font-style: normal; font-size: 10px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  @keyframes cs-fc-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
   /* ── 보드 ── */
   /* 100vh 는 iOS 주소창 때문에 실제보다 크고, 844×390 가로모드에서 계산값이 50px 까지
      내려가 타일이 7px 이 됐다(44px 터치 타깃 위반). dvh + 하한으로 막는다. */
-  .cs-board { position: relative; display: grid; grid-template-rows: repeat(4, 1fr); gap: clamp(7px, 1.5vw, 11px);
-    width: max(240px, min(470px, 92vw, calc(100dvh - 340px))); }
-  .cs-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(7px, 1.5vw, 11px); }
+  .cs-board { position: relative; display: grid; grid-template-rows: repeat(4, 1fr); gap: var(--cs-gap);
+    width: var(--cs-w); }
+  .cs-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--cs-gap); }
   .cs-cell { position: relative; aspect-ratio: 1 / 1; border-radius: var(--r-md, 10px); min-height: 44px; }
   .cs-cell--empty { background: color-mix(in srgb, var(--t1) 5%, transparent); border: 1px dashed color-mix(in srgb, var(--t1) 10%, transparent); }
   .cs-fx { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
@@ -1334,11 +1436,13 @@ const CS_CSS = `
   .cs-tile--fresh { animation: cs-drop .32s cubic-bezier(.3,.9,.35,1); }
   @keyframes cs-drop { 0% { transform: translateY(-165%); opacity: .15; } 72% { opacity: 1; } 100% { transform: translateY(0); opacity: 1; } }
 
-  /* 가로모드·낮은 뷰포트 — 카드를 보드 왼쪽에 세우고 도움말을 접어 340px 예약분을 회수한다. */
+  /* 가로모드·낮은 뷰포트 — 카드를 보드 왼쪽에 세우고 도움말을 접어 세로 예약분을 회수한다.
+     예보 줄은 .cs-boardwrap 안에 있어 가로 배치에서도 보드 바로 위에 붙는다. */
   @media (orientation: landscape) and (max-height: 560px) {
     .cs-root .gk-stage { flex-direction: row; align-items: center; justify-content: center; gap: 16px; padding-top: 8px; }
+    .cs-root { --cs-w: max(240px, min(430px, 46vw, calc(100dvh - 112px))); }
     .cs-prompt { width: min(360px, 42vw); min-height: 0; }
-    .cs-board { width: max(240px, min(430px, 46vw, calc(100dvh - 96px))); }
+    .cs-forecast { margin-bottom: 0; }
     .cs-help { display: none; }
   }
 

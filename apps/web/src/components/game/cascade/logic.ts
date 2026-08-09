@@ -15,8 +15,8 @@ export const COLS = 4;
 export const ROWS = 4;
 export const SIZE = COLS * ROWS;
 
-/** 완주 조건 — 이만큼 인출하면 세션이 끝난다(2~4분 완결). */
-export const GOAL = 40;
+/** 완주 조건의 상한 — 큰 풀에서 이만큼 인출하면 세션이 끝난다(2~4분 완결). */
+export const GOAL_MAX = 40;
 /** 물방울(목숨). 오답·시간초과 1회에 하나씩 마른다. */
 export const LIVES = 3;
 /** 보드가 돌로 굳어 게임이 불가능해지지 않게 하는 상한. */
@@ -29,38 +29,90 @@ export const MAX_ROCKS = 5;
  */
 export const DISTINCT_MAX = 8;
 export const DISTINCT_ACTIVE = 6;
-export const DISTINCT_MIN = 5;
-/** 한 단어가 보드를 삼키지 않게 하는 장수 상한. */
-export const COPY_MAX = 3;
+/**
+ * 게임이 **진짜로 성립하는** 서로 다른 단어의 하한.
+ * 4 인 이유: 16칸 보드를 장수 상한 안에서 채울 수 있는 최소치(4×4=16)이고,
+ * 뜻을 모르고 찍는 플레이는 평균 1.6회 인출에서 물방울 셋을 다 쓴다
+ * (시뮬 2,000판 × 풀 4·5·6·8·30 전부 완주율 0.00%).
+ * 스코프 게이트(play/cascade/page.tsx)는 여기에 1 을 얹은 5 다 — ko 완전일치
+ * 중복 제거로 한 개쯤 줄어도 NotEnoughWords 로 튕기지 않게 하는 여유분.
+ */
+export const DISTINCT_MIN = 4;
 /** 이 횟수만큼 출제된 단어는 더 복제하지 않는다 — 자리를 비워 다음 단어를 부른다. */
 export const RETIRE_ASKED = 2;
+
+/**
+ * 한 단어가 보드를 삼키지 않게 하는 장수 상한.
+ * 풀이 작으면 상한을 올려야 16칸이 채워진다(서로 다른 5개 × 3장 = 15 < 16 → 구멍).
+ * 큰 풀에서는 3 그대로.
+ */
+export function copyMaxFor(poolSize: number): number {
+  const need = Math.ceil(SIZE / Math.max(1, poolSize));
+  return Math.max(3, Math.min(6, need));
+}
+
+/**
+ * 완주 목표 — 풀 크기의 함수.
+ * 한 단어를 세 번쯤 만나면 판을 접는다. 그보다 더 돌리면 같은 카드를 계속 다시
+ * 채점하게 되는데, 중앙 가드가 10분 쿨다운으로 어차피 무시하므로 학습에는 보탬이
+ * 없고 세션만 늘어진다. 하한 12 는 '막 3개 + 낙석 등장'이 최소한 한 번씩 돌아가는 길이.
+ */
+export function goalFor(poolSize: number): number {
+  return Math.max(12, Math.min(GOAL_MAX, poolSize * 3));
+}
+
+/**
+ * 만조 환급 상한 — 짧은 판일수록 환급이 상대적으로 커지므로 함께 줄인다.
+ * 40 인출 판에서 2회(=실수 예산 5/40, 정확도 하한 88.9%), 짧은 판에서 1회.
+ */
+export function tideRefundFor(goal: number): number {
+  return goal >= 30 ? 2 : 1;
+}
 
 // ─── 통화(currency) 상수 ──────────────────────────────────────────────────
 // 감사 지적: 낙차12·뭉치45·돌70 이 **전부 점수**라 "어느 장을 짚나"가 결정이 안 됐다
 // (최선-최저 격차 8점 = 숙고 0.2초 비용). 세 갈래를 서로 다른 통화로 가른다.
-//   · 돌 옆의 장 → 다음 뜻의 **시간**
-//   · 뭉친 장   → 예약된 **낙석 취소**(보드) + 만조(목숨)
+//   · 돌 옆의 장 → 다음 뜻의 **시간** + 보드에 앉은 돌의 **돌세 제거**
+//   · 뭉친 장   → 예약된 **낙석 취소**(미래의 돌세) + 만조(목숨)
 //   · 낮은 장   → **점수**. 대신 2막부터 깊은 낙차는 보드를 흔들어 낙석을 부른다(비용).
+//
+// 통화를 나누기만 해서는 부족했다. 이 게임에서 사람을 죽이는 것은 시계뿐인데
+// 돌·낙석이 시계와 무관하면 통화가 아니라 장식이기 때문이다(측정: 통화를 나눈
+// 직후에도 '가장 낮은 장 즉시 탭'이 국면 플레이보다 점수 5% 우위, 완주율 동률).
+// ROCK_TAX_MS 로 **보드에 앉은 돌이 매 뜻의 시간을 갉게** 한 뒤에야 뒤집혔다:
+// 실시간 시뮬(pool 30, 정답률 0.95) 완주율 47.5%(즉시 탭) → 53.8%(국면 플레이).
 
-/** 속도 보너스 가중치. 140 → 70: 숙고 1초의 값이 54점/초 → 27점/초로 내려간다. */
-export const SPEED_PT = 70;
+/**
+ * 속도 보너스 가중치. 140 → 45.
+ * 숙고 1초의 값이 54점/초(구판) → 7~17점/초가 된다. 이게 결정 레이어의 전제다:
+ * 생각하는 값이 통화의 값보다 크면 어떤 통화를 넣어도 "즉시 탭"이 이긴다.
+ */
+export const SPEED_PT = 45;
 /** 낙차 1칸당 점수 — '낮은 장 = 점수' 통화. */
 export const FALL_PT = 12;
 /** 돌 1개 파괴 → 다음 뜻 제한시간 가산. */
-export const ROCK_TIME_MS = 900;
+export const ROCK_TIME_MS = 1100;
 /** 한 턴에 얻을 수 있는 시간 상한(돌 2개분). */
-export const ROCK_TIME_CAP_MS = 1800;
+export const ROCK_TIME_CAP_MS = 2200;
+/**
+ * 보드에 남아 있는 돌 1개가 매 뜻마다 갉는 시간.
+ * 이 게임에서 **사람을 죽이는 것은 시계 하나뿐**이다. 그래서 돌·뭉치·낙석 예약이
+ * 전부 시계로 이어지지 않으면 어떤 통화도 장식이 된다(측정: 통화가 점수뿐일 때
+ * '가장 낮은 장 즉시 탭'이 국면 플레이보다 점수 5% 우위).
+ * 돌은 쌓이면 물살을 좁히고, 돌 옆을 짚으면 그 자리에서 사라지며 시간까지 돌려준다.
+ */
+export const ROCK_TAX_MS = 130;
+/** 돌세를 다 물려도 이 아래로는 내려가지 않는다(공정성 바닥). */
+export const WINDOW_FLOOR_MS = 2200;
+
+/** 돌세를 반영한 실제 제한 시간. */
+export function windowWithRocks(clears: number, goal: number, rocks: number): number {
+  return Math.max(WINDOW_FLOOR_MS, windowMsFor(clears, goal) - ROCK_TAX_MS * Math.max(0, rocks));
+}
 /** 이 낙차 이상이면 보드가 흔들려 낙석이 하나 예약된다(2막부터). */
 export const DEEP_FELL = 4;
 /** 만조 게이지가 이만큼 차면 물방울 하나. */
 export const TIDE_NEED = 2;
-/**
- * 세션당 물방울 환급 상한 — 콤보 순환으로 목숨을 무한 환급하던 구멍의 뚜껑.
- * 2 인 이유: 고의로 '맞히다 틀리다'를 순환하는 플레이어의 완주 하한 정확도를
- * 시뮬로 재면 상한 4 → 85.7%, 3 → 87.5%, 2 → 88.9% 다(구판 콤보 순환은 90.9%).
- * 2 여야 "환급을 노리고 일부러 끊는" 쪽이 구판보다 유의하게 유리해지지 않는다.
- */
-export const TIDE_MAX_REFUND = 2;
 
 export type WordCell = { id: number; kind: 'word'; word: Word };
 export type RockCell = { id: number; kind: 'rock' };
@@ -230,15 +282,23 @@ export function findAnswerIndexes(b: Board, en: string): number[] {
 /**
  * 뜻 하나에 주어지는 시간 — 인출을 거듭할수록 좁아진다.
  * 6.4초 → 2.6초. 계단이 아니라 연속 감소라서 "갑자기 불공정해지는" 구간이 없다.
+ * **진행률**의 함수다(횟수가 아니라). 단어가 적어 goal 이 12~24 인 판에서도
+ * 마지막에는 똑같이 2.6초까지 좁아진다 — 짧은 판이 곧 헐렁한 판이 되지 않게.
  */
-export function windowMsFor(clears: number): number {
-  return Math.max(2600, Math.min(6400, 6400 - 95 * clears));
+export function windowMsFor(clears: number, goal: number = GOAL_MAX): number {
+  const p = goal > 0 ? Math.max(0, Math.min(1, clears / goal)) : 0;
+  return Math.round(6400 - 3800 * p);
 }
 
-/** 막 — 압력 단계. 낙석 주기와 배경 밝기가 여기서 갈린다. */
-export function actOf(clears: number): 1 | 2 | 3 {
-  if (clears < 14) return 1;
-  if (clears < 28) return 2;
+/**
+ * 막 — 압력 단계. 낙석 주기와 배경 밝기가 여기서 갈린다.
+ * 경계도 진행률 기준(35% · 70%) — goal 40 이면 14/28 로 종전과 같고,
+ * goal 15 짜리 짧은 판에서도 3막이 전부 돌아간다.
+ */
+export function actOf(clears: number, goal: number = GOAL_MAX): 1 | 2 | 3 {
+  const p = goal > 0 ? clears / goal : 0;
+  if (p < 0.35) return 1;
+  if (p < 0.7) return 2;
   return 3;
 }
 

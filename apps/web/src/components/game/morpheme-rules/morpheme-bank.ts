@@ -39,7 +39,10 @@ export const PREFIXES: Prefix[] = [
   { text: 'un', ko: '되돌림·벗겨냄', rule: 'un- 은 이미 된 것을 되돌리거나 벗겨낸다' },
   { text: 're', ko: '다시', rule: 're- 는 한 번 있었던 일을 다시 한다' },
   { text: 'dis', ko: '부정·흩음', rule: 'dis- 는 있던 상태를 부정하거나 흩어 놓는다' },
-  { text: 'over', ko: '한도 너머', rule: 'over- 는 정해진 한도를 넘어선다' },
+  // over- 는 두 갈래다: 한도를 넘는 쪽(overload·overpay)과 위에서 덮어 누르는 쪽
+  // (oversee·overcast·overwrite). 규칙 한 줄이 앞쪽만 말해서 뒤쪽 주문들이 설명 없이
+  // 서 있었다 — 오답 직후 인쇄되는 가르치는 한 줄이므로 두 갈래를 다 담는다.
+  { text: 'over', ko: '한도 너머·위에서', rule: 'over- 는 정해진 한도를 넘거나 위에서 덮어 누른다' },
   { text: 'pre', ko: '미리', rule: 'pre- 는 일이 벌어지기 전에 먼저 한다' },
   { text: 'fore', ko: '앞일·앞을', rule: 'fore- 는 앞일을 미리 알거나 앞을 막는다' },
   { text: 'en', ko: '~하게 만들다', rule: 'en- 은 형용사·명사를 "그렇게 만들다"로 바꾼다' },
@@ -75,6 +78,24 @@ export const ROOTS: Root[] = [
   { text: 'see', ko: '보다·알다' },
   { text: 'judge', ko: '판단하다' },
   { text: 'lead', ko: '이끌다' },
+
+  // ── v07.10 확장 어근 12종 ────────────────────────────────────────────────
+  // 반증 실측: 봉인 단어 61개 중 DB vocabularies(2,034 distinct)와 겹치는 것이 7개뿐이라
+  // recordGameResult 가 99.7% silent skip 됐다 — 이 게임은 FSRS 에 사실상 닿지 않았다.
+  // DB 에 실제로 있으면서 **자립 어근 + 접두사** 로 정확히 쪼개지는 단어만 골라 넣는다
+  // (release=re+lease 같은 가짜 분해는 넣지 않는다 — 잘못 가르치는 것이 더 나쁘다).
+  { text: 'like', ko: '좋아하다' },
+  { text: 'obey', ko: '따르다' },
+  { text: 'courage', ko: '용기' },
+  { text: 'mount', ko: '올라타다' },
+  { text: 'claim', ko: '권리를 주장하다' },
+  { text: 'call', ko: '부르다' },
+  { text: 'gain', ko: '얻다' },
+  { text: 'turn', ko: '돌리다·돌다' },
+  { text: 'run', ko: '달리다' },
+  { text: 'shadow', ko: '그림자' },
+  { text: 'fortune', ko: '운·재물' },
+  { text: 'occupy', ko: '차지하다' },
 ];
 
 /** 실재 단어 61종. need 는 장면 서술 — 정답 단어의 사전 뜻을 그대로 인쇄하지 않는다. */
@@ -147,6 +168,30 @@ export const SPELLS: Spell[] = [
   { p: 'mis', r: 'use', word: 'misuse', ko: '잘못 쓰다', need: '적의 지팡이를 엉뚱하게 쓰게 만들어야 한다', icon: '🦯', done: '💫', effect: '지팡이가 헛돌았다' },
   { p: 'mis', r: 'lead', word: 'mislead', ko: '엉뚱한 길로 이끌다', need: '추격대를 다른 길로 보내야 한다', icon: '🐺', done: '🌲', effect: '추격대가 멀어졌다' },
   { p: 'mis', r: 'read', word: 'misread', ko: '잘못 읽다', need: '문지기가 통행증을 꼼꼼히 읽고 있다', icon: '📚', done: '😵', effect: '문지기가 헷갈렸다' },
+
+  // ── v07.10 확장 주문 18종 (학습자 단어장 실측 기반) ───────────────────────
+  // 선정 기준 3가지를 모두 만족하는 것만 넣었다.
+  //   ① DB vocabularies 에 실제로 있는 단어이거나, 같은 어근을 공유해 격자를 채우는 짝
+  //   ② 접두사 + 자립 어근으로 형태론적으로 정확히 쪼개진다
+  //   ③ 뱅크 안 다른 주문과 뜻이 겹치지 않는다(장면이 두 답을 허용하면 불공정하다)
+  { p: 'dis', r: 'like', word: 'dislike', ko: '싫어하다', need: '수문장이 이 향을 마음에 들어 해 문 앞을 뜨지 않는다', icon: '🌸', done: '🤢', effect: '수문장이 자리를 떴다' },
+  { p: 'dis', r: 'obey', word: 'disobey', ko: '거역하다', need: '멈추라는 명령이 발을 묶는다', icon: '📯', done: '🙅', effect: '명령을 거슬렀다' },
+  { p: 'dis', r: 'courage', word: 'discourage', ko: '기를 꺾다', need: '적의 사기가 하늘을 찌른다', icon: '🔥', done: '😔', effect: '적의 기가 꺾였다' },
+  { p: 'en', r: 'courage', word: 'encourage', ko: '북돋우다', need: '동료가 겁에 질려 주저앉았다', icon: '😰', done: '🦁', effect: '동료가 일어섰다' },
+  { p: 'dis', r: 'mount', word: 'dismount', ko: '내려서다', need: '굴 입구가 낮아 말을 탄 채로는 못 지난다', icon: '🐴', done: '🚶', effect: '말에서 내렸다' },
+  { p: 'dis', r: 'claim', word: 'disclaim', ko: '관련을 부인하다', need: '남의 죄가 우리 이름으로 적혀 있다', icon: '🪧', done: '🫱', effect: '이름을 지워 냈다' },
+  { p: 're', r: 'claim', word: 'reclaim', ko: '되찾아 오다', need: '빼앗긴 땅문서가 저들 금고에 있다', icon: '🧾', done: '🏔', effect: '땅문서를 되찾았다' },
+  { p: 're', r: 'mount', word: 'remount', ko: '다시 올라타다', need: '떨어졌던 안장이 다시 채워졌다 — 추격을 이어야 한다', icon: '🪜', done: '🐎', effect: '다시 말에 올랐다' },
+  { p: 're', r: 'call', word: 'recall', ko: '다시 불러들이다', need: '먼저 보낸 정찰대가 함정 쪽으로 가고 있다', icon: '📣', done: '🫡', effect: '정찰대가 돌아왔다' },
+  { p: 're', r: 'gain', word: 'regain', ko: '다시 얻다', need: '한 번 깨진 신뢰가 성문을 닫아 두고 있다', icon: '🤝', done: '💠', effect: '신뢰를 다시 얻었다' },
+  { p: 're', r: 'turn', word: 'return', ko: '돌려주다·돌아가다', need: '빌린 열쇠를 주인에게 돌려줘야 길이 열린다', icon: '🛎', done: '🙇', effect: '열쇠를 돌려줬다' },
+  { p: 'over', r: 'turn', word: 'overturn', ko: '엎어 뒤집다', need: '독이 든 솥이 그대로 끓고 있다', icon: '🍯', done: '🌊', effect: '솥을 엎었다' },
+  { p: 'over', r: 'run', word: 'overrun', ko: '넘쳐 뒤덮다', need: '작은 틈으로 들어간 것들이 성을 뒤덮어야 한다', icon: '🐜', done: '🏰', effect: '성이 뒤덮였다' },
+  { p: 're', r: 'run', word: 'rerun', ko: '다시 돌리다', need: '멈춰 선 물레방아를 처음부터 다시 돌려야 한다', icon: '📽', done: '🎞', effect: '물레방아가 다시 돌았다' },
+  { p: 'over', r: 'shadow', word: 'overshadow', ko: '가려 무색하게 하다', need: '옆 봉화가 너무 밝아 우리 신호가 묻히지 않는다', icon: '🌞', done: '🌒', effect: '옆 봉화가 묻혔다' },
+  { p: 'fore', r: 'shadow', word: 'foreshadow', ko: '앞일을 비추다', need: '닥칠 일을 그림자로 미리 비춰 보여야 한다', icon: '🌘', done: '🖼', effect: '앞일이 비쳤다' },
+  { p: 'mis', r: 'fortune', word: 'misfortune', ko: '불운', need: '저들의 점괘가 지나치게 길하다', icon: '🍀', done: '🌑', effect: '점괘가 뒤틀렸다' },
+  { p: 'pre', r: 'occupy', word: 'preoccupy', ko: '미리 마음을 붙들다', need: '보초가 교대 전에 딴 데 정신이 팔려야 한다', icon: '💭', done: '🌫', effect: '보초가 딴생각에 잠겼다' },
 ];
 
 export const PREFIX_BY_TEXT: Record<string, Prefix> = Object.fromEntries(PREFIXES.map((p) => [p.text, p]));
@@ -216,11 +261,24 @@ interface CorridorCfg {
   sub: string;
 }
 
+// v07.10 — 보상 곡선을 킷의 가산 상한 안으로 넣었다.
+//
+// useCountdown 은 "가산 총량 ≤ 총 제한시간의 75%" 를 강제한다(세션이 무한히 늘어나지
+// 않도록). 이전 곡선(9/8/7/6 + 회랑 통과 5, 확신 +2×3)은 완주 시 129초를 요청하는데
+// 상한은 97.5초였다 → **회랑 4의 봉인 2~4번과 통과 보너스, 확신 보너스 전부가 0초**로
+// 들어갔다. 화면은 그동안 "+6초"라고 계속 인쇄했다(시뮬 실측: 완주당 거짓 표기 6건 ·
+// 25.5초). 잘하는 학습자일수록 보상이 사라지는, 방향이 뒤집힌 설계이기도 했다.
+//
+// 조정: 총 제한시간 140초(상한 105초) · 보상 9/8/5/3 · 통과 3초 · 확신 +2×3
+//   = 최대 요청 101초 ≤ 105초 → 거짓 표기 0건.
+// 난이도는 그대로다(사람 속도 모델 n=4,000/셀 시뮬): 전 회랑 통과율
+//   p=0.7 93.7% → 94.0% · p=0.55 53.7% → 55.0% · 평균 봉인 12.50 → 12.50.
+// 보상 감쇠가 가팔라진 만큼(9→8→5→3) 깊은 회랑의 "시간이 안 돌아온다"는 긴장은 커진다.
 export const CORRIDOR_CFG: CorridorCfg[] = [
   { nPre: 3, nRoot: 3, seals: 3, targetValid: 5, rewardMs: 9000, penaltyMs: 5000, title: '봉인된 회랑', sub: '장면이 원하는 뜻을 형태소로 만들어 발동해라.' },
   { nPre: 3, nRoot: 4, seals: 3, targetValid: 6, rewardMs: 8000, penaltyMs: 6000, title: '흩어진 방', sub: '실재하는 말이 늘었다 — 뜻까지 맞아야 통한다.' },
-  { nPre: 4, nRoot: 4, seals: 4, targetValid: 8, rewardMs: 7000, penaltyMs: 6000, title: '시간의 계단', sub: '미끼가 많다. 확신할 때만 확신해라.' },
-  { nPre: 4, nRoot: 4, seals: 4, targetValid: 9, rewardMs: 6000, penaltyMs: 7000, title: '마지막 문', sub: '시간은 줄고 미끼는 늘었다.' },
+  { nPre: 4, nRoot: 4, seals: 4, targetValid: 8, rewardMs: 5000, penaltyMs: 6000, title: '시간의 계단', sub: '미끼가 많다. 확신할 때만 확신해라.' },
+  { nPre: 4, nRoot: 4, seals: 4, targetValid: 9, rewardMs: 3000, penaltyMs: 7000, title: '마지막 문', sub: '시간은 줄고 미끼는 늘었다.' },
 ];
 
 export const TOTAL_SEALS = CORRIDOR_CFG.reduce((n, c) => n + c.seals, 0);
