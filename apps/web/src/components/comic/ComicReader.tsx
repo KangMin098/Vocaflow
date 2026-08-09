@@ -16,6 +16,7 @@ import { ArrowLeft, ArrowRight, BookImage, BookOpen, Check, Eye, ListChecks, Loa
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { addWordToVault } from '@/lib/wordvault/add-word'
+import { defaultReaderMode } from '@/lib/comic/format'
 
 interface VocabInfo {
   found?: boolean
@@ -50,6 +51,7 @@ interface ComicReaderProps {
   pages: ComicPage[]
   libraryBookId?: string | null
   initialIndex?: number
+  format?: string | null // 구성 방식(포맷) — 읽는 방식 기본값(웹툰=세로 스크롤 / 그 외=페이지 넘김)
 }
 
 const ON_GOLD = '#231a09' // gold(--active) 위 고대비 텍스트 (AA 통과, 양 테마)
@@ -77,7 +79,7 @@ const isTextEntry = (el: EventTarget | null): boolean =>
 const isOnControl = (el: EventTarget | null): boolean =>
   el instanceof HTMLElement && el !== document.body && !!el.closest('button,a')
 
-export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, initialIndex = 0 }: ComicReaderProps) {
+export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, initialIndex = 0, format = null }: ComicReaderProps) {
   const total = pages.length
   const [i, setI] = useState(0)
   const [revealed, setRevealed] = useState<Set<string>>(new Set())
@@ -92,7 +94,8 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
   const [vocabBusy, setVocabBusy] = useState(false)
   const [added, setAdded] = useState<'idle' | 'adding' | 'done' | 'exists'>('idle')
   const [recalled, setRecalled] = useState<Set<string>>(new Set()) // 세션 회상 성공(자기효능감)
-  const [view, setView] = useState<'page' | 'scroll'>('page') // 페이지 넘김 / 세로 스크롤(웹툰형)
+  // 읽는 방식 기본값 = 구성 방식(웹툰/만화-스크롤 → 세로 스크롤, 그 외 → 페이지 넘김). 저장된 사용자 선택이 우선(아래 effect).
+  const [view, setView] = useState<'page' | 'scroll'>(() => defaultReaderMode(format))
   const touch = useRef<{ x: number; y: number; moved: boolean } | null>(null)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const bumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null)

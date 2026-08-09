@@ -78,12 +78,15 @@ export default async function ComicModePage({ params }: PageProps) {
   // RPC 미적용/미발행 전부 graceful degrade.
   let pages: ComicPage[] = []
   let bookTitle = t.title ?? '이야기'
+  let comicFormat: string | null = null // 구성 방식(포맷) → 리더 읽는 방식 자동 결정. RPC 미적용 시 null(page)
   try {
-    const [{ data: book }, allRes] = await Promise.all([
+    const [{ data: book }, allRes, fmtRes] = await Promise.all([
       client.from('library_books').select('title').eq('id', t.library_book_id).maybeSingle(),
       client.rpc('select_book_comic_all', { p_book_id: t.library_book_id }),
+      client.rpc('get_comic_format', { p_book_id: t.library_book_id }),
     ])
     if (book) bookTitle = (book as { title: string }).title ?? bookTitle
+    if (typeof fmtRes?.data === 'string') comicFormat = fmtRes.data
     let rows = allRes.data
     let error = allRes.error
     // 폴백: 전권 RPC 미적용/미발행 시 챕터 단위(구 RPC)로 — 마이그레이션 전에도 리더 유지
@@ -145,6 +148,7 @@ export default async function ComicModePage({ params }: PageProps) {
       pages={pages}
       libraryBookId={t.library_book_id}
       initialIndex={initialIndex}
+      format={comicFormat}
     />
   )
 }
