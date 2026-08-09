@@ -242,6 +242,14 @@ async function main() {
       console.log('\n계획만 출력했습니다. 실제 실행은 --test 또는 --out 으로.')
       return
     }
+
+    // 정제(현대식 보완/개선) 인테이크 — OCR 파편(한 캡션이 여러 조각·오탈자)을 Claude Code 오퍼레이터가
+    // 컷별 읽기순서로 병합·교정할 워크시트를 만든다. 실제 정제는 오퍼레이터가 refine.output.json 작성 후
+    // `refine.mjs --ingest <root>` → bubbles.refined.manifest.json (발행 전 마지막 콘텐츠 관문).
+    if (fs.existsSync(path.join(root, 'bubbles.local.manifest.json'))) {
+      run('refine.mjs', ['--intake', root], args)
+    }
+
     qcSummary(root)
   } finally {
     if (isTest && !args.keep) {
