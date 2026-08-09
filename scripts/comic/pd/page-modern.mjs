@@ -18,7 +18,7 @@ const REPO = path.resolve(HERE, '..', '..', '..')
 const FF = process.env.FFMPEG_BIN || (fs.existsSync(path.join(REPO, 'tools', 'ffmpeg', 'ffmpeg.exe')) ? path.join(REPO, 'tools', 'ffmpeg', 'ffmpeg.exe') : 'ffmpeg')
 
 const WD = arg('workdir')
-const COLORS = Number(arg('colors', 64)) // 전체 페이지는 컷보다 색이 많음 → 40 대신 64(밴딩 방지)
+const LEVEL = String(arg('level', 'C')).toUpperCase() // 색감 강도 A(클린)/B(밸런스)/C(볼드). 사용자 선택=C.
 const LIMIT = arg('limit') ? Number(arg('limit')) : null
 if (!WD || !fs.existsSync(WD)) { console.error(`--workdir <dir> 필요: ${WD}`); process.exit(2) }
 
@@ -32,17 +32,25 @@ if (!files.length) { console.error(`입력 페이지 없음: ${srcDir}`); proces
 const outDir = path.join(WD, 'page-modern')
 fs.mkdirSync(outDir, { recursive: true })
 
-// 원작 구성 보존 = 리플로우/스택 없음. 페이지 단위로 디자인만 현대화.
-//   colorlevels: 크림 종이→순백 + 청색채널↑ 황색캐스트 제거
-//   smartblur: halftone 디스크린(radius ≤5)  ·  eq: 강채도 vibrant  ·  palette: 평면컬러
-const gradeVf = `crop=iw-12:ih-12,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02`
-const paletteVf = `split[s0][s1];[s0]palettegen=max_colors=${COLORS}[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4`
+// 원작 구성 보존 = 리플로우/스택 없음. 페이지 단위로 "이미지=그래픽(색감)"만 현대화(3단계).
+//   colorlevels: 크림 종이→순백 + 청색채널↑ 황색캐스트 제거  ·  smartblur: halftone 디스크린(radius ≤5)
+//   eq: 강채도 vibrant  ·  palette: 평면컬러  ·  강도 A(클린)<B(밸런스)<C(볼드, 디지털 그래픽노블)
+const LEVELS = {
+  A: { grade: `crop=iw-12:ih-12,colorlevels=rimax=0.94:gimax=0.95:bimax=0.90,eq=saturation=1.22:contrast=1.06`, colors: 0 },
+  B: { grade: `crop=iw-12:ih-12,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02`, colors: 64 },
+  C: { grade: `crop=iw-12:ih-12,colorlevels=rimax=0.90:gimax=0.91:bimax=0.84,smartblur=5:0.7:0,eq=saturation=1.78:contrast=1.24:gamma_b=1.02`, colors: 48 },
+}
+const sel = LEVELS[LEVEL] || LEVELS.C
+const COLORS = sel.colors
+const gradeVf = sel.grade
+const paletteVf = COLORS ? `split[s0][s1];[s0]palettegen=max_colors=${COLORS}:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3` : null
 
 const results = []
 for (const f of files) {
   const inFile = path.join(srcDir, f)
   const out = path.join(outDir, f.replace(/\.jpe?g$/i, '.jpg'))
-  const r = spawnSync(FF, ['-y', '-i', inFile, '-vf', `${gradeVf},${paletteVf}`, '-q:v', '3', out], { encoding: 'utf8' })
+  const vf = paletteVf ? `${gradeVf},${paletteVf}` : gradeVf
+  const r = spawnSync(FF, ['-y', '-i', inFile, '-vf', vf, '-q:v', '3', out], { encoding: 'utf8' })
   const ok = r.status === 0 && fs.existsSync(out)
   if (!ok) console.error(`  ✗ ${f}: ${(r.stderr || '').split('\n').slice(-2).join(' ')}`)
   else console.log(`  ✓ ${f} — 구성 보존 + 디자인 현대화`)
@@ -63,7 +71,7 @@ if (first) {
 
 const mf = {
   operator: 'claude-code', method: 'page-preserving modernization (design only, original composition intact, no reflow, no GPU)',
-  workdir: path.resolve(WD), colors: COLORS, source: path.relative(REPO, srcDir), pages: results.length,
+  workdir: path.resolve(WD), level: LEVEL, colors: COLORS, source: path.relative(REPO, srcDir), pages: results.length,
   gradeVf, verdict: null,
   note: '원작 페이지 구성 100% 보존. 디자인만 현대화(무테두리+화이트포인트+디스크린+강채도+평면컬러). 문구는 page-letter 단계.',
 }
