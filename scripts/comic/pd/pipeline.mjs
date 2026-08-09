@@ -291,6 +291,10 @@ async function main() {
       await rec.stage(issueId, 'ocr', { qc: { ocr: bl?.stats ?? null, lastStage: 'ocr', method } })
       console.log('  📡 기록 완료 — /admin/pd-comics 테스트·모니터 탭에서 상태·QC·작업방식·중간이미지 확인')
     }
+  } catch (e) {
+    // 단계 실패를 DB 에 기록 → 모니터가 "멈춤" 사유를 보여준다(status 는 멈춘 단계 유지, 재시도 가능).
+    if (rec) await rec.fail(issueId, e.message)
+    throw e
   } finally {
     if (isTest && !args.keep) {
       console.log(`\n테스트 산출물은 임시 디렉터리에 있습니다(--keep 없으면 다음 부팅 시 정리):\n  ${root}`)

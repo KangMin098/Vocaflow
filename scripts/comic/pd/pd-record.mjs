@@ -55,6 +55,14 @@ export async function createRecorder(root, workDir) {
         return data?.id ?? null
       } catch (e) { console.error(`   (기록 오류: ${e.message})`); return null }
     },
+    /** 실패 기록 — last_error + 시도횟수. status 는 멈춘 단계 그대로(덮어쓰지 않음) → 재시도 가능. */
+    async fail(issueId, message) {
+      if (!issueId) return
+      try {
+        const { data: cur } = await db.from('pd_comic_issues').select('attempts').eq('id', issueId).maybeSingle()
+        await db.from('pd_comic_issues').update({ last_error: String(message || '').slice(0, 400), attempts: (cur?.attempts ?? 0) + 1, last_run_at: new Date().toISOString() }).eq('id', issueId)
+      } catch { /* noop */ }
+    },
     /** 단계 전이 기록 — status + last_run_at (+ qc/panels_total). qc 엔 항상 workDir 를 병합(아티팩트 서빙 근거). */
     async stage(issueId, status, extra = {}) {
       if (!issueId) return

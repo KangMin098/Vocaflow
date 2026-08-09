@@ -39,8 +39,14 @@ for (const iss of issues) {
   const slug = String(iss.source_identifier).replace(/[^\w.-]+/g, '-').slice(0, 60).toLowerCase()
   const out = `work/${slug}`
   console.log(`\n━━ ${iss.title} (${iss.source_identifier}) ━━`)
-  const r = spawnSync(process.execPath, [pipeline, '--source', iss.source_adapter, '--id', iss.source_identifier, '--out', out, '--pages', String(iss.acquire_pages || 4), '--record'], { stdio: 'inherit' })
-  if (r.status !== 0) { console.error(`  ✗ 파이프라인 실패`); fail++; continue }
+  const r = spawnSync(process.execPath, [pipeline, '--source', iss.source_adapter, '--id', iss.source_identifier, '--out', out, '--pages', String(iss.acquire_pages || 4), '--record'], { encoding: 'utf8' })
+  process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '')
+  if (r.status !== 0) {
+    // 실패를 DB 에 기록 → 모니터가 "멈춤" 사유를 보여준다(관측의 핵심).
+    const errLine = `${r.stdout || ''}${r.stderr || ''}`.split('\n').reverse().map((l) => l.trim()).find((l) => /실패|없습니다|취득 0|Error|error|Cannot|ENOENT/i.test(l))?.slice(0, 300) || `파이프라인 종료 ${r.status}`
+    await db.from('pd_comic_issues').update({ last_error: errLine }).eq('source_adapter', iss.source_adapter).eq('source_identifier', iss.source_identifier)
+    console.error(`  ✗ 파이프라인 실패 → 기록: ${errLine}`); fail++; continue
+  }
   const l = spawnSync(process.execPath, [loader, '--workdir', out], { stdio: 'inherit' })
   if (l.status !== 0) { console.error(`  ✗ 적재 실패`); fail++; continue }
   ok++
