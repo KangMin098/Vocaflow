@@ -1,0 +1,37 @@
+-- supabase/migrations/20260809120000_add_remaining_arcade_module_ids.sql
+--
+-- module_id enum 에 'pirate-quest' 추가 — learning_records.module / scores.module persistence 활성.
+--
+-- ✅ 원격 적용 완료(2026-08-09) — apply_migration name=add_remaining_arcade_module_ids.
+--    DB 검증: enum 에 'pirate-quest' 존재 확인.
+--
+-- 배경 (2026-08-09 DB 직접 조회로 확인):
+--   enum 에는 이미 `pirate_quest` 가 **언더스코어**로 들어가 있다. 그런데 코드의 slug ·
+--   ScoreModule · ModuleId 는 전부 하이픈 `pirate-quest` 이고, 다른 아케이드 18종도
+--   예외 없이 하이픈이다. 즉 이 한 값만 표기가 어긋나 있어 insert 가 enum 에 안 맞는다.
+--   lib/game/record-result.ts 는 그 실패를 조용히 흡수하므로(vocabularies FSRS 갱신은 유효)
+--   증상 없이 학습 기록만 사라진다.
+--
+--   `pirate_quest` 사용 행: learning_records 0건 · scores 0건 (조회로 확인) —
+--   이관할 데이터가 없다. Postgres 는 enum 값을 안전하게 제거할 수 없으므로 고아 값은
+--   그대로 두고 하이픈 값을 추가한다. 코드는 하이픈만 쓴다.
+--
+-- v07.8 에서 pirate-quest 는 라벨↔모델 결합을 끊어 학습자 단어(due 큐 · ?set= · ?text=)로
+-- 도는 게임이 됐다. 그전에는 GLB 29개에 묶여 있어 애초에 기록할 인출이 없었다.
+--
+-- ALTER TYPE ... ADD VALUE 는 트랜잭션 블록 안에서 실행할 수 없다(Postgres 제약).
+-- IF NOT EXISTS 로 멱등 — 재적용해도 안전하다.
+
+ALTER TYPE module_id ADD VALUE IF NOT EXISTS 'pirate-quest';
+
+-- 검증 1 (enum):
+--   select unnest(enum_range(null::module_id))::text v order by 1;
+--   → 'pirate-quest' 포함.
+--
+-- 검증 2 (실 적재) — /play/pirate-quest 를 로그인 상태로 1판 플레이한 뒤:
+--   select module::text, count(*) from learning_records
+--   where attempted_at > now() - interval '10 minutes' group by 1;
+--   → 'pirate-quest' 행이 생겨야 한다.
+--   ⚠️ 단, recordGameResult 는 **사용자 vocabularies 에 없는 단어를 silent skip** 하므로
+--      내장 뱅크(맛보기) 로 플레이하면 정상 동작해도 0건이다. 반드시 내 단어 8개 이상
+--      또는 ?set=/?text= 스코프로 진입해서 검증할 것.

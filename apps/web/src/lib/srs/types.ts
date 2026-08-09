@@ -78,6 +78,7 @@ export type ModuleId =
   | 'silent-rule' // L4b 철자 규칙 귀납 (The Witness 계열)
   | 'lexicon-estate' // L5 의미장 인접 배치·드래프트 (Blue Prince 계열)
   | 'word-orrery' // L5 지식 게이트 탐사 (Outer Wilds 계열)
+  | 'pirate-quest' // L4a 3D 공간 인출 (v07.8 재설계로 학습자 단어 사용)
   | 'wordsmith-vigil' // L4b 타이핑 생성 서바이버 (Typing of the Dead 계열)
   | 'morphmerge' // L4b 어족 합치기 형태론 (2048/Merge 계열)
   | 'wordfall-cadence'; // L4c 듣기 케이던스 (리듬 계열)

@@ -39,6 +39,7 @@ export type ScoreModule =
   | 'wordsmith-vigil'
   | 'morphmerge'
   | 'wordfall-cadence'
+  | 'pirate-quest'
 
 export interface GameScoreInput {
   module: ScoreModule

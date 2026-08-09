@@ -60,7 +60,9 @@ export type ArcadeGameId =
   | 'word-orrery'
   | 'wordsmith-vigil'
   | 'morphmerge'
-  | 'wordfall-cadence';
+  | 'wordfall-cadence'
+  // 3D — 라벨↔모델 결합을 끊어 학습자 단어로 도는 게임이 됐다(v07.8). 스캐폴드·FSRS 편입.
+  | 'pirate-quest';
 
 // ─── 유틸 ───
 export function shuffle<T>(arr: T[]): T[] {

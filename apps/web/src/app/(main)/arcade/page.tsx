@@ -88,8 +88,70 @@ async function fetchVocabStats(): Promise<VocabStats> {
   }
 }
 
-export default async function ArcadePage() {
-  const stats = await fetchVocabStats();
+/**
+ * 자료 스코프 — 도서 챕터 / 공용 단어장(`?set=` + `?chapter=`) · 사용자 스크립트(`?text=`).
+ *
+ * v07.8 이전 결함: 허브의 모든 카드가 `gamePlayHref(slug, { from: '/arcade' })` 로
+ * 하드코딩돼 있어, 도서·단어장에서 `?set=` 을 달고 허브에 와도 게임으로 넘어가는 순간
+ * 스코프가 증발했다. 그래서 "도서로 아케이드를 플레이"하는 경로가 사실상 없었다.
+ */
+interface HubScope {
+  set?: string;
+  text?: string;
+  chapter: number | null;
+  /** 스코프가 걸려 있으면 자료명(배너 표기용). */
+  label?: string;
+  /** 이 스코프를 유지한 허브 URL — 게임의 `from`(복귀) 으로 쓴다. */
+  selfHref: string;
+  active: boolean;
+}
+
+function readScope(sp: Record<string, string | string[] | undefined>): Omit<HubScope, 'label'> {
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) || undefined;
+  const set = one(sp.set);
+  const text = one(sp.text);
+  const chRaw = Number(one(sp.chapter));
+  const chapter = Number.isInteger(chRaw) && chRaw > 0 ? chRaw : null;
+  const q = new URLSearchParams();
+  if (set) q.set('set', set);
+  if (text) q.set('text', text);
+  if (chapter != null) q.set('chapter', String(chapter));
+  const qs = q.toString();
+  return { set, text, chapter, selfHref: qs ? `/arcade?${qs}` : '/arcade', active: !!(set || text) };
+}
+
+/**
+ * 카드 링크에 실을 인자. `from` 도 스코프를 유지한 허브 URL 이어야 한다 —
+ * 게임에서 나갔을 때 스코프가 풀린 허브로 떨어지면 "이 도서로 여러 게임 돌기"가 끊긴다.
+ */
+function scopedHref(scope: HubScope) {
+  return { set: scope.set, text: scope.text, chapter: scope.chapter, from: scope.selfHref };
+}
+
+/** 배너에 쓸 자료명. 실패해도 배너만 덜 친절해질 뿐이라 조용히 폴백. */
+async function fetchScopeLabel(scope: { set?: string; text?: string }): Promise<string | undefined> {
+  if (!scope.set && !scope.text) return undefined;
+  try {
+    const client = (await createClient()) as unknown as SupabaseClient;
+    if (scope.set) {
+      const { data } = await client.from('shared_word_sets').select('title').eq('id', scope.set).maybeSingle();
+      return (data as { title?: string } | null)?.title ?? undefined;
+    }
+    const { data } = await client.from('texts').select('title').eq('id', scope.text!).maybeSingle();
+    return (data as { title?: string } | null)?.title ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export default async function ArcadePage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
+  const base = readScope(searchParams ?? {});
+  const [stats, label] = await Promise.all([fetchVocabStats(), fetchScopeLabel(base)]);
+  const scope: HubScope = { ...base, label };
   const mineReady = stats.total >= MINE_READY_THRESHOLD;
   const daily = pickDailyGame(kstDayIndex(), stats.total);
   // 같은 인지 루프를 공유하는 계열은 한 장으로 접힌다(중복 체감 제거).
@@ -111,20 +173,40 @@ export default async function ArcadePage() {
 
         <ArcadeMetaStrip />
 
+        {/* 자료 스코프 배너 — 지금 어떤 자료의 단어로 노는지, 그리고 푸는 길. */}
+        {scope.active && (
+          <div className="arc-scope" role="status">
+            <span className="arc-scope-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5Z" />
+              </svg>
+            </span>
+            <span className="arc-scope-text">
+              <strong>{scope.label ?? (scope.set ? '선택한 단어장' : '선택한 스크립트')}</strong>
+              {scope.chapter != null && <span className="arc-scope-ch"> · Chapter {scope.chapter}</span>}
+              <span className="arc-scope-sub">의 단어로 플레이합니다 — 아래 게임 전부에 적용돼요.</span>
+            </span>
+            <Link href="/arcade" className="arc-scope-clear">
+              해제
+            </Link>
+          </div>
+        )}
+
         {/* ① 오늘의 추천 — 고르지 않아도 시작되는 기본값 */}
-        <DailyPick game={daily} mineReady={mineReady} stats={stats} />
+        <DailyPick game={daily} mineReady={mineReady} stats={stats} scope={scope} />
 
         {/* ② 내 단어로 플레이 */}
         <GameSection
           id="mine"
           eyebrow="My Words"
-          title="내 단어로 플레이"
-          desc={mineDesc(mineReady, stats)}
+          title={scope.active ? '이 자료로 플레이' : '내 단어로 플레이'}
+          desc={scope.active ? '선택한 자료의 단어를 인출 훈련으로 돌립니다.' : mineDesc(mineReady, stats)}
           items={sections.mine}
           gameCount={countHubGames(sections.mine)}
-          badge={mineBadge(mineReady, stats)}
-          badgeTone={mineReady ? 'live' : 'muted'}
-          action={mineReady ? undefined : { href: '/wordvault', label: '단어 모으러 가기' }}
+          badge={scope.active ? '자료 적용됨' : mineBadge(mineReady, stats)}
+          badgeTone={scope.active || mineReady ? 'live' : 'muted'}
+          action={scope.active || mineReady ? undefined : { href: '/wordvault', label: '단어 모으러 가기' }}
+          scope={scope}
         />
 
         {/* ③ 큐레이션 세계 */}
@@ -132,15 +214,23 @@ export default async function ArcadePage() {
           id="bank"
           eyebrow="Curated Worlds"
           title="큐레이션 세계"
-          desc="수제 콘텐츠로 문맥 추론·철자 규칙·의미 관계를 연습해요. 내 단어가 없어도 지금 바로 플레이할 수 있습니다."
+          desc={
+            scope.active
+              ? '같은 자료의 단어를 문맥 추론·철자 규칙·의미 관계로 다시 만납니다.'
+              : '수제 콘텐츠로 문맥 추론·철자 규칙·의미 관계를 연습해요. 내 단어가 없어도 지금 바로 플레이할 수 있습니다.'
+          }
           items={sections.bank}
           gameCount={countHubGames(sections.bank)}
+          scope={scope}
         />
 
-        <p className="arc-note">
-          단어장·스크립트에서 <code>?set=</code>·<code>?text=</code>로 진입하면 그 자료의 단어로 플레이합니다.
-          아무 것도 지정하지 않으면 “내 단어로 플레이”는 복습 큐를, “큐레이션 세계”는 내장 콘텐츠를 씁니다.
-        </p>
+        {!scope.active && (
+          <p className="arc-note">
+            도서 챕터 · 공용 단어장 · 내 스크립트에서 <strong>“아케이드에서 플레이”</strong>로 들어오면
+            그 자료의 단어가 이 페이지의 <strong>모든 게임</strong>에 적용됩니다.
+            아무 것도 지정하지 않으면 “내 단어로 플레이”는 복습 큐를, “큐레이션 세계”는 내장 콘텐츠를 씁니다.
+          </p>
+        )}
         <p className="arc-credit">
           배경음악:{' '}
           <a href="https://creatorchords.com" target="_blank" rel="noopener noreferrer">
@@ -196,16 +286,18 @@ function DailyPick({
   game,
   mineReady,
   stats,
+  scope,
 }: {
   game: GameEntry;
   mineReady: boolean;
   stats: VocabStats;
+  scope: HubScope;
 }) {
   const usesMyWords = game.source === 'mine' && mineReady;
   return (
     <section className="arc-daily" aria-labelledby="arc-daily-title">
       <Link
-        href={gamePlayHref(game.slug, { from: '/arcade' })}
+        href={gamePlayHref(game.slug, scopedHref(scope))}
         className="arc-daily-card"
         style={
           {
@@ -226,7 +318,11 @@ function DailyPick({
             {game.name}
           </h2>
           <span className="arc-daily-tag">{game.tagline}</span>
-          <span className="arc-daily-meta">{dailyMeta(usesMyWords, stats)}</span>
+          <span className="arc-daily-meta">
+            {scope.active
+              ? `${scope.label ?? '선택한 자료'}${scope.chapter != null ? ` · Chapter ${scope.chapter}` : ''} 의 단어로 진행`
+              : dailyMeta(usesMyWords, stats)}
+          </span>
         </span>
         <span className="arc-daily-cta">
           시작 <span className="arc-arrow">→</span>
@@ -247,6 +343,7 @@ function GameSection({
   badge,
   badgeTone,
   action,
+  scope,
 }: {
   id: string;
   eyebrow: string;
@@ -259,6 +356,7 @@ function GameSection({
   badge?: string;
   badgeTone?: 'live' | 'muted';
   action?: { href: string; label: string };
+  scope: HubScope;
 }) {
   return (
     <section className="arc-sec" aria-labelledby={`arc-sec-${id}`}>
@@ -291,9 +389,9 @@ function GameSection({
       <div className="arc-grid">
         {items.map((item) =>
           item.kind === 'game' ? (
-            <GameCard key={item.game.slug} game={item.game} />
+            <GameCard key={item.game.slug} game={item.game} scope={scope} />
           ) : (
-            <FamilyCard key={item.family.key} family={item.family} modes={item.modes} />
+            <FamilyCard key={item.family.key} family={item.family} modes={item.modes} scope={scope} />
           ),
         )}
       </div>
@@ -302,10 +400,10 @@ function GameSection({
 }
 
 // ── 단독 게임 카드 ───────────────────────────────────────────────
-function GameCard({ game: g }: { game: GameEntry }) {
+function GameCard({ game: g, scope }: { game: GameEntry; scope: HubScope }) {
   return (
     <Link
-      href={gamePlayHref(g.slug, { from: '/arcade' })}
+      href={gamePlayHref(g.slug, scopedHref(scope))}
       className="arc-card"
       style={moodVars(g.mood)}
     >
@@ -338,7 +436,7 @@ function GameCard({ game: g }: { game: GameEntry }) {
 //
 // 카드 자체는 링크가 아니다(중첩 <a> 금지). 모드 칩 하나하나가 실제 플레이 링크.
 // "왜 비슷한 게 여러 개인가"에 답하려면 공통점(인출)과 차이(동기 장치)를 같이 보여야 한다.
-function FamilyCard({ family: f, modes }: { family: GameFamily; modes: GameEntry[] }) {
+function FamilyCard({ family: f, modes, scope }: { family: GameFamily; modes: GameEntry[]; scope: HubScope }) {
   return (
     <div
       className="arc-card arc-card--family"
@@ -365,7 +463,7 @@ function FamilyCard({ family: f, modes }: { family: GameFamily; modes: GameEntry
       <ul className="arc-modes">
         {modes.map((m) => (
           <li key={m.slug}>
-            <Link href={gamePlayHref(m.slug, { from: '/arcade' })} className="arc-mode">
+            <Link href={gamePlayHref(m.slug, scopedHref(scope))} className="arc-mode">
               <span className="arc-mode-name">{m.modeLabel ?? m.name}</span>
               {m.modeNote && <span className="arc-mode-note">{m.modeNote}</span>}
               <span className="arc-arrow" aria-hidden="true">
@@ -591,6 +689,25 @@ const ARC_CSS = `
 
   .arc-note { margin: clamp(20px, 4vh, 34px) 0 0; font-size: 12.5px; line-height: 1.6; color: rgba(240,226,220,.5); max-width: 68ch; word-break: keep-all; }
   .arc-note code { font-family: var(--font-english, ui-monospace, monospace); font-size: 11.5px; color: rgba(255,225,200,.72); background: rgba(255,255,255,.06); padding: 1px 5px; border-radius: 5px; }
+  /* 자료 스코프 배너 — 도서/스크립트/단어장에서 들어왔을 때만. gold 액센트는 여기 한 곳. */
+  .arc-scope { display: flex; align-items: center; gap: 11px; padding: 12px 16px; border-radius: 14px;
+    border: 1px solid rgba(212,168,86,.34); background: linear-gradient(140deg, rgba(212,168,86,.14), rgba(212,168,86,.05));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08); color: #F4EADB; }
+  .arc-scope-mark { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 9px;
+    background: rgba(212,168,86,.18); color: #E7C182; }
+  .arc-scope-text { flex: 1; min-width: 0; font-size: 13.5px; line-height: 1.5; }
+  .arc-scope-text strong { font-weight: 800; color: #FFF3DF; }
+  .arc-scope-ch { color: #E7C182; font-weight: 700; }
+  .arc-scope-sub { color: rgba(240,230,215,.66); }
+  .arc-scope-clear { flex: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px;
+    border-radius: 999px; border: 1px solid rgba(255,255,255,.18); color: rgba(240,230,215,.8);
+    font-size: 12.5px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s, border-color .15s, transform .12s; }
+  .arc-scope-clear:hover { background: rgba(255,255,255,.1); color: #FBF3EC; border-color: rgba(255,255,255,.3); }
+  .arc-scope-clear:active { transform: scale(.97); }
+  .arc-scope-clear:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
+  @media (max-width: 560px) { .arc-scope { flex-wrap: wrap; } .arc-scope-text { flex-basis: 100%; order: 2; } }
+  @media (prefers-reduced-motion: reduce) { .arc-scope-clear { transition: none; } }
+
   .arc-credit { margin: 10px 0 0; font-size: 11px; color: rgba(240,226,220,.38); }
   .arc-credit a { color: rgba(240,226,220,.55); text-decoration: underline; }
   .arc-credit a:hover { color: rgba(255,225,200,.8); }

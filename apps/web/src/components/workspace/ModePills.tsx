@@ -31,6 +31,7 @@ const MODES: Mode[] = [
   { key: 'flashcard', label: '카드', group: 'study' },
   { key: 'spellforge', label: '스펠', group: 'practice' },
   { key: 'wordblitz', label: '블리츠', group: 'practice' },
+  { key: 'arcade', label: '아케이드', group: 'practice' },
   { key: 'quiz', label: '퀴즈', group: 'practice' },
 ]
 
@@ -59,6 +60,12 @@ interface ModePillsProps {
   flashcardHref: string
   /** "블리츠" pill 목적지 — 해당 자료의 단어로 WordBlitz 진입 (?set/?text 스코프) */
   wordblitzHref: string
+  /**
+   * "아케이드" pill 목적지 — 같은 스코프를 아케이드 허브로 넘긴다.
+   * 허브가 ?set/?text 를 받아 모든 카드에 실어주므로(v07.8) 이 자료의 단어가
+   * 게임 19종 전부에 연결된다. 개별 게임을 여기 다 나열하면 선택 과부하라 문 하나만 둔다.
+   */
+  arcadeHref: string
 }
 
 export function ModePills({
@@ -69,6 +76,7 @@ export function ModePills({
   wordsHref,
   flashcardHref,
   wordblitzHref,
+  arcadeHref,
 }: ModePillsProps) {
   // 그룹별 modes 분리
   const grouped = GROUPS.map((g) => ({
@@ -116,7 +124,9 @@ export function ModePills({
                           ? withReturn(flashcardHref)
                           : mode.key === 'wordblitz'
                             ? withReturn(wordblitzHref)
-                            : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
+                            : mode.key === 'arcade'
+                              ? withReturn(arcadeHref)
+                              : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
                   return (
                     <span key={mode.key} className="inline-flex items-center">
                       {mIdx > 0 && (

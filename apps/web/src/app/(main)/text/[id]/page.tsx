@@ -231,6 +231,7 @@ const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   flashcard: 'pending',
   spellforge: 'pending',
   wordblitz: 'pending',
+  arcade: 'pending',
   quiz: 'pending',
 }
 
@@ -343,6 +344,9 @@ export default function WorkspacePage({ params }: PageProps) {
 
   const flashcardHref = scopeQuery ? `/flashcard/play${scopeQuery}` : '/flashcard'
   const wordblitzHref = scopeQuery ? `/play/wordblitz${scopeQuery}` : '/wordblitz'
+  // 아케이드 허브로 같은 스코프를 넘긴다 — 허브가 ?set/?text 를 받아 19종 카드 전부에
+  // 실어주므로(v07.8), 이 pill 하나로 이 자료의 단어가 모든 게임에 연결된다.
+  const arcadeHref = scopeQuery ? `/arcade${scopeQuery}` : '/arcade'
 
   // 직접 스크립트 단어 추출용 — paragraphs 로부터 원문 재구성 (ExtractionPanel tokenize 입력)
   const scriptContent = useMemo(
@@ -673,6 +677,7 @@ export default function WorkspacePage({ params }: PageProps) {
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
         wordblitzHref={wordblitzHref}
+        arcadeHref={arcadeHref}
       />
 
       {isShadow && (

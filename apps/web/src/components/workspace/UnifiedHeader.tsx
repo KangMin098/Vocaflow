@@ -65,6 +65,7 @@ interface UnifiedHeaderProps {
   flashcardHref: string
   /** "블리츠" 모드 클릭 시 이동할 WordBlitz href — 자료 스코프(?set/?text) 포함 */
   wordblitzHref: string
+  arcadeHref: string
 }
 
 export function UnifiedHeader({
@@ -85,6 +86,7 @@ export function UnifiedHeader({
   wordsHref,
   flashcardHref,
   wordblitzHref,
+  arcadeHref,
 }: UnifiedHeaderProps) {
   const [isTypeOpen, setIsTypeOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -317,6 +319,7 @@ export function UnifiedHeader({
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
         wordblitzHref={wordblitzHref}
+        arcadeHref={arcadeHref}
       />
 
       {hasChapterContext && navOpen && (

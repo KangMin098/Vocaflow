@@ -25,11 +25,17 @@ interface PWord {
 }
 
 // 챕터 학습 — 게임별 launch (로더가 ?set=X&chapter=N 지원). from 으로 닫기 시 복귀.
-const CHAPTER_GAMES: { key: string; label: string; emoji: string; path: (setId: string, ch: number) => string }[] = [
+//
+// 마지막 항목은 개별 게임이 아니라 **아케이드 허브로 스코프를 넘기는 문**이다.
+// 아케이드 19종을 여기 전부 나열하면 선택 과부하(CLAUDE.md 인지부하)라, 허브의
+// "추천 1 + 전체 열람" 패턴을 재사용한다. 허브가 ?set/?chapter 를 받아 모든 카드에
+// 실어주므로(v07.8) 이 한 줄로 19종 전부가 이 챕터 단어로 연결된다.
+const CHAPTER_GAMES: { key: string; label: string; emoji: string; wide?: boolean; path: (setId: string, ch: number) => string }[] = [
   { key: 'flashcard', label: '플래시카드', emoji: '🃏', path: (s, c) => `/flashcard/play?set=${s}&chapter=${c}` },
   { key: 'wordblitz', label: '블리츠', emoji: '⚡', path: (s, c) => `/play/wordblitz?set=${s}&chapter=${c}` },
   { key: 'spellforge', label: '스펠', emoji: '🔨', path: (s, c) => `/spellforge/play?set=${s}&chapter=${c}` },
   { key: 'pairflip', label: '페어', emoji: '🎴', path: (s, c) => `/pairflip/play?set=${s}&chapter=${c}` },
+  { key: 'arcade', label: '아케이드 19종', emoji: '🕹', wide: true, path: (s, c) => `/arcade?set=${s}&chapter=${c}` },
 ]
 interface Props {
   set: PublishedVocabSet | null
@@ -427,10 +433,18 @@ export function VocabSetPreviewModal({
                               key={g.key}
                               href={`${g.path(set.id, ch.n)}&from=${fromEnc}`}
                               title={`Chapter ${ch.n} — ${g.label}`}
-                              className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                              // 44px 최소 터치 타겟(CLAUDE.md) — 기존 py-1 은 24px 였다.
+                              // 아케이드 칩만 액센트를 줘 "개별 게임"이 아니라 "전부로 가는 문"임을 구분.
+                              className={
+                                'inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 font-display text-[11.5px] font-[700] no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ' +
+                                (g.wide
+                                  ? 'border-[#8B5CF6]/45 bg-[#8B5CF6]/10 text-[#6D28D9] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/16'
+                                  : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9]')
+                              }
                             >
                               <span aria-hidden>{g.emoji}</span>
                               {g.label}
+                              {g.wide && <span aria-hidden>→</span>}
                             </a>
                           ))}
                         </div>

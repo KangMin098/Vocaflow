@@ -212,7 +212,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'glyph-tongue', name: 'The Glyph Tongue', tagline: '뜻을 주지 않는다 — 문맥으로 룬을 해독',
-    layer: 'L2 해독', ref: 'Chants of Sennaar', source: 'bank', emoji: '📜', closeHref: '/arcade', minWords: 0,
+    layer: 'L2 해독', ref: 'Chants of Sennaar', source: 'mine', emoji: '📜', closeHref: '/arcade', minWords: 4,
     mood: { a: '#6E86A6', b: '#333E56', glow: 'rgba(184,210,230,.5)', accent: '#DCE8F2' },
     music: bgm('glyph-tongue'),
   },
@@ -242,19 +242,19 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'lexicon-detective', name: 'Lexicon Detective', tagline: '현장 단서를 수확해 사건을 재구성하라',
-    layer: 'L5 추리', ref: 'Golden Idol', source: 'bank', emoji: '🔍', closeHref: '/arcade', minWords: 0,
+    layer: 'L5 추리', ref: 'Golden Idol', source: 'mine', emoji: '🔍', closeHref: '/arcade', minWords: 10,
     mood: { a: '#9A7B3C', b: '#2E2A1C', glow: 'rgba(214,184,110,.46)', accent: '#F0E4C2' },
     music: bgm('lexicon-detective'),
   },
   {
     slug: 'lexicon-estate', name: 'Lexicon Estate', tagline: '단어-방을 배치해 의미장 저택을 짓다',
-    layer: 'L5 의미망', ref: 'Blue Prince', source: 'bank', emoji: '🏛', closeHref: '/arcade', minWords: 0,
+    layer: 'L5 의미망', ref: 'Blue Prince', source: 'mine', emoji: '🏛', closeHref: '/arcade', minWords: 12,
     mood: { a: '#3E6EA6', b: '#152238', glow: 'rgba(130,180,255,.44)', accent: '#CFE2FA' },
     music: bgm('lexicon-estate'),
   },
   {
     slug: 'word-orrery', name: 'The Word Orrery', tagline: '행성을 탐사해 앎으로 핵의 봉인을 연다',
-    layer: 'L5 탐사', ref: 'Outer Wilds', source: 'bank', emoji: '🪐', closeHref: '/arcade', minWords: 0,
+    layer: 'L5 탐사', ref: 'Outer Wilds', source: 'mine', emoji: '🪐', closeHref: '/arcade', minWords: 6,
     mood: { a: '#3B4468', b: '#0A0E1E', glow: 'rgba(255,176,86,.42)', accent: '#FFD9A0' },
     music: bgm('word-orrery'),
   },
@@ -270,7 +270,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   },
   {
     slug: 'pirate-quest', name: "Pirate's Bounty", tagline: '해변에서 보물 단어를 찾는 3D 모험',
-    layer: 'L4a 재인', ref: '3D 어드벤처', source: 'bank', emoji: '🏴‍☠️', closeHref: '/arcade', minWords: 0, is3d: true, beta: true,
+    layer: 'L4a 재인', ref: '3D 어드벤처', source: 'mine', emoji: '🏴‍☠️', closeHref: '/arcade', minWords: 8, is3d: true,
     mood: { a: '#2E7D8F', b: '#123040', glow: 'rgba(120,220,230,.45)', accent: '#C8F0F5' },
     music: bgm('pirate-quest'),
   },

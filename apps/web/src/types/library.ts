@@ -13,6 +13,8 @@ export type ModeKey =
   | 'flashcard'
   | 'spellforge'
   | 'wordblitz'
+  /** 아케이드 허브 — 이 자료의 단어를 게임 19종 전부로 넘기는 문(v07.8) */
+  | 'arcade'
   | 'quiz'
 
 export type ModeStatus = 'done' | 'active' | 'pending'
