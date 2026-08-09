@@ -1036,22 +1036,31 @@ function PanelDrill({ issueId }: { issueId: string }) {
       <p className="mb-1.5 font-mono text-[11px] text-[var(--t2)]">컷 {panels.length} · 대사 {totalBubbles}개</p>
       <ul className="flex max-h-72 flex-col gap-1.5 overflow-y-auto">
         {panels.map((p) => (
-          <li key={p.panelOrder} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5">
-            <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t3)]">
-              <span>#{p.panelOrder}</span>
-              {p.sourcePageNo != null && <span>p.{p.sourcePageNo}</span>}
-              <span className="ml-auto">대사 {p.bubbles.length}</span>
-            </div>
-            {p.bubbles.length > 0 && (
-              <ul className="mt-1 flex flex-col gap-0.5">
-                {p.bubbles.map((b, i) => (
-                  <li key={i} className="flex items-baseline gap-1.5 font-body text-[11.5px] text-[var(--t1)]">
-                    <span className="shrink-0 font-mono text-[9.5px] text-[var(--t4)]">{b.kind ?? 'speech'}{typeof b.confidence === 'number' ? ` ${Math.round(b.confidence * 100)}%` : ''}</span>
-                    <span className="flex-1">{b.text || <em className="text-[var(--t4)]">(빈 대사)</em>}</span>
-                  </li>
-                ))}
-              </ul>
+          <li key={p.panelOrder} className="flex gap-2.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-1.5">
+            {p.imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(p.imageUrl)}`} alt={`컷 ${p.panelOrder}`} loading="lazy" className="h-20 w-16 shrink-0 rounded-[var(--r-xs,4px)] border border-[var(--bd)] bg-[var(--bg2)] object-cover" />
             )}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t3)]">
+                <span>#{p.panelOrder}</span>
+                {p.sourcePageNo != null && <span>p.{p.sourcePageNo}</span>}
+                <span className="ml-auto">대사 {p.bubbles.length}</span>
+              </div>
+              {p.bubbles.length > 0 ? (
+                <ul className="mt-1 flex flex-col gap-0.5">
+                  {p.bubbles.map((b, i) => {
+                    const refined = (b as { refined?: boolean }).refined
+                    return (
+                      <li key={i} className="flex items-baseline gap-1.5 font-body text-[11.5px] text-[var(--t1)]">
+                        <span className="shrink-0 font-mono text-[9.5px]" style={{ color: refined ? 'var(--success)' : 'var(--t4)' }}>{b.kind ?? 'speech'}{refined ? '·정제' : (typeof b.confidence === 'number' ? ` ${Math.round(b.confidence * 100)}%` : '')}</span>
+                        <span className="flex-1">{b.text || <em className="text-[var(--t4)]">(빈 대사)</em>}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              ) : <p className="mt-1 font-body text-[11px] text-[var(--t4)]">대사 없음</p>}
+            </div>
           </li>
         ))}
       </ul>
