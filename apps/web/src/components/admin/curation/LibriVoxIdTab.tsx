@@ -89,7 +89,7 @@ export function LibriVoxIdTab({ onPickPreview }: LibriVoxIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           🎧 LibriVox book id 직접 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">librivox.org book id</span>
+        <span className="font-mono text-[12px] text-[var(--t2)]">librivox.org book id</span>
       </div>
 
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
@@ -156,7 +156,7 @@ export function LibriVoxIdTab({ onPickPreview }: LibriVoxIdTabProps) {
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           LibriVox 페이지 URL 의 <code>?p=</code> 뒤 숫자입니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
             https://librivox.org/?p=<strong>253</strong>
@@ -164,7 +164,7 @@ export function LibriVoxIdTab({ onPickPreview }: LibriVoxIdTabProps) {
           (작은 숫자 1·13 등은 존재하지 않는 id 입니다)
         </p>
 
-        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)]">
           🎧 LibriVox 는 오디오북 카탈로그 — 텍스트 본문은 외부 (Gutenberg 등) 에 의존합니다.
           미리보기에서 <code>text_source_kind</code> 를 확인하세요: <strong>gutenberg</strong>{' '}
           (정밀 파싱) / <strong>other</strong> (외부 HTML best-effort) / <strong>none</strong>{' '}
@@ -219,7 +219,7 @@ function PreviewCard({
             <ExternalLink size={10} aria-hidden />
           </a>
         </div>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           {(preview.author ?? '저자 미상') + yearRange}
           <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">· PD</span>
           {preview.totaltime && (
@@ -242,7 +242,7 @@ function PreviewCard({
               href={preview.text_source_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t3)] hover:text-[var(--p)] hover:underline"
+              className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t2)] hover:text-[var(--p)] hover:underline"
             >
               원본 열기
               <ExternalLink size={9} aria-hidden />
@@ -252,7 +252,7 @@ function PreviewCard({
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           본문 미리보기
         </div>
         <p className="line-clamp-6 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -269,7 +269,7 @@ function PreviewCard({
               ⚠️ 이 LibriVox 항목은 텍스트 원본이 없어 LCP 파이프라인 처리 불가
             </span>
           ) : (
-            <span className="font-body text-[11px] text-[var(--t3)]">
+            <span className="font-body text-[11px] text-[var(--t2)]">
               {preview.text_source_kind === 'gutenberg'
                 ? 'Gutenberg 텍스트 원본을 사용합니다 (정밀 파싱).'
                 : '외부 텍스트 원본 — best-effort 파싱이라 챕터 분절이 부정확할 수 있어요.'}
@@ -279,7 +279,7 @@ function PreviewCard({
             type="button"
             onClick={onPick}
             disabled={isPickPending || cannotIngest}
-            className="inline-flex min-h-[36px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-h-[36px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             ➕ 큐에 추가
           </button>

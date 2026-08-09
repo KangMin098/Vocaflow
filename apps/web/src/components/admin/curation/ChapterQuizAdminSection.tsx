@@ -38,14 +38,14 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             챕터 퀴즈 검수
           </h2>
-          <span className="font-display text-[12px] font-[600] text-[var(--t3)]">
+          <span className="font-display text-[12px] font-[600] text-[var(--t2)]">
             {chapters.length}
             {totalChapters > 0 && (
-              <span className="text-[var(--t4)]">/{totalChapters}</span>
+              <span className="text-[var(--t2)]">/{totalChapters}</span>
             )}
           </span>
         </div>
-        <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t3)]">
+        <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t2)]">
           {chapters.length > 0 && (
             <>
               <span>총 {totalQuestions.toLocaleString()}문항</span>
@@ -58,7 +58,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
       </header>
 
       {chapters.length === 0 ? (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[13px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[13px] text-[var(--t2)]">
           <p>챕터 퀴즈가 아직 생성되지 않았어요.</p>
           <p className="mt-1.5">
             <code className="font-mono text-[11px]">/admin/curation</code> 의{' '}
@@ -97,7 +97,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
           <div className="overflow-x-auto">
             <table className="w-full font-body text-[12px]">
               <thead>
-                <tr className="border-b border-[var(--bd)] font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+                <tr className="border-b border-[var(--bd)] font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                   <th className="py-2 pr-3 text-left">챕터</th>
                   <th className="py-2 pr-3 text-left">제목</th>
                   <th className="py-2 pr-3 text-right tabular-nums">문항수</th>
@@ -148,7 +148,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
             </table>
           </div>
 
-          <p className="mt-3 font-body text-[10px] text-[var(--t3)]">
+          <p className="mt-3 font-body text-[10px] text-[var(--t2)]">
             ※ 행 클릭으로 문항 + 정답 + 본문 근거 미리보기 ·{' '}
             <code className="font-mono">library_chapter_quiz</code> · 학습자 공유(정답 숨김)
           </p>
@@ -172,7 +172,7 @@ function QuizJobBadge({ job }: { job: AdminQuizJob }) {
   }
   if (job.status === 'failed') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--error-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--error)]">
+      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--error-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--error-ink)]">
         <XCircle size={11} aria-hidden />
         failed {label}
       </span>
@@ -187,7 +187,7 @@ function QuizJobBadge({ job }: { job: AdminQuizJob }) {
     )
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">
+    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
       {job.status} {label}
     </span>
   )

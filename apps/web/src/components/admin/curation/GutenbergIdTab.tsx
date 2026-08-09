@@ -79,7 +79,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           🔢 Gutenberg ID 직접 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">
+        <span className="font-mono text-[12px] text-[var(--t2)]">
           Project Gutenberg 책 번호
         </span>
       </div>
@@ -150,7 +150,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           Gutenberg 사이트에서 책 페이지 URL의 마지막 숫자입니다.
           예: <code className="font-mono text-[var(--t2)]">https://www.gutenberg.org/ebooks/<strong>1342</strong></code>
         </p>
@@ -213,7 +213,7 @@ function PreviewCard({ preview, isPickPending, onPick }: PreviewCardProps) {
             <ExternalLink size={10} aria-hidden />
           </a>
         </div>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           {preview.author ?? '저자 미상'} {yearRange}
           {preview.language && (
             <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">
@@ -224,7 +224,7 @@ function PreviewCard({ preview, isPickPending, onPick }: PreviewCardProps) {
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           본문 미리보기
         </div>
         <p className="line-clamp-6 font-body text-[13px] leading-relaxed text-[var(--t1)]">

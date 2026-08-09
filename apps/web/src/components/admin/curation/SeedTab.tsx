@@ -118,7 +118,7 @@ export function SeedTab({ existingBooks, onPickSeed }: SeedTabProps) {
     <section className="flex flex-col gap-4" aria-label="추천 시드">
       <div className="flex flex-wrap items-baseline gap-2">
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">🎯 추천 시드</h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">
+        <span className="font-mono text-[12px] text-[var(--t2)]">
           {visibleSeeds.length === SEED_DATA.length
             ? `${SEED_DATA.length}권`
             : `${visibleSeeds.length} / ${SEED_DATA.length}권`}
@@ -227,7 +227,7 @@ function SeedRow({
         <div className="truncate font-english text-[11px] italic text-[var(--t2)]">
           {seed.author}
           {seed.author_birth_year != null && seed.author_death_year != null && (
-            <span className="ml-1.5 font-mono text-[10px] not-italic text-[var(--t3)]">
+            <span className="ml-1.5 font-mono text-[10px] not-italic text-[var(--t2)]">
               {formatYear(seed.author_birth_year)}–{formatYear(seed.author_death_year)}
             </span>
           )}
@@ -240,11 +240,11 @@ function SeedRow({
             {SOURCE_LABEL[seed.source] ?? seed.source}
           </span>
           <Chip>{GENRE_LABEL[seed.genre] ?? seed.genre}</Chip>
-          <span className="font-mono text-[9px] text-[var(--t3)]">id {seed.source_id}</span>
+          <span className="font-mono text-[9px] text-[var(--t2)]">id {seed.source_id}</span>
           {seed.tags?.slice(0, 3).map((t, i) => (
             <span
               key={`${t}-${i}`}
-              className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t3)]"
+              className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t2)]"
             >
               {t}
             </span>
@@ -260,7 +260,7 @@ function SeedRow({
           <button
             type="button"
             onClick={onSelect}
-            className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-2.5 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-2.5 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <Plus size={11} /> 선택
           </button>
@@ -317,7 +317,7 @@ interface FilterSelectProps {
 function FilterSelect({ label, value, onChange, options }: FilterSelectProps) {
   return (
     <label className="inline-flex items-center gap-1.5">
-      <span className="font-mono text-[11px] text-[var(--t3)]">{label}</span>
+      <span className="font-mono text-[11px] text-[var(--t2)]">{label}</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}

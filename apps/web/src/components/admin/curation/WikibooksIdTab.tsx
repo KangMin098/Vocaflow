@@ -81,7 +81,7 @@ export function WikibooksIdTab({ onPickPreview }: WikibooksIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           📖 Wikibooks 페이지 직접 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">
+        <span className="font-mono text-[12px] text-[var(--t2)]">
           en.wikibooks.org 페이지 제목
         </span>
       </div>
@@ -149,7 +149,7 @@ export function WikibooksIdTab({ onPickPreview }: WikibooksIdTabProps) {
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           Wikibooks 페이지 URL 의 마지막 부분입니다. 공백은 자동으로 <code>_</code> 로 변환됩니다.<br />
           상위 페이지를 입력하면 sub-page 트리(최대 50개) 가 자동 수집됩니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
@@ -157,7 +157,7 @@ export function WikibooksIdTab({ onPickPreview }: WikibooksIdTabProps) {
           </code>
         </p>
 
-        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)]">
           ⚠️ Wikibooks 는 CC-BY-SA-3.0 협업 저작물 — 자동 KR 저작권 룰(저자 사후 70년)
           이 적용되지 않아 기본적으로 <code>copyright_safe_in_kr=false</code> 로 큐잉됩니다.
           publish 하려면 큐레이션 단계에서 별도 정책 검토 후 강제 publish 가 필요합니다.
@@ -204,7 +204,7 @@ function PreviewCard({
             <ExternalLink size={10} aria-hidden />
           </a>
         </div>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           {preview.author}
           <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">
             · CC-BY-SA-3.0
@@ -218,7 +218,7 @@ function PreviewCard({
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           본문 미리보기
         </div>
         <p className="line-clamp-6 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -231,7 +231,7 @@ function PreviewCard({
           type="button"
           onClick={onPick}
           disabled={isPickPending}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ➕ 큐에 추가
         </button>

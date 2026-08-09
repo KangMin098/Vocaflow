@@ -128,7 +128,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
                 {set.title}
               </h3>
             </div>
-            <div className="mt-2 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="mt-2 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t2)]">
               <span className="font-display font-[700] text-[var(--t1)]">
                 {set.wordCount}단어
               </span>
@@ -150,7 +150,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="shrink-0 rounded-[var(--r-sm)] p-1 text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            className="shrink-0 rounded-[var(--r-sm)] p-1 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
           >
             <X size={18} aria-hidden />
           </button>
@@ -158,7 +158,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
 
         <div className="flex-1 overflow-y-auto p-5">
           {loading && (
-            <div className="flex items-center justify-center gap-2 py-12 font-body text-[13px] text-[var(--t3)]">
+            <div className="flex items-center justify-center gap-2 py-12 font-body text-[13px] text-[var(--t2)]">
               <Loader2 size={16} className="animate-spin" aria-hidden />
               불러오는 중...
             </div>
@@ -167,21 +167,21 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
           {error && (
             <div
               role="alert"
-              className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-3 font-body text-[12px] text-[var(--error)]"
+              className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] p-3 font-body text-[12px] text-[var(--error-ink)]"
             >
               {error}
             </div>
           )}
 
           {words && words.length === 0 && (
-            <p className="font-body text-[13px] text-[var(--t3)]">단어가 없어요</p>
+            <p className="font-body text-[13px] text-[var(--t2)]">단어가 없어요</p>
           )}
 
           {words && words.length > 0 && (
             <ul className="flex flex-col divide-y divide-[var(--bd)]/40">
               {words.map((w) => (
                 <li key={w.word} className="flex items-center gap-3 py-2.5">
-                  <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t3)]">
+                  <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t2)]">
                     #{w.sortOrder}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -190,7 +190,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
                         {w.word}
                       </span>
                       {w.partOfSpeech && (
-                        <span className="font-body text-[10px] text-[var(--t3)]">
+                        <span className="font-body text-[10px] text-[var(--t2)]">
                           {w.partOfSpeech}
                         </span>
                       )}
@@ -208,7 +208,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
                     type="button"
                     onClick={() => speak(w.word)}
                     aria-label={`${w.word} 발음 듣기`}
-                    className="shrink-0 rounded-full p-1.5 text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)]"
+                    className="shrink-0 rounded-full p-1.5 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)]"
                   >
                     <Volume2 size={14} aria-hidden />
                   </button>
@@ -219,7 +219,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
         </div>
 
         <footer className="border-t border-[var(--bd)] bg-[var(--bg2)] p-3">
-          <details className="font-body text-[11px] text-[var(--t3)]">
+          <details className="font-body text-[11px] text-[var(--t2)]">
             <summary className="cursor-pointer font-display font-[700] uppercase tracking-wider hover:text-[var(--t1)]">
               추출 메타 (curation_query JSONB)
             </summary>

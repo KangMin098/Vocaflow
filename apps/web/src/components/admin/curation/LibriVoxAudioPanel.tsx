@@ -194,10 +194,10 @@ export function LibriVoxAudioPanel({
                         <span className="w-12 shrink-0 font-mono text-[11px] font-[700] tabular-nums text-[var(--t1)]">
                           {ch.idx}장
                         </span>
-                        <span className="shrink-0 text-[var(--t4)]" aria-hidden>→</span>
+                        <span className="shrink-0 text-[var(--t2)]" aria-hidden>→</span>
                         <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t2)]">
                           {ch.title || `Chapter ${ch.roman}`}
-                          {ch.parts > 1 && <span className="ml-1 text-[var(--t3)]">· {ch.parts}파트</span>}
+                          {ch.parts > 1 && <span className="ml-1 text-[var(--t2)]">· {ch.parts}파트</span>}
                         </span>
                       </li>
                     ))}
@@ -209,7 +209,7 @@ export function LibriVoxAudioPanel({
         ) : (
           // ── 미연결 ──
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               이 도서를 LibriVox 낭독과 <strong className="text-[var(--t2)]">챕터별로 자동 연결</strong>합니다
               (섹션 제목의 챕터 번호 기준 · 다권이면 합쳐서).
             </p>

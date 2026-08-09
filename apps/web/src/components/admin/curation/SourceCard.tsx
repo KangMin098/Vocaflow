@@ -51,7 +51,7 @@ export function SourceCard({ catalog, rank, onActivate }: SourceCardProps) {
             />
           )}
         </div>
-        <p className="line-clamp-2 font-body text-[12px] text-[var(--t3)]">
+        <p className="line-clamp-2 font-body text-[12px] text-[var(--t2)]">
           {catalog.description ?? '설명 없음'}
         </p>
       </header>
@@ -116,7 +116,7 @@ function MetaStrip({ catalog }: { catalog: SourceCatalog }) {
 
   return (
     <div className="border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-2.5">
-      <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--t3)]">
+      <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--t2)]">
         <MetaItem label="📜" value={catalog.license_summary} />
         <MetaItem
           label="🇰🇷"
@@ -190,7 +190,7 @@ function CardFooter({
         <span
           className={[
             'flex-1 min-h-[36px] rounded-[var(--r-sm)]',
-            'bg-[var(--bg2)] text-[var(--t3)]',
+            'bg-[var(--bg2)] text-[var(--t2)]',
             'px-3 font-display text-[12px] font-[600]',
             'flex items-center justify-center',
           ].join(' ')}

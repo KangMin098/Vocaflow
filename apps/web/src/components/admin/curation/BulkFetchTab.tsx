@@ -331,7 +331,7 @@ export function BulkFetchTab() {
             소스에서 가져오기 (GET batch)
           </h2>
           {opts.hint && (
-            <span className="hidden font-body text-[10.5px] text-[var(--t3)] sm:inline">
+            <span className="hidden font-body text-[10.5px] text-[var(--t2)] sm:inline">
               {opts.hint}
             </span>
           )}
@@ -404,7 +404,7 @@ export function BulkFetchTab() {
               <>
                 <CheckCircle2 size={12} className="text-[var(--learn-known)]" />
                 신규 <strong className="text-[var(--learn-known)]">{lastResult.inserted}</strong>건 ·
-                중복 <span className="text-[var(--t3)]">{lastResult.skipped}</span>건
+                중복 <span className="text-[var(--t2)]">{lastResult.skipped}</span>건
                 {lastResult.total_available != null && (
                   <span>· 소스 전체 ~{lastResult.total_available.toLocaleString()}권</span>
                 )}
@@ -412,7 +412,7 @@ export function BulkFetchTab() {
             )}
             {lastResult.next_offset != null && (
               <button type="button" onClick={() => handleFetch(true)} disabled={fetching}
-                className="ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--p)] hover:bg-[var(--p)] hover:text-[var(--ti)]">
+                className="ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] hover:bg-[var(--p)] hover:text-[var(--on-p)]">
                 <Plus size={11} /> 더 가져오기 ({batchSize}권)
               </button>
             )}
@@ -490,7 +490,7 @@ export function BulkFetchTab() {
           {DUP_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
         <div className="relative ml-auto flex-1 max-w-xs">
-          <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t3)]" />
+          <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t2)]" />
           <input type="text" placeholder="제목/저자 검색" value={search}
             onChange={(e) => { setSearch(e.target.value); setListOffset(0) }}
             className={`${filterCls} w-full pl-7`} />
@@ -507,7 +507,7 @@ export function BulkFetchTab() {
           type="button"
           onClick={handleQueueCuration}
           disabled={queuingCuration}
-          className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+          className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {queuingCuration ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
           정보 없는 도서 큐에 추가 (인기순 top 100)
@@ -524,7 +524,7 @@ export function BulkFetchTab() {
       {/* List */}
       <section className="overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]">
         {rows.length === 0 ? (
-          <div className="p-8 text-center font-body text-[12px] text-[var(--t3)]">
+          <div className="p-8 text-center font-body text-[12px] text-[var(--t2)]">
             카탈로그가 비어있습니다. 위 picker로 GET 하세요.
           </div>
         ) : (
@@ -548,7 +548,7 @@ export function BulkFetchTab() {
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={r.cover_url} alt="" className="h-full w-full object-cover" loading="lazy" />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-[var(--t4)]">
+                      <div className="flex h-full w-full items-center justify-center text-[var(--t2)]">
                         <BookOpen size={20} />
                       </div>
                     )}
@@ -580,7 +580,7 @@ export function BulkFetchTab() {
                       {r.est_v_level != null && (
                         <span
                           title={`추정 난이도 (ingest 후 실측 대체): ${cm?.est_basis ?? ''}`}
-                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--p)]"
+                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--on-p-tint)]"
                         >
                           ~V{r.est_v_level}
                           {cm?.est_cefr ? `·${cm.est_cefr}` : ''}
@@ -590,17 +590,17 @@ export function BulkFetchTab() {
                       {r.popularity_rank != null && <Chip subtle>↓ {r.popularity_rank.toLocaleString()}</Chip>}
                       {r.language && r.language !== 'en' && <Chip subtle>{r.language}</Chip>}
                       {r.published_year && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t3)]">
+                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t2)]">
                           <Calendar size={10} /> {r.published_year}
                         </span>
                       )}
                       {r.word_count && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t3)]">
+                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t2)]">
                           <FileText size={10} /> {r.word_count.toLocaleString()}
                         </span>
                       )}
                       {r.reading_time_minutes && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t3)]">
+                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t2)]">
                           <Clock size={10} />{' '}
                           {r.reading_time_minutes >= 60
                             ? `${Math.floor(r.reading_time_minutes / 60)}h ${r.reading_time_minutes % 60}m`
@@ -619,7 +619,7 @@ export function BulkFetchTab() {
                         {r.description}
                       </p>
                     ) : r.curation_status === 'queued' ? (
-                      <p className="mt-1.5 inline-flex items-center gap-1 font-body text-[11px] italic text-[var(--t3)]">
+                      <p className="mt-1.5 inline-flex items-center gap-1 font-body text-[11px] italic text-[var(--t2)]">
                         <Clock size={10} /> 큐레이션 정보 생성 대기 중
                       </p>
                     ) : null}
@@ -654,7 +654,7 @@ export function BulkFetchTab() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="원문 보기"
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
                       >
                         <ExternalLink size={12} />
                       </a>
@@ -702,7 +702,7 @@ export function BulkFetchTab() {
                         type="button"
                         onClick={() => handleEnqueue(r)}
                         disabled={enqueuingId === r.id}
-                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-2.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-2.5 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
                       >
                         {enqueuingId === r.id ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
                         enqueue
@@ -716,7 +716,7 @@ export function BulkFetchTab() {
         )}
 
         {total > PAGE && (
-          <div className="flex items-center justify-between border-t border-[var(--bd)] bg-[var(--bg2)] p-2 font-mono text-[11px] text-[var(--t3)]">
+          <div className="flex items-center justify-between border-t border-[var(--bd)] bg-[var(--bg2)] p-2 font-mono text-[11px] text-[var(--t2)]">
             <span>{listOffset + 1}–{Math.min(listOffset + PAGE, total)} / {total}</span>
             <div className="flex gap-1">
               <button type="button" disabled={listOffset === 0}
@@ -754,7 +754,7 @@ function SourcePill({ source }: { source: string }) {
 function Chip({ children, subtle }: { children: React.ReactNode; subtle?: boolean }) {
   return (
     <span className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[600] ${
-      subtle ? 'bg-[var(--bg2)] text-[var(--t3)]' : 'bg-[var(--bg2)] text-[var(--t2)]'
+      subtle ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'bg-[var(--bg2)] text-[var(--t2)]'
     }`}>{children}</span>
   )
 }
@@ -771,7 +771,7 @@ function StatPill({ label, n, tone }: { label: string; n: number; tone: 'neutral
 function PickerField({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">{label}</span>
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">{label}</span>
       {children}
     </label>
   )

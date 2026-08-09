@@ -132,7 +132,7 @@ function Header({
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           📚 라이브러리 원천
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">
+        <span className="font-mono text-[12px] text-[var(--t2)]">
           {visible === total ? `${total}개 소스` : `${visible} / ${total}개 소스`}
         </span>
       </div>
@@ -193,7 +193,7 @@ function SegmentedControl<T extends string>({
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-                : 'text-[var(--t3)] hover:text-[var(--t2)]',
+                : 'text-[var(--t2)] hover:text-[var(--t2)]',
             ].join(' ')}
           >
             {opt.label}
@@ -221,7 +221,7 @@ function SortSelect<T extends string>({
 }: SortSelectProps<T>) {
   return (
     <label className="inline-flex items-center gap-1.5">
-      <span className="font-mono text-[11px] text-[var(--t3)]">정렬</span>
+      <span className="font-mono text-[11px] text-[var(--t2)]">정렬</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
@@ -261,7 +261,7 @@ function EmptyState() {
       <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
         등록된 소스가 없습니다
       </h3>
-      <p className="font-body text-[12px] text-[var(--t3)]">
+      <p className="font-body text-[12px] text-[var(--t2)]">
         Supabase 마이그레이션이 정상 적용되었는지 확인해 주세요.
       </p>
     </div>

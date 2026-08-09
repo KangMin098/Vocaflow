@@ -67,7 +67,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                 {chapter.chapterTitle}
               </h3>
             </div>
-            <div className="mt-2 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="mt-2 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t2)]">
               <span className="font-display font-[700] text-[var(--t1)]">
                 {chapter.questions.length}문항
               </span>
@@ -85,7 +85,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
           >
             <X size={18} aria-hidden />
           </button>
@@ -93,7 +93,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
 
         <div className="flex-1 space-y-4 overflow-y-auto p-5">
           {chapter.questions.length === 0 ? (
-            <p className="font-body text-[13px] text-[var(--t3)]">문항이 없어요.</p>
+            <p className="font-body text-[13px] text-[var(--t2)]">문항이 없어요.</p>
           ) : (
             chapter.questions.map((q) => (
               <article
@@ -104,7 +104,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                   <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[var(--r-full)] bg-[#8B5CF6]/10 font-display text-[11px] font-[700] tabular-nums text-[#6D28D9]">
                     {q.qOrder}
                   </span>
-                  <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+                  <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                     {q.type}
                   </span>
                 </div>
@@ -113,7 +113,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                   {q.question}
                 </p>
                 {q.questionKo && (
-                  <p className="mt-1 font-body text-[12px] leading-snug text-[var(--t3)]">
+                  <p className="mt-1 font-body text-[12px] leading-snug text-[var(--t2)]">
                     {q.questionKo}
                   </p>
                 )}
@@ -132,7 +132,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                       >
                         <span
                           className={`mt-0.5 font-display text-[11px] font-[700] ${
-                            isCorrect ? 'text-[var(--success)]' : 'text-[var(--t3)]'
+                            isCorrect ? 'text-[var(--success)]' : 'text-[var(--t2)]'
                           }`}
                         >
                           {LETTERS[i] ?? i + 1}
@@ -148,7 +148,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                             {opt.text}
                           </span>
                           {opt.textKo && (
-                            <span className="ml-1.5 font-body text-[11px] text-[var(--t3)]">
+                            <span className="ml-1.5 font-body text-[11px] text-[var(--t2)]">
                               {opt.textKo}
                             </span>
                           )}
@@ -166,8 +166,8 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
 
                 {q.sourceSnippet && (
                   <div className="mt-3 flex items-start gap-2 border-t border-[var(--bd)]/60 pt-2.5">
-                    <Quote size={12} aria-hidden className="mt-1 shrink-0 text-[var(--t4)]" />
-                    <p className="font-english text-[12px] italic leading-relaxed text-[var(--t3)]">
+                    <Quote size={12} aria-hidden className="mt-1 shrink-0 text-[var(--t2)]" />
+                    <p className="font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
                       {q.sourceSnippet}
                     </p>
                   </div>
@@ -178,7 +178,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
         </div>
 
         <footer className="border-t border-[var(--bd)] bg-[var(--bg2)] p-3">
-          <p className="font-body text-[10px] text-[var(--t3)]">
+          <p className="font-body text-[10px] text-[var(--t2)]">
             ※ 정답(초록)·본문 근거는 검수 확인용 — 학습자 플레이 화면에는 노출되지 않습니다.
           </p>
         </footer>

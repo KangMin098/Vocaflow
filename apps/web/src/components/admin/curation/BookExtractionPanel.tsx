@@ -130,7 +130,7 @@ export function BookExtractionPanel({
           >
             학습 단어 추출 — 미리보기 = 실제 발행
           </h2>
-          <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">
             book_v_level{bookVLevel != null ? ` V${bookVLevel}` : ''} 이상 · 📜 고어·🏛 시대어
             제외(본문 툴팁으로) · composite = freq_boost 0.70 + 챕터 salience 0.10 + skill
             penalty · 발행 단어장과 동일 결과·순서
@@ -141,7 +141,7 @@ export function BookExtractionPanel({
           type="button"
           onClick={handleRun}
           disabled={loading}
-          className="inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+          className="inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -174,7 +174,7 @@ export function BookExtractionPanel({
       {rows && rows.length > 0 && (
         <div className="overflow-x-auto rounded-[var(--r-sm)] border border-[var(--bd)]">
           <table className="w-full border-collapse text-left">
-            <thead className="bg-[var(--bg2)] text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+            <thead className="bg-[var(--bg2)] text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
               <tr>
                 <Th>#</Th>
                 <Th className="text-right">Ch</Th>
@@ -191,8 +191,8 @@ export function BookExtractionPanel({
                   key={`${r.chapter_idx}-${r.word}`}
                   className="border-t border-[var(--bd)] font-body text-[12px] text-[var(--t1)] hover:bg-[var(--bg2)]"
                 >
-                  <Td className="font-mono text-[var(--t3)]">{r.rank}</Td>
-                  <Td className="text-right font-mono text-[var(--t3)]">{r.chapter_idx}</Td>
+                  <Td className="font-mono text-[var(--t2)]">{r.rank}</Td>
+                  <Td className="text-right font-mono text-[var(--t2)]">{r.chapter_idx}</Td>
                   <Td className="font-display font-[600]">
                     <span className="inline-flex items-center gap-1.5">
                       {r.word}
@@ -209,7 +209,7 @@ export function BookExtractionPanel({
                   </Td>
                   <Td className="text-[var(--t2)]">{r.meaning_ko ?? '—'}</Td>
                   <Td className="text-right font-mono">V{r.v_level}</Td>
-                  <Td className="text-right font-mono text-[var(--t3)]">
+                  <Td className="text-right font-mono text-[var(--t2)]">
                     {r.frequency_rank ?? '—'}
                   </Td>
                   <Td className="text-right font-mono">{r.composite_score}</Td>
@@ -242,7 +242,7 @@ export function BookExtractionPanel({
                 <button
                   type="button"
                   onClick={() => setLimit(50)}
-                  className="font-display text-[12px] font-[600] text-[var(--t3)] hover:underline"
+                  className="font-display text-[12px] font-[600] text-[var(--t2)] hover:underline"
                 >
                   접기 (50개만 보기)
                 </button>
@@ -253,7 +253,7 @@ export function BookExtractionPanel({
       )}
 
       {rows && rows.length === 0 && (
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           이 percentile 에서는 추출할 단어가 없어요.
         </p>
       )}
@@ -270,7 +270,7 @@ export function BookExtractionPanel({
             >
               사전 미바인딩 단어 ({unbound.length}건)
             </h3>
-            <span className="font-body text-[11px] text-[var(--t3)]">
+            <span className="font-body text-[11px] text-[var(--t2)]">
               추출에서 제외된 lemma — 원인 진단용
             </span>
           </header>
@@ -311,7 +311,7 @@ export function BookExtractionPanel({
               type="button"
               onClick={handleStage}
               disabled={staging}
-              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {staging ? (
                 <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -326,7 +326,7 @@ export function BookExtractionPanel({
                 대기 (이번 +{stageResult.staged}) · Claude Code 배치가 뜻 생성·등재 후 재추출 시 반영
               </span>
             ) : (
-              <span className="font-body text-[11px] text-[var(--t3)]">
+              <span className="font-body text-[11px] text-[var(--t2)]">
                 실단어를 등재 큐로 올립니다 — 뜻 생성·사전 등재는 Claude Code 배치가 처리
               </span>
             )}
@@ -334,7 +334,7 @@ export function BookExtractionPanel({
 
           <div className="overflow-x-auto rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]">
             <table className="w-full border-collapse text-left">
-              <thead className="bg-[var(--bg2)] text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+              <thead className="bg-[var(--bg2)] text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                 <tr>
                   <Th className="text-right">#</Th>
                   <Th>lemma</Th>
@@ -356,7 +356,7 @@ export function BookExtractionPanel({
                     key={r.lemma}
                     className="border-t border-[var(--bd)] font-body text-[11px] text-[var(--t1)]"
                   >
-                    <Td className="text-right font-mono text-[10px] tabular-nums text-[var(--t3)]">
+                    <Td className="text-right font-mono text-[10px] tabular-nums text-[var(--t2)]">
                       {i + 1}
                     </Td>
                     <Td className="font-display font-[600]">{r.lemma}</Td>
@@ -368,7 +368,7 @@ export function BookExtractionPanel({
                             ? 'text-[var(--active)]'
                             : r.reason === 'genuine_miss'
                               ? 'text-[var(--learn-error)]'
-                              : 'text-[var(--t3)]')
+                              : 'text-[var(--t2)]')
                         }
                       >
                         {REASON_LABEL[r.reason]}
@@ -386,7 +386,7 @@ export function BookExtractionPanel({
                           ↻ {r.cluster_base}
                         </span>
                       ) : (
-                        <span className="text-[var(--t4)]">—</span>
+                        <span className="text-[var(--t2)]">—</span>
                       )}
                     </Td>
                     <Td className="font-mono text-[10px]">
@@ -398,7 +398,7 @@ export function BookExtractionPanel({
                           굴 {r.inflection_base}
                         </span>
                       ) : (
-                        <span className="text-[var(--t4)]">—</span>
+                        <span className="text-[var(--t2)]">—</span>
                       )}
                     </Td>
                     <Td className="font-mono text-[10px]">
@@ -410,19 +410,19 @@ export function BookExtractionPanel({
                           파 {r.deriv_base}
                         </span>
                       ) : (
-                        <span className="text-[var(--t4)]">—</span>
+                        <span className="text-[var(--t2)]">—</span>
                       )}
                     </Td>
-                    <Td className="text-right font-mono text-[var(--t3)]">
+                    <Td className="text-right font-mono text-[var(--t2)]">
                       {r.book_occurrences}
                     </Td>
-                    <Td className="font-mono text-[var(--t3)]">
+                    <Td className="font-mono text-[var(--t2)]">
                       {r.dict_v_level != null ? `V${r.dict_v_level}` : '—'}
                     </Td>
                     <Td className="max-w-[200px] truncate text-[var(--t2)]">
                       {r.dict_meaning_ko ?? '—'}
                     </Td>
-                    <Td className="font-mono text-[10px] text-[var(--t3)]">
+                    <Td className="font-mono text-[10px] text-[var(--t2)]">
                       {r.dict_classified_by ?? '—'}
                     </Td>
                     <Td className="font-mono text-[10px]">
@@ -435,14 +435,14 @@ export function BookExtractionPanel({
                               : r.archaic_class === 'processed'
                                 ? 'text-[var(--success)]'
                                 : r.archaic_class.endsWith('_noise')
-                                  ? 'text-[var(--t3)]'
+                                  ? 'text-[var(--t2)]'
                                   : 'text-[var(--t2)]'
                           }
                         >
                           {r.archaic_class}
                         </span>
                       ) : (
-                        <span className="text-[var(--t4)]">—</span>
+                        <span className="text-[var(--t2)]">—</span>
                       )}
                     </Td>
                   </tr>
@@ -474,7 +474,7 @@ export function BookExtractionPanel({
                   <button
                     type="button"
                     onClick={() => setUnboundLimit(100)}
-                    className="font-display text-[12px] font-[600] text-[var(--t3)] hover:underline"
+                    className="font-display text-[12px] font-[600] text-[var(--t2)] hover:underline"
                   >
                     접기 (100개만 보기)
                   </button>
@@ -491,7 +491,7 @@ export function BookExtractionPanel({
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">

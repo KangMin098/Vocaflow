@@ -82,10 +82,10 @@ export function AdvancedFetchPanel({
         aria-expanded={open}
       >
         <span className="inline-flex items-center gap-1.5">
-          <Sliders size={12} className="text-[var(--t3)]" />
+          <Sliders size={12} className="text-[var(--t2)]" />
           소스별 고급 조건
           {hasActive && (
-            <span className="ml-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--p)] px-1 font-mono text-[9px] font-[700] text-[var(--ti)]">
+            <span className="ml-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--p)] px-1 font-mono text-[9px] font-[700] text-[var(--on-p)]">
               {countActive(state, enabled)}
             </span>
           )}
@@ -131,7 +131,7 @@ export function AdvancedFetchPanel({
                     className={`${inputCls} w-full`}
                     disabled={disabled}
                   />
-                  <span className="text-[var(--t3)]">~</span>
+                  <span className="text-[var(--t2)]">~</span>
                   <input
                     type="number"
                     value={state.authorYearEnd}
@@ -298,7 +298,7 @@ export function AdvancedFetchPanel({
               <button
                 type="button"
                 onClick={() => onChange(DEFAULT_ADVANCED)}
-                className="font-mono text-[10px] text-[var(--t3)] underline-offset-2 hover:underline"
+                className="font-mono text-[10px] text-[var(--t2)] underline-offset-2 hover:underline"
               >
                 전체 초기화
               </button>
@@ -377,12 +377,12 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       {children}
       {hint && (
-        <span className="font-body text-[10px] text-[var(--t3)]">{hint}</span>
+        <span className="font-body text-[10px] text-[var(--t2)]">{hint}</span>
       )}
     </label>
   )

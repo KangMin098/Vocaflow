@@ -77,7 +77,7 @@ export function OpenStaxIdTab({ onPickPreview }: OpenStaxIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           📚 OpenStax 교과서 슬러그 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">openstax.org book slug</span>
+        <span className="font-mono text-[12px] text-[var(--t2)]">openstax.org book slug</span>
       </div>
 
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
@@ -143,14 +143,14 @@ export function OpenStaxIdTab({ onPickPreview }: OpenStaxIdTabProps) {
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           OpenStax 책 페이지 URL 의 마지막 segment 입니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
             https://openstax.org/books/<strong>college-physics-2e</strong>
           </code>
         </p>
 
-        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)]">
           📚 OpenStax 교과서는 모두 CC BY 4.0 — 한국 저작권 안전 ✓. 최대 30 챕터 자동
           수집됩니다. 수식(MathML)은 <code>[수식]</code> 으로 치환되고, 표·이미지·캡션은
           단어 추출 노이즈를 줄이기 위해 제거됩니다.
@@ -184,7 +184,7 @@ function PreviewCard({
       <header className="border-b border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
         <div className="mb-1 flex items-start justify-between gap-3">
           <h3 className="flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-            <BookOpen size={14} className="text-[var(--t3)]" aria-hidden />
+            <BookOpen size={14} className="text-[var(--t2)]" aria-hidden />
             {preview.title}
           </h3>
           <a
@@ -198,7 +198,7 @@ function PreviewCard({
             <ExternalLink size={10} aria-hidden />
           </a>
         </div>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           {preview.author}
           <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">· {preview.license}</span>
           {preview.chapter_count > 0 && (
@@ -210,7 +210,7 @@ function PreviewCard({
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           책 설명
         </div>
         <p className="line-clamp-6 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -223,7 +223,7 @@ function PreviewCard({
           type="button"
           onClick={onPick}
           disabled={isPickPending}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ➕ 큐에 추가
         </button>

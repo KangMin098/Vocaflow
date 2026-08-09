@@ -45,7 +45,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
       aria-label="LibriVox 오디오 낭독"
     >
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           <Headphones size={11} aria-hidden />
           오디오 낭독 (LibriVox)
         </div>
@@ -59,7 +59,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
               href={audio.archive_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-0.5 text-[var(--t3)] hover:text-[var(--p)] hover:underline"
+              className="inline-flex items-center gap-0.5 text-[var(--t2)] hover:text-[var(--p)] hover:underline"
               aria-label="archive.org 에서 전체 보기"
             >
               archive.org
@@ -116,7 +116,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
       </audio>
 
       {current.reader && (
-        <p className="mt-1.5 font-body text-[11px] text-[var(--t3)]">🎙 낭독: {current.reader}</p>
+        <p className="mt-1.5 font-body text-[11px] text-[var(--t2)]">🎙 낭독: {current.reader}</p>
       )}
     </section>
   )

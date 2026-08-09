@@ -121,7 +121,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
                 loading="lazy"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-[var(--t4)]">
+              <div className="flex h-full w-full items-center justify-center text-[var(--t2)]">
                 <BookOpen size={28} />
               </div>
             )}
@@ -241,7 +241,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
                 {cm.themes.map((th, i) => (
                   <span
                     key={`${th}-${i}`}
-                    className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--p-dark)]"
+                    className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--on-p-tint)]"
                   >
                     {th}
                   </span>
@@ -253,7 +253,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
           {/* V-Level 추정 근거 */}
           {cm?.est_basis && (
             <Section title="V-Level 추정 근거">
-              <p className="font-body text-[11.5px] italic leading-[1.6] text-[var(--t3)]">
+              <p className="font-body text-[11.5px] italic leading-[1.6] text-[var(--t2)]">
                 {cm.est_basis}
               </p>
             </Section>
@@ -275,7 +275,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
                 {row.subjects.slice(0, 8).map((s, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t3)]"
+                    className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]"
                   >
                     {s}
                   </span>
@@ -309,7 +309,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
               type="button"
               onClick={() => onEnqueue(row)}
               disabled={enqueuing}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
             >
               {enqueuing ? (
                 <Loader2 size={12} className="animate-spin" />
@@ -339,7 +339,7 @@ function MetaCell({
 }) {
   return (
     <div className="flex flex-col gap-0.5 min-w-0">
-      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t3)]">
+      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       <span
@@ -364,7 +364,7 @@ function Section({
 }) {
   return (
     <section className="mb-4">
-      <h3 className="mb-1.5 inline-flex items-center gap-1.5 font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t3)]">
+      <h3 className="mb-1.5 inline-flex items-center gap-1.5 font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
         {icon}
         {title}
       </h3>

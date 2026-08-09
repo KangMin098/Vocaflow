@@ -73,7 +73,7 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           📄 StoryWeaver 그림책 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">story id 또는 slug</span>
+        <span className="font-mono text-[12px] text-[var(--t2)]">story id 또는 slug</span>
       </div>
 
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
@@ -130,14 +130,14 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           StoryWeaver story URL 의 id 부분입니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
             storyweaver.org.in/stories/<strong>2-smile-please</strong>
           </code>
         </p>
 
-        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)]">
           📄 StoryWeaver 그림책은 모두 CC BY 4.0 — 한국 저작권 안전 ✓. 페이지별 삽화(링크)와 낭독
           오디오가 자동 수집되어 학습자에게 노출됩니다.
         </p>
@@ -185,7 +185,7 @@ function PreviewCard({
               <ExternalLink size={10} aria-hidden />
             </a>
           </div>
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
             {preview.author}
             <span className="font-mono text-[10px] text-[var(--t5)]">· {preview.license}</span>
             <span className="inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--t5)]">
@@ -201,7 +201,7 @@ function PreviewCard({
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           줄거리 / 본문 미리보기
         </div>
         <p className="line-clamp-5 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -214,7 +214,7 @@ function PreviewCard({
           type="button"
           onClick={onPick}
           disabled={isPickPending}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ➕ 큐에 추가
         </button>
