@@ -18,6 +18,15 @@ export const dynamic = 'force-dynamic'
 const KINDS = ['pages', 'restored', 'panels'] as const
 const IMG = /\.(jpe?g|png)$/i
 
+// 현대화 산출물(Claude Code 오퍼레이터 루프) — 각 단계의 프리뷰 스트립 + verdict 를 모니터에 노출.
+const MODERN_KINDS: { key: string; label: string; manifest: string }[] = [
+  { key: 'webtoon', label: '모던 웹툰 (flat-color)', manifest: 'webtoon.manifest.json' },
+  { key: 'dialogue', label: '모던 대사 레이어', manifest: 'dialogue.manifest.json' },
+  { key: 'reletter', label: '재레터링 (반려 기록)', manifest: 'reletter.manifest.json' },
+]
+
+type ModernArtifact = { key: string; label: string; preview: string | null; strip: string | null; verdict: unknown }
+
 export async function GET(request: Request): Promise<NextResponse> {
   const adminOrError = await requireAdminApi()
   if (adminOrError instanceof NextResponse) return adminOrError
@@ -54,5 +63,20 @@ export async function GET(request: Request): Promise<NextResponse> {
       if (fs.existsSync(dir)) artifacts[kind] = fs.readdirSync(dir).filter((f) => IMG.test(f)).sort()
     } catch { /* noop */ }
   }
-  return NextResponse.json({ status: row?.status ?? null, panelsTotal: row?.panels_total ?? null, workDir: true, progress, artifacts })
+  // 현대화 산출물 — 스트립 프리뷰 + verdict(오퍼레이터 판정). 모니터가 콘텐츠별 현대화 진척을 보게.
+  const modern: ModernArtifact[] = []
+  for (const m of MODERN_KINDS) {
+    const dir = path.join(workDir, m.key)
+    if (!fs.existsSync(dir)) continue
+    const previewRel = fs.existsSync(path.join(dir, 'strip_preview.jpg')) ? `${m.key}/strip_preview.jpg` : null
+    const stripRel = fs.existsSync(path.join(dir, 'strip.jpg')) ? `${m.key}/strip.jpg` : null
+    let verdict: unknown = null
+    try {
+      const mf = path.join(dir, m.manifest)
+      if (fs.existsSync(mf)) verdict = (JSON.parse(fs.readFileSync(mf, 'utf8')) as { verdict?: unknown }).verdict ?? null
+    } catch { /* noop */ }
+    if (previewRel || stripRel || verdict) modern.push({ key: m.key, label: m.label, preview: previewRel, strip: stripRel, verdict })
+  }
+
+  return NextResponse.json({ status: row?.status ?? null, panelsTotal: row?.panels_total ?? null, workDir: true, progress, artifacts, modern })
 }

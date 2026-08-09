@@ -960,8 +960,10 @@ function Lightbox({ issueId, rels, index, onIndex, onClose }: { issueId: string;
 
 // 라이브 진행 — 어디 콘텐츠의 몇 번째 아이템이 진행 중인지(진행율) + 중간 결과 이미지(원본/복원/컷)를 수시 폴링.
 interface Prog { stage?: string; current?: string; done?: number; total?: number; pct?: number }
+type ModernArt = { key: string; label: string; preview: string | null; strip: string | null; verdict: { result?: string; [k: string]: unknown } | null }
+
 function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: string[], index: number) => void }) {
-  const [data, setData] = useState<{ workDir?: boolean; status?: string | null; panelsTotal?: number | null; progress?: Prog | null; artifacts?: Record<string, string[]> } | null>(null)
+  const [data, setData] = useState<{ workDir?: boolean; status?: string | null; panelsTotal?: number | null; progress?: Prog | null; artifacts?: Record<string, string[]>; modern?: ModernArt[] } | null>(null)
   const [err, setErr] = useState<string | null>(null)
   useEffect(() => {
     let alive = true
@@ -1009,7 +1011,37 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
           </div>
         )
       })}
-      {!p && !anyArt && <p className="font-body text-[11.5px] text-[var(--t3)]">아직 산출물이 없습니다 — 드레인이 진행되면 여기 원본→복원→컷 이미지가 수시로 채워집니다.</p>}
+      {(data.modern?.length ?? 0) > 0 && (
+        <div className="mt-3 border-t border-[var(--bd)] pt-2.5">
+          <p className="mb-1.5 font-mono text-[10.5px] font-semibold text-[var(--t2)]">현대화 산출물 (Claude Code 오퍼레이터 판정)</p>
+          <div className="flex flex-col gap-2">
+            {data.modern!.map((m) => {
+              const res = typeof m.verdict?.result === 'string' ? m.verdict.result : null
+              const tone = res?.includes('채택') ? 'var(--success,#2E7D5A)' : res?.includes('반려') ? 'var(--error,#9C3A30)' : res?.includes('현대적') ? 'var(--success,#2E7D5A)' : 'var(--warn,#B5803A)'
+              const rel = m.preview ?? m.strip
+              return (
+                <div key={m.key} className="flex gap-2.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
+                  {rel && (
+                    <button type="button" onClick={() => onZoom([rel], 0)} title={`${m.label} — 크게 보기`} className="shrink-0 cursor-zoom-in overflow-hidden rounded-[var(--r-xs,4px)] border border-[var(--bd)] bg-[var(--bg2)] transition-shadow hover:shadow-[0_0_0_2px_var(--p)]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(rel)}`} alt={m.label} loading="lazy" className="h-32 w-auto object-contain" />
+                    </button>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-body text-[12px] font-semibold text-[var(--t1)]">{m.label}</span>
+                      {res && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-semibold text-white" style={{ background: tone }}>{res.split('—')[0].trim()}</span>}
+                    </div>
+                    {res && <p className="mt-1 font-body text-[11px] leading-snug text-[var(--t2)]">{res}</p>}
+                    {!res && <p className="mt-1 font-body text-[11px] text-[var(--t3)]">판정 대기 — 오퍼레이터가 프리뷰 검토 후 verdict 기록.</p>}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+      {!p && !anyArt && (data.modern?.length ?? 0) === 0 && <p className="font-body text-[11.5px] text-[var(--t3)]">아직 산출물이 없습니다 — 드레인이 진행되면 여기 원본→복원→컷 이미지가 수시로 채워집니다.</p>}
     </div>
   )
 }
