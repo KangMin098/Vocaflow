@@ -10,6 +10,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { getAdapter } from './sources/index.mjs'
+import { slugify, rank } from './curate-core.mjs'
 
 const arg = (n, d) => { const i = process.argv.indexOf(`--${n}`); return i === -1 ? d : (process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : true) }
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
@@ -21,41 +22,10 @@ const TOP = Number(arg('top', 8))
 const PAGES = arg('pages') ? Number(arg('pages')) : 4
 const DO_ENQUEUE = !!arg('enqueue')
 
-// 그레이디드 리더 정본과 겹치는 고전 canon — Classics Illustrated 가 각색한 대표작.
-const CANON = [
-  ['ivanhoe', 'Ivanhoe'], ['odyssey', 'The Odyssey'], ['iliad', 'The Iliad'], ['macbeth', 'Macbeth'],
-  ['hamlet', 'Hamlet'], ['julius caesar', 'Julius Caesar'], ['monte cristo', 'The Count of Monte Cristo'],
-  ['three musketeers', 'The Three Musketeers'], ['moby dick', 'Moby Dick'], ['two cities', 'A Tale of Two Cities'],
-  ['robinson crusoe', 'Robinson Crusoe'], ['treasure island', 'Treasure Island'], ['kidnapped', 'Kidnapped'],
-  ['leagues', '20,000 Leagues Under the Sea'], ['oliver twist', 'Oliver Twist'], ['copperfield', 'David Copperfield'],
-  ['mohicans', 'The Last of the Mohicans'], ['robin hood', 'Robin Hood'], ['gulliver', "Gulliver's Travels"],
-  ['tom sawyer', 'Tom Sawyer'], ['huck', 'Huckleberry Finn'], ['frankenstein', 'Frankenstein'],
-  ['jekyll', 'Dr. Jekyll and Mr. Hyde'], ['time machine', 'The Time Machine'], ['war of the worlds', 'War of the Worlds'],
-  ['first men in the moon', 'First Men in the Moon'], ['around the world', 'Around the World in 80 Days'],
-  ['christmas carol', 'A Christmas Carol'], ['don quixote', 'Don Quixote'], ['miserables', 'Les Misérables'],
-  ['call of the wild', 'The Call of the Wild'], ['white fang', 'White Fang'], ['the spy', 'The Spy'],
-  ['westward ho', 'Westward Ho!'], ['deerslayer', 'The Deerslayer'], ['prince and the pauper', 'The Prince and the Pauper'],
-]
-const NOISE = /sacred classics|grammar|rhetoric|antiquit|law restated|cultural history|library of|fine books|roman antiq|explained|great illustrated classics$|acclaim|junior/i
-const CI_RE = /classics?[\s._-]*illustrated|illustrated[\s._-]*classics/i
-
-const slugify = (s) => String(s || 'issue').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'issue'
-
-function score(it) {
-  const hay = `${it.identifier} ${it.title || ''}`.toLowerCase()
-  if (NOISE.test(hay)) return null // 학습 부적합 노이즈 제외
-  const canon = CANON.find(([kw]) => hay.includes(kw))
-  const isCI = CI_RE.test(hay)
-  if (!isCI && !canon) return null // CI 도 canon 도 아니면 스킵
-  const pagesOk = it.pageCount != null && it.pageCount >= 20 && it.pageCount <= 120
-  const riskPts = it.pdRisk === 'ok' ? 1 : it.pdRisk === 'caution' ? 0.5 : 0
-  const s = (isCI ? 2 : 0) + (canon ? 3 : 0) + (pagesOk ? 1 : 0) + riskPts
-  return { ...it, fit: s, canon: canon?.[1] ?? null, isCI }
-}
-
+// CANON·NOISE·CI_RE·slugify·score 는 curate-core.mjs 공유(콘솔 API 와 동일 로직 — drift 방지).
 const ad = getAdapter(SOURCE)
 const raw = await ad.search(QUERY, 40, { sort: 'downloads' })
-const ranked = raw.map(score).filter(Boolean).sort((a, b) => b.fit - a.fit).slice(0, TOP)
+const ranked = rank(raw, TOP)
 
 console.log(`\n학습 적합도 큐레이션 · ${SOURCE} · "${QUERY}" — 상위 ${ranked.length}/${raw.length}\n`)
 for (const r of ranked) {

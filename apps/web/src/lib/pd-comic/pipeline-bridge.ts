@@ -113,6 +113,18 @@ export async function getAdapter(id: string): Promise<AdapterInfo> {
   return a
 }
 
+// 학습 적합도 큐레이션 점수 — curate-core.mjs(curate.mjs CLI 와 동일 로직) 동적 로드.
+export interface CurateTrack { key: string; label: string; query: string; note: string }
+export interface CurateCore {
+  rank: (items: unknown[], top?: number) => Array<Record<string, unknown>>
+  CANON: Array<[string, string]>
+  CURATE_TRACKS: CurateTrack[]
+}
+export async function loadCurateCore(): Promise<CurateCore> {
+  const mod = await import(/* webpackIgnore: true */ pathToFileURL(path.join(PD_DIR, 'curate-core.mjs')).href)
+  return mod as unknown as CurateCore
+}
+
 export interface RunResult {
   ok: boolean
   code: number | null

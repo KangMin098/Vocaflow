@@ -135,6 +135,105 @@ export function AdminPdComicsClient({
   )
 }
 
+// ─── 추천 소재 (자동 큐레이션) — 사전 지식 없이 아는 명작만 고르면 자동 랭킹·적재 ──────
+// curate-core(CLI 와 동일 로직)로 CANON 매칭 + CI 감지 + 분량 + PD 위험도 자동 점수.
+// 사용자가 컬렉션 ID·연도 상한·검색어를 몰라도 된다 — 명작 칩 하나 누르면 끝.
+type CurateCand = { identifier: string; title: string; canon: string | null; isCI: boolean; fit: number; why: string[]; pageCount: number | null; publishedYear: number | null; pdRisk: string | null; existingStatus: string | null }
+function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: string; onMsg: (s: string) => void; onEnqueued: () => void; schemaReady: boolean }) {
+  const [tracks, setTracks] = useState<Array<{ key: string; label: string; query: string; note: string }>>([])
+  const [canon, setCanon] = useState<string[]>([])
+  const [cands, setCands] = useState<CurateCand[]>([])
+  const [busy, setBusy] = useState(false)
+  const [pages, setPages] = useState(6)
+  const [activeQuery, setActiveQuery] = useState<string | null>(null)
+
+  useEffect(() => {
+    void fetch('/api/pdcp/curate').then((r) => (r.ok ? r.json() : { tracks: [], canon: [] })).then((j) => { setTracks(j.tracks ?? []); setCanon(j.canon ?? []) }).catch(() => { /* noop */ })
+  }, [])
+
+  const run = async (query: string) => {
+    setBusy(true); setActiveQuery(query); setCands([])
+    try {
+      const r = await fetch('/api/pdcp/curate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ source, query, top: 12 }) })
+      const j = await r.json()
+      if (!r.ok) throw new Error(j.error ?? '추천 실패')
+      setCands(j.candidates ?? [])
+      onMsg(`"${query}" — 학습 적합 후보 ${j.candidates?.length ?? 0}건 (자동 랭킹)`)
+    } catch (e) { onMsg((e as Error).message) } finally { setBusy(false) }
+  }
+
+  const enqueueTop = async (n: number) => {
+    const pick = cands.filter((c) => !c.existingStatus).slice(0, n).map((c) => c.identifier)
+    if (!pick.length) { onMsg('적재할 신규 후보가 없습니다'); return }
+    setBusy(true)
+    try {
+      const r = await fetch('/api/pdcp/enqueue', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ source, identifiers: pick, pages }) })
+      const j = await r.json()
+      if (!r.ok) throw new Error(j.error ?? '적재 실패')
+      onMsg(`추천 ${j.enqueued}건 큐 적재 (앞 ${pages}장)${j.failed ? ` · 중복 ${j.failed}` : ''}`)
+      onEnqueued()
+    } catch (e) { onMsg((e as Error).message) } finally { setBusy(false) }
+  }
+
+  const newCount = cands.filter((c) => !c.existingStatus).length
+
+  return (
+    <section className="rounded-[var(--r-lg)] border p-4" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}08` }}>
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">추천 소재 — 아는 명작만 고르세요</h3>
+        <span className="font-body text-[11.5px] text-[var(--t2)]">컬렉션 ID·연도·검색어 몰라도 됩니다. 학습 적합·PD 안전 순으로 자동 랭킹됩니다.</span>
+      </div>
+
+      {/* 자동 적용 가드레일 — 사용자가 규칙을 몰라도 됨을 명시 */}
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {['1964년+ 자동 제외', 'PD 위험 재정렬', '학습 부적합(문법서·주니어) 제외', '표지-only 제외', '중복 제외', '명작 canon 가중'].map((g) => (
+          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t3)]">✓ {g}</span>
+        ))}
+      </div>
+
+      {/* 트랙 + 명작 칩 */}
+      <div className="mt-3 flex flex-wrap items-center gap-1.5">
+        {tracks.map((t) => (
+          <button key={t.key} type="button" title={t.note} disabled={busy} onClick={() => void run(t.query)} className="min-h-[34px] rounded-[var(--r-full)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>{t.label}</button>
+        ))}
+        <span className="mx-1 font-mono text-[10px] text-[var(--t3)]">또는 명작:</span>
+        {canon.slice(0, 14).map((c) => (
+          <button key={c} type="button" disabled={busy} onClick={() => void run(c)} className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[11.5px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50">{c}</button>
+        ))}
+      </div>
+
+      {busy && !cands.length && <p className="mt-3 font-body text-[12px] text-[var(--t3)]">랭킹 중…</p>}
+
+      {cands.length > 0 && (
+        <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+          <div className="flex flex-wrap items-center gap-2 border-b border-[var(--bd)] px-3 py-2">
+            <span className="font-display text-[12px] font-[700] text-[var(--t1)]">&ldquo;{activeQuery}&rdquo; 추천 {cands.length}건</span>
+            <span className="font-mono text-[11px] text-[var(--t3)]">신규 {newCount}</span>
+            <label className="ml-auto flex items-center gap-1 font-body text-[11.5px] text-[var(--t2)]">앞
+              <input type="number" min={1} max={60} value={pages} onChange={(e) => setPages(Number(e.target.value))} className="w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 text-right tabular-nums" />장</label>
+            <button type="button" disabled={busy || !schemaReady || newCount === 0} onClick={() => void enqueueTop(6)} className="min-h-[34px] rounded-[var(--r-md)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>추천 상위 {Math.min(6, newCount)} 큐 적재 (앞 {pages}장)</button>
+          </div>
+          <ul className="divide-y divide-[var(--bd)]">
+            {cands.map((c) => (
+              <li key={c.identifier} className="flex items-center gap-2.5 px-3 py-2">
+                <span className="w-10 shrink-0 text-center font-mono text-[13px] font-[800] tabular-nums" style={{ color: ACCENT }}>{c.fit.toFixed(1)}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{c.title}{c.publishedYear && <span className="ml-2 font-mono text-[10.5px] text-[var(--t3)]">{c.publishedYear}</span>}{c.pageCount && <span className="ml-1.5 font-mono text-[10.5px] text-[var(--t3)]">{c.pageCount}p</span>}</p>
+                  <p className="mt-0.5 flex flex-wrap items-center gap-1.5 font-body text-[11px] text-[var(--t2)]">
+                    {c.pdRisk && RISK_UI[c.pdRisk] && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: RISK_UI[c.pdRisk].fg, background: RISK_UI[c.pdRisk].bg }}>{RISK_UI[c.pdRisk].label}</span>}
+                    {c.why.map((w) => <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] text-[var(--t3)]">{w}</span>)}
+                  </p>
+                </div>
+                {c.existingStatus && <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">등록됨 · {c.existingStatus}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}
+
 // ─── 소스 탭 — 능력표 + 검색 + 대량 적재 ────────────────────────────
 function SourceTab({
   onMsg,
@@ -240,6 +339,12 @@ function SourceTab({
 
   return (
     <div className="flex flex-col gap-4">
+      {/* 추천 소재 — 사전 지식 없이도 아는 명작만 고르면 자동 랭킹·적재 */}
+      <RecommendPanel source={source} onMsg={onMsg} onEnqueued={onEnqueued} schemaReady={schemaReady} />
+
+      <details className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
+        <summary className="cursor-pointer px-4 py-2.5 font-display text-[12.5px] font-[700] text-[var(--t2)]">직접 검색 · 능력표 (고급)</summary>
+        <div className="flex flex-col gap-4 border-t border-[var(--bd)] p-4">
       {/* 능력표 — 사이트마다 취득 방식이 근본적으로 다르다 */}
       <section className="overflow-x-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
         <table className="w-full min-w-[640px] text-left">
@@ -447,7 +552,8 @@ function SourceTab({
                     disabled={!!it.existingStatus}
                     onChange={(e) => {
                       const n = new Set(sel)
-                      e.target.checked ? n.add(it.identifier) : n.delete(it.identifier)
+                      if (e.target.checked) n.add(it.identifier)
+                      else n.delete(it.identifier)
                       setSel(n)
                     }}
                     className="mt-1 shrink-0"
@@ -508,6 +614,8 @@ function SourceTab({
           )}
         </section>
       )}
+        </div>
+      </details>
 
       <AssistPanel onMsg={onMsg} />
     </div>
