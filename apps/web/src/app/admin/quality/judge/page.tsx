@@ -10,6 +10,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { Scale } from 'lucide-react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { createClient } from '@/lib/supabase/server'
 
 import { JudgeClient, type BookOption, type ArticleOption } from './JudgeClient'
@@ -55,6 +56,8 @@ export default async function AdminJudgePage() {
         </p>
       </header>
 
+      <AdminScreenHelp screen="quality-judge" className="-mt-4" />
+
       {books.length === 0 && articles.length === 0 ? (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-10 text-center">
           <p className="font-body text-[14px] text-[var(--t2)]">
@@ -65,7 +68,7 @@ export default async function AdminJudgePage() {
         <JudgeClient books={books} articles={articles} />
       )}
 
-      <p className="text-center font-body text-[11px] text-[var(--t3)]">
+      <p className="text-center font-body text-[11px] text-[var(--t2)]">
         표본 = in-cap 상위 8 + out-of-cap 경계 8 (셔플) · 판정은 blind — 제출 후에만 시스템 선택이
         공개됩니다 · 저장: extraction_judgments (composite/sort_order 스냅샷 보존)
       </p>

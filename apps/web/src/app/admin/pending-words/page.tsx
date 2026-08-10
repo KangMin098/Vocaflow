@@ -10,6 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { Database as DatabaseIcon, Hash, Clock3 } from 'lucide-react'
 
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
 import { PendingWordActions } from './PendingWordActions'
@@ -77,6 +78,8 @@ export default async function AdminPendingWordsPage() {
         description="추출 시 L1+L2 모두 miss 한 lemma 큐 — shared_dictionary 보강 후보"
       />
 
+      <AdminScreenHelp screen="pending-words" className="-mt-3 mb-6" />
+
       {/* KPI strip */}
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         <KpiCard
@@ -113,7 +116,7 @@ export default async function AdminPendingWordsPage() {
             <DatabaseIcon size={18} aria-hidden />
           </span>
           <p className="font-body text-[13px] text-[var(--t2)]">큐가 비어있습니다.</p>
-          <p className="font-body text-[11px] text-[var(--t3)]">
+          <p className="font-body text-[11px] text-[var(--t2)]">
             사용자가 추출 시 미매칭 lemma 누적 시 자동으로 여기에 표시됩니다.
           </p>
         </div>
@@ -143,14 +146,14 @@ export default async function AdminPendingWordsPage() {
                         {row.lemma}
                       </p>
                       {row.surface && row.surface !== row.lemma && (
-                        <p className="font-mono text-[10px] text-[var(--t3)]">
+                        <p className="font-mono text-[10px] text-[var(--t2)]">
                           surface ← {row.surface}
                         </p>
                       )}
                     </td>
                     <td className="px-3 py-2 text-right">
                       <span className="inline-flex items-center gap-1 font-mono text-[12px] font-[700] tabular-nums text-[var(--t1)]">
-                        <Hash size={10} aria-hidden className="text-[var(--t3)]" />
+                        <Hash size={10} aria-hidden className="text-[var(--t2)]" />
                         {row.encounter_count.toLocaleString()}
                       </span>
                     </td>
@@ -168,10 +171,10 @@ export default async function AdminPendingWordsPage() {
                       </span>
                     </td>
                     <td className="px-3 py-2 font-body text-[11px] text-[var(--t2)]">
-                      {row.admin_note ?? <span className="text-[var(--t4)]">—</span>}
+                      {row.admin_note ?? <span className="text-[var(--t2)]">—</span>}
                     </td>
                     <td className="px-3 py-2">
-                      <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t3)]">
+                      <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t2)]">
                         <Clock3 size={10} aria-hidden />
                         {new Date(row.updated_at).toLocaleDateString('ko-KR', {
                           month: '2-digit',
@@ -194,7 +197,7 @@ export default async function AdminPendingWordsPage() {
         </div>
       )}
 
-      <p className="mt-4 font-mono text-[10px] text-[var(--t3)]">
+      <p className="mt-4 font-mono text-[10px] text-[var(--t2)]">
         ※ admin 액션 — 각 row 우측에서 상태 전환 (검토 · AI 분류 · 추가 · 거절). RPC `update_pending_word_status` 가 user_profiles.role=&apos;admin&apos; 검증 수행.
       </p>
     </div>
@@ -219,13 +222,13 @@ function KpiCard({
       className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)]"
       style={{ borderLeft: `3px solid ${accent}`, background: `linear-gradient(180deg, ${bg} 0%, var(--bg) 100%)` }}
     >
-      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
       <p className="mt-0.5 font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
         {value}
       </p>
-      {hint && <p className="mt-0.5 font-body text-[10px] text-[var(--t3)]">{hint}</p>}
+      {hint && <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">{hint}</p>}
     </div>
   )
 }
@@ -233,7 +236,7 @@ function KpiCard({
 function Th({ children, align = 'left' }: { children: React.ReactNode; align?: 'left' | 'right' | 'center' }) {
   return (
     <th
-      className="px-3 py-2 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+      className="px-3 py-2 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
       style={{ textAlign: align }}
     >
       {children}

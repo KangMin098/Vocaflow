@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Layers, ExternalLink, ArrowLeft, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVcbCollections } from '@/lib/vcb/server/runs'
 
 export const dynamic = 'force-dynamic'
@@ -25,6 +26,8 @@ export default async function VcbCollectionsPage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-collections" className="mb-6" />
 
       {collections.length > 0 ? (
         <div className="flex flex-col gap-3 mt-8">

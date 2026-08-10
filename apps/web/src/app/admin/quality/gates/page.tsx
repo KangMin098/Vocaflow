@@ -10,6 +10,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ShieldCheck } from 'lucide-react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -88,6 +89,8 @@ export default async function AdminGatesPage() {
         </p>
       </header>
 
+      <AdminScreenHelp screen="quality-gates" className="-mt-4" />
+
       {/* 전역 요약 배너 */}
       <section
         className={`rounded-[var(--r-lg)] border p-6 ${
@@ -147,7 +150,7 @@ export default async function AdminGatesPage() {
                       </span>
                       <span className="font-body text-[13px] text-[var(--t1)]">{r.invariant}</span>
                     </div>
-                    <span className="font-mono text-[11px] text-[var(--t3)]">
+                    <span className="font-mono text-[11px] text-[var(--t2)]">
                       {r.verdict === 'PASS' ? '0' : `${r.fail_count}건`}
                     </span>
                   </li>
@@ -160,7 +163,7 @@ export default async function AdminGatesPage() {
       {/* 콘텐츠별 게시 전 체크 */}
       <GateCheckClient books={bookRows ?? []} articles={articleRows ?? []} />
 
-      <p className="text-center font-body text-[11px] text-[var(--t3)]">
+      <p className="text-center font-body text-[11px] text-[var(--t2)]">
         게이트: `run_content_quality_gates(scope, id)` 결정론 불변식 · critical FAIL = 게시 차단 후보 ·
         WARN = 위생(추적) · 콘텐츠별 체크로 게시 전 신뢰 확인
       </p>

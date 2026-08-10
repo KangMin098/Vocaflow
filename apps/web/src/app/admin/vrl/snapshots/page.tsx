@@ -8,6 +8,7 @@ import { History, ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlSnapshots, type VrlSnapshotsData } from '@/lib/admin/vrl/queries'
 
 export const metadata = {
@@ -26,6 +27,7 @@ export default async function VrlSnapshotsPage() {
         title="VRL Level Snapshots"
         description="user_level_snapshots audit log. snapshot_type/triggered_by/trigger_details + delta chain 추적 (최근 200건)."
       />
+      <AdminScreenHelp screen="vrl-snapshots" className="-mt-4" />
       <Suspense fallback={<Fallback />}>
         <Content />
       </Suspense>
@@ -61,7 +63,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
       {/* 요약 분포 */}
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             snapshot_type
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -81,7 +83,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
           </div>
         </div>
         <div className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             taken_reason
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -102,7 +104,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
       <section className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <table className="w-full min-w-[1000px] border-collapse text-left">
           <thead>
-            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               <th className="px-3 py-2">taken_at</th>
               <th className="px-3 py-2">user</th>
               <th className="px-3 py-2">type</th>
@@ -128,10 +130,10 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   key={r.id}
                   className="border-b border-[var(--bd)] font-body text-[12px] hover:bg-[var(--bg2)]"
                 >
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {r.takenAt.slice(0, 16).replace('T', ' ')}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {r.userId.slice(0, 8)}…
                   </td>
                   <td className="px-3 py-2">
@@ -151,7 +153,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   <td className="px-3 py-2 text-center">
                     <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t2)]">
                       {r.previousVLevel ?? '·'}
-                      <span className="text-[var(--t4)]">→</span>
+                      <span className="text-[var(--t2)]">→</span>
                       <span className="font-[700] text-[var(--t1)]">{r.vLevel}</span>
                     </span>
                   </td>
@@ -164,7 +166,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
                     {r.confidence != null ? r.confidence.toFixed(2) : '—'}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {r.triggerDetailsKeys.length > 0
                       ? r.triggerDetailsKeys.join(', ')
                       : '—'}
@@ -181,7 +183,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
 
 function DeltaPill({ delta }: { delta: number | null }) {
   if (delta == null) {
-    return <Minus size={12} className="inline text-[var(--t4)]" aria-label="no delta" />
+    return <Minus size={12} className="inline text-[var(--t2)]" aria-label="no delta" />
   }
   if (delta > 0) {
     return (
@@ -192,14 +194,14 @@ function DeltaPill({ delta }: { delta: number | null }) {
   }
   if (delta < 0) {
     return (
-      <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--error)]">
+      <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--error-ink)]">
         <ArrowDownRight size={11} aria-hidden />
         {delta}
       </span>
     )
   }
   return (
-    <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
+    <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
       <Minus size={11} aria-hidden />0
     </span>
   )

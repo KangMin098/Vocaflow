@@ -298,6 +298,33 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 
 ---
 
+## 화면도움말 (v06.34 신설 — 전 화면·전 탭)
+
+관리자가 파이프라인 화면에서 "여기서 뭘 하는 곳이고 다음에 뭘 눌러야 하는지"를 즉시 판단하게 하는 인라인 도움말. **모든 Admin 화면·탭에 존재** (37 화면 + 34 탭 = **도움말 71개**, 2026-08-10 실측).
+
+| 항목 | 위치 |
+|---|---|
+| 스키마 | `apps/web/src/lib/admin/help/types.ts` — `ScreenHelp {summary · when · steps · fields · cautions · drain · seeAlso}` |
+| 데이터 | `apps/web/src/lib/admin/help/<pipeline>.ts` — 8 파일 (articles · curation · comic · pd-comics · vocab · vrl · quality · ops) |
+| 병합 | `apps/web/src/lib/admin/help/index.ts` → `HELP_REGISTRY` (키 = 라우트 슬러그) |
+| 렌더 | `apps/web/src/components/admin/AdminScreenHelp.tsx` — 헤더 `화면 도움말` 버튼 → 인라인 펼침 (모달 아님 · 열어 둔 채 조작 가능 · 열림 상태 화면별 localStorage 기억) |
+
+**탭 연동** — `<AdminScreenHelp screen="curation" tab={활성탭라벨} />`. 조회 키가 **화면에 보이는 라벨 문자열** 이라 탭 라벨만 바꾸면 도움말이 조용히 사라진다 (루트 CLAUDE.md §자동화 정책 3️⃣ 참조).
+
+**Claude Code 드레인 절차 (7 곳)** — 화면만 봐서는 다음 행동을 알 수 없는 반자동 작업이라 `drain {what · prerequisites · procedure · verify · recovery}` 로 따로 렌더 (앰버 박스). **재실행 안전 여부 명시 필수**.
+
+| 드레인 | 위치 |
+|---|---|
+| 도서 큐레이션 | `curation` → Curated Books 탭 (`drain.mjs list → next`) |
+| 만화 컷 생성 | `comic-drain` (`generate-comic.mjs plan → content → gen-verified → insert --commit`) |
+| PD 만화 큐 | `pd-comics` → 큐 · 드레인 탭 |
+| PD 만화 현대화 | `pd-comics` → 테스트 · 모니터 탭 (Claude Code 오퍼레이터 루프) |
+| VCB 보강 | `vocab-run-detail` (`/vcb-batch-enrich`) |
+| VCB 시드 | `vocab-run-seed` (`/vcb-seed-list`) |
+| VCB 재보강 | `vocab-curate` (`/vcb-reenrich`) |
+
+---
+
 ## 권한·보안 (Phase 2~3 예정)
 
 - `middleware.ts` `/admin/*` RBAC guard — `user_profiles.role = 'admin'` 또는 `'curator'` 검증 (Phase 2K)

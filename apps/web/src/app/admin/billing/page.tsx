@@ -19,6 +19,7 @@ import { useMemo, useState } from 'react'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { AdminToolbar } from '@/components/admin/AdminToolbar'
 
 const KPIS: AdminKpi[] = [
@@ -194,6 +195,8 @@ export default function AdminBillingPage() {
         }
       />
 
+      <AdminScreenHelp screen="billing" className="-mt-3 mb-6" />
+
       <AdminKpiGrid kpis={KPIS} />
 
       {/* MRR 미니 차트 + 요금제 분포 */}
@@ -207,7 +210,7 @@ export default function AdminBillingPage() {
               <TrendingUp size={13} strokeWidth={2} aria-hidden />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 7일 MRR</h2>
-            <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
               ₩{(totalRevenue / 1000).toFixed(0)}K (오늘 결제)
             </span>
           </header>
@@ -224,7 +227,7 @@ export default function AdminBillingPage() {
                       style={{ height: `${(v / max) * 100}%` }}
                     />
                   </div>
-                  <span className="font-mono text-[10px] text-[var(--t3)]">{day}</span>
+                  <span className="font-mono text-[10px] text-[var(--t2)]">{day}</span>
                 </li>
               )
             })}
@@ -236,7 +239,7 @@ export default function AdminBillingPage() {
           className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
         >
           <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]">
               <CreditCard size={13} strokeWidth={2} aria-hidden />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">요금제 분포</h2>
@@ -251,7 +254,7 @@ export default function AdminBillingPage() {
                   <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
                     {p.label}
                   </span>
-                  <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+                  <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                     {p.count} ({Math.round((p.count / p.total) * 100)}%)
                   </span>
                 </div>
@@ -309,7 +312,7 @@ export default function AdminBillingPage() {
               {['트랜잭션', '사용자', '플랜', '금액', '결제수단', '상태', '일시'].map((h, i) => (
                 <th
                   key={i}
-                  className="px-4 py-3 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+                  className="px-4 py-3 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
                 >
                   {h}
                 </th>
@@ -327,7 +330,7 @@ export default function AdminBillingPage() {
                     <p className="font-display text-[13px] font-[600] text-[var(--t1)]">
                       {t.user}
                     </p>
-                    <p className="font-mono text-[10px] text-[var(--t3)]">{t.email}</p>
+                    <p className="font-mono text-[10px] text-[var(--t2)]">{t.email}</p>
                   </td>
                   <td className="px-4 py-3">
                     <span
@@ -353,7 +356,7 @@ export default function AdminBillingPage() {
                       {status.label}
                     </span>
                   </td>
-                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t3)]">{t.date}</td>
+                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t2)]">{t.date}</td>
                 </tr>
               )
             })}

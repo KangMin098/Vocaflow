@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Sparkles, Activity, CheckCircle2, AlertTriangle, Plus } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminKpiGrid } from '@/components/admin/AdminKpiGrid'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbRunCard } from '@/components/admin/vcb/VcbRunCard'
 import { fetchRuns } from '@/lib/vcb/server/runs'
 import type { RunStatus } from '@/lib/vcb/types'
@@ -37,6 +38,8 @@ export default async function VcbRunsPage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-runs" className="mb-6" />
 
       <AdminKpiGrid
         cols={4}

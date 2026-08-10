@@ -10,6 +10,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { Gauge } from 'lucide-react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { createClient } from '@/lib/supabase/server'
 
 import { CollectNowButton } from './CollectNowButton'
@@ -160,17 +161,19 @@ export default async function AdminQualityPage() {
         </div>
         <div className="flex shrink-0 items-start gap-3">
           <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 text-right">
-            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               최근 수집
             </p>
             <p className="mt-0.5 font-body text-[13px] text-[var(--t1)]">
               {latestAt ? new Date(latestAt).toLocaleString('ko-KR') : '기록 없음'}
             </p>
-            <p className="font-body text-[11px] text-[var(--t3)]">수집 {snapshotCount}회 보관</p>
+            <p className="font-body text-[11px] text-[var(--t2)]">수집 {snapshotCount}회 보관</p>
           </div>
           <CollectNowButton />
         </div>
       </header>
+
+      <AdminScreenHelp screen="quality" className="-mt-4" />
 
       {series.length === 0 ? (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-10 text-center">
@@ -221,14 +224,14 @@ export default async function AdminQualityPage() {
                               {formatValue(s.metric, latest.value)}
                             </span>
                             {delta !== null && delta !== 0 && (
-                              <span className="font-body text-[12px] text-[var(--t3)]">
+                              <span className="font-body text-[12px] text-[var(--t2)]">
                                 {delta > 0 ? '▲' : '▼'}{' '}
                                 {formatValue(s.metric, Math.abs(delta)).replace('%', '')}
                                 {s.metric.endsWith('_pct') ? '%p' : ''} (전회 대비)
                               </span>
                             )}
                             {delta === 0 && (
-                              <span className="font-body text-[12px] text-[var(--t3)]">변동 없음</span>
+                              <span className="font-body text-[12px] text-[var(--t2)]">변동 없음</span>
                             )}
                           </p>
                         </div>
@@ -238,7 +241,7 @@ export default async function AdminQualityPage() {
                         <dl className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-2.5">
                           {Object.entries(dims).map(([k, v]) => (
                             <div key={k} className="flex items-baseline gap-1">
-                              <dt className="font-mono text-[10px] text-[var(--t3)]">{k}</dt>
+                              <dt className="font-mono text-[10px] text-[var(--t2)]">{k}</dt>
                               <dd className="font-mono text-[11px] font-[600] text-[var(--t2)]">
                                 {formatDim(v)}
                               </dd>
@@ -255,7 +258,7 @@ export default async function AdminQualityPage() {
         })
       )}
 
-      <p className="text-center font-body text-[11px] text-[var(--t3)]">
+      <p className="text-center font-body text-[11px] text-[var(--t2)]">
         수집: pg_cron jobid=12 (매일 KST 03:10) + 수동 &lsquo;지금 수집&rsquo;
         (admin_collect_quality_metrics) · 골든셋 스냅샷 회귀는 CI verify 참조
       </p>

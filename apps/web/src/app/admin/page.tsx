@@ -19,6 +19,8 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+
 interface Kpi {
   label: string
   value: string
@@ -170,10 +172,12 @@ export default function AdminDashboardPage() {
             대시보드
           </h1>
         </div>
-        <p className="hidden font-body text-[12px] text-[var(--t3)] md:block">
+        <p className="hidden font-body text-[12px] text-[var(--t2)] md:block">
           마지막 업데이트 · 방금 전
         </p>
       </header>
+
+      <AdminScreenHelp screen="dashboard" className="-mt-4 mb-6" />
 
       {/* ── KPI 그리드 ── */}
       <section aria-label="핵심 지표" className="mb-8">
@@ -204,7 +208,7 @@ export default function AdminDashboardPage() {
                     </span>
                   )}
                 </div>
-                <p className="mt-3 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+                <p className="mt-3 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
                   {kpi.label}
                 </p>
                 <p className="mt-1 font-display text-[28px] font-[800] tabular-nums leading-none text-[var(--t1)]">
@@ -220,8 +224,8 @@ export default function AdminDashboardPage() {
       <section aria-label="관리 섹션" className="mb-8">
         <header className="mb-4 flex items-center gap-3">
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">관리 섹션</h2>
-          <span className="font-body text-[13px] text-[var(--t3)]">·</span>
-          <p className="font-body text-[13px] text-[var(--t3)]">7개 모듈</p>
+          <span className="font-body text-[13px] text-[var(--t2)]">·</span>
+          <p className="font-body text-[13px] text-[var(--t2)]">7개 모듈</p>
           <span
             className="ml-auto h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
             aria-hidden="true"
@@ -257,12 +261,12 @@ export default function AdminDashboardPage() {
                         </span>
                       )}
                     </div>
-                    <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">{s.description}</p>
+                    <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">{s.description}</p>
                   </div>
                   <ArrowUpRight
                     size={14}
                     strokeWidth={1.75}
-                    className="shrink-0 text-[var(--t3)] opacity-0 transition-opacity duration-[var(--dur-normal)] group-hover:opacity-100"
+                    className="shrink-0 text-[var(--t2)] opacity-0 transition-opacity duration-[var(--dur-normal)] group-hover:opacity-100"
                     aria-hidden="true"
                   />
                 </Link>
@@ -283,7 +287,7 @@ export default function AdminDashboardPage() {
             className="ml-auto h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
             aria-hidden="true"
           />
-          <span className="font-mono text-[11px] text-[var(--t3)]">실시간</span>
+          <span className="font-mono text-[11px] text-[var(--t2)]">실시간</span>
         </header>
 
         <ul className="divide-y divide-[var(--bg2)]">
@@ -299,7 +303,7 @@ export default function AdminDashboardPage() {
                   <Icon size={13} strokeWidth={1.75} />
                 </span>
                 <p className="min-w-0 flex-1 font-body text-[13px] text-[var(--t1)]">{a.message}</p>
-                <p className="shrink-0 font-mono text-[11px] text-[var(--t3)]">{a.time}</p>
+                <p className="shrink-0 font-mono text-[11px] text-[var(--t2)]">{a.time}</p>
               </li>
             )
           })}

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowLeft, Sparkles } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbRunCreateForm } from '@/components/admin/vcb/VcbRunCreateForm'
 
 export const dynamic = 'force-dynamic'
@@ -27,6 +28,8 @@ export default function VcbRunCreatePage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-runs-new" className="mb-6" />
 
       <VcbRunCreateForm />
     </div>

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import PdModernReader from '@/components/comic/PdModernReader'
 
@@ -26,6 +27,7 @@ export default async function PdModernReaderPreview({ params }: { params: { issu
         >
           <ArrowLeft size={14} aria-hidden /> pd-comics
         </Link>
+        <AdminScreenHelp screen="pd-comics-reader" />
       </div>
       <PdModernReader issueId={params.issueId} />
     </div>

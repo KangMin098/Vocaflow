@@ -11,6 +11,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { PD_STAGES, stageIndex, type PdComicAdminRow, type PdPanelAdmin } from '@/lib/pd-comic/model'
 
 const ACCENT = '#8B5CF6'
@@ -66,6 +67,17 @@ const RISK_UI: Record<string, { label: string; fg: string; bg: string }> = {
 
 type Tab = 'source' | 'queue' | 'monitor' | 'tools'
 
+/**
+ * 탭 라벨 — 화면 표시와 화면도움말 조회 키가 같은 문자열이어야 한다
+ * (AdminScreenHelp 가 라벨로 tabs[] 를 찾는다). 그래서 한 곳에서만 정의한다.
+ */
+const TABS: Array<[Tab, string]> = [
+  ['source', '소스 · 대량 적재'],
+  ['queue', '큐 · 드레인'],
+  ['monitor', '테스트 · 모니터'],
+  ['tools', '도구'],
+]
+
 export function AdminPdComicsClient({
   initialRows,
   schemaReady,
@@ -84,15 +96,8 @@ export function AdminPdComicsClient({
 
   return (
     <>
-      <nav className="mb-4 flex gap-1 border-b border-[var(--bd)]" aria-label="PDCP 섹션">
-        {(
-          [
-            ['source', '소스 · 대량 적재'],
-            ['queue', '큐 · 드레인'],
-            ['monitor', '테스트 · 모니터'],
-            ['tools', '도구'],
-          ] as Array<[Tab, string]>
-        ).map(([k, label]) => (
+      <nav className="mb-3 flex gap-1 border-b border-[var(--bd)]" aria-label="PDCP 섹션">
+        {TABS.map(([k, label]) => (
           <button
             key={k}
             type="button"
@@ -108,6 +113,13 @@ export function AdminPdComicsClient({
           </button>
         ))}
       </nav>
+
+      {/* 탭을 옮기면 도움말도 그 탭 것으로 바뀐다 — 라벨 문자열이 조회 키다. */}
+      <AdminScreenHelp
+        screen="pd-comics"
+        tab={TABS.find(([k]) => k === tab)?.[1]}
+        className="mb-4"
+      />
 
       {msg && (
         <p role="status" className="mb-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[12.5px] text-[var(--t1)]">

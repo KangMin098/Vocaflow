@@ -8,6 +8,7 @@ import { AlertTriangle, CheckCircle2, Inbox } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlConcerns, type VrlConcernsData } from '@/lib/admin/vrl/queries'
 
 export const metadata = {
@@ -27,6 +28,7 @@ export default async function VrlConcernsPage() {
         title="VRL Concerns"
         description="vrl_data_integrity_concerns — 분류 작업 중 식별된 의심 단어. cleanup 후 resolved 처리."
       />
+      <AdminScreenHelp screen="vrl-concerns" className="-mt-4" />
       <Suspense fallback={<Fallback />}>
         <Content />
       </Suspense>
@@ -50,7 +52,7 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
         <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
           의심 단어 없음
         </p>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           VRL 분류 작업 중 감지된 정합성 문제가 없습니다.
         </p>
       </div>
@@ -111,7 +113,7 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
       <section className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <table className="w-full min-w-[900px] border-collapse text-left">
           <thead>
-            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               <th className="px-3 py-2">word</th>
               <th className="px-3 py-2">type</th>
               <th className="px-3 py-2">reasoning</th>
@@ -127,16 +129,16 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
                 className="border-b border-[var(--bd)] font-body text-[12px] hover:bg-[var(--bg2)]"
               >
                 <td className="px-3 py-2 font-mono font-[600] text-[var(--t1)]">{r.word}</td>
-                <td className="px-3 py-2 font-mono text-[11px] text-[var(--t3)]">
+                <td className="px-3 py-2 font-mono text-[11px] text-[var(--t2)]">
                   {r.concernType}
                 </td>
                 <td className="max-w-[300px] truncate px-3 py-2 text-[var(--t2)]">
                   {r.reasoning ?? '—'}
                 </td>
-                <td className="px-3 py-2 text-[11px] text-[var(--t3)]">
+                <td className="px-3 py-2 text-[11px] text-[var(--t2)]">
                   {r.suggestedAction ?? '—'}
                 </td>
-                <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                   {r.detectedAt ? r.detectedAt.slice(0, 10) : '—'}
                   {r.detectedDuring && (
                     <span className="ml-1 opacity-70">· {r.detectedDuring}</span>
@@ -149,7 +151,7 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
                       resolved
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--error)]">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--error-ink)]">
                       <AlertTriangle size={10} aria-hidden />
                       open
                     </span>
@@ -186,7 +188,7 @@ function Stat({
         <Icon size={18} strokeWidth={1.75} aria-hidden />
       </span>
       <div className="min-w-0">
-        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           {label}
         </p>
         <p

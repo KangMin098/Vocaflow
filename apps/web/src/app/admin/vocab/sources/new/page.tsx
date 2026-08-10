@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowLeft, Database } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbSourceCreateForm } from '@/components/admin/vcb/VcbSourceCreateForm'
 
 export const dynamic = 'force-dynamic'
@@ -27,6 +28,8 @@ export default function VcbSourceCreatePage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-sources-new" className="mb-6" />
 
       <VcbSourceCreateForm />
     </div>

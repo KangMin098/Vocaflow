@@ -1,0 +1,475 @@
+// apps/web/src/lib/admin/help/vocab.ts
+//
+// VCB — 어휘 구축 (/admin/vocab*) 화면도움말.
+// 스키마·작성 원칙은 ./types.ts 참조. 화면을 바꾸면 이 파일도 같은 커밋에서 고친다.
+
+import type { HelpRegistry, ScreenHelpEntry } from './types'
+
+// /admin/vocab 는 /admin/vocab/runs 로 redirect 한다 — 같은 화면이라 도움말도 공유한다.
+const RUNS_ENTRY: ScreenHelpEntry = {
+  title: 'VCB Pipeline Runs',
+  screen: {
+    summary:
+      '공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다.',
+    when: '새 공용 단어장을 시작할 때, 또는 진행 중인 run 을 이어서 처리할 때.',
+    fields: [
+      {
+        label: 'Active',
+        detail:
+          '보강 중 · QA 검증 중 · 큐레이션 중 상태의 run 수. 이 셋만 사람 손이 필요한 단계다.',
+      },
+      {
+        label: 'Failed',
+        detail:
+          'run 자체가 실패 상태로 남은 것. 개별 단어의 보강 실패는 여기 잡히지 않고 run 상세의 "실패" 지표에 잡힌다.',
+      },
+      {
+        label: '카드의 N / M · % 완료',
+        detail:
+          '(보강 완료 + 실패) ÷ 총 시드. 보강 진척률이지 발행 진척률이 아니다 — 100% 여도 큐레이션·발행은 남아 있다.',
+      },
+      {
+        label: 'New Run',
+        detail:
+          'run 껍데기만 만든다. 단어는 하나도 들어가지 않고, 시드 확보는 run 상세에서 방식 A(파일) 또는 B(AI 생성)로 한다.',
+      },
+    ],
+    cautions: [
+      'collection_slug 는 run 전체에서 유일해야 한다. 이미 쓴 슬러그로 새 run 을 만들면 "already exists (run #N)" 로 생성이 막힌다.',
+    ],
+    seeAlso: [
+      { label: 'Sources — 시드 출처', href: '/admin/vocab/sources' },
+      { label: '발행 컬렉션', href: '/admin/vocab/collections' },
+    ],
+  },
+}
+
+export const VCB_HELP: HelpRegistry = {
+  vocab: RUNS_ENTRY,
+  'vocab-runs': RUNS_ENTRY,
+
+  'vocab-runs-new': {
+    title: 'New VCB Run',
+    screen: {
+      summary:
+        '프리셋을 골라 슬러그·제목·대상만 정하고 run 을 만든다. 어떤 단어가 들어갈지는 여기서 정해지지 않는다.',
+      steps: [
+        {
+          title: '유형 선택',
+          detail:
+            '프리셋 안의 변형(수능 코어 → 필수 2,000 등)을 고르면 다음 단계의 슬러그·제목·대상·CEFR 이 자동으로 채워진다. 사용자 정의를 고르면 빈 값으로 시작한다.',
+          done: '카드에 선택 표시가 되고 우측 하단 다음 이 활성화된다.',
+        },
+        {
+          title: '단어장 정보',
+          detail:
+            '슬러그는 소문자·숫자·하이픈 3~80자. 이 값이 발행 시 공용 단어장의 slug 가 되고, 이후 바꿀 수 있는 화면이 없다. 생성하면 곧바로 run 상세로 이동한다.',
+          done: 'run 상세가 열리고 상태 배지가 생성됨 이다.',
+        },
+      ],
+      fields: [
+        {
+          label: '변형의 "약 N단어"',
+          detail:
+            '규모 감을 주는 안내 문구다. 이 숫자가 필터로 쓰이지는 않는다 — 실제 단어 수는 시드 단계(방식 A/B)에서 정해진다.',
+        },
+        {
+          label: '대상 (target_segment)',
+          detail:
+            '발행 시 공용 단어장의 카테고리로 매핑된다(고교→high, TOEIC→eng_test 등). 값이 비거나 잘못되면 발행 사전점검이 막는다.',
+        },
+      ],
+      cautions: [
+        '생성 후 슬러그·제목·대상·CEFR 을 고치는 화면이 없다. 잘못 만들었으면 다른 슬러그로 새 run 을 만들어야 한다.',
+      ],
+    },
+  },
+
+  'vocab-run-detail': {
+    title: 'VCB Run 상세',
+    screen: {
+      summary:
+        'run 하나를 시드 확보부터 발행까지 순서대로 진행시키는 작업대. 단계 카드는 run 상태에 도달해야 나타난다.',
+      when: 'run 을 만든 직후부터 발행까지 계속. 어느 단계인지 모르겠으면 상단 진행 막대의 "다음 할 일"을 본다.',
+      steps: [
+        {
+          title: '시드 확보',
+          detail:
+            '방식 A(업로드한 소스 파일에서 추출)와 방식 B(AI 시드 생성) 중 하나만 하면 된다. 둘 다 끝나면 상태가 추출 완료 가 된다.',
+          done: '지표의 총 시드 가 0 이 아니게 된다.',
+        },
+        {
+          title: '사전 매칭 (Step 4)',
+          detail:
+            '시드를 내부 사전과 대조해 이미 뜻이 다 있는 단어는 보강 완료로, 부족하거나 없는 단어는 보강 대기로 나눈다. LLM 을 쓰지 않아 비용이 없고 수천 건도 수십 초다.',
+          done: '결과 상자에 full / partial / miss 수가 뜨고 지표의 대기 중 이 채워진다.',
+        },
+        {
+          title: 'AI 보강 (Step 5)',
+          detail:
+            'Export 실행 으로 대기 중 단어를 200개씩 JSONL chunk 로 내보낸 뒤, Claude Code 에서 보강하고 chunk 마다 DB import 한다. 아래 드레인 절차 참조.',
+          done: '지표의 대기 중 0 · 보강 완료 가 총 시드에 근접.',
+        },
+        {
+          title: 'QA 게이트 (Step 6)',
+          detail:
+            '보강 결과에 규칙 검사를 돌려 통과 / 플래그 / 실패로 나눈다. 플래그는 버려지지 않고 큐레이션에서 사람이 판단한다.',
+          done: '결과 상자의 passed · flagged · failed 수치. 상태가 QA 검증 중 이 된다.',
+        },
+        {
+          title: '큐레이션 (Step 7)',
+          detail:
+            '큐레이션 시작 을 누르면 별도 화면에서 단어별 승인/거절을 한다. 플래그뿐 아니라 QA 통과 항목까지 전부 결정이 있어야 발행이 열린다.',
+          done: '발행 카드의 blocker 목록에서 "미검토" 항목이 사라진다.',
+        },
+        {
+          title: '발행 (Step 8)',
+          detail:
+            '사전점검이 통과하고 확인 체크를 해야 버튼이 열린다. 발행은 세트·단어·컬렉션을 한 트랜잭션으로 커밋하므로 중간에 끊겨도 반쪽 상태가 남지 않는다.',
+          done: '발행 결과 섹션에 세트가 뜨고 상태 배지가 발행됨 이 된다.',
+        },
+      ],
+      fields: [
+        {
+          label: '대기 중 / 보강 완료 / 플래그 / 실패 / 승인',
+          detail:
+            '모두 queue 행 기준이다. 승인 은 큐레이션에서 최신 결정이 승인 또는 수정인 항목 수이고, 이 값이 그대로 발행 대상 건수가 된다.',
+        },
+        {
+          label: '단계 카드가 안 보일 때',
+          detail:
+            '카드는 run 상태로 노출이 정해진다 — 사전 매칭은 추출 완료 이후, 보강은 사전 매칭 완료 이후, QA 는 보강 중 이후에 나타난다. 시드 카드는 발행 중·발행됨 에서 숨는다.',
+        },
+        {
+          label: '무결성 미스매치 배지',
+          detail:
+            '발행된 단어 수와 승인 수가 다를 때만 뜬다. 발행 자체는 성공한 상태이므로 어느 쪽이 맞는지 확인 후 필요하면 새 버전으로 다시 발행한다.',
+        },
+      ],
+      drain: {
+        what:
+          '보강 대기 단어의 뜻·예문·IPA·CEFR 을 채운 enriched JSONL — DB import 하면 run 의 보강 완료 수치가 올라간다.',
+        prerequisites: [
+          'run 상태가 사전 매칭 완료 또는 보강 중 이고, 지표의 대기 중 이 1 이상일 것',
+          'Step 5 의 Export 실행 을 눌러 chunk 파일이 만들어져 있을 것 (200개 단위, exports/vcb-jobs/ 에 생성)',
+          'Claude Code 세션을 저장소 루트에서 열어 둘 것 — 화면의 AI 실행 버튼은 서버에 claude CLI 가 있을 때만 동작하는 로컬 편의 기능이다',
+        ],
+        procedure: [
+          {
+            title: 'Export 실행',
+            detail:
+              '대기 중 단어가 200개씩 나뉘어 exports/vcb-jobs/<타임스탬프>-<슬러그>-pending-01ofNN.jsonl 로 떨어진다. 이때 run 상태가 보강 중 으로 바뀌고 해당 queue 행은 exported 로 마킹된다.',
+            done: 'Export pending 줄에 "N개 chunk 생성됨" 과 chunk 목록이 나타난다.',
+          },
+          {
+            title: 'job-slug 확인',
+            detail:
+              'chunk 파일명에서 -pending 앞부분이 job-slug 다 (예: 20260515-0737-cast-2000). chunk 목록의 파일명을 그대로 읽으면 된다.',
+          },
+          {
+            title: '/vcb-batch-enrich <job-slug> 실행',
+            detail:
+              'Claude Code 세션에서 실행한다. chunk 당 서브에이전트 하나를 붙여 기본 3개씩 병렬로 돌리고(--wave-size 로 변경), 이미 enriched 파일이 있는 chunk 와 실행 마커가 있는 chunk 는 건너뛴다. 품질을 먼저 보려면 --pilot 로 첫 chunk 만 돌린다.',
+            done: '마지막에 chunk 별 OK / FAIL 이 적힌 배치 리포트가 출력된다.',
+          },
+          {
+            title: '화면에서 chunk 상태 확인',
+            detail:
+              '실행 중에는 카드가 5초마다 자동 갱신된다. chunk 줄에 enriched 건수와 validation: ok 가 뜨면 그 chunk 는 끝난 것이다.',
+          },
+          {
+            title: 'DB import',
+            detail:
+              'validation 이 ok 인 chunk 에만 DB import 버튼이 생긴다. chunk 마다 눌러 넣거나, 터미널에서 pnpm vcb:import-enriched --file exports/vcb-jobs/<...>-enriched-01ofNN.jsonl 로 넣는다.',
+            done: '지표의 대기 중 이 줄고 보강 완료 가 그만큼 는다.',
+          },
+        ],
+        verify: [
+          'Step 5 의 모든 chunk 줄이 validation: ok 이고 enriched 건수가 pending 건수와 같다',
+          'run 상세 지표에서 대기 중 0 · 보강 완료 가 총 시드 − 실패 와 맞는다',
+          'QA 게이트 카드의 "enriched N건" 이 보강 완료 수치와 일치한다',
+        ],
+        recovery: [
+          '중간에 멈춰도 이미 만들어진 enriched 파일은 남는다. 같은 명령을 다시 돌리면 남은 chunk 만 처리하므로 재실행이 안전하다.',
+          '특정 chunk 를 다시 만들려면 --chunks NN --force — 기존 enriched 파일은 .bak 로 백업된 뒤 덮어써진다.',
+          'import 는 같은 파일을 두 번 넣어도 같은 queue 행을 덮어쓸 뿐이라 중복 적재가 생기지 않는다.',
+          'validation 이 fail 이면 import 버튼이 아예 나오지 않는다. 실패 코드를 보고 해당 chunk 를 --force 로 다시 돌린다.',
+          'pending 파일을 지웠는데 DB 에는 exported 로 남아 있으면 "파일 사라짐" 배지가 뜬다 — Stale 정리 로 pending 상태로 되돌린 뒤 Export 를 다시 한다.',
+          '작업이 죽어 .running.json 마커만 남으면 그 chunk 는 실행 중으로 보인다. exports/vcb-jobs/ 에서 해당 마커 파일을 지우면 다시 실행할 수 있다.',
+        ],
+      },
+      cautions: [
+        '사전 매칭 재실행 은 부분 일치·미스 행을 pending 으로 되돌리면서 enriched_payload 와 QA 플래그를 지운다. 보강 결과를 이미 import 한 뒤라면 그만큼 다시 보강해야 한다.',
+        '발행은 되돌리는 버튼이 없다. 잘못 발행하면 수정이 아니라 새 버전 발행으로만 교정된다.',
+      ],
+      seeAlso: [{ label: '발행 컬렉션', href: '/admin/vocab/collections' }],
+    },
+  },
+
+  'vocab-run-seed': {
+    title: 'Seed 등록 (Method B)',
+    screen: {
+      summary:
+        'AI 로 시드 단어 목록을 만들어 검토한 뒤 run 에 적재한다 — 소스 파일이 없을 때 쓰는 경로.',
+      when: 'run 상태가 생성됨 또는 수집 중 일 때. 업로드한 파일에서 뽑을 거면 이 화면 대신 run 상세의 방식 A 를 쓴다.',
+      steps: [
+        {
+          title: 'Spec 생성',
+          detail:
+            '목표 단어 수(50~10,000)·도메인 힌트·포함/제외 키워드를 적어 spec 파일을 만든다. 대상과 CEFR 범위는 run 생성 때 값이 자동으로 들어간다.',
+          done: '버튼 옆에 <타임스탬프>-<슬러그>-seed-spec.json 파일명이 표시된다.',
+        },
+        {
+          title: 'AI 시드 목록 생성',
+          detail:
+            'Claude Code 에서 /vcb-seed-list 로 돌리는 것이 정식 경로다(아래 드레인 절차). 화면의 AI 실행 버튼은 서버에 claude CLI 가 있을 때만 동작하는 로컬 편의 기능이고, 5~15분 걸리며 5초 간격으로 상태를 폴링한다.',
+          done: 'seed-list.jsonl 점이 초록이 되고 단어 수가 표시된다. 이 화면에서 실행했다면 잠시 뒤 미리보기로 자동 이동한다.',
+        },
+        {
+          title: '미리보기 후 DB 적재',
+          detail:
+            '미리보기에서 CEFR 분포·신뢰도를 보고 뺄 단어를 체크한 뒤 적재한다. 적재 시 ai_generated 소스가 자동으로 하나 생기고 run 상태가 추출 완료 로 넘어간다.',
+          done: 'run 상세의 총 시드 가 적재 건수와 같아진다.',
+        },
+      ],
+      fields: [
+        {
+          label: '라이선스 제약',
+          detail:
+            '생성 프롬프트에 그대로 실려 특정 교재·시험 브랜드·상용 단어 목록을 베끼지 못하게 막는 문장이다. 비우지 말 것.',
+        },
+        {
+          label: 'validation.json',
+          detail:
+            '생성 직후 검증 스크립트가 남기는 결과다. fail 이면 lemma 중복·CEFR 범위 이탈·필수 키워드 누락 중 하나이므로 적재하지 말고 다시 생성한다.',
+        },
+      ],
+      drain: {
+        what: 'spec 을 만족하는 시드 lemma 목록(seed-list.jsonl) + 검증 리포트.',
+        prerequisites: [
+          '1단계에서 spec 파일이 만들어져 있을 것 (버튼 옆에 파일명이 보인다)',
+          '같은 이름의 seed-list.jsonl 이 아직 없을 것 — 있으면 생성이 거부된다',
+          'run 상태가 생성됨 또는 수집 중 일 것 (적재가 이 두 상태에서만 가능)',
+        ],
+        procedure: [
+          {
+            title: '명령 복사',
+            detail:
+              '2단계의 "수동 실행" 을 펼치면 /vcb-seed-list exports/vcb-jobs/<spec 파일명> 이 그대로 들어 있다. 이 접힘 영역은 spec 이 있고 아직 생성 전일 때만 보인다.',
+          },
+          {
+            title: 'Claude Code 에서 실행',
+            detail:
+              '명령이 spec 을 읽고 같은 폴더에 <base>-seed-list.jsonl 을 쓴 뒤 node scripts/vcb/01c-validate-seed-list.mjs 로 검증까지 돌린다. 목표 수량은 ±10% 까지 허용된다.',
+            done: '총 개수 · CEFR 분포 · 평균 신뢰도 · 출력 경로가 리포트로 출력된다.',
+          },
+          {
+            title: '화면으로 돌아와 상태 새로고침',
+            detail:
+              '2단계의 파일 상태 줄에서 seed-list.jsonl 과 validation.json 이 초록인지 확인한다.',
+          },
+          {
+            title: '미리보기에서 적재',
+            detail:
+              '3단계의 "N건 미리보기" 로 들어가 뺄 단어를 체크한 뒤 적재한다. 제외한 항목은 시드로 들어가지 않는다.',
+            done: 'Import 완료 상자에 신규 / 중복 / 전체 건수가 뜬다.',
+          },
+        ],
+        verify: [
+          '2단계 파일 상태 줄의 seed-list.jsonl 이 초록이고 단어 수가 목표치 근처다',
+          'validation.json 이 ok 다',
+          'run 상세의 총 시드 가 적재 건수와 같고 상태 배지가 추출 완료 다',
+        ],
+        recovery: [
+          '다시 생성하려면 exports/vcb-jobs/ 의 <base>-seed-list.jsonl 을 먼저 지워야 한다 — 파일이 있으면 실행이 거부된다.',
+          '작업이 죽어 <base>-seed-list.running.json 마커만 남으면 실행 중으로 표시된다. 마커를 지우면 다시 실행할 수 있다.',
+          '명령을 여러 번 돌려도 DB 는 적재 시점에만 바뀐다. 적재 자체는 상태가 추출 완료 로 넘어가 두 번 눌리지 않으므로 중복 적재 위험이 없다.',
+        ],
+      },
+      cautions: [
+        'Spec 재생성 은 새 타임스탬프로 다른 spec 파일을 만들고 run 이 그 파일을 바라보게 한다. 이전 seed-list 는 디스크에 남지만 화면에서는 추적되지 않는다.',
+        '적재는 되돌리는 버튼이 없다. 상태가 추출 완료 로 넘어가면 이 화면의 적재 버튼도 잠긴다.',
+      ],
+    },
+  },
+
+  'vocab-sources': {
+    title: 'VCB Sources',
+    screen: {
+      summary:
+        '시드가 어디서 왔는지 대는 출처 등록부. 방식 A 추출은 여기에 파일까지 올린 소스에서만 가능하다.',
+      when: '파일에서 단어를 뽑아 run 을 만들기 전, 또는 발행물의 출처 표기를 확인할 때.',
+      fields: [
+        {
+          label: 'T1 / T2 / T3',
+          detail:
+            'T2 는 발행물에 출처 표기가 따라붙고, T3 는 저장 자체가 DB 제약으로 막힌다. 등록 후 등급을 바꾸는 화면은 없다.',
+        },
+        {
+          label: '파일 경로 표시',
+          detail:
+            '업로드된 소스에만 초록색으로 저장 키가 보인다. 이 표시가 없는 소스는 run 상세의 방식 A 목록에서 "파일이 없어 추출 불가" 로 빠진다.',
+        },
+        {
+          label: 'N개 run 에서 사용',
+          detail: '이 소스로 시드를 넣은 run 수. 0 이면 아직 어떤 단어장에도 반영되지 않았다.',
+        },
+      ],
+      cautions: [
+        'Method B 로 시드를 적재하면 "AI Generated Seed for …" 소스가 자동으로 하나 생겨 이 목록에 섞인다 — 사람이 등록한 출처와 구분해서 보라.',
+      ],
+      seeAlso: [{ label: 'Runs 목록', href: '/admin/vocab/runs' }],
+    },
+  },
+
+  'vocab-sources-new': {
+    title: 'New VCB Source',
+    screen: {
+      summary:
+        '시드 출처를 등록한다. 파일을 함께 올리면 그 소스가 방식 A 추출 대상이 된다.',
+      fields: [
+        {
+          label: 'slug',
+          detail:
+            '업로드 파일의 저장 경로(<slug>/source.<확장자>)에 그대로 쓰인다. 등록 후 바꾸는 화면이 없으니 처음에 확정할 것.',
+        },
+        {
+          label: 'AI 생성 선택 시',
+          detail:
+            '라이선스가 T1 로 고정되고 파일 업로드 영역이 사라진다. 사람이 만든 목록이면 큐레이션 리스트 를 고른다.',
+        },
+        {
+          label: '파일 업로드',
+          detail:
+            'CSV / TXT / TSV, 50MB 까지. 파일 없이 메타데이터만 등록해도 되지만 그 소스로는 방식 A 추출을 할 수 없다.',
+        },
+        {
+          label: 'citation',
+          detail:
+            '필수. 발행물의 출처 표기에 실리는 문장이므로 저자·연도·제목·라이선스를 그대로 적는다.',
+        },
+      ],
+      cautions: [
+        '등록에 성공하면 곧바로 Sources 목록으로 이동하고, 잘못 넣은 소스를 화면에서 지우거나 고칠 방법이 없다.',
+      ],
+    },
+  },
+
+  'vocab-collections': {
+    title: '발행 컬렉션',
+    screen: {
+      summary:
+        'VCB 로 발행돼 학습자에게 실제로 보이는 공용 단어장 목록.',
+      when: '발행이 제대로 반영됐는지 확인할 때, 또는 어떤 run 에서 나온 단어장인지 되짚을 때.',
+      fields: [
+        {
+          label: '발행됨 / 비공개',
+          detail:
+            '비공개는 세트는 만들어졌지만 학습자에게 노출되지 않는 상태다. 이 화면에는 전환 버튼이 없다.',
+        },
+        {
+          label: '캐시 N 불일치',
+          detail:
+            '세트에 저장된 단어 수와 실제 단어 행 수가 다를 때만 뜬다. 표시 숫자는 실제 행 수 쪽이다.',
+        },
+        {
+          label: 'Run #N',
+          detail:
+            '이 단어장을 만든 run 상세로 간다. 내용을 고쳐야 하면 그 run 이 아니라 새 run 에서 새 버전을 발행해야 한다.',
+        },
+      ],
+      cautions: [
+        '여기에는 수정·회수 버튼이 없다. 잘못 발행된 단어장은 같은 슬러그로 새 버전을 발행해 덮는 것이 유일한 교정 경로다.',
+      ],
+    },
+  },
+
+  'vocab-curate': {
+    title: 'VCB 큐레이션',
+    screen: {
+      summary:
+        '보강된 단어를 하나씩 승인·거절·수정해 발행 대상을 확정하는 곳.',
+      when: 'QA 게이트를 돌린 뒤(run 상태 QA 검증 중 또는 큐레이션 중). run 상세의 큐레이션 시작 으로 들어온다.',
+      steps: [
+        {
+          title: '플래그부터 처리',
+          detail:
+            '플래그 필터는 QA 가 문제를 잡았고 아직 결정이 없는 항목만 남긴다. 여기가 사람의 판단이 가장 필요한 묶음이다.',
+          done: '플래그 필터의 카운트가 0 이 된다.',
+        },
+        {
+          title: '나머지 미검토 처리',
+          detail:
+            'QA 를 통과한 항목도 결정이 없으면 발행이 막힌다. 목록 좌상단 전체 선택 → 승인 으로 한꺼번에 넘길 수 있다.',
+          done: '미검토 필터의 카운트가 0 이 된다.',
+        },
+        {
+          title: 'run 상세로 돌아가 발행',
+          detail:
+            '발행 카드의 사전점검에서 blocker 가 사라졌는지 확인한다. 승인/수정 합계가 50건 미만이면 여전히 막힌다.',
+        },
+      ],
+      fields: [
+        {
+          label: '승인 · 거절',
+          detail:
+            '누르는 즉시 서버에 결정이 쌓이고 다음 항목으로 넘어간다. 결정은 이력으로 누적되고 최신 것만 유효하므로, 같은 항목을 다시 골라 반대 결정을 내리면 뒤집힌다.',
+        },
+        {
+          label: '수정',
+          detail:
+            '내용을 직접 고쳐 저장하면 수정 결정으로 기록되고, 승인과 똑같이 발행 대상에 포함된다.',
+        },
+        {
+          label: '재보강',
+          detail:
+            '이 항목을 보강 대기로 되돌리고 Claude Code 용 명령을 만들어 준다 — 아래 드레인 절차 참조.',
+        },
+        {
+          label: '거부됨 필터',
+          detail:
+            '거절 처리한 항목만 모아 본다. 실수로 거절한 것을 되돌릴 때 여기서 찾아 다시 승인하면 된다.',
+        },
+      ],
+      drain: {
+        what: '큐레이터 지시를 반영해 다시 만든 단어 하나짜리 enriched JSONL.',
+        prerequisites: [
+          '되돌릴 항목을 목록에서 선택해 둘 것',
+          '무엇이 마음에 안 드는지 노트에 적어 둘 것 — 노트가 그대로 재생성 지시로 들어간다',
+        ],
+        procedure: [
+          {
+            title: '재보강 누르기',
+            detail:
+              '해당 queue 항목이 보강 대기로 돌아가고 기존 내용과 QA 플래그가 지워진다. 화면에 /vcb-reenrich <queue_id> "노트" 가 나타난다.',
+            done: '복사 버튼이 있는 명령 상자가 뜬다.',
+          },
+          {
+            title: 'Claude Code 에서 실행',
+            detail:
+              '명령을 붙여넣어 돌리면 exports/vcb-jobs/reenrich-<queue_id>-enriched.jsonl 이 만들어지고 05c-validate-output.mjs 로 검증까지 끝난다.',
+            done: '리포트에 validation: passed 가 찍힌다.',
+          },
+          {
+            title: '직접 import',
+            detail:
+              '이 경로는 자동으로 DB 에 들어가지 않는다. pnpm vcb:import-enriched --file exports/vcb-jobs/reenrich-<queue_id>-enriched.jsonl 로 넣는다.',
+            done: 'run 상세의 대기 중 이 1 줄고 보강 완료 가 1 는다.',
+          },
+        ],
+        verify: [
+          '큐레이션 목록에서 그 단어를 다시 열었을 때 내용이 바뀌어 있다',
+          'run 상세 지표의 대기 중 이 0 으로 돌아왔다',
+        ],
+        recovery: [
+          '같은 명령을 다시 돌려도 파일만 다시 쓴다 — 재실행이 안전하다.',
+          'import 를 잊으면 그 단어는 보강 대기로 남고, 발행 사전점검이 "still pending" 으로 발행을 막는다.',
+        ],
+      },
+      cautions: [
+        '이 화면을 여는 것만으로 run 상태가 QA 검증 중 → 큐레이션 중 으로 넘어간다. 이 전이 뒤에는 QA 게이트를 다시 돌릴 수 없다.',
+        '재보강은 기존 보강 내용을 지우고 되돌리는 버튼이 없다. 사소한 오류는 재보강 대신 수정 으로 고치는 편이 안전하다.',
+      ],
+    },
+  },
+}

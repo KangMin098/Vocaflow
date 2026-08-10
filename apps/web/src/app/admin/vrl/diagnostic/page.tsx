@@ -8,6 +8,7 @@ import { GraduationCap, FileText, ClipboardList, Clock3 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlDiagnostic, type VrlDiagnosticData } from '@/lib/admin/vrl/queries'
 
 export const metadata = {
@@ -26,6 +27,7 @@ export default async function VrlDiagnosticPage() {
         title="VRL Diagnostic System"
         description="vrl_diagnostic_tests / vrl_diagnostic_questions / user_diagnostic_results — V-Level/Track/Domain 진단 시스템."
       />
+      <AdminScreenHelp screen="vrl-diagnostic" className="-mt-4" />
       <Suspense fallback={<Fallback />}>
         <Content />
       </Suspense>
@@ -98,7 +100,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
         <section className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
           <table className="w-full min-w-[900px] border-collapse text-left">
             <thead>
-              <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 <th className="px-3 py-2">name</th>
                 <th className="px-3 py-2">type</th>
                 <th className="px-3 py-2">axis</th>
@@ -117,7 +119,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
                   <td className="px-3 py-2 font-display font-[600] text-[var(--t1)]">
                     {t.nameKo}
                     {t.descriptionKo && (
-                      <p className="mt-0.5 font-body text-[10px] text-[var(--t3)]">
+                      <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">
                         {t.descriptionKo}
                       </p>
                     )}
@@ -125,7 +127,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
                   <td className="px-3 py-2 font-mono text-[11px] text-[var(--t2)]">
                     {TYPE_LABEL[t.testType] ?? t.testType}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[11px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[11px] text-[var(--t2)]">
                     {t.targetAxis}
                     {t.targetTrackId && <span className="ml-1">· {t.targetTrackId}</span>}
                     {t.targetDomainId && <span className="ml-1">· {t.targetDomainId}</span>}
@@ -140,7 +142,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
                     >
                       {t.questionsLoaded}
                     </span>
-                    <span className="text-[var(--t3)]"> / {t.questionCount}</span>
+                    <span className="text-[var(--t2)]"> / {t.questionCount}</span>
                   </td>
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
                     {t.estimatedMinutes}
@@ -151,12 +153,12 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
                         active
                       </span>
                     ) : (
-                      <span className="inline-flex rounded-full bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">
+                      <span className="inline-flex rounded-full bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
                         off
                       </span>
                     )}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {t.createdAt ? t.createdAt.slice(0, 10) : '—'}
                   </td>
                 </tr>
@@ -202,7 +204,7 @@ function EmptyTests() {
       <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
         등록된 진단 테스트 없음
       </p>
-      <p className="font-body text-[12px] text-[var(--t3)]">
+      <p className="font-body text-[12px] text-[var(--t2)]">
         vrl_diagnostic_tests 테이블이 비어 있습니다. 시드 가이드 참고.
       </p>
     </div>
@@ -233,7 +235,7 @@ function Stat({
         >
           <Icon size={16} strokeWidth={1.75} aria-hidden />
         </span>
-        <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           {label}
         </span>
       </div>
@@ -243,7 +245,7 @@ function Stat({
       >
         {value}
       </p>
-      <p className="font-body text-[11px] text-[var(--t3)]">{sub}</p>
+      <p className="font-body text-[11px] text-[var(--t2)]">{sub}</p>
     </div>
   )
 }

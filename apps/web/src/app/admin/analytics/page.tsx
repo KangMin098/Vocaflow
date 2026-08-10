@@ -16,6 +16,7 @@ import {
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 
 const KPIS: AdminKpi[] = [
   {
@@ -109,6 +110,8 @@ export default function AdminAnalyticsPage() {
         }
       />
 
+      <AdminScreenHelp screen="analytics" className="-mt-3 mb-6" />
+
       <AdminKpiGrid kpis={KPIS} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -122,7 +125,7 @@ export default function AdminAnalyticsPage() {
               <Activity size={13} strokeWidth={2} aria-hidden />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 7일 DAU</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">
+            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">
               avg {Math.round(DAU_DATA.reduce((s, d) => s + d.value, 0) / DAU_DATA.length)}
             </span>
           </header>
@@ -176,7 +179,7 @@ export default function AdminAnalyticsPage() {
             ))}
           </svg>
 
-          <div className="mt-2 flex justify-between font-mono text-[10px] text-[var(--t3)]">
+          <div className="mt-2 flex justify-between font-mono text-[10px] text-[var(--t2)]">
             {DAU_DATA.map((d, i) => (
               <span key={i}>{d.day}</span>
             ))}
@@ -189,7 +192,7 @@ export default function AdminAnalyticsPage() {
           className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
         >
           <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]">
               <Brain size={13} strokeWidth={2} aria-hidden />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
@@ -203,7 +206,7 @@ export default function AdminAnalyticsPage() {
                   <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
                     {m.name}
                   </span>
-                  <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+                  <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                     {m.sessions.toLocaleString()}
                   </span>
                 </div>
@@ -233,7 +236,7 @@ export default function AdminAnalyticsPage() {
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
               Retention 코호트
             </h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">D1 · D7 · D30</span>
+            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">D1 · D7 · D30</span>
           </header>
           <table className="w-full text-left">
             <thead>
@@ -241,7 +244,7 @@ export default function AdminAnalyticsPage() {
                 {['주차', '신규', 'D1', 'D7', 'D30'].map((h) => (
                   <th
                     key={h}
-                    className="pb-2 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+                    className="pb-2 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
                   >
                     {h}
                   </th>
@@ -258,7 +261,7 @@ export default function AdminAnalyticsPage() {
                   {[c.d1, c.d7, c.d30].map((v, i) => (
                     <td key={i} className="py-2.5">
                       {v === null ? (
-                        <span className="font-mono text-[10px] text-[var(--t3)]">—</span>
+                        <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
                       ) : (
                         <RetentionCell value={v} />
                       )}
@@ -290,7 +293,7 @@ export default function AdminAnalyticsPage() {
                   </span>
                   <span className="font-mono text-[11px] font-[700] tabular-nums text-[var(--t1)]">
                     {f.count}{' '}
-                    <span className="font-[400] text-[var(--t3)]">({f.value}%)</span>
+                    <span className="font-[400] text-[var(--t2)]">({f.value}%)</span>
                   </span>
                 </div>
                 <div

@@ -4,6 +4,7 @@
 'use client'
 
 import { useState } from 'react'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { VrlTaxonomyData } from '@/lib/admin/vrl/queries'
 
 type Tab = 'levels' | 'tracks' | 'domains' | 'skills'
@@ -22,8 +23,13 @@ export function VrlTaxonomyClient({ data }: Props) {
     { id: 'skills', label: 'Skills', count: data.skills.length },
   ]
 
+  const activeLabel = tabs.find((t) => t.id === tab)?.label
+
   return (
     <div className="flex flex-col gap-4">
+      {/* 활성 탭 라벨을 그대로 넘긴다 — 탭을 옮기면 도움말도 따라간다. */}
+      <AdminScreenHelp screen="vrl-taxonomy" tab={activeLabel} />
+
       <nav
         role="tablist"
         aria-label="Taxonomy 분류 선택"
@@ -41,13 +47,13 @@ export function VrlTaxonomyClient({ data }: Props) {
               className={`rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[13px] font-[600] transition-all duration-[var(--dur-fast)] ${
                 active
                   ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[#8B5CF6]/30'
-                  : 'text-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t2)]'
+                  : 'text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t2)]'
               }`}
             >
               {t.label}
               <span
                 className={`ml-1.5 rounded-full px-1.5 py-0.5 font-mono text-[10px] font-[700] ${
-                  active ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                  active ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {t.count}
@@ -83,7 +89,7 @@ function LevelsTable({ rows }: { rows: VrlTaxonomyData['levels'] }) {
     <div className="overflow-x-auto">
       <table className="w-full min-w-[900px] border-collapse text-left">
         <thead>
-          <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             <th className="py-2 pr-2 text-center">L</th>
             <th className="py-2 pr-2">한국어</th>
             <th className="py-2 pr-2">학교</th>
@@ -117,7 +123,7 @@ function LevelsTable({ rows }: { rows: VrlTaxonomyData['levels'] }) {
                   {l.koreanName}
                 </td>
                 <td className="py-2 pr-2">{l.koreanSchool ?? '—'}</td>
-                <td className="py-2 pr-2 font-english italic text-[var(--t3)]">
+                <td className="py-2 pr-2 font-english italic text-[var(--t2)]">
                   {l.englishName ?? '—'}
                 </td>
                 <td className="py-2 pr-2 font-mono text-[11px] font-[700] text-[var(--p)]">
@@ -125,7 +131,7 @@ function LevelsTable({ rows }: { rows: VrlTaxonomyData['levels'] }) {
                     ? (l.cefrMin ?? '—')
                     : `${l.cefrMin ?? '?'}–${l.cefrMax ?? '?'}`}
                 </td>
-                <td className="py-2 pr-2 text-[11px] text-[var(--t3)]">
+                <td className="py-2 pr-2 text-[11px] text-[var(--t2)]">
                   {l.testScoreHints ?? '—'}
                 </td>
                 <td className="py-2 pr-2 text-right font-mono text-[11px]">
@@ -177,14 +183,14 @@ function TracksCardGrid({ rows }: { rows: VrlTaxonomyData['tracks'] }) {
             </span>
           </header>
           {t.nameEn && (
-            <p className="font-english text-[11px] italic text-[var(--t3)]">{t.nameEn}</p>
+            <p className="font-english text-[11px] italic text-[var(--t2)]">{t.nameEn}</p>
           )}
           {t.descriptionKo && (
             <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
               {t.descriptionKo}
             </p>
           )}
-          <footer className="mt-auto flex items-center justify-between border-t border-[var(--bd)] pt-2 font-mono text-[10px] text-[var(--t3)]">
+          <footer className="mt-auto flex items-center justify-between border-t border-[var(--bd)] pt-2 font-mono text-[10px] text-[var(--t2)]">
             <span>{t.displayHint ?? '—'}</span>
             <span className="font-[700] text-[var(--t2)]">
               {t.totalWords?.toLocaleString() ?? '—'} words

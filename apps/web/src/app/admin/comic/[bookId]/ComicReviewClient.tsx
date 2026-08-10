@@ -10,6 +10,7 @@ import {
   AlertTriangle, ArrowLeft, Archive, ArchiveRestore, CheckCircle2, ChevronLeft,
   ChevronRight, Cpu, Loader2, Palette, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
 } from 'lucide-react'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { ComicDetail, ComicStage, ComicStyle } from '@/lib/comic/admin-queries'
 // 타입만 가져온다 — vocab-integrity 는 'server-only' 모듈이라 값 import 시 클라 번들이 깨진다.
 import type { VocabIntegrity } from '@/lib/comic/vocab-integrity'
@@ -142,13 +143,13 @@ export function ComicReviewClient({
         <div className="flex items-center gap-3">
           <Link
             href="/admin/comic"
-            className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t3)] hover:text-[var(--t1)]"
+            className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"
           >
             <ArrowLeft size={14} /> Comic Pipeline
           </Link>
-          <span className="text-[var(--t4)]">/</span>
+          <span className="text-[var(--t2)]">/</span>
           <h1 className="font-display text-[18px] font-[800] text-[var(--t1)]">{title}</h1>
-          <span className="font-body text-[12px] text-[var(--t3)]">{author}</span>
+          <span className="font-body text-[12px] text-[var(--t2)]">{author}</span>
           {vLevel != null && (
             <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] text-[var(--t2)]">V{vLevel}</span>
           )}
@@ -162,6 +163,9 @@ export function ComicReviewClient({
           </span>
         )}
       </div>
+
+      {/* 화면 도움말 */}
+      <AdminScreenHelp screen="comic-review" className="-mt-3" />
 
       {/* 만화 스타일 선택 (포맷×연령×장르×난이도) */}
       <div className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
@@ -180,9 +184,9 @@ export function ComicReviewClient({
             <option key={s.key} value={s.key}>{s.name} · {s.format}/{s.age_band}/{s.genre} · V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</option>
           ))}
         </select>
-        {styleBusy && <Loader2 size={14} className="animate-spin text-[var(--t3)]" />}
+        {styleBusy && <Loader2 size={14} className="animate-spin text-[var(--t2)]" />}
         {curStyle && (
-          <span className="font-body text-[12px] text-[var(--t3)]">{curStyle.palette} · 생성 시 이 art_prompt 적용</span>
+          <span className="font-body text-[12px] text-[var(--t2)]">{curStyle.palette} · 생성 시 이 art_prompt 적용</span>
         )}
       </div>
 
@@ -196,7 +200,7 @@ export function ComicReviewClient({
             const m = STAGE_META[s]
             return (
               <div key={s} className="flex items-center gap-2">
-                {i > 0 && <ChevronRight size={14} className="shrink-0 text-[var(--t4)]" />}
+                {i > 0 && <ChevronRight size={14} className="shrink-0 text-[var(--t2)]" />}
                 <span
                   className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all"
                   style={
@@ -216,8 +220,8 @@ export function ComicReviewClient({
           })}
           {stage === 'archived' && (
             <>
-              <ChevronRight size={14} className="shrink-0 text-[var(--t4)]" />
-              <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t3)]">
+              <ChevronRight size={14} className="shrink-0 text-[var(--t2)]" />
+              <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t2)]">
                 보관됨
               </span>
             </>
@@ -261,7 +265,7 @@ export function ComicReviewClient({
         </div>
 
         {/* 이 단계에서 할 일 */}
-        <p className="mt-3 flex items-start gap-1.5 border-t border-[var(--bd)] pt-3 font-body text-[12px] text-[var(--t3)]">
+        <p className="mt-3 flex items-start gap-1.5 border-t border-[var(--bd)] pt-3 font-body text-[12px] text-[var(--t2)]">
           <span aria-hidden style={{ color: ACCENT }}>›</span>
           {STAGE_HINT[stage]}
         </p>
@@ -285,7 +289,7 @@ export function ComicReviewClient({
         />
       </div>
       {(header?.style || header?.backend || job?.error) && (
-        <div className="flex flex-wrap gap-x-6 gap-y-1 font-body text-[12px] text-[var(--t3)]">
+        <div className="flex flex-wrap gap-x-6 gap-y-1 font-body text-[12px] text-[var(--t2)]">
           {header?.style && <span>화풍: <b className="text-[var(--t2)]">{header.style}</b></span>}
           {header?.backend && <span>백엔드: <b className="text-[var(--t2)]">{header.backend}</b></span>}
           {header?.published_at && <span>발행: <b className="text-[var(--t2)]">{new Date(header.published_at).toLocaleString('ko-KR')}</b></span>}
@@ -330,7 +334,7 @@ export function ComicReviewClient({
             챕터 단어장에 없는 단어 {orphanN}개 (표면화 {vocabIntegrity.total} · 일치{' '}
             {vocabIntegrity.matched})
           </p>
-          <p className="font-body text-[11.5px] text-[var(--t3)]">
+          <p className="font-body text-[11.5px] text-[var(--t2)]">
             target_vocab 은 verbatim(정본) 버블에서만 뽑아야 원문·퀴즈와 단어가 일치합니다. 아래 단어는
             학습자가 만화에서 만나도 단어장·FSRS 로 이어지지 않습니다.
           </p>
@@ -344,20 +348,20 @@ export function ComicReviewClient({
               </li>
             ))}
             {orphanN > 40 && (
-              <li className="font-body text-[11px] text-[var(--t3)]">외 {orphanN - 40}개</li>
+              <li className="font-body text-[11px] text-[var(--t2)]">외 {orphanN - 40}개</li>
             )}
           </ul>
         </div>
       )}
       {vocabUnknown && pages.length > 0 && (
-        <p className="font-body text-[11.5px] text-[var(--t3)]">
+        <p className="font-body text-[11.5px] text-[var(--t2)]">
           단어장 정합 판정 불가 — 이 도서의 챕터 단어장이 아직 없거나 만화가 표면화하는 정본 vocab 이 0개입니다.
         </p>
       )}
 
       {/* 컷 검수 — stave별 */}
       {pages.length === 0 ? (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-10 text-center font-body text-[13px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-10 text-center font-body text-[13px] text-[var(--t2)]">
           아직 생성된 컷이 없습니다. 큐 적재 → Claude Code 드레인(generate-comic.mjs)으로 생성하세요.
         </div>
       ) : (
@@ -367,7 +371,7 @@ export function ComicReviewClient({
               <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--info)_14%,transparent)] px-2 py-0.5 text-[var(--info)]">
                 {list[0]?.stave_label ?? `Chapter ${ch}`}
               </span>
-              <span className="font-body text-[12px] font-[400] text-[var(--t3)]">{list.length}컷</span>
+              <span className="font-body text-[12px] font-[400] text-[var(--t2)]">{list.length}컷</span>
             </h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {list.map((p) => (
@@ -387,12 +391,12 @@ export function ComicReviewClient({
                   </div>
                   <figcaption className="flex flex-col gap-1 p-2">
                     {p.bubbles.length === 0 ? (
-                      <span className="font-body text-[11px] text-[var(--t4)]">(대사 없음)</span>
+                      <span className="font-body text-[11px] text-[var(--t2)]">(대사 없음)</span>
                     ) : (
                       p.bubbles.map((b, bi) => (
                         <div key={bi} className="font-body text-[11px] leading-snug">
                           {b.speaker && <span className="font-[700] text-[var(--p)]">{b.speaker}: </span>}
-                          <span className={b.kind === 'caption' ? 'italic text-[var(--t3)]' : 'text-[var(--t2)]'}>{b.text}</span>
+                          <span className={b.kind === 'caption' ? 'italic text-[var(--t2)]' : 'text-[var(--t2)]'}>{b.text}</span>
                           {b.verbatim && <span title="정본(Dickens)" className="ml-1 text-[var(--memory-stable)]">✓</span>}
                         </div>
                       ))
@@ -400,7 +404,7 @@ export function ComicReviewClient({
                     {p.target_vocab.length > 0 && (
                       <div className="mt-0.5 flex flex-wrap gap-1">
                         {p.target_vocab.map((w) => (
-                          <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t3)]">{w}</span>
+                          <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">{w}</span>
                         ))}
                       </div>
                     )}
@@ -452,7 +456,7 @@ function QcTile({ label, value, tone = 'var(--t1)', Icon }: { label: string; val
         {Icon && <Icon size={14} style={{ color: tone }} />}
         <p className="font-display text-[18px] font-[800] tabular-nums" style={{ color: tone }}>{value}</p>
       </div>
-      <p className="mt-0.5 font-body text-[11px] text-[var(--t3)]">{label}</p>
+      <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">{label}</p>
     </div>
   )
 }

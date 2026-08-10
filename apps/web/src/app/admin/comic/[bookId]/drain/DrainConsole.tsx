@@ -7,6 +7,7 @@ import { useEffect, useMemo, type ReactNode } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CircleCheck, CircleSlash, Clock, Cpu, Loader2, RefreshCw, Wrench } from 'lucide-react'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { ComicDetail, DrainRun, PanelEvent } from '@/lib/comic/admin-queries'
 
 const ACCENT = '#8B5CF6'
@@ -62,13 +63,16 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
     <div className="flex flex-col gap-6 p-6">
       {/* 헤더 */}
       <div className="flex flex-wrap items-center gap-3">
-        <Link href={`/admin/comic/${detail.bookId}`} className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t3)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
-        <span className="text-[var(--t4)]">/</span>
+        <Link href={`/admin/comic/${detail.bookId}`} className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
+        <span className="text-[var(--t2)]">/</span>
         <h1 className="inline-flex items-center gap-2 font-display text-[18px] font-[800] text-[var(--t1)]"><Cpu size={17} style={{ color: ACCENT }} /> 드레인 관측</h1>
-        <span className="font-body text-[13px] text-[var(--t3)]">{detail.title}</span>
+        <span className="font-body text-[13px] text-[var(--t2)]">{detail.title}</span>
         <div className="flex-1" />
         <button onClick={() => router.refresh()} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
       </div>
+
+      {/* 화면 도움말 — 드레인 절차 포함 */}
+      <AdminScreenHelp screen="comic-drain" className="-mt-3" />
 
       {/* 작업 범위 설명 */}
       <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
@@ -80,7 +84,7 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
       </div>
 
       {!run ? (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-10 text-center font-body text-[13px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-10 text-center font-body text-[13px] text-[var(--t2)]">
           아직 드레인 실행 기록이 없습니다. Catalog에서 큐 적재 후 <code className="font-mono">generate-comic.mjs</code>로 생성하면 여기에 실시간 기록됩니다.
         </div>
       ) : (
@@ -91,16 +95,16 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
               <RunStatus status={run.status} />
               <Badge>{run.backend ?? '—'}</Badge>
               {run.site && <Badge tone="var(--info)">{run.site}</Badge>}
-              {run.model && <span className="font-body text-[12px] text-[var(--t3)]">{run.model}</span>}
-              {run.style && <span className="font-mono text-[11px] text-[var(--t4)]">{run.style}</span>}
+              {run.model && <span className="font-body text-[12px] text-[var(--t2)]">{run.model}</span>}
+              {run.style && <span className="font-mono text-[11px] text-[var(--t2)]">{run.style}</span>}
               <div className="flex-1" />
-              <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t3)]">
+              <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t2)]">
                 <Clock size={12} /> {new Date(run.started_at).toLocaleString('ko-KR')}{dur != null ? ` · ${dur}s` : ''}
               </span>
             </div>
             {/* 진행 바 */}
             <div>
-              <div className="mb-1 flex justify-between font-mono text-[11px] tabular-nums text-[var(--t3)]">
+              <div className="mb-1 flex justify-between font-mono text-[11px] tabular-nums text-[var(--t2)]">
                 <span>진행 {run.panels_done}/{run.panels_total}컷</span>
                 <span>pass {run.panels_pass} · fail {run.panels_fail}</span>
               </div>
@@ -116,7 +120,7 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
               <Kpi label="비용(USD)" value={run.cost_usd ?? 0} />
               <Kpi label="컷 pass율" value={run.panels_total ? Math.round((run.panels_pass / run.panels_total) * 100) : 0} suffix="%" />
             </div>
-            {run.note && <p className="font-body text-[12px] italic text-[var(--t3)]">{run.note}</p>}
+            {run.note && <p className="font-body text-[12px] italic text-[var(--t2)]">{run.note}</p>}
           </div>
 
           {/* 발행 차단 사유 */}
@@ -136,14 +140,14 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
           {chapters.length > 0 && (
             <div className="flex flex-col gap-3">
               <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">컷 상태 (위치·시도·판정)</h2>
-              <div className="flex flex-wrap gap-3 font-body text-[11px] text-[var(--t3)]">
+              <div className="flex flex-wrap gap-3 font-body text-[11px] text-[var(--t2)]">
                 {(['pass', 'fail', 'repairing', 'pending'] as const).map((s) => (
                   <span key={s} className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-[3px]" style={{ background: STATUS_TONE[s] }} />{s}</span>
                 ))}
               </div>
               {chapters.map((ch) => (
                 <div key={ch} className="flex flex-col gap-1.5">
-                  <span className="font-mono text-[11px] text-[var(--t3)]">Stave {ch}</span>
+                  <span className="font-mono text-[11px] text-[var(--t2)]">Stave {ch}</span>
                   <div className="flex flex-wrap gap-1.5">
                     {[...byPanel.values()].filter((e) => e.chapter_idx === ch).sort((a, b) => (a.page_order ?? 0) - (b.page_order ?? 0)).map((e) => (
                       <div key={`${e.chapter_idx}-${e.page_order}`} role="img" tabIndex={0}
@@ -168,18 +172,18 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
             <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">평가 이력 (최근 {Math.min(events.length, 40)})</h2>
             <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
               <table className="w-full min-w-[560px] text-left font-body text-[12px]">
-                <thead><tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-[11px] uppercase text-[var(--t3)]"><th className="px-3 py-1.5">컷</th><th className="px-3 py-1.5">phase</th><th className="px-3 py-1.5">상태</th><th className="px-3 py-1.5">점수</th><th className="px-3 py-1.5">메시지</th></tr></thead>
+                <thead><tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-[11px] uppercase text-[var(--t2)]"><th className="px-3 py-1.5">컷</th><th className="px-3 py-1.5">phase</th><th className="px-3 py-1.5">상태</th><th className="px-3 py-1.5">점수</th><th className="px-3 py-1.5">메시지</th></tr></thead>
                 <tbody>
                   {[...events].sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at)).slice(0, 40).map((e, k) => (
                     <tr key={k} className="border-b border-[var(--bd)]/50 last:border-0">
                       <td className="px-3 py-1.5 font-mono text-[var(--t2)]">S{e.chapter_idx}·{e.page_order}{e.attempt > 1 ? ` (#${e.attempt})` : ''}</td>
-                      <td className="px-3 py-1.5 text-[var(--t3)]">{e.phase}</td>
+                      <td className="px-3 py-1.5 text-[var(--t2)]">{e.phase}</td>
                       <td className="px-3 py-1.5"><span style={{ color: STATUS_TONE[e.status ?? 'pending'] }}>{e.status}</span></td>
                       <td className="px-3 py-1.5 font-mono tabular-nums text-[var(--t2)]">{e.score ?? '—'}</td>
-                      <td className="px-3 py-1.5 text-[var(--t3)]">{e.message ?? '—'}</td>
+                      <td className="px-3 py-1.5 text-[var(--t2)]">{e.message ?? '—'}</td>
                     </tr>
                   ))}
-                  {events.length === 0 && <tr><td colSpan={5} className="px-3 py-6 text-center text-[var(--t3)]">이벤트 없음</td></tr>}
+                  {events.length === 0 && <tr><td colSpan={5} className="px-3 py-6 text-center text-[var(--t2)]">이벤트 없음</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -194,9 +198,9 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
                   <div key={r.id} className="flex items-center gap-3 rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-1.5 font-body text-[12px]">
                     <RunStatus status={r.status} small />
                     <span className="text-[var(--t2)]">{r.backend}</span>
-                    <span className="text-[var(--t3)]">pass {r.panels_pass}/{r.panels_total} · 반복 {r.iterations}</span>
+                    <span className="text-[var(--t2)]">pass {r.panels_pass}/{r.panels_total} · 반복 {r.iterations}</span>
                     <div className="flex-1" />
-                    <span className="font-mono text-[11px] text-[var(--t4)]">{new Date(r.started_at).toLocaleString('ko-KR')}</span>
+                    <span className="font-mono text-[11px] text-[var(--t2)]">{new Date(r.started_at).toLocaleString('ko-KR')}</span>
                   </div>
                 ))}
               </div>
@@ -228,7 +232,7 @@ function Kpi({ label, value, tone = 'var(--t1)', Icon, suffix }: { label: string
   return (
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
       <div className="inline-flex items-center gap-1">{Icon && <Icon size={13} style={{ color: tone }} />}<p className="font-display text-[17px] font-[800] tabular-nums" style={{ color: tone }}>{value}{suffix}</p></div>
-      <p className="font-body text-[10px] text-[var(--t3)]">{label}</p>
+      <p className="font-body text-[10px] text-[var(--t2)]">{label}</p>
     </div>
   )
 }

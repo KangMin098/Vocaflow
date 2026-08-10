@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbCurationView } from '@/components/admin/vcb/VcbCurationView'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { fetchQueueItems, fetchQueueDetail } from '@/lib/vcb/server/queue'
@@ -64,6 +65,8 @@ export default async function VcbCuratePage({ params }: PageProps) {
           🔍 큐레이션 · {run.collection_title}
         </h1>
       </header>
+
+      <AdminScreenHelp screen="vocab-curate" className="mb-6" />
 
       <VcbCurationView
         runId={runId}

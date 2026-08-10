@@ -19,6 +19,7 @@ import { useMemo, useState } from 'react'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { AdminToolbar } from '@/components/admin/AdminToolbar'
 
 interface AdminUser {
@@ -194,6 +195,8 @@ export default function AdminUsersPage() {
         }
       />
 
+      <AdminScreenHelp screen="users" className="-mt-3 mb-6" />
+
       <AdminKpiGrid kpis={KPIS} />
 
       <AdminToolbar
@@ -236,7 +239,7 @@ export default function AdminUsersPage() {
               {['사용자', '플랜', '상태', '연속', '가입일', '마지막 활동', ''].map((h, i) => (
                 <th
                   key={i}
-                  className="px-4 py-3 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+                  className="px-4 py-3 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
                 >
                   {h}
                 </th>
@@ -261,7 +264,7 @@ export default function AdminUsersPage() {
                         <p className="truncate font-display text-[13px] font-[600] text-[var(--t1)]">
                           {u.name}
                         </p>
-                        <p className="truncate font-mono text-[11px] text-[var(--t3)]">
+                        <p className="truncate font-mono text-[11px] text-[var(--t2)]">
                           {u.email}
                         </p>
                       </div>
@@ -295,13 +298,13 @@ export default function AdminUsersPage() {
                         {u.streak}일
                       </span>
                     ) : (
-                      <span className="text-[var(--t3)]">—</span>
+                      <span className="text-[var(--t2)]">—</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+                  <td className="px-4 py-3 font-mono text-[11px] tabular-nums text-[var(--t2)]">
                     {u.joinedAt}
                   </td>
-                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t3)]">
+                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t2)]">
                     <span className="inline-flex items-center gap-1">
                       <Activity size={10} aria-hidden />
                       {u.lastActive}
@@ -309,7 +312,7 @@ export default function AdminUsersPage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <button
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
                       aria-label="더보기"
                     >
                       <MoreHorizontal size={14} />
@@ -323,7 +326,7 @@ export default function AdminUsersPage() {
 
         {filtered.length === 0 && (
           <div className="flex flex-col items-center gap-2 py-12 text-center">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t3)]">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)]">
               <UserCheck size={18} aria-hidden />
             </span>
             <p className="font-body text-[13px] text-[var(--t2)]">조건에 맞는 사용자가 없어요.</p>
@@ -331,7 +334,7 @@ export default function AdminUsersPage() {
         )}
       </div>
 
-      <p className="mt-4 text-right font-mono text-[11px] text-[var(--t3)]">
+      <p className="mt-4 text-right font-mono text-[11px] text-[var(--t2)]">
         {filtered.length}명 표시 · 전체 {USERS.length}명
       </p>
     </div>

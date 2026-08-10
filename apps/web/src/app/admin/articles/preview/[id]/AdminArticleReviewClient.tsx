@@ -32,6 +32,7 @@ import { resolveSourcePolicy } from '@vocaflow/library-pipeline/curation-spec'
 import { classifyArticleStatus } from '@/lib/articles/types'
 import { computeGateItems, gatePasses, type GateItem } from '@/lib/articles/publish-gate'
 import type { ReviewArticle, ReviewVocab } from '@/lib/articles/review-types'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { ArticleAudioPanel } from '@/components/admin/articles/ArticleAudioPanel'
 import { ArticleExtractionPanel } from '@/components/admin/articles/ArticleExtractionPanel'
 
@@ -167,7 +168,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
         <div className="flex flex-wrap items-center gap-2">
           <StatusPill tone={statusInfo.tone} label={statusInfo.label} />
           {article.cefrConfidence != null && (
-            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
               confidence {article.cefrConfidence.toFixed(2)}
             </span>
           )}
@@ -178,6 +179,8 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
           />
         </div>
       </div>
+
+      <AdminScreenHelp screen="articles-preview" />
 
       {/* ── 정책 게이트 (항목별 ✓/✕) ── */}
       <GatePanel
@@ -205,7 +208,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
               </a>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[11px] text-[var(--t3)]">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[11px] text-[var(--t2)]">
             <span className="font-mono uppercase">{article.source}</span>
             {article.author && <span>· {article.author}</span>}
             <span>· CEFR {article.cefrLevel ?? '—'}</span>
@@ -222,7 +225,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
 
         <div className="px-5 py-6 md:px-8">
           {paragraphs.length === 0 ? (
-            <p className="py-10 text-center font-body text-[13px] text-[var(--t3)]">
+            <p className="py-10 text-center font-body text-[13px] text-[var(--t2)]">
               본문이 비어 있어요. {isProcessable && '“지금 처리”로 수집/분석을 실행하세요.'}
             </p>
           ) : (
@@ -247,7 +250,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
               <AlertCircle size={12} aria-hidden /> {article.statusMessage}
             </span>
           ) : (
-            <span className="font-body text-[11px] text-[var(--t3)]">
+            <span className="font-body text-[11px] text-[var(--t2)]">
               본문·분석을 확인한 뒤 상단에서 게시하세요.
             </span>
           )}
@@ -381,7 +384,7 @@ function GatePanel({
       className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
     >
       <header className="flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">발행 게이트</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">발행 게이트</span>
         <span
           className="font-mono text-[11px] font-[700] tabular-nums"
           style={{ color: allPass ? 'var(--learn-known)' : 'var(--learn-error)' }}
@@ -510,7 +513,7 @@ function PublishControl({
         onClick={onPublish}
         disabled={pending}
         title="copyright_safe 확인 후 즉시 게시 (admin_force_publish_article). 게시하면 학습자 스크립트 탭에 노출됩니다."
-        className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--ti)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {pending ? (
           <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -532,7 +535,7 @@ function PublishControl({
   return (
     <span
       title={GATE_REASON[gate]}
-      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t3)]"
+      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t2)]"
     >
       <Ban size={12} aria-hidden />
       {GATE_REASON[gate]}

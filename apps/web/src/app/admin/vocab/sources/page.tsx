@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Database, Plus, ArrowLeft } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbSourceCard } from '@/components/admin/vcb/VcbSourceCard'
 import { fetchSources } from '@/lib/vcb/server/sources'
 
@@ -40,6 +41,8 @@ export default async function VcbSourcesPage() {
           </div>
         }
       />
+
+      <AdminScreenHelp screen="vocab-sources" className="mb-6" />
 
       {sources.length === 0 ? (
         <div

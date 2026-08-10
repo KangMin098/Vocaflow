@@ -10,6 +10,20 @@
 
 ## Unreleased (v06.34 → next)
 
+### Admin 전 화면 화면도움말 — 71개 (37 화면 + 34 탭), Claude Code 드레인 7종 포함
+
+관리자가 파이프라인 화면에서 다음 행동을 판단할 근거가 화면 어디에도 없었다. 라벨은 "무엇을 누르는지"만 말하고, **순서·전제·되돌릴 수 있는지·실패하면 어떻게 되는지**는 코드를 읽어야만 알 수 있었다. 특히 Claude Code 드레인은 "버튼을 누르면 끝"이 아니라 관리자가 CLI 를 직접 돌려 큐를 비우는 반자동 작업이라, 화면만 봐서는 시작조차 못 한다.
+
+- **캡처 근거로 작성** — dev admin 우회를 임시로 켜고 Playwright 로 31 라우트 / 56 화면·탭을 PNG + DOM 다이제스트로 수집한 뒤, 파이프라인별 서브에이전트 8개가 캡처를 먼저 보고 코드로 사실을 확인해 작성 (코드만 읽으면 화면에 없는 것을 설명하게 된다). 작업 후 `.env.local` 우회 플래그 원복.
+- **구조 고정** — `ScreenHelp {summary · when · steps · fields · cautions · drain · seeAlso}` ([types.ts](../apps/web/src/lib/admin/help/types.ts)). 렌더가 한 곳이라 어느 화면에서든 같은 자리에서 같은 것을 읽는다.
+- **파이프라인별 파일** — `lib/admin/help/{articles,curation,comic,pd-comics,vocab,vrl,quality,ops}.ts` → [index.ts](../apps/web/src/lib/admin/help/index.ts) `HELP_REGISTRY`. 소유권을 그 화면을 고치는 사람에게 두어 도움말이 코드와 함께 갱신될 확률을 높였다.
+- **인라인 펼침** — [AdminScreenHelp.tsx](../apps/web/src/components/admin/AdminScreenHelp.tsx). 모달이 아니라 열어 둔 채로 조작할 수 있다. 탭 라벨로 조회해 탭을 옮기면 내용도 따라간다.
+- **드레인 7종** — curation(Curated Books) · comic-drain · pd-comics(큐/현대화 2종) · vocab-run-detail · vocab-run-seed · vocab-curate. 전부 **재실행 안전 여부**를 명시 (예: `insert --commit` 은 그 도서 컷을 전부 지우고 다시 넣으므로 중복되지 않지만, **부분 pages.json 으로 커밋하면 나머지 컷이 사라진다**).
+- **런타임 검증** — 29 라우트에서 버튼 렌더 → 패널 펼침 → 탭 전환 시 내용 변화까지 실측. 28/29 통과 (`vocab-sources` 는 도움말이 아니라 페이지 자체가 500 — 아래 참조).
+- **지침화** — 루트 [CLAUDE.md](../CLAUDE.md) §자동화 정책 에 `3️⃣ Admin 화면도움말 동반 갱신` 신설. 변경 유형별로 무엇을 고칠지 표로 명시 (탭 라벨만 바꾸면 도움말이 조용히 사라진다 · 되돌릴 수 없는 동작 추가 시 `cautions` 필수).
+
+**미해결 (도움말과 무관한 선행 결함)**: `/admin/vocab/sources` 가 500 — `packages/vcb-curate-core/src/sources.ts:78` 이 `vocab_raw_texts` 를 조회하는데 그 테이블이 DB 에 없다. `vcb_init`(20260513211824) 이 생성했고 이후 DROP 마이그레이션은 없으므로 **마이그레이션 밖에서 사라진 스키마 드리프트**. 해당 화면 도움말·배선은 준비돼 있으나 페이지가 렌더되지 않아 보이지 않는다.
+
 ### 추출 "%"가 거짓말을 하고 있었다 — 지표를 사전 결합률에서 해석률로 (마이그레이션 2건)
 
 **마이그레이션 [20260809120419_lbv_resolution_diagnostics.sql](../supabase/migrations/20260809120419_lbv_resolution_diagnostics.sql) · [20260809120437_v_book_extraction_stats_v2.sql](../supabase/migrations/20260809120437_v_book_extraction_stats_v2.sql) — 2026-08-09 사용자 승인 후 dev 적용 완료.**

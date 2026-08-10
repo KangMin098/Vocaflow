@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbRunStatusBadge, STATUS_LABELS } from '@/components/admin/vcb/VcbRunStatusBadge'
 import { VcbRunProgress } from '@/components/admin/vcb/VcbRunProgress'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
@@ -84,6 +85,8 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-run-detail" className="mb-6" />
 
       <div className="flex items-center gap-3 mb-8 flex-wrap">
         <VcbRunStatusBadge status={run.status} size="md" />

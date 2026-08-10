@@ -11,6 +11,7 @@ import type {
   LibraryBookAdminRow,
   SourceCatalog,
 } from '@/lib/library/admin-queries';
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp';
 import { SourceCatalogTab } from '@/components/admin/curation/SourceCatalogTab';
 import { SeedTab } from '@/components/admin/curation/SeedTab';
 import { BulkFetchTab } from '@/components/admin/curation/BulkFetchTab';
@@ -98,6 +99,13 @@ export function AdminCurationClient({
   return (
     <div className="flex flex-col gap-6">
       <StatsBar stats={stats} />
+
+      {/* 화면 도움말 — 탭을 옮기면 그 탭의 도움말로 바뀐다 (라벨 문자열로 조회). */}
+      <AdminScreenHelp
+        screen="curation"
+        tab={TABS.find((t) => t.key === tab)?.label}
+        className="-mb-2"
+      />
 
       <TabList tab={tab} onChange={setTab} stats={stats} />
 
@@ -241,7 +249,7 @@ function TabList({ tab, onChange, stats }: TabListProps) {
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
             ].join(' ')}
           >
             <Icon size={14} aria-hidden />

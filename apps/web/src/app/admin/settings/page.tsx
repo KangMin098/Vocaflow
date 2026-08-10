@@ -21,6 +21,7 @@ import {
 import { useState } from 'react'
 
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { Toggle } from '@/components/ui/Toggle'
 
 interface FeatureFlag {
@@ -184,7 +185,7 @@ function SettingsSection({ id, icon: Icon, title, description, accent, children 
         </span>
         <div className="min-w-0">
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">{title}</h2>
-          <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+          <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t2)]">
             {description}
           </p>
         </div>
@@ -212,6 +213,8 @@ export default function AdminSystemSettingsPage() {
         description="feature flags · AI 프롬프트 · 공지 · 점검"
       />
 
+      <AdminScreenHelp screen="settings" className="-mt-3 mb-6" />
+
       <div className="space-y-5">
         {/* ── 점검 모드 (긴급 액션 — 가장 위) ── */}
         <SettingsSection
@@ -230,7 +233,7 @@ export default function AdminSystemSettingsPage() {
           >
             <span
               className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
-                maintenance ? 'bg-[var(--error)] text-white' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                maintenance ? 'bg-[var(--error)] text-white' : 'bg-[var(--bg3)] text-[var(--t2)]'
               }`}
               aria-hidden
             >
@@ -279,10 +282,10 @@ export default function AdminSystemSettingsPage() {
                         {aud.label}
                       </span>
                     </div>
-                    <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+                    <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t2)]">
                       {f.description}
                     </p>
-                    <p className="mt-1 font-mono text-[10px] text-[var(--t3)]">
+                    <p className="mt-1 font-mono text-[10px] text-[var(--t2)]">
                       <code className="text-[var(--t2)]">{f.key}</code> · 마지막 변경 {f.updatedAt}
                     </p>
                   </div>
@@ -322,7 +325,7 @@ export default function AdminSystemSettingsPage() {
                     <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
                       {p.version}
                     </span>
-                    <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--p)]">
+                    <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--on-p-tint)]">
                       {p.model}
                     </span>
                     {p.active && (
@@ -331,7 +334,7 @@ export default function AdminSystemSettingsPage() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">{p.description}</p>
+                  <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">{p.description}</p>
                 </div>
                 <button
                   className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
@@ -376,12 +379,12 @@ export default function AdminSystemSettingsPage() {
                         {status.label}
                       </span>
                     </div>
-                    <p className="mt-0.5 font-mono text-[11px] text-[var(--t3)]">
+                    <p className="mt-0.5 font-mono text-[11px] text-[var(--t2)]">
                       <Clock size={10} className="mr-1 inline align-text-bottom" aria-hidden />
                       {n.sendsAt} · 대상: {n.audience}
                     </p>
                   </div>
-                  <ChevronRight size={14} className="text-[var(--t3)]" aria-hidden />
+                  <ChevronRight size={14} className="text-[var(--t2)]" aria-hidden />
                 </li>
               )
             })}
@@ -416,8 +419,8 @@ export default function AdminSystemSettingsPage() {
                   aria-hidden
                 />
                 <p className="flex-1 font-mono text-[12px] font-[700] text-[var(--t1)]">{r.role}</p>
-                <span className="font-mono text-[11px] text-[var(--t3)]">{r.members}명</span>
-                <ChevronRight size={14} className="text-[var(--t3)]" aria-hidden />
+                <span className="font-mono text-[11px] text-[var(--t2)]">{r.members}명</span>
+                <ChevronRight size={14} className="text-[var(--t2)]" aria-hidden />
               </li>
             ))}
           </ul>

@@ -35,6 +35,7 @@ import {
 
 import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { SOURCE_LABEL } from '@/lib/articles/source-guide'
 import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
@@ -61,6 +62,15 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
   { key: 'publish', label: '발행', Icon: Send },
 ]
 const STAGE_KEYS: Stage[] = STAGES.map((s) => s.key)
+
+// 화면도움말 탭 키 — 탭 버튼이 단계 번호 배지를 품고 있어 화면에 보이는 문자열은 '1커버리지' 형태다.
+//   lib/admin/help/articles.ts 의 tabs 키와 문자열이 정확히 같아야 조회된다.
+const HELP_TAB: Record<Stage, string> = {
+  coverage: '1커버리지',
+  get: '2소스 GET',
+  review: '3검수',
+  publish: '4발행',
+}
 
 // 소스별 탭 — 라벨은 정본 SOURCE_LABEL(source-guide) 단일출처에서만(중복 정의·드리프트 금지).
 //   여기선 key + Icon 만 정의 → 커버리지(SourceFeedList)와 동일 라벨 보장.
@@ -114,6 +124,8 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
   return (
     <div className="flex flex-col gap-6">
       <StageTabs stage={stage} onChange={setStage} />
+
+      <AdminScreenHelp screen="articles" tab={HELP_TAB[stage]} className="-mt-2" />
 
       <div role="tabpanel" id={`curation-panel-${stage}`} aria-labelledby={`curation-tab-${stage}`}>
         {stage === 'coverage' && (
@@ -178,7 +190,7 @@ function StageTabs({ stage, onChange }: { stage: Stage; onChange: (s: Stage) => 
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
             ].join(' ')}
           >
             <span
@@ -363,7 +375,7 @@ function SourceTabs({
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
             ].join(' ')}
           >
             <Icon size={13} aria-hidden />

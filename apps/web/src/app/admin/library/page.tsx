@@ -19,6 +19,7 @@ import { useMemo, useState } from 'react'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { AdminToolbar } from '@/components/admin/AdminToolbar'
 
 interface ContentItem {
@@ -194,6 +195,8 @@ export default function AdminLibraryPage() {
         }
       />
 
+      <AdminScreenHelp screen="library" className="-mt-3 mb-6" />
+
       <AdminKpiGrid kpis={KPIS} />
 
       <AdminToolbar
@@ -260,15 +263,15 @@ export default function AdminLibraryPage() {
                         큐레이션
                       </span>
                     )}
-                    <span className="font-mono text-[10px] text-[var(--t3)]">{c.category}</span>
+                    <span className="font-mono text-[10px] text-[var(--t2)]">{c.category}</span>
                   </div>
                   <h3 className="mt-2 font-english text-[15px] font-[600] leading-snug text-[var(--t1)]">
                     {c.title}
                   </h3>
-                  <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">{c.author}</p>
+                  <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">{c.author}</p>
                 </div>
                 <button
-                  className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+                  className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
                   aria-label="더보기"
                 >
                   <MoreHorizontal size={14} />
@@ -277,7 +280,7 @@ export default function AdminLibraryPage() {
 
               <dl className="mt-4 grid grid-cols-3 gap-2 border-t border-[var(--bd)] pt-3">
                 <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                     조회
                   </dt>
                   <dd className="mt-0.5 font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">
@@ -285,7 +288,7 @@ export default function AdminLibraryPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                     단어 수
                   </dt>
                   <dd className="mt-0.5 font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">
@@ -293,7 +296,7 @@ export default function AdminLibraryPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                     수정일
                   </dt>
                   <dd className="mt-0.5 font-mono text-[12px] text-[var(--t2)]">{c.updatedAt}</dd>
@@ -309,7 +312,7 @@ export default function AdminLibraryPage() {
                   <FileText size={11} aria-hidden />
                   AI 재분석
                 </button>
-                <button className="ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--error)] hover:bg-[var(--error-light)]">
+                <button className="ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--error-ink)] hover:bg-[var(--error-light)]">
                   <Trash2 size={11} aria-hidden />
                   삭제
                 </button>
@@ -321,7 +324,7 @@ export default function AdminLibraryPage() {
 
       {filtered.length === 0 && (
         <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] py-12 text-center">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t3)]">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)]">
             <BookOpen size={18} aria-hidden />
           </span>
           <p className="font-body text-[13px] text-[var(--t2)]">조건에 맞는 콘텐츠가 없어요.</p>

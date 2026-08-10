@@ -11,11 +11,20 @@ import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskCo
 import type { ComicCatalogRow, ComicModel, ComicStats, ComicStyle, ComicTest } from '@/lib/comic/admin-queries'
 import { createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicStyleStatusAction, setComicPublishedAction } from './actions'
 import { StyleSwatch, genreHue } from '@/components/comic/StyleSwatch'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { FORMAT_ORDER, formatMeta } from '@/lib/comic/format'
 import { ScrollText, BookOpen } from 'lucide-react'
 
 const ACCENT = '#8B5CF6'
 type TabKey = 'catalog' | 'published' | 'tests' | 'models' | 'styles'
+/** 탭 라벨 — 화면 표시와 화면도움말 조회에 같은 문자열을 쓴다(라벨을 바꾸면 help/comic.ts 도 함께). */
+const TAB_LABEL: Record<TabKey, string> = {
+  catalog: 'Catalog',
+  published: 'Published',
+  styles: '스타일',
+  tests: '테스트',
+  models: '모델',
+}
 
 const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
@@ -81,11 +90,14 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
         </span>
         <div>
           <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">Comic Pipeline</h1>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             도서 → 만화 큐레이션 · 생성 · QC 게이트 · 발행 (CCP)
           </p>
         </div>
       </div>
+
+      {/* 화면 도움말 — 탭을 옮기면 내용도 따라간다 */}
+      <AdminScreenHelp screen="comic" tab={TAB_LABEL[tab]} className="-mt-2" />
 
       {/* KPI */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -110,7 +122,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
       </div>
 
       {rows.length === 0 && (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
           표시할 도서가 없습니다. 마이그레이션(<code className="font-mono text-[12px]">20260808120000_comic_pipeline.sql</code>) 적용 후
           ready/published 도서가 나타납니다.
         </div>
@@ -125,11 +137,11 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
             aria-selected={tab === k}
             onClick={() => setTab(k)}
             className={`-mb-px border-b-2 px-4 py-2 font-display text-[13px] font-[700] transition-colors ${
-              tab === k ? 'text-[var(--t1)]' : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]'
+              tab === k ? 'text-[var(--t1)]' : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]'
             }`}
             style={tab === k ? { borderColor: ACCENT } : undefined}
           >
-            {k === 'catalog' ? 'Catalog' : k === 'published' ? 'Published' : k === 'styles' ? '스타일' : k === 'tests' ? '테스트' : '모델'}
+            {TAB_LABEL[k]}
           </button>
         ))}
       </div>
@@ -148,7 +160,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelected(new Set())}
-                  className="rounded-[var(--r-full)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t3)] hover:text-[var(--t1)]"
+                  className="rounded-[var(--r-full)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
                 >
                   해제
                 </button>
@@ -173,13 +185,13 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
         <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
           <table className="w-full min-w-[640px] text-left">
             <thead>
-              <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t3)]">
+              <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t2)]">
                 <Th>제목</Th><Th>만화</Th><Th>컷</Th><Th>QC</Th><Th>액션</Th>
               </tr>
             </thead>
             <tbody>
               {publishedRows.length === 0 && (
-                <tr><td colSpan={5} className="px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">아직 생성된 만화가 없습니다.</td></tr>
+                <tr><td colSpan={5} className="px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">아직 생성된 만화가 없습니다.</td></tr>
               )}
               {publishedRows.map((r) => (
                 <tr key={r.bookId} className="border-b border-[var(--bd)]/60 last:border-0">
@@ -268,12 +280,12 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
         <FilterSel label="연령" value={age} onChange={setAge} opts={uniq('age_band')} />
         <FilterSel label="장르" value={genre} onChange={setGenre} opts={uniq('genre')} />
         <FilterSel label="팔레트" value={pal} onChange={setPal} opts={uniq('palette')} />
-        {anyFilter && <button onClick={clearAll} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[700] text-[var(--t3)] transition-colors hover:text-[var(--t1)]">초기화</button>}
-        <span className="self-center font-body text-[12px] text-[var(--t3)]">{filtered.length}/{styles.length}</span>
+        {anyFilter && <button onClick={clearAll} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">초기화</button>}
+        <span className="self-center font-body text-[12px] text-[var(--t2)]">{filtered.length}/{styles.length}</span>
       </div>
 
       {styles.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">스타일 카탈로그가 비어 있습니다. (국내외 딥서치 시드 대기)</p>
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">스타일 카탈로그가 비어 있습니다. (국내외 딥서치 시드 대기)</p>
       ) : (
         <div className="flex flex-col gap-7">
           {FORMAT_ORDER.filter((f) => filtered.some((s) => s.format === f)).map((f) => {
@@ -288,9 +300,9 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                     {scroll ? <ScrollText size={15} style={{ color: ACCENT }} /> : <BookOpen size={15} style={{ color: ACCENT }} />}{meta.label}
                   </span>
                   <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}1a` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
-                  <span className="font-mono text-[11px] text-[var(--t3)]">{meta.layout}</span>
-                  <span className="font-body text-[11px] text-[var(--t4)]">· 화풍 {group.length}종</span>
-                  <p className="w-full font-body text-[11px] leading-relaxed text-[var(--t3)]">{meta.blurb}</p>
+                  <span className="font-mono text-[11px] text-[var(--t2)]">{meta.layout}</span>
+                  <span className="font-body text-[11px] text-[var(--t2)]">· 화풍 {group.length}종</span>
+                  <p className="w-full font-body text-[11px] leading-relaxed text-[var(--t2)]">{meta.blurb}</p>
                 </div>
                 {/* 화풍 카드 */}
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -309,16 +321,16 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                           <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `${genreHue(s.genre)}1a` }}>
                             <span className="h-1.5 w-1.5 rounded-full" style={{ background: genreHue(s.genre) }} aria-hidden />{s.genre}
                           </span>
-                          {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t3)]">{t}</span>)}
-                          {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
+                          {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{t}</span>)}
+                          {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
                         </div>
-                        {s.art_prompt && <p className="line-clamp-2 font-body text-[11px] leading-relaxed text-[var(--t3)]" title={s.art_prompt}>{s.art_prompt}</p>}
+                        {s.art_prompt && <p className="line-clamp-2 font-body text-[11px] leading-relaxed text-[var(--t2)]" title={s.art_prompt}>{s.art_prompt}</p>}
                         <div className="mt-auto flex items-center gap-2 pt-1">
                           <select aria-label={`${s.name} 상태`} value={s.status} disabled={busy === s.key} onChange={(e) => setStatus(s.key, e.target.value)} className="min-h-11 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
                             {['candidate', 'adopted', 'rejected'].map((st) => <option key={st} value={st}>{st}</option>)}
                           </select>
-                          {busy === s.key && <Loader2 size={13} className="animate-spin text-[var(--t3)]" />}
-                          {s.source_url && <a href={s.source_url} target="_blank" rel="noreferrer" aria-label="레퍼런스 출처" className="text-[var(--t3)] transition-colors hover:text-[var(--active)]"><ExternalLink size={13} /></a>}
+                          {busy === s.key && <Loader2 size={13} className="animate-spin text-[var(--t2)]" />}
+                          {s.source_url && <a href={s.source_url} target="_blank" rel="noreferrer" aria-label="레퍼런스 출처" className="text-[var(--t2)] transition-colors hover:text-[var(--active)]"><ExternalLink size={13} /></a>}
                         </div>
                       </figcaption>
                     </figure>
@@ -335,7 +347,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
 function FilterSel({ label, value, onChange, opts }: { label: string; value: string; onChange: (v: string) => void; opts: string[] }) {
   return (
     <label className="inline-flex items-center gap-1.5">
-      <span className="font-display text-[11px] font-[700] text-[var(--t3)]">{label}</span>
+      <span className="font-display text-[11px] font-[700] text-[var(--t2)]">{label}</span>
       <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-body text-[12px] text-[var(--t1)]">
         <option value="">전체</option>
         {opts.map((o) => <option key={o} value={o}>{o}</option>)}
@@ -368,12 +380,12 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
         {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">상태 변경 실패 — {err}</p>}
       </div>
       {models.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">모델 카탈로그가 비어 있습니다. (시장 조사 시드 대기)</p>
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">모델 카탈로그가 비어 있습니다. (시장 조사 시드 대기)</p>
       ) : (
         <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
           <table className="w-full min-w-[900px] text-left">
             <thead>
-              <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t3)]">
+              <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t2)]">
                 <Th>Fit</Th><Th>모델</Th><Th>실행환경</Th><Th>비용/장</Th><Th>다중참조</Th><Th>텍스트</Th><Th>캐릭터</Th><Th>화풍</Th><Th>VRAM</Th><Th>상태</Th><Th></Th>
               </tr>
             </thead>
@@ -384,20 +396,20 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
                   <Td>
                     <div className="flex items-center gap-1.5">
                       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{m.name}</span>
-                      {m.source_url && <a href={m.source_url} target="_blank" rel="noreferrer" className="text-[var(--t3)] hover:text-[var(--active)]"><ExternalLink size={12} /></a>}
+                      {m.source_url && <a href={m.source_url} target="_blank" rel="noreferrer" className="text-[var(--t2)] hover:text-[var(--active)]"><ExternalLink size={12} /></a>}
                     </div>
-                    <span className="font-body text-[11px] text-[var(--t3)]">{m.provider} · {m.site}</span>
-                    {m.strengths && <p className="mt-0.5 max-w-[280px] font-body text-[11px] text-[var(--t3)]">➕ {m.strengths}</p>}
-                    {m.weaknesses && <p className="max-w-[280px] font-body text-[11px] text-[var(--t4)]">➖ {m.weaknesses}</p>}
+                    <span className="font-body text-[11px] text-[var(--t2)]">{m.provider} · {m.site}</span>
+                    {m.strengths && <p className="mt-0.5 max-w-[280px] font-body text-[11px] text-[var(--t2)]">➕ {m.strengths}</p>}
+                    {m.weaknesses && <p className="max-w-[280px] font-body text-[11px] text-[var(--t2)]">➖ {m.weaknesses}</p>}
                   </Td>
                   <Td>
                     <div className="flex flex-wrap gap-1">
                       {(m.run_envs ?? []).map((e) => <EnvPill key={e} env={e} />)}
-                      {(!m.run_envs || m.run_envs.length === 0) && <span className="text-[var(--t4)]">—</span>}
+                      {(!m.run_envs || m.run_envs.length === 0) && <span className="text-[var(--t2)]">—</span>}
                     </div>
                   </Td>
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.cost_per_image_usd != null ? `$${m.cost_per_image_usd}` : (m.run_envs ?? []).some((e) => e !== 'api') ? '무료*' : '—'}</Td>
-                  <Td>{m.multiref == null ? '—' : m.multiref ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--t4)]" />}</Td>
+                  <Td>{m.multiref == null ? '—' : m.multiref ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--t2)]" />}</Td>
                   <Td className="font-body text-[12px]" ><span style={{ color: m.text_control === 'strong' ? 'var(--memory-stable)' : m.text_control === 'weak' ? 'var(--memory-shaky)' : 'var(--t3)' }}>{m.text_control ?? '—'}</span></Td>
                   <Td className="font-display text-[12px] font-[700]" ><span style={{ color: cap(m.char_consistency) }}>{m.char_consistency ?? '—'}</span></Td>
                   <Td className="font-display text-[12px] font-[700]"><span style={{ color: cap(m.style_consistency) }}>{m.style_consistency ?? '—'}</span></Td>
@@ -480,7 +492,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
         {models.length > 0 && (
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-[180px_1fr]">
             <label className="flex flex-col gap-1">
-              <span className="font-display text-[11px] font-[700] text-[var(--t3)]">실행 환경 (자가호스트 우선)</span>
+              <span className="font-display text-[11px] font-[700] text-[var(--t2)]">실행 환경 (자가호스트 우선)</span>
               <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="runpod-4090">RunPod 4090 (24GB)</option>
                 <option value="kaggle-t4">Kaggle T4 (16GB)</option>
@@ -488,7 +500,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
               </select>
             </label>
             <label className="flex flex-col gap-1">
-              <span className="font-display text-[11px] font-[700] text-[var(--t3)]">모델 — 이 환경에서 실행 가능한 것만 ({envModels.length})</span>
+              <span className="font-display text-[11px] font-[700] text-[var(--t2)]">모델 — 이 환경에서 실행 가능한 것만 ({envModels.length})</span>
               <select aria-label="모델 선택" value={form.backend} onChange={(e) => e.target.value ? pickModel(e.target.value) : setForm((f) => ({ ...f, backend: '', model: '', site: '' }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="">— 모델 선택 —</option>
                 {envModels.map((m) => <option key={m.key} value={m.key}>{m.name} · fit {m.comic_fit ?? '?'}{m.min_vram_gb ? ` · ${m.min_vram_gb}GB` : ''}</option>)}
@@ -506,7 +518,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
         )}
         {styles.length > 0 && (
           <label className="flex flex-col gap-1">
-            <span className="font-display text-[11px] font-[700] text-[var(--t3)]">스타일 (선택 — 실험 매트릭스: 모델×환경×스타일)</span>
+            <span className="font-display text-[11px] font-[700] text-[var(--t2)]">스타일 (선택 — 실험 매트릭스: 모델×환경×스타일)</span>
             <select aria-label="스타일 선택" value={form.style} onChange={(e) => setForm((f) => ({ ...f, style: e.target.value }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
               <option value="">— 스타일 무관 —</option>
               {styles.filter((s) => s.status !== 'rejected').map((s) => <option key={s.key} value={s.key}>{s.name} · {s.format}/{s.genre}</option>)}
@@ -524,7 +536,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
 
       {/* 테스트 목록 */}
       {tests.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">아직 테스트가 없습니다.</p>
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">아직 테스트가 없습니다.</p>
       ) : (
         <div className="flex flex-col gap-2">
           {tests.map((t) => (
@@ -544,9 +556,9 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                   ) : null
                 })()}
                 <div className="flex-1" />
-                <span className="font-mono text-[11px] text-[var(--t4)]">{new Date(t.created_at).toLocaleDateString('ko-KR')}</span>
+                <span className="font-mono text-[11px] text-[var(--t2)]">{new Date(t.created_at).toLocaleDateString('ko-KR')}</span>
               </div>
-              <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-[var(--t3)]">
+              <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-[var(--t2)]">
                 {t.backend && <span className="inline-flex items-center gap-1"><Cpu size={11} />{t.backend}</span>}
                 {t.model && <span>· {t.model}</span>}
                 {t.site && <span>· {t.site}</span>}
@@ -559,7 +571,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                   {Object.entries(t.result).map(([k, v]) => `${k}: ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')}
                 </p>
               )}
-              {t.note && <p className="mt-1 font-body text-[12px] italic text-[var(--t3)]">{t.note}</p>}
+              {t.note && <p className="mt-1 font-body text-[12px] italic text-[var(--t2)]">{t.note}</p>}
             </div>
           ))}
         </div>
@@ -571,7 +583,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
 function Field({ label, value, onChange, placeholder }: { label: string; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; placeholder?: string }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="font-display text-[11px] font-[700] text-[var(--t3)]">{label}</span>
+      <span className="font-display text-[11px] font-[700] text-[var(--t2)]">{label}</span>
       <input value={value} onChange={onChange} placeholder={placeholder} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]" />
     </label>
   )
@@ -590,7 +602,7 @@ function CatalogTable({
     <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
       <table className="w-full min-w-[760px] text-left">
         <thead>
-          <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t3)]">
+          <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t2)]">
             <Th></Th><Th>제목</Th><Th>저자</Th><Th>V</Th><Th>도서</Th><Th>만화</Th><Th>컷</Th><Th>큐</Th>
           </tr>
         </thead>
@@ -614,9 +626,9 @@ function CatalogTable({
                   {r.title}
                 </Link>
               </Td>
-              <Td className="font-body text-[12px] text-[var(--t3)]">{r.author ?? '—'}</Td>
+              <Td className="font-body text-[12px] text-[var(--t2)]">{r.author ?? '—'}</Td>
               <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{r.vLevel ?? '—'}</Td>
-              <Td className="font-body text-[12px] text-[var(--t3)]">{r.bookStatus}</Td>
+              <Td className="font-body text-[12px] text-[var(--t2)]">{r.bookStatus}</Td>
               <Td><StatusPill status={r.comicStatus} /></Td>
               <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
                 {r.jobStatus === 'running' && r.panelsDone != null
@@ -633,7 +645,7 @@ function CatalogTable({
                     {r.jobStatus}
                   </span>
                 ) : (
-                  <span className="text-[var(--t4)]">—</span>
+                  <span className="text-[var(--t2)]">—</span>
                 )}
               </Td>
             </tr>
@@ -678,7 +690,7 @@ function StatTile({
       </span>
       <div>
         <p className="font-display text-[19px] font-[800] tabular-nums text-[var(--t1)]">{value}</p>
-        <p className="font-body text-[11px] text-[var(--t3)]">{label}</p>
+        <p className="font-body text-[11px] text-[var(--t2)]">{label}</p>
       </div>
     </div>
   )
@@ -699,7 +711,7 @@ function Step({ n, children }: { n: number; children: ReactNode }) {
   )
 }
 function Arrow() {
-  return <span aria-hidden className="text-[var(--t4)]">→</span>
+  return <span aria-hidden className="text-[var(--t2)]">→</span>
 }
 
 function Th({ children }: { children?: ReactNode }) {

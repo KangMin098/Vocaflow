@@ -8,6 +8,7 @@ import { Users, GraduationCap, Clock3 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlUsers, type VrlUsersData } from '@/lib/admin/vrl/queries'
 
 export const metadata = {
@@ -26,6 +27,7 @@ export default async function VrlUsersPage() {
         title="VRL User Levels"
         description="user_profiles.current_v_level + meta JSONB 기반. 진단 완료/source/last_active 추적."
       />
+      <AdminScreenHelp screen="vrl-users" className="-mt-4" />
       <Suspense fallback={<Fallback />}>
         <Content />
       </Suspense>
@@ -99,7 +101,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                 <span className="font-mono text-[10px] font-[700] text-[var(--t2)]">
                   L{i}
                 </span>
-                <span className="font-mono text-[9px] text-[var(--t3)]">{n}</span>
+                <span className="font-mono text-[9px] text-[var(--t2)]">{n}</span>
               </div>
             )
           })}
@@ -110,7 +112,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
       <section className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <table className="w-full min-w-[900px] border-collapse text-left">
           <thead>
-            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               <th className="px-3 py-2">user_id</th>
               <th className="px-3 py-2">segment</th>
               <th className="px-3 py-2 text-center">V-Level</th>
@@ -134,7 +136,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   key={u.userId}
                   className="border-b border-[var(--bd)] font-body text-[12px] hover:bg-[var(--bg2)]"
                 >
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {u.userId.slice(0, 8)}…
                   </td>
                   <td className="px-3 py-2 text-[var(--t2)]">{u.segment ?? '—'}</td>
@@ -157,7 +159,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
                     {u.confidence != null ? u.confidence.toFixed(2) : '—'}
                   </td>
-                  <td className="px-3 py-2 text-[11px] text-[var(--t3)]">
+                  <td className="px-3 py-2 text-[11px] text-[var(--t2)]">
                     {u.learningGoal ?? '—'}
                   </td>
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
@@ -172,10 +174,10 @@ function UsersView({ data }: { data: VrlUsersData }) {
                         ✓ {u.diagnosticCompletedAt.slice(0, 10)}
                       </span>
                     ) : (
-                      <span className="font-mono text-[10px] text-[var(--t4)]">—</span>
+                      <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
                     )}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {u.lastActiveAt ? u.lastActiveAt.slice(0, 10) : '—'}
                   </td>
                 </tr>
@@ -210,7 +212,7 @@ function Stat({
         <Icon size={18} strokeWidth={1.75} aria-hidden />
       </span>
       <div className="min-w-0">
-        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           {label}
         </p>
         <p

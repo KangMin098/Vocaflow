@@ -19,6 +19,7 @@ import { useMemo, useState } from 'react'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { AdminToolbar } from '@/components/admin/AdminToolbar'
 
 type ReportType = 'content' | 'inquiry' | 'bug'
@@ -209,6 +210,8 @@ export default function AdminReportsPage() {
         description="콘텐츠 신고 · 문의 · 버그 리포트"
       />
 
+      <AdminScreenHelp screen="reports" className="-mt-3 mb-6" />
+
       <AdminKpiGrid kpis={KPIS} />
 
       <AdminToolbar
@@ -298,7 +301,7 @@ export default function AdminReportsPage() {
                       {status.label}
                     </span>
                     {isSlaWarning && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error)]/10 px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--error)]">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error)]/10 px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--error-ink)]">
                         <Clock3 size={10} aria-hidden />
                         {r.ageHours}h · SLA 위반
                       </span>
@@ -312,7 +315,7 @@ export default function AdminReportsPage() {
                     <p className="mt-1 font-body text-[12px] text-[var(--t2)]">{r.context}</p>
                   )}
 
-                  <div className="mt-2 flex flex-wrap items-center gap-3 font-mono text-[10px] text-[var(--t3)]">
+                  <div className="mt-2 flex flex-wrap items-center gap-3 font-mono text-[10px] text-[var(--t2)]">
                     <span>신고자 · {r.reporter}</span>
                     <span>·</span>
                     <span>{r.createdAt}</span>
@@ -324,7 +327,7 @@ export default function AdminReportsPage() {
                 {/* Action buttons */}
                 <div className="hidden flex-col gap-1.5 md:flex">
                   {r.status !== 'resolved' && (
-                    <button className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)]">
+                    <button className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)]">
                       처리
                     </button>
                   )}

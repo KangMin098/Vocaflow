@@ -179,6 +179,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 ## 📝 최근 변경 (v06.34 진행)
 
 ### 이번 세션 (Unreleased)
+- Admin 전 화면 화면도움말 71개 (37 화면 + 34 탭) — `lib/admin/help/*` 8 파일 + `AdminScreenHelp` 인라인 펼침 · Claude Code 드레인 절차 7종 (재실행 안전 여부 명시) · 캡처 31 라우트 근거 · 런타임 28/29 실측
 - ScriptQuiz 큐레이션 챕터 퀴즈 (v06.114) — `library_chapter_quiz`+`book_quiz_jobs` +5 RPC · 도서 V-Level별 챕터당 문항 수(3~10) · `/scriptquiz` 실 카탈로그 · Admin "스크립트 퀴즈 큐" · Claude Code 드레인 생성 (Pride 488 + Marvelous Oz 168 + Huck Finn 154 + Wonderful Oz 141 + Sherlock 96 + Just So 84 + Wind in the Willows 80(진행 중) + Alice 72 + Ammachi 5 + Drone 4 = 1,292문항 · 카탈로그 10권)
 - 큐레이션 "→ 소스 GET" DELETE 시맨틱 재정의 — library_books DELETE + seed unlock
 - Dev 큐 드레인 — `/api/lcp/dev-drain-queue` 자동 반복 루프 UI
@@ -255,6 +256,7 @@ vocaflow/
 | 디자인 토큰 / 컴포넌트 패턴 변경 | [DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) | 토큰 표 · 컴포넌트 패턴 갱신 |
 | Admin 라우트 또는 일괄 액션 변경 | [ADMIN_CONSOLE.md](./docs/ADMIN_CONSOLE.md) | 액션 표 갱신 |
 | 큐레이션 RPC / 파이프라인 변경 | [LIBRARY_PIPELINE.md](./docs/LIBRARY_PIPELINE.md) | 단계 / RPC 표 갱신 |
+| **Admin 파이프라인 화면 / 기능 / 로직 / 프로세스 변경** | **`apps/web/src/lib/admin/help/<pipeline>.ts`** | **해당 화면·탭 도움말 (summary/steps/fields/cautions/drain) 을 같은 커밋에서 갱신 — 아래 3️⃣ 참조** |
 | 코딩 패턴 / 안티패턴 추가 | [CONVENTIONS.md](./docs/CONVENTIONS.md) | 절대 금지 / 항상 지킬 것 |
 | 패키지 추가/버전 변경 | [STACK.md](./docs/STACK.md) | 패키지 표 갱신 |
 | 위 모든 변경 (요약) | [CHANGELOG.md](./docs/CHANGELOG.md) | Unreleased 섹션 한두 줄 추가 |
@@ -296,6 +298,30 @@ vocaflow/
 - 파일 ≥30 개 변경 (정상 milestone 아님 — 확인 필요)
 
 이 정책은 별도 사용자 지시로 변경 가능. [feedback_auto_doc_and_git.md](C:\Users\kille\.claude\projects\c--Users-kille-Vocaflow\memory\feedback_auto_doc_and_git.md) 도 참조.
+
+### 3️⃣ Admin 화면도움말 동반 갱신 (필수)
+
+Admin 파이프라인 화면은 **화면마다(탭이 있으면 탭마다) 화면도움말을 갖는다**. 관리자는 이 도움말로 "여기서 뭘 하는 곳이고 다음에 뭘 눌러야 하는지"를 판단하므로, **도움말이 낡으면 잘못된 조작을 유발한다** — 코드보다 위험하다.
+
+| 항목 | 위치 |
+|---|---|
+| 스키마 | `apps/web/src/lib/admin/help/types.ts` (`ScreenHelp` · `HelpStep` · `HelpField` · `HelpDrain`) |
+| 데이터 | `apps/web/src/lib/admin/help/<pipeline>.ts` — 파이프라인별 파일 (articles · curation · comic · pd-comics · vocab · vrl · quality · ops) |
+| 병합 | `apps/web/src/lib/admin/help/index.ts` → `HELP_REGISTRY` |
+| 렌더 | `apps/web/src/components/admin/AdminScreenHelp.tsx` — 헤더 `화면 도움말` 버튼 → 인라인 펼침 패널 |
+
+**같은 커밋에서 반드시 함께 갱신** (사용자 요청 없어도):
+
+| Admin 변경 | 도움말에서 고칠 것 |
+|---|---|
+| 버튼 / 액션 추가·삭제·이름 변경 | `fields` · 관련 `steps` |
+| 탭 추가·삭제, **탭 라벨 변경** | `tabs` 키 (렌더러가 라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) |
+| 작업 순서 / 상태 전이 변경 | `steps` (+ 각 단계 `done` 완료 신호) |
+| Claude Code 드레인 절차·API·큐 변경 | `drain.procedure` · `prerequisites` · `verify` · `recovery` — **재실행 안전 여부 명시 필수** |
+| 되돌릴 수 없는 동작 추가 (DELETE · 외부 유료 호출 등) | `cautions` 에 추가 |
+| 새 Admin 화면 추가 | 해당 `<pipeline>.ts` 에 항목 추가 + 화면에 `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />` 배선 |
+
+**작성 원칙**: 화면에 이미 쓰인 라벨을 반복하지 않는다 (도움말은 라벨이 말하지 않는 것 — 순서·전제·되돌리기 가능 여부·실패 시 결과·소요 시간을 말한다). 수치·임계값은 코드에서 확인한 실제 값만. 레지스트리 키는 라우트 슬러그.
 
 ---
 
