@@ -213,7 +213,21 @@ GREATEST(0, 1.0 - ABS(v_level - (book_v_level + 1))::numeric / 4)
 
 `dialect_map` 은 `lookup_word_meaning` 에서 `coverage-clean` 보다 **앞 티어**라 이관만으로 교정된다. `jine`→`join`, `thanky`→`thank` 는 이미 `spelling` 티어가 맞게 처리하고 있다 — 같은 방식이다.
 
-### D5 — 책 고유 어휘를 "읽기 지원" 2차 세트로 분리
+### D5 — 책 고유 어휘를 "읽기 지원" 으로 분리
+
+**적용 (마이그레이션 `20260810234335`) — 초안의 word set 방식은 폐기.**
+
+초안은 `library_book_support` 카테고리의 word set 발행이었다. 그런데 `shared_word_sets` 의 의미론 자체가 "구독 가능한 학습 목록"이다 — `user_word_set_subscriptions` 로 구독되고, 구독하면 `vocabularies` 로 들어가 FSRS 를 탄다. D5 의 요구는 정확히 그 반대(외울 대상 아님)라, set 으로 만들면 `/library/vocab` 목록·추천 RPC·구독 액션 **세 곳에 "set 이지만 set 처럼 굴면 안 됨" 예외**를 달아야 한다. 모델과 싸우는 구조다.
+
+→ **읽기 전용 RPC `list_book_support_vocab(uuid,int)` + 책 상세의 접힌 패널**(`BookSupportVocabPanel`). 새 테이블·세트 행·예외 가드 0.
+
+뜻이 `lexicon_clean` 자동 번역이라 그대로 노출할 수 없어 품질 게이트를 뒀다 — 길이 4자 이상(2자 토큰 `ho`→"홀뮴", `un`→"국제연합" 오역 제거) · 책 내 2회 이상 · `resolved_via='coverage-clean'` + `lang='en'` · `noise_kind` 없음 · 뜻 4~90자 + 한글 포함 + 구두점 시작 아님 + 다의어 나열 아님.
+
+결과: Sociology 277 · Dialogues 148 · Les Misérables 133 · Gibbon 103 · Twenty years after 29 · Tom Sawyer 28 · **Treasure Island 27**(`mutineer` 22회 · `cutlas` 15 · `deadlight` · `crosstrees` · `handspike` · `keelhauling` · `oilskin` · `pannikin` · `afterdeck`). 패널 표시 상한 60.
+
+**한계**: 게이트 후에도 거친 번역이 ~18% 남는다 (`seafaring`→"물로 여행하다" · `superintend`→"보고 직접" · `downhill`→"트레일을 따라 내려가는 스키 경주"). 암기 대상이면 반려할 수준이지만 참고 목록으로는 쓸 만하다 — UI 문구를 "외울 단어가 아니라 읽을 때 참고하세요" 로 명시하고 기본 접힘으로 뒀다.
+
+### D5 (초안, 폐기) — 책 고유 어휘를 "읽기 지원" 2차 세트로 분리
 
 `shared_dictionary` 미등재이나 `lookup_word_meaning` 이 해석하는 책 특징어(Treasure Island 항해어 18건 등)를 별도 카테고리 `library_book_support` 로 발행한다.
 

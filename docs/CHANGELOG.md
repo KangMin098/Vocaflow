@@ -177,7 +177,22 @@ Les Misérables 1,294 내역: `lexicon_only` 594 · `foreign` 417 · `genuine_mi
 
 #### 미적용 (ADR §5)
 
-- **D5** 책 고유 어휘 `library_book_support` 2차 세트 (항해어 등 읽기 지원 전용, FSRS·퀴즈 제외).
+#### D5 — 책 고유 어휘를 "이 책의 말" 읽기 지원 패널로 (마이그레이션 1건)
+
+**[20260810234335_list_book_support_vocab.sql](../supabase/migrations/20260810234335_list_book_support_vocab.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+Treasure Island 의 `crosstrees`·`keelhauling`·`deadlight`·`handspike`·`afterdeck` 같은 항해어는 읽기 중 탭하면 뜻이 나오지만 `shared_dictionary` 미등재라 챕터 단어장·플래시카드·ScriptQuiz 에는 없다. 버리면 이 책을 읽게 만드는 말이 통째로 사라지고, 학습 목표 어휘에 넣는 것도 틀렸다(항해 전문어는 한국 고등학생 어휘 목표가 아니다).
+
+**초안의 word set 방식은 폐기했다.** `shared_word_sets` 의 의미론이 "구독 가능한 학습 목록"이라 — 구독하면 `vocabularies` 로 들어가 FSRS 를 탄다 — set 으로 만들면 `/library/vocab` 목록·추천 RPC·구독 액션 세 곳에 "set 이지만 set 처럼 굴면 안 됨" 예외를 달아야 한다. → **읽기 전용 RPC + 접힌 패널**로 갔다. 새 테이블·세트 행·예외 가드 0.
+
+- `list_book_support_vocab(uuid, int)` — `SECURITY INVOKER`(RLS 그대로 적용) · anon/authenticated GRANT.
+- `BookSupportVocabPanel` — 책 상세, 챕터 단어장 아래·본문 위. 기본 접힘, 펼칠 때 1회 fetch (Calm UI + Progressive Disclosure).
+
+품질 게이트(뜻이 `lexicon_clean` 자동 번역이라 그대로 노출 불가): 길이 4자 이상(2자 토큰 `ho`→"홀뮴" · `un`→"국제연합" 오역 제거) · 책 내 2회 이상 · `resolved_via='coverage-clean'`+`lang='en'` · `noise_kind` 없음 · 뜻 4~90자 + 한글 포함 + 구두점 시작 아님 + 다의어 나열 아님.
+
+결과: Sociology 277 · Dialogues 148 · Les Misérables 133 · Gibbon 103 · Twenty years after 29 · Tom Sawyer 28 · **Treasure Island 27**(`mutineer` 22회 · `cutlas` 15 · `deadlight` · `crosstrees` · `handspike` · `keelhauling` · `oilskin` · `pannikin` · `afterdeck`). 패널 상한 60.
+
+**한계**: 게이트 후에도 거친 번역이 ~18% 남는다(`seafaring`→"물로 여행하다" · `superintend`→"보고 직접"). 암기 대상이면 반려할 수준이라, UI 문구를 "외울 단어가 아니라 읽을 때 참고하세요" 로 명시했다.
 - **D5** 책 고유 어휘 `library_book_support` 2차 세트.
 #### 재발행 1단계 — `ready` 25권 완료
 

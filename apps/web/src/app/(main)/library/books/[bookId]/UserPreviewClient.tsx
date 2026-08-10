@@ -15,6 +15,7 @@ import {
   BookDetailClient,
   type ChapterSet,
 } from '@/components/library/books/BookDetailClient';
+import { BookSupportVocabPanel } from '@/components/library/books/BookSupportVocabPanel';
 
 interface Props {
   bookId: string;
@@ -116,6 +117,10 @@ export function UserPreviewClient({
           isLoggedIn={isLoggedIn}
         />
       )}
+
+      {/* ADR 0004 D5 — 이 책의 고유 어휘(항해어 등). 챕터 단어장 아래, 본문 위.
+          외울 목록(위)과 읽기 참고 목록(여기)을 나란히 두되 접어서 자극을 줄인다. */}
+      <BookSupportVocabPanel bookId={bookId} />
 
       <BookContentReader
         libraryBookId={bookId}
