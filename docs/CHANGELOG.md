@@ -111,6 +111,65 @@ Les Misérables 1,294 내역: `lexicon_only` 594 · `foreign` 417 · `genuine_mi
 
 **행은 숨기지 않는다** — 큐레이터가 "왜 사전에 없는데 문제가 아닌지"를 봐야 하므로 목록에 남기고, 정렬로 조치 대상을 위로 올린다. 헤더 건수만 조치 대상 기준으로 바꾸고 옆에 `+ 설명됨 N건` 을 표기. 반환 타입 변경(2컬럼 추가)이라 DROP 후 재생성.
 
+### 도서 어휘 선정을 절대 V6 바닥에서 book_v_level 상대 밴드로 (ADR 0004 · 마이그레이션 2건)
+
+**[ADR 0004](../docs/adr/0004-book-vocab-selection-policy.md) Accepted. 마이그레이션 [20260810113051_vocab_selection_relative_band.sql](../supabase/migrations/20260810113051_vocab_selection_relative_band.sql) · [20260810113116_shared_words_v_level.sql](../supabase/migrations/20260810113116_shared_words_v_level.sql) — 2026-08-10 사용자 승인 후 dev 적용 완료.**
+
+#### 발단 — Treasure Island 추출 결과 점검에서 구조 결함 3개가 드러났다
+
+`select_book_chapter_vocab` 의 유일한 레벨 조건이 **하드코딩 `v_level >= 6`**(상한 없음)이었고 `book_v_level` 은 게이트에 전혀 쓰이지 않았다. 그런데 카탈로그 40권 중 **19권(48%)이 book_v_level 2~4**다.
+
+| 도서 | bvl | 현행 후보 |
+|---|--:|---|
+| Bed-Time Stories | 2 | **0** — 세트 생성 불가 |
+| The Mango Tree | 2 | 1개, 그것도 **V10** = i+8 |
+| Gibbon | 11 | V6~7 단어 2,179개 = 독자 수준보다 한참 아래 |
+
+커버리지가 확증한다 — Ammachi(V2)는 V1 51.9% → V6 94.4%. 이 책을 읽게 만드는 단어는 **V3~V6** 인데 게이트가 그 전부를 버렸다.
+
+#### D1 — 레벨 게이트를 상대 밴드로
+
+`v_level BETWEEN book_v_level-1 AND book_v_level+3`. 하한 −1 은 `book_v_level` 이 타입 p75 라 학습자 기준선보다 높기 때문, 상한 +3 은 i+4 이상이 작업기억을 초과하기 때문(원칙 ⑥). 코어 후보가 챕터당 5개 미만이면 그 챕터만 +4 로 확장. `book_v_level` NULL(Huck Finn)은 기존 `>= 6` 폴백.
+
+| 도서 | bvl | 이전 (V 범위) | 이후 (V 범위) |
+|---|--:|---|---|
+| Bed-Time Stories | 2 | **0** | **20** (V1~V5) |
+| The Mango Tree | 2 | 1 (**V10**) | **18** (V1~V4) |
+| Ammachi's | 2 | 5 (V6·V7·**V11**) | **43** (V1~V5) |
+| Winnie-the-Pooh | 4 | 228 (V6~V11) | 406 (V3~V7) |
+| Treasure Island | 7 | 2,053 (V6~V11) | 1,719 (V6~V10) |
+| Gibbon | 11 | 6,687 (V6~V11) | 1,552 (**V10~V11**) |
+
+#### D2 — composite 레벨 축을 절대 밴드에서 i+1 거리로
+
+`CASE v_level BETWEEN 6 AND 9 THEN 1.0 …` → `GREATEST(0, 1 - |v_level - (unit_v_level+1)| / 4)`. 정확히 i+1 이 최고점. 단위 레벨이 NULL 이면 옛 절대 밴드로 폴백해 회귀 없음. 나머지 3축(전역빈도 0.40 · 단위내빈도 0.35 · 검증 0.10)은 레벨과 독립이라 유지. `select_article_vocab` 도 같은 함수를 쓰는데 자기 단위 레벨을 넘기므로 동일 로직이 맞다(현재 article vocab 0행).
+
+#### D6 — `shared_words.v_level`
+
+발행물이 `cefr_level`(6단계)만 갖고 있어 VRL V-Level(0~11) 정보가 깎여 있었다 → 학습자 개인 레벨 하위 필터링 불가. 컬럼 추가 + `lemma → shared_dictionary` 백필 **32,966행 100%** + `publish_book_word_sets` 이 적재하고 세트 설명·`curation_query` 에 밴드 범위를 기록(`version=3`).
+
+#### 미적용 (ADR §5)
+
+- **D3** `noise_blacklist` 를 등재 게이트에서 제거 + 오분류 회수. 샘플 40건 검수 결과 **55%가 명백한 실단어**(`postmaster`·`guidebook`·`waxwork`·`remediable`·`telepathically`…), 20%가 고어/방언(`bloode`·`yode`·`farden` → `archaic_dictionary`/`dialect_map` 이관 대상), 인명 1건(`ashton`). **일괄 해제가 아니라 3분류가 필요**하다고 판정.
+- **D4** eye-dialect 373건 `dialect_map` 이관 (`em`·`mought`·`sperrits`·`wot` 오역 교정).
+- **D5** 책 고유 어휘 `library_book_support` 2차 세트.
+#### 재발행 1단계 — `ready` 25권 완료
+
+D1·D2 는 기존 발행 세트에 소급되지 않는다(`publish_book_word_sets` 이 기존 세트를 `CONTINUE`). 학습자 노출이 없는 `ready` 도서부터 적용했다 — `/library/vocab` 은 `library_book` 카테고리를 제외하고, `/library/books` 와 `recommend_word_sets_for_user` 는 `status='published' AND published_at IS NOT NULL` 을 요구하므로 노출 0.
+
+**509 세트 / 10,676 단어 발행**, 밴드 이탈 0건(`v_level > band_ceil+1` 0 · `< band_floor` 0).
+
+| bvl | 밴드 | 예 |
+|--:|---|---|
+| 2 | V1~V5 | Bed-Time Stories 20단어(이전 **0**) · The Mango Tree 18(이전 1, V10) · The Race 16 |
+| 3 | V2~V6 | The Magic Block 40 · Who Stole Bhaiya's Smile? 40 |
+| 4 | V3~V7 | Get Down, Rocky! 15 |
+| 7 | V6~V10 | Treasure Island 34세트 1,280단어 |
+| 8 | V7~V11 | Les Misérables 360세트 5,654단어 |
+| 9 | V8~V11 | Dialogues 22세트 696단어 |
+
+`published` 13권은 학습자 진도(`user_word_progress`)가 걸려 있어 미적용 — 기존 세트 보존 + `version=3` 병행 발행 후 전환 방식으로 별도 진행.
+
 #### 미결
 
 - `v_book_extraction_stats` · `v_book_extraction_reasons` 가 Supabase advisor `security_definer_view` ERROR (전자는 v06.35 이전부터). 프로젝트 규약(`20260614150000_views_security_invoker`)상 `security_invoker=true` 여야 하나, 적용 시 `DEV_ADMIN_BYPASS` 경로(합성 admin = anon 세션)에서 미발행 도서 통계가 안 보이게 된다 — 사용자 판단 대기.
