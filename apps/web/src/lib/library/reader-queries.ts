@@ -46,7 +46,14 @@ export interface WordLookup {
   cefrLevel: string | null
   vLevel: number | null
   exampleEn: string | null
-  /** 'direct'|'inflection'|'variant'|'cluster'|'derivation'|'coverage-clean'|'dialect'|'spelling'|'normalized'|'suggestion'|'not_found'|'invalid' */
+  /**
+   * 'direct'|'inflection'|'variant'|'cluster'|'derivation'|'dialect'|'proper_noun'|
+   * 'coverage-clean'|'coverage-clean_en'|'spelling'|'normalized'|'normalized-coverage'|
+   * 'suggestion'|'not_found'|'invalid'
+   *
+   * 'proper_noun' (ADR 0004 D4a) — found=false 지만 not_found 와 다르다. 코퍼스에서
+   * 대문자로만 등장한 인명·지명이라 뜻을 주지 않는 것이지, 못 찾은 게 아니다.
+   */
   matchVia: string
   /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
   wordRegister: string | null

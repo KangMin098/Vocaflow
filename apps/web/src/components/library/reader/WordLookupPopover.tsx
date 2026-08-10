@@ -165,6 +165,8 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
           <SuggestionBody result={result} />
         ) : result?.found ? (
           <FoundBody result={result} surface={surface} />
+        ) : result?.matchVia === 'proper_noun' ? (
+          <ProperNounBody />
         ) : (
           <NotFoundBody />
         )}
@@ -272,6 +274,26 @@ function SuggestionBody({ result }: { result: WordLookup }) {
       </div>
       <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
         방언·옛 철자·오탈자일 수 있어요. 문맥으로 확인하세요.
+      </p>
+    </div>
+  )
+}
+
+/**
+ * 고유명사 (ADR 0004 D4a).
+ *
+ * 왜 별도 문구인가: 이전에는 인명·지명이 `lexicon_clean`(Wiktionary 유래)의 동음 일반명사
+ * 뜻을 받아 **틀린 뜻**을 보여줬다 — Les Misérables 의 `Louis`(프랑스 금화)에 "세계 헤비급
+ * 챔피언이었던 미국 권투선수", Treasure Island 의 `Davy`(Davy Jones)에 "전기화학의 선구자".
+ * 이제 코퍼스 대문자 증거(`proper_noun_forms`)로 걸러 "이름"이라고 정직하게 답한다.
+ * 틀린 뜻보다 "뜻 없음"이 낫고, 인명·지명이라는 사실 자체가 독해에 필요한 정보다.
+ */
+function ProperNounBody() {
+  return (
+    <div className="flex flex-col gap-1">
+      <p className="font-body text-[13px] font-[600] text-[var(--t2)]">이름이에요 (인명·지명)</p>
+      <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
+        등장인물이나 장소 이름이라 따로 외울 단어는 아니에요. 읽으면서 누구·어디인지만 잡아두면 돼요.
       </p>
     </div>
   )

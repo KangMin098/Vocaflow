@@ -70,7 +70,9 @@ AND NOT EXISTS (SELECT 1 FROM noise_blacklist nb WHERE nb.form = ac.word)
 
 Treasure Island 표본: 미결합 80건 중 63건이 블랙리스트, 그 중 **39건이 실제 영단어**. `mutineer`(22회 — 이 책의 주제어) · `insubordinate` · `nimbleness` · `slyness` · `raggedness` · `unaccounted` · `repaint` 이 `category='foreign_word'` 로 등록돼 **영구히** 사전 등재 큐에 오르지 못한다.
 
-`archaic_candidates.classification='person_noise'` 도 777건 중 **373건(48%)** 이 실제 영단어다. Treasure Island 의 `hisself`·`mought`·`sperrits`·`dooties`·`jine`·`thanky`·`wot` — 인명이 아니라 Long John Silver 의 eye-dialect 다.
+`archaic_candidates.classification='person_noise'` 에도 Treasure Island 의 `hisself`·`mought`·`sperrits`·`dooties`·`jine`·`thanky`·`wot` 처럼 인명이 아니라 Long John Silver 의 eye-dialect 인 것이 섞여 있다.
+
+> **정정 (2026-08-10)**: 초안은 "`person_noise` 777건 중 373건(48%)이 실제 영단어"라고 적었다. `lexicon_clean(lang='en')` 실재를 근거로 삼았는데, **Wiktionary 는 인명·지명 항목을 포함**하므로 그 근거가 성립하지 않는다. 373건의 실제 내용은 `abraham`·`achilles`·`aesop`·`parker`·`potter` 등 **대부분 진짜 고유명사**였고 `person_noise` 분류가 맞았다. 코퍼스 대문자 검증으로 다시 재면 `noise_kind='person_noise'` 159단어 중 대문자전용(고유명사) 74 · 소문자전용(방언 후보) 46 · 혼재 2 이고, 그 46건도 소유격 9건은 `normalized` 티어가, `jine`·`thanky`·`chapling`·`a-going` 은 `spelling` 티어가 이미 맞게 처리한다. **실제 오역은 십수 건 규모**다. → D4 를 아래 §5 처럼 재정의한다.
 
 이는 [ADR 0002](./0002-rescue-first-noise-policy.md) 가 이미 진단한 "구제 못한 것은 폐기" 구조의 결과다. 그 ADR 은 승인 대기 상태로 미적용이고, 이후 `final-sweep`/`auto-tail` 일괄 sweep 이 오히려 반대 방향으로 갔다.
 
@@ -143,7 +145,39 @@ GREATEST(0, 1.0 - ABS(v_level - (book_v_level + 1))::numeric / 4)
 
 **샘플 100건 수동 검수 후 일괄 적용** — 규모가 커서 무검증 적용은 반대 방향 오류를 만든다.
 
-### D4 — eye-dialect 를 `dialect_map` 으로 이관
+### D4 (재정의, 2026-08-10) — 읽기 중 오역 제거
+
+초안 D4("`person_noise` 373건 일괄 `dialect_map` 이관")는 위 정정대로 **실행하면 고유명사를 방언으로 등록**하게 되어 폐기한다. 조사 과정에서 더 큰 문제가 나왔다 — `coverage-clean` 티어가 **문맥과 무관한 동음이의어**를 준다.
+
+`coverage-clean` 으로 해석되는 3,520단어(15,190 출현) 중 **91단어 / 3,582 출현(23.6%)** 이 코퍼스에서 대문자로만 등장하는 고유명사인데 동음 일반명사 뜻을 받는다:
+
+| 학습자가 탭한 단어 | 책 맥락 | 보이는 뜻 |
+|---|---|---|
+| `Louis` (Les Misérables 56회) | 프랑스 금화 / 인명 | "12년간 세계 헤비급 챔피언이었던 미국…" (권투선수 Joe Louis) |
+| `Davy` (Treasure Island) | Davy Jones | "전기화학의 선구자이자 나트륨·칼륨을 발견한…" (화학자 Humphry Davy) |
+| `Pierre` | 인명 | "사우스다코타 주의 주도" |
+| `des` (Les Misérables 184회) | 프랑스어 관사 | "에스트로겐 특성을 지닌 합성 비스테로이드" (DES 약물) |
+
+읽기 중 단어 탭은 학습자가 직접 보는 기능이라 **뜻이 없는 것보다 나쁘다**.
+
+**적용 (마이그레이션 `20260810135205`)** — `proper_noun_forms` 154행 등재, 가드 91단어 발동.
+
+| 단어 | 이전 | 이후 |
+|---|---|---|
+| `thee` | "번창하기 위해; 번영하기 위해" | **너, 당신** (dialect) |
+| `hast` | ", 2d 당. 노래하다. 대가. 의." | **가지다, 소유하다** (dialect) |
+| `didst` | ", 2D 사람. 노래하다. 꼬마 도깨비." | **하다** (dialect) |
+| `spake` | "꼬마 도깨비. ~의" | **말하다, 이야기하다** (dialect) |
+| `elizabeth` · `mary` · `gardiner` | 동음 일반명사 뜻 | **이름이에요 (인명·지명)** |
+| `crosstrees` · `mutineer` | 정상 | 정상 (오탐 없음) |
+
+**미해결**: `louis` · `davy` · `pierre` 는 코퍼스에서 소문자로도 등장해(`twenty louis` 금화 등) 보수적 판정 규칙에 안 걸린다. 규칙을 "대문자 비율 우세"로 완화하면 잡히지만 실단어 오탐이 늘어 보류. `thy` · `hisself` 는 `dialect_map` 의 standard(`your` · `himself`)가 `shared_dictionary` 정식 표제어가 아니라 dialect 티어를 못 타고 `normalized-coverage` 로 빠진다 — 뜻 자체는 방향이 맞아 급하지 않다.
+
+- **D4a** — `lookup_word_meaning` 에 고유명사 가드. 근거를 추측이 아니라 **코퍼스 대문자 증거로 물질화**(`proper_noun_forms` 테이블)해 `coverage-clean` 티어 앞에서 차단하고 `match_via='proper_noun'` 로 응답한다. 문장 첫머리 대문자 오탐을 피하려 표면형 대문자 여부가 아니라 "코퍼스 전체에서 소문자로 한 번도 안 나온 형태"만 등록한다.
+- **D4b** — `coverage-clean` 의 언어 오배정. fr 422 · la 132 · it 44 · de 15 · es 13 · nl 8 단어가 `lang='en'` 항목으로 해석된다.
+- **D4c** — 검증된 eye-dialect 만 `dialect_map` 수기 등록 (`mought`→might · `sperrits`→spirits · `em`→them · `wot`→what 등 ~20건).
+
+### D4 (초안, 폐기) — eye-dialect 를 `dialect_map` 으로 이관
 
 `person_noise` 오분류 중 방언 표기(`hisself`→`himself` · `mought`→`might` · `sperrits`→`spirits` · `em`→`them`)를 `dialect_map(variant, standard)` 에 넣는다.
 

@@ -177,7 +177,7 @@ Les Misérables 1,294 내역: `lexicon_only` 594 · `foreign` 417 · `genuine_mi
 
 #### 미적용 (ADR §5)
 
-- **D4** eye-dialect 373건 `dialect_map` 이관 (`em`·`mought`·`sperrits`·`wot` 오역 교정).
+- **D4c** 검증된 eye-dialect 만 `dialect_map` 수기 등록 (`em`→them · `mought`→might · `sperrits`→spirits · `wot`→what 등 ~20건).
 - **D5** 책 고유 어휘 `library_book_support` 2차 세트.
 #### 재발행 1단계 — `ready` 25권 완료
 
@@ -216,6 +216,34 @@ D1·D2 는 기존 발행 세트에 소급되지 않는다(`publish_book_word_set
 게이트 2곳이 `is_blocking` 을 존중 — `stage_book_dict_candidates`(등재 큐), `find_unbound_book_lemmas`(진단 라벨).
 
 Treasure Island 재분류: `mutineer`(22회, 이 책의 주제어) · `repaint` · `pickax` 가 노이즈 → **보조사전 해석**(등재 큐 진입 가능), `nimbleness` · `slyness` · `foolhardiness` · `circumspectly` 가 노이즈 → **형태 회수**.
+
+#### D4a·D4b — 읽기 중 단어 탭 오역 제거 (마이그레이션 1건)
+
+**[20260810135205_lookup_proper_noun_guard_and_tier_order.sql](../supabase/migrations/20260810135205_lookup_proper_noun_guard_and_tier_order.sql) — 2026-08-10 사용자 승인 후 dev 적용 완료.**
+
+> **ADR 0004 초안 D4 정정**: "`person_noise` 777건 중 373건이 실제 영단어" 는 오독이었다. `lexicon_clean(lang='en')` 은 **Wiktionary 인명·지명 항목을 포함**하므로 그 근거가 성립하지 않는다. 373건은 `abraham`·`achilles`·`aesop`·`parker` 등 대부분 진짜 고유명사였고 분류가 맞았다. → 일괄 `dialect_map` 이관은 폐기하고 아래로 재정의.
+
+`lookup_word_meaning` 의 티어 순서가 결함의 직접 원인이었다 — **자동 임포트 사전(`lexicon_clean`)이 수기 큐레이션(`dialect_map`)보다 앞**에 있었다:
+
+| 단어 | 출현 | 이전 | 이후 |
+|---|--:|---|---|
+| `thee` | 234 | "번창하기 위해; 번영하기 위해" | **너, 당신** |
+| `thy` | 188 | "당신에게서, 또는 당신에게 속해…" | (개선, `normalized-coverage`) |
+| `hast` | 67 | ", 2d 당. 노래하다. 대가. 의." | **가지다, 소유하다** |
+| `didst` | 19 | ", 2D 사람. 노래하다. 꼬마 도깨비." | **하다** |
+| `spake` | 16 | "꼬마 도깨비. ~의" | **말하다, 이야기하다** |
+
+**`spelling` 티어는 옮기지 않았다** — `spelling_norm` 312,642행은 자동 생성이라 앞세우면 `mary`→`marry`(인명) · `gardiner`→`gardener`(P&P 의 Gardiner 부부) · `de`→`the` · `ami`→`amigurumi` 같은 **새 오역**이 생긴다. 기존 오역을 새 오역으로 바꾸는 셈.
+
+그리고 `lexicon_clean` 의 Wiktionary 인명 항목 때문에 고유명사가 동음 일반명사 뜻을 받았다 — coverage-clean 해석 3,520단어 중 **91단어 / 3,582출현(23.6%)**. `Louis`(Les Misérables 56회)→"세계 헤비급 챔피언이었던 미국 권투선수", `Davy`(Treasure Island)→"전기화학의 선구자", `Pierre`→"사우스다코타 주의 주도".
+
+→ `proper_noun_forms` 테이블(**154행**)에 코퍼스 대문자 증거를 물질화. 판정 규칙은 "본문에서 Initcap 으로 등장한 적 있고 **소문자로는 한 번도 안 나온** 형태" — 문두 대문자 오탐 방지다(`crosstrees` 처럼 문두에만 대문자로 나온 실단어는 소문자 출현도 있어 제외). `coverage-clean` 직전에서 `match_via='proper_noun'` 로 조기 반환.
+
+구현은 함수 본문을 다시 쓰지 않고 **`pg_get_functiondef` 로 원본을 읽어 국소 치환 3건**만 적용, 각 치환을 `RAISE EXCEPTION` 으로 단언했다. 초안에서 `normalized`·`suggestion` 티어를 손으로 복원하다 `surface_variants()`·`dmetaphone` 을 놓친 전례가 있어서다.
+
+UI: `WordLookupPopover` 에 `ProperNounBody` 추가 — "이름이에요 (인명·지명) / 등장인물이나 장소 이름이라 따로 외울 단어는 아니에요". 이전에는 `found=false` 라 "사전에 없는 단어예요"로 나왔다.
+
+**미해결**: `louis`·`davy`·`pierre` 는 코퍼스에서 소문자로도 등장해(`twenty louis` 금화) 보수적 규칙에 안 걸린다. 완화하면 실단어 오탐이 늘어 보류.
 
 #### 미결
 
