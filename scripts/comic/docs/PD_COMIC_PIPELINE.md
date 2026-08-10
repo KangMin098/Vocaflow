@@ -27,10 +27,10 @@
 > ⓐffmpeg 색채·디자인(`page-modern` A/B/C/MAX) ⓑHTML 모던 말풍선(`letter.spec`→`page-html`, `render-check` 검증)
 > ⓒ학습 레이어(TTS·단어뜻). $0·로컬·저작권 안전. **발행 기본.**
 >
-> **② AI 리스타일 (선택, GPU 모델)** — 원작을 **다시 그림**(화풍 변경, 구도·인물 유지). CCP 모델 재사용:
-> **Qwen-Image-Edit 2511**(양산·RunPod fp8) / **SDXL+ControlNet Lineart**(파일럿·Kaggle 무료 T4x2). 패널 크롭 단위
-> + 레터링 오버레이 폴백(텍스트 뭉개짐 차단). 2단 로켓: Kaggle 검증($0) → 부족 시 RunPod 양산(호당 ~$1.5).
-> 스크립트: `scripts/comic/pd/ai-restyle/`. **명시 선택해야 돈다(기본 아님).**
+> **② AI 리스타일 (선택, GPU 모델) — 기존 트랙 `pd/modernize.mjs`** — 원작을 **다시 그림**(화풍 변경, 구도·인물 유지).
+> 순서: **말풍선 지우기(box 좌표) → 모델 재작화(글자 없이) → `page-letter` 로 대사 재부착.**
+> 모델·환경은 CCP SSoT(`model-runners.mjs`) 재사용: `qwen-image-edit-2511` @ `runpod-4090` 또는 `kaggle-t4`(cloudflared 터널로 동일 `COMFY_URL`).
+> 출력 `work/<slug>/modern/`. 연결 점검 `connect-check.mjs`. 설계: `PD_MODERNIZE_MODEL.md`. **명시 선택해야 돈다(기본 아님).**
 >
 > Claude Code 오퍼레이터 루프(평가→기록→조정→반복→QC 게이트)는 두 트랙 공통 주요 기능이며 모든 결정이 모니터링된다.
 

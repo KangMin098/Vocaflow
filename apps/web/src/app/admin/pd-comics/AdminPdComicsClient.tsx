@@ -989,12 +989,13 @@ render-check.cjs --workdir work/&lt;slug&gt;</pre>
           </div>
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t3)]">— GPU 모델 · 선택</span></p>
-            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). Kaggle 무료 파일럿(SDXL+ControlNet) → 필요 시 RunPod 양산(QIE 2511). 레터링 오버레이 폴백.</p>
-            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">ai-restyle/prep.mjs --workdir work/&lt;slug&gt; --engine kaggle-sdxl
-# → inputs+job.json zip → Kaggle Dataset → kaggle_pilot.ipynb Run All
-ai-restyle/ingest.mjs --workdir work/&lt;slug&gt; --zip restyled.zip</pre>
+            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 Kaggle-t4(무료 터널)·RunPod-4090. CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
+            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(Kaggle/RunPod/ComfyUI)
+# COMFY_URL 설정: Kaggle=cloudflared 터널 / RunPod=pod.mjs start
+pd/modernize.mjs --workdir work/&lt;slug&gt; --model qwen-image-edit-2511 --env kaggle-t4
+page-letter.mjs --workdir work/&lt;slug&gt;   # 대사 재부착</pre>
           </div>
-          <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 외부(Kaggle/RunPod)라 콘솔은 준비·회수·비교·판정을 담당합니다.</p>
+          <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 자가호스트(Kaggle 터널/RunPod)라 콘솔은 트리거·회수·비교·판정을 담당합니다. 설계: <span className="font-mono">PD_MODERNIZE_MODEL.md</span>.</p>
         </div>
       )}
     </div>

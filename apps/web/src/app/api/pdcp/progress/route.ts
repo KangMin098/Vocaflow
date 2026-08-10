@@ -22,7 +22,7 @@ const IMG = /\.(jpe?g|png)$/i
 const MODERN_KINDS: { key: string; label: string; manifest: string; preview: string }[] = [
   { key: 'page-modern', label: '작화보존 · 구성보존 현대화 (원작 | 결과)', manifest: 'page-modern.manifest.json', preview: 'compare_preview.jpg' },
   { key: 'page-html', label: '작화보존 · 모던 리더 (이미지+내용, 렌더 검증)', manifest: 'page-html.manifest.json', preview: 'render_preview.jpg' },
-  { key: 'ai-restyle', label: 'AI 리스타일 · GPU 재작화 (원작 | 결과)', manifest: 'ai-restyle.manifest.json', preview: 'compare_preview.jpg' },
+  { key: 'modern', label: 'AI 리스타일 · GPU 재작화 (modernize.mjs)', manifest: 'modern.manifest.json', preview: '_preview.jpg' },
   { key: 'page-letter', label: '구성 보존 모던 레터링 (원작 | 결과)', manifest: 'page-letter.manifest.json', preview: 'compare_0004.jpg' },
   { key: 'webtoon', label: '모던 웹툰 (flat-color)', manifest: 'webtoon.manifest.json', preview: 'strip_preview.jpg' },
   { key: 'dialogue', label: '모던 대사 레이어', manifest: 'dialogue.manifest.json', preview: 'strip_preview.jpg' },
