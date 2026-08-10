@@ -56,6 +56,8 @@ for (const r of ranked) {
   const { error } = await db.from('pd_comic_issues').insert({
     slug, title, series_title: r.isCI ? 'Classics Illustrated' : null,
     source_adapter: SOURCE, source_identifier: r.identifier, status: 'queued', acquire_pages: PAGES,
+    // 발행 게이트 요건 — 취득 단계가 아니라 적재 때 출처 URL 을 채운다(누락 시 발행 불가, whiz 실측 버그).
+    source_url: r.url ?? `https://archive.org/details/${r.identifier}`,
   })
   if (error) { console.error(`  ✗ ${r.identifier}: ${error.message}`); skip++ } else enq++
 }

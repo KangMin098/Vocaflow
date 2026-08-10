@@ -250,6 +250,9 @@ async function main() {
         ? pickPanelsAdaptive(img, base, [0, 1, 2, 3])
         : { panels: findPanels(img, { ...base, dilate: args.dilate }), dilate: args.dilate }
     const panels = chosen.panels
+    // 0컷(스플래시·전면 페이지 — 내부 거터가 없어 플러드필이 못 나눔) → 페이지 전체를 1컷으로 폴백.
+    // 페이지는 항상 최소 1컷이어야 한다(실측 버그: macbeth p3·p4 가 0컷으로 누락됨).
+    if (panels.length === 0) panels.push({ x0: 0, y0: 0, w: img.w, h: img.h })
     const k = img.srcW / img.w
     const pageName = path.basename(file).replace(IMG_RE, '')
 
