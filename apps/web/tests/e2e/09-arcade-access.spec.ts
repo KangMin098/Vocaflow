@@ -97,7 +97,8 @@ test.describe('A. 발견성 — 비로그인(단어 0)', () => {
   test('맛보기 배지 + "단어 모으러 가기" 유도 — 0개 배지 같은 깨진 카피 없음', async ({ page }) => {
     const errors = collectConsoleErrors(page);
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible({
+    // v08.3 — "아케이드" → Game Lab(연구소 은유 + 영문 구조 라벨) 재설계.
+    await expect(page.getByRole('heading', { name: 'Game Lab', exact: true })).toBeVisible({
       timeout: 30_000,
     });
 
@@ -134,6 +135,85 @@ test.describe('A. 발견성 — 비로그인(단어 0)', () => {
       );
       expect(overflow, `viewport ${w}px 가로 넘침 ${overflow}px`).toBeLessThanOrEqual(1);
     }
+  });
+
+  // ── G. Protocol 브리핑 (v08.3) ───────────────────────────────────
+  //
+  // 재설계 전 결함: 게임을 고르는 근거가 이름·색·한 줄 태그라인뿐이었다. 19종은 저마다
+  // 판돈 구조(시계·거리·자본·박)가 다른데 들어가 봐야만 알 수 있어, 선택이 사실상 찍기였다.
+  // 계약은 "**텍스트가 아니라 보드 그림**으로 설명하고, **눌러서 통과**하게 한다" 이다.
+  test('G1. 카드 (?) → Protocol: 보드 그림 3장 + 눌러서 통과하는 Trial Run', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    const trigger = page.getByRole('button', { name: /^Cascade — 게임 설명/ });
+    await expect(trigger).toBeVisible({ timeout: 30_000 });
+    await trigger.click();
+
+    const dlg = page.getByRole('dialog');
+    await expect(dlg).toBeVisible();
+    await expect(dlg).toHaveAttribute('aria-modal', 'true');
+    await expect(dlg.getByRole('heading', { name: 'Cascade', exact: true })).toBeVisible();
+
+    // 설명은 글이 아니라 보드다 — 프레임 3장이 실제 보드 컴포넌트여야 한다
+    await expect(dlg.locator('.bf-fig .bb[data-variant="figure"]')).toHaveCount(3);
+
+    const trial = dlg.locator('.bb[data-variant="trial"]');
+    await expect(trial).toBeVisible();
+
+    // 오답은 통과시키지 않는다(튜토리얼이 그냥 넘어가면 아무것도 가르치지 못한다)
+    await trial.getByRole('button', { name: /comply/ }).click();
+    await expect(dlg.locator('.bf-ok')).toHaveCount(0);
+
+    // 정답이면 통과
+    await trial.getByRole('button', { name: /collapse/ }).click();
+    await expect(dlg.locator('.bf-ok')).toBeVisible({ timeout: 5_000 });
+
+    // Launch 는 카드와 같은 목적지여야 한다(브리핑이 막다른 길이 되지 않게)
+    await expect(dlg.getByRole('link', { name: /Launch/ })).toHaveAttribute(
+      'href',
+      /^\/play\/cascade/,
+    );
+  });
+
+  test('G2. Esc 로 닫히고 포커스가 트리거로 돌아온다', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    const trigger = page.getByRole('button', { name: /^Cascade — 게임 설명/ });
+    await expect(trigger).toBeVisible({ timeout: 30_000 });
+    await trigger.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    // 포커스가 문서 처음으로 튀면 키보드 사용자는 자리를 잃는다
+    await expect(trigger).toBeFocused();
+  });
+
+  test('G3. 계열 카드의 Protocol 은 4모드를 탭으로 전환한다', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    const trigger = page.getByRole('button', { name: /^Rapid Recall — 게임 설명/ });
+    await expect(trigger).toBeVisible({ timeout: 30_000 });
+    await trigger.click();
+
+    const dlg = page.getByRole('dialog');
+    await expect(dlg.getByRole('tab')).toHaveCount(4);
+    await dlg.getByRole('tab', { name: 'Ghost' }).click();
+    await expect(dlg.getByRole('heading', { name: 'Ghost Race', exact: true })).toBeVisible();
+    await expect(dlg.getByRole('link', { name: /Launch/ })).toHaveAttribute(
+      'href',
+      /^\/play\/ghost-race/,
+    );
+  });
+
+  test('G4. 모든 카드가 브리핑 트리거를 갖는다 (설명 없는 게임 0)', async ({ page }) => {
+    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.arc-slot').first()).toBeVisible({ timeout: 30_000 });
+    const slots = await page.locator('.arc-grid .arc-slot').count();
+    const briefs = await page.locator('.arc-grid .arc-slot .arc-brief').count();
+    expect(briefs, '브리핑 버튼이 없는 카드가 있다').toBe(slots);
+
+    // 44px 터치 타겟
+    const box = await page.locator('.arc-brief').first().boundingBox();
+    expect(box!.width).toBeGreaterThanOrEqual(44);
+    expect(box!.height).toBeGreaterThanOrEqual(44);
   });
 });
 
@@ -349,7 +429,7 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     await expect(page.getByRole('button', { name: '섞기' })).toBeVisible({ timeout: 30_000 });
     await page.keyboard.press('Escape');
     await page.waitForURL('**/arcade', { timeout: 20_000 });
-    await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Game Lab', exact: true })).toBeVisible();
   });
 
   // ── D. 영속화 ────────────────────────────────────────────────────

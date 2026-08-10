@@ -10,6 +10,19 @@
 
 ## Unreleased (v06.34 → next)
 
+### /arcade 재설계 — "Game Lab" + 게임별 Protocol 브리핑 (v08.3, 마이그레이션 0)
+
+19종을 고르는 근거가 **이름·색·한 줄 태그라인** 뿐이었다. 게임마다 판돈 구조가 다르고(시계·거리·자본·박·보존도) 그 차이가 곧 존재 이유인데, 학습자는 들어가 봐야만 알 수 있어 선택이 사실상 찍기였다. 첫 30초를 규칙 파악에 쓰다 이탈하는 구조.
+
+- **연구소 은유 + 영문 구조 라벨** — `아케이드` → **Game Lab**. 트랙 3개가 구역이 됐다: **Recall Bay(6) · Synthesis Bay(6) · Inference Bay(7)**. 카드마다 실험 코드(`RC-01`·`SY-04`·`IN-07`, `HUB_TRACKS[].code` + 표시 순번에서 파생). 상단에 **Lab Index**(구역 목차) 신설 — 19장이 한 화면에 깔리므로 목차가 앞에 선다. 구조 라벨만 영문이고 설명 문장은 한국어로 남겼다.
+- **Protocol 다이얼로그** — 카드 우상단 `(?)` → `OBJECTIVE / PROCEDURE / TRIAL RUN / NOTES`. 절차는 **보드 그림 3장**(초기·성공·실패)이고, 마지막은 학습자가 **직접 눌러 통과하는** 미니 튜토리얼이다. 계열(blitz)은 탭으로 4모드 전환. `Launch` 는 허브가 계산한 **스코프 포함 URL**을 그대로 받는다.
+- **신설** — [lib/game/brief.ts](../apps/web/src/lib/game/brief.ts)(19종 브리핑 SSoT) · [BriefBoard.tsx](../apps/web/src/components/game/brief/BriefBoard.tsx) · [GameBriefModal.tsx](../apps/web/src/components/game/brief/GameBriefModal.tsx) · [BriefButton.tsx](../apps/web/src/components/game/brief/BriefButton.tsx).
+- **아키타입 4개로 수렴** — `pick` / `group` / `assemble` / `judge`. 19종의 표면은 다 달라도 학습자의 손동작은 넷뿐이라, 렌더러 하나가 `figure`(정적 삽화)와 `trial`(실제 클릭) 두 모드로 쓰인다. 스크린샷을 쓰지 않은 이유: 게임이 바뀌면 조용히 거짓이 되고, 스크린리더·대비·터치 타겟을 통제할 수 없다.
+- **카드 DOM 재구성** — `.arc-slot`(컨테이너) > `<a class="arc-card">` + `<button class="arc-brief">` **형제**. 중첩 인터랙티브를 만들지 않으면서 e2e 계약(`.arc-grid a[href^="/play/"]` = 도달 가능 게임 수)을 그대로 지킨다.
+- **카탈로그 드리프트 2건 교정** — `wordblitz` 태그라인이 "타이머와 콤보로 몰아붙이는" 이었으나 v08 재설계로 **이 게임에는 시계가 없다**(목숨 3 + 조임 카드). `daily-blitz` 모드 노트의 "내장 뱅크" 도 v07.8 이후 거짓. 모드 라벨 영문화(Classic·Ghost·Economy·Daily).
+- **검증** — axe(WCAG 2.1 A/AA) 허브 0건 · 다이얼로그 5종 0건, 390/768/1280 가로 넘침 0, 모달 패널 가로 넘침 0. 신규 e2e 4건([09-arcade-access](../apps/web/tests/e2e/09-arcade-access.spec.ts) G1–G4: 프레임 3장·오답 비통과·Esc 포커스 복귀·계열 탭·트리거 전수/44px) + 스코프 유지([13-arcade-integrity](../apps/web/tests/e2e/13-arcade-integrity.spec.ts) B 에 Launch 단언 추가). 신규 유닛 [brief.test.ts](../apps/web/src/lib/game/__tests__/brief.test.ts) 22건 — `want`/`focus` 참조 무결성, 슬롯 수 = 정답 길이, ok 토큰 고아 검출(작성 중 실제로 `word-customs` 정답 누락 1건을 잡았다).
+- **모달 금지 규칙과의 관계** — CLAUDE.md 가 금지하는 것은 **세션 중** 인출을 끊는 오버레이다. 이 다이얼로그는 세션 진입 **전** 국면에만 열린다.
+
 ### Admin 전 화면 화면도움말 — 71개 (37 화면 + 34 탭), Claude Code 드레인 7종 포함
 
 관리자가 파이프라인 화면에서 다음 행동을 판단할 근거가 화면 어디에도 없었다. 라벨은 "무엇을 누르는지"만 말하고, **순서·전제·되돌릴 수 있는지·실패하면 어떻게 되는지**는 코드를 읽어야만 알 수 있었다. 특히 Claude Code 드레인은 "버튼을 누르면 끝"이 아니라 관리자가 CLI 를 직접 돌려 큐를 비우는 반자동 작업이라, 화면만 봐서는 시작조차 못 한다.

@@ -13,7 +13,7 @@ export function ArcadeEntryCard() {
   return (
     <Link
       href="/arcade"
-      aria-label={`아케이드 — 단어 게임 ${GAME_COUNT}종`}
+      aria-label={`Game Lab — 단어 게임 ${GAME_COUNT}종`}
       className="group relative flex items-center gap-4 overflow-hidden rounded-[var(--r-lg)] px-5 py-4 transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2"
       style={{
         background: 'linear-gradient(120deg, #2b1d3e 0%, #3a2450 42%, #4a2740 100%)',
@@ -42,13 +42,13 @@ export function ArcadeEntryCard() {
       {/* 텍스트 */}
       <span className="relative min-w-0 flex-1">
         <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(255,225,200,.66)' }}>
-          Arcade · 단어 게임
+          Vocaflow Research Division
         </span>
         <span className="mt-0.5 block font-display text-[17px] font-extrabold" style={{ color: '#FBF3EC' }}>
-          아케이드
+          Game Lab
         </span>
         <span className="mt-0.5 block truncate text-[12.5px]" style={{ color: 'rgba(246,232,224,.72)' }}>
-          {GAME_COUNT}개 세계에서 단어를 놀이로 — {MINE_GAMES.length}종은 내 복습 단어로
+          {GAME_COUNT}개 실험 장치로 단어를 놀이로 — {MINE_GAMES.length}종 전부 내 단어로
         </span>
       </span>
       {/* CTA */}

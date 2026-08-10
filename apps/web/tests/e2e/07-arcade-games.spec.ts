@@ -508,18 +508,19 @@ test.describe('아케이드 게임 전수 스모크', () => {
   });
   test.use({ storageState: STATE_PATH });
 
-  test('아케이드 허브 — 3트랙 + 오늘의 추천 + 전 카드 딥링크 무결성', async ({ page }) => {
+  test('Game Lab 허브 — 3구역 + 오늘의 실험 + 전 카드 딥링크 무결성', async ({ page }) => {
     const errors = collectConsoleErrors(page);
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('heading', { name: '아케이드', exact: true })).toBeVisible({ timeout: 30_000 });
+    // v08.3 — "아케이드" → Game Lab(연구소 은유 + 영문 구조 라벨).
+    await expect(page.getByRole('heading', { name: 'Game Lab', exact: true })).toBeVisible({ timeout: 30_000 });
 
-    // IA v07.8 — ① 오늘의 추천 ②③④ 학습 동사 트랙.
+    // IA v07.8 축(학습 동사) 유지 · v08.3 에서 구역(Bay) 으로 명명.
     // 이전 축(내 단어 / 큐레이션 세계)은 죽었다: 19종 전부가 학습자 단어를 쓰게 되면서
     // 한쪽 섹션이 비었고, pickDailyGame 이 빈 후보로 크래시하는 경로까지 생겼다.
     await expect(page.locator('.arc-daily-card')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByRole('heading', { name: /빠르게 떠올리기/ })).toBeVisible();
-    await expect(page.getByRole('heading', { name: /직접 만들어 내기/ })).toBeVisible();
-    await expect(page.getByRole('heading', { name: /읽고 추론하기/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Recall Bay/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Synthesis Bay/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Inference Bay/ })).toBeVisible();
     // 빈 트랙이 생기면 죽은 헤딩이 남는다 — 섹션마다 카드가 최소 1장.
     for (const id of ['recall', 'produce', 'reason']) {
       const sec = page.locator(`section[aria-labelledby="arc-sec-${id}"]`);

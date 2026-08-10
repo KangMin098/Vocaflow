@@ -93,7 +93,7 @@
 | **PairFlip** (L4a 공간기억) | `/pairflip` | `/pairflip/play` | `/pairflip/results` | 5단계 (8~20장 · 2줄 고정) |
 | **ScriptQuiz** (L5 정복) | `/scriptquiz` | `/scriptquiz/play` | — | 3-screen 영어 immersion |
 | **Dictation** (L6 완성) | `/dictate` | `/dictate/setup` → `/dictate/session` | `/dictate/results` | CEFR 자동감지 · 단어별 채점 |
-| **아케이드 스위트** (v07.4) | `(main)/arcade` (허브) | `(app)/play/{19종}` | — | 카탈로그 SSoT `lib/game/catalog.tsx`. 스코프 3단: `?set=`/`?text=` → 내 due 큐 → 맛보기 |
+| **아케이드 스위트 — Game Lab** (v08.3) | `(main)/arcade` (허브) | `(app)/play/{19종}` | — | 카탈로그 SSoT `lib/game/catalog.tsx` · 브리핑 SSoT `lib/game/brief.ts`. 구역 3(Recall/Synthesis/Inference Bay) + 카드 `(?)` Protocol 다이얼로그. 스코프 3단: `?set=`/`?text=` → 내 due 큐 → 맛보기 |
 | **DCP 구문 연습** (CTP ⑥) | — | `(main)/practice/dcp` | — | hub 처방 ④ 연습 진입. order(순서 배열)/insert(위치 삽입) · `grade_dcp_item` 서버 채점 · 오답 error_cause 1-tap |
 
 #### 아케이드 19종 (`(app)/play/<slug>`)

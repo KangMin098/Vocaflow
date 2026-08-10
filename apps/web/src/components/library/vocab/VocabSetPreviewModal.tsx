@@ -35,7 +35,7 @@ const CHAPTER_GAMES: { key: string; label: string; emoji: string; wide?: boolean
   { key: 'wordblitz', label: '블리츠', emoji: '⚡', path: (s, c) => `/play/wordblitz?set=${s}&chapter=${c}` },
   { key: 'spellforge', label: '스펠', emoji: '🔨', path: (s, c) => `/spellforge/play?set=${s}&chapter=${c}` },
   { key: 'pairflip', label: '페어', emoji: '🎴', path: (s, c) => `/pairflip/play?set=${s}&chapter=${c}` },
-  { key: 'arcade', label: '아케이드 19종', emoji: '🕹', wide: true, path: (s, c) => `/arcade?set=${s}&chapter=${c}` },
+  { key: 'arcade', label: 'Game Lab 19종', emoji: '🕹', wide: true, path: (s, c) => `/arcade?set=${s}&chapter=${c}` },
 ]
 interface Props {
   set: PublishedVocabSet | null

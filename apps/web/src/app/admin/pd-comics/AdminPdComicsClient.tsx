@@ -958,6 +958,20 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
     } finally { setBusy(null) }
   }
 
+  // 현대화 콘솔 트리거 — CLI 를 spawn 하고 결과를 갤러리에 반영(드레인과 같은 구조).
+  const modernize = async (issueId: string, track: 'preserve' | 'restyle') => {
+    setBusy(issueId)
+    onMsg(track === 'restyle' ? 'AI 리스타일 실행 중… (GPU·COMFY_URL 필요, 수 분 소요)' : '작화보존 현대화 실행 중… (page-modern → page-html)')
+    try {
+      const r = await fetch('/api/pdcp/modernize', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId, track }) })
+      const j = await r.json()
+      const name = track === 'restyle' ? 'AI 리스타일' : '작화보존 현대화'
+      if (j.ok) { onMsg(`${name} 완료 — ${(j.steps ?? []).map((s: { script: string }) => s.script).join(' → ')}`); setOpenLive(issueId) }
+      else onMsg(`${name} 실패: ${j.error ?? r.status}${j.steps?.length ? ` · ${j.steps.at(-1)?.tail?.at(-1) ?? ''}` : ''}`)
+      await onRefresh(); setLastPoll(Date.now())
+    } catch (e) { onMsg((e as Error).message) } finally { setBusy(null) }
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border px-3.5 py-2.5" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
@@ -1038,6 +1052,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
                   <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
                   <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
                   <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
                 </div>
                 {openLive === r.id && <LiveProgress issueId={r.id} onZoom={(rels, index) => setZoom({ issueId: r.id, rels, index })} />}
@@ -1412,6 +1428,8 @@ function ToolsTab() {
   const [out, setOut] = useState<string>('')
   const [env, setEnv] = useState<Record<string, string> | null>(null)
   const [busy, setBusy] = useState(false)
+  const [conn, setConn] = useState<string>('')
+  const [connBusy, setConnBusy] = useState(false)
 
   const check = async () => {
     setBusy(true)
@@ -1422,6 +1440,16 @@ function ToolsTab() {
       setEnv(j.env ?? null)
     } finally {
       setBusy(false)
+    }
+  }
+  const connectCheck = async () => {
+    setConnBusy(true)
+    try {
+      const r = await fetch('/api/pdcp/connect-check', { cache: 'no-store' })
+      const j = await r.json()
+      setConn(j.output ?? j.error ?? '')
+    } finally {
+      setConnBusy(false)
     }
   }
   useEffect(() => { void check() }, [])
@@ -1442,6 +1470,28 @@ function ToolsTab() {
         >
           {busy ? '점검 중…' : '환경 점검 실행'}
         </button>
+      </section>
+
+      {/* GPU 연결 점검 — AI 리스타일(선택 트랙)용 자가호스트 연결 */}
+      <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+        <p className="font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+          <b className="text-[var(--t1)]">AI 리스타일</b>(선택 트랙)은 자가호스트 GPU(Kaggle 터널·RunPod ComfyUI)가 필요합니다.
+          아래로 <b className="text-[var(--t1)]">Kaggle · RunPod · ComfyUI</b> 연결을 read-only 로 점검합니다(과금 없음).
+        </p>
+        <button
+          type="button"
+          onClick={() => void connectCheck()}
+          disabled={connBusy}
+          className="mt-3 min-h-[40px] rounded-[var(--r-md)] border px-4 font-display text-[13px] font-[700] disabled:opacity-50"
+          style={{ borderColor: ACCENT, color: ACCENT }}
+        >
+          {connBusy ? '점검 중…' : 'GPU 연결 점검 (connect-check)'}
+        </button>
+        {conn && (
+          <pre className="mt-3 overflow-auto rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[11px] leading-relaxed text-[var(--t2)]">
+            {conn}
+          </pre>
+        )}
       </section>
 
       {env && (

@@ -486,7 +486,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ---
 
-## 아케이드 스위트 (게임 19종 · v07.4)
+## 아케이드 스위트 — Game Lab (게임 19종 · v08.3)
 
 ### 목적
 9모듈이 커버하지 않는 인지 채널(문맥 추론 · 철자 규칙 귀납 · 의미망 · 형태론 · 청각)을
@@ -517,11 +517,14 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 **유지한 약한 중복** — `letter-forge`(글자 제공) → `wordsmith-vigil`(무단서 타이핑)는 Desirable Difficulty 계단,
 `connections`(선택 분류) ↔ `lexicon-estate`(공간 배치)는 입력 방식이 달라 학습 경험이 구분된다.
 
-### 데이터 소스 2분류 (`source`) — 학습자 선택의 1차 축
+### 데이터 소스 (`source`) — 옛 1차 분류축, 지금은 죽어 있다
 | source | 수 | 의미 |
 |---|---|---|
-| `mine` | 8 | 내 단어로 플레이 → FSRS 갱신 (`minWords` 4~6) |
-| `bank` | 11 | 내장 큐레이션 뱅크 (`minWords=0`) — 단어 없이 즉시 플레이 |
+| `mine` | 19 | 내 단어로 플레이 → FSRS 갱신 (`minWords` 1~8) |
+| `bank` | 0 | 내장 뱅크 전용 — v07.8 에서 전 게임이 학습자 단어를 쓰게 되며 소멸 |
+
+v07.8 이후 19종 전부가 `mine` 이라 이 축으로는 아무것도 갈리지 않는다(허브 분류축이
+학습 동사 = `HUB_TRACKS` 로 교체된 이유). 필드 자체는 `pickDailyGame`·타입 호환을 위해 남아 있다.
 
 ### 스코프 3단 (`lib/game/use-word-scope.ts`)
 1. **explicit** — `?set=` / `?text=` (+`?chapter=`) → `fetchScopedWords`. 단어 부족 시 `NotEnoughWords` 안내(몰래 바꿔치지 않음).
@@ -537,12 +540,42 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 게임 내부 종료 버튼뿐 아니라 세션 셸 X·Esc·브라우저 뒤로까지 덮는다 —
 예전엔 `onExit` 에만 걸려 있어 X 로 나가면 `learning_records` 만 남고 `scores`·XP 는 통째로 유실됐다.
 
-### 허브 IA
-① 오늘의 추천 1종(KST 날짜 시드 결정론 회전) → ② 내 단어로 플레이 → ③ 큐레이션 세계.
+### 허브 IA — Game Lab (v08.3)
+① **Lab Status**(스트릭·랭크·오늘의 할당량·앰비언트) → ② **Lab Index**(구역 목차) →
+③ **Today's Experiment** 1종(KST 날짜 시드 결정론 회전) → ④ **Bay 01/02/03**.
 근거: choice overload(선택지 과다 = 마비) vs SDT 자율성 → "추천 하나 + 전부 열람".
+19장이 한 화면에 깔리므로 목차(Lab Index)가 앞에 선다.
+
+**연구소 은유 · 영문 구조 라벨** — 이 화면이 실제로 하는 일은 19개의 서로 다른 실험 장치 중
+오늘 어느 것을 돌릴지 고르게 하는 것이다. "아케이드(오락실)" 은 각 게임이 왜 다른 판돈 구조
+(시계·거리·자본·박)를 갖는지 말할 자리를 주지 못했다. 구역(Bay) · 실험 코드(`RC-01`) ·
+프로토콜(브리핑) · 시운전(Trial Run) 이 그 자리를 만든다.
+**구조 라벨만 영문**이고 설명 문장은 한국어다 — 대상 독자(한국 고등학생~성인)에게
+설명까지 영어로 주면 비용만 는다.
+
+- `HUB_TRACKS[].code` = 구역 접두(`RC`/`SY`/`IN`) → 카드 코드는 표시 순번에서 파생(`labCode`)
+- 카드 = `.arc-slot`(컨테이너) > `<a class="arc-card">` + `<button class="arc-brief">` **형제**
+  (중첩 인터랙티브 금지 · e2e 가 `.arc-grid a[href^="/play/"]` 수로 도달 가능 게임 수를 못박는다)
+
+### Protocol 브리핑 (v08.3) — `lib/game/brief.ts` + `components/game/brief/*`
+게임을 고르는 근거가 이름·색·태그라인뿐이라 선택이 사실상 찍기였다. 카드 우상단 `(?)` 가
+**보드 그림 3장 + 눌러서 통과하는 Trial Run** 을 연다.
+
+- `GAME_BRIEFS` — 게임당 `objective` · `board` · `figures[3]` · `trial` · `facts`. 문구는 전부
+  각 게임 소스 헤더의 계약에서 끌어왔고, 추측한 수치 대신 게임이 정의한 단위(3랩·20틱·4회랑)로 말한다.
+- **아키타입 4개** `pick` / `group` / `assemble` / `judge` — 19종의 표면은 다 달라도
+  학습자의 손동작은 넷으로 수렴한다. 하나의 렌더러(`BriefBoard`)가 `figure`(정적 삽화)와
+  `trial`(실제 클릭) 두 모드로 쓰인다 — 설명에서 본 그림과 눌러 보는 그림이 같아야 배운 것이 이어진다.
+- 스크린샷을 쓰지 않는 이유: 게임이 바뀌면 조용히 거짓이 되고, 스크린리더·대비·터치 타겟을 통제할 수 없다.
+- 계열은 탭으로 4모드 전환(`GameBriefModal entries[]`). `Launch` 는 허브가 계산한 **스코프 포함 URL**.
+- 모달 금지 규칙(CLAUDE.md)과의 관계: 금지 대상은 **세션 중** 인출을 끊는 오버레이다.
+  이 다이얼로그는 세션 진입 **전** 국면에만 열린다.
+- 무결성은 `__tests__/brief.test.ts` 가 강제 — `want`/`focus` 참조 무결성, 슬롯 수 = 정답 길이,
+  ok 토큰 고아 검출. 오타 하나가 "영원히 통과 못 하는 튜토리얼"을 만들기 때문에 눈으로는 안 잡힌다.
 
 ### 리텐션 메타
-`lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP. `ArcadeMetaStrip` 노출.
+`lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP.
+`ArcadeMetaStrip` 노출(v08.3 라벨: Streak · Rank · Daily quota · Ambient).
 
 ### 배경음악
 ### v07.8 — 19종 전수 재설계 (감사 → 재설계 → 적대적 반증 → 강화)

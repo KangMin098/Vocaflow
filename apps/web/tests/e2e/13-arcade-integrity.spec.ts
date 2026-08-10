@@ -250,6 +250,15 @@ test.describe('아케이드 자료 연계', () => {
     expect(dropped, `스코프를 잃은 링크:\n${dropped.join('\n')}`).toEqual([]);
     // 복귀(from)도 스코프를 유지해야 "이 도서로 여러 게임" 흐름이 끊기지 않는다.
     expect(hrefs.every((h) => h.includes('from=')), 'from 누락').toBe(true);
+
+    // v08.3 — Protocol 다이얼로그의 Launch 도 같은 스코프를 실어야 한다.
+    // 브리핑을 읽고 바로 시작하는 경로가 스코프를 잃으면, 카드만 고친 것과 같은 결함이 된다.
+    await page.getByRole('button', { name: /^Cascade — 게임 설명/ }).click();
+    const launch = page.getByRole('dialog').getByRole('link', { name: /Launch/ });
+    await expect(launch).toBeVisible();
+    const launchHref = (await launch.getAttribute('href')) ?? '';
+    expect(launchHref, `Launch 가 스코프를 잃었다: ${launchHref}`).toContain(`set=${FIXTURE_SET.id}`);
+    expect(launchHref).toContain('chapter=2');
   });
 
   test('C · 스크립트 화면에 아케이드 진입 문이 있다', async ({ page }) => {
@@ -258,7 +267,7 @@ test.describe('아케이드 자료 연계', () => {
     // 한정해야 한다 — 안 그러면 사이드바를 잡고 "스코프가 없다"고 잘못 실패한다.
     const pill = page
       .locator('nav[aria-label="학습 단계 선택"]')
-      .getByRole('link', { name: /아케이드/ })
+      .getByRole('link', { name: /Game Lab/ })
       .first();
     await expect(pill).toBeVisible({ timeout: 30_000 });
     const href = (await pill.getAttribute('href')) ?? '';

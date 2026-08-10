@@ -1,5 +1,9 @@
 // apps/web/src/components/game/ArcadeMetaStrip.tsx
-// 아케이드 허브 상단 리텐션 스트립 — 연속일 스트릭 · 레벨 · 오늘의 목표(XP) 진행 · 배경음악.
+// Game Lab 상단 Lab Status 스트립 — 스트릭 · 랭크 · 오늘의 할당량(XP) · 앰비언트(BGM).
+//
+// v08.3 — 랩 명명 정렬. 지표 라벨은 영문(STREAK · RANK · DAILY QUOTA · AMBIENT),
+// 상태값과 격려 문구는 한국어. 구조 라벨은 짧고 고유해야 기억에 남고, 사람에게 말을 거는
+// 문장은 모국어여야 한다는 이 화면의 원칙을 따른다.
 // 클라이언트 전용(localStorage). SSR 안전: 마운트 전엔 렌더 안 함(하이드레이션 불일치 방지).
 // 스타일 클래스(.arc-meta*)는 arcade/page.tsx 의 ARC_CSS 에 정의 — 황혼 테마 일관.
 //
@@ -13,13 +17,9 @@
 
 import { useEffect, useState } from 'react'
 
-import {
-  DAILY_GOAL_XP,
-  getArcadeMeta,
-  levelForXp,
-  xpForLevel,
-  type ArcadeMeta,
-} from '@/lib/game/arcade-meta'
+// levelForXp 는 import 하지 않는다 — getArcadeMeta 가 이미 날짜 롤오버까지 반영한
+// level 을 계산해서 돌려준다. 여기서 또 계산하면 두 값이 어긋날 수 있다.
+import { DAILY_GOAL_XP, getArcadeMeta, xpForLevel, type ArcadeMeta } from '@/lib/game/arcade-meta'
 import { DEFAULT_MUSIC_ON, readMusicOn, writeMusicPref } from '@/lib/game/music-pref'
 
 export default function ArcadeMetaStrip() {
@@ -64,13 +64,16 @@ export default function ArcadeMetaStrip() {
           </span>
           {meta.streak}
         </span>
-        <span className="arc-meta-lbl">연속일</span>
+        <span className="arc-meta-lbl">Streak · 연속일</span>
       </div>
 
       <div className="arc-meta-item arc-meta-level">
         <span className="arc-meta-num">Lv {meta.level}</span>
-        <span className="arc-meta-bar" aria-hidden="true">
-          <span className="arc-meta-bar-fill" style={{ width: `${lvPct * 100}%` }} />
+        <span className="arc-meta-lbl">
+          Rank
+          <span className="arc-meta-bar" aria-hidden="true">
+            <span className="arc-meta-bar-fill" style={{ width: `${lvPct * 100}%` }} />
+          </span>
         </span>
       </div>
 
@@ -80,7 +83,7 @@ export default function ArcadeMetaStrip() {
           <span className="arc-meta-goal-total"> / {DAILY_GOAL_XP} XP</span>
         </span>
         <span className="arc-meta-lbl">
-          {goalMet ? '오늘 목표 달성 ✓' : '오늘의 목표'}
+          {goalMet ? 'Daily quota · 달성 ✓' : 'Daily quota · 오늘의 할당량'}
           <span className="arc-meta-bar arc-meta-bar--goal" aria-hidden="true">
             <span className="arc-meta-bar-fill" style={{ width: `${goalPct * 100}%` }} />
           </span>
@@ -103,7 +106,7 @@ export default function ArcadeMetaStrip() {
           <circle cx="16.5" cy="16" r="2.5" />
           {!music && <path d="M4 3.5l16 17" opacity=".9" />}
         </svg>
-        <span>배경음악 {music ? '켬' : '끔'}</span>
+        <span>Ambient {music ? '켬' : '끔'}</span>
       </button>
     </div>
   )

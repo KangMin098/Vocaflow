@@ -130,7 +130,8 @@ describe('계열(family) 접기', () => {
     if (fam?.kind !== 'family') return
     const orders = fam.modes.map((m) => m.modeOrder ?? Number.MAX_SAFE_INTEGER)
     expect(orders).toEqual([...orders].sort((a, b) => a - b))
-    expect(fam.modes[0].modeLabel).toBe('클래식')
+    // v08.3 — 랩 명명 정렬로 모드 라벨이 영문이 됐다(Classic · Ghost · Economy · Daily).
+    expect(fam.modes[0].modeLabel).toBe('Classic')
   })
 
   it('모든 계열은 멤버가 2개 이상이다 (1개면 접을 이유가 없다)', () => {

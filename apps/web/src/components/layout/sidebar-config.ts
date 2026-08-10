@@ -142,10 +142,11 @@ export const NAV_GROUPS: NavGroup[] = [
       // Arcade — 게임 스위트(L4a~L5). 이전에는 /hub 의 진입 카드 하나가 유일한 통로라
       // 허브를 스크롤해 내려가지 않으면 존재 자체를 발견할 수 없었다. Practice 상시 노출로 승격.
       {
-        label: 'Arcade',
+        label: 'Game Lab',
         href: '/arcade',
         icon: Gamepad2,
-        ariaLabel: '아케이드 — 단어 게임 모음 (내 복습 단어 · 큐레이션 세계)',
+        // v08.3 — "큐레이션 세계" 는 v07.8 에 사라진 분류축이다(전 게임이 학습자 단어를 쓴다).
+        ariaLabel: 'Game Lab — 단어 게임 19종 (Recall · Synthesis · Inference 구역)',
       },
     ],
   },

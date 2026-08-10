@@ -979,6 +979,33 @@ blue:  bg-[var(--p-light)] text-[var(--p)]
 gray:  bg-[var(--bg3)] text-[var(--t3)]
 ```
 
+### 카드 + 보조 액션 — `.arc-slot` 패턴 (v08.3)
+
+카드 전체가 링크(`<a>`)인데 그 위에 **또 다른 조작**(설명 열기 등)을 얹어야 할 때.
+`<a>` 안에 `<button>` 을 넣는 것은 HTML 위반이고 스크린리더·키보드에서 깨진다.
+
+```jsx
+<div className="arc-slot">          {/* position: relative */}
+  <a className="arc-card" href="…">…</a>
+  <button className="arc-brief" />   {/* position: absolute; 우상단 44×44 */}
+</div>
+```
+
+- 카드 상단은 `padding-right: 44px` 로 버튼 자리를 **비워 둔다**(칩이 밑으로 흐르지 않게)
+- hover 효과는 `.arc-slot:hover .arc-card` 로 올려 두 형제가 한 장처럼 반응하게
+- DOM 순서 = 탭 순서: 카드 → 보조 액션
+
+### Protocol 다이얼로그 (v08.3 · `components/game/brief/`)
+
+세션 **진입 전** 국면에서만 여는 설명 오버레이. (세션 중 오버레이는 금지 — 아래 안티패턴 참조)
+
+- `role="dialog"` + `aria-modal="true"` + `aria-labelledby` · Esc 닫기 · **Tab 순환 트랩** · 닫을 때 트리거로 포커스 복귀
+- `document.body` 로 포털 · 열려 있는 동안 `body { overflow: hidden }`
+- 헤더/푸터 고정, **본문만 스크롤**(`overscroll-behavior: contain`)
+- ≤620px 는 바텀 시트(`align-items: flex-end` + 상단만 라운드)
+- 설명은 글이 아니라 **보드 그림**으로 — 같은 렌더러를 `figure`(정적)/`trial`(클릭 가능) 두 모드로 재사용
+- 상태는 색 + 아이콘(`✓`/`✕`) + 테두리 3중. 색 하나만으로 정보를 나르지 않는다
+
 ---
 
 ## Icons — Lucide React (v1.11)

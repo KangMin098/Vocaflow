@@ -31,7 +31,7 @@ const MODES: Mode[] = [
   { key: 'flashcard', label: '카드', group: 'study' },
   { key: 'spellforge', label: '스펠', group: 'practice' },
   { key: 'wordblitz', label: '블리츠', group: 'practice' },
-  { key: 'arcade', label: '아케이드', group: 'practice' },
+  { key: 'arcade', label: 'Game Lab', group: 'practice' },
   { key: 'quiz', label: '퀴즈', group: 'practice' },
 ]
 

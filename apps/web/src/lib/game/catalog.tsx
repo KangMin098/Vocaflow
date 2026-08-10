@@ -107,7 +107,7 @@ export interface GameFamily {
 export const GAME_FAMILIES: readonly GameFamily[] = [
   {
     key: 'blitz',
-    name: '속사 인출',
+    name: 'Rapid Recall',
     tagline: '뜻을 보고 단어를 빠르게 — 같은 인출을 네 가지 재미로',
     layer: 'L4a 재인',
     ref: 'Gimkit · Kahoot · Wordle',
@@ -162,14 +162,14 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     layer: 'L4a 경쟁', ref: 'Kahoot', source: 'mine', emoji: '🏁', closeHref: '/arcade', minWords: 6,
     mood: { a: '#B34480', b: '#38296A', glow: 'rgba(255,158,224,.5)', accent: '#FFD1EE' },
     music: bgm('ghost-race'),
-    family: 'blitz', modeOrder: 2, modeLabel: '고스트', modeNote: '라인 선택 · 콤보로 유령 묶기',
+    family: 'blitz', modeOrder: 2, modeLabel: 'Ghost', modeNote: '라인 선택 · 콤보로 유령 묶기',
   },
   {
     slug: 'word-economy', name: 'Word Economy', tagline: '코인을 벌어 파워업에 전략 투자',
     layer: 'L4a 전략', ref: 'Gimkit', source: 'mine', emoji: '🪙', closeHref: '/arcade', minWords: 6,
     mood: { a: '#C99A34', b: '#77481E', glow: 'rgba(255,216,124,.55)', accent: '#FFECBB' },
     music: bgm('word-economy'),
-    family: 'blitz', modeOrder: 3, modeLabel: '이코노미', modeNote: '코인을 벌어 파워업에 투자',
+    family: 'blitz', modeOrder: 3, modeLabel: 'Economy', modeNote: '코인을 벌어 파워업에 투자',
   },
   {
     slug: 'wordfall-cadence', name: 'Wordfall Cadence', tagline: '발음을 듣고 케이던스가 다하기 전에 뜻을 고르라',
@@ -202,7 +202,7 @@ export const GAME_CATALOG: readonly GameEntry[] = [
     layer: '리텐션', ref: 'Wordle', source: 'mine', emoji: '📅', closeHref: '/arcade', minWords: 8,
     mood: { a: '#E8846A', b: '#7C3B5E', glow: 'rgba(255,196,150,.55)', accent: '#FFE0C4' },
     music: bgm('daily-blitz'),
-    family: 'blitz', modeOrder: 4, modeLabel: '데일리', modeNote: '매일 10문항 · 내장 뱅크 · 스트릭',
+    family: 'blitz', modeOrder: 4, modeLabel: 'Daily', modeNote: '매일 10문항 · 하루 한 번 · 스트릭',
   },
   {
     slug: 'connections', name: 'Connections', tagline: '뜻만 보고 숨은 규칙을 잇다',
@@ -262,11 +262,13 @@ export const GAME_CATALOG: readonly GameEntry[] = [
   // ── 독립 3D 2종 — 자체 엔진(three.js). 아케이드에서도 발견 가능해야 한다. ──
   {
     // v07 재설계로 three.js 인형뽑기 → 순수 2D DOM 속사 인지(MODULES.md §5). 3D 아님.
-    slug: 'wordblitz', name: 'WordBlitz', tagline: '타이머와 콤보로 몰아붙이는 순수 속도전',
+    // v08.3 태그라인 교정 — v08 재설계로 이 게임에서 **시계가 사라졌다**(목숨 3 + 조임 카드).
+    // "타이머와 콤보로 몰아붙이는" 은 그 이전 판의 설명이라 카드가 거짓을 광고하고 있었다.
+    slug: 'wordblitz', name: 'WordBlitz', tagline: '시계가 없다 — 목숨 3개로 어디까지 버티는가',
     layer: 'L4a 자동화', ref: '속사 인지', source: 'mine', emoji: '⏱', closeHref: '/wordblitz', minWords: 6,
     mood: { a: '#7C5AC9', b: '#2A1B45', glow: 'rgba(190,160,255,.5)', accent: '#E5DAFF' },
     music: bgm('wordblitz'),
-    family: 'blitz', modeOrder: 1, modeLabel: '클래식', modeNote: '타이머·콤보·레벨업',
+    family: 'blitz', modeOrder: 1, modeLabel: 'Classic', modeNote: '시계 없음 · 목숨 3 · 조임 카드',
   },
   {
     slug: 'pirate-quest', name: "Pirate's Bounty", tagline: '해변에서 보물 단어를 찾는 3D 모험',
@@ -303,23 +305,37 @@ export const BANK_GAMES = GAME_CATALOG.filter((g) => g.source === 'bank')
 // "지금 나는 어떤 연습을 하고 싶나"로 바뀌었기 때문이다.
 export type HubTrack = 'recall' | 'produce' | 'reason'
 
-export const HUB_TRACKS: { key: HubTrack; eyebrow: string; title: string; desc: string }[] = [
+// v08.3 — 명칭을 영문 랩(lab) 체계로 정렬한다. 트랙은 이제 "구역(Bay)" 이고,
+// 각 구역은 하나의 인지 동사를 담당한다. 설명문은 한국어로 남긴다 —
+// 구조는 영문 라벨이 더 짧고 기억하기 쉽지만, 학습자에게 무엇을 하는 곳인지
+// 설명하는 문장까지 영어로 바꾸면 대상 독자(한국 고등학생~성인)에게 비용만 는다.
+export const HUB_TRACKS: {
+  key: HubTrack
+  /** 구역 코드 — 카드 실험 코드(RC-01 등)의 접두 */
+  code: string
+  eyebrow: string
+  title: string
+  desc: string
+}[] = [
   {
     key: 'recall',
-    eyebrow: 'Fast Recall',
-    title: '빠르게 떠올리기',
+    code: 'RC',
+    eyebrow: 'Bay 01 · Recall',
+    title: 'Recall Bay',
     desc: '뜻을 보고 단어를 즉시 인출해요. 속도와 자동화가 목표 — 짧고 몰아칩니다.',
   },
   {
     key: 'produce',
-    eyebrow: 'Produce',
-    title: '직접 만들어 내기',
+    code: 'SY',
+    eyebrow: 'Bay 02 · Synthesis',
+    title: 'Synthesis Bay',
     desc: '고르는 게 아니라 씁니다. 철자·형태소·발음으로 단어를 손수 만들어 내요.',
   },
   {
     key: 'reason',
-    eyebrow: 'Reason',
-    title: '읽고 추론하기',
+    code: 'IN',
+    eyebrow: 'Bay 03 · Inference',
+    title: 'Inference Bay',
     desc: '문맥·규칙·의미 관계로 답에 도달해요. 느리지만 가장 오래 남습니다.',
   },
 ]
