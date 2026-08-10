@@ -177,7 +177,7 @@ Les Misérables 1,294 내역: `lexicon_only` 594 · `foreign` 417 · `genuine_mi
 
 #### 미적용 (ADR §5)
 
-- **D4c** 검증된 eye-dialect 만 `dialect_map` 수기 등록 (`em`→them · `mought`→might · `sperrits`→spirits · `wot`→what 등 ~20건).
+- **D5** 책 고유 어휘 `library_book_support` 2차 세트 (항해어 등 읽기 지원 전용, FSRS·퀴즈 제외).
 - **D5** 책 고유 어휘 `library_book_support` 2차 세트.
 #### 재발행 1단계 — `ready` 25권 완료
 
@@ -244,6 +244,31 @@ Treasure Island 재분류: `mutineer`(22회, 이 책의 주제어) · `repaint` 
 UI: `WordLookupPopover` 에 `ProperNounBody` 추가 — "이름이에요 (인명·지명) / 등장인물이나 장소 이름이라 따로 외울 단어는 아니에요". 이전에는 `found=false` 라 "사전에 없는 단어예요"로 나왔다.
 
 **미해결**: `louis`·`davy`·`pierre` 는 코퍼스에서 소문자로도 등장해(`twenty louis` 금화) 보수적 규칙에 안 걸린다. 완화하면 실단어 오탐이 늘어 보류.
+
+#### D4c — 검증된 eye-dialect 14건 `dialect_map` 등록 (마이그레이션 1건)
+
+**[20260810232100_dialect_map_verified_eye_dialect.sql](../supabase/migrations/20260810232100_dialect_map_verified_eye_dialect.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+D4b 로 dialect 티어가 coverage-clean 보다 앞서게 됐으므로, 등록하는 순간 정확한 표준어 뜻이 나온다. 후보 251건(coverage-clean 해석 중 + `spelling_norm` 표준형 존재 + 표준형이 사전 정식 표제어 + 고유명사 아님)을 현재 뜻 vs 표준어 뜻으로 나란히 놓고 **수기로 14건만** 골랐다.
+
+| variant → standard | 이전 (틀린) 뜻 |
+|---|---|
+| `whilst` → while (263회) | "황제가 안디옥에 누워 있는 동안" |
+| `em` → they (90회) | "인쇄에 사용되는 선형 단위(1/6인치)" |
+| `dat` → that | "소리를 녹음한 디지털 테이프(DAT)" |
+| `dern` → darn | "문기둥 또는 문설주" |
+| `lak` → like | "라크족 (다게스탄 남부 민족)" |
+| `hookey` → hooky | "고리 던지기 게임" |
+| `sperrit` → spirit | 프랑스어 `sperrit` 로 오해석 "정념" |
+| `mought` → might | "5월의" |
+| `wot` → what | "1차 및 3차 인원. 노래하다…" |
+| `sich`→such · `der`→there · `ter`→to · `yo`→you · `inclosure`→enclosure | — |
+
+**제외** — `spelling_norm` 이 자동 생성이라 오매핑이 섞여 있다: `de`→the(프랑스어 관사) · `al`→all · `les`→less · `ha`→would · `ing`→king 등 짧은 파편·외국어(근거 없음) / `slue`·`greave`·`banquette`(현재 뜻이 실제로 맞음 — 비스듬히 돌리다·정강이 갑옷·벤치) / `hee`→he(hee-hee 웃음소리 가능) / `es`→is(독일어·스페인어 혼동).
+
+재계산 후 `dialect` 티어 6단어 93출현 → **43단어 935출현**, `proper_noun` 가드 130단어 3,930출현, 전체 해석률 **99.62%**.
+
+**별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 **목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 없다.** `thy`→`your`·`hisself`→`himself` 가 dialect 티어를 못 타는 원인이고, `em` 은 `them` 대신 주격 `they` 로 우회 연결했다. 대명사 굴절 계열 등재는 VCB 소관.
 
 #### 미결
 

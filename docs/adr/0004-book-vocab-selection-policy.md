@@ -175,7 +175,28 @@ GREATEST(0, 1.0 - ABS(v_level - (book_v_level + 1))::numeric / 4)
 
 - **D4a** — `lookup_word_meaning` 에 고유명사 가드. 근거를 추측이 아니라 **코퍼스 대문자 증거로 물질화**(`proper_noun_forms` 테이블)해 `coverage-clean` 티어 앞에서 차단하고 `match_via='proper_noun'` 로 응답한다. 문장 첫머리 대문자 오탐을 피하려 표면형 대문자 여부가 아니라 "코퍼스 전체에서 소문자로 한 번도 안 나온 형태"만 등록한다.
 - **D4b** — `coverage-clean` 의 언어 오배정. fr 422 · la 132 · it 44 · de 15 · es 13 · nl 8 단어가 `lang='en'` 항목으로 해석된다.
-- **D4c** — 검증된 eye-dialect 만 `dialect_map` 수기 등록 (`mought`→might · `sperrits`→spirits · `em`→them · `wot`→what 등 ~20건).
+- **D4c** — 검증된 eye-dialect 만 `dialect_map` 수기 등록.
+
+**D4c 적용 (마이그레이션 `20260810232100`)** — 후보 251건(coverage-clean 해석 중 + `spelling_norm` 표준형 존재 + 표준형이 사전 정식 표제어 + 고유명사 아님)을 현재 뜻 vs 표준어 뜻으로 나란히 놓고 **14건만** 선별 등록.
+
+| variant → standard | 이전 (틀린) 뜻 |
+|---|---|
+| `whilst` → while (263회) | "황제가 안디옥에 누워 있는 동안" |
+| `em` → they (90회) | "인쇄에 사용되는 선형 단위(1/6인치)" |
+| `dat` → that | "소리를 녹음한 디지털 테이프(DAT)" |
+| `dern` → darn | "문기둥 또는 문설주" |
+| `lak` → like | "라크족 (다게스탄 남부 민족)" |
+| `hookey` → hooky | "고리 던지기 게임" |
+| `sperrit` → spirit | 프랑스어 `sperrit` 로 오해석 "정념" |
+| `mought` → might | "5월의" |
+| `wot` → what | "1차 및 3차 인원. 노래하다…" |
+| `sich`→such · `der`→there · `ter`→to · `yo`→you · `inclosure`→enclosure | — |
+
+제외: `de`→the(프랑스어 관사)·`al`→all·`les`→less·`ha`→would·`ing`→king 등 짧은 파편·외국어(근거 없음) / `slue`·`greave`·`banquette`(현재 뜻이 실제로 맞음) / `hee`→he(웃음소리 가능) / `es`→is(독·스페인어 혼동).
+
+재계산 후 `dialect` 티어 6단어 93출현 → **43단어 935출현**, `proper_noun` 가드 130단어 3,930출현, 전체 해석률 99.62%.
+
+**별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 **없다**. `thy`→`your`, `hisself`→`himself` 가 dialect 티어를 못 타는 이유이고, `em` 은 `them` 대신 주격 `they` 로 우회했다. 대명사 굴절 계열 등재는 VCB 소관.
 
 ### D4 (초안, 폐기) — eye-dialect 를 `dialect_map` 으로 이관
 
