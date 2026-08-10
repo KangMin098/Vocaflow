@@ -39,10 +39,10 @@ fs.mkdirSync(outDir, { recursive: true })
 // 각 레벨은 crop 이후의 완전한 -vf 체인을 담는다(WP=화이트포인트 공통).
 const WP = 'colorlevels=rimax=0.90:gimax=0.91:bimax=0.84'
 const LEVELS = {
-  A: `crop=iw-12:ih-12,colorlevels=rimax=0.94:gimax=0.95:bimax=0.90,eq=saturation=1.22:contrast=1.06`,
-  B: `crop=iw-12:ih-12,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02,split[s0][s1];[s0]palettegen=max_colors=64:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3`,
-  C: `crop=iw-12:ih-12,colorlevels=rimax=0.90:gimax=0.91:bimax=0.84,smartblur=5:0.7:0,eq=saturation=1.78:contrast=1.24:gamma_b=1.02,split[s0][s1];[s0]palettegen=max_colors=48:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3`,
-  MAX: `crop=iw-12:ih-12,${WP},median=radius=3,eq=saturation=1.62:contrast=1.15:gamma_b=1.02,colorbalance=rs=-0.04:bs=0.05:rm=0.02:rh=0.04:bh=-0.04,elbg=l=56:n=2,deband`,
+  A: `crop=iw-12:ih-12,scale=min(1600\\,iw):-2:flags=lanczos,colorlevels=rimax=0.94:gimax=0.95:bimax=0.90,eq=saturation=1.22:contrast=1.06`,
+  B: `crop=iw-12:ih-12,scale=min(1600\\,iw):-2:flags=lanczos,colorlevels=rimax=0.92:gimax=0.93:bimax=0.86,smartblur=4:0.6:0,eq=saturation=1.5:contrast=1.15:gamma_b=1.02,split[s0][s1];[s0]palettegen=max_colors=64:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3`,
+  C: `crop=iw-12:ih-12,scale=min(1600\\,iw):-2:flags=lanczos,colorlevels=rimax=0.90:gimax=0.91:bimax=0.84,smartblur=5:0.7:0,eq=saturation=1.78:contrast=1.24:gamma_b=1.02,split[s0][s1];[s0]palettegen=max_colors=48:stats_mode=full[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3`,
+  MAX: `crop=iw-12:ih-12,scale=min(1600\\,iw):-2:flags=lanczos,${WP},median=radius=3,eq=saturation=1.62:contrast=1.15:gamma_b=1.02,colorbalance=rs=-0.04:bs=0.05:rm=0.02:rh=0.04:bh=-0.04,elbg=l=56:n=2,deband`,
 }
 const gradeVf = LEVELS[LEVEL] || LEVELS.MAX
 const COLORS = LEVEL === 'MAX' ? 56 : (LEVEL === 'C' ? 48 : (LEVEL === 'B' ? 64 : 0))
