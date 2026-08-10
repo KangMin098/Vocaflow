@@ -26,6 +26,8 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
+import { detectBalloons } from './balloons.mjs'
+
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = path.resolve(HERE, '..', '..', '..')
 
@@ -172,27 +174,86 @@ async function tuneSegment(args) {
 
 // ─── OCR 채점 ────────────────────────────────────────────────────────
 //
-// 여기서 "좋다"는 **그대로 쓸 수 있는 대사 수**다. 신뢰도 문턱을 올리면 깨끗해지지만
-// 대사가 사라진다 — 깨끗한 0개는 쓸모가 없다. 그래서 clean 개수를 1순위로,
-// 검수 필요 비율을 보조 페널티로 쓴다.
+// 이전 채점은 **정밀도만** 봤다 — "찾은 대사 중 몇 개가 깨끗한가". 놓친 대사는 몰랐다.
+// 그래서 스윕이 재현율을 깎으면서도 높은 점수를 줄 수 있었다(실측: 기준 미검출 풍선이
+// 어떤 조합에서도 안 나오는데 점수는 최고였다).
+//
+// 이제 **정답을 분모로 재현율을 함께 잰다.** 정답 = 사람이 페이지를 보고 센 말풍선·캡션 수
+// (samples/<표본>/truth.json 의 dialogueByPage). 자동 검출로 분모를 만들려던 시도는
+// 폐기했다 — 검출기가 OCR 이 찾아낸 풍선조차 놓쳐 분모 자체가 틀렸다.
+//
+// 점수 = 그대로 쓸 수 있는 대사 수 × 재현율. 둘 다 필요하다:
+//   재현율만 보면 아무거나 많이 뱉는 설정이 이기고(psm11 이 3~5배 뱉지만 95%가 검수 대상),
+//   정밀도만 보면 조금만 찾고 깨끗한 설정이 이긴다(지금까지의 실패).
 
-export function scoreOcr(stats) {
+export function scoreOcr(stats, recall = null) {
   const bubbles = Number(stats?.bubbles) || 0
   const needsReview = Number(stats?.needsReview) || 0
   const clean = bubbles - needsReview
   const reviewRate = bubbles ? needsReview / bubbles : 1
   // 비라틴 오염은 치명적이다(키릴 오인식). 하나라도 있으면 크게 깎는다.
   const nonLatin = Number(stats?.nonLatinBubbles) || 0
-  const score = clean - reviewRate * 2 - nonLatin * 3
-  return { score: +score.toFixed(3), clean, bubbles, reviewRate: +reviewRate.toFixed(3), nonLatin }
+  const base = clean - reviewRate * 2 - nonLatin * 3
+  // 정답이 없으면 재현율을 빼고 예전 방식으로 잰다(표본에 truth 가 없을 수 있다).
+  const score = recall == null ? base : base * recall
+  return {
+    score: +score.toFixed(3),
+    clean,
+    bubbles,
+    reviewRate: +reviewRate.toFixed(3),
+    nonLatin,
+    recall: recall == null ? null : +recall.toFixed(3),
+  }
+}
+
+/**
+ * 재현율 = 찾은 대사 영역 / 정답 대사 수.
+ *
+ * OCR 은 말풍선 하나를 조각 여럿으로 쪼개므로 **조각 수를 세면 안 된다** — 과대평가된다.
+ * detectBalloons 로 조각을 감싸는 영역으로 합친 뒤 센다(지우기가 쓰는 것과 같은 경로).
+ * 1을 넘으면 1로 자른다 — 정답보다 많이 찾았다는 건 오탐이고, 그건 정밀도 쪽에서 이미 깎인다.
+ */
+export function measureRecall(bubbleManifest, panelManifest, dialogueByPage) {
+  const pages = Object.keys(dialogueByPage ?? {})
+  if (!pages.length) return null
+  const byPanel = new Map()
+  for (const p of bubbleManifest.panels ?? []) {
+    byPanel.set(`${p.page}-${p.panelIndex}`, (p.bubbles ?? []).map((b) => b.box).filter(Boolean))
+  }
+  let found = 0
+  let truth = 0
+  for (const page of pages) {
+    truth += dialogueByPage[page]
+    for (const panel of panelManifest.panels ?? []) {
+      if (panel.page !== page) continue
+      const tb = byPanel.get(`${panel.page}-${panel.panelIndex}`) ?? []
+      if (!tb.length) continue
+      found += detectBalloons(path.resolve(REPO_ROOT, panel.file), tb).length
+    }
+  }
+  return truth > 0 ? Math.min(1, found / truth) : null
 }
 
 async function tuneOcr(args) {
   const sample = path.resolve(args.sample)
-  if (!fs.existsSync(path.join(sample, 'panels', 'panels.manifest.json'))) {
+  const panelMfPath = path.join(sample, 'panels', 'panels.manifest.json')
+  if (!fs.existsSync(panelMfPath)) {
     throw new Error(
       `컷 매니페스트가 없습니다: ${sample}/panels\n먼저 segment 를 돌리거나 --sample 을 확인하세요.`,
     )
+  }
+  const panelMf = JSON.parse(fs.readFileSync(panelMfPath, 'utf8'))
+
+  // 정답(대사 수)은 작업 폴더 우선, 없으면 저장소 사본 — segment 채점과 같은 규칙.
+  const localT = path.join(sample, 'truth.json')
+  const repoT = path.join(HERE, 'samples', path.basename(sample), 'truth.json')
+  const tPath = fs.existsSync(localT) ? localT : repoT
+  const dialogueByPage = fs.existsSync(tPath)
+    ? JSON.parse(fs.readFileSync(tPath, 'utf8')).dialogueByPage
+    : null
+  if (!dialogueByPage) {
+    console.log('⚠ 정답(dialogueByPage) 없음 — 재현율 없이 정밀도만 잽니다.')
+    console.log('  놓친 대사를 못 보므로 결과를 그대로 믿지 마세요(samples/README 참조).')
   }
 
   const grid = []
@@ -214,12 +275,13 @@ async function tuneOcr(args) {
       results.push({ ...g, score: -99, error: r.out.slice(-160) })
       continue
     }
-    const stats = JSON.parse(fs.readFileSync(mf, 'utf8')).stats
-    const s = scoreOcr(stats)
+    const bubbleMf = JSON.parse(fs.readFileSync(mf, 'utf8'))
+    const recall = dialogueByPage ? measureRecall(bubbleMf, panelMf, dialogueByPage) : null
+    const s = scoreOcr(bubbleMf.stats, recall)
     results.push({ ...g, ...s })
     console.log(
       `  psm${String(g.psm).padEnd(2)} conf${String(g.minConf).padEnd(2)}  점수 ${String(s.score).padStart(8)}` +
-        `  그대로쓸수있음 ${s.clean}/${s.bubbles}  검수율 ${s.reviewRate}  비라틴 ${s.nonLatin}`,
+        `  그대로쓸수있음 ${s.clean}/${s.bubbles}  재현율 ${s.recall ?? '-'}  검수율 ${s.reviewRate}  비라틴 ${s.nonLatin}`,
     )
   }
   results.sort((a, b) => b.score - a.score)
@@ -232,6 +294,16 @@ async function tuneOcr(args) {
 // 넘지 못했으면 그 사실 자체를 남긴다 — 시도했고 나아지지 않았다는 것도 결과다.
 
 const RATCHET = path.join(HERE, 'tune.ratchet.json')
+
+/**
+ * 채점식 버전. **채점식을 바꾸면 반드시 올린다.**
+ *
+ * 래칫은 "이전 최고점을 넘었나"로 채택을 결정하는데, 점수의 의미가 바뀌면 그 비교가
+ * 무효다. 실측 사고: OCR 채점에 재현율을 곱하도록 바꾼 뒤 새 점수 27.18 을 옛 점수
+ * 32.84(정밀도만 잰 값)와 비교해 "개선 없음"으로 기록했다 — 서로 다른 자를 댄 것이다.
+ * (표본을 안 나눠 다른 페이지 점수를 비교했던 것과 같은 종류의 실수, 두 번째다.)
+ */
+const METRIC_VERSION = { segment: 1, ocr: 2 }
 
 function loadRatchet() {
   try {
@@ -246,12 +318,13 @@ function recordRatchet(kind, sample, best, results, stampedAt) {
   // **표본별로 계열을 나눈다.** 표본이 다르면 점수 스케일이 달라 비교 자체가 무의미하다
   // (실측 사고: All Top -0.333 과 Classics Illustrated -0.239 를 한 계열로 이어붙여
   //  "개선"이라고 기록했다. 두 수는 서로 다른 페이지를 채점한 값이라 비교 대상이 아니다).
-  const key = `${kind}:${path.basename(sample)}`
+  const key = `${kind}@v${METRIC_VERSION[kind] ?? 1}:${path.basename(sample)}`
   const prev = r.entries.filter((e) => e.key === key).at(-1)
   const improved = !prev || best.score > prev.best.score
   r.entries.push({
     key,
     kind,
+    metricVersion: METRIC_VERSION[kind] ?? 1,
     sample: path.basename(sample),
     at: stampedAt,
     best,
@@ -300,7 +373,8 @@ function report() {
   console.table(
     r.entries.map((e) => ({
       표본: e.sample ?? '-',
-      단계: e.kind,
+      // 채점식 버전을 함께 보여준다 — 버전이 다르면 점수는 비교 대상이 아니다.
+      단계: `${e.kind}@v${e.metricVersion ?? 1}`,
       시각: e.at,
       점수: e.best.score,
       개선: e.improved ? 'O' : '-',
