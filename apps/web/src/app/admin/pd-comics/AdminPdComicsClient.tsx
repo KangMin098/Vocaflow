@@ -927,6 +927,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   const [lastPoll, setLastPoll] = useState<number>(Date.now())
   const [open, setOpen] = useState<string | null>(null)
   const [openLive, setOpenLive] = useState<string | null>(null)
+  const [openPublish, setOpenPublish] = useState<string | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
   const [zoom, setZoom] = useState<{ issueId: string; rels: string[]; index: number } | null>(null) // 라이트박스
 
@@ -1056,9 +1057,11 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
                   <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
                   <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
+                  {r.status === 'review' && <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>{openPublish === r.id ? '발행 닫기' : '발행'}</button>}
                 </div>
                 {openLive === r.id && <LiveProgress issueId={r.id} onZoom={(rels, index) => setZoom({ issueId: r.id, rels, index })} />}
                 {open === r.id && <PanelDrill issueId={r.id} />}
+                {openPublish === r.id && <PublishPanel issueId={r.id} onMsg={onMsg} onRefresh={onRefresh} />}
               </li>
             )
           })}
@@ -1394,6 +1397,94 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+// 발행 패널 — 검수(review)→발행. PD 근거 확정(법적 게이트) + 발행 조건 체크리스트.
+// 콘텐츠 서빙(스토리지 업로드) 미구현이면 발행 차단(학습자에게 깨진 이미지 방지).
+const PD_BASIS_OPTS: Array<{ key: string; label: string }> = [
+  { key: 'pre-1929', label: '1929년 이전 발행 — 저작권 만료' },
+  { key: 'no-renewal', label: '갱신 기록 없음 — 퍼블릭 도메인' },
+  { key: 'explicit-license', label: '아카이브 명시 퍼블릭 도메인' },
+]
+type PubChecklist = { pdBasis: boolean; pdChecked: boolean; sourceUrl: boolean; modernized: boolean; contentServable: boolean }
+function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (s: string) => void; onRefresh: () => Promise<void> }) {
+  const [check, setCheck] = useState<PubChecklist | null>(null)
+  const [basis, setBasis] = useState('no-renewal')
+  const [evidence, setEvidence] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  const load = useCallback(async () => {
+    const r = await fetch('/api/pdcp/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId }) })
+    const j = await r.json()
+    if (r.ok) { setCheck(j.checklist ?? null); if (j.pdBasis) setBasis(j.pdBasis) }
+  }, [issueId])
+  useEffect(() => { void load() }, [load])
+
+  const confirmPd = async () => {
+    setBusy(true)
+    try {
+      const r = await fetch('/api/pdcp/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId, action: 'confirm-pd', pdBasis: basis, pdEvidenceUrl: evidence || undefined }) })
+      const j = await r.json()
+      onMsg(r.ok ? `PD 근거 확정: ${basis}` : `실패: ${j.error ?? ''}`)
+      await load()
+    } finally { setBusy(false) }
+  }
+  const publish = async () => {
+    setBusy(true)
+    try {
+      const r = await fetch('/api/pdcp/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId, action: 'publish' }) })
+      const j = await r.json()
+      if (r.ok) { onMsg(`발행 완료 — ${j.slug}`); await onRefresh() }
+      else onMsg(`발행 불가: ${j.error ?? ''}`)
+      await load()
+    } finally { setBusy(false) }
+  }
+
+  const item = (ok: boolean, label: string) => (
+    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]" style={ok ? { color: 'var(--success)', background: 'var(--success-light)' } : { color: 'var(--t3)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
+  )
+  const gateOk = check && check.pdBasis && check.pdChecked && check.sourceUrl
+  const canPublish = gateOk && check?.contentServable
+
+  return (
+    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+      <p className="font-display text-[12px] font-[800] text-[var(--t1)]">발행 — 검수 → 학습자 서가</p>
+      {/* PD 근거 확정 */}
+      <div className="mt-2 flex flex-wrap items-end gap-2">
+        <label className="flex flex-col gap-1">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">PD 근거</span>
+          <select value={basis} onChange={(e) => setBasis(e.target.value)} className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px]">
+            {PD_BASIS_OPTS.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
+          </select>
+        </label>
+        <label className="flex min-w-[180px] flex-1 flex-col gap-1">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">근거 URL (선택)</span>
+          <input value={evidence} onChange={(e) => setEvidence(e.target.value)} placeholder="갱신 기록 조회 링크 등" className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[11.5px]" />
+        </label>
+        <button type="button" disabled={busy} onClick={() => void confirmPd()} className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-50">PD 근거 확정</button>
+      </div>
+
+      {/* 발행 조건 체크리스트 */}
+      {check && (
+        <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+          {item(check.pdBasis, 'PD 근거')}
+          {item(check.pdChecked, '검증 기록')}
+          {item(check.sourceUrl, '출처 URL')}
+          {item(check.modernized, '현대화')}
+          {item(check.contentServable, '콘텐츠 서빙(스토리지)')}
+        </div>
+      )}
+
+      <div className="mt-2.5 flex flex-wrap items-center gap-2">
+        <button type="button" disabled={busy || !canPublish} onClick={() => void publish()} className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: 'var(--success)' }}>발행</button>
+        {!canPublish && (
+          <span className="font-body text-[11px] text-[var(--t3)]">
+            {!gateOk ? 'PD 근거를 먼저 확정하세요.' : '⚠ 콘텐츠 서빙(공개 스토리지 업로드) 미구현 — 발행 시 학습자에게 깨진 이미지가 나가므로 차단됩니다.'}
+          </span>
+        )}
+      </div>
+    </div>
   )
 }
 
