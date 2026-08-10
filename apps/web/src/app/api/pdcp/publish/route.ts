@@ -15,6 +15,7 @@ import path from 'node:path'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { runPipeline } from '@/lib/pd-comic/pipeline-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
@@ -59,6 +60,15 @@ export async function POST(request: Request): Promise<NextResponse> {
     const { error } = await client.from('pd_comic_issues').update(patch).eq('id', issueId)
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     return NextResponse.json({ ok: true, action: 'confirm-pd', pdBasis })
+  }
+
+  // ── 콘텐츠 업로드 (현대화 산출물 → 공개 버킷 comic/pd/<slug>/ + pd_comic_panels 갱신) ──
+  if (body.action === 'upload') {
+    const wd = typeof r.qc?.workDir === 'string' ? r.qc.workDir : null
+    if (!wd) return NextResponse.json({ error: 'work 디렉터리가 없습니다' }, { status: 400 })
+    const run = await runPipeline('publish-upload.mjs', ['--workdir', wd, '--slug', r.slug, '--issue-id', r.id], { timeoutMs: 300_000 })
+    if (!run.ok) return NextResponse.json({ error: `업로드 실패: ${(run.stderr || run.stdout || '').split('\n').filter(Boolean).slice(-2).join(' ')}` }, { status: 500 })
+    return NextResponse.json({ ok: true, action: 'upload', tail: (run.stdout || '').split('\n').filter(Boolean).slice(-3) })
   }
 
   // ── 발행 (published 전이) ──

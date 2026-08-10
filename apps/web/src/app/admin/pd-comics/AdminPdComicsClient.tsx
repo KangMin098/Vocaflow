@@ -1430,6 +1430,16 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
       await load()
     } finally { setBusy(false) }
   }
+  const upload = async () => {
+    setBusy(true)
+    onMsg('콘텐츠 업로드 중… (현대화 페이지 → 공개 버킷)')
+    try {
+      const r = await fetch('/api/pdcp/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId, action: 'upload' }) })
+      const j = await r.json()
+      onMsg(r.ok ? `콘텐츠 업로드 완료 — ${(j.tail ?? []).at(-1) ?? ''}` : `업로드 실패: ${j.error ?? ''}`)
+      await load()
+    } finally { setBusy(false) }
+  }
   const publish = async () => {
     setBusy(true)
     try {
@@ -1477,10 +1487,13 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
       )}
 
       <div className="mt-2.5 flex flex-wrap items-center gap-2">
+        {!check?.contentServable && (
+          <button type="button" disabled={busy || !check?.modernized} onClick={() => void upload()} title={check?.modernized ? '' : '먼저 현대화(작화보존)를 실행하세요'} className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>콘텐츠 업로드 (공개 버킷)</button>
+        )}
         <button type="button" disabled={busy || !canPublish} onClick={() => void publish()} className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: 'var(--success)' }}>발행</button>
         {!canPublish && (
           <span className="font-body text-[11px] text-[var(--t3)]">
-            {!gateOk ? 'PD 근거를 먼저 확정하세요.' : '⚠ 콘텐츠 서빙(공개 스토리지 업로드) 미구현 — 발행 시 학습자에게 깨진 이미지가 나가므로 차단됩니다.'}
+            {!gateOk ? 'PD 근거를 먼저 확정하세요.' : !check?.contentServable ? '현대화 페이지를 공개 버킷에 업로드하면 발행이 열립니다.' : ''}
           </span>
         )}
       </div>

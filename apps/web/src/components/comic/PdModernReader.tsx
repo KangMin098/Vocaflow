@@ -15,7 +15,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 
 type Balloon = { type: 'balloon' | 'caption'; x: number; y: number; w: number; h: number; text: string }
-type Page = { index: number; page: string; imageRel: string; balloons: Balloon[] }
+// imageRel = admin preview(dev artifact 라우트) · imageUrl = 발행(공개 버킷 URL)
+type Page = { index: number; page: string; imageRel?: string; imageUrl?: string; balloons: Balloon[] }
 type VocabInfo = { resolved_word?: string; meaning_ko?: string; pos?: string; cefr_level?: string; example_en?: string }
 
 // 단어 토큰화 — 알파벳 단어만 탭 가능(구두점 보존해 표시).
@@ -28,9 +29,10 @@ function tokenize(text: string): { raw: string; word: string | null }[] {
   })
 }
 
-export default function PdModernReader({ issueId }: { issueId: string }) {
-  const [pages, setPages] = useState<Page[] | null>(null)
-  const [title, setTitle] = useState('복원 만화')
+// issueId → admin preview(dev artifact). pages → 발행 학습자 경로(공개 URL, 서버가 주입).
+export default function PdModernReader({ issueId, pages: pagesProp, title: titleProp }: { issueId?: string; pages?: Page[]; title?: string }) {
+  const [pages, setPages] = useState<Page[] | null>(pagesProp ?? null)
+  const [title, setTitle] = useState(titleProp ?? '복원 만화')
   const [err, setErr] = useState<string | null>(null)
   const [vocab, setVocab] = useState<string | null>(null)
   const [vocabInfo, setVocabInfo] = useState<VocabInfo | null>(null)
@@ -38,13 +40,14 @@ export default function PdModernReader({ issueId }: { issueId: string }) {
   const triggerRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
+    if (pagesProp || !issueId) return // 발행 경로는 서버가 pages 주입 — fetch 안 함
     let alive = true
     fetch(`/api/pdcp/reader?issueId=${encodeURIComponent(issueId)}`, { cache: 'no-store' })
       .then((r) => r.json())
       .then((j) => { if (!alive) return; if (j.error && !j.pages?.length) setErr(j.error); else { setPages(j.pages ?? []); if (j.title) setTitle(j.title) } })
       .catch(() => { if (alive) setErr('불러오기 실패') })
     return () => { alive = false }
-  }, [issueId])
+  }, [issueId, pagesProp])
 
   // 단어 뜻 조회(lookup_word_meaning) — ComicReader 와 동일 RPC 재사용.
   useEffect(() => {
@@ -98,7 +101,7 @@ export default function PdModernReader({ issueId }: { issueId: string }) {
             <figure className="pd-page relative m-0 overflow-hidden rounded-[var(--r-md)] bg-[var(--bg3)] leading-[0] shadow-[0_2px_14px_rgba(0,0,0,0.14)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(pg.imageRel)}`}
+                src={pg.imageUrl ?? `/api/pdcp/artifact?issueId=${encodeURIComponent(issueId ?? '')}&rel=${encodeURIComponent(pg.imageRel ?? '')}`}
                 alt={pg.balloons.length ? pg.balloons.map((b) => b.text).join(' ') : `${pg.page} 페이지`}
                 loading="lazy"
                 className="block w-full"

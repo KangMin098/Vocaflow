@@ -15,6 +15,7 @@ import { ArrowLeft } from 'lucide-react'
 
 import { selectPdComic, selectPdProvenance } from '@/lib/pd-comic/queries'
 import { createClient } from '@/lib/supabase/server'
+import PdModernReader from '@/components/comic/PdModernReader'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: '복원 만화 · Vocaflow' }
@@ -52,24 +53,18 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
         )}
       </header>
 
-      {/* 컷 세로 스크롤 — 한 컷이 화면 폭 전체를 쓴다 */}
-      <ol className="flex flex-col gap-3">
-        {panels.map((p) => (
-          <li key={p.panelOrder} className="overflow-hidden rounded-[var(--r-md)] bg-[var(--bg3)]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={p.imageUrl}
-              alt={
-                p.bubbles.length > 0
-                  ? p.bubbles.map((b) => b.text).join(' ')
-                  : `${p.panelOrder}번째 컷`
-              }
-              loading="lazy"
-              className="block w-full"
-            />
-          </li>
-        ))}
-      </ol>
+      {/* 발행된 현대화 페이지 — 공개 URL + 모던 말풍선 오버레이 + 학습(TTS·단어뜻) */}
+      <PdModernReader
+        title={prov?.title ?? '복원 만화'}
+        pages={panels.map((p) => ({
+          index: p.panelOrder,
+          page: String(p.panelOrder),
+          imageUrl: p.imageUrl,
+          balloons: (p.bubbles as Array<{ text: string; kind?: string; box?: { x: number; y: number; w: number; h: number } }>)
+            .filter((b) => b.box)
+            .map((b) => ({ type: b.kind === 'caption' ? 'caption' as const : 'balloon' as const, x: b.box!.x, y: b.box!.y, w: b.box!.w, h: b.box!.h, text: b.text })),
+        }))}
+      />
 
       {prov && <Provenance prov={prov} panels={panels.length} />}
     </div>
