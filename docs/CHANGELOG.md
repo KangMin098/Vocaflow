@@ -194,7 +194,31 @@ D1·D2 는 기존 발행 세트에 소급되지 않는다(`publish_book_word_set
 | 8 | V7~V11 | Les Misérables 360세트 5,654단어 |
 | 9 | V8~V11 | Dialogues 22세트 696단어 |
 
-`published` 13권은 학습자 진도(`user_word_progress`)가 걸려 있어 미적용 — 기존 세트 보존 + `version=3` 병행 발행 후 전환 방식으로 별도 진행.
+#### 재발행 2단계 — `published` 13권 완료 (마이그레이션 1건)
+
+**[20260810233306_republish_book_word_sets_band_and_vlevel.sql](../supabase/migrations/20260810233306_republish_book_word_sets_band_and_vlevel.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+새 함수를 만들지 않고 기존 `republish_book_word_sets(uuid,int)`(`20260718100070`)를 확장했다 — 거의 같은 함수가 둘이면 어느 쪽이 정본인지 흐려진다.
+
+**세트 행을 유지하고 `shared_words` 만 교체**한 근거:
+- `user_word_set_subscriptions.set_id` 가 **ON DELETE CASCADE** — 세트를 지우면 구독이 사라진다(Twenty years after 90 · Gibbon 71 · P&P 61 · Pinocchio 36 · A Christmas Carol 10 · Ammachi 1).
+- `vocabularies.shared_set_id` 는 SET NULL — 출처 링크 269행이 끊긴다.
+- FSRS 진도는 안전. `difficulty`/`stability`/`next_review_at` 은 학습자 자신의 `vocabularies` 행에 있고 **`shared_words` 를 가리키는 FK 는 존재하지 않는다**(실측). 세트는 카탈로그이지 진도가 아니다.
+
+확장 3가지: ① `v_level` 적재(D6) ② 설명·`curation_query` 밴드 기록 + `version=3` ③ **신규 선정 0 챕터는 건드리지 않음** — 기존 구현은 책 전체 `shared_words` 를 DELETE 한 뒤 새 선정만 INSERT 해 선정 0 챕터가 빈 세트로 남았다.
+
+| 도서 | bvl | 이전 | 이후 | 밴드 |
+|---|--:|--:|--:|---|
+| Ammachi's Amazing Machines | 2 | **4** | **40** | V1~V5 |
+| Tell Me, What is a Drone? | 2 | **5** | **40** | V1~V5 |
+| Winnie-the-Pooh | 4 | 174 | **366** | V3~V7 |
+| Fables | 6 | 1,029 | 1,309 | V5~V9 |
+| The Adventures of Pinocchio | 6 | 1,005 | 1,120 | V5~V9 |
+| Pride and Prejudice | 8 | 1,786 | 1,550 | V7~V11 |
+| Twenty years after | 8 | 2,703 | 2,387 | V7~V11 |
+| **Gibbon** | 11 | 2,450 | **1,355** | **V10~V11** |
+
+검증: 구독 274건 보존 · `vocabularies.shared_set_id` 1,541행 보존 · `shared_words.v_level` NULL 0건 · 전 세트 `version=3`.
 
 #### D3 — `noise_blacklist` 를 영구 차단에서 플래그로 (마이그레이션 2건)
 

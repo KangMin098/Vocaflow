@@ -233,8 +233,33 @@ D1·D2 는 `select_book_chapter_vocab` / `_extract_composite_score` 변경이므
 
 재발행은 학습자 진도에 영향을 주므로 **미발행(ready) 도서 → 발행 도서 순**으로 단계 적용한다:
 
-1. `ready` 21권 — 신규 발행이라 소급 영향 0. D1 효과를 여기서 먼저 검증.
-2. `published` 13권 — 기존 세트 보존 + 신규 밴드 세트를 `version=3` 으로 추가 발행 후 전환. 사용자 진도(`user_word_progress`)가 걸린 세트는 삭제하지 않는다.
+1. **`ready` 25권 — 완료.** 신규 발행이라 소급 영향 0. 509세트 / 10,676단어, 밴드 이탈 0.
+2. **`published` 13권 — 완료 (마이그레이션 `20260810233306`).** 기존 `republish_book_word_sets(uuid,int)`(`20260718100070`)를 확장해 in-place 갱신했다. 새 함수를 만들지 않은 이유는 거의 같은 함수가 둘이면 정본이 흐려지기 때문.
+
+**세트 행을 유지하고 `shared_words` 만 교체**한 근거:
+- `user_word_set_subscriptions.set_id` 가 **ON DELETE CASCADE** — 세트를 지우면 구독이 사라진다.
+- `vocabularies.shared_set_id` 는 SET NULL — 지우면 출처 링크 269행이 끊긴다.
+- FSRS 진도는 안전. `difficulty`/`stability`/`next_review_at` 은 학습자 자신의 `vocabularies` 행에 있고 **`shared_words` 를 가리키는 FK 는 존재하지 않는다**(실측). 세트는 카탈로그이지 진도가 아니다.
+
+확장 3가지: ① `v_level` 적재(D6) ② 설명·`curation_query` 에 밴드 기록 + `version=3` ③ **신규 선정 0 챕터는 건드리지 않음** — 기존 구현은 책 전체 `shared_words` 를 먼저 DELETE 한 뒤 새 선정만 INSERT 해서 선정 0 챕터가 빈 세트로 남았다(현 13권엔 해당 없으나 밴드가 좁아지는 고레벨 책에서 언제든 발생).
+
+| 도서 | bvl | 이전 | 이후 | 밴드 |
+|---|--:|--:|--:|---|
+| Ammachi's Amazing Machines | 2 | **4** | **40** | V1~V5 |
+| Tell Me, What is a Drone? | 2 | **5** | **40** | V1~V5 |
+| Winnie-the-Pooh | 4 | 174 | **366** | V3~V7 |
+| Fables | 6 | 1,029 | 1,309 | V5~V9 |
+| The Adventures of Pinocchio | 6 | 1,005 | 1,120 | V5~V9 |
+| Peter and Wendy | 6 | 670 | 678 | V5~V9 |
+| The Mysterious Affair at Styles | 6 | 520 | 520 | V5~V9 |
+| Children's Stories | 7 | 342 | 342 | V6~V10 |
+| A Christmas Carol | 8 | 194 | 182 | V7~V11 |
+| Introduction to Sociology | 8 | 895 | 882 | V7~V11 |
+| Pride and Prejudice | 8 | 1,786 | 1,550 | V7~V11 |
+| Twenty years after | 8 | 2,703 | 2,387 | V7~V11 |
+| **Gibbon** | 11 | 2,450 | **1,355** | **V10~V11** |
+
+검증: 구독 274건 보존 · `vocabularies.shared_set_id` 1,541행 보존 · `shared_words.v_level` NULL 0건 · 전 세트 `version=3`.
 
 ---
 
