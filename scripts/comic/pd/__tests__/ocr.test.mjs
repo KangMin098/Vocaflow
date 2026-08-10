@@ -233,3 +233,29 @@ describe('parseHocr', () => {
     expect(() => parseHocr('<div class="ocr_page" title="garbage">')).not.toThrow()
   })
 })
+
+// ─── 비라틴 판정 — 문장부호 오판 회귀 (2026-08-11) ───────────────────
+//
+// NON_LATIN 범위를 U+2018(‘)부터로 잡았다가 em-dash(U+2014)가 비라틴으로 오판됐다.
+// 만화 레터링에 대시·말줄임표는 흔하다("LATER—" "…"). 그 오판은 노이즈로 끝나지 않았다 —
+// 자기발전 스윕이 nonLatinBubbles 를 ×3 으로 감점하므로 **지표 자체가 왜곡됐다.**
+
+describe('isGarbledWord — 문장부호는 비라틴이 아니다', () => {
+  it('대시·말줄임표·굽은따옴표는 정상', () => {
+    for (const s of ['-\u2014', 'LATER\u2014', 'wait\u2026', 'don\u2019t', '\u201Chi\u201D', 'co\u2010op']) {
+      expect(isGarbledWord(s), s).toBe(false)
+    }
+  })
+
+  it('키릴·한글 오인식은 잡는다 — 이게 원래 목적이다', () => {
+    for (const s of ['\u0441\u0430\u0439', '\u0456\u043F', '\u0433\u0456\u0437', '\uAC00\uB098']) {
+      expect(isGarbledWord(s), s).toBe(true)
+    }
+  })
+
+  it('평범한 라틴 단어는 정상', () => {
+    for (const s of ['ok', 'Wharton', "I'll", 'caf\u00E9']) {
+      expect(isGarbledWord(s), s).toBe(false)
+    }
+  })
+})

@@ -192,7 +192,13 @@ export function normalize(box, panelBox) {
 // 학습 콘텐츠에 깨진 문장이 실리면 안 되므로, 버리지는 않되 **needsReview 로 표시**해
 // 검수 단계가 무엇을 먼저 볼지 알게 한다.
 
-const NON_LATIN = /[^ -ɏ‘-”\s]/ // 라틴 확장 + 일반 문장부호 밖
+// 라틴 확장(U+0020~U+024F) + 일반 문장부호(U+2010~U+2027) 밖이면 오인식으로 본다.
+//
+// ⚠️ 문장부호 범위를 U+2018 부터로 잡았다가 em-dash(U+2014)가 비라틴으로 오판됐다.
+//    만화 레터링에 대시·말줄임표는 흔하다. 그 오판이 노이즈로 안 끝난 건 자기발전 스윕이
+//    nonLatinBubbles 를 ×3 으로 감점하기 때문이다 — 지표가 왜곡됐다(실측 2026-08-11).
+//    U+2010~U+2027 로 넓혀 하이픈·en/em 대시·따옴표·말줄임표를 정상으로 본다.
+const NON_LATIN = /[^ -ɏ‐-‧\s]/
 
 /** 라틴 문자가 아닌 글자가 섞인 단어는 오인식이다. */
 export function isGarbledWord(t) {
@@ -394,7 +400,8 @@ async function main() {
   }
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+// argv[1] 은 `node -e` 로 import 될 때 없다 — 없으면 CLI 실행이 아니다(테스트·진단 경로).
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((e) => {
     console.error(e.message)
     process.exit(1)

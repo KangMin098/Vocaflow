@@ -254,6 +254,53 @@ node scripts/comic/pd/modernize.mjs --workdir work/pdcp/<slug> --erase-only
 
 지우기 재현율도 이것에 묶여 있으므로 모델 트랙의 전제가 함께 개선됐다.
 
+
+### 확인: psm11 로 기준 사례는 잡히지만 — 반쪽짜리다 (2026-08-11)
+
+기준 미검출 사례("Yassuh, yassuh! Come right in!")를 psm11/55 로 다시 돌렸다.
+
+**잡힌다.** 다만 그대로 쓸 수 있는 상태는 아니다:
+
+```
+"At the big house, a most hospitable welcome glowed in the face of
+ the old colored servant qssuh yassuh/? Orm right"          conf 91 · 검수 false
+```
+
+- **캡션과 말풍선이 한 영역으로 병합**됐다 (psm11 은 레이아웃 분석이 없다)
+- 대사 자체가 깨졌다 — "Yassuh, yassuh! Come right in!" → "qssuh yassuh/? Orm right"
+- **판정기가 이걸 "깨끗함"으로 통과시켰다** (사유 없음)
+
+나란한 두 풍선의 지퍼 현상도 재발했다:
+`"Tm only katy harvey binch his place but not ‘home that here he"` — 두 대사가 뒤섞였는데 검수 false.
+
+반대 방향 오판도 있다. **정확히 읽힌 대사가 검수 대상으로 찍힌다**:
+`"My name is Wharton! My house is open to strangers in such weather as this!"` → "짧은 파편 7/15".
+
+#### 그래서 무엇을 믿을 수 있나
+
+| 지표 | 신뢰도 |
+|---|---|
+| **영역 재현율**(대사 위치를 찾았는가) | 믿을 수 있다 — 정답 기반, 교차검증됨 |
+| **clean 개수**(그대로 쓸 수 있는가) | **못 믿는다** — 양방향 오판 확인 |
+
+psm4→psm11 교체 근거 중 "clean 개수가 34→33 으로 같다"는 **신뢰할 수 없는 비교였다.**
+그래도 교체 자체는 유지한다 — 근거는 영역 재현율이고(0.455→0.955), 그건 정답 기반이다.
+**놓친 대사는 아무에게도 안 보이지만, 깨진 대사는 검수자에게 보인다.**
+모델 트랙의 지우기도 위치만 필요하므로 영역 재현율이 정확히 맞는 지표다.
+
+#### 다음에 고칠 것 (우선순위 순)
+
+1. **판정기(judgeBubble)** — 워드샐러드를 통과시키고 정상 문장을 막는다. 지금은 clean 을
+   지표로 쓸 수 없다. 사전 대조(실단어 비율)가 없는 게 근본 원인으로 보인다.
+2. **psm11 의 병합/지퍼** — 레이아웃 분석이 없어 캡션+풍선, 나란한 두 풍선이 붙는다.
+   `wordsToLines` 의 가로 인접 규칙만으로는 부족하다.
+3. 읽기용과 지우기용 설정을 나누는 것도 방법이다 — 목적이 다르면 최적값도 다르다.
+
+#### 부수 수정
+
+- `NON_LATIN` 범위가 U+2018 부터라 **em-dash 가 비라틴으로 오판**됐다. 스윕이 이걸 ×3 으로
+  감점하므로 지표가 왜곡돼 있었다. U+2010~U+2027 로 넓힘(회귀 스펙 3건).
+- `ocr.mjs` 도 `node -e` import 시 크래시하던 entry-guard 버그(argv[1] 없음)를 고침.
 ## 9. 하지 않을 것
 
 - **모델에 글자를 맡기지 않는다** (§0).
