@@ -82,6 +82,9 @@ export interface PdComicAdminRow extends PdComicIssue {
   lastRunAt: string | null
   /** 테스트 모드 취득 페이지 수(NULL=전권, N=앞 N쪽만) — 테스트 이슈 식별 */
   acquirePages: number | null
+  /** 현대화 트랙 상태(workDir 산출물로 판정) — 이슈별 "어디까지 현대화됐나" 한눈에. 현대화는 선형
+   *  단계가 아니라 2개 선택 트랙이라 status 가 아닌 별도 필드로 둔다. queue route 가 채운다. */
+  modern?: { preserve: boolean; reader: boolean; restyle: boolean }
 }
 
 /** Admin 모니터용 컷(발행 전 포함) — 콘텐츠(대사/OCR) 상태 관찰. */

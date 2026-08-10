@@ -1026,6 +1026,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
                 </div>
                 <Stepper status={r.status} failed={Boolean(r.lastError)} />
+                <ModernBadges modern={r.modern} />
                 <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-[var(--t2)]">
                   <span>시도 {r.attempts}</span>
                   <span>최근 실행 {relTime(r.lastRunAt)}</span>
@@ -1385,6 +1386,7 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
             <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
           </div>
           <Stepper status={r.status} failed={Boolean(r.lastError)} />
+          <ModernBadges modern={r.modern} />
           <p className="mt-1.5 font-body text-[11.5px] text-[var(--t2)]">
             PD 근거{' '}
             {r.pdBasis ? <b className="text-[var(--success)]">{r.pdBasis}</b> : <b className="text-[var(--warning)]">미기재 — 발행 차단</b>}
@@ -1392,6 +1394,21 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+// 현대화 트랙 배지 — 이슈별 "어디까지 현대화됐나" 한눈에. 작화보존/AI리스타일 2트랙 상태(산출물 판정).
+function ModernBadges({ modern }: { modern?: { preserve: boolean; reader: boolean; restyle: boolean } }) {
+  if (!modern) return null
+  const done = modern.preserve || modern.reader || modern.restyle
+  return (
+    <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+      <span className="font-display text-[10px] font-[700] text-[var(--t3)]">현대화</span>
+      {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">아직 안 함</span>}
+      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>작화보존 ✓</span>}
+      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>리더 ✓</span>}
+      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}18` }}>AI 리스타일 ✓</span>}
+    </div>
   )
 }
 
