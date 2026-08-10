@@ -1,6 +1,6 @@
 # ADR 0004 — 도서 어휘 선정 정책 v2 (레벨 상대 밴드 + 게이트 분리)
 
-- **Status**: **Accepted (2026-08-10)** — D1·D2·D6 적용 완료(마이그레이션 `20260810113051`, `20260810113116`). D3·D4·D5 미적용(아래 §5)
+- **Status**: **Accepted (2026-08-10)** — D1·D2·D3·D6 적용 완료(마이그레이션 `20260810113051`, `20260810113116`, `20260810115121`, `20260810115154`). D4·D5 미적용(아래 §5)
 - **Scope**: `select_book_chapter_vocab` 레벨 게이트 · `_extract_composite_score` 랭킹 · `noise_blacklist` 의 역할 · 책 고유 어휘 트랙
 - **Relates to**: [ADR 0001](./0001-dictionary-derivational-enrichment.md) · [ADR 0002](./0002-rescue-first-noise-policy.md)(같은 결함을 진단했으나 승인 대기 상태로 미적용) · [ADR 0003](./0003-classic-retelling-work-edition.md)
 - **정합**: 학습 과학 원칙 ①Active Recall ③Desirable Difficulty ⑤Context-Dependent ⑥Cognitive Load · i+1(Krashen)
@@ -194,7 +194,23 @@ D1·D2 는 `select_book_chapter_vocab` / `_extract_composite_score` 변경이므
 | Treasure Island | 7 | 2,053 (V6~V11) | 1,719 (V6~V10) |
 | Gibbon | 11 | 6,687 (V6~V11) | 1,552 (**V10~V11**) |
 
-`shared_words.v_level` 백필 32,966행 100% 완료.
+`shared_words.v_level` 백필 32,966행 100% 완료. 재발행 1단계(`ready` 25권) — 509세트 / 10,676단어, 밴드 이탈 0건.
+
+### D3 적용 (마이그레이션 `20260810115121`·`20260810115154`)
+
+`noise_blacklist` 에 `is_blocking boolean` + `released_reason` 추가. **DELETE 가 아니라 플래그** — 판정 근거를 지우면 되돌릴 수도 감사할 수도 없다.
+
+대상은 신뢰도 낮은 두 sweep(`final-sweep` 83% 오탐 · `auto-tail` 27%)에서 `lexicon_clean(lang='en')` 에 뜻이 있는 6,902건. 그 중 고어 표지 81 · 방언 표지 18 · 코퍼스 대문자전용(고유명사) 20 을 제외한 **6,783건 해제** (잔여 차단 17,544). `auto-latin` 계열(오탐 2.8~7.5%)은 손대지 않았다.
+
+게이트 2곳이 `is_blocking` 을 존중하도록 변경 — `stage_book_dict_candidates`(등재 큐), `find_unbound_book_lemmas`(진단 라벨).
+
+Treasure Island 재분류:
+
+| | 이전 | 이후 |
+|---|---|---|
+| `mutineer`(22회) · `repaint` · `pickax` | 노이즈 | **보조사전 해석** (등재 큐 진입 가능) |
+| `nimbleness` · `slyness` · `foolhardiness` · `circumspectly` | 노이즈 | **형태 회수** |
+| `em` · `hisself` · `sperrits` · `jine` | 노이즈 | 노이즈 (D4 `dialect_map` 이관 대상) |
 
 ---
 

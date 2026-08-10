@@ -150,7 +150,6 @@ Les Misérables 1,294 내역: `lexicon_only` 594 · `foreign` 417 · `genuine_mi
 
 #### 미적용 (ADR §5)
 
-- **D3** `noise_blacklist` 를 등재 게이트에서 제거 + 오분류 회수. 샘플 40건 검수 결과 **55%가 명백한 실단어**(`postmaster`·`guidebook`·`waxwork`·`remediable`·`telepathically`…), 20%가 고어/방언(`bloode`·`yode`·`farden` → `archaic_dictionary`/`dialect_map` 이관 대상), 인명 1건(`ashton`). **일괄 해제가 아니라 3분류가 필요**하다고 판정.
 - **D4** eye-dialect 373건 `dialect_map` 이관 (`em`·`mought`·`sperrits`·`wot` 오역 교정).
 - **D5** 책 고유 어휘 `library_book_support` 2차 세트.
 #### 재발행 1단계 — `ready` 25권 완료
@@ -169,6 +168,27 @@ D1·D2 는 기존 발행 세트에 소급되지 않는다(`publish_book_word_set
 | 9 | V8~V11 | Dialogues 22세트 696단어 |
 
 `published` 13권은 학습자 진도(`user_word_progress`)가 걸려 있어 미적용 — 기존 세트 보존 + `version=3` 병행 발행 후 전환 방식으로 별도 진행.
+
+#### D3 — `noise_blacklist` 를 영구 차단에서 플래그로 (마이그레이션 2건)
+
+**[20260810115121_noise_blacklist_is_blocking.sql](../supabase/migrations/20260810115121_noise_blacklist_is_blocking.sql) · [20260810115154_find_unbound_respect_is_blocking.sql](../supabase/migrations/20260810115154_find_unbound_respect_is_blocking.sql) — 2026-08-10 사용자 승인 후 dev 적용 완료.**
+
+`stage_book_dict_candidates` 가 `NOT EXISTS (noise_blacklist)` 로 사전 등재 큐 진입을 막는데, 두 자동 sweep 이 실단어를 대량 오등록했다:
+
+| source / category | 총 | `lexicon_clean(en)` 실단어 | 오탐률 |
+|---|--:|--:|--:|
+| `auto-latin` | 1,546 | 43 | 2.8% |
+| `auto-latin-broad` | 4,563 | 340 | 7.5% |
+| `auto-tail` | 11,002 | 3,019 | 27% |
+| `final-sweep` | 4,672 | 3,883 | **83%** |
+
+`is_blocking boolean` + `released_reason` 추가. **DELETE 가 아니라 플래그** — 판정 근거(`source`·`note`)를 지우면 되돌릴 수도 감사할 수도 없고, ADR 0002 가 같은 결함을 진단하고도 미적용으로 멈춘 사이 반대 방향 sweep 이 쌓인 전례가 있다.
+
+두 sweep 의 실단어 6,902건 중 고어 표지 81 · 방언 표지 18 · 코퍼스 대문자전용(고유명사) 20 을 제외한 **6,783건 해제**(잔여 차단 17,544). `auto-latin` 계열은 손대지 않았다. 코퍼스 교차검증: 6,902건 중 카탈로그에 등장하는 1,755건 가운데 고유명사는 20건뿐이고 1,735건이 소문자로 실제 출현.
+
+게이트 2곳이 `is_blocking` 을 존중 — `stage_book_dict_candidates`(등재 큐), `find_unbound_book_lemmas`(진단 라벨).
+
+Treasure Island 재분류: `mutineer`(22회, 이 책의 주제어) · `repaint` · `pickax` 가 노이즈 → **보조사전 해석**(등재 큐 진입 가능), `nimbleness` · `slyness` · `foolhardiness` · `circumspectly` 가 노이즈 → **형태 회수**.
 
 #### 미결
 
