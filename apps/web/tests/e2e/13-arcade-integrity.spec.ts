@@ -200,15 +200,28 @@ test.describe('아케이드 자료 연계', () => {
           })
           .catch(() => '');
 
-      const DISCLOSURE = /겹치는 (봉인|단어)이? ?없어요/;
+      // 고지는 **문구가 아니라 표식**으로 읽는다. 정규식으로 맞히면 게임이 표현을 바꾸는
+      // 순간 조용히 어긋난다 — 실측으로 겪었다: silent-rule 은 "이번 판은 내장 규칙 뱅크로
+      // 열립니다" 라고 정직하게 고지하는데도, morpheme-rules 문구("겹치는 봉인이 없어요")만
+      // 아는 정규식 때문에 '가짜 연계' 로 잡혔다. 게임이 자기 자료 출처를 스스로 선언하게 하고
+      // (`data-scope`), 테스트는 그 선언을 읽는다.
+      //   mine    — 내 단어가 실제로 실렸다
+      //   builtin — 겹치는 것이 없어 내장 콘텐츠로 돈다(정직한 폴백)
+      //   demo    — 단어장이 비어 맛보기로 돈다
+      const scopeOf = () =>
+        page
+          .evaluate(() => document.querySelector('[data-scope]')?.getAttribute('data-scope') ?? null)
+          .catch(() => null);
+
       let ok: string | null = null;
       for (let i = 0; i < 20 && !ok; i++) {
         const raw = await readAll();
         const text = raw.toLowerCase();
+        const scope = await scopeOf();
         ok =
           en.find((w) => text.includes(w)) ??
           ko.find((m) => text.includes(m.toLowerCase())) ??
-          (DISCLOSURE.test(raw) ? '(겹침 없음을 명시)' : null);
+          (scope === 'builtin' || scope === 'demo' ? `(자료 출처를 스스로 선언: ${scope})` : null);
         if (!ok) await page.waitForTimeout(1200);
       }
       if (!ok) {

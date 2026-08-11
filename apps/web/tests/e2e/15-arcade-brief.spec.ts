@@ -86,10 +86,19 @@ test.describe('Protocol 브리핑', () => {
 
       await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
       await expect(page.locator('.arc-slot').first()).toBeVisible({ timeout: 60_000 });
-      await page.locator('.arc-brief').nth(at!.trigger).click();
 
+      // 트리거는 서버 렌더된 허브 위의 **클라이언트 아일랜드**다(BriefButton). 보이는 것과
+      // 하이드레이션이 끝난 것은 다르고, 워커를 여럿 띄워 dev 서버를 두드리면 그 간극이
+      // 벌어진다 — 첫 클릭이 조용히 먹히지 않아 다이얼로그가 안 열렸다(실측: 3종 flaky).
+      // 열릴 때까지 한 번 더 누른다. 계약("(?) 를 누르면 브리핑이 열린다")은 그대로 검증된다.
+      const trigger = page.locator('.arc-brief').nth(at!.trigger);
       const dlg = page.getByRole('dialog');
-      await expect(dlg).toBeVisible();
+      await trigger.click();
+      if (!(await dlg.isVisible().catch(() => false))) {
+        await page.waitForTimeout(1_200);
+        await trigger.click({ timeout: 10_000 }).catch(() => {});
+      }
+      await expect(dlg, '(?) 를 눌렀는데 브리핑이 열리지 않는다').toBeVisible({ timeout: 15_000 });
       if (at!.tab >= 0) await dlg.getByRole('tab').nth(at!.tab).click();
 
       // 지도가 낡지 않았는지 — 이 다이얼로그가 정말 그 게임인가

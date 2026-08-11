@@ -628,8 +628,11 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
               <p className="sr-brief-s">
                 뒤로 갈수록 <b>규칙의 예외</b>가 한두 칸 섞입니다 — 끝 글자만 맞춰서는 넘지 못해요.
               </p>
+              {/* 내 단어에서 규칙이 파생되지 않으면 그 사실을 말한다 — 조용히 내장 콘텐츠로
+                  도는 것이 이 프로젝트가 '가짜 연계'라 부르는 결함이다. `data-scope` 는 그
+                  고지를 기계도 읽게 한다(문구 정규식은 표현이 바뀌면 조용히 어긋난다). */}
               {run.deck.mineCount === 0 && (
-                <p className="sr-brief-note">
+                <p className="sr-brief-note" data-scope="builtin">
                   이번 판은 <b>내장 규칙 뱅크</b>로 열립니다 — 내 단어에서 굴절 규칙이 파생되지 않았어요.
                 </p>
               )}

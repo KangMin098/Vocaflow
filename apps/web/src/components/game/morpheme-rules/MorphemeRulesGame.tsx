@@ -849,8 +849,14 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         <div className="mr-head">
           <h1 className="mr-title">{corridor.title}</h1>
           <p className="mr-sub">{corridor.sub}</p>
-          {/* 이 판이 내 복습에 실제로 닿는지 정직하게 말한다 — 카탈로그 문구가 아니라 실측값. */}
-          <p className="mr-scope">
+          {/* 이 판이 내 복습에 실제로 닿는지 정직하게 말한다 — 카탈로그 문구가 아니라 실측값.
+              `data-scope` 는 그 사실을 기계도 읽게 한다 — 13-arcade-integrity A3 가 "라벨만
+              자료인 가짜 연계"를 잡을 때 문구를 정규식으로 맞히면 표현을 바꾸는 순간 조용히
+              통과하거나 조용히 실패한다(실측: silent-rule 이 정직하게 고지하는데도 실패했다). */}
+          <p
+            className="mr-scope"
+            data-scope={ownSealCount > 0 ? 'mine' : bias.words.size > 0 ? 'builtin' : 'demo'}
+          >
             {ownSealCount > 0
               ? `내 단어장에서 온 봉인 ${ownSealCount}개 — 이 봉인이 복습 일정에 반영돼요`
               : bias.words.size > 0
