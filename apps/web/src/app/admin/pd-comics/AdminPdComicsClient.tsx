@@ -960,13 +960,13 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   }
 
   // 현대화 콘솔 트리거 — CLI 를 spawn 하고 결과를 갤러리에 반영(드레인과 같은 구조).
-  const modernize = async (issueId: string, track: 'preserve' | 'restyle') => {
+  const modernize = async (issueId: string, track: 'preserve' | 'restyle' | 'erase-preview') => {
     setBusy(issueId)
-    onMsg(track === 'restyle' ? 'AI 리스타일 실행 중… (GPU·COMFY_URL 필요, 수 분 소요)' : '작화보존 현대화 실행 중… (page-modern → page-html)')
+    onMsg(track === 'restyle' ? 'AI 리스타일 실행 중… (GPU·COMFY_URL 필요, 수 분 소요)' : track === 'erase-preview' ? '말풍선 지우기 확인 중… (GPU 미사용)' : '작화보존 현대화 실행 중… (page-modern → page-html)')
     try {
       const r = await fetch('/api/pdcp/modernize', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueId, track }) })
       const j = await r.json()
-      const name = track === 'restyle' ? 'AI 리스타일' : '작화보존 현대화'
+      const name = track === 'restyle' ? 'AI 리스타일' : track === 'erase-preview' ? '지우기 확인' : '작화보존 현대화'
       if (j.ok) { onMsg(`${name} 완료 — ${(j.steps ?? []).map((s: { script: string }) => s.script).join(' → ')}`); setOpenLive(issueId) }
       else onMsg(`${name} 실패: ${j.error ?? r.status}${j.steps?.length ? ` · ${j.steps.at(-1)?.tail?.at(-1) ?? ''}` : ''}`)
       await onRefresh(); setLastPoll(Date.now())
@@ -1055,7 +1055,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
                   <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
                   <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
                   <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
                   {r.status === 'review' && <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>{openPublish === r.id ? '발행 닫기' : '발행'}</button>}
                 </div>
@@ -1129,10 +1130,11 @@ render-check.cjs --workdir work/&lt;slug&gt;</pre>
           </div>
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t3)]">— GPU 모델 · 선택</span></p>
-            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 Kaggle-t4(무료 터널)·RunPod-4090. CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
+            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 <b>RunPod-4090 전용</b> — edit 워크플로가 그쪽에만 프로비저닝돼 있어 Kaggle-t4 는 거부됩니다(t2i-only, 실측). CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
             <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(Kaggle/RunPod/ComfyUI)
 # COMFY_URL 설정: Kaggle=cloudflared 터널 / RunPod=pod.mjs start
-pd/modernize.mjs --workdir work/&lt;slug&gt; --model qwen-image-edit-2511 --env kaggle-t4
+pd/modernize.mjs --workdir work/&lt;slug&gt; --erase-only   # GPU 전 지우기 확인
+pd/modernize.mjs --workdir work/&lt;slug&gt; --model qwen-image-edit-2511 --env runpod-4090
 page-letter.mjs --workdir work/&lt;slug&gt;   # 대사 재부착</pre>
           </div>
           <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 자가호스트(Kaggle 터널/RunPod)라 콘솔은 트리거·회수·비교·판정을 담당합니다. 설계: <span className="font-mono">PD_MODERNIZE_MODEL.md</span>.</p>

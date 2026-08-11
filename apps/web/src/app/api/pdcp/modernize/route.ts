@@ -5,6 +5,10 @@
 //   POST { issueId, track }
 //     track='preserve' (작화 보존) → page-modern.mjs(MAX) → page-html.mjs   [CPU·$0]
 //     track='restyle'  (AI 리스타일) → modernize.mjs(qwen @ runpod-4090)     [GPU·COMFY_URL 필요]
+//     track='erase-preview' → modernize.mjs --erase-only                     [GPU 미사용]
+//
+// erase-preview 가 왜 필요한가: 모델 트랙의 유일한 비가역 비용은 GPU 시간인데,
+// 지우기에서 남은 글자를 모델이 **가짜 글자로 재현**한다. 태우기 전에 눈으로 확인해야 한다.
 
 import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -25,7 +29,8 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const body = (await request.json().catch(() => ({}))) as { issueId?: string; track?: string }
   const issueId = body.issueId
-  const track = body.track === 'restyle' ? 'restyle' : 'preserve'
+  const track =
+    body.track === 'restyle' ? 'restyle' : body.track === 'erase-preview' ? 'erase-preview' : 'preserve'
   if (!issueId) return NextResponse.json({ error: 'issueId 가 필요합니다' }, { status: 400 })
 
   const client = createAdminClient() as unknown as SupabaseClient
@@ -36,7 +41,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // 트랙별 실행 스텝 (드레인처럼 CLI spawn)
   const steps =
-    track === 'restyle'
+    track === 'erase-preview'
+      ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--erase-only'], timeoutMs: 300_000 }]
+      : track === 'restyle'
       ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--model', 'qwen-image-edit-2511', '--env', 'runpod-4090', '--limit', '8'], timeoutMs: 600_000 }]
       : [
           { script: 'page-modern.mjs', args: ['--workdir', wd, '--level', 'MAX'], timeoutMs: 300_000 },
