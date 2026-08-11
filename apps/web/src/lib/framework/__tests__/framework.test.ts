@@ -1,0 +1,297 @@
+// apps/web/src/lib/framework/__tests__/framework.test.ts
+//
+// 프레임워크 무결성 — 레지스트리는 **조용히 낡는 것**이 유일한 실패 방식이다.
+//
+// 새 활동을 만들고 여기 등록하지 않으면 예외가 나지 않는다. 그냥 처방·연습장·챕터 런처에서
+// 사라진다(EchoMatch 가 어느 메뉴에도 없던 것이 정확히 그 실패다). 그래서 카탈로그와의
+// 정합을 테스트로 강제한다.
+//
+// 흐름 규칙도 같이 못 박는다. 특히 "갓 만난 단어에 생산 과제를 권하지 않는다" 는
+// 근거가 있는 제약인데(Barcroft — 초기 부호화에서 생산 강제는 자원 소모로 해롭다)
+// 코드가 우연히 지키고 있을 뿐 문서에 없었다. 여기 없으면 다음 사람이 깨뜨린다.
+
+import { describe, expect, it } from 'vitest'
+
+import { GAME_CATALOG } from '../../game/catalog'
+import {
+  CROSS,
+  FACETS,
+  FACET_ORDER,
+  NAME_DECISIONS,
+  SPINE,
+  STAGES,
+  STAGE_ORDER,
+  SURFACES,
+  SURFACE_ORDER,
+  nextSpine,
+  stageOf,
+  type FacetId,
+} from '../axes'
+import {
+  ACCURACY_HOLD_BELOW,
+  ACCURACY_TARGET,
+  DAILY_BLOCKS,
+  ENCOUNTERS_FLOOR,
+  HANDOFFS,
+  NEW_FACETS_PER_SESSION,
+  STRAND_TARGET,
+  canAdvance,
+  type WordFrameworkState,
+} from '../flow'
+import { activities, activityById, facetCoverage } from '../registry'
+
+const ACTS = activities()
+
+describe('축 — 면 · 단계 · 표면', () => {
+  it('면은 6개이고 spine 4 + cross 2 로 정확히 갈린다', () => {
+    expect(FACET_ORDER).toHaveLength(6)
+    expect(SPINE).toHaveLength(4)
+    expect(CROSS).toHaveLength(2)
+    expect([...SPINE, ...CROSS].sort()).toEqual([...FACET_ORDER].sort())
+    for (const f of SPINE) expect(FACETS[f].kind, `${f}`).toBe('spine')
+    for (const f of CROSS) expect(FACETS[f].kind, `${f}`).toBe('cross')
+  })
+
+  it('면·단계·표면의 코드와 이름이 유일하다 (같은 이름 두 개면 충돌이 재발한다)', () => {
+    const facetNames = FACET_ORDER.map((f) => FACETS[f].name)
+    expect(new Set(facetNames).size).toBe(facetNames.length)
+    const facetCodes = FACET_ORDER.map((f) => FACETS[f].code)
+    expect(new Set(facetCodes).size).toBe(facetCodes.length)
+
+    const stageNames = STAGE_ORDER.map((s) => STAGES[s].name)
+    expect(new Set(stageNames).size).toBe(stageNames.length)
+
+    const surfaceNames = SURFACE_ORDER.map((s) => SURFACES[s].name)
+    expect(new Set(surfaceNames).size).toBe(surfaceNames.length)
+  })
+
+  it('최상위 표면은 4개다 (국외 관측 3~6 · 모바일 하단 탭에 들어가야 한다)', () => {
+    expect(SURFACE_ORDER).toHaveLength(4)
+    // 한 단어여야 탭에 들어간다
+    for (const s of SURFACE_ORDER) {
+      expect(SURFACES[s].name.trim().split(/\s+/), `${s} 는 한 단어여야 한다`).toHaveLength(1)
+    }
+  })
+
+  it('단계는 통과한 면에서 파생된다 — 별도 상태 기계가 아니다', () => {
+    expect(stageOf([])).toBe('met')
+    expect(stageOf(['recognize'])).toBe('recognized')
+    expect(stageOf(['recognize', 'spell'])).toBe('recalled')
+    expect(stageOf(['recognize', 'spell', 'use'])).toBe('applied')
+    expect(stageOf(['recognize', 'spell', 'use', 'fluency'])).toBe('fluent')
+  })
+
+  it('cross 면은 단계를 올리지 않는다 (Sound 를 몰라도 문맥으로 갈 수 있다)', () => {
+    expect(stageOf(['sound'])).toBe('met')
+    expect(stageOf(['build'])).toBe('met')
+    expect(stageOf(['recognize', 'sound', 'build'])).toBe('recognized')
+  })
+
+  it('건너뛴 통과도 정직하게 반영한다 (게이트는 처방이 하고 계산이 흉내 내지 않는다)', () => {
+    // Spell 없이 Use 를 통과했으면 Applied 다 — "했는데 안 올라간다" 는 거짓말이다
+    expect(stageOf(['recognize', 'use'])).toBe('applied')
+  })
+
+  it('nextSpine 이 다음 한 걸음을 준다', () => {
+    expect(nextSpine([])).toBe('recognize')
+    expect(nextSpine(['recognize'])).toBe('spell')
+    expect(nextSpine(['recognize', 'spell', 'use', 'fluency'])).toBeNull()
+    // cross 면을 통과해도 spine 진행은 그대로다
+    expect(nextSpine(['sound', 'build'])).toBe('recognize')
+  })
+
+  it('이름 충돌 결정이 폐기 목록을 반드시 갖는다 (결정 없이 이름만 늘리면 8종이 9종이 된다)', () => {
+    expect(NAME_DECISIONS.length).toBeGreaterThanOrEqual(5)
+    for (const d of NAME_DECISIONS) {
+      expect(d.now.length, `${d.was}: 확정 이름 없음`).toBeGreaterThan(0)
+      expect(d.retire.length, `${d.was}: 폐기 표기가 없다 — 그러면 갈라진 채로 남는다`).toBeGreaterThan(0)
+      expect(d.why.trim().length, `${d.was}: 근거 없음`).toBeGreaterThan(20)
+      for (const n of d.now) expect(n.name.trim().length).toBeGreaterThan(0)
+    }
+  })
+})
+
+describe('레지스트리 ↔ 카탈로그 정합', () => {
+  it('카탈로그의 모든 게임이 레지스트리에 있다 (등록 누락 = 그 화면에서만 사라짐)', () => {
+    const missing = GAME_CATALOG.filter((g) => !activityById(g.slug)).map((g) => g.slug)
+    expect(missing, `레지스트리 누락: ${missing.join(', ')}`).toEqual([])
+  })
+
+  it('모든 활동이 면을 최소 1개 갖는다 (면 없는 활동은 처방이 고를 수 없다)', () => {
+    const naked = ACTS.filter((a) => a.facets.length === 0).map((a) => a.id)
+    expect(naked, `면 미선언: ${naked.join(', ')}`).toEqual([])
+  })
+
+  it('활동 id 와 정식명이 유일하다', () => {
+    const ids = ACTS.map((a) => a.id)
+    expect(new Set(ids).size, `중복 id: ${ids.join(', ')}`).toBe(ids.length)
+    // 계열 모드는 같은 name 을 공유할 수 있으므로 name+alias 조합으로 본다
+    const labels = ACTS.map((a) => `${a.name}/${a.alias ?? ''}`)
+    expect(new Set(labels).size, `중복 라벨: ${labels.join(', ')}`).toBe(labels.length)
+  })
+
+  it('활동이 배치 가능한 단계를 갖는다', () => {
+    for (const a of ACTS) {
+      expect(a.stages.length, `${a.id}: 배치 가능 단계 없음`).toBeGreaterThan(0)
+      for (const s of a.stages) expect(STAGE_ORDER, `${a.id}: 미상 단계 ${s}`).toContain(s)
+    }
+  })
+
+  it('아케이드 활동은 브리핑을 갖는다 (카드의 (?) 가 조용히 사라지지 않게)', () => {
+    const arcade = ACTS.filter((a) => GAME_CATALOG.some((g) => g.slug === a.id))
+    expect(arcade.length).toBe(GAME_CATALOG.length)
+    const noBrief = arcade.filter((a) => !a.brief).map((a) => a.id)
+    expect(noBrief, `브리핑 없음: ${noBrief.join(', ')}`).toEqual([])
+  })
+
+  it('면 커버리지가 설계와 실사용을 구분해서 센다', () => {
+    const cov = facetCoverage()
+    for (const f of FACET_ORDER) {
+      expect(cov[f].recording, `${f}: 기록 활동이 설계 활동보다 많다`).toBeLessThanOrEqual(cov[f].designed)
+    }
+    // 이 표의 값이 프레임워크가 요구하는 신설의 근거다.
+    // recognize 는 과잉이고 sound 는 기록 0 이다 — 지금 상태를 테스트가 증언한다.
+    expect(cov.recognize.designed, 'recognize 과잉이 해소되면 이 기대를 갱신하라').toBeGreaterThanOrEqual(8)
+    expect(cov.sound.recording, 'Sound 면을 기록하는 활동이 생기면 이 기대를 갱신하라').toBe(0)
+  })
+
+  it('순수 생산 활동은 met 단계에 배치되지 않는다 (초기 부호화 보호)', () => {
+    // 혼합 활동은 예외다 — ghost-race 는 인코스(재인)와 아웃코스(철자)를 학습자가 고르므로
+    // 갓 만난 단어로도 플레이할 수 있다(인코스 쪽). 제약이 걸리는 것은 **재인 경로가 없는**
+    // 활동이다: SpellForge · wordsmith-vigil · letter-forge 처럼 후보가 아예 없는 것들.
+    // 보호 대상은 **생성형 인출**(spell · use)이다. fluency 는 이미 아는 것을 빠르게 쓰는
+    // 면이라 새 부담을 얹지 않으므로 제약에 넣지 않는다(Nation 의 fluency development 는
+    // 새 항목을 다루지 않는 strand 다).
+    for (const a of ACTS) {
+      const production = a.facets.filter((f) => f === 'spell' || f === 'use')
+      if (production.length === 0) continue
+      if (a.facets.includes('recognize')) continue // 혼합 — 재인 경로가 있다
+      expect(a.stages, `${a.id}: 재인 경로 없는 생산 활동인데 met 단계에 배치돼 있다`).not.toContain('met')
+    }
+  })
+
+  it('혼합 활동은 어느 면으로 들어가는지 처방이 정해야 한다', () => {
+    // 면이 둘 이상이고 그중 재인과 생산이 섞인 활동은, 단계에 따라 **다른 얼굴**로 열려야 한다.
+    // 그러지 않으면 갓 만난 단어에 아웃코스(타이핑)가 걸릴 수 있다.
+    const mixed = ACTS.filter(
+      (a) => a.facets.includes('recognize') && a.facets.some((f) => f === 'spell' || f === 'use'),
+    )
+    // 지금 해당하는 것: ghost-race(인코스/아웃코스) · glyph-tongue · silent-rule
+    expect(mixed.length, '혼합 활동이 하나도 없다면 이 규칙은 불필요하다').toBeGreaterThan(0)
+    for (const a of mixed) {
+      expect(a.stages.length, `${a.id}: 혼합인데 단계가 하나뿐 — 얼굴을 나눌 수 없다`).toBeGreaterThan(1)
+    }
+  })
+})
+
+describe('흐름 — 막지 않고 권한다', () => {
+  const base: WordFrameworkState = {
+    word: 'bribe',
+    passed: [],
+    accuracy: {},
+    hits: {},
+    memory: 'new',
+    encounters: 12,
+  }
+
+  it('아무것도 통과 안 한 단어에는 Recognize 를 권한다', () => {
+    const adv = canAdvance(base)
+    expect(adv?.facet).toBe('recognize')
+    expect(adv?.to).toBe('recognized')
+    expect(adv?.holdReason, '재인은 갓 만난 단어에도 권할 수 있다').toBeUndefined()
+  })
+
+  it('갓 만난 단어(new)에 생산 과제를 권하지 않는다 — 근거 있는 제약이다', () => {
+    const adv = canAdvance({ ...base, passed: ['recognize'], memory: 'new', accuracy: { recognize: 0.9 } })
+    expect(adv?.facet).toBe('spell')
+    expect(adv?.holdReason, 'new 단어에 Spell 을 권하고 있다 (Barcroft 위반)').toBeTruthy()
+  })
+
+  it('흔들림 이상이면 생산 과제를 권한다', () => {
+    const adv = canAdvance({ ...base, passed: ['recognize'], memory: 'shaky', accuracy: { recognize: 0.9 } })
+    expect(adv?.facet).toBe('spell')
+    expect(adv?.holdReason).toBeUndefined()
+    expect(adv?.because, '왜 권하는지를 학습자 말로 설명해야 한다').toContain('못 쓰는')
+  })
+
+  it('앞 면이 흔들리면 다음 면을 얹지 않는다', () => {
+    const adv = canAdvance({
+      ...base,
+      passed: ['recognize'],
+      memory: 'stable',
+      accuracy: { recognize: 0.5 },
+    })
+    expect(adv?.holdReason).toBeTruthy()
+  })
+
+  it('노출이 얕으면 새 면보다 만남을 먼저 권한다 (narrow reading)', () => {
+    const adv = canAdvance({
+      ...base,
+      passed: ['recognize'],
+      memory: 'stable',
+      accuracy: { recognize: 0.9 },
+      encounters: 3,
+    })
+    expect(adv?.holdReason, '노출 부족인데 다음 면을 권하고 있다').toContain('만난 횟수')
+  })
+
+  it('끝까지 간 단어에는 권할 것이 없다', () => {
+    expect(canAdvance({ ...base, passed: ['recognize', 'spell', 'use', 'fluency'] })).toBeNull()
+  })
+
+  it('막는 이유가 있으면 항상 학습자 말로 설명한다 (자물쇠 UI 금지)', () => {
+    const held = canAdvance({ ...base, passed: ['recognize'], memory: 'new', accuracy: { recognize: 0.9 } })
+    expect(held?.holdReason).toBeTruthy()
+    // "잠김" · "불가" 같은 차단 어휘를 쓰지 않는다
+    expect(held!.holdReason!, '차단 어휘를 쓰고 있다').not.toMatch(/잠김|불가|금지|차단/)
+  })
+})
+
+describe('흐름 — 이동을 알리는 자리', () => {
+  it('네 자리만 있다 (다섯 번째가 생기면 처방 정본이 또 갈라진다)', () => {
+    expect(Object.keys(HANDOFFS).sort()).toEqual(['chapter-end', 'session-end', 'today', 'vault-word'])
+  })
+
+  it('모든 자리가 행동 1개와 미루기를 준다 (강제하면 우회 대상이 된다)', () => {
+    for (const [at, h] of Object.entries(HANDOFFS)) {
+      expect(h.headline(3).trim().length, `${at}: 문구 없음`).toBeGreaterThan(0)
+      expect(h.action('spell').trim().length, `${at}: 행동 없음`).toBeGreaterThan(0)
+      // vault-word 는 단어 상세 안이라 미루기가 화면 자체(뒤로 가기)다
+      if (at !== 'vault-word') {
+        expect(h.defer.trim().length, `${at}: 미루기 없음`).toBeGreaterThan(0)
+      }
+    }
+  })
+})
+
+describe('흐름 — 세션 구성 상수', () => {
+  it('한 세션에 새 면을 하나만 들인다 (작업기억 4항목)', () => {
+    expect(NEW_FACETS_PER_SESSION).toBe(1)
+  })
+
+  it('하루 목표가 개수로 닫힌다 (단어 수·XP 가 아니다)', () => {
+    expect(DAILY_BLOCKS.min).toBeLessThanOrEqual(DAILY_BLOCKS.target)
+    expect(DAILY_BLOCKS.target).toBeLessThanOrEqual(DAILY_BLOCKS.max)
+    expect(DAILY_BLOCKS.max, '하루 5개를 넘기면 "언제 끝나는지" 가 닫히지 않는다').toBeLessThanOrEqual(5)
+  })
+
+  it('정답률 대역이 유지 임계보다 높다', () => {
+    expect(ACCURACY_TARGET).toBeGreaterThan(ACCURACY_HOLD_BELOW)
+    expect(ACCURACY_TARGET).toBeLessThan(1)
+  })
+
+  it('노출 하한이 문헌 범위(6~20) 안이다', () => {
+    expect(ENCOUNTERS_FLOOR).toBeGreaterThanOrEqual(6)
+    expect(ENCOUNTERS_FLOOR).toBeLessThanOrEqual(20)
+  })
+
+  it('Four Strands 배분 합이 1이다', () => {
+    const sum = Object.values(STRAND_TARGET).reduce((a, b) => a + b, 0)
+    expect(sum).toBeCloseTo(1, 5)
+  })
+
+  it('output strand 를 담는 활동이 있다 (없으면 배분 지표가 항상 0이다)', () => {
+    const output = ACTS.filter((a) => a.strand === 'output')
+    expect(output.length, 'meaning-focused output 활동이 하나도 없다').toBeGreaterThan(0)
+  })
+})
