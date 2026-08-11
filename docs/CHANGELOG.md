@@ -386,6 +386,68 @@ D4b 로 dialect 티어가 coverage-clean 보다 앞서게 됐으므로, 등록�
 
 **별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 **목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 없다.** `thy`→`your`·`hisself`→`himself` 가 dialect 티어를 못 타는 원인이고, `em` 은 `them` 대신 주격 `they` 로 우회 연결했다. 대명사 굴절 계열 등재는 VCB 소관.
 
+### 고어 사전 810건을 조회 체인에 연결 — 만들어놓고 안 쓰던 자산 (마이그레이션 2건)
+
+**[20260811121439_archaic_tier.sql](../supabase/migrations/20260811121439_archaic_tier.sql) · [20260811121523_archaic_tier_coverage_defer.sql](../supabase/migrations/20260811121523_archaic_tier_coverage_defer.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+#### 발단 — 정글북 Ch.1 학습 목표 2위가 `thou`(V10)
+
+`archaic_literary` register 였다면 선정에서 배제됐을 자리다. 왜 안 붙었는지 추적하니 **`archaic_dictionary`(810건)를 참조하는 함수가 3개뿐이고 전부 소비가 아니었다**:
+
+| 함수 | 용도 |
+|---|---|
+| `enforce_archaic_not_in_shared` | 등재 **금지** 트리거 |
+| `find_derivational_candidates` | 후보 탐색 |
+| `find_unbound_book_lemmas` | 진단 라벨 |
+
+**`lookup_word_meaning` 티어 14개 어디에도 없었다.** 읽기 중 단어 탭도 학습 세트 선정도 고어 사전을 보지 않았다. `thee`·`hast` 가 뜻이 나오던 건 D4b 로 `dialect_map`(161)을 앞세운 덕이지 고어 DB 덕이 아니었다.
+
+#### 중복 실태 — 810건 중 74%가 다른 사전에도 있다
+
+| 교차 | 건수 | 판단 |
+|---|--:|---|
+| `lexicon_clean`(en) | **596 (74%)** | archaic 품질이 압도적 → archaic 우선 |
+| `spelling_norm` | 162 | 철자 정규화 역할이 달라 유지 |
+| `shared_dictionary` | **38** | shared 가 정본(register 부여됨) → archaic 쪽 정리 대상 |
+| `dialect_map` | 25 | **14건 불일치, 전부 archaic 정확** |
+| 고유 자산 | 211 | 다른 어디에도 없음 |
+
+품질 비교 — `lexicon_clean` 은 자동 번역이라 시대 배경까지 어긋난다:
+
+| 단어 | archaic_dictionary | lexicon_clean |
+|---|---|---|
+| `superintend` | **감독하다, 관리하다** | "보고 직접" |
+| `cabman` | **마차꾼, 마부** | "생계를 위해 **택시**를 운전하는 사람" |
+| `whilst` | **동안, ~하는 한편** | "…황제가 안디옥에 누워 있는 동안. **긴팔 원숭이.**" |
+
+#### 티어 위치 — `dialect` 보다 앞
+
+처음엔 "dialect 다음"으로 제안했다가 실측으로 뒤집었다. 두 사전이 겹치는 25건 중 **14건이 불일치이고 전부 archaic 이 정확**하다. `dialect_map` 은 표제어 결합용이라 base form 만 담아 시제·인칭·부정을 버린다:
+
+| 단어 | archaic | dialect_map |
+|---|---|---|
+| `hath` | **has** | have |
+| `spake` | **spoke** | speak |
+| `tis` | **it is** | be |
+| `agin` | **against** | again ← 의미가 다름 |
+| `couldna` | **couldn't** | could ← **부정 소실** |
+
+`couldna`→`could` 는 `en_negation_preserved` 가 잡아야 할 유형인데 `dialect_map` 경유라 안 걸린다. archaic 을 앞세우면 삭제 없이 무력화된다 — `dialect_map` 은 표제어 결합 용도로 계속 유효하므로 지우지 않았다.
+
+응답: `match_via='archaic'` · `resolved_word=modern_equivalent` · `word_register='archaic_literary'`. 리더가 "whilst = while (고어)" 로 보여줄 수 있다.
+
+#### 첫 삽입 위치를 틀렸고 실측으로 잡았다
+
+`dialect` 티어 앞에 넣었는데 596건 중 상당수가 여전히 `coverage-clean` 으로 빠졌다. **D4b 이후 코드상 순서가 `… derivation → coverage-clean → coverage-clean_en → dialect → …` 라 "dialect 앞"이 곧 "coverage-clean 뒤"였다.** `dialect_map` 에 겹치는 단어만 통과하고 archaic 단독 보유분은 전부 가로채였다. → D4b 와 동일한 양보 패턴(`AND NOT EXISTS (archaic_dictionary …)`)을 coverage-clean 두 티어에 적용해 해결.
+
+검증: `superintend`→"감독하다, 관리하다"(supervise) · `cabman`→"마차꾼, 마부"(cab driver) · `yonder`→"저쪽의, 저편의"(over there) · `unwearied`→"지치지 않는"(tireless) · `footfall`→"발소리"(footstep). 회귀 없음 — `crosstrees`·`mutineer` 는 archaic 미보유라 `coverage-clean` 유지.
+
+#### 미결 (A-2)
+
+- `shared_dictionary` 중복 38건 정리 — shared 가 정본이므로 archaic 쪽 제거
+- `standard` 로 잘못 들어간 고어 register 교정 — `thou`(V10 standard) · `ante` · `direful` · `irremediable`
+- `enforce_archaic_not_in_shared` 양방향화 — 현재는 archaic INSERT 만 막아 반대 방향으로 38건이 생겼다
+
 ### 신규 도서 추출 테스트 — 하네스 회귀 검증 + 블랙리스트 오탐 추가 해제 (마이그레이션 1건)
 
 **[20260811114612_blacklist_release_various.sql](../supabase/migrations/20260811114612_blacklist_release_various.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
