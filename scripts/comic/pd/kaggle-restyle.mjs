@@ -77,8 +77,9 @@ const manifestB64 = Buffer.from(JSON.stringify(items.map((it) => ({ name: it.nam
 // ── 자가완결 커널(SDXL + ControlNet Canny) ──
 const KERNEL = `import os, json, base64, io, time
 import torch
-os.system("pip -q install -U diffusers transformers accelerate safetensors opencv-python-headless >/dev/null 2>&1")
+os.system("pip -q install -U diffusers accelerate safetensors opencv-python-headless >/dev/null 2>&1")  # torch·transformers 는 Kaggle 기본 유지(arch 일치)
 import cv2, numpy as np
+print("torch", torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0) if torch.cuda.is_available() else "no-cuda")
 from PIL import Image
 from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, AutoencoderKL
 OUT="/kaggle/working/out"; os.makedirs(OUT, exist_ok=True)
