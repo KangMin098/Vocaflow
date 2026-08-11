@@ -168,6 +168,34 @@ function unmangleMenPlural(surfaceRaw: string, lemma: string): string {
   return lemma === `${surface.slice(0, -3)}man` ? surface : lemma
 }
 
+// v06.35 — 본문에 없는 표제어는 표면형으로 되돌린다 (유령 어휘 구조적 차단).
+//
+//   winkNLP 의 무가드 폴백은 -men→-man 하나가 아니다. 136권 감사에서 동사 쪽에서도 나왔다:
+//       "Captain Blood had outmaneuvered him" → lemma `outmaneuvere`
+//   사전에 `outmaneuver` 가 없으니 어미만 떼고 멈춘, 존재하지 않는 형태다. 규칙을 하나씩
+//   뒤쫓는 대신 **결과를 검사한다** — 이 챕터 본문에 그 형태가 한 번도 안 나왔다면
+//   학습 단위로 부적절하다. 결함 04(유령 어휘)는 정의상 "본문에 없는 말"이므로
+//   이 판정이 그 클래스를 통째로 닫는다.
+//
+//   정상 표제어가 본문에 없는 경우(ran→run · policemen→policeman 단수 부재)에도
+//   표면형으로 되돌아가지만 손실이 없다 — DB 15티어가 표면형에서 더 나은 표제어를
+//   찾는다는 걸 17단어 실측에서 13:1 로 확인했다 (위 unmangleMenPlural 주석).
+//
+//   surface 자체는 본문에서 왔으므로 항상 존재한다. 즉 되돌린 값은 언제나 실재한다.
+function keepLemmaOnlyIfInText(
+  surfaceRaw: string,
+  lemma: string,
+  chapterTokens: ReadonlySet<string>,
+): string {
+  if (lemma === surfaceRaw.toLowerCase()) return lemma
+  return chapterTokens.has(lemma) ? lemma : surfaceRaw.toLowerCase()
+}
+
+/** 챕터 본문의 소문자 단어 집합 — 표제어 실재 검사용 (isValidLearningWord 와 같은 문자 범위). */
+function chapterTokenSet(content: string): Set<string> {
+  return new Set(content.toLowerCase().match(/[a-z][a-z'-]*/g) ?? [])
+}
+
 /**
  * 책 전체 chapter의 lemma 추출 + 통합.
  *
@@ -180,6 +208,8 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
 
   for (const ch of chapters) {
     const result = processText(ch.content)
+    // 표제어 실재 검사용 — 챕터당 1회만 만든다
+    const chapterTokens = chapterTokenSet(ch.content)
 
     // chapter 내 lemma별 빈도 + 첫 등장 sentence index 집계
     const chapterCounts = new Map<
@@ -200,8 +230,13 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         //   캐릭터명·지명 (Elizabeth/Darcy/Jim/London/Hispaniola) 학습 vocab 에서 제외.
         //   winkNLP universal POS tag 기준 — 측정상 6권 noise 4~12% 모두 PROPN 패턴.
         if (token.pos === 'PROPN') continue
-        // v06.35 — winkNLP 무가드 -men→-man 폴백 되돌리기 (아래 unmangleMenPlural 주석)
-        const lemma = unmangleMenPlural(token.surface, token.lemma)
+        // v06.35 — winkNLP 무가드 폴백 되돌리기 (아래 두 헬퍼 주석)
+        //   ① -men→-man 특정 규칙  ② 본문에 없는 표제어 일반 차단
+        const lemma = keepLemmaOnlyIfInText(
+          token.surface,
+          unmangleMenPlural(token.surface, token.lemma),
+          chapterTokens,
+        )
         // Phase 14.7.1 노이즈 필터 (숫자/약어/외래기호/호칭/contraction)
         if (!isValidLearningWord(lemma)) continue
         // Phase 14.8 — 아포스트로피 생략 방언 파편 (foun'·hadn'·doin'·wukkin')
