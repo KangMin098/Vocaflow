@@ -340,6 +340,60 @@ D4b 로 dialect 티어가 coverage-clean 보다 앞서게 됐으므로, 등록�
 
 **별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 **목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 없다.** `thy`→`your`·`hisself`→`himself` 가 dialect 티어를 못 타는 원인이고, `em` 은 `them` 대신 주격 `they` 로 우회 연결했다. 대명사 굴절 계열 등재는 VCB 소관.
 
+### 전 카탈로그 추출 품질 자기감사 루프 — 결함 4종 제거 + 상시 하네스 (마이그레이션 3건)
+
+**[20260811044703](../supabase/migrations/20260811044703_negation_preserving_binding.sql) · [20260811045255](../supabase/migrations/20260811045255_extraction_quality_audit.sql) · [20260811045603](../supabase/migrations/20260811045603_abbrev_binding_and_ghost_purge.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+38권 96,636행을 버킷(학습대상/미등록/외국어/노이즈/미해결)으로 나눠 **학습대상 91,170행을 처음 감사**했다. 이전 작업은 전부 미결합 쪽만 봤는데, 학습자가 실제로 외우는 건 결합된 쪽이다.
+
+#### R1 결함① — 반대말 결합 88단어 / 184회
+
+| 표면형 | 결합 lemma | 학습자가 본 뜻 |
+|---|---|---|
+| `imprudent`(경솔한) | `prudent` | 신중한, 분별 있는 |
+| `unwilling`(꺼리는) | `willing` | 기꺼이 ~하는 |
+| `mislead` | `lead` | **납; 흑연심** |
+| `needless`·`blameless`·`regardless` | `need`·`blame`·`regard` | — |
+
+경로 추적: 현재 바인딩 함수들은 굴절 기반이라 이런 결합을 만들지 않고, `resolve_dict_headword` 도 부정 보존이 정상(`unreserved`→`unreserve`)이다. **레거시 행**이 `select_*_vocab` 의 `COALESCE(bv.lemma, bv.word)` 를 타고 전파된 것. 88단어 중 99행은 surface-first 규칙(`20260718100000`)이 막아줬지만 **9건이 전파됐고 4건은 이미 발행 단어장에** 실려 있었다 — `unreserved`→"비축" · `unshackled`→"수갑, 족쇄" · `unblemished`→"흠, 얼룩" · `unacknowledged`→"인정하다".
+
+→ 불변식 `en_negation_preserved(surface, headword)` 신설 + 바인딩 경로 2곳이 강제 + 오염 88단어 `lemma=NULL`. **0건.**
+
+#### R2 결함② — 약어 표제어 오결합
+
+`dren`→`dr`("박사") · `ther`→`th`. 약어는 굴절형을 갖지 않으므로 굴절 폴백에서 `word_register='abbreviation'` 제외(직접 매칭 `bc`→`bc` 는 유지). **0건.**
+
+#### R2 결함③ — 유령 어휘 (전 카탈로그로 확대)
+
+Sociology 정리는 그 책만 대상이었는데 재감사에서 다른 책에도 있었다 — Ozma of Oz `tle`(6)·`peo`(3)·`cean`·`ture`, P&P `rs`(2), Styles `ture`. Gutenberg 소스라 원인은 엔티티가 아니라 드롭캡/줄바꿈 하이픈이지만 **판정 방법은 동일**하다(본문 대조). `purge_ghost_vocab(uuid DEFAULT NULL)` 로 일반화 → 7행 제거, **0건.**
+
+#### 남은 결함④ — 문맥POS 미대응 sense 1,370단어 / 9,788회 (사전 내용)
+
+`shared_dictionary` 가 동형이의어를 **단일 품사**로만 기록하고 하필 학습자에게 덜 중요한 뜻을 대표로 잡았다:
+
+| 표제어 | 코퍼스 우세 POS | 현재 대표 뜻 |
+|---|---|---|
+| `high` (172회) | adjective | **"황홀감, 들뜸; 약물 환각"** |
+| `lead` (152) | verb | **"납; (미국) 흑연심"** |
+| `hide` (122) | verb | **"가죽, 짐승의 가죽"** |
+| `mean` (252) | verb | "비열한, 못된" |
+| `lay` (93) | verb | "평신도의, 비전문가의" |
+| `gun` (34) | noun | "엔진을 힘껏 가동하다" |
+
+추출·바인딩 결함이 아니라 **사전 내용** 문제라 이 파이프라인에서 고칠 수 없다. winkNLP 태거가 불안정해(`uttered`→noun, `everything`→verb) 일괄 제외도 오답이다. → **출현 가중 합의(우세 POS 30회 이상)로 고신뢰 27건만 추린 작업 큐 `v_dict_pos_sense_gap` 을 물질화**해 VCB 로 넘긴다.
+
+#### 상시 하네스
+
+`v_extraction_quality_audit` — 결함 5클래스 + INFO 1행. 새 도서 유입 후 DEFECT 행이 0 이 아니면 그게 작업 대상이다. INFO(90 사전 미수록 잔여 320단어)는 0 이 목표가 아니다 — 본문에 실재하는 프랑스 은어·그리스/라틴·문화 차용어라 정직한 잔여이고 `dict-selfheal` 드레인 대상.
+
+| 결함 | 이전 | 이후 |
+|---|--:|--:|
+| 01 반대말 결합 | 88단어 | **0** |
+| 02 register 오결합 | 2단어 | **0** |
+| 03 문맥POS 미대응 sense | 1,370단어 | 1,370 (VCB 큐로 이관) |
+| 04 유령 어휘 | 7행 | **0** |
+| 05 HTML 엔티티 | 0 | **0** |
+
 ### HTML 엔티티 잔존 전수 제거 — 재수집 없이 (마이그레이션 4건)
 
 **[20260811035506](../supabase/migrations/20260811035506_views_security_invoker_extraction.sql) · [20260811035529](../supabase/migrations/20260811035529_fix_chapter_html_entities.sql) · [20260811035548](../supabase/migrations/20260811035548_decode_entities_in_stored_sentences.sql) · [20260811040100](../supabase/migrations/20260811040100_decode_entities_article_sentences.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
