@@ -424,7 +424,10 @@ ORDER BY version DESC LIMIT 20;
 
 ### 상태 (`pd_issues_status_chk`)
 
-`queued → acquired → restored → segmented → ocr → review → published` (+ `archived`).
+`queued → acquired → restored → segmented → ocr → [modernized] → review → published` (+ `archived`).
+
+`modernized` 는 **선택 단계**다 — 드레인 체인에 없고 별도 트리거(`/api/pdcp/modernize`)로만 들어간다.
+건너뛸 수 있고(ocr→review 직행이 기본), 산출물은 `panels/` 를 덮지 않고 `modern/` 에 따로 쓴다.
 
 `failed` 는 CHECK 에 남아 있지만 **드레인이 쓰지 않는다** — status 를 덮으면 어느 단계에서
 멈췄는지가 사라져 재시도 지점을 복원할 수 없기 때문. 실패는 `last_error` 로만 표시하고
@@ -449,6 +452,16 @@ status <> 'published' OR (pd_basis IS NOT NULL AND pd_checked_at IS NOT NULL
 ### 어댑터 (`pd_issues_adapter_chk`)
 
 `internet-archive` · `browser-assist` · `local-dir` · `iiif`.
+
+### 현대화 기록
+
+`modernize_track`(preserve=CPU 보존 / restyle=모델 재작화) · `modernize_model` · `modernize_env`.
+
+**restyle 이면 모델·환경이 반드시 남는다**(CHECK 강제) — 없으면 어느 모델 산출물인지
+나중에 알 방법이 없어 재현도 라이선스 감사도 불가능하다.
+
+CCP 의 `comic_gen_runs` 를 PDCP 도 쓴다: `library_book_id` 를 nullable 로 완화하고
+`pd_issue_id` 를 추가, 둘 중 하나는 반드시 있어야 한다(앵커 없는 고아 run 차단).
 
 ### 관측 컬럼
 

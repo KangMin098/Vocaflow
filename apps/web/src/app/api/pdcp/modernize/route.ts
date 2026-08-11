@@ -20,6 +20,11 @@ import { createAdminClient } from '@/lib/supabase/admin'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
+// 모델·환경은 여기 한 곳에만 적는다. CLI 인자와 DB 기록이 갈리면 감사 기록이 거짓이 된다.
+const MODEL = 'qwen-image-edit-2511'
+// edit 워크플로가 RunPod 에만 프로비저닝돼 있다(Kaggle T4 = t2i-only, 실측).
+const ENV = 'runpod-4090'
+
 const tail = (s: string, n = 6) => (s || '').split('\n').filter(Boolean).slice(-n)
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -44,7 +49,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     track === 'erase-preview'
       ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--erase-only'], timeoutMs: 300_000 }]
       : track === 'restyle'
-      ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--model', 'qwen-image-edit-2511', '--env', 'runpod-4090', '--limit', '8'], timeoutMs: 600_000 }]
+      ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--model', MODEL, '--env', ENV, '--limit', '8'], timeoutMs: 600_000 }]
       : [
           { script: 'page-modern.mjs', args: ['--workdir', wd, '--level', 'MAX'], timeoutMs: 300_000 },
           { script: 'page-html.mjs', args: ['--workdir', wd], timeoutMs: 120_000 },
@@ -61,6 +66,20 @@ export async function POST(request: Request): Promise<NextResponse> {
         steps: results,
       })
     }
+  }
+
+  // 어떤 트랙·모델로 만들었는지 남긴다 — 없으면 재현도 라이선스 감사도 불가능하다.
+  // 지우기 확인은 산출물이 아니므로 기록하지 않는다(GPU 도 안 쓴다).
+  if (track !== 'erase-preview') {
+    await client
+      .from('pd_comic_issues')
+      .update({
+        status: 'modernized',
+        modernize_track: track,
+        modernize_model: track === 'restyle' ? MODEL : null,
+        modernize_env: track === 'restyle' ? ENV : null,
+      })
+      .eq('id', issueId)
   }
 
   return NextResponse.json({ ok: true, track, slug: row?.slug ?? null, steps: results })

@@ -16,6 +16,8 @@ export const PD_STAGES = [
   { key: 'restored', label: '복원' },
   { key: 'segmented', label: '컷 분할' },
   { key: 'ocr', label: '대사 추출' },
+  // 선택 단계 — 건너뛸 수 있다(ocr→review 직행이 기본). 산출물은 modern/ 에 따로 쓴다.
+  { key: 'modernized', label: '현대화' },
   { key: 'review', label: '검수' },
   { key: 'published', label: '발행' },
 ] as const

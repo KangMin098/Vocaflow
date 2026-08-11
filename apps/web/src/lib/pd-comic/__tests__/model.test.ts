@@ -22,13 +22,14 @@ const DRAIN_TRANSITIONS: Array<[string, string]> = [
 ]
 
 describe('PD_STAGES', () => {
-  it('취득 전 대기 상태부터 발행까지 7단계', () => {
+  it('대기부터 발행까지 8단계 — modernized 는 선택 단계', () => {
     expect(PD_STAGES.map((s) => s.key)).toEqual([
       'queued',
       'acquired',
       'restored',
       'segmented',
       'ocr',
+      'modernized', // 선택 — 드레인 체인에 없다(별도 트리거)
       'review',
       'published',
     ])
@@ -42,15 +43,26 @@ describe('PD_STAGES', () => {
     expect(new Set(PD_STAGES.map((s) => s.key)).size).toBe(PD_STAGES.length)
   })
 
-  it('드레인 전이표의 각 단계가 바로 다음 단계로 이어진다', () => {
+  it('드레인 전이표는 순서를 거스르지 않는다 (선택 단계를 건너뛸 수 있다)', () => {
     for (const [from, to] of DRAIN_TRANSITIONS) {
-      expect(stageIndex(to), `${from} → ${to}`).toBe(stageIndex(from) + 1)
+      expect(stageIndex(to), `${from} → ${to}`).toBeGreaterThan(stageIndex(from))
     }
   })
 
-  it('드레인 대상은 published 를 뺀 앞 단계들과 정확히 일치한다', () => {
+  it('드레인 체인은 modernized 를 건너뛴다 — 선택 단계라 자동 진행하지 않는다', () => {
     const drainable = DRAIN_TRANSITIONS.map(([from]) => from)
-    expect(drainable).toEqual(PD_STAGES.slice(0, -2).map((s) => s.key))
+    const optional = new Set(['modernized'])
+    // published·review 는 드레인 종점 이후라 제외, modernized 는 별도 트리거
+    expect(drainable).toEqual(
+      PD_STAGES.slice(0, -2)
+        .map((s) => s.key)
+        .filter((k) => !optional.has(k)),
+    )
+  })
+
+  it('선택 단계도 순서상 제자리에 있다 — ocr 다음, review 앞', () => {
+    expect(stageIndex('modernized')).toBe(stageIndex('ocr') + 1)
+    expect(stageIndex('review')).toBe(stageIndex('modernized') + 1)
   })
 })
 
