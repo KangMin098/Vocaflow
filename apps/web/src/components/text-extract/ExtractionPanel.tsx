@@ -253,15 +253,26 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         return n
       })
     }
-    try {
-      const supabase = createClient()
-      await supabase.rpc('set_word_familiarity', {
-        p_lemma: lemma,
-        p_verdict: verdict,
-        p_v_level: r.v_level,
+    // 낙관적 UI 는 유지한다(판정은 위에서 이미 화면에 반영됐다). 다만 **조용히 버리지 않는다** —
+    // supabase.rpc 는 throw 하지 않고 `{ error }` 를 반환하므로 try/catch 만으로는 아무것도
+    // 잡지 못했고, error 검사도 없었다. 그 결과 word_familiarity 테이블이 사라진 동안
+    // 판정이 "성공한 것처럼 보이며" 전부 유실됐다(20260719 drop → 20260812 복원).
+    // 실패를 학습자에게 알리고 화면 표시도 되돌린다 — 저장 안 된 판정을 저장된 것처럼
+    // 보여주는 것이 이 화면에서 가장 나쁜 거짓말이다.
+    const supabase = createClient()
+    const { error: rpcErr } = await supabase.rpc('set_word_familiarity', {
+      p_lemma: lemma,
+      p_verdict: verdict,
+      p_v_level: r.v_level,
+    })
+    if (rpcErr) {
+      setFamiliar((f) => {
+        const next = { ...f }
+        delete next[r.word]
+        return next
       })
-    } catch {
-      /* 낙관적 UI — 실패해도 화면 상태 유지, 다음 세션에 재시도 */
+      if (verdict === 'known') setSelected((s) => new Set(s).add(r.word))
+      setError('판정을 저장하지 못했어요 — 다시 눌러 주세요')
     }
   }
 

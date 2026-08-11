@@ -7,10 +7,33 @@
 
 ## 요약
 
-- **테이블**: 77 (public schema · +CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · +추출신뢰 `word_familiarity` · +어원 `word_roots`·`word_root_links` · +추출품질 `extraction_judgments`)
-- **Views**: 7 (+`csat_stage_catalog` · +`word_mislevel_signal`)
-- **Functions**: 262 (`admin_*` 18 / `auto_*` `compute_*` `collect_*` 9 / `vrl_*` `*diagnostic*` `*promote*` 10 / `quiz_*`·`*chapter_quiz*` 5 (v06.114) / 추출해소 `resolve_dict_headword`·`infer_form_pos`·`set_word_familiarity` / 그 외 ~215)
-- **Migrations 누적**: 72+ 적용됨 (CTP 데이터모델 3건 + 추출경로 통합/신뢰 8건 + 소스 4건 + 추출품질 2건 포함)
+- **테이블**: **81** · **Views**: **10** · **Functions**: **321** · **Migrations**: **412** (2026-08-12 DB 직접 쿼리 실측)
+- 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
+- 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
+
+### ⛔ 스키마 드리프트 — RPC 8개가 없는 테이블을 참조 중 (2026-08-12 발견)
+
+`20260719161409_drop_unused_empty_tables` 가 "빈 테이블 정리"로 13개를 `CASCADE` 삭제했다.
+**비어 있음 ≠ 미사용** 이었고, `DROP TABLE ... CASCADE` 는 뷰·제약은 지우지만 **함수는 지우지 않는다** — 그래서 참조하던 RPC 가 그대로 남아 런타임에 `relation ... does not exist` 로 실패한다.
+
+| 지워진 테이블 | 참조하는 RPC | 코드 접근 | 상태 |
+|---|---|--:|---|
+| `word_familiarity` | `extract_vocabulary_for_user_v2` · `set_word_familiarity` | RPC 경유 | ✅ **복원** ([20260812093000](../supabase/migrations/20260812093000_restore_word_familiarity.sql)) |
+| `vocab_raw_texts` | — | 8곳 | ❌ `/admin/vocab/sources` 500 · VCB 스크립트 3개 |
+| `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ❌ lexicon 조회 5곳 |
+| `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ❌ 교사 클래스 |
+| `pending_words` | `record_pending_words` | 3곳 | ❌ `/admin/pending-words` |
+| `csat_item_attempts` | `grade_dcp_item` · `derive_learner_stage` | 2곳 | ❌ DCP 채점 |
+| `reports` | — | 1곳 | ⚠️ `admin/layout` 은 try/catch 로 안전(뱃지만 0) |
+| `dictation_sessions`·`dictation_items`·`achievements`·`assignments`·`user_level_progress` | — | 0곳 | ✅ 정당한 삭제 |
+
+**교훈**: 테이블을 지우기 전에 `pg_proc.prosrc` 를 검색해야 한다. 행 수 0 은 미사용의 증거가 아니다.
+
+```sql
+-- 지우기 전 필수 점검
+select p.proname from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+where n.nspname='public' and p.prosrc ilike '%<table>%';
+```
 
 ### 🎯 추출 품질 — 바인딩 수리 + 판정 하네스 (2026-07-18)
 

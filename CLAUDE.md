@@ -156,7 +156,8 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 ## 📊 DB 핵심 통계 (2026-08-09)
 
-- **81 테이블** · **6 view** · **310 함수** · **377 migrations** (2026-08-09 실측)
+- **81 테이블** · **10 view** · **321 함수** · **412 migrations** (2026-08-12 실측)
+- ⚠️ **RPC 8개가 없는 테이블을 참조 중** — `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았다. `word_familiarity` 는 복원(20260812), 나머지 5개(`vocab_raw_texts`·`word_lexicon`·`classes`·`class_members`·`pending_words`·`csat_item_attempts`)는 미해결. 상세: [DB_SCHEMA.md](./docs/DB_SCHEMA.md)
 - 전체 DB: **350 MB** (v06.34 VACUUM FULL 후, 이전 606 MB)
 - `shared_dictionary` 45,292 row · meaning_ko 100%
 - `library_books` 20 · `texts` 238 · `vocabularies` 5,896

@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### 스키마 드리프트 — "빈 테이블 정리"가 살아 있는 기능 6개를 끊고 있었다 (마이그레이션 1건)
+
+**마이그레이션 [20260812093000_restore_word_familiarity.sql](../supabase/migrations/20260812093000_restore_word_familiarity.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
+
+프레임워크 Phase 1(정직성 복구)의 첫 항목으로 `word_familiarity` 부재를 진단하다가, **원인이 하나임**을 발견했다. `20260719161409_drop_unused_empty_tables` 가 "빈 테이블 정리"로 13개를 `CASCADE` 삭제했는데 —
+
+- **비어 있음 ≠ 미사용.** 그중 6개가 살아 있는 코드·RPC 에 참조돼 있었다.
+- **`DROP TABLE ... CASCADE` 는 함수를 지우지 않는다.** 뷰·제약은 따라 지워지지만 `pg_proc` 은 대상이 아니어서, 참조하던 RPC **8개**가 그대로 남아 런타임에 `relation ... does not exist` 로 실패했다.
+- 앞서 별건으로 발견한 `/admin/vocab/sources` 500(`vocab_raw_texts`)도 **같은 마이그레이션**이었다.
+
+#### `word_familiarity` 3개 호출 지점의 심각도가 달랐다
+
+| 지점 | 처리 | 학습자가 본 것 |
+|---|---|---|
+| `ExtractionPanel.tsx:186` `extract_vocabulary_for_user_v2` | `setError(rpcErr.message)` | **원시 Postgres 에러** — 추출이 막힘 |
+| `ExtractionPanel.tsx:258` `set_word_familiarity` | try/catch 무시 | **성공한 것처럼 보이고 판정 유실** |
+| `ExtractionPanel.tsx:229` `record_pending_words` | `void` | 설계상 best-effort |
+
+258번이 더 위험했다 — `supabase.rpc` 는 throw 하지 않고 `{ error }` 를 반환하므로 try/catch 는 애초에 발동하지 않고, `error` 검사도 없었다. **어느 쪽으로도 조용히 버려졌다.**
+
+- 원본 DDL(20260715224958) **그대로** 복원 — 추측 대신 마이그레이션 이력에서 꺼냈다. RPC 2개는 살아 있어 재생성 불필요. CASCADE 로 함께 사라진 뷰 `word_mislevel_signal` 도 복원.
+- **침묵도 함께 고쳤다** — `markFamiliarity` 가 실패 시 낙관적 표시를 되돌리고 학습자에게 알린다. 저장 안 된 판정을 저장된 것처럼 보여주는 것이 이 화면에서 가장 나쁜 거짓말이다.
+- 검증 4단: 구조(RLS·정책·인덱스·뷰) → 깨진 RPC 실호출(5단어 → 2행) → upsert/CHECK/`v_level` COALESCE 보존을 DO 블록으로 실측(탐침 잔여 0) → e2e `08-text-extract-trust` 가 known/unknown DB 영속화까지 단언하며 통과.
+- 문서 통계를 실측으로 교체 — 테이블 81 · view 10 · 함수 321 · migrations 412. 이전 기재(77/7/262/72+)는 최대 5.7배 어긋나 있었다.
+
+**미해결(각각 별도 판단 필요)**: `vocab_raw_texts` · `word_lexicon` · `classes`/`class_members` · `pending_words` · `csat_item_attempts`. 복구가 맞는 것과 코드에서 참조를 걷는 것이 기능별로 다르다 — [DB_SCHEMA.md §스키마 드리프트](./DB_SCHEMA.md) 에 표로 정리.
+
+**재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색을 DB_SCHEMA.md 에 필수 점검으로 명문화.
+
 ### 단어 추출 79권 규모 검증 — 문자·형태소 결함 3종 제거 + L1/L2 전달 계층 분리
 
 Standard Ebooks 대량 추출 러너(`scripts/lcp/batch-extract.mjs`, `est_v_level` 층화·재개 가능·멱등)로
