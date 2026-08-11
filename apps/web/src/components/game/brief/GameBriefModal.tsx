@@ -25,7 +25,8 @@ import { createPortal } from 'react-dom'
 import type { CSSProperties } from 'react'
 
 import BriefBoard, { BRIEF_BOARD_CSS } from '@/components/game/brief/BriefBoard'
-import { GAME_BRIEFS } from '@/lib/game/brief'
+import { GAME_BRIEFS, gaugesOf, pressablesOf, slotStepOf } from '@/lib/game/brief'
+import type { BriefGaugeState } from '@/lib/game/brief'
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog'
 
 export interface BriefEntry {
@@ -201,7 +202,7 @@ export default function GameBriefModal({ entries, familyName, onClose }: Props) 
                       board={brief.board}
                       variant="figure"
                       figure={fig}
-                      answer={brief.trial.steps[0]?.want}
+                      answer={slotStepOf(brief)?.want}
                     />
                     <figcaption className="bf-fig-cap">
                       <span className="bf-fig-num" aria-hidden="true">
@@ -252,9 +253,13 @@ export default function GameBriefModal({ entries, familyName, onClose }: Props) 
 
 // ── Trial Run — 눌러서 통과하는 미니 절차 ───────────────────────────
 //
-// 판정은 브리핑 데이터의 `want` 하나로만 한다. 게임 로직을 흉내 내지 않는 이유:
-// 흉내는 반드시 실제와 어긋나고, 어긋난 순간 튜토리얼이 거짓말이 된다.
-// 여기서 가르치는 것은 점수 규칙이 아니라 **손동작 하나**다.
+// 판정은 브리핑 데이터의 `want`(또는 타이핑 스텝의 `type.answer`) 로만 한다.
+// 게임 로직을 흉내 내지 않는 이유: 흉내는 반드시 실제와 어긋나고, 어긋난 순간
+// 튜토리얼이 거짓말이 된다. 여기서 가르치는 것은 점수 규칙이 아니라 **결정 하나**다.
+//
+// 스텝을 여러 개 두는 이유(v08.4): 게임마다 다른 것은 "뜻 고르기" 가 아니라 그 앞뒤에
+// 붙는 결정이다. 1스텝 뜻 고르기만 시키면 19종의 트라이얼이 전부 같아진다 — 실제로
+// 그랬다(전수 평가 decisive 1.11/4). 그래서 결정 → 실행 순서를 스텝으로 나눈다.
 function Trial({ slug }: { slug: GameSlug }) {
   const brief = GAME_BRIEFS[slug]
   const steps = useMemo(() => brief?.trial.steps ?? [], [brief])
@@ -264,6 +269,10 @@ function Trial({ slug }: { slug: GameSlug }) {
   const [wrong, setWrong] = useState<string | null>(null)
   const [misses, setMisses] = useState(0)
   const [solved, setSolved] = useState(false)
+  const [typed, setTyped] = useState('')
+  /** 비용 타일이 깎아 놓은 게이지 — 지출이 그림으로 보이게 한다. */
+  const [hudState, setHudState] = useState<(BriefGaugeState | null)[]>([])
+  const [spent, setSpent] = useState<string | null>(null)
   const timers = useRef<number[]>([])
 
   useEffect(
@@ -281,13 +290,50 @@ function Trial({ slug }: { slug: GameSlug }) {
     setWrong(null)
     setMisses(0)
     setSolved(false)
+    setTyped('')
+    setHudState([])
+    setSpent(null)
   }, [])
 
   const current = steps[Math.min(step, steps.length - 1)]
+  const typingStep = current?.type
+
+  const advance = useCallback(() => {
+    if (step + 1 < steps.length) {
+      timers.current.push(
+        window.setTimeout(() => {
+          setStep((s) => s + 1)
+          setMisses(0)
+          setTyped('')
+          setSpent(null)
+        }, 620),
+      )
+    } else {
+      timers.current.push(window.setTimeout(() => setSolved(true), 420))
+    }
+  }, [step, steps.length])
 
   const onPick = useCallback(
     (id: string) => {
       if (solved || !current) return
+
+      // 비용 타일 — 누르면 게이지가 실제로 깎인다. 지출은 오답이 아니라 수단이므로
+      // 흔들지도, miss 로 세지도 않는다(그러면 학습자가 그것을 실수로 배운다).
+      const cost = brief?.board.tokens.find((t) => t.id === id)?.effect
+      if (cost && !current.want.includes(id)) {
+        const gi = cost.gauge ?? 0
+        const g = gaugesOf(brief.board)[gi]
+        setHudState((prev) => {
+          const next = [...prev]
+          const cur = next[gi] ?? {}
+          if (g?.pips) next[gi] = { ...cur, left: Math.max(0, (cur.left ?? g.pips.left) + (cost.delta ?? -1)) }
+          else next[gi] = { ...cur, pct: Math.max(0, Math.min(1, (cur.pct ?? g?.pct ?? 0) + (cost.delta ?? -0.1))) }
+          return next
+        })
+        setSpent(cost.badge ?? '지출')
+        return
+      }
+
       const got = picked.filter((p) => current.want.includes(p))
       const isRight = current.ordered
         ? current.want[got.length] === id
@@ -305,18 +351,26 @@ function Trial({ slug }: { slug: GameSlug }) {
       if (got.length + 1 < current.want.length) return
 
       // 스텝 통과 — ✓ 를 보여 준 뒤 넘어간다(즉시 전환하면 무엇이 맞았는지 못 본다).
-      if (step + 1 < steps.length) {
-        timers.current.push(
-          window.setTimeout(() => {
-            setStep((s) => s + 1)
-            setMisses(0)
-          }, 620),
-        )
+      advance()
+    },
+    [advance, brief, current, picked, solved],
+  )
+
+  /** 타이핑 스텝 — 후보가 없는 게임(봉인·아웃코스·야경)의 유일한 정직한 표현. */
+  const onType = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      if (solved || !typingStep) return
+      const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, '')
+      if (norm(typed) === norm(typingStep.answer)) {
+        advance()
       } else {
-        timers.current.push(window.setTimeout(() => setSolved(true), 420))
+        setMisses((m) => m + 1)
+        setWrong('__typed')
+        timers.current.push(window.setTimeout(() => setWrong(null), 480))
       }
     },
-    [current, picked, solved, step, steps.length],
+    [advance, solved, typed, typingStep],
   )
 
   if (!brief || steps.length === 0) return null
@@ -342,12 +396,47 @@ function Trial({ slug }: { slug: GameSlug }) {
         <BriefBoard
           board={brief.board}
           variant="trial"
+          surface={current}
           step={step}
           picked={picked}
           wrong={wrong}
           solved={solved}
+          hudState={hudState}
+          typed={typed}
           onPick={onPick}
         />
+
+        {/* 타이핑 스텝 — 트레이가 없는 게임은 칸 수만 보이고 철자를 직접 친다.
+            탭으로 통과시키면 그 게임의 유일한 진짜 인출을 재인으로 바꿔 가르치게 된다. */}
+        {typingStep && !solved && (
+          <form className="bf-type" onSubmit={onType}>
+            <label className="bf-type-label" htmlFor={`${slug}-type`}>
+              {typingStep.label ?? '철자를 직접 입력'}
+            </label>
+            <span className="bf-type-row">
+              <input
+                id={`${slug}-type`}
+                className="bf-type-in"
+                data-wrong={wrong === '__typed' ? '1' : '0'}
+                value={typed}
+                onChange={(e) => setTyped(e.target.value)}
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                aria-invalid={wrong === '__typed'}
+              />
+              <button type="submit" className="bf-type-go" disabled={!typed.trim()}>
+                제출
+              </button>
+            </span>
+          </form>
+        )}
+
+        {spent && !solved && (
+          <p className="bf-spent" role="status" aria-live="polite">
+            {spent} — 실제 판에서도 이만큼을 내고 정보를 삽니다.
+          </p>
+        )}
 
         <div className="bf-trial-foot">
           {solved ? (
@@ -468,6 +557,26 @@ const BRIEF_CSS = `
     transition: background-color .15s var(--ease, ease), color .15s var(--ease, ease); }
   .bf-again:hover { background: rgba(255,255,255,.14); color: #fff; }
   .bf-again:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--m-accent); }
+
+  /* 타이핑 스텝 — 후보가 없는 게임의 손동작. 슬롯 바로 아래에 붙여 "이 칸을 채운다" 를 잇는다. */
+  .bf-type { display: flex; flex-direction: column; gap: 5px; }
+  .bf-type-label { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800;
+    letter-spacing: .12em; text-transform: uppercase; color: rgba(240,234,224,.6); }
+  .bf-type-row { display: flex; gap: 8px; }
+  .bf-type-in { flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border-radius: 10px;
+    font-family: var(--font-english, ui-monospace, monospace); font-size: 15px; font-weight: 700; letter-spacing: .06em;
+    color: #FFF6EA; background: rgba(0,0,0,.34); border: 1px solid rgba(255,255,255,.2); }
+  .bf-type-in:focus-visible { outline: none; border-color: var(--m-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--m-accent) 40%, transparent); }
+  .bf-type-in[data-wrong="1"] { border-color: rgba(232,140,124,.7); animation: bb-shake .32s var(--ease, ease); }
+  .bf-type-go { flex: none; min-height: 44px; padding: 0 16px; border-radius: 10px; cursor: pointer; font: inherit;
+    font-size: 12.5px; font-weight: 800; color: #17130E;
+    background: var(--m-accent); border: 1px solid color-mix(in srgb, var(--m-accent) 70%, #000); }
+  .bf-type-go:disabled { cursor: default; opacity: .45; }
+  .bf-type-go:focus-visible { outline: none; box-shadow: 0 0 0 3px #FFF6EA; }
+
+  /* 비용 타일을 눌렀을 때 — 지출은 실수가 아니라 수단이라는 것을 말로도 확인해 준다. */
+  .bf-spent { margin: 0; font-family: var(--font-body, system-ui, sans-serif); font-size: 12px; line-height: 1.5;
+    color: #F3D9AC; }
 
   /* 노트 */
   .bf-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }

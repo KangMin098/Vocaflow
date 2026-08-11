@@ -142,6 +142,10 @@ test.describe('A. 발견성 — 비로그인(단어 0)', () => {
   // 재설계 전 결함: 게임을 고르는 근거가 이름·색·한 줄 태그라인뿐이었다. 19종은 저마다
   // 판돈 구조(시계·거리·자본·박)가 다른데 들어가 봐야만 알 수 있어, 선택이 사실상 찍기였다.
   // 계약은 "**텍스트가 아니라 보드 그림**으로 설명하고, **눌러서 통과**하게 한다" 이다.
+  // 여기서는 **계약**만 본다 — 프레임 3장 · 트라이얼 존재 · 오답 거부 · Launch 목적지.
+  // 게임별 트라이얼 내용(어떤 타일을 어떤 순서로 누르는가)은 15-arcade-brief.spec.ts 가
+  // 브리핑 데이터를 그대로 읽어 19종 전수로 구동한다. 여기에 특정 게임의 토큰 id 를
+  // 하드코딩하면 브리핑을 고칠 때마다 무관한 스펙이 빨개진다(v08.4 에서 실제로 그랬다).
   test('G1. 카드 (?) → Protocol: 보드 그림 3장 + 눌러서 통과하는 Trial Run', async ({ page }) => {
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
     const trigger = page.getByRole('button', { name: /^Cascade — 게임 설명/ });
@@ -159,19 +163,25 @@ test.describe('A. 발견성 — 비로그인(단어 0)', () => {
     const trial = dlg.locator('.bb[data-variant="trial"]');
     await expect(trial).toBeVisible();
 
-    // 오답은 통과시키지 않는다(튜토리얼이 그냥 넘어가면 아무것도 가르치지 못한다)
-    await trial.getByRole('button', { name: /comply/ }).click();
-    await expect(dlg.locator('.bf-ok')).toHaveCount(0);
-
-    // 정답이면 통과
-    await trial.getByRole('button', { name: /collapse/ }).click();
-    await expect(dlg.locator('.bf-ok')).toBeVisible({ timeout: 5_000 });
+    // 오답은 통과시키지 않는다(튜토리얼이 그냥 넘어가면 아무것도 가르치지 못한다).
+    // 어느 타일이 오답인지는 데이터가 정하므로, "정답 아닌 것 하나" 를 화면에서 찾는다 —
+    // 정답 계열은 눌리면 aria-pressed 가 켜지고 오답은 흔들리기만 한다.
+    const tiles = trial.locator('.bb-tiles .bb-tile');
+    const n = await tiles.count();
+    expect(n, '트라이얼 보드에 누를 타일이 없다').toBeGreaterThan(1);
+    let rejected = false;
+    for (let i = 0; i < n; i++) {
+      await tiles.nth(i).click();
+      if ((await tiles.nth(i).getAttribute('aria-pressed')) === 'false') {
+        rejected = true;
+        break;
+      }
+    }
+    expect(rejected, '어느 타일을 눌러도 거부되지 않는다 — 오답을 통과시키고 있다').toBe(true);
+    await expect(dlg.locator('.bf-ok'), '오답으로 트라이얼이 통과됐다').toHaveCount(0);
 
     // Launch 는 카드와 같은 목적지여야 한다(브리핑이 막다른 길이 되지 않게)
-    await expect(dlg.getByRole('link', { name: /Launch/ })).toHaveAttribute(
-      'href',
-      /^\/play\/cascade/,
-    );
+    await expect(dlg.locator('a.bf-launch')).toHaveAttribute('href', /^\/play\/cascade/);
   });
 
   test('G2. Esc 로 닫히고 포커스가 트리거로 돌아온다', async ({ page }) => {
