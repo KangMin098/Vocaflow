@@ -11,7 +11,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { mergeOverlaps } from '../balloons.mjs'
+import { labelForBox, mergeOverlaps } from '../balloons.mjs'
 
 const box = (x, y, w, h, via = 'balloon') => ({ x, y, w, h, via })
 
@@ -66,5 +66,36 @@ describe('mergeOverlaps', () => {
     const snapshot = JSON.stringify(input)
     mergeOverlaps(input)
     expect(JSON.stringify(input)).toBe(snapshot)
+  })
+})
+
+// ─── labelForBox — 글자 주변을 표본해야 하는 이유 (2026-08-11) ────────
+//
+// 단어가 어느 말풍선에 속하는지는 **밝은 성분 id** 로 가른다(기하학보다 강한 신호).
+// 그런데 중심점 한 곳만 보면 글자 한가운데 = 잉크라 -1 이 나온다. 실측에서 그 때문에
+// 캡션 하나가 Colored Servant Right 로 조각났다(대사 60→99개로 과분할).
+// 그래서 박스 위·아래·좌·우 여백을 함께 표본해 다수결로 정한다.
+
+describe('labelForBox', () => {
+  const box = { x0: 40, y0: 40, x1: 60, y1: 60 }
+
+  it('중심이 잉크(-1)여도 주변 여백으로 풍선을 찾는다', () => {
+    const at = (x, y) => (Math.abs(x - 50) < 6 && Math.abs(y - 50) < 6 ? -1 : 7)
+    expect(labelForBox(at, box)).toBe(7)
+  })
+
+  it('전부 배경이면 -1 — 없는 풍선을 지어내지 않는다', () => {
+    expect(labelForBox(() => -1, box)).toBe(-1)
+  })
+
+  it('여러 성분이 걸치면 다수결', () => {
+    // 위·아래는 3, 좌·우는 5 → 동수지만 위/아래가 먼저 투표돼 3
+    const at = (x, y) => (y < 40 || y > 60 ? 3 : 5)
+    expect([3, 5]).toContain(labelForBox(at, box))
+  })
+
+  it('한 성분이 명확히 우세하면 그것을 고른다', () => {
+    const at = (x, y) => (x < 40 ? 9 : 4) // 왼쪽만 9, 나머지 4
+    expect(labelForBox(at, box)).toBe(4)
   })
 })

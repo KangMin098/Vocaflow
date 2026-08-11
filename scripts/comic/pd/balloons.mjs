@@ -230,6 +230,81 @@ export function detectBalloonCandidates(file, opt = {}) {
   return out
 }
 
+/**
+ * 컷 이미지의 밝은 연결요소 라벨맵 — **어느 글자가 어느 말풍선에 속하는지** 판정용.
+ *
+ * 왜 필요한가 (실측 2026-08-11):
+ *   OCR 이 캡션과 말풍선을 한 덩어리로 묶고, 나란한 두 풍선을 지퍼처럼 뒤섞는다.
+ *     "At the big house, …the old colored servant qssuh yassuh/? Orm right"  ← 캡션+풍선
+ *     "Tm only katy harvey binch his place but not ‘home that here he"      ← 좌우 두 풍선
+ *   지금까지는 세로 간격·가로 인접 같은 **기하학으로 추측**했는데, psm11(sparse)은
+ *   레이아웃 분석이 없어 단어가 흩어지므로 기하학만으로는 갈리지 않는다.
+ *
+ *   말풍선은 시각적으로 이미 분리돼 있다 — 각자 다른 밝은 영역 안에 있다.
+ *   그 사실을 쓰면 추측할 필요가 없다: **다른 성분에 있으면 다른 말풍선이다.**
+ *
+ * @returns {{ at: (x:number, y:number) => number, w:number, h:number }}
+ *   at(x,y) — 컷 **원본 픽셀** 좌표를 받아 성분 id(-1 = 배경/잉크)를 돌려준다.
+ */
+export function balloonLabelMap(file, opt = {}) {
+  const analysis = opt.analysis ?? 900
+  const bright = opt.bright ?? BRIGHT
+  const img = readRgb(file, analysis)
+  const { labels } = labelBright(img, bright)
+  // readRgb 는 축소본을 주므로 원본 px → 분석 px 로 환산해서 조회한다.
+  const sx = img.w / (img.srcW || img.w)
+  const sy = img.h / (img.srcH || img.h)
+  const at = (x, y) => {
+    const ax = Math.max(0, Math.min(img.w - 1, Math.round(x * sx)))
+    const ay = Math.max(0, Math.min(img.h - 1, Math.round(y * sy)))
+    const l = labels[ay * img.w + ax]
+    return l >= 0 ? l : -1
+  }
+
+  return {
+    w: img.w,
+    h: img.h,
+    at,
+    /**
+     * 단어 박스가 **어느 말풍선 안에 있는지**.
+     *
+     * ⚠️ 중심점 한 곳만 보면 안 된다 — 글자 한가운데는 대개 **잉크(어두움)** 라 라벨이 -1 이
+     *    나온다. 실측에서 그 때문에 같은 풍선 안 단어들이 서로 다른 라벨을 받아 캡션 하나가
+     *    "Colored" "Servant" "Right" 처럼 조각났다(대사 60→99개로 과분할).
+     *
+     * 그래서 글자 **주변 여백**을 표본한다 — 박스 바로 위·아래·좌·우는 풍선 안쪽 종이다.
+     * 가장 많이 나온 성분을 그 단어의 풍선으로 본다.
+     */
+    labelFor: (box) => labelForBox(at, box),
+  }
+}
+
+/**
+ * 표본 규칙 본체 — 이미지 없이 테스트할 수 있도록 순수 함수로 분리했다.
+ * @param {(x:number,y:number)=>number} at  좌표 → 성분 id (-1 = 배경/잉크)
+ */
+export function labelForBox(at, box) {
+  const w = box.x1 - box.x0
+  const h = box.y1 - box.y0
+  const pad = Math.max(2, h * 0.4)
+  const pts = [
+    [box.x0 + w / 2, box.y0 - pad], // 위
+    [box.x0 + w / 2, box.y1 + pad], // 아래
+    [box.x0 - pad, box.y0 + h / 2], // 왼
+    [box.x1 + pad, box.y0 + h / 2], // 오른
+    [box.x0 + w / 2, box.y0 + h / 2], // 중심(여백일 수도 있다)
+  ]
+  const votes = new Map()
+  for (const [x, y] of pts) {
+    const l = at(x, y)
+    if (l >= 0) votes.set(l, (votes.get(l) ?? 0) + 1)
+  }
+  let best = -1
+  let n = 0
+  for (const [l, c] of votes) if (c > n) { n = c; best = l }
+  return best
+}
+
 /** 두 박스의 교집합 비율(작은 쪽 기준) — 후보와 OCR 결과를 짝지을 때 쓴다. */
 export function overlapRatio(a, b) {
   const ix = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x))

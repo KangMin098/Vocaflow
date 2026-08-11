@@ -35,6 +35,7 @@ import { createRequire } from 'node:module'
 import { pathToFileURL } from 'node:url'
 import { emitProgress } from './progress.mjs'
 
+import { balloonLabelMap } from './balloons.mjs'
 import { probeSize } from './lib-img.mjs'
 import { groupLines, isGarbledWord, judgeBubble, loadLexicon, normalize, truecase } from './ocr.mjs'
 
@@ -106,6 +107,10 @@ function wordsToLines(words, gapFactor = 1.6) {
     const h = w.bbox.y1 - w.bbox.y0
     const cy = (w.bbox.y0 + w.bbox.y1) / 2
     const ln = lines.find((l) => {
+      // ★ 같은 말풍선 안에 있어야 한다 — 기하학보다 강한 신호다.
+      //   좌우로 나란한 두 풍선은 시각적으로 이미 분리돼 있으므로 성분이 다르다.
+      //   (성분을 못 찾은 단어는 -1 이라 서로 묶이지 않는다 — 안전한 쪽으로 실패한다)
+      if (l.label !== w.label) return false
       const sameRow = Math.abs((l.y0 + l.y1) / 2 - cy) < h * 0.6
       if (!sameRow) return false
       // 줄의 오른쪽 끝(또는 왼쪽 끝)과 가까워야 같은 줄. 멀면 다른 말풍선이다.
@@ -118,7 +123,7 @@ function wordsToLines(words, gapFactor = 1.6) {
       ln.x0 = Math.min(ln.x0, w.bbox.x0); ln.y0 = Math.min(ln.y0, w.bbox.y0)
       ln.x1 = Math.max(ln.x1, w.bbox.x1); ln.y1 = Math.max(ln.y1, w.bbox.y1)
     } else {
-      lines.push({ words: [w], x0: w.bbox.x0, y0: w.bbox.y0, x1: w.bbox.x1, y1: w.bbox.y1 })
+      lines.push({ words: [w], label: w.label, x0: w.bbox.x0, y0: w.bbox.y0, x1: w.bbox.x1, y1: w.bbox.y1 })
     }
   }
   for (const l of lines) l.words.sort((a, b) => a.bbox.x0 - b.bbox.x0)
@@ -173,6 +178,9 @@ async function main() {
     const W = data.width ?? probed.w
     const H = data.height ?? probed.h
 
+    // 말풍선 성분 라벨맵 — 캡션/풍선 병합과 좌우 지퍼를 기하학 대신 이걸로 가른다.
+    const lab = (() => { try { return balloonLabelMap(file) } catch { return null } })()
+
     const words = (data.words ?? [])
       .filter((w) => w.text?.trim() && !isNoiseToken(w.text.trim()))
       .filter((w) => {
@@ -180,7 +188,13 @@ async function main() {
         if (!ok) dropped += 1
         return ok
       })
-      .map((w) => ({ text: w.text.trim(), conf: Math.round(w.confidence), bbox: w.bbox }))
+      .map((w) => ({
+        text: w.text.trim(),
+        conf: Math.round(w.confidence),
+        bbox: w.bbox,
+        // 단어 중심이 속한 밝은 성분 = 그 단어가 든 말풍선
+        label: lab ? lab.labelFor(w.bbox) : 0,
+      }))
 
     // 컷 이미지를 직접 읽었으므로 좌표가 이미 컷 기준이다 — 좌표 체인 불필요.
     const panelBox = { x: 0, y: 0, w: W, h: H }
@@ -188,7 +202,9 @@ async function main() {
       rb: { x0: l.x0, y0: l.y0, x1: l.x1, y1: l.y1 },
       text: l.words.map((w) => w.text).join(' '),
       words: l.words.map((w) => ({ text: w.text, conf: w.conf })),
-      lineClass: 'ocr_line',
+      // groupLines 는 lineClass 가 다르면 안 묶는다. 성분 id 를 클래스에 실어
+      // **다른 말풍선끼리 묶이지 않게** 한다(전부 'ocr_line' 이면 가드가 무력화된다).
+      lineClass: `ocr_line#${l.label ?? -1}`,
     }))
 
     const bubbles = groupLines(lines, panelBox).map((g) => {
@@ -240,7 +256,8 @@ async function main() {
   console.log(`→ ${path.relative(process.cwd(), mf)}`)
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+// argv[1] 은 node -e import 시 없다 — 없으면 CLI 실행이 아니다.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((e) => {
     console.error(`\n${e.message}`)
     process.exit(1)

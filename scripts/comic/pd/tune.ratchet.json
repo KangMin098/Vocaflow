@@ -1033,6 +1033,168 @@
           "recall": 1
         }
       ]
+    },
+    {
+      "key": "ocr@v3:_tune-ci",
+      "kind": "ocr",
+      "metricVersion": 3,
+      "sample": "_tune-ci",
+      "at": "2026-08-11T00:07:19.941Z",
+      "best": {
+        "psm": 11,
+        "minConf": 55,
+        "score": 13.577,
+        "clean": 15,
+        "bubbles": 52,
+        "reviewRate": 0.712,
+        "nonLatin": 0,
+        "recall": 1
+      },
+      "improved": true,
+      "previousBest": {
+        "psm": 11,
+        "minConf": 55,
+        "score": 10.632,
+        "clean": 12,
+        "bubbles": 38,
+        "reviewRate": 0.684,
+        "nonLatin": 0,
+        "recall": 1
+      },
+      "tried": 12,
+      "top": [
+        {
+          "psm": 11,
+          "minConf": 55,
+          "score": 13.577,
+          "clean": 15,
+          "bubbles": 52,
+          "reviewRate": 0.712,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 11,
+          "minConf": 40,
+          "score": 13.4,
+          "clean": 15,
+          "bubbles": 75,
+          "reviewRate": 0.8,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 11,
+          "minConf": 25,
+          "score": 11.234,
+          "clean": 13,
+          "bubbles": 111,
+          "reviewRate": 0.883,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 55,
+          "score": 9.4,
+          "clean": 11,
+          "bubbles": 55,
+          "reviewRate": 0.8,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 40,
+          "score": 8.168,
+          "clean": 10,
+          "bubbles": 119,
+          "reviewRate": 0.916,
+          "nonLatin": 0,
+          "recall": 1
+        }
+      ]
+    },
+    {
+      "key": "ocr@v3:_tune",
+      "kind": "ocr",
+      "metricVersion": 3,
+      "sample": "_tune",
+      "at": "2026-08-11T00:12:09.170Z",
+      "best": {
+        "psm": 11,
+        "minConf": 55,
+        "score": 39.497,
+        "clean": 41,
+        "bubbles": 165,
+        "reviewRate": 0.752,
+        "nonLatin": 0,
+        "recall": 1
+      },
+      "improved": true,
+      "previousBest": {
+        "psm": 11,
+        "minConf": 55,
+        "score": 37.79,
+        "clean": 41,
+        "bubbles": 139,
+        "reviewRate": 0.705,
+        "nonLatin": 0,
+        "recall": 0.955
+      },
+      "tried": 12,
+      "top": [
+        {
+          "psm": 11,
+          "minConf": 55,
+          "score": 39.497,
+          "clean": 41,
+          "bubbles": 165,
+          "reviewRate": 0.752,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 11,
+          "minConf": 40,
+          "score": 38.324,
+          "clean": 40,
+          "bubbles": 247,
+          "reviewRate": 0.838,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 55,
+          "score": 31.442,
+          "clean": 38,
+          "bubbles": 187,
+          "reviewRate": 0.797,
+          "nonLatin": 0,
+          "recall": 0.864
+        },
+        {
+          "psm": 11,
+          "minConf": 25,
+          "score": 31.192,
+          "clean": 33,
+          "bubbles": 344,
+          "reviewRate": 0.904,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 40,
+          "score": 27.208,
+          "clean": 32,
+          "bubbles": 307,
+          "reviewRate": 0.896,
+          "nonLatin": 1,
+          "recall": 1
+        }
+      ]
     }
   ]
 }
