@@ -340,6 +340,46 @@ D4b 로 dialect 티어가 coverage-clean 보다 앞서게 됐으므로, 등록�
 
 **별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 **목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 없다.** `thy`→`your`·`hisself`→`himself` 가 dialect 티어를 못 타는 원인이고, `em` 은 `them` 대신 주격 `they` 로 우회 연결했다. 대명사 굴절 계열 등재는 VCB 소관.
 
+### 사전 sense 보강 + 드레인 소진 — 자기감사 루프 R3 (마이그레이션 1건)
+
+**[20260811053500_dict_pos_sense_backfill.sql](../supabase/migrations/20260811053500_dict_pos_sense_backfill.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+#### 사전 sense 보강 — 큐 27건 중 17건
+
+`v_dict_pos_sense_gap` 을 Claude Code 배치로 드레인. `meanings_ko` 에 누락 품사 sense 추가 + 대표 뜻(`meaning_ko`)이 학습자 기준 명백히 틀린 6건 교정:
+
+| 표제어 | 이전 대표 뜻 | 이후 |
+|---|---|---|
+| `high` | **황홀감, 들뜸; 약물 환각** | 높은 — 높이·지위·수준이 높은; (명사) 황홀감, 최고치 |
+| `lead` | 납; (미국) 흑연심 | 이끌다, 인도하다; (명사) 납 (Pb), 연필심 |
+| `hide` | 가죽, 짐승의 가죽 | 숨다, 숨기다; (명사) 짐승의 가죽 |
+| `lay` | 평신도의, 비전문가의 | 놓다, 눕히다; (알을) 낳다; (형용사) 평신도의 |
+| `gun` | 엔진을 힘껏 가동하다 | 총, 총기; (동사, 구어) 엔진을 힘껏 가동하다 |
+| `wash` | 세탁물, 빨래, 옅게 칠한 색 | 씻다, 빨다; (명사) 세탁물, 빨래 |
+
+**10건은 넣지 않았다** — winkNLP 태거 오류라 판단. `uttered`·`flung`(과거분사) · `observing`·`bowing`(동명사)을 noun 으로 태깅, `star`(고전 문학 verb 79회는 비현실적), `awful`·`dear`(adverb). 태거만 믿고 sense 를 넣으면 사전이 오염된다. 큐에 남겨 근거가 더 모이면 재검토.
+
+결함 03: 9,788 → **7,987 출현(−18%)**. 전 카탈로그 재발행 완료.
+
+#### 드레인 소진 확인
+
+`SOURCE=corpus LIMIT=400` 재실행 → **적재 0건**. 315건 중 영어 섹션 없음 299 · reject 6 · thin 9 · 번역실패 1. 앞 라운드에서 회수 가능한 112건을 이미 가져갔고, 남은 것은 Wiktionary 에 영어 표제어로 **존재하지 않는다** — Hugo 은어장 프랑스어 · 그리스/라틴 · 인도 문화 차용어 · 원문 오타 · 의성어. **INFO(90) 320단어는 "사전에 없다"가 정답인 상태**임이 실측으로 확인됐다.
+
+#### 잔여 7,987 출현의 진짜 원인 — `context_pos` 결측
+
+재발행 후에도 `high`→"약물 환각" 같은 항목이 일부 남아 추적했더니, **출현의 대부분이 `context_pos IS NULL` 행**이었다:
+
+| 표제어 | context_pos NULL | 값 있음 |
+|---|--:|--:|
+| `high` | 7행 **1,220회** | adjective 13행 172회 |
+| `lay` | 8행 330회 | verb 10행 93회 |
+| `spring` | 7행 375회 | verb 87 / noun 61 |
+| `hide` | 13행 225회 | verb 122 / noun 21 |
+
+`context_pos` 는 Phase 3 에서 추가된 컬럼이라 **그 이전 추출분(구 파이프라인 9권)이 전부 NULL** 이다. NULL 이면 `select_book_chapter_vocab` 이 `infer_form_pos()` 형태론 휴리스틱으로 폴백하는데, 그게 `high`→noun 을 반환해 "황홀감" 이 선택된다.
+
+→ 재추출 없이 고치려면 **같은 책 다른 챕터의 context_pos 다수결**로 NULL 을 채우는 백필이 가능하다(형태론 추측보다 같은 텍스트의 실측 증거가 낫다). 다음 작업 후보.
+
 ### 전 카탈로그 추출 품질 자기감사 루프 — 결함 4종 제거 + 상시 하네스 (마이그레이션 3건)
 
 **[20260811044703](../supabase/migrations/20260811044703_negation_preserving_binding.sql) · [20260811045255](../supabase/migrations/20260811045255_extraction_quality_audit.sql) · [20260811045603](../supabase/migrations/20260811045603_abbrev_binding_and_ghost_purge.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
