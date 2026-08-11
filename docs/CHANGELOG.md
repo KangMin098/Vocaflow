@@ -386,6 +386,46 @@ D4b 로 dialect 티어가 coverage-clean 보다 앞서게 됐으므로, 등록�
 
 **별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 **목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 없다.** `thy`→`your`·`hisself`→`himself` 가 dialect 티어를 못 타는 원인이고, `em` 은 `them` 대신 주격 `they` 로 우회 연결했다. 대명사 굴절 계열 등재는 VCB 소관.
 
+### 신규 도서 추출 테스트 — 하네스 회귀 검증 + 블랙리스트 오탐 추가 해제 (마이그레이션 1건)
+
+**[20260811114612_blacklist_release_various.sql](../supabase/migrations/20260811114612_blacklist_release_various.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+카탈로그에 없던 **The Jungle Book**(Kipling, Standard Ebooks)을 넣어 파이프라인 전체(ingest→normalize→segment→analyze→V-Level)를 돌리고 하네스가 회귀를 잡는지 검증했다. 힌디 차용어·창작 동물명·고어 2인칭이 섞여 가장 강한 시험 재료다. `reprocess-book.mjs` 사용(API 라우트는 `requireAdmin` 가드라 세션 필요).
+
+**7챕터 / 50,974단어 / 어휘 2,939 / `book_v_level=7` / `cefr_band=B1`**, 챕터 편차 max/median 1.3.
+
+#### 결과 — 결함 4종 전부 0, 회귀 없음
+
+| 버킷 | 행 | 비율 |
+|---|--:|--:|
+| 학습대상(결합) | 2,826 | **96.2%** |
+| 미등록(해석됨) | 75 | 2.6% |
+| 노이즈 | 22 | 0.7% |
+| 미해결 | 16 | 0.5% |
+
+개별 판정을 전수 확인한 결과:
+- **미해결 16건 전부 판정이 옳다** — `snakeling`·`flipperling`·`bearlings`·`untigerish`·`camelty`·`scumfish`(Kipling 조어) · `sssso`·`sssh`·`ahaa`(의성어) · `guddee`·`huqas`·`holluschick`(힌디/러시아 차용어).
+- **고유명사 유입 0건** — `Mowgli`·`Baloo`·`Bagheera`·`Shere Khan`·`Hathi`·`Toomai` 가 하나도 안 들어왔다(PROPN 필터).
+- **dialect 티어 실증** — `thee`·`hast`·`didst`·`dost`·`wouldst`·`hath` 6건이 전부 `dialect` 로 잡혔다. D4b(수기 사전 우선)가 새 재료에서 작동함을 확인.
+- 학습 세트 7×40=280항목, 밴드 V6~V10(bvl 7), 실제 V 6–10·평균 7.8, **뜻 누락 0**.
+- D5 "이 책의 말" 14건 — `ankus`(코끼리 몰이 갈고리)·`tailorbird`·`manling`·`headman`.
+
+#### 발견 — 블랙리스트 오탐이 D3 범위 밖 source 에 잔존
+
+`snarly`·`oozy`·`pignut` 이 실단어인데 차단됐다. D3 는 오탐률이 검증된 두 sweep 만 해제했는데 이들은 `various` 출처였다:
+
+| source / category | 차단 중 | 실영단어 | 오탐률 |
+|---|--:|--:|--:|
+| `various` / proper_noun_marker | 69 | 57 | 83% |
+| `various` / corrupt_token | 137 | 82 | 60% |
+| `various` / interjection_noise | 126 | 74 | 59% |
+
+> **처음엔 "source 가 아니라 판정 규칙으로 일원화" 하려 했는데 틀렸다.** 전체 적용하면 라틴어(`centum`·`utinam`·`meum`·`receptaculum`)와 코퍼스에 없어 대문자 검사를 못 타는 고유명사(`artemis`·`apaches`·`henry`·`mccarthy`)까지 풀린다. source 는 실제로 정보를 담고 있고 `auto-latin` 계열(오탐 2.8~7.5%)은 그대로 두는 게 맞다.
+
+`proper_noun_marker` 카테고리도 제외했다 — 사람이 의도적으로 붙인 라벨이고 `india`·`harry`·`jasper`·`alan`·`napoleons` 처럼 "실단어이면서 고유명사"인 것들이다.
+
+→ `various` × (`interjection_noise`|`corrupt_token`) 중 판정 통과 **86건 해제**(누적 6,869). `snarly`·`oozy`·`pignut`·`smutty`·`whiny`·`slippy`·`southwestward`·`semi-conscious`·`uncapable` 등. `cross-legged` 는 `gutenberg_supplement` 출처라 이번 범위 밖으로 남겼다.
+
 ### 사전 sense 보강 + 드레인 소진 — 자기감사 루프 R3 (마이그레이션 1건)
 
 **[20260811053500_dict_pos_sense_backfill.sql](../supabase/migrations/20260811053500_dict_pos_sense_backfill.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
