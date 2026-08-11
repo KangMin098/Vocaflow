@@ -340,9 +340,46 @@ D4b 로 dialect 티어가 coverage-clean 보다 앞서게 됐으므로, 등록�
 
 **별건 결함**: `shared_dictionary` 에 주격 대명사(`i`·`you`·`he`·`she`·`it`·`we`·`they`·`myself`·`itself`)는 있는데 **목적격·소유격·재귀형(`him`·`her`·`his`·`their`·`them`·`your`·`himself`·`herself`)이 없다.** `thy`→`your`·`hisself`→`himself` 가 dialect 티어를 못 타는 원인이고, `em` 은 `them` 대신 주격 `they` 로 우회 연결했다. 대명사 굴절 계열 등재는 VCB 소관.
 
+### HTML 엔티티 잔존 전수 제거 — 재수집 없이 (마이그레이션 4건)
+
+**[20260811035506](../supabase/migrations/20260811035506_views_security_invoker_extraction.sql) · [20260811035529](../supabase/migrations/20260811035529_fix_chapter_html_entities.sql) · [20260811035548](../supabase/migrations/20260811035548_decode_entities_in_stored_sentences.sql) · [20260811040100](../supabase/migrations/20260811040100_decode_entities_article_sentences.sql) — 2026-08-11 사용자 승인 후 dev 적용 완료.**
+
+앞서 "Sociology 어휘 조각 79행"으로 보고 재수집(cascade 삭제 동반)이 필요하다고 봤던 건이다. 부작용 없는 경로를 찾으라는 요청에 전수 조사하니 **범위가 더 컸고, 재수집은 필요 없었다.**
+
+| 위치 | 건수 | 누가 보나 |
+|---|--:|---|
+| `content_chunks` (본문) | 23챕터 / **1,355회** | **학습자 — 읽는 화면** |
+| `library_book_vocabularies.first_sentence` | 815 | 어드민 패널 · 리더 팝오버 근거 문장 |
+| `shared_words.source_sentence` (도서) | 54 | **학습자 — 발행 단어장 예문** |
+| `library_article_vocabularies.first_sentence` | 47 | ACP 아티클 |
+| `shared_words.source_sentence` (아티클) | 9 | **학습자 — 발행 단어장 예문** |
+
+#### 재수집이 불필요한 이유
+
+`content_chunks` 는 content-addressed(hash PK)라 `library_chapters_master.content_hash` 포인터만 교체하면 된다 — **챕터 행·단어장 23권·구독·학습 진도 무변경**.
+
+**오프셋은 재분절하지 않는다.** `&#8220;`(7자)→`“`(1자) 로 위치가 밀리는데, winkNLP 재실행은 EchoMatch 문장 경계를 바꿀 수 있다. 대신 **각 오프셋에서 그 앞 엔티티들의 축약량 합을 빼서** 원래 분절을 보존한 채 이동시켰다. 검증: 3개 챕터의 `sentence_offsets[5]`·`paragraph_offsets[8]` 위치 문자열이 이전과 **완전 동일**, 23챕터 전부 범위 내.
+
+#### 유령 어휘 판정 — 열거가 아니라 본문 대조
+
+본문을 고친 뒤 **그 책 어느 챕터에도 단어 경계로 등장하지 않는** 미해결 행이 곧 엔티티가 만든 유령이다. `ocial`·`ociety`·`atterns`·`bject`·`exuality`·`uty`·`ymbol` 등 **43행 삭제**, `deindustrialized`·`kmaq`·`mibunsei`·`religare` 같은 실제 어휘는 보존. blocklist 가 아니라 대조 방식이라 다른 책에 그대로 쓴다.
+
+#### 도중에 잡은 자체 결함 2개
+
+- `pgcrypto` 가 `extensions` 스키마인데 함수 `search_path` 가 `public` 고정이라 `digest()` 미발견 → 스키마 한정.
+- **`('x'||hex)::bit(32)` 는 좌측 정렬** — `'x27'` → `0x27000000` = 654311424. `lpad(hex,8,'0')` 없이는 코드포인트가 완전히 틀린다. 범위 가드(`code > 1114111`)가 걸러서 조용히 건너뛴 덕에 오염은 없었다 — **가드가 없었으면 엉뚱한 문자를 썼을 자리**다.
+
+#### 결과
+
+전 계층 **0건** (`content_chunks` · `lbv` · `lav` · `shared_words` · `library_articles` · `texts`). Sociology 해석률 99.3% → **99.7%**, 미해결 79 → 36.
+
+범용 디코더 `decode_html_entities(text)` 신설 — named + 10진/16진 수치 + 300자 절단 말단 파편 제거. `&amp;` 는 이중 디코딩 방지를 위해 마지막에 처리.
+
+또한 `v_book_extraction_stats` · `v_book_extraction_reasons` 를 `security_invoker=true` 로 전환해 advisor `security_definer_view` ERROR 2건을 해소했다. `DEV_ADMIN_BYPASS` 미설정 + 두 뷰는 어드민 전용 조회라 실사용 영향 0.
+
 #### 미결
 
-- `v_book_extraction_stats` · `v_book_extraction_reasons` 가 Supabase advisor `security_definer_view` ERROR (전자는 v06.35 이전부터). 프로젝트 규약(`20260614150000_views_security_invoker`)상 `security_invoker=true` 여야 하나, 적용 시 `DEV_ADMIN_BYPASS` 경로(합성 admin = anon 세션)에서 미발행 도서 통계가 안 보이게 된다 — 사용자 판단 대기.
+- ~~`v_book_extraction_stats` · `v_book_extraction_reasons` advisor ERROR~~ → 위에서 해소 (전자는 v06.35 이전부터). 프로젝트 규약(`20260614150000_views_security_invoker`)상 `security_invoker=true` 여야 하나, 적용 시 `DEV_ADMIN_BYPASS` 경로(합성 admin = anon 세션)에서 미발행 도서 통계가 안 보이게 된다 — 사용자 판단 대기.
 - 미해결 489행(520단어): 프랑스어 은어(Hugo 은어장) · 그리스/라틴 전문어 · 현대 사회학 신조어(`xenocentrism` · `normlessness`) · 인도 문화 차용어 · 의성어. `dict-selfheal-drain.mjs` 드레인 대상.
 
 ### 만화 탭 이름을 학습자 말로 · Comics 를 별도 메뉴로
