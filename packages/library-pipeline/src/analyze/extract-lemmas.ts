@@ -102,6 +102,33 @@ function isUrlDebris(
   return gluedLeft || gluedRight
 }
 
+// v06.35 — 이물 문자에 의한 토큰 파열 필터.
+//   Standard Ebooks 원본에 남은 OCR 오류가 단어 한가운데에 라틴 확장 문자를 심어 놓으면
+//   토크나이저가 그 지점에서 토큰을 쪼개 앞뒤 조각이 학습 단어로 새어 들어온다:
+//       "The bɐttle"(U+0250 turned a)   → `ttle`
+//       "This is the first tournamenʇ"  → `tournamen`(U+0287 turned t)
+//   본문에 `ttle` 이라는 단어는 존재하지 않으므로 결함 04(유령 어휘)로 잡힌다.
+//
+//   합자(œ·æ)는 정규화 단계에서 펴서 근본 차단했지만(normalizeLigatures), OCR 오식은
+//   문자를 특정할 수 없다 — `ɐ`→`a` 같은 매핑은 IPA·음성학 텍스트에서 오히려 파괴적이다.
+//   그래서 문자를 고치는 대신 **파열의 형태**를 본다: 단어 문자도 문장부호도 아닌
+//   한 글자짜리 토큰이 공백 없이 붙어 있으면, 그 옆 토큰은 온전한 단어일 수 없다.
+//
+//   손실 위험: 정상 텍스트에서 이 패턴은 나타나지 않는다 (아포스트로피·하이픈은 아래
+//   FRAGMENT_SAFE 로 제외하고, smart quote 는 normalizePunctuation 이 이미 ASCII 로 접는다).
+const FRAGMENT_SAFE = /^[a-zA-Z0-9\s.,;:!?'"()[\]{}<>@#$%&*+/\\|`~^=_—–-]$/
+function isForeignCharSplit(
+  token: WlpToken,
+  prev: WlpToken | undefined,
+  next: WlpToken | undefined,
+): boolean {
+  const glued = (t: WlpToken | undefined, atEnd: boolean): boolean => {
+    if (!t || t.surface.length !== 1 || FRAGMENT_SAFE.test(t.surface)) return false
+    return atEnd ? t.charEnd === token.charStart : token.charEnd === t.charStart
+  }
+  return glued(prev, true) || glued(next, false)
+}
+
 // Phase 14.8 — 아포스트로피 생략 방언 파편 필터 (근본 규칙, 열거 blocklist 대체)
 //   작가가 방언 생략을 아포스트로피로 표기 (foun'=found · hadn'=hadn't · doin'=doing ·
 //   wukkin'=working) → winkNLP 가 아포스트로피를 별도 punctuation 으로 떼어내 어간만 남김.
@@ -116,6 +143,29 @@ function isApostropheElision(token: WlpToken, next: WlpToken | undefined): boole
   if (token.charEnd !== next.charStart) return false // 공백 없이 붙음 (glued)
   if (/s$/i.test(token.surface)) return false // 복수 소유격 가드 (dogs' · ladies')
   return true
+}
+
+// v06.35 — winkNLP 의 무가드 `-men → -man` 폴백 되돌리기.
+//   wink-eng-lite-web-model 의 lemmatizeNoun 은 마지막 return 이
+//       return value.replace(/men$/, "man")
+//   인데, **이것만 `cache.hasSamePOS(lemma,"NOUN")` 가드가 없다.** 그래서 NOUN 으로 태깅된
+//   -men 토큰 중 사전에 없는 것이 전부 존재하지 않는 -man 형태로 바뀐다:
+//       crimen→criman · becomen→becoman · swimmen→swimman · marshalmen→marshalman
+//       hymen→hyman  ← 실단어까지 파괴 (hymen 은 사전 direct 표제어)
+//   76권 감사에서 유령 어휘 13건 중 4건이 이 경로였다.
+//
+// 왜 "차단" 이 아니라 "표면형 복원" 인가 (실측 13:1):
+//   표면형을 그대로 넘기면 DB 15티어 해소 체인이 winkNLP 보다 낫다 —
+//       becomen→become(spelling) · swimmen→swim(spelling) · crimen→crimen(coverage-clean)
+//       policemen→policeman(cluster) · gentlemen→gentleman · fishermen→fisherman
+//       marshalmen→not_found (정직한 미수록)
+//   정상 복수(-men)도 손실이 없으므로 변환 자체를 되돌리는 편이 안전하다.
+//   유일한 예외는 seamen→seam(굴절 티어 오답) 인데, 그건 en_inflection_bases 에
+//   `men$→man` 후보를 더해 DB 쪽에서 고친다(같은 마일스톤 마이그레이션).
+function unmangleMenPlural(surfaceRaw: string, lemma: string): string {
+  const surface = surfaceRaw.toLowerCase()
+  if (!surface.endsWith('men')) return lemma
+  return lemma === `${surface.slice(0, -3)}man` ? surface : lemma
 }
 
 /**
@@ -150,22 +200,26 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         //   캐릭터명·지명 (Elizabeth/Darcy/Jim/London/Hispaniola) 학습 vocab 에서 제외.
         //   winkNLP universal POS tag 기준 — 측정상 6권 noise 4~12% 모두 PROPN 패턴.
         if (token.pos === 'PROPN') continue
+        // v06.35 — winkNLP 무가드 -men→-man 폴백 되돌리기 (아래 unmangleMenPlural 주석)
+        const lemma = unmangleMenPlural(token.surface, token.lemma)
         // Phase 14.7.1 노이즈 필터 (숫자/약어/외래기호/호칭/contraction)
-        if (!isValidLearningWord(token.lemma)) continue
+        if (!isValidLearningWord(lemma)) continue
         // Phase 14.8 — 아포스트로피 생략 방언 파편 (foun'·hadn'·doin'·wukkin')
         if (isApostropheElision(token, toks[ti + 1])) continue
         // v06.35 — 참고문헌 URL 잔해 (globalissues·religionfor·pdf·org)
         if (isUrlDebris(sentence.text, token, toks[ti - 1], toks[ti + 1])) continue
+        // v06.35 — OCR 이물 문자에 의한 토큰 파열 (bɐttle→ttle · tournamenʇ→tournamen)
+        if (isForeignCharSplit(token, toks[ti - 1], toks[ti + 1])) continue
 
         const mapped = POS_MAP[token.pos] ?? null
-        const existing = chapterCounts.get(token.lemma)
+        const existing = chapterCounts.get(lemma)
         if (existing) {
           existing.count += 1
           if (mapped) existing.posCounts.set(mapped, (existing.posCounts.get(mapped) ?? 0) + 1)
         } else {
           const posCounts = new Map<string, number>()
           if (mapped) posCounts.set(mapped, 1)
-          chapterCounts.set(token.lemma, {
+          chapterCounts.set(lemma, {
             count: 1,
             firstSentenceIdx: token.sentenceIndex,
             posCounts,
