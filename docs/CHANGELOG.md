@@ -23,6 +23,18 @@
 - **검증** — axe(WCAG 2.1 A/AA) 허브 0건 · 다이얼로그 5종 0건, 390/768/1280 가로 넘침 0, 모달 패널 가로 넘침 0. 신규 e2e 4건([09-arcade-access](../apps/web/tests/e2e/09-arcade-access.spec.ts) G1–G4: 프레임 3장·오답 비통과·Esc 포커스 복귀·계열 탭·트리거 전수/44px) + 스코프 유지([13-arcade-integrity](../apps/web/tests/e2e/13-arcade-integrity.spec.ts) B 에 Launch 단언 추가). 신규 유닛 [brief.test.ts](../apps/web/src/lib/game/__tests__/brief.test.ts) 22건 — `want`/`focus` 참조 무결성, 슬롯 수 = 정답 길이, ok 토큰 고아 검출(작성 중 실제로 `word-customs` 정답 누락 1건을 잡았다).
 - **모달 금지 규칙과의 관계** — CLAUDE.md 가 금지하는 것은 **세션 중** 인출을 끊는 오버레이다. 이 다이얼로그는 세션 진입 **전** 국면에만 열린다.
 
+> ⚠️ **커밋 추적** — 이 작업의 코드는 `12a29531 feat(pdcp): 현대화 콘솔 트리거 + GPU 연결 점검` 안에 들어 있다. 같은 worktree 를 쓰던 다른 세션이 스테이징 창 사이에 커밋해 20파일을 함께 가져갔고, push 된 뒤라 되돌리지 않았다(`--force` 금지). 재발 방지는 [WORKTREE.md §5.1](./WORKTREE.md).
+
+### 빌드 게이트 복구 — lint error 5건 청산 + 검증 빌드 격리
+
+v06.117 에서 `eslint.ignoreDuringBuilds` 를 `false` 로 되돌린 뒤 새로 쌓인 error 5건이 `next build` 를 막고 있었다. 규칙을 끄지 않고 원인을 고쳤다.
+
+- **`useOil` → `spendOil`** ([WordsmithVigilGame](../apps/web/src/components/game/wordsmith-vigil/WordsmithVigilGame.tsx)) — 게임 동작("기름을 쓰다")인데 `use` 접두 때문에 `react-hooks/rules-of-hooks` 가 훅으로 보고 "콜백 안에서 훅 호출" 로 판정했다. 훅이 아닌 것에 훅 이름을 주지 않는 쪽이 옳다.
+- **삼항 문(statement) 3곳** ([ComicReader](../apps/web/src/components/comic/ComicReader.tsx) ×2 · [AdminComicClient](../apps/web/src/app/admin/comic/AdminComicClient.tsx) ×1) — `n.has(k) ? n.delete(k) : n.add(k)` 를 `if/else` 로. 동작 동일.
+- **미사용 `bookStatus`** ([ComicReviewClient](../apps/web/src/app/admin/comic/%5BbookId%5D/ComicReviewClient.tsx)) — 목록 화면의 열이라 상세에서는 쓰지 않는다. 구조 분해에서 제거.
+- **`distDir` env 오버라이드 신설** ([next.config.mjs](../apps/web/next.config.mjs)) — `next build` 가 dev 서버와 같은 `.next` 에 써서, 빌드를 검증하면 dev 라우트가 무작위 404 로 죽었다. `NEXT_DIST_DIR=.next-verify` 로 격리(기본값은 `.next` 라 CI 무영향).
+- **결과** — `next lint` **0 error / 10 warning**, 풀 `next build` **EXIT 0** (`✓ Compiled successfully`, `/arcade` 19.8 kB / First Load 122 kB), 검증 중 dev 서버 3000 정상 유지.
+
 ### Admin 전 화면 화면도움말 — 71개 (37 화면 + 34 탭), Claude Code 드레인 7종 포함
 
 관리자가 파이프라인 화면에서 다음 행동을 판단할 근거가 화면 어디에도 없었다. 라벨은 "무엇을 누르는지"만 말하고, **순서·전제·되돌릴 수 있는지·실패하면 어떻게 되는지**는 코드를 읽어야만 알 수 있었다. 특히 Claude Code 드레인은 "버튼을 누르면 끝"이 아니라 관리자가 CLI 를 직접 돌려 큐를 비우는 반자동 작업이라, 화면만 봐서는 시작조차 못 한다.

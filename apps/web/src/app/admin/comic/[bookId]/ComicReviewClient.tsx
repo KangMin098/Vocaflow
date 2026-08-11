@@ -75,7 +75,8 @@ export function ComicReviewClient({
     return () => clearInterval(id)
   }, [detail.stage, router])
 
-  const { bookId, title, author, bookStatus, vLevel, header, job, pages, stage } = detail
+  // bookStatus 는 이 화면에서 쓰지 않는다(목록 화면 AdminComicClient 의 열이다).
+  const { bookId, title, author, vLevel, header, job, pages, stage } = detail
   const qc = (header?.qc_verdict ?? {}) as {
     verbatim_mismatch?: unknown[]
     rule_violations?: unknown[]

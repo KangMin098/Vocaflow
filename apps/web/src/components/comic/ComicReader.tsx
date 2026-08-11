@@ -207,8 +207,9 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
     return () => { document.removeEventListener('keydown', onKey, true); vocabTrigger.current?.focus?.() }
   }, [vocab])
 
-  const toggleReveal = (key: string) => setRevealed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n })
-  const toggleRecall = (key: string) => setRecalled((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n })
+  // 삼항을 문(statement)으로 쓰면 반환값이 버려져 no-unused-expressions 에 걸린다(빌드 차단).
+  const toggleReveal = (key: string) => setRevealed((s) => { const n = new Set(s); if (n.has(key)) n.delete(key); else n.add(key); return n })
+  const toggleRecall = (key: string) => setRecalled((s) => { const n = new Set(s); if (n.has(key)) n.delete(key); else n.add(key); return n })
   const reblur = (key: string) => setRevealed((s) => { const n = new Set(s); n.delete(key); return n })
 
   // 단어 팝오버 열림 → 실제 뜻 조회(lookup_word_meaning)

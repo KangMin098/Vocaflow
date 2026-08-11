@@ -10,6 +10,11 @@ const nextConfig = {
   //   build 는 error 만 차단(warning 은 통과) — exhaustive-deps 잔여 6건은 warning 이라 무영향.
   //   typecheck 는 계속 강제 (ignoreBuildErrors 두지 않음).
   eslint: { ignoreDuringBuilds: false },
+  // `next build` 는 기본으로 dev 서버와 같은 `.next` 에 쓴다. 그래서 dev 를 띄운 채
+  // 빌드를 검증하면 vendor-chunks 가 섞여 라우트가 무작위 404 로 죽는다
+  // (apps/web/CLAUDE.md "dev 서버는 워크스페이스에 1개만" 과 같은 뿌리의 사고).
+  // 검증 빌드는 `NEXT_DIST_DIR=.next-verify pnpm --filter web build` 로 격리한다.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   // Workspace 패키지의 .js extension import (Node ESM 컨벤션) 를
   // Next.js webpack 이 해석하도록 transpilePackages 등록.
   // - @vocaflow/vcb-core: lemma + Supabase admin client

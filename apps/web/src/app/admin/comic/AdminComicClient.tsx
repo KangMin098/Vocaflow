@@ -51,7 +51,9 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
   const toggle = (id: string) =>
     setSelected((s) => {
       const n = new Set(s)
-      n.has(id) ? n.delete(id) : n.add(id)
+      // 삼항을 문으로 쓰면 반환값이 버려져 no-unused-expressions 에 걸린다(빌드 차단).
+      if (n.has(id)) n.delete(id)
+      else n.add(id)
       return n
     })
 

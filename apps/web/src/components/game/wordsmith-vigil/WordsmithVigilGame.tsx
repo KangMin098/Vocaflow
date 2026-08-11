@@ -724,7 +724,11 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   }, [pushFloat, sfx, vowGateOk, yOf]);
 
   // ── 기름 — 철자를 사는 대신 학습 기록은 정직하게 실패로 남는다 ───────────
-  const useOil = useCallback(() => {
+  //
+  // 이름이 `useOil` 이었다: 게임 동작("기름을 쓰다")인데 `use` 접두 때문에 ESLint
+  // rules-of-hooks 가 훅으로 보고 "콜백 안에서 훅 호출 금지" 에러를 냈다(빌드 차단).
+  // 규칙을 끄는 대신 이름을 고친다 — 훅이 아닌 것에 훅 이름을 주지 않는다.
+  const spendOil = useCallback(() => {
     if (phaseRef.current !== 'playing') return;
     if (oilRef.current <= 0) return;
     const id = targetRef.current;
@@ -759,7 +763,7 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
       // 확정 단축키를 못 배운 채 매 단어 유예 시간을 통째로 기다렸다.
       if (e.key === 'Enter') {
         e.preventDefault();
-        if (e.shiftKey) { useOil(); return; }
+        if (e.shiftKey) { spendOil(); return; }
         if (typedRef.current.length === 0) return;
         cancelCommit();
         submit(typedRef.current);
@@ -773,7 +777,7 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
         makeVow();
       }
     },
-    [cancelCommit, cycleTarget, makeVow, submit, useOil],
+    [cancelCommit, cycleTarget, makeVow, submit, spendOil],
   );
 
   // 어디를 눌러도·어떤 글자를 쳐도 입력이 되살아난다(포커스가 조용히 죽지 않게).
@@ -1348,7 +1352,7 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
         <button
           type="button"
           className="wv-act"
-          onClick={useOil}
+          onClick={spendOil}
           disabled={oil <= 0 || !target || target.hinted}
           aria-label={`기름 ${oil}병 — 철자를 잠깐 비춥니다. 점수가 줄고 복습 기록엔 실패로 남아요`}
         >

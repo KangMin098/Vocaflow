@@ -83,6 +83,23 @@ worktree 가 격리해 주지 못하는, **모든 브랜치가 공유하는** �
 | `packages/ui-shared` · `design-tokens` · `types` | 🟠 공유 컴포넌트/토큰/타입 | 변경은 **작은 PR 로 먼저 머지** → 나머지 worktree 가 rebase 수령 |
 | `globals.css` · 루트 `layout.tsx` | 🟡 가끔 겹침 | 동시 편집 시 머지 충돌 주의 |
 | `.githooks/` (pre-commit memory-sync) | 🟢 낮음 | `core.hooksPath` 공유 → 모든 worktree 에서 작동. `docs/CONTEXT.md` auto-block 만 변경이라 충돌 영향 작음 |
+| **git 인덱스(스테이징)** — 한 worktree 를 두 세션이 함께 쓸 때 | 🔴 인덱스는 worktree 당 1개 | 아래 §5.1 |
+| **`.next/`** — 같은 worktree 에서 dev 서버와 `next build` | 🟠 vendor-chunks 혼입 → 라우트 무작위 404 | 검증 빌드는 `NEXT_DIST_DIR=.next-verify` 로 격리 (`next.config.mjs` `distDir`) |
+
+### 5.1 인덱스 공유 사고 — `git add` 와 `git commit` 사이의 창 (2026-08-10 실측)
+
+worktree 는 브랜치를 격리하지만, **같은 worktree 를 두 에이전트 세션이 동시에 쓰면 인덱스는 하나**다.
+세션 A 가 `git add` 로 20개 파일을 올려둔 사이 세션 B 가 `git commit` 을 하면,
+**B 의 커밋이 A 의 스테이징을 통째로 삼킨다.** 실제로 아케이드 재설계 20파일이
+`12a29531 feat(pdcp): 현대화 콘솔 트리거…` 안으로 들어갔고, 그대로 push 됐다.
+
+- 되돌릴 수 없다 — push 된 뒤에는 `--force` 가 필요한데 그건 금지다(§6). **예방만 가능하다.**
+- **규칙**: 한 worktree = 한 세션. 두 번째 세션은 `pnpm wt new` 로 자기 worktree 를 만든다.
+- 불가피하게 공유한다면 `git add` 와 `git commit` 을 **한 명령으로 붙인다**
+  (`git commit -F <msgfile> -- <paths>` · 또는 `git add … ; git commit …` 를 한 호출 안에서).
+  창이 좁을수록 안전하다.
+- 커밋 직후 `git show --stat HEAD` 로 **내가 넣은 파일만 들어갔는지 확인**한다.
+  섞였다면 되돌리지 말고 CHANGELOG 에 커밋 해시를 남겨 추적 가능하게 한다.
 
 ---
 
