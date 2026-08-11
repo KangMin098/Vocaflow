@@ -889,6 +889,150 @@
           "recall": 1
         }
       ]
+    },
+    {
+      "key": "ocr@v3:_tune",
+      "kind": "ocr",
+      "metricVersion": 3,
+      "sample": "_tune",
+      "at": "2026-08-10T23:56:51.181Z",
+      "best": {
+        "psm": 11,
+        "minConf": 55,
+        "score": 37.79,
+        "clean": 41,
+        "bubbles": 139,
+        "reviewRate": 0.705,
+        "nonLatin": 0,
+        "recall": 0.955
+      },
+      "improved": true,
+      "previousBest": null,
+      "tried": 12,
+      "top": [
+        {
+          "psm": 11,
+          "minConf": 55,
+          "score": 37.79,
+          "clean": 41,
+          "bubbles": 139,
+          "reviewRate": 0.705,
+          "nonLatin": 0,
+          "recall": 0.955
+        },
+        {
+          "psm": 11,
+          "minConf": 40,
+          "score": 37.392,
+          "clean": 39,
+          "bubbles": 199,
+          "reviewRate": 0.804,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 11,
+          "minConf": 25,
+          "score": 29.241,
+          "clean": 31,
+          "bubbles": 257,
+          "reviewRate": 0.879,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 55,
+          "score": 28.988,
+          "clean": 37,
+          "bubbles": 172,
+          "reviewRate": 0.785,
+          "nonLatin": 0,
+          "recall": 0.818
+        },
+        {
+          "psm": 6,
+          "minConf": 40,
+          "score": 21.118,
+          "clean": 28,
+          "bubbles": 244,
+          "reviewRate": 0.885,
+          "nonLatin": 1,
+          "recall": 0.909
+        }
+      ]
+    },
+    {
+      "key": "ocr@v3:_tune-ci",
+      "kind": "ocr",
+      "metricVersion": 3,
+      "sample": "_tune-ci",
+      "at": "2026-08-10T23:58:38.697Z",
+      "best": {
+        "psm": 11,
+        "minConf": 55,
+        "score": 10.632,
+        "clean": 12,
+        "bubbles": 38,
+        "reviewRate": 0.684,
+        "nonLatin": 0,
+        "recall": 1
+      },
+      "improved": true,
+      "previousBest": null,
+      "tried": 12,
+      "top": [
+        {
+          "psm": 11,
+          "minConf": 55,
+          "score": 10.632,
+          "clean": 12,
+          "bubbles": 38,
+          "reviewRate": 0.684,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 11,
+          "minConf": 40,
+          "score": 10.407,
+          "clean": 12,
+          "bubbles": 59,
+          "reviewRate": 0.797,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 55,
+          "score": 7.429,
+          "clean": 9,
+          "bubbles": 42,
+          "reviewRate": 0.786,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 11,
+          "minConf": 25,
+          "score": 7.22,
+          "clean": 9,
+          "bubbles": 82,
+          "reviewRate": 0.89,
+          "nonLatin": 0,
+          "recall": 1
+        },
+        {
+          "psm": 6,
+          "minConf": 40,
+          "score": 7.191,
+          "clean": 9,
+          "bubbles": 94,
+          "reviewRate": 0.904,
+          "nonLatin": 0,
+          "recall": 1
+        }
+      ]
     }
   ]
 }

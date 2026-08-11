@@ -259,3 +259,39 @@ describe('isGarbledWord — 문장부호는 비라틴이 아니다', () => {
     }
   })
 })
+
+// ─── 판정기 — 정상 문장을 막지 않는다 (2026-08-11) ────────────────────
+//
+// 짧은 파편 규칙이 **영어 2글자 기능어**(my·is·to·in·as)를 파편으로 세는 바람에
+// 정확히 읽힌 대사가 검수 대상으로 찍혔다. 판정기가 정상을 막으면 clean 을
+// 품질 지표로 쓸 수 없게 되고, 실제로 자기발전 스윕이 그 지표로 psm 를 잘못 골랐다.
+
+describe('judgeBubble — 기능어를 파편으로 세지 않는다', () => {
+  it('기능어가 많은 정상 대사는 통과한다', () => {
+    const t = 'My name is Wharton! My house is open to strangers in such weather as this!'
+    const j = judgeBubble(t, 88)
+    expect(j.needsReview, j.reasons.join(',')).toBe(false)
+  })
+
+  it('짧은 대사도 종결부호가 있으면 통과한다', () => {
+    expect(judgeBubble('Come right in!', 90).needsReview).toBe(false)
+  })
+
+  it('진짜 파편은 여전히 잡는다 — 기능어가 아닌 1~2글자 뭉치', () => {
+    const j = judgeBubble('rn qs tf hn kx zl', 85)
+    expect(j.needsReview).toBe(true)
+    expect(j.reasons.join(',')).toMatch(/짧은 파편/)
+  })
+
+  it('3토큰 미만 + 종결부호 없음은 대사가 아니다', () => {
+    expect(judgeBubble('Featuring Stor', 95).needsReview).toBe(true)
+  })
+
+  it('사전을 안 넘기면 사전 규칙은 건너뛴다 — 없다고 판정이 죽으면 안 된다', () => {
+    const t = 'Yassuh, yassuh! Come right in!'
+    expect(judgeBubble(t, 90).needsReview).toBe(false)
+    // 사전을 넘기면 방언이 걸린다 — 그래서 기본 비활성이다
+    const lex = new Set(['come', 'right', 'in'])
+    expect(judgeBubble(t, 90, lex).needsReview).toBe(true)
+  })
+})

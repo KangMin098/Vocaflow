@@ -200,6 +200,32 @@ export function normalize(box, panelBox) {
 //    U+2010~U+2027 로 넓혀 하이픈·en/em 대시·따옴표·말줄임표를 정상으로 본다.
 const NON_LATIN = /[^ -ɏ‐-‧\s]/
 
+/**
+ * 사전에 없는 단어 비율 상한. 넘으면 검수 대상.
+ *
+ * ⚠️ **기본 비활성이다** — lexicon 을 넘겨야 동작한다(`--lexicon`).
+ *
+ * 실측(2026-08-11, 사전 64k = shared_dictionary word + inflected_forms):
+ *   "Tm only katy harvey binch his place…"   → 잡힘. 단 사유가 katy·harvey(정상 고유명사)다
+ *   "Yassuh, yassuh! Come right in!"         → **정상 대사인데 잡힌다**(방언)
+ *   "…the old colored servant qssuh yassuh/? Orm right" → 안 잡힘(3/18 = 17% < 25%)
+ *
+ * 즉 오탐을 다른 오탐과 맞바꾼다. 만화는 고유명사와 방언으로 가득하고, 정작 잡아야 할
+ * 병합·왜곡은 못 잡는다(대부분의 단어가 멀쩡하기 때문). 그래서 기본값으로 켜지 않는다.
+ * 고유명사·방언이 적은 시리즈에서는 유용할 수 있어 옵션으로 남긴다.
+ */
+const NONWORD_RATIO_MAX = 0.25
+
+/** 선택 사전 로드 — 없으면 null(판정은 사전 규칙만 건너뛰고 계속 동작). */
+export function loadLexicon(file) {
+  try {
+    if (!file || !fs.existsSync(file)) return null
+    return new Set(fs.readFileSync(file, 'utf8').split('\n').map((s) => s.trim()).filter(Boolean))
+  } catch {
+    return null
+  }
+}
+
 /** 라틴 문자가 아닌 글자가 섞인 단어는 오인식이다. */
 export function isGarbledWord(t) {
   return NON_LATIN.test(t) || /[а-яА-ЯёЁ]/.test(t)
@@ -209,7 +235,7 @@ export function isGarbledWord(t) {
  * 대사 하나의 신뢰 판정. 규칙 하나로는 못 잡아서 세 신호를 합친다.
  * 반환된 reasons 가 검수 화면에서 "왜 의심스러운가"를 그대로 설명해준다.
  */
-export function judgeBubble(text, avgConf) {
+export function judgeBubble(text, avgConf, lexicon = null) {
   const reasons = []
   const tokens = text.split(/\s+/).filter(Boolean)
   if (tokens.length === 0) return { needsReview: true, reasons: ['빈 텍스트'] }
@@ -217,9 +243,32 @@ export function judgeBubble(text, avgConf) {
   const garbled = tokens.filter(isGarbledWord).length
   if (garbled > 0) reasons.push(`비라틴 문자 ${garbled}개`)
 
-  // 손레터링 오인식은 1~2글자 파편으로 흩어진다
-  const frag = tokens.filter((t) => /^[a-zA-Z]{1,2}$/.test(t)).length
+  // 손레터링 오인식은 1~2글자 파편으로 흩어진다.
+  //
+  // ⚠️ 실단어를 파편으로 세면 안 된다 — 영어는 2글자 기능어투성이다(my·is·to·in·as·of·he).
+  //    이 규칙이 그걸 세는 바람에 **정확히 읽힌 대사가 검수 대상으로 찍혔다**(실측:
+  //    "My name is Wharton! My house is open to strangers in such weather as this!"
+  //    → 짧은 파편 7/15). 판정기가 정상을 막으면 clean 지표 자체를 못 믿게 된다.
+  const frag = tokens.filter(
+    (t) => /^[a-zA-Z]{1,2}$/.test(t) && !FUNCTION_WORDS.has(t.toLowerCase()),
+  ).length
   if (frag / tokens.length > 0.3) reasons.push(`짧은 파편 ${frag}/${tokens.length}`)
+
+  // 사전 대조 — OCR 쓰레기("qssuh" "Orm" "binch")는 실단어가 아니다.
+  //   신뢰도만으로는 못 잡는다: 위 세 개는 conf 87~91 로 통과했다.
+  //   사전이 없으면(선택 의존) 이 규칙은 건너뛴다 — 없다고 판정이 죽으면 안 된다.
+  if (lexicon && lexicon.size > 0) {
+    const words = tokens
+      .map((t) => t.toLowerCase().replace(/^[^a-z']+|[^a-z']+$/g, ''))
+      .filter((t) => t.length >= 3) // 1~2글자는 위 파편 규칙이 담당
+    if (words.length >= 4) {
+      const unknown = words.filter((w) => !lexicon.has(w))
+      const ratio = unknown.length / words.length
+      if (ratio > NONWORD_RATIO_MAX) {
+        reasons.push(`사전에 없는 단어 ${unknown.length}/${words.length} (${unknown.slice(0, 3).join(',')})`)
+      }
+    }
+  }
 
   // 표지 장식·잘린 로고("Featuring", "Stor", "%")가 고신뢰로 통과하던 구멍.
   // 대사는 최소한 문장 꼴을 갖춘다 — 3토큰 미만이면서 종결부호도 없으면 대사가 아니다.

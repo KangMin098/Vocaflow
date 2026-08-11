@@ -303,7 +303,7 @@ const RATCHET = path.join(HERE, 'tune.ratchet.json')
  * 32.84(정밀도만 잰 값)와 비교해 "개선 없음"으로 기록했다 — 서로 다른 자를 댄 것이다.
  * (표본을 안 나눠 다른 페이지 점수를 비교했던 것과 같은 종류의 실수, 두 번째다.)
  */
-const METRIC_VERSION = { segment: 1, ocr: 2 }
+const METRIC_VERSION = { segment: 1, ocr: 3 }
 
 function loadRatchet() {
   try {

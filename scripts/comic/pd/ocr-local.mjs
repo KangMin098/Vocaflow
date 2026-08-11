@@ -36,7 +36,7 @@ import { pathToFileURL } from 'node:url'
 import { emitProgress } from './progress.mjs'
 
 import { probeSize } from './lib-img.mjs'
-import { groupLines, isGarbledWord, judgeBubble, normalize, truecase } from './ocr.mjs'
+import { groupLines, isGarbledWord, judgeBubble, loadLexicon, normalize, truecase } from './ocr.mjs'
 
 function loadTesseract() {
   const dir = process.env.TESSERACTJS_DIR
@@ -76,6 +76,8 @@ function parseArgs(argv) {
     else if (k === '--psm') a.psm = Number(argv[++i])
     else if (k === '--min-conf') a.minConf = Number(argv[++i])
     else if (k === '--gazetteer') a.gazetteer = argv[++i]
+    // 사전 대조는 기본 비활성 — 방언·고유명사를 오탐한다(ocr.mjs NONWORD_RATIO_MAX 주석).
+    else if (k === '--lexicon') a.lexicon = argv[++i]
     else if (k === '--limit') a.limit = Number(argv[++i])
   }
   if (!a.intake) {
@@ -133,6 +135,8 @@ async function main() {
   const { createWorker } = loadTesseract()
   const root = path.resolve(args.intake)
   const panelMf = JSON.parse(fs.readFileSync(path.join(root, 'panels', 'panels.manifest.json'), 'utf8'))
+  const lex = loadLexicon(args.lexicon)
+  if (args.lexicon && !lex) console.log(`⚠ 사전을 못 읽었습니다: ${args.lexicon} — 사전 규칙 없이 진행합니다.`)
   const gaz = new Set(
     args.gazetteer ? JSON.parse(fs.readFileSync(args.gazetteer, 'utf8')).map((s) => String(s).toLowerCase()) : [],
   )
@@ -193,7 +197,7 @@ async function main() {
       const { text, properNounCandidates } = truecase(raw, gaz)
       properNounCandidates.filter((c) => !isGarbledWord(c)).forEach((c) => allCandidates.add(c))
       const conf = Math.round(ws.reduce((s, w) => s + w.conf, 0) / Math.max(1, ws.length))
-      const { needsReview, reasons } = judgeBubble(text, conf)
+      const { needsReview, reasons } = judgeBubble(text, conf, lex)
       if (needsReview) needReview += 1
       return { text, raw, kind: 'balloon', box: g.box, confidence: conf, needsReview, reasons }
     })
