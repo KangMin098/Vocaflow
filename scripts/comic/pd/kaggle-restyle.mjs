@@ -77,7 +77,7 @@ const manifestB64 = Buffer.from(JSON.stringify(items.map((it) => ({ name: it.nam
 // ── 자가완결 커널(SDXL + ControlNet Canny) ──
 const KERNEL = `import os, json, base64, io, time
 import torch
-os.system("pip -q install diffusers==0.31.0 transformers accelerate safetensors opencv-python-headless >/dev/null 2>&1")
+os.system("pip -q install 'diffusers==0.31.0' 'transformers==4.44.2' 'huggingface_hub==0.24.6' accelerate safetensors opencv-python-headless >/dev/null 2>&1")
 import cv2, numpy as np
 from PIL import Image
 from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, AutoencoderKL
