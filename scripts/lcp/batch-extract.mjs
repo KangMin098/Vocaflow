@@ -150,9 +150,13 @@ async function processOne(seed) {
     try { await sb.rpc(fn, { p_book_id: bookId }) } catch { /* best-effort */ }
   }
 
-  // 품질 감사 — 권당 즉시. 전수 재계산 뷰는 300권 규모에서 타임아웃하므로
-  // 적재하는 그 자리에서 증분으로 남긴다(멱등). 실패해도 추출은 유효하다.
-  try { await sb.rpc('audit_book_extraction', { p_book_id: bookId }) } catch { /* best-effort */ }
+  // ⚠ 품질 감사는 여기서 부르지 않는다.
+  //   붙였다가 되돌렸다 — audit_book_extraction 이 CPU 1위 소비자였다(실측):
+  //       총 5,823초 · 317회 · 평균 18.4초  → 305권 감사에 CPU 93분
+  //   원인은 결함 04/90 판정의 `content ~* '\m…\M'` 이 미해결 단어마다 챕터 본문을
+  //   통째로 훑는 것. 적재와 같은 시점에 돌리면 추출이 쓸 CPU 를 측정이 빼앗아
+  //   `shared_dictionary lookup timeout` 으로 배치가 무너진다(실제로 그렇게 됐다).
+  //   → 감사는 적재가 끝난 뒤 별도로: scripts/lcp/audit-books.mjs
 
   await sb.from('library_seed_catalog').update({ imported_book_id: bookId }).eq('id', seed.id)
 
