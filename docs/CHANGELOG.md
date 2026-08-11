@@ -10,6 +10,42 @@
 
 ## Unreleased (v06.34 → next)
 
+### 단어 추출 79권 규모 검증 — 문자·형태소 결함 3종 제거 + L1/L2 전달 계층 분리
+
+Standard Ebooks 대량 추출 러너(`scripts/lcp/batch-extract.mjs`, `est_v_level` 층화·재개 가능·멱등)로
+38권을 추가해 **79권 · 2,496챕터 · 878만 단어** 규모에서 추출 품질을 감사했다. 결함 04(유령 어휘)가
+0 → 13 으로 회귀했고, 원인이 전부 **외부 라이브러리 한계**였다.
+
+- **합자 파열 6건** — winkNLP 영어 모델의 토크나이저 문자 클래스가 Latin-1 Supplement 까지라
+  `œ`(U+0153)가 단어를 쪼갠다: `œconomical → "œ" + "conomical"`. `normalizeLigatures` 로
+  정규화 단계에서 `œ→oe · æ→ae` + 인쇄합자 7종을 편다. 접고 나면 사전 체인이 이어받는다
+  (`oeconomical → economical`, spelling 티어). 부수 효과로 `countWords` 가 ASCII 전용이라
+  `Encyclopædia` 를 2단어로 세던 것이 1단어가 됐다 (골든셋 word_count 3곳 정정).
+- **`-men → -man` 무가드 폴백 4건** — `wink-eng-lite-web-model` 의 `lemmatizeNoun` 은 마지막
+  `return` 만 `hasSamePOS` 가드가 없어 `crimen→criman` · `hymen→hyman`(실단어 파괴) 을 만든다.
+  `unmangleMenPlural` 로 표면형을 복원 — 17단어 실측에서 DB 15티어가 winkNLP lemma 보다 **13:1** 우수.
+- **OCR 이물 문자 파열 2건** — `bɐttle`(U+0250) → `ttle`. 문자를 매핑하면 IPA 텍스트가 깨지므로
+  단어도 부호도 아닌 한 글자가 공백 없이 붙은 **파열의 형태**로 판정(`isForeignCharSplit`).
+
+마이그레이션 3종:
+- `20260811125842_en_inflection_men_plural` — inflection 티어에 `-men → -man` 후보 추가.
+  `seamen` 이 "솔기"(seam)로 해소되던 것을 "선원"으로.
+- `20260811132526_en_inflection_men_plural_defer` — 위 판본이 중세영어 동사 어미까지 막아
+  `becomen → not_found` 회귀를 낸 것을 정정. `-man` 형태가 **사전에 있을 때만** 양보. 31단어 전수 통과.
+- `20260811132640_deliver_chapter_vocab` — **L2 개인화 전달 계층 신설** (ADR 0004 D7).
+
+L2 분리 근거: 같은 챕터 세트가 경로마다 다른 정책으로 전달되고 있었다 — enroll 은 책 전체 50개
+(364챕터 Les Misérables 도 50단어), 구독 버튼은 세트 전량(개인화 0), 가장 좋은 로직인 리더 i+1
+패널은 **표시 전용**이라 FSRS 와 단절. 그리고 발행 cap 40 이 챕터 길이를 무시해 993챕터 중
+**241(24%)이 밀도 2% 초과(과부하)**, 130(13%)이 0.3% 미만(희박) — 1,000단어 챕터와 12,000단어
+챕터 사이 **16배 격차**. `deliver_chapter_vocab` 는 분량을 `clamp(round(wc/1000×8), 8, 30)` 로
+바꾸고 기보유 제외 + i+1 가우시안 재랭킹을 적용한다. 함수만 추가하고 기존 경로는 미변경
+(되돌리기 = `DROP FUNCTION` 한 줄).
+
+결과 — 결함 01/02/04/05 = **0** · 회귀 테스트 59/59 · 영향 도서 11권 재추출 완료.
+보류 1건: `Twenty years after`(gutenberg)는 `gutenberg.org` ECONNRESET 으로 합자 fold 미적용.
+03(문맥POS 4,296단어)은 사전 내용 결함이라 `v_dict_pos_sense_gap` 큐로 분리돼 있다.
+
 ### 게임 튜토리얼 19종 자기발전 — 평가 9.6 → 16.3/20 (평가 → 확장 → 재작성 → 적대적 역채점 → 교정)
 
 아케이드 Protocol 브리핑(카드 `(?)` → 보드 그림 3장 + 눌러서 통과하는 Trial)이 **각 게임에
