@@ -195,6 +195,33 @@ function parseMetaHtml(html: string): SEMeta {
  * 정규식 단순 치환은 중첩 <section> 에서 깨지므로 깊이 추적 토크나이저로 안전 제거.
  * (frontmatter 는 어차피 첫 챕터 이전이라 대부분 버려졌지만, backmatter 차단이 핵심.)
  */
+// v06.35 — matter 제거의 안전망: 본문 단위를 품은 섹션은 지우지 않는다.
+//
+//   Personal Recollections of Joan of Arc 는 73개 chapter 가 세 개의
+//   `<section epub:type="frontmatter part z3998:fiction">` 안에 중첩돼 있다.
+//   (SE 가 이 책의 Book 1/2/3 을 그렇게 태깅했다 — 보통은 `part` 나 bodymatter 다.)
+//   그래서 frontmatter 제거가 **본문 전체를 삼켰고**, raw_content 가 0바이트가 됐다.
+//   실패는 한참 뒤 DB 에서 `store_content_chunk: empty content` 로 터져 원인이 안 보였다.
+//
+//   태깅 변종을 일일이 쫓는 대신 불변식을 둔다 — matter 판정이 틀려도 본문은 지킨다.
+//   endnotes·colophon·copyright 같은 진짜 boilerplate 는 chapter 를 품지 않으므로
+//   기존 제거 동작(Gibbon 473k 미주 차단 등)에 영향이 없다.
+const UNIT_SECTION_RE =
+  /epub:type="[^"]*\b(?:chapter|short-story|z3998:story|z3998:poem|z3998:fable)\b/i
+
+/** 여는 <section> 위치에서 짝이 맞는 </section> 까지의 구간을 돌려준다 (없으면 끝까지). */
+function sectionBody(html: string, openTagEnd: number): string {
+  const re = /<section\b[^>]*>|<\/section\s*>/gi
+  re.lastIndex = openTagEnd
+  let depth = 1
+  let m: RegExpExecArray | null
+  while ((m = re.exec(html)) !== null) {
+    depth += m[0].startsWith('</') ? -1 : 1
+    if (depth === 0) return html.slice(openTagEnd, m.index)
+  }
+  return html.slice(openTagEnd)
+}
+
 function stripMatterSections(html: string): string {
   const re = /<section\b([^>]*)>|<\/section\s*>/gi
   let out = ''
@@ -209,7 +236,11 @@ function stripMatterSections(html: string): string {
       out += html.slice(pos, m.index)
       if (!isClose) {
         const ty = (m[1]?.match(/epub:type="([^"]*)"/i)?.[1] ?? '').toLowerCase()
-        if (/\b(?:frontmatter|backmatter)\b/.test(ty)) {
+        if (
+          /\b(?:frontmatter|backmatter)\b/.test(ty) &&
+          // ★ 안전망 — 이 블록이 본문 단위를 품고 있으면 보존한다 (위 주석)
+          !UNIT_SECTION_RE.test(sectionBody(html, re.lastIndex))
+        ) {
           skipDepth = depth // 이 섹션부터 제거 시작 (여는 태그도 미방출)
           depth++
           pos = re.lastIndex
