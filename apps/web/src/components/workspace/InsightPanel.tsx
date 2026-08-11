@@ -2,6 +2,7 @@
 
 'use client'
 
+import { ChapterLevelWords } from '@/components/library/reader/ChapterLevelWords'
 import { Bookmark, Info, Layers, X } from 'lucide-react'
 import { useEffect } from 'react'
 
@@ -25,6 +26,14 @@ interface InsightPanelProps {
   softQuote: string
   bookmarks: BookmarkItem[]
   memoryStats: MemoryStats
+  /**
+   * v06.35 (ADR 0004 D7) — 도서 챕터일 때 이 챕터의 개인화 학습 단어를 함께 낸다.
+   * 이 패널을 여는 버튼은 라벨이 "챕터 단어장 N/M" 인데 정작 안에 단어가 없었다.
+   * 개인화 단어 패널(ChapterLevelWords)은 그동안 enroll **전** 미리보기에만 있어서,
+   * 정작 읽기 시작하면 사라졌다. 읽는 자리에 두는 게 맞다.
+   */
+  libraryBookId?: string | null
+  chapterIdx?: number | null
 }
 
 export function InsightPanel({
@@ -33,6 +42,8 @@ export function InsightPanel({
   softQuote,
   bookmarks,
   memoryStats,
+  libraryBookId,
+  chapterIdx,
 }: InsightPanelProps) {
   // 패널 열릴 때 body 스크롤 잠금 — Stale-safe: cleanup 항상 reset
   useEffect(() => {
@@ -88,6 +99,13 @@ export function InsightPanel({
               &ldquo;{softQuote}&rdquo;
             </p>
           </div>
+
+          {/* 이 챕터에서 익힐 단어 (도서 챕터에서만) — 패널이 열릴 때만 조회한다 */}
+          {isOpen && libraryBookId && chapterIdx != null && (
+            <div className="mb-8">
+              <ChapterLevelWords libraryBookId={libraryBookId} chapterIdx={chapterIdx} bare />
+            </div>
+          )}
 
           {/* Bookmarks */}
           <section className="mb-8">

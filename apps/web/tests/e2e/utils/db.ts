@@ -144,6 +144,48 @@ export async function deleteWordFamiliaritySince(userId: string, sinceIso: strin
 }
 
 /**
+ * 특정 시각 이후 `vocabularies` 에 담긴 단어 수 — L2 전달(deliver_chapter_vocab p_commit) 단언용.
+ * origin 을 좁히면 그 경로로 들어온 것만 센다 ('shared_set' = 단어장/L2 경유).
+ */
+export async function countVocabulariesSince(
+  userId: string,
+  sinceIso: string,
+  origin?: string,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  let q = c
+    .from('vocabularies')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('created_at', sinceIso);
+  if (origin) q = q.eq('origin', origin);
+  const { count, error } = await q;
+  if (error) return -1;
+  return count ?? 0;
+}
+
+/**
+ * 테스트가 담은 vocabularies 정리(멱등).
+ *
+ * ⚠️ 반드시 finally 에서 호출할 것 — deliver_chapter_vocab 은 **기보유 단어를 제외**하므로,
+ * 테스트가 담은 행을 남기면 다음 실행의 전달 목록이 영구적으로 줄어들어 같은 테스트가
+ * 스스로를 무력화한다 (08-text-extract-trust 의 word_familiarity 원복과 같은 이유).
+ */
+export async function deleteVocabulariesSince(userId: string, sinceIso: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('vocabularies')
+    .delete()
+    .eq('user_id', userId)
+    .gte('created_at', sinceIso)
+    .select('word');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
+
+/**
  * 사용자 vocabularies 를 due 우선으로 조회 — 게임이 "내 단어"를 실제로 쓰는지 단언용.
  * 정렬은 lib/game/due-words.fetchDueGameWords 와 동일(next_review_at ASC nullsFirst → created_at ASC).
  */

@@ -784,6 +784,8 @@ export default function WorkspacePage({ params }: PageProps) {
         softQuote="Page 3까지 왔어요. 이번 chapter의 1/4. 좋은 흐름이에요."
         bookmarks={bookmarks}
         memoryStats={memoryStats}
+        libraryBookId={ctx?.libraryBookId ?? null}
+        chapterIdx={ctx?.chapterIdx ?? null}
       />
 
       <KeyboardHints />

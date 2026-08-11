@@ -169,8 +169,8 @@ export function BookContentReader({
           <ToggleButton
             active={showLevelWords}
             onToggle={() => setShowLevelWords((v) => !v)}
-            label="🎯 내 레벨"
-            ariaLabel="내 레벨 맞춤 단어(Krashen i+1) 추출 토글"
+            label="🎯 익힐 단어"
+            ariaLabel="이 챕터에서 익힐 단어 보기"
           />
           {mode === 'admin-review' && (
             <>

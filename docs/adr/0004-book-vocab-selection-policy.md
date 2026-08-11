@@ -397,3 +397,27 @@ L2 는 두 엔진의 **합성**이다 — `select_book_chapter_vocab` 의 정제
 - 배선 후 기존 세 경로를 L2 로 수렴 — enroll 은 첫 챕터만, 구독 버튼은 L2 경유.
 - L1 cap 확대 검토 — 전달량이 L2 에서 결정되므로 풀은 넓을수록 개인화 여지가 커진다.
   다만 UI 배선 이후에 해야 압도적으로 보이지 않는다.
+
+### D7 후속 — 배선하며 드러난 것 (2026-08-11)
+
+**① 개인화 패널이 읽는 자리에 없었다.** `ChapterLevelWords` 는 `BookContentReader` 안에만
+있었고, 그 리더는 `/library/books/[bookId]`(enroll **전** 미리보기)와 admin 검수 전용이다.
+enroll 하면 `/text/[id]` 로 리다이렉트되므로 **읽기 시작하는 순간 패널이 사라졌다.**
+학습 인사이트 패널(`InsightPanel`)로 옮겼다 — 그 패널을 여는 버튼은 라벨이 이미
+"챕터 단어장 N/M" 이었는데 정작 안에 단어가 없었으니, 라벨이 약속하던 자리를 채운 셈이다.
+
+**② 쓰기 경로가 조용히 실패했다.** `deliver_chapter_vocab(p_commit=true)` 는 런타임에
+`42702 column reference "word" is ambiguous` 로 터졌다 — `RETURNS TABLE(word …)` 의 출력
+파라미터가 `INSERT … ON CONFLICT (user_id, word)` 의 컬럼과 구별되지 않는다. 그런데 UI 가
+예외를 삼키고 "담았어요" 를 표시했다. **이 기능이 없애려던 "표시 전용" 결함을 스스로
+재현한 것이다.**
+
+교훈이 두 가지다:
+- 쓰기는 출력 파라미터가 없는 별도 함수로 (`commit_chapter_vocab`, 마이그레이션 `20260811135625`).
+  `#variable_conflict` 로 덮으면 같은 함정이 다음 사람에게 남는다.
+- **삽입 건수를 반환하고 호출부가 그것을 확인**해야 한다. 건수가 없으면 UI 는 낙관적으로
+  성공을 표시할 수밖에 없다. 클라이언트도 실패(-1)와 0을 구분하도록 고쳤다.
+
+두 결함 모두 화면만 보면 정상으로 보였다 — `tests/e2e/16-chapter-vocab-delivery.spec.ts`
+의 **DB 단언**이 잡았다. 담은 행은 finally 에서 지운다 (기보유 제외 때문에 남기면 다음
+실행의 전달 목록이 줄어 테스트가 스스로를 무력화한다).

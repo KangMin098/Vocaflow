@@ -262,7 +262,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `enroll_library_book(p_book_id uuid)` | 사용자 enroll + 챕터 단어장 auto-subscribe + vocabulary auto-import |
 | `extract_vocabulary_for_user(uuid, text[], text)` | Phase 3A 다축 추출 — user/text/auto level 선택 + composite scoring |
 | `publish_book_word_sets(p_book_id uuid)` | 챕터 단어장 일괄 발행 trigger (L1 후보 풀, `p_cap` 기본 40) |
-| `deliver_chapter_vocab(p_book_id uuid, p_chapter_idx int, p_commit bool)` | **L2 개인화 전달** (ADR 0004 D7) — L1 풀에서 기보유 제외 + i+1 가우시안 재랭킹 + 밀도 기반 분량 `clamp(round(wc/1000×8), 8, 30)`. `p_commit=false` 는 읽기 전용, `true` 는 `vocabularies` 멱등 삽입 |
+| `deliver_chapter_vocab(p_book_id uuid, p_chapter_idx int)` | **L2 개인화 전달**(읽기 전용, ADR 0004 D7) — L1 풀에서 기보유 제외 + i+1 가우시안 재랭킹 + 밀도 기반 분량 `clamp(round(wc/1000×8), 8, 30)` |
+| `commit_chapter_vocab(p_book_id uuid, p_chapter_idx int)` | 위 결과를 `vocabularies` 에 담는다(멱등). **삽입 건수 반환** — 쓰기를 별도 함수로 둔 이유는 `RETURNS TABLE(word …)` 의 출력 파라미터가 `INSERT … ON CONFLICT (user_id, word)` 와 이름 충돌(42702)을 일으켜서다 |
 | `en_inflection_bases(text)` | 규칙 역굴절 후보 배열. `-men → -man` 은 그 형태가 사전 표제어일 때만 `-en` 규칙을 밀어낸다 (`seamen`→seaman ○ / `becomen`→become 보존) |
 
 ---
