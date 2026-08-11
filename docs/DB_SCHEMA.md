@@ -285,6 +285,9 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `enroll_library_book(p_book_id uuid)` | 사용자 enroll + 챕터 단어장 auto-subscribe + vocabulary auto-import |
 | `extract_vocabulary_for_user(uuid, text[], text)` | Phase 3A 다축 추출 — user/text/auto level 선택 + composite scoring |
 | `publish_book_word_sets(p_book_id uuid)` | 챕터 단어장 일괄 발행 trigger (L1 후보 풀, `p_cap` 기본 40) |
+| `maintain_reference_stats()` | **읽기 전용 참조 테이블 ANALYZE**(화이트리스트 10종, `statement_timeout=0`). 사전 계열은 갱신이 없어 **autoanalyze 가 영원히 안 돈다** — `shared_dictionary`(219MB)가 `n_live_tup=0` 으로 방치돼 플래너가 계획을 잘못 세웠고 120권 배치의 83번 이후 37건이 연속 타임아웃했다. 대량 적재·사전 갱신 후 필수 |
+| `audit_book_extraction(p_book_id uuid)` | 도서 1권의 결함 6종 계산 → `book_extraction_audit` 저장(멱등). 전수 뷰가 300권에서 타임아웃해 **증분으로 전환** |
+| `books_needing_audit(p_limit int)` | 미감사/낡은 도서 목록 — 증분 감사 배치(`scripts/lcp/audit-books.mjs`)의 입력 |
 | `deliver_chapter_vocab(p_book_id uuid, p_chapter_idx int)` | **L2 개인화 전달**(읽기 전용, ADR 0004 D7) — L1 풀에서 기보유 제외 + i+1 가우시안 재랭킹 + 밀도 기반 분량 `clamp(round(wc/1000×8), 8, 30)` |
 | `commit_chapter_vocab(p_book_id uuid, p_chapter_idx int)` | 위 결과를 `vocabularies` 에 담는다(멱등). **삽입 건수 반환** — 쓰기를 별도 함수로 둔 이유는 `RETURNS TABLE(word …)` 의 출력 파라미터가 `INSERT … ON CONFLICT (user_id, word)` 와 이름 충돌(42702)을 일으켜서다 |
 | `en_inflection_bases(text)` | 규칙 역굴절 후보 배열. `-men → -man` 은 그 형태가 사전 표제어일 때만 `-en` 규칙을 밀어낸다 (`seamen`→seaman ○ / `becomen`→become 보존) |

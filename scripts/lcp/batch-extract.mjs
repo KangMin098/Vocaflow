@@ -150,6 +150,10 @@ async function processOne(seed) {
     try { await sb.rpc(fn, { p_book_id: bookId }) } catch { /* best-effort */ }
   }
 
+  // 품질 감사 — 권당 즉시. 전수 재계산 뷰는 300권 규모에서 타임아웃하므로
+  // 적재하는 그 자리에서 증분으로 남긴다(멱등). 실패해도 추출은 유효하다.
+  try { await sb.rpc('audit_book_extraction', { p_book_id: bookId }) } catch { /* best-effort */ }
+
   await sb.from('library_seed_catalog').update({ imported_book_id: bookId }).eq('id', seed.id)
 
   return { bookId, chapters: result.chapter_count, vocab: result.words.length }
@@ -181,6 +185,18 @@ for (const [idx, seed] of seeds.entries()) {
       .eq('source', 'standard_ebooks').eq('source_id', seed.source_id)
   }
   if (idx < seeds.length - 1) await sleep(DELAY_MS)
+}
+
+// 참조 테이블 통계 갱신 — 대량 적재 뒤 반드시. 안 하면 다음 배치가 무너진다.
+//   실측(v06.35): shared_dictionary(219MB·45,682행)의 통계가 비어 있어 플래너가 0행으로
+//   추정했고, 154만 행 lbv 와 조인하는 계획이 붕괴해 120권 배치의 83번 이후 37건이
+//   연속 타임아웃했다. 사전 계열은 읽기 전용이라 autoanalyze 가 영원히 돌지 않는다.
+try {
+  const { data: stats } = await sb.rpc('maintain_reference_stats')
+  const n = Array.isArray(stats) ? stats.length : 0
+  console.error(`[batch] 참조 통계 갱신 — ${n}개 테이블`)
+} catch (e) {
+  console.error(`[batch] ⚠ 통계 갱신 실패 — 다음 배치 전에 maintain_reference_stats() 를 직접 돌릴 것: ${e instanceof Error ? e.message : e}`)
 }
 
 console.error(`\n[batch] 완료 — 성공 ${ok} · 건너뜀 ${skip} · 실패 ${fail}`)
