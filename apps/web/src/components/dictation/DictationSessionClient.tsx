@@ -24,6 +24,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
   ArrowRight,
+  Download,
   Eye,
   EyeOff,
   Focus,
@@ -111,6 +112,15 @@ export function DictationSessionClient() {
     itemStartedAtRef.current = Date.now()
     inputRef.current?.focus()
   }, [currentItem?.index])
+
+  // 다음 문항을 미리 합성 — 신경망 음성일 때 "재생을 눌렀는데 몇 초 조용한" 구간을 없앤다.
+  // (시스템 음성이면 no-op)
+  const warm = audio.warm
+  useEffect(() => {
+    if (!session) return
+    const next = session.items[session.currentIndex + 1]
+    if (next) warm(next.expectedText)
+  }, [session, warm])
 
   // ─── SessionFrame 셸에 리소스 컨텍스트 + 진행도 주입 ───
   const { setProgress } = useSessionProgress()
@@ -357,19 +367,35 @@ export function DictationSessionClient() {
               )}
             </div>
             <span className="font-mono text-[11px] text-[var(--t2)]">
-              {audio.isPlaying ? `재생 중 ${audio.iteration}/${autoRepeat}` : '대기'}
+              {audio.preparing
+                ? '음성 준비 중'
+                : audio.isPlaying
+                  ? `재생 중 ${audio.iteration}/${autoRepeat}`
+                  : '대기'}
             </span>
           </div>
 
-          {audio.englishVoiceAvailable === false && (
+          {/* 영어 음성이 없는 기기 — 예전엔 여기서 안내만 하고 끝났다(무음).
+              이제 해결책을 한 번 물어본다. 데이터 소모를 숨기지 않고 크기를 밝힌다. */}
+          {audio.englishVoiceAvailable === false && audio.engine === 'system' && (
             <div
-              className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2"
+              className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2.5"
               role="status"
             >
               <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
-                이 브라우저/기기에 영어 음성이 없어 소리가 재생되지 않아요. 기기의 음성(TTS)
-                설정에서 영어 음성을 추가하거나, 크롬 등 다른 브라우저로 열어보세요.
+                이 기기에 영어 음성이 없어 소리가 나지 않아요. 기기의 음성(TTS) 설정에서 영어
+                음성을 추가하거나, 아래에서 읽어 줄 음성을 한 번 내려받을 수 있어요.
               </p>
+              {audio.neuralSupported && (
+                <button
+                  type="button"
+                  onClick={() => audio.chooseEngine('neural')}
+                  className={`mt-2 inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] ${FOCUS_RING}`}
+                >
+                  <Download size={12} />
+                  음성 내려받아 사용하기 (약 17MB · 한 번만)
+                </button>
+              )}
             </div>
           )}
 
@@ -413,6 +439,42 @@ export function DictationSessionClient() {
               ))}
             </div>
           </div>
+
+          {/* 목소리 선택 — 기본은 시스템 음성(속도를 낮춰도 음높이가 보존된다).
+              신경망 음성은 기기에 영어 음성이 없거나, 늘 같은 목소리로 듣고 싶을 때. */}
+          {audio.neuralSupported && (
+            <div className="mt-3 flex items-center gap-1.5">
+              <span className="font-body text-[11px] text-[var(--t2)]">목소리</span>
+              {(
+                [
+                  { id: 'system' as const, label: '기기 음성' },
+                  { id: 'neural' as const, label: '내려받은 음성' },
+                ]
+              ).map((v) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => {
+                    audio.stop()
+                    audio.chooseEngine(v.id)
+                  }}
+                  aria-pressed={audio.engine === v.id}
+                  className={`rounded-[var(--r-sm)] border px-2 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
+                    audio.engine === v.id
+                      ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
+                      : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
+                  }`}
+                >
+                  {v.label}
+                </button>
+              ))}
+              {audio.neuralFailed && (
+                <span className="font-body text-[11px] italic text-[var(--t2)]">
+                  내려받기에 실패해 기기 음성으로 읽고 있어요
+                </span>
+              )}
+            </div>
+          )}
 
           <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-[var(--t2)]">
             <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">Space</kbd>

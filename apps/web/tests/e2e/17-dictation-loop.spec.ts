@@ -37,7 +37,10 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-dictation.json';
+// ⚠️ `test-results/` 는 Playwright 의 outputDir 이라 실행 중 워커 재시작 시 통째로 비워진다.
+// 그때 storageState 파일이 사라져 뒷 테스트가 "Error reading storage state" 로 죽는다.
+// 로그인 상태는 outputDir 밖에 둔다.
+const STATE_PATH = 'playwright-auth/.auth-dictation.json';
 
 async function loginRuntimeUser(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' });
