@@ -77,10 +77,10 @@ const manifestB64 = Buffer.from(JSON.stringify(items.map((it) => ({ name: it.nam
 // ── 자가완결 커널(SDXL + ControlNet Canny) ──
 const KERNEL = `import os, json, base64, io, time
 import subprocess
-# Kaggle 기본 torch 2.10 은 P100(sm_60) 미지원 → sm_60+sm_75 둘 다 지원하는 2.4.1(cu121)로 교체.
-# (무료 Kaggle 이 P100/T4 를 무작위 배정 → 둘 다 도는 torch 로 고정)
-subprocess.run("pip -q install torch==2.4.1 torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cu121", shell=True)
-subprocess.run("pip -q install -U diffusers transformers accelerate safetensors opencv-python-headless", shell=True)
+# 완전 정합 torch-2.4 스택(2024-08 동시대) — torch 2.4.1 은 sm_60(P100)+sm_75(T4) 둘 다 지원.
+# 트리오(torch/vision/audio) 일괄 + 그 시대 diffusers/transformers/hub 로 import 충돌 차단(v5 실패 교훈).
+subprocess.run("pip -q install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121", shell=True)
+subprocess.run("pip -q install 'diffusers==0.30.0' 'transformers==4.44.2' 'huggingface_hub==0.24.6' 'accelerate==0.33.0' safetensors opencv-python-headless", shell=True)
 import torch, cv2, numpy as np
 print("torch", torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0) if torch.cuda.is_available() else "no-cuda")
 from PIL import Image

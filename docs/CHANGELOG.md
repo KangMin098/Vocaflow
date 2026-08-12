@@ -10,6 +10,42 @@
 
 ## Unreleased (v06.34 → next)
 
+### 받아쓰기(v07) — localStorage 섬을 학습 자산·기억 축과 연결 (마이그레이션 1건)
+
+`/dictate` 는 하드코딩 시드 3개(`storage.SEED_RESOURCES`)만 받아쓸 수 있었고, 완주해도
+`scores` 0행 · `learning_records` 0행이라 홈·대시보드·주간리포트 어디에도 남지 않았다.
+DB 에 도서 12권(챕터 texts 269) · 공용 단어장 1,169 세트가 있는데 그 중 무엇도 받아쓸 수
+없었고, 기록은 기기를 바꾸면 사라졌다.
+
+- **`20260812150000_dictation_persistence`** — `dictation_sessions` + `dictation_attempts`
+  (RLS auth.uid()) + RPC 3종(`dictation_overview` · `dictation_weakness` ·
+  `dictation_recent_misses`). 추가 전용, 기존 객체 변경 없음.
+- **자료 연결 4소스** (`lib/dictation/source.ts`) — `?text=`(도서 챕터/내 스크립트 —
+  `library_book_id` 유무로 판별) · `?set=`(공용 단어장 → `shared_words.source_sentence`
+  도서 원문 문장) · `?custom=1`(붙여넣기, 자료로 저장 안 함) · 기본값 = **오늘의 받아쓰기**
+  (`lib/dictation/daily.ts` — 복습 임박 3 + 재도전 1 + 새 문장 1, 오늘 받아쓴 문장 제외).
+- **타깃 단어 → FSRS** — 문장마다 "이 문장이 훈련하는 내 단어"를 심고(`matchSurface` 굴절 인식),
+  적중 여부로 등급 산출(`lib/dictation/targets.ts`) → `flushPendingSrsResults` 로
+  `vocabularies` + `learning_records` 갱신. **힌트 4단계(정답 보기)는 Again(1)** — 인출이
+  없었으므로 맞게 적혔어도 복습 간격을 늘리지 않는다.
+- **오류 태그 9종** (`lib/dictation/error-tags.ts`) — article/inflection/contraction/
+  function-word/spelling/homophone/word-order/tail-drop/missed-target. 세션을 넘어 누적돼
+  허브 "요즘 자주 놓치는 것"(2주)의 원천. 태그마다 비난 아닌 처방 문구.
+- **청취 폭**(`longest_perfect_words`) — 힌트 없이 100% 로 받아쓴 최장 문장의 단어 수.
+  정확도(%)와 달리 "한 번에 붙잡는 길이"라 성장이 보인다(§철학4 Implicit Progress).
+- **화면 4종 재작성** — 허브(오늘의 받아쓰기 CTA → 자료 3탭 → 약점 → 최근) · 셋업(미리보기 3지표
+  + '한 번에 받아쓸 분량' 1·2·3문장이 '단위(문장/단락/전체)'를 대체) · 세션(타깃 단어는 **제출 전
+  비노출** — 알려주면 빈칸 채우기가 된다) · 결과(**DB 에서 읽어** 기기·시점 무관).
+- **적재 3시점** — 시작(세션 INSERT) / 문항마다(attempt INSERT — 중도 이탈해도 푼 만큼 남는다) /
+  완주(세션 마감 + `scores` + FSRS flush). 결과 화면은 더 이상 적재하지 않는다(새로고침 중복 방지).
+- **버그 수정** — 도서 챕터는 `texts.content` 가 NULL 이고 본문이 `content_chunks` 에 있다
+  (`get_chapter_content` RPC 경유). 이를 놓쳐 도서 전량이 목록·세션에서 사라지던 것을 e2e 가 잡았다.
+- **회귀 `tests/e2e/17-dictation-loop.spec.ts` 4종** — 허브 DB 자료 노출 · 오늘의 받아쓰기 완주 후
+  `dictation_sessions`/`_attempts`/`scores`/`learning_records` 4곳 적재 단언 · 도서 챕터
+  (content_chunks 경로) · 단어장 스코프. `04-ui-smoke` SCREENS 에 `/dictate` 추가.
+  ⚠️ finally 정리 필수 — 오늘의 받아쓰기는 "오늘 이미 받아쓴 문장"을 제외해 기록을 남기면 재실행 시 고갈된다.
+- 삭제: `lib/dictation/scoped-resource.ts`(source.ts 로 흡수) · `storage.SEED_RESOURCES`.
+
 ### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
 
 관리자 콘솔 첫 화면이 DB 를 한 번도 조회하지 않는 정적 목업이었다. `KPIS`·`SECTIONS`·
