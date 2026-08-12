@@ -346,3 +346,41 @@ export async function getComicProgress(
     completed: row.completed_at != null,
   };
 }
+
+/**
+ * 학습자 단어와 **겹치지 않는** 공용 세트를 하나 고른다 — 결합 침묵 계약 검증용.
+ *
+ * 왜 필요한가:
+ *   "세트로 놀면 복습 일정에 반영되지 않는다는 고지가 뜬다" 를 검증하려면 그 세트가
+ *   실제로 내 단어와 겹치지 않아야 한다. 겹치는 세트로 하면 고지가 안 뜨는 것이 **정상**이고,
+ *   그러면 "고지 없음" 이 결함인지 정상인지 구별할 수 없다.
+ *
+ *   세트 id 를 테스트에 하드코딩하면 데이터가 바뀌는 순간 조용히 낡는다. UI 목록을
+ *   스크래핑하는 것도 취약했다(링크 구조가 바뀌면 깨진다). 그래서 DB 에서 고른다.
+ *
+ * @param minWords 게임이 성립하는 하한(cascade minWords 5 보다 넉넉히)
+ */
+export async function pickSetWithoutOverlap(
+  userId: string,
+  minWords = 12,
+): Promise<{ setId: string; title: string; words: number } | null> {
+  const c = serviceClient();
+  if (!c) return null;
+
+  const { data: vocab } = await c.from('vocabularies').select('word').eq('user_id', userId);
+  const mine = new Set(((vocab ?? []) as Array<{ word: string }>).map((r) => r.word.toLowerCase()));
+
+  const { data: sets } = await c
+    .from('shared_word_sets')
+    .select('id, title')
+    .limit(40);
+
+  for (const s of (sets ?? []) as Array<{ id: string; title: string }>) {
+    const { data: words } = await c.from('shared_words').select('word').eq('set_id', s.id).limit(200);
+    const list = ((words ?? []) as Array<{ word: string }>).map((r) => r.word.toLowerCase());
+    if (list.length < minWords) continue;
+    if (list.some((w) => mine.has(w))) continue; // 하나라도 겹치면 판정이 흐려진다
+    return { setId: s.id, title: s.title, words: list.length };
+  }
+  return null;
+}

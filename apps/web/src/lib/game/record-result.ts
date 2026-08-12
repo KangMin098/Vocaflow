@@ -4,7 +4,9 @@
 //
 // 정책(WordBlitz 계승):
 // - 정답 → Rating.Good · 오답 → Rating.Again
-// - 사용자 vocabularies 에 없는 단어(기본 풀·보충 단어) → silent skip
+// - 사용자 vocabularies 에 없는 단어(기본 풀·보충 단어) → 카드 갱신 없음.
+//   **더 이상 silent 하지 않다** — `reason: 'not-mine'` 을 반환한다(v08.5).
+//   실측 97.9% 가 이 경로였고, 이유를 뭉쳐 두는 동안 팀이 게임별로 각자 우회했다.
 // - learning_records.module / scores.module enum 미확장 시 audit insert 실패는
 //   조용히 흡수(카드 SRS 갱신은 유효). enum 확장 마이그레이션 후 audit 완전 활성.
 
@@ -45,8 +47,25 @@ export interface RecordGameResultInput {
  */
 const REGRADE_COOLDOWN_MS = 10 * 60 * 1000;
 
+/**
+ * 카드를 갱신하지 **않은** 이유. 셋은 성격이 전혀 다르다.
+ *
+ *   not-mine  학습자 vocabularies 에 없는 단어 — **결합 실패**. 실측 97.9%
+ *             (내 단어 225개 vs 세트 단어 56,079개 · 628세트 기준 겹침 2.1%).
+ *             세트로 들어와 플레이했는데 복습 일정에는 아무것도 남지 않는다.
+ *   assisted  정답을 보여준 뒤의 입력 — 인출이 아니므로 올리면 거짓 신호다(v07.8 가드).
+ *   cooldown  10분 안의 재채점 — 독립 인출이 아니다(v07.8 가드).
+ *
+ * 뒤의 둘은 **의도된 무결성 가드**이고 앞의 하나만 결함이다. 이전에는 셋이 모두
+ * `{ ok: true, updated: false }` 로 뭉쳐 있어서 구별할 방법이 없었고, 그래서 팀이
+ * 게임별로 각자 우회했다(morpheme-bank.ts · morph-bank.ts · due-words.ts · catalog.tsx 의
+ * 주석들이 같은 문제를 따로 적고 있다). 중앙에서 이유를 말하면 우회가 필요 없다.
+ */
+export type RecordSkipReason = 'not-mine' | 'assisted' | 'cooldown';
+
 export type RecordResult =
-  | { ok: true; updated: boolean }
+  | { ok: true; updated: true }
+  | { ok: true; updated: false; reason: RecordSkipReason }
   | { ok: false; error: string };
 
 export async function recordGameResult(
@@ -71,20 +90,20 @@ export async function recordGameResult(
     .maybeSingle();
 
   if (fetchError) return { ok: false, error: fetchError.message };
-  if (!vocabRow) return { ok: true, updated: false }; // 사용자 vocab 에 없음 → skip
+  if (!vocabRow) return { ok: true, updated: false, reason: 'not-mine' };
 
   // ── FSRS 무결성 가드 (v07.8) ──────────────────────────────────────────
   // 게임 점수·콤보는 게임이 알아서 하되, **학습 스케줄에 올릴 자격**은 여기서 판정한다.
   // 게임마다 각자 판단하게 두면 19가지 기준이 생기고, 실제로 그래서 새고 있었다.
 
   // ① 정답을 보여준 뒤의 입력은 인출이 아니다.
-  if (input.assisted) return { ok: true, updated: false };
+  if (input.assisted) return { ok: true, updated: false, reason: 'assisted' };
 
   // ② 같은 카드를 방금 채점했다면 이번 것은 독립 인출이 아니다.
   const lastAt = (vocabRow as VocabularyRow).last_review_at;
   if (lastAt) {
     const since = Date.now() - new Date(lastAt).getTime();
-    if (since >= 0 && since < REGRADE_COOLDOWN_MS) return { ok: true, updated: false };
+    if (since >= 0 && since < REGRADE_COOLDOWN_MS) return { ok: true, updated: false, reason: 'cooldown' };
   }
 
   const card = rowToCard(vocabRow as VocabularyRow);

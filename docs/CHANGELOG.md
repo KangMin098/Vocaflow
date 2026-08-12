@@ -109,6 +109,30 @@ NANO(RAM 0.5GB)에서 DB 가 `Unhealthy` 로 떨어졌다. 원인은 규모가 �
 
 **재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색 + 코드 grep 을 DB_SCHEMA.md 에 필수 점검으로 명문화.
 
+### 결합 침묵 제거 — 세트로 놀아도 복습에 아무것도 남지 않는 것을 학습자가 알 수 있게
+
+`recordGameResult` 는 학습자 `vocabularies` 에 없는 단어를 카드 갱신 없이 넘긴다. **실측 97.9%** 가 그 경로다(내 단어 225개 vs 세트 단어 56,079개 · 628세트 기준 겹침 2.1%). 그동안 화면에 아무 표시가 없어서, 세트로 한 세션을 다 놀아도 FSRS 에 0건이 남는다는 것을 알 방법이 없었다.
+
+**구조가 문제였다.** 카드를 갱신하지 않는 경로가 셋인데 전부 `{ ok: true, updated: false }` 로 뭉쳐 있었다:
+
+| 경로 | 성격 |
+|---|---|
+| `not-mine` — 내 단어가 아님 | **결합 실패** (97.9%) |
+| `assisted` — 정답 본 뒤 입력 | 의도된 FSRS 무결성 가드(v07.8) |
+| 10분 쿨다운 | 같음 |
+
+뒤의 둘은 근거가 명확한 가드인데 구별이 안 돼서, 팀이 **게임별로 각자 우회**해 왔다 — `morpheme-bank.ts`("99.7% silent skip 됐다") · `morph-bank.ts` · `due-words.ts` · `catalog.tsx` 가 같은 문제를 따로 적고 따로 대응했다. 게다가 **전 호출자가 `void recordGameResult(...)`** 로 반환값을 아예 읽지 않았다.
+
+- `RecordSkipReason` 신설 — `updated: false` 에는 **이유가 반드시** 붙고 `updated: true` 에는 붙을 수 없다(타입이 강제).
+- 중앙 `play-scaffold` 가 `not-mine` 만 세어(대소문자·재출제 중복 제거) 세션당 하나의 배지로 고지한다. 18/19 게임이 이 스캐폴드를 쓰므로 게임별 우회가 필요 없다. `assisted`·`cooldown` 은 **세지 않는다** — 정상 동작을 경고로 보고하면 고지가 항상 떠 있고 결국 무시된다.
+- 고지는 모달이 아니고 `pointer-events: none` — 학습을 끊지 않는다(Calm UI · 학습 중 오버레이 금지).
+
+**내가 만든 버그를 런타임이 잡았다.** 훅(`useRef`/`useState`)을 early return 뒤에 두어 `Rendered more hooks than during the previous render` 가 났는데 **tsc·eslint·단위 테스트가 모두 통과했다.** 런타임 확인만 잡았고, 그 경고를 코드 주석에 남겼다.
+
+검증: 단위 7건(이유 구별 · 의도된 가드를 세지 않음 · 중복 제거) + e2e 2건([16-coupling-notice](../apps/web/tests/e2e/16-coupling-notice.spec.ts) — 고지가 실제로 뜨는지, 내 단어로 놀 때 **거짓 경보가 없는지**). e2e 는 세트를 DB 에서 고른다(`pickSetWithoutOverlap`) — id 하드코딩은 데이터가 바뀌면 조용히 낡고 UI 스크래핑은 링크 구조에 취약했다. 단위 312 통과.
+
+**승격 정책은 보류** — 프레임워크 제안의 결정 3(lazy 승격)은 실측 97.9% 를 보면 세트 하나 플레이로 단어장에 수백 개가 자동 유입된다. 제안서가 경계한 "의도 없이 커지는 단어장" 이 실제로 크므로, 세션 끝에 묶어 묻는 안(C)을 재검토해야 한다.
+
 #### ⑤ `pending_words` 복원 — CASCADE 가 **함수도 지운다**는 것을 알게 된 건 (마이그레이션 1건)
 
 **마이그레이션 [20260812133000_restore_pending_words.sql](../supabase/migrations/20260812133000_restore_pending_words.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
