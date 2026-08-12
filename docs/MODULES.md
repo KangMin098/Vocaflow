@@ -366,11 +366,13 @@ const QUIZ_GENERATION_PROMPT = `
 - `scoring.ts` — Levenshtein + Word alignment + Smart/Strict
 - `analyzer.ts` — 세션 내 설명용 패턴 6종 (누적은 error-tags 가 담당)
 - `audio-control.ts` — Web Speech API + autoRepeat + 무음 간격
+- `neural-voice.ts` — **v07** Piper WASM(en_US-amy-medium · EchoMatch 자산 재사용). 영어 음성이
+  없는 기기의 무음 해소. 문장 LRU 캐시 + 다음 문항 선합성. **자동 다운로드 안 함**(17MB 명시 후 1회 동의)
 - `hint.ts` — 4단계
 - `storage.ts` — **진행 중 세션 런타임 캐시만** (기록 원본은 DB)
 
 ### Hooks
-- `useAudioControl.ts` — TTS 재생/반복/정지
+- `useAudioControl.ts` — 엔진 2종(기기 음성 / 내려받은 음성)을 한 표면 뒤에. 합성 실패 시 즉시 폴백
 - `useDictationSession.ts` — 문항 진행 + 채점 + 적재 3시점 (`createDictationSession` 포함)
 
 ### 컴포넌트 (`components/dictation/`)

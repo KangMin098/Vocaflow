@@ -45,6 +45,14 @@ DB 에 도서 12권(챕터 texts 269) · 공용 단어장 1,169 세트가 있는
   (content_chunks 경로) · 단어장 스코프. `04-ui-smoke` SCREENS 에 `/dictate` 추가.
   ⚠️ finally 정리 필수 — 오늘의 받아쓰기는 "오늘 이미 받아쓴 문장"을 제외해 기록을 남기면 재실행 시 고갈된다.
 - 삭제: `lib/dictation/scoped-resource.ts`(source.ts 로 흡수) · `storage.SEED_RESOURCES`.
+- **소리 (후속)** — 영어 음성이 없는 기기에서 받아쓰기는 무음이었고 코드는 배너를 띄우는 데서
+  멈췄다. `lib/dictation/neural-voice.ts` 가 EchoMatch 의 Piper WASM(en_US-amy-medium)을
+  재사용해 선택지를 준다. **자동 다운로드하지 않는다** — 17MB 를 밝히고 한 번 묻고, 고른 값은
+  유지된다. 합성 실패 시 시스템 음성으로 즉시 폴백. 문장 LRU 캐시로 autoRepeat 3회에 합성 1회.
+  ⚠️ 신경망 음성의 속도 조절은 `playbackRate` 라 **음높이도 함께 변한다** — 그래서 시스템
+  음성이 있는 기기의 기본값은 그대로 시스템 음성(rate 가 음높이를 보존).
+- e2e storageState 를 `test-results/`(Playwright outputDir) 밖으로 — 워커 재시작 시 디렉터리가
+  비워져 뒷 테스트가 "Error reading storage state" 로 죽었다. 다른 spec 도 같은 함정을 갖고 있다.
 
 ### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
 
