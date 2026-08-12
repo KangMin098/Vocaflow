@@ -105,8 +105,12 @@ export function ModuleHero({
           aria-label="hub stats"
         >
           {stats.map((s, i) => (
+            // data-hero-stat — 라벨을 **선언**으로 노출한다. 이게 없으면 테스트가 화면 산문에서
+            // 숫자를 긁어야 하는데, 실제로 그렇게 했다가 SpellForge 히어로 설명문("이번 세션에서
+            // 철자가 흔들리는 단어 17개를 만나요")의 숫자를 통계값으로 잘못 읽었다.
             <li
               key={i}
+              data-hero-stat={s.label}
               className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight"
             >
               <span

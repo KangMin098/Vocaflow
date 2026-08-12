@@ -20,7 +20,7 @@ export const metadata = {
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string; chapter?: string; from?: string }
+  searchParams?: { set?: string; text?: string; chapter?: string; from?: string; limit?: string }
 }
 
 export default async function SpellForgePlayPage({ searchParams }: PageProps) {
@@ -28,6 +28,11 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
   const text = searchParams?.text
   const chapterNum = searchParams?.chapter ? parseInt(searchParams.chapter, 10) : NaN
   const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
+  // 세션 길이 (?limit=N) — 허브의 길이 선택. 허브가 보여준 분포는 "앞에서 N개" 이므로
+  // 여기서도 앞에서 자른다(session-queue.bucketsOf 와 같은 규칙).
+  const limitNum = searchParams?.limit ? parseInt(searchParams.limit, 10) : NaN
+  const limit = Number.isInteger(limitNum) && limitNum > 0 ? limitNum : null
+  const applyLimit = <T,>(words: T[]): T[] => (limit == null ? words : words.slice(0, limit))
   // 닫기/완료 복귀: ?from 우선 → 스코프 텍스트 → hub
   const backHref = resolveSessionReturnHref(searchParams?.from, text, '/spellforge')
   const client = (await createClient()) as unknown as SupabaseClient<Database>
@@ -44,21 +49,22 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
       userId: user?.id ?? null,
     })
     if (scoped && scoped.words.length > 0) {
+      const words = applyLimit(scoped.words)
       return (
         <>
           <ResourceContext
             resource={{
               type: set ? 'vocab' : 'script',
               label: scoped.title,
-              position: `${scoped.words.length}개 단어`,
+              position: `${words.length}개 단어`,
               href: '/text',
             }}
-            total={scoped.words.length}
+            total={words.length}
           />
           <SpellForge
             textId={set ? 'vocab' : 'script'}
             textTitle={scoped.title}
-            words={scoped.words}
+            words={words}
             backHref={backHref}
           />
         </>
@@ -70,8 +76,9 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
   // 일반 진입 (hub) — 사용자 SRS 큐의 due 단어
   if (!user) return <HubEmpty reason="auth" />
 
-  const words = await fetchDueSpellForgeWords(client, user.id)
-  if (words.length === 0) return <HubEmpty reason="empty" />
+  const all = await fetchDueSpellForgeWords(client, user.id)
+  if (all.length === 0) return <HubEmpty reason="empty" />
+  const words = applyLimit(all)
 
   return (
     <>

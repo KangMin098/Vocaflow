@@ -10,6 +10,51 @@
 
 ## Unreleased (v06.34 → next)
 
+### 모듈 허브 3개 목업 제거 — 처음 온 학습자가 남의 전적을 보고 있었다
+
+`/flashcard` · `/spellforge` · `/wordblitz` 허브의 학습 데이터가 전부 상수였다.
+계정을 막 만든 사람도 "Best 1410 · 콤보 11 · 정확도 94%", "오늘 1240점", "Day 12 ·
+Gatsby Ch.1 — 어제 멈춘 자리에서 이어집니다" 를 봤다.
+
+**실측으로 드러난 것** (2026-08-12): `scores` 에 spellforge **0행** · wordblitz **1행**.
+즉 두 허브가 보여준 "최근 4회" 는 만들어진 적조차 없는 기록이다.
+
+| 요소 | 판정 | 조치 |
+|---|---|---|
+| 큐 분포 + 미리보기 단어 | 실산출 가능 | `fetchSessionQueue` — **play 라우트와 같은 쿼리** |
+| 연속일 | 실산출 가능 | `user_stats.current_streak` (`fetchGrowthStats`) |
+| 최고점 · 최근 기록 | 실산출 가능 | `scores` 실조회 + 빈 상태 |
+| 7일 정확도 sparkline | 데이터 부족 | 제거 (flashcard 5행/전체 — 1인 7일치는 0~1점) |
+| ContinueRow "어제 멈춘 자리" | **불가** | 제거 — 재개 저장소가 없다(grep 0건). 눌러도 새 세션이었다 |
+| 콤보 | **불가** | 제거 — `scores.metadata` 실측 키는 demo·scope·wrong·captured |
+| 모드(단어↔뜻 / 뜻↔철자) | **불가** | 제거 — FlashcardSession 에 방향 개념 없음, SpellForge 의 모드는 realtime·delayed·blind(피드백 시점) |
+| 난이도(쉬움·보통·어려움) | **불가** | 제거 — `difficulty` 는 spellforge 코드에 0건. adaptiveDifficulty 가 자동 추천 |
+| "힌트 -20점" | 거짓 | 정정 — 감점은 없고 FSRS 등급이 내려간다(rating-mapper) |
+
+**세 컨트롤은 애초에 죽어 있었다**: 허브가 `?vocab=&mode=&length=` 를 넘겼지만 play 라우트는
+`set`/`text`/`chapter` 만 받는다. 학습자의 선택이 조용히 버려졌다.
+살릴 수 있는 하나(길이)는 `?limit=N` 을 play 라우트에 **실제로 구현**해서 살렸다.
+
+**드리프트를 원리적으로 막은 방법**: 허브 큐를 play 라우트가 쓰는 그 쿼리
+(`fetchStudyVocabularies`)로 산출한다. 별도 쿼리로 세면 "오늘 17장" 이 시작 후 개수와
+어긋날 수 있고, 그건 mock 을 지우고 만든 새 거짓말이 된다. 길이 선택도 같은 순수 함수
+(`bucketsOf`)로 잘라서 화면 분포 = 담길 카드가 항상 같다.
+(부수 정정: `/flashcard/play` 의 "오늘 N개" → "급한 순 N개" — 이 큐는 due 필터가 아니라
+`next_review_at` 임박순 상한 50이다.)
+
+- 신설: `lib/learner/session-queue.ts`(순수) · `session-queue-query.ts`(server-only) ·
+  `lib/scores/recent.ts` · `components/hub/RecentScoresList.tsx` ·
+  `flashcard/FlashcardHubClient.tsx` · `spellforge/SpellForgeHubClient.tsx`
+- 테스트: 단위 17(합계 불일치 금지 · KST 날짜 경계) · e2e `18-hub-real-queue.spec.ts`
+- ⚠️ **런타임에서만 잡힌 결함**: 순수 계산부를 처음엔 server-only 파일에 뒀는데,
+  `'use client'` 허브가 그것을 import 하는 순간 모듈 그래프가 깨져 **앱의 모든 라우트가 500**
+  이 됐다. tsc·eslint·단위 356개 전부 통과했다. 그래서 순수/조회를 두 파일로 분리했고,
+  `session-queue.ts` 머리에 그 금지를 명시했다. (직전 커밋의 훅 순서 결함도 런타임만 잡았다 —
+  이 화면군은 정적 검사로 안 잡히는 결함을 두 번 냈다.)
+- 콘텐츠 선택기(단어장 드롭다운)는 실 목록으로 되살리지 **않았다** — 되살리면 콘텐츠 선택
+  표면이 셋(워크스페이스 · 받아쓰기 · 허브)이 되고, 프레임워크가 그걸 하나로 접기로 했다.
+  대신 자료 화면 링크를 남겨 경로 자체는 알 수 있게 했다.
+
 ### 받아쓰기(v07) — localStorage 섬을 학습 자산·기억 축과 연결 (마이그레이션 1건)
 
 `/dictate` 는 하드코딩 시드 3개(`storage.SEED_RESOURCES`)만 받아쓸 수 있었고, 완주해도

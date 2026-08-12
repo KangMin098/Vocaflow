@@ -19,7 +19,7 @@ export const metadata = {
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string; chapter?: string; from?: string }
+  searchParams?: { set?: string; text?: string; chapter?: string; from?: string; limit?: string }
 }
 
 export default async function FlashcardPlayPage({ searchParams }: PageProps) {
@@ -28,6 +28,12 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
   // 세트 내 특정 챕터만 학습 (?set=…&chapter=N) — 유효 양수만
   const chapterNum = searchParams?.chapter ? parseInt(searchParams.chapter, 10) : NaN
   const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
+  // 세션 길이 (?limit=N) — 허브의 길이 선택. 유효 양수만 받고 없으면 전체.
+  // 허브가 보여준 분포는 "앞에서 N개" 를 센 것이므로(session-queue.bucketsOf) 여기서도
+  // **앞에서** 자른다. 뒤에서 자르거나 섞으면 허브가 미리 보여준 단어와 달라진다.
+  const limitNum = searchParams?.limit ? parseInt(searchParams.limit, 10) : NaN
+  const limit = Number.isInteger(limitNum) && limitNum > 0 ? limitNum : null
+  const applyLimit = <T,>(words: T[]): T[] => (limit == null ? words : words.slice(0, limit))
   // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (스코프 단어 id 오용 방지)
   const backHref = resolveSessionReturnHref(searchParams?.from, text, '/flashcard')
 
@@ -45,6 +51,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
     })
 
     if (scoped && scoped.words.length > 0) {
+      const words = applyLimit(scoped.words)
       return (
         <>
           <ResourceContext
@@ -54,9 +61,9 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
               position: scoped.subtitle,
               href: '/text',
             }}
-            total={scoped.words.length}
+            total={words.length}
           />
-          <FlashcardSession initialWords={scoped.words} backHref={backHref} />
+          <FlashcardSession initialWords={words} backHref={backHref} />
         </>
       )
     }
@@ -73,8 +80,9 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
 
   if (!user) return <HubEmpty reason="auth" />
 
-  const words = await fetchDueFlashcardWords(client, user.id)
-  if (words.length === 0) return <HubEmpty reason="empty" />
+  const all = await fetchDueFlashcardWords(client, user.id)
+  if (all.length === 0) return <HubEmpty reason="empty" />
+  const words = applyLimit(all)
 
   return (
     <>
@@ -82,7 +90,9 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
         resource={{
           type: 'vocab',
           label: '내 단어 자산 · SRS 큐',
-          position: `오늘 ${words.length}개`,
+          // "오늘 N개" 는 due 처방처럼 읽히지만 이 큐는 due 필터가 아니라 급한 순 상한이다
+          // (study-queries.fetchStudyVocabularies). 문구를 동작에 맞춘다.
+          position: `급한 순 ${words.length}개`,
           href: '/wordvault',
         }}
         total={words.length}

@@ -1,10 +1,21 @@
 // apps/web/src/app/(main)/wordblitz/page.tsx
-// WordBlitz Hub — 게임 소개 + 통계 + 시작 CTA → /play/wordblitz
+// WordBlitz Hub — 게임 소개 + 실측 기록 + 시작 CTA → /play/wordblitz
 // 정서적 부호화: 인형뽑기 정글 분위기 미리보기로 기대감 형성
+//
+// v08.6 목업 제거. 기록이 전부 상수였다:
+//   · "Best 1410 · 콤보 11 · 정확도 94%" — 히어로 부제와 stats row **두 곳**에 하드코딩
+//   · 최근 기록 4행(오늘 1240 콤보 8 · 어제 980 …) — 실측 결과 scores 에 wordblitz **1행**
+//     뿐이었다(2026-08-12, 전체 사용자 기준). 처음 온 학습자도 4회의 전적을 봤다.
+//
+// 콤보를 되살리지 않은 이유: scores.metadata 에 콤보가 없다(실측 키 demo·scope·wrong·captured).
+// 표시하려면 먼저 기록해야 한다 — 없는 값을 화면에 두는 것이 이 커밋이 지우는 대상이다.
+//
+// 게임 규칙·학습 효과 설명은 상수로 남긴다 — 그건 데이터가 아니라 이 게임의 설명이다.
 
+import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@vocaflow/types'
 import {
   Award,
-  Clock,
   Gamepad2,
   Layers,
   Maximize2,
@@ -13,19 +24,9 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
-interface RecentScore {
-  date: string
-  score: number
-  combo: number
-  accuracy: number
-}
-
-const RECENT_SCORES: RecentScore[] = [
-  { date: '오늘', score: 1240, combo: 8, accuracy: 90 },
-  { date: '어제', score: 980, combo: 5, accuracy: 82 },
-  { date: '4일 전', score: 1410, combo: 11, accuracy: 94 },
-  { date: '6일 전', score: 760, combo: 4, accuracy: 76 },
-]
+import { RecentScoresList } from '@/components/hub/RecentScoresList'
+import { fetchBestScore, fetchRecentScores, type RecentScore } from '@/lib/scores/recent'
+import { createClient } from '@/lib/supabase/server'
 
 interface RuleStep {
   step: string
@@ -55,7 +56,24 @@ export const metadata = {
   title: 'WordBlitz · Vocaflow',
 }
 
-export default function WordBlitzHubPage() {
+export default async function WordBlitzHubPage() {
+  const client = (await createClient()) as unknown as SupabaseClient<Database>
+  const {
+    data: { user },
+  } = await client.auth.getUser()
+
+  const [recent, best] = user
+    ? await Promise.all([
+        fetchRecentScores(client, user.id, 'wordblitz'),
+        fetchBestScore(client, user.id, 'wordblitz'),
+      ])
+    : [[] as RecentScore[], null]
+
+  // 최근 정확도 = 가장 마지막 세션의 정확도. 평균이 아니라 마지막인 이유는 라벨이 "최근" 이고,
+  // 평균을 "최근" 이라 부르면 한 판 잘한 것이 며칠간 화면에 남는다.
+  const lastAccuracy = recent.find((r) => r.accuracy != null)?.accuracy ?? null
+  const hasRecord = best != null
+
   return (
     <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
       {/* ── Hero (v06.30 슬림화) ── */}
@@ -79,7 +97,9 @@ export default function WordBlitzHubPage() {
             </h1>
             <span className="hidden opacity-30 sm:inline" aria-hidden>·</span>
             <p className="hidden truncate font-body text-[12px] opacity-85 sm:block">
-              Best 1410 · 콤보 11 · 정확도 94%
+              {hasRecord
+                ? `Best ${best!.toLocaleString()}${lastAccuracy != null ? ` · 최근 정확도 ${lastAccuracy}%` : ''}`
+                : '첫 판을 기다리고 있어요'}
             </p>
           </div>
 
@@ -102,23 +122,28 @@ export default function WordBlitzHubPage() {
           </div>
         </div>
 
-        {/* Stats — 인라인 가로 row */}
-        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-[#FFE234]/15 pt-2">
-          <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
-            <span className="text-[11px] font-[700] text-[#FFE234]">Best</span>
-            <span className="text-[15px] font-[800] text-[#FFE234]">1410</span>
-          </li>
-          <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
-            <span className="text-[11px] font-[700] text-white/75">콤보</span>
-            <span className="text-[13px] font-[700] text-white">11</span>
-          </li>
-          <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
-            <span className="text-[11px] font-[700] text-white/75">정확도</span>
-            <span className="text-[13px] font-[700] text-white">
-              94<span className="ml-0.5 text-[10px] font-[600] opacity-70">%</span>
-            </span>
-          </li>
-        </ul>
+        {/* Stats — 실기록만. 기록이 없으면 row 자체를 렌더하지 않는다
+            (0점·0% 를 넣으면 "해봤는데 0점" 으로 읽혀 처음 온 학습자를 깎아내린다) */}
+        {hasRecord && (
+          <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-[#FFE234]/15 pt-2">
+            <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
+              <span className="text-[11px] font-[700] text-[#FFE234]">Best</span>
+              <span className="text-[15px] font-[800] text-[#FFE234]">{best!.toLocaleString()}</span>
+            </li>
+            {lastAccuracy != null && (
+              <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
+                <span className="text-[11px] font-[700] text-white/75">최근 정확도</span>
+                <span className="text-[13px] font-[700] text-white">
+                  {lastAccuracy}
+                  <span className="ml-0.5 text-[10px] font-[600] opacity-70">%</span>
+                </span>
+              </li>
+            )}
+            {/* "기록 N회" 는 넣지 않는다 — fetchRecentScores 는 4행으로 캡돼 있어서
+                30회 한 학습자에게도 4회라고 말하게 된다. 정확한 총 횟수를 세려면 별도
+                count 쿼리가 필요하고, 그만한 가치가 있는 숫자는 아니다. */}
+          </ul>
+        )}
       </section>
 
       {/* ── 학습 효과 + 통계 (2 cols) ── */}
@@ -203,51 +228,36 @@ export default function WordBlitzHubPage() {
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최고 기록</h2>
           </header>
-          <p className="mt-4 font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
-            1,410
-            <span className="ml-1 font-display text-[16px] font-[600] text-[var(--t2)]">점</span>
-          </p>
-          <p className="mt-2 font-mono text-[11px] text-[var(--t2)]">
-            <Award size={11} className="mr-1 inline align-text-bottom" aria-hidden />
-            4일 전 · 콤보 11 · 94%
-          </p>
+          {hasRecord ? (
+            <>
+              <p className="mt-4 font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
+                {best!.toLocaleString()}
+                <span className="ml-1 font-display text-[16px] font-[600] text-[var(--t2)]">점</span>
+              </p>
+              {/* 이전에는 "4일 전 · 콤보 11 · 94%" 였다. 최고 기록이 **언제**였는지는
+                  fetchBestScore 가 점수만 돌려주므로 알 수 없고, 콤보는 저장되지 않는다.
+                  모르는 것을 쓰지 않는다. */}
+              <p className="mt-2 font-mono text-[11px] text-[var(--t2)]">
+                <Award size={11} className="mr-1 inline align-text-bottom" aria-hidden />
+                지금까지 이 게임 최고점
+              </p>
+            </>
+          ) : (
+            <p className="mt-4 font-body text-[13px] italic leading-relaxed text-[var(--t2)]">
+              아직 기록이 없어요. 한 판만 해보면 여기에 최고점이 새겨져요.
+            </p>
+          )}
         </aside>
 
-        {/* 최근 기록 (2 cols) */}
-        <aside
-          aria-label="최근 기록"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
-        >
-          <header className="mb-3 flex items-center gap-2">
-            <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] text-[var(--t2)]"
-              aria-hidden
-            >
-              <Clock size={14} strokeWidth={1.75} />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 기록</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{RECENT_SCORES.length}회</span>
-          </header>
-          <ul className="divide-y divide-[var(--bg2)]">
-            {RECENT_SCORES.map((s, i) => (
-              <li key={i} className="flex items-center gap-3 py-2.5">
-                <span className="w-16 shrink-0 font-mono text-[11px] text-[var(--t2)]">
-                  {s.date}
-                </span>
-                <span className="flex-1 font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">
-                  {s.score.toLocaleString()}
-                  <span className="ml-1 font-mono text-[10px] text-[var(--t2)]">점</span>
-                </span>
-                <span className="shrink-0 rounded-full bg-[var(--p-light)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--on-p-tint)]">
-                  콤보 {s.combo}
-                </span>
-                <span className="w-12 shrink-0 text-right font-mono text-[12px] tabular-nums text-[var(--t2)]">
-                  {s.accuracy}%
-                </span>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        {/* 최근 기록 (2 cols) — 콤보 열은 사라졌다(scores 에 저장되지 않는다) */}
+        <div className="lg:col-span-2">
+          <RecentScoresList
+            scores={recent}
+            best={best}
+            accent="#3d8a3d"
+            emptyHint="아직 이 게임 기록이 없어요. 한 판을 마치면 점수와 정확도가 여기에 남아요."
+          />
+        </div>
       </div>
 
       {/* ── Bottom CTA ── */}
