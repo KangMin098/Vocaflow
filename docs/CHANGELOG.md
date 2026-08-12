@@ -124,6 +124,15 @@ ADR 0004 에서 챕터당 cap 40 을 없애(`republish_book_word_sets(p_cap DEFA
 - 추출 골든 스냅샷 2건 갱신 (`extraction-rpc.integration.test.ts`) — 2026-07-04 기준값이 ADR 0004
   상대 밴드 도입 전이라 밴드 밖(V6) 단어를 담고 있었다. 현 select 실측: P&P(V8) → min V7 · max V11 ·
   밴드 이탈 0. 새 상위 20 = copyright(V8) · flatter(V9) · hearty(V9) · solace(V9) …
+- `scripts/lcp/republish-books.mjs` 에 `--drifted-only` · `--book` · `--dry-run` 추가 —
+  전량 재발행은 이미 동기된 도서까지 DELETE+INSERT 로 휘젓는다. 파괴적 연산의 기본값은
+  "고칠 게 있는 것만" 이어야 한다. I10 게이트(읽기 전용)로 대상을 고른다.
+- ⚠️ 재발행 범위 정정 — 발행 **세트**를 가진 도서는 12권이 아니라 **39권**이다.
+  `library_books.status='ready'` 인데 세트만 `is_published` 인 도서 6권(Les Misérables 5,477단어 ·
+  Dialogues 3,991 · Tom Sawyer 2,073 · Decline and Fall 1,601 · Jungle Book 1,207 · Ozma of Oz 1,021
+  = 15,370단어)이 카탈로그에 없는 채로 학습자에게 노출된다. I10 드리프트 실측 **10/39권**.
+- ⚠️ 세트가 **아예 없는 챕터**의 드리프트는 재발행으로 안 없어진다 — `republish` 는 기존 세트만
+  갱신한다. Fables 드리프트 4 = 세트 없는 챕터 24·36·104 의 단어 4개 (`publish_book_word_sets` 영역).
 
 ### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
 
