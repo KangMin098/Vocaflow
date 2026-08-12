@@ -84,18 +84,20 @@ subprocess.run("pip -q install 'diffusers==0.30.0' 'transformers==4.44.2' 'huggi
 import torch, cv2, numpy as np
 print("torch", torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0) if torch.cuda.is_available() else "no-cuda")
 from PIL import Image
-from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, AutoencoderKL
+from diffusers import StableDiffusionXLControlNetImg2ImgPipeline, ControlNetModel, AutoencoderKL
 OUT="/kaggle/working/out"; os.makedirs(OUT, exist_ok=True)
 ITEMS=json.loads(base64.b64decode("${manifestB64}").decode())
 print("panels", len(ITEMS), "cuda", torch.cuda.is_available())
 cn=ControlNetModel.from_pretrained("diffusers/controlnet-canny-sdxl-1.0", torch_dtype=torch.float16)
 vae=AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
-pipe=StableDiffusionXLControlNetPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", controlnet=cn, vae=vae, torch_dtype=torch.float16, variant="fp16", use_safetensors=True)
+# img2img + ControlNet — 원작을 init 이미지로 넣어 팔레트 앵커링(색 오해석·보라 캐스트 차단).
+pipe=StableDiffusionXLControlNetImg2ImgPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", controlnet=cn, vae=vae, torch_dtype=torch.float16, variant="fp16", use_safetensors=True)
 pipe.enable_model_cpu_offload()
 try: pipe.enable_vae_slicing()
 except Exception: pass
-PROMPT="modern digital comic art, clean flat vibrant colors, crisp bold linework, webtoon style, smooth shading, high detail"
-NEG="halftone dots, paper texture, yellowed, faded, grain, blurry, jpeg artifacts, watermark, deformed"
+# "vibrant" 제거(보라 캐스트 유발) + 원색 유지 지시. NEG 에 색 왜곡 억제.
+PROMPT="clean modern digital comic illustration, crisp linework, smooth cel shading, faithful to the original colors, high detail"
+NEG="halftone dots, paper texture, yellowed, faded, grain, blurry, jpeg artifacts, watermark, deformed hands, purple tint, magenta cast, oversaturated, color shift, washed out"
 g=torch.Generator(device="cuda").manual_seed(7)
 def fit(img,t=1024):
     w,h=img.size; s=t/max(w,h); return img.resize((max(8,int(w*s)//8*8), max(8,int(h*s)//8*8)), Image.LANCZOS)
@@ -104,7 +106,7 @@ for it in ITEMS:
     try:
         src=Image.open(io.BytesIO(base64.b64decode(it["b64"]))).convert("RGB"); base=fit(src)
         a=np.array(base); e=cv2.Canny(cv2.cvtColor(a,cv2.COLOR_RGB2GRAY),90,200); ctrl=Image.fromarray(np.stack([e]*3,-1))
-        out=pipe(prompt=PROMPT, negative_prompt=NEG, image=ctrl, controlnet_conditioning_scale=0.9, num_inference_steps=24, guidance_scale=6.0, generator=g).images[0]
+        out=pipe(prompt=PROMPT, negative_prompt=NEG, image=base, control_image=ctrl, strength=0.5, controlnet_conditioning_scale=0.7, num_inference_steps=30, guidance_scale=5.5, generator=g).images[0]
         out=out.resize(base.size, Image.LANCZOS); out.save(os.path.join(OUT,it["name"]), quality=92); res[it["name"]]="ok"; print("ok", it["name"])
     except Exception as ex:
         res[it["name"]]=str(ex); print("ERR", it["name"], ex)
