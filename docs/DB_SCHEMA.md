@@ -14,7 +14,14 @@
 ### ⛔ 스키마 드리프트 — RPC 8개가 없는 테이블을 참조 중 (2026-08-12 발견)
 
 `20260719161409_drop_unused_empty_tables` 가 "빈 테이블 정리"로 13개를 `CASCADE` 삭제했다.
-**비어 있음 ≠ 미사용** 이었고, `DROP TABLE ... CASCADE` 는 뷰·제약은 지우지만 **함수는 지우지 않는다** — 그래서 참조하던 RPC 가 그대로 남아 런타임에 `relation ... does not exist` 로 실패한다.
+**비어 있음 ≠ 미사용** 이었다. 그리고 `DROP TABLE ... CASCADE` 의 함수 처리가 **두 갈래**로 갈려 결함이 두 종류로 나타났다:
+
+| 함수의 반환 타입 | CASCADE 결과 | 증상 |
+|---|---|---|
+| `RETURNS int` · `void` 등 (본문에서만 테이블 참조) | **살아남는다** | RPC 가 남아 런타임에 `relation ... does not exist` |
+| `RETURNS public.<table>` (테이블 **복합 타입**에 의존) | **함께 지워진다** | RPC 자체가 사라져 `function ... does not exist` |
+
+`pending_words` 가 두 경우를 한 테이블에서 다 보여줬다 — `record_pending_words`(`RETURNS INT`)는 남고 `update_pending_word_status`(`RETURNS public.pending_words`)는 사라졌다. **테이블만 복원하면 후자는 여전히 없다.**
 
 | 지워진 테이블 | 참조하는 RPC | 코드 접근 | 상태 |
 |---|---|--:|---|
@@ -22,7 +29,7 @@
 | `vocab_raw_texts` | — | 8곳 | ✅ **복원** ([20260812101500](../supabase/migrations/20260812101500_restore_vocab_raw_texts.sql)) — `publish.ts` 가 발행 세트 **출처 인용**을 이 테이블로 붙인다(라이선스 표기) |
 | `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ⚖️ **복구 안 함** — 삭제가 정당했다(의도적 동결). 단 유물이 남았다 → 아래 §word_lexicon |
 | `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ✅ **복원** ([20260812124500](../supabase/migrations/20260812124500_restore_class_data_model.sql)) — 원본이 **선반영**(화면보다 먼저 만든 테이블)이라 비어 있었고, 그 뒤 P4.2 에서 화면이 생겼다 |
-| `pending_words` | `record_pending_words` | 3곳 | ❌ `/admin/pending-words` |
+| `pending_words` | `record_pending_words` (생존) · `update_pending_word_status` (**CASCADE 로 함께 삭제**) | 3곳 | ✅ **복원** ([20260812133000](../supabase/migrations/20260812133000_restore_pending_words.sql)) — 테이블 + 사라진 RPC 둘 다. ⚠️ RLS 가 own 뿐이라 **admin 이 남의 항목을 못 본다**(별건) |
 | **`csat_item_attempts`** | `grade_dcp_item` · `derive_learner_stage` | 2곳 | ✅ **복원** ([20260812113000](../supabase/migrations/20260812113000_restore_csat_item_attempts.sql)) — **가장 심각했다**: `derive_learner_stage` → `prescribe_today` 로 전파돼 **hub "오늘" 처방이 전 학습자에게 실패**했다 |
 | `reports` | — | 1곳 | ⚠️ `admin/layout` 은 try/catch 로 안전(뱃지만 0) |
 | `dictation_sessions`·`dictation_items`·`achievements`·`user_level_progress` | — | 0곳 | ✅ 정당한 삭제 |
@@ -33,12 +40,20 @@
 `vocab_raw_texts` 는 그 이유를 가장 잘 보여준다 — 실제로 **비어 있었던 것은 사실**이었다(VCB 런 1건이 Method B = AI 생성 시드라 파일 업로드가 없었다). 틀린 것은 판정이 아니라 **추론**이었고, 정작 그 테이블은 발행 세트의 출처 인용을 붙이는 현행 경로였다.
 
 ```sql
--- 지우기 전 필수 점검 ①: 함수 참조 (CASCADE 가 지우지 않는다)
+-- 지우기 전 필수 점검 ①: 본문에서 참조하는 함수 (CASCADE 가 **지우지 않아** 남아서 깨진다)
 select p.proname from pg_proc p join pg_namespace n on n.oid=p.pronamespace
 where n.nspname='public' and p.prosrc ilike '%<table>%';
--- 필수 점검 ②: 앱·패키지·스크립트 코드 참조
+
+-- 필수 점검 ②: 그 테이블 타입을 반환하는 함수 (CASCADE 가 **함께 지운다** → 복원 시 같이 살려야 한다)
+select p.proname from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+where n.nspname='public' and p.prorettype = 'public.<table>'::regtype;
+
+-- 필수 점검 ③: 앱·패키지·스크립트 코드 참조
 --   grep -rn "from('<table>')" apps packages scripts
 ```
+
+**점검 ②를 빠뜨리면 복원이 절반만 된다** — `pending_words` 를 복원했는데
+`update_pending_word_status` 가 없어 admin 상태 전환이 여전히 실패하는 상황이 그것이다.
 
 #### csat_item_attempts — 가장 심각했던 항목 (hub "오늘" 전면 실패)
 

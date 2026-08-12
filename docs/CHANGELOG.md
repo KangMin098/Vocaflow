@@ -39,6 +39,27 @@
 
 **재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색 + 코드 grep 을 DB_SCHEMA.md 에 필수 점검으로 명문화.
 
+#### ⑤ `pending_words` 복원 — CASCADE 가 **함수도 지운다**는 것을 알게 된 건 (마이그레이션 1건)
+
+**마이그레이션 [20260812133000_restore_pending_words.sql](../supabase/migrations/20260812133000_restore_pending_words.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
+
+앞선 4건에서 세운 규칙(*"CASCADE 는 뷰·제약은 지우지만 함수는 지우지 않는다"*)이 **부분적으로 틀렸다.** 이 테이블이 두 경우를 한꺼번에 보여줬다:
+
+| 함수 | 반환 타입 | CASCADE 결과 |
+|---|---|---|
+| `record_pending_words` | `RETURNS INT` | **살아남음** → 없는 테이블을 참조해 실패 |
+| `update_pending_word_status` | `RETURNS public.pending_words` | **함께 삭제** → 함수 자체가 사라짐 |
+
+두 번째가 테이블 복합 타입에 의존하기 때문이다. 그래서 **테이블만 복원하면 admin 상태 전환(`transitionPendingWord`)은 여전히 실패한다** — 둘 다 복원했다. `DB_SCHEMA.md` 의 삭제 전 필수 점검을 2개 → **3개**로 늘렸다(`prorettype` 검사 추가).
+
+- 앞서 "원본 DDL 없음" 이라 보고했으나 **정정**한다 — DB 이력에 둘 다 있었다(`20260525041709` + `20260525044205`). 저장소에 파일이 없었을 뿐이고, **삭제 마이그레이션도 똑같이 저장소에 없었다.** 같은 습관(DB 에만 적용, 저장소 미기록)이 원인과 복구 난이도를 동시에 만들었다.
+- 역추적 교차검증 3출처 일치 — RPC INSERT(6컬럼) · `packages/types` 생성 타입(12컬럼) · 원본 DDL(12컬럼). `status` 5값(`auto-classify` 포함)도 앱 `PendingWordStatus` 와 일치했다.
+- 검증 중 **제 탐침이 두 번 틀렸다**: `now()` 는 트랜잭션 시작 시각으로 고정이라 같은 DO 블록에서 "값이 증가하는지"로는 `set_updated_at` 트리거를 검증할 수 없다. 과거 시각을 심고 **트리거가 덮어쓰는지**로 바꿔 통과했다(트리거는 처음부터 정상이었다).
+
+검증: 누적 upsert(1→2) · `length<2` 필터 · 트리거 덮어쓰기 · `CHECK(status)` · `UNIQUE(lemma)` · status 5값 전부 · 탐침 잔여 0(중단 시 롤백까지 확인).
+
+**⚠️ 미해결(복원과 무관한 별개 결함)**: RLS 가 `own`(본인) 정책 2개뿐이라 `/admin/pending-words` 가 `requireAdmin` 통과 후 일반 클라이언트로 조회할 때 **admin 이 다른 사용자의 항목을 볼 수 없다.** 원본을 그대로 복원했으므로 정책 추가는 별건으로 판단한다(임의 추가는 원본과 달라진다).
+
 #### ④ `classes`·`class_members` 복원 — "선반영이라 비어 있음" 을 "미사용" 으로 읽었다 (마이그레이션 1건)
 
 **마이그레이션 [20260812124500_restore_class_data_model.sql](../supabase/migrations/20260812124500_restore_class_data_model.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
