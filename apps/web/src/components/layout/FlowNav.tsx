@@ -1,22 +1,18 @@
 // apps/web/src/components/layout/FlowNav.tsx
 //
-// FlowNav v3 — 학습 여정 + 모멘텀 헤더 (전역 상단)
+// FlowNav — 전역 상단 내비 + 모멘텀 배지
 // CLAUDE.md §17.10 IA 원칙 + §"디자인 철학·학습 과학 원칙"
 //
-// v3 핵심 (v2 → v3):
-//   1) 모멘텀 배지 (좌측) — 연속일·어휘 자산·이번 주 실적 = "전체 실적" 한눈에 (Emotional Encoding)
-//   2) 추천 단계 글로우 — goal-gradient(완료 임박 단계)로 "도전 효과" 유도 (학습 권장)
-//   3) 리치 툴팁 — 각 요소 hover/focus 시 상세 카드 (단계 설명 + 내 진척 + 도전 한 줄)
-//   4) 여정 메리디안 — 하단 2px 그라디언트 = 전체 여정 완성도 (Implicit Progress)
+// 구성:
+//   1) 모멘텀 배지 (좌측) — 연속일·어휘 4색·이번 주 실적. **실데이터**(서버 layout 주입)
+//   2) 6단계 내비 — 이동 전용. 모바일에서는 **유일한 전역 내비**다(사이드바 `hidden md:flex`)
+//   3) 툴팁 — 각 단계가 무엇을 하는 곳인지
 //
-// 뇌과학·심리 적용:
-//   - Implicit Progress: 링 + 하단 메리디안 (숫자만이 아닌 환경 변화)
-//   - Goal-gradient: 완료 임박 단계 글로우 → "거의 다 왔어요" 당김
-//   - Emotional Encoding: streak flame(따뜻), 보상색(보라·금), VR 보상 (과장 X)
-//   - Calm UI: 빨강 압박 X · 깜빡임 X · 부드러운 펄스만
-//   - Empathetic Feedback: 격려 카피, 비난 X
-//
-// ⚠ 데이터는 mock — Phase 2 에서 user_stats / learning_records 실데이터로 스왑 (아래 매핑 주석).
+// v08.5 — mock 제거. 이전에는 하드코딩 진척(%)·실적 문구·추천 글로우·여정 메리디안이 있었고,
+// `RECOMMENDED_KEY`/`JOURNEY_PERCENT` 가 상수 배열에서 **모듈 로드 시점에** 계산돼
+// **전 학습자가 항상 "Practice 추천 · 거의 다 왔어요 13%만 더!"** 를 봤다.
+// 추천 정본은 Today(`prescribe_today`), 진척 정본은 Growth(대시보드)다 — 자세한 근거는
+// STAGES 위 주석. 남은 학습 과학 적용은 Emotional Encoding(streak flame)과 Calm UI(무깜빡임)다.
 
 'use client'
 
@@ -26,7 +22,6 @@ import {
   Compass,
   Flame,
   Mic,
-  Sparkles,
   Target,
   Trophy,
 } from 'lucide-react'
@@ -51,20 +46,29 @@ interface StageConfig {
   label: string
   subtitle: string
   sessionHref: string
-  /** Mock progress 0~100 — Phase 2: DB 실시간 fetch */
-  progress: number
   accent: string
   /** 툴팁 — 이 단계에서 무엇을 하는지 */
   tip: string
-  /** 툴팁 — mock 실적 한 줄 (Phase 2: 실데이터) */
-  stat: string
 }
 
-// ── Mock data ──────────────────────────────────────────────────────
+// ── 단계 — **내비게이션 전용** ──────────────────────────────────────
 //
-// Phase 2 swap:
-//   stage.progress  → §17.7 데이터 축 매핑 (source=AVG progress / words=stable% / practice=7d 정확도 …)
-//   MOMENTUM        → user_stats(streak) + vocabularies(mastery) + learning_records(주간)
+// v08.5 에서 `progress`·`stat` 을 제거했다. 이유 셋:
+//
+//   ① 값이 하드코딩이었고 `RECOMMENDED_KEY`·`JOURNEY_PERCENT` 가 **모듈 로드 시점에**
+//      상수 배열에서 계산됐다 → **모든 학습자가 항상 Practice 를 추천받고
+//      "거의 다 왔어요 — 13%만 더!" 를 봤다.** 3주가 아니라 처음부터 그랬다.
+//   ② 프레임워크 Phase 0 이 처방 정본을 `prescribe_today` 하나로 정했다.
+//      실데이터로 채워도 **경쟁하는 추천 표면이 둘**이 되어 그 결정이 무너진다.
+//   ③ FlowNav 는 셸이라 모든 페이지에 렌더된다. 6단계 진척을 실시간 산출하면
+//      페이지마다 쿼리가 붙는다. 게다가 Phase 3 에서 이 컴포넌트 자체가
+//      하단 탭 4개로 재편될 예정이라 지금 붙이는 실데이터는 곧 버릴 것이다.
+//
+// 진짜 진척은 Growth(대시보드)와 Today(처방)가 실데이터로 보여준다.
+// 여기 남은 것은 **이동**뿐이다 — 모바일에서는 이것이 유일한 전역 내비다
+// (사이드바가 `hidden md:flex`).
+//
+// `momentum`(streak·mastery·weekDays)은 mock 이 아니다 — 서버 layout 이 주입하는 실데이터다.
 const STAGES: StageConfig[] = [
   {
     key: 'discover',
@@ -72,21 +76,17 @@ const STAGES: StageConfig[] = [
     label: 'Library',
     subtitle: '발견',
     sessionHref: '/library',
-    progress: 0,
     accent: '#A855F7',
     tip: '큐레이션된 원서를 골라 학습을 시작해요.',
-    stat: '이번 주 3권 탐색',
   },
   {
     key: 'source',
     Icon: BookOpen,
     label: 'Scripts',
     subtitle: '읽고 듣기',
-    sessionHref: '/text/1',
-    progress: 45,
+    sessionHref: '/text',
     accent: '#8B5CF6',
     tip: '원서를 읽고 들으며 맥락 속에서 단어를 만나요.',
-    stat: '진행 중 2권 · 정복 2권',
   },
   {
     key: 'words',
@@ -94,10 +94,8 @@ const STAGES: StageConfig[] = [
     label: 'Words',
     subtitle: '학습 모드',
     sessionHref: '/wordvault?view=study',
-    progress: 35,
     accent: '#6366F1',
     tip: '추출한 단어를 4색 기억 상태로 관리해요.',
-    stat: '안정 97 · 흔들림 28 · 신규 17',
   },
   {
     key: 'practice',
@@ -105,10 +103,8 @@ const STAGES: StageConfig[] = [
     label: 'Practice',
     subtitle: '카드·게임',
     sessionHref: '/flashcard/play',
-    progress: 87,
     accent: '#EC4899',
     tip: '플래시카드·게임으로 능동 회상을 훈련해요.',
-    stat: '정확도 84% · 이번 주 +6%p',
   },
   {
     key: 'conquer',
@@ -116,10 +112,8 @@ const STAGES: StageConfig[] = [
     label: 'Conquer',
     subtitle: '독해 퀴즈',
     sessionHref: '/scriptquiz/play',
-    progress: 60,
     accent: '#F59E0B',
     tip: '스크립트 퀴즈로 텍스트 전체를 정복해요.',
-    stat: '정복 3 텍스트 · 평균 82%',
   },
   {
     key: 'complete',
@@ -127,10 +121,8 @@ const STAGES: StageConfig[] = [
     label: 'Complete',
     subtitle: '받아쓰기',
     sessionHref: '/dictate/setup',
-    progress: 25,
     accent: '#06B6D4',
     tip: '받아쓰기로 듣고 쓰며 학습을 완성해요.',
-    stat: '평균 79% · 2 세션',
   },
 ]
 
@@ -159,24 +151,9 @@ function masteryTotal(m: FlowNavMomentum['mastery']): number {
   return m.stable + m.shaky + m.risk + m.fresh
 }
 
-// 여정 완성도 — discover 제외 5단계 평균 (Implicit Progress 메리디안)
-const JOURNEY_PERCENT = Math.round(
-  STAGES.filter((s) => s.key !== 'discover').reduce((a, s) => a + s.progress, 0) /
-    (STAGES.length - 1),
-)
-
-// 추천 단계 — goal-gradient: 완료 임박(0<p<100 중 최고)을 추천해 "거의 다 왔어요" 당김.
-const RECOMMENDED_KEY: FlowStage = (() => {
-  let best: FlowStage | null = null
-  let bestP = -1
-  for (const s of STAGES) {
-    if (s.progress > 0 && s.progress < 100 && s.progress > bestP) {
-      best = s.key
-      bestP = s.progress
-    }
-  }
-  return best ?? 'words'
-})()
+// JOURNEY_PERCENT · RECOMMENDED_KEY 는 제거했다(v08.5).
+// 둘 다 하드코딩 상수 배열에서 **모듈 로드 시점에** 계산돼 전 학습자에게 동일했다.
+// 추천은 Today(prescribe_today)가 정본이고, 진척은 Growth(대시보드)가 실데이터로 보여준다.
 
 // ── URL → Stage 매핑 ──────────────────────────────────────────────
 function getStageFromPathname(pathname: string): FlowStage | null {
@@ -202,61 +179,41 @@ function shouldShowFlowNav(pathname: string): boolean {
 }
 
 // ── Progress Ring SVG ────────────────────────────────────────────
-interface ProgressRingProps {
-  size: number
-  radius: number
-  strokeWidth: number
-  progress: number
-  accent: string
-  isActive: boolean
-  isMeta: boolean
-}
-
-function ProgressRing({
+/**
+ * 단계 아이콘을 감싸는 테두리 링.
+ *
+ * v08.5 까지는 `ProgressRing` 이었고 하드코딩 진척(%)만큼 액센트 호를 그렸다.
+ * 그 값이 전 학습자에게 동일했으므로 호를 지우고 **테두리만** 남겼다 —
+ * 아이콘의 시각적 그릇 역할은 그대로이고, 거짓 정보만 사라진다.
+ */
+function StageRing({
   size,
   radius,
   strokeWidth,
-  progress,
-  accent,
-  isActive,
   isMeta,
-}: ProgressRingProps) {
-  const cx = size / 2
-  const cy = size / 2
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference * (1 - Math.max(0, Math.min(100, progress)) / 100)
+}: {
+  size: number
+  radius: number
+  strokeWidth: number
+  isMeta: boolean
+}) {
   return (
     <svg
       width={size}
       height={size}
       viewBox={`0 0 ${size} ${size}`}
-      className="absolute inset-0 -rotate-90"
+      className="absolute inset-0"
       aria-hidden="true"
     >
       <circle
-        cx={cx}
-        cy={cy}
+        cx={size / 2}
+        cy={size / 2}
         r={radius}
         stroke="var(--bd)"
         strokeWidth={strokeWidth}
         fill="none"
         opacity={isMeta ? 0.35 : 0.55}
       />
-      {progress > 0 && (
-        <circle
-          cx={cx}
-          cy={cy}
-          r={radius}
-          stroke={accent}
-          strokeWidth={strokeWidth}
-          fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          opacity={isActive ? 1 : 0.6}
-          style={{ transition: 'stroke-dashoffset 0.7s var(--ease-out), opacity 0.2s var(--ease)' }}
-        />
-      )}
     </svg>
   )
 }
@@ -293,7 +250,7 @@ function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
     <div className="group relative flex shrink-0 items-center">
       <Link
         href="/dashboard"
-        aria-label={`전체 실적 — 연속 ${momentum.streak}일 · 여정 ${JOURNEY_PERCENT}% · 대시보드 열기`}
+        aria-label={`전체 실적 — 연속 ${momentum.streak}일 · 대시보드 열기`}
         className="flex h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-gradient-to-br from-[#FFF7ED] to-[var(--bg)] px-2.5 transition-all hover:border-[#F59E0B]/40 hover:shadow-[var(--sh-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]/40 dark:from-[#3B2000]/40"
       >
         <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#FBBF24] to-[#F97316] text-white shadow-[0_2px_6px_rgba(249,115,22,0.4)]">
@@ -347,15 +304,12 @@ function MomentumBadge({ momentum }: { momentum: FlowNavMomentum }) {
             </div>
           </div>
 
-          {/* 이번 주 + 여정 */}
+          {/* 이번 주 실적 — 실데이터(daily_activity). 여정 % 배지는 v08.5 에서 제거했다. */}
           <div className="flex items-center justify-between border-t border-[var(--bd)] pt-2">
             <span className="font-body text-[11px] text-[var(--t2)]">
               이번 주{' '}
               <strong className="font-display font-[700] text-[var(--t1)]">{momentum.weekDays}일</strong>
               {' 학습'}
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-display text-[10px] font-[800] text-[var(--on-p-tint)]">
-              여정 {JOURNEY_PERCENT}%
             </span>
           </div>
         </div>
@@ -396,19 +350,16 @@ function StageDesktop({
   stage,
   isCurrent,
   isMeta,
-  isRecommended,
   align,
 }: {
   stage: StageConfig
   isCurrent: boolean
   isMeta: boolean
-  isRecommended: boolean
   align: 'left' | 'center' | 'right'
 }) {
   const Icon = stage.Icon
   const baseOpacity = isMeta && !isCurrent ? 'opacity-60' : ''
-  const progressLabel = stage.progress > 0 ? ` · ${stage.progress}% 익힘` : ''
-  const a11y = `${stage.label} — ${stage.subtitle}${progressLabel}${isRecommended ? ' · 추천' : ''}`
+  const a11y = `${stage.label} — ${stage.subtitle}`
 
   return (
     <div className="group relative flex min-w-0 flex-1">
@@ -423,30 +374,11 @@ function StageDesktop({
             isCurrent ? 'scale-110' : 'group-hover:scale-105'
           }`}
         >
-          {/* 추천 글로우 (goal-gradient) */}
-          {isRecommended && (
-            <span
-              aria-hidden
-              className="absolute inset-[-3px] rounded-full"
-              style={{
-                background: `radial-gradient(circle, ${stage.accent}55 0%, transparent 70%)`,
-                animation: 'flowRecPulse 2.4s ease-in-out infinite',
-              }}
-            />
-          )}
-          <ProgressRing
-            size={32}
-            radius={13}
-            strokeWidth={2}
-            progress={stage.progress}
-            accent={stage.accent}
-            isActive={isCurrent || isRecommended}
-            isMeta={isMeta}
-          />
+          <StageRing size={32} radius={13} strokeWidth={2} isMeta={isMeta} />
           <span
             className="relative z-10 inline-flex h-5 w-5 items-center justify-center rounded-full transition-colors duration-[var(--dur-normal)]"
             style={
-              isCurrent || isRecommended
+              isCurrent
                 ? { backgroundColor: stage.accent, color: '#FFFFFF' }
                 : { backgroundColor: 'transparent', color: 'var(--t3)' }
             }
@@ -464,22 +396,13 @@ function StageDesktop({
           >
             {stage.label}
           </span>
-          {isRecommended ? (
-            <span
-              className="inline-flex items-center gap-0.5 font-mono text-[9px] font-[700] uppercase tracking-wider"
-              style={{ color: stage.accent }}
-            >
-              <Sparkles width={8} height={8} aria-hidden /> 추천
-            </span>
-          ) : (
-            <span
-              className={`font-mono text-[9px] uppercase tracking-wider tabular-nums ${
-                isCurrent ? 'text-[var(--t2)]' : 'text-[var(--t2)] opacity-60'
-              }`}
-            >
-              {stage.progress > 0 && !isMeta ? `${stage.progress}%` : stage.subtitle}
-            </span>
-          )}
+          <span
+            className={`font-mono text-[9px] uppercase tracking-wider ${
+              isCurrent ? 'text-[var(--t2)]' : 'text-[var(--t2)] opacity-60'
+            }`}
+          >
+            {stage.subtitle}
+          </span>
         </span>
       </Link>
 
@@ -504,41 +427,13 @@ function StageDesktop({
                 {stage.subtitle}
               </span>
             </div>
-            {stage.progress > 0 && (
-              <span
-                className="ml-auto font-display text-[15px] font-[800] tabular-nums"
-                style={{ color: stage.accent }}
-              >
-                {stage.progress}%
-              </span>
-            )}
           </div>
 
           <div className="flex flex-col gap-2 px-3.5 pb-3 pt-2">
             <p className="font-body text-[11.5px] leading-relaxed text-[var(--t2)]">{stage.tip}</p>
-            {stage.progress > 0 && (
-              <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bg3)]" aria-hidden>
-                <div
-                  className="h-full rounded-full"
-                  style={{ width: `${stage.progress}%`, backgroundColor: stage.accent }}
-                />
-              </div>
-            )}
-            <span className="font-mono text-[10px] text-[var(--t2)]">{stage.stat}</span>
-
-            {isRecommended ? (
-              <span
-                className="mt-0.5 inline-flex items-center gap-1 rounded-[var(--r-md)] px-2 py-1 font-display text-[11px] font-[700]"
-                style={{ backgroundColor: `${stage.accent}1A`, color: stage.accent }}
-              >
-                <Sparkles width={11} height={11} aria-hidden />
-                거의 다 왔어요 — {100 - stage.progress}%만 더!
-              </span>
-            ) : (
-              <span className="mt-0.5 font-body text-[10px] italic text-[var(--t2)]">
-                클릭하면 바로 시작해요
-              </span>
-            )}
+            <span className="mt-0.5 font-body text-[10px] italic text-[var(--t2)]">
+              클릭하면 바로 시작해요
+            </span>
           </div>
         </div>
       </Tip>
@@ -566,16 +461,14 @@ function StageMobile({
   stage,
   isCurrent,
   isMeta,
-  isRecommended,
 }: {
   stage: StageConfig
   isCurrent: boolean
   isMeta: boolean
-  isRecommended: boolean
 }) {
   const Icon = stage.Icon
   const baseOpacity = isMeta && !isCurrent ? 'opacity-60' : ''
-  const a11y = `${stage.label} — ${stage.subtitle}${stage.progress > 0 ? ` · ${stage.progress}% 익힘` : ''}${isRecommended ? ' · 추천' : ''}`
+  const a11y = `${stage.label} — ${stage.subtitle}`
   return (
     <Link
       href={stage.sessionHref}
@@ -588,29 +481,11 @@ function StageMobile({
           isCurrent ? 'scale-110' : ''
         }`}
       >
-        {isRecommended && (
-          <span
-            aria-hidden
-            className="absolute inset-[-2px] rounded-full"
-            style={{
-              background: `radial-gradient(circle, ${stage.accent}55 0%, transparent 70%)`,
-              animation: 'flowRecPulse 2.4s ease-in-out infinite',
-            }}
-          />
-        )}
-        <ProgressRing
-          size={28}
-          radius={11}
-          strokeWidth={1.75}
-          progress={stage.progress}
-          accent={stage.accent}
-          isActive={isCurrent || isRecommended}
-          isMeta={isMeta}
-        />
+        <StageRing size={28} radius={11} strokeWidth={1.75} isMeta={isMeta} />
         <span
           className="relative z-10 inline-flex h-4 w-4 items-center justify-center rounded-full"
           style={
-            isCurrent || isRecommended
+            isCurrent
               ? { backgroundColor: stage.accent, color: '#FFFFFF' }
               : { backgroundColor: 'transparent', color: 'var(--t3)' }
           }
@@ -619,7 +494,9 @@ function StageMobile({
           <Icon width={9} height={9} strokeWidth={2.5} />
         </span>
       </span>
-      {(isCurrent || isRecommended) && (
+      {/* 라벨은 현재 단계에만 — 모바일 폭에서 6개를 다 쓰면 글자가 뭉갠다.
+          이전에는 "추천" 단계에도 붙었지만 그 추천이 전 학습자 동일 상수였다. */}
+      {isCurrent && (
         <span className="font-display text-[8px] font-[700] leading-none tracking-tight text-[var(--t1)]">
           {stage.label}
         </span>
@@ -656,23 +533,12 @@ export function FlowNav({ momentum: momentumProp }: { momentum?: FlowNavMomentum
               stage={stage}
               isCurrent={stage.key === currentStage}
               isMeta={isMeta}
-              isRecommended={stage.key === RECOMMENDED_KEY}
               align={idx === 0 ? 'left' : idx === last ? 'right' : 'center'}
             />
             {idx < last && <Connector />}
           </span>
         ))}
-        {/* 여정 메리디안 — 하단 그라디언트 진척 (Implicit Progress) */}
-        <span
-          aria-hidden
-          className="absolute bottom-[-1px] left-0 h-[2px] rounded-full"
-          style={{
-            width: `${JOURNEY_PERCENT}%`,
-            background:
-              'linear-gradient(90deg, #A855F7, #8B5CF6, #6366F1, #EC4899, #F59E0B, #06B6D4)',
-            transition: 'width 0.8s var(--ease-out)',
-          }}
-        />
+        
       </div>
 
       {/* Mobile */}
@@ -687,40 +553,10 @@ export function FlowNav({ momentum: momentumProp }: { momentum?: FlowNavMomentum
             stage={stage}
             isCurrent={stage.key === currentStage}
             isMeta={isMeta}
-            isRecommended={stage.key === RECOMMENDED_KEY}
           />
         ))}
-        <span
-          aria-hidden
-          className="absolute bottom-[-1px] left-0 h-[2px] rounded-full"
-          style={{
-            width: `${JOURNEY_PERCENT}%`,
-            background: 'linear-gradient(90deg, #A855F7, #6366F1, #EC4899, #06B6D4)',
-            transition: 'width 0.8s var(--ease-out)',
-          }}
-        />
       </div>
-
-      {/* 추천 글로우 펄스 keyframes — 모션 민감 사용자는 정적 (Calm UI · a11y) */}
-      <style jsx global>{`
-        @keyframes flowRecPulse {
-          0%,
-          100% {
-            opacity: 0.35;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.65;
-            transform: scale(1.15);
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          [style*='flowRecPulse'] {
-            animation: none !important;
-            opacity: 0.45 !important;
-          }
-        }
-      `}</style>
+      {/* flowRecPulse keyframes 도 함께 제거했다 — 추천 글로우가 유일한 사용처였다. */}
     </nav>
   )
 }
