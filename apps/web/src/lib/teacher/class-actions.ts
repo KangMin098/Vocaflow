@@ -76,21 +76,34 @@ export async function joinClassByCode(code: string): Promise<{ ok: boolean; erro
   return { ok: true }
 }
 
-/** 내가 개설한 클래스 + 멤버 수. */
-export async function fetchTeacherClasses(): Promise<TeacherClass[]> {
+/** 내가 개설한 클래스 + 멤버 수. `unavailable` 이면 목록이 아니라 조회 실패다. */
+export async function fetchTeacherClasses(): Promise<{
+  classes: TeacherClass[]
+  unavailable: boolean
+}> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
-  if (!user) return []
+  if (!user) return { classes: [], unavailable: false }
 
-  const { data } = await loose(client)
+  // ⚠️ error 를 버리지 않는다. 이전에는 `const { data } = ...` 였고, 그래서 테이블이
+  // 사라진 동안(20260719 → 20260812) 교사에게 **"개설한 클래스가 없어요"** 로 보였다 —
+  // 조회 실패와 "정말 클래스가 없음" 이 화면에서 구별되지 않았다.
+  const { data, error } = await loose(client)
     .from('classes')
     .select('id, name, invite_code, created_at, class_members(count)')
     .eq('teacher_id', user.id)
     .order('created_at', { ascending: false })
 
-  return ((data ?? []) as Array<Record<string, unknown>>).map((r) => ({
+  if (error) {
+    console.error(`[teacher] 개설 클래스 조회 실패: ${error.message}`)
+    // 던지지 않는다 — 페이지 전체를 에러 화면으로 바꾸는 것보다, 화면을 살리고
+    // "지금 못 불러왔다" 를 말하는 편이 낫다(hub 처방과 같은 원칙).
+    return { classes: [], unavailable: true }
+  }
+
+  const rows = ((data ?? []) as Array<Record<string, unknown>>).map((r) => ({
     id: r.id as string,
     name: r.name as string,
     invite_code: r.invite_code as string,
@@ -99,25 +112,38 @@ export async function fetchTeacherClasses(): Promise<TeacherClass[]> {
       ? ((r.class_members[0] as { count?: number } | undefined)?.count ?? 0)
       : 0,
   }))
+
+  return { classes: rows, unavailable: false }
 }
 
-/** 내가 학생으로 참여한 클래스. */
-export async function fetchMyMemberships(): Promise<MyMembership[]> {
+/** 내가 학생으로 참여한 클래스. `unavailable` 이면 목록이 아니라 조회 실패다. */
+export async function fetchMyMemberships(): Promise<{
+  memberships: MyMembership[]
+  unavailable: boolean
+}> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
-  if (!user) return []
+  if (!user) return { memberships: [], unavailable: false }
 
-  const { data } = await loose(client)
+  // fetchTeacherClasses 와 같은 이유로 error 를 버리지 않는다.
+  const { data, error } = await loose(client)
     .from('class_members')
     .select('class_id, joined_at, classes(name)')
     .eq('user_id', user.id)
     .order('joined_at', { ascending: false })
 
-  return ((data ?? []) as Array<Record<string, unknown>>).map((r) => ({
+  if (error) {
+    console.error(`[teacher] 참여 클래스 조회 실패: ${error.message}`)
+    return { memberships: [], unavailable: true }
+  }
+
+  const rows = ((data ?? []) as Array<Record<string, unknown>>).map((r) => ({
     class_id: r.class_id as string,
     class_name: ((r.classes as { name?: string } | null)?.name) ?? '클래스',
     joined_at: r.joined_at as string,
   }))
+
+  return { memberships: rows, unavailable: false }
 }

@@ -17,9 +17,17 @@ import {
 export function TeacherClient({
   classes,
   memberships,
+  unavailable = false,
 }: {
   classes: TeacherClass[]
   memberships: MyMembership[]
+  /**
+   * 목록을 **불러오지 못했는가**. true 면 빈 목록은 "클래스가 없다" 가 아니다.
+   *
+   * 이 구별이 없어서 classes/class_members 가 삭제된 동안(20260719 → 20260812)
+   * 교사에게 "개설한 클래스가 없어요" 로 보였다 — 조회 실패가 정상 상태를 흉내 냈다.
+   */
+  unavailable?: boolean
 }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -73,6 +81,18 @@ export function TeacherClient({
           </p>
         </div>
       </header>
+
+      {/* 조회 실패 고지 — 빈 목록이 "클래스가 없음" 으로 읽히지 않게. 개설·참여 자체는
+          막지 않는다(쓰기 경로는 별개로 살아 있을 수 있다). */}
+      {unavailable && (
+        <p
+          role="status"
+          className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]"
+        >
+          클래스 목록을 지금 불러오지 못했어요. 아래가 비어 있어도{' '}
+          <b className="text-[var(--t1)]">클래스가 사라진 것은 아니에요</b> — 잠시 후 새로고침해 주세요.
+        </p>
+      )}
 
       {error && (
         <p role="alert" className="font-body text-[13px] text-[var(--error-ink)]">

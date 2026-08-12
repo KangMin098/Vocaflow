@@ -12,13 +12,16 @@ export const metadata = {
 }
 
 export default async function TeacherPage() {
-  const [classes, memberships] = await Promise.all([
-    fetchTeacherClasses(),
-    fetchMyMemberships(),
-  ])
+  const [taught, joined] = await Promise.all([fetchTeacherClasses(), fetchMyMemberships()])
   return (
     <Screen width="content" background="bg2" padX="md">
-      <TeacherClient classes={classes} memberships={memberships} />
+      <TeacherClient
+        classes={taught.classes}
+        memberships={joined.memberships}
+        // 조회 실패와 "정말 클래스가 없음" 은 화면에서 구별되어야 한다 —
+        // 빈 목록만 보여주면 교사는 자기 클래스가 사라졌다고 읽는다.
+        unavailable={taught.unavailable || joined.unavailable}
+      />
     </Screen>
   )
 }

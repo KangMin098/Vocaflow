@@ -21,11 +21,12 @@
 | `word_familiarity` | `extract_vocabulary_for_user_v2` · `set_word_familiarity` | RPC 경유 | ✅ **복원** ([20260812093000](../supabase/migrations/20260812093000_restore_word_familiarity.sql)) |
 | `vocab_raw_texts` | — | 8곳 | ✅ **복원** ([20260812101500](../supabase/migrations/20260812101500_restore_vocab_raw_texts.sql)) — `publish.ts` 가 발행 세트 **출처 인용**을 이 테이블로 붙인다(라이선스 표기) |
 | `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ⚖️ **복구 안 함** — 삭제가 정당했다(의도적 동결). 단 유물이 남았다 → 아래 §word_lexicon |
-| `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ❌ 교사 클래스 |
+| `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ✅ **복원** ([20260812124500](../supabase/migrations/20260812124500_restore_class_data_model.sql)) — 원본이 **선반영**(화면보다 먼저 만든 테이블)이라 비어 있었고, 그 뒤 P4.2 에서 화면이 생겼다 |
 | `pending_words` | `record_pending_words` | 3곳 | ❌ `/admin/pending-words` |
 | **`csat_item_attempts`** | `grade_dcp_item` · `derive_learner_stage` | 2곳 | ✅ **복원** ([20260812113000](../supabase/migrations/20260812113000_restore_csat_item_attempts.sql)) — **가장 심각했다**: `derive_learner_stage` → `prescribe_today` 로 전파돼 **hub "오늘" 처방이 전 학습자에게 실패**했다 |
 | `reports` | — | 1곳 | ⚠️ `admin/layout` 은 try/catch 로 안전(뱃지만 0) |
-| `dictation_sessions`·`dictation_items`·`achievements`·`assignments`·`user_level_progress` | — | 0곳 | ✅ 정당한 삭제 |
+| `dictation_sessions`·`dictation_items`·`achievements`·`user_level_progress` | — | 0곳 | ✅ 정당한 삭제 |
+| `assignments` | — | 0곳 | ⏸ **의도적 미복원** — classes 와 같은 선반영이나 P4.3(과제 배포) 미구현. 지금 되살리면 또 지워질 빈 테이블이 하나 늘 뿐이다. DDL 은 원본 마이그레이션 21~29행 |
 
 **교훈**: 테이블을 지우기 전에 `pg_proc.prosrc` 를 검색해야 한다. 행 수 0 은 미사용의 증거가 아니다.
 

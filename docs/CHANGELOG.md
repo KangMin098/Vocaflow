@@ -39,6 +39,25 @@
 
 **재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색 + 코드 grep 을 DB_SCHEMA.md 에 필수 점검으로 명문화.
 
+#### ④ `classes`·`class_members` 복원 — "선반영이라 비어 있음" 을 "미사용" 으로 읽었다 (마이그레이션 1건)
+
+**마이그레이션 [20260812124500_restore_class_data_model.sql](../supabase/migrations/20260812124500_restore_class_data_model.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
+
+앞의 세 건과 또 다른 유형이다. 원본(`20260628180000_p4_l3_class_data_model.sql`) 헤더가 명시한다 — *"화면(/teacher/*)은 Phase 2. 본 마이그레이션은 테이블/헬퍼/RLS 만(**선반영** 결정 실행)."* 즉 UI 보다 먼저 만든 테이블이라 **비어 있는 것이 당연**했고, 그 뒤 P4.2 에서 화면이 실제로 구현됐다(`/teacher/page.tsx` 는 StubPage 가 아니고 `TeacherClient` 가 개설·초대코드 참여를 실행한다). **화면이 만들어진 뒤에 테이블이 지워졌다.**
+
+실패 방식이 한 파일 안에서 갈렸다 — 지금까지 고쳐 온 두 유형이 모두 있었다:
+
+| 경로 | 처리 | 교사가 본 것 |
+|---|---|---|
+| `createClass` · `joinClassByCode` | `{ ok:false, error: error.message }` | **원시 Postgres 에러** |
+| `fetchTeacherClasses` · `fetchMyMemberships` | `const { data } = ...` — **error 를 버림** | **"개설한 클래스가 없어요"** (조회 실패가 정상 상태를 흉내) |
+
+- 순환 RLS 회피 헬퍼(`is_class_teacher`·`is_class_member`)와 `join_class_by_code` 는 살아 있어 재생성하지 않았다.
+- **`assignments` 는 의도적으로 복원하지 않았다** — 같은 마이그레이션 산물이고 같은 선반영이지만 코드 참조 0곳이며 P4.3(과제 배포) 미구현이다. 지금 되살리면 **또 "빈 테이블" 로 지워질 항목을 하나 더 만드는 것**이다. DDL 위치를 문서에 남겼다.
+- 침묵 제거: 두 조회 함수가 `{ items, unavailable }` 를 반환하고, 교사 화면이 *"클래스 목록을 지금 불러오지 못했어요 — 비어 있어도 **클래스가 사라진 것은 아니에요**"* 를 고지한다. 던지지 않는 이유는 페이지 전체를 에러 화면으로 바꾸지 않기 위해서다(hub 처방과 같은 원칙). 읽기 실패가 **쓰기(개설·참여)를 봉쇄하지 않는다**는 것도 테스트가 고정한다.
+
+검증: 정책 6 · FK 2 · UNIQUE(invite_code) 1 · **개설 → 가입 → 헬퍼 판정 → 멤버 수 집계 → UNIQUE 충돌**까지 DO 블록 왕복 후 탐침 정리(잔여 0) · 신규 테스트 5건 · 단위 305 통과(300→305).
+
 #### ③ `csat_item_attempts` 복원 — hub "오늘" 이 3주 넘게 전 학습자에게 실패하고 있었다 (마이그레이션 1건)
 
 **마이그레이션 [20260812113000_restore_csat_item_attempts.sql](../supabase/migrations/20260812113000_restore_csat_item_attempts.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
