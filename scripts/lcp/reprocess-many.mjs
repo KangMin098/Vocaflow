@@ -37,14 +37,27 @@ const IDS = arg('ids', '')
 const LIMIT = parseInt(arg('limit', '500'), 10)
 const DELAY_MS = parseInt(arg('delay', '2500'), 10)
 
-const {
-  ingestFromStandardEbooksResilient,
-  ingestFromGutenberg,
-  normalizeBook,
-  segmentBook,
-  analyzeBook,
-  getServiceClient,
-} = await import('@vocaflow/library-pipeline')
+const pipeline = await import('@vocaflow/library-pipeline')
+const { normalizeBook, segmentBook, analyzeBook, getServiceClient } = pipeline
+
+/**
+ * source → 인제스터. reprocess-book.mjs 가 지원하는 것과 같은 범위로 맞춘다.
+ *   한 소스만 빠져 있으면 그 도서가 코드 수정에서 영구히 제외된다 —
+ *   실제로 pressbooks 하나가 빠져 Introduction to Sociology 재추출이 실패했다.
+ * standard_ebooks 만 폴백(웹→저장소)을 쓴다 — SE 가 Node 클라이언트를 차단한 이력.
+ */
+const INGESTERS = {
+  standard_ebooks: pipeline.ingestFromStandardEbooksResilient,
+  gutenberg: pipeline.ingestFromGutenberg,
+  pressbooks: pipeline.ingestFromPressbooks,
+  wikibooks: pipeline.ingestFromWikibooks,
+  wikisource: pipeline.ingestFromWikisource,
+  librivox: pipeline.ingestFromLibriVox,
+  openstax: pipeline.ingestFromOpenStax,
+  simple_wikipedia: pipeline.ingestFromSimpleWikipedia,
+  lit2go: pipeline.ingestFromLit2Go,
+  storyweaver: pipeline.ingestFromStoryWeaver,
+}
 
 const sb = getServiceClient()
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -85,9 +98,9 @@ targets = targets.slice(0, LIMIT)
 console.error(`[reprocess] 대상 ${targets.length}권 (delay=${DELAY_MS}ms)`)
 
 async function ingest(book) {
-  if (book.source === 'standard_ebooks') return ingestFromStandardEbooksResilient(book.source_id)
-  if (book.source === 'gutenberg') return ingestFromGutenberg(book.source_id)
-  throw new Error(`지원하지 않는 source: ${book.source}`)
+  const fn = INGESTERS[book.source]
+  if (!fn) throw new Error(`지원하지 않는 source: ${book.source}`)
+  return fn(book.source_id)
 }
 
 let ok = 0
