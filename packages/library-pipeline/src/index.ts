@@ -8,6 +8,8 @@ export { getServiceClient } from './client'
 // S2 INGEST — Books (LCP)
 export { ingestFromGutenberg } from './ingest/gutenberg'
 export { ingestFromStandardEbooks } from './ingest/standard-ebooks'
+export { ingestFromStandardEbooksGit } from './ingest/standard-ebooks-git'
+export { ingestFromStandardEbooksResilient } from './ingest/standard-ebooks-resilient'
 export { ingestFromWikibooks } from './ingest/wikibooks'
 export { ingestFromWikisource } from './ingest/wikisource'
 export { ingestFromLibriVox } from './ingest/librivox'

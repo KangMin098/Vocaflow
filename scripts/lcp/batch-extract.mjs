@@ -44,7 +44,8 @@ const LEVELS = arg('level', '') ? arg('level', '').split(',').map((s) => parseIn
 const DRY = argv.includes('--dry')
 
 const {
-  ingestFromStandardEbooks,
+  // 웹 우선 · 연결 실패 시 공개 저장소 폴백 (SE 가 Node 클라이언트를 차단한 이력)
+  ingestFromStandardEbooksResilient,
   normalizeBook,
   segmentBook,
   analyzeBook,
@@ -125,7 +126,7 @@ async function processOne(seed) {
   // 시그니처는 reprocess-book.mjs 와 동일해야 한다 — normalize/segment 는 동기,
   // analyzeBook 은 (bookId, norm, chapters, opts). 처음에 (segmented, opts) 로 잘못 불러
   // 30권이 통째로 실패했다.
-  const raw = await ingestFromStandardEbooks(seed.source_id)
+  const raw = await ingestFromStandardEbooksResilient(seed.source_id)
   const norm = normalizeBook(raw)
   const chapters = segmentBook(norm)
   if (!chapters.length) throw new Error('0 chapters — 분절 실패')
