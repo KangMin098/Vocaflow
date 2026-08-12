@@ -20,7 +20,7 @@
 |---|---|--:|---|
 | `word_familiarity` | `extract_vocabulary_for_user_v2` · `set_word_familiarity` | RPC 경유 | ✅ **복원** ([20260812093000](../supabase/migrations/20260812093000_restore_word_familiarity.sql)) |
 | `vocab_raw_texts` | — | 8곳 | ✅ **복원** ([20260812101500](../supabase/migrations/20260812101500_restore_vocab_raw_texts.sql)) — `publish.ts` 가 발행 세트 **출처 인용**을 이 테이블로 붙인다(라이선스 표기) |
-| `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ❌ lexicon 조회 5곳 |
+| `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ⚖️ **복구 안 함** — 삭제가 정당했다(의도적 동결). 단 유물이 남았다 → 아래 §word_lexicon |
 | `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ❌ 교사 클래스 |
 | `pending_words` | `record_pending_words` | 3곳 | ❌ `/admin/pending-words` |
 | `csat_item_attempts` | `grade_dcp_item` · `derive_learner_stage` | 2곳 | ❌ DCP 채점 |
@@ -38,6 +38,29 @@ where n.nspname='public' and p.prosrc ilike '%<table>%';
 -- 필수 점검 ②: 앱·패키지·스크립트 코드 참조
 --   grep -rn "from('<table>')" apps packages scripts
 ```
+
+#### word_lexicon — 삭제는 정당했고, 남은 것은 유물과 고아 데이터다
+
+13개 중 유일하게 마이그레이션이 **"frozen table"** 로 따로 분류한 항목이고, 그 판단이 맞았다.
+남아 있던 트리거 함수가 자기 사유를 적어 두었다:
+
+> `word_lexicon is FROZEN since lexicon-phase-1 (20260520). New words must go to shared_dictionary instead.`
+
+[docs/proposals/lexicon-unification/README.md](./proposals/lexicon-unification/README.md) 가 *"v2.1과 v3.1은 양립 불가 → v2.1 폐기 또는 보존 결정 필요"* 라 했고 **v3.1이 채택**됐다. 이관은 끝나 있다 — `shared_dictionary` 45,682행 · `lexicon_clean` 455,152행 · `lexicon_clean` 을 쓰는 RPC 8개.
+
+**정리한 것**
+- `apps/web/src/lib/lexicon/` (4파일 806줄) **삭제** — 폐기된 v2.1 클라이언트. import 0곳(심볼 단위 전수 확인: `CefrLevel`·`FrequencyTier` 는 다른 5곳에 각자 정의돼 있어 무관).
+- 시드 스크립트 2개는 **지우지 않고 동결 명시** — KICE 빈도를 되살리는 유일한 경로다.
+
+**남긴 것 (별도 판단 필요)**
+
+| 유물 | 왜 남겼나 |
+|---|---|
+| `word_frequency_stats` 5,421행 · `lexicon_source_tags` 5,421행 | **KICE 수능 13년 출현 통계**인데 `lexicon_id`(uuid)가 가리킬 부모가 없고 `lexicon_clean` 은 `word`(text) 키라 연결 불가. `metadata` 에 `years_appeared` 만 있어 **단어 정체가 유실**됐다. 지금은 쓸 수 없지만 지우면 "있었다는 사실"까지 사라진다 |
+| `regenerate_auto_curated_set` | 앱 호출 0곳(service_role 전용)이나 `word_lexicon JOIN lexicon_source_tags JOIN word_frequency_stats` 를 읽는다. auto/csat 세트 9개와의 관계 미확인 |
+| `reject_word_lexicon_insert` | 트리거는 이미 사라졌고(CASCADE) 함수만 남은 유물. 무해하나 오해를 부른다 |
+
+**재생성 방향(보류)**: 원천(`data/seed/kice-csat/*.xlsx` · `data/import/kice-csat-*.csv` — 둘 다 gitignore)이 있으면 parse → aggregate → seed 3단계로 되살릴 수 있다. 단 적재 대상을 **`lexicon_clean`(word 키)으로 재배선**해야 한다 — `word_lexicon` 복원은 동결 결정에 역행한다.
 
 **부수 원칙 — 보조 지표가 본체를 죽이지 않게.** `/admin/vocab/sources` 가 통째로 500 이었던 직접 원인은 테이블 부재가 아니라 `fetchSources` 가 `run_count` 뱃지 집계 실패를 `throw` 한 것이었다(이미 손에 든 소스 목록까지 버렸다). `admin/layout.tsx` 가 `reports` 뱃지를 try/catch 로 감싸 0을 반환하는 쪽이 옳은 형태다. 계약은 [sources-resilience.test.ts](../apps/web/src/lib/vcb/__tests__/sources-resilience.test.ts) 5건이 고정한다.
 

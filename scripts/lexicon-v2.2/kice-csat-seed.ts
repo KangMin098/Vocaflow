@@ -1,5 +1,20 @@
 // scripts/lexicon-v2.2/kice-csat-seed.ts
 //
+// ⛔ 현재 실행 불가 (2026-08-12 확인) — 이 스크립트는 word_lexicon 에 적재하는데
+//    그 테이블은 두 단계로 사라졌다:
+//      ① lexicon-phase-1(20260520) 에서 **의도적으로 동결** — 새 단어는 shared_dictionary 로
+//         (트리거 reject_word_lexicon_insert 가 삽입을 막았다)
+//      ② 20260719161409_drop_unused_empty_tables 가 CASCADE 삭제
+//    그 결과 lexicon_source_tags · word_frequency_stats 에 KICE 13년 빈도 5,421행 × 2 가
+//    **단어 정체를 잃은 채** 남아 있다(lexicon_id uuid 가 가리킬 부모가 없고, 후속 정본
+//    lexicon_clean 은 word(text) 키라 연결 불가. metadata 에는 years_appeared 만 있다).
+//
+//    재생성 경로는 살아 있다 — parse → aggregate → seed 3단계와 원천(xlsx/csv, gitignore)이
+//    있으면 되살릴 수 있다. 단 적재 대상을 **lexicon_clean(word 키)로 재배선**해야 한다
+//    (word_lexicon 복원은 동결 결정에 역행). 상세: docs/DB_SCHEMA.md §스키마 드리프트.
+//
+//    삭제하지 않고 남겨 둔 이유: 이것이 KICE 빈도를 되살리는 유일한 경로다.
+//
 // Phase 4 — UPSERT (멱등)
 // aggregated CSV → Supabase 3 테이블 적재
 //
