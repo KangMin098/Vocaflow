@@ -340,7 +340,28 @@ export function htmlToPlainText(html: string, hrefMap: Map<string, string> = new
   let curBook = ''
   // 콘텐츠 단위 epub:type — 소설 chapter 외에 단편/시 모음(article 기반)도 포함.
   //   (Just So Stories=se:short-story article · 시집=z3998:poem · 우화=z3998:fable)
-  const UNIT_TYPES = ['chapter', 'short-story', 'z3998:story', 'z3998:poem', 'z3998:fable']
+  const BASE_UNIT_TYPES = ['chapter', 'short-story', 'z3998:story', 'z3998:poem', 'z3998:fable']
+
+  // v06.35 — chapter 류가 하나도 없는 책의 폴백 unit.
+  //
+  //   Plato Dialogues(plato/dialogues/benjamin-jowett)는 epub:type 에 `chapter` 가
+  //   **0개**다 — 본문이 `division`(24) · `z3998:drama`(17) 로만 표시된다.
+  //   그래서 본문 섹션이 unit 으로 인식되지 않고 직전 챕터에 통째로 붙었다:
+  //       ch10 481,877단어 · ch22 161,624단어 (나머지 20개는 3.6~11.6천으로 정상)
+  //   정상 챕터들은 각 대화편의 Introduction 이고, 대화 본문이 두 덩어리로 뭉친 것이다.
+  //   챕터 제목에도 본문 첫 문장이 들어가 있었다.
+  //
+  //   ⚠ division 을 무조건 unit 으로 넣으면 회귀한다 — Proust(in-search-of-lost-time)는
+  //   chapter 24개 **위에** `bodymatter division` 6개가 상위 컨테이너로 있어서,
+  //   division 을 leaf 로 잡으면 24챕터가 6덩어리로 뭉친다.
+  //   → chapter 류가 하나도 없을 때만 폴백으로 승격한다.
+  const hasChapterUnit = new RegExp(
+    `epub:type="[^"]*\\b(?:${BASE_UNIT_TYPES.join('|').replace(/:/g, ':')})\\b`,
+    'i',
+  ).test(work)
+  const UNIT_TYPES = hasChapterUnit
+    ? BASE_UNIT_TYPES
+    : [...BASE_UNIT_TYPES, 'division', 'z3998:drama']
   work = work.replace(
     /<(?:section|article)\b([^>]*)>\s*(?:<header\b[^>]*>\s*)?(?:<figure\b[^>]*>[\s\S]*?<\/figure>\s*)?(<hgroup\b[^>]*>[\s\S]*?<\/hgroup>|<h[1-6]\b[^>]*>[\s\S]*?<\/h[1-6]>)?/gi,
     (_m: string, attrs: string, block: string | undefined) => {
