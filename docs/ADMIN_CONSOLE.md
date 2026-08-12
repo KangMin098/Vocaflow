@@ -32,8 +32,12 @@
    ACP Pipeline
    단어장 마스터
    VCB Pipeline
-   VRL Pipeline ⭐NEW
-   = 총 7 항목
+   VRL Pipeline
+   VRL Automation
+   Comic Pipeline
+   PD Comic Pipeline
+   Pending Words
+   = 총 11 항목
 [ 운영 ]     (accent: var(--info))
    플랫폼 분석
    품질 지표 (Gauge, v06.140)
@@ -45,11 +49,36 @@
    시스템 설정
 ```
 
-### 신고 뱃지 (v06.28)
+### 신고 뱃지 (v06.28 · ⚠️ 무효)
 
 `admin/layout.tsx` Server fetch `reports.status='open'` COUNT → AdminSidebar `reportsBadge` prop.
 - 0건 자동 숨김
-- 이전 mock `badge: 7` → DB 실측 연동 완료
+- ⚠️ **`reports` 테이블이 DB 에 없다** (2026-08-12 실측 — `PGRST205`). `fetchPendingReportsCount`
+  의 `try/catch` 가 이를 삼키고 0 을 반환해 배지는 영구히 숨겨진다. 배지 부재 = "신고 0건" 이
+  아니라 "집계할 테이블 없음".
+
+---
+
+## /admin — 대시보드 (v06.35 실측화)
+
+`page.tsx` (RSC · `dynamic = 'force-dynamic'`) — `requireAdmin('/admin')` → `createAdminClient()`
+(service_role, dev-bypass 에서도 조회 가능) → `lib/admin/dashboard-stats.ts`.
+
+| 블록 | 출처 |
+|---|---|
+| KPI 4 (공개 콘텐츠 · 검수 대기 · 실패 · 오늘 학습자) | 카운트 합산 (`sum` — 하나라도 null 이면 null) |
+| 파이프라인 8 큐 (LCP · ACP · 드레인 큐 · VCB · VRL · CCP · PDCP · Pending Words) | 상태별 `count: 'exact', head: true` |
+| 운영·관리 10 링크 | 실측 수치 + DB 미연동 화면에 `목업` 태그 |
+| 최근 파이프라인 변경 8건 | `library_books`·`library_articles`·`book_curation_jobs`·`pd_comic_issues`·`vocab_runs` 의 `updated_at` 병합 |
+
+**`count ?? 0` 금지** — `head: true` 요청은 없는 테이블에도 `204 / error=null / count=null` 을
+돌려준다 (404 는 non-head 에서만). 0 으로 채우면 미구현 화면이 "0건" 으로 보인다. `null` 은 화면에 `—`.
+
+**목업 태그가 붙는 화면** (DB 를 전혀 읽지 않고 코드 상수를 렌더 — 2026-08-12 grep 실측):
+`/admin/users` · `/admin/library` · `/admin/analytics` · `/admin/reports` · `/admin/billing` · `/admin/settings`
+
+회귀: `src/app/admin/__tests__/page.test.tsx` (renderToString · 5) +
+`src/lib/admin/__tests__/dashboard-stats.integration.test.ts` (실 DB · 6).
 
 ---
 

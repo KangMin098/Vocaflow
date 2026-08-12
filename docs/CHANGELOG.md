@@ -10,6 +10,31 @@
 
 ## Unreleased (v06.34 → next)
 
+### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
+
+관리자 콘솔 첫 화면이 DB 를 한 번도 조회하지 않는 정적 목업이었다. `KPIS`·`SECTIONS`·
+`ACTIVITIES` 세 배열이 코드 상수였고, "총 사용자 1,247" (실제 `user_profiles` 3) ·
+"라이브러리 콘텐츠 89" (실제 `texts` 275) · "AI 단어 추출 1,283건 처리 (GPT-4o-mini)"
+(쓰지 않는 모델) 처럼 실측과 어긋난 값이 운영 판단 자리에 떠 있었다.
+
+- **`lib/admin/dashboard-stats.ts` 신설** — 숫자의 유일한 출처. 상태별 카운트 35 + 최근 변경 병합.
+  `requireAdmin` 뒤에서 `createAdminClient()`(service_role) 로 조회 — dev-bypass 에서도 빈 화면이 되지 않는다.
+- **`app/admin/page.tsx` 재작성** — KPI 4(공개 콘텐츠 · 검수 대기 · 실패 · 오늘 학습자) +
+  파이프라인 8 큐 카드(LCP · ACP · 드레인 큐 · VCB · VRL · CCP · PDCP · Pending Words) +
+  운영·관리 10 링크 + 실제 `updated_at` 기반 최근 변경 8건. 칩 색은 값>0 일 때만 (Calm UI).
+- **`count ?? 0` 함정 제거** — `head: true` 요청은 **없는 테이블에도 204 / error=null / count=null**
+  을 돌려준다(404 는 non-head 에서만). 0 으로 채우면 미구현 화면이 "미처리 0건" 으로 보인다 → `null` 은 `—`.
+- **미구현 표시** — DB 를 읽지 않는 6 화면(`users`·`library`·`analytics`·`reports`·`billing`·`settings`)
+  에 `목업` 태그. `reports`·결제 테이블은 존재 자체가 없음을 문구로 명시.
+- 화면도움말(`help/ops.ts` dashboard) 전면 개정 — steps 3(실패 → 드레인 → 발행) + KPI 합산 정의 + 색 규칙.
+- 회귀 테스트 2종 — `app/admin/__tests__/page.test.tsx`(renderToString 5) ·
+  `lib/admin/__tests__/dashboard-stats.integration.test.ts`(실 DB 6, `reports` 부재가 `null` 인지 고정).
+
+**부수 발견 (미수정)**: `reports` 테이블이 DB 에 없어 사이드바 신고 배지가 영구히 숨겨진다.
+`vitest.config.ts` 가 레포 루트 `.env.local`(존재하지 않음)만 읽어 `*.integration.test.ts` 가
+전부 조용히 skip 돼 왔고, 실제로 연결하면 2026-07-04 골든 스냅샷 3건이 실패한다(추출 알고리즘
+변경 후 미갱신). 둘 다 별건이라 각 파일 주석에 근거만 남겼다.
+
 ### LCP 단어추출 — 학습대상 전달률 5.9% → 99.5% + 인프라 사고 복구 (마이그레이션 8건)
 
 도서 314권 규모로 추출을 돌리며 "학습 대상 단어가 누락 없이 학습자에게 닿는가" 를
