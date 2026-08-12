@@ -134,6 +134,21 @@ ADR 0004 에서 챕터당 cap 40 을 없애(`republish_book_word_sets(p_cap DEFA
 - ⚠️ 세트가 **아예 없는 챕터**의 드리프트는 재발행으로 안 없어진다 — `republish` 는 기존 세트만
   갱신한다. Fables 드리프트 4 = 세트 없는 챕터 24·36·104 의 단어 4개 (`publish_book_word_sets` 영역).
 
+**재발행 3권 실행 (2026-08-13 · 사용자 승인)** — Winnie-the-Pooh · A Christmas Carol ·
+The Mysterious Affair at Styles. 28세트 교체, I10 드리프트 10권 → **7권**.
+
+| 도서 | 단어 | 밴드 미달 | I10 |
+|---|---|---|---|
+| Winnie-the-Pooh (V5) | 384 → **361** | 70 → **0** | 305 → **0** |
+| A Christmas Carol (V8) | 1,124 → **1,179** | 0 | 623 → **0** |
+| Mysterious Affair at Styles (V7) | 1,953 → **1,748** | 454 → **0** | 1,449 → **0** |
+
+세 권 모두 critical FAIL 0 · 뜻/품사/예문 결측 0 · `word_count` 28/28 일치.
+구독 안전 확인 — set_id 는 보존되므로 이 세트를 참조하는 `vocabularies` 69행 ·
+`user_word_set_subscriptions` 10건이 그대로 유지된다(교체 대상은 `shared_words` 뿐).
+
+남은 7권: Fables(4 · 세트 없는 챕터라 재발행 무효) + `status='ready'` 인데 세트만 발행된 6권.
+
 ### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
 
 관리자 콘솔 첫 화면이 DB 를 한 번도 조회하지 않는 정적 목업이었다. `KPIS`·`SECTIONS`·
