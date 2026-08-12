@@ -99,6 +99,32 @@ DB 에 도서 12권(챕터 texts 269) · 공용 단어장 1,169 세트가 있는
 - e2e storageState 를 `test-results/`(Playwright outputDir) 밖으로 — 워커 재시작 시 디렉터리가
   비워져 뒷 테스트가 "Error reading storage state" 로 죽었다. 다른 spec 도 같은 함정을 갖고 있다.
 
+### I10 게이트 오탐 — "재발행하라"는 잘못된 지시를 12권에 내리고 있었다 (마이그레이션 1건)
+
+`20260812160000_fix_i10_gate_drop_cap40` — `run_content_quality_gates` book scope 의
+I10 비교 CTE 한 줄(`WHERE sort_order<=40`) 제거.
+
+ADR 0004 에서 챕터당 cap 40 을 없애(`republish_book_word_sets(p_cap DEFAULT NULL)` = 무제한)
+발행 세트는 무제한으로 적재되는데, I10 은 **비교 대상만 40위까지 잘라서** 대조했다.
+→ 41위 이하 단어가 전부 "드리프트" 로 계산돼 **발행 도서 12권 전부 critical FAIL**.
+
+- 실측 근거: Pride and Prejudice 발행 1,794단어 = 현 select 1,794행, 무제한 비교 시 드리프트 **0**.
+  게이트가 보고한 195 는 `sort_order > 40` 행 수(195)와 정확히 일치.
+- 수정 후: **8권 PASS 복귀**(순수 오탐), 실드리프트 4권만 FAIL 잔존 —
+  The Mysterious Affair at Styles 1,449 · A Christmas Carol 623 · Winnie-the-Pooh 305 · Fables 4.
+  (Styles 는 발행 단어의 23%(454개)가 밴드 미달 — 재발행 대상이나 파괴적 연산이라 별건 보류.)
+- 왜 위험했나: 게이트 빨간색이 곧 재발행 트리거인데 `republish_book_word_sets` 는 발행 단어를
+  DELETE 후 재INSERT 한다. 틀린 게이트는 **멀쩡한 8권의 학습자 노출 단어를 갈아엎으라는 지시**로 작동한다.
+
+**통합 테스트가 그동안 한 번도 돌지 않았다** — `vitest.config.ts` 가 존재하지 않는 레포 루트
+`.env.local` 만 읽어(`injected env (0)`) `SUPABASE_SERVICE_ROLE_KEY` 가 주입되지 않았고,
+`describe.skipIf` 가 전부 조용히 skip 했다. `apps/web/.env.local` 을 함께 읽도록 수정
+→ 실행 테스트 323 → **357**. 이 사각지대 때문에 위 게이트 오탐도, 아래 스냅샷 노후도 늦게 발견됐다.
+
+- 추출 골든 스냅샷 2건 갱신 (`extraction-rpc.integration.test.ts`) — 2026-07-04 기준값이 ADR 0004
+  상대 밴드 도입 전이라 밴드 밖(V6) 단어를 담고 있었다. 현 select 실측: P&P(V8) → min V7 · max V11 ·
+  밴드 이탈 0. 새 상위 20 = copyright(V8) · flatter(V9) · hearty(V9) · solace(V9) …
+
 ### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
 
 관리자 콘솔 첫 화면이 DB 를 한 번도 조회하지 않는 정적 목업이었다. `KPIS`·`SECTIONS`·
