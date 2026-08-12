@@ -79,8 +79,14 @@ export async function fetchSources(
       .select('source_id, run_id')
       .in('source_id', sourceIds)
 
+    // run_count 는 목록의 **보조 뱃지**다. 이것 하나가 실패했다고 소스 목록 전체를 못 보여줄
+    // 이유가 없다 — 실제로 그 때문에 /admin/vocab/sources 가 통째로 500 이었다
+    // (20260719 이 vocab_raw_texts 를 지운 동안). 본체(vocab_sources)는 이미 손에 있으므로
+    // 뱃지만 0으로 떨어뜨리고 목록을 살린다. 같은 화면의 admin/layout 이 reports 뱃지를
+    // try/catch 로 감싼 것과 같은 원칙이다.
     if (refErr) {
-      throw new Error(`fetchSources run_count failed: ${refErr.message}`)
+      console.error(`[vcb] run_count 집계 실패 — 뱃지를 0으로 둡니다: ${refErr.message}`)
+      return rows.map((row): SourceSummary => ({ ...row, run_count: 0 }))
     }
 
     const perSource = new Map<number, Set<number>>()

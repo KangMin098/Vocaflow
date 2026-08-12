@@ -19,7 +19,7 @@
 | 지워진 테이블 | 참조하는 RPC | 코드 접근 | 상태 |
 |---|---|--:|---|
 | `word_familiarity` | `extract_vocabulary_for_user_v2` · `set_word_familiarity` | RPC 경유 | ✅ **복원** ([20260812093000](../supabase/migrations/20260812093000_restore_word_familiarity.sql)) |
-| `vocab_raw_texts` | — | 8곳 | ❌ `/admin/vocab/sources` 500 · VCB 스크립트 3개 |
+| `vocab_raw_texts` | — | 8곳 | ✅ **복원** ([20260812101500](../supabase/migrations/20260812101500_restore_vocab_raw_texts.sql)) — `publish.ts` 가 발행 세트 **출처 인용**을 이 테이블로 붙인다(라이선스 표기) |
 | `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ❌ lexicon 조회 5곳 |
 | `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ❌ 교사 클래스 |
 | `pending_words` | `record_pending_words` | 3곳 | ❌ `/admin/pending-words` |
@@ -29,11 +29,17 @@
 
 **교훈**: 테이블을 지우기 전에 `pg_proc.prosrc` 를 검색해야 한다. 행 수 0 은 미사용의 증거가 아니다.
 
+`vocab_raw_texts` 는 그 이유를 가장 잘 보여준다 — 실제로 **비어 있었던 것은 사실**이었다(VCB 런 1건이 Method B = AI 생성 시드라 파일 업로드가 없었다). 틀린 것은 판정이 아니라 **추론**이었고, 정작 그 테이블은 발행 세트의 출처 인용을 붙이는 현행 경로였다.
+
 ```sql
--- 지우기 전 필수 점검
+-- 지우기 전 필수 점검 ①: 함수 참조 (CASCADE 가 지우지 않는다)
 select p.proname from pg_proc p join pg_namespace n on n.oid=p.pronamespace
 where n.nspname='public' and p.prosrc ilike '%<table>%';
+-- 필수 점검 ②: 앱·패키지·스크립트 코드 참조
+--   grep -rn "from('<table>')" apps packages scripts
 ```
+
+**부수 원칙 — 보조 지표가 본체를 죽이지 않게.** `/admin/vocab/sources` 가 통째로 500 이었던 직접 원인은 테이블 부재가 아니라 `fetchSources` 가 `run_count` 뱃지 집계 실패를 `throw` 한 것이었다(이미 손에 든 소스 목록까지 버렸다). `admin/layout.tsx` 가 `reports` 뱃지를 try/catch 로 감싸 0을 반환하는 쪽이 옳은 형태다. 계약은 [sources-resilience.test.ts](../apps/web/src/lib/vcb/__tests__/sources-resilience.test.ts) 5건이 고정한다.
 
 ### 🎯 추출 품질 — 바인딩 수리 + 판정 하네스 (2026-07-18)
 

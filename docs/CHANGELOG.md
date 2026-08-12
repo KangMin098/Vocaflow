@@ -35,9 +35,30 @@
 - 검증 4단: 구조(RLS·정책·인덱스·뷰) → 깨진 RPC 실호출(5단어 → 2행) → upsert/CHECK/`v_level` COALESCE 보존을 DO 블록으로 실측(탐침 잔여 0) → e2e `08-text-extract-trust` 가 known/unknown DB 영속화까지 단언하며 통과.
 - 문서 통계를 실측으로 교체 — 테이블 81 · view 10 · 함수 321 · migrations 412. 이전 기재(77/7/262/72+)는 최대 5.7배 어긋나 있었다.
 
-**미해결(각각 별도 판단 필요)**: `vocab_raw_texts` · `word_lexicon` · `classes`/`class_members` · `pending_words` · `csat_item_attempts`. 복구가 맞는 것과 코드에서 참조를 걷는 것이 기능별로 다르다 — [DB_SCHEMA.md §스키마 드리프트](./DB_SCHEMA.md) 에 표로 정리.
+**미해결(각각 별도 판단 필요)**: `word_lexicon` · `classes`/`class_members` · `pending_words` · `csat_item_attempts`. 복구가 맞는 것과 코드에서 참조를 걷는 것이 기능별로 다르다 — [DB_SCHEMA.md §스키마 드리프트](./DB_SCHEMA.md) 에 표로 정리.
 
-**재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색을 DB_SCHEMA.md 에 필수 점검으로 명문화.
+**재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색 + 코드 grep 을 DB_SCHEMA.md 에 필수 점검으로 명문화.
+
+#### ② `vocab_raw_texts` 복원 — "비어 있음" 은 사실이었고 "미사용" 이 추론이었다 (마이그레이션 1건)
+
+**마이그레이션 [20260812101500_restore_vocab_raw_texts.sql](../supabase/migrations/20260812101500_restore_vocab_raw_texts.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
+
+이 테이블은 **실제로 비어 있었다** — VCB 런은 1건뿐이고(2026-05-13 cast-2000 감사 체인) 그 시드 2,000개는 AI 생성(Method B)이라 파일 업로드가 없었다. 마이그레이션의 "empty" 판정은 맞았다. 틀린 것은 **추론**이다.
+
+8개 접근 지점을 성격별로 갈라 보니 유령이 아니었다:
+
+| 지점 | 성격 | 하는 일 | 마지막 커밋 |
+|---|---|---|---|
+| `method-a.ts:210` | **쓰기** | Method A 파일 업로드 적재 (유일한 write) | 2026-05-15 |
+| **`publish.ts:250`** | 읽기 | **발행 세트의 출처 인용(citation)** — 라이선스 표기 | **2026-07-06** |
+| `queries.ts:169` | 읽기 | 런 상세 소스 수 | **2026-07-09** |
+| `sources.ts:78` | 읽기 | 소스 목록 `run_count` 뱃지 | 2026-05-14 |
+
+`publish.ts`·`queries.ts` 가 7월 커밋이므로 **패키지는 현행**이고 스크립트만 5월에 멈춰 있다. 복구 후 0행 — 복구할 데이터는 없고 스키마 의존만 되살렸다.
+
+**보조 지표가 본체를 죽이지 않게 함께 고쳤다.** `/admin/vocab/sources` 가 통째로 500 이었던 직접 원인은 테이블 부재가 아니라 `fetchSources` 가 `run_count` 집계 실패를 `throw` 해서 **이미 손에 든 소스 목록까지 버린 것**이다. 뱃지만 0으로 떨어뜨리고 목록을 살린다 — 같은 프로젝트의 `admin/layout.tsx` 가 `reports` 뱃지를 try/catch 로 감싸는 것과 같은 원칙이다. 계약은 [sources-resilience.test.ts](../apps/web/src/lib/vcb/__tests__/sources-resilience.test.ts) 5건이 고정한다(테이블 존재가 아니라 **실패 처리**를 검사한다).
+
+검증: FK 2개 · RLS on · 정책 1(자매 7개와 동형) · 인덱스 3 · `sources.ts`/`publish.ts` 조회 형태 실행 OK · 단위 5건. ⚠️ 런타임 admin 렌더 확인은 못 했다 — dev 우회를 껐고 e2e 계정이 admin 이 아니라 `/hub` 로 리다이렉트된다. 그래서 단위 테스트로 대체했다(회귀 방어로는 더 강하다).
 
 ### 단어 추출 79권 규모 검증 — 문자·형태소 결함 3종 제거 + L1/L2 전달 계층 분리
 
