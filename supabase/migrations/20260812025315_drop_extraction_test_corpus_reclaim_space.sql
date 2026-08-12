@@ -1,0 +1,31 @@
+-- 20260812025315_drop_extraction_test_corpus_reclaim_space.sql
+-- 평가 코퍼스 제거 — NANO(RAM 0.5GB) 에서 DB 2.99GB 는 캐시가 무의미해지는 비율이다.
+--
+-- 사용자 지시로 실행. 배경:
+--   도서 314권을 적재하며 DB 가 문서 기준 350MB → 2,991MB 로 커졌다.
+--   NANO 의 Postgres 캐시는 대략 100~150MB 라 DB 의 5% 미만만 메모리에 올라간다.
+--   조회 대부분이 디스크를 때려 Disk IO budget 이 소진됐고
+--   (대시보드 "Project is depleting its Disk IO Budget" · STATUS Unhealthy),
+--   활성 쿼리 1개인 상태에서도 5단어 조회에 planning 1.7~2.8초가 걸렸다.
+--
+-- extraction_test_vocab 은 DB 의 46%(1,381MB · 206만 행)를 차지하는 최대 테이블이면서
+-- 운영 경로에서 전혀 읽히지 않는다:
+--   · pg_proc.prosrc 검색 결과 참조 RPC 0건
+--   · 코드 참조는 scripts/dict/{build-test-corpus*.mts, fresh-residual-build.mjs,
+--     measure-test-corpus.sql} 뿐 — 전부 사전 품질 평가용 오프라인 도구
+--   · 20260809040000 에서 이미 RLS 잠금(anon/authenticated 전면 차단) 처리됨
+--
+-- 복구 경로: scripts/dict/build-test-corpus-gutenberg.mts 로 재수집.
+--   원본이 외부 소스라 완전히 동일한 코퍼스가 재현된다는 보장은 없고,
+--   measure-test-corpus.sql 의 해소율 기준선이 바뀔 수 있다.
+--
+-- 실측 결과:
+--   DB        2,991 MB → 1,610 MB  (−46%)
+--   planning  1,676 ms →   24.7 ms (68배)
+--   execution   640 ms →    8.7 ms (74배)
+--   RAM 대비 DB 비율이 절반으로 떨어지자 캐시가 다시 작동했다.
+--
+-- 함께 제거: extraction_test_books(88kB) — 같은 평가 세트의 도서 메타. 단독으로 무의미.
+
+DROP TABLE IF EXISTS public.extraction_test_vocab;
+DROP TABLE IF EXISTS public.extraction_test_books;
