@@ -326,42 +326,63 @@ const QUIZ_GENERATION_PROMPT = `
 
 ---
 
-## 8. Dictation (L6 완성 · v06.7)
+## 8. Dictation (L6 완성 · v07 — 학습 자산 연결)
 
 ### 목적
 스크립트 단위 다중 채널 재생산 (음운+의미+문법+철자). Free Recall + Production — 학습의 정점.
+**v07 부터 문장 안의 "내 단어"(타깃)를 인출 대상으로 삼아 받아쓰기가 곧 그 단어의 복습이 된다.**
 
 ### 라우트
-- `/dictate` — Hub (CEFR 자동 감지 · 리소스 선택)
-- `/dictate/setup` — Setup (단위/갯수/순서/채점/속도/힌트)
-- `/dictate/session` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
-- `/dictate/results` — 결과 (Hero 정확도 · 오류 패턴 분석 · 오답 단어)
+- `/dictate` — Hub (오늘의 받아쓰기 CTA · 자료 3탭 · 약점 · 최근)
+- `/dictate/setup?text=|set=|custom=1` — Setup (미리보기 3지표 + 분량/문항수/순서/채점/듣기)
+- `/dictate/session?sessionId=` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
+- `/dictate/results?sessionId=` — 결과 (**DB 조회** · 복습 반영 단어 · 청취 폭 · 반복된 태그)
+
+### 자료 4소스 (v07)
+| 소스 | 스코프 | 문장 출처 | 타깃 단어 |
+|---|---|---|---|
+| 도서 챕터 | `?text=`(library_book_id 有) | `get_chapter_content` RPC (content_chunks) | 그 챕터 vocabularies |
+| 내 스크립트 | `?text=` | `texts.content` | text_id 로 묶인 vocabularies |
+| 공용 단어장 | `?set=`(+`?chapter=`) | `shared_words.source_sentence` → `example_en` | 그 단어 자체 |
+| 오늘의 받아쓰기 | 기본값 | 복습 임박 예문 3 + 재도전 1 + 읽던 자료 1 | 복습 임박 단어 |
+| 붙여넣기 | `?custom=1` | sessionStorage (자료로 저장 안 함) | 내 vocabularies 중 등장하는 것 |
 
 ### 설정
-- 단위 3종: 문장 / 단락 / 전체 (Dictogloss)
-- 채점 2종: Smart / Strict
-- CEFR A1~C2 자동 감지 (v06.22 수동 선택 제거)
-- 순서: 순차 / 랜덤 (v06.22 difficulty-first 제거)
+- **한 번에 받아쓸 분량 1·2·3문장** (v07 — 기존 '단위 문장/단락/전체' 대체. 단락·전체는
+  연속 본문에서만 성립해 단어장·오늘에는 적용 불가였다). 단어장·오늘은 1문장 고정.
+- 채점 2종: Smart / Strict · 순서: 순차 / 섞기
+- CEFR A1~C2 자동 감지 (v06.22 수동 선택 제거) → 분량·속도·반복·힌트 추천값 자동 적용
 
-### 인프라 (`lib/dictation/`, 8 파일)
-- `types.ts` — Config · Session · Item · WordResult · ErrorPattern
-- `cefr.ts` — A1~C2 + 그룹별 자동 감지
-- `text-splitter.ts` — 약어 처리 + 문장/단락/전체 분리
+### 인프라 (`lib/dictation/`, 11 파일)
+- `types.ts` — Config(chunkSize) · Session · Item(targetWords·maxHintLevel·replayCount) · WordResult
+- `source.ts` — **자료 해석 단일 출처**. 4소스 → `DictationSentence[]` + 타깃 단어 부착
+- `daily.ts` — 오늘의 받아쓰기 조립 (due 3 / retry 1 / fresh 1 · 오늘 받아쓴 문장 제외)
+- `catalog.ts` — 허브 자료 목록 (내 도서 · 스크립트 · 구독 단어장)
+- `targets.ts` — 타깃 적중 판정 → FSRS 1~4 (힌트 4단계 사용 시 Again)
+- `error-tags.ts` — 누적 가능한 오류 태그 9종 + 처방 문구
+- `persist.ts` — 세션/문항 적재 · 완주(scores + FSRS flush) · 통계 RPC 3종 read
+- `cefr.ts` — A1~C2 + 그룹별 추천(chunkSize)
+- `text-splitter.ts` — 약어 처리 + 문장 분리
 - `scoring.ts` — Levenshtein + Word alignment + Smart/Strict
-- `analyzer.ts` — 6개 패턴 (-ed·관사·복수·동음이의·스펠·단어선택)
+- `analyzer.ts` — 세션 내 설명용 패턴 6종 (누적은 error-tags 가 담당)
 - `audio-control.ts` — Web Speech API + autoRepeat + 무음 간격
-- `hint.ts` — 4단계 (-5/-3/-10/-25)
-- `storage.ts` — localStorage + 시드 (A2/B1/B2 3종)
+- `hint.ts` — 4단계
+- `storage.ts` — **진행 중 세션 런타임 캐시만** (기록 원본은 DB)
 
 ### Hooks
 - `useAudioControl.ts` — TTS 재생/반복/정지
-- `useDictationSession.ts` — 세션 상태 머신 (sessionStorage)
+- `useDictationSession.ts` — 문항 진행 + 채점 + 적재 3시점 (`createDictationSession` 포함)
 
 ### 컴포넌트 (`components/dictation/`)
-- `DictationHubClient.tsx` (Hub: ModuleHero + Smart Suggestion + 리소스 + 최근 세션)
-- `DictationSetupClient.tsx`
-- `DictationSessionClient.tsx`
-- `DictationResultsClient.tsx`
+- `DictationHubClient.tsx` — 오늘의 받아쓰기 카드 + 이어하기 + 최근 세션
+- `SourcePicker.tsx` — 도서/스크립트/단어장 3탭 + 붙여넣기
+- `WeaknessPanel.tsx` — 최근 2주 오류 태그 Top3 + 처방 + 예시
+- `DictationSetupClient.tsx` · `DictationSessionClient.tsx` · `DictationResultsClient.tsx`
+
+### 영속화 (v07)
+`dictation_sessions` / `dictation_attempts` (RLS) · 완주 시 `scores`(module='dictation') +
+`vocabularies`/`learning_records`(FSRS). `learning_records` INSERT 트리거가 `daily_activity`
+를 갱신하므로 streak 도 자동. 상세: [DB_SCHEMA.md](./DB_SCHEMA.md)
 
 ### 키보드
 - Space (재생/정지) / 1-5 (속도) / F (Focus) / Tab / Enter / Esc

@@ -64,6 +64,7 @@ const SCREENS: Array<{ path: string; marker: RegExp }> = [
   { path: '/flashcard', marker: /Flashcard|플래시|복습/ },
   { path: '/pairflip', marker: /PairFlip|페어|짝/ },
   { path: '/scriptquiz', marker: /ScriptQuiz|퀴즈/ },
+  { path: '/dictate', marker: /받아쓰기|오늘의 받아쓰기/ },
   { path: '/library/books', marker: /Library|도서|발견/ },
   { path: '/library/scripts', marker: /먼저 이걸로|다른 주제로 읽기|스크립트/ },
 ];

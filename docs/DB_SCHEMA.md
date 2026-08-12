@@ -7,7 +7,7 @@
 
 ## 요약
 
-- **테이블**: **81** · **Views**: **10** · **Functions**: **321** · **Migrations**: **412** (2026-08-12 DB 직접 쿼리 실측)
+- **테이블**: **87** · **Views**: **10** · **Functions**: **327** · **Migrations**: **428** (2026-08-12 DB 직접 쿼리 실측)
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
 - 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
 
@@ -199,8 +199,8 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `quiz_questions` | 5 | 24 kB | ScriptQuiz **개인** 문제 (per user+text · type · question/`question_ko`(A3.4b) · options JSONB(textKo) · correct_index · source_snippet) — A3.4 첫 콘텐츠 5문제(Ammachi Ch1) |
 | `library_chapter_quiz` | 360 | — | **v06.114** ScriptQuiz **큐레이션 공유** 챕터 퀴즈 (키 library_book_id+chapter_idx+q_order UNIQUE · type · question/question_ko · options JSONB(textKo) · correct_index · source_snippet · book_v_level 스냅샷) · RLS admin-only, 학습자는 `select_book_chapter_quiz` RPC read · 6권 360문항(live-verified) |
 | `book_quiz_jobs` | 0 | — | **v06.114** 퀴즈 생성 작업 큐 (book_id UNIQUE · status · book_v_level/target_per_chapter 스냅샷 · chapters_total/done · questions_created) · RLS admin-only · `enqueue_quiz_jobs` 적재 → Claude Code 드레인 갱신 |
-| `dictation_sessions` | 0 | 24 kB | Dictation 세션 헤더 (config JSONB) |
-| `dictation_items` | 0 | 24 kB | session_id · index · expected_text · user_input · result JSONB |
+| `dictation_sessions` | 0 | — | **v07 재신설** (`20260812150000_dictation_persistence`) — 세션 헤더. `source_kind` CHECK(book/text/set/daily/custom) + 출처 좌표(text_id · library_book_id · chapter_idx · shared_set_id) · config JSONB · avg_accuracy · `longest_perfect_words`(청취 폭) · RLS auth.uid() |
+| `dictation_attempts` | 0 | — | **v07 신설** — 문항 1시도. word_results JSONB · `error_tags TEXT[]`(GIN, 약점 리포트 원천) · `target_words`/`target_hits TEXT[]`(FSRS 등급 근거) · replay_count · skipped · 세션 FK CASCADE · RLS auth.uid() |
 | `echo_match_sessions` | 2 | 48 kB | v06.33 — avg/best/worst 점수 · retried_sentence_ids TEXT[] |
 | `echo_match_attempts` | 5 | 64 kB | 3축 점수 (intonation/stress/rhythm) · duration_ms · idx user_date |
 | `reading_sessions` | 217 | 128 kB | LCP v2.0 — 사용자별 chapter 동적 분할 |
@@ -333,6 +333,17 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `fill_lbv_resolution(p_book_id uuid, p_only_new boolean)` | **v06.35** — `lemma IS NULL` 행에 `lookup_word_meaning` 해석(`resolved_via`/`lang`/`word`) + `noise_kind` 기록. `trg_lbv_fill_lemma` 가 INSERT 시 동일 로직 수행 |
 | `collect_archaic_candidates(p_book_id uuid)` | 미바인딩 단어를 archaic_candidates 로 수집 |
 | `classify_archaic_candidates()` | 재출현 게이트 — derivational / inflection / variant 분류 |
+| `run_content_quality_gates(p_scope text, p_id uuid)` | 불변식 게이트 (global/dict/book/article/word_set). **v06.35 수정** ([20260812160000](../supabase/migrations/20260812160000_fix_i10_gate_drop_cap40.sql)) — I10 비교 CTE 의 `sort_order<=40` 제거. 발행은 `republish_book_word_sets(p_cap DEFAULT NULL)`=무제한인데 비교만 40위로 잘라 **발행 도서 12권 전부 오탐 FAIL**(P&P 195 = `sort_order>40` 행 수와 일치). 수정 후 8권 PASS · 실드리프트 4권만 잔존 |
+
+### Dictation RPC (v07 · `20260812150000`)
+
+모두 `security invoker` + `auth.uid()` 기준 — 파라미터로 남의 기록을 볼 수 없다.
+
+| 함수 | 용도 |
+|---|---|
+| `dictation_overview()` | 허브 요약 jsonb — `streak`(받아쓰기 자체 연속일, KST 기준 · 오늘 미실시면 어제부터 계산 · 상한 400) · `span`(최장 무힌트 100% 문장 단어 수) · `weekly_accuracy` · `total_sentences` · `total_sessions` · `best_accuracy` |
+| `dictation_weakness(p_days int default 14)` | 오류 태그 빈도 Top6 + 태그별 최근 예시 1쌍 (`error_tags` unnest 집계) |
+| `dictation_recent_misses(p_limit int default 5)` | 최근 30일 정확도 85% 미만 문장(문장별 최신 1건) — 오늘의 받아쓰기 '재도전' 슬롯 원천 |
 
 ### VRL RPC
 
@@ -448,6 +459,7 @@ CREATE POLICY "own data" ON {table}
 ## 최근 마이그레이션 (20개)
 
 ```
+20260812150000  dictation_persistence                      ← v07 받아쓰기 영속화 (2 table + 3 RPC)
 20260608222931  v_text_content_user_book_group_v2          ← v06.34
 20260608222229  texts_user_book_group_id
 20260608221508  book_curation_jobs

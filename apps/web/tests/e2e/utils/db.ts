@@ -257,6 +257,84 @@ export async function countLearningRecordsSince(
   return count ?? 0;
 }
 
+/**
+ * 특정 시각 이후 완주된 받아쓰기 세션 수 — "완주 → dictation_sessions 마감" 단언용.
+ * 세션 INSERT 는 시작 시점이므로 completed_at 으로 센다(중도 이탈과 구분).
+ */
+export async function countDictationSessionsSince(
+  userId: string,
+  sinceIso: string,
+  onlyCompleted = true,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  let q = c
+    .from('dictation_sessions')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('started_at', sinceIso);
+  if (onlyCompleted) q = q.not('completed_at', 'is', null);
+  const { count, error } = await q;
+  if (error) return -1;
+  return count ?? 0;
+}
+
+/** 특정 시각 이후 받아쓰기 문항 시도 수 — 문항마다 즉시 적재되는지 단언용. */
+export async function countDictationAttemptsSince(
+  userId: string,
+  sinceIso: string,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { count, error } = await c
+    .from('dictation_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('created_at', sinceIso);
+  if (error) return -1;
+  return count ?? 0;
+}
+
+/**
+ * 테스트가 만든 받아쓰기 기록 정리(멱등).
+ *
+ * ⚠️ 반드시 finally 에서 호출할 것 — 오늘의 받아쓰기는 **오늘 이미 받아쓴 문장을 제외**하므로,
+ * 테스트가 남긴 attempt 를 지우지 않으면 같은 날 재실행 시 문장이 고갈돼 테스트가 스스로를
+ * 무력화한다 (08-text-extract-trust 의 word_familiarity 원복과 같은 이유).
+ * attempts 는 세션 FK ON DELETE CASCADE 로 함께 지워진다.
+ */
+export async function deleteDictationSince(userId: string, sinceIso: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('dictation_sessions')
+    .delete()
+    .eq('user_id', userId)
+    .gte('started_at', sinceIso)
+    .select('id');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
+
+/** 테스트가 적재한 scores 정리 — 모듈 지정(멱등). */
+export async function deleteScoresSince(
+  userId: string,
+  module: string,
+  sinceIso: string,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('scores')
+    .delete()
+    .eq('user_id', userId)
+    .eq('module', module)
+    .gte('created_at', sinceIso)
+    .select('id');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
+
 /** user_profiles.current_v_level 조회 (밴드 적응성 검증용 · 원복 기준값). 키/행 없으면 null. */
 export async function getUserVLevel(userId: string): Promise<number | null> {
   const c = serviceClient();

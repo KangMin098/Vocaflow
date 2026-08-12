@@ -1,380 +1,341 @@
 // apps/web/src/components/dictation/DictationResultsClient.tsx
-// Dictation Results — 정확도 + 오류 패턴 + 오답 단어 + 다음 단계 추천
+//
+// 받아쓰기 결과 — "무엇이 남았는가"를 말한다.
+//
+// v07 변경 2가지:
+//   ① 기록을 DB 에서 읽는다. 예전엔 localStorage 세션을 읽어서, 링크를 공유하거나
+//      다른 기기에서 열면 결과가 통째로 사라졌다. 이제 dictation_sessions/_attempts 를
+//      읽으므로 언제 어디서 열어도 그날의 받아쓰기가 그대로 있다.
+//   ② 적재를 여기서 하지 않는다. scores·FSRS 는 세션 완주 시점(useDictationSession.finish)
+//      에서 이미 끝났다. 결과 화면이 적재를 겸하면 새로고침마다 중복 적재된다.
+//
+// 화면이 답해야 할 질문은 "몇 점?"이 아니라 "오늘 무엇이 남았나?"다.
+// 그래서 정확도 아래 두 줄이 핵심이다 — 복습에 올라간 단어 수, 청취 폭.
 
-'use client';
+'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   ArrowRight,
   BarChart3,
   Check,
-  Clock,
   Home,
   Leaf,
-  Lightbulb,
+  Loader2,
   RotateCw,
   Sprout,
-} from 'lucide-react';
+} from 'lucide-react'
 
-import { NextActionCard } from '@/components/recommend/NextActionCard';
-import { extractMistakenWords, analyzeErrorPatterns } from '@/lib/dictation/analyzer';
-import { getSession } from '@/lib/dictation/storage';
-import type { DictationSession, ErrorPattern, WordResult } from '@/lib/dictation/types';
-import { useNextAction } from '@/lib/recommend/use-next-action';
-import { useRecordGameScore } from '@/lib/scores/record-score';
-import { applyReview, createNewCard } from '@/lib/srs';
-import { accuracyToRating } from '@/lib/srs/rating-mapper';
-import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage';
-import { flushPendingSession } from '@/lib/srs/flush-session';
-import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter';
+import { NextActionCard } from '@/components/recommend/NextActionCard'
+import { analyzeErrorPatterns } from '@/lib/dictation/analyzer'
+import { tagCoach, tagLabel } from '@/lib/dictation/error-tags'
+import { fetchDictationSessionDetail, type SessionDetail } from '@/lib/dictation/persist'
+import { createClient } from '@/lib/supabase/client'
+import { useNextAction } from '@/lib/recommend/use-next-action'
+import type { WordResult } from '@/lib/dictation/types'
 
-const DICTATION_ACCENT = '#0EA5E9';
-
-// SRS cardId 용 단어 정규화 — 소문자 + 양끝 구두점 제거 (apostrophe/hyphen 보존)
-function normalizeWord(raw: string): string {
-  return raw.toLowerCase().replace(/^[^\w']+|[^\w']+$/g, '');
-}
+const DICTATION_ACCENT = '#0EA5E9'
 
 export function DictationResultsClient() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get('sessionId');
-  const [session, setSession] = useState<DictationSession | null>(null);
-  const srsAppliedRef = useRef(false);
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const sessionId = searchParams.get('sessionId')
+
+  const [detail, setDetail] = useState<SessionDetail | null>(null)
+  const [state, setState] = useState<'loading' | 'ready' | 'missing'>('loading')
 
   useEffect(() => {
     if (!sessionId) {
-      router.replace('/dictate');
-      return;
+      router.replace('/dictate')
+      return
     }
-    const s = getSession(sessionId);
-    if (!s) {
-      router.replace('/dictate');
-      return;
+    // 로컬 전용 세션(비로그인)은 DB 에 없다 — 허브로 돌려보낸다.
+    if (sessionId.startsWith('local-')) {
+      setState('missing')
+      return
     }
-    setSession(s);
-  }, [sessionId, router]);
-
-  // 게임 세션 점수 적재 (scores) — session 로드 시 1회. learning_records(단어별)와 별개.
-  useRecordGameScore(
-    session
-      ? {
-          module: 'dictation',
-          score: Math.round(session.totalAccuracy ?? 0),
-          totalQuestions: session.items.length,
-          correctCount: session.items.filter((it) => (it.result?.accuracy ?? 0) >= 90).length,
-          accuracy: Math.round(session.totalAccuracy ?? 0),
-          durationSeconds: Math.round((session.totalTimeMs ?? 0) / 1000),
-          metadata: {
-            unit: session.config?.unit,
-            scoring: session.config?.scoring,
-            totalHintsUsed: session.totalHintsUsed,
-          },
-        }
-      : null,
-  );
-
-  // §17 [4] 기억 축 — Dictation 세션 종료 시 SRS 일괄 적용 (L4c 청각 생성)
-  // sessionStorage 단계: 정규화된 단어 텍스트를 cardId로 사용. DB 연동 시 vocabulary lookup 필요.
-  useEffect(() => {
-    if (!session || srsAppliedRef.current) return;
-    srsAppliedRef.current = true;
-
-    // 단어별 정답/총 횟수 집계 (status === 'correct' 만 정답으로 카운트, 'extra' 는 vocab 매핑 불가로 제외)
-    const wordStats = new Map<string, { correct: number; total: number }>();
-
-    for (const item of session.items) {
-      const wordResults = item.result?.wordResults ?? [];
-      for (const wr of wordResults) {
-        if (wr.status === 'extra') continue;
-        const key = normalizeWord(wr.expected);
-        if (!key) continue;
-        const stats = wordStats.get(key) ?? { correct: 0, total: 0 };
-        stats.total += 1;
-        if (wr.status === 'correct') stats.correct += 1;
-        wordStats.set(key, stats);
+    let mounted = true
+    void (async () => {
+      const d = await fetchDictationSessionDetail(createClient(), sessionId)
+      if (!mounted) return
+      if (!d) {
+        setState('missing')
+        return
       }
+      setDetail(d)
+      setState('ready')
+    })()
+    return () => {
+      mounted = false
     }
+  }, [sessionId, router])
 
-    const reviewedAt = new Date();
-    wordStats.forEach(({ correct, total }, cardId) => {
-      const accuracy = (correct / total) * 100;
-      const existingCard = getCachedCard(cardId) ?? createNewCard(cardId);
-      const reviewResult = applyReview({
-        card: existingCard,
-        rating: accuracyToRating(accuracy),
-        reviewedAt,
-        module: 'dictation',
-      });
-      cacheCard(reviewResult.card);
-      pushPendingResult({
-        cardId: reviewResult.card.id,
-        word: cardId,
-        cardUpdate: cardToUpdatePayload(reviewResult.card),
-        rating: reviewResult.log.rating,
-        reviewedAt: reviewResult.log.reviewedAt.toISOString(),
-        module: 'dictation',
-      });
-    });
+  const agg = useMemo(() => {
+    if (!detail) return null
+    const attempts = detail.attempts
+    const allWordResults: WordResult[] = attempts.flatMap((a) => a.wordResults ?? [])
+    const patterns = analyzeErrorPatterns(allWordResults)
 
-    // 세션 종료 시 SRS 큐 → DB flush (srsAppliedRef 가드로 1회).
-    void flushPendingSession();
-  }, [session]);
+    // 태그 빈도 — 이 세션 안에서 무엇이 반복됐나
+    const tagCount = new Map<string, number>()
+    for (const a of attempts) {
+      for (const t of a.errorTags ?? []) tagCount.set(t, (tagCount.get(t) ?? 0) + 1)
+    }
+    const tags = [...tagCount.entries()].sort((a, b) => b[1] - a[1])
 
-  const aggregateData = useMemo(() => {
-    if (!session) return null;
+    const hits = new Set<string>()
+    const misses = new Set<string>()
+    for (const a of attempts) {
+      for (const w of a.targetHits ?? []) hits.add(w)
+      for (const w of a.targetWords ?? []) if (!(a.targetHits ?? []).includes(w)) misses.add(w)
+    }
+    // 같은 단어를 한 문장에서 맞고 다른 문장에서 놓쳤다면 "놓친 쪽"으로 센다(복습 우선).
+    for (const w of misses) hits.delete(w)
 
-    const allWordResults: WordResult[] = session.items.flatMap(
-      (it) => it.result?.wordResults ?? []
-    );
-    const totalAccuracy = session.totalAccuracy ?? 0;
-    const totalTimeMs = session.totalTimeMs ?? 0;
-    const correctCount = session.items.filter(
-      (it) => (it.result?.accuracy ?? 0) >= 90
-    ).length;
+    const solid = attempts.filter((a) => a.accuracy >= 90).length
 
-    const aggregatedPatterns = analyzeErrorPatterns(allWordResults);
-    const mistakenWords = extractMistakenWords(session.items);
+    return { patterns, tags, hits: [...hits], misses: [...misses], solid }
+  }, [detail])
 
-    return {
-      totalAccuracy,
-      totalTimeMs,
-      correctCount,
-      patterns: aggregatedPatterns,
-      mistakenWords,
-    };
-  }, [session]);
+  const recommendation = useNextAction()
 
-  // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
-  const recommendation = useNextAction();
-
-  if (!session || !aggregateData) {
+  if (state === 'loading') {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t2)]">
-        결과를 불러오는 중...
+      <div className="mx-auto flex max-w-3xl items-center justify-center px-4 py-20">
+        <Loader2 size={20} className="animate-spin text-[var(--t3)]" />
       </div>
-    );
+    )
   }
 
-  const { totalAccuracy, totalTimeMs, correctCount, patterns, mistakenWords } = aggregateData;
-  const minutes = Math.floor(totalTimeMs / 60000);
-  const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+  if (state === 'missing' || !detail || !agg) {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
+        <div>
+          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+            이 결과를 찾을 수 없어요
+          </h2>
+          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            로그인 없이 진행한 세션은 기록에 남지 않아요. 로그인하면 받아쓴 기록이 기기와
+            무관하게 이어집니다.
+          </p>
+        </div>
+        <Link
+          href="/dictate"
+          className="inline-flex h-10 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+        >
+          받아쓰기로 돌아가기
+          <ArrowRight size={14} />
+        </Link>
+      </div>
+    )
+  }
 
-  const accColor =
-    totalAccuracy >= 90
-      ? 'var(--success)'
-      : totalAccuracy >= 70
-        ? 'var(--p)'
-        : 'var(--warning)';
+  const s = detail.session
+  const totalAccuracy = s.avgAccuracy ?? 0
+  const totalTimeMs = s.durationMs ?? 0
+  const minutes = Math.floor(totalTimeMs / 60000)
+  const seconds = Math.floor((totalTimeMs % 60000) / 1000)
 
   // Calm, 격려 위주 마무리 — 점수대별 아이콘 + 사람 말투 한 줄 (트로피·폭죽 지양)
   const band =
     totalAccuracy >= 90
-      ? {
-          icon: Check,
-          message: '깔끔하게 마쳤어요. 귀가 이 문장들에 익숙해지고 있어요.',
-        }
+      ? { icon: Check, message: '깔끔하게 마쳤어요. 귀가 이 문장들에 익숙해지고 있어요.' }
       : totalAccuracy >= 70
-        ? {
-            icon: Sprout,
-            message: '잘 따라오고 있어요. 한 번 더 들으면 더 또렷해질 거예요.',
-          }
-        : {
-            icon: Leaf,
-            message: '천천히 가도 괜찮아요. 오늘 들은 만큼 분명히 남았어요.',
-          };
-  const BandIcon = band.icon;
+        ? { icon: Sprout, message: '잘 따라오고 있어요. 한 번 더 들으면 더 또렷해질 거예요.' }
+        : { icon: Leaf, message: '천천히 가도 괜찮아요. 오늘 들은 만큼 분명히 남았어요.' }
+  const BandIcon = band.icon
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
-      {/* ─── Hero 정확도 ─── */}
+    <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
+      {/* ─── Hero ─── */}
       <header
-        className="relative overflow-hidden rounded-[var(--r-2xl)] p-8 text-[var(--ti)] shadow-[var(--sh-md)]"
-        style={{
-          background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
-        }}
+        className="relative overflow-hidden rounded-[var(--r-2xl)] p-7 text-[var(--ti)] shadow-[var(--sh-md)]"
+        style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
       >
         <div className="flex flex-col items-center text-center">
           <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ti)]/15">
             <BandIcon size={22} strokeWidth={2} aria-hidden="true" />
           </span>
           <p className="font-display text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
-            오늘 받아쓰기 완료
+            받아쓰기 완료
           </p>
-          <p className="mt-2 font-display text-[64px] font-[800] leading-none tabular-nums">
+          <p className="mt-2 font-display text-[60px] font-[800] leading-none tabular-nums">
             {Math.round(totalAccuracy)}
-            <span className="ml-1 text-[28px] opacity-80">%</span>
+            <span className="ml-1 text-[26px] opacity-80">%</span>
           </p>
-          <p className="mt-2 font-body text-[14px] opacity-90">{session.resourceTitle}</p>
+          <p className="mt-2 font-body text-[14px] opacity-90">{s.title}</p>
           <p className="mt-3 max-w-md font-body text-[13px] italic opacity-90">{band.message}</p>
 
           <div className="mt-6 grid grid-cols-3 gap-4 text-left md:gap-8">
-            <div>
-              <p className="font-display text-[10px] font-[700] uppercase tracking-wider opacity-70">
-                정답
-              </p>
-              <p className="font-display text-[24px] font-[800] tabular-nums">
-                {correctCount} / {session.items.length}
-              </p>
-            </div>
-            <div>
-              <p className="font-display text-[10px] font-[700] uppercase tracking-wider opacity-70">
-                시간
-              </p>
-              <p className="font-display text-[24px] font-[800] tabular-nums">
-                {minutes}:{String(seconds).padStart(2, '0')}
-              </p>
-            </div>
-            <div>
-              <p className="font-display text-[10px] font-[700] uppercase tracking-wider opacity-70">
-                힌트
-              </p>
-              <p className="font-display text-[24px] font-[800] tabular-nums">
-                {session.totalHintsUsed}회
-              </p>
-            </div>
+            <HeroStat label="정확히" value={`${agg.solid} / ${s.completedItems}`} />
+            <HeroStat label="시간" value={`${minutes}:${String(seconds).padStart(2, '0')}`} />
+            <HeroStat label="힌트" value={`${s.totalHints}회`} />
           </div>
         </div>
       </header>
 
-      {/* §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) */}
+      {/* ─── 오늘 무엇이 남았나 ─── */}
+      <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        {/* 복습으로 넘어간 단어 — 받아쓰기가 단어 기억에 남긴 흔적 */}
+        <article className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+          <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
+            복습에 반영된 단어
+          </h3>
+          {agg.hits.length === 0 && agg.misses.length === 0 ? (
+            <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+              이번 문장들에는 내 단어가 들어 있지 않았어요. 단어장이나 도서 챕터를 고르면
+              받아쓰기가 그대로 복습이 됩니다.
+            </p>
+          ) : (
+            <>
+              <div className="flex flex-wrap gap-1.5">
+                {agg.hits.map((w) => (
+                  <span
+                    key={`h-${w}`}
+                    className="rounded-full bg-[var(--success-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--success)]"
+                  >
+                    ✓ {w}
+                  </span>
+                ))}
+                {agg.misses.map((w) => (
+                  <span
+                    key={`m-${w}`}
+                    className="rounded-full bg-[var(--warning-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--warning)]"
+                  >
+                    ↻ {w}
+                  </span>
+                ))}
+              </div>
+              <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
+                맞힌 {agg.hits.length}개는 복습 간격이 늘었고, 놓친 {agg.misses.length}개는 곧
+                다시 만나게 됩니다.
+              </p>
+            </>
+          )}
+        </article>
+
+        {/* 청취 폭 — Implicit Progress (게이지 대신 숫자 한 줄) */}
+        <article className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+          <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">청취 폭</h3>
+          {s.longestPerfectWords && s.longestPerfectWords > 0 ? (
+            <>
+              <p className="font-mono text-[32px] font-[800] leading-none tabular-nums text-[var(--t1)]">
+                {s.longestPerfectWords}
+                <span className="ml-1 font-body text-[13px] font-[600] text-[var(--t2)]">단어</span>
+              </p>
+              <p className="font-body text-[11px] leading-relaxed text-[var(--t2)]">
+                힌트 없이 한 번에 정확히 받아쓴 가장 긴 문장이에요. 이 숫자가 늘어나는 것이
+                듣기가 자라는 모습입니다.
+              </p>
+            </>
+          ) : (
+            <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+              이번엔 힌트 없이 완벽하게 받아쓴 문장이 없었어요. 짧은 문장부터 하나씩 채워
+              나가면 됩니다.
+            </p>
+          )}
+        </article>
+      </section>
+
+      {/* §17.3 추천 축 — 세션 종료 직후 */}
       <NextActionCard
         recommendation={recommendation}
         prelude="받아쓰기 결과가 정리됐어요. 다음으로 무엇을 해볼까요?"
       />
 
-      {/* ─── 오류 패턴 분석 ─── */}
-      {patterns.length > 0 ? (
-        <ErrorAnalysis patterns={patterns} accColor={accColor} />
-      ) : (
-        <section className="rounded-[var(--r-lg)] border border-[var(--success-light)] bg-[var(--success-light)]/20 p-5 text-center">
-          <p className="font-body text-[15px] text-[var(--success)]">
-            ✨ 오류 패턴이 발견되지 않았습니다. 훌륭해요!
-          </p>
-        </section>
-      )}
-
-      {/* ─── 오답 단어 ─── */}
-      {mistakenWords.length > 0 && (
+      {/* ─── 이번에 반복된 것 (태그) ─── */}
+      {agg.tags.length > 0 && (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-          <header className="mb-3 flex items-center justify-between">
-            <h3 className="flex items-center gap-2 font-display text-[14px] font-[700] text-[var(--t1)]">
-              📚 오답 단어 ({mistakenWords.length}개)
-            </h3>
-            <button
-              type="button"
-              className="rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
-              title="Phase 2 - SRS 통합 예정"
-              disabled
-            >
-              모두 Flashcard에 추가 (Phase 2)
-            </button>
-          </header>
-          <div className="flex flex-wrap gap-2">
-            {mistakenWords.slice(0, 20).map((m) => (
-              <span
-                key={m.word}
-                className="inline-flex items-center gap-1.5 rounded-full bg-[var(--error-light)]/40 px-3 py-1 font-english text-[13px] text-[var(--t1)]"
+          <h3 className="mb-2.5 font-display text-[14px] font-[700] text-[var(--t1)]">
+            이번에 반복된 것
+          </h3>
+          <ul className="flex flex-col gap-2">
+            {agg.tags.slice(0, 3).map(([tag, n]) => (
+              <li
+                key={tag}
+                className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2.5"
               >
-                {m.word}
-                {m.occurrences > 1 && (
-                  <span className="font-mono text-[10px] font-[700] text-[var(--error-ink)]">
-                    ×{m.occurrences}
+                <div className="flex items-center gap-2">
+                  <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
+                    {tagLabel(tag)}
                   </span>
-                )}
-              </span>
+                  <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                    {n}문장
+                  </span>
+                </div>
+                <p className="mt-0.5 font-body text-[11px] italic leading-relaxed text-[var(--t2)]">
+                  {tagCoach(tag)}
+                </p>
+              </li>
             ))}
-            {mistakenWords.length > 20 && (
-              <span className="inline-flex items-center rounded-full px-3 py-1 font-body text-[12px] text-[var(--t2)]">
-                +{mistakenWords.length - 20}개 더
-              </span>
-            )}
-          </div>
+          </ul>
         </section>
       )}
 
       {/* ─── 문항별 결과 ─── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <header className="border-b border-[var(--bd)] px-5 py-3">
-          <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-            📝 문항별 결과
-          </h3>
+          <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">문항별 결과</h3>
         </header>
         <ul className="divide-y divide-[var(--bg3)]">
-          {session.items.map((item, idx) => {
-            const acc = item.result?.accuracy ?? 0;
+          {detail.attempts.map((a) => {
             const c =
-              acc >= 90 ? 'var(--success)' : acc >= 70 ? 'var(--p)' : 'var(--warning)';
+              a.accuracy >= 90
+                ? 'var(--success)'
+                : a.accuracy >= 70
+                  ? 'var(--p)'
+                  : 'var(--warning)'
             return (
-              <li key={idx} className="flex items-start gap-3 px-5 py-3">
-                <span className="font-mono text-[11px] font-[700] tabular-nums text-[var(--t2)] mt-1">
-                  #{idx + 1}
+              <li key={a.itemIdx} className="flex items-start gap-3 px-5 py-3">
+                <span className="mt-1 font-mono text-[11px] font-[700] tabular-nums text-[var(--t2)]">
+                  #{a.itemIdx + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-english text-[14px] text-[var(--t1)]">
-                    {item.expectedText}
+                  <p className="font-english text-[14px] leading-relaxed text-[var(--t1)]">
+                    {a.expected}
                   </p>
-                  {item.userInput && (
-                    <p className="mt-1 truncate font-english text-[12px] text-[var(--t2)]">
-                      → {item.userInput}
+                  {a.userInput ? (
+                    <p className="mt-1 font-english text-[12px] leading-relaxed text-[var(--t2)]">
+                      → {a.userInput}
                     </p>
+                  ) : (
+                    <p className="mt-1 font-body text-[12px] text-[var(--t3)]">건너뜀</p>
                   )}
                 </div>
                 <span
                   className="font-mono text-[14px] font-[700] tabular-nums"
                   style={{ color: c }}
                 >
-                  {Math.round(acc)}%
+                  {Math.round(a.accuracy)}%
                 </span>
               </li>
-            );
+            )
           })}
-        </ul>
-      </section>
-
-      {/* ─── 다음 단계 ─── */}
-      <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)]">
-        <h3 className="mb-3 flex items-center gap-2 font-display text-[14px] font-[700] text-[var(--t1)]">
-          <Lightbulb size={16} className="text-[var(--active)]" />
-          다음 단계 추천
-        </h3>
-        <ul className="space-y-2 font-body text-[13px] text-[var(--t2)]">
-          {totalAccuracy >= 90 && (
-            <li>✓ 마스터! 더 어려운 레벨 (B2~C1) 도전을 추천합니다.</li>
-          )}
-          {totalAccuracy >= 70 && totalAccuracy < 90 && (
-            <li>↻ 동일 자료 한 번 더 — 정확도 마스터까지 도달.</li>
-          )}
-          {totalAccuracy < 70 && (
-            <li>← 한 단계 낮은 레벨 또는 같은 자료를 천천히 다시.</li>
-          )}
-          {mistakenWords.length > 0 && (
-            <li>📚 오답 단어 {mistakenWords.length}개를 Flashcard로 학습 (Phase 2).</li>
-          )}
         </ul>
       </section>
 
       {/* ─── CTA ─── */}
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
         <Link
-          href={`/dictate/setup?resourceId=${session.config.resourceId}`}
-          className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+          href="/dictate"
+          className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <RotateCw size={14} />
-          다시 도전
+          한 번 더
         </Link>
         <Link
           href="/dictate"
-          className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]"
+          className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <Home size={14} />
-          Hub
+          받아쓰기 홈
         </Link>
         <Link
           href="/dashboard"
-          className="col-span-2 flex items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] md:col-span-1"
+          className="col-span-2 flex items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 md:col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
           <BarChart3 size={14} />
@@ -383,67 +344,16 @@ export function DictationResultsClient() {
         </Link>
       </div>
     </div>
-  );
+  )
 }
 
-function ErrorAnalysis({
-  patterns,
-  accColor,
-}: {
-  patterns: ErrorPattern[];
-  accColor: string;
-}) {
+function HeroStat({ label, value }: { label: string; value: string }) {
   return (
-    <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-      <header className="mb-3 flex items-center gap-2">
-        <Clock size={16} style={{ color: accColor }} />
-        <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-          🎯 보강 필요 영역
-        </h3>
-      </header>
-      <ul className="space-y-3">
-        {patterns.slice(0, 5).map((p, i) => {
-          const typeIcon =
-            p.type === 'phonetic' ? '🔊' :
-            p.type === 'morphological' ? '🏗' :
-            p.type === 'syntactic' ? '🔗' : '📚';
-          const typeKor =
-            p.type === 'phonetic' ? '음성' :
-            p.type === 'morphological' ? '형태' :
-            p.type === 'syntactic' ? '구문' : '어휘';
-          return (
-            <li
-              key={`${p.subtype}-${i}`}
-              className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
-            >
-              <header className="mb-2 flex items-center gap-2">
-                <span className="rounded-full bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
-                  {typeIcon} {typeKor}
-                </span>
-                <p className="flex-1 font-body text-[13px] font-[600] text-[var(--t1)]">
-                  {p.description}
-                </p>
-                <span className="font-mono text-[12px] font-[700] text-[var(--error-ink)]">
-                  {p.frequency}회
-                </span>
-              </header>
-              <div className="mb-2 flex flex-wrap gap-1.5">
-                {p.examples.slice(0, 4).map((ex, j) => (
-                  <span
-                    key={j}
-                    className="inline-flex items-center gap-1 rounded bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px]"
-                  >
-                    <span className="text-[var(--success)]">{ex.expected}</span>
-                    <span className="text-[var(--t2)]">→</span>
-                    <span className="text-[var(--error-ink)]">{ex.actual || '(누락)'}</span>
-                  </span>
-                ))}
-              </div>
-              <p className="font-body text-[11px] italic text-[var(--t2)]">{p.suggestion}</p>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
+    <div>
+      <p className="font-display text-[10px] font-[700] uppercase tracking-wider opacity-70">
+        {label}
+      </p>
+      <p className="font-display text-[22px] font-[800] tabular-nums">{value}</p>
+    </div>
+  )
 }

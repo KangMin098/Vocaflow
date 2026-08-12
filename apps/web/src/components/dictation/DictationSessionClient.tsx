@@ -2,25 +2,26 @@
 // Dictation Session — 메인 받아쓰기 화면
 //
 // 학습 과학:
-//   · Spaced Dictation - 자동 반복 + 구간 사이 무음
-//   · Phonological Loop - 입력 시 음성 멈춤 옵션
-//   · Active Recall - 단어별 즉각 채점
-//   · Scaffolding - 4단계 힌트 시스템
-//   · Flow State - Focus Mode (사이드바 dim)
+//   · Spaced Dictation — 자동 반복 + 구간 사이 무음
+//   · Active Recall — 단어별 즉각 채점
+//   · Scaffolding — 4단계 힌트
+//   · Flow State — Focus Mode (사이드바 dim)
+//   · Context-Dependent Retrieval — 문장 안의 내 단어(타깃) 인출
+//
+// v07 — 타깃 단어 노출 규칙 (중요):
+//   제출 **전에는 어떤 단어가 타깃인지 절대 보여주지 않는다**. 단어를 알려주면
+//   받아쓰기가 아니라 빈칸 채우기가 된다. 대신 "내 단어 2개가 들어 있어요"라는 개수만
+//   알려 주의를 모으고(Cognitive Load 를 늘리지 않는 범위), 정답 공개 후에 어떤 단어를
+//   잡았는지 보여준다 — 그때가 그 단어가 기억에 붙는 순간이다.
 //
 // 키보드 단축키 (입력창 밖에 포커스가 있을 때):
-//   Space         - 재생 / 정지 토글 (1회 재생)
-//   1-5           - 속도 (화면 버튼과 동일한 5단계: 0.5·0.75·0.85·1.0·1.25x)
-//   F             - Focus Mode 토글
-// 입력창 안에서도 동작:
-//   Enter         - 제출 (피드백 표시 중이면 다음)
-//   Esc           - 재생 정지
-//   Tab           - 건너뛰기
+//   Space  재생/정지 · 1-5 속도 · F Focus
+// 입력창 안에서도: Enter 제출(피드백 중이면 다음) · Esc 정지 · Tab 건너뛰기
 
-'use client';
+'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   ArrowRight,
   Eye,
@@ -31,189 +32,201 @@ import {
   Pause,
   RotateCw,
   SkipForward,
+  Sparkles,
   X,
-} from 'lucide-react';
+} from 'lucide-react'
 
-import { useSessionProgress, type SessionResourceType } from '@/components/layout/SessionFrame';
-import { useAudioControl } from '@/hooks/dictation/useAudioControl';
-import { useDictationSession } from '@/hooks/dictation/useDictationSession';
-import { getResource } from '@/lib/dictation/storage';
-import { HINT_STAGES, type HintLevel } from '@/lib/dictation/hint';
-import type { ScoringResult, WordResult } from '@/lib/dictation/types';
+import { useSessionProgress, type SessionResourceType } from '@/components/layout/SessionFrame'
+import { useAudioControl } from '@/hooks/dictation/useAudioControl'
+import { useDictationSession, type SubmitOutcome } from '@/hooks/dictation/useDictationSession'
+import { HINT_STAGES, type HintLevel } from '@/lib/dictation/hint'
+import type { WordResult } from '@/lib/dictation/types'
 
-const DICTATION_ACCENT = '#0EA5E9';
+const DICTATION_ACCENT = '#0EA5E9'
 
-// 프로젝트 공통 focus-visible 링 (키보드 접근성 — 모든 인터랙티브 요소 focus 상태 필수)
 const FOCUS_RING =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2'
+
+/** DB source_kind → SessionFrame 리소스 타입 */
+const RESOURCE_TYPE: Record<string, SessionResourceType> = {
+  book: 'library',
+  text: 'script',
+  set: 'library',
+  daily: 'script',
+  custom: 'script',
+}
+
+/** 오늘의 받아쓰기에서 이 문장이 뽑힌 이유 — 학습자에게 그대로 보여준다. */
+const REASON_LABEL: Record<string, string> = {
+  due: '복습 임박 단어',
+  retry: '지난번 놓친 문장',
+  fresh: '읽던 자료에서',
+}
 
 export function DictationSessionClient() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get('sessionId');
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const sessionId = searchParams.get('sessionId')
 
-  const { session, status, currentItem, progress, isComplete, submitAnswer, consumeHint, next, skip } =
-    useDictationSession(sessionId);
+  const {
+    session,
+    status,
+    currentItem,
+    progress,
+    isComplete,
+    submitAnswer,
+    consumeHint,
+    noteReplay,
+    next,
+    skip,
+  } = useDictationSession(sessionId)
 
-  const audio = useAudioControl();
+  const audio = useAudioControl()
 
-  const [userInput, setUserInput] = useState('');
-  const [activeHint, setActiveHint] = useState<HintLevel | null>(null);
-  const [usedHints, setUsedHints] = useState<HintLevel[]>([]);
-  const [feedback, setFeedback] = useState<ScoringResult | null>(null);
-  const [focusMode, setFocusMode] = useState(false);
-  const [speed, setSpeed] = useState(0.85);
-  const [autoRepeat, setAutoRepeat] = useState(3);
-  const [showTranslation, setShowTranslation] = useState(false);
-  const itemStartedAtRef = useRef<number>(Date.now());
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [userInput, setUserInput] = useState('')
+  const [activeHint, setActiveHint] = useState<HintLevel | null>(null)
+  const [usedHints, setUsedHints] = useState<HintLevel[]>([])
+  const [outcome, setOutcome] = useState<SubmitOutcome | null>(null)
+  const [focusMode, setFocusMode] = useState(false)
+  const [speed, setSpeed] = useState(0.85)
+  const [autoRepeat, setAutoRepeat] = useState(3)
+  const [showTranslation, setShowTranslation] = useState(false)
+  const itemStartedAtRef = useRef<number>(Date.now())
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
-  // 세션 설정으로 초기화
   useEffect(() => {
     if (session) {
-      setSpeed(session.config.speed);
-      setAutoRepeat(session.config.autoRepeat);
+      setSpeed(session.config.speed)
+      setAutoRepeat(session.config.autoRepeat)
     }
-  }, [session]);
+  }, [session])
 
   // 새 문항 도착 시 초기화
   useEffect(() => {
-    setUserInput('');
-    setActiveHint(null);
-    setUsedHints([]);
-    setFeedback(null);
-    setShowTranslation(false);
-    itemStartedAtRef.current = Date.now();
-    inputRef.current?.focus();
-  }, [currentItem?.index]);
+    setUserInput('')
+    setActiveHint(null)
+    setUsedHints([])
+    setOutcome(null)
+    setShowTranslation(false)
+    itemStartedAtRef.current = Date.now()
+    inputRef.current?.focus()
+  }, [currentItem?.index])
 
   // ─── SessionFrame 셸에 리소스 컨텍스트 + 진행도 주입 ───
-  const { setProgress } = useSessionProgress();
+  const { setProgress } = useSessionProgress()
   useEffect(() => {
-    if (!session) return;
-    const resource = getResource(session.config.resourceId);
-    const sourceMap: Record<string, SessionResourceType> = {
-      library: 'library',
-      'direct-script': 'script',
-      'direct-file': 'script',
-    };
-    const unitLabel =
-      session.config.unit === 'sentence'
-        ? '문장'
-        : session.config.unit === 'paragraph'
-          ? '단락'
-          : '전체';
+    if (!session) return
     setProgress({
       current: session.currentIndex + 1,
       total: session.items.length,
       resource: {
-        type: sourceMap[resource?.source ?? 'direct-script'] ?? 'script',
+        type: RESOURCE_TYPE[session.sourceKind] ?? 'script',
         label: session.resourceTitle,
-        position: `${unitLabel} ${session.currentIndex + 1} / ${session.items.length}`,
+        position: `문항 ${session.currentIndex + 1} / ${session.items.length}`,
       },
-    });
-    return () => setProgress(null);
-  }, [session, setProgress]);
+    })
+    return () => setProgress(null)
+  }, [session, setProgress])
 
   // 완료 시 결과 페이지로
   useEffect(() => {
     if (isComplete && session) {
-      router.replace(`/dictate/results?sessionId=${session.id}`);
+      router.replace(`/dictate/results?sessionId=${session.id}`)
     }
-  }, [isComplete, session, router]);
+  }, [isComplete, session, router])
 
-  // ─── 오디오 ───
+  // ─── 오디오 (재생 횟수는 난이도 판정 입력이라 세션에 기록한다) ───
   const playAudio = useCallback(() => {
-    if (!currentItem) return;
-    audio.repeat(currentItem.expectedText, autoRepeat, speed, 1500);
-  }, [audio, currentItem, autoRepeat, speed]);
+    if (!currentItem) return
+    noteReplay()
+    audio.repeat(currentItem.expectedText, autoRepeat, speed, 1500)
+  }, [audio, currentItem, autoRepeat, speed, noteReplay])
 
   const playOnce = useCallback(() => {
-    if (!currentItem) return;
-    audio.play(currentItem.expectedText, speed);
-  }, [audio, currentItem, speed]);
+    if (!currentItem) return
+    noteReplay()
+    audio.play(currentItem.expectedText, speed)
+  }, [audio, currentItem, speed, noteReplay])
 
   const stopAudio = useCallback(() => {
-    audio.stop();
-  }, [audio]);
+    audio.stop()
+  }, [audio])
 
   // ─── 제출 ───
   const handleSubmit = useCallback(() => {
-    if (!currentItem || feedback) return;
-    if (userInput.trim().length === 0) return;
-    const elapsed = Date.now() - itemStartedAtRef.current;
-    const result = submitAnswer(userInput, elapsed);
-    if (result) {
-      setFeedback(result);
-      audio.stop();
+    if (!currentItem || outcome) return
+    if (userInput.trim().length === 0) return
+    const elapsed = Date.now() - itemStartedAtRef.current
+    const res = submitAnswer(userInput, elapsed)
+    if (res) {
+      setOutcome(res)
+      audio.stop()
     }
-  }, [currentItem, feedback, userInput, submitAnswer, audio]);
+  }, [currentItem, outcome, userInput, submitAnswer, audio])
 
   const handleNext = useCallback(() => {
-    audio.stop();
-    next();
-  }, [audio, next]);
+    audio.stop()
+    next()
+  }, [audio, next])
 
   const handleSkip = useCallback(() => {
-    audio.stop();
-    skip();
-  }, [audio, skip]);
+    audio.stop()
+    skip()
+  }, [audio, skip])
 
   // ─── 힌트 ───
   const handleHint = useCallback(
     (level: HintLevel) => {
-      if (!session?.config.hintsAllowed) return;
-      const stage = HINT_STAGES.find((s) => s.level === level);
-      if (!stage) return;
+      if (!session?.config.hintsAllowed) return
+      const stage = HINT_STAGES.find((s) => s.level === level)
+      if (!stage) return
       if (!usedHints.includes(level)) {
-        setUsedHints((prev) => [...prev, level]);
-        consumeHint(stage.penalty);
+        setUsedHints((prev) => [...prev, level])
+        consumeHint(stage.level)
       }
-      setActiveHint(level);
+      setActiveHint(level)
     },
-    [session, usedHints, consumeHint]
-  );
+    [session, usedHints, consumeHint],
+  )
 
   // ─── 키보드 단축키 ───
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // 입력 필드 안에서는 일부만
       const isInInput =
-        e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement;
+        e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement
 
       if (e.key === 'Enter' && isInInput && !e.shiftKey) {
-        e.preventDefault();
-        if (feedback) handleNext();
-        else handleSubmit();
-        return;
+        e.preventDefault()
+        if (outcome) handleNext()
+        else handleSubmit()
+        return
       }
 
-      if (isInInput && e.code !== 'Escape' && !e.ctrlKey && !e.metaKey) return;
+      if (isInInput && e.code !== 'Escape' && !e.ctrlKey && !e.metaKey) return
 
       if (e.code === 'Space') {
-        e.preventDefault();
-        if (audio.isPlaying) stopAudio();
-        else playOnce();
+        e.preventDefault()
+        if (audio.isPlaying) stopAudio()
+        else playOnce()
       } else if (e.key === 'Escape') {
-        e.preventDefault();
-        stopAudio();
+        e.preventDefault()
+        stopAudio()
       } else if (e.key === 'Tab') {
-        e.preventDefault();
-        handleSkip();
+        e.preventDefault()
+        handleSkip()
       } else if (e.key.toLowerCase() === 'f') {
-        e.preventDefault();
-        setFocusMode((v) => !v);
+        e.preventDefault()
+        setFocusMode((v) => !v)
       } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
-        // 화면의 속도 버튼과 동일한 5단계로 매핑
-        const speeds = [0.5, 0.75, 0.85, 1.0, 1.25];
-        setSpeed(speeds[Number(e.key) - 1]);
+        const speeds = [0.5, 0.75, 0.85, 1.0, 1.25]
+        setSpeed(speeds[Number(e.key) - 1])
       }
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [audio.isPlaying, feedback, handleNext, handleSubmit, handleSkip, playOnce, stopAudio]);
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [audio.isPlaying, outcome, handleNext, handleSubmit, handleSkip, playOnce, stopAudio])
 
-  // 세션 미발견 — 무한 로딩 대신 명확한 안내 (localStorage 소실·다른 브라우저·공유된 URL 등)
+  // 세션 미발견 — 진행 상태는 이 기기 캐시에만 있다(결과는 DB 에 남는다)
   if (status === 'not-found') {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
@@ -222,11 +235,11 @@ export function DictationSessionClient() {
         </span>
         <div>
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            세션을 찾을 수 없어요
+            진행 중이던 받아쓰기를 못 찾았어요
           </h2>
           <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            받아쓰기 세션은 이 기기에만 저장돼요. 링크를 공유받았거나 오래된 세션이면
-            다시 시작해 주세요.
+            풀던 자리는 이 기기에만 남아 있어요. 이미 푼 문항의 결과는 기록에 남아 있으니,
+            새로 시작하셔도 괜찮습니다.
           </p>
         </div>
         <button
@@ -235,28 +248,29 @@ export function DictationSessionClient() {
           className={`inline-flex h-10 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
-          받아쓰기 시작하기
+          받아쓰기로 돌아가기
           <ArrowRight size={14} />
         </button>
       </div>
-    );
+    )
   }
 
   if (!session || !currentItem) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-12 text-center font-body text-[14px] text-[var(--t2)]">
-        세션을 불러오는 중...
+        불러오는 중...
       </div>
-    );
+    )
   }
 
-  const hintAllowed = session.config.hintsAllowed;
+  const hintAllowed = session.config.hintsAllowed
   const hintShown = activeHint
     ? HINT_STAGES.find((s) => s.level === activeHint)?.show(
         currentItem.expectedText,
-        currentItem.translation
+        currentItem.translation,
       )
-    : null;
+    : null
+  const targetCount = currentItem.targetWords.length
 
   return (
     <div
@@ -264,7 +278,6 @@ export function DictationSessionClient() {
         focusMode ? 'bg-[var(--bg2)]' : ''
       }`}
     >
-      {/* Focus mode dim sidebar — global style */}
       {focusMode && (
         <style jsx global>{`
           aside {
@@ -277,7 +290,7 @@ export function DictationSessionClient() {
         `}</style>
       )}
 
-      <div className="mx-auto flex max-w-3xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+      <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
         {/* ─── Header ─── */}
         <header className="flex items-center gap-3">
           <button
@@ -292,9 +305,9 @@ export function DictationSessionClient() {
             <X size={14} />
             나가기
           </button>
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <p className="truncate font-body text-[12px] text-[var(--t2)]">
-              {session.resourceTitle}
+              {currentItem.contextLabel ?? session.resourceTitle}
             </p>
             <div className="mt-1 flex items-center gap-2">
               <div className="h-1 flex-1 overflow-hidden rounded-full bg-[var(--bg3)]">
@@ -329,46 +342,48 @@ export function DictationSessionClient() {
 
         {/* ─── Audio Player ─── */}
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)]">
-          <div className="mb-3 flex items-center justify-between">
-            <span
-              className="font-display text-[11px] font-[700] uppercase tracking-[0.10em]"
-              style={{ color: DICTATION_ACCENT }}
-            >
-              🎧 듣고 받아쓰기
-            </span>
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span
+                className="font-display text-[11px] font-[700] uppercase tracking-[0.10em]"
+                style={{ color: DICTATION_ACCENT }}
+              >
+                듣고 받아쓰기
+              </span>
+              {currentItem.reason && (
+                <span className="rounded-full bg-[var(--bg3)] px-2 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)]">
+                  {REASON_LABEL[currentItem.reason] ?? currentItem.reason}
+                </span>
+              )}
+            </div>
             <span className="font-mono text-[11px] text-[var(--t2)]">
               {audio.isPlaying ? `재생 중 ${audio.iteration}/${autoRepeat}` : '대기'}
             </span>
           </div>
 
-          {/* 영어 TTS 음성 없음 안내 — 무음으로 방치되던 문제(브라우저/OS 영어 음성 미설치) 가시화 */}
           {audio.englishVoiceAvailable === false && (
             <div
               className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2"
               role="status"
             >
               <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
-                ⚠️ 이 브라우저/기기에 영어 음성이 없어 소리가 재생되지 않아요. 기기의 음성(TTS)
+                이 브라우저/기기에 영어 음성이 없어 소리가 재생되지 않아요. 기기의 음성(TTS)
                 설정에서 영어 음성을 추가하거나, 크롬 등 다른 브라우저로 열어보세요.
               </p>
             </div>
           )}
 
           <div className="flex items-center gap-3">
-            {/* 메인 재생 버튼 */}
             <button
               type="button"
               onClick={audio.isPlaying ? stopAudio : playAudio}
               className={`inline-flex h-14 w-14 items-center justify-center rounded-full text-[var(--ti)] shadow-[var(--sh-md)] transition-transform active:scale-95 ${FOCUS_RING}`}
-              style={{
-                background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
-              }}
+              style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
               aria-label={audio.isPlaying ? '정지' : '재생'}
             >
               {audio.isPlaying ? <Pause size={22} /> : <Play size={22} className="ml-1" />}
             </button>
 
-            {/* 한 번만 */}
             <button
               type="button"
               onClick={playOnce}
@@ -379,7 +394,6 @@ export function DictationSessionClient() {
               1회
             </button>
 
-            {/* 속도 */}
             <div className="ml-auto flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] p-1">
               {[0.5, 0.75, 0.85, 1.0, 1.25].map((s) => (
                 <button
@@ -400,7 +414,7 @@ export function DictationSessionClient() {
             </div>
           </div>
 
-          <div className="mt-3 flex items-center gap-2 text-center text-[11px] text-[var(--t2)]">
+          <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-[var(--t2)]">
             <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">Space</kbd>
             <span>재생</span>
             <span className="opacity-50">·</span>
@@ -416,13 +430,20 @@ export function DictationSessionClient() {
         </section>
 
         {/* ─── 입력 / 피드백 ─── */}
-        {!feedback ? (
+        {!outcome ? (
           <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-            <h3 className="mb-3 font-display text-[14px] font-[700] text-[var(--t1)]">
-              ✍️ 들은 내용을 받아써 보세요
-            </h3>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
+                들은 내용을 받아써 보세요
+              </h3>
+              {/* 어떤 단어인지는 알려주지 않는다 — 개수만으로 주의를 모은다 */}
+              {targetCount > 0 && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-[var(--p-light)] px-2.5 py-1 font-body text-[11px] font-[600] text-[var(--on-p-tint)]">
+                  <Sparkles size={11} />내 단어 {targetCount}개 포함
+                </span>
+              )}
+            </div>
 
-            {/* 힌트 표시 영역 */}
             {hintShown && (
               <div className="mb-3 rounded-[var(--r-md)] bg-[var(--active-light)] px-4 py-3">
                 <p className="mb-1 flex items-center gap-1 font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--active)]">
@@ -431,11 +452,19 @@ export function DictationSessionClient() {
                 </p>
                 <p
                   className={`font-body ${
-                    activeHint === 3 ? 'text-[14px] text-[var(--t1)]' : 'font-mono text-[16px] tracking-wider text-[var(--t1)]'
+                    activeHint === 3
+                      ? 'text-[14px] text-[var(--t1)]'
+                      : 'font-mono text-[16px] tracking-wider text-[var(--t1)]'
                   }`}
                 >
                   {hintShown}
                 </p>
+                {/* 정답을 연 순간 인출은 없었다 — 그 사실을 숨기지 않는다(targets.ts 등급 규칙) */}
+                {activeHint === 4 && targetCount > 0 && (
+                  <p className="mt-1.5 font-body text-[11px] italic text-[var(--t2)]">
+                    정답을 봤으니 이 문장의 단어는 복습 큐에 그대로 남겨둘게요.
+                  </p>
+                )}
               </div>
             )}
 
@@ -444,6 +473,7 @@ export function DictationSessionClient() {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="듣고 영어로 받아써보세요..."
+              aria-label="받아쓴 내용"
               autoComplete="off"
               autoCorrect="off"
               spellCheck={false}
@@ -452,12 +482,11 @@ export function DictationSessionClient() {
               style={{ fontFamily: 'Lora, serif' }}
             />
 
-            {/* 힌트 버튼들 */}
             {hintAllowed && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <span className="font-body text-[11px] text-[var(--t2)]">힌트:</span>
                 {HINT_STAGES.map((stage) => {
-                  const used = usedHints.includes(stage.level);
+                  const used = usedHints.includes(stage.level)
                   return (
                     <button
                       key={stage.level}
@@ -472,23 +501,20 @@ export function DictationSessionClient() {
                             : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
                       }`}
                     >
-                      {stage.name} ({stage.penalty})
+                      {stage.name}
                     </button>
-                  );
+                  )
                 })}
               </div>
             )}
 
-            {/* 제출 / 건너뛰기 */}
             <div className="mt-4 flex gap-2">
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={userInput.trim().length === 0}
                 className={`flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`}
-                style={{
-                  background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
-                }}
+                style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
               >
                 제출
                 <ArrowRight size={14} />
@@ -499,60 +525,94 @@ export function DictationSessionClient() {
                 className={`inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
               >
                 <SkipForward size={14} />
-                건너뛰기 (Tab)
+                건너뛰기
               </button>
             </div>
           </section>
         ) : (
           <FeedbackSection
-            result={feedback}
+            outcome={outcome}
             expected={currentItem.expectedText}
             translation={currentItem.translation}
             showTranslation={showTranslation}
             onToggleTranslation={() => setShowTranslation((v) => !v)}
             onNext={handleNext}
             onPlayAgain={playOnce}
+            isLast={session.currentIndex >= session.items.length - 1}
           />
         )}
       </div>
     </div>
-  );
+  )
 }
 
+// ── 피드백 ────────────────────────────────────────────────────────
+
 function FeedbackSection({
-  result,
+  outcome,
   expected,
   translation,
   showTranslation,
   onToggleTranslation,
   onNext,
   onPlayAgain,
+  isLast,
 }: {
-  result: ScoringResult;
-  expected: string;
-  translation?: string;
-  showTranslation: boolean;
-  onToggleTranslation: () => void;
-  onNext: () => void;
-  onPlayAgain: () => void;
+  outcome: SubmitOutcome
+  expected: string
+  translation?: string
+  showTranslation: boolean
+  onToggleTranslation: () => void
+  onNext: () => void
+  onPlayAgain: () => void
+  isLast: boolean
 }) {
+  const { result, targetHits, targetMisses } = outcome
   const accColor =
     result.accuracy >= 90
       ? 'var(--success)'
       : result.accuracy >= 70
         ? 'var(--p)'
-        : 'var(--warning)';
+        : 'var(--warning)'
 
   return (
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
       <header className="mb-3 flex items-center justify-between">
         <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">결과</h3>
-        <span className="font-mono text-[24px] font-[800] tabular-nums" style={{ color: accColor }}>
+        <span
+          className="font-mono text-[24px] font-[800] tabular-nums"
+          style={{ color: accColor }}
+        >
           {Math.round(result.accuracy)}%
         </span>
       </header>
 
-      <p className="mb-3 font-body text-[13px] text-[var(--t2)]">{result.feedback}</p>
+      <p className="mb-3 font-body text-[13px] italic text-[var(--t2)]">{result.feedback}</p>
+
+      {/* 타깃 단어 결과 — 이 문장이 무엇을 훈련했는지 지금 밝힌다 */}
+      {(targetHits.length > 0 || targetMisses.length > 0) && (
+        <div className="mb-3 flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2.5">
+          <span className="mr-1 font-body text-[11px] font-[600] text-[var(--t2)]">
+            이 문장의 내 단어
+          </span>
+          {targetHits.map((w) => (
+            <span
+              key={`hit-${w}`}
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--success)]"
+            >
+              ✓ {w}
+            </span>
+          ))}
+          {targetMisses.map((w) => (
+            <span
+              key={`miss-${w}`}
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--warning-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--warning)]"
+            >
+              ↻ {w}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* 단어별 시각 피드백 */}
       <div className="mb-3 rounded-[var(--r-md)] bg-[var(--bg2)] p-3 font-english text-[16px] leading-relaxed">
@@ -561,10 +621,8 @@ function FeedbackSection({
         ))}
       </div>
 
-      {/* 색·표시 범례 — 색상만으로 정보 전달하지 않도록 */}
       <WordStatusLegend statuses={new Set(result.wordResults.map((w) => w.status))} />
 
-      {/* 정답 */}
       <div className="mb-3 rounded-[var(--r-md)] border border-[var(--success-light)] bg-[var(--success-light)]/30 px-3 py-2">
         <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--success)]">
           정답
@@ -572,7 +630,6 @@ function FeedbackSection({
         <p className="font-english text-[15px] text-[var(--t1)]">{expected}</p>
       </div>
 
-      {/* 한국어 번역 토글 */}
       {translation && (
         <div className="mb-3">
           <button
@@ -589,11 +646,10 @@ function FeedbackSection({
         </div>
       )}
 
-      {/* 오류 패턴 */}
       {result.errorPatterns.length > 0 && (
         <div className="mb-4">
           <h4 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
-            💡 발견된 패턴
+            발견된 패턴
           </h4>
           <ul className="space-y-1.5">
             {result.errorPatterns.slice(0, 3).map((p, i) => (
@@ -624,16 +680,14 @@ function FeedbackSection({
           type="button"
           onClick={onNext}
           className={`flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
-          style={{
-            background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)`,
-          }}
+          style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
-          다음
+          {isLast ? '마치기' : '다음'}
           <ArrowRight size={14} />
         </button>
       </div>
     </section>
-  );
+  )
 }
 
 // 단어 채점 상태별 스타일 — 색 + 밑줄/취소선/테두리로 색맹 대응 (색상 단독 전달 금지)
@@ -643,7 +697,7 @@ const WORD_STATUS_STYLES: Record<WordResult['status'], string> = {
   wrong: 'text-[var(--error-ink)] bg-[var(--error-light)]/40 line-through',
   missing: 'text-[var(--error-ink)] border border-dashed border-[var(--error)]',
   extra: 'text-[var(--warning)] line-through opacity-60',
-};
+}
 
 const WORD_STATUS_LABELS: Record<WordResult['status'], string> = {
   correct: '정답',
@@ -651,7 +705,7 @@ const WORD_STATUS_LABELS: Record<WordResult['status'], string> = {
   wrong: '오답',
   missing: '누락',
   extra: '불필요',
-};
+}
 
 const WORD_STATUS_ORDER: WordResult['status'][] = [
   'correct',
@@ -659,11 +713,11 @@ const WORD_STATUS_ORDER: WordResult['status'][] = [
   'wrong',
   'missing',
   'extra',
-];
+]
 
 function WordStatusLegend({ statuses }: { statuses: Set<WordResult['status']> }) {
-  const items = WORD_STATUS_ORDER.filter((s) => statuses.has(s));
-  if (items.length === 0) return null;
+  const items = WORD_STATUS_ORDER.filter((s) => statuses.has(s))
+  if (items.length === 0) return null
   return (
     <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
       {items.map((s) => (
@@ -678,11 +732,11 @@ function WordStatusLegend({ statuses }: { statuses: Set<WordResult['status']> })
         </span>
       ))}
     </div>
-  );
+  )
 }
 
 function WordChip({ word }: { word: WordResult }) {
-  const display = word.status === 'missing' ? word.expected : word.actual;
+  const display = word.status === 'missing' ? word.expected : word.actual
 
   return (
     <span
@@ -695,5 +749,5 @@ function WordChip({ word }: { word: WordResult }) {
     >
       {display || '—'}
     </span>
-  );
+  )
 }
