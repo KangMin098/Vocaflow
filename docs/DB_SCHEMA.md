@@ -23,7 +23,7 @@
 | `word_lexicon` | `regenerate_auto_curated_set` · `reject_word_lexicon_insert` | 9곳 | ⚖️ **복구 안 함** — 삭제가 정당했다(의도적 동결). 단 유물이 남았다 → 아래 §word_lexicon |
 | `classes` · `class_members` | `join_class_by_code` · `is_class_member` · `is_class_teacher` | 3곳 | ❌ 교사 클래스 |
 | `pending_words` | `record_pending_words` | 3곳 | ❌ `/admin/pending-words` |
-| `csat_item_attempts` | `grade_dcp_item` · `derive_learner_stage` | 2곳 | ❌ DCP 채점 |
+| **`csat_item_attempts`** | `grade_dcp_item` · `derive_learner_stage` | 2곳 | ✅ **복원** ([20260812113000](../supabase/migrations/20260812113000_restore_csat_item_attempts.sql)) — **가장 심각했다**: `derive_learner_stage` → `prescribe_today` 로 전파돼 **hub "오늘" 처방이 전 학습자에게 실패**했다 |
 | `reports` | — | 1곳 | ⚠️ `admin/layout` 은 try/catch 로 안전(뱃지만 0) |
 | `dictation_sessions`·`dictation_items`·`achievements`·`assignments`·`user_level_progress` | — | 0곳 | ✅ 정당한 삭제 |
 
@@ -38,6 +38,31 @@ where n.nspname='public' and p.prosrc ilike '%<table>%';
 -- 필수 점검 ②: 앱·패키지·스크립트 코드 참조
 --   grep -rn "from('<table>')" apps packages scripts
 ```
+
+#### csat_item_attempts — 가장 심각했던 항목 (hub "오늘" 전면 실패)
+
+전파 경로:
+
+```
+csat_item_attempts (없음)
+  └─ derive_learner_stage    SELECT avg(is_correct::int) FROM csat_item_attempts → 42P01
+       └─ prescribe_today    line 9 에서 전파 → hub "오늘" 처방이 모든 학습자에게 실패
+  └─ grade_dcp_item          INSERT ... RETURNING → 42P01 (DCP 구문 연습 채점 불가)
+```
+
+**왜 3주 넘게 아무도 몰랐나** — `prescription-actions.ts` 가 실패 시 하드코딩 폴백을 반환한다:
+`stage 'S1' · 0분 · due 0 · 후보 [] · DCP 비활성`. 그 값이 **신규 학습자의 정상 상태와
+완전히 같아서** 화면상 구별이 불가능했다. mock 보다 나쁘다 — mock 은 가짜임을 코드가
+인정하지만 이건 **계산 실패를 계산 결과처럼** 반환했다.
+
+**검증에서 배운 것**: 복원 후 첫 사용자의 stage 가 `'S1'` 으로 나왔는데 **그건 폴백값과 같아
+아무것도 증명하지 못한다.** 시드 계정(`runtime-test-0705`, wpm 160 · fluency 3행)으로
+다시 재서 **`'S3'`** 을 받은 뒤에야 "계산이 실제로 돌았다" 가 증명됐다. 복원 검증은
+**폴백과 다른 값이 나오는 입력**으로 해야 한다.
+
+**침묵 제거**: `TodayPrescription.unavailable` 플래그 신설 + 카드가 폴백임을 고지 +
+[회귀 테스트](../apps/web/src/components/home/__tests__/TodayPrescriptionCard.test.tsx)가
+"정상 화면과 실패 화면이 실제로 달라야 한다"를 강제한다.
 
 #### word_lexicon — 삭제는 정당했고, 남은 것은 유물과 고아 데이터다
 

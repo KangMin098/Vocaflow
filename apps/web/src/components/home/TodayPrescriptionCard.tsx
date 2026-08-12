@@ -57,6 +57,21 @@ export function TodayPrescriptionCard({ data }: { data: TodayPrescription }) {
         <span className="shrink-0 font-mono text-[11px] text-[var(--t2)]">약 {data.totalMinutes}분</span>
       </header>
 
+      {/* 처방을 계산하지 못했을 때 — 아래 블록은 계산 결과가 아니라 폴백이다.
+          이 한 줄이 없으면 실패가 "오늘은 할 게 없어요" 로 읽힌다(신규 학습자의 정상 상태와
+          똑같아서 구별이 불가능하다). 실제로 그 침묵 때문에 3주 넘게 발견되지 않았다.
+          Empathetic Feedback — 학습자 잘못이 아니라는 것과 무엇을 해도 되는지를 말한다. */}
+      {data.unavailable && (
+        <p
+          role="status"
+          className="rounded-[var(--r-sm)] border border-[var(--warn-border,var(--bd))] bg-[var(--warn-bg,var(--bg2))] px-3 py-2 font-body text-[12px] leading-[1.6] text-[var(--t2)]"
+        >
+          지금 오늘 분량을 계산하지 못했어요. 아래는 기본 안내라서 실제 내 상태와 다를 수 있어요 —
+          그동안 <b className="text-[var(--t1)]">단어장</b>이나 <b className="text-[var(--t1)]">서재</b>에서
+          이어서 해도 괜찮아요.
+        </p>
+      )}
+
       <ol className="flex flex-col gap-2">
         {/* ① 복습 — FSRS due */}
         <BlockRow

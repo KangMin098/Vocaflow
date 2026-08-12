@@ -31,6 +31,7 @@ const BASE: TodayPrescription = {
   practiceActive: false,
   practiceCount: 0,
   listeningTextId: null,
+  unavailable: false,
 }
 
 describe('TodayPrescriptionCard', () => {
@@ -111,5 +112,29 @@ describe('TodayPrescriptionCard', () => {
     expect(html).toContain('/scriptquiz')
     expect(html).toContain('/plan')
     expect(html).toContain('직접 계획을 짜면')
+  })
+
+  // ── 침묵 회귀 방어 ────────────────────────────────────────────────
+  //
+  // 2026-07-19 에 csat_item_attempts 가 삭제되면서 derive_learner_stage →
+  // prescribe_today 가 모든 학습자에게 실패했다. 그런데 폴백값(S1 · 0분 · due 0)이
+  // **신규 학습자의 정상 상태와 똑같아서** 화면상 구별이 불가능했고, 3주 넘게
+  // 아무도 몰랐다. 화면은 "오늘 할 게 없어요" 라고 말하고 있었다.
+  //
+  // 그래서 계약을 고정한다: 계산에 실패했으면 **실패했다고 말해야 한다.**
+  it('계산 실패(unavailable) 면 폴백임을 화면이 밝힌다 — 정상 상태와 구별되어야 한다', () => {
+    const ok = renderToString(<TodayPrescriptionCard data={BASE} />)
+    const failed = renderToString(<TodayPrescriptionCard data={{ ...BASE, unavailable: true }} />)
+
+    // 실패 시에만 고지가 뜬다
+    expect(failed).toContain('계산하지 못했어요')
+    expect(ok, '정상인데 실패 고지가 뜬다').not.toContain('계산하지 못했어요')
+
+    // 두 화면이 실제로 달라야 한다 — 같으면 학습자가 구별할 수 없다
+    expect(failed, 'unavailable 이 화면에 아무 차이도 만들지 않는다').not.toBe(ok)
+
+    // Empathetic Feedback — 학습자를 탓하지 않고 무엇을 해도 되는지 말한다
+    expect(failed).toContain('단어장')
+    expect(failed).toMatch(/괜찮아요|해도/)
   })
 })

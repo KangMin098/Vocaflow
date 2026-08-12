@@ -39,6 +39,29 @@
 
 **재발 방지**: 테이블 삭제 전 `pg_proc.prosrc` 검색 + 코드 grep 을 DB_SCHEMA.md 에 필수 점검으로 명문화.
 
+#### ③ `csat_item_attempts` 복원 — hub "오늘" 이 3주 넘게 전 학습자에게 실패하고 있었다 (마이그레이션 1건)
+
+**마이그레이션 [20260812113000_restore_csat_item_attempts.sql](../supabase/migrations/20260812113000_restore_csat_item_attempts.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
+
+같은 삭제 마이그레이션이 만든 결함 중 **가장 심각한 것**. 전파 경로:
+
+```
+csat_item_attempts (없음)
+  └─ derive_learner_stage  → 42P01
+       └─ prescribe_today  → hub "오늘" 처방이 모든 학습자에게 실패
+  └─ grade_dcp_item        → DCP 구문 연습 채점 불가
+```
+
+`prescribe_today` 는 Phase 0 에서 "처방의 유일한 정본" 으로 지정한 함수다 — **그 정본이 죽어 있었다.**
+
+**왜 발견되지 않았나.** `prescription-actions.ts` 가 실패 시 하드코딩 폴백을 반환한다(`stage 'S1' · 0분 · due 0 · 후보 [] · DCP 비활성`). 그 값이 **신규 학습자의 정상 상태와 완전히 같아서** 화면으로는 구별이 불가능했다. 화면은 "오늘 할 게 없어요" 라고 말하고 있었다. mock 보다 나쁘다 — mock 은 가짜임을 코드가 인정하지만 이건 계산 실패를 계산 결과처럼 반환했다.
+
+**검증 방법에서 얻은 교훈**: 복원 직후 첫 사용자 stage 가 `'S1'` 으로 나왔는데 **폴백값과 같아 아무것도 증명하지 못한다.** 시드 계정(wpm 160)으로 다시 재 **`'S3'`** 을 받은 뒤에야 계산이 실제로 돌았음이 증명됐다. → 복원 검증은 **폴백과 다른 값이 나오는 입력**으로 해야 한다.
+
+**침묵 제거(같은 커밋)**: `TodayPrescription.unavailable` 신설 · 서버 로그 · 카드가 "지금 계산하지 못했어요 + 그동안 단어장·서재에서 이어서 해도 괜찮아요" 를 고지(Empathetic Feedback) · 회귀 테스트가 **"정상 화면과 실패 화면이 실제로 달라야 한다"** 를 강제(8건, 7→8).
+
+검증: 구조(RLS·정책·인덱스) · `derive_learner_stage` S1/S3 대조 · `prescribe_today` 1블록 반환 · 단위 300 통과 · UI 스모크 5 통과.
+
 #### ② `vocab_raw_texts` 복원 — "비어 있음" 은 사실이었고 "미사용" 이 추론이었다 (마이그레이션 1건)
 
 **마이그레이션 [20260812101500_restore_vocab_raw_texts.sql](../supabase/migrations/20260812101500_restore_vocab_raw_texts.sql) — 2026-08-12 사용자 승인 후 dev 적용 완료.**
