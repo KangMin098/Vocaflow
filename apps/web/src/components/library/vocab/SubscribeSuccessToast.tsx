@@ -1,9 +1,13 @@
 // apps/web/src/components/library/vocab/SubscribeSuccessToast.tsx
 //
 // 구독 직후 결과 토스트.
-// - 새로 가져온 단어 수 / 이미 보유 단어 수 분기 안내
+// - 이번에 담은 수 / 세트 전체 / 이미 보유 분기 안내
 // - "내 단어장에서 보기" → /wordvault 직행
 // - 5초 자동 소멸 + 수동 닫기
+//
+// v06.35 — 구독이 세트 전량을 담지 않게 되면서(actions.ts 참조) "N개 추가" 만 말하면
+//   학습자가 "300개 세트인데 왜 18개?" 로 읽는다. 담은 수가 세트보다 적을 때는
+//   **왜 적은지와 나머지는 어떻게 되는지**를 함께 말한다 — 숫자만 던지면 누락으로 보인다.
 
 'use client'
 
@@ -37,14 +41,21 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
 
   if (!data) return null
 
+  // 담은 수가 세트 전체보다 적으면 = 시작 분량만 담은 것. 나머지는 읽으면서 채워진다.
+  const partial = data.importedCount > 0 && data.totalWords > data.importedCount + data.alreadyOwnedCount
+
   const body =
     data.totalWords === 0
       ? '단어가 없는 세트예요'
       : data.importedCount === 0
-        ? `${data.alreadyOwnedCount.toLocaleString()}개 모두 이미 가지고 있어요`
-        : data.alreadyOwnedCount === 0
-          ? `${data.importedCount.toLocaleString()}개 단어가 추가됐어요`
-          : `새 단어 ${data.importedCount.toLocaleString()}개 추가 · 이미 보유 ${data.alreadyOwnedCount.toLocaleString()}개 건너뜀`
+        ? data.alreadyOwnedCount > 0
+          ? `${data.alreadyOwnedCount.toLocaleString()}개 모두 이미 가지고 있어요`
+          : '이미 다 담겨 있어요'
+        : partial
+          ? `${data.importedCount.toLocaleString()}개로 시작해요 · 나머지는 읽으면서 채워집니다 (전체 ${data.totalWords.toLocaleString()}개)`
+          : data.alreadyOwnedCount === 0
+            ? `${data.importedCount.toLocaleString()}개 단어가 추가됐어요`
+            : `새 단어 ${data.importedCount.toLocaleString()}개 추가 · 이미 보유 ${data.alreadyOwnedCount.toLocaleString()}개 건너뜀`
 
   return (
     <div
