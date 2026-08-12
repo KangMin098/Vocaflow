@@ -32,19 +32,37 @@ const arg = (name, dflt) => {
 }
 const LIMIT = parseInt(arg('limit', '1000'), 10)
 const DELAY_MS = parseInt(arg('delay', '300'), 10)
+// --all: 갱신 여부와 무관하게 전수 재감사.
+//   books_needing_audit 은 "감사 없음 또는 도서가 그 뒤에 갱신됨" 만 돌려주므로,
+//   **판정 로직 자체가 바뀐 경우**(예: 04/90 토큰 판정 수정)에는 전수를 강제해야 한다.
+const ALL = argv.includes('--all')
 
 const { getServiceClient } = await import('@vocaflow/library-pipeline')
 const sb = getServiceClient()
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-const { data: targets, error } = await sb.rpc('books_needing_audit', { p_limit: LIMIT })
-if (error) {
-  console.error(`[audit] 대상 조회 실패: ${error.message}`)
-  process.exit(1)
+let list = []
+if (ALL) {
+  const { data, error } = await sb
+    .from('library_books')
+    .select('id, title')
+    .in('status', ['ready', 'published'])
+    .limit(LIMIT)
+  if (error) {
+    console.error(`[audit] 도서 조회 실패: ${error.message}`)
+    process.exit(1)
+  }
+  list = (data ?? []).map((b) => ({ library_book_id: b.id, title: b.title }))
+} else {
+  const { data, error } = await sb.rpc('books_needing_audit', { p_limit: LIMIT })
+  if (error) {
+    console.error(`[audit] 대상 조회 실패: ${error.message}`)
+    process.exit(1)
+  }
+  list = data ?? []
 }
 
-const list = targets ?? []
-console.error(`[audit] 대상 ${list.length}권 (delay=${DELAY_MS}ms)`)
+console.error(`[audit] 대상 ${list.length}권 (delay=${DELAY_MS}ms${ALL ? ' · 전수' : ''})`)
 
 let ok = 0
 let fail = 0
