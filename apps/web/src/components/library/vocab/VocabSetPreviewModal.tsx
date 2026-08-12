@@ -53,6 +53,15 @@ interface Props {
  *   챕터형이면 챕터를 하루 단위로. 순수 계산(사용자 상태 무관) — 세트 규모만.
  */
 const DAILY_NEW = 22 // 인지부하 기반 하루 신규 권장(Cognitive Load — Sweller)
+
+/**
+ * 챕터를 펼쳤을 때 처음 보여줄 단어 수.
+ *
+ * 하루 신규 권장(22)과 같은 자리에 둔다 — "한 번에 눈에 들어오는 양" 의 기준이
+ * 학습 분량과 어긋나면 안 된다. 나머지는 "더 보기" 로 요청할 때만 펼친다.
+ */
+const CHAPTER_PREVIEW = 24
+const CHAPTER_PREVIEW_STEP = 50
 function computeStudyPlan(wordCount: number, chapterCount: number) {
   if (wordCount <= 0) return null
   return {
@@ -74,6 +83,11 @@ export function VocabSetPreviewModal({
   const [words, setWords] = useState<PWord[] | null>(null)
   const [chaptered, setChaptered] = useState(false)
   const [openChapters, setOpenChapters] = useState<Set<number>>(new Set([1]))
+  // v06.35 — 챕터를 펼쳤을 때 한 번에 보여줄 개수. 발행 cap 을 제거하면서(학습 대상
+  //   누락을 없애기 위해) 챕터 세트가 300개 내외가 됐고, 그대로 flat 렌더하면
+  //   "여기서 뭘 해야 하는지" 가 사라진다 — Progressive Disclosure 위반이고
+  //   목록 자체가 압박이 된다(Calm UI). 처음엔 CHAPTER_PREVIEW 개만, 나머지는 요청 시.
+  const [shownByChapter, setShownByChapter] = useState<Record<number, number>>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   /** 진도-aware 완성 추정(F2) — 구독+로그인+챕터형(전체 단어 로드) 시 사용자 vocab∩세트 교집합 */
@@ -89,6 +103,7 @@ export function VocabSetPreviewModal({
     setWords(null)
     setChaptered(false)
     setOpenChapters(new Set([1]))
+    setShownByChapter({}) // 다른 세트를 열면 "더 보기" 진행도도 초기화
     // shared_words.chapter 는 방금 추가된 컬럼 — database.ts 재생성 전이라 loose client 로 접근
     const supabase = createClient() as unknown as SupabaseClient
 
@@ -448,7 +463,45 @@ export function VocabSetPreviewModal({
                             </a>
                           ))}
                         </div>
-                        <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">{ch.words.map((w, i) => wordRow(w, i))}</ul>
+                        {(() => {
+                          const shown = shownByChapter[ch.n] ?? CHAPTER_PREVIEW
+                          const visible = ch.words.slice(0, shown)
+                          const rest = ch.words.length - visible.length
+                          return (
+                            <>
+                              <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">
+                                {visible.map((w, i) => wordRow(w, i))}
+                              </ul>
+                              {rest > 0 && (
+                                <div className="flex items-center justify-center gap-2 border-t border-[var(--bd)] px-4 py-3">
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setShownByChapter((s) => ({
+                                        ...s,
+                                        [ch.n]: shown + CHAPTER_PREVIEW_STEP,
+                                      }))
+                                    }
+                                    className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[#8B5CF6] hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.98]"
+                                  >
+                                    {Math.min(rest, CHAPTER_PREVIEW_STEP)}개 더 보기
+                                  </button>
+                                  {rest > CHAPTER_PREVIEW_STEP && (
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        setShownByChapter((s) => ({ ...s, [ch.n]: ch.words.length }))
+                                      }
+                                      className="inline-flex min-h-[44px] items-center px-3 font-display text-[12px] font-[600] text-[var(--t2)] underline-offset-2 transition-colors hover:text-[#6D28D9] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                                    >
+                                      전체 {ch.words.length}개
+                                    </button>
+                                  )}
+                                </div>
+                              )}
+                            </>
+                          )
+                        })()}
                       </div>
                     )}
                   </div>
