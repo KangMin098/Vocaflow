@@ -129,6 +129,30 @@ function isForeignCharSplit(
   return glued(prev, true) || glued(next, false)
 }
 
+// v06.35 — 음절 하이픈 표기 파편 필터.
+//   Ozma of Oz 의 Tiktok 로봇은 음절을 끊어 말한다: "lit-tle", "rev-o-lu-tion",
+//   "per-fect", "in-vent-or". winkNLP 는 이런 표기를 **쪼갠다**:
+//       lit-tle       → lit[word] -[punct] tle[word]
+//       rev-o-lu-tion → rev - o - lu - tion
+//   그래서 `tle` · `jur` · `peo` · `ture` · `cean` 같은 조각이 학습 어휘로 들어갔다
+//   (316권 감사에서 104권 236건 — 음절 표기가 많은 아동서에 집중).
+//
+//   반면 정상 복합어는 winkNLP 가 **하나로 유지**한다: `co-operation`[word].
+//   그러니 "하이픈이 공백 없이 붙어 있는 토큰" 이 곧 음절 파편이다 — 복합어를 다치지 않는다.
+//
+//   keepLemmaOnlyIfInText 가 이걸 못 잡는 이유: 그 검사는 **표제어**가 본문에 있는지를
+//   보는데, 파편은 표면형 자체가 조각이라 lemma == surface 로 통과한다.
+const isHyphen = (s: string): boolean => s === '-' || s === '‐' || s === '‑'
+function isSyllableHyphenFragment(
+  token: WlpToken,
+  prev: WlpToken | undefined,
+  next: WlpToken | undefined,
+): boolean {
+  const gluedBefore = !!prev && prev.isPunctuation && isHyphen(prev.surface) && prev.charEnd === token.charStart
+  const gluedAfter = !!next && next.isPunctuation && isHyphen(next.surface) && token.charEnd === next.charStart
+  return gluedBefore || gluedAfter
+}
+
 // Phase 14.8 — 아포스트로피 생략 방언 파편 필터 (근본 규칙, 열거 blocklist 대체)
 //   작가가 방언 생략을 아포스트로피로 표기 (foun'=found · hadn'=hadn't · doin'=doing ·
 //   wukkin'=working) → winkNLP 가 아포스트로피를 별도 punctuation 으로 떼어내 어간만 남김.
@@ -245,6 +269,8 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         if (isUrlDebris(sentence.text, token, toks[ti - 1], toks[ti + 1])) continue
         // v06.35 — OCR 이물 문자에 의한 토큰 파열 (bɐttle→ttle · tournamenʇ→tournamen)
         if (isForeignCharSplit(token, toks[ti - 1], toks[ti + 1])) continue
+        // v06.35 — 음절 하이픈 표기 파편 (lit-tle→tle · rev-o-lu-tion→jur/tion)
+        if (isSyllableHyphenFragment(token, toks[ti - 1], toks[ti + 1])) continue
 
         const mapped = POS_MAP[token.pos] ?? null
         const existing = chapterCounts.get(lemma)
