@@ -156,7 +156,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 ## 📊 DB 핵심 통계 (2026-08-09)
 
-- **81 테이블** · **10 view** · **321 함수** · **412 migrations** (2026-08-12 실측)
+- **87 테이블** · **10 view** · **327 함수** · **428 migrations** (2026-08-12 실측)
 - ⚠️ **RPC 8개가 없는 테이블을 참조 중** — `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았다. `word_familiarity` 는 복원(20260812), 나머지 5개(`vocab_raw_texts`·`word_lexicon`·`classes`·`class_members`·`pending_words`·`csat_item_attempts`)는 미해결. 상세: [DB_SCHEMA.md](./docs/DB_SCHEMA.md)
 - 전체 DB: **350 MB** (v06.34 VACUUM FULL 후, 이전 606 MB)
 - `shared_dictionary` 45,292 row · meaning_ko 100%
@@ -180,6 +180,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 ## 📝 최근 변경 (v06.34 진행)
 
 ### 이번 세션 (Unreleased)
+- I10 게이트 오탐 수정 (마이그레이션 `20260812160000`) — 제거된 챕터당 cap 40 을 비교 측에만 적용해 발행 도서 12권 전부 critical FAIL. 무제한 비교로 8권 PASS 복귀, 실드리프트 4권만 잔존 · `vitest.config` 가 없는 루트 `.env.local` 만 읽어 통합 테스트 전량 silent skip 하던 것 수정 (357 tests 실행)
 - `/admin` 대시보드 실측화 — 목업 상수 3배열 제거 · `lib/admin/dashboard-stats.ts`(상태별 카운트 35 + 최근 변경 병합) · 파이프라인 8 큐 카드 · DB 미연동 6 화면에 `목업` 태그 · `count ?? 0` 함정(없는 테이블도 head 요청엔 204/count=null) 제거 · 회귀 2종(renderToString 5 + 실 DB 6)
 - Admin 전 화면 화면도움말 71개 (37 화면 + 34 탭) — `lib/admin/help/*` 8 파일 + `AdminScreenHelp` 인라인 펼침 · Claude Code 드레인 절차 7종 (재실행 안전 여부 명시) · 캡처 31 라우트 근거 · 런타임 28/29 실측
 - ScriptQuiz 큐레이션 챕터 퀴즈 (v06.114) — `library_chapter_quiz`+`book_quiz_jobs` +5 RPC · 도서 V-Level별 챕터당 문항 수(3~10) · `/scriptquiz` 실 카탈로그 · Admin "스크립트 퀴즈 큐" · Claude Code 드레인 생성 (Pride 488 + Marvelous Oz 168 + Huck Finn 154 + Wonderful Oz 141 + Sherlock 96 + Just So 84 + Wind in the Willows 80(진행 중) + Alice 72 + Ammachi 5 + Drone 4 = 1,292문항 · 카탈로그 10권)

@@ -9,19 +9,10 @@
 //      204/error=null/count=null 을 돌려준다. `count ?? 0` 으로 쓰면 "미처리 0건" 이라는
 //      거짓 안심이 운영 화면 첫 장에 박힌다. reports 부재를 그 회귀 감지기로 쓴다.
 
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import { config as dotenvConfig } from 'dotenv'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { fmt, getAdminDashboardStats, relativeKo, sum } from '../dashboard-stats'
-
-// vitest.config 는 레포 루트 .env.local 만 읽는데 그 파일이 없다 — 키는 apps/web/.env.local 에 있다.
-// 공용 설정을 고치면 미갱신 골든 스냅샷 3건이 함께 깨져서(자세한 사유는 vitest.config.ts 주석)
-// 여기서만 명시 로드한다. dotenv 는 기존 값을 덮지 않으므로 CI 환경변수가 있으면 그쪽이 우선.
-dotenvConfig({ path: resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../../.env.local') })
 
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
