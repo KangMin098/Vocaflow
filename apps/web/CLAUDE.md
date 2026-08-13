@@ -49,6 +49,8 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 
 **핵심 학습 루프 회귀** — `05-learner-loop.spec.ts`: ScriptQuiz 완주(Drone Ch1 직행) → `scores` 적재를 service-role DB 단언으로 확인(완주 결과가 조용히 증발했던 v06.139 결함 재발 방지). DB 단언 헬퍼 `tests/e2e/utils/db.ts`(apps/web/.env.local 의 SERVICE_ROLE_KEY 직접 로드 · 키 없으면 UI 완주만 검증). 새 게임/영속화 경로 검증 시 이 패턴(직행 URL + 완주 마커 + `countScoresSince`) 재사용.
 
+**추출 스케일 회귀** — `09-text-extract-scale.spec.ts`: 강연 분량(20,818자) `/text/new` 입력 → 추출 → 저장 왕복. **입력 무단 절단 회귀 락**(인식 단어 수가 입력 규모에 비례하는지 단언 — `TextInput` 의 `maxLength` 하드 속성이 75%를 조용히 버리던 v06.35 결함 재발 방지) + `pending_words` 가 사전 갭만 받는지 `unresolved_dict_words` 교차 검증. DB 헬퍼 `fetchPendingWordsSince`/`unresolvedDictWords`/`deletePendingWordsSince`. **vocabularies·pending_words 는 finally 에서 반드시 원복** — 남기면 다음 실행의 추출 후보가 영구 축소된다.
+
 **추출 신뢰 회귀** — `08-text-extract-trust.spec.ts`: `/text/new` 본문 입력 → 'text'(P75) 전략 추출 → ① 4단계 expand "왜 추천했어요?" 근거 카드 렌더 ② 2단계 알아요(✓+체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 `countWordFamiliaritySince` 로 DB 단언. **known 판정은 다음 추출을 영구 축소하므로 finally 에서 `deleteWordFamiliaritySince` 로 반드시 원복**(테스트가 만든 행만 updated_at 기준 삭제).
 
 - 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)

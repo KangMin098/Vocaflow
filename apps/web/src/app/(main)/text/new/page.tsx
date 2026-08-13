@@ -14,7 +14,7 @@ import { useTheme } from '@/hooks/useTheme'
 
 import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputModeTabs'
 import { SampleScripts } from '@/components/text-viewer/SampleScripts'
-import { TextInput } from '@/components/text-viewer/TextInput'
+import { CONTENT_MAX, TextInput } from '@/components/text-viewer/TextInput'
 import { BookChapterInput } from '@/components/text-viewer/BookChapterInput'
 import { saveText } from '@/lib/text-viewer/save-text'
 import {
@@ -61,11 +61,14 @@ export default function TextViewerNewPage() {
     .filter((c) => c.title || c.content)
 
   // 단일 모드 저장 가능 조건
+  //   상한 검사가 없어서, 브라우저가 잘라낸 본문이 "성공적으로" 저장되던 결함이 있었다
+  //   (v06.35 · TextInput 하드 절단 제거와 한 쌍). 넘치면 저장을 막아 절단을 만들지 않는다.
   const canSaveSingle =
     structure === 'single' &&
     trimmedTitle.length > 0 &&
     trimmedTitle.length <= TITLE_MAX &&
-    trimmedContent.length >= CONTENT_MIN
+    trimmedContent.length >= CONTENT_MIN &&
+    trimmedContent.length <= CONTENT_MAX
 
   // 책 모드 저장 가능 조건 — 책 제목 + 모든 챕터 (제목 + content≥CONTENT_MIN)
   const canSaveBook =

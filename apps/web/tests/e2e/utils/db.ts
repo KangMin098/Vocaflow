@@ -493,3 +493,50 @@ export async function pickSetWithoutOverlap(
   }
   return null;
 }
+
+/**
+ * 테스트 실행 후 쌓인 pending_words(사전 갭 백로그) 조회.
+ *
+ * v06.35 이후 이 테이블은 **resolve_dict_headword 가 해석에 실패한 단어만** 받는다.
+ * 이전에는 "추출 결과에 없는 단어" 를 전부 받아 92.5% 가 오탐이었다(실측 2026-08-13).
+ * 그 계약이 실제 경로에서 지켜지는지 단언하려면 적재된 lemma 를 직접 봐야 한다.
+ *
+ * pending_words 는 lemma 유니크(전역 백로그)라 user_id 로 좁히지 않고 시각 기준으로만 본다.
+ */
+export async function fetchPendingWordsSince(sinceIso: string): Promise<string[]> {
+  const c = serviceClient();
+  if (!c) return [];
+  const { data, error } = await c
+    .from('pending_words')
+    .select('lemma')
+    .gte('created_at', sinceIso);
+  if (error) return [];
+  return (data ?? []).map((r) => String((r as { lemma: unknown }).lemma));
+}
+
+/**
+ * 입력 표면형 중 사전이 해석하지 못하는 것 — unresolved_dict_words RPC 직접 호출.
+ * pending_words 적재분이 "정말로 사전 갭인가" 를 교차 검증할 때 쓴다.
+ */
+export async function unresolvedDictWords(words: string[]): Promise<string[]> {
+  const c = serviceClient();
+  if (!c) return [];
+  const { data, error } = await c.rpc('unresolved_dict_words' as never, {
+    p_words: words,
+  } as never);
+  if (error) return [];
+  return (data as unknown as string[]) ?? [];
+}
+
+/** 테스트가 만든 pending_words 정리(멱등) — 백로그가 테스트 데이터로 오염되지 않게. */
+export async function deletePendingWordsSince(sinceIso: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('pending_words')
+    .delete()
+    .gte('created_at', sinceIso)
+    .select('lemma');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
