@@ -107,6 +107,35 @@ Altman 편은 **대담 형식**이라 화자 전환이 수십 회 발생한다. 
 
 ---
 
+## 3-1. 자동 커버리지 측정 (`scripts/extract-coverage/`)
+
+핵심 지표 하나 — **"본문 단어 중 몇 %가 학습자원이 되는가"**.
+
+```bash
+npx tsx scripts/extract-coverage/measure.ts [샘플경로]   # 기본: sample-talk.txt
+```
+
+토큰화 결과(JSON)를 출력한다. `words` 배열을 DB 질의의 `unnest` 입력으로 넘겨
+`resolve_dict_headword` 해석률을 낸다. **두 단계를 일부러 분리**한다 — 클라이언트 토큰화와
+서버 사전 해석 중 어느 쪽이 흘렸는지 귀속시킬 수 있어야 하기 때문이다.
+
+### 2026-08-13 1회차 실측 (sample-talk.txt · 586어)
+
+| 지표 | 값 |
+|---|---|
+| 토큰화 후보 | 242 |
+| 사전 정확일치 | 176 (72.7%) |
+| `resolve_dict_headword` 4계층 해석 후 | **229 (94.6%)** |
+| 미해결 | 13 |
+
+미해결 13 중 **6개는 어기가 이미 사전에 있었다** (`geochemist`→chemist ·
+`unglamorous`→glamorous · `mislabeled`→label · `overselling`→sell ·
+`mineralized`/`mineralizes`→mineral). 즉 사전 부족이 아니라 **해석기가 접두사(un-/mis-/over-/geo-)와
+`-ize` 계열을 다루지 않는 것**이다.
+
+나머지는 하이픈 전체형 2(부분은 이미 해석됨 · 실질 누수 아님) · 고유명사 1 · 약어 1 ·
+진성 사전 갭 1(`sorbents`).
+
 ## 4. 배제 기준
 
 | 배제 대상 | 이유 |
