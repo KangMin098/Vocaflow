@@ -112,12 +112,24 @@ Altman 편은 **대담 형식**이라 화자 전환이 수십 회 발생한다. 
 핵심 지표 하나 — **"본문 단어 중 몇 %가 학습자원이 되는가"**.
 
 ```bash
-npx tsx scripts/extract-coverage/measure.ts [샘플경로]   # 기본: sample-talk.txt
+npx tsx scripts/extract-coverage/measure.ts                          # 기본 샘플 1편
+npx tsx scripts/extract-coverage/measure.ts scripts/extract-coverage/corpus   # 코퍼스 일괄
+npx tsx scripts/extract-coverage/measure.ts corpus --json            # 기계 판독
 ```
 
-토큰화 결과(JSON)를 출력한다. `words` 배열을 DB 질의의 `unnest` 입력으로 넘겨
-`resolve_dict_headword` 해석률을 낸다. **두 단계를 일부러 분리**한다 — 클라이언트 토큰화와
-서버 사전 해석 중 어느 쪽이 흘렸는지 귀속시킬 수 있어야 하기 때문이다.
+디렉터리를 주면 그 안의 `*.txt` 를 **편별로** 측정하고 합산 리포트를 낸다. 회차 입력은
+`scripts/extract-coverage/corpus/` 에 넣는다 (`*.txt` 는 git 미추적).
+파일명이 리포트의 "편" 이름이 되므로 `S1-...` `M2-...` 처럼 밴드 접두어를 붙이면 읽기 쉽다.
+
+리포트 구성:
+1. **편별 표** — 자 수 · 후보 · 해석 · 커버리지
+2. **합산** — 코퍼스 전체 커버리지 (회차 간 비교 기준)
+3. **사전 갭 조치별 분류** — `/admin/pending-words` 와 같은 규칙. 등재할 것과
+   **등재하면 안 되는 것**(철자 변이 = 해석기 버그)을 갈라 준다
+4. **토큰화 처리 내역** — 상한 절단이 0 이 아니면 누수 경고
+
+토큰화(클라이언트)와 사전 해석(서버)을 **분리해서** 보고한다 — 어느 쪽이 흘렸는지
+귀속시킬 수 있어야 하기 때문이다.
 
 ### 2026-08-13 1회차 실측 (sample-talk.txt · 586어)
 

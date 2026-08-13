@@ -80,19 +80,20 @@ export default async function AdminPendingWordsPage() {
 
   // ── 조치별 분류 ──
   //   각 lemma 의 판정에 필요한 사전 조회를 **한 번의 배치 질의**로 끝낸다 (N+1 회피).
+  //   후보는 **해석 가능성**으로 물어야 한다 (표제어 직접 존재가 아니라).
+  //   표제어 존재로 검사하면 굴절형이 전부 미스난다 — "kilowatt-hours" 의 hours,
+  //   "mislabeled" 의 labeled 가 표제어가 아니라 오분류됐다(실측).
   const candidates = [...new Set(rawList.flatMap((r) => triageCandidates(r.lemma)))]
-  const dictWords = new Set<string>()
+  const resolvable = new Set<string>(candidates)
   if (candidates.length > 0) {
-    const { data: dictRows } = await client
-      .from('shared_dictionary')
-      .select('word')
-      .in('word', candidates)
-      .not('classified_by', 'is', null)
-    for (const d of (dictRows ?? []) as unknown as { word: string }[]) dictWords.add(d.word)
+    const { data: unresolved } = await client.rpc('unresolved_dict_words' as never, {
+      p_words: candidates,
+    } as never)
+    for (const w of (unresolved ?? []) as unknown as string[]) resolvable.delete(w)
   }
 
   const list = rawList
-    .map((r) => ({ ...r, bucket: classifyPending(r.lemma, dictWords) }))
+    .map((r) => ({ ...r, bucket: classifyPending(r.lemma, resolvable) }))
     // 등재 1순위(진성 갭)를 위로. 같은 버킷 안에서는 기존 정렬(encounter DESC) 유지.
     .sort((a, b) => BUCKET_META[a.bucket].priority - BUCKET_META[b.bucket].priority)
 

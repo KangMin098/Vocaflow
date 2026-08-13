@@ -103,6 +103,11 @@ function hyphenParts(w: string): string[] {
 /**
  * 이 lemma 를 분류하려면 사전에 물어봐야 할 단어들.
  * 호출부가 전체 행의 후보를 모아 **한 번의 배치 질의**로 조회한다.
+ *
+ * ⚠️ 조회는 `shared_dictionary` 직접 존재가 아니라 **`unresolved_dict_words` 로
+ * 해석 가능성**을 물어야 한다. 표제어 직접 존재로 검사하면 굴절형이 전부 미스난다 —
+ * 실측: "kilowatt-hours" 의 `hours`, "mislabeled" 의 `labeled` 가 표제어가 아니라
+ * 각각 하이픈 노이즈·파생형이 진성 갭으로 오분류됐다.
  */
 export function triageCandidates(lemma: string): string[] {
   const w = lemma.trim().toLowerCase()
@@ -111,20 +116,21 @@ export function triageCandidates(lemma: string): string[] {
 }
 
 /**
- * 최종 분류. `dictWords` 는 triageCandidates 로 모은 후보 중 **사전에 실제로 있는** 것들.
+ * 최종 분류. `resolvable` 은 triageCandidates 로 모은 후보 중
+ * **`resolve_dict_headword` 가 해석해 내는** 것들 (표제어 직접 존재가 아니다).
  *
  * 우선순위: 하이픈 노이즈 → 철자 변이(해석기 버그) → 파생형 → 진성 갭.
  * 하이픈을 먼저 보는 이유는, 하이픈 전체형이 다른 규칙에도 걸릴 수 있기 때문이다
  * (예: "self-organize" 는 철자 변이 규칙에도 걸린다 — 그래도 본질은 하이픈 노이즈다).
  */
-export function classifyPending(lemma: string, dictWords: Set<string>): PendingBucket {
+export function classifyPending(lemma: string, resolvable: Set<string>): PendingBucket {
   const w = lemma.trim().toLowerCase()
 
   const parts = hyphenParts(w)
-  if (parts.length >= 2 && parts.every((p) => dictWords.has(p))) return 'hyphen_compound'
+  if (parts.length >= 2 && parts.every((p) => resolvable.has(p))) return 'hyphen_compound'
 
-  if (spellingVariants(w).some((c) => dictWords.has(c))) return 'spelling_variant'
-  if (derivedBases(w).some((c) => dictWords.has(c))) return 'derived_form'
+  if (spellingVariants(w).some((c) => resolvable.has(c))) return 'spelling_variant'
+  if (derivedBases(w).some((c) => resolvable.has(c))) return 'derived_form'
 
   return 'genuine_gap'
 }

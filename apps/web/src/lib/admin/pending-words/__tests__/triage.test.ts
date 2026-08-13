@@ -7,8 +7,16 @@ import { describe, expect, it } from 'vitest'
 
 import { classifyPending, triageCandidates } from '../triage'
 
-/** 실측 기반 사전 상태 — 어기는 있고 파생형은 없는 상황 (2026-08-13 shared_dictionary) */
+/**
+ * **해석 가능한** 후보 집합 — `resolve_dict_headword` 가 표제어를 찾아내는 것들.
+ *
+ * ⚠️ 표제어 직접 존재가 아니다. 굴절형(`hours`·`labeled`)도 해석되므로 포함된다.
+ * 이 구분을 놓쳐서 "kilowatt-hours"(하이픈 노이즈)와 "mislabeled"(파생형)가
+ * 진성 갭으로 오분류됐다 — 하네스를 실제로 돌려서야 드러났다.
+ */
 const DICT = new Set([
+  'hours',
+  'labeled',
   'glamorous',
   'label',
   'sell',
@@ -73,9 +81,16 @@ describe('classifyPending — 네 갈래', () => {
   it('어기가 사전에 있는 극성 반전 파생 → 파생형', () => {
     expect(classifyPending('unglamorous', DICT)).toBe('derived_form')
     expect(classifyPending('mislabel', DICT)).toBe('derived_form')
+    // 굴절형 어기도 해석되므로 파생형이다 (mislabeled → labeled → label)
+    expect(classifyPending('mislabeled', DICT)).toBe('derived_form')
     expect(classifyPending('sugarless', DICT)).toBe('derived_form')
     expect(classifyPending('carbonless', DICT)).toBe('derived_form')
     expect(classifyPending('leaderless', DICT)).toBe('derived_form')
+  })
+
+  it('굴절 부분을 가진 하이픈 전체형도 노이즈로 잡는다', () => {
+    // 'hours' 는 표제어가 아니지만 해석은 된다 — 표제어 존재로만 검사하면 여기서 샌다.
+    expect(classifyPending('kilowatt-hours', DICT)).toBe('hyphen_compound')
   })
 
   it('어디에도 안 걸리면 → 진성 갭 (등재 1순위)', () => {
