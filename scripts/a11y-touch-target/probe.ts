@@ -39,28 +39,10 @@ function walk(dir: string, out: string[] = []): string[] {
   return out
 }
 
-const REM = 4 // tailwind spacing unit = 0.25rem = 4px
-
-/** className 문자열에서 추정 최소 높이(px). 판정 불가면 null. */
-function estimateHeight(cls: string): { px: number; via: string } | null {
-  const minH = cls.match(/min-h-\[(\d+)px\]/)
-  if (minH) return { px: Number(minH[1]), via: `min-h-[${minH[1]}px]` }
-
-  const hArb = cls.match(/(?:^|\s)h-\[(\d+)px\]/)
-  if (hArb) return { px: Number(hArb[1]), via: `h-[${hArb[1]}px]` }
-
-  const hNum = cls.match(/(?:^|\s)h-(\d+(?:\.\d+)?)(?:\s|$)/)
-  if (hNum) return { px: Number(hNum[1]) * REM, via: `h-${hNum[1]}` }
-
-  // py-N + 텍스트 높이 추정 (text-[Npx] 없으면 14px 가정 · line-height 1.4)
-  const py = cls.match(/(?:^|\s)(?:py|p)-(\d+(?:\.\d+)?)(?:\s|$)/)
-  if (py) {
-    const fs = cls.match(/text-\[(\d+)px\]/)
-    const lineH = Math.round((fs ? Number(fs[1]) : 14) * 1.4)
-    return { px: Number(py[1]) * REM * 2 + lineH, via: `py-${py[1]}+text` }
-  }
-  return null
-}
+// 추정 로직은 apps/web/src/lib/a11y/touch-target.ts 로 옮겼다 —
+// 오탐·과소보고 특성을 vitest 회귀로 못박기 위해서다(CI 가 지킨다).
+// 여기서 다시 구현하면 그 보증을 잃는다.
+import { estimateHeight, MIN_TOUCH_PX } from '../../apps/web/src/lib/a11y/touch-target'
 
 interface Hit {
   file: string
@@ -86,7 +68,7 @@ function scanFile(path: string): Hit[] {
     const clsStr = cls ? (cls[1] ?? cls[2] ?? '') : ''
     if (!clsStr) continue
     const est = estimateHeight(clsStr)
-    if (!est || est.px >= 44) continue
+    if (!est || est.px >= MIN_TOUCH_PX) continue
     // 부모 래퍼가 히트 영역을 주는 경우 제외 — 체크박스를 44px label 로 감싸는 것은
     // 정상 패턴이다(요소 자체는 20px 이어도 누를 수 있는 면적은 44px).
     // 프로브가 자기 오탐을 낸 자리다: ExtractionPanel 의 label 로 감싼 체크박스.

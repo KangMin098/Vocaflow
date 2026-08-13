@@ -51,3 +51,83 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
           SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role
           OPENAI_API_KEY: sk-placeholder
+
+  # ── 런타임 회귀 (e2e) ──
+  # 왜 필요한가: 이 저장소의 결함 중 여러 건이 **단위 테스트를 전부 통과한 채**
+  # 살아 있었다. 정적 검사가 원리적으로 못 보는 것들이다 —
+  #   · 입력 무단 절단 (textarea maxLength 가 붙여넣은 글의 75%를 조용히 버림)
+  #   · 가로 넘침 (390px 에서 도서관이 화면 두 배 폭)
+  #   · 터치 타겟 (정적 추정 78건 vs 실측 196건 — 2.5배)
+  # 실제로 렌더해서 재는 검사만이 이 계층을 잡는다.
+  #
+  # ⚠️ 이 잡은 **저장소 시크릿이 있어야 돈다**. 없으면 조용히 건너뛴다(빨간불 대신).
+  #    활성화하려면 Settings → Secrets 에 아래 3개를 넣을 것:
+  #      NEXT_PUBLIC_SUPABASE_URL · NEXT_PUBLIC_SUPABASE_ANON_KEY · SUPABASE_SERVICE_ROLE_KEY
+  #    (SERVICE_ROLE 은 DB 단언용 — 없으면 UI 검증만 하고 DB 단언은 건너뛴다)
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: 시크릿 유무 확인
+        id: guard
+        run: |
+          if [ -n "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다."
+          fi
+
+      - if: steps.guard.outputs.ready == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - if: steps.guard.outputs.ready == 'true'
+        run: pnpm --filter web exec playwright install --with-deps chromium
+
+      - if: steps.guard.outputs.ready == 'true'
+        run: pnpm --filter web build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      # playwright.config 의 webServer 는 `process.env.CI` 일 때 undefined 다 —
+      # CI 에서는 **서버가 이미 떠 있다고 가정**한다. 그래서 여기서 직접 띄우고 기다린다.
+      # (이 단계를 빠뜨리면 e2e 가 접속 실패로 전부 깨진다)
+      - if: steps.guard.outputs.ready == 'true'
+        name: 앱 기동 후 대기
+        run: |
+          pnpm --filter web exec next start -p 3000 &
+          npx --yes wait-on http://localhost:3000 --timeout 120000
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      # 상시 스펙만 돈다 — 학습 루프 완주 · 추출 신뢰 · 추출 스케일 · a11y 전수 스윕.
+      # a11y 스윕은 베이스라인 방식이라 **오늘부터의 악화만** 실패시킨다.
+      - if: steps.guard.outputs.ready == 'true'
+        run: pnpm --filter web exec playwright test 04-ui-smoke 08-text-extract-trust 09-text-extract-scale 10-a11y-sweep
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - if: always() && steps.guard.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: |
+            apps/web/test-results/
+            apps/web/playwright-report/
+          retention-days: 7
