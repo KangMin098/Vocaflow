@@ -246,9 +246,20 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       .then(({ data: unresolved, error: unresolvedErr }) => {
         const lemmas = (unresolved ?? []) as unknown as string[]
         if (unresolvedErr || lemmas.length === 0) return
+        // 하이픈 전체형은 **부분이 이미 해석되면 사전 갭이 아니다**.
+        //   토크나이저가 "machine-learning" 을 부분(machine·learning)과 전체 둘 다
+        //   후보로 올리므로, 전체형은 대개 미해석으로 남는다. 그걸 그대로 백로그에
+        //   넣으면 사전에 추가할 이유가 없는 항목이 쌓인다 (실측 12건 중 2건).
+        const unresolvedSet = new Set(lemmas)
+        const gaps = lemmas.filter((w) => {
+          if (!w.includes('-')) return true
+          const parts = w.split('-').filter((p) => p.length >= 2)
+          return parts.length === 0 || parts.some((p) => unresolvedSet.has(p))
+        })
+        if (gaps.length === 0) return
         return supabase.rpc('record_pending_words', {
           p_user_id: userId,
-          p_lemmas: lemmas,
+          p_lemmas: gaps,
         })
       })
   }

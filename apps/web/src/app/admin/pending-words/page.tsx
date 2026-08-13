@@ -1,10 +1,15 @@
 // apps/web/src/app/admin/pending-words/page.tsx
-// Pending Words 큐 — 사용자가 추출 시 미매칭된 lemma 누적 → admin 리뷰
+// Pending Words 큐 — 사전이 해석하지 못한 lemma 누적 → admin 리뷰
 //
-// 데이터 흐름:
-//   1. ExtractionPanel 추출 시 L1+L2 모두 miss → record_pending_words(lemmas)
-//   2. 본 페이지: status='pending' + encounter_count DESC 정렬 노출
-//   3. admin 액션 (Phase 2): reviewing/auto-classify/rejected/added 상태 전환
+// 데이터 흐름 (v06.35 갱신):
+//   1. ExtractionPanel 추출 시 `unresolved_dict_words` 로 **해석 실패분만** 골라
+//      record_pending_words(lemmas). 예전엔 "추출 결과에 없는 단어" 를 전부 보내
+//      92.5% 가 오탐이었다(실측 2026-08-13).
+//   2. 본 페이지: encounter_count DESC 노출 + **조치별 분류**(lib/admin/pending-words/triage)
+//   3. admin 액션: reviewing/auto-classify/rejected/added 상태 전환
+//
+// 분류가 필요한 이유: 신호는 깨끗해졌지만 성격이 다른 항목이 섞여 있다.
+// 진성 갭은 등재하면 되지만, 철자 변이는 **해석기 버그 신호**라 사전에 넣으면 안 된다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { Database as DatabaseIcon, Hash, Clock3 } from 'lucide-react'
@@ -12,6 +17,12 @@ import { Database as DatabaseIcon, Hash, Clock3 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { requireAdmin } from '@/lib/auth/require-admin'
+import {
+  BUCKET_META,
+  classifyPending,
+  triageCandidates,
+  type PendingBucket,
+} from '@/lib/admin/pending-words/triage'
 import { createClient } from '@/lib/supabase/server'
 import { PendingWordActions } from './PendingWordActions'
 
@@ -65,10 +76,34 @@ export default async function AdminPendingWordsPage() {
       .eq('status', 'added'),
   ])
 
-  const list = ((rows ?? []) as unknown) as PendingWordRow[]
+  const rawList = ((rows ?? []) as unknown) as PendingWordRow[]
+
+  // ── 조치별 분류 ──
+  //   각 lemma 의 판정에 필요한 사전 조회를 **한 번의 배치 질의**로 끝낸다 (N+1 회피).
+  const candidates = [...new Set(rawList.flatMap((r) => triageCandidates(r.lemma)))]
+  const dictWords = new Set<string>()
+  if (candidates.length > 0) {
+    const { data: dictRows } = await client
+      .from('shared_dictionary')
+      .select('word')
+      .in('word', candidates)
+      .not('classified_by', 'is', null)
+    for (const d of (dictRows ?? []) as unknown as { word: string }[]) dictWords.add(d.word)
+  }
+
+  const list = rawList
+    .map((r) => ({ ...r, bucket: classifyPending(r.lemma, dictWords) }))
+    // 등재 1순위(진성 갭)를 위로. 같은 버킷 안에서는 기존 정렬(encounter DESC) 유지.
+    .sort((a, b) => BUCKET_META[a.bucket].priority - BUCKET_META[b.bucket].priority)
+
   const total = list.length
-  const sumEncounters = list.reduce((acc, r) => acc + r.encounter_count, 0)
-  const topLemma = list[0]?.lemma ?? '—'
+  const bucketCounts = list.reduce<Record<PendingBucket, number>>(
+    (acc, r) => {
+      acc[r.bucket] += 1
+      return acc
+    },
+    { genuine_gap: 0, derived_form: 0, spelling_variant: 0, hyphen_compound: 0 },
+  )
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
@@ -89,26 +124,45 @@ export default async function AdminPendingWordsPage() {
           bg="var(--error-light)"
         />
         <KpiCard
+          label="진성 갭 — 등재 1순위"
+          value={bucketCounts.genuine_gap.toLocaleString()}
+          accent="var(--p)"
+          bg="var(--p-light)"
+          hint="사전에 정말로 없는 단어"
+        />
+        <KpiCard
+          label="철자 변이 — 해석기 버그"
+          value={bucketCounts.spelling_variant.toLocaleString()}
+          accent="var(--warning)"
+          bg="var(--warning-light)"
+          hint="0 이 아니면 resolve_dict_headword 를 고칠 것"
+        />
+        <KpiCard
           label="추가됨 (누적)"
           value={(addedCount ?? 0).toLocaleString()}
           accent="var(--success)"
           bg="var(--success-light)"
         />
-        <KpiCard
-          label="누적 encounter"
-          value={sumEncounters.toLocaleString()}
-          accent="var(--info)"
-          bg="var(--info-light)"
-          hint="top 200 row 기준"
-        />
-        <KpiCard
-          label="최다 발견"
-          value={topLemma}
-          accent="var(--p)"
-          bg="var(--p-light)"
-          hint={`${list[0]?.encounter_count ?? 0}회 누적`}
-        />
       </div>
+
+      {/* 분류 요약 — 버킷마다 조치가 다르다 */}
+      {total > 0 && (
+        <ul className="mb-6 grid gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 md:grid-cols-2">
+          {(Object.keys(BUCKET_META) as PendingBucket[])
+            .sort((a, b) => BUCKET_META[a].priority - BUCKET_META[b].priority)
+            .map((b) => (
+              <li key={b} className="flex items-baseline gap-2 font-body text-[11px]">
+                <span className="min-w-[74px] shrink-0 font-display font-[700] text-[var(--t1)]">
+                  {BUCKET_META[b].label}
+                </span>
+                <span className="shrink-0 font-mono tabular-nums text-[var(--p)]">
+                  {bucketCounts[b]}
+                </span>
+                <span className="text-[var(--t2)]">{BUCKET_META[b].action}</span>
+              </li>
+            ))}
+        </ul>
+      )}
 
       {total === 0 ? (
         <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] py-12 text-center">
@@ -126,6 +180,7 @@ export default async function AdminPendingWordsPage() {
             <thead>
               <tr className="border-b border-[var(--bd)] bg-[var(--bg2)]">
                 <Th>lemma</Th>
+                <Th align="center">분류 / 조치</Th>
                 <Th align="right">encounter</Th>
                 <Th align="center">status</Th>
                 <Th>admin note</Th>
@@ -150,6 +205,20 @@ export default async function AdminPendingWordsPage() {
                           surface ← {row.surface}
                         </p>
                       )}
+                    </td>
+                    <td className="px-3 py-2 text-center">
+                      <span
+                        title={BUCKET_META[row.bucket].action}
+                        className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] ${
+                          row.bucket === 'genuine_gap'
+                            ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
+                            : row.bucket === 'spelling_variant'
+                              ? 'bg-[var(--warning-light)] text-[var(--warning-ink)]'
+                              : 'bg-[var(--bg3)] text-[var(--t2)]'
+                        }`}
+                      >
+                        {BUCKET_META[row.bucket].label}
+                      </span>
                     </td>
                     <td className="px-3 py-2 text-right">
                       <span className="inline-flex items-center gap-1 font-mono text-[12px] font-[700] tabular-nums text-[var(--t1)]">
