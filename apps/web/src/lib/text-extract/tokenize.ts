@@ -136,7 +136,7 @@ function preprocess(text: string, d: TokenizationDiagnostics): string {
   s = s.replace(/\s-+\s/g, ' ')
 
   // `[Laughter]` `[Applause]` 류 전사 마커
-  s = s.replace(/\[[^\]\n]{1,40}\]/g, (m) => {
+  s = s.replace(/\[[^\]\n]{1,40}\]/g, () => {
     d.bracketMarkers += 1
     return ' '
   })

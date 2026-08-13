@@ -129,8 +129,12 @@ export function PrimaryButton({
       <span>{children}</span>
       {(count != null && count > 0) || rightIcon !== null ? (
         <span className="flex items-center gap-2">
+          {/* 배지 바탕을 밝히면(white/20) 흰 글자와의 대비가 깎인다 — 12px 라 AA 4.5 를
+              넘겨야 하는데 semantic 채움 위에서 3.99 로 떨어졌다(2026-08-14 axe 실측,
+              /wordvault 다크). count>0 일 때만 렌더돼 데이터에 따라 나타났다 사라진다.
+              어둡게 깔면 어떤 채움색 위에서도 흰 글자 대비가 올라간다. */}
           {count != null && count > 0 && (
-            <span className="rounded-ios-pill bg-white/20 px-2.5 py-0.5 font-mono text-[12px] tabular-nums">
+            <span className="rounded-ios-pill bg-black/25 px-2.5 py-0.5 font-mono text-[12px] tabular-nums">
               {count}
             </span>
           )}

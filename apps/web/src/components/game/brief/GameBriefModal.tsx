@@ -25,7 +25,7 @@ import { createPortal } from 'react-dom'
 import type { CSSProperties } from 'react'
 
 import BriefBoard, { BRIEF_BOARD_CSS } from '@/components/game/brief/BriefBoard'
-import { GAME_BRIEFS, gaugesOf, pressablesOf, slotStepOf } from '@/lib/game/brief'
+import { GAME_BRIEFS, gaugesOf, slotStepOf } from '@/lib/game/brief'
 import type { BriefGaugeState } from '@/lib/game/brief'
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog'
 
