@@ -190,7 +190,12 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           // role="list" 는 listitem 의 **직접 부모**여야 한다. 예전엔 바깥 래퍼에 붙어 있어
           // 사이에 무대·탭리스트가 끼면서 aria-required-children/parent 가 동시에 깨졌다(2026-08-09 axe).
           role="list"
-          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center"
+          // overflow-x-clip: 3D 무대의 옆 카드들은 absolute + transform 이라 컨테이너를
+          //   벗어난다. 클립이 없으면 **문서가 통째로 옆으로 밀린다** — 390px 모바일에서
+          //   scrollWidth 773px(넘침 383px) 실측(2026-08-13 a11y 스윕).
+          //   overflow-hidden 이 아니라 x축만 clip 하는 이유: 세로 그림자·원근 깊이감을
+          //   유지하면서 스크롤 컨테이너도 만들지 않기 위함.
+          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center overflow-x-clip"
           style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
