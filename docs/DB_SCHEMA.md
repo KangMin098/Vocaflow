@@ -452,7 +452,36 @@ CREATE POLICY "own data" ON {table}
 - 모든 인증 사용자 SELECT 가능
 - INSERT/UPDATE/DELETE 는 admin/curator 만 (SECURITY DEFINER RPC + `is_admin_or_curator()`)
 
-`reports`: 본인 INSERT/SELECT, admin UPDATE.
+### 발행 세트는 원본 발행 상태를 상속한다 (v06.35 · [20260813110729](../supabase/migrations/20260813110729_word_set_rls_inherit_source_gate.sql))
+
+`shared_word_sets` / `shared_words` 의 SELECT 정책은 `is_published` 만으로는 부족하다 —
+소스 종속 세트(`library_book` · `library_article`)는 **원본이 발행됐는지**까지 본다.
+
+```sql
+is_published AND (
+  category NOT IN ('library_book','library_article')
+  OR (category='library_book'    AND EXISTS(SELECT 1 FROM library_books    b
+        WHERE b.id::text = curation_query->>'book_id'
+          AND b.status='published' AND b.copyright_safe_in_kr))
+  OR (category='library_article' AND EXISTS(SELECT 1 FROM library_articles a
+        WHERE a.id::text = curation_query->>'article_id'
+          AND a.status='published' AND a.copyright_safe_in_kr))
+)
+```
+
+**왜** — 이전 정책(`is_published` 단독)에서는 UI 3경로가 전부 막던 세트가 **공개 anon 키로는 읽혔다**.
+실측: 미발행 도서 27권의 발행 세트 587개(20,907단어)가 anon 조회로 반환됐다(같은 키로 `library_books`
+행 자체는 0 — 책은 막히는데 그 책의 단어장은 열려 있었다). `subscribeSet` 도 `is_published` 만 봐서
+set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가 아니다.**
+
+- 기준선은 `applyBookReadGate`(status only) — 카탈로그 게이트의 `published_at IS NOT NULL` 은
+  요구하지 않는다([publish-gate.ts](../apps/web/src/lib/library/publish-gate.ts) 가 "카탈로그 ≠ 열람" 을 의도적으로 분리).
+- ⚠️ 두 정책의 조건은 **같아야 한다**. 한쪽만 고치면 세트는 가려지는데 단어는 읽힌다.
+- 적용 실측: anon 가시 세트 도서 993 → **406** · 아티클 135 유지 · 기타 176 무영향 ·
+  service_role 1,169 전부 유지. 기존 구독 71건은 admin 계정이라 영향 0.
+- 회귀: [word-set-rls.integration.test.ts](../apps/web/src/lib/library/__tests__/word-set-rls.integration.test.ts) 5건 (anon/service 양쪽 실조회).
+
+`reports`: 본인 INSERT/SELECT, admin UPDATE. ⚠️ 단 테이블이 실재하지 않는다(§요약 드리프트 표 참조).
 
 ---
 

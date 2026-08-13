@@ -196,6 +196,36 @@ The Mysterious Affair at Styles. 28세트 교체, I10 드리프트 10권 → **7
 
 남은 7권: Fables(4 · 세트 없는 챕터라 재발행 무효) + `status='ready'` 인데 세트만 발행된 6권.
 
+### 발행 세트 노출 경계 — 화면은 막았는데 API 는 열려 있었다 (마이그레이션 1건)
+
+`20260813110729_word_set_rls_inherit_source_gate` — `shared_word_sets`·`shared_words` 의 SELECT
+정책이 `is_published` 외에 **원본(도서/글)이 발행됐는지**를 함께 본다.
+
+위 "재발행" 조사에서 `status='ready'` 인데 세트만 발행된 도서를 발견하고, 처음엔 "학습자에게
+노출된다" 고 봤다. **틀렸다** — UI 3경로는 전부 제대로 막고 있었다:
+`/library/vocab` 은 `library_book` 카테고리를 제외하고([queries.ts:114](../apps/web/src/lib/library/vocab/queries.ts)),
+`/library/books` 는 `applyBookCatalogGate`(`published_at IS NOT NULL`), 상세는 `status='published'`,
+`recommend_word_sets_for_user` 는 둘 다 요구한다. `publish-gate.ts` 가 제 역할을 하고 있었다.
+
+**진짜 구멍은 RLS 였다.** 정책이 `is_published = true` 하나뿐이라, 공개 anon 키로 직접 조회하면
+전부 반환됐다 — 실측 516세트 + 그 단어들(같은 키로 `library_books` 행 자체는 0. **책은 막히는데
+그 책의 단어장은 열려 있었다**). `subscribeSet` 도 `is_published` 만 검사해 set id 만 알면 구독됐다.
+
+- 전체 범위: `library_book` 발행 세트 993개 중 **587개(20,907단어 · 도서 27권)** 가 미발행 도서 소속.
+  아티클은 135/135 정상.
+- 적용 후 anon 실측: 미발행 세트 **516 → 0** · 그 단어 **→ 0** · 발행 도서(P&P) 61세트·단어 39 유지 ·
+  `library_book` 993 → **406** · 아티클 135 · 기타 176 무영향 · service_role 1,169 전부 유지.
+- 기존 구독 영향 **0** — 미발행 도서 세트 구독 71건·`vocabularies` 50행은 전부 admin(강민) 계정이라
+  `admin_curator_all_*` 로 계속 읽는다. 일반 학습자 구독은 0건.
+- 회귀 5건([word-set-rls.integration.test.ts](../apps/web/src/lib/library/__tests__/word-set-rls.integration.test.ts)) —
+  "세트가 가려지면 단어도 가려지는가"(두 정책 동기)와 "가려진 0 이 원래 빈 세트가 아님"(service_role 대조)까지 고정.
+
+**교훈**: 화면 게이트는 노출 경계의 증거가 아니다. 앱 코드에만 있는 게이트는 PostgREST 가 그대로
+통과시킨다. 경계는 anon 키로 직접 쳐 봐야 안다.
+
+⚠️ 파일명 주의 — 동시 작업 세션이 같은 타임스탬프(`20260813103000`)로 파일을 만들어 충돌했다.
+이 마이그레이션 파일명은 실제 적용 버전(`schema_migrations.version`)에 맞춰 `20260813110729` 로 정정했다.
+
 ### /admin 대시보드 — 목업 상수 제거, 파이프라인 실측화
 
 관리자 콘솔 첫 화면이 DB 를 한 번도 조회하지 않는 정적 목업이었다. `KPIS`·`SECTIONS`·
