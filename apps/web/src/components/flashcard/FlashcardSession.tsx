@@ -15,6 +15,7 @@ import type { FlashcardWord, PauseMessage, SRSRating } from '@/types/flashcard'
 import { Card } from './Card'
 import { CompletionState } from './CompletionState'
 import { FirstJudge } from './FirstJudge'
+import type { ContentRef } from '@/lib/content/content-ref'
 import { HonestyHint } from './HonestyHint'
 import { MicroPause } from './MicroPause'
 import { RecallPhase } from './RecallPhase'
@@ -45,11 +46,14 @@ interface FlashcardSessionProps {
   initialWords: FlashcardWord[]
   /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산해 주입 (기본 hub). */
   backHref?: string
+  /** 무엇으로 학습했나 — 완주 기록의 콘텐츠 귀속. 페이지가 스코프에서 계산해 주입. */
+  content?: ContentRef
 }
 
 export function FlashcardSession({
   initialWords,
   backHref = '/flashcard',
+  content,
 }: FlashcardSessionProps) {
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
   const recommendation = useNextAction()
@@ -213,6 +217,7 @@ export function FlashcardSession({
       <CompletionState
         stats={stats}
         backHref={backHref}
+        content={content}
         onRestart={handleRestart}
         recommendation={recommendation}
       />

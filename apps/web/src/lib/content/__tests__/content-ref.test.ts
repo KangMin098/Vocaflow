@@ -1,0 +1,113 @@
+// apps/web/src/lib/content/__tests__/content-ref.test.ts
+//
+// content_ref 는 "어떤 자료로 학습했나" 의 유일한 근거다. 여기가 틀리면 증상이 **조용하다** —
+// 세션은 정상 적재되고 화면도 멀쩡한데 집계에서만 빠진다(그게 49행 전부 NULL 이었던 방식이다).
+// 그래서 DB CHECK 와 같은 규칙을 코드 쪽에서도 고정한다.
+
+import { describe, it, expect } from 'vitest'
+
+import {
+  contentRefFromBook,
+  contentRefFromScope,
+  contentRefFromText,
+  isValidContentRef,
+  toScoreColumns,
+} from '../content-ref'
+
+const UUID = '6e8b3442-1404-4172-865b-3dcd6c5848d9'
+const UUID2 = '89970bfa-f49d-44c2-92ce-75895a608317'
+
+describe('isValidContentRef — DB CHECK 와 같은 규칙', () => {
+  it("'mine' 은 id 가 없어야 성립한다", () => {
+    expect(isValidContentRef({ kind: 'mine' })).toBe(true)
+    expect(isValidContentRef({ kind: 'mine', id: UUID })).toBe(false)
+  })
+
+  it('나머지 유형은 uuid 가 있어야 한다', () => {
+    expect(isValidContentRef({ kind: 'book', id: UUID })).toBe(true)
+    expect(isValidContentRef({ kind: 'set' })).toBe(false)
+    // 세션 키('vocab'·'script'·'all')가 잘못 흘러들어오는 경로가 실제로 있었다 — uuid 만 통과시킨다
+    expect(isValidContentRef({ kind: 'text', id: 'script' })).toBe(false)
+  })
+
+  it('null/undefined 는 참조가 아니다', () => {
+    expect(isValidContentRef(null)).toBe(false)
+    expect(isValidContentRef(undefined)).toBe(false)
+  })
+})
+
+describe('toScoreColumns', () => {
+  it('형태가 어긋나면 전부 null — 적재 자체는 막지 않는다', () => {
+    // CHECK 위반으로 세션 기록을 통째로 잃는 것보다 자료 미상으로 남기는 편이 낫다
+    expect(toScoreColumns({ kind: 'book' })).toEqual({
+      content_type: null,
+      content_id: null,
+      content_chapter: null,
+    })
+    expect(toScoreColumns(null)).toEqual({
+      content_type: null,
+      content_id: null,
+      content_chapter: null,
+    })
+  })
+
+  it('book 은 챕터를 싣는다', () => {
+    expect(toScoreColumns({ kind: 'book', id: UUID, chapter: 3 })).toEqual({
+      content_type: 'book',
+      content_id: UUID,
+      content_chapter: 3,
+    })
+  })
+
+  it('book 이 아닌 유형의 챕터는 버린다 — 잘못된 필터의 원인이 된다', () => {
+    expect(toScoreColumns({ kind: 'set', id: UUID, chapter: 3 })).toEqual({
+      content_type: 'set',
+      content_id: UUID,
+      content_chapter: null,
+    })
+  })
+
+  it("'mine' 은 id 없이 유효하다", () => {
+    expect(toScoreColumns({ kind: 'mine' })).toEqual({
+      content_type: 'mine',
+      content_id: null,
+      content_chapter: null,
+    })
+  })
+})
+
+describe('contentRefFromScope — ?set= / ?text= / 없음', () => {
+  it('set 이 우선한다', () => {
+    expect(contentRefFromScope({ set: UUID, text: UUID2 })).toEqual({ kind: 'set', id: UUID })
+  })
+
+  it('text 만 있으면 스크립트', () => {
+    expect(contentRefFromScope({ text: UUID2 })).toEqual({ kind: 'text', id: UUID2 })
+  })
+
+  it('스코프가 없으면 내 복습 큐', () => {
+    expect(contentRefFromScope({})).toEqual({ kind: 'mine' })
+  })
+})
+
+describe('contentRefFromText — enroll 한 도서 챕터는 도서로 접힌다', () => {
+  it('library_book_id 가 있으면 book 으로 귀속한다', () => {
+    // 챕터별로 text 로 남기면 "이 도서로 얼마나 했나" 가 챕터 수만큼 흩어진다
+    expect(
+      contentRefFromText({ id: UUID2, library_book_id: UUID, chapter_idx: 4 }),
+    ).toEqual({ kind: 'book', id: UUID, chapter: 4 })
+  })
+
+  it('내 스크립트는 text 그대로', () => {
+    expect(contentRefFromText({ id: UUID2, library_book_id: null, chapter_idx: null })).toEqual({
+      kind: 'text',
+      id: UUID2,
+    })
+  })
+})
+
+describe('contentRefFromBook', () => {
+  it('챕터가 없으면 도서 전체', () => {
+    expect(contentRefFromBook(UUID, null)).toEqual({ kind: 'book', id: UUID })
+  })
+})

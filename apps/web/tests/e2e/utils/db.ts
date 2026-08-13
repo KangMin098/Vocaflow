@@ -258,6 +258,37 @@ export async function countLearningRecordsSince(
 }
 
 /**
+ * 특정 시각 이후 적재된 scores 의 콘텐츠 참조 — "어떤 자료로 학습했나" 단언용.
+ *
+ * 이 값이 없던 시절 scores 는 49행 전부 `text_id IS NULL` 이었다(`text_id` 는 texts FK 라
+ * 큐레이션 도서·단어장을 가리킬 수 없었다). 조용히 되돌아가면 콘텐츠 단위 진행률·리포트가
+ * 통째로 죽으므로 회귀를 여기서 막는다.
+ */
+export async function latestScoreContent(
+  userId: string,
+  module: string,
+  sinceIso: string,
+): Promise<{ type: string | null; id: string | null; chapter: number | null } | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('scores')
+    .select('content_type, content_id, content_chapter')
+    .eq('user_id', userId)
+    .eq('module', module)
+    .gte('created_at', sinceIso)
+    .order('created_at', { ascending: false })
+    .limit(1);
+  if (error || !data || data.length === 0) return null;
+  const r = data[0] as {
+    content_type: string | null;
+    content_id: string | null;
+    content_chapter: number | null;
+  };
+  return { type: r.content_type, id: r.content_id, chapter: r.content_chapter };
+}
+
+/**
  * 특정 시각 이후 완주된 받아쓰기 세션 수 — "완주 → dictation_sessions 마감" 단언용.
  * 세션 INSERT 는 시작 시점이므로 completed_at 으로 센다(중도 이탈과 구분).
  */

@@ -306,6 +306,13 @@ content_ref { type: 'book'|'text'|'set'|'article'|'comic'|'mine', id, chapter? }
 `scores` 에 `content_ref` 가 없으면 콘텐츠 단위 진행률 · 리포트 · i+1 승급이 **전부 불가능**하다.
 지금 48행 전부 `text_id` NULL 이므로 이건 설계 전제이지 개선 항목이 아니다.
 
+> **✅ 적용됨 (2026-08-13 · 마이그레이션 `20260813090000_scores_content_ref`).**
+> `scores.content_type` / `content_id` / `content_chapter` 3컬럼 + `lib/content/content-ref.ts`
+> (어댑터 1개 패턴) + 적재 배선(아케이드 19종은 `use-session-recorder` 한 곳으로 따라옴).
+> 검증: 큐레이션 챕터 퀴즈 완주 → `content_type='book'` · `content_id` → `library_books.title`
+> 조인 성공(`text_id` 는 여전히 NULL). 회귀는 `05-learner-loop` 단언 3건 + 단위 13건.
+> **이 항목만 적용된 것이며 문서 전체는 여전히 미승인 제안이다** — 나머지 Phase 는 미착수.
+
 ### 5.5 단어 결합 키
 
 소문자 `word` 를 유지한다 — 유일하게 실측 일관된 불변식(42,481행 100% 소문자)이고

@@ -17,6 +17,7 @@
 import { useEffect, useRef } from 'react'
 
 import { awardArcadeXp } from '@/lib/game/arcade-meta'
+import { contentRefFromScope } from '@/lib/content/content-ref'
 import { recordGameScore, type ScoreModule } from '@/lib/scores/record-score'
 import type { WordScope } from '@/lib/game/use-word-scope'
 
@@ -65,6 +66,10 @@ export function useGameSessionRecorder({
       accuracy,
       durationSeconds: startRef.current ? Math.round((Date.now() - startRef.current) / 1000) : undefined,
       ...(scope.text ? { textId: scope.text } : {}),
+      // 아케이드 19종이 이 한 줄로 콘텐츠 귀속을 얻는다 — 스코프는 이미 여기 있었고
+      // 적재만 그것을 버리고 있었다(scope.set 은 어디에도 안 남았다).
+      // 맛보기 폴백(demo)은 내 단어도 자료도 아니므로 귀속시키지 않는다.
+      ...(scope.demo ? {} : { content: contentRefFromScope({ set: scope.set, text: scope.text, chapter: scope.chapter }) }),
       metadata: { captured, wrong, scope: scope.kind, demo: scope.demo },
     })
     awardArcadeXp(accuracy)

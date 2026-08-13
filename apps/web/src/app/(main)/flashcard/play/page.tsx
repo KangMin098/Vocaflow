@@ -8,6 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { FlashcardSession } from '@/components/flashcard/FlashcardSession'
+import { contentRefFromScope } from '@/lib/content/content-ref'
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { fetchDueFlashcardWords } from '@/lib/flashcard/hub-words'
 import { fetchScopedFlashcardWords } from '@/lib/flashcard/scoped-words'
@@ -63,7 +64,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
             }}
             total={words.length}
           />
-          <FlashcardSession initialWords={words} backHref={backHref} />
+          <FlashcardSession initialWords={words} backHref={backHref} content={contentRefFromScope({ set, text, chapter })} />
         </>
       )
     }
@@ -97,7 +98,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
         }}
         total={words.length}
       />
-      <FlashcardSession initialWords={words} backHref={backHref} />
+      <FlashcardSession initialWords={words} backHref={backHref} content={contentRefFromScope({ set, text, chapter })} />
     </>
   )
 }

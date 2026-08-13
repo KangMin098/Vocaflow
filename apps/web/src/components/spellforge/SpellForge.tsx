@@ -34,6 +34,7 @@ import {
   pushPendingResult,
 } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
+import type { ContentRef } from '@/lib/content/content-ref'
 import type { Phase, SpellForgeWord } from '@/types/spellforge'
 
 interface SpellForgeProps {
@@ -42,6 +43,11 @@ interface SpellForgeProps {
   words: SpellForgeWord[]
   /** 닫기/완료 시 복귀 경로 — 페이지가 ?from/스코프로 계산 (textId 는 세션 키라 링크에 부적합). */
   backHref: string
+  /**
+   * 무엇으로 학습했나 — 완주 기록의 콘텐츠 귀속. 페이지가 스코프에서 계산해 주입.
+   * (props 의 `textId` 는 'vocab'|'script'|'all' 같은 세션 키라 콘텐츠 식별에 쓸 수 없다.)
+   */
+  content?: ContentRef
 }
 
 const SUCCESS_MESSAGES = [
@@ -52,7 +58,7 @@ const SUCCESS_MESSAGES = [
   { icon: '🏆', message: '스펠링 마스터.' },
 ]
 
-export function SpellForge({ textId, textTitle, words, backHref }: SpellForgeProps) {
+export function SpellForge({ textId, textTitle, words, backHref, content }: SpellForgeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Hooks
@@ -359,6 +365,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
         correctCount={session.totalCorrect}
         startedAt={session.startedAt}
         backHref={backHref}
+        content={content}
         recommendation={recommendation}
       />
     )

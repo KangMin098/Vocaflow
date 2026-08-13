@@ -22,6 +22,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { contentRefFromBook, type ContentRef } from '@/lib/content/content-ref'
 import { recordGameScore } from '@/lib/scores/record-score'
 import { flushPendingSrsResults } from '@/lib/srs/flush-actions'
 import type { FlushItem } from '@/lib/srs/flush-types'
@@ -125,6 +126,21 @@ export async function saveDictationAttempt(
   }
 }
 
+/**
+ * 받아쓰기 자료 → 콘텐츠 참조.
+ *   book  → 도서(챕터 포함) · text → 스크립트 · set → 단어장
+ *   daily → 여러 자료를 가로지르는 처방이라 특정 자료로 귀속시키지 않는다(`mine`)
+ *   custom→ 저장하지 않는 글이라 가리킬 자료가 없다(`mine`)
+ */
+function contentRefFromDictationSource(source: DictationSource): ContentRef {
+  if (source.kind === 'book' && source.libraryBookId) {
+    return contentRefFromBook(source.libraryBookId, source.chapterIdx ?? null)
+  }
+  if (source.kind === 'text' && source.textId) return { kind: 'text', id: source.textId }
+  if (source.kind === 'set' && source.sharedSetId) return { kind: 'set', id: source.sharedSetId }
+  return { kind: 'mine' }
+}
+
 // ── ③ 완주 ────────────────────────────────────────────────────────
 
 export interface CompleteInput {
@@ -186,6 +202,7 @@ export async function completeDictationSession(
     accuracy: Math.round(input.avgAccuracy * 10) / 10,
     durationSeconds: Math.round(input.durationMs / 1000),
     textId: input.source.textId,
+    content: contentRefFromDictationSource(input.source),
     metadata: {
       source_kind: input.source.kind,
       title: input.source.title,

@@ -156,6 +156,8 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
             accuracy: Math.round(accuracy),
             durationSeconds: Math.round(finalAnswers.reduce((s, a) => s + a.timeMs, 0) / 1000),
             textId, // 큐레이션 챕터 경로는 undefined — texts FK 아닌 값은 넣지 않음
+            // 그 경로가 남길 자리가 없던 "어떤 도서였나" 를 content_ref 가 받는다.
+            content: session.content,
             metadata: { textTitle: session.textTitle, textChapter: session.textChapter },
           })
           setScreen('result')
@@ -227,7 +229,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
             {feedback === 'O' ? (
               <div className="h-[100px] w-[100px] rounded-full border-[10px] border-[var(--p)] opacity-70" />
             ) : (
-              <X size={100} strokeWidth={3} className="text-[var(--error)] opacity-70" />
+              <X size={100} strokeWidth={3} className="text-[var(--error-ink)] opacity-70" />
             )}
           </div>
         </div>
@@ -328,7 +330,7 @@ function StartScreen({
       {/* Start 버튼 */}
       <button
         onClick={onStart}
-        className="mt-8 inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-10 py-4 font-display text-[16px] font-[700] text-[var(--ti)] shadow-[0_4px_0_var(--p-dark),var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:translate-y-1 active:shadow-[0_2px_0_var(--p-dark)]"
+        className="mt-8 inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-10 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[0_4px_0_var(--p-dark),var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:translate-y-1 active:shadow-[0_2px_0_var(--p-dark)]"
       >
         <Play size={16} strokeWidth={2.5} aria-hidden />
         시작하기
@@ -376,7 +378,7 @@ function QuestionScreen({
   return (
     <>
       {/* HUD bar */}
-      <div className="sticky top-0 z-10 bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]">
+      <div className="sticky top-0 z-10 bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]">
         <div className="mx-auto flex max-w-3xl items-center gap-4 px-4 py-3 md:px-6">
           <span className="font-mono text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
             {String(questionIdx + 1).padStart(2, '0')} / {String(totalQ).padStart(2, '0')}
@@ -538,7 +540,7 @@ function QuestionScreen({
                         </svg>
                       </span>
                     )}
-                    {showWrong && <X size={20} strokeWidth={3} className="text-[var(--error)]" />}
+                    {showWrong && <X size={20} strokeWidth={3} className="text-[var(--error-ink)]" />}
                   </button>
                 </li>
               )
@@ -670,10 +672,10 @@ function ResultScreen({
             </p>
           </div>
           <div className="rounded-[var(--r-md)] bg-[var(--error-light)] p-4 text-center">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--error)]">
+            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--error-ink)]">
               오답
             </p>
-            <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--error)]">
+            <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--error-ink)]">
               {stats.wrong}
             </p>
           </div>
@@ -737,7 +739,7 @@ function ResultScreen({
           </button>
           <Link
             href="/wordvault"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] sm:w-auto"
           >
             오답 단어 학습으로
             <ArrowRight size={14} aria-hidden />

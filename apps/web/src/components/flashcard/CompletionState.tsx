@@ -6,6 +6,7 @@ import { Clock, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
+import type { ContentRef } from '@/lib/content/content-ref'
 import type { RecommendedAction } from '@/lib/recommend/types'
 import { useRecordGameScore } from '@/lib/scores/record-score'
 import type { SessionStats } from '@/types/flashcard'
@@ -15,6 +16,8 @@ interface CompletionStateProps {
   /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산 (스코프 진입 시 단어 id 오용 방지). */
   backHref: string
   onRestart: () => void
+  /** 무엇으로 학습했나 — scores 콘텐츠 귀속(없으면 자료 미상으로 남는다). */
+  content?: ContentRef
   /** §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 부모가 주입 */
   recommendation?: RecommendedAction
 }
@@ -23,6 +26,7 @@ export function CompletionState({
   stats,
   backHref,
   onRestart,
+  content,
   recommendation,
 }: CompletionStateProps) {
   const totalMinutes = Math.round(stats.durationSeconds / 60)
@@ -44,6 +48,7 @@ export function CompletionState({
     correctCount,
     accuracy: totalRated > 0 ? Math.round((correctCount / totalRated) * 100) : 0,
     durationSeconds: stats.durationSeconds,
+    content,
     metadata: {
       ratingCounts: stats.ratingCounts,
       honestyScore: stats.honestyScore,

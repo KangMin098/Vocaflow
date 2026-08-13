@@ -9,6 +9,7 @@ import { test, expect, type Page } from '@playwright/test';
 import {
   countDiagnosticSnapshotsSince,
   countScoresSince,
+  latestScoreContent,
   resetDueCards,
   userIdByEmail,
 } from './utils/db';
@@ -105,6 +106,14 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
       await page.waitForTimeout(500);
     }
     expect(count, 'scriptquiz 완주 후 scores 행이 적재되어야 함').toBeGreaterThanOrEqual(1);
+
+    // 이 경로는 **큐레이션 도서 챕터**(enroll 없음 → texts.id 없음)라 예전에는 콘텐츠를
+    // 남길 자리가 없어 "어떤 도서를 학습했나" 를 어떤 쿼리로도 답할 수 없었다.
+    // content_ref 가 그것을 받는다 — 조용히 되돌아가면 콘텐츠 진행률·리포트가 통째로 죽는다.
+    const content = await latestScoreContent(userId!, 'scriptquiz', sinceIso);
+    expect(content?.type, "큐레이션 챕터 완주는 'book' 으로 귀속되어야 함").toBe('book');
+    expect(content?.id, '학습한 도서를 식별할 수 있어야 함').toBe(DRONE_BOOK_ID);
+    expect(content?.chapter, '챕터 번호가 남아야 함').toBe(1);
   });
 
   test('Flashcard 완주 시 scores 행이 적재된다', async ({ page }) => {

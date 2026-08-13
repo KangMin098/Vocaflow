@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### scores.content_ref — "어떤 자료로 학습했나" (프레임워크 Phase 1 · 마이그레이션 1건)
+
+[VOCAB_FRAMEWORK_PROPOSAL.md](./VOCAB_FRAMEWORK_PROPOSAL.md) §06 이 **"개선 항목이 아니라 설계
+전제"** 라 못 박은 항목. `scores` 의 콘텐츠 참조가 `text_id` 하나뿐이었고 그것은 `texts` FK 라
+**사용자가 enroll 한 텍스트만** 가리킬 수 있었다. 그래서 큐레이션 도서 챕터(ScriptQuiz
+`?book=&ch=`)·공용 단어장·짧은 글로 학습한 세션은 남길 자리가 없어 전부 NULL 로 적재됐다 —
+실측 49행 전부. 콘텐츠 단위 진행률·리포트·i+1 승급이 전부 여기 걸려 있었다.
+
+- **`20260813090000_scores_content_ref`** — `content_type`(CHECK book/text/set/article/comic/mine) ·
+  `content_id` uuid · `content_chapter` + partial 인덱스 2본. **FK 없음** — type 에 따라 가리키는
+  테이블이 다른 다형 참조라 단일 FK 가 성립하지 않는다(무결성은 적재 계층이 책임).
+  jsonb 가 아니라 3컬럼인 이유: "이 도서로 학습한 모든 세션" 은 인덱스 있는 컬럼 조건이어야 한다.
+- **`lib/content/content-ref.ts` 신설** — `ContentRef` + 어댑터 4종(`fromScope`·`fromText`·
+  `fromBook`·검증). 콘텐츠 유형이 늘 때 구현하는 것이 **어댑터 1개**가 되도록 표현을 한곳에 모은다.
+  `contentRefFromText` 는 `library_book_id` 가 있으면 **도서로 접는다** — 챕터별로 text 로 남기면
+  "이 도서로 얼마나 했나" 가 챕터 수만큼 흩어진다.
+- **적재 배선** — `record-score.ts`(단일 write path) + 호출부 5곳. 아케이드 19종은
+  `use-session-recorder.ts` **한 줄**로 따라온다(스코프는 이미 거기 있었고 적재만 그걸 버리고 있었다).
+  맛보기 폴백(demo)은 자료가 아니므로 귀속시키지 않는다.
+- **ScriptQuiz 큐레이션 경로 해소** — `QuizSession.content` 신설. enroll 없이 도서로 바로 들어오는
+  경로가 `texts.id` 가 없어 기록을 못 남기던 구멍을 닫았다.
+- **실측 검증** — 큐레이션 챕터 퀴즈 완주 후:
+  `content_type='book' · content_chapter=1 · content_id → library_books.title="Tell Me, What is a Drone?"`
+  (`text_id` 는 여전히 NULL). 답할 수 없던 질문이 JOIN 한 번으로 답한다.
+- 회귀: `05-learner-loop` 에 콘텐츠 귀속 단언 3건 + 단위 테스트 13(`content-ref.test.ts`).
+  `'vocab'`·`'script'` 같은 세션 키가 흘러들어오는 경로가 실제로 있어 uuid 만 통과시킨다.
+- 형태가 어긋나면 **null 로 떨어뜨리고 적재는 계속한다** — CHECK 위반으로 세션 기록을 통째로
+  잃는 것보다 자료 미상으로 남기는 편이 낫다.
+
 ### 모듈 허브 3개 목업 제거 — 처음 온 학습자가 남의 전적을 보고 있었다
 
 `/flashcard` · `/spellforge` · `/wordblitz` 허브의 학습 데이터가 전부 상수였다.

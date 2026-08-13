@@ -10,6 +10,7 @@ import type { Database } from '@vocaflow/types'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { SpellForge } from '@/components/spellforge/SpellForge'
+import { contentRefFromScope } from '@/lib/content/content-ref'
 import { resolveSessionReturnHref } from '@/lib/layout/session-return'
 import { fetchDueSpellForgeWords } from '@/lib/spellforge/hub-words'
 import { fetchScopedSpellForgeWords } from '@/lib/spellforge/scoped-words'
@@ -66,6 +67,7 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
             textTitle={scoped.title}
             words={words}
             backHref={backHref}
+            content={contentRefFromScope({ set, text, chapter })}
           />
         </>
       )
@@ -91,7 +93,14 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
         }}
         total={words.length}
       />
-      <SpellForge textId="all" textTitle="내 단어장" words={words} backHref={backHref} />
+      {/* 스코프 없는 진입 = 내 복습 큐 — 가리킬 자료가 없어 'mine' */}
+      <SpellForge
+        textId="all"
+        textTitle="내 단어장"
+        words={words}
+        backHref={backHref}
+        content={{ kind: 'mine' }}
+      />
     </>
   )
 }

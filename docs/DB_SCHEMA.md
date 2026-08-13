@@ -195,7 +195,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `texts` | 238 | 256 kB | 사용자 스크립트 · `library_book_id` (curated) OR `user_book_group_id` (v06.34 신규) 그룹 식별 · CHECK 동시 사용 차단 |
 | `vocabularies` | 5,896 | 2.4 MB | 사용자 단어장 (FSRS 6컬럼) · UNIQUE(user_id, word) · `lemma` REFERENCES `shared_dictionary(word)` |
 | `learning_records` | 0 | 40 kB | 모든 모듈 공통 — rating SMALLINT 1-4 (FSRS) · is_correct · metadata JSONB |
-| `scores` | 0 | 32 kB | 게임 결과 (Flashcard·SpellForge·WordBlitz·PairFlip·ScriptQuiz·Dictation) · metadata JSONB |
+| `scores` | 0 | 32 kB | 게임 결과 (Flashcard·SpellForge·WordBlitz·PairFlip·ScriptQuiz·Dictation) · metadata JSONB · **v07 `content_ref` 3컬럼**(`content_type` CHECK book/text/set/article/comic/mine · `content_id` uuid 다형(FK 없음) · `content_chapter`) — `text_id`(texts FK)로는 큐레이션 도서·단어장을 가리킬 수 없어 49행 전부 NULL 이던 것을 해소. idx 2본(partial) |
 | `quiz_questions` | 5 | 24 kB | ScriptQuiz **개인** 문제 (per user+text · type · question/`question_ko`(A3.4b) · options JSONB(textKo) · correct_index · source_snippet) — A3.4 첫 콘텐츠 5문제(Ammachi Ch1) |
 | `library_chapter_quiz` | 360 | — | **v06.114** ScriptQuiz **큐레이션 공유** 챕터 퀴즈 (키 library_book_id+chapter_idx+q_order UNIQUE · type · question/question_ko · options JSONB(textKo) · correct_index · source_snippet · book_v_level 스냅샷) · RLS admin-only, 학습자는 `select_book_chapter_quiz` RPC read · 6권 360문항(live-verified) |
 | `book_quiz_jobs` | 0 | — | **v06.114** 퀴즈 생성 작업 큐 (book_id UNIQUE · status · book_v_level/target_per_chapter 스냅샷 · chapters_total/done · questions_created) · RLS admin-only · `enqueue_quiz_jobs` 적재 → Claude Code 드레인 갱신 |
@@ -459,6 +459,7 @@ CREATE POLICY "own data" ON {table}
 ## 최근 마이그레이션 (20개)
 
 ```
+20260813090000  scores_content_ref                         ← v07 "어떤 자료로 학습했나" (프레임워크 Phase 1)
 20260812150000  dictation_persistence                      ← v07 받아쓰기 영속화 (2 table + 3 RPC)
 20260608222931  v_text_content_user_book_group_v2          ← v06.34
 20260608222229  texts_user_book_group_id

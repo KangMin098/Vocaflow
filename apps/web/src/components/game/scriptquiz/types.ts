@@ -1,5 +1,7 @@
 // apps/web/src/components/game/scriptquiz/types.ts
 
+import type { ContentRef } from '@/lib/content/content-ref'
+
 export type QuizScreen = 'start' | 'question' | 'feedback' | 'result'
 export type AnswerState = 'idle' | 'selected' | 'answered'
 
@@ -27,6 +29,12 @@ export interface QuizQuestion {
 export interface QuizSession {
   textTitle: string
   textChapter?: string
+  /**
+   * 무엇으로 푸는 퀴즈인가. 큐레이션 챕터 경로는 enroll 없이 도서로 바로 들어와
+   * `texts.id` 가 없다 — 그래서 완주 기록이 "어떤 도서였는지 모르는 행"으로 남았다.
+   * 세션이 이 값을 들고 다녀야 완주 지점에서 귀속시킬 수 있다.
+   */
+  content?: ContentRef
   questions: QuizQuestion[]
 }
 

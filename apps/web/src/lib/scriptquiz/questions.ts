@@ -11,6 +11,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
+import { contentRefFromBook, contentRefFromText } from '@/lib/content/content-ref'
 import type {
   ChapterQuizCatalogBook,
   QuizOption,
@@ -93,6 +94,8 @@ export async function fetchChapterQuizSession(
   return {
     textTitle: bookTitle,
     textChapter: chapterLabel,
+    // 큐레이션 챕터는 texts 행이 없다 — 도서 자체로 귀속시켜야 챕터를 가로질러 합쳐진다.
+    content: contentRefFromBook(libraryBookId, chapterIdx),
     questions: rows.map(rowToQuestion),
   }
 }
@@ -161,7 +164,13 @@ export async function fetchQuizSession(
       .eq('user_id', userId)
       .eq('text_id', textId)
       .order('created_at', { ascending: true }),
-    client.from('texts').select('title').eq('id', textId).maybeSingle(),
+    // library_book_id/chapter_idx 도 읽는다 — enroll 한 도서 챕터면 텍스트가 아니라
+    // **도서로** 귀속시켜야 챕터를 가로질러 "이 도서로 얼마나 했나" 가 합쳐진다.
+    client
+      .from('texts')
+      .select('id, title, library_book_id, chapter_idx')
+      .eq('id', textId)
+      .maybeSingle(),
   ])
   if (qErr) throw qErr
 
@@ -169,8 +178,16 @@ export async function fetchQuizSession(
   const rows = (qRows ?? []) as unknown as QuizQuestionRow[]
   if (rows.length === 0) return null
 
+  const text = textRow as {
+    id: string
+    title: string | null
+    library_book_id: string | null
+    chapter_idx: number | null
+  } | null
+
   return {
-    textTitle: (textRow?.title as string | undefined) ?? '스크립트',
+    textTitle: text?.title ?? '스크립트',
+    content: text ? contentRefFromText(text) : { kind: 'text', id: textId },
     questions: rows.map(rowToQuestion),
   }
 }
