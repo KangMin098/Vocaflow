@@ -94,6 +94,63 @@ export function isUsableSentence(s: string): boolean {
   return true
 }
 
+// ── 청취 폭 기반 난이도 적응 (i+1) ────────────────────────────────
+//
+// 문장 길이가 곧 받아쓰기의 난이도다. 그런데 지금까지는 4~34단어 전 구간을 누구에게나
+// 똑같이 내보냈다 — 청취 폭이 12단어인 학습자에게 30단어 문장은 `tail-drop`(뒷부분 통째
+// 누락)만 반복시키고, 폭이 25단어인 학습자에게 6단어 문장은 훈련이 되지 않는다.
+//
+// 그래서 **고르는 단계**에만 적응을 넣는다. 순서는 절대 건드리지 않는다 —
+// 도서 챕터를 길이순으로 재정렬하면 이야기가 무너진다(§학습원칙5 맥락 유지).
+// "이 챕터에서 지금 내게 맞는 10문장"을 고르되, 제시는 등장 순서 그대로.
+
+export interface SpanBand {
+  lo: number
+  hi: number
+}
+
+/**
+ * 청취 폭 → 목표 문장 길이대.
+ * 상한은 폭의 1.5배(Krashen i+1 — 지금 잡히는 것보다 조금 긴 것),
+ * 하한은 0.6배(너무 쉬우면 인출이 일어나지 않는다).
+ * 폭이 없으면(신규) 짧은 쪽부터 — 첫 경험이 좌절이면 두 번째가 없다.
+ */
+export function spanBand(span: number | null | undefined): SpanBand {
+  if (!span || span <= 0) return { lo: MIN_WORDS, hi: 14 }
+  const hi = Math.min(MAX_WORDS, Math.max(10, Math.round(span * 1.5)))
+  const lo = Math.max(MIN_WORDS, Math.min(Math.round(span * 0.6), hi - 4))
+  return { lo, hi }
+}
+
+/**
+ * 목표 길이대에 드는 문장을 우선 고른다. 부족분은 길이대에서 가까운 순으로 채운다.
+ * **반환은 원본 순서** — 고르기만 하고 순서는 보존한다.
+ */
+export function pickBySpan<T extends { text: string }>(
+  items: T[],
+  count: number,
+  band: SpanBand,
+): T[] {
+  if (count >= items.length) return items
+  const indexed = items.map((item, idx) => ({ item, idx, words: countWords(item.text) }))
+  const inBand = indexed.filter((e) => e.words >= band.lo && e.words <= band.hi)
+  const chosen = inBand.slice(0, count)
+  if (chosen.length < count) {
+    // 길이대 밖에서 가장 덜 벗어난 것부터 (원본 순서는 마지막에 복원되므로 정렬 안전)
+    const rest = indexed
+      .filter((e) => !(e.words >= band.lo && e.words <= band.hi))
+      .sort((a, b) => distanceTo(a.words, band) - distanceTo(b.words, band))
+    chosen.push(...rest.slice(0, count - chosen.length))
+  }
+  return chosen.sort((a, b) => a.idx - b.idx).map((e) => e.item)
+}
+
+function distanceTo(words: number, band: SpanBand): number {
+  if (words < band.lo) return band.lo - words
+  if (words > band.hi) return words - band.hi
+  return 0
+}
+
 // ── 타깃 단어 매칭 ────────────────────────────────────────────────
 
 export interface TargetLemma {

@@ -26,7 +26,14 @@ import {
 
 import { createClient } from '@/lib/supabase/client'
 import { getLevelByCode } from '@/lib/dictation/cefr'
-import { countWords, resolveDictationSource, type DictationSource } from '@/lib/dictation/source'
+import { fetchDictationOverview } from '@/lib/dictation/persist'
+import {
+  countWords,
+  pickBySpan,
+  spanBand,
+  resolveDictationSource,
+  type DictationSource,
+} from '@/lib/dictation/source'
 import { createDictationSession } from '@/hooks/dictation/useDictationSession'
 import type {
   CEFRCode,
@@ -63,6 +70,8 @@ export function DictationSetupClient() {
   const [source, setSource] = useState<DictationSource | null>(null)
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'missing'>('loading')
   const [starting, setStarting] = useState(false)
+  /** 청취 폭 — 문항을 고를 길이대의 기준 (null = 아직 기록 없음) */
+  const [span, setSpan] = useState<number | null>(null)
 
   const [chunkSize, setChunkSize] = useState<ChunkSize>(1)
   const [count, setCount] = useState<number | 'all'>(10)
@@ -85,14 +94,18 @@ export function DictationSetupClient() {
       const {
         data: { user },
       } = await client.auth.getUser()
-      const resolved = await resolveDictationSource(client, {
-        text: textId || undefined,
-        set: setId || undefined,
-        custom,
-        chapter,
-        userId: user?.id ?? null,
-      })
+      const [resolved, overview] = await Promise.all([
+        resolveDictationSource(client, {
+          text: textId || undefined,
+          set: setId || undefined,
+          custom,
+          chapter,
+          userId: user?.id ?? null,
+        }),
+        fetchDictationOverview(client),
+      ])
       if (!mounted) return
+      setSpan(overview.span > 0 ? overview.span : null)
       if (!resolved) {
         setLoadState('missing')
         return
@@ -114,24 +127,38 @@ export function DictationSetupClient() {
     }
   }, [textId, setId, custom, chapter, router])
 
+  // 미리보기는 **실제로 시작될 문항**을 그대로 계산한다 —
+  // 예상치와 실제가 다르면 그 순간 화면이 거짓말이 된다(앞에서 N개 자르던 시절의 함정).
   const preview = useMemo(() => {
-    if (!source) return { items: 0, minutes: 0, targetWords: 0 }
-    const chunks = Math.ceil(source.sentences.length / chunkSize)
-    const items = count === 'all' ? chunks : Math.min(count, chunks)
-    // 발화 150wpm + 입력·채점 시간을 문항당 약 25초로 잡는다 (실측 근사)
-    const avgWords =
-      source.sentences.reduce((sum, s) => sum + countWords(s.text), 0) /
-      Math.max(source.sentences.length, 1)
-    const perItemSec = (avgWords * chunkSize) / 150 * 60 * autoRepeat + 25
-    const targetWords = new Set(
-      source.sentences.slice(0, items * chunkSize).flatMap((s) => s.targetWords),
-    ).size
-    return {
-      items,
-      minutes: Math.max(1, Math.round((items * perItemSec) / 60)),
-      targetWords,
+    if (!source)
+      return { items: 0, available: 0, minutes: 0, targetWords: 0, band: null as null | string }
+    const band = spanBand(span)
+    const totalChunks = Math.ceil(source.sentences.length / chunkSize)
+    const wanted = count === 'all' ? totalChunks : Math.min(count, totalChunks)
+
+    // 실제 문항 조립과 같은 규칙 — 묶은 뒤 청취 폭으로 고른다
+    const merged: Array<{ text: string; targetWords: string[] }> = []
+    for (let i = 0; i < source.sentences.length; i += chunkSize) {
+      const group = source.sentences.slice(i, i + chunkSize)
+      merged.push({
+        text: group.map((g) => g.text).join(' '),
+        targetWords: [...new Set(group.flatMap((g) => g.targetWords))],
+      })
     }
-  }, [source, chunkSize, count, autoRepeat])
+    const picked =
+      source.kind === 'daily' ? merged.slice(0, wanted) : pickBySpan(merged, wanted, band)
+
+    const words = picked.reduce((sum, p) => sum + countWords(p.text), 0)
+    // 발화 150wpm + 입력·채점 시간을 문항당 약 25초로 잡는다 (실측 근사)
+    const seconds = (words / 150) * 60 * autoRepeat + picked.length * 25
+    return {
+      items: picked.length,
+      available: merged.length,
+      minutes: Math.max(1, Math.round(seconds / 60)),
+      targetWords: new Set(picked.flatMap((p) => p.targetWords)).size,
+      band: span ? `${band.lo}~${band.hi}단어` : null,
+    }
+  }, [source, chunkSize, count, autoRepeat, span])
 
   const start = useCallback(async () => {
     if (!source || starting) return
@@ -147,13 +174,13 @@ export function DictationSetupClient() {
       hintsAllowed,
       voice: '',
     }
-    const session = await createDictationSession(source, config)
+    const session = await createDictationSession(source, config, span)
     if (!session) {
       setStarting(false)
       return
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
-  }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, router])
+  }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, span, router])
 
   if (loadState === 'loading') {
     return (
@@ -221,7 +248,12 @@ export function DictationSetupClient() {
 
       {/* ─── 미리보기 — 무엇을, 얼마나, 무슨 단어를 ─── */}
       <section className="grid grid-cols-3 gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
-        <PreviewStat value={preview.items} unit="문항" label={source.subtitle.split(' · ')[0]} />
+        {/* 고른 수만 보여주면 "얼마 중에 얼마인지"를 알 수 없다 — 분모를 함께 준다 */}
+        <PreviewStat
+          value={preview.items}
+          unit="문항"
+          label={`전체 ${preview.available}개 중`}
+        />
         <PreviewStat value={preview.minutes} unit="분" label="예상 소요" />
         <PreviewStat
           value={preview.targetWords}
@@ -235,6 +267,13 @@ export function DictationSetupClient() {
         <p className="rounded-[var(--r-md)] bg-[var(--p-light)] px-4 py-2.5 font-body text-[12px] leading-relaxed text-[var(--on-p-tint)]">
           이 세션에서 받아쓰는 문장에 내 단어 {preview.targetWords}개가 들어 있어요. 맞히면 그
           단어의 복습 간격이 늘어납니다.
+        </p>
+      )}
+
+      {/* 문항을 왜 그렇게 골랐는지 밝힌다 — 보이지 않는 적응은 신뢰를 만들지 못한다 */}
+      {preview.band && source.kind !== 'daily' && count !== 'all' && (
+        <p className="px-1 font-body text-[11px] leading-relaxed text-[var(--t2)]">
+          지금 청취 폭이 {span}단어라 {preview.band} 문장을 우선 골랐어요. 순서는 자료 그대로예요.
         </p>
       )}
 

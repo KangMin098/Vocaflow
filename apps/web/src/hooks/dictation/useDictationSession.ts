@@ -24,7 +24,13 @@ import {
 import { scoreSentence } from '@/lib/dictation/scoring'
 import { getSession, saveSession } from '@/lib/dictation/storage'
 import { evaluateTargets, reduceTargetRatings } from '@/lib/dictation/targets'
-import { countWords, type DictationSentence, type DictationSource } from '@/lib/dictation/source'
+import {
+  countWords,
+  pickBySpan,
+  spanBand,
+  type DictationSentence,
+  type DictationSource,
+} from '@/lib/dictation/source'
 import type {
   ChunkSize,
   DictationConfig,
@@ -62,7 +68,12 @@ function chunkSentences(sentences: DictationSentence[], size: ChunkSize): Dictat
   return out
 }
 
-function buildItems(source: DictationSource, config: DictationConfig): DictationItem[] {
+function buildItems(
+  source: DictationSource,
+  config: DictationConfig,
+  /** 학습자의 청취 폭 — 문항을 고를 때 길이대를 맞춘다. 없으면 짧은 쪽부터. */
+  span?: number | null,
+): DictationItem[] {
   // 묶고 나서 섞는다 — 먼저 섞으면 이어지지 않는 문장이 한 문항에 붙는다.
   let chunks = chunkSentences(source.sentences, config.chunkSize)
   if (config.order === 'random') {
@@ -72,7 +83,15 @@ function buildItems(source: DictationSource, config: DictationConfig): Dictation
       ;[chunks[i], chunks[j]] = [chunks[j], chunks[i]]
     }
   }
-  if (config.count !== 'all') chunks = chunks.slice(0, config.count)
+  if (config.count !== 'all') {
+    // 앞에서 N개 자르지 않는다 — 챕터 첫 부분만 반복되고 길이도 학습자와 무관해진다.
+    // 청취 폭에 맞는 문항을 고르되 **등장 순서는 그대로**(pickBySpan 이 보존).
+    // 오늘의 받아쓰기는 이미 이유별로 골라 온 목록이라 그대로 앞에서 자른다.
+    chunks =
+      source.kind === 'daily'
+        ? chunks.slice(0, config.count)
+        : pickBySpan(chunks, config.count, spanBand(span))
+  }
 
   return chunks.map((c, idx) => ({
     index: idx,
@@ -96,8 +115,10 @@ function buildItems(source: DictationSource, config: DictationConfig): Dictation
 export async function createDictationSession(
   source: DictationSource,
   config: DictationConfig,
+  /** 학습자 청취 폭(`dictation_overview().span`). 문항 길이 적응에 쓴다. */
+  span?: number | null,
 ): Promise<DictationSession | null> {
-  const items = buildItems(source, config)
+  const items = buildItems(source, config, span)
   if (items.length === 0) return null
 
   const client = createClient()
