@@ -136,9 +136,11 @@ function ActivityChip({ item }: { item: ActivityItem }) {
           className="h-1.5 w-1.5 shrink-0 rounded-full"
           style={{ backgroundColor: color }}
         />
-        <span className="font-display text-[11px] font-[700]" style={{ color }}>
-          {short}
-        </span>
+        {/* 모듈 구분은 왼쪽 점이 맡는다 — 라벨까지 원색으로 칠하면 11px 글자가 AA(4.5)를 못 넘는다.
+            (2026-08-13 axe 실측: dictation #06B6D4 on --bg2 = 2.13:1. 받아쓰기가 기록을 남기기
+            시작하면서 처음 렌더돼 드러났다. 다른 모듈 원색도 같은 구조라 잠재 위반이었다.)
+            §"색상만으로 정보 전달 금지" 관점에서도 텍스트 라벨이 비색 채널이므로 이쪽이 옳다. */}
+        <span className="font-display text-[11px] font-[700] text-[var(--t1)]">{short}</span>
         {body && (
           <span className="font-display text-[11px] font-[600] text-[var(--t1)]">{body}</span>
         )}
