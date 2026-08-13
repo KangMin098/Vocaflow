@@ -187,7 +187,7 @@ export async function fetchQuizSession(
 
   return {
     textTitle: text?.title ?? '스크립트',
-    content: text ? contentRefFromText(text) : { kind: 'text', id: textId },
+    content: text ? contentRefFromText(text) : { type: 'text', id: textId },
     questions: rows.map(rowToQuestion),
   }
 }

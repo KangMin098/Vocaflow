@@ -13,6 +13,7 @@ import { STORAGE_KEYS } from '@/components/pairflip/constants'
 import type { PairFlipMockWord } from '@/components/pairflip/mock-data'
 import { PairFlipGameScreen } from '@/components/pairflip/PairFlipGameScreen'
 import type { PairFlipConfig } from '@/components/pairflip/types'
+import { contentRefFromScope, type ContentRef } from '@/lib/content/content-ref'
 import { fetchDuePairs, PAIRFLIP_MAX_PAIRS } from '@/lib/pairflip/due-pairs'
 import { fetchScopedPairs } from '@/lib/pairflip/scoped-pairs'
 import { createClient } from '@/lib/supabase/client'
@@ -25,6 +26,9 @@ export default function PairFlipPlayPage() {
   const [config, setConfig] = useState<PairFlipConfig | null>(null)
   // undefined = 로딩 중, PairFlipMockWord[] = 로드 완료(빈/부족이면 hook 이 mock 폴백)
   const [pairs, setPairs] = useState<PairFlipMockWord[] | undefined>(undefined)
+  // 무엇으로 학습했나 — scores.content_ref 로 적재된다. 스코프는 이미 이 라우트가
+  // 읽고 있었지만 점수 적재에는 전달되지 않아 PairFlip 기록만 자료 미상으로 남았다.
+  const [content, setContent] = useState<ContentRef | null>(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -33,6 +37,8 @@ export default function PairFlipPlayPage() {
     const chapterNum = Number(params.get('chapter'))
     const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
     const scoped = !!(set || text)
+    // 스코프가 없으면 어댑터가 '내 복습 큐' 를 돌려준다 — 필드 이름을 여기서 쓰지 않는다.
+    setContent(contentRefFromScope({ set, text, chapter }))
 
     // 계획 launch — 그 자료 단어로(사전 config 불요, default 사용)
     if (scoped) {
@@ -93,5 +99,5 @@ export default function PairFlipPlayPage() {
     )
   }
 
-  return <PairFlipGameScreen config={config} pairs={pairs} />
+  return <PairFlipGameScreen config={config} pairs={pairs} content={content ?? undefined} />
 }

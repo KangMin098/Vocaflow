@@ -136,9 +136,9 @@ function contentRefFromDictationSource(source: DictationSource): ContentRef {
   if (source.kind === 'book' && source.libraryBookId) {
     return contentRefFromBook(source.libraryBookId, source.chapterIdx ?? null)
   }
-  if (source.kind === 'text' && source.textId) return { kind: 'text', id: source.textId }
-  if (source.kind === 'set' && source.sharedSetId) return { kind: 'set', id: source.sharedSetId }
-  return { kind: 'mine' }
+  if (source.kind === 'text' && source.textId) return { type: 'text', id: source.textId }
+  if (source.kind === 'set' && source.sharedSetId) return { type: 'set', id: source.sharedSetId }
+  return { type: 'mine' }
 }
 
 // ── ③ 완주 ────────────────────────────────────────────────────────

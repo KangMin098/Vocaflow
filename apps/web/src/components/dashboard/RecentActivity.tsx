@@ -13,12 +13,17 @@
 
 import { Activity } from 'lucide-react'
 
+import { activityLabel } from '@/lib/framework/registry'
 import { useHubData, type ModuleId } from '@/hooks/useHubData'
 
 // ════════════════════════════════════════════════════════════
 // 모듈별 시각 매핑 (FlowNav 단계 accent 정합)
 // ════════════════════════════════════════════════════════════
-const MODULE_COLOR: Partial<Record<ModuleId, string>> = {
+// ⚠️ 키는 `ModuleId` 가 아니라 **런타임 module 문자열**이다.
+// `packages/types` 의 module_id 는 25종인데 DB enum 은 28종이라(2026-08-13 실측) 타입이
+// 실제 값을 다 담지 못한다 — 실데이터가 쓰는 `'pirate-quest'`(하이픈)는 타입에 아예 없다.
+// 타입 재생성(`pnpm db:types`)이 근본 해결이고, 그 전까지는 문자열 키로 정직하게 둔다.
+const MODULE_COLOR: Record<string, string> = {
   textviewer: '#8B5CF6', // purple (스크립트)
   workspace: '#8B5CF6',
   wordvault: '#6366F1', // indigo (단어)
@@ -28,9 +33,14 @@ const MODULE_COLOR: Partial<Record<ModuleId, string>> = {
   pairflip: '#EC4899',
   scriptquiz: 'var(--memory-shaky)', // amber (정복)
   dictation: '#06B6D4', // cyan (완성)
-  pirate_quest: 'var(--memory-stable)',
+  // 실데이터가 쓰는 라벨은 하이픈 쪽이다 — 언더스코어는 enum 에만 있고 전 테이블 0행.
+  'pirate-quest': 'var(--memory-stable)',
 }
 
+// 여기에 없는 모듈은 **레지스트리에서 이름을 가져온다**(activityLabel).
+// 표를 다시 늘리지 않는 이유: 이 표에 아케이드 19종이 없어서 학습자에게 raw 슬러그
+// (`pirate-quest`·`cascade`)가 그대로 노출되고 있었다(2026-08-13 실측). 활동 이름의
+// 출처는 레지스트리 하나여야 한다 — 아래 표는 **모듈에만** 붙는 짧은 별칭이다.
 const MODULE_SHORT: Partial<Record<ModuleId, string>> = {
   textviewer: '스크립트',
   workspace: '워크',
@@ -41,7 +51,6 @@ const MODULE_SHORT: Partial<Record<ModuleId, string>> = {
   pairflip: '페어',
   scriptquiz: '퀴즈',
   dictation: '딕테',
-  pirate_quest: '해적',
 }
 
 // ════════════════════════════════════════════════════════════
@@ -110,7 +119,9 @@ type ActivityItem = NonNullable<
 
 function ActivityChip({ item }: { item: ActivityItem }) {
   const color = MODULE_COLOR[item.module] ?? 'var(--t3)'
-  const short = MODULE_SHORT[item.module] ?? item.module
+  // 모듈 별칭 → 레지스트리 이름 → (그래도 없으면) id. 예전에는 마지막 단계가 곧바로
+  // 학습자 화면에 슬러그를 뱉었다.
+  const short = MODULE_SHORT[item.module] ?? activityLabel(item.module)
 
   // 본문 라벨 — 게임 점수 우선, 학습 기록은 ✓/✗
   let body: string

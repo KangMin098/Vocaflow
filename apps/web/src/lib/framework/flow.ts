@@ -262,12 +262,11 @@ export const STRAND_TARGET: Record<Strand, number> = {
 // 노출 횟수 하한을 인공 반복이 아니라 읽기로 채울 수 있다 —
 // 우리 library_books 챕터 구조 · user_book_group_id 와 이미 정합한다.
 
-export interface ContentRef {
-  type: 'book' | 'text' | 'set' | 'article' | 'comic' | 'mine'
-  id: string
-  /** 도서·다권 텍스트의 챕터 */
-  chapter?: number
-}
+// ContentRef 는 여기서 선언하지 않는다 — 이 파일이 먼저 선언했지만 `id` 를 필수로 두어
+// `mine`(가리킬 자료가 없는 내 복습 큐)을 표현할 수 없었고, 실제로 DB 에 적재되는 정의는
+// lib/content/content-ref.ts 다. 같은 개념이 두 곳에 있으면 그게 곧 drift 라
+// **적재되는 쪽을 단일 정의로 삼고** 여기서는 다시 내보내기만 한다.
+export type { ContentRef } from '@/lib/content/content-ref'
 
 /**
  * 다음 읽을 것을 고르는 신호 — LingQ 의 방식을 차용한다:

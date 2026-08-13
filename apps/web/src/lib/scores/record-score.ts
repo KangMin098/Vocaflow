@@ -85,7 +85,7 @@ export async function recordGameScore(input: GameScoreInput): Promise<void> {
       text_id: input.textId ?? null,
       // content_ref 3컬럼 — 형태가 어긋나면 null 로 떨어뜨린다(CHECK 위반으로 세션 기록을
       // 통째로 잃는 것보다, 자료 미상으로 남기는 편이 낫다).
-      ...toScoreColumns(input.content ?? (input.textId ? { kind: 'text', id: input.textId } : null)),
+      ...toScoreColumns(input.content ?? (input.textId ? { type: 'text', id: input.textId } : null)),
       metadata: input.metadata ?? {},
     }
     // module enum 은 DB module_id 와 정합(생성 타입 stale 가능성 대비 unknown 경유).

@@ -272,6 +272,20 @@ export function activityById(id: string): Activity | undefined {
   return activities().find((a) => a.id === id)
 }
 
+/**
+ * 좁은 자리(칩·배지)용 짧은 이름. 없으면 정식명, 그것도 없으면 id 그대로.
+ *
+ * 왜 필요한가: 화면들이 각자 10줄짜리 라벨 표를 들고 있었고 아케이드 19종이 거기 없어서
+ * **학습자에게 raw 슬러그(`pirate-quest`·`cascade`)가 그대로 노출**됐다(2026-08-13 실측:
+ * 대시보드 최근 활동 칩). 라벨 표를 또 만드는 대신 레지스트리에서 파생시킨다 —
+ * 이것이 "9곳을 하나로 접는다" 의 첫 소비자다.
+ */
+export function activityLabel(id: string): string {
+  const a = activityById(id)
+  if (!a) return id
+  return a.alias ?? a.name
+}
+
 /** 이 면을 훈련하는 활동들 — 처방이 "무엇으로 이 면을 채울까" 를 고를 때 쓴다. */
 export function activitiesForFacet(facet: FacetId): Activity[] {
   return activities().filter((a) => a.facets.includes(facet))

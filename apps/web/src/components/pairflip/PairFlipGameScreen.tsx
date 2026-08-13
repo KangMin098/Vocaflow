@@ -9,9 +9,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { useSessionProgress } from '@/components/layout/SessionFrame'
 import { usePairFlipSession } from '@/hooks/usePairFlipSession'
+import type { ContentRef } from '@/lib/content/content-ref'
+import { recordGameScore } from '@/lib/scores/record-score'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { pushPendingResult } from '@/lib/srs/session-storage'
-import { createClient } from '@/lib/supabase/client'
 
 import type { PairFlipMockWord } from './mock-data'
 import { PAIRFLIP_LEVELS, STORAGE_KEYS } from './constants'
@@ -29,9 +30,14 @@ interface GameScreenProps {
   config: PairFlipConfig
   /** 실 단어 페어 (SRS 큐). 부족하면 hook 이 mock 폴백 — 그 경우 영속화 skip. */
   pairs?: PairFlipMockWord[]
+  /**
+   * 무엇으로 학습했나 — `?set=`/`?text=` 계획 launch 면 그 자료, 없으면 내 복습 큐.
+   * mock 폴백 판에는 실리지 않는다(아래 onComplete 참조).
+   */
+  content?: ContentRef
 }
 
-export function PairFlipGameScreen({ config, pairs }: GameScreenProps) {
+export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) {
   const router = useRouter()
   const [feedback, setFeedback] = useState<{ type: 'success' | 'fail' | null; combo: number }>({
     type: null,
@@ -58,37 +64,34 @@ export function PairFlipGameScreen({ config, pairs }: GameScreenProps) {
     }
 
     // 게임 점수 기록 (scores) — 실/mock 페어 무관 게임 성과. fire-and-forget(흐름 비차단).
-    void (async () => {
-      try {
-        const client = createClient()
-        const {
-          data: { user },
-        } = await client.auth.getUser()
-        if (!user) return
-        await client.from('scores').insert({
-          user_id: user.id,
-          module: 'pairflip',
-          score: result.score,
-          total_questions: result.totalPairs,
-          correct_count: result.matchedPairs,
-          accuracy:
-            result.totalPairs > 0
-              ? Math.round((result.matchedPairs / result.totalPairs) * 100)
-              : 0,
-          duration_seconds: Math.round(result.durationMs / 1000),
-          metadata: {
-            maxCombo: result.maxCombo,
-            hintsUsed: result.hintsUsed,
-            totalAttempts: result.totalAttempts,
-            level: result.level,
-            mode: result.mode,
-            phase: result.phase,
-          },
-        })
-      } catch {
-        /* 점수 저장 실패는 게임 흐름을 막지 않음 */
-      }
-    })()
+    //
+    // 예전엔 여기서 supabase 로 **직접 INSERT** 했다. 그래서 recordGameScore 가 중앙에서 붙여주는
+    // content_ref 3컬럼을 못 받았고, PairFlip 세션은 "어떤 자료로 했는지 모르는 기록" 으로만
+    // 남았다(실측: pairflip 2행 모두 content_type NULL). 다른 6개 경로가 다 중앙 헬퍼를
+    // 쓰는데 이 하나만 우회하고 있었다 — 새 컬럼이 생길 때 조용히 빠지는 건 언제나 이 경로다.
+    void recordGameScore({
+      module: 'pairflip',
+      score: result.score,
+      totalQuestions: result.totalPairs,
+      correctCount: result.matchedPairs,
+      accuracy:
+        result.totalPairs > 0 ? Math.round((result.matchedPairs / result.totalPairs) * 100) : 0,
+      durationSeconds: Math.round(result.durationMs / 1000),
+      // mock 폴백이면 귀속시키지 않는다 — 그 판은 그 자료의 단어로 한 것이 아니다.
+      // (아케이드가 demo 스코프를 귀속에서 빼는 것과 같은 규칙. 귀속시키면 "이 도서로
+      //  학습했다" 는 집계가 실제로 만난 적 없는 단어까지 세게 된다.)
+      ...(usingReal && content ? { content } : {}),
+      metadata: {
+        maxCombo: result.maxCombo,
+        hintsUsed: result.hintsUsed,
+        totalAttempts: result.totalAttempts,
+        level: result.level,
+        mode: result.mode,
+        phase: result.phase,
+        // 귀속을 뺀 이유를 남긴다 — 나중에 "왜 이 행만 자료 미상인가" 를 답할 수 있게.
+        mockFallback: !usingReal,
+      },
+    })
 
     try {
       sessionStorage.setItem(STORAGE_KEYS.result, JSON.stringify(result))

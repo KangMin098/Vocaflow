@@ -29,6 +29,12 @@
 - **적재 배선** — `record-score.ts`(단일 write path) + 호출부 5곳. 아케이드 19종은
   `use-session-recorder.ts` **한 줄**로 따라온다(스코프는 이미 거기 있었고 적재만 그걸 버리고 있었다).
   맛보기 폴백(demo)은 자료가 아니므로 귀속시키지 않는다.
+- **PairFlip 누락 보완(후속)** — 위에서 "단일 write path" 라 했지만 PairFlip 은 `scores` 를
+  **직접 INSERT** 해 그 경로를 우회하고 있었다(실측 2행 모두 `content_type` NULL). 새 컬럼이
+  생길 때 조용히 빠지는 것은 언제나 이런 우회 경로다 → `recordGameScore` 로 돌렸다.
+  mock 페어 폴백 판은 **귀속시키지 않고** `metadata.mockFallback` 에 이유를 남긴다 — 그 판의
+  단어는 그 자료의 단어가 아니라서, 귀속시키면 "이 도서로 학습했다" 집계가 만난 적 없는
+  단어까지 세게 된다(아케이드가 demo 를 빼는 것과 같은 규칙).
 - **ScriptQuiz 큐레이션 경로 해소** — `QuizSession.content` 신설. enroll 없이 도서로 바로 들어오는
   경로가 `texts.id` 가 없어 기록을 못 남기던 구멍을 닫았다.
 - **실측 검증** — 큐레이션 챕터 퀴즈 완주 후:

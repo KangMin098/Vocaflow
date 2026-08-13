@@ -25,7 +25,6 @@ import {
   SURFACE_ORDER,
   nextSpine,
   stageOf,
-  type FacetId,
 } from '../axes'
 import {
   ACCURACY_HOLD_BELOW,

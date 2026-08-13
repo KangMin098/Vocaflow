@@ -18,7 +18,7 @@
 export type ContentKind = 'book' | 'text' | 'set' | 'article' | 'comic' | 'mine'
 
 export interface ContentRef {
-  kind: ContentKind
+  type: ContentKind
   /** 콘텐츠 uuid. `mine`(내 복습 단어 큐)은 가리킬 자료가 없어 undefined. */
   id?: string
   /** 도서 챕터 번호 — `book` 에서만 의미를 갖는다. */
@@ -30,7 +30,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 /** DB CHECK 와 같은 규칙 — 적재 전에 여기서 걸러 제약 위반으로 세션이 죽지 않게 한다. */
 export function isValidContentRef(ref: ContentRef | null | undefined): ref is ContentRef {
   if (!ref) return false
-  if (ref.kind === 'mine') return ref.id === undefined
+  if (ref.type === 'mine') return ref.id === undefined
   return typeof ref.id === 'string' && UUID_RE.test(ref.id)
 }
 
@@ -44,10 +44,10 @@ export function toScoreColumns(ref: ContentRef | null | undefined): {
     return { content_type: null, content_id: null, content_chapter: null }
   }
   return {
-    content_type: ref.kind,
+    content_type: ref.type,
     content_id: ref.id ?? null,
     // 챕터는 book 에서만 의미가 있다 — 다른 유형에 실려 오면 버린다(잘못된 필터의 원인이 된다).
-    content_chapter: ref.kind === 'book' && typeof ref.chapter === 'number' ? ref.chapter : null,
+    content_chapter: ref.type === 'book' && typeof ref.chapter === 'number' ? ref.chapter : null,
   }
 }
 
@@ -66,9 +66,9 @@ export function contentRefFromScope(scope: {
   text?: string
   chapter?: number | null
 }): ContentRef {
-  if (scope.set) return { kind: 'set', id: scope.set }
-  if (scope.text) return { kind: 'text', id: scope.text }
-  return { kind: 'mine' }
+  if (scope.set) return { type: 'set', id: scope.set }
+  if (scope.text) return { type: 'text', id: scope.text }
+  return { type: 'mine' }
 }
 
 /**
@@ -83,17 +83,17 @@ export function contentRefFromText(row: {
 }): ContentRef {
   if (row.library_book_id) {
     return {
-      kind: 'book',
+      type: 'book',
       id: row.library_book_id,
       ...(typeof row.chapter_idx === 'number' ? { chapter: row.chapter_idx } : {}),
     }
   }
-  return { kind: 'text', id: row.id }
+  return { type: 'text', id: row.id }
 }
 
 /** 도서 + 챕터 (큐레이션 경로 — enroll 없이 바로 학습하는 ScriptQuiz 챕터 퀴즈 등). */
 export function contentRefFromBook(bookId: string, chapter?: number | null): ContentRef {
-  return { kind: 'book', id: bookId, ...(typeof chapter === 'number' ? { chapter } : {}) }
+  return { type: 'book', id: bookId, ...(typeof chapter === 'number' ? { chapter } : {}) }
 }
 
 /** 화면 표시용 짧은 라벨 — 리포트·감사 화면이 같은 말을 쓰도록. */

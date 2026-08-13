@@ -99,7 +99,7 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
         textTitle="내 단어장"
         words={words}
         backHref={backHref}
-        content={{ kind: 'mine' }}
+        content={{ type: 'mine' }}
       />
     </>
   )
