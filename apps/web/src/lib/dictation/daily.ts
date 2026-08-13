@@ -135,6 +135,7 @@ async function fetchRetrySentences(
       targetForms,
       contextLabel: `지난번 ${Math.round(r.accuracy)}%`,
       reason: 'retry',
+      previousAccuracy: r.accuracy,
     })
   }
   return out

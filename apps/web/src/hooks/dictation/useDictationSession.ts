@@ -62,6 +62,7 @@ function chunkSentences(sentences: DictationSentence[], size: ChunkSize): Dictat
       targetForms,
       contextLabel: group[0].contextLabel,
       reason: group[0].reason,
+      previousAccuracy: group[0].previousAccuracy,
       translation: group[0].translation,
     })
   }
@@ -101,6 +102,7 @@ function buildItems(
     targetForms: c.targetForms,
     contextLabel: c.contextLabel,
     reason: c.reason,
+    previousAccuracy: c.previousAccuracy,
     attemptCount: 0,
     hintsUsed: 0,
     maxHintLevel: 0,

@@ -44,6 +44,11 @@ export interface DictationSentence {
   contextLabel?: string
   /** 오늘의 받아쓰기 전용 — 왜 이 문장인가 */
   reason?: DailyReason
+  /**
+   * 재도전 문장의 지난번 정확도. 이번 결과와 나란히 놓으면 "나아지고 있다"가
+   * 추상적 격려가 아니라 숫자 두 개가 된다(§철학4 Implicit Progress).
+   */
+  previousAccuracy?: number
   translation?: string
 }
 

@@ -230,16 +230,29 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
       await page.getByRole('button', { name: /시작하기/ }).click();
       await page.waitForURL(/\/dictate\/session\?sessionId=/, { timeout: 20_000 });
 
-      await answerOneItem(page);
-      await page.getByRole('button', { name: '다음' }).click();
+      const counter = page.locator('span.font-mono', { hasText: /^\d+ \/ \d+$/ }).first();
+      await counter.waitFor({ timeout: 10_000 });
+      const total = Number((await counter.innerText()).split('/')[1].trim());
+
+      for (let i = 0; i < total; i++) {
+        await answerOneItem(page);
+        await page.getByRole('button', { name: i === total - 1 ? '마치기' : '다음' }).click();
+      }
+
+      // "한 번 더" 는 허브가 아니라 **같은 챕터**로 돌아가야 한다.
+      // (허브로 보내면 자료를 다시 찾아야 하고 그 마찰이 재도전을 막는다)
+      await page.waitForURL(/\/dictate\/results\?sessionId=/, { timeout: 20_000 });
+      const retry = page.getByRole('link', { name: /한 번 더/ });
+      await expect(retry).toBeVisible({ timeout: 15_000 });
+      await expect(retry).toHaveAttribute('href', /\/dictate\/setup\?text=/);
 
       if (userId) {
         let attempts = 0;
-        for (let t = 0; t < 12 && attempts < 1; t++) {
+        for (let t = 0; t < 12 && attempts < total; t++) {
           attempts = await countDictationAttemptsSince(userId, sinceIso);
-          if (attempts < 1) await page.waitForTimeout(500);
+          if (attempts < total) await page.waitForTimeout(500);
         }
-        expect(attempts, '도서 챕터 문항도 즉시 적재된다').toBeGreaterThanOrEqual(1);
+        expect(attempts, '도서 챕터 문항도 즉시 적재된다').toBeGreaterThanOrEqual(total);
       }
     } finally {
       if (userId) {

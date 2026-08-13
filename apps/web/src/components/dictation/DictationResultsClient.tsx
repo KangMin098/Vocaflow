@@ -319,8 +319,10 @@ export function DictationResultsClient() {
 
       {/* ─── CTA ─── */}
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+        {/* "한 번 더" 는 **같은 자료로** 돌아가야 한다 — 허브로 보내면 자료를 다시 찾아야 하고,
+            그 마찰이 재도전을 막는다. 출처 좌표가 없으면(붙여넣기·오늘) 허브로 폴백. */}
         <Link
-          href="/dictate"
+          href={retryHref(s)}
           className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <RotateCw size={14} />
@@ -345,6 +347,20 @@ export function DictationResultsClient() {
       </div>
     </div>
   )
+}
+
+/**
+ * 같은 자료로 되돌아가는 링크.
+ * 붙여넣은 글(custom)은 저장하지 않으므로 되돌아갈 자료가 없고,
+ * 오늘의 받아쓰기(daily)는 내일 다시 조립되는 것이라 허브가 옳은 목적지다.
+ */
+function retryHref(s: SessionDetail['session']): string {
+  if (s.textId) return `/dictate/setup?text=${s.textId}`
+  if (s.sharedSetId) {
+    const ch = s.chapterIdx ? `&chapter=${s.chapterIdx}` : ''
+    return `/dictate/setup?set=${s.sharedSetId}${ch}`
+  }
+  return '/dictate'
 }
 
 function HeroStat({ label, value }: { label: string; value: string }) {

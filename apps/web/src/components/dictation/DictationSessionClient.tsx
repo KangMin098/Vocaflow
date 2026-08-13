@@ -595,6 +595,7 @@ export function DictationSessionClient() {
           <FeedbackSection
             outcome={outcome}
             expected={currentItem.expectedText}
+            previousAccuracy={currentItem.previousAccuracy}
             translation={currentItem.translation}
             showTranslation={showTranslation}
             onToggleTranslation={() => setShowTranslation((v) => !v)}
@@ -613,6 +614,7 @@ export function DictationSessionClient() {
 function FeedbackSection({
   outcome,
   expected,
+  previousAccuracy,
   translation,
   showTranslation,
   onToggleTranslation,
@@ -622,6 +624,7 @@ function FeedbackSection({
 }: {
   outcome: SubmitOutcome
   expected: string
+  previousAccuracy?: number
   translation?: string
   showTranslation: boolean
   onToggleTranslation: () => void
@@ -650,6 +653,29 @@ function FeedbackSection({
       </header>
 
       <p className="mb-3 font-body text-[13px] italic text-[var(--t2)]">{result.feedback}</p>
+
+      {/* 재도전 문장 — 숫자 두 개가 나란히 놓일 때만 성장이 눈에 보인다 */}
+      {previousAccuracy != null && (
+        <div className="mb-3 flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2">
+          <span className="font-mono text-[13px] font-[700] tabular-nums text-[var(--t3)]">
+            {Math.round(previousAccuracy)}%
+          </span>
+          <ArrowRight size={13} className="text-[var(--t3)]" />
+          <span
+            className="font-mono text-[15px] font-[800] tabular-nums"
+            style={{ color: result.accuracy >= previousAccuracy ? 'var(--success)' : 'var(--t2)' }}
+          >
+            {Math.round(result.accuracy)}%
+          </span>
+          <span className="font-body text-[11px] text-[var(--t2)]">
+            {result.accuracy >= previousAccuracy + 10
+              ? '지난번보다 또렷하게 들었어요'
+              : result.accuracy >= previousAccuracy
+                ? '지난번만큼 들었어요'
+                : '이 문장은 조금 더 만나야겠어요'}
+          </span>
+        </div>
+      )}
 
       {/* 타깃 단어 결과 — 이 문장이 무엇을 훈련했는지 지금 밝힌다 */}
       {(targetHits.length > 0 || targetMisses.length > 0) && (

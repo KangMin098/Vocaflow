@@ -328,6 +328,10 @@ export interface SessionDetail {
     totalHints: number
     durationMs: number | null
     longestPerfectWords: number | null
+    /** 출처 좌표 — "한 번 더" 가 같은 자료로 되돌아가려면 필요하다 */
+    textId: string | null
+    sharedSetId: string | null
+    chapterIdx: number | null
   }
   attempts: Array<{
     itemIdx: number
@@ -353,7 +357,7 @@ export async function fetchDictationSessionDetail(
     const { data: sData } = await client
       .from('dictation_sessions')
       .select(
-        'id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words',
+        'id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words, text_id, shared_set_id, chapter_idx',
       )
       .eq('id', sessionId)
       .maybeSingle()
@@ -382,6 +386,9 @@ export async function fetchDictationSessionDetail(
         durationMs: s.duration_ms == null ? null : Number(s.duration_ms),
         longestPerfectWords:
           s.longest_perfect_words == null ? null : Number(s.longest_perfect_words),
+        textId: (s.text_id as string | null) ?? null,
+        sharedSetId: (s.shared_set_id as string | null) ?? null,
+        chapterIdx: s.chapter_idx == null ? null : Number(s.chapter_idx),
       },
       attempts: ((aData ?? []) as Array<Record<string, unknown>>).map((r) => ({
         itemIdx: Number(r.item_idx ?? 0),

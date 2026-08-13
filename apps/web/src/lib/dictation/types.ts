@@ -72,6 +72,8 @@ export interface DictationItem {
   contextLabel?: string
   /** 오늘의 받아쓰기에서 이 문장이 뽑힌 이유 */
   reason?: DailyReason
+  /** 재도전 문장의 지난번 정확도 — 이번 결과와 나란히 보여준다 */
+  previousAccuracy?: number
 
   userInput?: string
   result?: ScoringResult
