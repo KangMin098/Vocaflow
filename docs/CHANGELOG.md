@@ -280,6 +280,15 @@ blasna sebao…" ("Take we the fool…")`), ch.93 은 돌팔이 약장수의 독
   그 앞의 D4 초안("`person_noise` 373건 일괄 이관")은 검증 결과 **대부분 진짜 고유명사**여서
   폐기됐다. 본 처분도 같은 방식 — 근거 문장을 본 뒤 단어별로 가른다.
   Admin 화면도움말(`lib/admin/help/curation.ts`)에 "큐에 올리기 전에" 항목 추가.
+- **후속 — 챕터 단어장 발행** (데이터 작업, 마이그레이션 없음). 품질 게이트 5종 PASS 확인 후
+  `publish_book_word_sets(book, NULL)` → **136세트 / 3,156단어**(챕터당 6~82 · 평균 23.2).
+  `v_level` NULL 0 · 밴드(V7~V11) 이탈 0 · 발행 직후 I10 드리프트 0.
+  `p_cap=NULL`(무제한)은 ADR 0004 D7 — 분량은 L2 `deliver_chapter_vocab` 가 결정한다.
+  **register 배제가 설계대로 작동**했다: 이번에 등재한 6건 중 세트에 들어간 것은
+  `holmoak`·`wheatsheaf`(modern_advanced) 둘뿐이고 `landsknecht`·`mainguard`(period_cultural) ·
+  `gallowsbird`·`inkslinger`(archaic_literary) 넷은 걸러졌다 — 읽을 때는 뜻이 뜨지만 외울 대상은 아니다.
+  **학습자에게는 아직 안 보인다** — `shared_word_sets` RLS 가 부모 도서의 `status='published'` +
+  `copyright_safe_in_kr` 를 요구하고(51f361fb) 이 책은 `ready` 다. 카탈로그 노출은 별도 판단.
 
 ### scores.content_ref — "어떤 자료로 학습했나" (프레임워크 Phase 1 · 마이그레이션 1건)
 
