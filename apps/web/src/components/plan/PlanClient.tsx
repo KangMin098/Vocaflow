@@ -1430,7 +1430,7 @@ function ArticleSelectPane({
           <button
             type="button"
             onClick={onClear}
-            className="ml-auto shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="ml-auto inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-[var(--r-sm)] px-2 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             {n}개 선택 · 해제
           </button>

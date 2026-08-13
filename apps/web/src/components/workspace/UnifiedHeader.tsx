@@ -182,7 +182,7 @@ export function UnifiedHeader({
                       type="button"
                       onClick={onToggleInsight}
                       aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} — 학습 인사이트 열기`}
-                      className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                     >
                       <Layers size={9} aria-hidden />
                       <span className="tabular-nums">
