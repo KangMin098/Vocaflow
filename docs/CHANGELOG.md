@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사용자 스크립트 토크나이저 재작성 — 누수 6종 폐쇄 (`lib/text-extract/tokenize.ts`)
+
+`/text/new` 사용자 입력 경로의 단어 추출이 **원문에 없는 단어를 만들고, 원문에 있는 단어를
+버리고 있었다.** 합성 구어체 샘플(124어) 실측으로 6종 확인:
+
+| 누수 | 실측 증상 |
+|---|---|
+| 축약형 파편 | `split("'")[0]` 이 `didn't`→`didn`, `couldn't`→`couldn` 등 **비단어 8개** 생성 |
+| **오추출 (최악)** | `won't`→`won`, `don't`→`don` — 사전에 실재하므로 전 필터를 통과해 **원문에 없던 단어를 학습자에게 가르침** |
+| 숫자 결합 절단 | `CO2`→`co`, `CRISPR-Cas9`→`cas` |
+| 알파벳 편향 절단 | `sort().slice(0,1000)` — unique 1,200 입력 시 **w·x·y·z 시작 단어 통째 소실** (실측) |
+| 재현성 없음 | 아포스트로피 U+0027 vs U+2019 에 따라 결과가 달라짐 (79 vs 82개) |
+| 비ASCII 자모 | `Jørgensen`→`j`+`rgensen` |
+
+재작성 후 같은 샘플에서 **쓰레기 토큰 0개 · ASCII/타이포그래픽 결과 완전 일치**.
+
+- 표제어 해석은 서버 `resolve_dict_headword`(4계층) 담당임을 명시 — 토크나이저는 "표면형을 있는 그대로, 빠짐없이" 만 책임
+- 불규칙 축약 맵(`won't`→will · `can't`→can · `o'clock` 보존) + `n't`/clitic 일반 규칙
+- 하이픈은 복합어를 잇고(부분+전체 모두 후보) em/en dash 는 구두점으로 끊음 · soft hyphen 제거
+- 숫자 포함 토큰은 **통째 제외** (앞글자만 남기면 없는 단어가 됨)
+- 상한 1,000 → 5,000 + **등장 순서 절단** (알파벳 정렬 금지) + 잘린 수를 `diagnostics.truncated` 로 노출
+- `[Laughter]` 전사 마커 · 줄머리 화자 라벨 제거 — 화자 라벨 정규식은 **의도적으로 보수적** (제목형 2~4단어 또는 대문자 이니셜만; 느슨한 초안이 `"There is one lesson here: "` 를 통째로 삭제하던 것을 테스트가 검출)
+- 신규 `components/text-extract/TokenizationSummary.tsx` — 전처리 내역을 Progressive Disclosure 로 노출 (추출은 검증 불가한 블랙박스여선 안 됨) + 상한 초과 시 경고
+- 회귀 28건 신설 (`lib/text-extract/__tests__/tokenize.test.ts`) · 전체 425 tests 통과
+
+### TED 골든 테스트 세트 (`docs/TED_TEST_CORPUS.md`)
+
+사용자 입력 스크립트 경로를 회차마다 동일 조건으로 재평가하기 위한 고정 코퍼스 18편(워밍업 3 + 과학·기술 15, 3밴드) + 예비 2편.
+근거: `vocaflow_domains.science_tech` 등록 단어 **0개** · `texts` 275행 중 본문 보유 **6행** · 최대 본문 **6,781자**(세트 최장편의 1/3).
+
 ### 미바인딩 처분 — 다국어 인용을 "사전 미등재"로 세지 않는다 (마이그레이션 3건)
 
 The Adventurous Simplicissimus(1668년 독일어 원작의 1912년 Goodrick 영역판) 진단에서
@@ -66,6 +96,12 @@ blasna sebao…" ("Take we the fool…")`), ch.93 은 돌팔이 약장수의 독
 - **적재 배선** — `record-score.ts`(단일 write path) + 호출부 5곳. 아케이드 19종은
   `use-session-recorder.ts` **한 줄**로 따라온다(스코프는 이미 거기 있었고 적재만 그걸 버리고 있었다).
   맛보기 폴백(demo)은 자료가 아니므로 귀속시키지 않는다.
+- **PairFlip 누락 보완(후속)** — 위에서 "단일 write path" 라 했지만 PairFlip 은 `scores` 를
+  **직접 INSERT** 해 그 경로를 우회하고 있었다(실측 2행 모두 `content_type` NULL). 새 컬럼이
+  생길 때 조용히 빠지는 것은 언제나 이런 우회 경로다 → `recordGameScore` 로 돌렸다.
+  mock 페어 폴백 판은 **귀속시키지 않고** `metadata.mockFallback` 에 이유를 남긴다 — 그 판의
+  단어는 그 자료의 단어가 아니라서, 귀속시키면 "이 도서로 학습했다" 집계가 만난 적 없는
+  단어까지 세게 된다(아케이드가 demo 를 빼는 것과 같은 규칙).
 - **ScriptQuiz 큐레이션 경로 해소** — `QuizSession.content` 신설. enroll 없이 도서로 바로 들어오는
   경로가 `texts.id` 가 없어 기록을 못 남기던 구멍을 닫았다.
 - **실측 검증** — 큐레이션 챕터 퀴즈 완주 후:

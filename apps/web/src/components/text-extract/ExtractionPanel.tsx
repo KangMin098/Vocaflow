@@ -18,6 +18,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
+import { TokenizationSummary } from '@/components/text-extract/TokenizationSummary'
 
 interface ExtractedWord {
   text_v_level: number
@@ -356,10 +357,12 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
           <Sparkles size={16} className="text-[var(--p)]" />
           AI 단어 추출 (다축 VRL)
         </h3>
-        <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
-          총 {tokenization.totalWords}어 · unique {tokenization.uniqueRaw}개 · stopword 제외 후{' '}
-          <strong className="text-[var(--t1)]">{tokenization.uniqueFinal}개</strong> 분석 후보
-        </p>
+        <TokenizationSummary
+          totalWords={tokenization.totalWords}
+          uniqueRaw={tokenization.uniqueRaw}
+          uniqueFinal={tokenization.uniqueFinal}
+          diagnostics={tokenization.diagnostics}
+        />
       </header>
 
       {/* Level strategy selector */}
