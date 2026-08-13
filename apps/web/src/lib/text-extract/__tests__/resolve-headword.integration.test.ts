@@ -81,6 +81,12 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
     it('optimization → optimisation', async () => {
       expect(await resolve('optimization')).toBe('optimisation')
     })
+
+    // 9섹터 실측(2026-08-13)에서 드러난 결함: L5 가 미국식→영국식 **단방향**이었다.
+    // 사전은 두 철자가 섞여 있어(cannibalize 는 미국식이 표제어) 방향을 고정할 수 없다.
+    it('영국식 입력도 해석한다 — cannibalised → cannibalize', async () => {
+      expect(await resolve('cannibalised')).toBe('cannibalize')
+    })
   })
 
   describe('계층 순서 — 최후 수단이 앞 계층을 가로채지 않는다', () => {
