@@ -188,7 +188,9 @@ test.describe('추출 스케일 — 강연 분량 스크립트 런타임', () =>
       await page.getByRole('radio', { name: /상위 10%/ }).click();
       const before = userId ? await countVocabulariesSince(userId, sinceIso) : -1;
       const tSave = Date.now();
-      await page.getByRole('button', { name: /내 단어장에 추가/ }).click();
+      // 담기 버튼은 선택 개수를 담고 있다 ("N개 담기") — v06.35 에서
+      // 무심코 대량 저장되던 것을 결정 직전에 보이게 한 변경.
+      await page.getByRole('button', { name: /\d+개 담기/ }).click();
       await expect(page.getByText(/개 단어를 내 단어장에 추가했어요/).first()).toBeVisible({
         timeout: 30_000,
       });

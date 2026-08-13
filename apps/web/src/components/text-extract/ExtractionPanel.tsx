@@ -78,6 +78,14 @@ const PCT_CHIPS: { value: DisplayPct; label: string }[] = [
   { value: 100, label: '전체' },
 ]
 
+/**
+ * 한 번에 담기 좋은 신규 단어 수 — 이 수를 넘기면 차분히 알린다(막지는 않는다).
+ * 근거: 인지 부하(작업기억 ~4항목)는 동시 처리 한계지만, SRS 신규 카드는 며칠 뒤
+ * 복습이 한꺼번에 돌아온다. 기본 선택이 "표시된 것 전부"라 18개가 무심코 들어가던 것을
+ * 결정 직전에 한 번 보여 주는 것이 목적이다.
+ */
+const CALM_BATCH = 10
+
 const SOURCE_LABEL: Record<string, string> = {
   user_diagnostic: '본인 진단',
   text_p75: '글 P75',
@@ -540,24 +548,51 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
 
       {displayedResults && displayedResults.length > 0 && (
         <>
-          <div className="mb-3 flex items-center justify-between rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
-            <label className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
-              <input
-                type="checkbox"
-                checked={selected.size === displayedResults.length}
-                onChange={toggleAll}
-                className="h-4 w-4 rounded border-[var(--bd)] accent-[var(--p)]"
-              />
-              전체 선택 ({selected.size} / {displayedResults.length})
-            </label>
-            <button
-              onClick={() => void handleSave()}
-              disabled={saving || selected.size === 0}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p)] hover:bg-[var(--p-hover)] disabled:opacity-50"
-            >
-              {saving ? <Loader2 size={12} className="animate-spin" /> : <CheckCircle2 size={12} />}
-              {saving ? '저장 중…' : '내 단어장에 추가'}
-            </button>
+          <div className="mb-3 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
+            <div className="flex items-center justify-between gap-2">
+              <label className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 font-body text-[12px] text-[var(--t2)]">
+                <input
+                  type="checkbox"
+                  checked={selected.size === displayedResults.length}
+                  onChange={toggleAll}
+                  className="h-5 w-5 rounded border-[var(--bd)] accent-[var(--p)]"
+                />
+                전체 선택 ({selected.size} / {displayedResults.length})
+              </label>
+              <button
+                onClick={() => void handleSave()}
+                disabled={saving || selected.size === 0}
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.98] disabled:opacity-50"
+              >
+                {saving ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                {saving ? '담는 중…' : `${selected.size}개 담기`}
+              </button>
+            </div>
+
+            {/* 한 번에 담는 양 — Cognitive Load(작업기억 ~4항목) · 학습자의 선택권은 뺏지 않는다.
+                기본이 "표시된 것 전부 선택" 이라 아무 생각 없이 18개가 복습 큐로 들어가던 것을,
+                결정 앞에서 한 번 알려 준다 (Empathetic Feedback — 비난 없이 맥락만). */}
+            {selected.size > CALM_BATCH && (
+              <p className="mt-1 flex items-start gap-1.5 font-body text-[11px] leading-relaxed text-[var(--t2)]">
+                <Sparkles size={11} className="mt-0.5 shrink-0 text-[var(--p)]/70" aria-hidden />
+                <span>
+                  한 번에 {selected.size}개를 담으면 며칠 뒤 복습이 몰려요.
+                  {displayPct > 10 && (
+                    <>
+                      {' '}
+                      <button
+                        type="button"
+                        onClick={() => setDisplayPct(10)}
+                        className="font-display font-[700] text-[var(--p)] underline underline-offset-2 transition-colors duration-[var(--dur-normal)] hover:text-[var(--p-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                      >
+                        상위 10%부터 시작
+                      </button>
+                      해도 좋아요.
+                    </>
+                  )}
+                </span>
+              </p>
+            )}
           </div>
 
           <ul className="flex flex-col gap-2">
@@ -576,14 +611,16 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                     fam === 'known' ? 'border-[var(--bd)] opacity-45' : isSelected ? 'border-[var(--p)] shadow-[var(--sh-sm)]' : 'border-[var(--bd)]'
                   }`}>
                     <div className="flex items-center gap-3 p-3">
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => toggleSelect(r.word)}
-                        className="h-4 w-4 rounded border-[var(--bd)] accent-[var(--p)]"
-                        aria-label={`${r.word} 선택`}
-                      />
-                      <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t2)]">#{r.rank}</span>
+                      {/* 체크박스 자체는 16px 이지만 label 이 44px 히트 영역을 만든다 */}
+                      <label className="inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center">
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleSelect(r.word)}
+                          className="h-5 w-5 rounded border-[var(--bd)] accent-[var(--p)]"
+                          aria-label={`${r.word} 담기 선택`}
+                        />
+                      </label>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-baseline gap-2">
                           <span className="font-english text-[18px] font-[600] text-[var(--t1)]">{r.word}</span>
@@ -617,18 +654,15 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           </p>
                         )}
                       </div>
-                      <div className="flex flex-col items-end">
-                        <span className="inline-flex items-center gap-0.5 font-display text-[13px] font-[700] tabular-nums text-[var(--p)]">
-                          <TrendingUp size={11} /> {r.composite_score.toFixed(3)}
-                        </span>
-                        <span className="font-body text-[10px] text-[var(--t2)]">추천 점수</span>
-                      </div>
+                      {/* 추천 점수(composite)는 인라인에서 걷어냈다.
+                          "-0.279" 같은 음수는 학습자에게 아무 뜻이 없고 "이 단어가 나쁜가"로
+                          읽힌다 (Calm UI). 숫자가 필요한 사람을 위해 펼침 breakdown 에는 그대로 있다. */}
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => markFamiliarity(r, 'unknown')}
                           aria-label={`${r.word} 몰라요 — 학습 유지`}
                           aria-pressed={fam === 'unknown'}
-                          className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
+                          className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[var(--r-full)] px-3 font-display text-[12px] font-[700] transition-colors duration-[var(--dur-normal)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
                             fam === 'unknown' ? 'bg-[var(--p)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)]'
                           }`}
                         >
@@ -638,7 +672,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           onClick={() => markFamiliarity(r, 'known')}
                           aria-label={`${r.word} 알아요 — 추출에서 제외`}
                           aria-pressed={fam === 'known'}
-                          className={`rounded-[var(--r-full)] px-2.5 py-1.5 font-display text-[11px] font-[700] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
+                          className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[var(--r-full)] px-3 font-display text-[12px] font-[700] transition-colors duration-[var(--dur-normal)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-95 ${
                             fam === 'known' ? 'bg-[var(--t3)] text-white' : 'bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
                           }`}
                         >
@@ -647,10 +681,11 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                       </div>
                       <button
                         onClick={() => setExpandedWord(isExpanded ? null : r.word)}
-                        aria-label="평가 상세"
-                        className="rounded p-1 text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                        aria-label={`${r.word} 추천 근거 ${isExpanded ? '접기' : '펼치기'}`}
+                        aria-expanded={isExpanded}
+                        className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       >
-                        {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                        {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </button>
                     </div>
 

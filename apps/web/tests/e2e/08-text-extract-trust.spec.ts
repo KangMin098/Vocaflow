@@ -110,7 +110,9 @@ test.describe('추출 신뢰 — /text/new 알아요·몰라요 + 근거 카드'
 
       // ── 4단계: 첫 행 expand → "왜 추천했어요?" 근거 카드 + 기술 breakdown ──
       const firstRow = rows.first();
-      await firstRow.getByRole('button', { name: '평가 상세' }).click();
+      // 라벨은 단어별로 다르다 ("<단어> 추천 근거 펼치기") — v06.35 에서 스크린리더가
+      // 어느 단어의 근거인지 알 수 있도록 단어명을 넣었다.
+      await firstRow.getByRole('button', { name: /추천 근거 (펼치기|접기)/ }).click();
       await expect(firstRow.getByText('왜 추천했어요?')).toBeVisible({ timeout: 5_000 });
       await expect(firstRow.getByText(/스코어 breakdown/)).toBeVisible();
 
