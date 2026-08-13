@@ -11,7 +11,7 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -198,10 +198,17 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     }
 
     // 원문에서 단어별 출현 문장 부착 (context-dependent 예문). 문장 분리는 1회만.
+    //
+    // ⚠️ 인자 순서 주의 — RPC 컬럼명이 내용과 어긋난다.
+    //   `word`                = 원문 표면형 (RPC 내부 c_surface)
+    //   `matched_via_surface` = **표제어** (RPC 내부 c_word) — 이름과 달리 surface 가 아니다
+    // firstSentenceContaining(sentences, 표면형, 표제어) 순이므로 아래가 맞다.
+    // 뒤집으면 1단계가 표제어를 찾아, 학습자가 배우는 형태가 **없는** 문장을 예문으로 준다
+    // (회귀: lib/text-extract/__tests__/source-sentence.test.ts).
     const sentences = buildSentenceIndex(text)
     const rows = ((data ?? []) as ExtractedWord[]).map((r) => ({
       ...r,
-      source_sentence: firstSentenceContaining(sentences, r.matched_via_surface, r.word),
+      source_sentence: firstSentenceContaining(sentences, r.word, r.matched_via_surface ?? r.word),
     }))
     setResults(rows)
     setMeta(rows[0] ?? null)
@@ -283,10 +290,25 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     else setSelected(new Set(displayedResults.map((r) => r.word)))
   }
 
-  // displayPct 변경 시 선택 set 을 displayed 범위로 재초기화 (newly hidden 자동 unselect)
+  // "알아요" 판정을 effect 의존성에 넣지 않기 위한 ref — 판정할 때마다 선택이
+  //   통째로 재초기화되면 학습자가 손으로 해제한 것까지 되살아난다.
+  const familiarRef = useRef(familiar)
+  useEffect(() => {
+    familiarRef.current = familiar
+  }, [familiar])
+
+  // displayPct 변경 시 선택 set 을 displayed 범위로 재초기화 (newly hidden 자동 unselect).
+  //   단 **"알아요" 로 제외한 단어는 되살리지 않는다** — 학습자가 명시적으로 안다고 한 단어가
+  //   % 칩을 눌렀다는 이유로 단어장에 저장되던 결함(v06.35).
   useEffect(() => {
     if (!displayedResults) return
-    setSelected(new Set(displayedResults.map((r) => r.word)))
+    setSelected(
+      new Set(
+        displayedResults
+          .filter((r) => familiarRef.current[r.word] !== 'known')
+          .map((r) => r.word),
+      ),
+    )
   }, [displayedResults])
 
   async function handleSave() {

@@ -10,6 +10,24 @@
 
 ## Unreleased (v06.34 → next)
 
+### 추출 저장 경로 감사 — 예문 인자 역전 · "알아요" 되살아남 (3회차)
+
+**① 단어장 예문이 학습 대상 형태를 담지 않던 결함.** `extract_vocabulary_for_user_v2` 의 반환
+컬럼 `matched_via_surface` 는 **이름과 달리 표제어**를 담고(`c_word`), `word` 가 원문 표면형(`c_surface`)이다.
+`ExtractionPanel` 이 이름만 보고 `firstSentenceContaining(sentences, 표제어, 표면형)` 로 뒤집어 넘겨,
+1단계(정확 표면형 탐색)가 표제어를 찾고 있었다. 결과: 표제어가 **다른 문장**에 등장하면
+학습자가 배우는 형태가 없는 문장이 예문으로 저장됐다 (Context-Dependent 학습원칙 #5 위반).
+→ 호출부 수정 + 계약 회귀 5건(`__tests__/source-sentence.test.ts`, 뒤집힌 인자의 반례도 함께 고정).
+
+**② "알아요" 판정이 % 칩 변경 시 되살아나 저장되던 결함.** 선택 재초기화 effect 가
+`familiar` 를 보지 않아, 학습자가 명시적으로 안다고 한 단어가 표시 비율만 바꿔도 다시 선택되어
+단어장에 들어갔다. → `familiarRef` 로 판정을 존중하되, 판정마다 선택이 통째로 재초기화되지는
+않도록 의존성에서 분리.
+
+감사 중 **가설 2건은 반증**했다 — `pending_words` 의 `ON CONFLICT (lemma)` 는
+`idx_pending_words_lemma_unique` 가 실재해 정상이고(0행은 경로 미사용 결과),
+`vocabularies_cefr_level_check` 위반 가능성도 `shared_dictionary` 45,688행 전수 확인 결과 0건.
+
 ### 사용자 스크립트 토크나이저 재작성 — 누수 6종 폐쇄 (`lib/text-extract/tokenize.ts`)
 
 `/text/new` 사용자 입력 경로의 단어 추출이 **원문에 없는 단어를 만들고, 원문에 있는 단어를
