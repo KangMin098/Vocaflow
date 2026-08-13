@@ -10,6 +10,43 @@
 
 ## Unreleased (v06.34 → next)
 
+### 미바인딩 처분 — 다국어 인용을 "사전 미등재"로 세지 않는다 (마이그레이션 3건)
+
+The Adventurous Simplicissimus(1668년 독일어 원작의 1912년 Goodrick 영역판) 진단에서
+`genuine_miss` **30건 중 20건이 영단어가 아니었다**. 근거는 전부 `first_sentence` 실측 —
+ch.46 은 보헤미아어 대사를 원문 그대로 적고 **본문이 괄호로 번역을 병기**했고(`"Mih werne daho
+blasna sebao…" ("Take we the fool…")`), ch.93 은 돌팔이 약장수의 독일식 억양을 저자가 일부러
+뭉갠 철자였다(`ze elegtuary`·`zese`·`frients` — 정상형 `electuary` 는 같은 챕터에 8회 따로 존재).
+**본문이 이미 뜻을 밝혀 놓았는데 "사전에 넣어야 할 영단어"로 보이는 것**이 결함이었다.
+
+- **`20260813103000_simplicissimus_unbound_disposition`** — 30건 개별 처분.
+  `noise_blacklist` 20(foreign_word 14 = 보헤미아어 9 + 라틴어 5 · corrupt_token 4 · archaic_grammar 1 ·
+  interjection_noise 1) · `spelling_norm` 1(`necessy`→`necessary`) · 등재 큐 6 · **의도적 보류 3**.
+  `necessy` 는 표준형이 `shared_dictionary` 정식 표제어(V2)라 spelling 티어가 실제로 뜻을 준다 —
+  같은 이유로 `elegtuary`→`electuary`, `panfull`→`panful` 은 **넣지 않았다**(표준형이
+  `lexicon_clean` 에만 있어 넣어도 뜻이 안 나온다).
+- **`20260813104500_foreign_citation_marking`** — `is_quoted_foreign_citation(sentence, word)` 신설
+  + `fill_lbv_resolution`·`trg_lbv_fill_lemma`·`find_unbound_book_lemmas` 갱신. 결정론적 룰이라
+  LLM 을 쓰지 않는다. **닫는 괄호를 요구하지 않는 것이 핵심** — `first_sentence` 가 문장 단위라
+  번역이 다음 문장으로 잘리는 실측 사례가 있고(`rosumi`: `… sebao" ("Yes, by God, set we him on
+  the horse.`), 닫힘을 요구하면 두 번째 대사 4건을 놓친다. 진단에서는 노이즈가 아니라 **외국어**로
+  보여준다(본문이 스스로 밝힌 근거라 블랙리스트 휴리스틱보다 우선).
+  **정밀도: 전 카탈로그 79권 대상 마킹 17단어 / 1권, 나머지 78권 오탐 0건.**
+- **`20260813112000_dict_drain_simplicissimus_6`** — 등재 큐 드레인 6건
+  (`landsknecht`·`mainguard` = period_cultural · `gallowsbird`·`inkslinger` = archaic_literary ·
+  `holmoak`·`wheatsheaf` = modern_advanced). 앞 4개는 register 배제로 학습 세트에 안 들어가고,
+  뒤 2개는 배제 대상이 아니지만 1회 출현이라 composite 로 선정되지 않는다.
+  `wheatsheaf` 는 `inflected_forms=['wheatsheaves']` 를 명시 — `en_inflection_bases` 가 `-ves→-f` 를
+  지원하지 않아(실측 `wheatsheaves`→`wheatsheave`) cluster 티어만이 책의 복수형을 회수한다.
+  `shared_dictionary.classified_by` CHECK 에 `claude_code_opus_5` 추가(생성 주체 정확 기록).
+- **실측 (Simplicissimus)** — `genuine_miss` **30 → 3**(보류분 `panfull`·`becalfed`·`epicurish` 만
+  잔존) · 조치 대상 47 → 20 · `unresolved_count` 30 → 14 · 해석률 99.6% → **99.8%** ·
+  `lemma_bound` 7,516 → 7,521. 회귀 확인: Faerie Queene 655 · Les Misérables 156 변동 없음.
+- **원칙** — 일괄 변환은 하지 않는다. ADR 0004 D4c 가 251 후보 중 14건만 채택했고(수율 5.6%),
+  그 앞의 D4 초안("`person_noise` 373건 일괄 이관")은 검증 결과 **대부분 진짜 고유명사**여서
+  폐기됐다. 본 처분도 같은 방식 — 근거 문장을 본 뒤 단어별로 가른다.
+  Admin 화면도움말(`lib/admin/help/curation.ts`)에 "큐에 올리기 전에" 항목 추가.
+
 ### scores.content_ref — "어떤 자료로 학습했나" (프레임워크 Phase 1 · 마이그레이션 1건)
 
 [VOCAB_FRAMEWORK_PROPOSAL.md](./VOCAB_FRAMEWORK_PROPOSAL.md) §06 이 **"개선 항목이 아니라 설계
@@ -29,12 +66,6 @@
 - **적재 배선** — `record-score.ts`(단일 write path) + 호출부 5곳. 아케이드 19종은
   `use-session-recorder.ts` **한 줄**로 따라온다(스코프는 이미 거기 있었고 적재만 그걸 버리고 있었다).
   맛보기 폴백(demo)은 자료가 아니므로 귀속시키지 않는다.
-- **PairFlip 누락 보완(후속)** — 위에서 "단일 write path" 라 했지만 PairFlip 은 `scores` 를
-  **직접 INSERT** 해 그 경로를 우회하고 있었다(실측 2행 모두 `content_type` NULL). 새 컬럼이
-  생길 때 조용히 빠지는 것은 언제나 이런 우회 경로다 → `recordGameScore` 로 돌렸다.
-  mock 페어 폴백 판은 **귀속시키지 않고** `metadata.mockFallback` 에 이유를 남긴다 — 그 판의
-  단어는 그 자료의 단어가 아니라서, 귀속시키면 "이 도서로 학습했다" 집계가 만난 적 없는
-  단어까지 세게 된다(아케이드가 demo 를 빼는 것과 같은 규칙).
 - **ScriptQuiz 큐레이션 경로 해소** — `QuizSession.content` 신설. enroll 없이 도서로 바로 들어오는
   경로가 `texts.id` 가 없어 기록을 못 남기던 구멍을 닫았다.
 - **실측 검증** — 큐레이션 챕터 퀴즈 완주 후:
@@ -44,51 +75,6 @@
   `'vocab'`·`'script'` 같은 세션 키가 흘러들어오는 경로가 실제로 있어 uuid 만 통과시킨다.
 - 형태가 어긋나면 **null 로 떨어뜨리고 적재는 계속한다** — CHECK 위반으로 세션 기록을 통째로
   잃는 것보다 자료 미상으로 남기는 편이 낫다.
-
-### 모듈 허브 3개 목업 제거 — 처음 온 학습자가 남의 전적을 보고 있었다
-
-`/flashcard` · `/spellforge` · `/wordblitz` 허브의 학습 데이터가 전부 상수였다.
-계정을 막 만든 사람도 "Best 1410 · 콤보 11 · 정확도 94%", "오늘 1240점", "Day 12 ·
-Gatsby Ch.1 — 어제 멈춘 자리에서 이어집니다" 를 봤다.
-
-**실측으로 드러난 것** (2026-08-12): `scores` 에 spellforge **0행** · wordblitz **1행**.
-즉 두 허브가 보여준 "최근 4회" 는 만들어진 적조차 없는 기록이다.
-
-| 요소 | 판정 | 조치 |
-|---|---|---|
-| 큐 분포 + 미리보기 단어 | 실산출 가능 | `fetchSessionQueue` — **play 라우트와 같은 쿼리** |
-| 연속일 | 실산출 가능 | `user_stats.current_streak` (`fetchGrowthStats`) |
-| 최고점 · 최근 기록 | 실산출 가능 | `scores` 실조회 + 빈 상태 |
-| 7일 정확도 sparkline | 데이터 부족 | 제거 (flashcard 5행/전체 — 1인 7일치는 0~1점) |
-| ContinueRow "어제 멈춘 자리" | **불가** | 제거 — 재개 저장소가 없다(grep 0건). 눌러도 새 세션이었다 |
-| 콤보 | **불가** | 제거 — `scores.metadata` 실측 키는 demo·scope·wrong·captured |
-| 모드(단어↔뜻 / 뜻↔철자) | **불가** | 제거 — FlashcardSession 에 방향 개념 없음, SpellForge 의 모드는 realtime·delayed·blind(피드백 시점) |
-| 난이도(쉬움·보통·어려움) | **불가** | 제거 — `difficulty` 는 spellforge 코드에 0건. adaptiveDifficulty 가 자동 추천 |
-| "힌트 -20점" | 거짓 | 정정 — 감점은 없고 FSRS 등급이 내려간다(rating-mapper) |
-
-**세 컨트롤은 애초에 죽어 있었다**: 허브가 `?vocab=&mode=&length=` 를 넘겼지만 play 라우트는
-`set`/`text`/`chapter` 만 받는다. 학습자의 선택이 조용히 버려졌다.
-살릴 수 있는 하나(길이)는 `?limit=N` 을 play 라우트에 **실제로 구현**해서 살렸다.
-
-**드리프트를 원리적으로 막은 방법**: 허브 큐를 play 라우트가 쓰는 그 쿼리
-(`fetchStudyVocabularies`)로 산출한다. 별도 쿼리로 세면 "오늘 17장" 이 시작 후 개수와
-어긋날 수 있고, 그건 mock 을 지우고 만든 새 거짓말이 된다. 길이 선택도 같은 순수 함수
-(`bucketsOf`)로 잘라서 화면 분포 = 담길 카드가 항상 같다.
-(부수 정정: `/flashcard/play` 의 "오늘 N개" → "급한 순 N개" — 이 큐는 due 필터가 아니라
-`next_review_at` 임박순 상한 50이다.)
-
-- 신설: `lib/learner/session-queue.ts`(순수) · `session-queue-query.ts`(server-only) ·
-  `lib/scores/recent.ts` · `components/hub/RecentScoresList.tsx` ·
-  `flashcard/FlashcardHubClient.tsx` · `spellforge/SpellForgeHubClient.tsx`
-- 테스트: 단위 17(합계 불일치 금지 · KST 날짜 경계) · e2e `18-hub-real-queue.spec.ts`
-- ⚠️ **런타임에서만 잡힌 결함**: 순수 계산부를 처음엔 server-only 파일에 뒀는데,
-  `'use client'` 허브가 그것을 import 하는 순간 모듈 그래프가 깨져 **앱의 모든 라우트가 500**
-  이 됐다. tsc·eslint·단위 356개 전부 통과했다. 그래서 순수/조회를 두 파일로 분리했고,
-  `session-queue.ts` 머리에 그 금지를 명시했다. (직전 커밋의 훅 순서 결함도 런타임만 잡았다 —
-  이 화면군은 정적 검사로 안 잡히는 결함을 두 번 냈다.)
-- 콘텐츠 선택기(단어장 드롭다운)는 실 목록으로 되살리지 **않았다** — 되살리면 콘텐츠 선택
-  표면이 셋(워크스페이스 · 받아쓰기 · 허브)이 되고, 프레임워크가 그걸 하나로 접기로 했다.
-  대신 자료 화면 링크를 남겨 경로 자체는 알 수 있게 했다.
 
 ### 받아쓰기(v07) — localStorage 섬을 학습 자산·기억 축과 연결 (마이그레이션 1건)
 
@@ -141,16 +127,51 @@ DB 에 도서 12권(챕터 texts 269) · 공용 단어장 1,169 세트가 있는
 - 단위 테스트 22 (`lib/dictation/__tests__/adaptation.test.ts`) — 적응 선택 · FSRS 등급
   (힌트4=Again · 최저등급 채택) · 오류 태그 7종. 화면에 안 보이면서 학습 결과를 바꾸는 판정들이라
   회귀가 조용히 일어난다.
-- **재도전 향상 표시 (후속)** — 오늘의 받아쓰기 retry 슬롯은 지난번 정확도를 이미 갖고 있으면서
-  쓰지 않았다. 피드백에 `62% → 91%` 를 나란히 놓는다 — 성장은 격려 문구가 아니라 숫자 두 개일 때 보인다.
-- **"한 번 더" 를 같은 자료로** — 결과 화면 CTA 가 허브로만 가서 자료를 다시 찾게 만들었고,
-  그 마찰이 재도전을 막았다. 세션의 출처 좌표(`text_id`/`shared_set_id`/`chapter_idx`)로 복귀.
-  붙여넣기(저장 안 함)·오늘의 받아쓰기(내일 재조립)는 되돌아갈 자료가 없어 허브 폴백.
-- **접근성 (파생)** — 받아쓰기가 `learning_records` 를 남기기 시작하자 대시보드 최근 활동에
-  dictation 칩이 처음 렌더됐고 axe 가 잡았다: `#06B6D4` on `--bg2` = **2.13:1**(AA 미달 · serious ×5).
-  색은 예전부터 있었으나 dictation 기록이 0행이라 한 번도 그려지지 않았을 뿐이다(다른 모듈
-  원색도 같은 구조의 잠재 위반). 모듈 구분은 왼쪽 색 점이 맡으므로 라벨 글자는 `--t1` 로 환원.
-  검증: `14-learner-quality` 에서 **/dictate 라이트·다크 위반 0** 확인.
+
+### 모듈 허브 3개 목업 제거 — 처음 온 학습자가 남의 전적을 보고 있었다
+
+`/flashcard` · `/spellforge` · `/wordblitz` 허브의 학습 데이터가 전부 상수였다.
+계정을 막 만든 사람도 "Best 1410 · 콤보 11 · 정확도 94%", "오늘 1240점", "Day 12 ·
+Gatsby Ch.1 — 어제 멈춘 자리에서 이어집니다" 를 봤다.
+
+**실측으로 드러난 것** (2026-08-12): `scores` 에 spellforge **0행** · wordblitz **1행**.
+즉 두 허브가 보여준 "최근 4회" 는 만들어진 적조차 없는 기록이다.
+
+| 요소 | 판정 | 조치 |
+|---|---|---|
+| 큐 분포 + 미리보기 단어 | 실산출 가능 | `fetchSessionQueue` — **play 라우트와 같은 쿼리** |
+| 연속일 | 실산출 가능 | `user_stats.current_streak` (`fetchGrowthStats`) |
+| 최고점 · 최근 기록 | 실산출 가능 | `scores` 실조회 + 빈 상태 |
+| 7일 정확도 sparkline | 데이터 부족 | 제거 (flashcard 5행/전체 — 1인 7일치는 0~1점) |
+| ContinueRow "어제 멈춘 자리" | **불가** | 제거 — 재개 저장소가 없다(grep 0건). 눌러도 새 세션이었다 |
+| 콤보 | **불가** | 제거 — `scores.metadata` 실측 키는 demo·scope·wrong·captured |
+| 모드(단어↔뜻 / 뜻↔철자) | **불가** | 제거 — FlashcardSession 에 방향 개념 없음, SpellForge 의 모드는 realtime·delayed·blind(피드백 시점) |
+| 난이도(쉬움·보통·어려움) | **불가** | 제거 — `difficulty` 는 spellforge 코드에 0건. adaptiveDifficulty 가 자동 추천 |
+| "힌트 -20점" | 거짓 | 정정 — 감점은 없고 FSRS 등급이 내려간다(rating-mapper) |
+
+**세 컨트롤은 애초에 죽어 있었다**: 허브가 `?vocab=&mode=&length=` 를 넘겼지만 play 라우트는
+`set`/`text`/`chapter` 만 받는다. 학습자의 선택이 조용히 버려졌다.
+살릴 수 있는 하나(길이)는 `?limit=N` 을 play 라우트에 **실제로 구현**해서 살렸다.
+
+**드리프트를 원리적으로 막은 방법**: 허브 큐를 play 라우트가 쓰는 그 쿼리
+(`fetchStudyVocabularies`)로 산출한다. 별도 쿼리로 세면 "오늘 17장" 이 시작 후 개수와
+어긋날 수 있고, 그건 mock 을 지우고 만든 새 거짓말이 된다. 길이 선택도 같은 순수 함수
+(`bucketsOf`)로 잘라서 화면 분포 = 담길 카드가 항상 같다.
+(부수 정정: `/flashcard/play` 의 "오늘 N개" → "급한 순 N개" — 이 큐는 due 필터가 아니라
+`next_review_at` 임박순 상한 50이다.)
+
+- 신설: `lib/learner/session-queue.ts`(순수) · `session-queue-query.ts`(server-only) ·
+  `lib/scores/recent.ts` · `components/hub/RecentScoresList.tsx` ·
+  `flashcard/FlashcardHubClient.tsx` · `spellforge/SpellForgeHubClient.tsx`
+- 테스트: 단위 17(합계 불일치 금지 · KST 날짜 경계) · e2e `18-hub-real-queue.spec.ts`
+- ⚠️ **런타임에서만 잡힌 결함**: 순수 계산부를 처음엔 server-only 파일에 뒀는데,
+  `'use client'` 허브가 그것을 import 하는 순간 모듈 그래프가 깨져 **앱의 모든 라우트가 500**
+  이 됐다. tsc·eslint·단위 356개 전부 통과했다. 그래서 순수/조회를 두 파일로 분리했고,
+  `session-queue.ts` 머리에 그 금지를 명시했다. (직전 커밋의 훅 순서 결함도 런타임만 잡았다 —
+  이 화면군은 정적 검사로 안 잡히는 결함을 두 번 냈다.)
+- 콘텐츠 선택기(단어장 드롭다운)는 실 목록으로 되살리지 **않았다** — 되살리면 콘텐츠 선택
+  표면이 셋(워크스페이스 · 받아쓰기 · 허브)이 되고, 프레임워크가 그걸 하나로 접기로 했다.
+  대신 자료 화면 링크를 남겨 경로 자체는 알 수 있게 했다.
 
 ### I10 게이트 오탐 — "재발행하라"는 잘못된 지시를 12권에 내리고 있었다 (마이그레이션 1건)
 

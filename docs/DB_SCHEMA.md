@@ -330,7 +330,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `compute_book_cefrj(p_book_id uuid)` | CEFR-J 12-band (internal heuristic) + cefr_band auto |
 | `compute_book_coverage(p_book_id uuid)` | 레벨별 기지어 커버리지 (i+1 판정) |
 | `backfill_book_lemmas(p_book_id uuid)` | direct-bind / 추출 / percentile 정상화 게이트 |
-| `fill_lbv_resolution(p_book_id uuid, p_only_new boolean)` | **v06.35** — `lemma IS NULL` 행에 `lookup_word_meaning` 해석(`resolved_via`/`lang`/`word`) + `noise_kind` 기록. `trg_lbv_fill_lemma` 가 INSERT 시 동일 로직 수행 |
+| `fill_lbv_resolution(p_book_id uuid, p_only_new boolean)` | **v06.35** — `lemma IS NULL` 행에 `lookup_word_meaning` 해석(`resolved_via`/`lang`/`word`) + `noise_kind` 기록. `trg_lbv_fill_lemma` 가 INSERT 시 동일 로직 수행. **v06.36** ([20260813104500](../supabase/migrations/20260813104500_foreign_citation_marking.sql)) — `noise_kind` 에 `'foreign_citation'` 추가 (person/geo_noise 가 우선) |
+| `is_quoted_foreign_citation(p_sentence text, p_word text)` | **v06.36** IMMUTABLE — `<"인용문" ("번역>` 패턴을 찾아 단어가 인용문에만 있고 번역문에 없으면 true. 닫는 괄호를 요구하지 않는다(`first_sentence` 가 문장 단위라 번역이 잘리는 실측 사례). 전 카탈로그 79권 대상 마킹 17단어/1권 · 오탐 0 |
 | `collect_archaic_candidates(p_book_id uuid)` | 미바인딩 단어를 archaic_candidates 로 수집 |
 | `classify_archaic_candidates()` | 재출현 게이트 — derivational / inflection / variant 분류 |
 | `run_content_quality_gates(p_scope text, p_id uuid)` | 불변식 게이트 (global/dict/book/article/word_set). **v06.35 수정** ([20260812160000](../supabase/migrations/20260812160000_fix_i10_gate_drop_cap40.sql)) — I10 비교 CTE 의 `sort_order<=40` 제거. 발행은 `republish_book_word_sets(p_cap DEFAULT NULL)`=무제한인데 비교만 40위로 잘라 **발행 도서 12권 전부 오탐 FAIL**(P&P 195 = `sort_order>40` 행 수와 일치). 수정 후 8권 PASS · 실드리프트 4권만 잔존 |
@@ -433,6 +434,15 @@ CONSTRAINT texts_book_group_exclusive
 -- user_profiles.locale TEXT CHECK ('ko','en')
 -- shared_word_sets.category TEXT CHECK (8 enum)
 -- vrl_diagnostic_tests.test_type TEXT (base_v_level / track / comprehensive)
+
+-- shared_dictionary.classified_by TEXT CHECK — 생성 주체 화이트리스트 (v06.36 에 opus_5 추가)
+'rule_v1','claude_code_opus_4_7','claude_code_sonnet_4_6',
+'claude_code_derivational','claude_code_opus_4_8','claude_code_fable_5',
+'claude_code_opus_5'
+-- 새 모델로 드레인하려면 이 목록을 먼저 넓혀야 한다 (안 넓히면 INSERT 가 23514 로 막힌다)
+
+-- noise_blacklist.category TEXT CHECK
+'foreign_word','archaic_grammar','interjection_noise','proper_noun_marker','corrupt_token'
 ```
 
 ---
