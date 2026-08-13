@@ -302,7 +302,34 @@ cast-2000 audit chain — 4 테이블 cascade:
 
 ## Functions (요약)
 
-222 함수. 카테고리별:
+223 함수. 카테고리별:
+
+### 표제어 해석 — 의미 보존 원칙 (v06.35 · 마이그레이션 4건)
+
+| 함수 | 시그니처 | 용도 |
+|---|---|---|
+| `resolve_dict_headword(p_surface text)` | RETURNS text | 표면형 → 사전 표제어 **5계층** |
+| `unresolved_dict_words(p_words text[])` | RETURNS text[] | 해석 실패분만 반환 (pending_words 기록용) |
+
+**5계층**: ① 정확 일치 → ② 사전 등재 굴절형(`inflected_forms`) → ③ 규칙 굴절 역생성(`en_inflection_bases`)
+→ ④ 의미 보존 파생 접미사 → ⑤ **영/미 철자 변이**.
+
+**의도적으로 해석하지 않는 것** — 전부 실측 근거가 있다:
+
+| 미해석 대상 | 근거 (2026-08-13 실측) |
+|---|---|
+| `-less` · `-iless` (④에서 **제거**) | `sugarless`→sugar("설탕") · `carbonless`→carbon("탄소") · `leaderless`→leader("지도자") — 뜻이 정반대 |
+| 부정 접두사 `un-`/`mis-`/`non-` | 같은 극성 반전 |
+| 학술 접두사 `geo-`/`bio-` 등 | `geochemist`→chemist→**"약사"**. 형태론적 부분집합이어도 **어기 다의성**에서 무너짐 |
+| 어근 절단 `-ize` | `mineralized`→mineral — 근사 의미만 줌. `mineralize` 는 진성 사전 갭이라 미해결이 옳음 |
+
+⑤ 철자 변이가 필요한 이유: 영국식 표제어에 대응하는 **미국식 철자 214개 누락**
+(`-ise` 203 중 137 · `-our` 95 중 52 · `-isation` 48 중 11 · `-logue` 13 중 7 · `-yse` 9 중 7).
+`optimize` 는 없고 `optimise` 만 있었다. 철자 변이는 같은 단어라 **의미 위험 0**.
+
+> **원칙**: 틀린 뜻을 주느니 미해결로 남긴다. 해석 실패는 `pending_words` 로 쌓여 사전 확장의
+> 근거가 되지만, 뒤집힌 해석은 되돌릴 수 없는 오학습이다.
+> 회귀: `apps/web/src/lib/text-extract/__tests__/resolve-headword.integration.test.ts` (20건)
 
 ### admin_* (18)
 

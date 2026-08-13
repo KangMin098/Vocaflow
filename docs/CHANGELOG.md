@@ -10,6 +10,29 @@
 
 ## Unreleased (v06.34 → next)
 
+### 표제어 해석 의미 보존 원칙 (4회차 · 마이그레이션 4건)
+
+**"틀린 뜻을 주느니 미해결로 남긴다"** 를 `resolve_dict_headword` 의 설계 원칙으로 확립.
+승인받은 최초 안(접두사 해석 추가)은 **적용 전후 실측에서 두 번 반증되어 두 번 철회**했다.
+
+| 실측 | 결과 |
+|---|---|
+| 기존 L4 `-less` | `sugarless`→sugar("설탕") · `carbonless`→carbon("탄소") — **살아있던 극성 반전 결함** → 제거 |
+| 제안했던 학술 접두사 | 적용 직후 `geochemist`→chemist→**"약사"** → 즉시 철회. 어기 다의성에서 무너짐 |
+| 제안했던 `-ize` 어근 절단 | `mineralized`→mineral 근사 의미 → 철회. `mineralize` 는 진성 사전 갭 |
+| **진짜 원인 발견** | `optimize` 없고 `optimise` 있음 → 전수 조사 결과 **미국식 철자 214개 누락** |
+
+→ L5 를 어근 절단에서 **영/미 철자 변이 매핑**으로 재설계 (같은 단어 · 의미 위험 0).
+굴절형에도 적용(`optimizes`→`optimise`). 커버리지 94.6% → **95.0%** (샘플 242단어 기준이며,
+철자 변이의 실제 이득은 코퍼스 전체 214단어).
+
+신규 RPC `unresolved_dict_words(text[])` — 해석 실패분만 반환. `ExtractionPanel` 이 이것으로
+`record_pending_words` 를 호출하도록 전환해 **오탐 92.5% → 0%** (기존에는 V-Level 임계값 미만
+단어까지 "사전 미등재" 로 기록해 진짜 갭 13건이 오탐 160건에 묻혔다).
+
+회귀 20건 신설(`__tests__/resolve-headword.integration.test.ts` · 실 DB) — 극성 반전 미해석 ·
+접두사 미해석 · 철자 변이 해석 · 계층 순서(understand→understand) 를 모두 고정.
+
 ### 추출 저장 경로 감사 — 예문 인자 역전 · "알아요" 되살아남 (3회차)
 
 **① 단어장 예문이 학습 대상 형태를 담지 않던 결함.** `extract_vocabulary_for_user_v2` 의 반환

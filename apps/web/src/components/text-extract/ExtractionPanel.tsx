@@ -233,13 +233,24 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         })
     }
 
-    // Option C — 미매칭 lemma 누적 (silent, best-effort)
-    void supabase.rpc('record_pending_words', {
-      p_user_id: userData.user.id,
-      p_lemmas: tokenization.words.filter(
-        (w) => !rows.some((r) => r.word === w || r.matched_via_surface === w),
-      ),
-    })
+    // 사전이 **정말로** 모르는 단어만 누적한다 (사전 확장 백로그).
+    //   이전에는 "추출 결과에 없는 단어" 를 전부 보냈다. 그런데 결과는 V-Level 임계값으로
+    //   걸러진 것이라, 임계값 미만의 흔한 단어까지 전부 "사전 미등재" 로 기록됐다.
+    //   실측(2026-08-13): 173건 전송 중 160건(92.5%)이 실제로는 사전에 있는 단어였고,
+    //   진짜 사전 갭 13건이 오탐에 묻혀 백로그를 쓸 수 없었다.
+    //   → unresolved_dict_words 가 resolve_dict_headword 해석 실패분만 돌려준다.
+    //   (신규 RPC 라 생성 타입 미포함 — word_root_links 와 동일하게 loose client)
+    const userId = userData.user.id
+    void (supabase as unknown as SupabaseClient)
+      .rpc('unresolved_dict_words', { p_words: tokenization.words })
+      .then(({ data: unresolved, error: unresolvedErr }) => {
+        const lemmas = (unresolved ?? []) as unknown as string[]
+        if (unresolvedErr || lemmas.length === 0) return
+        return supabase.rpc('record_pending_words', {
+          p_user_id: userId,
+          p_lemmas: lemmas,
+        })
+      })
   }
 
   function toggleSelect(word: string) {
