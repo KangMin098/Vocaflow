@@ -75,6 +75,17 @@ export const PDCP_HELP: HelpRegistry = {
         summary: '어느 사이트에서 어떤 호를 가져올지 고르고 큐에 넣는 곳 — 담아도 아직 받지는 않는다.',
         steps: [
           {
+            title: '추천 소재부터 (사전 지식 불필요)',
+            detail:
+              '맨 위 "추천 소재" 에서 아는 명작 칩(Ivanhoe·Odyssey…) 하나만 누르면 학습 적합·PD 안전 순으로 자동 랭킹된다(CANON 매칭+CI 감지+분량+PD 위험). 컬렉션 ID·연도 상한·검색어를 몰라도 되고, 가드레일(1964+ 제외·PD 재정렬·노이즈 제외·중복 제외)은 칩으로 표시된 대로 자동 적용된다. "추천 상위 N 큐 적재" 로 원클릭.',
+            done: '추천 목록에 fit 점수·왜 추천했는지 배지가 뜨고, 적재하면 큐 대기 카운트 증가.',
+          },
+          {
+            title: '직접 검색은 접어 둔 "고급"',
+            detail:
+              '컬렉션·연도·정렬을 직접 짜려면 "직접 검색 · 능력표 (고급)" 를 펼친다. 초심자는 열 필요 없다 — 추천 소재로 충분하다.',
+          },
+          {
             title: '출발점 칩부터',
             detail:
               '자유 검색은 저작권이 살아 있는 자료를 상위에 끌고 온다. 어댑터가 주는 출발점 칩은 검색어와 필터(컬렉션·연도·정렬)를 통째로 갈아끼운다 — 누른 뒤엔 이전 필터가 남지 않는다.',
@@ -231,6 +242,21 @@ export const PDCP_HELP: HelpRegistry = {
             label: '현대화 방법 (2트랙)',
             detail: '기본은 작화 보존(CPU·$0), 선택은 GPU 리스타일. GPU 트랙은 명시적으로 실행해야만 돌고 발행 기본이 아니다.',
           },
+          {
+            label: '작화보존 현대화 / AI 리스타일 (행 버튼)',
+            detail:
+              '드레인처럼 CLI 를 콘솔에서 돌린다. 작화보존 = page-modern(MAX)→page-html(CPU·$0·즉시). AI 리스타일 = modernize.mjs(Qwen@RunPod, COMFY_URL 필요) — GPU·비가역 비용이라 먼저 도구 탭의 GPU 연결 점검으로 준비를 확인한다. 끝나면 라이브 진행이 자동으로 열려 산출물이 보인다.',
+          },
+          {
+            label: '현대화 배지 (작화보존✓ · 리더✓ · AI 리스타일✓)',
+            detail:
+              '이 호가 어디까지 현대화됐는지 산출물로 판정해 보여준다(선형 단계가 아니라 트랙별 상태). "아직 안 함" 이면 현대화 버튼부터 누른다. 리더✓ 는 모던 리더(page-html)까지 됐다는 뜻.',
+          },
+          {
+            label: '발행 (검수 호 전용)',
+            detail:
+              '검수(review) 상태 행에만 뜬다. 펼치면 ①PD 근거 확정(pd_basis+검증기록) ②콘텐츠 업로드(현대화 페이지를 공개 버킷 comic/pd/<slug>/ 로) ③발행 순. 콘텐츠 업로드 전에는 "발행" 이 잠긴다 — 공개 URL 이 없으면 학습자에게 깨진 이미지가 나가기 때문. 체크리스트 5종(PD근거·검증·출처URL·현대화·콘텐츠서빙)이 모두 초록이어야 발행된다.',
+          },
         ],
         drain: {
           what:
@@ -317,6 +343,11 @@ export const PDCP_HELP: HelpRegistry = {
             label: '점검 출력',
             detail:
               'ffmpeg · tesseract.js · 소스별 검색 응답을 표로 낸다. 아무것도 만들지 않는 점검 전용 실행이고, 출력은 끝 6000자만 보여준다.',
+          },
+          {
+            label: 'GPU 연결 점검 (connect-check)',
+            detail:
+              'AI 리스타일(선택 트랙)이 도는 자가호스트 GPU 연결을 read-only 로 본다 — Kaggle(Bearer headless push) · RunPod(pod) · ComfyUI(COMFY_URL). AI 리스타일을 누르기 전에 여기서 ComfyUI 가 ✓ 인지 확인한다(만료돼 있으면 RunPod pod 를 기동해 .comfy-url 을 갱신해야 한다). 과금·GPU 사용 없음.',
           },
         ],
         cautions: [
