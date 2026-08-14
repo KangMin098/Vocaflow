@@ -6,8 +6,13 @@
   - ✅ **D3 하단** — 진행 실(1px) + Today 점. 하단 탭 4개는 그대로.
   - ✅ **D4 화면 탭** — `/my` 폐지(`MyTabs`·`my/layout` 삭제 · `/my/texts`→`/text`),
     Library 라벨 확정명(책·짧은 글·세트). **만화 흡수는 미적용** — 사이드바 축소와 함께 해야 한다.
-  - ◐ **D1 메뉴** — FlowNav 삭제 완료(내비 3 → 2). **사이드바 16 → 6 은 미적용**:
-    모듈 7종의 새 자리(콘텐츠 상세의 모드 선택 UI)가 아직 없어 지금 줄이면 접근 경로가 사라진다.
+  - ◐ **D1 메뉴** — FlowNav 삭제 완료(내비 3 → 2). **사이드바 16 → 6 은 미적용**.
+    - ⚠️ **정정 (2026-08-15)** — 초안이 "모듈 7종의 새 자리가 아직 없다" 고 적었으나 **틀렸다.**
+      `components/workspace/ModePills.tsx` 가 `/text/[id]` 에서 이미 모드 선택을 제공하고
+      있었고 e2e(`12-navigation` "ModePills 가 세션 라우트로 실제 이동한다")로 지켜지고 있었다.
+      실제 갭은 그보다 훨씬 작았다 — **7 모듈 중 PairFlip·Dictation 둘이 빠져 있었다.**
+      그 둘을 추가해(`짝맞추기`·`받아쓰기` · `?text=` 스코프) **선행 조건은 해소됐다.**
+    - 남은 것은 사이드바 축소 자체와 만화 흡수뿐이다.
   - 회귀 자산: `tests/e2e/22-shell-status.spec.ts` 7종 + `lib/learner/__tests__/today-status.test.ts` 15종
 - **Scope**: 전역 셸 4요소 — 내비게이션 메뉴 / 상단 상태 정보 / 하단 / 화면 내 탭
 - **Relates to**: [VOCAB_FRAMEWORK_PROPOSAL.md](../VOCAB_FRAMEWORK_PROPOSAL.md) §3 메뉴 재편안 · §6 진행 가이드 ·

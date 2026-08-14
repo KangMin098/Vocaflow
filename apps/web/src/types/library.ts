@@ -16,6 +16,12 @@ export type ModeKey =
   /** 아케이드 허브 — 이 자료의 단어를 게임 19종 전부로 넘기는 문(v07.8) */
   | 'arcade'
   | 'quiz'
+  /**
+   * ADR 0006 D1 — 사이드바를 4표면으로 줄이려면 **7 모듈 전부**가 콘텐츠 상세에서
+   * 열려야 한다. 둘이 빠져 있어 지금 줄이면 이 둘만 갈 길이 없어진다.
+   */
+  | 'pairflip'
+  | 'dictation'
 
 export type ModeStatus = 'done' | 'active' | 'pending'
 

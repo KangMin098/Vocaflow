@@ -31,8 +31,11 @@ const MODES: Mode[] = [
   { key: 'flashcard', label: '카드', group: 'study' },
   { key: 'spellforge', label: '스펠', group: 'practice' },
   { key: 'wordblitz', label: '블리츠', group: 'practice' },
+  // ADR 0006 D1 — 사이드바를 4표면으로 줄이려면 7 모듈 전부가 여기서 열려야 한다.
+  { key: 'pairflip', label: '짝맞추기', group: 'practice' },
   { key: 'arcade', label: 'Game Lab', group: 'practice' },
   { key: 'quiz', label: '퀴즈', group: 'practice' },
+  { key: 'dictation', label: '받아쓰기', group: 'practice' },
 ]
 
 const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string }[] = [
@@ -45,8 +48,15 @@ const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string 
 //   listen/read = 워크스페이스 본문 모드 (?mode=) · spellforge = 인라인 렌더 (page.tsx)
 //   shadow = 인라인 따라읽기 (?mode=shadow) · words = wordsHref · flashcard = flashcardHref · wordblitz = wordblitzHref (자료 스코프)
 //   quiz = 해당 모듈 hub (스크립트 기반 AI 문제 생성 필요 — 미연결)
+//   pairflip = 이 자료의 단어로 짝맞추기 세션 · dictation = 받아쓰기 setup (자료 스코프)
 const MODULE_ROUTES: Partial<Record<ModeKey, string>> = {
   quiz: '/scriptquiz',
+}
+
+/** 자료 스코프(`?text=`)를 붙여 여는 모듈 — 라우트 계약은 기존 런처와 같다. */
+const TEXT_SCOPED_ROUTES: Partial<Record<ModeKey, (textId: string) => string>> = {
+  pairflip: (id) => `/pairflip/play?text=${id}`,
+  dictation: (id) => `/dictate/setup?text=${id}`,
 }
 
 interface ModePillsProps {
@@ -126,7 +136,9 @@ export function ModePills({
                             ? withReturn(wordblitzHref)
                             : mode.key === 'arcade'
                               ? withReturn(arcadeHref)
-                              : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
+                              : TEXT_SCOPED_ROUTES[mode.key]
+                                ? withReturn(TEXT_SCOPED_ROUTES[mode.key]!(textId))
+                                : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
                   return (
                     <span key={mode.key} className="inline-flex items-center">
                       {mIdx > 0 && (

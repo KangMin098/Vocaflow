@@ -229,6 +229,8 @@ const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   shadow: 'pending',
   words: 'active',
   flashcard: 'pending',
+  pairflip: 'pending',
+  dictation: 'pending',
   spellforge: 'pending',
   wordblitz: 'pending',
   arcade: 'pending',
