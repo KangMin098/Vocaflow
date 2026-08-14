@@ -270,7 +270,34 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 ## VCB — Vocabulary Curation Build
 
-### 7-Step 파이프라인
+VCB 는 두 경로를 갖는다. **보강이 필요한가**로 갈린다:
+
+| 경로 | 언제 | 무엇을 하나 | 산출 |
+|---|---|---|---|
+| **8-step run** (아래) | 사전에 **없는** 단어를 새로 채워야 할 때 | seed → LLM 보강 → QA → 큐레이션 → 발행 | `shared_words` + `vocab_collections` |
+| **Composer** (`/admin/vocab/studio`) | 사전에 **이미 있는** 데이터를 조합해 단어장을 만들 때 | blueprint → 조립 → 7지표 채점 → 발행 | `shared_word_sets` + `shared_words` (레시피·점수는 `curation_query`) |
+
+### Composer (v06.35 신설) — 레시피 컴포저
+
+단어장 생성기가 5곳에 흩어져 각자 다른 `curation_query` 방언을 쓰던 것을 Recipe v3 한 스키마로
+통합한다. **마이그레이션 없음** (기존 `curation_query jsonb` 재사용).
+
+| 단 | 값 |
+|---|---|
+| `population` | dictionary · list · roots · topics · corpus · exam_items · learner · union/intersect/except |
+| `select` | 필터 + objective(`count`/`coverage`/`all`) + 기지 어휘 차감 + family 접기 |
+| `organize` | `group_by` 15종 · `order_within` 7종 · 그룹 cap · `min_group_size` · 페이싱 |
+| `present` | 보장 면(F1~F6) · 카드 필드 · 대조쌍 |
+
+- 카탈로그 **30종** — 시중 26유형 + 고유 4종(`unlock`·`recycle`·`facet-ladder`·`confusion-log`)
+- 코드: `apps/web/src/lib/vcb/compose/*` (순수 코어) + `resolve.ts`(DB) + `publish.ts`
+- CLI: `pnpm vcb:compose --blueprint <id> [--commit]` · 평가: `pnpm vcb:compose-eval`
+- 설계·목표·Round 기록: [VCB_REDESIGN.md](./VCB_REDESIGN.md) · 매트릭스: [reports/vcb-compose-eval.md](./reports/vcb-compose-eval.md)
+
+**고유 유형 실측 우위** (같은 예산, 대조군 = 일반 빈도순): `unlock` 200단어로 완전히 읽히는
+문장 **201 vs 23** (Pride and Prejudice, 전체 1,769문장) · `recycle` 평균 향후 재등장 **143.4 vs 94.1**.
+
+### 8-Step 파이프라인 (보강 경로)
 
 ```
 1. Ingest (seed 입력)

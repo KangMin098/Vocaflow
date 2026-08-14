@@ -6,9 +6,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Sparkles, Database, Layers, type LucideIcon } from 'lucide-react'
+import { Sparkles, Database, Layers, LayoutTemplate, type LucideIcon } from 'lucide-react'
 
 const TABS: { href: string; label: string; Icon: LucideIcon }[] = [
+  { href: '/admin/vocab/studio', label: 'Studio', Icon: LayoutTemplate },
   { href: '/admin/vocab/runs', label: 'Runs', Icon: Sparkles },
   { href: '/admin/vocab/sources', label: 'Sources', Icon: Database },
   { href: '/admin/vocab/collections', label: '발행 컬렉션', Icon: Layers },

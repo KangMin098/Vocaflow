@@ -35,7 +35,9 @@
     "vcb:qa": "tsx scripts/vcb/06-qa.ts",
     "vcb:curate": "tsx scripts/vcb/07-curate.ts",
     "vcb:publish": "tsx scripts/vcb/08-publish.ts",
-    "vcb:publish-precheck": "tsx scripts/vcb/08b-publish-precheck.ts"
+    "vcb:publish-precheck": "tsx scripts/vcb/08b-publish-precheck.ts",
+    "vcb:compose": "tsx --tsconfig apps/web/tsconfig.json scripts/vcb/compose-publish.mts",
+    "vcb:compose-eval": "pnpm --filter web exec vitest run src/lib/vcb/compose"
   },
   "repository": {
     "type": "git",

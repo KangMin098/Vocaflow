@@ -162,7 +162,8 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/admin/vocab` | `admin/vocab/page.tsx` + `layout.tsx` | VCB 메인 |
+| `/admin/vocab` | `admin/vocab/page.tsx` + `layout.tsx` | VCB 메인 (→ runs redirect) |
+| `/admin/vocab/studio` | `admin/vocab/studio/page.tsx` | **단어장 Studio** — blueprint 30종 조립·채점·발행 (보강 없는 경로) |
 | `/admin/vocab/curate/[run_id]` | curate hub | |
 | `/admin/vocab/runs` | runs 목록 | |
 | `/admin/vocab/runs/new` | 신규 run | |

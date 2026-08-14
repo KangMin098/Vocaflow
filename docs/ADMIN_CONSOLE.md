@@ -207,6 +207,7 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 | 경로 | 내용 |
 |---|---|
 | `/admin/vocab` | VCB 메인 |
+| `/admin/vocab/studio` | **단어장 Studio** — 유형 30종(시중 26 + 고유 4) 조립 · 7지표 채점 · 발행. 채점 통과선 0.80 미달이면 발행 버튼이 잠긴다 |
 | `/admin/vocab/runs` | runs 목록 |
 | `/admin/vocab/runs/new` | 신규 run |
 | `/admin/vocab/runs/[id]` | run 상세 |
@@ -220,6 +221,12 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 컴포넌트 (`components/admin/vcb/`):
 - 8 step 워크플로우
 - `VcbSeedFlow.tsx` / `VcbStep4LookupCard.tsx` 등
+- `studio/StudioClient.tsx` + `studio/ScorecardPanel.tsx` — Studio (blueprint 갤러리 · 채점 결과 · 목차 미리보기)
+
+Studio 는 보강(LLM)을 거치지 않고 **이미 있는 사전·코퍼스 데이터를 조합**한다. 사전에 없는 단어를
+새로 채워야 하면 Runs(8-step)로 간다. 발행은 서버가 같은 레시피로 다시 조립해서 하므로
+화면이 들고 있던 결과가 그대로 쓰이지 않는다(사이에 사전이 바뀌면 결과도 바뀐다).
+CLI 동등물: `pnpm vcb:compose --blueprint <id> [--commit]` · 평가: `pnpm vcb:compose-eval`
 
 ---
 
