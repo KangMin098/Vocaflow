@@ -16,6 +16,7 @@ import { useGameWordScope } from '@/lib/game/use-word-scope';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
 import { gameResourceContext } from '@/lib/game/scope-resource';
 import { recordGameResult } from '@/lib/game/record-result';
+import { contentRefFromScope } from '@/lib/content/content-ref';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
 /**
@@ -69,6 +70,10 @@ export function GamePlayScaffold({
   // tsc·단위 테스트는 못 잡는다.
   const notMine = useRef(new Set<string>());
   const [notMineCount, setNotMineCount] = useState(0);
+  // v08.6 — 결정 3 을 A안(lazy 승격)으로 확정. 세트로 들어와 논 단어는 그 자리에서
+  // 내 단어가 되므로, 남는 not-mine 은 **정말로 자료 밖인 것**(게임 내장 뱅크)뿐이다.
+  const promotedRef = useRef(new Set<string>());
+  const [promotedCount, setPromotedCount] = useState(0);
 
   if (scope.loading) {
     return <GameLoading message={loadingMessage ?? '단어 불러오는 중…'} />;
@@ -90,28 +95,35 @@ export function GamePlayScaffold({
 
   const track = async (word: string, p: Promise<Awaited<ReturnType<typeof recordGameResult>>>) => {
     const res = await p;
+    if (!res.ok) return;
+    const key = word.toLowerCase();
+    // 승격은 학습자 단어장에 **쓰는** 일이라 조용히 하지 않는다(설계안 "A + 승격 알림").
+    if (res.promoted && !promotedRef.current.has(key)) {
+      promotedRef.current.add(key);
+      setPromotedCount(promotedRef.current.size);
+    }
     // 'assisted' · 'cooldown' 은 의도된 무결성 가드이므로 세지 않는다 — 결함이 아니다.
-    if (res.ok && !res.updated && res.reason === 'not-mine') {
-      const key = word.toLowerCase();
-      if (!notMine.current.has(key)) {
-        notMine.current.add(key);
-        setNotMineCount(notMine.current.size);
-      }
+    if (!res.updated && res.reason === 'not-mine' && !notMine.current.has(key)) {
+      notMine.current.add(key);
+      setNotMineCount(notMine.current.size);
     }
   };
+
+  // 지금 놀고 있는 자료 — 승격 자격의 근거다(세트 안에 실재하는 단어만 담는다).
+  const content = contentRefFromScope({ set: scope.set, text: scope.text, chapter: scope.chapter });
 
   const onCorrect = (word: Word, opts?: ResultOpts) => {
     session.countCorrect();
     void track(
       word.en,
-      recordGameResult({ word: word.en, isCorrect: true, module, assisted: opts?.assisted }),
+      recordGameResult({ word: word.en, isCorrect: true, module, assisted: opts?.assisted, content }),
     );
   };
   const onWrong = (word: Word, opts?: ResultOpts) => {
     session.countWrong();
     void track(
       word.en,
-      recordGameResult({ word: word.en, isCorrect: false, module, assisted: opts?.assisted }),
+      recordGameResult({ word: word.en, isCorrect: false, module, assisted: opts?.assisted, content }),
     );
   };
 
@@ -120,22 +132,33 @@ export function GamePlayScaffold({
   return (
     <main style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <ResourceContext resource={gameResourceContext(scope)} />
-      {notMineCount > 0 && <NotMineNotice count={notMineCount} />}
+      {/* 둘 다 있으면 **둘 다** 말한다. 좋은 소식만 띄우고 남은 사실을 덮으면 그게 새로운
+          침묵이다 — 실제로 승격 고지가 not-mine 고지를 가리게 만들었다가 아케이드 회귀가
+          잡았다(세트 단어와 게임 내장 뱅크 단어가 섞이는 판이 있다). 배지는 하나로 합친다. */}
+      {(promotedCount > 0 || notMineCount > 0) && (
+        <CouplingNotice promoted={promotedCount} notMine={notMineCount} />
+      )}
       {render({ wordPool: scope.words, onCorrect, onWrong, onExit })}
     </main>
   );
 }
 
 /**
- * "이 단어는 아직 내 단어가 아니에요" 고지.
+ * 결합 고지 — "담았다" 와 "못 담았다" 를 한 줄에 함께 말한다.
  *
- * 학습을 **끊지 않는다** — 게임 위에 겹치는 작은 배지이고, 누를 것이 없다(Calm UI ·
- * 학습 중 모달 금지). 다만 사실은 말한다: 이 세션의 일부는 복습 일정에 남지 않는다.
+ * 승격은 학습자 자산에 **쓰는** 일이라 말없이 하지 않는다(결정 3 A안의 '승격 알림').
+ * 동시에, 담지 못한 것이 남아 있으면 그 사실도 지운 채로 두지 않는다 — 좋은 소식만
+ * 띄우면 그게 새로운 침묵이다.
  *
- * 왜 세션당 한 번인가: 단어마다 알리면 97.9% 경로에서 화면이 고지로 덮인다.
- * 누적 개수만 조용히 갱신한다(Implicit Progress 의 반대 방향 — 조용한 사실 통지).
+ * 학습을 **끊지 않는다**: 게임 위에 겹치는 작은 배지이고 누를 것이 없다
+ * (Calm UI · 학습 중 모달 금지). 세션당 한 줄이고 개수만 조용히 갱신한다 —
+ * 단어마다 알리면 화면이 고지로 덮인다.
  */
-function NotMineNotice({ count }: { count: number }) {
+function CouplingNotice({ promoted, notMine }: { promoted: number; notMine: number }) {
+  const parts: string[] = [];
+  if (promoted > 0) parts.push(`${promoted}개를 내 단어장에 담았어요 · 이제 복습에도 나옵니다`);
+  if (notMine > 0) parts.push(`${notMine}개는 아직 내 단어가 아니어서 복습 일정에는 반영되지 않아요`);
+
   return (
     <p
       role="status"
@@ -153,14 +176,14 @@ function NotMineNotice({ count }: { count: number }) {
         textAlign: 'center',
         fontSize: 11.5,
         lineHeight: 1.45,
-        color: '#F3E7D2',
+        color: promoted > 0 ? '#E6F4EC' : '#F3E7D2',
         background: 'rgba(20,16,12,.82)',
-        border: '1px solid rgba(176,132,58,.45)',
+        border: `1px solid ${promoted > 0 ? 'rgba(46,125,90,.55)' : 'rgba(176,132,58,.45)'}`,
         backdropFilter: 'blur(4px)',
         pointerEvents: 'none',
       }}
     >
-      이 세션의 {count}개는 아직 내 단어가 아니어서 복습 일정에는 반영되지 않아요
+      {parts.join(' · ')}
     </p>
   );
 }

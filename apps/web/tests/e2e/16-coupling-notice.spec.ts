@@ -1,78 +1,110 @@
 // apps/web/tests/e2e/16-coupling-notice.spec.ts
 //
-// 결합 침묵 제거 — **세트로 놀았는데 복습 일정에 아무것도 남지 않는 것을 학습자가 알 수 있어야 한다.**
+// 세트 결합 — **세트로 놀면 그 단어가 내 단어가 되고 복습에도 나온다.**
 //
 // 배경(실측):
-//   `recordGameResult` 는 학습자 `vocabularies` 에 없는 단어를 카드 갱신 없이 넘긴다.
+//   `recordGameResult` 는 학습자 `vocabularies` 에 없는 단어를 카드 갱신 없이 넘겼다.
 //   그 비율이 **97.9%** 다(내 단어 225개 vs 세트 단어 56,079개 · 628세트 기준 겹침 2.1%).
-//   그동안 화면에 아무 표시가 없어서, 세트로 한 세션을 다 놀아도 FSRS 에 0건이 남는다는 것을
-//   알 방법이 없었다. 팀은 이 문제를 게임별로 우회해 왔다(morpheme-bank.ts 의 "99.7% silent
-//   skip 됐다" 주석 외 3곳).
+//   세트로 한 세션을 다 놀아도 FSRS 에 0건이 남았다.
+//
+// 계약이 한 번 바뀌었다 (VOCAB_FRAMEWORK_PROPOSAL 결정 3):
+//   v08.5 는 **B안(스킵 노출)** — "이 중 N개는 아직 내 단어가 아니에요" 를 띄웠다.
+//   v08.6 은 **A안(lazy 승격)** — 설계안 권장안. 그 자리에서 담고 담았다고 알린다.
+//   B안은 사실을 알려주기만 하고 학습자에게 한 걸음을 더 요구했다.
+//   그래서 이 스펙의 단언도 뒤집혔다: 세트 스코프에서 기대하는 것은 **승격 고지**다.
 //
 // 왜 e2e 인가:
-//   이 계약은 **런타임에서만** 검증된다. 실제로 이 기능을 만들면서 훅을 early return 뒤에
-//   두는 버그를 냈는데(`Rendered more hooks than during the previous render`) tsc 와 단위
-//   테스트는 통과했고 런타임 확인만 잡았다. 세는 규칙은 단위 테스트(record-skip-reason)가,
-//   **화면에 실제로 뜨는지**는 이 스펙이 지킨다.
+//   이 계약은 **런타임에서만** 검증된다. B안을 만들 때 훅을 early return 뒤에 두는 버그를
+//   냈는데(`Rendered more hooks than during the previous render`) tsc·단위 테스트는 통과했고
+//   런타임만 잡았다. 승격은 거기에 더해 **DB 에 실제로 쓰였는지**까지 봐야 한다 —
+//   고지는 상태값으로도 뜰 수 있으니 화면만으로는 증명되지 않는다.
+//
+// ⚠️ finally 정리 필수 — 승격은 학습자 vocabularies 에 행을 만든다. 남기면
+//   `pickSetWithoutOverlap` 이 고를 수 있는 세트가 실행할 때마다 줄어 테스트가 스스로를
+//   무력화한다(08-text-extract-trust 의 word_familiarity 원복과 같은 이유).
 
 import { test, expect } from '@playwright/test';
 
-import { pickSetWithoutOverlap, userIdByEmail } from './utils/db';
+import {
+  countVocabulariesSince,
+  deleteVocabulariesSince,
+  pickSetWithoutOverlap,
+  userIdByEmail,
+} from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-test.describe('결합 침묵 — 내 단어가 아닌 것을 알린다', () => {
-  test('세트 스코프로 놀면 "복습 일정에 반영되지 않는다" 를 화면이 밝힌다', async ({ page }) => {
-    test.setTimeout(150_000);
+const PROMOTED_RE = /내 단어장에 담았어요/;
+const NOT_MINE_RE = /복습 일정에는 반영되지 않아요/;
+
+test.describe('세트 결합 — 놀면 내 단어가 된다 (결정 3 · A안)', () => {
+  test('세트 스코프로 놀면 그 단어가 vocabularies 에 담기고 화면이 알린다', async ({ page }) => {
+    test.setTimeout(180_000);
 
     const userId = await userIdByEmail(RUNTIME_USER.email);
     test.skip(!userId, 'service-role 키 없음 — DB 대조 불가');
 
-    // 내 단어와 **겹치지 않는** 세트를 DB 에서 고른다. 겹치는 세트로 하면 not-mine 이 0이라
+    // 내 단어와 **겹치지 않는** 세트를 DB 에서 고른다. 겹치는 세트로 하면 승격할 것이 없어
     // 고지가 안 뜨는 것이 정상이고, 그러면 "고지 없음" 이 결함인지 정상인지 구별할 수 없다.
-    // (id 하드코딩은 데이터가 바뀌면 조용히 낡고, UI 목록 스크래핑은 링크 구조에 취약했다.)
     const picked = await pickSetWithoutOverlap(userId!, 12);
     test.skip(!picked, '내 단어와 겹치지 않는 세트를 찾지 못했다');
 
-    await page.goto('/login', { waitUntil: 'domcontentloaded' });
-    await page.fill('input[type="email"]', RUNTIME_USER.email);
-    await page.fill('input[type="password"]', RUNTIME_USER.password);
-    await page.getByRole('button', { name: /로그인|Sign in/ }).first().click();
-    await page.waitForURL(/\/(hub|dashboard)/, { timeout: 30_000 }).catch(() => {});
+    const sinceIso = new Date().toISOString();
 
-    await page.goto(`/play/cascade?set=${picked!.setId}&from=%2Farcade`, {
-      waitUntil: 'domcontentloaded',
-    });
+    try {
+      await page.goto('/login', { waitUntil: 'domcontentloaded' });
+      await page.fill('input[type="email"]', RUNTIME_USER.email);
+      await page.fill('input[type="password"]', RUNTIME_USER.password);
+      await page.getByRole('button', { name: /로그인|Sign in/ }).first().click();
+      await page.waitForURL(/\/(hub|dashboard)/, { timeout: 30_000 }).catch(() => {});
 
-    // 보드가 뜨고 자료 표기가 세트인지 확인 — 스코프가 mine 으로 폴백하면 이 계약이 성립하지 않는다
-    await expect(page.locator('.cs-tile--word').first()).toBeVisible({ timeout: 60_000 });
+      await page.goto(`/play/cascade?set=${picked!.setId}&from=%2Farcade`, {
+        waitUntil: 'domcontentloaded',
+      });
 
-    // **활성 타일만** 누른다. 잠긴 타일은 pointer-events: none 이라 force 클릭이 아래로 빠지고
-    // 채점이 일어나지 않는다(실측: 그래서 서버액션 POST 가 0이었다).
-    for (let i = 0; i < 6; i++) {
-      const live = page.locator('.cs-tile--word[aria-disabled="false"]');
-      if ((await live.count()) === 0) break;
-      await live.first().click({ timeout: 5_000 }).catch(() => {});
-      await page.waitForTimeout(700);
+      // 보드가 뜨고 자료가 세트인지 확인 — 스코프가 mine 으로 폴백하면 계약이 성립하지 않는다
+      await expect(page.locator('.cs-tile--word').first()).toBeVisible({ timeout: 60_000 });
+
+      // **활성 타일만** 누른다. 잠긴 타일은 pointer-events: none 이라 force 클릭이 아래로 빠지고
+      // 채점이 일어나지 않는다(실측: 그래서 서버액션 POST 가 0이었다).
+      for (let i = 0; i < 6; i++) {
+        const live = page.locator('.cs-tile--word[aria-disabled="false"]');
+        if ((await live.count()) === 0) break;
+        await live.first().click({ timeout: 5_000 }).catch(() => {});
+        await page.waitForTimeout(700);
+      }
+
+      const notice = page.getByText(PROMOTED_RE);
+      await expect(notice, '세트 단어를 채점했는데 승격 고지가 없다').toBeVisible({
+        timeout: 20_000,
+      });
+
+      // 화면만으로는 증명되지 않는다 — 실제로 담겼는지 DB 로 확인한다.
+      let promotedRows = 0;
+      for (let t = 0; t < 16 && promotedRows < 1; t++) {
+        promotedRows = await countVocabulariesSince(userId!, sinceIso, 'shared_set');
+        if (promotedRows < 1) await page.waitForTimeout(500);
+      }
+      expect(promotedRows, '고지는 떴는데 vocabularies 에 실제로 담긴 것이 없다').toBeGreaterThanOrEqual(1);
+
+      // 승격했으므로 "내 단어가 아니다" 고지는 더 이상 뜨지 않아야 한다(계약 반전 확인)
+      await expect(page.getByText(NOT_MINE_RE), 'A안인데 B안 고지가 남아 있다').toHaveCount(0);
+
+      // 학습을 막지 않아야 한다 — 배지가 클릭을 가로채면 게임이 멈춘다
+      const pe = await notice.first().evaluate((el) => getComputedStyle(el).pointerEvents);
+      expect(pe, '고지가 포인터 이벤트를 가로챈다').toBe('none');
+
+      // 모달이 아니어야 한다(학습 중 오버레이 금지)
+      expect(await page.getByRole('dialog').count(), '고지가 모달로 떴다').toBe(0);
+    } finally {
+      await deleteVocabulariesSince(userId!, sinceIso);
     }
-
-    const notice = page.getByText(/복습 일정에는 반영되지 않아요/);
-    await expect(notice, '세트 단어를 채점했는데 고지가 뜨지 않는다 — 침묵이 그대로다').toBeVisible({
-      timeout: 20_000,
-    });
-
-    // 학습을 막지 않아야 한다 — 배지가 클릭을 가로채면 게임이 멈춘다
-    const pe = await notice.first().evaluate((el) => getComputedStyle(el).pointerEvents);
-    expect(pe, '고지가 포인터 이벤트를 가로챈다').toBe('none');
-
-    // 모달이 아니어야 한다(학습 중 오버레이 금지)
-    expect(await page.getByRole('dialog').count(), '고지가 모달로 떴다').toBe(0);
   });
 
-  test('내 단어만으로 놀면 고지가 뜨지 않는다 (거짓 경보 금지)', async ({ page }) => {
+  test('내 단어만으로 놀면 어떤 고지도 뜨지 않는다 (거짓 경보 금지)', async ({ page }) => {
     test.setTimeout(120_000);
 
     await page.goto('/login', { waitUntil: 'domcontentloaded' });
@@ -81,7 +113,7 @@ test.describe('결합 침묵 — 내 단어가 아닌 것을 알린다', () => {
     await page.getByRole('button', { name: /로그인|Sign in/ }).first().click();
     await page.waitForURL(/\/(hub|dashboard)/, { timeout: 30_000 }).catch(() => {});
 
-    // 스코프 없이 진입 = mine(내 due 큐) → 전부 내 단어여야 한다
+    // 스코프 없이 진입 = mine(내 due 큐) → 전부 내 단어라 승격할 것도, 알릴 것도 없다
     await page.goto('/play/cascade?from=%2Farcade', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.cs-tile--word').first()).toBeVisible({ timeout: 60_000 });
 
@@ -93,9 +125,7 @@ test.describe('결합 침묵 — 내 단어가 아닌 것을 알린다', () => {
     }
     await page.waitForTimeout(2_500);
 
-    await expect(
-      page.getByText(/복습 일정에는 반영되지 않아요/),
-      '내 단어로 놀았는데 고지가 떴다 — 거짓 경보다',
-    ).toHaveCount(0);
+    await expect(page.getByText(NOT_MINE_RE), '내 단어로 놀았는데 고지가 떴다').toHaveCount(0);
+    await expect(page.getByText(PROMOTED_RE), '담을 것이 없는데 승격 고지가 떴다').toHaveCount(0);
   });
 });

@@ -64,6 +64,19 @@ describe('스킵 이유 구별', () => {
     expect(silent).toBeTruthy()
   })
 
+  it('승격은 카드 갱신과 별개로 기록된다 (가드에 걸려도 담긴 사실은 남는다)', () => {
+    // lazy 승격(결정 3 A안)은 단어장에 **쓰는** 일이라, 그 뒤 assisted·cooldown 가드로
+    // 카드를 안 올리더라도 "담겼다" 는 사실이 사라지면 안 된다 — 고지가 누락된다.
+    const guarded: RecordResult = {
+      ok: true,
+      updated: false,
+      reason: 'assisted',
+      promoted: true,
+    }
+    expect(guarded.ok && guarded.promoted).toBe(true)
+    expect(countsAsCouplingFailure(guarded), '승격됐는데 결합 실패로 세면 거짓 경보다').toBe(false)
+  })
+
   it('세션 집계는 단어 단위로 중복을 제거한다 (같은 단어 재출제가 개수를 부풀리지 않게)', () => {
     // 아케이드는 한 세션에 같은 단어를 여러 번 낸다(ghost-race 는 레이스당 36회 채점).
     // 고지 개수가 "몇 번 넘어갔나" 가 아니라 "몇 단어가 내 것이 아닌가" 여야 한다.

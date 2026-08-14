@@ -10,6 +10,29 @@
 
 ## Unreleased (v06.34 → next)
 
+### 세트 결합 — 놀면 내 단어가 된다 (프레임워크 결정 3 · A안 채택)
+
+[VOCAB_FRAMEWORK_PROPOSAL.md](./VOCAB_FRAMEWORK_PROPOSAL.md) §9 결정 3 을 **(a) lazy 승격**으로
+확정했다. v08.5 가 먼저 (b) 스킵 노출로 구현돼 있었다 — 사실을 알려주긴 했지만 학습자에게
+한 걸음을 더 요구했다. 실측 97.9% 가 이 경로였다(내 단어 225 vs 세트 단어 56,079 · 겹침 2.1%).
+
+- **`recordGameResult` 가 담고 나서 진행한다** — 내 단어가 아니면 `promoteFromSet` 으로
+  `shared_words` 에서 뜻·예문·발음·POS·CEFR 을 가져와 `vocabularies` 에 넣고, 그 카드로 FSRS 를 올린다.
+- **자격을 현재 세트로 좁혔다** — 구독 전체로 넓히면 이름만 겹친 게임 내장 뱅크 단어가 딸려
+  들어와 학습자 단어장이 오염된다. 담을 수 없는 것(뱅크 단어 · `meaning_ko` 없음)은 종전대로
+  `not-mine` 이고 (b)의 고지가 그대로 뜬다.
+- **`lemma` FK 함정 방어** — `vocabularies.lemma` 는 `shared_dictionary(word)` FK 라 세트 lemma 가
+  사전에 없으면 INSERT 전체가 23503 으로 죽는다. 붙여 보고 실패하면 **lemma 없이 재시도**한다
+  (결합 키는 어차피 소문자 `word` — 제안 문서 §5.5).
+- **승격 알림** — 단어장에 쓰는 일을 말없이 하면 그것도 침묵이다. 스캐폴드가
+  "이 세션에서 만난 N개를 내 단어장에 담았어요 · 이제 복습에도 나옵니다" 를 띄운다(비차단·비모달).
+  **담은 것과 못 담은 것이 함께 있으면 한 줄에 같이 적는다** — 좋은 소식이 남은 사실을 덮으면
+  그게 새로운 침묵이 된다(첫 구현에서 실제로 그렇게 만들었다가 아케이드 회귀가 잡았다).
+- `promoted` 는 가드(assisted·cooldown)에 걸려 카드를 못 올려도 유지된다 — 이미 담긴 사실은 잃지 않는다.
+- 계약 반전: `16-coupling-notice.spec.ts` 를 A안 계약으로 다시 씀(승격 고지 + `vocabularies`
+  실적재 DB 단언 + B안 고지 부재). ⚠️ finally 원복 필수 — 남기면 `pickSetWithoutOverlap` 이
+  고를 세트가 실행마다 줄어 테스트가 스스로를 무력화한다.
+
 ### SSoT 드리프트를 야간 상시 측정 — 우연히 발견되던 결함을 지표로 (마이그레이션 1건)
 
 `20260814015130_quality_metrics_ssot_drift` — `collect_quality_metrics()` 에 M7 추가.
