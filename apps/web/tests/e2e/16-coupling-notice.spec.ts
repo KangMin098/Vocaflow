@@ -70,25 +70,37 @@ test.describe('세트 결합 — 놀면 내 단어가 된다 (결정 3 · A안)'
 
       // **활성 타일만** 누른다. 잠긴 타일은 pointer-events: none 이라 force 클릭이 아래로 빠지고
       // 채점이 일어나지 않는다(실측: 그래서 서버액션 POST 가 0이었다).
-      for (let i = 0; i < 6; i++) {
+      //
+      // ⚠️ 클릭 수를 채점 수로 세면 안 된다 — cascade 는 타일을 눌러 **짝이 성립할 때** 채점한다.
+      // 고정 횟수만 누르고 단언하면 보드 상태에 따라 채점이 0회인 채로 "승격이 동작하지 않는다"
+      // 라고 잘못 보고한다(실제로 그렇게 만들었다가 배치 실행에서 오탐이 났다).
+      // 그래서 **목표 신호(DB 적재)가 나올 때까지** 몰아간다.
+      let clicked = 0;
+      let promotedRows = 0;
+      for (let round = 0; round < 18 && promotedRows < 1; round++) {
         const live = page.locator('.cs-tile--word[aria-disabled="false"]');
-        if ((await live.count()) === 0) break;
-        await live.first().click({ timeout: 5_000 }).catch(() => {});
+        const n = await live.count();
+        if (n > 0) {
+          await live.first().click({ timeout: 5_000 }).catch(() => {});
+          clicked += 1;
+        }
         await page.waitForTimeout(700);
+        promotedRows = await countVocabulariesSince(userId!, sinceIso, 'shared_set');
       }
+
+      // 하네스 실패(클릭이 한 번도 안 먹음)를 제품 실패로 보고하지 않는다 — 원인이 갈린다.
+      expect(clicked, '활성 타일을 한 번도 누르지 못했다 — 게임 진입 자체가 실패했다').toBeGreaterThan(0);
+
+      // **DB 가 근거다.** 고지는 상태값으로도 뜰 수 있어 화면만으로는 증명되지 않는다.
+      expect(
+        promotedRows,
+        `세트 단어 타일을 ${clicked}회 눌렀는데 vocabularies 에 담긴 것이 없다 — 승격이 동작하지 않는다`,
+      ).toBeGreaterThanOrEqual(1);
 
       const notice = page.getByText(PROMOTED_RE);
-      await expect(notice, '세트 단어를 채점했는데 승격 고지가 없다').toBeVisible({
+      await expect(notice, 'DB 에는 담겼는데 학습자에게 알리지 않는다 — 조용한 쓰기다').toBeVisible({
         timeout: 20_000,
       });
-
-      // 화면만으로는 증명되지 않는다 — 실제로 담겼는지 DB 로 확인한다.
-      let promotedRows = 0;
-      for (let t = 0; t < 16 && promotedRows < 1; t++) {
-        promotedRows = await countVocabulariesSince(userId!, sinceIso, 'shared_set');
-        if (promotedRows < 1) await page.waitForTimeout(500);
-      }
-      expect(promotedRows, '고지는 떴는데 vocabularies 에 실제로 담긴 것이 없다').toBeGreaterThanOrEqual(1);
 
       // 승격했으므로 "내 단어가 아니다" 고지는 더 이상 뜨지 않아야 한다(계약 반전 확인)
       await expect(page.getByText(NOT_MINE_RE), 'A안인데 B안 고지가 남아 있다').toHaveCount(0);

@@ -37,7 +37,11 @@ import {
   canAdvance,
   type WordFrameworkState,
 } from '../flow'
-import { activities, activityById, facetCoverage } from '../registry'
+import { activities, activityById, facetCoverage, fullScreenActivityPaths } from '../registry'
+import {
+  FULL_SCREEN_ACTIVITY_ROUTES,
+  isFullScreenRoute,
+} from '../../layout/full-screen-routes'
 
 const ACTS = activities()
 
@@ -151,7 +155,10 @@ describe('레지스트리 ↔ 카탈로그 정합', () => {
     // 이 표의 값이 프레임워크가 요구하는 신설의 근거다.
     // recognize 는 과잉이고 sound 는 기록 0 이다 — 지금 상태를 테스트가 증언한다.
     expect(cov.recognize.designed, 'recognize 과잉이 해소되면 이 기대를 갱신하라').toBeGreaterThanOrEqual(8)
-    expect(cov.sound.recording, 'Sound 면을 기록하는 활동이 생기면 이 기대를 갱신하라').toBe(0)
+    // Sound 면은 더 이상 기록 0 이 아니다 — Dictation 이 v07 에서 타깃 단어를 FSRS 로 올린다
+    // (실측 2026-08-14: learning_records(dictation) 84행). Echo 는 여전히 FSRS 밖이라
+    // 이 값이 1 이라는 것은 "청각 기록 경로가 하나뿐" 이라는 뜻이다.
+    expect(cov.sound.recording, '청각 면 기록 활동 수가 바뀌면 근거와 함께 갱신하라').toBe(1)
   })
 
   it('순수 생산 활동은 met 단계에 배치되지 않는다 (초기 부호화 보호)', () => {
@@ -292,5 +299,47 @@ describe('흐름 — 세션 구성 상수', () => {
   it('output strand 를 담는 활동이 있다 (없으면 배분 지표가 항상 0이다)', () => {
     const output = ACTS.filter((a) => a.strand === 'output')
     expect(output.length, 'meaning-focused output 활동이 하나도 없다').toBeGreaterThan(0)
+  })
+})
+
+// ── 라우트 선언 ↔ 풀스크린 판정 (드리프트 차단) ────────────────────
+//
+// 판정 목록은 `lib/layout/full-screen-routes` 에 손으로 있다 — 레지스트리를 레이아웃에서
+// import 하면 `GAME_MARKS`(ReactNode)가 전 화면 번들에 딸려 오기 때문이다.
+// 손으로 둔 대가는 드리프트이고, 그것을 여기서 막는다. 활동을 추가하고 목록을 안 고치면
+// 이 테스트가 먼저 빨개진다 — 예전처럼 `endsWith('/play')` 가 조용히 삼키지 않는다.
+describe('풀스크린 라우트 — 레지스트리 선언과 일치한다', () => {
+  it('레지스트리의 fullScreen 활동 경로 = 레이아웃 목록', () => {
+    expect(FULL_SCREEN_ACTIVITY_ROUTES).toEqual(fullScreenActivityPaths())
+  })
+
+  it('선언된 경로는 전부 풀스크린으로 판정된다', () => {
+    for (const p of fullScreenActivityPaths()) {
+      expect(isFullScreenRoute(p), `${p} 가 풀스크린으로 안 잡힌다`).toBe(true)
+    }
+  })
+
+  it('모양만 비슷한 경로는 삼키지 않는다 (예전 패턴 판정의 결함)', () => {
+    // `endsWith('/play')` 시절에는 이런 라우트가 생기는 순간 조용히 풀스크린이 됐다.
+    expect(isFullScreenRoute('/notes/play')).toBe(false)
+    expect(isFullScreenRoute('/play')).toBe(false)
+    expect(isFullScreenRoute('/play/unknown-game')).toBe(false)
+  })
+
+  it('셸을 유지하기로 선언한 활동은 풀스크린이 아니다', () => {
+    // Echo 는 워크스페이스 안에서 열린다(registry: fullScreen false).
+    expect(isFullScreenRoute('/text/abc-123/echo')).toBe(false)
+    expect(isFullScreenRoute('/dictate/setup')).toBe(false)
+    expect(isFullScreenRoute('/dictate/results')).toBe(false)
+  })
+
+  it('후행 슬래시는 같은 라우트다', () => {
+    expect(isFullScreenRoute('/play/cascade/')).toBe(true)
+  })
+
+  it('빈 값은 풀스크린이 아니다', () => {
+    expect(isFullScreenRoute(null)).toBe(false)
+    expect(isFullScreenRoute(undefined)).toBe(false)
+    expect(isFullScreenRoute('')).toBe(false)
   })
 })

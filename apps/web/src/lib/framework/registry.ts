@@ -35,6 +35,17 @@ export type ContentNeed =
   /** 도서 챕터가 필요하다 */
   | 'chapter'
 
+/** 활동의 세션 라우트. `[id]` 세그먼트는 어떤 값과도 매칭된다. */
+export interface ActivityRoute {
+  /** 경로 템플릿 — 예: `/flashcard/play` · `/play/cascade` · `/text/[id]/echo` */
+  path: string
+  /**
+   * 진입 시 사이드바·FlowNav 를 숨기는가(작업기억 보호 · §학습원칙6).
+   * 이 값이 곧 `lib/layout/full-screen-routes` 의 근거다.
+   */
+  fullScreen: boolean
+}
+
 export interface Activity {
   /** 안정 키. `module_id` enum · `ScoreModule` · `ArcadeGameId` 의 단일 출처가 되어야 한다. */
   id: string
@@ -60,6 +71,16 @@ export interface Activity {
   strand: Strand
   /** 어느 단계에 배치 가능한가 (spine 면에서 파생되지만 모듈은 명시) */
   stages: StageId[]
+  /**
+   * 세션 진입 경로. 없으면 전용 라우트가 없는 활동(워크스페이스 인라인).
+   *
+   * 왜 레지스트리가 갖는가: 라우트가 두 규약(`/x/play` · `/play/x`)으로 갈려 있는데,
+   * "이 화면이 풀스크린인가" 를 **경로 문자열 패턴**(`endsWith('/play')`)으로 판정하고
+   * 있었다. 그러면 `/notes/play` 같은 무관한 라우트가 생기는 순간 조용히 풀스크린이 되고,
+   * 반대로 규약 밖에 놓인 세션은 조용히 사이드바를 달고 뜬다.
+   * 경로는 선언의 대상이지 추측의 대상이 아니다.
+   */
+  route?: ActivityRoute
   /** 아케이드 계열에 접히는 활동인가 */
   family?: string
   /** 브리핑(Protocol)이 있는가 — 아케이드 19종은 전부 있다 */
@@ -124,6 +145,8 @@ function arcadeActivities(): Activity[] {
       records: !g.beta,
       strand: facets.includes('fluency') ? 'fluency' : 'language-focused',
       stages: stagesFor(facets),
+      // 아케이드는 `(app)/play/<slug>` 규약 하나로 통일돼 있고 전부 풀스크린이다.
+      route: { path: `/play/${g.slug}`, fullScreen: true },
       family: g.family,
       brief: Boolean(brief),
     }
@@ -156,13 +179,14 @@ function stagesFor(facets: FacetId[]): StageId[] {
 // 9모듈 중 인출 이벤트가 있는 것만 활동이다. TextViewer(노출) · WordVault(자가평가) ·
 // Dashboard(회고)는 활동이 아니라 표면·화면이므로 여기 없다.
 //
-// ⚠️ `records: false` 인 두 항목은 결함이지 설계가 아니다 —
-//    ScriptQuiz · Dictation 이 FSRS 에 0행을 쓰는 것은 "L5/L6 = 최상위 인출" 이라는
-//    학습 모델과 정면 충돌한다. 프레임워크는 이 둘을 결합 계약의 1급 시민으로 넣어야 한다.
+// ⚠️ `records: false` 는 결함이지 설계가 아니다 — FSRS 에 0행을 쓰는 것은
+//    "L5/L6 = 최상위 인출" 이라는 학습 모델과 정면 충돌한다.
+//    **Dictation 은 v07 에서 해소됐고(84행 실측), ScriptQuiz 는 여전히 0행이다.**
 
 export const MODULE_ACTIVITIES: Activity[] = [
   {
     id: 'flashcard',
+    route: { path: '/flashcard/play', fullScreen: true },
     name: 'Flashcard',
     says: '뜻과 단어를 짝지어 떠올려요',
     facets: ['recognize'],
@@ -176,6 +200,7 @@ export const MODULE_ACTIVITIES: Activity[] = [
   },
   {
     id: 'pairflip',
+    route: { path: '/pairflip/play', fullScreen: true },
     name: 'PairFlip',
     says: '뒤집어 짝을 맞춰요',
     facets: ['recognize'],
@@ -189,6 +214,7 @@ export const MODULE_ACTIVITIES: Activity[] = [
   },
   {
     id: 'spellforge',
+    route: { path: '/spellforge/play', fullScreen: true },
     name: 'SpellForge',
     says: '후보 없이 철자를 직접 써요',
     facets: ['spell'],
@@ -202,6 +228,8 @@ export const MODULE_ACTIVITIES: Activity[] = [
   },
   {
     id: 'echo',
+    // 워크스페이스에서 열리되 셸을 유지한다 — 현행 동작 그대로 선언한다.
+    route: { path: '/text/[id]/echo', fullScreen: false },
     // 이름 결정: '따라하기' 를 폐기하고 Echo 하나로. Shadow 와 다른 활동이다.
     name: 'Echo',
     alias: 'EchoMatch',
@@ -234,6 +262,7 @@ export const MODULE_ACTIVITIES: Activity[] = [
   },
   {
     id: 'scriptquiz',
+    route: { path: '/scriptquiz/play', fullScreen: true },
     name: 'ScriptQuiz',
     says: '본문을 이해했는지 확인해요',
     facets: ['use'],
@@ -248,14 +277,17 @@ export const MODULE_ACTIVITIES: Activity[] = [
   },
   {
     id: 'dictation',
+    route: { path: '/dictate/session', fullScreen: true },
     name: 'Dictation',
     says: '들으면서 받아써요',
     facets: ['sound', 'spell', 'use'],
     archetype: 'type',
     contentNeed: 'text',
     minWords: 0,
-    // 실측 0행 — 결함
-    records: false,
+    // v07 에서 해소됐다 — 문장 안의 타깃 단어 적중을 FSRS 등급으로 올린다
+    // (`lib/dictation/targets.ts` → `flushPendingSrsResults`).
+    // 실측 2026-08-14: `learning_records(module='dictation')` 84행. 이전에는 전 기간 0행이었다.
+    records: true,
     strand: 'output',
     stages: ['recalled', 'applied', 'fluent'],
     brief: false,
@@ -280,6 +312,22 @@ export function activityById(id: string): Activity | undefined {
  * 대시보드 최근 활동 칩). 라벨 표를 또 만드는 대신 레지스트리에서 파생시킨다 —
  * 이것이 "9곳을 하나로 접는다" 의 첫 소비자다.
  */
+/**
+ * 풀스크린으로 열리는 활동 경로 — `lib/layout/full-screen-routes` 가 지켜야 할 목록.
+ *
+ * 레이아웃이 이 함수를 **직접 부르지는 않는다**: 레지스트리는 `game/catalog` 를 거쳐
+ * `GAME_MARKS`(ReactNode)까지 끌고 오므로, 사이드바·FlowNav 가 import 하면 그 JSX 가
+ * 전 화면 번들에 딸려 온다. 그래서 판정 목록은 레이아웃 쪽에 손으로 두되,
+ * **단위 테스트가 이 함수와 대조해 드리프트를 막는다**(framework.test.ts).
+ */
+export function fullScreenActivityPaths(): string[] {
+  return activities()
+    .map((a) => a.route)
+    .filter((r): r is ActivityRoute => !!r && r.fullScreen)
+    .map((r) => r.path)
+    .sort()
+}
+
 export function activityLabel(id: string): string {
   const a = activityById(id)
   if (!a) return id
