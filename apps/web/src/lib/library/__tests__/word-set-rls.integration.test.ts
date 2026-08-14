@@ -190,7 +190,7 @@ describe.skipIf(skipIfNoEnv)('발행 세트 노출 경계 — SECURITY DEFINER R
   /** 미발행 원본 + 발행 세트를 가진 (book_id, chapter_idx) — 없으면 해당 케이스 미검증 */
   let hidden: { bookId: string; chapterIdx: number } | null = null
   /** 발행 도서의 (book_id, chapter_idx) 후보들 */
-  let openChapters: { bookId: string; chapterIdx: number }[] = []
+  const openChapters: { bookId: string; chapterIdx: number }[] = []
 
   beforeAll(async () => {
     svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })

@@ -540,3 +540,65 @@ export async function deletePendingWordsSince(sinceIso: string): Promise<number>
   if (error) return -1;
   return data?.length ?? 0;
 }
+
+// ──────────────────────────────────────────────────────────────
+// 인증 회귀(20-auth-flows) 전용 — 역할·상태 조작
+// ⚠️ 전부 service-role 경유. 학습자 세션은 이 컬럼들을 쓸 수 없다
+//    (마이그레이션 20260814150000 이 컬럼 GRANT + 트리거로 차단).
+//    테스트는 반드시 finally 에서 원복할 것 — 남기면 계정이 잠긴다.
+// ──────────────────────────────────────────────────────────────
+
+/** user_profiles.role 조회. */
+export async function getUserRole(userId: string): Promise<string | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('user_profiles')
+    .select('role')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return (data as { role: string | null }).role ?? null;
+}
+
+/** user_profiles.role 설정 (admin 가드 검증용 · 테스트 후 반드시 원복). */
+export async function setUserRole(userId: string, role: string): Promise<boolean> {
+  const c = serviceClient();
+  if (!c) return false;
+  const { error } = await c.from('user_profiles').update({ role }).eq('user_id', userId);
+  return !error;
+}
+
+/** user_profiles.status 조회. */
+export async function getUserStatus(userId: string): Promise<string | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('user_profiles')
+    .select('status')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return (data as { status: string | null }).status ?? null;
+}
+
+/** user_profiles.status 설정 (정지 게이트 검증용 · 테스트 후 반드시 'active' 로 원복). */
+export async function setUserStatus(userId: string, status: string): Promise<boolean> {
+  const c = serviceClient();
+  if (!c) return false;
+  const { error } = await c.from('user_profiles').update({ status }).eq('user_id', userId);
+  return !error;
+}
+
+/**
+ * 개발 전용 admin 우회(DEV_ADMIN_BYPASS=1)가 켜져 있는가.
+ * 켜져 있으면 /admin 가드는 인증을 보지 않고 통과시키므로, 가드 회귀 테스트는 skip 해야 한다.
+ */
+export function devAdminBypassActive(): boolean {
+  // 셸 환경변수가 우선 — Next.js 도 .env.local 보다 process.env 를 우선하므로,
+  // `DEV_ADMIN_BYPASS=0 pnpm dev` 로 띄운 서버와 테스트의 판단이 일치한다.
+  if (process.env.DEV_ADMIN_BYPASS !== undefined) {
+    return process.env.DEV_ADMIN_BYPASS === '1';
+  }
+  return readEnv('DEV_ADMIN_BYPASS') === '1';
+}

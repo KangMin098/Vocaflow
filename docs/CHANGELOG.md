@@ -10,6 +10,49 @@
 
 ## Unreleased (v06.34 → next)
 
+### 인증 전면 점검 — 권한 상승 1건 + 흐름 결함 11건 (마이그레이션 `20260814150000`)
+
+로그인·가입·비밀번호 찾기·이메일 인증·콜백·라우트 가드를 전 경로 실측했다.
+**단위 188 + e2e 46 = 234 테스트**가 전부 회귀 락이다 (`lib/auth/__tests__/*` ·
+`tests/e2e/20-auth-flows.spec.ts`). 발견 순서가 아니라 심각도 순:
+
+- 🔴 **권한 상승** — 일반 사용자가 anon key 한 줄로 스스로 `role='admin'` 이 됐다.
+  전 사용자 프로필 열람 + `is_admin()` 기반 RLS 정책 24개 쓰기 + `/admin/*` 전 화면.
+  `status='suspended'` 자가 해제도 가능했다. 컬럼 GRANT + BEFORE UPDATE 트리거로 2겹 차단.
+  상세·재현 로그: [DB_SCHEMA.md](./DB_SCHEMA.md#-user_profiles-권한-상승-차단-20260814150000)
+- 🔴 **복귀 경로가 100% 유실** — 파라미터 이름이 4종으로 갈라져 있었다.
+  미들웨어·페이지는 `?next=`, `requireAdmin` 은 `?redirect=`, **로그인 화면은 아무도 쓰지 않는
+  `?returnTo=` 를 읽었다**. 모든 딥링크 복귀가 조용히 `/hub` 로 떨어졌다.
+  → `lib/auth/redirect.ts` 가 이름을 단독 소유(쓰기는 `next` 하나, 읽기는 별칭 3종 흡수).
+- 🔴 **로그아웃 수단 부재** — `/settings` 의 "로그아웃" 버튼에 `onClick` 이 없었다.
+  `signOut()` 은 구현돼 있었지만 **import 하는 곳이 0곳**. 앱에서 로그아웃이 불가능했다.
+- 🔴 **개인 화면 32개가 로그아웃 상태로 열림** — `(main)` 48 라우트 중 가드는 16개뿐.
+  `/settings` · `/reports` · `/teacher` · `/my/words` · `/dashboard` 등이 비회원에게 열려 있었다.
+  → `lib/auth/protected-routes.ts` 선언 + 미들웨어 강제. **도서·만화 카탈로그는 공개 유지**(발견·SEO).
+- 🟠 **curator 역할이 죽어 있었다** — 미들웨어만 `role==='admin'` 을 요구하는데 RSC 가드는
+  `curator` 를 허용했다. 미들웨어가 먼저 도니 curator 는 **어떤 admin 화면에도 못 들어갔다**.
+- 🟠 **정지(suspended)가 아무 효력 없었다** — `user_profiles.status` 를 읽는 코드가 0곳.
+  정지시켜도 그대로 로그인하고 전 기능을 썼다. → 로그인 시점 + 미들웨어 매 요청 검사.
+- 🟠 **가입이 거짓 안내로 끝났다** — 프로젝트가 `mailer_autoconfirm=true`(메일 확인 꺼짐)라
+  `signUp` 이 세션을 바로 주는데, 코드는 **무조건** `/verify-email` 로 보내
+  "인증 완료 후 자동으로 로그인됩니다" 라고 오지 않을 메일을 기다리게 했다.
+  → `data.session` 유무로 분기. `identities: []`(이미 가입된 이메일의 조용한 가짜 성공)도 방어.
+- 🟠 **만료 링크가 "잘못된 접근입니다"** — Supabase 가 `?error=access_denied&error_code=otp_expired`
+  로 되돌려 보내는 케이스를 콜백이 읽지 않아 "파라미터 없음" 으로 떨어졌다.
+- 🟡 비밀번호 찾기가 **로그인된 사용자에게 발송 폼을 안 줬다**(세션만 보고 update 모드 확정)
+  → 콜백이 `?mode=update` 를 명시하고, update 화면에 발송 폼 탈출구 추가
+- 🟡 재설정·재발송 핸들러가 `try/finally` 뿐이라 **네트워크 예외를 조용히 삼켰다** → `catch` 추가
+- 🟡 `/verify-email` 에 `?email` 이 없으면 재발송 버튼이 **눌려도 무반응** → 비활성 + 사유 표시
+- 🟡 "30일간 로그인 유지" 체크박스가 아무 동작도 안 했다 → 제거(세션은 refresh token 이 연장)
+- 🟡 `useSearchParams` 에 Suspense 경계가 없어 4개 인증 화면이 CSR 로 이탈 → 전부 `○ (Static)` 복귀
+- 🟡 `requireAdmin` 이 매 요청 `user.id`·`email` 을 서버 콘솔에 찍었다(PII) → 제거
+- 🟡 비밀번호 규칙이 가입(8자+영문+숫자)과 재설정(8자)에서 달랐다 → `lib/auth/validation.ts` 로 통일
+- 🟡 로그인 실패가 "등록되지 않은 이메일" 로 **계정 존재를 흘렸다** → 자격증명 계열 문구 단일화
+
+**신설** — `lib/auth/{redirect,validation,errors,account,protected-routes,types}.ts`
+(세 화면에 복사돼 있던 `isValidEmail`·에러 매핑·경로 검증을 한곳으로. 이름이 갈라질 수 있던
+구조 자체가 위 복귀 결함의 원인이었다)
+
 ### 셸 재설계 — 첫 화면이 "아무것도 하지 않은 사람의 성적표"였다 ([ADR 0006](./adr/0006-shell-redesign-menu-status-tabs.md))
 
 실측(2026-08-14 `/hub` 데스크톱 1화면): 내비게이션 시스템이 **3개**(Sidebar 16링크 ·

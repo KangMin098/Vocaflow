@@ -14,7 +14,30 @@
 
 서버 컴포넌트는 `lib/supabase/server.ts`, 클라이언트 컴포넌트는 `lib/supabase/client.ts` 사용. 라우트 보호는 `src/middleware.ts` 에서 처리.
 
-admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`(RSC, `lib/auth/require-admin.ts`) + `requireAdminApi`(API, `lib/auth/require-admin-api.ts`). 셋 다 `getUser` + `user_profiles.role` 검사.
+admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`(RSC, `lib/auth/require-admin.ts`) + `requireAdminApi`(API, `lib/auth/require-admin-api.ts`). 셋 다 `getUser` + `user_profiles.role`·`status` 검사.
+
+### 인증 공유 모듈 — 새로 만들지 말고 여기서 가져다 쓸 것 (v06.140)
+
+| 파일 | 소유하는 결정 |
+|---|---|
+| `lib/auth/redirect.ts` | 로그인 후 복귀 경로. **쓰기는 `?next=` 하나**, 읽기는 `next`·`returnTo`·`redirect` 별칭 흡수. open redirect 판정(`safeInternalPath`)도 여기만 |
+| `lib/auth/protected-routes.ts` | "로그인이 필요한 화면" 목록. 미들웨어가 강제 |
+| `lib/auth/account.ts` | 역할(`canAccessAdminConsole` = admin\|curator)·상태(`isUsableAccount`) 판정. 3층 가드가 공유 |
+| `lib/auth/validation.ts` | 이메일·비밀번호(8자+영문+숫자)·표시이름 규칙 + 한글 이름 base64 |
+| `lib/auth/errors.ts` | Supabase 에러 → 한국어. 콜백 에러 코드 계약도 여기 |
+
+**왜 모아 뒀나**: 이 규칙들이 화면마다 복사돼 있던 동안, 미들웨어는 `?next=` 로 쓰고 로그인
+화면은 `?returnTo=` 를 읽어 **모든 딥링크 복귀가 조용히 `/hub` 로 떨어졌다**. 이름을 각자
+정하게 두면 반드시 다시 어긋난다. 새 인증 화면은 반드시 위 모듈을 import 할 것.
+
+**보호 라우트를 추가할 때**: 페이지에 `getUser()`→`redirect()` 를 손으로 붙이지 말고
+`PROTECTED_PREFIXES` 에 접두사를 추가한다. 손으로 붙이던 동안 `(main)` 48 라우트 중
+32개가 로그아웃 상태로 열려 있었다. 도서(`/library`)·만화(`/comics`) 카탈로그는 **공개 유지**(발견·SEO).
+
+**인증 회귀** — `tests/e2e/20-auth-flows.spec.ts`(46) + `src/lib/auth/__tests__/`(188, 실 DB
+권한 상승 공격 8건 포함). ⚠️ `.env.local` 에 `DEV_ADMIN_BYPASS=1` 이 있으면 admin 가드 4건이
+자동 skip 된다 — 가드를 고쳤으면 `DEV_ADMIN_BYPASS=0 NEXT_DIST_DIR=.next-nobypass npx next dev -p 3100`
+로 띄우고 `DEV_ADMIN_BYPASS=0 PLAYWRIGHT_BASE_URL=http://localhost:3100` 로 재실행해 확인할 것.
 
 ### 개발 전용 admin 우회 (로그인 없이 /admin)
 

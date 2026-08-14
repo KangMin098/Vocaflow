@@ -562,6 +562,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260814150000  user_profiles_privilege_escalation_guard   ← 🔴 권한 상승 차단 (아래 참조)
 20260813090000  scores_content_ref                         ← v07 "어떤 자료로 학습했나" (프레임워크 Phase 1)
 20260812150000  dictation_persistence                      ← v07 받아쓰기 영속화 (2 table + 3 RPC)
 20260608222931  v_text_content_user_book_group_v2          ← v06.34
@@ -699,3 +700,45 @@ CCP 의 `comic_gen_runs` 를 PDCP 도 쓴다: `library_book_id` 를 nullable 로
 RLS 는 `status='published'` 읽기만 허용하고, 컷은 **부모 호의 발행 상태**를 따른다
 (`EXISTS (SELECT 1 FROM pd_comic_issues i WHERE i.id = issue_id AND i.status='published')`).
 anon 세션으로 실측 검증: 미발행 호 0건 노출.
+
+---
+
+## 🔴 user_profiles 권한 상승 차단 ([20260814150000](../supabase/migrations/20260814150000_user_profiles_privilege_escalation_guard.sql))
+
+**실측한 결함** (2026-08-14, anon key 만으로 재현). RLS 정책 `"own data"` 가
+`FOR ALL / USING (auth.uid() = user_id)` 라서 컬럼 구분이 없었다. 로그인한 일반 사용자가
+브라우저에서 한 줄로 스스로 관리자가 됐다:
+
+```js
+await supabase.from('user_profiles').update({ role: 'admin' }).eq('user_id', <본인>)
+// error NONE → role: 'user' → 'admin'
+```
+
+승격 직후 `profiles_admin_read` → `is_admin()` 이 통과해 **전 사용자 프로필이 열렸고**,
+`is_admin()`/role 검사에 걸린 **RLS 정책 24개**(`library_books` · `comic_*` ·
+`book_curation_jobs` · `library_seed_catalog` 등)의 쓰기 권한과 `/admin/*` 전 화면이 열렸다.
+같은 경로로 `status='suspended' → 'active'` 자가 해제도 됐다.
+
+**방어 2겹**
+
+| 층 | 수단 | 성격 |
+|---|---|---|
+| 1차 | 컬럼 단위 `GRANT` — `REVOKE INSERT,UPDATE,DELETE FROM anon, authenticated` 후 설정 컬럼 17개만 `GRANT UPDATE` | Postgres 엔진이 RLS 앞단에서 차단. 정책이 바뀌어도 뚫리지 않는다 |
+| 2차 | `guard_user_profiles_privileged_columns()` BEFORE UPDATE 트리거 | `GRANT` 가 되돌려져도 남는 안전망. `role`·`status`·`user_id` 변경 시 `42501` |
+
+- **트리거는 반드시 SECURITY INVOKER**(기본). `DEFINER` 로 만들면 `current_user` 가 함수
+  소유자(postgres)로 바뀌어 판정이 **항상 통과**한다 — 방어가 조용히 무력해진다.
+- 통과 조건은 `current_user NOT IN ('anon','authenticated')` — service_role · 마이그레이션 ·
+  SECURITY DEFINER RPC 는 그대로 동작한다.
+- `DELETE` 는 주지 않는다. 프로필만 지우면 `auth.users` 는 남아 계정이 반쪽이 되고,
+  미들웨어의 프로필 조회가 null 이 되어 **정지 판정까지 무력화**된다.
+
+**적용 전 안전성 실측** — 앱/스크립트에 `user_profiles` 직접 INSERT/UPDATE/UPSERT **0건**,
+쓰는 함수 6개(`handle_new_user` · `apply_diagnostic_result` · `update_user_v_level` ·
+`auto_promote_track_level_for_user` · `analyze_and_apply_track_diagnostic_result` ·
+`analyze_and_apply_comprehensive_diagnostic_result`)는 **전부 SECURITY DEFINER + owner=postgres**
+라 컬럼 ACL 을 우회한다. 진단·레벨 승급 파이프라인 영향 없음.
+
+**회귀 락** — `apps/web/src/lib/auth/__tests__/privilege-escalation.integration.test.ts`
+(실 DB 에 anon key 로 붙어 공격 6종 + 정상 self-service 2종). 이 테스트가 실패하면
+"테스트를 고치지" 말고 **권한을 원복**할 것.

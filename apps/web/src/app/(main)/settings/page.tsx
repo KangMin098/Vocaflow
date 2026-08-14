@@ -84,6 +84,7 @@ function SaveIndicator() {
 
 import { Screen } from '@/components/ui/ios'
 import { Toggle } from '@/components/ui/Toggle'
+import { signOut } from '@/hooks/useAuth'
 
 // ══════════════════════════════════════════════════════════════
 // Section · SettingRow 보조
@@ -171,7 +172,9 @@ function Segment<T extends string>({ value, options, onChange, ariaLabel }: Segm
             role="radio"
             aria-checked={active}
             onClick={() => onChange(opt.value)}
-            className={`inline-flex items-center gap-1.5 rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+            // 44px 하한 — 실측 87x30 이었다(a11y 스윕 17회차). 세그먼트는 좁은 화면에서
+            // 나란히 서므로 높이만 올린다(너비는 라벨이 정한다).
+            className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
               active
                 ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
                 : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -210,6 +213,19 @@ export default function SettingsPage() {
   const [notifyDaily, setNotifyDaily] = useStateWithSave(false)
   const [notifyStreak, setNotifyStreak] = useStateWithSave(false)
   const [notifyEmail, setNotifyEmail] = useStateWithSave(true)
+
+  // 로그아웃 — signOut() 이 세션 종료 후 '/login' 으로 hard reload 한다.
+  // 실패해도 버튼이 영구히 잠기지 않도록 finally 에서 되돌린다.
+  const [signingOut, setSigningOut] = useState(false)
+  const handleSignOut = async () => {
+    if (signingOut) return
+    setSigningOut(true)
+    try {
+      await signOut()
+    } finally {
+      setSigningOut(false)
+    }
+  }
 
   return (
     <Screen width="content" background="bg2" padX="md">
@@ -518,9 +534,15 @@ export default function SettingsPage() {
               계정을 해지하면 30일간 복원 가능 상태로 보관 후 영구 삭제됩니다.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <button className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)]">
+              {/* v06.140: onClick 이 없어 눌러도 아무 일도 없었다 — 앱 전체에 로그아웃 수단이 없던 자리 */}
+              <button
+                type="button"
+                onClick={handleSignOut}
+                disabled={signingOut}
+                className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-60"
+              >
                 <LogOut size={12} aria-hidden />
-                로그아웃
+                {signingOut ? '로그아웃 중...' : '로그아웃'}
               </button>
               <button className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)]">
                 <Trash2 size={12} aria-hidden />

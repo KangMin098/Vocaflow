@@ -1,30 +1,35 @@
 // apps/web/src/app/api/auth/callback/route.ts
 //
-// Supabase 인증 callback Route Handler — 3가지 진입 케이스 처리.
+// Supabase 인증 callback Route Handler — 4가지 진입 케이스 처리.
 //
-// 1) token_hash 방식 (이메일 인증 — Supabase 최신, signup·recovery·email_change·invite)
-//    예: /api/auth/callback?token_hash=...&type=signup&next=/hub
+// 1) Supabase 가 실어 보낸 실패 파라미터 (?error=&error_code=&error_description=)
+//    예: ?error=access_denied&error_code=otp_expired&error_description=Email+link+...
+//    → 만료/취소를 그대로 분류해 /login?error=link_expired 등으로.
+//    ⚠️ v06.140 이전엔 이 케이스가 token_hash·code 가 없다는 이유로 Case 4 로 떨어져
+//       만료된 링크를 누른 사용자에게 "잘못된 접근입니다" 라고 오안내했다.
+//
+// 2) token_hash 방식 (이메일 인증 — signup·recovery·email_change·invite)
 //    → supabase.auth.verifyOtp({ token_hash, type })
 //
-// 2) code 방식 (OAuth — Google·Apple 등)
-//    예: /api/auth/callback?code=...&next=/hub
+// 3) code 방식 (OAuth / PKCE)
 //    → supabase.auth.exchangeCodeForSession(code)
 //
-// 3) 둘 다 없음 (잘못된 진입 — 봇·잘못된 링크)
-//    → /login?error=invalid_callback
+// 4) 전부 없음 (봇·잘못된 링크) → /login?error=invalid_callback
 //
-// type 별 다음 목적지 분기:
-//   signup       → /hub                   (인증 완료 후 첫 진입)
-//   recovery     → /reset-password        (비밀번호 재설정 폼)
-//   email_change → /settings              (이메일 변경 확인)
-//   invite       → /signup?invited=true   (초대 가입 흐름)
-//   그 외        → safeNext(next) || /hub
+// type 별 다음 목적지:
+//   signup       → /hub
+//   recovery     → /reset-password?mode=update   (폼이 세션 추측 없이 update 모드로 뜬다)
+//   email_change → /settings
+//   invite       → /signup?invited=true
+//   그 외        → safeInternalPath(next) || /hub
 //
 // ⚠️ 미들웨어 matcher 에서 /api/auth/callback 은 제외됨 — 절대 가드하지 말 것.
 // ⚠️ service_role 키 사용 금지 — verifyOtp/exchangeCodeForSession 은 anon 으로 충분.
 
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { classifyCallbackError, classifyProviderError } from '@/lib/auth/errors'
+import { DEFAULT_LANDING, safeInternalPath } from '@/lib/auth/redirect'
 import { createClient } from '@/lib/supabase/server'
 
 type EmailOtpType = 'signup' | 'recovery' | 'email_change' | 'invite'
@@ -36,44 +41,21 @@ function isEmailOtpType(v: string | null): v is EmailOtpType {
 }
 
 /**
- * next 쿼리 파라미터 안전 검증 — open redirect 방지.
- * 내부 경로만 허용 (`/` 시작, `//` 차단, 외부 URL 차단).
- */
-function safeNext(next: string | null): string {
-  if (!next) return '/hub'
-  if (!next.startsWith('/') || next.startsWith('//')) return '/hub'
-  if (next.includes('://') || next.includes('\\')) return '/hub'
-  return next
-}
-
-/**
  * 이메일 OTP type 별 기본 목적지.
- * next 가 명시된 경우엔 safeNext(next) 가 우선 — 본 함수는 fallback.
+ * next 가 명시된 경우엔 safeInternalPath(next) 가 우선 — 본 함수는 fallback.
  */
 function defaultNextForType(type: EmailOtpType): string {
   switch (type) {
     case 'signup':
-      return '/hub'
+      return DEFAULT_LANDING
     case 'recovery':
-      return '/reset-password'
+      // ?mode=update 마커로 재설정 폼이 곧장 "새 비밀번호" 모드로 뜬다
+      return '/reset-password?mode=update'
     case 'email_change':
       return '/settings'
     case 'invite':
       return '/signup?invited=true'
   }
-}
-
-/**
- * Supabase 에러 메시지 → 표준화된 에러 코드.
- * 만료/이미 사용/잘못된 토큰 케이스를 분리해 사용자에게 정확한 안내 제공.
- */
-function classifyError(message: string | undefined): 'link_expired' | 'already_verified' | 'generic' {
-  const msg = (message ?? '').toLowerCase()
-  if (msg.includes('expired') || msg.includes('expir')) return 'link_expired'
-  if (msg.includes('already') && (msg.includes('confirmed') || msg.includes('verified'))) {
-    return 'already_verified'
-  }
-  return 'generic'
 }
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -85,49 +67,52 @@ export async function GET(request: NextRequest) {
   const typeRaw = searchParams.get('type')
   const nextRaw = searchParams.get('next')
 
-  if (isDev) {
-    // eslint-disable-next-line no-console
-    console.log('[auth/callback] params:', {
-      code: code ? `${code.slice(0, 8)}…` : null,
-      token_hash: tokenHash ? `${tokenHash.slice(0, 8)}…` : null,
-      type: typeRaw,
-      next: nextRaw,
-    })
+  const loginWithError = (errorCode: string) =>
+    NextResponse.redirect(`${origin}/login?error=${errorCode}`)
+
+  // ─────────────────────────────────────────────
+  // Case 1: Supabase 가 URL 로 직접 넘긴 실패
+  // ─────────────────────────────────────────────
+  const providerError = classifyProviderError(
+    searchParams.get('error'),
+    searchParams.get('error_code'),
+    searchParams.get('error_description'),
+  )
+  if (providerError) {
+    if (isDev) {
+      // eslint-disable-next-line no-console
+      console.error('[auth/callback] provider error:', {
+        error: searchParams.get('error'),
+        error_code: searchParams.get('error_code'),
+        mapped: providerError,
+      })
+    }
+    return loginWithError(providerError)
   }
 
   const supabase = await createClient()
 
   // ─────────────────────────────────────────────
-  // Case 1: token_hash 방식 (이메일 인증)
+  // Case 2: token_hash 방식 (이메일 인증)
   // ─────────────────────────────────────────────
   if (tokenHash && isEmailOtpType(typeRaw)) {
-    const { error } = await supabase.auth.verifyOtp({
-      token_hash: tokenHash,
-      type: typeRaw,
-    })
+    const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: typeRaw })
 
     if (error) {
       if (isDev) {
         // eslint-disable-next-line no-console
-        console.error('[auth/callback] verifyOtp error:', error)
+        console.error('[auth/callback] verifyOtp error:', error.message)
       }
-      const kind = classifyError(error.message)
-      const errorCode =
-        kind === 'link_expired'
-          ? 'link_expired'
-          : kind === 'already_verified'
-            ? 'already_verified'
-            : 'email_verification_failed'
-      return NextResponse.redirect(`${origin}/login?error=${errorCode}`)
+      return loginWithError(classifyCallbackError(error.message))
     }
 
-    // 인증 성공 — next 가 있으면 우선, 없으면 type 별 기본 목적지
-    const target = nextRaw ? safeNext(nextRaw) : defaultNextForType(typeRaw)
+    // 인증 성공 — next 가 안전하면 우선, 아니면 type 별 기본 목적지
+    const target = safeInternalPath(nextRaw) ?? defaultNextForType(typeRaw)
     return NextResponse.redirect(`${origin}${target}`)
   }
 
   // ─────────────────────────────────────────────
-  // Case 2: code 방식 (OAuth)
+  // Case 3: code 방식 (OAuth / PKCE)
   // ─────────────────────────────────────────────
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
@@ -135,16 +120,21 @@ export async function GET(request: NextRequest) {
     if (error) {
       if (isDev) {
         // eslint-disable-next-line no-console
-        console.error('[auth/callback] exchangeCodeForSession error:', error)
+        console.error('[auth/callback] exchangeCodeForSession error:', error.message)
       }
-      return NextResponse.redirect(`${origin}/login?error=oauth_failed`)
+      // 만료/이미처리 여부까지 구분하고, 그 외에는 oauth_failed
+      return loginWithError(classifyCallbackError(error.message, 'oauth_failed'))
     }
 
-    return NextResponse.redirect(`${origin}${safeNext(nextRaw)}`)
+    // recovery 메일이 PKCE(code) 로 오는 설정에서도 재설정 폼으로 보낸다
+    const fallback = isEmailOtpType(typeRaw)
+      ? defaultNextForType(typeRaw)
+      : DEFAULT_LANDING
+    return NextResponse.redirect(`${origin}${safeInternalPath(nextRaw) ?? fallback}`)
   }
 
   // ─────────────────────────────────────────────
-  // Case 3: 잘못된 진입 (token_hash·code 모두 없음)
+  // Case 4: 잘못된 진입 (아무 파라미터도 없음)
   // ─────────────────────────────────────────────
   if (isDev) {
     // eslint-disable-next-line no-console
@@ -153,5 +143,5 @@ export async function GET(request: NextRequest) {
       next: nextRaw,
     })
   }
-  return NextResponse.redirect(`${origin}/login?error=invalid_callback`)
+  return loginWithError('invalid_callback')
 }

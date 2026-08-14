@@ -1,23 +1,31 @@
 // apps/web/src/app/(auth)/verify-email/page.tsx
-// 이메일 인증 대기 화면 v2 — 실제 Supabase resend 연결
+// 이메일 인증 대기 화면 v3
 //
 // 흐름:
-//   1) /signup 에서 supabase.auth.signUp 성공 → ?email=... 쿼리로 본 페이지 도달
-//   2) 사용자가 받은 메일의 confirm 링크 클릭 → Supabase 자동 처리 후 /api/auth/callback
+//   1) /signup 에서 signUp 성공 + **세션이 없을 때만** ?email=... 로 이 화면에 도달
+//      (세션이 있으면 이미 로그인된 것이므로 signup 이 /hub 로 바로 보낸다)
+//   2) 메일의 confirm 링크 클릭 → /api/auth/callback → verifyOtp → /hub
 //   3) "인증 메일 다시 보내기" → supabase.auth.resend({ type: 'signup', email })
+//
+// v06.140 수정:
+//   - ?email 이 없으면 재발송 버튼이 눌려도 조용히 아무 일도 안 했다 → 버튼을 비활성화하고
+//     다시 가입하도록 안내한다.
+//   - resend 예외를 삼키던 try/finally 에 catch 추가 + 에러 문구를 lib/auth/errors 로 통일.
 
 'use client'
 
 import { ArrowRight, CheckCircle2, Mail, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
 import { useToast } from '@/components/ui/Toast'
+import { mapResendError } from '@/lib/auth/errors'
+import { isValidEmail } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
-export default function VerifyEmailPage() {
+function VerifyEmailInner() {
   const toast = useToast()
   const searchParams = useSearchParams()
   const [resending, setResending] = useState(false)
@@ -25,6 +33,8 @@ export default function VerifyEmailPage() {
 
   // 가입 시 사용한 이메일 — /signup 에서 ?email=... 로 전달
   const email = searchParams.get('email') ?? ''
+  /** 재발송을 시도할 수 있는 상태인가 — 주소가 없거나 형식이 깨졌으면 불가 */
+  const canResend = isValidEmail(email)
 
   // 재발송 쿨다운 타이머
   useEffect(() => {
@@ -36,7 +46,7 @@ export default function VerifyEmailPage() {
   }, [resendCooldown])
 
   const handleResend = async () => {
-    if (resendCooldown > 0 || resending || !email) return
+    if (resendCooldown > 0 || resending || !canResend) return
 
     setResending(true)
     try {
@@ -46,24 +56,18 @@ export default function VerifyEmailPage() {
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email,
-        options: {
-          emailRedirectTo: `${origin}/api/auth/callback`,
-        },
+        options: { emailRedirectTo: `${origin}/api/auth/callback` },
       })
 
       if (error) {
-        // rate limit / not found 등 — 사용자 친화 메시지로
-        const msg = (error.message ?? '').toLowerCase()
-        if (msg.includes('rate limit') || msg.includes('too many')) {
-          toast.error('너무 많은 요청입니다. 잠시 후 다시 시도해주세요')
-        } else {
-          toast.error('재발송 중 오류가 발생했어요. 잠시 후 다시 시도해주세요')
-        }
+        toast.error(mapResendError(error.message))
         return
       }
 
       setResendCooldown(60) // 60초 쿨다운
       toast.success('인증 메일을 다시 보냈습니다')
+    } catch (err) {
+      toast.error(mapResendError(err instanceof Error ? err.message : null))
     } finally {
       setResending(false)
     }
@@ -75,7 +79,6 @@ export default function VerifyEmailPage() {
       <div className="mb-s-6 text-center">
         <div className="relative mb-s-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-p-light">
           <Mail size={32} className="text-p" />
-          {/* 작은 알림 점 */}
           <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-bg bg-active">
             <span className="h-1.5 w-1.5 rounded-full bg-bg" />
           </div>
@@ -90,16 +93,16 @@ export default function VerifyEmailPage() {
         </h1>
 
         <p className="mb-s-2 font-body text-sm leading-relaxed text-t2">
-          {email ? '아래 주소로 인증 메일을 발송했습니다.' : '회원가입 시 입력한 이메일을 확인해주세요.'}
+          {canResend
+            ? '아래 주소로 인증 메일을 발송했습니다.'
+            : '회원가입 시 입력한 이메일을 확인해주세요.'}
         </p>
-        {email && <p className="break-all font-mono text-sm text-t1">{email}</p>}
+        {canResend && <p className="break-all font-mono text-sm text-t1">{email}</p>}
       </div>
 
       {/* 단계 안내 */}
       <div className="mb-s-6 rounded-lg border border-bd bg-bg2 p-s-4">
-        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
-          다음 단계
-        </p>
+        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">다음 단계</p>
 
         <ol className="space-y-s-3">
           <li className="flex items-start gap-s-3">
@@ -110,9 +113,7 @@ export default function VerifyEmailPage() {
               <p className="font-body text-sm leading-relaxed text-t1">
                 메일함에서 <span className="font-semibold">Vocaflow</span>가 보낸 메일을 찾으세요
               </p>
-              <p className="mt-s-1 font-body text-xs text-t3">
-                보이지 않으면 스팸함도 확인해주세요
-              </p>
+              <p className="mt-s-1 font-body text-xs text-t3">보이지 않으면 스팸함도 확인해주세요</p>
             </div>
           </li>
 
@@ -147,7 +148,7 @@ export default function VerifyEmailPage() {
         <button
           type="button"
           onClick={handleResend}
-          disabled={resending || resendCooldown > 0}
+          disabled={resending || resendCooldown > 0 || !canResend}
           className={`flex h-11 w-full items-center justify-center gap-s-2 rounded-md border border-bd bg-bg font-display text-sm font-medium text-t1 transition-all duration-normal hover:border-t2 hover:bg-bg2 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
         >
           {resending ? (
@@ -166,6 +167,13 @@ export default function VerifyEmailPage() {
             </>
           )}
         </button>
+
+        {/* 주소를 모르면 재발송할 대상이 없다 — 버튼만 죽여두지 말고 이유를 말한다 */}
+        {!canResend && (
+          <p className="text-center font-body text-xs text-t3">
+            인증할 주소를 알 수 없어 재발송할 수 없어요. 아래에서 다시 가입해주세요.
+          </p>
+        )}
 
         <Link
           href="/signup"
@@ -194,5 +202,25 @@ export default function VerifyEmailPage() {
         문의: support@vocaflow.com
       </p>
     </Card>
+  )
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense
+      fallback={
+        <Card variant="elevated" padding="lg" className="rounded-xl">
+          <div className="flex h-40 items-center justify-center">
+            <span
+              className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3"
+              role="status"
+              aria-label="확인 중"
+            />
+          </div>
+        </Card>
+      }
+    >
+      <VerifyEmailInner />
+    </Suspense>
   )
 }
