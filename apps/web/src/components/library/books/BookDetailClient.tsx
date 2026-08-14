@@ -16,6 +16,7 @@ import { BookOpen, CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles } fro
 import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import type { BookComposerSet } from '@/lib/library/books/queries'
 
 export interface ChapterSet extends PublishedVocabSet {
   chapterIdx: number
@@ -26,6 +27,13 @@ interface Props {
   bookId: string
   bookVLevel: number | null
   chapterSets: ChapterSet[]
+  /**
+   * 이 책으로 만든 컴포저 단어장 (해금·재등장·도서 동반).
+   *
+   * Tier 2 "보조 단어장" 자리가 v06.31 부터 "아직 준비되지 않았어요" 로 비어 있었다 —
+   * 그 약속을 지키는 자리이므로 새 섹션을 만들지 않고 여기를 채운다(내비 표면을 늘리지 않는다).
+   */
+  composerSets?: BookComposerSet[]
   subscribedIds: string[]
   isLoggedIn: boolean
 }
@@ -33,6 +41,7 @@ interface Props {
 export function BookDetailClient({
   bookVLevel,
   chapterSets,
+  composerSets = [],
   subscribedIds,
   isLoggedIn,
 }: Props) {
@@ -181,27 +190,85 @@ export function BookDetailClient({
         )}
       </article>
 
-      {/* Tier 2 · Supplementary 토글 (Phase 2 placeholder) */}
+      {/* Tier 2 · Supplementary — 이 책으로 만든 단어장 (없으면 종전 안내 유지) */}
       <details
         className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)]/40"
         onToggle={(e) => setSupplementaryExpanded(e.currentTarget.open)}
       >
-        <summary className="flex cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">
-          <span>보조 단어장 (선택)</span>
+        <summary className="flex min-h-[44px] cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">
+          <span>
+            보조 단어장 (선택)
+            {composerSets.length > 0 && (
+              <span className="ml-1.5 font-display font-[700] text-[var(--t1)]">
+                {composerSets.length}개
+              </span>
+            )}
+          </span>
           {supplementaryExpanded ? (
             <ChevronUp size={14} aria-hidden />
           ) : (
             <ChevronDown size={14} aria-hidden />
           )}
         </summary>
-        <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t2)]">
-          이 도서와 연관된 추가 단어장은 아직 준비되지 않았어요. <br />
-          공용 단어장은{' '}
-          <a href="/library/vocab" className="font-display font-[700] text-[#8B5CF6] hover:underline">
-            /library/vocab
-          </a>{' '}
-          에서 자유롭게 선택할 수 있어요.
-        </div>
+
+        {composerSets.length > 0 ? (
+          <div className="flex flex-col gap-2 border-t border-dashed border-[var(--bd)] p-4">
+            <p className="font-body text-[11px] text-[var(--t2)]">
+              챕터 목록과 달리 <span className="font-display font-[700] text-[var(--t1)]">읽는 순서가 아니라
+              효율</span>로 고른 목록이에요. 하나만 골라도 충분해요.
+            </p>
+            {composerSets.map((set) => {
+              const subscribed = localSubscribed.has(set.id)
+              const pending = pendingId === set.id
+              return (
+                <button
+                  key={set.id}
+                  type="button"
+                  onClick={() => setPreviewSet(set)}
+                  className={`flex min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:translate-y-0 ${
+                    subscribed
+                      ? 'border-[var(--success)]/40 bg-[var(--success-light)]/40'
+                      : 'border-[var(--bd)] bg-[var(--bg)]'
+                  }`}
+                  aria-label={`${set.title} — ${set.wordCount}단어 미리보기`}
+                >
+                  <span className="shrink-0 text-[18px] leading-none" aria-hidden>
+                    {set.coverEmoji ?? '📗'}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-baseline gap-2">
+                      <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
+                        {set.title}
+                      </span>
+                      <span className="font-body text-[11px] text-[var(--t2)]">
+                        {set.wordCount.toLocaleString()}단어
+                      </span>
+                      {subscribed && (
+                        <span className="inline-flex items-center gap-1 font-body text-[11px] text-[var(--success)]">
+                          <CheckCircle2 size={11} aria-hidden /> 담아 뒀어요
+                        </span>
+                      )}
+                    </span>
+                    {/* 왜 이 목록이 있는지 — 사람의 말투 (Empathetic Feedback) */}
+                    <span className="mt-1 block font-body text-[11px] italic text-[var(--t2)]">
+                      {set.why}
+                    </span>
+                  </span>
+                  {pending && <Loader2 size={12} className="mt-0.5 animate-spin text-[var(--t2)]" />}
+                </button>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t2)]">
+            이 도서와 연관된 추가 단어장은 아직 준비되지 않았어요. <br />
+            공용 단어장은{' '}
+            <a href="/library/vocab" className="font-display font-[700] text-[#8B5CF6] hover:underline">
+              /library/vocab
+            </a>{' '}
+            에서 자유롭게 선택할 수 있어요.
+          </div>
+        )}
       </details>
 
       <VocabSetPreviewModal

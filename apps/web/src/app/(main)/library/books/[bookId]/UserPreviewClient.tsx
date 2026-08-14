@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, BookPlus, Loader2, AlertCircle } from 'lucide-react';
 import type { ChapterListItem } from '@/lib/library/reader-queries';
+import type { BookComposerSet } from '@/lib/library/books/queries';
 import { createClient } from '@/lib/supabase/client';
 import { enrollBook } from '@/lib/library/enroll';
 import { BookContentReader } from '@/components/library/reader/BookContentReader';
@@ -36,6 +37,8 @@ interface Props {
   chapters: ChapterListItem[];
   /** v06.31 — 챕터 단어장 grid (도서 컨텍스트 안에서만 노출) */
   chapterSets: ChapterSet[];
+  /** v06.35 — 이 책으로 만든 컴포저 단어장 (해금·재등장 등). Tier 2 자리를 채운다 */
+  composerSets?: BookComposerSet[];
   subscribedIds: string[];
   isLoggedIn: boolean;
 }
@@ -57,6 +60,7 @@ export function UserPreviewClient({
   readingMinutes,
   chapters,
   chapterSets,
+  composerSets = [],
   subscribedIds,
   isLoggedIn,
 }: Props) {
@@ -113,6 +117,7 @@ export function UserPreviewClient({
           bookId={bookId}
           bookVLevel={bookVLevel}
           chapterSets={chapterSets}
+          composerSets={composerSets}
           subscribedIds={subscribedIds}
           isLoggedIn={isLoggedIn}
         />

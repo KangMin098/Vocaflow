@@ -157,6 +157,21 @@ FlowNav 6 · MobileTab 4)로 서로 다른 분류를 썼고, 상태 지표 **19�
 `confusable-pairs-300` 299 · `day-30-ngsl` 600 · `uncovered-core-400` 400.
 다섯 세트 모두 학습자 `/library/vocab` 테마별에서 확인.
 
+**학습자 동선 배선 — 도서 상세 Tier 2 자리를 채웠다 (2026-08-15)**
+
+발행된 `unlock`·`recycle` 세트가 `/library/vocab` 테마별에서만 발견됐다. 그 책을 읽으려는
+사람에게 가장 값나가는 목록인데 도서 페이지에는 없었다. 도서 상세에 v06.31 부터 비어 있던
+**"보조 단어장 (선택) — 아직 준비되지 않았어요"** 자리가 있어 새 섹션 없이 그 약속을 지켰다.
+
+- `fetchBookComposerSets` + `composerSetWhy` (`lib/library/books/queries.ts`) —
+  `curation_query->>source_book_id` 매칭 (챕터 세트 판정 키 `book_id` 는 침범 안 함)
+- 카드가 **왜 이 목록인지**를 학습자 말로 말한다: "이 200단어를 알면 이 책의 문장 201개가 온전히 읽혀요"
+- ⚠️ `recycle` 문구를 한 번 되돌렸다 — 실측 평균 재등장 143.4 를 그대로 쓰면 "평균 143번 더
+  만나요" 가 되어 과장처럼 읽히고 숫자 게이지 금지에 어긋난다 → "책이 대신 복습해 줘요"
+- 회귀: `book-composer-sets.test.ts` 6건(대조군 수치·압박 어휘 노출 금지 고정) +
+  e2e `22-book-composer-sets.spec.ts`(placeholder 문구가 남아 있으면 실패)
+- 발행 추가: `recycle-pride-1-5` 80단어
+
 **5 방언 대체 파리티 + KICE 고아 데이터 구조 (2026-08-15)**
 
 "표현할 수 있다" 와 "같은 결과를 낸다" 는 다르므로 legacy 세트를 컴포저로 다시 뽑아 맞춰 봤다:

@@ -6,7 +6,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 import { listChapters } from '@/lib/library/reader-queries';
 import { getResumeTarget } from '@/lib/library/resume-queries';
-import { fetchBookChapterSets } from '@/lib/library/books/queries';
+import { fetchBookChapterSets, fetchBookComposerSets } from '@/lib/library/books/queries';
 import { fetchUserSubscriptions } from '@/lib/library/vocab/queries';
 import type { ChapterSet } from '@/components/library/books/BookDetailClient';
 import { UserPreviewClient } from './UserPreviewClient';
@@ -71,12 +71,17 @@ export default async function LibraryBookPreviewPage({
     vrl_components: Record<string, unknown> | null;
   };
 
-  const [chapters, chapterSets, subscribedSet] = await Promise.all([
+  const [chapters, chapterSets, composerSets, subscribedSet] = await Promise.all([
     listChapters(client, b.id),
     fetchBookChapterSets(
       client as unknown as Parameters<typeof fetchBookChapterSets>[0],
       b.id,
     ) as Promise<ChapterSet[]>,
+    // 이 책으로 만든 컴포저 단어장 (해금·재등장 등) — Tier 2 "보조 단어장" 자리를 채운다.
+    fetchBookComposerSets(
+      client as unknown as Parameters<typeof fetchBookComposerSets>[0],
+      b.id,
+    ),
     fetchUserSubscriptions(
       client as unknown as Parameters<typeof fetchUserSubscriptions>[0],
       user?.id ?? null,
@@ -106,6 +111,7 @@ export default async function LibraryBookPreviewPage({
         readingMinutes={b.reading_minutes ?? 0}
         chapters={chapters}
         chapterSets={chapterSets}
+        composerSets={composerSets}
         subscribedIds={Array.from(subscribedSet)}
         isLoggedIn={!!user}
       />
