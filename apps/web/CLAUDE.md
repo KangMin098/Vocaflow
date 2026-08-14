@@ -53,6 +53,11 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 
 **추출 신뢰 회귀** — `08-text-extract-trust.spec.ts`: `/text/new` 본문 입력 → 'text'(P75) 전략 추출 → ① 4단계 expand "왜 추천했어요?" 근거 카드 렌더 ② 2단계 알아요(✓+체크해제)/몰라요(aria-pressed) → `word_familiarity` known/unknown 적재를 `countWordFamiliaritySince` 로 DB 단언. **known 판정은 다음 추출을 영구 축소하므로 finally 에서 `deleteWordFamiliaritySince` 로 반드시 원복**(테스트가 만든 행만 updated_at 기준 삭제).
 
+**단어장 Studio 회귀** — `21-vcb-studio.spec.ts`: `/admin/vocab/studio` 에서 유형 선택 → 채점까지 돌고
+**채점 전 발행 버튼이 잠겨 있음**을 단언(이 화면의 계약이 "평가가 발행의 전제" 다 — 서버 액션이
+조용히 깨지면 화면은 그대로 뜨고 발행만 영원히 잠긴다). 발행(쓰기)은 하지 않는다 — e2e 가 공용
+카탈로그에 세트를 남기면 다음 실행의 novelty 대조군이 오염된다. 쓰기 경로는 `pnpm vcb:compose` 로 검증.
+
 - 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)
 - 검증 계정: `runtime-test-0705@vocaflow.dev` / `RuntimeTest1!` (vocab 10·활동 시드·진단 v11) — EchoMatch 텍스트 `89970bfa-…8317`
   - **stage S3**(2026-07-13 `reading_fluency_log` wpm~160 시드) → hub 처방 ④ **DCP 구문 연습 활성**(order/insert·`/practice/dcp`). CTP DCP 계열 런타임 검증 가능. 시드 되돌리려면 해당 계정 fluency 로그 3건 DELETE → S1 복귀.
