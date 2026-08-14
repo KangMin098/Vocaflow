@@ -233,7 +233,9 @@ function CandidateRow({ candidate: c }: { candidate: PrescriptionCandidate }) {
         <Link
           href={`/library/books/${c.id}`}
           aria-label={`${c.title} 읽기`}
-          className="inline-flex min-h-[36px] shrink-0 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0"
+          // 44px 하한 — 옆의 article 런처(PrescriptionArticleLaunch)와 같은 자리·같은 역할이라
+          // 높이가 갈리면 줄도 어긋난다. 스윕은 `<a>` 를 세지 않으므로 여기는 사람이 맞춰야 한다.
+          className="inline-flex min-h-[44px] shrink-0 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0"
         >
           읽기
         </Link>

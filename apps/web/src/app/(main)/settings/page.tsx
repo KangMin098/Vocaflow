@@ -539,12 +539,12 @@ export default function SettingsPage() {
                 type="button"
                 onClick={handleSignOut}
                 disabled={signingOut}
-                className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <LogOut size={12} aria-hidden />
                 {signingOut ? '로그아웃 중...' : '로그아웃'}
               </button>
-              <button className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)]">
+              <button className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)]">
                 <Trash2 size={12} aria-hidden />
                 계정 해지
               </button>

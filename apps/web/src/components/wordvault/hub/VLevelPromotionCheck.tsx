@@ -132,7 +132,8 @@ export function VLevelPromotionCheck() {
       <button
         onClick={() => void handleCheck()}
         disabled={loading}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] active:scale-[0.97] disabled:opacity-50"
+        // 44px 하한 — 실측 94x32 (a11y 스윕 17회차)
+        className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] active:scale-[0.97] disabled:opacity-50"
       >
         {loading ? (
           <Loader2 size={12} className="animate-spin" />

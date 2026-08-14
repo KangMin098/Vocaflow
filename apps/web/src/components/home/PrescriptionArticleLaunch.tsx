@@ -43,7 +43,8 @@ export function PrescriptionArticleLaunch({
         onClick={handleLaunch}
         disabled={busy}
         aria-label={`${label} 시작`}
-        className="inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-progress disabled:opacity-60 active:translate-y-0"
+        // 44px 하한 — 처방 카드는 오늘 학습의 **출발 버튼**이라 가장 자주 눌린다(실측 62x36).
+        className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-progress disabled:opacity-60 active:translate-y-0"
       >
         {busy ? (
           <Loader2 size={12} strokeWidth={2.25} className="animate-spin" aria-hidden />

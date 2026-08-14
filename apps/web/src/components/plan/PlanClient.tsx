@@ -799,7 +799,10 @@ function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; o
       onClick={onClick}
       aria-pressed={active}
       title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
-      className={`flex w-full flex-col gap-1.5 rounded-[var(--r-sm)] border p-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      // `relative` 는 장식이 아니다 — 이 카드 안의 `sr-only`(= position:absolute)가
+      // 위치 기준을 못 찾으면 **문서 전체**를 기준으로 잡아, 가로 스크롤러(min-w-[820px]) 안의
+      // 정적 위치만큼 문서가 넓어진다. 실측: `/plan` 모바일 가로 넘침 126px 의 원인이 이것이었다.
+      className={`relative flex w-full flex-col gap-1.5 rounded-[var(--r-sm)] border p-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:-translate-y-px hover:border-[var(--p)] hover:shadow-[var(--sh-xs)]'
@@ -858,7 +861,8 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
       onClick={onClick}
       aria-pressed={active}
       title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
-      className={`flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      // 같은 이유로 `relative` — 이 행도 `sr-only` 를 품는다(위 카드 주석 참조).
+      className={`relative flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--p)]'

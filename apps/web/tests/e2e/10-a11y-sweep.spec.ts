@@ -32,7 +32,10 @@ const STATE_PATH = 'test-results/.auth-a11y-sweep.json';
 /** 학습자 정적 라우트 — [param] 라우트는 대상 데이터가 계정마다 달라 제외 */
 const ROUTES = [
   '/hub', '/dashboard', '/plan', '/reports',
-  '/wordvault', '/my/words', '/my/texts', '/my/books',
+  // `/my/words`·`/my/texts` 는 ADR 0006 D4 로 폐지돼 `/wordvault`·`/text` 로 리다이렉트한다.
+  // 리다이렉트를 목록에 두면 **같은 화면을 두 번 재고**(라우트별 베이스라인이 뜻을 잃는다),
+  // 실패 메시지도 이미 없는 이름을 가리킨다. 단독 화면으로 남은 `/my/books` 만 유지.
+  '/wordvault', '/my/books',
   '/library', '/library/books', '/library/scripts', '/library/vocab',
   '/flashcard', '/pairflip', '/scriptquiz', '/spellforge',
   '/dictate', '/dictate/setup', '/comics', '/arcade',
@@ -66,24 +69,24 @@ const CASES = [
  * 아래는 2026-08-14 완전 측정(72/72 성공)값. **줄이는 방향으로만** 갱신할 것.
  */
 const TOUCH_BASELINE: Record<string, number> = {
-  '/library/vocab': 19,
-  '/settings': 18,
-  '/plan': 14,
+  '/library/vocab': 18,
+  '/plan': 8,
   '/diagnostic': 7,
   '/library/books': 5,
   '/library': 5,
   '/flashcard': 4,
   '/spellforge': 4,
   '/text/new': 3,
-  '/my/texts': 3,
   '/dictate': 3,
   '/dictate/setup': 3,
   '/text': 3,
   '/pairflip': 2,
-  '/hub': 1,
   '/wordvault': 1,
-  '/my/words': 1,
   '/library/scripts': 1,
+  // 17회차에 0 으로 만든 화면 — 항목을 지우면 기본값 0 이라 되살아나는 즉시 잡힌다.
+  //   `/settings` 18 → 0 : `Toggle` 래퍼가 52x32 였다(주석은 "44×44 보장" 이라고 적혀 있었다)
+  //                        + Segment 87x30 + 계정 버튼 2종
+  //   `/hub`      2 → 0 : 처방 카드의 출발 버튼이 `min-h-[36px]` 로 **명시**돼 있었다
 };
 
 /**
@@ -104,8 +107,14 @@ const TOUCH_BASELINE: Record<string, number> = {
  */
 const GATE_UNSTABLE = !!process.env.CI;
 
-/** 가로 넘침이 남아 있는 화면 — 모바일에서 옆으로 밀린다. 해소되면 목록에서 뺄 것. */
-const OVERFLOW_BASELINE = new Set(['/plan', '/library', '/library/books']);
+/**
+ * 가로 넘침이 남아 있는 화면 — 모바일에서 옆으로 밀린다. 해소되면 목록에서 뺄 것.
+ *
+ * `/plan`(126px) 은 17회차에 해소해서 뺐다 — 원인은 레이아웃이 아니라 **`sr-only` 였다**.
+ * `sr-only` 는 `position:absolute` 인데 위치 기준 조상이 없으면 문서를 기준으로 잡아,
+ * 가로 스크롤러(`min-w-[820px]`) 안의 정적 위치만큼 **문서가 넓어진다**. 카드에 `relative`.
+ */
+const OVERFLOW_BASELINE = new Set(['/library', '/library/books']);
 
 async function login(page: Page) {
   for (let i = 1; i <= 2; i++) {
