@@ -436,11 +436,16 @@ vocab_runs (DELETE)
 ## ENUM / CHECK constraints (선별)
 
 ```sql
--- module_id ENUM (학습 모듈 9 + 베타)
+-- module_id ENUM (실측 2026-08-14: 29 값 — 학습 모듈 9 + 아케이드 19 + echo)
 CREATE TYPE module_id AS ENUM (
   'flashcard','spellforge','wordblitz','pairflip',
   'scriptquiz','dictation','wordvault','workspace','textviewer',
   'pirate-quest'
+  -- … 아케이드 19종 …
+  -- 'echo'  ← 20260814090000. EchoMatch 를 청각 면(F3) 기록 경로로 잇는다.
+  --           **기록만 남기고 FSRS 카드는 안 움직인다** (문장이 화면에 떠 있으므로
+  --           발화 모방이지 인출이 아니다 — apps/web/src/lib/echo/word-signal.ts).
+  -- ⚠️ Postgres 는 enum 값 DROP 을 지원하지 않는다 — 'pirate_quest' 가 0행인 채 남아 있는 이유.
 );
 
 -- text_source ENUM

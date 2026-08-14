@@ -238,8 +238,10 @@ export const MODULE_ACTIVITIES: Activity[] = [
     archetype: 'type',
     contentNeed: 'text',
     minWords: 0,
-    // FSRS 밖(echo_match_attempts)에 산다 — 청각 처방이 불가능한 원인
-    records: false,
+    // 인출 기록을 남긴다 — `learning_records(module='echo')`. 이것으로 청각 면(F3) 이력이 선다.
+    // 단, **복습 간격은 움직이지 않는다**: 문장이 화면에 떠 있는 채로 따라 말하는 활동이라
+    // 인출이 아니다(TAP). 그래서 `vocabularies` D/S 는 그대로다 — lib/echo/word-signal.ts 참조.
+    records: true,
     strand: 'output',
     stages: ['recognized', 'recalled', 'applied', 'fluent'],
     brief: false,

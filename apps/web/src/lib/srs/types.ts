@@ -63,6 +63,7 @@ export type ModuleId =
   | 'wordvault' // 노출(L3)만, retrieve 아님
   | 'workspace' // L2 hover 인터랙션
   | 'textviewer' // L1
+  | 'echo' // L4c 청각 — 발화 모방(F3). 기록만 남기고 복습 간격은 움직이지 않는다
   // ── 신규 게임 6종 (v07.3 arcade suite) — DB enum 확장 마이그레이션 후 persistence 활성 ──
   | 'cascade' // L4a 재인·공간 (매치)
   | 'connections' // L5 의미 그룹핑

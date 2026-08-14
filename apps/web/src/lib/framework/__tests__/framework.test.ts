@@ -155,10 +155,12 @@ describe('레지스트리 ↔ 카탈로그 정합', () => {
     // 이 표의 값이 프레임워크가 요구하는 신설의 근거다.
     // recognize 는 과잉이고 sound 는 기록 0 이다 — 지금 상태를 테스트가 증언한다.
     expect(cov.recognize.designed, 'recognize 과잉이 해소되면 이 기대를 갱신하라').toBeGreaterThanOrEqual(8)
-    // Sound 면은 더 이상 기록 0 이 아니다 — Dictation 이 v07 에서 타깃 단어를 FSRS 로 올린다
-    // (실측 2026-08-14: learning_records(dictation) 84행). Echo 는 여전히 FSRS 밖이라
-    // 이 값이 1 이라는 것은 "청각 기록 경로가 하나뿐" 이라는 뜻이다.
-    expect(cov.sound.recording, '청각 면 기록 활동 수가 바뀌면 근거와 함께 갱신하라').toBe(1)
+    // Sound 면의 기록 경로는 2개다:
+    //   · Dictation — 타깃 단어를 받아 적는다(인출). FSRS 카드를 움직인다.
+    //   · Echo — 문장을 따라 말한다(발화 모방). 면 이력만 남기고 **복습 간격은 안 움직인다**
+    //     (화면에 문장이 떠 있으므로 인출이 아니다 — lib/echo/word-signal.ts).
+    // 설계안 §8 이 "청각 처방 불가" 의 원인으로 지목한 'Echo 가 FSRS 밖' 이 이것으로 해소됐다.
+    expect(cov.sound.recording, '청각 면 기록 활동 수가 바뀌면 근거와 함께 갱신하라').toBe(2)
   })
 
   it('순수 생산 활동은 met 단계에 배치되지 않는다 (초기 부호화 보호)', () => {

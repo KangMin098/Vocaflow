@@ -37,6 +37,10 @@ import {
   type Recognizer,
 } from '@/lib/workspace/speech-recognition'
 import { computeShadowMatch } from '@/lib/workspace/shadow-match'
+// 청각 면(F3) 신호 — 따라 말하기를 어휘 단위 인출 기록으로 잇는다(설계안 §8 빈칸).
+// 적재 실패는 따라 말하기를 막지 않는다: 학습이 본체이고 기록은 부수 효과다.
+import { loadSoundLemmas, recordEchoSound } from '@/lib/echo/record-sound'
+import { soundRecords, type SoundLemma } from '@/lib/echo/word-signal'
 
 import { PhaseProgress } from './PhaseProgress'
 import { SentenceCarousel } from './SentenceCarousel'
@@ -84,6 +88,8 @@ export function EchoMatchPlayer({
   const userBufferRef = useRef<AudioBuffer | null>(null)
   // 각 sentence 의 시도 횟수 (점수 적재 시 attempt_number)
   const attemptCountRef = useRef<Map<string, number>>(new Map())
+  // 이 텍스트에서 담아 둔 내 단어 — 청각 면(F3) 신호의 대상. 없으면 빈 배열로 무해하게 논다.
+  const soundLemmasRef = useRef<SoundLemma[]>([])
   // Piper 모델 다운로드 진행 (첫 사용 시만)
   const [modelProgress, setModelProgress] = useState<{ loaded: number; total: number } | null>(null)
   const [piperReady, setPiperReady] = useState(false)
@@ -113,6 +119,21 @@ export function EchoMatchPlayer({
       setError(e instanceof Error ? e.message : '마이크 접근 실패')
     }
   }
+
+  // 내 단어 로드 — 텍스트당 한 번. 실패해도 조용히 빈 배열(따라 말하기는 그대로 된다).
+  useEffect(() => {
+    let cancelled = false
+    void loadSoundLemmas(textId)
+      .then((ls) => {
+        if (!cancelled) soundLemmasRef.current = ls
+      })
+      .catch(() => {
+        /* 단어를 못 불러와도 학습은 진행된다 — 신호만 비는 것이다 */
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [textId])
 
   // Piper 모델 lazy preload — 마이크 권한 후 백그라운드 다운로드
   const [piperLoading, setPiperLoading] = useState(false)
@@ -203,12 +224,18 @@ export function EchoMatchPlayer({
     setPhase('comparing')
     // 병렬 인식 종료 + transcript 회수 (guard — 실패해도 프로소디 채점 진행)
     let wr: number | null = null
+    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
+    let heardKeys: Set<string> | null = null
     try {
       recognizerRef.current?.stop()
       const transcript = transcriptRef.current.trim()
-      if (transcript && current) wr = computeShadowMatch(current.text, transcript).ratio
+      if (transcript && current) {
+        const m = computeShadowMatch(current.text, transcript)
+        wr = m.ratio
+        heardKeys = m.matchedKeys
+      }
     } catch {
-      /* 인식 실패 — 단어 정확도 미측정(null) */
+      /* 인식 실패 — 단어 정확도 미측정(null) → 프로소디 보조 근거로 판정 */
     }
     setWordRatio(wr)
     try {
@@ -242,6 +269,17 @@ export function EchoMatchPlayer({
         score: result,
         durationMs: userC.durationMs,
       })
+
+      // 청각 면(F3) 신호 — 이 발화가 실어 나른 내 단어를 인출 기록으로 남긴다.
+      // 판정 규칙(측정 실패 무기록 · 인식 신뢰 하한 · 근거 등급)은 word-signal.ts 가 갖는다.
+      const soundRecs = soundRecords({
+        sentence: current!.text,
+        score: result,
+        lemmas: soundLemmasRef.current,
+        transcriptRatio: wr,
+        matchedKeys: heardKeys,
+      })
+      void recordEchoSound(soundRecs, { sentenceId, overall: result.overall })
     } catch (e) {
       setError(e instanceof Error ? e.message : '비교 오류')
       setPhase('idle')

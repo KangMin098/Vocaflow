@@ -6378,6 +6378,7 @@ export type Database = {
         | "morphmerge"
         | "wordfall-cadence"
         | "pirate-quest"
+        | "echo"
       text_source: "library" | "direct-script" | "direct-file" | "shared-set"
       vcb_license_tier: "T1" | "T2" | "T3"
       vcb_queue_status:
@@ -6555,6 +6556,7 @@ export const Constants = {
         "morphmerge",
         "wordfall-cadence",
         "pirate-quest",
+        "echo",
       ],
       text_source: ["library", "direct-script", "direct-file", "shared-set"],
       vcb_license_tier: ["T1", "T2", "T3"],

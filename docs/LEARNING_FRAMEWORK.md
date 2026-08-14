@@ -206,13 +206,19 @@ CLAUDE.md 가 금지하고, 애초에 올라간 것은 학습자가 아니라 �
 |---|--:|--:|---|
 | Recognize | 15 | 15 | **과잉** — 이 15종을 구별하는 것은 면이 아니라 판돈 구조다 |
 | Spell | 6 | 5 | 적정 |
-| **Sound** | 3 | **0** | Echo·Shadow·Dictation 이 전부 FSRS 밖 → **청각 처방이 불가능** |
+| **Sound** | 3 | **2** | Dictation(인출) + Echo(발화 모방, 2026-08-14) — 청각 처방이 가능해졌다 |
 | Build | 4 | 4 | 조건부 (어원 확장은 검증된 어근 사전이 선행) |
 | Use | 3 | 1 | ScriptQuiz·Dictation 이 0행 → "L5/L6 = 최상위 인출" 주장과 충돌 |
 | Fluency | 4 | 4 | 미정의 (속도 대역을 아직 재지 않는다) |
 
 `records: false` 인 항목은 **결함이지 설계가 아니다.** 테스트가 현 상태를 증언하도록 해 두었다 —
-`sound.recording === 0` 이 깨지는 날이 청각 면이 살아난 날이고, 그때 기대값을 갱신한다.
+`sound.recording` 단언이 이 표의 락이다. 실제로 두 번 깨졌고 두 번 다 근거와 함께 갱신했다
+(0 → 1 Dictation · 1 → 2 Echo).
+
+> **`records: true` 가 "FSRS 카드를 움직인다" 를 뜻하지는 않는다.** Echo 는 인출 기록을 남겨
+> 면 이력을 세우되 복습 간격은 건드리지 않는다 — 문장이 화면에 떠 있는 채로 따라 말하는 것은
+> 인출이 아니기 때문이다(TAP). 이 칸은 "면 신호를 남기는가" 를 센다.
+> 근거: [apps/web/src/lib/echo/word-signal.ts](../apps/web/src/lib/echo/word-signal.ts)
 
 ### 혼합 활동 주의
 
