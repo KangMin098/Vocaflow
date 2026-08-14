@@ -33,6 +33,45 @@
   실적재 DB 단언 + B안 고지 부재). ⚠️ finally 원복 필수 — 남기면 `pickSetWithoutOverlap` 이
   고를 세트가 실행마다 줄어 테스트가 스스로를 무력화한다.
 
+### RLS 만으로는 반쪽이었다 — DEFINER RPC 가 같은 데이터의 두 번째 문 (마이그레이션 1건)
+
+`20260814024656_rpc_inherit_book_gate` — 어제 세트 RLS 를 조여 놓고 "노출 경계를 데이터 계층에서
+강제했다" 고 적었는데, **틀렸다**. `SECURITY DEFINER` 함수는 정의자 권한으로 돌아 RLS 를 통째로
+우회한다. 한쪽 문만 잠근 것이었다.
+
+**실측 (일반 학습자 계정 role=user 로 직접 호출)**
+
+```
+deliver_chapter_vocab(Dialogues=미발행 'ready', ch10)  → ⚠ 단어 30개 반환
+같은 세트를 PostgREST 로 조회                          → 0행 (RLS 는 정상)
+enroll_library_book(같은 도서)                         → 정상 거부 ✓
+_enroll_book_subscribe_word_sets(...)                  → ⚠ 실행됨
+```
+
+- **`deliver_chapter_vocab`** — pool WHERE 에 원본 발행 게이트 추가 → **0행 반환**.
+  RAISE 로 바꾸지 않았다: 호출부가 "0행 = 아직 단어장 없는 도서" 로 읽고 폴백 경로를 타도록
+  설계돼 있어(ChapterLevelWords 주석), 예외를 던지면 정상 폴백이 콘솔 에러가 된다.
+  폴백이 읽는 `library_book_vocabularies` 는 이미 같은 조건의 RLS 로 막혀 있다.
+- **`_enroll_book_subscribe_word_sets`** — `REVOKE EXECUTE`(PUBLIC·anon·authenticated).
+  `p_user_id` 를 **호출자가 지정**하는 DEFINER **쓰기** 함수였다 — 학습자 A 가 B 의 계정에
+  구독·단어를 밀어 넣을 수 있었다. 정당한 호출자 `enroll_library_book` 은 DEFINER 라 무영향.
+- **`subscribe_article_word_set`** — 글 발행 게이트 추가. 지금은 135/135 발행이라 노출 0 이지만
+  미발행 글 하나가 생기는 순간 같은 구멍이다. 인스턴스가 아니라 클래스를 닫는다.
+
+게이트 조건은 `library_book_vocabularies`·`library_chapters_master` 의 **기존 RLS 와 문자 그대로
+동일**하다 — `EXISTS(library_books … status='published' AND copyright_safe_in_kr)`.
+이 두 테이블은 처음부터 그랬다. 예외였던 건 세트와 이 RPC 들이다.
+
+적용 후 재프로브: 미발행 30개 → **0개** · 발행 도서 정상 전달(Ammachi ch1 → 8개) ·
+내부 헬퍼 `permission denied` · 발행 글 구독 정상. 회귀 3건 추가(총 8건).
+
+**교훈**: "RLS 로 막았다" 는 문장은 DEFINER 함수 목록을 확인하기 전까지 참이 아니다.
+새 DEFINER 함수를 만들 때, 그 함수가 읽는 테이블의 RLS 에 원본 발행 조건이 있으면
+같은 조건을 함수 본문에도 직접 넣어야 한다.
+
+⚠️ 프로브가 검증 계정에 단어 7 · 구독 1 을 남겨 즉시 원복했다(vocab 252 복귀).
+쓰기 RPC 를 실계정으로 찔러 보면 반드시 되돌릴 것 — e2e 가 이 계정 수치를 단언한다.
+
 ### SSoT 드리프트를 야간 상시 측정 — 우연히 발견되던 결함을 지표로 (마이그레이션 1건)
 
 `20260814015130_quality_metrics_ssot_drift` — `collect_quality_metrics()` 에 M7 추가.

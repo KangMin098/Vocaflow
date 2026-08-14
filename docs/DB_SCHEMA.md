@@ -516,7 +516,22 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 - ⚠️ 두 정책의 조건은 **같아야 한다**. 한쪽만 고치면 세트는 가려지는데 단어는 읽힌다.
 - 적용 실측: anon 가시 세트 도서 993 → **406** · 아티클 135 유지 · 기타 176 무영향 ·
   service_role 1,169 전부 유지. 기존 구독 71건은 admin 계정이라 영향 0.
-- 회귀: [word-set-rls.integration.test.ts](../apps/web/src/lib/library/__tests__/word-set-rls.integration.test.ts) 5건 (anon/service 양쪽 실조회).
+- 회귀: [word-set-rls.integration.test.ts](../apps/web/src/lib/library/__tests__/word-set-rls.integration.test.ts) 8건 (anon/service/일반 학습자 실조회).
+
+#### ⚠️ RLS 만으로는 반쪽 — DEFINER RPC 는 별도로 게이트해야 한다 ([20260814024656](../supabase/migrations/20260814024656_rpc_inherit_book_gate.sql))
+
+`SECURITY DEFINER` 함수는 정의자 권한으로 돌아 **RLS 를 통째로 우회한다**. 위 정책을 적용한
+뒤에도 일반 학습자(role=user)가 `deliver_chapter_vocab(미발행 Dialogues, ch10)` 를 부르면
+**단어 30개가 그대로 나왔다**(같은 세트를 PostgREST 로 조회하면 0행). 같은 데이터에 문이 둘이다.
+
+| 함수 | 문제 | 조치 |
+|---|---|---|
+| `deliver_chapter_vocab` | 원본 발행 여부 미검사 | pool WHERE 에 `EXISTS(library_books … published+kr_safe)` → **0행 반환**. RAISE 금지 — 호출부가 "0행 = 단어장 없는 도서" 로 읽고 폴백을 탄다 |
+| `_enroll_book_subscribe_word_sets` | `p_user_id` 를 **호출자가 지정**하는 DEFINER 쓰기 함수인데 anon·authenticated 에 EXECUTE 부여 → 남의 계정에 구독·단어 주입 가능 | `REVOKE EXECUTE`. 정당한 호출자 `enroll_library_book` 은 DEFINER 라 무영향 |
+| `subscribe_article_word_set` | 글 발행 여부 미검사 (현재 135/135 발행이라 노출 0) | `display_only` 와 같은 계약으로 조용히 `RETURN` |
+
+**새 DEFINER 함수를 만들 때 점검**: 그 함수가 읽는 테이블의 RLS 에 원본 발행 조건이 있다면,
+같은 조건을 함수 본문에도 **직접** 넣어야 한다. RLS 는 DEFINER 를 지켜 주지 않는다.
 
 `reports`: 본인 INSERT/SELECT, admin UPDATE. ⚠️ 단 테이블이 실재하지 않는다(§요약 드리프트 표 참조).
 
