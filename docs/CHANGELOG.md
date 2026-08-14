@@ -10,6 +10,30 @@
 
 ## Unreleased (v06.34 → next)
 
+### 면×단계 매트릭스 — 축이 실데이터로 계산된다 (Phase 4 backbone)
+
+`flow.ts` 가 `WordFrameworkState`(passed·accuracy·hits·memory·encounters)와 이동 조건
+(`canAdvance`)을 선언해 뒀는데 **그 상태를 만드는 코드가 어디에도 없었다.** 축과 판정 규칙은
+있고 입력이 없으니 처방이 쓸 수 없었다 — 레지스트리 소비자가 0이던 것과 같은 종류의 공백이다.
+
+- **`lib/framework/word-progress.ts`(순수)** — `learning_records.module` → 레지스트리
+  `Activity.facets` 로 단어별 면 이력을 접는다. 면을 따로 저장하지 않는 이유는 Stage 를
+  저장하지 않는 이유와 같다(두 벌을 두면 어긋난다).
+- **통과 판정은 횟수와 정답률을 함께 본다** — `hits ≥ HITS_TO_PASS(2)` **그리고**
+  `정답률 ≥ ACCURACY_HOLD_BELOW(0.7)`. 정답률만 보면 1/1(100%)이 통과가 되고,
+  횟수만 보면 2/10 이 통과가 된다. 둘 다 거짓이다.
+- **`weakestFacet()`** — 설계안이 "화면에 보이라" 한 *가장 뒤처진 면 하나*.
+  **시도조차 없는 앞 면이 정답률 낮은 뒤 면보다 먼저다**(앞을 건너뛰지 않는다).
+  cross 면(Sound·Build)은 고르지 않는다 — "발음을 모르면 문맥으로 못 간다" 는 근거 없는 게이트를 안 만든다.
+- **`word-progress-query.ts`(server-only)** — 조회부 분리. 기억 상태는 저장하지 않고 R(t) 로 계산.
+  ⚠️ 노출 횟수(`encounters`)의 정본이 아직 없어 `review_count` 를 하한 근사로 쓴다 —
+  읽기 노출까지 세려면 reading 계층이 단어 단위 기록을 남겨야 한다(미구현).
+- 단위 18. 실데이터 검증(같은 규칙을 SQL 로 재현): spell 87시도/1통과 · recognize 71/3 ·
+  sound 61/0 · use 61/0 · fluency 52/1 · build 0/0. 축이 실제로 구별을 만든다.
+
+**소비자는 아직 없다** — 이 값을 화면에 쓰는 것은 처방(hub)과 Vault 화면의 일이고,
+지금 그 두 곳은 다른 작업이 진행 중이라 손대지 않았다. 다음 단계로 남긴다.
+
 ### 모바일 전역 내비 — 하단 탭 4개 (Phase 3 의 출발점)
 
 설계안 실측 게이지 중 하나가 **"모바일 전역 내비 링크 0개"** 였다. 사이드바가 `hidden md:flex`
