@@ -340,8 +340,17 @@ blasna sebao…" ("Take we the fool…")`), ch.93 은 돌팔이 약장수의 독
   **register 배제가 설계대로 작동**했다: 이번에 등재한 6건 중 세트에 들어간 것은
   `holmoak`·`wheatsheaf`(modern_advanced) 둘뿐이고 `landsknecht`·`mainguard`(period_cultural) ·
   `gallowsbird`·`inkslinger`(archaic_literary) 넷은 걸러졌다 — 읽을 때는 뜻이 뜨지만 외울 대상은 아니다.
-  **학습자에게는 아직 안 보인다** — `shared_word_sets` RLS 가 부모 도서의 `status='published'` +
-  `copyright_safe_in_kr` 를 요구하고(51f361fb) 이 책은 `ready` 다. 카탈로그 노출은 별도 판단.
+  **세트 발행만으로는 학습자에게 안 보인다** — `shared_word_sets` RLS 가 부모 도서의
+  `status='published'` + `copyright_safe_in_kr` 를 요구한다(51f361fb).
+- **후속 — 카탈로그 노출** (2026-08-14). `status='ready' → 'published'` + `published_at` 설정.
+  전환 후 RLS 가시 세트 **136/136** · 카탈로그 도서 12 → **13권**.
+  status 트리거 2개(`trg_lb_publish_word_sets`·`trg_publish_book_word_sets_t`)가 발행 함수를 다시
+  호출하지만 기존 챕터는 `CONTINUE` 라 **세트는 136 그대로**(중복 생성 없음 — 멱등 실측).
+  **I10 은 이때부터 실제로 판정한다** — 미발행 동안은 `N/A` 로 PASS 였고, 발행 후 현 `select` 와
+  비교해 드리프트 0 으로 PASS. 게이트 5종 유지. 되돌리기는 `revertPublishedBook`.
+  ⚠️ 정본 경로는 Admin `강제 게시` → `/api/admin/library/force-publish-book` 이다.
+  `admin_force_publish_book` RPC 는 `is_admin_or_curator()`(`auth.uid()`) 가드라 service_role·MCP
+  로는 통과하지 못한다 — 그래서 그 라우트가 RPC 대신 동등 로직(저작권 검증 + UPDATE)을 직접 실행한다.
 
 ### scores.content_ref — "어떤 자료로 학습했나" (프레임워크 Phase 1 · 마이그레이션 1건)
 
