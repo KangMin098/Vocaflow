@@ -1,0 +1,278 @@
+# VCB 재설계 — 레시피 컴포저 (v1 설계·실측 근거)
+
+> 목표: **시중에 존재하는 모든 유형의 단어장을 어드민에서 만들 수 있고**, 그 위에
+> **이 플랫폼만 만들 수 있는 유형**을 추가한다. 만들고 → 평가하고 → 고치는 루프를 코드로 고정한다.
+>
+> 작성 2026-08-14 · 모든 수치는 DB direct query 실측 (추정치는 `est` 로 표기)
+
+---
+
+## 0. 왜 재설계인가 — 실측된 구조 결함
+
+단어장을 만드는 코드가 **5곳**에 있고, 서로 다른 `curation_query` dialect 를 쓴다:
+
+| 생성기 | 산출 | `curation_query` 형태 | 세트 수 (실측) |
+|---|---|---|--:|
+| VCB 8-step (`vocab_runs` → `08-publish`) | `high` cast-2000 | **null** (기록 없음) | 1 |
+| `scripts/lcp/publish-list-word-set.ts` | 교육과정 초·중·고 | `{source:'shared_dictionary', filters:{list_tags}, chapter_size, chapter_count, order, generated_by}` | 3 |
+| `scripts/dict/roots-publish-set.mjs` | 어원 | `{org:'root', source:'word_root_links', filters:{cap, per_root_cap, v_level}, version}` | 1 |
+| `scripts/dict/topics-publish-set.mjs` | 주제 18종 | `{org:'topic', theme, source:'dictionary_word_categories', filters:{per_set, per_chapter, v_level}, version}` | 18 |
+| KICE 기출 | 수능 문항유형 | `{source_key:'kice_csat', filters:{question_nos, min_years}}` | 4 |
+| 챕터/글 자동 세트 | `library_book` 1,129 · `library_article` 135 | (별도 경로) | 1,264 |
+
+**결함 3개** (전부 같은 원인 — 공통 계약이 없다):
+
+1. **재현 불가** — cast-2000 은 `curation_query=null` 이라 무엇으로 뽑았는지 코드 아닌 곳에 남지 않았다.
+2. **평가 없음** — 5 생성기 중 어느 것도 "이 단어장이 좋은가"를 수치로 답하지 못한다. 지금
+   `topic-appearance` 의 한국어 제목이 `외모`(오타: 외모→외모/외양) 인 것도 검수 지표가 없어서 남았다.
+3. **유형 확장 불가** — 새 유형(혼동어·연어·다의어·N일 완성)을 원하면 6번째 스크립트를 쓰게 된다.
+   현재 어드민 위저드는 **평면 필터 8종 → 정렬 4종 → 개수 제한** 뿐이므로, 목차가 필터로
+   표현되지 않는 유형(어원 챕터·의미장·짝 대조·페이싱)은 어드민에서 만들 수 없다.
+
+그래서 **하나의 선언적 레시피 스키마 + 하나의 컴포저 + 하나의 평가기**로 통합한다.
+
+---
+
+## 1. 자산 실측 (2026-08-14) — 무엇으로 만들 수 있나
+
+### shared_dictionary 45,688행 필드 충전율
+
+| 필드 | 충전 | 필드 | 충전 |
+|---|--:|---|--:|
+| `meaning_ko` | **100%** (45,688) | `senses` | **100%** |
+| `v_level` | **100%** | `example_en` | 92% (42,133) |
+| `ipa` | 81% (36,793) | `rhyme_key` | 63% (28,989) |
+| `related_terms` | 63% (28,582) | `synonyms` | 57% (26,176) |
+| `frequency_band` | 84% (38,444) | `antonyms` | 32% (14,678) |
+| `derived_forms` | 31% (14,313) | `collocations` | 31% (13,992) |
+| `list_tags` | 30% (13,491) | `verified` | 27% (12,182) |
+| `korean_learner_note` | 27% | `homophones` | 11% (5,224) |
+| `mnemonic_ko` | 11% (5,062) | `base_word` | 7% (3,234) |
+| `derivation_suffix` | 6% (2,921) | `cefrj_domain_tags` | 4.5% (2,054) |
+| **`image_url`** | **0%** | **`audio_url`** | **0%** |
+
+### 관계·코퍼스 자산
+
+| 자산 | 규모 | 쓰임 |
+|---|--:|---|
+| `word_roots` / `word_root_links` | 181 / 2,767 | 어원·접사 챕터 |
+| `dictionary_categories` / `dictionary_word_categories` | 566 / 28,079 (472 카테고리) | 의미장·주제 챕터 |
+| `library_books` / `library_book_vocabularies` | 401 / ~1.68M est (1.1GB) | 도서·챕터 코퍼스. 표본 1권 = 4,516행 / 61챕터 / `first_sentence` 100% / `lemma` 93% |
+| `texts` | 275 est | 사용자 본문 |
+| `csat_dcp_items` | 1,374 | 수능 기출 문항 |
+| `lexicon_frequencies` / `lexicon_clean` | 6,305 / 455K est | 빈도 보강 |
+| `word_familiarity` · `vocabularies`(FSRS) | 소규모(dev) | 학습자 기지 어휘 차감 |
+| `list_tags` 12종 | ngsl(3)·csat(2)·bsl·ndl·tsl·bel·nawl·moel·fel + kcurr2022(3) | 시험·분야 모집단 |
+
+**결손 2건이 유형 2종을 막는다**: `image_url` 0 → 그림 단어장, `audio_url` 0 → 오디오 단어장.
+(브라우저 `speechSynthesis` 는 이미 5개 화면에서 쓰이므로 **소리 재생 자체는 가능** —
+사전 녹음 자산이 없다는 뜻이고, 평가기는 이를 `tts_fallback` 등급으로 정직하게 낮춰 기록한다.)
+
+---
+
+## 2. 시중 단어장 유형 분류 — 26종
+
+분류 축은 **"무엇이 목차를 결정하는가"**다. 컴포저가 구현해야 하는 것이 정확히 그것이기 때문에,
+출판사·타깃 같은 마케팅 축으로 나누지 않는다.
+
+### A. 모집단이 목차를 결정 (list-driven) — 7종
+
+| # | 유형 | 시중 예 | 자산 | 판정 |
+|--:|---|---|---|:-:|
+| 1 | 빈도순 N,000 | NGSL/COCA 3000 | `frequency_band`·`ngsl_sfi` | ✅ |
+| 2 | 시험 빈출 | 수능/토익/공무원 보카 | `list_tags` csat/bsl | ✅ |
+| 3 | 교육과정 학년별 | 교과서 기본어휘 | `kcurr2022_*` | ✅ |
+| 4 | 학술 어휘 | AWL/NAWL | `nawl_1.2` | ✅ |
+| 5 | 등급별(CEFR/V) | A1~C2 단계 보카 | `cefr_level`·`v_level` | ✅ |
+| 6 | 분야 전문 | 의학·금융·여행·뉴스 | `moel/fel/tsl/ndl`·`domain_levels` | ✅ |
+| 7 | 기출 문항 기반 | 수능 기출 유형별 | `csat_dcp_items` | ✅ |
+
+### B. 어휘 내적 구조가 목차를 결정 (structure-driven) — 11종
+
+| # | 유형 | 시중 예 | 자산 | 판정 |
+|--:|---|---|---|:-:|
+| 8 | 어원·어근·접사 | Word Power Made Easy·어원편 | `word_root_links` 2,767 | ✅ |
+| 9 | 파생어 family | word family 보카 | `derived_forms` 31% + `base_word` 7% | ⚠️ 부분 |
+| 10 | 품사별 | 동사·명사 집중 | `primary_pos` | ✅ |
+| 11 | 의미장·주제 | 주제별 그림/테마 보카 | `dictionary_word_categories` 28,079 | ✅ |
+| 12 | 유의어 클러스터 | 유의어 대조 보카 | `synonyms` 57% | ✅ |
+| 13 | 반의어 대조쌍 | 반대말 보카 | `antonyms` 32% | ✅ |
+| 14 | 혼동어·유사철자 | Confusing Words | `homophones` 11% + 편집거리 | ✅ |
+| 15 | 연어 중심 | Collocations in Use | `collocations` 31% | ✅ |
+| 16 | 구동사·관용어 | Phrasal Verbs in Use | `primary_pos` idiom/phrasal_verb | ✅ |
+| 17 | 다의어 | 다의어 정복 | `senses` 100% | ✅ |
+| 18 | 라임·발음 | phonics·라임 카드 | `rhyme_key` 63% | ✅ |
+
+### C. 콘텐츠가 목차를 결정 (corpus-driven) — 4종
+
+| # | 유형 | 시중 예 | 자산 | 판정 |
+|--:|---|---|---|:-:|
+| 19 | 원서 도서별 | "해리포터 단어장" | `library_book_vocabularies` | ✅ |
+| 20 | 챕터별 부록 | 리더스 챕터 단어 | 동 (chapter_idx) | ✅ |
+| 21 | 시사·뉴스 기사별 | 뉴스 보카 | ACP article word set | ✅ |
+| 22 | 영상·스크립트 | 미드 영어 | `texts`(사용자 입력) | ⚠️ 부분 |
+
+### D. 학습 방법이 목차를 결정 (delivery-driven) — 4종
+
+| # | 유형 | 시중 예 | 자산 | 판정 |
+|--:|---|---|---|:-:|
+| 23 | N일 완성 페이싱 | 30일/60일 완성 | (조직 규칙) | ✅ |
+| 24 | 연상·스토리 | 해마학습법 | `mnemonic_ko` 11% | ⚠️ 부분 |
+| 25 | 그림 단어장 | picture dictionary | `image_url` **0** | ❌ 자산 결손 |
+| 26 | 오디오 단어장 | 듣기 보카 | `audio_url` **0** | ❌ 자산 결손 |
+
+**합계 26종 — 완전 지원 20 · 부분 3 · 불가 2 · (22 부분)**. 목표는 `✅ + ⚠️` 24종을
+어드민 한 화면에서 만드는 것이고, ❌ 2종은 **자산 수집 과제**로 분리해 명시한다 (설계로 못 메운다).
+
+---
+
+## 3. 이 플랫폼만 만들 수 있는 유형 — 4종
+
+지면 단어장이 원리적으로 불가능한 이유를 각각 명시한다. "좋다"가 아니라 **"구조상 불가"**여야
+고유성이다.
+
+### U1. `unlock` — 콘텐츠 해금 최적 단어장
+
+목표 콘텐츠(도서·챕터 집합·글)의 **토큰 커버리지**를 목표치(예 95%)까지 올리는 데 필요한
+**최소 단어 집합**을 한계 기여도 탐욕(greedy marginal coverage)으로 고른다. 학습자가 이미 아는
+단어(`word_familiarity` known · FSRS stable)는 차감한다.
+
+- 필요 조건 3개: ① 콘텐츠별 토큰 빈도 ② 개인 기지 어휘 ③ 한계 커버리지 계산
+- **지면 불가 이유**: ①은 책마다 다르고 ②는 사람마다 다르다 → 인쇄 시점에 목차를 확정할 수 없다.
+- 검증 가능한 우위: 같은 단어 수에서 **빈도순 대비 커버리지 %p 우위**. (Round 1 실측 §7)
+
+### U2. `recycle` — 재등장 우선 단어장 (narrow reading)
+
+`LEARNING_FRAMEWORK.md` 의 `ENCOUNTERS_FLOOR = 8`을 **인공 반복이 아니라 읽기로** 채운다.
+같은 도서의 다음 N챕터에 재등장하는 단어를 우선 선택해, 학습 직후 자연 노출이 보장되게 한다.
+
+- **지면 불가 이유**: "이 단어가 앞으로 몇 번 더 나오는가"는 그 책의 챕터 토큰 분포를 알아야 나온다.
+- 지표: 선택 단어의 **평균 향후 재등장 횟수**(빈도순 대비).
+
+### U3. `facet-ladder` — 6면 보장 단어장
+
+각 항목이 `FACETS`(F1 Recognize · F2 Spell · F3 Sound · F4 Build · F5 Use · F6 Fluency) 중
+어느 면까지 **실제로 훈련 가능한지** 데이터로 검증하고, 세트가 면별 준비도를 선언한다.
+
+- **지면 불가 이유**: 지면은 재인(F1)만 지원한다. 면별 인출 형식(TAP)을 보장할 수 없다.
+- 지표: 선언 면의 요구 필드 결측 0.
+
+### U4. `confusion` — 실오답 기반 혼동 세트 (데이터 게이트)
+
+학습자의 실제 오답에서 혼동쌍을 만든다. dev 환경 학습 데이터가 얕아 **데이터 게이트**로 표시하고,
+자산이 쌓이면 자동 활성된다. (지면 불가 이유는 자명 — 오답은 인쇄 후에 생긴다.)
+
+---
+
+## 4. Recipe v3 스키마 — 4단 선언
+
+```
+Recipe = meta + population(모집단) + select(선별) + organize(조직) + present(표현)
+```
+
+`shared_word_sets.curation_query` 에 그대로 저장한다 (**마이그레이션 불필요** — 기존 컬럼
+`curation_query jsonb` · `auto_curated boolean` 재사용). 5 dialect 는 v3 로 흡수된다.
+
+| 단 | 무엇을 정하나 | 주요 값 |
+|---|---|---|
+| `population` | 어디서 뽑나 | `dictionary` · `list` · `roots` · `topics` · `corpus` · `exam_items` · `learner` · `union/intersect/except` |
+| `select` | 무엇을 남기나 | 필터(레벨·빈도·품사·태그·register) · 필수 필드 · **objective**(`count` \| `coverage` \| `all`) · 기지 어휘 차감 · family 접기 |
+| `organize` | 목차를 어떻게 짜나 | `group_by` 13종 · `order_within` 6종 · 그룹/세트 cap · `pacing{days, per_day}` |
+| `present` | 무엇을 보장하나 | 보장 면(`facets`) · 카드 필드 · 대조쌍(`antonym`/`confusable`/`sense`) |
+
+**핵심 발명 — 면(facet) → 요구 필드 매핑.** 세트가 "이 면을 훈련할 수 있다"고 선언하면
+평가기가 그 필드의 결측을 센다. 4지선다로 익힌 단어를 "말할 수 있다"로 표기하는 것을
+데이터가 막는다 (`axes.ts` 의 `retrieval` 계약과 동일한 근거).
+
+| 면 | 요구 필드 | 비고 |
+|:-:|---|---|
+| F1 Recognize | `meaning_ko` | 100% 충전 → 항상 가능 |
+| F2 Spell | `meaning_ko` + 단어 길이 ≥ 2 | 철자 생산 단서 |
+| F3 Sound | `audio_url` \| `ipa` | audio 0% → `ipa`면 **tts_fallback** 등급 |
+| F4 Build | `base_word` \| `derivation_suffix` \| `derived_forms` \| root link | 형태소 조립 |
+| F5 Use | `example_en` (+`collocations` 가점) | 문맥 인출 |
+| F6 Fluency | F1 요구 + `frequency_band` | 속도 대역은 세션 산물 |
+
+---
+
+## 5. 평가 — Scorecard 7지표
+
+각 세트는 **레시피와 함께 점수를 들고 있다** (`curation_query.scorecard`). 지표는 blueprint별
+가중치로 합산하고 **0.80 이상을 통과선**으로 둔다.
+
+| 코드 | 지표 | 무엇을 잡나 |
+|---|---|---|
+| `fill` | 선언 면 요구 필드 충전율 | "Use 세트인데 예문이 없다" |
+| `level_fit` | 목표 레벨 밴드 적합 + 분포 | "초급 세트에 V10이 섞였다" |
+| `noise` | register 잡음·중복·고유명사 | `archaic_literary`·`proper_noun` 혼입 |
+| `novelty` | 기존 발행 세트와 비중복 | "이미 있는 세트의 재판" |
+| `organize` | 그룹 균형·원리 적합 | "어원 세트인데 root link 없는 단어" |
+| `blueprint_fit` | 유형 고유 조건 | unlock=커버리지 달성 · recycle=재등장 · confusable=짝 보유 |
+| `value` | 빈도 가중 학습 가치 | 희귀어만 모인 세트 감점 |
+
+---
+
+## 6. 목표 (달성 판정 기준)
+
+| ID | 목표 | 측정 |
+|---|---|---|
+| **G1** | 시중 26종 중 **24종** 생성 가능 (❌ 2종은 자산 과제로 분리) | blueprint 카탈로그 × 실 DB 드라이런 |
+| **G2** | 모든 blueprint scorecard **≥ 0.80** | `pnpm vcb:compose-eval` |
+| **G3** | 선언 면 요구 필드 결측 **0** | `fill = 1.0` |
+| **G4** | `unlock` 이 같은 단어 수에서 빈도순 대비 커버리지 **우위** | 실측 비교 (§7) |
+| **G5** | 회귀 무해 — 신규 테스트 통과 + 기존 vitest 유지 | `pnpm --filter web test` |
+
+---
+
+## 7. Round 기록 (실측)
+
+평가 러너: `apps/web/src/lib/vcb/compose/__tests__/compose-eval.integration.test.ts`
+매트릭스 전문: [docs/reports/vcb-compose-eval.md](./reports/vcb-compose-eval.md) (러너가 매 실행마다 덮어쓴다)
+
+| Round | 통과 / 대상 | 무엇이 바뀌었나 |
+|---|:-:|---|
+| 1 | 9 / 27 | 첫 드라이런. 실패가 **설계 결함 3건**을 드러냈다 (아래) |
+| 2 | 20 / 27 | 결함 3건 수정 |
+| 3 | **28 / 28** | 그룹 인지 선별 + 평가기 부당 감점 3건 수정 → 전 유형 통과 |
+
+### Round 1 이 드러낸 결함 3건 (전부 실측이 원인을 특정)
+
+| # | 증상 | 원인 | 수정 |
+|---|---|---|---|
+| 1 | `unlock` 해금 문장 **155 vs 빈도순 155** (우위 0) | 개수로 먼저 자른 뒤 순서만 바꿨다 → 같은 200개의 순서만 다름 | 해금을 **선별 전략**으로 승격 (`compose.ts`) — 풀 전체에서 예산만큼 고른다 |
+| 2 | `recycle` 향후 재등장 **0.00 vs 0.00** | `library_book_vocabularies` 는 **책당 단어 1행**(UNIQUE 제약)이라 챕터별 재등장 행이 애초에 없다 | `frequency_in_book − frequency_in_chapter` 로 계산 (첫 챕터 밖 등장) |
+| 3 | 0.9x 점수인데 18종이 미달 판정 | `novelty` 를 하드 blocker 로 뒀다 — 시험 어휘가 여러 세트에 겹치는 것은 정상 | novelty 는 점수·경고로만, blocker 에서 제외 |
+
+### Round 2 가 드러낸 결함 4건
+
+| # | 증상 | 원인 | 수정 |
+|---|---|---|---|
+| 4 | 주제 '여행' 이 5 챕터인데 결과 **2 챕터** · 짝 유형 300개 중 126개가 짝 없음 | 개수 목표를 **그룹 구성 전에** 잘라 빈도 상위가 몰린 그룹만 살아남았다 | **그룹 인지 선별** — 목차를 먼저 짜고 그룹에서 예산을 채운다(짝 유형은 그룹 단위 통째로) + `min_group_size` 미달 그룹 제거 |
+| 5 | `phrasal-idiom` noise **0.56** | 그 유형이 **일부러 허용한** `phrase_unit` 을 기본 잡음 목록으로 셌다 | 잡음 판정을 레시피의 `exclude_registers` 기준으로 |
+| 6 | `phrasal-idiom` value **0.05** | `phrase`·`compound` 대역을 학습 가치 없음으로 셌다 | 두 대역을 가치 있는 대역에 포함 |
+| 7 | `unlock` level_fit **0.49** · 원서 세트 0.70 | 코퍼스 세트에 레벨 응집도를 요구했다 — 책에 나오는 단어 레벨은 퍼지는 것이 정상 | 코퍼스 모집단 + 밴드 미선언이면 "콘텐츠가 레벨을 정한다" 로 판정 제외 |
+
+### Round 3 최종 (2026-08-14 실측)
+
+- 카탈로그 **30종** — ready 24 · partial 3 · asset_gap 2 · data_gate 1
+- **생성 가능 28종 전부 통과** (총점 0.88 ~ 0.98) · 테스트 39/39
+- 자산 결손 2종(`picture-dict`·`audio-only`)은 **0건**을 냈다 — 설계 결함이 아니라 자산 결손임을 테스트가 고정한다
+
+**고유 유형 우위 증거 (같은 예산·대조군은 일반 빈도순)**
+
+| 유형 | 우리 | 빈도순 | 배수 |
+|---|--:|--:|--:|
+| **U1 unlock** — 200단어로 완전히 읽히게 된 문장 (전체 1,769) | **201** | 23 | **8.7×** |
+| **U2 recycle** — 선택 단어의 평균 향후 재등장 (모집단 평균 32.2) | **143.4** | 94.1 | **1.5×** |
+
+`unlock` 의 8.7배가 이 재설계의 핵심 결과다 — 같은 200단어를 배웠을 때 실제로 읽히는 문장이
+8.7배라는 것이고, 인쇄 단어장은 학습자의 기지 어휘를 모르므로 이 순서를 만들 수 없다.
+
+**정직하게 남는 한계**
+
+| 유형 | 결과 | 사실 |
+|---|--:|---|
+| `word-family` | 56개 (26 묶음) | `base_word` 7% 충전이 상한 — 규모를 늘리려면 형태소 백필이 선행 |
+| `confusion-log` | 6개 | dev 학습 기록이 얕다 (data_gate) |
+| `rhyme-phonics`·`facet-ladder`·`script-media` | fill 0.90~0.95 | Sound 면이 녹음 자산 0% 라 TTS fallback (0.7 가중) — 숨기지 않고 감점으로 기록 |
+| `picture-dict`·`audio-only` | 0개 | `image_url`·`audio_url` 0% — **자산 수집 과제** (설계로 못 메운다) |
