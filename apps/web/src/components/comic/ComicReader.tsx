@@ -447,7 +447,10 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
       {/* 하단 글래스바: stave-dot 레일 */}
       <footer
         onFocus={() => setChrome(true)}
-        className={`fixed inset-x-0 bottom-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
+        // bottom 은 0 이 아니라 하단 탭 높이다 — 모바일에서 탭이 이 바 위에 얹혀
+        // '다음 컷' 자리를 가로챈다(실측: elementFromPoint 가 탭 링크를 돌려줬다).
+        // md 이상은 `--tabbar-h: 0px` 라 종전 그대로 화면 바닥에 붙는다.
+        className={`fixed inset-x-0 bottom-[var(--tabbar-h)] z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
       >
         <div className="mx-auto flex max-w-[860px] items-center gap-2 px-4 py-2.5">
           <button type="button" data-no-nav onClick={() => nav(i - 1, -1, 'chrome')} disabled={i === 0} aria-label="이전 컷" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30 motion-reduce:transition-none" style={glass}><ArrowLeft size={17} /></button>

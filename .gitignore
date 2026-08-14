@@ -69,6 +69,9 @@ logs/
 # Playwright e2e — 매 실행마다 재생성, 산출물만 baseline-*.json 으로 docs 에 보존
 apps/web/playwright-report/
 apps/web/test-results/
+# a11y 스윕 리포트 — test-results/ 는 실행 시작 때 통째로 지워져(동시 세션이면 남의 실행이
+# 내 리포트를 지운다) 별도 디렉터리에 남긴다.
+apps/web/a11y-report/
 
 # ONNX Runtime WebAssembly 바이너리 (75MB · CDN 또는 npm install 시 자동 다운로드 권장)
 apps/web/public/onnx/

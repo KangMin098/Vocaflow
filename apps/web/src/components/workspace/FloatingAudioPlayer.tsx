@@ -121,8 +121,13 @@ export function FloatingAudioPlayer({
     <div
       role="region"
       aria-label="오디오 플레이어"
-      className={`fixed bottom-0 left-0 right-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] md:left-[var(--sidebar-w,240px)] ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
+      // bottom = 하단 탭 높이(모바일). z-70 이라 탭을 덮을 수는 있지만, 글래스 배경이라
+      // 탭이 비쳐 보이면서 탭 자리를 먹는다 — 앱 프레임을 페이지가 조용히 가리는 셈이다.
+      // 그 위에 얹는다. md 이상은 `--tabbar-h: 0px` 라 종전대로 가장자리 flush.
+      // 숨김 상태에서 `pointer-events-none` 은 필수다 — bottom 이 0 이 아니게 되면서
+      // translate 로 내려간 자리가 **탭 바 위**가 되어, 없는 플레이어가 탭 터치를 먹는다.
+      className={`fixed bottom-[var(--tabbar-h)] left-0 right-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] md:left-[var(--sidebar-w,240px)] ${
+        isVisible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
       }`}
       style={{
         background: 'var(--mat-glass-bg-thick)',

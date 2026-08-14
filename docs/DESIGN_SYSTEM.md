@@ -739,7 +739,24 @@ s4:  14px / 400
   --ease-in:     cubic-bezier(.4, 0, 1, 1);
   --ease-out:    cubic-bezier(0, 0, .2, 1);
   --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+
+  /* Layout — 모바일 하단 탭 (components/layout/MobileTabBar) */
+  --tabbar-h: calc(56px + env(safe-area-inset-bottom, 0px));
 }
+
+/* md 이상은 사이드바가 내비를 맡아 탭이 없다 → 비켜 줄 자리도 없다 */
+@media (min-width: 768px) {
+  :root { --tabbar-h: 0px; }
+}
+```
+
+**`--tabbar-h` 사용 규약** — `fixed bottom-0` 을 새로 쓰지 않는다. 모바일 하단은 탭이 이미 쓰는
+자리라 페이지 소유 하단 고정 UI(만화 리더 컷 바 · 워크스페이스 오디오)는 `bottom-[var(--tabbar-h)]`
+로 그 위에 앉는다. 겹침 여부는 z-index 가 아니라 **히트 테스트**(`elementFromPoint`)로 판정한다
+— 실측에서 `z-30` 리더 바가 `z-40` 탭에 가려 '다음 컷' 이 눌리지 않았다. 상세: [CONVENTIONS.md](./CONVENTIONS.md) §하단 고정 UI.
+
+```css
+/* (아래는 다크 모드 계속) */
 
 /* Dark Mode */
 [data-theme="dark"] {

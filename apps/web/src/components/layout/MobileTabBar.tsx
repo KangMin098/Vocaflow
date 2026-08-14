@@ -56,42 +56,48 @@ export function MobileTabBar() {
   if (isFullScreenRoute(pathname)) return null
 
   return (
-    <nav
-      aria-label="주요 화면"
-      // md 이상은 사이드바가 같은 일을 한다 — 둘을 동시에 띄우면 같은 링크가 두 번이다.
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--bd)] bg-[var(--bg)] md:hidden"
-      style={{
-        // 홈 인디케이터에 탭이 깔리지 않게 (iOS)
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-      }}
-    >
-      <ul className="flex items-stretch">
-        {SURFACE_ORDER.map((id) => {
-          const surface = SURFACES[id]
-          const Icon = ICON[id]
-          const active = isActive(pathname ?? '', surface.href)
-          return (
-            <li key={id} className="flex-1">
-              <Link
-                href={surface.href}
-                aria-current={active ? 'page' : undefined}
-                // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
-                className={`flex h-14 flex-col items-center justify-center gap-0.5 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset ${
-                  active ? 'text-[var(--p)]' : 'text-[var(--t2)]'
-                }`}
-              >
-                <Icon size={20} strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
-                {/* 색만으로 현재 위치를 알리지 않는다 — 굵기로도 구분(색맹 대응) */}
-                <span
-                  className={`font-body text-[11px] leading-none ${active ? 'font-[700]' : 'font-[500]'}`}
+    <>
+      {/* 탭이 콘텐츠 끝을 덮지 않게 하는 여백. **탭을 그리는 쪽이 같이 낸다** —
+          레이아웃에 두면 탭이 없는 화면(풀스크린 세션)에도 남는다.
+          높이는 `--tabbar-h` 하나가 정하고, 페이지 소유 하단 고정 UI 도 같은 값을 쓴다. */}
+      <div aria-hidden className="h-[var(--tabbar-h)] shrink-0" />
+      <nav
+        aria-label="주요 화면"
+        // md 이상은 사이드바가 같은 일을 한다 — 둘을 동시에 띄우면 같은 링크가 두 번이다.
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--bd)] bg-[var(--bg)] md:hidden"
+        style={{
+          // 홈 인디케이터에 탭이 깔리지 않게 (iOS)
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        }}
+      >
+        <ul className="flex items-stretch">
+          {SURFACE_ORDER.map((id) => {
+            const surface = SURFACES[id]
+            const Icon = ICON[id]
+            const active = isActive(pathname ?? '', surface.href)
+            return (
+              <li key={id} className="flex-1">
+                <Link
+                  href={surface.href}
+                  aria-current={active ? 'page' : undefined}
+                  // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
+                  className={`flex h-14 flex-col items-center justify-center gap-0.5 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset ${
+                    active ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+                  }`}
                 >
-                  {LABEL[id]}
-                </span>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
+                  <Icon size={20} strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
+                  {/* 색만으로 현재 위치를 알리지 않는다 — 굵기로도 구분(색맹 대응) */}
+                  <span
+                    className={`font-body text-[11px] leading-none ${active ? 'font-[700]' : 'font-[500]'}`}
+                  >
+                    {LABEL[id]}
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+    </>
   )
 }

@@ -29,6 +29,15 @@
 - placeholder 만으로 레이블 대체
 - 애니메이션 없는 상태 전환
 
+### 하단 고정 UI (v06.34 — 하단 탭 도입에서 실측)
+모바일 하단은 **하단 탭(`components/layout/MobileTabBar`)이 이미 쓰고 있는 자리**다.
+
+- `fixed bottom-0` 을 새로 쓰지 않는다 → `bottom-[var(--tabbar-h)]`. 이 토큰이 md 이상에서 `0px` 이므로 데스크톱 모양은 그대로다.
+- **z-index 로 "안 겹친다" 를 판정하지 않는다.** 스택 컨텍스트·transform 이 순서를 바꾼다. 판정은 `elementFromPoint(버튼 중심)` **히트 테스트**로 한다 — 보이는데 안 눌리는 것이 가장 나쁜 결함이다. 회귀 자산: `tests/e2e/20-mobile-shell.spec.ts`.
+- 숨김 상태(`translate-y-full` 등)에는 `pointer-events-none` 을 함께 준다. `bottom` 이 0 이 아니게 되는 순간, 내려간 자리가 **탭 바 위**가 되어 없는 UI 가 탭 터치를 먹는다.
+- 탭이 없는 화면(풀스크린 세션 · `lib/layout/full-screen-routes`)에는 `--tabbar-h` 를 쓰지 않는다 — 빈 자리만큼 떠 보인다.
+- 탭 아래 여백은 **탭을 그리는 컴포넌트가 같이 낸다**. 레이아웃에 `pb-` 로 두면 탭이 없는 화면에도 남아 세션 화면이 뷰포트보다 길어진다.
+
 ### 데이터 모델
 - `memory_state` 컬럼 DB 저장 (R(t) 동적 계산만)
 - `mastery_progress` 컬럼 5단계 (learning_records 누적으로 계산)

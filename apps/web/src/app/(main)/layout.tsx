@@ -24,13 +24,14 @@ export default async function MainLayout({ children }: { children: React.ReactNo
               : null
           }
         />
-        {/* 하단 탭이 콘텐츠 끝을 가리지 않게 그만큼 비워 둔다(탭 56px + safe-area).
-            md 이상에는 탭이 없으므로 여백도 없다. */}
-        <main className="min-w-0 flex-1 pb-[calc(56px+env(safe-area-inset-bottom,0px))] md:pb-0">
+        <main className="min-w-0 flex-1">
           <SessionFrame>{children}</SessionFrame>
         </main>
+        {/* 탭 자체는 fixed 이고, 콘텐츠 끝을 가리지 않게 하는 여백은 이 컴포넌트가 같이 낸다.
+            여백을 여기 레이아웃에 두면 **탭이 없는 풀스크린 세션에도** 남아 세션 화면이
+            뷰포트보다 길어진다(첫 구현이 그랬고 `20-mobile-shell` D 가 잡았다). */}
+        <MobileTabBar />
       </div>
-      <MobileTabBar />
     </div>
   )
 }
