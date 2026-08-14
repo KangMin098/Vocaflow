@@ -56,11 +56,15 @@ if (has('pull')) { const { got } = await pullOutput(OUT); console.log(`✓ pull 
 const CONTENTS = String(arg('contents', 'whiz,ci027,1954-07classicsillustratedno.2ivanhoe_708,the-odyssey-classics-illustrated,illustratedclassicsmacbeth')).split(',')
 const PER = Number(arg('per', 2))
 const tmp = path.join(os.tmpdir(), 'pd-restyle-embed'); fs.mkdirSync(tmp, { recursive: true })
+const FROM = arg('from', 'panels') // panels(컷) | restored(페이지, 로컬 vs Kaggle 페이지 비교용)
 const items = []
 for (const slug of CONTENTS) {
-  const pdir = path.join(REPO, 'work', slug, 'panels')
-  if (!fs.existsSync(pdir)) { console.error(`  (skip ${slug}: panels 없음)`); continue }
-  const files = fs.readdirSync(pdir).filter((f) => /\.jpe?g$/i.test(f)).sort().slice(0, PER)
+  const pdir = path.join(REPO, 'work', slug, FROM)
+  if (!fs.existsSync(pdir)) { console.error(`  (skip ${slug}: ${FROM} 없음)`); continue }
+  const all = fs.readdirSync(pdir).filter((f) => /^\d.*\.jpe?g$/i.test(f)).sort()
+  // 표지 말고 본문 페이지를 뽑아 화풍 차이가 드러나게(중간에서 PER개)
+  const mid = Math.max(0, Math.floor(all.length / 3))
+  const files = all.slice(mid, mid + PER)
   for (const f of files) {
     const small = path.join(tmp, `${slug.slice(0, 12)}_${f}`)
     spawnSync(FF, ['-y', '-i', path.join(pdir, f), '-vf', "scale='min(512,iw)':-2:flags=lanczos", '-q:v', '8', small], { encoding: 'utf8' })
