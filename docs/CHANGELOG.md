@@ -19,7 +19,7 @@
 
 - **Recipe v3** — `population → select → organize → present` 4단 선언. 5 방언을 흡수하며
   **마이그레이션 없음**(기존 `shared_word_sets.curation_query jsonb` 재사용)
-- **카탈로그 30종** — 시중 26유형(모집단 7 · 어휘구조 11 · 콘텐츠 4 · 학습방법 4) + 고유 4종
+- **카탈로그 31종** — 시중 26유형(모집단 7 · 어휘구조 11 · 콘텐츠 4 · 학습방법 4) + 고유 5종
 - **면(facet) → 요구 필드 자동 도출** — "Use 면 훈련" 선언이 예문 없는 단어를 후보에서 빼낸다
   (`framework/axes.ts` 의 `retrieval` 계약을 데이터가 강제)
 - **평가기 7지표** + 통과선 0.80 — 미달이면 발행이 잠긴다(`force` 로만 넘김)
@@ -36,8 +36,20 @@
 - 자산 결손 2종(`image_url`·`audio_url` 0%)은 0건 — 설계로 못 메운다는 사실을 테스트가 고정
 - Round 1·2 가 잡은 결함 7건(우위 0, 재등장 0, 목차 굶기 등)은 [VCB_REDESIGN.md](./VCB_REDESIGN.md) §7
 
+**Round 4·5 — 남은 한계를 능력으로** (개선을 측정했더니 결함이 하나 더 나왔다)
+
+- `word-family` 56 → **300개/131묶음** — `base_word` 7% 대신 `derived_forms` 31% 를 역인덱스로 뒤집음
+- **U5 `uncovered` 신설** — `published` 모집단 + `except` 로 "아직 어느 단어장에도 없는 말".
+  매 유형에 붙던 novelty 경고(73~99% 겹침)를 손쓸 수 있는 능력으로 전환. 실측 novelty 1.00 · 총점 1.00
+- `unlock` 커버리지 목표 — "몇 개" 대신 "이 책의 몇 %". Pride and Prejudice **90% = 1,691단어**
+  (해금 문장 1,434 vs 빈도순 450)
+- ⚠️ 개선이 오히려 56 → 35 로 떨어뜨린 결함 발견·수정: 컴포저가 예산만큼 뽑은 뒤 **다시 조직**해서,
+  기본형(`attend`)이 부분집합에서 빠지면 그 계열(`attention·attendance…`)이 1인 그룹으로 흩어졌다.
+  1차 조직을 정본으로 삼고 재조직을 없앴다(`pickGroups`).
+
 **발행 실적 (dev)** — `unlock-pride-and-prejudice` 200 · `facet-ladder-300` 300 ·
-`confusable-pairs-300` 299 · `day-30-ngsl` 600. 네 세트 모두 학습자 `/library/vocab` 테마별에서 확인.
+`confusable-pairs-300` 299 · `day-30-ngsl` 600 · `uncovered-core-400` 400.
+다섯 세트 모두 학습자 `/library/vocab` 테마별에서 확인.
 
 ⚠️ 코퍼스 세트의 `category` 는 `themed` 다 — 학습자 카탈로그 9 카테고리에 `library_book` 이 없어
 `library_book` 으로 내면 **발행되고도 보이지 않는다**(실측 후 수정). 출처는 `curation_query.source_book_id`

@@ -11,7 +11,7 @@ import { BLUEPRINTS, getBlueprint, catalogSummary } from '../blueprints'
 import { compose } from '../compose'
 import { evaluateSet } from '../evaluate'
 import { facetVerdict, requiredFieldsFor } from '../facets'
-import { buildConfusableGroups, isNearSpelling, organize } from '../organize'
+import { buildConfusableGroups, buildFamilyKeys, isNearSpelling, organize } from '../organize'
 import { select } from '../select'
 import {
   baselineSentenceUnlock,
@@ -228,6 +228,46 @@ describe('confusable — 짝', () => {
   })
 })
 
+describe('family — derived_forms 역인덱스', () => {
+  it('base_word 가 없어도 누가 나를 파생형으로 지목했으면 그 묶음에 들어간다', () => {
+    const keys = buildFamilyKeys([
+      word('nation', { derived_forms: ['national', 'nationality'] }),
+      word('national'),
+      word('nationality'),
+    ])
+    expect(keys.get('national')).toBe('nation')
+    expect(keys.get('nationality')).toBe('nation')
+    expect(keys.get('nation')).toBe('nation')
+  })
+
+  it('선언된 base 는 세트에 없어도 키가 된다 — 없는 base 를 무시하면 묶음이 흩어진다', () => {
+    // Round 4 실측: "없는 base 는 무시" 로 짰다가 word-family 결과가 56 → 35 로 줄었다.
+    const keys = buildFamilyKeys([
+      word('national', { base_word: 'nation' }),
+      word('nationality', { base_word: 'nation' }),
+    ])
+    expect(keys.get('national')).toBe('nation')
+    expect(keys.get('nationality')).toBe('nation')
+  })
+
+  it('base_word 가 없을 때만 역인덱스가 개입한다', () => {
+    const keys = buildFamilyKeys([
+      word('run', { derived_forms: ['running'] }),
+      word('running'),
+    ])
+    expect(keys.get('running')).toBe('run')
+  })
+
+  it('여러 단어가 나를 지목하면 더 짧은 쪽이 기본형이다', () => {
+    const keys = buildFamilyKeys([
+      word('act', { derived_forms: ['action'] }),
+      word('activate', { derived_forms: ['action'] }),
+      word('action'),
+    ])
+    expect(keys.get('action')).toBe('act')
+  })
+})
+
 // ── 해금 ────────────────────────────────────────────────────────────
 
 describe('unlock — 문장 해금이 빈도순을 이긴다', () => {
@@ -377,8 +417,8 @@ describe('blueprint 카탈로그', () => {
 
   it('카탈로그 요약이 시중 26 + 고유 4 를 센다', () => {
     const s = catalogSummary()
-    expect(s.total).toBe(30)
-    expect(s.by_family.unique).toBe(4)
+    expect(s.total).toBe(31)
+    expect(s.by_family.unique).toBe(5)
     expect(s.by_status.asset_gap).toBe(2) // image_url 0% · audio_url 0%
   })
 })

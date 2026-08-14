@@ -1116,7 +1116,8 @@ const U: Blueprint[] = [
     organizing_principle:
       '이 책을 읽으려면 무엇부터 — 문장이 완전히 읽히게 되는 순서로. 아는 단어는 차감한다',
     status: 'ready',
-    requires_params: ['book_id'],
+    // coverage_target 은 선택 — 주면 개수 대신 "이 책의 몇 %" 가 멈춤 조건이 된다.
+    requires_params: ['book_id', 'coverage_target'],
     fit_rules: [
       { kind: 'has_corpus_sentence' },
       { kind: 'beats_baseline', metric: 'sentence_unlock' },
@@ -1136,7 +1137,12 @@ const U: Blueprint[] = [
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? ['B1', 'B2'],
         population: { kind: 'corpus', scope: 'book', ids: p.book_id ? [p.book_id] : [] },
-        objective: { kind: 'count', n: p.count ?? 300 },
+        // 커버리지 목표를 주면 "몇 개" 대신 "이 책의 몇 %" 로 지시한다 — 학습자가 실제로
+        // 원하는 형태이고, 필요한 단어 수는 책마다 다르므로 개수로는 표현할 수 없다.
+        objective:
+          p.coverage_target != null
+            ? { kind: 'coverage', target: p.coverage_target, max_words: p.count ?? 2000 }
+            : { kind: 'count', n: p.count ?? 300 },
         group_by: 'none',
         order_within: 'unlock_yield',
         facets: ['recognize', 'use'],
@@ -1265,7 +1271,60 @@ const U: Blueprint[] = [
   },
 ]
 
-export const BLUEPRINTS: Blueprint[] = [...A, ...B, ...C, ...D, ...U]
+const U5: Blueprint = {
+  id: 'uncovered',
+  family: 'unique',
+  taxon: 'U5',
+  title: '미수록 어휘',
+  market_example: '(지면 불가) — 우리 카탈로그가 이미 무엇을 덮고 있는지는 우리만 안다',
+  organizing_principle:
+    '기존 발행 세트 전체를 빼고 남은 것 — 같은 단어를 다섯 번째로 다시 내지 않기 위해',
+  status: 'ready',
+  requires_params: [],
+  fit_rules: [{ kind: 'all_have_field', field: 'meaning_ko' }, { kind: 'min_groups', n: 2 }],
+  // 이 유형의 존재 이유가 신규성이므로 novelty 를 가장 무겁게 둔다.
+  weights: {
+    fill: 0.15,
+    level_fit: 0.1,
+    noise: 0.15,
+    novelty: 0.3,
+    organize: 0.1,
+    blueprint_fit: 0.1,
+    value: 0.1,
+  },
+  build: (p) =>
+    recipe({
+      blueprint: 'uncovered',
+      slug: p.slug ?? 'uncovered-core',
+      title: p.title ?? '아직 어느 단어장에도 없는 말',
+      description:
+        p.description ?? '이미 발행된 단어장 전체를 빼고 남은 어휘. 카탈로그의 빈칸을 메운다.',
+      emoji: p.cover_emoji ?? '🕳',
+      category: 'themed',
+      subcategory: 'uncovered',
+      segment: p.segment ?? 'general',
+      cefr: p.cefr_levels ?? ['B1', 'B2', 'C1'],
+      population: {
+        kind: 'except',
+        of: [
+          { kind: 'dictionary' },
+          { kind: 'published' },
+        ],
+      },
+      filters: {
+        v_level_min: (p.v_level_min ?? 3) as never,
+        v_level_max: (p.v_level_max ?? 10) as never,
+        freq_bands: ['top1k', 'top2k', 'top3k', 'top5k', 'top10k'],
+      },
+      objective: { kind: 'count', n: p.count ?? 400 },
+      group_by: 'v_level',
+      group_order: 'v_level',
+      order_within: 'frequency',
+      facets: ['recognize', 'use'],
+    }),
+}
+
+export const BLUEPRINTS: Blueprint[] = [...A, ...B, ...C, ...D, ...U, U5]
 
 export const BLUEPRINT_BY_ID = new Map(BLUEPRINTS.map((b) => [b.id, b]))
 

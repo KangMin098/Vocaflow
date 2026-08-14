@@ -21,6 +21,7 @@ import {
   greedySentenceUnlock,
   rankByRecycle,
   recycleStats,
+  totalTokens,
 } from './unlock'
 import type { CandidateWord, ComposedSet, Recipe } from './types'
 
@@ -39,39 +40,59 @@ export interface ComposeContext {
  * 짝 유형(`atomic`)은 그룹 단위로 통째로 담는다. 라운드로빈으로 담으면 예산 경계에서
  * 짝의 한쪽만 들어가 유형이 깨진다.
  */
-function fillFromGroups(
-  groups: ComposedGroup[],
-  budget: number,
-  atomic: boolean,
-): CandidateWord[] {
-  const out: CandidateWord[] = []
+/**
+ * ⚠️ 조립된 **그룹을 그대로** 반환한다 — 단어 목록만 뽑아 다시 조직하면 안 된다.
+ *
+ * 그룹 키가 "입력 집합에 누가 있느냐" 에 의존하는 유형이 있다: 파생 family 는 기본형('attend')이
+ * 있어야 'attention·attendance·attendant' 가 한 계열로 묶인다. 예산만큼 단어를 뽑아 **다시**
+ * 조직하면 그 기본형이 부분집합에서 빠져 묶음이 전부 1인 그룹으로 흩어진다
+ * (Round 4 실측: 528단어/245묶음 → 35단어/17묶음). 1차 조직이 정본이다.
+ */
+function pickGroups(groups: ComposedGroup[], budget: number, atomic: boolean): ComposedGroup[] {
+  const picked: ComposedGroup[] = []
+  let taken = 0
 
   if (atomic) {
     for (const g of groups) {
-      if (out.length + g.entries.length > budget) continue
-      for (const e of g.entries) out.push(e.candidate)
-      if (out.length >= budget) break
+      if (taken + g.entries.length > budget) continue
+      picked.push(g)
+      taken += g.entries.length
+      if (taken >= budget) break
     }
     // 예산이 가장 작은 그룹보다도 작으면 한 그룹도 못 담는다 — 그때는 첫 그룹만 담아
     // 빈 세트가 되는 것을 막는다(빈 세트는 평가기가 즉시 blocker 로 잡는다).
-    if (out.length === 0 && groups.length > 0) {
-      for (const e of groups[0]!.entries) out.push(e.candidate)
+    if (picked.length === 0 && groups.length > 0) picked.push(groups[0]!)
+  } else {
+    // 라운드로빈 — 목차의 폭을 지키려고 각 그룹에서 한 겹씩 가져온다.
+    const slices = new Map<string, ComposedGroup>()
+    const maxDepth = Math.max(...groups.map((g) => g.entries.length), 0)
+    let depth = 0
+    while (taken < budget && depth < maxDepth) {
+      for (const g of groups) {
+        const e = g.entries[depth]
+        if (!e) continue
+        const cur = slices.get(g.key)
+        if (cur) cur.entries.push(e)
+        else slices.set(g.key, { key: g.key, label: g.label, entries: [e] })
+        taken += 1
+        if (taken >= budget) break
+      }
+      depth += 1
     }
-    return out
+    // 원래 그룹 순서를 유지한다
+    for (const g of groups) {
+      const s = slices.get(g.key)
+      if (s) picked.push(s)
+    }
   }
 
-  let depth = 0
-  const maxDepth = Math.max(...groups.map((g) => g.entries.length), 0)
-  while (out.length < budget && depth < maxDepth) {
-    for (const g of groups) {
-      const e = g.entries[depth]
-      if (!e) continue
-      out.push(e.candidate)
-      if (out.length >= budget) break
-    }
-    depth += 1
-  }
-  return out
+  // sort_order 를 세트 전체에서 다시 연속으로 매긴다 (그룹 경계를 넘어 이어져야 한다).
+  let order = 0
+  return picked.map((g) => ({
+    key: g.key,
+    label: g.label,
+    entries: g.entries.map((e) => ({ ...e, sort_order: order++ })),
+  }))
 }
 
 function budgetOf(recipe: Recipe, poolSize: number): number {
@@ -94,6 +115,8 @@ export function compose(
   let evidence: ComposedSet['evidence'] = {}
   let organizeSpec = recipe.organize
   let coverage: ComposedSet['coverage']
+  /** 그룹 인지 선별이 이미 목차를 확정한 경우 — 다시 조직하면 묶음이 흩어진다 */
+  let preGrouped: ComposedGroup[] | null = null
 
   const strategy = recipe.organize.order_within
 
@@ -113,6 +136,32 @@ export function compose(
         by: 'frequency_rank',
       })
       chosen = plan.picks.map((p) => p.candidate)
+
+      // 커버리지 목표면 개수가 아니라 **토큰 커버리지**가 멈춤 조건이다 —
+      // 해금 순서를 유지하면서 목표에 닿는 지점에서 자른다.
+      if (recipe.select.objective.kind === 'coverage') {
+        const target = recipe.select.objective.target
+        const total = totalTokens(filtered)
+        const known = ctx.knownWords ?? new Set<string>()
+        let covered = 0
+        for (const c of filtered) {
+          if (known.has(c.word.toLowerCase())) covered += Math.max(0, c.corpus_freq ?? 0)
+        }
+        const cut: CandidateWord[] = []
+        for (const c of chosen) {
+          if (total > 0 && covered / total >= target) break
+          cut.push(c)
+          covered += Math.max(0, c.corpus_freq ?? 0)
+        }
+        chosen = cut
+        coverage = {
+          achieved: total > 0 ? covered / total : 0,
+          target,
+          tokens_total: total,
+          tokens_covered: covered,
+        }
+      }
+
       evidence = {
         ...evidence,
         sentence_unlock: {
@@ -145,13 +194,14 @@ export function compose(
     recipe.select.objective.kind === 'count'
   ) {
     // 그룹 인지 선별 — 목차를 먼저 짜고 거기서 예산을 채운다.
+    // 여기서 만든 그룹이 **정본**이다 (다시 조직하지 않는다 — pickGroups 주석 참조).
     const full = organize(pool, recipe.organize)
     const budget = budgetOf(recipe, pool.length)
-    chosen = fillFromGroups(full.groups, budget, recipe.organize.keep_pairs_together === true)
+    preGrouped = pickGroups(full.groups, budget, recipe.organize.keep_pairs_together === true)
+    chosen = preGrouped.flatMap((g) => g.entries.map((e) => e.candidate))
     for (const [k, v] of Object.entries(full.dropped)) {
       dropped[k] = (dropped[k] ?? 0) + v
     }
-    organizeSpec = { ...recipe.organize, order_within: 'as_selected' }
   } else {
     // 커버리지 목표는 차감 전 모집단의 토큰 총량을 분모로 써야 정직하다.
     const source = recipe.select.objective.kind === 'coverage' ? filtered : pool
@@ -167,7 +217,10 @@ export function compose(
     }
   }
 
-  const organized = organize(chosen, organizeSpec)
+  const organized =
+    preGrouped != null
+      ? { groups: preGrouped, entries: preGrouped.flatMap((g) => g.entries), dropped: {} }
+      : organize(chosen, organizeSpec)
 
   return {
     recipe,

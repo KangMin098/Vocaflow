@@ -76,6 +76,8 @@ if (arg('text')) params.text_ids = [arg('text')!]
 if (arg('user')) params.user_id = arg('user')
 if (arg('days')) params.days = num(arg('days'))
 if (arg('per-day')) params.per_day = num(arg('per-day'))
+// 커버리지 목표 — 개수 대신 "이 책의 몇 %" 로 지시한다 (unlock 전용).
+if (arg('coverage')) params.coverage_target = num(arg('coverage'))
 if (arg('v-min')) params.v_level_min = num(arg('v-min')) ?? null
 if (arg('v-max')) params.v_level_max = num(arg('v-max')) ?? null
 
@@ -93,6 +95,12 @@ console.info(`\n[${blueprintId}] ${result.recipe.meta.title} — slug=${result.r
 console.info(`  단어 ${card.entry_count} · 목차 ${card.group_count} · 총점 ${card.total.toFixed(2)} (통과선 ${PASS_THRESHOLD})`)
 for (const m of card.metrics.filter((x) => x.weight > 0)) {
   console.info(`   · ${m.id.padEnd(14)} ${m.score.toFixed(2)}  ${m.note}`)
+}
+if (result.set.coverage) {
+  const c = result.set.coverage
+  console.info(
+    `  [커버리지] ${(c.achieved * 100).toFixed(1)}% 달성 / 목표 ${(c.target * 100).toFixed(0)}% — 토큰 ${c.tokens_covered}/${c.tokens_total}`,
+  )
 }
 if (result.set.evidence?.sentence_unlock) {
   const e = result.set.evidence.sentence_unlock

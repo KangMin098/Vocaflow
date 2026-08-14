@@ -695,6 +695,41 @@ export async function resolvePopulation(
       return resolveExamItems(client, spec)
     case 'learner':
       return resolveLearner(client, spec)
+    case 'published': {
+      // except 의 오른쪽에서는 단어 목록만 쓰이므로 사전 hydrate 없이 껍데기로 넘긴다
+      // (1,300 세트 6만 단어를 hydrate 하면 그 자체가 몇 분이다).
+      const words = await fetchPublishedWords(client, { categories: spec.categories, limitSets: 400 })
+      return [...words].map(
+        (w): CandidateWord => ({
+          word: w,
+          lemma: null,
+          meaning_ko: null,
+          pos: null,
+          primary_pos: null,
+          cefr_level: null,
+          v_level: null,
+          frequency_rank: null,
+          frequency_band: null,
+          word_register: null,
+          ipa: null,
+          audio_url: null,
+          image_url: null,
+          example_en: null,
+          collocations: [],
+          synonyms: [],
+          antonyms: [],
+          homophones: [],
+          rhyme_key: null,
+          sense_count: 0,
+          mnemonic_ko: null,
+          korean_learner_note: null,
+          base_word: null,
+          derivation_suffix: null,
+          derived_forms: [],
+          verified: false,
+        }),
+      )
+    }
     case 'union': {
       const parts = await Promise.all(spec.of.map((s) => resolvePopulation(client, s, opts)))
       const merged = new Map<string, CandidateWord>()

@@ -565,6 +565,24 @@ function ParamForm({
         </Field>
       ) : null}
 
+      {need('coverage_target') ? (
+        <Field label="커버리지 목표 % (비우면 단어 수 사용)">
+          <input
+            type="number"
+            min={50}
+            max={100}
+            step={1}
+            value={params.coverage_target != null ? Math.round(params.coverage_target * 100) : ''}
+            onChange={(e) =>
+              set({ coverage_target: e.target.value ? Number(e.target.value) / 100 : undefined })
+            }
+            placeholder="예: 95"
+            className="min-h-[44px] w-full rounded-[var(--r-md)] border px-3 font-body text-sm"
+            style={fieldStyle}
+          />
+        </Field>
+      ) : null}
+
       {need('user_id') ? (
         <Field label="학습자 ID (개인화)">
           <input

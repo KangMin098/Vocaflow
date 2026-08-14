@@ -289,7 +289,7 @@ VCB 는 두 경로를 갖는다. **보강이 필요한가**로 갈린다:
 | `organize` | `group_by` 15종 · `order_within` 7종 · 그룹 cap · `min_group_size` · 페이싱 |
 | `present` | 보장 면(F1~F6) · 카드 필드 · 대조쌍 |
 
-- 카탈로그 **30종** — 시중 26유형 + 고유 4종(`unlock`·`recycle`·`facet-ladder`·`confusion-log`)
+- 카탈로그 **31종** — 시중 26유형 + 고유 5종(`unlock`·`recycle`·`facet-ladder`·`confusion-log`·`uncovered`)
 - 코드: `apps/web/src/lib/vcb/compose/*` (순수 코어) + `resolve.ts`(DB) + `publish.ts`
 - CLI: `pnpm vcb:compose --blueprint <id> [--commit]` · 평가: `pnpm vcb:compose-eval`
 - 설계·목표·Round 기록: [VCB_REDESIGN.md](./VCB_REDESIGN.md) · 매트릭스: [reports/vcb-compose-eval.md](./reports/vcb-compose-eval.md)

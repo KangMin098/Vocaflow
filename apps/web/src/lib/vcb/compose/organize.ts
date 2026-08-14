@@ -190,16 +190,55 @@ export function buildConfusableGroups(candidates: CandidateWord[]): Map<string, 
   return out
 }
 
-/** 파생 family — base_word 가 있으면 그것, 없으면 자기 자신이 기본형이다. */
-function familyKey(c: CandidateWord): string {
-  return (c.base_word ?? c.word).toLowerCase()
+/**
+ * 파생 family 키 — `base_word` 만 보면 7% 밖에 안 잡힌다.
+ *
+ * 실측: `base_word` 3,234행(7%) vs `derived_forms` 14,313행(31%). 두 컬럼은 같은 관계를
+ * 반대 방향으로 들고 있으므로, `derived_forms` 를 **역인덱스로 뒤집으면** 백필 없이 같은
+ * 데이터에서 훨씬 많은 묶음이 나온다 (Round 3 실측: 목표 300개인데 결과 56개였다).
+ *
+ * 대표(기본형) 선택 규칙: `base_word` 가 있으면 **무조건 그것** → 없으면 나를 파생형으로 지목한
+ * 단어 중 **가장 짧은 것**(접사가 붙기 전 형태가 보통 더 짧다) → 아무도 지목하지 않으면 자기 자신.
+ *
+ * ⚠️ 선언된 `base_word` 가 후보 집합에 **없어도** 그것을 키로 쓴다. 'nation' 이 세트에 없어도
+ * 'national'·'nationality' 는 "nation 계열" 로 묶여야 한다 — 처음엔 "없는 base 는 무시" 로 짰다가
+ * 그 묶음들이 1인 그룹으로 흩어져 결과가 56 → 35 로 **줄었다**(Round 4 실측).
+ */
+export function buildFamilyKeys(candidates: CandidateWord[]): Map<string, string> {
+  const present = new Set(candidates.map((c) => c.word.toLowerCase()))
+  const claimedBy = new Map<string, string>()
+
+  for (const c of candidates) {
+    const base = c.word.toLowerCase()
+    for (const d of c.derived_forms) {
+      const derived = d.toLowerCase()
+      if (derived === base || !present.has(derived)) continue
+      const cur = claimedBy.get(derived)
+      if (!cur || base.length < cur.length || (base.length === cur.length && base < cur)) {
+        claimedBy.set(derived, base)
+      }
+    }
+  }
+
+  const out = new Map<string, string>()
+  for (const c of candidates) {
+    const self = c.word.toLowerCase()
+    const declared = c.base_word?.toLowerCase()
+    out.set(self, declared ?? claimedBy.get(self) ?? self)
+  }
+  return out
 }
 
 /**
  * 후보 하나의 그룹 배정. `group_keys`(roots/topics 해석기가 채움)가 있으면 그것을 우선한다 —
  * 어근·주제는 DB 관계이므로 여기서 추측하지 않는다.
  */
-function assign(c: CandidateWord, groupBy: GroupBy, confusable: Map<string, GroupAssignment>): GroupAssignment {
+function assign(
+  c: CandidateWord,
+  groupBy: GroupBy,
+  confusable: Map<string, GroupAssignment>,
+  family: Map<string, string>,
+): GroupAssignment {
   switch (groupBy) {
     case 'none':
       return { key: 'all', label: '전체' }
@@ -217,8 +256,10 @@ function assign(c: CandidateWord, groupBy: GroupBy, confusable: Map<string, Grou
         ? { key: 'chapter:none', label: '챕터 미상' }
         : { key: `chapter:${ch}`, label: `${ch}장`, rank: ch }
     }
-    case 'family':
-      return { key: `family:${familyKey(c)}`, label: familyKey(c) }
+    case 'family': {
+      const base = family.get(c.word.toLowerCase()) ?? c.word.toLowerCase()
+      return { key: `family:${base}`, label: `${base} 계열` }
+    }
     case 'pos': {
       const pos = c.primary_pos ?? c.pos ?? 'unknown'
       return { key: `pos:${pos}`, label: POS_LABEL[pos] ?? pos }
@@ -337,10 +378,11 @@ export function organize(
 
   const confusable =
     spec.group_by === 'confusable' ? buildConfusableGroups(candidates) : new Map<string, GroupAssignment>()
+  const family = spec.group_by === 'family' ? buildFamilyKeys(candidates) : new Map<string, string>()
 
   const byKey = new Map<string, { label: string; rank?: number; items: CandidateWord[] }>()
   for (const c of candidates) {
-    const a = assign(c, spec.group_by, confusable)
+    const a = assign(c, spec.group_by, confusable, family)
     const g = byKey.get(a.key)
     if (g) g.items.push(c)
     else byKey.set(a.key, { label: a.label, rank: a.rank, items: [c] })

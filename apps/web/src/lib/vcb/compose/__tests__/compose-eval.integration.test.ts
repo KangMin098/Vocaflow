@@ -73,6 +73,7 @@ const PARAMS: Record<string, BlueprintParams> = {
   recycle: { book_id: FIXTURE.book_id, chapter_from: 1, chapter_to: 5, count: 80 },
   'facet-ladder': { count: 300 },
   'confusion-log': { user_id: FIXTURE.user_id, count: 60 },
+  uncovered: { count: 400 },
 }
 
 interface Row {
@@ -143,7 +144,7 @@ function report(): string {
   return lines.join('\n')
 }
 
-const UNIQUE_IDS = ['unlock', 'recycle', 'facet-ladder', 'confusion-log']
+const UNIQUE_IDS = ['unlock', 'recycle', 'facet-ladder', 'confusion-log', 'uncovered']
 
 /** 리포트를 저장한다 — 콘솔은 잘리고, 잘린 리포트는 없는 리포트다. */
 function writeReport(text: string): string {

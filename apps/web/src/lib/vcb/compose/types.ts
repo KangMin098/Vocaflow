@@ -46,6 +46,13 @@ export type PopulationSpec =
   | { kind: 'exam_items'; source_key: string; question_nos?: number[]; min_years?: number }
   /** 학습자 상태 (개인화 세트) */
   | { kind: 'learner'; user_id: string; state: LearnerState }
+  /**
+   * 이미 발행된 세트에 들어 있는 단어.
+   *
+   * 단독으로 쓰는 일은 드물고 `except` 의 오른쪽에 온다 — "아직 어느 세트에도 없는 어휘".
+   * 평가기의 novelty 가 매번 "겹침 73~99%" 를 경고했는데, 경고를 **능력으로** 바꾼 것이다.
+   */
+  | { kind: 'published'; categories?: string[] }
   /** 집합 연산 — 교집합/차집합이 시중 유형의 절반을 만든다 */
   | { kind: 'union'; of: PopulationSpec[] }
   | { kind: 'intersect'; of: PopulationSpec[] }
