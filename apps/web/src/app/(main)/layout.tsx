@@ -27,7 +27,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
         {/* 탭 자체는 fixed 이고, 콘텐츠 끝을 가리지 않게 하는 여백은 이 컴포넌트가 같이 낸다.
             여백을 여기 레이아웃에 두면 **탭이 없는 풀스크린 세션에도** 남아 세션 화면이
             뷰포트보다 길어진다(첫 구현이 그랬고 `20-mobile-shell` D 가 잡았다). */}
-        <MobileTabBar />
+        <MobileTabBar status={status} />
       </div>
     </div>
   )

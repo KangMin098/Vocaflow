@@ -23,7 +23,7 @@ const STATE_PATH = 'test-results/.auth-shell-status.json';
 
 async function login(page: Page) {
   for (let i = 1; i <= 2; i++) {
-    await page.goto('/login', { waitUntil: 'networkidle' });
+    await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 });
     await page.waitForTimeout(700);
     await page.fill('input[type="email"]', RUNTIME_USER.email);
     await page.fill('input[type="password"]', RUNTIME_USER.password);
@@ -33,6 +33,22 @@ async function login(page: Page) {
       return;
     } catch (e) {
       if (i === 2) throw e;
+    }
+  }
+}
+
+/**
+ * 클라이언트 무거운 표면(/wordvault 등)으로 연속 이동하면 앞 페이지의 in-flight 요청과
+ * 겹쳐 `net::ERR_ABORTED` 가 난다 — 제품 결함이 아니라 이동 경합이다. 한 번 재시도한다.
+ */
+async function gotoStable(page: Page, path: string) {
+  for (let i = 1; i <= 2; i++) {
+    try {
+      await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      return;
+    } catch (e) {
+      if (i === 2) throw e;
+      await page.waitForTimeout(800);
     }
   }
 }
@@ -47,8 +63,11 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
   });
   test.use({ storageState: STATE_PATH });
 
+  // dev 서버는 라우트별로 컴파일한다 — 여러 표면을 도는 판정은 기본 30s 를 넘긴다.
+  test.setTimeout(120_000);
+
   test('A. 상태 띠는 셸에 정확히 하나다', async ({ page }) => {
-    await page.goto('/hub', { waitUntil: 'networkidle' });
+    await gotoStable(page, '/hub');
     const ribbon = page.locator('[aria-label="오늘 상태"]');
     await expect(ribbon).toHaveCount(1);
   });
@@ -57,13 +76,13 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
     page,
   }) => {
     for (const path of ['/hub', '/library', '/wordvault', '/dashboard']) {
-      await page.goto(path, { waitUntil: 'networkidle' });
+      await gotoStable(page, path);
       await expect(page.locator('[aria-label="오늘 상태"]'), `${path} 의 상태 띠`).toHaveCount(1);
     }
   });
 
   test('C. streak 은 한 화면에 한 번만 나온다', async ({ page }) => {
-    await page.goto('/hub', { waitUntil: 'networkidle' });
+    await gotoStable(page, '/hub');
     await page.waitForTimeout(900); // 클라이언트 페치(useHubData) 도착까지
 
     // "N일 연속" · "연속 N일" · "Streak" 을 전부 센다 — 표기가 흔들려도 잡히게.
@@ -73,7 +92,7 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
   });
 
   test('D. 기억 4색 범례는 Growth 에만 있다', async ({ page }) => {
-    await page.goto('/hub', { waitUntil: 'networkidle' });
+    await gotoStable(page, '/hub');
     await page.waitForTimeout(600);
     const hubText = (await page.locator('body').innerText()) ?? '';
     // 4색 범례의 고유 표지 — 넷이 함께 나오는 것이 범례다
@@ -83,18 +102,18 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
   });
 
   test('E. FlowNav 6단계가 사라졌다 (내비 시스템 1개)', async ({ page }) => {
-    await page.goto('/hub', { waitUntil: 'networkidle' });
+    await gotoStable(page, '/hub');
     const body = (await page.locator('body').innerText()) ?? '';
     expect(body).not.toContain('클릭하면 바로 시작해요');
   });
 
   test('F. 학습 세션에서는 상태 띠도 사라진다 (작업기억 보호)', async ({ page }) => {
-    await page.goto('/wordvault/browse', { waitUntil: 'networkidle' });
+    await gotoStable(page, '/wordvault/browse');
     await expect(page.locator('[aria-label="오늘 상태"]')).toHaveCount(0);
   });
 
   test('G. 띠의 상호작용 요소는 44px 이상이다', async ({ page }) => {
-    await page.goto('/hub', { waitUntil: 'networkidle' });
+    await gotoStable(page, '/hub');
     const links = page.locator('[aria-label="오늘 상태"] a');
     const n = await links.count();
     for (let i = 0; i < n; i++) {

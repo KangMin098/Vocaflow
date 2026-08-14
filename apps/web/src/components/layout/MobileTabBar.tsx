@@ -22,6 +22,7 @@ import { BarChart3, BookOpen, Home, Layers, type LucideIcon } from 'lucide-react
 
 import { SURFACES, SURFACE_ORDER, type SurfaceId } from '@/lib/framework/axes'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
+import type { TodayStatus } from '@/lib/learner/today-status'
 
 /** 표면 → 아이콘. 이름·경로는 레지스트리가 갖고, 그림만 여기서 고른다. */
 const ICON: Record<SurfaceId, LucideIcon> = {
@@ -49,11 +50,23 @@ function isActive(pathname: string, href: string): boolean {
   return pathname.startsWith(`${href}/`)
 }
 
-export function MobileTabBar() {
+export interface MobileTabBarProps {
+  /** 오늘 진행 — 실(thread)과 Today 점의 근거. 비로그인이면 null */
+  status?: TodayStatus | null
+}
+
+export function MobileTabBar({ status = null }: MobileTabBarProps) {
   const pathname = usePathname()
 
-  // 학습 세션은 셸을 걷어낸다 — 작업기억 보호(§학습원칙6). 사이드바·FlowNav 와 같은 판정을 쓴다.
+  // 학습 세션은 셸을 걷어낸다 — 작업기억 보호(§학습원칙6). 사이드바·StatusRibbon 과 같은 판정.
   if (isFullScreenRoute(pathname)) return null
+
+  // ADR 0006 D3 — 진행은 **실 한 가닥**. 숫자도 퍼센트도 없다(철학 ④ Implicit Progress).
+  // 상태 띠는 스크롤되어 사라지지만 탭 바는 고정이라, 이 실이 주변시에 남는 유일한 신호다.
+  const total = status?.total ?? 0
+  const ratio = total > 0 ? Math.min(1, Math.max(0, (status?.done ?? 0) / total)) : 0
+  // 남은 것이 있으면 Today 에 **점 하나**. 숫자 배지는 "밀린 일" 로 읽혀 압박이 된다(철학 ③).
+  const hasRemaining = total > 0 && (status?.done ?? 0) < total
 
   return (
     <>
@@ -70,6 +83,14 @@ export function MobileTabBar() {
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         }}
       >
+        {/* 오늘 진행 실 — 상단 경계선 위에 겹쳐 그린다. 0이면 아예 없다. */}
+        {ratio > 0 && (
+          <span
+            aria-hidden
+            className="absolute inset-x-0 top-[-1px] h-[2px] origin-left bg-[var(--p)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)]"
+            style={{ transform: `scaleX(${ratio})` }}
+          />
+        )}
         <ul className="flex items-stretch">
           {SURFACE_ORDER.map((id) => {
             const surface = SURFACES[id]
@@ -80,12 +101,26 @@ export function MobileTabBar() {
                 <Link
                   href={surface.href}
                   aria-current={active ? 'page' : undefined}
+                  // 점은 aria-hidden 이라, 남은 개수는 이름으로 전한다(색·점만으로 알리지 않는다).
+                  aria-label={
+                    id === 'today' && hasRemaining
+                      ? `${LABEL[id]} — ${total - (status?.done ?? 0)}개 남음`
+                      : undefined
+                  }
                   // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
                   className={`flex h-14 flex-col items-center justify-center gap-0.5 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset ${
                     active ? 'text-[var(--p)]' : 'text-[var(--t2)]'
                   }`}
                 >
-                  <Icon size={20} strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
+                  <span className="relative">
+                    <Icon size={20} strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
+                    {id === 'today' && hasRemaining && (
+                      <span
+                        aria-hidden
+                        className="absolute -right-1 -top-0.5 h-[6px] w-[6px] rounded-full bg-[var(--p)]"
+                      />
+                    )}
+                  </span>
                   {/* 색만으로 현재 위치를 알리지 않는다 — 굵기로도 구분(색맹 대응) */}
                   <span
                     className={`font-body text-[11px] leading-none ${active ? 'font-[700]' : 'font-[500]'}`}
