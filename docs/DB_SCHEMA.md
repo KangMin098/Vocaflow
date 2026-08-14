@@ -97,8 +97,23 @@ csat_item_attempts (없음)
 
 | 유물 | 왜 남겼나 |
 |---|---|
-| `word_frequency_stats` 5,421행 · `lexicon_source_tags` 5,421행 | **KICE 수능 13년 출현 통계**인데 `lexicon_id`(uuid)가 가리킬 부모가 없고 `lexicon_clean` 은 `word`(text) 키라 연결 불가. `metadata` 에 `years_appeared` 만 있어 **단어 정체가 유실**됐다. 지금은 쓸 수 없지만 지우면 "있었다는 사실"까지 사라진다 |
-| `regenerate_auto_curated_set` | 앱 호출 0곳(service_role 전용)이나 `word_lexicon JOIN lexicon_source_tags JOIN word_frequency_stats` 를 읽는다. auto/csat 세트 9개와의 관계 미확인 |
+| `word_frequency_stats` 5,421행 · `lexicon_source_tags` 5,421행 | **KICE 수능 13년 출현 통계**인데 `lexicon_id`(uuid)가 가리킬 부모가 없고 `lexicon_clean` 은 `word`(text) 키라 연결 불가. → **2026-08-15 부분 정정**(아래) |
+| `regenerate_auto_curated_set` | 앱 호출 0곳(service_role 전용)이나 `word_lexicon JOIN lexicon_source_tags JOIN word_frequency_stats` 를 읽는다. → **2026-08-15 확인: KICE csat 세트 4개의 재생성 경로이고, `word_lexicon` 부재로 지금 실패한다**(컴포저가 대체) |
+
+**정정 — 단어 정체가 다 유실된 것은 아니었다 (2026-08-15)**
+
+위 표는 `metadata` 에 `years_appeared` 만 있다고 적었으나 실측하면 **`question_history`**
+({연도: [문항번호]})도 5,421행 전부에 있고, `lexicon_id` → 단어를 잇는 **다리가 하나 살아 있었다**:
+`shared_words.lexicon_id` (깨진 RPC 가 발행 시 넣어 둔 값).
+
+| 조치 | 결과 |
+|---|---|
+| 다리로 이을 수 있는 lemma 를 `lexicon_frequencies.metadata.question_history` (lemma 키·생존)로 이관 | **673 lemma 구조** (`question_history_rescue` 표시 부착) |
+| 이을 수 없는 것 | 5,421 중 **87% 영구 소실** — 발행 세트에 없던 단어의 문항 이력 |
+| 구조 후 | KICE 4 세트를 컴포저로 **정확 재현**(430·361·234·362) — `exam-items` blueprint 의 `question_nos` 필터 |
+
+⚠️ `scripts/lexicon-v2.2/kice-csat-seed.ts` 를 다시 돌려 `lexicon_frequencies.metadata` 를 덮어쓰면
+구조한 것도 함께 날아간다. 상세: [VCB_REDESIGN.md §3.5](./VCB_REDESIGN.md)
 | `reject_word_lexicon_insert` | 트리거는 이미 사라졌고(CASCADE) 함수만 남은 유물. 무해하나 오해를 부른다 |
 
 **재생성 방향(보류)**: 원천(`data/seed/kice-csat/*.xlsx` · `data/import/kice-csat-*.csv` — 둘 다 gitignore)이 있으면 parse → aggregate → seed 3단계로 되살릴 수 있다. 단 적재 대상을 **`lexicon_clean`(word 키)으로 재배선**해야 한다 — `word_lexicon` 복원은 동결 결정에 역행한다.

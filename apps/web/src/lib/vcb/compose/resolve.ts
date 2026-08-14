@@ -532,28 +532,51 @@ async function resolveExamItems(
   if (!src) return []
 
   const sourceId = (src as { id: number }).id
-  const rows: { lemma: string; raw_count: number | null; frequency_tier: number | null }[] = []
+  interface FreqRow {
+    lemma: string
+    raw_count: number | null
+    frequency_tier: number | null
+    metadata: { years_appeared?: unknown[]; question_history?: Record<string, number[]> } | null
+  }
+  const rows: FreqRow[] = []
   for (let from = 0; ; from += 1000) {
     let q = client
       .from('lexicon_frequencies')
-      .select('lemma, raw_count, frequency_tier')
+      .select('lemma, raw_count, frequency_tier, metadata')
       .eq('source_id', sourceId)
       .order('rank_in_source', { ascending: true })
       .range(from, from + 999)
+    // raw_count = 출제된 연도 수 (kice 시드가 그렇게 넣는다) → min_years 와 같은 축이다.
     if (spec.min_years != null) q = q.gte('raw_count', spec.min_years)
+    if (spec.raw_count_min != null) q = q.gte('raw_count', spec.raw_count_min)
+    if (spec.frequency_tier_min != null) q = q.gte('frequency_tier', spec.frequency_tier_min)
     const { data, error } = await q
     if (error) throw new Error(`lexicon_frequencies failed: ${error.message}`)
-    const batch = (data ?? []) as unknown as typeof rows
+    const batch = (data ?? []) as unknown as FreqRow[]
     rows.push(...batch)
     if (batch.length < 1000) break
   }
 
+  // 문항유형 필터 — {연도: [문항번호]} 안에 요청 번호가 하나라도 있으면 통과.
+  const wanted = spec.question_nos
+  const filtered =
+    wanted && wanted.length > 0
+      ? rows.filter((r) => {
+          const qh = r.metadata?.question_history
+          if (!qh) return false
+          for (const nos of Object.values(qh)) {
+            for (const n of nos ?? []) if (wanted.includes(Number(n))) return true
+          }
+          return false
+        })
+      : rows
+
   const dict = await hydrate(
     client,
-    rows.map((r) => r.lemma),
+    filtered.map((r) => r.lemma),
   )
   const out: CandidateWord[] = []
-  for (const r of rows) {
+  for (const r of filtered) {
     const c = dict.get(r.lemma.toLowerCase())
     if (c) out.push(c)
   }

@@ -42,8 +42,23 @@ export type PopulationSpec =
       chapter_from?: number
       chapter_to?: number
     }
-  /** 기출 문항 — csat_dcp_items */
-  | { kind: 'exam_items'; source_key: string; question_nos?: number[]; min_years?: number }
+  /**
+   * 기출 어휘 — `lexicon_frequencies` (lemma 키) + `frequency_data_sources.source_key`.
+   *
+   * `question_nos` 는 `metadata.question_history`({연도: [문항번호]})를 본다. 이 데이터는 원래
+   * `lexicon_source_tags`(lexicon_id 키)에만 있었고 그 키를 잇던 `word_lexicon` 이 CASCADE 삭제돼
+   * **고아**였다 — 2026-08-15 에 살아 있던 다리(`shared_words.lexicon_id`)로 673 lemma 를 구조해
+   * lemma 키 테이블로 옮겼다. 그 673 개가 기존 KICE 4 세트의 합집합이므로 그 세트들은 정확히
+   * 재현되지만, **그 밖의 문항유형 데이터는 복구 불가**다 (5,421 중 87%).
+   */
+  | {
+      kind: 'exam_items'
+      source_key: string
+      question_nos?: number[]
+      min_years?: number
+      frequency_tier_min?: number
+      raw_count_min?: number
+    }
   /** 학습자 상태 (개인화 세트) */
   | { kind: 'learner'; user_id: string; state: LearnerState }
   /**

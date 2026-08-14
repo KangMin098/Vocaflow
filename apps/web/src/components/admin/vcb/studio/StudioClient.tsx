@@ -565,6 +565,41 @@ function ParamForm({
         </Field>
       ) : null}
 
+      {need('question_nos') ? (
+        <Field label="문항 번호 (쉼표 · 비우면 전체)">
+          <input
+            type="text"
+            value={params.question_nos?.join(', ') ?? ''}
+            onChange={(e) => {
+              const nos = e.target.value
+                .split(',')
+                .map((s) => Number(s.trim()))
+                .filter((n) => Number.isFinite(n) && n > 0)
+              set({ question_nos: nos.length > 0 ? nos : undefined })
+            }}
+            placeholder="예: 31, 32, 33, 34"
+            className="min-h-[44px] w-full rounded-[var(--r-md)] border px-3 font-body text-sm"
+            style={fieldStyle}
+          />
+        </Field>
+      ) : null}
+
+      {need('frequency_tier_min') ? (
+        <Field label="빈출 등급 하한 (1~5 · 비우면 무제한)">
+          <input
+            type="number"
+            min={1}
+            max={5}
+            value={params.frequency_tier_min ?? ''}
+            onChange={(e) =>
+              set({ frequency_tier_min: e.target.value ? Number(e.target.value) : undefined })
+            }
+            className="min-h-[44px] w-full rounded-[var(--r-md)] border px-3 font-body text-sm"
+            style={fieldStyle}
+          />
+        </Field>
+      ) : null}
+
       {need('coverage_target') ? (
         <Field label="커버리지 목표 % (비우면 단어 수 사용)">
           <input

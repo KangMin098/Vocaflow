@@ -173,6 +173,51 @@
 
 ---
 
+## 3.5 5 방언 대체 — 파리티 실측 (2026-08-15)
+
+레시피가 기존 생성기를 **표현할 수 있다**는 것과 **같은 결과를 낸다**는 것은 다르다. 그래서 각
+legacy 세트를 컴포저로 다시 뽑아 개수를 맞춰 봤다. 맞지 않으면 대체가 아니라 교체다.
+
+| legacy 산출 | 개수 | 컴포저 명령 | 개수 | 판정 |
+|---|--:|---|--:|:-:|
+| `etymology-core` (roots-publish-set) | 1,500 | `--blueprint root-etymology --count 1500` | **1,500** | ✅ 일치 (181 어근 챕터) |
+| `topic-travel` (topics-publish-set) | 500 | `--blueprint topic-field --theme 여행 --count 500` | **500** | ✅ 일치 (5 챕터) |
+| `curriculum-2022-mid` (publish-list-word-set) | 1,183 | `--blueprint curriculum-grade --tag kcurr2022_2` | 1,210 | ⚠️ +27 — legacy 가 content POS·길이≥3 를 추가로 걸렀다 |
+| `kice-q31-34-blank` (RPC) | 430 | `--blueprint exam-items --questions 31,32,33,34` | **430** | ✅ 일치 |
+| `kice-q18-24-purpose` (RPC) | 361 | `--questions 18,22,23,24` | **361** | ✅ 일치 |
+| `kice-q41-43-long` (RPC) | 234 | `--questions 41,42,43` | **234** | ✅ 일치 |
+| `kice-frequent-tier4` (RPC) | 362 | `--tier-min 4` | **362** | ✅ 일치 |
+| `cast-2000` (VCB 8-step) | 1,998 | — | — | 보강 경로 — 컴포저 대상 아님 |
+
+세 스크립트 헤더에 **SUPERSEDED** 와 대체 명령을 적었다. 새 유형이 필요할 때 파일을 복사하면
+6번째 방언이 생기므로, `blueprints.ts` 한 항목으로 늘리도록 그 자리에서 안내한다.
+
+### KICE 문항유형 데이터 구조 — 고아를 구조했다
+
+파리티를 맞추다 **살아 있는 결함**을 찾았다:
+
+`regenerate_curated_word_set` RPC(4 KICE 세트의 재생성 경로)는 `word_lexicon` 을 읽는데, 그 테이블은
+`20260719161409_drop_unused_empty_tables` 가 CASCADE 삭제했다 (CLAUDE.md 가 추적 중인 "없는 테이블을
+참조하는 RPC 8개" 중 하나). **즉 그 4 세트는 지금 재생성 버튼을 누르면 실패한다.**
+
+더 나쁜 것은 데이터였다. 문항유형 정보(`question_history` = {연도: [문항번호]})는 `lexicon_source_tags`
+(5,421행)에만 있고 그 테이블은 `lexicon_id` 로만 키를 잡는데, `lexicon_id` → 단어를 잇던 유일한
+테이블이 `word_lexicon` 이었다. 남은 다리는 **`shared_words.lexicon_id`** 하나뿐이었고, 그 4 세트를
+재발행하면 그 다리도 사라져 데이터가 영구 소실된다.
+
+| 조치 | 결과 |
+|---|---|
+| 다리로 이을 수 있는 lemma 를 `lexicon_frequencies.metadata.question_history` (lemma 키·생존 테이블)로 옮김 | **673 lemma 구조** |
+| 이을 수 없는 것 | 5,421 중 **87% 영구 소실** — 그 4 세트에 없던 단어의 문항 이력은 복구 불가 |
+| 컴포저 `exam_items` 에 `question_nos`·`frequency_tier_min`·`raw_count_min` 필터 추가 | 4 세트 **전부 정확 재현**(430·361·234·362) |
+
+구조한 673 개가 마침 그 4 세트의 합집합이라 재현이 정확한 것이고, **새 문항유형 세트(예: 37~39번)는
+만들 수 없다** — 그 단어들의 이력은 이미 없다. `lexicon_frequencies.metadata` 에
+`question_history_rescue` 표시를 남겼으니, `scripts/lexicon-v2.2/kice-csat-seed.ts` 를 다시 돌려
+metadata 를 덮어쓰면 구조한 것도 함께 날아간다는 점만 지키면 된다.
+
+---
+
 ## 4. Recipe v3 스키마 — 4단 선언
 
 ```

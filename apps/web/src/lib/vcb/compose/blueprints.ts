@@ -74,6 +74,10 @@ export interface BlueprintParams {
   coverage_target?: number
   group_cap?: number | null
   segment?: ComposeSegment | null
+  /** 기출 문항유형 — 수능 문항 번호. 비우면 문항유형을 가리지 않는다 */
+  question_nos?: number[]
+  /** 기출 빈출 등급 하한 */
+  frequency_tier_min?: number
 }
 
 export interface Blueprint {
@@ -426,9 +430,9 @@ const A: Blueprint[] = [
     taxon: 'A7',
     title: '기출 문항 기반',
     market_example: '수능 기출 문항유형별 어휘',
-    organizing_principle: '실제 출제 문항에서 역산한 어휘',
+    organizing_principle: '실제 출제 문항에서 역산한 어휘 — 문항유형(번호)까지 가릴 수 있다',
     status: 'ready',
-    requires_params: [],
+    requires_params: ['question_nos', 'frequency_tier_min'],
     fit_rules: [{ kind: 'all_have_field', field: 'meaning_ko' }],
     weights: W_DEFAULT,
     build: (p) =>
@@ -442,7 +446,14 @@ const A: Blueprint[] = [
         subcategory: 'exam_items',
         segment: p.segment ?? 'high_school',
         cefr: p.cefr_levels ?? ['B2'],
-        population: { kind: 'exam_items', source_key: 'kice_csat', min_years: 3 },
+        population: {
+          kind: 'exam_items',
+          source_key: 'kice_csat',
+          // legacy KICE 세트 4종이 모두 min_years 3 + question_nos 조합이었다 — 같은 조합을 유지한다.
+          min_years: 3,
+          question_nos: p.question_nos,
+          frequency_tier_min: p.frequency_tier_min,
+        },
         objective: { kind: 'all' },
         group_by: 'v_level',
         group_order: 'v_level',

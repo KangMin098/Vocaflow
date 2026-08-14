@@ -85,6 +85,29 @@ FlowNav 6 · MobileTab 4)로 서로 다른 분류를 썼고, 상태 지표 **19�
 `confusable-pairs-300` 299 · `day-30-ngsl` 600 · `uncovered-core-400` 400.
 다섯 세트 모두 학습자 `/library/vocab` 테마별에서 확인.
 
+**5 방언 대체 파리티 + KICE 고아 데이터 구조 (2026-08-15)**
+
+"표현할 수 있다" 와 "같은 결과를 낸다" 는 다르므로 legacy 세트를 컴포저로 다시 뽑아 맞춰 봤다:
+
+| legacy | 개수 | 컴포저 | 판정 |
+|---|--:|--:|:-:|
+| `etymology-core` | 1,500 | 1,500 | ✅ |
+| `topic-travel` | 500 | 500 | ✅ |
+| `curriculum-2022-mid` | 1,183 | 1,210 | ⚠️ +27 (legacy 가 content POS·길이≥3 추가 필터) |
+| `kice-q31-34-blank` · `q18-24` · `q41-43` · `tier4` | 430·361·234·362 | 동일 | ✅ |
+
+`roots-publish-set.mjs` · `topics-publish-set.mjs` · `publish-list-word-set.ts` 헤더에
+**SUPERSEDED + 대체 명령**을 적었다 (파일 복사 = 6번째 방언).
+
+⚠️ **살아 있는 결함 발견** — `regenerate_curated_word_set` RPC 가 CASCADE 삭제된 `word_lexicon` 을
+읽는다 → **KICE 4 세트는 지금 재생성 버튼을 누르면 실패한다** (CLAUDE.md 가 추적하는 "없는 테이블
+참조 RPC" 의 구체적 사용자 영향). 문항유형 데이터(`question_history`)는 `lexicon_source_tags`
+(lexicon_id 키)에만 있었고 유일한 다리가 `shared_words.lexicon_id` 였다 — 그 세트를 재발행하면
+영구 소실되는 상태였다.
+→ **673 lemma 를 `lexicon_frequencies.metadata` (lemma 키·생존 테이블)로 구조**(DDL 아님, 키 추가).
+컴포저 `exam_items` 에 `question_nos`/`frequency_tier_min`/`raw_count_min` 필터를 붙여 4 세트를
+정확히 재현 가능하게 했다. 나머지 87%(5,421 중)는 복구 불가 — 새 문항유형 세트는 만들 수 없다.
+
 ⚠️ 코퍼스 세트의 `category` 는 `themed` 다 — 학습자 카탈로그 9 카테고리에 `library_book` 이 없어
 `library_book` 으로 내면 **발행되고도 보이지 않는다**(실측 후 수정). 출처는 `curation_query.source_book_id`
 로 남기며, `book_id` 키는 기존 챕터 세트 1,129개가 판정에 쓰므로 쓰지 않는다.

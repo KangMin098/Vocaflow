@@ -78,6 +78,14 @@ if (arg('days')) params.days = num(arg('days'))
 if (arg('per-day')) params.per_day = num(arg('per-day'))
 // 커버리지 목표 — 개수 대신 "이 책의 몇 %" 로 지시한다 (unlock 전용).
 if (arg('coverage')) params.coverage_target = num(arg('coverage'))
+// 기출 문항유형 — `--questions 31,32,33,34`
+if (arg('questions')) {
+  params.question_nos = arg('questions')!
+    .split(',')
+    .map((s) => Number(s.trim()))
+    .filter((n) => Number.isFinite(n) && n > 0)
+}
+if (arg('tier-min')) params.frequency_tier_min = num(arg('tier-min'))
 if (arg('v-min')) params.v_level_min = num(arg('v-min')) ?? null
 if (arg('v-max')) params.v_level_max = num(arg('v-max')) ?? null
 
