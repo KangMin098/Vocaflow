@@ -129,7 +129,7 @@ export function UnifiedHeader({
             도서 개요(챕터 그리드·단어장)로 가려면 /library/books/[bookId]?preview=1
             (preview=1 이 enroll 재개 redirect 우회 — page.tsx skipEnrollRedirect). */}
         <Link
-          href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/my/texts'}
+          href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/text'}
           aria-label={hasChapterContext ? '책으로 돌아가기' : '라이브러리로 돌아가기'}
           className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
