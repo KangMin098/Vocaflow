@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 모바일 전역 내비 — 하단 탭 4개 (Phase 3 의 출발점)
+
+설계안 실측 게이지 중 하나가 **"모바일 전역 내비 링크 0개"** 였다. 사이드바가 `hidden md:flex`
+라 좁은 화면에서는 링크를 타고 들어가면 **되돌아 나올 길이 없었다**. 설계안이 "4개 최상위를
+하단 탭으로 **먼저** 설계하고 데스크톱을 그 확장으로 둔다" 고 못 박은 이유다.
+
+- `components/layout/MobileTabBar.tsx` — 오늘·서재·내 단어·성장. `md:hidden`(데스크톱은 사이드바가 같은 일)
+- **목록을 자체로 갖지 않는다** — `SURFACE_ORDER` + `SURFACES[].href` 가 단일 출처다.
+  탭이 자기 배열을 들면 그게 10번째 내비 표면이 되고 표면을 옮길 때 갈라진다.
+  그래서 `axes.Surface` 에 `href` 를 추가했다(경로는 선언의 대상이라는 Phase 0 원칙 그대로).
+- 학습 세션에서는 사라진다 — 사이드바·FlowNav 와 **같은 판정**(`isFullScreenRoute`)을 쓴다.
+  셋이 갈리면 세션 화면에 내비가 하나만 남아 더 이상해진다.
+- 탭 높이 56px(44px 하한 초과) · `aria-current` + 굵기로 현재 위치 표시(색 단독 금지) ·
+  `safe-area-inset-bottom` 반영 · 본문에 그만큼 하단 여백
+- 회귀 `04-ui-smoke` +2 (390px 폭 4탭 이동·44px·aria-current / 세션 중 사라짐).
+  axe 모바일 폭 라이트·다크 위반 0 실측.
+
+**이것은 메뉴 개편(Phase 3)이 아니다** — 표면이 흡수할 대상(`SURFACES[].absorbs`)은 아직 각자
+라우트에 있고, 여기서는 **진입점만** 준다. 데스크톱 사이드바 8그룹/14리프는 그대로다.
+
 ### 프레임워크 결정 1·2 확정 + 콘텐츠 스코프 일반화 (Phase 2)
 
 [VOCAB_FRAMEWORK_PROPOSAL.md](./VOCAB_FRAMEWORK_PROPOSAL.md) §9 의 남은 두 결정을 권장안으로 확정.

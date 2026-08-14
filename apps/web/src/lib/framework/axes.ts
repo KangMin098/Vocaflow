@@ -217,6 +217,13 @@ export interface Surface {
   id: SurfaceId
   /** 정식명 — 모바일 하단 탭에 그대로 들어가는 한 단어 */
   name: string
+  /**
+   * 이 표면의 진입 경로.
+   *
+   * 하단 탭이 이 값을 쓴다 — 탭이 자체 목록을 갖는 순간 그것이 **10번째 내비 표면**이 되고,
+   * 표면을 옮길 때 여기와 탭이 갈라진다. 흡수 대상(`absorbs`)이 정리되면 이 값만 바뀐다.
+   */
+  href: string
   /** 이 자리에서 학습자가 하는 일 */
   says: string
   /** 지금 무엇을 흡수하는가 — 이행 시 옮겨 올 대상 */
@@ -227,6 +234,7 @@ export const SURFACES: Record<SurfaceId, Surface> = {
   today: {
     id: 'today',
     name: 'Today',
+    href: '/hub',
     says: '오늘 할 것과 언제 끝나는지',
     // 처방 정본은 하나여야 한다 — 현재 7개 표면이 서로 다른 근거로 경쟁한다.
     absorbs: ['/hub 오늘', 'FlowNav 추천(mock)', "arcade Today's Experiment", '모듈 허브 TodayQueue(mock)'],
@@ -234,6 +242,7 @@ export const SURFACES: Record<SurfaceId, Surface> = {
   library: {
     id: 'library',
     name: 'Library',
+    href: '/library',
     says: '무엇으로 공부할지 고르는 곳',
     // 콘텐츠 축 전부. 'Library' 가 큐레이션 카탈로그만 뜻했던 모호함이 여기서 사라진다.
     absorbs: ['/library (도서·Articles·Sets)', '/text (Texts)', '/comics (Book·Vintage)'],
@@ -241,12 +250,14 @@ export const SURFACES: Record<SurfaceId, Surface> = {
   vault: {
     id: 'vault',
     name: 'Vault',
+    href: '/wordvault',
     says: '내 단어가 면별로 어디까지 왔는지',
     absorbs: ['/wordvault', '/my/words (redirect 껍데기)'],
   },
   growth: {
     id: 'growth',
     name: 'Growth',
+    href: '/dashboard',
     says: '지나온 것과 증빙',
     absorbs: ['/dashboard', '/reports'],
   },

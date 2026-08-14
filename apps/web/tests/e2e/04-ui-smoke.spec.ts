@@ -114,6 +114,57 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
   });
 
+  // 모바일 전역 내비 — 설계안 실측 "모바일 전역 내비 링크 **0개**"(사이드바는 hidden md:flex)
+  // 를 닫은 것이다. 좁은 화면에서 링크를 타고 들어가면 되돌아 나올 길이 없었다.
+  test('모바일 폭에서 하단 탭으로 4 표면에 갈 수 있다', async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.setViewportSize({ width: 390, height: 844 }); // 모바일 퍼스트 기준폭
+
+    await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    const nav = page.getByRole('navigation', { name: '주요 화면' });
+    await expect(nav, '모바일에 전역 내비가 없다 — 되돌아 나올 길이 없어진다').toBeVisible({
+      timeout: 20_000,
+    });
+
+    // 44px 하한(프로젝트 절대 규칙) — 탭은 손가락으로 누르는 유일한 전역 내비다
+    const heights = await nav
+      .locator('a')
+      .evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
+    expect(heights.length, '탭이 4개가 아니다').toBe(4);
+    for (const h of heights) expect(h, `탭 높이 ${h}px < 44px`).toBeGreaterThanOrEqual(44);
+
+    // 실제로 이동하고, 현재 위치를 색이 아닌 것으로도 알린다(aria-current)
+    for (const [label, expected] of [
+      ['서재', /\/library/],
+      ['내 단어', /\/wordvault/],
+      ['성장', /\/dashboard/],
+      ['오늘', /\/hub/],
+    ] as const) {
+      await nav.getByRole('link', { name: label }).click();
+      await page.waitForURL(expected, { timeout: 20_000 });
+      await expect(
+        nav.locator('a[aria-current="page"]'),
+        `${label} 이동 후 현재 탭 표시가 없다`,
+      ).toHaveCount(1);
+    }
+  });
+
+  test('학습 세션에서는 하단 탭이 사라진다 (작업기억 보호)', async ({ page }) => {
+    test.setTimeout(90_000);
+    await page.setViewportSize({ width: 390, height: 844 });
+    // 사이드바·FlowNav 와 같은 판정(isFullScreenRoute)을 쓰는지 확인한다 —
+    // 셋이 갈리면 세션 화면에 내비가 하나만 남아 더 이상해진다.
+    await page.goto('/play/cascade?from=%2Farcade', {
+      waitUntil: 'domcontentloaded',
+      timeout: 30_000,
+    });
+    await page.waitForTimeout(3_000);
+    await expect(
+      page.getByRole('navigation', { name: '주요 화면' }),
+      '세션 중에 하단 탭이 남아 있다',
+    ).toHaveCount(0);
+  });
+
   test('도서관 전체 탐색 — 필터 구획 렌더 + 칩 필터가 결과를 좁힌다', async ({ page }) => {
     test.setTimeout(60_000);
     const errors = collectConsoleErrors(page);
