@@ -275,7 +275,6 @@ export const MOCK_TREND = {
 
 import type { VaultBook } from './hub/BookShelfSection'
 import type { PeekWord } from './hub/WordPeekStrip'
-import type { MasteryGroup } from '@/lib/wordvault/mastery'
 
 /** BookShelf — 5종 Book Type (text 2 + level 2 + smart 1 + goal 잠금 1) */
 export const MOCK_BOOKS: VaultBook[] = [
@@ -336,13 +335,6 @@ export const MOCK_BOOKS: VaultBook[] = [
     href: '#',
     isLocked: true,
   },
-]
-
-/** LearningDimension 3그룹 카운트 (mock — Phase 2: groupByMastery 호출) */
-export const MOCK_MASTERY_GROUPS: MasteryGroup[] = [
-  { stage: 'unmet', count: 63 },
-  { stage: 'recognizing', count: 47 },
-  { stage: 'multichannel', count: 27 },
 ]
 
 /** 최근에 만난 단어 5개 (Word Peek 데스크톱 푸터) */

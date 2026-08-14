@@ -14,8 +14,16 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { getMemoryState } from '@/lib/srs/state'
 
+import type { FacetId } from './axes'
 import type { MemoryState, WordFrameworkState } from './flow'
-import { deriveWordStates, type FacetAttempt } from './word-progress'
+import {
+  deriveWordState,
+  deriveWordStates,
+  facetDistribution,
+  weakestFacetOverall,
+  type FacetAttempt,
+  type FacetGap,
+} from './word-progress'
 
 /**
  * 학습자의 단어별 프레임워크 상태.
@@ -90,5 +98,52 @@ export async function fetchWordStates(
     })
   }
 
-  return deriveWordStates(attempts, meta)
+  const derived = deriveWordStates(attempts, meta)
+
+  // 기록이 **한 번도 없는 단어**도 상태다 — 오히려 화면이 가장 알려야 할 상태다.
+  // `deriveWordStates` 는 기록에서 단어를 뽑으므로 이들이 통째로 빠진다. 그대로 두면
+  // 분포의 분모가 "연습해 본 단어" 가 되어, 한 단어만 열심히 한 학습자가 100% 로 보인다.
+  const seen = new Set(derived.map((s) => s.word))
+  for (const v of vocabs) {
+    const key = v.word.toLowerCase()
+    if (seen.has(key)) continue
+    seen.add(key)
+    derived.push(
+      deriveWordState({
+        word: key,
+        attempts: [],
+        memory: meta.get(key)?.memory ?? 'new',
+        encounters: meta.get(key)?.encounters ?? 0,
+      }),
+    )
+  }
+
+  return derived
+}
+
+/** 화면이 쓰는 요약 — 인출 이력 전량을 브라우저로 보내지 않기 위해 서버에서 접는다. */
+export interface FacetSummary {
+  /** 내 단어 총수 */
+  total: number
+  /** 그중 인출 기록이 한 번이라도 있는 단어 수 */
+  practiced: number
+  distribution: Record<FacetId, { passed: number; tried: number }>
+  /** 가장 뒤처진 spine 면 (없으면 null) */
+  weakest: FacetGap | null
+}
+
+export async function fetchFacetSummary(
+  client: SupabaseClient,
+  userId: string,
+  limit = 500,
+): Promise<FacetSummary> {
+  const states = await fetchWordStates(client, userId, limit)
+  const distribution = facetDistribution(states)
+  return {
+    total: states.length,
+    // 어떤 면이든 시도가 있으면 연습한 단어다
+    practiced: states.filter((s) => Object.keys(s.accuracy).length > 0).length,
+    distribution,
+    weakest: states.length === 0 ? null : weakestFacetOverall(distribution),
+  }
 }

@@ -8,7 +8,8 @@
 // - books = 구독 공용 단어장 + 스크립트 책 (BookShelfSection 용 VaultBook 변환)
 //
 // 본 훅으로 Hero/VaultBar + BookShelfSection 까지 실 데이터화.
-// CEFRDistribution·LearningDimension·WordPeek 은 여전히 mock.
+// CEFRDistribution·WordPeek 은 여전히 mock.
+// (LearningDimension 은 폐기 — 면 상태는 `useFacetSummary` + `FacetProgressSection` 이 실데이터로 한다.)
 
 'use client'
 

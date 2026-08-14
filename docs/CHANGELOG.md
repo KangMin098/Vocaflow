@@ -10,6 +10,38 @@
 
 ## Unreleased (v06.34 → next)
 
+### 면×단계 매트릭스에 소비자가 생겼다 — 죽은 목업 섹션 자리에 (Phase 4)
+
+계산은 서 있는데 **화면이 없었다.** 그 자리에 있던 `LearningDimensionSection` 이 왜 못 쓰였는지가
+이번 작업의 이유 전부다:
+
+- **어디서도 렌더되지 않았다** — 임포터 0. 타입도 린트도 통과했고 테스트가 없어 아무도 몰랐다
+- 데이터가 `MOCK_MASTERY_GROUPS`(63/47/27) **날조 상수**였다
+- 분류가 모듈명 4개 하드코딩(`flashcard`·`wordblitz`·`spellforge`·`dictation`)이라
+  **아케이드 19종과 Echo 가 통째로 안 보였다** — 어떤 게임을 해도 '아직 안 만난 단어'
+- 3그룹(unmet/recognizing/multichannel)은 사실상 **단일 mastery 스칼라**였다. 설계안 §2.3 이
+  배제한 그것 — 면이 6개인데 하나로 접으면 "무엇이 부족한지" 를 못 말한다
+
+**신규** `components/wordvault/hub/FacetProgressSection.tsx` (WordVault 허브 Section 3):
+설계안 §2.3 대로 **가장 뒤처진 면 하나만** 처방으로 말하고, 6면 내역은 접어 둔다.
+축은 레지스트리가 갖고(`Activity.facets`) 화면은 그림과 한국어 라벨만 고른다.
+
+- `GET /api/wordvault/facets` — 계산이 `learning_records` 전량을 훑으므로 **서버가 접어서
+  카운트만** 내려보낸다(클라이언트가 직접 하면 인출 이력이 통째로 브라우저에 실린다)
+- `weakestFacetOverall()` — 단어 단위 `weakestFacet` 과 **같은 순서 규칙**(시도 없는 앞 면 우선 →
+  통과 비율 최저). 둘이 갈리면 목록이 권한 면과 허브가 권한 면이 달라진다
+- `suggestActivityForFacet()` — **기록하는 활동만 권한다.** ScriptQuiz 는 'use' 를 훈련한다고
+  선언하지만 대상 단어가 없어 기록하지 못하므로, 그리로 보내면 다녀와도 같은 처방을 다시 받는다
+- **조회부 결함 하나 동반 수정** — `fetchWordStates` 가 기록 있는 단어만 돌려줘서 분포의 분모가
+  "연습해 본 단어" 였다. 한 단어만 열심히 한 학습자가 100% 로 보인다. 기록 0인 단어도 상태로 포함
+- 삭제: `LearningDimensionSection.tsx` · `lib/wordvault/mastery.ts`(호출자 0) · `MOCK_MASTERY_GROUPS`
+
+**검증**: 단위 +7(면 25) · 신규 e2e `22-vault-facets` 3종(렌더됨 · 처방 1면 · CTA 가 기록 활동)
+· a11y 스윕 통과. 실측 처방은 `문맥에서 쓰기`(spell 1/92 · recognize 3/71 · use 0/69 · fluency 0/16).
+
+⚠️ e2e 작성 중 **셀렉터가 부제목을 처방으로 읽는 것**을 스펙이 잡아, 처방 문단에
+`data-testid="facet-prescription"` 을 달았다. 화면은 멀쩡했고 테스트만 틀렸던 종류다.
+
 ### `/plan` 가로 넘침 126px — 범인은 레이아웃이 아니라 `sr-only` 였다 (17회차)
 
 모바일에서 `/plan` 은 화면 전체가 옆으로 밀렸다(126px). 14회차가 `/library` 캐러셀에서 같은 증상을

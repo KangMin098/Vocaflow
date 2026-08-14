@@ -2,7 +2,7 @@
 
 > Next.js 14 App Router. 모든 page.tsx · route.ts · layout.tsx 직접 파일 스캔으로 검증. 작성 시점: 2026-06-08.
 >
-> **카운트**: page.tsx 77 · route.ts 23 · layout.tsx 11.
+> **카운트**: page.tsx 77 · route.ts 24 · layout.tsx 11.
 
 ---
 
@@ -73,7 +73,7 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/wordvault` | `(main)/wordvault/page.tsx` | hub v6 (BookShelf · LearningDimension · WordPeek + CEFR Dist · FindAndMore) |
+| `/wordvault` | `(main)/wordvault/page.tsx` | hub v6 (Identity · VLevelMap · **FacetProgress**(면 상태·실데이터) · Portfolio · RecommendedBooks · NextStep · Flow) |
 | `/wordvault/browse` | `(main)/wordvault/browse/page.tsx` | 풀스크린 브라우즈 세션 (v06.22) |
 
 ### 진단
@@ -192,13 +192,19 @@
 
 ---
 
-## API Routes (23)
+## API Routes (24)
 
 ### `/api/auth/*` (1)
 
 | 경로 | 파일 |
 |---|---|
 | `POST /api/auth/callback` | `api/auth/callback/route.ts` (Supabase OAuth) |
+
+### `/api/wordvault/*` (1)
+
+| 경로 | 비고 |
+|---|---|
+| `GET /api/wordvault/facets` | 내 단어의 면 분포 + 가장 뒤처진 면. **세션 클라이언트(RLS 적용) · 비로그인 401**. 서버가 접어서 카운트만 내려보낸다 — 인출 이력 전량을 브라우저에 싣지 않기 위해서다 |
 
 ### `/api/lcp/*` LCP Worker (4)
 

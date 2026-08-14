@@ -120,6 +120,7 @@ R < 0.70              → risk     #EF4444 (빨강)
 - `WordVaultHub.tsx` — 6 Section 조립 + 주간 목표 fetch · max-w 5xl
 - `VaultIdentity.tsx` ★v06.35 — Section 1 Mastery Hero (큰 숫자 + V-Level 메타 칩 + 4 bucket 가로 비교 막대 + 단일 CTA + 주간 목표)
 - `VocabularyLevelMap.tsx` ★v06.35 — Section 2 단어 수준 지도 (V0-V11 분포 + i+1 zone 강조 + 트랙별 수준)
+- `FacetProgressSection.tsx` ★2026-08-15 — Section 3 **면(facet) 상태** — 가장 뒤처진 면 하나를 처방으로 + 6면 내역(접힘). `/api/wordvault/facets` 실데이터. 폐기된 `LearningDimensionSection`(임포터 0 · 목업 63/47/27 · 모듈명 4개 하드코딩으로 아케이드 19종 비가시)의 자리
 - `ResourcePortfolio.tsx` ★v06.35 — Section 3 학습 자산 (도서/스크립트/공용 단어장 3-col grid)
 - `RecommendedBooks.tsx` ★v06.35 — Section 4 i+1 권장 도서 4권 (`scoreBook` + `judgeIPlusOne`)
 - `NextStepList.tsx` ★v06.35 — Section 5 단어장 추천 (`recommend_word_sets_for_user`)
@@ -134,7 +135,6 @@ R < 0.70              → risk     #EF4444 (빨강)
 - `BookShelfSection.tsx` — 5 Book Type 카드 (v06.20) · `VaultBook` 타입은 AssetGrid 가 재사용
 - `CEFRDistribution.tsx` — 6단계 horizontal bar (v06.19)
 - `FindAndMore.tsx` — 인라인 검색 진입 (AssetGrid 검색바로 흡수)
-- `LearningDimensionSection.tsx` — module_history 3그룹
 - `MemoryDecayDistribution.tsx` — 4색 stacked bar + Bucket 카드 (VaultIdentity 가 통합)
 - `TrendIndicator.tsx` — week-over-week 추세 (FlowStripe 가 통합)
 - `WordPeekStrip.tsx` — 데스크톱 최근 단어 5개 chip

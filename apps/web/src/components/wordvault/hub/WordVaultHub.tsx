@@ -28,6 +28,8 @@ import { MOCK_BOOKS } from '../mock-data'
 import type { WordItem } from '../types'
 
 import type { HubStats } from '../hooks/useHubStats'
+import { useFacetSummary } from '../hooks/useFacetSummary'
+import { FacetProgressSection } from './FacetProgressSection'
 import { FlowStripe } from './FlowStripe'
 import { NextStepList } from './NextStepList'
 import { RecommendedBooks } from './RecommendedBooks'
@@ -45,6 +47,7 @@ const DEFAULT_DAILY_GOAL = 12
 
 export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
   const [weekly, setWeekly] = useState<{ done: number; target: number } | null>(null)
+  const facets = useFacetSummary()
 
   useEffect(() => {
     let cancelled = false
@@ -126,6 +129,13 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
 
       {/* Section 2 — Vocabulary Level Map: V-Level 분포 + i+1 zone + 트랙 */}
       <VocabularyLevelMap />
+
+      {/* Section 3 — 면(facet) 상태 + 가장 뒤처진 면 하나 (설계안 §2.3).
+          레벨 맵이 "어디까지 왔나" 라면 이쪽은 "어느 쪽으로 아는가" 다.
+          준비 전/실패 시에는 렌더하지 않는다 — 빈 카드가 자리만 차지하는 것보다 낫다. */}
+      {facets.status === 'ready' && facets.data.total > 0 && (
+        <FacetProgressSection summary={facets.data} />
+      )}
 
       {/* Section 3 — Resource Portfolio: 도서 / 스크립트 / 공용 단어장 학습 이력 */}
       <ResourcePortfolio />

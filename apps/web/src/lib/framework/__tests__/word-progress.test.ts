@@ -8,6 +8,7 @@
 
 import { describe, expect, it } from 'vitest'
 
+import { FACET_ORDER, type FacetId } from '../axes'
 import { ACCURACY_HOLD_BELOW, HITS_TO_PASS, type WordFrameworkState } from '../flow'
 import {
   deriveWordState,
@@ -15,7 +16,9 @@ import {
   facetDistribution,
   isFacetPassed,
   stageOfWord,
+  suggestActivityForFacet,
   weakestFacet,
+  weakestFacetOverall,
   type FacetAttempt,
 } from '../word-progress'
 
@@ -176,6 +179,87 @@ describe('weakestFacet — 화면이 보여줄 면 하나', () => {
     }
     // Sound 가 10% 여도 spine 이 끝났으면 null — "발음을 모르면 못 간다" 는 게이트를 만들지 않는다
     expect(weakestFacet(s)).toBeNull()
+  })
+})
+
+describe('weakestFacetOverall — 학습자 한 사람에게 권할 면 하나', () => {
+  const dist = (
+    partial: Partial<Record<FacetId, { passed: number; tried: number }>>,
+  ): Record<FacetId, { passed: number; tried: number }> => {
+    const base = {} as Record<FacetId, { passed: number; tried: number }>
+    for (const f of FACET_ORDER) base[f] = { passed: 0, tried: 0 }
+    return { ...base, ...partial }
+  }
+
+  it('시도 없는 앞 면이 정답률 낮은 뒤 면보다 먼저다 (단어 단위 규칙과 같다)', () => {
+    const g = weakestFacetOverall(
+      dist({ spell: { passed: 1, tried: 20 }, recognize: { passed: 0, tried: 0 } }),
+    )
+    expect(g?.facet).toBe('recognize')
+    expect(g?.untried).toBe(true)
+  })
+
+  it('전부 시도했으면 통과 비율이 가장 낮은 면', () => {
+    const g = weakestFacetOverall(
+      dist({
+        recognize: { passed: 9, tried: 10 },
+        spell: { passed: 5, tried: 10 },
+        use: { passed: 2, tried: 10 },
+        fluency: { passed: 8, tried: 10 },
+      }),
+    )
+    expect(g?.facet).toBe('use')
+    expect(g?.untried).toBe(false)
+    expect(g?.accuracy).toBeCloseTo(0.2, 5)
+  })
+
+  it('spine 이 다 채워졌으면 권할 것이 없다', () => {
+    const g = weakestFacetOverall(
+      dist({
+        recognize: { passed: 10, tried: 10 },
+        spell: { passed: 10, tried: 10 },
+        use: { passed: 10, tried: 10 },
+        fluency: { passed: 10, tried: 10 },
+      }),
+    )
+    expect(g).toBeNull()
+  })
+
+  it('cross 면(Sound·Build)은 고르지 않는다 — 게이트가 되면 안 된다', () => {
+    const g = weakestFacetOverall(
+      dist({
+        recognize: { passed: 10, tried: 10 },
+        spell: { passed: 10, tried: 10 },
+        use: { passed: 10, tried: 10 },
+        fluency: { passed: 10, tried: 10 },
+        sound: { passed: 0, tried: 30 }, // 0% 인데도
+      }),
+    )
+    expect(g).toBeNull()
+  })
+})
+
+describe('suggestActivityForFacet — 처방이 보낼 곳', () => {
+  it('그 면을 훈련하는 활동을 준다', () => {
+    const a = suggestActivityForFacet('spell')
+    expect(a).not.toBeNull()
+    expect(a!.facets).toContain('spell')
+  })
+
+  it('**기록하지 않는 활동은 권하지 않는다** — 보내도 그 면이 안 차기 때문', () => {
+    // ScriptQuiz 는 'use' 를 훈련한다고 선언하지만 records:false 다
+    // (문항에 대상 단어가 없어 남길 것이 없다). 처방이 이걸 고르면 학습자는
+    // 다녀와도 같은 처방을 다시 받는다.
+    const a = suggestActivityForFacet('use')
+    expect(a?.id).not.toBe('scriptquiz')
+    expect(a?.records).toBe(true)
+  })
+
+  it('갈 곳(route)이 있는 활동만 고른다', () => {
+    for (const f of FACET_ORDER) {
+      const a = suggestActivityForFacet(f)
+      if (a) expect(a.route, `${f}: route 없는 활동을 권했다`).toBeTruthy()
+    }
   })
 })
 

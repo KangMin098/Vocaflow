@@ -21,7 +21,7 @@
 
 import { FACETS, SPINE, stageOf, type FacetId, type StageId } from './axes'
 import { ACCURACY_HOLD_BELOW, HITS_TO_PASS, type MemoryState, type WordFrameworkState } from './flow'
-import { activityById } from './registry'
+import { activitiesForFacet, activityById, type Activity } from './registry'
 
 /** 한 번의 인출 기록 — `learning_records` 한 행에서 필요한 것만. */
 export interface FacetAttempt {
@@ -157,6 +157,54 @@ export function weakestFacet(state: WordFrameworkState): FacetGap | null {
 /** 단어의 현재 단계 — 통과한 spine 면에서 파생(저장하지 않는다). */
 export function stageOfWord(state: WordFrameworkState): StageId {
   return stageOf(state.passed)
+}
+
+/**
+ * **학습자 한 사람의 가장 뒤처진 spine 면** — 화면이 처방으로 보여줄 그것.
+ *
+ * `weakestFacet`(단어 하나)과 **같은 순서 규칙**을 쓴다. 둘이 갈리면 "내 단어 목록이 권한 면"과
+ * "허브가 권한 면"이 달라지고, 학습자는 어느 쪽을 믿을지 알 수 없다.
+ *   ① 시도가 **한 번도 없는** 가장 앞 면 — 뒤쪽 면의 낮은 정답률보다 먼저다(앞을 건너뛰지 않는다)
+ *   ② 전부 시도했으면 **통과 비율이 가장 낮은** 면
+ *   ③ 모든 spine 면이 통과로 채워졌으면 null — 더 권할 것이 없다
+ *
+ * cross 면(Sound·Build)은 고르지 않는다 — 단계를 정의하지 않으므로 게이트가 되면 안 된다.
+ * (Echo 로 청각 기록이 생겼다고 해서 "발음부터 하세요" 가 되지는 않는다.)
+ */
+export function weakestFacetOverall(
+  dist: Record<FacetId, { passed: number; tried: number }>,
+): FacetGap | null {
+  const untried = SPINE.find((f) => dist[f].tried === 0)
+  if (untried) return { facet: untried, accuracy: null, untried: true }
+
+  const pending = SPINE.filter((f) => dist[f].passed < dist[f].tried)
+  if (pending.length === 0) return null
+
+  let worst = pending[0]
+  const rate = (f: FacetId) => dist[f].passed / dist[f].tried
+  for (const f of pending) {
+    if (rate(f) < rate(worst)) worst = f
+  }
+  return { facet: worst, accuracy: rate(worst), untried: false }
+}
+
+/**
+ * 이 면을 채우러 **지금 보낼 수 있는** 활동 하나.
+ *
+ * 세 조건을 건다. 하나라도 빠지면 처방이 학습자를 헛걸음시킨다:
+ *   · `route` 가 있다 — 갈 곳이 없으면 권할 수 없다
+ *   · `records` 가 true 다 — **면을 채우라고 보냈는데 기록이 안 되면 그 면은 영영 안 찬다.**
+ *     ScriptQuiz 를 'use' 처방으로 보내면 다음에 또 같은 처방을 받는다(대상 단어가 없으므로).
+ *   · `contentNeed !== 'text'` 를 우선한다 — 내 단어로 바로 시작할 수 있는 쪽.
+ *     본문이 필요한 활동은 "어떤 글?" 이라는 선택을 하나 더 요구한다.
+ *
+ * 후보가 없으면 null — 화면은 그때 링크 없이 상태만 말한다(없는 길을 만들어 주지 않는다).
+ */
+export function suggestActivityForFacet(facet: FacetId): Activity | null {
+  const usable = activitiesForFacet(facet).filter((a) => a.route && a.records)
+  if (usable.length === 0) return null
+  const ownWords = usable.filter((a) => a.contentNeed !== 'text')
+  return (ownWords[0] ?? usable[0]) ?? null
 }
 
 /** 학습자 전체의 면별 분포 — "무엇이 비어 있나" 를 한 눈에. */
