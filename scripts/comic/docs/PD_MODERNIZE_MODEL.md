@@ -380,6 +380,67 @@ psm11(sparse)은 레이아웃 분석이 없어 단어가 흩어진다. 그래서
 둘을 구분해야 한다. 지금 데이터로는 그 복잡도를 살 이유가 없다.
 
 나중에 갈릴 수 있다 — 표본이 늘어 두 관점의 1위가 실제로 벌어지면 그때 나눈다.
+## 8.6 Kaggle SDXL 파일럿은 실패했다 — 원인 4가지 (2026-08-14)
+
+`pd/kaggle-restyle.mjs`(SDXL + ControlNet Canny)로 5개 호를 돌린 결과가 **원작보다 나빴다.**
+`pd/compare-tracks.mjs` 로 재보니 감상이 아니라 지표에서도 전 축 후퇴다 (Classics Ill. #27 표지):
+
+| | 해상도 | SSIM | 선예도 | 화이트포인트 | 채도 |
+|---|---:|---:|---:|---:|---:|
+| 원작 | 2.08M | — | 10.5 | 213 | 42.5 |
+| Kaggle SDXL | **0.72M** | **0.568** | 12.7 | **207** | **38.6** |
+
+현대화의 두 레버(화이트포인트↑·채도↑)가 **반대 방향**으로 갔다. 원인:
+
+1. **입력을 512px 로 줄여서 넣었다.** 1200px 컷의 정보 82% 를 버린 뒤 다시 그렸으니
+   무엇을 해도 원작을 못 이긴다. 산출물도 1024 로 나와 순 해상도 손실.
+2. **SDXL 은 edit 모델이 아니다.** img2img strength 0.5 + canny 는 원작을 절반만 신뢰한다 →
+   얼굴·손이 재해석된다. §2 가 정한 실질 선택지(Qwen-Image-Edit)가 아니었다.
+3. **말풍선을 지우지 않고 글자째 넣었다.** §0 이 금지한 것 그대로 — 모델이 가짜 글자를
+   지어냈다(`Featuring`→`Footuring`, `Fenimore Cooper`→`Fanimore Cooner`).
+4. **`machineShape` 미지정** → Kaggle 이 P100(sm_60)을 배정하면 최신 torch 휠에 커널이 없어
+   전 컷이 `CUDA error: no kernel image is available` 로 죽는다(2026-08-14 재현: 0/4).
+   커널은 정상 기동하고 로그도 깨끗해 보여 원인이 잘 안 보인다. → `machineShape` 기본값 추가.
+
+**결론**: 이 실패는 모델 트랙의 실패가 아니라 **§2 를 따르지 않은 구성의 실패**다.
+1·2·3 은 설계 문서가 이미 금지하거나 다르게 정해둔 것이었다.
+
+## 8.7 RunPod 트랙 선결 결함 — 켜기 전에 고쳤다 (2026-08-14)
+
+RunPod 로 넘어가기 전 실행 경로를 점검해 **GPU 를 태워야만 드러나는** 결함 2개를 제거했다:
+
+- **`modernize.mjs` 에 인증이 없었다.** RunPod ai-dock 은 8188 앞에 폼 로그인(:1111)을 둔다.
+  인증 없이 fetch 하면 **로그인 HTML 이 200 으로** 돌아와 JSON 파싱에서 죽는다 — 그동안 GPU 는
+  과금된다. `gen-comfy.mjs` 는 이 처리를 갖고 있었고 `modernize.mjs` 만 없었다.
+  → 접속·인증을 `comfy-auth.mjs`(SSoT)로 뽑고 양쪽이 같은 것을 쓰게 했다.
+- **`.comfy-url` 경로 불일치.** `runpod/pod.mjs` 는 `scripts/comic/.comfy-url` 에 쓰는데
+  `modernize.mjs` 는 저장소 루트만 읽어, pod 를 띄워도 "COMFY_URL 이 없습니다"가 났다.
+  → `resolveComfyUrl()` 이 둘 다 본다.
+
+추가로 **첫 컷을 보내기 전에** `/system_stats` 로 접속·GPU·torch 를 확인하고 실패 시 멈춘다
+(`checkComfy`). 20번째 컷에서 인증 실패를 알게 되는 것과 비용이 다르다.
+
+긴 변은 `--long` 으로 조절한다(기본 1024). 컷 원본이 1200px 대이므로 1024 로 구우면
+**재작화가 곧 다운스케일**이 된다 — Kaggle 실패 원인 1과 같은 함정이 모델 트랙에도 있다.
+
+## 8.8 트랙 비교는 지표로 남긴다 — `pd/compare-tracks.mjs`
+
+"원본보다 안 좋다"는 맞는 판단이지만 **어디가 얼마나**를 말해주지 않아 다음 시도가 감으로 간다.
+
+```bash
+node scripts/comic/pd/compare-tracks.mjs --workdir work/pdcp/<slug> \
+  --tracks "원작=panels,CPU=page-modern,RunPod-QIE=modern" --hint <호 슬러그>
+```
+
+컷별 N-way 그리드(라벨 포함) + `report.md` 를 낸다. 지표: 해상도 · SSIM(구도 보존) ·
+선예도(edgedetect) · 화이트포인트(YHIGH) · 채도(SATAVG). 전부 ffmpeg — 새 의존성 없음.
+
+⚠️ **자동 점수로 채택을 결정하지 않는다**(§6 유지). 표는 그리드에서 **어디를 볼지** 알려줄 뿐이다.
+
+⚠️ 여러 호의 산출물이 한 폴더에 섞이면(`work/_kaggle-restyle/out/`) 접미사 매칭이 **다른 호의 컷을
+조용히 고른다** — 실제로 The Spy 표지와 Ivanhoe 표지를 비교해 SSIM 0.087 을 뱉었고, 그 숫자는
+"모델이 구도를 부쉈다"로 읽힌다. 모호하면 고르지 않고 알린다(`--hint` 로 좁힘). 회귀 7건.
+
 ## 9. 하지 않을 것
 
 - **모델에 글자를 맡기지 않는다** (§0).

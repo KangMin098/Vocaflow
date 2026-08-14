@@ -55,6 +55,7 @@ if (has('pull')) { const { got } = await pullOutput(OUT); console.log(`✓ pull 
 // ── 패널 수집(다양한 콘텐츠) + 다운스케일 임베드 ──
 const CONTENTS = String(arg('contents', 'whiz,ci027,1954-07classicsillustratedno.2ivanhoe_708,the-odyssey-classics-illustrated,illustratedclassicsmacbeth')).split(',')
 const PER = Number(arg('per', 2))
+const PX = Number(arg('px', 1024)) // 모델에 넣는 긴 변(px). 커널 base64 총량과 맞바꾼다.
 const tmp = path.join(os.tmpdir(), 'pd-restyle-embed'); fs.mkdirSync(tmp, { recursive: true })
 const FROM = arg('from', 'panels') // panels(컷) | restored(페이지, 로컬 vs Kaggle 페이지 비교용)
 const items = []
@@ -67,14 +68,19 @@ for (const slug of CONTENTS) {
   const files = all.slice(mid, mid + PER)
   for (const f of files) {
     const small = path.join(tmp, `${slug.slice(0, 12)}_${f}`)
-    spawnSync(FF, ['-y', '-i', path.join(pdir, f), '-vf', "scale='min(512,iw)':-2:flags=lanczos", '-q:v', '8', small], { encoding: 'utf8' })
+    // ⚠️ 여기서 줄인 크기가 **모델이 보는 전부**다. 512 로 줄이면 1200px 컷의 정보 82% 를 버린 뒤
+    // 다시 그리게 되므로, 화풍이 나아져도 총평은 "원본보다 못하다"가 된다(2026-08-12 실측).
+    // 커널 소스에 base64 로 싣는 구조라 무한정 키울 수는 없다 — 총량을 아래에서 경고한다.
+    spawnSync(FF, ['-y', '-i', path.join(pdir, f), '-vf', `scale='min(${PX},iw)':-2:flags=lanczos`, '-q:v', '5', small], { encoding: 'utf8' })
     if (!fs.existsSync(small)) continue
     items.push({ name: `${slug.slice(0, 16)}__${f}`, content: slug, b64: fs.readFileSync(small).toString('base64') })
   }
 }
 if (!items.length) { console.error('임베드할 패널 없음'); process.exit(1) }
 const embedKB = items.reduce((s, it) => s + it.b64.length, 0) / 1024
-console.error(`패널 ${items.length}개(콘텐츠 ${CONTENTS.length}) · 임베드 ${embedKB.toFixed(0)}KB`)
+console.error(`패널 ${items.length}개(콘텐츠 ${CONTENTS.length}) · 입력 ${PX}px · 임베드 ${embedKB.toFixed(0)}KB`)
+// 커널 소스가 커지면 push 가 조용히 거부되거나 편집기가 못 연다. 넘기 전에 말해준다.
+if (embedKB > 4096) console.error(`  ⚠ 임베드 ${(embedKB / 1024).toFixed(1)}MB — 큽니다. --per 를 줄이거나 --px 를 낮추세요(또는 Dataset 첨부 방식으로).`)
 
 const manifestB64 = Buffer.from(JSON.stringify(items.map((it) => ({ name: it.name, b64: it.b64 })))).toString('base64')
 
@@ -121,7 +127,11 @@ console.error(`커널 ${(KERNEL.length / 1024).toFixed(0)}KB`)
 if (has('dry')) { console.error('(dry) push 생략'); process.exit(0) }
 
 // ── push ──
-const body = { id: null, slug: SLUG, newTitle: SLUG_NAME, text: KERNEL, language: 'python', kernelType: 'script', isPrivate: true, enableGpu: true, enableTpu: false, enableInternet: true, datasetDataSources: [], competitionDataSources: [], kernelDataSources: [], modelDataSources: [], categoryIds: [] }
+// ⚠️ machineShape 필수 — 없으면 Kaggle 이 **P100(sm_60)** 을 배정할 수 있고, 그러면 최신 torch 휠에
+// sm_60 커널이 없어 전 컷이 `CUDA error: no kernel image is available for execution on the device` 로
+// 죽는다(2026-08-14 실측: 0/4). 커널이 정상 기동해 로그도 깨끗해 보이므로 원인이 잘 안 보인다.
+const ACCEL = String(arg('accel', 'NvidiaTeslaT4'))
+const body = { id: null, slug: SLUG, newTitle: SLUG_NAME, text: KERNEL, language: 'python', kernelType: 'script', isPrivate: true, enableGpu: true, enableTpu: false, enableInternet: true, machineShape: ACCEL, datasetDataSources: [], competitionDataSources: [], kernelDataSources: [], modelDataSources: [], categoryIds: [] }
 const pr = await fetch(`${KAPI}/kernels/push`, { method: 'POST', headers: KH, body: JSON.stringify(body), signal: AbortSignal.timeout(60000) })
 const pj = await pr.json().catch(() => ({}))
 if (!pr.ok || pj.hasError) { console.error(`✗ push ${pr.status}: ${pj.error || JSON.stringify(pj).slice(0, 200)}`); process.exit(1) }
