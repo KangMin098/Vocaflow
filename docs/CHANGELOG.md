@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 프레임워크 결정 1·2 확정 + 콘텐츠 스코프 일반화 (Phase 2)
+
+[VOCAB_FRAMEWORK_PROPOSAL.md](./VOCAB_FRAMEWORK_PROPOSAL.md) §9 의 남은 두 결정을 권장안으로 확정.
+
+- **결정 1 → C(하이브리드)** — 콘텐츠는 자유, 콘텐츠 안에서는 경로. A(단선)로 좁히는 것은
+  **데이터가 말할 때** 한다(지금은 실사용 분포를 모른다 · §12 위험 1). 되돌리기 쉬운 쪽이 먼저다.
+  C 가 코드에 요구하는 것은 메뉴 개편이 아니라 **콘텐츠 표현의 단일화**였다 —
+  "콘텐츠를 고르면 할 수 있는 활동이 도출된다" 는 이미 `registry.activitiesForContent(ref)` 가 한다.
+- **결정 2 → A(전부 유지, 위치만 이동)** — 19종을 하나도 지우지 않는다. 축소(B)는 IA 를 고친 뒤
+  재측정해서 판단한다. 지금 지우면 "안 보여서 0건" 인 것까지 함께 지우고 그 사실은 영영 모른다.
+  **코드 변경 없음**(삭제 금지가 결정의 전부).
+- **스코프 일반화** — `fetchWordsForContent(client, ContentRef, userId)` 신설. 스코프가
+  `?set=`/`?text=` 두 가지뿐이라 도서로 놀려면 반드시 enroll 해야 했다.
+  이제 `?book=`(+`?chapter=`)로 **큐레이션 챕터 단어장을 바로 연다**. 챕터를 생략하면 첫 챕터.
+  `use-word-scope` 와 `play-scaffold` 가 `contentRefFromScope` 하나만 쓴다 — 유형이 늘면 어댑터 한 줄.
+- 회귀 `19-content-scope.spec.ts` 2종 + 단위 +3.
+  ⚠️ 스펙은 도서를 **조건으로 찾는다**(발행·저작권 안전·단어 충분) — id 하드코딩은 조용히 낡는다.
+  만들면서 `status='ready'` 도서로 0단어가 나왔는데, 그건 결함이 아니라 RLS
+  (`read words of published`)가 발행 도서 단어만 읽히게 하는 **정상 동작**이었다.
+
 ### 형태 규칙 구조적 갭 — `-ves` 복수가 아예 없었다 (마이그레이션 1건)
 
 Simplicissimus 처분 중 `wheatsheaves → wheatsheave`(실패)를 만나 규칙 수준으로 되짚었더니

@@ -110,7 +110,12 @@ export function GamePlayScaffold({
   };
 
   // 지금 놀고 있는 자료 — 승격 자격의 근거다(세트 안에 실재하는 단어만 담는다).
-  const content = contentRefFromScope({ set: scope.set, text: scope.text, chapter: scope.chapter });
+  const content = contentRefFromScope({
+    set: scope.set,
+    text: scope.text,
+    book: scope.book,
+    chapter: scope.chapter,
+  });
 
   const onCorrect = (word: Word, opts?: ResultOpts) => {
     session.countCorrect();

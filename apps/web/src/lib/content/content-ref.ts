@@ -64,10 +64,20 @@ export function toScoreColumns(ref: ContentRef | null | undefined): {
 export function contentRefFromScope(scope: {
   set?: string
   text?: string
+  /** 큐레이션 도서 — enroll 없이 챕터 단어장으로 연다 */
+  book?: string
   chapter?: number | null
 }): ContentRef {
+  // 우선순위는 좁은 것부터 — set 은 이미 한 챕터로 좁혀진 자료다.
   if (scope.set) return { type: 'set', id: scope.set }
   if (scope.text) return { type: 'text', id: scope.text }
+  if (scope.book) {
+    return {
+      type: 'book',
+      id: scope.book,
+      ...(typeof scope.chapter === 'number' ? { chapter: scope.chapter } : {}),
+    }
+  }
   return { type: 'mine' }
 }
 

@@ -88,6 +88,22 @@ describe('contentRefFromScope — ?set= / ?text= / 없음', () => {
   it('스코프가 없으면 내 복습 큐', () => {
     expect(contentRefFromScope({})).toEqual({ type: 'mine' })
   })
+
+  it('book 은 챕터와 함께 온다 (enroll 없이 큐레이션 챕터로 논다)', () => {
+    expect(contentRefFromScope({ book: UUID, chapter: 2 })).toEqual({
+      type: 'book',
+      id: UUID,
+      chapter: 2,
+    })
+    // 챕터를 안 주면 도서 전체 — 해석기가 첫 챕터를 고른다
+    expect(contentRefFromScope({ book: UUID })).toEqual({ type: 'book', id: UUID })
+  })
+
+  it('좁은 스코프가 넓은 것을 이긴다 (set > text > book)', () => {
+    // set 은 이미 한 챕터로 좁혀진 자료다 — book 이 같이 와도 set 을 쓴다
+    expect(contentRefFromScope({ set: UUID, book: UUID2 })).toEqual({ type: 'set', id: UUID })
+    expect(contentRefFromScope({ text: UUID, book: UUID2 })).toEqual({ type: 'text', id: UUID })
+  })
 })
 
 describe('contentRefFromText — enroll 한 도서 챕터는 도서로 접힌다', () => {

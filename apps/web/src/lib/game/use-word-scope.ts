@@ -3,7 +3,7 @@
 // 게임 단어 스코프 해석 — 모든 게임(스캐폴드 17종 + 독립 3D wordblitz)의 단일 진입점.
 //
 // ── 스코프 3단 ────────────────────────────────────────────────────
-//   ① explicit : ?set= / ?text= (+?chapter=) → 그 자료의 단어
+//   ① explicit : ?set= / ?text= / ?book= (+?chapter=) → 그 자료의 단어
 //   ② mine     : 스코프 없음 + 단어가 필요한 게임 → 사용자 due 큐 (아케이드 기본)
 //   ③ demo     : ①②로 최소 단어를 못 채움 → 게임 내장 맛보기 풀(wordPool=undefined)
 //
@@ -22,7 +22,8 @@ import { useSearchParams } from 'next/navigation'
 import type { Word } from '@/components/game/_shared/gamekit'
 import { fetchDueGameWords } from '@/lib/game/due-words'
 import { createClient } from '@/lib/supabase/client'
-import { fetchScopedWords } from '@/lib/workspace/scoped-words'
+import { fetchWordsForContent } from '@/lib/workspace/scoped-words'
+import { contentRefFromScope } from '@/lib/content/content-ref'
 
 export type ScopeKind = 'explicit' | 'mine' | 'bank'
 
@@ -42,6 +43,8 @@ export interface WordScope {
   /** 원본 쿼리 — 복귀 경로·점수 적재에 필요 */
   set?: string
   text?: string
+  /** 큐레이션 도서 — enroll 없이 챕터 단어장으로 논다 (Phase 2 스코프 일반화) */
+  book?: string
   from?: string
   chapter: number | null
 }
@@ -65,11 +68,12 @@ export function useGameWordScope({
   const searchParams = useSearchParams()
   const set = searchParams.get('set') ?? undefined
   const text = searchParams.get('text') ?? undefined
+  const book = searchParams.get('book') ?? undefined
   const from = searchParams.get('from') ?? undefined
   const chapterNum = Number(searchParams.get('chapter'))
   const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
 
-  const explicit = !!(set || text)
+  const explicit = !!(set || text || book)
   const needsWords = minWords > 0
   const useMine = !explicit && needsWords
   const loadsPool = explicit || useMine
@@ -86,7 +90,9 @@ export function useGameWordScope({
       } = await client.auth.getUser()
 
       if (explicit) {
-        const res = await fetchScopedWords(client, { set, text, chapter, userId: user?.id ?? null })
+        // 표현을 ContentRef 하나로 — 유형이 늘어도 어댑터 한 곳만 는다(Phase 2).
+        const ref = contentRefFromScope({ set, text, book, chapter })
+        const res = await fetchWordsForContent(client, ref, user?.id ?? null)
         if (!mounted) return
         setLoaded({
           kind: 'explicit',
@@ -121,7 +127,7 @@ export function useGameWordScope({
     return () => {
       mounted = false
     }
-  }, [loadsPool, explicit, set, text, chapter, label])
+  }, [loadsPool, explicit, set, text, book, chapter, label])
 
   if (!loadsPool) {
     return {
@@ -134,6 +140,7 @@ export function useGameWordScope({
       subtitle: '큐레이션 세계',
       set,
       text,
+      book,
       from,
       chapter,
     }
@@ -150,6 +157,7 @@ export function useGameWordScope({
       subtitle: '',
       set,
       text,
+      book,
       from,
       chapter,
     }
@@ -171,6 +179,7 @@ export function useGameWordScope({
     subtitle: demo ? '내 단어장이 채워지면 내 단어로 바뀌어요' : loaded.subtitle,
     set,
     text,
+    book,
     from,
     chapter,
   }
