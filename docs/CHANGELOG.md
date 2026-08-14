@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### SSoT 드리프트를 야간 상시 측정 — 우연히 발견되던 결함을 지표로 (마이그레이션 1건)
+
+`20260814015130_quality_metrics_ssot_drift` — `collect_quality_metrics()` 에 M7 추가.
+
+발행된 챕터 단어장은 추출 로직이 바뀌어도 **자동으로 따라가지 않는다**(재발행해야 반영).
+그런데 그걸 알려 주는 I10 은 `run_content_quality_gates('book', id)` 에만 있었다 — 전역 게이트에도
+없고, `/admin/quality` 에도 없고, `content_gate_publishable` 도 I10 을 제외한다. **어느 화면에도
+안 떴다.** 그래서 발행 도서 전권이 어긋난 채 몇 주가 갔고, 2026-08-12 에 통합 테스트를 되살리다
+우연히 발견됐다. 우연에 기대는 감지는 감지가 아니다.
+
+- 지표 2행(stage=publish) — `published_set_ssot_drift_books` · `published_set_ssot_drift_words`.
+  `dims.drifted` = `{도서명: 건수}` 로 **어느 책인지** 같은 카드에서 보인다("몇 권"만으로는 조치 못 한다).
+- 대상은 **발행 도서만** — 미발행 도서 세트는 RLS(20260813110729)가 학습자에게 가리므로 제외.
+  실측 결과 학습자에게 실제로 가는 드리프트는 **4권 / 73단어**뿐이고, 러너가 보여주던 큰 숫자
+  (Les Misérables 5,702 · Dialogues 9,697)는 전부 미발행 도서였다.
+- 비용: 도서당 추출 1회 — 수집 전체가 9행/즉시 → **11행/21.9초**(야간 pg_cron 03:10 KST).
+  ⚠️ 드리프트 서브쿼리는 **temp table 로 1회만** 평가한다. CTE 로 두면 outer 참조 횟수만큼
+  재실행돼 19초가 37.9초가 된다(`EXPLAIN ANALYZE` 에 `SubPlan 1`·`SubPlan 2` 로 드러남).
+- `/admin/quality` 한글 라벨 2개 + 화면도움말(조치 명령 · 20초 지연이 고장이 아님 · 발행 도서 한정) 반영.
+- 회귀 1건 추가 — 라벨 누락 시 metric 원문이 노출되는 것과 `dims.drifted` 렌더를 함께 고정.
+
+**부수 정정** — `select_book_chapter_vocab` 를 supabase-js `.rpc()` 로 부르면 **1000행에서 잘린다**
+(PostgREST 기본 상한). 실제 P&P 1,794행 · Sociology 4,529행. 이 절단 때문에 "세트 없는 챕터"
+조사를 한 번 틀리게 냈다(Fables 3챕터를 2챕터로). 추출 결과를 세는 조사는 DB 안에서 해야 한다.
+
+**재발행 보류** — 동시 작업 세션이 추출·사전 로직을 계속 고치고 있어(`simplicissimus_unbound_disposition`
+· `foreign_citation_marking` · `fix_he_it_pronoun_entries` …) 재발행 직후에도 다시 드리프트가 생긴다.
+실제로 2026-08-13 에 0 으로 만든 Styles·A Christmas Carol 이 각각 6·16 으로 되돌아갔다.
+그쪽 작업이 끝난 뒤 `--drifted-only` 로 한 번에 하는 게 맞다. 이제 M7 이 매일 밤 상태를 알려 준다.
+
 ### 터치 타겟 전수 프로브 — 위반이 추출 화면만의 문제가 아니었다 (12회차)
 
 11회차에서 추출 카드의 44px 위반 3종을 고친 뒤, 같은 패턴이 다른 학습 화면에 반복돼

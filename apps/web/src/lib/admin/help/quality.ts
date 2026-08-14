@@ -40,6 +40,11 @@ export const QUALITY_HELP: HelpRegistry = {
             '품질 게이트 불변식의 위반 건수 추이. 이건 별도 nightly(content-gate-nightly, KST 03:25)가 적재하므로 "지금 수집" 으로는 갱신되지 않는다. 한글 라벨이 없어 불변식 이름(I1·I5 …)이 그대로 뜬다.',
         },
         {
+          label: '발행세트 SSoT 드리프트 (도서 / 단어)',
+          detail:
+            '이미 발행된 챕터 단어장이 **지금의 추출 결과와 다른** 정도. 0 이 아니면 그 책은 옛 단어를 학습자에게 주고 있다는 뜻이라 재발행이 필요하다 — 저절로 맞춰지지 않는다. 추출·사전 로직을 고치면 다음 수집에서 반드시 오른다. 어느 책인지는 카드 아래 dims 의 `drifted` 에 {책 이름: 건수} 로 있다. 조치는 `pnpm dlx tsx scripts/lcp/republish-books.mjs --drifted-only`(먼저 `--dry-run`).',
+        },
+        {
           label: '카드 아래 회색 키/값',
           detail: '그 수치를 낸 측정 모수(dims) — 분모·기준 집합 등. 값이 튀면 여기부터 본다.',
         },
@@ -47,6 +52,8 @@ export const QUALITY_HELP: HelpRegistry = {
       cautions: [
         'quality_metrics 는 admin RLS read 라, 권한이 없으면 오류 대신 0행이 와서 "수집된 품질 지표가 없어요" 만 뜬다. 첫 수집 전인지 세션 문제인지는 "지금 수집" 을 눌러 보면 갈린다.',
         '스냅샷은 이 화면에서 지우거나 되돌릴 수 없다. 파이프라인이 깨진 상태에서 수집하면 그 점도 추이에 그대로 남는다.',
+        'SSoT 드리프트는 발행 도서마다 추출을 다시 돌려서 잰다 — 수집 1회가 20초 안팎 걸리는 이유다(나머지 지표는 즉시). "지금 수집" 을 눌렀는데 응답이 늦은 건 고장이 아니다.',
+        '드리프트는 **발행 도서만** 센다. 미발행 도서의 세트는 RLS 가 학습자에게 가리므로 제외한다 — 그 숫자까지 보려면 러너의 `--drifted-only --dry-run` 을 쓴다.',
       ],
       seeAlso: [
         { label: '품질 게이트', href: '/admin/quality/gates' },

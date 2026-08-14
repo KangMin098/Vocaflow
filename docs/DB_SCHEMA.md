@@ -553,6 +553,15 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 
 v06.140 이후 추가: `20260706000000_admin_collect_quality_metrics` — `admin_collect_quality_metrics()` RPC(SECURITY DEFINER, role='admin' 검사 후 `collect_quality_metrics()` 위임, EXECUTE→authenticated). `/admin/quality` 수동 수집 버튼용.
 
+v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([20260814015130](../supabase/migrations/20260814015130_quality_metrics_ssot_drift.sql)) —
+`published_set_ssot_drift_books` · `_words` 2행(stage=publish). 발행 도서의 발행 세트를 현
+`select_book_chapter_vocab` 결과와 대칭차집합으로 비교한다(I10 과 같은 정의). `dims.drifted` =
+`{도서명: 건수}`. **왜 필요했나** — I10 은 `run_content_quality_gates('book', id)` 에만 있어
+전역 게이트에도 `/admin/quality` 에도 뜨지 않았고, 그래서 발행 도서 전권이 어긋난 채 몇 주가 갔다.
+비용: 도서당 추출 1회 — 발행 12권 기준 수집 전체가 9행/즉시 → **11행/21.9초**로 늘어난다(야간 03:10).
+⚠️ 드리프트 서브쿼리는 **temp table 로 1회만** 평가할 것 — CTE 로 두면 outer 참조 수만큼 재실행돼
+19초가 37.9초가 된다(`EXPLAIN ANALYZE` 로 SubPlan 2개 확인).
+
 ---
 
 ## DB 사이즈 현황 (v06.34 VACUUM FULL 후, 2026-06-08)

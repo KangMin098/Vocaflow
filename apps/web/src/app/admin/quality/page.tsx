@@ -59,6 +59,8 @@ const METRIC_LABEL: Record<string, string> = {
   set_size_p90: '챕터 세트 크기 p90',
   shared_words_meaning_ko_pct: '단어 뜻(한국어) 채움률',
   book_librivox_audio_pct: '챕터 오디오 보유율',
+  published_set_ssot_drift_books: '발행세트 SSoT 드리프트 (도서)',
+  published_set_ssot_drift_words: '발행세트 SSoT 드리프트 (단어)',
 }
 
 function formatValue(metric: string, v: number): string {
