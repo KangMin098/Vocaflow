@@ -1,29 +1,26 @@
 // apps/web/src/app/(main)/layout.tsx
+//
+// 전역 셸. 상태는 **StatusRibbon 하나**가 맡는다 (ADR 0006 D2) —
+// 이전에는 Sidebar·FlowNav·HubHero 가 각자 streak 을 그렸다(한 화면에 3중).
 
-import { FlowNav } from '@/components/layout/FlowNav'
 import { GlobalBodyReset } from '@/components/layout/GlobalBodyReset'
 import { MobileTabBar } from '@/components/layout/MobileTabBar'
 import { SessionFrame } from '@/components/layout/SessionFrame'
 import { Sidebar } from '@/components/layout/Sidebar'
-import { fetchGrowthStats } from '@/lib/learner/growth-stats'
+import { StatusRibbon } from '@/components/layout/StatusRibbon'
+import { fetchTodayStatus } from '@/lib/learner/today-status-query'
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
-  // 전역 셸 실데이터 (streak·기억분포·주간일수) — cache() 라 dashboard 와 요청 공유
-  const growth = await fetchGrowthStats()
+  // 셸 상태 1회 조회 — 내부적으로 fetchGrowthStats·fetchTodayPrescription 을 재사용한다(cache()).
+  const status = await fetchTodayStatus()
 
   return (
     <div className="flex min-h-screen bg-[var(--bg2)]">
       {/* 라우트 변경 시 body.style.overflow / focus-mode 강제 reset (sidebar 클릭 결함 차단) */}
       <GlobalBodyReset />
-      <Sidebar streak={growth?.streak ?? 0} />
+      <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
-        <FlowNav
-          momentum={
-            growth
-              ? { streak: growth.streak, mastery: growth.memory, weekDays: growth.weekDays }
-              : null
-          }
-        />
+        <StatusRibbon status={status} />
         <main className="min-w-0 flex-1">
           <SessionFrame>{children}</SessionFrame>
         </main>

@@ -1,12 +1,15 @@
 // apps/web/src/components/layout/Sidebar.tsx
 //
 // 5 그룹 IA — sidebar-config.ts 기반 (CLAUDE.md §17.10 IA 정합).
-// 구성: [Header(로고+토글)] [Streak 미니카드] [META] [divider] [NAV_GROUPS] [divider] [FOOTER]
+// 구성: [Header(로고+토글)] [META] [divider] [NAV_GROUPS] [divider] [FOOTER]
 // 햄버거로 240px ↔ 72px 축소/확대, localStorage 유지.
+//
+// v06.36 (ADR 0006 D2) — Streak 미니카드 제거. streak 은 StatusRibbon 하나가 그린다.
+//   이전에는 같은 값이 Sidebar·FlowNav·HubHero 세 곳에 있었다.
 
 'use client'
 
-import { Flame, Menu, type LucideIcon } from 'lucide-react'
+import { Menu, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -23,11 +26,7 @@ import {
 
 const STORAGE_KEY = 'vocaflow-sidebar-collapsed'
 
-interface SidebarProps {
-  streak: number
-}
-
-export function Sidebar({ streak }: SidebarProps) {
+export function Sidebar() {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -102,37 +101,6 @@ export function Sidebar({ streak }: SidebarProps) {
           <Menu size={18} strokeWidth={2} aria-hidden="true" />
         </button>
       </div>
-
-      {/* ── Streak 미니 카드 (collapsed 시 아이콘만) ── */}
-      {collapsed ? (
-        <Link
-          href="/dashboard"
-          className="mx-auto mb-2 mt-4 inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg3)] text-[var(--active)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          aria-label={`연속 학습 ${streak}일`}
-          title={`Streak ${streak}일`}
-        >
-          <Flame size={15} strokeWidth={2} aria-hidden="true" />
-        </Link>
-      ) : (
-        <div className="mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg3)] px-3 py-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <Flame
-                size={13}
-                strokeWidth={2}
-                className="text-[var(--active)]"
-                aria-hidden="true"
-              />
-              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
-                Streak
-              </span>
-            </div>
-            <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">
-              {streak}일
-            </span>
-          </div>
-        </div>
-      )}
 
       {/* ── 네비게이션 ── */}
       <nav className={`flex-1 overflow-y-auto pb-4 pt-2 ${collapsed ? 'px-2' : 'px-3'}`}>
