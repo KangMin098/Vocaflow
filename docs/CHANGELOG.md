@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### 형태 규칙 구조적 갭 — `-ves` 복수가 아예 없었다 (마이그레이션 1건)
+
+Simplicissimus 처분 중 `wheatsheaves → wheatsheave`(실패)를 만나 규칙 수준으로 되짚었더니
+**`en_inflection_bases` 에 `-f`/`-fe` 명사의 `-ves` 복수 규칙이 통째로 없었다**. 그동안
+`thieves`·`wolves`·`loaves` 가 해석된 것은 `english_irregular_forms` 와 cluster 티어가 개별로
+덮고 있었기 때문이고, **바인딩 경로(`trg_lbv_fill_lemma`)는 이 부류를 통째로 놓치고 있었다.**
+한 권의 1건으로 보였던 것이 실제로는 **177권 · 486행**이었다.
+
+- **★ 그대로 넣으면 안 됐다** — 동사 3인칭 `-ves` 와 충돌한다: `saves→safe` · `caves→cafe` ·
+  `serves→serf`(셋 다 사전 실재 표제어). 바인딩 트리거는 `ORDER BY id.word`(알파벳)라
+  **`safe` 가 `save` 를 이긴다**. 규칙을 넓히기 전에 오탐부터 찾은 것이 이 결함을 막았다.
+- **가드** — `-ve` base 가 사전에 있으면 `-f`/`-fe` 후보를 내지 않는다. 실측(`%ves` 210 lemma):
+  **차단 182**(absolves·achieves·archives·arrives·behaves…) · **통과 28**(knife·wolf·thief·loaf·
+  wife·self·sheaf·scarf·hoof·wharf·elf·turf·midwife·housewife·beef·bookshelf·mischief·wheatsheaf…).
+- **결과** — 177권 재바인딩 후 대상 20 lemma **475행 전부 바인딩 · 미바인딩 0**.
+  Simplicissimus `lemma_bound` 7,521 → 7,527 · 커버리지 94.1% → **94.2%**.
+  **발행 13권 I10 회귀 없음** — 드리프트는 기존 4권(Sociology 38 · Christmas Carol 16 · Fables 13 ·
+  Styles 6) 그대로이고 수치도 동일. 새 드리프트 0.
+- **`en_derivational_bases` `-ish` 비대칭** — 형제 규칙(-ly·-er·-en·-ion·-ity·-able·-or·-ance·
+  -ence)은 전부 `strip`/`strip+e` 두 벌인데 `-ish` 만 한 벌이라 `epicurish → epicur`(실패)였다.
+  `+e` 복원 추가 → `epicurish→epicure` · `millionairish→millionaire`.
+- **하지 않은 것 — 두 파생 규칙 집합의 통합.** `lookup_word_meaning` 의 derivation 티어(12 규칙)와
+  `en_derivational_bases`(100+ 규칙)가 갈라져 있어 통합이 자연스러워 보였다. 실측하니 **통합하면
+  안 된다**: `not_found` 5,827 중 453건이 base 를 얻지만 부정 접두사 가드를 통과한 274건조차
+  `ation→at` · `barant→bar` · `bative→bat` · `bombance→bombe` 수준이다. ADR 0004 D4 의
+  "틀린 뜻은 뜻이 없는 것보다 나쁘다"에 정면으로 걸린다. 분리는 결함이 아니라 **재현율(seed 후보 —
+  뒤에서 검수) 대 정밀도(학습자 즉시 노출)의 의도된 분리**이며, 다음 사람이 같은 착각을 하지
+  않도록 두 함수의 `COMMENT` 에 명시했다.
+
 ### 세트 결합 — 놀면 내 단어가 된다 (프레임워크 결정 3 · A안 채택)
 
 [VOCAB_FRAMEWORK_PROPOSAL.md](./VOCAB_FRAMEWORK_PROPOSAL.md) §9 결정 3 을 **(a) lazy 승격**으로

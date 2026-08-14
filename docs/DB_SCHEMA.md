@@ -358,6 +358,8 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `compute_book_coverage(p_book_id uuid)` | 레벨별 기지어 커버리지 (i+1 판정) |
 | `backfill_book_lemmas(p_book_id uuid)` | direct-bind / 추출 / percentile 정상화 게이트 |
 | `fill_lbv_resolution(p_book_id uuid, p_only_new boolean)` | **v06.35** — `lemma IS NULL` 행에 `lookup_word_meaning` 해석(`resolved_via`/`lang`/`word`) + `noise_kind` 기록. `trg_lbv_fill_lemma` 가 INSERT 시 동일 로직 수행. **v06.36** ([20260813104500](../supabase/migrations/20260813104500_foreign_citation_marking.sql)) — `noise_kind` 에 `'foreign_citation'` 추가 (person/geo_noise 가 우선) |
+| `en_inflection_bases(p text)` | 굴절 base 후보. **v06.36** ([20260814113000](../supabase/migrations/20260814113000_inflection_ves_and_ish_derivation.sql)) — `-ves` 복수 규칙 추가(`-f`/`-fe`). 동사 3인칭 `-ves` 와 충돌하므로 **`-ve` base 가 사전에 있으면 후보를 내지 않는다**(`saves→safe`·`caves→cafe`·`serves→serf` 차단). 실측 차단 182 / 통과 28 · 미바인딩 486행 회수 |
+| `en_derivational_bases(p text)` | 파생 base 후보 — **재현율 우선**. seed 후보 생성과 진단 `deriv_base` 전용이며 뒤에서 사람/배치가 검수하는 것을 전제로 한다. ⚠️ **`lookup_word_meaning` 의 derivation 티어(12 규칙)와 일부러 분리돼 있다** — 통합하면 `ation→at`·`barant→bar`·`bative→bat` 류 오탐이 학습자에게 그대로 노출된다(ADR 0004 D4). **v06.36** — `-ish` 에 `+e` 복원 추가(`epicurish→epicure`) |
 | `is_quoted_foreign_citation(p_sentence text, p_word text)` | **v06.36** IMMUTABLE — `<"인용문" ("번역>` 패턴을 찾아 단어가 인용문에만 있고 번역문에 없으면 true. 닫는 괄호를 요구하지 않는다(`first_sentence` 가 문장 단위라 번역이 잘리는 실측 사례). 전 카탈로그 79권 대상 마킹 17단어/1권 · 오탐 0 |
 | `collect_archaic_candidates(p_book_id uuid)` | 미바인딩 단어를 archaic_candidates 로 수집 |
 | `classify_archaic_candidates()` | 재출현 게이트 — derivational / inflection / variant 분류 |
