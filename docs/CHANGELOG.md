@@ -112,6 +112,35 @@ FlowNav 6 · MobileTab 4)로 서로 다른 분류를 썼고, 상태 지표 **19�
 `library_book` 으로 내면 **발행되고도 보이지 않는다**(실측 후 수정). 출처는 `curation_query.source_book_id`
 로 남기며, `book_id` 키는 기존 챕터 세트 1,129개가 판정에 쓰므로 쓰지 않는다.
 
+### ScriptQuiz 의 "FSRS 0행" 은 결함이 아니었다 — 남길 단어가 없다
+
+F3 다음으로 F5(문맥) 빈칸을 닫으려고 ScriptQuiz 를 열었는데, **설계안의 전제 절반이 틀렸다.**
+"ScriptQuiz · Dictation 을 결합 계약의 1급 시민으로" 라고 돼 있었지만 둘의 사정이 전혀 다르다.
+
+- **문항 1,019(`library_chapter_quiz`) + 5(`quiz_questions`) 어디에도 대상 단어 컬럼이 없다.**
+  문항 자체가 서사 이해다 — *"Wickham 에 대한 여론은 어떻게 뒤집혔나"*. 줄거리 문제 정답을
+  그 문장에 든 단어의 인출로 세는 것은 설계안 §9 가 금지한 바로 그 승격이다(TAP).
+- **적재 경로가 없는 게 아니라 층이 다르다** — 이 활동이 재는 본문 이해는 `scores` 에
+  이미 남는다(실측 15행). 레지스트리 주석이 `// 실측 0행 — 결함` 이라 적어 둔 것이 오진이었고,
+  그대로 두면 다음 사람이 **추측을 기록으로 만드는 배선**을 하게 된다.
+- 빈칸을 진짜로 닫으려면 문항이 대상 단어를 갖게 하는 **콘텐츠 모델 변경**
+  (`library_chapter_quiz` 컬럼 + 1,019 문항 백필)이 선행돼야 한다. 비용이 커서 별도 결정으로 남겼다.
+
+**같은 조사에서 오진 두 건을 더 걸렀다** — 기록 테이블만 보면 셋 다 "쓰기 경로가 깨졌다" 로 읽힌다:
+
+| 관측 | 실제 |
+|---|---|
+| SpellForge `records: true` 인데 `learning_records` 0행 | **아무도 안 했다** — `scores` 도 0행이라 그렇게 판별 |
+| Dictation `scores` 0행인데 완주가 `recordGameScore` 호출 | **내 e2e 가 finally 에서 지운다**(`deleteScoresSince`) |
+| ScriptQuiz `learning_records` 0행 | 위 — 남길 단어가 없다 |
+
+→ `records: false` 앞에서 **"안 쓰는 것인가 · 못 쓰는 것인가 · 안 쓰인 것인가"** 를 먼저 묻도록
+[LEARNING_FRAMEWORK.md](./LEARNING_FRAMEWORK.md) 에 판별법을 명시.
+
+**락 추가**: `facetCoverage().use` 를 단언(설계 3 · 기록 2, 차이는 ScriptQuiz 하나).
+작성 중 이 단언이 **내 실수를 먼저 잡았다** — grep 으로 세어 2 라고 썼는데 `word-customs` 를
+놓쳤고, 문서의 3 이 맞았다. 하마터면 맞는 문서를 틀리게 고칠 뻔했다.
+
 ### EchoMatch 를 청각 면(F3)에 잇는다 — 그리고 복습 간격은 일부러 안 건드린다
 
 설계안 §8 이 "청각 처방 불가" 의 원인으로 **EchoMatch 가 FSRS 밖에 산다** 를 지목했다.

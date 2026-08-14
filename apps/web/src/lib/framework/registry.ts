@@ -271,7 +271,12 @@ export const MODULE_ACTIVITIES: Activity[] = [
     archetype: 'pick',
     contentNeed: 'text',
     minWords: 0,
-    // 실측 0행 — 결함
+    // **0행은 결함이 아니다 — 남길 단어가 없다.** (실측 2026-08-15)
+    //   `library_chapter_quiz` 1,019 + `quiz_questions` 5 문항 어디에도 대상 단어 컬럼이 없고,
+    //   문항 자체가 서사 이해다("Wickham 에 대한 여론은 어떻게 뒤집혔나"). 줄거리 문제를 맞힌 것을
+    //   그 문장에 든 단어의 인출로 세면 근거 없는 주장이 된다(설계안 §9 배제 — TAP).
+    //   이 활동이 재는 것은 **본문 이해**이고 그건 이미 `scores` 에 남는다(실측 15행).
+    //   어휘 신호를 원하면 문항에 대상 단어를 갖게 하는 **콘텐츠 모델 변경**이 선행돼야 한다.
     records: false,
     strand: 'input',
     stages: ['recalled', 'applied'],
