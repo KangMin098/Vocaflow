@@ -87,6 +87,10 @@ interface Finding {
   consoleErrors: string[];
   smallTargets: { label: string; w: number; h: number }[];
   namelessControls: number;
+  /** 다른 경로로 가는 링크 종수 — 0 이면 막다른 길 후보 */
+  forwardPaths: number;
+  /** 44px 이상 · 이름 있는 버튼 수 (JS 라우팅 포함한 "앞길") */
+  actionButtons: number;
 }
 
 /** 페이지 안에서 실제 렌더 기하를 잰다 — 정적 스캔이 못 보는 것. */
@@ -108,11 +112,37 @@ const MEASURE = `() => {
     if (!label) nameless++;
     if (w < 44 || h < 44) small.push({ label: label || '(이름없음)', w: Math.round(w), h: Math.round(h) });
   }
+  // ── 흐름 연속성: 이 화면에서 "앞으로 나아갈 길"이 있는가 ──
+  // 학습자가 화면마다 물어야 하는 것은 "다음에 뭘 하지?" 다. 앞으로 가는 경로가
+  // 하나도 없으면 막다른 길이고, 그건 디자인 취향이 아니라 **셀 수 있는 결함**이다.
+  // (판단이 필요한 "이 화면이 이해되는가" 는 자동화 못 하지만, 이건 된다)
+  const here = location.pathname;
+  const forward = [];
+  for (const a of Array.from(document.querySelectorAll('a[href]'))) {
+    const r = a.getBoundingClientRect();
+    if (r.width === 0 || r.height === 0) continue;
+    const href = a.getAttribute('href') || '';
+    if (!href.startsWith('/')) continue;                 // 외부·앵커 제외
+    const path = href.split('?')[0].split('#')[0];
+    if (!path || path === here) continue;                 // 자기 자신 제외
+    forward.push(path);
+  }
+  // 라우팅을 JS 로 하는 버튼도 앞길이다 — 44px 이상 + 이름 있는 것만 인정
+  let actionButtons = 0;
+  for (const b of Array.from(document.querySelectorAll('button, [role="button"]'))) {
+    const r = b.getBoundingClientRect();
+    if (r.width < 44 || r.height < 44) continue;
+    const nm = (b.getAttribute('aria-label') || b.textContent || '').trim();
+    if (nm) actionButtons++;
+  }
+
   const de = document.documentElement;
   return {
     overflowPx: Math.max(0, de.scrollWidth - de.clientWidth),
     small,
     nameless,
+    forwardPaths: Array.from(new Set(forward)).length,
+    actionButtons,
   };
 }`;
 
@@ -148,7 +178,7 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
           await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 30_000 });
           await page.waitForTimeout(900); // hydration + 첫 데이터
         } catch {
-          findings.push({ route, case: c.name, overflowPx: -1, consoleErrors: ['NAVIGATION_FAILED'], smallTargets: [], namelessControls: 0 });
+          findings.push({ route, case: c.name, overflowPx: -1, consoleErrors: ['NAVIGATION_FAILED'], smallTargets: [], namelessControls: 0, forwardPaths: -1, actionButtons: -1 });
           continue;
         }
 
@@ -158,6 +188,8 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
           overflowPx: number;
           small: { label: string; w: number; h: number }[];
           nameless: number;
+          forwardPaths: number;
+          actionButtons: number;
         };
         let m: Measured | null = null;
         for (let attempt = 1; attempt <= 2 && !m; attempt++) {
@@ -170,7 +202,7 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
           }
         }
         if (!m) {
-          findings.push({ route, case: c.name, overflowPx: -1, consoleErrors: ['MEASURE_FAILED'], smallTargets: [], namelessControls: 0 });
+          findings.push({ route, case: c.name, overflowPx: -1, consoleErrors: ['MEASURE_FAILED'], smallTargets: [], namelessControls: 0, forwardPaths: -1, actionButtons: -1 });
           continue;
         }
 
@@ -183,6 +215,8 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
           ),
           smallTargets: m.small,
           namelessControls: m.nameless,
+          forwardPaths: m.forwardPaths,
+          actionButtons: m.actionButtons,
         });
       }
     }
@@ -208,6 +242,22 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
     console.log(`\n[sweep] ${ROUTES.length} 화면 × ${CASES.length} 케이스 = ${findings.length} 측정`);
     console.log(`[sweep] 가로 넘침 ${overflow.length} · 콘솔 에러 ${errored.length} · 이름없는 컨트롤 ${nameless.length}`);
     console.log(`[sweep] 44px 미만 터치 타겟 ${totalSmall}건 (중복 포함) / ${smallByRoute.size}개 화면\n`);
+
+    // ── 흐름 연속성 리포트 ──
+    //   앞길(다른 경로 링크 + 44px 이상 이름있는 버튼)이 아예 없으면 막다른 길이다.
+    //   학습자가 "다음에 뭘 하지?" 를 화면에서 답할 수 없다는 뜻.
+    const deadEnds = findings.filter(
+      (f) => f.forwardPaths === 0 && f.actionButtons === 0,
+    );
+    const thinPaths = findings.filter(
+      (f) => f.forwardPaths >= 0 && f.forwardPaths + f.actionButtons > 0 && f.forwardPaths + f.actionButtons <= 2,
+    );
+    console.log(`[sweep] 흐름 — 막다른 길 ${deadEnds.length} · 앞길 2개 이하 ${thinPaths.length}`);
+    for (const f of deadEnds) console.log(`  막다른길  ${f.route} [${f.case}]`);
+    for (const f of thinPaths.slice(0, 8)) {
+      console.log(`  앞길얇음  ${f.route} [${f.case}] 링크${f.forwardPaths}+버튼${f.actionButtons}`);
+    }
+    console.log('');
 
     for (const f of overflow) console.log(`  넘침 ${f.overflowPx}px  ${f.route} [${f.case}]`);
     for (const f of errored) console.log(`  에러  ${f.route} [${f.case}] ${f.consoleErrors[0]}`);
