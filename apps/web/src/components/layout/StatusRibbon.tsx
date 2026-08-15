@@ -20,6 +20,8 @@
 
 import { Flame } from 'lucide-react'
 import Link from 'next/link'
+
+import { MEMORY_ATTENTION_LABEL } from '@/lib/framework/memory-labels'
 import { usePathname } from 'next/navigation'
 
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
@@ -85,17 +87,14 @@ function Metrics({ status }: { status: TodayStatus }) {
       {status.attention > 0 && (
         <Link
           href="/wordvault"
-          aria-label={`흔들리는 단어 ${status.attention}개 보기`}
+          aria-label={`${MEMORY_ATTENTION_LABEL} 단어 ${status.attention}개 보기`}
           className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {/* 색만으로 알리지 않는다 — 점 + 라벨 + 숫자 3중 (색맹 대응) */}
-          <span
-            aria-hidden
-            className="h-2 w-2 shrink-0 rounded-full bg-[var(--warning)]"
-          />
+          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-[var(--warning)]" />
           <span className="flex flex-col leading-none">
             <span className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
-              흔들림
+              {MEMORY_ATTENTION_LABEL}
             </span>
             <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
               {status.attention}

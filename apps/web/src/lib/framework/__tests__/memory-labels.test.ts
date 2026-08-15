@@ -82,4 +82,22 @@ describe('기억 4상태 이름 레지스트리', () => {
     }
     expect(offenders, `레지스트리를 안 거친 상태 라벨:\n${offenders.join('\n')}`).toEqual([])
   })
+
+  it('JSX 텍스트로 적은 상태 라벨도 잡는다', () => {
+    // 위 검사는 `label: '흔들림'` 형태만 봤다. 상단 리본은 그냥 JSX 텍스트 노드였고
+    // (`<span>\n  흔들림\n</span>`) **그래서 통과했다** — 그 사이 리본은 shaky+risk 합계를
+    // '흔들림' 이라 불러, 같은 세션 안에서 리본 135 · WordVault 20 이 동시에 떠 있었다.
+    // 줄 전체가 라벨 하나뿐인 경우만 본다 — 산문 속에 그 단어가 나오는 것은 이름 짓기가 아니다.
+    const bare = new RegExp(`^\\s*(${KNOWN_LABELS.join('|')})\\s*$`)
+    const offenders: string[] = []
+    for (const file of walk(SRC)) {
+      if (!file.endsWith('.tsx')) continue
+      fs.readFileSync(file, 'utf8')
+        .split('\n')
+        .forEach((line, i) => {
+          if (bare.test(line)) offenders.push(`${path.relative(SRC, file)}:${i + 1}  ${line.trim()}`)
+        })
+    }
+    expect(offenders, `JSX 텍스트로 적은 상태 라벨:\n${offenders.join('\n')}`).toEqual([])
+  })
 })

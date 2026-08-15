@@ -52,3 +52,16 @@ export const MEMORY_LABEL: Record<MemoryState, MemoryLabel> = {
 
 /** 화면에 세울 때의 순서 — 선명한 것에서 흐린 것으로, 새 단어는 끝. */
 export const MEMORY_ORDER: MemoryState[] = ['stable', 'shaky', 'risk', 'new']
+
+/**
+ * `shaky + risk` 합계의 이름 — **네 상태 중 하나가 아니다.**
+ *
+ * 실측 2026-08-16: 상단 리본이 이 합계를 `흔들림` 이라 부르고 있었다. 그런데 레지스트리에서
+ * 흔들림은 `shaky` **하나**를 가리킨다. 그래서 학습자는 한 세션 안에서 같은 단어의 두 수를
+ * 본다 — 리본 "흔들림 135" · WordVault "흔들림 20". 집계에 구성 요소의 이름을 붙이면
+ * 반드시 이렇게 어긋난다.
+ *
+ * 그래서 집계에는 **행동의 이름**을 준다. 상태가 아니라 "지금 손이 필요한 만큼" 이고,
+ * WordVault 의 CTA(`지금 다시 만나기`)와 같은 말을 쓴다.
+ */
+export const MEMORY_ATTENTION_LABEL = '다시 볼'
