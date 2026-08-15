@@ -88,12 +88,9 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: BookImage,
         ariaLabel: 'Book Comics — 읽는 책을 만화로',
       },
-      {
-        label: 'Vintage Comics',
-        href: '/comics/restored',
-        icon: ScanLine,
-        ariaLabel: 'Vintage Comics — 1940~50년대 옛 영어 만화책',
-      },
+      // Vintage Comics(PDCP · /comics/restored)는 ADR 0007 로 제거했다 —
+      // internet-archive 스캔 + OCR 만 거친 산출물이라 학습자에게 낼 수준이 아니었다
+      // (The Odyssey: 말풍선 2,204 중 needsReview 1,964 = 89%).
     ],
   },
   {
