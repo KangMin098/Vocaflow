@@ -108,9 +108,33 @@ DROP TABLE IF EXISTS pd_comic_issues;
 
 ---
 
-## 5. 미확정 (다음 세션에서 확정할 것)
+## 4.5 스크립트 목록 — 전체 grep 실측 (2026-08-15)
 
-- PDCP 전용 스크립트의 정확한 목록 (`scripts/` 에서 `pdcp`·`pd_comic` grep)
+리포 전체 `kaggle` grep(31개 파일) + 디렉터리 구조로 확정.
+
+**PDCP 전용 — 삭제**
+```
+scripts/comic/pd/compare-tracks.mjs
+scripts/comic/pd/kaggle-restyle.mjs
+scripts/comic/pd/pd-record.mjs
+scripts/comic/pd/__tests__/compare-tracks.test.mjs
+scripts/comic/kaggle/          (5 파일 — kaggle-auto-test · qwen-lightning-cell.py · setup-comfyui-comic.py · _gen-kernel.py · README)
+scripts/comic/docs/PD_COMIC_PIPELINE.md
+scripts/comic/docs/PD_MODERNIZE_MODEL.md
+work/_kaggle-restyle/         (스크래치 산출물)
+```
+
+**CCP 공용 — 파일은 유지, Kaggle 분기만 제거**
+```
+scripts/comic/comfy-auth.mjs · connect-check.mjs · gen-comfy.mjs · model-runners.mjs
+scripts/comic/docs/RUN_ENVIRONMENTS.md · PIPELINE_QC_DESIGN.md
+scripts/lcp/test-comic-model.mjs
+```
+
+**마이그레이션** — `20260808220000_comic_gen_models_run_envs.sql` 이 실행환경 값에 `kaggle-t4` 를
+포함한다. **되돌리지 말고**, 해당 모델 행을 `제외` 상태로 내리는 것으로 충분하다(§2 근거).
+
+## 5. 미확정 (다음 세션에서 확정할 것)
 - `pd_comic_*` 참조 RPC/view/트리거 존재 여부
 - `11-comic-discovery`·`13-comic-navigation` 중 restored 의존 단언의 범위
 - 사이드바 Comics 그룹을 해체할지, `Book Comics` 하나만 남길지 (ADR 0006 D1 과 함께 결정)
