@@ -735,9 +735,14 @@ const B: Blueprint[] = [
         population: { kind: 'dictionary' },
         filters: { require_fields: ['antonyms'], freq_bands: ['top1k', 'top2k', 'top3k'] },
         objective: { kind: 'count', n: p.count ?? 300 },
-        group_by: 'pos',
-        group_order: 'size_desc',
-        order_within: 'frequency',
+        // 목차는 **짝**이다. 한때 `pos` 였는데 품사는 반대말과 아무 상관이 없고, 사전의
+        // primary_pos 가 `but`·`down`·`first` 까지 전부 noun 이라 300개가 한 덩어리였다.
+        group_by: 'antonym_pair',
+        group_order: 'alpha',
+        // 짝이 성립하지 않는 낱말은 싣지 않는다. 실측 300 중 135 만 상대가 세트에 있었다 —
+        // 나머지 165 는 "반대말 짝" 이라는 제목 아래 혼자 있는 낱말이었다.
+        min_group_size: 2,
+        order_within: 'alpha',
         facets: ['recognize', 'use'],
         contrast: 'antonym',
       }),

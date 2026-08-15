@@ -97,6 +97,39 @@ export function isNearSpelling(a: string, b: string): boolean {
  * 짝이 없는 단어는 `solo:` 키를 받고, 평가기가 그것을 `blueprint_fit` 감점으로 잡는다 —
  * 혼동어 단어장에 짝 없는 단어가 섞이는 것이 그 유형의 가장 흔한 실패다.
  */
+/**
+ * 반대말 **짝** 묶음 — 두 낱말이 마주 보게.
+ *
+ * 왜 필요한가: 이 유형은 목차를 `pos` 로 잡고 있었다. 품사는 반대말과 아무 상관이 없고,
+ * 게다가 사전의 `primary_pos` 가 `but`·`down`·`first` 까지 전부 `noun` 이라 300개가 사실상
+ * 한 덩어리였다. 학습자에게는 `but · will · first · day · child …` 라는 목록이 보인다 —
+ * 반대말 책을 열었는데 짝이 어디에도 없다.
+ *
+ * 더 큰 문제는 **상대가 세트에 없는 것**이었다(실측 300 중 135 만 짝 성립 = 45%).
+ * 짝 키로 묶으면 혼자 남은 낱말은 `solo:` 가 되고, `min_group_size: 2` 가 그것을 걷어낸다.
+ * 그 결과 세트는 작아지지만 **약속한 것만 남는다**.
+ */
+export function buildAntonymGroups(candidates: CandidateWord[]): Map<string, GroupAssignment> {
+  const present = new Map<string, CandidateWord>()
+  for (const c of candidates) present.set(c.word.toLowerCase(), c)
+
+  // 짝 키는 **두 낱말을 사전순으로 정렬해** 만든다. 어느 쪽에서 붙이든 같은 키가 나와야
+  // 둘이 한 군에 모인다 (A 가 B 를 고르고 B 가 C 를 고르면 A·B 가 각자 혼자 남는다 —
+  // 정렬 키가 그 비대칭을 흡수한다).
+  const out = new Map<string, GroupAssignment>()
+  for (const c of candidates) {
+    const w = c.word.toLowerCase()
+    const partner = c.antonyms.map((a) => a.toLowerCase().trim()).find((a) => a !== w && present.has(a))
+    if (!partner) {
+      out.set(w, { key: `solo:${w}`, label: `짝 없음 — ${w}` })
+      continue
+    }
+    const pair = [w, partner].sort()
+    out.set(w, { key: `anto:${pair.join('|')}`, label: `${pair[0]} ↔ ${pair[1]}` })
+  }
+  return out
+}
+
 export function buildConfusableGroups(candidates: CandidateWord[]): Map<string, GroupAssignment> {
   const words = candidates.map((c) => c.word.toLowerCase())
   const index = new Map<string, number>()
@@ -479,11 +512,15 @@ export function organize(
 
   const confusable =
     spec.group_by === 'confusable' ? buildConfusableGroups(staged) : new Map<string, GroupAssignment>()
+  const antonym =
+    spec.group_by === 'antonym_pair' ? buildAntonymGroups(staged) : new Map<string, GroupAssignment>()
   const family = spec.group_by === 'family' ? buildFamilyKeys(staged) : new Map<string, string>()
 
   const byKey = new Map<string, { label: string; rank?: number; items: CandidateWord[] }>()
   for (const c of staged) {
-    const a = assign(c, spec.group_by, confusable, family)
+    const a = spec.group_by === 'antonym_pair'
+      ? (antonym.get(c.word.toLowerCase()) ?? { key: `solo:${c.word}`, label: `짝 없음 — ${c.word}` })
+      : assign(c, spec.group_by, confusable, family)
     const g = byKey.get(a.key)
     if (g) g.items.push(c)
     else byKey.set(a.key, { label: a.label, rank: a.rank, items: [c] })

@@ -221,6 +221,8 @@ export const GROUP_BYS = [
   'cefr',
   'freq_band',
   'confusable',
+  /** 반대말 짝 — 사전의 `antonyms` 중 같은 풀에 있는 상대와 마주 보게 묶는다 */
+  'antonym_pair',
   /**
    * **실제로 헷갈린 짝** — 오답일 때 학습자가 고른 단어와 정답을 한 그룹에.
    *
