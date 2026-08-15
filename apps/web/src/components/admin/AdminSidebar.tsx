@@ -65,6 +65,8 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
       { href: '/admin/vrl/automation', label: 'VRL Automation', Icon: Workflow },
       { href: '/admin/comic', label: 'Comic Pipeline', Icon: BookImage },
+      // PDCP — 퍼블릭도메인 스캔 만화. CCP(위)와 단계·QC·법적 게이트가 전부 달라 별도 메뉴.
+      { href: '/admin/pd-comics', label: 'PD Comic Pipeline', Icon: ScanLine },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },
@@ -156,7 +158,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                     aria-hidden="true"
                   />
                 )}
-                <span className="font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+                <span className="font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
                   {group.label}
                 </span>
                 <span
@@ -176,7 +178,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                       className={`group relative flex items-center gap-2.5 rounded-[var(--r-md)] py-1.5 pl-3 pr-2 font-display text-[14px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
                         isActive
                           ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
-                          : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
+                          : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
                       } `}
                     >
                       {isActive && (
@@ -199,7 +201,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                           className={`transition-colors duration-[var(--dur-normal)] ${
                             isActive
                               ? 'text-[#8B5CF6]'
-                              : 'text-[var(--t2)] group-hover:text-[var(--t2)]'
+                              : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
                           } `}
                         />
                       </span>
@@ -228,7 +230,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
           className="group flex items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)] hover:ring-1 hover:ring-[var(--bd)]"
         >
           <span
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--on-p-tint)]"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]"
             aria-hidden="true"
           >
             <ArrowLeft size={15} strokeWidth={1.75} />
@@ -237,12 +239,12 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
             <p className="truncate font-display text-[13px] font-[600] text-[var(--t1)]">
               사용자 앱으로
             </p>
-            <p className="truncate font-body text-[11px] text-[var(--t2)]">/hub</p>
+            <p className="truncate font-body text-[11px] text-[var(--t3)]">/hub</p>
           </div>
           <Database
             size={13}
             strokeWidth={1.75}
-            className="shrink-0 text-[var(--t2)] opacity-0 transition-opacity duration-[var(--dur-normal)] group-hover:opacity-100"
+            className="shrink-0 text-[var(--t3)] opacity-0 transition-opacity duration-[var(--dur-normal)] group-hover:opacity-100"
             aria-hidden="true"
           />
         </Link>

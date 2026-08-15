@@ -18,6 +18,7 @@ import { ACP_HELP } from './articles'
 import { CCP_HELP } from './comic'
 import { LCP_HELP } from './curation'
 import { OPS_HELP } from './ops'
+import { PDCP_HELP } from './pd-comics'
 import { QUALITY_HELP } from './quality'
 import { VCB_HELP } from './vocab'
 import { VRL_HELP } from './vrl'
@@ -26,6 +27,7 @@ export const HELP_REGISTRY: HelpRegistry = {
   ...ACP_HELP,
   ...LCP_HELP,
   ...CCP_HELP,
+  ...PDCP_HELP,
   ...VCB_HELP,
   ...VRL_HELP,
   ...QUALITY_HELP,

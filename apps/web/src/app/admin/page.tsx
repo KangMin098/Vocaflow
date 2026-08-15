@@ -171,7 +171,18 @@ function buildPipelines(s: DashboardStats): PipelineCard[] {
         { label: '공개', value: s.comics.published, tone: 'ok' },
       ],
     },
-    // PDCP(퍼블릭도메인 스캔 만화) 카드는 ADR 0007 로 제거했다 — 파이프라인 자체가 없어졌다.
+    {
+      href: '/admin/pd-comics',
+      label: 'PDCP · 퍼블릭도메인 만화',
+      sub: '취득 → 복원 → OCR → 현대화 → PD 게이트',
+      Icon: ScanLine,
+      metrics: [
+        { label: '처리 중', value: s.pdComics.inFlight, tone: 'busy' },
+        { label: '검수 대기', value: s.pdComics.review, tone: 'todo' },
+        { label: '공개', value: s.pdComics.published, tone: 'ok' },
+        { label: '실패', value: s.pdComics.failed, tone: 'error' },
+      ],
+    },
     {
       href: '/admin/pending-words',
       label: 'Pending Words',
