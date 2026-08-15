@@ -209,6 +209,91 @@ describe('deriveErrorTags', () => {
     expect(tags).toContain('tail-drop')
   })
 
+  // ── 아래 3개는 2026-08-15 까지 **테스트가 없던 규칙**이다.
+  //    채점계의 미검증 경로는 조용히 틀리는 자리다 — 태그가 안 붙으면 약점 패널이
+  //    그 약점을 영영 말하지 않고, 학습자는 자기가 무엇을 놓치는지 모른 채 반복한다.
+
+  it('기능어 누락을 function-word 로 잡는다 (관사와 구분한다)', () => {
+    const tags = deriveErrorTags({
+      expected: 'He looked at the sky.',
+      actual: 'He looked the sky.',
+      wordResults: [
+        wr('he', 'he', 'correct'),
+        wr('looked', 'looked', 'correct'),
+        wr('at', '', 'missing'),
+        wr('the', 'the', 'correct'),
+      ],
+    })
+    expect(tags).toContain('function-word')
+    // 'at' 은 관사가 아니다 — 둘이 섞이면 처방 문구가 엉뚱해진다
+    expect(tags).not.toContain('article')
+  })
+
+  it('축약형 혼동을 contraction 으로 잡는다', () => {
+    const tags = deriveErrorTags({
+      expected: "It's cold outside.",
+      actual: 'Its cold outside.',
+      wordResults: [wr("it's", 'its', 'wrong')],
+    })
+    expect(tags).toContain('contraction')
+  })
+
+  it('아포스트로피가 갈리는 쌍은 homophone 이 가져가지 않는다 (규칙이 서로소다)', () => {
+    // 동음 표가 축약 쌍을 들고 있고 먼저 검사되던 동안, contraction 은 자기 설명문이
+    // 예로 든 경우("it's 와 its")를 한 번도 못 잡았다. 순서가 결과를 정하는 상태였다.
+    for (const [exp, act] of [
+      ["it's", 'its'],
+      ["they're", 'their'],
+      ["you're", 'your'],
+    ] as const) {
+      const tags = deriveErrorTags({
+        expected: `${exp} here`,
+        actual: `${act} here`,
+        wordResults: [wr(exp, act, 'wrong')],
+      })
+      expect(tags, `${exp}→${act}`).toContain('contraction')
+      expect(tags, `${exp}→${act} 가 동음으로도 잡혔다`).not.toContain('homophone')
+    }
+  })
+
+  it('순수 동음이의는 그대로 homophone 이다 (과잉 이동 아님)', () => {
+    for (const [exp, act] of [
+      ['their', 'there'],
+      ['to', 'too'],
+      ['hear', 'here'],
+    ] as const) {
+      const tags = deriveErrorTags({
+        expected: `${exp} now`,
+        actual: `${act} now`,
+        wordResults: [wr(exp, act, 'wrong')],
+      })
+      expect(tags, `${exp}→${act}`).toContain('homophone')
+    }
+  })
+
+  it('소리는 맞고 철자만 틀리면 spelling', () => {
+    const tags = deriveErrorTags({
+      expected: 'a necessary change',
+      actual: 'a neccessary change',
+      wordResults: [wr('necessary', 'neccessary', 'misspelled')],
+    })
+    expect(tags).toContain('spelling')
+  })
+
+  it('완전 정답이면 태그가 하나도 안 붙는다 (없는 약점을 만들지 않는다)', () => {
+    const tags = deriveErrorTags({
+      expected: 'The morning sun rose.',
+      actual: 'The morning sun rose.',
+      wordResults: [
+        wr('the', 'the', 'correct'),
+        wr('morning', 'morning', 'correct'),
+        wr('sun', 'sun', 'correct'),
+        wr('rose', 'rose', 'correct'),
+      ],
+    })
+    expect(tags).toEqual([])
+  })
+
   it('타깃을 놓치면 missed-target', () => {
     const tags = deriveErrorTags({
       expected: 'a capacious pocket',

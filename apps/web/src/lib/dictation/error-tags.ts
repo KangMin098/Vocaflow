@@ -94,14 +94,17 @@ const FUNCTION_WORDS = new Set([
   'her', 'its', 'their', 'our', 'your', 'my', 'them', 'him', 'us', 'me',
 ])
 
+/**
+ * 순수 동음이의 — **아포스트로피가 갈리는 쌍은 여기 두지 않는다.**
+ *
+ * 2026-08-15 이전에는 `its ↔ it's`, `their ↔ they're`, `your ↔ you're` 가 이 표에 있었고
+ * 동음 검사가 축약 검사보다 먼저였다. 그래서 `contraction` 태그는 **자기 설명문이 예로 든
+ * 바로 그 경우**("it's 와 its")를 한 번도 못 잡았다 — 태그와 코칭 문구는 있는데 안 붙는 상태.
+ * 한 입력을 두 규칙이 주장하면 순서가 결과를 정한다. 표를 서로소로 만들어 그 모호함을 없앤다.
+ */
 const HOMOPHONE_PAIRS: Record<string, string[]> = {
-  their: ['there', "they're", 'theyre'],
-  there: ['their', "they're", 'theyre'],
-  "they're": ['their', 'there'],
-  your: ["you're", 'youre'],
-  "you're": ['your'],
-  its: ["it's", 'its'],
-  "it's": ['its'],
+  their: ['there'],
+  there: ['their'],
   to: ['too', 'two'],
   too: ['to', 'two'],
   two: ['to', 'too'],
