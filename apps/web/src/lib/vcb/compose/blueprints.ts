@@ -1124,9 +1124,12 @@ const D: Blueprint[] = [
     title: '오디오 단어장',
     market_example: '듣기 전용 보카 · 흘려듣기 mp3',
     organizing_principle: '소리 — 화면을 보지 않고 듣는다',
-    status: 'partial',
-    gap_note:
-      'audio_url 0% (45,688행 전부 NULL) — 재생은 런타임 TTS 로 성립한다(WordVault 흘려듣기 큐가 이미 그렇게 돈다). 없는 것은 **녹음본**이고, 그래서 (1) 오프라인 다운로드 (2) 원어민 억양 두 가지가 빠진다. 평가기는 이 세트의 Sound 면을 fallback(0.7) 로 계산한다',
+    // 브라우저 TTS 가 전달 방식으로 확정됐다(2026-08-15). 그래서 이 유형은 `ready` 다 —
+    // 녹음본은 없지만 그건 결핍이 아니라 선택이고, 재생은 WordVault 흘려듣기 큐가 이미 한다.
+    // 남는 차이는 두 가지뿐이고 둘 다 **가산**이다: 오프라인 저장 · 원어민 억양.
+    // 대신 새 실패 지점이 생겼다 — 영어 음성이 설치되지 않은 브라우저.
+    // `useSpeech` 가 en 음성을 직접 고르고, 실패해도 큐가 멈추지 않게 완료를 통지한다.
+    status: 'ready',
     requires_params: [],
     fit_rules: [{ kind: 'audio_playable' }],
     weights: { ...W_DEFAULT, fill: 0.4, noise: 0.1, novelty: 0.05, level_fit: 0.1 },

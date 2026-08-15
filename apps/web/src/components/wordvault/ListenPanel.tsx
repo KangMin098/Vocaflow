@@ -55,6 +55,12 @@ export interface ListenPanelProps {
   queueLength: number
   /** 현재 재생 단어 */
   currentWord: WordItem | null
+  /**
+   * 이 브라우저에 **영어 음성이 설치돼 있는가**. 재생은 브라우저 TTS 가 맡으므로,
+   * 영어 음성이 없으면 소리는 나도 영어를 영어로 읽지 않을 수 있다.
+   * 그 사실을 말해 주지 않으면 학습자는 "발음이 이상하다" 를 자기 귀 탓으로 돌린다.
+   */
+  englishVoice?: boolean
 }
 
 const CONTENT_OPTS: { value: ListenContent; label: string }[] = [
@@ -84,6 +90,7 @@ export function ListenPanel({
   currentIndex,
   queueLength,
   currentWord,
+  englishVoice = true,
 }: ListenPanelProps) {
   const selectedCount = selectedIds.size
 
@@ -195,6 +202,17 @@ export function ListenPanel({
 
         </div>
       </div>
+
+      {/*
+        영어 음성 없음 — 재생은 되지만 영어를 영어로 읽지 않을 수 있다.
+        모달로 막지 않는다(학습 중단 금지). 무엇을 하면 되는지까지 한 줄로 말한다.
+      */}
+      {!englishVoice && (
+        <p className="mt-s-3 rounded-[var(--r-md)] bg-bg2 px-s-3 py-s-2 text-xs font-medium leading-relaxed text-t2">
+          이 브라우저에 영어 음성이 없어요. 소리는 나지만 발음이 정확하지 않을 수 있어요 — 기기 설정에서
+          영어 음성을 추가하면 자연스럽게 들려요.
+        </p>
+      )}
 
       {/* 진행률 (재생 중에만) */}
       {isPlaying && (

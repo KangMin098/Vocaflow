@@ -9,7 +9,9 @@
 //
 // 실측 전제 (2026-08-14):
 //   meaning_ko 100% · senses 100% · example_en 92% · ipa 81% · collocations 31%
-//   **audio_url 0% · image_url 0%** → Sound 면은 ipa + 런타임 TTS 로만 지탱된다(= tts_fallback).
+//   **audio_url 0% · image_url 0%** → Sound 면의 재생은 **브라우저 TTS** 가 맡는다(제품 결정
+//   2026-08-15). 그래서 녹음 부재는 결핍이 아니라 전달 방식의 선택이고, 등급을 내리지 않는다.
+//   Picture 는 대체 경로가 없어 여전히 결핍이다.
 
 import type { FacetId } from '@/lib/framework/axes'
 import { FACETS } from '@/lib/framework/axes'
@@ -45,7 +47,7 @@ export const FACET_REQUIREMENTS: Record<FacetId, FacetRequirement> = {
     all: [],
     any_of: [['audio_url', 'ipa']],
     bonus: ['audio_url'],
-    why: '들려줄 소리가 있어야 한다. 녹음 자산이 없으면 IPA + 런타임 TTS 로 대체된다(등급 하락).',
+    why: '들려줄 소리가 있어야 한다. 재생은 브라우저 TTS 가 맡고(제품 결정), IPA 는 학습자가 눈으로 확인하는 표기다.',
   },
   build: {
     all: [],
@@ -151,15 +153,17 @@ export interface FacetVerdict {
   facet: FacetId
   tier: FacetTier
   missing: RequirableField[]
-  /** 왜 fallback 인가 — 리포트가 그대로 읽는다 */
+  /** 어떻게 지탱되는가 — 리포트가 그대로 읽는다 (예: TTS 재생 · 녹음 없음) */
   note: string | null
 }
 
 /**
  * 후보 하나가 면 하나를 지탱하는가.
  *
- * `fallback` 은 "성립하지만 최선이 아님" 이다 — Sound 를 IPA + TTS 로 지탱하는 경우가 그것이고,
- * 이것을 `full` 로 기록하면 녹음 자산 0% 라는 사실이 리포트에서 사라진다.
+ * `fallback` 은 "성립하지만 최선이 아님" 이다. 지금 이 등급을 쓰는 면은 없다 — Sound 가
+ * 유일한 사용처였는데 브라우저 TTS 가 전달 방식으로 확정되면서 `full` 이 됐다.
+ * 등급 자체는 남겨 둔다: 앞으로 "되긴 하지만 최선은 아닌" 경로(저해상도 이미지 등)가
+ * 생기면 그때 쓸 자리다.
  */
 export function facetVerdict(c: CandidateWord, facet: FacetId): FacetVerdict {
   const req = FACET_REQUIREMENTS[facet]
@@ -177,11 +181,18 @@ export function facetVerdict(c: CandidateWord, facet: FacetId): FacetVerdict {
   }
 
   if (facet === 'sound' && !hasField(c, 'audio_url')) {
+    // 한때 여기서 tier 를 내렸다(0.7 가중). 그건 "녹음이 정본이고 TTS 는 임시" 라는 전제였는데,
+    // 제품은 **브라우저 TTS 를 전달 방식으로 확정**했다. 확정된 방식을 결핍으로 계속 세면
+    // 그 유형은 영원히 감점된 채로 남는다.
+    //
+    // 그래도 녹음이 없다는 사실 자체는 지운 것이 아니다 — `audio_playable` 적합 규칙이
+    // 채점표에 "녹음 0 · TTS 합성 300" 으로 그대로 적고, note 가 여기서 한 번 더 말한다.
+    // (녹음이 생기면 그건 감점 해소가 아니라 **가산**이다: 오프라인 저장·원어민 억양.)
     return {
       facet,
-      tier: 'fallback',
-      missing: ['audio_url'],
-      note: '녹음 자산 없음 — 런타임 TTS 로 재생된다',
+      tier: 'full',
+      missing: [],
+      note: '브라우저 TTS 로 재생 — 녹음 자산은 없다(있으면 오프라인·원어민 억양이 더해진다)',
     }
   }
 

@@ -239,6 +239,7 @@ export default function WordVaultPage() {
                 currentIndex={queue.currentIndex}
                 queueLength={queue.queueLength}
                 currentWord={queue.currentWord}
+                englishVoice={queue.englishVoice}
               />
 
               <HideToggleBar

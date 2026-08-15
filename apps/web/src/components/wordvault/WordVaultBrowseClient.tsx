@@ -275,6 +275,7 @@ export function WordVaultBrowseClient({
               currentIndex={queue.currentIndex}
               queueLength={queue.queueLength}
               currentWord={queue.currentWord}
+              englishVoice={queue.englishVoice}
             />
 
             {/* ── 도구 모음: 검색 + 난이도 + 정렬 + Active Recall (1행 컴팩트) ── */}

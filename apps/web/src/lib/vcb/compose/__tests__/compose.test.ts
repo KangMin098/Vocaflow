@@ -104,10 +104,15 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
     expect(v.tier).toBe('full')
   })
 
-  it('Sound 면은 녹음이 없으면 fallback 으로 강등된다 — audio_url 0% 를 숨기지 않는다', () => {
+  it('Sound 면은 녹음이 없어도 성립한다 — 브라우저 TTS 가 전달 방식이다', () => {
+    // 한때 여기서 강등했다(fallback · 0.7 가중). 그건 "녹음이 정본" 이라는 전제였는데
+    // 제품이 브라우저 TTS 를 전달 방식으로 확정하면서 그 전제가 사라졌다.
+    // 확정된 방식을 계속 결핍으로 세면 오디오 유형이 영원히 감점된 채로 남는다.
     const v = facetVerdict(word('alpha'), 'sound')
-    expect(v.tier).toBe('fallback')
+    expect(v.tier).toBe('full')
+    // 다만 **녹음이 없다는 사실**은 숨기지 않는다 — 리포트가 이 문구를 그대로 읽는다.
     expect(v.note).toMatch(/TTS/)
+    expect(v.note).toMatch(/녹음/)
   })
 
   it('Sound 면은 IPA 도 없으면 아예 불가다', () => {
