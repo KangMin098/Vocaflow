@@ -197,10 +197,21 @@ export function DictationResultsClient() {
             복습에 반영된 단어
           </h3>
           {agg.hits.length === 0 && agg.misses.length === 0 ? (
-            <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
-              이번 문장들에는 내 단어가 들어 있지 않았어요. 단어장이나 도서 챕터를 고르면
-              받아쓰기가 그대로 복습이 됩니다.
-            </p>
+            /* 처방을 말하면서 갈 길을 안 주면 그 문장은 조언이 아니라 설명으로 끝난다. */
+            /* "단어장이나 도서 챕터를 고르면" 이라고 했으면 고르는 자리로 보내야 한다. */
+            <>
+              <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+                이번 문장들에는 내 단어가 들어 있지 않았어요. 단어장이나 도서 챕터를 고르면
+                받아쓰기가 그대로 복습이 됩니다.
+              </p>
+              <Link
+                href="/dictate"
+                className="inline-flex min-h-[44px] items-center gap-1 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+              >
+                자료 고르기
+                <ArrowRight size={13} />
+              </Link>
+            </>
           ) : (
             <>
               <div className="flex flex-wrap gap-1.5">
