@@ -229,7 +229,7 @@ function QuickPaste() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-1 flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-2.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="mt-1 flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-2.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         <ClipboardPaste size={13} />
         영어 글을 붙여넣어 바로 받아쓰기

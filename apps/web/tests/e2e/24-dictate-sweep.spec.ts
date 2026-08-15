@@ -127,18 +127,45 @@ test.describe('받아쓰기 전 화면 순회', () => {
     await assertTouchTargets(page, '/dictate/results(없음)');
   });
 
+  /**
+   * F. 모바일 폭(390px) — 프로젝트는 모바일 퍼스트를 규칙으로 둔다(390 → 768 → 1280).
+   *
+   * 데스크톱에서만 재면 두 가지를 놓친다:
+   *   · 가로 넘침 — 본문이 뷰포트보다 넓으면 학습자는 좌우로 흔들며 읽게 된다
+   *   · 좁은 폭에서 눌린 조작 — 같은 버튼이 데스크톱 44px, 모바일 32px 인 경우가 흔하다
+   */
+  test('F. 모바일 390px — 가로 넘침 없음 · 조작 44px', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    for (const path of ['/dictate', '/dictate/setup', '/dictate/results']) {
+      await page.goto(path);
+      await assertSettled(page, `${path}(390)`);
+
+      // 본문이 뷰포트를 넘지 않는다 (셸 고정 요소는 제외 — 본문만 본다)
+      const overflow = await page.evaluate(() => {
+        const el = document.scrollingElement ?? document.documentElement;
+        return el.scrollWidth - el.clientWidth;
+      });
+      expect(overflow, `${path}(390): 가로로 ${overflow}px 넘친다`).toBeLessThanOrEqual(1);
+
+      await assertTouchTargets(page, `${path}(390)`);
+    }
+  });
+
   test('E. 다크 모드 — 4화면 모두 대비가 무너지지 않는다', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
     for (const path of ['/dictate', '/dictate/setup', '/dictate/session', '/dictate/results']) {
       await page.goto(path);
       await assertSettled(page, `${path}(dark)`);
       // 본문이 배경과 같은 색이면 글자가 사라진다 — 실제로 읽을 것이 있는지 본다.
-      // (리다이렉트하는 화면이 있어 즉시 읽으면 전환 순간을 잡는다 → 재시도)
+      //
+      // ⚠️ `main` 으로 잡지 않는다 — `/dictate/session` 은 풀스크린 라우트라 셸의 `<main>`
+      //    이 없을 수 있고, 그러면 셀렉터가 타임아웃해 **화면 문제처럼 보이는 테스트 문제**가 된다.
+      //    (리다이렉트하는 화면도 있어 즉시 읽으면 전환 순간을 잡는다 → 재시도)
       await expect
-        .poll(
-          async () => ((await page.locator('main').last().innerText()) ?? '').trim().length,
-          { message: `${path}(dark): 본문이 비었다`, timeout: 20_000 },
-        )
+        .poll(async () => ((await page.locator('body').innerText()) ?? '').trim().length, {
+          message: `${path}(dark): 본문이 비었다`,
+          timeout: 20_000,
+        })
         .toBeGreaterThan(0);
     }
   });
