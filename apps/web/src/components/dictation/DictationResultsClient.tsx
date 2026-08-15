@@ -170,7 +170,7 @@ export function DictationResultsClient() {
           <p className="font-display text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
             받아쓰기 완료
           </p>
-          <p className="mt-2 font-display text-[60px] font-[800] leading-none tabular-nums">
+          <p data-testid="results-accuracy" className="mt-2 font-display text-[60px] font-[800] leading-none tabular-nums">
             {Math.round(totalAccuracy)}
             <span className="ml-1 text-[26px] opacity-80">%</span>
           </p>
@@ -297,7 +297,7 @@ export function DictationResultsClient() {
                   ? 'var(--p)'
                   : 'var(--warning)'
             return (
-              <li key={a.itemIdx} className="flex items-start gap-3 px-5 py-3">
+              <li key={a.itemIdx} data-testid="attempt-row" className="flex items-start gap-3 px-5 py-3">
                 <span className="mt-1 font-mono text-[11px] font-[700] tabular-nums text-[var(--t2)]">
                   #{a.itemIdx + 1}
                 </span>

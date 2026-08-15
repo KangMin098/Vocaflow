@@ -143,6 +143,33 @@ export async function restoreDictationSession(
   }
 }
 
+/**
+ * 아직 안 끝난 세션 하나 — 허브 "이어하기" 의 DB 근거.
+ *
+ * localStorage 만 보던 동안, 폰에서 시작하고 PC 에서 허브를 열면 이어하기가 **없었다**.
+ * 세션 URL 복원과 같은 구멍이다. `items` 가 있는 것만 고른다 — 이어받을 수 없는 세션을
+ * 이어하기로 내놓으면 허브가 자기 손으로 막다른 화면을 만든다.
+ */
+export async function fetchResumableSessionId(client: SupabaseClient): Promise<string | null> {
+  try {
+    const {
+      data: { user },
+    } = await client.auth.getUser()
+    if (!user) return null
+    const { data } = await client
+      .from('dictation_sessions')
+      .select('id')
+      .eq('user_id', user.id)
+      .is('completed_at', null)
+      .not('items', 'is', null)
+      .order('started_at', { ascending: false })
+      .limit(1)
+    return ((data ?? []) as Array<{ id: string }>)[0]?.id ?? null
+  } catch {
+    return null
+  }
+}
+
 export interface RestoredSession {
   id: string
   config: DictationConfig

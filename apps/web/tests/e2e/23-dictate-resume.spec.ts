@@ -87,8 +87,9 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
       let opened = false;
       for (let i = 0; i < (await tabs.count()); i += 1) {
         await tabs.nth(i).click();
-        const row = page.locator('main').last().locator('a[href*="/dictate/setup?"]').first();
-        if (await row.isVisible().catch(() => false)) {
+        const row = page.locator("main").last().locator("a[href*='/dictate/setup?']").first();
+        // 카탈로그는 비동기로 도착한다 — 즉시 isVisible 로 보면 로딩 중을 "자료 없음" 으로 읽는다
+        if (await row.isVisible({ timeout: 3_000 }).catch(() => false)) {
           await row.click();
           opened = true;
           break;
@@ -150,8 +151,9 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
       let opened = false;
       for (let i = 0; i < (await tabs.count()); i += 1) {
         await tabs.nth(i).click();
-        const row = page.locator('main').last().locator('a[href*="/dictate/setup?"]').first();
-        if (await row.isVisible().catch(() => false)) {
+        const row = page.locator("main").last().locator("a[href*='/dictate/setup?']").first();
+        // 카탈로그는 비동기로 도착한다 — 즉시 isVisible 로 보면 로딩 중을 "자료 없음" 으로 읽는다
+        if (await row.isVisible({ timeout: 3_000 }).catch(() => false)) {
           await row.click();
           opened = true;
           break;

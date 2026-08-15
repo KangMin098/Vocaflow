@@ -638,3 +638,36 @@ export async function deleteVocabularyById(vocabularyId: string): Promise<boolea
   const { error } = await c.from('vocabularies').delete().eq('id', vocabularyId);
   return !error;
 }
+
+/**
+ * 완주된 받아쓰기 세션 요약 — **결과 화면의 수치가 적재와 같은가**를 재기 위한 것.
+ *
+ * 개수만 세는 단언(세션 1행·시도 N행)은 화면이 **틀린 숫자**를 보여줘도 통과한다.
+ * 결과 화면은 "오늘 무엇이 남았나" 를 말하는 자리라 숫자가 틀리면 그 자체가 결함이다.
+ */
+export async function latestDictationSummary(
+  userId: string,
+  sinceIso: string,
+): Promise<{ avgAccuracy: number | null; totalHints: number; attempts: number } | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('dictation_sessions')
+    .select('id, avg_accuracy, total_hints')
+    .eq('user_id', userId)
+    .not('completed_at', 'is', null)
+    .gte('completed_at', sinceIso)
+    .order('completed_at', { ascending: false })
+    .limit(1);
+  if (error || !data || data.length === 0) return null;
+  const row = data[0] as { id: string; avg_accuracy: number | null; total_hints: number | null };
+  const { count } = await c
+    .from('dictation_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('session_id', row.id);
+  return {
+    avgAccuracy: row.avg_accuracy == null ? null : Number(row.avg_accuracy),
+    totalHints: Number(row.total_hints ?? 0),
+    attempts: count ?? 0,
+  };
+}

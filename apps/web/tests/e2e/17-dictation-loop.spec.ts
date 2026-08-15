@@ -27,6 +27,7 @@ import {
   countDictationSessionsSince,
   countLearningRecordsSince,
   countScoresSince,
+  latestDictationSummary,
   deleteDictationSince,
   deleteScoresSince,
   userIdByEmail,
@@ -190,6 +191,35 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
       expect(records, "완주 시 learning_records(module='dictation') 적재").toBeGreaterThanOrEqual(
         1,
       );
+
+      // ─── 결과 화면의 **수치가 적재와 같은가** ───
+      // 위 단언들은 전부 "몇 행 생겼나" 다. 그것만으로는 화면이 **틀린 숫자**를 보여줘도
+      // 통과한다 — 결과 화면은 "오늘 무엇이 남았나" 를 말하는 자리라 숫자가 곧 내용이다.
+      const summary = await latestDictationSummary(userId as string, sinceIso);
+      expect(summary, '완주 세션 요약을 못 읽었다').not.toBeNull();
+      if (summary) {
+        const body = await page.locator('body').innerText();
+
+        // 큰 정확도 숫자 = round(avg_accuracy).
+        // 본문 전체에서 `\d+%` 를 긁으면 다른 퍼센트를 잡을 수 있어 히어로 요소를 직접 읽는다.
+        const accText = await page.getByTestId('results-accuracy').innerText();
+        const shownAcc = Number(accText.match(/(\d+)/)?.[1] ?? NaN);
+        expect(Number.isFinite(shownAcc), `화면에서 정확도를 못 읽었다: "${accText}"`).toBe(true);
+        expect(
+          shownAcc,
+          `화면 정확도 ${shownAcc}% ≠ 적재 ${summary.avgAccuracy}`,
+        ).toBe(Math.round(summary.avgAccuracy ?? -1));
+
+        // 힌트 횟수 — 이 테스트는 정답 힌트로 풀므로 0 이 아니어야 한다
+        expect(summary.totalHints, '힌트를 썼는데 적재가 0이다').toBeGreaterThan(0);
+        expect(body, `힌트 ${summary.totalHints}회가 화면에 없다`).toContain(
+          `${summary.totalHints}회`,
+        );
+
+        // 문항별 결과 행 수 = 적재된 시도 수
+        const rows = await page.locator('[data-testid="attempt-row"]').count();
+        expect(rows, `문항별 결과 ${rows}행 ≠ 적재 ${summary.attempts}행`).toBe(summary.attempts);
+      }
     } finally {
       if (dbAvailable) {
         // 오늘의 받아쓰기 재현성 확보 — 이 테스트가 만든 기록만 제거

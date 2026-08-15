@@ -27,12 +27,13 @@ import {
   fetchDictationOverview,
   fetchDictationWeakness,
   fetchRecentDictationSessions,
+  fetchResumableSessionId,
   type DictationOverview,
   type RecentSessionRow,
   type WeaknessRow,
 } from '@/lib/dictation/persist'
 import { getResumableSession } from '@/lib/dictation/storage'
-import { createDictationSession } from '@/hooks/dictation/useDictationSession'
+import { createDictationSession, DictationStartError } from '@/hooks/dictation/useDictationSession'
 import type { DictationConfig } from '@/lib/dictation/types'
 
 import { SourcePicker } from './SourcePicker'
@@ -74,6 +75,7 @@ export function DictationHubClient() {
   const [daily, setDaily] = useState<DailyDictation | null>(null)
   const [starting, setStarting] = useState(false)
   const [resumeId, setResumeId] = useState<string | null>(null)
+  const [startError, setStartError] = useState<string | null>(null)
 
   useEffect(() => {
     let mounted = true
@@ -98,7 +100,10 @@ export function DictationHubClient() {
       setWeakness(wk)
       setRecent(rc)
       setDaily(dl)
-      setResumeId(getResumableSession()?.id ?? null)
+      // 이 기기 캐시 우선(즉시), 없으면 DB — 폰에서 시작하고 PC 에서 허브를 열어도
+      // 이어하기가 떠야 한다(세션 URL 복원과 같은 이유).
+      const local = getResumableSession()?.id ?? null
+      setResumeId(local ?? (await fetchResumableSessionId(client)))
       setLoading(false)
     })()
     return () => {
@@ -109,9 +114,19 @@ export function DictationHubClient() {
   const startDaily = useCallback(async () => {
     if (!daily || starting) return
     setStarting(true)
-    const session = await createDictationSession(daily, DAILY_CONFIG)
-    if (!session) {
+    setStartError(null)
+    // 실패를 삼키지 않는다 — `createDictationSession` 은 이제 던진다. 잡지 않으면
+    // 스피너가 영원히 돌고 학습자에겐 "아무 반응 없음" 이 된다(설정 화면에서 겪은 그것).
+    let session
+    try {
+      session = await createDictationSession(daily, DAILY_CONFIG)
+    } catch (e) {
       setStarting(false)
+      setStartError(
+        e instanceof DictationStartError && e.reason === 'cache-failed'
+          ? '이 브라우저의 저장 공간이 가득 차 세션을 이어받지 못했어요. 사이트 데이터를 정리하고 다시 시도해 주세요.'
+          : '오늘의 문장을 만들지 못했어요. 잠시 뒤 다시 시도해 주세요.',
+      )
       return
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
@@ -155,12 +170,22 @@ export function DictationHubClient() {
       {resumeId && (
         <Link
           href={`/dictate/session?sessionId=${resumeId}`}
-          className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 font-body text-[13px] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 font-body text-[13px] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <Play size={13} className="text-[var(--p)]" />
           풀던 받아쓰기가 남아 있어요
           <ArrowRight size={13} className="ml-auto text-[var(--t2)]" />
         </Link>
+      )}
+
+      {/* 시작 실패 사유 — 버튼만 되돌아오는 화면은 "아무 일도 안 일어났다" 로 읽힌다 */}
+      {startError && (
+        <p
+          role="alert"
+          className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 font-body text-[13px] leading-relaxed text-[var(--error-ink)]"
+        >
+          {startError}
+        </p>
       )}
 
       {/* ─── 오늘의 받아쓰기 ─── */}
