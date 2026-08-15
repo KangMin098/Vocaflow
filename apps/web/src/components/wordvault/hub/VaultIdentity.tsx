@@ -69,26 +69,31 @@ export function VaultIdentity({
   const goalPct = weeklyTarget > 0 ? Math.min(100, (weeklyDone / weeklyTarget) * 100) : 0
   const goalReached = weeklyTarget > 0 && weeklyDone >= weeklyTarget
 
-  // CTA
+  // CTA — **버튼은 한 자리에 한 행동이다. 상태에 따라 색을 바꾸지 않는다.**
+  //
+  // 이전에는 risk→critical(`--error`) · shaky→warning · new→info 로 세 색이 돌았다. 둘 다 문제였다:
+  //   ① `--error` 는 **오류 색**인데 여기서 가리키는 것은 오류가 아니다. 밀린 복습은 FSRS 가
+  //      정상 동작한 결과다. 잘못된 것이 없는데 잘못된 것처럼 칠하면, 학습자는 자기 학습을
+  //      실패로 읽는다(§디자인철학3 Empathetic Feedback · §절대금지 "압박").
+  //   ② 차분한 지면에서 **가장 큰 채도 덩어리**가 이 배너 하나였다. 화면 전체가 그쪽으로
+  //      기울어 나머지 여섯 섹션이 배경처럼 밀렸다(실측 2026-08-16 캡처).
+  // 긴급도는 이미 **문구**("지금 다시 만나기" vs "새 단어 익히기")와 바로 위 4버킷 수치가
+  // 말한다. 같은 정보를 버튼 색으로 한 번 더 소리칠 이유가 없다.
   let ctaLabel = '단어 둘러보기'
   let ctaHref = '/wordvault/browse'
   let ctaCount = 0
-  let ctaTone: 'critical' | 'warning' | 'info' | 'neutral' = 'neutral'
   if (buckets.risk > 0) {
     ctaLabel = '지금 다시 만나기'
     ctaHref = `/wordvault/browse?filter=state:risk`
     ctaCount = buckets.risk
-    ctaTone = 'critical'
   } else if (buckets.shaky > 0) {
     ctaLabel = '익숙해지는 단어 다지기'
     ctaHref = `/wordvault/browse?filter=state:shaky`
     ctaCount = buckets.shaky
-    ctaTone = 'warning'
   } else if (buckets.new > 0) {
     ctaLabel = '새 단어 익히기'
     ctaHref = `/wordvault/browse?filter=state:new`
     ctaCount = buckets.new
-    ctaTone = 'info'
   }
 
   return (
@@ -106,18 +111,14 @@ export function VaultIdentity({
 
         <div className="flex flex-col gap-3">
           <div className="flex items-end gap-2.5">
-            <span className="font-editorial text-[72px] font-[500] leading-[0.95] tracking-[-0.022em] tabular-nums text-[var(--t1)] md:text-[96px]">
+            <span className="font-editorial text-[72px] font-[500] tabular-nums leading-[0.95] tracking-[-0.022em] text-[var(--t1)] md:text-[96px]">
               {NF.format(total)}
             </span>
-            <span className="mb-2 font-body text-[14px] font-[500] text-[var(--t2)]">
-              단어
-            </span>
+            <span className="mb-2 font-body text-[14px] font-[500] text-[var(--t2)]">단어</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {vLevel != null && (
-              <Capsule label="수준" value={`V${vLevel}`} tone="brand" />
-            )}
+            {vLevel != null && <Capsule label="수준" value={`V${vLevel}`} tone="brand" />}
             <Capsule label="단어장" value={`${NF.format(collections)}권`} />
             <Capsule label="누적" value={`${NF.format(accumulatedDays)}일`} />
           </div>
@@ -143,13 +144,8 @@ export function VaultIdentity({
         })}
       </div>
 
-      {/* iOS Primary CTA */}
-      <PrimaryButton
-        href={ctaHref}
-        tone={ctaTone}
-        count={ctaCount}
-        className="mt-5"
-      >
+      {/* 이 화면의 1차 행동 — 상태와 무관하게 항상 브랜드 색(위 주석 참조) */}
+      <PrimaryButton href={ctaHref} tone="brand" count={ctaCount} className="mt-5">
         {ctaLabel}
       </PrimaryButton>
     </Card>

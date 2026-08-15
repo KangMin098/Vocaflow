@@ -23,6 +23,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 
+import { Frame } from '@/components/ui/ios'
 import { FACETS, FACET_ORDER, type FacetId } from '@/lib/framework/axes'
 import { activityLabel } from '@/lib/framework/registry'
 import { suggestActivityForFacet } from '@/lib/framework/word-progress'
@@ -73,21 +74,15 @@ export function FacetProgressSection({ summary }: { summary: FacetSummary }) {
   const untouched = summary.total - summary.practiced
 
   return (
-    <section
-      aria-labelledby="facet-progress-heading"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 md:p-5"
-    >
-      <header className="mb-3">
-        <h2
-          id="facet-progress-heading"
-          className="font-display text-[15px] font-[700] text-[var(--t1)]"
-        >
-          단어를 어느 쪽으로 알고 있나
-        </h2>
-        <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">
-          같은 단어라도 알아보는 것과 직접 쓰는 것은 다른 능력이에요
-        </p>
-      </header>
+    // ⚠️ 섹션 껍데기는 `Frame` 이다 — 손으로 만들지 않는다.
+    // 이 섹션만 자기 껍데기(border + p-4 + h2 15px)를 갖고 있어서, 같은 화면의 다른 다섯
+    // 섹션(전부 Frame · h2 22px · Card)과 **혼자 다른 언어로 말하고 있었다**. 화면을 훑으면
+    // 이 구역만 한 단계 작아 보여서 덜 중요한 것으로 읽힌다 — 실제로는 "어느 쪽으로 아는가"
+    // 를 말하는 유일한 구역이다(실측 2026-08-16: /wordvault 3.04화면 · 섹션 6종 중 1종만 이탈).
+    <Frame title="단어를 어느 쪽으로 알고 있나">
+      <p className="-mt-4 mb-5 font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+        같은 단어라도 알아보는 것과 직접 쓰는 것은 다른 능력이에요
+      </p>
 
       <div className="rounded-[var(--r-md)] bg-[var(--bg2)] p-4">
         {/* 처방 문장 — 회귀가 부제목과 구별할 수 있어야 한다(첫 구현이 그걸 헷갈렸다) */}
@@ -101,10 +96,11 @@ export function FacetProgressSection({ summary }: { summary: FacetSummary }) {
           {prescription.detail}
         </p>
 
+        {/* 다크에서 --p 는 밝은 파랑(#6B9BD1)이라 흰 글자가 AA 미달(2.90:1) — 짝 토큰 --on-p */}
         {activity && (
           <Link
             href={activity.route!.path}
-            className="mt-3 inline-flex h-11 items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[14px] font-[700] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-px hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
+            className="mt-3 inline-flex h-11 items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[14px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-px hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
           >
             {activityLabel(activity.id)}로 시작하기
           </Link>
@@ -163,6 +159,6 @@ export function FacetProgressSection({ summary }: { summary: FacetSummary }) {
           })}
         </ul>
       )}
-    </section>
+    </Frame>
   )
 }

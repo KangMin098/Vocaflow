@@ -56,7 +56,7 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
     slug: 'wordvault',
     url: '/wordvault',
     label: 'WordVault 허브',
-    nocards: '섹션 6종이 각자 다른 형식 — 면별 행은 접힘 안',
+    nocards: '섹션 6종이 Frame 하나로 통일(v06.202) — 반복 카드 격자는 없다 · 면별 행은 접힘 안',
   },
   {
     slug: 'flashcard',
