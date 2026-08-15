@@ -332,6 +332,7 @@ function DailyPick({
       <Link
         href={href}
         className="arc-daily-card"
+        data-design-card
         style={
           {
             ['--m-a']: game.mood.a,
@@ -458,7 +459,7 @@ function GameCard({ game: g, scope, code }: { game: GameEntry; scope: HubScope; 
   const href = gamePlayHref(g.slug, scopedHref(scope));
   return (
     <div className="arc-slot">
-      <Link href={href} className="arc-card" style={moodVars(g.mood)}>
+      <Link href={href} className="arc-card" data-design-card style={moodVars(g.mood)}>
         <span className="arc-card-glow" aria-hidden="true" />
         <div className="arc-card-top">
           <span className="arc-mark">

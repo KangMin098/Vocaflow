@@ -64,6 +64,10 @@ export function WordRow({
         !isPlaying && !isSelected && 'hover:bg-bg2/60'
       )}
       data-id={word.id}
+      // 회귀 스펙(01-wordvault-browse)이 찾는 선언. 이게 없어서 그 스펙이 클래스 이름
+      // 추측(`[class*="WordRow"]`)에 기대다가 조용히 깨져 있었다(실측 2026-08-15).
+      // 마크업을 바꿔도 테스트가 살아 있으려면 선언이 있어야 한다.
+      data-testid="word-row"
     >
       {/* 좌측 Memory state 엣지 — 4색 시각 단서 */}
       <span

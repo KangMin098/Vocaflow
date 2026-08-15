@@ -21,13 +21,8 @@
 import { useEffect, useState } from 'react'
 
 import { createClient } from '@/lib/supabase/client'
-import { getMemoryState } from '@/lib/srs'
-import type { MemoryState } from '@/lib/srs'
 
-import { MOCK_BOOKS } from '../mock-data'
-import type { WordItem } from '../types'
-
-import type { HubStats } from '../hooks/useHubStats'
+import type { HubStatsState } from '../hooks/useHubStats'
 import { useFacetSummary } from '../hooks/useFacetSummary'
 import { FacetProgressSection } from './FacetProgressSection'
 import { FlowStripe } from './FlowStripe'
@@ -39,13 +34,16 @@ import { VocabularyLevelMap } from './VocabularyLevelMap'
 import { WordVaultEmptyState } from './WordVaultEmptyState'
 
 interface WordVaultHubProps {
-  words: WordItem[]
-  realStats?: HubStats | null
+  /**
+   * 통계 상태 **전체**를 받는다 — 값만 받으면 "아직 못 셌다" 와 "세어보니 0" 을 구별할 수
+   * 없고, 그 구별이 없어서 목업이 실수치 자리에 앉아 있었다.
+   */
+  stats: HubStatsState
 }
 
 const DEFAULT_DAILY_GOAL = 12
 
-export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
+export function WordVaultHub({ stats }: WordVaultHubProps) {
   const [weekly, setWeekly] = useState<{ done: number; target: number } | null>(null)
   const facets = useFacetSummary()
 
@@ -93,21 +91,48 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
     }
   }, [])
 
-  const mockCounts: Record<MemoryState, number> = { stable: 0, shaky: 0, risk: 0, new: 0 }
-  for (const w of words) {
-    const state = w.srs ? getMemoryState(w.srs) : 'new'
-    mockCounts[state] += 1
+  // ⚠️ 여기서 목업으로 폴백하지 않는다.
+  //
+  // 예전에는 `realStats?.total ?? words.length` 였고 `words` 의 초기값이 `MOCK_WORDS` 였다.
+  // 그래서 통계 조회가 'ready' 에 닿지 못하면 **목업 13개가 학습자 본인의 수치처럼** 남았다
+  // (실측 2026-08-15: 실제 252개인 계정이 "13 단어 · 확실2 익숙1 회복2 신규8" 을 보고 있었다).
+  // 주석은 "FOUC 회피" 라고만 적혀 있었고 실패를 말하지 않았다 — 이 프로젝트가 처방
+  // `unavailable` 플래그로 이미 한 번 싸운 **조용한 실패**와 같은 계열이다.
+  //
+  // 규칙: 못 세었으면 못 세었다고 말한다. 그럴듯한 숫자를 지어내지 않는다.
+  if (stats.status === 'loading') {
+    return (
+      <div
+        aria-busy="true"
+        className="mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8"
+      >
+        <div className="h-[188px] animate-pulse rounded-ios-2xl bg-[var(--bg)] shadow-ios-1" />
+        <div className="h-[112px] animate-pulse rounded-ios-2xl bg-[var(--bg)] shadow-ios-1" />
+        <span className="sr-only">단어장 통계를 불러오는 중</span>
+      </div>
+    )
   }
 
-  const buckets = realStats?.buckets ?? mockCounts
-  const total = realStats?.total ?? words.length
-  const collections = realStats?.collectionsCount ?? MOCK_BOOKS.filter((b) => !b.isLocked).length
-  const accumulatedDays = realStats?.accumulatedDays ?? 0
+  if (stats.status !== 'ready') {
+    // 실패를 침묵하지 않는다. Empathetic Feedback — 학습자 잘못이 아니라는 것과
+    // 지금 무엇을 해도 되는지를 말한다.
+    return (
+      <div className="mx-auto max-w-[820px] px-4 py-10 md:px-6">
+        <p
+          role="status"
+          className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 text-center font-body text-[13.5px] leading-[1.7] text-[var(--t2)] shadow-ios-1 [word-break:keep-all]"
+        >
+          {stats.status === 'unauthenticated'
+            ? '로그인하면 내 단어장이 여기 나타나요.'
+            : '지금 단어장을 세지 못했어요. 잠시 뒤 다시 열어 주세요 — 단어가 사라진 건 아니에요.'}
+        </p>
+      </div>
+    )
+  }
 
-  const shouldShowEmpty =
-    realStats !== undefined ? (realStats?.total ?? 0) === 0 : words.length === 0
+  const { buckets, total, collectionsCount: collections, accumulatedDays } = stats.data
 
-  if (shouldShowEmpty) {
+  if (total === 0) {
     return (
       <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-10 md:px-6 md:py-14">
         <WordVaultEmptyState />

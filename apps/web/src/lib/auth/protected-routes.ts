@@ -24,6 +24,9 @@
 export const PROTECTED_PREFIXES = [
   // 계정 · 진도 · 리포트
   '/hub',
+  // 진입면 재설계 랩 — 실학습 데이터를 그대로 렌더하므로 /hub 과 같은 보호가 필요하다.
+  // ('/hub' 접두사는 정확일치 또는 '/hub/…' 만 잡으므로 '/hub-lab' 은 여기 없으면 공개된다.)
+  '/hub-lab',
   '/dashboard',
   '/settings',
   '/reports',

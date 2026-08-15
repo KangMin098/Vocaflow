@@ -33,7 +33,16 @@ async function login(page: Page) {
 }
 
 /**
- * 히어로 '이번 세션' 통계값.
+ * 히어로에서 세션 크기를 말하는 통계 라벨.
+ *
+ * 2026-08-15 실측: 라벨이 v06.141 이름 규칙에 따라 `이번 세션` → `This Session` 으로
+ * 영문화됐는데 이 스펙이 따라가지 않아 **4건이 조용히 깨져 있었다.** 깨진 회귀 가드는
+ * 없느니만 못하다. 한 곳에서만 선언해 다음 개명 때 여기만 고치게 한다.
+ */
+const SESSION_STAT_LABEL = 'This Session';
+
+/**
+ * 히어로 세션 통계값.
  *
  * `getByText(/이번 세션/)` 로 찾으면 안 된다 — SpellForge 히어로 **설명문**이
  * "이번 세션에서 철자가 흔들리는 단어 17개를 만나요" 라서 통계값(20) 대신 17을 읽는다.
@@ -41,11 +50,11 @@ async function login(page: Page) {
  * `data-hero-stat={label}` 로 라벨을 선언하고, 테스트는 산문이 아니라 그 선언을 읽는다.
  */
 async function sessionSize(page: Page): Promise<number> {
-  const stat = page.locator('li[data-hero-stat="이번 세션"]');
+  const stat = page.locator(`li[data-hero-stat="${SESSION_STAT_LABEL}"]`);
   await expect(stat).toBeVisible({ timeout: 30_000 });
   const text = (await stat.innerText()).replace(/\s+/g, ' ');
   const m = text.match(/(\d+)/);
-  expect(m, `'이번 세션' 값을 못 읽었다: ${text}`).not.toBeNull();
+  expect(m, `${SESSION_STAT_LABEL} 값을 못 읽었다: ${text}`).not.toBeNull();
   return Number(m![1]);
 }
 
@@ -79,7 +88,7 @@ for (const hub of [
       test.setTimeout(180_000);
       await login(page);
       await page.goto(hub.path, { waitUntil: 'domcontentloaded' });
-      await expect(page.locator('li[data-hero-stat="이번 세션"]')).toBeVisible({ timeout: 30_000 });
+      await expect(page.locator(`li[data-hero-stat="${SESSION_STAT_LABEL}"]`)).toBeVisible({ timeout: 30_000 });
 
       // 10장(개) 버튼 — 세션이 10보다 커야 존재한다(작으면 '전체' 만 제공).
       //

@@ -116,7 +116,7 @@ export function CompletionState({
           <SectionTitle>다음 만남</SectionTitle>
           <div className="rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-white">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--on-p)]">
                 <Clock size={20} strokeWidth={2} aria-hidden="true" />
               </span>
               <p className="font-english text-[15px] italic leading-relaxed text-[var(--t1)]">
@@ -152,7 +152,7 @@ export function CompletionState({
           </button>
           <Link
             href={backHref}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-white no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
+            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
             style={{
               background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',
             }}

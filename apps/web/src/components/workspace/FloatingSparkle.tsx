@@ -33,7 +33,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
         onClick={() => setIsExpanded((o) => !o)}
         aria-label="다음 단계 추천"
         aria-expanded={isExpanded}
-        className="relative flex h-12 w-12 animate-[sparkle-breathe_4s_ease-in-out_infinite] items-center justify-center rounded-full bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] text-white shadow-[0_4px_16px_rgba(59,130,246,0.35)] transition-transform duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:scale-105"
+        className="relative flex h-12 w-12 animate-[sparkle-breathe_4s_ease-in-out_infinite] items-center justify-center rounded-full bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] text-[var(--on-p)] shadow-[0_4px_16px_rgba(59,130,246,0.35)] transition-transform duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:scale-105"
       >
         <Sparkles size={18} strokeWidth={2} aria-hidden="true" />
       </button>
@@ -60,7 +60,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
         <Link
           href={ctaHref}
           onClick={() => setIsExpanded(false)}
-          className="flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] p-2.5 font-display text-[13px] font-[700] text-white no-underline transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]"
+          className="flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] p-2.5 font-display text-[13px] font-[700] text-[var(--on-p)] no-underline transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]"
           style={{
             background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',
           }}

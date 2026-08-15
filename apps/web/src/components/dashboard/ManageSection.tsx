@@ -99,6 +99,7 @@ function ManageCard({
 }) {
   return (
     <section
+      data-design-card
       className={`flex flex-col gap-2 rounded-[var(--r-lg)] border bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors duration-[var(--dur-normal)] ${
         alert ? 'border-[var(--p)] ring-1 ring-[var(--p)]' : 'border-[var(--bd)]'
       }`}

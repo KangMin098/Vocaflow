@@ -412,7 +412,7 @@ export function DiagnosticClient() {
       const p = TEST_PRESENTATION[presoKey(t)]
       if (!p) return null
       return (
-        <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--ti)] shadow-[var(--sh-md)]">
+        <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
           <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--ti)]">
             ★ 처음이라면 여기서 시작
           </span>
@@ -433,7 +433,7 @@ export function DiagnosticClient() {
             </button>
             <button
               onClick={() => setInfoTest(t)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-white/40 px-4 py-3 font-display text-[14px] font-[600] text-[var(--ti)] transition-colors hover:bg-white/10"
+              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--on-p)]/40 px-4 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
             >
               <Info size={14} aria-hidden /> 안내
             </button>
@@ -669,7 +669,7 @@ export function DiagnosticClient() {
 
   return (
     <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
-      <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--ti)] shadow-[var(--sh-md)]">
+      <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--on-p)] shadow-[var(--sh-md)]">
         <p className="font-body text-[14px] opacity-85">진단 완료 · 내 수준은</p>
         <p className="mt-1 font-editorial text-[72px] font-[500] leading-none tracking-[-0.018em] text-[var(--active)]">
           {levelLabel}
@@ -685,7 +685,7 @@ export function DiagnosticClient() {
         )}
         <button
           onClick={() => setLevelGuideOpen(true)}
-          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-white/40 px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors hover:bg-white/10"
+          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--on-p)]/40 px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
         >
           <Info size={13} aria-hidden /> 이 레벨이 뭔가요?
         </button>

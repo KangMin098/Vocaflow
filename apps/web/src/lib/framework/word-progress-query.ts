@@ -14,7 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { getMemoryState } from '@/lib/srs/state'
 
-import type { FacetId } from './axes'
+import { stageOf, STAGE_ORDER, type FacetId, type StageId } from './axes'
 import type { MemoryState, WordFrameworkState } from './flow'
 import {
   deriveWordState,
@@ -119,6 +119,53 @@ export async function fetchWordStates(
   }
 
   return derived
+}
+
+// ── Stage × Memory 지형 ────────────────────────────────────────────
+//
+// axes.ts 는 Stage(얼마나 깊이 아나)와 Memory state(지금 기억하고 있나)가 **직교**하며
+// "같은 단어가 Stage=Recalled 이면서 Memory=risk 일 수 있다 — 이 조합이 처방의 가장
+// 값나가는 신호다" 라고 적어 뒀다. 그런데 그 조합을 보여주는 화면이 하나도 없었다.
+// 두 축을 각각 막대로 그리면 교차가 사라진다 — 교차가 신호인데.
+//
+// 여기서 접어서 내보내는 것은 **칸별 개수뿐**이다. 단어 목록은 나가지 않는다
+// (이 파일이 server-only 인 이유와 같다).
+
+export interface StageMemoryGrid {
+  /** grid[stage][memory] = 단어 수 */
+  grid: Record<StageId, Record<MemoryState, number>>
+  total: number
+  /** 깊이 배웠는데 흐려진 단어 — Recalled 이상 × (risk|shaky). 가장 값나가는 칸. */
+  deepButFading: number
+}
+
+const EMPTY_ROW = (): Record<MemoryState, number> => ({ new: 0, risk: 0, shaky: 0, stable: 0 })
+
+export async function fetchStageMemoryGrid(
+  client: SupabaseClient,
+  userId: string,
+  limit = 500,
+): Promise<StageMemoryGrid> {
+  const states = await fetchWordStates(client, userId, limit)
+
+  const grid = STAGE_ORDER.reduce(
+    (acc, s) => {
+      acc[s] = EMPTY_ROW()
+      return acc
+    },
+    {} as Record<StageId, Record<MemoryState, number>>,
+  )
+
+  let deepButFading = 0
+  const DEEP: StageId[] = ['recalled', 'applied', 'fluent']
+
+  for (const s of states) {
+    const stage = stageOf(s.passed)
+    grid[stage][s.memory] += 1
+    if (DEEP.includes(stage) && (s.memory === 'risk' || s.memory === 'shaky')) deepButFading += 1
+  }
+
+  return { grid, total: states.length, deepButFading }
 }
 
 /** 화면이 쓰는 요약 — 인출 이력 전량을 브라우저로 보내지 않기 위해 서버에서 접는다. */

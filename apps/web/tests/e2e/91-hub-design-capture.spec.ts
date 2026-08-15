@@ -34,21 +34,61 @@ const THEME = process.env.HUB_SHOT_THEME === 'dark' ? 'dark' : 'light'
 /** 공개 라우트 전용 캡처 — 로그인을 건너뛴다 (HUB_SHOT_NOAUTH=1). */
 const NO_AUTH = process.env.HUB_SHOT_NOAUTH === '1'
 
-/** 학습자 허브 전체 — 이번 리디자인의 대상 표면. */
-const ALL_ROUTES: { slug: string; url: string; label: string }[] = [
-  { slug: 'hub', url: '/hub', label: 'Today 허브' },
-  { slug: 'wordvault', url: '/wordvault', label: 'WordVault 허브' },
-  { slug: 'flashcard', url: '/flashcard', label: 'Flashcard 허브' },
-  { slug: 'spellforge', url: '/spellforge', label: 'SpellForge 허브' },
+/**
+ * 학습자 허브 전체 — 이번 리디자인의 대상 표면.
+ *
+ * `nocards` 는 **"이 화면엔 잴 반복 카드가 없다" 는 선언**이다.
+ * 카드 0개에는 두 가지가 섞여 있다 — ① 셀렉터가 못 잡은 것(결함) ② 원래 반복 카드가 없는
+ * 화면(정상). 둘을 같은 경고로 찍으면 ②가 ①을 가려 진짜 누락이 묻힌다
+ * (실측 2026-08-15: 15 라우트 중 9개가 "측정 안 됨" 이었고 그중 절반은 진짜 누락이었다).
+ * 이유를 함께 적게 해서, 화면이 바뀌면 그 문장이 먼저 낡아 보이게 한다.
+ * 선언을 화면(DOM 속성)이 아니라 여기 두는 이유: 계측 전용 속성을 제품 코드에 심지 않고,
+ * 선언과 그것을 읽는 코드가 같은 파일에서 함께 리뷰되게 하려는 것.
+ */
+const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }[] = [
+  {
+    slug: 'hub',
+    url: '/hub',
+    label: 'Today 허브',
+    nocards: '단일 무대 + 흐름 목록 — 반복 카드 격자 없음',
+  },
+  {
+    slug: 'wordvault',
+    url: '/wordvault',
+    label: 'WordVault 허브',
+    nocards: '섹션 6종이 각자 다른 형식 — 면별 행은 접힘 안',
+  },
+  {
+    slug: 'flashcard',
+    url: '/flashcard',
+    label: 'Flashcard 허브',
+    nocards: '단일 큐 요약 — 반복 카드 격자 없음',
+  },
+  {
+    slug: 'spellforge',
+    url: '/spellforge',
+    label: 'SpellForge 허브',
+    nocards: '단일 큐 요약 — 반복 카드 격자 없음',
+  },
   { slug: 'library', url: '/library', label: '라이브러리' },
   { slug: 'arcade', url: '/arcade', label: '아케이드' },
   { slug: 'dashboard', url: '/dashboard', label: '대시보드' },
   // PRACTICE 그룹 — 사이드바가 한 묶음으로 파는 5 표면. 서로 형제라 **같은 기준으로 봐야 한다**
   // (하나만 보면 "이 화면 괜찮네" 로 끝나고, 형제 간 불일치는 안 보인다).
-  { slug: 'wordblitz', url: '/wordblitz', label: 'WordBlitz 허브' },
+  {
+    slug: 'wordblitz',
+    url: '/wordblitz',
+    label: 'WordBlitz 허브',
+    nocards: '규칙 카드 3장은 접힘(<details>) 안 — 기본 상태엔 없음',
+  },
   { slug: 'pairflip', url: '/pairflip', label: 'PairFlip 허브' },
   { slug: 'practice', url: '/practice', label: '연습 진입면(통합)' },
-  { slug: 'practice-dcp', url: '/practice/dcp', label: '구문 연습(DCP)' },
+  {
+    slug: 'practice-dcp',
+    url: '/practice/dcp',
+    label: '구문 연습(DCP)',
+    nocards: '문항 하나를 푸는 화면 — 반복 카드 없음',
+  },
   // 라이브러리 3탭 — 서가는 **형제로 봐야 한다**. Books 만 보면 "괜찮네" 로 끝나고,
   // Dispatches·Decks 와의 불일치(카드 크기·서지정보 밀도·표지 유무)는 안 보인다.
   { slug: 'library-books', url: '/library/books', label: '서가 — Books' },
@@ -61,7 +101,7 @@ const ALL_ROUTES: { slug: string; url: string; label: string }[] = [
  * (베이스라인 세트에 섞이면 "현행 7화면" 이라는 비교 기준이 흐려진다.)
  * HUB_SHOT_ROUTES 로 명시할 때만 잡힌다.
  */
-const LAB_ROUTES = [
+const LAB_ROUTES: typeof ALL_ROUTES = [
   { slug: 'lab-a', url: '/hub-lab?v=a', label: '랩 후보 A' },
   { slug: 'lab-b', url: '/hub-lab?v=b', label: '랩 후보 B' },
   { slug: 'lab-c', url: '/hub-lab?v=c', label: '랩 후보 C' },
@@ -73,7 +113,7 @@ const LAB_ROUTES = [
 
 const ROUTES = process.env.HUB_SHOT_ROUTES
   ? [...ALL_ROUTES, ...LAB_ROUTES].filter((r) =>
-      process.env.HUB_SHOT_ROUTES!.split(',').includes(r.url),
+      process.env.HUB_SHOT_ROUTES!.split(',').includes(r.url)
     )
   : ALL_ROUTES
 
@@ -136,11 +176,9 @@ async function settle(page: Page) {
   await page.waitForLoadState('networkidle', { timeout: 20_000 }).catch(() => {})
   // 요청은 끝났어도 디코드·페인트가 남는다. 모든 <img> 가 complete 가 될 때까지 기다린다.
   await page
-    .waitForFunction(
-      () => Array.from(document.images).every((i) => i.complete),
-      null,
-      { timeout: 15_000 },
-    )
+    .waitForFunction(() => Array.from(document.images).every((i) => i.complete), null, {
+      timeout: 15_000,
+    })
     .catch(() => {})
   // 모션 정지 — 진입 트랜지션 중간 프레임이 찍히면 before/after 비교가 흔들린다
   await page.addStyleTag({
@@ -162,19 +200,27 @@ async function layoutMetrics(page: Page) {
     // 나머지 탭이 **조용히 0개**로 나오고, 그걸 "측정했다" 로 착각한다
     // (실측 2026-08-15: Dispatches·Decks 가 한 라운드 내내 0개였는데 아무도 안 걸렸다).
     const CARD_SELECTOR = [
+      '[data-design-card]', // 범용 opt-in — 서재 밖 화면은 이걸 달아 계측에 참여한다
       'button[aria-label$="상세 보기"]', // Books
       'button[aria-label$="미리보기 열기"]', // Decks
       '[aria-label$="글 둘러보기"]', // Dispatches
       'button[aria-label$=" 선택"]', // Decks 캐러셀(측면)
       'button[aria-label$=" 미리보기"]', // Decks 캐러셀(중앙)
     ].join(',')
-    const cards = Array.from(document.querySelectorAll<HTMLElement>(CARD_SELECTOR))
+    // ⚠️ **숨은 카드는 세지 않는다.** `<details>` 안에 접힌 설명서 카드나 닫힌 disclosure 는
+    // DOM 에 있지만 `offsetHeight` 가 0 이다. 그대로 세면 "3개:0" — **가짜 균질**이 나오고,
+    // 그 화면은 "쟀다" 로 기록된다. 접힘 안은 기본 상태에서 학습자가 못 보는 것이므로
+    // 처음부터 계측 대상이 아니다(실측: `/wordblitz` 규칙 카드 3장).
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(CARD_SELECTOR)).filter(
+      (c) => c.offsetHeight > 0
+    )
 
     // ⚠️ **구역을 섞어 세면 안 된다.** 서가에는 캐러셀(270px 고정폭)·인기 가로줄·전체 격자가
     // 함께 있고, 셋은 원래 크기가 다르다. 전부 한 통에 넣고 "높이 9종" 이라고 읽으면
     // 멀쩡한 구역을 고치러 간다(실제로 한 번 그렇게 했다). 같은 부모 안에서만 비교한다.
     // 카드마다 자기 `<li>`/래퍼가 있으므로 부모로 묶으면 전부 1개짜리 구역이 된다.
     // **여러 카드를 담는 첫 조상**(격자/가로줄 컨테이너)까지 올라가서 묶는다.
+    const containerKey = new Map<Element, string>()
     const containerOf = (c: HTMLElement): Element => {
       let n: Element | null = c
       for (let i = 0; i < 4 && n?.parentElement; i++) {
@@ -188,17 +234,53 @@ async function layoutMetrics(page: Page) {
     // 일부러 카드마다 scale 을 다르게 준다. rect 로 재면 그 **의도된 원근**이 "불균질 1/1"
     // 로 보고된다(실측 2026-08-15: Decks 119~360px). 우리가 묻는 것은 레이아웃이 균질한가지,
     // 화면에 몇 픽셀로 보이는가가 아니다.
-    const bySection = new Map<Element, number[]>()
+    // ⚠️ **줄(row)이 비교 단위다 — 격자 전체가 아니다.**
+    // 줄바꿈하는 격자에서는 줄마다 높이가 다른 게 정상이다(각 줄은 그 줄의 최고 카드에
+    // 맞춰 늘어난다). 격자 전체를 한 통에 넣고 세면 **정상 격자가 영원히 "불균질"** 로
+    // 나온다 — 실측 2026-08-15 `/practice`: 5장이 3줄에 걸쳐 131/179/227 로 나왔는데
+    // 각 줄 안에서는 완전히 균질했다. 그 신호를 쫓았으면 멀쩡한 레이아웃을 고쳤을 것이다.
+    // 같은 컨테이너 + 같은 줄인 카드끼리만 비교한다.
+    //
+    // ⚠️ 줄 판별에 **`offsetTop` 을 쓰면 안 된다** — 그건 `offsetParent` 기준이다.
+    // 카드마다 `position:relative` 래퍼가 있으면(아케이드 `.arc-slot`) 전부 `0` 이 되어
+    // **한 구역의 카드 전부가 한 줄로 묶인다.** 실측 2026-08-15: `/arcade` 가 그렇게 해서
+    // 208/225/331 "불균질 2/3" 으로 나왔는데, 실제로는 서로 다른 줄이었고 331 은 아예 다른
+    // 컴포넌트(패밀리 카드)였다. 계측이 만들어낸 가짜 결함이다.
+    // 문서 기준 top 으로 묶고, 서브픽셀은 4px 버킷으로 흡수한다.
+    const bySection = new Map<string, { el: Element; heights: number[] }>()
     for (const c of cards) {
       const section = containerOf(c)
-      const arr = bySection.get(section) ?? []
-      arr.push(c.offsetHeight)
-      bySection.set(section, arr)
+      if (!containerKey.has(section)) containerKey.set(section, String(containerKey.size))
+      const docTop = Math.round((c.getBoundingClientRect().top + window.scrollY) / 4)
+      const key = `${containerKey.get(section)}@${docTop}`
+      const entry = bySection.get(key) ?? { el: section, heights: [] }
+      entry.heights.push(c.offsetHeight)
+      bySection.set(key, entry)
     }
     const sections = [...bySection.values()]
-      .map((hs) => ({ n: hs.length, heights: [...new Set(hs)].sort((a, b) => a - b) }))
-      .filter((s) => s.n >= 2) // 카드 1개짜리 구역은 균질성을 말할 수 없다
+      .map(({ heights }) => ({
+        n: heights.length,
+        heights: [...new Set(heights)].sort((a, b) => a - b),
+      }))
+      .filter((s) => s.n >= 2) // 카드 1개짜리 줄은 균질성을 말할 수 없다
       .sort((a, b) => b.n - a.n)
+
+    /**
+     * **첫 카드까지 몇 화면인가** — "콘텐츠에 닿기까지의 거리".
+     *
+     * 전체 높이만 보면 "긴 화면" 과 "본론이 늦는 화면" 이 구분되지 않는다. 책이 27권이라
+     * 6.86화면인 것과, 필터가 두 화면을 먹어서 6.86화면인 것은 완전히 다른 문제다.
+     * 카드가 곧 콘텐츠인 화면(서가·아케이드·연습)에서 이 값이 1을 넘으면 학습자는
+     * **아무 콘텐츠도 못 본 채 스크롤을 시작**한다.
+     *
+     * ⚠️ **태그 안 된 콘텐츠는 이 값을 부풀린다.** 실측 2026-08-15: `/arcade` 가 1.38화면으로
+     * 나와 "첫 게임까지 한 화면 반" 이라고 판단했는데, 맨 위 "오늘의 실험" 카드가
+     * `data-design-card` 를 안 달고 있었을 뿐이었다. 달고 다시 재니 **0.84화면**(접힘선 위) —
+     * 결함이 아니었다. 이 값이 크면 먼저 **그 위에 안 세어진 콘텐츠가 있는지** 보라.
+     */
+    const firstCardTop = cards.length
+      ? Math.min(...cards.map((c) => c.getBoundingClientRect().top + window.scrollY))
+      : null
 
     const titleLines: Record<number, number> = {}
     for (const c of cards) {
@@ -209,8 +291,40 @@ async function layoutMetrics(page: Page) {
       const n = Math.max(1, Math.round(t.getBoundingClientRect().height / lh))
       titleLines[n] = (titleLines[n] ?? 0) + 1
     }
+    // ── 접힘선(fold) ──
+    // "한 화면에 들어오는가" 를 눈으로 판정하면 매번 다르게 읽는다. 더 중요한 건 **넘친
+    // 픽셀 수가 아니라 무엇이 접혔는가** 다 — 본문이 길어서 스크롤하는 것은 정상이고,
+    // 유일한 진입 링크가 접히는 것은 결함이다. 그래서 접힌 **인터랙티브 요소의 이름**까지 낸다.
+    //
+    // ⚠️ 다만 **이름을 전부 내면 그것도 못 읽는다** — 서가는 카드가 수십 장이라 82개가
+    // 쏟아졌다. 계측이 읽히지 않으면 없는 것과 같으므로 개수는 정확히 세고 이름은 앞부분만
+    // 낸다(무엇이 접혔는지 판단하는 데는 앞부분이면 충분하다).
+    const vh = document.documentElement.clientHeight
+    const docH = document.documentElement.scrollHeight
+    const belowFold: string[] = []
+    const main = document.querySelector('main') ?? document.body
+    for (const el of Array.from(main.querySelectorAll<HTMLElement>('a[href], button'))) {
+      const r = el.getBoundingClientRect()
+      if (r.height === 0) continue // 숨은 요소
+      if (r.top + window.scrollY >= vh) {
+        const label = (el.getAttribute('aria-label') || el.textContent || '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .slice(0, 40)
+        if (label) belowFold.push(label)
+      }
+    }
+
     return {
       cardCount: cards.length,
+      /** 첫 카드가 나오기까지 몇 화면 스크롤해야 하나 (카드 없으면 null) */
+      firstCardRatio: firstCardTop == null ? null : Math.round((firstCardTop / vh) * 100) / 100,
+      /** 문서 높이 / 뷰포트 높이 — 1.0 이하면 한 화면 */
+      foldRatio: Math.round((docH / vh) * 100) / 100,
+      /** 첫 화면 아래로 밀린 인터랙티브 요소 **수** */
+      belowFoldCount: belowFold.length,
+      /** 그중 앞 12개 이름 (개수만 보면 무엇이 접혔는지 모른다) */
+      belowFold: belowFold.slice(0, 12),
       /** 구역별 카드 높이 — **각 구역 안에서 1종**이 목표다. */
       sections,
       /** 높이가 균질하지 않은 구역 수 — 이 값이 래칫의 눈금이다. */
@@ -220,7 +334,7 @@ async function layoutMetrics(page: Page) {
       /** 문서 가로 넘침(px) — 모바일에서 0 이어야 한다. */
       overflowPx: Math.max(
         0,
-        document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        document.documentElement.scrollWidth - document.documentElement.clientWidth
       ),
       /**
        * 넘침을 **일으킨 요소**.
@@ -285,7 +399,9 @@ test.describe('허브 디자인 캡처', () => {
     }, THEME)
 
     const captured: string[] = []
-    const metrics: Array<Awaited<ReturnType<typeof layoutMetrics>> & { route: string; vp: string }> = []
+    const metrics: Array<
+      Awaited<ReturnType<typeof layoutMetrics>> & { route: string; vp: string; nocards?: string }
+    > = []
 
     for (const vp of [
       { name: 'desktop', width: 1440, height: 900 },
@@ -305,7 +421,12 @@ test.describe('허브 디자인 캡처', () => {
         await page.screenshot({ path: file, fullPage: true })
         captured.push(file)
 
-        metrics.push({ route: route.slug, vp: vp.name, ...(await layoutMetrics(page)) })
+        metrics.push({
+          route: route.slug,
+          vp: vp.name,
+          nocards: route.nocards,
+          ...(await layoutMetrics(page)),
+        })
       }
     }
 
@@ -321,16 +442,31 @@ test.describe('허브 디자인 캡처', () => {
     for (const m of metrics) {
       // 카드 0개는 "균질하다" 가 아니라 **못 쟀다** 이다. 조용히 넘어가면 그 화면은
       // 영영 평가되지 않는다 — Dispatches·Decks 가 실제로 그렇게 한 라운드를 통과했다.
+      // 같은 이유로 **줄 0개도 "균질" 이 아니라 "비교 불가"** 다 — 1열 모바일에서는 모든 줄이
+      // 카드 1장이라 비교 대상이 없다. `0/0` 을 통과로 읽으면 검증했다고 착각한다.
       const verdict =
-        m.cardCount === 0
-          ? '⚠ 카드 0개 — 셀렉터가 이 화면의 카드를 못 잡는다(측정 안 됨)'
-          : `불균질구역 ${m.unevenSections}/${m.sections.length} · ` +
-            `구역 ${m.sections.map((s) => `${s.n}개:${s.heights.join(',')}`).join(' | ')}`
+        m.cardCount === 0 && m.nocards
+          ? `잴 카드 없음(선언) — ${m.nocards}`
+          : m.cardCount === 0
+            ? '⚠ 카드 0개 — 셀렉터가 이 화면의 카드를 못 잡는다(측정 안 됨)'
+            : m.sections.length === 0
+              ? '한 줄에 카드 2장 이상인 곳이 없음 — 균질성 비교 불가'
+              : `불균질줄 ${m.unevenSections}/${m.sections.length} · ` +
+                `줄 ${m.sections.map((s) => `${s.n}개:${s.heights.join(',')}`).join(' | ')}`
       // eslint-disable-next-line no-console
       console.log(
         `[metric] ${m.route}/${m.vp} 카드 ${m.cardCount} · ${verdict} · ` +
-          `제목줄 ${JSON.stringify(m.titleLines)} · 넘침 ${m.overflowPx}px`,
+          `제목줄 ${JSON.stringify(m.titleLines)} · 넘침 ${m.overflowPx}px · ` +
+          `높이 ${m.foldRatio}화면`
       )
+      if (m.belowFoldCount > 0) {
+        const more = m.belowFoldCount - m.belowFold.length
+        // eslint-disable-next-line no-console
+        console.log(
+          `  [접힘] ${m.belowFoldCount}개: ${m.belowFold.join(' / ')}` +
+            (more > 0 ? ` … 외 ${more}개` : '')
+        )
+      }
       for (const c of m.overflowCulprits) {
         // eslint-disable-next-line no-console
         console.log(`  [넘침] <${c.tag}> right=${c.right} "${c.text}" .${c.cls}`)

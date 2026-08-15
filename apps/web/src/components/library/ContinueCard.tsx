@@ -87,7 +87,7 @@ export function ContinueCard({ text }: ContinueCardProps) {
 
       {/* CTA */}
       <div
-        className="flex items-center justify-center gap-2 p-3 font-display text-[14px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)]"
+        className="flex items-center justify-center gap-2 p-3 font-display text-[14px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)]"
         style={{
           background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',
         }}

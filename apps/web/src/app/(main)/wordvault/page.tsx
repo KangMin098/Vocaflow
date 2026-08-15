@@ -54,12 +54,21 @@ export default function WordVaultPage() {
   const view = parseView(searchParams?.get('view') ?? null)
 
   // ── 데이터 ──
+  //
+  // ⚠️ **아직 목업이다 (알려진 결함 · 범위 밖).** `words` 는 `MOCK_WORDS` + TextViewer 인계
+  // 단어로만 채워지고, 학습자의 실제 `vocabularies` 를 읽는 경로가 없다. 그래서
+  // 둘러보기·학습·듣기 큐가 남의 단어 위에서 돈다.
+  //
+  // 왜 여기서 안 고치나: `WordItem.id` 가 `number` 인데 `vocabularies.id` 는 uuid 다. 실데이터를
+  // 넣으려면 타입부터 바꿔야 하고 WordList·StudyMode·ListenPanel·useListenQueue·HideToggleBar 가
+  // 함께 움직인다. 색 교체 수준이 아니라 별도 작업이다.
+  //
+  // 다만 **허브 통계는 더 이상 여기로 폴백하지 않는다** — 목업 13개가 실제 252개인 학습자의
+  // 수치 자리에 앉아 있었다(2026-08-15 실측). 통계는 `useHubStats` 상태를 그대로 넘겨
+  // "못 셌다" 와 "세어보니 0" 을 화면이 구별하게 한다.
   const [words, setWords] = useState<WordItem[]>(MOCK_WORDS)
 
-  // ── 허브 Hero/VaultBar 실 데이터 (Phase 2 진입 — C-1) ──
-  // 로딩 중에는 undefined 로 전달 → mock 그대로 표시 (FOUC 회피)
   const hubStatsState = useHubStats()
-  const realStats = hubStatsState.status === 'ready' ? hubStatsState.data : undefined
 
   // ── TextViewer 인계 단어 수신 → ?view=browse 자동 진입 ──
   useEffect(() => {
@@ -213,7 +222,7 @@ export default function WordVaultPage() {
       <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
         <div className={view === 'hub' ? '' : 'mx-auto max-w-[1200px] p-6'}>
           {/* ── HUB (기본 진입) ── */}
-          {view === 'hub' && <WordVaultHub words={words} realStats={realStats} />}
+          {view === 'hub' && <WordVaultHub stats={hubStatsState} />}
 
           {/* ── BROWSE ── */}
           {view === 'browse' && (
