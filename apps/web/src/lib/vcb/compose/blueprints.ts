@@ -144,6 +144,7 @@ interface RecipeSeed {
   pacing?: { days: number; per_day: number } | null
   keep_pairs_together?: boolean
   min_group_size?: number | null
+  max_group_size?: number | null
   facets: FacetId[]
   card_fields?: RequirableField[]
   contrast?: 'none' | 'antonym' | 'confusable' | 'sense' | 'synonym'
@@ -161,7 +162,18 @@ interface RecipeSeed {
 function recipe(seed: RecipeSeed): Recipe {
   const auto = requiredFieldsFor(seed.facets)
   const declared = seed.filters?.require_fields ?? []
-  const merged = [...new Set([...auto, ...declared])]
+  // 뜻이 읽히지 않는 항목은 어떤 유형에도 들어가면 안 된다 — 시중 베스트는 편집자가 교열하므로
+  // 이 요소에서 지면과 동률조차 되지 못한다 (실측: 한국어 뜻 자리에 영단어 1,642건).
+  const merged = new Set<RequirableField>([...auto, ...declared, 'meaning_clean'])
+
+  // 발음 표기 — 지면 베스트는 표제어마다 발음기호를 싣는다(기준선 1.00). 사전 pool 은 단어 90.5%
+  // 이므로 요구하지 않으면 그 요소에서 진다. 단 두 경우는 요구하지 않는다:
+  //   · 구·관용어 유형 — 구는 IPA 8.3% 이고 지면 책도 구에 발음기호를 싣지 않는다
+  //   · 코퍼스 유형 — 그 책에 나오는 단어를 IPA 유무로 빼면 목록이 거짓이 된다
+  const posTargets = seed.filters?.primary_pos ?? []
+  const isPhraseType = posTargets.some((p) => p === 'idiom' || p === 'phrasal_verb')
+  const isCorpusType = seed.population.kind === 'corpus'
+  if (!isPhraseType && !isCorpusType) merged.add('ipa')
 
   return {
     version: RECIPE_VERSION,
@@ -178,7 +190,7 @@ function recipe(seed: RecipeSeed): Recipe {
     },
     population: seed.population,
     select: {
-      filters: filters({ ...seed.filters, require_fields: merged }),
+      filters: filters({ ...seed.filters, require_fields: [...merged] }),
       objective: seed.objective ?? { kind: 'count', n: 500 },
       subtract_known_for: seed.subtract_known_for ?? null,
       family_collapse: seed.family_collapse ?? 'none',
@@ -193,6 +205,12 @@ function recipe(seed: RecipeSeed): Recipe {
       pacing: seed.pacing ?? null,
       keep_pairs_together: seed.keep_pairs_together ?? false,
       min_group_size: seed.min_group_size ?? null,
+      // 기본 30 — 한 챕터가 한 자리에서 끝나는 크기. 시중 "하루 20~40개" 관행과 같은 축이고,
+      // 원리(레벨·품사·주제)는 그대로 두고 번호만 붙여 쪼갠다. 짝 유형에는 적용되지 않는다.
+      max_group_size: seed.max_group_size ?? 30,
+      // 연상 고리가 있는 단어를 챕터 창 안에서 앞세운다 — 시중 연상 보카가 파는 요소를
+      // 유형 왜곡 없이 끌어올리는 유일한 방법이다 (하드 필터로 걸면 빈도순이 연상순이 된다).
+      prefer_mnemonic: true,
     },
     present: {
       facets: seed.facets,
@@ -764,6 +782,9 @@ const B: Blueprint[] = [
         filters: {
           primary_pos: ['idiom', 'phrasal_verb'],
           exclude_registers: NOISE_REGISTERS.filter((r) => r !== 'phrase_unit'),
+          // '빈출' 을 약속하는 유형이므로 순위 없는 사전 찌꺼기를 넣지 않는다 —
+          // 넣으면 정렬이 사실상 알파벳순이 되어 (as) sick as a parrot 류가 앞을 차지한다.
+          require_frequency_rank: true,
         },
         objective: { kind: 'count', n: p.count ?? 400 },
         group_by: 'pos',

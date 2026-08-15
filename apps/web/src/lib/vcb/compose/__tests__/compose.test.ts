@@ -28,7 +28,8 @@ function word(w: string, over: Partial<CandidateWord> = {}): CandidateWord {
   return {
     word: w,
     lemma: null,
-    meaning_ko: `${w} 뜻`,
+    // 뜻에 영문이 있으면 meaning_clean 필터에 걸린다 (실데이터 규칙과 같다)
+    meaning_ko: `테스트 뜻`,
     pos: 'noun',
     primary_pos: 'noun',
     cefr_level: 'B1',
@@ -51,6 +52,7 @@ function word(w: string, over: Partial<CandidateWord> = {}): CandidateWord {
     base_word: null,
     derivation_suffix: null,
     derived_forms: [],
+    inflected_forms: [],
     verified: true,
     ...over,
   }
@@ -114,9 +116,9 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
   })
 
   it('Build 면은 형태소 정보 중 하나라도 있으면 성립한다', () => {
-    expect(facetVerdict(word('a'), 'build').tier).toBe('missing')
-    expect(facetVerdict(word('a', { base_word: 'b' }), 'build').tier).toBe('full')
-    expect(facetVerdict(word('a', { derived_forms: ['ab'] }), 'build').tier).toBe('full')
+    expect(facetVerdict(word('alpha'), 'build').tier).toBe('missing')
+    expect(facetVerdict(word('alpha', { base_word: 'bravo' }), 'build').tier).toBe('full')
+    expect(facetVerdict(word('alpha', { derived_forms: ['alphas'] }), 'build').tier).toBe('full')
   })
 
   it('any_of 요구는 필수 필드 목록에 들어가지 않는다 (넣으면 Sound 세트가 전멸한다)', () => {
@@ -166,9 +168,9 @@ describe('select — 필터·차감·family·목표', () => {
   })
 
   it('요구 필드 결측은 이유별로 집계된다', () => {
-    const pop = [word('a', { collocations: [] }), word('b', { collocations: ['b up'] })]
+    const pop = [word('alpha', { collocations: [] }), word('bravo', { collocations: ['bravo up'] })]
     const r = select(pop, baseSelect({ filters: { ...baseSelect().filters, require_fields: ['collocations'] } }))
-    expect(r.kept.map((c) => c.word)).toEqual(['b'])
+    expect(r.kept.map((c) => c.word)).toEqual(['bravo'])
     expect(r.dropped['missing:collocations']).toBe(1)
   })
 })
@@ -187,7 +189,7 @@ describe('organize — 목차', () => {
   })
 
   it('day 페이싱은 일자별로 정확히 잘린다', () => {
-    const pop = Array.from({ length: 7 }, (_, i) => word(`w${i}`, { frequency_rank: i }))
+    const pop = Array.from({ length: 7 }, (_, i) => word(`word${i}`, { frequency_rank: i }))
     const r = organize(
       pop,
       baseOrganize({ group_by: 'day', pacing: { days: 3, per_day: 2 }, order_within: 'frequency' }),
@@ -332,10 +334,10 @@ describe('evaluate — 미달 원인이 blocker 로 드러난다', () => {
     // 빈도 상위가 한 그룹에 몰려 있어도, 예산 4개가 두 그룹에 나뉘어야 한다.
     const bp = getBlueprint('pos-focus')!
     const pop = [
-      word('v1', { primary_pos: 'verb', frequency_rank: 1, v_level: 3 }),
-      word('v2', { primary_pos: 'verb', frequency_rank: 2, v_level: 3 }),
-      word('v3', { primary_pos: 'verb', frequency_rank: 3, v_level: 3 }),
-      word('v4', { primary_pos: 'verb', frequency_rank: 900, v_level: 6 }),
+      word('alfa', { primary_pos: 'verb', frequency_rank: 1, v_level: 3 }),
+      word('bravo', { primary_pos: 'verb', frequency_rank: 2, v_level: 3 }),
+      word('charlie', { primary_pos: 'verb', frequency_rank: 3, v_level: 3 }),
+      word('delta', { primary_pos: 'verb', frequency_rank: 900, v_level: 6 }),
     ]
     const set = compose(bp.build({ count: 2 }), pop)
     expect(set.groups).toHaveLength(2)
@@ -359,7 +361,7 @@ describe('evaluate — 미달 원인이 blocker 로 드러난다', () => {
 
   it('선언 면이 전부 채워지면 fill 이 1.0 이다', () => {
     const bp = getBlueprint('freq-tier')!
-    const set = compose(bp.build({ count: 2 }), [word('a'), word('b')])
+    const set = compose(bp.build({ count: 2 }), [word('alpha'), word('bravo')])
     const fill = evaluateSet(set).metrics.find((m) => m.id === 'fill')!
     expect(fill.score).toBe(1)
   })

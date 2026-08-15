@@ -91,6 +91,8 @@ export type NoiseRegister = (typeof NOISE_REGISTERS)[number]
 /** 카드가 요구할 수 있는 사전 필드 — 면(facet) 요구가 이 이름으로 표현된다. */
 export const REQUIRABLE_FIELDS = [
   'meaning_ko',
+  /** 뜻이 **읽을 수 있는 상태**인가 — 영문 잔재·깨진 글자·과장한 길이 배제 (market.ts 와 같은 판정) */
+  'meaning_clean',
   'example_en',
   'ipa',
   'audio_url',
@@ -120,6 +122,43 @@ export interface SelectFilters {
   require_fields: RequirableField[]
   /** 최소 등장 빈도 — 코퍼스 모집단에서만 의미 있다 */
   min_corpus_freq?: number
+  /**
+   * 표제어 최소 길이. 기본 3.
+   *
+   * 빈도 상위에는 `s` · `m` · `d` · `re` 같은 토큰이 섞여 있다(실측). 시중 단어장은 이런 것을
+   * 표제어로 싣지 않으며, 실리면 그 책의 신뢰가 떨어진다.
+   */
+  min_word_length?: number
+  /**
+   * 내용어만 남긴다 (명사·동사·형용사·부사·관용어·구동사).
+   *
+   * 대명사·전치사·접속사·관사·조동사는 빈도 최상위를 차지하지만 **외울 대상이 아니다**.
+   * 시중 빈출 보카가 `is/am/are/it/he` 를 표제어로 싣지 않는 것과 같은 이유다.
+   * 레시피가 `primary_pos` 를 직접 지정하면(전치사 단어장 등) 이 필터는 비활성된다.
+   */
+  content_pos_only?: boolean
+  /**
+   * 같은 풀 안에 기본형이 있는 **굴절형을 버린다** (`go` 가 있으면 `goes·going·went·gone` 제거).
+   *
+   * 지면 단어장은 표제어를 한 번만 싣고 굴절은 그 아래 적는다. 우리 세트는 굴절형이 각각
+   * 한 자리를 차지해 600개 중 수십 개가 같은 단어의 변형이었다 — 분량을 낭비하고 아마추어처럼 보인다.
+   */
+  drop_pool_inflections?: boolean
+  /**
+   * 사전식 **변형 표제어**를 버린다. 기본 true.
+   *
+   * `(be) on the ball` · `(as) sick as a parrot` · `honor-bound/honour-bound` 처럼 괄호·슬래시로
+   * 변형을 묶은 항목은 사전 표제어이지 **학습 카드가 아니다**. 시중 책은 이런 형태를 싣지 않는다
+   * (실측: 관용어 풀 상위가 이런 항목으로 뒤덮여 "빈출 구동사" 세트가 알파벳 순 찌꺼기였다).
+   */
+  exclude_variant_headwords?: boolean
+  /**
+   * 빈도 순위가 있는 항목만 남긴다.
+   *
+   * "빈출" 을 약속하는 유형에서만 켠다 — 순위가 없으면 무엇이 빈출인지 말할 근거가 없고,
+   * 정렬은 사실상 알파벳순이 된다.
+   */
+  require_frequency_rank?: boolean
 }
 
 /**
@@ -199,6 +238,23 @@ export interface OrganizeSpec {
    * 개수를 채우려고 유형을 깨는 것보다, 개수가 줄고 유형이 성립하는 쪽이 옳다.
    */
   min_group_size?: number | null
+  /**
+   * 이 크기를 넘는 그룹은 **번호를 붙여 쪼갠다** (`V5 (1/3)` · `V5 (2/3)` …).
+   *
+   * 시중 베스트가 잘하는 것 중 하나가 분량 설계다 — 한 챕터가 한 자리에서 끝난다.
+   * 우리 그룹은 원리(레벨·품사·주제)로 갈리므로 크기가 들쭉날쭉하고, 500개짜리 챕터는
+   * 목차가 있으나 마나다. 원리를 유지한 채 소화 가능한 크기로 자르는 것이 이 옵션이다.
+   */
+  max_group_size?: number | null
+  /**
+   * 챕터 크기 창(window) 안에서 **연상 고리가 있는 단어를 앞세운다**.
+   *
+   * 시중 연상 보카가 파는 것이 이 요소인데(기준선 0.1~0.5), 우리 사전은 `mnemonic_ko` 12.6% 라
+   * 아무 개입이 없으면 그 비율이 그대로 나온다. 하드 필터로 걸면 유형이 왜곡되므로
+   * (빈도순 단어장이 "연상 있는 단어장" 이 되어 버린다) **순서만** 바꾼다 —
+   * 한 단어가 움직이는 거리는 챕터 하나를 넘지 않으므로 난이도 진행이 보존된다.
+   */
+  prefer_mnemonic?: boolean
 }
 
 // ── 표현 — 무엇을 보장하나 ──────────────────────────────────────────
@@ -277,6 +333,8 @@ export interface CandidateWord {
   base_word: string | null
   derivation_suffix: string | null
   derived_forms: string[]
+  /** 굴절형 — 예문이 표제어를 담고 있는지 판정할 때 쓴다 (come/came 같은 불규칙) */
+  inflected_forms: string[]
   verified: boolean
   /** 코퍼스 모집단에서만 채워진다 — unlock/recycle 의 입력 */
   corpus_freq?: number

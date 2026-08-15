@@ -24,6 +24,41 @@ function drop(map: Record<string, number>, reason: string): void {
   map[reason] = (map[reason] ?? 0) + 1
 }
 
+/**
+ * 사전식 변형 표제어 — 괄호·슬래시·문장부호를 품은 것, 알파벳으로 시작하지 않는 것.
+ * `(be) on the ball` · `honor/honour-bound` · `…or bust` 류. 학습 카드가 될 수 없다.
+ */
+const VARIANT_HEADWORD = /[()/!?;:…]|^[^A-Za-z]/
+
+/** 외울 대상이 되는 품사 — 나머지(대명사·전치사·접속사·관사·조동사)는 표제어로 싣지 않는다. */
+const CONTENT_POS = new Set([
+  'noun',
+  'verb',
+  'adjective',
+  'adverb',
+  'idiom',
+  'phrasal_verb',
+])
+
+/**
+ * 풀 안에 기본형이 있는 굴절형 집합.
+ *
+ * 사전의 `inflected_forms` 를 뒤집어 만든다 — `go` 가 `goes·going·went·gone` 를 들고 있으므로
+ * 그 넷은 `go` 가 같은 풀에 있을 때 버려진다. 어느 쪽이 기본형인지 추측하지 않는다.
+ */
+function poolInflections(population: CandidateWord[]): Set<string> {
+  const present = new Set(population.map((c) => c.word.toLowerCase()))
+  const drop = new Set<string>()
+  for (const c of population) {
+    const base = c.word.toLowerCase()
+    for (const f of c.inflected_forms) {
+      const form = f.toLowerCase().trim()
+      if (form && form !== base && present.has(form)) drop.add(form)
+    }
+  }
+  return drop
+}
+
 /** 필터 한 겹 — 왜 떨어졌는지 이유별로 센다. 드라이런 진단이 이 카운터에서 나온다. */
 export function applyFilters(
   population: CandidateWord[],
@@ -31,6 +66,11 @@ export function applyFilters(
   dropped: Record<string, number>,
 ): CandidateWord[] {
   const f = spec.filters
+  const minLen = f.min_word_length ?? 3
+  // 레시피가 품사를 직접 지정했으면(전치사 단어장 등) 내용어 필터를 걸지 않는다.
+  const contentOnly = (f.content_pos_only ?? true) && f.primary_pos.length === 0
+  const inflectionsToDrop =
+    (f.drop_pool_inflections ?? true) ? poolInflections(population) : new Set<string>()
   const excluded = new Set(f.exclude_registers.length > 0 ? f.exclude_registers : NOISE_REGISTERS)
   const mustExclude = new Set(spec.must_exclude.map((w) => w.toLowerCase()))
   const mustInclude = new Set(spec.must_include.map((w) => w.toLowerCase()))
@@ -60,6 +100,29 @@ export function applyFilters(
 
     if (!c.meaning_ko || c.meaning_ko.trim().length === 0) {
       drop(dropped, 'no_meaning_ko')
+      continue
+    }
+    if (key.replace(/\s/g, '').length < minLen) {
+      drop(dropped, 'too_short')
+      continue
+    }
+    if (contentOnly) {
+      const pos = c.primary_pos ?? c.pos
+      if (!pos || !CONTENT_POS.has(pos)) {
+        drop(dropped, 'function_word')
+        continue
+      }
+    }
+    if (inflectionsToDrop.has(key)) {
+      drop(dropped, 'inflection_of_pool_base')
+      continue
+    }
+    if ((f.exclude_variant_headwords ?? true) && VARIANT_HEADWORD.test(c.word)) {
+      drop(dropped, 'variant_headword')
+      continue
+    }
+    if (f.require_frequency_rank && c.frequency_rank == null) {
+      drop(dropped, 'no_frequency_rank')
       continue
     }
     if (f.verified_only && !c.verified) {

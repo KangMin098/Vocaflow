@@ -16,6 +16,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { describe, expect, it, beforeAll } from 'vitest'
 import { BLUEPRINTS, catalogSummary, type BlueprintParams } from '../blueprints'
 import { PASS_THRESHOLD, type Scorecard } from '../evaluate'
+import { ELEMENTS, evaluateMarket, type MarketScorecard } from '../market'
 import { fetchPublishedWords } from '../resolve'
 import { dryRun, type DryRunResult } from '../run'
 
@@ -92,6 +93,8 @@ interface Row {
   error?: string
   /** 고유 유형의 우위 증거 한 줄 */
   evidence?: string
+  /** 시중 베스트 대비 요소별 비교 */
+  market?: MarketScorecard
 }
 
 const rows: Row[] = []
@@ -140,6 +143,43 @@ function report(): string {
     lines.push(`- **${r.id}** — ${r.evidence ?? '증거 없음'}`)
   }
   lines.push('')
+  lines.push('## 시중 베스트 대비 요소별 비교')
+  lines.push('')
+  lines.push('각 유형은 **같은 유형의 시중 대표작**과 비교한다 (빈도순 세트를 어원편과 비교하면 부당하다).')
+  lines.push('셀 값은 `우리−기준선`. 음수(❌)가 하나라도 있으면 그 유형은 아직 요소별 우위가 아니다.')
+  lines.push('')
+  const elemCols = ELEMENTS.map((e) => e.label)
+  lines.push(`| blueprint | 경쟁 상대 | ${elemCols.join(' | ')} | 판정 |`)
+  lines.push(`|---|---|${ELEMENTS.map(() => '--:').join('|')}|:-:|`)
+  for (const r of rows) {
+    const m = r.market
+    if (!m) continue
+    const cells = ELEMENTS.map((def) => {
+      const el = m.elements.find((x) => x.id === def.id)!
+      const d = el.delta
+      const sign = d > 1e-6 ? '+' : d < -1e-6 ? '' : '±'
+      return `${sign}${d.toFixed(2)}`
+    })
+    const verdict = m.all_above ? '🏆' : m.all_at_or_above ? '✅' : '❌'
+    lines.push(`| ${r.id} | ${m.competitor} | ${cells.join(' | ')} | ${verdict} |`)
+  }
+  lines.push('')
+  lines.push('🏆 = 전 요소 **초과** · ✅ = 전 요소 이상(동률 포함) · ❌ = 열위 요소 있음')
+  lines.push('')
+  const losers = rows.filter((r) => r.market && !r.market.all_at_or_above)
+  lines.push(`### 열위 요소가 남은 유형 ${losers.length}종`)
+  if (losers.length === 0) lines.push('- 없음')
+  for (const r of losers) {
+    const m = r.market!
+    const detail = m.losing
+      .map((id) => {
+        const el = m.elements.find((x) => x.id === id)!
+        return `${el.label} ${el.ours.toFixed(2)} < ${el.baseline.toFixed(2)} (${el.note})`
+      })
+      .join(' · ')
+    lines.push(`- **${r.id}** — ${detail}`)
+  }
+  lines.push('')
   lines.push(`_소요: ${rows.reduce((s, r) => s + r.ms, 0)}ms · 생성 ${new Date().toISOString().slice(0, 10)}_`)
   return lines.join('\n')
 }
@@ -183,6 +223,7 @@ describe.skipIf(!enabled)('VCB 컴포저 — 전 blueprint 실 DB 평가', () =>
               : undefined
           rows.push({
             evidence: evidenceLine,
+            market: evaluateMarket(r.set),
             id: bp.id,
             taxon: bp.taxon,
             title: bp.title,
@@ -265,6 +306,31 @@ describe.skipIf(!enabled)('VCB 컴포저 — 전 blueprint 실 DB 평가', () =>
     expect(r, 'unlock 행 없음').toBeTruthy()
     console.info(`[G4] unlock blueprint_fit=${fmt(r!.metrics['blueprint_fit'] ?? 0)} · ${r!.blockers.join(' / ')}`)
     expect(r!.metrics['blueprint_fit']).toBe(1)
+  })
+
+  it('G6 — 생성 가능한 모든 유형이 같은 유형의 시중 베스트에 요소별로 지지 않는다', () => {
+    const target = rows.filter((r) => r.status === 'ready' || r.status === 'partial')
+    const losing = target.filter((r) => r.market && !r.market.all_at_or_above)
+    console.info(
+      `[G6] ${target.length - losing.length}/${target.length} 전 요소 우위/동률 · 열위: ${
+        losing
+          .map((r) => `${r.id}(${r.market!.losing.join(',')})`)
+          .join(' · ') || '없음'
+      }`,
+    )
+    expect(losing.map((r) => r.id)).toEqual([])
+  })
+
+  it('G7 — 목표 초과: 남은 동률이 전부 상한(1.00)이거나 해당 없음(0 vs 0)이다', () => {
+    const target = rows.filter((r) => r.status === 'ready' || r.status === 'partial')
+    const exceeded = target.filter((r) => r.market?.all_above)
+    const stuck = target.filter((r) => r.market && r.market.beatable_ties.length > 0)
+    console.info(
+      `[G7] 목표 초과 ${exceeded.length}/${target.length} — 깰 수 있는 동률이 남은 유형: ${
+        stuck.map((r) => `${r.id}(${r.market!.beatable_ties.join(',')})`).join(' · ') || '없음'
+      }`,
+    )
+    expect(stuck.map((r) => r.id)).toEqual([])
   })
 
   it('자산 결손 2종은 0건을 내는 것이 정상이다 (설계 결함이 아님을 고정)', () => {

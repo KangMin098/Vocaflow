@@ -71,6 +71,11 @@ export function hasField(c: CandidateWord, field: RequirableField | 'frequency_b
   switch (field) {
     case 'meaning_ko':
       return !!c.meaning_ko && c.meaning_ko.trim().length > 0
+    case 'meaning_clean': {
+      // 한국어 뜻 자리에 영단어가 남아 있으면 학습자는 뜻을 못 읽는다 (실측 1,642건).
+      const m = c.meaning_ko?.trim() ?? ''
+      return m.length > 0 && m.length <= 60 && !/[A-Za-z]{4,}/.test(m) && !/[�]/.test(m)
+    }
     case 'example_en':
       // 코퍼스 문장이 있으면 그것이 더 좋은 예문이다 (실제 원서 문장).
       return (
@@ -104,7 +109,11 @@ export function hasField(c: CandidateWord, field: RequirableField | 'frequency_b
         !!c.base_word ||
         !!c.derivation_suffix ||
         c.derived_forms.length > 0 ||
-        (c.group_keys ?? []).some((g) => g.key.startsWith('root:'))
+        (c.group_keys ?? []).some((g) => g.key.startsWith('root:')) ||
+        // 구동사·관용어는 그 자체가 조각으로 나뉜다 — `give up` = give + up.
+        // Build 면("조각으로 나누고 다시 붙일 수 있어요")이 가장 잘 맞는 항목이 오히려
+        // 형태소 컬럼이 비어 있다는 이유로 빠지고 있었다.
+        /\s/.test(c.word.trim())
       )
     case 'frequency_band':
       return !!c.frequency_band

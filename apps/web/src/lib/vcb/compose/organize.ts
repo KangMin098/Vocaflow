@@ -331,6 +331,64 @@ function comparator(order: OrderWithin): (a: CandidateWord, b: CandidateWord) =>
   }
 }
 
+/**
+ * 층화 우선 배치 — 1차 정렬 뒤 **챕터 크기 창 안에서** 연상 있는 단어를 앞으로 당긴다.
+ *
+ * 창 밖으로는 움직이지 않으므로 난이도 진행(빈도·레벨 순서)이 챕터 단위로 보존된다.
+ * 하드 필터가 아닌 이유: 연상 보유가 12.6% 뿐이라 필터로 걸면 빈도순 단어장이
+ * "연상 있는 단어만 모은 단어장" 으로 유형이 바뀐다.
+ */
+function stageByMnemonic(
+  candidates: CandidateWord[],
+  cmp: (a: CandidateWord, b: CandidateWord) => number,
+  spec: OrganizeSpec,
+): CandidateWord[] {
+  const win = Math.max(10, spec.max_group_size ?? 30)
+  const primary = [...candidates].sort(cmp)
+  const out: CandidateWord[] = []
+  for (let i = 0; i < primary.length; i += win) {
+    const chunk = primary.slice(i, i + win)
+    out.push(...chunk.filter((x) => !!x.mnemonic_ko), ...chunk.filter((x) => !x.mnemonic_ko))
+  }
+  return out
+}
+
+/**
+ * 큰 그룹을 소화 가능한 크기로 쪼갠다 — `V5 (1/3)` 식. 원리(레벨·품사·주제)는 그대로 둔다.
+ *
+ * ⚠️ **선별이 끝난 뒤에** 불러야 한다. 쪼개기를 먼저 하면 라운드로빈 선별이 "챕터"를 의미 축으로
+ * 착각해 빈도 전 구간에 흩뿌린다 — 구동사 200개를 뽑았더니 최상위 빈출은 2개뿐이고 나머지가
+ * 희귀 구로 채워졌다(Round 13 실측). 챕터는 분량 장치이지 선별 축이 아니다.
+ *
+ * 짝 유형은 쪼개지 않는다 — 짝이 다른 챕터로 갈리면 그 유형이 무너진다.
+ */
+export function chunkGroups(groups: ComposedGroup[], spec: OrganizeSpec): ComposedGroup[] {
+  const maxSize = spec.keep_pairs_together ? null : (spec.max_group_size ?? null)
+  if (maxSize == null) return groups
+
+  const out: ComposedGroup[] = []
+  for (const g of groups) {
+    if (g.entries.length <= maxSize) {
+      out.push(g)
+      continue
+    }
+    const parts = Math.ceil(g.entries.length / maxSize)
+    for (let p = 0; p < parts; p += 1) {
+      out.push({
+        key: `${g.key}#${p + 1}`,
+        label: `${g.label} (${p + 1}/${parts})`,
+        entries: g.entries.slice(p * maxSize, (p + 1) * maxSize),
+      })
+    }
+  }
+
+  let order = 0
+  return out.map((g) => ({
+    ...g,
+    entries: g.entries.map((e) => ({ ...e, group_key: g.key, group_label: g.label, sort_order: order++ })),
+  }))
+}
+
 // ── 조직 실행 ───────────────────────────────────────────────────────
 
 /**
@@ -352,7 +410,9 @@ export function organize(
   // day 페이싱은 전체 순서를 먼저 정한 뒤 잘라야 한다.
   if (usePacing) {
     const pacing = spec.pacing!
-    const ordered = [...candidates].sort(cmp)
+    // staged 를 쓴다 — 페이싱 분기가 층화 정렬을 건너뛰고 있어서 N일 완성 유형만
+    // 연상 우선 배치가 적용되지 않았다 (Round 8 실측).
+    const ordered = spec.prefer_mnemonic ? stageByMnemonic(candidates, cmp, spec) : [...candidates].sort(cmp)
     const capacity = pacing.days * pacing.per_day
     const kept = ordered.slice(0, capacity)
     if (ordered.length > kept.length) dropped['pacing_overflow'] = ordered.length - kept.length
@@ -376,12 +436,14 @@ export function organize(
     return { groups, entries: groups.flatMap((g) => g.entries), dropped }
   }
 
+  const staged = spec.prefer_mnemonic ? stageByMnemonic(candidates, cmp, spec) : candidates
+
   const confusable =
-    spec.group_by === 'confusable' ? buildConfusableGroups(candidates) : new Map<string, GroupAssignment>()
-  const family = spec.group_by === 'family' ? buildFamilyKeys(candidates) : new Map<string, string>()
+    spec.group_by === 'confusable' ? buildConfusableGroups(staged) : new Map<string, GroupAssignment>()
+  const family = spec.group_by === 'family' ? buildFamilyKeys(staged) : new Map<string, string>()
 
   const byKey = new Map<string, { label: string; rank?: number; items: CandidateWord[] }>()
-  for (const c of candidates) {
+  for (const c of staged) {
     const a = assign(c, spec.group_by, confusable, family)
     const g = byKey.get(a.key)
     if (g) g.items.push(c)
@@ -431,7 +493,7 @@ export function organize(
         })
 
   let order = 0
-  const groups: ComposedGroup[] = surviving.map((g) => ({
+  const raw: ComposedGroup[] = surviving.map((g) => ({
     key: g.key,
     label: g.label,
     entries: g.items.map((c) => ({
@@ -443,5 +505,6 @@ export function organize(
     })),
   }))
 
+  const groups = chunkGroups(raw, spec)
   return { groups, entries: groups.flatMap((g) => g.entries), dropped }
 }

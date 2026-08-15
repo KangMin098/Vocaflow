@@ -13,7 +13,7 @@
 
 import { selectPool } from './select'
 import { applyObjective } from './select'
-import { organize } from './organize'
+import { chunkGroups, organize } from './organize'
 import type { ComposedGroup } from './types'
 import {
   baselineSentenceUnlock,
@@ -195,9 +195,13 @@ export function compose(
   ) {
     // 그룹 인지 선별 — 목차를 먼저 짜고 거기서 예산을 채운다.
     // 여기서 만든 그룹이 **정본**이다 (다시 조직하지 않는다 — pickGroups 주석 참조).
-    const full = organize(pool, recipe.organize)
+    //
+    // 챕터 쪼개기(max_group_size)는 **선별 뒤에** 한다. 먼저 쪼개면 라운드로빈이 챕터를 의미 축으로
+    // 착각해 빈출 상위 대신 전 구간을 흩뿌린다 (chunkGroups 주석의 Round 13 실측).
+    const full = organize(pool, { ...recipe.organize, max_group_size: null })
     const budget = budgetOf(recipe, pool.length)
-    preGrouped = pickGroups(full.groups, budget, recipe.organize.keep_pairs_together === true)
+    const picked = pickGroups(full.groups, budget, recipe.organize.keep_pairs_together === true)
+    preGrouped = chunkGroups(picked, recipe.organize)
     chosen = preGrouped.flatMap((g) => g.entries.map((e) => e.candidate))
     for (const [k, v] of Object.entries(full.dropped)) {
       dropped[k] = (dropped[k] ?? 0) + v

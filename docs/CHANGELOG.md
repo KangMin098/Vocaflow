@@ -114,6 +114,27 @@
 (세 화면에 복사돼 있던 `isValidEmail`·에러 매핑·경로 검증을 한곳으로. 이름이 갈라질 수 있던
 구조 자체가 위 복귀 결함의 원인이었다)
 
+#### 2차 스윕 — 같은 클래스의 결함 2건 (마이그레이션 `20260815020000`)
+
+`user_profiles` 가 한 건짜리 사고가 아닐 수 있다고 보고 public 스키마를 전수 조사했다
+(스윕 쿼리는 [DB_SCHEMA.md](./DB_SCHEMA.md#클라이언트-쓰기-표면-스윕-20260815020000) 에 남겼다).
+RLS 미적용 테이블은 0건이었고, `shared_dictionary` 의 `FOR ALL qual=true` 는 `{service_role}`
+한정이라 정상이었다. 실제 구멍은 둘:
+
+- 🔴 **고아 테이블 3종이 anon 에 전면 개방** — `sw_players`·`sw_comments`·`st17_timetables` 가
+  `FOR ALL TO anon USING(true)`. 제품 코드가 전혀 참조하지 않는(다른 실험의 잔여물) 테이블인데
+  anon key 는 브라우저 번들에 있으므로 사실상 공개였다. **`sw_players.pass_hash` 를 anon key
+  만으로 읽어냈다.** → 정책 제거 + `REVOKE ALL FROM anon, authenticated`.
+  테이블 DROP 은 하지 않았다(데이터 삭제는 소유자 확인이 필요한 별도 결정).
+- 🔴 **class_members 초대코드 우회** — `cm_self_join` 이 `user_id = auth.uid()` 만 확인해,
+  class_id 만 알면 남의 클래스에 무단 가입하고 `role='teacher'` 로 적을 수 있었다.
+  앱의 유일한 가입 경로 `join_class_by_code`(SECURITY DEFINER, invite_code 검증 + role 고정)가
+  RLS 를 우회하므로 이 정책은 쓰이지 않는 우회로였다 → 제거.
+  (`is_class_teacher` 는 `classes.teacher_id` 를 보므로 교사 권한 자체는 넘어가지 않았다.)
+
+회귀 락 `lib/auth/__tests__/rls-surface.integration.test.ts` 14건 — 차단뿐 아니라
+**정상 초대코드 경로가 살아 있는지**(과잉 차단 방지)까지 단언한다. 인증 계열 테스트 누계 **202**.
+
 ### 셸 재설계 — 첫 화면이 "아무것도 하지 않은 사람의 성적표"였다 ([ADR 0006](./adr/0006-shell-redesign-menu-status-tabs.md))
 
 실측(2026-08-14 `/hub` 데스크톱 1화면): 내비게이션 시스템이 **3개**(Sidebar 16링크 ·
@@ -188,6 +209,33 @@ FlowNav 6 · MobileTab 4)로 서로 다른 분류를 썼고, 상태 지표 **19�
 **발행 실적 (dev)** — `unlock-pride-and-prejudice` 200 · `facet-ladder-300` 300 ·
 `confusable-pairs-300` 299 · `day-30-ngsl` 600 · `uncovered-core-400` 400.
 다섯 세트 모두 학습자 `/library/vocab` 테마별에서 확인.
+
+**시중 베스트와 요소별로 겨룬다 — 경쟁 루브릭 + Round 6~19 (2026-08-15)**
+
+7지표는 "선언한 것을 지켰나" 이지 "시중 책보다 나은가" 가 아니다. 두 번째 루브릭
+`lib/vcb/compose/market.ts` — 13 경쟁 프로필(능률 VOCA·해커스·Word Power Made Easy·
+Collocations in Use·Phrasal Verbs in Use·30일 완성·원서 부록·파닉스…) × **16 요소**.
+유형마다 **같은 유형의 베스트**와 비교한다(빈도순을 어원편과 비교하면 부당하다).
+
+- 결과: **28/28 전 요소 우위 또는 상한 동률** (Round 6 시작점 2/28)
+- 기준선은 지면 매체의 **상한**으로 잡았다 — 뜻·발음·오류 1.00(편집자 교열). 우리에게 가장 불리한 가정
+
+**측정이 잡은 진짜 결함 5건** (모두 "우리가 시중보다 못한 지점"):
+1. 한국어 뜻 자리에 영단어 1,642건 → 모든 레시피에 `meaning_clean` 요구
+2. 500개짜리 챕터 → `max_group_size` 30 분할(`V5 (1/3)`)
+3. **"빈출 2000" 세트에 `is·am·s·m·d·comes·went`** → `content_pos_only`·`min_word_length`·
+   `drop_pool_inflections` (legacy `publish-list-word-set` 가 content POS 를 걸던 이유가 이것이었다)
+4. 원서 예문 6% 오판정 → 불규칙 굴절을 `inflected_forms`(15,217행)로 판정
+5. "빈출 구동사" 가 `(as) sick as a parrot` 로 채워짐 → 사전식 변형 표제어 배제 +
+   **챕터 분할을 선별 뒤로**(먼저 쪼개면 라운드로빈이 빈도 전 구간을 흩뿌린다)
+
+**콘텐츠 보강** — 측정이 "데이터가 없다"를 가리킨 자리: 고빈도 연상 60 · 여행 주제 연상 48 ·
+구동사 연상 21 + 연어 34 + 유의어 34 (house style `어근(뜻) → 연결 → 뜻` 유지).
+
+G7 정의를 한 번 고쳤다: "동률 0" 은 원리적으로 불가능(뜻·발음·오류는 양쪽 1.00 상한) →
+**깰 수 있는 동률**과 상한/해당 없음을 구분. 현재 깰 수 있는 동률 0.
+
+전체 vitest **789 통과** · 매트릭스 [reports/vcb-compose-eval.md](./reports/vcb-compose-eval.md)
 
 **학습자 동선 배선 — 도서 상세 Tier 2 자리를 채웠다 (2026-08-15)**
 

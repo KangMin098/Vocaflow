@@ -36,6 +36,7 @@ const DICT_COLUMNS = [
   'base_word',
   'derivation_suffix',
   'derived_forms',
+  'inflected_forms',
   'verified',
 ].join(', ')
 
@@ -65,6 +66,7 @@ interface DictRow {
   base_word: string | null
   derivation_suffix: string | null
   derived_forms: string[] | null
+  inflected_forms: string[] | null
   verified: boolean | null
 }
 
@@ -100,11 +102,56 @@ export function toCandidate(row: DictRow): CandidateWord {
     base_word: row.base_word,
     derivation_suffix: row.derivation_suffix,
     derived_forms: row.derived_forms ?? [],
+    inflected_forms: row.inflected_forms ?? [],
     verified: row.verified ?? false,
   }
 }
 
 const CHUNK = 300
+
+/**
+ * 구(phrase) 후보에 **머리 동사의 굴절형**을 붙인다.
+ *
+ * `bring about` 행에는 굴절형이 없지만 예문은 "brought about" 이다. 머리 동사 `bring` 은
+ * 자기 행에 `brought·bringing·brings` 를 들고 있으므로 그것을 구 후보로 옮겨 오면
+ * "예문이 이 표제어를 담고 있나" 를 추측이 아니라 데이터로 판정할 수 있다
+ * (Round 13 실측: 구동사 예문 실패 19건이 전부 불규칙 과거였다).
+ */
+async function attachPhraseHeadInflections(
+  client: SupabaseClient,
+  candidates: CandidateWord[],
+): Promise<void> {
+  const heads = new Set<string>()
+  for (const c of candidates) {
+    const w = c.word.trim()
+    if (!/\s/.test(w)) continue
+    const head = w.split(/\s+/)[0]!.toLowerCase()
+    if (head.length >= 2) heads.add(head)
+  }
+  if (heads.size === 0) return
+
+  const list = [...heads]
+  const byHead = new Map<string, string[]>()
+  for (let i = 0; i < list.length; i += CHUNK) {
+    const { data, error } = await client
+      .from('shared_dictionary')
+      .select('word, inflected_forms')
+      .in('word', list.slice(i, i + CHUNK))
+    if (error) return // 보조 정보다 — 실패해도 조립을 막지 않는다
+    for (const r of (data ?? []) as unknown as { word: string; inflected_forms: string[] | null }[]) {
+      if (r.inflected_forms && r.inflected_forms.length > 0) {
+        byHead.set(r.word.toLowerCase(), r.inflected_forms)
+      }
+    }
+  }
+
+  for (const c of candidates) {
+    const w = c.word.trim()
+    if (!/\s/.test(w)) continue
+    const forms = byHead.get(w.split(/\s+/)[0]!.toLowerCase())
+    if (forms) c.inflected_forms = [...new Set([...c.inflected_forms, ...forms])]
+  }
+}
 
 /** 단어 목록 → 사전 행. 관계 기반 모집단(roots/topics/corpus)이 전부 이걸 거친다. */
 export async function hydrate(
@@ -178,6 +225,7 @@ async function resolveDictionary(
     if (rows.length < PAGE) break
   }
 
+  await attachPhraseHeadInflections(client, out)
   return out
 }
 
@@ -209,6 +257,7 @@ async function resolveList(
     for (const r of rows) out.push(toCandidate(r))
     if (rows.length < PAGE) break
   }
+  await attachPhraseHeadInflections(client, out)
   return out
 }
 
@@ -749,6 +798,7 @@ export async function resolvePopulation(
           base_word: null,
           derivation_suffix: null,
           derived_forms: [],
+          inflected_forms: [],
           verified: false,
         }),
       )
