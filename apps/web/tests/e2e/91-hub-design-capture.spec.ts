@@ -20,6 +20,7 @@
 // 산출물은 리포에 남기지 않는다(스크린샷은 커밋 대상 아님). 기본 출력은 test-results 하위.
 
 import { test, expect, type Page } from '@playwright/test'
+import fs from 'node:fs'
 import path from 'node:path'
 
 const RUNTIME_USER = {
@@ -148,6 +149,70 @@ async function settle(page: Page) {
   await page.waitForTimeout(600)
 }
 
+/**
+ * 레이아웃 계측 — 스크린샷이 못 보여주는 것을 숫자로.
+ *
+ * 서가에서 "실제 도서관 같지 않다" 의 정체는 대개 **불균질**이다: 카드 높이가 여러 종류거나,
+ * 제목이 1~3줄로 흔들려 기준선이 어긋나거나, 가로로 넘친다. 눈으로는 "뭔가 이상하다" 까지만
+ * 가고 어디를 고칠지는 안 나온다. 라운드마다 같은 잣대로 재야 개선이 래칫이 된다.
+ */
+async function layoutMetrics(page: Page) {
+  return page.evaluate(() => {
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>('button[aria-label$="상세 보기"]'),
+    )
+
+    // ⚠️ **구역을 섞어 세면 안 된다.** 서가에는 캐러셀(270px 고정폭)·인기 가로줄·전체 격자가
+    // 함께 있고, 셋은 원래 크기가 다르다. 전부 한 통에 넣고 "높이 9종" 이라고 읽으면
+    // 멀쩡한 구역을 고치러 간다(실제로 한 번 그렇게 했다). 같은 부모 안에서만 비교한다.
+    // 카드마다 자기 `<li>`/래퍼가 있으므로 부모로 묶으면 전부 1개짜리 구역이 된다.
+    // **여러 카드를 담는 첫 조상**(격자/가로줄 컨테이너)까지 올라가서 묶는다.
+    const containerOf = (c: HTMLElement): Element => {
+      let n: Element | null = c
+      for (let i = 0; i < 4 && n?.parentElement; i++) {
+        n = n.parentElement
+        if (n.querySelectorAll('button[aria-label$="상세 보기"]').length >= 2) return n
+      }
+      return c.parentElement ?? document.body
+    }
+    const bySection = new Map<Element, number[]>()
+    for (const c of cards) {
+      const section = containerOf(c)
+      const arr = bySection.get(section) ?? []
+      arr.push(Math.round(c.getBoundingClientRect().height))
+      bySection.set(section, arr)
+    }
+    const sections = [...bySection.values()]
+      .map((hs) => ({ n: hs.length, heights: [...new Set(hs)].sort((a, b) => a - b) }))
+      .filter((s) => s.n >= 2) // 카드 1개짜리 구역은 균질성을 말할 수 없다
+      .sort((a, b) => b.n - a.n)
+
+    const titleLines: Record<number, number> = {}
+    for (const c of cards) {
+      const t = c.querySelector('h3')
+      if (!t) continue
+      const cs = getComputedStyle(t)
+      const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.25
+      const n = Math.max(1, Math.round(t.getBoundingClientRect().height / lh))
+      titleLines[n] = (titleLines[n] ?? 0) + 1
+    }
+    return {
+      cardCount: cards.length,
+      /** 구역별 카드 높이 — **각 구역 안에서 1종**이 목표다. */
+      sections,
+      /** 높이가 균질하지 않은 구역 수 — 이 값이 래칫의 눈금이다. */
+      unevenSections: sections.filter((s) => s.heights.length > 1).length,
+      /** 제목 줄 수 분포 — 흩어져 있으면 기준선이 어긋난다. */
+      titleLines,
+      /** 문서 가로 넘침(px) — 모바일에서 0 이어야 한다. */
+      overflowPx: Math.max(
+        0,
+        document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      ),
+    }
+  })
+}
+
 test.describe('허브 디자인 캡처', () => {
   test.describe.configure({ mode: 'serial', timeout: 180_000 })
 
@@ -182,6 +247,7 @@ test.describe('허브 디자인 캡처', () => {
     }, THEME)
 
     const captured: string[] = []
+    const metrics: Array<Awaited<ReturnType<typeof layoutMetrics>> & { route: string; vp: string }> = []
 
     for (const vp of [
       { name: 'desktop', width: 1440, height: 900 },
@@ -200,12 +266,27 @@ test.describe('허브 디자인 캡처', () => {
         const file = path.join(OUT_DIR, `${TAG}-${THEME}-${vp.name}-${route.slug}.png`)
         await page.screenshot({ path: file, fullPage: true })
         captured.push(file)
+
+        metrics.push({ route: route.slug, vp: vp.name, ...(await layoutMetrics(page)) })
       }
     }
 
     // 캡처 자체가 목적이지만, 화면이 통째로 죽어 있으면 스크린샷도 무의미하다.
     expect(captured.length).toBe(ROUTES.length * 2)
+
+    // 계측을 함께 낸다 — 스크린샷만으로는 "카드 높이가 3종" 같은 것이 눈에 안 띈다.
+    // 라운드마다 같은 잣대가 있어야 개선이 감이 아니라 래칫이 된다.
+    const metricsFile = path.join(OUT_DIR, `${TAG}-${THEME}-metrics.json`)
+    fs.writeFileSync(metricsFile, JSON.stringify(metrics, null, 2))
     // eslint-disable-next-line no-console
-    console.log(`[hub-capture] ${captured.length} shots → ${OUT_DIR}`)
+    console.log(`[hub-capture] ${captured.length} shots + metrics → ${OUT_DIR}`)
+    for (const m of metrics) {
+      // eslint-disable-next-line no-console
+      console.log(
+        `[metric] ${m.route}/${m.vp} 카드 ${m.cardCount} · 불균질구역 ${m.unevenSections}/${m.sections.length} · ` +
+          `구역 ${m.sections.map((s) => `${s.n}개:${s.heights.join(',')}`).join(' | ')} · ` +
+          `제목줄 ${JSON.stringify(m.titleLines)} · 넘침 ${m.overflowPx}px`,
+      )
+    }
   })
 })

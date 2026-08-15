@@ -191,12 +191,16 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           // role="list" 는 listitem 의 **직접 부모**여야 한다. 예전엔 바깥 래퍼에 붙어 있어
           // 사이에 무대·탭리스트가 끼면서 aria-required-children/parent 가 동시에 깨졌다(2026-08-09 axe).
           role="list"
-          // overflow-x-clip: 3D 무대의 옆 카드들은 absolute + transform 이라 컨테이너를
+          // overflow-clip: 3D 무대의 옆 카드들은 absolute + transform 이라 컨테이너를
           //   벗어난다. 클립이 없으면 **문서가 통째로 옆으로 밀린다** — 390px 모바일에서
           //   scrollWidth 773px(넘침 383px) 실측(2026-08-13 a11y 스윕).
-          //   overflow-hidden 이 아니라 x축만 clip 하는 이유: 세로 그림자·원근 깊이감을
-          //   유지하면서 스크롤 컨테이너도 만들지 않기 위함.
-          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center overflow-x-clip"
+          //
+          //   ⚠️ x축만 클립하던 동안 **세로로는 계속 새어 나왔다.** 옆 카드(opacity 0.6~0.96)가
+          //   무대 아래 격자 위에 겹쳐 **유령 카드**로 보였다(실측 2026-08-15 화면 캡처).
+          //   서가가 어수선해 보이던 주범이다. 두 축 모두 클립하되, 세로 그림자가 잘리지
+          //   않도록 `overflow-clip-margin` 으로 여유를 준다 — 스크롤 컨테이너는 만들지 않는다.
+          //   (clip-margin 은 주지 않는다 — 24px 를 줬더니 모바일에서 가로 넘침 8px 이 다시 생겼다.)
+          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center overflow-clip"
           style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}

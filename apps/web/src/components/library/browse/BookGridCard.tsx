@@ -161,42 +161,54 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
         )}
       </div>
 
-      {/* 제목 + 저자 */}
+      {/*
+        제목 + 저자 — **높이를 예약한다.**
+        서가가 서가처럼 보이는 이유는 책등이 한 줄로 맞기 때문이다. 제목이 1~2줄,
+        저자가 0~1줄, 칩이 0~2줄로 흔들리면 카드 높이가 제각각이 되고(실측: 한 화면에
+        9종) 격자의 기준선이 무너진다. 내용이 짧아도 자리는 남겨 둔다.
+          제목 2줄 = 13.5px × leading-tight(1.25) × 2 ≈ 34px
+          저자 1줄 = 11px × 1.45 ≈ 16px
+      */}
       <div className="flex flex-col gap-0.5 px-0.5">
-        <h3 className="line-clamp-2 font-english text-[13.5px] font-[600] leading-tight text-[var(--t1)]">
+        <h3 className="line-clamp-2 min-h-[34px] font-english text-[13.5px] font-[600] leading-tight text-[var(--t1)]">
           {book.title}
         </h3>
-        {book.author && (
-          <p className="line-clamp-1 font-body text-[11px] text-[var(--t2)]">{book.author}</p>
-        )}
+        {/* 저자가 없어도 행은 남긴다 — 있는 카드와 없는 카드의 높이가 갈리지 않게 */}
+        <p className="line-clamp-1 min-h-[16px] font-body text-[11px] text-[var(--t2)]">
+          {book.author ?? ' '}
+        </p>
 
-        {/* i+1 적합도 (진단 시) */}
-        {fit && (
-          <span
-            className="mt-1 inline-flex w-fit items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-display text-[9.5px] font-[700]"
-            style={{ color: fit.color, borderColor: fit.color }}
-            title={`V${userVLevel} 학습자가 아는 단어 ${fit.coverage}%`}
-          >
-            <span aria-hidden className="h-1 w-1 rounded-full" style={{ backgroundColor: fit.color }} />
-            {fit.label}
-            <span className="font-mono">{fit.coverage}%</span>
-          </span>
-        )}
+        {/*
+          배지 줄 — **정확히 한 줄만.** 예전엔 `flex-wrap` 이라 칩이 두 줄로 흘러 카드가
+          그만큼 더 길어졌다. 넘치는 칩은 자르고(overflow-hidden) 줄바꿈을 막는다.
+          비어 있어도 높이는 유지해 카드 사이 기준선을 맞춘다.
+        */}
+        <div className="mt-1 flex h-[18px] items-center gap-1 overflow-hidden whitespace-nowrap">
+          {/* i+1 적합도 (진단 시) */}
+          {fit && (
+            <span
+              className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-display text-[9.5px] font-[700]"
+              style={{ color: fit.color, borderColor: fit.color }}
+              title={`V${userVLevel} 학습자가 아는 단어 ${fit.coverage}%`}
+            >
+              <span aria-hidden className="h-1 w-1 rounded-full" style={{ backgroundColor: fit.color }} />
+              {fit.label}
+              <span className="font-mono">{fit.coverage}%</span>
+            </span>
+          )}
 
-        {/* 추천 사유 칩 — fit 배지가 없을 때만 (인지 부하 절약) */}
-        {!fit && reasons.length > 0 && (
-          <div className="mt-1 flex flex-wrap gap-1">
-            {reasons.map((r) => (
+          {/* 추천 사유 칩 — fit 배지가 없을 때만 (인지 부하 절약) */}
+          {!fit &&
+            reasons.map((r) => (
               <span
                 key={r}
-                className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[600] text-[var(--t2)]"
+                className="inline-flex shrink-0 items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[600] text-[var(--t2)]"
               >
                 {r === '원어민 음성' && <Sparkles size={8} aria-hidden />}
                 {r}
               </span>
             ))}
-          </div>
-        )}
+        </div>
       </div>
     </button>
   )
