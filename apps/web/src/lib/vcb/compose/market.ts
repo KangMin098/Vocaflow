@@ -17,7 +17,7 @@
 //   우리 쪽 수치만 실데이터로 계산한다. 우리 값을 후하게 주지 않는 것이 이 파일의 목적이다.
 
 import type { CandidateWord, ComposedSet } from './types'
-import { hasField } from './facets'
+import { hasField, meaningIsClean as isMeaningClean } from './facets'
 import { isUngroupedKey as isUngroupedGroupKey } from './organize'
 import { exampleContainsHeadword } from './match'
 
@@ -290,20 +290,10 @@ export const BLUEPRINT_COMPETITOR: Record<string, string> = {
 // 예문 포함 판정은 match.ts 가 정본이다 (선별과 평가가 같은 판정을 써야 한다).
 export { exampleContainsHeadword } from './match'
 
-const LATIN_LEFTOVER = /[A-Za-z]{4,}/
-const MOJIBAKE = /[�]|�/
+const MOJIBAKE = /[�]/
 
-/** 뜻이 쓸 만한가 — 존재 + 길이 + 영문 잔재·깨진 글자 없음. */
-export function meaningIsClean(c: CandidateWord): boolean {
-  const m = c.meaning_ko?.trim() ?? ''
-  if (m.length === 0) return false
-  if (m.length > 60) return false
-  if (MOJIBAKE.test(m)) return false
-  // 표제어 자체가 라틴문자로 들어간 경우(약어·고유명사)는 예외로 두지 않는다 —
-  // 한국어 뜻 자리에 영단어가 남아 있으면 학습자는 뜻을 못 읽는다.
-  if (LATIN_LEFTOVER.test(m)) return false
-  return true
-}
+// 뜻 판정은 facets.ts 가 정본이다 — 선별과 평가가 같은 규칙을 써야 한다.
+export { meaningIsClean } from './facets'
 
 const NOISE_REGISTER = new Set([
   'archaic_literary',
@@ -366,7 +356,7 @@ export function evaluateMarket(set: ComposedSet): MarketScorecard {
   const count = (pred: (c: CandidateWord) => boolean): number => cands.filter(pred).length
 
   // ── 품질 요소
-  const meaning = ratio(count(meaningIsClean), n)
+  const meaning = ratio(count((x) => isMeaningClean(x.meaning_ko)), n)
   const example = ratio(
     count((c) => {
       const ex = c.corpus_sentence ?? c.example_en

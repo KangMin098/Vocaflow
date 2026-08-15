@@ -69,16 +69,29 @@ export const FACET_REQUIREMENTS: Record<FacetId, FacetRequirement> = {
   },
 }
 
+/**
+ * 뜻이 **읽을 수 있는 상태**인가.
+ *
+ * ⚠️ 한때 "영문자 4자 이상이 있으면 오염" 으로 봤다가 **좋은 항목 1,640개를 모든 세트에서 뺐다**.
+ * 실측하니 그 영문은 대부분 사전의 정상 표기였다:
+ *   `dispose :: 처리하다 (dispose of)` — 필요한 구문을 보여 준다
+ *   `criteria :: 기준들 (criterion의 복수형)` · `amphitheater :: 원형 경기장(amphitheatre 미국형)`
+ * 진짜 결함은 **한국어가 아예 없는 것**(실측 2건)과 깨진 글자다. 그것만 막는다.
+ */
+export function meaningIsClean(meaning: string | null): boolean {
+  const m = meaning?.trim() ?? ''
+  if (m.length === 0 || m.length > 80) return false
+  if (/[�]/.test(m)) return false
+  return /[가-힣]/.test(m)
+}
+
 /** 후보가 이 필드를 실제로 갖고 있나 — 필드 이름 하나당 판정 한 곳. */
 export function hasField(c: CandidateWord, field: RequirableField | 'frequency_band'): boolean {
   switch (field) {
     case 'meaning_ko':
       return !!c.meaning_ko && c.meaning_ko.trim().length > 0
-    case 'meaning_clean': {
-      // 한국어 뜻 자리에 영단어가 남아 있으면 학습자는 뜻을 못 읽는다 (실측 1,642건).
-      const m = c.meaning_ko?.trim() ?? ''
-      return m.length > 0 && m.length <= 60 && !/[A-Za-z]{4,}/.test(m) && !/[�]/.test(m)
-    }
+    case 'meaning_clean':
+      return meaningIsClean(c.meaning_ko)
     case 'example_en':
       // 코퍼스 문장이 있으면 그것이 더 좋은 예문이다 (실제 원서 문장).
       return (

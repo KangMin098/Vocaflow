@@ -417,6 +417,25 @@ export function evaluateSet(set: ComposedSet, ctx: EvaluateContext = {}): Scorec
   }
 
   const warnings = [...noise.warnings, ...organizeScore.warnings]
+
+  // 필터가 모집단을 몇 % 남겼나 — **필터가 조용히 풀을 죽이는 것**을 잡는 가드.
+  //
+  // 오늘 이 실패를 두 번 냈다: `require_frequency_rank` 가 구동사 풀을 984 → 26 으로,
+  // 과한 `meaning_clean` 규칙이 좋은 항목 1,640개를 모든 세트에서 뺐다. 두 경우 모두
+  // **품질 지표는 전부 1.00** 이었다 — 남은 것만 보면 완벽하기 때문이다. 남지 않은 것을 봐야 한다.
+  const funnel = set.funnel
+  if (funnel.population > 0) {
+    const survival = funnel.after_filters / funnel.population
+    if (survival < 0.05) {
+      warnings.push(
+        `필터 생존율 ${(survival * 100).toFixed(1)}% — 모집단 ${funnel.population} 중 ${funnel.after_filters}만 남았다. 필터가 과한지 확인할 것`,
+      )
+    }
+    const top = Object.entries(funnel.dropped).sort((a, b) => b[1] - a[1])[0]
+    if (top && top[1] > funnel.population * 0.5) {
+      warnings.push(`탈락 사유 편중 — '${top[0]}' 하나가 ${top[1]}건(모집단의 절반 이상)을 걸렀다`)
+    }
+  }
   const noveltyMetric = metrics.find((m) => m.id === 'novelty')
   if (noveltyMetric && noveltyMetric.weight > 0 && noveltyMetric.score < 0.6) {
     warnings.push(`신규성 낮음 — ${noveltyMetric.note}`)
