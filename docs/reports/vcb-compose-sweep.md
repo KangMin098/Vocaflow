@@ -45,10 +45,10 @@
 | book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 41 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 53 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Intro to Sociology (23장) | 300 | 25 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Intro to Sociology (23장) | 80 | 4 | 0.97 | ✅ | ✅ |  |
 | level-band | 레벨 V1-V3 | 400 | 15 | 0.98 | ✅ | ✅ |  |

@@ -146,7 +146,12 @@ function report(): string {
   lines.push('## 시중 베스트 대비 요소별 비교')
   lines.push('')
   lines.push('각 유형은 **같은 유형의 시중 대표작**과 비교한다 (빈도순 세트를 어원편과 비교하면 부당하다).')
-  lines.push('셀 값은 `우리−기준선`. 음수(❌)가 하나라도 있으면 그 유형은 아직 요소별 우위가 아니다.')
+  lines.push('셀 값은 `우리−기준선`. 음수가 하나라도 있으면 그 유형은 아직 요소별 우위가 아니다.')
+  lines.push('')
+  lines.push(
+    '**0건인 유형은 비교하지 않는다**(판정 `—`). 항목이 없으면 모든 비율이 0 이라 전 요소 음수가 ' +
+      '찍히는데, 그건 "시중보다 못하다" 가 아니라 "아직 못 만든다" 다.',
+  )
   lines.push('')
   const elemCols = ELEMENTS.map((e) => e.label)
   lines.push(`| blueprint | 경쟁 상대 | ${elemCols.join(' | ')} | 판정 |`)
@@ -160,13 +165,26 @@ function report(): string {
       const sign = d > 1e-6 ? '+' : d < -1e-6 ? '' : '±'
       return `${sign}${d.toFixed(2)}`
     })
-    const verdict = m.all_above ? '🏆' : m.all_at_or_above ? '✅' : '❌'
+    // 0건짜리 세트는 **비교 대상이 아니다.** 항목이 없으면 모든 비율이 0 이라 자동으로
+    // 전 요소 음수가 찍히는데, 그건 "시중보다 못하다" 가 아니라 "아직 못 만든다" 다.
+    // 둘을 같은 ❌ 로 적으면 리포트가 자산 결손을 품질 열위로 둔갑시킨다.
+    const verdict = r.entries === 0 ? '—' : m.all_above ? '🏆' : m.all_at_or_above ? '✅' : '❌'
     lines.push(`| ${r.id} | ${m.competitor} | ${cells.join(' | ')} | ${verdict} |`)
   }
   lines.push('')
-  lines.push('🏆 = 전 요소 **초과** · ✅ = 전 요소 이상(동률 포함) · ❌ = 열위 요소 있음')
+  lines.push(
+    '🏆 = 전 요소 **초과** · ✅ = 전 요소 이상(동률 포함) · ❌ = 열위 요소 있음 · — = 미생성(0건, 비교 불가)',
+  )
   lines.push('')
-  const losers = rows.filter((r) => r.market && !r.market.all_at_or_above)
+  const unbuilt = rows.filter((r) => r.entries === 0)
+  if (unbuilt.length > 0) {
+    lines.push(`### 비교하지 않은 유형 ${unbuilt.length}종 — 아직 못 만든다`)
+    for (const r of unbuilt) {
+      lines.push(`- **${r.id}** (${r.status}) — ${r.blockers[0] ?? '0건'}`)
+    }
+    lines.push('')
+  }
+  const losers = rows.filter((r) => r.market && !r.market.all_at_or_above && r.entries > 0)
   lines.push(`### 열위 요소가 남은 유형 ${losers.length}종`)
   if (losers.length === 0) lines.push('- 없음')
   for (const r of losers) {
