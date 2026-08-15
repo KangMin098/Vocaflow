@@ -104,7 +104,10 @@ describe('상한 절단 — 알파벳 편향이 없다', () => {
   /** a..z 로 고르게 시작하는 인공 unique 단어 생성 */
   function synth(n: number): string {
     const letters = 'abcdefghijklmnopqrstuvwxyz'
-    const digits = 'abcdefghij'
+    // 접미 글자를 k..t 로 둔다 — a..j 였을 때 `iii`(로마숫자)가 생성돼
+    // 비어휘 필터에 걸렸다. 인공 코퍼스가 실재 표기와 겹치면 절단 검사가 아니라
+    // 필터 검사가 되어 버린다.
+    const digits = 'klmnopqrst'
     const out: string[] = []
     for (let i = 0; i < n; i++) {
       const l = letters[i % 26]!
@@ -188,6 +191,32 @@ describe('하이픈 vs 대시 — 복합어는 잇고 구두점은 끊는다', (
     expect(r.diagnostics.hyphenCompounds).toBeGreaterThan(0)
   })
 
+  it('결합형 접두사는 단독 후보가 아니다 — 전체형은 남긴다', () => {
+    // 실측(발행 콘텐츠 31편): `non` 8편 · `pre` 6편 · `mid` 4편이 "배울 단어" 로 나갔고,
+    // 사전에 없으니 pending_words 에 사전 갭으로도 오적재됐다.
+    const r = tokenizeText('Pre-industrial and non-functional mid-century designs were re-examined.')
+    const w = new Set(r.words)
+    expect(w.has('pre')).toBe(false)
+    expect(w.has('non')).toBe(false)
+    expect(w.has('mid')).toBe(false)
+    expect(w.has('re')).toBe(false)
+    // 정보는 사라지지 않는다 — 자유 형태소와 전체형은 그대로 후보
+    expect(w.has('industrial')).toBe(true)
+    expect(w.has('functional')).toBe(true)
+    expect(w.has('pre-industrial')).toBe(true)
+    expect(r.diagnostics.boundAffixesDropped).toBeGreaterThan(0)
+  })
+
+  it('자유 형태소로도 쓰이는 조각은 그대로 둔다 (self·water·life)', () => {
+    // 결합형 목록에 `self`·`water` 류를 넣으면 배울 가치가 있는 단어가 사라진다.
+    // (`over`·`well` 은 기능어라 stopword 단계에서 빠지므로 여기서 쓰지 않는다 —
+    //  두 단계를 섞으면 무엇이 걸렀는지 알 수 없는 테스트가 된다.)
+    const w = wordsOf('A self-taught engineer studied water-based and life-long methods.')
+    expect(w.has('self')).toBe(true)
+    expect(w.has('water')).toBe(true)
+    expect(w.has('life')).toBe(true)
+  })
+
   it('em dash 는 구두점이므로 단어를 잇지 않는다', () => {
     const w = wordsOf('The urgent risks — and what to do about them.')
     expect(w.has('risks')).toBe(true)
@@ -240,5 +269,35 @@ describe('원문 보존 — 실제 단어를 흘리지 않는다', () => {
     for (const expected of ['spent', 'decades', 'building', 'models', 'beginning', 'understand', 'learned', 'assume', 'answer', 'simple']) {
       expect(w.has(expected)).toBe(true)
     }
+  })
+})
+
+describe('어휘가 아닌 관습 표기 — 인용·약어·로마숫자·도메인', () => {
+  it('et al. 의 al 은 단어가 아니다', () => {
+    // 실측: 발행 콘텐츠 31편 중 8편에서 `al` 이 학습 후보로 나갔다(학술 인용 관습).
+    const w = wordsOf('As shown by Ritchie et al. (2020), the trend continued.')
+    expect(w.has('al')).toBe(false)
+    expect(w.has('et')).toBe(false)
+    expect(w.has('trend')).toBe(true)
+  })
+
+  it('도메인 조각과 약어는 제외한다', () => {
+    const w = wordsOf('Available at journals.plos.org and www.usgs.gov, see Table vs Figure.')
+    for (const junk of ['org', 'www', 'gov', 'vs']) expect(w.has(junk)).toBe(false)
+    expect(w.has('available')).toBe(true)
+  })
+
+  it('로마숫자는 열거한 것만 뺀다 — 영어 단어를 삼키지 않는다', () => {
+    const w = wordsOf('Chapter ii and section xiv describe a civil mix of methods.')
+    expect(w.has('ii')).toBe(false)
+    expect(w.has('xiv')).toBe(false)
+    // `[ivxlcdm]+` 정규식이었다면 함께 사라졌을 단어들
+    expect(w.has('civil')).toBe(true)
+    expect(w.has('mix')).toBe(true)
+  })
+
+  it('제외 내역을 stopword 와 분리해 보고한다', () => {
+    const r = tokenizeText('Ritchie et al. reported vs. the baseline at plos.org.')
+    expect(r.diagnostics.nonLexicalDropped).toBeGreaterThan(0)
   })
 })

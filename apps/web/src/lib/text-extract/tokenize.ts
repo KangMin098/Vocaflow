@@ -67,12 +67,54 @@ const PLAIN_WORD = /^[a-z]{2,}$/
 const HYPHEN_WORD = /^[a-z]+(?:-[a-z]+)+$/
 const APOSTROPHE_WORD = /^[a-z]+'[a-z]+$/
 
+/**
+ * 결합형 접두사 — **단독으로는 단어가 아니다.**
+ *
+ * `expandHyphen` 이 하이픈 조각을 전부 후보로 올리는 바람에 `pre-industrial` 이
+ * `pre`·`industrial`·`pre-industrial` 셋을 냈다. `pre` 는 사전에 없으므로
+ *   ① 학습자 추출 화면에 "pre" 가 배울 단어로 뜨고
+ *   ② 해석 실패라서 `pending_words` 에 **사전 갭으로 오적재**된다
+ * 실측(2026-08-15 · 발행 콘텐츠 31편): `non` 8편 · `pre` 6편 · `mid` 4편에서 발생.
+ *
+ * 자유 형태소로도 쓰이는 것(`self`·`over`·`under`·`out`·`up`·`off`·`well`·`long`·`half`)은
+ * **넣지 않는다** — 그 자체로 학습할 가치가 있는 단어이고 사전에도 있다.
+ */
+const BOUND_PREFIXES = new Set([
+  'anti', 'auto', 'bi', 'bio', 'co', 'counter', 'cross', 'cyber', 'de', 'eco', 'ex',
+  'extra', 'geo', 'hyper', 'inter', 'intra', 'macro', 'meta', 'micro', 'mid', 'mini',
+  'multi', 'nano', 'neo', 'non', 'post', 'pre', 'pro', 'pseudo', 're', 'semi', 'socio',
+  'sub', 'super', 'tele', 'trans', 'tri', 'ultra', 'un', 'uni', 'vice',
+])
+
+/**
+ * 어휘가 아닌 관습 표기 — 인용·약어·로마숫자·도메인.
+ *
+ * 학술 원문에서 그대로 흘러나온다: `et al.`→`al`(8편) · `plos`·`org`·`articlereuse`(3편) ·
+ * `vs`·`adj`·`ii`. 전부 "배울 단어" 가 아니고, 사전에 없으니 갭 백로그까지 오염시킨다.
+ * 로마숫자는 **열거하고** 정규식으로 잡지 않는다 — `[ivxlcdm]+` 는 `mix`·`civil` 을 삼킨다.
+ */
+const NON_LEXICAL = new Set([
+  // 인용 관습
+  'al', 'et', 'ibid', 'op', 'cit', 'pp', 'eds', 'ed', 'vol', 'fig', 'figs', 'tbl', 'doi',
+  // 약어
+  'vs', 'adj', 'adv', 'abbr', 'approx', 'etc', 'ie', 'eg', 'cf', 'min', 'max', 'avg', 'std',
+  // 웹·도메인 조각
+  'http', 'https', 'www', 'com', 'org', 'net', 'edu', 'gov', 'html', 'pdf', 'url', 'doi',
+  // 로마숫자 (ii 이상만 — 'i' 는 기능어로 이미 제외된다)
+  'ii', 'iii', 'iv', 'vi', 'vii', 'viii', 'ix', 'xi', 'xii', 'xiii', 'xiv', 'xv',
+  'xvi', 'xvii', 'xviii', 'xix', 'xx',
+])
+
 /** 무엇을 어떻게 처리했는지 — 화면에서 추출 신뢰를 검증할 수 있게 되돌린다. */
 export interface TokenizationDiagnostics {
   /** 축약형을 올바른 어간으로 복원한 횟수 ("didn't"→"did") */
   contractionsResolved: number
   /** 하이픈 복합어 — 부분 + 전체를 모두 후보로 올린 횟수 */
   hyphenCompounds: number
+  /** 결합형 접두사라서 단독 후보에서 뺀 횟수 ("pre-industrial"의 `pre`) */
+  boundAffixesDropped: number
+  /** 어휘가 아닌 관습 표기(인용·약어·로마숫자·도메인)로 제외한 횟수 */
+  nonLexicalDropped: number
   /** 숫자가 섞인 토큰을 통째로 제외한 횟수 ("co2", "173,000") */
   numericDropped: number
   /** 비ASCII 자모를 ASCII 로 접은 횟수 ("Jørgensen"→"jorgensen") */
@@ -104,6 +146,8 @@ function emptyDiagnostics(): TokenizationDiagnostics {
   return {
     contractionsResolved: 0,
     hyphenCompounds: 0,
+    boundAffixesDropped: 0,
+    nonLexicalDropped: 0,
     numericDropped: 0,
     diacriticsFolded: 0,
     bracketMarkers: 0,
@@ -213,12 +257,20 @@ function resolveContraction(tok: string, d: TokenizationDiagnostics): string[] |
   return out
 }
 
-/** 하이픈 복합어 — 부분들 + 전체형 모두 후보. 사전에 전체형이 있으면 그쪽이 매칭된다. */
+/**
+ * 하이픈 복합어 — 부분들 + 전체형 모두 후보. 사전에 전체형이 있으면 그쪽이 매칭된다.
+ *
+ * 단, **결합형 접두사는 단독 후보로 올리지 않는다**(`pre-industrial` → `pre` 금지).
+ * 전체형은 그대로 올리므로 정보가 사라지지는 않는다 — 학습자에게 조각을 단어라고
+ * 내놓지 않을 뿐이다.
+ */
 function expandHyphen(word: string, d: TokenizationDiagnostics): string[] {
   if (!word.includes('-')) return [word]
   const parts = word.split('-').filter((p) => PLAIN_WORD.test(p))
   if (parts.length === 0) return []
-  const out = [...parts]
+  const free = parts.filter((p) => !BOUND_PREFIXES.has(p))
+  d.boundAffixesDropped += parts.length - free.length
+  const out = [...free]
   if (HYPHEN_WORD.test(word) && parts.length >= 2) out.push(word)
   d.hyphenCompounds += 1
   return out
@@ -281,6 +333,12 @@ export function tokenizeText(text: string): TokenizationResult {
   for (const w of ordered) {
     if (STOPWORDS.has(w)) {
       diagnostics.stopwordsRemoved += 1
+      continue
+    }
+    // 인용·약어·로마숫자·도메인 조각 — 배울 단어가 아니다. stopword 와 따로 센다:
+    // stopword 는 "흔해서 뺀 단어" 이고 이쪽은 "애초에 단어가 아닌 표기" 다.
+    if (NON_LEXICAL.has(w)) {
+      diagnostics.nonLexicalDropped += 1
       continue
     }
     filtered.push(w)
