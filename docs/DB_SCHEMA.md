@@ -562,6 +562,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260815020000  close_client_writable_gaps                 ← 🔴 고아 테이블 anon 개방 + 초대코드 우회 (아래 참조)
 20260814150000  user_profiles_privilege_escalation_guard   ← 🔴 권한 상승 차단 (아래 참조)
 20260813090000  scores_content_ref                         ← v07 "어떤 자료로 학습했나" (프레임워크 Phase 1)
 20260812150000  dictation_persistence                      ← v07 받아쓰기 영속화 (2 table + 3 RPC)
@@ -742,3 +743,59 @@ await supabase.from('user_profiles').update({ role: 'admin' }).eq('user_id', <�
 **회귀 락** — `apps/web/src/lib/auth/__tests__/privilege-escalation.integration.test.ts`
 (실 DB 에 anon key 로 붙어 공격 6종 + 정상 self-service 2종). 이 테스트가 실패하면
 "테스트를 고치지" 말고 **권한을 원복**할 것.
+
+---
+
+## 클라이언트 쓰기 표면 스윕 ([20260815020000](../supabase/migrations/20260815020000_close_client_writable_gaps.sql))
+
+위 `user_profiles` 결함이 **한 건짜리 사고가 아닐 수 있다**고 보고 public 스키마 전수를 훑었다.
+
+**스윕 쿼리** (같은 계열 결함을 다시 찾을 때 그대로 재사용할 것):
+
+```sql
+-- ① RLS 자체가 꺼진 테이블 (결과 0건이어야 한다)
+select c.relname from pg_class c join pg_namespace n on n.oid=c.relnamespace
+where n.nspname='public' and c.relkind='r' and not c.relrowsecurity;
+
+-- ② 클라이언트 역할에 쓰기를 허용하면서 조건이 느슨한 정책
+select tablename, policyname, cmd, roles::text, qual, with_check
+from pg_policies
+where schemaname='public'
+  and cmd in ('ALL','INSERT','UPDATE','DELETE')
+  and (roles::text[] && array['public','anon','authenticated'])
+  and (qual = 'true' or qual is null or with_check = 'true');
+```
+
+**실측 결과 (2026-08-15)**
+
+| 대상 | 판정 |
+|---|---|
+| RLS 미적용 테이블 | **0건** — 87 테이블 전부 활성 |
+| `shared_dictionary` `FOR ALL qual=true` | ✅ 정상 — `{service_role}` 로 한정. `authenticated` 는 SELECT 정책뿐이라 GRANT 가 열려 있어도 RLS 가 쓰기를 막는다 |
+| `sw_players` · `sw_comments` · `st17_timetables` | 🔴 **`FOR ALL TO anon USING(true)`** — 아래 참조 |
+| `class_members.cm_self_join` | 🔴 초대코드 우회 — 아래 참조 |
+
+### 🔴 고아 테이블 3종이 전 인터넷에 열려 있었다
+
+`sw_players` · `sw_comments` · `st17_timetables` 는 **이 제품 코드가 전혀 참조하지 않는다**
+(생성물 `packages/types/src/database.ts` 외 참조 0건 — 같은 인스턴스를 쓰던 다른 실험의 잔여물).
+정책이 `FOR ALL TO anon USING(true) WITH CHECK(true)` 였고, anon key 는 브라우저 번들에 그대로
+들어 있으므로 사실상 공개였다. 실측으로 **`sw_players.pass_hash` 를 anon key 만으로 읽어냈다**(해시 16자 확인).
+
+→ 정책 제거 + `REVOKE ALL FROM anon, authenticated`. **테이블은 DROP 하지 않았다** —
+데이터 삭제는 소유자 확인이 필요한 별도 결정이다. service_role 접근은 유지.
+
+### 🔴 class_members — 초대코드를 우회한 직접 가입
+
+`cm_self_join` 이 `WITH CHECK (user_id = auth.uid())` 로만 막아, 클래스 존재 여부도 초대코드도
+보지 않고 **role 을 직접 적어 넣을 수 있었다**. class_id(UUID)만 알면 남의 클래스에 스스로
+들어가고(`classes_member_read` → `is_class_member()` 로 클래스가 열린다) `role='teacher'` 로 기록됐다.
+
+- 다행히 `is_class_teacher()` 는 `classes.teacher_id` 를 보므로 **교사 권한 자체는 넘어가지 않았다**.
+- 앱의 유일한 가입 경로는 `join_class_by_code(p_code)`(SECURITY DEFINER → RLS 우회, invite_code
+  검증 + `role='student'` 고정)이라 이 정책은 **쓰이지 않는 우회로**였다. 그래서 그냥 제거했다.
+- 현재 `classes`·`class_members` 0행 (B2B 기능 미출시) — 잠재 결함이었다.
+
+**회귀 락** — `apps/web/src/lib/auth/__tests__/rls-surface.integration.test.ts` (14건).
+고아 테이블 anon/authenticated 읽기·쓰기 차단 + `pass_hash` 컬럼 지정 조회 차단 +
+직접 가입/역할 자칭 차단 + **정상 초대코드 경로가 살아 있는지**(과잉 차단 방지)까지 단언한다.
