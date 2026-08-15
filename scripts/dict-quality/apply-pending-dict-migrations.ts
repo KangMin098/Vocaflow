@@ -1,5 +1,17 @@
 // scripts/dict-quality/apply-pending-dict-migrations.ts
 //
+// ⚠️ 이 스크립트는 **이미 소임을 다했다 — 다시 실행하지 말 것**.
+//    2026-08-15, MCP 가 복구된 뒤 두 마이그레이션 모두 정식 경로(`apply_migration`)로 적용됐다.
+//    schema_migrations: 20260815082529 ngsl_top2000_basic_gaps ·
+//                       20260815082641 ngsl_basic_gaps_set_classified_by ·
+//                       20260815082723 backup_template_examples_before_purge ·
+//                       20260815082826 template_examples_remove_and_reauthor
+//    지금 --apply 로 돌리면 ①은 ON CONFLICT 로 건너뛰고 ②는 매칭 0건이라 no-op 이지만,
+//    이 스크립트는 `classified_by` 를 채우지 않는다 — 원 마이그레이션과 같은 결함을 갖고 있어
+//    새 표제어를 다시 넣는 상황이 오면 resolve_dict_headword() 에 안 보이는 유령 행을 만든다.
+//    남겨둔 이유는 dry-run 이 세는 방식(JS 단어 경계)이 SQL(`\m..\M`)과 어떻게 갈리는지가
+//    아래 주석에 기록돼 있어서다. 새 드레인은 마이그레이션으로 쓸 것.
+//
 // 마이그레이션 2건을 **service-role DML** 로 적용한다.
 //   · 20260815090000_ngsl_top2000_basic_gaps.sql
 //   · 20260815093000_template_examples_remove_and_reauthor.sql

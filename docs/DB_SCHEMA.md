@@ -180,6 +180,8 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 (`archaic_candidates` 는 기존 RLS on·정책 0 유지 — 서비스롤/DEFINER 경유 read.)
 
+**`backup` 스키마 (v06.36 · [20260815082723](../supabase/migrations/20260815082723_backup_template_examples_before_purge.sql))** — 되돌릴 수 없는 대량 DML 직전 원본을 담는 곳. 현재 `backup.template_examples_20260815` 1종(8,403행 · 2.3 MB · 템플릿 예문 퍼지 원본). **public 이 아닌 이유**: PostgREST 노출 대상이 아니라 새 클라이언트 표면·RLS 정책이 생기지 않는다. 위 `shared_dictionary_p5a_backup_20260620` 처럼 public 에 두면 하드닝 대상이 된다. 목적 종료 시 `DROP SCHEMA backup CASCADE`.
+
 **v06.148 admin read 정책 4건** (`20260706010000_vrl_admin_read_policies`): `is_admin()` SECURITY DEFINER 헬퍼(자기참조 재귀 방지) 기반으로 `user_level_snapshots`·`user_profiles`·`user_diagnostic_results`·`vrl_diagnostic_tests`(비활성 포함)에 admin SELECT 추가 — `/admin/vrl/*` 하위 페이지 직접 read 정상화. 본인(own) 정책은 유지.
 
 **v06.164 DEFINER 함수 EXECUTE 잠금** (`20260708120000` + `20260708120500`): 보안 advisor 후속 — anon 키 공개로 앱 인증 우회 호출 가능하던 무가드 SECURITY DEFINER 9종 잠금. 쓰기 3종(`enrich_shared_dictionary`·`regenerate_auto_curated_set`·`process_library_pipeline_batch`) → service_role 전용. admin 읽기 6종(`admin_vrl_*`) → anon 회수·authenticated 유지. ⚠️ 함수 EXECUTE 기본 PUBLIC grant라 `REVOKE FROM anon` 무효 → `REVOKE FROM PUBLIC` 필수.
@@ -489,6 +491,12 @@ CONSTRAINT texts_book_group_exclusive
 'claude_code_derivational','claude_code_opus_4_8','claude_code_fable_5',
 'claude_code_opus_5'
 -- 새 모델로 드레인하려면 이 목록을 먼저 넓혀야 한다 (안 넓히면 INSERT 가 23514 로 막힌다)
+-- ⚠️ NULL 도 CHECK 를 통과한다 — 그래서 `classified_by` 를 빠뜨린 INSERT 는 조용히 성공한다.
+--    `resolve_dict_headword()` 는 L1~L5 **모든 경로**에서 `classified_by IS NOT NULL` 을 요구하므로
+--    그 행은 사전에 존재하되 학습자 해석에는 한 번도 잡히지 않는 유령이 된다.
+--    실제 발생: [20260815090000](../supabase/migrations/20260815090000_ngsl_top2000_basic_gaps.sql) 이
+--    기초어 11종을 넣고도 해석 0건이었고 [20260815082641](../supabase/migrations/20260815082641_ngsl_basic_gaps_set_classified_by.sql) 로 보정.
+--    **shared_dictionary 에 행을 넣는 모든 경로는 classified_by 를 함께 쓴다.**
 
 -- noise_blacklist.category TEXT CHECK
 'foreign_word','archaic_grammar','interjection_noise','proper_noun_marker','corrupt_token'

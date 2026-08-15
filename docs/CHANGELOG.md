@@ -10,6 +10,33 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전 드레인 2건 적용 — 그리고 등재만 되고 안 보이던 유령 행
+
+MCP 복구 후 밀려 있던 마이그레이션 2건을 정식 경로(`apply_migration`)로 적용했다.
+적용 과정에서 첫 마이그레이션이 **목적 기준 no-op** 였던 것을 잡았다.
+
+- **기초어 11종 등재** ([20260815082529](../supabase/migrations/20260815090000_ngsl_top2000_basic_gaps.sql)) —
+  NGSL 상위 2000 중 해석 불가 10종(`something`·`someone`·`whatever`·`throughout`·`okay`·`onto`·
+  `everywhere`·`hi`·`fifteen`·`forty`) + `cannot` · `prove` 굴절에 `proven` 연결.
+  적용 전 실측으로 11종 전부 실제 결손임을 확인(기존재 0)
+- **🔴 그 마이그레이션의 결함 보정** ([20260815082641](../supabase/migrations/20260815082641_ngsl_basic_gaps_set_classified_by.sql)) —
+  INSERT 가 `classified_by` 를 안 채웠다. `resolve_dict_headword()` 는 L1~L5 **모든 경로**에서
+  `classified_by IS NOT NULL` 을 요구하므로 11종은 행으로만 존재하고 학습자 해석엔 0건이었다.
+  자체 점검("12행 모두 non-null")을 실제로 돌려서 11/12 null 로 드러났다 —
+  **적용 성공 ≠ 목적 달성**. `classified_by IS NULL` 인 행은 전체 45,699행 중 정확히 이 11종뿐이었다.
+  보정 후 12/12 해석 통과. 불변식은 [DB_SCHEMA.md](./DB_SCHEMA.md) `classified_by` CHECK 항목에 기록
+- **템플릿 예문 8,403행 제거** ([20260815082826](../supabase/migrations/20260815093000_template_examples_remove_and_reauthor.sql)) —
+  9개 문장 틀의 복사본. 사전 5,452 + 발행 세트 2,951 → **양쪽 0**.
+  초급 30종은 사람이 쓴 예문으로 대체(사전 30 · 세트 6), 나머지 8,367행은 NULL.
+  비운 행의 `senses` 안 잔류 템플릿도 0 확인 — `example_en` 만 비우고 JSON 에 남는 함정 없음
+  - 파일 주석은 "백업에서 복원할 것" 이라 적고 **백업을 만들지 않았다**.
+    [20260815082723](../supabase/migrations/20260815082723_backup_template_examples_before_purge.sql) 로
+    `backup.template_examples_20260815`(8,403행 · 2.3 MB) 를 비우기 직전에 캡처 — 복원 SQL 은 그 파일 주석에
+  - 원본의 TEMP TABLE + 명시적 `BEGIN/COMMIT` 은 `apply_migration` 의 트랜잭션과 중첩되므로 CTE 로 재작성
+- **워크어라운드 스크립트 봉인** — `scripts/dict-quality/apply-pending-dict-migrations.ts` 는
+  MCP 단절 때 쓰려던 service-role DML 우회로다. 이제 재실행 금지 헤더를 달았다 —
+  이 스크립트 역시 `classified_by` 를 안 채워 같은 유령 행을 만든다
+
 ### Today 진입면 재설계 + 조용한 실패 8건 (v06.200)
 
 `/hub` 이 답하는 질문을 "무엇이 있나" 에서 **"무엇을 배우고, 지금 뭘 하지"** 로 바꿨다.
