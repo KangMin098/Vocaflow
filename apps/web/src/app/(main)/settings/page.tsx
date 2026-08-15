@@ -28,6 +28,7 @@ import {
   Volume2,
   type LucideIcon,
 } from 'lucide-react'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 // ──────────────────────────────────────────────
@@ -461,7 +462,10 @@ export default function SettingsPage() {
                 label: '비밀번호 변경',
                 description: '계정 보안을 위해 주기적인 변경을 권장합니다.',
                 icon: KeyRound,
-                ready: false,
+                // v06.140: /reset-password 가 세션이 있으면 "새 비밀번호" 모드로 열린다.
+                // 그전까지 로그인한 사용자는 비밀번호를 바꿀 방법이 아예 없었다.
+                ready: true,
+                href: '/reset-password?mode=update',
               },
               {
                 label: '내 데이터 내보내기',
@@ -484,14 +488,12 @@ export default function SettingsPage() {
             ] as const
           ).map((row) => {
             const Icon = row.icon
-            return (
-              <button
-                key={row.label}
-                type="button"
-                disabled={!row.ready}
-                aria-disabled={!row.ready}
-                className="group -mx-2 flex w-full items-center gap-3 rounded-[var(--r-md)] px-2 py-3 text-left transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--bg2)] disabled:cursor-not-allowed"
-              >
+            const href = 'href' in row ? (row.href as string) : undefined
+            const rowClass =
+              'group -mx-2 flex w-full items-center gap-3 rounded-[var(--r-md)] px-2 py-3 text-left transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--bg2)] disabled:cursor-not-allowed'
+
+            const inner = (
+              <>
                 <span
                   className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] text-[var(--t2)]"
                   aria-hidden
@@ -518,6 +520,23 @@ export default function SettingsPage() {
                   className="shrink-0 text-[var(--t2)] opacity-40 group-enabled:opacity-100"
                   aria-hidden
                 />
+              </>
+            )
+
+            // 준비됐고 목적지가 있으면 링크, 아니면 disabled 버튼 그대로.
+            return row.ready && href ? (
+              <Link key={row.label} href={href} className={`${rowClass} hover:bg-[var(--bg2)]`}>
+                {inner}
+              </Link>
+            ) : (
+              <button
+                key={row.label}
+                type="button"
+                disabled={!row.ready}
+                aria-disabled={!row.ready}
+                className={rowClass}
+              >
+                {inner}
               </button>
             )
           })}
@@ -544,9 +563,21 @@ export default function SettingsPage() {
                 <LogOut size={12} aria-hidden />
                 {signingOut ? '로그아웃 중...' : '로그아웃'}
               </button>
-              <button className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)]">
+              {/* v06.140: 로그아웃과 같은 결함(onClick 없음)이었다. 해지 백엔드
+                  (30일 보관 → 영구 삭제)가 아직 없으므로 배선 대신, 위 계정 항목들과
+                  같은 '준비중' 규약으로 정직하게 표시한다. 눌리는데 아무 일도 없는 것이
+                  가장 나쁘다. */}
+              <button
+                type="button"
+                disabled
+                title="계정 해지는 준비 중입니다. support@vocaflow.com 으로 문의해주세요."
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60"
+              >
                 <Trash2 size={12} aria-hidden />
                 계정 해지
+                <span className="ml-1 inline-flex items-center rounded-full bg-[var(--warning-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active)]">
+                  준비중
+                </span>
               </button>
             </div>
           </div>

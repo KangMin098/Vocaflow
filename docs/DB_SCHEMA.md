@@ -799,3 +799,63 @@ where schemaname='public'
 **회귀 락** — `apps/web/src/lib/auth/__tests__/rls-surface.integration.test.ts` (14건).
 고아 테이블 anon/authenticated 읽기·쓰기 차단 + `pass_hash` 컬럼 지정 조회 차단 +
 직접 가입/역할 자칭 차단 + **정상 초대코드 경로가 살아 있는지**(과잉 차단 방지)까지 단언한다.
+
+---
+
+## ⚠️ 미해결 — SECURITY DEFINER RPC 가 anon 에 열려 있다 (2026-08-15 조사, 수정 보류)
+
+Supabase security advisor + 직접 조사로 확인했다. **이번 패스에서 고치지 않았다** — 아래 "왜
+보류했나" 참조. 별도 작업으로 다뤄야 한다.
+
+### 실측
+
+| 항목 | 수 |
+|---|---|
+| `public` SECURITY DEFINER 함수 | 119 |
+| 그중 `anon` 에 EXECUTE 부여 | **98** |
+| 그중 `authenticated` 에 EXECUTE 부여 | 111 |
+| 함수 본문에 `auth.uid()`·`is_admin()` 류 가드가 **없는** anon 호출 가능 함수 | **58** |
+
+DEFINER 함수는 소유자(postgres) 권한으로 실행되어 **RLS 를 우회**한다. 즉 가드가 없으면
+로그인 없이 `/rest/v1/rpc/<이름>` 으로 호출된다. 실증(2026-08-15, anon key 만으로):
+
+```
+await anon.rpc('get_lcp_config')   // → 에러 없이 호출됨 (내부 파이프라인 설정 함수)
+```
+
+`admin_*` 19종은 전부 본문에 role 가드가 있어 **직접적인 관리자 행위 탈취는 확인되지 않았다**.
+위험군은 가드 없는 유지보수·학습 파이프라인 함수다 — `update_user_v_level` ·
+`apply_diagnostic_result` · `purge_ghost_vocab` · `decode_entities_in_stored_sentences` ·
+`fix_chapter_html_entities` · `republish_article_word_set` 등. 다수가 `p_user_id` 를 인자로 받아
+**남의 계정 데이터를 대상으로 호출될 수 있다**.
+
+### 왜 보류했나 (그냥 REVOKE 하면 안 되는 이유)
+
+"앱이 호출하지 않는 함수만 회수" 로 접근했다가 **틀렸다는 것을 확인했다.**
+`.rpc('리터럴')` grep 은 **동적 호출을 놓친다**:
+
+```ts
+// components/diagnostic/DiagnosticClient.tsx:321
+const rpcName = selectedTest.test_type === 'track'
+  ? 'analyze_and_apply_track_diagnostic_result' : ...
+await supabase.rpc(rpcName, { p_result_id: ... })   // ← 리터럴 grep 에 안 잡힌다
+```
+
+같은 패턴이 `api/lcp/process`(`compute_book_*` 4종) · `admin/articles/*`(`admin_*_article`) ·
+`scripts/lcp/*` 에도 있다. 리터럴 grep 기준 "미사용" 41종을 회수했다면 **진단 흐름과 LCP
+파이프라인이 조용히 깨졌을 것**이다. 후보 21종을 레포 전체(코드·스크립트·문서) 참조로 다시
+검사한 결과 **전부 어딘가에서 참조** — 안전하게 죽었다고 말할 수 있는 부분집합이 없다.
+
+### 다음 패스에서 할 일
+
+1. 함수별로 **정당한 호출자**를 확정한다 (브라우저 학습자 / 브라우저 관리자 / API route(service_role) / 내부 SQL·트리거·cron). 동적 호출 지점을 먼저 리터럴로 펴 두면 자동 분석이 가능해진다.
+2. 내부 전용 = `REVOKE EXECUTE FROM anon, authenticated` (service_role·소유자는 유지).
+3. 학습자 호출용인데 `p_user_id`/`p_result_id` 를 받는 함수는 본문에 **소유권 검사**를 넣는다 (`auth.uid()` 와 대조).
+4. ⚠️ **회수하면 안 되는 것**: `is_admin` · `is_admin_or_curator` · `is_class_member` · `is_class_teacher` 는 RLS 정책 본문에서 호출된다. `authenticated` 의 EXECUTE 를 뺏으면 정책 평가가 에러 나 앱 전체가 멈춘다. 트리거 반환 함수는 PostgREST 가 노출하지 않으므로 대상 외.
+
+### 함께 확인된 Auth 설정
+
+- `auth_leaked_password_protection` **비활성** — Supabase Auth 가 HaveIBeenPwned 로 유출 비밀번호를
+  차단하는 기능. 대시보드(Authentication → Policies)에서 켜면 되고 코드 변경은 필요 없다.
+- 조사 명령: `mcp__supabase__get_advisors({ type: 'security' })` (2026-08-15 기준 ERROR 1 · WARN 458 · INFO 6).
+  ERROR 1건은 `word_mislevel_signal` 뷰가 SECURITY DEFINER 로 정의된 것.

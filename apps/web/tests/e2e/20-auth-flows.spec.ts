@@ -202,6 +202,32 @@ test.describe('C. 세션과 로그아웃', () => {
     await page.waitForURL(/\/login/, { timeout: 30_000 });
   });
 
+  test('설정에서 비밀번호 변경으로 갈 수 있다 (예전엔 "준비중" 으로 잠겨 있었다)', async ({
+    page,
+  }) => {
+    await login(page);
+    await page.waitForURL(/\/hub/, { timeout: 30_000 });
+
+    await gotoHydrated(page, '/settings');
+    await page.getByRole('link', { name: /비밀번호 변경/ }).click();
+
+    await page.waitForURL(/\/reset-password/, { timeout: 20_000 });
+    await expect(page.getByRole('heading', { name: /새 비밀번호 설정/ })).toBeVisible({
+      timeout: 20_000,
+    });
+  });
+
+  test('아직 없는 기능은 눌리지 않는다 — "눌리는데 아무 일도 없는" 버튼 금지', async ({ page }) => {
+    await login(page);
+    await page.waitForURL(/\/hub/, { timeout: 30_000 });
+    await gotoHydrated(page, '/settings');
+
+    // 계정 해지는 백엔드가 없다 → disabled + 준비중 (로그아웃과 같은 결함이었던 자리)
+    await expect(page.getByRole('button', { name: /계정 해지/ })).toBeDisabled();
+    // 로그아웃은 반대로 반드시 눌려야 한다
+    await expect(page.getByRole('button', { name: /^로그아웃$/ })).toBeEnabled();
+  });
+
   test('로그인 세션이 새로고침 후에도 유지된다', async ({ page }) => {
     await login(page);
     await page.waitForURL(/\/hub/, { timeout: 30_000 });
