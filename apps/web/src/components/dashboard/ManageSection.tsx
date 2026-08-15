@@ -13,6 +13,19 @@ function fmtKDate(iso: string): string {
   return `${parseInt(m, 10)}월 ${parseInt(d, 10)}일`
 }
 
+/**
+ * 그 주가 몇 주 전인가 — 0 이면 이번 주.
+ *
+ * 리포트가 언제 것인지 날짜만 적으면 학습자는 그게 최신인지 알 수 없다. 주차 차이를
+ * 함께 말해야 "안 만들어지고 있다" 는 사실이 화면에 드러난다.
+ */
+export function weeksAgo(weekStartIso: string): number {
+  const start = new Date(`${weekStartIso}T00:00:00Z`).getTime()
+  if (Number.isNaN(start)) return 0
+  const WEEK = 7 * 24 * 60 * 60 * 1000
+  return Math.max(0, Math.floor((Date.now() - start) / WEEK))
+}
+
 export function ManageSection({ overview }: { overview: ManageOverview }) {
   const undiagnosed = overview.vLevel == null
   return (
@@ -52,8 +65,12 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
         >
           {overview.plan ? (
             <p className="font-body text-[13px] text-[var(--t2)]">
-              자료 <strong className="font-display text-[var(--t1)]">{overview.plan.itemCount}</strong> · 활동{' '}
-              <strong className="font-display text-[var(--p)]">{overview.plan.activityCount}</strong>
+              자료{' '}
+              <strong className="font-display text-[var(--t1)]">{overview.plan.itemCount}</strong> ·
+              활동{' '}
+              <strong className="font-display text-[var(--p)]">
+                {overview.plan.activityCount}
+              </strong>
             </p>
           ) : (
             <p className="font-body text-[13px] text-[var(--t2)]">
@@ -69,9 +86,19 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
           href="/reports"
           cta="전체 보기"
         >
+          {/* ⚠️ **마지막 리포트를 "이번 리포트" 처럼 보여주지 않는다.**
+              실측 2026-08-16: `weekly_reports` 에는 전체 통틀어 한 행(6/29 · 0단어)뿐인데
+              이 카드가 그걸 날짜만 적어 내걸고 있었다. 학습자는 6주 전 산출물을 자기
+              현재 리포트로 읽는다 — 화면은 멀쩡하고 에러도 없다. 몇 주 전인지 함께
+              말하면 낡았다는 사실이 화면에서 드러난다. */}
           {overview.latestReport ? (
             <p className="font-body text-[13px] text-[var(--t2)]">
-              {fmtKDate(overview.latestReport.week_start)} 주 · 단어 {overview.latestReport.total_words}
+              {fmtKDate(overview.latestReport.week_start)} 주 · 단어{' '}
+              {overview.latestReport.total_words}
+              {(() => {
+                const weeks = weeksAgo(overview.latestReport.week_start)
+                return weeks >= 2 ? <span className="text-[var(--t3)]"> · {weeks}주 전</span> : null
+              })()}
             </p>
           ) : (
             <p className="font-body text-[13px] text-[var(--t2)]">학습이 쌓이면 주마다 생겨요.</p>
