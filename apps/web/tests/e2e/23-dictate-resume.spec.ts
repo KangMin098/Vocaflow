@@ -34,6 +34,35 @@ async function assertNotStuck(page: import('@playwright/test').Page) {
 /** 로그인은 파일당 1회 — 테스트마다 하면 auth rate-limit 에 걸려 엉뚱하게 실패한다. */
 const STATE_PATH = 'playwright-auth/.auth-dictate-resume.json';
 
+/**
+ * 담아 둔 자료로 세션 하나를 실제로 시작한다.
+ *
+ * "오늘의 받아쓰기" 로 시작하지 않는 이유: 재료가 없으면 early return 이 되고 그러면
+ * 테스트가 **아무것도 검증하지 않은 채 초록**이 된다(실측: 3.9초 만에 통과했고 DB 에는
+ * 세션이 하나도 안 생겼다). 담아 둔 자료는 항상 있으므로 그쪽에서 시작한다.
+ */
+async function startAnySession(page: import('@playwright/test').Page): Promise<void> {
+  await page.goto('/dictate/setup');
+  const tabs = page.getByRole('tablist', { name: '받아쓸 자료 종류' }).getByRole('tab');
+  await expect(tabs.first()).toBeVisible({ timeout: 20_000 });
+
+  let opened = false;
+  for (let i = 0; i < (await tabs.count()); i += 1) {
+    await tabs.nth(i).click();
+    const row = page.locator('main').last().locator("a[href*='/dictate/setup?']").first();
+    // 카탈로그는 비동기로 도착한다 — 즉시 isVisible 로 보면 로딩 중을 "자료 없음" 으로 읽는다
+    if (await row.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await row.click();
+      opened = true;
+      break;
+    }
+  }
+  expect(opened, '받아쓸 자료가 하나도 없다 — 검증 계정 자산을 확인하라').toBe(true);
+
+  await page.getByRole('button', { name: /시작하기/ }).click({ timeout: 30_000 });
+  await page.waitForURL(/\/dictate\/session\?sessionId=/, { timeout: 30_000 });
+}
+
 test.describe('받아쓰기 세션 URL 직접 열기', () => {
   // 로그인 재사용 — 스펙마다 로그인하면 전체 실행에서 auth rate-limit 에 걸려
   // beforeAll 이 죽고 그 describe 가 통째로 "did not run" 이 된다.
@@ -138,6 +167,68 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
    *   ② 옮기려는 시도가 **문항을 건너뛰는 되돌릴 수 없는 조작**이었다.
    * 화면 어디에도 안내되지 않은 단축키였으므로 스크린샷으로도 리뷰로도 안 잡힌다.
    */
+  /**
+   * F. IME 조합 중 Enter 는 제출이 아니다.
+   *
+   * 한글 IME 에서 Enter 는 **조합을 확정하는 키**다. 그걸 제출로 가로채면 학습자는
+   * 타이핑 도중에 답이 채점돼 버리고, 채점은 되돌릴 수 없다(문항이 소모된다).
+   * 한국 사용자 제품에서 가장 흔한 함정이고, 이 프로젝트는 이미 다른 모듈에서
+   * 방어하고 있었다 — **타이핑이 본체인 이 화면에만 없었다.**
+   *
+   * 눈으로는 안 잡힌다: 영어만 치는 리뷰어에게는 아무 일도 일어나지 않는다.
+   */
+  test('F. IME 조합 중 Enter 로는 제출되지 않는다', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const ctx = await browser.newContext({ storageState: STATE_PATH });
+    const page = await ctx.newPage();
+    try {
+      await startAnySession(page);
+      const box = page.getByRole('textbox').first();
+      await expect(box).toBeVisible({ timeout: 20_000 });
+      await box.click();
+      await box.fill('partial answer');
+
+      const marker = page.locator('[data-testid="session-position"]');
+      await expect(marker).toBeVisible({ timeout: 20_000 });
+      const before = (await marker.innerText()).trim();
+
+      // 조합 중 Enter — 브라우저가 IME 를 쓸 때 보내는 형태 그대로
+      await box.evaluate((el) => {
+        el.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true }));
+        el.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            key: 'Enter',
+            code: 'Enter',
+            keyCode: 229,
+            isComposing: true,
+            bubbles: true,
+          }),
+        );
+      });
+
+      // 채점 결과가 뜨면 안 된다 — 제출됐다는 뜻이다
+      await expect(
+        page.getByRole('heading', { name: '결과' }),
+        'IME 조합 중 Enter 가 답을 제출했다 — 타이핑 도중 채점은 되돌릴 수 없다',
+      ).toHaveCount(0, { timeout: 3_000 });
+      expect((await marker.innerText()).trim(), '문항이 넘어갔다').toBe(before);
+
+      // 조합이 끝난 뒤의 Enter 는 정상 제출이어야 한다 (과잉 차단이 아님을 확인)
+      await box.evaluate((el) => {
+        el.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true }));
+      });
+      await box.press('Enter');
+      await expect(
+        page.getByRole('heading', { name: '결과' }).first(),
+        '조합이 끝났는데도 제출되지 않는다 — 과잉 차단',
+      ).toBeVisible({ timeout: 10_000 });
+    } finally {
+      await ctx.close();
+      if (userId) await deleteDictationSince(userId, sinceIso);
+    }
+  });
+
   test('E. Tab 이 포커스를 옮긴다 (문항을 건너뛰지 않는다)', async ({ browser }) => {
     const userId = await userIdByEmail(TEST_USER.email);
     const sinceIso = new Date(Date.now() - 5_000).toISOString();

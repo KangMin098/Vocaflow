@@ -211,6 +211,12 @@ export function DictationSessionClient() {
       const isInInput =
         e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement
 
+      // IME 조합 중이면 손대지 않는다. 한글 IME 에서 Enter 는 **조합을 확정하는 키**이고,
+      // 그걸 제출로 가로채면 학습자는 타이핑 도중에 답이 채점돼 버린다 — 되돌릴 수 없다
+      // (문항이 소모된다). 같은 방어가 `MorphemeRulesGame` 에 이미 있었는데
+      // **타이핑이 본체인 이 화면에만 없었다.** 영어만 치는 리뷰어에겐 안 보인다.
+      if (e.isComposing || e.keyCode === 229) return
+
       if (e.key === 'Enter' && isInInput && !e.shiftKey) {
         e.preventDefault()
         if (outcome) handleNext()
