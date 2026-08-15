@@ -89,7 +89,7 @@ export const COVER_QUERY: Record<string, string> = {
   'freq-tier': 'statistical chart engraving',
   'exam-list': 'examination hall engraving',
   'curriculum-grade': 'schoolroom engraving',
-  'academic-awl': 'library bookshelves engraving',
+  'academic-awl': 'antique library engraving',
   'level-band': 'staircase engraving',
   'domain-specialty': 'anatomical plate',
   'exam-items': 'letterpress type specimen',
@@ -105,10 +105,10 @@ export const COVER_QUERY: Record<string, string> = {
   collocation: 'chain links engraving',
   'phrasal-idiom': 'knot diagram',
   polysemy: 'prism light',
-  'rhyme-phonics': 'acoustics sound diagram',
+  'rhyme-phonics': 'church bell engraving',
 
   // 원서·글 — 이야기 속에서 만난 것
-  'book-companion': 'open book still life engraving',
+  'book-companion': 'reading woman engraving',
   'chapter-companion': 'illuminated manuscript initial',
   'news-article': 'newspaper printing engraving',
   'script-media': 'theatre stage engraving',

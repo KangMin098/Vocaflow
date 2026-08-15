@@ -843,7 +843,8 @@ const B: Blueprint[] = [
         objective: { kind: 'count', n: p.count ?? 90 },
         group_by: 'pos',
         group_order: 'size_desc',
-        order_within: 'frequency',
+        // 구에는 빈도 데이터가 없다(rank 0건) — 없는 근거로 정렬하는 대신 짧은 구부터.
+        order_within: 'phrase_brevity',
         // 구동사 책이 파는 것은 전형적 쓰임이다 — 연어를 가진 항목을 챕터 안에서 앞세운다.
         prefer_fields: ['collocations', 'mnemonic_ko'],
         facets: ['recognize', 'use'],
@@ -1416,6 +1417,9 @@ const U5: Blueprint = {
         v_level_min: (p.v_level_min ?? 3) as never,
         v_level_max: (p.v_level_max ?? 10) as never,
         freq_bands: ['top1k', 'top2k', 'top3k', 'top5k', 'top10k'],
+        // 기본형이 이미 다른 세트에 실려 빠지면 굴절형만 남는다 — 그건 '미수록' 이 아니라
+        // '기본형이 이미 수록됨' 이다. 제목이 거짓이 되지 않게 여기서 막는다.
+        exclude_inflections: true,
       },
       objective: { kind: 'count', n: p.count ?? 400 },
       group_by: 'v_level',

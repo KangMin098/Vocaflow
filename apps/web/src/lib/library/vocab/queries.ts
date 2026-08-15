@@ -14,7 +14,16 @@ import type { CoverMeta } from '@/lib/vcb/covers/design'
 
 type DB = Database
 
+/**
+ * 학습자 카탈로그의 칸.
+ *
+ * ⚠️ `components/library/vocab/categories.ts` 의 칩 목록과 **같아야 한다.** 한동안
+ * `preschool` · `etymology` 두 개가 칩에는 있고 이 유니온에는 없었다 — 어원 세트 2개가
+ * 실제로 그 칸에 발행돼 있는데 타입은 그런 칸이 없다고 말하는 상태였다(2026-08-15 실측).
+ * 칸을 늘릴 때 두 곳을 같이 고칠 것.
+ */
 export type VocabCategory =
+  | 'preschool'
   | 'elementary'
   | 'middle'
   | 'high'
@@ -22,6 +31,7 @@ export type VocabCategory =
   | 'eng_test'
   | 'civil'
   | 'business'
+  | 'etymology'
   | 'themed'
 
 /**

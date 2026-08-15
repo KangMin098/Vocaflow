@@ -162,6 +162,19 @@ export interface SelectFilters {
    */
   exclude_variant_headwords?: boolean
   /**
+   * **굴절형을 표제어에서 뺀다** — 풀에 기본형이 있든 없든.
+   *
+   * `drop_pool_inflections` 와 다르다: 그쪽은 "같은 풀 안에 기본형이 있으면" 지우므로,
+   * 기본형이 이미 다른 세트에 실려 빠져나간 경우엔 굴절형만 남아 통과한다. 실측
+   * 2026-08-15 `미수록 600` 의 첫 항목이 `further · listing · wearing · worn · trading ·
+   * voting · drinking · drunk` 였다 — "아무 단어장에도 없는 말" 이 아니라 **기본형이 이미
+   * 실려서 굴절형만 남은 것**이었다. 제목이 거짓이 된다.
+   *
+   * 판정: `base_word` 가 있고 `derivation_suffix` 가 없으면 굴절(`worn→wear`·`further→far`).
+   * 파생(`happiness`·`quickly`)은 별도 표제어가 맞으므로 남긴다.
+   */
+  exclude_inflections?: boolean
+  /**
    * 빈도 순위가 있는 항목만 남긴다.
    *
    * "빈출" 을 약속하는 유형에서만 켠다 — 순위가 없으면 무엇이 빈출인지 말할 근거가 없고,
@@ -231,6 +244,18 @@ export const ORDER_WITHINS = [
   'unlock_yield',
   'recycle_soon',
   'sense_count',
+  /**
+   * **짧은 것부터** — 구·관용어처럼 빈도 데이터가 없는 표제어의 순서.
+   *
+   * 실측 2026-08-15: `word_register='phrase_unit'` 3,635건 중 `frequency_rank` 가 있는 것이
+   * **0건**이다. 그 상태로 `frequency` 정렬을 걸면 전부 동률이라 사실상 알파벳순이 되고,
+   * "빈출 구동사" 를 약속한 세트가 `a bone of contention · a buyer's market · a chink in
+   * somebody's armour` 로 시작한다.
+   *
+   * 낱말 수가 적은 구(`give up` · `look after`)가 곧 자주 쓰는 구라는 것은 완벽하진 않지만
+   * **데이터로 뒷받침되는 유일한 대리지표**다. 없는 빈도를 있는 척하는 것보다 낫다.
+   */
+  'phrase_brevity',
   'as_selected',
 ] as const
 export type OrderWithin = (typeof ORDER_WITHINS)[number]
@@ -369,6 +394,12 @@ export interface CandidateWord {
   future_encounters?: number
   /** 그룹 키 후보 — roots/topics 모집단이 채운다 */
   group_keys?: { key: string; label: string; rank?: number }[]
+  /**
+   * 이 표제어가 **다른 표제어의 굴절형**인가 ( · ).
+   * 차집합 좌변(어휘 전체)이 살아 있을 때만 판정할 수 있어 resolve 단계에서 채운다 —
+   * 뺀 뒤에는 기본형이 사라져 알 수 없다.
+   */
+  is_inflection?: boolean
 }
 
 export interface ComposedEntry {

@@ -199,6 +199,23 @@ MCP 복구 후 밀려 있던 마이그레이션 2건을 정식 경로(`apply_mig
   충돌(실측 52건). `blueprint='phrasal-idiom'` 세트의 `phrase_unit` 한 종류만 면제(global·word_set 동시).
   예외가 유형을 안 가리고 번지는 것은 **같은 단어를 유형만 바꿔 넣는 대조 회귀 2건**이 막는다.
   적용 후 `cat-phrasal` 재발행 · global critical FAIL 0
+- **표제어를 눈으로 열어 보고 고친 내용 결함 4건** — 7지표는 필드 충족도와 구조를 잴 뿐
+  "이게 맞는 표제어인가" 는 재지 않는다. 28/28 우위인 카탈로그에서 첫 12개를 읽었더니:
+  ① 혼동어 1군이 18개(`bearing·caring·cleaning…`) — union-find 전이성이 접미사 계열을 사슬로
+  이었다 → 군 상한 4 + 라임 병합 제거 ② 구동사가 알파벳순(`a bone of contention…`) — 구는
+  `frequency_rank` 3,635건 전부 NULL 이라 "빈출" 근거가 없었다 → `phrase_brevity` 정렬 신설
+  ③④ 미수록이 굴절형(`further·worn·listing`) — 기본형이 이미 다른 세트에 실려 굴절만 남은
+  것이었다 → `exclude_inflections` 신설(사전 컬럼 + 어휘집 대조). 그 과정에서 `fetchLexicon`
+  이 `.order()` 없이 페이징해 **45,688 중 33,412 만 모으던 것**(27% 누락)도 잡았다
+- **단어장 표지 29종** — 이모지로는 카탈로그에서 구별되지 않는다. 퍼블릭도메인 도판(Openverse)
+  + 계열 5색 듀오톤으로 한 시리즈를 만들었다. 마이그레이션
+  [20260815170000](../supabase/migrations/20260815170000_word_set_cover_image.sql)(`cover_image_url`
+  ·`cover_image_meta` — CC 표기 의무). 수집기 `scripts/vcb/fetch-covers.mts`(재실행 가능 ·
+  `--only <유형>` 재추첨 · 하한 미달이면 붙이지 않고 그라디언트 유지). 25/29 확보 · 중복 0.
+  네 표면(카탈로그·어드민 발행 컬렉션·hub 추천·도서 상세) 모두 배선
+- **발행 단어장 24/29 가 '테마별' 한 칸에 쌓여 있었다** — 레시피가 실제로 단계를 정하는 유형만
+  칸을 파생시키고(themed 24 → 21 · 새 칸 4), 나머지는 카드에 유형 라벨 + 묶은 원리 한 줄
+  (`lib/library/vocab/set-kind.ts` · 31유형)
 - **발행한 단어장이 두 화면에서 안 보이고 있었다** — DB 에도 있고 학습자 카탈로그에도 뜨는데
   ① 어드민 `발행 컬렉션` 은 `source_run_id IS NOT NULL` 로만 조회해 컴포저 세트 32개가 통째로 빠졌고
   ② hub 추천 RPC 는 슬러그를 하드코딩(`auto-vlevel-v*`·`etymology-core`·`kice-%`)해 29세트 중 **하나도**

@@ -115,10 +115,29 @@ export function buildConfusableGroups(candidates: CandidateWord[]): Map<string, 
     }
     return r
   }
+  /**
+   * 군 크기 상한 — **전이성이 짝을 사슬로 만든다.**
+   *
+   * 실측 2026-08-15 `confusable-pairs-300` 1군: `bearing · caring · cleaning · clearing ·
+   * daring · darling · dating · engineering · facing · gearing · leaning · learning ·
+   * pairing · racing · rating · retiring · screening · tiring` — 18개.
+   * 하나하나는 편집거리 1 이 맞다(caring~daring, daring~darling, racing~rating …).
+   * 그런데 union-find 는 그것을 이어 붙여 **접미사 계열 전체**를 한 군으로 만든다.
+   * `engineering` 과 `screening` 을 헷갈리는 학습자는 없다 — 그건 혼동 짝이 아니라 철자 계열이다.
+   *
+   * 이 유형이 파는 것은 `affect/effect` 처럼 **둘씩 마주 보는 짝**이므로 4개를 넘기지 않는다.
+   */
+  const MAX_GROUP = 4
+  const size = words.map(() => 1)
   const union = (a: number, b: number): void => {
     const ra = find(a)
     const rb = find(b)
-    if (ra !== rb) parent[Math.max(ra, rb)] = Math.min(ra, rb)
+    if (ra === rb) return
+    if (size[ra]! + size[rb]! > MAX_GROUP) return // 사슬로 자라는 것을 여기서 끊는다
+    const keep = Math.min(ra, rb)
+    const drop = Math.max(ra, rb)
+    parent[drop] = keep
+    size[keep] = size[ra]! + size[rb]!
   }
 
   // ① 동음이의 — 사전이 직접 들고 있는 짝
@@ -154,18 +173,15 @@ export function buildConfusableGroups(candidates: CandidateWord[]): Map<string, 
     }
   }
 
-  // ③ 같은 라임 — 소리 혼동. 군이 너무 커지지 않게 라임은 편집거리 군을 합치기만 한다
-  const byRhyme = new Map<string, number[]>()
-  candidates.forEach((c, i) => {
-    if (!c.rhyme_key) return
-    const b = byRhyme.get(c.rhyme_key)
-    if (b) b.push(i)
-    else byRhyme.set(c.rhyme_key, [i])
-  })
-  for (const idxs of byRhyme.values()) {
-    if (idxs.length < 2 || idxs.length > 6) continue
-    for (let x = 1; x < idxs.length; x += 1) union(idxs[0]!, idxs[x]!)
-  }
+  // ③ 같은 라임은 **더 이상 합치지 않는다.**
+  //
+  // 소리가 닮은 것과 헷갈리는 것은 다르다. 라임으로 묶으면 `-ing` · `-ther` 처럼 접미사가
+  // 같은 낱말이 통째로 한 군이 되는데(실측: `brother · father · feather · gather · leather ·
+  // mother · other · together · weather` 한 군), 그건 이 유형이 아니라 **라임·파닉스 유형**
+  // (`rhyme-phonics`)이 이미 하는 일이다. 두 유형이 같은 목차를 내면 하나는 존재할 이유가 없다.
+  //
+  // 소리 혼동 자체는 ① 동음이의(`homophones`)가 이미 잡는다 — 그건 사전이 "이 둘은 같은
+  // 소리다" 라고 명시한 것이라 근거가 있다.
 
   const members = new Map<number, number[]>()
   words.forEach((_, i) => {
@@ -332,6 +348,19 @@ function comparator(order: OrderWithin): (a: CandidateWord, b: CandidateWord) =>
       return (a, b) => (b.future_encounters ?? 0) - (a.future_encounters ?? 0) || a.word.localeCompare(b.word)
     case 'sense_count':
       return (a, b) => b.sense_count - a.sense_count || a.word.localeCompare(b.word)
+    case 'phrase_brevity':
+      // 낱말 수 → 글자 수 → 알파벳. 구에는 빈도 데이터가 없으므로(실측 rank 0건) 이것이
+      // 우리가 가진 유일한 근거다. 예문이 있는 쪽을 살짝 앞세운다 — 구는 예문 없이 안 외워진다.
+      return (a, b) => {
+        const words = (s: string) => s.trim().split(/\s+/).length
+        const hasEx = (c: CandidateWord) => (c.example_en || c.corpus_sentence ? 0 : 1)
+        return (
+          hasEx(a) - hasEx(b) ||
+          words(a.word) - words(b.word) ||
+          a.word.length - b.word.length ||
+          a.word.localeCompare(b.word)
+        )
+      }
     case 'as_selected':
       return () => 0
     default:

@@ -220,12 +220,19 @@ for (const s of sets) {
   const scored = results
     .map((r, i) => ({ r, sc: score(r, i, usedQuery) }))
     .filter((x) => x.sc > 0 && !usedImages.has(x.r.id))
-  const best = scored.sort((a, b) => b.sc - a.sc)[0]
+
+  // **하한** — 검색 결과가 나빠도 점수기는 늘 "그중 최선" 을 고른다. 그래서 `academic-awl` 에
+  // 자화상이, `rhyme-phonics` 에 지리 교과서가 붙었다(실측). 어떤 주제는 Openverse 에 맞는
+  // 도판이 그냥 없고, 그때는 **아무거나 붙이는 것보다 비우는 편이 낫다** — 그라디언트 표지가
+  // 이미 자리를 메우고 있어 공백이 생기지 않는다.
+  // 0.55 = 제목 일치가 하나라도 있고(0.3×0.5) 기관 소장이며(0.25) 상위권(0.2×0.5) 인 수준.
+  const MIN_SCORE = 0.55
+  const best = scored.sort((a, b) => b.sc - a.sc).filter((x) => x.sc >= MIN_SCORE)[0]
 
   if (!best) {
     // 못 찾으면 **비워 둔다** — 아무 그림이나 넣으면 결이 깨지고, 빈 자리는 그라디언트
     // 표지가 이미 메운다(폴백이 있으니 공백이 아니다).
-    console.warn(`  · ${s.slug} (${blueprint}) — 쓸 만한 도판 없음. 그라디언트 표지 유지`)
+    console.warn(`  · ${s.slug} (${blueprint}) — 기준 미달. 그라디언트 표지 유지`)
     missed += 1
     continue
   }

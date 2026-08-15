@@ -110,6 +110,75 @@ export function toCandidate(row: DictRow): CandidateWord {
 const CHUNK = 300
 
 /**
+ * 이 낱말이 **어휘집 안의 다른 낱말의 굴절형**인가.
+ *
+ * DB 의 `en_inflection_bases(text)` 와 같은 규칙을 TS 로 둔 것이다. 왜 RPC 를 안 부르나:
+ * 후보가 수천 개라 낱말마다 왕복하면 조립이 분 단위가 되고, 그 함수는 새 RPC 를 하나 더
+ * 요구한다(마이그레이션). 규칙 자체는 짧고 바뀌지 않는 영어 철자법이라 옮겨 둘 만하다.
+ *
+ * 사전 컬럼(`base_word`)만으로는 부족해서 필요하다 — 실측 커버리지 7% 라
+ * `listing`·`trading`·`shaped`·`welcoming` 이 전부 `base_word` NULL 로 빠져나간다.
+ */
+/**
+ * 사전 표제어 전체 (낱말 문자열만).
+ *
+ * 굴절 판정의 대조군이다. 필터 걸린 풀로 대신할 수 없다 — 기본형은 대개 난이도가 낮아
+ * 밴드 필터에 먼저 걸려 사라지고, 그러면 굴절형이 "기본형 없음" 으로 통과한다.
+ * 한 번만 부르고 결과를 재사용한다 (같은 조립 안에서 사전은 바뀌지 않는다).
+ */
+let lexiconCache: Set<string> | null = null
+export async function fetchLexicon(client: SupabaseClient): Promise<Set<string>> {
+  if (lexiconCache) return lexiconCache
+  const out = new Set<string>()
+  const PAGE = 1000
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await client
+      .from('shared_dictionary')
+      .select('word')
+      // ⚠️ `.order()` 가 없으면 페이지마다 행 순서가 달라져 **일부가 영원히 안 나온다**.
+      // 실측: 정렬 없이 45,688행을 페이징했더니 33,412개만 모였고(27% 누락) 그 바람에
+      // `tire` 가 어휘집에 없어 `tiring` 이 굴절 판정을 통과했다.
+      .order('word', { ascending: true })
+      .range(from, from + PAGE - 1)
+    if (error) throw new Error(`fetchLexicon failed: ${error.message}`)
+    const rows = (data ?? []) as unknown as { word: string }[]
+    for (const r of rows) out.add(r.word.toLowerCase())
+    if (rows.length < PAGE) break
+  }
+  lexiconCache = out
+  return out
+}
+
+export function hasBaseIn(word: string, lexicon: Set<string>): boolean {
+  const w = word.toLowerCase()
+  if (/\s/.test(w) || w.length < 4) return false
+
+  const bases: string[] = []
+  const push = (b: string): void => {
+    if (b.length >= 2 && b !== w) bases.push(b)
+  }
+
+  if (w.endsWith('ing') || w.endsWith('ed')) {
+    const cut = w.endsWith('ing') ? 3 : 2
+    const stem = w.slice(0, -cut)
+    push(stem) // listing → list · dressed → dress
+    push(stem + 'e') // trading → trade · shaped → shape
+    // 자음 중복 되돌리기 (stopping → stop). 마지막 두 글자가 같은 자음일 때만.
+    if (stem.length >= 3 && stem.at(-1) === stem.at(-2) && !'aeiou'.includes(stem.at(-1)!)) {
+      push(stem.slice(0, -1))
+    }
+    if (stem.endsWith('i')) push(stem.slice(0, -1) + 'y') // trying → try
+  }
+  if (w.endsWith('ies')) push(w.slice(0, -3) + 'y') // cities → city
+  else if (w.endsWith('es')) {
+    push(w.slice(0, -2))
+    push(w.slice(0, -1))
+  } else if (w.endsWith('s') && !w.endsWith('ss')) push(w.slice(0, -1))
+
+  return bases.some((b) => lexicon.has(b))
+}
+
+/**
  * 구(phrase) 후보에 **머리 동사의 굴절형**을 붙인다.
  *
  * `bring about` 행에는 굴절형이 없지만 예문은 "brought about" 이다. 머리 동사 `bring` 은
@@ -909,7 +978,20 @@ export async function resolvePopulation(
     case 'except': {
       const [a, b] = await Promise.all(spec.of.map((s) => resolvePopulation(client, s, opts)))
       const minus = new Set((b ?? []).map((c) => c.word.toLowerCase()))
-      return (a ?? []).filter((c) => !minus.has(c.word.toLowerCase()))
+      const left = a ?? []
+
+      // 굴절 판정은 **사전 전체**를 어휘집으로 삼아야 한다.
+      //
+      // 처음엔 차집합 좌변을 어휘집으로 썼는데 그건 이미 필터가 걸린 풀이다 — `미수록` 은
+      // `v_level_min: 3` 이라 `list·dress·shape`(V1~2)가 풀에 없고, 그래서
+      // `listing·dressed·shaped` 가 "기본형을 못 찾음 = 굴절 아님" 으로 통과했다(실측).
+      // 기본형은 난이도가 낮은 쪽에 있기 마련이라 이 실수는 항상 같은 방향으로 샌다.
+      const lexicon = await fetchLexicon(client)
+      for (const c of left) {
+        if (c.is_inflection === undefined) c.is_inflection = hasBaseIn(c.word, lexicon)
+      }
+
+      return left.filter((c) => !minus.has(c.word.toLowerCase()))
     }
     default:
       return []

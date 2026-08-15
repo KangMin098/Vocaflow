@@ -29,7 +29,8 @@
 | `/plan` | `(main)/plan/page.tsx` + `components/plan/PlanClient.tsx` | **P1(컴포저+주간보드 2026-06-29)** 주간 보드(담은 자료를 요일 월~일 배치) + 컴포저 2-pane(좌:자료 고르기 4탭·V밴드·표지 / 우:선택 자료 챕터·활동·요일 한 화면). 자료 4종(도서/article/공용단어장/내 글) · study_plan_items(modules/chapters/weekdays). 회고 "학습 계획" 카드로 진입 |
 | `/reports` | `(main)/reports/page.tsx` + `components/reports/ReportsClient.tsx` | **P2** 주간 Report Card(daily_activity 집계 + 격려 코멘트) + "이번 주 갱신" |
 | `/teacher` | `(main)/teacher/page.tsx` + `components/teacher/TeacherClient.tsx` | **P4.2 L3 B2B** 교사 허브(클래스 개설·초대코드·참여·멤버수, classes/class_members) |
-| `/hub` | `(main)/hub/page.tsx` | **메타 "Today"(forward)** — Hero·**TodayPlanCard(오늘 요일 study_plan_items, v06.110)**·TodayFocus·Continue·ModuleGrid·추천. RecentActivity는 Growth로(v06.108). async(plan fetch) |
+| `/hub` | `(main)/hub/page.tsx` | **메타 "Today"(forward)** — **TodayStage**(좌: 밀린 단어 지면(뜻+원문 예문) · 우: 처방 5블록 흐름, v06.200) + TodayPlanCard(수동계획 날의 정본) + TodayFocus(미진단). **단일 정본 유지** — 계획이 있으면 처방 흐름을 렌더하지 않는다(v06.108 META). async |
+| `/hub-lab` | `(main)/hub-lab/page.tsx` | **내부 전용** 진입면 후보 랩 (`?v=a\|b\|c\|d`, `?t=<시각대>`). 어디에도 링크 없음. 실데이터를 렌더하므로 `PROTECTED_PREFIXES` 등록. 설계 근거·비교 점수 보존용 |
 | `/dashboard` | `(main)/dashboard/page.tsx` + `layout.tsx` | **메타 "회고"(backward, L7 단독)** — known-word 성장 헤더 · MemoryStatus · WeeklyHeatmap · **학습 관리 3카드(ManageSection: 진단·계획·리포트)** · RecentActivity. /manage 흡수(v06.108) |
 | `/settings` | `(main)/settings/page.tsx` | 계정·테마·TTS·알림 |
 

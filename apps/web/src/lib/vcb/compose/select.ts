@@ -27,8 +27,12 @@ function drop(map: Record<string, number>, reason: string): void {
 /**
  * 사전식 변형 표제어 — 괄호·슬래시·문장부호를 품은 것, 알파벳으로 시작하지 않는 것.
  * `(be) on the ball` · `honor/honour-bound` · `…or bust` 류. 학습 카드가 될 수 없다.
+ *
+ * `, etc.` 열거형도 같은 부류다 — `a big, huge, tough, etc. ask` 는 사전이 "이 자리에 여러
+ * 형용사가 온다" 를 적은 것이지 외울 표현이 아니다(실측: 구동사 세트 1번 항목이 이것이었다).
+ * 쉼표는 열거 표제어의 신호라 함께 막는다.
  */
-const VARIANT_HEADWORD = /[()/!?;:…]|^[^A-Za-z]/
+const VARIANT_HEADWORD = /[()/!?;:…,]|\betc\b|^[^A-Za-z]/
 
 /** 외울 대상이 되는 품사 — 나머지(대명사·전치사·접속사·관사·조동사)는 표제어로 싣지 않는다. */
 const CONTENT_POS = new Set([
@@ -119,6 +123,14 @@ export function applyFilters(
     }
     if ((f.exclude_variant_headwords ?? true) && VARIANT_HEADWORD.test(c.word)) {
       drop(dropped, 'variant_headword')
+      continue
+    }
+    // 굴절형 배제 — 근거 둘을 함께 본다.
+    //   ① 사전 컬럼 `base_word` (정확하지만 커버리지 7%)
+    //   ② 어휘집 대조 판정 `is_inflection` (resolve 가 차집합 좌변에서 계산)
+    // 하나만 쓰면 `worn`(①만) 또는 `listing`(②만) 중 한쪽이 새어 나간다.
+    if (f.exclude_inflections && ((c.base_word && !c.derivation_suffix) || c.is_inflection)) {
+      drop(dropped, 'inflected_form')
       continue
     }
     if (f.require_frequency_rank && c.frequency_rank == null) {

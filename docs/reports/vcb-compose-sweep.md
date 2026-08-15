@@ -10,12 +10,12 @@
 | topic-field | 주제 일과 비즈니스 | 300 | 12 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 과학과 기술 | 300 | 12 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 자연 세계 | 300 | 10 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 사람 | 300 | 11 | 0.95 | ✅ | ✅ |  |
+| topic-field | 주제 사람 | 300 | 12 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 정치와 사회 | 300 | 12 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 문화 | 300 | 10 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 외모 | 300 | 12 | 0.95 | ✅ | ✅ |  |
-| topic-field | 주제 언어 기능 | 300 | 12 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 동물 | 300 | 12 | 0.94 | ✅ | ✅ |  |
+| topic-field | 주제 외모 | 300 | 12 | 0.94 | ✅ | ✅ |  |
+| topic-field | 주제 언어 기능 | 300 | 12 | 0.95 | ✅ | ✅ |  |
+| topic-field | 주제 동물 | 300 | 11 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 집과 건물 | 300 | 11 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 스포츠 | 300 | 11 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 개념 | 300 | 12 | 0.94 | ✅ | ✅ |  |
@@ -45,7 +45,7 @@
 | book-companion | 도서 Pinocchio (36장) | 300 | 37 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 49 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 46 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
 | book-companion | 도서 Intro to Sociology (23장) | 300 | 25 | 0.98 | ✅ | ✅ |  |
