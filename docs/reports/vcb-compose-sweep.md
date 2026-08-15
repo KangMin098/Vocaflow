@@ -5,7 +5,7 @@
 | blueprint | 파라미터 | 항목 | 목차 | 총점 | 내부 | 시중대비 | 문제 |
 |---|---|--:|--:|--:|:-:|:-:|---|
 | topic-field | 주제 여행 | 300 | 10 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 음식과 음료 | 300 | 12 | 0.94 | ✅ | ❌ | 열위: mnemonic |
+| topic-field | 주제 음식과 음료 | 300 | 12 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 건강 | 300 | 11 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 일과 비즈니스 | 300 | 12 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 과학과 기술 | 300 | 12 | 0.94 | ✅ | ✅ |  |
@@ -15,13 +15,13 @@
 | topic-field | 주제 문화 | 300 | 10 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 외모 | 300 | 12 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 언어 기능 | 300 | 12 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 동물 | 300 | 12 | 0.94 | ✅ | ❌ | 열위: mnemonic |
+| topic-field | 주제 동물 | 300 | 12 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 집과 건물 | 300 | 11 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 스포츠 | 300 | 11 | 0.95 | ✅ | ❌ | 열위: mnemonic |
+| topic-field | 주제 스포츠 | 300 | 11 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 개념 | 300 | 12 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 의사소통 | 300 | 10 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 시간과 공간 | 300 | 12 | 0.93 | ✅ | ✅ |  |
-| topic-field | 주제 여가 | 300 | 11 | 0.93 | ✅ | ❌ | 열위: mnemonic |
+| topic-field | 주제 여가 | 300 | 11 | 0.93 | ✅ | ✅ |  |
 | exam-list | 목록 ngsl_1.2 | 500 | 18 | 0.88 | ✅ | ✅ |  |
 | exam-list | 목록 ngsl_spoken_1.2 | 500 | 22 | 0.95 | ✅ | ✅ |  |
 | exam-list | 목록 csat-prep-core-2k | 500 | 21 | 0.89 | ✅ | ✅ |  |
@@ -49,7 +49,7 @@
 | unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
 | book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ |  |
-| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
+| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Intro to Sociology (23장) | 80 | 4 | 0.97 | ✅ | ✅ |  |
 | level-band | 레벨 V1-V3 | 400 | 15 | 0.98 | ✅ | ✅ |  |
 | level-band | 레벨 V4-V7 | 400 | 16 | 0.97 | ✅ | ✅ |  |

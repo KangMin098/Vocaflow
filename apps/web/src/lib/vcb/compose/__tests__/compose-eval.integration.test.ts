@@ -297,7 +297,9 @@ describe.skipIf(!enabled)('VCB 컴포저 — 전 blueprint 실 DB 평가', () =>
       `[G3] 결측 있는 유형: ${leaky.map((r) => `${r.id}(${fmt(r.metrics['fill'] ?? 0)})`).join(', ') || '없음'}`,
     )
     // Sound 면은 녹음 자산 0% 로 fallback(0.7 가중) 이 정상이므로 그 유형만 예외로 둔다.
-    const notSound = leaky.filter((r) => !['rhyme-phonics', 'facet-ladder', 'script-media'].includes(r.id))
+    const notSound = leaky.filter(
+      (r) => !['rhyme-phonics', 'facet-ladder', 'script-media', 'audio-only'].includes(r.id),
+    )
     expect(notSound.map((r) => r.id)).toEqual([])
   })
 
@@ -333,9 +335,12 @@ describe.skipIf(!enabled)('VCB 컴포저 — 전 blueprint 실 DB 평가', () =>
     expect(stuck.map((r) => r.id)).toEqual([])
   })
 
-  it('자산 결손 2종은 0건을 내는 것이 정상이다 (설계 결함이 아님을 고정)', () => {
+  it('자산 결손 1종은 0건을 내는 것이 정상이다 (설계 결함이 아님을 고정)', () => {
+    // 한때 오디오도 여기 있었다. 그건 자산 결손이 아니라 **판정 오류**였다 — 흘려듣기는
+    // audio_url 없이 런타임 TTS 로 이미 돌고 있었고, 규칙만 녹음본을 요구하고 있었다.
+    // 그림은 진짜 결손이다: image_url 45,688행 전량 NULL 이고 대체 재생 경로가 없다.
     const gaps = rows.filter((r) => r.status === 'asset_gap')
-    expect(gaps.map((r) => r.id).sort()).toEqual(['audio-only', 'picture-dict'])
+    expect(gaps.map((r) => r.id).sort()).toEqual(['picture-dict'])
     for (const g of gaps) expect(g.entries).toBe(0)
   })
 })

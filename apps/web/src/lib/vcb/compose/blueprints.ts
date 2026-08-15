@@ -51,6 +51,15 @@ export type FitRule =
   | { kind: 'beats_baseline'; metric: 'sentence_unlock' | 'future_encounters' }
   /** 그룹 수가 이 값 이상 — 목차가 실제로 갈렸는가 */
   | { kind: 'min_groups'; n: number }
+  /**
+   * 모든 항목이 **재생 가능**한가 — 녹음(audio_url) 또는 런타임 TTS 중 하나로.
+   *
+   * `all_have_field: audio_url` 이 아닌 이유: 그 규칙은 audio_url 0% 때문에 오디오 유형을
+   * "만들 수 없음" 으로 판정했는데, 제품에는 이미 흘려듣기 큐가 있고 그것은 audio_url 을
+   * 쓰지 않는다(`components/wordvault/hooks/useListenQueue.ts` → `useSpeech`).
+   * 즉 못 만드는 게 아니라 **녹음본이 없을 뿐**이다. 그 구분을 detail 에 그대로 남긴다.
+   */
+  | { kind: 'audio_playable' }
 
 export interface BlueprintParams {
   slug?: string
@@ -1114,12 +1123,12 @@ const D: Blueprint[] = [
     taxon: 'D26',
     title: '오디오 단어장',
     market_example: '듣기 전용 보카 · 흘려듣기 mp3',
-    organizing_principle: '녹음 — 화면을 보지 않고 듣는다',
-    status: 'asset_gap',
+    organizing_principle: '소리 — 화면을 보지 않고 듣는다',
+    status: 'partial',
     gap_note:
-      'audio_url 0% (45,688행 전부 NULL). 런타임 TTS 는 5화면에서 쓰이지만 사전 녹음 자산이 없어 오프라인 흘려듣기가 성립하지 않는다',
+      'audio_url 0% (45,688행 전부 NULL) — 재생은 런타임 TTS 로 성립한다(WordVault 흘려듣기 큐가 이미 그렇게 돈다). 없는 것은 **녹음본**이고, 그래서 (1) 오프라인 다운로드 (2) 원어민 억양 두 가지가 빠진다. 평가기는 이 세트의 Sound 면을 fallback(0.7) 로 계산한다',
     requires_params: [],
-    fit_rules: [{ kind: 'all_have_field', field: 'audio_url' }],
+    fit_rules: [{ kind: 'audio_playable' }],
     weights: { ...W_DEFAULT, fill: 0.4, noise: 0.1, novelty: 0.05, level_fit: 0.1 },
     build: (p) =>
       recipe({
@@ -1133,12 +1142,20 @@ const D: Blueprint[] = [
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? ['A2', 'B1'],
         population: { kind: 'list', tags: p.tags ?? ['ngsl_spoken_1.2'], mode: 'any' },
-        filters: { require_fields: ['audio_url'] },
-        objective: { kind: 'count', n: p.count ?? 300 },
-        group_by: 'none',
+        // 녹음본을 요구하면 후보가 0 이 된다. IPA 는 `recipe()` 가 이미 필수로 넣으므로
+        // 여기서는 **말할 수 있는 항목** 만 남기면 된다 — 예문이 있으면 문장 흘려듣기도 된다.
+        filters: {},
+        objective: { kind: 'count', n: p.count ?? (p.days ?? 15) * (p.per_day ?? 20) },
+        // 목차가 **듣기 세션**이다. mp3 보카는 트랙 하나가 통짜라 "어디까지 들었는지" 를
+        // 사람이 기억해야 한다 — 회차로 잘라 두면 이동 시간 한 번에 한 회차가 끝난다.
+        group_by: 'day',
+        group_order: 'source_order',
         order_within: 'frequency',
+        pacing: { days: p.days ?? 15, per_day: p.per_day ?? 20 },
         facets: ['sound', 'recognize'],
-        card_fields: ['audio_url', 'meaning_ko', 'ipa'],
+        prefer_fields: ['audio_url', 'example_en'],
+        card_fields: ['meaning_ko', 'ipa', 'example_en'],
+        group_label: 'day_number',
       }),
   },
 ]

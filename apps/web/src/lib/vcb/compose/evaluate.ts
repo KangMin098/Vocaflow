@@ -280,6 +280,19 @@ function evalFitRule(rule: FitRule, set: ComposedSet): { ok: boolean; detail: st
         detail: bad === 0 ? '전량 원문 문장 보유' : `원문 문장 없음 ${bad}/${n}`,
       }
     }
+    case 'audio_playable': {
+      const recorded = entries.filter((e) => hasField(e.candidate, 'audio_url')).length
+      // TTS 는 라틴 문자 표제어만 읽는다 — 사전에 섞인 비라틴 표기는 소리로 낼 수 없다.
+      const speakable = entries.filter((e) => /[a-z]/i.test(e.candidate.word)).length
+      const mute = n - Math.max(recorded, speakable)
+      return {
+        ok: mute === 0 && n > 0,
+        detail:
+          mute === 0
+            ? `재생 가능 ${n}건 (녹음 ${recorded} · TTS 합성 ${n - recorded})`
+            : `소리를 낼 수 없는 항목 ${mute}/${n}`,
+      }
+    }
     case 'beats_baseline': {
       if (rule.metric === 'sentence_unlock') {
         const ev = set.evidence?.sentence_unlock

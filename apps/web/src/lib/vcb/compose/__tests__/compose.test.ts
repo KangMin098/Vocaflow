@@ -423,6 +423,9 @@ describe('blueprint 카탈로그', () => {
     const s = catalogSummary()
     expect(s.total).toBe(31)
     expect(s.by_family.unique).toBe(5)
-    expect(s.by_status.asset_gap).toBe(2) // image_url 0% · audio_url 0%
+    // 자산이 없어 **만들 수 없는** 유형은 그림 하나뿐이다.
+    // 오디오는 한때 여기 있었지만 오판이었다 — audio_url 은 0% 여도 흘려듣기는 런타임 TTS 로
+    // 이미 돌고 있었다. 없는 것은 녹음본(오프라인·원어민 억양)이므로 partial 이 맞다.
+    expect(s.by_status.asset_gap).toBe(1) // image_url 0% — 이미지 자산 수집이 선행 과제
   })
 })

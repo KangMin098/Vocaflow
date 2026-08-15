@@ -10,6 +10,30 @@
 
 ## Unreleased (v06.34 → next)
 
+### 단어장 컴포저 — 유형 26종 발행 + 구조 보완 7건
+
+5개 생성기 방언을 Recipe v3 하나로 합치고(§[VCB_REDESIGN](./VCB_REDESIGN.md)), 시중 26 유형 +
+플랫폼 고유 5 유형을 **선언 카탈로그**로 만들었다. 평가는 두 축이다 — 내부 7지표(선언한 것을
+지켰나)와 **시중 16요소 대비 매트릭스**(그 유형의 베스트 책보다 나은가, 상대는 유형별로 지정).
+
+- **G6 29/29 전 요소 우위·동률 · G7 29/29 목표 초과 · 파라미터 스윕 55/55** (주제 18 · 목록 14 ·
+  도서 5×3유형 · 레벨 3 · 일정 3 · 규모 2). 리포트는 러너가 갱신:
+  [vcb-compose-eval.md](./reports/vcb-compose-eval.md) · [vcb-compose-sweep.md](./reports/vcb-compose-sweep.md)
+- **발행 카탈로그 29세트 · 15,698단어 · 유형 26종**. 각 세트의 `curation_query` 에 레시피·채점표·
+  시중 대비 매트릭스를 함께 적재(마이그레이션 없음 — 기존 jsonb 컬럼 사용)
+- 새 화면 `/admin/vocab/studio` (유형 선택 → 조립 → 채점 → 발행. **채점 전 발행 잠금**) +
+  CLI `pnpm vcb:compose` · 도움말 `vocab-studio`
+- 학습자 동선: 도서 상세 Tier 2 "보조 단어장" 빈 자리를 그 책의 해금·재등장 세트로 채움(이유 문구 포함)
+- 구조 보완: `meaning_clean` 오탐 1,640건 수정 + 필터 생존율 경고 · **규모 미달 blocker**(요청의 30%
+  미만이면 7지표가 만점이어도 실패) · `primary_pos 'phrasal verb'` 표기 정규화 · KICE 기출 lemma 673개를
+  `lexicon_frequencies.metadata` 로 편입 · `base_word` 체인 평탄화 179행 · **오디오 유형 오분류 수정**
+  (`audio_url` 0% 를 근거로 asset_gap 이었으나 흘려듣기는 이미 런타임 TTS 로 돈다 → `audio_playable` 규칙)
+- ⚠️ **승인 대기**: 품질 게이트 I7 이 `phrase_unit` 을 전 세트 공통 노이즈로 하드코딩해 구동사
+  단어장과 충돌(52건). 유형별 예외 SQL 을
+  [`_pending_20260815_i7_phrase_unit_carveout.sql`](../supabase/migrations/_pending_20260815_i7_phrase_unit_carveout.sql)
+  로 올려 두고, 그동안 해당 세트만 비공개로 두어 critical FAIL 0 을 유지한다
+- 레거시 3 스크립트에 SUPERSEDED 표기(`dict/roots-publish-set` · `dict/topics-publish-set` · `lcp/publish-list-word-set`)
+
 ### EchoMatch 가 새 체크아웃에서 죽어 있었다 — 74MB 복사가 "사람 손" 이었다
 
 EchoMatch 청각 신호의 **플레이어 배선**을 e2e 로 덮으려다 스펙이 150초 타임아웃했다.
