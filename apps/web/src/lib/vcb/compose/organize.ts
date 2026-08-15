@@ -379,6 +379,8 @@ function comparator(order: OrderWithin): (a: CandidateWord, b: CandidateWord) =>
       return (a, b) => (b.corpus_freq ?? 0) - (a.corpus_freq ?? 0) || a.word.localeCompare(b.word)
     case 'recycle_soon':
       return (a, b) => (b.future_encounters ?? 0) - (a.future_encounters ?? 0) || a.word.localeCompare(b.word)
+    case 'topic_rank':
+      return (a, b) => (a.topic_rank ?? 99999) - (b.topic_rank ?? 99999) || a.word.localeCompare(b.word)
     case 'sense_count':
       return (a, b) => b.sense_count - a.sense_count || a.word.localeCompare(b.word)
     case 'phrase_brevity':

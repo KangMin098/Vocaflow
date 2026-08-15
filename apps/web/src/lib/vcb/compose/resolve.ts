@@ -491,7 +491,7 @@ async function resolveTopics(
   for (const [word, pick] of best) {
     const c = dict.get(word)
     if (!c) continue
-    out.push({ ...c, group_keys: [pick.chapter] })
+    out.push({ ...c, group_keys: [pick.chapter], topic_rank: pick.rank })
   }
   void byId
   return out

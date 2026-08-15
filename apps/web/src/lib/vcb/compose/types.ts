@@ -269,6 +269,15 @@ export const ORDER_WITHINS = [
    * **데이터로 뒷받침되는 유일한 대리지표**다. 없는 빈도를 있는 척하는 것보다 낫다.
    */
   'phrase_brevity',
+  /**
+   * 주제 내 중심도 — 그 주제를 대표하는 낱말부터.
+   *
+   * 전역 빈도로 정렬하면 어느 주제든 `round · total · bank · career` 같은 범용어가
+   * 앞자리를 차지한다(주제 트리는 '이 장면에서 쓰이는 낱말' 을 담으므로 범용어도 태그된다).
+   * 이 순위는 주제 고유성(최상위 주제를 몇 개나 걸치나) × 어휘 특이성(너무 흔하지도
+   * 너무 희소하지도 않은가)으로 계산해 백필했다.
+   */
+  'topic_rank',
   'as_selected',
 ] as const
 export type OrderWithin = (typeof ORDER_WITHINS)[number]
@@ -413,6 +422,11 @@ export interface CandidateWord {
    * 뺀 뒤에는 기본형이 사라져 알 수 없다.
    */
   is_inflection?: boolean
+  /**
+   * 주제 **내** 중심도 순위 ().
+   * 낮을수록 그 주제를 대표한다. 주제 유형의 정렬 근거다.
+   */
+  topic_rank?: number
 }
 
 export interface ComposedEntry {
