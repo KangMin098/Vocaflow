@@ -22,8 +22,8 @@
 | T1c 어원 니모닉 | 링크 보유·니모닉 결측 | 1,669 | `mnemonic_ko` 5,616 → **7,405** |
 | T2 다의어 sense | 고빈도 단일-sense 3,299 | 1,510 단어 | top-10k 단일-sense 3,812 → **2,302** |
 | T3a 사전 갭 | 발행 도서 미등재 | 1,438 표제어 | `shared_dictionary` 45,699 → **47,137** · 발행도서 커버리지 88.2% → **91.3%** |
-| T3b 학습자 노트 | 발행 도서 어휘 | 3,246+ | `korean_learner_note` 12,413 → 증가 중 |
-| T3c 반대말·연어 | 발행 도서 어휘 | 2,281+ | `collocations` 14,078 → 증가 중 |
+| T3b 학습자 노트 | 발행 도서 어휘 10,945 (92청크) | 8,907 | `korean_learner_note` 12,413 → **21,320** |
+| T3c 반대말·연어 | 발행 도서 어휘 9,721 (82청크) | 5,532 | `collocations` 14,078 → **19,463** · `antonyms` 14,678 → **15,764** |
 | T4a 도서 장르 태그 | published+ready 316권 | 316 | `category_tags` **0 → 316** (`search_vector` C 가중치 활성) |
 
 **신설 하네스** — `scripts/dict/w0815-pubvocab.mjs`(발행 도서 어휘 집합 공통 로더) ·
@@ -44,6 +44,12 @@
 - 발행 도서 clean row 51,168 중 로마숫자 장 표기 91행(46종, 0.18%) — 토큰화 게이트 수정 근거로는 부족
 - `word_roots.fam` gloss 가 "소문, 명성" 뿐 — `fate`·`fatal`·`infant`·`ineffable` 은 같은 어근의 "말하다" 뜻. gloss 확장 필요
 - T3a 수확률은 빈도 순위가 아니라 **출처 도서 성격**을 따른다 — 고어 도서(Simplicissimus) 구간 164/180, Milne nonce 철자 구간 115/180
+- **사전 필드 정합성 결함 6종 발견** — 노트 배치가 단어를 한 개씩 읽으면서 드러났다. 채움률 지표로는 하나도 안 보인다.
+  뜻 오류(`inappropriately`="적절하게") · 예문↔뜻 불일치 60+ · pos 불일치 30+ · **synonyms 오염**(`trash`→마약 은어 전량) ·
+  CEFR 오배정(A1/A2 학술 추상명사 126, 그중 88%가 `frequency_rank IS NULL`) · **과거 AI 배치 환각 표제어 125**.
+  확인분 15건은 즉시 수정, 전체 진단은 [dict_field_consistency_20260815.md](AI_CONTEXT/diagnostics/dict_field_consistency_20260815.md)
+- **환각 방지 원칙(실증)** — 저작 대상을 `library_book_vocabularies` 에서 길어오면 환각이 구조적으로 불가능하다.
+  오늘 배치 1,444 표제어 중 lexicon 미등재 339건이 **전부 도서 본문에 실재**(환각 0). 코퍼스 제약 없던 과거 배치는 125건이 어디에도 없었다.
 
 ### Growth(`/dashboard`) 재설계 + `/hub` 진행 단일화 — 화면 셋이 동시에 거짓을 말하고 있었다 (v06.201)
 
@@ -115,6 +121,21 @@
 - ⚠️ 고아 컴포넌트 6(630줄, `HubHero`·`ModuleGrid`·`ModuleCard`·`ArcadeEntryCard`·
   `TodayPrescriptionCard`·`PrescriptionArticleLaunch`) — **삭제 보류**.
   `TodayPrescriptionCard.test.tsx`(18단언)가 처방 계약을 잠그고 있어 지우면 락이 함께 사라진다.
+
+#### 디자인 캡처 하니스 정확도 수정 (`91-hub-design-capture`)
+
+평가 도구가 틀리면 그 뒤 라운드가 전부 틀린다. 넷을 고쳤다.
+
+- **범용 계측 훅 `[data-design-card]`** — 셀렉터가 서재 전용 `aria-label` 뿐이라 `/practice`
+  가 한 라운드 내내 **"카드 0개"(측정 안 됨)** 였다. 하니스 자신이 경고해 둔 상태였다
+- **줄 단위 비교로 수정 — 오탐 제거** — 격자 전체를 한 통에 세던 것을 `컨테이너+offsetTop`
+  으로 묶었다. `/practice` 가 131/179/227 로 "불균질"이었는데 **각 줄 안에서는 균질**했다
+  (줄바꿈 격자는 줄마다 높이가 다른 게 정상). 수정 후 0/2 · 서가도 정확해졌다(books 0/3)
+- **접힘선 지표 신설** — `foldRatio` + 접힌 인터랙티브 요소 이름. 이걸로 `/practice` 의
+  Game Lab 링크가 desktop·mobile **양쪽 다 접힘선 아래**임을 발견 → 섹션 헤더로 이동
+  (`26-practice-chooser` ③ 에 `box.y < viewport.height` 단언 추가). 높이 1.31→1.26화면
+- **0 을 통과로 읽지 않기** — 줄 0개(1열 모바일)를 `0/0` 으로 찍던 것 → "균질성 비교 불가" ·
+  접힘 목록 82개 쏟아지던 것 → 앞 12개 + "외 N개"
 
 ### 받아쓰기 무결점화 — 순회에서 나온 결함 24건 (사용자 신고에서 시작)
 
