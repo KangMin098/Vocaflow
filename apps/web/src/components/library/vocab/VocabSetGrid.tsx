@@ -75,7 +75,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
         `"${set.title}" 을(를) 내 학습에서 제외할까요?\n` +
           '· 단어장 구독이 해제됩니다.\n' +
           '· 이미 학습한 단어와 학습 기록은 보존됩니다.\n' +
-          '· 언제든 다시 추가할 수 있어요.',
+          '· 언제든 다시 추가할 수 있어요.'
       )
       if (!ok) return
     }
@@ -157,7 +157,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             categoryImportance(b.category) - categoryImportance(a.category) ||
             b.subscriberCount - a.subscriberCount ||
             a.sortOrder - b.sortOrder ||
-            b.wordCount - a.wordCount,
+            b.wordCount - a.wordCount
         )
         break
     }
@@ -179,8 +179,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
 
   // '전체' + 검색·필터 미사용 시에만 카테고리별 섹션 그룹핑 (chunking — Miller 7±2).
   // 검색/구독필터/특정 카테고리 선택 시에는 평탄 그리드 (사용자 의도 명확).
-  const isGrouped =
-    category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
+  const isGrouped = category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
 
   // 개인 맞춤 추천 — recommend_word_sets_for_user RPC 결과를 라이브러리 세트에 매핑(티어·사유 유지).
   const diagnosed = userVLevel >= 1
@@ -211,7 +210,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             onChange={(e) => setQuery(e.target.value)}
             placeholder="단어장 이름·설명 검색"
             aria-label="공용 단어장 검색"
-            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t2)] transition-colors focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
+            className="focus:ring-[var(--t1)]/10 h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] transition-colors placeholder:text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
           />
         </div>
 
@@ -223,7 +222,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             id="vocab-sort"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
+            className="focus:ring-[var(--t1)]/10 h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
           >
             <option value="recommended">추천순</option>
             <option value="most_words">단어 많은 순</option>
@@ -236,7 +235,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
               type="button"
               onClick={() => setMineOnly((v) => !v)}
               aria-pressed={mineOnly}
-              className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/20 focus-visible:ring-offset-1 ${
+              className={`focus-visible:ring-[var(--t1)]/20 inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                 mineOnly
                   ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -298,10 +297,10 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           ) : null}
           {/* v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel */}
           <VocabSetCarousel
-          sets={filtered}
-          subscribedIds={subscribed}
-          pendingId={pendingId}
-          isLoggedIn={isLoggedIn}
+            sets={filtered}
+            subscribedIds={subscribed}
+            pendingId={pendingId}
+            isLoggedIn={isLoggedIn}
             onPreview={setPreviewing}
             onToggle={handleToggle}
             onSelectCategory={(id) => setCategory(id)}
@@ -342,7 +341,7 @@ function DiagnosePrompt() {
   return (
     <a
       href="/diagnostic"
-      className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-ios-purple/40 bg-ios-purple/[0.06] px-4 py-3 no-underline transition-colors hover:bg-ios-purple/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ios-purple/40"
+      className="border-ios-purple/40 bg-ios-purple/[0.06] hover:bg-ios-purple/[0.1] focus-visible:ring-ios-purple/40 flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed px-4 py-3 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2"
     >
       <span className="flex items-center gap-2.5">
         <span
@@ -392,7 +391,7 @@ function FeaturedRow({
       <div className="flex items-center gap-2 px-1">
         <span
           aria-hidden
-          className="inline-flex h-6 w-6 items-center justify-center rounded-ios-sm bg-ios-purple/12 text-ios-purple"
+          className="bg-ios-purple/12 inline-flex h-6 w-6 items-center justify-center rounded-ios-sm text-ios-purple"
         >
           <Sparkles size={14} />
         </span>
@@ -403,7 +402,10 @@ function FeaturedRow({
         {items.map(({ set, type, reason }) => {
           const badge = TIER_BADGE[type] ?? TIER_BADGE.fallback!
           return (
-            <div key={set.id} className="flex w-[128px] shrink-0 snap-start flex-col gap-1.5 sm:w-[144px]">
+            <div
+              key={set.id}
+              className="flex w-[128px] shrink-0 snap-start flex-col gap-1.5 sm:w-[144px]"
+            >
               <VocabSetCard
                 set={set}
                 isSubscribed={subscribed.has(set.id)}
@@ -411,8 +413,18 @@ function FeaturedRow({
                 errorMessage={errors[set.id] ?? null}
                 onToggle={onToggle}
                 onPreview={onPreview}
+                hideKind
               />
-              {/* 왜 추천? — 티어 배지 + 사유 (recommend_word_sets_for_user reason) */}
+              {/*
+                왜 추천? — 티어 배지 + 사유.
+
+                **한 줄로 고정한다.** `line-clamp-2` 였을 때 사유가 문장 중간에서 잘렸고
+                ("남들이 비워 둔 자리를 메…"), 카드마다 1~2줄로 갈려 배지 아래 블록 높이가
+                제각각이었다(실측 2026-08-16). 사유는 추천의 **근거**라 반쯤 잘리면 설득이
+                안 되느니만 못하다 — 그럴 바엔 한 줄만 단정하게 보이고, 전문은 카드를 열어
+                보게 한다. 높이를 예약해(`min-h`) 사유가 짧은 카드도 줄이 안 밀리게 한다.
+                전체 문장은 `title` 로 남겨 마우스·스크린리더가 닿게 둔다.
+              */}
               <div className="flex flex-col gap-0.5 px-0.5">
                 <span
                   className="inline-flex w-fit items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[800] uppercase tracking-wider"
@@ -420,7 +432,10 @@ function FeaturedRow({
                 >
                   {badge.label}
                 </span>
-                <span className="line-clamp-2 font-body text-[10.5px] leading-snug text-[var(--t2)]">
+                <span
+                  title={reason}
+                  className="line-clamp-1 min-h-[14px] font-body text-[10.5px] leading-snug text-[var(--t2)]"
+                >
                   {reason}
                 </span>
               </div>

@@ -25,6 +25,15 @@ interface VocabSetCardProps {
   errorMessage: string | null
   onToggle: (set: PublishedVocabSet) => void
   onPreview: (set: PublishedVocabSet) => void
+  /**
+   * "무엇으로 묶었나" 줄을 감춘다 — **추천 행 전용**.
+   *
+   * 추천 행은 카드 아래에 이미 "왜 추천인가"(티어 배지 + 사유)를 붙인다. 카드가 자기
+   * 묶음 원리까지 그리면 한 카드에 설명 블록이 둘이 되고, `set.kind` 가 있는 카드만
+   * 그러니 **행의 기준선이 카드마다 갈린다**(실측 2026-08-16: 5장 중 2장만 두 줄).
+   * 같은 자리에서 두 가지 이유를 대는 것이라 읽는 부담도 는다.
+   */
+  hideKind?: boolean
 }
 
 export function VocabSetCard({
@@ -34,6 +43,7 @@ export function VocabSetCard({
   errorMessage,
   onToggle,
   onPreview,
+  hideKind = false,
 }: VocabSetCardProps) {
   const cover = bookCover({
     title: set.title,
@@ -70,7 +80,7 @@ export function VocabSetCard({
         type="button"
         onClick={() => onPreview(set)}
         aria-label={`${set.title} 미리보기 열기`}
-        className="book-cover-premium relative aspect-[3/4] w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2"
+        className="book-cover-premium focus-visible:ring-[var(--p)]/40 relative aspect-[3/4] w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         style={{
           // 그리드 카드 — 반사 비활성 (행 간 겹침 방지)
           WebkitBoxReflect: 'none',
@@ -103,7 +113,7 @@ export function VocabSetCard({
               style={{ background: duotone.ink }}
             />
             <div
-              className="absolute inset-0 mix-blend-screen opacity-[0.22]"
+              className="absolute inset-0 opacity-[0.22] mix-blend-screen"
               style={{ background: duotone.paper }}
             />
             {/* 제목이 그림 위에서 읽히도록 아래쪽을 눌러 준다 */}
@@ -178,20 +188,14 @@ export function VocabSetCard({
         onClick={handleSubscribeClick}
         disabled={isPending}
         aria-label={
-          isSubscribed
-            ? `${set.title} 내 학습에서 제외`
-            : `${set.title} 내 단어장에 추가`
+          isSubscribed ? `${set.title} 내 학습에서 제외` : `${set.title} 내 단어장에 추가`
         }
-        title={
-          isSubscribed
-            ? '내 학습에서 제외 (학습한 단어는 보존)'
-            : '내 단어장에 추가'
-        }
+        title={isSubscribed ? '내 학습에서 제외 (학습한 단어는 보존)' : '내 단어장에 추가'}
         // 44px 하한 — 실측 32x32. 카드 위 오버레이라 시각적으로는 작아 보여야 하므로
         // **원(시각)은 그대로 두고 버튼 자체를 44px 로** 키운다(내부 아이콘 크기 불변).
-        className={`absolute bottom-1.5 right-1.5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-[var(--dur-normal)] group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 ${
+        className={`absolute bottom-1.5 right-1.5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-[var(--dur-normal)] focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 group-focus-within:opacity-100 group-hover:opacity-100 ${
           isSubscribed
-            ? 'bg-[var(--error-light)] text-[var(--error-ink)] ring-1 ring-[var(--error)] hover:scale-110 focus-visible:ring-[var(--error)]/40'
+            ? 'focus-visible:ring-[var(--error)]/40 bg-[var(--error-light)] text-[var(--error-ink)] ring-1 ring-[var(--error)] hover:scale-110'
             : 'bg-white text-[var(--t1)] hover:scale-110 focus-visible:ring-white/60'
         }`}
       >
@@ -212,7 +216,7 @@ export function VocabSetCard({
         (실측 2026-08-15: 발행 29세트 중 24개가 그 한 칸에 있다).
         제목을 반복하지 않는다 — 제목이 말하지 않는 것만 적는다.
       */}
-      {set.kind && (
+      {set.kind && !hideKind && (
         <p className="mt-2 flex items-baseline gap-1.5 font-body text-[11px] leading-snug text-[var(--t3)]">
           <span className="shrink-0 rounded-[3px] bg-[var(--bg2)] px-1.5 py-px font-display text-[10px] font-[700] text-[var(--t2)]">
             {set.kind.label}
@@ -222,10 +226,7 @@ export function VocabSetCard({
       )}
 
       {errorMessage && (
-        <p
-          role="alert"
-          className="mt-2 font-body text-[11px] text-[var(--error-ink)]"
-        >
+        <p role="alert" className="mt-2 font-body text-[11px] text-[var(--error-ink)]">
           {errorMessage}
         </p>
       )}
