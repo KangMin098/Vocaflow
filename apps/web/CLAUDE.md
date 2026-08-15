@@ -91,6 +91,21 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 - 새 화면/모듈 런타임 검증을 했으면 그 시나리오를 04-ui-smoke 또는 새 spec 으로 **남겨서** 다음부터 자동 회귀되게 할 것
 - 마이크 실녹음 검증은 fake-mic 플래그 필요: `--use-fake-ui-for-media-stream --use-fake-device-for-media-stream`
 - ⚠️ **dev 서버는 워크스페이스에 1개만** — 멀티 세션이 각자 `next dev` 를 띄우면 `.next` 공유 오염으로 라우트가 무작위 404 (실측 2026-07-07). 이미 떠 있는 서버를 재사용하고, 오염 시 모든 서버 종료 → `.next` 삭제 → 1개만 재기동.
+- ⚠️ **인증 상태는 `playwright-auth/` 에 저장한다 — `test-results/` 에 두지 말 것.** Playwright 는
+  실행 시작 때 output 디렉터리를 통째로 지우므로, 동시 세션이 있으면 **남의 실행이 내 스펙의
+  로그인 상태를 지운다.** 그러면 스펙은 엉뚱한 증상으로 실패한다 — 실측 2026-08-15,
+  EchoMatch 스펙이 "Piper 시작 버튼이 안 뜬다" 로 150초 타임아웃했는데 실제 화면은 **로그인 페이지**였다.
+  (19개 스펙을 `playwright-auth/` 로 이전 완료. 새 스펙도 그쪽에 쓸 것.)
+
+## EchoMatch 전제 — ONNX 런타임 정적 자산
+
+`public/onnx/` (74MB · gitignore)가 없으면 EchoMatch 는 **"음성 모델 로드 실패"** 로 죽는다
+(`no available backend found … Failed to fetch /onnx/ort-wasm-simd-threaded.jsep.mjs`).
+`pnpm dev` / `pnpm build` 앞에 `predev`/`prebuild` 가 `scripts/ensure-onnx-runtime.mjs` 를 돌려
+`onnxruntime-web` dist 에서 자동 복사한다(멱등 — 있으면 건너뜀). 수동은 `pnpm --filter web ensure:onnx`.
+
+> 2026-08-15 이전에는 이 복사가 **사람 손**이었다(`.gitignore` 주석과 `piper-tts.ts` 주석에
+> "권장"·"복사 후" 로만 남아 있었다). 그래서 새 체크아웃에서 EchoMatch 가 조용히 죽었다.
 
 ## 전역 에러 바운더리 (필수)
 

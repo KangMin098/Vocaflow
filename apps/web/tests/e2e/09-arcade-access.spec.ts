@@ -28,7 +28,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-arcade-access.json';
+const STATE_PATH = 'playwright-auth/.auth-arcade-access.json';
 
 /** 실 단어 40개 보유 공용 단어장 — explicit 스코프 픽스처. */
 const FIXTURE_SET_ID = 'dcb6f06e-bc30-4fe3-80bf-577ad08be233';

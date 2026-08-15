@@ -19,7 +19,7 @@ const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
-const STATE_PATH = 'test-results/.auth-shell-status.json';
+const STATE_PATH = 'playwright-auth/.auth-shell-status.json';
 
 async function login(page: Page) {
   for (let i = 1; i <= 2; i++) {

@@ -18,7 +18,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-nav-user.json';
+const STATE_PATH = 'playwright-auth/.auth-nav-user.json';
 
 /** 사이드바에 등재된 전 메뉴 (components/layout/sidebar-config.ts 와 1:1) */
 const MENU_ROUTES = [

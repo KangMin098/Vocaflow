@@ -602,3 +602,39 @@ export function devAdminBypassActive(): boolean {
   }
   return readEnv('DEV_ADMIN_BYPASS') === '1';
 }
+
+/**
+ * 텍스트에 스코프된 학습자 단어 하나를 심는다 — EchoMatch 청각 신호 경로 검증용.
+ *
+ * 왜 심어야 하나: EchoMatch 는 문장에 든 **내 단어**에만 기록을 남긴다
+ * (`vocabularies.text_id` 기준 · dictation 과 같은 규칙). 검증 텍스트에는 학습자 단어가
+ * 0개라 아무것도 심지 않으면 신호 경로가 **한 번도 실행되지 않은 채 초록**이 된다.
+ *
+ * ⚠️ 공유 픽스처를 영구히 늘리지 않는다 — 심은 행은 반드시 `deleteVocabularyById` 로 되돌린다.
+ *    남기면 다음 실행의 추출 후보와 면 분포가 조용히 달라진다.
+ */
+export async function seedScopedVocabulary(
+  userId: string,
+  textId: string,
+  word: string,
+): Promise<string | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data, error } = await c
+    .from('vocabularies')
+    // `meaning` 은 NOT NULL — 없으면 INSERT 가 조용히 실패하고 테스트가 skip 으로 새어 나간다
+    .insert({ user_id: userId, word, lemma: word, meaning: '(e2e 시드)', text_id: textId })
+    .select('id')
+    .single();
+  if (error || !data) return null;
+  return (data as { id: string }).id;
+}
+
+/** seedScopedVocabulary 원복 — 그 단어에 달린 학습 기록까지 함께 지운다. */
+export async function deleteVocabularyById(vocabularyId: string): Promise<boolean> {
+  const c = serviceClient();
+  if (!c) return false;
+  await c.from('learning_records').delete().eq('vocabulary_id', vocabularyId);
+  const { error } = await c.from('vocabularies').delete().eq('id', vocabularyId);
+  return !error;
+}

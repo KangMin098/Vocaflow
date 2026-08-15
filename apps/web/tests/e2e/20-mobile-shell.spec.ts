@@ -18,7 +18,7 @@ const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
-const STATE_PATH = 'test-results/.auth-mobile-shell.json';
+const STATE_PATH = 'playwright-auth/.auth-mobile-shell.json';
 
 const MOBILE = { width: 390, height: 844 };
 const DESKTOP = { width: 1280, height: 900 };

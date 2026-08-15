@@ -21,7 +21,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-quality-user.json';
+const STATE_PATH = 'playwright-auth/.auth-quality-user.json';
 
 async function loginRuntimeUser(page: Page) {
   for (let attempt = 1; attempt <= 2; attempt++) {

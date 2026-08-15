@@ -17,7 +17,7 @@ const RUNTIME_USER = {
 const ECHO_TEXT_ID = '89970bfa-f49d-44c2-92ce-75895a608317';
 
 /** 로그인은 파일당 1회만 (auth rate-limit 회피) — storageState 로 각 테스트에 주입 */
-const STATE_PATH = 'test-results/.auth-runtime-user.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
 
 async function loginRuntimeUser(page: Page) {
   // 배치 실행 시 테스트마다 새 로그인 → auth 스로틀/dev 컴파일 경합으로 리다이렉트 지연 →

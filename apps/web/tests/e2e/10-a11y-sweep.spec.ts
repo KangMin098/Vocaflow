@@ -27,7 +27,7 @@ const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
-const STATE_PATH = 'test-results/.auth-a11y-sweep.json';
+const STATE_PATH = 'playwright-auth/.auth-a11y-sweep.json';
 
 /** 학습자 정적 라우트 — [param] 라우트는 대상 데이터가 계정마다 달라 제외 */
 const ROUTES = [

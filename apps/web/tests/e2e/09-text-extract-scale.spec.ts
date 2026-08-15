@@ -35,7 +35,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-runtime-scale.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-scale.json';
 
 /** 커버리지 하네스와 **같은 샘플**을 읽는다 — 측정 기준을 단일 출처로 유지. */
 const SAMPLE = readFileSync(

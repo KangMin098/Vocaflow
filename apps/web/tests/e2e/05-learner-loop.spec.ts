@@ -25,7 +25,7 @@ const PLAY_URL = `/scriptquiz/play?book=${DRONE_BOOK_ID}&ch=1`;
 const EXPECTED_Q = 4;
 
 // 로그인은 파일당 1회(beforeAll) — 3중 로그인의 auth rate-limit·하이드레이션 플레이크 회피.
-const STATE_PATH = 'test-results/.auth-learner-loop.json';
+const STATE_PATH = 'playwright-auth/.auth-learner-loop.json';
 
 async function loginRuntimeUser(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' });

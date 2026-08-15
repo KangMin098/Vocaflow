@@ -10,6 +10,41 @@
 
 ## Unreleased (v06.34 → next)
 
+### EchoMatch 가 새 체크아웃에서 죽어 있었다 — 74MB 복사가 "사람 손" 이었다
+
+EchoMatch 청각 신호의 **플레이어 배선**을 e2e 로 덮으려다 스펙이 150초 타임아웃했다.
+증상은 "Piper 시작 버튼이 안 뜬다" 였는데, 파고드니 원인이 두 겹이었다.
+
+**① 인증 상태를 Playwright 가 지우는 곳에 두고 있었다** — 화면 스냅샷을 열어 보니 **로그인
+페이지**였다. 19개 스펙이 `test-results/.auth-*.json` 에 로그인 상태를 저장했는데, Playwright 는
+실행 시작 때 그 디렉터리를 통째로 지운다. 멀티 세션 워크스페이스에서 **남의 실행이 내 스펙의
+인증을 지우고**, 스펙은 전혀 다른 증상으로 실패한다. 19개 전부 `playwright-auth/`(이미 gitignore)로 이전.
+
+**② `public/onnx/` 74MB 를 채우는 코드가 없었다** — 인증을 고치니 진짜 원인이 나왔다:
+
+```
+no available backend found. ERR: [wasm] TypeError: Failed to fetch dynamically
+imported module: /onnx/ort-wasm-simd-threaded.jsep.mjs
+```
+
+`.gitignore` 주석은 "CDN 또는 npm install 시 자동 다운로드 **권장**", `piper-tts.ts` 주석은
+"`public/onnx/` 로 **복사 후**" — 둘 다 사람이 손으로 한 일을 적어 둔 것이고 **하는 코드는 없었다.**
+즉 새로 받은 체크아웃에서 EchoMatch 는 조용히 죽는다(화면은 "음성 모델 로드 실패" 만 말한다).
+
+- 신설 `scripts/ensure-onnx-runtime.mjs` — `onnxruntime-web` dist → `public/onnx/` 복사(8파일 74MB).
+  멱등(크기 같으면 건너뜀) · `predev`/`prebuild` 자동 · 수동은 `pnpm --filter web ensure:onnx`
+- **resolve 를 못 쓴다**: onnxruntime-web 은 전이 의존이라 pnpm 엄격 격리로 `MODULE_NOT_FOUND`,
+  piper 패키지는 `exports` 에 main 도 `./package.json` 도 없어 `ERR_PACKAGE_PATH_NOT_EXPORTED`.
+  심링크 실경로를 따라가 **형제 패키지**로 찾는다
+- `06-echomatch-fakemic` 에 청각 신호 단언 추가 — 첫 문장 단어를 심고(검증 텍스트는 학습자 단어 0개라
+  안 심으면 신호 경로가 **한 번도 실행되지 않은 채 초록**) 발화 후 `learning_records(echo)` 를 확인,
+  **finally 에서 되돌린다**. 같은 사이클에 얹었다 — 별도 테스트면 Piper 17MB 를 두 번 받는다
+- 실측 통과: `overall=74 · pitch=76 · energy=50 · rows=1`
+
+⚠️ 작성 중 스펙 로그가 **내 파싱 오류**를 드러냈다 — 카드가 "인토네이션 40% 76" 처럼 가중치와
+점수를 나란히 쓰는데 `\D*(\d+)` 가 **가중치(40)** 를 점수로 읽고 있었다. 실점수 0인 발화도
+credible 로 판정돼 있지도 않은 기록을 요구했을 것이다.
+
 ### 실 발행 콘텐츠로 재보정 — 자작 코퍼스가 낙관적이었다 (18~19회차)
 
 TED 골든셋 대신 **발행 콘텐츠 31편**(266,134자 · 11소스)을 코퍼스로 썼다. TED 공식
@@ -188,6 +223,31 @@ RLS 미적용 테이블은 0건이었고, `shared_dictionary` 의 `FOR ALL qual=
 
 회귀 락 `lib/auth/__tests__/rls-surface.integration.test.ts` 14건 — 차단뿐 아니라
 **정상 초대코드 경로가 살아 있는지**(과잉 차단 방지)까지 단언한다. 인증 계열 테스트 누계 **202**.
+
+#### 설정 화면의 계정 컨트롤
+
+- **비밀번호 변경이 "준비중" 으로 잠겨 있었다** — `/reset-password` 가 세션이 있으면 새 비밀번호
+  모드로 열리므로 이미 동작하는 흐름이었는데 링크가 없었다. 즉 **로그인한 사용자가 비밀번호를
+  바꿀 방법이 앱에 없었다**. → `/reset-password?mode=update` 로 연결.
+- **계정 해지 버튼이 로그아웃과 같은 결함**(onClick 없음)이었다. 해지 백엔드(30일 보관 → 영구
+  삭제)가 없으므로 배선 대신 나머지 미구현 항목과 같은 `준비중` 규약으로 비활성화했다 —
+  눌리는데 아무 일도 없는 것이 가장 나쁘다.
+
+#### ⚠️ 미해결로 남긴 것 — SECURITY DEFINER RPC 노출
+
+`public` DEFINER 함수 119개 중 **98개가 `anon` 에 EXECUTE 부여**, 그중 **58개는 본문 가드도 없다**.
+DEFINER 는 RLS 를 우회하므로 로그인 없이 호출된다(실증: `anon.rpc('get_lcp_config')` 성공).
+`admin_*` 19종은 전부 role 가드가 있어 관리자 행위 탈취는 확인되지 않았고, 위험군은
+`update_user_v_level` · `apply_diagnostic_result` 등 `p_user_id` 를 받는 파이프라인 함수다.
+
+**이번 패스에서 고치지 않았다.** "앱이 안 쓰는 것만 회수" 로 접근했다가, `.rpc('리터럴')` grep 이
+`DiagnosticClient` 의 **동적 호출**(`rpc(rpcName)`)을 놓친다는 것을 확인했다 — 그대로 회수했다면
+진단 흐름과 LCP 파이프라인이 조용히 깨졌을 것이다. 후보 21종을 레포 전수 참조로 재검사했더니
+전부 어딘가에서 참조돼, **안전하게 죽었다고 말할 수 있는 부분집합이 없다**.
+조사 결과·회수 시 주의사항(RLS 헬퍼 4종은 절대 회수 금지)·다음 단계는
+[DB_SCHEMA.md](./DB_SCHEMA.md#️-미해결--security-definer-rpc-가-anon-에-열려-있다-2026-08-15-조사-수정-보류) 에 정리했다.
+
+함께 확인: Supabase Auth 의 **유출 비밀번호 차단(HaveIBeenPwned)이 비활성** — 대시보드 설정 1회로 켤 수 있다.
 
 ### 셸 재설계 — 첫 화면이 "아무것도 하지 않은 사람의 성적표"였다 ([ADR 0006](./adr/0006-shell-redesign-menu-status-tabs.md))
 

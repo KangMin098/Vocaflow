@@ -29,7 +29,7 @@ const RUNTIME_USER = {
  */
 const BOOK_TEXT_ID = '859e0b09-6dcc-4c70-97ee-7563341bf8d4';
 
-const STATE_PATH = 'test-results/.auth-runtime-user-16.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user-16.json';
 
 async function loginRuntimeUser(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' });

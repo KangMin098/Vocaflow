@@ -33,7 +33,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-arcade.json';
+const STATE_PATH = 'playwright-auth/.auth-arcade.json';
 
 // 콜드 .next 에서 첫 브라우저 히트는 클라이언트 청크가 404(하이드레이션 실패) → 리로드로 복구되는
 // 알려진 dev 경합(04-ui-smoke 계승). 07 을 단독 실행하면 로그인이 첫 히트라 이 경합에 노출되므로

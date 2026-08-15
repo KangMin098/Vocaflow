@@ -26,7 +26,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-arcade-integrity.json';
+const STATE_PATH = 'playwright-auth/.auth-arcade-integrity.json';
 
 /** 공용 단어장 픽스처 — 실 단어 40개(전 게임 최대 요구치 12를 충분히 넘음). */
 const FIXTURE_SET = { id: 'dcb6f06e-bc30-4fe3-80bf-577ad08be233', title: 'Twenty years after' };

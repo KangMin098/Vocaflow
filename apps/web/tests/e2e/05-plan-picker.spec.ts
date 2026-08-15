@@ -9,7 +9,7 @@ const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 }
-const STATE_PATH = 'test-results/.auth-plan-picker.json'
+const STATE_PATH = 'playwright-auth/.auth-plan-picker.json'
 
 async function login(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' })

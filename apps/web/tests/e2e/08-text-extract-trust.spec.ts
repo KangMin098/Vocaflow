@@ -17,7 +17,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-runtime-user.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
 
 // 난이도 스펙트럼이 넓은 지문 — 'text'(P75) 전략이 상위 단어를 안정적으로 산출.
 //   굴절형(challenged/assumptions/hypotheses/researchers/principles)이 섞여 L2 형태해소 근거도 유발.
