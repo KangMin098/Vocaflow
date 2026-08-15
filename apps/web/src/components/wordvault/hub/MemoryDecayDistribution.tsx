@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { useMemo } from 'react'
 
 import { getMemoryState } from '@/lib/srs'
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
 import type { MemoryState } from '@/lib/srs'
 
 import type { WordItem } from '../types'
@@ -55,28 +56,28 @@ export function MemoryDecayDistribution({
       {
         state: 'stable',
         count: counts.stable,
-        label: '안정',
+        label: MEMORY_LABEL.stable.label,
         description: '잘 기억하고 있어요',
         colorVar: 'var(--memory-stable)',
       },
       {
         state: 'shaky',
         count: counts.shaky,
-        label: '흔들림',
+        label: MEMORY_LABEL.shaky.label,
         description: '곧 만나면 좋아요',
         colorVar: 'var(--memory-shaky)',
       },
       {
         state: 'risk',
         count: counts.risk,
-        label: '위급',
+        label: MEMORY_LABEL.risk.label,
         description: '지금 다시 만나봐요',
         colorVar: 'var(--memory-risk)',
       },
       {
         state: 'new',
         count: counts.new,
-        label: '신규',
+        label: MEMORY_LABEL.new.label,
         description: '아직 만나지 않았어요',
         colorVar: 'var(--memory-new)',
       },

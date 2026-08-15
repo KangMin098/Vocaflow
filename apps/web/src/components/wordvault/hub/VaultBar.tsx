@@ -16,6 +16,8 @@
 //   - 색상: var(--memory-*) 토큰만 (하드코딩 X)
 //   - role="img" + aria-label 풀텍스트 (스크린리더 정합)
 
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+
 interface VaultBarProps {
   stable: number
   shaky: number
@@ -36,10 +38,11 @@ export function VaultBar({
   if (total === 0) return null
 
   const segments = [
-    { key: 'stable', count: stable, color: 'var(--memory-stable)', label: '안정' },
-    { key: 'shaky', count: shaky, color: 'var(--memory-shaky)', label: '흔들림' },
-    { key: 'risk', count: risk, color: 'var(--memory-risk)', label: '위급' },
-    { key: 'new', count: newCount, color: 'var(--memory-new)', label: '신규' },
+    // 이름은 레지스트리에서 — 같은 화면 안에서 어휘가 갈리던 것을 막는다
+    { key: 'stable', count: stable, color: 'var(--memory-stable)', label: MEMORY_LABEL.stable.label },
+    { key: 'shaky', count: shaky, color: 'var(--memory-shaky)', label: MEMORY_LABEL.shaky.label },
+    { key: 'risk', count: risk, color: 'var(--memory-risk)', label: MEMORY_LABEL.risk.label },
+    { key: 'new', count: newCount, color: 'var(--memory-new)', label: MEMORY_LABEL.new.label },
   ].filter((s) => s.count > 0)
 
   const trackClass = onDark ? 'bg-[var(--ti)]/15' : 'bg-[var(--bg3)]'

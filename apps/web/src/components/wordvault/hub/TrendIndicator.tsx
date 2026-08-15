@@ -12,6 +12,8 @@
 
 import { ArrowDown, ArrowUp } from 'lucide-react'
 
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+
 interface TrendIndicatorProps {
   /** 이번 주 stable 단어 수 - 지난 주 stable 단어 수 */
   stableDelta: number
@@ -31,11 +33,11 @@ export function TrendIndicator({ stableDelta, riskDelta }: TrendIndicatorProps) 
 
   const items: Item[] = []
   if (stableDelta !== 0) {
-    items.push({ label: '안정', value: stableDelta, positive: stableDelta > 0 })
+    items.push({ label: MEMORY_LABEL.stable.label, value: stableDelta, positive: stableDelta > 0 })
   }
   if (riskDelta !== 0) {
     // risk 감소 = positive
-    items.push({ label: '위급', value: riskDelta, positive: riskDelta < 0 })
+    items.push({ label: MEMORY_LABEL.risk.label, value: riskDelta, positive: riskDelta < 0 })
   }
 
   return (

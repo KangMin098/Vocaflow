@@ -15,6 +15,8 @@
 
 import Link from 'next/link'
 
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+
 export type PeekMemoryState = 'stable' | 'shaky' | 'risk' | 'new'
 
 export interface PeekWord {
@@ -36,11 +38,12 @@ const STATE_COLOR: Record<PeekMemoryState, string> = {
   new: 'var(--memory-new)',
 }
 
+// 이름은 레지스트리에서 — 같은 화면 안에서 어휘가 갈리던 것을 막는다
 const STATE_LABEL: Record<PeekMemoryState, string> = {
-  stable: '안정',
-  shaky: '흔들림',
-  risk: '위급',
-  new: '신규',
+  stable: MEMORY_LABEL.stable.label,
+  shaky: MEMORY_LABEL.shaky.label,
+  risk: MEMORY_LABEL.risk.label,
+  new: MEMORY_LABEL.new.label,
 }
 
 export function WordPeekStrip({ words, className }: WordPeekStripProps) {

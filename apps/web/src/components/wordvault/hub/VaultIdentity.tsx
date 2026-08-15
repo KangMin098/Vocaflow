@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { ActivityRing, Capsule, Card, PrimaryButton, StatPill } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/client'
 import type { MemoryState } from '@/lib/srs'
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
 
 export interface VaultIdentityProps {
   total: number
@@ -28,10 +29,10 @@ const BUCKET_META: Record<
   MemoryState,
   { label: string; color: string; accent: 'green' | 'orange' | 'red' | 'neutral' }
 > = {
-  stable: { label: '확실', color: 'var(--memory-stable)', accent: 'green' },
-  shaky: { label: '익숙', color: 'var(--memory-shaky)', accent: 'orange' },
-  risk: { label: '회복', color: 'var(--memory-risk)', accent: 'red' },
-  new: { label: '신규', color: 'var(--memory-new)', accent: 'neutral' },
+  stable: { label: MEMORY_LABEL.stable.label, color: 'var(--memory-stable)', accent: 'green' },
+  shaky: { label: MEMORY_LABEL.shaky.label, color: 'var(--memory-shaky)', accent: 'orange' },
+  risk: { label: MEMORY_LABEL.risk.label, color: 'var(--memory-risk)', accent: 'red' },
+  new: { label: MEMORY_LABEL.new.label, color: 'var(--memory-new)', accent: 'neutral' },
 }
 
 export function VaultIdentity({

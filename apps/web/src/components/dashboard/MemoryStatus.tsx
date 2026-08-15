@@ -9,6 +9,8 @@ import { Fragment } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+
 interface MemoryState {
   key: string
   label: string
@@ -26,10 +28,11 @@ export interface MemoryStatusProps {
 
 export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: MemoryStatusProps) {
   const states: MemoryState[] = [
-    { key: 'stable', label: '안정', desc: '잘 기억해요', token: '--memory-stable', count: stable },
-    { key: 'shaky', label: '흔들림', desc: '가끔 헷갈려요', token: '--memory-shaky', count: shaky },
-    { key: 'risk', label: '위급', desc: '곧 잊을 수 있어요', token: '--memory-risk', count: risk },
-    { key: 'new', label: '새 단어', desc: '처음 만나요', token: '--memory-new', count: fresh },
+    // 이름·설명·색 토큰은 레지스트리에서 — 화면에서 짓지 않는다(`lib/framework/memory-labels.ts`)
+    { key: 'stable', ...MEMORY_LABEL.stable, desc: MEMORY_LABEL.stable.says, count: stable },
+    { key: 'shaky', ...MEMORY_LABEL.shaky, desc: MEMORY_LABEL.shaky.says, count: shaky },
+    { key: 'risk', ...MEMORY_LABEL.risk, desc: MEMORY_LABEL.risk.says, count: risk },
+    { key: 'new', ...MEMORY_LABEL.new, desc: MEMORY_LABEL.new.says, count: fresh },
   ]
   const total = states.reduce((s, x) => s + x.count, 0)
   const attention = shaky + risk

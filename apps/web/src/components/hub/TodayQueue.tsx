@@ -7,6 +7,8 @@
 
 import { Sparkles } from 'lucide-react'
 
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+
 export interface QueueBucket {
   /** Memory Decay 4단계 + new */
   kind: 'stable' | 'shaky' | 'risk' | 'new'
@@ -30,7 +32,7 @@ const KIND_META: Record<
   { label: string; color: string; ink: string; tint: string; edge: string; description: string }
 > = {
   stable: {
-    label: '안정',
+    label: MEMORY_LABEL.stable.label,
     color: 'var(--memory-stable)',
     ink: 'var(--memory-stable-ink)',
     tint: 'color-mix(in srgb, var(--memory-stable) 8%, transparent)',
@@ -38,7 +40,7 @@ const KIND_META: Record<
     description: '확실히 알고 있어요',
   },
   shaky: {
-    label: '흔들림',
+    label: MEMORY_LABEL.shaky.label,
     color: 'var(--memory-shaky)',
     ink: 'var(--memory-shaky-ink)',
     tint: 'color-mix(in srgb, var(--memory-shaky) 8%, transparent)',
@@ -46,7 +48,7 @@ const KIND_META: Record<
     description: '가끔 헷갈려요',
   },
   risk: {
-    label: '흐릿함',
+    label: MEMORY_LABEL.risk.label,
     color: 'var(--memory-risk)',
     ink: 'var(--memory-risk-ink)',
     tint: 'color-mix(in srgb, var(--memory-risk) 8%, transparent)',
@@ -54,7 +56,7 @@ const KIND_META: Record<
     description: '오늘 만나주세요',
   },
   new: {
-    label: '새 단어',
+    label: MEMORY_LABEL.new.label,
     color: 'var(--memory-new)',
     ink: 'var(--memory-new-ink)',
     tint: 'color-mix(in srgb, var(--memory-new) 8%, transparent)',
