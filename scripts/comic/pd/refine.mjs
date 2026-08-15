@@ -34,7 +34,7 @@ function readJson(f) { return JSON.parse(fs.readFileSync(f, 'utf8')) }
 
 // ── --intake : OCR 파편을 오퍼레이터용 정제 인테이크로 ──────────────
 if (has('intake')) {
-  if (!fs.existsSync(LOCAL)) { console.error(`OCR 매니페스트 없음: ${LOCAL} (ocr-local 먼저)`); process.exit(1) }
+  if (!fs.existsSync(LOCAL)) { console.error(`OCR 매니페스트 없음: ${LOCAL} (ocr 먼저)`); process.exit(1) }
   const mf = readJson(LOCAL)
   const panels = (mf.panels || [])
     .map((p, id) => ({ id, pageOrder: p.pageOrder, page: p.page, panelIndex: p.panelIndex,

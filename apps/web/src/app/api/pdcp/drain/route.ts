@@ -22,7 +22,7 @@ import path from 'node:path'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
-import { getAdapter, hasLocalOcr, runPipeline, workDir } from '@/lib/pd-comic/pipeline-bridge'
+import { getAdapter, runPipeline, workDir } from '@/lib/pd-comic/pipeline-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
@@ -135,7 +135,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     },
     segmented: {
       // tesseract 가 있으면 컷 직접 OCR(정확도 33%), 없으면 소스 hOCR(24%)
-      script: hasLocalOcr() ? 'ocr-local.mjs' : 'ocr.mjs',
+      script: 'ocr.mjs',
       args: ['--intake', root],
     },
   }

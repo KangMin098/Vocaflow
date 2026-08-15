@@ -10,8 +10,8 @@
       "head": "a sharp pointed nose, shrivelled cheeks, a hard tight frown, thin lips",
       "trait_mark": "a long shabby dark tailcoat and a walking cane; later a white nightcap and gown",
       "expression": "sour and pinched, softening to wonder by the end",
-      "canonical": "a bent thin elderly man with a sharp pointed nose, shrivelled frowning face, thin lips, clean-shaven, bald on top with short wispy grey side-hair",
-      "anchor": "bent thin bald clean-shaven old man, sharp pointed nose, hard frown",
+      "canonical": "a bent thin elderly man with a long smooth clean-shaven BARE face, sharp pointed nose, thin lips, hollow cheeks, bald on top with short wispy grey side-hair",
+      "anchor": "bent thin old man, smooth bare clean-shaven face, sharp pointed nose, bald",
       "consistency": "the ONLY bent pointed-nose bald clean-shaven miser; costume varies by scene (dark tailcoat by day, striped nightshirt at night) — never a wizard hat/beard.",
       "appears_in": [
         1,
@@ -22,11 +22,11 @@
       "name": "Marley's Ghost",
       "role": "Scrooge's dead partner — a warning spirit",
       "silhouette": "a translucent ghostly man dragging a long heavy chain",
-      "head": "a gaunt pale face with a cloth bandage tied up round the head and jaw, a pigtail",
+      "head": "a gaunt pale face with a cloth bandage tied up round the head and jaw, a queue",
       "trait_mark": "a long chain wound about him forged of cash-boxes, keys, padlocks, ledgers and heavy purses",
       "expression": "anguished, spectral, mournful",
-      "canonical": "a translucent ghostly man in an old-fashioned pigtail, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
-      "anchor": "translucent ghost, head-bandage + pigtail, bound in a chain of cash-boxes and padlocks",
+      "canonical": "a translucent ghostly man in an old-fashioned queue, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
+      "anchor": "translucent ghost, head-bandage + queue, bound in a chain of cash-boxes and padlocks",
       "consistency": "the ONLY see-through figure; ALWAYS bound in the cash-box chain with the jaw bandage; never solid.",
       "appears_in": [
         1

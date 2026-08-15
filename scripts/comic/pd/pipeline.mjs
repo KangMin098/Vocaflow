@@ -255,7 +255,7 @@ async function main() {
       run('ocr.mjs', ['--intake', root], args)
     }
     if (hasTesseract) {
-      run('ocr-local.mjs', ['--intake', root], args)
+      run('ocr.mjs', ['--intake', root], args)
     } else if (p.ocrStrategy === 'own-ocr') {
       console.log('   ⚠️ own-ocr 전략인데 tesseract.js 가 없습니다 — 대사 추출을 건너뜁니다')
     }

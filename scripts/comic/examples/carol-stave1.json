@@ -30,16 +30,16 @@
       "id": "scrooge",
       "name": "Scrooge",
       "role": "protagonist — cold, miserly old man who is redeemed",
-      "canonical": "a bent thin elderly man with a sharp pointed nose, shrivelled frowning face, thin lips, clean-shaven, bald on top with short wispy grey side-hair",
-      "anchor": "bent thin bald clean-shaven old man, sharp pointed nose, hard frown",
+      "canonical": "a bent thin elderly man with a long smooth clean-shaven BARE face, sharp pointed nose, thin lips, hollow cheeks, bald on top with short wispy grey side-hair",
+      "anchor": "bent thin old man, smooth bare clean-shaven face, sharp pointed nose, bald",
       "seed_role": 46
     },
     {
       "id": "marley",
       "name": "Marley's Ghost",
       "role": "Scrooge's dead partner — a warning spirit",
-      "canonical": "a translucent ghostly man in an old-fashioned pigtail, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
-      "anchor": "translucent ghost, head-bandage + pigtail, bound in a chain of cash-boxes and padlocks",
+      "canonical": "a translucent ghostly man in an old-fashioned queue, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
+      "anchor": "translucent ghost, head-bandage + queue, bound in a chain of cash-boxes and padlocks",
       "seed_role": 70
     },
     {
@@ -350,7 +350,7 @@
       "n": 7,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a bent thin bald clean-shaven pointed-nose old miser in a long dark Victorian tailcoat, ALONE, scowling and jabbing a bony finger across his ledger desk",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a bent bald CLEAN-SHAVEN pointed-nose old miser (smooth chin, no beard) in a dark tailcoat, ALONE, scowling and jabbing a finger over his ledger",
       "composition": "single subject — Scrooge argues back",
       "characters": [
         "scrooge"
@@ -591,7 +591,7 @@
       "n": 12,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the sharp-nosed miser recoiling at his own front door as the heavy brass door-knocker has become the ghostly glowing face of Marley, spectacles pushed up on its spectral forehead, a dismal light around it, in a long dark coat and top hat",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a bent old miser in a coat recoiling at his front door, the brass DOOR-KNOCKER transformed into the glowing ghostly FACE of Marley, ALONE",
       "composition": "close, the knocker becomes a face",
       "characters": [
         "scrooge"
@@ -697,7 +697,7 @@
       "n": 14,
       "wide": false,
       "cap_zone": "top",
-      "scene": "the terrified miser clutching his chair as a heavy clanking of dragged chains rises up a dark stairwell toward his door, a booming cellar door thrown open below, in a striped nightshirt and floppy nightcap",
+      "scene": "a bent bald clean-shaven pointed-nose old man in a striped nightshirt and nightcap, alone, clutching a wooden chair in terror as a heavy chain drags up a dark stairwell toward him",
       "composition": "close, something climbs the stairs",
       "characters": [
         "scrooge"
@@ -742,7 +742,7 @@
       "n": 15,
       "wide": true,
       "cap_zone": "top",
-      "scene": "a gaunt OLD MAN ghost with a bald head and grey pigtail, dragging a heavy iron chain hung with cash-boxes and padlocks, ALONE, a dark tailcoat and a cloth bandage tied under his chin, coming through a door, black-and-white cartoon ink",
+      "scene": "a gaunt OLD MAN ghost with a bald head and grey queue, dragging a heavy iron chain hung with cash-boxes and padlocks, ALONE, a dark tailcoat and a cloth bandage tied under his chin, coming through a door, black-and-white cartoon ink",
       "composition": "single subject — Marley enters",
       "characters": [
         "marley"
@@ -795,7 +795,7 @@
       "n": 16,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a bent bald pointed-nose old man in a striped nightshirt and floppy nightcap, ALONE, cowering by a low fire, simple flat black-and-white CARTOON line drawing, not a photograph",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a bent bald CLEAN-SHAVEN old man (smooth chin, no beard) in a striped nightshirt and nightcap, ALONE, cowering by a low fire",
       "composition": "single subject — Scrooge cowers",
       "characters": [
         "scrooge"
@@ -848,7 +848,7 @@
       "n": 17,
       "wide": false,
       "cap_zone": "top",
-      "scene": "a gaunt OLD MAN ghost, bald with a grey pigtail and a chin-bandage, holding up a heavy chain of cash-boxes and padlocks in one hand, ALONE, a dark waistcoat, wringing his hands, black-and-white cartoon ink",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a gaunt OLD MAN ghost, bald with a grey queue and a chin-bandage (face uncovered), holding up a heavy chain of cash-boxes, ALONE",
       "composition": "single subject — the chain he forged",
       "characters": [
         "marley"
