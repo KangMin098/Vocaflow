@@ -27,6 +27,7 @@ import {
   countDictationSessionsSince,
   countLearningRecordsSince,
   countScoresSince,
+  countAttemptsWithTagsSince,
   latestDictationSummary,
   deleteDictationSince,
   deleteScoresSince,
@@ -56,6 +57,35 @@ async function loginRuntimeUser(page: Page) {
   }
   await page.click('button[type="submit"]');
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 });
+}
+
+/**
+ * 한 문항을 **일부러 틀리게** 푼다 — 관사 하나를 빼서 낸다.
+ *
+ * 왜 필요한가: 정답만 넣으면 오류 태그가 하나도 안 생기고, 그러면
+ * "오답 → 태그 → 약점 패널 → 처방" 이라는 이 모듈의 **학습 효과성 사슬 전체가
+ * 한 번도 실행되지 않은 채** 초록이 된다. 약점 패널은 그 사슬의 끝이다.
+ *
+ * @returns 실제로 오답을 냈는가 (뺄 관사가 없으면 false)
+ */
+async function answerOneItemWrong(page: Page): Promise<boolean> {
+  await page.getByRole('button', { name: '정답 보기' }).click();
+  const hintPanel = page.locator('p', { hasText: /Hint Level 4/ }).locator('..').locator('p').nth(1);
+  await hintPanel.waitFor({ state: 'visible', timeout: 5_000 });
+  const answer = (await hintPanel.innerText()).trim();
+
+  // 관사를 하나 뺀다 — deriveErrorTags 가 'article' 로 잡는 형태.
+  // 관사가 없는 문장이면 마지막 단어를 뺀다 — **반드시 오답이 되게** 한다.
+  // (관사 유무에 따라 조용히 정답이 되면 이 사슬이 검증 없이 초록이 된다.)
+  let wrong = answer.replace(/\b(the|a|an)\s+/i, '');
+  if (wrong === answer) wrong = answer.trim().split(/\s+/).slice(0, -1).join(' ');
+  expect(wrong, '오답을 만들지 못했다 — 문장이 너무 짧다').not.toBe(answer.trim());
+
+  const input = page.getByLabel('받아쓴 내용');
+  await input.fill(wrong);
+  await page.getByRole('button', { name: '제출' }).click();
+  await page.getByRole('heading', { name: '결과' }).first().waitFor({ timeout: 10_000 });
+  return true;
 }
 
 /** 한 문항 풀기 — 힌트 4단계로 정답을 열어 그대로 입력 후 제출. */
@@ -133,8 +163,11 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
       const total = Number((await counter.innerText()).split('/')[1].trim());
       expect(total).toBeGreaterThan(0);
 
+      let wrongMade = false;
       for (let i = 0; i < total; i++) {
-        await answerOneItem(page);
+        // 첫 문항은 일부러 틀린다 — 오류 태그·약점 패널 경로를 실제로 태우기 위해서다.
+        if (i === 0) wrongMade = await answerOneItemWrong(page);
+        else await answerOneItem(page);
 
         // 첫 문항 직후 — 문항별 즉시 적재 확인(완주까지 몰아 넣지 않는다)
         if (i === 0 && dbAvailable) {
@@ -154,8 +187,8 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
       await page.waitForURL(/\/dictate\/results\?sessionId=/, { timeout: 20_000 });
       await expect(page.getByText('받아쓰기 완료')).toBeVisible({ timeout: 15_000 });
       await expect(page.getByRole('heading', { name: '문항별 결과' })).toBeVisible();
-      // 힌트로 정답을 열었으므로 정확도는 100%, 힌트 횟수는 문항 수만큼
-      await expect(page.getByText('100', { exact: false }).first()).toBeVisible();
+      // 정확도는 아래에서 **적재값과 대조**한다 — 여기서 특정 숫자를 박으면
+      // 오답을 하나 섞은 순간 스펙이 깨지고, 그 숫자는 화면이 맞는지도 말해 주지 않는다.
 
       if (!dbAvailable) {
         test.info().annotations.push({
@@ -219,6 +252,23 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
         // 문항별 결과 행 수 = 적재된 시도 수
         const rows = await page.locator('[data-testid="attempt-row"]').count();
         expect(rows, `문항별 결과 ${rows}행 ≠ 적재 ${summary.attempts}행`).toBe(summary.attempts);
+      }
+
+      // ─── 학습 효과성 사슬: 오답 → 오류 태그 → 약점 패널 ───
+      // 이 모듈이 "무엇을 놓치는지 말해 준다" 고 주장하는 근거가 이 사슬이다.
+      // 정답만 넣는 스펙에서는 **한 번도 실행되지 않는다** — 그래서 일부러 하나 틀렸다.
+      // 조건부로 두지 않는다 — 오답은 위에서 **반드시** 만들어졌다.
+      // (조건부였을 때는 관사 없는 문장이 걸리면 사슬이 조용히 건너뛰어졌다.)
+      expect(wrongMade, '오답을 내지 못해 학습 효과성 사슬을 검증하지 못했다').toBe(true);
+      {
+        const tagged = await countAttemptsWithTagsSince(userId as string, sinceIso);
+        expect(tagged, '오답을 냈는데 error_tags 가 하나도 안 붙었다').toBeGreaterThan(0);
+
+        await page.goto('/dictate', { waitUntil: 'networkidle' });
+        const panel = page.getByRole('heading', { name: '요즘 자주 놓치는 것' });
+        await expect(panel, '오류 태그가 쌓였는데 약점 패널이 안 뜬다').toBeVisible({
+          timeout: 20_000,
+        });
       }
     } finally {
       if (dbAvailable) {

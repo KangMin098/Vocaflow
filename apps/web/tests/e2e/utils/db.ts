@@ -671,3 +671,24 @@ export async function latestDictationSummary(
     attempts: count ?? 0,
   };
 }
+
+/**
+ * 오류 태그가 붙은 시도 수 — "오답 → 태그 → 약점 패널" 사슬의 중간 고리.
+ *
+ * 이 값이 0 이면 약점 패널은 영영 뜨지 않고, 학습자는 자기가 무엇을 반복해 놓치는지
+ * 모른 채 계속 놓친다. 태그 규칙이 조용히 어긋나도 화면은 멀쩡하므로 여기서 잰다.
+ */
+export async function countAttemptsWithTagsSince(
+  userId: string,
+  sinceIso: string,
+): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('dictation_attempts')
+    .select('error_tags')
+    .eq('user_id', userId)
+    .gte('created_at', sinceIso);
+  if (error) return -1;
+  return (data ?? []).filter((r) => ((r.error_tags as string[] | null) ?? []).length > 0).length;
+}
