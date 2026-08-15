@@ -377,7 +377,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
     <div className="flex flex-col gap-4">
       <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
-          <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 실행환경(RunPod/Kaggle/API)·다중참조·텍스트제어·캐릭터/화풍 일관성·VRAM·비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크.
+          <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 실행환경(RunPod/API)·다중참조·텍스트제어·캐릭터/화풍 일관성·VRAM·비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크.
         </p>
         {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">상태 변경 실패 — {err}</p>}
       </div>
@@ -433,7 +433,6 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
 }
 const ENV_META: Record<string, { label: string; tone: string }> = {
   'runpod-4090': { label: 'RunPod', tone: 'var(--memory-stable)' },
-  'kaggle-t4': { label: 'Kaggle', tone: 'var(--info)' },
   api: { label: 'API', tone: 'var(--t3)' },
 }
 function EnvPill({ env }: { env: string }) {
@@ -467,7 +466,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
   const envModels = models.filter((m) => (m.run_envs ?? []).includes(env))
   const pickModel = (key: string) => {
     const m = models.find((x) => x.key === key)
-    if (m) setForm((f) => ({ ...f, backend: m.key, model: m.name, site: env === 'api' ? (m.site ?? '') : (env === 'kaggle-t4' ? 'kaggle' : 'runpod-comfyui') }))
+    if (m) setForm((f) => ({ ...f, backend: m.key, model: m.name, site: env === 'api' ? (m.site ?? '') : 'runpod-comfyui' }))
   }
   const submit = () => {
     if (!form.label.trim()) { setMsg('테스트 이름을 입력하세요.'); return }
@@ -497,7 +496,6 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
               <span className="font-display text-[11px] font-[700] text-[var(--t2)]">실행 환경 (자가호스트 우선)</span>
               <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="runpod-4090">RunPod 4090 (24GB)</option>
-                <option value="kaggle-t4">Kaggle T4 (16GB)</option>
                 <option value="api">API (폐쇄 모델)</option>
               </select>
             </label>

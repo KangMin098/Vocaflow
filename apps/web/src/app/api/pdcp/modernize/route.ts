@@ -22,7 +22,7 @@ export const dynamic = 'force-dynamic'
 
 // 모델·환경은 여기 한 곳에만 적는다. CLI 인자와 DB 기록이 갈리면 감사 기록이 거짓이 된다.
 const MODEL = 'qwen-image-edit-2511'
-// edit 워크플로가 RunPod 에만 프로비저닝돼 있다(Kaggle T4 = t2i-only, 실측).
+// edit 워크플로는 RunPod 에만 프로비저닝돼 있다 — Kaggle T4 는 t2i-only 라 쓸 수 없었고(실측), 그래서 Kaggle 경로는 제거했다.
 const ENV = 'runpod-4090'
 
 const tail = (s: string, n = 6) => (s || '').split('\n').filter(Boolean).slice(-n)

@@ -347,7 +347,7 @@ export const PDCP_HELP: HelpRegistry = {
           {
             label: 'GPU 연결 점검 (connect-check)',
             detail:
-              'AI 리스타일(선택 트랙)이 도는 자가호스트 GPU 연결을 read-only 로 본다 — Kaggle(Bearer headless push) · RunPod(pod) · ComfyUI(COMFY_URL). AI 리스타일을 누르기 전에 여기서 ComfyUI 가 ✓ 인지 확인한다(만료돼 있으면 RunPod pod 를 기동해 .comfy-url 을 갱신해야 한다). 과금·GPU 사용 없음.',
+              'AI 리스타일(선택 트랙)이 도는 자가호스트 GPU 연결을 read-only 로 본다 — RunPod(pod) · ComfyUI(COMFY_URL). AI 리스타일을 누르기 전에 여기서 ComfyUI 가 ✓ 인지 확인한다(만료돼 있으면 RunPod pod 를 기동해 .comfy-url 을 갱신해야 한다). 과금·GPU 사용 없음.',
           },
         ],
         cautions: [

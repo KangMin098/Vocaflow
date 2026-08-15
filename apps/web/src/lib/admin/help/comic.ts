@@ -92,7 +92,7 @@ export const CCP_HELP: HelpRegistry = {
               'comic_gen_tests 에 status=planned 로 한 줄 남길 뿐이다. 실제 실행은 터미널(test-comic-model.mjs 등)에서 하고, 점수·비용·샘플 결과는 드레인 담당자가 나중에 채운다.',
           },
           { label: '메모', detail: '저장할 때 앞에 [환경:…][스타일:…] 가 자동으로 붙는다. 나중에 조건을 되짚기 위한 것이라 지우지 마라.' },
-          { label: '모니터링 링크', detail: 'params.kernel_url 이 있는 테스트에만 나타난다 — 외부 커널(Kaggle 등)로 돌린 실행에 스크립트가 넣어 준다.' },
+          { label: '모니터링 링크', detail: 'params.kernel_url 이 있는 테스트에만 나타난다 — 외부 커널로 돌린 실행에 스크립트가 넣어 준다.' },
           { label: '자동 갱신', detail: 'planned/running 테스트가 하나라도 있으면 12초마다 서버 데이터를 다시 읽는다. 새로고침을 누를 필요가 없다.' },
         ],
         cautions: [
@@ -104,7 +104,7 @@ export const CCP_HELP: HelpRegistry = {
         summary: '이미지 생성 모델 비교표. 상태는 판단 기록이지 생성 백엔드 스위치가 아니다.',
         fields: [
           { label: 'Fit', detail: 'comic_fit(0~100) — 정렬 기준. 80 이상 초록, 60 이상 앰버로 칠한다.' },
-          { label: '비용/장', detail: 'cost_per_image_usd. 값이 없고 자가호스트(RunPod/Kaggle) 실행이 가능하면 "무료*" 로 표기한다 — GPU 대여 시간은 여기 안 잡힌다.' },
+          { label: '비용/장', detail: 'cost_per_image_usd. 값이 없고 자가호스트(RunPod) 실행이 가능하면 "무료*" 로 표기한다 — GPU 대여 시간은 여기 안 잡힌다.' },
           { label: '실행환경', detail: 'run_envs. 테스트 탭의 모델 후보를 거르는 유일한 기준이다.' },
           {
             label: '상태 셀렉트',

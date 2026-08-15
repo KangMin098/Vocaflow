@@ -1,6 +1,6 @@
 // apps/web/src/app/api/pdcp/connect-check/route.ts
 //
-// GPU/모델 연결 점검 — AI 리스타일 트랙(선택)이 도는 자가호스트 연결(Kaggle·RunPod·ComfyUI)을
+// GPU/모델 연결 점검 — AI 리스타일 트랙(선택)이 도는 자가호스트 연결(RunPod·ComfyUI)을
 // read-only 로 확인. scripts/comic/connect-check.mjs 를 spawn. dev·admin. 과금 없음.
 
 import { NextResponse } from 'next/server'

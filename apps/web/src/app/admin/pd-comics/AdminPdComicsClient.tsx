@@ -1108,7 +1108,7 @@ function Lightbox({ issueId, rels, index, onIndex, onClose }: { issueId: string;
 interface Prog { stage?: string; current?: string; done?: number; total?: number; pct?: number }
 // ── 현대화 방법 (2트랙) 안내 ───────────────────────────────────────────────
 // 콘솔에서 "어떤 방법으로 현대화하는지"와 실행법을 보여준다. 기본=작화 보존(Claude Code/CPU),
-// 선택=AI 리스타일(GPU 모델, Kaggle 파일럿→RunPod 양산). 실제 실행은 CLI(GPU 는 외부 Kaggle/RunPod).
+// 선택=AI 리스타일(GPU 모델, RunPod 양산). 실제 실행은 CLI(GPU 는 외부 RunPod).
 function ModernizationMethods() {
   const [open, setOpen] = useState(false)
   return (
@@ -1130,14 +1130,14 @@ render-check.cjs --workdir work/&lt;slug&gt;</pre>
           </div>
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t3)]">— GPU 모델 · 선택</span></p>
-            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 <b>RunPod-4090 전용</b> — edit 워크플로가 그쪽에만 프로비저닝돼 있어 Kaggle-t4 는 거부됩니다(t2i-only, 실측). CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
-            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(Kaggle/RunPod/ComfyUI)
-# COMFY_URL 설정: Kaggle=cloudflared 터널 / RunPod=pod.mjs start
+            <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 <b>RunPod-4090 전용</b> — edit 워크플로가 RunPod 에만 프로비저닝돼 있습니다(Kaggle-t4 는 t2i-only 라 쓸 수 없어 경로 자체를 제거). CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
+            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(RunPod/ComfyUI)
+# COMFY_URL 설정: RunPod=pod.mjs start
 pd/modernize.mjs --workdir work/&lt;slug&gt; --erase-only   # GPU 전 지우기 확인
 pd/modernize.mjs --workdir work/&lt;slug&gt; --model qwen-image-edit-2511 --env runpod-4090
 page-letter.mjs --workdir work/&lt;slug&gt;   # 대사 재부착</pre>
           </div>
-          <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 자가호스트(Kaggle 터널/RunPod)라 콘솔은 트리거·회수·비교·판정을 담당합니다. 설계: <span className="font-mono">PD_MODERNIZE_MODEL.md</span>.</p>
+          <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 자가호스트(RunPod)라 콘솔은 트리거·회수·비교·판정을 담당합니다. 설계: <span className="font-mono">PD_MODERNIZE_MODEL.md</span>.</p>
         </div>
       )}
     </div>
@@ -1598,8 +1598,8 @@ function ToolsTab() {
       {/* GPU 연결 점검 — AI 리스타일(선택 트랙)용 자가호스트 연결 */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
         <p className="font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
-          <b className="text-[var(--t1)]">AI 리스타일</b>(선택 트랙)은 자가호스트 GPU(Kaggle 터널·RunPod ComfyUI)가 필요합니다.
-          아래로 <b className="text-[var(--t1)]">Kaggle · RunPod · ComfyUI</b> 연결을 read-only 로 점검합니다(과금 없음).
+          <b className="text-[var(--t1)]">AI 리스타일</b>(선택 트랙)은 자가호스트 GPU(RunPod ComfyUI)가 필요합니다.
+          아래로 <b className="text-[var(--t1)]">RunPod · ComfyUI</b> 연결을 read-only 로 점검합니다(과금 없음).
         </p>
         <button
           type="button"
