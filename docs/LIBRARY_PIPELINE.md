@@ -591,3 +591,35 @@ v06.25 브릿지 — `shared_word_sets` 에 `category_id` + `additional_category
 > The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of Foreign Studies.
 
 위치: Library detail footer (Phase 2 UI) + 본 문서.
+
+**시드를 검증 없이 믿으면 안 된다 (v06.143, 실측 2026-08-15)**
+
+v06.142 에서 "시드 우선" 으로 바꿨더니 발행 SE 7권이 **더 나빠졌다** — 표지 없음(그라디언트
+폴백)에서 **검은 박스**로. 죽은 URL 은 표지가 없는 것보다 나쁘다.
+
+원인: **Standard Ebooks 가 표지 URL 스킴을 바꿨다.**
+
+| | 경로 |
+|---|---|
+| 예전(시드에 굳어 있음) | `/images/covers/<slug>-f5fe576e-cover@2x.jpg` |
+| 현재 | `/images/covers/<slug>/<40자해시>/cover@2x.jpg` |
+
+`library_seed_catalog` 의 SE 시드 **1,450건 중 1,369건(94%)** 이 예전 스킴이고,
+전부 같은 빌드해시 `f5fe576e` 를 달고 있으며 **전부 404** 다.
+
+→ `resolveCoverImageUrlWithSeed()` 가 시드 URL 을 **`isImageOk()` 로 확인한 뒤에만** 쓴다.
+죽어 있으면 원천으로 내려간다(`via:'origin'`), 원천도 없으면 `via:'seed-dead'` 로 구분해
+보고한다. HEAD 한 번(주간 캐시)이 무-네트워크보다 싸다 — 정확성이 우선이다.
+
+재백필 결과: 8권 스캔 · 7권 복구 · **`fromSeed` 0**(검증이 죽은 시드를 전부 걸러냄).
+남은 1권은 pressbooks 로 시드·원천 모두 표지가 없다.
+
+⚠️ **남은 일**: 시드 1,369건은 여전히 죽은 URL 이다. 지금은 검증이 막아 주지만,
+SE 시드를 재수집하면(수집기 자체는 현재 스킴을 정상 파싱한다 — 재현 확인) 카탈로그가
+정상화되고 HEAD 확인도 대부분 생략된다.
+
+**캡처 하네스도 같은 날 두 번 거짓말했다** (`91-hub-design-capture`)
+- `beforeAll` 훅이 `describe.configure` 의 timeout 을 안 물려받아 기본 30초 → 콜드 컴파일 시
+  캡처 0장으로 죽었다. `test.setTimeout(180_000)` 으로 고정.
+- 검증 계정을 **모든 세션이 공유**해서 다른 세션의 로그아웃이 이쪽 로그인을 죽였다.
+  서가는 공개 라우트이므로 `HUB_SHOT_NOAUTH=1` 로 로그인을 건너뛴다.

@@ -44,10 +44,11 @@ export type SeedCoverClient = SupabaseClient<any, any, any>
 export async function resolveCoverImageUrlWithSeed(
   client: SeedCoverClient,
   input: { source: string; sourceId: string | null },
-): Promise<{ url: string | null; via: 'seed' | 'origin' | 'none' }> {
+): Promise<{ url: string | null; via: 'seed' | 'origin' | 'none' | 'seed-dead' }> {
   const { source, sourceId } = input
   if (!sourceId) return { url: null, via: 'none' }
 
+  let seeded: string | undefined
   try {
     const { data } = await client
       .from('library_seed_catalog')
@@ -55,10 +56,22 @@ export async function resolveCoverImageUrlWithSeed(
       .eq('source', source)
       .eq('source_id', sourceId)
       .maybeSingle()
-    const seeded = data?.cover_url?.trim()
-    if (seeded) return { url: seeded, via: 'seed' }
+    seeded = data?.cover_url?.trim() || undefined
   } catch {
     // 시드 조회 실패는 치명적이지 않다 — 원천 해석으로 내려간다.
+  }
+
+  // ⚠️ **시드를 검증 없이 믿으면 안 된다** (실측 2026-08-15).
+  //   SE 가 표지 URL 스킴을 바꿨다: 예전 `covers/<slug>-<빌드해시>-cover@2x.jpg` →
+  //   지금 `covers/<slug>/<긴해시>/cover@2x.jpg`. 시드 1,450건 중 **1,369건(94%)** 이
+  //   예전 스킴(전부 같은 `f5fe576e`)으로 굳어 있고 전부 404 다.
+  //   검증 없이 넣었더니 발행 7권이 "표지 없음(그라디언트 폴백)" 에서 **검은 박스**로
+  //   더 나빠졌다 — 죽은 URL 은 표지가 없는 것보다 나쁘다.
+  //   HEAD 한 번(주간 캐시)이면 가려진다. 정확성이 무-네트워크보다 우선이다.
+  if (seeded) {
+    if (await isImageOk(seeded)) return { url: seeded, via: 'seed' }
+    const fallback = await resolveCoverImageUrl({ source, sourceId })
+    return { url: fallback, via: fallback ? 'origin' : 'seed-dead' }
   }
 
   const url = await resolveCoverImageUrl({ source, sourceId })

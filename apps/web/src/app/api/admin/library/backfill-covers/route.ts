@@ -72,13 +72,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     id: string
     title: string
     cover_image_url: string | null
-    via: 'seed' | 'origin' | 'none'
+    via: 'seed' | 'origin' | 'none' | 'seed-dead'
   }> = []
   let updated = 0
   let fromSeed = 0
   for (const b of books) {
     let coverUrl: string | null = null
-    let via: 'seed' | 'origin' | 'none' = 'none'
+    let via: 'seed' | 'origin' | 'none' | 'seed-dead' = 'none'
     try {
       const r = await resolveCoverImageUrlWithSeed(client, {
         source: b.source,
