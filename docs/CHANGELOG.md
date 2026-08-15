@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습자 화면 이름 영어화 + 이름 SSoT 통합 (v06.141)
+
+메뉴·탭·활동 이름을 영어로 통일하면서, 이름을 **화면이 각자 짓던 구조**를 걷어냈다. 옮기기 전에
+같은 것이 화면마다 다른 이름으로 불리고 있었다 — `article` 이 Plan 에서 '스크립트'·Library 에서
+'짧은 글', `word_set` 이 '공용단어장'/'단어장'/'세트' 셋, 모바일 하단 탭은 자체 한국어 목록이라
+같은 표면이 데스크톱 `Today`·모바일 `오늘`. 번역만 했으면 이 분기가 영어로 복제됐다.
+
+- **자료 유형 4종 확정** (`MATERIAL_LABEL` 단일 출처) — `Books` · `Dispatches`(arXiv·NASA·NIH·VOA
+  짧은 글) · `Decks`(발행 단어장) · `Scripts`(학습자가 넣은 글). `scripts` 키가 화면마다 다른 것을
+  가리키던 함정(Library=공개 짧은 글 vs Dictation·Vault=내 글)을 라벨 층에서 분리
+- **활동 10종** — `듣기`/`읽기`/`따라하기`/`단어` 만 한글이라 한 줄에 두 언어가 섞이던 것 해소
+  (Listen · Read · Echo · Words + 기존 모듈명 6). 인지 계층 칩도 `L0 Input`~`L6 Completion`
+- **모바일 하단 탭** — 자체 라벨 목록 제거, `SURFACES[].name` 을 읽게 (Today·Library·Vault·Growth)
+- **Settings** 섹션 5 + 옵션(테마·회상 대기) · **SRS 자기평가 5단**(Again~Perfect) ·
+  WordVault 숨김 토글(단축키 H·M 과 첫 글자 일치) · Workspace 모드 알약 12 · 허브 통계 라벨
+- **Reminders** 로 명명(`Notifications` 아님) — 뱃지·알림음 금지(Calm UI)를 이름이 먼저 어기지 않게
+- 한글 유지: 본문·빈 상태·안내 문구·에러·`aria-label` (학습 중 읽는 문장, Cognitive Load)
+- 회귀: `04-ui-smoke` 하단 탭 단언을 레지스트리와 같은 문자열로 — 탭이 레지스트리를 실제로
+  읽는지 확인하는 장치. 가이드는 [apps/web/CLAUDE.md](../apps/web/CLAUDE.md) §학습자가 읽는 이름
+
 ### 단어장 컴포저 — 유형 26종 발행 + 구조 보완 7건
 
 5개 생성기 방언을 Recipe v3 하나로 합치고(§[VCB_REDESIGN](./VCB_REDESIGN.md)), 시중 26 유형 +
@@ -33,6 +53,14 @@
   충돌(실측 52건). `blueprint='phrasal-idiom'` 세트의 `phrase_unit` 한 종류만 면제(global·word_set 동시).
   예외가 유형을 안 가리고 번지는 것은 **같은 단어를 유형만 바꿔 넣는 대조 회귀 2건**이 막는다.
   적용 후 `cat-phrasal` 재발행 · global critical FAIL 0
+- **발행한 단어장이 두 화면에서 안 보이고 있었다** — DB 에도 있고 학습자 카탈로그에도 뜨는데
+  ① 어드민 `발행 컬렉션` 은 `source_run_id IS NOT NULL` 로만 조회해 컴포저 세트 32개가 통째로 빠졌고
+  ② hub 추천 RPC 는 슬러그를 하드코딩(`auto-vlevel-v*`·`etymology-core`·`kice-%`)해 29세트 중 **하나도**
+  뜨지 않았다. ①은 생산자 두 종류를 함께 조회(run/Studio 태그 + 유형 링크), ②는 마이그레이션
+  [20260815150000](../supabase/migrations/20260815150000_recommend_by_blueprint.sql) 로 판정 근거를
+  `curation_query.blueprint`·`v_level_*`·`source_book_id` 로 이전 — 7블록 추가(내 레벨·수능·학술·실무·어원·
+  해금·새 영역) + 중복 제거 + `LIMIT 8`. hub 카드 뱃지 7종 추가(그 전엔 다섯 유형이 전부 '추천' 이었다).
+  회귀 6건(e2e 1 + 실 DB 5)
 - **발음(IPA)·소리(TTS)를 단어장 범위에서 제외** (제품 결정 — 아래 TTS 확정 항목을 정정한다).
   ① 모든 낱말 유형에 걸려 있던 `require_fields: ipa` 제거 — 아무도 쓰지 않는 필드 때문에 후보를
   9.5%(구는 91.7%) 버리고 있었다 ② Sound 면 요구를 `audio_url`(녹음)로 되돌림 — IPA 는 표기이지

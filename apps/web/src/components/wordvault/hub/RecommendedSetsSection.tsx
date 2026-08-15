@@ -42,6 +42,15 @@ const TYPE_BADGE: Record<
   specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info-ink)' },
   etymology: { label: '어원', bg: 'var(--warning-light)', text: 'var(--warning-ink)' },
   topic:     { label: '주제', bg: 'var(--bg3)',        text: 'var(--t2)' },
+  // 진단 트랙·도서·컴포저 유형 — 이 다섯은 오랫동안 뱃지가 없어 전부 '추천' 으로 떨어졌다.
+  // 카드 다섯 장이 같은 라벨을 달고 있으면 왜 추천됐는지가 사라진다.
+  track_csat:     { label: '수능',   bg: 'var(--p)',              text: 'var(--on-p)' },
+  track_academic: { label: '학술',   bg: 'var(--info-light)',     text: 'var(--info-ink)' },
+  track_business: { label: '실무',   bg: 'var(--info-light)',     text: 'var(--info-ink)' },
+  book_iplus1:    { label: '도서',   bg: 'var(--success-light)',  text: 'var(--success-ink)' },
+  composer_level: { label: '내 레벨', bg: 'var(--active)',        text: '#231a09' },
+  unlock:         { label: '해금',   bg: 'var(--success-light)',  text: 'var(--success-ink)' },
+  uncovered:      { label: '새 영역', bg: 'var(--bg3)',           text: 'var(--t2)' },
   fallback:  { label: '추천', bg: 'var(--bg3)',        text: 'var(--t2)' },
 }
 

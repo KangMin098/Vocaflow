@@ -397,7 +397,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `analyze_diagnostic_result` / `analyze_and_apply_diagnostic_result` | base V-Level 진단 분석 + apply (snapshot + Krashen i+1) |
 | `analyze_track_diagnostic_result` / `analyze_and_apply_track_diagnostic_result` | track 진단 (csat/biz/academic) |
 | `analyze_and_apply_comprehensive_diagnostic_result` | 4축 동시 분석 (base + 3 tracks) |
-| `recommend_word_sets_for_user(uuid, text[])` | 6-tier 추천 (primary/stretch/review + track + specialty + book_iplus1: lexical_coverage 85~95% 도서 입문 챕터 세트, v06.129) |
+| `recommend_word_sets_for_user(uuid, text[])` | 6-tier 추천 (primary/stretch/review + track + specialty + book_iplus1: lexical_coverage 85~95% 도서 입문 챕터 세트, v06.129). **v06.34 수정** ([20260815150000](../supabase/migrations/20260815150000_recommend_by_blueprint.sql)) — 슬러그 하드코딩(`auto-vlevel-v*`·`etymology-core`·`kice-%`) 때문에 컴포저 발행 29세트가 hub 추천에 **하나도 뜨지 않았다**. 판정 근거를 `curation_query.blueprint`·`recipe.select.filters.v_level_*`·`source_book_id` 로 옮겨 7블록 추가(composer_level·track ×3·etymology·unlock·uncovered). 새 유형이 늘어도 추천이 따라온다. 함께: `DISTINCT ON (set_id)` 중복 제거 + `LIMIT 8`(화면이 전량 렌더하므로 여기서 막는다). 회귀 [recommend-blueprint.integration.test.ts](../apps/web/src/lib/library/__tests__/recommend-blueprint.integration.test.ts) 5건 |
 | `auto_promote_v_level_for_user(uuid)` | i+1 zone ≥20 mastered → V+1 |
 | `auto_promote_track_level_for_user(uuid, text)` | track promote (threshold 15) |
 | `cron_auto_promote_all_users()` | pg_cron 새벽 03 KST 일괄 promote |
