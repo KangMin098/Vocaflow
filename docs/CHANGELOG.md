@@ -10,6 +10,112 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전·카탈로그 대량 보완 배치 w0815 — 병렬 서브에이전트 + apply 게이트 (2026-08-15)
+
+주간 한도 마감 전 대량 저작 배치. **에이전트 산출을 그대로 믿지 않는 apply 게이트**를 트랙마다
+붙인 것이 이번 배치의 설계 핵심 — 게이트가 없으면 대량 배치가 곧 대량 오염이 된다.
+
+| 트랙 | 대상 | 반영 | 계측 변화 |
+|---|---|---|---|
+| T1a 어근 인벤토리 | 라틴 181 + 그리스 150 | 329 upsert | `word_roots` 181 → **510** |
+| T1b 어근↔단어 링크 | 510 어근 × 파생어 | 20청크 | `word_root_links` 2,767 → **9,468** · 어원 카드 노출 단어 2,767 → **7,914** |
+| T1c 어원 니모닉 | 링크 보유·니모닉 결측 | 1,669 | `mnemonic_ko` 5,616 → **7,405** |
+| T2 다의어 sense | 고빈도 단일-sense 3,299 | 1,510 단어 | top-10k 단일-sense 3,812 → **2,302** |
+| T3a 사전 갭 | 발행 도서 미등재 | 1,438 표제어 | `shared_dictionary` 45,699 → **47,137** · 발행도서 커버리지 88.2% → **91.3%** |
+| T3b 학습자 노트 | 발행 도서 어휘 | 3,246+ | `korean_learner_note` 12,413 → 증가 중 |
+| T3c 반대말·연어 | 발행 도서 어휘 | 2,281+ | `collocations` 14,078 → 증가 중 |
+| T4a 도서 장르 태그 | published+ready 316권 | 316 | `category_tags` **0 → 316** (`search_vector` C 가중치 활성) |
+
+**신설 하네스** — `scripts/dict/w0815-pubvocab.mjs`(발행 도서 어휘 집합 공통 로더) ·
+`w0815-gapword.mjs` · `w0815-note.mjs` · `w0815-synant.mjs` · `w0815-mnem-gate.mjs` ·
+`scripts/lcp/w0815-booktags.mjs`. 전부 `chunk`/`apply` 2-모드 + **멱등**(이미 값이 있으면 스킵).
+
+**apply 게이트(이번에 심은 것)**:
+- 반대말 — **사전에 실재하는 표제어만 채택**(누적 189건 폐기). "반대말 세트에 짝이 없다"의 구조적 재발 차단
+- 학습자 노트 — `meaning_ko` 문자열 복사 거부 · 한글 미포함 거부 · 10~140자
+- 도서 태그 — 고정 어휘 46종 교집합만(자유 입력 폐기). 자유 문자열이면 같은 장르가 철자별로 갈려 GIN 인덱스가 안 붙는다
+- 사전 갭 — CEFR/V-Level/POS 화이트리스트 + 예문 최소 길이 + `skip` 경로(외국어 조각·OCR 오타는 억지 생성 대신 스킵)
+- 니모닉 — 독립 게이트 `w0815-mnem-gate.mjs`: 화살표·120자 + **입력 `roots` 어근이 니모닉에 실제 등장** + 로마자 어근 토큰 최소 1개(경선식 차단). 1,669건 전량 통과
+  ⚠️ 게이트 작성 시 **단일문자 어근(`a(~아닌)`)·하이픈 어근(`in-neg(~아닌)`)·한국어+영어 병기(`사교(social)`)** 를 오탐하지 않도록 토큰 정규식을 맞출 것 — 안 맞추면 정상 니모닉 17건을 경선식으로 오판한다
+
+**실측으로 드러난 것**:
+- 챕터 퀴즈 **909문항 소실** — 메모리 기록은 12권 1,658문항인데 DB 실측은 5권 1,019문항. Oz·Huck·Sherlock·Alice·Railway·Wind·Just So 분이 없다(소스 GET DELETE CASCADE 경로 추정)
+- `library_books` `failed` 83권이 **전량 `fetch failed`** — 콘텐츠 결함 아님, 재큐만으로 복구 가능
+- 발행 도서 clean row 51,168 중 로마숫자 장 표기 91행(46종, 0.18%) — 토큰화 게이트 수정 근거로는 부족
+- `word_roots.fam` gloss 가 "소문, 명성" 뿐 — `fate`·`fatal`·`infant`·`ineffable` 은 같은 어근의 "말하다" 뜻. gloss 확장 필요
+- T3a 수확률은 빈도 순위가 아니라 **출처 도서 성격**을 따른다 — 고어 도서(Simplicissimus) 구간 164/180, Milne nonce 철자 구간 115/180
+
+### Growth(`/dashboard`) 재설계 + `/hub` 진행 단일화 — 화면 셋이 동시에 거짓을 말하고 있었다 (v06.201)
+
+회고면을 "얼마나 많이 했나"에서 **"내 기억은 얼마나 오래 버티나"** 로 바꿨다. 출발은 디자인이
+아니라 **실측**이었다 — 계정 하나를 DB와 대조하니 화면이 인쇄하던 숫자 대부분이 틀려 있었다.
+
+| # | 결함 | 근거 (실측 2026-08-15) | 수정 |
+|---|---|---|---|
+| ① | 히어로 "마음에 자리잡은 단어 **0개**" | `user_stats.known_word_count` 를 채우는 `refresh_user_known_word_count` 를 **아무도 호출하지 않음**(전 리포 grep). 단어 252개 보유 계정에 0 | 그 컬럼을 **읽지 않는다**. 히어로를 지속 사다리로 교체 |
+| ② | 채워졌어도 못 쓴다 | 그 함수 정의가 `stability >= 21` — 이 계정 최대 S=2.31일. 대부분의 학습자에게 **몇 달 동안 0** | 사다리는 하루/사흘/한 주/한 달/계절 5칸 — 1일차에도 0이 아니다 |
+| ③ | "28일 중 **1일** 학습" | 히트맵이 `total_minutes>0` 을 학습일로 판정. 그 컬럼 트리거가 `ROUND(duration_seconds/60.0)` → **60초 미만 세션이 0분**. 실제로는 8일 연속 활동(리뷰 120·142·33…) | 학습량 정본을 `learning_records` 행 수로. **분은 아예 그리지 않는다** |
+| ④ | 한 화면에 **연속일이 세 종류** | 띠 3일(`user_stats.current_streak`) · 히어로 3일 · 히트맵 0일(자체 minutes 계산) | `growth-math.computeStreak` 하나. `user_stats.current_streak` 는 더 이상 읽지 않음 |
+| ⑤ | "시간 1분 · 단어 301개" | 1분에 301단어 — 같은 카드 안에서 자기모순 | 분 제거, 리뷰·단어만 |
+| ⑥ | 어휘 앱 회고면에 **단어가 한 개도 없었다** | 개수와 막대뿐 | `RescuedWords` — 이번 주 다시 만나 맞힌 단어 실물 5개 |
+| ⑦ | 최근 활동 칩 5개가 **전부 동일** ("딕테 X · 11분 전") | 정보량 0 | 연속 run 접기(`딕테 ×5`). 재정렬은 안 함 — 하면 "최근" 이 거짓이 된다 |
+| ⑧ | 모바일 가로 넘침 20px | 그리드 자식 `min-width:auto` | 카드 루트 `min-w-0` |
+
+**`/hub` 쪽에서 같이 드러난 것** — 같은 화면에 진행이 두 개로 떠 있었다(띠 `오늘 2/3` · 흐름 `0/5`):
+
+| # | 결함 | 근거 | 수정 |
+|---|---|---|---|
+| ⑨ | 듣기 블록이 **무엇을 해도 완료되지 않음** | `touchedToday.has('echomatch')` — `learning_records.module` enum 값은 `'echo'`. `echomatch` 는 **enum에 없다** | `BLOCK_MODULES` 로 매핑 일원화. **단위 테스트가 같은 오타를 써서 초록불이었다** → enum 실측치 대조 회귀 추가 |
+| ⑩ | 구문(Syntax) 블록 `done: false` 하드코딩 → 5/5 도달 불가 | `grade_dcp_item` 이 쓰던 `csat_item_attempts` 가 `20260719161409_drop_unused_empty_tables` 로 사라짐(CLAUDE.md §DB 미해결 목록) | `observable: false` — 관측 불가는 **분모에서 뺀다**. 도달 못 할 목표는 진행이 아니라 압박 |
+| ⑪ | 복습 완료 = `dueCount===0` | 200개를 복습해도 41개 남으면 "아무것도 안 함" | `dueCount===0 \|\| 오늘 복습 활동` |
+| ⑫ | 무대가 클라이언트 최근활동 목록으로 완료 판정 | 최근 N건만 담겨 **앞쪽 모듈이 밀려 사라짐** | `fetchTouchedModulesToday()`(서버 `daily_activity.by_module`, `cache()`) 를 띠·무대가 공유 |
+
+- **신설** — `lib/learner/growth-math.ts`(순수: RUNGS·`rungFor`·`computeStreak`·`formatDuration`·DTO)
+  · `lib/learner/memory-horizon.ts`(조회) · 컴포넌트 4
+  (`DurabilityLadder`·`RescuedWords`·`ActivityTrace`·`LexicalReach`)
+- **순수/조회 분리** — `today-status.ts` 와 같은 이유. 합쳐 뒀을 때 vitest 가
+  `cache is not a function` 으로 스위트째 못 떴고, 클라이언트 컴포넌트는 서버 코드를 끌어왔다
+- **제거** — Growth 의 `MemoryStatus`(기억 4상태). ADR 0006 D2 가 "상태 띠가 흡수하고 나머지
+  자리에서 제거" 라고 선언했으나 Growth 쪽 제거가 실제로는 안 돼 조치 표면이 둘이었다.
+  4상태는 forward(띠), 지속 사다리는 backward(Growth)
+- **`today-status.ts` 축소** — 자체 4갈래 모델·모듈 매핑표 삭제, 진행은 `blockProgress()` 를 받아 씀
+- **어휘의 무게중심** — `shared_dictionary.frequency_rank` 밴드 분포.
+  ⚠️ **커버리지 %로 환산하지 않는다** — Nation 계열 95/98% 임계는 어휘 *크기* 추정이 전제인데
+  우리가 가진 것은 담아 둔 단어뿐이라, 환산하면 격려가 아니라 오보가 된다
+- **요일 리듬** — 4주치를 요일로 접어 "주로 금요일에 하는 편이에요". 점수가 아니라 성향이라
+  어떤 값이 나와도 학습자를 탓하지 않는다
+- **캡처 하네스 개선** — `91-hub-design-capture` 가 넘침 **픽셀 수만** 보고해서 한 라운드를
+  엉뚱한 컴포넌트를 고치는 데 썼다. `overflowCulprits`(넘친 요소 지목) 추가
+- **회귀 락 +21** — `__tests__/memory-horizon.test.ts`(13) + `today-blocks.test.ts` 확장(18, enum
+  대조·`blockProgress` 포함) + `today-status.test.ts` 갱신(8)
+
+### `/practice` v2 — 연습 통폐합 완성 + Game Lab 흡수 + 영향도 전수 검사 (v06.201)
+
+사이드바 PRACTICE 5형제를 `/practice` + `Game Lab` 둘로 접은 뒤, **통폐합이 무엇을 흘렸는지**
+전수 검사했다. 셋이 새고 있었고 셋 다 **화면은 멀쩡히 뜨는** 종류였다.
+
+| # | 결함 | 수정 |
+|---|---|---|
+| ① | `/practice` 에서 연 게임이 종료 시 `/arcade` 로 튕김 (`from` 미첨부 → `resolveSessionReturnHref` fallback) | `gamePlayHref(slug, { from: '/practice' })` |
+| ② | `/practice/dcp`(Syntax)가 이 화면의 **하위 라우트인데 화면이 언급조차 안 함** — 진입이 허브 처방 하나뿐이었다 | 처방 fetch 추가 → **활성일 때만** Use 면에 노출(잠긴 날 링크 안 만듦) |
+| ③ | PairFlip 이 **보이는데 눌리지 않음** — 도구 칩이 `span`, 카드 전체는 첫 도구로만 링크 | 카드 전체 링크 제거 · 도구마다 44px `Link` |
+
+- **Game Lab 흡수** — `lib/learner/practice-map.ts` 신설. 게임 면 매핑을 손으로 적지 않고
+  `GAME_CATALOG.layer` 접두사에서 **파생**(`L4c`→Sound · `L4b 형태론/귀납`→Build · `L5`→Use ·
+  `L4a 자동화/경쟁/전략`→Fluency). 게임 17종이 면 안으로, 면 불분명 4종(리텐션·시너지·해독)은
+  Game Lab 전체 목록에만. → v1 이 Sound·Build·Use 에 적었던 **"아직 전용 연습이 없어요" 는 거짓이었다**
+  (게임이 이미 있었는데 화면이 자기 제품을 몰랐다).
+- **여섯 면 전부 카드** — 하단 45% 공백 제거. 홀수 마지막 카드 `sm:col-span-2`
+- **진행 신호** — `FacetSummary.distribution` 통과/시도 (시도 0이면 안 그림)
+- **접근성** — Game Lab 링크 30px→44px · 도구 칩 전부 44px(프로젝트 절대 규칙 위반이었음)
+- **한글 eyebrow 자간 제거** — 라틴 관습 0.16em 이 "지 금  가 장  무 른  곳" 으로 벌어졌다
+- **회귀 락 11** — `src/lib/learner/__tests__/practice-map.test.ts`(6, 링크 17개 실라우트 검증 포함)
+  + `tests/e2e/26-practice-chooser.spec.ts`(5, 흡수 4모듈 딥링크 생존 포함)
+- 루브릭 87 → **94**
+- ⚠️ 고아 컴포넌트 6(630줄, `HubHero`·`ModuleGrid`·`ModuleCard`·`ArcadeEntryCard`·
+  `TodayPrescriptionCard`·`PrescriptionArticleLaunch`) — **삭제 보류**.
+  `TodayPrescriptionCard.test.tsx`(18단언)가 처방 계약을 잠그고 있어 지우면 락이 함께 사라진다.
+
 ### 받아쓰기 무결점화 — 순회에서 나온 결함 24건 (사용자 신고에서 시작)
 
 `/dictate/session?sessionId=…` 하나의 신고에서 출발해 전 화면(허브·설정·세션·결과)을
