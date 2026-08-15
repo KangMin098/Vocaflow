@@ -10,6 +10,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 import { setKindOf, type SetKind } from './set-kind'
+import type { CoverMeta } from '@/lib/vcb/covers/design'
 
 type DB = Database
 
@@ -59,6 +60,10 @@ export interface PublishedVocabSet {
    * 유형이 없는 레거시 세트는 null 이고, 카드가 그 줄을 생략한다.
    */
   kind: SetKind | null
+  /** 표지 이미지 (Openverse PD/CC 도판). null 이면 그라디언트 표지로 폴백. */
+  coverImageUrl: string | null
+  /** 표지 출처 — CC 표기 의무. 계열 듀오톤 색도 여기 `family` 에서 나온다. */
+  coverImageMeta: CoverMeta | null
 }
 
 export interface SamplePreviewWord {
@@ -103,6 +108,8 @@ interface SharedSetRow {
   category_id?: string | null
   additional_category_ids?: string[] | null
   curation_query?: { blueprint?: string } | null
+  cover_image_url?: string | null
+  cover_image_meta?: CoverMeta | null
 }
 
 export async function fetchPublishedSets(
@@ -113,7 +120,7 @@ export async function fetchPublishedSets(
   const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -129,7 +136,7 @@ export async function fetchPublishedSets(
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
     const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -198,6 +205,8 @@ async function enrichSets(
     subscriberCount: s.subscriber_count ?? 0,
     createdAt: s.created_at ?? new Date(0).toISOString(),
     kind: setKindOf(s.curation_query?.blueprint),
+    coverImageUrl: s.cover_image_url ?? null,
+    coverImageMeta: s.cover_image_meta ?? null,
   }))
 }
 

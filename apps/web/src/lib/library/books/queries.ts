@@ -78,6 +78,8 @@ export async function fetchBookChapterSets(
       subscriberCount: 0, // 도서 챕터 세트 — 컨텍스트상 인기도 미표시
       createdAt: r.created_at ?? new Date(0).toISOString(),
       kind: null,
+      coverImageUrl: null,
+      coverImageMeta: null,
       chapterIdx: Number(r.curation_query?.chapter_idx ?? 0),
       curationQuery: r.curation_query ?? {},
     }))
@@ -191,6 +193,8 @@ export async function fetchBookComposerSets(
         subscriberCount: r.subscriber_count ?? 0,
         createdAt: r.created_at ?? new Date(0).toISOString(),
         kind: setKindOf(blueprint),
+        coverImageUrl: null,
+        coverImageMeta: null,
         blueprint,
         why: composerSetWhy(blueprint, wordCount, cq),
       }
