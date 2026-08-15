@@ -39,13 +39,13 @@
 | book-companion | 도서 Fables (143장) | 300 | 72 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Fables (143장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Fables (143장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Pride and Prejudice (61장) | 300 | 41 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Pride and Prejudice (61장) | 300 | 42 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Pride and Prejudice (61장) | 80 | 6 | 0.98 | ✅ | ✅ |  |
 | book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 48 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 39 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
 | book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ |  |
