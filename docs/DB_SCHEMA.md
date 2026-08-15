@@ -180,6 +180,8 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 (`archaic_candidates` 는 기존 RLS on·정책 0 유지 — 서비스롤/DEFINER 경유 read.)
 
+**`regexp_quote(text)` (v06.36 · [20260815092528](../supabase/migrations/20260815092528_template_examples_residue_escaped_headwords.sql))** — POSIX ERE 메타문자 이스케이프. IMMUTABLE·STRICT·`search_path=''`. **`shared_dictionary.word` 를 정규식에 문자열 연결하는 모든 경로는 이 함수를 경유한다** — 표제어 216종이 괄호·물음표를 갖고 있어, 안 거치면 괄호가 그룹으로 해석돼 조용히 매칭을 벗어난다(20260815093000 이 이 이유로 39행을 놓쳤다).
+
 **`backup` 스키마 (v06.36 · [20260815082723](../supabase/migrations/20260815082723_backup_template_examples_before_purge.sql))** — 되돌릴 수 없는 대량 DML 직전 원본을 담는 곳. 현재 `backup.template_examples_20260815` 1종(8,403행 · 2.3 MB · 템플릿 예문 퍼지 원본). **public 이 아닌 이유**: PostgREST 노출 대상이 아니라 새 클라이언트 표면·RLS 정책이 생기지 않는다. 위 `shared_dictionary_p5a_backup_20260620` 처럼 public 에 두면 하드닝 대상이 된다. 목적 종료 시 `DROP SCHEMA backup CASCADE`.
 
 **v06.148 admin read 정책 4건** (`20260706010000_vrl_admin_read_policies`): `is_admin()` SECURITY DEFINER 헬퍼(자기참조 재귀 방지) 기반으로 `user_level_snapshots`·`user_profiles`·`user_diagnostic_results`·`vrl_diagnostic_tests`(비활성 포함)에 admin SELECT 추가 — `/admin/vrl/*` 하위 페이지 직접 read 정상화. 본인(own) 정책은 유지.

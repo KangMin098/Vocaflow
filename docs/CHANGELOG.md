@@ -67,6 +67,21 @@ MCP 복구 후 밀려 있던 마이그레이션 2건을 정식 경로(`apply_mig
     [20260815082723](../supabase/migrations/20260815082723_backup_template_examples_before_purge.sql) 로
     `backup.template_examples_20260815`(8,403행 · 2.3 MB) 를 비우기 직전에 캡처 — 복원 SQL 은 그 파일 주석에
   - 원본의 TEMP TABLE + 명시적 `BEGIN/COMMIT` 은 `apply_migration` 의 트랜잭션과 중첩되므로 CTE 로 재작성
+- **잔여 63행 + 재발 방지** ([20260815092528](../supabase/migrations/20260815092528_template_examples_residue_escaped_headwords.sql)) —
+  앞 마이그레이션이 표제어를 **이스케이프 없이** 정규식에 이어 붙여, 괄호를 가진 표제어
+  (`a breath of (fresh) air` 등 216종)에서 괄호가 그룹으로 해석돼 39행이 조용히 빠져나갔다.
+  **적용 전에 "컴파일되는가" 는 봤지만 "의도한 것을 맞추는가" 는 안 봤다** — 컴파일 성공은
+  매칭 정확성이 아니다. 이스케이프 시 39/39 매칭 확인
+  - 틀 3종 추가 발견(같은 생성기 계열) — `"{W}!" he exclaimed in response.` 11 ·
+    `"{W}!" she exclaimed in surprise.` 8 · `{W} was the one who solved it.` 5
+  - 초급 3종 재작성(`mine`·`whichever`·`be (all) for the best`) · 나머지 60종 NULL.
+    `mine` 의 "Mine was the one who solved it." 은 뜻도 안 보이고 어법도 어긋났다
+  - **`regexp_quote(text)` 신설** — 사전 값을 정규식에 넣는 모든 경로가 경유할 것
+  - 적용 후: 사전에 표제어 5종 이상 재사용 틀 **0종 0행** (임계 10 → 5 로 낮춰도 0)
+- **프로브 오탐 차단** — `example-quality.ts` 가 `shared_words` 틀을 **행 수**로 세고 있었다.
+  세트는 단어를 복사하므로 한 단어가 40개 세트에 실리면 "40회 재사용 틀" 로 보인다.
+  임계 초과 30여 종이 전부 이 오탐이었고(서로 다른 표제어 최대 4개) 믿었다면
+  **사람이 쓴 예문을 드레인할 뻔했다**. 서로 다른 표제어 수로 세도록 교체
 - **워크어라운드 스크립트 봉인** — `scripts/dict-quality/apply-pending-dict-migrations.ts` 는
   MCP 단절 때 쓰려던 service-role DML 우회로다. 이제 재실행 금지 헤더를 달았다 —
   이 스크립트 역시 `classified_by` 를 안 채워 같은 유령 행을 만든다

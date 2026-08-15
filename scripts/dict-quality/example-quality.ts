@@ -10,7 +10,12 @@
 // 학습자에게는 **없는 것보다 나쁘다** — 내용이 있는 척하기 때문이다(ADR 0004 D4 와 같은 논리).
 //
 // 탐지 방법: 예문에서 표제어를 `{W}` 로 치환한 **틀**이 여러 단어에 재사용됐는지 센다.
-// 사람이 쓴 예문은 단어마다 문장이 다르므로 틀이 겹치지 않는다. 임계값은 재사용 N회 이상.
+// 사람이 쓴 예문은 단어마다 문장이 다르므로 틀이 겹치지 않는다.
+// 임계값은 **서로 다른 표제어 N종 이상** — 행 수가 아니다(아래 analyze 주석 참조).
+//
+// ⚠️ 표제어를 정규식에 넣기 전 반드시 이스케이프할 것. `a breath of (fresh) air` 처럼 괄호를 가진
+//    표제어가 216종 있고, 이스케이프를 빠뜨리면 괄호가 그룹으로 해석돼 조용히 매칭을 벗어난다
+//    (20260815093000 마이그레이션이 이 이유로 39행을 놓쳤다). DB 쪽은 `regexp_quote(text)` 사용.
 //
 // 두 테이블을 함께 본다 — 발행 단어장(`shared_words`)은 발행 시점에 예문을 **복사**하므로
 // 사전만 고치면 학습자 화면은 그대로다(M7 이 챕터 세트에서 찾아낸 드리프트와 같은 구조).
@@ -84,6 +89,16 @@ async function fetchAll(client: SupabaseClient, table: string, cols: string): Pr
   return out
 }
 
+/**
+ * 틀 재사용을 **행이 아니라 서로 다른 표제어 수**로 센다.
+ *
+ * 왜: `shared_words` 는 세트마다 단어를 복사한다. 행으로 세면 한 단어가 40개 세트에 실린 것이
+ * "40회 재사용된 틀" 로 보인다 — 실측(2026-08-15) 결과 임계 10회를 넘은 틀 30여 종이 전부
+ * 이 오탐이었고(서로 다른 표제어는 최대 4개), 그대로 믿었다면 **사람이 쓴 예문을 드레인할 뻔했다**.
+ * 사전(`shared_dictionary`)은 표제어당 1행이라 두 셈이 같지만, 규칙은 한쪽으로 통일한다.
+ *
+ * `affected` 는 여전히 **행 수**다 — 학습자에게 나가는 양이므로 규모는 행으로 봐야 한다.
+ */
 function analyze(rows: Row[]) {
   const frames = new Map<string, Row[]>()
   for (const r of rows) {
@@ -92,11 +107,12 @@ function analyze(rows: Row[]) {
     if (!frames.has(f)) frames.set(f, [])
     frames.get(f)!.push(r)
   }
+  const distinctWords = (list: Row[]) => new Set(list.map((r) => r.word.toLowerCase())).size
   const templated = [...frames.entries()]
-    .filter(([, list]) => list.length >= REUSE_THRESHOLD)
-    .sort((a, b) => b[1].length - a[1].length)
+    .filter(([, list]) => distinctWords(list) >= REUSE_THRESHOLD)
+    .sort((a, b) => distinctWords(b[1]) - distinctWords(a[1]))
   const affected = templated.reduce((a, [, list]) => a + list.length, 0)
-  return { total: rows.length, frames, templated, affected }
+  return { total: rows.length, frames, templated, affected, distinctWords }
 }
 
 async function main() {
@@ -124,13 +140,13 @@ async function main() {
   )
 
   if (mode === '--frames') {
-    console.log('\n  틀 (사전):')
+    console.log('\n  틀 (사전) — 표제어 수 / 행 수:')
     for (const [f, list] of d.templated) {
-      console.log(`    ${String(list.length).padStart(5)}회  ${f.slice(0, 78)}`)
+      console.log(`    ${String(d.distinctWords(list)).padStart(5)} / ${String(list.length).padStart(5)}  ${f.slice(0, 70)}`)
     }
-    console.log('\n  틀 (발행 세트):')
+    console.log('\n  틀 (발행 세트) — 표제어 수 / 행 수:')
     for (const [f, list] of s.templated) {
-      console.log(`    ${String(list.length).padStart(5)}회  ${f.slice(0, 78)}`)
+      console.log(`    ${String(s.distinctWords(list)).padStart(5)} / ${String(list.length).padStart(5)}  ${f.slice(0, 70)}`)
     }
   }
 
