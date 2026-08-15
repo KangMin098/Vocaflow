@@ -157,7 +157,14 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 ## 📊 DB 핵심 통계 (2026-08-09)
 
 - **87 테이블** · **10 view** · **327 함수** · **428 migrations** (2026-08-12 실측)
-- ⚠️ **RPC 8개가 없는 테이블을 참조 중** — `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았다. `word_familiarity` 는 복원(20260812), 나머지 5개(`vocab_raw_texts`·`word_lexicon`·`classes`·`class_members`·`pending_words`·`csat_item_attempts`)는 미해결. 상세: [DB_SCHEMA.md](./docs/DB_SCHEMA.md)
+- ⚠️ **없는 테이블을 참조하는 RPC — 이제 `word_lexicon` 하나만 남았다** (2026-08-16 `to_regclass` 실측).
+  `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았다.
+  **복원 완료**: `word_familiarity`(20260812093000) · `csat_item_attempts`(20260812113000) · `vocab_raw_texts` · `classes` · `class_members` · `pending_words`.
+  **미해결**: `word_lexicon` — 참조 RPC 2개(`regenerate_auto_curated_set` · `reject_word_lexicon_insert`).
+  ⚠️ **이 줄이 낡으면 멀쩡한 기능을 "고장" 으로 오해한다** — 실제로 2026-08-16 에 이 목록을 믿고
+  `/hub` 의 구문 연습 블록을 "완료 관측 불가" 로 분모에서 빼는 코드를 넣었다가, DB 에 물어보고
+  되돌렸다(복원된 지 나흘 된 테이블이었다). **문서가 아니라 `to_regclass` 로 확인할 것.**
+  상세: [DB_SCHEMA.md](./docs/DB_SCHEMA.md)
 - 전체 DB: **350 MB** (v06.34 VACUUM FULL 후, 이전 606 MB)
 - `shared_dictionary` 45,292 row · meaning_ko 100%
 - `library_books` 20 · `texts` 238 · `vocabularies` 5,896

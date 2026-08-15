@@ -109,9 +109,18 @@ describe('buildTodayBlocks', () => {
     ).toBe(true)
   })
 
-  it('구문 연습은 완료를 관측할 수 없다 (grade_dcp_item 의 저장 테이블이 없다)', () => {
-    const syntax = buildTodayBlocks(prescription(), NONE).find((b) => b.key === 'syntax')!
-    expect(syntax.observable).toBe(false)
+  it('구문 연습 완료는 별도 인자로 받는다 (csat_item_attempts 에만 남는다)', () => {
+    // ⚠️ 한때 이 블록을 "관측 불가" 로 두고 분모에서 뺐다. 근거가 CLAUDE.md 의
+    // "csat_item_attempts 미해결" 이었는데 그 표가 낡아 있었다 — 20260812113000 이
+    // 이미 복원했다(실측: 테이블 존재 · grade_dcp_item 정상). 문서가 아니라 DB 가 근거다.
+    const syn = (dcpDone: boolean) =>
+      buildTodayBlocks(prescription(), NONE, dcpDone).find((b) => b.key === 'syntax')!
+    expect(syn(false).done).toBe(false)
+    expect(syn(true).done).toBe(true)
+  })
+
+  it('DCP 신호를 안 넘기면 완료로 올리지 않는다 (기본값은 "안 했음")', () => {
+    expect(buildTodayBlocks(prescription(), NONE).find((b) => b.key === 'syntax')!.done).toBe(false)
   })
 
   it('읽기 후보가 도서면 URL 직결, article 이면 서버액션 경유(articleId)', () => {
@@ -143,31 +152,29 @@ describe('buildTodayBlocks', () => {
 })
 
 describe('blockProgress — 앱에 하나뿐인 진행 정의', () => {
-  it('관측 불가 블록은 분모에서 빠진다 — 5/5 에 닿을 수 없는 목표를 만들지 않는다', () => {
-    const blocks = buildTodayBlocks(prescription(), NONE)
-    // 5블록 중 syntax(관측 불가)를 뺀 4개가 분모
-    expect(blockProgress(blocks).total).toBe(4)
+  it('구문 연습이 열려 있으면 5블록 전부가 분모다', () => {
+    expect(blockProgress(buildTodayBlocks(prescription(), NONE)).total).toBe(5)
   })
 
-  it('잠긴 블록도 분모에서 빠진다 — 오늘 할 수 없는 것은 오늘의 분량이 아니다', () => {
-    // practiceActive:false 여도 syntax 는 이미 관측 불가라 분모는 그대로 4다
+  it('잠긴 블록은 분모에서 빠진다 — 오늘 열리지 않은 것은 오늘의 분량이 아니다', () => {
     const blocks = buildTodayBlocks(prescription({ practiceActive: false }), NONE)
     expect(blockProgress(blocks).total).toBe(4)
   })
 
   it('완료한 만큼만 센다', () => {
     const blocks = buildTodayBlocks(prescription({ dueCount: 0 }), new Set(['echo']))
-    expect(blockProgress(blocks)).toEqual({ done: 2, total: 4 })
+    expect(blockProgress(blocks)).toEqual({ done: 2, total: 5 })
   })
 
-  it('done 은 total 을 넘지 않는다', () => {
+  it('5/5 에 실제로 닿을 수 있다 (도달 불가 목표를 만들지 않는다)', () => {
     const blocks = buildTodayBlocks(
       prescription({ dueCount: 0 }),
       new Set(['echo', 'textviewer', 'scriptquiz', 'flashcard']),
+      true,
     )
     const p = blockProgress(blocks)
     expect(p.done).toBeLessThanOrEqual(p.total)
-    expect(p).toEqual({ done: 4, total: 4 })
+    expect(p).toEqual({ done: 5, total: 5 })
   })
 })
 

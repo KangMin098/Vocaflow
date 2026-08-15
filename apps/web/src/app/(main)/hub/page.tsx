@@ -31,7 +31,7 @@ import { TodayStage } from '@/components/home/TodayStage'
 import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
 import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
-import { fetchTouchedModulesToday } from '@/lib/learner/today-status-query'
+import { fetchDcpDoneToday, fetchTouchedModulesToday } from '@/lib/learner/today-status-query'
 
 export const metadata = {
   title: 'Today · Vocaflow',
@@ -45,12 +45,13 @@ function kstWeekday(): number {
 }
 
 export default async function HubPage() {
-  const [planItems, prescription, room, touchedToday] = await Promise.all([
+  const [planItems, prescription, room, touchedToday, dcpDoneToday] = await Promise.all([
     fetchStudyPlanItems(),
     fetchTodayPrescription(),
     fetchReadingRoom(),
     // 셸 띠와 **같은 값**을 쓴다 — cache() 라 추가 쿼리는 돌지 않는다.
     fetchTouchedModulesToday(),
+    fetchDcpDoneToday(),
   ])
 
   const today = kstWeekday()
@@ -70,6 +71,7 @@ export default async function HubPage() {
           prescription={hasTodayPlan ? null : prescription}
           time={time}
           touchedToday={[...touchedToday]}
+          dcpDoneToday={dcpDoneToday}
         />
 
         {/* 오늘 정본 — 수동계획 우선 */}

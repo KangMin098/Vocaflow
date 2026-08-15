@@ -26,6 +26,9 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
   return (
     <section
       aria-label="이번 주에 다시 만난 단어"
+      // 캡처 하네스(91-hub-design-capture)의 균질성 계측에 참여한다 — 오른쪽
+      // `ActivityTrace` 와 한 줄에 서는 형제라 높이가 갈리면 곧바로 보인다.
+      data-design-card=""
       className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
     >
       <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">

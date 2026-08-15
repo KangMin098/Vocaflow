@@ -36,19 +36,6 @@ export interface TodayBlock {
   articleId?: string
   done: boolean
   locked: boolean
-  /**
-   * 완료를 **관측할 수 있는가**.
-   *
-   * false 면 진행 분모(`blockProgress`)에서 빠진다. `syntax` 가 그렇다 — DCP 채점 RPC
-   * `grade_dcp_item` 이 쓰던 `csat_item_attempts` 테이블이
-   * `20260719161409_drop_unused_empty_tables` 에서 CASCADE 로 사라졌고(CLAUDE.md §DB 핵심통계
-   * 의 "RPC 8개가 없는 테이블을 참조 중" 목록에 그대로 있다) 아직 복원되지 않았다.
-   * 그래서 이 블록은 무엇을 해도 활동 기록이 남지 않는다.
-   *
-   * 관측 불가를 분모에 넣으면 **오늘의 흐름이 영원히 5/5 에 못 닿는다.** 도달할 수 없는
-   * 목표를 매일 보여주는 것은 진행 표시가 아니라 압박이다(철학 ③).
-   */
-  observable: boolean
 }
 
 /**
@@ -64,6 +51,10 @@ export const BLOCK_MODULES: Record<TodayBlockKey, readonly string[]> = {
   review: ['flashcard', 'wordvault', 'pairflip', 'spellforge', 'wordblitz'],
   listen: ['echo'],
   read: ['textviewer', 'workspace'],
+  // ⚠️ 비어 있는 것이 맞다. DCP(구문 연습)는 `learning_records`/`daily_activity` 가 아니라
+  // `csat_item_attempts` 에 남는다(`grade_dcp_item` 이 직접 INSERT). 그래서 완료 신호를
+  // 이 표가 아니라 `buildTodayBlocks` 의 `dcpDoneToday` 인자로 따로 받는다 —
+  // 여기에 `'dcp'` 같은 가짜 키를 넣으면 "값은 전부 enum 실측치" 라는 이 표의 계약이 깨진다.
   syntax: [],
   check: ['scriptquiz'],
 }
@@ -94,6 +85,13 @@ function readArticleId(p: TodayPrescription): string | undefined {
 export function buildTodayBlocks(
   p: TodayPrescription,
   touchedToday: ReadonlySet<string>,
+  /**
+   * 오늘 DCP(구문 연습) 문항을 푼 적이 있는가 — `csat_item_attempts` 에서 온다.
+   *
+   * 별도 인자인 이유는 저장 위치가 다르기 때문이다(위 `BLOCK_MODULES.syntax` 주석).
+   * 기본값 false 는 "모름" 이 아니라 "안 했음" 이다 — 호출부가 안 넘기면 완료로 올리지 않는다.
+   */
+  dcpDoneToday = false,
 ): TodayBlock[] {
   const touched = (key: TodayBlockKey) => BLOCK_MODULES[key].some((m) => touchedToday.has(m))
 
@@ -112,7 +110,6 @@ export function buildTodayBlocks(
       // "아무것도 안 한" 것이 된다. 오늘 실제로 복습을 했다면 그것도 완료다.
       done: p.dueCount === 0 || touched('review'),
       locked: false,
-      observable: true,
     },
     {
       key: 'listen',
@@ -123,7 +120,6 @@ export function buildTodayBlocks(
       href: p.listeningTextId ? `/text/${p.listeningTextId}/echo` : '/library/books',
       done: touched('listen'),
       locked: false,
-      observable: true,
     },
     {
       key: 'read',
@@ -135,7 +131,6 @@ export function buildTodayBlocks(
       articleId: readArticleId(p),
       done: touched('read'),
       locked: false,
-      observable: true,
     },
     {
       key: 'syntax',
@@ -144,11 +139,8 @@ export function buildTodayBlocks(
       headline: `문장 배열·삽입 ${p.practiceCount}개로 구조를 잡아요`,
       minutes: 15,
       href: '/practice/dcp',
-      // 관측 경로가 없다 — `observable: false` 주석 참조. 완료로 올릴 근거가 없으므로
-      // 거짓으로 두되, 진행 분모에서는 빠진다.
-      done: false,
+      done: dcpDoneToday,
       locked: !p.practiceActive,
-      observable: false,
     },
     {
       key: 'check',
@@ -159,7 +151,6 @@ export function buildTodayBlocks(
       href: '/scriptquiz',
       done: touched('check'),
       locked: false,
-      observable: true,
     },
   ]
 }
@@ -172,10 +163,10 @@ export function buildTodayBlocks(
  * 있었지만(띠는 굵은 4갈래를 `daily_activity.by_module` 로, 무대는 5블록을 클라이언트가
  * 받아 온 최근 활동 목록으로) 학습자에게는 **둘 중 무엇을 믿어야 하는지 알 방법이 없었다.**
  *
- * 잠긴 블록과 관측 불가 블록은 분모에서 뺀다 — 오늘 할 수 없는 것은 오늘의 분량이 아니다.
+ * 잠긴 블록은 분모에서 뺀다 — 오늘 열리지 않은 것은 오늘의 분량이 아니다.
  */
 export function blockProgress(blocks: readonly TodayBlock[]): { done: number; total: number } {
-  const counted = blocks.filter((b) => b.observable && !b.locked)
+  const counted = blocks.filter((b) => !b.locked)
   return { done: counted.filter((b) => b.done).length, total: counted.length }
 }
 

@@ -45,6 +45,7 @@ export function TodayStage({
   prescription,
   time,
   touchedToday,
+  dcpDoneToday,
 }: {
   room: ReadingRoom | null
   prescription: TodayPrescription | null
@@ -57,11 +58,13 @@ export function TodayStage({
    * 셸 띠(`daily_activity.by_module` 기반)와 **다른 숫자**를 냈다.
    */
   touchedToday: string[]
+  /** 오늘 DCP 문항을 풀었는가 — `csat_item_attempts` 에만 남아 위 집합과 출처가 다르다. */
+  dcpDoneToday: boolean
 }) {
   const tone = ROOM_TONE[time]
 
   const blocks = prescription?.isDiagnosed
-    ? buildTodayBlocks(prescription, new Set(touchedToday))
+    ? buildTodayBlocks(prescription, new Set(touchedToday), dcpDoneToday)
     : []
   const now = blocks.length > 0 ? pickNow(blocks) : null
   // 진행의 정의는 앱에 하나다 — 띠도 같은 함수를 쓴다(today-blocks.blockProgress 주석).

@@ -64,6 +64,41 @@ export const fetchTouchedModulesToday = cache(async (): Promise<Set<string>> => 
   return new Set(normalizeByModule((todayRow as { by_module?: unknown } | null)?.by_module))
 })
 
+/**
+ * 오늘 DCP(구문 연습) 문항을 풀었는가.
+ *
+ * `daily_activity.by_module` 에 안 남는다 — `grade_dcp_item` 이 `csat_item_attempts` 에
+ * 직접 INSERT 하기 때문이다. 그래서 별도 조회가 필요하다.
+ *
+ * ⚠️ 한때 이 블록을 "완료 관측 불가" 로 두고 진행 분모에서 뺐다. 근거는 CLAUDE.md 의
+ * "csat_item_attempts 미해결" 이었는데, 그 표가 낡아 있었다 —
+ * `20260812113000_restore_csat_item_attempts` 가 이미 복원했다(실측: 테이블 존재).
+ * **문서를 근거로 코드를 정하지 말 것. DB 에 물어볼 것.**
+ */
+export const fetchDcpDoneToday = cache(async (): Promise<boolean> => {
+  const client = await createClient()
+  const {
+    data: { user },
+  } = await client.auth.getUser()
+  if (!user) return false
+
+  const lc = client as unknown as SupabaseClient
+  // KST 오늘 00:00 → UTC 순간
+  const startUtc = new Date(
+    Math.floor((Date.now() + 9 * 3_600_000) / 86_400_000) * 86_400_000 - 9 * 3_600_000,
+  ).toISOString()
+
+  const { data } = await lc
+    .from('csat_item_attempts')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('item_role', 'practice')
+    .gte('responded_at', startUtc)
+    .limit(1)
+
+  return (data?.length ?? 0) > 0
+})
+
 export const fetchTodayStatus = cache(async (): Promise<TodayStatus | null> => {
   const client = await createClient()
   const {
@@ -71,17 +106,18 @@ export const fetchTodayStatus = cache(async (): Promise<TodayStatus | null> => {
   } = await client.auth.getUser()
   if (!user) return null
 
-  const [prescription, growth, touched] = await Promise.all([
+  const [prescription, growth, touched, dcpDone] = await Promise.all([
     fetchTodayPrescription(),
     fetchGrowthStats(),
     fetchTouchedModulesToday(),
+    fetchDcpDoneToday(),
   ])
 
   // 처방 계산에 실패했으면(`unavailable`) 진행을 0/0 으로 둔다. 폴백값을 "오늘 할 일" 로
   // 표기하면 실패가 정상처럼 보인다(prescription-actions 의 unavailable 주석 참조).
   const progress =
     prescription && prescription.isDiagnosed && !prescription.unavailable
-      ? blockProgress(buildTodayBlocks(prescription, touched))
+      ? blockProgress(buildTodayBlocks(prescription, touched, dcpDone))
       : { done: 0, total: 0 }
 
   return computeTodayStatus({

@@ -70,6 +70,7 @@ export function ActivityTrace({
   return (
     <section
       aria-label="학습 흐름 — 지난 28일"
+      data-design-card=""
       className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
     >
       <header className="flex items-center justify-between gap-3">
