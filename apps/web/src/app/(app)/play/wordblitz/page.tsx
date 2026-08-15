@@ -175,6 +175,8 @@ function WordBlitzRound({
           isCorrect: false,
           module: 'wordblitz',
           assisted: opts?.assisted,
+          // 무엇과 헷갈렸는지 — 컴포저의 `confusion-log` 유형이 이 신호로 짝을 만든다.
+          chosen: opts?.chosen,
         });
       }}
       onRestart={() => {

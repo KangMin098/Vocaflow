@@ -22,8 +22,15 @@ export const RECIPE_VERSION = 3 as const
 // 합성 가능(union/intersect/except)해야 하는 이유: 시중 유형의 절반은 교집합이다.
 // "수능 어휘 중 아직 안 외운 것" · "이 책에 나오는 NGSL 3000" 같은 것이 그것이다.
 
-/** 학습자 상태 — 기지 어휘 차감·약점 추출에 쓴다. */
-export type LearnerState = 'unknown' | 'known' | 'risk' | 'shaky' | 'due'
+/**
+ * 학습자 상태 — 기지 어휘 차감·약점 추출에 쓴다.
+ *
+ * `wrong` 만 성격이 다르다: 나머지는 **일정**(FSRS 다음 복습일)에서 나오지만 `wrong` 은
+ * **실제 채점 결과**(`learning_records.is_correct = false`)에서 나온다. 한때 혼동 세트가
+ * `risk` 를 읽고 있었는데, 그건 "곧 잊을 때가 된 단어" 지 "틀린 단어" 가 아니다 —
+ * 유형이 약속한 것과 데이터가 갈라져 있었다.
+ */
+export type LearnerState = 'unknown' | 'known' | 'risk' | 'shaky' | 'due' | 'wrong'
 
 export type PopulationSpec =
   /** shared_dictionary 전체 (45,688행) */
@@ -201,6 +208,13 @@ export const GROUP_BYS = [
   'cefr',
   'freq_band',
   'confusable',
+  /**
+   * **실제로 헷갈린 짝** — 오답일 때 학습자가 고른 단어와 정답을 한 그룹에.
+   *
+   * `confusable`(철자 이웃)과 다르다: 저쪽은 사전이 만든 함정이고 이쪽은 그 학습자가
+   * 실제로 빠진 함정이다. 근거는 `learning_records.metadata.chosen`.
+   */
+  'confusion_pair',
   'collocation_hub',
   'synonym_cluster',
   'sense',

@@ -1299,7 +1299,7 @@ const U: Blueprint[] = [
     organizing_principle: '이 학습자가 실제로 틀린 짝 — 남의 함정이 아니라 내 함정',
     status: 'data_gate',
     gap_note:
-      'dev 환경 학습 기록이 얕다 (vocabularies hot 4건). 오답 로그가 쌓이면 파라미터 없이 자동 활성',
+      '실오답(learning_records.is_correct=false)을 읽는다 — 전체 331건/183단어이나 학습자 2명에 몰려 있어 임의 계정에서는 후보가 얕다. 짝을 만들려면 `metadata.chosen`(고른 오답)이 필요한데 그 기록은 2026-08-15 부터 쌓이기 시작했다(그 전 기록에는 없다)',
     requires_params: ['user_id'],
     fit_rules: [{ kind: 'min_group_size', n: 2 }],
     weights: W_UNIQUE,
@@ -1314,9 +1314,12 @@ const U: Blueprint[] = [
         subcategory: 'confusion',
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? [],
-        population: { kind: 'learner', user_id: p.user_id ?? '', state: 'risk' },
+        // `risk`(FSRS 복습 예정)가 아니라 실제 오답이다 — 유형이 약속한 것이 그것이다.
+        population: { kind: 'learner', user_id: p.user_id ?? '', state: 'wrong' },
         objective: { kind: 'count', n: p.count ?? 100 },
-        group_by: 'confusable',
+        // 철자 이웃(`confusable`)이 아니라 **기록된 짝**이다. 이웃으로 묶으면 사전이 만든
+        // 함정을 내 함정이라고 부르게 된다 — 실측으로도 오답 119단어 중 4개만 이웃 짝이었다.
+        group_by: 'confusion_pair',
         group_order: 'size_desc',
         order_within: 'alpha',
         facets: ['recognize', 'spell'],

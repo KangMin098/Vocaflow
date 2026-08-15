@@ -634,11 +634,101 @@ async function resolveExamItems(
 
 // ── learner ─────────────────────────────────────────────────────────
 
+/**
+ * 이 학습자가 **실제로 틀린** 단어 — `learning_records.is_correct = false`.
+ *
+ * 왜 따로 있나: 나머지 learner 상태는 `vocabularies.next_review_at`(FSRS 일정)에서 나온다.
+ * 그건 "곧 잊을 때가 됐다" 지 "틀렸다" 가 아니다. 혼동 세트가 그 일정을 읽고 있던 동안,
+ * 유형은 "내가 틀린 짝" 을 약속하면서 실제로는 복습 예정일 순서를 내놓고 있었다.
+ *
+ * 함께 끌어오는 것: `metadata.chosen` — 오답일 때 **대신 고른 단어**. 이것이 있어야
+ * 혼동 "짝" 이 성립한다(없으면 그냥 틀린 단어 목록이다). 기록하는 쪽은
+ * `lib/game/record-result.ts` → `resultToRecordPayload` 이고, 선택지가 있는 모듈만 채운다.
+ *
+ * 정렬은 **틀린 횟수 내림차순**이다 — 한 번 틀린 것과 다섯 번 틀린 것을 같은 무게로
+ * 실으면 이 유형이 파는 "내 함정" 이 흐려진다.
+ */
+async function resolveLearnerWrong(
+  client: SupabaseClient,
+  userId: string,
+): Promise<CandidateWord[]> {
+  const { data, error } = await client
+    .from('learning_records')
+    .select('vocabulary_id, metadata, vocabularies!inner(word)')
+    .eq('user_id', userId)
+    .eq('is_correct', false)
+    .order('attempted_at', { ascending: false })
+    .limit(4000)
+  if (error) throw new Error(`learning_records failed: ${error.message}`)
+
+  type Row = { vocabulary_id: string; metadata: { chosen?: string } | null; vocabularies: { word: string } | { word: string }[] }
+  const wrongCount = new Map<string, number>()
+  /** 표제어 → 그 단어를 틀렸을 때 고른 단어들 (많이 고른 순으로 쓰려고 횟수까지 센다) */
+  const confusedWith = new Map<string, Map<string, number>>()
+
+  for (const row of (data ?? []) as unknown as Row[]) {
+    const v = Array.isArray(row.vocabularies) ? row.vocabularies[0] : row.vocabularies
+    const word = v?.word?.trim().toLowerCase()
+    if (!word) continue
+    wrongCount.set(word, (wrongCount.get(word) ?? 0) + 1)
+    const chosen = row.metadata?.chosen?.trim().toLowerCase()
+    if (chosen && chosen !== word) {
+      const bucket = confusedWith.get(word) ?? new Map<string, number>()
+      bucket.set(chosen, (bucket.get(chosen) ?? 0) + 1)
+      confusedWith.set(word, bucket)
+    }
+  }
+  if (wrongCount.size === 0) return []
+
+  // 고른 오답도 카드로 들어가야 짝이 나란히 놓인다 — 한쪽만 실으면 대조가 성립하지 않는다.
+  const partners = new Set<string>()
+  for (const bucket of confusedWith.values()) for (const w of bucket.keys()) partners.add(w)
+
+  const dict = await hydrate(client, [...new Set([...wrongCount.keys(), ...partners])])
+
+  /**
+   * 짝 키 — 두 단어를 사전순으로 정렬해 만든다. 정답 쪽에서 붙이든 오답 쪽에서 붙이든
+   * 같은 키가 나와야 둘이 한 그룹에 모인다.
+   */
+  const pairKey = (a: string, b: string): string =>
+    `confusion:${[a, b].sort().join('|')}`
+  const keyOf = new Map<string, { key: string; label: string; rank: number }>()
+  for (const [word, bucket] of confusedWith) {
+    // 여러 번 헷갈린 상대를 대표로 — 한 단어가 여러 짝에 속하면 목차가 흐려진다.
+    const [top] = [...bucket.entries()].sort((a, b) => b[1] - a[1])
+    if (!top) continue
+    const [partner, times] = top
+    const g = { key: pairKey(word, partner), label: `${word} ↔ ${partner}`, rank: times }
+    keyOf.set(word, g)
+    if (!keyOf.has(partner)) keyOf.set(partner, g)
+  }
+
+  const withKey = (c: CandidateWord): CandidateWord => {
+    const g = keyOf.get(c.word.toLowerCase())
+    return g ? { ...c, group_keys: [...(c.group_keys ?? []), g] } : c
+  }
+
+  const out: CandidateWord[] = []
+  // 틀린 단어 먼저(횟수 순), 그 뒤 상대 단어 — 개수 예산이 짧아도 짝의 주인공이 남는다.
+  for (const [word] of [...wrongCount.entries()].sort((a, b) => b[1] - a[1])) {
+    const c = dict.get(word)
+    if (c) out.push(withKey(c))
+  }
+  for (const w of partners) {
+    if (wrongCount.has(w)) continue
+    const c = dict.get(w)
+    if (c) out.push(withKey(c))
+  }
+  return out
+}
+
 async function resolveLearner(
   client: SupabaseClient,
   spec: Extract<PopulationSpec, { kind: 'learner' }>,
 ): Promise<CandidateWord[]> {
   if (!spec.user_id) return []
+
+  if (spec.state === 'wrong') return resolveLearnerWrong(client, spec.user_id)
 
   if (spec.state === 'unknown' || spec.state === 'known') {
     const verdict = spec.state === 'known' ? 'known' : 'unknown'

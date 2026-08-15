@@ -33,6 +33,12 @@
   충돌(실측 52건). `blueprint='phrasal-idiom'` 세트의 `phrase_unit` 한 종류만 면제(global·word_set 동시).
   예외가 유형을 안 가리고 번지는 것은 **같은 단어를 유형만 바꿔 넣는 대조 회귀 2건**이 막는다.
   적용 후 `cat-phrasal` 재발행 · global critical FAIL 0
+- **혼동 세트가 오답을 안 보고 있었다** — `confusion-log` 모집단이 FSRS 복습 예정(`next_review_at`)을
+  읽고 있어 "내가 틀린 짝" 이 실은 "곧 잊을 때가 된 단어" 였다. 실오답은 `learning_records` 에
+  331건/183단어로 이미 있었다 → `learner` 모집단에 `state:'wrong'` 추가. 더불어 **고른 오답이 아예
+  기록되지 않고 있었다**(331건 중 0건) — WordBlitz 가 고른 보기를 쥐고도 `onWrong` 에서 버렸다 →
+  `chosen` → `learning_records.metadata` 배선 + 새 `confusion_pair` 목차(철자 이웃이 아니라 기록된 짝).
+  회귀 7건(쓰기 계약 4 + 실 DB 짝 3)
 - 레거시 3 스크립트에 SUPERSEDED 표기(`dict/roots-publish-set` · `dict/topics-publish-set` · `lcp/publish-list-word-set`)
 
 ### EchoMatch 가 새 체크아웃에서 죽어 있었다 — 74MB 복사가 "사람 손" 이었다

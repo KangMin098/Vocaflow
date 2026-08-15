@@ -42,6 +42,15 @@ export interface RecordGameResultInput {
    * letter-forge 는 힌트로 산 정답에 콤보·크레딧을 줬다.
    */
   assisted?: boolean;
+  /**
+   * 오답일 때 학습자가 **대신 고른 단어**. 선택지가 있는 모듈만 채운다.
+   *
+   * 이 값이 없으면 오답 기록은 "무엇을 틀렸나" 로 끝나고, 남는 정보는 난이도뿐이다.
+   * "무엇과 헷갈렸나" 를 알아야 그 학습자의 실제 혼동 짝을 만들 수 있다 — 컴포저의
+   * `confusion-log` 유형이 읽는 신호가 바로 이것이고, 인쇄된 단어장은 원리적으로
+   * 갖지 못한다(오답은 인쇄 뒤에 생긴다).
+   */
+  chosen?: string;
 }
 
 /**
@@ -220,7 +229,7 @@ export async function recordGameResult(
   try {
     const { error: recErr } = await client
       .from('learning_records')
-      .insert(resultToRecordPayload(result, user.id));
+      .insert(resultToRecordPayload(result, user.id, input.chosen));
     if (recErr) return { ok: true, updated: true, promoted }; // audit 실패는 비치명
   } catch {
     return { ok: true, updated: true, promoted };

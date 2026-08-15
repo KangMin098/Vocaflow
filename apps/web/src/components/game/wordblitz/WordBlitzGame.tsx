@@ -128,6 +128,11 @@ import {
  */
 interface ResultOpts {
   assisted?: boolean;
+  /**
+   * 오답일 때 학습자가 대신 고른 단어(영문). 시간 초과면 없다 — 고른 것이 없기 때문이다.
+   * 이 값이 있어야 "무엇과 헷갈렸는지" 가 기록에 남는다(record-result → learning_records.metadata).
+   */
+  chosen?: string;
 }
 
 interface WordBlitzGameProps {
@@ -1345,7 +1350,13 @@ export function WordBlitzGame({
         if (chosen && isNearMiss(chosen, q.target)) sfx.nearMiss();
         else sfx.wrong();
         speak(q.target.en);
-        if (report) onWrong?.(q.target, assisted ? { assisted: true } : undefined);
+        if (report) {
+          const opts: ResultOpts = {};
+          if (assisted) opts.assisted = true;
+          // 시간 초과에는 고른 단어가 없다 — 그때 무언가를 채우면 "헷갈렸다" 가 거짓이 된다.
+          if (chosen && chosen.en !== q.target.en) opts.chosen = chosen.en;
+          onWrong?.(q.target, Object.keys(opts).length > 0 ? opts : undefined);
+        }
         // 세션 내 복구 기회 — 3~5문항 뒤 재출제(단어당 상한은 풀 크기의 함수).
         const queued = lapseCountRef.current.get(q.target.en) ?? 0;
         if (queued < maxLapseRepeats) {

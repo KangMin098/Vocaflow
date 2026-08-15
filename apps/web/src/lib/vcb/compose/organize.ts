@@ -278,6 +278,12 @@ function assign(
       return { key: `freq:${c.frequency_band ?? 'na'}`, label: c.frequency_band ?? '빈도 미정' }
     case 'confusable':
       return confusable.get(c.word.toLowerCase()) ?? { key: `solo:${c.word}`, label: `짝 없음 — ${c.word}` }
+    case 'confusion_pair': {
+      // 해석기(resolveLearnerWrong)가 실제 오답 기록에서 붙여 준 키만 인정한다.
+      // 없으면 '짝 없음' 이고, 그 상태로 그룹을 만들어 주면 "내가 헷갈린 짝" 이 거짓이 된다.
+      const g = (c.group_keys ?? []).find((k) => k.key.startsWith('confusion:'))
+      return g ? { key: g.key, label: g.label, rank: g.rank } : { key: `solo:${c.word}`, label: `짝 기록 없음 — ${c.word}` }
+    }
     case 'collocation_hub': {
       // 연어의 첫 낱말(주로 동사·명사 축)이 허브다 — "make a decision" 의 make.
       const first = c.collocations[0]?.split(/\s+/)[0]?.toLowerCase()
