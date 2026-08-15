@@ -275,6 +275,54 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
     }
   });
 
+  /**
+   * H. 같은 세션을 **두 탭**에서 열어도 한 문항은 한 행이다.
+   *
+   * 클라이언트 ref 잠금은 탭 안에서만 유효하다 — 각 탭의 React 상태는 독립이라
+   * 두 탭이 같은 문항을 각자 제출하면 둘 다 통과한다. 그건 DB 만 막을 수 있고,
+   * 그래서 `uniq_dictation_attempt_item`(session_id, item_idx) 을 걸었다.
+   *
+   * 중복이 남기는 피해는 화면에 안 보인다: 정확도 평균과 FSRS 등급이 조용히 오염된다.
+   */
+  test('H. 두 탭에서 같은 문항을 제출해도 한 행만 남는다', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const ctx = await browser.newContext({ storageState: STATE_PATH });
+    try {
+      const tabA = await ctx.newPage();
+      await startAnySession(tabA);
+      const url = tabA.url();
+
+      // 같은 컨텍스트의 두 번째 탭 — localStorage 는 공유되지만 React 상태는 독립이다
+      const tabB = await ctx.newPage();
+      await tabB.goto(url);
+
+      for (const [page, text] of [
+        [tabA, 'answer from tab A'],
+        [tabB, 'answer from tab B'],
+      ] as const) {
+        const box = page.getByRole('textbox').first();
+        await expect(box).toBeVisible({ timeout: 20_000 });
+        await box.click();
+        await box.fill(text);
+        await page.getByRole('button', { name: '제출' }).click();
+        await expect(page.getByRole('heading', { name: '결과' }).first()).toBeVisible({
+          timeout: 10_000,
+        });
+      }
+
+      await tabA.waitForTimeout(2500);
+      const attempts = await countDictationAttemptsSince(userId as string, sinceIso);
+      expect(
+        attempts,
+        `두 탭이 같은 문항을 내 ${attempts}행이 적재됐다 — 정확도·FSRS 가 그만큼 오염된다`,
+      ).toBe(1);
+    } finally {
+      await ctx.close();
+      if (userId) await deleteDictationSince(userId, sinceIso);
+    }
+  });
+
   test('E. Tab 이 포커스를 옮긴다 (문항을 건너뛰지 않는다)', async ({ browser }) => {
     const userId = await userIdByEmail(TEST_USER.email);
     const sinceIso = new Date(Date.now() - 5_000).toISOString();

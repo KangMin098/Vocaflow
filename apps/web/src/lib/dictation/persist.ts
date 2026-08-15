@@ -213,24 +213,37 @@ export async function saveDictationAttempt(
       data: { user },
     } = await client.auth.getUser()
     if (!user) return
-    await client.from('dictation_attempts').insert({
-      session_id: input.sessionId,
-      user_id: user.id,
-      item_idx: input.itemIdx,
-      expected: input.expected,
-      user_input: input.userInput,
-      accuracy: Math.round(input.accuracy * 100) / 100,
-      hints_used: input.hintsUsed,
-      replay_count: input.replayCount,
-      duration_ms: input.durationMs,
-      skipped: input.skipped,
-      word_results: input.wordResults as unknown as Record<string, unknown>[],
-      error_tags: input.errorTags,
-      target_words: input.targetWords,
-      target_hits: input.targetHits,
-    })
-  } catch {
-    /* 문항 적재 실패는 학습 흐름을 막지 않는다 */
+    // upsert + ignoreDuplicates — `uniq_dictation_attempt_item`(session_id, item_idx) 에
+    // 걸리면 **조용히 넘긴다**. 그게 옳은 동작이다: 같은 문항의 두 번째 적재는 데이터
+    // 오염이지 학습자의 새 시도가 아니다(두 탭에서 같은 세션을 열었을 때 생긴다).
+    // insert 로 두면 여기서 오류가 나고, 그 오류를 삼키면 "왜 안 남았는지" 를 영영 모른다.
+    const { error } = await client.from('dictation_attempts').upsert(
+      {
+        session_id: input.sessionId,
+        user_id: user.id,
+        item_idx: input.itemIdx,
+        expected: input.expected,
+        user_input: input.userInput,
+        accuracy: Math.round(input.accuracy * 100) / 100,
+        hints_used: input.hintsUsed,
+        replay_count: input.replayCount,
+        duration_ms: input.durationMs,
+        skipped: input.skipped,
+        word_results: input.wordResults as unknown as Record<string, unknown>[],
+        error_tags: input.errorTags,
+        target_words: input.targetWords,
+        target_hits: input.targetHits,
+      },
+      { onConflict: 'session_id,item_idx', ignoreDuplicates: true },
+    )
+    // ⚠️ 이 upsert 는 `uniq_dictation_attempt_item` 에 **의존한다**. 그 인덱스가 없으면
+    //    PostgREST 가 onConflict 를 해석하지 못해 **한 행도 안 남는다**(중복보다 나쁘다).
+    //    실측 2026-08-16: 인덱스를 내리고 두 탭 시나리오를 돌리니 적재가 0행이었다.
+    //    그래서 오류를 통째로 삼키지 않고 흔적을 남긴다 — 학습은 계속하되 진단은 가능하게.
+    if (error) console.error('[dictation] attempt 적재 실패:', error.message)
+  } catch (e) {
+    // 학습 흐름은 막지 않는다. 다만 "왜 안 남았는지" 를 영영 모르게 두지도 않는다.
+    console.error('[dictation] attempt 적재 예외:', e instanceof Error ? e.message : e)
   }
 }
 
