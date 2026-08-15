@@ -69,6 +69,7 @@ export function RecentActivity() {
   }
 
   const activities = data?.recentActivities ?? []
+  const groups = groupRuns(activities)
 
   return (
     <section
@@ -98,12 +99,12 @@ export function RecentActivity() {
         className="flex flex-1 items-center gap-2 overflow-x-auto rounded-[var(--r-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="list"
       >
-        {activities.length === 0 ? (
+        {groups.length === 0 ? (
           <li className="font-body text-[12px] text-[var(--t2)]">
             아직 학습 활동이 없어요 · 첫 학습을 시작해보세요
           </li>
         ) : (
-          activities.map((a) => <ActivityChip key={a.id} item={a} />)
+          groups.map((g) => <ActivityChip key={g.head.id} item={g.head} runLength={g.length} />)
         )}
       </ul>
     </section>
@@ -117,7 +118,30 @@ type ActivityItem = NonNullable<
   ReturnType<typeof useHubData>['data']
 >['recentActivities'][number]
 
-function ActivityChip({ item }: { item: ActivityItem }) {
+/**
+ * 연속으로 같은 활동을 접는다.
+ *
+ * ⚠️ 접기 전에는 이 줄이 **정보량 0**이었다: 한 세션에서 같은 모듈을 여러 번 하면
+ * `딕테 X · 11분 전` 이 다섯 칸에 똑같이 찍혔다(2026-08-15 실측 — 다섯 칸 전부 동일).
+ * "최근 5건" 이라는 라벨만 맞고 학습자가 얻는 것은 아무것도 없었다.
+ *
+ * 연속(run)만 접고 재정렬하지 않는 이유: 모듈별로 묶어 버리면 시간 순서가 사라져
+ * "최근" 이라는 이름이 거짓이 된다. 붙어 있는 것만 접는다.
+ */
+function groupRuns(items: readonly ActivityItem[]): { head: ActivityItem; length: number }[] {
+  const runs: { head: ActivityItem; length: number }[] = []
+  for (const item of items) {
+    const last = runs[runs.length - 1]
+    if (last && last.head.module === item.module && last.head.score === item.score) {
+      last.length += 1
+      continue
+    }
+    runs.push({ head: item, length: 1 })
+  }
+  return runs
+}
+
+function ActivityChip({ item, runLength }: { item: ActivityItem; runLength: number }) {
   const color = MODULE_COLOR[item.module] ?? 'var(--t3)'
   // 모듈 별칭 → 레지스트리 이름 → (그래도 없으면) id. 예전에는 마지막 단계가 곧바로
   // 학습자 화면에 슬러그를 뱉었다.
@@ -135,12 +159,14 @@ function ActivityChip({ item }: { item: ActivityItem }) {
     body = ''
   }
 
+  const runLabel = runLength > 1 ? `×${runLength}` : ''
+
   return (
     <li>
       <span
-        title={`${short} · ${item.textTitle} · ${item.relativeTime}`}
+        title={`${short}${runLabel && ` ${runLabel}`} · ${item.textTitle} · ${item.relativeTime}`}
         className="group inline-flex h-7 shrink-0 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5"
-        aria-label={`${short} ${body}, ${item.relativeTime} — ${item.textTitle}`}
+        aria-label={`${short} ${runLength > 1 ? `${runLength}회 ` : ''}${body}, ${item.relativeTime} — ${item.textTitle}`}
       >
         <span
           aria-hidden="true"
@@ -152,6 +178,11 @@ function ActivityChip({ item }: { item: ActivityItem }) {
             시작하면서 처음 렌더돼 드러났다. 다른 모듈 원색도 같은 구조라 잠재 위반이었다.)
             §"색상만으로 정보 전달 금지" 관점에서도 텍스트 라벨이 비색 채널이므로 이쪽이 옳다. */}
         <span className="font-display text-[11px] font-[700] text-[var(--t1)]">{short}</span>
+        {runLabel && (
+          <span className="font-mono text-[10px] font-[700] tabular-nums text-[var(--t2)]">
+            {runLabel}
+          </span>
+        )}
         {body && (
           <span className="font-display text-[11px] font-[600] text-[var(--t1)]">{body}</span>
         )}

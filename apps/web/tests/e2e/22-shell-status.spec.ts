@@ -82,23 +82,67 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
   });
 
   test('C. streak 은 한 화면에 한 번만 나온다', async ({ page }) => {
-    await gotoStable(page, '/hub');
-    await page.waitForTimeout(900); // 클라이언트 페치(useHubData) 도착까지
+    // ⚠️ /dashboard 를 반드시 포함할 것. 이 판정이 /hub 만 돌던 동안 Growth 에는 연속일이
+    // **세 종류**로 떠 있었다(띠 3일 `user_stats.current_streak` · 히어로 3일 ·
+    // 히트맵 0일 minutes 기반 자체 계산). 결함이 있던 화면을 안 보는 회귀는 회귀가 아니다.
+    for (const path of ['/hub', '/dashboard']) {
+      await gotoStable(page, path);
+      await page.waitForTimeout(900); // 클라이언트 페치 도착까지
 
-    // "N일 연속" · "연속 N일" · "Streak" 을 전부 센다 — 표기가 흔들려도 잡히게.
-    const body = (await page.locator('body').innerText()) ?? '';
-    const hits = body.match(/\d+\s*일\s*연속|연속\s*\d+\s*일|Streak/gi) ?? [];
-    expect(hits.length, `streak 표기 ${hits.length}회: ${hits.join(' | ')}`).toBeLessThanOrEqual(1);
+      // "N일 연속" · "연속 N일" · "Streak" 을 전부 센다 — 표기가 흔들려도 잡히게.
+      const body = (await page.locator('body').innerText()) ?? '';
+      const hits = body.match(/\d+\s*일\s*연속|연속\s*\d+\s*일|Streak/gi) ?? [];
+      expect(
+        hits.length,
+        `${path} streak 표기 ${hits.length}회: ${hits.join(' | ')}`,
+      ).toBeLessThanOrEqual(1);
+    }
   });
 
-  test('D. 기억 4색 범례는 Growth 에만 있다', async ({ page }) => {
+  test('D. 기억 4색 범례는 어느 학습 화면에도 없다 (조치는 상태 띠가 소유)', async ({ page }) => {
+    // 이름이 원래 "Growth 에만 있다" 였는데 **Growth 를 확인하지 않았다** — /hub 에 없다는
+    // 것만 봤다. v06.201 에서 Growth 의 `MemoryStatus` 를 제거해(ADR 0006 D2 의 미완 이행)
+    // 4색 범례는 이제 어디에도 없다. 조치 가능 수치(risk+shaky)는 상태 띠 하나가 판다.
+    for (const path of ['/hub', '/dashboard']) {
+      await gotoStable(page, path);
+      await page.waitForTimeout(600);
+      const text = (await page.locator('body').innerText()) ?? '';
+      // 4색 범례의 고유 표지 — 넷이 함께 나오는 것이 범례다
+      const hasLegend =
+        text.includes('안정') &&
+        text.includes('흔들림') &&
+        text.includes('위급') &&
+        text.includes('신규');
+      expect(hasLegend, `${path} 에 기억 4색 범례가 있으면 안 된다`).toBe(false);
+    }
+  });
+
+  test('H. 오늘 진행은 한 화면에 한 정의뿐이다 (띠 = 오늘의 흐름)', async ({ page }) => {
+    // v06.201 회귀. 이전에는 셸 띠가 `오늘 2/3`(자체 4갈래 모델), 바로 아래 무대의
+    // "오늘의 흐름" 이 `0/5`(다른 모델 + 클라이언트 최근활동) 를 동시에 그렸다.
+    // 둘 다 근거는 있었지만 학습자는 무엇을 믿을지 알 수 없었다.
     await gotoStable(page, '/hub');
-    await page.waitForTimeout(600);
-    const hubText = (await page.locator('body').innerText()) ?? '';
-    // 4색 범례의 고유 표지 — 넷이 함께 나오는 것이 범례다
-    const hubHasLegend =
-      hubText.includes('안정') && hubText.includes('흔들림') && hubText.includes('위급') && hubText.includes('신규');
-    expect(hubHasLegend, 'Today 에 기억 4색 범례가 있으면 안 된다').toBe(false);
+    await page.waitForTimeout(900);
+
+    const ribbon = page.locator('[aria-label="오늘 상태"]');
+    const ribbonText = (await ribbon.innerText()) ?? '';
+    const ribbonMatch = ribbonText.match(/(\d+)\s*\/\s*(\d+)/);
+
+    const flow = page.locator('[data-today-flow]');
+    if ((await flow.count()) === 0 || !ribbonMatch) {
+      // 처방이 없는 날(수동계획·미진단)에는 흐름 자체가 없다 — 비교할 것이 없으면 통과.
+      test.skip(true, '오늘 처방 흐름이 렌더되지 않는 상태');
+      return;
+    }
+
+    const flowText = (await flow.innerText()) ?? '';
+    const flowMatch = flowText.match(/(\d+)\s*\/\s*(\d+)/);
+    expect(flowMatch, '오늘의 흐름에 진행 표기가 없다').not.toBeNull();
+
+    expect(
+      `${flowMatch![1]}/${flowMatch![2]}`,
+      `띠 ${ribbonMatch[1]}/${ribbonMatch[2]} 와 흐름 ${flowMatch![1]}/${flowMatch![2]} 가 다르다`,
+    ).toBe(`${ribbonMatch[1]}/${ribbonMatch[2]}`);
   });
 
   test('E. FlowNav 6단계가 사라졌다 (내비 시스템 1개)', async ({ page }) => {

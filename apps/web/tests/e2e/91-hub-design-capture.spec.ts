@@ -222,6 +222,31 @@ async function layoutMetrics(page: Page) {
         0,
         document.documentElement.scrollWidth - document.documentElement.clientWidth,
       ),
+      /**
+       * 넘침을 **일으킨 요소**.
+       *
+       * 넘침 픽셀 수만 보고하면 어디를 고칠지는 눈으로 찾아야 한다 — 실제로 한 라운드를
+       * 엉뚱한 컴포넌트를 고치는 데 썼다(2026-08-15: 막대 트랙을 고쳤는데 범인은 다른 곳).
+       * 뷰포트 오른쪽 경계를 넘는 요소 중 **부모는 안 넘는 것**만 남긴다(자식이 밀어낸
+       * 조상까지 전부 보고하면 목록이 수십 개가 되어 다시 못 읽는다).
+       */
+      overflowCulprits: (() => {
+        const limit = document.documentElement.clientWidth
+        const out: { tag: string; cls: string; right: number; text: string }[] = []
+        for (const el of Array.from(document.querySelectorAll<HTMLElement>('body *'))) {
+          const r = el.getBoundingClientRect()
+          if (r.width === 0 || r.right <= limit + 0.5) continue
+          const p = el.parentElement
+          if (p && p.getBoundingClientRect().right > limit + 0.5) continue // 조상은 결과일 뿐
+          out.push({
+            tag: el.tagName.toLowerCase(),
+            cls: (el.className || '').toString().slice(0, 120),
+            right: Math.round(r.right),
+            text: (el.textContent || '').trim().slice(0, 40),
+          })
+        }
+        return out.slice(0, 6)
+      })(),
     }
   })
 }
@@ -306,6 +331,10 @@ test.describe('허브 디자인 캡처', () => {
         `[metric] ${m.route}/${m.vp} 카드 ${m.cardCount} · ${verdict} · ` +
           `제목줄 ${JSON.stringify(m.titleLines)} · 넘침 ${m.overflowPx}px`,
       )
+      for (const c of m.overflowCulprits) {
+        // eslint-disable-next-line no-console
+        console.log(`  [넘침] <${c.tag}> right=${c.right} "${c.text}" .${c.cls}`)
+      }
     }
   })
 })

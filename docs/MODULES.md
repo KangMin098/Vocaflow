@@ -410,27 +410,45 @@ setup 미리보기는 **실제 조립과 같은 규칙**으로 계산한다(예�
 
 ---
 
-## 9. Dashboard (L7 회고)
+## 9. Growth / Dashboard (L7 회고)
 
-### 목적
-학습 통계 시각화 + 다음 제안. 메타인지 활성화.
+### 목적 (v06.201 재정의)
+"내 기억은 **얼마나 오래 버티나**, 이번 주에 무엇을 **되찾았나**".
+개수(노력의 양)가 아니라 지속 시간(학습의 질)을 회고의 축으로 둔다.
+forward(오늘 할 일·조치)는 `/hub` 와 셸 상태 띠 소관 — 이 화면은 backward 만.
 
 ### 라우트
-- `/dashboard` — page.tsx ('use client') + layout.tsx (metadata server)
+- `/dashboard` — page.tsx (RSC) + layout.tsx
+
+### 데이터 (`lib/learner/`)
+- `growth-math.ts` — **순수**. `RUNGS`(지속 5칸) · `rungFor` · `computeStreak` ·
+  `formatDuration` · `median` + DTO(`Ladder`·`RescuedWords`·`TraceDay`·`Reach`).
+  ⚠️ `server-only`/`react.cache` 금지 — 클라이언트 컴포넌트와 vitest 가 함께 쓴다
+- `memory-horizon.ts` — 조회(`fetchMemoryHorizon`). `vocabularies.stability` +
+  `learning_records` + `shared_dictionary.frequency_rank`
+- `growth-stats.ts` — 셸 공용(기억 4상태 · 28일 · streak 단일 정의)
 
 ### 컴포넌트 (`components/dashboard/`)
-- `StatCard.tsx` — KPI 카드 (5 variant: today/streak/total/accuracy/inline)
-- `WeeklyHeatmap.tsx` — 28일 sparkline + Streak 배지 (v06.22 재설계 · 300px → 120px)
-- `ModuleAccuracyRing.tsx` — 모듈별 도넛 링 4개
-- `ScoreTrendChart.tsx` — 7일 라인 차트
-- `RecentActivity.tsx` — 컴팩트 칩 행 (v06.21 재설계 · ~300px → ~70px)
+- `DurabilityLadder.tsx` — **히어로**. 지속 중앙값 + 5칸 사다리(하루/사흘/한 주/한 달/계절)
+- `RescuedWords.tsx` — 이번 주 다시 만나 맞힌 단어 (실물 단어 5개)
+- `ActivityTrace.tsx` — 28일 흐름(**리뷰 건수** 기준) + 요일 리듬. **분(minutes) 안 그림**
+- `LexicalReach.tsx` — 빈도 밴드 분포 (커버리지 %로 환산하지 않음)
+- `ManageSection.tsx` — 진단·계획·리포트 3카드 (`/manage` 흡수)
+- `RecentActivity.tsx` — 컴팩트 칩 행 (연속 run 접기 `딕테 ×5`)
+- `StatCard.tsx` · `ModuleAccuracyRing.tsx` · `ScoreTrendChart.tsx` — 현재 미사용(다른 화면용)
 
-### 4영역 레이아웃
-1. Header — "📊 학습 현황"
-2. StatCard ×4 — 오늘 학습 / 연속 일수 / 총 단어 / 정확도
-3. WeeklyHeatmap (28일)
-4. AccuracyRing + ScoreTrend 좌우 분할
-5. RecentActivity
+### 레이아웃
+1. Header — 날짜 + 이름 (인사·오늘 진행 없음)
+2. DurabilityLadder (히어로)
+3. RescuedWords + ActivityTrace 2열
+4. LexicalReach
+5. ManageSection
+6. RecentActivity
+
+### 제거된 것
+- `WeeklyHeatmap.tsx` — `total_minutes>0` 을 학습일로 판정해 8일 연속 학습을 "28일 중 1일"로
+  그렸다. `ActivityTrace` 로 대체(파일은 남아 있으나 이 화면에서 미사용)
+- `MemoryStatus`(기억 4상태) — ADR 0006 D2 대로 셸 상태 띠가 소유. 조치 표면 이중화 해소
 
 ---
 

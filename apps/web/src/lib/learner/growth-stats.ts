@@ -15,6 +15,11 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { getMemoryState } from '@/lib/srs/state'
 import { createClient } from '@/lib/supabase/server'
 
+// 연속일 규칙은 순수 모듈이 소유한다 — 클라이언트·테스트가 서버 코드를 끌어오지 않도록.
+import { computeStreak, type ActivityDayDto } from './growth-math'
+
+export { computeStreak, type ActivityDayDto } from './growth-math'
+
 export interface MemoryDistribution {
   stable: number
   shaky: number
@@ -22,15 +27,16 @@ export interface MemoryDistribution {
   fresh: number
 }
 
-/** 직렬화 가능(서버→클라이언트) 활동 1일 — date 는 'YYYY-MM-DD' */
-export interface ActivityDayDto {
-  date: string
-  minutes: number
-  words: number
-}
-
 export interface GrowthStats {
-  /** user_stats.current_streak (없으면 0) */
+  /**
+   * 연속 학습일 — **앱 전체의 단일 정의**.
+   *
+   * ⚠️ `user_stats.current_streak` 을 읽지 않는다. 그 컬럼은 갱신 경로가 불분명해
+   * 실제 활동과 어긋난다(실측 2026-08-15: 8일 연속 활동 중인 계정에 **3** 이 들어 있었다).
+   * 같은 화면에 연속일이 세 종류로 뜬 원인 중 하나였다 — 띠 3일 / 히어로 3일 / 히트맵 0일.
+   * 지금은 `daily_activity` 실적에서 직접 센다. 셸이 어차피 28일치를 이미 읽으므로
+   * 추가 쿼리가 없다.
+   */
   streak: number
   memory: MemoryDistribution
   /** 오늘 포함 최근 28일 — 빈 날은 0으로 채움 (오름차순) */
@@ -53,8 +59,8 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
   const lc = client as unknown as SupabaseClient
   const since = kstDateIso(-27)
 
-  const [{ data: stats }, { data: vocabRows }, { data: activityRows }] = await Promise.all([
-    lc.from('user_stats').select('current_streak').eq('user_id', user.id).maybeSingle(),
+  // `user_stats` 는 더 이상 읽지 않는다 — streak 은 daily_activity 실적에서 센다(computeStreak).
+  const [{ data: vocabRows }, { data: activityRows }] = await Promise.all([
     lc
       .from('vocabularies')
       .select('stability, last_review_at')
@@ -103,9 +109,10 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
   const weekDays = days28.slice(-7).filter((d) => d.minutes > 0 || d.words > 0).length
 
   return {
-    streak: (stats?.current_streak as number | undefined) ?? 0,
+    streak: computeStreak(days28),
     memory,
     days28,
     weekDays,
   }
 })
+
