@@ -11,6 +11,7 @@ import { createClient } from '@/lib/supabase/server'
 import { ScriptsBrowser } from '@/components/library/browse/ScriptsBrowser'
 import { applyArticleCatalogGate } from '@/lib/library/publish-gate'
 import type { PublishedArticle } from '@/lib/articles/types'
+import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 export const metadata = {
   title: '스크립트 — Vocaflow Library',
@@ -47,7 +48,7 @@ export default async function LibraryScriptsPage() {
               <FileText size={16} />
             </span>
             <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              스크립트
+              {MATERIAL_LABEL.article}
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
@@ -55,7 +56,7 @@ export default async function LibraryScriptsPage() {
           </p>
           {articles.length > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label="아티클" value={`${articles.length}편`} />
+              <Capsule label={MATERIAL_LABEL.article} value={`${articles.length}`} />
               {totalWords > 0 && (
                 <Capsule label="단어" value={`${(totalWords / 1000).toFixed(1)}k`} />
               )}

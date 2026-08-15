@@ -14,6 +14,7 @@ import {
   fetchUserSubscriptions,
   type RecommendedSet,
 } from '@/lib/library/vocab/queries'
+import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 export const metadata = {
   title: '공용 단어장 · Vocaflow',
@@ -72,7 +73,7 @@ export default async function LibraryVocabPage() {
               <Layers size={16} />
             </span>
             <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              공용 단어장
+              {MATERIAL_LABEL.word_set}
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
@@ -80,7 +81,7 @@ export default async function LibraryVocabPage() {
           </p>
           {setCount > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label="세트" value={`${setCount}개`} />
+              <Capsule label={MATERIAL_LABEL.word_set} value={`${setCount}`} />
               <Capsule label="단어" value={`${totalWords.toLocaleString()}`} />
               <Capsule label="카테고리" value={`${categoryCount}종`} />
               {subscribedCount > 0 && (

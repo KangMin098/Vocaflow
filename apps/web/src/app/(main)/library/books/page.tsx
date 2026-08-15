@@ -13,6 +13,7 @@ import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroC
 import { comicBookIdsOf, fetchComicCatalog } from '@/lib/comic/catalog';
 import { applyBookCatalogGate } from '@/lib/library/publish-gate';
 import type { PublishedBook } from '@/lib/library/published-book';
+import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 /** 만화 히어로에 노출할 최대 도서 수 (커버 조회 상한과 동일) */
 const HERO_N = 4;
@@ -315,7 +316,7 @@ export default async function LibraryBooksPage() {
               <Library size={16} />
             </span>
             <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              라이브러리
+              {MATERIAL_LABEL.book}
             </h1>
           </div>
           <p className="font-body text-[15px] text-[var(--t2)]">
@@ -323,7 +324,7 @@ export default async function LibraryBooksPage() {
           </p>
           {totalBooks > 0 && (
             <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label="도서" value={`${totalBooks}권`} />
+              <Capsule label={MATERIAL_LABEL.book} value={`${totalBooks}`} />
               <Capsule label="챕터" value={`${totalChapters}`} />
               <Capsule label="단어" value={`${(totalWords / 1000).toFixed(0)}k`} />
               {myCount > 0 && (
