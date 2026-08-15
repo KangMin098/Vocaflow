@@ -32,13 +32,10 @@ const ICON: Record<SurfaceId, LucideIcon> = {
   growth: BarChart3,
 }
 
-/** 표면별 한국어 라벨 — 영문 정식명은 축의 것이고, 탭에는 학습자 말을 쓴다. */
-const LABEL: Record<SurfaceId, string> = {
-  today: '오늘',
-  library: '서재',
-  vault: '내 단어',
-  growth: '성장',
-}
+// 라벨은 `SURFACES[].name`(축 레지스트리)를 그대로 쓴다 — 별도 목록을 두지 않는다.
+//   v06.141 이전에는 여기에 한국어 라벨('오늘'·'서재'·'내 단어'·'성장')을 따로 들고 있었다.
+//   그래서 데스크톱 사이드바는 Today/Growth 인데 모바일 하단 탭은 오늘/성장이라,
+//   같은 표면이 기기에 따라 다른 이름으로 불렸다. 이 파일이 목록을 갖지 않는 이유와 같은 이유다.
 
 /**
  * 현재 경로가 그 표면에 속하는가.
@@ -104,7 +101,7 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
                   // 점은 aria-hidden 이라, 남은 개수는 이름으로 전한다(색·점만으로 알리지 않는다).
                   aria-label={
                     id === 'today' && hasRemaining
-                      ? `${LABEL[id]} — ${total - (status?.done ?? 0)}개 남음`
+                      ? `${surface.name} — ${total - (status?.done ?? 0)}개 남음`
                       : undefined
                   }
                   // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
@@ -125,7 +122,7 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
                   <span
                     className={`font-body text-[11px] leading-none ${active ? 'font-[700]' : 'font-[500]'}`}
                   >
-                    {LABEL[id]}
+                    {surface.name}
                   </span>
                 </Link>
               </li>

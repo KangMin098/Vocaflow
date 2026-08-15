@@ -65,4 +65,29 @@ test.describe('단어장 Studio — 유형 선택 → 채점 → 발행 게이�
 
     expect(fatalErrors(errors), `콘솔 에러: ${fatalErrors(errors).join(' | ')}`).toHaveLength(0)
   })
+
+  // 발행한 것이 어드민에서 **보이는지**는 별개 문제다.
+  //
+  // 실측 2026-08-15: `/admin/vocab/collections` 가 `source_run_id IS NOT NULL` 로만 조회해
+  // Studio·CLI 가 발행한 세트 32개가 통째로 빠져 있었다. 화면은 정상으로 뜨고 목록만 비어 있어
+  // (또는 run 산출물 1건만 떠서) 관리자에게는 "발행이 안 됐다" 로 보인다 — DB 와 학습자 카탈로그
+  // 에는 멀쩡히 있는데도. 목록에 무엇이 실리는지는 화면 단언 없이는 알 수 없다.
+  test('발행 컬렉션 목록에 Studio 산출물이 실린다', async ({ page }) => {
+    test.setTimeout(120_000)
+    const errors = collectConsoleErrors(page)
+
+    await page.goto('/admin/vocab/collections', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('heading', { name: '발행 컬렉션' })).toBeVisible({ timeout: 30_000 })
+
+    // 빈 목록 안내가 남아 있으면 조회가 아무것도 잡지 못한 것이다.
+    await expect(page.getByText('아직 발행된 컬렉션이 없습니다')).toHaveCount(0)
+
+    // 생산자 태그 — Studio 산출물이 최소 1건.
+    await expect(page.getByText('Studio', { exact: true }).first()).toBeVisible()
+
+    // 유형 링크가 함께 떠야 "어느 유형에서 나왔나" 를 되짚을 수 있다.
+    await expect(page.getByRole('link', { name: /^Studio · / }).first()).toBeVisible()
+
+    expect(fatalErrors(errors), `콘솔 에러: ${fatalErrors(errors).join(' | ')}`).toHaveLength(0)
+  })
 })

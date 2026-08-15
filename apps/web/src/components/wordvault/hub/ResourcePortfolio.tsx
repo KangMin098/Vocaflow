@@ -26,6 +26,7 @@ import {
   SegmentControl,
 } from '@/components/ui/ios'
 import type { SegmentItem } from '@/components/ui/ios'
+import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { createClient } from '@/lib/supabase/client'
 
@@ -74,10 +75,12 @@ type Tab = 'books' | 'scripts' | 'sets'
 
 const NF = new Intl.NumberFormat('en-US')
 
+// 라벨 출처 = `MATERIAL_LABEL`. 'scripts' 는 학습자가 넣은 글(script)이므로 Scripts,
+// 라이브러리의 공개 짧은 글(Dispatches)과는 다른 것이다.
 const TAB_META: Record<Tab, { label: string; icon: LucideIcon; color: string }> = {
-  books: { label: '도서', icon: BookOpen, color: 'var(--ios-orange)' },
-  scripts: { label: '스크립트', icon: FileText, color: 'var(--p)' },
-  sets: { label: '단어장', icon: Library, color: 'var(--ios-purple)' },
+  books: { label: MATERIAL_LABEL.book, icon: BookOpen, color: 'var(--ios-orange)' },
+  scripts: { label: MATERIAL_LABEL.script, icon: FileText, color: 'var(--p)' },
+  sets: { label: MATERIAL_LABEL.word_set, icon: Library, color: 'var(--ios-purple)' },
 }
 
 export function ResourcePortfolio() {

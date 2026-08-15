@@ -134,11 +134,14 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     for (const h of heights) expect(h, `탭 높이 ${h}px < 44px`).toBeGreaterThanOrEqual(44);
 
     // 실제로 이동하고, 현재 위치를 색이 아닌 것으로도 알린다(aria-current)
+    // 라벨은 `SURFACES[].name`(축 레지스트리) 과 같아야 한다 — v06.141 에서 하단 탭이
+    // 자체 한국어 목록('서재'·'내 단어'…)을 들고 있던 것을 걷어내고 레지스트리를 쓰게 했다.
+    // 여기서 이름을 다시 적는 이유: 탭이 레지스트리를 **실제로** 읽는지 확인하는 것이 이 단언의 값이다.
     for (const [label, expected] of [
-      ['서재', /\/library/],
-      ['내 단어', /\/wordvault/],
-      ['성장', /\/dashboard/],
-      ['오늘', /\/hub/],
+      ['Library', /\/library/],
+      ['Vault', /\/wordvault/],
+      ['Growth', /\/dashboard/],
+      ['Today', /\/hub/],
     ] as const) {
       await nav.getByRole('link', { name: label }).click();
       await page.waitForURL(expected, { timeout: 20_000 });

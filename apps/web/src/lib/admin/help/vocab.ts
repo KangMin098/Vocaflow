@@ -440,9 +440,14 @@ export const VCB_HELP: HelpRegistry = {
     title: '발행 컬렉션',
     screen: {
       summary:
-        'VCB 로 발행돼 학습자에게 실제로 보이는 공용 단어장 목록.',
-      when: '발행이 제대로 반영됐는지 확인할 때, 또는 어떤 run 에서 나온 단어장인지 되짚을 때.',
+        'VCB 로 발행돼 학습자에게 실제로 보이는 공용 단어장 목록. 생산자 두 종류를 함께 싣는다 — 8-step run 산출물과 단어장 Studio(유형 카탈로그) 산출물.',
+      when: '발행이 제대로 반영됐는지 확인할 때, 또는 어떤 run·어떤 유형에서 나온 단어장인지 되짚을 때.',
       fields: [
+        {
+          label: 'run / Studio 태그',
+          detail:
+            '어느 경로로 만들어졌는지. run 은 8-step 파이프라인(seed→enrich→publish), Studio 는 유형(blueprint)을 골라 조립한 것이다. 고치는 방법이 서로 다르므로 먼저 이것을 본다 — run 산출물은 새 run 을, Studio 산출물은 같은 슬러그로 재조립·재발행한다.',
+        },
         {
           label: '발행됨 / 비공개',
           detail:
@@ -457,6 +462,11 @@ export const VCB_HELP: HelpRegistry = {
           label: 'Run #N',
           detail:
             '이 단어장을 만든 run 상세로 간다. 내용을 고쳐야 하면 그 run 이 아니라 새 run 에서 새 버전을 발행해야 한다.',
+        },
+        {
+          label: 'Studio · <유형>',
+          detail:
+            '그 세트를 만든 유형(blueprint) 이름이고, 누르면 Studio 로 간다. 같은 유형·같은 슬러그로 다시 발행하면 기존 세트를 제자리에서 교체한다(구독은 유지된다).',
         },
       ],
       cautions: [

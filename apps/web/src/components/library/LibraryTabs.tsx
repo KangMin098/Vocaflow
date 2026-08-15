@@ -13,14 +13,16 @@ import { BookOpen, FileText, Layers } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-// ADR 0006 D4 — 라벨을 `axes.ts` NAME_DECISIONS 확정명으로.
-//   "스크립트" 는 내 본문·큐레이션 짧은 글·hub 카드 세 곳을 가리켜 retire 됐다 → **짧은 글**
-//   "공용 단어장" 은 내 단어(Vault)와 갈리지 않아 retire 됐다 → **세트**
+import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+
+// 라벨은 `MATERIAL_LABEL`(단일 출처)에서 가져온다 — 여기서 다시 짓지 않는다.
+//   한글이던 시절 이 탭은 '짧은 글'/'세트' 로, Plan 화면은 '스크립트'/'공용단어장' 으로 갈려 있었다.
+//   같은 것을 두 이름으로 부르면 학습자는 둘을 다른 것으로 배운다.
 // 라우트 URL 은 그대로 둔다(딥링크·북마크 보존). 바뀌는 것은 학습자가 읽는 이름뿐이다.
 const TABS = [
-  { label: '책', href: '/library/books', icon: BookOpen },
-  { label: '짧은 글', href: '/library/scripts', icon: FileText },
-  { label: '세트', href: '/library/vocab', icon: Layers },
+  { label: MATERIAL_LABEL.book, href: '/library/books', icon: BookOpen },
+  { label: MATERIAL_LABEL.article, href: '/library/scripts', icon: FileText },
+  { label: MATERIAL_LABEL.word_set, href: '/library/vocab', icon: Layers },
 ] as const
 
 export function LibraryTabs() {

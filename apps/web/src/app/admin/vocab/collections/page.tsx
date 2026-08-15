@@ -14,7 +14,7 @@ export default async function VcbCollectionsPage() {
       <AdminPageHeader
         icon={Layers}
         title="발행 컬렉션"
-        description="VCB 파이프라인으로 발행된 공용 단어장"
+        description="VCB 가 발행한 공용 단어장 — 8-step run 산출물 + 단어장 Studio 산출물"
         actions={
           <Link
             href="/admin/vocab/runs"
@@ -61,6 +61,12 @@ export default async function VcbCollectionsPage() {
                     </span>
                     <span
                       className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                      style={{ background: 'var(--bg2)', color: 'var(--t2)' }}
+                    >
+                      {c.producer === 'run' ? 'run' : 'Studio'}
+                    </span>
+                    <span
+                      className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
                       style={{
                         background: c.is_published ? 'var(--success-light)' : 'var(--bg2)',
                         color: c.is_published ? 'var(--success)' : 'var(--t3)',
@@ -82,13 +88,23 @@ export default async function VcbCollectionsPage() {
                       </span>
                     )}
                     <span>·</span>
-                    <Link
-                      href={`/admin/vocab/runs/${c.source_run_id}`}
-                      className="font-display underline-offset-2 hover:underline"
-                      style={{ color: 'var(--p)' }}
-                    >
-                      Run #{c.source_run_id}
-                    </Link>
+                    {c.producer === 'run' ? (
+                      <Link
+                        href={`/admin/vocab/runs/${c.source_run_id}`}
+                        className="font-display underline-offset-2 hover:underline"
+                        style={{ color: 'var(--p)' }}
+                      >
+                        Run #{c.source_run_id}
+                      </Link>
+                    ) : (
+                      <Link
+                        href="/admin/vocab/studio"
+                        className="font-display underline-offset-2 hover:underline"
+                        style={{ color: 'var(--p)' }}
+                      >
+                        Studio · {c.blueprint}
+                      </Link>
+                    )}
                   </div>
                 </div>
                 <Link

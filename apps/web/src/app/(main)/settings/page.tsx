@@ -245,11 +245,13 @@ export default function SettingsPage() {
         {/* ── Quick TOC — iOS 캡슐 ── */}
         <nav aria-label="섹션 바로가기" className="mb-6 flex flex-wrap gap-2 px-1">
           {[
-            { href: '#learning', label: '학습 흐름' },
-            { href: '#appearance', label: '외형' },
-            { href: '#audio', label: '음성' },
-            { href: '#notifications', label: '알림' },
-            { href: '#account', label: '계정·데이터' },
+            // 'Reminders' 를 쓴다 — 'Notifications' 는 뱃지·알림음을 연상시키는데
+            // 이 제품은 그걸 금지한다(Calm UI). 이름이 먼저 약속을 어기면 안 된다.
+            { href: '#learning', label: 'Study Flow' },
+            { href: '#appearance', label: 'Appearance' },
+            { href: '#audio', label: 'Voice' },
+            { href: '#notifications', label: 'Reminders' },
+            { href: '#account', label: 'Account & Data' },
           ].map((c) => (
             <a
               key={c.href}

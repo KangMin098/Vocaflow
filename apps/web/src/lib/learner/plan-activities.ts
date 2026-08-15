@@ -74,11 +74,35 @@ export function isActivityAllowed(type: MaterialType, activity: PlanActivity): b
   return activitiesForType(type).includes(activity)
 }
 
+/**
+ * 자료 유형 표시명 — **학습자가 읽는 이름의 단일 출처** (v06.141 영어화).
+ *
+ * ⚠️ 화면에서 이 이름을 다시 짓지 말 것. 한글이던 시절 같은 유형이 화면마다 갈렸다:
+ *   `article` = Plan '스크립트' vs Library '짧은 글' · `word_set` = '공용단어장' vs '단어장' vs '세트'.
+ * 이름을 각자 정하게 두면 영어로도 똑같이 갈린다 (인증 모듈에서 `?next=`/`?returnTo=` 로 겪은 것과 같은 실패).
+ *
+ * 이름의 근거:
+ *   Books      — 큐레이션 장문. `library_books` 와 같은 말을 쓴다.
+ *   Dispatches — arXiv·NASA·NIH·VOA 4피드에서 오는 짧은 글. "현장에서 온 보고"라는 뜻이
+ *                출처의 성격과 정확히 맞고, 사이드바 `Scripts`(읽을 원문) 와 충돌하지 않는다.
+ *                'Articles' 는 평범하고 'Shorts' 는 영상 플랫폼 연상이라 버렸다.
+ *   Decks      — 발행 어휘 세트. ts-fsrs(Anki 계보)를 쓰는 제품에서 통용어이고,
+ *                Vault(내 단어)·Words(사이드바 그룹)와 층위가 분명히 갈린다.
+ *   Scripts    — 학습자가 직접 넣은 글. 사이드바 `My Scripts` 와 같은 말.
+ */
 export const MATERIAL_LABEL: Record<MaterialType, string> = {
-  book: '도서',
-  article: '스크립트',
-  word_set: '공용단어장',
-  script: '내 스크립트',
+  book: 'Books',
+  article: 'Dispatches',
+  word_set: 'Decks',
+  script: 'Scripts',
+}
+
+/** 단수형 — 한 건을 가리킬 때(뱃지·행 레이블). 복수형을 잘라 쓰면 'Dispatche' 가 된다. */
+export const MATERIAL_LABEL_ONE: Record<MaterialType, string> = {
+  book: 'Book',
+  article: 'Dispatch',
+  word_set: 'Deck',
+  script: 'Script',
 }
 
 export interface MaterialRef {
