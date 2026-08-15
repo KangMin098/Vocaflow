@@ -61,7 +61,10 @@ export function VocabSetCard({
   return (
     <article
       id={`set-${set.id}`}
-      className="group relative scroll-mt-24 rounded-[12px] target:ring-2 target:ring-[var(--p)] target:ring-offset-4"
+      // `w-full` — 6열 격자(VocabSetGrid)에 놓이는데 폭 지정이 없으면 칸이 아니라 **내용
+      // 너비로 줄어들고**, 안쪽 표지(aspect-[3/4] w-full)가 그 폭을 따라가 카드가 제각각이
+      // 된다. BookGridCard 에서 같은 결함을 실측으로 잡았다(같은 행 63px vs 150px).
+      className="group relative w-full scroll-mt-24 rounded-[12px] target:ring-2 target:ring-[var(--p)] target:ring-offset-4"
     >
       <button
         type="button"

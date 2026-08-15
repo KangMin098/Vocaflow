@@ -158,9 +158,17 @@ async function settle(page: Page) {
  */
 async function layoutMetrics(page: Page) {
   return page.evaluate(() => {
-    const cards = Array.from(
-      document.querySelectorAll<HTMLElement>('button[aria-label$="상세 보기"]'),
-    )
+    // 카드 루트는 탭마다 다른 aria-label 로 끝난다. 한 탭만 잡는 셀렉터를 쓰면
+    // 나머지 탭이 **조용히 0개**로 나오고, 그걸 "측정했다" 로 착각한다
+    // (실측 2026-08-15: Dispatches·Decks 가 한 라운드 내내 0개였는데 아무도 안 걸렸다).
+    const CARD_SELECTOR = [
+      'button[aria-label$="상세 보기"]', // Books
+      'button[aria-label$="미리보기 열기"]', // Decks
+      '[aria-label$="글 둘러보기"]', // Dispatches
+      'button[aria-label$=" 선택"]', // Decks 캐러셀(측면)
+      'button[aria-label$=" 미리보기"]', // Decks 캐러셀(중앙)
+    ].join(',')
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(CARD_SELECTOR))
 
     // ⚠️ **구역을 섞어 세면 안 된다.** 서가에는 캐러셀(270px 고정폭)·인기 가로줄·전체 격자가
     // 함께 있고, 셋은 원래 크기가 다르다. 전부 한 통에 넣고 "높이 9종" 이라고 읽으면
@@ -171,15 +179,20 @@ async function layoutMetrics(page: Page) {
       let n: Element | null = c
       for (let i = 0; i < 4 && n?.parentElement; i++) {
         n = n.parentElement
-        if (n.querySelectorAll('button[aria-label$="상세 보기"]').length >= 2) return n
+        if (n.querySelectorAll(CARD_SELECTOR).length >= 2) return n
       }
       return c.parentElement ?? document.body
     }
+    // ⚠️ **transform 을 뺀 레이아웃 높이(offsetHeight)로 잰다.**
+    // `getBoundingClientRect()` 는 3D 변형을 포함하는데, 코버플로 캐러셀은 깊이를 주려고
+    // 일부러 카드마다 scale 을 다르게 준다. rect 로 재면 그 **의도된 원근**이 "불균질 1/1"
+    // 로 보고된다(실측 2026-08-15: Decks 119~360px). 우리가 묻는 것은 레이아웃이 균질한가지,
+    // 화면에 몇 픽셀로 보이는가가 아니다.
     const bySection = new Map<Element, number[]>()
     for (const c of cards) {
       const section = containerOf(c)
       const arr = bySection.get(section) ?? []
-      arr.push(Math.round(c.getBoundingClientRect().height))
+      arr.push(c.offsetHeight)
       bySection.set(section, arr)
     }
     const sections = [...bySection.values()]
@@ -281,10 +294,16 @@ test.describe('허브 디자인 캡처', () => {
     // eslint-disable-next-line no-console
     console.log(`[hub-capture] ${captured.length} shots + metrics → ${OUT_DIR}`)
     for (const m of metrics) {
+      // 카드 0개는 "균질하다" 가 아니라 **못 쟀다** 이다. 조용히 넘어가면 그 화면은
+      // 영영 평가되지 않는다 — Dispatches·Decks 가 실제로 그렇게 한 라운드를 통과했다.
+      const verdict =
+        m.cardCount === 0
+          ? '⚠ 카드 0개 — 셀렉터가 이 화면의 카드를 못 잡는다(측정 안 됨)'
+          : `불균질구역 ${m.unevenSections}/${m.sections.length} · ` +
+            `구역 ${m.sections.map((s) => `${s.n}개:${s.heights.join(',')}`).join(' | ')}`
       // eslint-disable-next-line no-console
       console.log(
-        `[metric] ${m.route}/${m.vp} 카드 ${m.cardCount} · 불균질구역 ${m.unevenSections}/${m.sections.length} · ` +
-          `구역 ${m.sections.map((s) => `${s.n}개:${s.heights.join(',')}`).join(' | ')} · ` +
+        `[metric] ${m.route}/${m.vp} 카드 ${m.cardCount} · ${verdict} · ` +
           `제목줄 ${JSON.stringify(m.titleLines)} · 넘침 ${m.overflowPx}px`,
       )
     }
