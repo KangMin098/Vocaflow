@@ -18,7 +18,7 @@
 
 import { expect, test, type Page } from '@playwright/test';
 
-import { loginAsTestUser } from './utils/auth';
+import { ensureAuthState } from './utils/auth';
 
 const STATE_PATH = 'playwright-auth/.auth-dictate-sweep.json';
 
@@ -61,11 +61,10 @@ async function assertTouchTargets(page: Page, where: string) {
 }
 
 test.describe('받아쓰기 전 화면 순회', () => {
+  // 로그인 재사용 — 스펙마다 로그인하면 전체 실행에서 auth rate-limit 에 걸려
+  // beforeAll 이 죽고 그 describe 가 통째로 "did not run" 이 된다.
   test.beforeAll(async ({ browser }) => {
-    const page = await browser.newPage({ storageState: undefined });
-    await loginAsTestUser(page);
-    await page.context().storageState({ path: STATE_PATH });
-    await page.close();
+    await ensureAuthState(browser, STATE_PATH);
   });
   test.use({ storageState: STATE_PATH });
 
@@ -148,6 +147,30 @@ test.describe('받아쓰기 전 화면 순회', () => {
       expect(overflow, `${path}(390): 가로로 ${overflow}px 넘친다`).toBeLessThanOrEqual(1);
 
       await assertTouchTargets(page, `${path}(390)`);
+    }
+  });
+
+  /**
+   * G. 비로그인은 4화면 모두 로그인으로 보내고 **돌아올 곳을 기억한다**.
+   *
+   * 이 경계가 무너지면 남의 학습 이력이 열리는 것이 아니라(그건 RLS 가 막는다)
+   * 빈 화면·엉뚱한 리다이렉트가 되어 학습자가 길을 잃는다. 그리고 이 경계가 참이어야
+   * 화면 문구도 참이 된다 — "로그인 없이 진행한 세션은…" 이라고 적혀 있던 안내는
+   * 로그인한 사람만 닿는 화면에서 **불가능한 상태**를 설명하고 있었다.
+   */
+  test('G. 비로그인 — 4화면이 ?next= 를 보존해 로그인으로 보낸다', async ({ browser }) => {
+    const anon = await browser.newContext({ storageState: undefined });
+    const page = await anon.newPage();
+    try {
+      for (const path of ['/dictate', '/dictate/setup', '/dictate/session', '/dictate/results']) {
+        const res = await page.goto(path);
+        expect(res?.status(), `${path}: 응답 없음`).toBeLessThan(400);
+        await expect(page, `${path}: 로그인으로 보내지 않는다`).toHaveURL(/\/login/);
+        const next = new URL(page.url()).searchParams.get('next');
+        expect(next, `${path}: 돌아올 곳을 안 남겼다`).toBe(path);
+      }
+    } finally {
+      await anon.close();
     }
   });
 

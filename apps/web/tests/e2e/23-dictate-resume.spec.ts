@@ -16,7 +16,7 @@
 
 import { expect, test } from '@playwright/test';
 
-import { loginAsTestUser } from './utils/auth';
+import { ensureAuthState } from './utils/auth';
 import { deleteDictationSince, userIdByEmail } from './utils/db';
 import { TEST_USER } from './fixtures/test-user';
 
@@ -35,11 +35,10 @@ async function assertNotStuck(page: import('@playwright/test').Page) {
 const STATE_PATH = 'playwright-auth/.auth-dictate-resume.json';
 
 test.describe('받아쓰기 세션 URL 직접 열기', () => {
+  // 로그인 재사용 — 스펙마다 로그인하면 전체 실행에서 auth rate-limit 에 걸려
+  // beforeAll 이 죽고 그 describe 가 통째로 "did not run" 이 된다.
   test.beforeAll(async ({ browser }) => {
-    const page = await browser.newPage({ storageState: undefined });
-    await loginAsTestUser(page);
-    await page.context().storageState({ path: STATE_PATH });
-    await page.close();
+    await ensureAuthState(browser, STATE_PATH);
   });
   test.use({ storageState: STATE_PATH });
 

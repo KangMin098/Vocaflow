@@ -14,6 +14,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
   ArrowLeft,
@@ -68,6 +69,10 @@ export function DictationSetupClient() {
   const chapter = Number.isInteger(chapterRaw) && chapterRaw > 0 ? chapterRaw : null
 
   const [source, setSource] = useState<DictationSource | null>(null)
+  // 자료 좌표가 아예 없으면 **불러올 것이 없다** — 허브로 돌아가는 중일 뿐이다.
+  // 그 상태에 "자료를 불러오는 중" 을 띄우면 화면이 거짓말을 하고, 전환이 느린 순간에는
+  // 학습자가 멈춘 화면을 본다(회귀가 이걸 "로딩이 최종 상태" 로 잡았다).
+  const hasSourceParam = !!textId || !!setId || custom
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'missing'>('loading')
   const [starting, setStarting] = useState(false)
   const [startError, setStartError] = useState<string | null>(null)
@@ -191,6 +196,26 @@ export function DictationSetupClient() {
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
   }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, span, router])
+
+  // 좌표 없이 들어온 경우 — 허브로 돌아가는 중이다.
+  // `null` 을 그리지 않는다: 전환이 느리면 **빈 화면**이 되고, 그건 틀린 문구보다 나쁘다.
+  // 무슨 일이 일어나는지 말하고, 전환이 막혀도 손으로 갈 길을 함께 준다.
+  if (!hasSourceParam) {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-3 px-4 py-16 text-center">
+        <p role="status" className="font-body text-[13px] text-[var(--t2)]">
+          받아쓸 자료를 고르는 화면으로 이동하고 있어요
+        </p>
+        <Link
+          href="/dictate"
+          className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+        >
+          받아쓰기 열기
+          <ArrowRight size={14} />
+        </Link>
+      </div>
+    )
+  }
 
   if (loadState === 'loading') {
     return (

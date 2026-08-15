@@ -124,9 +124,13 @@ export function DictationResultsClient() {
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             이 결과를 찾을 수 없어요
           </h2>
+          {/* ⚠️ 여기 있던 문구는 **불가능한 상태**를 설명했다 — "로그인 없이 진행한 세션은
+              기록에 남지 않아요" 였는데, `/dictate/*` 는 보호 라우트라 로그인한 사람만
+              이 화면에 닿는다. 그러면 안내가 자기 사정과 무관해 학습자는 이유를 못 얻는다.
+              실제로 가능한 사유만 적는다. */}
           <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            로그인 없이 진행한 세션은 기록에 남지 않아요. 로그인하면 받아쓴 기록이 기기와
-            무관하게 이어집니다.
+            아직 끝내지 않았거나, 다른 계정에서 진행한 받아쓰기일 수 있어요. 최근 받아쓴
+            기록은 받아쓰기 첫 화면에 그대로 남아 있습니다.
           </p>
         </div>
         <Link
