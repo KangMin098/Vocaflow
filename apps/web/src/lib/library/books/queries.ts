@@ -16,6 +16,7 @@ import type { Database } from '@vocaflow/types'
 
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { setKindOf } from '@/lib/library/vocab/set-kind'
+import type { CoverMeta } from '@/lib/vcb/covers/design'
 
 type DB = Database
 
@@ -142,13 +143,13 @@ export async function fetchBookComposerSets(
   const { data, error } = await supabase
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta',
     )
     .eq('is_published', true)
     .eq('curation_query->>source_book_id', bookId)
 
   if (error) throw error
-  const rows = (data ?? []) as {
+  const rows = (data ?? []) as unknown as {
     id: string
     title: string
     description: string | null
@@ -160,6 +161,8 @@ export async function fetchBookComposerSets(
     subscriber_count: number | null
     created_at: string | null
     curation_query: Record<string, unknown>
+    cover_image_url: string | null
+    cover_image_meta: CoverMeta | null
   }[]
 
   if (rows.length === 0) return []
@@ -193,8 +196,8 @@ export async function fetchBookComposerSets(
         subscriberCount: r.subscriber_count ?? 0,
         createdAt: r.created_at ?? new Date(0).toISOString(),
         kind: setKindOf(blueprint),
-        coverImageUrl: null,
-        coverImageMeta: null,
+        coverImageUrl: r.cover_image_url ?? null,
+        coverImageMeta: r.cover_image_meta ?? null,
         blueprint,
         why: composerSetWhy(blueprint, wordCount, cq),
       }

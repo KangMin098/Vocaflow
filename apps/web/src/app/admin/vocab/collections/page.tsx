@@ -39,15 +39,30 @@ export default async function VcbCollectionsPage() {
                 className="flex items-start gap-4 p-4 rounded-[var(--r-lg)] border"
                 style={{ background: 'var(--bg)', borderColor: 'var(--bd)' }}
               >
-                <div
-                  className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
-                  style={{
-                    background: c.is_published ? 'var(--success-light)' : 'var(--bg3)',
-                    color: c.is_published ? 'var(--success)' : 'var(--t3)',
-                  }}
-                >
-                  {c.is_published ? <CheckCircle2 className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
-                </div>
+                {/*
+                  표지 썸네일 — 관리자가 **학습자가 볼 그림을 그대로** 확인하는 자리.
+                  이게 없으면 표지가 엉뚱해도(검색으로 붙이므로 반드시 생긴다) 어드민에서는
+                  알 수 없고, 학습자 카탈로그를 열어 봐야만 발견된다.
+                  표지가 없는 세트는 종전 상태 아이콘을 그대로 쓴다.
+                */}
+                {c.cover_image_url ? (
+                  <img
+                    src={c.cover_image_url}
+                    alt=""
+                    className="w-10 h-[52px] rounded-[var(--r-sm)] object-cover shrink-0 border"
+                    style={{ borderColor: 'var(--bd)' }}
+                  />
+                ) : (
+                  <div
+                    className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
+                    style={{
+                      background: c.is_published ? 'var(--success-light)' : 'var(--bg3)',
+                      color: c.is_published ? 'var(--success)' : 'var(--t3)',
+                    }}
+                  >
+                    {c.is_published ? <CheckCircle2 className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-display font-semibold text-base" style={{ color: 'var(--t1)' }}>

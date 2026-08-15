@@ -97,6 +97,8 @@ export interface VcbCollectionInfo extends PublishedSetInfo {
   /** 컴포저 산출물이면 blueprint id (유형), run 산출물이면 null */
   blueprint: string | null
   producer: 'run' | 'composer'
+  /** 표지 도판 — 어드민 목록에서 학습자가 볼 것과 같은 그림을 확인한다 */
+  cover_image_url: string | null
 }
 
 export async function fetchVcbCollections(): Promise<VcbCollectionInfo[]> {
@@ -112,10 +114,11 @@ export async function fetchVcbCollections(): Promise<VcbCollectionInfo[]> {
     is_published: boolean
     source_run_id: number | null
     curation_query: { blueprint?: string } | null
+    cover_image_url: string | null
     created_at: string
   }
   const cols =
-    'id, slug, title, category, word_count, is_published, source_run_id, curation_query, created_at'
+    'id, slug, title, category, word_count, is_published, source_run_id, curation_query, created_at, cover_image_url'
 
   // 두 번 나눠 조회한다 — jsonb 키 존재 조건과 컬럼 NOT NULL 조건을 한 `.or()` 로 묶으면
   // PostgREST 문법이 조용히 빗나가 한쪽이 통째로 빠진다(그 사고가 이 함수의 원래 결함이었다).
@@ -152,6 +155,7 @@ export async function fetchVcbCollections(): Promise<VcbCollectionInfo[]> {
       source_run_id: r.source_run_id,
       blueprint,
       producer: r.source_run_id != null ? 'run' : 'composer',
+      cover_image_url: r.cover_image_url ?? null,
       created_at: r.created_at,
     })
   }

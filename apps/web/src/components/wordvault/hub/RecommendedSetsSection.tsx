@@ -29,6 +29,8 @@ interface Recommendation {
   recommendation_type: string
   reason: string
   priority: number
+  /** 표지 도판 — RPC 가 주지 않아 set_id 로 한 번 더 읽어 붙인다 */
+  cover_image_url?: string | null
 }
 
 const TYPE_BADGE: Record<
@@ -88,7 +90,24 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
         'recommend_word_sets_for_user',
         { p_user_id: userId, p_interests: undefined },
       )
-      setRecommendations((recs ?? []) as Recommendation[])
+      const rows = (recs ?? []) as Recommendation[]
+
+      // 표지는 추천 RPC 의 반환 계약에 없다. 계약을 넓히려면 또 마이그레이션이라,
+      // 여기서 set_id 로 한 번 더 읽어 붙인다 (카드 8장 이하 · 쿼리 1회).
+      if (rows.length > 0) {
+        const { data: covers } = await supabase
+          .from('shared_word_sets')
+          .select('id, cover_image_url')
+          .in('id', rows.map((r) => r.set_id))
+        const byId = new Map(
+          ((covers ?? []) as unknown as { id: string; cover_image_url: string | null }[]).map((c) => [
+            c.id,
+            c.cover_image_url,
+          ]),
+        )
+        for (const r of rows) r.cover_image_url = byId.get(r.set_id) ?? null
+      }
+      setRecommendations(rows)
     })()
   }, [])
 
@@ -166,9 +185,23 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
               aria-label={isBook ? `${rec.title} — 도서 라이브러리에서 열기` : `${rec.title} — 라이브러리에서 구독`}
               className="group flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
             >
-              <span className="text-[28px] leading-none" aria-hidden>
-                {rec.cover_emoji ?? '📒'}
-              </span>
+              {/*
+                표지 도판이 있으면 이모지 대신 그림 — 카탈로그에서 본 그 표지를 hub 에서도
+                같은 그림으로 만나야 "아, 그 책" 이 된다. 표면마다 다른 얼굴을 쓰면
+                표지가 기억의 손잡이 노릇을 못 한다. (흑백 처리로 카드 색과 다투지 않게.)
+              */}
+              {rec.cover_image_url ? (
+                <img
+                  src={rec.cover_image_url}
+                  alt=""
+                  loading="lazy"
+                  className="h-[38px] w-[30px] shrink-0 rounded-[3px] border border-[var(--bd)] object-cover [filter:grayscale(0.85)_contrast(1.1)]"
+                />
+              ) : (
+                <span className="text-[28px] leading-none" aria-hidden>
+                  {rec.cover_emoji ?? '📒'}
+                </span>
+              )}
               <div className="min-w-0 flex-1">
                 <div className="mb-0.5 flex items-center gap-1.5">
                   <span
