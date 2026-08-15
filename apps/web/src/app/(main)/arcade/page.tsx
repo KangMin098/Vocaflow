@@ -471,7 +471,10 @@ function GameCard({ game: g, scope, code }: { game: GameEntry; scope: HubScope; 
           </span>
         </div>
         <div className="arc-card-body">
-          <h3 className="arc-name">{g.name}</h3>
+          {/* data-design-title — 격자 안 메타 제목. 계측이 줄 수 균질성을 본다 */}
+          <h3 data-design-title className="arc-name">
+            {g.name}
+          </h3>
           <p className="arc-tag">{g.tagline}</p>
         </div>
         <div className="arc-card-foot">
@@ -533,7 +536,7 @@ function FamilyCard({
           </span>
         </div>
         <div className="arc-card-body">
-          <h3 id={`arc-fam-${f.key}`} className="arc-name">
+          <h3 id={`arc-fam-${f.key}`} data-design-title className="arc-name">
             {f.name}
           </h3>
           <p className="arc-tag">{f.tagline}</p>
