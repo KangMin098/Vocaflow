@@ -169,14 +169,28 @@ export function DictationSessionClient() {
   }, [audio])
 
   // ─── 제출 ───
+  //
+  // ⚠️ `outcome` 만으로는 이중 제출을 못 막는다. `setOutcome` 은 비동기라 같은 tick 에
+  //    두 번 호출되면 **둘 다 통과**한다 — Enter 키를 누르고 있으면 반복 이벤트가 그렇게 들어온다.
+  //    그러면 같은 문항이 두 번 채점되고 `dictation_attempts` 에도 두 행이 남는다.
+  //    렌더 타이밍과 무관한 ref 로 잠근다(문항이 바뀔 때 푼다).
+  const submittedRef = useRef(false)
+  useEffect(() => {
+    submittedRef.current = false
+  }, [currentItem?.index])
+
   const handleSubmit = useCallback(() => {
-    if (!currentItem || outcome) return
+    if (!currentItem || outcome || submittedRef.current) return
     if (userInput.trim().length === 0) return
+    submittedRef.current = true
     const elapsed = Date.now() - itemStartedAtRef.current
     const res = submitAnswer(userInput, elapsed)
     if (res) {
       setOutcome(res)
       audio.stop()
+    } else {
+      // 채점이 안 됐으면 잠금을 되돌린다 — 아니면 이 문항을 영영 제출할 수 없다
+      submittedRef.current = false
     }
   }, [currentItem, outcome, userInput, submitAnswer, audio])
 
@@ -186,6 +200,9 @@ export function DictationSessionClient() {
   }, [audio, next])
 
   const handleSkip = useCallback(() => {
+    // 건너뛰기도 문항 하나를 소모하고 적재한다 — 같은 이유로 한 번만 통과시킨다
+    if (submittedRef.current) return
+    submittedRef.current = true
     audio.stop()
     skip()
   }, [audio, skip])

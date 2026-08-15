@@ -17,7 +17,11 @@
 import { expect, test } from '@playwright/test';
 
 import { ensureAuthState } from './utils/auth';
-import { deleteDictationSince, userIdByEmail } from './utils/db';
+import {
+  countDictationAttemptsSince,
+  deleteDictationSince,
+  userIdByEmail,
+} from './utils/db';
 import { TEST_USER } from './fixtures/test-user';
 
 /** DB 에 존재하지만 이 브라우저 캐시에는 없는 세션 (실제 신고 건) */
@@ -223,6 +227,48 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
         page.getByRole('heading', { name: '결과' }).first(),
         '조합이 끝났는데도 제출되지 않는다 — 과잉 차단',
       ).toBeVisible({ timeout: 10_000 });
+    } finally {
+      await ctx.close();
+      if (userId) await deleteDictationSince(userId, sinceIso);
+    }
+  });
+
+  /**
+   * G. 같은 문항이 두 번 채점되지 않는다.
+   *
+   * `outcome` 상태만으로는 못 막는다 — `setOutcome` 은 비동기라 같은 tick 에 두 번
+   * 호출되면 둘 다 통과한다. **Enter 를 누르고 있으면** 반복 이벤트가 정확히 그렇게 들어오고,
+   * 그러면 한 문항이 두 번 채점되고 `dictation_attempts` 에도 두 행이 남는다
+   * (정확도 평균·FSRS 등급이 그만큼 오염된다).
+   */
+  test('G. Enter 연타로 같은 문항이 두 번 적재되지 않는다', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const ctx = await browser.newContext({ storageState: STATE_PATH });
+    const page = await ctx.newPage();
+    try {
+      await startAnySession(page);
+      const box = page.getByRole('textbox').first();
+      await expect(box).toBeVisible({ timeout: 20_000 });
+      await box.click();
+      await box.fill('some answer text');
+
+      // 같은 tick 에 몰아친다 — 사람이 Enter 를 누르고 있을 때의 반복 이벤트 형태
+      await box.evaluate((el) => {
+        for (let i = 0; i < 5; i += 1) {
+          el.dispatchEvent(
+            new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }),
+          );
+        }
+      });
+      await expect(page.getByRole('heading', { name: '결과' }).first()).toBeVisible({
+        timeout: 10_000,
+      });
+
+      // 적재는 fire-and-forget 이라 잠깐 기다린다
+      await page.waitForTimeout(2500);
+      const attempts = await countDictationAttemptsSince(userId as string, sinceIso);
+      expect(attempts, `Enter 5회로 ${attempts}행이 적재됐다 — 한 문항은 한 행이어야 한다`).toBe(1);
     } finally {
       await ctx.close();
       if (userId) await deleteDictationSince(userId, sinceIso);
