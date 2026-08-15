@@ -490,6 +490,18 @@ const A: Blueprint[] = [
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? ['B2', 'C1'],
         population: { kind: 'list', tags: p.tags ?? ['moel_1.0'], mode: 'any' },
+        filters: {
+          // **분야 어휘는 정의상 일반 최빈출어가 아니다.**
+          //
+          // 분야 목록은 "이 분야 글에 나오는 낱말" 을 담으므로 `be · in · it · up · back ·
+          // down · course · system` 같은 일반어가 섞인다(실측 moel_1.0 466개 중 top1k 38 ·
+          // top2k 30). 그것들이 빈도 상위라 세트 앞자리를 차지하면 "의학 영어" 를 열어
+          // `down · course · small · night` 을 보게 된다.
+          //
+          // top1k·top2k 를 빼면 398개가 남고, 그게 진짜 분야 어휘다 —
+          // `fetus · embryo · anesthesia · ventricle · aorta · tourniquet · windpipe`.
+          freq_bands: ['top3k', 'top5k', 'top10k', 'top15k', 'top20k', 'top25k', 'rare', 'compound'],
+        },
         objective: { kind: 'all' },
         group_by: 'pos',
         group_order: 'size_desc',
@@ -675,12 +687,32 @@ const B: Blueprint[] = [
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? ['A2', 'B1'],
         population: { kind: 'topics', themes: p.themes ?? ['여행'], rollup_level: 2 },
+        // ⚠️ **알려진 한계 — 주제 고유성 신호가 없다.**
+        //
+        // 주제 트리는 "이 장면에서 쓰이는 낱말" 을 담으므로 `round · total · bank · indicate ·
+        // career · handle · block` 같은 범용어가 함께 태그된다. 빈도순으로 뽑으면 그것들이
+        // 앞자리를 차지해 "여행 주제 어휘" 에 `career` 가 보인다.
+        //
+        // 시도한 것과 결과:
+        //   · 최빈출 1,000 제외 → 여행은 크게 좋아졌지만(`taxi · aircraft · immigration ·
+        //     departure · terminal · jet · fare`) **파라미터 스윕이 음식·스포츠 두 주제에서
+        //     암기 장치 열위를 잡았다**. 그 주제의 어휘는 원래 최빈출이고, 연상도 거기 몰려
+        //     있다(실측 top1k 216개 중 165개가 연상 보유 vs 나머지 2,471개 중 167개).
+        //     18개 주제 중 2개를 깨뜨리는 규칙이라 되돌렸다.
+        //   · 주제 폭(몇 개 주제에 걸쳤나) → 갈리지 않았다. `passport` 4개 · `bank` 4개로 같다.
+        //
+        // 제대로 고치려면 **주제 내 중심도**가 필요한데 그 컬럼(`dictionary_word_categories.
+        // rank_in_category`)이 28,079행 전부 NULL 이다. 채우는 것이 선행 과제다.
         filters: { v_level_min: 3 as never, v_level_max: 11 as never },
         objective: { kind: 'count', n: p.count ?? 500 },
         group_by: 'topic',
         group_order: 'size_desc',
         group_cap: p.group_cap ?? 150,
         order_within: 'frequency',
+        // 최빈출 1,000 을 빼면서 **연상을 가진 낱말도 함께 빠졌다** — 파라미터 스윕이
+        // 18개 주제 중 음식·스포츠 두 곳에서 암기 장치 열위를 잡았다(그 주제의 어휘는
+        // 원래 최빈출이다). 남은 풀 안에서 연상 보유를 앞세워 되돌린다.
+        prefer_fields: ['mnemonic_ko'],
         facets: ['recognize', 'use'],
         group_label: 'topic_ko',
       }),
