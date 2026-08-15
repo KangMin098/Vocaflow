@@ -14,8 +14,8 @@
 | topic-field | 주제 정치와 사회 | 300 | 12 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 문화 | 300 | 10 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 외모 | 300 | 12 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 언어 기능 | 300 | 12 | 0.94 | ✅ | ✅ |  |
-| topic-field | 주제 동물 | 300 | 12 | 0.94 | ✅ | ✅ |  |
+| topic-field | 주제 언어 기능 | 300 | 12 | 0.95 | ✅ | ✅ |  |
+| topic-field | 주제 동물 | 300 | 11 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 집과 건물 | 300 | 11 | 0.94 | ✅ | ✅ |  |
 | topic-field | 주제 스포츠 | 300 | 11 | 0.95 | ✅ | ✅ |  |
 | topic-field | 주제 개념 | 300 | 12 | 0.94 | ✅ | ✅ |  |
@@ -36,20 +36,20 @@
 | exam-list | 목록 kcurr2022_0 | 500 | 23 | 0.91 | ✅ | ✅ |  |
 | exam-list | 목록 kcurr2022_1 | 500 | 23 | 0.94 | ✅ | ✅ |  |
 | exam-list | 목록 kcurr2022_2 | 500 | 21 | 0.91 | ✅ | ✅ |  |
-| book-companion | 도서 Fables (143장) | 300 | 72 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Fables (143장) | 300 | 76 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Fables (143장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Fables (143장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Pride and Prejudice (61장) | 300 | 41 | 0.98 | ✅ | ✅ |  |
-| unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
+| book-companion | 도서 Pride and Prejudice (61장) | 300 | 47 | 0.98 | ✅ | ✅ |  |
+| unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Pride and Prejudice (61장) | 80 | 6 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Pinocchio (36장) | 300 | 37 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.98 | ✅ | ✅ |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 49 | 0.98 | ✅ | ✅ |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 42 | 0.98 | ✅ | ✅ |  |
 | unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.98 | ✅ | ✅ |  |
 | book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ |  |
-| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.97 | ✅ | ✅ |  |
+| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.98 | ✅ | ✅ |  |
 | recycle | 재등장 Intro to Sociology (23장) | 80 | 4 | 0.97 | ✅ | ✅ |  |
 | level-band | 레벨 V1-V3 | 400 | 15 | 0.97 | ✅ | ✅ |  |
 | level-band | 레벨 V4-V7 | 400 | 16 | 0.97 | ✅ | ✅ |  |

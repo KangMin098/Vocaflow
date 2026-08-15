@@ -395,7 +395,10 @@ const A: Blueprint[] = [
         objective: { kind: 'all' },
         group_by: 'cefr',
         group_order: 'alpha',
-        order_within: 'v_level',
+        // 챕터가 이미 CEFR 이라 그 안에서 v_level 은 거의 상수다 — 동률이 되면 정렬이
+        // 이름순으로 떨어져 `else · ever · half · hotel · language · laugh` 가 된다(실측).
+        // 교육과정 책은 같은 등급 안에서 **자주 쓰는 것부터** 나오는 게 맞다(순위 보유 91%).
+        order_within: 'frequency',
         facets: ['recognize', 'spell'],
       }),
   },
@@ -635,7 +638,13 @@ const B: Blueprint[] = [
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? ['A2', 'B1', 'B2'],
         population: { kind: 'dictionary' },
-        filters: { primary_pos: ['verb'], freq_bands: ['top1k', 'top2k', 'top3k'] },
+        filters: {
+          primary_pos: ['verb'],
+          freq_bands: ['top1k', 'top2k', 'top3k'],
+          // 한 품사를 약속한 책이라 두 컬럼의 일치를 요구한다 — 안 그러면
+          // `other`(pos=형용사 · primary_pos=동사)가 "동사 핵심 300" 앞자리에 앉는다.
+          require_pos_agreement: true,
+        },
         objective: { kind: 'count', n: p.count ?? 300 },
         group_by: 'v_level',
         group_order: 'v_level',

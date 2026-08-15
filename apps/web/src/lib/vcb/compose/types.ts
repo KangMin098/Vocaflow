@@ -175,6 +175,17 @@ export interface SelectFilters {
    */
   exclude_inflections?: boolean
   /**
+   * 품사가 **두 컬럼에서 일치**할 때만 남긴다 (`pos` 와 `primary_pos`).
+   *
+   * 영어 낱말은 품사가 여럿인 경우가 흔해서 두 컬럼이 서로 다른 뜻을 가리킬 수 있다
+   * (실측 669행 · 1.5% — `part` 명사/동사 · `show` · `light` · `game`). 대개는 둘 다 맞다.
+   *
+   * 문제는 **한 품사만 모으는 유형**이다. 컴포저는 `primary_pos ?? pos` 를 믿는데, 그러면
+   * `other`(pos=형용사 · primary_pos=동사)가 "동사 핵심 300" 1등 근처에 앉는다. 한 품사를
+   * 약속한 책에서 그건 바로 보이는 오류다. 일치를 요구해도 동사 4,040개가 남는다.
+   */
+  require_pos_agreement?: boolean
+  /**
    * 빈도 순위가 있는 항목만 남긴다.
    *
    * "빈출" 을 약속하는 유형에서만 켠다 — 순위가 없으면 무엇이 빈출인지 말할 근거가 없고,

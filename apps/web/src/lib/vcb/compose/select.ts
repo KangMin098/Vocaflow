@@ -180,6 +180,12 @@ export function applyFilters(
         drop(dropped, 'pos_mismatch')
         continue
       }
+      // 한 품사만 모으는 유형은 두 컬럼의 일치를 요구한다 — `other`(형용사/동사)가
+      // "동사 300" 에 들어오는 것을 막는다.
+      if (f.require_pos_agreement && c.pos && c.primary_pos && c.pos !== c.primary_pos) {
+        drop(dropped, 'pos_disagree')
+        continue
+      }
     }
     if (f.min_corpus_freq != null && (c.corpus_freq ?? 0) < f.min_corpus_freq) {
       drop(dropped, 'corpus_freq_below')

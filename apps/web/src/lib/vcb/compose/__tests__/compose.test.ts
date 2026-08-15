@@ -338,10 +338,10 @@ describe('evaluate — 미달 원인이 blocker 로 드러난다', () => {
     // 빈도 상위가 한 그룹에 몰려 있어도, 예산 4개가 두 그룹에 나뉘어야 한다.
     const bp = getBlueprint('pos-focus')!
     const pop = [
-      word('alfa', { primary_pos: 'verb', frequency_rank: 1, v_level: 3 }),
-      word('bravo', { primary_pos: 'verb', frequency_rank: 2, v_level: 3 }),
-      word('charlie', { primary_pos: 'verb', frequency_rank: 3, v_level: 3 }),
-      word('delta', { primary_pos: 'verb', frequency_rank: 900, v_level: 6 }),
+      word('alfa', { pos: 'verb', primary_pos: 'verb', frequency_rank: 1, v_level: 3 }),
+      word('bravo', { pos: 'verb', primary_pos: 'verb', frequency_rank: 2, v_level: 3 }),
+      word('charlie', { pos: 'verb', primary_pos: 'verb', frequency_rank: 3, v_level: 3 }),
+      word('delta', { pos: 'verb', primary_pos: 'verb', frequency_rank: 900, v_level: 6 }),
     ]
     const set = compose(bp.build({ count: 2 }), pop)
     expect(set.groups).toHaveLength(2)
