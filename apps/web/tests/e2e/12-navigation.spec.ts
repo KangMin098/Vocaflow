@@ -25,20 +25,21 @@ const MENU_ROUTES = [
   '/hub',
   '/dashboard',
   '/library',
+  '/text',
   '/comics/adapted',
   '/comics/restored',
-  '/text',
   '/wordvault',
-  '/flashcard',
-  '/wordblitz',
-  '/pairflip',
-  '/spellforge',
+  '/practice',
   '/arcade',
   '/scriptquiz',
   '/dictate',
   '/teacher',
   '/settings',
 ];
+// 2026-08-15 갱신: 셸 재설계(ADR 0006/0007)로 **활동이 최상위에서 내려갔다** —
+// `/flashcard` · `/wordblitz` · `/pairflip` · `/spellforge` 는 메뉴가 아니라 모드가 됐고
+// `/practice` 가 들어왔다. 목록을 손으로 다시 적는 이유는 04-ui-smoke 와 같다:
+// 사이드바가 설정을 **실제로** 읽는지 확인하는 것이 이 단언의 값이다.
 
 /** 진입 라우트 → 첫 탭 리다이렉트 계약 */
 const REDIRECTS: Array<[string, RegExp]> = [
