@@ -374,7 +374,9 @@ export function evaluateMarket(set: ComposedSet): MarketScorecard {
     needsIpa.length === 0
       ? // 전부 구 → 이 요소는 판정 대상이 아니다. 기준선과 같게 두어 승패에 영향을 주지 않는다.
         (COMPETITOR_BY_ID.get(compId)?.profile.pronunciation ?? 1)
-      : ratio(needsIpa.filter((x) => !!x.ipa || !!x.audio_url).length, needsIpa.length)
+      : // `발음 표기` 요소는 지면과 겨루는 항목이므로 **표기(IPA)** 로만 센다.
+        // 재생(TTS)은 지면이 아예 못 하는 것이라 이 요소가 아니라 print_impossible 쪽 이야기다.
+        ratio(needsIpa.filter((x) => !!x.ipa).length, needsIpa.length)
   const morphology = ratio(count((c) => hasField(c, 'morphology')), n)
   const relations = ratio(count((c) => c.synonyms.length > 0 || c.antonyms.length > 0), n)
   const collocation = ratio(count((c) => c.collocations.length > 0), n)

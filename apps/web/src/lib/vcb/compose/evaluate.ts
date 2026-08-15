@@ -281,15 +281,14 @@ function evalFitRule(rule: FitRule, set: ComposedSet): { ok: boolean; detail: st
       }
     }
     case 'audio_playable': {
-      const recorded = entries.filter((e) => hasField(e.candidate, 'audio_url')).length
-      // TTS 는 라틴 문자 표제어만 읽는다 — 사전에 섞인 비라틴 표기는 소리로 낼 수 없다.
-      const speakable = entries.filter((e) => /[a-z]/i.test(e.candidate.word)).length
-      const mute = n - Math.max(recorded, speakable)
+      // 재생 경로는 브라우저 TTS 하나다(대체 경로 없음). 그래서 세는 것은 파일 유무가 아니라
+      // **읽을 수 있는 표제어인가** 다 — 사전에 섞인 비라틴 표기는 영어로 읽히지 않는다.
+      const mute = entries.filter((e) => !hasField(e.candidate, 'speakable')).length
       return {
         ok: mute === 0 && n > 0,
         detail:
           mute === 0
-            ? `재생 가능 ${n}건 (녹음 ${recorded} · TTS 합성 ${n - recorded})`
+            ? `브라우저 TTS 로 전량 재생 가능 (${n}건)`
             : `소리를 낼 수 없는 항목 ${mute}/${n}`,
       }
     }

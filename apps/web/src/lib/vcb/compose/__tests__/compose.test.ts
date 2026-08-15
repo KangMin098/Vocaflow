@@ -104,20 +104,20 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
     expect(v.tier).toBe('full')
   })
 
-  it('Sound 면은 녹음이 없어도 성립한다 — 브라우저 TTS 가 전달 방식이다', () => {
-    // 한때 여기서 강등했다(fallback · 0.7 가중). 그건 "녹음이 정본" 이라는 전제였는데
-    // 제품이 브라우저 TTS 를 전달 방식으로 확정하면서 그 전제가 사라졌다.
-    // 확정된 방식을 계속 결핍으로 세면 오디오 유형이 영원히 감점된 채로 남는다.
-    const v = facetVerdict(word('alpha'), 'sound')
+  it('Sound 면은 녹음도 IPA 도 없이 성립한다 — 재생 경로는 브라우저 TTS 하나다', () => {
+    // 한때 녹음 유무로 강등했고(fallback · 0.7 가중), 그다음엔 IPA 를 요구했다.
+    // 둘 다 "파일이나 표기가 재생을 지탱한다" 는 전제였는데, 재생은 TTS 가 한다.
+    // 확정된 경로를 계속 결핍으로 세면 오디오 유형이 영원히 감점된 채로 남는다.
+    const v = facetVerdict(word('alpha', { ipa: null }), 'sound')
     expect(v.tier).toBe('full')
-    // 다만 **녹음이 없다는 사실**은 숨기지 않는다 — 리포트가 이 문구를 그대로 읽는다.
     expect(v.note).toMatch(/TTS/)
-    expect(v.note).toMatch(/녹음/)
   })
 
-  it('Sound 면은 IPA 도 없으면 아예 불가다', () => {
-    const v = facetVerdict(word('alpha', { ipa: null }), 'sound')
+  it('Sound 면은 소리로 낼 수 없는 표제어에서만 불가다', () => {
+    // TTS 는 라틴 문자를 영어로 읽는다. 사전에 섞인 비라틴 표기는 읽히지 않는다.
+    const v = facetVerdict(word('한글'), 'sound')
     expect(v.tier).toBe('missing')
+    expect(v.missing).toContain('speakable')
   })
 
   it('Build 면은 형태소 정보 중 하나라도 있으면 성립한다', () => {
@@ -126,8 +126,12 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
     expect(facetVerdict(word('alpha', { derived_forms: ['alphas'] }), 'build').tier).toBe('full')
   })
 
-  it('any_of 요구는 필수 필드 목록에 들어가지 않는다 (넣으면 Sound 세트가 전멸한다)', () => {
-    expect(requiredFieldsFor(['sound'])).toEqual([])
+  it('any_of 요구는 필수 필드 목록에 들어가지 않는다 (넣으면 그 면의 세트가 전멸한다)', () => {
+    // Build 면의 요구는 any_of(['morphology']) 하나뿐 — 형태소 커버리지 34.7% 이므로
+    // 이것을 선별 필터로 올리면 어원 계열 세트가 3분의 1로 줄어든다.
+    expect(requiredFieldsFor(['build'])).toEqual([])
+    // Sound 면은 반대로 `all` 요구가 하나 있다 — 소리로 낼 수 없는 표제어는 애초에 빼야 한다.
+    expect(requiredFieldsFor(['sound'])).toEqual(['speakable'])
     // Use 면은 예문이 **그 단어를 담고 있는지**까지 요구한다 (유의어로 쓴 예문 배제)
     expect(requiredFieldsFor(['use'])).toEqual(['example_en', 'example_matches'])
   })

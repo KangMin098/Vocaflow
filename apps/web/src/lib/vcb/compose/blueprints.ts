@@ -52,12 +52,12 @@ export type FitRule =
   /** 그룹 수가 이 값 이상 — 목차가 실제로 갈렸는가 */
   | { kind: 'min_groups'; n: number }
   /**
-   * 모든 항목이 **재생 가능**한가 — 녹음(audio_url) 또는 런타임 TTS 중 하나로.
+   * 모든 항목이 **브라우저 TTS 로 읽히는가**.
    *
    * `all_have_field: audio_url` 이 아닌 이유: 그 규칙은 audio_url 0% 때문에 오디오 유형을
    * "만들 수 없음" 으로 판정했는데, 제품에는 이미 흘려듣기 큐가 있고 그것은 audio_url 을
    * 쓰지 않는다(`components/wordvault/hooks/useListenQueue.ts` → `useSpeech`).
-   * 즉 못 만드는 게 아니라 **녹음본이 없을 뿐**이다. 그 구분을 detail 에 그대로 남긴다.
+   * 재생 경로는 TTS 하나로 확정됐으므로(대체 경로 불필요) 파일 유무는 아예 보지 않는다.
    */
   | { kind: 'audio_playable' }
 
@@ -1156,7 +1156,9 @@ const D: Blueprint[] = [
         order_within: 'frequency',
         pacing: { days: p.days ?? 15, per_day: p.per_day ?? 20 },
         facets: ['sound', 'recognize'],
-        prefer_fields: ['audio_url', 'example_en'],
+        // 녹음 파일은 선호 기준에서도 뺐다 — 경로가 하나뿐이므로 우선할 것이 없다.
+        // 예문이 있으면 단어만 듣는 것보다 낫다(문장 흘려듣기).
+        prefer_fields: ['example_en'],
         card_fields: ['meaning_ko', 'ipa', 'example_en'],
         group_label: 'day_number',
       }),

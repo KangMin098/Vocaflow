@@ -9,9 +9,9 @@
 //
 // 실측 전제 (2026-08-14):
 //   meaning_ko 100% · senses 100% · example_en 92% · ipa 81% · collocations 31%
-//   **audio_url 0% · image_url 0%** → Sound 면의 재생은 **브라우저 TTS** 가 맡는다(제품 결정
-//   2026-08-15). 그래서 녹음 부재는 결핍이 아니라 전달 방식의 선택이고, 등급을 내리지 않는다.
-//   Picture 는 대체 경로가 없어 여전히 결핍이다.
+//   **audio_url 0% · image_url 0%** → Sound 면의 재생은 **브라우저 TTS 하나**다(제품 결정
+//   2026-08-15 · 대체 경로 불필요). 그래서 단어 단위 녹음은 요구도 가산도 아니다.
+//   Picture 는 재생할 방법이 아예 없어 여전히 결핍이다.
 
 import type { FacetId } from '@/lib/framework/axes'
 import { FACETS } from '@/lib/framework/axes'
@@ -44,10 +44,13 @@ export const FACET_REQUIREMENTS: Record<FacetId, FacetRequirement> = {
     why: '후보 없이 쓰게 하려면 단서가 뜻뿐이므로 뜻이 모호하면 성립하지 않는다.',
   },
   sound: {
-    all: [],
-    any_of: [['audio_url', 'ipa']],
-    bonus: ['audio_url'],
-    why: '들려줄 소리가 있어야 한다. 재생은 브라우저 TTS 가 맡고(제품 결정), IPA 는 학습자가 눈으로 확인하는 표기다.',
+    // 재생은 **브라우저 TTS 하나**다(제품 결정 2026-08-15 · 대체 경로 없음).
+    // 그러므로 이 면의 요구는 "그 표제어를 소리로 낼 수 있는가" 이고, 녹음 파일은 요구도
+    // 가산도 아니다 — 목록에 남겨 두면 다음 사람이 "오디오를 고치려면 파일부터" 로 되돌린다.
+    all: ['speakable'],
+    any_of: [],
+    bonus: ['ipa'],
+    why: '재생은 브라우저 TTS 가 맡으므로 표제어가 읽을 수 있는 형태여야 한다. IPA 는 눈으로 확인하는 표기(가산).',
   },
   build: {
     all: [],
@@ -109,6 +112,9 @@ export function hasField(c: CandidateWord, field: RequirableField | 'frequency_b
     }
     case 'ipa':
       return !!c.ipa
+    case 'speakable':
+      // TTS 는 라틴 문자만 영어로 읽는다. 한 글자도 없으면 소리를 낼 수 없다.
+      return /[a-z]/i.test(c.word)
     case 'audio_url':
       return !!c.audio_url
     case 'image_url':
@@ -180,20 +186,12 @@ export function facetVerdict(c: CandidateWord, facet: FacetId): FacetVerdict {
     return { facet, tier: 'missing', missing, note: null }
   }
 
-  if (facet === 'sound' && !hasField(c, 'audio_url')) {
-    // 한때 여기서 tier 를 내렸다(0.7 가중). 그건 "녹음이 정본이고 TTS 는 임시" 라는 전제였는데,
-    // 제품은 **브라우저 TTS 를 전달 방식으로 확정**했다. 확정된 방식을 결핍으로 계속 세면
-    // 그 유형은 영원히 감점된 채로 남는다.
-    //
-    // 그래도 녹음이 없다는 사실 자체는 지운 것이 아니다 — `audio_playable` 적합 규칙이
-    // 채점표에 "녹음 0 · TTS 합성 300" 으로 그대로 적고, note 가 여기서 한 번 더 말한다.
-    // (녹음이 생기면 그건 감점 해소가 아니라 **가산**이다: 오프라인 저장·원어민 억양.)
-    return {
-      facet,
-      tier: 'full',
-      missing: [],
-      note: '브라우저 TTS 로 재생 — 녹음 자산은 없다(있으면 오프라인·원어민 억양이 더해진다)',
-    }
+  if (facet === 'sound') {
+    // 한때 여기서 `audio_url` 유무로 tier 를 내렸다(0.7 가중). 그건 "녹음이 정본이고 TTS 는
+    // 임시" 라는 전제였는데, 제품은 **브라우저 TTS 를 유일한 재생 경로**로 확정했다.
+    // 확정된 방식을 결핍으로 계속 세면 그 유형은 영원히 감점된 채로 남고, 파일 기반 대체
+    // 경로를 다시 만들라는 신호가 된다.
+    return { facet, tier: 'full', missing: [], note: '브라우저 TTS 로 재생' }
   }
 
   return { facet, tier: 'full', missing: [], note: null }
