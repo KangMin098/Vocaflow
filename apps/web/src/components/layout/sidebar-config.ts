@@ -22,12 +22,9 @@ import {
   Home,
   Layers,
   Mic2,
-  Pencil,
   ScanLine,
   ScrollText,
   Settings,
-  Shuffle,
-  Zap,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -114,30 +111,27 @@ export const NAV_GROUPS: NavGroup[] = [
     accent: '#EC4899', // 핑크
     flowStage: 'practice',
     items: [
-      // 정렬 = 인지 깊이 (L4a 시각적 → L4a 자동 → L4a 공간기억+매칭 → L4b 생성)
+      // v06.202 — 도구 4개(Flashcard·WordBlitz·PairFlip·SpellForge)를 `/practice` 하나로 접었다.
+      //
+      // **근거는 `lib/framework/axes.ts` 가 이미 내린 결정이다**:
+      //   > 활동(모드)은 Surface 가 아니다. Flashcard·Game Lab 은 "어떻게 연습하는가" 이므로
+      //   > 콘텐츠를 고른 뒤의 선택지로 내려간다. 별도 활동 탭은 사용률로 정당화되지 않으면
+      //   > 유지된 사례가 없다(Quizlet Gravity 제거 · Duolingo Stories 탭 폐지).
+      //   > 국외 12종: Busuu 3 · Memrise 3 · Babbel 4 · Vocabulary.com 4 · Duolingo 코어 6.
+      //   > 현재 우리는 8 표면 / 14 리프로 그 범위 밖이다.
+      // `SurfaceId` 는 today·library·vault·growth 넷뿐인데 사이드바가 도구 4개를 최상위로 팔았다.
+      //
+      // 실측 근거도 같은 방향이었다: 그 4화면은 각자 다른 고채도 그라디언트 히어로를 갖고
+      // 있어서 한 그룹인데 네 브랜드가 동시에 소리쳤다(+ 이모지 난이도, 상시 설명서, 카드 3중첩).
+      // 통합 진입면은 루브릭 **87점**, 흡수 대상 평균은 77점.
+      //
+      // 라우트는 지우지 않는다 — 딥링크와 기존 회귀 스펙(`18-hub-real-queue` ·
+      // `25-practice-pool` 등)이 그 주소를 쓴다. 사이드바에서만 한 칸으로 접는다.
       {
-        label: 'Flashcard',
-        href: '/flashcard',
+        label: 'Practice',
+        href: '/practice',
         icon: Layers,
-        ariaLabel: '플래시카드 — 시각적 재인',
-      },
-      {
-        label: 'WordBlitz',
-        href: '/wordblitz',
-        icon: Zap,
-        ariaLabel: '워드블리츠 — 속도 자동화',
-      },
-      {
-        label: 'PairFlip',
-        href: '/pairflip',
-        icon: Shuffle,
-        ariaLabel: 'PairFlip — 짝맞추기 카드 게임',
-      },
-      {
-        label: 'SpellForge',
-        href: '/spellforge',
-        icon: Pencil,
-        ariaLabel: '스펠포지 — 철자 생성 인출',
+        ariaLabel: '연습 — 어느 쪽을 연습할지 고르기',
       },
       // Arcade — 게임 스위트(L4a~L5). 이전에는 /hub 의 진입 카드 하나가 유일한 통로라
       // 허브를 스크롤해 내려가지 않으면 존재 자체를 발견할 수 없었다. Practice 상시 노출로 승격.

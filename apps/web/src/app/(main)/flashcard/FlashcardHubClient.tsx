@@ -56,6 +56,8 @@ export function FlashcardHubClient({ queue, streak }: { queue: SessionQueue; str
               : `내 단어 ${queue.vocabTotal}개를 급한 순서로 담았어요`
         }
         gradient={{ from: '#FB7185', to: '#9F1239' }}
+        // PRACTICE 그룹은 조용한 변형 — 형제 4화면이 서로 다른 고채도 면으로 소리치던 것을 멈춘다
+        quiet
         icon={Layers}
         stats={[
           // 라벨을 영어로 바꾸면 단위도 같이 가야 한다 — 'This Session 12장' 은 어느 쪽도 아니다.

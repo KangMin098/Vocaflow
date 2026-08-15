@@ -22,7 +22,12 @@ export const ARCADE_POOL_CAP = 40
 
 export interface DueWordsResult {
   words: Word[]
-  /** 전체 보유 단어 수(상한 이전) — 빈 상태 안내 문구용 */
+  /**
+   * **이 풀의 크기**(= `words.length`, `ARCADE_POOL_CAP` 로 잘린 뒤). 학습자의 보유 단어 총수가
+   * 아니다 — 이전 주석이 "전체 보유 단어 수(상한 이전)" 라고 적혀 있었고, 그 말을 믿은 화면이
+   * 252단어 학습자에게 "내 단어 40개" 라고 말했다(2026-08-15 실측). 총수가 필요하면
+   * `vocabularies` head count 를 따로 센다.
+   */
   total: number
 }
 

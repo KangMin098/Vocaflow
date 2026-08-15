@@ -64,6 +64,8 @@ export function SpellForgeHubClient({
               : '이번 세션은 안정된 단어들이에요 — 손에 익히는 시간'
         }
         gradient={{ from: '#5CB8E0', to: '#3A7FAF' }}
+        // PRACTICE 그룹 — 조용한 변형(형제 일관)
+        quiet
         icon={Keyboard}
         stats={[
           { label: 'This Session', value: sessionSize, unit: 'words', emphasis: true },

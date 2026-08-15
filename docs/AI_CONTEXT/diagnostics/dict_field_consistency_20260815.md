@@ -64,9 +64,27 @@
 | `honesty` | money plant · satin flower |
 | `interpolate` | extrapolate (**반대 개념**) · falsify |
 
-**기계 탐지 하한선**: 유의어 26,188단어 / 98,936항목 중 **3어 이상 항목 2,196개(1,691단어)**.
-단어 하나짜리 오염(`boodle`, `dress`)은 안 잡히므로 실제 규모는 더 크다.
-에이전트 표본에서는 360단어당 약 40건(**11%**).
+**규모 — 최초 추정(11%)은 크게 빗나갔다. 2026-08-16 전수 검토 실측:**
+
+| 구간(등장 도서수 순) | 원본 유의어 | 유지 | **제거율** | 전량 폐기 표제어 |
+|---|---|---|---|---|
+| 청크 00–02 (**최다 노출 단어**) | 2,948 | 545 | **81.5%** | 109 / 360 |
+| 청크 06–08 | 2,479 | 824 | **66.8%** | 72 / 360 |
+
+⚠️ **가장 자주 노출되는 단어일수록 오염이 심하다.** 빈도 상위 구간이 81.5% 다.
+기계 탐지(3어 이상 항목 2,196개)는 하한선일 뿐 — 단어 하나짜리 오염이 대부분이다.
+
+**콘텐츠 안전 사례** (전부 학습자 플래시카드 뒷면에 노출되던 값):
+- `far`(멀리) → 르완다 무장단체 `army for the liberation of rwanda`·`interahamwe` (FAR 약어 충돌)
+- `let`(허락하다) → `lashkar-e-taiba`·`army of the pure` (LeT 약어 충돌)
+- `pot`(냄비) → 대마 은어 10개 전량 · `go` → `ecstasy`·`xtc` · `speed` → `amphetamine` · `glass` → `methamphetamine`
+- `egg`(달걀) → 고환 속어 8개 전량 · `come` → `semen`·`cum` · `head` → oral sex · `breast` → `tit`·`boob`
+- `make` → `urinate`·`piss`·`pee` · `alter` → `castrate` · `clap` → `gonorrhea`
+- `young` → 인명 8개(brigham young·cy young) · `day` → `clarence day` · `hum` → 무장단체 약어
+
+**통짜 오염**(표제어 뜻과 전혀 다른 sense 가 유의어 전량을 차지):
+`sing`(노래하다) → 전부 "밀고하다"(spill the beans·blab) · `bear`(곰) → 전부 동사 "낳다/참다" ·
+`desert`(사막) → 전부 동사 "버리다"
 
 ### ⑤ CEFR 난이도 오배정
 학술 파생 추상명사가 A1/A2 로 매겨져 **초급 학습자 추천 경로에 올라온다**.

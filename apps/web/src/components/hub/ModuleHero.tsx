@@ -30,6 +30,19 @@ export interface ModuleHeroProps {
   note?: string
   tagline?: string
   gradient: { from: string; to: string }
+  /**
+   * `quiet` — 그라디언트를 쓰지 않고 테마 지면(`--bg`)에 하네선으로만 앉는다.
+   *
+   * 왜 필요했나(2026-08-15 실측): PRACTICE 그룹 4화면이 각자 다른 고채도 그라디언트를
+   * 갖고 있었다(핑크·파랑·초록·남색). 사이드바 한 묶음인데 **네 개의 다른 브랜드가 동시에
+   * 소리쳤다.** 18% 화이트 오버레이로 톤다운해도 "서로 다른 네 개" 라는 사실은 안 바뀐다.
+   * 연습 화면은 학습 직전의 대기실이라 자극이 아니라 준비가 필요하다.
+   *
+   * ⚠️ 조용한 대안으로 `--p-dark` 같은 잉크 면을 쓰지 않는다 — 그 토큰은 다크 테마에서
+   * 밝은 파랑으로 뒤집혀 대비가 무너진다(같은 함정을 이미 한 번 밟았다). 테마와 무관하게
+   * 어두운 표면 토큰이 없으므로, 조용한 변형은 **면을 칠하지 않는 쪽**으로 간다.
+   */
+  quiet?: boolean
   icon?: LucideIcon
   stats?: HeroStat[]
   primaryAction?: ReactNode
@@ -42,6 +55,7 @@ export function ModuleHero({
   note,
   tagline,
   gradient,
+  quiet = false,
   icon: Icon,
   stats,
   primaryAction,
@@ -51,12 +65,20 @@ export function ModuleHero({
 
   return (
     <header
-      className="relative overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-3.5"
-      style={{
-        // Calm UI — 18% white overlay 로 모든 caller gradient 자동 톤다운
-        // (9 hub 공통 패턴 1 곳 변경 = 전 페이지 효과)
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)), linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
-      }}
+      className={
+        quiet
+          ? 'relative overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-3.5'
+          : 'relative overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-3.5'
+      }
+      style={
+        quiet
+          ? undefined
+          : {
+              // Calm UI — 18% white overlay 로 모든 caller gradient 자동 톤다운
+              // (9 hub 공통 패턴 1 곳 변경 = 전 페이지 효과)
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)), linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
+            }
+      }
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
         {/* Eyebrow + title 한 줄 (좁은 화면에선 wrap) */}
@@ -113,9 +135,20 @@ export function ModuleHero({
               data-hero-stat={s.label}
               className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight"
             >
+              {/* 라벨 색은 면에 따라 뒤집힌다.
+                  `quiet` 면은 밝은 지면이라 흰 글자를 쓰면 **라벨이 통째로 사라진다** —
+                  실제로 그렇게 냈다(2026-08-15 PairFlip: "730점 ×4 1회" 만 남고
+                  Best·최고 콤보·게임 이 안 보였다). 값은 상속된 `text-*` 를 쓰므로 무사했고,
+                  라벨만 죽어서 **숫자가 무엇의 숫자인지 알 수 없는** 상태가 됐다. */}
               <span
                 className={`text-[11px] font-[700] ${
-                  s.emphasis ? 'text-white' : 'text-white/75'
+                  quiet
+                    ? s.emphasis
+                      ? 'text-[var(--t1)]'
+                      : 'text-[var(--t2)]'
+                    : s.emphasis
+                      ? 'text-white'
+                      : 'text-white/75'
                 }`}
               >
                 {s.label}

@@ -10,7 +10,7 @@
 
 'use client'
 
-import { Activity, Layers, Shuffle, Sparkles } from 'lucide-react'
+import { Activity, ChevronRight, Layers, Shuffle, Sparkles } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -18,6 +18,8 @@ import { ModuleHero } from '@/components/hub/ModuleHero'
 
 import { STORAGE_KEYS } from './constants'
 import { PairFlipLevelSelector } from './PairFlipLevelSelector'
+import { GamePoolPanel } from '@/components/hub/GamePoolPanel'
+
 import { PairFlipMascot } from './PairFlipMascot'
 import { PairFlipModeSelector } from './PairFlipModeSelector'
 import { PF_COLORS } from './theme'
@@ -40,7 +42,23 @@ const LEARNING_EFFECTS = [
   { ko: '작업 기억', en: 'Working Memory — 동시 다중 매칭' },
 ]
 
-export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }) {
+/**
+ * 한 판이 성립하는 최소 단어 수 = 가장 쉬운 난이도의 pairCount(`constants.ts` Easy = 4).
+ * 허브가 더 낮게 잡으면 "시작" 을 눌러도 판이 안 만들어진다.
+ */
+const MIN_PAIRS = 4
+
+export function PairFlipHub({
+  stats = STATS_ZERO,
+  poolWords = [],
+  ownedTotal = 0,
+}: {
+  stats?: PairFlipHubStats
+  /** 게임이 실제로 쓸 짝 후보(`fetchDuePairs`) — 허브가 따로 세지 않는다 */
+  poolWords?: { en: string; ko: string }[]
+  /** 학습자 보유 단어 총수. 위 풀은 `PAIRFLIP_MAX_PAIRS` 로 잘려 있어 총수가 아니다 */
+  ownedTotal?: number
+}) {
   const router = useRouter()
   const [level, setLevel] = useState<PairFlipLevel>('normal')
   const [mode, setMode] = useState<PairFlipMode>('word_meaning')
@@ -68,6 +86,8 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
         title="PairFlip"
         note={note}
         gradient={{ from: '#1E3A8A', to: '#1E1B4B' }}
+        // PRACTICE 그룹 — 조용한 변형(형제 일관)
+        quiet
         icon={Shuffle}
         stats={[
           {
@@ -88,8 +108,26 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
         ]}
       />
 
-      {/* ── 2. 학습 효과 + 게임 규칙 ── */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      {/* ── 2. 이번 판 단어 ──
+          설명서보다 먼저 온다. 이 화면에서 학습자가 먼저 알아야 하는 것은 규칙이 아니라
+          **무엇으로 노는가** 다(WordBlitz 와 같은 판단 · 형제 일관성). */}
+      <GamePoolPanel words={poolWords} ownedTotal={ownedTotal} minWords={MIN_PAIRS} />
+
+      {/* ── 3. 설명은 접어 둔다 (WordBlitz 와 같은 판단 · 형제 일관) ──
+          "학습 효과 + 게임 규칙" 이 화면의 30% 를 상시 차지했다. 처음 한 번은 유용하지만
+          매번 보는 것이 되면 설명이 아니라 소음이다. 연습 화면에서 먼저 와야 하는 것은
+          무엇으로 노는가(위 풀)와 시작이다. `<details>` — JS 없이 · 기본 접힘 · SR 지원. */}
+      <details className="group">
+        <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[var(--r-sm)] py-1.5 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
+          <ChevronRight
+            size={13}
+            aria-hidden
+            className="shrink-0 transition-transform duration-[var(--dur-normal)] group-open:rotate-90"
+          />
+          이 게임이 뭘 하는지
+        </summary>
+
+        <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* 학습 효과 */}
         <aside
           aria-label="학습 효과"
@@ -165,7 +203,8 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
             <PairFlipMascot mood="idle" size={64} />
           </div>
         </aside>
-      </div>
+        </div>
+      </details>
 
       {/* ── 3. 시작 설정 — Level + Mode + CTA ── */}
       <section
