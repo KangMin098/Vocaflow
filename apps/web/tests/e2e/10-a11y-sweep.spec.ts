@@ -69,20 +69,23 @@ const CASES = [
  * 아래는 2026-08-14 완전 측정(72/72 성공)값. **줄이는 방향으로만** 갱신할 것.
  */
 const TOUCH_BASELINE: Record<string, number> = {
-  '/library/vocab': 18,
   '/plan': 8,
-  '/diagnostic': 7,
-  '/library/books': 5,
-  '/library': 5,
-  '/flashcard': 4,
-  '/spellforge': 4,
+  // 3D 코버플로의 **옆 카드**들 — 원근 축소로 폭이 8~38px 이 된다. 44px 로 키우면 코버플로
+  // 자체가 성립하지 않는다(가운데 카드가 크고 옆이 작은 것이 이 UI 의 전부다). 가운데 카드는
+  // 270px 이고 점 인디케이터가 44px 히트영역으로 같은 이동을 제공하므로, **대체 경로가 있는
+  // 의도된 예외**로 남긴다. 없애려면 코버플로를 버리는 결정이 먼저다.
+  '/library': 3,
+  '/library/books': 3,
+  '/library/vocab': 3,
   '/text/new': 3,
-  '/dictate': 3,
-  '/dictate/setup': 3,
   '/text': 3,
   '/pairflip': 2,
   '/wordvault': 1,
   '/library/scripts': 1,
+  // 이번 회차에 0 이 된 화면(항목을 지웠으므로 되살아나면 즉시 잡힌다):
+  //   /diagnostic 7 → 0 (안내 4종 32px · 레벨 안내 20px · 기록 보기 18px · 시작 34px)
+  //   /flashcard·/spellforge 각 4 → 0 (HubStartCard 공유 칩 30px — 세 허브가 함께 해소)
+  //   /dictate·/dictate/setup 각 3 → 0 · /library/vocab 18 → 3 (점 6x6 · 카테고리 칩 32px)
   // 17회차에 0 으로 만든 화면 — 항목을 지우면 기본값 0 이라 되살아나는 즉시 잡힌다.
   //   `/settings` 18 → 0 : `Toggle` 래퍼가 52x32 였다(주석은 "44×44 보장" 이라고 적혀 있었다)
   //                        + Segment 87x30 + 계정 버튼 2종
@@ -234,7 +237,9 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
 
     const findings: Finding[] = [];
     /** 20초 안에 DOM 이 멎지 않은 측정 — 값이 재현되지 않으므로 단언에서 뺀다(리포트에는 남긴다) */
-    const unstable: string[] = [];
+    const unstable: string[] = []
+    /** `/login` 으로 튕긴 측정 — 세션이 죽은 것이다. 그 화면의 값이 아니므로 전부 무효 */
+    const loggedOut: string[] = [];
     const consoleErrors: string[] = [];
     page.on('console', (m) => {
       if (m.type() === 'error') consoleErrors.push(m.text().slice(0, 160));
@@ -291,7 +296,19 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
             )
             .then(() => true)
             .catch(() => false); // 20초 안에 안 멎으면 그 측정은 **믿지 않는다**(아래에서 판정 제외)
-          if (!stabilized) unstable.push(`${route}[${c.name}]`);
+          if (!stabilized) unstable.push(`${route}[${c.name}]`)
+
+          // ── 로그인 화면을 재고 있지는 않은가 ──
+          // 검증 계정은 워크스페이스의 **모든 세션이 공유**한다. 다른 세션의 인증 스펙이
+          // 로그아웃하면 이쪽 컨텍스트의 세션도 함께 죽고, 그 뒤 모든 라우트가 `/login` 으로
+          // 리다이렉트된다. 그래도 측정은 "성공" 하므로 **로그인 페이지의 컨트롤이
+          // 그 화면의 위반으로 보고된다**(실측: `/hub`·`/dashboard`·`/reports` 등 8화면에
+          // `비밀번호 보기 28x28` 이 새 위반으로 잡혔다 — 그 화면엔 그런 버튼이 없다).
+          // 값이 틀린 것보다 나쁜 것은 **틀린 줄 모르는 것**이라, 여기서 걸러 낸다.
+          if (/\/login(\?|$)/.test(page.url())) {
+            loggedOut.push(`${route}[${c.name}]`)
+            unstable.push(`${route}[${c.name}]`)
+          };
         } catch {
           findings.push({ route, case: c.name, overflowPx: -1, consoleErrors: ['NAVIGATION_FAILED'], smallTargets: [], namelessControls: 0, forwardPaths: -1, actionButtons: -1, shellPaths: -1 });
           continue;
@@ -368,7 +385,14 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
     console.log(
       `[sweep] 안정화 ${trusted.length}/${findings.length} 측정` +
         (unstable.length ? ` · 미안정(판정 제외): ${unstable.join(', ')}` : ''),
-    );
+    )
+    if (loggedOut.length > 0) {
+      console.log(
+        `[sweep] ⚠️ 세션이 죽어 /login 을 잰 측정 ${loggedOut.length}건 — **이 실행의 값은 믿지 말 것**.` +
+          ` 검증 계정을 다른 세션이 함께 쓰면 그쪽 로그아웃이 이쪽 세션을 죽인다.` +
+          ` 해당 라우트: ${loggedOut.slice(0, 8).join(', ')}${loggedOut.length > 8 ? ' …' : ''}`,
+      )
+    };
     console.log('');
 
     // ── 흐름 연속성 리포트 ──

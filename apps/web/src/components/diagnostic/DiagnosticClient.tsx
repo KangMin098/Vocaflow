@@ -318,16 +318,18 @@ export function DiagnosticClient() {
       return
     }
 
-    const rpcName =
+    // ⚠️ rpc() 인자는 반드시 문자열 리터럴로 둘 것 (변수로 넘기지 말 것).
+    //   RPC 권한 감사는 코드에서 호출되는 함수 이름을 정적으로 모아 "아무도 안 부르는데
+    //   anon 에 열린 함수" 를 찾아낸다. 예전엔 여기가 `rpc(rpcName)` 이라 그 수집에서
+    //   빠졌고, 하마터면 진단 3종의 EXECUTE 를 회수해 이 흐름을 조용히 죽일 뻔했다.
+    //   회귀 락: src/lib/auth/__tests__/rpc-call-sites.test.ts
+    const p = { p_result_id: insertData.id }
+    const { data: applyData, error: applyErr } =
       selectedTest.test_type === 'track'
-        ? 'analyze_and_apply_track_diagnostic_result'
+        ? await supabase.rpc('analyze_and_apply_track_diagnostic_result', p)
         : selectedTest.test_type === 'comprehensive'
-          ? 'analyze_and_apply_comprehensive_diagnostic_result'
-          : 'analyze_and_apply_diagnostic_result'
-
-    const { data: applyData, error: applyErr } = await supabase.rpc(rpcName, {
-      p_result_id: insertData.id,
-    })
+          ? await supabase.rpc('analyze_and_apply_comprehensive_diagnostic_result', p)
+          : await supabase.rpc('analyze_and_apply_diagnostic_result', p)
 
     if (applyErr) {
       setError(applyErr.message)
@@ -462,13 +464,15 @@ export function DiagnosticClient() {
           <button
             onClick={() => setInfoTest(t)}
             aria-label={`${goal} 안내`}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            // 44px 하한 — 실측 32x32 (목표 4종 전부). 아이콘(16px)은 그대로, 히트영역만 키운다.
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <Info size={16} />
           </button>
           <button
             onClick={() => void startTest(t)}
-            className="group inline-flex shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-3.5 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            // 44px 하한 — 실측 69x34. 진단 목록의 **시작 버튼**이라 가장 자주 눌린다.
+            className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-3.5 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             시작
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -499,7 +503,8 @@ export function DiagnosticClient() {
               <button
                 onClick={() => setLevelGuideOpen(true)}
                 aria-label="레벨 안내 보기"
-                className="inline-flex h-5 w-5 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--p)]"
+                // 44px 하한 — 실측 20x20. 아이콘(13px)은 그대로 두고 히트영역만 키운다.
+                className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--p)]"
               >
                 <Info size={13} aria-hidden />
               </button>
@@ -507,7 +512,8 @@ export function DiagnosticClient() {
             </span>
             <button
               onClick={() => router.push('/diagnostic/history')}
-              className="font-display text-[12px] font-[600] text-[var(--p)] hover:underline"
+              // 44px 하한 — 실측 50x18. 글자 크기는 유지하고 세로 여백으로 채운다.
+              className="inline-flex min-h-[44px] items-center px-2 font-display text-[12px] font-[600] text-[var(--p)] hover:underline"
             >
               기록 보기
             </button>

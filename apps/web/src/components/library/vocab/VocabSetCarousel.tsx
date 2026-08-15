@@ -198,7 +198,8 @@ export function VocabSetCarousel({
               role="tab"
               aria-selected={isActive}
               onClick={() => selectCategory(c.id)}
-              className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all ${
+              // 44px 하한 — 실측 32px 였다(카테고리 칩 7종 전부).
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all ${
                 isActive ? 'text-white shadow-[var(--sh-sm)]' : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
               }`}
               style={isActive ? { backgroundColor: cc.accent } : undefined}
@@ -297,7 +298,8 @@ export function VocabSetCarousel({
             <button
               type="button"
               onClick={() => void openDetail(activeSet)}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              // 44px 하한 — 실측 80x38
+              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               <Eye size={14} aria-hidden /> 상세
             </button>
@@ -305,7 +307,8 @@ export function VocabSetCarousel({
               type="button"
               onClick={() => onToggle(activeSet)}
               disabled={pendingId === activeSet.id}
-              className={`inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
+              // 44px 하한 — 실측 156x36. 이 화면의 **주 행동**이라 가장 먼저 지켜야 한다.
+              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
                 subscribedIds.has(activeSet.id)
                   ? 'border border-[var(--success)]/30 bg-[var(--success-light)] text-[#065f46]'
                   : 'text-white'
@@ -330,9 +333,17 @@ export function VocabSetCarousel({
         </div>
       )}
 
-      {/* Dot indicator */}
+      {/* Dot indicator
+          점은 작아야 하지만 손가락 타겟은 44px 이어야 한다(CLAUDE.md 절대 금지 항목).
+          버튼을 44px 히트영역으로 두고 **안쪽 span 만** 점으로 그린다 — 실측 6x6 이었다.
+          `overflow-x-auto` + `shrink-0` 은 한 쌍이다: 세트가 늘면 44px×N 이 뷰포트를 넘고,
+          축소를 허용하면 다시 44px 아래로 눌린다(LibraryGrid 에서 실제로 두 번 다 겪었다). */}
       {items.length > 1 && (
-        <div role="tablist" aria-label="단어장 선택" className="flex items-center gap-2">
+        <div
+          role="tablist"
+          aria-label="단어장 선택"
+          className="flex max-w-full items-center gap-2 overflow-x-auto px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {items.map((s, idx) => (
             <button
               key={s.id}
@@ -341,12 +352,18 @@ export function VocabSetCarousel({
               aria-selected={idx === active}
               aria-label={`${idx + 1} / ${items.length}: ${s.title}`}
               onClick={() => setActive(idx)}
-              className="h-1.5 rounded-full transition-all"
-              style={{
-                width: idx === active ? '24px' : '6px',
-                backgroundColor: idx === active ? color.accent : 'var(--t4)',
-              }}
-            />
+              className="flex h-11 w-11 shrink-0 items-center justify-center"
+            >
+              <span
+                aria-hidden
+                className="h-1.5 rounded-full transition-all"
+                style={{
+                  width: idx === active ? '24px' : '6px',
+                  backgroundColor: idx === active ? color.accent : 'var(--t4)',
+                  display: 'block',
+                }}
+              />
+            </button>
           ))}
         </div>
       )}

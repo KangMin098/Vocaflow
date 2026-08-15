@@ -114,7 +114,9 @@ export function HubStartCard({
                     role="radio"
                     aria-checked={active}
                     onClick={() => c.onChange(opt.value)}
-                    className={`rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+                    // 44px 하한 — 실측 30px(`10장`·`20장`·`전체 50장`). 이 컴포넌트는
+                    // Flashcard·SpellForge·ScriptQuiz 허브가 공유하므로 한 곳이 세 화면을 정한다.
+                    className={`inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
                       active
                         ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
                         : 'text-[var(--t2)] hover:text-[var(--t1)]'

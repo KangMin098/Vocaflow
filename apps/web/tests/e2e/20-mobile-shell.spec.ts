@@ -14,6 +14,8 @@
 
 import { test, expect, type Page } from '@playwright/test';
 
+import { SURFACES, SURFACE_ORDER } from '../../src/lib/framework/axes';
+
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
@@ -23,8 +25,15 @@ const STATE_PATH = 'playwright-auth/.auth-mobile-shell.json';
 const MOBILE = { width: 390, height: 844 };
 const DESKTOP = { width: 1280, height: 900 };
 
-/** 하단 탭 — 표면 레지스트리(`lib/framework/axes`)의 4개와 1:1 */
-const TAB_LABELS = ['오늘', '서재', '내 단어', '성장'];
+/**
+ * 하단 탭 — 표면 레지스트리(`lib/framework/axes`)의 4개와 1:1.
+ *
+ * ⚠️ 라벨을 여기에 손으로 적지 않는다. 초판이 한국어('오늘'·'서재'…)를 하드코딩했고,
+ * v06.141 에서 탭이 `SURFACES[].name`(영문 정식명)을 읽도록 바뀌자 **제품이 아니라
+ * 이 스펙이 깨졌다**. 레지스트리에서 가져오면 이름이 바뀌어도 따라가고, 동시에
+ * "탭이 정말 레지스트리를 읽는가" 를 검사하는 장치가 된다(04-ui-smoke 와 같은 규약).
+ */
+const TAB_LABELS = SURFACE_ORDER.map((id) => SURFACES[id].name);
 
 async function login(page: Page) {
   for (let i = 1; i <= 2; i++) {
@@ -106,7 +115,10 @@ test.describe('모바일 전역 셸 (하단 탭)', () => {
     }
 
     // 현재 위치를 색만으로 알리지 않는다 → aria-current 로도 말한다
-    await expect(tabbar.getByRole('link', { name: '오늘' })).toHaveAttribute('aria-current', 'page');
+    await expect(tabbar.getByRole('link', { name: SURFACES.today.name })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
   });
 
   test('B. 데스크톱에는 없다 (사이드바가 같은 일을 한다)', async ({ page }) => {
