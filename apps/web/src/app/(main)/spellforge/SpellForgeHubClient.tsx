@@ -66,10 +66,10 @@ export function SpellForgeHubClient({
         gradient={{ from: '#5CB8E0', to: '#3A7FAF' }}
         icon={Keyboard}
         stats={[
-          { label: '이번 세션', value: sessionSize, unit: '단어', emphasis: true },
-          { label: '복습 지남', value: overdue, unit: '개' },
+          { label: 'This Session', value: sessionSize, unit: 'words', emphasis: true },
+          { label: 'Overdue', value: overdue, unit: 'due' },
           // 기록이 없으면 0 을 넣지 않는다 — '—' 가 "아직 안 해봤다" 를 정확히 말한다
-          { label: '최고', value: best ?? '—', unit: best == null ? '' : '점' },
+          { label: 'Best', value: best ?? '—', unit: best == null ? '' : 'pts' },
         ]}
       />
 

@@ -39,6 +39,30 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 자동 skip 된다 — 가드를 고쳤으면 `DEV_ADMIN_BYPASS=0 NEXT_DIST_DIR=.next-nobypass npx next dev -p 3100`
 로 띄우고 `DEV_ADMIN_BYPASS=0 PLAYWRIGHT_BASE_URL=http://localhost:3100` 로 재실행해 확인할 것.
 
+## 학습자가 읽는 이름 — 화면에서 짓지 말 것 (v06.141)
+
+메뉴·탭·활동 이름은 **영어**다. 이름을 정하는 곳은 두 군데뿐이고, 화면은 거기서 import 한다.
+
+| 파일 | 소유하는 이름 |
+|---|---|
+| `lib/framework/axes.ts` | 표면(`SURFACES[].name` = Today·Library·Vault·Growth) · 축(Facet·Stage) |
+| `lib/learner/plan-activities.ts` | 자료 유형(`MATERIAL_LABEL`) · 활동(`PLAN_ACTIVITIES[].label`) · 요일 · 출처 |
+
+**자료 유형 4종** — `Books` / `Dispatches`(arXiv·NASA·NIH·VOA 짧은 글) / `Decks`(발행 단어장) / `Scripts`(학습자가 넣은 글).
+⚠️ `scripts` 라는 키가 화면마다 다른 것을 가리킨다: Library 탭에서는 **공개 짧은 글**(`article`=Dispatches),
+Dictation·Vault 탭에서는 **내가 넣은 글**(`script`=Scripts). 라벨을 손으로 적으면 이 둘이 같은 이름이 된다.
+
+**왜 모아 뒀나**: 한글이던 시절 같은 유형이 화면마다 갈려 있었다 — `article` 이 Plan 에서는 '스크립트',
+Library 에서는 '짧은 글' · `word_set` 이 '공용단어장'/'단어장'/'세트' 셋. 모바일 하단 탭은 자체 한국어
+목록을 들고 있어서 같은 표면이 데스크톱 `Today` · 모바일 `오늘` 이었다. **이름을 각자 정하게 두면
+영어로도 똑같이 갈린다.**
+
+**한글로 남기는 것**: 본문·빈 상태·안내 문구·에러 메시지·스크린리더 `aria-label`.
+학습 중 읽는 문장이라 영어화가 인지 부하를 올린다(§학습원칙6 Cognitive Load). 이름과 문장은 다르게 취급한다.
+
+회귀: `tests/e2e/04-ui-smoke.spec.ts` 하단 탭 단언이 `SURFACES[].name` 과 같은 문자열을 쓴다 —
+탭이 레지스트리를 실제로 읽는지 확인하는 장치다.
+
 ### 개발 전용 admin 우회 (로그인 없이 /admin)
 
 `lib/auth/dev-bypass.ts` 의 `devAdminBypass()` 를 위 3층 진입부에서 호출. `apps/web/.env.local` 에 `DEV_ADMIN_BYPASS=1` + `DEV_ADMIN_USER_ID=<admin uuid>` 설정 시 합성 admin 으로 통과. **프로덕션 무효** — `NODE_ENV==='production'` 이면 코드가 무조건 `null` 반환(하드 게이트). 끄려면 플래그 삭제 후 dev 서버 재시작. (`.env.local` 은 git 추적 안 됨.)

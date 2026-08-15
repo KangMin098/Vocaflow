@@ -301,9 +301,9 @@ export default function SettingsPage() {
               <Segment
                 value={activeRecallDelay}
                 options={[
-                  { value: 'short', label: '짧게 (1.5초)' },
-                  { value: 'normal', label: '보통 (3초)' },
-                  { value: 'long', label: '길게 (5초)' },
+                  { value: 'short', label: 'Short (1.5s)' },
+                  { value: 'normal', label: 'Normal (3s)' },
+                  { value: 'long', label: 'Long (5s)' },
                 ]}
                 onChange={setActiveRecallDelay}
                 ariaLabel="능동적 회상 대기 시간"
@@ -327,9 +327,9 @@ export default function SettingsPage() {
               <Segment
                 value={theme}
                 options={[
-                  { value: 'light', label: '라이트', icon: Sun },
-                  { value: 'dark', label: '다크', icon: Moon },
-                  { value: 'system', label: '시스템', icon: Sparkles },
+                  { value: 'light', label: 'Light', icon: Sun },
+                  { value: 'dark', label: 'Dark', icon: Moon },
+                  { value: 'system', label: 'System', icon: Sparkles },
                 ]}
                 onChange={setTheme}
                 ariaLabel="테마"

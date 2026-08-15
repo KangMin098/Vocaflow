@@ -22,26 +22,29 @@ interface Mode {
   group: GroupKey
 }
 
+// 알약은 한 줄에 12개가 늘어서므로 **짧은 쪽**을 고른다 — 모듈 정식명(SpellForge)이 아니라
+// 그 활동을 가리키는 한 단어. `Game Lab` 은 이미 짧아 그대로 둔다.
+// PLAN_ACTIVITIES 와 같은 활동을 가리키는 항목은 같은 말을 쓴다(Listen·Read·Words·Flashcard…).
 const MODES: Mode[] = [
-  { key: 'listen', label: '듣기', group: 'input' },
-  { key: 'read', label: '읽기', group: 'input' },
-  { key: 'comic', label: '만화', group: 'input' },
-  { key: 'shadow', label: '따라읽기', group: 'input' },
-  { key: 'words', label: '단어', group: 'study' },
-  { key: 'flashcard', label: '카드', group: 'study' },
-  { key: 'spellforge', label: '스펠', group: 'practice' },
-  { key: 'wordblitz', label: '블리츠', group: 'practice' },
+  { key: 'listen', label: 'Listen', group: 'input' },
+  { key: 'read', label: 'Read', group: 'input' },
+  { key: 'comic', label: 'Comic', group: 'input' },
+  { key: 'shadow', label: 'Shadow', group: 'input' },
+  { key: 'words', label: 'Words', group: 'study' },
+  { key: 'flashcard', label: 'Cards', group: 'study' },
+  { key: 'spellforge', label: 'Spell', group: 'practice' },
+  { key: 'wordblitz', label: 'Blitz', group: 'practice' },
   // ADR 0006 D1 — 사이드바를 4표면으로 줄이려면 7 모듈 전부가 여기서 열려야 한다.
-  { key: 'pairflip', label: '짝맞추기', group: 'practice' },
+  { key: 'pairflip', label: 'Pairs', group: 'practice' },
   { key: 'arcade', label: 'Game Lab', group: 'practice' },
-  { key: 'quiz', label: '퀴즈', group: 'practice' },
-  { key: 'dictation', label: '받아쓰기', group: 'practice' },
+  { key: 'quiz', label: 'Quiz', group: 'practice' },
+  { key: 'dictation', label: 'Dictate', group: 'practice' },
 ]
 
 const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string }[] = [
-  { key: 'input', label: '본문', color: '#8B5CF6', colorLight: '#F5F3FF' },
-  { key: 'study', label: '단어 학습', color: '#6366F1', colorLight: '#EEF2FF' },
-  { key: 'practice', label: '연습', color: '#EC4899', colorLight: '#FDF2F8' },
+  { key: 'input', label: 'Text', color: '#8B5CF6', colorLight: '#F5F3FF' },
+  { key: 'study', label: 'Vocabulary', color: '#6366F1', colorLight: '#EEF2FF' },
+  { key: 'practice', label: 'Practice', color: '#EC4899', colorLight: '#FDF2F8' },
 ]
 
 // 워크스페이스 본문 모드가 아니라 각 학습 모듈로 이동하는 pill.

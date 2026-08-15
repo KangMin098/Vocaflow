@@ -28,12 +28,15 @@ interface RatingConfig {
   className: string
 }
 
+// 간격반복 자기평가 5단. Again/Hard/Easy 는 SRS 에서 통용되는 말이라 학습자가 다른 앱에서
+// 이미 만났을 가능성이 높다 — 굳이 새 말을 만들지 않는다. 3단은 Again~Hard 사이라 Fair.
+// srs 는 다음 복습까지의 간격 힌트다(버튼 아래 작은 글씨).
 const RATINGS: RatingConfig[] = [
-  { rate: 1, label: '다시', srs: '10분 후', className: 'rate-1' },
-  { rate: 2, label: '어려움', srs: '1일 후', className: 'rate-2' },
-  { rate: 3, label: '애매', srs: '3일 후', className: 'rate-3' },
-  { rate: 4, label: '쉬움', srs: '7일 후', className: 'rate-4' },
-  { rate: 5, label: '완벽', srs: '14일 후', className: 'rate-5' },
+  { rate: 1, label: 'Again', srs: '10 min', className: 'rate-1' },
+  { rate: 2, label: 'Hard', srs: '1 day', className: 'rate-2' },
+  { rate: 3, label: 'Fair', srs: '3 days', className: 'rate-3' },
+  { rate: 4, label: 'Easy', srs: '7 days', className: 'rate-4' },
+  { rate: 5, label: 'Perfect', srs: '14 days', className: 'rate-5' },
 ]
 
 export function StudyMode({ words, onExit }: StudyModeProps) {

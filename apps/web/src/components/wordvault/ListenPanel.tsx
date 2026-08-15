@@ -64,15 +64,15 @@ export interface ListenPanelProps {
 }
 
 const CONTENT_OPTS: { value: ListenContent; label: string }[] = [
-  { value: 'word', label: '영어만' },
-  { value: 'word-example', label: '영어+예문' },
+  { value: 'word', label: 'Word only' },
+  { value: 'word-example', label: 'Word + example' },
 ]
 const SPEED_OPTS: ListenSpeed[] = [0.75, 1.0, 1.25, 1.5]
 const GAP_OPTS: ListenGap[] = [0.5, 1.0, 2.0]
 const REPEAT_OPTS: { value: ListenRepeat; label: string }[] = [
-  { value: 1, label: '1회' },
-  { value: 2, label: '2회' },
-  { value: 999, label: '무한' },
+  { value: 1, label: '1x' },
+  { value: 2, label: '2x' },
+  { value: 999, label: 'Loop' },
 ]
 
 export function ListenPanel({

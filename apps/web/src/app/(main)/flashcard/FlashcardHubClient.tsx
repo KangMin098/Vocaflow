@@ -58,9 +58,10 @@ export function FlashcardHubClient({ queue, streak }: { queue: SessionQueue; str
         gradient={{ from: '#FB7185', to: '#9F1239' }}
         icon={Layers}
         stats={[
-          { label: '이번 세션', value: sessionSize, unit: '장', emphasis: true },
-          { label: '복습 지남', value: overdue, unit: '개' },
-          { label: '연속', value: streak, unit: '일' },
+          // 라벨을 영어로 바꾸면 단위도 같이 가야 한다 — 'This Session 12장' 은 어느 쪽도 아니다.
+          { label: 'This Session', value: sessionSize, unit: 'cards', emphasis: true },
+          { label: 'Overdue', value: overdue, unit: 'due' },
+          { label: 'Streak', value: streak, unit: 'days' },
         ]}
       />
 

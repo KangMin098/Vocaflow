@@ -36,16 +36,21 @@ export interface ActivityDef {
  * "아이콘=활동" 연상이 화면 어디서나 성립해야 한다.
  */
 export const PLAN_ACTIVITIES: ActivityDef[] = [
-  { id: 'listen', label: '듣기', layer: 'L0 입력', icon: 'Headphones' },
-  { id: 'read', label: '읽기', layer: 'L1 독해', icon: 'BookOpen' },
-  { id: 'echo', label: '따라하기', layer: 'L4c 청각생성', icon: 'Mic2' },
-  { id: 'vocab', label: '단어', layer: 'L3 노출', icon: 'WholeWord' },
-  { id: 'flashcard', label: 'Flashcard', layer: 'L4a 재인', icon: 'Layers' },
-  { id: 'wordblitz', label: 'WordBlitz', layer: 'L4a 자동화', icon: 'Zap' },
-  { id: 'pairflip', label: 'PairFlip', layer: 'L4a 공간기억', icon: 'Grid2x2' },
-  { id: 'spellforge', label: 'SpellForge', layer: 'L4b 시각생성', icon: 'Hammer' },
-  { id: 'scriptquiz', label: 'ScriptQuiz', layer: 'L5 정복', icon: 'HelpCircle' },
-  { id: 'dictation', label: 'Dictation', layer: 'L6 완성', icon: 'PencilLine' },
+  // v06.141 — 앞의 넷만 한글('듣기'·'읽기'·'따라하기'·'단어')이고 나머지 여섯은 모듈 브랜드명이라
+  // 한 줄에 두 언어가 섞여 있었다. 활동 칩은 늘 한 줄로 나열되므로 그 섞임이 그대로 보인다.
+  //   Echo — 모듈명 EchoMatch 의 축약. '따라하기'가 가리키던 그 활동이다.
+  //   Words — 어휘 노출 단계. 사이드바 그룹 `Words` 와 같은 말을 쓴다.
+  // layer 는 인지 계층 표기(L0~L6)이고 화면에 칩으로 뜬다 — 코드는 두고 설명만 영어로.
+  { id: 'listen', label: 'Listen', layer: 'L0 Input', icon: 'Headphones' },
+  { id: 'read', label: 'Read', layer: 'L1 Reading', icon: 'BookOpen' },
+  { id: 'echo', label: 'Echo', layer: 'L4c Voice', icon: 'Mic2' },
+  { id: 'vocab', label: 'Words', layer: 'L3 Exposure', icon: 'WholeWord' },
+  { id: 'flashcard', label: 'Flashcard', layer: 'L4a Recognition', icon: 'Layers' },
+  { id: 'wordblitz', label: 'WordBlitz', layer: 'L4a Automation', icon: 'Zap' },
+  { id: 'pairflip', label: 'PairFlip', layer: 'L4a Spatial', icon: 'Grid2x2' },
+  { id: 'spellforge', label: 'SpellForge', layer: 'L4b Spelling', icon: 'Hammer' },
+  { id: 'scriptquiz', label: 'ScriptQuiz', layer: 'L5 Mastery', icon: 'HelpCircle' },
+  { id: 'dictation', label: 'Dictation', layer: 'L6 Completion', icon: 'PencilLine' },
 ]
 
 export const ACTIVITY_BY_ID: Record<PlanActivity, ActivityDef> = PLAN_ACTIVITIES.reduce(
@@ -205,18 +210,18 @@ export function isActivityScoped(type: MaterialType, activity: PlanActivity): bo
 
 // ── 학습 요일 (study_plan_items.weekdays) ──
 
-/** 요일 — ISO 1=월 .. 7=일 */
+/** 요일 — ISO 1=Mon .. 7=Sun. 요일 칩은 7개가 한 줄에 붙으므로 3글자 축약을 쓴다. */
 export const WEEKDAYS: { value: number; label: string }[] = [
-  { value: 1, label: '월' },
-  { value: 2, label: '화' },
-  { value: 3, label: '수' },
-  { value: 4, label: '목' },
-  { value: 5, label: '금' },
-  { value: 6, label: '토' },
-  { value: 7, label: '일' },
+  { value: 1, label: 'Mon' },
+  { value: 2, label: 'Tue' },
+  { value: 3, label: 'Wed' },
+  { value: 4, label: 'Thu' },
+  { value: 5, label: 'Fri' },
+  { value: 6, label: 'Sat' },
+  { value: 7, label: 'Sun' },
 ]
 
-/** 요일 단축 라벨 (월·화·…) — value 1=월..7=일 */
+/** 요일 단축 라벨 (Mon·Tue·…) — value 1=Mon..7=Sun */
 export function weekdayLabel(value: number): string {
   return WEEKDAYS.find((d) => d.value === value)?.label ?? String(value)
 }
@@ -230,15 +235,15 @@ export const ARTICLE_SOURCE_LABEL: Record<string, string> = {
   simple_wikipedia: 'Simple Wikipedia',
   wikinews: 'Wikinews',
   the_conversation: 'The Conversation',
-  // texts.source (내 스크립트 origin)
-  library: '도서에서',
-  'direct-script': '직접 입력',
-  'direct-file': '파일 업로드',
-  'shared-set': '공유 세트',
+  // texts.source (내 스크립트 origin) — 출처 레일의 항목명이라 피드 이름(VOA·NASA…)과 한 줄에 선다.
+  library: 'From a Book',
+  'direct-script': 'Typed In',
+  'direct-file': 'File Upload',
+  'shared-set': 'Shared Deck',
 }
 
 export function articleSourceLabel(source: string | null | undefined): string {
-  if (!source) return '기타'
+  if (!source) return 'Other'
   return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/[_-]/g, ' ')
 }
 

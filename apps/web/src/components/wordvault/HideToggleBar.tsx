@@ -22,9 +22,10 @@ interface ToggleConfig {
   shortcut: string
 }
 
+// 단축키(H·M)가 라벨 첫 글자와 맞물린다 — Hide word / Meaning. 한글일 때는 없던 연결이다.
 const HIDE_TOGGLES: ToggleConfig[] = [
-  { type: 'word', label: '영단어 숨김', shortcut: 'H' },
-  { type: 'meaning', label: '뜻 숨김', shortcut: 'M' },
+  { type: 'word', label: 'Hide Word', shortcut: 'H' },
+  { type: 'meaning', label: 'Hide Meaning', shortcut: 'M' },
 ]
 
 export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {

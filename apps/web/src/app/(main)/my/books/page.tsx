@@ -453,13 +453,14 @@ function ChapterDot({
   const tone = (() => {
     switch (status) {
       case 'completed':
-        return { bg: 'var(--learn-known)', label: '완료' };
+        return { bg: 'var(--learn-known)', label: 'Done' };
       case 'in_progress':
-        return { bg: 'var(--p)', label: '학습 중' };
+        return { bg: 'var(--p)', label: 'Reading' };
       case 'not_started':
-        return { bg: 'var(--t4)', label: '미시작' };
+        return { bg: 'var(--t4)', label: 'Not Started' };
       default:
-        return { bg: 'var(--bg3)', label: '미등록' };
+        // '미등록' = 내 서재에 담지 않은 챕터. 'Not Started'(담았지만 안 연 것)와 다르다.
+        return { bg: 'var(--bg3)', label: 'Not Added' };
     }
   })();
   const isLive = status === 'in_progress';
