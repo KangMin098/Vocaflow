@@ -187,6 +187,83 @@ export function ScorecardPanel({
         </div>
       ) : null}
 
+      {/* 시중 베스트 대비 */}
+      {preview.market ? (
+        <div
+          className="rounded-[var(--r-lg)] border p-4"
+          style={{
+            background: 'var(--bg)',
+            borderColor: preview.market.all_at_or_above ? 'var(--success)' : 'var(--warning)',
+          }}
+        >
+          <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
+            <p className="font-display text-sm font-semibold m-0" style={{ color: 'var(--t1)' }}>
+              시중 베스트와 비교 — {preview.market.competitor_title}
+            </p>
+            <span
+              className="font-display text-xs font-semibold"
+              style={{
+                color: preview.market.all_at_or_above ? 'var(--success)' : 'var(--warning)',
+              }}
+            >
+              {preview.market.all_above
+                ? '전 요소 우위 (남은 동률은 상한)'
+                : preview.market.all_at_or_above
+                  ? '전 요소 이상'
+                  : `열위 ${preview.market.losing.length}개`}
+            </span>
+          </div>
+          <p className="font-body text-[11px] m-0 mb-3" style={{ color: 'var(--t3)' }}>
+            같은 유형의 대표작과만 견준다. 기준선은 그 책이 지면에서 주는 상한이다 — 뜻·발음·오류는 1.00.
+          </p>
+          <div
+            className="grid gap-1.5"
+            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}
+          >
+            {preview.market.elements.map((el) => {
+              const win = el.delta > 1e-6
+              const lose = el.delta < -1e-6
+              return (
+                <div
+                  key={el.id}
+                  className="flex items-baseline justify-between gap-2 rounded-[var(--r-sm)] px-2 py-1.5"
+                  style={{ background: lose ? 'var(--error-light)' : 'var(--bg2)' }}
+                  title={el.note}
+                >
+                  <span className="font-body text-[11px]" style={{ color: 'var(--t2)' }}>
+                    {el.label}
+                    {el.print_impossible ? (
+                      <span style={{ color: 'var(--admin)' }} title="지면이 구조상 못 하는 요소">
+                        {' '}
+                        ★
+                      </span>
+                    ) : null}
+                  </span>
+                  <span
+                    className="font-display text-[11px] font-semibold tabular-nums"
+                    style={{
+                      color: lose ? 'var(--error)' : win ? 'var(--success)' : 'var(--t3)',
+                    }}
+                  >
+                    {el.ours.toFixed(2)}
+                    <span style={{ color: 'var(--t3)' }}> / {el.baseline.toFixed(2)}</span>
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+          {preview.market.losing.length > 0 ? (
+            <p className="font-body text-[11px] mt-2 mb-0" style={{ color: 'var(--error)' }}>
+              열위:{' '}
+              {preview.market.elements
+                .filter((e) => preview.market!.losing.includes(e.id))
+                .map((e) => `${e.label} (${e.note})`)
+                .join(' · ')}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+
       {/* 면별 준비도 */}
       <div
         className="rounded-[var(--r-lg)] border p-4"

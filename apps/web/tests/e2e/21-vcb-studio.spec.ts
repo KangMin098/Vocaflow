@@ -56,6 +56,10 @@ test.describe('단어장 Studio — 유형 선택 → 채점 → 발행 게이�
     await expect(page.getByText('어디서 몇 개가 떨어졌나')).toBeVisible()
     await expect(page.getByText(/목차 미리보기/)).toBeVisible()
 
+    // 시중 베스트 대비 비교가 함께 나온다 — 측정만 하고 안 보이면 없는 것과 같다
+    await expect(page.getByText(/시중 베스트와 비교 —/)).toBeVisible()
+    await expect(page.getByText(/전 요소 우위|전 요소 이상|열위 \d+개/)).toBeVisible()
+
     // 통과했으면 발행이 열린다 (다의어는 실측 0.92 — 통과선 위)
     await expect(publishBtn).toBeEnabled({ timeout: 10_000 })
 

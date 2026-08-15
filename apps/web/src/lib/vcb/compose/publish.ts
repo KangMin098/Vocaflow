@@ -8,6 +8,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { PASS_THRESHOLD, evaluateSet, type Scorecard } from './evaluate'
+import { evaluateMarket } from './market'
 import type { ComposedSet } from './types'
 
 export interface PublishOptions {
@@ -128,6 +129,20 @@ export function buildCurationQuery(
     funnel: set.funnel,
     coverage: set.coverage ?? null,
     evidence: set.evidence ?? null,
+    // 시중 베스트 대비 요소별 비교 — 발행된 세트가 "왜 이게 더 나은가" 를 스스로 들고 있게 한다.
+    market: (() => {
+      const m = evaluateMarket(set)
+      return {
+        competitor: m.competitor,
+        competitor_title: m.competitor_title,
+        all_at_or_above: m.all_at_or_above,
+        all_above: m.all_above,
+        losing: m.losing,
+        beatable_ties: m.beatable_ties,
+        mean_delta: m.mean_delta,
+        elements: m.elements.map((e) => ({ id: e.id, ours: e.ours, baseline: e.baseline })),
+      }
+    })(),
     scorecard: {
       total: scorecard.total,
       passed: scorecard.passed,

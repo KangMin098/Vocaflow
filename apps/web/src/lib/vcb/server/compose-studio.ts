@@ -11,6 +11,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { BLUEPRINTS, catalogSummary, type BlueprintParams } from '@/lib/vcb/compose/blueprints'
 import { PASS_THRESHOLD, type Scorecard } from '@/lib/vcb/compose/evaluate'
+import { evaluateMarket, type MarketScorecard } from '@/lib/vcb/compose/market'
 import { publishComposedSet } from '@/lib/vcb/compose/publish'
 import { fetchPublishedWords } from '@/lib/vcb/compose/resolve'
 import { dryRun } from '@/lib/vcb/compose/run'
@@ -138,6 +139,8 @@ export interface PreviewResult {
   coverage?: Record<string, unknown> | null
   /** 고유 유형의 우위 증거 — 한국어 한 줄 */
   evidence_line?: string | null
+  /** 같은 유형의 시중 베스트 대비 요소별 비교 */
+  market?: MarketScorecard
   timing_ms?: Record<string, number>
 }
 
@@ -186,6 +189,7 @@ export async function previewBlueprint(
       funnel: r.set.funnel as unknown as Record<string, unknown>,
       coverage: (r.set.coverage as unknown as Record<string, unknown>) ?? null,
       evidence_line: evidenceLine,
+      market: evaluateMarket(r.set),
       timing_ms: r.timing_ms as unknown as Record<string, number>,
     }
   } catch (err) {
