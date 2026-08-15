@@ -59,7 +59,7 @@ const PARAMS: Record<string, BlueprintParams> = {
   'antonym-pair': { count: 200 },
   confusable: { count: 300 },
   collocation: { count: 300 },
-  'phrasal-idiom': { count: 200 },
+  'phrasal-idiom': { count: 90 },
   polysemy: { count: 200 },
   'rhyme-phonics': { count: 200 },
   'book-companion': { book_id: FIXTURE.book_id, count: 300 },

@@ -8,6 +8,7 @@
 //
 // 전부 순수 함수 — DB 없이 테스트된다.
 
+import { hasField } from './facets'
 import type {
   CandidateWord,
   ComposedEntry,
@@ -15,6 +16,7 @@ import type {
   GroupBy,
   OrganizeSpec,
   OrderWithin,
+  RequirableField,
 } from './types'
 
 // ── 분류 실패 판정 ──────────────────────────────────────────────────
@@ -338,17 +340,19 @@ function comparator(order: OrderWithin): (a: CandidateWord, b: CandidateWord) =>
  * 하드 필터가 아닌 이유: 연상 보유가 12.6% 뿐이라 필터로 걸면 빈도순 단어장이
  * "연상 있는 단어만 모은 단어장" 으로 유형이 바뀐다.
  */
-function stageByMnemonic(
+function stageByPreference(
   candidates: CandidateWord[],
   cmp: (a: CandidateWord, b: CandidateWord) => number,
   spec: OrganizeSpec,
 ): CandidateWord[] {
+  const fields = spec.prefer_fields && spec.prefer_fields.length > 0 ? spec.prefer_fields : (['mnemonic_ko'] as RequirableField[])
   const win = Math.max(10, spec.max_group_size ?? 30)
   const primary = [...candidates].sort(cmp)
   const out: CandidateWord[] = []
   for (let i = 0; i < primary.length; i += win) {
     const chunk = primary.slice(i, i + win)
-    out.push(...chunk.filter((x) => !!x.mnemonic_ko), ...chunk.filter((x) => !x.mnemonic_ko))
+    const score = (x: CandidateWord): number => fields.filter((f) => hasField(x, f)).length
+    out.push(...[...chunk].sort((a, b) => score(b) - score(a)))
   }
   return out
 }
@@ -412,7 +416,7 @@ export function organize(
     const pacing = spec.pacing!
     // staged 를 쓴다 — 페이싱 분기가 층화 정렬을 건너뛰고 있어서 N일 완성 유형만
     // 연상 우선 배치가 적용되지 않았다 (Round 8 실측).
-    const ordered = spec.prefer_mnemonic ? stageByMnemonic(candidates, cmp, spec) : [...candidates].sort(cmp)
+    const ordered = spec.prefer_mnemonic ? stageByPreference(candidates, cmp, spec) : [...candidates].sort(cmp)
     const capacity = pacing.days * pacing.per_day
     const kept = ordered.slice(0, capacity)
     if (ordered.length > kept.length) dropped['pacing_overflow'] = ordered.length - kept.length
@@ -436,7 +440,7 @@ export function organize(
     return { groups, entries: groups.flatMap((g) => g.entries), dropped }
   }
 
-  const staged = spec.prefer_mnemonic ? stageByMnemonic(candidates, cmp, spec) : candidates
+  const staged = spec.prefer_mnemonic ? stageByPreference(candidates, cmp, spec) : candidates
 
   const confusable =
     spec.group_by === 'confusable' ? buildConfusableGroups(staged) : new Map<string, GroupAssignment>()

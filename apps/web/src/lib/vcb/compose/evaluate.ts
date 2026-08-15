@@ -391,6 +391,22 @@ export function evaluateSet(set: ComposedSet, ctx: EvaluateContext = {}): Scorec
 
   const blockers: string[] = [...fit.blockers]
   if (set.entries.length === 0) blockers.unshift('빈 세트 — 모집단 또는 필터가 전부 걸러 냈다')
+
+  // 규모 미달 — 요청한 개수의 30% 도 못 채우면 그 유형은 **약속을 못 지킨 것**이다.
+  //
+  // 왜 이 가드가 필요한가: 항목별 품질을 올리는 필터를 세게 걸면 지표는 전부 1.00 이 되는데
+  // 세트가 쪼그라들어 상품이 아니게 된다. 실측으로 그 일이 났다 — 구동사 유형에
+  // `require_frequency_rank` 를 걸었더니 200개 요청에 10개가 나왔고, 7지표는 모두 통과였다.
+  // 품질 지표만으로는 이 실패가 보이지 않으므로 개수를 따로 본다.
+  const objective = set.recipe.select.objective
+  if (objective.kind === 'count' && set.entries.length > 0) {
+    const ratio = set.entries.length / objective.n
+    if (ratio < 0.3) {
+      blockers.push(
+        `규모 미달 — 요청 ${objective.n}개 중 ${set.entries.length}개 (${Math.round(ratio * 100)}%). 필터가 과하거나 모집단이 부족하다`,
+      )
+    }
+  }
   for (const m of metrics) {
     if (m.weight === 0) continue
     // novelty 는 blocker 가 아니다 — 시험·빈도 어휘가 여러 세트에 겹치는 것은 정상이고

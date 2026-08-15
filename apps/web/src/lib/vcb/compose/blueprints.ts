@@ -145,6 +145,7 @@ interface RecipeSeed {
   keep_pairs_together?: boolean
   min_group_size?: number | null
   max_group_size?: number | null
+  prefer_fields?: RequirableField[]
   facets: FacetId[]
   card_fields?: RequirableField[]
   contrast?: 'none' | 'antonym' | 'confusable' | 'sense' | 'synonym'
@@ -211,6 +212,8 @@ function recipe(seed: RecipeSeed): Recipe {
       // 연상 고리가 있는 단어를 챕터 창 안에서 앞세운다 — 시중 연상 보카가 파는 요소를
       // 유형 왜곡 없이 끌어올리는 유일한 방법이다 (하드 필터로 걸면 빈도순이 연상순이 된다).
       prefer_mnemonic: true,
+      // 유형마다 '카드를 잘 가르칠 수 있게 하는 필드' 가 다르다 — 구동사 책은 전형적 쓰임(연어)이다.
+      prefer_fields: seed.prefer_fields ?? ['mnemonic_ko'],
     },
     present: {
       facets: seed.facets,
@@ -782,14 +785,18 @@ const B: Blueprint[] = [
         filters: {
           primary_pos: ['idiom', 'phrasal_verb'],
           exclude_registers: NOISE_REGISTERS.filter((r) => r !== 'phrase_unit'),
-          // '빈출' 을 약속하는 유형이므로 순위 없는 사전 찌꺼기를 넣지 않는다 —
-          // 넣으면 정렬이 사실상 알파벳순이 되어 (as) sick as a parrot 류가 앞을 차지한다.
-          require_frequency_rank: true,
+          // ⚠️ 한때 require_frequency_rank: true 였다. 사전식 변형 표제어를 막으려던 것인데
+          // 순위 있는 구가 26개뿐이라 **세트가 10개로 쪼그라들었다**(실측). 변형 표제어는
+          // exclude_variant_headwords 가 이미 막으므로(1,466 → 984 사용 가능) 하드 필터는 뺀다.
         },
-        objective: { kind: 'count', n: p.count ?? 400 },
+        // 기본 90 — 연어(전형적 쓰임)를 갖춘 구가 94개다. 200개를 약속하면 절반이 '뜻만 있는 구' 가
+        // 되어 구동사 책의 핵심 요소에서 진다. **데이터가 지탱하는 크기**로 약속을 맞춘다.
+        objective: { kind: 'count', n: p.count ?? 90 },
         group_by: 'pos',
         group_order: 'size_desc',
         order_within: 'frequency',
+        // 구동사 책이 파는 것은 전형적 쓰임이다 — 연어를 가진 항목을 챕터 안에서 앞세운다.
+        prefer_fields: ['collocations', 'mnemonic_ko'],
         facets: ['recognize', 'use'],
       }),
   },

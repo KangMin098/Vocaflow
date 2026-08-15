@@ -94,6 +94,8 @@ export const REQUIRABLE_FIELDS = [
   /** 뜻이 **읽을 수 있는 상태**인가 — 영문 잔재·깨진 글자·과장한 길이 배제 (market.ts 와 같은 판정) */
   'meaning_clean',
   'example_en',
+  /** 예문이 **그 표제어를 실제로 담고 있는가** (굴절·구 포함). 담지 않은 예문은 예문이 아니다 */
+  'example_matches',
   'ipa',
   'audio_url',
   'image_url',
@@ -255,6 +257,14 @@ export interface OrganizeSpec {
    * 한 단어가 움직이는 거리는 챕터 하나를 넘지 않으므로 난이도 진행이 보존된다.
    */
   prefer_mnemonic?: boolean
+  /**
+   * 챕터 창 안에서 **이 필드를 가진 항목을 앞세운다** (연상·연어 등).
+   *
+   * prefer_mnemonic 의 일반화다 — 유형마다 "카드를 잘 가르칠 수 있게 하는 필드" 가 다르다.
+   * 구동사 책은 전형적 쓰임(연어)이 그것이고, 연상 보카는 연상이 그것이다.
+   * 하드 필터가 아니라 순서이므로 유형이 왜곡되지 않는다.
+   */
+  prefer_fields?: RequirableField[]
 }
 
 // ── 표현 — 무엇을 보장하나 ──────────────────────────────────────────

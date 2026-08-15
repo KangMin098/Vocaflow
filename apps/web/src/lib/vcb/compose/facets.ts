@@ -14,6 +14,7 @@
 import type { FacetId } from '@/lib/framework/axes'
 import { FACETS } from '@/lib/framework/axes'
 import type { CandidateWord, RequirableField } from './types'
+import { exampleContainsHeadword } from './match'
 
 /** 면 하나의 데이터 요구. `all` 은 전부, `any_of` 는 하나 이상. */
 export interface FacetRequirement {
@@ -53,7 +54,9 @@ export const FACET_REQUIREMENTS: Record<FacetId, FacetRequirement> = {
     why: '조각으로 나눌 수 있어야 하므로 어근·접사·파생형 중 하나는 데이터로 있어야 한다.',
   },
   use: {
-    all: ['example_en'],
+    // 문장이 **그 단어를 담고 있어야** 문맥 인출이 된다. 유의어로 쓴 예문
+    // ('breeze through' 의 예문이 "She sailed through her exams")은 이 면을 지탱하지 못한다.
+    all: ['example_en', 'example_matches'],
     any_of: [],
     bonus: ['collocations', 'korean_learner_note'],
     why: '문맥 인출이므로 문장이 없으면 이 면은 훈련이 아니라 암기가 된다.',
@@ -82,6 +85,13 @@ export function hasField(c: CandidateWord, field: RequirableField | 'frequency_b
         (!!c.example_en && c.example_en.trim().length > 0) ||
         (!!c.corpus_sentence && c.corpus_sentence.trim().length > 0)
       )
+    case 'example_matches': {
+      // 실측: 예문 42,133건 중 635건이 표제어를 담고 있지 않고, 관용어 쪽은 유의어로 쓴 예문이 섞여 있다
+      // ('breeze through' 의 예문이 "She sailed through her exams"). 그런 예문은 문맥 학습에 쓸 수 없다.
+      const ex = c.corpus_sentence ?? c.example_en
+      if (!ex || ex.trim().length === 0) return false
+      return exampleContainsHeadword(c.word, ex, c.inflected_forms)
+    }
     case 'ipa':
       return !!c.ipa
     case 'audio_url':

@@ -123,7 +123,8 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
 
   it('any_of 요구는 필수 필드 목록에 들어가지 않는다 (넣으면 Sound 세트가 전멸한다)', () => {
     expect(requiredFieldsFor(['sound'])).toEqual([])
-    expect(requiredFieldsFor(['use'])).toEqual(['example_en'])
+    // Use 면은 예문이 **그 단어를 담고 있는지**까지 요구한다 (유의어로 쓴 예문 배제)
+    expect(requiredFieldsFor(['use'])).toEqual(['example_en', 'example_matches'])
   })
 })
 
@@ -324,7 +325,8 @@ describe('unlock — 문장 해금이 빈도순을 이긴다', () => {
 describe('evaluate — 미달 원인이 blocker 로 드러난다', () => {
   it('짝 없는 단어는 세트에서 빠진다 — 개수를 채우려고 유형을 깨지 않는다', () => {
     const bp = getBlueprint('confusable')!
-    const set = compose(bp.build({ count: 10 }), [word('affect'), word('effect'), word('zebra')])
+    // 요청 개수를 데이터가 줄 수 있는 만큼으로 둔다 — 규모 미달 가드가 옳게 작동하므로
+    const set = compose(bp.build({ count: 2 }), [word('affect'), word('effect'), word('zebra')])
     expect(set.entries.map((e) => e.word).sort()).toEqual(['affect', 'effect'])
     expect(set.funnel.dropped['undersized_group']).toBe(1)
     expect(evaluateSet(set).blockers).toEqual([])
@@ -346,7 +348,7 @@ describe('evaluate — 미달 원인이 blocker 로 드러난다', () => {
 
   it('짝이 온전하면 통과한다', () => {
     const bp = getBlueprint('confusable')!
-    const set = compose(bp.build({ count: 10 }), [word('affect'), word('effect')])
+    const set = compose(bp.build({ count: 2 }), [word('affect'), word('effect')])
     const card = evaluateSet(set)
     expect(card.blockers).toEqual([])
     expect(card.total).toBeGreaterThanOrEqual(0.8)
