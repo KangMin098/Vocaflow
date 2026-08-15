@@ -106,6 +106,11 @@ export const QUALITY_HELP: HelpRegistry = {
             '게시 차단 후보. 발행·재발행 RPC 가 content_gate_publishable 로 실제로 막는다 — 화면 경고가 아니라 서버 차단이다.',
         },
         {
+          label: 'I7 노이즈 register — 구 단어장 예외',
+          detail:
+            '구·관용어(phrase_unit)는 보통 노이즈지만, 컴포저의 구동사·관용어 유형(curation_query.blueprint=phrasal-idiom)으로 만든 세트에서는 그것이 표제어 자체라 세지 않는다. 예외는 그 한 조합뿐이다 — 다른 유형에서는 구가 섞이면 그대로 FAIL 이고, 같은 세트라도 archaic·brand·proper_noun 은 면제되지 않는다.',
+        },
+        {
           label: 'WARN',
           detail:
             '위생 항목(추적용). 게시를 막지 않으므로 WARN 이 남아 있어도 전역 배너는 "통과" 로 뜬다.',
