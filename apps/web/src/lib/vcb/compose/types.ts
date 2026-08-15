@@ -154,6 +154,14 @@ export interface SelectFilters {
    */
   drop_pool_inflections?: boolean
   /**
+   * 같은 풀 안의 **영/미 철자 변이**를 한쪽으로 접는다. 기본 true.
+   *
+   * 지면 단어장은  처럼 한 표제어로 싣는다. 실측 2026-08-16 교육과정
+   * 세트에 여섯 쌍이 각각 한 자리씩 차지하고 있었다( …).
+   * 남기는 쪽은 **빈도가 높은 것** — 미국식을 규칙으로 정하는 것보다 데이터가 낫다.
+   */
+  drop_pool_spelling_variants?: boolean
+  /**
    * 사전식 **변형 표제어**를 버린다. 기본 true.
    *
    * `(be) on the ball` · `(as) sick as a parrot` · `honor-bound/honour-bound` 처럼 괄호·슬래시로

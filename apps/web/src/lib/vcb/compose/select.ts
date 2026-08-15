@@ -76,6 +76,59 @@ function poolInflections(population: CandidateWord[]): Set<string> {
   return drop
 }
 
+/**
+ * 영/미 철자 변이를 한쪽으로 접는다 — 같은 풀에 둘 다 있을 때만.
+ *
+ * 실측 2026-08-16: `교육과정 중등` 에 `neighbor/neighbour · favor/favour · honor/honour ·
+ * humor/humour · labor/labour · theater/theatre` 여섯 쌍이 **각각 한 자리씩** 차지하고 있었다.
+ * `30일 완성` 에는 `color/colour · colored/coloured · coloring/colouring · center/centre`.
+ * 지면 단어장은 `favor (英 favour)` 처럼 한 표제어로 싣는다 — 둘을 나란히 두면 분량을
+ * 낭비하고 교열을 안 한 책처럼 보인다.
+ *
+ * 어느 쪽을 남기나: **빈도가 높은 쪽**. 미국식을 기본으로 정하는 것보다 데이터가 낫다
+ * (`theatre` 가 `theater` 보다 흔한 코퍼스도 있다).
+ */
+function poolSpellingVariants(population: CandidateWord[]): Set<string> {
+  // 같은 낱말로 접히는 표준형 키. 영↔미 차이가 나는 철자를 한 방향으로 정규화한다.
+  const canon = (w: string): string =>
+    w
+      .replace(/our(s?)\b/g, 'or$1') // colour → color · honours → honors
+      .replace(/([bcdfghjklmnpqrstvwxz])re\b/g, '$1er') // centre → center · metre → meter
+      .replace(/is(e|ed|es|ing|ation)\b/g, 'iz$1') // organise → organize
+      .replace(/ys(e|ed|es|ing)\b/g, 'yz$1') // analyse → analyze
+      .replace(/ll(ed|ing|er)\b/g, 'l$1') // travelled → traveled
+
+  // **같은 낱말은 세지 않는다.** `same` 과 `SAME` 은 철자 변이가 아니라 중복이고,
+  // 그건 이 함수가 아니라 중복 검사가 다룬다 (그 구분을 놓쳐 회귀가 한 번 깨졌다).
+  const byCanon = new Map<string, Map<string, CandidateWord>>()
+  for (const c of population) {
+    const lower = c.word.toLowerCase()
+    const k = canon(lower)
+    const bucket = byCanon.get(k)
+    if (bucket) {
+      if (!bucket.has(lower)) bucket.set(lower, c)
+    } else {
+      byCanon.set(k, new Map([[lower, c]]))
+    }
+  }
+
+  const drop = new Set<string>()
+  for (const bucket of byCanon.values()) {
+    const group = [...bucket.values()]
+    if (group.length < 2) continue
+    // 빈도가 가장 높은 하나만 남긴다 (순위가 없으면 뒤로).
+    const keep = group.reduce((best, c) =>
+      (c.frequency_rank ?? Number.MAX_SAFE_INTEGER) < (best.frequency_rank ?? Number.MAX_SAFE_INTEGER)
+        ? c
+        : best,
+    )
+    for (const c of group) {
+      if (c !== keep) drop.add(c.word.toLowerCase())
+    }
+  }
+  return drop
+}
+
 /** 필터 한 겹 — 왜 떨어졌는지 이유별로 센다. 드라이런 진단이 이 카운터에서 나온다. */
 export function applyFilters(
   population: CandidateWord[],
@@ -88,6 +141,8 @@ export function applyFilters(
   const contentOnly = (f.content_pos_only ?? true) && f.primary_pos.length === 0
   const inflectionsToDrop =
     (f.drop_pool_inflections ?? true) ? poolInflections(population) : new Set<string>()
+  const variantsToDrop =
+    (f.drop_pool_spelling_variants ?? true) ? poolSpellingVariants(population) : new Set<string>()
   const excluded = new Set(f.exclude_registers.length > 0 ? f.exclude_registers : NOISE_REGISTERS)
   const mustExclude = new Set(spec.must_exclude.map((w) => w.toLowerCase()))
   const mustInclude = new Set(spec.must_include.map((w) => w.toLowerCase()))
@@ -132,6 +187,10 @@ export function applyFilters(
     }
     if (inflectionsToDrop.has(key)) {
       drop(dropped, 'inflection_of_pool_base')
+      continue
+    }
+    if (variantsToDrop.has(key)) {
+      drop(dropped, 'spelling_variant_of_pool')
       continue
     }
     if ((f.exclude_variant_headwords ?? true) && VARIANT_HEADWORD.test(c.word)) {
