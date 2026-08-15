@@ -28,10 +28,15 @@
 컬럼이 존재한다는 것은 값이 맞다는 뜻이 아니다. Growth 회고면은 세 곳에서 동시에 거짓을
 인쇄하고 있었고, 셋 다 **화면은 멀쩡히 떴다**.
 
-- ❌ **갱신 경로 없는 컬럼을 히어로에** — `user_stats.known_word_count` 를 읽어 "0개" 를 띄웠다.
-  그 값을 채우는 `refresh_user_known_word_count(uuid)` 는 존재하지만 **호출하는 코드가 없다**
-  (트리거도 없음). 단어 252개를 든 계정에 0이 떴다.
-  → 새 수치를 화면에 걸기 전에 `pg_trigger` + 전 리포 grep 으로 **쓰는 쪽**을 먼저 찾을 것.
+- ❌ **몇 달 동안 0인 지표를 히어로에** — `user_stats.known_word_count` 를 읽어 "0개" 를 띄웠다.
+  갱신은 정상이었고(세션 flush 마다 `refresh_user_known_word_count` 호출) **0도 정직한 값**이었다 —
+  정의가 `stability >= 21`(Anki mature)이라 신규~중급 학습자에게는 몇 달간 0이 나온다.
+  계산이 틀린 게 아니라 **질문이 틀렸다**.
+  → 화면의 주인공 수치는 "1일차 학습자에게 무엇이 보이나" 를 먼저 확인할 것.
+  ⚠️ 이 항목을 처음 쓸 때 "호출하는 코드가 없다" 로 단정했는데 **틀렸다** — grep 은 했지만
+  히트(`lib/srs/flush-actions.ts`)를 열어 보지 않고 "실행 경로 밖" 이라고 넘겼다.
+  실제로는 Flashcard·PairFlip·SpellForge·StudyMode·Dictation 5개 세션이 다 타는 경로다.
+  **grep 히트는 읽고 나서 판단할 것.**
 - ❌ **반올림으로 소실되는 컬럼을 판정 기준에** — `daily_activity.total_minutes` 는
   `ROUND(duration_seconds/60.0)` 로 누적된다. **60초 미만 세션은 0분**이라 영원히 안 쌓인다.
   히트맵이 `minutes>0` 을 "학습한 날" 로 봐서, 8일 연속 학습 중인 계정을 "28일 중 1일" 로 그렸다.
