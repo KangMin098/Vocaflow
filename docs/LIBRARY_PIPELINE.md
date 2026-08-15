@@ -623,3 +623,24 @@ SE 시드를 재수집하면(수집기 자체는 현재 스킴을 정상 파싱�
   캡처 0장으로 죽었다. `test.setTimeout(180_000)` 으로 고정.
 - 검증 계정을 **모든 세션이 공유**해서 다른 세션의 로그아웃이 이쪽 로그인을 죽였다.
   서가는 공개 라우트이므로 `HUB_SHOT_NOAUTH=1` 로 로그인을 건너뛴다.
+
+**서지 표기 정규화 (v06.144, 실측 2026-08-15)** — `lib/library/bibliographic.ts`
+
+서가에 소스별 관행이 그대로 섞여 있었다: Gutenberg 는 도서관 도치형(`Austen, Jane`),
+SE 는 자연형(`Charles Dickens`), StoryWeaver 는 이중공백·후행공백(`Shabnam  Minwalla`),
+그리고 문장형 제목(`Twenty years after`). 같은 서가에서 저자가 두 형식으로 불리면
+정렬·검색·인상이 모두 무너진다.
+
+- `normalizeAuthor` — 쉼표가 **정확히 하나**이고 양쪽이 인명일 때만 도치를 푼다.
+  `King, Martin Luther, Jr.`(쉼표 2개)·`Little, Brown and Company`(조직명)는 손대지 않는다.
+  틀리게 뒤집는 것보다 그대로 두는 편이 낫다.
+- `normalizeTitle` — **전부 소문자인 단어만** 올린다. 대문자가 섞인 토큰(`MacDonald`·`H. P.`·
+  `2nd`)은 의도된 표기로 보고 보존. 기능어는 소문자로 두되 첫/끝 단어는 올린다.
+  ⚠️ **문장형 게이트**: 소문자 실단어가 1개뿐이면 출판사 표기로 보고 건드리지 않는다 —
+  `Tell Me, What is a Drone?` 의 `is` 를 `Is` 로 고치는 것은 교정이 아니라 훼손이다.
+- 적용 지점은 **넣는 순간**(`process`/`dev-process`) — 카탈로그가 갈린 뒤 백필로 쫓아가면 늘 늦는다.
+
+전체 401권 dry-run 결과 **변경 8권 · 오탐 0 · 무손상 393권**:
+도치형 2(P&P·Twenty Years After) · 이중/후행공백 6(StoryWeaver) · 문장형 제목 1.
+회귀 15건 — 절반이 **바꾸면 안 되는 것**을 지킨다(`Romeo and Juliet`·`Suspiria de Profundis`·
+`2nd` 서수·출판사 표기).

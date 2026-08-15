@@ -20,6 +20,7 @@ import {
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
+import { normalizeAuthor, normalizeTitle } from '@/lib/library/bibliographic'
 import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 
 export const runtime = 'nodejs'
@@ -138,8 +139,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     await client
       .from('library_books')
       .update({
-        title: raw.title,
-        author: raw.author ?? null,
+        // 서지 표기는 소스 관행이 제각각이라 **넣는 순간** 정규화한다 — 카탈로그가 갈린 뒤
+        // 백필로 쫓아가면 늘 늦는다(실측: 도치형 2 · 이중공백 6 · 문장형 제목 1).
+        title: normalizeTitle(raw.title) ?? raw.title,
+        author: normalizeAuthor(raw.author ?? null),
         author_birth_year: raw.author_birth_year ?? null,
         author_death_year: raw.author_death_year ?? null,
         language: raw.language,
