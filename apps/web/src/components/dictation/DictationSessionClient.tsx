@@ -16,7 +16,13 @@
 //
 // 키보드 단축키 (입력창 밖에 포커스가 있을 때):
 //   Space  재생/정지 · 1-5 속도 · F Focus
-// 입력창 안에서도: Enter 제출(피드백 중이면 다음) · Esc 정지 · Tab 건너뛰기
+// 입력창 안에서도: Enter 제출(피드백 중이면 다음) · Esc 정지
+//
+// ⚠️ **Tab 을 가로채지 않는다.** 예전엔 Tab = 건너뛰기였는데, 그러면 키보드 사용자가
+//    포커스를 옮길 수가 없고(2.1.1 Keyboard · 2.1.2 No Keyboard Trap) 옮기려는 시도가
+//    **문항을 건너뛰는 되돌릴 수 없는 조작**이 됐다. 건너뛰기는 버튼으로만 한다.
+//    같은 이유로 버튼·링크에 포커스가 있을 때는 Space 도 가로채지 않는다 —
+//    가로채면 포커스한 버튼을 키보드로 누를 수 없다.
 
 'use client'
 
@@ -214,16 +220,20 @@ export function DictationSessionClient() {
 
       if (isInInput && e.code !== 'Escape' && !e.ctrlKey && !e.metaKey) return
 
+      // 버튼·링크에 포커스가 있으면 그 요소의 기본 동작이 우선이다.
+      // (Space 를 가로채면 포커스한 버튼을 **키보드로 누를 수가 없다**.)
+      const onControl =
+        e.target instanceof HTMLElement &&
+        !!e.target.closest('button, a, [role="button"], select, [contenteditable]')
+
       if (e.code === 'Space') {
+        if (onControl) return
         e.preventDefault()
         if (audio.isPlaying) stopAudio()
         else playOnce()
       } else if (e.key === 'Escape') {
         e.preventDefault()
         stopAudio()
-      } else if (e.key === 'Tab') {
-        e.preventDefault()
-        handleSkip()
       } else if (e.key.toLowerCase() === 'f') {
         e.preventDefault()
         setFocusMode((v) => !v)
@@ -234,7 +244,7 @@ export function DictationSessionClient() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [audio.isPlaying, outcome, handleNext, handleSubmit, handleSkip, playOnce, stopAudio])
+  }, [audio.isPlaying, outcome, handleNext, handleSubmit, playOnce, stopAudio])
 
   // 이미 완주한 세션 URL — 다시 풀게 하지 않고 결과로 보낸다.
   // (DB 복원이 생기기 전에는 이 경우가 '못 찾음' 과 뒤섞여 있었다.)
@@ -668,7 +678,20 @@ function FeedbackSection({
         : 'var(--warning)'
 
   return (
-    <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+    // 제출하면 이 섹션이 입력창을 **대체**한다. 라이브 리전이 없으면 화면 판독기 사용자에게는
+    // 아무 일도 일어나지 않은 것과 같다 — 정확도도, 어떤 단어를 놓쳤는지도 전달되지 않는다.
+    // `polite` 인 이유: 채점은 학습자가 방금 한 행동의 결과라 끼어들 필요가 없다.
+    <section
+      role="status"
+      aria-live="polite"
+      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
+    >
+      {/* 숫자·색만으로 결과를 말하지 않는다 — 판독기에는 한 문장으로 요약해 준다 */}
+      <p className="sr-only">
+        정확도 {Math.round(result.accuracy)}퍼센트.
+        {targetHits.length > 0 && ` 내 단어 ${targetHits.length}개를 잡았어요.`}
+        {targetMisses.length > 0 && ` ${targetMisses.length}개는 놓쳤어요.`}
+      </p>
       <header className="mb-3 flex items-center justify-between">
         <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">결과</h3>
         <span

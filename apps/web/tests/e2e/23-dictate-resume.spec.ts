@@ -129,4 +129,73 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
       if (userId) await deleteDictationSince(userId, sinceIso);
     }
   });
+
+  /**
+   * E. 키보드로 이 화면을 쓸 수 있는가.
+   *
+   * 눈으로는 절대 안 보이는 결함이 여기 있었다 — `Tab` 이 "건너뛰기" 단축키여서
+   *   ① 키보드 사용자는 **포커스를 옮길 수가 없었고**(2.1.1 · 2.1.2)
+   *   ② 옮기려는 시도가 **문항을 건너뛰는 되돌릴 수 없는 조작**이었다.
+   * 화면 어디에도 안내되지 않은 단축키였으므로 스크린샷으로도 리뷰로도 안 잡힌다.
+   */
+  test('E. Tab 이 포커스를 옮긴다 (문항을 건너뛰지 않는다)', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const ctx = await browser.newContext({ storageState: STATE_PATH });
+    const page = await ctx.newPage();
+    try {
+      await page.goto('/dictate/setup');
+      const tabs = page.getByRole('tablist', { name: '받아쓸 자료 종류' }).getByRole('tab');
+      await expect(tabs.first()).toBeVisible({ timeout: 20_000 });
+      let opened = false;
+      for (let i = 0; i < (await tabs.count()); i += 1) {
+        await tabs.nth(i).click();
+        const row = page.locator('main').last().locator('a[href*="/dictate/setup?"]').first();
+        if (await row.isVisible().catch(() => false)) {
+          await row.click();
+          opened = true;
+          break;
+        }
+      }
+      expect(opened, '받아쓸 자료가 없다').toBe(true);
+      await page.getByRole('button', { name: /시작하기/ }).click({ timeout: 30_000 });
+      await page.waitForURL(/\/dictate\/session\?sessionId=/, { timeout: 30_000 });
+
+      const box = page.getByRole('textbox').first();
+      await expect(box).toBeVisible({ timeout: 20_000 });
+
+      // 첫 문항의 본문을 기준점으로 잡는다.
+      //
+      // ⚠️ 진행 표시(`문항 n/N`)로 재려던 첫 구현은 **옛 동작에서도 통과**했다 —
+      //    정규식이 안 맞으면 `undefined === undefined` 라 단언이 공허해졌다.
+      //    그래서 먼저 "잴 수 있는가" 를 단언하고, 그 다음에 값을 비교한다.
+      const marker = page.locator('[data-testid="session-position"]');
+      await expect(marker, '진행 표시를 못 찾는다 — 이 테스트는 아무것도 재지 못한다').toBeVisible({
+        timeout: 20_000,
+      });
+      const before = (await marker.innerText()).trim();
+      expect(before.length).toBeGreaterThan(0);
+
+      // 입력창 밖으로 포커스를 옮긴 뒤 Tab — 여기가 예전에 건너뛰기였다
+      const anchor = page.getByRole('button', { name: /다시 듣기|한 번만|재생/ }).first();
+      await anchor.focus();
+      const focusedBefore = await page.evaluate(() => document.activeElement?.outerHTML.slice(0, 80));
+      await page.keyboard.press('Tab');
+
+      // ① 문항이 바뀌지 않았다 (Tab 이 건너뛰기가 아니다)
+      expect(
+        (await marker.innerText()).trim(),
+        'Tab 이 문항을 건너뛰었다 — 키보드 내비게이션이 파괴적 조작이다',
+      ).toBe(before);
+
+      // ② 포커스가 **실제로 이동했다** (preventDefault 로 제자리에 묶이지 않는다)
+      const focusedAfter = await page.evaluate(() => document.activeElement?.outerHTML.slice(0, 80));
+      expect(focusedAfter, 'Tab 을 눌러도 포커스가 그대로다 — 키보드로 화면을 돌 수 없다').not.toBe(
+        focusedBefore,
+      );
+    } finally {
+      await ctx.close();
+      if (userId) await deleteDictationSince(userId, sinceIso);
+    }
+  });
 });

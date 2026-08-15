@@ -356,7 +356,12 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
           <span aria-hidden="true" className="text-[10px] font-[400] text-[var(--t2)]">
             ›
           </span>
-          <span className="shrink-0 font-mono text-[11px] font-[500] tabular-nums text-[var(--t2)]">
+          {/* 회귀가 "문항이 넘어갔는가" 를 잴 유일한 화면 근거다 — 텍스트를 정규식으로
+              긁던 테스트는 못 찾으면 조용히 통과했다(공허한 단언). */}
+          <span
+            data-testid="session-position"
+            className="shrink-0 font-mono text-[11px] font-[500] tabular-nums text-[var(--t2)]"
+          >
             {resource.position}
           </span>
         </>
