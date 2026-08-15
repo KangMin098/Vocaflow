@@ -1,10 +1,9 @@
 {
   "mcpServers": {
     "supabase": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "@supabase/mcp-server-supabase@latest",
+        "node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js",
         "--project-ref=jajenrevcbmrpaliomxv"
       ],
       "env": {

@@ -53,6 +53,7 @@
   },
   "packageManager": "pnpm@9.0.0",
   "devDependencies": {
+    "@supabase/mcp-server-supabase": "0.10.0",
     "@supabase/supabase-js": "^2.104.1",
     "@types/node": "^25.9.0",
     "@vocaflow/library-pipeline": "workspace:*",
