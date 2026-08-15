@@ -110,11 +110,17 @@ const GATE_UNSTABLE = !!process.env.CI;
 /**
  * 가로 넘침이 남아 있는 화면 — 모바일에서 옆으로 밀린다. 해소되면 목록에서 뺄 것.
  *
- * `/plan`(126px) 은 17회차에 해소해서 뺐다 — 원인은 레이아웃이 아니라 **`sr-only` 였다**.
- * `sr-only` 는 `position:absolute` 인데 위치 기준 조상이 없으면 문서를 기준으로 잡아,
- * 가로 스크롤러(`min-w-[820px]`) 안의 정적 위치만큼 **문서가 넓어진다**. 카드에 `relative`.
+ * **비었다.** 두 건 다 원인이 "보이는 큰 요소" 가 아니었다:
+ *   · `/plan` 126px (17회차) — `sr-only`(position:absolute)가 위치 기준 조상이 없어 문서를
+ *     기준으로 잡았고, 가로 스크롤러(`min-w-[820px]`) 안의 정적 위치만큼 문서가 넓어졌다.
+ *   · `/library`·`/library/books` 61px (19회차) — 3D 캐러셀이 범인처럼 보였지만 무대는 이미
+ *     `overflow-x-clip` 으로 잘리고 있었다(**잘린 요소는 문서를 넓히지 못한다**). 진짜 원인은
+ *     점 인디케이터 줄 — 점 하나가 44px 히트영역이라 권수만큼 자라 20권에서 512px 이 됐다.
+ *
+ * 교훈: 넘침 원인은 **조상 중 자르는 것이 없는 요소** 중에서 찾는다. 그냥 "뷰포트를 넘는
+ * 요소" 를 세면 클리핑된 것까지 잡혀 엉뚱한 곳을 고치게 된다.
  */
-const OVERFLOW_BASELINE = new Set(['/library', '/library/books']);
+const OVERFLOW_BASELINE = new Set<string>([]);
 
 async function login(page: Page) {
   for (let i = 1; i <= 2; i++) {

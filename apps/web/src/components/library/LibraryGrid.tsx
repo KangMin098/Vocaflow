@@ -344,8 +344,17 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
         })()}
       </div>
 
-      {/* Dot indicator */}
-      <div role="tablist" aria-label="도서 선택" className="flex items-center gap-2">
+      {/* Dot indicator
+          점 하나가 44px 히트영역(아래 주석)이라 **권수만큼 폭이 자란다** — 20권이면 512px 이고
+          390px 화면에서 가운데 정렬이라 양옆으로 61px 씩 삐져나가 문서를 넓혔다
+          (실측: `/library`·`/library/books` 모바일 가로 넘침 61px 의 원인. 3D 무대가 아니었다 —
+           무대는 이미 `overflow-x-clip` 으로 잘리고 있었고, 잘린 요소는 문서를 넓히지 못한다).
+          가로 스크롤로 가둔다: 점은 다 살리고(권수를 숨기지 않는다) 화면만 안 밀린다. */}
+      <div
+        role="tablist"
+        aria-label="도서 선택"
+        className="flex max-w-full items-center gap-2 overflow-x-auto px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {books.map((b, idx) => (
           <button
             key={b.id}
@@ -356,7 +365,10 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             onClick={() => goTo(idx)}
             // 점은 시각적으로 작아야 하지만 손가락 타겟은 44px 이어야 한다(CLAUDE.md 절대 금지 항목).
             // 버튼을 44px 히트영역으로 두고 안쪽 span 만 점으로 그린다.
-            className="group flex h-11 w-11 items-center justify-center"
+            // `shrink-0` 는 필수다 — 줄을 `overflow-x-auto` 로 가둔 뒤 flex 기본 축소(shrink:1)가
+            // 점 버튼을 44px 아래로 눌렀다(실측 13종 위반 · a11y 스윕이 잡았다). 줄이 줄어드는
+            // 대신 **스크롤되어야** 44px 하한과 가로 넘침 0 을 동시에 지킨다.
+            className="group flex h-11 w-11 shrink-0 items-center justify-center"
           >
             <span
               aria-hidden
