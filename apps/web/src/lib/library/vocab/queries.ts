@@ -9,6 +9,7 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
+import { setKindOf, type SetKind } from './set-kind'
 
 type DB = Database
 
@@ -52,6 +53,12 @@ export interface PublishedVocabSet {
   /** 구독자 수 (denormalized · 사용빈도/인기 랭킹용). */
   subscriberCount: number
   createdAt: string
+  /**
+   * 무엇으로 묶은 단어장인가 — 컴포저가 남긴 유형(blueprint)에서 온다.
+   * 발행 세트의 24/29 가 '테마별' 한 칸에 있어 제목만으로는 서로 구별되지 않는다.
+   * 유형이 없는 레거시 세트는 null 이고, 카드가 그 줄을 생략한다.
+   */
+  kind: SetKind | null
 }
 
 export interface SamplePreviewWord {
@@ -95,6 +102,7 @@ interface SharedSetRow {
   created_at: string | null
   category_id?: string | null
   additional_category_ids?: string[] | null
+  curation_query?: { blueprint?: string } | null
 }
 
 export async function fetchPublishedSets(
@@ -105,7 +113,7 @@ export async function fetchPublishedSets(
   const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -121,7 +129,7 @@ export async function fetchPublishedSets(
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
     const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -189,6 +197,7 @@ async function enrichSets(
     wordCount: counts.get(s.id) ?? s.word_count ?? 0,
     subscriberCount: s.subscriber_count ?? 0,
     createdAt: s.created_at ?? new Date(0).toISOString(),
+    kind: setKindOf(s.curation_query?.blueprint),
   }))
 }
 

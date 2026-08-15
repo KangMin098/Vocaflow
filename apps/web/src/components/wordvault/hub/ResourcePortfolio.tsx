@@ -106,6 +106,8 @@ export function ResourcePortfolio() {
       wordCount: s.wordCount,
       subscriberCount: 0,
       createdAt: new Date(0).toISOString(),
+      // 모달은 id/title/wordCount/coverEmoji 만 쓴다 — 유형 줄은 카탈로그 카드에서만 보인다.
+      kind: null,
     })
   }
 

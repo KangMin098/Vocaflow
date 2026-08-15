@@ -124,6 +124,48 @@ const filters = (partial: Partial<SelectFilters> = {}): SelectFilters => ({
   ...partial,
 })
 
+/**
+ * 학습자 카탈로그의 칸(카테고리)을 **레시피가 정한 것에서** 고른다.
+ *
+ * 왜 필요한가: 유형마다 `category: 'themed'` 를 손으로 적어 두었더니 실측 2026-08-15 기준
+ * **발행 29세트 중 24개가 '테마별' 한 칸**에 쌓였다. 칩이 10개 있는데 하나만 차 있으면
+ * 분류가 아니라 장식이다 — 학습자는 그 칸을 열고 24개를 처음부터 훑어야 한다.
+ *
+ * 다만 **아무 칸에나 넣지는 않는다.** 칸은 학습 단계·목적(초등~공무원)을 뜻하므로,
+ * 레시피가 그것을 실제로 정하지 않는 유형(유의어·연어·라임 …)은 계속 '테마별' 이 맞다.
+ * 거짓 분류는 몰림보다 나쁘다 — 중등 칸을 연 학습자가 C1 어휘를 받는다.
+ */
+function deriveCategory(seed: {
+  blueprint: string
+  vLevelMin?: number | null
+  vLevelMax?: number | null
+  tags?: string[]
+}): string | null {
+  switch (seed.blueprint) {
+    case 'level-band': {
+      // 밴드 상한으로 고른다 — 아래를 포함하는 밴드는 위 단계 학습자에게도 쓸모가 있지만
+      // 반대는 아니다(V9 세트를 중등 칸에 넣으면 그 칸이 거짓말이 된다).
+      const hi = seed.vLevelMax ?? seed.vLevelMin ?? null
+      if (hi == null) return null
+      if (hi <= 3) return 'elementary'
+      if (hi <= 6) return 'middle'
+      if (hi <= 8) return 'high'
+      return 'eng_test'
+    }
+    case 'academic-awl':
+      // NAWL/AWL 은 학술 문헌 어휘 — TOEFL·IELTS 를 준비하는 사람이 찾는 칸이다.
+      return 'eng_test'
+    case 'domain-specialty': {
+      // 분야 태그가 실무 도메인이면 '비즈니스' 칸. 아니면 판단하지 않는다.
+      const t = (seed.tags ?? []).join(' ')
+      if (/moel|fel|bel|business|finance|medical|legal/i.test(t)) return 'business'
+      return null
+    }
+    default:
+      return null
+  }
+}
+
 interface RecipeSeed {
   blueprint: string
   slug: string
@@ -174,6 +216,15 @@ function recipe(seed: RecipeSeed): Recipe {
   // 위해 후보를 9.5% 버리는 것**일 뿐이다. 구·관용어는 IPA 8.3% 라 더 크게 잘려 나갔다.
   // 그래서 요구를 걷어낸다 — 데이터가 있으면 카드에 실을 수는 있지만, 없다고 빼지는 않는다.
 
+  // 칸은 레시피가 정한 것에서 고른다. 못 고르면 seed 가 적어 둔 값(대개 'themed')을 쓴다 —
+  // 판단 근거가 없을 때 아무 칸에나 넣지 않기 위해서다.
+  const derived = deriveCategory({
+    blueprint: seed.blueprint,
+    vLevelMin: seed.filters?.v_level_min ?? null,
+    vLevelMax: seed.filters?.v_level_max ?? null,
+    tags: seed.population.kind === 'list' ? (seed.population.tags as string[]) : [],
+  })
+
   return {
     version: RECIPE_VERSION,
     blueprint: seed.blueprint,
@@ -182,7 +233,7 @@ function recipe(seed: RecipeSeed): Recipe {
       title: seed.title,
       description: seed.description,
       cover_emoji: seed.emoji,
-      category: seed.category,
+      category: derived ?? seed.category,
       subcategory: seed.subcategory ?? null,
       target_segment: seed.segment ?? null,
       target_cefr_range: seed.cefr ?? [],

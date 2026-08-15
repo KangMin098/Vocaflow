@@ -158,6 +158,23 @@ export function VocabSetCard({
         )}
       </button>
 
+      {/*
+        표지 아래 한 줄 — **무엇으로 묶은 책인가**.
+
+        표지에는 제목·단어수·단계 배지가 이미 있다. 없던 것은 "왜 이렇게 묶였나" 이고,
+        그게 없으면 '테마별' 칸에 나란히 놓인 24권이 서로 구별되지 않는다
+        (실측 2026-08-15: 발행 29세트 중 24개가 그 한 칸에 있다).
+        제목을 반복하지 않는다 — 제목이 말하지 않는 것만 적는다.
+      */}
+      {set.kind && (
+        <p className="mt-2 flex items-baseline gap-1.5 font-body text-[11px] leading-snug text-[var(--t3)]">
+          <span className="shrink-0 rounded-[3px] bg-[var(--bg2)] px-1.5 py-px font-display text-[10px] font-[700] text-[var(--t2)]">
+            {set.kind.label}
+          </span>
+          <span className="line-clamp-2">{set.kind.principle}</span>
+        </p>
+      )}
+
       {errorMessage && (
         <p
           role="alert"

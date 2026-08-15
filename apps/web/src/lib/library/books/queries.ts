@@ -15,6 +15,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import { setKindOf } from '@/lib/library/vocab/set-kind'
 
 type DB = Database
 
@@ -76,6 +77,7 @@ export async function fetchBookChapterSets(
       wordCount: counts.get(r.id) ?? r.word_count ?? 0,
       subscriberCount: 0, // 도서 챕터 세트 — 컨텍스트상 인기도 미표시
       createdAt: r.created_at ?? new Date(0).toISOString(),
+      kind: null,
       chapterIdx: Number(r.curation_query?.chapter_idx ?? 0),
       curationQuery: r.curation_query ?? {},
     }))
@@ -188,6 +190,7 @@ export async function fetchBookComposerSets(
         wordCount,
         subscriberCount: r.subscriber_count ?? 0,
         createdAt: r.created_at ?? new Date(0).toISOString(),
+        kind: setKindOf(blueprint),
         blueprint,
         why: composerSetWhy(blueprint, wordCount, cq),
       }
