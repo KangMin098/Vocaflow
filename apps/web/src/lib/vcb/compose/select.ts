@@ -11,6 +11,7 @@
 import type { CandidateWord, Objective, SelectSpec } from './types'
 import { NOISE_REGISTERS } from './types'
 import { hasField } from './facets'
+import { hasBaseIn } from './resolve'
 import { greedyTokenCoverage, type CoverageResult } from './unlock'
 
 export interface SelectResult {
@@ -53,6 +54,8 @@ const CONTENT_POS = new Set([
 function poolInflections(population: CandidateWord[]): Set<string> {
   const present = new Set(population.map((c) => c.word.toLowerCase()))
   const drop = new Set<string>()
+
+  // ① 사전이 명시한 굴절형 — 정확하지만 `inflected_forms` 가 있는 행이 15,217 개뿐이다.
   for (const c of population) {
     const base = c.word.toLowerCase()
     for (const f of c.inflected_forms) {
@@ -60,6 +63,16 @@ function poolInflections(population: CandidateWord[]): Set<string> {
       if (form && form !== base && present.has(form)) drop.add(form)
     }
   }
+
+  // ② 철자 규칙 — ① 이 비어 있는 행을 메운다. 실측: `field` 행에 `fielding` 이 없어
+  // 두 낱말이 나란히 실렸다("다섯 면" 세트 9·10번). 지면 단어장은 표제어를 한 번만 싣는다.
+  // 대조군은 **이 풀**이다 — 풀 밖의 기본형까지 보려면 사전 전체가 필요하고, 그건
+  // `exclude_inflections` 가 하는 더 비싼 일이다.
+  for (const c of population) {
+    const w = c.word.toLowerCase()
+    if (!drop.has(w) && hasBaseIn(w, present)) drop.add(w)
+  }
+
   return drop
 }
 

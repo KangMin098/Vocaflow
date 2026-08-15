@@ -1113,9 +1113,17 @@ const D: Blueprint[] = [
         category: 'themed',
         subcategory: 'mnemonic',
         segment: p.segment ?? 'general',
-        cefr: p.cefr_levels ?? ['B1', 'B2'],
+        // 연상 장치는 **어려운 단어에 붙어 있다** — 실측 V7+ 4,350개 vs V1~3 551개.
+        // 당연하다: 쉬운 단어는 연상 없이 외워지므로 아무도 만들지 않았다.
+        // 그런데 B1~B2 를 선언하고 빈도순으로 뽑으니 그 551개가 먼저 나와
+        // `have · come · will · say` 로 시작했다 — 연상 보카가 팔 물건이 아니다.
+        cefr: p.cefr_levels ?? ['B2', 'C1'],
         population: { kind: 'dictionary' },
-        filters: { require_fields: ['mnemonic_ko'] },
+        filters: {
+          require_fields: ['mnemonic_ko'],
+          v_level_min: (p.v_level_min ?? 7) as never,
+          v_level_max: (p.v_level_max ?? 11) as never,
+        },
         objective: { kind: 'count', n: p.count ?? 500 },
         group_by: 'v_level',
         group_order: 'v_level',
@@ -1324,6 +1332,11 @@ const U: Blueprint[] = [
         filters: {
           require_fields: ['example_en', 'morphology'],
           freq_bands: ['top1k', 'top2k', 'top3k', 'top5k'],
+          // B1~B2 를 표방하면서 `come · will · say · know · get` 로 시작했다 —
+          // 면 조건(예문+형태소)을 만족하는 단어 중 빈도 1등이 그것들이기 때문이다.
+          // 선언한 등급을 **실제로 지킨다**(후보 V4~V7 만 2,349개 · 500 을 채우고 남는다).
+          v_level_min: (p.v_level_min ?? 4) as never,
+          v_level_max: (p.v_level_max ?? 7) as never,
         },
         objective: { kind: 'count', n: p.count ?? 300 },
         group_by: 'v_level',
