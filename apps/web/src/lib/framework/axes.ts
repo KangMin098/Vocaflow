@@ -245,7 +245,7 @@ export const SURFACES: Record<SurfaceId, Surface> = {
     href: '/library',
     says: '무엇으로 공부할지 고르는 곳',
     // 콘텐츠 축 전부. 'Library' 가 큐레이션 카탈로그만 뜻했던 모호함이 여기서 사라진다.
-    absorbs: ['/library (도서·Articles·Sets)', '/text (Texts)', '/comics (Book) — Vintage 는 ADR 0007 로 제거'],
+    absorbs: ['/library (도서·Articles·Sets)', '/text (Texts)', '/comics (Book·Vintage)'],
   },
   vault: {
     id: 'vault',

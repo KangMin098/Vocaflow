@@ -52,7 +52,7 @@ describe('requiresAuth — 공개로 남아야 하는 화면', () => {
     ['도서 상세', '/library/books/abc-123'],
     ['스크립트', '/library/scripts/xyz'],
     ['만화 카탈로그', '/comics'],
-    ['만화 상세', '/comics/adapted/book-1'],
+    ['만화 상세', '/comics/restored/slug-1'],
   ])('공개: %s', (_label, path) => {
     expect(requiresAuth(path)).toBe(false)
   })
