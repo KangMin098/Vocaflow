@@ -88,10 +88,11 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
 
     await expect(page.getByRole('heading', { name: '받아쓰기' }).first()).toBeVisible();
 
-    // 자료 3탭 — 도서/스크립트/단어장. 각 탭 옆 숫자가 실제 보유 수.
-    const bookTab = page.getByRole('tab', { name: /도서/ });
+    // 탭 라벨 출처는 `MATERIAL_LABEL`(영어) — v06.141 이후 이름은 화면에서 짓지 않는다.
+    // 여기서 영어를 다시 적는 이유: 탭이 그 출처를 **실제로** 읽는지 확인하는 것이 이 단언의 값이다.
+    const bookTab = page.getByRole("tab", { name: /Books/ });
     await expect(bookTab).toBeVisible();
-    await expect(page.getByRole('tab', { name: /단어장/ })).toBeVisible();
+    await expect(page.getByRole("tab", { name: /Decks/ })).toBeVisible();
 
     // 도서 탭에 실제 enroll 한 챕터 링크가 있어야 한다 (localStorage 시드가 아님)
     await bookTab.click();
@@ -99,7 +100,7 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
     await expect(bookLink).toBeVisible({ timeout: 10_000 });
 
     // 단어장 탭 — set 스코프 링크
-    await page.getByRole('tab', { name: /단어장/ }).click();
+    await page.getByRole("tab", { name: /Decks/ }).click();
     await expect(page.locator('a[href^="/dictate/setup?set="]').first()).toBeVisible({
       timeout: 10_000,
     });
@@ -205,7 +206,7 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
 
     try {
       await page.goto('/dictate', { waitUntil: 'networkidle' });
-      await page.getByRole('tab', { name: /도서/ }).click();
+      await page.getByRole("tab", { name: /Books/ }).click();
       const bookLink = page.locator('a[href^="/dictate/setup?text="]').first();
       await expect(bookLink).toBeVisible({ timeout: 10_000 });
       await bookLink.click();
@@ -265,7 +266,7 @@ test.describe('받아쓰기 — 자료 연결부터 영속화까지', () => {
   test('공용 단어장 스코프 — 단어가 사는 문장으로 세션이 만들어진다', async ({ page }) => {
     test.setTimeout(90_000);
     await page.goto('/dictate', { waitUntil: 'networkidle' });
-    await page.getByRole('tab', { name: /단어장/ }).click();
+    await page.getByRole("tab", { name: /Decks/ }).click();
 
     const setLink = page.locator('a[href^="/dictate/setup?set="]').first();
     await expect(setLink).toBeVisible({ timeout: 10_000 });

@@ -31,30 +31,55 @@ function readAll(): DictationSession[] {
   }
 }
 
-function writeAll(list: DictationSession[]): void {
-  if (!isBrowser()) return
+function writeAll(list: DictationSession[]): boolean {
+  if (!isBrowser()) return false
   try {
     window.localStorage.setItem(KEY, JSON.stringify(list.slice(0, MAX_CACHED)))
+    return true
   } catch {
-    /* quota 초과 등 — 진행 상태 캐시 실패는 학습을 막지 않는다 */
+    // quota 초과 등. **"학습을 막지 않는다" 는 거짓이었다** — 세션 인계가 이 캐시를 지나므로
+    // 여기서 실패하면 다음 화면이 세션을 못 찾는다. 그래서 호출부에 실패를 알린다.
+    return false
   }
 }
 
+/**
+ * 캐시에서 세션 하나.
+ *
+ * ⚠️ 저장된 값을 **검증한다**. 이 키(`vocaflow:dictation:active`)는 v07 이전 구조에서도
+ *    쓰였고, 형태가 어긋난 값이 남아 있으면 `session.items[...]` 가 던져 화면이 통째로
+ *    빈다 — 학습자에겐 "아무 반응 없음" 으로 보인다. 못 믿을 값은 없는 것으로 취급한다.
+ */
 export function getSession(id: string): DictationSession | undefined {
-  return readAll().find((s) => s.id === id)
+  const found = readAll().find((s) => s && s.id === id)
+  return isUsable(found) ? found : undefined
 }
 
-export function saveSession(session: DictationSession): void {
+/** 이 세션으로 화면을 그릴 수 있는가 — 형태와 범위를 함께 본다. */
+function isUsable(s: DictationSession | undefined): s is DictationSession {
+  if (!s || !Array.isArray(s.items) || s.items.length === 0) return false
+  if (typeof s.currentIndex !== 'number' || s.currentIndex < 0) return false
+  // 인덱스가 끝을 넘은 세션은 그릴 문항이 없다 — 완주 표시 없이 이 상태면 중단된 것이다
+  return s.currentIndex < s.items.length || !!s.completedAt
+}
+
+/** @returns 캐시에 실제로 남았는가. false 면 다음 화면이 이 세션을 못 찾는다. */
+export function saveSession(session: DictationSession): boolean {
   const list = readAll().filter((s) => s.id !== session.id)
   list.unshift(session)
-  writeAll(list)
+  return writeAll(list)
 }
 
 export function deleteSession(id: string): void {
   writeAll(readAll().filter((s) => s.id !== id))
 }
 
-/** 완주하지 않은 가장 최근 세션 — 허브 "이어하기". */
+/**
+ * 완주하지 않은 가장 최근 세션 — 허브 "이어하기".
+ *
+ * ⚠️ `isUsable` 를 함께 본다. 그리지 못하는 세션을 이어하기로 내놓으면 **허브가 자기 손으로
+ *    막다른 화면으로 보내는 링크**를 만든다(인덱스가 끝을 넘었거나 형태가 깨진 캐시).
+ */
 export function getResumableSession(): DictationSession | undefined {
-  return readAll().find((s) => !s.completedAt && s.items.length > 0)
+  return readAll().find((s) => isUsable(s) && !s.completedAt)
 }

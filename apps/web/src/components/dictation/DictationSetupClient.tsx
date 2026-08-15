@@ -34,7 +34,7 @@ import {
   resolveDictationSource,
   type DictationSource,
 } from '@/lib/dictation/source'
-import { createDictationSession } from '@/hooks/dictation/useDictationSession'
+import { createDictationSession, DictationStartError } from '@/hooks/dictation/useDictationSession'
 import type {
   CEFRCode,
   ChunkSize,
@@ -70,6 +70,7 @@ export function DictationSetupClient() {
   const [source, setSource] = useState<DictationSource | null>(null)
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'missing'>('loading')
   const [starting, setStarting] = useState(false)
+  const [startError, setStartError] = useState<string | null>(null)
   /** 청취 폭 — 문항을 고를 길이대의 기준 (null = 아직 기록 없음) */
   const [span, setSpan] = useState<number | null>(null)
 
@@ -163,6 +164,7 @@ export function DictationSetupClient() {
   const start = useCallback(async () => {
     if (!source || starting) return
     setStarting(true)
+    setStartError(null)
     const config: DictationConfig = {
       chunkSize,
       count,
@@ -174,9 +176,17 @@ export function DictationSetupClient() {
       hintsAllowed,
       voice: '',
     }
-    const session = await createDictationSession(source, config, span)
-    if (!session) {
+    // 실패는 반드시 화면에 남긴다 — 조용히 스피너만 끄면 "아무 반응 없음" 이 된다.
+    let session
+    try {
+      session = await createDictationSession(source, config, span)
+    } catch (e) {
       setStarting(false)
+      setStartError(
+        e instanceof DictationStartError && e.reason === 'cache-failed'
+          ? '이 브라우저의 저장 공간이 가득 차 세션을 이어받지 못했어요. 사이트 데이터를 정리하거나 다른 브라우저에서 다시 시도해 주세요.'
+          : '이 설정으로 만들 문항이 없었어요. 문항 수나 묶음 크기를 줄여서 다시 시도해 주세요.',
+      )
       return
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
@@ -184,8 +194,14 @@ export function DictationSetupClient() {
 
   if (loadState === 'loading') {
     return (
-      <div className="mx-auto flex max-w-3xl items-center justify-center px-4 py-20">
-        <Loader2 size={20} className="animate-spin text-[var(--t3)]" />
+      // 맨 스피너는 화면 판독기에 아무것도 아니다 — 상태를 말로도 남긴다(결과 화면과 같은 규칙).
+      <div
+        role="status"
+        aria-live="polite"
+        className="mx-auto flex max-w-3xl items-center justify-center gap-2 px-4 py-20"
+      >
+        <Loader2 size={20} className="animate-spin text-[var(--t3)]" aria-hidden="true" />
+        <span className="font-body text-[13px] text-[var(--t2)]">자료를 불러오는 중</span>
       </div>
     )
   }
@@ -231,7 +247,7 @@ export function DictationSetupClient() {
               ? router.back()
               : router.push('/dictate')
           }
-          className={`inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
           aria-label="뒤로"
         >
           <ArrowLeft size={16} />
@@ -448,6 +464,17 @@ export function DictationSetupClient() {
       </section>
 
       {/* ─── CTA ─── */}
+      {/* 시작 실패 사유. `role="alert"` 로 스크린리더에도 즉시 전달된다 —
+          버튼만 되돌아오는 화면은 학습자에게 "아무 일도 안 일어났다" 로 읽힌다. */}
+      {startError && (
+        <p
+          role="alert"
+          className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-3 py-2.5 font-body text-[13px] leading-relaxed text-[var(--error-ink)]"
+        >
+          {startError}
+        </p>
+      )}
+
       <button
         type="button"
         onClick={start}
@@ -571,7 +598,7 @@ function EmptyState({
       <button
         type="button"
         onClick={onBack}
-        className={`inline-flex h-10 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+        className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
         style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
       >
         자료 다시 고르기

@@ -255,7 +255,7 @@ export function DictationSessionClient() {
         <button
           type="button"
           onClick={() => router.push('/dictate')}
-          className={`inline-flex h-10 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+          className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
           받아쓰기로 돌아가기
@@ -310,7 +310,7 @@ export function DictationSessionClient() {
                 ? router.back()
                 : router.push('/dictate')
             }
-            className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+            className={`inline-flex h-11 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
           >
             <X size={14} />
             나가기
@@ -338,7 +338,7 @@ export function DictationSessionClient() {
             type="button"
             onClick={() => setFocusMode((v) => !v)}
             aria-pressed={focusMode}
-            className={`inline-flex h-9 items-center gap-1 rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[600] transition-colors ${FOCUS_RING} ${
+            className={`inline-flex h-11 items-center gap-1 rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[600] transition-colors ${FOCUS_RING} ${
               focusMode
                 ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                 : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -413,7 +413,7 @@ export function DictationSessionClient() {
             <button
               type="button"
               onClick={playOnce}
-              className={`inline-flex h-10 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+              className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
               title="한 번만 재생 (Space)"
             >
               <RotateCw size={14} />
@@ -584,7 +584,7 @@ export function DictationSessionClient() {
               <button
                 type="button"
                 onClick={handleSkip}
-                className={`inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+                className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
               >
                 <SkipForward size={14} />
                 건너뛰기
@@ -723,7 +723,7 @@ function FeedbackSection({
           <button
             type="button"
             onClick={onToggleTranslation}
-            className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] font-body text-[11px] text-[var(--p)] hover:underline ${FOCUS_RING}`}
+            className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] font-body text-[11px] text-[var(--p)] hover:underline ${FOCUS_RING}`}
           >
             {showTranslation ? <EyeOff size={12} /> : <Eye size={12} />}
             {showTranslation ? '번역 숨기기' : '한국어 번역 보기'}
@@ -759,7 +759,7 @@ function FeedbackSection({
         <button
           type="button"
           onClick={onPlayAgain}
-          className={`inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+          className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
         >
           <RotateCw size={12} />
           다시 듣기

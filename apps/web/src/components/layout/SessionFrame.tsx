@@ -269,7 +269,9 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                 href={closeHref}
                 aria-label="세션 닫기 (Esc)"
                 title="세션 닫기 (Esc)"
-                className="inline-flex h-9 w-9 min-h-[36px] min-w-[36px] items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+                // 44px 하한(프로젝트 절대 규칙). 36px 로 두면 **학습 세션에서 나가는 유일한
+                // 조작**이 가장 누르기 어려운 요소가 된다 — 셸에는 다른 출구가 없다.
+                className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
               >
                 <X size={18} strokeWidth={2} aria-hidden="true" />
               </Link>

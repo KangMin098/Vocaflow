@@ -20,13 +20,16 @@ import { ArrowRight, BookOpen, ClipboardPaste, FileText, Layers } from 'lucide-r
 
 import type { DictationCatalog } from '@/lib/dictation/catalog'
 import { stashCustomScript } from '@/lib/dictation/source'
+import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 type TabId = 'books' | 'scripts' | 'sets'
 
+// 라벨 출처 = `MATERIAL_LABEL`. 여기 'scripts' 는 **학습자가 직접 넣은 글**(script)이지
+// 라이브러리의 공개 짧은 글(article=Dispatches)이 아니다 — 둘을 같은 이름으로 부르면 안 된다.
 const TABS: Array<{ id: TabId; label: string; icon: typeof BookOpen }> = [
-  { id: 'books', label: '도서', icon: BookOpen },
-  { id: 'scripts', label: '스크립트', icon: FileText },
-  { id: 'sets', label: '단어장', icon: Layers },
+  { id: 'books', label: MATERIAL_LABEL.book, icon: BookOpen },
+  { id: 'scripts', label: MATERIAL_LABEL.script, icon: FileText },
+  { id: 'sets', label: MATERIAL_LABEL.word_set, icon: Layers },
 ]
 
 const EMPTY_COPY: Record<TabId, { text: string; href: string; cta: string }> = {
@@ -122,7 +125,9 @@ export function SourcePicker({ catalog }: { catalog: DictationCatalog }) {
               role="tab"
               aria-selected={active}
               onClick={() => pick(t.id)}
-              className={`inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-3 py-1.5 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${
+              // 44px 하한은 프로젝트 절대 규칙 — py-1.5 로는 30px 였다(실측 92x30).
+              // 자료를 고르는 첫 조작이라 모바일에서 가장 많이 눌리는 곳이다.
+              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] px-3 py-1.5 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${
                 active
                   ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -178,7 +183,8 @@ export function SourcePicker({ catalog }: { catalog: DictationCatalog }) {
             </p>
             <Link
               href={EMPTY_COPY[tab].href}
-              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+              // 빈 탭에서 **유일한** 다음 걸음이다 — 여기가 44px 미만이면 막다른 곳에 가깝다
+              className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
             >
               {EMPTY_COPY[tab].cta}
               <ArrowRight size={13} />

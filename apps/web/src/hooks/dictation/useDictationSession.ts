@@ -110,18 +110,31 @@ function buildItems(
   }))
 }
 
+/** 시작이 왜 안 됐는가 — 화면이 학습자에게 그대로 말할 수 있어야 한다. */
+export type DictationStartFailure = 'no-items' | 'cache-failed'
+
+export class DictationStartError extends Error {
+  constructor(readonly reason: DictationStartFailure) {
+    super(reason)
+    this.name = 'DictationStartError'
+  }
+}
+
 /**
  * 세션 생성 — DB 행을 먼저 만들고 그 uuid 를 세션 id 로 쓴다.
  * 비로그인이면 `local-*` id 로 degrade (학습은 되고 기록만 이 기기 한정).
+ *
+ * 실패는 **던진다**. 이전엔 null 을 돌려줬는데, 호출부가 그걸 조용히 삼켜
+ * "시작 버튼을 눌렀는데 아무 일도 안 일어나는" 화면이 됐다(사용자 신고 2026-08-15).
  */
 export async function createDictationSession(
   source: DictationSource,
   config: DictationConfig,
   /** 학습자 청취 폭(`dictation_overview().span`). 문항 길이 적응에 쓴다. */
   span?: number | null,
-): Promise<DictationSession | null> {
+): Promise<DictationSession> {
   const items = buildItems(source, config, span)
-  if (items.length === 0) return null
+  if (items.length === 0) throw new DictationStartError('no-items')
 
   const client = createClient()
   const started = await startDictationSession(client, source, config, items.length)
@@ -142,7 +155,9 @@ export async function createDictationSession(
     startedAt: Date.now(),
     totalHintsUsed: 0,
   }
-  saveSession(session)
+  // 인계가 이 캐시를 지난다 — 여기서 실패하면 **다음 화면이 세션을 못 찾는다.**
+  // 조용히 넘기면 학습자는 시작 버튼을 눌렀는데 아무 일도 안 일어난 것처럼 겪는다.
+  if (!saveSession(session)) throw new DictationStartError('cache-failed')
   return session
 }
 

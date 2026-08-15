@@ -103,8 +103,16 @@ export function DictationResultsClient() {
 
   if (state === 'loading') {
     return (
-      <div className="mx-auto flex max-w-3xl items-center justify-center px-4 py-20">
-        <Loader2 size={20} className="animate-spin text-[var(--t3)]" />
+      // 맨 스피너는 **화면 판독기에 아무것도 아니다** — "불러오는 중" 과 "아무것도 없음" 이
+      // 구분되지 않는다(회귀 스펙도 이 둘을 구별하지 못해 로딩 중을 빈 화면으로 읽었다).
+      // 그래서 상태를 말로도 남긴다.
+      <div
+        role="status"
+        aria-live="polite"
+        className="mx-auto flex max-w-3xl items-center justify-center gap-2 px-4 py-20"
+      >
+        <Loader2 size={20} className="animate-spin text-[var(--t3)]" aria-hidden="true" />
+        <span className="font-body text-[13px] text-[var(--t2)]">결과를 불러오는 중</span>
       </div>
     )
   }
@@ -123,7 +131,7 @@ export function DictationResultsClient() {
         </div>
         <Link
           href="/dictate"
-          className="inline-flex h-10 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
           받아쓰기로 돌아가기
