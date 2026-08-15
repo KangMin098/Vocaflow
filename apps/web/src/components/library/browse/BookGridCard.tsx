@@ -41,7 +41,11 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
       type="button"
       onClick={() => onOpen(book)}
       aria-label={`${book.title}${book.author ? ` · ${book.author}` : ''} 상세 보기`}
-      className="group flex flex-col gap-2 rounded-[10px] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2"
+      // ⚠️ `w-full` 이 없으면 버튼이 **내용 너비로 줄어든다.** 격자는 6열 균등인데 칸 안에서
+      // 카드가 제목 길이만큼만 넓어져, 표지(w-full)가 그 폭을 그대로 따라 제각각이 됐다 —
+      // 실측 2026-08-15: 같은 행에서 63px(`Fables`) ~ 150px. 서가가 어수선해 보이던 진짜
+      // 원인이고, 비율(3:4)은 내내 정확했다. 폭이 흔들리고 있었을 뿐이다.
+      className="group flex w-full flex-col gap-2 rounded-[10px] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2"
     >
       {/* 표지 */}
       <div
