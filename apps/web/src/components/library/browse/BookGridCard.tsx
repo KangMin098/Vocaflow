@@ -45,7 +45,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
       // 카드가 제목 길이만큼만 넓어져, 표지(w-full)가 그 폭을 그대로 따라 제각각이 됐다 —
       // 실측 2026-08-15: 같은 행에서 63px(`Fables`) ~ 150px. 서가가 어수선해 보이던 진짜
       // 원인이고, 비율(3:4)은 내내 정확했다. 폭이 흔들리고 있었을 뿐이다.
-      className="group flex w-full flex-col gap-2 rounded-[10px] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2"
+      className="focus-visible:ring-[var(--p)]/40 group flex w-full flex-col gap-2 rounded-[10px] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
     >
       {/* 표지 */}
       <div
@@ -174,7 +174,12 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           저자 1줄 = 11px × 1.45 ≈ 16px
       */}
       <div className="flex flex-col gap-0.5 px-0.5">
-        <h3 className="line-clamp-2 min-h-[34px] font-english text-[13.5px] font-[600] leading-tight text-[var(--t1)]">
+        {/* `data-design-title` — 계측이 재는 **메타데이터 제목**. 표지 아트의 제목
+            (`GradientBookCover`, line-clamp-4/5)은 그림이지 표의 칸이 아니라서 제외된다. */}
+        <h3
+          data-design-title
+          className="line-clamp-2 min-h-[34px] font-english text-[13.5px] font-[600] leading-tight text-[var(--t1)]"
+        >
           {book.title}
         </h3>
         {/* 저자가 없어도 행은 남긴다 — 있는 카드와 없는 카드의 높이가 갈리지 않게 */}
@@ -195,7 +200,11 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
               style={{ color: fit.color, borderColor: fit.color }}
               title={`V${userVLevel} 학습자가 아는 단어 ${fit.coverage}%`}
             >
-              <span aria-hidden className="h-1 w-1 rounded-full" style={{ backgroundColor: fit.color }} />
+              <span
+                aria-hidden
+                className="h-1 w-1 rounded-full"
+                style={{ backgroundColor: fit.color }}
+              />
               {fit.label}
               <span className="font-mono">{fit.coverage}%</span>
             </span>

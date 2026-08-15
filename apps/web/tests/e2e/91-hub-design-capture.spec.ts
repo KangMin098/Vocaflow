@@ -282,10 +282,22 @@ async function layoutMetrics(page: Page) {
       ? Math.min(...cards.map((c) => c.getBoundingClientRect().top + window.scrollY))
       : null
 
+    // ⚠️ **아무 `h3` 나 재면 안 된다 — 장식 타이포를 기준선으로 착각한다.**
+    // 실측 2026-08-16: 서가가 `{"2":24,"4":2}`(Books) · `{"1":7,"2":2,"3":3}`(Decks) 로 나와
+    // "제목 줄 수가 흩어져 기준선이 어긋난다" 고 판단할 뻔했다. 실제로는 **표지 아트의 제목**
+    // (`GradientBookCover`, `line-clamp-4/5`)을 메타데이터 제목과 한 통에 센 것이었다.
+    // 책 표지의 제목이 1~5줄인 것은 정상이다 — 그건 그림이지 표의 한 칸이 아니다.
+    // Decks 카드는 아예 표지 아래 제목이 없다(제목이 곧 표지다).
+    // 그래서 **명시적으로 표시된 제목만** 잰다. 표시가 없으면 재지 않고 그 수를 따로 낸다 —
+    // 잘못 재는 것보다 "안 쟀다" 가 낫다.
     const titleLines: Record<number, number> = {}
+    let cardsWithoutMarkedTitle = 0
     for (const c of cards) {
-      const t = c.querySelector('h3')
-      if (!t) continue
+      const t = c.querySelector('[data-design-title]')
+      if (!t) {
+        cardsWithoutMarkedTitle++
+        continue
+      }
       const cs = getComputedStyle(t)
       const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.25
       const n = Math.max(1, Math.round(t.getBoundingClientRect().height / lh))
@@ -331,6 +343,8 @@ async function layoutMetrics(page: Page) {
       unevenSections: sections.filter((s) => s.heights.length > 1).length,
       /** 제목 줄 수 분포 — 흩어져 있으면 기준선이 어긋난다. */
       titleLines,
+      /** 제목 표시가 없어 재지 않은 카드 수 — 0 이 아니면 그 화면의 제목 계측은 부분적이다 */
+      cardsWithoutMarkedTitle,
       /** 문서 가로 넘침(px) — 모바일에서 0 이어야 한다. */
       overflowPx: Math.max(
         0,
@@ -456,7 +470,7 @@ test.describe('허브 디자인 캡처', () => {
       // eslint-disable-next-line no-console
       console.log(
         `[metric] ${m.route}/${m.vp} 카드 ${m.cardCount} · ${verdict} · ` +
-          `제목줄 ${JSON.stringify(m.titleLines)} · 넘침 ${m.overflowPx}px · ` +
+          `제목줄 ${JSON.stringify(m.titleLines)}${m.cardsWithoutMarkedTitle ? `(+${m.cardsWithoutMarkedTitle} 미표시)` : ''} · 넘침 ${m.overflowPx}px · ` +
           `높이 ${m.foldRatio}화면`
       )
       if (m.belowFoldCount > 0) {
