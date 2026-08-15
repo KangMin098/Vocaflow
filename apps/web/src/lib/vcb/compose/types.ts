@@ -104,13 +104,6 @@ export const REQUIRABLE_FIELDS = [
   /** 예문이 **그 표제어를 실제로 담고 있는가** (굴절·구 포함). 담지 않은 예문은 예문이 아니다 */
   'example_matches',
   'ipa',
-  /**
-   * 표제어를 **소리로 낼 수 있는가** — 라틴 문자를 담고 있는가.
-   *
-   * 재생 경로가 브라우저 TTS 하나이므로(대체 경로 없음) Sound 면의 요구는 파일 유무가 아니라
-   * 이것이다. 사전에 섞인 비라틴 표기는 TTS 가 영어로 읽지 못한다.
-   */
-  'speakable',
   'audio_url',
   'image_url',
   'collocations',

@@ -335,12 +335,12 @@ describe.skipIf(!enabled)('VCB 컴포저 — 전 blueprint 실 DB 평가', () =>
     expect(stuck.map((r) => r.id)).toEqual([])
   })
 
-  it('자산 결손 1종은 0건을 내는 것이 정상이다 (설계 결함이 아님을 고정)', () => {
-    // 한때 오디오도 여기 있었다. 그건 자산 결손이 아니라 **판정 오류**였다 — 흘려듣기는
-    // audio_url 없이 런타임 TTS 로 이미 돌고 있었고, 규칙만 녹음본을 요구하고 있었다.
-    // 그림은 진짜 결손이다: image_url 45,688행 전량 NULL 이고 대체 재생 경로가 없다.
+  it('자산 결손 2종은 0건을 내는 것이 정상이다 (설계 결함이 아님을 고정)', () => {
+    // 둘 다 재생할 자산이 없다 — image_url 0 / 45,688 · audio_url 0 / 45,688.
+    // 오디오는 한때 TTS 로 열렸다가 다시 닫혔다: 발음·소리를 단어장 범위에서 제외하면서
+    // 남은 경로가 녹음 파일뿐이 됐다(제품 결정).
     const gaps = rows.filter((r) => r.status === 'asset_gap')
-    expect(gaps.map((r) => r.id).sort()).toEqual(['picture-dict'])
+    expect(gaps.map((r) => r.id).sort()).toEqual(['audio-only', 'picture-dict'])
     for (const g of gaps) expect(g.entries).toBe(0)
   })
 })

@@ -104,20 +104,12 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
     expect(v.tier).toBe('full')
   })
 
-  it('Sound 면은 녹음도 IPA 도 없이 성립한다 — 재생 경로는 브라우저 TTS 하나다', () => {
-    // 한때 녹음 유무로 강등했고(fallback · 0.7 가중), 그다음엔 IPA 를 요구했다.
-    // 둘 다 "파일이나 표기가 재생을 지탱한다" 는 전제였는데, 재생은 TTS 가 한다.
-    // 확정된 경로를 계속 결핍으로 세면 오디오 유형이 영원히 감점된 채로 남는다.
-    const v = facetVerdict(word('alpha', { ipa: null }), 'sound')
-    expect(v.tier).toBe('full')
-    expect(v.note).toMatch(/TTS/)
-  })
-
-  it('Sound 면은 소리로 낼 수 없는 표제어에서만 불가다', () => {
-    // TTS 는 라틴 문자를 영어로 읽는다. 사전에 섞인 비라틴 표기는 읽히지 않는다.
-    const v = facetVerdict(word('한글'), 'sound')
-    expect(v.tier).toBe('missing')
-    expect(v.missing).toContain('speakable')
+  it('Sound 면은 녹음이 있어야 성립한다 — TTS 는 범위 밖이고 IPA 는 소리가 아니다', () => {
+    // 발음(IPA)·소리(TTS)를 단어장 범위에서 제외했으므로(제품 결정), 들려줄 것은 녹음뿐이다.
+    // IPA 가 있어도 그건 표기이지 소리가 아니라서 이 면을 대신 지탱하지 못한다.
+    expect(facetVerdict(word('alpha'), 'sound').tier).toBe('missing')
+    expect(facetVerdict(word('alpha'), 'sound').missing).toContain('audio_url')
+    expect(facetVerdict(word('alpha', { audio_url: 'https://x/a.mp3' }), 'sound').tier).toBe('full')
   })
 
   it('Build 면은 형태소 정보 중 하나라도 있으면 성립한다', () => {
@@ -130,8 +122,9 @@ describe('facets — 선언이 데이터 요구로 번역된다', () => {
     // Build 면의 요구는 any_of(['morphology']) 하나뿐 — 형태소 커버리지 34.7% 이므로
     // 이것을 선별 필터로 올리면 어원 계열 세트가 3분의 1로 줄어든다.
     expect(requiredFieldsFor(['build'])).toEqual([])
-    // Sound 면은 반대로 `all` 요구가 하나 있다 — 소리로 낼 수 없는 표제어는 애초에 빼야 한다.
-    expect(requiredFieldsFor(['sound'])).toEqual(['speakable'])
+    // Sound 면은 반대로 `all` 요구가 하나 있다 — 녹음이 없으면 들려줄 것이 없다.
+    // (`audio_url` 0% 이므로 이 면을 선언하는 유형은 0건을 낸다. 그것이 사실이다.)
+    expect(requiredFieldsFor(['sound'])).toEqual(['audio_url'])
     // Use 면은 예문이 **그 단어를 담고 있는지**까지 요구한다 (유의어로 쓴 예문 배제)
     expect(requiredFieldsFor(['use'])).toEqual(['example_en', 'example_matches'])
   })
@@ -432,9 +425,9 @@ describe('blueprint 카탈로그', () => {
     const s = catalogSummary()
     expect(s.total).toBe(31)
     expect(s.by_family.unique).toBe(5)
-    // 자산이 없어 **만들 수 없는** 유형은 그림 하나뿐이다.
-    // 오디오는 한때 여기 있었지만 오판이었다 — audio_url 은 0% 여도 흘려듣기는 런타임 TTS 로
-    // 이미 돌고 있었다. 없는 것은 녹음본(오프라인·원어민 억양)이므로 partial 이 맞다.
-    expect(s.by_status.asset_gap).toBe(1) // image_url 0% — 이미지 자산 수집이 선행 과제
+    // 자산이 없어 **만들 수 없는** 유형 둘 — 그림(image_url 0%)과 오디오(audio_url 0%).
+    // 오디오는 한때 TTS 로 열렸다가 다시 닫혔다: 발음·소리를 단어장 범위에서 제외하기로
+    // 하면서 재생 경로가 녹음 파일 하나만 남았기 때문이다.
+    expect(s.by_status.asset_gap).toBe(2)
   })
 })

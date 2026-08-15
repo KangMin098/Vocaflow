@@ -364,19 +364,13 @@ export function evaluateMarket(set: ComposedSet): MarketScorecard {
     }),
     n,
   )
-  // 발음 표기 — **구(phrase)는 분모에서 뺀다.** 지면 책도 'give up' 에 발음기호를 싣지 않는다
-  // (실측: 구 5,545개 중 IPA 8.3% · 단어 40,143개 중 90.5%). 구를 분모에 두면 구동사 단어장이
-  // 매체 특성 때문에 지는 것이 되어 비교가 거짓이 된다.
-  const needsIpa = cands.filter((x) => !/\s/.test(x.word.trim()))
-  /** 전부 구인 세트에서는 발음 표기가 판정 대상이 아니다 (지면도 싣지 않는다). */
-  const pronunciationApplicable = needsIpa.length > 0
-  const pronunciation =
-    needsIpa.length === 0
-      ? // 전부 구 → 이 요소는 판정 대상이 아니다. 기준선과 같게 두어 승패에 영향을 주지 않는다.
-        (COMPETITOR_BY_ID.get(compId)?.profile.pronunciation ?? 1)
-      : // `발음 표기` 요소는 지면과 겨루는 항목이므로 **표기(IPA)** 로만 센다.
-        // 재생(TTS)은 지면이 아예 못 하는 것이라 이 요소가 아니라 print_impossible 쪽 이야기다.
-        ratio(needsIpa.filter((x) => !!x.ipa).length, needsIpa.length)
+  // 발음 표기 — **판정 대상에서 제외**한다 (제품 결정 2026-08-15: 발음(IPA)·소리(TTS)는 범위 밖).
+  //
+  // 요소를 목록에서 지우지 않고 `applicable: false` 로 두는 이유: 지운 척하면 "16요소 전부 우위"
+  // 라는 말이 슬그머니 15요소 이야기가 된다. 여기 남겨 두면 리포트가 **무엇을 겨루지 않기로
+  // 했는지**를 그대로 보여 준다. 기준선과 같은 값을 넣어 승패에는 영향을 주지 않는다.
+  const pronunciationApplicable = false
+  const pronunciation = COMPETITOR_BY_ID.get(compId)?.profile.pronunciation ?? 1
   const morphology = ratio(count((c) => hasField(c, 'morphology')), n)
   const relations = ratio(count((c) => c.synonyms.length > 0 || c.antonyms.length > 0), n)
   const collocation = ratio(count((c) => c.collocations.length > 0), n)

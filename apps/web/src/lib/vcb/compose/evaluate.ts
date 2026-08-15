@@ -280,18 +280,6 @@ function evalFitRule(rule: FitRule, set: ComposedSet): { ok: boolean; detail: st
         detail: bad === 0 ? '전량 원문 문장 보유' : `원문 문장 없음 ${bad}/${n}`,
       }
     }
-    case 'audio_playable': {
-      // 재생 경로는 브라우저 TTS 하나다(대체 경로 없음). 그래서 세는 것은 파일 유무가 아니라
-      // **읽을 수 있는 표제어인가** 다 — 사전에 섞인 비라틴 표기는 영어로 읽히지 않는다.
-      const mute = entries.filter((e) => !hasField(e.candidate, 'speakable')).length
-      return {
-        ok: mute === 0 && n > 0,
-        detail:
-          mute === 0
-            ? `브라우저 TTS 로 전량 재생 가능 (${n}건)`
-            : `소리를 낼 수 없는 항목 ${mute}/${n}`,
-      }
-    }
     case 'beats_baseline': {
       if (rule.metric === 'sentence_unlock') {
         const ev = set.evidence?.sentence_unlock

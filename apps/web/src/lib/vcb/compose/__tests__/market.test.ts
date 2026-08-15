@@ -103,8 +103,8 @@ describe('예문 포함 판정 — 굴절·구', () => {
   })
 })
 
-describe('매체 특성 보정 — 구에는 지면도 발음기호를 싣지 않는다', () => {
-  it('전부 구인 세트에서 발음 표기는 판정 대상이 아니다', () => {
+describe('발음 표기 — 범위에서 제외된 요소는 승패를 가르지 않는다', () => {
+  it('구 세트에서 발음 표기는 판정 대상이 아니다', () => {
     const bp = BLUEPRINTS.find((b) => b.id === 'phrasal-idiom')!
     const set = compose(bp.build({ count: 10 }), [
       word('give up', { primary_pos: 'phrasal_verb', ipa: null, frequency_rank: 10 }),
@@ -118,16 +118,31 @@ describe('매체 특성 보정 — 구에는 지면도 발음기호를 싣지 �
     expect(m.beatable_ties).not.toContain('pronunciation')
   })
 
-  it('단어가 섞여 있으면 그 단어들만 분모가 된다', () => {
+  it('낱말 세트에서도 판정 대상이 아니다 — IPA 유무로 이기지도 지지도 않는다', () => {
+    // 발음(IPA)·소리(TTS)를 단어장 범위에서 제외했다(제품 결정 2026-08-15).
+    // 요소를 목록에서 지우지 않고 `applicable: false` 로 두는 이유는, 지우면
+    // "16요소 전부 우위" 라는 말이 슬그머니 15요소 이야기가 되기 때문이다.
     const bp = BLUEPRINTS.find((b) => b.id === 'freq-tier')!
     const set = compose(bp.build({ count: 10 }), [
       word('alpha', { ipa: '/a/' }),
       word('bravo', { ipa: null }),
     ])
-    const pron = evaluateMarket(set).elements.find((e) => e.id === 'pronunciation')!
-    // ipa 없는 항목은 애초에 필터로 빠지므로 남은 것은 전부 발음기호를 갖는다.
-    expect(pron.ours).toBe(1)
-    expect(pron.applicable).toBe(true)
+    const m = evaluateMarket(set)
+    const pron = m.elements.find((e) => e.id === 'pronunciation')!
+    expect(pron.applicable).toBe(false)
+    expect(pron.delta).toBe(0)
+    expect(m.beatable_ties).not.toContain('pronunciation')
+  })
+
+  it('IPA 가 없다고 후보에서 빠지지 않는다 — 요구 필드가 아니다', () => {
+    // 한때 모든 낱말 유형이 IPA 를 요구했다(지면과 발음 표기로 겨루려고). 발음을 다루지
+    // 않기로 한 지금 그 요구는 아무도 쓰지 않는 필드를 위해 후보를 버리는 것일 뿐이다.
+    const bp = BLUEPRINTS.find((b) => b.id === 'freq-tier')!
+    const set = compose(bp.build({ count: 10 }), [
+      word('alpha', { ipa: '/a/' }),
+      word('bravo', { ipa: null }),
+    ])
+    expect(set.entries.map((e) => e.candidate.word).sort()).toEqual(['alpha', 'bravo'])
   })
 })
 

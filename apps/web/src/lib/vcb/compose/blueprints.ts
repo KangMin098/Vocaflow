@@ -51,15 +51,6 @@ export type FitRule =
   | { kind: 'beats_baseline'; metric: 'sentence_unlock' | 'future_encounters' }
   /** 그룹 수가 이 값 이상 — 목차가 실제로 갈렸는가 */
   | { kind: 'min_groups'; n: number }
-  /**
-   * 모든 항목이 **브라우저 TTS 로 읽히는가**.
-   *
-   * `all_have_field: audio_url` 이 아닌 이유: 그 규칙은 audio_url 0% 때문에 오디오 유형을
-   * "만들 수 없음" 으로 판정했는데, 제품에는 이미 흘려듣기 큐가 있고 그것은 audio_url 을
-   * 쓰지 않는다(`components/wordvault/hooks/useListenQueue.ts` → `useSpeech`).
-   * 재생 경로는 TTS 하나로 확정됐으므로(대체 경로 불필요) 파일 유무는 아예 보지 않는다.
-   */
-  | { kind: 'audio_playable' }
 
 export interface BlueprintParams {
   slug?: string
@@ -176,14 +167,12 @@ function recipe(seed: RecipeSeed): Recipe {
   // 이 요소에서 지면과 동률조차 되지 못한다 (실측: 한국어 뜻 자리에 영단어 1,642건).
   const merged = new Set<RequirableField>([...auto, ...declared, 'meaning_clean'])
 
-  // 발음 표기 — 지면 베스트는 표제어마다 발음기호를 싣는다(기준선 1.00). 사전 pool 은 단어 90.5%
-  // 이므로 요구하지 않으면 그 요소에서 진다. 단 두 경우는 요구하지 않는다:
-  //   · 구·관용어 유형 — 구는 IPA 8.3% 이고 지면 책도 구에 발음기호를 싣지 않는다
-  //   · 코퍼스 유형 — 그 책에 나오는 단어를 IPA 유무로 빼면 목록이 거짓이 된다
-  const posTargets = seed.filters?.primary_pos ?? []
-  const isPhraseType = posTargets.some((p) => p === 'idiom' || p === 'phrasal_verb')
-  const isCorpusType = seed.population.kind === 'corpus'
-  if (!isPhraseType && !isCorpusType) merged.add('ipa')
+  // 발음(IPA)·소리(TTS)는 **범위 밖**이다 (제품 결정 2026-08-15).
+  //
+  // 한때 여기서 모든 낱말 유형에 IPA 를 요구했다. 이유는 "지면 베스트가 표제어마다 발음기호를
+  // 싣는다" 였는데, 발음을 제품에서 다루지 않기로 한 이상 그 요구는 **아무도 쓰지 않는 필드를
+  // 위해 후보를 9.5% 버리는 것**일 뿐이다. 구·관용어는 IPA 8.3% 라 더 크게 잘려 나갔다.
+  // 그래서 요구를 걷어낸다 — 데이터가 있으면 카드에 실을 수는 있지만, 없다고 빼지는 않는다.
 
   return {
     version: RECIPE_VERSION,
@@ -226,7 +215,7 @@ function recipe(seed: RecipeSeed): Recipe {
     },
     present: {
       facets: seed.facets,
-      card_fields: seed.card_fields ?? ['meaning_ko', 'example_en', 'ipa'],
+      card_fields: seed.card_fields ?? ['meaning_ko', 'example_en'],
       contrast: seed.contrast ?? 'none',
       group_label: seed.group_label ?? 'auto',
     },
@@ -530,7 +519,7 @@ const B: Blueprint[] = [
         group_cap: p.group_cap ?? 10,
         order_within: 'frequency',
         facets: ['recognize', 'build', 'use'],
-        card_fields: ['meaning_ko', 'example_en', 'ipa'],
+        card_fields: ['meaning_ko', 'example_en'],
         group_label: 'root_gloss',
       }),
   },
@@ -864,7 +853,7 @@ const B: Blueprint[] = [
         segment: p.segment ?? 'elementary',
         cefr: p.cefr_levels ?? ['A1', 'A2'],
         population: { kind: 'dictionary' },
-        filters: { require_fields: ['rhyme_key', 'ipa'], freq_bands: ['top1k', 'top2k'] },
+        filters: { require_fields: ['rhyme_key'], freq_bands: ['top1k', 'top2k'] },
         objective: { kind: 'count', n: p.count ?? 300 },
         group_by: 'rhyme',
         group_order: 'size_desc',
@@ -872,8 +861,8 @@ const B: Blueprint[] = [
         // 라임은 같은 소리끼리 나란히 있어야 규칙이 보인다 — 혼자 있는 라임은 규칙을 못 만든다.
         keep_pairs_together: true,
         min_group_size: 2,
-        facets: ['recognize', 'sound', 'spell'],
-        card_fields: ['meaning_ko', 'ipa', 'example_en'],
+        facets: ['recognize', 'spell'],
+        card_fields: ['meaning_ko', 'example_en'],
       }),
   },
 ]
@@ -1006,7 +995,7 @@ const C: Blueprint[] = [
         objective: { kind: 'count', n: p.count ?? 60 },
         group_by: 'none',
         order_within: 'unlock_yield',
-        facets: ['recognize', 'use', 'sound'],
+        facets: ['recognize', 'use'],
       }),
   },
 ]
@@ -1124,14 +1113,17 @@ const D: Blueprint[] = [
     title: '오디오 단어장',
     market_example: '듣기 전용 보카 · 흘려듣기 mp3',
     organizing_principle: '소리 — 화면을 보지 않고 듣는다',
-    // 브라우저 TTS 가 전달 방식으로 확정됐다(2026-08-15). 그래서 이 유형은 `ready` 다 —
-    // 녹음본은 없지만 그건 결핍이 아니라 선택이고, 재생은 WordVault 흘려듣기 큐가 이미 한다.
-    // 남는 차이는 두 가지뿐이고 둘 다 **가산**이다: 오프라인 저장 · 원어민 억양.
-    // 대신 새 실패 지점이 생겼다 — 영어 음성이 설치되지 않은 브라우저.
-    // `useSpeech` 가 en 음성을 직접 고르고, 실패해도 큐가 멈추지 않게 완료를 통지한다.
-    status: 'ready',
+    // **발음(IPA)·소리(TTS)는 단어장 범위에서 제외**한다 (제품 결정 2026-08-15).
+    // 그러면 이 유형에 남는 재생 경로는 녹음 파일 하나인데 그것이 0% 다 — 그림 단어장과 같은
+    // 처지다. 설계로 못 메우므로 `asset_gap` 이고, 0건을 내는 것이 정상이다.
+    //
+    // (WordVault 흘려듣기는 기존 학습 기능이라 그대로 둔다. 여기서 빠진 것은
+    //  "TTS 를 단어장 상품의 전달 수단으로 세는 것" 이다.)
+    status: 'asset_gap',
+    gap_note:
+      'TTS 제외 결정으로 재생 경로가 녹음 파일뿐인데 `audio_url` 0 / 45,688 이다. 설계로 못 메운다 — 발음 녹음 자산 확보가 선행 과제',
     requires_params: [],
-    fit_rules: [{ kind: 'audio_playable' }],
+    fit_rules: [{ kind: 'all_have_field', field: 'audio_url' }],
     weights: { ...W_DEFAULT, fill: 0.4, noise: 0.1, novelty: 0.05, level_fit: 0.1 },
     build: (p) =>
       recipe({
@@ -1145,9 +1137,7 @@ const D: Blueprint[] = [
         segment: p.segment ?? 'general',
         cefr: p.cefr_levels ?? ['A2', 'B1'],
         population: { kind: 'list', tags: p.tags ?? ['ngsl_spoken_1.2'], mode: 'any' },
-        // 녹음본을 요구하면 후보가 0 이 된다. IPA 는 `recipe()` 가 이미 필수로 넣으므로
-        // 여기서는 **말할 수 있는 항목** 만 남기면 된다 — 예문이 있으면 문장 흘려듣기도 된다.
-        filters: {},
+        filters: { require_fields: ['audio_url'] },
         objective: { kind: 'count', n: p.count ?? (p.days ?? 15) * (p.per_day ?? 20) },
         // 목차가 **듣기 세션**이다. mp3 보카는 트랙 하나가 통짜라 "어디까지 들었는지" 를
         // 사람이 기억해야 한다 — 회차로 잘라 두면 이동 시간 한 번에 한 회차가 끝난다.
@@ -1156,10 +1146,7 @@ const D: Blueprint[] = [
         order_within: 'frequency',
         pacing: { days: p.days ?? 15, per_day: p.per_day ?? 20 },
         facets: ['sound', 'recognize'],
-        // 녹음 파일은 선호 기준에서도 뺐다 — 경로가 하나뿐이므로 우선할 것이 없다.
-        // 예문이 있으면 단어만 듣는 것보다 낫다(문장 흘려듣기).
-        prefer_fields: ['example_en'],
-        card_fields: ['meaning_ko', 'ipa', 'example_en'],
+        card_fields: ['audio_url', 'meaning_ko', 'example_en'],
         group_label: 'day_number',
       }),
   },
@@ -1257,7 +1244,7 @@ const U: Blueprint[] = [
     id: 'facet-ladder',
     family: 'unique',
     taxon: 'U3',
-    title: '6면 보장 단어장',
+    title: '5면 보장 단어장',
     market_example: '(지면 불가) — 지면은 재인(F1) 하나만 지원한다',
     organizing_principle:
       '각 항목이 어느 면까지 실제로 훈련 가능한지 데이터로 검증된 것만 — 선언이 곧 보장',
@@ -1266,17 +1253,16 @@ const U: Blueprint[] = [
     fit_rules: [
       { kind: 'all_have_field', field: 'example_en' },
       { kind: 'all_have_field', field: 'morphology' },
-      { kind: 'all_have_field', field: 'ipa' },
     ],
     weights: W_UNIQUE,
     build: (p) =>
       recipe({
         blueprint: 'facet-ladder',
         slug: p.slug ?? 'facet-ladder-core',
-        title: p.title ?? '여섯 면이 다 열리는 단어',
+        title: p.title ?? '다섯 면이 다 열리는 단어',
         description:
           p.description ??
-          '뜻·철자·소리·조립·문맥·속도 여섯 면을 전부 연습할 수 있는 단어만 모았다. 한 단어를 끝까지 데려간다.',
+          '뜻·철자·조립·문맥·속도 다섯 면을 전부 연습할 수 있는 단어만 모았다. 한 단어를 끝까지 데려간다.',
         emoji: p.cover_emoji ?? '🪜',
         category: 'themed',
         subcategory: 'facet',
@@ -1284,15 +1270,15 @@ const U: Blueprint[] = [
         cefr: p.cefr_levels ?? ['B1', 'B2'],
         population: { kind: 'dictionary' },
         filters: {
-          require_fields: ['example_en', 'ipa', 'morphology'],
+          require_fields: ['example_en', 'morphology'],
           freq_bands: ['top1k', 'top2k', 'top3k', 'top5k'],
         },
         objective: { kind: 'count', n: p.count ?? 300 },
         group_by: 'v_level',
         group_order: 'v_level',
         order_within: 'frequency',
-        facets: ['recognize', 'spell', 'sound', 'build', 'use', 'fluency'],
-        card_fields: ['meaning_ko', 'example_en', 'ipa', 'collocations'],
+        facets: ['recognize', 'spell', 'build', 'use', 'fluency'],
+        card_fields: ['meaning_ko', 'example_en', 'collocations'],
       }),
   },
   {

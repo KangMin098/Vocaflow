@@ -44,13 +44,13 @@ export const FACET_REQUIREMENTS: Record<FacetId, FacetRequirement> = {
     why: '후보 없이 쓰게 하려면 단서가 뜻뿐이므로 뜻이 모호하면 성립하지 않는다.',
   },
   sound: {
-    // 재생은 **브라우저 TTS 하나**다(제품 결정 2026-08-15 · 대체 경로 없음).
-    // 그러므로 이 면의 요구는 "그 표제어를 소리로 낼 수 있는가" 이고, 녹음 파일은 요구도
-    // 가산도 아니다 — 목록에 남겨 두면 다음 사람이 "오디오를 고치려면 파일부터" 로 되돌린다.
-    all: ['speakable'],
+    // **TTS 는 단어장 범위 밖**이다(제품 결정 2026-08-15). 그러면 들려줄 것은 녹음 파일뿐이고,
+    // 그것이 없으면 이 면은 성립하지 않는다 — IPA 는 표기이지 소리가 아니므로 대신 세지 않는다.
+    // 현재 `audio_url` 0% 이므로 이 면을 선언하는 유형은 0건을 낸다. 그것이 사실이다.
+    all: ['audio_url'],
     any_of: [],
-    bonus: ['ipa'],
-    why: '재생은 브라우저 TTS 가 맡으므로 표제어가 읽을 수 있는 형태여야 한다. IPA 는 눈으로 확인하는 표기(가산).',
+    bonus: [],
+    why: '들려줄 녹음이 있어야 한다. TTS 는 범위 밖이고 IPA 는 표기라 소리를 대신하지 못한다.',
   },
   build: {
     all: [],
@@ -112,9 +112,6 @@ export function hasField(c: CandidateWord, field: RequirableField | 'frequency_b
     }
     case 'ipa':
       return !!c.ipa
-    case 'speakable':
-      // TTS 는 라틴 문자만 영어로 읽는다. 한 글자도 없으면 소리를 낼 수 없다.
-      return /[a-z]/i.test(c.word)
     case 'audio_url':
       return !!c.audio_url
     case 'image_url':
@@ -186,13 +183,6 @@ export function facetVerdict(c: CandidateWord, facet: FacetId): FacetVerdict {
     return { facet, tier: 'missing', missing, note: null }
   }
 
-  if (facet === 'sound') {
-    // 한때 여기서 `audio_url` 유무로 tier 를 내렸다(0.7 가중). 그건 "녹음이 정본이고 TTS 는
-    // 임시" 라는 전제였는데, 제품은 **브라우저 TTS 를 유일한 재생 경로**로 확정했다.
-    // 확정된 방식을 결핍으로 계속 세면 그 유형은 영원히 감점된 채로 남고, 파일 기반 대체
-    // 경로를 다시 만들라는 신호가 된다.
-    return { facet, tier: 'full', missing: [], note: '브라우저 TTS 로 재생' }
-  }
 
   return { facet, tier: 'full', missing: [], note: null }
 }
