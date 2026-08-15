@@ -236,7 +236,33 @@ export function DictationSessionClient() {
     return () => window.removeEventListener('keydown', handler)
   }, [audio.isPlaying, outcome, handleNext, handleSubmit, handleSkip, playOnce, stopAudio])
 
-  // 세션 미발견 — 진행 상태는 이 기기 캐시에만 있다(결과는 DB 에 남는다)
+  // 이미 완주한 세션 URL — 다시 풀게 하지 않고 결과로 보낸다.
+  // (DB 복원이 생기기 전에는 이 경우가 '못 찾음' 과 뒤섞여 있었다.)
+  if (status === 'completed' && sessionId) {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
+        <div>
+          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+            이미 마친 받아쓰기예요
+          </h2>
+          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            결과는 그대로 남아 있어요. 다시 풀고 싶으면 같은 자료로 새로 시작하면 돼요.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => router.replace(`/dictate/results?sessionId=${sessionId}`)}
+          className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+          style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+        >
+          결과 보기
+          <ArrowRight size={14} />
+        </button>
+      </div>
+    )
+  }
+
+  // 세션 미발견 — DB 에도 문항이 없는 경우다(이 컬럼 이전 세션 · 비로그인 로컬 세션)
   if (status === 'not-found') {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
@@ -248,8 +274,9 @@ export function DictationSessionClient() {
             진행 중이던 받아쓰기를 못 찾았어요
           </h2>
           <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            풀던 자리는 이 기기에만 남아 있어요. 이미 푼 문항의 결과는 기록에 남아 있으니,
-            새로 시작하셔도 괜찮습니다.
+            지금 시작하는 받아쓰기는 어느 기기에서든 이어서 풀 수 있어요. 다만 예전에
+            시작했거나 로그인 없이 진행한 세션은 이어받을 문항이 남아 있지 않습니다.
+            이미 푼 문항의 결과는 기록에 남아 있으니 새로 시작하셔도 괜찮아요.
           </p>
         </div>
         <button

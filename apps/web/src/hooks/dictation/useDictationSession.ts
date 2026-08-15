@@ -18,6 +18,7 @@ import { deriveErrorTags } from '@/lib/dictation/error-tags'
 import {
   completeDictationSession,
   saveDictationAttempt,
+  restoreDictationSession,
   startDictationSession,
   type CompleteResult,
 } from '@/lib/dictation/persist'
@@ -137,7 +138,7 @@ export async function createDictationSession(
   if (items.length === 0) throw new DictationStartError('no-items')
 
   const client = createClient()
-  const started = await startDictationSession(client, source, config, items.length)
+  const started = await startDictationSession(client, source, config, items.length, items)
 
   const session: DictationSession = {
     id: started.id,
@@ -161,7 +162,7 @@ export async function createDictationSession(
   return session
 }
 
-export type DictationSessionStatus = 'loading' | 'ready' | 'not-found'
+export type DictationSessionStatus = 'loading' | 'ready' | 'not-found' | 'completed'
 
 export interface SubmitOutcome {
   result: ScoringResult
@@ -182,12 +183,43 @@ export function useDictationSession(sessionId: string | null) {
       setStatus('not-found')
       return
     }
-    const s = getSession(sessionId)
-    if (s) {
-      setSession(s)
+    // ① 이 기기 캐시 — 있으면 즉시(왕복 없음)
+    const cached = getSession(sessionId)
+    if (cached) {
+      setSession(cached)
       setStatus('ready')
-    } else {
+      return
+    }
+    // ② DB 복원 — 다른 기기·시크릿창·캐시 정리 후의 정본 경로.
+    //    캐시를 유일한 원본으로 두던 동안, 세션 URL 은 시작한 기기 밖에서 **영영 열리지
+    //    않았다**(사용자 신고 2026-08-15). 어디까지 풀었는지는 적재된 시도가 말한다.
+    if (sessionId.startsWith('local-')) {
       setStatus('not-found')
+      return
+    }
+    let mounted = true
+    void (async () => {
+      const { session: restored, reason } = await restoreDictationSession(
+        createClient(),
+        sessionId,
+      )
+      if (!mounted) return
+      if (!restored) {
+        setStatus(reason === 'done' ? 'completed' : 'not-found')
+        return
+      }
+      const revived: DictationSession = {
+        ...restored,
+        persisted: true,
+        resourceSubtitle: '',
+      } as DictationSession
+      // 복원한 것을 이 기기에도 남긴다 — 다음 문항부터는 왕복이 없다
+      saveSession(revived)
+      setSession(revived)
+      setStatus('ready')
+    })()
+    return () => {
+      mounted = false
     }
   }, [sessionId])
 

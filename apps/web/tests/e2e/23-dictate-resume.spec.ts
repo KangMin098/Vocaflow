@@ -17,6 +17,8 @@
 import { expect, test } from '@playwright/test';
 
 import { loginAsTestUser } from './utils/auth';
+import { deleteDictationSince, userIdByEmail } from './utils/db';
+import { TEST_USER } from './fixtures/test-user';
 
 /** DB 에 존재하지만 이 브라우저 캐시에는 없는 세션 (실제 신고 건) */
 const REPORTED_SESSION = '17b3f91f-b6b1-444e-ac79-e29cbfa94e61';
@@ -58,5 +60,73 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
   test('C. sessionId 없이 열어도 멈추지 않는다', async ({ page }) => {
     await page.goto('/dictate/session');
     await assertNotStuck(page);
+  });
+
+  /**
+   * D. 신고의 본체 — **다른 브라우저에서 세션 URL 을 열면 이어서 풀 수 있는가.**
+   *
+   * 마이그레이션 20260815060000 이전에는 문항 목록이 시작한 기기의 localStorage 에만
+   * 있어서 이 시나리오가 구조적으로 불가능했다. 캐시를 지운 새 컨텍스트로 그 상태를 만든다.
+   */
+  test('D. 캐시를 지운 새 컨텍스트에서 같은 세션을 이어서 푼다', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const starter = await browser.newContext({ storageState: STATE_PATH });
+    const page = await starter.newPage();
+    try {
+      // 자료를 골라 세션을 **실제로** 시작한다.
+      //
+      // ⚠️ "오늘의 받아쓰기" 로 시작하지 않는다 — 재료가 없으면 early return 이 되고
+      //    그러면 이 테스트는 **아무것도 검증하지 않은 채 초록**이 된다(첫 구현이 그랬다:
+      //    3.9초 만에 통과했고 DB 에는 세션이 하나도 안 생겼다).
+      //    담아 둔 자료는 항상 있으므로 그쪽에서 시작한다.
+      await page.goto('/dictate/setup');
+      const tabs = page.getByRole('tablist', { name: '받아쓸 자료 종류' }).getByRole('tab');
+      await expect(tabs.first()).toBeVisible({ timeout: 20_000 });
+
+      let opened = false;
+      for (let i = 0; i < (await tabs.count()); i += 1) {
+        await tabs.nth(i).click();
+        const row = page.locator('main').last().locator('a[href*="/dictate/setup?"]').first();
+        if (await row.isVisible().catch(() => false)) {
+          await row.click();
+          opened = true;
+          break;
+        }
+      }
+      expect(opened, '받아쓸 자료가 하나도 없다 — 검증 계정 자산을 확인하라').toBe(true);
+
+      await page.getByRole('button', { name: /시작하기/ }).click({ timeout: 30_000 });
+      await page.waitForURL(/\/dictate\/session\?sessionId=/, { timeout: 30_000 });
+      const url = page.url();
+      const sessionId = new URL(url).searchParams.get('sessionId');
+      expect(sessionId, '세션 id 가 URL 에 없다').toBeTruthy();
+      // 로컬 전용 세션(비로그인)이면 복원 대상이 아니다
+      test.skip(!!sessionId?.startsWith('local-'), '비로그인 로컬 세션');
+
+      // 첫 문항이 실제로 떴는지 — 여기가 신고된 "아무 반응 없음" 지점이다
+      await expect(page.getByRole('textbox').first()).toBeVisible({ timeout: 20_000 });
+
+      // ── 캐시가 없는 새 컨텍스트에서 같은 URL ──
+      const fresh = await browser.newContext({ storageState: STATE_PATH });
+      const other = await fresh.newPage();
+      try {
+        await other.goto(url);
+        await assertNotStuck(other);
+        // 문항이 떠야 한다. 못 찾음 화면이면 DB 복원이 끊긴 것이다.
+        await expect(
+          other.getByText('진행 중이던 받아쓰기를 못 찾았어요'),
+          'DB 복원이 안 됐다 — 문항이 캐시에만 있다',
+        ).toHaveCount(0);
+        await expect(other.getByRole('textbox').first()).toBeVisible({ timeout: 20_000 });
+      } finally {
+        await fresh.close();
+      }
+    } finally {
+      await starter.close();
+      // 테스트가 만든 세션은 되돌린다 — 남기면 허브 "이어하기" 와 오늘의 받아쓰기
+      // 문장 제외 집합이 다음 실행에서 달라진다.
+      if (userId) await deleteDictationSince(userId, sinceIso);
+    }
   });
 });

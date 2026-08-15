@@ -28,7 +28,7 @@ import { flushPendingSrsResults } from '@/lib/srs/flush-actions'
 import type { FlushItem } from '@/lib/srs/flush-types'
 
 import type { DictationSource } from './source'
-import type { DictationConfig, WordResult } from './types'
+import type { DictationConfig, DictationItem, WordResult } from './types'
 
 // ── ① 세션 시작 ───────────────────────────────────────────────────
 
@@ -46,6 +46,11 @@ export async function startDictationSession(
   source: DictationSource,
   config: DictationConfig,
   totalItems: number,
+  /**
+   * 조립된 문항 목록. **이것을 남겨야 다른 기기에서 세션을 이어받을 수 있다** —
+   * 없으면 진행 상태가 시작한 기기의 localStorage 에만 산다(사용자 신고 2026-08-15).
+   */
+  items?: DictationItem[],
 ): Promise<StartedSession> {
   const localId = `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
   try {
@@ -66,6 +71,7 @@ export async function startDictationSession(
         title: source.title,
         config: config as unknown as Record<string, unknown>,
         total_items: totalItems,
+        items: (items ?? null) as unknown as Record<string, unknown> | null,
       })
       .select('id')
       .single()
@@ -75,6 +81,81 @@ export async function startDictationSession(
   } catch {
     return { id: localId, persisted: false }
   }
+}
+
+/**
+ * 진행 중 세션을 **DB 에서** 복원한다 — 이 기기 캐시에 없을 때의 정본 경로.
+ *
+ * 어디까지 풀었는지는 `dictation_attempts` 가 말한다(가장 큰 item_idx + 1).
+ * 캐시가 아니라 실제 적재를 기준으로 삼으므로, 기기를 바꿔도 **푼 문항을 다시 풀지 않는다**.
+ *
+ * `items` 가 NULL 이면 이 컬럼(20260815060000) 이전에 만들어진 세션이다 — 복원할 수 없고,
+ * 화면이 그 사실을 그대로 말해야 한다(없는 것을 있는 척 지어내지 않는다).
+ */
+export async function restoreDictationSession(
+  client: SupabaseClient,
+  sessionId: string,
+): Promise<{ session: RestoredSession | null; reason: 'ok' | 'not-found' | 'no-items' | 'done' }> {
+  try {
+    const { data } = await client
+      .from('dictation_sessions')
+      .select(
+        'id, title, source_kind, text_id, library_book_id, chapter_idx, shared_set_id, config, items, started_at, completed_at, total_hints',
+      )
+      .eq('id', sessionId)
+      .maybeSingle()
+    if (!data) return { session: null, reason: 'not-found' }
+
+    const row = data as Record<string, unknown>
+    if (row.completed_at) return { session: null, reason: 'done' }
+
+    const items = Array.isArray(row.items) ? (row.items as DictationItem[]) : null
+    if (!items || items.length === 0) return { session: null, reason: 'no-items' }
+
+    const { data: aData } = await client
+      .from('dictation_attempts')
+      .select('item_idx')
+      .eq('session_id', sessionId)
+      .order('item_idx', { ascending: false })
+      .limit(1)
+    const lastIdx = ((aData ?? []) as Array<{ item_idx: number }>)[0]?.item_idx
+    const currentIndex = lastIdx == null ? 0 : Math.min(lastIdx + 1, items.length - 1)
+
+    return {
+      session: {
+        id: String(row.id),
+        config: row.config as unknown as DictationConfig,
+        resourceTitle: String(row.title ?? ''),
+        sourceKind: String(row.source_kind ?? 'custom'),
+        textId: (row.text_id as string | null) ?? null,
+        libraryBookId: (row.library_book_id as string | null) ?? null,
+        chapterIdx: (row.chapter_idx as number | null) ?? null,
+        sharedSetId: (row.shared_set_id as string | null) ?? null,
+        items,
+        currentIndex,
+        startedAt: row.started_at ? new Date(String(row.started_at)).getTime() : Date.now(),
+        totalHintsUsed: Number(row.total_hints ?? 0),
+      },
+      reason: 'ok',
+    }
+  } catch {
+    return { session: null, reason: 'not-found' }
+  }
+}
+
+export interface RestoredSession {
+  id: string
+  config: DictationConfig
+  resourceTitle: string
+  sourceKind: string
+  textId: string | null
+  libraryBookId: string | null
+  chapterIdx: number | null
+  sharedSetId: string | null
+  items: DictationItem[]
+  currentIndex: number
+  startedAt: number
+  totalHintsUsed: number
 }
 
 // ── ② 문항 적재 ───────────────────────────────────────────────────
