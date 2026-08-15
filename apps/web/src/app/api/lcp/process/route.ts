@@ -20,7 +20,7 @@ import {
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
-import { resolveCoverImageUrl } from '@/lib/library/cover-image'
+import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300 //                Vercel Pro 5분
@@ -190,19 +190,25 @@ export async function POST(request: Request): Promise<NextResponse> {
       if (error) console.warn(`[lcp/process] ${fn} skipped: ${error.message}`)
     }
 
-    // 4-3.47 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
+    // 4-3.47 표지 이미지 URL 해결 — **시드 우선, 원천 폴백**.
     //   StoryWeaver 는 ingester 가 표지 직접 제공(위 자산 persist) → 우회.
+    //   시드 우선인 이유: 원천 재요청만 하던 동안 대량 드레인에서 스로틀·타임아웃에 걸려
+    //   표지가 통째로 날아갔다(발행 8권 무표지, 그중 7권은 시드에 URL 이 있었다).
     if (book.source !== 'storyweaver') {
       try {
-        const coverUrl = await resolveCoverImageUrl({
+        const { url: coverUrl, via } = await resolveCoverImageUrlWithSeed(client, {
           source: book.source as string,
           sourceId: book.source_id as string,
         })
         if (coverUrl) {
           await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+        } else {
+          // 조용히 넘어가지 않는다 — 무표지 발행은 카탈로그에서 바로 보인다.
+          console.warn(`[lcp/process] 표지 없음 (${book.source}/${book.source_id}) — 시드·원천 모두 실패`)
         }
+        if (via === 'origin') console.info(`[lcp/process] 표지를 원천에서 받음 — 시드에 없었음`)
       } catch (e) {
-        console.warn(`[lcp/process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
+        console.warn(`[lcp/process] 표지 해결 실패: ${e instanceof Error ? e.message : String(e)}`)
       }
     }
 

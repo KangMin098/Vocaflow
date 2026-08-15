@@ -11,6 +11,7 @@ import { Check, Sparkles, Volume2 } from 'lucide-react'
 
 import { ComicBadge } from '@/components/comic/ComicBadge'
 import { bookCover } from '@/lib/library/book-cover'
+import { coverFitFor } from '@/lib/library/cover-fit'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import type { PublishedBook } from '@/lib/library/published-book'
@@ -31,6 +32,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
     coverTo: book.cover_to,
   })
   const coverImageUrl = book.cover_image_url ?? null
+  const coverFit = coverFitFor(book)
   const fit = judgeIPlusOne(book.lexical_coverage, userVLevel, book.is_picture_book)
   const state = book.enrollment_state ?? 'not_enrolled'
 
@@ -55,12 +57,24 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
       >
         {coverImageUrl ? (
           <>
+            {/* 그림책 표지는 가로 삽화 크롭이라 cover 로 채우면 좌우 64% 가 잘린다(실측).
+                그때만 contain + 같은 이미지를 흐리게 깔아 여백을 메운다. */}
+            {coverFit.blurBackdrop && (
+              <Image
+                src={coverImageUrl}
+                alt=""
+                aria-hidden
+                fill
+                sizes="(max-width: 768px) 45vw, 200px"
+                className="scale-110 object-cover blur-xl saturate-150"
+              />
+            )}
             <Image
               src={coverImageUrl}
               alt={`${book.title} 표지`}
               fill
               sizes="(max-width: 768px) 45vw, 200px"
-              className="object-cover"
+              className={`relative ${coverFit.objectFit}`}
             />
             <div
               aria-hidden

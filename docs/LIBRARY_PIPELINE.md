@@ -79,8 +79,44 @@ queued
 - `compute_book_vrl(p_book_id)` — V-Level type-based p75 centroid (v06.34: token → type)
 - `compute_book_cefrj(p_book_id)` — CEFR-J 12-band (internal) + cefr_band auto
 - `compute_book_coverage(p_book_id)` — 레벨별 기지어 커버리지 (i+1)
-- `resolveCoverImageUrl()` — Gutenberg pg{id}.cover / SE og:image
+- `resolveCoverImageUrlWithSeed(client, …)` — **표지 해결 정본. 시드 우선, 원천 폴백** (아래 참조)
 - `collect_archaic_candidates(p_book_id)` — 미바인딩 단어 archaic_candidates 적재
+
+**표지 이미지 — 시드가 먼저다 (v06.142, 실측 2026-08-15)**
+
+발행 13권 중 **8권이 무표지**였다. 그런데 그중 **7권은 `library_seed_catalog.cover_url` 에 표지 URL 이
+이미 있었다** — 시드 수집기가 목록 페이지에서 뽑아 넣어 둔 값이다. 승격 단계(`process`/`dev-process`)가
+그 값을 무시하고 원천 사이트에 **다시** 요청했고, 그 요청은 `try/catch` + `console.warn` 인
+best-effort 라 실패하면 조용히 표지 없는 책이 발행됐다. 7/27 하루에 5권이 몰려 생성된 것으로 보아
+대량 드레인 중 스로틀·타임아웃에 걸린 것으로 보인다. (파서·정규식 자체는 재현 결과 정상이었다 —
+로직 결함이 아니라 **네트워크 의존이 만든 결함**이다.)
+
+- 정본 = `resolveCoverImageUrlWithSeed(client, {source, sourceId})` → `{url, via:'seed'|'origin'|'none'}`.
+  시드에 값이 있으면 네트워크를 아예 타지 않는다. 승격 2곳 + 백필이 모두 이것을 쓴다.
+- 표지를 못 구하면 **`warn` 으로 남긴다** — 무표지 발행은 카탈로그에서 바로 보인다.
+- 백필 `POST /api/admin/library/backfill-covers`(재실행 안전) — 소스 제한을 없앴다(예전엔
+  gutenberg/SE 만 봐서 pressbooks·lit2go 는 대상에서 빠져 있었다). 응답에 `via` 를 실어
+  "시드가 비어 있는 소스가 어디인가" 를 한 번에 알 수 있다. **실행 결과 무표지 8 → 1권**
+  (남은 1권 pressbooks 는 시드에도 원본이 없다).
+- Gutenberg 는 `.large` 를 먼저 시도하고 없으면 `.medium` 으로 내려간다(HEAD 확인).
+  ⚠️ 실측한 두 권(1342·1259)은 `.large` 가 **404** 라 200px 대에 머문다 — 소스의 한계다.
+- 트레이드오프: SE 시드 URL 은 목록 썸네일(484×726)이고 og:image 는 1400×2100 이다.
+  카드 슬롯(200px·2x=400px)에는 484px 로 충분하다고 보고 **신뢰성을 택했다.**
+
+**표지 배치 — 그림책은 잘라 넣지 않는다** (`lib/library/cover-fit.ts`)
+
+카드 슬롯은 이미 `aspect-[3/4]` 로 통일돼 있다. 통일되지 않은 것은 원본 비율이다:
+
+| 소스 | 실측 | 3:4 슬롯에서 |
+|---|---|---|
+| Gutenberg | 200×281 · 200×299 (0.67~0.71) | 상하 5~11% 잘림 — 허용 |
+| Standard Ebooks | 1400×2100 (0.667) | 상하 11% 잘림 — 허용 |
+| StoryWeaver | 959×460 · 3351×1605 (**2.09**) | **좌우 64% 잘림** |
+
+StoryWeaver 표지는 표지가 아니라 삽화 가로 크롭(`illustration_crops/…`)이라 그렇다.
+`coverFitFor(book)` 가 `is_picture_book` 으로 갈라 그림책만 `object-contain` + 블러 배경을 쓴다.
+URL 패턴으로 가르지 않는 이유: 호스트가 바뀌면 조용히 틀리지만, "그림책이면 가로 삽화" 는
+바뀌지 않는다. `BookGridCard` 와 `LibraryGrid` 가 같은 함수를 쓴다(회귀 4건).
 
 **lemma self-heal 게이트 (v06.35)** — best-effort backfill 이 누락/실패하는 경로(수동 재분절 `reprocess-book.mjs` 등)를 대비해, **추출 시점에도 자동 backfill**. `extract_book_vocabulary_admin(p_book_id, p_percentile)` 시작부에 `PERFORM backfill_book_lemmas(p_book_id)` (멱등 · `lemma IS NULL` 행만) — migration `20260613022941_extract_admin_self_heal_lemmas`. 어떤 ingest 경로로 lemma 가 비었든 추출하는 순간 복구되고, 신규 등재 사전 단어도 다음 추출에서 즉시 바인딩. (계기: Les Misérables 364장이 수동 재분절로 0 bound → 추출 굴절형 누락·coverage NULL·진단 부풀림. backfill 로 0→11,808(88.4%) 복구.) 주의: 추출 SSoT `select_book_chapter_vocab` 는 `COALESCE(bv.lemma, bv.word)` 이므로 base 형은 lemma NULL 이어도 추출됨 — NULL 의 실손실은 **굴절형** + 진단·coverage.
 

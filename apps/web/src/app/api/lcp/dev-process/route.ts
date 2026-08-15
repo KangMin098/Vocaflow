@@ -27,7 +27,7 @@ import {
 } from '@vocaflow/library-pipeline'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { resolveCoverImageUrl } from '@/lib/library/cover-image'
+import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 import { autoMapLibriVoxForBook } from '@/lib/library/librivox-automap'
 
 export const runtime = 'nodejs'
@@ -199,19 +199,21 @@ export async function POST(request: Request): Promise<NextResponse> {
       if (error) console.warn(`[lcp/dev-process] ${fn} skipped: ${error.message}`)
     }
 
-    // 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
+    // 표지 이미지 URL 해결 — **시드 우선, 원천 폴백** (process 와 같은 규칙).
     //   StoryWeaver 는 ingester 가 표지를 직접 제공(위 자산 persist) → 우회.
     if (book.source !== 'storyweaver') {
       try {
-        const coverUrl = await resolveCoverImageUrl({
+        const { url: coverUrl } = await resolveCoverImageUrlWithSeed(client, {
           source: book.source as string,
           sourceId: book.source_id as string,
         })
         if (coverUrl) {
           await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+        } else {
+          console.warn(`[lcp/dev-process] 표지 없음 (${book.source}/${book.source_id}) — 시드·원천 모두 실패`)
         }
       } catch (e) {
-        console.warn(`[lcp/dev-process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
+        console.warn(`[lcp/dev-process] 표지 해결 실패: ${e instanceof Error ? e.message : String(e)}`)
       }
     }
 

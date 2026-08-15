@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 
 import { bookCover } from '@/lib/library/book-cover'
+import { coverFitFor } from '@/lib/library/cover-fit'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { unenrollBook } from '@/lib/library/enroll'
@@ -414,6 +415,7 @@ function CarouselBook({
     coverTo: book.cover_to,
   })
   const coverImageUrl = book.cover_image_url ?? null
+  const coverFit = coverFitFor(book)
 
   const inner = (
     <div
@@ -431,13 +433,25 @@ function CarouselBook({
     >
       {coverImageUrl ? (
         <>
-          {/* 실 표지 — portrait 카드에 object-cover (letterbox 없음) */}
+          {/* 실 표지 — 세로 표지는 object-cover. 그림책 표지는 가로 삽화 크롭이라
+              cover 로 채우면 좌우 64% 가 잘려(실측) contain + 블러 배경으로 간다.
+              판정은 `cover-fit.ts` 가 소유 — 카드마다 다시 정하면 두 화면이 갈린다. */}
+          {coverFit.blurBackdrop && (
+            <Image
+              src={coverImageUrl}
+              alt=""
+              aria-hidden
+              fill
+              sizes="270px"
+              className="scale-110 object-cover blur-xl saturate-150"
+            />
+          )}
           <Image
             src={coverImageUrl}
             alt={`${book.title} 표지`}
             fill
             sizes="270px"
-            className="object-cover"
+            className={`relative ${coverFit.objectFit}`}
           />
           {/* 상하 엣지 vignette — 칩/진행바 가독성 (중앙 표지는 선명 유지) */}
           <div

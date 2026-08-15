@@ -137,6 +137,25 @@ MCP 복구 후 밀려 있던 마이그레이션 2건을 정식 경로(`apply_mig
   아래는 총 252개·누적 41일·3일 연속. 지표 교체는 제품 결정
 - `FlowStripe.tsx:114` 상태 뭉갬 (수준 지도와 동형)
 
+### 발행 도서 표지 8권 중 8권이 비어 있었다 — 시드에 있는 값을 안 쓰고 있었다 (v06.142)
+
+`/library/books` 에 표지 없는 책이 많다는 지적에서 시작. 발행 13권 중 **8권 무표지(62%)**,
+그런데 **그중 7권은 `library_seed_catalog.cover_url` 에 표지 URL 이 이미 있었다.**
+
+- **원인** — 승격 단계가 시드 값을 무시하고 원천 사이트에 다시 요청했고, 그 요청이
+  best-effort(`try/catch`+`warn`)라 실패하면 조용히 무표지로 발행됐다. 파서·정규식은
+  재현 결과 **정상**이었다(SE 목록 파싱·og:image 추출 모두 통과) — 로직이 아니라
+  네트워크 의존이 만든 결함. 7/27 하루 5권 집중 생성 → 대량 드레인 중 스로틀 추정
+- `resolveCoverImageUrlWithSeed()` 신설(정본) — 시드 우선·원천 폴백, `via` 반환.
+  승격 2곳(`process`·`dev-process`) + 백필이 모두 이것을 사용
+- 백필 소스 제한 제거(gutenberg/SE 만 보던 것) + 표지 실패 시 `warn` 으로 노출.
+  **실행 결과 무표지 8 → 1권** (남은 1권 pressbooks 는 시드에도 원본 없음)
+- Gutenberg `.large` 우선 시도 후 `.medium` 폴백(HEAD 확인) — 실측 두 권은 `.large` 404
+- **표지 배치** `cover-fit.ts` 신설 — 원본 비율 실측 결과 StoryWeaver 표지는 2.09:1
+  가로 삽화 크롭이라 3:4 슬롯에서 **좌우 64% 가 잘리고 있었다.** `is_picture_book` 으로
+  갈라 그림책만 `object-contain` + 블러 배경. `BookGridCard`·`LibraryGrid` 공용(회귀 4)
+- 문서: [LIBRARY_PIPELINE.md](./LIBRARY_PIPELINE.md) 표지 절 신설(비율 실측표 포함)
+
 ### 학습자 화면 이름 영어화 + 이름 SSoT 통합 (v06.141)
 
 메뉴·탭·활동 이름을 영어로 통일하면서, 이름을 **화면이 각자 짓던 구조**를 걷어냈다. 옮기기 전에
