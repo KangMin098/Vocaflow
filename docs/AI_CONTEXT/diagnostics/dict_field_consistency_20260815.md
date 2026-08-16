@@ -371,6 +371,43 @@ T9 에이전트 둘이 독립적으로 "A1/A2 인데 학술 추상 파생어" �
 제품 동작 변경이므로 별도 승인 후 진행할 것. 한 에이전트는 `chunk-23` 120단어 중 약 45개가 같은
 방향으로 밀려 있다며 **청크 단위 재산정**을 권했다.
 
+### 시드 토큰 절단 — 영어 단어가 아닌 표제어에 뜻까지 붙어 있다 (T10 에이전트 발견)
+
+에이전트 여러 명이 청크마다 "이건 영어 단어가 아니다" 를 보고했고, chunk-54~59 담당이 **패턴**을 짚었다:
+`railro` · `relo` · `sidelo` 가 전부 **"잘린 토막 + `pos=adverb` + '~하여' 꼴 뜻풀이"** 라는 같은 모양이다.
+우연이 아니라 **시드 생성 단계에서 잘린 토큰에 부사 태그를 기계적으로 부여한 흔적**이다. 확인된 12건:
+
+| 표제어 | 원래 낱말 | 붙어 있던 뜻 | pos |
+|---|---|---|---|
+| `le` | less | 덜 | adverb |
+| `dre` | (미상) | 곧 | adverb |
+| `kne` | kneel | 꿇어앉아 | adverb |
+| `behe` | behold | 보라 | adverb |
+| `ple` | amply/plenty | 충분히 | adverb |
+| `overlo` | overly | 지나치게 | adverb |
+| `proofre` | proofread | 교정하다 | adverb ← **뜻은 동사인데 부사 태그** |
+| `railro` | railroad | 철도로 | adverb |
+| `relo` | relocate | 이주하여 | adverb |
+| `sidelo` | sidelong | 옆으로 | adverb |
+| `sce` | (없음) | SCE (자기효능감 등 약어) | abbreviation ← **없는 약어에 없는 확장** |
+| `brustly` | bristly | 솔이 빳빳한 | adjective |
+
+⚠️ **`ple` 는 발행된 도서 챕터 세트 `Ozma of Oz — Ch.6` 에 들어 있다** — 그 챕터를 학습하는 사람은
+비단어 카드를 받는다. `le` 는 `library_book_vocabularies` 에 **70행**, `dre` 13행, `kne` 11행 —
+도서 본문 토큰화에서 계속 재유입되고 있다는 뜻이라, 사전에서 지워도 **추출 단계를 고치지 않으면 되돌아온다.**
+
+기계 탐지는 가능하지만 **단순 접두사 매칭은 오탐이 압도적**이다(`ago`·`also`·`here`·`now`·`far` 가
+전부 걸린다). 판별 신호는 "잘린 형태 + 뜻이 더 긴 낱말의 것 + 그 형태가 실재 영어 단어가 아님" 세 개를
+함께 봐야 하고, 마지막 조건은 사람이나 LLM 판단이 필요하다.
+
+미조치 — 표제어 삭제는 PK 변경이고 발행 세트에서 행이 빠지므로 승인 대상. 제안:
+```sql
+-- 사전 표제어 제거 (추출 단계 수정이 선행되지 않으면 재유입된다)
+delete from shared_words where lower(word) in ('ple');   -- 발행 세트 노출분
+delete from shared_dictionary where word in
+  ('behe','brustly','dre','kne','le','overlo','ple','proofre','railro','relo','sce','sidelo');
+```
+
 ### 같은 배치에서 고친 기계적 결함 (2026-08-16)
 
 - **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,
