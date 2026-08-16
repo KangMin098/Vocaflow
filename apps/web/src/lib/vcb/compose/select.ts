@@ -46,6 +46,43 @@ const CONTENT_POS = new Set([
 ])
 
 /**
+ * 품사로는 못 거르는 기능어 — **이름으로 막는다.**
+ *
+ * 실측 2026-08-16(스윕 리포트에 첫 표제어 열을 붙이고 나서 보였다): `빈출 2,000` ·
+ * `30일 완성` · `레벨 V1-V3` 를 비롯한 여러 세트가 `have · come · but · will · say ·
+ * there · know` 로 시작한다. `but`(그러나) · `there`(거기에) · `will`(~할 것이다)은
+ * 외울 표제어가 아니라 문장을 잇는 부품이다.
+ *
+ * 왜 품사 필터가 못 잡나: 사전이 `but`·`there`·`so`·`just` 를 **부사**로,
+ * `will` 을 **동사**로, `own`·`through` 를 **형용사**로 적어 두었기 때문이다. 틀린 표기가
+ * 아니다 — 영어에서 그 낱말들이 실제로 그 자리에 서기도 한다. 다만 학습자가 단어장에서
+ * 외울 대상은 아니다.
+ *
+ * 그래서 품사가 아니라 **목록**으로 정한다. 닫힌 부류라 목록이 자라지 않는다.
+ * 부사 전체를 빼지는 않는다 — `quickly` · `carefully` · `finally` 는 외울 값이 있다.
+ */
+const FUNCTION_WORDS = new Set([
+  // 조동사·be·대동사
+  'be', 'am', 'is', 'are', 'was', 'were', 'been', 'being',
+  'will', 'would', 'shall', 'should', 'can', 'could', 'may', 'might', 'must', 'ought',
+  'do', 'does', 'did', 'done', 'have', 'has', 'had',
+  // 접속·연결
+  'but', 'and', 'or', 'nor', 'so', 'yet', 'than', 'then', 'if', 'unless', 'though',
+  'although', 'because', 'while', 'whereas', 'whether',
+  // 지시·존재
+  'there', 'here', 'this', 'that', 'these', 'those', 'such', 'same', 'other', 'another',
+  // 정도·빈도 부사 (문법 부품)
+  'very', 'just', 'also', 'too', 'only', 'even', 'still', 'already', 'yet', 'ever',
+  'never', 'always', 'often', 'sometimes', 'again', 'once', 'else', 'quite', 'rather',
+  // 수량·한정
+  'much', 'many', 'more', 'most', 'less', 'least', 'few', 'several', 'own', 'all', 'both',
+  'each', 'every', 'any', 'some', 'none', 'enough',
+  // 전치사처럼 쓰이는 것
+  'through', 'about', 'over', 'under', 'between', 'among', 'during', 'across', 'along',
+  'around', 'behind', 'beyond', 'within', 'without', 'upon', 'toward', 'towards',
+])
+
+/**
  * 풀 안에 기본형이 있는 굴절형 집합.
  *
  * 사전의 `inflected_forms` 를 뒤집어 만든다 — `go` 가 `goes·going·went·gone` 를 들고 있으므로
@@ -182,6 +219,11 @@ export function applyFilters(
       const pos = c.primary_pos ?? c.pos
       if (!pos || !CONTENT_POS.has(pos)) {
         drop(dropped, 'function_word')
+        continue
+      }
+      // 품사가 내용어여도 기능어일 수 있다 — 사전이 `but` 을 부사로, `will` 을 동사로 적는다.
+      if (FUNCTION_WORDS.has(key)) {
+        drop(dropped, 'function_word_listed')
         continue
       }
     }

@@ -115,6 +115,16 @@ interface Row {
   losing: string[]
   blockers: string[]
   warnings: string[]
+  /**
+   * 첫 표제어 8개 — **지표만으로는 안 보이는 것**을 보이게 한다.
+   *
+   * 이 스윕은 오랫동안 55조합의 점수만 적었고 대부분 통과였다. 그런데 표제어를 직접
+   * 열어 보니 혼동어가 접미사 계열이었고(`bearing·caring·cleaning` 18개 한 군),
+   * 구동사가 알파벳순이었고, 반대말에 짝이 없었다. 점수는 필드 충족도와 구조를 재지
+   * "이게 맞는 표제어인가" 를 재지 않는다 — 그 판단은 사람 눈이 하는 수밖에 없고,
+   * 그러려면 리포트에 적혀 있어야 한다.
+   */
+  head: string
 }
 
 const rows: Row[] = []
@@ -148,6 +158,7 @@ describe.skipIf(!enabled)('파라미터 스윕 — 실제 운용 조합에서도
             losing: m.losing,
             blockers: r.scorecard.blockers,
             warnings: r.scorecard.warnings,
+            head: r.set.entries.slice(0, 8).map((e) => e.word).join(' · '),
           })
         } catch (err) {
           rows.push({
@@ -161,19 +172,26 @@ describe.skipIf(!enabled)('파라미터 스윕 — 실제 운용 조합에서도
             losing: ['throw'],
             blockers: [err instanceof Error ? err.message : String(err)],
             warnings: [],
+            head: '',
           })
         }
       }
 
       const lines = ['# VCB 파라미터 스윕', '', `조합 ${rows.length}개`, '']
-      lines.push('| blueprint | 파라미터 | 항목 | 목차 | 총점 | 내부 | 시중대비 | 문제 |')
-      lines.push('|---|---|--:|--:|--:|:-:|:-:|---|')
+      lines.push(
+        '점수는 필드 충족도와 구조를 잰다. **첫 표제어** 열은 점수가 못 재는 것을 위한 자리다 —',
+        '"이게 맞는 표제어인가" 는 사람이 눈으로 판단하는 수밖에 없다. 이 열이 없던 동안',
+        '혼동어가 접미사 계열이었고, 구동사가 알파벳순이었고, 반대말에 짝이 없었다.',
+        '',
+      )
+      lines.push('| blueprint | 파라미터 | 항목 | 목차 | 총점 | 내부 | 시중대비 | 첫 표제어 | 문제 |')
+      lines.push('|---|---|--:|--:|--:|:-:|:-:|---|---|')
       for (const r of rows) {
         const issue = [...r.blockers, ...(r.losing.length > 0 ? [`열위: ${r.losing.join(',')}`] : [])]
           .slice(0, 2)
           .join(' · ')
         lines.push(
-          `| ${r.blueprint} | ${r.label} | ${r.entries} | ${r.groups} | ${r.total.toFixed(2)} | ${r.passed ? '✅' : '❌'} | ${r.market_ok ? '✅' : '❌'} | ${issue} |`,
+          `| ${r.blueprint} | ${r.label} | ${r.entries} | ${r.groups} | ${r.total.toFixed(2)} | ${r.passed ? '✅' : '❌'} | ${r.market_ok ? '✅' : '❌'} | ${r.head} | ${issue} |`,
         )
       }
       const here = fileURLToPath(new URL('.', import.meta.url))

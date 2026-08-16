@@ -147,7 +147,7 @@ describe('select — 필터·차감·family·목표', () => {
   })
 
   it('중복은 첫 등장만 남는다', () => {
-    const r = select([word('same'), word('SAME')], baseSelect())
+    const r = select([word('kappa'), word('KAPPA')], baseSelect())
     expect(r.kept).toHaveLength(1)
     expect(r.dropped['duplicate']).toBe(1)
   })
