@@ -10,6 +10,56 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습자 표면 8곳 계측 기반 재설계 — 이름 레지스트리 · 하네스 정확도 (v06.202)
+
+`/practice` 통폐합(v06.201)에 이어, 남은 학습자 표면 전체를 **같은 잣대로** 재고 고쳤다.
+평균 90.75 / 100 (practice 95 · hub 94 · arcade 92 · dashboard 90 · library-books 90 ·
+library-scripts 89 · library-vocab 88 · wordvault 88).
+
+**같은 것을 다르게 부르던 것 — 레지스트리로**
+- `lib/framework/memory-labels.ts` 신설. 기억 4상태 이름이 **여섯 곳에서 다섯 벌**이었다.
+  `/wordvault` 한 화면 안에서 히어로는 "확실·익숙·회복", 아래 섹션은 "안정·흔들림·위급".
+  `shaky → '익숙'` 은 방향이 반대였다. → **안정 · 흔들림 · 흐릿함 · 새 단어**(선명도 한 축).
+  risk 는 다수결(`위급` 3/5)을 안 따랐다 — 응급실 말투는 금지된 압박 표현이다.
+- 상단 리본이 `shaky+risk` **합계**를 "흔들림" 이라 불러 리본 135 · WordVault 20 이 동시에
+  떠 있었다 → `MEMORY_ATTENTION_LABEL = '다시 볼'`(집계엔 행동의 이름을 준다).
+- 래칫 2단: 속성 형태(`label: '흔들림'`) + **JSX 텍스트 노드**. 후자가 없어서 리본을 놓쳤었다.
+
+**화면이 사실을 감추던 것**
+- `/wordvault` 섹션 6종 중 `FacetProgressSection` 만 껍데기를 손으로 만들어(h2 15px + border)
+  나머지 다섯(`Frame` · h2 22px · Card)과 다른 언어로 말했다 → `Frame` 통일
+- 같은 화면 히어로 CTA 가 상태별로 색을 바꿨다(risk→`--error`). **밀린 복습은 오류가 아니다**
+  — FSRS 가 정상 동작한 결과다 → 항상 `brand`
+- `/dashboard` Report 카드가 **6주 전 리포트를 현재 것처럼** 내걸었다(`weekly_reports` 전체 1행)
+  → 2주 이상이면 `· N주 전` 부기. 파이프라인 정지는 별건이지만 **감추는 것은 화면의 문제**다
+- `/library/vocab` 추천 행이 카드마다 이유를 하나 또는 둘씩 댔다(사유 중간 잘림 + `set.kind` 중복)
+  → 사유 한 줄 고정 + `hideKind`
+- `/wordblitz` 빈 기록 카드 둘이 같은 말을 두 번 해 모바일의 40% 를 먹었다 → 한 줄
+
+**죽은 코드**
+- 고아 컴포넌트 6(630줄) 제거 — `HubHero`·`ModuleGrid`·`ModuleCard`·`ArcadeEntryCard`·
+  `TodayPrescriptionCard`·`PrescriptionArticleLaunch`. **계약 락을 먼저 옮겼다**
+  (`TodayStage.test.tsx` 3 — 계산 실패 공개 · 잠긴 블록 비링크 · 표면 이중화 금지)
+
+**평가 도구가 만든 가짜 결함 5종 — 전부 수정**
+`91-hub-design-capture` 는 회귀 스펙이 아니라 **판정 도구**라 틀리면 이후 라운드가 전부 틀린다.
+| # | 증상 | 원인 |
+|---|---|---|
+| 1 | 15 라우트 중 9개 "카드 0개(측정 안 됨)" | 셀렉터가 서재 전용 → `[data-design-card]` opt-in |
+| 2 | `/arcade` 불균질 2/3 | 줄 판별에 `offsetTop`(=offsetParent 기준) → 문서 기준 rect |
+| 3 | `3개:0` 가짜 균질 | `<details>` 안 숨은 카드 → `offsetHeight>0` 필터 |
+| 4 | `/arcade` 첫 카드 1.38화면 | 데일리 카드 미태그 → 태그 후 0.84 |
+| 5 | 서가 제목 줄 수 흩어짐 | **표지 아트**(`line-clamp-4/5`)를 메타 제목과 한 통에 셈 → `[data-design-title]` |
+신규 지표: `foldRatio`(전체 높이) · `firstCardRatio`(첫 카드까지) · 접힌 요소 이름 ·
+`nocards` 선언(셀렉터 누락 vs 원래 없음 분리) — 설명 없는 미측정 **9 → 0**.
+
+**접근성**
+- `10-a11y-sweep` 에 `/practice`·`/wordblitz` 추가 — 새 최상위 라우트가 스윕에 없어 **한 번도
+  안 재지고 있었다**. 24화면 × 3케이스 전부 안정화 · 넘침 0 · 베이스라인 초과 0
+- 다크 전수 캡처(15 라우트 × 2 뷰포트) — **테마 뒤집힘 결함 0**. ⚠️ 다크 전수는 1회 실행 시
+  브라우저가 죽는다(`settle` 중 context closed) — 4~6 라우트씩 배치로 돌릴 것
+- `--on-p` 정정 10곳(다크에서 흰 글자 2.90:1 → AA 미달)
+
 ### ⏳ 적용 대기 — `daily_activity.total_seconds` (마이그레이션 `20260816003000`)
 
 **작성·리뷰 완료, DB 미적용.** Claude Code 세션에서 `apply_migration` 이 권한 분류기에 막혔다
@@ -68,6 +118,35 @@
   확인분 15건은 즉시 수정, 전체 진단은 [dict_field_consistency_20260815.md](AI_CONTEXT/diagnostics/dict_field_consistency_20260815.md)
 - **환각 방지 원칙(실증)** — 저작 대상을 `library_book_vocabularies` 에서 길어오면 환각이 구조적으로 불가능하다.
   오늘 배치 1,444 표제어 중 lexicon 미등재 339건이 **전부 도서 본문에 실재**(환각 0). 코퍼스 제약 없던 과거 배치는 125건이 어디에도 없었다.
+
+### 사전 정합성 배치 w0816 — 유의어 오염 제거 · 예문↔뜻 정합 · 뜻 보완 (2026-08-16)
+
+w0815 배치의 부산물로 드러난 **채움률이 가릴 수 없는 결함**을 정면으로 친 후속 배치.
+서브에이전트 40여 개 · 218청크. 상세 진단: [dict_field_consistency_20260815.md](AI_CONTEXT/diagnostics/dict_field_consistency_20260815.md)
+
+| 트랙 | 대상 | 결과 |
+|---|---|---|
+| **T5 유의어 정제** | 12,401단어 · 86청크 | **8,563단어** · 유의어 항목 98,936 → **64,250** |
+| **T6 예문 정합성** | 13,794단어 · 115청크 | 예문 **394건** 교체 · **뜻 이상 968건 진단** |
+| **T7 뜻 보완** | T6 진단 968건 · 17청크 | **575단어** · 기존 sense 소실 **0건** |
+
+**⚠️ 유의어 오염은 콘텐츠 안전 문제였다** — 제거율 **34~81%**(빈도 상위일수록 심함).
+학습자 카드 뒷면에 노출되던 값: `far`→르완다 무장단체(FAR 약어) · `let`→테러조직(LeT) ·
+`queen`·`fag`/`fagot`/`faggot`·`queer`·`fairy`(A2)→동성애 멸칭 전량 · `retard`·`changeling`·`slowness`→지적장애 멸칭 ·
+`coloured`·`chink`·`guinea`→인종 멸칭 · `jade`·`doll`·`skirt`→여성 비하 · `pot`·`ice`·`acid`·`dot`·`dose`·`soap`·`rope`→마약 은어 전량 ·
+`can`(A1 조동사)→화장실 비속어 · `tool`(A2)→성기 비속어 · `violation`→rape.
+오염 유형 10종: 품사 통짜 불일치(최대) · 수치 오류(`dual`↔`treble`↔`threefold` 삼각) · 뜻 정반대(양방향 5쌍) ·
+과학 오개념(`molecule`→atom) · 추상↔물리 혼입 · 멸칭·비속어 · 약어 충돌(3글자 이하 표제어) · 인명/학명 동형 · 동형이의 통짜 · 철자 변형.
+
+**신규 하네스** — `scripts/dict/w0816-syncheck.mjs`(삭제 전용·부분집합 게이트) ·
+`w0816-exmatch.mjs`(예문만 교체·뜻은 보고만) · `w0816-meaningfix.mjs`(기존 sense 보존 게이트).
+
+**게이트 실적**: T5 부분집합 위반 **0건**(8,563단어) · T6 게이트 탈락 8건 · T7 sense 소실 **0건**.
+
+**추가로 계측된 구조 결함**(전부 별도 승인 필요):
+`pos` ∉ `pos_set` **4,201건**(예문·유의어 품사 오염의 공통 근인) · 굴절형 표제어 **1,104**(pos=verb 103) ·
+복수형 중복 **299** · 하이픈 중복 **123** · 소문자 고유명사 **29** · CEFR 오배정 126(88%가 `frequency_rank` NULL) ·
+`-ly` 형용사가 pos=adverb(`ghostly`·`fatherly`·`worldly`…).
 
 ### Growth(`/dashboard`) 재설계 + `/hub` 진행 단일화 — 화면 셋이 동시에 거짓을 말하고 있었다 (v06.201)
 

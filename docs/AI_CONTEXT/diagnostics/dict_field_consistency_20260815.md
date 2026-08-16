@@ -127,6 +127,35 @@ where d.source='ai-generated' and l.word is null and lex.w is null;
 `inappropriately`(뜻 정반대) · `unintelligent` · `trash`·`falsifiable`·`extracurricular`·`herder`·`biotechnology`(synonyms) ·
 `curry`·`ar`(synonyms 전량 제거) · `familial`·`centrality`·`centralization`(→C1) · `classless`·`betterment`(→B2)
 
+## 2026-08-16 실행 결과 (T5·T6·T7)
+
+| 트랙 | 대상 | 결과 |
+|---|---|---|
+| **T5 유의어 정제** (`w0816-syncheck.mjs`) | 12,401단어 / 86청크 | **8,563단어 정제** · 유의어 항목 98,936 → **64,250**(−34,686) |
+| **T6 예문 정합성** (`w0816-exmatch.mjs`) | 13,794단어 / 115청크 | 예문 **394건 교체** · **뜻 이상 968건 진단** |
+| **T7 뜻 보완** (`w0816-meaningfix.mjs`) | T6 진단 968건 / 17청크 | **575단어 보완** · 기존 sense 소실 **0건** |
+
+**T6 의 진짜 산출물은 예문 교체가 아니라 뜻 진단이었다** — 394건 고치는 동안 968건을 찾아냈고,
+그 968건이 T7 의 입력이 됐다. 결함의 대부분은 예문이 아니라 **`meaning_ko` 가 빈약한 것**이었다.
+
+### 게이트가 실제로 막은 것
+- T5 **부분집합 게이트**(삭제만 허용) 위반 **0건** — 12개 에이전트가 8,563단어를 처리하며 유의어를 추가하려 한 적이 한 번도 없다
+- T6 예문 게이트 탈락 8건(길이·아포스트로피·표제어 미포함) 자동 폐기
+- T7 **기존 sense 보존 게이트** — 소실 0건. 맞는 뜻을 덮어쓰는 사고가 이 배치 최대 위험이었다
+
+### 하네스를 짤 때 실제로 낸 실수 4가지 (에이전트가 잡음)
+1. `v_level` 컬럼을 select 하지 않고 폴백으로 사용 → 항상 `undefined` → 해당 sense 전량 거부
+2. `meaning_ko ⊇ meanings_ko[0]` 게이트가 **과엄격** → 에이전트가 카드 앞면에 정의문 전문을 밀어 넣음.
+   설명부(`— …`)·선행 괄호를 걷어낸 **핵심어만 비교**하도록 완화 + apply 에서 head 정규화(3구획·90자)
+3. sense 재구성 시 `{pos,meaning,v_level}` 만 남겨 **`example`·`register`·`sense_en` 소실** → 청크 입력의 원본 sense 에서 부가 필드 승계
+4. 수동 SQL 로 `meaning_ko` 만 고치고 `meanings_ko` 를 방치 → 두 필드 모순(`absently`). **수동 수정 경로에만 있는 위험** — apply 스크립트는 두 필드를 함께 쓴다
+
+### 삭제 금지 규칙의 한계 (T7)
+기존 sense 보존은 맞는 뜻을 지키지만 **틀린 뜻도 함께 지킨다.**
+`seconders` 의 "결투 입회인"(실제로는 `second` 의 뜻)은 지울 수 없어, 맞는 뜻을 0번으로 올리고
+오뜻은 **원문 보존 + 반증 주석 + 강등**으로 처리했다. `tremor`·`whereon`·`tanner` 도 동일.
+`shark` 의 3중 중복 sense 처럼 **dedupe 가 필요한 항목은 별도 배치**가 있어야 한다.
+
 ## 남은 것 — 배치 설계 제안
 
 세 트랙 모두 `w0815-*` 하네스(chunk/apply + 게이트) 패턴을 그대로 재사용할 수 있다.
