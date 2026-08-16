@@ -19,6 +19,9 @@
 import { expect, test, type Page } from '@playwright/test';
 
 import { ensureAuthState } from './utils/auth';
+import { deleteDictationSince, userIdByEmail } from './utils/db';
+import { startAnySession } from './utils/session';
+import { TEST_USER } from './fixtures/test-user';
 
 const STATE_PATH = 'playwright-auth/.auth-dictate-sweep.json';
 
@@ -171,6 +174,38 @@ test.describe('받아쓰기 전 화면 순회', () => {
       }
     } finally {
       await anon.close();
+    }
+  });
+
+  /**
+   * H. **진행 중인 세션 화면** — 지금까지 순회가 통째로 빠뜨린 상태.
+   *
+   * C·D 는 "없는 세션" 만 열어 봤다. 그래서 학습자가 실제로 시간을 보내는 화면 —
+   * 입력창·힌트 4단계·제출·건너뛰기 — 은 **한 번도 검사되지 않았다**.
+   * 실측으로 그 자리에 44px 위반이 두 종류 있었다(힌트 24px · 제출 38px).
+   * 빈 상태만 도는 순회는 "화면을 다 봤다" 는 착각을 준다.
+   */
+  test('H. 진행 중 세션 — 조작 44px · 막다른 곳 없음', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const ctx = await browser.newContext({ storageState: STATE_PATH });
+    const page = await ctx.newPage();
+    try {
+      await startAnySession(page);
+      await expect(page.getByRole('textbox').first()).toBeVisible({ timeout: 20_000 });
+      await assertSettled(page, '/dictate/session(진행)');
+      await assertTouchTargets(page, '/dictate/session(진행)');
+
+      // 채점 뒤 화면도 본다 — 피드백 단계는 입력 단계와 다른 조작을 그린다
+      await page.getByRole('textbox').first().fill('some answer');
+      await page.getByRole('button', { name: '제출' }).click();
+      await expect(page.getByRole('heading', { name: '결과' }).first()).toBeVisible({
+        timeout: 10_000,
+      });
+      await assertTouchTargets(page, '/dictate/session(채점후)');
+    } finally {
+      await ctx.close();
+      if (userId) await deleteDictationSince(userId, sinceIso);
     }
   });
 

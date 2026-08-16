@@ -450,7 +450,7 @@ export function DictationSessionClient() {
                 <button
                   type="button"
                   onClick={() => audio.chooseEngine('neural')}
-                  className={`mt-2 inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] ${FOCUS_RING}`}
+                  className={`mt-2 inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] ${FOCUS_RING}`}
                 >
                   <Download size={12} />
                   음성 내려받아 사용하기 (약 17MB · 한 번만)
@@ -488,7 +488,7 @@ export function DictationSessionClient() {
                   onClick={() => setSpeed(s)}
                   aria-pressed={Math.abs(speed - s) < 0.01}
                   aria-label={`재생 속도 ${s}배`}
-                  className={`rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700] transition-colors ${FOCUS_RING} ${
+                  className={`min-h-[44px] min-w-[44px] rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700] transition-colors ${FOCUS_RING} ${
                     Math.abs(speed - s) < 0.01
                       ? 'bg-[var(--p)] text-[var(--on-p)]'
                       : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -519,7 +519,7 @@ export function DictationSessionClient() {
                     audio.chooseEngine(v.id)
                   }}
                   aria-pressed={audio.engine === v.id}
-                  className={`rounded-[var(--r-sm)] border px-2 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
+                  className={`min-h-[44px] rounded-[var(--r-sm)] border px-2.5 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
                     audio.engine === v.id
                       ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                       : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -615,7 +615,7 @@ export function DictationSessionClient() {
                       type="button"
                       onClick={() => handleHint(stage.level)}
                       aria-pressed={activeHint === stage.level}
-                      className={`rounded-[var(--r-sm)] border px-2 py-1 font-display text-[11px] font-[600] transition-colors ${FOCUS_RING} ${
+                      className={`min-h-[44px] rounded-[var(--r-sm)] border px-2.5 py-1 font-display text-[11px] font-[600] transition-colors ${FOCUS_RING} ${
                         activeHint === stage.level
                           ? 'border-[var(--active)] bg-[var(--active-light)] text-[var(--active)]'
                           : used
@@ -635,7 +635,7 @@ export function DictationSessionClient() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={userInput.trim().length === 0}
-                className={`flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`}
+                className={`flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`}
                 style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
               >
                 제출
