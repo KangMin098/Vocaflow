@@ -20,6 +20,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 
+import { stripBoilerplate } from './boilerplate'
 import { contentHash } from './harvest'
 
 /** 로컬 수확 1편의 결과 — 본문 필드 없음 (harvest.ts 와 같은 계약) */
@@ -75,8 +76,15 @@ export async function harvestLocalArticle(
   supabase: SupabaseClient,
   sourceId: string,
   article: LocalArticle,
+  /**
+   * 이 출처에서 검출된 상용구 줄 (`detectBoilerplateLines`). 넘기지 않으면 제거하지 않는다.
+   * 제거는 **토큰화 직전**에만 일어나고 `library_articles.content` 는 건드리지 않는다 —
+   * 원본은 ACP 의 자산이지 TCP 가 고칠 대상이 아니다.
+   */
+  boilerplate?: Set<string>,
 ): Promise<LocalHarvestResult | LocalHarvestFailure> {
-  const text = article.content ?? ''
+  const raw = article.content ?? ''
+  const text = boilerplate && boilerplate.size > 0 ? stripBoilerplate(raw, boilerplate) : raw
   if (text.trim().length < MIN_CHARS) {
     return {
       ok: false,

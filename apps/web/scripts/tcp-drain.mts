@@ -21,6 +21,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { config } from 'dotenv'
 import { resolve } from 'node:path'
 
+import { detectBoilerplateLines } from '../src/lib/topic-corpus/boilerplate'
 import { harvestTedTalk } from '../src/lib/topic-corpus/harvest'
 import { harvestLocalArticle, type LocalArticle } from '../src/lib/topic-corpus/local-corpus'
 import { discoverTedTopic } from '../src/lib/topic-corpus/ted-discover'
@@ -67,11 +68,25 @@ async function sources(provider?: string): Promise<SourceRow[]> {
  * 큐를 쓰지 않는다: 네트워크를 타지 않으므로 claim·재시도·politeness 가 필요 없고,
  * 재실행 안전성은 `ingest_topic_corpus_doc` 이 (source, external_id) 중복을 막는 것으로 이미 확보된다.
  */
-async function cmdIngestLocal() {
+async function cmdIngestLocal(reset: boolean) {
   const rows = await sources('library_articles')
   if (rows.length === 0) {
     console.log('provider=library_articles 소스가 없습니다 — 시드 마이그레이션을 먼저 적용하세요.')
     return
+  }
+
+  if (reset) {
+    // 같은 문서는 중복 방지로 건너뛰므로, 재계산하려면 관측치를 비워야 한다.
+    // 지우는 것은 **이 파이프라인이 만든 집계**뿐이다 — 원문(library_articles)도,
+    // 사전 갭(pending_words)도 건드리지 않는다. 갭은 이미 백로그로서 독립적 가치가 있고,
+    // 재수확이 같은 단어를 다시 넣지도 않는다.
+    const ids = rows.map((r) => r.id)
+    const del1 = await db.from('topic_word_stats').delete().in('source_id', ids)
+    const del2 = await db.from('topic_corpus_docs').delete().in('source_id', ids)
+    if (del1.error || del2.error) {
+      throw new Error(`reset 실패: ${del1.error?.message ?? del2.error?.message}`)
+    }
+    console.log('· 기존 로컬 관측치 초기화 (원문·사전 갭은 보존)\n')
   }
 
   let harvested = 0
@@ -95,8 +110,14 @@ async function cmdIngestLocal() {
     let gaps = 0
     let words = 0
 
+    // 출처별로 상용구를 먼저 검출한다 — 한 문서만 봐서는 "반복" 을 알 수 없다.
+    const boilerplate = detectBoilerplateLines(articles.map((a) => a.content ?? ''))
+    if (boilerplate.size > 0) {
+      console.log(`  · 상용구 ${boilerplate.size}줄 검출 — 토큰화 전 제거`)
+    }
+
     for (const a of articles) {
-      const out = await harvestLocalArticle(db, s.id, a)
+      const out = await harvestLocalArticle(db, s.id, a, boilerplate)
       if (out.ok) {
         ok += 1
         gaps += out.gapWords
@@ -223,7 +244,7 @@ const apply = process.argv.includes('--apply')
 try {
   if (cmd === 'enqueue') await cmdEnqueue()
   else if (cmd === 'drain') await cmdDrain()
-  else if (cmd === 'ingest-local') await cmdIngestLocal()
+  else if (cmd === 'ingest-local') await cmdIngestLocal(process.argv.includes('--reset'))
   else if (cmd === 'promote') await cmdPromote(apply)
   else {
     console.error('사용: tcp-drain.mts <enqueue|drain|ingest-local|promote> [--apply]')

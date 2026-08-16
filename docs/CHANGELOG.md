@@ -305,6 +305,29 @@ taxonomy 에는 실제 담론에서 무엇이 어떤 주제와 함께 나타나�
 - **구조적 한계** — 문서 2편 이하 소스(elife·wikipedia)는 `doc_freq≥3` 을 만족할 수 없어 승격 대상이
   0 이다. 임계값을 낮추는 것이 아니라 문서를 더 모으는 것이 답이다.
 
+### TCP 상용구 제거 + 1회차 승격 300건 (`lib/topic-corpus/boilerplate.ts`)
+
+- **상용구 필터** — 같은 출처 문서들에 **줄 단위로 완전 일치 반복**되는 텍스트를 토큰화 직전에
+  걷어낸다(원문 `library_articles.content` 는 건드리지 않는다). DB 실측으로 확인한 오염이 정확히
+  그 모양이었다: OWID 인용·구독 안내(8/8편) · VOA 진행자 사인오프와 구분선(7~8편).
+  검출 31줄(nasa 10 · owid 6 · plos 5 · the-conversation 4 · voa 3 · wikivoyage 2 …).
+  **단어 빈도로 추정하지 않는 이유**: NOAA 전 문서에 정당하게 나오는 `temperature` 같은 핵심
+  주제어가 상용구로 오인돼 지워진다. 판정 단위를 줄 완전 일치로 잡아야 그 오인이 생기지 않는다.
+  보수적 설계(완전 일치만 · 최소 3편 · 20% 이상 · 문서 3편 미만 출처는 미적용) — 과잉 제거는
+  통계가 조용히 줄어드는 형태로만 드러나 눈에 띄지 않는다. 회귀 5.
+- **매핑 교정** — 관측이 내 가설을 반증했다. `voa` 는 시사가 아니라 **영어 학습 프로그램**이라
+  `verb·idiom·expression` 을 낸다 → `communication-language`. `plos` 는 생물학이 아니라
+  **연구방법론** 어휘(`statistical·regression·empirical`) → `science-and-technology-scientific-research`.
+- **승격 300건 적용** (`doc_freq≥4` · `salience≥1.5` · `source='corpus-derived'`):
+  wikivoyage→travel 197 · the-conversation→scientific-research 70 · noaa→weather 25 · usgs→geography 8.
+  `dictionary_word_categories` 28,079 → **28,379**.
+- **4개 출처는 승격 보류** — 상용구 제거 후에도 배정 카테고리와 맞지 않는다:
+  `nasa`(clipboard·directorate·workforce·email — 행정 어휘) ·
+  `owid`(visualization·chart·subscribe — 본문에 섞인 사이트 어휘라 줄 단위로 안 잡힌다) ·
+  `voa`(suddenly·maybe·someone — 주제가 아니라 **쉬운 영어 문체**를 잡았다) ·
+  `plos`(attribution·unrestricted·copyright·pone — CC-BY 라이선스 문구와 저널 식별자).
+  이들은 줄 반복이 아니라 본문 내부 오염이라 다른 처리가 필요하다.
+
 TCP 자체는 provider 무관이라 그대로 쓸 수 있다. 대안은 **이미 DB 에 있는** 개방 라이선스 코퍼스다 —
 `library_articles` 162편(전편 본문 보유): simple_wikipedia 34 · nasa 32 · voa 30 · the_conversation 25 ·
 owid/plos/elife 16 · factbook/usgs/noaa/wikivoyage 25. PD-Government · CC-BY-4.0 · CC-BY-SA-4.0 이고

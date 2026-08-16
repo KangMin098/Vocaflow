@@ -12,6 +12,7 @@ import { describe, expect, it } from 'vitest'
 
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 
+import { detectBoilerplateLines, stripBoilerplate } from '../boilerplate'
 import { contentHash } from '../harvest'
 import { parseTedTopicHtml, talkUrlFromSlug } from '../ted-discover'
 import {
@@ -163,6 +164,61 @@ describe('토큰화 빈도 — words 와 counts 는 같은 집합', () => {
     expect(r.words).toContain('pre-industrial')
     // 숫자 결합 토큰은 통째로 제외 — 'co' 파편을 만들지 않는다
     expect(r.words).not.toContain('co')
+  })
+})
+
+describe('상용구 제거 — 과하게 지우면 본문이 조용히 사라진다', () => {
+  const footer = 'Cite this article and reuse our work freely.'
+  const signoff = 'Subscribe to our newsletters for weekly highlights.'
+  const docs = [
+    `Malaria deaths fell sharply across the region.\n${footer}\n${signoff}`,
+    `Diarrheal disease remains a leading cause of child mortality.\n${footer}\n${signoff}`,
+    `Infectious disease burden shifted over two decades.\n${footer}\n${signoff}`,
+    `Income growth tracked closely with life expectancy.\n${footer}\n${signoff}`,
+  ]
+
+  it('여러 문서에 그대로 반복되는 줄을 찾는다', () => {
+    const bp = detectBoilerplateLines(docs)
+    expect(bp.has(footer)).toBe(true)
+    expect(bp.has(signoff)).toBe(true)
+    // 본문 문장은 문서마다 다르므로 걸리지 않는다.
+    expect(bp.size).toBe(2)
+  })
+
+  it('제거 후에도 본문은 남고 상용구 어휘만 사라진다', () => {
+    const bp = detectBoilerplateLines(docs)
+    const cleaned = stripBoilerplate(docs[0]!, bp)
+    expect(cleaned).toContain('Malaria')
+    expect(cleaned).not.toContain('Cite this article')
+    const words = tokenizeText(cleaned).words
+    expect(words).toContain('malaria')
+    // 'cite'·'subscribe'·'newsletters' 가 주제 어휘로 승격되던 원인이 바로 이 줄들이었다.
+    expect(words).not.toContain('cite')
+    expect(words).not.toContain('subscribe')
+  })
+
+  it('문서가 3편 미만이면 아예 적용하지 않는다', () => {
+    // 표본이 작으면 우연한 일치를 상용구로 오인한다 — 그 오인은 본문 삭제로 이어진다.
+    expect(detectBoilerplateLines([docs[0]!, docs[1]!]).size).toBe(0)
+  })
+
+  it('모든 문서에 나오는 핵심 주제어는 지우지 않는다', () => {
+    // NOAA 전 문서에 'temperature' 가 정당하게 등장한다. 단어 빈도로 상용구를 추정했다면
+    // 이런 핵심어가 지워졌을 것이다 — 그래서 판정 단위를 **줄 완전 일치**로 잡았다.
+    const noaa = [
+      'Global temperature rose again this decade.',
+      'Ocean temperature drives the carbon cycle.',
+      'Surface temperature varies by hemisphere.',
+      'Atmospheric temperature responds to greenhouse gases.',
+    ]
+    const bp = detectBoilerplateLines(noaa)
+    expect(bp.size).toBe(0)
+    expect(tokenizeText(stripBoilerplate(noaa[0]!, bp)).words).toContain('temperature')
+  })
+
+  it('상용구가 없으면 원문을 그대로 돌려준다', () => {
+    const text = 'One line.\nAnother line.'
+    expect(stripBoilerplate(text, new Set())).toBe(text)
   })
 })
 
