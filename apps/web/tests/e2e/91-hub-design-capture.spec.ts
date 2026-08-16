@@ -367,6 +367,28 @@ async function layoutMetrics(page: Page) {
        * 뷰포트 오른쪽 경계를 넘는 요소 중 **부모는 안 넘는 것**만 남긴다(자식이 밀어낸
        * 조상까지 전부 보고하면 목록이 수십 개가 되어 다시 못 읽는다).
        */
+      /**
+       * **지면 배분** — 최상위 블록이 세로 공간을 얼마나 가져가는가.
+       *
+       * 카드 균질성·넘침은 "각 블록이 잘 만들어졌나" 를 보지만, 진입면에서 더 자주 틀리는 것은
+       * **무엇에 얼마를 줬나** 다. 가장 큰 자리를 가장 덜 중요한 것이 차지해도 스크린샷만
+       * 봐서는 "꽉 차 보인다" 로 넘어간다. 라벨과 높이를 함께 찍어 두면 그 판단이 숫자가 된다.
+       */
+      blocks: (() => {
+        // 구성 단위 = **이름 붙은 최상위 섹션**. 래퍼 `div` 를 세면 중첩 깊이에 따라
+        // "블록 1개 100%" 같은 무의미한 값이 나온다(첫 시도가 그랬다).
+        // 다른 `section[aria-label]` 안에 든 것은 하위 요소이므로 뺀다.
+        const all = Array.from(document.querySelectorAll<HTMLElement>('main section[aria-label]'))
+        const tops = all.filter((el) => !all.some((o) => o !== el && o.contains(el)))
+        const vh = window.innerHeight || 1
+        return tops
+          .map((el) => ({
+            label: el.getAttribute('aria-label') || el.tagName.toLowerCase(),
+            px: el.offsetHeight,
+            screens: Math.round((el.offsetHeight / vh) * 100) / 100,
+          }))
+          .filter((b) => b.px > 0)
+      })(),
       overflowCulprits: (() => {
         const limit = document.documentElement.clientWidth
         const out: { tag: string; cls: string; right: number; text: string }[] = []
@@ -488,6 +510,15 @@ test.describe('허브 디자인 캡처', () => {
         console.log(
           `  [접힘] ${m.belowFoldCount}개: ${m.belowFold.join(' / ')}` +
             (more > 0 ? ` … 외 ${more}개` : '')
+        )
+      }
+      if (m.blocks.length > 0) {
+        const total = m.blocks.reduce((s, b) => s + b.px, 0) || 1
+        // eslint-disable-next-line no-console
+        console.log(
+          `  [지면] ${m.blocks
+            .map((b) => `${b.label} ${b.px}px(${Math.round((b.px / total) * 100)}%)`)
+            .join(' · ')}`,
         )
       }
       for (const c of m.overflowCulprits) {

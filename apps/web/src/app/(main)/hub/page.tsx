@@ -28,6 +28,8 @@ import { kstRoomTime } from '@/components/home/room-tone'
 import { GatewayLead } from '@/components/home/GatewayLead'
 import { TodayFocus } from '@/components/home/TodayFocus'
 import { TodayPlanCard } from '@/components/home/TodayPlanCard'
+import { NextWordsStrip } from '@/components/home/NextWordsStrip'
+import { TodayReading } from '@/components/home/TodayReading'
 import { TodayStage } from '@/components/home/TodayStage'
 import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
@@ -84,6 +86,18 @@ export default async function HubPage() {
           touchedToday={[...touchedToday]}
           dcpDoneToday={dcpDoneToday}
         />
+
+        {/* 오늘 읽을 것 — 처방이 고른 실제 글을 제목으로 세운다.
+            흐름의 `Read · 30분` 은 개수와 같은 것이고, 제목·수준·성격이 있어야 고를 수 있다
+            (단어에 대해 v06.200 이 내린 결론을 읽을거리에 적용). */}
+        {!hasTodayPlan && isDiagnosed && prescription && (
+          <TodayReading candidates={prescription.input.candidates} />
+        )}
+
+        {/* 뒤이어 — 밀린 단어 한 줄.
+            ⚠️ 순서가 중요하다: 무대(지금 할 일) → 오늘 읽을 것 → 뒤이어(남은 단어).
+            이 띠가 무대 안에 있던 동안에는 **밀린 단어가 오늘 읽을 것보다 위**에 왔다. */}
+        <NextWordsStrip room={room} />
 
         {/* 오늘 정본 — 수동계획 우선 */}
         {hasTodayPlan && <TodayPlanCard items={planItems} today={today} />}

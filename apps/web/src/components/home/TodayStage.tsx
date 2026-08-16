@@ -79,9 +79,9 @@ export function TodayStage({
   //  없어요" 카드가 페이지 중앙을 점거했다.)
   if (!lead && blocks.length === 0) return null
 
+  // 무대는 **섹션 하나**다. 뒤이어 띠는 `NextWordsStrip` 으로 분리했다(순서 때문 — 그 파일 주석).
   return (
-    <div className="flex flex-col gap-4">
-      <section
+    <section
         aria-label="오늘"
         data-today-stage=""
         className="relative overflow-hidden rounded-ios-2xl px-6 py-9 md:px-10 md:py-12 lg:grid lg:grid-cols-[minmax(0,1.62fr)_minmax(248px,1fr)] lg:gap-12"
@@ -191,34 +191,6 @@ export function TodayStage({
           </div>
         )}
       </section>
-
-      {/* 뒤이어 — 서재의 목차 */}
-      {room && room.rest.length > 0 && (
-        <section
-          aria-label="뒤따르는 단어"
-          className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-8 md:py-5"
-        >
-          <h2 className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
-            뒤이어
-          </h2>
-          <ul className="mt-2 divide-y divide-[var(--bd)]">
-            {room.rest.map((w) => (
-              <li key={w.id} className="flex items-baseline gap-3 py-2.5">
-                <span className="font-editorial text-[17px] font-[500] text-[var(--t1)]">
-                  {w.word}
-                </span>
-                <span className="min-w-0 flex-1 truncate font-body text-[12.5px] text-[var(--t2)]">
-                  {w.meaning}
-                </span>
-                <span className="shrink-0 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
-                  {w.overdueDays === 0 ? '오늘' : `${w.overdueDays}일`}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </div>
   )
 }
 
