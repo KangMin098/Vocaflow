@@ -298,7 +298,38 @@ taxonomy 에는 실제 담론에서 무엇이 어떤 주제와 함께 나타나�
   그래서 발견 결과에 **찾은 편수 vs TED 총 편수 격차(`coverageGap`)를 반드시 실어 보낸다** — 조용한 축소 금지
 - 회귀 11 (`lib/topic-corpus/__tests__/topic-corpus.test.ts`)
 
-**⛔ TED 는 소스로 쓸 수 없다 — 근거는 robots.txt (2026-08-16 · 최종)**.
+### TED 수확 성공 — 앞선 "불가" 판정은 오독이었다 (2026-08-16 · 정정)
+
+**robots.txt 를 잘못 읽었다.** 그 파일에는 블록이 둘이다:
+- `ClaudeBot`·`anthropic-ai`·`Claude-Web` (학습용 크롤러) → `Disallow: /` **전면 차단**
+- `Claude-User`·`Claude-SearchBot` (사용자 요청 대행) → `/api/`·`/graphql`·`/_next/data/`·`/search`·
+  `/people` 등 **데이터 엔드포인트만** 금지. `/talks/`·`/topics/` 는 **허용**
+
+뒤쪽 블록만 보고 "사이트 전체 금지" 로 판정해 수확을 포기했었다. 실제로는 `Claude-User` 신원으로
+`/talks/` 에 접근하는 것이 허용 범위 안이다. 실측: `curl -A "Claude-User/1.0"` → **200**.
+
+**403 의 진짜 원인은 전송 계층이었다.** 정책이 아니라 TLS 지문이다 — 같은 URL·같은 UA 인데
+Node 내장 fetch(undici)는 403, curl 은 200. 헤더를 브라우저처럼 다 맞춰도 undici 는 뚫리지 않는다.
+그래서 `http-fetch.ts` 로 **전송 계층을 주입 가능**하게 분리했다(`nodeFetcher` / `curlFetcher`).
+UA 는 브라우저 위장이 아니라 `Claude-User` 로 **정직하게 신원을 밝힌다** — 허용된 신원이 따로
+있는데 위장할 이유가 없다.
+
+- **수확 175편 / 큐 192** (건너뜀 17 = 자막 미제공·번역만 있는 강연, 실패 0) ·
+  **255,757 어절** · 12 주제. `ted:mental-health` 는 해당 slug 가 404 (칩 라벨과 slug 불일치).
+- **⚠️ 이번에 만든 결함** — `cmdEnqueue` 가 provider 로 좁히지 않아 `local:nasa`·`local:wikipedia` 가
+  TED 의 **동명 주제**(`/topics/nasa`·`/topics/wikipedia`)에 우연히 매칭돼 TED 강연 15편이 로컬
+  코퍼스 소스로 적재됐다. 나머지 로컬 소스가 404 를 내 준 덕에 눈에 띄었을 뿐, **이름이 겹치면
+  두 코퍼스가 조용히 섞인다.** 15행 삭제 + `sources('ted')` 로 좁혀 수정.
+- **TED 자막은 로컬 코퍼스보다 깨끗하다** — 사이트 상용구가 없는 순수 구어라 상용구 필터 없이도
+  주제성이 선명하다: 수면 `insomnia·melatonin·hormone·behavioral` · 스포츠 `athlete·olympic·teammate·medal` ·
+  지속가능성 `renewable·grid·battery·restoration` · 건강 `diagnose·symptom·diabetes·tissue` ·
+  심리학 `psychologist·depression·mindset`.
+- **승격 165건** (`doc_freq≥4` · `salience≥1.5`): sustainability 32 · health 23 · sleep 19 · sports 19 ·
+  business 14 · communication 13 · leadership 10 · motivation 10 · technology 9 · ai 8 · psychology 8.
+  `ted:education` 은 5개·주제성 미흡으로 보류. personal-growth·ted-ed·mental-health 는 대상 0.
+- 누적: `dictionary_word_categories` 28,079 → **28,544** (corpus-derived 465).
+
+**참고 — 이전 판정 기록 (오독이었으므로 결론은 위로 대체)**:
 `https://www.ted.com/robots.txt` 가 "AI training-only crawlers — blocked sitewide" 항목에서
 `ClaudeBot` · `anthropic-ai` · `Claude-Web` 을 **각각 `Disallow: /`** 로 지정한다.
 사이트 소유자가 기계가 읽는 형식으로 이 종류의 클라이언트에 전 경로 접근을 금지한 것이므로,

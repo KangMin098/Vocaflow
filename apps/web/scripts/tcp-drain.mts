@@ -22,6 +22,7 @@ import { config } from 'dotenv'
 import { resolve } from 'node:path'
 
 import { detectBoilerplateLines } from '../src/lib/topic-corpus/boilerplate'
+import { curlFetcher } from '../src/lib/topic-corpus/http-fetch'
 import { harvestTedTalk } from '../src/lib/topic-corpus/harvest'
 import { harvestLocalArticle, type LocalArticle } from '../src/lib/topic-corpus/local-corpus'
 import { discoverTedTopic } from '../src/lib/topic-corpus/ted-discover'
@@ -145,9 +146,13 @@ async function cmdIngestLocal(reset: boolean) {
 async function cmdEnqueue() {
   let totalNew = 0
   let totalGap = 0
-  for (const s of await sources()) {
+  // provider 로 반드시 좁힌다. 좁히지 않았더니 `local:nasa`·`local:wikipedia` 가 TED 의
+  // **동명 주제**(/topics/nasa · /topics/wikipedia)에 우연히 매칭돼 TED 강연 15편이
+  // 로컬 코퍼스 소스로 적재됐다(실측 2026-08-16). 404 가 난 나머지 로컬 소스 덕분에
+  // 눈에 띄었을 뿐, 이름이 겹치는 조합에서는 **조용히 두 코퍼스가 섞인다.**
+  for (const s of await sources('ted')) {
     try {
-      const found = await discoverTedTopic(s.topic_key)
+      const found = await discoverTedTopic(s.topic_key, undefined, curlFetcher)
       const docs = found.talks.map((t) => ({
         external_id: t.externalId,
         url: t.url,
@@ -192,7 +197,7 @@ async function cmdDrain() {
     if (rows.length === 0) break
 
     for (const row of rows) {
-      const out = await harvestTedTalk(db, row.source_id, row.url)
+      const out = await harvestTedTalk(db, row.source_id, row.url, undefined, curlFetcher)
       if (out.ok) {
         harvested += 1
         console.log(

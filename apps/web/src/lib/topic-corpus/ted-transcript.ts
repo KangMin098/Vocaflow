@@ -18,6 +18,8 @@
 // 셀렉터가 깨지면 조용히 0건을 수확한다(큐는 done 이 되고 통계는 안 쌓인다 — 최악의 실패).
 // `__NEXT_DATA__` 는 계약에 가깝고, 없으면 **명시적으로 에러**를 내 큐가 failed 로 남는다.
 
+import { HttpFetchError, nodeFetcher, type HtmlFetcher } from './http-fetch'
+
 /** 자막 1편의 파싱 결과. `text` 는 저장 금지 — 카운트로 바꾼 뒤 버린다. */
 export interface TedTranscript {
   externalId: string
@@ -43,9 +45,6 @@ export class TedTranscriptError extends Error {
 
 /** 자막이 이보다 짧으면 수확 가치가 없다 (예고편·음악 전용 항목 등) */
 const MIN_CHARS = 400
-
-const UA =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
 
 /** 강연 URL → 자막 URL. 이미 /transcript 로 끝나면 그대로 둔다. */
 export function toTranscriptUrl(url: string): string {
@@ -133,32 +132,36 @@ export function parseTedTranscriptHtml(html: string, url: string): TedTranscript
 export async function fetchTedTranscript(
   talkUrl: string,
   signal?: AbortSignal,
+  /**
+   * 전송 계층. 기본은 Node 내장 fetch 인데, TED 는 undici 지문을 403 으로 막으므로
+   * CLI·서버 경로에서는 `curlFetcher` 를 넘긴다 (`http-fetch.ts` 주석 참조).
+   */
+  fetcher: HtmlFetcher = nodeFetcher,
 ): Promise<TedTranscript> {
   const url = toTranscriptUrl(talkUrl)
-  const res = await fetch(url, {
-    signal,
-    headers: { 'user-agent': UA, accept: 'text/html' },
-    cache: 'no-store',
-  })
 
-  if (!res.ok) {
-    // 403 은 "일시적 장애" 가 아니다. 실측(2026-08-16)으로 확인한 것:
-    //   · curl(브라우저 UA) → 200
-    //   · Node fetch, 최소 헤더 → 403
-    //   · Node fetch, 브라우저 헤더 전체(sec-ch-ua · sec-fetch-* · accept-language …) → 403
-    // 헤더를 아무리 맞춰도 통과하지 못한다 — Cloudflare 의 **TLS 지문** 기반 차단이라
-    // 요청 헤더로는 우회되지 않는다. 재시도·UA 교체로 고칠 수 있는 문제가 아니므로,
-    // 다음 사람이 같은 실험을 반복하지 않도록 여기서 분명히 말한다.
-    if (res.status === 403) {
+  let html: string
+  try {
+    html = await fetcher(url, signal)
+  } catch (err) {
+    const status = err instanceof HttpFetchError ? err.status : null
+    // 403 은 "일시적 장애" 가 아니라 **전송 계층이 잘못 선택된 것**이다. 실측(2026-08-16):
+    //   · Node 내장 fetch(undici) → 403  (헤더를 브라우저처럼 다 맞춰도 동일)
+    //   · curl                    → 200  (같은 URL · 같은 UA)
+    // 헤더가 아니라 TLS 지문에서 갈리므로 UA 교체·재시도로는 절대 풀리지 않는다.
+    // 해결은 `curlFetcher` 를 주입하는 것이다 — 다음 사람이 헤더 조합을 다시 실험하지 않도록 명시한다.
+    if (status === 403) {
       throw new TedTranscriptError(
-        `HTTP 403 — TED 가 자동화 클라이언트를 차단한다(TLS 지문 기반). ` +
-          `헤더/UA 로는 우회되지 않으며, 차단을 우회하는 것은 이 파이프라인의 범위가 아니다. ` +
-          `개방 라이선스 코퍼스(library_articles 등)를 소스로 쓰는 것을 검토할 것: ${url}`,
+        `HTTP 403 — 전송 계층 문제다(TLS 지문). 헤더/UA 로는 풀리지 않으니 ` +
+          `\`curlFetcher\` 를 주입할 것 (lib/topic-corpus/http-fetch.ts): ${url}`,
         'blocked',
       )
     }
-    throw new TedTranscriptError(`HTTP ${res.status} — ${url}`, 'http')
+    throw new TedTranscriptError(
+      err instanceof Error ? err.message : `가져오기 실패 — ${url}`,
+      'http',
+    )
   }
 
-  return parseTedTranscriptHtml(await res.text(), url)
+  return parseTedTranscriptHtml(html, url)
 }

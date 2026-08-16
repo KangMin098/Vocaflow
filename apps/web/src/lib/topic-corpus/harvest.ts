@@ -18,6 +18,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 
+import { type HtmlFetcher } from './http-fetch'
 import { fetchTedTranscript, TedTranscriptError } from './ted-transcript'
 
 /** 수확 1편의 결과 — **본문 필드가 없다** (위 계약 참조) */
@@ -75,11 +76,13 @@ export async function harvestTedTalk(
   sourceId: string,
   talkUrl: string,
   signal?: AbortSignal,
+  /** 전송 계층 — Node 경로는 `curlFetcher` 를 넘겨야 한다 (`http-fetch.ts` 참조). */
+  fetcher?: HtmlFetcher,
 ): Promise<HarvestResult | HarvestFailure> {
   let externalId = talkUrl
 
   try {
-    const transcript = await fetchTedTranscript(talkUrl, signal)
+    const transcript = await fetchTedTranscript(talkUrl, signal, fetcher)
     externalId = transcript.externalId
 
     // ── 원문이 살아 있는 유일한 구간 ──

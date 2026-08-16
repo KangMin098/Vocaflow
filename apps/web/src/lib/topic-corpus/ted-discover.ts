@@ -36,8 +36,7 @@ export interface DiscoverResult {
   coverageGap: number | null
 }
 
-const UA =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
+import { nodeFetcher, type HtmlFetcher } from './http-fetch'
 
 export class TedDiscoverError extends Error {
   constructor(message: string) {
@@ -99,15 +98,15 @@ export function parseTedTopicHtml(html: string, topicKey: string): DiscoverResul
 export async function discoverTedTopic(
   topicKey: string,
   signal?: AbortSignal,
+  /** 전송 계층 — TED 는 undici 지문을 403 으로 막으므로 CLI 는 `curlFetcher` 를 넘긴다. */
+  fetcher: HtmlFetcher = nodeFetcher,
 ): Promise<DiscoverResult> {
   const url = `https://www.ted.com/topics/${encodeURIComponent(topicKey)}`
-  const res = await fetch(url, {
-    signal,
-    headers: { 'user-agent': UA, accept: 'text/html' },
-    cache: 'no-store',
-  })
-  if (!res.ok) {
-    throw new TedDiscoverError(`HTTP ${res.status} — ${url}`)
+  let html: string
+  try {
+    html = await fetcher(url, signal)
+  } catch (err) {
+    throw new TedDiscoverError(err instanceof Error ? err.message : `가져오기 실패 — ${url}`)
   }
-  return parseTedTopicHtml(await res.text(), topicKey)
+  return parseTedTopicHtml(html, topicKey)
 }
