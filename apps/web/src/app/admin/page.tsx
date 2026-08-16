@@ -34,6 +34,8 @@ import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { RetentionPanel } from '@/components/admin/RetentionPanel'
+import { fetchRetention } from '@/lib/admin/retention'
 import {
   fmt,
   getAdminDashboardStats,
@@ -289,7 +291,11 @@ export default async function AdminDashboardPage() {
   // service_role 로 집계하므로 게이트가 유일한 방어선 — 반드시 먼저.
   await requireAdmin('/admin')
   const client = createAdminClient() as unknown as SupabaseClient
-  const stats = await getAdminDashboardStats(client)
+  // 공급(콘텐츠)과 수요(학습자)를 나란히 부른다 — 이 화면이 공급만 세고 있던 것이 F4 의 실체다.
+  const [stats, retention] = await Promise.all([
+    getAdminDashboardStats(client),
+    fetchRetention(),
+  ])
 
   const kpis: AdminKpi[] = [
     {
@@ -384,6 +390,21 @@ export default async function AdminDashboardPage() {
       {/* ── KPI ── */}
       <section aria-label="핵심 지표">
         <AdminKpiGrid kpis={kpis} />
+      </section>
+
+      {/* ── 학습자 활성화·리텐션 (PLATFORM_AUDIT F4) ──
+          공급(콘텐츠)은 이 화면 아래에서 이미 다 세고 있었는데 **수요는 한 번도 안 세고 있었다**.
+          새 이벤트 테이블 없이 auth.users + learning_records + scores 에서 파생한다. */}
+      <section aria-label="학습자 활성화·리텐션" className="mb-8 mt-6">
+        <header className="mb-4 flex items-center gap-3">
+          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+            학습자 활성화 · 리텐션
+          </h2>
+          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--t3)]">
+            수요
+          </span>
+        </header>
+        <RetentionPanel report={retention} />
       </section>
 
       {/* ── 파이프라인 현황 ── */}
