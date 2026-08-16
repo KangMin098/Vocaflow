@@ -15,6 +15,7 @@
 // 랩 전용이므로 본 화면에는 이 합성이 절대 나가지 않는다.
 
 import { GatewayLead } from '@/components/home/GatewayLead'
+import { TodayFocus } from '@/components/home/TodayFocus'
 import { classifyGateway, type LastTouch } from '@/lib/learner/gateway-state'
 
 /** '지금' 을 고정해 캡처가 날마다 달라지지 않게 한다. */
@@ -80,6 +81,21 @@ export function VariantG() {
           않는가</strong> · 오래 비운 사람에게 숫자가 새지 않는가.
         </p>
       </header>
+
+      {/* 첫 방문 카드 — 검증 계정은 진단 완료 상태라 **본 화면에서 절대 렌더되지 않는다.**
+          다크모드에서 흰 바탕에 흰 글자였던 결함이 몇 달간 안 보인 이유가 정확히 이것이다.
+          여기 세워 두면 테마 캡처(HUB_SHOT_THEME=dark)로 함께 잡힌다. */}
+      <section className="flex flex-col gap-2">
+        <div className="flex flex-wrap items-baseline gap-x-3">
+          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--p)]">
+            first — 첫 방문 카드 (TodayFocus)
+          </span>
+          <span className="font-body text-[11.5px] text-[var(--t3)] [word-break:keep-all]">
+            진단 전 유일한 제안. 라이트/다크 양쪽에서 글자가 읽히는지 확인.
+          </span>
+        </div>
+        <TodayFocus />
+      </section>
 
       {CASES.map((c) => (
         <section key={c.caption} className="flex flex-col gap-2">
