@@ -225,7 +225,15 @@ Tesseract 는 **컷 테두리·말풍선 꼬리 같은 잡선**을 caption 으�
 - **결론: `ocr_line` 만 쓴다.** 조사용으로 파싱은 유지하되 기본 제외(`--include-nonline` 로 재현 가능).
 - 이 실패를 코드 주석과 여기에 남겨 **같은 시도를 반복하지 않게** 한다.
 
-## 5-B. 컷 직접 OCR — `ocr-local.mjs` ✅ **A안 검증 완료**
+## 5-B. 컷 직접 OCR — `ocr-local.mjs` 🚫 **은퇴 (2026-08-15)**
+
+> **이 경로는 더 이상 존재하지 않는다.** 로컬 OCR 실행을 걷어내면서 `ocr-local.mjs` 를 삭제했다
+> (커밋 `85afe73c`). 아래 측정치는 **기록으로 남긴다** — 다시 만들 때 같은 실험을 반복하지 않기 위해서다.
+>
+> 현재 대사 추출 경로는 `ocr.mjs`(소스 hOCR 좌표 배분) **하나뿐**이고, 따라서
+> `own-ocr` 어댑터(`browser-assist` · `iiif` · `local-dir`)는 **대사를 자동 추출하지 못한다**.
+> 이 소스들은 이미지·컷까지만 산출하고 대사는 검수 단계에서 사람이 넣는다
+> (Phase 3 의 "Claude Code 비전 전사" 가 그 자리를 대신한다).
 
 hOCR 재활용의 천장(24%)을 넘기 위해 "언어 고정 + 컷 단위 재실행"(A안)을 구현·측정했다.
 **가설이 맞았다.**
@@ -276,9 +284,11 @@ hOCR 경로는 원본 스캔 px → 복원 크롭·업스케일 → 컷 → 정�
 줄이 병합돼 대사가 지퍼처럼 뒤섞인다(`my name is wharton! My 1, than k I in house such is weat`).
 가로 인접성(글자 높이 × 1.6 이내)을 함께 요구해 분리했다.
 
-### 의존성 정책
-`tesseract.js` 는 **앱 저장소 의존성에 넣지 않는다**. 파이프라인 도구는 ffmpeg 과 동일하게
-외부에 격리하고 `TESSERACTJS_DIR` 로 주입한다(웹 번들에 20MB WASM 이 들어갈 이유가 없다).
+### 의존성 정책 (은퇴한 경로의 기록)
+`tesseract.js` 는 **앱 저장소 의존성에 넣지 않는다**는 원칙이었고, ffmpeg 과 동일하게
+외부에 격리해 `TESSERACTJS_DIR` 로 주입했다(웹 번들에 20MB WASM 이 들어갈 이유가 없다).
+로컬 OCR 은퇴로 이 주입은 제거됐다 — 코드는 더 이상 `TESSERACTJS_DIR` 을 읽지 않는다.
+`tools/tess/` 가 남아 있어도 파이프라인 동작에 영향을 주지 않는다.
 
 ### 남은 선택지 (33% → 그 이상)
 
@@ -384,7 +394,11 @@ PD 만화는 **독립 콘텐츠로 먼저 매력적이고, 그다음 원작으�
 | §7 학습자 독립 면 | ✅ /comics/restored 서가 + [slug] 리더 (출처 푸터) |
 | §8 스키마 | ✅ **dev 적용 완료** · 게이트 6종 실증 |
 
-## 자기발전 (tune.mjs)
+## 자기발전 (tune.mjs) 🚫 **은퇴 (2026-08-15)**
+
+> `tune.mjs` · `tune.ratchet.json` 은 `ocr-local.mjs` 를 돌리는 로컬 튜닝 하네스였고 함께 삭제됐다
+> (커밋 `85afe73c`). 아래 명령은 **동작하지 않는다.** 채택 이력은 기록으로만 읽는다.
+> 현재 파라미터는 어댑터 프로파일(`sources/*.mjs`)에 고정값으로 들어가 있다.
 
 파라미터를 손으로 고르지 않는다. `tune.mjs` 가 산출물을 채점하고 래칫한다.
 
@@ -437,8 +451,9 @@ node scripts/comic/pd/pipeline.mjs --doctor
 node scripts/comic/pd/pipeline.mjs --source internet-archive --id <식별자> --dry-run
 node scripts/comic/pd/pipeline.mjs --source internet-archive --id <식별자> --test
 node scripts/comic/pd/pipeline.mjs --source internet-archive --id <식별자> --out work/<slug> --record
-#   pipeline = acquire → restore(ffmpeg) → segment → ocr(tesseract) → refine intake
-#   소스: internet-archive · iiif · local-dir(수기 다운로드) · browser-assist
+#   pipeline = acquire → restore(ffmpeg) → segment → ocr(소스 hOCR) → refine intake
+#   소스: internet-archive(대사 자동) · iiif · local-dir(수기 다운로드) · browser-assist
+#         ↑ internet-archive 외 3종은 hOCR 이 없어 ocr 단계를 건너뛴다(대사는 Phase 3 에서 사람이 입력)
 #   --record 를 붙여야 Admin 모니터에 뜬다(pd_comic_issues.qc.workDir).
 ```
 

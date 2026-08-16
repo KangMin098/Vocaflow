@@ -1582,7 +1582,7 @@ function ToolsTab() {
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
         <p className="font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
           드레인 실패의 대부분은 코드가 아니라 <b className="text-[var(--t1)]">외부 도구 부재</b>입니다
-          (ffmpeg 없음 · TESSERACTJS_DIR 미설정 · 소스 차단). 큐가 계속 실패하면 여기부터 보세요.
+          (ffmpeg 없음 · 소스 차단). 큐가 계속 실패하면 여기부터 보세요.
         </p>
         <button
           type="button"

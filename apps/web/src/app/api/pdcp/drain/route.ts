@@ -11,10 +11,10 @@
 //   queued → acquire.mjs   → acquired
 //   acquired → restore.mjs → restored
 //   restored → segment.mjs → segmented
-//   segmented → ocr(-local).mjs → ocr
+//   segmented → ocr.mjs      → ocr   (소스 hOCR 이 있을 때만. 없으면 실행 없이 통과)
 //   ocr → (사람 검수) → review → published
 //
-// dev 전용: 앱 프로세스가 ffmpeg/tesseract 를 돌리는 건 로컬에서만 허용한다.
+// dev 전용: 앱 프로세스가 ffmpeg 를 돌리는 건 로컬에서만 허용한다.
 
 import { NextResponse } from 'next/server'
 import fs from 'node:fs'
@@ -133,21 +133,52 @@ export async function POST(request: Request): Promise<NextResponse> {
         '--analysis', String(p.segmentAnalysis), '--dilate', String(p.segmentDilate),
       ],
     },
-    segmented: {
-      // tesseract 가 있으면 컷 직접 OCR(정확도 33%), 없으면 소스 hOCR(24%)
-      script: 'ocr.mjs',
-      args: ['--intake', root],
-    },
+  }
+
+  // ④ 대사 — 소스가 준 hOCR 좌표를 컷에 배분하는 경로가 **유일하다**(로컬 OCR 실행은 제거됨).
+  // hOCR 이 없는 어댑터(own-ocr: browser-assist·iiif·local-dir)에서 ocr.mjs 를 부르면 exit 1 →
+  // last_error 가 박혀 그 호는 자동 드레인에서 영구 제외된다. 이미지·컷은 멀쩡한데 큐만 막히는 것이라,
+  // 실행하지 않고 그대로 다음 단계(사람 검수)로 넘긴다. 대사는 검수에서 사람이 넣는다.
+  const hocrPath = path.join(root, 'ocr', 'source.hocr')
+  const canOcr = fs.existsSync(hocrPath)
+  if (canOcr) {
+    plan.segmented = { script: 'ocr.mjs', args: ['--intake', root] }
   }
 
   const step = plan[row.status]
   if (!step) {
-    // ocr → review 는 실행할 스크립트가 없다(사람 검수 대기로 넘김)
+    const skipNote =
+      row.status === 'segmented'
+        ? p.ocrStrategy === 'own-ocr'
+          ? 'own-ocr 어댑터 — 소스가 hOCR 을 주지 않아 대사 추출을 건너뜁니다(검수에서 수동 입력)'
+          : `${p.ocrStrategy} 전략인데 ${hocrPath} 가 없습니다 — 대사 추출을 건너뜁니다`
+        : null
+    // ocr → review 는 실행할 스크립트가 없다(사람 검수 대기로 넘김).
+    // **dryRun 은 여기서도 쓰지 않는다** — 스크립트가 없다고 상태만 슬쩍 전진시키면
+    // "계획만 보려던" 호출이 큐를 실제로 움직인다(계획과 실행의 구분이 무너진다).
+    if (body.dryRun) {
+      return NextResponse.json({
+        dryRun: true,
+        issueId: row.id,
+        slug: row.slug,
+        from: row.status,
+        to: nextStatus,
+        command: null,
+        ...(skipNote ? { skipped: skipNote } : {}),
+      })
+    }
     await client
       .from('pd_comic_issues')
       .update({ status: nextStatus, last_run_at: new Date().toISOString() })
       .eq('id', row.id)
-    return NextResponse.json({ issueId: row.id, slug: row.slug, from: row.status, to: nextStatus, ran: null })
+    return NextResponse.json({
+      issueId: row.id,
+      slug: row.slug,
+      from: row.status,
+      to: nextStatus,
+      ran: null,
+      ...(skipNote ? { skipped: skipNote } : {}),
+    })
   }
 
   if (body.dryRun) {

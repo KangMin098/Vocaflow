@@ -156,7 +156,8 @@ export const PDCP_HELP: HelpRegistry = {
           what: '큐의 호를 원본 스캔 → 복원 페이지 → 컷 이미지 → 컷별 OCR 대사(work/pdcp/<slug>/)까지 만들어 낸다.',
           prerequisites: [
             '로컬 dev 서버에서 열려 있을 것 — 배포 환경에서는 드레인 API 가 403 이다.',
-            '도구 탭 점검 통과 — ffmpeg 이 없으면 복원에서 멈추고, TESSERACTJS_DIR 이 없으면 대사 추출이 소스 hOCR 경로(통과율 24%)로 떨어진다.',
+            '도구 탭 점검 통과 — ffmpeg 이 없으면 복원 단계에서 멈춘다.',
+            '대사 추출은 소스가 hOCR 을 줄 때만 돈다(internet-archive). own-ocr 어댑터(browser-assist · iiif · local-dir)는 이미지·컷까지만 만들고 대사 없이 검수로 넘어간다 — 실패가 아니다.',
             '대기 카운트 ≥ 1. 실패 표시가 있는 호는 재시도로 표시를 지우기 전까지 자동 대상이 아니다.',
           ],
           procedure: [
@@ -335,14 +336,9 @@ export const PDCP_HELP: HelpRegistry = {
               '(PATH) 면 환경변수 없이 PATH 를 쓴다는 뜻. 저장소에 tools/ffmpeg/ffmpeg.exe 가 있으면 드레인이 자동으로 그걸 쓰지만 이 값에는 안 나온다 — 판단은 점검 출력의 ffmpeg 행으로 한다.',
           },
           {
-            label: 'tesseractDir',
-            detail:
-              '미설정이면 컷 직접 OCR 을 못 하고 소스 hOCR 경로로 떨어진다(실측 통과율 33% → 24%, 비라틴 문자 오염 급증). 파이프라인은 계속 돌지만 대사 품질이 내려간다.',
-          },
-          {
             label: '점검 출력',
             detail:
-              'ffmpeg · tesseract.js · 소스별 검색 응답을 표로 낸다. 아무것도 만들지 않는 점검 전용 실행이고, 출력은 끝 6000자만 보여준다.',
+              'ffmpeg · 소스별 검색 응답과 소스별 대사추출 가능 여부를 표로 낸다. 아무것도 만들지 않는 점검 전용 실행이고, 출력은 끝 6000자만 보여준다.',
           },
           {
             label: 'GPU 연결 점검 (connect-check)',

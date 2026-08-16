@@ -12,7 +12,7 @@
 // 잘못된 산출물이 검수 큐를 오염시킨다. 게다가 이 파이프라인은 **외부 사이트를 때린다** —
 // 시행착오를 실제 트래픽으로 치르면 차단당한다.
 //
-//   --doctor   외부 도구(ffmpeg·tesseract.js)와 소스 접근성만 점검. 아무것도 안 만든다.
+//   --doctor   외부 도구(ffmpeg)와 소스 접근성만 점검. 아무것도 안 만든다.
 //   --dry-run  실행 계획만 출력. **네트워크·디스크 쓰기 0**. 어떤 파라미터로 몇 장을 칠지 보여준다.
 //   --test     앞 N페이지(기본 6)만 임시 디렉터리에 돌리고 QC 요약을 낸다. 적재는 하지 않는다.
 //
@@ -30,17 +30,13 @@ import { createRecorder } from './pd-record.mjs'
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
 
 // 저장소 tools/ 자동 인식 — 앱 브리지(pipeline-bridge.ts resolveTools)와 동일 규칙.
-// CLI 를 직접 돌릴 때도 env 수동 세팅 없이 ffmpeg·tesseract.js 가 잡히게 한다(앱↔CLI 일관).
+// CLI 를 직접 돌릴 때도 env 수동 세팅 없이 ffmpeg 이 잡히게 한다(앱↔CLI 일관).
 // tools/ 는 .gitignore 대상(커밋 안 됨)이지만 있으면 설정 0으로 동작.
 ;(function resolveTools() {
   const root = path.resolve(HERE, '..', '..', '..')
   if (!process.env.FFMPEG_BIN) {
     const local = path.join(root, 'tools', 'ffmpeg', 'ffmpeg.exe')
     if (fs.existsSync(local)) process.env.FFMPEG_BIN = local
-  }
-  if (!process.env.TESSERACTJS_DIR) {
-    const local = path.join(root, 'tools', 'tess')
-    if (fs.existsSync(path.join(local, 'eng.traineddata'))) process.env.TESSERACTJS_DIR = local
   }
 })()
 
@@ -73,12 +69,30 @@ function checkFfmpeg() {
   return { ok: true, detail: (r.stdout.split('\n')[0] || '').slice(0, 60) }
 }
 
-function checkTesseract() {
-  const dir = process.env.TESSERACTJS_DIR
-  if (!dir) return { ok: false, detail: 'TESSERACTJS_DIR 미설정 — 컷 직접 OCR 불가(hOCR 경로만 가능)' }
-  const pkg = path.join(path.resolve(dir), 'node_modules', 'tesseract.js', 'package.json')
-  if (!fs.existsSync(pkg)) return { ok: false, detail: `tesseract.js 없음: ${pkg}` }
-  return { ok: true, detail: `v${JSON.parse(fs.readFileSync(pkg, 'utf8')).version}` }
+/**
+ * ④ 대사 단계 실행 여부 — **소스가 준 hOCR 좌표를 컷에 배분하는 경로가 유일하다.**
+ *
+ * 로컬 OCR 실행(`ocr-local.mjs` · tesseract.js 로 컷을 직접 읽던 경로)은 제거됐다.
+ * 따라서 `own-ocr` 어댑터(browser-assist · iiif · local-dir)는 도구를 더 깔아도 대사를 못 꺼낸다.
+ * 이 사실을 여기서 한 번에 판정해 **틀린 안내("tesseract.js 를 설치하세요")를 하지 않게** 한다.
+ *
+ * @param {{ ocrStrategy: string, hasHocr: boolean }} o
+ * @returns {{ run: boolean, skipReason: string|null }}
+ */
+export function planOcrStage({ ocrStrategy, hasHocr }) {
+  if (hasHocr) return { run: true, skipReason: null }
+  if (ocrStrategy === 'own-ocr') {
+    return {
+      run: false,
+      skipReason:
+        'own-ocr 전략 소스입니다 — 로컬 OCR 실행 경로가 제거돼 대사 추출을 할 수 없습니다. ' +
+        '이미지·컷까지는 정상 산출되며, 대사는 검수 단계에서 사람이 입력해야 합니다.',
+    }
+  }
+  return {
+    run: false,
+    skipReason: `${ocrStrategy} 전략인데 소스 hOCR 이 없습니다 — 취득 단계가 OCR 레이어를 받지 못했습니다.`,
+  }
 }
 
 async function checkSource(id) {
@@ -97,11 +111,15 @@ async function doctor() {
   const rows = []
   const ff = checkFfmpeg()
   rows.push({ 항목: 'ffmpeg (복원·분할)', 상태: ff.ok ? 'OK' : '없음', 비고: ff.detail })
-  const ts = checkTesseract()
-  rows.push({ 항목: 'tesseract.js (컷 OCR)', 상태: ts.ok ? 'OK' : '선택', 비고: ts.detail })
   for (const ad of listAdapters()) {
     const c = await checkSource(ad.id)
-    rows.push({ 항목: `소스: ${ad.id}`, 상태: c.ok === true ? 'OK' : c.ok === null ? '수동' : '실패', 비고: c.detail })
+    // 대사 추출 가능 여부는 도구가 아니라 **어댑터 전략**이 정한다(로컬 OCR 제거 후).
+    const ocr = ad.profile.ocrStrategy === 'own-ocr' ? '대사추출 불가' : `대사추출 ${ad.profile.ocrStrategy}`
+    rows.push({
+      항목: `소스: ${ad.id}`,
+      상태: c.ok === true ? 'OK' : c.ok === null ? '수동' : '실패',
+      비고: `${c.detail} · ${ocr}`,
+    })
   }
   console.table(rows)
   if (!ff.ok) {
@@ -247,17 +265,14 @@ async function main() {
     // ④ 대사 — 소스가 선언한 전략에 따라 스크립트가 갈린다.
     //   dry-run 은 아직 아무것도 받지 않았으므로 **파일 존재가 아니라 어댑터 선언**으로 판단해야
     //   실제 실행과 같은 계획이 나온다(파일 검사로 했더니 hOCR 단계가 계획에서 누락됐다).
-    const hasTesseract = checkTesseract().ok
     const willHaveHocr = args.dryRun
       ? ad.caps.ocr
       : fs.existsSync(path.join(root, 'ocr', 'source.hocr'))
-    if (p.ocrStrategy === 'source-hocr' && willHaveHocr) {
+    const ocrPlan = planOcrStage({ ocrStrategy: p.ocrStrategy, hasHocr: willHaveHocr })
+    if (ocrPlan.run) {
       run('ocr.mjs', ['--intake', root], args)
-    }
-    if (hasTesseract) {
-      run('ocr.mjs', ['--intake', root], args)
-    } else if (p.ocrStrategy === 'own-ocr') {
-      console.log('   ⚠️ own-ocr 전략인데 tesseract.js 가 없습니다 — 대사 추출을 건너뜁니다')
+    } else {
+      console.log(`   ⚠️ 대사 추출을 건너뜁니다 — ${ocrPlan.skipReason}`)
     }
 
     if (args.dryRun) {
@@ -275,7 +290,8 @@ async function main() {
     qcSummary(root)
     if (rec) {
       const bl = readJson(path.join(root, 'bubbles.local.manifest.json'))
-      // 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단 근거): 원본에 텍스트/hOCR 있어 추출했는가 vs 이미지 OCR.
+      // 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단 근거): 원본이 hOCR 을 줘서 추출했는가, 아니면 대사가 비었는가.
+      // 로컬 OCR 제거 후 "이미지 스캔 OCR" 이라는 제3의 경로는 없다 — hOCR 이 없으면 대사는 사람이 넣는다.
       const hocrUsed = fs.existsSync(path.join(root, 'ocr', 'source.hocr'))
       let format = null
       try { format = [...new Set(fs.readdirSync(path.join(root, 'pages')).map((f) => path.extname(f).toLowerCase()).filter(Boolean))].join('/') || null } catch { /* noop */ }
@@ -283,7 +299,7 @@ async function main() {
         adapter: args.source,
         ocrStrategy: p.ocrStrategy,
         hocrUsed,
-        textSource: hocrUsed ? 'hOCR (원본 텍스트/OCR 레이어 추출)' : 'tesseract (이미지 스캔 OCR)',
+        textSource: hocrUsed ? 'hOCR (원본 텍스트/OCR 레이어 추출)' : '없음 (대사 수동 입력 필요)',
         format,
         restore: { crop: p.needsCrop, sat: p.saturation, scale: p.upscale },
         segment: { analysis: p.segmentAnalysis, dilate: p.segmentDilate },

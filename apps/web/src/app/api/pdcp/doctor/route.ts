@@ -1,7 +1,7 @@
 // apps/web/src/app/api/pdcp/doctor/route.ts
 //
 // 도구 점검 — 드레인이 실패하는 이유의 대부분은 코드가 아니라 **외부 도구 부재**다
-// (ffmpeg 없음 / TESSERACTJS_DIR 미설정 / 소스 접근 차단).
+// (ffmpeg 없음 / 소스 접근 차단).
 // 큐가 계속 failed 로 떨어질 때 여기부터 보게 한다.
 
 import { NextResponse } from 'next/server'
@@ -25,7 +25,6 @@ export async function GET(): Promise<NextResponse> {
     output: (r.stdout || r.stderr).slice(-6000),
     env: {
       ffmpegBin: process.env.FFMPEG_BIN ?? '(PATH)',
-      tesseractDir: process.env.TESSERACTJS_DIR ?? '(미설정 — 컷 직접 OCR 불가)',
       nodeEnv: process.env.NODE_ENV,
     },
   })

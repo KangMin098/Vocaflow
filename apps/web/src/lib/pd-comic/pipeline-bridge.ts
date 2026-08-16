@@ -31,15 +31,11 @@ export const PD_DIR = path.join(REPO_ROOT, 'scripts', 'comic', 'pd')
  * 복원 단계가 통째로 실패한다(실측: 드레인 1단계 통과 후 2단계에서 즉시 failed).
  * `tools/` 는 .gitignore 대상이라 커밋되지 않지만, 있으면 설정 없이 바로 동작한다.
  */
-function resolveTools(): { FFMPEG_BIN?: string; TESSERACTJS_DIR?: string } {
-  const out: { FFMPEG_BIN?: string; TESSERACTJS_DIR?: string } = {}
+function resolveTools(): { FFMPEG_BIN?: string } {
+  const out: { FFMPEG_BIN?: string } = {}
   if (!process.env.FFMPEG_BIN) {
     const local = path.join(REPO_ROOT, 'tools', 'ffmpeg', 'ffmpeg.exe')
     if (fs.existsSync(local)) out.FFMPEG_BIN = local
-  }
-  if (!process.env.TESSERACTJS_DIR) {
-    const local = path.join(REPO_ROOT, 'tools', 'tess')
-    if (fs.existsSync(path.join(local, 'eng.traineddata'))) out.TESSERACTJS_DIR = local
   }
   return out
 }
@@ -173,14 +169,6 @@ export function runPipeline(
       resolve({ ok: code === 0 && !timedOut, code, stdout, stderr, timedOut })
     })
   })
-}
-
-/**
- * 컷 직접 OCR(tesseract) 가능 여부. 드레인이 `ocr-local.mjs`(정확도 33%) 와
- * 소스 hOCR(24%) 중 무엇을 돌릴지 이걸로 고른다 — 환경변수만 보면 `tools/` 폴백을 놓친다.
- */
-export function hasLocalOcr(): boolean {
-  return Boolean(process.env.TESSERACTJS_DIR ?? resolveTools().TESSERACTJS_DIR)
 }
 
 /** 파이프라인 작업 디렉터리 — 호 단위. */
