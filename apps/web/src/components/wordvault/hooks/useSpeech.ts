@@ -17,29 +17,16 @@
 
 import { useCallback, useEffect, useState } from 'react'
 
+import { nextVoice, pickEnglishVoice } from '@/lib/speech/voice-pick'
+
 export interface SpeakOptions {
   rate?: number
   lang?: string
   onEnd?: () => void
 }
 
-/**
- * 영어 음성 후보 중 하나 고르기 — en-US 우선, 없으면 아무 en-*.
- *
- * 브라우저마다 `lang` 표기가 다르다(`en-US` · `en_US` · `en-GB`). 표기 차이로 못 찾으면
- * 한국어 음성이 영단어를 읽게 되므로 정규화해서 비교한다.
- */
-export function pickEnglishVoice(
-  voices: Pick<SpeechSynthesisVoice, 'lang'>[],
-): Pick<SpeechSynthesisVoice, 'lang'> | null {
-  if (voices.length === 0) return null
-  const norm = (l: string) => l.replace('_', '-').toLowerCase()
-  return (
-    voices.find((v) => norm(v.lang) === 'en-us') ??
-    voices.find((v) => norm(v.lang).startsWith('en')) ??
-    null
-  )
-}
+// 음성 고르기·유지 규칙은 `lib/speech/voice-pick` 이 소유한다 — 듣기 게임과 같은 판단을 쓴다.
+export { pickEnglishVoice, nextVoice } from '@/lib/speech/voice-pick'
 
 /**
  * 완료 통지를 건다 — 정상 종료든 오류든 **정확히 한 번**.
@@ -49,7 +36,7 @@ export function pickEnglishVoice(
  */
 export function attachCompletion(
   utter: Pick<SpeechSynthesisUtterance, 'onend' | 'onerror'>,
-  done: () => void,
+  done: () => void
 ): void {
   let settled = false
   const finish = () => {
@@ -83,8 +70,8 @@ export function useSpeech(): UseSpeechReturn {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return
     setSupported(true)
 
-    const sync = () =>
-      setVoice(pickEnglishVoice(window.speechSynthesis.getVoices()) as SpeechSynthesisVoice | null)
+    // `voiceschanged` 는 여러 번 온다 — 매번 새로 고르면 억양이 도중에 바뀐다(`nextVoice` 주석).
+    const sync = () => setVoice((cur) => nextVoice(cur, window.speechSynthesis.getVoices()))
     sync() // 이미 로드돼 있으면 여기서 끝난다
     window.speechSynthesis.addEventListener('voiceschanged', sync)
     return () => window.speechSynthesis.removeEventListener('voiceschanged', sync)
@@ -105,8 +92,15 @@ export function useSpeech(): UseSpeechReturn {
       utter.lang = options.lang ?? 'en-US'
       utter.rate = options.rate ?? 1.0
       // 음성 목록이 아직 안 왔으면 그때 다시 찾아본다(첫 재생이 로드 완료보다 빠를 수 있다).
-      const v = voice ?? (pickEnglishVoice(window.speechSynthesis.getVoices()) as SpeechSynthesisVoice | null)
-      if (v) utter.voice = v
+      const v =
+        voice ??
+        (pickEnglishVoice(window.speechSynthesis.getVoices()) as SpeechSynthesisVoice | null)
+      if (v) {
+        utter.voice = v
+        // `lang` 을 음성에 맞춘다. 호출자가 명시하지 않았는데 `lang='en-US'` 와 en-GB 음성을
+        // 함께 물리면 둘이 모순이고, 어느 쪽이 이기는지는 브라우저마다 다르다.
+        if (!options.lang) utter.lang = v.lang
+      }
 
       // 합성 오류·중단도 완료로 취급한다. 재생이 안 된 것과 큐가 멈추는 것은 다른 문제이고,
       // 뒤엣것이 훨씬 나쁘다(학습자는 왜 멈췄는지 알 방법이 없다).
@@ -114,7 +108,7 @@ export function useSpeech(): UseSpeechReturn {
 
       window.speechSynthesis.speak(utter)
     },
-    [voice],
+    [voice]
   )
 
   const cancel = useCallback(() => {
