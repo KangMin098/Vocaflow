@@ -75,6 +75,22 @@ DCP 완료는 처음부터 관측 가능했다. 낡은 문서를 믿고 **멀쩡
 - 저장 위치가 다른 신호를 매핑표에 가짜 키로 밀어넣지 말 것 — DCP 는 `daily_activity` 가 아니라
   `csat_item_attempts` 에 남으므로 별도 인자로 받는다(`BLOCK_MODULES` 는 enum 실측치만 담는 계약)
 
+### vitest 를 깨뜨리는 것은 `server-only` 가 아니라 **`react.cache`** 다 (v06.203 실측)
+
+같은 함정을 네 번 밟고 나서야 원인을 정확히 갈랐다. 컴포넌트·테스트가 서버 모듈을 import 할 때
+스위트가 `cache is not a function` 으로 통째로 죽는데, **범인은 `cache()` 하나**다.
+
+- `import 'server-only'` **만** 있는 모듈은 vitest(node 환경)에서 정상 import 된다
+  (실측: `lib/learner/taste-word.ts` — `server-only` 만 쓰고 순수 함수 `pickIndex` 를 그대로 테스트).
+- `react.cache` 로 감싼 export 가 하나라도 있으면 그 파일을 import 하는 **모든** 테스트가 죽는다.
+- 그러므로 판단 기준은 이것이다:
+  - **여러 곳이 같은 요청에서 부르는가** → `cache()` 를 쓰고, 순수부를 별도 파일로 분리한다
+    (`growth-math` ↔ `growth-stats` · `gateway-state` ↔ `gateway`).
+  - **호출부가 한 곳뿐인가** → `cache()` 를 쓰지 않는다. 이득이 없고 테스트만 잃는다
+    (`lib/admin/retention.ts` · `lib/admin/dashboard-stats.ts` 가 그 예).
+- 컴포넌트는 **언제나 순수 모듈에서 import** 한다. 타입 하나 때문에 조회 모듈을 당겨오면
+  같은 사고가 재발한다.
+
 ### 빈 화면의 원인을 데이터로 단정하지 말 것
 
 같은 세션에서 "빈 화면" 의 원인이 셋 다 달랐다 — 목업 폴백 · `lemma` 결손(252개 중 1개만 채워짐) ·

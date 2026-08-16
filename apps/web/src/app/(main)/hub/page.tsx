@@ -33,6 +33,7 @@ import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
 import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
 import { fetchGatewayState } from '@/lib/learner/gateway'
+import { fetchTasteWord } from '@/lib/learner/taste-word'
 import { fetchDcpDoneToday, fetchTouchedModulesToday } from '@/lib/learner/today-status-query'
 
 export const metadata = {
@@ -61,6 +62,9 @@ export default async function HubPage() {
   const hasTodayPlan = planItems.some((i) => i.weekdays.includes(today))
   const isDiagnosed = prescription?.isDiagnosed ?? false
 
+  // 첫 방문 지면에 세울 단어 — 미진단일 때만 부른다(진단한 사람에게는 무대가 이미 단어를 판다).
+  const tasteWord = !hasTodayPlan && !isDiagnosed ? await fetchTasteWord() : null
+
   // 시각은 서버에서 정한다 — 클라이언트에서 계산하면 SSR 과 어긋나 지면 색이 한 번 튄다.
   const time = kstRoomTime()
 
@@ -84,8 +88,9 @@ export default async function HubPage() {
         {/* 오늘 정본 — 수동계획 우선 */}
         {hasTodayPlan && <TodayPlanCard items={planItems} today={today} />}
 
-        {/* 미진단 — 오늘 분량 자체가 없다. 진단 하나만 남긴다. */}
-        {!hasTodayPlan && !isDiagnosed && <TodayFocus />}
+        {/* 미진단 — **시험이 아니라 지면을 먼저 준다.** 단어 하나를 세우고 진단은 그 아래 제안으로.
+            (근거: 가입→첫 학습 중앙값 55일 실측 + 가치를 게이트 뒤에 두지 말라는 온보딩 연구) */}
+        {!hasTodayPlan && !isDiagnosed && <TodayFocus word={tasteWord} />}
       </div>
     </Screen>
   )

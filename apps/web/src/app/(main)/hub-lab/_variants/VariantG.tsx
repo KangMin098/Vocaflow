@@ -17,6 +17,16 @@
 import { GatewayLead } from '@/components/home/GatewayLead'
 import { TodayFocus } from '@/components/home/TodayFocus'
 import { classifyGateway, type LastTouch } from '@/lib/learner/gateway-state'
+import type { TasteWord } from '@/lib/learner/taste-word'
+
+/** 랩 전용 고정 단어 — 실제 화면은 `fetchTasteWord()` 가 날짜로 고른다. */
+const DEMO_WORD: TasteWord = {
+  word: 'resilient',
+  meaningKo: '회복력 있는, 쉽게 무너지지 않는',
+  exampleEn: 'She proved remarkably resilient in the face of repeated setbacks.',
+  cefr: 'B1',
+  rank: 2431,
+}
 
 /** '지금' 을 고정해 캡처가 날마다 달라지지 않게 한다. */
 const NOW = Date.parse('2026-08-16T03:00:00Z')
@@ -94,7 +104,7 @@ export function VariantG() {
             진단 전 유일한 제안. 라이트/다크 양쪽에서 글자가 읽히는지 확인.
           </span>
         </div>
-        <TodayFocus />
+        <TodayFocus word={DEMO_WORD} />
       </section>
 
       {CASES.map((c) => (
