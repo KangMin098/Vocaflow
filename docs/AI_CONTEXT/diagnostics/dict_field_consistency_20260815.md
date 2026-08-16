@@ -408,6 +408,31 @@ delete from shared_dictionary where word in
   ('behe','brustly','dre','kne','le','overlo','ple','proofre','railro','relo','sce','sidelo');
 ```
 
+### 뜻이 정반대인 부사 4건 — 그리고 **기계 탐지가 통하지 않은 사례** (T12)
+
+T12 에이전트가 `meaning_ko` 에서 **부정 접두사가 통째로 빠진** 항목을 잡았다. 예문은 맞는데 뜻만 반대다:
+
+| 표제어 | 들어 있던 뜻 | 예문 (맞음) | 고친 뜻 |
+|---|---|---|---|
+| `impossibly` | **가능하게** | The deadline seemed impossibly short. | 불가능할 만큼 |
+| `inaccurately` | **정확하게** | The article inaccurately described the event. | 부정확하게, 틀리게 |
+| `inadequately` | **충분하게** | The room was inadequately heated. | 불충분하게, 미흡하게 |
+| `insufficiently` | **충분하게** | The instructions were insufficiently clear. | 불충분하게, 모자라게 |
+
+카드 앞면(뜻)과 뒷면(예문)이 정면으로 모순된 상태였다. 4건 모두 두 필드를 함께 고쳤다.
+
+⚠️ **전수 확대를 시도했으나 기계 탐지가 통하지 않았다 — 기록해 둔다.**
+`un|in|im|il|ir|non` 접두사 + `meaning_ko` 에 부정 형태소(`안·않·없·못·불·비·무·미`) 없음 으로
+훑으면 **250여 건이 걸리는데 사실상 전부 오탐**이다. 한국어는 `un-` 계열을 `풀다`·`벗기다`·
+`펼치다`(`unbutton`·`unlock`·`unfold`)로 옮기는 게 정상이고, `dis-` 도 `사라지다`·`버리다`·
+`해산하다`처럼 부정 형태소 없이 쓴다.
+
+더 좁은 신호("부정어의 뜻 첫 구획 = 원형의 뜻 첫 구획")로 걸러도 **4건 중 2건만** 잡히고
+(`impossibly`·`insufficiently` 는 원형 뜻이 달라 빠진다) `immure` 라는 오탐이 붙는다
+(`im-` 이 부정이 아니라 '안으로'인 경우).
+
+**결론 — 이 유형은 단어별 LLM 판독으로만 잡힌다.** 정규식으로 사후 감사할 수 있는 결함이 아니다.
+
 ### 같은 배치에서 고친 기계적 결함 (2026-08-16)
 
 - **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,
