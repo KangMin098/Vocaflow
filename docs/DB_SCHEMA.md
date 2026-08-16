@@ -306,10 +306,41 @@ cast-2000 audit chain — 4 테이블 cascade:
 
 ---
 
-## Views (6)
+### 7️⃣ TCP (Topic Corpus Pipeline) — 주제별 어휘 관측 (2026-08-16, migration `20260816160000`)
+
+**왜 만들었나**: 사전 주제 분류의 집은 이미 있었다 — `dictionary_categories` 566개(Oxford 3계층
+18/76/472) + `dictionary_word_categories` 28,079 링크. 그런데 커버리지가 **21,712 / 47,137 = 46%**
+이고, 링크가 전부 `source='imported'` 한 덩어리라 **한 번 부어 넣은 뒤로 자라지 않았다**.
+게다가 그 taxonomy 는 사전 편찬 판정이라 "실제 담론에서 어떤 단어가 어떤 주제와 함께 나타나는가"
+에 대한 증거가 없다. TCP 는 주제가 붙은 실제 글을 훑어 그 증거를 만든다.
+
+| 테이블 | 용도 |
+|---|---|
+| `topic_corpus_sources` | 코퍼스 소스 레지스트리. TED 15주제 시드. `category_id` = 승격 목표(NULL 이면 통계만) |
+| `topic_corpus_queue` | 드레인 큐. `claim`(SKIP LOCKED) → `ingest` → `done`. 30분 초과 claim 자동 회수 |
+| `topic_corpus_docs` | 수확 원장. **본문 컬럼이 없다** — 아래 참조 |
+| `topic_word_stats` | (source_id, word) → `doc_freq` · `term_freq`. **원시 카운트만** |
+
+⚠️ **원문을 저장하지 않는 것은 누락이 아니라 설계다.** 대상 코퍼스(TED 자막)는 CC BY-NC-ND 4.0
+(비영리·2차적저작물 금지)이라 보관이 불가하다. 그래서 토큰화는 메모리에서 끝내고 카운트만 남기며,
+`topic_corpus_docs` 에는 URL·제목·`content_hash`(중복 수확 판정용)·집계 수치만 있다.
+본문 컬럼을 추가하는 변경은 조용한 실수여선 안 되고 **라이선스 판단을 다시 해야 하는 사안**이다.
+
+**두드러짐은 저장하지 않고 계산한다** — `v_topic_word_salience` 가 배경(다른 모든 주제) 대비
+로그오즈비를 Dirichlet 평활로 낸다. 임계값을 바꿀 때 수천 편을 재수확하지 않기 위함이다.
+승격 기본값 `doc_freq≥3` · `salience≥1.0`(≈2.7배 과대표집) — 강연 한 편의 특이 어휘가 카테고리를
+만들지 못하게 하는 문턱.
+
+**승격 출처 분리** — `dictionary_word_categories.source` CHECK 에 `'corpus-derived'` 추가.
+관측 유래 링크만 출처로 골라 되돌릴 수 있고, 기존 `imported` 판정은 덮어쓰지 않는다(RPC 안에서 제외).
+
+---
+
+## Views (7)
 
 | view | 용도 |
 |---|---|
+| `v_topic_word_salience` | **2026-08-16 신규** — TCP 주제×표제어 두드러짐(배경 대비 로그오즈비). `salience>0` = 그 주제에서 과대표집 |
 | `v_text_content` | `texts` + `library_chapters_master` + `content_chunks` JOIN — 워크스페이스 본문 fetch (v06.34: `user_book_group_id` 컬럼 추가) |
 | `v_book_extraction_stats` | 도서별 추출 어휘 집계. **v06.35**: 기존 `lemma_*` 5컬럼 + 해석률 5컬럼(`noise_count` · `resolved_other_count` · `unresolved_count` · `resolved_pct` · `learnable_coverage_pct`) |
 | `v_book_extraction_reasons` | **v06.35 신규** — 도서별 어휘를 `bound` / `noise_person` / `noise_geo` / `foreign_{lang}` / `dialect_spelling` / `morphology` / `lexicon_only` / `unresolved` 버킷으로 분해 |

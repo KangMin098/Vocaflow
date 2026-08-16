@@ -20,6 +20,7 @@ import { LCP_HELP } from './curation'
 import { OPS_HELP } from './ops'
 import { PDCP_HELP } from './pd-comics'
 import { QUALITY_HELP } from './quality'
+import { TCP_HELP } from './topic-corpus'
 import { VCB_HELP } from './vocab'
 import { VRL_HELP } from './vrl'
 
@@ -31,6 +32,7 @@ export const HELP_REGISTRY: HelpRegistry = {
   ...VCB_HELP,
   ...VRL_HELP,
   ...QUALITY_HELP,
+  ...TCP_HELP,
   ...OPS_HELP,
 }
 

@@ -132,6 +132,15 @@ export interface TokenizationDiagnostics {
 export interface TokenizationResult {
   /** 추출된 unique words — **원문 등장 순서** (알파벳 정렬 금지: 절단 시 편향을 만든다) */
   words: string[]
+  /**
+   * 표면형별 등장 횟수 — `words` 와 **같은 집합, 같은 순서**.
+   *
+   * 학습자 추출은 "이 글에 이 단어가 있다" 만 알면 되지만, 주제 코퍼스(TCP)는 빈도가 있어야
+   * 배경 대비 두드러짐을 계산할 수 있다. 그렇다고 토크나이저를 두 벌로 두면 **학습자가 보는
+   * 추출과 사전에 쌓이는 통계가 서로 다른 규칙으로 갈라진다** — 축약형·하이픈·접두사 판정이
+   * 한쪽에서만 고쳐지는 순간 두 숫자는 영원히 안 맞는다. 그래서 같은 통과에서 함께 센다.
+   */
+  counts: Record<string, number>
   /** 본문의 running word 수 (단어를 1개 이상 만들어낸 표면 토큰 수) */
   totalWords: number
   /** unique 수 (dedupe 후, stopword 제외 전) */
@@ -286,7 +295,7 @@ export function tokenizeText(text: string): TokenizationResult {
   const diagnostics = emptyDiagnostics()
 
   if (!text || text.trim().length === 0) {
-    return { words: [], totalWords: 0, uniqueRaw: 0, uniqueFinal: 0, diagnostics }
+    return { words: [], counts: {}, totalWords: 0, uniqueRaw: 0, uniqueFinal: 0, diagnostics }
   }
 
   const cleaned = preprocess(text, diagnostics)
@@ -298,7 +307,8 @@ export function tokenizeText(text: string): TokenizationResult {
 
   const surfaces = masked.split(/\s+/).filter((t) => t.length > 0)
 
-  const ordered = new Set<string>()
+  // Map 은 삽입 순서를 보존한다 — `words` 의 "원문 등장 순서" 계약이 여기에 걸려 있다.
+  const ordered = new Map<string, number>()
   let totalWords = 0
 
   for (const surface of surfaces) {
@@ -320,7 +330,7 @@ export function tokenizeText(text: string): TokenizationResult {
       for (const w of expandHyphen(base, diagnostics)) {
         if (w.length < 2) continue
         if (!PLAIN_WORD.test(w) && !HYPHEN_WORD.test(w) && !APOSTROPHE_WORD.test(w)) continue
-        ordered.add(w)
+        ordered.set(w, (ordered.get(w) ?? 0) + 1)
         emitted += 1
       }
     }
@@ -330,7 +340,7 @@ export function tokenizeText(text: string): TokenizationResult {
   const uniqueRaw = ordered.size
 
   const filtered: string[] = []
-  for (const w of ordered) {
+  for (const w of ordered.keys()) {
     if (STOPWORDS.has(w)) {
       diagnostics.stopwordsRemoved += 1
       continue
@@ -348,8 +358,14 @@ export function tokenizeText(text: string): TokenizationResult {
   const capped = filtered.slice(0, MAX_UNIQUE)
   diagnostics.truncated = filtered.length - capped.length
 
+  // counts 는 capped 와 정확히 같은 집합이어야 한다 — 잘려나간 단어의 빈도가 통계에 남으면
+  // `words` 에는 없는데 사전에는 쌓이는, 화면으로 검증할 수 없는 차이가 생긴다.
+  const counts: Record<string, number> = {}
+  for (const w of capped) counts[w] = ordered.get(w) ?? 1
+
   return {
     words: capped,
+    counts,
     totalWords,
     uniqueRaw,
     uniqueFinal: capped.length,
