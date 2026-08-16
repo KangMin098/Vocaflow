@@ -328,6 +328,49 @@ delete from shared_words where lower(word) in (
   '(every) now and then/again', 'for the meanwhile/meantime', 'in the meanwhile/meantime');
 ```
 
+### T11 — 아포스트로피 표제어의 예문이 틀린 철자를 가르치고 있었다
+
+T10 이 예문에 아포스트로피를 일괄 금지했다(TTS·따옴표 처리). **표제어 자체가 아포스트로피를 품고
+있으면 이 규칙이 정반대로 작동한다** — 에이전트 셋이 chunk-34·44·49 에서 독립적으로 지적했다.
+
+| 표제어 | 들어가 있던 예문 | 무엇이 망가졌나 |
+|---|---|---|
+| `hobson's choice` | `a Hobsons choice` | 존재하지 않는 철자를 가르침 |
+| `ne'er-do-well` | `a never-do-well` | 표제어와 예문이 **다른 단어** |
+| `dos and don'ts` | `a short list of dos and warnings` | 표제어 뒷부분을 다른 낱말로 바꿔치기 |
+| `hors d'oeuvre` | `small hors doeuvres` | 차용어 철자 붕괴, 발음 유추 불가 |
+| `director's cut` | `The director cut of the film` | 명사구가 동사구로 읽혀 **뜻이 바뀜** |
+| `o'clock` (A1/v1) | (없음) | 규칙 1·4 가 배타라 **아예 못 씀** |
+
+규칙을 "표제어에 아포스트로피가 있으면 예문에도 허용 + 곡선 `’` → ASCII `'` 정규화"로 고치고,
+`w0816-apos.mjs` 로 **103건 중 102건**을 되썼다. 되쓰기 게이트는 exfill 보다 엄하다(기존 값을
+덮어쓰므로) — 표제어의 아포스트로피 토큰이 예문에 없으면 거부. 단 `somebody's` 같은 **자리표시자
+소유격은 실명사로 치환되는 게 정상**이라(`on somebody's coat-tails` → `on his mentor's coat-tails`)
+아무 소유격이든 있으면 통과시킨다. 이 예외를 안 두면 24건이 헛되이 탈락했다.
+
+부수로, `"He often uses the expression \"…\" in conversation."` 라는 **정의문 틀로 때운 예문 9건**도
+실제 용례로 교체됐다.
+
+### CEFR 오배정 — `frequency_rank` 유무와 상관 (별도 승인 대상)
+
+T9 에이전트 둘이 독립적으로 "A1/A2 인데 학술 추상 파생어" 를 지적했다. 실측:
+
+`cefr ∈ {A1,A2}` 이면서 표제어가 `-ism`·`-ity`·`-ness`·`-tion`·`-logical`·`-istic`·`-ology`·`-hood`
+로 끝나는 항목 **189건**, 그중 **150건(79%)이 `frequency_rank IS NULL`**.
+
+표본을 보면 갈림이 뚜렷하다 — **rank 가 있는 것은 맞고**(`action` 474/A2 · `activity` 432/A1 ·
+`business` 211/A1 · `city` 269/A2 · `education` 531/A2), **NULL 인 것만 틀렸다**
+(`behaviourism` A2 · `centralisation` A1 · `collectivity` A2 · `comparability` A2 · `computerisation` A1).
+
+⚠️ 다만 **"rank 가 NULL 이면 낮은 CEFR 로 떨어진다"는 일괄 폴백은 아니다.** rank NULL 전체
+18,191건 중 A1/A2 는 1,163건(6.4%)으로, rank 보유군(4.3%)보다 조금 높을 뿐이다.
+상관은 실재하지만 **영향 범위는 수백 건 규모**다. 형태 신호(학술 접미사)와 rank NULL 을 함께 쓰면
+정밀하게 골라낼 수 있다.
+
+미조치 — **CEFR 재배정은 단어 추출 가중치와 학습자 추천 경로를 바꾼다.** 데이터 수정이 아니라
+제품 동작 변경이므로 별도 승인 후 진행할 것. 한 에이전트는 `chunk-23` 120단어 중 약 45개가 같은
+방향으로 밀려 있다며 **청크 단위 재산정**을 권했다.
+
 ### 같은 배치에서 고친 기계적 결함 (2026-08-16)
 
 - **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,

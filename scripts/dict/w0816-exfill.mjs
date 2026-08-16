@@ -93,7 +93,7 @@ if (MODE === 'apply') {
   const cur = new Map()
   for (const f of fs.readdirSync(DIR)) {
     if (!/^chunk-\d+\.json$/.test(f)) continue
-    for (const e of JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))) cur.set(e.word.toLowerCase(), e.meaning_ko)
+    for (const e of JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))) cur.set(e.word.toLowerCase(), { meaning: e.meaning_ko, word: e.word })
   }
 
   const { files, rows } = readOuts(DIR)
@@ -104,13 +104,17 @@ if (MODE === 'apply') {
   for (const e of rows) {
     if (!e || typeof e.word !== 'string') { bad++; continue }
     const w = e.word.toLowerCase().trim()
-    if (!cur.has(w)) { bad++; continue }
-    if (e.note && String(e.note).trim()) flagged.push({ word: w, meaning_ko: cur.get(w), note: String(e.note).trim() })
+    const c = cur.get(w)
+    if (!c) { bad++; continue }
+    if (e.note && String(e.note).trim()) flagged.push({ word: w, meaning_ko: c.meaning, note: String(e.note).trim() })
     if (e.skip === true) { skipped++; continue }
     if (typeof e.example_en !== 'string') { bad++; continue }
-    const ex = e.example_en.trim()
+    const ex = e.example_en.trim().replace(/[‘’ʼ]/g, "'")   // 곡선 따옴표 → ASCII 정규화
     if (ex.length < 20 || ex.length > 160) { gate.len++; continue }
-    if (/['‘’ʼ]/.test(ex)) { gate.apos++; continue }
+    // ⚠️ 아포스트로피 금지는 TTS·따옴표 처리를 위한 규칙인데, **표제어 자체에 아포스트로피가 있으면**
+    //   빼는 순간 틀린 철자를 가르친다(`hobson's choice` → "Hobsons choice"). 에이전트가 chunk-34 에서 지적.
+    //   그런 표제어에 한해 허용하고, 곡선 따옴표는 ASCII 로 정규화해 저장한다.
+    if (!/['‘’ʼ]/.test(c.word) && /'/.test(ex)) { gate.apos++; continue }
     if (META_RE.test(ex)) { gate.meta++; continue }
     if (!/^[A-Z"]/.test(ex) || !/[.!?"]$/.test(ex)) { gate.shape++; continue }
     if (!containsWord(ex, w)) { gate.noword++; continue }
@@ -124,7 +128,7 @@ if (MODE === 'apply') {
   if (!COMMIT) {
     console.log('DRY-RUN (--commit 로 적용). 샘플:')
     let n = 0
-    for (const [w, ex] of fills) { if (n++ >= 10) break; console.log(` ${w} (${cur.get(w)})\n   → ${ex}`) }
+    for (const [w, ex] of fills) { if (n++ >= 10) break; console.log(` ${w} (${cur.get(w).meaning})\n   → ${ex}`) }
     process.exit(0)
   }
 
