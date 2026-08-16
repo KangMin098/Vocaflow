@@ -21,11 +21,40 @@ const COMMIT = process.argv.includes('--commit')
 
 const META_RE = /^\s*(near-synonyms?|holonyms?|meronyms?|coordinate term|see thesaurus|synonyms?|antonyms?|hypernyms?|hyponyms?)\b/i
 
+/**
+ * 표제어가 예문에 등장하는가.
+ *
+ * ⚠️ 첫 토큰만 보는 순진한 구현은 **통과가 구조적으로 불가능한 표제어**를 만든다(에이전트가 chunk-16 에서 발견):
+ *   · `carry/win the day` — 첫 토큰이 `carry/win` → 어간 `carryw`. 어떤 영어 문장도 포함할 수 없다.
+ *   · `can't be bad` — 어간 `cant` 인데 아포스트로피 금지 규칙이 `can't` 를 막는다(규칙 1 과 4 가 배타).
+ * 그래서 **슬래시·아포스트로피까지 쪼개고, 토큰 중 하나라도 맞으면 통과**시킨다.
+ * 굴절 처리는 w0816-exrepair.mjs 의 `looseContains` 와 같은 규칙(y→i · f→v · e탈락 · 자음중복 + 불규칙표).
+ */
+const IRREGULAR = {
+  be: ['was', 'were', 'been'], begin: ['began', 'begun'], break: ['broke'], bring: ['brought'], buy: ['bought'],
+  catch: ['caught'], come: ['came'], do: ['did', 'done'], draw: ['drew'], drive: ['drove'], eat: ['ate'],
+  fall: ['fell'], feel: ['felt'], fight: ['fought'], find: ['found'], fly: ['flew'], get: ['got'], give: ['gave'],
+  go: ['went', 'gone'], grow: ['grew'], hang: ['hung'], have: ['had'], hear: ['heard'], hold: ['held'],
+  keep: ['kept'], know: ['knew'], lay: ['laid'], lead: ['led'], leave: ['left'], lose: ['lost'], make: ['made'],
+  mean: ['meant'], meet: ['met'], pay: ['paid'], rise: ['rose'], run: ['ran'], say: ['said'], see: ['saw'],
+  seek: ['sought'], sell: ['sold'], send: ['sent'], sit: ['sat'], speak: ['spoke'], stand: ['stood'],
+  take: ['took'], teach: ['taught'], tell: ['told'], think: ['thought'], throw: ['threw'], win: ['won'],
+  write: ['wrote'], child: ['children'], foot: ['feet'], man: ['men'], person: ['people'], tooth: ['teeth'],
+  woman: ['women'], mouse: ['mice'],
+}
+
 function containsWord(ex, word) {
-  const head = word.split(/[\s-]/)[0].replace(/[^\p{L}\p{N}]/gu, '')
-  if (head.length < 2) return true                       // 기호뿐인 표제어는 이 게이트를 적용할 수 없다
-  const stem = head.length > 5 ? head.slice(0, head.length - 2) : head
-  return new RegExp(`(?<!\\p{L})${stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'iu').test(ex)
+  const tokens = word.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ' ').split(/\s+/).filter((t) => t.length >= 3)
+  if (!tokens.length) return true                        // 기호·2자 이하뿐인 표제어는 이 게이트를 적용할 수 없다
+  const forms = []
+  for (const t of tokens) {
+    forms.push(t.length > 5 ? t.slice(0, t.length - 2) : t, ...(IRREGULAR[t] ?? []))
+    if (/y$/.test(t)) forms.push(t.slice(0, -1) + 'i')
+    if (/fe?$/.test(t)) forms.push(t.replace(/fe?$/, 'v'))
+    if (/e$/.test(t)) forms.push(t.slice(0, -1))
+    if (/[^aeiou][aeiou][bdgklmnprt]$/.test(t)) forms.push(t + t.slice(-1))
+  }
+  return forms.some((f) => new RegExp(`(?<!\\p{L})${f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'iu').test(ex))
 }
 
 if (MODE === 'chunk') {

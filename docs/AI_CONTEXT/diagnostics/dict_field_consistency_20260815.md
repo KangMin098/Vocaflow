@@ -281,6 +281,53 @@ select word from shared_dictionary
 where lower(trim(meaning_ko)) = lower(trim(word)) or meaning_ko !~ '[가-힣]';
 ```
 
+### 표제어가 "단어"가 아니라 **사전 표기 틀**인 것 454건 (T10 에이전트 발견)
+
+에이전트 여럿이 같은 것을 봤다 — `a/an/the soft/easy option` · `a rod/stick to beat somebody with` ·
+`today, tomorrow, monday, etc. week` · `as from…/as of…`. Oxford 식 관용구 표제어 표기가 **그대로**
+`shared_dictionary.word` 에 앉아 있다. 이건 카드 앞면에 문자열 그대로 인쇄된다.
+
+| 표기 유형 | 수 |
+|---|---|
+| 슬래시 변이형 (`hit/strike pay dirt`) | 239 |
+| 괄호 선택항 (`in a (tight) corner`) | 159 |
+| 자리표시자 (`somebody`·`something`) | 265 |
+| `, etc.` 열거 | 28 |
+| 말줄임표 (`as from…`) | 20 |
+| **합집합** | **454** |
+| (별개) 상표 기호 `™`·`®` | 96 |
+| (별개) 아포스트로피 포함 | 149 |
+
+**오탐 0** — 40건 무작위 표본 전량이 실제 사전 표기 틀이었다. 다만 두 갈래로 나뉜다:
+`leave somebody in the lurch` 처럼 **읽히는 것**과, `all the better, harder, more, etc.` 처럼
+**카드로 성립하지 않는 것**. 후자만 골라내려면 사람 판단이 필요하다.
+
+**⚠️ 학습자에게 실제로 나가고 있다** — 발행된 주제 어휘 세트 3개에 **31건**:
+`개념 주제 어휘`(7) · `시간과 공간 주제 어휘`(15) · `언어 기능 주제 어휘`(9).
+
+**즉시 고칠 수 있는 부분집합 — 거울 중복 11건.** 슬래시 순서만 바꾼 **같은 항목이 두 번** 등재돼 있다
+(토큰 정렬 정규화로 기계 탐지: 10개 군 · 21표제어). 그중 **3쌍은 발행 세트 안에 있어 학습자가 같은
+관용구 카드를 두 번 받는다** — FSRS 일정도 둘로 갈린다.
+
+| 발행 세트에 있는 거울 쌍 | 세트 |
+|---|---|
+| `(every) now and again/then` ↔ `(every) now and then/again` | 시간과 공간 |
+| `for the meantime/meanwhile` ↔ `for the meanwhile/meantime` | 시간과 공간 |
+| `in the meantime/meanwhile` ↔ `in the meanwhile/meantime` | 시간과 공간 |
+
+나머지 7건(비발행): `a/an/the soft/easy option`↔`an/a/the easy/soft option` ·
+`in a (tight) corner/spot`↔`…spot/corner` · `bad/ill feeling`↔`ill/bad feeling` ·
+`from that day/time forth`↔`…time/day forth` · `hit/strike pay dirt`↔`strike/hit pay dirt` ·
+`slog/sweat/work your guts out`↔`sweat/slog/…` · `bust your butt/chops/hump` **3중**.
+
+**미조치 — 발행 세트에서 행을 지우는 것은 학습자 콘텐츠 삭제라 승인 대상이다.** 제안 SQL:
+
+```sql
+-- 거울 쌍 중 뒤쪽 하나만 발행 세트에서 제거 (shared_dictionary 는 건드리지 않음 · 되돌릴 수 있음)
+delete from shared_words where lower(word) in (
+  '(every) now and then/again', 'for the meanwhile/meantime', 'in the meanwhile/meantime');
+```
+
 ### 같은 배치에서 고친 기계적 결함 (2026-08-16)
 
 - **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,
