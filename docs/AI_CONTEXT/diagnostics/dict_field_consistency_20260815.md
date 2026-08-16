@@ -433,6 +433,40 @@ T12 에이전트가 `meaning_ko` 에서 **부정 접두사가 통째로 빠진**
 
 **결론 — 이 유형은 단어별 LLM 판독으로만 잡힌다.** 정규식으로 사후 감사할 수 있는 결함이 아니다.
 
+### T12 가 추가로 잡은 `meaning_ko` 오류 13건
+
+노트를 쓰려면 뜻을 읽어야 하므로, T12 는 **뜻 오류 탐지기 역할을 겸했다.** 위 4건 외에 13건 더:
+
+| 표제어 | 들어 있던 뜻 | 실제 |
+|---|---|---|
+| `wedding party` | 결혼 **피로연** | 결혼식 **일행**(신랑·신부와 들러리) — 예문이 이미 이 뜻이었다 |
+| `sister-in-law` | **처제** | 시누이·올케·처제·형수 — 한국어 대응어가 없는데 하나로 좁혔다 |
+| `reallocation` | 할당 | **재**할당 (`re-` 누락) |
+| `containment` | **포함** | 억제, 봉쇄 |
+| `front page` | 앞면 | (신문의) **1면** |
+| `apartment block` | 아파트 **단지** | 아파트 건물 **한 동** |
+| `country house` | 전원주택 | (영국) 시골 **대저택** |
+| `dust storm` | **황사** | 모래폭풍 (황사는 특정 지역 현상) |
+| `crime lab` | 과학수사**대** | 감식 **실험실** |
+| `covering letter` | **자기소개서** | 서류에 동봉하는 첨부 편지 (영국식) |
+| `death certificate` | 사망 **진단서** | 사망 **증명서**(공문서) |
+| `dining room` | 식당 | 집·호텔의 **식사하는 방** |
+| `first floor` | **1층** | (미) 1층 / (영) **2층** — 예문은 영국식인데 뜻은 미국식이었다 |
+
+`first floor` 는 특히 나빴다 — `meaning_ko`("1층")는 미국식, `example_en`("Our flat is on the
+first floor, just above the bakery")은 영국식, `synonyms` 에는 `ground floor` 가 들어 있었다.
+**같은 레코드 안에서 세 필드가 서로 다른 변종을 말하고 있었다.**
+
+### CEFR 접미사 단위 오배정 — 세 에이전트가 같은 결론
+
+앞의 §"CEFR 오배정" 이 형태 신호로 189건을 잡았는데, T12 에이전트 둘이 독립적으로
+**"개별 수정이 아니라 접미사 단위 재산정"** 을 권했다. 관측된 계통:
+`computation`·`computational`·`computerisation` 셋 다 **A1** · `cinematic`·`counterproductive`·
+`faceless`·`exercisable` A1 · `collectivity`·`comparability`·`climatic`·`connective` A2 ·
+`historicist`·`historicity`·`positivist` A1(철학 전문어).
+한 에이전트는 담당 청크 120단어 중 **약 45개**가 같은 방향으로 밀려 있다고 보고했다.
+`-ism`/`-ity`/`-ation`/`-ational`/`-ic` 파생 접미사군에 CEFR 이 **일괄로 낮게** 부여된 것으로 보인다.
+
 ### 같은 배치에서 고친 기계적 결함 (2026-08-16)
 
 - **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,
