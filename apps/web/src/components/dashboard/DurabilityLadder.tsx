@@ -35,7 +35,7 @@ const RUNG_ALPHA: Record<string, number> = {
 }
 
 export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
-  const { counts, unseen, onLadder, medianDays, topDays } = ladder
+  const { counts, unseen, onLadder, medianDays, champion } = ladder
 
   // 사다리에 아무도 없다 — 숫자를 나열하지 않고 문장 하나로 바꾼다(상태 띠와 같은 규칙).
   if (onLadder === 0) {
@@ -149,13 +149,44 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
         <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
           <span>사다리 위 {onLadder.toLocaleString()}개</span>
           {unseen > 0 && <span>· 아직 만나기 전 {unseen.toLocaleString()}개</span>}
-          {topDays !== null && topDays >= 1 && (
-            <span>· 가장 오래 버티는 단어 {formatDuration(topDays)}</span>
-          )}
         </p>
       </footer>
+
+      {/* 사다리 꼭대기 — **단어 자체**.
+          이 자리에는 원래 "가장 오래 버티는 단어 2일" 이라는 숫자만 있었다. 그건 이 재설계가
+          이전 화면을 비판한 것과 똑같은 결함이다(개수는 있고 단어가 없다). 회고에서 남는 것은
+          수치가 아니라 "언제 처음 만나 몇 번을 다시 만났나" 라는 자기 이력이다. */}
+      {champion && (
+        <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg2)] px-4 py-3.5">
+          <p className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+            가장 멀리 온 단어
+          </p>
+          <p className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+            <span className="font-editorial text-[22px] font-[500] text-[var(--t1)]">
+              {champion.word}
+            </span>
+            <span className="min-w-0 font-body text-[12.5px] text-[var(--t2)]">
+              {champion.meaning}
+            </span>
+          </p>
+          <p className="mt-1.5 font-body text-[12px] leading-[1.65] text-[var(--t2)] [word-break:keep-all]">
+            {fmtFirstMet(champion.firstMet)}에 처음 만나
+            {champion.reviewCount > 0 && ` ${champion.reviewCount}번을 다시 만났고,`} 지금{' '}
+            <strong className="font-display font-[700] text-[var(--t1)]">
+              {formatDuration(champion.days)}
+            </strong>
+            을 버텨요.
+          </p>
+        </aside>
+      )}
     </section>
   )
+}
+
+/** 'YYYY-MM-DD' → "8월 5일". 연도는 빼도 회고 맥락에서 모호하지 않다. */
+function fmtFirstMet(iso: string): string {
+  const [, m, d] = iso.split('-')
+  return `${parseInt(m, 10)}월 ${parseInt(d, 10)}일`
 }
 
 function Eyebrow() {

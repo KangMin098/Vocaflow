@@ -56,6 +56,7 @@ import {
   RUNGS,
   median,
   rungFor,
+  type Champion,
   type Ladder,
   type Reach,
   type RescuedWords,
@@ -68,6 +69,7 @@ export {
   formatDuration,
   rungFor,
   type ActivityDayDto,
+  type Champion,
   type Ladder,
   type Reach,
   type ReachBand,
@@ -130,7 +132,7 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
   const [{ data: vocabRows }, { data: reviewRows }, { data: weekRows }] = await Promise.all([
     lc
       .from('vocabularies')
-      .select('id, word, meaning, lemma, stability')
+      .select('id, word, meaning, lemma, stability, review_count, created_at')
       .eq('user_id', user.id)
       .limit(10_000),
     // 학습량의 정본. minutes 가 아니라 **행 수**를 센다.
@@ -157,12 +159,16 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
     meaning: string | null
     lemma: string | null
     stability: number | null
+    review_count: number | null
+    created_at: string | null
   }>
 
   // ── 지속 사다리 ──
   const counts = Object.fromEntries(RUNGS.map((r) => [r.key, 0])) as Record<RungKey, number>
   const stabilities: number[] = []
   let unseen = 0
+  // 사다리 꼭대기 단어 — 숫자만 내지 않고 **단어 자체**를 들고 나온다(Champion 주석 참조).
+  let top: (typeof vocab)[number] | null = null
   for (const v of vocab) {
     const s = v.stability ?? 0
     const rung = rungFor(s)
@@ -172,14 +178,29 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
     }
     stabilities.push(s)
     counts[rung] += 1
+    if (!top || s > (top.stability ?? 0)) top = v
   }
   stabilities.sort((a, b) => a - b)
+
+  // 뜻이 없으면 세우지 않는다 — 단어만 덩그러니 있는 카드는 회고가 되지 않는다.
+  const champion: Champion | null =
+    top?.word && top.meaning && top.created_at
+      ? {
+          word: top.word,
+          meaning: top.meaning,
+          days: top.stability ?? 0,
+          reviewCount: Math.max(0, top.review_count ?? 0),
+          firstMet: toKstDate(top.created_at),
+        }
+      : null
+
   const ladder: Ladder = {
     counts,
     unseen,
     onLadder: stabilities.length,
     medianDays: median(stabilities),
     topDays: stabilities.length > 0 ? stabilities[stabilities.length - 1] : null,
+    champion,
   }
 
   // ── 28일 실제 흐름 (리뷰 기준) ──

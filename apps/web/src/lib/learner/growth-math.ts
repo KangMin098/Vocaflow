@@ -92,6 +92,25 @@ export function formatDuration(days: number): string {
 // 서버 모듈을 import 하면 위 ①의 사고가 그대로 재현된다.
 // ────────────────────────────────────────────────────────────
 
+/**
+ * 사다리 꼭대기에 있는 **단어 하나**.
+ *
+ * 왜 숫자가 아니라 단어인가: 처음 이 카드는 "가장 오래 버티는 단어 2일" 이라고만 적었다.
+ * 그건 이 재설계가 이전 화면을 비판했던 것과 **정확히 같은 결함**이다 —
+ * 개수(기간)는 있고 단어가 없다. 회고에서 기억에 남는 것은 수치가 아니라
+ * "그 단어를 언제 처음 만났고 몇 번을 다시 만났나" 라는 자기 이력이다.
+ */
+export interface Champion {
+  word: string
+  meaning: string
+  /** 지속 시간(일) */
+  days: number
+  /** 다시 만난 횟수 */
+  reviewCount: number
+  /** 처음 담은 날 'YYYY-MM-DD' (KST) */
+  firstMet: string
+}
+
 export interface Ladder {
   /** 사다리 칸별 단어 수 — 복습 기록이 있는 단어만(S>0) */
   counts: Record<RungKey, number>
@@ -103,6 +122,8 @@ export interface Ladder {
   medianDays: number | null
   /** 가장 오래 버티는 단어의 지속 시간(일). 비면 null */
   topDays: number | null
+  /** 그 단어 자체. 뜻이 비어 있으면 세우지 않는다(반쪽짜리 카드 방지) */
+  champion: Champion | null
 }
 
 export interface RescuedWords {

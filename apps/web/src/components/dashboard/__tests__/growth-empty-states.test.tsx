@@ -28,6 +28,7 @@ const EMPTY_LADDER: Ladder = {
   onLadder: 0,
   medianDays: null,
   topDays: null,
+  champion: null,
 }
 
 /** 28일 전부 무활동. */
@@ -65,11 +66,54 @@ describe('DurabilityLadder — 사다리가 비었을 때', () => {
           onLadder: 1,
           medianDays: 0.069,
           topDays: 0.069,
+          champion: null,
         }}
       />,
     )
     expect(html).toContain('2시간')
     expect(html).not.toMatch(/>0일</)
+  })
+
+  it('꼭대기는 숫자가 아니라 **단어**로 말한다 (이력과 함께)', () => {
+    const html = renderToString(
+      <DurabilityLadder
+        ladder={{
+          counts: { day: 0, few: 1, week: 0, month: 0, season: 0 },
+          unseen: 0,
+          onLadder: 1,
+          medianDays: 2.31,
+          topDays: 2.31,
+          champion: {
+            word: 'spectral',
+            meaning: '유령의, 스펙트럼의',
+            days: 2.31,
+            reviewCount: 6,
+            firstMet: '2026-07-05',
+          },
+        }}
+      />,
+    )
+    expect(html).toContain('spectral')
+    expect(html).toContain('유령의')
+    expect(html).toContain('7월 5일')
+    expect(html).toContain('6번')
+    expect(html).toContain('2일')
+  })
+
+  it('뜻이 없어 꼭대기 단어를 못 세우면 그 블록을 통째로 생략한다', () => {
+    const html = renderToString(
+      <DurabilityLadder
+        ladder={{
+          counts: { day: 1, few: 0, week: 0, month: 0, season: 0 },
+          unseen: 0,
+          onLadder: 1,
+          medianDays: 0.5,
+          topDays: 0.5,
+          champion: null,
+        }}
+      />,
+    )
+    expect(html).not.toContain('가장 멀리 온 단어')
   })
 })
 
