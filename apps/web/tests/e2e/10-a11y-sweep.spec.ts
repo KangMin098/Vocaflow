@@ -37,6 +37,9 @@ const ROUTES = [
   // 실패 메시지도 이미 없는 이름을 가리킨다. 단독 화면으로 남은 `/my/books` 만 유지.
   '/wordvault', '/my/books',
   '/library', '/library/books', '/library/scripts', '/library/vocab',
+  //  는 v06.201 통폐합으로 생긴 최상위 표면인데 이 목록에 없었다 —
+  // 새 라우트를 만들면서 접근성 스윕에 넣지 않으면 그 화면은 영영 안 재진다.
+  '/practice', '/wordblitz',
   '/flashcard', '/pairflip', '/scriptquiz', '/spellforge',
   '/dictate', '/dictate/setup', '/comics', '/arcade',
   '/text', '/text/new', '/settings', '/diagnostic',
