@@ -12,6 +12,8 @@ import { compose } from './compose'
 import { evaluateSet, type Scorecard } from './evaluate'
 import {
   fetchKnownWords,
+  fetchLexicon,
+  hasBaseIn,
   pushdownFrom,
   resolvePopulation,
   type ResolveOptions,
@@ -51,6 +53,25 @@ export async function dryRun(
 
   const t0 = Date.now()
   const population = await resolvePopulation(client, recipe.population, resolveOpts)
+
+  // 굴절 판정 — **사전 전체를 대조군으로** 한 번만 계산해 붙인다.
+  //
+  // 풀만 보고 판정하면 기본형이 필터에 먼저 걸려 사라진 경우를 놓친다. 실측:
+  // `레벨 V8-V10` 의 `lent`(← lend) · `gearing`(← gear)은 기본형이 밴드 밖이라 통과했고,
+  // `빈출` 의 `canned` 는 `can` 이 기능어로 빠져 통과했다. 기본형은 대개 쉬운 쪽이라
+  // 이 누수는 **항상 같은 방향**으로 난다.
+  //
+  // 차집합(`except`) 안에서도 같은 계산을 하지만 그건 그 분기에서만이다. 여기서 한 번
+  // 해 두면 모든 유형이 같은 판정을 쓴다 (이미 값이 있으면 건드리지 않는다).
+  // ⚠️ 기본값은 `select.ts` 와 **같아야 한다**. 한때 여기만 `if (flag)` 였고 select 는
+  // `?? true` 였다 — 그래서 판정이 계산되지 않은 채 필터만 켜져 절반(base_word 컬럼)만
+  // 걸렀다. 같은 값을 두 곳에 두면 반드시 어긋난다.
+  if (recipe.select.filters.exclude_inflections) {
+    const lexicon = await fetchLexicon(client)
+    for (const c of population) {
+      if (c.is_inflection === undefined) c.is_inflection = hasBaseIn(c.word, lexicon)
+    }
+  }
   const t1 = Date.now()
 
   const knownWords = recipe.select.subtract_known_for

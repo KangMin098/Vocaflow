@@ -243,7 +243,14 @@ export function applyFilters(
     //   ① 사전 컬럼 `base_word` (정확하지만 커버리지 7%)
     //   ② 어휘집 대조 판정 `is_inflection` (resolve 가 차집합 좌변에서 계산)
     // 하나만 쓰면 `worn`(①만) 또는 `listing`(②만) 중 한쪽이 새어 나간다.
-    if (f.exclude_inflections && ((c.base_word && !c.derivation_suffix) || c.is_inflection)) {
+    // 어휘집 판정()은 **동사 표기일 때만** 적용한다.
+    //
+    // 실측 2026-08-16: 철자 규칙만 보면 `reasoning 추론` · `listing 목록` · `trading 거래` ·
+    // `canned 통조림으로 된` 이 전부 굴절형으로 걸린다. 그런데 이들은 사전에서 **명사·형용사**
+    // 이고 각자 자기 뜻이 있다 — 굴절이 아니라 파생이고, 학습자가 외울 값이 있는 표제어다.
+    // 순수 굴절(`worn`·`further`·`drunk`)은 `base_word` 컬럼이 이미 잡는다.
+    const verbalInflection = c.is_inflection && (c.primary_pos ?? c.pos) === 'verb'
+    if (f.exclude_inflections && ((c.base_word && !c.derivation_suffix) || verbalInflection)) {
       drop(dropped, 'inflected_form')
       continue
     }

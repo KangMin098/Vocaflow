@@ -36,24 +36,24 @@
 | exam-list | 목록 bel_1.0 | 500 | 24 | 0.92 | ✅ | ✅ | born · jewellery · countryside · horror · prayer · captain · palace · boil |  |
 | exam-list | 목록 nawl_1.2 | 500 | 20 | 0.92 | ✅ | ✅ | cinema · classroom · diary · jazz · vocabulary · kilometre · publish · architect |  |
 | exam-list | 목록 moel_1.0 | 458 | 21 | 0.90 | ✅ | ✅ | back · down · course · system · small · run · night · care |  |
-| exam-list | 목록 fel_1.2 | 380 | 19 | 0.92 | ✅ | ✅ | app · bicycle · pants · publish · prayer · apple · physically · wow |  |
+| exam-list | 목록 fel_1.2 | 379 | 19 | 0.92 | ✅ | ✅ | app · bicycle · pants · publish · prayer · apple · physically · juice |  |
 | exam-list | 목록 kcurr2022_0 | 500 | 23 | 0.91 | ✅ | ✅ | million · network · task · colleague · novel · device · predict · celebrate |  |
 | exam-list | 목록 kcurr2022_1 | 500 | 23 | 0.94 | ✅ | ✅ | come · say · know · get · like · think · make · time |  |
 | exam-list | 목록 kcurr2022_2 | 500 | 21 | 0.91 | ✅ | ✅ | mean · leave · report · let · hear · system · follow · state |  |
-| book-companion | 도서 Fables (143장) | 300 | 76 | 0.98 | ✅ | ✅ | man · day · good · see · get · find · jump · think |  |
-| unlock | 해금 Fables (143장) | 200 | 7 | 0.97 | ✅ | ✅ | man · long · work · cat · make · swallow · mouse · bird |  |
+| book-companion | 도서 Fables (143장) | 300 | 73 | 0.98 | ✅ | ✅ | man · day · think · like · high · rich · good · get |  |
+| unlock | 해금 Fables (143장) | 200 | 7 | 0.97 | ✅ | ✅ | man · long · cat · make · pasture · crop · day · dance |  |
 | recycle | 재등장 Fables (143장) | 80 | 5 | 0.98 | ✅ | ✅ | man · day · good · see · get · find · think · away |  |
-| book-companion | 도서 Pride and Prejudice (61장) | 300 | 47 | 0.98 | ✅ | ✅ | long · like · want · know · occasion · impossible · visit · high |  |
-| unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.98 | ✅ | ✅ | want · day · family · think · like · return · pleasure · assure |  |
+| book-companion | 도서 Pride and Prejudice (61장) | 300 | 41 | 0.98 | ✅ | ✅ | impossible · know · want · like · handsome · illustration · high · sister |  |
+| unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.98 | ✅ | ✅ | impossible · know · want · family · manner · like · love · pleasure |  |
 | recycle | 재등장 Pride and Prejudice (61장) | 80 | 6 | 0.98 | ✅ | ✅ | say · know · think · good · come · little · man · day |  |
-| book-companion | 도서 Pinocchio (36장) | 300 | 37 | 0.98 | ✅ | ✅ | moment · room · say · inside · voice · mouth · laugh · open |  |
+| book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ | like · moment · see · room · inside · poor · door · mouth |  |
 | unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ | finish · little · puppet · good · tell · school · moment · come |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.98 | ✅ | ✅ | say · little · come · like · see · time · find · take |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 38 | 0.98 | ✅ | ✅ | time · hand · like · know · escape · court · meet · man |  |
-| unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ | time · say · king · reply · like · little · cardinal · come |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 46 | 0.98 | ✅ | ✅ | time · like · light · say · come · reply · think · cardinal |  |
+| unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ | like · king · time · little · cardinal · great · give · court |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.98 | ✅ | ✅ | say · man · know · come · king · queen · reply · think |  |
-| book-companion | 도서 Intro to Sociology (23장) | 300 | 23 | 0.98 | ✅ | ✅ | culture · different · man · cultural · time · term · school · mean |  |
-| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.98 | ✅ | ✅ | culture · like · explain · dance · form · different · world · experience |  |
+| book-companion | 도서 Intro to Sociology (23장) | 300 | 26 | 0.98 | ✅ | ✅ | different · explain · culture · life · system · experience · cultural · term |  |
+| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.98 | ✅ | ✅ | culture · explain · out · access · system · different · world · experience |  |
 | recycle | 재등장 Intro to Sociology (23장) | 80 | 4 | 0.97 | ✅ | ✅ | life · family · child · culture · way · work · like · retrieve |  |
 | level-band | 레벨 V1-V3 | 400 | 15 | 0.97 | ✅ | ✅ | come · say · know · get · like · think · make · time |  |
 | level-band | 레벨 V4-V7 | 400 | 16 | 0.97 | ✅ | ✅ | reasoning · parenting · claim · relationship · range · quality · project · rounders |  |
