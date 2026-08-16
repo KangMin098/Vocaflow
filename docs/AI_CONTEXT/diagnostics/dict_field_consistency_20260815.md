@@ -457,6 +457,29 @@ T12 에이전트가 `meaning_ko` 에서 **부정 접두사가 통째로 빠진**
 first floor, just above the bakery")은 영국식, `synonyms` 에는 `ground floor` 가 들어 있었다.
 **같은 레코드 안에서 세 필드가 서로 다른 변종을 말하고 있었다.**
 
+### 카드 앞면이 뜻을 하나만 보여 예문과 어긋나는 유형 (T12, 8건 처리)
+
+T6 이 발행 도서 어휘에서 968건 진단했던 그 결함이 **나머지 구간에도 그대로 있다.** 다만 형태가 다르다 —
+`meanings_ko` 에는 맞는 뜻이 **이미 다 들어 있는데**, 카드 앞면인 `meaning_ko` 가 첫 뜻만 인쇄해서
+예문과 어긋난다:
+
+| 표제어 | 앞면이 보여주던 뜻 | 예문이 쓰는 뜻 |
+|---|---|---|
+| `semi` | 세미트레일러 트럭 | 준결승 (`made it to the semi`) |
+| `traction` | 접지력 | 호응·추진력 (`gaining traction in the market`) |
+| `dribble` | 공 드리블 | 액체가 흐름 (`dribble juice down his chin`) |
+| `canine` | (형용사) 개의 | (명사) 송곳니 |
+| `funk` | 음악 장르 | 우울 (`fell into a deep funk`) |
+| `goggle` | (명사) 고글 | (동사) 휘둥그레 보다 |
+| `ether` | 화학 물질 | 허공 (`vanish into the ether`) |
+
+**뜻을 지우지 않고 앞면 노출만 늘려** 고쳤다(`meanings_ko` 무변경 — T7 의 보존 원칙 유지).
+`baseman` 만 뜻 자체가 틀려서(내야수 = infielder) 교체했다.
+
+⚠️ **이것도 기계 탐지가 안 된다.** "`meanings_ko` 가 2개 이상인데 `meaning_ko` 는 첫 뜻만" 은
+다의어의 정상 상태이기도 하다. 결함이 되는 건 **예문이 다른 sense 를 쓸 때뿐**이라 의미 판단이 필요하다.
+T6 하네스(`w0816-exmatch.mjs`)를 나머지 구간에 돌리는 것이 유일한 체계적 경로다.
+
 ### CEFR 접미사 단위 오배정 — 세 에이전트가 같은 결론
 
 앞의 §"CEFR 오배정" 이 형태 신호로 189건을 잡았는데, T12 에이전트 둘이 독립적으로
