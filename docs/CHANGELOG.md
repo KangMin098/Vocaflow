@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### 발행 세트가 `dying` 을 "염색하다" 로 가르치고 있었다 (v06.36)
+
+템플릿 예문 드레인의 잔여물(`ripen` 에 `rip` 예문)을 쫓다가 **훨씬 큰 것**이 나왔다.
+발행 세트 210행(112 표제어)의 `lemma` 가 해석기와 어긋나 학습자에게 틀린 뜻이 나가고 있었다.
+
+- **원인 — 같은 일을 하는 두 함수의 단계 순서가 반대였다**
+  ([20260816045450](../supabase/migrations/20260816045450_publish_lookup_prefers_registered_inflections.sql))
+  - `resolve_dict_headword`: L2 **사전 등재 굴절형**(`inflected_forms`) → L3 규칙 생성
+  - `lookup_word_meaning`(발행 경로): **규칙 생성** → … → `cluster`(등재 굴절형) ← 뒤집혀 있었다
+  - `ripe` 가 `riper`·`ripest` 를 명시 등재해 뒀는데도, 발행 경로는 그걸 보기 전에 규칙 후보
+    `rip`(빈도 3906 < ripe 6697)을 집어갔다. `die`/`dye`, `lie`/`lye` 도 같은 구조
+  - 실측 피해: `dying`→"염색하다" · `lying`→"양잿물" · `riper`→"찢다" · `scraping`→"조각, 부스러기" ·
+    `sunniest`→"수니파의" · `writeth`→"영장" · `boorish`→"무례한 사람"(어간 boor 에 묶임)
+- **영향 시뮬레이션 후 적용** — 서로 다른 표면 24,273 중 바뀌는 것은 **20개뿐**.
+  20개 전수 확인 → 16 개선 · **3 퇴행** · 1 애매(`axes`). 퇴행 3건은 순서가 아니라 사전 데이터
+  오류(`envelope`(봉투)가 `envelop`(감싸다)의 굴절형을, `wreath` 가 `wreathe` 의 것을 보유)라
+  같은 마이그레이션에서 함께 고쳤다 — 복수형 `envelopes`·`wreaths` 는 제자리 유지 확인
+- **발행분 190행 백필** ([20260816045733](../supabase/migrations/20260816045733_backfill_published_word_lemma_rebind.sql)) —
+  세트는 복사본이라 사전만 고치면 화면이 안 바뀐다. `lemma`·뜻·예문·품사·CEFR·V-Level 재바인딩.
+  예문도 함께 옮긴다(안 옮기면 `sunniest` 행에 수니파 예문이 남는다).
+  원본은 `backup.published_lemma_rebind_20260815`
+  - **20행은 일부러 남겼다** — `coverage-clean` 18(기계번역 덤프라 큐레이션 뜻보다 나쁘다:
+    `blowzy` "얼굴이 불그레하고 투박한"→"창녀나 걸레의 특징이거나") · `derivation` 2
+    (`evenness`: "고르게"→"심지어")
+- **자동 탐지를 두 번 시도해 두 번 다 실패했다** — "명사인데 -ed/-ing 보유"(19건) ·
+  "묵음 e 로 갈리는 명사/동사 쌍"(44건) 둘 다 대부분 오탐이었다(`caned`←cane · `sited`←site ·
+  `wines`←wine 은 명사 쪽이 맞다). 전수 확인 없이 일괄 적용했으면 멀쩡한 데이터 17~42건을 망쳤다
+- 남은 것: `ripen`(익다)은 사전에 표제어가 없어 여전히 `rip`(찢다)으로 풀린다.
+  `en_inflection_bases` 의 `-en` 규칙에만 묵음 e 짝이 없다(`-er`·`-est`·`-ing` 에는 있다)
+
 ### 학습자 표면 8곳 계측 기반 재설계 — 이름 레지스트리 · 하네스 정확도 (v06.202)
 
 `/practice` 통폐합(v06.201)에 이어, 남은 학습자 표면 전체를 **같은 잣대로** 재고 고쳤다.
@@ -60,7 +90,11 @@ library-scripts 89 · library-vocab 88 · wordvault 88).
   브라우저가 죽는다(`settle` 중 context closed) — 4~6 라우트씩 배치로 돌릴 것
 - `--on-p` 정정 10곳(다크에서 흰 글자 2.90:1 → AA 미달)
 
-### ⏳ 적용 대기 — `word_lexicon` RPC 은퇴 (마이그레이션 `20260816140000`)
+### ✅ 적용 완료 (2026-08-16) — `word_lexicon` RPC 은퇴 (마이그레이션 `20260816140000`)
+
+적용 후 실측: `regenerate_auto_curated_set` 은 남아 있고 본문에서 `word_lexicon` 참조 제거 ·
+`reject_word_lexicon_insert` DROP · **`word_lexicon` 을 읽는 함수 0개**(삭제 테이블 참조 목록이 비었다) ·
+보호 대상 `shared_words` **76,503행 / 1,333세트 그대로**(전체 81,413행 무변동).
 
 **복원이 아니라 은퇴가 정답이었다.** 삭제된 13개 중 5개는 복원이 옳았고 실제로 복원했지만,
 마지막 하나(`word_lexicon`)는 **복원이 데이터를 파괴한다**.
@@ -80,10 +114,10 @@ library-scripts 89 · library-vocab 88 · wordvault 88).
   이러면 **나중에 word_lexicon 이 복원돼도 영원히 안전**하다 — 제거하는 것은 버그가 아니라 **지뢰**다.
   `reject_word_lexicon_insert()`(발화 불가 고아 트리거 함수)는 DROP.
 
-### ⏳ 적용 대기 — `daily_activity.total_seconds` (마이그레이션 `20260816003000`)
+### ✅ 적용 완료 (2026-08-16) — `daily_activity.total_seconds` (마이그레이션 `20260816003000`)
 
-**작성·리뷰 완료, DB 미적용.** Claude Code 세션에서 `apply_migration` 이 권한 분류기에 막혔다
-(비대화형 세션의 원격 DDL 게이트). 적용은 사람 손이 필요하다 — `supabase db push` 또는 콘솔.
+적용 후 실측: 분>0 **12행 전부 `total_minutes = ROUND(total_seconds/60)` 일치**(mismatch 0) ·
+합계 **64분 → 3,840초**로 정확히 보존 · 트리거 함수 교체 확인.
 
 - **결함**: `agg_daily_activity_from_score()` 가 score 1건마다
   `ROUND(duration_seconds/60.0)` 를 더해서 **30초 미만 세션이 0분으로 소실**됐다.
