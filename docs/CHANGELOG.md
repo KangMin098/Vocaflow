@@ -265,6 +265,32 @@ taxonomy 에는 실제 담론에서 무엇이 어떤 주제와 함께 나타나�
 `fetchTedTranscript` 는 403 을 `reason:'blocked'` 로 구분해 **재시도하지 않고 즉시 닫는다**
 (차단한 사이트를 3회씩 다시 때리지 않기 위함).
 
+### TCP 로컬 코퍼스 수확 + 갭 적재 결함 수정 (`20260816170000` · `20260816180000`)
+
+- **소스 12 등록** (`provider='library_articles'`, `topic_key = library_articles.source`).
+  wikipedia 계열 2종은 `category_id` NULL — 승격에서 빼고 **배경 분포에만 기여**시켜 다른 주제의
+  salience 대비를 선명하게 만든다. TED 15행은 삭제하지 않고 `is_active=false` (삭제하면 CASCADE 로
+  기록까지 사라진다).
+- **⚠️ 결함 수정 — 문서 52%가 조용히 롤백되고 있었다.** `pending_words` 에는 **lemma 전역 유니크**
+  인덱스가 있는데 `ingest_topic_corpus_doc` 의 갭 적재는 "이미 있음" 을 `user_id IS NULL AND
+  status='pending'` 인 행만으로 판정했다. 학습자가 신고한 갭(39건)과 같은 단어가 코퍼스에서 나오면
+  INSERT 를 시도 → 유니크 위반 → 함수가 원자적이라 **그 문서의 통계·원장이 통째로 롤백**됐다.
+  갭 한 단어 때문에 문서 하나가 전부 사라지는 구조였고, 큰 문서일수록 갭이 많아 실패가 장문 소스에
+  몰렸다(첫 수확 실측: wikipedia 0/2 · wikivoyage 1/7 · plos 2/6 · 전체 162편 중 85편 실패).
+  수정: 존재 검사를 소유자·상태 무관으로 넓히고 경쟁 상태 대비 `ON CONFLICT (lemma) DO NOTHING`.
+  학습자 행의 `encounter_count` 는 올리지 않는다 — 그 수치는 분류 판단의 근거라 코퍼스 빈도를
+  섞으면 뜻이 오염된다. 수정 후 **161/162편 수확**(유일한 제외는 387자 짜리 짧은 글).
+- **1회차 관측치** — 문서 161 · 255,347 어절 · 표제어 9,998 · 주제×단어 25,825 쌍 ·
+  **표제어 해석률 87.3%** · 상한 초과 0 · **사전 갭 6,260** (`pending_words` 코퍼스 출처).
+- **⚠️ 승격은 보류.** 기본 임계값(doc_freq≥3 · salience≥1.0) 대상은 1,431개지만 **품질이 갈린다**:
+  NOAA 는 `atmospheric·celsius·dioxide·hemisphere·radiate` 로 정확한 반면, OWID 는
+  `cite·browse·thanks·comment`(사이트 상용구), VOA 는 `dictionary·word·learning`(교재 메타 어휘)이
+  올라온다. 알고리즘이 아니라 **`library_articles.content` 에 본문 외 요소가 남아 있는 문제**다.
+  salience 는 "이 소스에서만 유독 잦은 것" 을 정확히 찾았고 하필 그게 각 사이트의 상용구였다.
+  상용구 필터 없이 승격하면 주제 분류를 넓히려다 오히려 더럽힌다.
+- **구조적 한계** — 문서 2편 이하 소스(elife·wikipedia)는 `doc_freq≥3` 을 만족할 수 없어 승격 대상이
+  0 이다. 임계값을 낮추는 것이 아니라 문서를 더 모으는 것이 답이다.
+
 TCP 자체는 provider 무관이라 그대로 쓸 수 있다. 대안은 **이미 DB 에 있는** 개방 라이선스 코퍼스다 —
 `library_articles` 162편(전편 본문 보유): simple_wikipedia 34 · nasa 32 · voa 30 · the_conversation 25 ·
 owid/plos/elife 16 · factbook/usgs/noaa/wikivoyage 25. PD-Government · CC-BY-4.0 · CC-BY-SA-4.0 이고

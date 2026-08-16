@@ -22,6 +22,7 @@ import { config } from 'dotenv'
 import { resolve } from 'node:path'
 
 import { harvestTedTalk } from '../src/lib/topic-corpus/harvest'
+import { harvestLocalArticle, type LocalArticle } from '../src/lib/topic-corpus/local-corpus'
 import { discoverTedTopic } from '../src/lib/topic-corpus/ted-discover'
 
 config({ path: resolve(process.cwd(), '.env.local') })
@@ -43,19 +44,81 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 interface SourceRow {
   id: string
+  provider: string
   topic_key: string
   label_ko: string
   category_id: string | null
 }
 
-async function sources(): Promise<SourceRow[]> {
-  const { data, error } = await db
+async function sources(provider?: string): Promise<SourceRow[]> {
+  let q = db
     .from('topic_corpus_sources')
-    .select('id, topic_key, label_ko, category_id')
+    .select('id, provider, topic_key, label_ko, category_id')
     .eq('is_active', true)
-    .order('sort_order')
+  if (provider) q = q.eq('provider', provider)
+  const { data, error } = await q.order('sort_order')
   if (error) throw new Error(`소스 조회 실패: ${error.message}`)
   return (data ?? []) as SourceRow[]
+}
+
+/**
+ * 로컬 코퍼스 수확 — `library_articles` 에서 바로 센다.
+ *
+ * 큐를 쓰지 않는다: 네트워크를 타지 않으므로 claim·재시도·politeness 가 필요 없고,
+ * 재실행 안전성은 `ingest_topic_corpus_doc` 이 (source, external_id) 중복을 막는 것으로 이미 확보된다.
+ */
+async function cmdIngestLocal() {
+  const rows = await sources('library_articles')
+  if (rows.length === 0) {
+    console.log('provider=library_articles 소스가 없습니다 — 시드 마이그레이션을 먼저 적용하세요.')
+    return
+  }
+
+  let harvested = 0
+  let skipped = 0
+  let truncatedDocs = 0
+
+  for (const s of rows) {
+    // topic_key = library_articles.source
+    const { data, error } = await db
+      .from('library_articles')
+      .select('id, title, source_url, published_at, content')
+      .eq('source', s.topic_key)
+      .not('content', 'is', null)
+    if (error) {
+      console.log(`✗ ${s.id} — ${error.message}`)
+      continue
+    }
+
+    const articles = (data ?? []) as LocalArticle[]
+    let ok = 0
+    let gaps = 0
+    let words = 0
+
+    for (const a of articles) {
+      const out = await harvestLocalArticle(db, s.id, a)
+      if (out.ok) {
+        ok += 1
+        gaps += out.gapWords
+        words += out.runningWords
+        if (out.truncated > 0) {
+          truncatedDocs += 1
+          // 상한에 걸린 문서는 조용히 넘기지 않는다 — 통계가 그만큼 덜 반영됐다는 뜻이다.
+          console.log(`  ⚠ ${a.title ?? a.id} — unique 상한 초과로 ${out.truncated}개 누락`)
+        }
+      } else {
+        skipped += 1
+        // 사유를 삼키지 않는다 — 건너뜀이 조용하면 52% 손실도 "성공" 으로 보인다(실측 2026-08-16).
+        console.log(`  ✗ ${(a.title ?? a.id).slice(0, 60)} — ${out.reason}`)
+      }
+    }
+    harvested += ok
+    console.log(
+      `· ${s.id.padEnd(28)} ${String(ok).padStart(3)}/${String(articles.length).padEnd(3)} 편 · ` +
+        `${String(words).padStart(6)}어 · 갭 ${gaps}`,
+    )
+  }
+  console.log(`\n수확 ${harvested}편 · 건너뜀 ${skipped} · 상한 초과 문서 ${truncatedDocs}`)
 }
 
 async function cmdEnqueue() {
@@ -160,9 +223,10 @@ const apply = process.argv.includes('--apply')
 try {
   if (cmd === 'enqueue') await cmdEnqueue()
   else if (cmd === 'drain') await cmdDrain()
+  else if (cmd === 'ingest-local') await cmdIngestLocal()
   else if (cmd === 'promote') await cmdPromote(apply)
   else {
-    console.error('사용: tcp-drain.mts <enqueue|drain|promote> [--apply]')
+    console.error('사용: tcp-drain.mts <enqueue|drain|ingest-local|promote> [--apply]')
     process.exit(1)
   }
 } catch (err) {
