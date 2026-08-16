@@ -122,10 +122,20 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
     // flashcard 는 due 큐(SRS 상태)에 의존 — service-role 로 due 를 리셋해야 반복 가능.
     // 키가 없으면 due 를 보장할 수 없어 스킵(scriptquiz 는 정적 콘텐츠라 무관).
     test.skip(userId === null, 'SUPABASE_SERVICE_ROLE_KEY 미주입 — due 큐 리셋 불가');
-    const resetN = await resetDueCards(userId!);
+    // ⚠️ **정확히 N장만** due 로 만든다(나머지는 미래로 밀린다).
+    // 예전에는 계정의 모든 단어를 due 로 만들었는데, 계정이 252단어로 자라면서 세션 큐가
+    // "급한 순 50개" 로 열려 카드 16장만 도는 이 루프가 **완주 화면에 영영 못 닿았다**
+    // (실측 2026-08-16 — 코드 변경 없이 데이터가 자라서 회귀가 죽는 종류).
+    // 이 스펙이 지키는 것은 "몇 장을 넘길 수 있나" 가 아니라 "완주가 영속화되나" 다.
+    const DUE_N = 3;
+    const resetN = await resetDueCards(userId!, DUE_N);
     expect(resetN, 'due 카드가 최소 1장 있어야 완주 가능').toBeGreaterThanOrEqual(1);
     const sinceIso = new Date().toISOString();
 
+    // ⚠️ `finally` 로 반드시 원복한다. 위 호출이 나머지 249장을 **30일 뒤로 밀어** 두므로,
+    // 그대로 두면 이 계정을 공유하는 다른 스펙(허브 due 큐·오늘 무대의 "되찾을 단어")이
+    // 갑자기 빈 화면을 보게 된다. 이 리포의 규칙이기도 하다 — 테스트가 만든 상태는 되돌린다.
+    try {
     // 파라미터 없는 진입 = 사용자 SRS due 큐 (fetchDueFlashcardWords)
     await page.goto('/flashcard/play', { waitUntil: 'domcontentloaded' });
 
@@ -160,6 +170,10 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
       await page.waitForTimeout(500);
     }
     expect(count, 'flashcard 완주 후 scores 행이 적재되어야 함').toBeGreaterThanOrEqual(1);
+    } finally {
+      // 전부 due 로 되돌린다(이 스펙이 손대기 전의 정상 상태).
+      await resetDueCards(userId!);
+    }
   });
 
   test('진단 완료 시 V-Level snapshot 이 기록된다(개인화 체인)', async ({ page }) => {

@@ -94,14 +94,58 @@ export async function ensureWordSetPlanItem(userId: string, setId: string): Prom
  * (게임 완주가 SRS 를 미래로 밀어 다음 실행 때 due 0 이 되는 걸 방지)
  * 반환: due 로 만든 행 수(-1 = 키 없음/오류).
  */
-export async function resetDueCards(userId: string): Promise<number> {
+/**
+ * 카드를 due 로 되돌린다.
+ *
+ * ⚠️ `limit` 을 주는 쪽이 기본이다. 예전에는 **계정의 모든 단어**를 due 로 만들었는데,
+ * 그러면 완주를 단언하는 스펙이 계정이 자랄수록 조용히 불가능해진다 —
+ * 실측 2026-08-16: 이 계정이 252단어가 되면서 세션 큐가 "급한 순 50개" 로 열렸고,
+ * 카드 16장만 도는 `05-learner-loop` 이 **영구히 실패**하게 됐다(완주 화면에 못 닿는다).
+ * 데이터가 자라서 회귀가 죽는 종류라 코드 변경 없이도 어느 날 갑자기 빨개진다.
+ *
+ * 완주 스펙은 "N장을 끝까지 넘길 수 있나" 가 아니라 "완주가 영속화되나" 를 보는 것이므로,
+ * due 는 **최소한만** 만들면 된다.
+ */
+export async function resetDueCards(userId: string, limit?: number): Promise<number> {
   const c = serviceClient();
   if (!c) return -1;
   const past = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+
+  // limit 없음 = 예전 동작(전부 due). 완주를 단언하지 않는 스펙만 이걸 쓴다.
+  if (typeof limit !== 'number' || limit <= 0) {
+    const { data, error } = await c
+      .from('vocabularies')
+      .update({ next_review_at: past })
+      .eq('user_id', userId)
+      .select('id');
+    if (error) return -1;
+    return data?.length ?? 0;
+  }
+
+  const { data: picked, error: pickErr } = await c
+    .from('vocabularies')
+    .select('id')
+    .eq('user_id', userId)
+    .limit(limit);
+  if (pickErr) return -1;
+  const ids = (picked ?? []).map((r) => (r as { id: string }).id);
+  if (ids.length === 0) return 0;
+
+  // ⚠️ 나머지를 미래로 밀어야 **정확히 N장**이 된다. 고르기만 해서는 이전 실행이 due 로
+  // 만들어 둔 카드가 그대로 남아 큐가 계속 커진다(이 스펙이 죽은 실제 경로다).
+  const future = new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString();
+  const { error: pushErr } = await c
+    .from('vocabularies')
+    .update({ next_review_at: future })
+    .eq('user_id', userId)
+    .not('id', 'in', `(${ids.join(',')})`);
+  if (pushErr) return -1;
+
   const { data, error } = await c
     .from('vocabularies')
     .update({ next_review_at: past })
     .eq('user_id', userId)
+    .in('id', ids)
     .select('id');
   if (error) return -1;
   return data?.length ?? 0;

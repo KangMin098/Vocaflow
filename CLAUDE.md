@@ -157,18 +157,18 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 ## 📊 DB 핵심 통계 (2026-08-09)
 
 - **87 테이블** · **10 view** · **327 함수** · **428 migrations** (2026-08-12 실측)
-- ⚠️ **없는 테이블을 참조하는 RPC — 이제 `word_lexicon` 하나만 남았다** (2026-08-16 `to_regclass` 실측).
-  `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았다.
-  **복원 완료**: `word_familiarity`(20260812093000) · `csat_item_attempts`(20260812113000) · `vocab_raw_texts` · `classes` · `class_members` · `pending_words`.
-  **`word_lexicon` 은 복원하지 않는다 — 은퇴가 정답이다** (2026-08-16 조사 · 마이그레이션 `20260816140000` 적용 대기).
-  참조 RPC 2개 중 `reject_word_lexicon_insert` 는 발화 불가 고아이고,
-  `regenerate_auto_curated_set` 은 **복원하면 오히려 위험해진다**: 본문이 `DELETE → INSERT` 순서라
-  빈 `word_lexicon` 을 복원하면 오류 없이 `shared_words` **76,503행/1,333세트**(전체의 94%)가 지워진다.
-  지금은 42P01 로 시끄럽게 실패해서 안전하다. 게다가 `lexicon_source_tags`·`word_frequency_stats`
-  (각 5,421행)에 lemma 가 없어 매핑 복원 자체가 불가능하고, `auto_curated` 세트의 1,129/1,333 은
-  이미 도서-챕터 세트(`deliver_chapter_vocab` 소관)라 이 함수와 무관하다.
-  ⚠️ **이 줄이 낡으면 멀쩡한 기능을 "고장" 으로 오해한다** — 실제로 2026-08-16 에 이 목록을 믿고
-  `/hub` 의 구문 연습 블록을 "완료 관측 불가" 로 분모에서 빼는 코드를 넣었다가, DB 에 물어보고
+- ✅ **없는 테이블을 읽는 RPC = 0개** (2026-08-16 실측으로 해소 완료).
+  `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았고, 오래 미해결로 남아 있었다. 처리 결과는 두 갈래다:
+  - **복원**(6): `word_familiarity`(20260812093000) · `csat_item_attempts`(20260812113000) · `vocab_raw_texts` · `classes` · `class_members` · `pending_words`
+  - **은퇴**(1): `word_lexicon` — **복원하면 안 되는 경우였다**(`20260816140000`).
+    `regenerate_auto_curated_set` 본문이 `DELETE → INSERT` 순서라, 빈 `word_lexicon` 을 복원하면
+    INSERT 가 0건으로 **정상 종료**하고 DELETE 만 커밋된다 → 오류 없이 `shared_words`
+    **76,503행/1,333세트**(전체 81,413행의 94%)가 사라진다. 그래서 테이블을 되살리는 대신
+    함수 본문을 `RAISE` 로 교체해 **나중에 복원되더라도 안전**하게 만들었다.
+    (매핑 복원 자체도 불가능했다 — `lexicon_source_tags`·`word_frequency_stats` 각 5,421행에 lemma 가 없다.
+     `auto_curated` 1,333세트 중 1,129 는 이미 도서-챕터 세트로 `deliver_chapter_vocab` 소관.)
+  ⚠️ **이런 목록은 낡으면 멀쩡한 기능을 "고장" 으로 오해하게 만든다** — 2026-08-16 에 이 목록을 믿고
+  `/hub` 구문 연습 블록을 "완료 관측 불가" 로 분모에서 빼는 코드를 넣었다가, DB 에 물어보고
   되돌렸다(복원된 지 나흘 된 테이블이었다). **문서가 아니라 `to_regclass` 로 확인할 것.**
   상세: [DB_SCHEMA.md](./docs/DB_SCHEMA.md)
 - 전체 DB: **350 MB** (v06.34 VACUUM FULL 후, 이전 606 MB)
