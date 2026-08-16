@@ -127,19 +127,53 @@ where d.source='ai-generated' and l.word is null and lex.w is null;
 `inappropriately`(뜻 정반대) · `unintelligent` · `trash`·`falsifiable`·`extracurricular`·`herder`·`biotechnology`(synonyms) ·
 `curry`·`ar`(synonyms 전량 제거) · `familial`·`centrality`·`centralization`(→C1) · `classless`·`betterment`(→B2)
 
-## 2026-08-16 실행 결과 (T5·T6·T7)
+## 2026-08-16 실행 결과 (T5·T6·T7·T5b)
 
 | 트랙 | 대상 | 결과 |
 |---|---|---|
-| **T5 유의어 정제** (`w0816-syncheck.mjs`) | 12,401단어 / 86청크 | **8,563단어 정제** · 유의어 항목 98,936 → **64,250**(−34,686) |
+| **T5 유의어 정제** (`w0816-syncheck.mjs`) | 발행 도서 어휘 12,401단어 / 86청크 | **8,563단어 정제** · 유의어 항목 98,936 → **64,250**(−34,686) |
 | **T6 예문 정합성** (`w0816-exmatch.mjs`) | 13,794단어 / 115청크 | 예문 **394건 교체** · **뜻 이상 968건 진단** |
 | **T7 뜻 보완** (`w0816-meaningfix.mjs`) | T6 진단 968건 / 17청크 | **575단어 보완** · 기존 sense 소실 **0건** |
+| **T5b 유의어 정제 잔여** (`w0816-syncheck2.mjs`) | 발행 도서 **밖** 15,890단어 / 133청크 | **9,551단어 정제** · 유의어 항목 64,250 → **42,495**(−21,755) |
+
+### T5 의 대상 정의가 사각지대를 만들었다 (T5b)
+
+T5 는 "노출되는 것부터"라는 판단으로 **발행 도서 어휘 12,401개**만 잡았다. 그런데 유의어를 가진
+표제어는 **23,367개**였고, WordNet 오염은 도서 수록 여부와 무관한 **전역** 결함이다 —
+1만 5천 단어가 손 안 댄 채 남아 있었다. 대상을 좁힌 근거(노출 우선순위)는 맞았지만
+**"나머지는 오염이 덜하다"는 함의는 틀렸다.** T5b 실측 제거율 22~55%로 T5(34~81%)보다 낮은데,
+이는 오염이 옅어서가 아니라 저빈도 구간에 유의어 1~2개짜리 깨끗한 복합명사(`police station`·
+`prayer rug`)가 대량으로 섞여 분모를 눌렀기 때문이다. 오염된 항목은 대부분 **통짜로** 무너졌다 —
+`keep: []`(유의어 전량 제거)가 **3,874단어**.
+
+**T5b 가 새로 드러낸 오염 축 2종** (T5 의 10종에 추가):
+
+| # | 유형 | 실측 사례 |
+|---|---|---|
+| 11 | **표제어 인접 오염** — 철자·개념이 한 끗 차이라 그대로 오학습된다 | `stepbrother`→`half-brother`(의붓≠이복) · `presbyopia`→`farsightedness`(노안≠원시) · `hummus`→`humus`(흙) · `nautical mile`→`mile`(1,852≠1,609m) · `kibibyte`→`kilobyte`(2^n≠10^n) · `benzine`→`benzene`(석유 나프타≠발암 방향족) · `tinea`→`roundworm`(곰팡이≠회충) · `litigator`→`litigant`(변호사≠당사자) |
+| 12 | **synset 단위 확산** — WordNet synset 하나가 여러 표제어를 동시에 오염 | 중세 공성무기 3종(`arbalest`·`mangonel`·`ballista`) · '돈' 속어(`gelt`·`kale`·`boodle`) · 퓨마 4형제 · 상표명 약물 9종 · 정신병원 멸칭 synset(`sanatorium` 10/10) |
+
+**양방향 오염 쌍**도 반복 확인됐다 — `turbofan`↔`turbojet`, `ragweed`↔`ragwort`, `cupric`↔`cuprous`,
+`xylophone`↔`marimba`. 한쪽만 고치면 반대편이 남으므로 **쌍 단위로 잡아야 한다.**
+
+**콘텐츠 안전 — 저빈도 구간에도 그대로 있었다**: `pouf`(발받침)→동성애 멸칭 6종 ·
+`nance`→멸칭 10/10 · `guck`→`gook`(아시아인 멸칭) · `sod`→`sodomite` 3종 · `spick`→`spic` ·
+`orchis`(난초)→고환 7종 · `cocotte`(무쇠 냄비)→성매매 멸칭 10종 · `peeler`(껍질칼)→스트리퍼 6종 ·
+`behind`(A1 전치사)→엉덩이 비속어 10종 · `backwardness`·`retardation`→지적장애 멸칭 ·
+`same`(A1)→사미족 민족명 5종 · `turn on`→마약·성적 은어 9종.
+
+**부수 산출 — 레코드 자체 결함 496건** (`scripts/dict/w0816-syncheck2/NOTES.json`, 자동 수정 안 함):
+`example_en` 자리에 WordNet 관계 메타데이터(`Near-synonyms:`·`Holonyms:`) · 뜻↔예문 sense 어긋남 ·
+표제어 레코드 밀림(`mace` 는 뜻이 철퇴인데 예문은 향신료) · `meaning_ko` 잘림(`infliction` = `"가"`) ·
+표제어 오역(`ortolan` = 촉새인데 "꼬까울새") · pos 오기.
 
 **T6 의 진짜 산출물은 예문 교체가 아니라 뜻 진단이었다** — 394건 고치는 동안 968건을 찾아냈고,
 그 968건이 T7 의 입력이 됐다. 결함의 대부분은 예문이 아니라 **`meaning_ko` 가 빈약한 것**이었다.
 
 ### 게이트가 실제로 막은 것
 - T5 **부분집합 게이트**(삭제만 허용) 위반 **0건** — 12개 에이전트가 8,563단어를 처리하며 유의어를 추가하려 한 적이 한 번도 없다
+- T5b 부분집합 위반 **0건**(9,551단어 / 133청크 / 27개 에이전트). 누적 219청크에서 게이트가 한 번도 뚫리지 않았다 —
+  **"추가 불가·삭제만 가능"이 LLM 배치를 안전하게 만드는 가장 값싼 장치**라는 걸 두 트랙이 독립적으로 보여준다
 - T6 예문 게이트 탈락 8건(길이·아포스트로피·표제어 미포함) 자동 폐기
 - T7 **기존 sense 보존 게이트** — 소실 0건. 맞는 뜻을 덮어쓰는 사고가 이 배치 최대 위험이었다
 
@@ -156,17 +190,30 @@ where d.source='ai-generated' and l.word is null and lex.w is null;
 오뜻은 **원문 보존 + 반증 주석 + 강등**으로 처리했다. `tremor`·`whereon`·`tanner` 도 동일.
 `shark` 의 3중 중복 sense 처럼 **dedupe 가 필요한 항목은 별도 배치**가 있어야 한다.
 
+### 같은 배치에서 고친 기계적 결함 (2026-08-16)
+
+- **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,
+  다품사 표제어 2,317 → **9,501**. 소비처를 먼저 확인했다(Admin `VocabularyDetailPanel.tsx` 표시 +
+  `schema-presence-static.ts` 뿐 — 추출·추천 경로가 읽지 않아 회귀 위험 없음).
+- **`-ly` 형용사 pos 오기 18건** — cuddly·fatherly·frilly·ghostly·motherly·prickly·scholarly·smelly·
+  straggly·unholy·unsightly·unworldly·wobbly·worldly·disorderly·gentlemanly·knightly·pearly.
+  `pos`·`primary_pos`·`pos_set`·`meanings_ko[].pos` 를 **함께** 갱신 — 하나만 고치면 위 불일치가 재발한다.
+  `ostensibly`·`purportedly`·`superficially`·`actually`·`admittedly`·`distressfully` 는 정규식 오탐(진짜 부사).
+
 ## 남은 것 — 배치 설계 제안
 
-세 트랙 모두 `w0815-*` 하네스(chunk/apply + 게이트) 패턴을 그대로 재사용할 수 있다.
+`w0815-*` 하네스(chunk/apply + 게이트) 패턴을 그대로 재사용할 수 있다.
 
 | 트랙 | 대상 규모 | 탐지 방법 | 게이트 |
 |---|---|---|---|
-| 뜻↔예문 정합성 | 발행 도서 어휘 약 16,000 (전체는 4.2만) | 단어별 LLM 대조 (기계 불가) | 수정 시 기존 뜻 보존 + 추가 sense 로만 |
-| synonyms 정제 | 1,691(기계 하한) ~ 약 2,900(11% 추정) | 3어 이상 = 기계 · 단어 오염 = LLM | 유의어는 **사전 실재어 + 동일 pos** 만 채택 |
-| CEFR 재배정 | 126(기계 탐지분) | 빈도 백필 + LLM 판정 | v_level 과 동시 갱신, 추출 가중치 회귀 확인 필요 |
+| **T8 예문 자리 쓰레기값** (`w0816-exrepair.mjs`, 진행 중) | 432 (meta 93 · gloss 197 · shifted 142) | 기계 탐지 3종 정규식 | 원본이 예문이 아니므로 **산출물 자체 검증** — 표제어 포함 + 문장꼴 + 메타라벨 거부 |
+| 굴절형·중복 표제어 정규화 | 굴절형 1,104(pos=verb 103) · 복수형 중복 299 · 하이픈 중복 123 · 소문자 고유명사 29 | 기계 탐지 | **PK 변경 + cascade** — 승인 필수 |
+| CEFR 재배정 | 126(기계 탐지분, 88%가 `frequency_rank` NULL) | 빈도 백필 + LLM 판정 | v_level 과 동시 갱신, 추출 가중치 회귀 확인 필요 |
+| 멸칭 표제어 노출 정책 | `nance`·`fagot`·`midget`·`negroid`·`nigger`·`spic`·`aborigine` 등 | 목록 확정 후 수동 | `register` 경고 또는 카드 제외 — **제품 정책 결정** |
+| 중복 sense dedupe | `shark` 3중 중복 등 | 기계 탐지 | T7 보존 게이트가 **구조적으로 못 지우는** 영역 — 별도 게이트 필요 |
+| T6 초기 청크 00~23 재판정 | 약 2,880단어 | 구 규칙(예문만 교체)으로 판정된 구간 | 원본이 입력 청크에 있어 **되돌릴 수 있음** |
 
 ⚠️ CEFR 재배정은 **단어 추출 가중치와 학습자 추천 경로를 바꾼다** — 데이터 수정이 아니라 제품 동작 변경에
-가깝다. 별도 승인 후 진행할 것.
+가깝다. 표제어 정규화는 PK 변경이다. 둘 다 별도 승인 후 진행할 것.
 
 관련: [[project_dict_field_completeness]](채움률 관점) · [[feedback_fix_structural_gaps]]

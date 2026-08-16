@@ -255,13 +255,26 @@ library-scripts 89 · library-vocab 88 · wordvault 88).
 ### 사전 정합성 배치 w0816 — 유의어 오염 제거 · 예문↔뜻 정합 · 뜻 보완 (2026-08-16)
 
 w0815 배치의 부산물로 드러난 **채움률이 가릴 수 없는 결함**을 정면으로 친 후속 배치.
-서브에이전트 40여 개 · 218청크. 상세 진단: [dict_field_consistency_20260815.md](AI_CONTEXT/diagnostics/dict_field_consistency_20260815.md)
+서브에이전트 70여 개 · 351청크. 상세 진단: [dict_field_consistency_20260815.md](AI_CONTEXT/diagnostics/dict_field_consistency_20260815.md)
 
 | 트랙 | 대상 | 결과 |
 |---|---|---|
-| **T5 유의어 정제** | 12,401단어 · 86청크 | **8,563단어** · 유의어 항목 98,936 → **64,250** |
+| **T5 유의어 정제** | 발행 도서 어휘 12,401단어 · 86청크 | **8,563단어** · 유의어 항목 98,936 → **64,250** |
 | **T6 예문 정합성** | 13,794단어 · 115청크 | 예문 **394건** 교체 · **뜻 이상 968건 진단** |
 | **T7 뜻 보완** | T6 진단 968건 · 17청크 | **575단어** · 기존 sense 소실 **0건** |
+| **T5b 유의어 정제(잔여)** | 발행 도서 **밖** 15,890단어 · 133청크 | **9,551단어** · 유의어 항목 64,250 → **42,495** |
+
+**T5b 는 T5 의 사각지대였다** — T5 는 발행 도서 어휘만 봤는데, 유의어를 가진 표제어는 23,367개였다.
+WordNet 오염은 전역이라 나머지 1만 5천 단어가 그대로 남아 있었다. 133청크 실측 제거율 **22~55%**
+(T5 의 34~81% 보다 낮은 건 저빈도 구간에 유의어 1~2개짜리 깨끗한 복합명사가 많아서다 — 오염된 항목은
+대부분 **통짜로** 무너졌고 `keep: []` 가 3,874단어였다). 최종 유의어 항목 98,936 → **42,495 (57% 제거)**.
+
+T5b 가 새로 드러낸 오염 축 두 가지 — **표제어 인접 오염**: `stepbrother`→`half-brother`(의붓≠이복),
+`presbyopia`→`farsightedness`(노안≠원시), `nautical mile`→`mile`(1,852m≠1,609m), `hummus`→`humus`(흙),
+`kibibyte`→`kilobyte`(2^n≠10^n) 처럼 **철자·개념이 한 끗 차이라 그대로 오학습되는** 유형.
+**synset 단위 확산**: WordNet synset 하나가 여러 표제어를 동시에 오염(중세 공성무기 3종 · '돈' 속어 ·
+퓨마 4형제 · 상표명 약물 9종). 부수로 잡힌 레코드 자체 결함 **496건**은 `w0816-syncheck2/NOTES.json`
+(자동 수정 안 함 — 사람 검토 대상).
 
 **⚠️ 유의어 오염은 콘텐츠 안전 문제였다** — 제거율 **34~81%**(빈도 상위일수록 심함).
 학습자 카드 뒷면에 노출되던 값: `far`→르완다 무장단체(FAR 약어) · `let`→테러조직(LeT) ·
@@ -272,14 +285,23 @@ w0815 배치의 부산물로 드러난 **채움률이 가릴 수 없는 결함**
 과학 오개념(`molecule`→atom) · 추상↔물리 혼입 · 멸칭·비속어 · 약어 충돌(3글자 이하 표제어) · 인명/학명 동형 · 동형이의 통짜 · 철자 변형.
 
 **신규 하네스** — `scripts/dict/w0816-syncheck.mjs`(삭제 전용·부분집합 게이트) ·
+`w0816-syncheck2.mjs`(같은 게이트·발행 도서 어휘 제외 잔여 전체) ·
 `w0816-exmatch.mjs`(예문만 교체·뜻은 보고만) · `w0816-meaningfix.mjs`(기존 sense 보존 게이트).
 
-**게이트 실적**: T5 부분집합 위반 **0건**(8,563단어) · T6 게이트 탈락 8건 · T7 sense 소실 **0건**.
+**게이트 실적**: T5 부분집합 위반 **0건**(8,563단어) · T5b 부분집합 위반 **0건**(9,551단어) ·
+T6 게이트 탈락 8건 · T7 sense 소실 **0건**. 삭제 전용 게이트가 133청크 전량에서 한 건도 뚫리지 않았다.
+
+**같은 배치에서 고친 기계적 결함**:
+`pos_set` 재구축(`pos ∪ senses[].pos ∪ meanings_ko[].pos`) — `pos` ∉ `pos_set` **4,201 → 0**,
+다품사 표제어 2,317 → **9,501**(단일 품사로 눌려 있던 것이 드러났다) ·
+`-ly` 형용사가 pos=adverb 로 기록된 **18건** 수정(cuddly·fatherly·frilly·ghostly·motherly·prickly·
+scholarly·smelly·straggly·unholy·unsightly·unworldly·wobbly·worldly·disorderly + gentlemanly·knightly·pearly).
+`pos`·`primary_pos`·`pos_set`·`meanings_ko[].pos` 를 함께 갱신했다 — 하나만 고치면 다시 어긋난다.
+`ostensibly`·`purportedly`·`superficially`·`actually`·`admittedly`·`distressfully` 는 정규식 오탐(진짜 부사)이라 두었다.
 
 **추가로 계측된 구조 결함**(전부 별도 승인 필요):
-`pos` ∉ `pos_set` **4,201건**(예문·유의어 품사 오염의 공통 근인) · 굴절형 표제어 **1,104**(pos=verb 103) ·
-복수형 중복 **299** · 하이픈 중복 **123** · 소문자 고유명사 **29** · CEFR 오배정 126(88%가 `frequency_rank` NULL) ·
-`-ly` 형용사가 pos=adverb(`ghostly`·`fatherly`·`worldly`…).
+굴절형 표제어 **1,104**(pos=verb 103) · 복수형 중복 **299** · 하이픈 중복 **123** · 소문자 고유명사 **29** ·
+CEFR 오배정 126(88%가 `frequency_rank` NULL) · 멸칭 표제어 자체의 노출 정책(`nance`·`fagot`·`negroid`·`spic` 등).
 
 ### Growth(`/dashboard`) 재설계 + `/hub` 진행 단일화 — 화면 셋이 동시에 거짓을 말하고 있었다 (v06.201)
 
