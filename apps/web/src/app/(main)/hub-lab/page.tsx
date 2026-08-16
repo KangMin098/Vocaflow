@@ -26,19 +26,21 @@ import { VariantA } from './_variants/VariantA'
 import { VariantB } from './_variants/VariantB'
 import { VariantC, type RoomTime } from './_variants/VariantC'
 import { VariantD } from './_variants/VariantD'
+import { VariantG } from './_variants/VariantG'
 
 export const metadata = {
   title: '허브 랩 · Vocaflow',
   description: '진입면 후보 비교 (내부용)',
 }
 
-type Variant = 'a' | 'b' | 'c' | 'd'
+type Variant = 'a' | 'b' | 'c' | 'd' | 'g'
 
 const VARIANTS: { key: Variant; label: string; caption: string }[] = [
   { key: 'a', label: 'A · 오늘 하나', caption: '진입면은 "지금 할 단 하나"' },
   { key: 'b', label: 'B · 학습 지형도', caption: 'Stage × Memory 교차를 지형으로' },
   { key: 'c', label: 'C · 살아있는 서재', caption: '단어가 지면의 주인공 · 시각에 반응' },
   { key: 'd', label: 'D · 서재 + 오늘', caption: 'C 지면 + A 흐름 합성' },
+  { key: 'g', label: 'G · 관문 첫 줄', caption: '복귀 4상태 — 본 화면에선 안 보이는 것' },
 ]
 
 /** KST 오늘 요일 1=월..7=일. */
@@ -71,7 +73,7 @@ export default async function HubLabPage({
 }: {
   searchParams: { v?: string; t?: string }
 }) {
-  const active: Variant = (['a', 'b', 'c', 'd'] as const).includes(searchParams.v as Variant)
+  const active: Variant = (['a', 'b', 'c', 'd', 'g'] as const).includes(searchParams.v as Variant)
     ? (searchParams.v as Variant)
     : 'a'
 
@@ -100,6 +102,9 @@ export default async function HubLabPage({
         )}
 
         {active === 'b' && <VariantB terrain={terrain} />}
+
+        {/* G 는 실데이터를 쓰지 않는다 — 시간을 되돌릴 수 없어 상태를 합성한다(VariantG 주석). */}
+        {active === 'g' && <VariantG />}
 
         {active === 'c' && <VariantC room={room} time={kstRoomTime(searchParams.t)} />}
 

@@ -25,12 +25,14 @@
 
 import { Screen } from '@/components/ui/ios'
 import { kstRoomTime } from '@/components/home/room-tone'
+import { GatewayLead } from '@/components/home/GatewayLead'
 import { TodayFocus } from '@/components/home/TodayFocus'
 import { TodayPlanCard } from '@/components/home/TodayPlanCard'
 import { TodayStage } from '@/components/home/TodayStage'
 import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
 import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
+import { fetchGatewayState } from '@/lib/learner/gateway'
 import { fetchDcpDoneToday, fetchTouchedModulesToday } from '@/lib/learner/today-status-query'
 
 export const metadata = {
@@ -45,13 +47,14 @@ function kstWeekday(): number {
 }
 
 export default async function HubPage() {
-  const [planItems, prescription, room, touchedToday, dcpDoneToday] = await Promise.all([
+  const [planItems, prescription, room, touchedToday, dcpDoneToday, gateway] = await Promise.all([
     fetchStudyPlanItems(),
     fetchTodayPrescription(),
     fetchReadingRoom(),
     // 셸 띠와 **같은 값**을 쓴다 — cache() 라 추가 쿼리는 돌지 않는다.
     fetchTouchedModulesToday(),
     fetchDcpDoneToday(),
+    fetchGatewayState(),
   ])
 
   const today = kstWeekday()
@@ -64,6 +67,10 @@ export default async function HubPage() {
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
+        {/* 관문 첫 줄 — 돌아온 사람을 알아본다.
+            처음 온 사람·오늘 이미 한 사람에게는 스스로 사라진다(할 말이 없으면 그리지 않는다). */}
+        <GatewayLead state={gateway} />
+
         {/* 무대 — 좌: 오늘 되찾을 단어(학습 재료) · 우: 오늘의 흐름(처방이 정본일 때만).
             수동계획이 정본인 날에는 흐름을 넘기지 않는다(표면 이중화 방지). */}
         <TodayStage

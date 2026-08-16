@@ -109,6 +109,15 @@ const LAB_ROUTES: typeof ALL_ROUTES = [
   { slug: 'lab-c-dawn', url: '/hub-lab?v=c&t=dawn', label: '랩 후보 C (새벽)' },
   { slug: 'lab-d', url: '/hub-lab?v=d', label: '합성 D' },
   { slug: 'lab-d-night', url: '/hub-lab?v=d&t=night', label: '합성 D (밤)' },
+  // 관문 첫 줄 4상태 — **본 화면(/hub)에서는 캡처가 불가능한 것**.
+  // 검증 계정은 e2e 가 매일 돌아 늘 `today` 라 그 줄이 렌더되지 않는다(의도된 동작).
+  // 복귀 문구의 시각 무게는 여기서만 눈으로 볼 수 있다.
+  {
+    slug: 'lab-gateway',
+    url: '/hub-lab?v=g',
+    label: '관문 첫 줄 4상태',
+    nocards: '상태 견본 나열 — 반복 카드 격자 없음',
+  },
 ]
 
 const ROUTES = process.env.HUB_SHOT_ROUTES
