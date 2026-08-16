@@ -92,7 +92,7 @@
 | **SpellForge** (L4b 시각생성) | `/spellforge` | `/spellforge/play` | — | 타이핑 · IME 분리 |
 | **WordBlitz** (L4a 자동화) | `/wordblitz` | `(app)/play/wordblitz` | — | 풀스크린 2D 속사 인지 |
 | **PairFlip** (L4a 공간기억) | `/pairflip` | `/pairflip/play` | `/pairflip/results` | 5단계 (8~20장 · 2줄 고정) |
-| **ScriptQuiz** (L5 정복) | `/scriptquiz` | `/scriptquiz/play` | — | 3-screen 영어 immersion |
+| **ScriptQuiz** (L5 정복) | `/scriptquiz` | `/scriptquiz/play` | — | **v08.6 재설계 — 진입면이 카탈로그가 아니라 "읽은 것의 확인 대기열"**. 이전엔 퀴즈 있는 챕터 129개를 전부 나열(5.57화면)했고 그중 41개는 학습자 미열람이라 **풀면 스포일러**였다. 지금은 `texts.status`(읽음)와 교차해 **읽은 챕터만** 내주고, 다음 한 걸음 하나(읽은 지 가장 오래된 미확인 챕터 · 간격 인출)를 크게 둔다. 데이터 `lib/scriptquiz/queue.ts` · 렌더 `components/game/scriptquiz/ScriptQuizQueue.tsx`. play 는 3-screen 영어 immersion 유지 |
 | **Dictation** (L6 완성) | `/dictate` | `/dictate/setup` → `/dictate/session` | `/dictate/results` | CEFR 자동감지 · 단어별 채점 |
 | **아케이드 스위트 — Game Lab** (v08.3) | `(main)/arcade` (허브) | `(app)/play/{19종}` | — | 카탈로그 SSoT `lib/game/catalog.tsx` · 브리핑 SSoT `lib/game/brief.ts`. 구역 3(Recall/Synthesis/Inference Bay) + 카드 `(?)` Protocol 다이얼로그. 스코프 3단: `?set=`/`?text=` → 내 due 큐 → 맛보기 |
 | **Practice — 연습 단일 진입면** (v06.201) | `(main)/practice` | — | — | 사이드바 PRACTICE 5형제(Flashcard·WordBlitz·PairFlip·SpellForge·Game Lab) → 2개로 통폐합. **면(facet)으로 고른다** — `FACETS` 6개 카드 + 가장 무른 면 강조. 도구 = 모듈 4 + Game Lab 게임 17(`lib/learner/practice-map.ts` 가 `GAME_CATALOG.layer` 에서 파생) + 활성 시 `Syntax`. 게임 링크는 `from=/practice` 필수(없으면 종료가 `/arcade` 로 튕김) |

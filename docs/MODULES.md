@@ -286,7 +286,9 @@ R < 0.70              → risk     #EF4444 (빨강)
 스크립트 맥락 4지선다. Recognition + Transfer — 텍스트 단위 의미 통합 검증.
 
 ### 라우트
-- `/scriptquiz` — Hub (실 카탈로그 도서·챕터 grid · 한영 토글) — server `page.tsx` fetch `list_book_chapter_quiz_catalog` → client `ScriptQuizHub`
+- `/scriptquiz` — **확인 대기열** (v08.6 재설계) — server `page.tsx` → `lib/scriptquiz/queue.ts`(카탈로그 × `texts.status` × `scores`) → client `ScriptQuizQueue`.
+  **읽은 챕터만** 내준다: 이전 `ScriptQuizHub`(삭제)는 카탈로그 129챕터를 전부 나열해 **미열람 41챕터의 줄거리를 스포일러**했다.
+  구성 = 다음 한 걸음 1개(읽은 지 가장 오래된 미확인 챕터 · 간격 인출) + 책 카드(기본 접힘, 펼치면 읽은 챕터 칩) + 한영 토글
 - `/scriptquiz/play` — 3-screen flow · `?book=&ch=` 큐레이션 공유 챕터 퀴즈(`select_book_chapter_quiz`) · `?text=` 개인 퀴즈(`quiz_questions`) · 미지정 시 MOCK
 
 ### 문제 출처 (v06.114)
