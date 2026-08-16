@@ -190,6 +190,46 @@ T5 는 "노출되는 것부터"라는 판단으로 **발행 도서 어휘 12,401
 오뜻은 **원문 보존 + 반증 주석 + 강등**으로 처리했다. `tremor`·`whereon`·`tanner` 도 동일.
 `shark` 의 3중 중복 sense 처럼 **dedupe 가 필요한 항목은 별도 배치**가 있어야 한다.
 
+### T8 — 예문 자리에 예문이 아닌 것 (`w0816-exrepair.mjs`)
+
+T5/T5b 가 유의어를 보다가 부수적으로 계통 결함 3종을 잡아냈다. 기계로 탐지 가능해 **432건 전수**를 쳤다.
+
+| kind | 탐지 | 규모 | 결과 |
+|---|---|---|---|
+| `meta` | WordNet 관계 라벨로 시작 | 93 | **93 → 0** |
+| `gloss` | 소문자 시작 + 종결부호 없음(사전 뜻풀이) | 197 | **197 → 2**(멸칭 표제어 skip 분) |
+| `shifted` | 표제어가 예문에 없음(레코드 밀림) | 142 | 실제 밀림만 교체 |
+
+**교체 321 · 원본 유지 105 · agent-skip 6 · 게이트 탈락 0.**
+
+`meta`·`gloss` 는 원본이 예문이 아니므로 비교 대상이 없다. 그래서 게이트를 **산출물 쪽에** 걸었다 —
+표제어 등장 + 대문자 시작 + 종결부호 + 관계 라벨 거부 + 20~160자 + 아포스트로피 금지.
+
+**⚠️ 이 배치의 진짜 교훈은 `shifted` 판정기가 틀렸다는 것이다.** 세 에이전트가 독립적으로 같은 오탐을 지적했다:
+
+| 오탐 원인 | 실측 사례 |
+|---|---|
+| 불규칙 굴절 | `have on`→"He **had** the radio on" · `give`→"She **gave** …" · `deny`→"He **denied** …" |
+| 접두 합성 불규칙 | `overcome`→`overcame` · `rewind`→`rewound` · `withstand`→`withstood` |
+| 표제어가 기호로 시작 | `(every) now and again` — `\b\(ever` 는 **절대** 매치되지 않는다 |
+| 비ASCII·상표기호 | `étude` · `dms™` — `\b` 가 성립하지 않아 **어떤 예문도 게이트를 통과 못 함** |
+
+멀쩡한 예문을 갈아치우는 것이 이 배치의 유일한 손실 경로였다. apply 에 **완화 매처**(`looseContains` —
+기호 제거 + 불규칙 굴절표 130여 항 + 접두 합성 + y→i·f→v·자음중복)를 넣어 `kind='shifted'` 인데
+원본에서 표제어가 실제로 보이면 교체를 건너뛰게 했다. 되잡은 것이 **105건**(오탐률 74%).
+`meta`·`gloss` 에는 이 면제를 주지 않는다 — 원본이 예문 자체가 아니기 때문이다.
+
+곡선 아포스트로피 **U+2019 가 ASCII `'` 필터를 통과**하던 것도 같이 막았다(에이전트가 `tear apart` 에서 발견).
+
+**부수 산출 — 레코드 결함 106건** (`w0816-exrepair/FLAGGED.json`): 표제어에 ™ 혼입(`dms™`·`jcb™`) ·
+고유명사 소문자화(`chinese new year`·`european union`·`good friday` 등) · 중복 표제어
+(`fire engine`↔`fire truck`, `face recognition`↔`facial recognition`, `divided highway`↔`dual carriageway`) ·
+난이도 과대(`belly button` C2/v11 · `break into` C2/v11 vs 같은 뜻 `break in` B2/v6) ·
+sense 누락(원본 예문이 `all_meanings` 에 없는 뜻을 쓰던 항목 — `black eye`·`boiling point`·`chief executive`).
+
+**같은 소스가 여러 레코드를 동시에 오염시킨 증거**도 나왔다 — `shopping centre`·`shopping mall` 이
+같은 예문(`a good plaza should have a movie house`)을, `case law`·`common law` 가 또 같은 예문을 공유했다.
+
 ### 같은 배치에서 고친 기계적 결함 (2026-08-16)
 
 - **`pos_set` 재구축** — `pos ∪ senses[].pos ∪ meanings_ko[].pos`. `pos` ∉ `pos_set` **4,201 → 0**,
@@ -206,7 +246,6 @@ T5 는 "노출되는 것부터"라는 판단으로 **발행 도서 어휘 12,401
 
 | 트랙 | 대상 규모 | 탐지 방법 | 게이트 |
 |---|---|---|---|
-| **T8 예문 자리 쓰레기값** (`w0816-exrepair.mjs`, 진행 중) | 432 (meta 93 · gloss 197 · shifted 142) | 기계 탐지 3종 정규식 | 원본이 예문이 아니므로 **산출물 자체 검증** — 표제어 포함 + 문장꼴 + 메타라벨 거부 |
 | 굴절형·중복 표제어 정규화 | 굴절형 1,104(pos=verb 103) · 복수형 중복 299 · 하이픈 중복 123 · 소문자 고유명사 29 | 기계 탐지 | **PK 변경 + cascade** — 승인 필수 |
 | CEFR 재배정 | 126(기계 탐지분, 88%가 `frequency_rank` NULL) | 빈도 백필 + LLM 판정 | v_level 과 동시 갱신, 추출 가중치 회귀 확인 필요 |
 | 멸칭 표제어 노출 정책 | `nance`·`fagot`·`midget`·`negroid`·`nigger`·`spic`·`aborigine` 등 | 목록 확정 후 수동 | `register` 경고 또는 카드 제외 — **제품 정책 결정** |
