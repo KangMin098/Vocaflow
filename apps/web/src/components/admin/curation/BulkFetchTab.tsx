@@ -3,7 +3,7 @@
 
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Loader2, Download, Plus, BookOpen, ExternalLink, Search, AlertCircle, CheckCircle2, Info, Clock, Calendar, FileText, Trash2, ArrowRightLeft } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
@@ -109,6 +109,15 @@ export function BulkFetchTab() {
   // 큐레이션 메타 큐잉 (Claude Code 배치가 drain)
   const [queuingCuration, setQueuingCuration] = useState(false)
   const [curationResult, setCurationResult] = useState<QueueCurationResult | null>(null)
+
+  // 소스 메타 보강 — 반복 호출이라 "멈춤" 이 필요하다. ref 로 두는 이유: 루프 안에서
+  // 최신 값을 읽어야 하는데 state 는 클로저에 갇힌 옛 값을 보여준다.
+  const [enriching, setEnriching] = useState(false)
+  const stopEnrichRef = useRef(false)
+  const [enrichProgress, setEnrichProgress] = useState<
+    { filled: number; empty: number; failed: number; remaining: number; done: boolean } | null
+  >(null)
+  const [enrichError, setEnrichError] = useState<string | null>(null)
   // SE 중복 정리 — 행별 액션(삭제/변환) pending + 일괄 삭제 pending
   const [rowActionId, setRowActionId] = useState<string | null>(null)
   const [bulkDeleting, setBulkDeleting] = useState(false)
@@ -210,6 +219,68 @@ export function BulkFetchTab() {
       alert(e instanceof Error ? e.message : '큐레이션 큐잉 실패')
     } finally {
       setQueuingCuration(false)
+    }
+  }
+
+  // 소스 메타 보강 — **AI 생성이 아니라 소스 사이트가 이미 가진 것**(줄거리·주제·분량·읽기시간)을 긁어온다.
+  // 위의 큐레이션 큐(Claude Code 생성)와는 다른 축이고, 이쪽이 먼저다: 원문 줄거리가 있으면
+  // 굳이 생성하지 않아도 "이 책이 무엇인지" 가 목록에서 보인다.
+  //
+  // 한 번에 다 돌리지 않는 이유는 서버 라우트 주석 참조(외부 사이트를 건당 1회 때린다).
+  // 여기서는 **멈출 수 있는 반복**으로 만든다 — 관리자가 진행을 보면서 중단할 수 있어야 한다.
+  async function handleEnrichMeta() {
+    if (enriching) {
+      stopEnrichRef.current = true
+      return
+    }
+    stopEnrichRef.current = false
+    setEnriching(true)
+    setEnrichError(null)
+    let filled = 0
+    let empty = 0
+    let failed = 0
+    try {
+      for (;;) {
+        if (stopEnrichRef.current) break
+        const res = await fetch('/api/admin/library/enrich-seed-batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            limit: 8,
+            source: filterSource === 'all' ? undefined : filterSource,
+          }),
+        })
+        const json = (await res.json()) as {
+          done?: boolean
+          enriched?: number
+          empty?: number
+          failed?: number
+          remaining?: number
+          error?: string
+        }
+        if (!res.ok) throw new Error(json.error ?? `보강 실패 (${res.status})`)
+        if (json.done) {
+          setEnrichProgress({ filled, empty, failed, remaining: 0, done: true })
+          break
+        }
+        filled += json.enriched ?? 0
+        empty += json.empty ?? 0
+        failed += json.failed ?? 0
+        setEnrichProgress({ filled, empty, failed, remaining: json.remaining ?? 0, done: false })
+
+        // 회차마다 아무것도 못 채웠는데 실패·빈손만 쌓이면 멈춘다 —
+        // 소스 페이지 구조가 바뀐 상황에서 남의 사이트를 계속 때리지 않기 위해서다.
+        if ((json.enriched ?? 0) === 0 && (json.empty ?? 0) + (json.failed ?? 0) > 0) {
+          setEnrichError('이번 회차에서 한 건도 채우지 못했습니다 — 소스 페이지 구조 변경일 수 있어 중단했습니다')
+          break
+        }
+      }
+      await loadList()
+    } catch (e) {
+      setEnrichError(e instanceof Error ? e.message : '메타 보강 실패')
+    } finally {
+      setEnriching(false)
+      stopEnrichRef.current = false
     }
   }
 
@@ -495,6 +566,34 @@ export function BulkFetchTab() {
             onChange={(e) => { setSearch(e.target.value); setListOffset(0) }}
             className={`${filterCls} w-full pl-7`} />
         </div>
+      </section>
+
+      {/* 소스 메타 보강 — 소스 사이트가 이미 가진 줄거리·주제·분량을 긁어온다(AI 생성 아님) */}
+      <section className="flex flex-wrap items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+        <Info size={13} className="text-[var(--t2)]" aria-hidden />
+        <span className="font-body text-[11px] text-[var(--t2)]">
+          소스 원문 메타(줄거리·주제·분량·읽기 시간) 보강 — Gutenberg · Standard Ebooks · Lit2Go
+        </span>
+        <button
+          type="button"
+          onClick={handleEnrichMeta}
+          className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t1)] transition-[background-color,border-color,opacity] duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] hover:bg-[var(--bg2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
+        >
+          {enriching ? <Loader2 size={11} className="animate-spin" /> : <Info size={11} />}
+          {enriching ? '멈추기' : '메타 없는 후보 보강'}
+        </button>
+        {enrichProgress && (
+          <span className="w-full font-mono text-[11px] text-[var(--t2)]">
+            채움 <strong className="text-[var(--p)]">{enrichProgress.filled}</strong>건
+            {enrichProgress.empty > 0 && <> · 빈손 {enrichProgress.empty}건</>}
+            {enrichProgress.failed > 0 && <> · 실패 {enrichProgress.failed}건</>}
+            {' · '}
+            {enrichProgress.done ? '남은 후보 없음' : `남은 후보 ${enrichProgress.remaining}건`}
+          </span>
+        )}
+        {enrichError && (
+          <span className="w-full font-body text-[11px] text-[var(--memory-risk)]">{enrichError}</span>
+        )}
       </section>
 
       {/* 큐레이션 메타 배치 — Claude Code 가 drain */}
