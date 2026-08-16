@@ -2,11 +2,35 @@
 //
 // Sidebar 정보 구조 단일 출처 — CLAUDE.md §17.10 IA 원칙 정합.
 //
-// 5 그룹 (FlowNav stage 1:1 매핑 · v06.109 영어 라벨):
-//   Scripts(보라) · Words(인디고) · Practice(핑크) · Conquer(앰버) · Complete(시안)
+// ── v08.5 재설계 — 5 그룹이 "나열" 에서 "흐름" 이 됐다 ──────────────────────
 //
-// Practice 그룹 정렬 = 인지 깊이 순:
-//   Flashcard (L4a 시각적 재인) → WordBlitz (L4a 자동) → SpellForge (L4b 생성)
+// 이전: 다섯 그룹이 각자 점 하나를 달고 **같은 무게로 나열**됐다. 순서에 의미가 있는데
+//   (읽고 → 단어를 모으고 → 익히고 → 본문으로 확인하고 → 통째로 재생산한다) 화면은
+//   그것을 말하지 않아서, 학습자에겐 그냥 일곱 개의 도구 목록이었다.
+// 지금: 다섯이 **번호가 붙은 한 줄기 레일**로 이어진다. 순서가 곧 정보다.
+//
+// **왜 순서를 보여도 되는가 (국내외 근거)**
+//   · 클래스카드(한국 교사 1/3 사용) — 암기 → 리콜 → 스펠 → 테스트. 한국 학습자에겐
+//     "단어 학습에는 정해진 단계가 있다" 가 이미 학습된 멘탈모델이다.
+//   · 스픽(Speak) — 모든 레슨이 Learn → Practice → Apply 3단계 골격을 공유한다.
+//   · Duolingo — 2022-11 단일 선형 path 전환. 명확성은 올랐으나 **탐색 자유도 상실**로
+//     반발이 컸다. 우리가 피해야 할 쪽이다.
+//   · Quizlet — Learn/Flashcards/Test/Match 를 **병렬**로 둔다. 자유롭지만 순서 안내가 없다.
+//   · Amazon Science(적응 스케줄링 실험) — 선형 조건이 **완주율**을, 자기주도 조건이
+//     **성적 향상**을 각각 이겼다. 둘은 반대 방향으로 간다.
+//
+// **그래서: 순서는 보이되 잠그지 않는다.** 전부 언제나 클릭된다. 자물쇠도, 비활성도,
+//   "아직 못 함" 도 없다 — `docs/LEARNING_FRAMEWORK.md` §4① 이 이미 내린 결론이고
+//   (`잠김·불가·금지·차단` 어휘는 테스트가 금지한다) 위 외부 근거가 그것을 뒷받침한다.
+//
+// ⚠️ **레일은 학습자의 현재 위치를 표시하지 않는다.** 같은 문서 §4 "이동을 알리는 자리는
+//   정확히 4개(chapter-end · session-end · today · vault-word) — 다섯 번째가 생기면
+//   처방 정본이 또 갈라진다". 사이드바가 "당신은 지금 3단계" 를 말하는 순간 그 다섯 번째가
+//   된다. 게다가 단계는 **학습자 등급이 아니라 단어 상태**다(§4③). 레일이 그리는 것은
+//   흐름의 **순서**이지 진도가 아니다.
+//
+// **Comics 는 레일 밖 최하단** (사용자 결정 2026-08-16) — 만화는 학습 단계가 아니라
+//   **읽는 방식**이다. 레일 안에 두면 여섯 번째 단계로 읽힌다.
 //
 // 메타 표면 2개 (v06.108 통합 4→2 · v06.109 영어 라벨): Today(/hub, forward) · Growth(/dashboard, backward).
 //   Level(진단)·Plan(계획)·Report(리포트) = Growth 의 "학습 관리" 섹션 카드(메타 peer 아님). /manage 폐지.
@@ -43,11 +67,25 @@ export interface NavItem {
   children?: NavItem[]
 }
 
+/** 흐름 단계 키 — 코드 식별자. 학습자가 읽는 이름은 `label` 이다. */
+export type FlowStage = 'read' | 'word' | 'practice' | 'conquer' | 'complete'
+
 export interface NavGroup {
   label: string
-  /** FlowNav stage accent 색 (시각 일관성) */
+  /** 단계 강조색 (시각 일관성) */
   accent: string
-  flowStage: 'script' | 'word' | 'practice' | 'conquer' | 'complete'
+  flowStage: FlowStage
+  /**
+   * 레일 위 번호 — **순서**를 말한다. 진도도, 자격도, 잠금도 아니다.
+   * 배열 순서와 반드시 일치한다(테스트가 강제).
+   */
+  step: number
+  /**
+   * 이 단계에서 학습자가 하는 일 — 한 줄. **상시 노출하지 않는다**:
+   * 지금 그 단계에 있을 때만 한 줄 나타난다(Progressive Disclosure).
+   * 다섯 줄을 늘 띄우면 그건 설명서지 내비가 아니다.
+   */
+  says: string
   items: NavItem[]
 }
 
@@ -56,11 +94,21 @@ export const META_ITEMS: NavItem[] = [
   { label: 'Growth', href: '/dashboard', icon: BarChart3, ariaLabel: 'Growth — 단어가 자란 기록·기억·주간 리듬 + 학습 관리(Level·Plan·Report)' },
 ]
 
+/**
+ * 학습 흐름 5단계 — **배열 순서 = 레일 번호**.
+ *
+ * 라벨이 'Scripts' 에서 `Read` 로 바뀐 이유: 'Scripts' 는 자료 이름이었는데
+ * (그마저 `axes.ts` 가 세 뜻으로 갈렸다고 판정해 정리한 단어다) 나머지 넷은 **하는 일**의
+ * 이름이었다. 한 레일 위에 자료 이름 하나와 행위 이름 넷이 섞이면 순서가 안 읽힌다.
+ * 다섯을 전부 "여기서 무엇을 하는가" 로 통일한다.
+ */
 export const NAV_GROUPS: NavGroup[] = [
   {
-    label: 'Scripts',
+    label: 'Read',
     accent: '#8B5CF6', // 보라
-    flowStage: 'script',
+    flowStage: 'read',
+    step: 1,
+    says: '읽을 것을 고르고 만나요',
     items: [
       // 펼침 구조는 **하위 3면이 실재하는 두 곳**만 갖는다 (`lib/library/tabs.ts`):
       //   Library(공용)    — Books · Dispatches · Decks
@@ -102,34 +150,12 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
-  // Comics — Scripts 에서 빼내 **바로 아래 별도 메뉴**로 (사용자 결정 2026-08-09).
-  //   Scripts 는 "읽을 원문"의 그룹이다. 만화는 원문이 아니라 **읽는 방식**이라
-  //   그 안에 두면 Library·Texts 와 같은 층위로 오해된다.
-  //   flowStage 를 'script' 로 남긴 이유: 학습 흐름상 여전히 읽기 단계이고,
-  //   FlowNav 는 NAV_GROUPS 를 쓰지 않으므로 단계가 늘어나지 않는다.
-  {
-    label: 'Comics',
-    accent: '#8B5CF6',
-    flowStage: 'script',
-    items: [
-      {
-        label: 'Book Comics',
-        href: '/comics/adapted',
-        icon: BookImage,
-        ariaLabel: 'Book Comics — 읽는 책을 만화로',
-      },
-      {
-        label: 'Vintage Comics',
-        href: '/comics/restored',
-        icon: ScanLine,
-        ariaLabel: 'Vintage Comics — 1940~50년대 옛 영어 만화책',
-      },
-    ],
-  },
   {
     label: 'Words',
     accent: '#6366F1', // 인디고
     flowStage: 'word',
+    step: 2,
+    says: '만난 단어를 내 것으로 모아요',
     items: [
       {
         label: 'WordVault',
@@ -143,6 +169,8 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Practice',
     accent: '#EC4899', // 핑크
     flowStage: 'practice',
+    step: 3,
+    says: '어느 쪽이 무른지 골라 익혀요',
     items: [
       // v06.202 — 도구 4개(Flashcard·WordBlitz·PairFlip·SpellForge)를 `/practice` 하나로 접었다.
       //
@@ -181,6 +209,8 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Conquer',
     accent: '#F59E0B', // 앰버
     flowStage: 'conquer',
+    step: 4,
+    says: '읽던 본문으로 되돌아가 확인해요',
     items: [
       {
         label: 'ScriptQuiz',
@@ -194,6 +224,8 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Complete',
     accent: '#06B6D4', // 시안
     flowStage: 'complete',
+    step: 5,
+    says: '들은 것을 통째로 다시 써 봐요',
     items: [
       {
         label: 'Dictation',
@@ -204,6 +236,34 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
 ]
+
+/**
+ * 레일 **밖** 항목 — 단계가 아닌 것들. 흐름 아래 최하단에 조용히 둔다.
+ *
+ * Comics: 만화는 학습 단계가 아니라 **읽는 방식**이다(2026-08-09 결정으로 Scripts 그룹에서
+ *   이미 빼냈고, 2026-08-16 에 레일 밖 최하단으로 내렸다). 레일 안에 있으면 여섯 번째
+ *   단계로 읽히고, 실제로 Read 와 같은 보라색을 달고 Read 바로 아래 붙어 있어서
+ *   "읽기 다음에 만화" 라는 없는 순서를 암시했다.
+ */
+export const ASIDE_GROUP: { label: string; says: string; accent: string; items: NavItem[] } = {
+  label: 'Comics',
+  says: '같은 이야기를 그림으로',
+  accent: '#8B5CF6',
+  items: [
+    {
+      label: 'Book Comics',
+      href: '/comics/adapted',
+      icon: BookImage,
+      ariaLabel: 'Book Comics — 읽는 책을 만화로',
+    },
+    {
+      label: 'Vintage Comics',
+      href: '/comics/restored',
+      icon: ScanLine,
+      ariaLabel: 'Vintage Comics — 1940~50년대 옛 영어 만화책',
+    },
+  ],
+}
 
 export const FOOTER_ITEMS: NavItem[] = [
   {

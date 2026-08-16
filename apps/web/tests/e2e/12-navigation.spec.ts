@@ -230,6 +230,50 @@ test.describe('내비게이션 기본기', () => {
     expect(checked, '검증된 면이 0개 — 계정 자료를 확인할 것').toBeGreaterThan(0);
   });
 
+  test('학습 흐름 레일 — 5단계가 순서대로 있고, Comics 는 레일 밖 최하단이다', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000);
+    // 이 단언이 지키는 것: ① 번호가 순서를 말한다 ② 아무것도 잠겨 있지 않다
+    // ③ 만화가 여섯 번째 단계로 읽히지 않는다.
+    await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 });
+    const sidebar = page.getByRole('complementary', { name: '주 메뉴' });
+    await expect(sidebar).toBeVisible({ timeout: 15_000 });
+
+    // 단계 제목은 heading — 순서는 sr-only 문장이 말한다("흐름 N번째 · 이름")
+    const stageNames = ['Read', 'Words', 'Practice', 'Conquer', 'Complete'];
+    for (const [i, name] of stageNames.entries()) {
+      await expect(
+        sidebar.getByRole('heading', { name: new RegExp(`흐름 ${i + 1}번째 · ${name}`) }),
+        `${i + 1}단계 ${name} 없음`,
+      ).toHaveCount(1);
+    }
+
+    // 잠그지 않는다 — LEARNING_FRAMEWORK §4① (자물쇠 UI 금지 · 잠금 어휘 금지)
+    await expect(sidebar.getByText(/잠김|잠금|불가|금지|차단/)).toHaveCount(0);
+    await expect(sidebar.locator('a[aria-disabled="true"], a[disabled]')).toHaveCount(0);
+
+    // Comics 는 레일 밖 — 마지막 단계(Complete)의 항목보다 **아래**에 있다.
+    const order = await sidebar
+      .locator('a[href]')
+      .evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute('href') || ''));
+    const iDictate = order.indexOf('/dictate');
+    const iComic = order.indexOf('/comics/adapted');
+    expect(iDictate, '/dictate 가 사이드바에 없다').toBeGreaterThan(-1);
+    expect(iComic, '/comics/adapted 가 사이드바에 없다').toBeGreaterThan(-1);
+    expect(iComic, 'Comics 가 흐름 위에 있다 — 만화는 학습 단계가 아니다').toBeGreaterThan(
+      iDictate,
+    );
+
+    // 흐름 항목 자체의 순서도 고정 — 읽기 → 단어 → 연습 → 정복 → 완성
+    const flow = ['/library', '/text', '/wordvault', '/practice', '/scriptquiz', '/dictate'];
+    const idx = flow.map((h) => order.indexOf(h));
+    expect(idx.every((v) => v > -1), `흐름 항목 누락: ${flow.filter((_, i) => idx[i] < 0)}`).toBe(
+      true,
+    );
+    expect([...idx].sort((a, b) => a - b), '흐름 순서가 어긋났다').toEqual(idx);
+  });
+
   test('진입 라우트가 첫 탭으로 리다이렉트된다', async ({ page }) => {
     test.setTimeout(120_000);
     for (const [from, expected] of REDIRECTS) {

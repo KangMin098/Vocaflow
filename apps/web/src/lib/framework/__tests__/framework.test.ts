@@ -12,7 +12,12 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { FOOTER_ITEMS, META_ITEMS, NAV_GROUPS } from '../../../components/layout/sidebar-config'
+import {
+  ASIDE_GROUP,
+  FOOTER_ITEMS,
+  META_ITEMS,
+  NAV_GROUPS,
+} from '../../../components/layout/sidebar-config'
 import { GAME_CATALOG } from '../../game/catalog'
 import { MATERIAL_LABEL, MATERIAL_LABEL_ONE } from '../../learner/plan-activities'
 import { LIBRARY_TABS, MY_LIBRARY_TABS, parseMyLibraryView } from '../../library/tabs'
@@ -124,7 +129,7 @@ describe('축 — 면 · 단계 · 표면', () => {
     const liveLabels = [
       ...META_ITEMS.map((i) => i.label),
       ...FOOTER_ITEMS.map((i) => i.label),
-      ...NAV_GROUPS.flatMap((g) => [
+      ...[...NAV_GROUPS, ASIDE_GROUP].flatMap((g) => [
         g.label,
         ...g.items.flatMap((i) => [i.label, ...(i.children ?? []).map((c) => c.label)]),
       ]),
@@ -140,6 +145,36 @@ describe('축 — 면 · 단계 · 표면', () => {
     for (const label of liveLabels) {
       expect(retired.has(label), `폐기된 표기가 아직 쓰인다: "${label}"`).toBe(false)
     }
+  })
+
+  it('학습 흐름 레일 — 번호가 배열 순서와 같고, 단계 키가 고유하다', () => {
+    // 번호는 손으로 적는 값이라 항목을 끼워 넣으면 조용히 어긋난다. 어긋난 순간
+    // 레일은 "순서를 말하는 장치" 가 아니라 **틀린 순서를 말하는 장치**가 된다.
+    NAV_GROUPS.forEach((g, i) => {
+      expect(g.step, `${g.label}: 번호가 배열 위치와 다르다`).toBe(i + 1)
+      expect(g.says.trim().length, `${g.label}: 이 단계에서 하는 일이 비어 있다`).toBeGreaterThan(0)
+      expect(g.items.length, `${g.label}: 빈 단계`).toBeGreaterThan(0)
+    })
+    const stages = NAV_GROUPS.map((g) => g.flowStage)
+    expect(new Set(stages).size, '단계 키 중복 — 레일 key 가 겹친다').toBe(stages.length)
+
+    // NN/g: 최상위 6개 초과 금지. 레일이 늘어나는 것을 여기서 막는다.
+    expect(NAV_GROUPS.length).toBeLessThanOrEqual(6)
+  })
+
+  it('레일은 막지 않는다 — 잠금 어휘가 단계 이름·설명에 없다', () => {
+    // `docs/LEARNING_FRAMEWORK.md` §4① — 자물쇠 UI 를 두지 않고, 잠김/불가/금지/차단 어휘를
+    // 쓰지 않는다. 번호를 붙이면 "순서 = 자격" 으로 미끄러지기 쉬워서 여기서 못 박는다.
+    const BANNED = /잠김|잠금|불가|금지|차단|먼저 해야|완료해야/
+    for (const g of NAV_GROUPS) {
+      expect(BANNED.test(g.label), `${g.label}: 잠금 어휘`).toBe(false)
+      expect(BANNED.test(g.says), `${g.label}: 잠금 어휘 — "${g.says}"`).toBe(false)
+    }
+  })
+
+  it('Comics 는 레일 밖에 있다 — 읽는 방식이지 학습 단계가 아니다', () => {
+    expect(NAV_GROUPS.some((g) => g.items.some((i) => i.href.startsWith('/comics')))).toBe(false)
+    expect(ASIDE_GROUP.items.map((i) => i.href)).toEqual(['/comics/adapted', '/comics/restored'])
   })
 
   it('서브메뉴가 페이지 탭과 같은 배열을 읽는다 (Library · My Library)', () => {

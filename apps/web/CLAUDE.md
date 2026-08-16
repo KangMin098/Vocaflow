@@ -39,6 +39,24 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 자동 skip 된다 — 가드를 고쳤으면 `DEV_ADMIN_BYPASS=0 NEXT_DIST_DIR=.next-nobypass npx next dev -p 3100`
 로 띄우고 `DEV_ADMIN_BYPASS=0 PLAYWRIGHT_BASE_URL=http://localhost:3100` 로 재실행해 확인할 것.
 
+## 사이드바 = 학습 흐름 레일 (v08.5)
+
+`components/layout/sidebar-config.ts` 가 단일 출처. 다섯 단계가 **번호 붙은 한 줄기 레일**로 이어진다:
+
+`① Read → ② Words → ③ Practice → ④ Conquer → ⑤ Complete`
+
+| 규칙 | 왜 |
+|---|---|
+| **번호는 순서다 — 진도·자격·잠금이 아니다** | 전부 언제나 클릭된다. 자물쇠 UI 금지 · `잠김/불가/금지/차단` 어휘 금지 ([LEARNING_FRAMEWORK](../docs/LEARNING_FRAMEWORK.md) §4①). `framework.test` 와 `12-navigation` 이 강제 |
+| **레일은 학습자 위치를 표시하지 않는다** | 같은 문서 §4 — "이동을 알리는 자리는 정확히 4개(chapter-end · session-end · today · vault-word). 다섯 번째가 생기면 처방 정본이 갈라진다." 사이드바가 "당신은 3단계" 를 말하는 순간 그 다섯 번째가 된다. 단계는 학습자 등급이 아니라 **단어 상태**(§4③) |
+| **`step` 은 배열 순서와 같아야 한다** | 손으로 적는 값이라 항목을 끼워 넣으면 조용히 어긋나고, 그 순간 레일은 *틀린 순서를 말하는 장치*가 된다 (테스트가 강제) |
+| **단계가 아닌 것은 `ASIDE_GROUP`** | Comics = 학습 단계가 아니라 **읽는 방식**. 레일 안에 두면 여섯 번째 단계로 읽힌다 |
+| **최상위 ≤6** | NN/g. 테스트가 강제 |
+
+한 줄 설명(`says`)은 **그 단계에 있을 때만** 뜬다 — 다섯 줄 상시 노출은 설명서지 내비가 아니다.
+
+⚠️ **모바일은 이 흐름을 보지 못한다** — 사이드바가 `hidden md:flex` 이고 하단 탭은 `SURFACES` 4개뿐이다. 미해결.
+
 ## 학습자가 읽는 이름 — 화면에서 짓지 말 것 (v06.141)
 
 메뉴·탭·활동 이름은 **영어**다. 이름을 정하는 곳은 두 군데뿐이고, 화면은 거기서 import 한다.

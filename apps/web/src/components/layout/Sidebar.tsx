@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 import {
+  ASIDE_GROUP,
   FOOTER_ITEMS,
   META_ITEMS,
   NAV_GROUPS,
@@ -172,14 +173,18 @@ export function Sidebar() {
         {/* divider */}
         <div className="my-4 border-t border-[var(--bd)]" aria-hidden="true" />
 
-        {/* NAV_GROUPS — 학습 흐름 5그룹 + Comics(Scripts 아래 별도 메뉴) */}
-        <div className="space-y-6">
-          {NAV_GROUPS.map((group) => (
+        {/* ── 학습 흐름 레일 — 다섯 단계가 한 줄기로 이어진다 ──
+            레일 선은 장식이므로 aria-hidden. 순서는 각 제목의 sr-only 텍스트가 말한다.
+            ⚠️ 여기에 "현재 단계" 표시를 넣지 말 것 — `docs/LEARNING_FRAMEWORK.md` §4 의
+            "이동을 알리는 자리는 정확히 4개" 를 깨고 처방 정본이 갈라진다. */}
+        {/* 레일 선은 **각 단계가 다음 단계까지** 그린다. 통짜 선 하나로 그렸더니 마지막
+            번호 아래로 꼬리가 남아 "다음이 더 있다" 로 읽혔다(실측 캡처에서 확인). */}
+        <div className="space-y-5">
+          {NAV_GROUPS.map((group, i) => (
             <NavGroupBlock
-              // flowStage 는 더 이상 고유하지 않다 — Comics 그룹이 Scripts 와 같은
-              // 'script' 단계를 공유한다(읽기 단계이되 별도 메뉴). 라벨이 고유 키다.
-              key={group.label}
+              key={group.flowStage}
               group={group}
+              isLast={i === NAV_GROUPS.length - 1}
               pathname={pathname}
               search={searchParams}
               collapsed={collapsed}
@@ -187,6 +192,37 @@ export function Sidebar() {
               onToggleSub={toggleSub}
             />
           ))}
+        </div>
+
+        {/* divider */}
+        <div className="my-5 border-t border-[var(--bd)]" aria-hidden="true" />
+
+        {/* ── 레일 밖 — 단계가 아닌 것. 만화는 학습 단계가 아니라 읽는 방식이다. ── */}
+        <div>
+          {!collapsed && (
+            <h3 className="mb-2 flex items-baseline gap-2 px-3">
+              <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                {ASIDE_GROUP.label}
+              </span>
+              <span className="truncate font-body text-[11.5px] font-[400] text-[var(--t2)]">
+                {ASIDE_GROUP.says}
+              </span>
+            </h3>
+          )}
+          <ul className="flex flex-col gap-1">
+            {ASIDE_GROUP.items.map((item) => (
+              <NavLinkItem
+                key={item.href}
+                item={item}
+                pathname={pathname}
+                search={searchParams}
+                collapsed={collapsed}
+                accent={ASIDE_GROUP.accent}
+                openSub={openSub}
+                onToggleSub={toggleSub}
+              />
+            ))}
+          </ul>
         </div>
 
         {/* divider */}
@@ -211,9 +247,11 @@ export function Sidebar() {
   )
 }
 
-// ── Group block — 라벨 + dot + 항목들 ──
+// ── 단계 블록 — 레일 위의 정거장(번호 + 이름) + 그 단계의 항목들 ──
 interface NavGroupBlockProps {
   group: NavGroup
+  /** 마지막 단계는 다음으로 잇는 선을 그리지 않는다 — 흐름은 여기서 끝난다 */
+  isLast: boolean
   pathname: string
   search: ReadonlyURLSearchParams | null
   collapsed: boolean
@@ -223,22 +261,66 @@ interface NavGroupBlockProps {
 
 function NavGroupBlock({
   group,
+  isLast,
   pathname,
   search,
   collapsed,
   openSub,
   onToggleSub,
 }: NavGroupBlockProps) {
+  // 지금 이 단계 안에 있는가 — **정거장 강조와 한 줄 설명에만** 쓴다.
+  // 진도가 아니다: 현재 경로가 어디 속하는지일 뿐이고, 그건 이미 항목 활성 표시가 말하고 있다.
+  // 여기서 하는 일은 그 활성 항목이 흐름의 **어디쯤인지**를 붙여 주는 것뿐이다.
+  const here = group.items.some(
+    (i) =>
+      matchesRoute(pathname, i.href, search) ||
+      (i.children ?? []).some((c) => matchesRoute(pathname, c.href, search)),
+  )
+
   return (
-    <div>
+    <div className="relative">
+      {/* 다음 단계로 잇는 선 — 이 번호 아래에서 다음 번호까지(-bottom-5 = space-y-5 간격).
+          선은 장식이므로 aria-hidden. 순서는 제목의 sr-only 문장이 말한다. */}
+      {!isLast && (
+        <span
+          aria-hidden="true"
+          className={`absolute -bottom-5 top-[19px] w-px bg-[var(--bd)] ${
+            collapsed ? 'left-1/2 -translate-x-1/2' : 'left-[9px]'
+          }`}
+        />
+      )}
+
+      {/* 정거장 — 번호는 **순서**다. 진도·자격·잠금이 아니다.
+          번호 배지가 레일 선 위에 얹혀 선을 끊어 준다(bg 로 punch through). */}
       {!collapsed ? (
-        <h3 className="mb-2.5 flex items-center gap-2.5 px-3">
+        <h3 className="mb-2 flex items-center gap-2.5">
           <span
-            className="h-1 w-1 shrink-0 rounded-full"
-            style={{ backgroundColor: group.accent }}
             aria-hidden="true"
-          />
-          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+            className="relative z-[1] inline-flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full border font-mono text-[10px] font-[700] tabular-nums transition-colors duration-[var(--dur-normal)]"
+            style={
+              here
+                ? {
+                    borderColor: group.accent,
+                    color: group.accent,
+                    backgroundColor: `color-mix(in srgb, ${group.accent} 10%, var(--bg))`,
+                  }
+                : {
+                    borderColor: 'var(--bd)',
+                    color: 'var(--t3)',
+                    backgroundColor: 'var(--bg)',
+                  }
+            }
+          >
+            {group.step}
+          </span>
+          <span
+            className={`font-display text-[11px] font-[700] uppercase tracking-[0.06em] transition-colors duration-[var(--dur-normal)] ${
+              here ? 'text-[var(--t1)]' : 'text-[var(--t2)]'
+            }`}
+          >
+            {/* 순서는 화면에선 배지가, 스크린리더에선 이 문장이 말한다.
+                "잠김/불가" 류 어휘를 쓰지 않는다 — 막는 것이 아니라 순서다. */}
+            <span className="sr-only">{`흐름 ${group.step}번째 · `}</span>
             {group.label}
           </span>
           <span
@@ -247,14 +329,37 @@ function NavGroupBlock({
           />
         </h3>
       ) : (
-        <div className="mb-1.5 flex justify-center" aria-hidden="true">
+        <div className="mb-1.5 flex justify-center">
           <span
-            className="h-1 w-1 rounded-full opacity-70"
-            style={{ backgroundColor: group.accent }}
-          />
+            aria-hidden="true"
+            className="relative z-[1] inline-flex h-[19px] w-[19px] items-center justify-center rounded-full border font-mono text-[10px] font-[700] tabular-nums"
+            style={
+              here
+                ? {
+                    borderColor: group.accent,
+                    color: group.accent,
+                    backgroundColor: `color-mix(in srgb, ${group.accent} 10%, var(--bg))`,
+                  }
+                : { borderColor: 'var(--bd)', color: 'var(--t3)', backgroundColor: 'var(--bg)' }
+            }
+          >
+            {group.step}
+          </span>
         </div>
       )}
-      <ul className="flex flex-col gap-1">
+
+      {/* 이 단계에서 하는 일 — **지금 그 단계에 있을 때만** 한 줄.
+          다섯 줄을 늘 띄우면 설명서가 되고, 하나도 없으면 번호의 뜻이 안 읽힌다.
+          (Progressive Disclosure — 깊이는 요청/맥락에서)
+          색은 `--t3` 로 뒀다가 11px 에서 대비가 모자라 `--t2` 로 올렸다(실측 캡처) —
+          보조 문장도 읽혀야 정보다. */}
+      {!collapsed && here && (
+        <p className="mb-1.5 pl-[29px] font-body text-[11.5px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
+          {group.says}
+        </p>
+      )}
+
+      <ul className={`flex flex-col gap-1 ${collapsed ? '' : 'pl-[7px]'}`}>
         {group.items.map((item) => (
           <NavLinkItem
             key={item.href}
