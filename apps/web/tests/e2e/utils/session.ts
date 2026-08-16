@@ -13,12 +13,24 @@ export async function startAnySession(page: Page): Promise<void> {
   const tabs = page.getByRole('tablist', { name: '받아쓸 자료 종류' }).getByRole('tab');
   await expect(tabs.first()).toBeVisible({ timeout: 20_000 });
 
+  // 카탈로그가 도착할 때까지 기다린다. 탭마다 3초씩 보던 첫 구현은 서버가 바쁠 때
+  // **로딩 중을 "자료 없음" 으로 읽어** 공용 헬퍼를 쓰는 테스트 4개가 같이 흔들렸다.
+  // 탭 옆 숫자가 보유 수이므로, 하나라도 0이 아니게 되면 카탈로그가 온 것이다.
+  await expect
+    .poll(
+      async () => {
+        const labels = await tabs.allTextContents();
+        return labels.some((t) => /[1-9]/.test(t));
+      },
+      { message: '자료 카탈로그가 도착하지 않았다', timeout: 30_000 },
+    )
+    .toBe(true);
+
   let opened = false;
   for (let i = 0; i < (await tabs.count()); i += 1) {
     await tabs.nth(i).click();
     const row = page.locator('main').last().locator("a[href*='/dictate/setup?']").first();
-    // 카탈로그는 비동기로 도착한다 — 즉시 isVisible 로 보면 로딩 중을 "자료 없음" 으로 읽는다
-    if (await row.isVisible({ timeout: 3_000 }).catch(() => false)) {
+    if (await row.isVisible({ timeout: 5_000 }).catch(() => false)) {
       await row.click();
       opened = true;
       break;

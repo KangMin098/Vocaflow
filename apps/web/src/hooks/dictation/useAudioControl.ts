@@ -31,6 +31,31 @@ function readPref(): VoiceEngine | null {
   return v === 'system' || v === 'neural' ? v : null
 }
 
+/**
+ * 신경망 합성 한 회차의 상한.
+ *
+ * 첫 사용은 모델(~17MB)과 ONNX 런타임을 받아야 해 몇 초가 걸린다. 그래서 넉넉히 잡되
+ * **무한정 기다리지는 않는다** — 못 받으면 시스템 음성으로 내려가는 편이 무음보다 낫다.
+ */
+const NEURAL_TIMEOUT_MS = 20_000
+
+/** 제한 시간 안에 안 끝나면 거부한다 — 호출부가 폴백을 탈 수 있게. */
+function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error('neural-timeout')), ms)
+    p.then(
+      (v) => {
+        clearTimeout(t)
+        resolve(v)
+      },
+      (e) => {
+        clearTimeout(t)
+        reject(e)
+      },
+    )
+  })
+}
+
 export function useAudioControl() {
   const systemRef = useRef<AudioController | null>(null)
   const neuralRef = useRef<NeuralVoiceController | null>(null)
@@ -82,21 +107,29 @@ export function useAudioControl() {
   const play = useCallback(
     async (text: string, rate: number, voiceURI?: string) => {
       setIsPlaying(true)
-      if (engine === 'neural' && neuralRef.current && !neuralFailed) {
-        setPreparing(true)
-        try {
-          await neuralRef.current.speak(text, rate)
-          setPreparing(false)
-          setIsPlaying(false)
-          return
-        } catch {
-          // 합성 실패 — 이번 재생부터 시스템 음성으로 되돌린다.
-          setPreparing(false)
-          setNeuralFailed(true)
+      try {
+        if (engine === 'neural' && neuralRef.current && !neuralFailed) {
+          setPreparing(true)
+          try {
+            // ⏱ 시간 제한이 없으면 **버튼이 죽는다.** 모델(ONNX 런타임·음성)을 못 받으면
+            //   합성 Promise 가 영영 안 끝나고, isPlaying 이 참에 갇혀 재생 버튼이
+            //   '정지' 로 바뀐 채 아무 소리도 안 난다 — 학습자에겐 "듣기가 안 된다".
+            //   (사용자 신고 2026-08-16. 엔진 선택은 localStorage 에 남아 매번 재현된다.)
+            await withTimeout(neuralRef.current.speak(text, rate), NEURAL_TIMEOUT_MS)
+            setPreparing(false)
+            return
+          } catch {
+            // 합성 실패·시간 초과 — 이번 재생부터 시스템 음성으로 되돌린다.
+            setPreparing(false)
+            setNeuralFailed(true)
+          }
         }
+        await systemRef.current?.speak({ text, rate, voiceURI })
+      } finally {
+        // 어떤 경로로 끝나든 **반드시** 푼다. 여기서 안 풀면 버튼이 영영 안 눌린다.
+        setIsPlaying(false)
+        setPreparing(false)
       }
-      await systemRef.current?.speak({ text, rate, voiceURI })
-      setIsPlaying(false)
     },
     [engine, neuralFailed],
   )
@@ -111,27 +144,33 @@ export function useAudioControl() {
     ) => {
       setIsPlaying(true)
       setIteration(0)
-      if (engine === 'neural' && neuralRef.current && !neuralFailed) {
-        setPreparing(true)
-        try {
-          await neuralRef.current.repeat(text, times, rate, pauseMs, (c) => {
+      try {
+        if (engine === 'neural' && neuralRef.current && !neuralFailed) {
+          setPreparing(true)
+          try {
+            // 반복 재생은 회차마다 시간이 드니 한 회차 기준으로 넉넉히 잡는다.
+            await withTimeout(
+              neuralRef.current.repeat(text, times, rate, pauseMs, (c) => {
+                setPreparing(false)
+                setIteration(c)
+              }),
+              NEURAL_TIMEOUT_MS * Math.max(1, times),
+            )
             setPreparing(false)
-            setIteration(c)
-          })
-          setPreparing(false)
-          setIsPlaying(false)
-          setIteration(0)
-          return
-        } catch {
-          setPreparing(false)
-          setNeuralFailed(true)
+            return
+          } catch {
+            setPreparing(false)
+            setNeuralFailed(true)
+          }
         }
+        await systemRef.current?.repeat(text, times, rate, pauseMs, voiceURI, (current) =>
+          setIteration(current),
+        )
+      } finally {
+        setIsPlaying(false)
+        setPreparing(false)
+        setIteration(0)
       }
-      await systemRef.current?.repeat(text, times, rate, pauseMs, voiceURI, (current) =>
-        setIteration(current),
-      )
-      setIsPlaying(false)
-      setIteration(0)
     },
     [engine, neuralFailed],
   )

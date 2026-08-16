@@ -323,6 +323,44 @@ test.describe('받아쓰기 세션 URL 직접 열기', () => {
     }
   });
 
+  /**
+   * I. 재생 버튼이 **죽지 않는다** (사용자 신고 2026-08-16 "듣기 버튼 안됨").
+   *
+   * 버튼은 `isPlaying ? 정지 : 재생` 이다. 그래서 합성이 끝났다는 신호가 안 오면
+   * isPlaying 이 참에 갇히고, 버튼은 '정지' 인 채로 **아무 소리도 안 나고 아무 일도 안 한다**.
+   * 신경망 음성 경로에는 시간 제한이 아예 없어서 모델(ONNX 런타임·음성 ~17MB)을 못 받으면
+   * 그 상태가 영구화됐다 — 엔진 선택은 localStorage 에 남으므로 매번 재현된다.
+   *
+   * 계약: **어떤 오디오 경로로 끝나든** 버튼은 다시 '재생' 으로 돌아온다.
+   * (헤드리스 브라우저에는 음성이 아예 없어 이 경로가 특히 잘 드러난다.)
+   */
+  test('I. 재생을 눌러도 버튼이 정지 상태에 갇히지 않는다', async ({ browser }) => {
+    const userId = await userIdByEmail(TEST_USER.email);
+    const sinceIso = new Date(Date.now() - 5_000).toISOString();
+    const ctx = await browser.newContext({ storageState: STATE_PATH });
+    const page = await ctx.newPage();
+    try {
+      await startAnySession(page);
+      await expect(page.getByRole('textbox').first()).toBeVisible({ timeout: 20_000 });
+
+      const playBtn = page.getByRole('button', { name: /^재생$|^정지$/ }).first();
+      await expect(playBtn).toBeVisible({ timeout: 20_000 });
+      await playBtn.click();
+
+      // 합성이 되든 안 되든 상한(20초) 안에 '재생' 으로 돌아와야 한다.
+      await expect(
+        page.getByRole('button', { name: '재생' }).first(),
+        '재생 버튼이 정지 상태에 갇혔다 — 학습자에겐 "듣기가 안 된다"',
+      ).toBeVisible({ timeout: 30_000 });
+
+      // 그리고 다시 눌리는 상태여야 한다 (모양만 돌아오고 죽어 있으면 같은 문제다)
+      await expect(page.getByRole('button', { name: '재생' }).first()).toBeEnabled();
+    } finally {
+      await ctx.close();
+      if (userId) await deleteDictationSince(userId, sinceIso);
+    }
+  });
+
   test('E. Tab 이 포커스를 옮긴다 (문항을 건너뛰지 않는다)', async ({ browser }) => {
     const userId = await userIdByEmail(TEST_USER.email);
     const sinceIso = new Date(Date.now() - 5_000).toISOString();
