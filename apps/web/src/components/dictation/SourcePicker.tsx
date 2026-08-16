@@ -24,8 +24,9 @@ import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 type TabId = 'books' | 'scripts' | 'sets'
 
-// 라벨 출처 = `MATERIAL_LABEL`. 여기 'scripts' 는 **학습자가 직접 넣은 글**(script)이지
+// 라벨 출처 = `MATERIAL_LABEL`. 여기 'scripts' 는 **학습자가 직접 넣은 본문**(script → Texts)이지
 // 라이브러리의 공개 짧은 글(article=Dispatches)이 아니다 — 둘을 같은 이름으로 부르면 안 된다.
+// (내부 키는 'scripts' 로 둔다 — 저장된 탭 상태·라우트 파라미터가 그 값을 쓴다. 바뀐 것은 이름뿐.)
 const TABS: Array<{ id: TabId; label: string; icon: typeof BookOpen }> = [
   { id: 'books', label: MATERIAL_LABEL.book, icon: BookOpen },
   { id: 'scripts', label: MATERIAL_LABEL.script, icon: FileText },

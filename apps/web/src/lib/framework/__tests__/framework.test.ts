@@ -12,7 +12,10 @@
 
 import { describe, expect, it } from 'vitest'
 
+import { FOOTER_ITEMS, META_ITEMS, NAV_GROUPS } from '../../../components/layout/sidebar-config'
 import { GAME_CATALOG } from '../../game/catalog'
+import { MATERIAL_LABEL, MATERIAL_LABEL_ONE } from '../../learner/plan-activities'
+import { LIBRARY_TABS, MY_LIBRARY_TABS, parseMyLibraryView } from '../../library/tabs'
 import {
   CROSS,
   FACETS,
@@ -111,6 +114,70 @@ describe('축 — 면 · 단계 · 표면', () => {
       expect(d.why.trim().length, `${d.was}: 근거 없음`).toBeGreaterThan(20)
       for (const n of d.now) expect(n.name.trim().length).toBeGreaterThan(0)
     }
+  })
+
+  it('폐기하기로 한 표기가 살아 있는 내비/라벨 레지스트리에 남아 있지 않다', () => {
+    // 왜 이 단언인가: `retire` 목록은 **결정**인데, 결정을 적어 두는 것과 화면이 따르는 것은
+    // 별개다. 실제로 v08.4 까지 사이드바는 retire 된 `My Scripts` 를 그대로 팔고 있었고,
+    // `MATERIAL_LABEL.script` 는 같은 대상을 `Scripts` 로 불러 **두 레지스트리가 한 대상을
+    // 서로 다르게 부르는 상태**가 오래 유지됐다. 아무 예외도 나지 않기 때문이다.
+    const liveLabels = [
+      ...META_ITEMS.map((i) => i.label),
+      ...FOOTER_ITEMS.map((i) => i.label),
+      ...NAV_GROUPS.flatMap((g) => [
+        g.label,
+        ...g.items.flatMap((i) => [i.label, ...(i.children ?? []).map((c) => c.label)]),
+      ]),
+      ...LIBRARY_TABS.map((t) => t.label),
+      ...MY_LIBRARY_TABS.map((t) => t.label),
+      ...Object.values(MATERIAL_LABEL),
+      ...Object.values(MATERIAL_LABEL_ONE),
+      ...SURFACE_ORDER.map((id) => SURFACES[id].name),
+    ]
+
+    // 서술형 폐기 항목('Library 탭 "스크립트"' 등)은 라벨이 아니므로 정확 일치만 본다.
+    const retired = new Set(NAME_DECISIONS.flatMap((d) => d.retire))
+    for (const label of liveLabels) {
+      expect(retired.has(label), `폐기된 표기가 아직 쓰인다: "${label}"`).toBe(false)
+    }
+  })
+
+  it('서브메뉴가 페이지 탭과 같은 배열을 읽는다 (Library · My Library)', () => {
+    // 사이드바가 목록을 복사해 들면 화면은 멀쩡해 보이고 한쪽에만 없는 면이 생긴다.
+    const items = NAV_GROUPS.flatMap((g) => g.items)
+    const pairs: Array<[string, ReadonlyArray<{ href: string; label: string }>]> = [
+      ['/library', LIBRARY_TABS],
+      ['/text', MY_LIBRARY_TABS],
+    ]
+    for (const [href, tabs] of pairs) {
+      const parent = items.find((i) => i.href === href)
+      expect(parent?.children?.map((c) => c.href), `${href} 자식 href`).toEqual(
+        tabs.map((t) => t.href),
+      )
+      expect(parent?.children?.map((c) => c.label), `${href} 자식 라벨`).toEqual(
+        tabs.map((t) => t.label),
+      )
+    }
+  })
+
+  it('My Library 세 면은 주소를 갖고, 부모와 이름이 겹치지 않는다', () => {
+    // 주소가 없으면 사이드바에서 특정 면으로 들어갈 수 없다 — 이 서브메뉴의 존재 이유가 사라진다.
+    for (const t of MY_LIBRARY_TABS) {
+      expect(t.href).toBe(`/text?view=${t.view}`)
+      expect(parseMyLibraryView(t.view)).toBe(t.view)
+    }
+    expect(parseMyLibraryView('nope')).toBeNull()
+    expect(parseMyLibraryView(undefined)).toBeNull()
+
+    // 부모 이름이 자식 중 하나와 같으면 층위가 안 읽힌다('Texts > Texts' 를 피한 이유).
+    const parent = NAV_GROUPS.flatMap((g) => g.items).find((i) => i.href === '/text')
+    expect(parent?.label).toBeTruthy()
+    expect(MY_LIBRARY_TABS.map((t) => t.label)).not.toContain(parent!.label)
+
+    // 공용 Library 와 대칭이되 한 칸이 다르다 — 내 것 공간에 Dispatches 는 없다.
+    expect(MY_LIBRARY_TABS.map((t) => t.label)).not.toContain(
+      LIBRARY_TABS.find((t) => t.href === '/library/scripts')!.label,
+    )
   })
 })
 

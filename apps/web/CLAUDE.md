@@ -45,12 +45,28 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 
 | 파일 | 소유하는 이름 |
 |---|---|
-| `lib/framework/axes.ts` | 표면(`SURFACES[].name` = Today·Library·Vault·Growth) · 축(Facet·Stage) |
+| `lib/framework/axes.ts` | 표면(`SURFACES[].name` = Today·Library·Vault·Growth) · 축(Facet·Stage) · 이름 충돌 결정(`NAME_DECISIONS`) |
 | `lib/learner/plan-activities.ts` | 자료 유형(`MATERIAL_LABEL`) · 활동(`PLAN_ACTIVITIES[].label`) · 요일 · 출처 |
+| `lib/library/tabs.ts` | 하위 3면 목록 — `LIBRARY_TABS`(공용 서가) · `MY_LIBRARY_TABS`(/text). 페이지 탭과 사이드바 서브메뉴가 공유 |
 
-**자료 유형 4종** — `Books` / `Dispatches`(arXiv·NASA·NIH·VOA 짧은 글) / `Decks`(발행 단어장) / `Scripts`(학습자가 넣은 글).
-⚠️ `scripts` 라는 키가 화면마다 다른 것을 가리킨다: Library 탭에서는 **공개 짧은 글**(`article`=Dispatches),
-Dictation·Vault 탭에서는 **내가 넣은 글**(`script`=Scripts). 라벨을 손으로 적으면 이 둘이 같은 이름이 된다.
+**두 서가는 대칭이되 한 칸이 다르다**:
+
+| | 3면 |
+|---|---|
+| `Library` (공용, `/library/*`) | Books · **Dispatches** · Decks |
+| `My Library` (내 것, `/text?view=`) | Books · **Texts** · Decks |
+
+`Dispatches`(ACP 공개 짧은 글)는 내 것 공간에 존재하지 않는다 — 그 자리에 있는 것은 **내가 구독한 세트**(Decks)이고
+낱개 본문이 `Texts` 다. 없는 것을 대칭으로 채우면 빈 링크를 파는 것이다.
+`/text` 의 세 면은 라우트가 아니라 한 화면의 탭이라 **`?view=books|scripts|vocab` 으로 주소화**돼 있다
+(주소가 없으면 사이드바·북마크·공유 어디서도 특정 면으로 들어올 수 없다).
+
+**자료 유형 4종** — `Books` / `Dispatches`(arXiv·NASA·NIH·VOA 짧은 글) / `Decks`(발행 단어장) / `Texts`(학습자가 넣은 본문).
+⚠️ `scripts` 라는 **키**가 화면마다 다른 것을 가리킨다: Library 탭에서는 **공개 짧은 글**(`article`=Dispatches),
+Dictation·Vault 탭에서는 **내가 넣은 본문**(`script`=Texts). 라벨을 손으로 적으면 이 둘이 같은 이름이 된다.
+(v08.4 — `script` 의 이름이 'Scripts' 였다. `axes.ts` 가 같은 것을 **Texts** 로 확정하고 사이드바 'My Scripts' 를
+retire 시켰는데 이 표가 안 따라와서, **두 레지스트리가 한 대상을 서로 다르게 부르고 있었다.** 지금은 셋 다 `Texts`.
+"Script" 는 활동명 `ScriptQuiz` 안에만 남는다.)
 
 **왜 모아 뒀나**: 한글이던 시절 같은 유형이 화면마다 갈려 있었다 — `article` 이 Plan 에서는 '스크립트',
 Library 에서는 '짧은 글' · `word_set` 이 '공용단어장'/'단어장'/'세트' 셋. 모바일 하단 탭은 자체 한국어

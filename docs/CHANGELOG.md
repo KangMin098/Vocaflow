@@ -10,6 +10,67 @@
 
 ## Unreleased (v06.34 → next)
 
+### TCP — 주제 코퍼스 파이프라인 신설 (마이그레이션 `20260816160000_topic_corpus_ingest`)
+
+사전 주제 분류의 집은 **이미 있었다** — `dictionary_categories` 566개(Oxford 18/76/472 3계층) +
+`dictionary_word_categories` 28,079 링크. 문제는 자라지 않는다는 것이었다: 커버리지가
+21,712 / 47,137 = **46%** 인데 링크 28,079건이 전부 `source='imported'` 한 덩어리다. 그리고 그
+taxonomy 에는 실제 담론에서 무엇이 어떤 주제와 함께 나타나는지에 대한 **증거가 없다**
+(`vocaflow_domains.science_tech`·`travel_culture` 는 `data_source_keys` 가 빈 배열인데도
+34,094개 단어에 난이도가 매겨져 있다 — 근거 없는 추론값). TCP 는 그 빈칸을 관측으로 채운다.
+
+- **테이블 4** — `topic_corpus_sources`(TED 15주제 시드) · `topic_corpus_queue`(드레인 큐) ·
+  `topic_corpus_docs`(수확 원장) · `topic_word_stats`(주제×표제어 빈도)
+- **뷰 1** — `v_topic_word_salience`: 배경 대비 로그오즈비(Dirichlet 평활). **원시 카운트만 저장하고
+  두드러짐은 뷰에서 계산** — 임계값을 바꿔도 재수확이 필요 없다
+- **RPC 6** — `enqueue_topic_corpus_docs` · `claim_topic_corpus_batch`(SKIP LOCKED + 30분 좀비 회수) ·
+  `release_topic_corpus_claim` · `ingest_topic_corpus_doc` · `apply_topic_categories`(기본 dry-run) ·
+  `topic_corpus_overview`
+- **`dictionary_word_categories.source` CHECK 확장** — `'corpus-derived'` 추가. 관측 유래 링크를
+  출처만으로 골라 되돌릴 수 있고, 기존 `imported` 판정은 어떤 경우에도 덮어쓰지 않는다
+- **원문 미저장이 스키마 제약** — 수확 원장에 본문 컬럼이 없다. 대상 코퍼스(TED)가 CC BY-NC-ND
+  (비영리·2차적저작물 금지)라 보관이 불가하므로 토큰화는 메모리에서 끝내고 카운트만 남긴다
+- **`tokenizeText` 에 `counts` 추가** — 학습자 추출과 코퍼스 통계가 **같은 토크나이저**를 쓴다.
+  두 벌로 나누면 축약형·하이픈·접두사 판정이 한쪽에서만 고쳐져 두 숫자가 영원히 안 맞는다
+- **신규 라우트** — `/admin/topic-corpus` + API 3(`enqueue`/`drain`/`promote`) · 화면도움말 1
+- **실측으로 닫은 함정** — TED 주제 페이지는 `?page=N` 으로 페이징되지 **않는다**(2페이지가 1페이지와
+  slug 16개 전부 동일). 짐작대로 짰다면 드레인이 같은 16편을 무한 재적재하며 "성공" 을 보고했을 것이다.
+  그래서 발견 결과에 **찾은 편수 vs TED 총 편수 격차(`coverageGap`)를 반드시 실어 보낸다** — 조용한 축소 금지
+- 회귀 11 (`lib/topic-corpus/__tests__/topic-corpus.test.ts`)
+
+### 사이드바 서브메뉴 (Library · My Library) + `My Scripts` → `Texts` (v08.4)
+
+"메뉴를 전부 3단 펼침으로" 라는 제안을 실측으로 검토해 **하위 3면이 실재하는 두 곳에만** 적용했다.
+전면 적용 시 사이드바 리프가 13 → 25 로 늘어 `axes.ts` 가 기록한 국외 관측 범위(3~6 표면)에서
+더 멀어진다. 적용하지 않은 곳: **Comics**(2면 · 이미 평면 2리프로 노출됨) · **Practice**(v06.202 가
+도구 4개를 한 칸으로 **접은** 자리 — `axes.ts` "활동은 Surface 가 아니다").
+
+- **신규 `lib/library/tabs.ts`** — 두 서가 하위면의 단일 출처. `LIBRARY_TABS`(Books·Dispatches·Decks) +
+  `MY_LIBRARY_TABS`(Books·Texts·Decks). 페이지 탭(`LibraryTabs` · `MyLibraryCarousel`)과 사이드바
+  서브메뉴가 **같은 배열**을 읽는다 (사이드바가 목록을 복사해 들면 페이지 탭과 조용히 갈라진다 —
+  하단 탭이 자체 한국어 라벨을 들었던 v06.141 과 같은 실패)
+- **두 서가는 대칭이되 한 칸이 다르다** — `Dispatches`(ACP 공개 짧은 글)는 내 것 공간에 없다.
+  그 자리는 **내가 구독한 세트**(Decks)이고 낱개 본문이 `Texts` 다. 없는 것을 대칭으로 채우면 빈 링크가 된다
+- **`/text` 3탭이 주소를 갖게 됐다** (`?view=books|scripts|vocab`) — 이전에는 순수 `useState` 라
+  사이드바·북마크·공유 어디서도 특정 면으로 들어올 수 없었다. 탭 라벨도 화면이 한국어로 따로 짓고 있던 것을
+  레지스트리 import 로 교정(프로젝트 규칙 위반이 남아 있던 자리) · 탭줄 `aria-label` 이 공용 서가와
+  **같은 이름**('라이브러리 탭')이던 것을 '내 라이브러리 탭' 으로 분리
+- **`Sidebar.tsx`** — `NavItem.children` 펼침 구조. 기본 접힘 · 해당 구역 안에서는 자동 펼침 ·
+  셰브런(44px, `aria-expanded`/`aria-controls`)으로 어디서나 수동 토글(세션 한정, localStorage 미저장) ·
+  축소 72px 모드에서는 미렌더. 하위가 열려 있고 자식이 활성이면 **활성 표식은 자식이 갖는다**
+  (부모·자식이 동시에 "지금 어디"를 말하지 않는다). 실이득: `/library` 는 첫 면으로 리다이렉트하므로
+  이전에는 Decks·Dispatches 로 가려면 Books 에 착지한 뒤 탭을 한 번 더 눌러야 했다
+- **이름 충돌 해소** — 사이드바 `My Scripts` 는 `axes.ts` `NAME_DECISIONS` 의 **retire 목록**에 올라 있던 표기다.
+  `MATERIAL_LABEL.script` 도 `'Scripts'` → `'Texts'`(단수 `'Text'`)로 맞췄다 — 한쪽만 바꾸면 두 레지스트리가
+  한 대상을 계속 다르게 부른다. 표시 지점: Dictation `SourcePicker` · Vault `ResourcePortfolio` · Plan/TodayPlanCard.
+  **내부 키 `script`/`'scripts'` 는 그대로**(저장 상태·라우트 파라미터)
+- **메뉴 이름은 `My Library`** — 이 자리는 낱개 본문만이 아니라 내 책·본문·구독 단어장 **셋의 컨테이너**이고
+  화면 자신의 제목도 '내 라이브러리' 다. `Texts` 는 그중 한 면의 이름으로 자식에 산다(부모·자식 동명 회피)
+- **회귀** — `12-navigation.spec.ts` 서브메뉴 스펙 2종(Library · My Library): 구역 밖 접힘 → 셰브런 펼침 →
+  3면 존재 → **첫 면을 거치지 않고** 마지막 면 직행 → 재진입 시 자동 펼침 + 자식 `aria-current` ·
+  `?view=` 가 실제로 그 면을 여는지(검증 0건이면 실패시키는 가드 포함 — 첫 판이 SWR 로딩을 "자료 0"으로
+  오판해 조용히 통과했다) · `framework.test.ts` 에 **retire 된 표기가 살아 있는 레지스트리에 없는지** 잠금(40 tests)
+
 ### 정기 플랫폼 진단을 상시 지침으로 등록 — 1회차 실측 기준선 확정
 
 만든 것과 쓴 것의 격차를 분기마다 강제로 재는 절차를 문서화했다. 이 프로젝트의 실패 모드는

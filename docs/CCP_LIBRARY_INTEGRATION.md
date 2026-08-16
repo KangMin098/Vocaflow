@@ -100,15 +100,18 @@ Harp & Mayer 계열 연구는 흥미롭지만 본질과 무관한 시각 요소�
 
 ```
 사이드바 Scripts 그룹
-├── Library   /library   ├── /books    도서       장편 원서 (Work 원본)
-│                        ├── /scripts  스크립트   ACP 짧은 글
-│                        └── /vocab    공용 단어장 어휘 세트          ← 3탭 유지
+├── Library   /library   ├── /books    Books      장편 원서 (Work 원본)
+│                        ├── /scripts  Dispatches ACP 짧은 글
+│                        └── /vocab    Decks      어휘 세트   ← 3탭 유지 + 사이드바 펼침(v08.4)
 ├── Comics    /comics    만화 단일 메뉴 (→ /comics/adapted 리다이렉트) ← D2
 │             ├── Adapted  /comics/adapted   도서 각색 (CCP)
 │             │            └── /[bookId]     만화 상세(프리뷰+포맷 선택)
 │             └── Restored /comics/restored  원본 복원 (PDCP)
 │                          └── /[slug]       복원 만화 리더
-└── My Scripts /text
+└── My Library /text     ├── ?view=books   Books  내 책 (챕터)
+                         ├── ?view=scripts Texts  낱개 본문
+                         └── ?view=vocab   Decks  구독 단어장   ← v08.4 사이드바 펼침
+                         ('My Scripts' 는 axes.ts retire 표기)
 ```
 
 **만화 메뉴는 하나, 안에서 출처로 나눈다** (2026-08-09 사용자 결정). 학습자에겐 둘 다 "만화"라 입구를 쪼개면

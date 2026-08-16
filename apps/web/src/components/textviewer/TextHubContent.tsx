@@ -16,6 +16,7 @@ import { MyLibraryCarousel } from '@/components/textviewer/MyLibraryCarousel'
 import { useSubscribedSets } from '@/hooks/useSubscribedSets'
 import { useTexts } from '@/hooks/useTexts'
 import { useUserVLevel } from '@/hooks/useUserVLevel'
+import type { MyLibraryView } from '@/lib/library/tabs'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 
 // v06.34 — 보라 saturate 폐기. 슬레이트 인디고 계열로 — Lora 영문 자료 정합 + Calm UI
@@ -43,7 +44,7 @@ function TextHubLoadingSkeleton() {
   )
 }
 
-export function TextHubContent() {
+export function TextHubContent({ view = null }: { view?: MyLibraryView | null }) {
   const { texts, isLoading, stats, continueText } = useTexts()
   const { sets: subscribedSets } = useSubscribedSets()
   const userVLevel = useUserVLevel()
@@ -129,6 +130,7 @@ export function TextHubContent() {
         scripts={scripts}
         vocabSets={subscribedSets}
         userVLevel={userVLevel}
+        view={view}
       />
 
       <DiscoveryFooter />

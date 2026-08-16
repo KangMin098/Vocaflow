@@ -38,7 +38,7 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/text` | `(main)/text/page.tsx` | 허브 — 내 스크립트 라이브러리 |
+| `/text` | `(main)/text/page.tsx` | 허브 — **My Library**. `?view=books\|scripts\|vocab` 로 세 면(Books·Texts·Decks) 직접 진입 (v08.4 · 사이드바 서브메뉴가 이 주소를 쓴다) |
 | `/text/new` | `(main)/text/new/page.tsx` | 입력 — 단일 / 책 (챕터별) 모드 (v06.34) |
 | `/text/[id]` | `(main)/text/[id]/page.tsx` + `layout.tsx` | 워크스페이스 (ReadingUniverse + ChapterSidebar) |
 | `/text/[id]/echo` | `(main)/text/[id]/echo/page.tsx` | EchoMatch 따라읽기 (v06.33) |
@@ -142,6 +142,7 @@
 | `/admin` | `admin/page.tsx` + `layout.tsx` | KPI 4 + 섹션 + 활동 피드 |
 | `/admin/users` | stub | 사용자 관리 |
 | `/admin/analytics` | stub | 플랫폼 분석 |
+| `/admin/topic-corpus` | `admin/topic-corpus/page.tsx` + `TopicCorpusClient.tsx` | TCP — 주제 코퍼스 적재·드레인·승격 (원문 미저장, 어휘 통계만) |
 | `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/quality/gates` | `admin/quality/gates/page.tsx` + `GateCheckClient.tsx` | 콘텐츠 품질 게이트 — 파이프라인 정확성 결정론 불변식 red/green (`run_content_quality_gates`) + 콘텐츠별 게시전 체크 |
 | `/admin/quality/judge` | `admin/quality/judge/page.tsx` + `JudgeClient.tsx` | 추출 품질 blind 판정 하네스 (Q3/Q5 골든 라벨 — `get_judgment_sample`/`save_extraction_judgment`) |

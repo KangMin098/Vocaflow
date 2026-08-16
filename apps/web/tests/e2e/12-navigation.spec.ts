@@ -122,6 +122,114 @@ test.describe('내비게이션 기본기', () => {
     }
   });
 
+  // 이 두 단언의 값: 서브메뉴가 `lib/library/tabs.ts` 를 **실제로** 읽는지 확인하는 것이다.
+  // 사이드바가 자기 목록을 복사해 들면 페이지 탭과 조용히 갈라진다 — 화면은 멀쩡해 보이고
+  // 한쪽에만 없는 면이 생긴다. 개수(3)와 목적지(3주소)를 둘 다 본다.
+  const SUBMENUS: Array<{
+    name: string;
+    parent: string;
+    toggle: RegExp;
+    subs: string[];
+    /** 첫 면을 거치지 않고 직행하는지 볼 마지막 면 + 착지 URL */
+    deep: [string, RegExp];
+  }> = [
+    {
+      name: 'Library',
+      parent: '/library',
+      toggle: /^Library 하위 메뉴/,
+      subs: ['/library/books', '/library/scripts', '/library/vocab'],
+      deep: ['/library/vocab', /\/library\/vocab$/],
+    },
+    {
+      // /text 의 세 면은 라우트가 아니라 한 화면의 탭이다 — `?view=` 로 주소화한 것이
+      //   이 서브메뉴의 전제다. 주소가 없으면 링크가 장식이 된다.
+      name: 'My Library',
+      parent: '/text',
+      toggle: /^My Library 하위 메뉴/,
+      subs: ['/text?view=books', '/text?view=scripts', '/text?view=vocab'],
+      deep: ['/text?view=vocab', /\/text\?view=vocab$/],
+    },
+  ];
+
+  for (const m of SUBMENUS) {
+    test(`사이드바 ${m.name} 서브메뉴가 3면으로 직접 이동한다`, async ({ page }) => {
+      test.setTimeout(240_000);
+
+      await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 });
+      const sidebar = page.getByRole('complementary', { name: '주 메뉴' });
+      await expect(sidebar).toBeVisible({ timeout: 15_000 });
+
+      // 해당 구역 밖에서는 접혀 있다 (기본 조용함)
+      for (const href of m.subs) {
+        await expect(sidebar.locator(`a[href="${href}"]`)).toHaveCount(0);
+      }
+
+      // 셰브런으로 어디서나 펼친다 — 이게 없으면 마지막 면은 여전히 첫 면을 거쳐야 한다
+      const toggle = sidebar.getByRole('button', { name: m.toggle });
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+      for (const href of m.subs) {
+        await expect(sidebar.locator(`a[href="${href}"]`), `서브메뉴에 ${href} 없음`).toHaveCount(1);
+      }
+
+      // 첫 면을 거치지 않고 마지막 면으로 직행
+      const [deepHref, deepUrl] = m.deep;
+      await sidebar.locator(`a[href="${deepHref}"]`).click();
+      await page.waitForURL(deepUrl, { timeout: 60_000 });
+      await expect(page.getByText(ERROR_SCREEN)).toHaveCount(0);
+
+      // 그 구역 안에서는 수동 조작 없이 열려 있고, 현재 면이 aria-current 를 갖는다
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await expect(sidebar.locator(`a[href="${deepHref}"]`)).toHaveAttribute(
+        'aria-current',
+        'page',
+        { timeout: 15_000 },
+      );
+      // 부모는 활성 표식을 자식에게 넘긴다 (같은 "지금 어디"를 두 번 말하지 않는다)
+      await expect(sidebar.locator(`a[href="${m.parent}"]`)).not.toHaveAttribute(
+        'aria-current',
+        'page',
+      );
+    });
+  }
+
+  test('/text?view= 가 실제로 그 면을 연다 (링크가 장식이 아니다)', async ({ page }) => {
+    test.setTimeout(180_000);
+    // 주소만 바뀌고 화면이 그대로면 서브메뉴는 거짓말이 된다. 탭의 aria-selected 로 확인한다.
+    // ⚠️ /text 는 클라이언트에서 자료를 가져온다(useTexts/SWR) — domcontentloaded 직후에는
+    //    탭줄이 아직 없다. 처음엔 count() 를 바로 읽어 **자료 0 으로 오판하고 조용히 통과**했다.
+    //    "없으면 건너뛴다" 류 분기는 이렇게 스펙 전체를 무력화한다.
+    const VIEWS = ['books', 'scripts', 'vocab'];
+    let checked = 0;
+
+    for (const view of VIEWS) {
+      await page.goto(`/text?view=${view}`, { waitUntil: 'domcontentloaded', timeout: 45_000 });
+      const tablist = page.getByRole('tablist', { name: '내 라이브러리 탭' });
+      const present = await tablist
+        .waitFor({ state: 'visible', timeout: 30_000 })
+        .then(() => true)
+        .catch(() => false);
+      if (!present) {
+        // 계정에 자료가 하나도 없으면 캐러셀 자체가 없다(EmptyState). 그건 이 스펙의 대상이 아니다.
+        expect(await page.getByText(/첫 스크립트|시작해|추가하기/).count()).toBeGreaterThan(0);
+        continue;
+      }
+      // 항목이 0인 면은 탭이 disabled 라 선택될 수 없다 — 그 면은 계정 상태 문제이지 배선 문제가 아니다.
+      const tab = tablist.getByRole('tab').nth(VIEWS.indexOf(view));
+      if (await tab.isDisabled()) continue;
+      await expect(tab, `?view=${view} 가 그 탭을 열지 않았다`).toHaveAttribute(
+        'aria-selected',
+        'true',
+      );
+      checked++;
+    }
+
+    // 셋 다 건너뛰었다면 이 스펙은 아무것도 확인하지 않은 것이다 — 통과로 위장시키지 않는다.
+    expect(checked, '검증된 면이 0개 — 계정 자료를 확인할 것').toBeGreaterThan(0);
+  });
+
   test('진입 라우트가 첫 탭으로 리다이렉트된다', async ({ page }) => {
     test.setTimeout(120_000);
     for (const [from, expected] of REDIRECTS) {

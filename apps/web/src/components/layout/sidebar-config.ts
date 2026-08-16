@@ -28,12 +28,19 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 
+import { LIBRARY_TABS, MY_LIBRARY_TABS } from '@/lib/library/tabs'
+
 export interface NavItem {
   label: string
   href: string
   icon: LucideIcon
   /** 스크린리더 풀텍스트 — 라벨이 짧을 때 보강 */
   ariaLabel?: string
+  /**
+   * 펼침 하위 항목. **자체로 목록을 짓지 않는다** — 페이지 탭과 같은 배열을 읽어야 갈라지지 않는다.
+   * 축소(72px) 모드에서는 렌더하지 않는다(자리가 없다 — 부모 툴팁이 대신한다).
+   */
+  children?: NavItem[]
 }
 
 export interface NavGroup {
@@ -55,23 +62,49 @@ export const NAV_GROUPS: NavGroup[] = [
     accent: '#8B5CF6', // 보라
     flowStage: 'script',
     items: [
+      // 펼침 구조는 **하위 3면이 실재하는 두 곳**만 갖는다 (`lib/library/tabs.ts`):
+      //   Library(공용)    — Books · Dispatches · Decks
+      //   My Library(내 것) — Books · Texts      · Decks   ← Dispatches 는 내 것 공간에 없다
+      // 둘 다 착지 후 탭을 한 번 더 눌러야 원하는 면에 닿았다(`/library` 는 첫 면으로 리다이렉트,
+      //   `/text` 는 항목이 가장 많은 면을 고른다). 사이드바가 그 한 번을 없앤다.
+      // Comics(2면)는 이미 평면 2리프로 노출돼 있고, Practice 는 v06.202 가 도구 4개를 한 칸으로
+      //   **접은** 자리라 다시 펼치지 않는다(`axes.ts`: 활동은 Surface 가 아니다).
       {
         label: 'Library',
         href: '/library',
         icon: Compass,
         ariaLabel: '공용 콘텐츠 라이브러리',
+        children: LIBRARY_TABS.map((t) => ({
+          label: t.label,
+          href: t.href,
+          icon: t.icon,
+          ariaLabel: `${t.label} — ${t.says}`,
+        })),
       },
+      // v08.4 — 'My Scripts' 는 `axes.ts` NAME_DECISIONS 의 **retire 목록**에 올라 있던 표기다
+      //   ("스크립트" 가 내 본문 · 큐레이션 아티클 · hub 카드 셋을 동시에 가리켰던 문제의 잔재).
+      //   `MATERIAL_LABEL.script` 도 같은 결정에서 `Texts` 로 맞췄다.
+      // 메뉴 이름이 `Texts` 가 아니라 `My Library` 인 이유: 이 자리는 낱개 본문만이 아니라
+      //   내 책·낱개 본문·구독 단어장 **셋의 컨테이너**다(화면 자신의 제목도 '내 라이브러리').
+      //   `Texts` 는 그중 한 면의 이름으로 자식에 그대로 산다 — 부모·자식에 같은 이름을 두면
+      //   층위가 안 읽힌다.
       {
-        label: 'My Scripts',
+        label: 'My Library',
         href: '/text',
         icon: BookOpen,
-        ariaLabel: '내가 등록한 스크립트',
+        ariaLabel: 'My Library — 내 책·본문·구독 단어장',
+        children: MY_LIBRARY_TABS.map((t) => ({
+          label: t.label,
+          href: t.href,
+          icon: t.icon,
+          ariaLabel: `${t.label} — ${t.says}`,
+        })),
       },
     ],
   },
   // Comics — Scripts 에서 빼내 **바로 아래 별도 메뉴**로 (사용자 결정 2026-08-09).
   //   Scripts 는 "읽을 원문"의 그룹이다. 만화는 원문이 아니라 **읽는 방식**이라
-  //   그 안에 두면 Library·My Scripts 와 같은 층위로 오해된다.
+  //   그 안에 두면 Library·Texts 와 같은 층위로 오해된다.
   //   flowStage 를 'script' 로 남긴 이유: 학습 흐름상 여전히 읽기 단계이고,
   //   FlowNav 는 NAV_GROUPS 를 쓰지 않으므로 단계가 늘어나지 않는다.
   {

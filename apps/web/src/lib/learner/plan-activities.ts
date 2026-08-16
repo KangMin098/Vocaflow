@@ -93,13 +93,17 @@ export function isActivityAllowed(type: MaterialType, activity: PlanActivity): b
  *                'Articles' 는 평범하고 'Shorts' 는 영상 플랫폼 연상이라 버렸다.
  *   Decks      — 발행 어휘 세트. ts-fsrs(Anki 계보)를 쓰는 제품에서 통용어이고,
  *                Vault(내 단어)·Words(사이드바 그룹)와 층위가 분명히 갈린다.
- *   Scripts    — 학습자가 직접 넣은 글. 사이드바 `My Scripts` 와 같은 말.
+ *   Texts      — 학습자가 직접 넣은 본문. 사이드바 `Texts` 와 같은 말.
+ *                v08.4 이전에는 여기만 'Scripts' 였다 — `axes.ts` NAME_DECISIONS 가 같은 것을
+ *                **Texts** 로 확정하고 'My Scripts' 를 retire 시킨 뒤에도 이 표가 안 따라와서,
+ *                한 대상에 두 이름(사이드바 'My Scripts' · Dictation/Vault 'Scripts')이 살아 있었다.
+ *                "Script" 는 이제 활동명 ScriptQuiz 안에만 남는다.
  */
 export const MATERIAL_LABEL: Record<MaterialType, string> = {
   book: 'Books',
   article: 'Dispatches',
   word_set: 'Decks',
-  script: 'Scripts',
+  script: 'Texts',
 }
 
 /** 단수형 — 한 건을 가리킬 때(뱃지·행 레이블). 복수형을 잘라 쓰면 'Dispatche' 가 된다. */
@@ -107,7 +111,7 @@ export const MATERIAL_LABEL_ONE: Record<MaterialType, string> = {
   book: 'Book',
   article: 'Dispatch',
   word_set: 'Deck',
-  script: 'Script',
+  script: 'Text',
 }
 
 export interface MaterialRef {

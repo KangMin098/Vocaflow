@@ -9,21 +9,14 @@
 
 'use client'
 
-import { BookOpen, FileText, Layers } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+import { LIBRARY_TABS } from '@/lib/library/tabs'
 
-// 라벨은 `MATERIAL_LABEL`(단일 출처)에서 가져온다 — 여기서 다시 짓지 않는다.
-//   한글이던 시절 이 탭은 '짧은 글'/'세트' 로, Plan 화면은 '스크립트'/'공용단어장' 으로 갈려 있었다.
-//   같은 것을 두 이름으로 부르면 학습자는 둘을 다른 것으로 배운다.
-// 라우트 URL 은 그대로 둔다(딥링크·북마크 보존). 바뀌는 것은 학습자가 읽는 이름뿐이다.
-const TABS = [
-  { label: MATERIAL_LABEL.book, href: '/library/books', icon: BookOpen },
-  { label: MATERIAL_LABEL.article, href: '/library/scripts', icon: FileText },
-  { label: MATERIAL_LABEL.word_set, href: '/library/vocab', icon: Layers },
-] as const
+// 목록·라벨은 `lib/library/tabs.ts` 하나가 갖는다 — 이 파일도, 사이드바 서브메뉴도 거기서 읽는다.
+//   여기서 다시 적으면 사이드바와 갈라진다(같은 실패: 하단 탭이 자체 라벨을 들었던 v06.141).
+//   라벨 자체의 출처는 그 파일이 참조하는 `MATERIAL_LABEL` 이다.
 
 export function LibraryTabs() {
   const pathname = usePathname()
@@ -35,7 +28,7 @@ export function LibraryTabs() {
       // 390px 에서 가로 스크롤 폴백(라벨 줄바꿈/찌그러짐 방지)
       className="flex gap-1 overflow-x-auto border-b border-[var(--bd)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
-      {TABS.map((tab) => {
+      {LIBRARY_TABS.map((tab) => {
         const isActive = pathname.startsWith(tab.href)
         const Icon = tab.icon
         return (
@@ -44,6 +37,7 @@ export function LibraryTabs() {
             href={tab.href}
             role="tab"
             aria-selected={isActive}
+            aria-label={`${tab.label} — ${tab.says}`}
             className={`flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
               isActive
                 ? 'border-[#8B5CF6] text-[var(--t1)]'

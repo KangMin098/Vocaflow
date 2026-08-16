@@ -1,17 +1,29 @@
 // apps/web/src/components/textviewer/MyLibraryCarousel.tsx
 //
 // v06.33 — /text 허브 OTT coverflow.
-// 3 탭 (도서 · 스크립트 · 단어장) — 각 탭 안에서 좌우 토글로 항목 선택.
+// 3 탭 (Books · Texts · Decks) — 각 탭 안에서 좌우 토글로 항목 선택.
 // LibraryGrid / VocabSetCarousel 와 동일 iOS easing + premium cover.
+//
+// v08.4 — 탭이 **주소를 갖는다**(`/text?view=`). 이전에는 순수 useState 라 사이드바·북마크·
+//   공유 어디서도 특정 면으로 들어올 수 없었고, 탭 이름도 여기서 한국어로 따로 짓고 있었다
+//   (프로젝트 규칙: 메뉴·탭 이름은 레지스트리에서 import — 화면에서 짓지 않는다).
+//   목록·라벨·강조색은 이제 `lib/library/tabs.ts` 의 `MY_LIBRARY_TABS` 가 소유한다.
 
 'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { BookOpen, ChevronLeft, ChevronRight, FileText, Layers, Sparkles } from 'lucide-react'
+// 탭 아이콘은 `MY_LIBRARY_TABS` 가 들고 온다 — 여기서 다시 고르지 않는다.
+import { ChevronLeft, ChevronRight, FileText, Sparkles } from 'lucide-react'
 
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
+import {
+  MY_LIBRARY_TABS,
+  MY_LIBRARY_VIEW_PARAM,
+  type MyLibraryView,
+} from '@/lib/library/tabs'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 import type { LibraryText } from '@/types/library'
@@ -24,7 +36,7 @@ import {
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const DURATION = 600
 
-type TabKey = 'books' | 'scripts' | 'vocab'
+type TabKey = MyLibraryView
 
 interface Props {
   books: LibraryText[]      // texts with bookId (aggregated)
@@ -32,6 +44,8 @@ interface Props {
   vocabSets: SubscribedSet[]
   /** 학습자 V레벨 — 도서 상세의 i+1 레벨 권장 (0 = 미진단) */
   userVLevel?: number
+  /** `?view=` 로 지정된 면. null 이면 항목이 가장 많은 면으로 착지(기존 동작). */
+  view?: MyLibraryView | null
 }
 
 /** progressPercent → 학습 상태 */
@@ -79,11 +93,39 @@ function cardTransform(offset: number) {
   }
 }
 
-export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }: Props) {
-  // 첫 진입 탭 — 가장 많은 항목 기준
+export function MyLibraryCarousel({
+  books,
+  scripts,
+  vocabSets,
+  userVLevel = 0,
+  view = null,
+}: Props) {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // 첫 진입 탭 — 주소가 말하면 그것, 아니면 가장 많은 항목 기준.
   const initial: TabKey =
-    books.length > 0 ? 'books' : scripts.length > 0 ? 'scripts' : 'vocab'
+    view ?? (books.length > 0 ? 'books' : scripts.length > 0 ? 'scripts' : 'vocab')
   const [tab, setTab] = useState<TabKey>(initial)
+
+  // 주소가 바뀌면 따라간다 — 사이드바에서 **같은 화면의 다른 면**을 누르면 경로가 그대로라
+  // 리마운트가 없다. 이 동기화가 없으면 URL 만 바뀌고 화면은 그대로 있는다.
+  useEffect(() => {
+    if (view && view !== tab) setTab(view)
+    // tab 을 의존성에 넣으면 사용자가 탭을 눌러 바꾼 직후 주소가 되돌려 놓는다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view])
+
+  /** 탭 전환은 주소도 함께 옮긴다 — 뒤로가기·북마크·공유가 성립하도록. */
+  const selectTab = useCallback(
+    (key: TabKey) => {
+      setTab(key)
+      // `replace` — 탭 전환마다 히스토리가 쌓이면 뒤로가기가 탭 순회가 된다.
+      // `scroll: false` — 캐러셀이 화면 중간에 있어 위로 튀면 방금 고른 것을 놓친다.
+      router.replace(`${pathname}?${MY_LIBRARY_VIEW_PARAM}=${key}`, { scroll: false })
+    },
+    [router, pathname],
+  )
   const [activeMap, setActiveMap] = useState<Record<TabKey, number>>({
     books: 0,
     scripts: 0,
@@ -212,11 +254,20 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
     touchStartX.current = null
   }
 
-  const tabs: { key: TabKey; label: string; icon: typeof BookOpen; count: number; accent: string }[] = [
-    { key: 'books', label: '도서', icon: BookOpen, count: books.length, accent: '#6366F1' },
-    { key: 'scripts', label: '스크립트', icon: FileText, count: scripts.length, accent: '#3B82F6' },
-    { key: 'vocab', label: '단어장', icon: Layers, count: vocabSets.length, accent: '#0EA5E9' },
-  ]
+  // 라벨·아이콘·강조색은 레지스트리에서. 개수만 이 화면이 안다.
+  const countOf: Record<TabKey, number> = {
+    books: books.length,
+    scripts: scripts.length,
+    vocab: vocabSets.length,
+  }
+  const tabs = MY_LIBRARY_TABS.map((t) => ({
+    key: t.view,
+    label: t.label,
+    says: t.says,
+    icon: t.icon,
+    count: countOf[t.view],
+    accent: t.accent,
+  }))
   const currentTabAccent = tabs.find((t) => t.key === tab)!.accent
 
   if (items.length === 0 && tabs.every((t) => t.count === 0)) return null
@@ -224,7 +275,9 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
   return (
     <section className="flex flex-col items-center gap-5">
       {/* 3 탭 */}
-      <div role="tablist" aria-label="라이브러리 탭" className="flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
+      {/* aria-label 이 '라이브러리 탭' 이었다 — `LibraryTabs`(공용 서가)와 **같은 이름**이라
+          스크린리더 사용자에게는 두 화면의 다른 탭줄이 같은 것으로 불렸다. */}
+      <div role="tablist" aria-label="내 라이브러리 탭" className="flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
         {tabs.map((t) => {
           const isActive = t.key === tab
           const Icon = t.icon
@@ -233,7 +286,8 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
               key={t.key}
               role="tab"
               aria-selected={isActive}
-              onClick={() => setTab(t.key)}
+              aria-label={`${t.label} — ${t.says}`}
+              onClick={() => selectTab(t.key)}
               disabled={t.count === 0}
               className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
                 isActive
