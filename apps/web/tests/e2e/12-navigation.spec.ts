@@ -230,6 +230,35 @@ test.describe('내비게이션 기본기', () => {
     expect(checked, '검증된 면이 0개 — 계정 자료를 확인할 것').toBeGreaterThan(0);
   });
 
+  test('서브메뉴는 한 번에 하나만 열린다 (Books·Decks 가 두 벌 보이지 않는다)', async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
+    // Library(공용)와 My Library(내 것)는 자식 이름이 겹친다(Books · Decks).
+    // 둘이 동시에 펼쳐지면 한 화면에 Books 가 둘, Decks 가 둘 서서 어느 쪽이 공용인지
+    // 부모까지 거슬러 봐야 한다 — 실제로 그 상태로 배포됐다(사용자 지적 2026-08-16).
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 45_000 });
+    const sidebar = page.getByRole('complementary', { name: '주 메뉴' });
+    await expect(sidebar).toBeVisible({ timeout: 15_000 });
+
+    // /library 안이라 Library 는 자동 펼침 상태다(키가 없는 기본값) — 여기가 함정이었다.
+    await expect(sidebar.locator('a[href="/library/books"]')).toHaveCount(1);
+
+    // 그 상태에서 My Library 를 펼치면 Library 는 닫혀야 한다
+    await sidebar.getByRole('button', { name: /^My Library 하위 메뉴/ }).click();
+    await expect(sidebar.locator('a[href="/text?view=books"]')).toHaveCount(1);
+    await expect(
+      sidebar.locator('a[href="/library/books"]'),
+      'Library 가 같이 열려 있다 — Books 가 두 벌 보인다',
+    ).toHaveCount(0);
+
+    // 셰브런 aria-expanded 도 하나만 true
+    const expanded = await sidebar
+      .getByRole('button', { name: /하위 메뉴/ })
+      .evaluateAll((els) => els.filter((e) => e.getAttribute('aria-expanded') === 'true').length);
+    expect(expanded, '펼쳐진 서브메뉴가 2개 이상이다').toBe(1);
+  });
+
   test('학습 흐름 레일 — 5단계가 순서대로 있고, Comics 는 레일 밖 최하단이다', async ({
     page,
   }) => {

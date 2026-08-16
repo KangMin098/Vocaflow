@@ -57,6 +57,19 @@ function matchesRoute(
   return true
 }
 
+/**
+ * 펼침 하위를 가진 항목의 href 전부 — 아코디언(한 번에 하나)이 나머지를 닫을 때 쓴다.
+ * 설정에서 파생한다: 손으로 적으면 새 서브메뉴가 생겼을 때 조용히 빠진다.
+ */
+const SUB_PARENT_HREFS: string[] = [
+  ...META_ITEMS,
+  ...NAV_GROUPS.flatMap((g) => g.items),
+  ...ASIDE_GROUP.items,
+  ...FOOTER_ITEMS,
+]
+  .filter((i) => (i.children?.length ?? 0) > 0)
+  .map((i) => i.href)
+
 /** 펼침 패널 id — 셰브런의 `aria-controls` 가 가리킨다. */
 function panelId(href: string): string {
   return `sidebar-sub-${href.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '')}`
@@ -76,11 +89,27 @@ export function Sidebar() {
    */
   const [openSub, setOpenSub] = useState<Record<string, boolean>>({})
 
+  /**
+   * 하위 메뉴는 **한 번에 하나만** 열린다 (아코디언).
+   *
+   * 왜: Library(공용)와 My Library(내 것)는 같은 자료 축을 공유해서 자식 이름이 겹친다
+   * (`Books` · `Decks`). 둘을 동시에 펼치면 화면에 `Books` 가 두 개, `Decks` 가 두 개
+   * 나란히 서고, 어느 쪽이 공용인지 부모까지 거슬러 봐야 알 수 있다(실측 지적 2026-08-16).
+   * 애초에 이 자리에서 하는 일은 "읽을 곳 **한 군데**를 고르는 것" 이라 둘을 동시에 볼
+   * 이유가 없다 — `LEARNING_FRAMEWORK` §4④ "한 번에 한 걸음만 보인다" 와 같은 방향.
+   */
   const toggleSub = (href: string) =>
-    setOpenSub((prev) => ({
-      ...prev,
-      [href]: !(prev[href] ?? matchesRoute(pathname ?? '', href)),
-    }))
+    setOpenSub((prev) => {
+      const nextOpen = !(prev[href] ?? matchesRoute(pathname ?? '', href))
+      // 나머지 **전부**(아직 손댄 적 없는 것 포함)를 명시적 false 로 닫는다.
+      //   · `prev` 의 키만 닫으면 부족하다 — 자동 펼침(그 구역에 있음)은 키가 없어서
+      //     그대로 열려 있는다. /library 에서 My Library 를 펼치면 둘 다 열렸다.
+      //   · 키를 지우는 것으로도 안 된다 — 기본값이 되살아나 방금 닫은 것이 다시 열린다.
+      const next: Record<string, boolean> = {}
+      for (const parent of SUB_PARENT_HREFS) next[parent] = false
+      next[href] = nextOpen
+      return next
+    })
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
