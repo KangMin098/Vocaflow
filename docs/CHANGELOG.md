@@ -60,6 +60,26 @@ library-scripts 89 · library-vocab 88 · wordvault 88).
   브라우저가 죽는다(`settle` 중 context closed) — 4~6 라우트씩 배치로 돌릴 것
 - `--on-p` 정정 10곳(다크에서 흰 글자 2.90:1 → AA 미달)
 
+### ⏳ 적용 대기 — `word_lexicon` RPC 은퇴 (마이그레이션 `20260816140000`)
+
+**복원이 아니라 은퇴가 정답이었다.** 삭제된 13개 중 5개는 복원이 옳았고 실제로 복원했지만,
+마지막 하나(`word_lexicon`)는 **복원이 데이터를 파괴한다**.
+
+- `regenerate_auto_curated_set(uuid)` 본문은 `① DELETE FROM shared_words → ② INSERT ... FROM word_lexicon` 순서다.
+  지금은 ②에서 42P01 이 나 롤백되므로 **시끄럽게 실패해 안전**하다.
+  누군가 "미해결 목록" 을 보고 **빈 `word_lexicon` 을 복원하면 ②가 0건으로 정상 종료**하고
+  ①의 DELETE 가 커밋된다 → **`shared_words` 76,503행 / 1,333세트**(전체 81,413행의 **94%**)가
+  오류 없이 사라진다. 이 코드베이스가 지배적 결함으로 지목한 "조용한 실패" 의 교과서적 사례.
+- 복원해도 의미가 없다: `lexicon_source_tags`(5,421) · `word_frequency_stats`(5,421)에 **lemma 가 없어**
+  `lexicon_id` → 단어 매핑이 DB 안에서 불가능하다. `shared_words` 81,413행 중 `lexicon_id` 보유는 **1,402행뿐**.
+- 용도도 바뀌었다: `auto_curated` 세트 1,333 중 **1,129 가 도서-챕터 모양**
+  (`{book_id, chapter_idx, filter:'select_book_chapter_vocab'}` · `deliver_chapter_vocab` 소관),
+  이 함수가 기대하는 KICE 필터 모양은 24뿐.
+- 호출자 없음(앱·스크립트 전수 grep — 생성된 타입 선언뿐).
+- 조치: 함수를 **DROP 하지 않고 본문만 RAISE 로 교체**(타입 정합 유지 + 이유가 메시지에 남는다).
+  이러면 **나중에 word_lexicon 이 복원돼도 영원히 안전**하다 — 제거하는 것은 버그가 아니라 **지뢰**다.
+  `reject_word_lexicon_insert()`(발화 불가 고아 트리거 함수)는 DROP.
+
 ### ⏳ 적용 대기 — `daily_activity.total_seconds` (마이그레이션 `20260816003000`)
 
 **작성·리뷰 완료, DB 미적용.** Claude Code 세션에서 `apply_migration` 이 권한 분류기에 막혔다
