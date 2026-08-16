@@ -690,6 +690,21 @@ ORDER BY version DESC LIMIT 20;
 |---|---|---|
 | `pd_comic_issues` | `slug` unique · `(source_adapter, source_identifier)` unique | 호 헤더 + 파이프라인 상태 + 발행 게이트 |
 | `pd_comic_panels` | `(issue_id, panel_order)` | 컷 단위 이미지 + 말풍선 jsonb |
+| `pd_comic_kinds` | `key` PK | **유형 마스터 12행** — 어휘 도메인 축 + `learner_note`(팝업이 읽음) |
+| `pd_comic_series` | `key` PK · `kind` FK | **시리즈 마스터** — 행은 `ingest-bulk.mjs` 가 규칙표에서 upsert |
+
+### 분류 축 ([20260816200000](../supabase/migrations/20260816200000_pd_comic_taxonomy.sql))
+
+`pd_comic_issues.kind` · `series_key` (둘 다 FK). 자유 텍스트 `series_title` 은 **원본 표기 보존용**으로 남긴다.
+
+왜 필요했나: 원본 제목이 `Fawcett Comics: Whiz Comics 022 (b and w) (coverless)` 처럼 들어와
+자유 텍스트 한 칸으로는 같은 시리즈가 표기마다 갈렸다 — **실측 1,020건에서 자유 텍스트 값 168개 vs 실제 시리즈 90개.**
+
+분류 정본은 `scripts/comic/pd/taxonomy.mjs` 의 **순서 있는 규칙표**(휴리스틱 금지 — 우연히 맞는 것과
+규칙으로 맞는 것을 구분할 수 없으면 조용히 갈라져도 모른다). `kind` FK 가 규칙표↔DB 드리프트를
+**적재 시점에 실패**시킨다. 파생 카운터(`issues_total`)는 **컬럼으로 두지 않고** RPC 에서 집계한다.
+
+실측 적재(2026-08-16): **969호 · 101시리즈 · 10유형 · 미분류 0**.
 
 ### 상태 (`pd_issues_status_chk`)
 
@@ -739,7 +754,14 @@ CCP 의 `comic_gen_runs` 를 PDCP 도 쓴다: `library_book_id` 를 nullable 로
 
 ### 학습자 RPC (SECURITY DEFINER · 발행 게이트)
 
-`list_pd_comics()` · `select_pd_comic(slug)` · `select_pd_comic_provenance(slug)`.
+`list_pd_comic_shelf()` · `list_pd_comics(p_series_key)` · `select_pd_comic(slug)` ·
+`select_pd_comic_info(slug)` · `select_pd_comic_provenance(slug)`.
+
+- `list_pd_comic_shelf()` — **유형 → 시리즈** 평면 행(발행본 있는 것만). 화면이 접는다(`foldShelf`).
+- `list_pd_comics(p_series_key)` — ⚠️ 20260816200000 에서 **반환 컬럼이 늘어 drop 후 재생성**했다.
+  무인자 오버로드를 남기면 `list_pd_comics()` 호출이 42725 ambiguous 로 죽으므로 함께 삭제한다.
+- `select_pd_comic_info(slug)` — 학습자 콘텐츠 정보 팝업(서지 + 유형 학습노트 + 출처·PD 근거 + 대사 수).
+  출처·근거를 학습자에게 **내보이는 것이 요건**이다 — 숨기면 정당한 PD 콘텐츠가 해적판처럼 보인다.
 
 RLS 는 `status='published'` 읽기만 허용하고, 컷은 **부모 호의 발행 상태**를 따른다
 (`EXISTS (SELECT 1 FROM pd_comic_issues i WHERE i.id = issue_id AND i.status='published')`).

@@ -54,7 +54,7 @@
 | `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 사이드바 Scripts 아래 별도 메뉴**. redirect → `/comics/adapted`. layout 에 ComicsTabs(Book Comics·Vintage Comics) |
 | `/comics/adapted` | `(main)/comics/adapted/page.tsx` | **Book Comics(책 만화 · CCP)** — 라이브러리 도서를 만화로. 발행 카탈로그 + 이어서 보기 (ComicsBrowser) |
 | `/comics/adapted/[bookId]` | `(main)/comics/adapted/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
-| `/comics/restored` | `(main)/comics/restored/page.tsx` | **Vintage Comics(옛 영어 만화책 · PDCP)** — 1940~50년대 퍼블릭도메인 만화 서가 |
+| `/comics/restored` | `(main)/comics/restored/page.tsx` | **Vintage Comics(옛 영어 만화책 · PDCP)** — **유형 → 시리즈 2단 서가**. `?series=<key>` 로 시리즈 안 호 목록. 카드마다 콘텐츠 정보 팝업(`ComicInfoDialog`) |
 | `/comics/restored/[slug]` | `(main)/comics/restored/[slug]/page.tsx` | 복원 만화 리더 (호 단위 · 세로 스크롤) |
 | `/library/vocab` | `(main)/library/vocab/page.tsx` | 공용 단어장 (8 카테고리) |
 | `/library/scripts` | `(main)/library/scripts/page.tsx` | redirect → `/library/books` (v06.34) |
@@ -217,10 +217,11 @@
 | `POST /api/lcp/dev-process` | dev 환경 admin 트리거 — book_id 단권 |
 | `POST /api/lcp/dev-drain-queue` | v06.34 — status='queued' N권 → dev-process 순차 호출 |
 
-### `/api/pdcp/*` (9) — 퍼블릭도메인 만화 파이프라인 (전부 admin 게이트)
+### `/api/pdcp/*` (10) — 퍼블릭도메인 만화 파이프라인 (전부 admin 게이트)
 
 | 라우트 | 설명 |
 |---|---|
+| `GET/POST /api/pdcp/bulk-ingest` | **원본 전체 소스 GET** — 컬렉션 전량을 검색 응답만으로 훑어 유형·시리즈 분류까지 적재. GET=계획(DB 쓰기 0) · POST=실행. 재실행 멱등. enqueue(상한 50건)와 달리 969건을 IA 요청 11회로 넣는다 |
 | `GET /api/pdcp/sources` | 어댑터 능력표 (`scripts/comic/pd/sources` 를 동적 import — 앱에 복제하지 않음) |
 | `POST /api/pdcp/search` | 소스별 검색 + 필터(컬렉션·연도·정렬·페이지) + **PD 위험도 랭킹** + 기적재 표시. bulk 미지원 어댑터는 400 |
 | `POST /api/pdcp/enqueue` | 대량 적재 → `status='queued'`. `pages` 로 테스트 모드(앞 N장) |
@@ -231,6 +232,12 @@
 | `DELETE/PATCH /api/pdcp/issue` | 호 삭제(발행분 거부 · `purge=1` 시 작업 디렉터리 동반 삭제) / 단계 되돌리기 |
 | `GET/POST /api/pdcp/assist` | **브라우저 보조 취득** — 방문 대상 사이트 목록 / 실제 크롬 창 세션 시작(dev 전용). 자동 수집이 금지·불가한 소스를 사람이 운전 |
 | `POST /api/lcp/dev-validate` | dev 검증 |
+
+### `/api/comics/*` (1) — 학습자 공개 (인증 불필요 · 카탈로그 공개 정책)
+
+| 라우트 | 설명 |
+|---|---|
+| `GET /api/comics/pd/[slug]/info` | 콘텐츠 정보 팝업 데이터 — `select_pd_comic_info` 래핑. 발행본만 노출(RPC 게이트). 서가 카드마다 미리 싣지 않고 **팝업 열 때** 1건만 (5분 캐시) |
 
 ### `/api/acp/*` ACP Worker (2)
 

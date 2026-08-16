@@ -105,7 +105,7 @@ export function AdminPdComicsClient({
             className="-mb-px min-h-[44px] border-b-2 px-3 font-display text-[13px] font-[700] transition-colors"
             style={{
               borderColor: tab === k ? ACCENT : 'transparent',
-              color: tab === k ? ACCENT : 'var(--t3)',
+              color: tab === k ? ACCENT : 'var(--t2)',
             }}
             aria-current={tab === k ? 'page' : undefined}
           >
@@ -132,6 +132,119 @@ export function AdminPdComicsClient({
       {tab === 'monitor' && <MonitorTab rows={rows} onMsg={setMsg} onRefresh={refresh} active={tab === 'monitor'} />}
       {tab === 'tools' && <ToolsTab />}
     </>
+  )
+}
+
+// ─── 대량 소스 GET — 컬렉션 전량 적재 ──────────────────────────────
+//
+// 왜 '검색 → 선택 → 적재' 와 별도 패널인가:
+//   그 경로는 한 화면 20건 · 상한 50건이라 1,000건을 넣으려면 사람이 50번 클릭해야 한다.
+//   게다가 호마다 metadata 를 한 번씩 더 쳐서 외부 사이트에 1,000회 추가 요청을 보낸다.
+//   여기는 검색 응답만으로 전량을 넣는다(969건 = IA 요청 11회) + 유형·시리즈까지 분류한다.
+//
+// '계획 보기' 를 먼저 두는 이유: 무엇이 몇 건 들어오고 무엇이 제외되는지 보고 나서 누르게 한다.
+// 계획은 DB 를 건드리지 않는다.
+function BulkIngestPanel({
+  onMsg,
+  onEnqueued,
+  schemaReady,
+}: {
+  onMsg: (s: string) => void
+  onEnqueued: () => void
+  schemaReady: boolean
+}) {
+  const [lines, setLines] = useState<string[]>([])
+  const [busy, setBusy] = useState<'plan' | 'run' | null>(null)
+  const [collection, setCollection] = useState('')
+
+  const call = async (mode: 'plan' | 'run') => {
+    setBusy(mode)
+    setLines([])
+    try {
+      const r = await fetch('/api/pdcp/bulk-ingest', {
+        method: mode === 'plan' ? 'GET' : 'POST',
+        ...(mode === 'run'
+          ? {
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ collection: collection || undefined, pages: null }),
+            }
+          : {}),
+      })
+      const j = await r.json()
+      if (!r.ok) throw new Error(j.error ?? '실패')
+      setLines(j.lines ?? [])
+      onMsg(mode === 'plan' ? '계획을 확인하세요 — DB 는 변경되지 않았습니다' : '대량 적재 완료')
+      if (mode === 'run') onEnqueued()
+    } catch (e) {
+      onMsg((e as Error).message)
+    } finally {
+      setBusy(null)
+    }
+  }
+
+  return (
+    <section
+      className="rounded-[var(--r-lg)] border p-4"
+      style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}08` }}
+    >
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">
+          원본 전체 소스 GET — 컬렉션 통째로
+        </h3>
+        <span className="font-body text-[11.5px] text-[var(--t2)]">
+          유형·시리즈까지 자동 분류해 적재합니다. 이미지는 아직 받지 않습니다(드레인이 받습니다).
+        </span>
+      </div>
+
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {['1964년+ 자동 제외', '표지 모음·색인 제외', '유형 10종 분류', '시리즈 정규화', '재실행 안전(멱등)'].map((g) => (
+          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t2)]">
+            ✓ {g}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-end gap-2">
+        <label className="flex flex-col gap-1">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">범위</span>
+          <select
+            value={collection}
+            onChange={(e) => setCollection(e.target.value)}
+            className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+          >
+            <option value="">전체 (Fawcett + Ace)</option>
+            <option value="fawcett-comics">Fawcett Comics 만</option>
+            <option value="ace-comics">Ace Comics 만</option>
+          </select>
+        </label>
+        <button
+          type="button"
+          onClick={() => void call('plan')}
+          disabled={busy != null}
+          className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)] disabled:opacity-50"
+        >
+          {busy === 'plan' ? '확인 중…' : '계획 보기 (DB 변경 없음)'}
+        </button>
+        <button
+          type="button"
+          onClick={() => void call('run')}
+          disabled={busy != null || !schemaReady}
+          className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
+          style={{ background: ACCENT }}
+        >
+          {busy === 'run' ? '적재 중…' : '전량 적재 실행'}
+        </button>
+        <span className="font-body text-[11px] text-[var(--t2)]">
+          외부 사이트를 훑습니다 — 30~60초 걸립니다.
+        </span>
+      </div>
+
+      {lines.length > 0 && (
+        <pre className="mt-3 max-h-[280px] overflow-auto rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-mono text-[11px] leading-relaxed text-[var(--t2)]">
+          {lines.join('\n')}
+        </pre>
+      )}
+    </section>
   )
 }
 
@@ -187,7 +300,7 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
       {/* 자동 적용 가드레일 — 사용자가 규칙을 몰라도 됨을 명시 */}
       <div className="mt-2 flex flex-wrap gap-1.5">
         {['1964년+ 자동 제외', 'PD 위험 재정렬', '학습 부적합(문법서·주니어) 제외', '표지-only 제외', '중복 제외', '명작 canon 가중'].map((g) => (
-          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t3)]">✓ {g}</span>
+          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t2)]">✓ {g}</span>
         ))}
       </div>
 
@@ -196,19 +309,19 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
         {tracks.map((t) => (
           <button key={t.key} type="button" title={t.note} disabled={busy} onClick={() => void run(t.query)} className="min-h-[34px] rounded-[var(--r-full)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>{t.label}</button>
         ))}
-        <span className="mx-1 font-mono text-[10px] text-[var(--t3)]">또는 명작:</span>
+        <span className="mx-1 font-mono text-[10px] text-[var(--t2)]">또는 명작:</span>
         {canon.slice(0, 14).map((c) => (
           <button key={c} type="button" disabled={busy} onClick={() => void run(c)} className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[11.5px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50">{c}</button>
         ))}
       </div>
 
-      {busy && !cands.length && <p className="mt-3 font-body text-[12px] text-[var(--t3)]">랭킹 중…</p>}
+      {busy && !cands.length && <p className="mt-3 font-body text-[12px] text-[var(--t2)]">랭킹 중…</p>}
 
       {cands.length > 0 && (
         <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
           <div className="flex flex-wrap items-center gap-2 border-b border-[var(--bd)] px-3 py-2">
             <span className="font-display text-[12px] font-[700] text-[var(--t1)]">&ldquo;{activeQuery}&rdquo; 추천 {cands.length}건</span>
-            <span className="font-mono text-[11px] text-[var(--t3)]">신규 {newCount}</span>
+            <span className="font-mono text-[11px] text-[var(--t2)]">신규 {newCount}</span>
             <label className="ml-auto flex items-center gap-1 font-body text-[11.5px] text-[var(--t2)]">앞
               <input type="number" min={1} max={60} value={pages} onChange={(e) => setPages(Number(e.target.value))} className="w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 text-right tabular-nums" />장</label>
             <button type="button" disabled={busy || !schemaReady || newCount === 0} onClick={() => void enqueueTop(6)} className="min-h-[34px] rounded-[var(--r-md)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>추천 상위 {Math.min(6, newCount)} 큐 적재 (앞 {pages}장)</button>
@@ -218,13 +331,13 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
               <li key={c.identifier} className="flex items-center gap-2.5 px-3 py-2">
                 <span className="w-10 shrink-0 text-center font-mono text-[13px] font-[800] tabular-nums" style={{ color: ACCENT }}>{c.fit.toFixed(1)}</span>
                 <div className="min-w-0 flex-1">
-                  <p className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{c.title}{c.publishedYear && <span className="ml-2 font-mono text-[10.5px] text-[var(--t3)]">{c.publishedYear}</span>}{c.pageCount && <span className="ml-1.5 font-mono text-[10.5px] text-[var(--t3)]">{c.pageCount}p</span>}</p>
+                  <p className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{c.title}{c.publishedYear && <span className="ml-2 font-mono text-[10.5px] text-[var(--t2)]">{c.publishedYear}</span>}{c.pageCount && <span className="ml-1.5 font-mono text-[10.5px] text-[var(--t2)]">{c.pageCount}p</span>}</p>
                   <p className="mt-0.5 flex flex-wrap items-center gap-1.5 font-body text-[11px] text-[var(--t2)]">
                     {c.pdRisk && RISK_UI[c.pdRisk] && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: RISK_UI[c.pdRisk].fg, background: RISK_UI[c.pdRisk].bg }}>{RISK_UI[c.pdRisk].label}</span>}
-                    {c.why.map((w) => <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] text-[var(--t3)]">{w}</span>)}
+                    {c.why.map((w) => <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] text-[var(--t2)]">{w}</span>)}
                   </p>
                 </div>
-                {c.existingStatus && <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">등록됨 · {c.existingStatus}</span>}
+                {c.existingStatus && <span className="shrink-0 font-mono text-[10px] text-[var(--t2)]">등록됨 · {c.existingStatus}</span>}
               </li>
             ))}
           </ul>
@@ -339,6 +452,9 @@ function SourceTab({
 
   return (
     <div className="flex flex-col gap-4">
+      {/* 대량 소스 GET — 컬렉션 전량을 유형·시리즈까지 분류해 한 번에 */}
+      <BulkIngestPanel onMsg={onMsg} onEnqueued={onEnqueued} schemaReady={schemaReady} />
+
       {/* 추천 소재 — 사전 지식 없이도 아는 명작만 고르면 자동 랭킹·적재 */}
       <RecommendPanel source={source} onMsg={onMsg} onEnqueued={onEnqueued} schemaReady={schemaReady} />
 
@@ -349,7 +465,7 @@ function SourceTab({
       <section className="overflow-x-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
         <table className="w-full min-w-[640px] text-left">
           <thead>
-            <tr className="border-b border-[var(--bd)] font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <tr className="border-b border-[var(--bd)] font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
               {['소스', '발견', '인증', '단위', '대량', 'OCR', '간격', '복원 프로파일'].map((h) => (
                 <th key={h} className="px-3 py-2 font-[700]">{h}</th>
               ))}
@@ -371,7 +487,7 @@ function SourceTab({
               </tr>
             ))}
             {adapters.length === 0 && (
-              <tr><td colSpan={8} className="px-3 py-4 text-center text-[var(--t3)]">어댑터를 불러오는 중…</td></tr>
+              <tr><td colSpan={8} className="px-3 py-4 text-center text-[var(--t2)]">어댑터를 불러오는 중…</td></tr>
             )}
           </tbody>
         </table>
@@ -381,7 +497,7 @@ function SourceTab({
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
         <div className="flex flex-wrap items-end gap-2">
           <label className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">소스</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">소스</span>
             <select
               value={source}
               onChange={(e) => setSource(e.target.value)}
@@ -393,7 +509,7 @@ function SourceTab({
             </select>
           </label>
           <label className="flex min-w-[220px] flex-1 flex-col gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">검색어</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">검색어</span>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -416,7 +532,7 @@ function SourceTab({
         {/* 프리셋 — 자유 검색은 관련 없는 도서를 끌고 온다. PD 확률 높은 출발점을 먼저 준다. */}
         {(cur?.presets?.length ?? 0) > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
               출발점
             </span>
             {cur!.presets!.map((pr) => (
@@ -430,7 +546,7 @@ function SourceTab({
               >
                 {pr.label}
                 {pr.count != null && (
-                  <span className="ml-1.5 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+                  <span className="ml-1.5 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
                     ~{pr.count}
                   </span>
                 )}
@@ -442,7 +558,7 @@ function SourceTab({
         {/* 필터 — 연도 상한이 없으면 1990·2008년 자료가 결과 상단을 채운다(실측) */}
         <div className="mt-3 flex flex-wrap items-end gap-2 border-t border-[var(--bd)] pt-3">
           <label className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">컬렉션</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">컬렉션</span>
             <input
               value={collection}
               onChange={(e) => setCollection(e.target.value)}
@@ -451,7 +567,7 @@ function SourceTab({
             />
           </label>
           <label className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">발행 상한</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">발행 상한</span>
             <input
               type="number"
               value={yearTo}
@@ -461,7 +577,7 @@ function SourceTab({
             />
           </label>
           <label className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">정렬</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">정렬</span>
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
@@ -473,7 +589,7 @@ function SourceTab({
               <option value="year-desc">최신 순</option>
             </select>
           </label>
-          <span className="font-body text-[11.5px] text-[var(--t3)]">
+          <span className="font-body text-[11.5px] text-[var(--t2)]">
             1964년 이후는 저작권이 자동 갱신되어 사용할 수 없습니다 — 상한을 1963 이하로 두세요.
           </span>
         </div>
@@ -497,7 +613,7 @@ function SourceTab({
               장만 취득
             </label>
           )}
-          <span className="font-body text-[11.5px] text-[var(--t3)]">
+          <span className="font-body text-[11.5px] text-[var(--t2)]">
             한 호가 50장 넘는다. 파라미터를 확인하기 전 전권을 돌리면 시간도 버리고 외부 사이트에 부담을 준다.
           </span>
         </div>
@@ -562,8 +678,8 @@ function SourceTab({
                   <div className="min-w-0 flex-1">
                     <p className="font-display text-[13px] font-[700] text-[var(--t1)]">
                       {it.title}
-                      {it.publishedYear && <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">{it.publishedYear}</span>}
-                      {it.pageCount && <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">{it.pageCount}p</span>}
+                      {it.publishedYear && <span className="ml-2 font-mono text-[11px] text-[var(--t2)]">{it.publishedYear}</span>}
+                      {it.pageCount && <span className="ml-2 font-mono text-[11px] text-[var(--t2)]">{it.pageCount}p</span>}
                     </p>
                     <p className="mt-1 flex flex-wrap items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
                       {it.pdRisk && RISK_UI[it.pdRisk] && (
@@ -575,14 +691,14 @@ function SourceTab({
                         </span>
                       )}
                       {it.pdCurated && (
-                        <span className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">
+                        <span className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">
                           큐레이션
                         </span>
                       )}
                       <span>{it.pdRiskReason ?? it.pdNote}</span>
                     </p>
                     {it.existingStatus && (
-                      <p className="mt-0.5 font-mono text-[11px] text-[var(--t3)]">이미 등록됨 · {it.existingStatus}</p>
+                      <p className="mt-0.5 font-mono text-[11px] text-[var(--t2)]">이미 등록됨 · {it.existingStatus}</p>
                     )}
                   </div>
                 </li>
@@ -679,7 +795,7 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
 
       <div className="mt-3 flex flex-wrap items-end gap-2">
         <label className="flex flex-col gap-1">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">사이트</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">사이트</span>
           <select
             value={site}
             onChange={(e) => setSite(e.target.value)}
@@ -691,7 +807,7 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
           </select>
         </label>
         <label className="flex flex-col gap-1">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">작업명</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">작업명</span>
           <input
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
@@ -719,6 +835,70 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
         <p className="mt-2 font-body text-[11.5px] text-[var(--warning)]">
           창은 <b>서버가 도는 컴퓨터</b>에 열립니다 — 배포 환경에서는 사용할 수 없습니다.
         </p>
+      )}
+    </section>
+  )
+}
+
+// ─── 유형·시리즈 분포 — "무엇을 갖고 있나"를 큐 단계와 별도로 본다 ─────
+//
+// 단계 카운트(대기 969 · 취득 0 …)는 **진행**을 말하지만 **무엇을 발행하게 될지**는 말하지 않는다.
+// 학습자 서가는 유형별로 묶여 나가므로, 운영자가 "어느 유형부터 완성할지" 고르려면
+// 유형별 보유량과 발행량을 나란히 봐야 한다. 유형 하나를 끝내는 것이
+// 여러 유형을 조금씩 하는 것보다 학습자에게 먼저 도착한다.
+function TaxonomyBreakdown({ rows }: { rows: PdComicAdminRow[] }) {
+  const [open, setOpen] = useState(false)
+  const byKind = new Map<string, { total: number; published: number; series: Set<string> }>()
+  for (const r of rows) {
+    const k = r.kind ?? 'other'
+    let b = byKind.get(k)
+    if (!b) {
+      b = { total: 0, published: 0, series: new Set() }
+      byKind.set(k, b)
+    }
+    b.total += 1
+    if (r.status === 'published') b.published += 1
+    if (r.seriesKey) b.series.add(r.seriesKey)
+  }
+  const kinds = [...byKind.entries()].sort((a, b) => b[1].total - a[1].total)
+  if (!kinds.length) return null
+  const seriesTotal = new Set(rows.map((r) => r.seriesKey).filter(Boolean)).size
+
+  return (
+    <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex min-h-[44px] w-full items-center gap-2 px-4 py-2 text-left font-display text-[12.5px] font-[700] text-[var(--t2)]"
+      >
+        유형·시리즈 분포
+        <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
+          {kinds.length}유형 · {seriesTotal}시리즈 · {rows.length}호
+        </span>
+        <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '접기' : '펼치기'}</span>
+      </button>
+      {open && (
+        <ul className="divide-y divide-[var(--bd)] border-t border-[var(--bd)]">
+          {kinds.map(([k, b]) => (
+            <li key={k} className="flex items-center gap-3 px-4 py-2">
+              <span className="w-40 shrink-0 font-mono text-[11.5px] text-[var(--t1)]">{k}</span>
+              <span className="font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
+                {b.series.size}시리즈 · {b.total}호
+              </span>
+              {/* 발행 진척 — 유형 단위로 학습자에게 도착했는지 */}
+              <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                발행 {b.published}/{b.total}
+              </span>
+              <span className="h-1.5 w-24 shrink-0 overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
+                <span
+                  className="block h-full rounded-[var(--r-full)]"
+                  style={{ width: `${b.total ? (b.published / b.total) * 100 : 0}%`, background: ACCENT }}
+                />
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   )
@@ -803,7 +983,7 @@ function QueueTab({
       <section className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
         {counts.map((s) => (
           <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
-            <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">{s.key}</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">{s.key}</p>
             <p className="mt-0.5 flex items-baseline gap-1.5">
               <span className="font-display text-[19px] font-[800] tabular-nums text-[var(--t1)]">{s.n}</span>
               <span className="font-body text-[11.5px] text-[var(--t2)]">{s.label}</span>
@@ -811,6 +991,8 @@ function QueueTab({
           </div>
         ))}
       </section>
+
+      <TaxonomyBreakdown rows={rows} />
 
       <section className="flex flex-wrap items-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
         <button
@@ -845,14 +1027,14 @@ function QueueTab({
         <button type="button" onClick={onRefresh} className="min-h-[40px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[13px] font-[700] text-[var(--t2)]">
           새로고침
         </button>
-        <span className="font-body text-[11.5px] text-[var(--t3)]">
+        <span className="font-body text-[11.5px] text-[var(--t2)]">
           호출 1회 = 호 1개의 다음 단계 1개. 이미지 작업은 CLI 가 수행합니다(dev 전용).
         </span>
       </section>
 
       {log.length > 0 && (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
-          <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">드레인 로그</p>
+          <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">드레인 로그</p>
           <pre className="max-h-64 overflow-auto whitespace-pre-wrap font-mono text-[11.5px] leading-relaxed text-[var(--t2)]">
             {log.join('\n')}
           </pre>
@@ -867,7 +1049,7 @@ function QueueTab({
               <li key={r.id} className="font-body text-[12px] text-[var(--t2)]">
                 <div className="flex flex-wrap items-baseline gap-2">
                   <b className="text-[var(--t1)]">{r.title}</b>
-                  <span className="font-mono text-[11px] text-[var(--t3)]">{r.status} 단계에서 중단 · {r.attempts ?? 0}회 시도</span>
+                  <span className="font-mono text-[11px] text-[var(--t2)]">{r.status} 단계에서 중단 · {r.attempts ?? 0}회 시도</span>
                   <button
                     type="button"
                     onClick={() => void retry(r.id)}
@@ -876,7 +1058,7 @@ function QueueTab({
                     이 호 재시도
                   </button>
                 </div>
-                <pre className="mt-1 max-h-24 overflow-auto whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-[var(--t3)]">
+                <pre className="mt-1 max-h-24 overflow-auto whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-[var(--t2)]">
                   {r.lastError}
                 </pre>
               </li>
@@ -890,7 +1072,7 @@ function QueueTab({
             >
               전체 재시도
             </button>
-            <span className="font-body text-[11.5px] text-[var(--t3)]">
+            <span className="font-body text-[11.5px] text-[var(--t2)]">
               단계는 보존됩니다 — 멈춘 지점부터 이어서 진행합니다. 대부분 외부 도구 부재이니{' '}
               <b>도구</b> 탭을 먼저 확인하세요.
             </span>
@@ -979,8 +1161,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         <span className="font-display text-[12.5px] font-[700] text-[var(--t1)]">테스트 · 모니터</span>
         <span className="font-body text-[11.5px] text-[var(--t2)]">파이프라인이 지금 무엇을 · 어떤 상태로 · 어떻게 처리 중인지 실시간 관측</span>
         <div className="ml-auto flex items-center gap-2">
-          <span className="font-mono text-[11px] text-[var(--t3)]">{live ? `자동 새로고침 · ${relTime(new Date(lastPoll).toISOString())}` : '수동'}</span>
-          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t3)' }} aria-pressed={live}>
+          <span className="font-mono text-[11px] text-[var(--t2)]">{live ? `자동 새로고침 · ${relTime(new Date(lastPoll).toISOString())}` : '수동'}</span>
+          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t2)' }} aria-pressed={live}>
             {live ? '● LIVE' : '○ 정지'}
           </button>
           <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
@@ -991,7 +1173,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         {dist.map((s) => (
           <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 text-center">
             <div className="font-display text-[18px] font-[800] tabular-nums text-[var(--t1)]">{s.n}</div>
-            <div className="font-body text-[11px] text-[var(--t3)]">{s.label}</div>
+            <div className="font-body text-[11px] text-[var(--t2)]">{s.label}</div>
           </div>
         ))}
       </div>
@@ -1006,7 +1188,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
       <ModernizationMethods />
 
       {rows.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t3)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {sortedRows.map((r) => {
@@ -1015,14 +1197,14 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
             const tookMs = typeof r.qc?.tookMs === 'number' ? (r.qc.tookMs as number) : null
             // 원본 텍스트 품질 = 그대로 쓸 수 있는 대사 비율(스캔 깨끗함·OCR 경로의 지표). 콘텐츠 간 품질 비교 근거.
             const usablePct = ocr?.bubbles ? Math.round((100 * (ocr.bubbles - (ocr.needsReview ?? 0))) / ocr.bubbles) : null
-            const usableTone = usablePct == null ? 'var(--t3)' : usablePct >= 70 ? 'var(--success)' : usablePct >= 45 ? 'var(--warning)' : 'var(--error)'
+            const usableTone = usablePct == null ? 'var(--t2)' : usablePct >= 70 ? 'var(--success)' : usablePct >= 45 ? 'var(--warning)' : 'var(--error)'
             const method = (r.qc?.method ?? null) as { textSource?: string; ocrStrategy?: string; hocrUsed?: boolean; format?: string; restore?: { crop?: boolean; sat?: number; scale?: number } } | null
             return (
               <li key={r.id} className="rounded-[var(--r-lg)] border bg-[var(--bg)] px-4 py-3" style={{ borderColor: r.lastError ? 'var(--error)' : running ? ACCENT : 'var(--bd)' }}>
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   {running && <span className="inline-block h-2 w-2 rounded-full" style={{ background: ACCENT }} aria-label="방금 진행" />}
                   <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
-                  <span className="font-mono text-[11px] text-[var(--t3)]">{r.sourceAdapter}</span>
+                  <span className="font-mono text-[11px] text-[var(--t2)]">{r.sourceAdapter}</span>
                   {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ background: `${ACCENT}1a`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
                   <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
                 </div>
@@ -1032,20 +1214,22 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <span>시도 {r.attempts}</span>
                   <span>최근 실행 {relTime(r.lastRunAt)}</span>
                   {tookMs != null && <span>{(tookMs / 1000).toFixed(1)}s</span>}
-                  {ocr?.bubbles != null && <span className="text-[var(--t3)]">OCR {ocr.bubbles}대사 · 검수 {ocr.needsReview ?? 0}</span>}
+                  {ocr?.bubbles != null && <span className="text-[var(--t2)]">OCR {ocr.bubbles}대사 · 검수 {ocr.needsReview ?? 0}</span>}
                   {usablePct != null && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-[700]" style={{ color: usableTone, background: 'var(--bg2)' }} title="그대로 쓸 수 있는 대사 비율 — 콘텐츠 품질 비교 지표(높을수록 스캔·OCR 양호)">사용가능 {usablePct}%</span>}
-                  <span className="text-[var(--t3)]">PD {r.pdBasis ?? '미기재'}</span>
+                  <span className="text-[var(--t2)]">PD {r.pdBasis ?? '미기재'}</span>
                 </div>
                 {/* 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단). 텍스트 소스(hOCR vs 이미지 OCR)·형식·복원 프로파일 */}
                 {method && (
                   <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                    <span className="font-display text-[10px] font-[700] text-[var(--t3)]">작업 방식</span>
-                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: method.hocrUsed ? 'var(--success)' : ACCENT, background: method.hocrUsed ? 'var(--success-light)' : `${ACCENT}1a` }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 품질 높음' : '이미지 스캔뿐이라 tesseract 로 OCR — 오탈자·파편 가능'}>
-                      {method.textSource ?? (method.hocrUsed ? 'hOCR' : 'tesseract OCR')}
+                    <span className="font-display text-[10px] font-[700] text-[var(--t2)]">작업 방식</span>
+                    {/* 로컬 OCR 은퇴(2026-08-15) 후 경로는 두 갈래뿐이다 — 소스 hOCR 이 있거나, 대사가 비어 있거나.
+                        "tesseract 로 읽었다" 는 제3의 경우는 더 이상 없다(있는 것처럼 적으면 검수자가 오탈자를 찾는다). */}
+                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: method.hocrUsed ? 'var(--success)' : 'var(--warning)', background: method.hocrUsed ? 'var(--success-light)' : 'var(--warning-light)' }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 오탈자는 원본 OCR 품질을 따라간다' : '소스가 hOCR 을 주지 않아 대사가 비어 있다 — 전사부터 사람·Claude Code 몫'}>
+                      {method.textSource ?? (method.hocrUsed ? 'hOCR' : '대사 없음 — 수동 입력')}
                     </span>
-                    {method.format && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">형식 {method.format}</span>}
-                    {method.ocrStrategy && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">전략 {method.ocrStrategy}</span>}
-                    {method.restore && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">복원 crop:{String(method.restore.crop)} ·sat{method.restore.sat} ·x{method.restore.scale}</span>}
+                    {method.format && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">형식 {method.format}</span>}
+                    {method.ocrStrategy && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">전략 {method.ocrStrategy}</span>}
+                    {method.restore && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">복원 crop:{String(method.restore.crop)} ·sat{method.restore.sat} ·x{method.restore.scale}</span>}
                   </div>
                 )}
                 {r.lastError && <p className="mt-1.5 rounded-[var(--r-sm)] bg-[var(--error-light)] px-2.5 py-1.5 font-mono text-[11px] text-[var(--error)]">멈춤: {r.lastError.slice(0, 220)}</p>}
@@ -1117,19 +1301,19 @@ function ModernizationMethods() {
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">현대화 방법 (2트랙)</span>
         <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>기본 · 작화 보존</span>
         <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: '#8B5CF6', background: '#8B5CF618' }}>선택 · AI 리스타일</span>
-        <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">{open ? '▾' : '▸'}</span>
+        <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '▾' : '▸'}</span>
       </button>
       {open && (
         <div className="grid gap-2.5 border-t border-[var(--bd)] p-3 md:grid-cols-2">
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
-            <p className="font-display text-[12px] font-[800] text-[var(--t1)]">① 작화 보존 <span className="font-body font-[500] text-[var(--t3)]">— Claude Code / CPU · $0</span></p>
+            <p className="font-display text-[12px] font-[800] text-[var(--t1)]">① 작화 보존 <span className="font-body font-[500] text-[var(--t2)]">— Claude Code / CPU · $0</span></p>
             <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작 그림 <b>그대로</b> + 색채·디자인(ffmpeg)·대사(HTML)만 현대화. 저작권 안전. <b>발행 기본.</b></p>
             <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">page-modern.mjs --workdir work/&lt;slug&gt; --level MAX
 page-html.mjs --workdir work/&lt;slug&gt;
 render-check.cjs --workdir work/&lt;slug&gt;</pre>
           </div>
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
-            <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t3)]">— GPU 모델 · 선택</span></p>
+            <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t2)]">— GPU 모델 · 선택</span></p>
             <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 <b>RunPod-4090 전용</b> — edit 워크플로가 RunPod 에만 프로비저닝돼 있습니다(Kaggle-t4 는 t2i-only 라 쓸 수 없어 경로 자체를 제거). CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
             <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(RunPod/ComfyUI)
 # COMFY_URL 설정: RunPod=pod.mjs start
@@ -1137,7 +1321,7 @@ pd/modernize.mjs --workdir work/&lt;slug&gt; --erase-only   # GPU 전 지우기 
 pd/modernize.mjs --workdir work/&lt;slug&gt; --model qwen-image-edit-2511 --env runpod-4090
 page-letter.mjs --workdir work/&lt;slug&gt;   # 대사 재부착</pre>
           </div>
-          <p className="md:col-span-2 font-body text-[11px] text-[var(--t3)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 자가호스트(RunPod)라 콘솔은 트리거·회수·비교·판정을 담당합니다. 설계: <span className="font-mono">PD_MODERNIZE_MODEL.md</span>.</p>
+          <p className="md:col-span-2 font-body text-[11px] text-[var(--t2)]">두 트랙 결과는 아래 각 이슈 <b>라이브 진행 → 현대화 산출물</b>에서 원작 대비로 나란히 보이고, 비교 후 <span className="font-mono">oplog</span> 로 채택/반려를 타임라인에 기록합니다. GPU 실행은 자가호스트(RunPod)라 콘솔은 트리거·회수·비교·판정을 담당합니다. 설계: <span className="font-mono">PD_MODERNIZE_MODEL.md</span>.</p>
         </div>
       )}
     </div>
@@ -1179,7 +1363,7 @@ function SelfDevTimeline({ active }: { active: boolean }) {
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
       <div className="mb-2 flex items-center gap-2">
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">자기발전 타임라인</span>
-        <span className="font-body text-[11px] text-[var(--t3)]">시도 → 단계별 평가 → 평가 기반 자기발전. 콘텐츠 클릭 시 전체 흐름.</span>
+        <span className="font-body text-[11px] text-[var(--t2)]">시도 → 단계별 평가 → 평가 기반 자기발전. 콘텐츠 클릭 시 전체 흐름.</span>
       </div>
       <ul className="flex flex-col gap-1.5">
         {contents.map((c) => {
@@ -1195,8 +1379,8 @@ function SelfDevTimeline({ active }: { active: boolean }) {
                   {steps.map((s) => <span key={s.seq} title={`${OP_META[s.action].label} · ${s.title}`} className="h-2 w-2 rounded-full" style={{ background: OP_META[s.action].color }} />)}
                 </span>
                 <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: lm.color, background: lm.bg }}>{c.lastVerdict ? c.lastVerdict.split('—')[0].trim() : lm.label}</span>
-                <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">{steps.length}스텝</span>
-                <span className="font-mono text-[11px] text-[var(--t3)]">{isOpen ? '▾' : '▸'}</span>
+                <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">{steps.length}스텝</span>
+                <span className="font-mono text-[11px] text-[var(--t2)]">{isOpen ? '▾' : '▸'}</span>
               </button>
               {isOpen && (
                 <ol className="flex flex-col gap-0 border-t border-[var(--bd)] px-2.5 py-2">
@@ -1210,12 +1394,12 @@ function SelfDevTimeline({ active }: { active: boolean }) {
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-1.5">
                             <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]" style={{ color: m.color, background: m.bg }}>{m.label}</span>
-                            <span className="font-mono text-[9.5px] text-[var(--t3)]">{s.phase}</span>
+                            <span className="font-mono text-[9.5px] text-[var(--t2)]">{s.phase}</span>
                             <span className="font-body text-[12px] font-[600] text-[var(--t1)]">{s.title}</span>
                             {s.verdict && <span className="font-mono text-[10px] font-[700]" style={{ color: m.color }}>· {s.verdict}</span>}
                           </div>
                           {s.detail && <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t2)]">{s.detail}</p>}
-                          {s.next && <p className="mt-0.5 font-body text-[10.5px] text-[var(--t3)]">→ 다음: {s.next}</p>}
+                          {s.next && <p className="mt-0.5 font-body text-[10.5px] text-[var(--t2)]">→ 다음: {s.next}</p>}
                         </div>
                       </li>
                     )
@@ -1245,8 +1429,8 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
     return () => { alive = false; clearInterval(id) }
   }, [issueId])
   if (err) return <p className="mt-2 font-body text-[11.5px] text-[var(--error)]">{err}</p>
-  if (!data) return <p className="mt-2 font-body text-[11.5px] text-[var(--t3)]">불러오는 중…</p>
-  if (!data.workDir) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t3)]">work 산출물이 없습니다 — 중간 이미지를 보려면 <code className="font-mono">--record</code> 로 실행하세요(<code className="font-mono">--out work/&lt;slug&gt;</code> 면 재부팅 후에도 유지).</p>
+  if (!data) return <p className="mt-2 font-body text-[11.5px] text-[var(--t2)]">불러오는 중…</p>
+  if (!data.workDir) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t2)]">work 산출물이 없습니다 — 중간 이미지를 보려면 <code className="font-mono">--record</code> 로 실행하세요(<code className="font-mono">--out work/&lt;slug&gt;</code> 면 재부팅 후에도 유지).</p>
   const p = data.progress
   const KINDS: Array<[string, string]> = [['pages', '원본'], ['restored', '복원'], ['panels', '컷']]
   const anyArt = KINDS.some(([k]) => (data.artifacts?.[k]?.length ?? 0) > 0)
@@ -1269,7 +1453,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
         const rels = files.map((f) => `${kind}/${f}`)
         return (
           <div key={kind} className="mb-2">
-            <p className="mb-1 font-mono text-[10.5px] text-[var(--t3)]">{label} {files.length}장 · 클릭하면 크게</p>
+            <p className="mb-1 font-mono text-[10.5px] text-[var(--t2)]">{label} {files.length}장 · 클릭하면 크게</p>
             <div className="flex gap-1.5 overflow-x-auto pb-1">
               {files.slice(0, 30).map((f, idx) => (
                 <button key={f} type="button" onClick={() => onZoom(rels, idx)} title={`${f} — 크게 보기`} className="shrink-0 cursor-zoom-in overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] transition-shadow hover:shadow-[0_0_0_2px_var(--p)]">
@@ -1303,7 +1487,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
                       {res && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-semibold text-white" style={{ background: tone }}>{res.split('—')[0].trim()}</span>}
                     </div>
                     {res && <p className="mt-1 font-body text-[11px] leading-snug text-[var(--t2)]">{res}</p>}
-                    {!res && <p className="mt-1 font-body text-[11px] text-[var(--t3)]">판정 대기 — 오퍼레이터가 프리뷰 검토 후 verdict 기록.</p>}
+                    {!res && <p className="mt-1 font-body text-[11px] text-[var(--t2)]">판정 대기 — 오퍼레이터가 프리뷰 검토 후 verdict 기록.</p>}
                   </div>
                 </div>
               )
@@ -1311,7 +1495,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
           </div>
         </div>
       )}
-      {!p && !anyArt && (data.modern?.length ?? 0) === 0 && <p className="font-body text-[11.5px] text-[var(--t3)]">아직 산출물이 없습니다 — 드레인이 진행되면 여기 원본→복원→컷 이미지가 수시로 채워집니다.</p>}
+      {!p && !anyArt && (data.modern?.length ?? 0) === 0 && <p className="font-body text-[11.5px] text-[var(--t2)]">아직 산출물이 없습니다 — 드레인이 진행되면 여기 원본→복원→컷 이미지가 수시로 채워집니다.</p>}
     </div>
   )
 }
@@ -1330,8 +1514,8 @@ function PanelDrill({ issueId }: { issueId: string }) {
     return () => { alive = false }
   }, [issueId])
   if (err) return <p className="mt-2 font-body text-[11.5px] text-[var(--error)]">{err}</p>
-  if (panels === null) return <p className="mt-2 font-body text-[11.5px] text-[var(--t3)]">불러오는 중…</p>
-  if (panels.length === 0) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t3)]">아직 컷 콘텐츠가 없습니다 — 컷 분할(segment) 이후 생성됩니다.</p>
+  if (panels === null) return <p className="mt-2 font-body text-[11.5px] text-[var(--t2)]">불러오는 중…</p>
+  if (panels.length === 0) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t2)]">아직 컷 콘텐츠가 없습니다 — 컷 분할(segment) 이후 생성됩니다.</p>
   const totalBubbles = panels.reduce((a, p) => a + p.bubbles.length, 0)
   return (
     <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
@@ -1344,7 +1528,7 @@ function PanelDrill({ issueId }: { issueId: string }) {
               <img src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(p.imageUrl)}`} alt={`컷 ${p.panelOrder}`} loading="lazy" className="h-20 w-16 shrink-0 rounded-[var(--r-xs,4px)] border border-[var(--bd)] bg-[var(--bg2)] object-cover" />
             )}
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t3)]">
+              <div className="flex items-center gap-2 font-mono text-[10.5px] text-[var(--t2)]">
                 <span>#{p.panelOrder}</span>
                 {p.sourcePageNo != null && <span>p.{p.sourcePageNo}</span>}
                 <span className="ml-auto">대사 {p.bubbles.length}</span>
@@ -1387,7 +1571,7 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
         <li key={r.id} className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
-            <span className="font-mono text-[11px] text-[var(--t3)]">{r.sourceAdapter} · {r.sourceIdentifier}</span>
+            <span className="font-mono text-[11px] text-[var(--t2)]">{r.sourceAdapter} · {r.sourceIdentifier}</span>
             <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
           </div>
           <Stepper status={r.status} failed={Boolean(r.lastError)} />
@@ -1454,7 +1638,7 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
   }
 
   const item = (ok: boolean, label: string) => (
-    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]" style={ok ? { color: 'var(--success)', background: 'var(--success-light)' } : { color: 'var(--t3)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
+    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]" style={ok ? { color: 'var(--success)', background: 'var(--success-light)' } : { color: 'var(--t2)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
   )
   const gateOk = check && check.pdBasis && check.pdChecked && check.sourceUrl
   const canPublish = gateOk && check?.contentServable
@@ -1465,13 +1649,13 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
       {/* PD 근거 확정 */}
       <div className="mt-2 flex flex-wrap items-end gap-2">
         <label className="flex flex-col gap-1">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">PD 근거</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">PD 근거</span>
           <select value={basis} onChange={(e) => setBasis(e.target.value)} className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px]">
             {PD_BASIS_OPTS.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
           </select>
         </label>
         <label className="flex min-w-[180px] flex-1 flex-col gap-1">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">근거 URL (선택)</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">근거 URL (선택)</span>
           <input value={evidence} onChange={(e) => setEvidence(e.target.value)} placeholder="갱신 기록 조회 링크 등" className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[11.5px]" />
         </label>
         <button type="button" disabled={busy} onClick={() => void confirmPd()} className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-50">PD 근거 확정</button>
@@ -1494,7 +1678,7 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
         )}
         <button type="button" disabled={busy || !canPublish} onClick={() => void publish()} className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: 'var(--success)' }}>발행</button>
         {!canPublish && (
-          <span className="font-body text-[11px] text-[var(--t3)]">
+          <span className="font-body text-[11px] text-[var(--t2)]">
             {!gateOk ? 'PD 근거를 먼저 확정하세요.' : !check?.contentServable ? '현대화 페이지를 공개 버킷에 업로드하면 발행이 열립니다.' : ''}
           </span>
         )}
@@ -1509,8 +1693,8 @@ function ModernBadges({ modern }: { modern?: { preserve: boolean; reader: boolea
   const done = modern.preserve || modern.reader || modern.restyle
   return (
     <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-      <span className="font-display text-[10px] font-[700] text-[var(--t3)]">현대화</span>
-      {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t3)]">아직 안 함</span>}
+      <span className="font-display text-[10px] font-[700] text-[var(--t2)]">현대화</span>
+      {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">아직 안 함</span>}
       {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>작화보존 ✓</span>}
       {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>리더 ✓</span>}
       {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}18` }}>AI 리스타일 ✓</span>}
@@ -1622,7 +1806,7 @@ function ToolsTab() {
           <dl className="grid gap-1 font-mono text-[11.5px] text-[var(--t2)]">
             {Object.entries(env).map(([k, v]) => (
               <div key={k} className="flex gap-2">
-                <dt className="w-[110px] shrink-0 text-[var(--t3)]">{k}</dt>
+                <dt className="w-[110px] shrink-0 text-[var(--t2)]">{k}</dt>
                 <dd className="min-w-0 break-all text-[var(--t1)]">{v}</dd>
               </div>
             ))}

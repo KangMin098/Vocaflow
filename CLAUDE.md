@@ -194,6 +194,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 ## 📝 최근 변경 (v06.34 진행)
 
 ### 이번 세션 (Unreleased)
+- PDCP 원본 전체 소스 GET + 유형·시리즈 분류 축 (마이그레이션 `20260816200000`) — 빈 서가(`pd_comic_issues` 0행)에 **969호·101시리즈·10유형** 적재(미분류 0). 발견 채널 정정: `classics illustrated` 제목 검색 208건 중 실제 만화는 9건뿐(나머지는 저작권 존속 산문·고서) → 큐레이션 컬렉션(`fawcett-comics` 811 · `ace-comics` 209)으로 전환 · **IA 페이지네이션이 정렬 없이 214건을 중복시키고 그만큼 누락**하던 것 `sort[]=identifier asc` 로 고정(811/811 실측 대조) · 분류 정본 `taxonomy.mjs` 순서 있는 규칙표 · 학습자 서가 유형→시리즈 2단 + 콘텐츠 정보 팝업 · 회귀 32
 - I10 게이트 오탐 수정 (마이그레이션 `20260812160000`) — 제거된 챕터당 cap 40 을 비교 측에만 적용해 발행 도서 12권 전부 critical FAIL. 무제한 비교로 8권 PASS 복귀, 실드리프트 4권만 잔존 · `vitest.config` 가 없는 루트 `.env.local` 만 읽어 통합 테스트 전량 silent skip 하던 것 수정 (357 tests 실행)
 - `/admin` 대시보드 실측화 — 목업 상수 3배열 제거 · `lib/admin/dashboard-stats.ts`(상태별 카운트 35 + 최근 변경 병합) · 파이프라인 8 큐 카드 · DB 미연동 6 화면에 `목업` 태그 · `count ?? 0` 함정(없는 테이블도 head 요청엔 204/count=null) 제거 · 회귀 2종(renderToString 5 + 실 DB 6)
 - Admin 전 화면 화면도움말 71개 (37 화면 + 34 탭) — `lib/admin/help/*` 8 파일 + `AdminScreenHelp` 인라인 펼침 · Claude Code 드레인 절차 7종 (재실행 안전 여부 명시) · 캡처 31 라우트 근거 · 런타임 28/29 실측

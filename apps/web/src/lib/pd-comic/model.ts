@@ -41,6 +41,89 @@ export interface PdComicIssue {
   panelsTotal: number
   vLevel: number | null
   libraryBookId: string | null
+  /** 유형 키 — `pd_comic_kinds.key`. 미분류(other)이거나 적재 전 호는 null. */
+  kind: string | null
+  kindLabel: string | null
+  seriesKey: string | null
+}
+
+/**
+ * 서가 한 칸 = **시리즈 하나**. 유형은 그 위 묶음이다.
+ *
+ * 왜 호가 아니라 시리즈가 칸인가: 발행본이 1,000권 규모로 늘면 호 단위 격자는
+ * "Whiz Comics 001~102" 가 화면 두 페이지를 먹는다. 학습자가 고르는 단위는 시리즈이고,
+ * 호는 시리즈 안에서 고른다.
+ */
+export interface PdComicShelfSeries {
+  kind: string
+  kindLabel: string
+  kindBlurb: string | null
+  kindLearnerNote: string | null
+  kindSort: number
+  seriesKey: string
+  seriesTitle: string
+  publisher: string | null
+  seriesBlurb: string | null
+  yearFrom: number | null
+  yearTo: number | null
+  issuesPublished: number
+  panelsTotal: number
+  coverUrl: string | null
+}
+
+/** 유형 묶음 — 서가가 실제로 그리는 단위. */
+export interface PdComicShelfKind {
+  kind: string
+  label: string
+  blurb: string | null
+  learnerNote: string | null
+  sort: number
+  series: PdComicShelfSeries[]
+  issuesPublished: number
+}
+
+/** 콘텐츠 정보 팝업 — 학습자가 "이게 뭔지" 판단할 근거 한 벌. */
+export interface PdComicInfo {
+  slug: string
+  title: string
+  issueNo: number | null
+  publishedYear: number | null
+  coverUrl: string | null
+  panelsTotal: number
+  vLevel: number | null
+  libraryBookId: string | null
+  seriesKey: string | null
+  seriesTitle: string | null
+  seriesBlurb: string | null
+  publisher: string | null
+  kind: string | null
+  kindLabel: string | null
+  kindBlurb: string | null
+  kindLearnerNote: string | null
+  sourceArchive: string | null
+  sourceUrl: string | null
+  pdBasis: string | null
+  publishedAt: string | null
+  bubbleCount: number
+  seriesIssuesPublished: number
+}
+
+/**
+ * PD 근거 → 학습자에게 보여줄 한국어 한 줄.
+ *
+ * 이걸 화면마다 적지 않는 이유: 저작권 근거는 **틀리게 적으면 법적 진술이 틀리는 문구**다.
+ * 한 곳에서만 정한다. 근거가 없으면(null) 발행 게이트가 막으므로 학습자 화면에는 원래 안 뜬다 —
+ * 그래도 방어적으로 문구를 둔다(게이트가 뚫렸을 때 조용히 빈칸이 되는 것보다 낫다).
+ */
+export const PD_BASIS_LABEL: Record<string, string> = {
+  'pre-1929': '1929년 이전 발행 — 미국 저작권 보호기간 만료',
+  'term-expired': '보호기간 만료',
+  'no-renewal': '저작권 갱신 기록 없음 — 1964년 이전 발행물은 갱신하지 않으면 소멸',
+  'explicit-license': '권리자가 명시적으로 공개한 자료',
+}
+
+export function pdBasisLabel(basis: string | null): string {
+  return basis ? (PD_BASIS_LABEL[basis] ?? basis) : '근거 확인 중'
 }
 
 export interface PdComicPanel {
