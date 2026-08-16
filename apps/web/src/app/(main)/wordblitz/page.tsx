@@ -14,14 +14,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
-import {
-  Award,
-  ChevronRight,
-  Gamepad2,
-  Layers,
-  Trophy,
-  Zap,
-} from 'lucide-react'
+import { Award, ChevronRight, Gamepad2, Layers, Trophy, Zap } from 'lucide-react'
 import Link from 'next/link'
 
 import { GamePoolPanel } from '@/components/hub/GamePoolPanel'
@@ -91,6 +84,15 @@ export default async function WordBlitzHubPage() {
   // 평균을 "최근" 이라 부르면 한 판 잘한 것이 며칠간 화면에 남는다.
   const lastAccuracy = recent.find((r) => r.accuracy != null)?.accuracy ?? null
   const hasRecord = best != null
+  /**
+   * 아직 한 판도 안 한 상태.
+   *
+   * 이때 "최고 기록" 과 "최근 기록" 두 카드는 **같은 말을 다른 문장으로 두 번** 한다
+   * ("아직 기록이 없어요…" / "아직 이 게임 기록이 없어요…"). 실측 2026-08-16: 모바일에서
+   * 그 두 빈 카드가 화면의 약 40% 를 차지했다. 없는 것을 두 칸 잡아 두 번 알리는 것은
+   * 안내가 아니라 소음이다 — 한 줄로 말하고 자리를 비운다.
+   */
+  const noHistory = !hasRecord && recent.length === 0
 
   return (
     <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
@@ -105,15 +107,24 @@ export default async function WordBlitzHubPage() {
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <div className="flex min-w-0 flex-1 items-center gap-2">
-            <Gamepad2 size={14} aria-hidden strokeWidth={2.25} className="shrink-0 text-[var(--t3)]" />
+            <Gamepad2
+              size={14}
+              aria-hidden
+              strokeWidth={2.25}
+              className="shrink-0 text-[var(--t3)]"
+            />
             <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
               정글 어드벤처
             </span>
-            <span className="opacity-30" aria-hidden>·</span>
+            <span className="opacity-30" aria-hidden>
+              ·
+            </span>
             <h1 className="font-display text-[15px] font-[800] leading-tight text-[var(--t1)] md:text-[16px]">
               WordBlitz
             </h1>
-            <span className="hidden opacity-30 sm:inline" aria-hidden>·</span>
+            <span className="hidden opacity-30 sm:inline" aria-hidden>
+              ·
+            </span>
             <p className="hidden truncate font-body text-[12px] text-[var(--t2)] sm:block">
               {hasRecord
                 ? `Best ${best!.toLocaleString()}${lastAccuracy != null ? ` · 최근 정확도 ${lastAccuracy}%` : ''}`
@@ -142,7 +153,9 @@ export default async function WordBlitzHubPage() {
           <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-2">
             <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
               <span className="text-[11px] font-[700] text-[var(--t2)]">Best</span>
-              <span className="text-[15px] font-[800] text-[var(--t1)]">{best!.toLocaleString()}</span>
+              <span className="text-[15px] font-[800] text-[var(--t1)]">
+                {best!.toLocaleString()}
+              </span>
             </li>
             {lastAccuracy != null && (
               <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
@@ -183,118 +196,127 @@ export default async function WordBlitzHubPage() {
         </summary>
 
         <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* 학습 효과 (1 col) */}
-        <aside
-          aria-label="학습 효과"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-        >
-          <header className="flex items-center gap-2">
-            <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-              aria-hidden
-            >
-              <Layers size={14} strokeWidth={1.75} />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">학습 효과</h2>
-          </header>
-          <ul className="mt-4 space-y-3">
-            {[
-              { ko: '능동적 회상', en: 'Active Recall — 4 옵션 즉시 인출' },
-              { ko: '정서적 부호화', en: 'Emotional Encoding — 콤보 도파민' },
-              { ko: '간격 반복', en: 'Spaced Repetition — 오답 단어 우선 노출' },
-            ].map((e) => (
-              <li key={e.en}>
-                <p className="font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">{e.en}</p>
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        {/* 게임 룰 (2 col) */}
-        <aside
-          aria-label="게임 규칙"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
-        >
-          <header className="mb-4 flex items-center gap-2">
-            <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--success-light)] text-[var(--success)]"
-              aria-hidden
-            >
-              <Gamepad2 size={14} strokeWidth={1.75} />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>
-          </header>
-          <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {RULES.map((r) => (
-              <li
-                key={r.step}
-                className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
+          {/* 학습 효과 (1 col) */}
+          <aside
+            aria-label="학습 효과"
+            className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
+          >
+            <header className="flex items-center gap-2">
+              <span
+                className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
+                aria-hidden
               >
-                <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--success)]">
-                  {r.step}
-                </p>
-                <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">
-                  {r.title}
-                </p>
-                <p className="mt-1 font-body text-[11px] leading-relaxed text-[var(--t2)]">
-                  {r.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </aside>
+                <Layers size={14} strokeWidth={1.75} />
+              </span>
+              <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">학습 효과</h2>
+            </header>
+            <ul className="mt-4 space-y-3">
+              {[
+                { ko: '능동적 회상', en: 'Active Recall — 4 옵션 즉시 인출' },
+                { ko: '정서적 부호화', en: 'Emotional Encoding — 콤보 도파민' },
+                { ko: '간격 반복', en: 'Spaced Repetition — 오답 단어 우선 노출' },
+              ].map((e) => (
+                <li key={e.en}>
+                  <p className="font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
+                  <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">{e.en}</p>
+                </li>
+              ))}
+            </ul>
+          </aside>
+
+          {/* 게임 룰 (2 col) */}
+          <aside
+            aria-label="게임 규칙"
+            className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
+          >
+            <header className="mb-4 flex items-center gap-2">
+              <span
+                className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--success-light)] text-[var(--success)]"
+                aria-hidden
+              >
+                <Gamepad2 size={14} strokeWidth={1.75} />
+              </span>
+              <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
+              <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>
+            </header>
+            <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {RULES.map((r) => (
+                <li
+                  key={r.step}
+                  className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
+                >
+                  <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--success)]">
+                    {r.step}
+                  </p>
+                  <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">
+                    {r.title}
+                  </p>
+                  <p className="mt-1 font-body text-[11px] leading-relaxed text-[var(--t2)]">
+                    {r.description}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </aside>
         </div>
       </details>
 
-      {/* ── Best score + 최근 기록 ── */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Best score 강조 */}
-        <aside
-          aria-label="최고 점수"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-        >
-          <header className="flex items-center gap-2">
-            <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--active-light)] text-[var(--active-ink)]"
-              aria-hidden
-            >
-              <Trophy size={14} strokeWidth={2} />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최고 기록</h2>
-          </header>
-          {hasRecord ? (
-            <>
-              <p className="mt-4 font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
-                {best!.toLocaleString()}
-                <span className="ml-1 font-display text-[16px] font-[600] text-[var(--t2)]">점</span>
-              </p>
-              {/* 이전에는 "4일 전 · 콤보 11 · 94%" 였다. 최고 기록이 **언제**였는지는
+      {/* ── Best score + 최근 기록 ──
+          한 판도 안 했으면 두 카드를 세우지 않는다(위 `noHistory` 주석 참조). */}
+      {noHistory ? (
+        <p className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-4 font-body text-[13px] italic leading-relaxed text-[var(--t2)] [word-break:keep-all]">
+          아직 이 게임 기록이 없어요. 한 판을 마치면 최고점과 정확도가 여기에 남아요.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {/* Best score 강조 */}
+          <aside
+            aria-label="최고 점수"
+            className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
+          >
+            <header className="flex items-center gap-2">
+              <span
+                className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--active-light)] text-[var(--active-ink)]"
+                aria-hidden
+              >
+                <Trophy size={14} strokeWidth={2} />
+              </span>
+              <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최고 기록</h2>
+            </header>
+            {hasRecord ? (
+              <>
+                <p className="mt-4 font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
+                  {best!.toLocaleString()}
+                  <span className="ml-1 font-display text-[16px] font-[600] text-[var(--t2)]">
+                    점
+                  </span>
+                </p>
+                {/* 이전에는 "4일 전 · 콤보 11 · 94%" 였다. 최고 기록이 **언제**였는지는
                   fetchBestScore 가 점수만 돌려주므로 알 수 없고, 콤보는 저장되지 않는다.
                   모르는 것을 쓰지 않는다. */}
-              <p className="mt-2 font-mono text-[11px] text-[var(--t2)]">
-                <Award size={11} className="mr-1 inline align-text-bottom" aria-hidden />
-                지금까지 이 게임 최고점
+                <p className="mt-2 font-mono text-[11px] text-[var(--t2)]">
+                  <Award size={11} className="mr-1 inline align-text-bottom" aria-hidden />
+                  지금까지 이 게임 최고점
+                </p>
+              </>
+            ) : (
+              <p className="mt-4 font-body text-[13px] italic leading-relaxed text-[var(--t2)]">
+                아직 기록이 없어요. 한 판만 해보면 여기에 최고점이 새겨져요.
               </p>
-            </>
-          ) : (
-            <p className="mt-4 font-body text-[13px] italic leading-relaxed text-[var(--t2)]">
-              아직 기록이 없어요. 한 판만 해보면 여기에 최고점이 새겨져요.
-            </p>
-          )}
-        </aside>
+            )}
+          </aside>
 
-        {/* 최근 기록 (2 cols) — 콤보 열은 사라졌다(scores 에 저장되지 않는다) */}
-        <div className="lg:col-span-2">
-          <RecentScoresList
-            scores={recent}
-            best={best}
-            accent="var(--p)"
-            emptyHint="아직 이 게임 기록이 없어요. 한 판을 마치면 점수와 정확도가 여기에 남아요."
-          />
+          {/* 최근 기록 (2 cols) — 콤보 열은 사라졌다(scores 에 저장되지 않는다) */}
+          <div className="lg:col-span-2">
+            <RecentScoresList
+              scores={recent}
+              best={best}
+              accent="var(--p)"
+              emptyHint="아직 이 게임 기록이 없어요. 한 판을 마치면 점수와 정확도가 여기에 남아요."
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── Bottom CTA ── */}
       <footer className="mt-10 text-center">
