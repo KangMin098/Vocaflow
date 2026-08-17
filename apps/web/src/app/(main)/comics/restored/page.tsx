@@ -57,9 +57,12 @@ export default async function PdComicsPage({
           <h1 className="mt-1 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">
             옛 영어 만화책
           </h1>
+          {/* 화면 문구는 **실제로 배달되는 것**을 말해야 한다. 지금 발행되는 것은 복원된 원본
+              페이지다(컷 분할본이 아니라). 예전 문구는 "컷 단위로 나눠 폰에서도 읽힌다"고
+              약속했는데, 전면 페이지를 그대로 보내면서 그 말을 두면 지키지 못할 약속이 된다. */}
           <p className="mt-2 max-w-[60ch] font-body text-[14px] leading-relaxed text-[var(--t2)]">
             저작권이 만료된 1940~50년대 만화를 디지털 복원했습니다. 종이 변색과 인쇄 망점을 걷어내고
-            컷 단위로 나눠, 폰에서도 대사가 그대로 읽힙니다.
+            해상도를 두 배로 올려, 원본 지면 그대로 읽습니다.
           </p>
         </header>
 
@@ -167,7 +170,7 @@ function KindSection({ kind }: { kind: PdComicShelfKind }) {
                   {s.seriesTitle}
                 </h3>
                 <p className="mt-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
-                  {s.issuesPublished}권 · {s.panelsTotal}컷
+                  {s.issuesPublished}권 · {s.panelsTotal}쪽
                 </p>
               </div>
             </Link>
@@ -267,7 +270,7 @@ function SeriesView({
                   {it.title}
                 </h3>
                 <p className="mt-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
-                  {it.panelsTotal}컷
+                  {it.panelsTotal}쪽
                 </p>
               </div>
             </Link>

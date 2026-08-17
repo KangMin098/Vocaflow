@@ -179,7 +179,9 @@ function InfoBody({ info }: { info: PdComicInfo }) {
         <Row label="호수" value={info.issueNo != null ? `제 ${info.issueNo}호` : '단행본'} />
         <Row label="원본 발행" value={info.publishedYear ? `${info.publishedYear}년` : '연도 미상'} />
         <Row label="발행사" value={info.publisher} />
-        <Row label="분량" value={`${info.panelsTotal}컷`} />
+        {/* 발행본의 `panelsTotal` 은 **페이지 수**다 — publish-upload 가 페이지 행으로 교체한다.
+            컷(패널)이라고 부르면 학습자가 받는 것과 다른 것을 말하게 된다. */}
+        <Row label="분량" value={`${info.panelsTotal}쪽`} />
         <Row label="대사" value={info.bubbleCount > 0 ? `${info.bubbleCount}개` : '검수 중'} />
       </dl>
 
