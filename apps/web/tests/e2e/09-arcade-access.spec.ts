@@ -250,22 +250,15 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
     await expect(page.locator('aside[aria-label="주 메뉴"]')).toBeVisible();
   });
 
-  test('A2. /hub 진입 카드의 게임 수가 허브 실제 카드 수와 일치한다 (문구 드리프트 차단)', async ({
-    page,
-  }) => {
-    await page.goto('/hub', { waitUntil: 'domcontentloaded' });
-    // 사이드바에도 /arcade 링크가 있으므로 본문(진입 카드)로 한정한다.
-    const entry = page.locator('main a[href="/arcade"]').first();
-    await expect(entry).toBeVisible({ timeout: 30_000 });
-    const aria = (await entry.getAttribute('aria-label')) ?? '';
-    const claimed = Number(aria.match(/(\d+)\s*종/)?.[1] ?? 0);
-    expect(claimed, `진입 카드 aria-label 에 게임 수 없음: "${aria}"`).toBeGreaterThan(0);
-
-    await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.arc-grid a[href^="/play/"]').first()).toBeVisible({ timeout: 30_000 });
-    // 계열 접기 이후 카드 수 ≠ 게임 수 — 진입 카드가 약속한 수는 "도달 가능한 게임 수"다.
-    expect(await page.locator('.arc-grid a[href^="/play/"]').count()).toBe(claimed);
-  });
+  // A2 (진입 카드 문구 드리프트 차단) 는 **여기서 검사할 대상이 사라져** 옮겼다.
+  //   이 테스트는 `/hub` 본문의 아케이드 진입 카드가 약속한 "N종" 을 읽었는데,
+  //   v06.202 가 그 카드를 없애고 Game Lab 통로를 사이드바로 옮겼다(`main a[href="/arcade"]`
+  //   가 더 이상 없다). 스펙은 그대로 남아 계속 빨갰고, 이 파일 전체가 다른 이유로도
+  //   빨간 상태라 아무도 눈치채지 못했다(실측 2026-08-17).
+  //   지금 드리프트 위험은 사이드바 `ariaLabel` 에 **손으로 적힌 숫자**이므로,
+  //   `src/lib/framework/__tests__/framework.test.ts` 에서 레지스트리끼리 비교한다
+  //   (DOM 이 아니라 카탈로그 대조라 로그인·컴파일 상태에 흔들리지 않는다).
+  //   화면에 뜨는 배지의 정합은 아래 A3 가 계속 지킨다.
 
   test('A3. 섹션 카운트 배지가 그 섹션에서 실제로 도달 가능한 게임 수와 일치한다', async ({ page }) => {
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });

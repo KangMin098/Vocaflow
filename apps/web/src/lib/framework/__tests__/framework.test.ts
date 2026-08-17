@@ -172,6 +172,19 @@ describe('축 — 면 · 단계 · 표면', () => {
     }
   })
 
+  it('사이드바가 약속한 Game Lab 게임 수가 카탈로그와 같다 (문구 드리프트 차단)', () => {
+    // 이 단언은 `09-arcade-access` 의 A2 를 옮겨 온 것이다. A2 는 `/hub` 의 아케이드 진입
+    // 카드가 약속한 "N종" 을 검사했는데, v06.202 가 그 카드를 없애고 Game Lab 통로를
+    // 사이드바로 옮기면서 **검사 대상이 사라졌다**(스펙은 그대로 남아 계속 빨갰다).
+    // 지금 드리프트 위험은 사이드바 `ariaLabel` 에 **손으로 적힌 숫자**에 있다.
+    // DOM 이 아니라 레지스트리끼리 비교하므로 날짜·로그인·컴파일 상태에 흔들리지 않는다.
+    const gameLab = NAV_GROUPS.flatMap((g) => g.items).find((i) => i.href === '/arcade')
+    expect(gameLab, '사이드바에 Game Lab 항목이 없다').toBeTruthy()
+    const claimed = Number(/(\d+)\s*종/.exec(gameLab!.ariaLabel ?? '')?.[1] ?? 0)
+    expect(claimed, `ariaLabel 에 게임 수가 없다: "${gameLab!.ariaLabel}"`).toBeGreaterThan(0)
+    expect(claimed, '사이드바가 약속한 수 ≠ 카탈로그 실제 수').toBe(GAME_CATALOG.length)
+  })
+
   it('Comics 는 레일 밖에 있다 — 읽는 방식이지 학습 단계가 아니다', () => {
     expect(NAV_GROUPS.some((g) => g.items.some((i) => i.href.startsWith('/comics')))).toBe(false)
     expect(ASIDE_GROUP.items.map((i) => i.href)).toEqual(['/comics/adapted', '/comics/restored'])
