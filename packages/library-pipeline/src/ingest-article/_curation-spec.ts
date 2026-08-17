@@ -955,9 +955,20 @@ export interface SourcePolicy {
  *  (types-article.ts: "VOA Learning English = 학습 정체성으로 100% audio"). */
 const AUDIO_SOURCES: ReadonlySet<SourceKey> = new Set<SourceKey>(['voa'])
 
-/** 라이선스 문자열 → 정규화 등급. DB license_class 규칙과 동일 (ND > SA > BY 순서 중요). */
+/** 라이선스 문자열 → 정규화 등급. DB license_class 규칙과 동일 (NC > ND > SA > BY 순서 중요).
+ *
+ * ⚠ NC(NonCommercial)를 **가장 먼저** 판정한다 — `CC-BY-NC-SA` 는 SA 도 포함하므로
+ *   순서를 바꾸면 NC 가 `cc_by_sa`(파생·상업 허용)로 조용히 승격된다. DB
+ *   `acp_classify_license` 는 이미 NC 를 첫 분기에서 restricted 로 떨어뜨리는데
+ *   이쪽만 빠져 있었다: 정책층(UI 게이트 표시)과 권위층(DB)이 갈라져,
+ *   NC 소스를 추가하면 화면은 "단어세트 발행 가능"이라 말하고 DB 는 차단한다.
+ *   Vocaflow 는 유료화를 전제하므로 NC 는 발행 불가가 정답이다. */
 export function licenseClassOf(license: string): LicenseClass {
   const l = license.toUpperCase()
+  // NC — 상업적 이용 불가. SA/BY 판정보다 먼저 (DB acp_classify_license 와 동일 순서).
+  if (l.includes('-NC') || l.includes('NONCOMMERCIAL') || l.includes('NON-COMMERCIAL')) {
+    return 'restricted'
+  }
   if (l.includes('CC0')) return 'cc0'
   if (l.includes('PD') || l.includes('PUBLIC DOMAIN') || l.includes('GOVERNMENT')) return 'public_domain'
   if (l.includes('ND')) return 'cc_by_nd' // No Derivatives — SA/BY 보다 먼저 판정

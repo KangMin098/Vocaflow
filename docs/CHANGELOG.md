@@ -10,6 +10,24 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP 정책층이 NC 라이선스를 못 읽던 것 (v06.39)
+
+DB `acp_classify_license` 는 NC 를 첫 분기에서 `restricted` 로 거르는데, TS
+`licenseClassOf`(`_curation-spec.ts`) 에는 NC 분기가 없었다. `CC-BY-NC-SA-4.0` 이 `SA` 를
+포함하므로 **`cc_by_sa` 로 판정** → `SourcePolicy.derivation='full'` → **관리 화면은 "단어세트
+발행 가능" 이라 말하고 DB 는 차단**하는, 정책층과 권위층이 갈라진 상태.
+
+- **영향 실측 = 0** — `licenseClassOf` 는 `SOURCE_SPECS[].license` 상수만 받고 활성 14소스에
+  NC 가 없다(DB `license_class='restricted'` 행도 0). **CommonLit·OpenStax NC 교재를 붙이는
+  순간 무장**되는 함정이었다.
+- **수정** — NC 분기를 SA/BY 보다 **먼저** (DB 와 동일 순서). 회귀 5건 + 불변식
+  "활성 소스에 `restricted` 등급이 없다" 추가 → NC 소스를 `SOURCE_SPECS` 에 넣으면 배포 전 실패.
+  `source-policy.test.ts` 35 통과.
+- **동반 검토** — ACP 소스 확장 3모델 대조 + 사실 재저작(모델 4) 파이프라인 6단계 설계.
+  실측: 발행 160편 · register×CEFR **30칸 중 17칸 0편** · A1·C2 전무 · `wikinews` 0행이라
+  **학습자 시사 트랙이 렌더되지 않음**(`source-map.ts` news→wikinews 단독 매핑).
+  리포트: <https://claude.ai/code/artifact/58629948-da57-48bd-a78d-78c7fced85b5>
+
 ### 결과 공유 링크 — 교사가 교사를 데려오는 고리 (v06.39)
 
 `/fit` 을 열었지만 교사가 **발견할 경로**가 없었다. 10만 경로의 실제 엔진은 유입이 아니라

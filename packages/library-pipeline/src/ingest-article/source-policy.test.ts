@@ -23,8 +23,25 @@ describe('licenseClassOf', () => {
     ['CC-BY-ND-4.0', 'cc_by_nd'],
     ['CC0-1.0', 'cc0'],
     ['All rights reserved', 'restricted'],
+    // NC — SA/BY 를 포함해도 restricted. 순서가 뒤집히면 cc_by_sa 로 승격되므로 고정.
+    ['CC-BY-NC-SA-4.0', 'restricted'], // CommonLit 자체 제작물 · OpenStax 현행 표준
+    ['CC-BY-NC-4.0', 'restricted'],
+    ['CC BY-NC-ND 4.0', 'restricted'],
+    ['Creative Commons NonCommercial', 'restricted'],
   ] as const)('%s → %s', (license, expected) => {
     expect(licenseClassOf(license)).toBe(expected)
+  })
+})
+
+describe('활성 소스 라이선스 게이트', () => {
+  // 활성 소스는 전부 "발행 가능 등급" 이어야 한다. NC/미상 라이선스 소스를 SOURCE_SPECS 에
+  // 추가하면 여기서 먼저 실패한다 — DB(acp_classify_license)가 copyright_safe_in_kr=false 로
+  // 차단하므로, 화면만 "발행 가능"이라 말하는 상태로 배포되는 것을 막는다.
+  it('SOURCE_SPECS 에 restricted 등급 소스가 없다', () => {
+    const restricted = (Object.keys(SOURCE_POLICIES) as SourceKey[]).filter(
+      (s) => SOURCE_POLICIES[s].licenseClass === 'restricted',
+    )
+    expect(restricted).toEqual([])
   })
 })
 
