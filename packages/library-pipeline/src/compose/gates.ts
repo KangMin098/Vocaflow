@@ -20,7 +20,13 @@
 // ⚠ 게이트는 면책이 아니다. 침해 위험이 큰 알려진 경로를 자동으로 막을 뿐이고,
 //   상용화 시점의 전문가 검토를 대체하지 않는다.
 
-import { containment, findVerbatimRuns, type Fingerprint, type VerbatimRun } from './fingerprint'
+import {
+  buildFingerprint,
+  containment,
+  findVerbatimRuns,
+  type Fingerprint,
+  type VerbatimRun,
+} from './fingerprint'
 
 // ── 입력 도메인 ──────────────────────────────────────────────────────
 
@@ -315,6 +321,28 @@ export function checkShelfDuplication(
     severity: 'critical',
     verdict: 'WARN',
     detail: `기존 발행 글과 ${worst.run.wordCount}어절 겹친다 — ${where}. 같은 사건을 다루고 있는지 확인한다.`,
+  }
+}
+
+/**
+ * 우리가 발행한 글 → I17 대조군 레코드.
+ *
+ * `checkShelfDuplication` 에 넘길 것을 만든다. **`sources` 에 넣지 말 것** — 그 자리에 들어가면
+ * I12·I14 가 우리 글을 외부 취재로 오인한다. publisher 를 `vocaflow:` 로 시작하게 만들어
+ * 판정문에서도 우리 것임이 드러나게 한다.
+ */
+export function shelfRecordFrom(article: {
+  id: string
+  title: string
+  source: string
+  content: string
+}): SourceRecord {
+  return {
+    id: article.id,
+    publisher: `vocaflow:${article.source}`,
+    url: `internal://article/${article.id}`,
+    published_at: '',
+    fingerprint: buildFingerprint(article.content),
   }
 }
 

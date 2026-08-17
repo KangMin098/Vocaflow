@@ -125,17 +125,54 @@ describe('discoverFeeds — 관리자는 발행사만 고른다', () => {
     expect(r.skipped.some((s) => s.reason.includes('피드가 아닙니다'))).toBe(true)
   })
 
-  it('알림이 없으면 관습 경로를 시도하고, 찾은 것은 출처를 구분해 표시한다', async () => {
+  it('알림이 없으면 그 발행사의 알려진 피드 경로부터 두드린다', async () => {
+    // 대형 발행사는 홈페이지에서 자동 수집기를 막지만 피드는 배포용이라 열리는 일이 흔하다.
+    // 주소를 아는 것은 시스템의 일이므로, 사람이 찾아오게 두지 않고 힌트부터 시도한다.
+    const d = deps({
+      'https://news.example/robots.txt': ALLOW,
+      'https://news.example/': OK(HOME_NO_LINKS),
+      'https://news.example/news/rss.xml': OK(FEED_XML), // FACT_SOURCES.bbc.feedHints 첫 항목
+    })
+    const r = await discoverFeeds(spec, new CrawlGate(), d)
+    expect(r.feeds).toHaveLength(1)
+    expect(r.feeds[0]!.url).toBe('https://news.example/news/rss.xml')
+    expect(r.feeds[0]!.via).toBe('convention')
+  })
+
+  it('힌트가 없는 발행사만 일반 관습 경로로 내려간다', async () => {
+    const noHints: FactSourceSpec = { ...spec, feedHints: undefined }
     const d = deps({
       'https://news.example/robots.txt': ALLOW,
       'https://news.example/': OK(HOME_NO_LINKS),
       'https://news.example/feed': OK(FEED_XML),
     })
+    const r = await discoverFeeds(noHints, new CrawlGate(), d)
+    expect(r.feeds.map((f) => f.url)).toEqual(['https://news.example/feed'])
+  })
+
+  it('홈페이지가 막혀도 거기서 끝내지 않는다 — 피드는 따로 열릴 수 있다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': ALLOW,
+      'https://news.example/': { ok: false, status: 403, text: '' },
+      'https://news.example/news/rss.xml': OK(FEED_XML),
+    })
     const r = await discoverFeeds(spec, new CrawlGate(), d)
     expect(r.feeds).toHaveLength(1)
-    expect(r.feeds[0]!.via).toBe('convention')
-    // 관습 경로는 발행사가 알린 게 아니므로 전부 시도하되 사유가 남는다
-    expect(r.skipped.length).toBeGreaterThan(0)
+    expect(r.skipped.some((s) => s.reason.includes('홈페이지를 읽지 못했습니다'))).toBe(true)
+  })
+
+  it('apex 가 robots 를 안 주면 www 에서 찾는다', async () => {
+    // 대형 발행사는 robots·피드를 www 호스트에서만 서비스하는 경우가 흔하다.
+    // apex 만 보면 "robots 를 못 가져왔다" 로 끝나 발견 자체가 안 된다.
+    const d = deps({
+      'https://news.example/robots.txt': { ok: false, status: 503, text: '' },
+      'https://www.news.example/robots.txt': ALLOW,
+      'https://www.news.example/': OK(HOME_WITH_LINKS),
+      'https://www.news.example/feeds/world.xml': OK(FEED_XML),
+      'https://news.example/feeds/business.atom': OK(FEED_XML),
+    })
+    const r = await discoverFeeds(spec, new CrawlGate(), d)
+    expect(r.feeds.some((f) => f.url.includes('www.news.example'))).toBe(true)
   })
 
   it('알림이 있으면 관습 경로를 두드리지 않는다 (헛된 요청 금지)', async () => {
@@ -151,12 +188,18 @@ describe('discoverFeeds — 관리자는 발행사만 고른다', () => {
     }
   })
 
-  it('robots 를 먼저 확인하고, 실패하면 홈페이지도 열지 않는다', async () => {
-    const d = deps({ 'https://news.example/robots.txt': { ok: false, status: 503, text: '' } })
+  it('두 호스트 모두 robots 를 못 주면 홈페이지도 열지 않는다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': { ok: false, status: 503, text: '' },
+      'https://www.news.example/robots.txt': { ok: false, status: 503, text: '' },
+    })
     const r = await discoverFeeds(spec, new CrawlGate(), d)
     expect(r.feeds).toEqual([])
-    expect(r.skipped[0]!.reason).toContain('robots.txt 를 가져오지 못했습니다')
-    expect(d.seen).toEqual(['https://news.example/robots.txt'])
+    expect(r.skipped.every((s) => s.reason.includes('robots.txt 를 가져오지 못했습니다'))).toBe(true)
+    expect(d.seen).toEqual([
+      'https://news.example/robots.txt',
+      'https://www.news.example/robots.txt',
+    ])
   })
 
   it('robots 가 막은 경로는 열지 않는다', async () => {
@@ -199,6 +242,6 @@ describe('discoverFeeds — 관리자는 발행사만 고른다', () => {
       'https://news.example/feeds/business.atom': OK(FEED_XML),
     })
     const r = await discoverFeeds(spec, new CrawlGate(), d)
-    expect(r.requests).toBe(4) // robots + home + 후보 2
+    expect(r.requests).toBe(5) // robots ×2(apex·www) + home + 후보 2
   })
 })

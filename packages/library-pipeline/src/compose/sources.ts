@@ -130,6 +130,17 @@ export interface FactSourceSpec {
   wire: string | null
   /** topic_corpus_sources.category_id 어휘 (새로 만들지 않고 기존 분류를 쓴다) */
   topics: ReadonlyArray<string>
+  /**
+   * 이 발행사에서 흔히 쓰이는 피드 경로 후보.
+   *
+   * **주소를 아는 것은 시스템의 일이라는 원칙의 구현**이다. 대형 발행사는 홈페이지에서
+   * 자동 수집기를 막는 경우가 많아 autodiscovery 가 실패하는데, 피드 자체는 배포용이라
+   * 열리는 경우가 흔하다. 그래서 홈페이지를 못 읽어도 여기부터 두드린다.
+   *
+   * ⚠ 이 값들은 **확정된 주소가 아니라 후보**다 — 열어서 항목이 파싱되는 것만 목록에 오르고,
+   *   안 되면 사유와 함께 버려진다. 그래서 틀린 후보가 있어도 잘못된 피드가 등록되지 않는다.
+   */
+  feedHints?: ReadonlyArray<string>
   /** 왜 이 등급인지 — 판단 근거를 남긴다 */
   note: string
 }
@@ -286,6 +297,8 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: 'reuters',
     topics: ['politics-and-society-social-issues', 'work-and-business-business', 'science-and-technology'],
+    // 후보일 뿐 — 열어서 항목이 파싱되는 것만 목록에 오른다.
+    feedHints: ['/tools/rss', '/rssFeed/world', '/rssFeed/businessNews', '/arc/outboundfeeds/rss/'],
     note: '국제 통신사. 자체 취재 계통이므로 AP·AFP 와 독립. 다만 이 원고를 받아 쓰는 매체가 많아 wire 표시가 필수다.',
   },
   ap: {
@@ -297,6 +310,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: 'ap',
     topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment', 'sport'],
+    feedHints: ['/index.rss', '/hub/ap-top-news.rss', '/rss', '/apf-topnews.rss'],
     note: '미국 통신사. Reuters 와 계통이 다르므로 이 둘을 함께 쓰면 독립 2곳이 성립한다.',
   },
   bbc: {
@@ -314,6 +328,13 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'the-natural-world-the-environment',
       'sport',
     ],
+    feedHints: [
+      '/news/rss.xml',
+      '/news/world/rss.xml',
+      '/news/science_and_environment/rss.xml',
+      '/news/health/rss.xml',
+      '/news/business/rss.xml',
+    ],
     note: '영국 공영방송. 자체 취재 비중이 높고 주제 폭이 넓어 통신사와 다른 각도의 확인을 준다.',
   },
   dw: {
@@ -325,6 +346,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['politics-and-society-social-issues', 'work-and-business-working-life', 'people-education'],
+    feedHints: ['/atom/rss-en-all', '/rdf/rss-en-all', '/atom/rss-en-eu', '/atom/rss-en-bus'],
     note: '독일 공영 국제방송. 유럽 시각 + 영미권과 다른 취재 계통. people-education 을 덮는 몇 안 되는 후보.',
   },
   koreaherald: {
@@ -336,6 +358,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: null,
     topics: ['politics-and-society-social-issues', 'people-education', 'work-and-business-working-life'],
+    feedHints: ['/rss/020000000000.xml', '/rss/010000000000.xml', '/common/rss_xml.php', '/rss'],
     note: '한국 영자지 — 학습자에게 맥락이 가까운 사건을 영어로 확인할 수 있다. 국내 주제에서 영미 매체가 못 주는 각도.',
   },
 

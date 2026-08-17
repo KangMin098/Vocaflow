@@ -156,7 +156,12 @@ export async function discoverFeeds(
   const skipped: Array<{ url: string; reason: string }> = []
   let requests = 0
 
-  const home = `https://${spec.publisher}/`
+  const apex = spec.publisher.toLowerCase()
+  // 대형 발행사는 robots·피드를 www 호스트에서만 서비스하는 경우가 흔하다.
+  // apex 만 보면 "robots 를 못 가져왔다" 로 끝나 발견 자체가 안 된다.
+  const hosts = apex.startsWith('www.') ? [apex] : [apex, `www.${apex}`]
+  const home = `https://${apex}/`
+
   if (!isCollectable(spec)) {
     return {
       feeds: [],
@@ -165,33 +170,53 @@ export async function discoverFeeds(
     }
   }
 
-  // robots 를 먼저 본다 — 발견도 수집이다.
-  const robots = await primeRobots(spec.publisher, gate, deps)
-  requests++
-  if (robots === 'failed') {
+  // robots 를 먼저 본다 — 발견도 수집이다. 두 호스트 모두 등록해야 힌트 주소(www)가 통과한다.
+  const robotsByHost: Record<string, string> = {}
+  let anyRobots = false
+  for (const host of hosts) {
+    const r = await primeRobots(host, gate, deps)
+    requests++
+    robotsByHost[host] = r
+    if (r !== 'failed') anyRobots = true
+  }
+  if (!anyRobots) {
     return {
       feeds: [],
-      skipped: [{ url: home, reason: 'robots.txt 를 가져오지 못했습니다 — 조회를 보류합니다' }],
+      skipped: hosts.map((h) => ({
+        url: `https://${h}/robots.txt`,
+        reason: 'robots.txt 를 가져오지 못했습니다 — 확인 전에는 조회하지 않습니다',
+      })),
       requests,
     }
   }
+  // robots 를 읽은 호스트를 기본 호스트로 삼는다(대개 www).
+  const primary = hosts.find((h) => robotsByHost[h] !== 'failed') ?? apex
 
-  // ① autodiscovery
+  // ① autodiscovery — 홈페이지가 막혀도 여기서 끝내지 않는다.
   const candidates: Array<{ url: string; title: string | null; via: DiscoveredFeed['via'] }> = []
-  const homeRes = await guardedFetch(home, gate, deps)
+  const homeUrl = `https://${primary}/`
+  const homeRes = await guardedFetch(homeUrl, gate, deps)
   requests++
   if ('reason' in homeRes) {
-    skipped.push({ url: home, reason: homeRes.reason })
+    skipped.push({ url: homeUrl, reason: `홈페이지를 읽지 못했습니다 — ${homeRes.reason}` })
   } else {
-    for (const link of parseFeedLinks(homeRes.res.text, home)) {
+    for (const link of parseFeedLinks(homeRes.res.text, homeUrl)) {
       candidates.push({ ...link, via: 'autodiscovery' })
     }
   }
 
-  // ② 관습 경로 — ①이 아무것도 못 찾았을 때만
+  // ② 알려진 피드 경로 — 홈페이지가 자동 수집기를 막아도 피드는 배포용이라 열리는 일이 흔하다.
+  //    주소를 아는 것은 시스템의 일이라는 원칙이 여기서 실제로 작동한다.
+  if (candidates.length === 0) {
+    for (const path of spec.feedHints ?? []) {
+      candidates.push({ url: `https://${primary}${path}`, title: null, via: 'convention' })
+    }
+  }
+
+  // ③ 일반 관습 경로 — 위 둘이 모두 비었을 때만
   if (candidates.length === 0 && (opts.tryConventions ?? true)) {
     for (const path of FEED_CONVENTIONS) {
-      candidates.push({ url: `https://${spec.publisher}${path}`, title: null, via: 'convention' })
+      candidates.push({ url: `https://${primary}${path}`, title: null, via: 'convention' })
     }
   }
 

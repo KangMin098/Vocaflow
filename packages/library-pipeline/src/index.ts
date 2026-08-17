@@ -182,6 +182,7 @@ export {
   collapseSyndication,
   isComposePublishable,
   runComposeGates,
+  shelfRecordFrom,
   spearman,
 } from './compose/gates'
 export type {

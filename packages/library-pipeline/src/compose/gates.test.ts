@@ -24,6 +24,7 @@ import {
   collapseSyndication,
   isComposePublishable,
   runComposeGates,
+  shelfRecordFrom,
   spearman,
   type ComposeDraft,
   type FactCard,
@@ -338,6 +339,14 @@ describe('I17 서가 중복', () => {
   const shelf: SourceRecord[] = [
     src('own1', 'vocaflow(acp:noaa)', REUTERS, '2026-08-14T09:00:00Z'),
   ]
+
+  it('shelfRecordFrom 은 우리 것임이 판정문에 드러나게 만든다', () => {
+    const rec = shelfRecordFrom({ id: 'a1', title: 'T', source: 'noaa', content: REUTERS })
+    expect(rec.publisher).toBe('vocaflow:noaa')
+    expect(rec.fingerprint.hashes.length).toBeGreaterThan(0)
+    // 우리 글이라도 지문만 남는다 — 본문을 레코드에 담지 않는다
+    expect(JSON.stringify(rec)).not.toContain('earthquake')
+  })
 
   it('대조할 발행 글이 없으면 통과', () => {
     expect(checkShelfDuplication(GOOD_DRAFT, []).verdict).toBe('PASS')
