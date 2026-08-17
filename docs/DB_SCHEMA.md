@@ -757,6 +757,15 @@ CCP 의 `comic_gen_runs` 를 PDCP 도 쓴다: `library_book_id` 를 nullable 로
 `list_pd_comic_shelf()` · `list_pd_comics(p_series_key)` · `select_pd_comic(slug)` ·
 `select_pd_comic_info(slug)` · `select_pd_comic_provenance(slug)`.
 
+**같은 호의 여러 스캔본은 보이는 지점에서만 접는다** ([20260817120000](../supabase/migrations/20260817120000_pd_comic_dedupe_scans.sql)).
+실측 969건에 **32그룹·36행**이 중복이다(`atomic-war #3` 3본 · `whiz-comics #2` 원본/Millennium reprint/legal notice).
+전부 `(adapter, identifier)` 가 달라 유니크 제약에 안 걸린다 — **다른 파일이지만 같은 만화**다.
+지우지 않는 이유: 어느 스캔이 온전한지는 취득해 봐야 안다(coverless·흑백·페이지 수가 제각각).
+그래서 파이프라인에는 전부 남기고 학습자 RPC 3개에서만 `DISTINCT ON (series_key, coalesce(issue_no::text, id::text))`
+로 호당 1본(컷 많은 순 → 먼저 등록 순)을 고른다. ⚠️ `coalesce(…, id)` 가 핵심 —
+NULL 은 `DISTINCT ON` 상 서로 같게 취급돼 **번호 없는 별책 75건이 한 권으로 사라진다**.
+권수 집계도 같은 기준이어야 한다(카드가 "9권"인데 열면 4권이면 그 숫자는 거짓말이다).
+
 - `list_pd_comic_shelf()` — **유형 → 시리즈** 평면 행(발행본 있는 것만). 화면이 접는다(`foldShelf`).
 - `list_pd_comics(p_series_key)` — ⚠️ 20260816200000 에서 **반환 컬럼이 늘어 drop 후 재생성**했다.
   무인자 오버로드를 남기면 `list_pd_comics()` 호출이 42725 ambiguous 로 죽으므로 함께 삭제한다.
