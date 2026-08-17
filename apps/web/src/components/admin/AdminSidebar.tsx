@@ -15,6 +15,7 @@ import {
   LayoutDashboard,
   Library,
   Newspaper,
+  PenLine,
   Scale,
   ScanLine,
   ShieldCheck,
@@ -60,6 +61,9 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/library', label: '콘텐츠', Icon: Library },
       { href: '/admin/curation', label: 'LCP Pipeline', Icon: Workflow },
       { href: '/admin/articles', label: 'ACP Pipeline', Icon: Newspaper },
+      // ACP §20 — 사실 재저작. ACP(수집·발행)와 다른 파이프라인이라 항목을 나눈다:
+      //   ACP 는 남의 본문을 가져오고, Compose 는 사실만 가져와 우리가 쓴다.
+      { href: '/admin/compose', label: 'Compose Pipeline', Icon: PenLine },
       { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
       { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Sparkles },
       { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
