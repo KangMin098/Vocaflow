@@ -44,8 +44,17 @@ if (!issue) { console.error(`✗ 이슈 못 찾음 (qc.workDir=${abs}) — 파�
 
 const pm = readJson(path.join(WD, 'panels', 'panels.manifest.json'))?.panels
 if (!Array.isArray(pm)) { console.error('✗ panels.manifest.json 없음/형식오류'); process.exit(1) }
+// 매니페스트 3종을 **전부** 본다 — 우선순위: 정제본 > 로컬OCR > 소스 hOCR.
+//
+// ⚠️ `bubbles.manifest.json`(ocr.mjs 가 실제로 쓰는 파일)을 빠뜨리고 있었다.
+// 그래서 hOCR 추출이 성공한 호도 "대사 없음"으로 적재됐다 — 에러 없이, 대사만 사라진 채로.
+// (드레인 라우트는 둘 다 보는데 여기만 안 봤다. 같은 산출물을 읽는 두 코드가 서로 다른
+//  파일 목록을 갖고 있으면 이런 식으로 조용히 갈린다.)
 const refinedMf = readJson(path.join(WD, 'bubbles.refined.manifest.json'))
-const bubblesMf = refinedMf ?? readJson(path.join(WD, 'bubbles.local.manifest.json'))
+const bubblesMf =
+  refinedMf ??
+  readJson(path.join(WD, 'bubbles.local.manifest.json')) ??
+  readJson(path.join(WD, 'bubbles.manifest.json'))
 const usingRefined = !!refinedMf
 
 // 대사가 없어도 적재한다 — **컷 이미지 자체가 콘텐츠**이고, 원작 레터링은 그림 안에 있다.
