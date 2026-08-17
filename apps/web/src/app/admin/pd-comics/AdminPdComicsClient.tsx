@@ -907,6 +907,117 @@ function TaxonomyBreakdown({ rows }: { rows: PdComicAdminRow[] }) {
 // ─── 큐 탭 — 드레인 + 라이브 모니터링 ───────────────────────────────
 const DRAINABLE = new Set(['queued', 'acquired', 'restored', 'segmented', 'ocr'])
 
+// ── 목록 표시 좁히기 ──────────────────────────────────────────────
+//
+// 대량 소스 GET 이 들어오면서 큐가 한 줌에서 **969호**가 됐다(실측 2026-08-17: 대기 955).
+// 두 탭이 각각 전량을 카드로 그려 한 화면이 **2.65MB · 18초**가 됐다.
+//
+// ★ 자를 때 지킬 것 — **집계는 절대 좁힌 목록으로 계산하지 않는다.**
+//   "대기 N건"·단계 분포·멈춤 수는 전부 `rows`(전량) 기준이다. 표시용으로 자른 배열로 세면
+//   드레인 버튼의 숫자가 조용히 틀어지고, 운영자는 큐가 빈 줄 알게 된다.
+//   여기서 좁히는 것은 **화면에 그리는 카드뿐**이고, 몇 건 중 몇 건인지 항상 함께 적는다.
+const ROW_PAGE = 30
+
+function useRowView(rows: PdComicAdminRow[]): {
+  q: string
+  setQ: (v: string) => void
+  statusFilter: string
+  setStatusFilter: (v: string) => void
+  filtered: PdComicAdminRow[]
+  shown: number
+  showMore: () => void
+} {
+  const [q, setQ] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [shown, setShown] = useState(ROW_PAGE)
+
+  // 필터가 바뀌면 페이지를 처음으로 — 30건 보다가 필터를 바꿨는데 옛 페이지 길이가 남으면
+  // "몇 건 중 몇 건" 표기와 실제 목록이 어긋난다.
+  useEffect(() => { setShown(ROW_PAGE) }, [q, statusFilter])
+
+  const needle = q.trim().toLowerCase()
+  const filtered = rows.filter((r) => {
+    if (statusFilter === 'stuck') { if (!r.lastError) return false } else if (statusFilter !== 'all' && r.status !== statusFilter) return false
+    if (!needle) return true
+    return `${r.title} ${r.sourceIdentifier} ${r.seriesTitle ?? ''}`.toLowerCase().includes(needle)
+  })
+
+  return { q, setQ, statusFilter, setStatusFilter, filtered, shown, showMore: () => setShown((n) => n + ROW_PAGE) }
+}
+
+/** 목록 위 필터 줄 — 상태 칩은 **전량 기준 건수**를 달고 나온다(좁힌 목록으로 세지 않는다). */
+function RowViewControls({
+  rows,
+  view,
+}: {
+  rows: PdComicAdminRow[]
+  view: ReturnType<typeof useRowView>
+}) {
+  const stuckN = rows.filter((r) => r.lastError).length
+  const chips: Array<{ key: string; label: string; n: number }> = [
+    { key: 'all', label: '전체', n: rows.length },
+    ...PD_STAGES.map((s) => ({ key: s.key as string, label: s.label, n: rows.filter((r) => r.status === s.key).length })).filter((c) => c.n > 0),
+    ...(stuckN > 0 ? [{ key: 'stuck', label: '멈춤', n: stuckN }] : []),
+  ]
+  return (
+    <div className="mb-2 flex flex-wrap items-center gap-1.5">
+      <label className="sr-only" htmlFor="pdc-row-search">호 검색</label>
+      <input
+        id="pdc-row-search"
+        type="search"
+        value={view.q}
+        onChange={(e) => view.setQ(e.target.value)}
+        placeholder="제목 · 식별자 · 시리즈"
+        className="min-h-9 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:text-[var(--t2)] hover:border-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 sm:w-64"
+      />
+      {chips.map((c) => {
+        const on = view.statusFilter === c.key
+        return (
+          <button
+            key={c.key}
+            type="button"
+            onClick={() => view.setStatusFilter(c.key)}
+            aria-pressed={on}
+            className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            style={{ borderColor: on ? ACCENT : 'var(--bd)', color: on ? ACCENT : 'var(--t2)', background: on ? `${ACCENT}1a` : 'transparent' }}
+          >
+            {c.label} <span className="font-mono tabular-nums">{c.n}</span>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+/** 목록 아래 "몇 건 중 몇 건" + 더 보기. 자른 사실을 숨기지 않는다. */
+function RowViewFooter({ view }: { view: ReturnType<typeof useRowView> }) {
+  const total = view.filtered.length
+  const shown = Math.min(view.shown, total)
+  if (total === 0) {
+    return (
+      <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-6 text-center font-body text-[12.5px] text-[var(--t2)]">
+        조건에 맞는 호가 없습니다 — 필터를 바꾸거나 검색어를 지우세요.
+      </p>
+    )
+  }
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-2">
+      <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
+        {total}건 중 {shown}건 표시
+      </span>
+      {shown < total && (
+        <button
+          type="button"
+          onClick={view.showMore}
+          className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+        >
+          {Math.min(ROW_PAGE, total - shown)}건 더 보기
+        </button>
+      )}
+    </div>
+  )
+}
+
 function QueueTab({
   rows,
   onMsg,
@@ -1127,6 +1238,9 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   // 관리자 주의 우선순위 정렬: 멈춤(수정 필요) → 방금 진행(관찰) → 진행 대상 → 완료
   const rank = (r: PdComicAdminRow) => r.lastError ? 0 : (r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS ? 1 : (DRAINABLE.has(r.status) ? 2 : 3))
   const sortedRows = [...rows].sort((a, b) => rank(a) - rank(b))
+  // 정렬이 이미 "멈춤 → 방금 진행 → 진행 대상 → 완료" 라 앞쪽 30건이 볼 값어치가 있는 것들이다.
+  // 위 dist·drainable·stuck·runningNow 는 **전량(rows)** 으로 계산돼 있으므로 여기서 좁혀도 숫자는 그대로다.
+  const monitorView = useRowView(sortedRows)
 
   const drainOne = async (issueId: string, dryRun: boolean) => {
     setBusy(issueId)
@@ -1190,8 +1304,10 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
       {rows.length === 0 ? (
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
       ) : (
+        <div>
+        <RowViewControls rows={rows} view={monitorView} />
         <ul className="flex flex-col gap-2">
-          {sortedRows.map((r) => {
+          {monitorView.filtered.slice(0, monitorView.shown).map((r) => {
             const running = Boolean(r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
             const ocr = (r.qc?.ocr ?? null) as { bubbles?: number; needsReview?: number } | null
             const tookMs = typeof r.qc?.tookMs === 'number' ? (r.qc.tookMs as number) : null
@@ -1251,6 +1367,8 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
             )
           })}
         </ul>
+        <RowViewFooter view={monitorView} />
+        </div>
       )}
       {zoom && <Lightbox issueId={zoom.issueId} rels={zoom.rels} index={zoom.index} onIndex={(i) => setZoom((z) => (z ? { ...z, index: i } : z))} onClose={() => setZoom(null)} />}
     </div>
@@ -1555,6 +1673,7 @@ function PanelDrill({ issueId }: { issueId: string }) {
 }
 
 function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
+  const view = useRowView(rows)
   if (rows.length === 0) {
     return (
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-5 py-8 text-center">
@@ -1566,8 +1685,10 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
     )
   }
   return (
-    <ul className="flex flex-col gap-2">
-      {rows.map((r) => (
+    <div>
+      <RowViewControls rows={rows} view={view} />
+      <ul className="flex flex-col gap-2">
+      {view.filtered.slice(0, view.shown).map((r) => (
         <li key={r.id} className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
@@ -1582,7 +1703,9 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
           </p>
         </li>
       ))}
-    </ul>
+      </ul>
+      <RowViewFooter view={view} />
+    </div>
   )
 }
 
