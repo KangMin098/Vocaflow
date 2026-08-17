@@ -510,6 +510,46 @@ T6 하네스(`w0816-exmatch.mjs`)를 나머지 구간에 돌리는 것이 유일
   `pos`·`primary_pos`·`pos_set`·`meanings_ko[].pos` 를 **함께** 갱신 — 하나만 고치면 위 불일치가 재발한다.
   `ostensibly`·`purportedly`·`superficially`·`actually`·`admittedly`·`distressfully` 는 정규식 오탐(진짜 부사).
 
+## 2026-08-17 승인 결정 — 처리분과 보류분
+
+사용자 결정: **멸칭은 register 경고만 추가 · CEFR 과 표제어 정규화는 목록만 산출하고 수정 보류.**
+"측정 → 기록 → (별도 결정) → 수정" 순서를 지킨다([PLATFORM_AUDIT.md](../../PLATFORM_AUDIT.md) 원칙).
+
+### ✅ 처리 — 멸칭 표제어 register 경고 23건
+
+표제어는 **남긴다.** 고전 원문에 장작 뜻의 `fagot`, 허클베리 핀의 `nigger` 가 실제로 나오므로
+어휘 자체는 필요하다. 대신 `korean_learner_note` 에 "읽기용, 쓰지 말 것 + 중립어" 를 명시했다.
+
+앞선 T9·T12 배치가 이미 경고를 단 것이 34건이라 **빠진 23건만** 채웠다. 그중 가장 위험했던 것:
+**`nigger` 는 노트가 있는데 경고가 없었다** — 뜻풀이만 "매우 모욕적" 이라 적고 학습자에게
+"쓰지 말라" 는 말은 없던 상태였다.
+
+| 갈래 | 표제어 |
+|---|---|
+| 인종·민족 | `nigger` · `niggeress` · `negress` · `darky` · `darkies` · `asiatics` · `aborigine` · `niggard`(발음 충돌) |
+| 종교 | `papish` |
+| 성소수자 | `nance` · `dyke` |
+| 장애·질환 | `psycho` · `hunchback` · `harelip` · `epileptoid` · `manic-depressive` · `merms` |
+| 성차별 | `effeminacy` · `womanish` · `henpecked` · `bag lady` · `biddie` |
+| 기타 비하 | `gump` |
+
+`niggard` 는 특수하다 — 뜻(구두쇠)도 어원도 인종 멸칭과 **무관한데** 소리가 거의 같다.
+읽기는 되지만 **말하면 사고가 나는** 유일한 유형이라 그렇게 적었다.
+
+유의어 쪽 오염은 `milksop` 하나뿐이었다(`sissy`·`pansy` 제거). `faery`→`fairy`(요정) ·
+`delay`→`retard`(중립 동사) 는 정당해서 두었다.
+
+### 📋 보류 — 목록만 산출
+
+| 산출물 | 규모 |
+|---|---|
+| [`cefr_reassign_candidates_20260817.json`](cefr_reassign_candidates_20260817.json) | **203건** (A1/A2 + 학술 접미사). 그중 **157건이 `frequency_rank NULL`** |
+| [`headword_normalize_candidates_20260817.json`](headword_normalize_candidates_20260817.json) | 표기 틀 454 · 복수형 중복 360 · 하이픈/붙여쓰기 중복 233 · 비ASCII 198 · 고유명사 소문자 164 · `™` 96 |
+
+⚠️ 두 목록 모두 **후보이지 확정 오류가 아니다.** CEFR 은 `-tion` 계열에 `action`·`education`
+같은 정당한 A1/A2 가 섞여 있고(rank 보유 여부가 1차 판별선), 정규화 목록의 "복수형 중복" 에는
+`glasses`·`arms` 처럼 복수형이 별개 뜻인 항목이 들어 있다. **적용 전 단어별 판독이 필요하다.**
+
 ## 남은 것 — 배치 설계 제안
 
 `w0815-*` 하네스(chunk/apply + 게이트) 패턴을 그대로 재사용할 수 있다.
