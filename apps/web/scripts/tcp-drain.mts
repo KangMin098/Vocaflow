@@ -383,6 +383,117 @@ async function cmdProbeYears(sample: number) {
   }
 }
 
+/**
+ * 연도를 지정해 카탈로그를 드레인한다.
+ *
+ * 왜 연도로 자르나 (실측 2026-08-17, 표본 3,065편): 자막 보유율이 연도마다 크게 다르다.
+ *   2022 14.0% · 2021 12.5% · 2023 10.0%  ↔  2018·2020·2016 2.5% · 2024~2025 0.8%
+ * 편수를 곱하면 **2021~2023 만 돌면 33,087편으로 전체 수확의 68%(~4,250편)** 를 건진다.
+ * 전량 97,020편(약 57시간) 대비 시도는 1/3, 시간은 1/4 다. 나머지 44시간이 가져오는
+ * 2,000편은 2.5% 확률로 긁는 구간이라, 어휘를 늘리기보다 이미 아는 것을 재확인하는 데 가깝다.
+ *
+ * 중단·재개 안전: 이미 done/skipped 인 slug 는 큐 상태로 걸러 **네트워크를 타지 않는다.**
+ */
+async function cmdDrainYears(years: number[], limit: number) {
+  const topicRows = await sources('ted')
+  const byTopic = new Map<string, string>()
+  for (const r of topicRows) {
+    if (r.category_id && r.topic_key !== '__catalog__') byTopic.set(r.topic_key, r.id)
+  }
+
+  console.log('사이트맵 열거 중...')
+  const byYear = await fetchTedTalkSlugsByYear()
+
+  // 아직 처리하지 않은 slug 만 남긴다 — 재실행 시 같은 페이지를 다시 받지 않기 위함이다.
+  const todo: string[] = []
+  for (const y of years) {
+    const slugs = byYear.get(y) ?? []
+    for (let i = 0; i < slugs.length; i += 1000) {
+      const chunk = slugs.slice(i, i + 1000)
+      const { data, error } = await db
+        .from('topic_corpus_queue')
+        .select('external_id')
+        .eq('source_id', 'ted:catalog')
+        .eq('status', 'pending')
+        .in('external_id', chunk)
+      if (error) throw new Error(`큐 조회 실패: ${error.message}`)
+      for (const r of (data ?? []) as Array<{ external_id: string }>) todo.push(r.external_id)
+    }
+    console.log(`  · ${y} — 카탈로그 ${slugs.length.toLocaleString('ko-KR')}편 · 대기 누적 ${todo.length.toLocaleString('ko-KR')}`)
+  }
+
+  const target = todo.slice(0, limit)
+  console.log(`\n대상 ${todo.length.toLocaleString('ko-KR')}편 중 이번 실행 ${target.length.toLocaleString('ko-KR')}편\n`)
+
+  let harvested = 0
+  let skipped = 0
+  let failed = 0
+  let attributed = 0
+  let words = 0
+
+  for (const slug of target) {
+    const url = talkUrlFromSlug(slug)
+    let transcript
+    try {
+      transcript = await fetchTedTranscript(url, undefined, curlFetcher)
+    } catch (err) {
+      const permanent =
+        err instanceof TedTranscriptError &&
+        (err.reason === 'no-transcript' || err.reason === 'too-short')
+      if (permanent) skipped += 1
+      else failed += 1
+      await db
+        .from('topic_corpus_queue')
+        .update({
+          status: permanent ? 'skipped' : 'pending',
+          last_error: err instanceof Error ? err.message : String(err),
+          claimed_at: null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('source_id', 'ted:catalog')
+        .eq('external_id', slug)
+      if ((skipped + failed) % 50 === 0) {
+        console.log(`– 건너뜀 누적 ${skipped + failed} · 수확 ${harvested}`)
+      }
+      await sleep(POLITE_MS)
+      continue
+    }
+
+    const tokens = tokenizeText(transcript.text)
+    const hash = contentHash(transcript.text)
+    const matched = [
+      ...new Set(transcript.tedTopics.map(normalizeTopic).filter((t) => byTopic.has(t))),
+    ]
+    for (const sourceId of ['ted:catalog', ...matched.map((t) => byTopic.get(t)!)]) {
+      const { error } = await db.rpc('ingest_topic_corpus_doc', {
+        p_source_id: sourceId,
+        p_external_id: transcript.externalId,
+        p_url: transcript.url,
+        p_content_hash: hash,
+        p_counts: tokens.counts,
+        p_running_words: tokens.totalWords,
+        p_truncated: tokens.diagnostics.truncated,
+        p_title: transcript.title,
+        p_speaker: transcript.speaker,
+        p_published_at: transcript.publishedAt,
+        p_proper_nouns: tokens.properNounCandidates,
+      })
+      if (!error && sourceId !== 'ted:catalog') attributed += 1
+    }
+    harvested += 1
+    words += tokens.totalWords
+    if (harvested % 25 === 0) {
+      console.log(`✓ 수확 ${harvested} · 주제배정 ${attributed} · ${words.toLocaleString('ko-KR')}어 · 건너뜀 ${skipped}`)
+    }
+    await sleep(POLITE_MS)
+  }
+
+  console.log(
+    `\n수확 ${harvested} · 주제 배정 ${attributed} · 건너뜀 ${skipped} · 실패 ${failed} · ${words.toLocaleString('ko-KR')}어`,
+  )
+  console.log(`남은 대상 ${(todo.length - target.length).toLocaleString('ko-KR')}편`)
+}
+
 async function cmdEnqueue() {
   let totalNew = 0
   let totalGap = 0
@@ -492,6 +603,7 @@ try {
   if (cmd === 'enqueue') await cmdEnqueue()
   else if (cmd === 'drain') await cmdDrain()
   else if (cmd === 'enqueue-catalog') await cmdEnqueueCatalog(limitArg)
+  else if (cmd === 'drain-years') await cmdDrainYears(yearsArg, limitArg ?? 4000)
   else if (cmd === 'probe-years') await cmdProbeYears(limitArg ?? 200)
   else if (cmd === 'drain-catalog') await cmdDrainCatalog(limitArg ?? 100)
   else if (cmd === 'ingest-local') await cmdIngestLocal(process.argv.includes('--reset'))
