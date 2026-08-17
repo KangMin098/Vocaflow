@@ -406,8 +406,41 @@ CASCADE 실측: `dictionary_word_categories` 12행 · `topic_word_stats` 5행 �
 `library_book_vocabularies.lemma` **96행 SET NULL**(비단어를 가리키던 링크). `lexicon_frequencies` ·
 `vrl_diagnostic_questions` · `vrl_data_integrity_concerns` 는 해당 행 없음.
 
-⚠️ **추출 단계는 아직 안 고쳤다.** `le` 가 도서 어휘 70행에 남아 있던 것이 토큰화에서 온 것이므로,
-같은 도서를 재추출하면 **되돌아온다.** 사전 삭제는 증상 제거이지 원인 제거가 아니다.
+### ⚠️ 근인은 추출이 아니었다 — 2026-08-17 조사로 정정
+
+**앞 문단에서 "도서 토큰화가 원인이라 재추출하면 되돌아온다" 고 적었는데 틀렸다.** 반증 셋:
+
+**① 10건이 전부 "낱말 − 끝의 `ad`" 다.** 하이픈 앞조각이 아니라 **끝 두 글자 `ad` 절단**이다:
+
+`le`(le**ad**) · `dre`(dre**ad**) · `kne`(kne**ad**) · `ple`(ple**ad**) · `behe`(behe**ad**) ·
+`overlo`(overlo**ad**) · `proofre`(proofre**ad**) · `railro`(railro**ad**) · `relo`(relo**ad**) ·
+`sidelo`(sidelo**ad**) — 원형 10개가 전부 사전에 실재한다.
+
+**`pos='adverb'` 가 전부 공통이던 이유가 여기서 풀린다** — 잘려나간 `ad` 가 **품사 표기 `ad`(=adverb)로
+소비**된 것이다. 즉 원본의 `word|pos` 필드 경계가 `…ad|adverb` 지점에서 한 칸 밀린 것이지
+본문 토큰화 사고가 아니다.
+
+**② 12건 중 11건이 도서 등장 0회다.** 어제 스냅샷(`w0816-exfill/chunk-*.json`)에 `books: 0, freq: 0`
+으로 박혀 있다. 도서 추출이 만들었다면 나올 수 없는 값이다.
+
+**③ 유일한 예외 `le`(70행)는 잘린 조각이 아니라 진짜 프랑스어였다.** `first_sentence` 를 열어 보면
+전부 정상 본문이다 — `"Is monsieur le baron at home?"` · `"Vive le Roy!"` · `"Robert le Diable"`.
+방언 축약도 있다(`"an' le's git down to it."` = let's). **lbv 의 `le` 는 정상 추출이고, 문제는 그것을
+영어 표제어로 등재한 사전 쪽이었다.**
+
+**실제 유입 경로**: `scripts/seed-dictionary.mjs:198` — Anki 공유 데크 import 가
+`wordRaw.toLowerCase().trim()` 을 **검증 없이 그대로** 표제어로 쓴다. 영어 단어인지, 사전에 있는지
+확인하는 게이트가 한 줄도 없다. 그 흔적이 `all_meanings` 에 남아 있었다 —
+`"adverb:보라, 자(시드 라벨)"` · `"sidelong의 시드 데이터 변형 표기로 추정"`.
+
+절단 자체는 저장소 밖(gitignore 된 `.apkg`)에서 일어나 코드로는 재현 불가다.
+
+**상시 감사 쿼리** — 이 패턴은 결정론적으로 잡힌다(사람이 1,348건을 훑어 찾을 일이 아니었다):
+```sql
+select a.word 잘린것, b.word 원형 from shared_dictionary a
+join shared_dictionary b on b.word = a.word || 'ad'
+where a.pos = 'adverb' and a.example_en is null;
+```
 
 ### 뜻이 정반대인 부사 4건 — 그리고 **기계 탐지가 통하지 않은 사례** (T12)
 
@@ -594,6 +627,50 @@ T6 이 진단만 하고 남긴 968건 중 T7 이 543건, T13 이 나머지 425�
 ⚠️ 8월 16일에 `pos_set` 을 한 번 재구축했는데도 이게 남아 있었다 —
 그때는 `pos ∪ senses[].pos ∪ meanings_ko[].pos` **합집합만** 만들고 **원소의 표기 형식은 검사하지 않았다.**
 집합을 다시 만드는 것과 원소를 정규화하는 것은 다른 일이다.
+
+### ✅ 별개 결함 — 하이픈 재결합이 구텐베르크 전권에서 no-op 이었다 (수정 완료)
+
+절단 토큰을 쫓다가 **다른 결함**을 찾았다. 이건 실재하고, 지금 깨져 있었다.
+
+`packages/library-pipeline/src/normalize/reflow.ts` 는 `\n` 만 봤다:
+```js
+.replace(/(\w)-\n(\w)/g, '$1$2')   // 줄 끝 hyphen 결합
+.replace(/(\w)\n(\w)/g, '$1 $2')   // 하드랩 해제
+```
+**Project Gutenberg 평문은 CRLF 다.** `-` 와 `\n` 사이에 `\r` 이 있어 **두 치환이 통째로 no-op**
+이었다. 파이프라인 어디에도 `\r` 을 걷는 곳이 없다 — `extractBody` · `normalizePunctuation` ·
+`stripIllustrations` 전부 확인했다(grep `\\r` → `boundary.ts:85` 의 선행 공백 trim 하나뿐).
+
+즉 **구텐베르크 도서 전권에서 줄끝 하이픈이 재결합되지 않았고 하드랩도 풀리지 않았다.**
+
+파편이 지금 대량으로 안 보이는 건 고쳐져서가 아니다 — `isSyllableHyphenFragment`
+(`analyze/extract-lemmas.ts:145`)가 하이픈에 붙은 토큰을 **양쪽 다 버리기** 때문이다.
+**결함이 "파편 생성" 에서 "조용한 어휘 유실" 로 바뀌었을 뿐**이고, 그 가드 이전 추출분의 잔재는
+남아 있다(`orld`←w-orld · `lowance`←al-lowance · `rul` · `tem`).
+
+**수정**: 개행 정규화를 맨 앞에 넣고 하이픈 변종·행말 공백을 흡수했다.
+회귀 테스트 `test/reflow-crlf.test.ts` 9종 추가 — 패키지 전체 **86 tests 통과**
+(segmentation·noise 스냅샷 포함, 기존 동작 무변).
+
+⚠️ **고친 것은 앞으로 추출될 도서에만 적용된다.** 지금 DB 값은 전부 재결합 없이 뽑힌 것이라
+**구텐베르크 도서 재추출이 필요**하다 — 별도 결정 사항.
+
+### 아직 열려 있는 구멍 — 사전 쓰기 지점에 표제어 게이트가 없다
+
+이번 12건은 추출이 아니라 **import** 로 들어왔으므로 `extract-lemmas.ts` 를 아무리 고쳐도 안 막힌다.
+검증 없이 `shared_dictionary` 에 쓰는 경로 셋:
+
+| 경로 | 무엇을 넣나 |
+|---|---|
+| `scripts/seed-dictionary.mjs:198` | Anki 데크 word 필드 그대로 (이번 12건의 근인) |
+| `scripts/lexicon/oov-orphan-import.ts:160` | lbv/lav 미해소 토큰 → `source='ai-generated'`. **파편이 사전으로 승격되는 역류로** |
+| `scripts/derivational-seed.mjs:100-124` | 만들어낸 파생형이 실재 단어인지 확인 안 함 (`brustly` 계열) |
+
+제안 게이트: `lexicon_clean`(**`lang='en'` 조건 필수** — `dre` 가 `lang='fr'`, `le` 가 WordNet
+의학 약어로 들어 있다) 또는 `shared_dictionary` 에 없는 신규 표제어는 **보류 큐로** 보내고 자동 INSERT 금지.
+
+DB 쪽 확인: `library_book_vocabularies` 에 INSERT 하는 함수는 `insert_book_analysis` 하나뿐이고
+`v_word->>'word'` 를 **검증 없이** 넣는다(길이·문자·사전 존재 확인 0). 판정이 전부 TS 쪽에 있다.
 
 ## 남은 것 — 배치 설계 제안
 
