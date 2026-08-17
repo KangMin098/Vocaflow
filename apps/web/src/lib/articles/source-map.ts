@@ -119,11 +119,14 @@ const RAW_TRACKS: Omit<SourceTrack, 'vMin' | 'vMax'>[] = [
   },
   {
     key: 'news',
-    sources: ['wikinews'],
+    // ACP §20 — 재저작(original)이 이 트랙의 실질 공급원이다. wikinews 는 어댑터만 있고
+    //   수집 실적이 0행이라, 이 배선이 없으면 SOURCE_TO_TRACK 이 undefined 를 돌려주고
+    //   발행된 글이 **어느 트랙에도 뜨지 않는다**(v06.66 에 5소스 8편이 그렇게 증발했다).
+    sources: ['wikinews', 'original'],
     icon: '📰',
     title: '시사로 감 잡기',
     short: '시사',
-    oneLine: '중립적 시각으로 쓰인 짧은 시사 뉴스 — 세상 돌아가는 영어.',
+    oneLine: '오늘의 사건을 학습자 수준으로 다시 쓴 짧은 시사 글 — 세상 돌아가는 영어.',
     skills: ['시사 독해', '뉴스 어휘', '빠른 파악'],
     why: '같은 시사 어휘를 여러 글에서 다시 만나면 간격 반복 효과가 생겨요 (Spaced Repetition).',
     method: ['헤드라인 보기', '육하원칙 찾기', '후속 글 읽기'],

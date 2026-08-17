@@ -20,6 +20,7 @@ export type ArticleSource =
   | 'usgs' // ACP §18 — B2 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 허용, 신규 도메인)
   | 'noaa' // ACP §18 — B2-C1 기후과학 explainer (PD US Gov → 발행 허용, climate 신규 도메인·CSAT 최빈출)
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
+  | 'original' // ACP §20 — 사실 재저작 (CC0 자체 저작 · 외부 본문 미사용 · compose 게이트 통과 필수)
   | 'manual'
 
 export interface RawArticle {

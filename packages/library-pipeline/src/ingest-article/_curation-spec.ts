@@ -29,6 +29,10 @@ export type SourceKey =
   | 'wikivoyage'
   | 'usgs'
   | 'noaa'
+  // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
+  // 발행 후에는 다른 소스와 같은 자리(정책·트랙·표시)에 서야 하므로 SourceKey 를 갖는다.
+  // ⚠ SOURCE_RANKINGS_BY_LEVEL 에는 넣지 않는다 — 대량 GET 화면의 선택지가 아니다.
+  | 'original'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -348,6 +352,18 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 60,      // title 길이 기준
     noiseKeywords: ['outlook', 'event tracker', 'interactive map'],
     maxItems: 24,
+  },
+  // ACP §20 재저작 — 외부 피드를 긁지 않으므로 이 spec 의 필터/점수는 쓰이지 않는다.
+  //   (타입이 Record<SourceKey> 라 자리를 채운다. 발주 규격은 composed_spec 이 갖는다.)
+  original: {
+    recencyDays: 365,
+    minDescriptionLen: 0,
+    minTitleLen: 0,
+    sourceWeight: 1.0,
+    levelBonus: 0,
+    idealDescLen: 200,
+    noiseKeywords: [],
+    maxItems: 0,           // 대량 GET 대상이 아니다
   },
 }
 
@@ -749,6 +765,23 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'features', weight: 0.3 },               // 기후 피처 기사
     ],
   },
+  // ACP §20 — 사실 재저작. 남의 본문이 아니라 우리가 쓴 글이다.
+  //   license 문자열이 'CC0' 로 시작해야 acp_classify_license·licenseClassOf 가 둘 다 cc0 로
+  //   판정하고, 그 결과 copyright_safe_in_kr=true · display_only=false 가 자동으로 찍힌다.
+  //   attribution 은 면제 — 원저작자가 없다. 다만 **사실 출처 목록은 화면에 남긴다**
+  //   (법적 의무가 아니라 학습자의 검증 수단이다).
+  original: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B2' },   // 같은 취재로 A2판·B1판을 뽑는다
+    maxItemsPerBatch: 0,                    // 대량 GET 대상 아님 (발주 단위로 만든다)
+    minScore: 0,
+    bulkPriority: 99,
+    license: 'CC0-1.0 (Vocaflow Original)',
+    attributionRequired: false,
+    topicDomain: ['news', 'society', 'science', 'health', 'environment', 'education', 'work'],
+    styleGuide: '사실 기반 자체 저작 — 발주 셀(register×CEFR) 규격에 맞춰 새로 쓴 글 · 원문 표현 미사용',
+    preferredFeedMix: [{ feedId: 'compose', weight: 1.0 }],
+  },
 }
 
 /**
@@ -809,6 +842,9 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   wikivoyage: 'reference', // 여행 목적지 가이드 (참고 — Factbook 동류)
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
+  // ACP §20 — 재저작 기본은 시사. 발주가 다른 register 를 지정하면 dev-process 가 아니라
+  //   composed_spec 이 권위이므로, 이 값은 발주 없이 들어온 경우의 안전 기본값이다.
+  original: 'news',
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -1031,6 +1067,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   wikivoyage: getSourcePolicy('wikivoyage'),
   usgs: getSourcePolicy('usgs'),
   noaa: getSourcePolicy('noaa'),
+  original: getSourcePolicy('original'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

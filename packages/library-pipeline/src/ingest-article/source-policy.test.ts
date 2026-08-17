@@ -62,6 +62,9 @@ describe('SOURCE_POLICIES — 4축 파생 표 고정', () => {
     ['wikivoyage', 'live', 'text', 'full', 'required'], // CC-BY-SA → full · 인용 필수, 여행 가이드 reference
     ['usgs', 'live', 'text', 'full', 'none'], // PD US Gov → full(발행 허용) · 인용 자유, 지구과학 expository
     ['noaa', 'live', 'text', 'full', 'none'], // PD US Gov → full(발행 허용) · 인용 자유, 기후과학 expository
+    // ACP §20 — 재저작. CC0 자체 저작이므로 full + 출처표기 면제.
+    //   (사실 출처 목록은 화면에 남기지만 그건 라이선스 의무가 아니라 학습자 검증 수단이다.)
+    ['original', 'live', 'text', 'full', 'none'],
   ]
 
   it.each(TABLE)('%s → %s/%s/%s/%s', (source, supply, media, derivation, attribution) => {

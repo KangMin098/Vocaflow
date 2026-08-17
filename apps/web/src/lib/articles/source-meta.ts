@@ -117,6 +117,15 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     domain: '기후·해양',
     blurb: '미국 해양대기청 — 기후·기상·해양 변화 소식.',
   },
+  // ACP §20 — 사실 재저작. 학습자에게 "우리가 쓴 글" 임을 숨기지 않는다:
+  //   사실 기반 지문에서 출처는 신뢰의 근거이자 학습자의 검증 수단이다.
+  original: {
+    label: 'Vocaflow Newsroom',
+    short: 'Vocaflow',
+    color: '#8B5CF6',
+    domain: '쉬운 시사',
+    blurb: '여러 매체의 사실을 모아 학습자 수준에 맞춰 새로 쓴 글 — 사실 출처는 글 안에 표기해요.',
+  },
   rss: {
     label: 'RSS',
     short: 'RSS',
