@@ -75,7 +75,13 @@ export const SERIES_RENEWAL = [
 export const PUBLISHER_DEFAULT = {
   Ace: {
     level: 'likely-pd',
-    note: 'Ace Magazines — 조사된 전 타이틀에서 갱신 통지 미발견(1956년 폐간). 확인 후 발행 가능',
+    // 근거는 **발행사 단위**다 — 개별 타이틀의 CCE 원본을 짚은 것이 아니다.
+    // ① herogoggles 갱신 조사: 조사된 Ace 전 타이틀에서 갱신 통지 미발견
+    // ② Ace 는 1956년 폐간, 권리를 주장하는 승계사가 없다
+    // ③ Comic Book Plus 등 PD 전용 큐레이션 사이트가 Ace 호러물을 호스팅한다
+    // 이 셋은 강한 정황이지 1차 확인은 아니다. 그래서 `likely-pd` 이고 `renewed` 가 아니다 —
+    // 발행 게이트는 여전히 사람의 근거 기록을 요구한다.
+    note: 'Ace Magazines — 조사된 전 타이틀에서 갱신 통지 미발견(1956년 폐간, 승계 권리자 없음). 발행사 단위 정황 — 호별 1차 확인은 별도',
   },
   Fawcett: {
     level: 'unknown',

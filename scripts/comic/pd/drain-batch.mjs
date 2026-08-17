@@ -5,6 +5,7 @@
 // refine(정제)는 컷별 오퍼레이터 단계라 여기선 원문 OCR 적재(품질 후속 개선). 순차 실행(외부사이트·CPU 배려).
 //
 //   node scripts/comic/pd/drain-batch.mjs [--limit 6] [--kind war] [--series atomic-war]
+//   node scripts/comic/pd/drain-batch.mjs --publisher Ace --kind mystery-horror
 //
 // `--kind` 로 **유형 하나를 끝까지** 미는 것이 기본 전략이다 — 학습자 서가가 유형별로 묶여
 // 나가므로(/comics/restored), 여러 유형을 조금씩 올리면 어느 묶음도 완성되지 않는다.
@@ -27,6 +28,16 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 
 const KIND = arg('kind')
 const SERIES = arg('series')
+const PUBLISHER = arg('publisher')
+
+// 발행사 필터 — 갱신 위험이 발행사 단위로 갈린다(Ace 는 전 타이틀 미갱신, Fawcett 은 갱신 구간 실재).
+// 위험이 낮은 쪽부터 완성하는 것이 합리적이라 이 축이 필요하다.
+let seriesKeys = null
+if (PUBLISHER) {
+  const { data: ss } = await db.from('pd_comic_series').select('key').eq('publisher', PUBLISHER)
+  seriesKeys = (ss ?? []).map((s) => s.key)
+  if (!seriesKeys.length) { console.log(`발행사 '${PUBLISHER}' 시리즈 없음`); process.exit(0) }
+}
 
 let q = db.from('pd_comic_issues')
   .select('source_adapter, source_identifier, acquire_pages, title, status')
@@ -34,6 +45,7 @@ let q = db.from('pd_comic_issues')
   .is('last_error', null)
 if (KIND) q = q.eq('kind', KIND)
 if (SERIES) q = q.eq('series_key', SERIES)
+if (seriesKeys) q = q.in('series_key', seriesKeys)
 // 시리즈 안에서는 호 순서대로 — 학습자가 1호부터 읽을 수 있게 앞 호부터 완성한다.
 const { data: issues } = await q
   .order('series_key', { ascending: true })
@@ -55,7 +67,17 @@ for (const iss of issues) {
   // 파이프라인은 성공으로 끝나며 학습자에게는 4쪽짜리 만화가 나간다(실패보다 나쁜 결과다).
   // NULL 이면 --pages 자체를 넘기지 않는다 = 전권.
   const pagesArgs = iss.acquire_pages ? ['--pages', String(iss.acquire_pages)] : []
-  const r = spawnSync(process.execPath, [pipeline, '--source', iss.source_adapter, '--id', iss.source_identifier, '--out', out, ...pagesArgs, '--record'], { encoding: 'utf8' })
+  const args = [pipeline, '--source', iss.source_adapter, '--id', iss.source_identifier, '--out', out, ...pagesArgs, '--record']
+
+  let r = spawnSync(process.execPath, args, { encoding: 'utf8' })
+  // Windows 네이티브 크래시(0xC0000409 STATUS_STACK_BUFFER_OVERRUN 등)는 libuv 종료 경합에서
+  // 산발적으로 난다 — 코드 문제가 아니라 환경 플레이키다. 실측 2026-08-17 에 969건 중 1건에서 발생했고,
+  // 규모가 커지면 반복된다. 로직 실패(exit 1/2)와 달리 **한 번은 다시 해 볼 가치가 있다**.
+  const CRASH = new Set([3221226505, 3221225477, 3221226356]) // 0xC0000409 · 0xC0000005 · 0xC0000374
+  if (r.status !== 0 && CRASH.has(r.status >>> 0)) {
+    console.log(`  ↻ 네이티브 크래시(exit ${r.status}) — 1회 재시도`)
+    r = spawnSync(process.execPath, args, { encoding: 'utf8' })
+  }
   process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '')
   if (r.status !== 0) {
     // 실패를 DB 에 기록 → 모니터가 "멈춤" 사유를 보여준다(관측의 핵심).
