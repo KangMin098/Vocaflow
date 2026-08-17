@@ -87,6 +87,49 @@ export function delay(ms) {
   return new Promise((r) => setTimeout(r, ms))
 }
 
+/** 재시도해야 하는 실패인가 — 5xx·429 와 네트워크 오류는 일시적, 4xx 는 영구적. */
+export function isTransient(status) {
+  return status === 429 || status === 408 || (status >= 500 && status <= 599)
+}
+
+/**
+ * 재시도 fetch — **PD 취득의 전제 조건**이다.
+ *
+ * 왜 필요한가 (실측 2026-08-17):
+ *   IA 의 `/download/<id>/page/nN_w1600.jpg` 는 jp2 에서 **요청 시점에 JPEG 를 만들어 준다**.
+ *   부하가 걸리면 502 를 돌려주는데, **같은 URL 을 잠시 뒤 다시 치면 200 이 온다**.
+ *   재시도 없이 502 를 영구 실패로 처리했더니 31쪽짜리 호가 19쪽으로 취득됐고,
+ *   취득 단계는 그대로 **성공(exit 0)** 으로 끝났다. 12쪽이 조용히 사라진 만화가
+ *   복원·분할을 거쳐 학습자에게 갈 뻔했다 — 실패보다 나쁜 결과다.
+ *
+ *   그래서 일시적 실패는 삼키지 않고 **끝까지 다시 시도한다**. 백오프에 지터를 넣는 이유는
+ *   동시 워커가 같은 리듬으로 재시도하면 서버를 같은 순간에 다시 때리기 때문이다.
+ *
+ * @param {string} url
+ * @param {{ headers?: object, attempts?: number, baseMs?: number, onRetry?: (n:number, why:string)=>void }} opts
+ * @returns {Promise<Response>} 마지막 응답(성공이면 ok). 영구 실패(4xx)는 즉시 돌려준다.
+ */
+export async function fetchRetry(url, { headers, attempts = 5, baseMs = 700, onRetry } = {}) {
+  let last = null
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const res = await fetch(url, { headers, redirect: 'follow' })
+      if (res.ok || !isTransient(res.status)) return res
+      last = res
+      onRetry?.(i + 1, `HTTP ${res.status}`)
+    } catch (e) {
+      last = null
+      onRetry?.(i + 1, e.message)
+    }
+    if (i < attempts - 1) {
+      // 지수 백오프 + 지터 — 워커들이 같은 순간에 몰려 재시도하지 않게.
+      await delay(Math.round(baseMs * 2 ** i * (0.5 + Math.random())))
+    }
+  }
+  if (last) return last
+  throw new Error(`요청 실패(재시도 ${attempts}회 소진): ${url}`)
+}
+
 /**
  * PD 판정 힌트 — 미국 저작권 기준. **자동 판정이 아니라 사람 검증의 출발점**이다.
  * 최종 판정은 사람이 갱신 기록을 확인해 입력한다(발행 게이트에서 DB 제약으로 강제).

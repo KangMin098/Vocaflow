@@ -85,6 +85,21 @@ describe('시리즈 판정 — 순서가 만드는 함정', () => {
     )
   })
 
+  // 실측 버그: 이 호가 Captain Marvel Jr. 시리즈에 섞여 있었다(표지에 없는 시리즈에 남의 호).
+  // 규칙표 "첫 매치" 로는 못 잡는다 — 간행물 이름은 앞에, 수록 내용 언급은 뒤에 온다.
+  it('수록 내용 언급이 간행물 이름을 이기지 못한다 (가장 앞선 매치)', () => {
+    const c = classify({
+      title: 'Fawcett Comics: Whiz Comics 025 Origin of Captain Marvel Jr.',
+      identifier: 'fawcett_Whiz_Comics_025_Origin_of_Captain_Marvel_Jr.',
+    })
+    expect(c.seriesKey).toBe('whiz-comics')
+    expect(c.issueNo).toBe(25)
+  })
+
+  it('맨 앞에서 동률이면 더 구체적인 규칙이 이긴다', () => {
+    expect(classify({ title: 'Captain Marvel Jr 025' }).seriesKey).toBe('captain-marvel-jr')
+  })
+
   it('Mighty Midget 은 수록 캐릭터가 아니라 판형 시리즈로 잡힌다', () => {
     expect(classify({ title: 'Fawcett Comics: Mighty Midget Comics  Bulletman (' }).seriesKey).toBe(
       'mighty-midget-comics',

@@ -34,6 +34,8 @@ function parseArgs(argv) {
     else if (k === '--width') a.width = Number(argv[++i])
     else if (k === '--pages') a.pages = Number(argv[++i])
     else if (k === '--list') a.list = true
+    // 원본 자체에 페이지가 없는 경우에만 — 일시 장애를 이걸로 덮으면 짧은 만화가 발행된다.
+    else if (k === '--allow-partial') a.allowPartial = true
   }
   return a
 }
@@ -44,7 +46,8 @@ function usage() {
   --source <id> --search "<질의>"          소스에서 후보 검색
   --source <id> --id <식별자> --out <dir>  호 하나 취득 → 정규화 intake
 
-옵션: --width 1600  --pages <n>(앞 n장만)  --limit 20(검색 결과 수)`)
+옵션: --width 1600  --pages <n>(앞 n장만)  --limit 20(검색 결과 수)
+      --allow-partial  결손 페이지가 남아도 진행 (원본에 없는 경우에만)`)
 }
 
 function printAdapters() {
@@ -173,6 +176,26 @@ async function main() {
   fs.writeFileSync(path.join(outDir, 'source.manifest.json'), JSON.stringify(manifest, null, 2))
 
   console.log(`\n취득 ${ok}/${take.length}장 → ${path.relative(process.cwd(), outDir)}`)
+
+  // ── 결손 페이지는 성공이 아니다 ─────────────────────────────────
+  // 실측(2026-08-17): IA 가 12쪽에 502 를 돌려줬는데 취득이 exit 0 으로 끝나,
+  // 31쪽 만화가 19쪽으로 복원·분할까지 통과했다. 페이지가 빠진 만화는 **읽을 수 없는 만화**이고,
+  // 그게 조용히 발행 대기열에 들어가는 것이 이 파이프라인의 가장 큰 위험이다.
+  // 재시도(fetchRetry)로 대부분 사라지지만, 그래도 남으면 **여기서 멈춘다**.
+  const missing = results.filter((r) => !r.file)
+  if (missing.length) {
+    const why = [...new Set(missing.map((m) => String(m.error).replace(/https?:\S+/, '').trim()))]
+    console.error(`\n✗ 페이지 ${missing.length}장 결손 (index: ${missing.map((m) => m.index).join(', ')})`)
+    why.slice(0, 3).forEach((w) => console.error(`   ${w}`))
+    if (args.allowPartial) {
+      console.error('  --allow-partial 지정됨 — 결손 상태로 진행합니다(발행 전 반드시 확인).')
+    } else {
+      console.error('  결손 상태로는 진행하지 않습니다. 다시 실행하면 재시도합니다.')
+      console.error('  (일시 장애가 아니라 원본 자체가 없는 경우라면 --allow-partial 로 진행)')
+      process.exit(1)
+    }
+  }
+
   console.log(`다음: node scripts/comic/pd/restore.mjs --in ${path.relative(process.cwd(), pagesDir)} --out <restored>`)
 }
 

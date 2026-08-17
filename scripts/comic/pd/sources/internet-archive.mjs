@@ -17,12 +17,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { buildQuery, PD_YEAR_CUTOFF, rankByPdRisk, sortParam, yearFromTitle } from './discovery.mjs'
-import { delay, usPdHint } from './types.mjs'
+import { delay, fetchRetry, usPdHint } from './types.mjs'
 
 const UA = 'Vocaflow-PDCP/1.0 (educational; contact via repo)'
 
 async function getJson(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
+  // 검색·메타도 502 가 난다(실측: --doctor 가 502 로 '소스 실패'를 보고했는데 실제로는 정상).
+  const res = await fetchRetry(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
   if (!res.ok) throw new Error(`IA ${res.status} ${url}`)
   return res.json()
 }
@@ -238,7 +239,9 @@ export const internetArchive = {
 
   async fetchPage(ref, outFile) {
     await delay(this.caps.minDelayMs)
-    const res = await fetch(ref.locator, { headers: { 'User-Agent': UA }, redirect: 'follow' })
+    // 502 재시도 필수 — IA 는 이 URL 에서 jp2→JPEG 를 즉석 생성하므로 부하 시 502 가 흔하고,
+    // 재시도하면 200 이 온다. 재시도 없이 실패로 처리하면 호가 조용히 짧아진다(실측 31→19쪽).
+    const res = await fetchRetry(ref.locator, { headers: { 'User-Agent': UA } })
     if (!res.ok) throw new Error(`IA page ${res.status} ${ref.locator}`)
     const buf = Buffer.from(await res.arrayBuffer())
     // IA 는 없는 페이지에도 200 + 안내 이미지를 주는 경우가 있어 최소 크기로 거른다
@@ -248,14 +251,28 @@ export const internetArchive = {
     return outFile
   },
 
-  /** hOCR 원본을 받아둔다 — 단어 좌표 파싱은 하류(ocr 단계)에서. */
+  /**
+   * hOCR 원본을 받아둔다 — 단어 좌표 파싱은 하류(ocr 단계)에서.
+   *
+   * ⚠️ 여기서 502 를 null 로 돌려주면 **대사가 통째로 사라진다** — 파일이 없는 것(404)과
+   * 서버가 잠깐 죽은 것(502)이 구분되지 않아 "이 소스는 OCR 이 없다"로 오인된다.
+   * 실측: hOCR 이 실재하는 호(World_War_III_01_hocr.html)가 502 한 번에 대사 0으로 끝났다.
+   */
   async fetchOcr(identifier, outFile) {
     const j = await getJson(`https://archive.org/metadata/${encodeURIComponent(identifier)}`)
-    const base = findBase(j.files ?? [])
+    const files = j.files ?? []
+    const base = findBase(files)
     if (!base) return null
-    const url = `https://archive.org/download/${encodeURIComponent(identifier)}/${encodeURIComponent(`${base}_hocr.html`)}`
-    const res = await fetch(url, { headers: { 'User-Agent': UA }, redirect: 'follow' })
-    if (!res.ok) return null
+    // 파일 목록에 hOCR 이 없으면 애초에 없는 것 — 헛된 재시도를 하지 않는다.
+    const hocrName = files.find((f) => f.name === `${base}_hocr.html`)?.name
+      ?? files.find((f) => /_hocr\.html$/.test(f.name))?.name
+    if (!hocrName) return null
+    const url = `https://archive.org/download/${encodeURIComponent(identifier)}/${encodeURIComponent(hocrName)}`
+    const res = await fetchRetry(url, { headers: { 'User-Agent': UA } })
+    if (!res.ok) {
+      // 재시도까지 소진하고도 실패면 **삼키지 않고 던진다** — 호출자가 "없음"과 구분해야 한다.
+      throw new Error(`hOCR ${res.status} (파일은 존재: ${hocrName})`)
+    }
     fs.mkdirSync(path.dirname(outFile), { recursive: true })
     fs.writeFileSync(outFile, Buffer.from(await res.arrayBuffer()))
     return outFile

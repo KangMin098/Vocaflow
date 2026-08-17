@@ -4,7 +4,10 @@
 // + pd_comic_panels 적재. 큐레이션(curate.mjs) 이 시드한 배치를 한 번에 콘텐츠로 만든다.
 // refine(정제)는 컷별 오퍼레이터 단계라 여기선 원문 OCR 적재(품질 후속 개선). 순차 실행(외부사이트·CPU 배려).
 //
-//   node scripts/comic/pd/drain-batch.mjs [--limit 6]
+//   node scripts/comic/pd/drain-batch.mjs [--limit 6] [--kind war] [--series atomic-war]
+//
+// `--kind` 로 **유형 하나를 끝까지** 미는 것이 기본 전략이다 — 학습자 서가가 유형별로 묶여
+// 나가므로(/comics/restored), 여러 유형을 조금씩 올리면 어느 묶음도 완성되지 않는다.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -22,11 +25,19 @@ if (fs.existsSync(envPath)) for (const l of fs.readFileSync(envPath, 'utf8').spl
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
-const { data: issues } = await db.from('pd_comic_issues')
+const KIND = arg('kind')
+const SERIES = arg('series')
+
+let q = db.from('pd_comic_issues')
   .select('source_adapter, source_identifier, acquire_pages, title, status')
   .in('status', ['queued', 'acquired', 'restored', 'segmented'])
   .is('last_error', null)
-  .order('created_at', { ascending: true })
+if (KIND) q = q.eq('kind', KIND)
+if (SERIES) q = q.eq('series_key', SERIES)
+// 시리즈 안에서는 호 순서대로 — 학습자가 1호부터 읽을 수 있게 앞 호부터 완성한다.
+const { data: issues } = await q
+  .order('series_key', { ascending: true })
+  .order('issue_no', { ascending: true, nullsFirst: false })
   .limit(LIMIT)
 
 if (!issues || !issues.length) { console.log('드레인 가능한 큐 이슈 없음'); process.exit(0) }
@@ -39,7 +50,12 @@ for (const iss of issues) {
   const slug = String(iss.source_identifier).replace(/[^\w.-]+/g, '-').slice(0, 60).toLowerCase()
   const out = `work/${slug}`
   console.log(`\n━━ ${iss.title} (${iss.source_identifier}) ━━`)
-  const r = spawnSync(process.execPath, [pipeline, '--source', iss.source_adapter, '--id', iss.source_identifier, '--out', out, '--pages', String(iss.acquire_pages || 4), '--record'], { encoding: 'utf8' })
+  // ⚠️ `acquire_pages || 4` 로 쓰면 안 된다 — NULL 은 "전권" 이라는 **뜻이 있는 값**인데
+  // falsy 라서 4장으로 뭉개진다. 그러면 68쪽짜리 호가 조용히 앞 4장만 복원되고,
+  // 파이프라인은 성공으로 끝나며 학습자에게는 4쪽짜리 만화가 나간다(실패보다 나쁜 결과다).
+  // NULL 이면 --pages 자체를 넘기지 않는다 = 전권.
+  const pagesArgs = iss.acquire_pages ? ['--pages', String(iss.acquire_pages)] : []
+  const r = spawnSync(process.execPath, [pipeline, '--source', iss.source_adapter, '--id', iss.source_identifier, '--out', out, ...pagesArgs, '--record'], { encoding: 'utf8' })
   process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '')
   if (r.status !== 0) {
     // 실패를 DB 에 기록 → 모니터가 "멈춤" 사유를 보여준다(관측의 핵심).

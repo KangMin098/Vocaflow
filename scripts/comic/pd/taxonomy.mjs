@@ -315,6 +315,33 @@ export function extractIssueNo(raw) {
   return Number.isInteger(n) && n >= 1 && n <= 999 ? n : null
 }
 
+/**
+ * 규칙 선택 — **가장 앞에서 매치되는 규칙**, 동률이면 규칙표 순서.
+ *
+ * 왜 "첫 매치" 가 아니라 "가장 앞선 매치" 인가 (실측 버그):
+ *   `fawcett_Whiz_Comics_025_Origin_of_Captain_Marvel_Jr.`
+ *   이건 **Whiz Comics 25호**다. 그런데 규칙표 순서만 보면 `captain-marvel-jr` 규칙이 위에 있어
+ *   이 호가 Captain Marvel Jr. 시리즈로 들어갔다 — 표지에 없는 시리즈에 남의 호가 섞인 것이다.
+ *   에러는 안 난다. 목록을 세어보기 전엔 모른다.
+ *
+ *   이 제목들의 규칙성: **간행물 이름이 앞에 오고, 수록 내용·캐릭터 언급이 뒤에 붙는다.**
+ *   그래서 매치 위치가 시리즈 여부를 가른다. 위치가 같으면(둘 다 맨 앞) 그때는 순서가 결정한다 —
+ *   `Captain Marvel Jr 025` 는 Jr·본편 규칙이 둘 다 0에서 매치하므로 더 구체적인 Jr 규칙이 이긴다.
+ */
+export function pickRule(hay) {
+  let best = null
+  let bestAt = Infinity
+  for (const r of SERIES_RULES) {
+    const m = hay.match(r.re)
+    if (!m) continue
+    if (m.index < bestAt) {
+      best = r
+      bestAt = m.index
+    }
+  }
+  return best
+}
+
 /** 미분류 항목의 시리즈 키 — 제목에서 만든다(추정 시리즈를 만들지 않기 위해 접두사를 붙여 표시). */
 function fallbackKey(norm) {
   const s = norm
@@ -341,7 +368,7 @@ export function classify(item) {
   // **구분자를 먼저 공백으로 통일한다** — 규칙마다 `[\s._-]*` 를 적는 대신 건초더미 쪽을 정규화한다.
   // 안 하면 같은 시리즈가 표기별로 갈린다(실측: `Slam-Bang`·`Spy_Smasher_6` 가 미분류로 떨어졌다).
   const hay = separatorsToSpace(`${norm} ${item?.identifier ?? ''}`)
-  const rule = SERIES_RULES.find((r) => r.re.test(hay))
+  const rule = pickRule(hay)
   const issueNo = extractIssueNo(norm) ?? extractIssueNo(item?.identifier)
 
   if (!rule) {
