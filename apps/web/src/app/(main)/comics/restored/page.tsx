@@ -74,14 +74,40 @@ export default async function PdComicsPage({
         ) : shelf.data.length === 0 ? (
           <Empty />
         ) : (
-          <div className="flex flex-col gap-8">
-            {shelf.data.map((k) => (
-              <KindSection key={k.kind} kind={k} />
-            ))}
-          </div>
+          <>
+            <KindNav kinds={shelf.data} />
+            <div className="flex flex-col gap-8">
+              {shelf.data.map((k) => (
+                <KindSection key={k.kind} kind={k} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </Screen>
+  )
+}
+
+// ─── 유형 바로가기 ────────────────────────────────────────────────
+//
+// 유형이 10종까지 늘면 세로로 쌓인 서가는 스크롤 몇 화면이 된다. 학습자가 고르는 첫 단위는
+// 유형이므로, **무엇이 있는지 한 줄로 먼저 보이고** 원하는 데로 건너뛸 수 있어야 한다.
+// 앵커 링크라 JS 없이도 동작한다(서버 컴포넌트 유지).
+function KindNav({ kinds }: { kinds: PdComicShelfKind[] }) {
+  if (kinds.length < 2) return null
+  return (
+    <nav aria-label="유형 바로가기" className="flex flex-wrap gap-1.5">
+      {kinds.map((k) => (
+        <a
+          key={k.kind}
+          href={`#kind-${k.kind}`}
+          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          {k.label}
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">{k.issuesPublished}</span>
+        </a>
+      ))}
+    </nav>
   )
 }
 
@@ -92,7 +118,8 @@ function KindSection({ kind }: { kind: PdComicShelfKind }) {
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h2
           id={`kind-${kind.kind}`}
-          className="font-display text-[19px] font-[800] tracking-tight text-[var(--t1)]"
+          // 앵커로 건너뛸 때 제목이 화면 맨 위에 딱 붙지 않게 — 위 여백을 남긴다.
+          className="scroll-mt-6 font-display text-[19px] font-[800] tracking-tight text-[var(--t1)]"
         >
           {kind.label}
         </h2>

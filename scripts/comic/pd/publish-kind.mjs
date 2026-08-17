@@ -3,6 +3,13 @@
 // 유형 하나를 발행 직전까지 밀어 올린다 — 현대화(page-modern) → 스토리지 업로드(publish-upload).
 //
 //   node scripts/comic/pd/publish-kind.mjs --kind war [--limit 20] [--dry-run]
+//   node scripts/comic/pd/publish-kind.mjs --series atomic-war --source restored   ← 원본 그대로
+//
+// `--source restored` = 현대화를 건너뛰고 **복원 원본**을 그대로 올린다.
+//   현대화(page-modern)는 화이트포인트·평면컬러로 "모던 웹툰" 느낌을 만드는 별도 판단이다.
+//   원작 인쇄 질감을 그대로 보여주는 편이 낫다고 볼 수도 있고, 무엇보다 **먼저 읽히는 것**이
+//   먼저다. 복원 단계는 이미 여백 크롭·탈황변·디노이즈·2배 업스케일을 마친 상태라
+//   그대로 읽을 수 있다.
 //
 // ── 왜 "유형 단위" 인가 ──────────────────────────────────────────
 //   학습자 서가(/comics/restored)는 유형별로 묶여 나간다. 여러 유형을 조금씩 올리면
@@ -30,6 +37,9 @@ const KIND = arg('kind')
 const SERIES = arg('series')
 const LIMIT = Number(arg('limit', 50))
 const DRY = has('dry-run')
+// page-modern(현대화 산출물) | restored(복원 원본 그대로)
+const SOURCE_DIR = String(arg('source', 'page-modern'))
+const SKIP_MODERN = SOURCE_DIR !== 'page-modern'
 if (!KIND && !SERIES) {
   console.error('사용법: --kind <유형키> 또는 --series <시리즈키> [--limit N] [--dry-run]')
   process.exit(2)
@@ -58,7 +68,8 @@ const { data: issues, error } = await q
 if (error) { console.error(`✗ 조회 실패: ${error.message}`); process.exit(1) }
 if (!issues?.length) { console.log('대상 없음 (status=ocr|review 인 호가 없습니다)'); process.exit(0) }
 
-console.log(`\n발행 준비 ${DRY ? '[계획만]' : ''} — ${KIND ?? SERIES} · ${issues.length}건\n`)
+console.log(`\n발행 준비 ${DRY ? '[계획만]' : ''} — ${KIND ?? SERIES} · ${issues.length}건`)
+console.log(`  이미지 출처   ${SOURCE_DIR}${SKIP_MODERN ? ' (현대화 건너뜀 — 복원 원본 그대로)' : ''}\n`)
 
 const run = (script, args) => spawnSync(process.execPath, [path.join(HERE, script), ...args], { encoding: 'utf8', cwd: REPO })
 
@@ -80,22 +91,36 @@ for (const iss of issues) {
   }
 
   // ① 현대화 — ffmpeg 만 쓴다(GPU·모델 없음). 원작 페이지 구성은 100% 보존.
-  const mDir = path.join(wd, 'page-modern')
-  const already = fs.existsSync(mDir) && fs.readdirSync(mDir).filter((f) => /^\d+\.jpg$/i.test(f)).length > 0
-  if (!already) {
-    const r = run('page-modern.mjs', ['--workdir', wd])
-    if (r.status !== 0) {
-      console.error(`   ✗ 현대화 실패: ${(r.stderr || r.stdout || '').split('\n').slice(-2).join(' ')}`)
-      failed++; continue
+  //    `--source restored` 면 건너뛴다(복원 원본을 그대로 발행).
+  if (!SKIP_MODERN) {
+    const mDir = path.join(wd, 'page-modern')
+    const already = fs.existsSync(mDir) && fs.readdirSync(mDir).filter((f) => /^\d+\.jpg$/i.test(f)).length > 0
+    if (!already) {
+      const r = run('page-modern.mjs', ['--workdir', wd])
+      if (r.status !== 0) {
+        console.error(`   ✗ 현대화 실패: ${(r.stderr || r.stdout || '').split('\n').slice(-2).join(' ')}`)
+        failed++; continue
+      }
+      modernized++
+      console.log(`   ✓ 현대화`)
+    } else {
+      console.log(`   · 현대화 (이미 있음)`)
     }
-    modernized++
-    console.log(`   ✓ 현대화`)
-  } else {
-    console.log(`   · 현대화 (이미 있음)`)
+  }
+
+  // 업로드할 이미지가 실제로 있는지 먼저 본다 — 없으면 업로드가 "0장 성공"으로 끝나
+  // 컷 0개짜리 호가 발행 준비 완료로 보인다.
+  const srcDir = path.join(wd, SOURCE_DIR)
+  const srcCount = fs.existsSync(srcDir)
+    ? fs.readdirSync(srcDir).filter((f) => /^\d+\.jpe?g$/i.test(f)).length
+    : 0
+  if (srcCount === 0) {
+    console.error(`   ✗ 업로드할 이미지 없음: ${SOURCE_DIR}/`)
+    failed++; continue
   }
 
   // ② 스토리지 업로드 — 컷 image_url 을 공개 URL 로. 이게 되어야 학습자에게 서빙된다.
-  const u = run('publish-upload.mjs', ['--workdir', wd, '--slug', iss.slug, '--issue-id', iss.id])
+  const u = run('publish-upload.mjs', ['--workdir', wd, '--slug', iss.slug, '--issue-id', iss.id, '--dir', SOURCE_DIR])
   if (u.status !== 0) {
     console.error(`   ✗ 업로드 실패: ${(u.stderr || u.stdout || '').split('\n').filter(Boolean).slice(-2).join(' ')}`)
     failed++; continue

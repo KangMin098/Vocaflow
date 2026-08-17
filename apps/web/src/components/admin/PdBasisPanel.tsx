@@ -33,7 +33,9 @@ interface IssueRow {
   pdCheckedAt: string | null
   panelsTotal: number
   renewalWindow: [number, number] | null
+  renewal?: RenewalVerdict
 }
+interface RenewalVerdict { level: string; note: string; blocking: boolean }
 interface SeriesRow {
   seriesKey: string
   seriesTitle: string
@@ -45,6 +47,9 @@ interface SeriesRow {
   lookups: Lookup[]
   total: number
   confirmed: number
+  /** 갱신된 것으로 알려진 호 수 — 0 이 아니면 시리즈 일괄 확정을 막는다 */
+  renewalBlocked: number
+  renewalNote: string
   issues: IssueRow[]
 }
 
@@ -139,6 +144,8 @@ function SeriesCard({
   const [saving, setSaving] = useState(false)
   const spec = bases.find((b) => b.key === basis)
   const done = s.confirmed >= s.total
+  // 갱신된 호가 섞인 시리즈는 **일괄 확정을 막는다** — 한 번의 클릭이 침해를 만들 수 있다.
+  const hasRenewed = s.renewalBlocked > 0
 
   const confirm = async () => {
     setSaving(true)
@@ -184,11 +191,30 @@ function SeriesCard({
         >
           {done ? `근거 확정 ${s.confirmed}/${s.total}` : `미확정 ${s.total - s.confirmed}`}
         </span>
+        {/* 갱신된 구간이 있으면 그것부터 보여준다 — 발행하면 안 되는 호다 */}
+        {s.renewalBlocked > 0 && (
+          <span
+            className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+            style={{ color: 'var(--error)', background: 'var(--error-light)' }}
+          >
+            갱신됨 {s.renewalBlocked}호 · 발행 불가
+          </span>
+        )}
         <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">{expanded ? '접기' : '확인하기'}</span>
       </button>
 
       {expanded && (
         <div className="flex flex-col gap-3 border-t border-[var(--bd)] px-4 py-3">
+          {/* 갱신 경고가 최우선 — 이걸 못 보고 일괄 확정하면 그 클릭이 침해가 된다 */}
+          {hasRenewed && (
+            <p className="rounded-[var(--r-md)] border border-[var(--error)] bg-[var(--error-light)] px-3 py-2 font-body text-[12px] leading-relaxed text-[var(--t1)]">
+              <b>이 시리즈에는 저작권이 갱신된 호가 {s.renewalBlocked}개 있습니다.</b> {s.renewalNote}
+              <br />
+              갱신된 호는 퍼블릭도메인이 아니므로 발행할 수 없습니다 — 시리즈 일괄 확정을 막아 두었습니다.
+              아래 목록에서 갱신 구간 밖의 호만 골라 확정하세요.
+            </p>
+          )}
+
           {/* ① 어디를 봐야 하는가 */}
           <div>
             <p className="font-display text-[12.5px] font-[700] text-[var(--t1)]">
@@ -244,11 +270,12 @@ function SeriesCard({
             <button
               type="button"
               onClick={() => void confirm()}
-              disabled={saving || (spec?.needsEvidence && !evidence)}
+              disabled={saving || hasRenewed || (spec?.needsEvidence && !evidence)}
+              title={hasRenewed ? '갱신된 호가 섞여 있어 일괄 확정을 막았습니다' : undefined}
               className="min-h-[38px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
               style={{ background: ACCENT }}
             >
-              {saving ? '기록 중…' : `이 시리즈 ${s.total}호에 기록`}
+              {saving ? '기록 중…' : hasRenewed ? '일괄 확정 불가 (갱신된 호 포함)' : `이 시리즈 ${s.total}호에 기록`}
             </button>
           </div>
           {spec && (
@@ -272,9 +299,13 @@ function SeriesCard({
                     <span className="text-[var(--t3)]">갱신확인 {i.renewalWindow[0]}~{i.renewalWindow[1]}</span>
                   )}
                   <span className="tabular-nums text-[var(--t3)]">{i.panelsTotal}컷</span>
-                  <span className={i.pdBasis ? 'text-[var(--success)]' : 'text-[var(--warning)]'}>
-                    {i.pdBasis ? `✓ ${i.pdBasis}` : '미확정'}
-                  </span>
+                  {i.renewal?.blocking ? (
+                    <span className="font-[700] text-[var(--error)]">갱신됨 · 발행불가</span>
+                  ) : (
+                    <span className={i.pdBasis ? 'text-[var(--success)]' : 'text-[var(--warning)]'}>
+                      {i.pdBasis ? `✓ ${i.pdBasis}` : '미확정'}
+                    </span>
+                  )}
                   <span className="min-w-0 flex-1 truncate text-[var(--t3)]">{i.title}</span>
                 </li>
               ))}

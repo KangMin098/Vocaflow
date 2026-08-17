@@ -13,6 +13,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { PdBasisPanel } from '@/components/admin/PdBasisPanel'
+import { TaxonomyBrowser } from '@/components/admin/TaxonomyBrowser'
 import { PD_STAGES, stageIndex, type PdComicAdminRow, type PdPanelAdmin } from '@/lib/pd-comic/model'
 
 const ACCENT = '#8B5CF6'
@@ -844,70 +845,6 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
   )
 }
 
-// ─── 유형·시리즈 분포 — "무엇을 갖고 있나"를 큐 단계와 별도로 본다 ─────
-//
-// 단계 카운트(대기 969 · 취득 0 …)는 **진행**을 말하지만 **무엇을 발행하게 될지**는 말하지 않는다.
-// 학습자 서가는 유형별로 묶여 나가므로, 운영자가 "어느 유형부터 완성할지" 고르려면
-// 유형별 보유량과 발행량을 나란히 봐야 한다. 유형 하나를 끝내는 것이
-// 여러 유형을 조금씩 하는 것보다 학습자에게 먼저 도착한다.
-function TaxonomyBreakdown({ rows }: { rows: PdComicAdminRow[] }) {
-  const [open, setOpen] = useState(false)
-  const byKind = new Map<string, { total: number; published: number; series: Set<string> }>()
-  for (const r of rows) {
-    const k = r.kind ?? 'other'
-    let b = byKind.get(k)
-    if (!b) {
-      b = { total: 0, published: 0, series: new Set() }
-      byKind.set(k, b)
-    }
-    b.total += 1
-    if (r.status === 'published') b.published += 1
-    if (r.seriesKey) b.series.add(r.seriesKey)
-  }
-  const kinds = [...byKind.entries()].sort((a, b) => b[1].total - a[1].total)
-  if (!kinds.length) return null
-  const seriesTotal = new Set(rows.map((r) => r.seriesKey).filter(Boolean)).size
-
-  return (
-    <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex min-h-[44px] w-full items-center gap-2 px-4 py-2 text-left font-display text-[12.5px] font-[700] text-[var(--t2)]"
-      >
-        유형·시리즈 분포
-        <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
-          {kinds.length}유형 · {seriesTotal}시리즈 · {rows.length}호
-        </span>
-        <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '접기' : '펼치기'}</span>
-      </button>
-      {open && (
-        <ul className="divide-y divide-[var(--bd)] border-t border-[var(--bd)]">
-          {kinds.map(([k, b]) => (
-            <li key={k} className="flex items-center gap-3 px-4 py-2">
-              <span className="w-40 shrink-0 font-mono text-[11.5px] text-[var(--t1)]">{k}</span>
-              <span className="font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
-                {b.series.size}시리즈 · {b.total}호
-              </span>
-              {/* 발행 진척 — 유형 단위로 학습자에게 도착했는지 */}
-              <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
-                발행 {b.published}/{b.total}
-              </span>
-              <span className="h-1.5 w-24 shrink-0 overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
-                <span
-                  className="block h-full rounded-[var(--r-full)]"
-                  style={{ width: `${b.total ? (b.published / b.total) * 100 : 0}%`, background: ACCENT }}
-                />
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  )
-}
-
 // ─── 큐 탭 — 드레인 + 라이브 모니터링 ───────────────────────────────
 const DRAINABLE = new Set(['queued', 'acquired', 'restored', 'segmented', 'ocr'])
 
@@ -1107,7 +1044,7 @@ function QueueTab({
         ))}
       </section>
 
-      <TaxonomyBreakdown rows={rows} />
+      <TaxonomyBrowser rows={rows} />
 
       <section className="flex flex-wrap items-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
         <button

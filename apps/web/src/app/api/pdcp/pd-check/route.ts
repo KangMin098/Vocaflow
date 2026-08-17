@@ -21,6 +21,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { PD_BASES, pdBasisSpec, renewalLookups, renewalWindow } from '@/lib/pd-comic/model'
+import { assessRenewal } from '@/lib/pd-comic/renewal-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
@@ -84,16 +85,33 @@ export async function GET(request: Request): Promise<NextResponse> {
     .in('key', keys.length ? keys : ['__none__'])
   const titleOf = new Map((sData ?? []).map((s) => [String((s as Record<string, unknown>).key), s as Record<string, unknown>]))
 
-  const series = [...bySeries.values()].map((b) => {
+  const series = await Promise.all([...bySeries.values()].map(async (b) => {
     const meta = titleOf.get(b.seriesKey)
     const title = (meta?.title as string) ?? b.seriesKey
+    const publisher = (meta?.publisher as string) ?? null
     const yFrom = b.years.length ? Math.min(...b.years) : null
     const yTo = b.years.length ? Math.max(...b.years) : null
     const confirmed = b.issues.filter((i) => i.pdBasis).length
+
+    // 호별 갱신 위험 — **"1964년 이전"이 PD 를 뜻하지 않는다.** 갱신된 구간은 발행하면 안 된다.
+    let blocked = 0
+    let seriesNote = ''
+    for (const i of b.issues) {
+      const v = await assessRenewal({
+        seriesKey: b.seriesKey,
+        issueNo: (i.issueNo as number) ?? null,
+        publishedYear: (i.publishedYear as number) ?? null,
+        publisher,
+      })
+      i.renewal = v
+      if (v.blocking) blocked += 1
+      if (!seriesNote) seriesNote = v.note
+    }
+
     return {
       seriesKey: b.seriesKey,
       seriesTitle: title,
-      publisher: (meta?.publisher as string) ?? null,
+      publisher,
       kind: b.kind,
       yearFrom: yFrom,
       yearTo: yTo,
@@ -102,17 +120,22 @@ export async function GET(request: Request): Promise<NextResponse> {
       lookups: renewalLookups(title, yFrom),
       total: b.issues.length,
       confirmed,
+      /** 갱신된 것으로 알려진 호 수 — 0 이 아니면 시리즈 일괄 확정을 막아야 한다 */
+      renewalBlocked: blocked,
+      renewalNote: seriesNote,
       issues: b.issues,
     }
-  })
+  }))
 
   return NextResponse.json({
     bases: PD_BASES,
-    series: series.sort((a, b) => b.total - a.total),
+    // 갱신 위험이 있는 시리즈를 위로 — 운영자가 먼저 봐야 할 것이다
+    series: series.sort((a, b) => b.renewalBlocked - a.renewalBlocked || b.total - a.total),
     totals: {
       issues: rows.length,
       confirmed: rows.filter((r) => r.pd_basis).length,
       series: series.length,
+      renewalBlocked: series.reduce((n, s) => n + s.renewalBlocked, 0),
     },
   })
 }
