@@ -22,11 +22,26 @@ interface Props {
   familyName?: string
   /** 스크린리더용 이름의 주어 (예: "Cascade") */
   subject: string
+  /**
+   * 같은 게임의 트리거가 한 화면에 둘 이상일 때 **자리를 구분**하는 말 (예: "오늘의 실험").
+   *
+   * 오늘의 추천이 마침 격자에도 있는 게임이면 `Cascade — 게임 설명과 연습 보기` 가
+   * **두 개** 생긴다. 스크린리더 사용자에게는 같은 이름의 버튼 둘이라 어느 쪽인지 알 수 없고,
+   * e2e 는 strict mode 위반으로 **그 게임이 오늘의 추천인 날에만** 빨개졌다(실측 2026-08-17 —
+   * `/arcade` 가 비로그인에 다시 열리고 나서야 드러났다).
+   */
+  contextLabel?: string
   /** icon = 카드 모서리 44px 원형 · pill = 라벨 있는 알약 */
   variant?: 'icon' | 'pill'
 }
 
-export default function BriefButton({ entries, familyName, subject, variant = 'icon' }: Props) {
+export default function BriefButton({
+  entries,
+  familyName,
+  subject,
+  contextLabel,
+  variant = 'icon',
+}: Props) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -34,7 +49,11 @@ export default function BriefButton({ entries, familyName, subject, variant = 'i
       <button
         type="button"
         className={variant === 'pill' ? 'arc-brief arc-brief--pill' : 'arc-brief'}
-        aria-label={`${subject} — 게임 설명과 연습 보기`}
+        aria-label={
+          contextLabel
+            ? `${subject} — ${contextLabel} · 게임 설명과 연습 보기`
+            : `${subject} — 게임 설명과 연습 보기`
+        }
         aria-haspopup="dialog"
         aria-expanded={open}
         onClick={() => setOpen(true)}

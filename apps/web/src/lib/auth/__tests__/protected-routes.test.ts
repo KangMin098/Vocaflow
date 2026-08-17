@@ -27,8 +27,9 @@ describe('requiresAuth — 보호되어야 하는 개인 화면', () => {
     '/wordblitz',
     '/scriptquiz/play',
     '/dictate/session',
-    '/arcade',
+    // 플레이는 보호 — FSRS·scores 를 쓴다. 카탈로그(`/arcade`)와 갈린다(아래 공개 목록).
     '/play/connections',
+    '/play/cascade',
     '/text',
     '/text/new',
     '/text/89970bfa/echo',
@@ -53,8 +54,20 @@ describe('requiresAuth — 공개로 남아야 하는 화면', () => {
     ['스크립트', '/library/scripts/xyz'],
     ['만화 카탈로그', '/comics'],
     ['만화 상세', '/comics/restored/slug-1'],
+    ['Game Lab 카탈로그', '/arcade'],
   ])('공개: %s', (_label, path) => {
     expect(requiresAuth(path)).toBe(false)
+  })
+
+  it('Game Lab 은 카탈로그만 공개하고 플레이는 잠근다 (둘러보기 자유 · 기록은 로그인)', () => {
+    // 2026-08-15 인증 스윕이 `/arcade` 를 휩쓸어 잠그면서 `09-arcade-access` 의 비로그인
+    // 그룹 7건이 계속 빨간 채였다(잠긴 뒤 아무도 안 봤다는 뜻이다). 그 스펙 헤더는 그 그룹을
+    // **"신규 유입 경로"** 로 명시하고, 화면에도 맛보기 배지·"단어 모으러 가기" CTA·
+    // 무단어 오늘의 실험이 일부러 만들어져 있다. 경계는 **카탈로그/플레이** 이지 화면 전체가 아니다.
+    expect(requiresAuth('/arcade'), '카탈로그는 공개').toBe(false)
+    expect(requiresAuth('/play/cascade'), '플레이는 보호').toBe(true)
+    // 접두사 오인 방지 — '/arcade' 공개가 '/play' 를 열어 주면 안 된다.
+    expect(requiresAuth('/play'), '플레이 루트도 보호').toBe(true)
   })
 
   it('API 는 리다이렉트 대상이 아니다 (401/403 은 각 핸들러 책임)', () => {

@@ -367,6 +367,8 @@ function DailyPick({
           <BriefButton
             variant="pill"
             subject={game.name}
+            // 오늘의 추천이 격자에도 있는 게임이면 같은 이름의 트리거가 둘이 된다 — 자리를 밝힌다.
+            contextLabel="오늘의 실험"
             entries={[{ slug: game.slug, href, code }]}
           />
         </div>
