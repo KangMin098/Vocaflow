@@ -21,6 +21,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 import { getAdapter, listAdapters } from './sources/index.mjs'
+import { delay } from './sources/types.mjs'
 
 function parseArgs(argv) {
   const a = { width: 1600 }
@@ -131,6 +132,40 @@ async function main() {
   })
   await Promise.all(workers)
   console.log('')
+
+  // ── 결손 페이지 회수 패스 ────────────────────────────────────
+  //
+  // 인라인 재시도(fetchRetry)만으로는 부족하다. 실측 2026-08-17: Ace 배치 10호 중 7호가
+  // "1~2장 결손"으로 멈췄다. 이유는 IA 의 502 가 **동시 요청 부하와 함께 몰려서** 나기 때문이다 —
+  // 같은 순간에 재시도해 봐야 서버는 여전히 바쁘다.
+  //
+  // 그래서 **본 패스가 끝난 뒤**(그 호에 대한 부하가 사라진 뒤) 빠진 페이지만 모아
+  // 천천히 다시 받는다. 순차 실행 + 넉넉한 간격이라 성공률이 크게 다르다.
+  // 1~2장을 못 받아 52장짜리 호를 통째로 버리는 것이 훨씬 비싸다.
+  for (let round = 1; round <= 3; round++) {
+    const missing = results.filter((r) => !r.file)
+    if (!missing.length) break
+    console.log(`  회수 ${round}차 — 결손 ${missing.length}장 재취득 (순차)`)
+    await delay(2000 * round)
+    for (const m of missing) {
+      const ref = take.find((t) => t.index === m.index)
+      if (!ref) continue
+      const name = `${String(ref.index + 1).padStart(4, '0')}.${ref.ext ?? 'jpg'}`
+      const dest = path.join(pagesDir, name)
+      try {
+        await ad.fetchPage(ref, dest)
+        m.file = `pages/${name}`
+        m.bytes = fs.statSync(dest).size
+        delete m.error
+        process.stdout.write('+')
+      } catch (e) {
+        m.error = e.message
+        process.stdout.write('x')
+      }
+      await delay(ad.caps.minDelayMs * 4)
+    }
+    console.log('')
+  }
 
   let ocrFile = null
   if (ad.caps.ocr) {
