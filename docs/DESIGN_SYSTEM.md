@@ -1102,6 +1102,23 @@ new→`info` 로 돌았는데, **밀린 복습은 오류가 아니다**(FSRS 가
 
 ## 접근성 / 안티패턴
 
+### 클릭되는 것은 버튼이어야 한다 (v06.203 훑기)
+
+`<div onClick>` 은 **보이기만 인터랙티브**다 — 키보드로 닿지 않고 스크린리더가 읽지 않는다.
+학습자 화면 전체(admin 제외)를 훑어 비인터랙티브 요소의 `onClick` 15건을 확인했다.
+
+| 판정 | 건수 | 내용 |
+|---|--:|---|
+| 🔴 **실제 결함** | 1 | `WordRow` 재생 — ▶ 가 `aria-hidden` 장식이고 행 `div` 의 onClick 이 유일 경로였는데, 단어·뜻·예문 열이 `stopPropagation` 을 걸어 **가장 누를 법한 곳이 죽어 있었다.** 키보드 경로는 아예 없었다 → 진짜 `<button aria-label>` 로 전환 |
+| ✅ 제대로 갖춤 | 2 | `StatCard`(role·tabIndex·**onKeyDown**) · `Card`(flashcard — 전역 Space/Enter 핸들러가 `FlashcardSession` 에 있다) |
+| ✅ 배경 클릭 | 2 | `InsightPanel`·`SeriesInfoModal` 닫기 오버레이(`aria-hidden` / `role="presentation"`) |
+| ✅ 전파 차단용 | 3 | `WordRow` 의 텍스트 열 — 동작이 아니라 선택을 위한 `stopPropagation` |
+| ✅ 대체 경로 있음 | 2 | `InputSlots`(SpellForge 는 입력을 프로그램적으로 포커스 — 클릭 없이 타이핑된다) 외 |
+| ⚠️ **알고 남긴 것** | 2 | `ChapterContent`·`ReadingUniverse` 의 **본문 단어 클릭 조회** — 마우스·터치 전용. 단어마다 포커스를 주면 읽기가 망가진다(탭 수백 번). 대체 수단이 생기기 전까지 감수 |
+
+**교훈**: `role`·`tabIndex`·`aria-label` 이 붙어 있어도 **키 핸들러가 없으면 조작이 안 된다** —
+`div` 는 Enter/Space 로 click 을 만들지 않는다. 셋을 붙였으면 `onKeyDown` 도 붙었는지 볼 것.
+
 ### 접근성 필수
 - 모든 인터랙티브 ≥ 44×44 (Fitts's Law)
 - WCAG AA 대비 (focus-visible:ring)
