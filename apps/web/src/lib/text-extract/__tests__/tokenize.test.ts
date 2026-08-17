@@ -301,3 +301,38 @@ describe('어휘가 아닌 관습 표기 — 인용·약어·로마숫자·도�
     expect(r.diagnostics.nonLexicalDropped).toBeGreaterThan(0)
   })
 })
+
+// ── 줄 끝 하이픈 재결합 (2026-08-17) ──
+//   PDF·스캔본에서 복사한 글은 `rail-\nroad` 처럼 낱말이 행에서 끊긴다. 재결합하지 않으면
+//   `rail` + `road` 두 토큰이 되어 **없는 낱말을 추출하고 진짜 낱말은 잃는다.**
+//   같은 결함이 library-pipeline 의 reflowSoftHyphens 에 있었다(구텐베르크 전권 no-op).
+describe('줄 끝 하이픈 재결합', () => {
+  it('LF 하드랩에서 낱말을 붙인다', () => {
+    const { words: tokens } = tokenizeText('The rail-\nroad crossed the valley.')
+    expect(tokens).toContain('railroad')
+    expect(tokens).not.toContain('rail')
+  })
+
+  it('CRLF 에서도 붙인다 — 개행 정규화가 먼저 와야 한다', () => {
+    const { words: tokens } = tokenizeText('The rail-\r\nroad crossed the valley.')
+    expect(tokens).toContain('railroad')
+  })
+
+  it('행말 공백이 하이픈과 개행 사이에 있어도 붙인다', () => {
+    const { words: tokens } = tokenizeText('a prolifer-  \n  ation of ideas')
+    expect(tokens).toContain('proliferation')
+  })
+
+  it('정상 하이픈 복합어는 그대로 둔다', () => {
+    const { words: tokens } = tokenizeText('a well-known author wrote it')
+    expect(tokens.join(' ')).toMatch(/well|known/)
+    expect(tokens).not.toContain('wellknown')
+  })
+
+  it('행이 하이픈 없이 바뀌면 붙이지 않는다', () => {
+    const { words: tokens } = tokenizeText('the quiet\nmorning arrived')
+    expect(tokens).toContain('quiet')
+    expect(tokens).toContain('morning')
+    expect(tokens).not.toContain('quietmorning')
+  })
+})

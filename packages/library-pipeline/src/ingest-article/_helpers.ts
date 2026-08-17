@@ -132,11 +132,19 @@ export function htmlToPlainText(html: string): string {
   s = s.replace(/<h([1-6])[^>]*>/gi, '\n\n')
   s = s.replace(/<[^>]+>/g, '')
   s = decodeEntities(s)
-  return s
-    .replace(/[ \t]+\n/g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .replace(/[ \t]+/g, ' ')
-    .trim()
+  return (
+    s
+      // ⚠️ 개행 정규화가 맨 앞 — HTTP 응답 HTML 은 CRLF 인 경우가 많고, 그러면 아래 `\n` 규칙이
+      //   전부 no-op 이 된다(같은 결함이 normalize/reflow.ts 에 있었다: 구텐베르크 전권 무효화).
+      .replace(/\r\n?/g, '\n')
+      // `<pre>`·하드랩된 본문에서 넘어온 줄 끝 하이픈 재결합 + soft hyphen 제거
+      .replace(/­/g, '')
+      .replace(/(\p{L})[-‐‑][ \t]*\n[ \t]*(\p{L})/gu, '$1$2')
+      .replace(/[ \t]+\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .replace(/[ \t]+/g, ' ')
+      .trim()
+  )
 }
 
 export function hashString(s: string): number {

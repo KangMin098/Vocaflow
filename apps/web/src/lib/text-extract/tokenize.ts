@@ -198,6 +198,13 @@ function preprocess(text: string, d: TokenizationDiagnostics): string {
   // 하이픈 변종 → ASCII 하이픈 (복합어를 잇는 문자)
   s = s.replace(/[‐‑⁃]/g, '-')
 
+  // 줄 끝 하이픈 재결합 — PDF·스캔본에서 복사한 글은 `rail-\nroad` 처럼 낱말이 행에서 끊긴다.
+  //   재결합하지 않으면 `rail` + `road` 두 토큰이 되어 **없는 낱말을 추출하고 진짜 낱말은 잃는다.**
+  //   개행 정규화가 **먼저** 와야 한다 — 붙여넣기 소스가 CRLF 면 `-\n` 이 매치되지 않는다.
+  //   (같은 결함이 library-pipeline 의 reflowSoftHyphens 에 있었다: 구텐베르크 전권에서 no-op)
+  s = s.replace(/\r\n?/g, '\n')
+  s = s.replace(/(\p{L})-[ \t]*\n[ \t]*(\p{L})/gu, '$1$2')
+
   // 대시 변종 → 공백 (복합어를 잇지 않는 **구두점**이다. 하이픈과 구분해야 한다)
   s = s.replace(/[‒–—―−]/g, ' ')
 

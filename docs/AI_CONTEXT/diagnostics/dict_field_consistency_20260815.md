@@ -705,6 +705,36 @@ gitignore 안에 있으면 낡아도 눈에 띄지 않는다. 사전 정리 배�
 
 **보류는 삭제가 아니다.** 격리 JSON(`*.hold.json`)으로 빼서 사람이 본다 — 자동 삭제 경로는 없다.
 
+### ⚠️ 이 시리즈가 만든 회귀 — gap-word 배치의 영/미 철자 중복 13쌍
+
+`apps/web/src/lib/text-extract/__tests__/resolve-headword.integration.test.ts` 가
+`optimization → optimisation` 을 기대하는데 지금 `optimization` 으로 떨어진다. **원인은 우리다.**
+
+2026-08-15 gap-word 배치(`classified_by='claude_code_opus_5'`, 1,444건)가 도서 본문에 있는
+미등재 lemma 를 표제어로 넣으면서, **이미 다른 철자로 등재돼 있던 낱말의 변이형 13건**을 함께 만들었다.
+`resolve_dict_headword` 는 변이형을 하나로 접도록 설계돼 있는데, 양쪽이 다 표제어가 되면 그 접힘이
+무력해지고 **학습자는 같은 낱말을 두 장의 카드로 받는다.**
+
+| 새로 만든 것 | 이미 있던 것 | 발행 세트 |
+|---|---|---|
+| `optimization` · `commercialization` | `-isation` | ✓ |
+| `acclimatize` · `dehumanize` · `monetize` · `traumatize` · `vocalize` | `-ise` | ✓ |
+| `enamored` · `behaviorist` | `-oured` / `-ourist` | ✓ |
+| `manoeuver` | `manoeuvre` | ✓ — 게다가 **오철자**다(미국식은 `maneuver`) |
+| `behavioral` · `epicenter` · `favoritism` | `-oural` / `-centre` / `-ouritism` | |
+
+**당시 "환각 0" 이라 보고한 것은 맞았다** — 전부 도서 본문에 실재하는 낱말이다.
+**실재 여부와 중복 여부는 다른 문제**였고, 그 배치에는 후자를 보는 검사가 없었다.
+
+**재발 차단 (완료)** — `headword-gate.mjs` 에 `spellingVariants()` + `spelling_variant_duplicate`
+판정을 넣었다. `-ize/-ise` · `-ization/-isation` · `-or/-our` · `-re/-er` · `ae/oe→e` ·
+`-logue/-log` · `ll/l` 을 본다. **`lexicon_clean` 이 아니라 `shared_dictionary` 로만 대조한다** —
+표제어 중복이 문제이지 원자료 존재가 문제가 아니다.
+실측: `amortize`·`anglicize`·`anodize` 보류(기존 UK 형을 hint 로) · `colour`·`centre`·`railroad` 통과.
+
+**미조치 — 이미 들어간 13건의 정리는 승인 대상이다.** 10건이 발행 세트에 있어 학습자 콘텐츠 삭제다.
+`manoeuver` 는 오철자라 성격이 다르다(변이형이 아니라 그냥 틀린 철자 — 삭제가 명확).
+
 ### 아직 열려 있는 구멍 (게이트가 못 막는 것)
 
 - **`library_book_vocabularies` 쪽은 그대로다.** INSERT 하는 함수는 `insert_book_analysis` 하나뿐이고

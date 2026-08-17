@@ -45,3 +45,25 @@ describe('reflowSoftHyphens — 개행 변종', () => {
     expect(reflowSoftHyphens('first para.\r\n\r\nsecond para.')).toBe('first para.\n\nsecond para.')
   })
 })
+
+// 같은 결함이 병렬 구현에도 있었다 — 기사 경로(htmlToPlainText).
+// HTTP 응답 HTML 은 CRLF 인 경우가 많아 `[ \t]+\n`·`\n{3,}` 규칙까지 함께 no-op 이 된다.
+import { htmlToPlainText } from '../src/ingest-article/_helpers'
+
+describe('htmlToPlainText — 개행 변종', () => {
+  it('CRLF 하드랩의 줄끝 하이픈을 재결합한다', () => {
+    expect(htmlToPlainText('<p>the rail-\r\nroad station</p>')).toBe('the railroad station')
+  })
+
+  it('CRLF 에서도 빈 줄 압축이 동작한다', () => {
+    expect(htmlToPlainText('<p>a</p>\r\n\r\n\r\n\r\n<p>b</p>')).toBe('a\n\nb')
+  })
+
+  it('soft hyphen 을 제거한다', () => {
+    expect(htmlToPlainText('<p>rail\u00ADroad</p>')).toBe('railroad')
+  })
+
+  it('정상 하이픈 복합어는 붙이지 않는다', () => {
+    expect(htmlToPlainText('<p>a well-known author</p>')).toBe('a well-known author')
+  })
+})
