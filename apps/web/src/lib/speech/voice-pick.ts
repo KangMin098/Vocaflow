@@ -48,10 +48,22 @@ export function pickEnglishVoice<T extends Pick<SpeechSynthesisVoice, 'lang'>>(
 /**
  * 목록이 갱신됐을 때 **음성을 바꿀지 말지**.
  *
- * 규칙: **한 번 잡은 음성은 지킨다.** 바꾸는 경우는 셋뿐이다.
+ * 규칙: **한 번 잡은 음성은 지킨다.** 바꾸는 경우는 둘뿐이다.
  *   ① 아직 없음 → 고른다
- *   ② 쓰던 음성이 목록에서 사라짐 → 다시 고른다
- *   ③ 쓰던 게 en-US 가 아닌데 en-US 가 새로 나타남 → **올려준다**(내리지는 않는다)
+ *   ② 쓰던 게 en-US 가 아닌데 en-US 가 나타남 → **올려준다**
+ *
+ * 그 외에는 **무조건 유지한다 — 쓰던 음성이 목록에서 사라져도 그렇다.**
+ *
+ * ⚠️ 처음 고칠 때는 "사라지면 다시 고른다" 는 조항을 뒀는데, **그게 바로 신고된 결함의
+ * 경로였다**(자동 재현 2026-08-17, `27-tts-voice-stability`). Edge 는 목록을 *덧붙이는* 게
+ * 아니라 **통째로 갈아끼운다** — 로컬 목록이 온라인 목록으로 교체되는 순간 `en-US` 가
+ * 잠깐 사라지고, 그때 다시 고르면 `en-GB` 로 내려간다. 재현 로그:
+ *   `[{dying, en-US}, {parlour, en-GB}]`
+ *
+ * 사라진 음성을 계속 물리는 것이 위험해 보이지만, 잃는 것과 얻는 것이 다르다:
+ *   · 최악 — 브라우저가 그 음성을 거절하고 `utter.lang`(= 그 음성의 lang)으로 대체 재생.
+ *     **여전히 같은 지역 발음**이고, `attachCompletion` 이 큐를 멈추지 않게 막는다.
+ *   · 반대로 다시 고르면 **확실하게** 억양이 바뀐다 — 학습자가 듣는 그 결함이다.
  *
  * 동일성은 객체가 아니라 `voiceURI` 로 본다 — `getVoices()` 는 호출마다 새 객체를 줄 수 있다.
  */
@@ -59,11 +71,13 @@ export function nextVoice<T extends Pick<SpeechSynthesisVoice, 'lang' | 'voiceUR
   current: T | null,
   voices: T[]
 ): T | null {
-  const picked = pickEnglishVoice(voices)
-  if (!current) return picked
-  const stillThere = voices.some((v) => v.voiceURI === current.voiceURI)
-  if (!stillThere) return picked
-  // 유일한 교체 사유: 지역 변종 → en-US 승격
-  if (!isUSEnglish(current.lang) && picked && isUSEnglish(picked.lang)) return picked
-  return current
+  if (!current) return pickEnglishVoice(voices)
+  if (isUSEnglish(current.lang)) return current // 최선을 이미 쥐고 있다
+
+  // 지역 변종을 쓰는 중 — en-US 가 보이면 그때만 올라간다
+  const upgrade = voices.find((v) => isUSEnglish(v.lang))
+  if (upgrade) return upgrade
+
+  // 같은 음성이 아직 있으면 그 객체로 갱신(스테일 참조보다 신선한 쪽이 낫다)
+  return voices.find((v) => v.voiceURI === current.voiceURI) ?? current
 }

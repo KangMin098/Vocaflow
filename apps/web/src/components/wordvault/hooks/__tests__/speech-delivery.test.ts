@@ -72,15 +72,18 @@ describe('음성 안정성 — 한 세션 안에서 억양이 바뀌지 않는�
     expect(nextVoice(us, list)?.voiceURI).toBe('us-1')
   })
 
-  it('🔴 회귀: en-US 가 잠깐 빠져도 en-GB 로 내려가지 않는다', () => {
+  it('🔴 회귀: en-US 가 목록에서 사라져도 en-GB 로 내려가지 않는다', () => {
+    // ⚠️ 이 테스트는 처음에 **정반대를 단언하고 있었다** — 이름은 "내려가지 않는다" 인데
+    // `toBe('en-GB')` 였다. 그래서 통과하면서도 결함을 잠그고 있었다.
+    // e2e 재현(`27-tts-voice-stability`)이 실제 발화 로그
+    // `[{dying, en-US}, {parlour, en-GB}]` 를 뽑아 주고서야 드러났다.
+    // Edge 는 목록을 덧붙이지 않고 **통째로 갈아끼운다** — "사라짐" 은 영구 소실이 아니라
+    // 교체 중간 상태다. 그때 다시 고르면 억양이 바뀐다.
     const us = v('en-US', 'us-1')
-    // Edge 가 목록을 갈아끼우는 중간 상태 — en-US 가 아직 안 돌아왔다
     const transient = [v('en-GB', 'gb-1'), v('en-AU', 'au-1')]
-    // 쓰던 음성이 사라졌으니 다시 골라야 하지만, 이건 "사라짐" 이 맞으므로 en-GB 가 된다.
-    // 중요한 건 **사라지지 않았을 때** 안 바뀌는 것이다(위 테스트).
-    expect(nextVoice(us, transient)?.lang).toBe('en-GB')
-    // 그리고 en-US 가 돌아오면 즉시 복귀한다
-    expect(nextVoice(v('en-GB', 'gb-1'), [v('en-GB', 'gb-1'), us])?.lang).toBe('en-US')
+    expect(nextVoice(us, transient)?.lang).toBe('en-US')
+    // 목록이 통째로 비어도 마찬가지 — 쥔 것을 놓지 않는다
+    expect(nextVoice(us, [])?.lang).toBe('en-US')
   })
 
   it('지역 변종 → en-US 승격은 허용, 반대는 금지', () => {
