@@ -320,13 +320,12 @@ where lower(trim(meaning_ko)) = lower(trim(word)) or meaning_ko !~ '[가-힣]';
 `from that day/time forth`↔`…time/day forth` · `hit/strike pay dirt`↔`strike/hit pay dirt` ·
 `slog/sweat/work your guts out`↔`sweat/slog/…` · `bust your butt/chops/hump` **3중**.
 
-**미조치 — 발행 세트에서 행을 지우는 것은 학습자 콘텐츠 삭제라 승인 대상이다.** 제안 SQL:
+**✅ 2026-08-17 승인 후 처리 완료** — 거울 쌍 중 뒤쪽 하나씩 3건을 `시간과 공간 주제 어휘` 세트에서
+제거하고 `word_count` 를 409 → **406** 으로 맞췄다. 짝 3건은 그대로 남아 있어 관용구 자체는 보존된다.
+`shared_dictionary` 는 건드리지 않았으므로 되돌릴 수 있다.
 
-```sql
--- 거울 쌍 중 뒤쪽 하나만 발행 세트에서 제거 (shared_dictionary 는 건드리지 않음 · 되돌릴 수 있음)
-delete from shared_words where lower(word) in (
-  '(every) now and then/again', 'for the meanwhile/meantime', 'in the meanwhile/meantime');
-```
+나머지 **비발행 거울 중복 8건**(`a/an/the soft/easy option` 계열 등)과 **표기 틀 표제어 454건**은
+그대로다 — 학습자 노출이 없어 급하지 않고, 표제어 정규화는 PK 변경이라 별도 건이다.
 
 ### T11 — 아포스트로피 표제어의 예문이 틀린 철자를 가르치고 있었다
 
@@ -400,13 +399,15 @@ T9 에이전트 둘이 독립적으로 "A1/A2 인데 학술 추상 파생어" �
 전부 걸린다). 판별 신호는 "잘린 형태 + 뜻이 더 긴 낱말의 것 + 그 형태가 실재 영어 단어가 아님" 세 개를
 함께 봐야 하고, 마지막 조건은 사람이나 LLM 판단이 필요하다.
 
-미조치 — 표제어 삭제는 PK 변경이고 발행 세트에서 행이 빠지므로 승인 대상. 제안:
-```sql
--- 사전 표제어 제거 (추출 단계 수정이 선행되지 않으면 재유입된다)
-delete from shared_words where lower(word) in ('ple');   -- 발행 세트 노출분
-delete from shared_dictionary where word in
-  ('behe','brustly','dre','kne','le','overlo','ple','proofre','railro','relo','sce','sidelo');
-```
+**✅ 2026-08-17 승인 후 처리 완료** — 12건 삭제, `shared_dictionary` 47,137 → **47,125**.
+발행 세트 노출분 `ple`(Ozma of Oz — Ch.6)도 제거하고 `word_count` 를 129 → 128 로 맞췄다.
+
+CASCADE 실측: `dictionary_word_categories` 12행 · `topic_word_stats` 5행 삭제,
+`library_book_vocabularies.lemma` **96행 SET NULL**(비단어를 가리키던 링크). `lexicon_frequencies` ·
+`vrl_diagnostic_questions` · `vrl_data_integrity_concerns` 는 해당 행 없음.
+
+⚠️ **추출 단계는 아직 안 고쳤다.** `le` 가 도서 어휘 70행에 남아 있던 것이 토큰화에서 온 것이므로,
+같은 도서를 재추출하면 **되돌아온다.** 사전 삭제는 증상 제거이지 원인 제거가 아니다.
 
 ### 뜻이 정반대인 부사 4건 — 그리고 **기계 탐지가 통하지 않은 사례** (T12)
 
