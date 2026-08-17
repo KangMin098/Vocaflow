@@ -10,7 +10,6 @@ import {
   countDiagnosticSnapshotsSince,
   countScoresSince,
   latestScoreContent,
-  resetDueCards,
   userIdByEmail,
 } from './utils/db';
 
@@ -117,27 +116,30 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
   });
 
   test('Flashcard 완주 시 scores 행이 적재된다', async ({ page }) => {
-    test.setTimeout(120_000); // 카드당 recall 3s × due 큐(≤10) + 폴링 여유
+    test.setTimeout(120_000); // 카드당 recall 3s × 세션 길이 + 폴링 여유
     const userId = await userIdByEmail(RUNTIME_USER.email);
-    // flashcard 는 due 큐(SRS 상태)에 의존 — service-role 로 due 를 리셋해야 반복 가능.
-    // 키가 없으면 due 를 보장할 수 없어 스킵(scriptquiz 는 정적 콘텐츠라 무관).
-    test.skip(userId === null, 'SUPABASE_SERVICE_ROLE_KEY 미주입 — due 큐 리셋 불가');
-    // ⚠️ **정확히 N장만** due 로 만든다(나머지는 미래로 밀린다).
-    // 예전에는 계정의 모든 단어를 due 로 만들었는데, 계정이 252단어로 자라면서 세션 큐가
-    // "급한 순 50개" 로 열려 카드 16장만 도는 이 루프가 **완주 화면에 영영 못 닿았다**
-    // (실측 2026-08-16 — 코드 변경 없이 데이터가 자라서 회귀가 죽는 종류).
-    // 이 스펙이 지키는 것은 "몇 장을 넘길 수 있나" 가 아니라 "완주가 영속화되나" 다.
-    const DUE_N = 3;
-    const resetN = await resetDueCards(userId!, DUE_N);
-    expect(resetN, 'due 카드가 최소 1장 있어야 완주 가능').toBeGreaterThanOrEqual(1);
+    // 완주 산출물(scores 행)은 service-role 로만 확인할 수 있다.
+    test.skip(userId === null, 'SUPABASE_SERVICE_ROLE_KEY 미주입 — scores 단언 불가');
+
+    // ⚠️ **세션 길이를 URL 로 고정한다.** SRS 상태를 건드리지 않는다.
+    //
+    // 이 스펙은 두 번 죽었고 두 번째 원인은 첫 번째 "수정" 자체였다:
+    //   1차 — 계정이 252단어로 자라 세션이 길어지자 16회 루프가 완주에 못 닿았다.
+    //   2차 — 고치겠다며 `resetDueCards(userId, 3)` 으로 **3장만 due** 로 만들었다.
+    //         그런데 허브 큐(`lib/wordvault/study-queries.fetchStudyVocabularies`)는
+    //         **due 필터가 없다** — `next_review_at ASC` 정렬 + `STUDY_SESSION_CAP = 50` 이다.
+    //         (play 화면 문구도 "오늘 N개" 가 아니라 "급한 순 N개" 로 그렇게 적혀 있다.)
+    //         그래서 3장만 due 로 만들어도 세션은 **여전히 50장**으로 열렸고, 루프는
+    //         똑같이 완주에 못 닿았다. 실측 2026-08-17.
+    //
+    // `?limit=N` 은 play 페이지가 이미 지원한다(`applyLimit`). 데이터를 흔들지 않으므로
+    // 계정을 공유하는 다른 스펙(허브 due 큐·오늘 무대의 "되찾을 단어")도 영향을 받지 않는다 —
+    // 되돌릴 상태 자체가 없다.
+    // 이 스펙이 지키는 것은 "몇 장을 넘길 수 있나" 가 아니라 **"완주가 영속화되나"** 다.
+    const SESSION_N = 3;
     const sinceIso = new Date().toISOString();
 
-    // ⚠️ `finally` 로 반드시 원복한다. 위 호출이 나머지 249장을 **30일 뒤로 밀어** 두므로,
-    // 그대로 두면 이 계정을 공유하는 다른 스펙(허브 due 큐·오늘 무대의 "되찾을 단어")이
-    // 갑자기 빈 화면을 보게 된다. 이 리포의 규칙이기도 하다 — 테스트가 만든 상태는 되돌린다.
-    try {
-    // 파라미터 없는 진입 = 사용자 SRS due 큐 (fetchDueFlashcardWords)
-    await page.goto('/flashcard/play', { waitUntil: 'domcontentloaded' });
+    await page.goto(`/flashcard/play?limit=${SESSION_N}`, { waitUntil: 'domcontentloaded' });
 
     const completion = page.getByText('오늘의 학습이 완료됐어요');
     const firstJudgeYes = page.getByRole('button', { name: /떠올렸어요/ }); // FirstJudge → flipped
@@ -145,8 +147,8 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
 
     // 카드별 결정론적 흐름: recall(3s 자동) → FirstJudge "떠올렸어요" 클릭(→flipped) →
     // SRSBar "기억나요" 클릭(→다음 카드). Space 타이밍 대신 버튼 출현 대기로 안정화.
-    // due 큐 ≤10 + 여유 루프. 완주 시 즉시 종료.
-    for (let card = 0; card < 16; card++) {
+    // 세션이 `?limit` 로 고정돼 있으므로 여유는 2배면 충분하다(완주 시 즉시 종료).
+    for (let card = 0; card < SESSION_N * 2; card++) {
       if (await completion.isVisible().catch(() => false)) break;
       // recall 종료 후 FirstJudge 출현 대기 (미출현 = 완주 전이 or 지연)
       try {
@@ -170,10 +172,6 @@ test.describe('핵심 학습 루프 — 완주 영속화', () => {
       await page.waitForTimeout(500);
     }
     expect(count, 'flashcard 완주 후 scores 행이 적재되어야 함').toBeGreaterThanOrEqual(1);
-    } finally {
-      // 전부 due 로 되돌린다(이 스펙이 손대기 전의 정상 상태).
-      await resetDueCards(userId!);
-    }
   });
 
   test('진단 완료 시 V-Level snapshot 이 기록된다(개인화 체인)', async ({ page }) => {
