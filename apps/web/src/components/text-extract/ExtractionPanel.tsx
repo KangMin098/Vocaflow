@@ -20,6 +20,10 @@ import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
 import { TokenizationSummary } from '@/components/text-extract/TokenizationSummary'
 import { TextFitVerdict } from '@/components/textfit/TextFitVerdict'
+import { SendToClassButton } from '@/components/teacher/SendToClassButton'
+import type { AssignmentWord } from '@/lib/teacher/assignment-actions'
+import { fetchTeacherClasses } from '@/lib/teacher/class-actions'
+import type { TeacherClass } from '@/lib/teacher/class-actions'
 import { analyzeText } from '@/lib/textfit/queries'
 import type { TextFitReport } from '@/lib/textfit/types'
 
@@ -69,6 +73,8 @@ interface ExtractionPanelProps {
   /** 기본 레벨 기준 — 미진단 사용자 많은 워크스페이스에선 'text' 권장 (기본 'user') */
   defaultStrategy?: LevelStrategy
   onSaved?: (count: number) => void
+  /** 과제 이름 기본값 (예: 글 제목) — 학급에 보낼 때 미리 채워진다. */
+  assignmentTitle?: string
 }
 
 type LevelStrategy = 'user' | 'text'
@@ -149,7 +155,7 @@ function buildReasons(r: ExtractedWord): Reason[] {
   return reasons
 }
 
-export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSaved }: ExtractionPanelProps) {
+export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSaved, assignmentTitle = '' }: ExtractionPanelProps) {
   const [strategy, setStrategy] = useState<LevelStrategy>(defaultStrategy)
   const [displayPct, setDisplayPct] = useState<DisplayPct>(25)
   const [loading, setLoading] = useState(false)
@@ -164,6 +170,27 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
   const [expandedWord, setExpandedWord] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [savedCount, setSavedCount] = useState<number | null>(null)
+
+  // 내가 가르치는 학급 — 패널이 스스로 불러온다. 호출부마다 배선하면 한 곳이 빠지는 순간
+  // 그 화면에서만 조용히 사라진다(그리고 아무도 눈치채지 못한다).
+  const [teacherClasses, setTeacherClasses] = useState<TeacherClass[]>([])
+  useEffect(() => {
+    void fetchTeacherClasses()
+      .then((r) => setTeacherClasses(r.classes))
+      // 학급 조회 실패는 추출을 막지 않는다 — 보내기 버튼만 안 뜬다.
+      .catch(() => setTeacherClasses([]))
+  }, [])
+
+  /**
+   * 학급에 보낼 낱말 — **선택된 것만**. 화면에서 고른 것과 보내는 것이 다르면 안 된다.
+   * 표제어(matched_via_surface)를 쓴다 — 학생이 배울 형태는 원문 표면형이 아니라 표제어다.
+   */
+  const selectedAssignmentWords = useMemo<AssignmentWord[]>(() => {
+    if (!results) return []
+    return results
+      .filter((r) => selected.has(r.word))
+      .map((r) => ({ w: r.matched_via_surface ?? r.word, m: r.meaning_ko, v: r.v_level }))
+  }, [results, selected])
 
   const tokenization = useMemo(() => tokenizeText(text), [text])
 
@@ -552,6 +579,18 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       {savedCount !== null && (
         <div className="mb-4 inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--success)]/30 bg-[var(--success-light)] p-3 font-body text-[12px] text-[#065f46]">
           <CheckCircle2 size={14} /> {savedCount}개 단어를 내 단어장에 추가했어요
+        </div>
+      )}
+
+      {/* 교사 경로 — 추출한 단어를 학급에 보낸다.
+          학급이 없으면 버튼 대신 안내 한 줄만 나온다(누르면 실패하는 버튼을 두지 않는다). */}
+      {results && results.length > 0 && (
+        <div className="mb-4">
+          <SendToClassButton
+            classes={teacherClasses}
+            words={selectedAssignmentWords}
+            defaultTitle={assignmentTitle}
+          />
         </div>
       )}
 
