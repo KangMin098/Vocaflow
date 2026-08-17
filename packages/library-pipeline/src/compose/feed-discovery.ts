@@ -21,6 +21,56 @@ import { primeRobots, type FetchDeps, type FetchResult } from './news-feed'
 import { COMPOSE_USER_AGENT } from './access'
 import { isCollectable, type FactSourceSpec } from './sources'
 
+// ── 실패 분류 ────────────────────────────────────────────────────────
+//
+// 실패를 한 덩어리 문자열로 돌려주면 운영자는 "안 되네" 까지만 알고 멈춘다.
+// 무엇이 막았는지에 따라 **다음에 할 일이 완전히 다르므로** 유형으로 나눈다.
+
+export type FeedFailureKind =
+  /** 이용약관 확인 전 — 사람이 결정할 일 */
+  | 'terms-unreviewed'
+  /** robots.txt 를 못 가져옴 — 일시적일 수 있다 */
+  | 'robots-unavailable'
+  /** robots.txt 가 그 경로를 금지 — 발행사의 명시적 거절 */
+  | 'robots-disallow'
+  /** 403 — 우리 수집기를 거절. 우회하지 않는다 */
+  | 'refused'
+  /** 404 — 그 주소에 아무것도 없다. 경로가 바뀌었을 수 있다 */
+  | 'not-found'
+  /** 열렸지만 피드가 아니다(대개 HTML 페이지) */
+  | 'not-a-feed'
+  /** 네트워크 오류·타임아웃 */
+  | 'network'
+  /** 그 외 HTTP 오류 */
+  | 'http-error'
+
+/** 유형별로 운영자가 다음에 할 일. 화면이 이 문장을 그대로 보여 준다. */
+export const FEED_FAILURE_ACTION: Record<FeedFailureKind, string> = {
+  'terms-unreviewed': '이 발행사를 쓰기로 결정한 뒤 소스 승인을 올린다.',
+  'robots-unavailable':
+    '일시적 장애일 수 있다. 잠시 뒤 다시 시도하고, 반복되면 그 발행사는 보류한다.',
+  'robots-disallow':
+    '발행사가 그 경로를 명시적으로 막았다. 다른 피드 경로를 시도하거나 이 발행사를 뺀다.',
+  refused:
+    '우리 수집기를 거절했다. 브라우저인 척 우회하지 않는다 — 이 발행사는 목록에서 빼는 것이 맞다.',
+  'not-found': '주소가 바뀌었을 수 있다. 발행사 RSS 안내 페이지의 주소를 직접 넣어 확인해 본다.',
+  'not-a-feed': '피드가 아니라 일반 페이지다. 그 페이지에 링크된 실제 피드 주소를 넣어 본다.',
+  network: '연결이 실패했다. 잠시 뒤 다시 시도한다.',
+  'http-error': '발행사 서버가 오류를 냈다. 잠시 뒤 다시 시도한다.',
+}
+
+export interface FeedSkip {
+  url: string
+  kind: FeedFailureKind
+  reason: string
+  /** 이 실패에 대해 다음에 할 일 */
+  nextAction: string
+}
+
+function skip(url: string, kind: FeedFailureKind, reason: string): FeedSkip {
+  return { url, kind, reason, nextAction: FEED_FAILURE_ACTION[kind] }
+}
+
 /** 발견된 피드 후보. */
 export interface DiscoveredFeed {
   url: string
@@ -36,8 +86,8 @@ export interface DiscoveredFeed {
 
 export interface DiscoverFeedsResult {
   feeds: DiscoveredFeed[]
-  /** 시도했으나 쓸 수 없던 것 — 사유를 남긴다(조용한 빈 목록 금지) */
-  skipped: Array<{ url: string; reason: string }>
+  /** 시도했으나 쓸 수 없던 것 — 유형·사유·다음 행동을 함께 남긴다(조용한 빈 목록 금지) */
+  skipped: FeedSkip[]
   /** 보낸 요청 수 — 발행사 서버에 얼마나 물었는지 스스로 계측한다 */
   requests: number
 }
@@ -112,25 +162,101 @@ function headers(): Record<string, string> {
   return { 'User-Agent': COMPOSE_USER_AGENT, Accept: 'text/html,application/xhtml+xml,application/xml' }
 }
 
-/** 게이트를 지키며 한 번 가져온다. 차단·실패는 사유로 돌려준다. */
+/** 게이트를 지키며 한 번 가져온다. 차단·실패는 **유형과 함께** 돌려준다. */
 async function guardedFetch(
   url: string,
   gate: CrawlGate,
   deps: FetchDeps,
-): Promise<{ res: FetchResult } | { reason: string }> {
+): Promise<{ res: FetchResult } | { fail: FeedSkip }> {
   const decision = gate.check(url, deps.now())
-  if (!decision.allowed) return { reason: decision.reason! }
+  if (!decision.allowed) {
+    const kind: FeedFailureKind = decision.reason!.includes('robots.txt 가')
+      ? 'robots-disallow'
+      : 'robots-unavailable'
+    return { fail: skip(url, kind, decision.reason!) }
+  }
   if (decision.waitMs > 0) await deps.sleep(decision.waitMs)
   try {
     gate.markFetched(url, deps.now())
     const res = await deps.fetchText(url, headers())
     if (res.status === 403) {
-      return { reason: '우리 수집기를 거절했습니다(403). 우회하지 않습니다.' }
+      return { fail: skip(url, 'refused', '우리 수집기를 거절했습니다(403)') }
     }
-    if (!res.ok) return { reason: `응답 ${res.status}` }
+    if (res.status === 404) return { fail: skip(url, 'not-found', '그 주소에 아무것도 없습니다(404)') }
+    if (!res.ok) return { fail: skip(url, 'http-error', `응답 ${res.status}`) }
     return { res }
   } catch (e) {
-    return { reason: `요청 실패: ${e instanceof Error ? e.message : String(e)}` }
+    return {
+      fail: skip(url, 'network', `요청 실패: ${e instanceof Error ? e.message : String(e)}`),
+    }
+  }
+}
+
+/**
+ * 피드 안내 페이지에서 링크를 줍는다.
+ *
+ * 발행사는 `<link rel="alternate">` 로 알리는 대신 **"RSS 안내" 페이지에 목록을 두는** 경우가
+ * 많다. 그 페이지의 `<a href>` 중 피드처럼 보이는 것을 후보로 삼는다 — 어차피 열어서
+ * 확인하므로 잘못 주워도 목록에 오르지 않는다.
+ */
+export function parseFeedAnchors(html: string, baseUrl: string): string[] {
+  const out: string[] = []
+  const seen = new Set<string>()
+  const anchor = /<a\b[^>]*\bhref\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))[^>]*>/gi
+  let m: RegExpExecArray | null
+  while ((m = anchor.exec(html)) !== null) {
+    const href = m[2] ?? m[3] ?? m[4]
+    if (!href) continue
+    // 확장자나 경로에 피드 냄새가 나는 것만
+    if (!/(\.xml|\.rss|\.atom|[/?&](rss|feed|atom)\b)/i.test(href)) continue
+    let abs: string
+    try {
+      abs = new URL(href, baseUrl).toString()
+    } catch {
+      continue
+    }
+    if (seen.has(abs)) continue
+    seen.add(abs)
+    out.push(abs)
+  }
+  return out
+}
+
+/**
+ * 주소 하나를 열어 피드인지 확인한다 — 자동 발견이 실패했을 때의 백스톱.
+ *
+ * 자동 발견이 **기본 경로**이고 이것은 **대안**이다. 발행사가 홈에서 수집기를 막거나
+ * 피드 경로가 특이해 못 찾는 경우가 있는데, 그때 운영자가 발행사 안내 페이지에서 본 주소를
+ * 넣을 길까지 막으면 파이프라인 전체가 멈춘다. 다만 **검증은 자동 발견과 똑같이** 한다 —
+ * robots 를 보고, 간격을 지키고, 열어서 항목이 파싱되는지 확인한다.
+ */
+export async function verifyFeedUrl(
+  spec: FactSourceSpec,
+  url: string,
+  gate: CrawlGate,
+  deps: FetchDeps,
+): Promise<{ feed: DiscoveredFeed } | { fail: FeedSkip }> {
+  if (!isCollectable(spec)) {
+    return {
+      fail: skip(url, 'terms-unreviewed', `${spec.key}: 이용약관 확인 전에는 조회하지 않습니다`),
+    }
+  }
+  let host: string
+  try {
+    host = new URL(url).host.toLowerCase()
+  } catch {
+    return { fail: skip(url, 'http-error', '주소 형식이 올바르지 않습니다') }
+  }
+  const robots = await primeRobots(host, gate, deps)
+  if (robots === 'failed') {
+    return { fail: skip(url, 'robots-unavailable', 'robots.txt 를 가져오지 못했습니다') }
+  }
+  const r = await guardedFetch(url, gate, deps)
+  if ('fail' in r) return r
+  const check = looksLikeFeed(r.res.text)
+  if (!check.ok) return { fail: skip(url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)') }
+  return {
+    feed: { url, title: check.title, via: 'convention', verified: true, itemCount: check.itemCount },
   }
 }
 
@@ -153,7 +279,7 @@ export async function discoverFeeds(
   opts: DiscoverFeedsOptions = {},
 ): Promise<DiscoverFeedsResult> {
   const maxCandidates = opts.maxCandidates ?? 8
-  const skipped: Array<{ url: string; reason: string }> = []
+  const skipped: FeedSkip[] = []
   let requests = 0
 
   const apex = spec.publisher.toLowerCase()
@@ -165,7 +291,7 @@ export async function discoverFeeds(
   if (!isCollectable(spec)) {
     return {
       feeds: [],
-      skipped: [{ url: home, reason: `${spec.key}: 이용약관 확인 전에는 조회하지 않습니다` }],
+      skipped: [skip(home, 'terms-unreviewed', `${spec.key}: 이용약관 확인 전에는 조회하지 않습니다`)],
       requests: 0,
     }
   }
@@ -182,10 +308,13 @@ export async function discoverFeeds(
   if (!anyRobots) {
     return {
       feeds: [],
-      skipped: hosts.map((h) => ({
-        url: `https://${h}/robots.txt`,
-        reason: 'robots.txt 를 가져오지 못했습니다 — 확인 전에는 조회하지 않습니다',
-      })),
+      skipped: hosts.map((h) =>
+        skip(
+          `https://${h}/robots.txt`,
+          'robots-unavailable',
+          'robots.txt 를 가져오지 못했습니다 — 확인 전에는 조회하지 않습니다',
+        ),
+      ),
       requests,
     }
   }
@@ -197,11 +326,18 @@ export async function discoverFeeds(
   const homeUrl = `https://${primary}/`
   const homeRes = await guardedFetch(homeUrl, gate, deps)
   requests++
-  if ('reason' in homeRes) {
-    skipped.push({ url: homeUrl, reason: `홈페이지를 읽지 못했습니다 — ${homeRes.reason}` })
+  if ('fail' in homeRes) {
+    skipped.push({ ...homeRes.fail, reason: `홈페이지를 읽지 못했습니다 — ${homeRes.fail.reason}` })
   } else {
     for (const link of parseFeedLinks(homeRes.res.text, homeUrl)) {
       candidates.push({ ...link, via: 'autodiscovery' })
+    }
+    // 알림이 없으면 같은 페이지의 링크에서 피드처럼 보이는 것을 줍는다.
+    // 발행사는 "RSS 안내" 페이지에 목록만 두는 경우가 많다.
+    if (candidates.length === 0) {
+      for (const url of parseFeedAnchors(homeRes.res.text, homeUrl).slice(0, maxCandidates)) {
+        candidates.push({ url, title: null, via: 'convention' })
+      }
     }
   }
 
@@ -225,13 +361,13 @@ export async function discoverFeeds(
   for (const cand of candidates.slice(0, maxCandidates)) {
     const r = await guardedFetch(cand.url, gate, deps)
     requests++
-    if ('reason' in r) {
-      skipped.push({ url: cand.url, reason: r.reason })
+    if ('fail' in r) {
+      skipped.push(r.fail)
       continue
     }
     const check = looksLikeFeed(r.res.text)
     if (!check.ok) {
-      skipped.push({ url: cand.url, reason: '피드가 아닙니다(항목 0)' })
+      skipped.push(skip(cand.url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)'))
       continue
     }
     feeds.push({

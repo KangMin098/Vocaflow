@@ -254,14 +254,19 @@ export type { StoryCluster } from './compose/cluster'
 // 피드 자동 발견 — 관리자가 주소를 찾아 오지 않게 한다.
 export {
   FEED_CONVENTIONS,
+  FEED_FAILURE_ACTION,
   discoverFeeds,
   looksLikeFeed,
+  parseFeedAnchors,
   parseFeedLinks,
+  verifyFeedUrl,
 } from './compose/feed-discovery'
 export type {
   DiscoverFeedsOptions,
   DiscoverFeedsResult,
   DiscoveredFeed,
+  FeedFailureKind,
+  FeedSkip,
 } from './compose/feed-discovery'
 export { collectStories, toBatchRow } from './compose/collect'
 export type { CollectOptions, CollectReport, FeedConfig } from './compose/collect'

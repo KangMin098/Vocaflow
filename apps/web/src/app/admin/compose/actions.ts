@@ -19,7 +19,9 @@ import {
   discoverFeeds,
   primeRobots,
   readStoryForFacts,
+  verifyFeedUrl,
   type DiscoveredFeed,
+  type FeedSkip,
   type FetchDeps,
   type LearningTrack,
   type LexicalSkill,
@@ -64,8 +66,32 @@ function nodeFetchDeps(): FetchDeps {
 
 export interface DiscoverResult extends ActionResult {
   feeds?: DiscoveredFeed[]
-  skipped?: Array<{ url: string; reason: string }>
+  /** 실패마다 유형·사유·다음 행동 — 운영자가 "안 되네" 에서 멈추지 않게 한다 */
+  skipped?: FeedSkip[]
   requests?: number
+}
+
+/**
+ * 자동 발견이 실패한 발행사의 주소를 직접 확인한다 — **백스톱**.
+ *
+ * 자동 발견이 기본 경로이고 이것은 대안이다. 다만 검증은 똑같이 한다 —
+ * robots 를 보고, 열어서 항목이 파싱되는지 확인한 뒤에만 인정한다.
+ */
+export async function verifyFeedUrlAction(
+  sourceKey: string,
+  url: string,
+): Promise<DiscoverResult> {
+  const spec = FACT_SOURCES[sourceKey]
+  if (!spec) return { ok: false, error: `알 수 없는 소스 키: ${sourceKey}` }
+  try {
+    const r = await verifyFeedUrl(spec, url, new CrawlGate(), nodeFetchDeps())
+    if ('fail' in r) {
+      return { ok: false, error: `${r.fail.reason} — ${r.fail.nextAction}`, skipped: [r.fail] }
+    }
+    return { ok: true, feeds: [r.feed] }
+  } catch (e) {
+    return { ok: false, error: `확인 실패: ${e instanceof Error ? e.message : String(e)}` }
+  }
 }
 
 /**

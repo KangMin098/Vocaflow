@@ -12,7 +12,9 @@ import {
   FEED_CONVENTIONS,
   discoverFeeds,
   looksLikeFeed,
+  parseFeedAnchors,
   parseFeedLinks,
+  verifyFeedUrl,
 } from './feed-discovery'
 import type { FetchDeps, FetchResult } from './news-feed'
 import { FACT_SOURCES, type FactSourceSpec } from './sources'
@@ -93,6 +95,75 @@ describe('looksLikeFeed', () => {
 
   it('HTML 은 피드가 아니다', () => {
     expect(looksLikeFeed(HOME_WITH_LINKS).ok).toBe(false)
+  })
+})
+
+describe('parseFeedAnchors — RSS 안내 페이지에서 목록 줍기', () => {
+  const INDEX_PAGE = `<html><body>
+    <a href="/news/rss.xml">World</a>
+    <a href="/about">About</a>
+    <a href="https://news.example/feeds/business.atom">Business</a>
+    <a href="/rss/sport">Sport</a>
+    <a href="/news/rss.xml">World again</a>
+  </body></html>`
+
+  it('피드처럼 보이는 링크만 줍고 중복은 접는다', () => {
+    expect(parseFeedAnchors(INDEX_PAGE, 'https://news.example/')).toEqual([
+      'https://news.example/news/rss.xml',
+      'https://news.example/feeds/business.atom',
+      'https://news.example/rss/sport',
+    ])
+  })
+
+  it('발행사가 alternate 로 안 알리고 목록 페이지만 둬도 찾아낸다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': ALLOW,
+      'https://news.example/': OK(INDEX_PAGE),
+      'https://news.example/news/rss.xml': OK(FEED_XML),
+      'https://news.example/feeds/business.atom': { ok: false, status: 404, text: '' },
+      'https://news.example/rss/sport': { ok: false, status: 404, text: '' },
+    })
+    const r = await discoverFeeds(at('bbc', 'news.example'), new CrawlGate(), d)
+    expect(r.feeds.map((f) => f.url)).toEqual(['https://news.example/news/rss.xml'])
+  })
+})
+
+describe('verifyFeedUrl — 자동 발견이 실패했을 때의 백스톱', () => {
+  const spec = at('bbc', 'news.example')
+
+  it('직접 넣은 주소도 열어서 확인한 뒤에만 인정한다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': ALLOW,
+      'https://news.example/odd/path.xml': OK(FEED_XML),
+    })
+    const r = await verifyFeedUrl(spec, 'https://news.example/odd/path.xml', new CrawlGate(), d)
+    expect('feed' in r).toBe(true)
+    if (!('feed' in r)) return
+    expect(r.feed.verified).toBe(true)
+    expect(r.feed.itemCount).toBe(2)
+  })
+
+  it('피드가 아니면 직접 넣어도 거부한다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': ALLOW,
+      'https://news.example/page': OK(HOME_NO_LINKS),
+    })
+    const r = await verifyFeedUrl(spec, 'https://news.example/page', new CrawlGate(), d)
+    expect('fail' in r).toBe(true)
+    if (!('fail' in r)) return
+    expect(r.fail.kind).toBe('not-a-feed')
+  })
+
+  it('robots 가 막은 주소는 직접 넣어도 안 연다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': OK('User-agent: *\nDisallow: /private/\n'),
+      'https://news.example/private/f.xml': OK(FEED_XML),
+    })
+    const r = await verifyFeedUrl(spec, 'https://news.example/private/f.xml', new CrawlGate(), d)
+    expect('fail' in r).toBe(true)
+    if (!('fail' in r)) return
+    expect(r.fail.kind).toBe('robots-disallow')
+    expect(d.seen).not.toContain('https://news.example/private/f.xml')
   })
 })
 
@@ -225,13 +296,29 @@ describe('discoverFeeds — 관리자는 발행사만 고른다', () => {
     expect(r.skipped[0]!.reason).toContain('이용약관 확인 전')
   })
 
-  it('403 은 우회하지 않고 사유로 남긴다', async () => {
+  it('403 은 우회하지 않고 유형·다음 행동과 함께 남긴다', async () => {
     const d = deps({
       'https://news.example/robots.txt': ALLOW,
       'https://news.example/': { ok: false, status: 403, text: '' },
     })
     const r = await discoverFeeds(spec, new CrawlGate(), d, { tryConventions: false })
-    expect(r.skipped.some((s) => s.reason.includes('우회하지 않습니다'))).toBe(true)
+    const refused = r.skipped.find((s) => s.kind === 'refused')
+    expect(refused).toBeDefined()
+    // 운영자는 "안 되네" 가 아니라 "다음에 뭘 할지" 를 받아야 한다
+    expect(refused!.nextAction).toContain('우회하지 않는다')
+  })
+
+  it('실패마다 유형과 다음 행동이 붙는다', async () => {
+    const d = deps({
+      'https://news.example/robots.txt': ALLOW,
+      'https://news.example/': OK(HOME_WITH_LINKS),
+      'https://news.example/feeds/world.xml': OK(HOME_NO_LINKS), // 피드 아님
+      'https://news.example/feeds/business.atom': { ok: false, status: 404, text: '' },
+    })
+    const r = await discoverFeeds(spec, new CrawlGate(), d)
+    const kinds = r.skipped.map((s) => s.kind).sort()
+    expect(kinds).toEqual(['not-a-feed', 'not-found'])
+    expect(r.skipped.every((s) => s.nextAction.length > 10)).toBe(true)
   })
 
   it('보낸 요청 수를 스스로 센다', async () => {

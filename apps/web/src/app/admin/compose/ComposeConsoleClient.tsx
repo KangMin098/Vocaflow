@@ -26,6 +26,7 @@ import {
   runDiscovery,
   setFeedEnabled,
   startCoverage,
+  verifyFeedUrlAction,
   type ActionResult,
   type DiscoveryRunResult,
 } from './actions'
@@ -37,6 +38,14 @@ interface DiscoveredFeedView {
   via: 'autodiscovery' | 'convention'
   verified: boolean
   itemCount: number
+}
+
+/** 실패 1건 — 사유만이 아니라 **다음에 할 일**을 함께 보여 준다. */
+interface FeedSkipView {
+  url: string
+  kind: string
+  reason: string
+  nextAction: string
 }
 
 export interface ComposeCounts {
@@ -339,7 +348,8 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
   const act = useAction()
   const [sourceKey, setSourceKey] = useState(options[0]?.key ?? '')
   const [found, setFound] = useState<DiscoveredFeedView[] | null>(null)
-  const [notes, setNotes] = useState<string[]>([])
+  const [notes, setNotes] = useState<FeedSkipView[]>([])
+  const [manualUrl, setManualUrl] = useState('')
   const registered = new Set(feeds.map((f) => f.url))
 
   return (
@@ -355,7 +365,7 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
           act.run(async () => {
             const r = await discoverFeedsForSource(sourceKey)
             setFound(r.feeds ?? [])
-            setNotes((r.skipped ?? []).map((s) => `${s.url} — ${s.reason}`))
+            setNotes(r.skipped ?? [])
             return { ok: r.ok, error: r.error }
           })
         }}
@@ -438,17 +448,66 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
             ))}
           </ul>
           {notes.length > 0 && (
-            <details className="font-body text-xs text-t2">
+            <details className="font-body text-xs text-t2" open={found.length === 0}>
               <summary className="cursor-pointer">열지 못한 주소 {notes.length}건</summary>
-              <ul className="mt-s-2 flex flex-col gap-s-1 font-mono text-[11px] text-t3">
-                {notes.map((n) => (
-                  <li key={n}>{n}</li>
+              <ul className="mt-s-2 flex flex-col gap-s-2">
+                {notes.map((n, i) => (
+                  <li key={`${n.url}-${i}`} className="rounded border border-bd bg-bg2 p-s-2">
+                    <div className="truncate font-mono text-[11px] text-t3">{n.url}</div>
+                    <div className="font-body text-xs text-t2">{n.reason}</div>
+                    {/* "안 되네" 에서 멈추지 않게 다음 행동을 함께 준다 */}
+                    <div className="font-body text-xs text-t1">→ {n.nextAction}</div>
+                  </li>
                 ))}
               </ul>
             </details>
           )}
         </div>
       )}
+
+      {/* 자동 발견이 기본 경로이고 이것은 대안이다 — 막아 두면 파이프라인 전체가 멈춘다. */}
+      <details className="rounded-lg border border-bd bg-bg2 p-s-4">
+        <summary className="cursor-pointer font-display text-sm font-bold text-t1">
+          찾지 못했을 때 — 주소를 직접 확인하기
+        </summary>
+        <p className="mt-s-2 font-body text-xs text-t2">
+          발행사 RSS 안내 페이지에서 본 주소를 넣으면 똑같이 열어서 확인한 뒤에만 추가합니다.
+          robots 를 어기거나 피드가 아닌 주소는 여기서도 거부됩니다.
+        </p>
+        <form
+          className="mt-s-3 flex flex-wrap items-end gap-s-3"
+          onSubmit={(e) => {
+            e.preventDefault()
+            act.run(async () => {
+              const r = await verifyFeedUrlAction(sourceKey, manualUrl)
+              if (r.ok && r.feeds?.[0]) {
+                const added = await addFeed({
+                  sourceKey,
+                  url: r.feeds[0].url,
+                  label: r.feeds[0].title ?? `${sourceKey} 피드`,
+                })
+                if (added.ok) setManualUrl('')
+                return added
+              }
+              return { ok: r.ok, error: r.error }
+            })
+          }}
+        >
+          <label className="flex min-w-[20rem] flex-1 flex-col gap-s-1">
+            <span className="font-body text-xs text-t2">피드 주소 (https)</span>
+            <input
+              className={INPUT}
+              value={manualUrl}
+              onChange={(e) => setManualUrl(e.target.value)}
+              placeholder="https://…/rss.xml"
+              disabled={act.pending}
+            />
+          </label>
+          <button type="submit" className={BTN} disabled={act.pending || !manualUrl}>
+            확인하고 추가
+          </button>
+        </form>
+      </details>
 
       <p className="font-body text-xs text-t2">
         추가해도 수집은 시작되지 않습니다. 활성으로 바꾼 뒤 다음 수집부터 포함됩니다.
