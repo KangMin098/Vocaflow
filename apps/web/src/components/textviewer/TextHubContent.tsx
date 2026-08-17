@@ -184,7 +184,7 @@ export function TextHubContent({ view = null }: { view?: MyLibraryView | null })
         view={effectiveView}
       />
 
-      <DiscoveryFooter />
+      <DiscoveryFooter view={effectiveView} />
     </div>
   )
 }

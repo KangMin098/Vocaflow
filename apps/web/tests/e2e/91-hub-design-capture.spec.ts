@@ -91,6 +91,12 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
   },
   // 라이브러리 3탭 — 서가는 **형제로 봐야 한다**. Books 만 보면 "괜찮네" 로 끝나고,
   // Dispatches·Decks 와의 불일치(카드 크기·서지정보 밀도·표지 유무)는 안 보인다.
+  // My Library 3면 — 공용 서가와 **대칭이되 한 칸이 다르다**(Books · Texts · Decks).
+  // 서가를 형제로 보는 것과 같은 이유로 셋을 함께 찍는다. 여기가 비어 있던 동안
+  // "Decks 면에 스크립트가 보인다" 같은 신고를 캡처로 확인할 방법이 없었다.
+  { slug: 'my-books', url: '/text?view=books', label: 'My Library — Books' },
+  { slug: 'my-texts', url: '/text?view=scripts', label: 'My Library — Texts' },
+  { slug: 'my-decks', url: '/text?view=vocab', label: 'My Library — Decks' },
   { slug: 'library-books', url: '/library/books', label: '서가 — Books' },
   { slug: 'library-scripts', url: '/library/scripts', label: '서가 — Dispatches' },
   { slug: 'library-vocab', url: '/library/vocab', label: '서가 — Decks' },
